@@ -1,7 +1,75 @@
 \chapter{Geometric Langlands and CY Quantum Groups}
 \label{ch:geometric-langlands}
 
-The CY-to-chiral correspondence programme $\{\Phi_d\}$ of \ref{part:bridge} sends a Calabi--Yau category to a chiral algebra ($\Etwo$ at $d \leq 2$; $\Eone$ at $d \geq 3$); the bar complex of the output (Volume~I, Theorem~A) is the factorization invariant on which geometric Langlands is ultimately a statement. This chapter traces the thread. At the critical level the Feigin--Frenkel theorem identifies the chiral center with the algebra of $G^L$-opers; the Verdier intertwining of Volume~I Theorem~A then relates local geometric Langlands to the four-functor picture (bar, cobar, Verdier, derived center). For Calabi--Yau input, the analogue is conjectural: a Langlands dual of a CY $d$-category should realize the mirror of its $\Phi$-image. Every formal statement in this chapter is stated as a conjecture except for literal citations of Feigin--Frenkel (1992) or Frenkel--Gaitsgory (2006), which are tagged \ClaimStatusProvedElsewhere.
+\begin{remark}[Gaiotto curve correction]
+\label{rem:gaiotto-curve-correction}
+The programme's class-$\mathcal{S}$ construction uses the Gaiotto curve $\Sigma_{0,24}$ --- the $24$-punctured sphere --- not the genus-$2$ closed surface $\Sigma_{2,0}$. Chacaltana--Distler \cite{ChacaltanaDistler2010}, Table~3, row~1: at $n = 24$ full punctures the $4$-dimensional $\cN = 2$ central charge is
+\[
+c_{4d} \;=\; \frac{5n - 13}{6} \;=\; \frac{107}{6},
+\qquad c_{2d} \;=\; -12\, c_{4d} \;=\; -214.
+\]
+The vertex operator algebra $\mathcal{V}_{24}$ coinciding with the Beem--Rastelli \cite{BeemRastelli2014} chiral-algebra image $\mathrm{VOA}[T_{24}]$ is the iterated Drinfeld--Sokolov reduction
+\[
+\mathcal{V}_{24} \;=\; H^0_{DS}\!\left( L_{-2 + 1/22}(\mathfrak{sl}_2)^{\otimes 22} \right)
+\]
+per Arakawa \cite{Arakawa2017} together with Creutzig--Linshaw \cite{CreutzigLinshaw2017}, \emph{not} $L_{-6}(\mathfrak{e}_8)$. The distinguishing computation: the affine $\mathfrak{e}_8$ candidate gives
+\[
+c\!\left(L_{-6}(\mathfrak{e}_8)\right) \;=\; -\frac{6 \cdot 248}{24} \;=\; -62 \;\neq\; -214 \;=\; c_{2d},
+\]
+which rules $L_{-6}(\mathfrak{e}_8)$ out. The iterated $H^0_{DS}$ construction matches $c_{2d} = -214$ by Arakawa's central-charge formula for principal $W$-algebras composed with Creutzig--Linshaw coset reduction.
+\end{remark}
+
+\begin{remark}[Humbert locus match at the Heisenberg--Mukai level]
+\label{rem:humbert-heisenberg-mukai}
+The Humbert-locus identification with $\Delta_5^{-2}$ is a statement at the Heisenberg--Mukai $\eta^{-48}$ level, \emph{not} at the bare $\Delta_5$ level. The governing identity, following Gritsenko--Nikulin \cite{GritsenkoNikulin1996} with the Mukai-doubled Heisenberg character, is
+\[
+\chi_{\mathrm{Heis}(\mathrm{Muk}^{\oplus 2})}(q)
+\;=\; \prod_{n \geq 1} (1 - q^n)^{-48}
+\;=\; -\, q^{-2}\, \bigl[ (2\pi i z)^2\, \Delta_5^{-2} \bigr]_{H_1,\, z = 0},
+\]
+where $[\,\cdot\,]_{H_1, z=0}$ extracts the Humbert-$1$ Fourier--Jacobi coefficient in the elliptic variable $z$. The weight-$10$ denominator $\Delta_5^2$ (equivalently the Igusa $\Phi_{10}$ of weight $10$) pairs with the Mukai-doubled Heisenberg character $\eta^{-48}$ through the $(2\pi i z)^2$ Jacobi prefactor; the Humbert locus match is therefore a \emph{Heisenberg--Mukai-enhanced} identity, and any ``match to $\Delta_5^{-2}$'' at the scalar level is shorthand for the displayed $\eta^{-48}$ identity at Humbert~$1$.
+\end{remark}
+
+
+The two-stage factorisation $\Phi_d = \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d$ (Chapter~\ref{ch:e1-chiral}, Theorem~\ref{thm:phi-two-stage-factorisation}) sends a Calabi--Yau category to a holomorphic factorisation algebra $\PhiFA_d(\cC)$ on the CY$_d$ variety and then specialises to a chiral algebra on a reference curve~$C$ ($\Etwo$ at $d \leq 2$ via Proposition~\ref{prop:native-en-level}; $\Eone$ at $d \geq 3$); the bar complex of the output (Volume~I, Theorem~A) is the factorization invariant on which geometric Langlands is ultimately a statement. Geometric Langlands connections in this chapter operate at the canonical $\PhiFA_d$ level: the factorisation algebra $\PhiFA_d(\cC)$ on the curve or surface is the primary geometric object, and specialisation cycles $\Sigma_{d-1}$ select the specific chiral shadow (Remark~\ref{rem:multiple-e1-specialisations}). This chapter traces the thread. At the critical level the Feigin--Frenkel theorem identifies the chiral center with the algebra of $G^L$-opers; the Verdier intertwining of Volume~I Theorem~A then relates local geometric Langlands to the four-functor picture (bar, cobar, Verdier, derived center). For Calabi--Yau input, the analogue is conjectural: a Langlands dual of a CY $d$-category should realize the mirror of its $\Phi$-image. Every formal statement in this chapter is stated as a conjecture except for literal citations of Feigin--Frenkel (1992) or Frenkel--Gaitsgory (2006), which are tagged \ClaimStatusProvedElsewhere.
+
+\begin{remark}[Stage discipline for geometric Langlands connections]
+\label{rem:gl-stage-discipline}
+The three Langlands data streams that enter this chapter live on
+different stages of the two-stage factorisation, and each theorem is
+labelled with its stage below.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.4em]
+\item \textbf{Feigin--Frenkel centre at the critical level:} stage-$1$.
+The centre $\mathfrak{z}(\hat{\frakg}) = Z(V_{-h^\vee}(\frakg))$ and the
+oper identification $\mathfrak{z}(\hat{\frakg}) \simeq
+\mathrm{Fun}(\mathrm{Op}_{G^L}(D))$ are properties of the canonical
+$\PhiFA_d$-side factorisation algebra on curves; the factorisation
+structure on $\Ran(X)$ is the native home of the Feigin--Frenkel
+algebra.
+\item \textbf{D-modules on $\mathrm{Bun}_G$ and derived Satake:}
+$(\infty, 1)$-categorical / $\PhiFA_d$-level. The Mirkovi\'c--Vilonen and
+Bezrukavnikov--Finkelberg equivalences operate on
+$D\text{-}\mathrm{mod}(\mathrm{Gr}_G)$ and $D\text{-}\mathrm{mod}(\mathrm{Bun}_G)$;
+both are $(\infty, 1)$-categorical objects living on the stage-$1$ side
+of the factorisation, and the chiral algebraic inputs to them
+(Beilinson--Drinfeld chiral localisation, factorisation envelopes) are
+properties of $\PhiFA_d(\cC)$ before any $(\Sigma_{d-1}, C)$-specialisation.
+\item \textbf{Koszul duality to quantum groups:} stage-$2$ shadow. The
+Koszul reflection on a chiral algebra $A$, the Verdier dual
+$A^! = D_{\Ran}(\barB(A))$, and the Vol~I Koszul conductor $K(A) + K(A^!)$
+all live on the stage-$2$ chiral output $A_\cC \in \EnHolFA(C)$ on the
+reference curve. The shadow-depth classification
+$\{G, L, C, M\}$ is a stage-$2$ invariant. The Frenkel--Gaitsgory QGL
+parameter $\kappa_{\mathrm{QGL}}$ is a stage-$2$ quantity whose
+identification with the Vol~I $\kappa_{\mathrm{ch}}$
+(Conjecture~\ref{conj:qgl-equals-shadow}) sits on the stage-$2$ side.
+\end{enumerate}
+The CY side of Langlands is the $(\infty, 1)$-categorical stage-$1$
+input $\cC$ itself; the chiral side is the stage-$2$ image $A_\cC$; the
+bridge through $\Phi_d$ factors through the stage-$1$ intermediate
+$\PhiFA_d(\cC)$. Each conjecture below is tagged with the stage on
+which its hypothesis lives.
+\end{remark}
 
 
 % ============================================================
@@ -48,7 +116,7 @@ The forward implication (Feigin--Frenkel implies a bar-coalgebra map) follows fr
 
 \paragraph{Remark on the opposite level.} Vol~I records that the Koszul conductor for the Kac--Moody family is $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}' = 0$ where $\kappa_{\mathrm{ch}}' = \kappa_{\mathrm{ch}}(V_{k'}(\frakg))$ with $k' = -k - 2 h^\vee$ (the Feigin--Frenkel reflection). The two critical-level points $k = -h^\vee$ and $k' = -h^\vee$ coincide: the critical level is the fixed point of the Feigin--Frenkel reflection. This is the algebraic reason the critical level is distinguished, and the source of the self-duality language that must not be transposed to universal form.
 
-\paragraph{D-modules on $\mathrm{Bun}_G$ and chiral localization.}
+\paragraph{D-modules on \texorpdfstring{$\mathrm{Bun}_G$}{Bun-G} and chiral localization.}
 The Frenkel--Gaitsgory programme (2006--) globalizes the Feigin--Frenkel center from the formal disk to an algebraic curve $X$. For each smooth projective curve $X$ and reductive group $G$, the category $\hat{\frakg}_{\mathrm{crit}}\text{-}\mathrm{mod}^{\mathrm{Ran}(X)}$ of chiral modules for the critical-level vacuum algebra over $\Ran(X)$ admits a localization functor
 \[
   \Delta_X \colon \hat{\frakg}_{\mathrm{crit}}\text{-}\mathrm{mod}^{\Ran(X)} \;\longrightarrow\; D\text{-}\mathrm{mod}(\mathrm{Bun}_G(X))
@@ -62,7 +130,7 @@ The localization functor $\Delta_X$ intertwines the Verdier leg $D_{\Ran} \circ 
 
 
 % ============================================================
-\section{CY Langlands for $d = 1, 2, 3$}
+\section{CY Langlands for \texorpdfstring{$d = 1, 2, 3$}{d = 1, 2, 3}}
 \label{sec:cy-langlands}
 % ============================================================
 
@@ -73,16 +141,16 @@ The statement of Feigin--Frenkel is that the \emph{center} of a chiral algebra a
 For each dimension $d \in \{1, 2, 3\}$ there exists an involution $\cC \mapsto \cC^L$ on smooth proper CY $d$-categories, the \emph{Langlands dual}, such that:
 \begin{enumerate}[label=(\roman*)]
  \item The Verdier-dual chiral algebra $\Phi(\cC)^! := D_{\mathrm{Ran}}(B(\Phi(\cC)))$ is quasi-isomorphic to $\Phi(\cC^L)$ (compatibility of the Langlands involution with the Verdier leg of Vol~I Theorem~A); equivalently, the modular tensor categories $\Phi(\cC)$ and $\Phi(\cC^L)$ are related by the geometric Langlands equivalence of Frenkel--Gaitsgory (2006).
- \item The chiral modular characteristics $\kappa_{\mathrm{ch}}(\Phi(\cC))$ and $\kappa_{\mathrm{ch}}(\Phi(\cC^L))$ satisfy a family-dependent Koszul conductor relation. For input giving rise to Kac--Moody output, the conductor is $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}' = 0$ (the KM/free-field case of Volume~I); for Virasoro-type output it is $13$ (the self-dual point $c = 13$). The general CY Koszul conductor $\rho_K(\cC)$ is family-dependent and takes the archetype values $\{0, 13, 250/3, 98/3\}$ across the four archetypes $\mathbf{G}/\mathbf{L}/\mathbf{C}/\mathbf{M}$; there is no single universal value.
+ \item The chiral modular characteristics $\kappa_{\mathrm{ch}}(\Phi(\cC))$ and $\kappa_{\mathrm{ch}}(\Phi(\cC^L))$ satisfy a family-dependent Koszul conductor relation. For input giving rise to Kac--Moody output, the conductor is $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}' = 0$ (the KM/free-field case of Volume~I); for Virasoro-type output it is $13$ (the self-dual point $c = 13$). The general CY Koszul conductor $\rho_K(\cC)$ is family-dependent and takes the archetype values $\{0, 13, 250/3, 98/3\}$ across the classical four archetypes $\mathbf{G}/\mathbf{L}/\mathbf{C}/\mathbf{M}$, enlarged to the canonical five-element bucket $\{0, 8, 13, 250/3, 98/3\}$ on $\mathbf{G}/\mathbf{L}/\mathbf{C}/\mathbf{M}/\mathbf{B}$ by the Lorentzian-lattice-parametric $\mathbf{B}$-family (K3 Mukai-doubling witness at $K^{\kappa_{\mathrm{ch}}} = 2\,c_+(\mathrm{Mukai}(K3)) = 8$); there is no single universal value.
 
 \end{enumerate}
 \end{conjecture}
 
-\paragraph{The case $d = 1$.} Smooth proper CY $1$-categories are, up to Morita equivalence, the derived category of coherent sheaves on a smooth projective curve of genus $g = 1$. The correspondence $\Phi_1$ on $d = 1$ input is not covered by Theorem~\ref{thm:cy-to-chiral} (which is stated at $d = 2$); the expected output is the Heisenberg-like current algebra of the elliptic curve. The involution $\cC \mapsto \cC^L$ at $d = 1$ is the identity. This is consistent with geometric Langlands on an elliptic curve being the Fourier--Mukai self-duality (Polishchuk--Rothstein, 2001).
+\paragraph{The case \texorpdfstring{$d = 1$}{d = 1}.} Smooth proper CY $1$-categories are, up to Morita equivalence, the derived category of coherent sheaves on a smooth projective curve of genus $g = 1$. The correspondence $\Phi_1$ on $d = 1$ input is not covered by Theorem~\ref{thm:cy-to-chiral} (which is stated at $d = 2$); the expected output is the Heisenberg-like current algebra of the elliptic curve. The involution $\cC \mapsto \cC^L$ at $d = 1$ is the identity. This is consistent with geometric Langlands on an elliptic curve being the Fourier--Mukai self-duality (Polishchuk--Rothstein, 2001).
 
-\paragraph{The case $d = 2$.} Smooth proper CY $2$-categories include $D^b(\mathrm{Coh}(X))$ for $X$ a K3 or abelian surface, and the Fukaya category of the same. The conjectured $d = 2$ Langlands is the \emph{K3 mirror map}: Mukai's Hodge-theoretic mirror $X \leftrightarrow X^\vee$ for K3 surfaces should induce an involution on CY $2$-categories which, via $\Phi$, corresponds to the $d = 2$ Langlands equivalence. This is not proved. A first milestone is to verify Conjecture~\ref{conj:cy-langlands}(i) on the sublocus of lattice-polarized K3 categories, where the mirror map is the Dolgachev--Nikulin involution on the N\'eron--Severi lattice.
+\paragraph{The case \texorpdfstring{$d = 2$}{d = 2}.} Smooth proper CY $2$-categories include $D^b(\mathrm{Coh}(X))$ for $X$ a K3 or abelian surface, and the Fukaya category of the same. The conjectured $d = 2$ Langlands is the \emph{K3 mirror map}: Mukai's Hodge-theoretic mirror $X \leftrightarrow X^\vee$ for K3 surfaces should induce an involution on CY $2$-categories which, via $\Phi$, corresponds to the $d = 2$ Langlands equivalence. This is not proved. A first milestone is to verify Conjecture~\ref{conj:cy-langlands}(i) on the sublocus of lattice-polarized K3 categories, where the mirror map is the Dolgachev--Nikulin involution on the N\'eron--Severi lattice.
 
-\paragraph{The case $d = 3$.}
+\paragraph{The case \texorpdfstring{$d = 3$}{d = 3}.}
 At $d = 3$ the functor $\Phi_3$ exists (Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}).
 The Langlands conjecture at $d = 3$ remains the most speculative, not because the functor is missing but because the quantum vertex chiral group $G(X)$ is unconstructed in general (Conjecture~CY-C).
 Because BPS invariants are the primary output of the $d = 3$ functor (via CoHA), the expected statement is that Langlands duality exchanges \emph{mirror BPS algebras}.
@@ -90,7 +158,7 @@ Concretely: for a CY $3$-fold $X$ with mirror $X^\vee$, the conjectural quantum 
 The CoHA of $X$ is an associative algebra, providing the $\Eone$-ordered half of the conjectural $G(X)$.
 Every statement of this form passes through the unconstructed object $G(X)$ (CY-C) and must remain a conjecture.
 
-\paragraph{The Hitchin realization at $d = 2$.}
+\paragraph{The Hitchin realization at \texorpdfstring{$d = 2$}{d = 2}.}
 Let $C$ be a smooth projective curve and $\mathbf{G}$ a reductive group.
 The Hitchin moduli space $\mathcal{M}_H(C, \mathbf{G})$ is a smooth hyperk\"ahler manifold whose derived category of coherent sheaves $D^b(\Coh(\mathcal{M}_H(C, \mathbf{G})))$ is a CY $2$-category (in the sense of the Mukai pairing on K3-type derived categories; the precise CY dimension depends on $\dim \mathcal{M}_H$).
 The Hausel--Thaddeus and Donagi--Pantev mirror symmetry for Hitchin systems identifies
@@ -114,7 +182,7 @@ The CY category entering the construction is the Fukaya category of $\mathrm{Hit
 The mirror symmetry of Hitchin moduli spaces under hyperk\"ahler rotation (Hausel--Thaddeus, 2003; Donagi--Pantev, 2012) provides a concrete CY $2$-category instance where the $d = 2$ Langlands involution of Conjecture~\ref{conj:cy-langlands} is testable.
 The $\Phi$-image on each side should recover, via Volume~I, the spectral and automorphic sides of the Beilinson--Drinfeld construction.
 
-\begin{remark}[4d class-$S$ parent of the K3 chiral bialgebra]
+\begin{remark}[4d class-\texorpdfstring{$S$}{S} parent of the K3 chiral bialgebra]
 \label{rem:gl-class-s-parent}
 The K3 chiral bialgebra admits a 4d $\cN=2$ parent in the class-$S$ framework of Gaiotto (2012). Compactify the $(2,0)$ $A_1$ theory on the 24-punctured sphere $\Sigma_{0,24}$: this produces a 4d $\cN=2$ superconformal theory with canonical charges
 \[
@@ -189,7 +257,7 @@ The identifications in this paragraph are physical heuristics, not mathematical 
 
 At a du Val singularity of type $\frakg$ on a K3 surface $S$, the exceptional divisors of the minimal resolution generate a root lattice $\Lambda_\frakg \hookrightarrow \mathrm{Pic}(S) \hookrightarrow \Lambda_{\mathrm{Muk}}$.  The Mukai pairing restricts to the Cartan matrix on $\Lambda_\frakg$, normalised so that long roots have length-squared $2$.  Under the CY-to-chiral correspondence $\Phi_2$ (CY-A$_2$, proved at $d = 2$), the resulting chiral algebra $A_S := \Phi_2(D^b(\Coh(S)))$ contains $\hat{\frakg}_1$ (affine Kac--Moody at level $k = 1$) as a vertex subalgebra.  The level is \emph{forced}: the Mukai normalisation gives $\langle \alpha_i, \alpha_j \rangle_{\mathrm{Muk}} = C_{ij}(\frakg)$, which is the level-$1$ OPE.
 
-\paragraph{Level-$1$ central charge and the rank identity.}
+\paragraph{Level-\texorpdfstring{$1$}{1} central charge and the rank identity.}
 For simply-laced $\frakg$ (types $A$, $D$, $E$), the identity $\dim(\frakg) = \mathrm{rank}(\frakg) \cdot (1 + h^\vee)$ implies
 \[
  c(\hat{\frakg}_1) = \frac{\dim(\frakg) \cdot 1}{1 + h^\vee} = \mathrm{rank}(\frakg).
@@ -216,7 +284,7 @@ where $j_{\mathrm{Kodaira}}$ is the Kodaira embedding of the nodal $24$-curve in
 \paragraph{The critical-level deformation.}
 The level-$1$ embedding $\hat{\frakg}_1 \hookrightarrow A_S$ deforms along the KM moduli $k \in \C$.  At the critical level $k = -h^\vee$, the Feigin--Frenkel theorem (Theorem~\ref{thm:feigin-frenkel-center}) produces the center $\mathfrak{z}(\hat{\frakg}) \cong \mathrm{Fun}(\mathrm{Op}_{G^L}(D))$.  The deformation $k\colon 1 \to -h^\vee$ tracks a path in the shadow obstruction tower of Vol~I along which $\kappa_{\mathrm{ch}}$ decreases linearly from $\kappa_{\mathrm{ch}}(\hat{\frakg}_1)$ to $0$, at rate $d\kappa_{\mathrm{ch}}/dk = \dim(\frakg)/(2 h^\vee)$.  The Sugawara central charge $c(k) = \dim(\frakg) k / (k + h^\vee)$ has a pole at $k = -h^\vee$ with residue $-\dim(\frakg) h^\vee$.  Conjecturally, the oper connection emerges from the shadow metric degeneration at $\kappa_{\mathrm{ch}} = 0$: the shadow metric $Q_L(0) = 4\kappa_{\mathrm{ch}}^2 \to 0$ acquires a double zero, and the surviving connection data is the projective connection (oper) for the Langlands dual group $G^L$ (this ``degeneration-to-oper'' mechanism is the Vol~I shadow reading of Feigin--Frenkel, distinct from the Wakimoto proof of Theorem~\ref{thm:feigin-frenkel-center}, and is the shadow-side content of Conjecture~\ref{conj:critical-self-dual}).
 
-\paragraph{Opers for $\hat{\mathfrak{sl}}_2$ at level $1$ on K3.}
+\paragraph{Opers for \texorpdfstring{$\hat{\mathfrak{sl}}_2$}{hatsl-2} at level \texorpdfstring{$1$}{1} on K3.}
 For $\frakg = \mathfrak{sl}_2$, the Langlands dual is $G^L = \mathrm{PGL}_2$ (same Lie algebra, type $A_1$).  A $\mathrm{PGL}_2$-oper on a curve $C$ of genus $g \geq 2$ is a projective connection $d^2/dt^2 + q(t)$, where $q \in H^0(C, K_C^{\otimes 2})$ is a quadratic differential.  The space of opers has dimension $\dim H^0(C, K_C^{\otimes 2}) = 3(g - 1)$.
 
 The K3 connection: for a polarisation $L$ on $S$ with $L^2 = 2g - 2$, the generic curve $C \in |L|$ has genus $g$.  The restriction of the K3 holomorphic $2$-form $\omega_S$ to a tubular neighbourhood of $C$ determines, conjecturally, a quadratic differential on $C$ and hence an oper.  The oper moduli at genus $g$ are summarised by the Casimir grading: for general ADE type $\frakg$ with Langlands dual $\frakg^L$ of rank $r$, the Casimir degrees $d_1, \ldots, d_r$ give $\dim H^0(C, K_C^{\otimes d_i}) = (2d_i - 1)(g - 1)$, summing to $\dim(\frakg^L)(g - 1)$.  This sum equals the Hitchin base dimension (Hitchin--Beilinson--Drinfeld correspondence).
@@ -250,7 +318,7 @@ Both are involutions ($k^{LL} = k$ and $k'' = k$).  The QGL involution satisfies
 \]
 for the chapter's coupling $\Psi$; this is a reflection of the coupling through $\Psi = 1$, formally analogous to but distinct from the Kapustin--Witten S-duality $\Psi_{\mathrm{KW}} \to -1/\Psi_{\mathrm{KW}}$ with $\Psi_{\mathrm{KW}} = k + h^\vee$.  The FF involution satisfies $\kappa_{\mathrm{ch}}(k) + \kappa_{\mathrm{ch}}(k') = 0$.  These two properties are \emph{not} simultaneously satisfied by any single involution.
 
-\paragraph{Application to K3 with $\hat{\mathfrak{sl}}_2$ at level $1$.}
+\paragraph{Application to K3 with \texorpdfstring{$\hat{\mathfrak{sl}}_2$}{hatsl-2} at level \texorpdfstring{$1$}{1}.}
 For $\frakg = \mathfrak{sl}_2$ ($h^\vee = 2$) at $k = 1$:
 \begin{itemize}
  \item QGL dual level: $k^L = -1 - 2 = -3$.  Then $\kappa_{\mathrm{ch}}(-3) = 3(-3 + 2)/4 = -3/4$ and $\kappa_{\mathrm{ch}}(1) + \kappa_{\mathrm{ch}}(-3) = 9/4 - 3/4 = 3/2 \neq 0$.
@@ -266,23 +334,23 @@ For a K3 surface $S$ with ADE enhancement of type $\frakg$, the subalgebra $Y(\h
 
 
 % ============================================================
-\section{K3 $\times$ E and D-modules on $\mathrm{Bun}_G(E)$}
+\section{K3 \texorpdfstring{$\times$}{x} E and D-modules on \texorpdfstring{$\mathrm{Bun}_G(E)$}{Bun-G(E)}}
 \label{sec:k3xe-dmodules}
 % ============================================================
 
 For an elliptically fibered K3 surface $\pi\colon S \to \bP^1$ with section, the product $S \times E$ (where $E$ is an elliptic curve) is a Calabi--Yau $3$-fold.  The chiral algebra $\Phi_3(D^b(\Coh(S \times E)))$ exists by CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}); its factored structure $\Phi(S) \otimes \Phi(E)$ is conditionally accessible via CY-A$_2$ on each factor (the factorisation itself is not established; see Conjecture~\ref{conj:k3xe-hecke}).
 
-\paragraph{The family over $E$.}
+\paragraph{The family over \texorpdfstring{$E$}{E}.}
 At an ADE enhancement of type $\frakg$ on $S$, the chiral subalgebra $\hat{\frakg}_1 \subset \Phi(S)$ produces, upon tensor with the chiral structure on $E$, a family of chiral modules parametrised by $z \in E$.  The resulting object over $\Ran(E)$ is a factorization sheaf.  The Frenkel--Gaitsgory localisation functor $\Delta_E$ of Section~\ref{sec:feigin-frenkel} sends this to a D-module on $\mathrm{Bun}_G(E)$.
 
-\paragraph{$\mathrm{Bun}_G$ for an elliptic curve.}
+\paragraph{\texorpdfstring{$\mathrm{Bun}_G$}{Bun-G} for an elliptic curve.}
 For a reductive group $G$, the moduli stack of semi-stable $G$-bundles on an elliptic curve $E$ has the concrete description
 \[
  \mathrm{Bun}_G(E) \;=\; (E \otimes_\Z \Lambda_{\mathrm{cochar}}) \,/\, W,
 \]
 where $\Lambda_{\mathrm{cochar}}$ is the cocharacter lattice and $W$ is the Weyl group.  For $G = \mathrm{SL}_2$: $\mathrm{Bun}_{\mathrm{SL}_2}(E) = E / (\Z/2\Z) \cong \bP^1$ (the Kummer quotient, with $4$ ramification points at the $2$-torsion of $E$).  For $G = \mathrm{SL}_3$: $\mathrm{Bun}_{\mathrm{SL}_3}(E) = (E \times E) / S_3$.  For $G = E_8$: $\mathrm{Bun}_{E_8}(E) = E^8 / W(E_8)$, coarse moduli of dimension $8$.
 
-\begin{conjecture}[K3 $\times$ E Hecke eigensheaf; \ClaimStatusConjectured]
+\begin{conjecture}[K3 \texorpdfstring{$\times$}{x} E Hecke eigensheaf; \ClaimStatusConjectured]
 \label{conj:k3xe-hecke}
 Let $S$ be a K3 surface with $\hat{\mathfrak{sl}}_2$ enhancement at level $1$, and let $E$ be an elliptic curve.  The D-module $\Delta_E(\hat{\mathfrak{sl}}_{2,1})$ on $\mathrm{Bun}_{\mathrm{SL}_2}(E) \cong \bP^1$ is a Hecke eigensheaf for the $\mathrm{PGL}_2$-local system on $E$ determined by the K3 periods.  By CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}), $A_{S \times E} = \Phi_3(D^b(\Coh(S \times E)))$ exists; the remaining conditionality is the factorisation $\Phi(S \times E) \simeq \Phi(S) \otimes \Phi(E)$ (not established) and the identification of the D-module with a Hecke eigensheaf.
 \end{conjecture}
@@ -325,7 +393,7 @@ The Virasoro and $W_N$-algebras have shadow class M (infinite depth, $r = \infty
 For a smooth proper CY $2$-category $\cC$, the shadow depth $r(\Phi(\cC))$ of Volume~I equals the ramification depth of the associated Langlands parameter: $r = 2$ is unramified, $r = 3$ is tame, $r = 4$ is regular wild, and $r = \infty$ is irregular.  This is a refinement of Conjecture~\ref{conj:shadow-convergence-qgl}, replacing ``analytic type'' with ``ramification type.''  Conditional on Conjecture~\ref{conj:qgl-equals-shadow} and on CY-A$_2$ for the correspondence $\Phi_2$.
 \end{conjecture}
 
-\begin{remark}[Igusa $\Delta_5$ as the classifying invariant]
+\begin{remark}[Igusa \texorpdfstring{$\Delta_5$}{Delta-5} as the classifying invariant]
 \label{rem:gl-igusa-invariant}
 The ramification-type classification refined in Conjecture~\ref{conj:shadow-ramification} admits a modular incarnation. The $\mathrm{Sp}_4(\Z)$-equivariant cohomology of the chiral bialgebra deformation Lie algebra~$\frakg_{\Delta_5}$ controlling K3 period variation carries a canonical class:
 \[
@@ -355,7 +423,7 @@ The adjunction formula gives
 \]
 since $K_S = \mathcal{O}_S$ for K3.  This identification $K_C = L|_C$ is the structural input from the K3 embedding: the canonical bundle of~$C$ is the \emph{restriction of the K3 polarisation}.
 
-\paragraph{Hitchin system on $C \subset S$.}
+\paragraph{Hitchin system on \texorpdfstring{$C \subset S$}{C subset S}.}
 For a reductive group~$\mathbf{G}$ with Lie algebra $\frakg$, the Hitchin moduli space
 \[
   \mathcal{M}_H(C, \mathbf{G}) \;=\; T^*\mathrm{Bun}_\mathbf{G}(C)
@@ -413,7 +481,7 @@ The Koszul conductor is verified: $\kappa_{\mathrm{ch}}(k) + \kappa_{\mathrm{ch}
 
 A key observation: $\kappa_{\mathrm{ch}}$ depends on the group~$\frakg$ and the level~$k$ but is \emph{independent of the genus}~$g$ of~$C$.  As $C$ varies in~$|L|$, the anomaly is constant across the family.  The genus enters only the dimensional data ($\dim\mathrm{Bun}_\mathbf{G}$, $\dim B_H$, $\dim\mathrm{Op}_{G^L}$).
 
-\paragraph{ADE landscape at genus~$2$.}
+\paragraph{ADE landscape at genus~\texorpdfstring{$2$}{2}.}
 The table below records Hitchin-K3 data for all standard ADE types at genus~$2$ ($g - 1 = 1$, so $\dim B_H = \dim(\frakg)$).  Computed by \texttt{chiral\_hitchin\_k3.py} (113~tests).
 
 \begin{center}
@@ -450,7 +518,7 @@ The companion engine \texttt{compute/lib/hitchin\_spectral\_yangian.py} (189~tes
 
 
 % ============================================================
-\section{$p$-adic Langlands for K3 surfaces}
+\section{\texorpdfstring{$p$}{p}-adic Langlands for K3 surfaces}
 \label{sec:padic-langlands-k3}
 % ============================================================
 
@@ -474,7 +542,7 @@ $7$ & $14$ & $64$ & no & good reduction
 \end{center}
 The Gepner prime $p = 5$ gives $\#X(\bF_5) = 0$ (the Fermat quartic has no $\bF_5$-rational points), reflecting the Landau--Ginzburg/Calabi--Yau correspondence at the arithmetic level.  The Hasse--Weil $L$-function $L(H^2(X),\, s) = \prod_p 1/P_2(p^{-s})$ encodes these traces: the degree-$22$ polynomial $P_2(t) = \det(1 - \mathrm{Frob}_p \cdot t \mid H^2)$ at each prime~$p$ is determined by Newton's identities from the power sums $\mathrm{Tr}(\mathrm{Frob}_p^n \mid H^2)$.
 
-\paragraph{Shadow--$L$-function bridge.}
+\paragraph{Shadow--\texorpdfstring{$L$}{L}-function bridge.}
 The $p$-adic shadow zeta $\zeta^{(p)}(s)$ of \texttt{padic\_shadow\_k3.py} and the $L$-function local factor $1/P_2(p^{-s})$ encode the \emph{same} Frobenius eigenvalues in different functional forms.  The bridge identity is
 \begin{equation}\label{eq:shadow-l-bridge}
   a_n(p) \;=\; 1 + \mathrm{Tr}(\mathrm{Frob}_p^n \mid H^2) + p^{2n}
@@ -482,7 +550,7 @@ The $p$-adic shadow zeta $\zeta^{(p)}(s)$ of \texttt{padic\_shadow\_k3.py} and t
 \end{equation}
 where $a_n(p)$ are the shadow coefficients.  Newton's identities invert the passage between power sums (shadow coefficients) and elementary symmetric functions ($P_2$ coefficients), establishing that $\zeta^{(p)}$ determines $L|_p$ and vice versa.
 
-\begin{conjecture}[K3 Yangian action on $\ell$-adic cohomology; \ClaimStatusConjectured]
+\begin{conjecture}[K3 Yangian action on \texorpdfstring{$\ell$}{l}-adic cohomology; \ClaimStatusConjectured]
 \label{conj:yangian-ladic-cohomology}
 If the K3 Yangian $Y(\frakg_{K3})$ exists, it acts on $H^*_{\mathrm{Muk}}(X,\, \Q_\ell) = \Lambda_{\mathrm{Muk}} \otimes \Q_\ell$ in a manner \emph{commuting} with the Galois action $\rho\colon \mathrm{Gal}(\bar{\Q}/\Q) \to \mathrm{GL}(H^2(X,\, \Q_\ell))$. The classical limit ($\hbar = 0$) recovers the Looijenga--Lunts--Verbitsky (LLV) algebra action on K3 cohomology (proved, 1996--1997). The quantum level ($\hbar \neq 0$) should encode $A_\infty$ corrections to the crystalline realisation. Evidence: the Maulik--Okounkov $R$-matrix on $H^*(\mathrm{Hilb}^n(K3))$ is a proved instance of the Yangian action at higher rank.
 
@@ -491,7 +559,7 @@ This is conditional on: (i)~the existence of $Y(\frakg_{K3})$; (ii)~CY-A$_2$ for
 
 \noindent\textit{Verification}: $63$~tests in \texttt{padic\_langlands\_k3.py} covering Galois representation dimensions (Picard rank~$20$, transcendental rank~$2$, conductor~$64$, modular level~$16$), Frobenius trace computation at $p = 2, 3, 5, 7$ (Gepner prime $p = 5$: $\#X(\bF_5) = 0$, Weil bound satisfied), $L$-function local factors (leading $P_2$ coefficients, log-derivative terms, partial Euler product at $s = 2$), shadow--$L$-function bridge identity (eq.~\eqref{eq:shadow-l-bridge} verified at all primes, $a_1 = \#X(\bF_p)$, $L$ determines shadow and vice versa), Newton's identities (power sums $\leftrightarrow$ $P_2$ roundtrip, first and second Newton identities), weight-$3$ modular form data for the Fermat quartic (Livne 1995, Schuett 2009), Kuga--Satake dimension ($2^{20}$), LLV algebra dimension, Galois--Yangian compatibility at the classical level, and master verification.
 
-\begin{remark}[Andrianov spinor $L$-function and the Saito--Kurokawa Arthur packet]
+\begin{remark}[Andrianov spinor \texorpdfstring{$L$}{L}-function and the Saito--Kurokawa Arthur packet]
 \label{rem:gl-andrianov-arthur}
 The automorphic-side incarnation of the K3 chiral bialgebra descends from the Andrianov factorisation of the spinor $L$-function for the Igusa cusp form $\Delta_{10} \in S_{10}(\mathrm{Sp}_4(\Z))$ of weight~$10$:
 \[
@@ -568,7 +636,7 @@ For the affine Yangian $Y(\widehat{\fgl}_1)$ with structure function~$g(u)$:
 \end{center}
 The spectral parameter $z$ is the separation in $\mathrm{Ran}(C)$ between the two factorization points.
 
-\paragraph{The geometric $R$-matrix.}
+\paragraph{The geometric \texorpdfstring{$R$}{R}-matrix.}
 In the classical Satake, the commutativity constraint $c_{\mathcal{F}_1, \mathcal{F}_2}$ with $c^2 = \mathrm{id}$ makes the category \emph{symmetric} monoidal.
 In the chiral setting, the commutativity constraint is replaced by an $\Etwo$-\emph{braiding}:
 \[
@@ -607,7 +675,7 @@ CY (K3) & $D\text{-}\mathrm{mod}(\mathrm{Gr}^{\mathrm{ch}}_{\mathrm{GL}_1}(K3))$
 The third row has strong supporting evidence: the MO/chiral $R$-matrix match (Theorem~\ref{thm:mo-chiral-rmatrix}), the identification of the affine Yangian boundary algebra from 5d~hCS (Theorem~\ref{thm:5d-boundary-yangian}), and the Fock space dimension agreement.
 The fourth row is doubly conjectural: it depends on the existence of $Y(\frakg_{K3})$ and on extending the factorization construction from $\C^3$ to the compact K3 geometry.
 
-\begin{conjecture}[Chiral Satake for $\C^3$; \ClaimStatusConjectured]
+\begin{conjecture}[Chiral Satake for \texorpdfstring{$\C^3$}{C-3}; \ClaimStatusConjectured]
 \label{conj:chiral-satake-c3}
 There is an equivalence of $\Etwo$-braided monoidal DG~categories
 \[
@@ -616,7 +684,7 @@ There is an equivalence of $\Etwo$-braided monoidal DG~categories
 intertwining the factorization convolution product on the left with the braided tensor product on the right, and the geometric $R$-matrix $\beta(z)$ with the Yangian $R$-matrix~$R(z)$.  At each charge~$n$, the D-modules on the left and the Fock modules $\cF_n$ on the right have the same dimension (number of partitions of~$n$).  Dependencies: Beilinson--Drinfeld construction (proved), Costello 5d hCS boundary algebra = affine Yangian (proved, Theorem~\ref{thm:5d-boundary-yangian}), MO $R$-matrix match (proved, Theorem~\ref{thm:mo-chiral-rmatrix}), full DG equivalence (conjectural).
 \end{conjecture}
 
-\begin{conjecture}[Chiral Satake for $\mathrm{GL}_1$ on K3; \ClaimStatusConjectured]
+\begin{conjecture}[Chiral Satake for \texorpdfstring{$\mathrm{GL}_1$}{GL-1} on K3; \ClaimStatusConjectured]
 \label{conj:chiral-satake-k3}
 For a K3 surface~$S$, there is an equivalence of $\Etwo$-braided monoidal DG~categories
 \[
@@ -631,7 +699,7 @@ where $h_1, \ldots, h_{24}$ are the Mukai lattice parameters satisfying $\sum h_
 This is conditional on: (i) the existence of $Y(\frakg_{K3})$; (ii) extending the Beilinson--Drinfeld factorization construction to the K3 geometry (specifically, the compatibility of the factorization structure with the Mukai lattice pairing of signature~$(4,20)$); (iii) CY-A$_2$ for the functor~$\Phi$.
 \end{conjecture}
 
-\paragraph{The Iwahori reduction and the $\Eone \to \Etwo$ passage.}
+\paragraph{The Iwahori reduction and the \texorpdfstring{$\Eone \to \Etwo$}{E1 -> E2} passage.}
 The Iwahori subgroup $I \subset G[\![t]\!]$ defines the affine flag variety $\mathrm{Fl}_G = G(\!(t)\!)/I$.
 The category $D\text{-}\mathrm{mod}_I(\mathrm{Gr}^{\mathrm{ch}}_G)$ of D-modules with Iwahori level structure carries an $\Eone$-monoidal structure (the ordered convolution with level structure).
 The passage to the full (spherical) Satake category recovers the $\Etwo$-braided monoidal structure via the Drinfeld center:
@@ -726,6 +794,647 @@ The engine \texttt{compute/lib/langlands\_from\_chiral\_qg.py} implements: the f
 
 
 % ============================================================
+\section{S-duality, the Montonen--Olive conjecture, and Koszul duality}
+\label{sec:phys-sduality-koszul}
+% ============================================================
+
+The Kapustin--Witten derivation of geometric Langlands rests on a
+non-perturbative duality of four-dimensional gauge theories. We record the
+mathematical content of that duality and its triple identification with
+Koszul duality of quantum vertex chiral groups. Every physical statement in
+this section is labelled as a mathematical conjecture or an established theorem;
+physical heuristics are identified as such.
+
+\subsection{The Montonen--Olive duality}
+\label{subsec:phys-montonen-olive}
+
+Let $G$ be a compact simple Lie group. The $\mathcal{N}=4$ super Yang--Mills
+theory with gauge group $G$ on a four-manifold $M^4$ depends on a complexified
+coupling constant
+\[
+  \tau = \frac{\theta}{2\pi} + \frac{4\pi i}{g^2} \in \mathbb{H}.
+\]
+
+\begin{conjecture}[Montonen--Olive S-duality; \ClaimStatusConjectured]
+\label{conj:phys-montonen-olive}
+The $\mathcal{N}=4$ super Yang--Mills theory with gauge group $G$ at coupling
+$\tau$ is equivalent to the $\mathcal{N}=4$ theory with gauge group $G^L$
+(the Langlands dual group) at coupling $-1/n_\frakg\tau$, where $n_\frakg = 1$
+for simply-laced $\frakg$ and $n_\frakg = 2, 3$ for $B_n/C_n$ and $G_2$
+respectively. For simply-laced groups, the S-duality group is
+$\mathrm{SL}_2(\mathbb{Z})$ acting on $\tau$ by M\"{o}bius transformations,
+generated by $T\colon \tau \mapsto \tau + 1$ and $S\colon \tau \mapsto -1/\tau$.
+\end{conjecture}
+
+The Langlands dual group $G^L$ is defined by interchanging root and coroot
+lattices:
+\[
+  \Lambda_{\mathrm{root}}(G^L) = \Lambda_{\mathrm{coroot}}(G), \qquad
+  \Lambda_{\mathrm{coroot}}(G^L) = \Lambda_{\mathrm{root}}(G).
+\]
+For simply-laced groups, $G^L \simeq G/Z(G)$ or $\widetilde{G}$ depending on
+whether $G$ is adjoint or simply connected. The non-simply-laced examples are
+$B_n^L = C_n$, $C_n^L = B_n$, $G_2^L = G_2$ with long and short roots
+exchanged.
+
+\subsection{The Kapustin--Witten twist and geometric Langlands}
+\label{subsec:phys-kw-twist-langlands}
+
+The $\mathcal{N}=4$ theory admits a one-parameter family of topological twists
+parametrised by $t \in \mathbb{CP}^1$, constructed by Kapustin and Witten.
+The twist combines two supercharges $Q_\ell$ and $Q_r$ into a nilpotent scalar
+supercharge $Q_t = Q_\ell + t\,Q_r$, $Q_t^2 = 0$.
+
+\begin{proposition}[Kapustin--Witten; \ClaimStatusProvedElsewhere]
+\label{prop:phys-kw-4dtft}
+The GL-twist ($t = 1$) of $\mathcal{N}=4$ SYM on $M^4 = \Sigma \times C$,
+where $\Sigma$ is a surface and $C$ is a smooth projective curve, produces a
+$4$d topological field theory whose reduction on $C$ gives a $2$d $\sigma$-model
+into the Hitchin moduli space $\mathcal{M}_H(C, G)$. Under S-duality, the
+A-model on $\mathcal{M}_H(C, G)$ is exchanged with the B-model on
+$\mathcal{M}_H(C, G^L)$:
+\[
+  \mathrm{A\text{-}model\ on}\ \mathcal{M}_H(C,G)
+  \;\xleftrightarrow{\quad S \quad}\;
+  \mathrm{B\text{-}model\ on}\ \mathcal{M}_H(C,G^L).
+\]
+This is the physics origin of the geometric Langlands correspondence: the A-model
+produces the Fukaya category $\Fuk(\mathcal{M}_H(C,G))$ and the B-model produces
+$D^b\Coh(\mathcal{M}_H(C,G^L))$; homological mirror symmetry for the Hitchin
+system relates these to the two sides of the Beilinson--Drinfeld construction.
+\end{proposition}
+
+The three KW twist parameters are:
+\begin{enumerate}[label=(\roman*)]
+\item $t = 0$: the A-twist, with BPS equations $F_A = 0$ (flat connections),
+  category of branes $D\text{-}\mathrm{mod}(\Bun_G)$;
+\item $t = \infty$: the B-twist, with BPS equations the Hitchin equations,
+  category of branes $\Fuk(\mathcal{M}_H(C,G))$;
+\item $t = 1$: the GL-twist (geometric Langlands twist), relevant for the
+  geometric Langlands correspondence. At this value, the braided monoidal
+  structure on line operators is the $\Etwo$-structure of the quantum vertex
+  chiral group $G(C, \frakg)$.
+\end{enumerate}
+
+Under S-duality, the twist parameter transforms as $t \mapsto t/|t|^2$, so the
+A-twist at coupling $\tau$ for $G$ is exchanged with the B-twist at coupling
+$-1/\tau$ for $G^L$.
+
+\begin{theorem}[Geometric Langlands; Gaitsgory et al.\ 2024; \ClaimStatusProvedElsewhere]
+\label{thm:phys-geom-langlands-gaitsgory}
+There is an equivalence of DG categories
+\[
+  \mathbb{L} \colon D\text{-}\mathrm{mod}(\Bun_G(C)) \;\xrightarrow{\ \sim\ }\;
+  \mathrm{IndCoh}_{\mathrm{Nilp}}(\mathrm{LocSys}_{G^L}(C)),
+\]
+where $\Bun_G(C)$ is the moduli stack of principal $G$-bundles on $C$,
+$\mathrm{LocSys}_{G^L}(C)$ is the derived stack of $G^L$-local systems, and
+$\mathrm{IndCoh}_{\mathrm{Nilp}}$ denotes ind-coherent sheaves with nilpotent
+singular support. The na\"ive equivalence with $\mathrm{QCoh}$ on the smooth
+locus is corrected at singular points by the nilpotent singular support
+condition.
+\end{theorem}
+
+\subsection{Koszul duality at the critical level and the Langlands dual}
+\label{subsec:phys-koszul-critical-langlands}
+
+The Vol~I bar-cobar machine applied to the affine Kac--Moody vertex algebra
+$V_k(\frakg)$ involves the dual level
+\begin{equation}\label{eq:phys-dual-level}
+  k' = -k - 2h^\vee.
+\end{equation}
+The self-dual level satisfying $k' = k$ is $k_{\mathrm{sd}} = -h^\vee$, the
+critical level. This is not accidental: the critical level is the vertex-algebraic
+shadow of S-duality at the self-dual coupling $\tau = i$.
+
+\begin{proposition}[Koszul duality at the critical level; \ClaimStatusConjectured]
+\label{prop:phys-koszul-critical}
+The Koszul dual of $V_{-h^\vee}(\frakg)$, viewed as a commutative chiral algebra
+via the Feigin--Frenkel isomorphism of Theorem~\ref{thm:feigin-frenkel-center},
+is the chiral algebra of functions on $\mathrm{LocSys}_{G^L}(C)$:
+\[
+  V_{-h^\vee}(\frakg)^! \;\longleftrightarrow\; \mathfrak{z}(\hat{\frakg})
+  \;\simeq\; \mathrm{Fun}\,\mathrm{Op}_{G^L}(C).
+\]
+The Koszul dual ``sees'' the Langlands dual group $G^L$. The mechanism: at the
+critical level, $V_{-h^\vee}(\frakg)$ acquires a large center $\mathfrak{z}(\hat{\frakg})$;
+the Koszul duality operation, exchanging generators and relations, extracts this
+center as the primary datum of the dual side, and the Feigin--Frenkel isomorphism
+identifies it with $G^L$-opers.
+\end{proposition}
+
+\begin{remark}[Self-dual level and S-duality coupling]
+\label{rem:phys-self-dual-level}
+The coincidence $k_{\mathrm{sd}} = -h^\vee$ (critical level = self-dual level)
+is the vertex-algebraic shadow of the S-duality involution $\tau \mapsto -1/\tau$
+at the self-dual coupling $|\tau| = 1$. At this point, all three dualities ---
+S-duality, Langlands duality, Koszul duality --- collapse to a single
+self-dual structure. The quantum deformation away from the critical level (the
+quantum geometric Langlands programme) is accommodated by the $\Etwo$-chiral
+Koszul duality of Volume~III, with the deformation parameter
+$\kappa_{\mathrm{QGL}} = k + h^\vee$ identified (up to the KM normalisation)
+with $\kappa_{\mathrm{ch}}$ of Volume~I (Conjecture~\ref{conj:qgl-equals-shadow}).
+\end{remark}
+
+\subsection{The triple identification: S-duality = Langlands duality = Koszul duality}
+\label{subsec:phys-triple-id}
+
+\begin{conjecture}[Triple identification; \ClaimStatusConjectured]
+\label{conj:phys-triple-sduality-langlands-koszul}
+For a simple Lie algebra $\frakg$ and a smooth projective curve $C$, the
+following three dualities coincide on the quantum vertex chiral group $G(C,\frakg)$:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{S-duality}: the Montonen--Olive duality of $\mathcal{N}=4$ SYM at
+  $\tau \mapsto -1/\tau$, exchanging gauge group $G$ with $G^L$;
+\item \textbf{Langlands duality}: the geometric Langlands equivalence
+  $D\text{-}\mathrm{mod}(\Bun_G(C)) \simeq \mathrm{QCoh}(\mathrm{LocSys}_{G^L}(C))$,
+  with $V_{-h^\vee}(\frakg)$ on the left and $G^L$ on the right;
+\item \textbf{Koszul duality}: the chiral bar-cobar duality of Volume~I,
+  which exchanges
+  \[
+    G(C,\frakg) \;\longleftrightarrow\; G(C,\frakg^L)
+  \]
+  as quantum vertex chiral groups, with the dual level formula
+  $k' = -k - 2h^\vee$ specialising at the critical level to the
+  Feigin--Frenkel center.
+\end{enumerate}
+The evidence: (i) S-duality exchanges W-bosons (roots of $\frakg$) with
+magnetic monopoles (coroots of $\frakg$ = roots of $\frakg^L$), which is
+exactly the root/coroot exchange of Koszul duality; (ii) the Feigin--Frenkel
+isomorphism $\mathfrak{z}(\hat{\frakg}) \simeq \mathrm{Fun}\,\mathrm{Op}_{G^L}$
+identifies the Koszul-dual datum with the Langlands dual group at the critical
+level; (iii) the dual level $k' = -k - 2h^\vee$ at $k = -h^\vee$ gives
+$k' = -h^\vee$ (self-dual), matching the self-dual coupling $|\tau| = 1$.
+\end{conjecture}
+
+\begin{proposition}[Root datum exchange under S/Langlands/Koszul duality; \ClaimStatusConjectured]
+\label{prop:phys-root-datum-exchange}
+The triple duality of Conjecture~\ref{conj:phys-triple-sduality-langlands-koszul}
+acts on the generalised root datum of $G(C,\frakg)$ by:
+\begin{enumerate}[label=(\roman*)]
+\item exchanging roots and coroots: $\alpha \leftrightarrow \alpha^\vee$;
+\item inverting the Cartan matrix: $A \leftrightarrow A^T$;
+\item preserving the Weyl group: $W(\frakg) \simeq W(\frakg^L)$;
+\item exchanging long and short roots (for non-simply-laced $\frakg$).
+\end{enumerate}
+This is identical to the action of Langlands duality on root data and to the
+action of S-duality on the BPS spectrum (W-bosons $\leftrightarrow$ monopoles).
+For simply-laced types, the root datum is self-dual: $G(C,\frakg)^! \cong G(C,\frakg)$.
+\end{proposition}
+
+The dictionary among the three languages is:
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lll}
+\hline
+\textbf{S-duality} & \textbf{Langlands} & \textbf{Koszul} \\
+\hline
+$G$ & $V_{-h^\vee}(\frakg)$, $D\text{-mod}(\Bun_G)$ & $G(C,\frakg)$ \\
+$G^L$ & $G^L$, $\mathrm{QCoh}(\mathrm{LocSys}_{G^L})$ & $G(C,\frakg^L) = G(C,\frakg)^!$ \\
+$\tau \mapsto -1/\tau$ & $\mathbb{L}$ (Langlands functor) & bar-cobar adjunction $B \dashv \Omega$ \\
+$k_{\mathrm{sd}} = -h^\vee$ & critical level & self-dual level ($k' = k$) \\
+BPS states (W-bosons) & Hecke eigensheaves & bar-complex generators \\
+BPS states (monopoles) & Hecke modifications at $G^L$ & cobar generators \\
+$\mathrm{SL}_2(\mathbb{Z})$ & Hecke symmetry & Koszul involution \\
+\hline
+\end{tabular}
+\end{center}
+
+
+% ============================================================
+\section{Type IIB on CY3: 4d \texorpdfstring{$\mathcal{N}=2$}{N=2} theories and the Hitchin system}
+\label{sec:phys-iib-cy3-hitchin}
+% ============================================================
+
+For local (non-compact) CY3 geometries, the Hitchin system encodes the exact
+low-energy data of 4d $\mathcal{N}=2$ gauge theories. This section records the
+precise identifications in mathematical terms; every physical claim is either
+a theorem (cited) or a conjecture (labelled). The \emph{physical heuristic}
+label marks passages where the identification is suggested by physics but not
+yet established mathematically.
+
+\subsection{Type IIB on a CY3 and the Coulomb branch}
+\label{subsec:phys-iib-coulomb}
+
+Let $X$ be a compact CY3. Type IIB string theory compactified on $X$ yields a
+4d $\mathcal{N}=2$ supergravity theory. The massless spectrum is determined by
+the Hodge numbers: $h^{2,1}(X)$ vector multiplets and $h^{1,1}(X)$ hypermultiplets.
+The moduli space factorises as
+\[
+  \mathcal{M} = \mathcal{M}_V \times \mathcal{M}_H,
+\]
+with $\mathcal{M}_V$ a special K\"{a}hler manifold of complex dimension
+$h^{2,1}(X)$ (the Coulomb branch, identified with the complex structure moduli
+of $X$) and $\mathcal{M}_H$ a quaternionic K\"{a}hler manifold.
+
+The BPS states arise from D3-branes wrapping special Lagrangian 3-cycles in
+$X$. For a class $\gamma \in H_3(X, \mathbb{Z})$, the central charge is
+\begin{equation}\label{eq:phys-bps-central-charge}
+  Z_\gamma(u) = \oint_\gamma \Omega_u, \qquad u \in \mathcal{M}_V,
+\end{equation}
+and the mass of the BPS state is $|Z_\gamma(u)|$. The BPS index
+\[
+  \Omega(\gamma; u) = \mathrm{Tr}_{\mathcal{H}_\gamma}(-1)^{2J_3}(2J_3)^2
+\]
+is locally constant but jumps across walls of marginal stability
+$\mathcal{W}(\gamma_1, \gamma_2) = \{u : Z_{\gamma_1}/Z_{\gamma_2} \in \mathbb{R}_{>0}\}$.
+
+In the Vol~III framework: the charge lattice $\Gamma = H_3(X, \mathbb{Z})$
+with its symplectic intersection form is the lattice $\Lambda(X)$ of the
+generalised root datum $\mathcal{R}(X)$, and the BPS indices $\Omega(\gamma; u)$
+are the root multiplicities (Section~\ref{sec:cy-langlands}).
+
+\subsection{The Seiberg--Witten curve as spectral curve}
+\label{subsec:phys-sw-spectral}
+
+For local CY3 geometries engineered from a curve $C$ and a group $G$ via
+class-$\mathcal{S}$ compactification of the 6d $(2,0)$ theory, the Coulomb
+branch is the Hitchin base and the Seiberg--Witten fibration is the Hitchin
+fibration.
+
+\begin{theorem}[Donagi--Witten; Gorsky--Krichever--Marshakov--Mironov--Morozov; \ClaimStatusProvedElsewhere]
+\label{thm:phys-sw-hitchin}
+The Seiberg--Witten curve $\Sigma_{\mathrm{SW}}$ of the 4d $\mathcal{N}=2$
+gauge theory of class $\mathcal{S}[G, C]$ is the spectral curve of the Hitchin
+system on $(C, G)$:
+\begin{enumerate}[label=(\roman*)]
+\item The SW curve is
+  \[
+    \Sigma_a = \bigl\{(x, p) \in T^*C \;\big|\; \det(p\cdot\mathrm{id} - \varphi(x)) = 0\bigr\}
+    \;\subset\; T^*C,
+  \]
+  a branched cover $\Sigma_a \to C$ of degree $\mathrm{rk}(G)$, parametrised
+  by $a \in \mathcal{A}_H$ (the Coulomb branch coordinates);
+\item The SW differential is $\lambda_{\mathrm{SW}} = p\,dx$, the tautological
+  $1$-form on $T^*C$ restricted to $\Sigma_a$;
+\item The periods $a_I = \oint_{\alpha_I} \lambda_{\mathrm{SW}}$ and
+  $a_{D,J} = \oint_{\beta_J} \lambda_{\mathrm{SW}} = \partial\mathcal{F}/\partial a_J$
+  give the special coordinates and their duals;
+\item The Hitchin base $\mathcal{A}_H$ is the Coulomb branch
+  $\mathcal{M}_{\mathrm{Coulomb}}$, and the Hitchin fibration parametrises the
+  family of SW curves.
+\end{enumerate}
+\end{theorem}
+
+\begin{example}[Pure \texorpdfstring{$\mathrm{SU}(2)$}{SU(2)}]
+\label{ex:phys-pure-su2}
+For $G = \mathrm{SU}(2)$ and $C = \mathbb{P}^1$, the Hitchin base is
+$\mathcal{A}_H = H^0(\mathbb{P}^1, K^{\otimes 2}) \cong \mathbb{C}$ (one
+Coulomb branch parameter $u$). The spectral curve in $T^*\mathbb{P}^1$ is
+$\Sigma_u\colon p^2 = u + \Lambda^2 x + \Lambda^{-2} x^{-1}$, recovering the
+Seiberg--Witten curve. The discriminant locus gives the monopole and dyon
+singularities in the Coulomb branch, where BPS states become massless.
+\end{example}
+
+\subsection{Hitchin system as CY geometry}
+\label{subsec:phys-hitchin-cy-framework}
+
+The Hitchin moduli space $\mathcal{M}_H(C, G)$ is a non-compact holomorphic
+symplectic manifold, hence a non-compact Calabi--Yau manifold of complex
+dimension $2\dim(G)(g-1)$. In the Vol~III framework (Section~\ref{sec:cy-langlands}),
+this provides the following data for the quantum vertex chiral group:
+\begin{itemize}
+\item The lattice $\Lambda(X) = H_1(\Sigma_a, \mathbb{Z})$ of the spectral
+  curve is the charge lattice of the 4d theory;
+\item The Hitchin base $\mathcal{A}_H$ parametrises the complex structure
+  deformations (the Coulomb branch);
+\item The Hitchin fibres are the abelian varieties on which the BPS states live;
+\item The BPS indices $\Omega(\gamma; a)$ determine the root multiplicities of
+  the quantum vertex chiral group.
+\end{itemize}
+
+\subsection{Argyres--Douglas theories and irregular Langlands parameters}
+\label{subsec:phys-argyres-douglas}
+
+Argyres--Douglas (AD) theories are 4d $\mathcal{N}=2$ SCFTs arising at special
+points $u_{\mathrm{AD}} \in \mathcal{M}_{\mathrm{Coulomb}}$ where mutually
+non-local BPS states simultaneously become massless. These points correspond to
+the intersection of walls of marginal stability.
+
+In the Hitchin language, an Argyres--Douglas point occurs when the spectral
+curve $\Sigma_a$ acquires a singularity of higher order than a simple node.
+For the $\mathrm{SU}(2)$ theory, the AD point at $u = \pm \Lambda^2$ (where
+$\Sigma_u$ has a cusp) gives the simplest AD theory of type $H_0$ (or $(A_1, A_1)$).
+
+\begin{remark}[Argyres--Douglas and irregular Langlands parameters]
+\label{rem:phys-ad-irregular}
+In the shadow-ramification dictionary of Section~\ref{sec:shadow-langlands-type}
+(Conjecture~\ref{conj:shadow-ramification}), Argyres--Douglas theories
+correspond to irregular Langlands parameters (shadow class M, depth $r = \infty$).
+The cusp singularity of the spectral curve produces an irregular singular point
+of the corresponding $D$-module on $\mathrm{Bun}_G$, and the Stokes data at
+the irregular singular point encodes the AD spectrum. The Borel resummation
+required to extract finite answers from the class-M shadow tower (Conjecture~\ref{conj:shadow-convergence-qgl}) is the mathematical incarnation of the
+AD wall-crossing phenomenon: the resurgent series produced by the Nekrasov
+partition function near the AD point has Stokes data controlled by the BPS
+indices $\Omega(\gamma; u)$ of the AD theory.
+\end{remark}
+
+\subsection{The Coulomb branch as complex structure moduli}
+\label{subsec:phys-coulomb-cx-structure}
+
+For Type IIB on $X$, the Coulomb branch is $\mathcal{M}_{\mathrm{cx}}(X)$, the
+complex structure moduli space. The special K\"{a}hler geometry on
+$\mathcal{M}_V$ is determined by the periods of $\Omega_u\in H^{3,0}(X_u)$:
+choose a symplectic basis $\{A^I, B_J\}$ of $H_3(X, \mathbb{Z})$ and define
+\begin{equation}\label{eq:phys-periods}
+  z^I(u) = \oint_{A^I} \Omega_u, \qquad \mathcal{F}_J(u) = \oint_{B_J} \Omega_u.
+\end{equation}
+The $z^I$ serve as special coordinates and $\mathcal{F}_J = \partial\mathcal{F}/\partial z^J$
+for a holomorphic prepotential $\mathcal{F}(z)$ (homogeneous of degree~2).
+Under mirror symmetry $X \leftrightarrow X^\vee$, the roles of complex structure
+and K\"{a}hler moduli are exchanged: for Type IIA on $X^\vee$, the Coulomb
+branch is $\mathcal{M}_{\mathrm{K\ddot{a}h}}(X^\vee)$ and the prepotential is
+computed by genus-0 Gromov--Witten invariants.
+
+
+% ============================================================
+\section{Wall-crossing as Maurer--Cartan gauge equivalence}
+\label{sec:phys-wall-crossing-mc}
+% ============================================================
+
+The Kontsevich--Soibelman wall-crossing formula, governing the jumps in BPS
+indices across walls of marginal stability, admits a natural interpretation in
+the Vol~I/$A_\infty$ framework as gauge equivalence of Maurer--Cartan elements.
+
+\subsection{The Kontsevich--Soibelman formula}
+\label{subsec:phys-ks-formula}
+
+Fix a charge lattice $\Gamma$ with antisymmetric pairing $\langle -, -\rangle$
+and a central charge function $Z\colon \Gamma \to \mathbb{C}$ holomorphic over
+$\mathcal{M}_{\mathrm{Coulomb}}$.
+
+\begin{definition}[BPS automorphisms]
+\label{def:phys-bps-auto}
+For each $\gamma \in \Gamma$ with $\Omega(\gamma) \neq 0$, define the
+automorphism $\mathcal{K}_\gamma$ of the quantum torus algebra $\mathbb{C}[\Gamma]$
+(with generators $X_\gamma$ satisfying
+$X_{\gamma_1} X_{\gamma_2} = (-1)^{\langle\gamma_1,\gamma_2\rangle} X_{\gamma_1+\gamma_2}$)
+by
+\begin{equation}\label{eq:phys-ks-automorphism}
+  \mathcal{K}_\gamma = \prod_{n \geq 1}(1 - (-1)^n X_{n\gamma})^{n\,\Omega(n\gamma)}.
+\end{equation}
+For the primitive case $\Omega(\gamma) = 1$, this reduces to the
+Kontsevich--Soibelman symplectomorphism
+$\mathcal{K}_\gamma(X_{\gamma'}) = X_{\gamma'}(1 + X_\gamma)^{\langle\gamma,\gamma'\rangle}$.
+\end{definition}
+
+\begin{theorem}[Kontsevich--Soibelman; \ClaimStatusProvedElsewhere]
+\label{thm:phys-ks-wcf}
+The ordered product
+\begin{equation}\label{eq:phys-ks-product}
+  \mathcal{A}(u) = \prod_{\gamma:\,\arg Z_\gamma(u)\,\downarrow}^{\curvearrowleft}
+  \mathcal{K}_\gamma^{\Omega(\gamma;\,u)}
+\end{equation}
+taken over all BPS charges $\gamma$ in decreasing order of phase $\arg Z_\gamma(u)$
+is invariant under continuous deformation of $u$ across walls of marginal stability.
+Although the individual $\Omega(\gamma; u)$ jump and the phase ordering changes,
+the total product $\mathcal{A}(u)$ is constant.
+\end{theorem}
+
+\subsection{Wall-crossing as gauge equivalence in the shadow obstruction tower}
+\label{subsec:phys-wc-mc-id}
+
+In the Vol~I/$A_\infty$ framework, the KS wall-crossing formula is gauge
+equivalence of Maurer--Cartan elements.
+
+\begin{construction}[MC interpretation of wall-crossing]
+\label{constr:phys-mc-wall-crossing}
+The key identifications:
+\begin{enumerate}[label=(\roman*)]
+\item The $L_\infty$-algebra controlling the deformation problem is the
+  \emph{scattering diagram $L_\infty$-algebra} $\mathfrak{L}_\Gamma$, built
+  from the charge lattice $\Gamma$ with its antisymmetric form. Its
+  Maurer--Cartan equation governs consistent scattering diagrams on
+  $\mathbb{R}^2 \cong \mathbb{C}$ (the $Z$-plane);
+\item A BPS spectrum $\{\Omega(\gamma; u)\}_{\gamma \in \Gamma}$ at a point
+  $u \in \mathcal{M}_{\mathrm{Coulomb}}$ determines a Maurer--Cartan element
+  \[
+    \Theta_u = \sum_{\gamma \in \Gamma} \Omega(\gamma; u)\cdot e_\gamma
+    \;\in\; \mathfrak{L}_\Gamma,
+  \]
+  where $e_\gamma$ are the generators associated to charges $\gamma$;
+\item Crossing a wall $\mathcal{W}(\gamma_1, \gamma_2)$ corresponds to a
+  gauge transformation $\Theta_u \mapsto \Theta_{u'} = g\cdot\Theta_u$ in
+  $\mathfrak{L}_\Gamma$, where $g$ is determined by the KS symplectomorphism
+  $\mathcal{K}_\gamma$;
+\item The KS invariant $\mathcal{A}(u)$ is the gauge equivalence class
+  $[\Theta_u] \in \mathrm{MC}(\mathfrak{L}_\Gamma)/\mathrm{gauge}$.
+\end{enumerate}
+\end{construction}
+
+\begin{proposition}[Wall-crossing = shadow tower gauge equivalence; \ClaimStatusConjectured]
+\label{prop:phys-wc-shadow}
+The KS wall-crossing formula for the 4d $\mathcal{N}=2$ theory from CY3 $X$ is
+equivalent to the statement that the MC elements $\Theta_u$, as $u$ varies over
+$\mathcal{M}_{\mathrm{Coulomb}} = \mathcal{M}_{\mathrm{cx}}(X)$, are
+gauge-equivalent in $\mathfrak{L}_{\Gamma(X)}$. Specifically:
+\begin{enumerate}[label=(\roman*)]
+\item The gauge equivalence class $[\Theta_u]$ is a topological invariant of
+  the 4d theory;
+\item The individual $\Omega(\gamma; u)$ are the coordinates of $\Theta_u$ in
+  a particular gauge (a choice of chamber in $\mathcal{M}_{\mathrm{Coulomb}}$);
+\item Wall-crossing is a change of gauge; the KS product $\mathcal{A}(u)$ is
+  the gauge-invariant content.
+\end{enumerate}
+This is the precise connection to the universal MC element $\Theta_A$ of
+Volume~I: the shadow obstruction tower $\Theta_{A_X}^{\leq r}$ at successive
+degrees recovers the BPS spectrum at successive levels of complexity.
+\end{proposition}
+
+\begin{remark}[Scattering diagrams and tropical geometry]
+\label{rem:phys-scattering-diagrams}
+The scattering diagram technology of Gross--Siebert and Kontsevich--Soibelman
+provides the combinatorial framework for encoding the MC element $\Theta_u$. A
+scattering diagram $\mathfrak{D}$ on $\mathbb{R}^2$ consists of rays (walls)
+emanating from the origin, decorated with automorphisms of the quantum torus.
+The consistency condition (trivial monodromy around the origin) is exactly the
+MC equation for $\Theta_u$. This is made precise by Bridgeland (Stokes data)
+and by Gaiotto--Moore--Neitzke (spectral network formalism).
+\end{remark}
+
+\begin{remark}[Motivic DT invariants and the Hall algebra]
+\label{rem:phys-motivic-dt}
+The BPS indices $\Omega(\gamma; u)$ are numerical shadows of the motivic
+Donaldson--Thomas invariants $\Omega^{\mathrm{mot}}(\gamma; u) \in K_0(\mathrm{Var}/\mathbb{C})[\mathbb{L}^{-1/2}]$. The motivic Hall algebra $H(\mathcal{C})$
+of a CY3 category $\mathcal{C}$ provides the natural home for the motivic
+wall-crossing formula; the integration map
+$H(\mathcal{C}) \to \mathrm{quantum\, torus}$ descends to the KS symplectomorphisms.
+In the Vol~III language: the passage
+\[
+  H^{\mathrm{mot}}(\mathcal{C}) \xrightarrow{\text{cohomological}} \mathcal{H}(\mathcal{C}) = \mathrm{CoHA} \xrightarrow{\text{positive half}} G^+(X)
+\]
+recovers the $\Eone$-sector (positive half) of $G(X)$, recovering the
+identification of the CoHA as $Y^+$ established in the CY-A$_3$ proof.
+\end{remark}
+
+
+% ============================================================
+\section{The Nekrasov partition function and quantum curves}
+\label{sec:phys-nekrasov-quantum-curves}
+% ============================================================
+
+The Nekrasov partition function computes the exact prepotential of 4d
+$\mathcal{N}=2$ theories and, in the NS limit, quantises the Hitchin spectral
+curve into an oper. This connects the four-dimensional physics directly to the
+geometric Langlands programme via the identification of quantum curves with
+$G^L$-opers.
+
+\subsection{The \texorpdfstring{$\Omega$}{Omega}-background and the Nekrasov partition function}
+\label{subsec:phys-omega-background}
+
+Let $T = U(1)_{\epsilon_1} \times U(1)_{\epsilon_2}$ act on $\mathbb{R}^4 \cong \mathbb{C}^2$ by $(z_1, z_2) \mapsto (e^{i\epsilon_1}z_1, e^{i\epsilon_2}z_2)$. The
+\emph{Nekrasov partition function} for a 4d $\mathcal{N}=2$ theory with gauge
+group $G$ and Coulomb branch parameters $\vec{a}$ is
+\begin{equation}\label{eq:phys-nekrasov-pf}
+  Z_{\mathrm{Nek}}(\epsilon_1, \epsilon_2, \vec{a}; \mathfrak{q}) = \sum_{\vec{\lambda}}
+  \mathfrak{q}^{|\vec{\lambda}|} z_{\vec{\lambda}}(\epsilon_1, \epsilon_2, \vec{a}),
+\end{equation}
+where the sum is over tuples of Young diagrams (fixed points of the $T$-action
+on the instanton moduli space) and $z_{\vec{\lambda}}$ are equivariant weights.
+
+\begin{theorem}[Nekrasov; \ClaimStatusProvedElsewhere]
+\label{thm:phys-nekrasov}
+The Seiberg--Witten prepotential is recovered as
+\begin{equation}\label{eq:phys-nekrasov-limit}
+  \mathcal{F}(\vec{a}) = \lim_{\epsilon_1, \epsilon_2 \to 0}
+  \epsilon_1\epsilon_2 \log Z_{\mathrm{Nek}}(\epsilon_1, \epsilon_2, \vec{a}; \mathfrak{q}).
+\end{equation}
+The genus expansion $\log Z_{\mathrm{top}} = \sum_{g \geq 0} g_s^{2g-2}\mathcal{F}_g(t)$
+gives $\mathcal{F}_0$ as the prepotential, $\mathcal{F}_1$ as the genus-1
+free energy (related to $\kappa_{\mathrm{ch}}$ and the Ray--Singer torsion),
+and $\mathcal{F}_g$ for $g \geq 2$ as the higher-genus Gromov--Witten/DT
+invariants: in the Vol~I language, $\mathcal{F}_g$ is the genus-$g$ obstruction
+$\mathrm{obs}_g = \kappa_{\mathrm{ch}} \cdot \lambda_g$ on the uniform-weight lane.
+\end{theorem}
+
+\subsection{The Nekrasov--Shatashvili limit and quantum curves}
+\label{subsec:phys-ns-limit}
+
+The Nekrasov--Shatashvili (NS) limit is $\epsilon_2 \to 0$ with
+$\epsilon_1 = \hbar$ fixed. In this limit, the partition function develops
+an essential singularity
+\[
+  \log Z_{\mathrm{Nek}}(\hbar, \epsilon_2, \vec{a})
+  \xrightarrow{\epsilon_2 \to 0}
+  \frac{1}{\epsilon_2}\mathcal{W}(\hbar, \vec{a}) + O(1),
+\]
+where $\mathcal{W}$ is the twisted effective superpotential.
+
+\begin{theorem}[Nekrasov--Shatashvili; \ClaimStatusProvedElsewhere]
+\label{thm:phys-ns-quantization}
+In the NS limit:
+\begin{enumerate}[label=(\roman*)]
+\item The saddle-point equation $\exp(\partial\mathcal{W}/\partial a_I) = 1$
+  determines the quantum Coulomb branch parameters $a_I(\hbar)$;
+\item The Seiberg--Witten curve $\Sigma_{\mathrm{SW}}$ is quantised: the
+  classical equation $\det(p\cdot\mathrm{id} - \varphi(x)) = 0$ is promoted
+  to a \emph{quantum curve} (a differential equation)
+  \begin{equation}\label{eq:phys-quantum-curve}
+    \widehat{\Sigma}_\hbar\colon\qquad
+    \det\!\left(\hbar\frac{d}{dx}\cdot\mathrm{id} - \varphi(x)\right)\psi(x) = 0,
+  \end{equation}
+  obtained by the canonical quantisation $p \mapsto \hbar\,d/dx$;
+\item The NS partition function $\psi(x) = Z_{\mathrm{Nek}}^{\mathrm{NS}}(\hbar, x)$
+  is a solution of the quantum curve equation~\eqref{eq:phys-quantum-curve}.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Quantum curves are opers]
+\label{rem:phys-quantum-curve-oper}
+The quantum spectral curve~\eqref{eq:phys-quantum-curve} is a $G^L$-oper on
+$C$: a flat $G^L$-connection with a specific reduction to a Borel subgroup.
+For $G = \mathrm{SU}(N)$, the quantum curve is an $N$-th order ODE, the
+null-vector equation of the $\mathcal{W}_N$-algebra at level
+$k = -N + \hbar^{-1}$. The critical level $k = -h^\vee = -N$ is
+$\hbar \to \infty$; the NS parameter $\hbar$ provides the deformation from
+critical. The Feigin--Frenkel center $\mathfrak{z}(\hat{\frakg})$ at the critical
+level parametrises $G^L$-opers, and the NS partition function is a section of
+the line bundle on the space of opers determined by the $\mathcal{W}$-algebra.
+In the Vol~III framework: the passage from the spectral curve (classical) to
+the oper (quantum) is the passage from the tree-level $R$-matrix $r(z)$ to
+the full quantum $R$-matrix $R(z, \hbar)$ of $G(X)$. The three regimes
+$(\epsilon_1, \epsilon_2)$ correspond to three Langlands regimes:
+$\epsilon_1 = \epsilon_2 = 0$ (classical geometric Langlands),
+$\epsilon_2 = 0$, $\epsilon_1 = \hbar \neq 0$ (quantum geometric Langlands,
+opers), and both nonzero (doubly quantum, $K$-theoretic Langlands).
+\end{remark}
+
+\subsection{The AGT correspondence}
+\label{subsec:phys-agt}
+
+The Alday--Gaiotto--Tachikawa correspondence provides the most direct link
+between Nekrasov partition functions and vertex algebras.
+
+\begin{theorem}[AGT correspondence; \ClaimStatusProvedElsewhere]
+\label{thm:phys-agt}
+For the 4d $\mathcal{N}=2$ $\mathrm{SU}(N)$ gauge theory of class
+$\mathcal{S}[\mathrm{SU}(N), C_{g,n}]$ on a genus-$g$ curve with $n$
+punctures:
+\begin{equation}\label{eq:phys-agt}
+  Z_{\mathrm{Nek}}^{\mathrm{SU}(N)}(\epsilon_1, \epsilon_2, \vec{a}, \vec{m}; \mathfrak{q})
+  = \Bigl\langle \prod_{i=1}^n V_{\alpha_i}(z_i) \Bigr\rangle_{\mathcal{W}_N,\,c(\epsilon_1,\epsilon_2)},
+\end{equation}
+where the right side is a conformal block of the $\mathcal{W}_N$-algebra at
+central charge
+$c = (N-1)\bigl(1 + N(N+1)(\epsilon_1/\epsilon_2 + \epsilon_2/\epsilon_1 + 2)\bigr)$,
+and vertex operators $V_{\alpha_i}$ are determined by the puncture data.
+\end{theorem}
+
+In the Vol~III framework, the AGT correspondence is the statement that the
+Nekrasov partition function is a genus-$g$ $n$-point function of the quantum
+chiral algebra $A_X$ ($\mathcal{W}_N$ sector of $G(X)$). The genus expansion
+of $Z_{\mathrm{Nek}}$ is the shadow obstruction tower: genus-0, no punctures
+gives the prepotential $\mathcal{F}_0$ (degree-2 shadow, $\kappa_{\mathrm{ch}}$);
+genus-0, $n$ punctures gives the $n$-point tree-level amplitude (degree-$n$
+shadow); genus $g$ gives the free energy $\mathcal{F}_g$ ($\mathrm{obs}_g$).
+
+\begin{conjecture}[Nekrasov partition function as character of \texorpdfstring{$G(X)$}{G(X)}; \ClaimStatusConjectured]
+\label{conj:phys-nekrasov-character}
+For any CY3 $X$ engineering a 4d $\mathcal{N}=2$ theory, the Nekrasov partition
+function $Z_{\mathrm{Nek}}(\epsilon_1, \epsilon_2, \vec{a}; \mathfrak{q})$ is the
+graded character of the vacuum module of the quantum vertex chiral group $G(X)$:
+\begin{equation}\label{eq:phys-nekrasov-character}
+  Z_{\mathrm{Nek}}(\epsilon_1, \epsilon_2, \vec{a}; \mathfrak{q})
+  = \chi_{G(X)}(\mathcal{F}_{\vec{a}};\, q_1, q_2, \mathfrak{q}),
+\end{equation}
+where $q_i = e^{i\epsilon_i}$ are the equivariant fugacities. In the
+unrefined limit $\epsilon_1 = -\epsilon_2 = g_s$, this reduces to the
+topological string partition function, which is the denominator identity of
+$G(X)$. Evidence:
+\begin{enumerate}[label=(\arabic*)]
+\item For $X = \mathbb{C}^3$: $Z_{\mathrm{Nek}}$ is the MacMahon function
+  $M(q) = \prod_{n\geq 1}(1-q^n)^{-n}$, which is the character of the MacMahon
+  module of $\mathcal{W}_{1+\infty} = Y(\widehat{\mathfrak{gl}}_1)$ (proved:
+  Schiffmann--Vasserot, Maulik--Okounkov);
+\item The AGT correspondence identifies $Z_{\mathrm{Nek}}$ for $\mathrm{SU}(2)$
+  theories with conformal blocks of the Virasoro algebra at $c = 1 + 6(\sqrt{\beta} - 1/\sqrt{\beta})^2$, $\beta = \epsilon_1/\epsilon_2$, which is a subalgebra
+  of $\mathcal{W}_{1+\infty}$, hence of $G(\mathbb{C}^3)$;
+\item For $K3 \times E$: the topological string partition function involves
+  $\Delta_5^{-1}$ (the inverse Igusa cusp form), which is the Fock space
+  character of the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ (the denominator
+  formula inverted).
+\end{enumerate}
+\end{conjecture}
+
+\begin{conjecture}[Quantum vertex chiral Langlands from the NS limit; \ClaimStatusConjectured]
+\label{conj:phys-qvcg-langlands-ns}
+The geometric Langlands correspondence for a curve $C$ and gauge group $G$,
+in the quantum ($\hbar \neq 0$) regime, is the equivalence of representation
+categories of quantum vertex chiral groups:
+\begin{equation}\label{eq:phys-qvcg-langlands}
+  \Rep^{\Etwo}(G(X_{G,C})) \;\simeq\; D\text{-}\mathrm{mod}(\Bun_{G^L}(C)),
+\end{equation}
+where $X_{G,C}$ is the local CY3 engineering the class-$\mathcal{S}$ theory
+and $D\text{-}\mathrm{mod}(\Bun_{G^L}(C))$ is the category of $D$-modules on
+the moduli of $G^L$-bundles on $C$, with the quantum parameter $\hbar = \epsilon_1$
+playing the role of the level of the $D$-module category. This is the NS-limit
+version of the QGL equivalence of Section~\ref{sec:quantum-geom-langlands},
+with the quantum spectral curve~\eqref{eq:phys-quantum-curve} serving as the
+oper on the spectral side.
+\end{conjecture}
+
+% ============================================================
 \section{Open problems}
 \label{sec:open-problems}
 % ============================================================
@@ -813,7 +1522,7 @@ L(s, \Phi_{10}) \;=\; L(s, \Delta\otimes E_6)\cdot \zeta(s-9)\cdot \zeta(s-8),
 which decomposes as a product of three Arthur packets: a Ramanujan-type
 packet for $\mathfrak g_{\Delta_5}$ and two $\zeta$-type packets for
 ${}^L\mathfrak g_{\Delta_5}$. The class-$\mathcal S$ $A_1$-on-$\Sigma_{0,24}$
-theory (Vol.~I, \S\ref{sec:walgdeep-supplement}) is the Langlands-functorial
+theory (Vol.~I, \S\texttt{chapters/examples/w\_algebras\_deep.tex} (Vol~I)) is the Langlands-functorial
 realisation of this dual pair: the SCFT-to-VOA functor sends the
 $4$d Gaiotto-class theory with gauge $\mathrm{SU}(2)$ to the $2$d
 non-abelian chiral bialgebra $\mathbf H_{\Delta_5}$, and this matches
@@ -835,7 +1544,7 @@ Langlands-dual BKM is self-equal --- ${}^L\mathfrak{g}_{\Delta_5} =
 correspondence degenerates to a \emph{self-duality}, with the
 Fricke involution~$w_8$ as its structural $S$-matrix.
 
-\begin{remark}[Self-Langlands-duality of $\mathfrak{g}_{\Delta_5}$]
+\begin{remark}[Self-Langlands-duality of \texorpdfstring{$\mathfrak{g}_{\Delta_5}$}{g-Delta-5}]
 \label{rem:gl-self-langlands-dual}
 \index{Langlands-self-duality!$\mathfrak{g}_{\Delta_5}$}
 \index{BKM algebra!self-dual}
@@ -918,7 +1627,7 @@ the automorphic side non-trivially exchanged with the spectral side
 by $w_8$.
 \end{remark}
 
-\begin{remark}[Categorical realisation: $w_8$ as modular $S$-matrix]
+\begin{remark}[Categorical realisation: \texorpdfstring{$w_8$}{w-8} as modular \texorpdfstring{$S$}{S}-matrix]
 \label{rem:gl-w8-modular}
 \index{modular S-matrix!$w_8$ Fricke}
 \index{Kerler--Lyubashenko MTC}
@@ -996,7 +1705,7 @@ Thm.~1.5.1 for the packet-preservation of Fricke under SK transfer.
 \label{rem:gl-arthur-bridge}
 \index{cross-volume!Arthur closure}
 \index{global Arthur packet!$\Delta_{10}$}
-Vol~I Remark~\ref{rem:dl-global-packet-closure} records
+Vol~I Remark~\texttt{chapters/theory/derived\_langlands.tex} (Vol~I) records
 $|\Psi_{\Delta_{10}}| = 4$ (size of the global SK Arthur packet, with
 $m(\pi_{\Delta_{10}}) = 1$ the Ikeda SK lift as the distinguished
 holomorphic constituent). Under the Fricke self-duality of
@@ -1018,7 +1727,7 @@ This is the categorical/automorphic/geometric triangular
 coincidence controlling the K3-BKM self-Langlands-duality.
 \end{remark}
 
-\begin{remark}[Spin-refined self-duality: the Maass $\mathbb{Z}/2$ splits the
+\begin{remark}[Spin-refined self-duality: the Maass \texorpdfstring{$\mathbb{Z}/2$}{Z/2} splits the
 Arinkin--Gaitsgory equivalence]
 \label{rem:gl-spin-refined-self-duality}
 \index{geometric Langlands!spin-refinement}
@@ -1030,7 +1739,7 @@ $w_8\colon Z\mapsto -(8Z)^{-1}$ on $\overline{\mathcal{A}_2}$, with
 ${}^L\mathfrak{g}_{\Delta_5} = \mathfrak{g}_{\Delta_5}$. The resolution of
 the Arthur packet group $S_{\psi_{\Delta_5}}
 = \mathbb{Z}/2\times\mathbb{Z}/2$ (Vol~I
-Remark~\ref{rem:cclimax-S-psi-delta5}) supplies a
+Remark~\texttt{chapters/theory/chiral\_climax\_platonic.tex} (Vol~I)) supplies a
 \emph{refinement}: the archimedean Maass-spin $\mathbb{Z}/2$ (the
 extra factor beyond the holomorphic/antiholomorphic $\mathbb{Z}/2$ of
 the SK packet) splits the DG categories on both sides into $\pm$
@@ -1062,7 +1771,7 @@ locus $\mathcal{U}_{\mathrm{Kosz}}^{\mathrm{K3}}
 and exchanges the two blocks without fixed points. Numerical
 consequence: the global packet decomposition
 $|\Psi_{\Delta_5}| = 16 = 4\cdot 4$
-(Vol~I Remark~\ref{rem:cclimax-S-psi-delta5}) splits as
+(Vol~I Remark~\texttt{chapters/theory/chiral\_climax\_platonic.tex} (Vol~I)) splits as
 $(4_{+}\oplus 4_{-})$ archimedean $\otimes$ $(2_{+}\oplus 2_{-})$
 spin, with Fricke $w_8$ acting by the simultaneous $+\leftrightarrow-$
 exchange on both factors. Primary: Arinkin--Gaitsgory~\cite{ArinkinGaitsgory2015Singular}
@@ -1078,11 +1787,11 @@ for packets with non-trivial $S_\psi$).
 \index{Igusa--Gritsenko additive lift!Hecke compatibility}
 The Hecke eigenvalues
 $\lambda_p(\Delta_{10}) = a_p(\Delta_{E_6}) + p^8 + p^9$ of Vol~I
-Remark~\ref{rem:cclimax-ap-extension-ii} and the
+Remark~\texttt{chapters/theory/chiral\_climax\_platonic.tex} (Vol~I) and the
 squared identity
 $\Delta_5^2 = \Delta_{10}$ (up to the Maass-spin-cover
 sign-character twist of Vol~I
-Remark~\ref{rem:dl-archimedean-delta5}) determine the
+Remark~\texttt{chapters/theory/derived\_langlands.tex} (Vol~I)) determine the
 Siegel Fourier coefficients $a(T)$ of $\Delta_5$ at the extended primes
 through
 \begin{equation}
@@ -1115,13 +1824,13 @@ Prop.~$3.2$: the eight values $(\lambda_p(\Delta_{10}))^{1/2}$ are
 real algebraic integers of degree $\le 2$ over $\mathbb{Q}$ (since
 $\lambda_p(\Delta_{10}) > 0$ at every extended prime, by the Deligne
 dominance $p^9 > |a_p| + p^8$ confirmed in Vol~I
-Remark~\ref{rem:cclimax-ap-extension-ii}), ensuring the additive
+Remark~\texttt{chapters/theory/chiral\_climax\_platonic.tex} (Vol~I)), ensuring the additive
 lift is well-defined at each extended prime. Primary: Gritsenko $1994$
 \emph{Algebra Anal.}~6; Igusa $1962$ \emph{Amer.\ J.\ Math.}~84;
 Ikeda $2001$ Cor.~$16.2$; LMFDB 16.1.a.a table.
 \end{remark}
 
-\section{Motivic fundamental group of K3 and $\mathrm{GRT}_1$-torsor on $\mathbf{H}_{\Delta_5}$-quantisations}
+\section{Motivic fundamental group of K3 and \texorpdfstring{$\mathrm{GRT}_1$}{GRT-1}-torsor on \texorpdfstring{$\mathbf{H}_{\Delta_5}$}{H-Delta-5}-quantisations}
 \label{sec:gl-motivic-fundamental-group-k3}
 
 The quantum geometric Langlands programme (\S
@@ -1140,7 +1849,7 @@ $(\mathfrak{g}_{\Delta_5}, \mathfrak{n}_+^{\mathrm{imag}} \oplus
 identifies the Etingof-Kazhdan-side torsor with the motivic-Galois-side
 $\mathrm{GRT}_1$-action on K3 periods.
 
-\begin{theorem}[Unified $\mathrm{GRT}_1$-torsor on K3]
+\begin{theorem}[Unified \texorpdfstring{$\mathrm{GRT}_1$}{GRT-1}-torsor on K3]
 \label{thm:gl-unified-grt1-torsor-k3}
 \ClaimStatusProvedHere{Combines Drinfeld 1990, Brown 2012, Willwacher 2015,
 and Etingof--Kazhdan super-quantisation with the K3 motivic fundamental
@@ -1234,7 +1943,7 @@ $A_\infty$-quasi-Hopf structure.
 \end{remark}
 
 \begin{conjecture}[Chiral CY Langlands exchanges
-$\mathrm{GRT}_1$-torsors]
+\texorpdfstring{$\mathrm{GRT}_1$}{GRT-1}-torsors]
 \label{conj:gl-cy-langlands-grt-torsor-exchange}
 \ClaimStatusConjectured{}
 Under the CY Langlands involution of
@@ -1256,7 +1965,7 @@ in the Siegel-Borcherds associator $\widetilde\Phi^{\mathrm{Sieg-Bor}}$
 of Theorem~\textup{\ref{thm:dcy-beilinson-dictionary}}.
 \end{conjecture}
 
-\begin{remark}[Mixed Tate motive from weight-$n$ $\zeta(n)$-periods]
+\begin{remark}[Mixed Tate motive from weight-\texorpdfstring{$n$}{n} \texorpdfstring{$\zeta(n)$}{zeta(n)}-periods]
 \label{rem:gl-mixed-tate-zeta-periods}
 \index{mixed Tate motive!K3 CE cohomology}
 \index{motivic zeta values on K3}
@@ -1299,10 +2008,10 @@ Hoffman 1997 \emph{Pacific J.\ Math.}~183 (MZV algebra).
 \end{remark}
 
 \section{Tempered Hecke on Mukai-graded
-$\mathbf{H}_{\Delta_5}$ as Wilson lines on Fricke self-duality}
+\texorpdfstring{$\mathbf{H}_{\Delta_5}$}{H-Delta-5} as Wilson lines on Fricke self-duality}
 \label{sec:gl-kazhdan-fricke-wilson-section}
 
-The Vol~I derived-Langlands side (\S\ref{sec:dl-tempered-hecke})
+The Vol~I derived-Langlands side (\S\texttt{chapters/theory/derived\_langlands.tex} (Vol~I))
 proves that the Andrianov--Ikeda spinor Hecke $T_p$ acts on every
 $\Lambda_{\mathrm{Muk}}$-graded piece of $\mathbf{H}_{\Delta_5}$ as the
 single tempered scalar $\lambda_p = a_p(\Delta_{E_6}) + p^8 + p^9$.
@@ -1320,7 +2029,7 @@ Hecke action]
 On the geometric Langlands side of the K3-BKM self-duality
 (Remark~\ref{rem:gl-fricke-self-duality}), the tempered
 Mukai-graded eigenvalue $\lambda_p(v) = a_p(\Delta_{E_6}) + p^8 + p^9$
-of Vol~I Theorem~\ref{thm:dl-kazhdan-C1-mukai-eigenvalue}
+of Vol~I Theorem~\texttt{chapters/theory/derived\_langlands.tex} (Vol~I)
 incarnates as the Wilson-line trace
 \begin{equation}
 \label{eq:gl-kazhdan-wilson-trace}
@@ -1349,7 +2058,7 @@ case), giving the net Fricke-equivariant decomposition
 \eqref{eq:gl-kazhdan-wilson-trace} is a scalar, not a matrix, on
 each Mukai-graded piece $(\mathbf{H}_{\Delta_5})_v$; this is the
 C1 universality of Vol~I
-Theorem~\ref{thm:dl-kazhdan-C1-mukai-eigenvalue} translated to
+Theorem~\texttt{chapters/theory/derived\_langlands.tex} (Vol~I) translated to
 the spectral side. The universality is a non-trivial prediction: generic
 Wilson lines on $\mathrm{Bun}_G(X)$ would act non-trivially across Mukai
 weight sectors; the Saito--Kurokawa structure \emph{forces} the action
@@ -1357,7 +2066,7 @@ through the scalar central character, which is the geometric
 manifestation of the Arthur CAP.
 Primary: Arthur 2013 \emph{Endoscopic classification}, Thm.~1.5.2;
 Andrianov 1974 \S 2--3; Vol~I
-Theorem~\ref{thm:dl-kazhdan-C1-mukai-eigenvalue};
+Theorem~\texttt{chapters/theory/derived\_langlands.tex} (Vol~I);
 Arinkin--Gaitsgory 2015 Conj.~1.1.5 (categorical trace compatibility
 with Fricke self-duality).
 \end{remark}
@@ -1368,7 +2077,7 @@ convolution and Beilinson--Drinfeld factorisation compatibility]
 \index{Kazhdan!Chriss--Ginzburg convolution}
 \index{Beilinson--Drinfeld factorisation!Mukai-graded Hecke}
 The Mukai-graded Hecke eigenvalue of Vol~I
-\eqref{eq:kazhdan-C1-eigenvalue} is the \emph{categorical trace}
+(the $C_1$-eigenvalue identity for the Kazhdan Wilson trace) is the \emph{categorical trace}
 of the Hecke correspondence
 $\mathrm{Hecke}_p\subset\mathrm{Bun}_G(X)\times\mathrm{Bun}_G(X)$
 on the Mukai-graded factorisation algebra $\mathbf{H}_{\Delta_5}$; the
@@ -1408,14 +2117,14 @@ Mirkovi\'c--Vilonen 2007 \emph{Ann.~Math.}~166 (geometric Satake
 as categorical trace).
 \end{remark}
 
-\begin{remark}[genus-$2$ Siegel Wilson line at the
-$\mu_8$-gerbe-twisted Fricke-fixed locus]
+\begin{remark}[genus-\texorpdfstring{$2$}{2} Siegel Wilson line at the
+\texorpdfstring{$\mu_8$}{mu-8}-gerbe-twisted Fricke-fixed locus]
 \label{rem:gl-kazhdan-genus2-siegel-wilson}
 \index{Kazhdan!Siegel Wilson line}
 \index{genus-$2$!Siegel upper half space!Fricke-fixed locus}
 \index{$\mu_8$-gerbe!twisted Tannakian fibre}
 At the $\zeta_8$-specialisation of $\mathrm{Rep}(\mathbf{H}_{\Delta_5})$
-(Vol~I Remark~\ref{rem:dl-fricke-self-duality}), the
+(Vol~I the derived-Langlands Fricke self-duality remark (Vol~I, \texttt{chapters/theory/derived\_langlands.tex})), the
 Fricke-fixed locus inside $\mathcal{A}_2$ is the $w_8$-fixed divisor
 $\mathcal{A}_2^{w_8}\subset\mathcal{A}_2$, cut out by
 $\Delta_5|_{\mathcal{A}_2^{w_8}} = \Delta_5$ (the Fricke-symmetric part
@@ -1439,7 +2148,13 @@ the Frobenius at $p$ and $\mathrm{spin}(\Delta_{10})$ is the $4$-dim
 spinor Galois representation of $\Delta_{10}$ (Weissauer 2005;
 Mok 2015). This gives the geometric content of the universal
 eigenvalue: \emph{every} Mukai-graded $T_p$-eigenvalue on
-$\mathbf{H}_{\Delta_5}$ is a Frobenius trace on the same $4$-dim
+$\mathbf{H}_{\Delta_5}$ is a \emph{Frobenius trace}
+(T17 arithmetic sibling, Vol~I concordance: the character
+$a_p = \mathrm{tr}(\mathrm{Frob}_p\,|\,H^\bullet_\ell)$ on
+$\ell$-adic cohomology, i.e.\ T17~(i) applied to the Galois
+representation; never the chiral trace T17~(viii) on
+$\mathbf{H}_{\Delta_5}$ itself, nor the categorical trace
+T17~(ii)) on the same $4$-dim
 Galois representation $\mathrm{spin}(\Delta_{10})$, regardless of the
 Mukai weight $v$. The uniqueness of the spinor Galois representation
 (Weissauer~2005 Thm.~B; Mok~2015 Thm.~5.1) verifies the C1 universality
@@ -1447,8 +2162,8 @@ from the Galois side. Primary: Weissauer 2005 \emph{Lect.~Notes
 Math.}~1968, Thm.~B on spinor $\mathrm{GSp}(4)$ Galois representations;
 Mok 2015 \emph{Mem.~AMS}~235, Thm.~5.1 on quasi-split unitary-group
 Arthur packets; Arthur 2013 \S 1.5 (Arthur parameter); cross-reference
-Vol~I Theorem~\ref{thm:dl-kazhdan-C1-mukai-eigenvalue},
-Vol~I~\S\ref{sec:dl-tempered-hecke}.
+Vol~I Theorem~\texttt{chapters/theory/derived\_langlands.tex} (Vol~I),
+Vol~I~\S\texttt{chapters/theory/derived\_langlands.tex} (Vol~I).
 \end{remark}
 
 \begin{remark}[Geometric Langlands Hecke-eigensheaf
@@ -1486,13 +2201,14 @@ Together, C1--C5 realise the complete tempered spectral datum
 of the Arinkin--Gaitsgory-style geometric Langlands equivalence for
 the K3-BKM chiral bialgebra $\mathbf{H}_{\Delta_5}$ at the
 Fricke self-dual point, with every load-bearing eigenvalue a
-first-principles Frobenius trace on the same $4$-dimensional
+first-principles \emph{Frobenius trace} (T17 arithmetic sibling,
+Vol~I concordance) on the same $4$-dimensional
 $\mathrm{spin}(\Delta_{10})$ Galois representation.
 Primary: Arinkin--Gaitsgory 2015 \emph{Sel.~Math.}~21, Conj.~1.1.5;
 Frenkel 2007 \emph{Langlands Correspondence for Loop Groups}, Ch.~9
 (Hecke eigensheaves on $\mathrm{Bun}_G$); Weissauer 2005
 \emph{Lect.~Notes Math.}~1968, Thm.~B;
 Mok 2015 \emph{Mem.~AMS}~235, Thm.~5.1;
-Vol~I Theorem~\ref{thm:dl-kazhdan-C1-mukai-eigenvalue} and
-Remark~\ref{rem:dl-kazhdan-wilson-factorisation}.
+Vol~I Theorem~\texttt{chapters/theory/derived\_langlands.tex} (Vol~I) and
+Remark~\texttt{chapters/theory/derived\_langlands.tex} (Vol~I).
 \end{remark}

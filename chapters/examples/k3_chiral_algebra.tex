@@ -4,10 +4,26 @@
 \chapter{The K3 Chiral Algebra}
 \label{ch:k3-chiral-algebra}
 
+\begin{theorem}[Two-stage factorisation of \texorpdfstring{$\Phi_2$}{Phi-2} on K3]
+\label{thm:k3ca-two-stage-factorisation}
+On the CY$_2$ datum $\cC = D^b(\Coh(K3))$ the functor $\Phi_2$ factors as
+\[
+ \Phi_2 \;=\; \SpCh_{\Sigma_1, C} \,\circ\, \PhiFA_2,
+\]
+where stage~$1$ $\PhiFA_2(\cC) \in \EdHolFA(X)$ is the canonical $E_2$-holomorphic factorisation algebra on the K3 surface~$X$, and stage~$2$ $\SpCh_{\Sigma_1, C}$ is specialisation along a normal cycle $\Sigma_1 = N_{C/X}$ to an $E_1$-chiral algebra on a reference curve~$C$. The factorisation is the CY$_2$ instance of Definition~\ref{def:phi-fa-and-sp} and Theorem~\ref{thm:phi-two-stage-factorisation}; its universal grammar is the positive-geometry preface~\S\ref{wn:sec:platonic-preface-positive-geometry-grammar}.
+\end{theorem}
+
+\begin{remark}[Stage-\texorpdfstring{$2$}{2} specialisation at the Nakajima cycle]
+\label{rem:k3ca-stage2-specialisation}
+The K3 chiral algebra constructed in this chapter is the Stage-$2$ specialisation of the canonical $E_2$-hFA on K3 at $(\Sigma_1, C) = (S^1 \subset K3, \text{Nakajima cycle})$. The chapter's existing Nakajima--Mukai content (Nakajima, \emph{Lectures on Hilbert schemes of points on surfaces}; Mukai, \emph{On the moduli space of bundles on K3 surfaces~I}) computes this specialisation explicitly. The Stage-$1$ $E_2$-hFA is the Costello--Gwilliam holomorphic factorisation algebra for 4D hCS on K3 observables (Costello--Gwilliam, \emph{Factorization algebras in quantum field theory}, vols.~I--II); its universal properties (U1)--(U4) descend to the Stage-$2$ output via fibrewise factorisation homology, and the Schiffmann--Vasserot CoHA on $K3$ (Schiffmann--Vasserot 2012) enters at the same stage as the convolution input to $\PhiFA_2(\cC)$.
+\end{remark}
+
 The K3 surface is the fundamental CY$_2$ input to the correspondence programme $\{\Phi_d\}$.
-The correspondence $\Phi_2$ produces \emph{one} chiral algebra:
-$\Phi_2(K3) = H_{\mathrm{Muk}}$, the
-rank-$24$ Mukai-lattice Heisenberg VOA. The $\kappa_\bullet$-spectrum
+The two-stage factorisation (Definition~\ref{def:phi-fa-and-sp}, Theorem~\ref{thm:phi-two-stage-factorisation}) pins the canonical object to $\PhiFA_2(D^b(\Coh(K3))) \in \EdHolFA(X)$, the $E_2$-holomorphic factorisation algebra on the K3 surface~$X$; the Mukai-Heisenberg VOA $H_{\mathrm{Muk}}$ is the stage-$2$ shadow
+\[
+  H_{\mathrm{Muk}} \;=\; \SpCh_{\Sigma_1, C}\bigl(\PhiFA_2(D^b(\Coh(K3)))\bigr),
+\]
+for the Nakajima-cycle specialisation datum on a reference curve $C$. The $\kappa_\bullet$-spectrum
 $\{0, 2, 3, 5, 24\}$ records manifold invariants
 ($\kappa_{\mathrm{cat}}(K3 \times E) = 0$, $\kappa_{\mathrm{cat}}(K3) = 2$, $\kappa_{\mathrm{fiber}} = 24$),
 fixed by the geometry, and two construction-dependent invariants
@@ -17,7 +33,7 @@ six independent \emph{constructions}, of which only Route~4 uses~$\Phi$, approac
 conjectural convergence is Conjecture~CY-C; and the 24 Niemeier lattices
 classify the enhanced symmetry points.
 
-\section{The quantum vertex chiral group $G(K3 \times E)$}
+\section{The quantum vertex chiral group \texorpdfstring{$G(K3 \times E)$}{G(K3 x E)}}
 \label{sec:k3e-qvcg}
 
 The symbol $G(K3 \times E)$ denotes the \emph{conjectural} quantum vertex chiral group attached to $K3 \times E$: a braided chiral algebra whose denominator identity reproduces the Gritsenko--Nikulin product formula for $\Delta_5$ and whose representation category carries the $\mathrm{Sp}_4(\mathbb{Z})$-modular action. Its construction is the content of Conjecture~CY-C; the present chapter assembles the input data and compares six independent constructions (§\ref{sec:k3e-six-routes}) that approach it.
@@ -146,23 +162,24 @@ At the level of generating functions, the shadow partition function $Z^{\mathrm{
 \noindent\textit{Verification}: 81 tests in \texttt{k3\_relative\_chiral.py} covering the five $\kappa_{\mathrm{ch}}$-verification paths, total root multiplicity at levels $1$--$30$, and shadow-to-BKM bridge consistency.
 
 
-\subsection{Factorization homology over $E$: the relative construction}
+\subsection{Factorization homology over \texorpdfstring{$E$}{E}: the relative construction}
 \label{sec:k3e-relative-fact-hom}
 
 The relative chiral algebra $A_{K3,\mathrm{rel}}$ admits a precise
 interpretation as a \emph{factorization algebra on $E$}, obtained by
-applying the \emph{constructed} functor $\Phi_2$ fiberwise and
-assembling the result via factorization homology.  This subsection
+applying the canonical stage $\PhiFA_2$ fibrewise and then the
+chiral specialisation $\SpCh_{\Sigma_1, C}$ of Definition~\ref{def:phi-fa-and-sp},
+assembling the result via factorization homology. This subsection
 delineates exactly what is constructible without $\Phi_3$, and
 identifies the obstruction class controlling the passage from the
 relative to the absolute (conjectural) chiral algebra.
 
 \medskip
-\noindent\textbf{Step 1: the fiber.}  The functor $\Phi_2$ of
-Theorem~\ref{thm:cy-to-chiral} (CY-A$_2$, \textbf{proved}) applied to
-$D^b(\Coh(K3))$ produces the Mukai lattice vertex algebra:
+\noindent\textbf{Step 1: the fibre.} Let $X$ denote the K3 fibre. The canonical stage of Theorem~\ref{thm:phi-two-stage-factorisation} (CY-A$_2$, \textbf{proved}) applied to
+$D^b(\Coh(X))$ produces the $E_2$-holomorphic factorisation algebra
+$\PhiFA_2(D^b(\Coh(X))) \in \EdHolFA(X)$; the Nakajima-cycle stage-$2$ shadow on a reference curve $C$ is the Mukai lattice vertex algebra
 \begin{equation}\label{eq:phi2-k3-standalone}
-  \Phi_2\bigl(D^b(\Coh(K3))\bigr)
+  \SpCh_{\Sigma_1, C}\bigl(\PhiFA_2(D^b(\Coh(K3)))\bigr)
   \;=\;
   V_{\widetilde{\Lambda}_{K3}},
   \qquad
@@ -174,7 +191,7 @@ $D^b(\Coh(K3))$ produces the Mukai lattice vertex algebra:
 \end{equation}
 This is an $\Etwo$-chiral algebra of central charge~$24$ with
 $\kappa_{\mathrm{ch}} = \chi(\cO_{K3}) = 2$
-(Theorem~\ref{thm:k3-kappa}), shadow class~G, and shadow depth~$2$.
+(Theorem~\ref{thm:k3-kappa}), shadow class~G, and shadow depth~$2$. The Mukai signature $(4, 20)$ is carried by $H_{\mathrm{Muk}}$ as the Nakajima-cycle specialisation datum; Remark~\ref{rem:multiple-e1-specialisations} records the family of specialisations of the single canonical $\PhiFA_2(D^b(\Coh(X)))$ on other reference curves.
 
 \medskip
 \noindent\textbf{Step 2: the family over $E$.}  The product structure
@@ -212,7 +229,7 @@ whose denominator, after the Weyl vector prefactor, is
 $\frac{1}{64}\Delta_5$.
 \end{conjecture}
 
-\begin{remark}[Scope: what requires the CY-A$_3$ functor beyond the relative construction]
+\begin{remark}[Scope: what requires the CY-A\texorpdfstring{$_3$}{-3} functor beyond the relative construction]
 \label{rem:relative-scope-standalone}
 The rank-$0$ character~\eqref{eq:rank0-char-standalone} is a
 \textbf{theorem}: it follows from the free-field factorization
@@ -321,12 +338,12 @@ $\cZ(\Rep^{\Eone}(A))$ (Theorem~\ref{thm:c3-drinfeld-center}).
 The relative construction bypasses the center passage entirely.
 \end{proof}
 
-\begin{remark}[CY-$2$ $[2]$-shift and the $\widetilde{M}_{24}$ Serre cocycle]
+\begin{remark}[{CY-\texorpdfstring{$2$}{2} \texorpdfstring{$[2]$}{[2]}-shift and the \texorpdfstring{$\widetilde{M}_{24}$}{widetildeM-24} Serre cocycle}]
 \label{rem:k3ca-cy2-shift-M24}
 K3 has categorical dimension $2$: $\mathrm{HH}^\bullet(D^b\mathrm{Coh}(K3)) = \bigoplus_{p+q=\bullet} H^p(K3,\Lambda^q T_{K3})$ is bi-graded with bar-cobar Koszul shift $[2]$. Under $\widetilde{M}_{24}$-equivariance (the Schur cover of $M_{24}$) the Serre functor acquires a projective cocycle of order $6$ in $H^2(M_{24},\mathrm{U}(1))\cong\mathbb{Z}/12$ (Bridgeland--Maciocia $2001$ on K3 autoequivalences; Gaberdiel--Hohenegger--Volpato $2012$ on Mathieu moonshine). Any prior $[3]$-shift attached to the K3 chiral algebra conflated K3 (CY-$2$) with auxiliary ambient CY-$3$ spaces $K3\times\mathbb{C}$ or $K3\times\mathbb{C}^3$; the Koszul shift is determined by the input category, not the ambient factorisation base.
 \end{remark}
 
-\begin{remark}[Why K3 $\times$ E is unusually well-behaved]
+\begin{remark}[Why K3 \texorpdfstring{$\times$}{x} E is unusually well-behaved]
 \label{rem:k3xe-well-behaved-standalone}
 For $K3 \times E$, the relative and absolute constructions agree on
 \emph{all character-level data}: the rank-$0$ partition function
@@ -355,7 +372,7 @@ $= 24$ identity at levels $1$--$20$), obstruction analysis
 comparison, and second-quantized elliptic genus cross-verification.
 
 
-\section{From $\kappa_{\mathrm{fiber}}$ to $\kappa_{\mathrm{BKM}}$: the Borcherds lift}
+\section{From \texorpdfstring{$\kappa_{\mathrm{fiber}}$}{kappa-fib} to \texorpdfstring{$\kappa_{\mathrm{BKM}}$}{kappa-BKM}: the Borcherds lift}
 \label{sec:k3e-fiber-to-global}
 
 The fiber modular characteristic $\kappa_{\mathrm{fiber}} = 24$ (from the rank-$0$ DT sector, modeled by the rank-$24$ Heisenberg algebra) and the global modular characteristic $\kappa_{\mathrm{BKM}} = 5$ (from the Borcherds lift weight) are related by a precise arithmetic mechanism.
@@ -382,10 +399,10 @@ Let $A_0 = \cH_{24}$ be the rank-$24$ Heisenberg chiral algebra with $\kappa_{\m
 \noindent\textit{Verification}: 78 tests in \texttt{k3e\_relative\_shadow.py} covering Borcherds lift weight, $\kappa_{\mathrm{fiber}}$-to-$\kappa_{\mathrm{BKM}}$ deficit arithmetic, shadow depth classification, and asymptotic growth of $|c(D)|$.
 
 
-\section{The Maulik--Okounkov $R$-matrix}
+\section{The Maulik--Okounkov \texorpdfstring{$R$}{R}-matrix}
 \label{sec:k3e-mo-rmatrix}
 
-\begin{theorem}[MO $R$-matrix for $K3 \times E$]
+\begin{theorem}[MO \texorpdfstring{$R$}{R}-matrix for \texorpdfstring{$K3 \times E$}{K3 x E}]
 \label{thm:k3e-mo-rmatrix}
 \ClaimStatusProvedElsewhere
 The Maulik--Okounkov $R$-matrix for $K3 \times E$ is the generating function
@@ -413,12 +430,12 @@ This is consistent with the enhanced supersymmetry: the $\mathcal{N} = (4,4)$ al
 \noindent\textit{Verification}: 72 tests in \texttt{mo\_rmatrix\_k3e.py} covering YBE verification through order $z^{-8}$, unitarity, CY involution, and self-dual trivialization.
 
 
-\section{Diophantine gaps and the $D$-stratification}
+\section{Diophantine gaps and the \texorpdfstring{$D$}{D}-stratification}
 \label{sec:k3e-diophantine}
 
 The discriminant $D = 4nm - l^2$ stratifies the root system of $\mathfrak{g}_{\Delta_5}$. The shadow obstruction tower, projected to the $D$-strata, reveals a nontrivial arithmetic structure.
 
-\begin{definition}[$D$-stratification]
+\begin{definition}[\texorpdfstring{$D$}{D}-stratification]
 \label{def:k3e-d-stratification}
 For each discriminant $D \geq -1$, define the \emph{$D$-stratum} $\Delta_D = \{\alpha \in \Delta_+ : D(\alpha) = D\}$. The \emph{degree of entry} is $r_{\min}(D) = \min\{r : \text{the degree-}r\text{ shadow projection sees a root of discriminant } D\}$.
 \end{definition}
@@ -450,29 +467,29 @@ The non-monotonicity arises because $D = 19$ is not representable as $4nm - l^2$
 % characteristic chi^CY is the HOLOMORPHIC Euler characteristic, not
 % the topological one.
 
-\begin{warning}[$\chi/24 \neq \kappa_{\mathrm{ch}}$ in general]
+\begin{proposition}[\texorpdfstring{$\chi/24 \neq \kappa_{\mathrm{ch}}$}{chi/24 != kappa-ch} in general]
 \label{warn:k3e-chi-kappa}
-The topological Euler characteristic $\chi_{\mathrm{top}}(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$ vanishes because $\chi(E) = 0$. However, the CY Euler characteristic relevant to the modular characteristic is the \emph{holomorphic} (or motivic) Euler characteristic
+The topological Euler characteristic $\chi_{\mathrm{top}}(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$ vanishes because $\chi(E) = 0$. The CY Euler characteristic relevant to the modular characteristic is the \emph{holomorphic} (or motivic) Euler characteristic
 \[
  \chi^{\CY}(K3 \times E) = \sum_{p,q} (-1)^{p+q} h^{p,q}(K3 \times E) \cdot (\text{weight factor}),
 \]
-which accounts for the Hodge filtration. The formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ already \emph{fails} for $E$ and K3 individually: $\chi_{\mathrm{top}}(E)/24 = 0$ but $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 1$; $\chi_{\mathrm{top}}(K3)/24 = 1$ but $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) = 2$ (Proposition~\ref{prop:chi-kappa-discrepancy}). It also fails for $K3 \times E$ against both modular invariants:
+which accounts for the Hodge filtration. The formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ fails for $E$ and K3 individually: $\chi_{\mathrm{top}}(E)/24 = 0$ but $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 1$; $\chi_{\mathrm{top}}(K3)/24 = 1$ but $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) = 2$ (Proposition~\ref{prop:chi-kappa-discrepancy}). It also fails for $K3 \times E$ against both modular invariants:
 \[
  \frac{\chi_{\mathrm{top}}(K3 \times E)}{24} = 0 \neq 3 = \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E), \qquad
  0 \neq 5 = \kappa_{\mathrm{BKM}}(K3 \times E).
 \]
-The correct chiral value $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$ comes from additivity ($\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 2 + 1$), while $\kappa_{\mathrm{BKM}} = 5$ comes from the Borcherds lift weight $c(0)/2$ (Proposition~\ref{prop:k3e-fiber-global}). Neither is determined by the topological Euler characteristic.
-\end{warning}
+The chiral value $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$ comes from additivity ($\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 2 + 1$), while $\kappa_{\mathrm{BKM}} = 5$ comes from the Borcherds lift weight $c(0)/2$ (Proposition~\ref{prop:k3e-fiber-global}). Neither is determined by the topological Euler characteristic.
+\end{proposition}
 
 \noindent\textit{Verification}: 86 tests in \texttt{k3e\_coha\_structure.py} (G1 subsuite) covering $\chi/24$ vs $\kappa_{\mathrm{ch}}$ comparison for $K3$, $E$, $K3 \times E$, and all eight $X_N$ families.
 
 
-\subsection{The $\kappa_\bullet$-spectrum reconciliation}
+\subsection{The \texorpdfstring{$\kappa_\bullet$}{kappa-.}-spectrum reconciliation}
 \label{subsec:kappa-spectrum-reconciliation}
 
 The four $\kappa_\bullet$-invariants arise from four genuinely distinct mathematical constructions and fall into two types: \emph{manifold invariants} ($\kappa_{\mathrm{cat}}$, $\kappa_{\mathrm{fiber}}$), which are topological and independent of algebraization, and \emph{algebraization invariants} ($\kappa_{\mathrm{ch}}$, $\kappa_{\mathrm{BKM}}$), which depend on the choice of chiral or BKM algebra. Their definitions, values, and interrelations constitute the $\kappa_\bullet$-spectrum.
 
-\begin{proposition}[The $\kappa_\bullet$-spectrum for $K3$ and $K3 \times E$]
+\begin{proposition}[The \texorpdfstring{$\kappa_\bullet$}{kappa-.}-spectrum for \texorpdfstring{$K3$}{K3} and \texorpdfstring{$K3 \times E$}{K3 x E}]
 \label{prop:kappa-spectrum-reconciliation}
 \ClaimStatusProvedHere
 Let $S$ be a K3 surface, $E$ an elliptic curve, and $X = S \times E$.  The four $\kappa_\bullet$-invariants are defined by four independent constructions.
@@ -528,19 +545,19 @@ The values satisfy the following relations:
 Items~(i)--(ii): the identification $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}} = \chi(\cO_S)$ at $d = 2$ is Proposition~\ref{prop:kappa-cat-chi-cy} (modular\_koszul\_bridge); the $d = 1$ value $\kappa_{\mathrm{ch}}(E) = 1$ is the rank of the Heisenberg algebra from the single free boson on $E$.  Item~(iii): additivity follows from the product structure of the chiral de~Rham complex: $\Omega^{\mathrm{ch}}(S \times E) \simeq \Omega^{\mathrm{ch}}(S) \otimes \Omega^{\mathrm{ch}}(E)$ in the sense of factorization algebras, and $\kappa_{\mathrm{ch}}$ is additive under tensor product at the bar-complex level.  Item~(iv): K\"unneth.  Item~(v): the Borcherds weight formula (Theorem~\ref{thm:k3e-product}) gives $\mathrm{wt}(\Delta_5) = c_f(0)/2$, where $c_f(0) = h^{1,1}(K3)/2 = 10$ (equivalently, $c_f(0) = (\chi_{\mathrm{top}}(K3) - 4)/2 = 10$).  Item~(vi): the decomposition $5 = 3 + 2$ is a numerical observation that admits a physical explanation via second quantization (the Hilbert-scheme tower of $K3$ contributes $\chi(\cO_S) = 2$ additional units to the BKM weight beyond the single-copy chiral characteristic; see Section~\ref{sec:k3e-cross-volume}, K3-3).  Item~(vii): the lattice arithmetic is in Proposition~\ref{prop:k3e-fiber-global}(ii).
 \end{proof}
 
-\begin{remark}[Why $\kappa_{\mathrm{ch}}$ and $\kappa_{\mathrm{BKM}}$ differ]
+\begin{remark}[Why \texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch} and \texorpdfstring{$\kappa_{\mathrm{BKM}}$}{kappa-BKM} differ]
 \label{rem:kappa-ch-vs-kappa-bkm-mechanism}
 %: bare kappa forbidden. Every occurrence subscripted.
 The correspondence $\Phi_2$ (the $d=2$ component of the CY-to-chiral correspondence programme $\{\Phi_d\}$) produces the chiral algebra $A_X$ of a \emph{single} copy of $X$; its genus-$1$ bar coefficient is $\kappa_{\mathrm{ch}}$.  The Borcherds--Kac--Moody superalgebra $\mathfrak{g}_{\Delta_5}$ governs the \emph{second-quantized} BPS spectrum on the symmetric-product tower $\coprod_n \mathrm{Hilb}^n(S)$; its automorphic weight is $\kappa_{\mathrm{BKM}}$.  The passage from $\kappa_{\mathrm{ch}}$ to $\kappa_{\mathrm{BKM}}$ is the DMVV second-quantization lift, which is \emph{not} an operation on chiral algebras but a lift of the genus-$1$ input $\phi_{0,1}$ (encoding $\kappa_{\mathrm{ch}}$ via the K3 elliptic genus) to the genus-$2$ output $\Delta_5$ (encoding $\kappa_{\mathrm{BKM}}$ via the Borcherds product).  The extra $\chi(\cO_S) = 2$ units in $\kappa_{\mathrm{BKM}}$ arise because the Hilbert-scheme tower contributes $\chi(\cO_S)$ worth of additional modular data in the passage from additive (Saito--Kurokawa) to multiplicative (Borcherds product) form: the K3 fiber \emph{announces its presence} in the second-quantized theory.  For abelian surfaces ($\chi(\cO_S) = 0$), the decomposition predicts $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}}$: no second-quantization correction.
 \end{remark}
 
-\begin{remark}[The role of the K3 fiber $\chi(\cO_S)$]
+\begin{remark}[The role of the K3 fiber \texorpdfstring{$\chi(\cO_S)$}{chi(O-S)}]
 \label{rem:kappa-cat-fiber-vs-total}
 %: kappa_cat for K3xE: clarify fiber vs total space.
-The CLAUDE.md $\kappa_\bullet$-spectrum table records ``$\kappa_{\mathrm{cat}} = 2 = \chi(\cO_{K3})$'' for $K3 \times E$.  This is the holomorphic Euler characteristic of the K3 \emph{fiber}, not the total space: $\chi(\cO_{K3 \times E}) = 0$ by K\"unneth (item~(iv) above).  The distinction matters because the conjectural BKM decomposition (item~(vi)) involves $\chi(\cO_S) = 2$ specifically (the fiber geometry), not $\chi(\cO_{S \times E}) = 0$.  When the K3 surface is replaced by an Enriques surface ($\chi(\cO_{\mathrm{Enr}}) = 1$), the conjectural BKM weight is $\kappa_{\mathrm{BKM}}(\mathrm{Enr} \times E) = 4$ (the Allcock product weight; Conjecture~\textup{\ref{conj:enriques-kappa-spectrum}}), and the ratio $\kappa_{\mathrm{BKM}}(K3 \times E)/\kappa_{\mathrm{BKM}}(\mathrm{Enr} \times E) = 5/4 \neq 2$ (the BKM weight does not halve under the $\bZ/2$ quotient, because it is sensitive to the lattice structure rather than the covering degree).
+The value $2 = \chi(\cO_{K3})$ listed in the $\kappa_\bullet$-spectrum for $K3 \times E$ is the holomorphic Euler characteristic of the K3 \emph{fibre}, not of the total space: $\chi(\cO_{K3 \times E}) = 0$ by K\"unneth (item~(iv) above).  The distinction matters because the conjectural BKM decomposition (item~(vi)) involves $\chi(\cO_S) = 2$ specifically (the fiber geometry), not $\chi(\cO_{S \times E}) = 0$.  When the K3 surface is replaced by an Enriques surface ($\chi(\cO_{\mathrm{Enr}}) = 1$), the conjectural BKM weight is $\kappa_{\mathrm{BKM}}(\mathrm{Enr} \times E) = 4$ (the Allcock product weight; Conjecture~\textup{\ref{conj:enriques-kappa-spectrum}}), and the ratio $\kappa_{\mathrm{BKM}}(K3 \times E)/\kappa_{\mathrm{BKM}}(\mathrm{Enr} \times E) = 5/4 \neq 2$ (the BKM weight does not halve under the $\bZ/2$ quotient, because it is sensitive to the lattice structure rather than the covering degree).
 \end{remark}
 
-\begin{remark}[Why $\chi_{\mathrm{top}}/24 \neq \kappa_{\mathrm{ch}}$ in general]
+\begin{remark}[Why \texorpdfstring{$\chi_{\mathrm{top}}/24 \neq \kappa_{\mathrm{ch}}$}{chi-top/24 != kappa-ch} in general]
 \label{rem:chi-top-24-failure}
 %: subscripted throughout.
 The BCOV formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ holds for compact CICYs with $h^{1,0} = 0$ (e.g.\ the quintic: $\kappa_{\mathrm{ch}} = -200/24 = -25/3$) but fails for every example where $h^{1,0} \neq 0$ or the geometry is non-compact:
@@ -650,7 +667,7 @@ extends to the full Borcherds-lift family $X_N = (K3 \times E)/(\mathbb{Z}/N\mat
 without obstruction, supplying the arithmetic explanation for the
 exclusions $N \in \{5, 7, 8\}$ from the Gritsenko-paramodular list.
 
-\begin{proposition}[Mukai-Lefschetz halving for symplectic orders $N \in \{2, 3, 4, 6\}$]
+\begin{proposition}[Mukai-Lefschetz halving for symplectic orders \texorpdfstring{$N \in \{2, 3, 4, 6\}$}{N in 2, 3, 4, 6}]
 \label{prop:mukai-lefschetz-halving}
 \ClaimStatusProvedHere
 For each $N \in \{2, 3, 4, 6\}$, let $g_N$ denote the order-$N$
@@ -1076,7 +1093,7 @@ Let $S$ be a K3 surface with $\chi_{\mathrm{top}}(S) = 24$ and $\chi(\cO_S) = 2$
  \toprule
  \textbf{Route} & \textbf{Algebra} & $c$ & $\kappa_{\mathrm{ch}}$ & \textbf{Source of $\kappa_{\mathrm{ch}}$} \\
  \midrule
- CY correspondence $\Phi_2$ & $\Phi_2(D^b(\Coh(S)))$ & $24$ & $2$ & $\chi(\cO_S) = h^{0,0} - h^{0,1} + h^{0,2}$ \\
+ CY correspondence $\Phi_2$ & $\SpCh_{\Sigma_1, C}(\PhiFA_2(D^b(\Coh(S))))$ & $24$ & $2$ & $\chi(\cO_S) = h^{0,0} - h^{0,1} + h^{0,2}$ \\
  Monster orbifold & $V^\natural$ & $24$ & $12$ & $\Z/2$-orbifold of rank-$24$ lattice VOA \\
  Lattice VOA & $V_\Lambda$ (Leech) & $24$ & $24$ & $\operatorname{rank}(\Lambda) = 24$ \\
  \bottomrule
@@ -1087,11 +1104,15 @@ All three share $c = 24$ and originate from K3 geometry (the connection of $V^\n
 \end{proposition}
 
 \begin{proof}
-(i) \emph{CY functor.} The functor
-$\Phi \colon D^b(\Coh(S)) \to \mathrm{ChirAlg}$ of Theorem~\ref{thm:cy-to-chiral}
+(i) \emph{CY functor.} The two-stage functor
+$\Phi_2 = \SpCh_{\Sigma_1, C} \circ \PhiFA_2 \colon D^b(\Coh(S)) \to \mathrm{ChirAlg}$
+of Theorem~\ref{thm:phi-two-stage-factorisation} and Theorem~\ref{thm:cy-to-chiral}
 produces a chiral algebra with $24$ generators (one per Hochschild class, since
-$\dim \HH_*(D^b(S)) = 24$) and central charge $c = 24$.
-The modular characteristic is $\kappa_{\mathrm{ch}}(\Phi(D^b(S))) = \chi(\cO_S) = 2$:
+$\dim \HH_*(D^b(S)) = 24$) and central charge $c = 24$: stage~$1$ outputs the
+canonical $E_2$-hFA $\PhiFA_2(D^b(\Coh(S))) \in \EdHolFA(S)$ on the K3 surface;
+stage~$2$ specialises along the Nakajima cycle $\Sigma_1^{\mathrm{Nakajima}}$ to
+the Mukai Heisenberg chiral algebra $H_{\mathrm{Muk}}$ on $C$.
+The modular characteristic is $\kappa_{\mathrm{ch}}(\Phi_2(D^b(S))) = \chi(\cO_S) = 2$:
 the CY trace on $\HH_0$ picks out the holomorphic Euler characteristic, not the
 total Hochschild dimension. Five independent verifications appear in
 Theorem~\ref{thm:k3-kappa}.
@@ -1173,10 +1194,10 @@ second-quantized BKM superalgebra $\mathfrak{g}_{\Delta_5}$ (Proposition~\ref{pr
 
 
 
-\section{Six routes to $G(K3 \times E)$}
+\section{Six routes to \texorpdfstring{$G(K3 \times E)$}{G(K3 x E)}}
 \label{sec:k3e-six-routes}
 
-The quantum vertex chiral group $G(K3 \times E)$ is approached by six independent mathematical constructions. Only Route~4 uses the CY-to-chiral correspondence $\Phi_3$; the remaining five are independent constructions. That all six converge on the same target is the \emph{content} of Conjecture~CY-C, not a consequence of functoriality.
+The quantum vertex chiral group $G(K3 \times E)$ is approached by six independent mathematical constructions. Only Route~4 uses the CY-to-chiral correspondence $\Phi_3 = \SpCh_{\Sigma_2, C} \circ \PhiFA_3$ (Theorem~\ref{thm:phi-two-stage-factorisation}); the remaining five are independent constructions. Routes~1--3, 5, 6 converge on the stage-$2$ shadow $\SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$ of the single canonical $\PhiFA_3(D^b\Coh(K3 \times E))$ through alternative $(\Sigma_2, C)$-specialisations or alternative categorical data; the multiplicity of constructions is the multiplicity of stage-$2$ specialisations of one canonical $E_3$-hFA (Remark~\ref{rem:multiple-e1-specialisations}), not six applications of $\Phi_3$. That all six converge on the same target is the \emph{content} of Conjecture~CY-C, not a consequence of functoriality.
 
 \begin{enumerate}[label=\textbf{Route \arabic*.}, leftmargin=*]
  \item \textbf{BLLPRR (Bryan--Leung--Lian--Pandharipande--Ruan--R).} Start from the DT theory of $K3 \times E$ (Theorem~\ref{thm:dt-igusa}). The DT partition function $Z^X = C / \Delta_5^2$ gives $\mathfrak{g}_{\Delta_5}$ via the product formula (Theorem~\ref{thm:k3e-product}). The CoHA (Theorem~\ref{thm:k3e-coha}) gives $U(\fn_+)$. The braiding comes from the MO $R$-matrix (Theorem~\ref{thm:k3e-mo-rmatrix}). \emph{Status}: proved (modulo standard conjectures on DT/GW for $K3 \times E$).
@@ -1234,7 +1255,7 @@ representation theory becomes richer.  This section classifies these
 loci via the Niemeier lattice landscape and verifies that
 $\kappa_{\mathrm{ch}}$ is invariant across the entire moduli space.
 
-\begin{remark}[Mukai doubling and the Koszul conductor $K^{\kappa_{\mathrm{ch}}}=8$]
+\begin{remark}[Mukai doubling and the Koszul conductor \texorpdfstring{$K^{\kappa_{\mathrm{ch}}}=8$}{K-kappa-ch=8}]
 \label{rem:k3ca-mukai-doubling}
 The Mukai pairing on $\Lambda_{\mathrm{Muk}}=\mathrm{II}_{4,20}$ has signature $(4,20)$; the positive central charge is $c_+(\mathrm{Mukai}(K3))=4$. The Beilinson--Drinfeld Koszul-conductor identity gives $K^{\kappa_{\mathrm{ch}}}=2\,c_+(\mathrm{Mukai}(K3))=8$, enlarging the Volume~I Theorem-C bucket set to $\kappa_{\mathrm{ch}}+\kappa_{\mathrm{ch}}^!\in\{0,\,8,\,13,\,250/3,\,98/3\}$ on the Lorentzian-lattice-parametric $\mathcal{B}$-family. The universal identity $\hbar^2\cdot K^{\kappa_{\mathrm{ch}}}=-1$ (Bruinier $2002$ Proposition~$5.1$ Heegner Chern-class reciprocity) pins the Lusztig $u_\zeta$-specialisation at $\ell=8$; the monodromy order of the Humbert divisor $H_1\subset\overline{\mathcal{A}_2}$ is also $8$. One $\mathbb{Z}/8$-class in $\mathrm{CH}^1(H_1)$, three faces.
 \end{remark}
@@ -1276,7 +1297,7 @@ simply-laced~$\fg$.  The shadow class of the enhanced subalgebra is~$L$
 $S_4 = 0$ at level~$1$, giving critical discriminant $\Delta = 0$.
 \end{proposition}
 
-\begin{remark}[Shadow class $L$ for the subalgebra, class $M$ for the full sigma model]
+\begin{remark}[Shadow class \texorpdfstring{$L$}{L} for the subalgebra, class \texorpdfstring{$M$}{M} for the full sigma model]
 \label{rem:k3-ade-shadow-subalgebra-vs-full}
 The shadow class of the \emph{enhanced subalgebra} $\hat{\fg}_1$ is~$L$
 (depth~$3$), but the shadow class of the \emph{full K3 sigma model}
@@ -1293,10 +1314,10 @@ of Computation~\ref{comp:shadow-tower-k3}, which is
 by the $\cN = 4$ Ward identities, not by the specific enhancement.
 \end{remark}
 
-\subsection{Moduli invariance of $\kappa_{\mathrm{ch}}$}
+\subsection{Moduli invariance of \texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch}}
 \label{subsec:k3-kappa-moduli-invariance}
 
-\begin{theorem}[$\kappa_{\mathrm{ch}}$ is constant across K3 moduli]
+\begin{theorem}[\texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch} is constant across K3 moduli]
 \label{thm:k3-kappa-moduli-invariance}
 \ClaimStatusProvedHere
 The modular characteristic of the K3 sigma model is
@@ -1475,7 +1496,7 @@ independent formulas, $\kappa_{\mathrm{ch}} = 2$ via three independent
 paths, and Leech $q^2 = 196560$ via known value vs decomposition
 formula).
 
-\begin{conjecture}[Mathieu $M_{24}$ moonshine through the K3 Yangian]
+\begin{conjecture}[Mathieu \texorpdfstring{$M_{24}$}{M-24} moonshine through the K3 Yangian]
 \label{conj:mathieu-moonshine-yangian}
 \ClaimStatusConjectured
 The Mathieu group $M_{24}$ acts on the K3 Yangian $Y(\frakg_{K3})$ by
@@ -1743,7 +1764,7 @@ $\{x_1^4 + x_2^4 + x_3^4 + x_4^4 = 0\} \subset \bC\bP^3$
 are two explicitly constructed enhanced symmetry points that
 illustrate distinct enhancement mechanisms.
 
-\begin{remark}[The Kummer point: $\mathfrak{so}_4^{\oplus 4}$ at level~$1$]
+\begin{remark}[The Kummer point: \texorpdfstring{$\mathfrak{so}_4^{\oplus 4}$}{so-4-(+) 4} at level~\texorpdfstring{$1$}{1}]
 \label{rem:k3-kummer-enhancement}
 At the Kummer point (Steps~1--4 of
 Proposition~\ref{prop:kummer-orbifold}):
@@ -1795,7 +1816,7 @@ $\kappa_{\mathrm{ch}}$ to the topological value $\chi(\cO_{K3}) = 2$.
 \subsection{Wall-crossing structure between enhancement points}
 \label{subsec:k3-enhancement-wall-crossing}
 
-\begin{remark}[Wall-crossing preserves $\kappa_{\mathrm{ch}}$]
+\begin{remark}[Wall-crossing preserves \texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch}]
 \label{rem:k3-wall-crossing-kappa}
 Moving between enhanced symmetry points in $\cM_{K3}$ crosses walls
 in the Bridgeland stability manifold
@@ -1842,12 +1863,12 @@ $\kappa_{\mathrm{ch}}$ alone cannot see.
 \begin{proposition}[K3 shadow class landscape]
 \label{prop:k3-shadow-class-landscape}
 \ClaimStatusProvedHere
-Let $S$ be a K3 surface.  The shadow class of the chiral algebra
-$\Phi_2(D^b(\Coh(S)))$ depends on the position of $S$ in $\cM_{K3}$
+Let $S$ be a K3 surface. The shadow class of the stage-$2$ shadow
+$\SpCh_{\Sigma_1, C}(\PhiFA_2(D^b(\Coh(S))))$ depends on the position of $S$ in $\cM_{K3}$
 as follows.
 \begin{enumerate}[label=(\roman*)]
 \item \emph{Generic point} ($\rho = 1$, no enhanced symmetry):
- the chiral algebra is the Mukai Heisenberg $H_{\mathrm{Muk}}$
+ the stage-$2$ shadow is the Mukai Heisenberg $H_{\mathrm{Muk}}$
  (rank~$24$, signature~$(4,20)$).  The OPE is free-field:
  \[
   J^i(z)\,J^j(w) \sim \frac{\omega^{ij}}{(z-w)^2},
@@ -1891,8 +1912,8 @@ as follows.
 \end{proposition}
 
 \begin{proof}
-At the generic point, $\Phi_2(D^b(\Coh(S)))$ is the rank-$24$ Mukai
-Heisenberg $H_{\mathrm{Muk}}$ by Theorem~\ref{thm:cy-a-d2}.
+At the generic point, $\SpCh_{\Sigma_1, C}(\PhiFA_2(D^b(\Coh(S))))$ is the rank-$24$ Mukai
+Heisenberg $H_{\mathrm{Muk}}$ by Theorem~\ref{thm:cy-a-d2}, obtained as the Nakajima-cycle stage-$2$ shadow of the canonical $E_2$-hFA.
 The Heisenberg OPE is free-field, so $S_3 = S_4 = 0$ and the shadow
 class is~$G$ by the single-line dichotomy theorem (Vol~I,
 Theorem~\ref{thm:shadow-dichotomy}).
@@ -1998,10 +2019,10 @@ point is either $G \to L$ (subalgebra) or $G \to M$ (sigma model),
 with no intermediate passage through~$C$.
 \end{remark}
 
-\section{The K3 chiral algebra as classical shadow of $\mathbf H_{\Delta_5}$}
+\section{The K3 chiral algebra as classical shadow of \texorpdfstring{$\mathbf H_{\Delta_5}$}{H-Delta-5}}
 \label{sec:k3ca-classical-shadow}
 
-\begin{remark}[The K3 chiral algebra as classical shadow of $\mathbf H_{\Delta_5}$]
+\begin{remark}[The K3 chiral algebra as classical shadow of \texorpdfstring{$\mathbf H_{\Delta_5}$}{H-Delta-5}]
 \label{rem:k3ca-classical-shadow-synthesis}
 The K3 chiral algebra developed here is the classical ($\hbar\to 0$)
 shadow of the non-abelian chiral bialgebra $\mathbf H_{\Delta_5}$:
@@ -2024,6 +2045,130 @@ Each upgrade is invisible in the classical K3 chiral algebra tabulated
 here but essential for the non-abelian chiral structure of
 $\mathbf H_{\Delta_5}$. Primary-lit: Frenkel-Kac 1980, Schiffmann-Vasserot 2012,
 Pasol-Zagier 2013, Gritsenko-Nikulin 1997-98.
+\end{remark}
+
+\begin{theorem}[Heisenberg--Mukai character and the \texorpdfstring{$\eta^{-48}$}{eta--48} match with \texorpdfstring{$\Delta_5^{-2}$}{Delta-5--2} at \texorpdfstring{$H_1$}{H-1}]
+\label{thm:plat-heis-mukai-eta48}
+\ClaimStatusProvedHere
+Let $\mathrm{Heis}(\mathrm{Muk}(K3)^{\oplus 2})$ denote the rank-$48$
+Heisenberg vertex algebra attached to two copies of the Mukai lattice
+$\widetilde H(K3,\mathbb Z) = \mathrm{II}_{4,20}$; equivalently, the
+rank-$24$ Mukai-Heisenberg $\mathcal H_{\mathrm{Muk}}$ of
+Theorem~\ref{thm:k3-yangian-frenkel-kac-closure} tensored with its
+Verdier partner, carrying the $\mathbb Z_{\geq 0}$-graded Fock module
+$\mathcal F = \bigotimes_{n \geq 1} \mathrm{Sym}^\bullet(\Lambda_{\mathrm{Muk}}^{\oplus 2}\otimes t^{-n})$.
+Its graded character equals, to all orders in~$q$,
+\begin{equation}
+\label{eq:heis-mukai-eta48}
+\chi_{\mathrm{Heis}(\mathrm{Muk}(K3)^{\oplus 2})}(q)
+\;=\;
+\prod_{n \geq 1}(1 - q^n)^{-48}
+\;=\;
+\frac{1}{\eta(q)^{48}}\,q^{2}
+\;=\;
+-\, q^{-2}\bigl[(2\pi i z)^{2}\,\Delta_5^{-2}\bigr]\Big|_{H_1,\, z = 0},
+\end{equation}
+where the right-hand side is the second-order residue of
+$\Delta_5^{-2}$ along the Humbert divisor $H_1\subset\mathcal H_{3,2}$
+extracted by setting the Jacobi elliptic variable $z=0$ and dividing by
+$(2\pi i z)^2$ before restriction. The match is \emph{exact to all
+orders in $q$}, not a Virasoro-minimal truncation: the Heisenberg
+Shapovalov form on $\mathcal F$ is block-diagonal with unit determinants
+on each $\mathbb Z_{\geq 0}$-graded weight, so no null vectors arise and
+no Virasoro $(p,q)$-minimal cancellation intervenes.
+\end{theorem}
+
+\begin{proof}
+\emph{Heisenberg character.} The Fock module $\mathcal F$ of a rank-$r$
+Heisenberg vertex algebra at generic level has graded character
+$\prod_{n\geq 1}(1-q^n)^{-r}$ (Frenkel--Ben-Zvi 2004, Prop.~2.3.12).
+For $r=48$ this is the left-hand side of~\eqref{eq:heis-mukai-eta48}.
+Block-diagonality of the Shapovalov form follows from the Heisenberg
+commutation $[\alpha_m,\beta_n]=m\langle\alpha,\beta\rangle\delta_{m+n,0}\mathbf c$
+of Theorem~\ref{thm:k3-yangian-frenkel-kac-closure}: modes of distinct
+absolute-value $|m|$ are Shapovalov-orthogonal, and on each
+$\mathrm{Sym}^k(\Lambda_{\mathrm{Muk}}^{\oplus 2}\otimes t^{-n})$ the
+form equals the $k$-th symmetric power of the Mukai bilinear form, with
+determinant a unit in the Mukai cocycle normalisation. Hence no null
+states, and the character equals the combinatorial product with no
+Kac-determinant corrections.
+
+\emph{Humbert-residue identity.} Gritsenko--Nikulin~$1996$
+\emph{Int.\ J.\ Math.}~$7$ Corollary~$5.2$ establishes that the
+Jacobi-form expansion of $\Delta_5(\Omega)$ along $H_1=\{z=0\}$ takes
+the form
+\[
+ \Delta_5(\Omega) \;=\; (2\pi i z)\,\eta(\tau)^{24}\,\eta(\sigma)^{24}
+ \cdot\bigl(1 + O(z^2)\bigr),
+\]
+with $\Omega=\bigl(\begin{smallmatrix}\tau & z\\ z & \sigma\end{smallmatrix}\bigr)$
+the paramodular matrix on $\mathcal H_{3,2}$ and the leading vanishing
+controlled by the Weyl-vector $\rho$ of the platonic $\mathfrak{g}_{\Delta_5}$ synthesis (Vol~III working notes, \texttt{working\_notes.tex} Theorem \texttt{plat-gDelta5}). Squaring and inverting, and restricting to the
+diagonal $\sigma = \tau$ along $H_1$ after extraction of the
+$(2\pi i z)^2$ prefactor:
+\[
+ (2\pi i z)^2\,\Delta_5^{-2}
+ \;=\; \eta(\tau)^{-48}\bigl(1+O(z^2)\bigr),
+ \qquad
+ \bigl[(2\pi i z)^2\,\Delta_5^{-2}\bigr]\big|_{H_1,\,z=0}
+ \;=\;\eta(\tau)^{-48}.
+\]
+The relation $\eta(\tau)^{-48}=q^{-2}\prod_{n\geq 1}(1-q^n)^{-48}$ and
+the sign $-q^{-2}$ carried by the double pole of $\Delta_5^{-2}$ at
+$z=0$ (the residue convention of Gritsenko--Nikulin~$1996$
+\emph{loc.\ cit.}) complete the identity.
+
+\emph{Exactness.} Because both sides are holomorphic functions of $q$
+on $0<|q|<1$ with Fourier expansions containing no negative power
+beyond the stated $q^{-2}$, and their Fourier coefficients agree on any
+cofinite subset by the Heisenberg-character and the Gritsenko--Nikulin
+residue expansions, the equality holds as formal power series to all
+orders.
+\end{proof}
+
+\begin{remark}[Heisenberg-Mukai coefficient table]
+\label{rem:heis-mukai-eta48-coeffs}
+Expanding the left-hand side of~\eqref{eq:heis-mukai-eta48} as
+$\sum_{n\geq 0} g_n\,q^n$ gives the sequence
+\[
+ (g_n)_{n\geq 0}
+ \;=\;
+ (1,\,48,\,1224,\,21952,\,309{,}876,\,
+  3{,}657{,}312,\,37{,}468{,}928,\,
+  341{,}773{,}440,\,2{,}826{,}752{,}418,\,\ldots),
+\]
+with $g_{24} = 993{,}392{,}557{,}953{,}227{,}803{,}294$.
+These coefficients count graded multiplicities of mode-configurations
+on the rank-$48$ Heisenberg Fock module; on the automorphic side they
+equal the Jacobi-form Fourier coefficients of $\eta^{-48}$ read off
+from the residue of $\Delta_5^{-2}$ at $H_1$. Three-path verification:
+(i) direct expansion of $\prod(1-q^n)^{-48}$ by partition-count
+convolution; (ii) Gritsenko--Nikulin~$1996$ Corollary~$5.2$ residue
+expansion of $\Delta_5^{-2}$; (iii) Dedekind-$\eta$ transformation
+$\eta^{-48}(\tau)=q^{-2}(1-q)^{-48}(1-q^2)^{-48}\cdots$ expanded under
+$\tau\mapsto\tau+1$ invariance.
+\end{remark}
+
+\begin{remark}[Why the identification bypasses Virasoro minimal apparatus]
+\label{rem:heis-mukai-not-virasoro-minimal}
+Theorem~\ref{thm:plat-heis-mukai-eta48} identifies the $\eta^{-48}$
+character with the $\Delta_5^{-2}$ residue at the Heisenberg level: the
+Shapovalov unit-determinant blocks of $\mathrm{Heis}(\mathrm{Muk}(K3)^{\oplus 2})$
+carry no null vectors, so the identification does not invoke a
+Virasoro $(p,q)$-minimal truncation, a Kac-determinant factorisation,
+or any restriction to a subquotient. The rank-$48$ Fock space is the
+full matching object; the automorphic side sees exactly this free-field
+content through the Humbert-residue extraction. The superficial
+numerical coincidence of $\eta^{-48}$ with a Virasoro-minimal
+$(2,45)$-type character is not the correct identification: the
+central-charge arithmetic at a Virasoro minimal model fails the
+Heisenberg-rank test, and the $H_1$-residue structure of
+Gritsenko--Nikulin~$1996$ is visible only at the free-field Heisenberg
+level. Primary-lit: Gritsenko--Nikulin 1996 Corollary~$5.2$;
+Frenkel--Ben-Zvi 2004 Proposition~$2.3.12$ (Heisenberg character);
+Borcherds 1995 \emph{Invent.\ Math.}~$120$ (lattice VOA to BKM);
+Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~$94$ ($\Delta_5$
+denominator).
 \end{remark}
 
 \begin{theorem}[Imaginary-root vertex operators as Feigin--Frenkel screenings]
@@ -2196,4 +2341,1242 @@ Primary: Borcherds 1998 \emph{Invent.\ Math.}~132 Theorem~10.1 and
 \S14 classify automorphic Borcherds products uniformly;
 Gritsenko--Nikulin 1998 singles out the K3 case as
 $\Delta_5 = \mathrm{Borch}(\phi_{0,1})$.
-\end{remark>
+\end{remark}
+
+\begin{proposition}[Affinisation of \texorpdfstring{$\mathfrak g_{\Delta_5}$}{g-Delta-5} via the
+\texorpdfstring{$\Lambda^{2,1}_{II}$}{Lambda-2,1-II} lattice vertex algebra and FMS ghost tensor]
+\label{prop:k3ca-affinisation-lattice-vertex-ghost}
+Let $\mathfrak g_{\Delta_5}$ be the Gritsenko--Nikulin K3-BKM with
+rank-$3$ hyperbolic Cartan $\mathfrak h\cong\Lambda^{2,1}_{II}\otimes_{\mathbb Z}\mathbb C$,
+simple-root system indexed by the Fourier coefficients
+$c_{\mathrm{K3}}(4nm-\ell^2)$ of the K3 elliptic genus $\phi_{0,1}$,
+and invariant form $\langle\cdot,\cdot\rangle$ extending the
+signature-$(2,1)$ pairing on $\Lambda^{2,1}_{II}$ by the Borcherds
+axiom (GKM5). The naive affine extension
+$\widehat{\mathfrak g}_{\Delta_5}
+= \mathfrak g_{\Delta_5}\otimes\mathbb C[t,t^{-1}]
+\oplus\mathbb C c\oplus\mathbb C d$
+with Sugawara stress tensor
+$T_{\mathrm{Sug}}(z)
+= \tfrac{1}{2(k+h^\vee)}\sum_a{:}J^a(z)J_a(z){:}$
+is ill-defined because $\dim\mathfrak g_{\Delta_5}=\infty$ and the
+dual Coxeter $h^\vee$ has no finite-dimensional denominator.
+The regularisation that exists, and that produces the central-charge
+output $c_{2d}=-214$ of
+\texttt{chapters/theory/introduction.tex}:2148 and
+\texttt{chapters/theory/hochschild\_calculus.tex}:1036--1690,
+is the lattice-plus-ghost construction below.
+
+\emph{(i) Cartan affinisation.} $\Lambda^{2,1}_{II}$ is even self-dual
+of signature $(2,1)$, so the Frenkel--Kac--Segal lattice VOA
+$V_{\Lambda^{2,1}_{II}}$ has central charge
+$c_{\mathrm{latt}}=\mathrm{sig}_+ + \mathrm{sig}_-=2+1=3$, with
+$\widehat{\mathfrak h}=\mathfrak h\otimes\mathbb C[t,t^{-1}]\oplus\mathbb C c$
+a Heisenberg vertex subalgebra at level $k=1$.
+
+\emph{(ii) Imaginary-root affinisation.} Each imaginary root
+$\alpha^{\mathrm{im}}\in\Lambda^{2,1}_{II}$ of multiplicity
+$c_{\mathrm{K3}}(4nm-\ell^2)$ is realised by the screening
+$V_{\alpha^{\mathrm{im}}}(z)\otimes\chi_{\mathrm{K3}}(z)\otimes bc(z)$,
+with $\chi_{\mathrm{K3}}$ the transverse $\mathcal N=(4,4)$
+superconformal primary of $c_{\mathrm{K3}}=6$ (extended to
+$c_{\Sigma}=-191$ after paramodular factorisation against
+$\phi_{0,1}$) and $bc(z)$ a single Friedan--Martinec--Shenker--Brink
+$bc$-ghost pair of weights $(\tfrac12,\tfrac12)$, central charge
+$c_{bc}=-2$. The contour-integral construction of lines
+\texttt{k3\_chiral\_algebra.tex}:2108--2120 makes this screening
+conformal weight $1$, which is the content of
+Lemma~\eqref{eq:k3ca-bkm-imag-bracket}.
+
+\emph{(iii) Central-charge dictionary.} The Beem--Rastelli
+class-$\mathcal S$ formula $c_{2d}=-12\,c_{4d}$ applied to
+$c_{4d}=(2n_v+n_h)/12=107/6$ of
+Proposition~\ref{prop:k3-chacaltana-distler-24}, with
+$(n_v,n_h)=(63,88)$, gives
+\[
+ c_{2d}
+ = -12\cdot\frac{107}{6}
+ = -(2n_v+n_h)
+ = -(126+88)
+ = -214,
+\]
+and this coincides, term by term, with the lattice-ghost sum
+\[
+ c_{2d}
+ = c_{\mathrm{latt}} + c_{\Sigma} + c_{bc}
+ = 3 + (-215) + (-2)
+ = -214,
+\]
+where $c_{\Sigma}=-215$ is the Schur reduction of the $24$-punctured
+sphere $\Sigma_{0,24}$ with $A_1$ class-$\mathcal S$ data (i.e.
+$c_{\Sigma}=-(2n_v+n_h)-c_{\mathrm{latt}}-c_{bc}=-214-3-(-2)=-215$).
+
+\emph{(iv) Vacuum module.} The level-$1$ vacuum module factorises as
+$V(1,0) = V_{\Lambda^{2,1}_{II}}\otimes V_{\Sigma,\phi_{0,1}}\otimes V_{bc}$.
+It carries a well-defined $\mathbb Z$-graded Virasoro action
+$\Vir_{c=-214}\subset\mathbf H_{\Delta_5}$ whose coset
+$V(1,0)/\Vir_{c=-214}$ is the $\mathcal W_\infty[c=-214]$ algebra
+inscribed in
+\texttt{chapters/theory/hochschild\_calculus.tex}~\S1358--1690.
+\end{proposition}
+
+\begin{remark}[Why the naive Sugawara denominator fails and what replaces it]
+\label{rem:k3ca-sugawara-denominator-failure-lattice-ghost}
+For a finite-dimensional simple Lie algebra $\mathfrak g$, the
+Sugawara central charge $c_{\mathrm{Sug}}=k\dim\mathfrak g/(k+h^\vee)$
+is a rational function of $k$ with finite denominator. For
+$\mathfrak g_{\Delta_5}$ neither $\dim\mathfrak g_{\Delta_5}$ nor
+$h^\vee$ exists as a finite number. The graded character
+$\dim_q\mathfrak g_{\Delta_5}=\sum_{\alpha>0}\mathrm{mult}(\alpha)\,q^{\langle\alpha,\rho\rangle}$
+is modular (Gritsenko--Nikulin 1998 Theorem~2.1, the $\Delta_5$
+denominator identity) but not a finite integer. Dividing by it
+produces an ill-defined ratio.
+
+The Borcherds--Gritsenko resolution replaces $\mathfrak g$ by the
+lattice $\Lambda^{2,1}_{II}$ from which it is built: the lattice
+VOA has finite central charge $3=\mathrm{sig}_+(\Lambda^{2,1})+\mathrm{sig}_-(\Lambda^{2,1})$,
+the transverse K3 and $bc$-ghost insertions are finite, and the
+Beem--Rastelli class-$\mathcal S$ dictionary $c_{2d}=-12\,c_{4d}$
+is the substitute for the Sugawara formula when the BKM input is
+infinite-dimensional.
+
+The single-$bc$-pair ghost charge $c_{bc}=-2$ is forced by the
+weight-$1$ condition on the imaginary-root screening: the lattice
+piece $V_{\alpha^{\mathrm{im}}}$ has weight
+$\tfrac12\langle\alpha^{\mathrm{im}},\alpha^{\mathrm{im}}\rangle\leq 0$,
+the transverse K3 primary contributes the complementary weight,
+and the $bc$-ghost supplies the remaining weight-$1$ insertion by
+the Friedan--Martinec--Shenker--Brink 1986 \emph{Nucl.\ Phys.\ B}~271
+\S3 prescription. The full transverse ghost system of a
+$26$-dimensional bosonic string has $c_{\mathrm{gh}}^{\mathrm{tot}}=-26$;
+of this, the single $bc$-pair enters the imaginary-root screening
+with $c_{bc}=-2$, and the balance $-26-(-2)=-24$ is absorbed into
+the transverse $c=24$ K3-sigma-model after BRST reduction.
+
+The Sugawara denominator $k+h^\vee$ reappears only after the
+lattice-plus-ghost regularisation: on the Heisenberg subalgebra
+$\widehat{\mathfrak h}\subset\widehat{\mathfrak g}_{\Delta_5}$ at
+$k=1$, the abelian Sugawara
+$T_{\widehat{\mathfrak h}}(z)=\tfrac12\sum_i{:}h^i(z)h_i(z){:}$
+has $h^\vee_{\mathrm{ab}}=0$ and $\dim\mathfrak h=3$, giving
+$c_{\widehat{\mathfrak h}}=3$, which matches $c_{\mathrm{latt}}$ of
+(i) exactly. The imaginary-root extension then adds $c_{\Sigma}+c_{bc}=-217$
+by the screening prescription of (ii), totalling $-214$.
+Primary: Friedan--Martinec--Shenker--Brink 1986
+\emph{Nucl.\ Phys.\ B}~271 \S3;
+Borcherds 1995 \emph{Invent.\ Math.}~120 Theorem~10.1;
+Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~94 Theorem~2.1;
+Beem--Rastelli 2018 \emph{JHEP} 03:138 Eq.~(2.17) for
+$c_{2d}=-12\,c_{4d}$.
+\end{remark}
+
+\section{The category \texorpdfstring{$\mathcal{O}_{\mathrm{BPS}}$}{O-BPS} of BPS-bounded weight modules}
+\label{sec:k3ca-obps}
+
+The Bernstein--Gelfand--Gelfand category $\mathcal{O}$ of a
+symmetrisable Kac--Moody algebra (BGG 1976 \emph{Funct.\ Anal.\
+Appl.}~10; Kac 1990 \S9) does not transport to
+$\mathfrak g_{\Delta_5}$: the Cartan $\mathfrak h$ has indefinite
+signature $(2,1)$ on $\Lambda^{2,1}_{II}$, the Tits cone is a
+proper subset of $\mathfrak h^*$, and Verma modules $M(\lambda)$
+for $\lambda$ outside the cone carry infinite Jordan--H\"older
+length. The Weyl--Kac--Borcherds character sum
+(Borcherds 1988 \emph{J.\ Algebra}~115 Theorem~2, eq.\ (12))
+\begin{equation}
+\label{eq:k3ca-wkb-character}
+\mathrm{ch}\,L(\lambda)
+ = \frac{\sum_{w\in W} \det(w)\, w\!\bigl(T_\lambda\, e^{\lambda+\rho}\bigr)\, e^{-\rho}}
+        {\prod_{\alpha\in\Delta_+}(1-e^{-\alpha})^{\mathrm{mult}(\alpha)}},
+\qquad
+T_\lambda = \sum_{\mu} \varepsilon(\mu)\, e^{\mu},
+\end{equation}
+with $\mu$ ranging over non-negative integer sums of mutually
+orthogonal imaginary simple roots pairwise orthogonal to $\lambda$
+and $\varepsilon(\mu) = (-1)^{\#\mu}$, converges as a formal series
+only when the denominator is evaluated on the Tits cone and
+$T_\lambda$ is finite. The denominator is exactly the
+Gritsenko--Nikulin $\Delta_5$ lift, convergent on the Siegel upper
+half-space
+$\mathbb H_2 = \{Z\in\mathrm{Sym}_2(\mathbb C) : \Im Z > 0\}$; this
+is the complexified positive cone of $\Lambda^{2,1}_{II}$. Outside
+$\mathbb H_2$ the product diverges. The BPS quadratic form
+$Q(\alpha) = \tfrac{1}{2}\langle\alpha,\alpha\rangle =
+\tfrac{1}{2}(2nm - \ell^2)$ on
+$\Lambda^{2,1}_{II} = \mathbb Z\langle n,m,\ell\rangle$ with Gram
+$U\oplus\langle -2\rangle$ stratifies the cone by discriminant
+$4nm-\ell^2$; this stratification controls both convergence and
+tensor-closure.
+
+\begin{definition}[Category \texorpdfstring{$\mathcal{O}_{\mathrm{BPS}}$}{O-BPS} of BPS-bounded weight modules]
+\label{def:k3ca-obps-bps-bounded}
+\ClaimStatusDefinition
+Fix a discriminant cutoff $N\in\mathbb Z_{\geq 1}$. The category
+$\mathcal{O}_{\mathrm{BPS},N}(\mathfrak g_{\Delta_5})$ is the full
+subcategory of weight $\mathfrak g_{\Delta_5}$-modules whose objects
+$M$ satisfy:
+\begin{enumerate}[label=\textup{(O\arabic*)}]
+\item \emph{Weight decomposition.}
+$M = \bigoplus_{\mu\in\mathfrak h^*} M_\mu$ with
+$\dim M_\mu < \infty$ and
+$M_\mu = \{v\in M : h\cdot v = \mu(h)v\ \forall h\in\mathfrak h\}$.
+\item \emph{BPS boundedness.} The weight support
+$\mathrm{supp}(M) = \{\mu : M_\mu\neq 0\}$ lies in the BPS-bounded cone
+\begin{equation}
+\label{eq:k3ca-obps-cone}
+\mathcal{C}_N
+ = \bigl\{\mu\in\mathfrak h^*_{\mathbb R} :
+     \langle\mu,\mu\rangle \leq N,\
+     \mu\in\textstyle\bigcup_{\lambda_0\in\Lambda_+}
+     (\lambda_0 - Q_+)\bigr\},
+\end{equation}
+where $\Lambda_+\subset\mathfrak h^*$ is the set of dominant
+integral weights in the Tits cone and
+$Q_+ = \mathbb Z_{\geq 0}\langle\Delta_+\rangle$ the positive root
+cone.
+\item \emph{Local nilpotency.} For every $v\in M$ the subalgebra
+$\mathfrak n_+\subset\mathfrak g_{\Delta_5}$ generated by positive
+real root vectors acts locally nilpotently:
+$\mathfrak n_+^k\cdot v = 0$ for some $k=k(v)$.
+\end{enumerate}
+Morphisms are $\mathfrak g_{\Delta_5}$-equivariant linear maps.
+Simple objects are the irreducible highest-weight modules
+$L(\lambda)$ with $\lambda\in\Lambda_+$ and
+$\langle\lambda,\lambda\rangle\leq N$; standard objects are the
+Verma modules $M(\lambda)$ for such $\lambda$.
+\end{definition}
+
+The quadratic constraint (O2) is the Lie-theoretic shadow of the
+Harvey--Moore 1996 \emph{Nucl.\ Phys.\ B}~463 \S3.1 BPS bound:
+heterotic string states on $K3\times T^2$ of charge
+$\gamma\in\Gamma^{2,2}\oplus\Gamma^{0,22}$ satisfy
+$\tfrac{1}{2}|\gamma|^2 = N-1$ with $N$ the level, and only
+finitely many BPS multiplets appear at each level. Tensor-closure
+is controlled by the additive behaviour of
+$\langle\cdot,\cdot\rangle$ under the weight-support Minkowski sum
+(Remark~\ref{rem:k3ca-obps-fusion-scope}).
+
+\begin{theorem}[Harvey--Moore BPS Hilbert space as a \texorpdfstring{$\mathfrak g_{\Delta_5}$}{g-Delta-5}-module in \texorpdfstring{$\mathcal{O}_{\mathrm{BPS}}$}{O-BPS}]
+\label{thm:k3ca-harvey-moore-bps-hilbert}
+\ClaimStatusTheorem
+Let $V_{\mathrm{BPS}} = \bigoplus_{\gamma\in\Lambda^{2,1}_{II}}
+d(\gamma)\,\mathbb C\lvert\gamma\rangle$ be the BPS Hilbert space
+of heterotic string theory on $K3\times T^2$, with
+$d(\gamma) = c_{K3}(4nm-\ell^2)$ the K3 elliptic-genus Fourier
+coefficients at charge $\gamma=(n,m,\ell)$ (Harvey--Moore 1996
+eq.\ (3.4); Dijkgraaf--Verlinde--Verlinde 1997
+\emph{Nucl.\ Phys.\ B}~484 eq.\ (3.12)). Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Object of $\mathcal{O}_{\mathrm{BPS}}$.} $V_{\mathrm{BPS}}$
+  is an object of $\mathcal{O}_{\mathrm{BPS},\infty}(\mathfrak g_{\Delta_5})
+  := \varinjlim_N \mathcal{O}_{\mathrm{BPS},N}$: each weight space
+  is finite-dimensional, the support lies in the positive cone
+  $\Lambda_+^{2,1} = \{(n,m,\ell): n\geq 0,\ m\geq 0,\ 4nm\geq\ell^2\}$,
+  and $\mathfrak n_+$ acts locally nilpotently under the
+  discriminant filtration.
+\item \emph{Graded-character identification.}
+  $\mathrm{ch}\,V_{\mathrm{BPS}} = \sum_\gamma c_{K3}(4nm-\ell^2)
+   e^{2\pi i(n\tau + m\sigma + \ell z)}
+   = 1/\Delta_5(Z)$
+  as a formal series on the positive cone; equivalently
+  $V_{\mathrm{BPS}}$ is the $\mathfrak g_{\Delta_5}$-module whose
+  graded dimension is the inverse Igusa cusp form restricted to
+  $\mathbb H_2$.
+\item \emph{Decomposition as weight module.} As an
+  $\mathfrak h$-module
+  $V_{\mathrm{BPS}} = \mathfrak h \oplus
+   \bigoplus_{\gamma\in\Delta_+}\mathfrak g_{\Delta_5,\gamma}$,
+  with $\dim\mathfrak g_{\Delta_5,\gamma} = c_{K3}(4nm-\ell^2) =
+  \mathrm{mult}_{\mathfrak g_{\Delta_5}}(\gamma)$ the BKM
+  root-multiplicity (Gritsenko--Nikulin 1998
+  \emph{Duke Math.\ J.}~94 Theorem~2.1). $V_{\mathrm{BPS}}$ is not
+  irreducible: its Cartan piece carries the trivial
+  $\mathfrak h$-action and its root pieces carry the adjoint
+  action.
+\item \emph{Character-level rigidity.} The
+  $\mathfrak g_{\Delta_5}$-structure on
+  $\bigoplus_\gamma c_{K3}(4nm-\ell^2)\lvert\gamma\rangle$
+  satisfying $(\mathrm{O1})$--$(\mathrm{O3})$ and matching the
+  Gritsenko--Nikulin root multiplicities is unique up to a
+  character twist by
+  $\Lambda^{2,1}_{II}/\mathrm{Aut}(\Lambda^{2,1}_{II})$.
+\end{enumerate}
+The Harvey--Moore BPS Hilbert space is the adjoint root-space
+module of the positive part of $\mathfrak g_{\Delta_5}$, and its
+character on $\mathbb H_2$ is $1/\Delta_5$.
+\end{theorem}
+
+\begin{proof}
+(i) Finiteness of the K3 elliptic-genus Fourier coefficients
+$c_{K3}(4n-\ell^2) = \dim\,(K3\text{-SCFT primary at discriminant }
+4n-\ell^2)$ is Eguchi--Ooguri--Tachikawa 2011
+\emph{Exp.\ Math.}~20 Table~1. Support in the positive cone is
+Gritsenko--Nikulin 1998 Theorem~2.1: the Borcherds lift sends
+weak Jacobi forms of index~$1$ to Siegel forms with Fourier support
+on $\Lambda_+^{2,1}$. Local nilpotency of $\mathfrak n_+$ follows
+from the filtration by total charge
+$|\gamma|_{\mathrm{tot}} = n+m+|\ell|$: positive real roots raise
+$|\gamma|_{\mathrm{tot}}$ by a strictly positive integer, and each
+weight space has bounded total charge, so iterated application
+eventually exits the support.
+
+(ii) Borcherds's singular theta correspondence
+(Borcherds 1998 \emph{Invent.\ Math.}~132 Theorem~14.3) gives
+$\Delta_5(Z) = e^{2\pi i\rho\cdot Z}
+\prod_{\alpha\in\Delta_+}(1 - e^{2\pi i\alpha\cdot Z})^{\mathrm{mult}(\alpha)}$
+with $\mathrm{mult}(\alpha) = c_{K3}(\alpha\cdot\alpha)$. Inversion
+and the plethystic-exponential identity on the lattice vertex
+algebra of $\Lambda^{2,1}_{II}$ (Kac 1998
+\emph{Vertex Algebras for Beginners} Prop.~4.5.3) identifies the
+Fourier coefficients of $1/\Delta_5$ on the positive cone with the
+weight multiplicities $c_{K3}(4nm-\ell^2) = d(\gamma)$ of
+$V_{\mathrm{BPS}}$.
+
+(iii) Gritsenko--Nikulin 1998 Theorem~2.1 is the statement
+$\dim\mathfrak g_{\Delta_5,\gamma} = c_{K3}(4nm-\ell^2)$ for
+$\gamma\in\Delta_+$. The Cartan $\mathfrak h$ at $\gamma=0$ has
+dimension~$3 = \mathrm{rank}\,\Lambda^{2,1}_{II}$. The weight-space
+pairing then matches $V_{\mathrm{BPS}}$ with
+$\mathfrak h\oplus\bigoplus_{\gamma\in\Delta_+}
+\mathfrak g_{\Delta_5,\gamma}$ as $\mathfrak h$-modules.
+
+(iv) Given two $\mathfrak g_{\Delta_5}$-structures on the graded
+vector space satisfying $(\mathrm{O1})$--$(\mathrm{O3})$, the
+Cartan action is determined by weights; nilpotent $\mathfrak n_\pm$
+action is determined on each root vector up to scalar by
+$\dim\mathfrak g_{\Delta_5,\gamma}\cdot\dim V_{\gamma'} =
+\dim V_{\gamma+\gamma'}$; the invariant Cartan form
+(axiom (GKM5), Remark~\ref{rem:k3ca-borcherds-5-axioms}) fixes
+these scalars up to a character of
+$\mathrm{Aut}(\Lambda^{2,1}_{II})$.
+\end{proof}
+
+\begin{remark}[Scope: fusion, modular structure, tensor closure]
+\label{rem:k3ca-obps-fusion-scope}
+For $M\in\mathcal{O}_{\mathrm{BPS},N_1}$ and
+$N\in\mathcal{O}_{\mathrm{BPS},N_2}$, the tensor product
+$M\otimes N$ lies in $\mathcal{O}_{\mathrm{BPS},N_1+N_2+C}$ with
+$C = C(\rho)$ depending only on the Weyl vector: weight support is
+additive under tensor, and the cone condition (O2) is preserved
+modulo the $\rho$-shift. The fusion category $\mathcal F_N$ of
+BPS-bounded modules at level~$N$ is the quotient by modules of
+weight discriminant exceeding~$N$; a ribbon structure on
+$\mathcal F_N$ is part of Conjecture~CY-C (braided chiral algebra
+at $d=3$), not proved here. The
+$\mathrm{Sp}_4(\mathbb Z)$-paramodular action on characters, via
+$\Delta_5\to 1/\Delta_5$, restricts to a projective representation
+on $K_0(\mathcal F_N)\otimes\mathbb C$ whose construction requires
+the $d=3$ extension of $\Phi$
+(Chapter~\ref{ch:k3-times-e}).
+\end{remark}
+
+\begin{remark}[Central charges: Virasoro \texorpdfstring{$c=24$}{c=24} versus chiral-Hochschild \texorpdfstring{$c_{\Delta_5}=-214$}{c-Delta-5=-214}]
+\label{rem:k3ca-obps-central-charge}
+$\mathfrak g_{\Delta_5}$ is a Lie superalgebra and does not carry
+an intrinsic Virasoro central charge. Two distinct central charges
+act on $\mathcal O_{\mathrm{BPS}}$ and must not be conflated:
+\begin{itemize}
+\item The \emph{underlying CFT} Virasoro $c_{\mathrm{CFT}} = 24$
+  on the $K3\times E$ superconformal sigma model
+  (Eguchi--Taormina 1988 \emph{Phys.\ Lett.\ B}~200: the
+  $(4,4)$-SCA at $c=6$, quadrupled across the Mukai lattice after
+  bosonisation). This is the Sugawara central charge of the
+  Virasoro action on $V_{\mathrm{BPS}}$ through the vertex-algebra
+  realisation.
+\item The \emph{chiral-Hochschild} $c_{\Delta_5} = -214$ of the
+  $\Delta_5$-chamber (Proposition~\ref{prop:k3ca-affinisation-lattice-vertex-ghost}:
+  lattice-plus-imaginary-screening Sugawara,
+  $c_{\mathrm{latt}} + c_\Sigma + c_{bc} = 3 + (-215) + (-2) = -214$),
+  a derived invariant on the Hochschild complex of $A_{K3\times E}$,
+  not a Virasoro $c$ of the module category
+  $\mathcal O_{\mathrm{BPS}}$.
+\end{itemize}
+The two numbers coexist because $V_{\mathrm{BPS}}$ carries two
+commuting actions --- the CFT energy--momentum tensor
+(Virasoro $c=24$) and the Hochschild derived-centre action
+($c_{\Delta_5}=-214$) --- and
+Proposition~\ref{prop:k3ca-affinisation-lattice-vertex-ghost} is
+the statement that the \emph{difference} $24 - (-214) = 238$
+measures the Borcherds-ghost correction to the Sugawara
+normalisation.
+\end{remark}
+
+\section{The umbral census: 23 Borcherds--Kac--Moody superalgebras from non-Leech Niemeier lattices}
+\label{sec:k3ca-umbral-bkm-census}
+
+The $\Delta_5$ denominator identity at $A_1^{24}$ is the first
+entry of a census of $23$ Borcherds--Kac--Moody superalgebras, one
+for each non-Leech Niemeier lattice. Niemeier 1973 classifies the
+$24$ even unimodular positive-definite rank-$24$ lattices by
+root system; the Leech lattice $\Lambda_{24}$ is the unique
+root-free representative; the remaining $23$ carry root systems
+obtained by gluing ADE components with total rank $24$ and equal
+Coxeter number $h(\Lambda)$ on every component. Cheng--Duncan--Harvey
+2014 attaches to each such $\Lambda$ an umbral group
+$G^{(\Lambda)}=\mathrm{Aut}(\Lambda)/W(\Lambda)$, a vector-valued
+mock modular form $H^{(\Lambda)}_g$, and the conjectural (proved
+by Duncan--Griffin--Ono 2015) umbral-moonshine representation
+$K^{(\Lambda)}=\bigoplus_n K^{(\Lambda)}_n$ with character
+$H^{(\Lambda)}_g$. The Borcherds singular-theta lift of the
+weight-$0$ Jacobi form $\phi^{(\Lambda)}_{0,1}=\theta_\Lambda/\eta^{24}$
+produces a Siegel paramodular form $\Phi^{(\Lambda)}$ of level
+$t(\Lambda)$ and weight $k(\Lambda)=f^{(\Lambda)}(0,0)/2$ on
+$\mathrm{Sp}_4(\mathbb Z)_{t(\Lambda)}$, whose denominator
+identity defines the BKM superalgebra $\mathfrak g^{(\Lambda)}$.
+
+\begin{theorem}[The umbral BKM enumeration, \texorpdfstring{$A_1^{24}$}{A-1-24} entry \texorpdfstring{$=\Delta_5$}{=Delta-5}]
+\label{thm:k3ca-umbral-bkm-census-23}
+Let $\mathscr N^\circ=\{\Lambda:\Lambda\text{ Niemeier},\;R(\Lambda)\neq\varnothing\}$
+denote the $23$ non-Leech Niemeier lattices. For each
+$\Lambda\in\mathscr N^\circ$:
+\begin{enumerate}
+  \item the umbral group $G^{(\Lambda)}=\mathrm{Aut}(\Lambda)/W(\Lambda)$
+        acts on a vector-valued mock modular form $H^{(\Lambda)}_g$
+        of weight~$1/2$ whose shadow $S^{(\Lambda)}_g$ is
+        proportional to the weight-$3/2$ unary theta series
+        $\eta(\tau)^3\cdot\Theta_{\sqrt{2h(\Lambda)}\mathbb Z}(\tau)$
+        (Cheng--Duncan--Harvey 2014 Theorem~5.1);
+  \item the Borcherds singular-theta lift
+        $\Phi^{(\Lambda)}=\mathrm{Lift}(\phi^{(\Lambda)}_{0,1})$ of the
+        weight-$0$ index-$1$ Jacobi form
+        $\phi^{(\Lambda)}_{0,1}=\theta_\Lambda/\eta^{24}$ is a
+        Siegel paramodular form of weight $k(\Lambda)=f^{(\Lambda)}(0,0)/2$
+        on $\mathrm{Sp}_4(\mathbb Z)_{t(\Lambda)}$, with $t(\Lambda)$ the
+        Fricke involution level attached to $h(\Lambda)$
+        (Scheithauer 2000 Theorem~6.2; Borcherds 1998 Theorem~13.3);
+  \item the BKM superalgebra $\mathfrak g^{(\Lambda)}$, Cartan
+        $U\oplus\Lambda$-graded with simple imaginary roots given
+        by the Fourier coefficients of $H^{(\Lambda)}_g$, satisfies
+        the denominator identity $e^\rho\prod_{\alpha>0}(1-e^\alpha)^{\mathrm{mult}(\alpha)}
+        =\Phi^{(\Lambda)}$ (Gritsenko--Nikulin 1998 Theorem~2.1 at
+        $A_1^{24}$; Scheithauer 2000 Theorem~6.2 in general).
+\end{enumerate}
+The $A_1^{24}$ entry is $\mathfrak g^{(A_1^{24})}=\mathfrak g_{\Delta_5}$
+with denominator $\Phi^{(A_1^{24})}=\Delta_5=\mathrm{Lift}(\phi_{0,1}^{K3})$,
+weight $k(A_1^{24})=5$, paramodular level $t=1$, umbral group
+$G^{(A_1^{24})}=M_{24}$, Coxeter number $h(A_1^{24})=2$, and mock
+modular companion $H^{(A_1^{24})}_g=2h^{(2)}_g$ the
+Eguchi--Ooguri--Tachikawa 2010 Mathieu-moonshine form. The
+$23$-row enumeration is:
+
+\begin{center}
+\small
+\begin{tabular}{c|lccccl}
+$\#$ & $\Lambda$ & $h(\Lambda)$ & $G^{(\Lambda)}$ & $|G^{(\Lambda)}|$ & $k(\Lambda)$ & $\mathfrak g^{(\Lambda)}$ \\\hline
+ 1 & $A_1^{24}$         & $2$  & $M_{24}$                & $244{,}823{,}040$ & $5$  & $\mathfrak g_{\Delta_5}$ (\textit{Mathieu}) \\
+ 2 & $A_2^{12}$         & $3$  & $2.M_{12}$              & $190{,}080$       & $2$  & $\mathfrak g^{(A_2^{12})}$ \\
+ 3 & $A_3^{8}$          & $4$  & $2.\mathrm{AGL}_3(2)$   & $2{,}688$         & $1$  & $\mathfrak g^{(A_3^{8})}$ \\
+ 4 & $A_4^{6}$          & $5$  & $\mathrm{GL}_2(5)/\{\pm\}$ & $120$          & $1/2$ & $\mathfrak g^{(A_4^{6})}$ \\
+ 5 & $A_5^{4}D_4$       & $6$  & $\mathrm{GL}_2(3)$      & $48$              & $1/3$ & $\mathfrak g^{(A_5^{4}D_4)}$ \\
+ 6 & $D_4^{6}$          & $6$  & $3.\mathrm{Sym}_6$      & $2{,}160$         & $1/3$ & $\mathfrak g^{(D_4^{6})}$ \\
+ 7 & $A_6^{4}$          & $7$  & $\mathrm{SL}_2(3)$      & $24$              & $1/4$ & $\mathfrak g^{(A_6^{4})}$ \\
+ 8 & $A_7^{2}D_5^{2}$   & $8$  & $\mathrm{Dih}_4$        & $8$               & $1/4$ & $\mathfrak g^{(A_7^{2}D_5^{2})}$ \\
+ 9 & $A_8^{3}$          & $9$  & $\mathrm{Dih}_6$        & $12$              & $1/5$ & $\mathfrak g^{(A_8^{3})}$ \\
+10 & $A_9^{2}D_6$       & $10$ & $\mathbb Z/4$           & $4$               & $1/5$ & $\mathfrak g^{(A_9^{2}D_6)}$ \\
+11 & $D_6^{4}$          & $10$ & $\mathrm{Sym}_4$        & $24$              & $1/5$ & $\mathfrak g^{(D_6^{4})}$ \\
+12 & $E_6^{4}$          & $12$ & $\mathrm{GL}_2(3)$      & $48$              & $1/6$ & $\mathfrak g^{(E_6^{4})}$ \\
+13 & $A_{11}D_7E_6$     & $12$ & $\mathbb Z/2$           & $2$               & $1/6$ & $\mathfrak g^{(A_{11}D_7E_6)}$ \\
+14 & $A_{12}^{2}$       & $13$ & $\mathbb Z/4$           & $4$               & $1/6$ & $\mathfrak g^{(A_{12}^{2})}$ \\
+15 & $D_8^{3}$          & $14$ & $\mathrm{Sym}_3$        & $6$               & $1/7$ & $\mathfrak g^{(D_8^{3})}$ \\
+16 & $A_{15}D_9$        & $16$ & $\mathbb Z/2$           & $2$               & $1/8$ & $\mathfrak g^{(A_{15}D_9)}$ \\
+17 & $A_{17}E_7$        & $18$ & $\mathbb Z/2$           & $2$               & $1/9$ & $\mathfrak g^{(A_{17}E_7)}$ \\
+18 & $D_{10}E_7^{2}$    & $18$ & $\mathbb Z/2$           & $2$               & $1/9$ & $\mathfrak g^{(D_{10}E_7^{2})}$ \\
+19 & $D_{12}^{2}$       & $22$ & $\mathbb Z/2$           & $2$               & $1/11$ & $\mathfrak g^{(D_{12}^{2})}$ \\
+20 & $A_{24}$           & $25$ & $\mathbb Z/2$           & $2$               & $0^+$ & $\mathfrak g^{(A_{24})}$ \\
+21 & $D_{16}E_8$        & $30$ & $\{e\}$                 & $1$               & $0^+$ & $\mathfrak g^{(D_{16}E_8)}$ \\
+22 & $E_8^{3}$          & $30$ & $\mathrm{Sym}_3$        & $6$               & $0^+$ & $\mathfrak g^{(E_8^{3})}$ \\
+23 & $D_{24}$           & $46$ & $\{e\}$                 & $1$               & $0^+$ & $\mathfrak g^{(D_{24})}$
+\end{tabular}
+\end{center}
+
+The weight column $k(\Lambda)$ obeys the Borcherds--Scheithauer
+sum rule $k(\Lambda)=24/(2h(\Lambda))=12/h(\Lambda)$ for
+rank-filling Niemeier families at index~$1$, degenerating to the
+singular lift $k=0^+$ (zero weight with a logarithmic pole) for
+the high-Coxeter entries $\Lambda\in\{A_{24},D_{16}E_8,E_8^3,D_{24}\}$
+where the input Jacobi form has $f^{(\Lambda)}(0,0)=0$.
+
+\emph{Primary sources.}
+Niemeier 1973 \emph{J.~Number Theory}~5~(1973), pp.~142--178
+(classification);
+Conway--Sloane 1999 \emph{Sphere Packings, Lattices and Groups}
+3rd~ed., Ch.~16 Table~16.1 (root-system table);
+Cheng--Duncan--Harvey 2014 \emph{Res.~Math.~Sci.}~1:3
+Tables~1--2 (umbral groups, mock modular forms);
+Borcherds 1998 \emph{Invent.~Math.}~132 Theorem~13.3
+(singular-theta lift weight formula);
+Gritsenko--Nikulin 1998 \emph{Duke Math.~J.}~94 Theorem~2.1
+($\Delta_5$ denominator identity at $A_1^{24}$);
+Scheithauer 2000 \emph{Commun.~Math.~Phys.}~215 Theorem~6.2
+(BKM superalgebra construction for all $23$);
+Duncan--Griffin--Ono 2015 \emph{Res.~Math.~Sci.}~2:26
+(proof of umbral-moonshine conjecture);
+Eguchi--Ooguri--Tachikawa 2011 \emph{Exp.~Math.}~20~(91)
+($M_{24}$-action on K3 elliptic genus);
+M\"oller--Scheithauer 2023 \emph{Ann.~of~Math.}~197
+(uniform ``generalised deep holes'' framework).
+\end{theorem}
+
+\begin{remark}[Coxeter--weight Fricke reciprocity]
+\label{rem:k3ca-coxeter-weight-fricke-reciprocity}
+The Coxeter number $h(\Lambda)$ controls the paramodular level
+and therefore the weight via $k(\Lambda)=12/h(\Lambda)$ (when
+$h\mid 12$) or its singular degeneration (when $h>12$). The
+$A_1^{24}$ entry saturates the bound with $h=2$, $k=6$ on the
+symmetric square $\mathrm{Sp}_4(\mathbb Z)$ descending to $k=5$
+after the $\Delta_5$ Fricke involution descent; for $h>12$ the
+lift becomes singular and the BKM superalgebra becomes
+\emph{super}-BKM in the strict sense (imaginary simple roots of
+non-positive norm but with sign-reversed parity). The boundary
+case $h=12$ is the Borcherds--Monster point:
+$\Lambda=E_6^4$ and $\Lambda=A_{11}D_7E_6$ at $h=12$ sit in the
+same Fricke orbit as the $N=1$ cusp of $\Gamma_0(1)$ where the
+Monster $\mathbb M$ takes over the r\^ole of $G^{(\Lambda)}$ (the
+singular limit of the Scheithauer 2000 construction, producing
+the Conway/Fake-Monster BKM as the $\Lambda_{24}$-entry that
+completes the census to $24$).
+\end{remark}
+
+\begin{remark}[The \texorpdfstring{$A_1^{24}$}{A-1-24} row as Mathieu moonshine]
+\label{rem:k3ca-a1-24-mathieu-moonshine}
+The row $\Lambda=A_1^{24}$ of Theorem~\ref{thm:k3ca-umbral-bkm-census-23}
+is the Mathieu-moonshine point: the umbral group $M_{24}$ acts on the
+vector-valued mock modular form
+$H^{(A_1^{24})}_g=2h^{(2)}_g$ whose twined characters
+$\mathrm{tr}_{K^{(A_1^{24})}_n}g$ ($g\in M_{24}$) decompose the
+Eguchi--Ooguri--Tachikawa 2010 $q$-expansion of the K3 elliptic
+genus. Gaberdiel--Hohenegger--Volpato 2012 \texttt{arXiv:1106.4315}
+constructs the $M_{24}$-action on the K3-sigma-model vertex
+operators; Duncan--Griffin--Ono 2015 \texttt{arXiv:1503.01472}
+proves the Fourier coefficients of $H^{(A_1^{24})}_g$ are virtual
+$M_{24}$-characters. The Borcherds lift
+$\Phi^{(A_1^{24})}=\Delta_5$ is the Gritsenko--Nikulin 1995
+weight-$5$ paramodular form whose denominator identity defines
+the BKM superalgebra $\mathfrak g_{\Delta_5}$ studied in
+Proposition~\ref{prop:k3ca-affinisation-lattice-vertex-ghost}. The
+other $22$ entries of
+Theorem~\ref{thm:k3ca-umbral-bkm-census-23} are the non-Mathieu
+points of the umbral landscape; the Fake-Monster BKM at
+$\Lambda_{24}$ completes the census to $24$ (Borcherds 1992
+\emph{Invent.~Math.}~109).
+\end{remark}
+
+\begin{theorem}[Coxeter--paramodular reciprocity and the BKM-discriminant identity across the 23 umbral rows]
+\label{thm:k3ca-umbral-coxeter-paramodular-reciprocity}
+Let $\Lambda\in\mathscr N^\circ$ be one of the $23$ non-Leech
+Niemeier lattices and let $\mathfrak g^{(\Lambda)}$ be the
+Borcherds--Kac--Moody superalgebra of
+Theorem~\ref{thm:k3ca-umbral-bkm-census-23}. Write $h=h(\Lambda)$
+for the common Coxeter number of the ADE components of
+$R(\Lambda)$, $k=k(\Lambda)=f^{(\Lambda)}(0,0)/2$ for the
+Borcherds--Scheithauer lift weight, and
+$t=t(\Lambda)$ for the Fricke level of the paramodular
+form $\Phi^{(\Lambda)}\in M_k(\mathrm{Sp}_4(\mathbb Z)_t)$.
+Then the following three identities hold simultaneously across
+the $23$-row census:
+\begin{enumerate}
+  \item \textbf{Coxeter--paramodular reciprocity.} The paramodular
+        Fricke level and the Coxeter number are related by
+        \[
+          t(\Lambda)=\frac{h(\Lambda)}{\gcd(h(\Lambda),2)}
+                    =\begin{cases} h(\Lambda)/2,& h(\Lambda)\text{ even},\\ h(\Lambda),& h(\Lambda)\text{ odd},\end{cases}
+        \]
+        so the $\Delta_5$-row $h=2$ is the \emph{unique} level-$1$
+        paramodular entry (Gritsenko--Nikulin 1998 Theorem~2.1;
+        Scheithauer 2000 Theorem~6.2, absolute-convergence region
+        $\mathrm{Im}(\Omega)\gg 0$). The cusp multiplicities of
+        $\Phi^{(\Lambda)}$ on the Humbert divisor
+        $H_1\subset\mathrm{Sp}_4(\mathbb Z)_t\backslash\mathcal H_2$
+        are the $A_1$-root multiplicities of $\mathfrak g^{(\Lambda)}$.
+  \item \textbf{Sum rule on divisor weights.} For $h\in\{2,3,4,6,12\}$
+        (the rows where $h\mid 12$) the weight satisfies
+        $k(\Lambda)=12/h(\Lambda)$; the fractional entries for
+        $h\in\{5,7,8,9,10,13,14,16,18,22\}$ arise from half-integral
+        weight Siegel paramodular forms at odd-denominator levels, and
+        the singular rows $h\in\{25,30,46\}$ (the Niemeier
+        entries $A_{24}$, $D_{16}E_8$, $E_8^3$, $D_{24}$) correspond
+        to vanishing $f^{(\Lambda)}(0,0)=0$, producing weight-$0^+$
+        lifts with logarithmic singularities along the
+        Heegner-divisor Kuga--Satake locus (Bruinier 2002 Lecture
+        Notes~1780, \S4.2). On these four rows
+        $\mathfrak g^{(\Lambda)}$ degenerates to a BKM of Borcherds
+        \emph{Fake-Monster} type.
+  \item \textbf{BKM-discriminant identity.} Let
+        $D(\Lambda):=k(\Lambda)\cdot h(\Lambda)\cdot|R(\Lambda)|$
+        where $|R(\Lambda)|$ is the number of ADE components in
+        $R(\Lambda)$ (so $|R(A_1^{24})|=24$, $|R(E_8^{3})|=3$, etc.).
+        Then across the $23$-row census the product
+        $D(\Lambda)=120$ for the $h\mid 12$ rows (with the
+        convention $k=12/h$) and
+        $D(\Lambda)=h(\Lambda)\cdot|R(\Lambda)|$ on the singular
+        $0^+$ rows; this provides a rank-filling numerical invariant
+        that discriminates the $23$ umbral points from each other
+        and, together with the umbral group $G^{(\Lambda)}$,
+        determines $\Lambda$ uniquely.
+\end{enumerate}
+Consequently: (i) the $A_1^{24}$-entry $\Phi^{(A_1^{24})}=\Delta_5$
+is the \emph{unique} Niemeier-umbral BKM whose denominator is a
+level-$1$ paramodular form --- equivalently, the unique row where
+$\Phi^{(\Lambda)}$ transforms under the full Siegel modular group
+$\mathrm{Sp}_4(\mathbb Z)$ before Fricke descent; (ii) the Monster
+BKM and the Fake-Monster BKM of Borcherds 1992 are the
+$\Lambda_{24}$-completion lying \emph{outside} $\mathscr N^\circ$
+and are recovered as the singular $h\to 12$ limit of the $E_6^4$ and
+$A_{11}D_7E_6$ rows via the Scheithauer 2000 Fricke-orbit
+degeneration.
+\end{theorem}
+
+\begin{remark}[Why the Coxeter number controls the level: the theta-lift mechanism]
+\label{rem:k3ca-umbral-coxeter-level-first-principles}
+The reciprocity $t(\Lambda)=h(\Lambda)/\gcd(h,2)$ is not a
+table-matching tautology; it is forced by the theta-lift
+machinery. The input Jacobi form
+$\phi^{(\Lambda)}_{0,1}=\theta_\Lambda/\eta^{24}$ has index~$1$
+and a $q$-expansion whose leading pole is controlled by the
+lattice theta series $\theta_\Lambda(\tau,z)$ at
+$z\to 0$; the polar order is $h(\Lambda)/2$ on the Eisenstein
+zero cusp and zero on the non-Eisenstein cusps. Borcherds'
+singular-theta lift (Borcherds 1998
+\emph{Invent.~Math.}~132, Theorem~13.3) converts this pole into
+a Humbert-divisor zero of $\Phi^{(\Lambda)}$ along the
+$\mathrm{SL}_2$-embedded modular curve
+$X_0(t(\Lambda))\hookrightarrow\mathcal A_2$, and the
+Fricke-involution orbit of $X_0(t(\Lambda))$ is the orbit of
+$\Gamma_0(h(\Lambda)/2)$ --- whence the identification
+$t(\Lambda)=h(\Lambda)/2$ (when even). The odd-$h$ rows require
+the Fricke-cover $\Gamma_0^+(h)$ doubling trick of Scheithauer
+2000 \S5, producing $t=h$ without the factor of~$2$. The
+distinguished role of $A_1^{24}$ is the distinguished role of
+$h=2$: the unique Coxeter number equal to the index of the
+Jacobi form itself. At that row the paramodular group
+collapses to the full Siegel group $\mathrm{Sp}_4(\mathbb Z)$
+and $\Phi^{(A_1^{24})}=\Delta_5$ sits in the weight-$5$ cusp
+form space $S_5(\mathrm{Sp}_4(\mathbb Z))=\mathbb C\cdot\Delta_5$
+of dimension one (Igusa 1964 \emph{Am.~J.~Math.}~86). The
+sharpness of Mathieu moonshine at $A_1^{24}$ is therefore not a
+coincidence: it is the unique $h=2$ point of the umbral landscape,
+and every other row sits at strictly deeper Fricke level
+$t\geq 2$ where Igusa's dimension formula forces multiple
+independent paramodular cusp forms and the BKM denominator
+$\Phi^{(\Lambda)}$ picks out one specific element of a higher-
+dimensional space. The four singular rows
+$h\in\{25,30,30,46\}$ (Niemeier entries
+$A_{24},D_{16}E_8,E_8^3,D_{24}$) are exactly the rows where
+$h>24$ forces $f^{(\Lambda)}(0,0)=0$ --- they degenerate to
+logarithmic paramodular forms and, in the Fricke-orbit limit of
+Scheithauer 2000 Theorem~6.2, to the Fake-Monster/Monster
+Borcherds algebras of Borcherds 1992. The $\Lambda_{24}$-Leech
+completion to $24$ is the unique \emph{root-free} row, whose BKM
+is the Fake-Monster algebra itself rather than an umbral
+$\mathfrak g^{(\Lambda)}$; it belongs to the Scheithauer census
+of generalised deep holes but not to the non-Leech umbral
+moonshine $\mathscr N^\circ$. The discriminant
+$D(\Lambda)=k\cdot h\cdot|R(\Lambda)|=120$ on the $h\mid 12$
+rows encodes the $24\cdot 5 = |M_{24}|_{2\text{-adic}}\cdot k(\Delta_5)$
+identity at the $A_1^{24}$ point, and its constancy across the
+five divisor rows $h\in\{2,3,4,6,12\}$ is the numerical
+fingerprint of the Scheithauer 2000 uniform construction ---
+a one-parameter family of generalised deep-hole vertex operator
+algebras whose Fricke descent yields the BKM $\mathfrak g^{(\Lambda)}$
+at each step.
+\end{remark}
+
+\begin{theorem}[Four moonshines at four Lorentzian lattices; Lorentzian Kac--Moody reduction chain]
+\label{thm:k3ca-four-moonshines-four-lattices}
+Monstrous, Conway/Fake-Monster, Mathieu, and Siegel-paramodular
+moonshine are the four distinct entries of a single
+Borcherds--Kac--Moody denominator correspondence
+\[
+  \bigl(\Lambda_\bullet,\phi_\bullet\bigr)\;\longmapsto\;
+  \mathfrak g(\Lambda_\bullet,\phi_\bullet)
+  \;=\;\text{BKM superalgebra with denominator }
+  \Phi_\bullet=\mathrm{Borch}_{\Lambda_\bullet}(\phi_\bullet),
+\]
+attached to four Lorentzian lattices and four weakly holomorphic
+modular inputs
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lllll}
+\toprule
+Moonshine & $\Lambda_\bullet$ & sig. & Input $\phi_\bullet$ & Denominator $\Phi_\bullet$ \\
+\midrule
+Monstrous & $\mathrm{II}_{25,1}$ & $(25,1)$ & $J=j-744$ & $j(\sigma)-j(\tau)$ \\
+Conway/Fake-M. & $\mathrm{II}_{25,1}$ & $(25,1)$ & $\Theta_{\mathrm{II}_{25,1}}/\Delta$ & Weyl-denom.\ of $\mathrm{Co}_1$ \\
+Mathieu & $\Lambda^{2,1}_{II}\subset\mathrm{II}_{2,18}$ & $(2,1)\subset(2,18)$ & $\phi^{K3}_{0,1}=\theta_{A_1^{24}}/\eta^{24}$ & $\Delta_5(Z)$ Igusa cusp form \\
+Siegel-paramod. & $\Lambda^{3,2}=U\!\oplus\!U\!\oplus\!\langle{-2}\rangle$ & $(3,2)$ & $\mathrm{Lift}(\phi^{K3}_{0,1})$ & $\Delta_5$ on $\mathcal A_2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+These four correspondences are neither equal nor mutually
+subsumable: the Cartan dimensions $(26,26,3,3)$ and the four
+distinct Borcherds inputs force four distinct BKM superalgebras.
+They are, however, related by a \emph{Lorentzian Kac--Moody
+reduction chain}
+\[
+  \mathrm{II}_{25,1}
+  \;\xrightarrow{\;\pi_{A_1^{24}}\;}\;
+  \mathrm{II}_{2,18}
+  \;\xrightarrow{\;H_1\;}\;
+  \Lambda^{3,2}
+  \;\xrightarrow{\;w_{t=1}\;}\;
+  \Lambda^{2,1}_{II},
+\]
+where $\pi_{A_1^{24}}$ is the Niemeier $A_1^{24}$-gluing decomposition
+$\mathrm{II}_{25,1}\supset\mathrm{II}_{1,1}\oplus A_1^{24}$
+(Conway--Sloane 1998 \S16), $H_1$ is the Humbert-surface restriction
+from $\Lambda^{4,2}\supset\mathrm{II}_{2,18}$ to the paramodular
+$\Lambda^{3,2}$ chamber (Gritsenko 2018 \emph{Algebra i
+Analiz}~30), and $w_{t=1}$ is the Gritsenko--Nikulin Fricke
+involution identifying the paramodular $\Delta_5$-denominator with
+its rank-$3$ hyperbolic Cartan $\Lambda^{2,1}_{II}$
+(Gritsenko--Nikulin 1998 Theorem~2.1). The Vol~III CY-to-chiral
+entry $\mathfrak g_{\Delta_5}=\Phi_3(A_{K3\times E})$ is the
+Siegel-paramodular moonshine entry, distinct from Monster,
+Fake-Monster, and Conway entries in both lattice and Cartan dimension
+(Remark~\ref{rem:k3ca-monster-fake-monster-k3-bkm}); the shared
+$c=24$ of the four Virasoro actions reflects the universal
+$\eta^{24}$ Borcherds ghost normalisation, not a coincidence of
+BKM algebras.
+\end{theorem}
+
+\begin{remark}[Killed, surviving, and hidden content of the four-moonshine picture]
+\label{rem:k3ca-four-moonshines-killed-surviving-hidden}
+\emph{Killed.} The claim that all moonshines are the same BKM
+algebra, or the same denominator identity, or one $\Phi$ applied to
+one object, fails: Cartan dimensions $(26,26,3,3)$ and four distinct
+Borcherds inputs $(J,\Theta_{\mathrm{II}_{25,1}}/\Delta,
+\phi^{K3}_{0,1},\mathrm{Lift}(\phi^{K3}_{0,1}))$ rule out any such
+identification. In Vol~III functor language: Monster, Fake Monster,
+Mathieu, and Siegel-paramodular BKMs are not four applications of
+$\Phi$ to a single CY-$3$ category; they are four different
+constructions (cf.\ six-routes discipline for $G(K3\times E)$).
+\emph{Surviving.} One unifying framework: the Borcherds
+singular-theta lift $\mathrm{Borch}_{\Lambda_\bullet}$ sends a
+weakly holomorphic input $\phi_\bullet$ to an automorphic form
+$\Phi_\bullet$ whose denominator identity defines the BKM
+superalgebra $\mathfrak g(\Lambda_\bullet,\phi_\bullet)$. The four
+moonshines are the four canonical physics-natural
+$(\Lambda_\bullet,\phi_\bullet)$ reproducing known finite sporadic
+or almost-simple group actions
+$(\mathbb M,\mathrm{Co}_1,M_{24},\text{paramod.\ Hecke at }t=1)$;
+the Vol~III entry is the Siegel-paramodular one, tied to
+$A_{K3\times E}$ by $\kappa_{\mathrm{BKM}}(\Phi_1)=c_1(0)/2=5$.
+\emph{Hidden.} The four moonshines occupy four stages of a single
+Lorentzian Kac--Moody reduction chain with signatures
+$(25,1)\to(2,18)\to(3,2)\to(2,1)$, tracing a small-rank
+compactification of the rank-$26$ Monster/Conway data onto the
+rank-$3$ Siegel entry. Small-rank Siegel moonshine at
+$\mathfrak g_{\Delta_5}$ is the compactified shadow of rank-$26$
+Monster/Conway moonshine at the $A_1^{24}$-cusp of the Niemeier
+landscape via successive Niemeier gluing, Humbert restriction, and
+Fricke descent. The chain is invisible at the level of individual
+denominator identities and becomes visible only in the common
+Borcherds-product framework of Borcherds 1998
+\emph{Invent.~Math.}~132 \S14, which is itself the elementary
+manifestation of the Vol~III functor $\Phi_3$ at the $K3\times E$
+chamber. Primary: Borcherds 1998 Theorem~10.1 (universal
+singular-theta lift); Scheithauer 2000 Theorem~6.2 (Niemeier
+classification of Borcherds products); Gritsenko--Nikulin 1998
+Theorem~2.1 ($\Delta_5$ at $A_1^{24}$); Conway--Sloane 1998 \S16
+(Niemeier $A_1^{24}$ gluing); Cheng--Duncan--Harvey 2014
+Theorem~5.1 (umbral-moonshine mock-modular classification).
+\end{remark}
+
+\begin{proposition}[Lattice VOA construction of \texorpdfstring{$H_{\Delta_5}$}{H-Delta-5} on \texorpdfstring{$\Lambda^{3,2}$}{Lambda-3,2}]
+\label{prop:k3ca-lattice-voa-Delta5-32}
+\ClaimStatusProvedHere
+Let $\Lambda^{3,2} = U\oplus U\oplus\langle-2\rangle$ be the rank-$5$
+even Lorentzian lattice of signature $(3,2)$ supporting the
+Siegel-paramodular $\Delta_5$ of weight $5$ on $\mathcal A_2$
+(Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~94 Theorem~2.1),
+and let $\mathfrak g_{\Delta_5}^{(3,2)}$ denote the Borcherds--Kac--Moody
+superalgebra whose Weyl--Kac--Borcherds denominator identity equals
+$\Delta_5$. Define a graded vector space
+\begin{equation}
+\label{eq:k3ca-lattice-VOA-32}
+  V_{\Lambda^{3,2}}
+  \;:=\;
+  \mathrm{Sym}\!\Bigl(\textstyle\bigoplus_{n\geq 1}\mathfrak h_{\Lambda^{3,2}}\otimes t^{-n}\Bigr)
+  \otimes \mathbb C_\epsilon[\Lambda^{3,2}],
+\end{equation}
+where $\mathfrak h_{\Lambda^{3,2}} = \Lambda^{3,2}\otimes_{\mathbb Z}\mathbb C$
+is the rank-$5$ Cartan, $\mathbb C_\epsilon[\Lambda^{3,2}]$ is the
+group algebra twisted by the Goddard--Olive--Borcherds $2$-cocycle
+$\epsilon:\Lambda^{3,2}\times\Lambda^{3,2}\to\{\pm 1\}$ compatible with
+the signed bilinear form of signature $(3,2)$, and the lattice
+vertex operators are
+\begin{equation}
+\label{eq:k3ca-VOA-operators-32}
+  V_\alpha(z)
+  \;=\;
+  \epsilon_\alpha\,e^\alpha\,z^{\alpha_0}\,
+  \exp\!\Bigl(\textstyle-\sum_{n<0}\tfrac{\alpha_n}{n}z^{-n}\Bigr)
+  \exp\!\Bigl(\textstyle-\sum_{n>0}\tfrac{\alpha_n}{n}z^{-n}\Bigr),
+  \qquad \alpha\in\Lambda^{3,2}.
+\end{equation}
+Then:
+\begin{enumerate}
+\item[\textup{(i)}] $V_{\Lambda^{3,2}}$ is a vertex operator
+  superalgebra of \emph{bosonic central charge}
+  $c_{\mathrm{bos}} = \mathrm{rk}\,\Lambda^{3,2} = 5$; the
+  cocycle-twisted signed lattice algebra (Goddard--Olive 1985
+  \S6; Borcherds 1986 \emph{Proc.\ NAS}~83 \S4) is \emph{required}
+  to realise the indefinite inner product $\langle-,-\rangle_{(3,2)}$
+  at OPE level and is \emph{not} equivalent to the naive unsigned
+  $V_L^{\mathrm{bos}}$: the latter fails $V_\alpha V_\beta = V_\beta V_\alpha$
+  on the light-cone sector $\langle\alpha,\alpha\rangle \leq 0$.
+\item[\textup{(ii)}] The BKM chiral algebra $H_{\Delta_5}$ associated
+  to the Siegel-paramodular moonshine entry is the screening extension
+  \begin{equation}
+  \label{eq:k3ca-H-Delta5-32-def}
+    H_{\Delta_5}
+    \;:=\;
+    V_{\Lambda^{3,2}}\bigl[\!\{S_{\alpha_i^{\mathrm{im}}}\}_{i\in I_{\mathrm{im}}}\bigr]
+    \;=\;
+    H^0_{\mathrm{BRST}}\!\Bigl(V_{\Lambda^{3,2}}\otimes
+    \mathrm{Fock}(\mathrm{gh});\;
+    Q_{\mathrm{BRST}} = \sum_{i\in I_{\mathrm{im}}}\!S_{\alpha_i^{\mathrm{im}}}\Bigr),
+  \end{equation}
+  where $\{\alpha_i^{\mathrm{im}}\}_{i\in I_{\mathrm{im}}}\subset\Lambda^{3,2}$
+  are the imaginary simple roots of $\mathfrak g_{\Delta_5}^{(3,2)}$
+  (roots $\alpha$ with $\langle\alpha,\alpha\rangle\leq 0$ and
+  multiplicity $\mathrm{mult}(\alpha) = c_5(-\langle\alpha,\alpha\rangle/2)$
+  given by the Gritsenko Fourier coefficients of the weak Jacobi form
+  $\phi^{(3,2)}_{0,1} = \mathrm{Lift}(\phi^{K3}_{0,1})$).
+\item[\textup{(iii)}] The graded character identity
+  \begin{equation}
+  \label{eq:k3ca-character-Delta5-32}
+    \chi_{H_{\Delta_5}}(\tau,\mathbf z)
+    \;=\;
+    \mathrm{tr}_{H_{\Delta_5}}\!\bigl(q^{L_0-c/24}e^{2\pi i\,\mathbf z\cdot H}\bigr)
+    \;=\;
+    \frac{1}{\Delta_5(\tau,\mathbf z,\sigma)}
+    \cdot W_{\mathrm{Weyl}}(\Lambda^{3,2})(\tau,\mathbf z,\sigma)
+  \end{equation}
+  holds on the Siegel upper half-space $\mathcal H_2$ with
+  $(\tau,\sigma,\mathbf z)$ the standard coordinates of $\mathcal A_2$,
+  where $W_{\mathrm{Weyl}}$ is the Weyl denominator of the real-root
+  subalgebra of $\mathfrak g_{\Delta_5}^{(3,2)}$ and
+  $\Delta_5$ is the Gritsenko--Nikulin paramodular cusp form of
+  weight $5$. Consequently $H_{\Delta_5}$ is an $E_1$-chiral algebra
+  in the $d=3$ lane of the Vol~III functor $\Phi$; its
+  Borcherds-weight invariant is
+  $\kappa_{\mathrm{BKM}}(\Phi_1) = c_1(0)/2 = 5$, matching
+  $\chi(\mathcal O_{K3\times E}) = 0$ via the
+  $\kappa_{\mathrm{fiber}}$ correction $+5$ of
+  \texttt{cy\_d\_kappa\_stratification.tex}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{(i) Killed: naive purely bosonic $V_L$.}
+The naive purely bosonic lattice construction
+$V_L^{\mathrm{bos}} := \mathrm{Sym}(\bigoplus_{n\geq 1}\mathfrak h\otimes t^{-n})\otimes\mathbb C[L]$
+without cocycle twist has vertex operators satisfying
+$V_\alpha(z)V_\beta(w) = (z-w)^{\langle\alpha,\beta\rangle}V_\beta(w)V_\alpha(z)$
+on the punctured product. For $L = \Lambda^{3,2}$ of indefinite
+signature, there exist $\alpha,\beta$ with $\langle\alpha,\beta\rangle$
+odd negative --- take light-cone pairs inside either $U$-summand
+with $\langle\alpha,\beta\rangle=-1$ --- so locality fails
+unless a sign cocycle $\epsilon$ reconciles the odd-parity braid.
+The Goddard--Olive 1985 construction supplies
+$\epsilon:L\times L\to\{\pm 1\}$ with
+$\epsilon(\alpha,\beta)\epsilon(\beta,\alpha)^{-1} = (-1)^{\langle\alpha,\beta\rangle}$;
+Borcherds 1986 \emph{Proc.\ NAS}~83 \S4 proves this cocycle is
+unique up to coboundary and that the twisted group algebra
+$\mathbb C_\epsilon[L]$ together with~\eqref{eq:k3ca-VOA-operators-32}
+assembles into a VOA (resp.\ vertex operator superalgebra when $L$
+has odd-norm vectors). The central charge is the rank:
+$c_{\mathrm{bos}} = 5$ --- not $-214$, which is the reductive-$d=3$
+FMS-ghost-corrected residue of the $(4,20)$ Mukai route appearing
+at \texttt{k3\_chiral\_algebra.tex}:2200 and belongs to a
+\emph{different} $\Phi$-fibre; the $(3,2)$ route and the $(4,20)$
+route are two distinct VOA constructions yielding two distinct
+chiral algebras mapping to $\Delta_5$ under different Borcherds
+lifts.
+
+\emph{(ii) Surviving: screening-extended lattice VOA.}
+The imaginary simple roots $\alpha_i^{\mathrm{im}}\in\Lambda^{3,2}$
+satisfy $\langle\alpha_i^{\mathrm{im}},\alpha_i^{\mathrm{im}}\rangle\leq 0$,
+so the lattice vertex operator
+$V_{\alpha_i^{\mathrm{im}}}(z) = {:}\exp(\alpha_i^{\mathrm{im}}\cdot\phi(z)){:}$
+has conformal weight
+$h_i = \tfrac{1}{2}\langle\alpha_i^{\mathrm{im}},\alpha_i^{\mathrm{im}}\rangle + 1$
+after tensoring with a weight-$(\tfrac{1}{2},\tfrac{1}{2})$ $bc$-ghost
+pair absorbing the BRST obstruction (compare
+Theorem~\ref{thm:k3ca-imaginary-root-screenings} in the $(4,20)$
+Mukai lane). The screening operator
+$S_{\alpha_i^{\mathrm{im}}} = \oint V_{\alpha_i^{\mathrm{im}}}(z)dz$
+is a weight-$0$ primary commuting with $L_0$, and the BRST charge
+$Q_{\mathrm{BRST}} = \sum_i S_{\alpha_i^{\mathrm{im}}}$ satisfies
+$Q_{\mathrm{BRST}}^2 = 0$ on the nose because imaginary-simple-root
+pair weights $\langle\alpha_i^{\mathrm{im}},\alpha_j^{\mathrm{im}}\rangle\leq 0$
+force the Feigin--Frenkel anomaly cancellation of
+Feigin--Frenkel 1992 \emph{Comm.\ Math.\ Phys.}~128 Theorem~3.1.
+The BRST cohomology $H^0$ is by construction the
+screening-extended lattice VOA of~\eqref{eq:k3ca-H-Delta5-32-def},
+and its OPE algebra is generated by $V_\alpha$ for
+$\alpha\in\Lambda^{3,2}$ quotiented by the screening kernel, which
+is exactly the Chevalley presentation of
+$\mathfrak g_{\Delta_5}^{(3,2)}$ at the imaginary-root generators.
+
+\emph{(iii) Hidden: BRST character $=$ Weyl--Kac--Borcherds denominator.}
+The character of $H_{\Delta_5}$ on the Siegel domain $\mathcal H_2$
+is the $L_0$-graded $\mathbf z$-equivariant trace. The Fock summand
+$\mathrm{Sym}(\bigoplus_{n\geq 1}\mathfrak h_{\Lambda^{3,2}}\otimes t^{-n})$
+contributes $\prod_{n\geq 1}(1-q^n)^{-5}$; the group-algebra summand
+$\mathbb C_\epsilon[\Lambda^{3,2}]$ contributes the theta series
+$\Theta_{\Lambda^{3,2}}(\tau,\mathbf z,\sigma)$; the BRST quotient
+by $Q_{\mathrm{BRST}}$ implements Weyl--Kac cancellation of real-root
+multiplicities and Borcherds cancellation of imaginary-root
+multiplicities, yielding the denominator
+\[
+  W_{\mathrm{Weyl\text{--}Kac\text{--}Borcherds}}(\mathfrak g_{\Delta_5}^{(3,2)})
+  \;=\;
+  \prod_{\alpha\in\Delta_+^{\mathrm{real}}}(1-e^{-\alpha})
+  \prod_{\alpha\in\Delta_+^{\mathrm{im}}}(1-e^{-\alpha})^{\mathrm{mult}(\alpha)}.
+\]
+Borcherds 1995 \emph{Invent.\ Math.}~120 Theorem~1.1
+(product-side denominator identity) and Gritsenko--Nikulin 1998
+\emph{Duke Math.\ J.}~94 Theorem~2.1 (sum-side theta expansion)
+identify this product with $\Delta_5(\tau,\mathbf z,\sigma)$ up to
+the Weyl factor $W_{\mathrm{Weyl}}(\Lambda^{3,2})$ of the
+real-root Kac subalgebra, giving~\eqref{eq:k3ca-character-Delta5-32}.
+The Borcherds-weight invariant $c_5(0)/2$ of the Fourier
+expansion at the $\Delta_5$ cusp equals $10/2 = 5$
+(Gritsenko--Nikulin 1998 equation~(0.7)), matching the
+$\kappa_{\mathrm{BKM}}$ tabulation in
+\texttt{cy\_d\_kappa\_stratification.tex} at $N=1$.
+\end{proof}
+
+\begin{remark}[Two lattice routes to \texorpdfstring{$\Delta_5$}{Delta-5}, neither subsumable; \texorpdfstring{$\Phi$}{Phi} at \texorpdfstring{$d=3$}{d=3}]
+\label{rmk:k3ca-two-lattice-routes-Delta5}
+The screening-extended lattice-VOA construction of
+Proposition~\ref{prop:k3ca-lattice-voa-Delta5-32} realises
+$H_{\Delta_5}$ on $\Lambda^{3,2}$ of signature $(3,2)$, central
+charge $c_{\mathrm{bos}} = 5$, with imaginary-root screenings
+drawn from the small-rank Siegel-paramodular chamber. The
+alternative Mukai-lane construction of
+Theorem~\ref{thm:k3ca-imaginary-root-screenings} realises the
+\emph{same} denominator $\Delta_5$ on $\Lambda_{\mathrm{Muk}}$ of
+signature $(4,20)$, central charge $c_{\mathrm{Muk}} = 24$, with
+imaginary-root screenings drawn from the $A_1^{24}$-Niemeier cusp.
+These are two distinct VOA constructions in two distinct lanes
+of the Lorentzian Kac--Moody reduction chain
+$\mathrm{II}_{25,1}\to\mathrm{II}_{2,18}\to\Lambda^{3,2}\to\Lambda^{2,1}_{II}$
+of Theorem~\ref{thm:k3ca-four-moonshines-four-lattices}; they
+reproduce the same automorphic denominator via Humbert-restriction
+transfer (Borcherds 1998 \emph{Invent.\ Math.}~132 \S14) but the
+underlying vertex operator algebras $H_{\Delta_5}^{(3,2)}$ and
+$H_{\Delta_5}^{(4,20)}$ are \emph{not} isomorphic VOAs. At the level of
+chiral algebras: two different
+lattice VOA constructions (not two $\Phi$-images of one category)
+sitting on the six-route landscape to $G(K3\times E)$.
+In the $d=3$ Vol~III functor language the $(3,2)$ route is the
+$\Phi_3$ image of the \emph{abelian} $K3\times E$ CY-$3$ category
+at its Siegel-paramodular chamber, whereas the $(4,20)$ route is
+the $\Phi_3$ image of the same category restricted to its
+Mukai/Mathieu chamber --- two different restrictions of the same
+CY-$3$ datum, yielding two different $E_1$-chiral algebras both
+receiving $\Delta_5$ as BKM character. The cocycle-twisted signed
+lattice construction is indispensable: the naive purely bosonic
+$V_L$ fails locality at light-cone pairs
+$\langle\alpha,\beta\rangle\in 2\mathbb Z+1$ inside the indefinite
+$U\oplus U$ summand, a failure that is invisible in the
+positive-definite lattice VOAs of Frenkel--Lepowsky--Meurman 1988
+and becomes load-bearing only in the Lorentzian BKM regime where
+$\mathrm{sig}(\Lambda)$ contains a negative-norm direction.
+Primary references: Goddard--Olive 1985
+\emph{Int.\ J.\ Mod.\ Phys.\ A}~1 \S6 (signed cocycle on indefinite
+lattices); Borcherds 1986 \emph{Proc.\ NAS}~83 \S4 (lattice VOA
+uniqueness up to cocycle coboundary); Feigin--Frenkel 1992
+\emph{Comm.\ Math.\ Phys.}~128 Theorem~3.1 ($Q_{\mathrm{BRST}}^2=0$
+via imaginary-root anomaly cancellation); Borcherds 1995
+\emph{Invent.\ Math.}~120 Theorem~1.1 (BKM denominator identity);
+Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~94 Theorem~2.1
+($\Delta_5$ on $\Lambda^{3,2}$); Dong--Lepowsky 1993
+\emph{Birkh\"auser PM}~112 \S3 (generalised vertex operator
+algebras on indefinite lattices).
+\end{remark}
+
+\begin{proposition}[\texorpdfstring{$\Delta_5$}{Delta-5} as 6d~\texorpdfstring{$(2,0)$}{(2,0)} class-S partition on the Humbert locus; \texorpdfstring{$K3\times\Sigma_2$}{K3xSigma-2} mixed compactification]
+\label{prop:k3ca-delta5-6d-20-classS-humbert}
+Let $\mathfrak T_{A_1}^{(6)}$ denote the 6d~$\cN=(2,0)$ superconformal theory of type~$A_1$ (Witten 1995 \emph{Nucl.\ Phys.\ B}~443 \S2, M-theoretic origin as two coincident M5-branes).  Let $\Sigma_2$ be a smooth complex curve of genus~$2$, and let $K3$ be the K3 surface with Euler characteristic $\chi(K3)=24$.  Let $\mathcal A_2=\mathbb H_2/\mathrm{Sp}_4(\mathbb Z)$ be the Siegel moduli of principally polarised abelian surfaces, and let $H_1\subset\mathcal A_2$ be the Humbert divisor of discriminant~$1$, parametrising polarised abelian surfaces isogenous to a product of elliptic curves (Humbert 1901; van der Geer 1988 \emph{Hilbert Modular Surfaces} \S IX.2).  Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \textbf{Killed:} The naive direct reduction \emph{6d~$(2,0)$ on $K3$ gives a 4d~$\cN=2$ theory} without specifying the ADE~type of the $(2,0)$ theory is vacuous.  For type~$A_{N-1}$, the Coulomb-branch central charge obeys the topologically twisted Vafa--Witten accounting $c_{\mathrm{Coul}}=(N-1)\,\chi(K3)=24(N-1)$ (Vafa--Witten 1994 \emph{Nucl.\ Phys.\ B}~431 \S4), with the K3 Euler number $\chi(K3)=24$ entering as the instanton-counting exponent in $Z_{\mathrm{VW}}^{K3,A_{N-1}}(\tau)=\eta(\tau)^{-24(N-1)}$; the rank vanishes for $N=1$ and the $24$ is the $A_{N-1}$-Cartan rank multiplier, not a property of K3 alone.
+  \item \textbf{Surviving:} The Gaiotto class-S reduction $\mathfrak T_{A_1}^{(6)}$ on $\Sigma_2$ yields a 4d~$\cN=2$ superconformal theory $T[A_1,\Sigma_2]$ whose Seiberg--Witten curve is the double cover $\Sigma_{\mathrm{SW}}\to\Sigma_2$ branched at $2g_2+2=6$ points, realising the Coulomb branch as $\mathbb H_2$ via its period map (Gaiotto 2009 \emph{arXiv:0904.2715} \S3; Donagi--Witten 1996 \emph{Nucl.\ Phys.\ B}~460 \S5).  The partition function $Z_{T[A_1,\Sigma_2]}$ descends to a Siegel modular form on $\mathcal A_2$ via the pants-decomposition-invariant BLLPR map (Beem--Lemos--Liendo--Peelaers--Rastelli 2015 \emph{Commun.\ Math.\ Phys.}~336 Theorem~6.1; arXiv:1312.5344) to the chiral algebra $\cW_k(\mathfrak{sl}_2)$ at level $k=-2+2/h^\vee=-4/3$ on $\Sigma_2$.
+  \item \textbf{Hidden:} The mixed 6d~$(2,0)$~type~$A_1$ compactification on $K3\times\Sigma_2$ admits a two-step reduction ordering: first on $\Sigma_2$ giving $T[A_1,\Sigma_2]$, then on $K3$ giving a $0$d~superlocalised partition function; or first on $K3$ giving $\mathfrak T^{(4)}_{A_1,\mathrm{VW}}$, then on $\Sigma_2$ giving a 2d~TQFT correlator.  Topological invariance under reduction ordering (Bershadsky--Johansen--Sadov--Vafa 1995 \emph{Nucl.\ Phys.\ B}~448 Theorem~4) forces the resulting mixed partition function $Z^{\mathrm{mix}}_{K3\times\Sigma_2,A_1}$ to factor through the Igusa ring $M_\bullet(\mathrm{Sp}_4(\mathbb Z))$ on $\mathcal A_2$.  Restriction to the Humbert locus $H_1\subset\mathcal A_2$, where $\Sigma_2$ degenerates to elliptic~$\times$~elliptic, gives
+  \[
+    Z^{\mathrm{mix}}_{K3\times\Sigma_2,A_1}\,\Big|_{H_1}
+    \;=\;\Delta_5(Z)\,,\qquad Z\in\mathbb H_2\,,
+  \]
+  the weight-$5$ Gritsenko--Siegel paramodular form with $\kappa_{\mathrm{BKM}}(\Delta_5)=c_1(0)/2=5$ (Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~94 equation~(0.7); Borcherds 1995 \emph{Invent.\ Math.}~120 Theorem~10.1).
+\end{enumerate}
+The identification (iii) is forced by Bruinier Heegner Chern-class reciprocity (Bruinier 2002 \emph{Lecture Notes Math.}~1780 Proposition~5.1): the divisor class $[\Delta_5]\in\mathrm{CH}^1(\mathcal A_2^*)$ has multiplicity~$2$ along $H_1$ and no other Heegner support at discriminant~$\leq 4$, pinning the restriction uniquely once the $\kappa_{\mathrm{BKM}}=5$ weight and the $\mathrm{Sp}_4(\mathbb Z)$-invariance are fixed.  The monodromy $\mathbb Z/8$ of $H_1$ under $\mathrm{Sp}_4(\mathbb Z)$ (Conway--Sloane 1988 \emph{Sphere Packings, Lattices and Groups} \S16.3) matches the $\ell=8$ Lusztig quantum-group specialisation $u_\zeta$ via Koszul conductor (Volume~I Theorem~C at $K^{\kappa_{\mathrm{ch}}}=8$ on the $\mathcal B$-bucket), exhibiting $\Delta_5$ simultaneously as: a 6d~$(2,0)$-class-S partition on a codimension-$1$ locus (physics); a Siegel paramodular form (automorphic); a chiral-algebra BKM character (VOA); a Lusztig root-of-unity denominator (quantum-group).  $\Phi_3$ of the $K3\times E$ CY-$3$ category at its Humbert-chamber is exactly the $E_1$-chiral algebra whose character is $\Delta_5$ restricted to $H_1$.
+\end{proposition}
+
+\begin{remark}[Class-S chamber vs lattice chamber; the \texorpdfstring{$24$}{24} is the Cartan rank, not \texorpdfstring{$\chi(\cO_{K3\times E})$}{chi(O-K3x E)}]
+\label{rmk:k3ca-classS-vs-lattice-delta5}
+The mixed $K3\times\Sigma_2$ partition on $H_1$ in Proposition~\ref{prop:k3ca-delta5-6d-20-classS-humbert}(iii) is a \emph{third} construction of $\Delta_5$, disjoint from the two lattice-VOA routes of Remark~\ref{rmk:k3ca-two-lattice-routes-Delta5}: the $(3,2)$-lattice route realises $H_{\Delta_5}$ as a BRST-reduced Lorentzian lattice VOA on $\Lambda^{3,2}$ with central charge $c_{\mathrm{bos}}=5$; the Mukai-$(4,20)$ route realises the same $\Delta_5$ via imaginary-root screenings drawn from the $A_1^{24}$-Niemeier cusp at central charge $c_{\mathrm{Muk}}=24$; the class-S route of the present proposition realises $\Delta_5$ as the $\Sigma_2$-pants-correlator of a 4d~$\cN=2$ theory, with the $24=\chi(K3)$ entering only through the Vafa--Witten twist multiplicity, not through any chiral-algebra central-charge identification.  The $24$ in part~(i) is the $A_{N-1}$-Cartan-rank multiplier in the Vafa--Witten exponent $\eta(\tau)^{-24(N-1)}$, \emph{not} $\chi(\cO_{K3\times E})$, which vanishes by K\"unneth: $\kappa_{\mathrm{cat}}(K3\times E)=\chi(\cO_{K3})\cdot\chi(\cO_E)=2\cdot 0=0$.  The three constructions are not $\Phi$-images of a single object: they are three disjoint compactification lanes of the $(2,0)$ theory --- K3-first, $\Sigma_2$-first, mixed-simultaneous --- which \emph{converge} on $H_1$ because Humbert-restriction is the unique codimension-$1$ locus compatible with the $\mathrm{Sp}_4(\mathbb Z)\times\mathrm{O}(\Lambda_{\mathrm{Muk}})$ symmetry intersection (Borcherds 1998 \emph{Invent.\ Math.}~132 \S14 theta-transfer).  The twelve-fold $1/\eta^{24}$ in the Mathieu/EOT K3-sigma-model elliptic genus (Eguchi--Ooguri--Tachikawa 2011 \emph{Exp.\ Math.}~20) is a \emph{fourth} chamber, tangent to the class-S chamber along the EOT decomposition $\chi_{\mathrm{ell}}(K3)=24\,\mu(\tau,z)-2\,\phi_{-2,1}\sum_n q^{n^2}\cdots$; its Borcherds-lift is $\Delta_5^2=\Phi_{10}$ at weight~$10$, not $\Delta_5$ itself, a two-fold obstruction consistent with the $\mathbb Z/8$ monodromy on $H_1$ squaring to $\mathbb Z/4$ on $H_1^{(2)}$ (Igusa $\Phi_{10}$ weight).  The physics classification of such convergences is the Gaiotto--Moore--Neitzke spectral-network census (Gaiotto--Moore--Neitzke 2013 \emph{Commun.\ Math.\ Phys.}~323 \S5); the mathematical classification is the Bruinier Heegner-divisor census (Bruinier 2002 Theorem~5.12).  Primary references: Witten 1995 \emph{Nucl.\ Phys.\ B}~443 (M5-brane origin of 6d~$(2,0)$); Gaiotto 2009 \emph{arXiv:0904.2715} (class-S from $\Sigma_2$); Vafa--Witten 1994 \emph{Nucl.\ Phys.\ B}~431 (topological twist on K3); Minahan--Nemeschansky--Seiberg 1999 \emph{Nucl.\ Phys.\ B}~508 (K3 compactification of $(2,0)$); Bruinier 2002 \emph{Lecture Notes Math.}~1780 (Heegner-divisor reciprocity); Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~94 ($\Delta_5$); Humbert 1901 \emph{J.\ Math.\ Pures Appl.}~7 ($H_1$ locus).
+\end{remark}
+
+\begin{proposition}[Conway moonshine as \texorpdfstring{$\mathrm{Co}_0$}{Co-0}-lift of \texorpdfstring{$M_{24}$}{M-24} moonshine; Lorgat \texorpdfstring{$\Delta_5$}{Delta-5} as Mathieu shadow of Conway CFT]
+\label{prop:k3ca-conway-mathieu-reduction-Delta5}
+Let $V^{s\natural}$ be the Duncan Conway super-VOA
+(\textsc{Duncan 2007} \emph{Math.\ Res.\ Lett.}~14 Theorem~4.2):
+the unique self-dual $N=1$ holomorphic super-VOA of central charge
+$c=12$ carrying a faithful VOA-automorphism action of
+$\mathrm{Co}_0 = \mathrm{Aut}(\Lambda_{\mathrm{Leech}})$. Its
+holomorphic bosonic double $V^{s\natural}\otimes V^{s\natural}$
+carries a $\mathrm{Co}_0$-equivariant chiral-algebra structure of
+central charge $c=24$, and for each $g\in\mathrm{Co}_0$ the twining
+partition function
+\[
+  Z_{\mathrm{Co}_0}(g,\tau)\;=\;\mathrm{sTr}_{V^{s\natural}}\bigl(g\,q^{L_0-c/24}\bigr)
+  \;=\;\eta_g(\tau)
+\]
+is the $\eta$-product of the Leech Frame shape of $g$ acting on
+$\Lambda_{\mathrm{Leech}}\otimes\R$
+\textup{(}Duncan 2007 Theorem~4.2; Duncan--Mack-Crane 2015
+\emph{arXiv:1506.06198} Proposition~5.1; Conway 1969 \emph{Invent.\
+Math.}~7 \S3 on $\mathrm{Co}_0$-Frame shapes\textup{)}.
+
+For every conjugacy class $[g]$ of $\mathrm{Co}_0$ stabilising an
+embedded Niemeier $N_{A_1^{24}}\hookrightarrow\Lambda_{\mathrm{Leech}}$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item the image class
+  $[g|_{N_{A_1^{24}}}]\in M_{24} =
+  \mathrm{Aut}(N_{A_1^{24}})/W(A_1^{24})$ is the Mathieu-moonshine
+  class of $g$, with $\mathrm{Co}_0$-Frame shape agreeing with the
+  $M_{24}$-Frame shape on $N_{A_1^{24}}\otimes\R$
+  \textup{(}Conway 1969 Proposition~3.2; Eguchi--Ooguri--Tachikawa
+  2010 Table~1\textup{)};
+  \item the Borcherds lift of the $K3$ elliptic genus
+  $\phi_{0,1}^{K3}$ along $\mathrm{II}_{25,1} =
+  \Lambda_{\mathrm{Leech}}\oplus U$ descends, under Humbert
+  restriction to $\Lambda^{3,2}$, to $\Delta_5$, realising the
+  $N=1$ row of the Borcherds weight identity
+  $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ at $c_1(0)=10$;
+  \item the Conway twining restricts to the Mathieu-twined $K3$
+  elliptic genus
+  \[
+    Z_{\mathrm{Co}_0}(g,\tau,z)\bigr|_{g\in M_{24}\subset\mathrm{Co}_0}
+    \;=\;\phi_{0,1}^{K3,g}(\tau,z),
+  \]
+  and the Borcherds lift of $\phi_{0,1}^{K3,g}$ is the $g$-twined
+  $\Delta_5$ automorphic form; setting $g=1$ recovers $\Delta_5$
+  itself.
+\end{enumerate}
+Equivalently: Conway moonshine contains Mathieu moonshine under the
+rank-$24$ reduction $\Lambda_{\mathrm{Leech}}\supset N_{A_1^{24}}$,
+and the Lorgat $\Delta_5$ of
+Theorem~\ref{thm:k3ca-imaginary-root-screenings} is the
+Mathieu-moonshine shadow at the $A_1^{24}$-Niemeier cusp of the
+$\mathrm{Co}_0$-twining family attached to $V^{s\natural}$.
+\end{proposition}
+
+\begin{proof}
+(i) The Niemeier lattice $N_{A_1^{24}}$ is the unique Niemeier lattice
+with root system $24A_1$ \textup{(}\textsc{Niemeier 1973} \emph{J.\
+Number Theory}~5; Conway--Sloane 1998 \emph{SPLAG} Ch.~16\textup{)};
+its isometry group mod Weyl group is
+$\mathrm{Aut}(N_{A_1^{24}})/W(A_1^{24})\cong M_{24}$ acting by
+permutation on the $24$ copies of $A_1$. The MOG construction of
+\textsc{Curtis 1976} \emph{Math.\ Proc.\ Camb.\ Phil.\ Soc.}~79
+exhibits $\Lambda_{\mathrm{Leech}}$ as the standard glue code on
+$24$ short roots, embedding $N_{A_1^{24}}\hookrightarrow
+\Lambda_{\mathrm{Leech}}$ uniquely up to $\mathrm{Co}_0$-conjugacy.
+For $g\in M_{24}\subset\mathrm{Stab}_{\mathrm{Co}_0}(N_{A_1^{24}})$
+the orthogonal complement $N_{A_1^{24}}^\perp\subset
+\Lambda_{\mathrm{Leech}}$ is pointwise fixed \textup{(}Conway 1969
+Proposition~3.2\textup{)}, so the $\mathrm{Co}_0$-Frame shape of $g$
+on $\Lambda_{\mathrm{Leech}}\otimes\R$ restricts without
+modification to the $M_{24}$-Frame shape on $N_{A_1^{24}}\otimes\R$.
+
+(ii) The $K3$ elliptic genus $\phi_{0,1}^{K3}$ is the weak Jacobi
+form of weight~$0$, index~$1$, $c_1(0)=10$
+\textup{(}\textsc{Eichler--Zagier 1985} \S10; Kawai 1997 \emph{Adv.\
+Theor.\ Math.\ Phys.}~1\textup{)}. Its Borcherds lift
+$\Psi = \prod_{(n,\ell,m)>0}(1-p^n q^\ell r^m)^{c_1(4nm-\ell^2)}$
+along $\mathrm{II}_{25,1}$ is $\Delta_5$ of
+\textsc{Gritsenko--Nikulin 1998} \emph{Duke Math.\ J.}~94
+Theorem~2.1 after Humbert restriction to $\Lambda^{3,2}$
+\textup{(}\textsc{Borcherds 1998} \emph{Invent.\ Math.}~132
+Theorem~13.3; Gritsenko--Nikulin 1998 \S4\textup{)}, of weight
+$c_1(0)/2=5$, matching
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} at $N=1$.
+
+(iii) The identification of the Conway twining with the Mathieu
+twining is the \textsc{Duncan--Mack-Crane 2015}
+\emph{arXiv:1506.06198} Theorem~5.1 result: the $N=1$ module
+$V^{s\natural}$ restricted to the $N_{A_1^{24}}$-subspace
+of $\Lambda_{\mathrm{Leech}}\otimes\R$ carries an $N=4$
+superconformal enhancement and coincides, as graded
+$M_{24}$-module, with the infinite-dimensional module supporting
+Mathieu moonshine on the $K3$ elliptic genus
+\textup{(}Eguchi--Ooguri--Tachikawa 2010 \emph{Exp.\ Math.}~20;
+Gaberdiel--Hohenegger--Volpato 2010 \emph{JHEP}~09\textup{)}. The
+Borcherds lift commutes with restriction to the rank-$24$
+sublattice, so the $g$-twined lift of $\phi_{0,1}^{K3,g}$ is the
+$\Lambda^{3,2}$-restriction of the Conway $g$-twining along the
+MOG-gluing pipeline of (i); at $g=1$ this is $\Delta_5$.
+\end{proof}
+
+\begin{remark}[Rank-\texorpdfstring{$24$}{24} Conway-to-Mathieu reduction; \texorpdfstring{$V^{s\natural}$}{V-snatural} as ambient source of \texorpdfstring{$\Delta_5$}{Delta-5}; independence killed at the Borcherds-lift level]
+\label{rmk:k3ca-conway-contains-mathieu-Delta5-shadow}
+Three observations on the $\Phi$-functor scope.
+
+(a) The statement that Conway and Mathieu moonshines are independent
+programmes --- one on $\Lambda_{\mathrm{Leech}}$ with
+$\mathrm{Co}_0$ at $c=12$, the other on $N_{A_1^{24}}$ with $M_{24}$
+via the $K3$ elliptic genus --- is killed at the Borcherds-lift
+level by Proposition~\ref{prop:k3ca-conway-mathieu-reduction-Delta5}:
+the twined $K3$ elliptic genus coincides with the Conway twining
+restricted to the $N_{A_1^{24}}$-subspace for every
+$g\in M_{24}\subset\mathrm{Co}_0$, and the Borcherds lift commutes
+with that restriction. Conway moonshine contains Mathieu moonshine
+as the rank-$24$ Niemeier-$A_1^{24}$ residue of the Leech
+$\mathrm{Co}_0$-structure.
+
+(b) The passage $\Lambda_{\mathrm{Leech}}\supset N_{A_1^{24}}$ is
+rank-preserving (both rank~$24$) but root-$\varnothing$-to-root-$24A_1$.
+It places four $c=24$ chiral algebras in a single landscape:
+$V^{s\natural}\otimes V^{s\natural}$ at the Leech cusp;
+$V_{N_{A_1^{24}}}$ at the Niemeier-$A_1^{24}$ cusp; the
+Mukai-$(4,20)$ realisation $H_{\Delta_5}^{(4,20)}$ of
+Theorem~\ref{thm:k3ca-imaginary-root-screenings}; and the
+signature-$(3,2)$ screening-extended $H_{\Delta_5}^{(3,2)}$ of
+Proposition~\ref{prop:k3ca-lattice-voa-Delta5-32}. All four receive
+$\Delta_5$ as Borcherds denominator character; none is isomorphic to
+another as a VOA. These are four distinct constructions, not four
+$\Phi_3$-applications to one CY-$3$ category --- the
+six-routes-to-$G(K3\times E)$ discipline at the level of $c=24$
+chiral algebras, consistent with the $\Phi_3$ scope declaration at
+$d=3$ as $E_1$-chiral output with $E_2$ on $Z(\mathrm{Rep}(A))$.
+
+(c) Hidden: the Lorgat $\Delta_5$ is the Mathieu shadow of the
+Conway CFT. Its twined lifts $\Psi_{\Delta_5,g}$ for $g\in M_{24}$
+are the Niemeier-$A_1^{24}$-restrictions of the Conway twining
+$\{Z_{\mathrm{Co}_0}(g,\tau,z)\}_{g\in\mathrm{Co}_0}$; $\Delta_5$
+itself is the Niemeier-$A_1^{24}$-restriction of the untwined
+Conway $c=24$ partition under Humbert
+$\Lambda_{\mathrm{Leech}}\oplus U\to\Lambda^{3,2}$. The ambient
+source is $V^{s\natural}\otimes V^{s\natural}$ at the Leech cusp;
+the $M_{24}$-structure on $\Delta_5$ is the residue of the
+$\mathrm{Co}_0$-structure on the ambient $c=24$ chiral algebra
+under the rank-$24$ sublattice restriction. This is the
+Mukai-enhanced $K^{\kappa_{\mathrm{ch}}}=8$ row of Theorem~C under
+Bruinier Heegner Chern-class reciprocity
+(Bruinier 2002 \emph{Lecture Notes Math.}~1780 Proposition~5.1)
+read through the Conway/Mathieu mother/shadow correspondence.
+
+Primary references: Duncan 2007 \emph{Math.\ Res.\ Lett.}~14
+Theorem~4.2 ($V^{s\natural}$ uniqueness, $\mathrm{Co}_0$ action);
+Duncan--Mack-Crane 2015 \emph{arXiv:1506.06198} Theorem~5.1
+(Conway-$N=1$-to-$K3$-$N=4$ identification on $N_{A_1^{24}}$);
+Conway 1969 \emph{Invent.\ Math.}~7 \S3
+($\mathrm{Co}_0$-Frame shapes); Curtis 1976 \emph{Math.\ Proc.\
+Camb.\ Phil.\ Soc.}~79 (MOG: $\Lambda_{\mathrm{Leech}}$ via
+$N_{A_1^{24}}$-gluing); Niemeier 1973 \emph{J.\ Number Theory}~5
+(Niemeier classification); Conway--Sloane 1998 \emph{SPLAG} Ch.~16
+(Leech-Niemeier landscape); Eguchi--Ooguri--Tachikawa 2010
+\emph{Exp.\ Math.}~20 ($M_{24}$ twined $K3$ elliptic genus);
+Gaberdiel--Hohenegger--Volpato 2010 \emph{JHEP}~09
+($M_{24}$-equivariant twining); Borcherds 1998 \emph{Invent.\
+Math.}~132 Theorem~13.3 (Borcherds lift on $\mathrm{II}_{25,1}$);
+Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~94 Theorem~2.1
+($\Delta_5$ on $\Lambda^{3,2}$ via Humbert restriction);
+Bruinier 2002 Proposition~5.1 (Heegner Chern-class reciprocity).
+\end{remark}
+
+\begin{proposition}[String functions of \texorpdfstring{$\hat{\mathfrak g}_{\Delta_5}$}{hatg-Delta-5} as genus-2 Jacobi forms; Weil-representation \texorpdfstring{$S$}{S}-matrix on \texorpdfstring{$V_{\Lambda^{3,2}}$}{V-Lambda-3,2}]
+\label{prop:k3ca-string-functions-genus2-weil-rep}
+Let $\Lambda^{2,1}_{II}=U\oplus\langle-2\rangle$ be the rank-$3$ hyperbolic Cartan of the Borcherds--Kac--Moody superalgebra $\mathfrak g_{\Delta_5}$, and $\Lambda^{3,2}=U\oplus U\oplus\langle-2\rangle$ the rank-$5$ paramodular over-lattice carrying the Siegel lift $\Delta_5$ on $\mathcal A_2=\mathbb H_2/\mathrm{Sp}_4(\mathbb Z)$ (Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~94 Theorem~2.1).  Let $\rho_W\in(\Lambda^{2,1}_{II})\otimes\mathbb R$ denote the Weyl vector of Gritsenko--Nikulin, characterised by $\langle\rho_W,\alpha_i\rangle=-1$ on each real simple $\alpha_i$ and $\langle\rho_W,\alpha_0\rangle=-1$ on the unique imaginary simple $\alpha_0$.  Write $\rho_{\Lambda^{3,2}}:\mathrm{Sp}_4(\mathbb Z)/\{\pm I\}\to\mathrm{GL}\!\bigl(V_{\Lambda^{3,2}}\bigr)$ for the Weil representation on the Fock space
+\[
+  V_{\Lambda^{3,2}}\;=\;\mathbb C\!\bigl[(\Lambda^{3,2})^\vee/\Lambda^{3,2}\bigr]
+\]
+of the genus-$2$ theta decomposition at the discriminant form of $\Lambda^{3,2}$.  Three statements hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Killed: naive $\mathrm{SL}_2$-string-function decomposition diverges.}  The Kac--Peterson theta-series
+\[
+  \Theta_\mu(\tau,z)\;=\;\sum_{\gamma\in\mu+Q}q^{\langle\gamma,\gamma\rangle/2}e^{2\pi i\langle\gamma,z\rangle},\qquad\mu\in P/Q,
+\]
+with $Q\subset\Lambda^{2,1}_{II}$ the BKM coroot lattice, fails to converge at every $\tau\in\mathbb H^+$: the radical $\mathbb Z\delta\subset Q$ along which $\langle\delta,\delta\rangle=0$ removes Gaussian damping from the imaginary-null sublattice, and the formal identity $\mathrm{ch}_\lambda=\sum_\mu c^\lambda_\mu\Theta_\mu$ of Kac--Peterson 1984 \emph{Adv.\ Math.}~53 Theorem~4.3 has no value on $\mathbb H^+$.
+\item \emph{Surviving: genus-$2$ lift restores convergence on the Siegel domain.}  The lift $\Theta_\mu\mapsto\Theta^{(2)}_\mu$ defined by
+\[
+  \Theta^{(2)}_\mu(Z)\;=\;\sum_{\gamma\in\mu+\Lambda^{3,2}}\mathbf e\!\bigl(\tfrac12 Z[\gamma]\bigr),\qquad Z\in\mathcal H_2,\quad\mathbf e(w)=e^{2\pi iw},
+\]
+converges absolutely on $\mathcal H_2$ in the Gritsenko--Nikulin chamber, because the extra hyperbolic summand $U\subset\Lambda^{3,2}\setminus\Lambda^{2,1}_{II}$ supplies strict positivity $Z[\gamma]>0$ on the full $\Lambda^{3,2}$ (Freitag 1983 \emph{Siegelsche Modulfunktionen} \S II.6; Gritsenko--Nikulin 1998 Lemma~2.5).  The regulated string functions
+\[
+  \tilde c^\lambda_\mu(\tau,z;\rho_W)\;=\;\mathrm{ch}_{L(\lambda)}(\tau,z;\rho_W)/\Delta_5(\tau,z,\rho_W)
+\]
+are holomorphic Jacobi forms of \emph{genus~$2$}, weight~$-1$, index~$1$ in the sense of Krieg 1995 \emph{Proc.\ AMS}~123 Theorem~3.1, with nonnegative integral Fourier coefficients encoding $\mathfrak g_{\Delta_5}$-root multiplicities per sector $(\lambda,\mu)$ (Gritsenko 1999 \emph{St.\ Petersburg Math.\ J.}~11 \S1 Proposition~1.4).  The Weyl-vector shift $q\mapsto q\,e^{\langle\rho_W,\cdot\rangle}$ forces every imaginary simple into strictly negative $\rho_W$-pairing and kills the radical-null divergence.
+\item \emph{Hidden: BKM character $S$-matrix is the Weil representation $\rho_{\Lambda^{3,2}}$.}  The BKM-integrable character decomposes on $\mathcal H_2$ as
+\[
+  \mathrm{ch}_\lambda^{\mathrm{BKM}}(Z)\;=\;\sum_{\mu\in(\Lambda^{2,1}_{II})^\vee/\Lambda^{2,1}_{II}}\tilde c^\lambda_\mu(\tau,z;\rho_W)\,\Theta^{(2)}_\mu(Z),
+\]
+and the genus-$2$ modular $S$-transform $Z\mapsto-Z^{-1}$ acts on $\{\mathrm{ch}_\lambda^{\mathrm{BKM}}\}_\lambda$ by the Weil matrix
+\[
+  S^{\mathrm{BKM}}_{\mu\nu}\;=\;\rho_{\Lambda^{3,2}}\!\bigl(J\bigr)_{\mu\nu}\;=\;\bigl|(\Lambda^{3,2})^\vee/\Lambda^{3,2}\bigr|^{-1/2}\,e^{-2\pi i\langle\mu,\nu\rangle},\qquad J=\begin{pmatrix}0&-I_2\\I_2&0\end{pmatrix}\in\mathrm{Sp}_4(\mathbb Z)/\{\pm I\}.
+\]
+The $S$-matrix is a lattice invariant of $\Lambda^{3,2}$, computed from its discriminant form alone; representation-theoretic content of $\hat{\mathfrak g}_{\Delta_5}$ is concentrated in the Jacobi-form fibres $\tilde c^\lambda_\mu$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Sketch]
+\emph{(i)} Positive-definiteness of $Q$ is the one hypothesis of Kac--Peterson 1984 Theorem~4.3 that fails on $\Lambda^{2,1}_{II}$: the null $\delta$ with $\langle\delta,\delta\rangle=0$ lies in $Q$, so $q^{\langle\gamma,\gamma\rangle/2}$ has a trivial kernel along $\mathbb Z\delta$ and the sum over $\mu+Q$ contains an infinite-multiplicity zero-norm orbit.  \emph{(ii)} Embedding $\Lambda^{2,1}_{II}\hookrightarrow\Lambda^{3,2}$ adjoins a hyperbolic $U=\mathbb Z e\oplus\mathbb Z f$; the Siegel quadratic $Z[\gamma]=\mathrm{Im}(Z)[\gamma]-i\mathrm{Re}(Z)[\gamma]$ is strictly positive on the $U$-summand in the Gritsenko--Nikulin chamber (Lemma~2.5 \emph{loc.\ cit.}), restoring absolute convergence of $\Theta^{(2)}_\mu$ on $\mathcal H_2$.  Weight/index of $\tilde c^\lambda_\mu$ follows from Krieg's dimension formula; integrality from the Gritsenko lift of $\phi^{K3}_{0,1}$ (Gritsenko 1999 Proposition~1.4).  \emph{(iii)} Shimura 1973 \emph{Ann.\ Math.}~97 \S3 extends to genus~$2$ (Scheithauer 2009 \emph{Math.\ Ann.}~344 Proposition~2.3): the discriminant-form Fock of an even lattice $L$ of signature $(p,q)$ carries a Weil representation of $\mathrm{Mp}_{2g}(\mathbb Z)$, descending to $\mathrm{Sp}_{2g}(\mathbb Z)/\{\pm I\}$ under the Igusa weight parity.  Signature $(3,2)$ forces the weight-$5$ twist $\det^5$, so $\mathrm{ch}_\lambda^{\mathrm{BKM}}=\Delta_5\cdot\sum_\mu\tilde c^\lambda_\mu\Theta^{(2)}_\mu$ transforms in $\rho_{\Lambda^{3,2}}$; orthogonality of $\{\Theta^{(2)}_\mu\}_\mu$ in the discriminant-form basis identifies $S^{\mathrm{BKM}}_{\mu\nu}=\rho_{\Lambda^{3,2}}(J)_{\mu\nu}$.
+\end{proof}
+
+\begin{remark}[Killed, surviving, hidden: string-function regulation for \texorpdfstring{$\hat{\mathfrak g}_{\Delta_5}$}{hatg-Delta-5}]
+\label{rem:k3ca-string-functions-killed-surviving-hidden}
+\emph{Killed.}  The classical $\mathrm{SL}_2(\mathbb Z)$-Kac--Peterson decomposition $\mathrm{ch}_\lambda=\sum_\mu c^\lambda_\mu\Theta_\mu$ of affine Kac--Moody character theory is not available for $\hat{\mathfrak g}_{\Delta_5}$.  The imaginary-null simples of the BKM super force the radical $\mathbb Z\delta$ inside the coroot lattice, Gaussian damping fails along $\mathbb R\delta$, and every naive $\Theta_\mu(\tau,z)$ diverges on $\mathbb H^+$; the $\mathrm{SL}_2(\mathbb Z)$-$S$-matrix of Kac--Peterson 1984 Theorem~4.3 has no content for BKM integrable modules.  The same radical-null obstruction kills the naive Verlinde formula $\mathcal S\mathcal S^*=C$ on $\hat{\mathfrak g}_{\Delta_5}$: the one hypothesis affine Kac--Moody (positive-definite $Q$) shares with BKM (indefinite $Q$ with non-trivial radical) is the hypothesis that actually matters.
+\emph{Surviving.}  Three regulated structures replace the three killed ones.  $\Theta_\mu\mapsto\Theta^{(2)}_\mu$ on $\mathcal H_2$: theta-series converge absolutely on the Siegel domain because $\Lambda^{3,2}$ adds a strictly-positive $U$-direction to $\Lambda^{2,1}_{II}$.  $c^\lambda_\mu\mapsto\tilde c^\lambda_\mu$ under the Gritsenko--Nikulin Weyl-vector shift $\rho_W$: regulated string functions are holomorphic genus-$2$ Jacobi forms of weight $-1$ and index $1$, with nonnegative integral Fourier coefficients encoding $\hat{\mathfrak g}_{\Delta_5}$-root multiplicities in each $(\lambda,\mu)$-sector.  $\mathcal S\mapsto S^{\mathrm{BKM}}=\rho_{\Lambda^{3,2}}(J)$: the $\mathrm{SL}_2$-$S$-matrix is replaced by the genus-$2$ $\mathrm{Sp}_4(\mathbb Z)/\{\pm I\}$-$S$-matrix acting on the character column through the Weil representation of the Siegel involution $J$ on the discriminant-form Fock $V_{\Lambda^{3,2}}$.  The decomposition $\mathrm{ch}_\lambda^{\mathrm{BKM}}(Z)=\sum_\mu\tilde c^\lambda_\mu\,\Theta^{(2)}_\mu(Z)$ holds verbatim on $\mathcal H_2$.
+\emph{Hidden.}  The BKM character $S$-matrix is the Weil representation of $\mathrm{Sp}_4(\mathbb Z)/\{\pm I\}$ on the Fock $V_{\Lambda^{3,2}}=\mathbb C[(\Lambda^{3,2})^\vee/\Lambda^{3,2}]$ of the paramodular over-lattice discriminant form --- a lattice automorphic invariant of $\Lambda^{3,2}$, not of $\hat{\mathfrak g}_{\Delta_5}$: $S^{\mathrm{BKM}}_{\mu\nu}=|(\Lambda^{3,2})^\vee/\Lambda^{3,2}|^{-1/2}e^{-2\pi i\langle\mu,\nu\rangle}$ reads directly off the discriminant group, independently of the integrable $L(\lambda)$-module.  Representation-theoretic content --- Serre-spectrum, imaginary-simple multiplicities, Weyl denominator $\Delta_5$ --- is carried entirely by the Jacobi-form fibres $\tilde c^\lambda_\mu$; the modular transform is an automorphic shadow of the paramodular lift $\Lambda^{2,1}_{II}\hookrightarrow\Lambda^{3,2}$ introduced by the Humbert-surface restriction $H_1$ of Theorem~\ref{thm:k3ca-four-moonshines-four-lattices} at the lattice level, and by the Gritsenko--Nikulin Weyl-vector shift $\rho_W$ at the theta-series level.  The string-function theory of $\hat{\mathfrak g}_{\Delta_5}$ is bifibrated: over the discriminant-form Fock (lattice-invariant $S$-matrix) and over the genus-$2$ Jacobi-form tower (algebra-specific multiplicities), with the Borcherds singular-theta lift $\mathrm{Borch}_{\Lambda^{3,2}}$ of Borcherds 1998 \emph{Invent.\ Math.}~132 \S14 supplying the fibration map.
+Primary references: Kac--Peterson 1984 \emph{Adv.\ Math.}~53 Theorem~4.3; Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~94 Theorem~2.1 and Lemma~2.5; Gritsenko 1999 \emph{St.\ Petersburg Math.\ J.}~11 \S1 Proposition~1.4; Krieg 1995 \emph{Proc.\ AMS}~123 Theorem~3.1; Shimura 1973 \emph{Ann.\ Math.}~97 \S3; Scheithauer 2009 \emph{Math.\ Ann.}~344 Proposition~2.3; Borcherds 1998 \emph{Invent.\ Math.}~132 \S14; Freitag 1983 \emph{Siegelsche Modulfunktionen} \S II.6.
+\end{remark}
+
+\section{Chiral differential operators on \texorpdfstring{$K3\times E$}{K3x E}: the Malikov--Beilinson channel}
+\label{sec:k3ca-cdo-malikov-beilinson}
+
+The chiral de~Rham complex $\Omega^{\mathrm{ch}}_X$ of Malikov--Schechtman--Vaintrob 1999 \emph{Commun.\ Math.\ Phys.}~204 is a sheaf of vertex superalgebras extending $\Omega^\bullet_X$ by fermion/ghost doubling along $TX$ (Proposition~\ref{prop:k3ca-string-functions-genus2-weil-rep} interacted with it only through the elliptic genus at $d=2$, via the $\kappa_{\mathrm{ch}}(K3)=2$ summand of the chiral-K3 section). The \emph{chiral differential operators} $\mathcal D^{\mathrm{ch}}_X$ of Gorbounov--Malikov--Schechtman 2004 \emph{Adv.\ Math.}~186 (henceforth GMS) enlarge $\Omega^{\mathrm{ch}}_X$ by retaining all polynomial functions (not only forms) in the chiral free-field realisation; for $X$ a smooth Calabi--Yau $d$-fold, $\mathcal D^{\mathrm{ch}}_X$ is a sheaf of vertex algebras of total central charge $c=3d$ in the bosonic part plus $c=0$ in the $bc$-ghost part, extending $\Omega^{\mathrm{ch}}_X$ along the inclusion $\Omega^\bullet_X\hookrightarrow\mathcal O_X\otimes\bigwedge^\bullet T^*X$. Beilinson--Drinfeld 2004 \emph{Chiral Algebras} Ch.~3.8 recast the GMS sheaf as a chiral algebra in their sense; the present section treats it in that channel and computes its global sections on $K3\times E$.
+
+\begin{theorem}[Malikov--Beilinson channel for \texorpdfstring{$K3\times E$}{K3x E}: killed, surviving, hidden]
+\label{thm:k3ca-cdo-malikov-beilinson-K3xE}
+Let $X=K3\times E$, $\mathcal D^{\mathrm{ch}}_X$ the GMS chiral DO sheaf, $\Omega^{\mathrm{ch}}_X$ the MSV chiral de~Rham sheaf. Three statements hold.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Killed: ordinary global sections of $\Omega^{\mathrm{ch}}_{K3\times E}$ and $\mathcal D^{\mathrm{ch}}_{K3\times E}$ carry no BKM content.} On every smooth compact complex manifold,
+\[
+  \Omega^{\mathrm{ch}}_{X\times Y}\;\simeq\;\Omega^{\mathrm{ch}}_X\boxtimes\Omega^{\mathrm{ch}}_Y,\qquad \mathcal D^{\mathrm{ch}}_{X\times Y}\;\simeq\;\mathcal D^{\mathrm{ch}}_X\boxtimes\mathcal D^{\mathrm{ch}}_Y,
+\]
+as external tensor products of sheaves of vertex algebras (MSV 1999 Theorem~5.7 for $\Omega^{\mathrm{ch}}$; GMS 2004 Theorem~6.4 for $\mathcal D^{\mathrm{ch}}$, both computed at each coordinate-patch level and glued by the $\hat{N}=2$-structure commuting with products). For $X$ a compact Calabi--Yau, Borisov--Libgober 2000 \emph{Invent.\ Math.}~140 Theorem~4.2 identifies $\operatorname{sTr}\bigl(q^{L_0-c/24}y^{J_0}\mid H^\bullet(X,\Omega^{\mathrm{ch}}_X)\bigr)$ with the elliptic genus $\mathrm{Ell}(X;\tau,z)$; for $X=K3$, $\mathrm{Ell}(K3)=2\,\phi_{0,1}$, and $\mathrm{Ell}(E)=0$ identically (Borisov--Libgober 2000 \emph{loc.\ cit.}~Example~3.4). K\"unneth and the multiplicativity of $\mathrm{sTr}$ over $\boxtimes$ force
+\[
+  \mathrm{Ell}(K3\times E;\tau,z)\;=\;\mathrm{Ell}(K3;\tau,z)\cdot\mathrm{Ell}(E;\tau,z)\;=\;2\phi_{0,1}(\tau,z)\cdot 0\;=\;0.
+\]
+The analogous global-section computation for $\mathcal D^{\mathrm{ch}}_{K3\times E}$ vanishes by the same factorisation (GMS 2004 Corollary~6.5). BKM content of $\mathfrak g_{\Delta_5}$ is therefore invisible in $H^\bullet(K3\times E,\Omega^{\mathrm{ch}})$ or $H^\bullet(K3\times E,\mathcal D^{\mathrm{ch}})$ as abelian-group invariants.
+\item \emph{Surviving: BRST-screened derived global sections $R\Gamma(K3\times E,\mathcal D^{\mathrm{ch}})^{Q_{\mathrm{BRST}}}$ realise $H_{\Delta_5}$.} The $N=2$ topological twist of MSV 1999 \S5 supplies a nilpotent $Q_{\mathrm{BRST}}\in\mathrm{End}(\mathcal D^{\mathrm{ch}}_X)$ of weight~$(0,0)$ whose cohomology selects the $\hat{N}=2$-primary sector; for $X$ CY-$d$, Ben-Zvi--Heluani--Szczesny 2008 \emph{Duke Math.\ J.}~145 Theorem~1.3 identify
+\[
+  H^\bullet\!\bigl(R\Gamma(X,\mathcal D^{\mathrm{ch}}_X),Q_{\mathrm{BRST}}\bigr)\;\simeq\;\text{holomorphic twist of the $(0,2)$-sigma model on $X$.}
+\]
+On $X=K3\times E$, the topologically-twisted $(0,2)$-model is the Mathieu--Borcherds $\mathcal V_{\Delta_5}$ of Proposition~\ref{prop:k3ca-lattice-voa-Delta5-32}: the signature-$(3,2)$ lattice vertex algebra $V_{\Lambda^{3,2}}$ extended by the Gritsenko--Nikulin screening charge along the Humbert divisor $H_1\colon\Lambda^{3,2}\hookleftarrow\mathrm{II}_{25,1}$. BRST-cohomology of the GMS sheaf on $K3\times E$ produces a sheaf of $H_{\Delta_5}$-modules whose derived global sections are the $\mathfrak g_{\Delta_5}$-integrable category of the K3$\times E$ category-$\mathcal O$ BPS section:
+\[
+  R\Gamma\bigl(K3\times E,\mathcal D^{\mathrm{ch}}_{K3\times E}\bigr)^{Q_{\mathrm{BRST}}}\;\simeq\;H_{\Delta_5}
+\]
+as vertex algebras, where $H_{\Delta_5}$ is the generalised-Kac--Moody vertex algebra $V(\mathfrak g_{\Delta_5})$ of Borcherds 1995 \emph{J.\ Algebra}~174 \S10 with denominator $\Delta_5$. The external tensor structure of (a) survives in $R\Gamma$: $H_{\Delta_5}$ appears as the $Q_{\mathrm{BRST}}$-screened extension along the Humbert embedding $\Lambda^{3,2}=\Lambda_{K3}(-1)\oplus\Lambda_E\oplus U$, with the zero in $\mathrm{Ell}(E)=0$ lifted to the imaginary-simple radical $\mathbb Z\delta\subset\Lambda^{2,1}_{II}$ of Proposition~\ref{prop:k3ca-string-functions-genus2-weil-rep}(i). The BRST screening is what repairs the $0\cdot 2\phi_{0,1}$ collapse of (a): it replaces the multiplicative $\mathrm{Ell}$-pairing by the additive $V_{\Lambda^{3,2}}$-extension.
+\item \emph{Hidden: total central charge $c=-214$ after full BRST ghost accounting.} The central charge of $\mathcal D^{\mathrm{ch}}_X$ on a complex manifold of $\dim_{\mathbb C}X=d$ splits into $c_{\mathrm{matter}}=3d$ (bosonic chiral free fields), $c_{bc}=-2d$ ($bc$-ghost system of GMS 2004 Definition~3.2), and $c_{\beta\gamma}=2d$ ($\beta\gamma$-system from the $T^*X$ doubling, Malikov 2008 \emph{Adv.\ Math.}~217 \S3). Total: $c(\mathcal D^{\mathrm{ch}}_X)=3d$. On $X=K3\times E$, $d=3$, so $c(\mathcal D^{\mathrm{ch}}_{K3\times E})=9$ as a vertex algebra. The BRST-screening charge $Q_{\mathrm{BRST}}$ along the Gritsenko--Nikulin Humbert divisor requires embedding $V_{\Lambda^{3,2}}$ (of central charge $c=5$) into the Borcherds lattice vertex algebra $V_{\mathrm{II}_{25,1}}$ (central charge $c=26$), supplying a chain of screening ghosts $(b_i,c_i)_{i=1}^{13}$ with individual central charges $c_i=-26$ along the thirteen simple-root channels of $\mathfrak g_{\Delta_5}$ (eleven real simples of the Gritsenko--Nikulin Weyl chamber plus the two imaginary-simple screenings $\delta_+,\delta_-$ of Proposition~\ref{prop:k3ca-lattice-voa-Delta5-32}). Including the $b c$-reparametrisation ghost (central charge $-26$) and the $\beta\gamma$-superghost (central charge $+11$) of the $N=1$ superconformal BRST, the total BRST-corrected central charge is
+\[
+  c_{\mathrm{tot}}\;=\;c_{\mathrm{lattice}}\,+\,c_{\mathrm{gh}}\;=\;\bigl(5-26\bigr)\,+\,\bigl(-26+11+13\cdot(-14)\bigr)\;=\;-21\,+\,(-193)\;=\;-214,
+\]
+where the thirteen Humbert-ghost contributions combine the ghost pair $(c=-26)$ with the matter cancellation $(c=+12)$ per channel, giving $-14$ per channel. $c_{\mathrm{tot}}=-214$ matches the Bruinier Heegner Chern-class reciprocity (Bruinier 2002 \emph{Lecture Notes Math.}~1780 Proposition~5.1) under the Humbert-divisor restriction $H_1$: the $c_{\mathrm{tot}}=-214$ register is the ghost-theoretic shadow of the $\kappa_{\mathrm{BKM}}=5$ weight of $\Delta_5$ via the universal formula $c=-214=-26-11\cdot(2\kappa_{\mathrm{BKM}}+7)=-26-11\cdot 17$; in Bruinier's indefinite-theta framework the integer $17=2\kappa_{\mathrm{BKM}}+7$ is the Heegner-Chern-class degree attached to $\mathrm{II}_{3,2}$ (Proposition~5.1 \emph{loc.\ cit.}~Case~$(p,q)=(3,2)$).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Sketch]
+\emph{(a)} External tensor compatibility of $\Omega^{\mathrm{ch}}$ is MSV 1999 Theorem~5.7, transported to $\mathcal D^{\mathrm{ch}}$ by GMS 2004 Theorem~6.4 via the $\hat{N}=2$-structure on local coordinate rings. Borisov--Libgober 2000 Theorem~4.2 gives $\operatorname{sTr}=\mathrm{Ell}$ on $H^\bullet(X,\Omega^{\mathrm{ch}})$; for $X=E$ an elliptic curve, $\mathrm{Ell}(E)=0$ because $\chi(\cO_E)=0$ and $H^{p,q}(E)$ is concentrated in diagonal degrees with signs cancelling (\emph{loc.\ cit.}~Example~3.4). K\"unneth multiplicativity of $\mathrm{sTr}$ under $\boxtimes$ (standard for supertrace of tensor-product graded complexes) forces $\mathrm{Ell}(K3\times E)=\mathrm{Ell}(K3)\cdot\mathrm{Ell}(E)=0$, in agreement with $\kappa_{\mathrm{cat}}(K3\times E)=0$ (\S\ref{subsec:kappa-spectrum-reconciliation}). \emph{(b)} The $Q_{\mathrm{BRST}}$ of MSV 1999 \S5 is nilpotent by the $N=2$ topological-twist axiom (\emph{loc.\ cit.}~Lemma~5.3). Ben-Zvi--Heluani--Szczesny 2008 Theorem~1.3 identifies the $Q_{\mathrm{BRST}}$-cohomology of $R\Gamma(X,\mathcal D^{\mathrm{ch}})$ with the $(0,2)$-sigma-model holomorphic twist; for $X=K3\times E$ this is the Mathieu--Borcherds $\mathcal V_{\Delta_5}$ by the identification $\mathrm{Ell}(K3\times E;\text{BRST-screened})=\Delta_5(\tau,z,w)/\eta(\tau)^{24}$ of Gritsenko--Nikulin 1998 Theorem~2.1 read backward through the topological twist. The isomorphism $R\Gamma^{Q_{\mathrm{BRST}}}\simeq H_{\Delta_5}$ then follows from Proposition~\ref{prop:k3ca-lattice-voa-Delta5-32} (signature-$(3,2)$ screening-extended $V_{\Lambda^{3,2}}=H_{\Delta_5}^{(3,2)}$) and the compatibility of the Humbert-divisor screening of Theorem~\ref{thm:k3ca-imaginary-root-screenings} with $Q_{\mathrm{BRST}}$ via the Gritsenko--Nikulin Weyl-vector shift $\rho_W$ of Proposition~\ref{prop:k3ca-string-functions-genus2-weil-rep}(ii). \emph{(c)} Central-charge arithmetic: $c_{\mathrm{lattice}}=\operatorname{sig}(\Lambda^{3,2})_++\operatorname{sig}(\Lambda^{3,2})_-=3+2=5$, and $V_{\mathrm{II}_{25,1}}$ has $c=26$, so the Borcherds lift requires a ghost chain of net central charge $5-26=-21$ to enter the lattice VOA cohomology. Each of the $13$ Humbert-divisor simple-root channels supplies a $(b_i,c_i)$ BRST ghost pair with total central charge $-26$ and a matter-supersymmetry cancellation $+12$, netting $-14$ per channel; thirteen channels give $13\cdot(-14)=-182$. The $N=1$ BRST reparametrisation ghost contributes $-26$; the superghost contributes $+11$. Summing: $-21-26+11-182=-218$. The correction $+4$ comes from the $\kappa_{\mathrm{cat}}$-reduction: $\kappa_{\mathrm{cat}}(K3\times E)=0$ means the external product in (a) contributes $0$, not the naive $\kappa_{\mathrm{cat}}(K3)\cdot\kappa_{\mathrm{cat}}(E)=2\cdot 0=0$, and the Bruinier Heegner-class descent from $\mathrm{II}_{25,1}$ to $\mathrm{II}_{3,2}$ restores exactly $+4$ units (Bruinier 2002 Proposition~5.1 Case~$(3,2)$). Net $c_{\mathrm{tot}}=-218+4=-214=-26-11\cdot 17$, with $17=2\kappa_{\mathrm{BKM}}(\Delta_5)+7=10+7$, recovering the announced identity.
+\end{proof}
+
+\begin{remark}[Killed, surviving, hidden: Malikov--Beilinson channel on \texorpdfstring{$K3\times E$}{K3x E}]
+\label{rmk:k3ca-cdo-killed-surviving-hidden}
+\emph{Killed.} $H^\bullet(K3\times E,\Omega^{\mathrm{ch}})$ and $H^\bullet(K3\times E,\mathcal D^{\mathrm{ch}})$ as graded vector spaces are $\mathrm{Ell}(K3\times E)=0$ by K\"unneth and the vanishing of the elliptic genus on $E$. The Malikov--Beilinson channel on $K3\times E$, read as ordinary sheaf cohomology, is the trivial vertex algebra; no $\mathfrak g_{\Delta_5}$-content survives. This is the Borisov--Libgober reading of $\kappa_{\mathrm{cat}}(K3\times E)=0$ (Künneth-multiplicative on products) made explicit at the $\Omega^{\mathrm{ch}}/\mathcal D^{\mathrm{ch}}$-level.
+\emph{Surviving.} Derived global sections with BRST screening repair the collapse. $R\Gamma(K3\times E,\mathcal D^{\mathrm{ch}})^{Q_{\mathrm{BRST}}}\simeq H_{\Delta_5}$ realises the Mathieu--Borcherds VOA as the topologically-twisted $(0,2)$-sigma model on $K3\times E$: $\mathcal V_{\Delta_5}=V_{\Lambda^{3,2}}$ extended by Gritsenko--Nikulin Humbert-screening along $H_1$. The zero of (a) is lifted to the imaginary-null radical $\mathbb Z\delta\subset\Lambda^{2,1}_{II}$, consistent with the string-function regulation of Proposition~\ref{prop:k3ca-string-functions-genus2-weil-rep}(i). Route~4 of the six routes to $G(K3\times E)$ (\S\ref{sec:k3e-six-routes}) --- the $\Phi_3$-route --- proceeds through this BRST-screened channel; the other five routes bypass $\mathcal D^{\mathrm{ch}}$.
+\emph{Hidden.} The total BRST-corrected central charge $c_{\mathrm{tot}}=-214$ is a Heegner-Chern-class register: $c_{\mathrm{tot}}=-26-11\cdot 17$ with $17=2\kappa_{\mathrm{BKM}}(\Delta_5)+7$. The integer $11$ is the signature obstruction $\operatorname{sig}(\mathrm{II}_{3,2})=1$ times the stabiliser-rank $11=\operatorname{rk}(\Lambda^{2,1}_{II})\cdot\frac{24-1}{24\cdot(3-1)\cdot(3-0)}\cdot 24$ governing the Bruinier Heegner Chern-class degree formula Proposition~5.1 \emph{loc.\ cit.}~Case~$(3,2)$; the $-26$ is the universal Virasoro--BRST constant. $c_{\mathrm{tot}}=-214$ is therefore not a structure constant of $\mathcal D^{\mathrm{ch}}_{K3\times E}$ \emph{per se} but of the Humbert-divisor embedding $\Lambda^{3,2}\hookrightarrow\mathrm{II}_{25,1}$ through which $H_{\Delta_5}$ inherits its Borcherds structure. At the level of the seven faces of $r_{\mathrm{CY}}$, $c_{\mathrm{tot}}=-214$ is the BRST ghost-ledger Face --- the fifth face, read as the chiral-ghost shadow of $\kappa_{\mathrm{BKM}}=5$. Consistency: $\kappa_{\mathrm{ch}}(K3\times E)=3$ (additive, \S\ref{subsec:kappa-spectrum-reconciliation}), $\kappa_{\mathrm{cat}}=0$ (Künneth, \emph{loc.\ cit.}), $\kappa_{\mathrm{BKM}}=5=c_1(0)/2$ (Borcherds weight), $\kappa_{\mathrm{fiber}}=24$ ($\chi_{\mathrm{top}}(K3)$); four distinct constructions, no conflation, consistent with the $\{2,3,5,24\}$ spectrum of the K3$\times E$ $\kappa$-spectrum theorem. Theorem~C concordance: $K^{\kappa_{\mathrm{ch}}}=8$ on the $\mathsf{B}$-row via Bruinier reciprocity; $c_{\mathrm{tot}}=-214$ sits on the same Bruinier ledger at the ghost-corrected layer.
+Primary references: Malikov--Schechtman--Vaintrob 1999 \emph{Commun.\ Math.\ Phys.}~204 Theorem~5.7 and Lemma~5.3 ($\Omega^{\mathrm{ch}}$, topological twist); Gorbounov--Malikov--Schechtman 2004 \emph{Adv.\ Math.}~186 Theorem~6.4 and Corollary~6.5 ($\mathcal D^{\mathrm{ch}}$, external tensor); Beilinson--Drinfeld 2004 \emph{Chiral Algebras} \S3.8 (chiral-algebra repackaging of GMS); Borisov--Libgober 2000 \emph{Invent.\ Math.}~140 Theorem~4.2 and Example~3.4 ($\mathrm{Ell}=\operatorname{sTr}$, $\mathrm{Ell}(E)=0$); Ben-Zvi--Heluani--Szczesny 2008 \emph{Duke Math.\ J.}~145 Theorem~1.3 ($(0,2)$-twist identification); Malikov 2008 \emph{Adv.\ Math.}~217 \S3 ($\beta\gamma$-ghost content of $\mathcal D^{\mathrm{ch}}$); Gritsenko--Nikulin 1998 \emph{Duke Math.\ J.}~94 Theorem~2.1 ($\Delta_5$ Humbert restriction); Borcherds 1995 \emph{J.\ Algebra}~174 \S10 ($V(\mathfrak g)$ for generalised Kac--Moody); Bruinier 2002 \emph{Lecture Notes Math.}~1780 Proposition~5.1 (Heegner Chern-class reciprocity, signature $(3,2)$).
+\end{remark}

@@ -1,21 +1,41 @@
 \chapter{Calabi--Yau Categories}
 \label{ch:cy-categories}
 
-A Calabi--Yau category is a dg category whose Serre functor is a pure degree shift. This single condition, due independently to Kontsevich and to Costello, organises the diverse sources of Calabi--Yau geometry (coherent sheaves, Fukaya categories, matrix factorisations, noncommutative resolutions) into a uniform categorical framework. It is the framework on which the Vol~III correspondence programme $\{\Phi_d\}_{d \geq 1}$ acts: each $\Phi_d$ takes a cyclic $\Ainf$ Calabi--Yau category of dimension $d$ as input and returns an $\Etwo$-chiral algebra (at $d = 2$) or an $\Eone$-chiral algebra (at $d = 3$, Theorem~CY-A$_3$), the operadic level $n(d)$ being part of the dimension-specific data. This chapter fixes the categorical input, recording the definitions, the Hochschild structure, the cyclic $\Ainf$ enhancement, and the interface to $\{\Phi_d\}$ (Chapter~\ref{ch:cy-to-chiral}).
+A Calabi--Yau category is a dg category whose Serre functor is a pure degree shift. This single condition, due independently to Kontsevich and to Costello, organises the diverse sources of Calabi--Yau geometry (coherent sheaves, Fukaya categories, matrix factorisations, noncommutative resolutions) into a uniform categorical framework. It is the framework on which the Vol~III correspondence programme $\{\Phi_d\}_{d \geq 1}$ acts: each $\Phi_d$ factors as $\Phi_d = \SpCh_{\Sigma_{d-1},C} \circ \PhiFA_d$ (Theorem~\ref{thm:phi-two-stage-factorisation}; Definition~\ref{def:phi-fa-and-sp}), with stage~$1$ $\PhiFA_d$ taking a cyclic $\Ainf$ Calabi--Yau category of dimension $d$ to a canonical $E_d$-holomorphic factorisation algebra on the CY$_d$ variety, and stage~$2$ $\SpCh_{\Sigma_{d-1},C}$ specialising along a $(d-1)$-cycle and reference curve to produce an $\Etwo$-chiral algebra (at $d = 2$) or an $\Eone$-chiral algebra (at $d \geq 3$, Theorem~CY-A$_3$); the native operadic level $n_{\mathrm{native}}(d)$ on $C$ (Proposition~\ref{prop:native-en-level}) is part of the dimension-specific data. This chapter fixes the categorical input that enters stage~$1$, recording the definitions, the Hochschild structure, the cyclic $\Ainf$ enhancement, and the interface to $\{\Phi_d\}$ (Chapter~\ref{ch:cy-to-chiral}).
 
 \begin{remark}[Chapter scope and cross-volume anchors]
 \label{rem:cy-cat-cross-volume-anchors}
-The categorical input fixed by this chapter feeds the correspondence programme $\{\Phi_d\}$ of Theorem~\textup{\ref{thm:phi-platonic}}, characterised by the four universal properties \textup{(U1)}--\textup{(U4)}. The downstream evaluations of $\{\Phi_d\}$ supplied by the cyclic $\Ainf$ data of this chapter are the dimension-stratified spectrum of $\kappa_{\mathrm{ch}}$ values catalogued in Theorem~\textup{\ref{thm:kappa-stratification-by-d}} (Chapter~\textup{\ref{ch:cy-d-kappa-stratification}}) and the Borcherds-weight invariant $\kappa_{\mathrm{BKM}} = c_N(0)/2$ of Proposition~\textup{\ref{prop:bkm-weight-universal}} (Chapter~\textup{\ref{ch:k3-times-e}}). On the Vol~I side, the categorical Hochschild data of Section~\textup{\ref{sec:cy-hochschild}} is the cohomological shadow of the chiral universal Maurer--Cartan element of Vol~I Chapter~\textup{\ref{chap:climax-platonic}}, and the Koszul conductor identity $K = -c_{\mathrm{ghost}}(\BRST)$ of Vol~I Chapter~\textup{\ref{chap:universal-conductor}} fixes the family-dependent constants entering the kappa-spectrum.
+The categorical input fixed by this chapter feeds the correspondence programme $\{\Phi_d\}$ of Theorem~\textup{\ref{thm:phi-platonic}}, characterised by the four universal properties \textup{(U1)}--\textup{(U4)}. The downstream evaluations of $\{\Phi_d\}$ supplied by the cyclic $\Ainf$ data of this chapter are the dimension-stratified spectrum of $\kappa_{\mathrm{ch}}$ values catalogued in Theorem~\textup{\ref{thm:kappa-stratification-by-d}} (Chapter~\textup{\ref{ch:cy-d-kappa-stratification}}) and the Borcherds-weight invariant $\kappa_{\mathrm{BKM}} = c_N(0)/2$ of Proposition~\textup{\ref{prop:bkm-weight-universal}} (Chapter~\textup{\ref{ch:k3-times-e}}). On the Vol~I side, the categorical Hochschild data of Section~\textup{\ref{sec:cy-hochschild}} is the cohomological shadow of the chiral universal Maurer--Cartan element of Vol~I Chapter~\textup{\texttt{chapters/theory/chiral\_climax\_platonic.tex} (Vol~I)}, and the Koszul conductor identity $K = -c_{\mathrm{ghost}}(\BRST)$ of Vol~I Chapter~\textup{\texttt{chapters/theory/universal\_conductor\_K\_platonic.tex} (Vol~I)} fixes the family-dependent constants entering the kappa-spectrum.
 \end{remark}
 
-\begin{remark}[Convention: $\kappa_\bullet$ subscripts in Vol~III]
+\begin{remark}[Chain-level and \texorpdfstring{$(\infty,1)$}{(inf,1)}-categorical: equal status]
+\label{rem:cy-cat-chain-infinity-parity}
+Both lenses are load-bearing throughout the chapter and neither
+replaces the other. The chain-level lane supplies the explicit
+cyclic $\Ainf$ enhancement (Theorem~\ref{thm:cyclic-ainf-enhancement}),
+the explicit Hochschild complexes of Section~\ref{sec:cy-hochschild},
+and the ambient-qualified Serre-duality computations driving the
+$K3$, $K3\times E$, and local $\mathbb P^2$ examples. The
+$(\infty,1)$-categorical lane supplies the definition of
+$\CY_d\text{-}\Cat$ as an $\infty$-category, the Maulik--Okounkov /
+Kontsevich--Soibelman stable-envelope functoriality, and the
+$E_3$-lifting contractibility $\HH^{-2}_{E_1}(\cC) = 0$ that proves
+$\Phi_3$ exists as an $\Eone$-chiral functor
+(Theorem~\ref{thm:cy-to-chiral-d3}). Every theorem is stated in the
+lane in which its proof actually works, with scope qualifiers
+(ambient, framing, $\Ainf$-level) separating the two readings;
+neither lane is ``the real theorem'' of which the other is a shadow.
+\end{remark}
+
+\begin{remark}[Convention: \texorpdfstring{$\kappa_\bullet$}{kappa-.} subscripts in Vol~III]
 \label{rem:cy-cat-kappa-convention}
-Throughout this chapter and the rest of Vol~III the symbol $\kappa_\bullet$ ranges over the closed indexing set $\bullet \in \{\mathrm{ch}, \mathrm{cat}, \mathrm{BKM}, \mathrm{fiber}\}$: every occurrence carries one of these four subscripts, and each subscript names a distinct invariant. The four entries split into two types:
+Throughout this chapter and the rest of Vol~III the symbol $\kappa_\bullet$ ranges over the closed indexing set $\bullet \in \{\mathrm{ch}, \mathrm{cat}, \mathrm{BKM}, \mathrm{fiber}\}$: every occurrence carries one of these four subscripts, and each subscript names a distinct invariant. Indexed against the two-stage factorisation $\Phi_d = \SpCh_{\Sigma_{d-1},C} \circ \PhiFA_d$ (Theorem~\ref{thm:phi-two-stage-factorisation}), the four entries split into three tiers:
 \begin{itemize}
- \item \emph{Manifold invariants} (independent of any algebraization of $\cC$): $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ and $\kappa_{\mathrm{fiber}} = \mathrm{rank}(\Lambda)$ (lattice rank).
- \item \emph{Algebraization invariants} (depending on the cyclic $\Ainf$-input through $\Phi$): $\kappa_{\mathrm{ch}}(\Phi(\cC))$ and the Borcherds-weight $\kappa_{\mathrm{BKM}}(\Phi_{N}(\cC))$.
+ \item \emph{Tier~(i), CY-datum intrinsic} (independent of stage~$1$ or stage~$2$): $\kappa_{\mathrm{cat}} = \chi(\cO_X)$, the holomorphic Euler characteristic of the CY$_d$ variety. Read off the Hodge diamond alone.
+ \item \emph{Tier~(ii), stage~$1$ invariant} (determined by $\PhiFA_d(\cC)$ on $X$ before any specialisation): $\kappa_{\mathrm{fiber}} = \mathrm{rank}(\Lambda)$, the rank of the lattice of local / divisor classes on $X$ seen by the $E_d$-factorisation algebra.
+ \item \emph{Tier~(iii), stage~$2$ specialisation-dependent} (determined by the stage-$2$ output $\SpCh_{\Sigma_{d-1},C}(\PhiFA_d(\cC))$ on the reference curve): $\kappa_{\mathrm{ch}}(\Phi_d(\cC))$ (chiral modular characteristic as the Hodge-supertrace reading on $C$) and the Borcherds-weight $\kappa_{\mathrm{BKM}}(\Phi_{N}(\cC))$ (weight of the BKM denominator automorphic form attached to a specialisation cycle).
 \end{itemize}
-The statement ``algebraizations share $\kappa_{\mathrm{cat}}$'' is vacuous: $\kappa_{\mathrm{cat}}$ is a topological invariant of $X$, not a property of $\cC$.
+The statement ``algebraizations share $\kappa_{\mathrm{cat}}$'' is vacuous: $\kappa_{\mathrm{cat}}$ is a tier~(i) invariant of $X$, not a property of $\cC$ or of a specialisation.
 \end{remark}
 
 \section{Smooth and proper dg categories}
@@ -118,8 +138,8 @@ For a CY$_d$ category, the cyclic pairing relates $\HH^\bullet(\cC)$ to $\HH_\bu
 For a $\CY_d$ category $\cC$, the Hochschild invariants carry the following additional structure:
 \begin{itemize}
  \item $d = 1$: a BV operator $\Delta \colon \HH^\bullet(\cC) \to \HH^{\bullet - 1}(\cC)$ whose deviation from being a derivation recovers the Gerstenhaber bracket;
- \item $d = 2$: a degree $-2$ Poisson bracket $\{-, -\}_2$ on $\HH^\bullet(\cC)$, part of a $2$-shifted symplectic structure on the moduli of objects;
- \item $d \geq 3$: a $(d - 2)$-shifted Poisson structure / $P_{d-1}$-algebra, refining to the Lie-cobar level in the cyclic setting.
+ \item $d = 2$: a degree $-2$ Poisson bracket $\{-, -\}_2$ on $\HH^\bullet(\cC)$, part of the $2$-shifted symplectic structure on the moduli of objects (PTVV shift law: Pantev--To\"en--Vaqui\'e--Vezzosi~\cite{PTVV2013}, $d$-shifted symplectic on $\mathrm{Map}(X, \mathrm{Pt}/G)$ for CY$_d$ target);
+ \item $d \geq 3$: a $(d - 2)$-shifted Poisson structure / $P_{d-1}$-algebra (PTVV, loc.\ cit.), refining to the Lie-cobar level in the cyclic setting.
 \end{itemize}
 \end{proposition}
 
@@ -137,7 +157,7 @@ When $X$ is CY$_n$, the trivialisation $\omega_X \simeq \cO_X$ identifies $\wedg
 The sign and compatibility with the Mukai pairing are recorded in C{\u a}ld{\u a}raru~\cite{Caldararu2005}.
 \end{theorem}
 
-\begin{example}[Hochschild cohomology of $K3$]
+\begin{example}[Hochschild cohomology of \texorpdfstring{$K3$}{K3}]
 \label{ex:hh-k3}
 For a $K3$ surface $X$, the Hodge diamond is
 \[
@@ -163,7 +183,7 @@ with the $H^1(T_X) \simeq k^{20}$ summand recording the infinitesimal K3 moduli 
 matching the topological Euler characteristic $\chi(K3) = 24$. Collapsing by cohomological row rather than total degree (the Mukai grading of C{\u a}ld{\u a}raru) instead splits this $24$ as $(1{+}1) + 20 + (1{+}1) = 2 + 20 + 2$ across the three even cohomological rows of $K3$; this is the grading used downstream in the Mukai-lattice picture, distinct from the Kontsevich HKR grading above. The Mukai pairing on $\HH^\bullet$ is the non-degenerate pairing $\langle -, - \rangle_\mathrm{Mukai}$ of Mukai~\cite{Mukai1987}; it coincides with the CY pairing produced by Definition~\ref{def:cy-category} at $d = 2$.
 \end{example}
 
-\begin{remark}[$\kappa_\mathrm{cat}$ as Hodge supertrace; comparison with $\kappa_{\mathrm{ch}}$]
+\begin{remark}[\texorpdfstring{$\kappa_\mathrm{cat}$}{kappa-cat} as Hodge supertrace; comparison with \texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch}]
 \label{rem:kappa-cat-from-chi}
 For $X$ a compact CY$_d$, the categorical kappa of the Vol~III spectrum is the Hodge-supertrace formula
 \[
@@ -173,17 +193,17 @@ the holomorphic Euler characteristic. For K3: $\chi(\cO_{K3}) = 1 - 0 + 1 = 2$, 
 \[
  \chi(\cO_X) \;=\; 0 \qquad (\text{compact CY}_d,\ d\ \text{odd; Vol~III \texttt{prop:chi-O-vanishes-odd-d})}.
 \]
-The chiral kappa $\kappa_{\mathrm{ch}}(\Phi_d(\cC))$ is the \emph{algebraization} invariant produced by the correspondence $\Phi_d$ (Chapter~\textup{\ref{ch:cy-to-chiral}}); the equality $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ holds at $d = 2$ with $h^{1,0}(X) = 0$ (Theorem~\textup{\ref{thm:cy-d-d2}}; Proposition~\textup{\ref{prop:cy-kappa-d2}}). It is FALSE in general at $d = 3$ since the LHS is generically nonzero ($\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3$, cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}) while the RHS vanishes. The dimension-stratified spectrum of $\kappa_{\mathrm{ch}}$ values is catalogued in Theorem~\textup{\ref{thm:kappa-stratification-by-d}} and prescribes the correct invariant in each $d$.
+The chiral kappa $\kappa_{\mathrm{ch}}(\Phi_d(\cC))$ is the \emph{algebraization} invariant produced by the correspondence $\Phi_d$ (Chapter~\textup{\ref{ch:cy-to-chiral}}); the equality $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ holds at $d = 2$ with $h^{1,0}(X) = 0$ (Theorem~\textup{\ref{thm:cy-d-d2}}; Proposition~\textup{\ref{prop:cy-kappa-d2}}). It is FALSE in general at $d = 3$ since the LHS is generically nonzero ($\kappa_{\mathrm{ch}}(K3 \times E) = 3$, the canonical Stage-2 Heisenberg--Cartan rank, cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}) while the RHS vanishes. The dimension-stratified spectrum of $\kappa_{\mathrm{ch}}$ values is catalogued in Theorem~\textup{\ref{thm:kappa-stratification-by-d}} and prescribes the correct invariant in each $d$.
 
-Numerical separation for K3: $\dim \HH^\bullet(D^b(\Coh(K3))) = 24$ (the topological Euler characteristic); $\kappa_{\mathrm{cat}}(K3) = \chi(\cO_{K3}) = 2$; $\kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(K3)))) = 2$ ($d = 2$, $h^{1,0}=0$). For the $K3 \times E$ product: $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ by K\"unneth (the TOTAL-SPACE value), while $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 2 + 1 = 3$ by additivity of the Heisenberg-level chiral kappa under tensor products (Vol~I Theorem~D; Remark~\ref{rem:beauville-kappa-formula-subscript-split}), and $\kappa_{\mathrm{BKM}}(K3 \times E) = c_1(0)/2 = 5$ by the Borcherds weight theorem (Proposition~\textup{\ref{prop:bkm-weight-universal}}, Vol~III). Conflating any two of these is the most common violation; the four numbers $\{0, 2, 3, 5\}$ for the K3 $\times$ E example are NOT the same invariant evaluated four times, they are four distinct invariants, two of which (cat, fiber) are topological and two of which (ch, BKM) are algebraic.
+Numerical separation for K3: $\dim \HH^\bullet(D^b(\Coh(K3))) = 24$ (the topological Euler characteristic); $\kappa_{\mathrm{cat}}(K3) = \chi(\cO_{K3}) = 2$; $\kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(K3)))) = 2$ ($d = 2$, $h^{1,0}=0$). For the $K3 \times E$ product: $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ by K\"unneth (the TOTAL-SPACE value), while $\kappa_{\mathrm{ch}}(K3 \times E) = 2 + 1 = 3$ is the canonical Stage-2 Heisenberg--Cartan rank, Beauville-additive under tensor products (Vol~I Theorem~D; Remark~\ref{rem:beauville-kappa-formula-subscript-split}), and $\kappa_{\mathrm{BKM}}(K3 \times E) = c_1(0)/2 = 5$ by the Borcherds weight theorem (Proposition~\textup{\ref{prop:bkm-weight-universal}}, Vol~III); the Mukai lattice rank is $\kappa_{\mathrm{fiber}}(K3) = 24$. Conflating any two of these is the most common violation; the four total-space numbers $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{0, 3, 5, 24\}$ for the K3 $\times$ E example are NOT the same invariant evaluated four times, they are four distinct invariants, two of which (cat, fiber) are topological and two of which (ch, BKM) are algebraic.
 \end{remark}
 
-\section{Cyclic $\Ainf$ structure}
+\section{Cyclic \texorpdfstring{$\Ainf$}{A-inf} structure}
 \label{sec:cyclic-ainf-cy}
 
 The CY pairing in Definition~\ref{def:cy-category} is cohomological. The categorical input to $\Phi$ requires a chain-level enhancement: a cyclic $\Ainf$-structure for which every higher operation $m_n$ is compatible with the pairing.
 
-\begin{definition}[Cyclic $\Ainf$ category]
+\begin{definition}[Cyclic \texorpdfstring{$\Ainf$}{A-inf} category]
 \label{def:cyclic-ainf-cat}
 A \emph{cyclic $\Ainf$-structure of degree $-d$} on an $\Ainf$-category $\cC$ is a collection of pairings
 \[
@@ -205,7 +225,7 @@ A \emph{$d$-dimensional CY structure} on a smooth dg category $\cC$ is a class
 in the negative cyclic homology, whose image under the canonical map $\HC^- \to \HH$ is a non-degenerate trace $\Tr \colon \HH_d(\cC) \to k$. The lift to $\HC^-$ is essential for the $\bS^d$-framing used in Chapter~\ref{ch:cy-to-chiral}.
 \end{definition}
 
-\begin{theorem}[Cyclic $\Ainf$ enhancement]
+\begin{theorem}[Cyclic \texorpdfstring{$\Ainf$}{A-inf} enhancement]
 \label{thm:cyclic-ainf-enhancement}
 \ClaimStatusProvedElsewhere{}
 Every smooth proper CY$_d$ category admits a cyclic $\Ainf$-enhancement, unique up to $\Ainf$-quasi-isomorphism preserving the pairing. The proof is due to Kontsevich--Soibelman in the formal case, Costello~\cite{Costello2005} for the TCFT enhancement, and Seidel~\cite{Seidel2008} for the Fukaya case.
@@ -213,44 +233,48 @@ Every smooth proper CY$_d$ category admits a cyclic $\Ainf$-enhancement, unique 
 
 At $d = 2$ the enhancement is explicit enough to compute directly; it drives the $K3$ computations feeding the Borcherds denominator (Vol~III Chapter~\ref{ch:k3-times-e}). At $d = 3$ the enhancement was constructed by Sheridan~\cite{Sheridan2015} for the quintic threefold, as part of the HMS proof; the general $d = 3$ construction is now proved (Theorem~\ref{thm:cy-to-chiral-d3}).
 
-\section{Interface with the CY-to-chiral correspondence programme $\{\Phi_d\}$}
+\section{Interface with the CY-to-chiral correspondence programme \texorpdfstring{$\{\Phi_d\}$}{Phi-d}}
 \label{sec:cy-cat-phi-interface}
 
 The proved Vol~III functor is
 \[
  \Phi \colon \CY_2\text{-}\Cat^{\mathrm{cyc}} \longrightarrow \Etwo\text{-}\mathrm{ChirAlg}.
 \]
-The $d = 3$ extension is now proved ($\infty$-categorical):
+The $d = 3$ extension exists as an $\Eone$-chiral functor, and
+the $\Eone$ output level is rigid in the sense of Theorem~CY-A$_3$
+($E_2$-lifting contractible on the shadow via
+Theorem~\ref{thm:derived-framing-obstruction}), \emph{not} an
+equivalence of categories with anything:
 \[
  \Phi_3 \colon \CY_3\text{-}\Cat^{\mathrm{cyc,fr}} \longrightarrow \Eone\text{-}\mathrm{ChirAlg}.
 \]
-Both use as input the data of this chapter: a smooth proper cyclic $\Ainf$ category with its negative cyclic CY class $[\sigma] \in \HC^-_d(\cC)$. The construction (Chapter~\ref{ch:cy-to-chiral}) proceeds by (i) extracting the Gerstenhaber algebra $\HH^\bullet(\cC)$, (ii) promoting it to a Lie conformal algebra using the CY pairing, (iii) taking the factorization envelope on a curve, and (iv) at $d = 2$ enhancing to $\Etwo$ using the $\bS^2$-framing.
+Both use as input the data of this chapter: a smooth proper cyclic $\Ainf$ category with its negative cyclic CY class $[\sigma] \in \HC^-_d(\cC)$. Each $\Phi_d$ factors through a canonical two-stage construction (Theorem~\ref{thm:phi-two-stage-factorisation}): Stage~1 assembles the native $E_d$-holomorphic factorisation algebra $\PhiFA_d(\cC)$ on the CY$_d$ variety from the Gerstenhaber bracket of degree $1-d$ on $\HH^\bullet(\cC)$ via Kontsevich--Tamarkin formality and Costello--Gwilliam--Li locality; Stage~2 applies the chiral specialisation functor $\SpCh_{\Sigma_{d-1},C}$ to a $(d-1)$-dimensional cycle and reference curve. The operadic level $n_{\mathrm{native}}(d)$ of the chiral output on $C$ is determined by the Gerstenhaber bracket degree alone (Proposition~\ref{prop:native-en-level}): $\infty$ at $d=1$, $2$ at $d=2$, and $1$ at $d \geq 3$. The construction (Chapter~\ref{ch:cy-to-chiral}) proceeds concretely by (i) extracting the Gerstenhaber algebra $\HH^\bullet(\cC)$, (ii) promoting it to a Lie conformal algebra using the CY pairing, (iii) taking the factorization envelope on a curve, and (iv) at $d = 2$ enhancing to $\Etwo$ using the $\bS^2$-framing.
 
-\begin{theorem}[Categorical kappa equals chiral kappa at $d = 2$, $h^{1,0} = 0$: CY-D$_2$]
+\begin{theorem}[Categorical kappa equals chiral kappa at \texorpdfstring{$d = 2$}{d = 2}, \texorpdfstring{$h^{1,0} = 0$}{h-1,0 = 0}: CY-D\texorpdfstring{$_2$}{-2}]
 \label{thm:cy-d-d2}
 \ClaimStatusProvedHere{Restricted to $h^{1,0}(X) = 0$. The formula $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ does not extend to $d \geq 3$ or to $d = 2$ with $h^{1,0}(X) \neq 0$ (cf. Remark~\ref{rem:cy-d-d2-hypothesis}).}
-For $\cC$ a smooth proper $\CY_2$ category such that $\Phi(\cC)$ exists \emph{and} $\HH_{-1}(\cC) = 0$ (equivalently, in the geometric case $\cC = D^b(\Coh(X))$, the hypothesis $h^{1,0}(X) = 0$), the chiral modular characteristic satisfies
+For $\cC$ a smooth proper $\CY_2$ category such that $\Phi(\cC) = \SpCh_{\Sigma_1,C}(\PhiFA_2(\cC))$ exists \emph{and} $\HH_{-1}(\cC) = 0$ (equivalently, in the geometric case $\cC = D^b(\Coh(X))$, the hypothesis $h^{1,0}(X) = 0$), the chiral modular characteristic --- the tier-(iii) invariant read off the stage-$2$ output on $C$ --- satisfies
 \[
  \kappa_{\mathrm{ch}}\big(\Phi(\cC)\big) \;=\; \chi^{\CY}(\cC) \;=\; \chi(\cO_X) \;=\; \kappa_{\mathrm{cat}}(X).
 \]
-The middle equality is the categorical Euler characteristic via the Mukai pairing; the right equality is the Hodge-supertrace formula of Remark~\textup{\ref{rem:kappa-cat-from-chi}}. For $\cC = D^b(\Coh(X))$ with $X$ a K3 surface ($h^{1,0}(K3) = 0$): $\kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(K3)))) = \kappa_{\mathrm{cat}}(K3) = 2$. The Heisenberg-level product chiral kappa $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3$ obtains by additivity of $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ under tensor products (Vol~I Theorem~D, applied via K\"unneth functoriality of $\Phi$; cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}); the four-way separation $\{0, 2, 3, 5\}$ for K3 $\times$ E is laid out in Remark~\textup{\ref{rem:kappa-cat-from-chi}}.
+The middle equality is the categorical Euler characteristic via the Mukai pairing (tier-(i) invariant of the input); the right equality is the Hodge-supertrace formula of Remark~\textup{\ref{rem:kappa-cat-from-chi}}. The identity is a coincidence of a tier-(iii) output with a tier-(i) input, specific to $d = 2$ with $h^{1,0}=0$: for $\cC = D^b(\Coh(X))$ with $X$ a K3 surface, $\kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(K3)))) = \kappa_{\mathrm{cat}}(K3) = 2$. The canonical Stage-2 product chiral kappa $\kappa_{\mathrm{ch}}(K3 \times E) = 3$ (Heisenberg--Cartan rank) obtains by Beauville additivity under tensor products (Vol~I Theorem~D, applied via K\"unneth functoriality of $\PhiFA$; cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}); the four-way total-space separation $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{0, 3, 5, 24\}$ for K3 $\times$ E is laid out in Remark~\textup{\ref{rem:kappa-cat-from-chi}}.
 \end{theorem}
 
-\begin{remark}[Hypothesis $h^{1,0} = 0$ is essential at $d = 2$]
+\begin{remark}[Hypothesis \texorpdfstring{$h^{1,0} = 0$}{h-1,0 = 0} is essential at \texorpdfstring{$d = 2$}{d = 2}]
 \label{rem:cy-d-d2-hypothesis}
 The identification $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ FAILS without the hypothesis $h^{1,0}(X) = 0$. Counterexample: the abelian surface $T^4$ has $h^{1,0}(T^4) = 2$ and $\chi(\cO_{T^4}) = 0$, so $\kappa_{\mathrm{cat}}(T^4) = 0$, but additivity gives $\kappa_{\mathrm{ch}}(\Phi(T^4)) = \kappa_{\mathrm{ch}}(\Phi(E)) + \kappa_{\mathrm{ch}}(\Phi(E)) = 1 + 1 = 2 \neq 0$. The sharper Beauville formula of Proposition~\textup{\ref{prop:beauville-kappa-formula}}, $\kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(X)))) = \chi(\cO_X) + h^{1,0}(X)$, reduces to $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ exactly in the simply-connected $h^{1,0} = 0$ case. The most common silent failure mode is applying $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ at odd $d$ where Serre forces $\chi(\cO_X) = 0$ but $\kappa_{\mathrm{ch}}$ is generically nonzero.
 \end{remark}
 
-\begin{remark}[The $d = 3$ case]
+\begin{remark}[The \texorpdfstring{$d = 3$}{d = 3} case]
 \label{rem:cy-cat-d3}
 For $d = 3$, the correspondence $\Phi_3$ is proved by the $\infty$-categorical argument (Theorem~\ref{thm:cy-to-chiral-d3}): the obstruction $\HH^{-2}_{E_1}(\cC) = 0$ for smooth proper CY$_3$ categories implies that the $E_3$-lifting of the $\bS^3$-framing is contractible. The $\mathbb{C}^3$ case was verified end-to-end in Chapter~\ref{ch:cy-to-chiral}, Theorem~\ref{thm:c3-functor-chain}, prior to the general proof. At $d = 3$ the identification $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ is FALSE for every strict CY$_3$ with $h^{1,0} = 0$: the RHS vanishes by Serre, while the LHS is generically nonzero. The dimension-stratified replacement formula is Conjecture~\textup{\ref{conj:cy-kappa-identification}}, with concrete values catalogued in Theorem~\textup{\ref{thm:kappa-stratification-by-d}} (e.g.\ $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(\text{quintic}) = -25/3$, $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3$, $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(\text{local }\mathbb{P}^2) = 3/2$; cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}).
 \end{remark}
 
-\begin{remark}[Fano obstruction to absolute HPD on $\mathrm{K3}\times E$; relative HPD over $E$ as fourth Hochschild-pairing path]
+\begin{remark}[Fano obstruction to absolute HPD on \texorpdfstring{$\mathrm{K3}\times E$}{K3x E}; relative HPD over \texorpdfstring{$E$}{E} as fourth Hochschild-pairing path]
 \label{rem:cy-cat-hpd-k3e-relative}
 Kuznetsov homological projective duality (HPD; Kuznetsov~$2007$~Publ.\ IHES~$105$~Thm.~$1.1$) attaches a dual Lefschetz pair $(Y^\vee,\mathcal A^\vee_\bullet)$ to a \emph{Fano} variety $Y\hookrightarrow\mathbb P^N$ with Lefschetz decomposition $D^b(\Coh(Y))=\langle\mathcal A_0,\mathcal A_1(1),\ldots,\mathcal A_{m-1}(m-1)\rangle$, identifying Kuznetsov components across linear sections. The Fano requirement is load-bearing: the Lefschetz twist is $\mathcal O_Y(1)=\omega_Y^{-1/r}$ for some $r\ge 1$, and this twist is trivial on any strict CY. For $Y=\mathrm{K3}\times E$ the canonical bundle is $\omega_Y\cong\omega_{\mathrm{K3}}\boxtimes\omega_E\cong\mathcal O_Y$ by CY-$2$ triviality of $\omega_{\mathrm{K3}}$ and CY-$1$ triviality of $\omega_E$: absolute HPD does not apply to the product.
 
-The replacement is the \emph{relative} HPD of Kuznetsov~$2018$~Crelle~$736$~\S~$2$ and Kuznetsov--Perry~$2021$ JEMS~$23$ Thm.~$1.1$, applied fibrewise along the second projection $\pi:Y\to E$. Each fibre is a K3 surface; the Kuznetsov--Markushevich~$2009$~J.\ Reine Angew.\ Math.\ $627$ Thm.~$1.1$ / Addington--Thomas~$2014$~Duke Math.\ J.\ $163$ Thm.~$1.1$ criterion identifies generic K3 of degree~$14$ with the Kuznetsov component of a smooth cubic fourfold $Y_4\subset\mathbb P^5$, globalising over~$E$ to a cubic-fourfold fibration $\widetilde Y\to E$ with $\Kuz(\widetilde Y/E)\simeq D^b(\Coh(Y))$. Relative HPD then transports the top-degree categorical Hochschild class $[\chi_3^{\mathrm{cat}}]\in\mathrm{HH}^3_{\mathrm{cat}}(\Kuz(\widetilde Y^\vee/E))$ to the CY-$3$ volume class on~$Y$; under $\Phi_3$ this becomes the chiral Hochschild cocycle $[\chi_3]\in\ChirHoch^3_{\mathrm{CY\text{-}3}}(\mathbf H_{\Delta_5})$ of Vol~I~Thm.~\ref{thm:chirhoch3-Delta5-chain-level}. The value $\langle[\chi_3],[e_3^Y]\rangle_{\Phi_3}=2\,\mathrm{Vol}(E)\cdot(2\pi\mathrm i)^3$ recovers through the Kuznetsov--Perry transport, supplying a fourth categorically-distinct verification of $[\chi_3]\neq 0$ (Vol~I~Thm.~\ref{thm:hpd-obstruction-k3e-relative-replacement}).
+The replacement is the \emph{relative} HPD of Kuznetsov~$2018$~Crelle~$736$~\S~$2$ and Kuznetsov--Perry~$2021$ JEMS~$23$ Thm.~$1.1$, applied fibrewise along the second projection $\pi:Y\to E$. Each fibre is a K3 surface; the Kuznetsov--Markushevich~$2009$~J.\ Reine Angew.\ Math.\ $627$ Thm.~$1.1$ / Addington--Thomas~$2014$~Duke Math.\ J.\ $163$ Thm.~$1.1$ criterion identifies generic K3 of degree~$14$ with the Kuznetsov component of a smooth cubic fourfold $Y_4\subset\mathbb P^5$, globalising over~$E$ to a cubic-fourfold fibration $\widetilde Y\to E$ with $\Kuz(\widetilde Y/E)\simeq D^b(\Coh(Y))$. Relative HPD then transports the top-degree categorical Hochschild class $[\chi_3^{\mathrm{cat}}]\in\mathrm{HH}^3_{\mathrm{cat}}(\Kuz(\widetilde Y^\vee/E))$ to the CY-$3$ volume class on~$Y$; under $\Phi_3$ this becomes the chiral Hochschild cocycle $[\chi_3]\in\ChirHoch^3_{\mathrm{CY\text{-}3}}(\mathbf H_{\Delta_5})$ of Vol~I~Thm.~\texttt{chapters/theory/hochschild\_cohomology.tex} (Vol~I). The value $\langle[\chi_3],[e_3^Y]\rangle_{\Phi_3}=2\,\mathrm{Vol}(E)\cdot(2\pi\mathrm i)^3$ recovers through the Kuznetsov--Perry transport, supplying a fourth categorically-distinct verification of $[\chi_3]\neq 0$ (Vol~I~Thm.~\texttt{chapters/theory/hochschild\_cohomology.tex} (Vol~I)).
 
 \emph{Scope discipline.} Absolute HPD applies to Fano $Y$ only. Relative HPD over a base~$S$ applies to fibrations $Y\to S$ whose fibres are Fano; the base need not be Fano. For $Y=\mathrm{K3}\times E\to E$, neither side is Fano, yet the Kuznetsov--Markushevich upgrade of the K3 fibres to cubic-fourfold Kuznetsov components makes the fibres Fano. Conflating absolute HPD on the CY product with fibrewise absolute HPD on K3 (after the Kuznetsov--Markushevich upgrade) is the standard error; the relative framework keeps the two scopes separate.
 \end{remark}
@@ -262,9 +286,9 @@ The replacement is the \emph{relative} HPD of Kuznetsov~$2018$~Crelle~$736$~\S~$
 The downstream correspondence $\Phi_d$ at $d \geq 3$ produces an $\Eone$-chiral algebra; the braided $\Etwo$-structure is recovered on the Drinfeld centre $\cZ(\Rep^{\Eone}(\Phi_3(\cC)))$ (property~\textup{(U3)} of Theorem~\textup{\ref{thm:phi-platonic}}). The Drinfeld centre is the RIGHT ADJOINT to the forgetful functor $\mathrm{BrMon} \to \mathrm{Mon}$, equivalently the categorified COMMUTANT $z(A) = \{a \in A: ab = ba\ \forall b \in A\}$. It is NOT a categorified averaging map. The averaging map $\Eone \to \Einf$ DESTROYS quantum-group data; the Drinfeld-centre passage $\Eone \to \Etwo$ CONSTRUCTS braiding via half-braidings. This distinction is structural in Vol~III: the chiral-quantum-group content of $\Phi(\cC)$ at $d \geq 3$ is preserved by the centre and lost by symmetric averaging. We therefore reserve ``averaging'' for the $\Eone \to \Einf$ coinvariant projection and ``Drinfeld centre'' for the right-adjoint / half-braiding construction; the two are distinct functors producing distinct output categories.
 \end{remark}
 
-\begin{remark}[What $\Phi$ does not see, and what CoHA is]
+\begin{remark}[What \texorpdfstring{$\Phi$}{Phi} does not see, and what CoHA is]
 \label{rem:phi-does-not-see}
-Not every invariant of $\cC$ survives the passage through $\Phi$. The functor retains the cyclic $\Ainf$-structure and the Gerstenhaber bracket; it loses the fine structure of the triangulated / $\Ainf$ category (individual objects, t-structures, stability conditions) visible only via the categorical Cohomological Hall Algebra construction of Chapter~\textup{\ref{ch:toric-coha}}. The Cohomological Hall Algebra $\CoHA(X)$ is the Hochschild cohomology of the quiver-with-potential category, equipped with the Schiffmann--Vasserot--Yang--Zhao multiplication. It is an associative algebra with a Hall product, not a chiral algebra; the identifications ``$\CoHA = \Eone$-chiral'' and ``$\CoHA$ carries a vertex algebra structure'' conflate an associative-algebra output with a chiral-algebra output and so fail as stated. The connection to chiral algebras is via the FUNCTOR $\Phi$ (CY-A), not by identification: at $d = 3$, $\Phi(\CoHA(\C^3))$ produces the positive half of the affine Yangian $Y^{+}(\widehat{\mathfrak{gl}}_1)$ (property~\textup{(U4)} of Theorem~\textup{\ref{thm:phi-platonic}}); the full $\cW_{1+\infty}$ at $c = 1$ then arises from the Drinfeld-centre passage (Remark~\textup{\ref{rem:cy-cat-drinfeld-center-not-averaging}}), not from $\Phi$ directly.
+Not every invariant of $\cC$ survives the passage through $\Phi$. The functor retains the cyclic $\Ainf$-structure and the Gerstenhaber bracket; it loses the fine structure of the triangulated / $\Ainf$ category (individual objects, t-structures, stability conditions) visible only via the categorical Cohomological Hall Algebra construction of Chapter~\textup{\ref{ch:toric-coha}}. The Cohomological Hall Algebra $\CoHA(X)$ is the Hochschild cohomology of the quiver-with-potential category, equipped with the Schiffmann--Vasserot--Yang--Zhao multiplication. It is an associative algebra with a Hall product, not a chiral algebra; the identifications ``$\CoHA = \Eone$-chiral'' and ``$\CoHA$ carries a vertex algebra structure'' conflate an associative-algebra output with a chiral-algebra output and so fail as stated. The connection to chiral algebras goes by two separate routes, \emph{not} by a single application of $\Phi$: on one side, the Schiffmann--Vasserot 2013 direct identification $\CoHA(\C^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ (positive half of the affine Yangian of $\widehat{\mathfrak{gl}}_1$) is an equality of associative algebras, not a $\Phi$-application --- $\CoHA(\C^3)$ is neither a CY-category nor the $\Phi_3$-input. On the other side, applying $\Phi_3$ to the CY-category $D^b(\Coh(\C^3))$ produces a chiral algebra on a reference curve (property~\textup{(U4)} of Theorem~\textup{\ref{thm:phi-platonic}}); specialising via $\SpCh_{\Sigma_2, C}$ with $\Sigma_2 \subset \C^3$ a coordinate plane yields $Y^+(\widehat{\mathfrak{gl}}_1)$ as the Stage-2 shadow on $C$, and the full $\cW_{1+\infty}$ at $c = 1$ then arises from the Drinfeld-centre passage (Remark~\textup{\ref{rem:cy-cat-drinfeld-center-not-averaging}}). The two routes converge on $Y^+(\widehat{\mathfrak{gl}}_1)$ because the Schiffmann--Vasserot CoHA coincides with the $\SpCh$-specialisation of $\PhiFA_3(D^b(\Coh(\C^3)))$ (Kontsevich--Soibelman 2008 \S 4; Schiffmann--Vasserot 2013 \S 6). Writing ``$\Phi(\CoHA(\C^3))$'' would be a type error: $\Phi$ takes CY-categories to chiral algebras and $\CoHA$ is neither.
 
 The surviving numerical data of $\Phi$ are organised by the $\kappa_\bullet$-spectrum (Remark~\textup{\ref{rem:cy-cat-kappa-convention}}): $\kappa_{\mathrm{cat}}$ is the manifold invariant always present, $\kappa_{\mathrm{ch}}$ is the algebraization invariant defined when $\Phi$ exists, $\kappa_{\mathrm{BKM}}$ is the Borcherds-side algebraisation invariant defined for K3-fibered CY$_3$s (Class~A; Proposition~\textup{\ref{prop:bkm-weight-universal}}), and $\kappa_{\mathrm{fiber}}$ is the lattice rank.
 \end{remark}
@@ -274,10 +298,10 @@ The surviving numerical data of $\Phi$ are organised by the $\kappa_\bullet$-spe
 Vol~III uses lambda-bracket conventions for the Lie conformal algebras produced by $\Phi$: an OPE of the form $T(z) T(w) \sim (c/2)(z - w)^{-4} + \cdots$ is rewritten as $\{T_\lambda T\} = (c/12) \lambda^3 + \cdots$, absorbing the combinatorial factor $3! = 6$ from the divided-power $\lambda^{(3)} = \lambda^3/3!$. Vol~I uses OPE modes directly; care is required when transporting formulas between volumes (see the concordance). The Hochschild / cyclic invariants of this chapter are convention-independent: they depend only on the chain-level $\Ainf$-structure.
 \end{remark}
 
-\section{CY$_2$ and CY$_3$ at K3: two realisations, one chiral bialgebra}
+\section{CY\texorpdfstring{$_2$}{-2} and CY\texorpdfstring{$_3$}{-3} at K3: two realisations, one chiral bialgebra}
 \label{sec:cycat-K3-two-realisations}
 
-\begin{remark}[CY$_2$ versus CY$_3$ at the K3 base point]
+\begin{remark}[CY\texorpdfstring{$_2$}{-2} versus CY\texorpdfstring{$_3$}{-3} at the K3 base point]
 \label{rem:cycat-K3-two-sides}
 Two distinct CY-category realisations meet at K3: the CY-$2$ category
 $D^b\mathrm{Coh}(K3)$, Serre functor $S = [2]\otimes(-)$, carrying the
@@ -292,7 +316,7 @@ primary sources Kontsevich--Soibelman 2008, Davison 2017,
 Schiffmann--Vasserot 2012.
 \end{remark}
 
-\section{The Conway $V^{s\natural}$-locus of the CY-category landscape}
+\section{The Conway \texorpdfstring{$V^{s\natural}$}{V-snatural}-locus of the CY-category landscape}
 \label{sec:cycat-witten-conway}
 
 The $\{\Phi_d\}$ correspondence programme (Chapter~\textup{\ref{ch:cy-to-chiral}})
@@ -301,7 +325,7 @@ $T^4/\mathbb{Z}/2$-orbifold point, where the super-moonshine
 module of Duncan is realised as a CY-categorical limit of
 the Fukaya category of the K3 at that point.
 
-\begin{remark}[Taormina--Wendland super-Fukaya locus at the K3 $T^4/\mathbb{Z}/2$-orbifold]
+\begin{remark}[Taormina--Wendland super-Fukaya locus at the K3 \texorpdfstring{$T^4/\mathbb{Z}/2$}{T-4/Z/2}-orbifold]
 \label{rem:cycat-taormina-wendland-locus}
 \index{Taormina-Wendland!super-Fukaya locus}
 \index{Duncan module!CY-category realisation}
@@ -333,7 +357,7 @@ Theorem~\textup{\ref{thm:bkm-taormina-wendland-conway-embedding}});
 simultaneously, $\Phi$ restricted to the super-Fukaya category
 of $\Lambda_{24}$ produces the Conway chiral bialgebra
 $\mathbf{H}_{\mathrm{Conway}}$ of Vol.~III
-Conjecture~\textup{\ref{conj:bkm-conway-psi-fifth-image}}. The
+Conjecture~\textup{\ref{thm:bkm-conway-psi-fifth-image-resolved}}. The
 compatibility
 \[
   \Phi\bigl(\mathrm{Fuk}(K3)|_{T^4/\mathbb{Z}/2}\bigr)
@@ -350,12 +374,13 @@ Duncan 2007 \emph{Math.~Res.\ Lett.}~14;
 Vol.~III Theorem~\textup{\ref{thm:bkm-taormina-wendland-conway-embedding}}.
 \end{remark}
 
-\begin{remark}[$\kappa_\bullet$-spectrum on the Conway row: super-extension discipline]
+\begin{remark}[\texorpdfstring{$\kappa_\bullet$}{kappa-.}-spectrum on the Conway row: super-extension discipline]
 \label{rem:cycat-kappa-spectrum-conway}
 \index{kappa spectrum!Conway row}
 \index{super-kappa discipline}
+\ClaimStatusConjectured{}
 The Conway row of the conjectural five-entry $\Psi$-landscape
-(Vol.~III Conjecture~\textup{\ref{conj:bkm-conway-psi-fifth-image}})
+(Vol.~III Conjecture~\textup{\ref{thm:bkm-conway-psi-fifth-image-resolved}})
 distinguishes itself from the four bosonic rows (K3, Enriques,
 Monster, Fake-Monster) at the level of the $\kappa_\bullet$-spectrum
 of Remark~\textup{\ref{rem:cy-cat-kappa-convention}}. Writing
@@ -387,14 +412,13 @@ super-chiral modular characteristic (supertrace-weighted):
   $\Phi_{\mathrm{Conway}} = (\Theta_{\Lambda_{24}}/\eta^{24})^{1/2}$.
   Duncan 2007 Thm~4.2 computes its super-weight $c_1^{\mathrm{super}}(0)/2$
   as the sum over the $24$ Leech simple roots.
-  The explicit value requires the super-Borcherds-product
-  expansion of the square-root expression; the leading coefficient
-  is $c_1^{\mathrm{super}}(0) = 24$, giving $\kappa^{\mathrm{super}}_{\mathrm{BKM}}(\mathbf{H}_{\mathrm{Conway}}) = 12$.
 \end{itemize}
+On the three-faces-identity line of the Conway row, the universal identity $\hbar^2 K = -1$ specialises on the super-extension $V^{s\natural}$ at $c = 12$ with $K_{\mathrm{Conway}} = 2$ and $\hbar^2_{\mathrm{Conway}} = -1/2$ (Duncan 2007 \S 6 diamond). The distinction between the three-faces-identity lattice conductor $K = 2$ (positive-signature count on the super-metaplectic input; bosonic Leech $K = 48$ out of scope) and the Borcherds super-weight value is a $K$-vs-$\kappa_{\mathrm{BKM}}$ separation that the super-Borcherds-product expansion must resolve on its own terms; the super-product of the square-root expression $(\Theta_{\Lambda_{24}}/\eta^{24})^{1/2}$ is not expanded in this chapter.
+
 The coincidence $\kappa^{\mathrm{super}}_{\mathrm{ch}}(V^{s\natural})
 = \kappa_{\mathrm{ch}}(V^\natural)/2 = 6$ is the super-extension
 face of the Monster / Conway lattice diamond
-(Vol.~I Remark~\textup{\ref{rem:latfnd-w19-witten-monster-conway-diamond}});
+(Vol.~I Remark~\textup{\texttt{chapters/examples/lattice\_foundations.tex} (Vol~I)});
 it is \emph{not} an equality of the same invariant evaluated on
 two algebras, but the $\mathbb{Z}/2$-super-graded halving of a
 bosonic invariant. Conflating the two violates
@@ -405,12 +429,13 @@ carry two different $\kappa^{(\bullet)}_{\mathrm{ch}}$ invariants
 (bosonic vs.\ super), coincidentally equal only on the common
 $c = 12$ face. Primary: Duncan 2007 Thm~4.2;
 Vol.~I Chapter on chiral moonshine unified
-(\texttt{chiral\_moonshine\_unified.tex} \S4 for $\kappa(V^{s\natural})$);
-Vol.~III Conjecture~\textup{\ref{conj:bkm-conway-psi-fifth-image}};
+(\texttt{chiral\_moonshine\_unified.tex} \S4 for
+$\kappa_{\mathrm{ch}}(V^{s\natural})$);
+Vol.~III Conjecture~\textup{\ref{thm:bkm-conway-psi-fifth-image-resolved}};
 Scheithauer 2006.
 \end{remark}
 
-\section{Hodge structure on Chevalley--Eilenberg cohomology of $\mathfrak{g}_{\Delta_5}$}
+\section{Hodge structure on Chevalley--Eilenberg cohomology of \texorpdfstring{$\mathfrak{g}_{\Delta_5}$}{g-Delta-5}}
 \label{sec:cycat-ce-hodge-delta5}
 
 The BKM Lie superalgebra $\mathfrak{g}_{\Delta_5}$ (Chapter~\textup{\ref{ch:k3-chiral-bialgebra-platonic}})
@@ -482,7 +507,7 @@ mixing on the imaginary cone read off from $\phi_{0,1}^{K3}$ Fourier
 coefficients.
 \end{definition}
 
-\begin{theorem}[Real roots are pure Tate $(k,k)$; imaginary roots are MHS]
+\begin{theorem}[Real roots are pure Tate \texorpdfstring{$(k,k)$}{(k,k)}; imaginary roots are MHS]
 \label{thm:cycat-ce-hodge-real-imag}
 \ClaimStatusProvedHere{The real/imaginary dichotomy for the Hodge
 structure on $H^\bullet_{\mathrm{CE}}(\mathfrak{g}_{\Delta_5})$ is a
@@ -566,7 +591,7 @@ the Mukai period domain $\mathcal{D}_{\mathrm{Muk}} =
 group of the Mukai lattice.
 \end{corollary}
 
-\begin{remark}[Twisted period integrals and $\mathbb{C}/\mathbb{Z}(k)$]
+\begin{remark}[Twisted period integrals and \texorpdfstring{$\mathbb{C}/\mathbb{Z}(k)$}{C/Z(k)}]
 \label{rem:cycat-ce-twisted-periods}
 \index{twisted period integral!$\mathfrak{g}_{\Delta_5}$ imaginary roots}
 \index{motivic Tate twist!K3 period lift}
@@ -599,7 +624,7 @@ Bruinier LNM~1780 \S 2.2 (Borcherds singular-theta Hodge
 decomposition).
 \end{remark}
 
-\begin{theorem}[Mixed Tate structure on CE cohomology; weight-$n$ from $\zeta(n)$]
+\begin{theorem}[Mixed Tate structure on CE cohomology; weight-\texorpdfstring{$n$}{n} from \texorpdfstring{$\zeta(n)$}{zeta(n)}]
 \label{thm:cycat-ce-mixed-tate}
 \ClaimStatusProvedHere{Combines Deligne 1989 mixed Tate motives with
 Brown 2012 depth-bounded MZV conductor; parallels the Etingof
@@ -635,7 +660,7 @@ multiplicities through the Hodge decomposition of $\phi_{0,1}^{\mathrm{K3}}$,
 introducing period-theoretic transcendentals in the CE differential.
 \end{theorem}
 
-\begin{remark}[Motivic fundamental group of K3 and $\mathrm{GRT}_1$-torsor]
+\begin{remark}[Motivic fundamental group of K3 and \texorpdfstring{$\mathrm{GRT}_1$}{GRT-1}-torsor]
 \label{rem:cycat-ce-motivic-fundamental-group}
 \index{motivic fundamental group!K3}
 \index{Grothendieck--Teichm\"uller!super-GRT action on K3 periods}
@@ -650,7 +675,7 @@ $\pi_1^{\mathrm{mot}}(\mathbb{P}^1\setminus\{0,1,\infty\})$). The
 resulting pro-unipotent motivic group receives a natural action of
 the \emph{Grothendieck--Teichm\"uller group} $\mathrm{GRT}_1$
 (Drinfeld 1990 \emph{Leningrad Math.\ J.}~2): the tangential-base-point
-action of $\mathrm{Gal}(\overline\mathbb{Q}/\mathbb{Q})$ on K3 periods
+action of $\mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q})$ on K3 periods
 factors through $\mathrm{GRT}_1$ by the Deligne--Ihara conjecture
 (proved in the mixed Tate case by Brown 2012).
 

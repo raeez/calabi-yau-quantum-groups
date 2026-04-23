@@ -1,11 +1,20 @@
 \chapter{The Modular Trace}
 \label{ch:modular-trace}
 
+\begin{remark}[Stage-1 \texorpdfstring{$\leftrightarrow$}{<->} Stage-2 bridge]
+\label{rem:modular-trace-stage1-stage2-bridge}
+The modular trace connects the Stage-2 chiral-algebra character to the Stage-1 reduced Donaldson--Thomas generating function. On $K3\times E$ at $(\Sigma_2, C) = (K3, E)$, the Stage-2 $\Eone$-chiral-algebra character equals the Stage-1 reduced Donaldson--Thomas partition function
+\[
+  Z^{\mathrm{red}}_{\mathrm{DT}}(K3\times E) \;=\; -\,\frac{1}{\Phi_{10}}
+\]
+on $K3$-primitive classes (Pandharipande--Oberdieck, \emph{Invent.\ Math.} \textbf{222} (2017)). The modular-trace constraint discussed in this chapter is the shadow of this Stage-1 $\leftrightarrow$ Stage-2 correspondence.
+\end{remark}
+
 A chiral algebra carries a modular characteristic $\kappa_{\mathrm{ch}}$; a Calabi--Yau category carries a categorical trace $\Tr \colon \HH_d(\cC) \to k$; a Calabi--Yau manifold carries a holomorphic Euler characteristic $\chi(\cO_X)$. The tempting shortcut identifying $\kappa_{\mathrm{ch}}$ with the topological Euler characteristic $\chi_{\mathrm{top}}/24$ is \emph{wrong in every computed case}. The right target is $\chi(\cO_X)$, and even this equals $\kappa_{\mathrm{ch}}$ only on the restricted slice $(d=2,\ h^{1,0}=0)$.
 
 For the elliptic curve, $\chi_{\mathrm{top}} = 0$ but $\kappa_{\mathrm{ch}}(H_1) = 1$. For $K3$, $\chi_{\mathrm{top}}/24 = 1$ but $\kappa_{\mathrm{ch}}(\cA_{K3}) = 2 = \dim_\C$. For $K3 \times E$, two different modular characteristics appear: $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$ from the Heisenberg-level chiral de Rham complex (cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}) and $\kappa_{\mathrm{BKM}} = 5$ from the Borcherds lift weight. For the resolved conifold, $\chi_{\mathrm{top}}/24 = 1/12$ but $\kappa_{\mathrm{ch}} = 1$. The topological invariant is not what the chiral algebra sees.
 
-This chapter replaces the wrong identification by the right one. The CY trace, properly refined to negative cyclic homology $\HC^-_d(\cC)$, determines $\kappa_{\mathrm{ch}}(A_\cC)$ through the CY-to-chiral correspondence programme $\{\Phi_d\}$. At $d = 2$, the resulting equality $\kappa_{\mathrm{ch}}(A_\cC) = \chi^{\CY}(\cC) = \chi(\cO_X)$ is proved (Proposition~\ref{prop:cy-kappa-d2}). At $d \neq 2$, $\kappa_{\mathrm{ch}}$ and $\chi(\cO_X)$ differ in general: the Heisenberg-level characteristic $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ is additive under products while $\chi(\cO_X)$ is multiplicative (K\"unneth), so $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3 \neq 0 = \chi(\cO_{K3 \times E})$ (cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}). The corrected $d = 3$ formula is dimension-stratified (Conjecture~\ref{conj:cy-kappa-identification}). The genus-$g$ obstruction tower $\mathrm{obs}_g(A_\cC) = \kappa_{\mathrm{ch}}(A_\cC) \cdot \lambda_g$ then encodes the higher-genus CY invariants on the uniform-weight lane, with the multi-weight cross-channel correction $\delta F_g^{\mathrm{cross}}$ from Vol~I appearing at $g \geq 2$ for families with fields of distinct conformal weights.
+This chapter replaces the wrong identification by the right one. The CY trace, properly refined to negative cyclic homology $\HC^-_d(\cC)$, determines $\kappa_{\mathrm{ch}}(A_\cC)$ through the two-stage factorisation $\Phi_d = \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d$ of Chapter~\ref{ch:e1-chiral} (Theorem~\ref{thm:phi-two-stage-factorisation}): the modular trace lives on the specialisation shadow $\SpCh_{\Sigma_{d-1}, C}(\PhiFA_d(\cC))$, the $\Eone$- or $\Etwo$-chiral algebra on the reference curve~$C$ cut out by the cycle $\Sigma_{d-1}$. At $d = 2$, the resulting equality $\kappa_{\mathrm{ch}}(A_\cC) = \chi^{\CY}(\cC) = \chi(\cO_X)$ is proved (Proposition~\ref{prop:cy-kappa-d2}). At $d \neq 2$, $\kappa_{\mathrm{ch}}$ and $\chi(\cO_X)$ differ in general: the Heisenberg-level characteristic $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ is additive under products while $\chi(\cO_X)$ is multiplicative (K\"unneth), so $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3 \neq 0 = \chi(\cO_{K3 \times E})$ (cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}). The corrected $d = 3$ formula is dimension-stratified (Conjecture~\ref{conj:cy-kappa-identification}). The genus-$g$ obstruction tower $\mathrm{obs}_g(A_\cC) = \kappa_{\mathrm{ch}}(A_\cC) \cdot \lambda_g$ then encodes the higher-genus CY invariants on the uniform-weight lane, with the multi-weight cross-channel correction $\delta F_g^{\mathrm{cross}}$ from Vol~I appearing at $g \geq 2$ for families with fields of distinct conformal weights.
 
 \section{CY trace as modular characteristic}
 \label{sec:cy-trace-kappa}
@@ -85,7 +94,7 @@ $A_\cC=\Phi(\cC)$.
 
 The modular characteristic $\kappa_{\mathrm{ch}}$ is an invariant of the quantum chiral algebra $A_\cC$, not of the underlying topology. It differs from the topological Euler characteristic $\chi$ in every known case.
 
-\begin{proposition}[$\chi/24 \neq \kappa_{\mathrm{ch}}$ in general]
+\begin{proposition}[\texorpdfstring{$\chi/24 \neq \kappa_{\mathrm{ch}}$}{chi/24 != kappa-ch} in general]
 \label{prop:chi-kappa-discrepancy}
 \ClaimStatusProvedHere
 The ratio $\chi_{\mathrm{top}}/24$ and the modular characteristic $\kappa_{\mathrm{ch}}$ disagree for most CY threefolds. The following table records all cases where both are known.
@@ -122,7 +131,7 @@ See \texttt{compute/lib/cy\_euler.py} ($86$ tests) and \texttt{compute/lib/modul
 The CY Euler characteristic $\chi^{\CY}(\cC)$ appearing in Theorem~\ref{thm:cy-modular-characteristic} is the categorical trace $\Tr_{\HH_d(\cC)}(\mathrm{id})$, which is in general \emph{not} the topological Euler characteristic $\chi_{\mathrm{top}}(X)$. The former depends on the CY category $\cC$ (and in particular on the complex structure and derived category), while the latter depends only on the underlying topological manifold.
 \end{remark}
 
-\begin{proposition}[Non-multiplicativity of $\kappa_{\mathrm{BKM}}$]
+\begin{proposition}[Non-multiplicativity of \texorpdfstring{$\kappa_{\mathrm{BKM}}$}{kappa-BKM}]
 \label{prop:kappa-non-multiplicative}
 \ClaimStatusProvedHere
 The BKM modular weight $\kappa_{\mathrm{BKM}}$ obeys neither the additive rule that governs $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ (Heisenberg-level route) nor the multiplicative rule that governs $\kappa_{\mathrm{cat}}$ (categorical Euler-characteristic route) under products:
@@ -135,7 +144,7 @@ The discrepancy $5 \neq 3$ and $5 \neq 0$ reflects the fact that the BKM superal
 \end{proposition}
 
 
-\begin{proposition}[$\chi(\cO_X) = 0$ for CY manifolds of odd dimension]
+\begin{proposition}[\texorpdfstring{$\chi(\cO_X) = 0$}{chi(O-X) = 0} for CY manifolds of odd dimension]
 \label{prop:chi-O-vanishes-odd-d}
 \ClaimStatusProvedHere
 For a compact CY$_d$ manifold $X$ with $d$ odd and $\omega_X \simeq \cO_X$, the holomorphic Euler characteristic vanishes:
@@ -151,7 +160,7 @@ By Serre duality with $\omega_X \simeq \cO_X$: $H^q(X, \cO_X) \cong H^{d-q}(X, \
 \medskip\noindent\textit{Verification}: 76 tests in \texttt{compute/lib/cy\_d\_kappa\_d3.py} covering the Serre vanishing for 5 standard CY manifolds.
 \end{proof}
 
-\begin{remark}[Consequence for CY-D at $d = 3$]
+\begin{remark}[Consequence for CY-D at \texorpdfstring{$d = 3$}{d = 3}]
 \label{rem:chi-O-obstruction-cy-d}
 Proposition~\textup{\ref{prop:chi-O-vanishes-odd-d}} implies that the identification $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ is \emph{automatically false} at $d = 3$ whenever $\kappa_{\mathrm{ch}} \neq 0$. Since $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3 \neq 0$ (Proposition~\textup{\ref{prop:categorical-euler}}; Heisenberg-level branch, cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}) and $\chi(\cO_{K3 \times E}) = 0$, the formula $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ fails. The correct CY-D conjecture at $d \geq 3$ (Conjecture~\textup{\ref{conj:cy-kappa-identification}}) uses the categorical CY Euler characteristic $\chi^{\CY}(\cC)$, a quantity that in general differs from $\chi(\cO_X)$ and includes the quantum correction from the $\bS^d$-framing.
 \end{remark}
@@ -160,7 +169,7 @@ Proposition~\textup{\ref{prop:chi-O-vanishes-odd-d}} implies that the identifica
 \section{Modularity constraints on the shadow tower}
 \label{sec:modularity-constraints}
 
-When a BKM denominator identity controls the shadow obstruction tower of a CY$_3$ category $\cC$, the automorphic form imposes rigid constraints on the tower amplitudes.
+When a BKM denominator identity controls the shadow obstruction tower of a CY$_3$ category $\cC$, the automorphic form imposes rigid constraints on the tower amplitudes. These constraints apply specifically to the specialisation shadow $\SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$ (Definition~\ref{def:phi-fa-and-sp}, Theorem~\ref{thm:phi-two-stage-factorisation}): the BKM weight $\kappa_{\mathrm{BKM}}$ is an invariant of the $\Eone$-chiral algebra on the reference curve~$C$, extracted from $\PhiFA_3(\cC)$ via the surface cycle $\Sigma_2$ (Proposition~\ref{prop:native-en-level}).
 
 \begin{theorem}[BKM modularity constraints]
 \label{thm:bkm-modularity-constraints}
@@ -192,10 +201,10 @@ Part~(iii): the discriminant classification follows from the root-type decomposi
 See \texttt{compute/lib/cy3\_modularity\_constraints.py} ($111$ tests).
 \end{proof}
 
-\begin{corollary}[Structural constraints for $K3 \times E$]
+\begin{corollary}[Structural constraints for \texorpdfstring{$K3 \times E$}{K3 x E}]
 \label{cor:k3e-structural-constraints}
 \ClaimStatusProvedHere
-For $K3 \times E$ with $\kappa_{\mathrm{BKM}} = 5$ and controlling form $\Delta_5$ — the weight-$5$ Gritsenko--Nikulin Borcherds product for the Mukai lattice, realised as a cusp form on a paramodular subgroup $\Gamma_{\mathrm{para}} \subset \Sp_4(\Q)$ via the accidental isomorphism $\mathrm{O}^+(2,3) \simeq \PGSp_4$ (see Chapter~\ref{ch:k3-times-e}) — the BKM shadow tower satisfies seven structural constraints:
+For $K3 \times E$ with $\kappa_{\mathrm{BKM}} = 5$ and controlling form $\Delta_5$ — the weight-$5$ Gritsenko--Nikulin Borcherds product for the Mukai lattice, realised as a cusp form on a paramodular subgroup $\Gamma_{\mathrm{para}} \subset \Sp_4(\Q)$ via the accidental isomorphism $\mathrm{O}^+(2,3) \simeq \mathrm{PGSp}_4$ (see Chapter~\ref{ch:k3-times-e}) — the BKM shadow tower satisfies seven structural constraints:
 \begin{enumerate}[label=(\arabic*)]
  \item $\kappa_{\mathrm{BKM}} = 5 \in \Z_{>0}$;
  \item the tower amplitudes $F_g$ lie in the Fourier--Jacobi ring of $\Gamma_{\mathrm{para}}$;
@@ -226,10 +235,10 @@ Koszul complementarity for CY chiral algebras takes the form $\kappa_{\mathrm{ch
 \smallskip
 \noindent\textit{Into Part~\ref{part:connections}.} The Koszul conductor $K_\cC$ is the scalar projection of a richer object: the $r$-matrix $r_{\CY}(z) \in A_\cC \otimes A_\cC((z))$ that encodes the full spectral-parameter braiding. Part~\ref{part:connections} presents seven independent constructions of $r_{\CY}(z)$ (Yangian coproduct twist, Drinfeld-centre half-braiding, KZ monodromy, BKM vertex-operator exchange, MO stable envelope, $\Ainf$-coassociator, Costello $5d$ hCS tree amplitude), all agreeing on $\Phi(\cC)$; the modular trace constructed in this chapter is the scalar shadow of that heptagon.
 
-\section{Modular trace on $\mathbf H_{\Delta_5}$}
+\section{Modular trace on \texorpdfstring{$\mathbf H_{\Delta_5}$}{H-Delta-5}}
 \label{sec:modtr-bkm-shadow}
 
-\begin{remark}[Modular trace on $\mathbf H_{\Delta_5}$]
+\begin{remark}[Modular trace on \texorpdfstring{$\mathbf H_{\Delta_5}$}{H-Delta-5}]
 \label{rem:modtr-bkm-shadow}
 The modular trace on $\mathbf H_{\Delta_5}$, defined as
 \[
@@ -249,7 +258,41 @@ Primary-lit: Kac 1998 modular invariance, Gritsenko-Nikulin 1996-98,
 Eguchi-Ooguri-Tachikawa 2011.
 \end{remark}
 
-\section{The modular $S$-matrix as Fricke involution}
+\begin{remark}[Hecke eigenvalue of \texorpdfstring{$\Delta_5$}{Delta-5}: metaplectic square-root form]
+\label{rem:modtr-hecke-eigenvalue-metaplectic}
+The one-dimensional paramodular space $S_5(\Sp_4(\bZ), \nu_{\Delta_5})$
+of weight-$5$ cusp forms with Gritsenko--Nikulin multiplier $\nu_{\Delta_5}$
+is spanned by $\Delta_5$; the Hecke operator $T_p$ preserves the
+multiplier and so acts by a scalar $\lambda_p(\Delta_5)$. The
+multiplicity-one statement $\dim = 1$ is about the \emph{dimension} of
+the space; the Hecke eigenvalue $\lambda_p$ is the \emph{scalar} of
+the $T_p$-action on the generator, and the two are not to be conflated.
+At generic primes $p$ the Hecke eigenvalue is transcendental and
+takes the metaplectic square-root form
+\[
+ \lambda_p(\Delta_5)
+ \;=\; \chi_{\mathrm{spin}}(p)\,\sqrt{\lambda_p(\Delta_{10})},
+\]
+with $\chi_{\mathrm{spin}}$ the spin sign character of the Andrianov
+L-series and $\sqrt{\lambda_p(\Delta_{10})}$ the metaplectic square-root
+of the weight-$10$ Igusa Hecke eigenvalue. The square-root structure
+arises because $\Delta_5^2 = \Phi_{10}$ on the metaplectic double cover
+of $\bar{\mathcal A_2}$ where $\nu_{\Delta_5}$ lifts to a genuine
+character; this is the same metaplectic double cover as in
+Section~\ref{sec:modtr-mu16-metaplectic-banding}
+(Theorem~\ref{thm:modtr-mu16-metaplectic-banding-cocycle}), and the
+$\mu_{16}$ arithmetic of the banding cocycle is the cohomological
+shadow of the $\sqrt{\lambda_p(\Delta_{10})}$ square-root. The
+$F_g$-constraint of
+Corollary~\ref{cor:k3e-structural-constraints}(3) is the
+multiplicative constraint by this $\lambda_p(\Delta_5)$, not the
+triviality $T_p = \id$ on a one-dimensional space.
+Primary-lit: Andrianov~$1974$ \emph{Uspekhi}~$29$; Gritsenko~$1995$
+\emph{St.~Petersburg Math.~J.}~$11$; Ibukiyama~$2012$
+\emph{Comment.~Math.~Univ.~St.~Pauli}~$61$.
+\end{remark}
+
+\section{The modular \texorpdfstring{$S$}{S}-matrix as Fricke involution}
 \label{sec:modtr-s-matrix-fricke}
 
 The modular trace of Remark~\ref{rem:modtr-bkm-shadow} on the Siegel
@@ -259,15 +302,15 @@ on $\overline{\mathcal A_2}$ (Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
 Remark~\ref{rem:cydkappa-gerbe}). At the
 $\ell = 8$ Lusztig level of the BKM small-form
 (Chapter~\ref{ch:quantum-groups}
-Theorem~\ref{thm:qgf-bkm-mtc}), this $S$-transformation acquires
+Theorem~\ref{thm:qgf-BKM-MTC-zeta8}), this $S$-transformation acquires
 a geometric identification as the Siegel Fricke involution.
 
-\begin{theorem}[Modular $S$-matrix as Fricke involution on $\mathfrak H_2$]
+\begin{theorem}[Modular \texorpdfstring{$S$}{S}-matrix as Fricke involution on \texorpdfstring{$\mathfrak H_2$}{H-2}]
 \label{thm:modtr-s-matrix-fricke}
 \ClaimStatusProvedHere
 Let $\mathcal{MTC}_{\zeta_8}(\Delta_5)$ denote the semisimple
 MTC of Chapter~\ref{ch:quantum-groups}
-Theorem~\ref{thm:qgf-bkm-mtc}.  Its modular $S$-matrix
+Theorem~\ref{thm:qgf-BKM-MTC-zeta8}.  Its modular $S$-matrix
 $S_{ij} = \chi_i(-Z^{-1})/\chi_i(Z)$ (CFT normalisation) on the
 $M_{24}$-equivariant fusion basis of
 Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
@@ -360,7 +403,7 @@ arXiv:alg-geom/9609022 \S13).  All four independently identify the
 locus.
 \end{proof}
 
-\begin{remark}[$S$-matrix eigenvalues and non-degeneracy]
+\begin{remark}[\texorpdfstring{$S$}{S}-matrix eigenvalues and non-degeneracy]
 \label{rem:modtr-s-eigenvalues}
 The Fricke involution $w_8$ has eigenvalues $\pm 1$ on the
 $M_{24}$-orbit basis of $\mathcal{MTC}_{\zeta_8}(\Delta_5)$, with
@@ -392,7 +435,7 @@ Hirzebruch--Zagier 1976 \emph{Invent.~Math.}~36; van der Geer 1988
 Math.~J.}~6; Bruinier 2002 LNM~1780.
 \end{remark}
 
-\begin{remark}[$E_1$/$E_2$ discipline on the modular trace]
+\begin{remark}[\texorpdfstring{$E_1$}{E-1}/\texorpdfstring{$E_2$}{E-2} discipline on the modular trace]
 \label{rem:modtr-e1-e2-discipline}
 The modular trace on $\mathbf H_{\Delta_5}$ of
 Remark~\ref{rem:modtr-bkm-shadow} is an \emph{$E_1$-invariant} on the
@@ -410,11 +453,11 @@ $E_2$-derived, not $E_1$-native; a native $E_2$-structure on
 $\mathbf H_{\Delta_5}$ itself (as opposed to on its $\Phi_2$-derivation)
 is obstructed by Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
 Remark~\ref{rem:cydkappa-e1-e2-discipline} and
-Chapter~\ref{ch:e2-chiral-algebras}
-Remark~\ref{rem:e2ca-e1-e2-discipline}.
+Chapter~\ref{ch:e2-chiral}
+Remark~\ref{rem:e2ca-E1-E2-discipline}.
 \end{remark}
 
-\begin{remark}[Fricke $S$-matrix $\leftrightarrow$ Grothendieck-ring Verlinde closure]
+\begin{remark}[Fricke \texorpdfstring{$S$}{S}-matrix \texorpdfstring{$\leftrightarrow$}{<->} Grothendieck-ring Verlinde closure]
 \label{rem:modtr-fricke-grothendieck-verlinde}
 The Fricke involution $w_8$ of
 Theorem~\ref{thm:modtr-s-matrix-fricke} is the rank-$4$ Fourier
@@ -501,7 +544,7 @@ of Remark~\ref{rem:modtr-bkm-shadow} is, on its face, a scalar-valued
 identity between the graded (super-)dimension of the Tannakian fibre
 $\omega$ of
 Chapter~\ref{ch:k3-chiral-bialgebra-platonic},
-Remark~\ref{rem:w15-rank-counting}, and the reciprocal of the Igusa
+the $W_{15}$ rank-counting remark, and the reciprocal of the Igusa
 cusp form $\Phi_{10} = \Delta_5^2$. The scalar identity is the shadow
 of a richer categorical decomposition: a genuine Plancherel formula
 for the BKM chiral bialgebra
@@ -599,7 +642,7 @@ category, Lyubashenko--Majid 1994 Prop.\ 3.4).  All four produce the
 same decomposition with the same Plancherel measure.
 \end{proof}
 
-\begin{theorem}[Plancherel measure integrates to $1/\Phi_{10}$]
+\begin{theorem}[Plancherel measure integrates to \texorpdfstring{$1/\Phi_{10}$}{1/Phi-10}]
 \label{thm:modtr-plancherel-equals-phi10}
 \ClaimStatusProvedHere
 Let $\mathrm d\mu_{\mathrm{Plan}}$ be the Kerler--Lyubashenko
@@ -881,7 +924,7 @@ the Borcherds 1992 denominator identity.
     the module category.
 \end{proof}
 
-\begin{remark}[Scope: proved pro-structure, BKM-Serre compatibility at $N \leq 3$]
+\begin{remark}[Scope: proved pro-structure, BKM-Serre compatibility at \texorpdfstring{$N \leq 3$}{N <= 3}]
 \label{rem:modtr-hs-scope}
 Theorem~\ref{thm:modtr-plancherel-hs-convergence} establishes
 the $\mathbf H_{\Delta_5}^{\leq N}$-module structure for $N \leq 3$
@@ -935,7 +978,7 @@ Chapter~\ref{ch:quantum-groups}.
 \subsection{Maulik--Okounkov stable envelope at small \texorpdfstring{$n$}{n}}
 \label{subsec:modtr-mo-small-n}
 
-\begin{remark}[MO stable envelope, explicit at $n = 1, 2, 3$]
+\begin{remark}[MO stable envelope, explicit at \texorpdfstring{$n = 1, 2, 3$}{n = 1, 2, 3}]
 \label{rem:modtr-mo-small-n}
 Fix the symplectic resolution
 $\pi\colon \mathrm{Hilb}^{[n]}(\mathrm K3) \to \mathrm{Sym}^n(\mathrm K3)$
@@ -1561,11 +1604,11 @@ from $D^b\mathrm{Coh}(\mathrm K3)$ to $\mathbf H_{\Delta_5}$ via the
 Mukai-lattice grading, with the flavour character $\zeta^{J_0}$ of
 Remark~\ref{rem:modtr-bkm-shadow} tracking the $M_{24}$-equivariance of
 the decomposition. Cross-ref
-Chapter~\ref{ch:e2-chiral-algebras}
-Remark~\ref{rem:e2ca-e1-e2-discipline}.
+Chapter~\ref{ch:e2-chiral}
+Remark~\ref{rem:e2ca-E1-E2-discipline}.
 \end{remark}
 
-\section{Explicit banding 2-cocycle for the $\mu_8$-gerbe off the Humbert divisor}
+\section{Explicit banding 2-cocycle for the \texorpdfstring{$\mu_8$}{mu-8}-gerbe off the Humbert divisor}
 \label{sec:modtr-banding-cocycle}
 
 At $(\infty,1)$-level the $\mu_8$-gerbe $\mathcal G$ defined by the
@@ -1580,7 +1623,7 @@ $C^2(\mathrm{Sp}_4(\mathbb Z), \mathbb C^\times)$ with image landing in
 $\mu_8\subset\mathbb C^\times$, satisfying the cocycle condition
 $\delta F_U = 0$ on triple intersections.
 
-\begin{definition}[Igusa fundamental-domain open cover of $U$]
+\begin{definition}[Igusa fundamental-domain open cover of \texorpdfstring{$U$}{U}]
 \label{def:modtr-igusa-cover}
 Let $\mathcal F_{\mathrm{Ig}}\subset\mathfrak H_2$ denote the Igusa
 fundamental domain for the action of $\mathrm{Sp}_4(\mathbb Z)/\{\pm I\}$
@@ -1631,7 +1674,7 @@ Thm.~3; Klingen 1990 Thm.~2.2.1; Freitag 1983
 \emph{Siegelsche Modulfunktionen} \S4.5 for the volume formula.
 \end{remark}
 
-\begin{theorem}[Explicit banding 2-cocycle $F_{ij}$ on $U$]
+\begin{theorem}[Explicit banding 2-cocycle \texorpdfstring{$F_{ij}$}{F-ij} on \texorpdfstring{$U$}{U}]
 \label{thm:modtr-banding-cocycle}
 \ClaimStatusProvedHere
 Let $\{U_i\}_{i\in I}$ be the Igusa open cover of $U$ of
@@ -1745,7 +1788,7 @@ Section~\ref{sec:qgf-humbert-obstruction} for the obstruction
 to extending the banding across the Humbert divisor.
 \end{remark}
 
-\begin{remark}[Chain-level $F_U$ upgrades the $(\infty,1)$-statement]
+\begin{remark}[Chain-level \texorpdfstring{$F_U$}{F-U} upgrades the \texorpdfstring{$(\infty,1)$}{(inf,1)}-statement]
 \label{rem:modtr-chain-level-upgrade}
 The $(\infty,1)$-version of the statement: the neutral Tannakian fibre functor
 $\omega\colon\mathrm{Rep}(\mathbf H_{\Delta_5})|_U\to\mathrm{sVec}_{\mathbb C}$
@@ -1778,7 +1821,7 @@ Plancherel). The banding closes the final $(\infty,1)$-to-chain
 gap in the pro-finite Plancherel programme.
 \end{remark}
 
-\begin{remark}[Banding fails at $H_1\cup H_4$: cross-ref summary]
+\begin{remark}[Banding fails at \texorpdfstring{$H_1\cup H_4$}{H-1cup H-4}: cross-ref summary]
 \label{rem:modtr-banding-humbert-failure}
 The Humbert divisor $H_1\cup H_4$ is the obstruction locus where the
 banding $F_U$ cannot extend: the $\mu_8$-gerbe has monodromy of order
@@ -1801,7 +1844,7 @@ Fricke-trace $\mathrm{tr}(S) = 4$ on the $M_{24}$-invariant block
 Remark~\ref{rem:modtr-s-eigenvalues}).
 \end{remark}
 
-\section{Metaplectic refinement: the $\mu_{16}$ banding cocycle on $\overline{\mathcal A_2}\setminus H_1$}
+\section{Metaplectic refinement: the \texorpdfstring{$\mu_{16}$}{mu-16} banding cocycle on \texorpdfstring{$\overline{\mathcal A_2}\setminus H_1$}{overlineA-2setminus H-1}}
 \label{sec:modtr-mu16-metaplectic-banding}
 
 Theorem~\ref{thm:modtr-banding-cocycle} trivialises the gerbe on
@@ -1826,7 +1869,7 @@ form of weight $5$ on the Maass spin double cover $\mathrm{Mp}$ with
 $\mathrm{div}(\Delta_5) = H_1 + \tfrac{1}{2}H_4$: the $H_4$-order of
 $\Delta_5$ is exactly one, on the Mp cover.
 
-\begin{definition}[Metaplectic Igusa cover of $V = \overline{\mathcal A_2}\setminus H_1$]
+\begin{definition}[Metaplectic Igusa cover of \texorpdfstring{$V = \overline{\mathcal A_2}\setminus H_1$}{V = overlineA-2setminus H-1}]
 \label{def:modtr-mu16-metaplectic-cover}
 Let $\pi_{\mathrm{Mp}}\colon\widetilde{\mathfrak H_2}\to\mathfrak H_2$
 denote the metaplectic double cover. Let
@@ -1843,7 +1886,7 @@ preimages $\widetilde U_i^\pm$, related by the metaplectic deck
 transformation. The cover is finite on compact subsets of $\widetilde V$.
 \end{definition}
 
-\begin{theorem}[Explicit $\mu_{16}$-gerbe banding cocycle $G_{ij}$ on $\overline{\mathcal A_2}\setminus H_1$]
+\begin{theorem}[Explicit \texorpdfstring{$\mu_{16}$}{mu-16}-gerbe banding cocycle \texorpdfstring{$G_{ij}$}{G-ij} on \texorpdfstring{$\overline{\mathcal A_2}\setminus H_1$}{overlineA-2setminus H-1}]
 \label{thm:modtr-mu16-metaplectic-banding-cocycle}
 \ClaimStatusProvedHere
 \index{gerbe!mu_16@$\mu_{16}$ banding}
@@ -1993,7 +2036,7 @@ Breen 1994 \emph{Ast\'erisque}~225 \S2.1 (gerbe banding; bitorseurs);
 Igusa 1962 \emph{Ann.~Math.}~76 \S7 Cor.~2 (divisor of $\Phi_{10}$).
 \end{proof}
 
-\begin{remark}[Why $\mu_8$ does not suffice across $H_4$]
+\begin{remark}[Why \texorpdfstring{$\mu_8$}{mu-8} does not suffice across \texorpdfstring{$H_4$}{H-4}]
 \label{rem:modtr-mu16-why-mu8-fails}
 Two distinct mechanisms contribute to the $\mu_{16}$-order at $H_4$,
 both recorded in the primary literature, neither reducible to the
@@ -2022,7 +2065,7 @@ Primary: Igusa 1962 \S7 Cor.~2; Morrison 1984 Thm.~3;
 Gritsenko 1995 \S3 Thm.~3.2; Bruinier 2002 Prop.~5.1.
 \end{remark}
 
-\begin{remark}[Obstruction to extending $G_{ij}$ across $H_1$]
+\begin{remark}[Obstruction to extending \texorpdfstring{$G_{ij}$}{G-ij} across \texorpdfstring{$H_1$}{H-1}]
 \label{rem:modtr-mu16-H1-obstruction}
 The metaplectic lift $\widetilde s_i = [\Delta_5/\eta^{12}]^{1/8}$ has
 monodromy $\zeta_8$ around $H_1$ (because
@@ -2045,7 +2088,7 @@ Theorem~\ref{thm:modtr-plancherel-equals-phi10} (four Fricke
 $+1$-eigenvalues on the $M_{24}$-invariant Humbert block).
 \end{remark}
 
-\begin{remark}[The two $\hbar$: $\hbar_{\mathrm{BV}}$ versus $\hbar_{\mathrm{qg}}$]
+\begin{remark}[The two \texorpdfstring{$\hbar$}{hbar}: \texorpdfstring{$\hbar_{\mathrm{BV}}$}{hbar-BV} versus \texorpdfstring{$\hbar_{\mathrm{qg}}$}{hbar-qg}]
 \label{rem:modtr-mu16-two-hbar}
 The order-$16$ refinement does \emph{not} change the two-$\hbar$
 bridge identity $\hbar_{\mathrm{BV}}^2 = \hbar_{\mathrm{qg}}^2\cdot K^{-\kappa_{\mathrm{ch}}}$
@@ -2185,7 +2228,7 @@ Plancherel decomposition of $\mathcal L$).
 Four independent routes yield the same $Z^{\mathrm{DGGPR}}(T^2)$.
 \end{proof}
 
-\begin{theorem}[State space on the genus-two surface and $1/\Phi_{10}$ bootstrap]
+\begin{theorem}[State space on the genus-two surface and \texorpdfstring{$1/\Phi_{10}$}{1/Phi-10} bootstrap]
 \label{thm:modtr-zsigma2-phi10}
 \ClaimStatusProvedHere
 Under the hypotheses of Theorem~\ref{thm:modtr-zt2-hh0}, the
@@ -2261,7 +2304,7 @@ second-quantised elliptic genus
 $\sum_{n\geq 0}p^n\chi(\mathrm{K3}^{[n]}) = 1/\Phi_{10}$.
 \end{proof}
 
-\begin{remark}[Genus-two partition function and $\mathrm{Sp}_4(\mathbb Z)$-modularity]
+\begin{remark}[Genus-two partition function and \texorpdfstring{$\mathrm{Sp}_4(\mathbb Z)$}{Sp-4(Z)}-modularity]
 \label{rem:modtr-sp4-modularity}
 The Fricke involution $w_8$ of
 Theorem~\ref{thm:modtr-s-matrix-fricke} is a single element
@@ -2369,7 +2412,7 @@ entanglement correction $-\gamma\cdot b_0(\partial M)$
 De~Renzi et~al.\ 2021 Thm.~6.3).
 \end{proof}
 
-\begin{remark}[Ground-state degeneracy on $T^2$ as Hamiltonian multiplicity]
+\begin{remark}[Ground-state degeneracy on \texorpdfstring{$T^2$}{T-2} as Hamiltonian multiplicity]
 \label{rem:modtr-ground-state-degeneracy}
 On the Hamiltonian formulation of the 3d TQFT
 (Levin--Wen 2005 \emph{PRB}~71 \S 2 string-net Hamiltonian), the ground
@@ -2433,7 +2476,7 @@ gerbe-band fails
 Remark~\ref{rem:modtr-banding-humbert-failure}) and the ground-state
 degeneracy count acquires logarithmic corrections from the rank-collapse
 of the hyperbolic Cartan (cf.\ Vol~I
-Remark~\ref{rem:ent-koszul-locus}).
+Remark~\texttt{chapters/connections/entanglement\_modular\_koszul.tex} (Vol~I)).
 \end{remark}
 
 \section{Reshetikhin--Turaev invariants of closed three-manifolds}
@@ -2455,7 +2498,7 @@ invariant on four canonical manifolds: $S^3$, $S^2\times S^1$,
 $\Sigma_g\times S^1$, and the lens space $L(p,q)$, closing with the
 Poincar\'e homology sphere surgery test.
 
-\begin{theorem}[DGGPR invariant of $S^3$ as inverse total quantum dimension]
+\begin{theorem}[DGGPR invariant of \texorpdfstring{$S^3$}{S-3} as inverse total quantum dimension]
 \label{thm:modtr-rt-S3}
 \ClaimStatusProvedHere
 The DGGPR invariant of the three-sphere is
@@ -2517,7 +2560,7 @@ $\mathcal D^{-1} = (\sum d_i^2)^{-1/2}$ for the reduced simple set).
 All four produce the same value.
 \end{proof}
 
-\begin{theorem}[DGGPR invariant of $S^2\times S^1$ as rank of $\mathrm{HH}_0$]
+\begin{theorem}[DGGPR invariant of \texorpdfstring{$S^2\times S^1$}{S-2x S-1} as rank of \texorpdfstring{$\mathrm{HH}_0$}{HH-0}]
 \label{thm:modtr-rt-S2timesS1}
 \ClaimStatusProvedHere
 The DGGPR invariant of $S^2\times S^1$ is the number of
@@ -2567,7 +2610,7 @@ extension Gainutdinov--Runkel 2017 Thm.~4.12.
 (iv) Gainutdinov--Runkel 2017 non-semisimple ground-state degeneracy.
 \end{proof}
 
-\begin{theorem}[DGGPR invariant of $\Sigma_g\times S^1$ and the $1/\Phi_{10}$ bootstrap]
+\begin{theorem}[DGGPR invariant of \texorpdfstring{$\Sigma_g\times S^1$}{Sigma-gx S-1} and the \texorpdfstring{$1/\Phi_{10}$}{1/Phi-10} bootstrap]
 \label{thm:modtr-rt-SigmagS1}
 \ClaimStatusProvedHere
 For closed oriented $\Sigma_g$ of genus $g$,
@@ -2626,7 +2669,7 @@ Plancherel decomposition of Theorem~\ref{thm:modtr-plancherel-equals-phi10}.
 ($c(0,0,0) = 1$, $c(1,1,0) = 276$, etc.).
 \end{proof}
 
-\begin{theorem}[Lens-space invariants and the $S$-matrix]
+\begin{theorem}[Lens-space invariants and the \texorpdfstring{$S$}{S}-matrix]
 \label{thm:modtr-rt-lens}
 \ClaimStatusProvedHere
 For the lens space $L(p, q)$ obtained by $-q/p$ surgery on the unknot,
@@ -2685,7 +2728,7 @@ $+1$-eigenspace dimension of $w_8$ weighted by the ribbon twist.
 (iv) De~Renzi et~al.\ 2021 Thm.~6.1 renormalised surgery formula.
 \end{proof}
 
-\begin{remark}[Lens-space partition function as $\mu_8$-gerbe torsor]
+\begin{remark}[Lens-space partition function as \texorpdfstring{$\mu_8$}{mu-8}-gerbe torsor]
 \label{rem:modtr-lens-gerbe-torsor}
 The $p = 8$ case reflects the $\mu_8$-gerbe structure of
 Theorem~\ref{thm:modtr-banding-cocycle}: $L(8, q)$ is a circle bundle
@@ -2727,7 +2770,7 @@ which coincides with the Fricke trace
 $\mathrm{tr}(w_8|\widetilde{\mathcal G}|_{H_4}) = \zeta_{16} +
 \zeta_{16}^3 + \zeta_{16}^5 + \zeta_{16}^7 + (-1)\cdot 4
 = -4 + (1+i)\sqrt 2$ on the $\mu_{16}$-banded block of
-Remark~\ref{rem:modtr-banding-cocycle-fricke-trace}, and equals $4$
+the modular-trace banding-cocycle Fricke remark, and equals $4$
 on the $M_{24}$-invariant Humbert block of
 Theorem~\ref{thm:modtr-s-matrix-fricke}.
 \end{theorem}
@@ -2759,7 +2802,7 @@ paramodular cover (Theorem~\ref{thm:modtr-s-matrix-fricke}).
 On the $M_{24}$-invariant block
 (Theorem~\ref{thm:modtr-s-matrix-fricke} \emph{Fricke trace identity})
 $\mathrm{tr}(w_8) = 4$; on the $\mu_{16}$-banded block
-(Remark~\ref{rem:modtr-banding-cocycle-fricke-trace})
+(the modular-trace banding-cocycle Fricke remark)
 $\mathrm{tr}(w_8|\widetilde{\mathcal G}|_{H_4}) = \zeta_{16}
 + \zeta_{16}^3 + \zeta_{16}^5 + \zeta_{16}^7 - 4 = -4 + (1+i)\sqrt 2$.
 
@@ -2834,7 +2877,7 @@ of Theorem~\ref{thm:modtr-plancherel-equals-phi10}.
 (iv) Lawrence--Zagier 1999 semisimple limit.
 \end{proof}
 
-\begin{remark}[Gravitational reading: $\tau_{\mathcal C}$ as partition function]
+\begin{remark}[Gravitational reading: \texorpdfstring{$\tau_{\mathcal C}$}{tau-C} as partition function]
 \label{rem:modtr-rt-gravity-reading}
 Witten 1989 \emph{CMP}~121 Thm.~2.4 interprets the semisimple
 RT invariant as the Chern--Simons partition function
@@ -2866,7 +2909,7 @@ $\partial M^3$ is the reciprocal Igusa cusp-form generating function
 for the bulk gravitational-path-integral.
 \end{remark}
 
-\begin{theorem}[Lens tower $L(8, q)$ as a $\mu_8$-gerbe torsor family]
+\begin{theorem}[Lens tower \texorpdfstring{$L(8, q)$}{L(8, q)} as a \texorpdfstring{$\mu_8$}{mu-8}-gerbe torsor family]
 \label{thm:modtr-lens-tower-L8q}
 \ClaimStatusProvedHere
 The four coprime residue classes $q\in (\mathbb Z/8)^\times = \{1, 3, 5, 7\}$
@@ -3028,7 +3071,7 @@ produce the finite renormalised value.
 framework subsuming the Lawrence--Zagier limit.
 \end{proof}
 
-\section{Closed-form Plancherel and $S^{\mathrm{ps}}$ via coend}
+\section{Closed-form Plancherel and \texorpdfstring{$S^{\mathrm{ps}}$}{S-ps} via coend}
 \label{sec:modtr-closed-form-plancherel-sps}
 
 The two scalar identities
@@ -3139,7 +3182,7 @@ by Borcherds 1998 \emph{Invent.}~132 Thm.~10.1.
 (iv) Borcherds 1998 Thm.~10.1 denominator product.
 \end{proof}
 
-\begin{theorem}[Pseudo-modular $S^{\mathrm{ps}}$ via the coend]
+\begin{theorem}[Pseudo-modular \texorpdfstring{$S^{\mathrm{ps}}$}{S-ps} via the coend]
 \label{thm:modtr-sps-coend-formula}
 \ClaimStatusProvedHere
 The Lyubashenko pseudo-modular $S^{\mathrm{ps}}$-endomorphism on the
@@ -3482,7 +3525,7 @@ Theorem~\ref{thm:modtr-closed-form-plancherel}.
 (iv) Eguchi--Ooguri--Tachikawa 2011 \S4 ($M_{24}$-action).
 \end{proof}
 
-\begin{remark}[Cross-channel compatibility with $1/\Phi_{10}$]
+\begin{remark}[Cross-channel compatibility with \texorpdfstring{$1/\Phi_{10}$}{1/Phi-10}]
 \label{rem:modtr-closed-form-cross-channel}
 Theorem~\ref{thm:modtr-closed-form-plancherel} produces $\mathcal D^2$
 on the diagonal of $\mathfrak H_2$, specialising

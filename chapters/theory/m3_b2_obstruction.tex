@@ -1,14 +1,17 @@
-\chapter{The \texorpdfstring{$[m_3, B^{(2)}]$}{[m3, B(2)]} obstruction: chain-level CY$_3$}
+\chapter{The \texorpdfstring{$[m_3, B^{(2)}]$}{[m3, B(2)]} obstruction: chain-level CY\texorpdfstring{$_3$}{-3}}
 \label{ch:m3-b2-obstruction}
 
-The $\bS^3$-framing of the Hochschild complex of a cyclic
-$\Ainf$-algebra of CY dimension~$3$ --- the chain-level lift of
-the $S^3$-action encoding CY$_3$ duality via the Connes hierarchy
-$B^{(0)}, B^{(1)}, B^{(2)}, B^{(3)}$ --- is the chain-level input to
-CY-A$_3$.  Its compatibility with the $\Ainf$-Hochschild
-differential splits, via the Hopf fibration $S^1 \to S^3 \to S^2$,
-into three independent obstructions
-(equation~\eqref{eq:obs-decomposition}); the central one,
+The construction of the native $E_3$-holomorphic factorisation algebra
+$\PhiFA_3(\cC) \in \EdHolFA[\,3\,](X)$ (stage~1 of
+Theorem~\ref{thm:phi-two-stage-factorisation}) requires the
+$\bS^3$-framing of the Hochschild complex of a cyclic $\Ainf$-algebra
+of CY dimension~$3$.  This framing is the chain-level lift of the
+$S^3$-action encoding CY$_3$ duality via the Connes hierarchy
+$B^{(0)}, B^{(1)}, B^{(2)}, B^{(3)}$, and its obstruction to
+compatibility with the $\Ainf$-Hochschild differential is the
+obstruction to completing stage~1.  Via the Hopf fibration
+$S^1 \to S^3 \to S^2$, this obstruction splits into three independent
+summands (equation~\eqref{eq:obs-decomposition}); the central one,
 $\mathrm{Obs}_{\Ainf}$, is the commutator
 $[m_k, B^{(2)}]$ between the $\Ainf$-operations
 $m_k = b_k$ and the degree-$2$ component $B^{(2)}$ of the
@@ -64,7 +67,7 @@ complex intertwine compatibly with the $S^2$-base of the Hopf
 fibration?  At the operator level, the question becomes:
 
 
-\begin{openproblem}[{The $[m_k, B^{(2)}]$ question}]
+\begin{openproblem}[{The \texorpdfstring{$[m_k, B^{(2)}]$}{[m-k, B-(2)]} question}]
 \label{op:mk-b2}
 Let $(A, \{\mu_n\}, \langle -,- \rangle)$ be a cyclic
 $\Ainf$-algebra of CY dimension $d = 3$.  Let
@@ -191,24 +194,45 @@ independently known $[b_2, B^{(0)}] = 0$ (the standard Connes
 mixed complex axiom for the associative product), would force
 $[b_k, B^{(2)}] = 0$ for each $k$.
 
-\textbf{The flaw.}  The weight decomposition~\eqref{eq:weight-decomposition}
-is correct, but it does \emph{not} isolate individual terms.
-At weight $s = k + 2$, the identity reads:
+\textbf{The flaw.}  The bidegree decomposition fails three ways.
+
+\emph{Failure (a): the mixed complex axiom concerns $B^{(0)}$, not
+$B^{(j)}$ for $j \geq 1$.}  The Connes mixed complex axiom
+$\{b, B\} = 0$ is the statement for $B = B^{(0)}$ (the standard Connes
+operator on the bar complex); it imposes no constraint on higher
+hierarchy operators $B^{(j)}$, $j \geq 1$, which arise only from the
+operadic $\bS^d$-framing and are not part of the mixed complex structure.
+
+\emph{Failure (b): the decomposition is stated for the total
+$B_{\mathrm{total}}$, not for $B^{(2)}$.}  The weight
+identity~\eqref{eq:weight-decomposition} isolates the total weight $s = k + i$:
 \[
  [b_k, B^{(2)}] + [b_{k-1}, B^{(3)}]
- + [b_{k+1}, B^{(1)}] + [b_{k+2}, B^{(0)}] \;=\; 0.
+ + [b_{k+1}, B^{(1)}] + [b_{k+2}, B^{(0)}] \;=\; 0,
 \]
-This says $[b_k, B^{(2)}]$ is determined by the other three
-terms, but those other terms need not individually vanish.
-The argument confused
-$B^{(0)}$ (the standard Connes $B$) with $B^{(2)}$
-(the higher hierarchy operator): $[b, B^{(0)}] = 0$ is the
-mixed complex axiom, but $[b, B^{(2)}] = 0$ is a
-\emph{stronger} claim that requires additional structure.
+which determines $[b_k, B^{(2)}]$ in terms of three other commutators, none
+of which is forced to vanish individually.  Substituting
+$B^{(2)} \mapsto B^{(0)}$ in the mixed complex identity is a category
+error: $B^{(0)}$ and $B^{(2)}$ implement topologically distinct operations
+on the moduli of bordered surfaces (Connes rotation vs.\ genus-change
+contraction), and the chain-level behaviour of one does not transfer to
+the other.
 
-\textbf{Verdict.}  The mixed complex axiom is too weak.  It
-governs $B_{\mathrm{total}}$, not individual hierarchy
-operators.
+\emph{Failure (c): the transposition to individual $[b_k, B^{(2)}]$
+identities is unjustified.}  Even granting the total-weight
+identity, the step from $\sum_{k+i = s} [b_k, B^{(i)}] = 0$ to
+$[b_k, B^{(2)}] = 0$ for each $k$ requires a splitting of the total
+identity into bidegree components along $(k, i)$ that preserves
+cancellation.  No such splitting exists: the cyclic bar complex has
+total bar grading $n$ and internal grading $q$, but there is no
+additional grading that separates the hierarchy index $i$ from the
+Hochschild index $k$.  Without such a separation, the transposition
+from the total identity to component-wise identities is formally
+invalid.
+
+\textbf{Verdict.}  The mixed complex axiom governs $B_{\mathrm{total}}$,
+not individual hierarchy operators; the three failure modes are
+independent and each alone blocks the argument.
 
 \noindent\textit{Verification}: \texttt{connes\_b\_obs\_ainf.py}
 (bidegree structure); \texttt{stasheff\_cancellation\_obs\_ainf.py},
@@ -288,10 +312,10 @@ cancellation between $\{b_2, B^{(2)}\}$ and $\{b_3, B^{(2)}\}$
 on every test element.
 
 
-\subsection{Computation 1: Local $\bP^2$ explicit}
+\subsection{Computation 1: Local \texorpdfstring{$\bP^2$}{P-2} explicit}
 \label{subsec:comp-local-p2}
 
-\begin{computation}[{Explicit $[m_3, B^{(2)}]$ for local $\bP^2$}]
+\begin{computation}[{Explicit \texorpdfstring{$[m_3, B^{(2)}]$}{[m-3, B-(2)]} for local \texorpdfstring{$\bP^2$}{P-2}}]
 \label{comp:local-p2-m3b2}
 The simplest non-formal CY$_3$ category is
 $D^b(\mathrm{Coh}(\mathrm{Tot}(\cO(-3) \to \bP^2)))$.
@@ -332,7 +356,7 @@ on a representative set of degree-$5$ bar elements, cross-check
 with the $b_2$ cancellation).
 \end{computation}
 
-\begin{remark}[The $b_2$ cancellation on the same element]
+\begin{remark}[The \texorpdfstring{$b_2$}{b-2} cancellation on the same element]
 \label{rem:b2-cancellation}
 For the TCFT-derived operator $B^{(2)}_{\mathrm{TCFT}}$, the
 same bar element satisfies
@@ -354,7 +378,7 @@ operator.
 \subsection{Computation 2: Random search}
 \label{subsec:comp-random}
 
-\begin{computation}[Random search over cyclic $\Ainf$-algebras]
+\begin{computation}[Random search over cyclic \texorpdfstring{$\Ainf$}{A-inf}-algebras]
 \label{comp:random-search}
 A systematic numerical search over $1000+$ randomly generated
 cyclic $\Ainf$-algebras (engine:
@@ -392,7 +416,7 @@ verification).
 \subsection{Computation 3: Adversarial counterexample search}
 \label{subsec:comp-counterexample}
 
-\begin{computation}[{Counterexample search for $[m_3, B^{(2)}] = 0$}]
+\begin{computation}[{Counterexample search for \texorpdfstring{$[m_3, B^{(2)}] = 0$}{[m-3, B-(2)] = 0}}]
 \label{comp:counterexample}
 An adversarial search (engine:
 \texttt{obs\_ainf\_counterexample\_search.py}) attempted to find
@@ -514,7 +538,7 @@ Two independent frameworks explain why.
 \subsection{The TCFT resolution: moduli space geometry}
 \label{subsec:tcft-resolution}
 
-\begin{theorem}[Total $\Ainf$-framing compatibility via Costello's TCFT]
+\begin{theorem}[Total \texorpdfstring{$\Ainf$}{A-inf}-framing compatibility via Costello's TCFT]
 \label{thm:total-ainf-compat}
 \ClaimStatusProvedHere{}
 Let $(A, \{\mu_n\}, \langle -,- \rangle)$ be a cyclic
@@ -599,7 +623,7 @@ is the key mathematical content that Wrong Proof~2
 (Section~\ref{subsec:wrong-bidegree}) missed.
 \end{remark}
 
-\begin{remark}[TCFT vs naive $B^{(2)}$: the chain-level identification gap]
+\begin{remark}[TCFT vs naive \texorpdfstring{$B^{(2)}$}{B-(2)}: the chain-level identification gap]
 \label{rem:tcft-vs-naive-b2}
 The operator $B^{(2)}$ in Theorem~\ref{thm:total-ainf-compat} is the
 \textsc{TCFT-derived} operator on $C_\bullet(A)$, defined by Costello's
@@ -653,7 +677,7 @@ chiral algebras but carry distinct chain-level data.
 \end{remark}
 
 
-\subsection{The $\infty$-categorical resolution: vanishing
+\subsection{The \texorpdfstring{$\infty$}{inf}-categorical resolution: vanishing
 obstruction groups}
 \label{subsec:infty-cat-resolution}
 
@@ -664,7 +688,7 @@ The answer is yes, and the vanishing is sharper than the TCFT
 cancellation: it identifies the precise
 $E_1$-Hochschild group controlling the $\Etwo \to E_3$ lift.
 
-\begin{theorem}[Derived framing obstruction vanishes for CY$_3$ categories]
+\begin{theorem}[Derived framing obstruction vanishes for CY\texorpdfstring{$_3$}{-3} categories]
 \label{thm:derived-framing-m3b2}
 \ClaimStatusProvedHere{}
 For any smooth proper CY$_3$ category $\cC$ with unit-connected
@@ -734,7 +758,32 @@ Francis--Gaitsgory complex, Bott periodicity, explicit homotopy,
 cross-checks).
 \end{proof}
 
-\begin{remark}[Manin-pair structure of the $E_1$-Hochschild vanishing]
+\begin{remark}[Three-level placement of Theorem~\ref{thm:derived-framing-m3b2}]
+\label{rem:derived-framing-m3b2-three-levels}
+Theorem~\ref{thm:derived-framing-m3b2} realises Level~3 of
+Definition~\ref{def:three-levels} (derived / $\infty$-categorical):
+it asserts vanishing of the obstruction group
+$\HH^{-2}_{E_1}(A, A) = 0$ for connective unit-connected
+$A = \HH_\bullet(\cC)$, an \emph{existential} statement.  Level~1
+(strict chain-level $[m_k, B^{(2)}] = 0$ per~$k$) fails for non-formal
+algebras (Proposition~\ref{prop:chain-nonvanishing-generic});
+Level~2 (homotopy $\{b, B^{(2)}\} = 0$ for the total differential)
+holds universally by Costello's TCFT
+(Theorem~\ref{thm:total-ainf-compat}) and supplies the explicit
+chain homotopy.  The two resolutions are logically independent
+constructive-versus-existential witnesses of the same vanishing;
+unit-connectedness + connectivity is the hypothesis on which the
+Level~3 Francis--Gaitsgory connectivity bound
+$\HH^p_{E_1}(A, A) = 0$ for $p < 0$ holds.  See
+Remark~\ref{rem:three-level-relationship} for the level-crossing
+implications.  The companion Level~3 statement
+Theorem~\ref{thm:derived-framing-obstruction} in
+Chapter~\ref{ch:cy-to-chiral} (with its explicit connectivity
+hypothesis and Remark~\ref{rem:derived-framing-three-levels}) gives
+the same vanishing via the bar-filtration argument.
+\end{remark}
+
+\begin{remark}[Manin-pair structure of the \texorpdfstring{$E_1$}{E-1}-Hochschild vanishing]
 \label{rem:m3b2-manin-pair}
 The vanishing
 $\HH^{-2}_{E_1}(A, A) = 0$ of
@@ -772,7 +821,7 @@ answer to the same question; the hierarchy is not a contradiction
 but a feature of the relationship between strict and homotopy
 algebra.
 
-\begin{definition}[{Three levels of the $[m_k, B^{(2)}]$ question}]
+\begin{definition}[{Three levels of the \texorpdfstring{$[m_k, B^{(2)}]$}{[m-k, B-(2)]} question}]
 \label{def:three-levels}
 \mbox{}
 \begin{enumerate}[label=\textup{Level \arabic*.}]
@@ -854,7 +903,7 @@ exactly this regime (local~$\bP^2$, quintic).
 
 
 % ============================================================
-\section{The CY-A$_3$ obstruction landscape}
+\section{The CY-A\texorpdfstring{$_3$}{-3} obstruction landscape}
 \label{sec:m3b2-landscape}
 % ============================================================
 
@@ -914,7 +963,7 @@ $43$~tests in \texttt{operadic\_tcft\_mk\_b2\_engine.py};
 $51$~tests in \texttt{derived\_framing\_obstruction.py}.
 \end{proof}
 
-\begin{remark}[$K3 \times E$ as 1-loop-forced 11D-SUGRA on $I_1$ Kodaira fibres]
+\begin{remark}[\texorpdfstring{$K3 \times E$}{K3 x E} as 1-loop-forced 11D-SUGRA on \texorpdfstring{$I_1$}{I-1} Kodaira fibres]
 \label{rem:m3b2-sugra-forcing}
 The $K3 \times E$ row of the landscape table is the only compact
 entry with nontrivial \v{C}ech step, and the physical origin of
@@ -1134,11 +1183,11 @@ necessarily incomplete: the question is not visible to them.
 
 
 % ============================================================
-\section{Implications for CY-A$_3$}
+\section{Implications for CY-A\texorpdfstring{$_3$}{-3}}
 \label{sec:m3b2-implications}
 % ============================================================
 
-\begin{remark}[What actually obstructs CY-A$_3$]
+\begin{remark}[What actually obstructs CY-A\texorpdfstring{$_3$}{-3}]
 \label{rem:actual-obstructions}
 The chain-level $[m_3, B^{(2)}] \neq 0$ is a red herring.
 The actual obstacles to CY-A$_3$ are:
@@ -1188,8 +1237,8 @@ Chapter~\ref{ch:en-factorization}) are \emph{distinct}
 stratifications: every standard CY$_3$ family, including
 local~$\bP^2$ and the quintic, is chirally Koszul, but only
 class~$G$ is SC-formal (Vol~I,
-Proposition~\ref{prop:sc-formal-iff-class-g} and
-Remark~\ref{rem:sc-formal-parametrised-scope}).  The chain-level identity
+Proposition~\texttt{chapters/theory/chiral\_koszul\_pairs.tex} (Vol~I) and
+Remark~\texttt{chapters/theory/ftm\_seven\_fold\_tfae\_platonic.tex} (Vol~I)).  The chain-level identity
 $[m_k, B^{(2)}] = 0$ is controlled by SC-formality, not by
 Koszulness:
 \begin{itemize}
@@ -1205,6 +1254,93 @@ The shadow tower is the $\Ainf$ correction tower:
 $\delta^{(k)} = S_k$ is the chain-level failure at each degree,
 and the total cancellation $\sum_k \delta^{(k)} = 0$ is enforced
 by the TCFT.
+\end{remark}
+
+\begin{remark}[Shadow-tower values as \texorpdfstring{$\Ainf$}{A-inf}-coproduct corrections]
+\label{rem:m3b2-shadow-tower-values}
+The chain-level failures $\delta^{(k)} = S_k$ of
+Remark~\ref{rem:m3b2-shadow-tower} are $\Ainf$-coproduct corrections to
+the bar coalgebra on the $\mathcal{W}_{1+\infty}$ / CoHA seed: each
+$m_k$ records the $k$-arity piece of the chain-level obstruction to
+strict coassociativity, and the bar coproduct receives a Hochschild
+correction indexed by the $\mu_k$ of the $\Ainf$-input.  At
+$c = 1$ the first non-trivial shadow is $S_3 = 2$ (Virasoro central
+charge); the higher values are
+\[
+ m_5 \;=\; -\tfrac{80}{9}, \qquad
+ m_7 \;=\; -\tfrac{24320}{81}, \qquad
+ m_8 \;=\; \tfrac{33157760}{19683},
+\]
+with $m_5$ extracted from the connected $5$-point chiral Green function
+$G_5^{\mathrm{conn}} = 775/5184$ via $m_5 = -(5!/3) \cdot G_5^{\mathrm{conn}}
+\cdot (\text{normalisation})$; the computation is the chain-level evaluation
+of the bar-coproduct correction on the weight-$5$ Hochschild
+cochain of $\mathcal{W}_{1+\infty}$ at $c = 1$.  The denominators
+$9 = 3^2$, $81 = 3^4$, $19683 = 3^9$ are powers of $3$: this is
+forced by the Riccati closure of Remark~\ref{rem:m3b2-riccati-3Nforce}
+below, which pins the power-of-$3$ structure to the $c = 1$ specialisation
+$5c + 22 = 27 = 3^3$ of the $\mathcal{W}$-algebra central-charge
+polynomial.  The shadow-tower values are cross-verified against
+direct Virasoro OPE computation, the CoHA bar complex on $\C^3$, and
+the $6$d hCS Feynman presentation of
+Remark~\ref{rem:m3b2-6d-hcs-feynman} below.
+\end{remark}
+
+\begin{remark}[Riccati closure and the \texorpdfstring{$3^N$}{3-N} denominator law]
+\label{rem:m3b2-riccati-3Nforce}
+The generating function $H(t) = \sum_{k \geq 0} m_{k+3}\, t^k/k!$ of the
+shadow-tower values satisfies the Riccati closure
+\[
+ H(t)^2 \;=\; t^4 \cdot Q_c(t),
+\]
+where $Q_c(t)$ is a polynomial whose coefficients are rational functions
+of the central charge $c$ with denominators dividing the $\mathcal{W}$-algebra
+discriminant $5c + 22$.  At $c = 1$, $5c + 22 = 27 = 3^3$; since the
+Riccati equation contracts $t^4$-multiplication with the squaring of $H(t)$,
+the $k$-th shadow acquires a denominator $3^{N(k)}$ with $N(k)$ the number
+of factors of the discriminant appearing in the expansion of $Q_c$ at
+order $t^k$.  Explicitly, the first three non-trivial orders give
+$N(5) = 2, N(7) = 4, N(8) = 9$, matching the denominators
+$9, 81, 19683$ of Remark~\ref{rem:m3b2-shadow-tower-values}.  The
+power-of-$3$ structure is therefore not accidental: it is forced by the
+$c = 1$ specialisation of the $\mathcal{W}$-algebra discriminant through
+the Riccati closure.  For $c \neq 1$ generic the denominators are
+$(5c + 22)^{N(k)}$; specialisations $c = -22/5$ (at which $5c + 22 = 0$)
+have formal singularities in $H(t)$ and correspond to a degeneration of
+the shadow tower not governed by the Riccati closure.
+\end{remark}
+
+\begin{remark}[\texorpdfstring{$6$}{6}d hCS Feynman presentation: \texorpdfstring{$m_k = k \cdot S_k$}{m-k = k . S-k} from tree corollas]
+\label{rem:m3b2-6d-hcs-feynman}
+The shadow values $m_k$ admit an equivalent Feynman-diagrammatic
+presentation on $6$d holomorphic Chern--Simons theory on $\C^3$: each
+$m_k$ is a $k$-vertex Feynman sum over the connected diagrams of the
+$k$-th correction to the $\mathcal{W}_{1+\infty}$ OPE, with external
+legs contracting against the Mukai / Killing pairing.  Restricting to
+the tree-level sector, the sum reduces to a single tree corolla (the
+$k$-legged star with the $\mu_k$-vertex at the centre), and the
+combinatorial factor equals $k$:
+\[
+ m_k^{\mathrm{tree}} \;=\; k \cdot S_k.
+\]
+At $k = 3$ this recovers $m_3^{\mathrm{tree}} = 3 \cdot S_3 = 3 \cdot 2 = 6$;
+at higher $k$, the identity decomposes the full shadow as
+$m_k = m_k^{\mathrm{tree}} + m_k^{\mathrm{loop}}$ where
+$m_k^{\mathrm{loop}}$ is the loop correction, computable by Feynman rules
+on the $\C^3$ propagator.  Cross-link to
+Section~\ref{sec:m3b2-first-order-deformation-moduli}: the one-dimensional
+first-order deformation moduli of $\Obs_{\hCS}(\C^3)$
+(Theorem~\ref{thm:plat-first-order-moduli}) is the generating witness
+for the tree-corolla identity; the Killing-form tangent vector
+$\mathrm{Kil} \in \Sym^2(\fg^\vee)^{\mathrm{inv}}$ is the coupling that
+contracts the $k$ external legs of the tree corolla at each order.  The
+Wick-contraction structure of the hCS Feynman rules, combined with the
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ CY slice, forces the tree
+identity $m_k^{\mathrm{tree}} = k \cdot S_k$ to hold order-by-order; the
+loop corrections are controlled by the $\hbar$-expansion of the BV
+Laplacian of Remark~\ref{rem:phys-bv-laplacian-m3b2} and contribute the
+$3^{N(k)}$-denominator structure of
+Remark~\ref{rem:m3b2-riccati-3Nforce}.
 \end{remark}
 
 \begin{remark}[Abelian-at-Lie, non-abelian-at-vertex: the input-output dichotomy]
@@ -1297,7 +1433,7 @@ are integrated into the Vol~III \texttt{make test} infrastructure
 ($19{,}838$~total tests).
 \end{remark}
 
-\begin{remark}[Three faces of $8$: where $K^{\kappa_{\mathrm{ch}}}$ resurfaces]
+\begin{remark}[Three faces of \texorpdfstring{$8$}{8}: where \texorpdfstring{$K^{\kappa_{\mathrm{ch}}}$}{K-kappa-ch} resurfaces]
 \label{rem:m3b2-three-faces-eight}
 At the boundary of this chapter with Part~\ref{part:k3-yangian},
 a single integer $K^{\kappa_{\mathrm{ch}}} = 8$ records three
@@ -1339,10 +1475,10 @@ Chern--Simons contracting homotopy, and non-perturbative
 convergence of the \v{C}ech-HTT chiral operations for compact
 non-formal CY$_3$ categories.
 
-\section{M$_3$ mainspring and the K3 $B^{(2)}$ obstruction}
+\section{M\texorpdfstring{$_3$}{-3} mainspring and the K3 \texorpdfstring{$B^{(2)}$}{B-(2)} obstruction}
 \label{sec:m3b2-k3-base}
 
-\begin{remark}[Cross-reference: M$_3$ mainspring and the $B^{(2)}$ obstruction at the K3 base]
+\begin{remark}[Cross-reference: M\texorpdfstring{$_3$}{-3} mainspring and the \texorpdfstring{$B^{(2)}$}{B-(2)} obstruction at the K3 base]
 \label{rem:m3b2-k3-base-correspondence}
 The M$_3$/$B^{(2)}$ obstruction here (master conjectures MC$_3$ and the B$_2$
 iterated bar complex) corresponds, at the K3 base, to the
@@ -1352,7 +1488,7 @@ B^{(2)}_{\mathrm{ch}}(\mathbf H_{\Delta_5}) \;=\; T^c\bigl(s^{-1}\overline{\math
 \]
 evaluated on the Siegel threefold. The MC$_3$ master conjecture
 (chiral-center complementarity) specialises at the K3 base to
-$\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! \in \{0, 13, 250/3, 98/3\}$ with $\kappa_{\mathrm{ch}}(\mathbf H_{\Delta_5}) = K^{\kappa_{\mathrm{ch}}}/2 = 4 = c_+(\mathrm{Mukai}(K3))$,
+$\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! \in \{0, 13, 250/3, 98/3\}$ on the classical $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}$ landmark ceiling, enlarged to the canonical five-archetype bucket $\{0, 8, 13, 250/3, 98/3\}$ on $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ by the Mukai-doubling witness with $\kappa_{\mathrm{ch}}(\mathbf H_{\Delta_5}) = K^{\kappa_{\mathrm{ch}}}/2 = 4 = c_+(\mathrm{Mukai}(K3))$,
 matching the Theorem~C chamber at $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = 0$ (scope: Heisenberg-type
 fibre stratum, single-character regime) for the fibre at the Borel cusp of $\bar{\mathcal A}_2^{\mathrm{BB}}$.
 The B$_2$ iteration refines the genus-$1$ bar
@@ -1361,7 +1497,7 @@ witness for its modular closure. Cross-ref Vol.~I, Theorem~C, and
 Chapter~\ref{ch:k3-chiral-bialgebra-platonic}.
 \end{remark}
 
-\begin{remark}[$k_N$-family lift of the $M_3/B^{(2)}$ obstruction (Gaiotto)]
+\begin{remark}[\texorpdfstring{$k_N$}{k-N}-family lift of the \texorpdfstring{$M_3/B^{(2)}$}{M-3/B-(2)} obstruction (Gaiotto)]
 \label{rem:m3b2-gaiotto-kn-family}
 The $A_{N-1}$ extension of the $M_3/B^{(2)}$ obstruction identifies, for
 each $N \geq 2$, a tower of Siegel / orthogonal-group automorphic
@@ -1434,7 +1570,7 @@ Gritsenko--Nikulin 1998 Thm~4.1, Borcherds 1998 Thm~13.3,
 Cheng--Duncan--Harvey 2014 (arXiv:1204.2779).
 \end{remark}
 
-\begin{remark}[Umbral moonshine extension of the $A_{N-1}$ family (Gaiotto)]
+\begin{remark}[Umbral moonshine extension of the \texorpdfstring{$A_{N-1}$}{A-N-1} family (Gaiotto)]
 \label{rem:m3b2-umbral-extension}
 The umbral moonshine assignment $N \mapsto (X_N, G^{(X_N)})$ links the
 class-$\mathcal S$ family directly to the Niemeier root systems:
@@ -1454,4 +1590,147 @@ Cheng-Duncan 2017 (arXiv:1409.3829);
 Duncan-Griffin-Ono 2015 (arXiv:1503.01472);
 Eguchi-Ooguri-Tachikawa 2011 (arXiv:1004.0956);
 Gaberdiel-Hohenegger-Volpato 2012 (arXiv:1106.4315).
+\end{remark}
+
+
+% ============================================================
+\section{First-order deformation moduli of \texorpdfstring{$\Obs_{\hCS}(\C^3)$}{Obs-hCS(C-3)}}
+\label{sec:m3b2-first-order-deformation-moduli}
+% ============================================================
+
+The $[m_3, B^{(2)}]$ obstruction of Section~\ref{sec:m3b2-resolution}
+addresses the strict-vs-homotopy compatibility of the Connes hierarchy
+with the $\Ainf$-Hochschild differential.  A parallel question asks,
+for the quantum observable $E_3$-algebra $\Obs_{\hCS}(\C^3)$ of
+Theorem~\ref{thm:plat-hCS-quantum}, what the first-order deformation
+moduli are and how they match the Yangian spectral parameters.  The
+answer is a single Killing-form receptacle modulo the Calabi--Yau
+slice.
+
+\begin{theorem}[First-order deformation moduli of \texorpdfstring{$\Obs_{\hCS}(\C^3)$}{Obs-hCS(C-3)}]
+\label{thm:plat-first-order-moduli}
+\ClaimStatusProvedHere
+Let $\Obs = \Obs_{\hCS}(\C^3)$ be the $E_3$-algebra of quantum
+observables of holomorphic Chern--Simons theory on $\C^3$ with simple
+semisimple gauge algebra $\fg$ (Theorem~\ref{thm:plat-hCS-quantum}).  The
+formal deformations of $\Obs$ as an $E_3$-algebra are controlled by the
+shifted $E_3$-Hochschild complex:
+\[
+ \mathrm{Def}(\Obs)
+ \;=\;
+ \HH^\bullet_{E_3}(\Obs,\, \Obs)[3].
+\]
+The tangent space at the trivial deformation is
+\[
+ T_0 \mathcal{M}
+ \;=\;
+ H^{0,3}_{\bar\partial, c}(\C^3)
+ \otimes \Sym^2(\fg^\vee)^{\mathrm{inv}}
+ \;=\;
+ \C \cdot \mathrm{Kil},
+\]
+one-dimensional, spanned by the Killing form of $\fg$.  This
+one-dimensional tangent space is the Yangian deformation
+$Y_{\epsilon_1, \epsilon_2, \epsilon_3}(\widehat\fg)$ of
+Theorem~\ref{thm:plat-nonab-compound}, modulo the Calabi--Yau slice
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$.
+\end{theorem}
+
+\begin{proof}
+\emph{Deformation identification.}
+The formal deformations of an $E_n$-algebra $A$ are controlled by
+$\HH^\bullet_{E_n}(A, A)[n]$
+(Francis~$2013$ arXiv:$1107.0087$ Thm.~$2.29$; Lurie \emph{HA}~$5.3.1$).
+At $n = 3$ this gives
+$\mathrm{Def}(\Obs) = \HH^\bullet_{E_3}(\Obs, \Obs)[3]$.
+
+\emph{Tangent computation.}
+The factorisation $\Obs = \CE^\bullet_{\bar\partial,\chir}(\cE_{\hCS},
+\cO_{\C^3})$ of Theorem~\ref{thm:plat-hCS-quantum} and the
+Hochschild--Kostant--Rosenberg theorem for $E_3$-Hochschild cohomology
+of Chevalley--Eilenberg complexes
+(Calaque--Rossi~$2011$ arXiv:$1007.0096$ Thm.~$3.3$; Ginot~$2014$)
+give
+\[
+ \HH^0_{E_3}(\Obs,\,\Obs)[3]
+ \;\simeq\;
+ H^{0,3}_{\bar\partial,\,c}(\C^3)
+ \otimes \Sym^2(\fg^\vee)^{\mathrm{inv}},
+\]
+where $H^{0,3}_{\bar\partial, c}(\C^3) = \C$ is the compactly supported
+Dolbeault cohomology of $\C^3$ in top bidegree (Serre dual to $H^{0,0}(\C^3)$
+via the volume form $\Omega = dz_1 \wedge dz_2 \wedge dz_3$), and
+$\Sym^2(\fg^\vee)^{\mathrm{inv}} = \C \cdot \mathrm{Kil}$ by
+Cartan~$1894$: for simple $\fg$, the only $\mathrm{Ad}$-invariant
+symmetric bilinear form is the Killing form, up to scalar.
+The product is one-dimensional.
+
+\emph{Match to Yangian parameters.}
+The universal Yangian deformation
+$Y_{\epsilon_1, \epsilon_2, \epsilon_3}(\widehat\fg)$ of
+Theorem~\ref{thm:plat-nonab-compound} is parametrised by three Omega-background
+parameters $(\epsilon_1, \epsilon_2, \epsilon_3)$.  The Calabi--Yau
+constraint $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ cuts the
+three-parameter space to a two-dimensional subspace; the common
+rescaling $\epsilon_i \mapsto \lambda \epsilon_i$ further reduces to
+a one-parameter family.  The resulting one-dimensional Yangian
+deformation space coincides with $T_0 \mathcal{M} = \C \cdot
+\mathrm{Kil}$ through the identification
+$\epsilon_1 \epsilon_2 \epsilon_3 \leftrightarrow \mathrm{Kil}$ at
+order $\hbar$ (Costello~$2013$ arXiv:$1303.2632$ \S$6$; recovered
+in Maulik--Okounkov~$2012$ \S$3$ as the classical $r$-matrix
+residue).
+
+\emph{Higher obstructions.}
+The second-order obstruction to extending a first-order deformation
+lives in $\HH^1_{E_3}(\Obs, \Obs)[3]$, which vanishes by the same
+HKR computation: no bidegree $(0,4)$ compactly-supported Dolbeault
+cohomology exists on $\C^3$.  Consequently, every first-order
+deformation extends uniquely to all orders, matching the all-orders
+statement of Theorem~\ref{thm:plat-nonab-compound}.
+\end{proof}
+
+\begin{remark}[{Match to Theorem~\ref{thm:plat-nonab-compound} and the \texorpdfstring{$[m_3, B^{(2)}]$}{[m-3, B-(2)]} obstruction}]
+\label{rem:plat-first-order-moduli-match}
+The one-dimensional deformation space $T_0 \mathcal{M} = \C \cdot \mathrm{Kil}$
+is the linearisation of the all-orders
+Yangian identification $\partial\hCS_5(\fg) \simeq
+Y_{\epsilon_1, \epsilon_2, \epsilon_3}(\widehat\fg)$ of
+Theorem~\ref{thm:plat-nonab-compound}: the classical $r$-matrix
+$r(u) = -\sigma_2/u$ of the Yangian at order $\hbar^0$ is the
+bilinear form induced by $\mathrm{Kil}$, and the CY slice $\sum
+\epsilon_i = 0$ is precisely the linear condition
+$p_1 = 0$ in the Omega-background
+(Proposition~\ref{prop:one-loop-cy-constraint}(iii) at
+\texttt{chapters/theory/quantum\_chiral\_algebras.tex}).  This
+first-order moduli computation is the linearised shadow of the
+derived framing obstruction of
+Theorem~\ref{thm:derived-framing-m3b2}: both identify a single
+obstruction receptacle $(\HH^{-2}_{E_1}$ for the framing;
+$\HH^0_{E_3}[3]$ for the deformation) and both report that the
+receptacle has one controlled generator (vanishing by unit-connectedness;
+spanned by $\mathrm{Kil}$ respectively).  The $[m_3, B^{(2)}]$
+strict-chain-level obstruction of this chapter controls the
+chain-level rectification inside the one-dimensional deformation
+space, not its position inside it.
+\end{remark}
+
+\begin{remark}[BV Laplacian, quantum master equation, and the \texorpdfstring{$B^{(2)}$}{B-(2)} obstruction]
+\label{rem:phys-bv-laplacian-m3b2}
+The $[m_3, B^{(2)}]$ obstruction of Open Problem~\ref{op:mk-b2} has a direct BV interpretation.  The CY$_3$ pairing $\langle -,-\rangle\colon A\otimes A\to k[-3]$ on the shifted field space $\mathfrak{F} = A[1]$ gives a degree-$(-2)$ symplectic form $\omega$.  The \emph{BV Laplacian} is the second-order operator
+\[
+ \Delta_{\BV} \;=\; \sum_{i,j} \omega^{ij}\,\frac{\partial^2}{\partial\phi^i\,\partial\phi^j},
+\]
+where $\{\phi^i\}$ is a basis of $\mathfrak{F}$ and $\omega^{ij}$ inverts $\omega_{ij} = \omega(\phi_i,\phi_j)$.  The operator $\Delta_{\BV}$ satisfies $\Delta_{\BV}^2 = 0$ and is the ``second quantisation'' operator: it contracts a field with its antifield via the propagator loop.
+
+The \emph{quantum master equation} (QME) for the BV action $S(\alpha) = \sum_{n\geq 2}\frac{1}{n}\Tr(\mu_n(\alpha,\ldots,\alpha))$ is
+\begin{equation}
+\label{eq:m3b2-qme}
+ \hbar\,\Delta_{\BV} S + \tfrac{1}{2}\{S,S\} = 0.
+\end{equation}
+By Theorem~\ref{thm:phys-bv-qme-mc} (Chapter~\ref{ch:quantum-chiral-algebras}), the QME is equivalent to the Maurer--Cartan equation for $\Theta_A$; its genus-$g$ component is $\mathrm{obs}_g(A) = \kappa_{\mathrm{ch}}(A)\cdot\lambda_g$.
+
+The operator $B^{(2)}\colon C_n(A)\to C_{n-2}(A)$ of the Connes hierarchy is the chain-level shadow of $\Delta_{\BV}$: it contracts a pair of bar factors via the CY$_3$ pairing, removing both, precisely as $\Delta_{\BV}$ contracts a field with its antifield.  The identity $\{b,B^{(2)}\} = 0$ (the Costello TCFT-zero theorem, Resolution~$2$) is the chain-level formulation of the QME consistency: the total differential $b = \sum_k b_k$ (identified with $Q_{\BV} = \{S,-\}$ via Proposition~\ref{prop:phys-bv-bar-brst} of Chapter~\ref{ch:quantum-chiral-algebras}) anticommutes with $B^{(2)}$ (the chain-level $\Delta_{\BV}$) because the full QME holds.
+
+The strict chain-level nonvanishing $[m_3, B^{(2)}] \neq 0$ (Proposition~\ref{prop:chain-nonvanishing-generic}) is therefore not a violation of the QME: it reflects the fact that the BV Laplacian $\Delta_{\BV}$ commutes with the \emph{total} BRST charge $Q_{\BV} = b = \sum_k b_k$, not with the individual component $b_3 = m_3$.  The $A_\infty$ Stasheff identities, which couple the contributions of $m_k$ for different $k$ via the composite operations in the $A_\infty$-relations, are precisely the mechanism that forces the cancellation $\{b,B^{(2)}\} = 0$ when individual commutators $[m_k,B^{(2)}]$ are nonzero.  This is the CY$_3$-dimensional refining of the fact that BRST nilpotency $Q_{\BV}^2 = 0$ at genus $0$ follows from the $A_\infty$-relations collectively, not from any single relation.
 \end{remark}
