@@ -135,11 +135,17 @@ Theorem~\ref{thm:derived-morita-tilting} is an equivalence
 Both sides realise the same abstract triangulated category; when $R$ is
 Gorenstein of dimension three with trivial dualising module, the
 \emph{Ginzburg dg-lift} $\Gamma = \Gamma(Q, W)$ of $A$ (Ginzburg 2006,
-arXiv:\texttt{math/0612139} Thm.~3.2.8) carries a CY$_{3}$ structure:
+arXiv:\texttt{math/0612139} Thm.~5.3.1) carries a CY$_{3}$ structure:
 $\Gamma$ is exact $3$-Calabi--Yau as a dg-algebra, meaning the inverse
-dualising complex satisfies
+dualising complex satisfies bimodule self-duality
 $\RHom_{\Gamma^e}(\Gamma, \Gamma \otimes \Gamma)[3] \simeq \Gamma$ in the
-derived category of $\Gamma$-bimodules.
+derived category of $\Gamma$-bimodules --- the $[3]$-shift is the
+bimodule incarnation of the PTVV shift $(d, \mathrm{shift}, E_n^{\mathrm{cl}})
+= (3, -1, E_1)$ on CY$_3$ geometry. The Jacobi algebra
+$J = \Jac(Q, W) = H^{0}(\Gamma)$ is not itself a CY$_3$ algebra; the
+self-duality is a property of the dg-lift, and descent to $J$ requires
+the quasi-isomorphism $\Gamma \simeq J$ in
+Proposition~\ref{prop:cy3-on-gamma-not-j}(c).
 
 \emph{Scope of existence.} The hypothesis $\dim R \leq 3$ is sharp. Beyond
 dimension three, the existence of an NCCR is not guaranteed and \emph{fails}
@@ -268,7 +274,9 @@ $d a = 0$, $d a^{*} = \partial_a W$, and $d t_i = \sum_{a \in Q_1}
 \end{definition}
 
 \begin{proposition}[CY-3 property lives on $\Gamma$, not on $J$;
-Ginzburg 2006, Thm.~3.2.8 and \S5.3]
+Ginzburg 2006, arXiv:\texttt{math/0612139} Thm.~5.3.1 for the exact CY
+property of $\Gamma(Q, W)$; Keller 2011 arXiv:\texttt{1102.4148} \S6 for
+the descent of the CY$_3$ class to derived Morita]
 \label{prop:cy3-on-gamma-not-j}
 \ClaimStatusProposition\ For $(Q, W)$ a quiver-with-potential arising from a
 local CY$_3$:
@@ -557,7 +565,9 @@ combinatorial presentation.
 \subsubsection{Mutation at a vertex}
 
 \begin{definition}[Mutation of quiver-with-potential; DWZ 2008,
-arXiv:\texttt{0704.0649} Defs.~5.1, 5.5, 7.1]
+arXiv:\texttt{0704.0649} Def.~4.4 (trivial / reduced QP), Thm.~4.6
+(splitting), Def.~5.1 (premutation), Def.~5.5 (mutation);
+non-degeneracy Def.~7.2]
 \label{def:mutation-qp}
 \ClaimStatusDefinition\ Let $(Q, W)$ be a reduced quiver-with-potential
 (no $2$-cycles in $Q$, no $2$-cycle terms in $W$) with vertex set $I$, and
@@ -594,27 +604,46 @@ a \emph{trivial} summand (Jacobi algebra zero), unique up to right-equivalence.
 Set $(Q', W') = (Q_{\mathrm{red}}, W_{\mathrm{red}})$.
 \end{definition}
 
-The reduction is not the physicist's ``Euler--Lagrange elimination'' but the
-Derksen--Weyman--Zelevinsky right-equivalence: a $2$-cycle term
-$c\, x\, y$ in $\tilde W$ is removed by the change of variable
-$x \mapsto x - c^{-1}\,\partial_{y}(\text{rest of }\tilde W)$, which DWZ
-prove is an automorphism of the completed path algebra preserving the cyclic
-class of the potential (DWZ Thms.~4.2, 4.6).
+The reduction is not ``Euler--Lagrange elimination'' in the path-integral
+sense: it is the Derksen--Weyman--Zelevinsky right-equivalence
+(DWZ~2008 Def.~4.2, Thm.~4.6). Writing the $2$-cycle part of $\tilde W$ as
+$W_{\mathrm{triv}} = \sum_{i} c_i\, x_i\, y_i + \text{(higher)}$ with
+non-degenerate scalars $c_i$ after a linear change of variables on the
+$2$-cycle generators, the automorphism
+$x_i \mapsto x_i - c_i^{-1}\, \partial_{y_i}(\tilde W - W_{\mathrm{triv}})$,
+$y_i \mapsto y_i$, of the completed path algebra
+$\widehat{\C Q}$ separates $\tilde W$ into
+$W_{\mathrm{red}}\, \oplus\, W_{\mathrm{triv}}$ (DWZ Thm.~4.6), with
+$W_{\mathrm{triv}}$ supported on the trivial summand $(Q_{\mathrm{triv}},
+W_{\mathrm{triv}})$ whose Jacobi algebra vanishes. The splitting is unique
+up to right-equivalence by DWZ Prop.~4.5.
 
 The \emph{non-degeneracy hypothesis} on $(Q, W)$ is that every iterated
 premutation admits a reduction. DWZ \S7 prove that non-degenerate QPs are
 generic and that all QPs arising from local CY$_3$ tilting --- the conifold,
-local $\bP^2$, $\C^3/\Z_n$ --- are non-degenerate (DWZ Cor.~7.4).
+local $\bP^2$, $\C^3/\Z_n$ --- are non-degenerate (DWZ~2008 \S7, genericity
+of non-degenerate QPs; Prop.~7.3).
 
-\begin{proposition}[Mutation is an involution in reduced QPs; DWZ 2008
-Thm.~5.7]
+\begin{proposition}[Mutation is an involution up to right-equivalence; DWZ
+2008 Thm.~5.7]
 \label{prop:mutation-involution}
 \ClaimStatusProposition\ In the category whose objects are reduced QPs and
-whose morphisms are right-equivalences, $\mu_k \circ \mu_k$ is naturally
-right-equivalent to the identity: $\mu_k(\mu_k(Q, W)) \simeq_{\mathrm{r.e.}}
-(Q, W)$. The involution holds \emph{up to right-equivalence}, not strictly:
-the double premutation $\tilde\mu_k^2$ differs from the identity by a
-trivial $2$-cycle summand that cancels only after reduction.
+whose morphisms are right-equivalences, the reduced mutation
+$\mu_k = \mathrm{red} \circ \tilde\mu_k$ satisfies
+\[
+ \mu_k\bigl(\mu_k(Q, W)\bigr) \;\simeq_{\mathrm{r.e.}}\; (Q, W).
+\]
+The involution is \emph{not} a strict equality at the premutation level.
+Applied twice, premutation step~(M2) reverses the $k$-incident arrows once
+and again, and step~(M1) of the second application adjoins formal composites
+$[b^{*} a^{*}]$ running through the reversed vertex; these pair with the
+original $[ba]$ inserted in step~(M1) of the first application to form
+$2$-cycles through $k$, which the reduction $\mathrm{red}$ then splits off
+as the trivial summand (DWZ~2008 Thm.~5.7 proof, \S5). The involution is
+therefore a theorem at the level of the \emph{reduced} mutation, and the
+right-equivalence is constructive: it is the identity on arrows not adjacent
+to $k$ and the DWZ reduction automorphism on the pair of reversed $k$-incident
+arrows.
 \end{proposition}
 
 Geometrically, $T' = \mu_k(T)$ is \emph{not} a plain ``dual-and-shift''
@@ -635,8 +664,8 @@ geometrically to $\mu_k^{-}(\mu_k^{+}(T)) \simeq T$, which is a
 Serre-duality statement on the two cones, \emph{not} to the spurious
 $T_k^{\vee}[2] = T_k$.
 
-\begin{theorem}[Mutation gives derived equivalence; Keller--Yang 2011,
-arXiv:\texttt{0906.0761} Thms.~3.2 and 6.3]
+\begin{theorem}[Mutation gives a pair of derived equivalences; Keller--Yang
+2011, arXiv:\texttt{0906.0761} Thm.~3.2]
 \label{thm:keller-yang-mutation}
 \ClaimStatusTheorem\ Assume $(Q, W)$ is non-degenerate. The mutation
 $\mu_k \colon (Q, W) \mapsto (Q', W') = \mu_k(Q, W)$ lifts to a pair of
@@ -648,27 +677,31 @@ triangulated equivalences
  \Mu_k^{-} \;:\; \cD(\Gamma(Q, W)) \;\xrightarrow{\;\sim\;}\;
  \cD(\Gamma(Q', W')),
 \]
-where $\cD(\Gamma) = D(\Gamma\text{-}\mathrm{dg\text{-}mod})$. The two equivalences
-are constructed from two distinct tilting objects $T_k^{+}, T_k^{-}$ in
-$\cD(\Gamma(Q, W))$, built from the decomposition $\Gamma(Q, W) =
-\bigoplus_{i \in I} P_i$ into indecomposable projective dg-modules:
+where $\cD(\Gamma) = D(\Gamma\text{-}\mathrm{dg\text{-}mod})$. The two
+equivalences are constructed from a pair of silting objects $T_k^{+},
+T_k^{-}$ in $\mathrm{per}(\Gamma(Q, W))$, built from the decomposition
+$\Gamma(Q, W) = \bigoplus_{i \in I} P_i$ into indecomposable projective
+dg-modules (Keller--Yang 2011 \S3, construction preceding Thm.~3.2):
 \[
  T_k^{+} \;=\; \mathrm{cone}\Bigl(P_k \;\xrightarrow{\;(b)_{b \colon k \to j}\;}\;
  \bigoplus_{b \colon k \to j} P_{t(b)}\Bigr) \;\oplus\; \bigoplus_{i \neq k} P_i,
 \]
-with the differential given by the arrows $b$ \emph{out of} $k$ in $Q$ (the
-sum ranges over $b \in Q_1$ with source $k$ and target $t(b) = j$), and
+with differential given by the arrows $b$ \emph{out of} $k$ in $Q$ (the sum
+ranges over $b \in Q_1$ with source $k$ and target $t(b) = j$), and
 similarly $T_k^{-}$ built from arrows \emph{into} $k$. Keller--Yang Thm.~3.2
-establishes that $T_k^{\pm}$ is a compact generator of $\cD(\Gamma(Q, W))$
-with $\Ext^{>0}(T_k^{\pm}, T_k^{\pm}) = 0$; Keller--Yang Thm.~6.3 identifies
-$\End_{\cD(\Gamma(Q, W))}(T_k^{\pm}) \simeq \Gamma(Q', W')$ as dg-algebras,
-and then Theorem~\ref{thm:derived-morita-tilting} yields the equivalences
-$\Mu_k^{\pm}$.
+packages the content: (a) $T_k^{\pm}$ is silting, with $\Ext^{>0}(T_k^{\pm},
+T_k^{\pm}) = 0$; (b) $T_k^{\pm}$ compactly generates $\mathrm{per}(\Gamma(Q, W))$;
+(c) the endomorphism dg-algebra $\REnd_{\cD(\Gamma(Q, W))}(T_k^{\pm})$ is
+quasi-isomorphic to $\Gamma(Q', W')$, established via the Koszul-dual bar
+resolution of simples in Keller--Yang \S6. Theorem~\ref{thm:derived-morita-tilting}
+then yields the equivalences
+$\Mu_k^{\pm} = \RHom(T_k^{\pm}, -) \dashv T_k^{\pm} \otimes^{L}_{\Gamma(Q', W')} (-)$.
 
 Along $\Mu_k^{\pm}$, the simple $S_k$ (the simple at vertex $k$) over
 $\Gamma(Q, W)$ maps to $S_k^{\pm}[\mp 1]$ over $\Gamma(Q', W')$: the
 \emph{shift direction is opposite} for $\Mu_k^{+}$ and $\Mu_k^{-}$, and the
-two equivalences differ by the spherical twist at $S_k$ (Keller--Yang Prop.~6.4).
+two equivalences differ by the spherical twist at $S_k$ (Keller--Yang 2011
+Prop.~6.4).
 \end{theorem}
 
 \subsubsection{Induced CoHA automorphism}
@@ -705,7 +738,7 @@ tilting presentations of the same $X$, the corresponding tilting objects
 $T, T'$ give two factorisations of the identity
 $\mathrm{id}_{\cH(X)} = (\star_{T'})^{-1} \circ \Mu_{k,\star}^{+} \circ \star_T$,
 so $\Mu_{k,\star}^{+}$ is an endomorphism of $\cH(X)$. Non-degeneracy of
-$(Q, W)$ (DWZ Cor.~7.4) ensures $\Mu_k^{-}$ exists and gives the inverse
+$(Q, W)$ (DWZ~2008 \S7) ensures $\Mu_k^{-}$ exists and gives the inverse
 at the derived level, hence $\Mu_{k,\star}^{+}$ is an automorphism.
 \end{proof}
 
@@ -745,23 +778,32 @@ where the first two terms are the original $W_{\mathrm{con}}$ rewritten
 in the composite variables, and the last sum is the universal $[ba]\, b^*\,
 a^*$ piece. The premutation is a cyclic quartic-plus-cubic.
 
-Reduction: the premutation has no $2$-cycles at vertex $0$ or $1$ (the
-paths $a_i^* b_j^*$ run $1 \to 0 \to 1$ so sit in the $(1, 1)$-block, but
-in pairs $a_i^*, b_j^*$ which are single arrows, not length-two cycles
-within a single vertex). However, the cubic terms $[a_i b_j] a_i^* b_j^*$
-together with the quartic pair up under the right-equivalence of DWZ \S4.
-Explicitly, setting $c_{ij} = [a_i b_j]$, the cyclic derivatives
-$\partial_{c_{ij}} \tilde W = \partial_{c_{ij}}\!\bigl(c_{11} c_{22} -
-c_{12} c_{21} + \sum_{k\ell} c_{k\ell}\, a_k^* b_\ell^*\bigr)$ solve for
-the $c_{ij}$ in terms of $a_i^* b_j^*$, and the reduced potential is
+Reduction: writing $c_{ij} = [a_i b_j]$ for the new formal arrows
+$1 \to 1$, the premutation potential has the form
+\[
+ \tilde W \;=\; c_{11}\, c_{22} \;-\; c_{12}\, c_{21}
+ \;+\; \sum_{i, j}\, c_{ij}\, a_i^{*}\, b_j^{*}.
+\]
+The cyclic derivatives with respect to the $c_{ij}$ read
+$\partial_{c_{ij}} \tilde W = c_{kl} \,\epsilon^{kl}_{ij} + a_i^* b_j^*$
+(with $\epsilon$ the $2 \times 2$ antisymmetric tensor on the $c$-block
+quadratic form), so each $c_{ij}$ is eliminated against a $2$-cycle
+$a_i^* b_j^*$ through vertex $0$. The DWZ right-equivalence (DWZ~2008
+Thm.~4.6) applied to the non-degenerate quadratic-plus-cubic block
+$c_{11}c_{22} - c_{12}c_{21} + \sum c_{ij}\, a_i^* b_j^*$ separates
+$\tilde W$ into $W_{\mathrm{red}} \oplus W_{\mathrm{triv}}$: the trivial
+summand absorbs the $c_{ij}$ together with their paired $2$-cycles, and
+the reduced potential is the reassembled quartic in the new arrows,
 \[
  W' \;=\; a_1^*\, b_1^*\, a_2^*\, b_2^* \;-\; a_1^*\, b_2^*\, a_2^*\, b_1^*,
 \]
 the same Klebanov--Witten quartic with roles $a \leftrightarrow a^*$ and
-$b \leftrightarrow b^*$ swapped. The result $\mu_0(Q_{\mathrm{con}},
-W_{\mathrm{con}})$ is right-equivalent to $(Q_{\mathrm{con}}, W_{\mathrm{con}})$
-with the vertex labels $\{0, 1\}$ swapped --- the $\Z/2$ symmetry
-interchanging the two chambers of the Klebanov--Witten quiver.
+$b \leftrightarrow b^*$ swapped. Hence $\mu_0(Q_{\mathrm{con}},
+W_{\mathrm{con}})$ is right-equivalent to $(Q_{\mathrm{con}},
+W_{\mathrm{con}})$ with the vertex labels $\{0, 1\}$ swapped --- the
+$\Z/2$ symmetry interchanging the two chambers of the Klebanov--Witten
+quiver (DWZ~2008 Example~8.2; Nagao--Nakajima 2009
+arXiv:\texttt{0809.2992} \S3).
 
 The derived equivalence $\Mu_0^{+} \colon \cD(\Gamma(Q_{\mathrm{con}},
 W_{\mathrm{con}})) \xrightarrow{\sim} \cD(\Gamma(\mu_0(Q_{\mathrm{con}},
@@ -780,16 +822,25 @@ non-trivial automorphism
 equal to the Kontsevich--Soibelman wall-crossing cocycle at the flop wall
 (KS 2008 \S6; Nagao 2010, arXiv:\texttt{1002.4884}).
 
-\emph{Braid structure at two vertices.} For $|I| = 2$, the braid group
-$B_2 \simeq \Z$ is freely generated by a single element $\mu_0 \mu_1$
-(the product of the two mutations, acting as translation on the cluster
-tube). There is no ``$\mu_0 \mu_1 \mu_0 = \mu_1 \mu_0 \mu_1$'' relation
-because $B_2$ has no braid relation; the correct statement is that at the
-conifold, the braid-type subgroup of $\mathrm{Aut}_{\mathrm{bialg}}(\cH(\tilde Y))$
-generated by the mutation cocycle is cyclic, and its infinite order
-corresponds to the infinite stack of conifold walls in the KS wall-crossing
-diagram. This matches Nagao's tilting-theoretic derivation of the conifold
-partition function (Nagao--Nakajima, arXiv:\texttt{0809.2992}).
+\emph{Braid structure at two vertices.} For $|I| = 2$ the Artin
+braid group on two strands is
+$B_2 = \langle \sigma_1 \rangle \simeq \Z$, carrying one generator and no
+braid-length-three relation (these arise only from $B_3$ onward). Under
+$\rho_X$ of Theorem~\ref{thm:mutation-cocycle}, the generator
+$\sigma_1$ maps to the composite mutation $\Mu_{0,\star}^{+} \Mu_{1,\star}^{+}$
+acting as a translation on the cluster tube of the Klebanov--Witten quiver
+(Keller--Yang 2011 Prop.~6.4 identifies $\Mu_k^{+}$ with the inverse of the
+spherical twist at $S_k$; the composite $\Mu_0^{+} \Mu_1^{+}$ acts as the
+shift $[2]$ on the cluster tube's canonical $2$-periodic resolution). The
+image $\rho_X(B_2) \subset \mathrm{Aut}_{\mathrm{bialg}}(\cH(\tilde Y))$ is
+infinite cyclic, and its action on the chamber lattice reproduces the
+infinite stack of conifold walls in the Kontsevich--Soibelman wall-crossing
+diagram (KS 2008 \S6; Nagao--Nakajima arXiv:\texttt{0809.2992}). The two
+individual Keller--Yang equivalences $\Mu_0^{+}, \Mu_1^{+}$ each generate
+their own cyclic subgroup of autoequivalences, and together (as a free
+subgroup of $\mathrm{Auteq}(\cD(\Gamma(Q_{\mathrm{con}}, W_{\mathrm{con}})))$)
+they act through the single $B_2$ generator at the level of the CoHA
+bialgebra.
 \end{example}
 
 \begin{example}[Local $\bP^2$ nine-arrow Beilinson quiver and $B_3$-braid]
@@ -837,10 +888,19 @@ of this spherical twist in $\cD(\Gamma(Q_{\bP^2}, W_{\bP^2}))$.
 
 The braid relation $\mu_0 \mu_1 \mu_0 \simeq_{\mathrm{r.e.}} \mu_1 \mu_0
 \mu_1$ is the cluster-combinatorial shadow of the $\mathrm{SL}_2(\Z)$-covariance
-of $\bP^2$: the $B_3$-braid is precisely $B_3 = \pi_1(\mathrm{Conf}_3(\C))$,
-acting on the $3$-helix $(\cO, \cO(1), \cO(2))$ via the monodromy of the
-Kuznetsov exceptional-collection moduli (Kuznetsov 2007, arXiv:\texttt{math/0610957};
-Bridgeland 2009, arXiv:\texttt{0909.4299}).
+of $\bP^2$. The Artin braid group $B_3 = \pi_1(\mathrm{Conf}_3(\C))$
+--- the fundamental group of unordered triples of distinct points in $\C$
+--- acts on the space of full exceptional collections on $D^b(\mathrm{Coh}\,
+\bP^2)$ by the Bondal--Polishchuk left/right mutations of a $3$-helix
+$(\cO, \cO(1), \cO(2))$ (Bondal--Polishchuk 1993, ``Homological properties
+of associative algebras: the method of helices'' Thm.~2.3; Kuznetsov 2007,
+arXiv:\texttt{math/0610957}, on $B_n$ acting via exceptional-collection
+mutations). Bridgeland 2009, arXiv:\texttt{0909.4299}, identifies this
+$B_3$ with $\pi_1(\mathrm{Stab}^{\circ}(D^b \bP^2) / \widetilde{\mathrm{GL}}_2^{+})$
+via the $\mathrm{SL}_2(\Z)$-covering of the unordered-triples space, closing
+the loop: the nine-arrow quiver mutations generate a $B_3$-action
+whose $K_0$-image is $\mathrm{SL}_3(\Z) \supset \widetilde{\mathrm{SL}}_2(\Z)$
+and whose categorical image is the group of Bondal--Polishchuk twists.
 
 \emph{Transport to CoHA.} By
 Theorem~\ref{thm:mutation-coha-automorphism}, each $\mu_k$ transports to an
@@ -902,21 +962,31 @@ equivalence induced by the tilting object $T_k^{+} = \mathrm{cone}(P_k \to
 \bigoplus_{b \colon k \to j} P_{t(b)}) \oplus \bigoplus_{i \neq k} P_i$.
 Keller--Yang 2011 Prop.~6.4 identifies $\Mu_k^{+}$ with the inverse of the
 spherical twist $\mathrm{Tw}_{S_k}^{-1}$ at the simple module $S_k$ over
-$\Gamma(Q, W)$. The spherical-twist functors $\mathrm{Tw}_{S_k}$ satisfy
-the Seidel--Thomas braid relations
+$\Gamma(Q, W)$. Each $S_k$ is a $3$-spherical object in the sense of
+Seidel--Thomas 2001 arXiv:\texttt{math/0001043} Def.~2.14
+($\REnd(S_k) \simeq \C \oplus \C[-3]$, Serre twist $S_k \mapsto S_k[3]$).
+The Seidel--Thomas braid theorem for spherical twists
+(arXiv:\texttt{math/0001043} Thm.~1.2) produces the relation
 \[
  \mathrm{Tw}_{S_k} \mathrm{Tw}_{S_\ell} \mathrm{Tw}_{S_k}
  \;=\;
  \mathrm{Tw}_{S_\ell} \mathrm{Tw}_{S_k} \mathrm{Tw}_{S_\ell}
- \quad\text{if}\quad \mathrm{Ext}^{*}(S_k, S_\ell) = \C[-1] \oplus \C[-2],
 \]
-i.e., when the two simples are ``adjacent'' in the sense of Seidel--Thomas
-2001 arXiv:\texttt{math/0001043} Thm.~1.2, and commute when
-$\mathrm{Ext}^{*}(S_k, S_\ell) = 0$. For $\Gamma(Q, W)$ a CY$_3$ Ginzburg
-algebra, Keller--Yang Thm.~6.4 verifies that $\Ext^{*}(S_k, S_\ell)$ has
-this form precisely when $k$ and $\ell$ are connected by an arrow in $Q$
-(i.e.\ adjacent in the $2$-coloured exchange graph); the commutation holds
-when $k, \ell$ are disconnected.
+when $\RHom(S_k, S_\ell)$ is adjacent in the Seidel--Thomas sense. For a
+Ginzburg CY$_3$ algebra $\Gamma(Q, W)$ the Ext-quiver computation gives
+\[
+ \RHom_{\Gamma(Q, W)}(S_k, S_\ell) \;\simeq\;
+ \C\langle\, a \in Q_1 \colon k \to \ell \,\rangle[-1]
+ \;\oplus\;
+ \C\langle\, b \in Q_1 \colon \ell \to k \,\rangle[-2],
+\]
+(Keller 2011, arXiv:\texttt{1102.4148} Prop.~2.5; Ext$^2$ Serre-dual to
+Ext$^1(S_\ell, S_k)$). When the QP comes from a coherently oriented CY$_3$
+quiver (exactly one arrow in each direction, at most) between distinct
+$Q$-adjacent pairs, the Ext-form specialises to $\C[-1] \oplus \C[-2]$.
+The Seidel--Thomas mechanism then gives the braid relation
+between $\mathrm{Tw}_{S_k}, \mathrm{Tw}_{S_\ell}$; for $Q$-disconnected
+$k, \ell$ the Hom-complex vanishes and the twists commute.
 
 Therefore the assignment $\sigma_k \mapsto \Mu_k^{+}$ respects both the
 braid relation (for adjacent $k, \ell$) and the commutation relation (for
@@ -963,13 +1033,20 @@ Theorem~\ref{thm:mutation-coha-automorphism} a bialgebra isomorphism. The
 braid-group extension $\rho_X$ is a composition of generators, hence
 bialgebra-preserving.
 
-Chamber dependence of the PBW basis: KS 2008 \S6 proves that the BPS sheaf
+Chamber dependence of the PBW basis: the BPS sheaf
 $\mathcal{BPS}_{\mathfrak{C}}$ depends on the stability condition
-$\mathfrak{C}$, and that the PBW-type basis of $\cH(X)$ indexed by
-BPS states is chamber-indexed. Davison--Meinhardt 2020
-arXiv:\texttt{1601.02479} Thm.~A establishes that the \emph{bialgebra}
-$\cH(X)$ is chamber-independent, with the PBW decomposition providing the
-chamber-dependent structure.
+$\mathfrak{C}$ (KS~2008 \S6), and the PBW-type factorisation
+\[
+ \cH(X) \;\simeq\; \mathrm{Sym}\bigl(\mathfrak{g}_{\mathrm{BPS}, \mathfrak{C}}[-1]\bigr)
+\]
+(Davison--Meinhardt 2020, arXiv:\texttt{1601.02479} Thm.~A) is indexed
+by the chamber-dependent BPS Lie algebra $\mathfrak{g}_{\mathrm{BPS},
+\mathfrak{C}}$. Chamber-independence of the underlying bialgebra
+$\cH(X)$ is the Kontsevich--Soibelman wall-crossing cocycle condition
+(KS~2008 \S6, consistency on chamber triple-intersections), upgraded in
+DHSM~2023 arXiv:\texttt{2303.12592} Thm.~A to a bialgebra isomorphism
+between any two derived-Morita-equivalent stability presentations. The
+mutation cocycle implements this equivalence in the cluster chamber graph.
 \end{proof}
 
 The mutation cocycle is the algebraic shadow of the Donaldson--Thomas
@@ -977,6 +1054,78 @@ wall-crossing formula (Kontsevich--Soibelman 2008 \S6): each wall-crossing
 transformation is a chamber-to-chamber BPS reindexing, and the mutation
 cocycle realises this at the level of bialgebra automorphisms, preserving
 the underlying $\cH(X)$.
+
+\subsubsection{Fomin--Zelevinsky cluster mutation on $K_0$ vs.\ Weyl
+reflection}
+\label{sec:fz-vs-weyl}
+
+At the class level, the mutation $\mu_k$ induces an involutive linear
+transformation on the Grothendieck group.
+
+\begin{proposition}[FZ cluster mutation on $K_0$; Fomin--Zelevinsky 2002,
+arXiv:\texttt{math/0104151} Def.~4.2 and Prop.~4.8]
+\label{prop:fz-mutation-K0}
+\ClaimStatusProposition\ Let $(Q, W)$ be a non-degenerate QP and $\mu_k$
+the mutation at vertex $k$. The induced map on
+$K_0(A\text{-}\mathrm{mod}) = \Z^{I}$ is
+\[
+ \mu_k^{K_0} \;:\; \Z^{I} \;\longrightarrow\; \Z^{I}, \qquad
+ e_i \;\longmapsto\;
+ \begin{cases}
+ -e_k & \text{if } i = k, \\
+ e_i + [b_{ik}]_{+}\, e_k & \text{if } i \neq k,
+ \end{cases}
+\]
+where $b_{ik} = \#\{\text{arrows } k \to i\} - \#\{\text{arrows } i \to k\}$
+is the signed arrow count and $[x]_{+} = \max(x, 0)$. This is the
+Fomin--Zelevinsky cluster mutation of the exchange matrix $B = (b_{ij})$:
+$\mu_k(B) = B'$ with $b'_{ij} = -b_{ij}$ if $i = k$ or $j = k$, and
+$b'_{ij} = b_{ij} + \operatorname{sgn}(b_{ik}) \, [b_{ik}\, b_{kj}]_{+}$
+otherwise (FZ \S4).
+\end{proposition}
+
+\begin{proposition}[Cluster mutation is \emph{not} a Weyl reflection on
+CY$_3$]
+\label{prop:fz-not-weyl-on-cy3}
+\ClaimStatusProposition\ On a CY$_3$ Ginzburg algebra $\Gamma(Q, W)$ the
+Euler form
+\[
+ \chi_{K_0} \;:\; \Z^{I} \times \Z^{I} \;\to\; \Z, \qquad
+ \chi_{K_0}(\gamma, \delta) \;=\; \sum_{i = 0}^{3} (-1)^{i}\,
+ \dim \Ext^{i}_{A}(M_\gamma, M_\delta)
+\]
+is \emph{antisymmetric}: $\chi_{K_0}(\gamma, \delta) = -\chi_{K_0}(\delta,
+\gamma)$. Serre duality
+$\Ext^{i}(M, N) \simeq \Ext^{3 - i}(N, M)^{\vee}$ on the CY$_3$ Ginzburg
+bimodule forces
+\[
+\chi_{K_0}(M, N) \;=\;\sum_{i} (-1)^{i} \dim \Ext^{i}(M, N)
+ \;=\; -\sum_{i} (-1)^{3 - i} \dim \Ext^{3 - i}(N, M) \;=\; -\chi_{K_0}(N, M).
+\]
+Consequently $\chi_{K_0}$ defines a symplectic rather than an orthogonal
+pairing on $\Z^{I}$, and every simple class $\alpha_i = [S_i]$ is
+\emph{isotropic}: $\chi_{K_0}(\alpha_i, \alpha_i) = 0$ forced by
+antisymmetry. Weyl reflections $s_{\alpha}(\gamma) = \gamma - 2\,
+\langle \alpha, \gamma\rangle\, \alpha / \langle \alpha, \alpha\rangle$
+are undefined when the reflecting root is isotropic; the CY$_3$
+mutation is instead the Fomin--Zelevinsky cluster mutation
+(arXiv:\texttt{math/0104151} Def.~4.2), which depends only on the
+antisymmetric exchange matrix $B = (b_{ij}) = (\chi_{K_0}(\alpha_i,
+\alpha_j))$ and not on any symmetric bilinear form. The image
+$\rho_X^{K_0}(B_{|I|}) \subset \mathrm{GL}_{|I|}(\Z)$ is in general
+infinite and does not factor through any finite Weyl group.
+\end{proposition}
+
+Antisymmetry of $\chi_{K_0}$ is the CY$_3$-specific feature distinguishing
+the cluster picture from the surface (CY$_2$) Yangian picture, where the
+Mukai pairing is symmetric: on surfaces the FZ mutation coincides with a
+Weyl reflection, and the mutation group is the affine Weyl group
+$\widehat{W}_{\mathrm{aff}}$ of the McKay Dynkin diagram (Nakajima 1998;
+Maulik--Okounkov 2019). The CY$_3$ mutation picture is strictly richer:
+$\rho_X$ factors through $B_{|I|}$ rather than through
+$\widehat{W}_{|I|}$, and the braid relations of
+Theorem~\ref{thm:mutation-cocycle} encode information orthogonal to the
+quadratic Weyl relations $s_k^{2} = 1$.
 
 % =======================================================================
 \subsection{Summary and placement}
@@ -1003,7 +1152,17 @@ realises the Artin braid group $B_{|I|}$ as explicit CoHA bialgebra
 automorphisms $\rho_X \colon B_{|I|} \to \mathrm{Aut}_{\mathrm{bialg}}(\cH(X))$,
 with chamber-independence
 (Corollary~\ref{cor:chamber-independence}) of the bialgebra structure under
-this action. The
+this action. At the class level, the induced map on
+$K_0 = \Z^{I}$ is the Fomin--Zelevinsky cluster mutation
+(Proposition~\ref{prop:fz-mutation-K0}), \emph{not} a Weyl reflection: the
+CY$_3$ Euler form is antisymmetric, the simple classes are isotropic
+(Proposition~\ref{prop:fz-not-weyl-on-cy3}), and no root-system structure
+on the quiver lattice exists. Concretely: $|I| = 2$ (conifold) gives
+$B_2 \simeq \Z$ with image an infinite cyclic Atiyah-flop cocycle
+subgroup (Example~\ref{ex:conifold-seiberg-duality}); $|I| = 3$ (local
+$\bP^2$) gives $B_3 = \pi_1(\mathrm{Conf}_3(\C))$ acting through the
+Bondal--Polishchuk helix autoequivalences
+(Example~\ref{ex:local-p2-mutations}). The
 four subsections above furnish the tilting toolkit that downstream parts of
 the gluing chapter deploy: \S\ref{sec:gluing:factorisation} (factorisation-algebra gluing) extends the
 tilting picture to non-tilting-admitting varieties via local factorisation

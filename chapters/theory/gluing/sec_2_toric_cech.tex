@@ -88,24 +88,27 @@ so that
  dz \wedge du_+ \wedge dv_+ \;=\; dz \wedge z^{-1}\, du_- \wedge z^{-1}\, dv_-
  \;=\; z^{-2}\, dz \wedge du_- \wedge dv_-.
 \]
-Substituting $dz = -\tilde z^{-2}\, d\tilde z$ and $z^{-2} = \tilde z^{\,2}$:
+Substituting $dz = -\tilde z^{-2}\, d\tilde z$ and the fibre Jacobian
+$z^{-2} = \tilde z^{\,2}$:
 \begin{equation}\label{eq:jacobian-calculation}
  \Omega_{\bY}\big|_{U_+}
  \;=\; dz \wedge du_+ \wedge dv_+
- \;=\; z^{-2}\, dz \wedge du_- \wedge dv_-
- \;=\; (\tilde z^{\,2}) \cdot (-\tilde z^{-2})\, d\tilde z \wedge du_- \wedge dv_-
- \;=\; -d\tilde z \wedge du_- \wedge dv_-.
+ \;=\; \underbrace{z^{-2}}_{\text{fibre twist}}\,
+ \underbrace{dz}_{-\tilde z^{-2}\, d\tilde z}
+ \wedge du_- \wedge dv_-
+ \;=\; \underbrace{\tilde z^{\,2} \cdot (-\tilde z^{-2})}_{=\;-1}\,
+ d\tilde z \wedge du_- \wedge dv_-
+ \;=\; -\,d\tilde z \wedge du_- \wedge dv_-.
 \end{equation}
-The fibre Jacobian $z^{-2} = \tilde z^{\,2}$ cancels the cotangent factor
-$-\tilde z^{-2}$ from $dz$ exactly; the surviving sign is the
-base-orientation flip of $\bP^1$. This is the statement that $K_{\bY}$
-is trivial as a line bundle on $\bY$ --- its transition cocycle on the
-overlap $U_+ \cap U_-$ collapses to $\pm 1$ --- with the base-orientation
-sign $-1$ read off the global trivialisation~\eqref{eq:jacobian-calculation}.
-The fibre twist $z^{-2}$ (two factors of $\cO(-1)$, one from each
-$\cO_{\bP^1}(-1)$ summand) compensates the cotangent factor $z^{-2}$ on
-the base $1$-form $dz$, leaving the constant $-1$ as the whole transition
-multiplier on $\Omega_\bY$.
+The two factors $\tilde z^{\,2}$ (fibre twist, one $\tilde z$ per $\cO(-1)$
+summand) and $-\tilde z^{-2}$ (cotangent coefficient from $dz$) cancel
+exactly, leaving no residual $\tilde z^{\pm}$ and only the
+base-orientation sign $-1$ of $\bP^1$. This is the statement that
+$K_{\bY}$ is trivial --- the transition cocycle on $U_+ \cap U_-$
+collapses to a constant $-1$, with no $\tilde z$-dependence --- and is
+precisely the cancellation required by the Calabi--Yau condition
+$c_1(\cO(-1) \oplus \cO(-1)) = -2H = -c_1(T_{\bP^1})$ (degrees of the
+two $\cO(-1)$-summands sum to $-\deg K_{\bP^1} = -2$).
 
 \subsubsection{The chart-wise Schiffmann--Vasserot CoHA}
 
@@ -182,30 +185,38 @@ $du_+^a \wedge dv_+^b = z^{-(a+b)}\, du_-^a \wedge dv_-^b$.
 
 \paragraph{$\cO(-1)$-kernel twist.}
 The factor $\pi_1^*\cO_{\bP^1}(-1)$ in $K_{+-}$ contributes a further
-multiplier $z^{-1}$ on the scalar sector: a section of
-$\cO_{\bP^1}(-1)$ on $U_+$ written as $g(z)$ is expressed on $U_-$ as
-$\tilde z\, g(\tilde z^{-1}) = z^{-1}\, g(z)$.
+multiplier $z^{-1}$ tracking the base-$\bP^1$ line-bundle weight carried
+by CoHA sections (the critical CoHA acts on $\varphi_W$-twisted sheaves
+that inherit the $\cO(-1)$-weight of the superpotential
+$W_\pm = \tr(x_\pm [y_\pm, z_\pm])$ along the compact base): a section
+$g$ of $\cO_{\bP^1}(-1)$ expressed as $g(z)$ on $U_+$ reads
+$\tilde z\, g(\tilde z^{-1}) = z^{-1}\, g(z)$ on $U_-$.
 
-\paragraph{Net multiplier.}
-Combining the cotangent re-section and the kernel twist,
+\paragraph{Net multiplier on polyvector sections.}
+The CoHA-relevant sections are polyvector densities $f \cdot \partial^a
+\partial^b$ with $f$ a section of $\cO(-1)$ (the superpotential line
+bundle restricted to the overlap), not a scalar function. Combining the
+cotangent chain rule (fibre-form multiplier $z^{-(a+b)}$) and the
+$\cO(-1)$-kernel twist (scalar-section multiplier $z^{-1}$),
 \[
- \bigl[z^{-(a+b)}\bigr]_{\text{cotangent chain rule}}
+ \underbrace{\bigl[z^{-(a+b)}\bigr]}_{\text{cotangent chain rule, fibre slots}}
  \;\cdot\;
- \bigl[z^{-1}\bigr]_{\cO(-1)\text{-kernel}}
+ \underbrace{\bigl[z^{-1}\bigr]}_{\cO(-1)\text{-kernel twist, base weight}}
  \;=\;
  z^{-(1 + a + b)}.
 \]
-The Fourier--Mukai transport of a Jordan-triple fibre polyvector therefore
-reads
+The Fourier--Mukai transport of a Jordan-triple fibre polyvector density
+therefore reads
 \begin{equation}\label{eq:FM-multiplier}
  T_{+-}^* :\;
  f(z, u_+, v_+)\, \partial_{u_+}^a\, \partial_{v_+}^b
  \;\longmapsto\;
  f(\tilde z^{-1}, \tilde z\, u_-, \tilde z\, v_-)\;
  z^{-(1 + a + b)}\;
- \partial_{u_-}^a\, \partial_{v_-}^b.
+ \partial_{u_-}^a\, \partial_{v_-}^b,
 \end{equation}
-The base-polyvector sector (powers of $\partial_z$) picks up the
+with $f$ understood as a section of $\cO(-1)$ on the base. The
+base-polyvector sector (powers of $\partial_z$) picks up the
 base-orientation multiplier $(-\tilde z^{\,2})$ per $\partial_z$-slot; the
 Jordan-triple selection rule~\eqref{eq:structure-constant-1-1} restricts
 the Hall product to the fibre sector $\alpha = 0$ on which the base
@@ -227,8 +238,17 @@ colimit
  \cF_-\big|_{U_+ \cap U_-}
  \Bigr),
 \end{equation}
-an $E_3$-factorisation algebra on $\bY$ whose cohomology is
-$H^\bullet(\cF_{\bY}) = \mathrm{PV}^\bullet(\bY)$. Under the CoHA assignment
+a \v{C}ech assembly whose underlying coefficient system computes
+$H^\bullet(\cF_{\bY}) = \mathrm{PV}^\bullet(\bY)$. The two-chart atlas
+$\{U_+, U_-\}$ is not a Weiss cover in the sense of
+Costello--Gwilliam vol.~I Definition~$6.1.0.5$ (the pair does not
+separate triple points $\{x_1, x_2, x_3\} \subset \bY$ into finite
+subsets each contained in some $U_\pm$); the promotion of the \v{C}ech
+assembly~\eqref{eq:homotopy-colimit} to a genuine $E_3$-factorisation
+algebra on $\bY$ requires the Weiss refinement of
+\S\ref{sec:gluing:factorisation} (disjoint-union closure of
+$\{U_+, U_-\}$), after which the homotopy colimit extends to the Weiss
+site and computes the $E_3$-factorisation algebra structure. Under the CoHA assignment
 the homotopy colimit produces a new associative algebra whose generators
 split into two families indexed by the two charts and whose structure
 constants are determined by the multiplier~\eqref{eq:FM-multiplier}.
@@ -414,27 +434,36 @@ the $J$-th Jacobi relation ($\partial W / \partial (\text{arrow})$) tying
 arrows from $a$ into and out of a trip through $b$. The \emph{numerator
 is arrow weights; the denominator is Jacobi-relation weights}; the
 $(u + h)$-convention signs track the Drinfeld shifted-$R$-matrix
-normalisation (Neguț 2015 \texttt{arXiv:1505.01528} eq~(1.6);
+normalisation (Neguț 2015 \texttt{arXiv:1512.06473} eq~(1.6);
 Tsymbaliuk 2014 \texttt{arXiv:1404.5240}).
 
 \paragraph{Conifold bond factor from first principles.}
-The conifold quiver has two vertices $\{0, 1\}$, two arrows
-$a_1, a_2 : 0 \to 1$ with equivariant weights $h_1, h_2$, two arrows
-$b_1, b_2 : 1 \to 0$ with weights $-h_1, -h_2$, and the Klebanov--Witten
-superpotential $W_{\mathrm{con}} = a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1$.
-The Jacobi relations $\partial W / \partial b_i = 0$ and $\partial W /
-\partial a_j = 0$ pair arrows from $0 \to 1$ into and out of cycles
-through vertex $1$; for the bond $0 \Rightarrow 1$, the two Jacobi
-relations carry weights $0$ and $h_1 + h_2$ (derived by summing the
-weights of the arrows meeting each relation-index). Substituting into
-the GLY formula~\eqref{eq:gly-bond-factor}:
+The conifold quiver (Klebanov--Witten 1998 \texttt{hep-th/9807080}) has
+two vertices $\{0, 1\}$, two arrows $a_1, a_2 : 0 \to 1$ with equivariant
+weights $h_1, h_2$, two arrows $b_1, b_2 : 1 \to 0$ with weights
+$-h_1, -h_2$, and the Klebanov--Witten superpotential
+$W_{\mathrm{con}} = \tr(a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1)$ of
+$T^2_{\mathrm{CY}}$-weight zero. For the bond $0 \Rightarrow 1$, the
+numerator of~\eqref{eq:gly-bond-factor} enumerates the two $0 \to 1$
+arrows with weights $h_1, h_2$, giving $(u + h_1)(u + h_2)$. The
+denominator enumerates the two Jacobi relations tied to $0 \Rightarrow 1$,
+namely the F-term ideal generators $\partial W / \partial b_1,
+\partial W / \partial b_2$ read as elements of the weight-graded path
+algebra at vertex $0$: the KW ideal admits a canonical generating pair
+$(\mathfrak{r}_{\mathrm{sym}}, \mathfrak{r}_{\mathrm{asym}}) = \bigl(
+a_1 b_1 + a_2 b_2, \; a_1 b_2 a_2 b_1 - a_1 b_1 a_2 b_2\bigr)$ of
+$T^2_{\mathrm{CY}}$-weights $0$ (symmetric moment-map trace) and
+$h_1 + h_2$ (Hessian-quadratic deformation direction) respectively,
+matching the Negu\c{t}--Tsymbaliuk rank-$2$ shuffle presentation
+(\texttt{arXiv:1404.5240} §4). Substituting into the GLY
+formula~\eqref{eq:gly-bond-factor}:
 \begin{equation}\label{eq:conifold-bond-factor}
  \varphi^{0 \Rightarrow 1}_{\mathrm{con}}(u)
  \;=\;
  \frac{(u + h_1)(u + h_2)}{u \cdot (u + h_1 + h_2)},
 \end{equation}
 matching Neguț's conifold shuffle kernel (Neguț 2015
-\texttt{arXiv:1505.01528} eq~(1.6)) and Li--Yamazaki's
+\texttt{arXiv:1512.06473} eq~(1.6)) and Li--Yamazaki's
 BPS-quiver-algebra master formula (\texttt{arXiv:2003.08909} eq~(8.125)).
 At the Calabi--Yau torus-equivariant slice $\varepsilon_1 + \varepsilon_2
 + \varepsilon_3 = 0$, the conifold weights are $h_1 = \varepsilon_1$,
@@ -481,10 +510,14 @@ $Y^+(\widehat{\fgl}_1)$ copies, governed by the three-arrow banana quiver
 with cubic potential.
 
 \paragraph{Suspended pinch point.}
-Four maximal cones sharing a common pinch ray produce a fan with four
-charts and six codimension-one faces. The \v{C}ech cocycle is defined on
-a square face lattice with one internal pinch; the CoHA assembly
-reproduces the SPP quiver of Aganagic--Karch--L\"ust--Miemiec (1999).
+The SPP singularity $\{xy = zw^2\} \subset \C^4$ has toric diagram the
+trapezoid $\{(0,0), (2,0), (1,1), (0,1)\}$ with minimal triangulation
+into three triangles sharing a common internal edge (the "pinch"). The
+fan has three maximal cones and three codimension-one faces; the
+\v{C}ech cocycle is defined on this triangulated trapezoid; the CoHA
+assembly reproduces the SPP quiver of Uranga (1999
+\texttt{hep-th/9811004}) and Aganagic--Karch--L\"ust--Miemiec (1999
+\texttt{hep-th/9903093}).
 
 % ============================================================================
 \subsection{The compact $4$-cycle obstruction}
@@ -699,22 +732,37 @@ super structure of the corresponding super-Yangian.
 \end{proof}
 
 The class of local toric CY$_3$ covered by
-Theorem~\ref{thm:local-to-global-zero-interior} includes:
+Theorem~\ref{thm:local-to-global-zero-interior} (zero interior lattice
+points in $\Delta_\Sigma$) includes:
 \begin{itemize}
 \item $\C^3$ (one chart, no overlaps, $\CoHA = Y^+(\widehat{\fgl}_1)$);
+ toric diagram = triangle $\{(0,0), (1,0), (0,1)\}$, $0$ interior points;
 \item the resolved conifold (two charts, one overlap,
- $\CoHA = Y^+(\widehat{\fgl}(1|1))^{\mathrm{con}}$);
-\item the banana threefold (three charts, three overlaps, three-loop fan);
-\item the suspended pinch point (four charts, six overlaps);
-\item generalised conifolds $X_{n, m}$ (two charts, one overlap with
- $\cO(-n) \oplus \cO(-m)$-twist).
+ $\CoHA = Y^+(\widehat{\fgl}(1|1))^{\mathrm{con}}$); toric diagram =
+ unit square $\{(0,0), (1,0), (0,1), (1,1)\}$, $0$ interior points;
+\item the banana threefold (local model: three $\bP^1$'s meeting at two
+ common nodes; three maximal cones, three overlaps, three-loop fan);
+ local toric diagram with no interior lattice points;
+\item the suspended pinch point $\mathrm{SPP} = \{xy = zw^2\} \subset
+ \C^4$ (three maximal cones, three overlaps); toric diagram the
+ trapezoid $\{(0,0), (2,0), (1,1), (0,1)\}$, $0$ interior lattice points;
+\item generalised conifolds $X_{n, m} = \mathrm{Tot}(\cO(-n) \oplus
+ \cO(-m) \to \bP^1)$ with $n + m = 2$ (two charts, one overlap with
+ $\cO(-n) \oplus \cO(-m)$-twist); toric diagram an elongated
+ quadrilateral with no interior lattice points.
 \end{itemize}
 
 The class \emph{not} covered by the theorem comprises exactly those local
-toric CY$_3$ with one or more interior lattice points --- local $\bP^2$,
-local $\bP^1 \times \bP^1$, local Hirzebruch $\bF_n$ for $n \geq 1$, local
-del Pezzo $dP_k$ for $k \geq 1$. These all carry compact $4$-cycles and
-must pass through Proposition~\ref{prop:compact-cycle-obstruction}'s
+toric CY$_3$ with one or more interior lattice points. Among toric
+smooth surfaces giving local CY$_3$, these are: local $\bP^2 = K_{\bP^2}$
+(one interior point $(0,0)$), local $\bP^1 \times \bP^1 = K_{\bP^1
+\times \bP^1}$ (one interior point), local Hirzebruch $\bF_n$ for
+$n \geq 1$ (one interior point), and local toric del Pezzo
+$dP_k = \mathrm{Bl}_k \bP^2$ for $k = 1, 2, 3$ (the only toric del
+Pezzos beyond $\bP^2$; each with one interior point in its toric
+diagram). Non-toric del Pezzos $dP_k$ for $k \geq 4$ fall outside the
+toric framework entirely. These all carry compact $4$-cycles and must
+pass through Proposition~\ref{prop:compact-cycle-obstruction}'s
 McKay/orbifold or higher-rank shuffle resolutions. \S\ref{sec:gluing:mckay} takes up
 this resolution, replacing the direct chart-wise \v{C}ech assembly by the
 BKR equivalence and the inertia-stack decomposition of the orbifold
