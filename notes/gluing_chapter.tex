@@ -1,0 +1,262 @@
+\documentclass[11pt]{amsart}
+
+% ============================================================================
+% Vol III --- The Gluing Chapter: unified integration of Parts I through X.
+%
+% Source: ten attack-heal-convergent Parts under notes/gluing_ch_part_*.tex,
+% produced by a fifteen-agent elite-voice adversarial swarm (Wave-5 Phase-B,
+% 2026-04-23). Each Part is a first-principles elementary derivation of one
+% gluing mechanism; together they span the four equivariance strata and the
+% sixteen-minus-one non-empty cells of the stratum combinatorics.
+%
+% Integration approach: this file is the amsart wrapper. The ten Part files
+% are \input-ed as fragments (with their original standalone preambles
+% stripped at \iffalse or commented out; package loads and theorem envs
+% supplied here once). Every Part opens with \part{...}; its sections and
+% subsections nest under that Part.
+%
+% Primary audit: notes/antipatterns_catalogue.md AP-CY293 through AP-CY344
+% records every error-and-fix cycle from Waves 1-5 that fed into the current
+% Part drafts.
+% ============================================================================
+
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem,hyperref,microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage{tikz-cd}
+\usepackage{stmaryrd}
+\usepackage{booktabs}
+\usepackage{mathrsfs}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+% Theorem environments (supplied once at wrapper level).
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+% Claim-status discipline (Vol III manifesto).
+\providecommand{\ClaimStatusTheorem}{\textbf{\textsf{[Theorem]}}}
+\providecommand{\ClaimStatusProposition}{\textbf{\textsf{[Proposition]}}}
+\providecommand{\ClaimStatusDefinition}{\textbf{\textsf{[Definition]}}}
+\providecommand{\ClaimStatusProvedElsewhere}{\textbf{\textsf{[Proved elsewhere]}}}
+\providecommand{\ClaimStatusProvedHere}{\textbf{\textsf{[Proved here]}}}
+\providecommand{\ClaimStatusDerivation}{\textbf{\textsf{[Derivation]}}}
+\providecommand{\ClaimStatusConjectured}{\textbf{\textsf{[Conjectural]}}}
+\providecommand{\ClaimStatusOpen}{\textbf{\textsf{[Open]}}}
+\providecommand{\ClaimStatusConventionDependent}{\textbf{\textsf{[Convention-dependent]}}}
+\providecommand{\ClaimStatusPartialPrimaryLit}{\textbf{\textsf{[Primary-lit partial]}}}
+\providecommand{\ClaimStatusPrincipleLevel}{\textbf{\textsf{[Principle-level]}}}
+
+% Macro corpus (union of all Part providecommands).
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\bY}{\mathbf{Y}}
+\providecommand{\conBy}{Y_{\mathrm{con}}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Pic}{\mathrm{Pic}}
+\providecommand{\Crit}{\mathrm{Crit}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\RHom}{\mathrm{R}\mathrm{Hom}}
+\providecommand{\Jac}{\mathrm{Jac}}
+\providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\Str}{\mathrm{Str}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Gm}{\mathbb{G}_m}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\cX}{\mathcal{X}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\Db}{D^{b}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\bZ}{\mathbb{Z}}
+\providecommand{\bN}{\mathbb{N}}
+\providecommand{\bQ}{\mathbb{Q}}
+\providecommand{\bR}{\mathbb{R}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bL}{\mathbb{L}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fosp}{\mathfrak{osp}}
+\providecommand{\fn}{\mathfrak{n}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\fD}{\mathfrak{D}}
+\providecommand{\fU}{\mathfrak{U}}
+\providecommand{\fu}{\mathfrak{u}}
+\providecommand{\sVect}{\mathrm{sVect}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kchBV}{\kappa_{\mathrm{ch,BV}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\Eone}{E_{1}}
+\providecommand{\Etwo}{E_{2}}
+\providecommand{\Ethree}{E_{3}}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Cat}{\mathrm{Cat}}
+\providecommand{\GlCoHA}{\mathrm{GlCoHA}}
+\providecommand{\Mu}{\mathrm{M}}
+\providecommand{\defeq}{\coloneqq}
+\providecommand{\LL}{\mathbb{L}}
+\providecommand{\B}{\mathrm{B}}
+\providecommand{\bF}{\mathbb{F}}
+\providecommand{\Ch}{\mathrm{Ch}}
+\providecommand{\coCom}{\mathrm{coCom}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\FA}{\mathrm{FA}}
+\providecommand{\fl}{\mathfrak{l}}
+\providecommand{\G}{\mathrm{G}}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\HolFA}{\mathrm{HolFA}}
+\providecommand{\Lie}{\mathrm{Lie}}
+% amsmath defines \Bar = \bar (math accent); Part V uses \Bar^{ch} as a
+% bar-construction functor. Rebind locally for this chapter.
+\let\BarAccent\Bar
+\renewcommand{\Bar}{\mathrm{Bar}}
+
+\title{CoHA gluing: ten routes, four strata, fifteen cells}
+\author{The Gluing Chapter}
+\date{2026-04-23}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent
+The critical cohomological Hall algebra $\cH(X) = \CoHA(\Db\Coh(X), \Omega_X)$
+of a Calabi--Yau threefold is assembled from local data. This chapter classifies
+how the assembly happens: the four equivariance strata ($T^d$-toric, reduced
+$\Gm + \Aut$, orbifold inertia, lattice-polarised period), the sixteen-minus-one
+non-empty cells of the stratum combinatorics, and the explicit local-to-global
+cocycles that glue chart-wise constructions to a globally-defined Hall bialgebra.
+Each Part resolves one construction: abstract 2-categorical framework (Part~I);
+\v{C}ech gluing on toric atlases (Part~II); McKay and orbifold inertia
+(Part~III); Van den Bergh derived Morita via tilting and NCCR (Part~IV);
+factorisation algebras on Ran spaces and the two-stage $\Phi_3 =
+\SpCh_{\Sigma_2, C} \circ \PhiFA_3$ (Part~V); Kontsevich--Soibelman wall-crossing
+(Part~VI); lattice-polarised Borcherds automorphic gluing (Part~VII); the
+$K3\times E$ master example (Part~VIII); obstructions on compact CY$_3$
+(Part~IX); and the unifying sheaf of CoHAs on the $(2,1)$-stack of
+equivariance strata (Part~X).
+\end{abstract}
+
+% ============================================================================
+% Chapter-opening framing
+% ============================================================================
+
+A CY$_3$ category $\cC$ carries a Hall bialgebra $\cH(\cC)$. Locally -- on a
+smooth formal chart, on a toric atlas, on an orbifold point, on a derived Morita
+patch -- the Hall bialgebra has a tractable presentation: a shuffle algebra, a
+Jacobi-algebra module category, a tilted dg-algebra, a vertex operator algebra.
+The question addressed by this chapter is how the local presentations glue into
+the global $\cH(\cC)$.
+
+The answer is stratified. Four equivariance layers on $(X, \Omega_X)$ source
+four distinct cocycle types:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+\item \textbf{(i) Toric} -- chart transitions on a rational polyhedral fan;
+cocycle in $H^1(\Sigma, \underline{\Pic}_{T^d})$.
+\item \textbf{(ii) Reduced $\Gm$ and $\Aut$} -- connected automorphism action;
+cocycle in $\Aut_s$-character data.
+\item \textbf{(iii) Orbifold inertia} -- McKay / Galois data on $[X/G]$;
+cocycle in $H^1_{\mathrm{Gal}}(G, \ldots)$.
+\item \textbf{(iv) Lattice-polarised period} -- Borcherds automorphic data on
+$(\Gamma, Z)$; cocycle in the Fourier coefficients of Gritsenko--Cl\'ery
+weight-$k_\Psi = c_\phi(0,0)/2$ forms.
+\end{itemize}
+Every CY$_3$ carries a non-empty stratum-set $\Str(X) \subseteq \{\mathrm{i},
+\mathrm{ii}, \mathrm{iii}, \mathrm{iv}\}$; the sixteen power-set cells partition
+into one empty cell (the stratum-free compact generic case, Part~IX) and fifteen
+non-empty cells whose cocycle theories compose into the global gluing datum.
+
+The single object that coherently binds the four strata is the $(2,1)$-stack
+$\mathrm{Stk}_{\Str}$ of equivariance strata. Part~X constructs a sheaf of
+stable $\infty$-categorical CoHAs on $\mathrm{Stk}_{\Str}$, identifies its
+stalks on each of the fifteen cells, and verifies the descent axiom for the
+master example $K3 \times E$ (cell fifteen; all four strata meet).
+
+% ============================================================================
+% Ten Parts, \input as fragments.
+% ============================================================================
+
+\input{gluing_ch_part_1_abstract_framework}
+
+\input{gluing_ch_part_2_toric_cech}
+
+\input{gluing_ch_part_3_mckay_orbifold}
+
+\input{gluing_ch_part_4_vdb_morita}
+
+\input{gluing_ch_part_5_factorization}
+
+\input{gluing_ch_part_6_wall_crossing}
+
+\input{gluing_ch_part_7_lattice_automorphic}
+
+\input{gluing_ch_part_8_k3xe_master}
+
+\input{gluing_ch_part_9_obstructions}
+
+\input{gluing_ch_part_10_unifying}
+
+% ============================================================================
+% Chapter-closing synthesis (three sentences, CG convention)
+% ============================================================================
+
+\part*{Closing synthesis}
+
+The ten Parts have reduced the assembly question to a single invariant of $X$:
+the stratum-set $\Str(X)$, read as a subset of $\{\mathrm{i}, \mathrm{ii},
+\mathrm{iii}, \mathrm{iv}\}$, with each occupied stratum supplying a cocycle
+theory whose class determines the global Hall bialgebra up to an
+$(2,1)$-coherent equivalence. The reduction is not uniformly theorem-grade:
+Parts~II, III, IV establish full theorems on their respective strata;
+Parts~V, VI, VII establish the $\Phi_3$, wall-crossing, and Borcherds
+cocycles up to explicit primary-literature-cited conjectures (two-stage
+factorisation for non-simply-laced super, the $c_{11} = -1$ Hopf-pairing
+correction at all-mode propagation, the universal $\kBKM(\Phi_N) = c_N(0)/2$
+identity across both Gritsenko--Nikulin CHL and Gritsenko--Cl\'ery 8-form
+scopes); Part~VIII verifies the master example, Part~IX sharpens the failure
+boundary, and Part~X names the sheaf. The next chapter applies the gluing
+framework to the seven faces of $r_{\CY}$, extracting from each stratum-cell
+the precise chiral-algebra shadow of the classical $r$-matrix.
+
+\end{document}

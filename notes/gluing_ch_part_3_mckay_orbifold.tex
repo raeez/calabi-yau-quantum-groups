@@ -1,0 +1,257 @@
+% !TEX root = ../main.tex
+%% Part III of the Gluing Chapter: McKay / orbifold gluing (Stratum iii)
+%% Elementary derivation, Chriss-Ginzburg voice, 3000-5000 words
+%% Date: 2026-04-23
+
+\part{McKay and orbifold gluing}
+\label{part:gluing-mckay-orbifold}
+
+An orbifold $[X/G]$ with $G \subset \mathrm{SU}(d)$ finite is a CY$_d$ category whose atlas is not a union of \v{C}ech charts but a single chart bearing the $G$-action. The gluing cocycle is not valued in $H^1$ of the overlap nerve; it is valued in the representation category $\mathrm{Rep}(G)$ attached to each conjugacy class of $G$, assembled over the inertia stack. The categorical content is the Bridgeland--King--Reid equivalence
+\[
+D^b\bigl([X/G]\bigr) \;\simeq\; D^b_G(X),
+\]
+and its CoHA-level incarnation: every local CoHA on $[X/G]$ pulls back to a $G$-equivariant CoHA on $X$, and the global Hall product is the $G$-invariant part after the inertia decomposition is unpacked.
+
+Two examples organise the material. Local $\mathbb{P}^2 = [\mathbb{C}^3/\mathbb{Z}_3]^{\mathrm{res}}$ admits two compatible presentations: a single-chart skew-group presentation via the nine-arrow Beilinson quiver, and a three-chart \v{C}ech presentation on its crepant resolution $\mathrm{Tot}(K_{\mathbb{P}^2})$. The orbifold CoHA matches the chart-wise CoHA exactly when a compact-$4$-cycle Negu\c{t} wheel-correction is installed. Mathieu $M_{24}$ on $K3$ occupies the intersection of Stratum (iii) with Stratum (iv): the orbifold gluing against a sporadic simple group is realised by twined elliptic genera whose weight-$1/2$ mock modular coefficients are the CoHA characters in each twisted sector.
+
+\section{Orbifold inertia and the Bridgeland--King--Reid equivalence}
+\label{sec:orbifold-inertia-bkr}
+
+\subsection{The inertia stack, elementarily}
+\label{subsec:inertia-stack}
+
+Let $G \subset \mathrm{SU}(3)$ be finite, acting on $\mathbb{C}^3 = \mathrm{Spec}\,\mathbb{C}[x,y,z]$ preserving the holomorphic volume form $dx \wedge dy \wedge dz$. The quotient stack $[\mathbb{C}^3/G]$ has coherent sheaves presented as $G$-equivariant sheaves on $\mathbb{C}^3$:
+\[
+\mathrm{Coh}\bigl([\mathbb{C}^3/G]\bigr) \;\simeq\; \mathrm{Coh}_G(\mathbb{C}^3).
+\]
+This identification is elementary: a coherent sheaf on the stack $[\mathbb{C}^3/G]$ pulls back to a coherent sheaf on the atlas $\mathbb{C}^3$, equipped with descent data for the groupoid $G \times \mathbb{C}^3 \rightrightarrows \mathbb{C}^3$, and descent data for a groupoid whose unit arrows are group elements is precisely $G$-equivariant structure.
+
+The \emph{inertia stack} $I([\mathbb{C}^3/G])$ is the stack of pairs $(p, g)$ with $p \in [\mathbb{C}^3/G]$ a point and $g \in \mathrm{Aut}(p)$ an automorphism. For an orbifold point $p$ represented by $x \in \mathbb{C}^3$, the automorphism group $\mathrm{Aut}(p)$ is the stabiliser $G_x \subset G$, and an inertia datum is an element $g \in G_x$ --- equivalently, a pair $(x, g)$ with $g \cdot x = x$. The inertia stack is the fibre product $[\mathbb{C}^3/G] \times_{[\mathbb{C}^3/G] \times [\mathbb{C}^3/G]} [\mathbb{C}^3/G]$ along the diagonal, which rewrites as the quotient $[\{(x, g) : g \cdot x = x\} / G]$ with $G$ acting by simultaneous conjugation $h \cdot (x, g) = (h \cdot x, h g h^{-1})$.
+
+Slicing this groupoid by $G$-conjugacy on the second factor: pick a representative $g_0$ of each conjugacy class $[g] \in \mathrm{Conj}(G)$, and restrict to the slice $\{(x, g_0) : g_0 \cdot x = x\} = \mathbb{C}^{3, g_0}$ (the fixed locus of $g_0$). The residual $G$-action on this slice is by the centraliser $C_G(g_0) \subset G$ (elements commuting with $g_0$). Summing over conjugacy classes,
+\[
+I\bigl([\mathbb{C}^3/G]\bigr) \;=\; \bigsqcup_{[g] \in \mathrm{Conj}(G)} \bigl[\mathbb{C}^{3, g}/C_G(g)\bigr].
+\]
+The identity class $[e]$ yields $[\mathbb{C}^{3, e}/G] = [\mathbb{C}^3/G]$, the \emph{untwisted sector}. Each non-identity class $[g] \neq [e]$ yields a \emph{twisted sector} indexed by $g$. For $G$ abelian, every element is its own conjugacy class, $C_G(g) = G$, and the decomposition becomes $\bigsqcup_{g \in G} [\mathbb{C}^{3, g}/G]$.
+
+This decomposition is the arithmetic of Dixon--Harvey--Vafa--Witten orbifold cohomology as refined by Chen--Ruan: the orbifold cohomology of $[\mathbb{C}^3/G]$ is
+\[
+H^\bullet_{\mathrm{orb}}\bigl([\mathbb{C}^3/G]\bigr) \;=\; \bigoplus_{[g]} H^{\bullet - 2\,\mathrm{age}(g)}\bigl(\mathbb{C}^{3,g}/C_G(g)\bigr),
+\]
+with age-grading shift $\mathrm{age}(g) = \sum_i a_i$ where $g$ acts on a tangent frame by $\mathrm{diag}(e^{2\pi i a_1}, e^{2\pi i a_2}, e^{2\pi i a_3})$ with $a_i \in [0, 1)$. The Calabi--Yau condition $\sum_i a_i \in \mathbb{Z}$ keeps age integral.
+
+\subsection{Skew-group algebra and Morita equivalence}
+\label{subsec:skew-group-morita}
+
+The skew-group algebra $R \# G$ with $R = \mathbb{C}[x,y,z]$ is
+\[
+R \# G \;=\; R \otimes \mathbb{C}[G] \quad\text{with multiplication}\quad (r \otimes g)(r' \otimes g') = r \cdot g(r') \otimes gg'.
+\]
+Equivalently: $R \# G$ is the free $R$-module with basis $G$, and multiplication records the twist of the action. This is not an arbitrary algebra; it is the arrow algebra of the action groupoid $G \times \mathbb{C}^3 \rightrightarrows \mathbb{C}^3$, and its representation category is exactly $G$-equivariant sheaves:
+\[
+(R \# G)\text{-mod} \;\simeq\; \mathrm{Coh}_G(\mathbb{C}^3) \;\simeq\; \mathrm{Coh}\bigl([\mathbb{C}^3/G]\bigr).
+\]
+The first equivalence is the passage from arrow-algebra modules to equivariant modules; the second is the atlas identification from Section~\ref{subsec:inertia-stack}. Morita equivalence of $R \# G$ with its basic algebra (the endomorphism ring of a minimal projective generator) is the passage from infinite-dimensional to quiver-presented form.
+
+\subsection{Bridgeland--King--Reid, first-principles sketch}
+\label{subsec:bkr-first-principles}
+
+The Bridgeland--King--Reid theorem (math/9908027) asserts: for $G \subset \mathrm{SL}(n, \mathbb{C})$ finite, $n \leq 3$, with $Y := G\text{-}\mathrm{Hilb}(\mathbb{C}^n)$ the equivariant Hilbert scheme of $G$-clusters, the Fourier--Mukai transform with kernel the universal $G$-cluster $\mathcal{Z} \subset Y \times \mathbb{C}^n$ is an equivalence
+\[
+\Phi_{\mathcal{Z}} \colon D^b(Y) \;\xrightarrow{\sim}\; D^b_G(\mathbb{C}^n) \;\simeq\; D^b\bigl([\mathbb{C}^n/G]\bigr).
+\]
+The first-principles content:
+\begin{itemize}
+  \item \emph{Crepancy:} For $G \subset \mathrm{SL}(n)$ with $n \leq 3$, $Y$ is smooth and the canonical class $K_Y = 0$; equivalently, the resolution $Y \to \mathbb{C}^n/G$ is crepant. The CY structure on $[\mathbb{C}^n/G]$ transports to a CY structure on $Y$.
+  \item \emph{Equivariant Hilbert scheme:} A \emph{$G$-cluster} is a $G$-invariant $0$-dimensional subscheme $Z \subset \mathbb{C}^n$ with $H^0(\mathcal{O}_Z) \cong \mathbb{C}[G]$ as $G$-representation. The moduli $G\text{-}\mathrm{Hilb}(\mathbb{C}^n)$ parametrising these is the natural candidate resolution.
+  \item \emph{Universal kernel:} The universal family $\mathcal{Z} \subset Y \times \mathbb{C}^n$ is the incidence locus. Its structure sheaf, equipped with its $G$-equivariant structure via the second projection, is an object of $D^b(Y \times_G \mathbb{C}^n) \simeq D^b_G(Y \times \mathbb{C}^n)$.
+  \item \emph{Bridgeland--King--Reid criterion:} The Fourier--Mukai transform with kernel $\mathcal{O}_{\mathcal{Z}}$ is an equivalence if and only if the fibre product $\mathcal{Z} \times_Y \mathcal{Z}$ has dimension at most $n - 1$. This is the Bondal--Orlov criterion for FM-equivalence. The authors verify it for $n \leq 3$ by explicit fibrewise analysis.
+  \item \emph{CoHA transport:} The Hall product on $D^b(Y)$ pulls back along $\Phi_{\mathcal{Z}}$ to a Hall product on $D^b_G(\mathbb{C}^n)$, which in turn decomposes via the inertia splitting into a conjugacy-class-indexed direct sum of twisted-sector CoHAs. This is the CoHA shadow of Chen--Ruan orbifold cohomology.
+\end{itemize}
+
+The BKR equivalence is thus the gluing cocycle for Stratum (iii): it assembles the $G$-equivariant critical CoHA on $\mathbb{C}^n$ with the $\mathbb{C}^3$-Jordan-triple potential $W = \mathrm{tr}(x[y,z])$ into the CoHA of the crepant resolution $Y$, with the inertia decomposition recording the conjugacy-class-graded structure. On the resolution side, $Y$ is a smooth toric CY$_3$ when $G$ is abelian, and the chart-wise Stratum-(i) machinery applies; on the orbifold side, the skew-group presentation $R \# G$ provides a single global datum. The BKR kernel is the gluing cocycle reconciling the two.
+
+\paragraph{Class-group obstruction to McKay presentation.}
+The applicability of BKR is governed by an arithmetic invariant of the singular base $X_0 = \mathbb{C}^n/G$: its divisor class group $\mathrm{Cl}(X_0)$. For $X_0 = \mathbb{C}^n/G$ with $G \subset \mathrm{SL}(n, \mathbb{C})$ finite, $\mathrm{Cl}(X_0) = G^{\mathrm{ab}}$, finite of order dividing $|G|$. Any Gorenstein singularity whose class group is \emph{infinite} is not of the form $\mathbb{C}^n/G$ and lies outside BKR's scope. The conifold $X_0^{\mathrm{con}} = \{xy - zw = 0\} \subset \mathbb{C}^4$ is the canonical outlier: its class group $\mathrm{Cl}(X_0^{\mathrm{con}}) = \Z$ is infinite, generated by the small-resolution Weil divisor $\{x = z = 0\}$, so the conifold admits no McKay orbifold presentation; its NCCR is the Klebanov--Witten two-node Kronecker quiver with quartic potential $W_{\mathrm{con}} = \mathrm{tr}(a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1)$ (Szendr\H{o}i \texttt{arXiv:0705.3419}), not the Beilinson nine-arrow quiver with cubic potential. The degree of the NCCR potential is the brane-tiling invariant distinguishing the two regimes (Hanany--Kennaway \texttt{hep-th/0503149}; Franco--Hanany--Kennaway--Vegh--Wecht \texttt{hep-th/0511063}): McKay-orbifold quotients carry cubic Jordan-triple potentials on the $\C^3$-atlas; complete-intersection singularities such as the conifold carry quartic Kronecker-type potentials globally.
+
+\section{Local \texorpdfstring{$\mathbb{P}^2$}{P2} as \texorpdfstring{$[\mathbb{C}^3/\mathbb{Z}_3]$}{[C3/Z3]} and the nine-arrow quiver}
+\label{sec:local-P2-orbifold}
+
+Local $\mathbb{P}^2$ is $\mathrm{Tot}(\mathcal{O}_{\mathbb{P}^2}(-3))$, the total space of the canonical bundle on $\mathbb{P}^2$. As a toric CY$_3$, it has a compact $4$-cycle (the zero-section $\mathbb{P}^2$ itself) and is not a union of $\mathbb{C}^3$-charts without corrections. The orbifold route produces it as a crepant resolution $\mathrm{Tot}(K_{\mathbb{P}^2}) = [\mathbb{C}^3/\mathbb{Z}_3]^{\mathrm{res}}$, and the CoHA story becomes transparent through the Beilinson nine-arrow quiver.
+
+\subsection{The \texorpdfstring{$\mathbb{Z}_3$}{Z3} action and its age data}
+\label{subsec:Z3-action}
+
+Let $\zeta = e^{2\pi i/3}$. The group $\mathbb{Z}_3 = \langle \sigma \rangle$ acts on $\mathbb{C}^3$ by
+\[
+\sigma \cdot (x, y, z) \;=\; (\zeta x, \zeta y, \zeta z).
+\]
+The weights of $\sigma$ on the tangent frame are $(1/3, 1/3, 1/3)$, with age
+\[
+\mathrm{age}(\sigma) = 1/3 + 1/3 + 1/3 = 1 \;\in\; \mathbb{Z},
+\]
+confirming $\sigma \in \mathrm{SU}(3)$ and the CY orbifold condition. The three conjugacy classes $\{e, \sigma, \sigma^2\}$ (abelian, every element its own class) give ages $0, 1, 2$ respectively. The fixed loci are $\mathbb{C}^{3,e} = \mathbb{C}^3$, $\mathbb{C}^{3,\sigma} = \{0\}$, $\mathbb{C}^{3,\sigma^2} = \{0\}$, and the inertia decomposition is
+\[
+I\bigl([\mathbb{C}^3/\mathbb{Z}_3]\bigr) \;=\; [\mathbb{C}^3/\mathbb{Z}_3] \;\sqcup\; B\mathbb{Z}_3 \;\sqcup\; B\mathbb{Z}_3.
+\]
+The untwisted sector carries the ambient CY$_3$ structure; the two twisted sectors are point classes supported at the origin with age-shifts $1$ and $2$. McKay identifies them with the non-trivial cohomology of the exceptional divisor on the crepant resolution: $H^0(\bP^2_{\mathrm{exc}}) = \C$ absorbs into the untwisted origin, while $H^2(\bP^2_{\mathrm{exc}}) = \C$ and $H^4(\bP^2_{\mathrm{exc}}) = \C$ match the age-$1$ and age-$2$ twisted-sector point-contributions respectively. This is the Batyrev--Denef--Loeser stringy-cohomology shadow of BKR: $\chi_{\mathrm{stringy}}([\C^3/\Z_3]) = 3 = \chi(\bP^2_{\mathrm{exc}})$, the ranks $(1,1,1)$ of the three cohomology groups appearing on both sides.
+
+\subsection{The Beilinson nine-arrow quiver}
+\label{subsec:beilinson-quiver}
+
+The skew-group algebra $\mathbb{C}[x,y,z] \# \mathbb{Z}_3$ has three indecomposable projectives corresponding to the three irreducible representations $\rho_0, \rho_1, \rho_2$ of $\mathbb{Z}_3$ (characters $1, \zeta, \zeta^2$). Its basic algebra is the path algebra of the quiver $Q$ with three vertices $\{0, 1, 2\}$ (one for each character) and nine arrows
+\[
+X_i, Y_i, Z_i : i \longrightarrow i + 1 \pmod 3, \qquad i \in \Z/3,
+\]
+one triple $(X_i, Y_i, Z_i)$ for each vertex, corresponding to the three coordinates $(x, y, z)$ of $\mathbb{C}^3$. Because $\sigma$ acts on each coordinate by the same weight $\zeta$, each coordinate raises the $\rho$-degree by $+1 \bmod 3$, producing the cyclic $0 \to 1 \to 2 \to 0$ arrow pattern with three arrows per step.
+
+The Jacobi potential is the cubic
+\[
+W \;=\; \sum_{i \in \Z/3} \mathrm{tr}\bigl(X_i \, Y_{i+1} \, Z_{i+2} \;-\; X_i \, Z_{i+1} \, Y_{i+2}\bigr),
+\]
+the cyclic unfolding of $\mathrm{tr}(x [y, z])$ across the three vertex-types, canonically fixed by the $\Z_3$-equivariant Jordan-triple structure on $\mathbb{C}^3$ (see toric-CoHA Theorem on local $K_{\bP^2}$). The pair $(Q, W)$ is the \emph{nine-arrow Beilinson quiver with cubic potential}; the Jacobi algebra $\mathrm{Jac}(Q, W)$ is the Morita-reduction of $R \# \mathbb{Z}_3$. The potential is cubic, not quartic: the rank-one Jordan-triple structure of $\mathbb{C}^3$ gives degree-three cycles through the three vertices (an $X$, a $Y$, a $Z$), in contrast to the conifold's rank-two Kronecker setup where cycles pass through two nodes and close at length four.
+
+The equivalence with Beilinson's derived description of $\mathbb{P}^2$:
+\[
+D^b(\mathbb{P}^2) \;\simeq\; D^b\bigl(\mathrm{End}(\mathcal{O} \oplus \mathcal{O}(1) \oplus \mathcal{O}(2))\text{-mod}\bigr),
+\]
+is the classical Be\u{\i}linson resolution. The three line bundles $\mathcal{O}, \mathcal{O}(1), \mathcal{O}(2)$ are the three indecomposable summands of the tilting bundle; the nine arrows are global sections $H^0(\mathbb{P}^2, \mathcal{O}(1)) = \langle x, y, z\rangle$ between consecutive summands. Under BKR, the Be\u{\i}linson tilting bundle on $\mathbb{P}^2$ pulls up along the projection $\mathrm{Tot}(K_{\mathbb{P}^2}) \to \mathbb{P}^2$ to a tilting bundle on local $\mathbb{P}^2$ whose endomorphism ring is precisely the Jacobi algebra $\mathrm{Jac}(Q, W)$.
+
+\subsection{The CoHA via Schiffmann--Vasserot equivariantised}
+\label{subsec:SV-equivariantised}
+
+The Schiffmann--Vasserot theorem constructs the CoHA of $\mathbb{C}^3$ (with the Jordan-triple potential $W_{\mathbb{C}^3} = \mathrm{tr}(x[y,z])$) as the positive half $Y^+(\widehat{\mathfrak{gl}}_1)$ of the affine Yangian of $\mathfrak{gl}_1$:
+\[
+\mathcal{H}_{\mathbb{C}^3} \;=\; \bigoplus_n H^{T^3}_\bullet\bigl(\mathrm{crit}(W)|_{\mathcal{M}_n^{\mathbb{C}^3}}\bigr) \;\cong\; Y^+\bigl(\widehat{\mathfrak{gl}}_1\bigr).
+\]
+Equivariantising by the $\mathbb{Z}_3$-action gives the CoHA of $[\mathbb{C}^3/\mathbb{Z}_3]$:
+\[
+\mathcal{H}_{[\mathbb{C}^3/\mathbb{Z}_3]} \;=\; \bigl(\mathcal{H}_{\mathbb{C}^3}\bigr)^{\mathbb{Z}_3} \;\oplus\; \mathcal{H}_{\mathbb{C}^3}^{\mathrm{tw}, \sigma} \;\oplus\; \mathcal{H}_{\mathbb{C}^3}^{\mathrm{tw}, \sigma^2},
+\]
+where the second and third summands are the twisted-sector contributions indexed by the non-trivial conjugacy classes. The twisted sectors are modules over the untwisted invariant ring $Y^+(\widehat{\mathfrak{gl}}_1)^{\mathbb{Z}_3}$, in a manner that matches the age-graded decomposition. Explicitly: the equivariant parameters $(\epsilon_1, \epsilon_2, \epsilon_3)$ of $T^3$ pick up a $\mathbb{Z}_3$-equivariant refinement; the $\mathbb{Z}_3$-invariant combination $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ (the CY relation) survives, and the twisted-sector generators carry additional $\zeta$-charge compatible with age.
+
+\subsection{The chart-wise cover of the crepant resolution}
+\label{subsec:chartwise-crepant}
+
+Local $\mathbb{P}^2$ as a toric variety has fan $\Sigma$ with three top-dimensional cones, corresponding to the three torus-fixed points of $\mathbb{P}^2$, each carrying a local $\mathbb{C}^3$-chart (the affine toric patch trivialising $K_{\mathbb{P}^2}$ over that chart). Label the charts $U_0, U_1, U_2$; each is $\cong \mathbb{C}^3$ with local coordinates $(u, v, w)$ such that the Jordan-triple potential $\mathrm{tr}(u[v,w])$ holds on the chart.
+
+The atlas reconciles with the orbifold presentation as follows: on the singular base $\mathbb{C}^3/\mathbb{Z}_3$ the resolution $\pi : \mathrm{Tot}(K_{\mathbb{P}^2}) \to \mathbb{C}^3/\mathbb{Z}_3$ is an isomorphism away from the unique singular point $0 \in \mathbb{C}^3/\mathbb{Z}_3$, and the preimage $\pi^{-1}(0) = \mathbb{P}^2$ is the exceptional divisor. The three toric charts $U_0, U_1, U_2$ cover $\mathrm{Tot}(K_{\mathbb{P}^2})$ with pairwise overlaps $\cong \mathbb{G}_m \times \mathbb{C}^2$ and triple overlap the complement of a point. Each chart $U_i$ intersects the exceptional $\mathbb{P}^2$ in an $\mathbb{A}^2$-patch centred at a torus-fixed point of $\mathbb{P}^2$, and the three patches assemble to the standard toric $\mathbb{A}^2$-atlas of $\mathbb{P}^2$. The chart decomposition on the resolution side therefore reads: a single orbifold chart at the origin (the $[\mathbb{C}^3/\mathbb{Z}_3]$ stacky chart covering a neighbourhood of $0$) plus three smooth toric $\mathbb{C}^3$-patches resolving the $\mathbb{Z}_3$-singularity along the exceptional $\mathbb{P}^2$.
+
+The gluing cocycle on the overlaps $U_i \cap U_j$ is the toric transition; the Schiffmann--Vasserot CoHA lives on each chart as $Y^+(\widehat{\mathfrak{gl}}_1)$, and the multi-chart CoHA is the homotopy limit over the \v{C}ech nerve. Because of the compact $\mathbb{P}^2$-divisor, this limit picks up \emph{internal-lattice contributions}: the Negu\c{t} wheel-condition corrections. Concretely, the D0-brane moduli on local $\mathbb{P}^2$ contain not just the torus-fixed points $U_0, U_1, U_2$ but also $1$-parameter families of brane configurations \emph{inside} the compact $\mathbb{P}^2$-divisor, whose cohomological contribution is non-trivial and must be integrated separately.
+
+\subsection{Reconciling the two routes}
+\label{subsec:reconcile-p2}
+
+The orbifold CoHA via Schiffmann--Vasserot equivariantised on $[\mathbb{C}^3/\mathbb{Z}_3]$, and the chart-wise CoHA on the three-chart atlas of local $\mathbb{P}^2$, agree under the BKR-transport. The reconciliation proceeds through:
+\begin{enumerate}
+  \item BKR gives $D^b(\text{local } \mathbb{P}^2) \simeq D^b_{\mathbb{Z}_3}(\mathbb{C}^3)$ as triangulated categories.
+  \item The CoHA Hall product is preserved, because Hall multiplication is defined from the extension stack $\mathrm{Ext}(\mathcal{E}, \mathcal{F})$, and extensions are preserved by BKR as an equivalence of derived categories.
+  \item The orbifold side's inertia-graded decomposition $\mathcal{H}_{\mathrm{orb}} = \mathcal{H}_{\mathrm{untw}} \oplus \mathcal{H}_{\sigma} \oplus \mathcal{H}_{\sigma^2}$ matches the chart-wise side's cohomology-grading via the toric fan's three top-cones: each cone contributes one summand, with the Negu\c{t} wheel-condition corrections encoding exactly the age-shifted contributions of the twisted sectors.
+  \item Explicitly: the age-$1$ twisted sector on the orbifold side corresponds to the contribution from the exceptional $\mathbb{P}^2$ of the resolution in the chart-wise route; age-$2$ corresponds to the Poincar\'e-dual class of $\mathbb{P}^2$.
+\end{enumerate}
+
+This is the first worked example of stratum overlap (i)$\cap$(iii): local $\mathbb{P}^2$ is simultaneously toric (stratum i) and orbifold (stratum iii), and the two gluing cocycles agree through BKR. The skew-group presentation via the nine-arrow quiver is the most economical form; the chart-wise \v{C}ech presentation with Negu\c{t} corrections is the most geometric form. Both compute the same CoHA, equal to the module-theoretic Jacobi-algebra CoHA of $(Q, W)$.
+
+\section{Mathieu \texorpdfstring{$M_{24}$}{M24} on K3}
+\label{sec:mathieu-m24}
+
+The Mathieu moonshine of Eguchi--Ooguri--Tachikawa \texttt{arXiv:1004.0956} is an orbifold gluing not against a single finite group action on a local model, but against a sporadic simple group $M_{24}$ acting by symmetries of the elliptic genus of a K3 surface. This sits at the intersection of Stratum (iii) orbifold and Stratum (iv) lattice-polarised: $M_{24}$ emerges from the Mukai lattice $\Lambda_{K3} = \mathrm{II}_{4, 20}$ via Mukai's classification (Mukai 1988, \emph{Invent.\ Math.}\ 94) of symplectic automorphism groups, and the assembly of twined elliptic genera is indexed by the $M_{24}$-conjugacy classes with each $\phi_g$ a weak Jacobi form on $\mathbb{H} \times \mathbb{C}$ whose mock modular $\mathcal{N} = 4$-massive component is a weight-$1/2$ mock form on $\mathbb{H}$.
+
+\subsection{The Eguchi--Ooguri--Tachikawa observation}
+\label{subsec:eot-observation}
+
+The K3 elliptic genus is the weight-$0$ index-$1$ weak Jacobi form
+\[
+\phi_{K3}(\tau, z) \;=\; 2 \, \phi_{0, 1}(\tau, z) \;=\; 8 \, \sum_{\alpha = 2, 3, 4} \Bigl(\frac{\theta_\alpha(\tau, z)}{\theta_\alpha(\tau, 0)}\Bigr)^2,
+\]
+with $\phi_{0, 1}$ the generator of $J_{0, 1}$ normalised by Eichler--Zagier, and the factor of two encoding the Euler characteristic $\chi(K3) = 24 = \phi_{K3}(\tau, 0)$ (Eguchi--Ooguri--Taormina--Yang 1989, \emph{Nucl.\ Phys.\ B} 315).
+The $\mathcal{N}=4$ superconformal character-decomposition of $\phi_{K3}$ reads
+\[
+\phi_{K3}(\tau, z) \;=\; 24 \cdot \chi_{1/4, 0}(\tau, z) \;+\; \Sigma(\tau) \cdot \chi_{1/4, 1/2}(\tau, z),
+\]
+where $\chi_{1/4, h}$ are the $\mathcal{N}=4$ Ramond characters at central charge $c = 6$ and conformal weight $h$, and
+\[
+\Sigma(\tau) \;=\; 2 q^{-1/8}\bigl(-1 + 45 q + 231 q^2 + 770 q^3 + 2277 q^4 + \cdots\bigr).
+\]
+The numerical observation of Eguchi--Ooguri--Tachikawa: the Fourier coefficients $\{45, 231, 770, 2277, \dots\}$ are dimensions of irreducible representations of $M_{24}$.
+
+\subsection{Twined elliptic genera and mock modularity}
+\label{subsec:twined-mock}
+
+For each $g \in M_{24}$, define the \emph{twined elliptic genus}
+\[
+\phi_g(\tau, z) \;=\; \mathrm{tr}_{\mathcal{H}_{K3}}\bigl(g \cdot (-1)^{F_L + F_R} q^{L_0 - c/24} \overline{q}^{\bar{L}_0 - \bar{c}/24} y^{J_0}\bigr),
+\]
+with $\mathcal{H}_{K3}$ the Hilbert space of the K3 sigma model, $F_{L/R}$ left/right fermion numbers, $J_0$ the $\mathrm{U}(1)$ current of the $\mathcal{N}=4$ superconformal algebra. The $g = e$ case recovers $\phi_{K3}$. For general $g$, the $\mathcal{N}=4$ decomposition gives
+\[
+\phi_g(\tau, z) \;=\; \chi_g \cdot \chi_{1/4, 0}(\tau, z) \;+\; \Sigma_g(\tau) \cdot \chi_{1/4, 1/2}(\tau, z),
+\]
+with $\chi_g$ the character of $g$ acting on $H^\bullet(K3)$ (a finite integer depending only on the $M_{24}$-conjugacy class) and $\Sigma_g$ a weight-$1/2$ \emph{mock modular form} of a specified shadow and multiplier system.
+
+Cheng \texttt{arXiv:1005.5415} exhibited the twined $\Sigma_g$ and their $\Gamma_0(|g|)$ transformation laws; Cheng--Duncan--Harvey (\emph{Res.\ Math.\ Sci.}\ 1, \texttt{arXiv:1204.2779}) packaged the result into the umbral-moonshine programme, assigning each conjugacy class of $M_{24}$ a weight-$1/2$ mock modular form with specified shadow and multiplier. Gannon (\emph{Commun.\ Number Theory Phys.}\ 10, \texttt{arXiv:1211.5531}) proved positivity and uniqueness of the $M_{24}$-representation decomposition of the Fourier coefficients. Gaberdiel--Hohenegger--Volpato \texttt{arXiv:1008.0725} established that $M_{24}$ acts on the BPS states of the K3 sigma model by exhausting the possible symmetry groups of consistent $\mathcal{N} = (4, 4)$ K3 sigma models and matching them against the Mukai classification.
+
+\subsection{CoHA twisted by an \texorpdfstring{$M_{24}$}{M24}-conjugacy class}
+\label{subsec:coha-m24-twist}
+
+For each conjugacy class $[g] \in M_{24}$, there is a twisted CoHA $\mathcal{H}_{K3}^g$ whose graded character is the twined elliptic genus $\phi_g$ after $\mathcal{N}=4$-decomposition. The twist-structure:
+\begin{itemize}
+  \item The untwisted CoHA $\mathcal{H}_{K3}^e$ has graded character $\phi_{K3}$, with BPS multiplicity $\phi_{K3}(\tau, 0) = \chi(K3) = 24$ in the massless $\mathcal{N} = 4$ sector and non-BPS multiplicities $2 \cdot \{45, 231, 770, 2277, \ldots\}$ in the massive sector (from $\Sigma(\tau)$), both encoding the vertex-algebra structure of the K3 Yangian.
+  \item A twisted CoHA $\mathcal{H}_{K3}^g$ has graded character $\phi_g$ and interprets the $g$-fixed BPS states: for $g \in M_{24}$ of cycle shape $\prod_i k_i^{n_i}$, the character $\chi_g(K3) = \phi_g(\tau, 0) \in \Z$ is the Frame-shape-graded Euler characteristic, and the mock modular discrepancy $\Sigma_g$ encodes the twisted-sector shadow.
+  \item The full orbifold CoHA on $[K3 / M_{24}]$ assembles as
+  \[
+  \mathcal{H}_{K3}^{M_{24}\text{-orb}} \;=\; \bigoplus_{[g] \in \mathrm{Conj}(M_{24})} \bigl(\mathcal{H}_{K3}^g\bigr)^{C_{M_{24}}(g)},
+  \]
+  with $C_{M_{24}}(g)$ the centraliser of $g$ in $M_{24}$, acting on the twisted sector to extract the invariant piece. The cardinality of $\mathrm{Conj}(M_{24})$ is $26$, matching the table of $M_{24}$-conjugacy classes.
+\end{itemize}
+
+\subsection{Stratum (iii)$\cap$(iv) and automorphic assembly}
+\label{subsec:m24-strata-overlap}
+
+Mathieu $M_{24}$ on K3 sits in stratum (iii) because K3 has no global $M_{24}$-action on the variety itself but carries a derived $M_{24}$-symmetry of its $\mathcal{N}=4$ chiral algebra; the symmetry acts on the BPS Hilbert space (equivalently, on the CoHA). It sits in stratum (iv) because the twined elliptic genera $\phi_g$ are weak Jacobi forms on the K3 lattice $\mathrm{II}_{4,20}$, and their assembly into a consistent system is an automorphic datum.
+
+The two strata mesh through the Gritsenko lift. The K3 elliptic genus $\phi_{K3} = 2 \phi_{0,1}$ lifts via Borcherds--Gritsenko to the paramodular form $\Delta_5 \in M_5(\mathrm{Sp}_4(\mathbb{Z}))$ on the Siegel upper half-space; this is the stratum-(iv) face. Each twined elliptic genus $\phi_g$ lifts analogously to a Borcherds--Gritsenko product $\Delta_g \in M_{k_g}(\Gamma_g)$ on a congruence Siegel modular group, and these $\{\Delta_g\}_{[g] \in \mathrm{Conj}(M_{24})}$ span the gluing cocycle for the $M_{24}$-orbifold CoHA. On the CHL sub-sequence $N \in \{1, 2, 3, 4, 6\}$ the weights are $k_N = c_N(0)/2 \in \{5, 4, 3, 2, 1\}$ (Gritsenko 1999, \emph{Abh.\ Math.\ Sem.\ Hamburg} 69, Thm.~6.1; Borcherds 1998, \emph{Invent.\ Math.}\ 132 Thm.~10.1), so $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across the ladder, with $N = 1$ recovering $\Delta_e = \Delta_5$ at cycle shape $1^{24}$. The full Gritsenko--Cl\'ery 8-form atlas carries weights $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$ (Gritsenko--Cl\'ery 2013, \emph{J.\ Reine Angew.\ Math.}\ 678, \S 3), half-integral and fractional entries lifted under double-cover paramodular groups.
+
+The stratum overlap is therefore concrete: the orbifold side is the assembly
+\[
+\mathcal{H}_{K3}^{M_{24}\text{-orb}} \;=\; \bigoplus_{[g]} \mathcal{H}_{K3}^g,
+\]
+and the lattice-polarised side is the assembly
+\[
+\{\Delta_g\}_{[g]} \;\subset\; \bigoplus_{[g]} M_{k_g}(\Gamma_g),
+\]
+and the \emph{twining consistency} between the two sides is the assertion that the Fourier-coefficient matrix of $\{\Delta_g\}$ matches the $M_{24}$-character table evaluated on the BPS-spectrum graded dimensions. This is the content of Mathieu moonshine at the level of Vol~III CoHA theory.
+
+\subsection{Weight-\texorpdfstring{$1/2$}{1/2} mock modular shadow and the $M_{24}$-twining cocycle}
+\label{subsec:mock-shadow-twining}
+
+The shadow $S_g$ of $\Sigma_g$ is a weight-$3/2$ holomorphic cusp form on $\Gamma_0(|g|)$ fixed by Zwegers' completion: $\widehat\Sigma_g(\tau, \bar\tau) = \Sigma_g(\tau) + R_g(\tau, \bar\tau)$ with $R_g$ the non-holomorphic Eichler-integral completion whose $\bar\partial$-derivative recovers $S_g(\tau)$ through the standard shadow-pairing $\bar\partial_{\bar\tau} R_g = (2i)^{1/2} \overline{S_g(\tau)} (\tau - \bar\tau)^{-3/2}$. For $g = e$, $S_e(\tau) \propto \eta(\tau)^3$ (the weight-$3/2$ generator of the shadow space; Eguchi--Hikami 2009, \emph{J.\ Phys.\ A} 42). For general $g$, $S_g$ is a specific linear combination of $\eta$-quotients and Jacobi theta series indexed by the centraliser structure of $g$ (Cheng--Duncan--Harvey 2014).
+
+The shadow encodes the failure of $\Sigma_g$ to be modular: $\Sigma_g$ transforms under $\Gamma_0(|g|)$ modulo the lift of $S_g$ across $\mathbb{H}$. In CoHA terms, the shadow records the deviation from a holomorphic global assembly: the $M_{24}$-twined CoHA is only mock-modularly consistent, with a precise shadow controlling the obstruction.
+
+The twining cocycle is the assignment $g \mapsto (\phi_g, \Sigma_g, S_g)$ compatible with $M_{24}$-conjugation: $\phi_{hgh^{-1}} = \phi_g$, $\Sigma_{hgh^{-1}} = \Sigma_g$, etc. This cocycle is the orbifold-gluing datum of Stratum (iii) refined by the mock-modular Stratum (iv) data.
+
+\subsection{K3 CoHA as Yangian of \texorpdfstring{$\mathfrak{osp}(4|20)$}{osp(4|20)}}
+\label{subsec:k3-super-yangian}
+
+The K3 CoHA is conjecturally the super-Yangian $Y_{\mathfrak{osp}}(4|20) = Y(\mathfrak{gl}(4|20))^\theta$, with $(4, 20)$ the signature of the Mukai lattice's Hodge involution-eigenspace decomposition: the $+1$-eigenspace is $\widetilde{H}^{1,1}(K3, \mathbb{C})$ of dimension $20$, and the $-1$-eigenspace is $(H^{2,0} \oplus H^{0,2} \oplus H^{0,0} \oplus H^{2,2})_{\mathbb{R}} = \mathbb{R}^4$. The super-Yangian $Y_{\mathfrak{osp}}(4|20)$ carries an $R$-matrix on $V = \mathbb{C}^{4|20}$ satisfying the graded Yang--Baxter equation; its positive half is the K3-CoHA.
+
+The $M_{24}$-twining is compatible with this super-Yangian structure: conjugation by $g \in M_{24}$ preserves the $(4|20)$-supersplit (because $M_{24}$ acts by symplectic automorphisms of K3, preserving the Hodge involution), and the twisted sector $\mathcal{H}_{K3}^g$ is a $Y_{\mathfrak{osp}}(4|20)^{\langle g \rangle}$-module, with the centraliser $C_{M_{24}}(g)$-invariant part giving the global twisted CoHA.
+
+\section{Summary: orbifold gluing in the four-stratum taxonomy}
+\label{sec:orbifold-summary}
+
+The orbifold stratum (iii) provides three distinct gluing modes, each illustrated in this part:
+\begin{enumerate}
+  \item \emph{Global abelian orbifold action}, e.g., $[\mathbb{C}^3/\mathbb{Z}_3]$ for local $\mathbb{P}^2$. Gluing cocycle: BKR equivalence with kernel the universal $G$-cluster on $G\text{-}\mathrm{Hilb}(\mathbb{C}^3)$. CoHA construction: either skew-group Schiffmann--Vasserot equivariantised, or chart-wise on the crepant resolution with Negu\c{t} wheel-corrections. The two agree as derived Hall structures.
+  \item \emph{Finite non-abelian orbifold}, e.g., $[\mathbb{C}^3/G]$ for $G = \mathbb{Z}_n \times \mathbb{Z}_n$ or $G$ the binary tetrahedral / octahedral / icosahedral group. Gluing cocycle: BKR extended to non-abelian case; the inertia decomposition becomes non-trivial with twisted sectors indexed by conjugacy classes rather than individual elements.
+  \item \emph{Sporadic / chiral orbifold symmetry}, e.g., Mathieu $M_{24}$ on K3. Gluing cocycle: weight-$1/2$ mock modular forms $\Sigma_g$ with shadow $S_g$, assembled into a twining system compatible with $M_{24}$-conjugation. This sits in Stratum (iii)$\cap$(iv): the orbifold group $M_{24}$ acts on the chiral-algebra side of $\Phi$, and the Borcherds--Gritsenko lifts $\{\Delta_g\}$ provide the automorphic gluing.
+\end{enumerate}
+
+Each example passes through the same categorical pattern: a single $G$-equivariant chart $X$ (or chiral-algebra action of $G$) carrying a CoHA structure, with the inertia-stack decomposition $I([X/G]) = \sqcup_{[g]} [X^g / C_G(g)]$ stratifying the global assembly into untwisted and twisted sectors. The global CoHA is the direct sum over conjugacy classes, each summand weighted by the age-shift and twisted-sector character. On the derived-category side, BKR (or its chiral generalisation for Mathieu) is the universal cocycle intertwining the orbifold presentation with the resolution presentation.
+
+The K3 Yangian / $Y_{\mathfrak{osp}}(4|20)$ conjecture closes the frame: the super-Yangian's positive half is the K3-CoHA, the Mathieu $M_{24}$-action is the sporadic symmetry of this positive half, and the Borcherds-lift $\Delta_5$ is the resulting automorphic form on $\mathrm{Sp}_4(\mathbb{Z})$, with $\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = 5$ the Gritsenko weight. These three pieces --- the super-Yangian, the $M_{24}$-orbifold twining, the $\Delta_5$ Borcherds lift --- are the three faces of a single gluing cocycle straddling Strata (ii), (iii), (iv).
+
+The compact CY$_3$ manifold $K3 \times E$, treated in Part~VIII of this chapter, inherits all three faces and adds a fourth via the $E$-factor's translation equivariance. Part~III establishes the orbifold-gluing tools needed; Part~VIII assembles them against the other strata to produce the global CoHA of $K3 \times E$ with its seven $r_{\mathrm{CY}}$-faces.
+
+\paragraph*{Transition to Part IV.}
+The orbifold stratum admits a refinement: the gluing cocycle can also be presented as a \emph{derived Morita equivalence} by a tilting object whose endomorphism algebra is the skew-group algebra. Part~IV develops this Van den Bergh tilting-bundle viewpoint, with local $\mathbb{P}^2$ reappearing there as the three-line-bundle tilting example, and the Serre-equivariant quasi-NCCR of $K3 \times E$ emerging as the Morita-gluing obstruction that Part~III's orbifold methods alone cannot resolve.

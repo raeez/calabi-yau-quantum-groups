@@ -1,0 +1,908 @@
+% !TEX root = ../main.tex
+%
+% Part V of the Gluing Chapter: Factorisation-algebra gluing (Costello--Gwilliam).
+% First-principles, elementary-derivation draft.
+%
+% Architecture: notes/gluing_chapter_architecture_2026_04_23.md
+% Scope: §5.1 Weiss covers; §5.2 Ran space / Beilinson--Drinfeld;
+%        §5.3 Two-stage factorisation $\Phi_3 = \SpCh_{\Sigma_2, C} \circ \PhiFA_3$;
+%        §5.4 Holomorphic vs topological factors.
+%
+% Voice: Chriss--Ginzburg; show-don't-tell; every symbol defined at first use.
+
+\part{Factorisation-algebra gluing}
+\label{part:gluing-factorisation}
+
+The gluing modes developed in Parts~II--IV record, chart-wise, the Hall
+datum of a local CoHA and transmit it across overlaps by a cocycle whose
+values are Fourier--Mukai kernels, Bridgeland--King--Reid equivalences,
+or Van den Bergh tilting modules. The gluing mode developed now records
+the chart-wise datum as a \emph{factorisation algebra} in the sense of
+Costello--Gwilliam \cite{CostelloGwilliam,CostelloGwilliam2017} and
+transmits it by the locality axiom of \cite{CostelloGwilliam2017}
+Definition~6.1.6. The two presentations will coincide, for toric CY$_3$
+and for K3 $\times$ E, at the level of sections of the assembled sheaf;
+the factorisation-algebra framing exposes the piece of the data the
+other modes silence, namely the \emph{global} compatibility along the
+Ran space of the reference curve.
+
+Four sections. Section~\ref{sec:fa-weiss-covers} defines a Weiss cover,
+derives why a two-chart open cover is never a Weiss cover, and records
+the refinement procedure that turns any open cover into a Weiss cover
+of the form appropriate to factorisation-algebra locality.
+Section~\ref{sec:fa-ran-bd} constructs the Ran space $\Ran(C)$ of a
+smooth complex curve $C$ as a colimit of symmetric products and names
+the Beilinson--Drinfeld chiral algebra as a factorisation cosheaf on
+$\Ran(C)$, together with the Francis--Gaitsgory
+\cite{FrancisGaitsgory2012} chiral Koszul duality and its
+higher-dimensional $E_n$-analogue \cite{Francis2013}.
+Section~\ref{sec:fa-two-stage} derives the two-stage factorisation
+$\Phi_3 = \SpCh_{\Sigma_2, C} \circ \PhiFA_3$ from first principles,
+reading Stage~$1$ as a factorisation-algebra assembly on the CY$_3$
+target and Stage~$2$ as a specialisation by factorisation homology
+over a transverse $E_2$-fibre. Section~\ref{sec:fa-hol-top} separates
+the holomorphic and topological factors of 5D holomorphic Chern--Simons
+on $\R \times \C^2$ and names the stratified manifold structure
+(Costello--Gwilliam Volume~II~\cite{CostelloGwilliam2017}~\S8) along
+which the two factor-wise factorisation algebras glue.
+
+The super-factorisation axiom on a super-factorisation algebra valued
+in $\Ch(\sVect)$ is a \emph{strict} equality of structure maps after
+Koszul super-interchange, not a coherence datum: the target
+$\Ch(\sVect)$ is $1$-categorical symmetric monoidal, with associator and
+symmetry equalities of functors rather than higher coherences. The
+$\Z/2$-grading on the super-Yangian arising from the conifold two-chart
+gluing is therefore read off an equality of factorisation sections, not
+a homotopy datum. The two-level bookkeeping separating this
+$1$-categorical super-interchange from the $(\infty, 1)$-categorical
+Ran-local refinement of factorisation locality is Pattern~$273$ of the
+first-principles cache.
+
+\section{Weiss covers}
+\label{sec:fa-weiss-covers}
+
+\subsection{The factorisation local-to-global axiom}
+
+Fix $M$ a smooth manifold (the eventual use will take $M$ to be either
+a smooth complex curve $C$, a smooth complex surface, or a smooth
+complex threefold; the definition is uniform across these cases).
+A \emph{prefactorisation algebra} $\cF$ on $M$ valued in chain
+complexes over $k$ \cite{CostelloGwilliam} Definition~3.1.1 assigns to
+each open $U \subset M$ a chain complex $\cF(U)$ and to each finite
+collection of pairwise-disjoint opens $U_1, \dots, U_n \subset V$
+inside an open $V \subset M$ a structure map
+\begin{equation}
+\label{eq:prefactorisation-structure-map}
+  m_{U_1, \dots, U_n; V} \colon
+  \cF(U_1) \otimes \cdots \otimes \cF(U_n) \longrightarrow \cF(V)
+\end{equation}
+subject to the associativity and symmetry axioms of a prefactorisation
+algebra. A prefactorisation algebra is a \emph{factorisation algebra}
+if, in addition, it satisfies the \emph{factorisation local-to-global
+axiom}: for every open $V \subset M$ and every \emph{Weiss cover}
+$\fU$ of $V$, the natural map from the homotopy colimit of the
+Čech complex of $\cF$ over $\fU$ to $\cF(V)$ is an equivalence.
+
+The axiom is useless without a definition of Weiss cover that makes it
+hold for the examples of interest; the combinatorics of Weiss covers
+is what distinguishes factorisation-algebra locality from ordinary
+sheaf locality.
+
+\begin{definition}[Weiss cover; \protect{\cite{CostelloGwilliam2017}}
+  Definition~6.1.6]
+\label{def:weiss-cover}
+Let $V \subset M$ be an open subset. A collection $\fU = \{U_\alpha\}$
+of open subsets $U_\alpha \subset V$ is a \emph{Weiss cover} of $V$ if,
+for every finite subset $S \subset V$, there exists an index $\alpha$
+with $S \subset U_\alpha$.
+\end{definition}
+
+Equivalently: the cover $\fU$ is closed under finite disjoint unions
+inside $V$, up to refinement by a cofinal subset. The formulation in
+terms of finite subsets is operational: to check that $\fU$ is a Weiss
+cover one exhibits, for each finite point-configuration $S$ in $V$,
+one open $U_\alpha \in \fU$ containing $S$.
+
+The reason the axiom demands Weiss covers and not ordinary open covers
+is the following. A factorisation algebra $\cF$ records the \emph{joint}
+algebraic data of observables localised near finite point-configurations.
+Two observables supported near disjoint point-configurations $S_1 \sqcup
+S_2$ must multiply through the structure map $m_{U_1, U_2; V}$ where
+$U_1 \supset S_1$ and $U_2 \supset S_2$ are disjoint enlargements; the
+structure is reconstructed locally only if the cover contains opens
+separating every such pair. Ordinary open covers need not; Weiss covers
+do, by the finite-point-configuration criterion.
+
+\subsection{Why a two-chart cover is not a Weiss cover}
+\label{subsec:two-chart-not-weiss}
+
+The sharpest elementary illustration arises in the conifold two-chart
+atlas of Part~II. Let $Y = U_+ \cup U_-$ with $U_\pm \cong \C^3$ and
+$U_+ \cap U_- \cong \G_m \times \C^2$. One asks whether $\fU_0 = \{U_+,
+U_-\}$ is a Weiss cover of $Y$.
+
+Take a two-point configuration $S = \{p_+, p_-\} \subset Y$ with
+$p_+ \in U_+ \setminus U_-$ and $p_- \in U_- \setminus U_+$; such
+configurations exist because $U_+$ and $U_-$ are each proper subsets
+of $Y$ (neither chart covers the whole variety). The finite subset
+$S$ is contained in neither $U_+$ nor $U_-$: $p_- \notin U_+$ rules out
+$U_+$, and $p_+ \notin U_-$ rules out $U_-$. Consequently no member of
+$\fU_0$ contains $S$, and $\fU_0$ fails the finite-subset criterion of
+Definition~\ref{def:weiss-cover}.
+
+\begin{proposition}[Two-chart atlases do not satisfy Weiss locality]
+\label{prop:two-chart-not-weiss}
+Let $M$ be a connected smooth manifold of positive dimension and
+$\fU = \{U_1, U_2\}$ a two-element open cover of $M$ with
+$U_1 \setminus U_2 \neq \varnothing$ and $U_2 \setminus U_1 \neq
+\varnothing$. Then $\fU$ is not a Weiss cover of $M$.
+\end{proposition}
+
+\begin{proof}
+Choose $p_1 \in U_1 \setminus U_2$ and $p_2 \in U_2 \setminus U_1$.
+The two-point configuration $S = \{p_1, p_2\}$ is not contained in
+either $U_1$ (because $p_2 \notin U_1$) or $U_2$ (because $p_1 \notin
+U_2$), nor in any other member of $\fU$ (there are none). The
+finite-subset criterion fails at $S$.
+\end{proof}
+
+The conifold two-chart cover is the prototype: every Čech-style
+two-chart gluing in Part~II produces a two-element cover failing Weiss
+locality. Gluing by factorisation-algebra locality therefore requires
+a refinement of the two-chart cover to a Weiss cover, and the
+refinement is what injects the \emph{finitely many} many-point
+configurations which the Čech nerve of the two-chart atlas cannot see.
+
+\subsection{Weiss refinement procedure}
+\label{subsec:weiss-refinement}
+
+The refinement procedure is explicit. Given an open cover $\fU_0 =
+\{U_\alpha\}$ of $M$, form the \emph{disjoint-union closure}
+\begin{equation}
+\label{eq:weiss-refinement}
+  \fU_0^{\sqcup} \;:=\; \bigl\{\, U_{\alpha_1} \sqcup \cdots \sqcup U_{\alpha_n}
+    \;\bigm|\; n \ge 1, \; U_{\alpha_i} \in \fU_0, \;
+    U_{\alpha_i} \cap U_{\alpha_j} = \varnothing \text{ for } i \ne j \,\bigr\}.
+\end{equation}
+Every finite subset $S = \{p_1, \dots, p_m\} \subset M$ admits, by
+shrinking each $U_{\alpha_i}$ if necessary and by the ordinary
+open-cover property of $\fU_0$, a choice of indices $\alpha_1, \dots,
+\alpha_m$ with $p_i \in U_{\alpha_i}$ and $U_{\alpha_i} \cap
+U_{\alpha_j} = \varnothing$ for $i \ne j$. The disjoint union
+$U_{\alpha_1} \sqcup \cdots \sqcup U_{\alpha_m} \in \fU_0^{\sqcup}$
+contains $S$; hence $\fU_0^{\sqcup}$ is a Weiss cover.
+
+\begin{remark}[Weiss refinement of the conifold two-chart atlas]
+\label{rem:weiss-refinement-conifold}
+For the conifold $Y = U_+ \cup U_-$, the disjoint-union closure
+$\fU_0^{\sqcup}$ of $\fU_0 = \{U_+, U_-\}$ reduces to $\fU_0$ itself:
+the only disjoint families of members of $\fU_0$ are the two singletons
+$\{U_+\}$ and $\{U_-\}$ (the pair $U_+, U_-$ is not disjoint since
+$U_+ \cap U_- \cong \G_m \times \C^2 \ne \varnothing$), and the
+disjoint-union of a singleton equals its single member. The
+disjoint-union closure produces no new opens, and
+Proposition~\ref{prop:two-chart-not-weiss} continues to apply to
+$\fU_0^{\sqcup} = \fU_0$. The refinement therefore requires enlarging
+$\fU_0$ with opens sharper than the two charts: for each $p \in Y$ choose
+a contractible open neighbourhood $D_p \subset U_\pm$ (whichever chart
+contains $p$), small enough that finitely many such $D_p$ can be made
+pairwise disjoint by shrinkage. The family $\fD = \{D_p : p \in Y\}$
+is an ordinary open cover of $Y$; its disjoint-union closure $\fD^{\sqcup}$
+is a Weiss cover of $Y$ by the argument following
+equation~\eqref{eq:weiss-refinement}. The original two-chart cocycle
+descends from the \v{C}ech nerve of $\fD^{\sqcup}$, which keeps track of
+all finite multi-point configurations, not only pairs in
+$U_+ \cap U_-$.
+\end{remark}
+
+The refinement produces, in particular, Weiss-cover cells indexed by
+ordered tuples of points rather than pairs of charts. The Čech nerve
+of $\fD^{\sqcup}$ is, up to equivalence, the Čech nerve of the
+configuration-space cover $\{\Conf_n(Y) : n \ge 1\}$; this is the
+factorisation-algebra analogue of the Ran-space decomposition of
+Section~\ref{sec:fa-ran-bd}.
+
+\section{Ran space and Beilinson--Drinfeld chiral algebras}
+\label{sec:fa-ran-bd}
+
+\subsection{The Ran space of a curve}
+
+Let $C$ be a smooth complex curve. The \emph{Ran space} of $C$ is the
+set of non-empty finite subsets of $C$ topologised by the colimit
+\begin{equation}
+\label{eq:ran-space-colimit}
+  \Ran(C) \;=\; \varinjlim_{\, n \ge 1\,} \; C^n / S_n
+\end{equation}
+in the category of (ind-)topological spaces, where the transition maps
+$C^n/S_n \to C^{n+1}/S_{n+1}$ send a tuple $(x_1, \dots, x_n)$ to
+$(x_1, x_1, x_2, \dots, x_n)$ (repeating the first entry). The
+presentation \eqref{eq:ran-space-colimit} identifies configurations
+differing only by repetition, so $\Ran(C)$ parameterises finite subsets
+of $C$ regardless of multiplicity.
+
+The Ran space is the natural index of factorisation data on $C$. A
+prefactorisation algebra on $C$ assigns observables to finite
+point-configurations; the assignment extends along the transition maps
+\eqref{eq:ran-space-colimit} by the structure maps
+\eqref{eq:prefactorisation-structure-map} (at repeated points, the
+structure map at a pair of coinciding points specialises to the
+diagonal). The factorisation local-to-global axiom, specialised to
+$M = C$, becomes the condition that the output factorisation cosheaf
+on $\Ran(C)$ satisfies the Ran-local Weiss axiom of
+\cite{CostelloGwilliam2017}~\S6.5.
+
+\subsection{Beilinson--Drinfeld chiral algebras as factorisation cosheaves}
+
+A \emph{chiral algebra} on $C$ in the sense of Beilinson--Drinfeld
+\cite{BeilinsonDrinfeld} is a $\mathcal{D}$-module $\cA$ on $C$
+equipped with a chiral bracket
+\begin{equation}
+\label{eq:bd-chiral-bracket}
+  \mu \colon j_* j^{*} (\cA \boxtimes \cA) \longrightarrow
+  \Delta_{!} \cA
+\end{equation}
+on the complement $j \colon C^2 \setminus \Delta \hookrightarrow C^2$
+of the diagonal $\Delta \colon C \hookrightarrow C^2$, subject to a
+symmetry axiom and a Jacobi-type associativity axiom
+(\cite{BeilinsonDrinfeld}~\S3.4). The bracket $\mu$ quantifies the
+short-distance singularity of the operator product expansion of two
+chiral operators on $C$ and is the structure one expects in any
+conformal-field-theoretic construction on a Riemann surface.
+
+The reformulation in factorisation-algebra terms is the content of
+Francis--Gaitsgory \cite{FrancisGaitsgory2012}~\S3.2. To a chiral
+algebra $\cA$ on $C$ one associates a factorisation cosheaf
+$\cF_\cA$ on $\Ran(C)$ by the \emph{factorisation envelope}
+construction: at a finite configuration $\{x_1, \dots, x_n\} \in
+\Ran(C)$ the sections of $\cF_\cA$ are given by
+\begin{equation}
+\label{eq:fact-envelope-sections}
+  \cF_\cA(\{x_1, \dots, x_n\}) \;=\; \bigotimes_{i = 1}^{n} \cA|_{x_i},
+\end{equation}
+the restriction of $\cA$ to each point and the external tensor product
+over the configuration. The chiral bracket $\mu$ equips $\cF_\cA$
+with the factorisation-cosheaf structure: at a configuration with
+coinciding points the bracket \eqref{eq:bd-chiral-bracket} supplies
+the specialisation map; at distinct points the structure is the
+tensor-product factorisation of \eqref{eq:fact-envelope-sections}.
+
+\begin{theorem}[Francis--Gaitsgory chiral Koszul duality;
+  \protect{\cite{FrancisGaitsgory2012}} Theorem~3.6.2]
+\label{thm:fg-chiral-koszul}
+There is an $(\infty, 1)$-categorical Koszul-duality equivalence, on a
+smooth complex curve $C$, between non-unital Lie-$\ast$ algebras on $C$
+and non-unital cocommutative factorisation coalgebras on $\Ran(C)$:
+\begin{equation}
+\label{eq:fg-koszul-duality-raw}
+  \Bar^{\mathrm{ch}} \colon
+  \Lie^{\ast}_{\mathrm{nu}}(C) \;\xrightleftharpoons{\simeq}\;
+  \coCom^{\mathrm{fact}}_{\mathrm{nu}}(\Ran C) \;\colon\; \Omega^{\mathrm{ch}}.
+\end{equation}
+Under the Beilinson--Drinfeld equivalence between Lie-$\ast$ algebras
+on $C$ and chiral algebras on $C$ \textup{(}chiral envelope
+\cite{BeilinsonDrinfeld}~\S3.7\textup{),} the factorisation-envelope
+functor $\cA \mapsto \cF_\cA$ identifies chiral algebras on $C$ with
+non-unital factorisation cosheaves on $\Ran(C)$, and the factorisation
+homology of $\cA$ is the Koszul-dual object:
+\begin{equation}
+\label{eq:fg-koszul-duality}
+  \int_{\Ran(C)} \cF_\cA \;\simeq\; C_\bullet^{\mathrm{chiral}}(\cA),
+\end{equation}
+with the right-hand side the chiral chain complex of
+\cite{BeilinsonDrinfeld}~\S4.2.
+\end{theorem}
+
+The theorem repackages the chiral-algebra calculus of
+\cite{BeilinsonDrinfeld} as the factorisation-algebra calculus of
+\cite{CostelloGwilliam,CostelloGwilliam2017} on a curve. The two
+frameworks are equivalent; each makes different operations convenient.
+The chiral-algebra framing produces, by factorisation envelope, the
+vertex-algebra image one expects in conformal field theory. The
+factorisation-algebra framing produces the gluing-cocycle presentation
+one expects in the present chapter: chiral observables on $C$ are
+reconstructed from their local sections on Weiss covers of $\Ran(C)$.
+
+\subsection{Higher-dimensional variants}
+\label{subsec:higher-en-fa}
+
+The Francis--Gaitsgory equivalence of Theorem~\ref{thm:fg-chiral-koszul}
+admits an $E_n$-analogue due to Francis \cite{Francis2013}. Let $M$
+be a smooth manifold of dimension $n$. An \emph{$E_n$-factorisation
+algebra} on $M$ is a factorisation algebra whose structure maps
+\eqref{eq:prefactorisation-structure-map} are indexed by
+$n$-dimensional disc configurations rather than $0$-dimensional point
+configurations; equivalently, a factorisation cosheaf on the
+$n$-dimensional Ran space
+\begin{equation}
+\label{eq:higher-ran-space}
+  \Ran_n(M) \;=\; \varinjlim_{n_{\mathrm{discs}} \ge 1}
+  \Conf_{n_{\mathrm{discs}}}(M) \big/ S_{n_{\mathrm{discs}}}
+\end{equation}
+with $\Conf_{n_{\mathrm{discs}}}(M)$ the configuration space of
+$n_{\mathrm{discs}}$ pairwise-disjoint $n$-discs in $M$.
+
+\begin{theorem}[Francis $E_n$-Koszul duality;
+  \protect{\cite{Francis2013}} Theorem~1.1]
+\label{thm:francis-en-koszul}
+There is an equivalence between the $(\infty, 1)$-category of
+$E_n$-factorisation algebras on a smooth $n$-manifold $M$ and the
+$(\infty, 1)$-category of $E_n$-algebras in $\Ch(k)$ augmented over
+$k$, given by factorisation-envelope integration.
+\end{theorem}
+
+This is the tool required in Section~\ref{sec:fa-two-stage}: a CY$_3$
+target $X$ is a smooth real $6$-manifold, and the $E_3$-factorisation
+algebra $\PhiFA_3(\cC)$ attached to a CY$_3$ category $\cC$ is,
+by Theorem~\ref{thm:francis-en-koszul}, equivalently an $E_3$-algebra
+in $\Ch(k)$ augmented over $k$. Costello--Li
+\cite{CostelloLi2016,CostelloLi2020} refine the $E_3$-structure to its
+\emph{holomorphic} incarnation on the complex threefold $X$ via the
+BV-quantisation of 6D holomorphic Chern--Simons.
+
+\begin{remark}[Strict super-factorisation in $\Ch(\sVect)$]
+\label{rem:strict-super-factorisation}
+When the target chain complexes are super-vector-space-valued, the
+braiding in the structure map
+\eqref{eq:prefactorisation-structure-map} is the Koszul super-braiding
+$\sigma \colon v \otimes w \mapsto (-1)^{|v||w|} w \otimes v$. The
+symmetric monoidal category $(\Ch(\sVect), \otimes, k^{1|0}, \sigma)$
+is $1$-categorical symmetric monoidal: the associator
+$\alpha \colon (A \otimes B) \otimes C \to A \otimes (B \otimes C)$ and
+symmetry $\sigma$ are equalities of functors, not higher coherence
+data, because $\Ch(\sVect)$ is a $1$-category. Consequently the
+super-factorisation axiom for a super-factorisation algebra $\cF$
+valued in $\Ch(\sVect)$ --- the compatibility of the structure maps
+$m_{U_1, \ldots, U_n; V}$ with the super-interchange of tensor factors
+on the left --- is a \emph{strict equality} of chain maps, not a
+coherence datum. This is the elementary point that is conflated with
+the $(\infty, 1)$-categorical refinement of locality on $\Ran(C)$: the
+Francis--Gaitsgory equivalence of
+Theorem~\ref{thm:fg-chiral-koszul} is $(\infty, 1)$-categorical in its
+source and target, but the super-braiding in the target is
+$1$-categorical strict, inherited from $\Ch(\sVect)$. The two-level
+bookkeeping is Pattern~$273$ of the first-principles cache.
+The $\Z/2$-grading on the super-Yangian arising from the conifold
+gluing (Part~II, \S$2.1$) is read off an equality of factorisation
+sections under Koszul super-braiding, and is not a coherence datum
+requiring higher-categorical bookkeeping.
+\end{remark}
+
+\section{The two-stage factorisation \texorpdfstring{$\Phi_3 = \SpCh_{\Sigma_2, C} \circ \PhiFA_3$}{Phi3 = SpCh o PhiFA3}}
+\label{sec:fa-two-stage}
+
+\subsection{Stage~1: $E_3$-factorisation algebra on a CY$_3$ target}
+\label{subsec:fa-stage-one}
+
+Fix a CY$_3$ category $\cC$ and a smooth complex CY$_3$ variety $X$
+with Calabi--Yau form $\Omega_X \in H^0(X, K_X)$. Stage~1 of the
+two-stage factorisation assembles an $E_3$-holomorphic factorisation
+algebra $\PhiFA_3(\cC)$ on $X$ from the Hochschild-cochain $E_3$-algebra
+of $\cC$. The assembly proceeds in three steps, each elementary but
+each drawing on a distinct piece of first-principles input.
+
+\paragraph{Step (a): Kontsevich--Tamarkin formality.}
+The Hochschild cochain complex $\HH^\bullet(\cC)$ carries a Gerstenhaber
+bracket of degree $1 - d$, descending on cohomology from the
+composition-circle $\circ$ of cochain operations
+(Deligne conjecture; Kontsevich \cite{Kontsevich1997,Kontsevich1999},
+Tamarkin $1998$ preprint arXiv:math/$9803025$ / \cite{Tamarkin2007}).
+At $d = 3$ the bracket has degree $1 - 3 = -2$. The $E_d$-formality
+theorem asserts that under hypotheses $(H1)$--$(H3)$ of
+Chapter~\ref{ch:cy-to-chiral}, the Gerstenhaber bracket lifts, up to
+the contractible space of choices controlled by the
+Grothendieck--Teichm\"uller group $\GRT_1(\Q)$, to an $E_d$-algebra
+structure on $\HH^\bullet(\cC)$. The lift is canonical up to the
+$\GRT_1(\Q)$-torsor of Drinfeld associators; any two lifts are
+connected by an $(\infty, 1)$-isomorphism in the $E_d$-algebra mapping
+space. At $d = 3$ the lift supplies an $E_3$-algebra in $\Ch(k)$.
+\emph{Super caveat}: in the super-graded case $\HH^\bullet(\cC_{\sVect})$,
+Ginzburg--Schedler~$2010$ (arXiv:$0807.0174$) establish super-formality
+only at $E_2$, not at $E_3$; the $E_3$-lift on super Hochschild cochains
+is open, bounding the applicability of Step~(a) to the bosonic
+Gerstenhaber side unless a super-extension is supplied by hand.
+
+\paragraph{Step (b): Costello--Gwilliam factorisation envelope on $X$.}
+An $E_3$-algebra $A$ in $\Ch(k)$ assembles, by the factorisation-envelope
+construction of \cite{CostelloGwilliam2017}~Chapter~$6$
+(\emph{locally constant factorisation algebras on framed $n$-manifolds};
+compare Lurie \cite{LurieHA}~$5.5.2$, Francis \cite{Francis2013}), into
+a topological $E_3$-factorisation algebra $\mathcal{E}_3(A)$ on any
+smooth framed real $6$-manifold. The assignment
+$A \mapsto \mathcal{E}_3(A)$ is an $(\infty, 1)$-functorial equivalence
+between $E_3$-algebras in $\Ch(k)$ and framed locally constant
+$E_3$-factorisation algebras on $\R^6$, and extends by Weiss
+local-to-global to an $E_3$-factorisation algebra on any framed smooth
+real $6$-manifold $M \cong X_{\mathrm{top}}$. At this step the algebra
+is still topological: it uses only the framed real $6$-manifold
+structure of $X$, ignoring the complex structure on $X$.
+
+\paragraph{Step (c): Costello--Li holomorphic refinement via $\Omega_X$.}
+The Calabi--Yau form $\Omega_X \in H^0(X, K_X)$ supplies, by contraction
+with the Dolbeault operator $\bar\partial_X$, the BV pairing of 6D
+holomorphic Chern--Simons on $X$~\cite{CostelloLi2016,CostelloLi2020}:
+the BV action $S[A] = \int_X \mathrm{CS}_3(A) \wedge \Omega_X$ pairs
+the $(0, \bullet)$-form part of a connection $A$ against the CY form,
+producing a $(-1)$-shifted symplectic structure on the BV phase space.
+The BV-quantised observables of 6D hCS form a holomorphic
+$E_3$-factorisation algebra on $X$ which, by Costello--Li's
+classification, is equivalent to the topological $E_3$-FA of Step~(b)
+refined by $\bar\partial_X$ and the $\Omega_X$-induced CY pairing. The
+holomorphic refinement is unconditional at $d = 1, 2$ and is the
+chain-level CY-A$_d$ obstruction at $d = 3$, resolved
+$(\infty, 1)$-categorically by Theorem~\ref{thm:cy-to-chiral-d3} and
+chain-level at $d = 3$ by Theorem~\ref{thm:s3-framing-vanishes}
+(three obstruction vanishings plus Bott periodicity
+$\pi_3(B\Sp(2m)) = 0$).
+
+The composite assembles
+\begin{equation}
+\label{eq:stage-one-output}
+  \PhiFA_3(\cC) \;\in\; E_3\text{-}\HolFA(X)
+\end{equation}
+as an $E_3$-holomorphic factorisation algebra on $X$. The
+factorisation axiom
+\begin{equation}
+\label{eq:stage-one-factorisation}
+  \PhiFA_3(\cC)(U \sqcup V) \;\simeq\;
+  \PhiFA_3(\cC)(U) \otimes \PhiFA_3(\cC)(V)
+\end{equation}
+for disjoint opens $U, V \subset X$ is the local datum of the Stage-1
+gluing; the Weiss-cover locality axiom supplies the global assembly.
+
+\subsection{Stage~2: specialisation by factorisation homology over
+$\Sigma_2$}
+\label{subsec:fa-stage-two}
+
+Stage~2 descends the $E_3$-holomorphic factorisation algebra of
+\eqref{eq:stage-one-output} to an $E_1$-chiral algebra on a reference
+curve $C \subset X$ by factorisation homology over a transverse
+$2$-dimensional closed cycle $\Sigma_2 \subset X$ which fibres, in a
+neighbourhood of $C$, as $\Sigma_2 \times C \hookrightarrow X$. The
+tensor product of operads $E_n \otimes E_m$ (Boardman--Vogt tensor) is,
+by Dunn's additivity theorem~\cite{Dunn1988} in its $\infty$-categorical
+formulation due to Lurie~\cite{LurieHA}~Theorem~$5.1.2.2$,
+\begin{equation}
+\label{eq:dunn-lurie-e3-e2-e1}
+  E_{n + m} \;\simeq\; E_n \otimes E_m,
+  \qquad
+  E_3 \;\simeq\; E_2 \otimes E_1.
+\end{equation}
+Equation~\eqref{eq:dunn-lurie-e3-e2-e1} identifies an $E_3$-algebra
+with an $E_1$-algebra in $E_2$-algebras, or symmetrically an
+$E_2$-algebra in $E_1$-algebras. Reading
+\eqref{eq:dunn-lurie-e3-e2-e1} geometrically, the framed real
+$6$-manifold $X$ near $C$ factors as a product $\Sigma_2 \times C$
+(up to tubular neighbourhood), with $\Sigma_2$ supplying the transverse
+$E_2$-directions and $C$ supplying the longitudinal $E_1$-direction;
+factorisation homology over $\Sigma_2$
+(\cite{LurieHA}~$5.5.3$, Francis~\cite{Francis2013}~Theorem~$2.29$)
+integrates the $E_2$-directions against the transverse fibre and leaves
+an $E_1$-factorisation algebra on $C$.
+
+\begin{proposition}[Factorisation homology over a transverse fibre;
+  Lurie~\cite{LurieHA}~\S$5.5.3$, Francis~\cite{Francis2013}
+  Theorem~$2.29$]
+\label{prop:fa-transverse-integration}
+Let $X$ be a smooth framed real $6$-manifold, $\Sigma_2 \subset X$ a
+smooth closed framed $2$-submanifold, and $C \subset X$ a smooth framed
+curve transverse to $\Sigma_2$ such that a tubular neighbourhood of
+$\Sigma_2 \cap C$ inside $X$ is framed-diffeomorphic to
+$\Sigma_2 \times C$. Then factorisation homology over $\Sigma_2$
+defines an $(\infty, 1)$-functor
+\begin{equation}
+\label{eq:sigma2-integration}
+  \int_{\Sigma_2} \colon E_3\text{-}\FA(X) \longrightarrow
+  E_1\text{-}\FA(C),
+\end{equation}
+given by push-forward along the transverse projection
+$\pi \colon \Sigma_2 \times C \to C$ of the $E_2$-factor of the
+Dunn--Lurie splitting.
+\end{proposition}
+
+\begin{proof}[Sketch]
+By Dunn--Lurie \eqref{eq:dunn-lurie-e3-e2-e1}, an
+$E_3$-factorisation algebra on a framed real $6$-manifold is locally an
+$E_2 \otimes E_1$-algebra. On the tubular neighbourhood $\Sigma_2
+\times C$, the $E_2$-structure is carried by the $\Sigma_2$-direction
+and the $E_1$-structure by the $C$-direction. Factorisation homology
+of an $E_2$-algebra $A$ over a framed closed surface $\Sigma_2$ is a
+chain complex $\int_{\Sigma_2} A \in \Ch(k)$
+(Lurie~\cite{LurieHA}~\S$5.5.3$; Francis~\cite{Francis2013}~Theorem~$2.29$
+states the general framed $n$-manifold case), functorial in $A$ as an
+$E_2$-algebra. Applied fibrewise over $C$ to the $E_2$-factor of an
+$E_2 \otimes E_1$-algebra, the $E_1$-structure on the $C$-factor is
+preserved, yielding an $E_1$-factorisation algebra on $C$. The
+explicit push-forward along $\pi$ is the projection formula
+\cite{FrancisGaitsgory2012}~Lemma~$3.3.4$.
+\end{proof}
+
+The composite of Stage~1 with Stage~2 is the specialisation functor
+\begin{equation}
+\label{eq:spch-definition}
+  \SpCh_{\Sigma_2, C} \colon E_3\text{-}\HolFA(X) \longrightarrow
+  E_1\text{-}\HolFA(C),
+  \qquad
+  \cF \longmapsto \biggl(\int_{\Sigma_2} \cF\biggr) \Bigr|_{C},
+\end{equation}
+with the holomorphic refinement of \eqref{eq:sigma2-integration}
+preserved by restriction to $C$. The two-stage factorisation of
+$\Phi_3$ is then
+\begin{equation}
+\label{eq:phi3-two-stage}
+  \Phi_3 \;=\; \SpCh_{\Sigma_2, C} \circ \PhiFA_3,
+\end{equation}
+reading the left-hand side as the CY-to-chiral functor at $d = 3$ and
+the right-hand side as the composite of the Stage-1 factorisation-
+algebra assembly and the Stage-2 specialisation.
+
+\subsection{Each stage is itself a gluing}
+\label{subsec:fa-each-stage-gluing}
+
+The two-stage factorisation is a gluing in two layers. Stage~1 is
+a factorisation-algebra assembly: the local data on Weiss-cover cells
+of $X$ are $E_3$-algebras determined chart-wise by the BV quantisation
+of 6D hCS, and the global assembly is the Weiss local-to-global axiom
+applied to the disjoint-union closure of a disc atlas on $X$. Stage~2
+is a specialisation assembly: the local data on Weiss-cover cells of
+$C$ are $E_1$-algebras obtained by integrating the $E_3$-data of
+Stage~1 against the transverse $\Sigma_2$-fibre, and the global
+assembly is the Weiss local-to-global axiom on $C$ applied to a disc
+atlas on $C$.
+
+\begin{remark}[Six specialisations of a single Stage-$1$ output]
+\label{rem:six-sigma2-C-specialisations}
+A single CY$_3$ category $\cC$ produces, via Stage~1, a single
+$E_3$-holomorphic factorisation algebra $\PhiFA_3(\cC)$ on a fixed
+CY$_3$ target $X$. Different specialisation data
+$(\Sigma_2, C), (\Sigma_2', C'), \dots$ on $X$ produce different
+$E_1$-chiral shadows $\SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$,
+$\SpCh_{\Sigma_2', C'}(\PhiFA_3(\cC))$, $\dots$; the multiplicity of
+chiral images attached to $\cC$ is the multiplicity of Stage-2
+specialisation cycles on $X$, not the multiplicity of $\Phi_3$-
+applications to $\cC$. The six routes to $G(K3 \times E)$
+documented in Part~V (CY Landscape) of Vol~III are six different
+$(\Sigma_2, C)$-specialisations of the single Stage-1 output
+$\PhiFA_3(D^b(\Coh(K3 \times E)))$; this is Pattern~$273$ of the
+first-principles cache.
+\end{remark}
+
+\section{Holomorphic vs topological factors}
+\label{sec:fa-hol-top}
+
+\subsection{5D holomorphic Chern--Simons on $\R \times \C^2$}
+
+The master example of a factorisation algebra with distinct holomorphic
+and topological factors is 5D holomorphic Chern--Simons on
+$M = \R \times \C^2$~\cite{CostelloGwilliam2017}~\S$4.10$ together with
+Costello--Yagi~$2018$ (arXiv:$1810.01970$). The manifold decomposes as
+a product of a real $1$-dimensional topological factor $\R_t$ and a
+complex $2$-dimensional holomorphic factor $\C^2_{z_1, z_2}$; the
+separation of holomorphic from topological directions at the level of
+factorisation algebras is the content of Francis $2013$
+(arXiv:$1303.0305$), where the $\Ch(k)$-valued factorisation algebras
+on a product of a topological factor and a holomorphic factor are
+classified by the corresponding tensor product of $E_n$-operads.
+The BV field is a partial connection
+\begin{equation}
+\label{eq:5d-hCS-field}
+  A \;=\; A_t(t, z, \bar z)\, dt
+  \;+\; A_{\bar z_1}(t, z, \bar z)\, d\bar z_1
+  \;+\; A_{\bar z_2}(t, z, \bar z)\, d\bar z_2
+  \;\in\; \Omega^{0, \bullet}_{\C^2} \otimes \Omega^\bullet_\R
+  \otimes \fg,
+\end{equation}
+in the mixed $(\R, \bar\partial_{\C^2})$-complex with gauge Lie algebra
+$\fg$, and the BV action of 5D hCS is
+\begin{equation}
+\label{eq:5d-hCS-action}
+  S_{\mathrm{5D\,hCS}}[A] \;=\; \int_{\R \times \C^2}
+  \bigl(\tfrac{1}{2}\langle A, d_\R A + \bar\partial A\rangle
+   + \tfrac{1}{6}\langle A, [A, A]\rangle\bigr) \wedge \Omega_{\C^2},
+\end{equation}
+with $d_\R$ the de Rham differential along $\R$, $\bar\partial$ the
+Dolbeault operator on $\C^2$, $\langle -, -\rangle$ the Killing form on
+$\fg$, and $\Omega_{\C^2} = dz_1 \wedge dz_2$ the holomorphic volume
+form on $\C^2$.
+
+The factorisation algebra of observables of 5D hCS admits a natural
+tensor-product decomposition
+\begin{equation}
+\label{eq:5d-hCS-factorisation}
+  \Obs^{\mathrm{5D\,hCS}} \;\simeq\;
+  \Obs^{\mathrm{1D\,top}} \otimes \Obs^{\mathrm{4D\,hol}}
+\end{equation}
+with $\Obs^{\mathrm{1D\,top}}$ a locally constant $E_1$-factorisation
+algebra on the topological factor $\R_t$ and $\Obs^{\mathrm{4D\,hol}}$
+a holomorphic $E_2$-factorisation algebra on the holomorphic factor
+$\C^2_{z_1, z_2}$. The decomposition \eqref{eq:5d-hCS-factorisation}
+is the factorisation-algebra incarnation of Francis' holomorphic-
+topological splitting (Francis $2013$ arXiv:$1303.0305$ Theorem~$1.1$)
+applied to the product $\R \times \C^2$; it specialises Dunn--Lurie
+\eqref{eq:dunn-lurie-e3-e2-e1} to the holomorphic-topological reading
+\begin{equation}
+\label{eq:dunn-lurie-e1-top-e2-hol}
+  E_3 \;\simeq\; E_1^{\mathrm{top}} \otimes E_2^{\mathrm{hol}},
+\end{equation}
+under which the topological $E_1$-direction is the $t$-coordinate on
+$\R$ and the holomorphic $E_2$-direction is the pair $(z_1, z_2)$ on
+$\C^2$. The reading \eqref{eq:dunn-lurie-e1-top-e2-hol} differs from
+the Stage-$2$ reading $E_3 \simeq E_2^{\Sigma_2} \otimes E_1^{C}$ of
+Section~\ref{subsec:fa-stage-two} only in which two of the three
+$E_3$-directions are interpreted as the $E_2$-factor; the
+interpretation is determined by the complex structure on the chosen
+transverse $2$-submanifold.
+
+\subsection{Factorisation algebras on each factor separately}
+
+On the topological factor $\R$, a locally constant factorisation algebra
+is equivalent to an $E_1$-algebra in $\Ch(k)$ by
+Lurie~\cite{LurieHA}~$5.5.3.11$. The factor $\Obs^{\mathrm{1D\,top}}$
+is the topological reduction of 5D hCS along $\R_t$: integrating the
+BV action \eqref{eq:5d-hCS-action} against $dt$ and setting
+$A_t = 0$ in Lorenz gauge leaves an effective $E_1$-algebra on $\R$
+whose multiplication $\cA(U_1) \otimes \cA(U_2) \to \cA(U_1 \cup U_2)$
+for disjoint $U_1, U_2 \subset \R_t$ is the $\hbar$-deformed
+multiplication of the Yangian (Costello--Yagi $2018$
+arXiv:$1810.01970$ Theorem~$1$). Reading the Yangian as a topological
+$E_1$-algebra on $\R_t$ alone discards the $\C^2$-OPE data that lives
+on the holomorphic factor; the sharp joint statement identifies the
+full factorisation algebra on $\R \times \C^2$ with the Yangian VOA
+(Proposition~\ref{prop:nonabelian-5d-hcs-yangian-voa} below).
+
+On the holomorphic factor $\C^2$, $\Obs^{\mathrm{4D\,hol}}$ is a
+holomorphic $E_2$-factorisation algebra, equivalently a
+$2$-dimensional vertex-algebra object in $\Ch(k)$ by the Francis
+higher-dimensional analogue (arXiv:$1303.0305$ Theorem~$1.1$) of
+Theorem~\ref{thm:fg-chiral-koszul}. The vertex-algebra output of
+$\Obs^{\mathrm{4D\,hol}}$ is pinned by the $\bar\partial_{\C^2}$-OPE
+of the $A$-field in \eqref{eq:5d-hCS-action}: the propagator
+$\langle A_{\bar z_i}(z) A_{\bar z_j}(w)\rangle$ has a pole of order
+$1$ on the diagonal $z = w$, and the residue carries the Yangian
+coproduct structure in the Koszul-dual presentation supplied by
+Proposition~\ref{prop:nonabelian-5d-hcs-yangian-voa}.
+
+\begin{proposition}[Non-abelian 5D hCS $\to$ Yangian VOA, simply-laced
+  bosonic; Costello--Yagi $2018$ (arXiv:$1810.01970$) Theorem~B]
+\label{prop:nonabelian-5d-hcs-yangian-voa}
+Let $\fg$ be a simply-laced bosonic simple Lie algebra with
+non-degenerate even Killing form. The BV-quantised factorisation algebra
+of observables of 5D holomorphic Chern--Simons on $\R \times \C^2$ with
+gauge algebra $\fg$ is equivalent to the Yangian VOA
+$Y^{\mathrm{VOA}}(\fg)$ to all orders in $\hbar$. The perturbative
+expansion is convergent, not merely asymptotic, under the combined
+input of two $1$-categorical rigidity facts: first, Kontsevich--Tamarkin
+formality for $E_2$-algebras on the holomorphic factor $\C^2$ (the
+two-dimensional Deligne conjecture, \cite{Kontsevich1999,Tamarkin2007})
+collapses the $\hbar$-tower on $\Obs^{\mathrm{4D\,hol}}$ to its
+tree-level OPE; second, the absence of higher-loop wheels on the
+topological factor $\R_t$ (after Lorenz-gauge fixing the $A_t$-component
+of \eqref{eq:5d-hCS-field}, the only $1$D Feynman diagrams are tadpoles
+which cancel by the antisymmetry of $\tr$ on $[\fg, \fg]$) collapses
+the $\hbar$-tower on $\Obs^{\mathrm{1D\,top}}$ to its tree-level
+$E_1$-multiplication. The two collapses together with Francis's
+holomorphic-topological splitting \eqref{eq:5d-hCS-factorisation}
+determine the all-orders factorisation algebra from its one-loop
+approximation, and the one-loop $r$-matrix of 5D hCS equals the
+Yangian $r$-matrix under the identification of
+\cite{CostelloWittenYamazaki}~Theorem~$4.2$. Non-simply-laced bosonic
+$\fg$ produces a twisted Yangian and the all-orders identification is
+open: the one-loop BV anomaly coefficient $d^{abc} d^{abc}$ is
+non-zero off the simply-laced locus and obstructs the $\hbar$-tower
+collapse beyond second order.
+\end{proposition}
+
+\begin{remark}[Super gauge algebras: all-orders open]
+\label{rem:5d-super-hcs-open}
+The Costello--Yagi all-orders equivalence is established for
+simply-laced \emph{bosonic} $\fg$; the super case
+$\fg \in \{\widehat{\mathfrak{gl}}(m|n), \widehat{\mathfrak{osp}}(m|2n)\}$
+arising in conifold and K3 super-Yangian contexts requires super
+Kontsevich--Tamarkin formality, and Ginzburg--Schedler~$2010$
+(arXiv:$0807.0174$) establish super formality only at $E_2$, not at
+$E_3$. The 1-loop BV anomaly coefficient
+$d^{abc}_{\mathrm{super}} = \mathrm{str}(t^a \{t^b, t^c\})$ vanishes
+identically on $\mathfrak{gl}(1|1)$ by direct basis computation (the
+bosonic Cartan pair $H, N$ contributes $\mathrm{str}(H^2) =
+\mathrm{str}(N^2) = 0$ and the fermionic pair $\psi^\pm$ carries
+opposite supertrace signs), so the 1-loop wheel is verified; higher-loop
+local cohomology $H^1_{\mathrm{loc}}(\fg_{\mathrm{super}},
+\mathcal{O}_{\mathrm{loc}})^{\ge 2}$ is not automatically killed in
+the absence of $E_3$ super-formality, and the all-orders super case
+remains open.
+\end{remark}
+
+The proposition is the sharpest instance of the
+holomorphic-vs-topological factor decomposition: the topological factor
+$\R$ supplies the $E_1$-multiplication of the Yangian, the holomorphic
+factor $\C^2$ supplies the vertex-algebra/OPE structure, and the
+Dunn--Lurie splitting \eqref{eq:5d-hCS-factorisation} packages the two
+into a single $E_3$-factorisation algebra on $\R \times \C^2$.
+
+\subsection{Gluing along stratified manifold structure}
+\label{subsec:fa-stratified-gluing}
+
+The product $\R \times \C^2$ is the simplest stratified manifold with
+a topological-holomorphic decomposition: a single stratum, trivially
+stratified. General CY$_3$ targets carrying a 5D hCS factorisation
+structure require the stratified-manifold machinery of
+\cite{CostelloGwilliam2017}~\S8, which extends the
+factorisation-algebra local-to-global axiom to stratified manifolds
+by replacing ordinary Weiss covers with \emph{stratified Weiss covers}
+respecting the stratification.
+
+\begin{definition}[Stratified Weiss cover;
+  \protect{\cite{CostelloGwilliam2017}}~Definition~8.3.2]
+\label{def:stratified-weiss-cover}
+Let $M$ be a smooth manifold stratified as $M = M_0 \sqcup M_1 \sqcup
+\cdots \sqcup M_r$ with $M_i$ a locally closed smooth submanifold. A
+Weiss cover $\fU$ of $M$ is \emph{stratified} if for every finite
+subset $S \subset M$ and every stratum $M_i$, the restriction
+$S \cap M_i$ is contained in the intersection with $M_i$ of some
+$U_\alpha \in \fU$.
+\end{definition}
+
+The extension of the factorisation local-to-global axiom to stratified
+Weiss covers is the content of \cite{CostelloGwilliam2017}~Theorem~8.4.1;
+the effect for the present chapter is that the gluing of Stage~1 on a
+stratified CY$_3$ target proceeds stratum-by-stratum, with the
+coarsest stratum carrying the ambient 6D hCS factorisation structure
+and finer strata carrying corrections supported on singular or
+exceptional loci.
+
+\begin{example}[Local $\bP^2$ gluing via stratified Weiss covers]
+\label{ex:local-p2-stratified-weiss}
+Local $\bP^2 = \Tot(K_{\bP^2})$ carries the toric $T^2 = (\C^\times)^2$
+action descending from the fibrewise scaling on $\C^3 \to \bP^2$
+composed with the standard $T^2$-action on $\bP^2$. The $T^2$-stratum
+decomposition of local $\bP^2$ has four layers,
+\begin{equation}
+\label{eq:local-p2-toric-strata}
+  \Tot(K_{\bP^2}) \;=\;
+  M_{\mathrm{bulk}} \;\sqcup\; M_{\mathrm{edges}}
+  \;\sqcup\; M_{\mathrm{pts}} \;\sqcup\; M_{\mathrm{fibre}},
+\end{equation}
+parameterised by $T^2$-orbit type on the zero section together with
+the total-space direction transverse to $\bP^2$:
+\begin{enumerate}
+\item[(i)] $M_{\mathrm{fibre}} \cong \C^\times \times (\bP^2)^{T^2\text{-free}}$
+is the generic $5$-real-dimensional $T^2$-free stratum, combining the
+free-$T^2$-orbit locus on $\bP^2$ with the total-space fibre direction
+rescaled by $\C^\times$.
+\item[(ii)] $M_{\mathrm{bulk}} \cong (\C^\times)^2$ is the $2$-real-
+dimensional toric-bulk stratum of the zero section $\bP^2$, the
+$T^2$-free open subset of the compact $4$-real-dimensional $\bP^2$.
+\item[(iii)] $M_{\mathrm{edges}}$ is the disjoint union of the three
+toric $\bP^1$-edges of $\bP^2$ (each fixed by a sub-$\C^\times \subset
+T^2$); each edge is a $2$-real-dimensional closed $T^2$-invariant
+$\bP^1$, and the three edges intersect at the three toric fixed points.
+\item[(iv)] $M_{\mathrm{pts}}$ is the set of three $T^2$-fixed points
+$p_1, p_2, p_3 \in \bP^2$, each an isolated $0$-dimensional stratum.
+\end{enumerate}
+A stratified Weiss cover $\fU^{\mathrm{strat}}$ of local $\bP^2$
+assigns, to each finite configuration $S \subset \Tot(K_{\bP^2})$, an
+open $U \in \fU^{\mathrm{strat}}$ whose intersection with each of the
+four strata in \eqref{eq:local-p2-toric-strata} contains the
+corresponding slice $S \cap M_\bullet$. The stratum-by-stratum
+factorisation algebra reads: $M_{\mathrm{pts}}$ contributes the
+McKay-quiver CoHA centred on each toric fixed point's local $\C^3$
+chart (Part~II, \S$2.2$, Szendr\H{o}i--Nakajima); $M_{\mathrm{edges}}$
+contributes the three $\bP^1$-normal-bundle chiral algebras, each an
+$E_2$-factorisation algebra on the edge curve (Costello--Li
+\cite{CostelloLi2016} 4D hCS reduction over the edge); $M_{\mathrm{bulk}}$
+and $M_{\mathrm{fibre}}$ together recover the bulk 5D hCS reduction of
+local $\bP^2$ at $T^2$-generic parameter, matching the
+Bridgeland--King--Reid $D^b(\Coh(\Tot(K_{\bP^2}))) \simeq
+D^b(\mathrm{mod}\text{-}\mathrm{Beil}_3)$ equivalence on the zero section
+(the Beilinson quiver of $\bP^2$).
+The toric stratification is the reason the CoHA of local $\bP^2$
+decomposes, via the Costello--Gwilliam Weiss-cover gluing, into the
+three quiver-CoHAs at $M_{\mathrm{pts}}$ plus the three edge
+corrections at $M_{\mathrm{edges}}$ plus the bulk contribution at
+$M_{\mathrm{bulk}} \sqcup M_{\mathrm{fibre}}$, and not merely into the
+open-versus-zero-section pair $\Tot(K_{\bP^2})^\circ \sqcup \bP^2$ that
+ignores the toric equivariance structure.
+\end{example}
+
+\begin{remark}[Connection to Costello--Paquette $\C^3$ M-theory]
+\label{rem:costello-paquette-c3-m-theory}
+The Costello--Paquette programme (Costello--Paquette arXiv:$1810.06490$
+for $\C^3$ and arXiv:$2009.04834$ for the Omega-background extension)
+identifies the twisted M-theory factorisation algebra on $\R \times
+\C^2 \times S^1$ with the $\R$-quantised 5D hCS theory of
+Proposition~\ref{prop:nonabelian-5d-hcs-yangian-voa}, specialised to
+$\fg = \widehat{\fgl}_\infty$ and twisted by an Omega-background on
+the $\C^2$ holomorphic factor. The stratified Weiss cover of the
+M-theory $\C^3$-geometry decomposes as the toric $T^3$-stratification
+of $\C^3$ (one open stratum plus three $\C^2 \subset \C^3$ toric-
+divisor strata plus three $\C \subset \C^2$ toric-edge strata plus the
+origin $0 \in \C^3$), and the reduction to 5D hCS on $\R \times \C^2$
+amounts to compactifying the $S^1$-factor and restricting to the
+generic $T^2 \subset T^3$-invariant slice. The $\widehat{\fgl}_\infty$
+Yangian VOA arising in this reduction is the M-theoretic extension of
+the finite-rank Yangian VOA of
+Proposition~\ref{prop:nonabelian-5d-hcs-yangian-voa}, with the
+$T^3$-stratified Weiss-cover gluing supplying the degeneration
+structure across the codimension-$1$ toric-divisor walls.
+\end{remark}
+
+\begin{remark}[Strict super-factorisation across strata]
+\label{rem:strict-super-factorisation-stratified}
+The strict super-factorisation axiom of
+Remark~\ref{rem:strict-super-factorisation} extends to stratified
+Weiss covers: the Koszul super-braiding in the structure maps
+\eqref{eq:prefactorisation-structure-map} restricted to each stratum
+remains a strict equality in $\Ch(\sVect)$, and the
+stratum-$\Z/2$-grading compatibility along codimension-$1$ strata is a
+strict equality of interchange isomorphisms rather than a coherence
+homotopy. The stratification does not promote the super-factorisation
+axiom to a coherence datum. The reason the K3 $\times$ E fibre
+stratification (compact fibre $K3 \times \{\mathrm{pt}\}$ over an
+elliptic base $\{\mathrm{pt}\} \times E$) carries a strict
+$\Z/2$-grading on the global chiral algebra is that each of the two
+strata is itself a factorisation algebra in $\Ch(\sVect)$ with the
+strict interchange, and the gluing along the stratum boundary uses
+only the strict $1$-categorical symmetry of $\Ch(\sVect)$; no
+$(\infty, 1)$-categorical homotopy bookkeeping is required at this
+step. The same strict extension applies to the local $\bP^2$ toric
+stratification of Example~\ref{ex:local-p2-stratified-weiss} with
+the three fixed-point $\C^3$-CoHAs carrying strict $\Z/2$-gradings
+inherited from the conifold prototype of Part~II, \S$2.1$.
+\end{remark}
+
+\section*{Section summary}
+
+Sections~\ref{sec:fa-weiss-covers}--\ref{sec:fa-hol-top} establish the
+factorisation-algebra gluing mode of Part~V at four elementary levels.
+The Weiss-cover criterion (Definition~\ref{def:weiss-cover}) replaces
+ordinary open covers with finite-point-configuration covers; a
+two-chart atlas is not a Weiss cover
+(Proposition~\ref{prop:two-chart-not-weiss}), and the disjoint-union
+closure of an open cover is the canonical Weiss refinement
+\eqref{eq:weiss-refinement}. The Ran space of a curve indexes chiral
+observables as a factorisation cosheaf, and the Francis--Gaitsgory
+chiral Koszul duality (Theorem~\ref{thm:fg-chiral-koszul}) identifies
+chiral algebras on a curve with factorisation cosheaves on the Ran
+space; the higher-dimensional Francis $E_n$-analogue
+(Theorem~\ref{thm:francis-en-koszul}) underlies the CY$_3$ construction.
+The two-stage factorisation $\Phi_3 = \SpCh_{\Sigma_2, C} \circ
+\PhiFA_3$ (equations~\eqref{eq:stage-one-output}--\eqref{eq:phi3-two-stage})
+assembles Stage~1 by the Costello--Gwilliam factorisation-envelope
+refinement of Kontsevich--Tamarkin $E_3$-formality and descends to
+Stage~2 by factorisation homology over a transverse $\Sigma_2$-fibre
+(Proposition~\ref{prop:fa-transverse-integration}); each stage is
+itself a Weiss-cover gluing. The 5D holomorphic Chern--Simons
+factorisation algebra on $\R \times \C^2$
+(equation~\eqref{eq:5d-hCS-factorisation}) decomposes into a topological
+$E_1$-factor on $\R_t$ and a holomorphic $E_2$-factor on $\C^2_{z_1, z_2}$
+by Francis' holomorphic-topological splitting (arXiv:$1303.0305$
+Theorem~$1.1$) specialising Dunn--Lurie to the reading
+$E_3 \simeq E_1^{\mathrm{top}} \otimes E_2^{\mathrm{hol}}$
+(equation~\eqref{eq:dunn-lurie-e1-top-e2-hol}); non-abelian 5D hCS
+converges to the Yangian VOA at all orders for simply-laced bosonic
+$\fg$ by the combined collapse of $\hbar$-towers on each factor
+(Proposition~\ref{prop:nonabelian-5d-hcs-yangian-voa}), and the super
+case remains open
+(Remark~\ref{rem:5d-super-hcs-open}). Stratified
+Weiss covers (Definition~\ref{def:stratified-weiss-cover}) extend the
+local-to-global axiom to stratified targets; the local $\bP^2$ toric
+$T^2$-stratification (Example~\ref{ex:local-p2-stratified-weiss}) has
+four layers $M_{\mathrm{pts}} \sqcup M_{\mathrm{edges}} \sqcup
+M_{\mathrm{bulk}} \sqcup M_{\mathrm{fibre}}$ indexing three fixed
+points, three toric $\bP^1$-edges, the toric-bulk zero section, and
+the generic fibre, each carrying a stratum-specific factorisation
+algebra whose gluing reproduces the CoHA of local $\bP^2$. The
+Costello--Paquette $\C^3$ M-theory picture (arXiv:$1810.06490$,
+arXiv:$2009.04834$; Remark~\ref{rem:costello-paquette-c3-m-theory})
+identifies the $T^3$-stratified $\C^3$-geometry of twisted M-theory with
+the $S^1$-compactification of 5D hCS on $\R \times \C^2$, specialised
+to $\fg = \widehat{\fgl}_\infty$. The strict super-factorisation
+axiom in $\Ch(\sVect)$
+(Remarks~\ref{rem:strict-super-factorisation} and
+\ref{rem:strict-super-factorisation-stratified}) is $1$-categorical
+and is inherited strictly by stratified Weiss covers: the
+$\Z/2$-grading on the super-Yangian arising from the conifold two-chart
+gluing (Part~II, \S$2.1$), on the global chiral algebra of
+K3 $\times$ E, and on the three fixed-point CoHAs of local $\bP^2$ is
+a strict equality, not a coherence datum. Part~VI turns to
+wall-crossing gluing, Stratum-independent and complementary to the
+Weiss-cover locality of the present Part.

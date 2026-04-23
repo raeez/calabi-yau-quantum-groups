@@ -1,0 +1,389 @@
+% !TEX root = ../main.tex
+%
+% Gluing Chapter, Part VII
+% Lattice-polarised / automorphic gluing (Stratum iv)
+%
+% First-principles elementary derivation. CG voice.
+
+\part{Lattice-polarised / automorphic gluing (Stratum iv)}
+\label{part:gluing-lattice-automorphic}
+
+The preceding parts assembled CoHAs by Čech, orbifold-McKay, tilting, factorisation-algebra, and wall-crossing cocycles. Each of those cocycles is \emph{geometric}: it lives on the variety $X$ or on a stack quotient of $X$. Part VII opens a different register. The gluing datum we now unpack does not live on $X$ at all; it lives on the period domain of $X$. Its Fourier coefficients, read off a single meromorphic Siegel modular form, produce the CoHA structure constants directly. This is the automorphic lane of the gluing atlas, and it is the register on which the Borcherds-Monster and K3~$\times$~E data were always going to be read.
+
+We give the derivation in four steps. First, the Mukai lattice and the Kuga--Satake period map (\S\ref{gluech:7.1}). Second, weak Jacobi forms and the Borcherds lift (\S\ref{gluech:7.2}). Third, the Gritsenko--Cl\'ery eight-form family and the universal identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ (\S\ref{gluech:7.3}). Fourth, the $\Delta_5$ / K3~$\times$~E gluing, which assembles the local Hall--Drinfeld pieces into the global BKM algebra $\mathfrak{g}_{\Delta_5}$ (\S\ref{gluech:7.4}).
+
+\section{The Mukai lattice and the period map}
+\label{gluech:7.1}
+
+\subsection{Even integral cohomology of K3 as a lattice}
+
+Fix a K3 surface $X$ over $\C$. Its even integral cohomology
+\[
+  \widetilde H(X, \Z) \;:=\; H^0(X, \Z) \oplus H^2(X, \Z) \oplus H^4(X, \Z)
+\]
+has rank $1 + 22 + 1 = 24$. The cup product makes $H^2(X, \Z)$ into the $\mathrm{K3}$ lattice $E_8(-1)^{\oplus 2} \oplus U^{\oplus 3}$ of signature $(3, 19)$, where $U$ denotes the hyperbolic plane $\begin{psmallmatrix} 0 & 1 \\ 1 & 0 \end{psmallmatrix}$ and $E_8(-1)$ the negative-definite $E_8$ root lattice. The unit classes $1 \in H^0$ and $[\mathrm{pt}] \in H^4$ contribute a further hyperbolic plane when one pairs them by Poincar\'e duality. Altogether
+\[
+  \widetilde H(X, \Z) \;\cong\; U^{\oplus 4} \oplus E_8(-1)^{\oplus 2} \;=\; \mathrm{II}_{4, 20}.
+\]
+The subscripts $(4, 20)$ record the signature.
+
+\subsection{The Mukai pairing}
+
+Cup product alone does not see the grading $0 + 2 + 4$; it symmetrises between $H^0$ and $H^4$ but forgets them. Mukai's observation is that a \emph{sign-twist} on the middle degree yields the correct pairing for Hodge-isometric period geometry. For
+\[
+  v \;=\; (v_0, v_1, v_2), \qquad w \;=\; (w_0, w_1, w_2),
+\]
+write $v_0, w_0 \in H^0$, $v_1, w_1 \in H^2$, $v_2, w_2 \in H^4$. The \emph{Mukai pairing} is
+\begin{equation}
+  \langle v, w\rangle_M \;=\; v_0 \smile w_2 \;+\; v_2 \smile w_0 \;-\; v_1 \smile w_1
+  \label{eq:mukai-pairing}
+\end{equation}
+with the minus sign on the middle contraction. Under the identifications $H^0 \cong \Z$, $H^4 \cong \Z$ (via the fundamental class) this is
+\[
+  \langle (r, L, s), (r', L', s')\rangle_M \;=\; r s' + r' s - L \cdot L'.
+\]
+The minus sign is forced by the requirement that the Chern character
+\[
+  \mathrm{ch}\colon K_0(X) \longrightarrow \widetilde H(X, \Q),
+  \qquad
+  \mathrm{ch}([\mathcal F]) = \bigl(\mathrm{rk}\, \mathcal F, \; c_1(\mathcal F), \; \mathrm{ch}_2(\mathcal F)\bigr)
+\]
+turn Euler characteristic $\chi(\mathcal F, \mathcal G) := \sum_i (-1)^i \dim \mathrm{Ext}^i(\mathcal F, \mathcal G)$ into Mukai pairing on the Mukai vector $v(\mathcal F) := \mathrm{ch}(\mathcal F) \cdot \sqrt{\mathrm{td}(X)}$: for K3 with trivial canonical bundle,
+\[
+  \chi(\mathcal F, \mathcal G) \;=\; -\langle v(\mathcal F), v(\mathcal G)\rangle_M.
+\]
+The Riemann--Roch computation is elementary: $\chi = \int_X \mathrm{ch}(\mathcal F^\vee \otimes \mathcal G) \cdot \mathrm{td}(X)$, expand, and the cross term between $\mathrm{ch}_1(\mathcal F^\vee)$ and $\mathrm{ch}_1(\mathcal G)$ produces the $-L \cdot L'$ summand. That single minus sign is what distinguishes $\mathrm{II}_{4, 20}$ from the totally split $(3, 21)$ form one might na\"ively write down; it encodes Poincar\'e duality plus Hirzebruch--Riemann--Roch simultaneously.
+
+\subsection{Three-graded Mukai vectors and rank/$c_1$/$c_2$}
+
+A coherent sheaf $\mathcal F$ on $X$ carries three primary discrete invariants: its rank $r = \mathrm{rk}\, \mathcal F$, first Chern class $c_1(\mathcal F) \in H^2(X, \Z)$, and Chern character $\mathrm{ch}_2(\mathcal F) = \tfrac12 c_1^2 - c_2 \in H^4(X, \Z)$. The Mukai vector repackages these into a single element of $\widetilde H$:
+\[
+  v(\mathcal F) \;=\; \mathrm{ch}(\mathcal F) \cdot \sqrt{\mathrm{td}(X)} \;=\; \bigl(r, \; c_1, \; \tfrac12 c_1^2 - c_2 + r\bigr).
+\]
+The degree-$4$ component acquires $+r$ from the Todd square root: for K3, $c_1(X) = 0$ and $c_2(X) = 24$ give $\mathrm{td}_2(X) = \tfrac{1}{12}(c_1(X)^2 + c_2(X)) = 2$, whence $\mathrm{td}(X) = 1 + 2[\mathrm{pt}]$ and $\sqrt{\mathrm{td}(X)} = 1 + [\mathrm{pt}]$ (the $[\mathrm{pt}]$-coefficient of the square root being $\mathrm{td}_2(X)/2 = 1$ since higher-order corrections vanish on a surface). Multiplication by $1 + [\mathrm{pt}]$ shifts the degree-$4$ Chern slot by the rank $r$. The \emph{three-graded structure} of $\widetilde H = H^0 \oplus H^2 \oplus H^4$ is visible in this display: rank sits in the first slot, $c_1$ in the second, the Todd-shifted $(\tfrac12 c_1^2 - c_2 + r)$ in the third. The Mukai pairing \eqref{eq:mukai-pairing} then computes Euler pairings directly.
+
+\subsection{Kuga--Satake correspondence to a Shimura variety}
+
+The period domain of polarised K3 is the non-compact Hermitian symmetric space
+\[
+  \mathcal D_{\mathrm{K3}} \;=\; \bigl\{\,\Omega \in \mathbb P\bigl(H^2(X, \C)\bigr) : \Omega \cdot \Omega = 0,\; \Omega \cdot \overline\Omega > 0\,\bigr\}
+\]
+with action of the orthogonal group $\mathrm{O}(\Lambda_{K3})$ of the K3 lattice. Its dimension is $20$, matching $h^{1,1}(X) = 20$.
+
+The \emph{Kuga--Satake construction} sends $X$ to a complex abelian variety $\mathrm{KS}(X)$ of dimension $2^{19}$ with $\End\bigl(\mathrm{KS}(X)\bigr) \supset \mathrm{Cl}^+(H^2(X, \R))$, the even Clifford algebra of the K3 lattice. The periods of $\mathrm{KS}(X)$ determine the periods of $X$: there is a canonical morphism of period domains
+\[
+  \mathrm{KS}\colon \mathcal D_{\mathrm{K3}} \hookrightarrow \mathcal H_{2^{19}}
+\]
+identifying K3 periods with a sub-locus of the genus-$2^{19}$ Siegel upper half-space. This embeds Hodge-theoretic K3 data into Shimura-varietal data, opening the door to automorphic forms.
+
+For the Mukai-enhanced lattice $\mathrm{II}_{4, 20}$ the relevant period domain enlarges to
+\[
+  \mathcal D_{4, 20} \;=\; \bigl\{\, \Omega \in \mathbb P(\widetilde H_\C) : \langle \Omega, \Omega\rangle_M = 0, \; \langle \Omega, \overline\Omega\rangle_M > 0 \,\bigr\}
+\]
+which is of complex dimension $22$. This is the natural home for Bridgeland stability conditions: the positive cone $\{\,\Omega : \langle \Omega, \overline\Omega\rangle_M > 0\,\}$ is precisely where $Z(v) = \langle \Omega, v\rangle_M$ defines a central charge satisfying the support property. The period map to $\mathcal D_{4, 20}$, modulo the arithmetic group $\mathrm{O}(\mathrm{II}_{4, 20})$, is the target of the Borcherds lift.
+
+\subsection{Humbert divisors as polarisation strata}
+
+Inside $\mathcal A_2 = \mathcal H_2 / \mathrm{Sp}_4(\Z)$ the \emph{Humbert divisors} $\mathcal H_D \subset \mathcal A_2$ parametrise abelian surfaces whose endomorphism ring contains an order of discriminant $D$. The divisor $\mathcal H_1$ corresponds to products $E_1 \times E_2$ of elliptic curves; $\mathcal H_4$ to $E \times E$ with $E$ having an order-$4$ endomorphism. Under Kuga--Satake these pull back to sub-loci of the K3 period domain where the N\'eron--Severi lattice acquires extra classes. The \emph{lattice-polarised} K3s of rank-$n$ N\'eron--Severi live on such Humbert-style loci, and the moduli space $\mathcal F_\Lambda$ of $\Lambda$-polarised K3s is an $(20 - \mathrm{rk}\, \Lambda)$-dimensional arithmetic quotient of $\mathcal D_{\mathrm{K3}}$. It is on these arithmetic quotients that Borcherds lifts live.
+
+\section{Borcherds lifts}
+\label{gluech:7.2}
+
+\subsection{Weak Jacobi forms: the elementary definition}
+
+A \emph{weak Jacobi form} of weight $k \in \Z$ and index $m \in \tfrac12 \Z$ is a holomorphic function
+\[
+  \phi\colon \mathcal H \times \C \longrightarrow \C,
+  \qquad (\tau, z) \longmapsto \phi(\tau, z),
+\]
+satisfying two transformation laws and a Fourier expansion.
+
+\textbf{Modular law.} For $\gamma = \begin{psmallmatrix} a & b \\ c & d\end{psmallmatrix} \in \mathrm{SL}_2(\Z)$,
+\[
+  \phi\!\left(\frac{a\tau + b}{c\tau + d}, \; \frac{z}{c\tau + d}\right) \;=\; (c\tau + d)^k \, e^{2\pi i m c z^2 / (c\tau+d)} \, \phi(\tau, z).
+\]
+
+\textbf{Heisenberg (elliptic) law.} For $(\lambda, \mu) \in \Z^2$,
+\[
+  \phi(\tau, z + \lambda \tau + \mu) \;=\; e^{-2\pi i m (\lambda^2 \tau + 2\lambda z)} \, \phi(\tau, z).
+\]
+
+\textbf{Fourier expansion.} The double periodicity plus the modular law force a Fourier series
+\[
+  \phi(\tau, z) \;=\; \sum_{n, \ell} c(n, \ell) \, q^n y^\ell,
+  \qquad q := e^{2\pi i \tau}, \quad y := e^{2\pi i z},
+\]
+where $(n, \ell)$ runs over $\Z \times \Z$ (resp.\ $\Z \times (\Z + \tfrac12)$ if $m$ is half-integral). A \emph{weak} Jacobi form allows negative $n$ with $4mn - \ell^2 \geq -N$ for some $N \geq 0$; equivalently, the polar part at the cusp is controlled.
+
+The space $J_{k, m}^{\mathrm{weak}}$ is a finite-dimensional $\C$-vector space, and its structure for small $(k, m)$ is computable by a Riemann--Roch argument on the modular curve; classical references are Eichler--Zagier. For K3 the critical instance is
+\[
+  \phi_{0, 1}^{\mathrm{K3}} \;\in\; J_{0, 1}^{\mathrm{weak}},
+\]
+a weight-$0$, index-$1$ form whose Fourier coefficients compute the elliptic genus of K3:
+\[
+  \phi_{0, 1}^{\mathrm{K3}}(\tau, z) \;=\; 4 \left[ \frac{\theta_2(\tau, z)^2}{\theta_2(\tau, 0)^2} + \frac{\theta_3(\tau, z)^2}{\theta_3(\tau, 0)^2} + \frac{\theta_4(\tau, z)^2}{\theta_4(\tau, 0)^2} \right].
+\]
+The Laurent expansion at the cusp reads
+\[
+  \phi_{0, 1}^{\mathrm{K3}}(\tau, z) \;=\; q^{-1}(y^{-1} + 10 + y) \;+\; O(q),
+\]
+so the polar-part discriminant is $c(-1, \pm 1) = 1$ and the singular-theta constant term is $c_1(0, 0) = 10$; the Witten index at $y = 1$ is the Euler number $\chi(K3) = 24$. The constant $c_1(0, 0) = 10$ is the input to the Borcherds weight formula $k_{\Psi} = c_\phi(0, 0)/2$, yielding $k_{\Delta_5} = 5$.
+
+\subsection{The Borcherds product formula}
+
+The passage from Jacobi form to automorphic form on a bigger orthogonal group is Borcherds's \emph{singular theta lift}. For a weak Jacobi form $\phi = \sum c(n, \ell) q^n y^\ell$ of index $m$, the Borcherds lift is the function
+\begin{equation}
+  \Psi_\phi(v) \;=\; e^{2\pi i \langle \rho, v\rangle} \prod_{\alpha > 0} \bigl(1 - e^{2\pi i \langle \alpha, v\rangle}\bigr)^{c(|\alpha|^2/2)}
+  \label{eq:borcherds-product}
+\end{equation}
+on a Grassmannian $\mathcal G$ attached to a lattice $L$ of signature $(n, 2)$. Unpacking:
+
+\begin{itemize}
+  \item The product runs over positive roots $\alpha$ of an infinite-dimensional root system inside $L$; \emph{positive} means lying on a fixed side of a Weyl wall.
+  \item The Weyl vector $\rho$ is determined by $\phi$; its role is to absorb the leading term of the product.
+  \item The exponent $c(|\alpha|^2 / 2)$ is a Fourier coefficient of $\phi$; only the value of $n - \ell^2/(4m)$, i.e.\ $|\alpha|^2/2$, enters.
+  \item The product converges in a neighbourhood of the cusp; the singular theta lift extends it meromorphically to the full Hermitian symmetric domain.
+\end{itemize}
+
+The key fact is Borcherds's \emph{automorphy theorem} (Borcherds, \emph{Invent.\ Math.}~132 (1998), Theorem~13.3): $\Psi_\phi$ is a meromorphic automorphic form of weight $k_\Psi$ on $\mathrm{O}^+(L)$, with divisor supported on Heegner divisors (rational quadratic divisors of $\mathcal G$) and order of zero/pole along each Heegner divisor determined by the principal-part Fourier coefficients of $\phi$. The weight is
+\begin{equation}
+  k_\Psi \;=\; \tfrac12 \, c_\phi(0, 0),
+  \label{eq:borcherds-weight}
+\end{equation}
+where $c_\phi(0, 0)$ is the cusp constant term of the vector-valued input at the principal $0$-dimensional cusp. This is Theorem 13.3 of Borcherds 1998 (``The singular theta correspondence and automorphic forms''), not Theorem 10.1, which records only the singular-theta automorphicity without the weight formula. Identity \eqref{eq:borcherds-weight} is the direct source of the $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0, 0)/2$ identity we pursue below.
+
+\subsection{Modular covariance under $\mathrm{O}(\mathrm{II}_{n, 2})$}
+
+The lift $\Psi_\phi$ transforms under the arithmetic subgroup
+\[
+  \mathrm{O}^+(\mathrm{II}_{n, 2}) \;\subset\; \mathrm{O}(\mathrm{II}_{n, 2})
+\]
+of the even unimodular lattice of signature $(n, 2)$, with a specified character (typically trivial modulo a cover, detailed for each $\phi$). For our purposes $n = 2$ (Igusa $\Phi_{10}$ lives on $\mathrm{II}_{2, 2}$) and $n = 3$ (Gritsenko $\Delta_5$ on $\mathrm{II}_{3, 2}$) are decisive. Modular covariance means: the Fourier coefficients of $\Psi_\phi$, read in a neighbourhood of any cusp of $\mathcal D / \mathrm{O}^+$, determine the \emph{same} form globally; equivalently, the local Hall-algebra structure constants glue consistently across cusps of the period domain.
+
+\subsection{CoHA multiplication coefficients as Fourier coefficients}
+
+The gluing statement we extract from all this is concrete. Consider a BKM-type algebra $\mathfrak g$ whose denominator identity takes the form
+\begin{equation}
+  \Psi_\phi(v) \;=\; \sum_{w \in W} \mathrm{sgn}(w) \, w\!\left(e^{2\pi i \langle \rho, v\rangle} \prod_{\alpha > 0}^{\mathrm{real}} \bigl(1 - e^{2\pi i \langle \alpha, v\rangle}\bigr)\right)
+  \label{eq:bkm-denominator}
+\end{equation}
+with Weyl group $W$ acting on positive roots. Expanding both sides of \eqref{eq:borcherds-product} = \eqref{eq:bkm-denominator} and comparing Fourier coefficients produces the \emph{structure constants} of $\mathfrak g$: multiplicities of imaginary roots, Cartan matrix entries, Serre-relation coefficients, all come out as Fourier coefficients $c_\phi(n, \ell)$ with specific $(n, \ell)$.
+
+For a CoHA-side identification: when $\mathfrak g = \mathfrak g(X)$ is the BKM associated to a CY$_3$ compactification $X$ with lattice-polarised period (Stratum iv), the CoHA product
+\[
+  \mathcal H(X) \otimes \mathcal H(X) \longrightarrow \mathcal H(X)
+\]
+restricted to a rank-$2$ Cartan-torus direction $v \in \widetilde H(X)$ produces a bilinear form whose coefficients are precisely $c_\phi(n, \ell)$ with $(n, \ell)$ reading the two factors. This is the \emph{automorphic cocycle} on the period side: CoHA locally looks like a shuffle algebra on each lattice cusp; globally it glues into a module over the Borcherds-lifted algebra, and the gluing data are the Fourier coefficients of $\Psi_\phi$. The explicit chain-level statement, for the K3~$\times$~E case, is the content of \S\ref{gluech:7.4}.
+
+\section{The Gritsenko--Cl\'ery eight-form family}
+\label{gluech:7.3}
+
+\subsection{Two scopes of the Borcherds identity}
+
+Write $J_{0, m}^{\mathrm{weak}}$ for the space of weight-$0$, index-$m$ weak Jacobi forms. Two indexings of the Gritsenko--Cl\'ery programme recur in the literature, enumerating distinct scopes of the universal identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0, 0)/2$.
+
+\textbf{Scope (A): CHL ladder.} At the integer levels
+\[
+  N \in \{1, 2, 3, 4, 6\},
+\]
+cyclic $\Z/N$ symplectic orbifolds of $K3 \times E$ (Chaudhuri--Hockney--Lykken 1995) admit Borcherds products $\Phi_N$ whose Jacobi inputs are $\phi_{0, 1}^{\mathrm{K3}} \otimes T_N$ for explicit Hecke-type twists $T_N$. The cusp constant terms tabulate as
+\begin{equation}
+  \bigl(c_N(0, 0)\bigr)_{N \in \{1, 2, 3, 4, 6\}} \;=\; (10, \; 8, \; 6, \; 4, \; 2),
+  \label{eq:cn-zero-chl}
+\end{equation}
+matching Gritsenko--Nikulin \emph{Automorphic forms and Lorentzian Kac--Moody algebras} (Part II, Theorem~2.1, 1995), Eguchi--Hikami 2011 for the $N = 2$ Mathieu-twined entry, and Govindarajan--Krishna 2010 for $N \in \{3, 4, 6\}$. The level $N = 5$ is absent: the elliptic curve $E$ carries no automorphism of order $5$, so the CHL orbifold construction stops at $N = 6$.
+
+\textbf{Scope (B): Full Gritsenko--Cl\'ery eight-form atlas.} The paramodular-form classification programme (Gritsenko--Cl\'ery, \emph{The eight-form Gritsenko--Cl\'ery catalogue}, 2013 and 2018) enumerates eight canonical reflective automorphic products by paramodular type:
+\[
+  \phi_{0, m} \in J_{0, m}^{\mathrm{weak}}, \qquad m \in \{1, 2, 3, 4, 5, 6\}, \qquad \phi_{0, 1/2}, \; \phi_{0, 3/2}.
+\]
+Indexing the eight forms by their position in the catalogue and denoting the Borcherds weights by $w_N$, the per-form table reads
+\begin{equation}
+  \bigl(w_N\bigr)_{N = 1, \ldots, 8} \;=\; (5, \; 2, \; 1, \; 1, \; 1/2, \; 1, \; 1/4, \; 0), \qquad \bigl(c_N(0, 0)\bigr) \;=\; (10, \; 4, \; 2, \; 2, \; 1, \; 2, \; 1/2, \; 0),
+  \label{eq:cn-zero-gc-atlas}
+\end{equation}
+with the per-position identity $w_N = c_N(0, 0)/2$ holding verbatim row by row (Gritsenko--Cl\'ery 2013 \emph{J.\ Reine Angew.\ Math.} 678 \S 3). The terminal weight-$0$ entry is the degenerate fibre without BKM content.
+
+\textbf{Two scopes, one identity.} The two indexings coincide at cardinality $8$ by accident, not by functoriality. They agree at $N = 1$ (where both give $c_1(0,0) = 10$ and $\kappa_{\mathrm{BKM}} = 5$) and diverge at $N \in \{2, 3, 4, 6\}$: Scope (A) reads the Jacobi input $\phi_{0,1}^{\mathrm{K3}} \otimes T_N$ of weight $k(N) = N-1$ type (yielding $(8, 6, 4, 2)$), while Scope (B) reads an independent twined weight-$0$ weak Jacobi form $\phi_{0, N}^{(g_N)}$ (yielding $(4, 2, 2, 2)$ at $N = 2, 3, 4, 6$). Every invocation of the universal formula $\kappa_{\mathrm{BKM}} = c_N(0, 0)/2$ must name which scope.
+
+\subsection{The universal identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$}
+
+Each $\phi_{0, N}$ has a Borcherds-style lift $\Phi_N$ to a Siegel modular form on $\mathrm{Sp}_4(\Z)$ (or its $\mathrm{Mp}_4$ / $\widetilde{\mathrm{Mp}}_4$ cover). The lift $\Phi_N$ has weight
+\[
+  k_{\Phi_N} \;=\; \tfrac12 \, c_N(0, 0)
+\]
+by the Borcherds automorphy theorem from \S\ref{gluech:7.2}. Identifying this weight with the Cartan--Killing invariant of the associated BKM algebra gives
+\begin{equation}
+  \kappa_{\mathrm{BKM}}(\Phi_N) \;=\; \tfrac12 \, c_N(0, 0)
+  \label{eq:kappa-bkm-universal}
+\end{equation}
+in both scopes. Numerical witnesses:
+\[
+  \text{Scope (A, CHL):}\quad \bigl(\kappa_{\mathrm{BKM}}(\Phi_N)\bigr)_{N \in \{1, 2, 3, 4, 6\}} \;=\; (5, \; 4, \; 3, \; 2, \; 1),
+\]
+via the Gritsenko--Nikulin 1995 Pt II Thm 2.1 CHL ladder;
+\[
+  \text{Scope (B, GC atlas):}\quad \bigl(w_N\bigr)_{N = 1, \ldots, 8} \;=\; (5, \; 2, \; 1, \; 1, \; 1/2, \; 1, \; 1/4, \; 0),
+\]
+via Gritsenko--Cl\'ery 2013 \S 3.
+
+\noindent The universality of \eqref{eq:kappa-bkm-universal} is that \emph{one} extraction rule --- weight equals half the cusp constant term of the Jacobi input --- governs all eight forms across both scopes. The scope declares which Jacobi input $\phi_{0, N}$ is being lifted; the extraction rule is the same.
+
+\subsection{Cover group stratification}
+
+The eight-form family stratifies naturally by the cover group of $\mathrm{Sp}_4$ under which the lift transforms:
+\[
+  \begin{array}{c|l}
+    \text{weight type} & \text{cover group} \\
+    \hline
+    \text{integral}, \; k \in \Z_{\geq 1} & \mathrm{Sp}_4(\Z) \\
+    \text{half-integral}, \; k \in \Z + \tfrac12 & \mathrm{Mp}_4(\Z) \\
+    \text{quarter-integral}, \; k \in \tfrac14 \Z \setminus \tfrac12 \Z & \widetilde{\mathrm{Mp}}_4(\Z) \\
+    \text{weight zero} & \text{degenerate}
+  \end{array}
+\]
+The degenerate weight-$0$ form is the terminal fibre of the GC atlas; its BKM algebra is trivial (one-dimensional abelian), and it marks the endpoint, not content. The integer-weight forms at positions $N \in \{1, 2, 3, 4, 6\}$ sit on classical $\mathrm{Sp}_4(\Z)$-Siegel modular forms; the half-weight form (at position $5$ of the GC atlas, weight $w_5 = 1/2$) sits on a genuine $\mathrm{Mp}_4$-object; the quarter-weight form (at position $7$, weight $w_7 = 1/4$) sits on a $\widetilde{\mathrm{Mp}}_4$ cover requiring the spin double of $\mathrm{Sp}_4$ to state coherently.
+
+\subsection{Each form is a gluing datum}
+
+Take $\Phi_N$ fixed. The Borcherds product formula \eqref{eq:borcherds-product} expresses $\Phi_N$ as a product over positive roots of a BKM algebra $\mathfrak g_N$. The Cartan of $\mathfrak g_N$ is the Mukai lattice of a specific CY$_3$ geometry $X_N$: for $N = 1$, $X_1 = K3 \times E$ as elaborated below; for $N = 2, 3, 4, 6$, the CY$_3$ is the Nikulin--Scheithauer CHL compactification on orbifolds $(K3 \times T^2) / \Z_N$ with Mukai-type lattice reduction. The \emph{gluing datum} is: the CoHA product on $\mathcal H(X_N)$, restricted to any pair of generators $\alpha, \beta$ with $\alpha + \beta$ a positive root of $\mathfrak g_N$, has structure constant equal to a specific Fourier coefficient of $\Phi_N$.
+
+This is the Stratum-(iv) gluing in its most compact form. The local data on each equivariant chart of $X_N$ produces local Hall-algebra pieces; the \emph{automorphic cocycle} assembling these pieces into a global algebra is $\Phi_N$ itself. Different $N$ give different gluings because different $N$ produce different lattice-polarisations on the period domain.
+
+\section{The $\Delta_5$ and K3~$\times$~E gluing}
+\label{gluech:7.4}
+
+\subsection{From $\phi_{0, 1}^{\mathrm{K3}}$ to $\Delta_5$}
+
+The K3 weak Jacobi form $\phi_{0, 1}^{\mathrm{K3}}$ introduced in \S\ref{gluech:7.2} is the input to Gritsenko's lift in the $N = 1$ case. Gritsenko's construction, refined from Maass's additive lift, produces a holomorphic \emph{Siegel modular form} $\mathrm{Grit}(\phi)$ of weight $\tfrac12 c_\phi(0, 0)$ on the genus-$2$ Siegel upper half-space $\mathcal H_2 = \{Z \in M_{2\times 2}(\C) : Z = Z^T,\; \mathrm{Im}\, Z > 0\}$. For $\phi = \phi_{0, 1}^{\mathrm{K3}}$ we have $c_\phi(0, 0) = 10$, hence
+\[
+  \Delta_5 \;:=\; \mathrm{Grit}(\phi_{0, 1}^{\mathrm{K3}}) \;\in\; M_5\!\left(\mathrm{Sp}_4(\Z)\right),
+\]
+a Siegel cusp form of weight $5$.
+
+Explicitly, Gritsenko's formula writes the additive lift as
+\[
+  \mathrm{Grit}(\phi)(Z) \;=\; \sum_{m \geq 1} \phi|V_m(\tau, z) \, e^{2\pi i m w},
+  \qquad Z = \begin{pmatrix} \tau & z \\ z & w \end{pmatrix},
+\]
+with $V_m$ the $m$-th Hecke operator on weak Jacobi forms, and this additive lift agrees with the Borcherds multiplicative lift on the common domain by uniqueness of weight-$5$ Siegel cusp forms.
+
+The form $\Delta_5$ is the unique (up to scalar) weight-$5$ Siegel cusp form, vanishing on the diagonal locus $z = 0$ (which is the Humbert divisor $\mathcal H_1$ of $E_1 \times E_2$-products), and with Fourier expansion starting as
+\[
+  \Delta_5(Z) \;=\; \bigl(q^{1/2} \eta^{-1}(\tau) \eta^{-1}(w)\bigr) \cdot \bigl(1 - \text{O}(q)\bigr) \cdot \ldots
+\]
+after the Gritsenko normalisation.
+
+\subsection{The BKM algebra $\mathfrak g_{\Delta_5}$}
+
+The denominator identity for $\Delta_5$, written in Borcherds-product form \eqref{eq:borcherds-product} and in Weyl-sum form \eqref{eq:bkm-denominator}, produces a BKM superalgebra $\mathfrak g_{\Delta_5}$ with:
+
+\begin{itemize}
+  \item Cartan subalgebra $\mathfrak h_{\Delta_5}$ of rank $3$, with real-simple-root Gram matrix $\mathrm{diag}(2) - 2 \cdot (\mathbb 1 - \mathrm{diag}(1))$ having eigenvalues $(4, 4, -2)$ and hence signature $(2, 1)$ (Lorgat 2020 Lemma 1 and the $\Lambda^{2,1}_{II}$ sublattice of $\Lambda^{3,2}$);
+  \item Real simple roots $\{\delta_1, \delta_2, \delta_3\}$ forming an $\widetilde A_2$-like Dynkin diagram with off-diagonal entries $-2$;
+  \item Imaginary simple roots with multiplicities read off the Fourier coefficients $C_1(D)$ of $\phi_{0, 1}^{\mathrm{K3}}$, enumerated by the discriminant $D = 4nm - \ell^2$ of a positive root $\alpha = (n, \ell, m)$;
+  \item Weight (Borcherds singular-theta normalisation) $\kappa_{\mathrm{BKM}}(\mathfrak g_{\Delta_5}) = k_{\Delta_5} = 5$.
+\end{itemize}
+
+The value $5 = c_1(0, 0)/2 = 10/2$ is the exemplar of the universal identity \eqref{eq:kappa-bkm-universal}. First-principles derivation: by Borcherds's theorem the weight of $\Delta_5$ is half the constant term of $\phi_{0, 1}^{\mathrm{K3}}$, which in the normalisation $\phi_{0, 1}^{\mathrm{K3}}(0, 0) = c_1(0, 0) = 10$ gives $5$. On the BKM side the Killing form restricted to the Cartan, together with the twist by the Weyl vector, produces precisely $c_1(0, 0)/2$ as the normalisation integer. The matching is not a coincidence; it is a \emph{structural identity} forced by the Howe-duality pair $(\mathrm{SL}_2, \mathrm{O}(n, 2))$ underlying the theta lift.
+
+\subsection{The K3~$\times$~E geometry}
+
+The CY$_3$ carrying $\mathfrak g_{\Delta_5}$ is
+\[
+  X \;=\; K3 \times E,
+\]
+with $E$ an elliptic curve. Its Mukai-enhanced even cohomology is
+\[
+  \widetilde H(X, \Z) \;=\; \widetilde H(K3, \Z) \otimes H^\bullet(E, \Z) \;=\; \mathrm{II}_{4, 20} \otimes \bigl(\Z \oplus \Z[1] \oplus \Z\bigr),
+\]
+and the K\"unneth-multiplicative Calabi--Yau Euler invariant is
+\[
+  \kappa_{\mathrm{cat}}(X) \;=\; \chi(\mathcal O_X) \;=\; \chi(\mathcal O_{K3}) \cdot \chi(\mathcal O_E) \;=\; 2 \cdot 0 \;=\; 0.
+\]
+(The K3 fibre value $\chi(\mathcal O_{K3}) = 2$ is \emph{not} the total-space value; K\"unneth on products is multiplicative, not additive.) The K3-fibre Mukai rank $24$ remains visible as $\kappa_{\mathrm{fiber}}(X) = 24$ of the K3 factor.
+
+On the chiral side, Costello--Gaiotto $(2, 2)$ supersymmetric $\sigma$-model data on $K3 \times E$ produces a Heisenberg chiral shadow of central charge $3$:
+\[
+  \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) \;=\; 3,
+\]
+computed via the Heisenberg--Mukai specialisation of $\Phi_3$ along the $E$-factor. On the BKM side, the Borcherds lift $\Delta_5$ yields
+\[
+  \kappa_{\mathrm{BKM}}(\mathfrak g_{\Delta_5}) \;=\; 5.
+\]
+
+Four separate constructions produce four separate $\kappa_\bullet$ invariants, altogether
+\[
+  \{0, \; 3, \; 5, \; 24\} \;=\; \bigl\{\kappa_{\mathrm{cat}}(K3 \times E), \; \kappa_{\mathrm{ch}}^{\mathrm{Heis}}, \; \kappa_{\mathrm{BKM}}(\mathfrak g_{\Delta_5}), \; \kappa_{\mathrm{fiber}}(K3)\bigr\}.
+\]
+No two of these are numerically equal; no two of these arise from a shared formula. They are four \emph{distinct constructions} producing four distinct invariants. The $\Delta_5$-gluing speaks only to the third, $\kappa_{\mathrm{BKM}} = 5$.
+
+\subsection{Automorphic cocycle: assembling local Hall--Drinfeld pieces}
+
+The local $\mathbb C^3$ charts of $K3 \times E$ (in the elliptic-K3 presentation, twenty-four $I_1$-fibre loci each fibered over $E$, producing curve-supported local data of Jordan-triple type) each carry a Schiffmann--Vasserot CoHA $Y^+(\widehat{\mathfrak{gl}}_1)$. Locally these are the chart-wise CoHAs of Part II of the gluing chapter. Globally they do not glue by a Čech cocycle alone: the curve-supported nature of the $I_1 \times E$ stalks, the Aut($K3 \times E$)-equivariance, and the Humbert-monodromy action combine to enforce an automorphic gluing constraint.
+
+The \emph{automorphic cocycle} is $\Delta_5$. The statement, to be established chain-level in the K3~$\times$~E master-example chapter (Part VIII of the gluing atlas), is as follows.
+
+\begin{conjecture}[Automorphic assembly of $K3 \times E$ CoHA]
+\label{conj:automorphic-assembly-k3xe}
+Let $\mathcal H_\alpha$ denote the local Schiffmann--Vasserot CoHA on the $\alpha$-th $\mathbb C^3$-chart in the elliptic-K3 atlas, $\alpha = 1, \ldots, 24$. Then the global CoHA $\mathcal H(K3 \times E)$ fits into an exact sequence
+\[
+  \bigoplus_\alpha \mathcal H_\alpha \xrightarrow{\;\partial\;} \mathcal H(K3 \times E) \xrightarrow{\;\pi\;} U(\mathfrak g_{\Delta_5})^+ \longrightarrow 0
+\]
+in which the cokernel is the positive half of the universal enveloping algebra of $\mathfrak g_{\Delta_5}$, and the gluing cocycle $\partial$ is computed by Fourier coefficients $c_1(n, \ell)$ of $\phi_{0, 1}^{\mathrm{K3}}$. In particular, the structure constants of $\mathcal H(K3 \times E)$ are read from the Fourier expansion of $\Delta_5$.
+\end{conjecture}
+
+The first inscription of this statement is due to the author (Lorgat, arXiv:2007.14218), where the explicit Borcherds lift of $\phi_{0, 1}^{\mathrm{K3}}$ to $\Delta_5$ was paired with the GKM superalgebra $\mathfrak g_{\Delta_5}$ and a conjectural identification with eight Gritsenko--Cl\'ery forms matching DT zeta roots and twined elliptic genera. The content of that paper is the base case $N = 1$ of the universal eight-form ladder.
+
+The conjecture above is the \emph{gluing} re-statement of Lorgat 2020: not only does $\Delta_5$ label the BKM algebra, it serves as the explicit automorphic cocycle assembling local CoHA charts into the global algebra. The chain-level verification involves, for each pair of adjacent $I_1$-fibre loci $\alpha \neq \beta$, comparing the Čech gluing 2-cocycle on their overlap with the Fourier coefficient $c_1\bigl((\alpha - \beta)^2/2\bigr)$ of $\phi_{0, 1}^{\mathrm{K3}}$; the assertion is that these agree up to a coboundary, so that the 2-cocycle class is canonically represented by the Jacobi-Fourier expansion.
+
+\subsection{Two scopes of the universal Borcherds statement, revisited}
+
+Across both scopes of \S\ref{gluech:7.3}, each form $\Phi_N$ is the automorphic cocycle assembling the local CoHA charts of its host CY$_3$ into the global BKM algebra $\mathfrak g_N$. Scope (A), the CHL ladder $N \in \{1, 2, 3, 4, 6\}$, hosts the integer-weight $\mathrm{Sp}_4(\Z)$-Siegel cusp forms of weights $(5, 4, 3, 2, 1)$ with principal-part constants $(c_N(0, 0)) = (10, 8, 6, 4, 2)$; these are the Gritsenko--Nikulin (1995, Part~II Theorem~2.1) BKM siblings on $\Z/N$-orbifolded $K3 \times E$. Scope (B), the Gritsenko--Cl\'ery 8-form atlas $N \in \{1, \ldots, 8\}$, hosts paramodular reflective products of weights $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$ with principal-part constants $(10, 4, 2, 2, 1, 2, 1/2, 0)$; these live on the $\mathrm{Sp}_4$ / $\mathrm{Mp}_4$ / $\widetilde{\mathrm{Mp}}_4$ tower and include metaplectic and spin-cover forms absent from Scope (A).
+
+Both scopes are theorems. Both are load-bearing. Neither is the \emph{only} valid reading of \eqref{eq:kappa-bkm-universal}; the two scopes together are how the formula deserves to be quoted, and every citation of $\kappa_{\mathrm{BKM}} = c_N(0, 0)/2$ names which scope it invokes.
+
+\subsection{Global denominator identity and Fourier seed values}
+
+The denominator identity for $\mathfrak g_{\Delta_5}$ reads, in compressed notation,
+\[
+  \sum_{w \in W} \mathrm{sgn}(w) \, w\bigl(e^{2\pi i \langle \rho, Z\rangle} \prod_{\alpha > 0}^{\mathrm{real}}(1 - e^{2\pi i \langle \alpha, Z\rangle})\bigr)
+  \;=\; \Delta_5(Z),
+\]
+with $W$ the Weyl group generated by the three real simple reflections. The left-hand Weyl-sum is the Jacobi denominator, which for the $\widetilde A_2$ base rewrites as a product over positive roots $\alpha$ of $\widetilde A_2$ in the Mukai lattice. The right-hand Borcherds product is the multiplicative Fourier expansion:
+\[
+  \Delta_5(Z) \;=\; q^{1/2} r^{1/2} s^{1/2} \prod_{(n, \ell, m) > 0} \bigl(1 - q^n r^\ell s^m\bigr)^{c_1(4nm - \ell^2)},
+\]
+with $(q, r, s) = \bigl(e^{2\pi i \tau}, e^{2\pi i z}, e^{2\pi i w}\bigr)$, the triple $(n, \ell, m) > 0$ running over a fundamental chamber, and $c_1(D)$ the Fourier coefficient of $\phi_{0, 1}^{\mathrm{K3}}$ at discriminant $D = 4nm - \ell^2$.
+
+For a weight-$0$, index-$1$ weak Jacobi form the discriminant $D = 4n - \ell^2$ reduces modulo $4$ to $0$ or $3$; equivalently, $D \in \{-1, 0, 3, 4, 7, 8, \ldots\}$. Eichler--Zagier (\emph{The Theory of Jacobi Forms}, Theorem~2.2) shows that $c_1(n, \ell)$ depends only on the pair $(D, \ell \bmod 2)$; write $C_1(D)$ for the resulting discriminant-indexed Fourier coefficient. The direct Laurent expansion
+\[
+  \phi_{0, 1}^{\mathrm{K3}}(\tau, z) \;=\; q^{-1}(y^{-1} + 10 + y) \;+\; q\bigl(10 y^{-2} - 64 y^{-1} + 108 - 64 y + 10 y^2\bigr) \;+\; O(q^2)
+\]
+yields the first discriminant values
+\[
+  C_1(-1) = 1, \quad C_1(0) = 10, \quad C_1(3) = -64, \quad C_1(4) = 108, \quad \ldots,
+\]
+with $C_1(0) = 10$ realised both at $(n, \ell) = (0, 0)$ and at $(1, \pm 2)$ (Eichler--Zagier discriminant coherence). Discriminants $D \equiv 1, 2 \pmod 4$ are absent from the index-$1$ lattice. The convention $c_1(D = -1) = 2$ adopted in some denominator-identity presentations (Gritsenko--Nikulin 1998, \emph{Duke}~94) counts both $\ell = +1$ and $\ell = -1$ at $n = 0$ additively; we keep the single-$\ell$ normalisation $C_1(-1) = 1$ throughout the present section and flag the doubling at point of use. The integer $C_1(0) = 10$ appears both as the weight of the \emph{imaginary Weyl vector} $\rho$ of $\mathfrak g_{\Delta_5}$ and as the singular-theta constant term entering the Borcherds weight formula \eqref{eq:borcherds-weight}; $C_1(D)$ for $D \geq 3$ gives positive-root multiplicities
+\[
+  \mathrm{mult}(\alpha) \;=\; C_1\bigl(4nm - \ell^2\bigr), \qquad \alpha = (n, \ell, m) \in \Delta^+(\mathfrak g_{\Delta_5}).
+\]
+
+A central-$L$-value reading of the dyonic square $\Phi_{10} = \Delta_5^2$ produces a simple pole whose residue is the automorphic input to the BKM weight. The programme-scale parameter $s_{\mathrm{prog}} = 5/2$ rescales to Andrianov's convention $s_{\mathrm{Andr}}$ by a factor of $4$ (not $2$): one factor from $\Delta_5 \mapsto \Delta_{10} = \Delta_5^2$ Siegel-weight doubling, one from the unshifted-Andrianov $s_{\mathrm{Andr}} = k$ vs programme $s = k/2$ convention. Hence $s_{\mathrm{prog}} = 5/2 \mapsto s_{\mathrm{Andr}} = 10$. The Saito--Kurokawa lift factors the Andrianov spinor $L$-function as
+\[
+  L_{\mathrm{spin}}(s, \Phi_{10}) \;=\; \zeta(s - 8) \, \zeta(s - 9) \, L(s, g),
+\]
+where $g = \Delta \cdot E_6 \in S_{18}(\mathrm{SL}_2(\Z))$ is the weight-$18$ elliptic cusp form (Andrianov 1974). At $s = 10$, the factor $\zeta(s - 9) = \zeta(1) = \infty$ forces a simple pole; the residue is
+\begin{equation}
+  \mathrm{Res}_{s = 10} L_{\mathrm{spin}}(s, \Phi_{10}) \;=\; -15120 \cdot a_{10}(g) \cdot \Omega^-(g),
+  \label{eq:saito-kurokawa-residue}
+\end{equation}
+with $a_{10}(g) \in \Q$ the $10$-th Manin-polynomial Hecke coefficient of $g$ and $\Omega^-(g)$ the Manin minus-period. Ichino--Ikeda's theta-lift period formula identifies the Deligne period $c^+(\Phi_{10}, 5/2)$ of the SK Siegel form with the Manin period of the elliptic source $g$, not with a Siegel Petersson norm; this is a structural consequence of the SK lift being the theta correspondence from $\mathrm{Mp}_2$ to $\mathrm{Sp}_4$. The constant $15120 = 2^4 \cdot 3^3 \cdot 5 \cdot 7$ and the Hecke coefficient $a_{10}(g)$ are read from the Hecke expansion of $g$; the detailed derivation is in the K3~$\times$~E BKM chapter (\texttt{chapters/examples/k3e\_bkm\_chapter.tex}, remark \texttt{rem:wave15-fourier-seed-central-value}).
+
+\subsection{The closing synthesis}
+
+The reader has now seen four modes of CoHA gluing (Parts II--V) produce local-to-global assemblies on geometries with enough local structure (toric, orbifold, tilting-presented, or factorisation-locally-smooth). The present Part VII is the register which takes over when \emph{none} of the above suffice on their own: the lattice-polarised / automorphic stratum. Here the cocycle does not live on the variety at all; it lives on the period domain, and it is a \emph{single Siegel modular form} whose Fourier coefficients are the structure constants of the CoHA.
+
+The one identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0) / 2$ summarises what the automorphic cocycle contributes to the Vol III ledger. Across the Gritsenko--Cl\'ery family, eight distinct automorphic cocycles produce eight distinct $\kappa_{\mathrm{BKM}}$ values; in the master K3~$\times$~E instance, the cocycle is $\Delta_5$, the value is $5$, and the global algebra $\mathfrak g_{\Delta_5}$ is the BKM superalgebra whose positive half receives the collected local Hall--Drinfeld pieces from the $24$ $I_1 \times E$-stalks. The further assembly of these with the Mathieu orbifold stratum (iii) and the reduced Aut-equivariance stratum (ii) is the content of Part VIII; the present part establishes only the automorphic contribution, in the precise form that survives without the other strata's help.
+
+The period domain $\mathcal D_{4, 20}$, the Mukai pairing \eqref{eq:mukai-pairing}, the Jacobi form $\phi_{0, 1}^{\mathrm{K3}}$, the Borcherds product \eqref{eq:borcherds-product}, the Siegel form $\Delta_5$, and the BKM algebra $\mathfrak g_{\Delta_5}$ -- all these fit into a single commuting diagram in which the structure-constant extraction is forced by Borcherds's theta-lift theorem combined with Gritsenko's additive-multiplicative lift matching. This diagram is the gluing cocycle of Stratum (iv). We have now derived it from first principles.

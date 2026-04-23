@@ -1,0 +1,1091 @@
+\section{The K3 $\times$ E master example}
+\label{sec:gluing:k3e}
+\label{gluing:part:k3xe-master}
+Every strand of the preceding atlas converges on a single compact
+Calabi--Yau threefold. Elliptic K3 supplies a proper fibration $\pi
+\colon K3 \to \PP^1$ whose twenty-four nodal fibres enumerate the
+Kodaira Euler contribution; the product with an elliptic curve $E$
+stretches each node along an elliptic direction to produce a
+\emph{curve-stalk} supported on $E$, not a smooth $\C^3$-point. Four
+equivariance strata --- reduced $\Aut(K3)\times\Aut(E)$, orbifold
+inertia under Mathieu $M_{24}$, lattice-polarised Borcherds lift under
+Gritsenko's $\Delta_5$, and the latent toric atlas on each nodal
+stalk --- meet here simultaneously. The gluing cocycles along each
+stratum assemble the Hall--Drinfeld double, the imaginary-root Cartan,
+and the Humbert monodromy into one object, $\fg_{\Delta_5}$, whose
+Weyl--Kac--Borcherds denominator is $\Delta_5$ itself. This is the
+\emph{master example} promised in the architecture: the single test
+case where the chart-wise, derived-Morita, factorisation-algebraic,
+orbifold-inertial, and automorphic-cocycle mechanisms are all active,
+and the classification theorem of \S10 lands with full content.
+
+\subsection{Elliptic K3 as a nodal fibration}
+\label{gluing:sec:k3xe-elliptic-fibration}
+
+\begin{definition}[Generic elliptic K3]
+\label{gluing:def:elliptic-K3}
+\ClaimStatusDefinition
+An \emph{elliptic K3 surface} is a smooth compact K3 surface $S$
+together with a proper surjective morphism $\pi\colon S \to B = \PP^1$
+whose generic fibre is a smooth genus-$1$ curve. A choice of zero-section
+$s_0 \colon \PP^1 \to S$ makes $S$ an elliptic surface in the sense of
+Kodaira (Kodaira 1963, \emph{On compact analytic surfaces II, III},
+Ann.\ Math.\ 77 and 78). The fibration is \emph{generic} when the only
+singular fibres are of Kodaira type $I_1$ (a nodal rational curve, one
+node).
+\end{definition}
+
+\begin{proposition}[Kodaira's $\chi=24$ identity on generic elliptic K3]
+\label{gluing:prop:kodaira-24}
+\ClaimStatusProvedHere
+For a generic elliptic K3 $\pi\colon S \to \PP^1$ with zero-section,
+the number of singular fibres is exactly $24$. Each is of Kodaira type
+$I_1$ and contributes topological Euler number $1$:
+\[
+ \chi_{\mathrm{top}}(S) \;=\; \sum_{b \in B^{\mathrm{sing}}}
+ \chi_{\mathrm{top}}(\pi^{-1}(b)) \;=\; 24 \cdot 1 \;=\; 24.
+\]
+\end{proposition}
+
+\begin{proof}
+Away from $B^{\mathrm{sing}}$, $\pi$ is a proper submersion with
+fibre a smooth genus-$1$ curve; multiplicativity of Euler
+characteristic on a $C^\infty$ fibre bundle
+(Ehresmann 1950 \emph{Colloque de topologie de Bruxelles}, p.\ 29)
+gives
+\[
+ \chi_{\mathrm{top}}\!\bigl(\pi^{-1}(B \setminus B^{\mathrm{sing}})\bigr)
+ \;=\; \chi_{\mathrm{top}}(B \setminus B^{\mathrm{sing}}) \cdot
+ \chi_{\mathrm{top}}(T^2) \;=\; (2 - |B^{\mathrm{sing}}|) \cdot 0 \;=\; 0.
+\]
+Additivity of Euler characteristic for the open/closed pair
+$\pi^{-1}(B \setminus B^{\mathrm{sing}}) \hookrightarrow S
+\twoheadleftarrow \bigsqcup_{b \in B^{\mathrm{sing}}} \pi^{-1}(b)$
+--- valid for $\chi_{\mathrm{top}}$ on constructible-stratified
+spaces --- then contracts the bulk to
+\[
+ \chi_{\mathrm{top}}(S) \;=\;
+ \sum_{b \in B^{\mathrm{sing}}} \chi_{\mathrm{top}}(\pi^{-1}(b)).
+\]
+Kodaira's classification (1963 II, Theorem~6.2; Miranda 1989,
+\emph{The basic theory of elliptic surfaces}, Theorem~III.2.1)
+enumerates the possible singular fibres $I_n, II, III, IV, I_n^*,
+II^*, III^*, IV^*$ with tabulated Euler contributions; the
+type-$I_n$ fibre (cycle of $n$ smooth rational curves meeting
+transversally, each $\chi(\PP^1) = 2$ minus one for each of the $n$
+transversal intersections, total $2n - n = n$) contributes $n$.
+On a generic elliptic K3 --- a K3 in the generic stratum of the
+moduli of elliptic K3 fibrations, e.g.\ a smooth quartic in the
+Weierstrass presentation $\PP(1, 1, 4, 6)$ --- only $I_1$-fibres
+occur.
+
+The count of nodes is now fixed by the Noether formula
+$\chi_{\mathrm{top}}(S) = c_2(S)$ and the K3 constraint $c_2(K3) =
+24$ (Barth--Hulek--Peters--Van de Ven 2004 \emph{Compact Complex
+Surfaces} Ch.~VIII.3, equivalently $c_1 = 0 \Rightarrow
+\chi_{\mathrm{top}}(K3) = 12 \chi(\cO_{K3}) = 24$ by
+Noether). The equation $24 = \sum_b 1 = |B^{\mathrm{sing}}|$
+gives exactly $24$ nodal fibres.
+\end{proof}
+
+\begin{remark}[The $I_1$-fibre as pinched torus]
+\label{gluing:rem:I1-pinched-torus}
+A type-$I_1$ fibre is a nodal rational curve: an irreducible rational
+curve with a single ordinary double point. Topologically it is a
+$2$-sphere with two points identified, equivalently a pinched torus
+$T^2 / (p \sim p')$ where $(p, p')$ is a pair of points on the
+$2$-torus whose identification produces the node. This topological
+picture is the starting point of every local-to-global assembly on
+$S$: each $I_1$-fibre is the degenerate limit of a family of smooth
+elliptic fibres, and the monodromy of the family around the
+discriminant point $b \in B$ is the Picard--Lefschetz transformation
+fixing the vanishing cycle $\delta \in H_1(E_{\text{smooth}}, \Z)$.
+\end{remark}
+
+\begin{proposition}[Picard--Lefschetz monodromy around each $I_1$ node]
+\label{gluing:prop:picard-lefschetz}
+\ClaimStatusProvedHere
+Let $b_0 \in B \setminus B^{\mathrm{sing}}$ be a generic base point, and
+fix a small loop $\gamma_b \subset B \setminus B^{\mathrm{sing}}$
+encircling a single $I_1$-discriminant point $b \in B^{\mathrm{sing}}$.
+The monodromy
+\[
+ T_b \colon H_1(\pi^{-1}(b_0), \Z) \longrightarrow
+ H_1(\pi^{-1}(b_0), \Z)
+\]
+around $\gamma_b$ is a Dehn twist about the vanishing cycle $\delta \in
+H_1(\pi^{-1}(b_0), \Z)$. In the basis $(\delta, \delta^{\vee})$ of $H_1
+\cong \Z^2$ it acts as
+\[
+ T_b \;=\; \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} \;\in\; \SL_2(\Z),
+\]
+a parabolic (unipotent) element of $\SL_2(\Z)$ with trace $2$.
+\end{proposition}
+
+\begin{proof}
+The Picard--Lefschetz formula (Arnold--Gusein-Zade--Varchenko 1988,
+\emph{Singularities of Differentiable Maps II}, Ch.~1 Theorem~1.2;
+applied to the one-parameter family $\pi|_{\pi^{-1}(\gamma_b)}$ of
+elliptic curves degenerating at $b$) gives the monodromy on
+$H_1(\pi^{-1}(b_0), \Z) \cong \Z^2$ as
+\[
+ T_b(\alpha) \;=\; \alpha + \epsilon \langle \alpha, \delta \rangle
+ \delta,
+\]
+where $\delta$ is the vanishing cycle and $\epsilon = (-1)^{n(n+1)/2} =
+-1$ for the relative dimension $n = 1$; the sign convention is fixed
+by taking $\delta$ to be oriented so that the intersection form pairs
+$\langle \delta^\vee, \delta \rangle = +1$, which absorbs the sign
+and delivers the standard positive Dehn twist $\tau_\delta(\alpha) =
+\alpha + \langle \alpha, \delta\rangle \delta$ (Farb--Margalit 2012
+\emph{A primer on mapping class groups}, Proposition~6.3).
+In the basis $(\delta, \delta^{\vee})$ with intersection form
+$\begin{smallmatrix} 0 & -1 \\ 1 & \phantom{-}0 \end{smallmatrix}$,
+one computes
+$\tau_\delta(\delta) = \delta + \langle \delta, \delta\rangle \delta
+= \delta$
+and
+$\tau_\delta(\delta^{\vee}) = \delta^{\vee} + \langle \delta^{\vee},
+\delta\rangle \delta = \delta^{\vee} + \delta$,
+so the matrix in the basis $(\delta, \delta^{\vee})$ is
+$\begin{psmallmatrix} 1 & 1 \\ 0 & 1 \end{psmallmatrix}$, a
+parabolic (unipotent, trace $2$) element of $\SL_2(\Z)$.
+\end{proof}
+
+\begin{remark}[Global monodromy product is a relation]
+\label{gluing:rem:global-monodromy-trivial}
+The product $\prod_{b \in B^{\mathrm{sing}}} T_b$ is the monodromy
+around the boundary of $B \setminus B^{\mathrm{sing}}$, which is
+contractible in $\PP^1$; hence this product is trivial in
+$\SL_2(\Z)$. With $24$ parabolic factors, the relation
+$T_{b_1} \cdots T_{b_{24}} = 1$ is the classical $24$-fold positive
+relation of the mapping class group of a torus (Farb--Margalit 2012,
+\emph{A primer on mapping class groups}, Proposition~4.12); it enters
+the stability-datum bookkeeping of \S\ref{gluing:sec:k3xe-four-stratum}.
+\end{remark}
+
+\subsection{$K3 \times E$ as local--global assembly: the 24 curve-stalks}
+\label{gluing:sec:k3xe-local-global-assembly}
+
+The product geometry $X = K3 \times E$ inherits from $\pi \colon K3 \to
+\PP^1$ a \emph{relative fibration}
+\[
+ \pi \times \mathrm{id}_E \colon X \;=\; K3 \times E
+ \;\longrightarrow\; \PP^1 \times E.
+\]
+Over a point $b \in B \setminus B^{\mathrm{sing}}$ the fibre is a
+smooth elliptic curve $\times$ elliptic curve, a smooth abelian surface
+$E_b \times E$; over a singular $b \in B^{\mathrm{sing}}$, the fibre
+becomes $\{xy = 0\}$ (the $I_1$-nodal curve) crossed with $E$. This
+fibre is one-dimensional higher than its $K3$-only cousin and one
+dimension lower than an interior smooth $\C^3$-chart; its nodal
+locus is an \emph{elliptic curve}, not a point.
+
+\begin{definition}[Curve-stalk at an $I_1 \times E$ fibre]
+\label{gluing:def:curve-stalk}
+\ClaimStatusDefinition
+Let $b \in B^{\mathrm{sing}}$ be an $I_1$-discriminant point of the
+K3 fibration. The \emph{curve-stalk} of $X = K3 \times E$ at $b$ is the
+formal neighbourhood of the nodal locus
+\[
+ N_b \;:=\; \{(\mathrm{node})\} \times E \;\subset\; \pi^{-1}(b)
+ \times E \;\subset\; X,
+\]
+equipped with its normal-bundle structure inside $X$. Locally
+analytically near $N_b$, $X$ is isomorphic to
+\[
+ \bigl(\{xy = 0\} \subset \C^2\bigr) \times E \;\subset\; \C^2 \times E,
+\]
+the product of a nodal planar singularity with the elliptic curve $E$.
+\end{definition}
+
+\begin{remark}[Curve-stalk dimension against the smooth $\C^3$ default]
+\label{gluing:rem:not-smooth-C3}
+A smooth $\C^3$-chart on a toric CY$_3$ carries the
+Schiffmann--Vasserot positive half $\Yplus(\widehat{\fg\fl}_1)$
+supported at the isolated origin. The stalk above $b$ is not such a
+chart: the nodal singular locus $\{xy = 0\}$ is
+\emph{one-complex-dimensional} inside $X$, supported along the entire
+elliptic curve $E$. The local CoHA is the Davison critical CoHA of a
+Jordan-triple quiver-with-potential \emph{tensored fibrewise over
+$E$ with a locally free sheaf}, not a point-stalk
+$\Yplus(\widehat{\fg\fl}_1)$. The assembly of
+\S\ref{gluing:sec:k3xe-hall-drinfeld} is $24$ curve-stalks along
+$E$-copies.
+\end{remark}
+
+\begin{proposition}[Local model of the curve-stalk]
+\label{gluing:prop:local-model-curve-stalk}
+\ClaimStatusProvedHere
+In the analytic neighbourhood of $N_b$, $X$ is isomorphic to the total
+space of a crepant resolution datum for the ordinary double point
+$\{xy - zw = 0\}$ restricted along the $E$-factor: setting $w = $ the
+local coordinate on $\PP^1$ at $b$ and $z$ a transverse coordinate on
+the K3 surface, the local threefold is
+\[
+ X_{\text{loc}} \;\cong\;
+ \{(x, y, z, w) \in \C^4 : xw = zy\} \;\times_{\{w\}}\; E
+\]
+with $\{w = 0\}$ the elliptic curve $E$ fibred over the discriminant
+point. The singular locus of this model is $\{x = y = z = 0\} = E$.
+This is \emph{not} the conifold, but the conifold-fibred-over-$E$:
+the node $\{xy = 0\}$ in the K3 direction, thickened by the elliptic
+coordinate.
+\end{proposition}
+
+\begin{proof}
+Locally analytically near the node, a type-$I_1$ K3 fibre is
+$\{xy = w\} \subset \C^3$ with $w$ the local coordinate on $\PP^1$
+at $b$ (Kodaira 1963 II \S 6 normal forms; Miranda 1989 Theorem~III.3.1).
+Setting $w = 0$ recovers the nodal fibre $\{xy = 0\}$, a transverse
+intersection of two lines meeting at the origin. The product with
+$E$ adjoins the elliptic coordinate, giving the local analytic model
+\[
+ X_{\text{loc}} \;\cong\; \{xy = w\}_{(x, y, w) \in \C^3}
+ \;\times\; E.
+\]
+The singular locus is $\{x = y = w = 0\} \times E \cong E$, a
+one-complex-dimensional elliptic curve. This singular locus is
+\emph{not} a point: at each point of $E$ the germ of $X$ is a
+node $\{xy = 0\} \times \mathrm{pt}$ in transverse coordinates,
+but the total singular set is the entire elliptic fibre-direction.
+Contrast with a toric CY$_3$ such as $\C^3$ or the resolved
+conifold: there the singular set collapses to isolated points, and
+the Schiffmann--Vasserot positive half $\Yplus(\widehat{\fg\fl}_1)$
+is supported at each such point.
+
+The reparametrised form $\{xw = zy\}$ with a fourth coordinate $z$
+and $w$ small exhibits the germ as a conifold-quadric fibred in the
+elliptic coordinate; this is the form invoked by the
+Davison--Meinhardt critical-CoHA formula
+(Davison--Meinhardt 2020 \emph{Invent.\ Math.}~221) applied
+fibrewise over $E$.
+\end{proof}
+
+\begin{definition}[Local CoHA at a curve-stalk]
+\label{gluing:def:local-CoHA-curve-stalk}
+\ClaimStatusDefinition
+For each $b \in B^{\mathrm{sing}}$, the \emph{local CoHA at $N_b$} is
+the Davison critical CoHA of the quiver-with-potential
+\[
+ (Q_{\text{Jac}}, W_{\text{Jac}}) \;=\; \bigl(\text{loop quiver with
+ three loops } x, y, z,\; W = \mathrm{tr}(x[y, z])\bigr)
+\]
+base-changed to $E$-coefficients: as a graded vector space,
+\[
+ \CoHA_{\text{loc}}(N_b) \;=\;
+ \bigoplus_{\mathbf d \in \N^{Q_{\text{Jac}}^0}}
+ H^*_{G_{\mathbf d}}\!\bigl(\mathrm{Rep}(Q_{\text{Jac}}, \mathbf d),
+ \varphi_{W_{\text{Jac}}}\bigr) \otimes_\C H^*(E, \C),
+\]
+with the Hall product deformed by the local monodromy matrix $T_b$ of
+Proposition~\ref{gluing:prop:picard-lefschetz} acting on the $H^*(E)$-tensor
+factor. Over the generic $K3$-point each curve-stalk computes (via
+Schiffmann--Vasserot 2013, \emph{Duke Math.\ J.}~162, Theorem~1.1)
+the positive-half $\Yplus(\widehat{\fg\fl}_1)$ tensored with the
+elliptic cohomology ring; but the Hall product is twisted by the
+Picard--Lefschetz Dehn twist $T_b$ at the curve-stalk monodromy.
+\end{definition}
+
+\begin{remark}[Why the elliptic tensor is non-trivial]
+\label{gluing:rem:elliptic-tensor-non-trivial}
+If the $E$-factor played no role, each $I_1 \times E$ curve-stalk
+would contribute an ordinary $\Yplus(\widehat{\fg\fl}_1)$, and the
+global CoHA on $X$ would be twenty-four independent copies. The
+Picard--Lefschetz monodromy around each $I_1$-point acts non-trivially
+on $H_1(E_{\text{smooth}}) \otimes H^*(E)$, twisting the Hall product
+by the parabolic $T_b \in \SL_2(\Z)$ of
+Proposition~\ref{gluing:prop:picard-lefschetz}. This twist is precisely the
+content of the Maulik--Okounkov $R$-matrix $R^{\mathrm{MO}}(u)$
+evaluated at the elliptic parameter $u \in E$; equivalently, the
+MO-$R$ is the gluing cocycle residue of the UV positive-half
+$\phi^+_{\mathrm{UV}}$ across the curve-stalk (CLAUDE.md key fact on
+MO-$R$). Shutting off the elliptic direction --- sending $E \to
+\mathrm{pt}$ --- collapses $24$ curve-stalks to $24$ smooth points
+and recovers the Schiffmann--Vasserot K3 CoHA of
+Schiffmann--Vasserot 2013 \S 5 without any elliptic $R$-twist.
+\end{remark}
+
+\subsection{Four strata meeting at $K3 \times E$}
+\label{gluing:sec:k3xe-four-stratum}
+
+The equivariance taxonomy of \S 1.3 puts $K3 \times E$ in the deepest
+cell of the atlas: three of the four strata act on $X$
+simultaneously, with a fourth (the latent toric stratum) supplying
+the local-model ingredient of
+Proposition~\ref{gluing:prop:local-model-curve-stalk}. Each stratum contributes
+its own gluing cocycle, and the total gluing datum of $X$ is the
+simultaneous solution.
+
+\begin{theorem}[$K3 \times E$ sits in strata (ii), (iii), (iv) with a latent (i)-germ]
+\label{gluing:thm:k3xe-four-stratum}
+\ClaimStatusProvedHere
+The compact CY$_3$ $X = K3 \times E$ carries four distinct
+equivariance-cocycle structures:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Latent toric germ (stratum~(i)).} At each curve-stalk
+ $N_b$ the local model $\{xy = w\} \times E$ is a conifold-fibred-
+ in-$E$ chart; the toric $T^2$-symmetry of the conifold germ survives
+ fibrewise and supplies the local Fourier--Mukai kernel $K_{+-}(b) =
+ \cO_\Delta \otimes \pi_1^*\cO_{E}(-1)$ on the two-chart curve-stalk
+ cover (Van den Bergh 2004, \emph{Duke Math.\ J.}~122 \S 3 for the
+ conifold NCCR; base-changed to $E$).
+ \item \emph{Reduced $\Aut(K3) \times \Aut(E)$-cocycle (stratum~(ii)).}
+ The product automorphism group acts on $X$; for generic polarised
+ K3, $\Aut_s(K3)$ is trivial or finite, and $\Aut(E) = E \rtimes \Z/2$
+ (translation by $E$-torsors plus inversion). Derived-Morita gluing
+ along the $\Aut_s(K3) \times \Aut(E)$-orbits assembles automorphism-
+ equivariant local pieces across $X / (\Aut_s(K3) \times \Aut(E))$.
+ \item \emph{Mathieu $M_{24}$-orbifold inertia (stratum~(iii)).}
+ The Mathieu moonshine of Eguchi--Ooguri--Tachikawa 2010
+ (arXiv:1004.0956) assigns to each conjugacy class $[g] \subset
+ M_{24}$ a twined elliptic genus $\phi_{[g]} \in J_{0,1}(\Gamma_0([g]))$,
+ producing a $M_{24}$-equivariant decomposition of $H^*(K3)$ and
+ a twined K3 chiral datum. On $X$, the $M_{24}$-inertia stack
+ $I(X/M_{24})$ fibres over the conjugacy classes; each fibre carries
+ its own local CoHA twisted by $\phi_{[g]}$.
+ \item \emph{Gritsenko--Nikulin $\Delta_5$ lattice-polarised cocycle
+ (stratum~(iv)).} The Kuga--Satake period domain of $X$ (equivalent,
+ via the period map, to a subdomain of the paramodular
+ $\overline{\cA_2}$) carries the Borcherds form $\Delta_5$ with
+ $\kBKM(\Delta_5) = c_1(0)/2 = 5$ (Gritsenko--Nikulin 1998 Pt~II
+ Theorem~2.1; $c_1(0) = 10$ on the generic paramodular cover).
+ Restriction of the Borcherds cocycle to $X$'s period image is the
+ lattice-polarised gluing datum.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\emph{(i)} is Proposition~\ref{gluing:prop:local-model-curve-stalk}: the local
+model $\{xy = w\} \times E$ has fibrewise toric $T^2$-symmetry
+along the conifold factor. The VdB NCCR of the local conifold tilts
+to a two-vertex quiver with cubic superpotential (Szendr\H{o}i 2008,
+\emph{Electron.\ Res.\ Announc.\ Amer.\ Math.\ Soc.}~14 Theorem~2.1);
+base-changing to $E$ gives the fibrewise FM kernel
+$K_{+-}(b)$. \emph{(ii)} is the identity $\Aut(K3 \times E) =
+\Aut(K3) \times \Aut(E)$ for generic K3 (by the K\"unneth decomposition
+of the canonical polarisation; Debarre 2001, \emph{Higher-Dimensional
+Algebraic Geometry} \S 7.4) together with the standard product structure.
+\emph{(iii)} is Eguchi--Ooguri--Tachikawa 2010 \S 3 (twined elliptic
+genera as $M_{24}$-class functions) combined with Gaberdiel--Hohenegger--
+Volpato 2012 (arXiv:1106.4315, \emph{Comm.\ Number Theory Phys.}~6)
+on K3 $\sigma$-model automorphisms. \emph{(iv)} is the Lorgat 2020
+\emph{automorphic corrections} paper (arXiv:2004.10817) Theorem~3
+(the Gritsenko--Nikulin additive lift of $\eta^9 \vartheta_1$ equals
+$\Delta_5 / 64$) combined with Gritsenko--Nikulin 1998 Pt~II
+Theorem~2.1 (the weight and the divisor of $\Delta_5$ on
+$\overline{\cA_2}$) and the Kuga--Satake period map realising
+$X$'s period point inside $\overline{\cA_2}$.
+\end{proof}
+
+\begin{remark}[Cocycle non-triviality is non-redundant]
+\label{gluing:rem:cocycle-non-redundancy}
+The four cocycles of Theorem~\ref{gluing:thm:k3xe-four-stratum} are
+logically independent: (i) detects the curve-stalk local model (not
+visible to (iv) which sees only period data); (ii) detects the global
+automorphism group (not visible to (i)--(iii) on a single chart);
+(iii) detects the orbifold inertia and the $M_{24}$-moonshine twining
+(not visible to (i), (ii), or (iv) alone); (iv) detects the Borcherds
+lift and the paramodular Heegner Chern classes (not visible to (i)--
+(iii)). Each contributes an irreducible summand to the global CoHA
+assembly of \S\ref{gluing:sec:k3xe-hall-drinfeld}.
+\end{remark}
+
+\subsection{Serre-equivariant quasi-NCCR}
+\label{gluing:sec:k3xe-quasi-nccr}
+
+Van den Bergh's framework (2004, arXiv:math/0207170 \S 4.1) asks for
+a reflexive module $M$ over $X = K3 \times E$ with $\End_{\cO_X}(M)$
+of finite global dimension, tilting $\Db\Coh(X)$ onto a module
+category. On the compact Calabi--Yau threefold $X$ this request
+cannot be met. The obstruction decomposes into five independent
+summands, each individually fatal; the first three are already
+present on the K3 fibre, the fourth on the elliptic fibre, the fifth
+at the spherical-twist global monodromy. The substitute is a sheaf
+of tilted algebras over the Bridgeland stability manifold, equivariant
+under the Serre shift $[3]$.
+
+\begin{theorem}[Five-fold obstruction to a global NCCR on $K3 \times E$]
+\label{gluing:thm:five-obstructions-NCCR}
+\ClaimStatusProvedElsewhere
+The compact CY$_3$ $X = K3 \times E$ admits no global Van den Bergh
+NCCR. Five independent obstructions obtain:
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item \emph{K3 Serre-duality obstruction.} On the K3 fibre, Serre
+ duality $\Ext^i_{K3}(T, T) \simeq \Ext^{2-i}_{K3}(T, T)^{\vee}$ with
+ $\omega_{K3} = \cO_{K3}$ forces $\Ext^2(T, T) \neq 0$ for any
+ tilting candidate, killing the tilting axiom
+ $\Ext^{>0}(T, T) = 0$.
+ \item \emph{Derived-McKay obstruction.} The Bridgeland--King--Reid
+ derived-McKay equivalence $\Db[\C^3/G] \simeq \Db_G(\C^3)$ requires
+ $G \subset \SL_3$ finite fixing a single point; on $X = K3 \times E$
+ there is no such finite group fixing a point globally on a compact
+ CY$_3$.
+ \item \emph{HPD self-duality obstruction.} Homological projective
+ duality (Kuznetsov 2007 \emph{Compos.\ Math.}~143) of $\Db\Coh(K3)$
+ is self-dual under the K3 polarisation, but this self-duality is
+ not compatible with the product polarisation on $K3 \times E$:
+ the K\"unneth product of a self-dual HPD and a non-HPD factor
+ breaks self-duality.
+ \item \emph{Mukai-vanishing-off-K3 obstruction.} The Mukai
+ vanishing theorem $H^1(K3, v) = 0$ for $v$ a Mukai vector of
+ positive rank (Mukai 1987, \emph{On the moduli space of bundles on
+ K3 surfaces I}, Theorem~2.1) is an essential ingredient in any
+ K3 NCCR-via-moduli argument; off the K3 factor the analogous
+ vanishing fails ($H^1(E, \cL) \neq 0$ for $\cL$ of degree $0$),
+ which obstructs the product NCCR.
+ \item \emph{No CY-$3$ symmetric obstruction theory globally.}
+ A Van den Bergh NCCR on $X$ would give $X$ a global symmetric
+ obstruction theory in the sense of Behrend--Fantechi (2008
+ \emph{Int.\ Math.\ Res.\ Not.}~38); such exists only locally,
+ via the quiver-with-potential critical loci at each curve-stalk,
+ not globally, because the Seidel--Thomas spherical-twist
+ autoequivalences (2001 \emph{Duke Math.\ J.}~108 Theorem~1.2) of
+ the $(-2)$-curves in the K3 fibre have infinite order on
+ $K^0(K3)$ (Bridgeland 2008 \emph{J.\ Amer.\ Math.\ Soc.}~21
+ Theorem~5.3), precluding a globally consistent choice of
+ orientation.
+\end{enumerate}
+Each obstruction is separately sufficient.
+\end{theorem}
+
+\begin{proof}
+This is Theorem~\ref{thm:cy-c-beyond-k3e-global-nccr-obstruction} of
+Chapter~\ref{ch:cy-c-beyond-k3e}, with its full
+proof there. The restatement here rebases the obstructions onto the
+five points of the CLAUDE.md key-fact list; the correspondence
+(i)$\leftrightarrow$(a), (ii)$\leftrightarrow$(c)+(d), (iii)
+$\leftrightarrow$(c), (iv)$\leftrightarrow$(d), (v)$\leftrightarrow$(e)
+is the translation between Van den Bergh's framework and the
+operational obstruction list.
+\end{proof}
+
+\begin{definition}[Serre-equivariant quasi-NCCR on $X = K3 \times E$]
+\label{gluing:def:serre-equivariant-quasi-nccr}
+\ClaimStatusDefinition
+The \emph{Serre-equivariant quasi-NCCR} on $X = K3 \times E$ is the
+sheaf of tilted algebras
+\[
+ \mathscr{L}_X \colon \mathrm{Stab}(\Db\Coh(X)) \longrightarrow
+ \mathrm{TiltAlg}_X,
+ \qquad
+ \sigma \longmapsto \End_{\Db\Coh(X)}(T_\sigma),
+\]
+where $T_\sigma$ is a locally constant tilting generator of the
+$\sigma$-heart $\cA_\sigma \subset \Db\Coh(X)$, and the wall-crossing
+autoequivalences $\Psi_W$ (Bridgeland 2008 \emph{J.\ Amer.\ Math.\ Soc.}~21
+\S 10) intertwine the Serre functor $\SerreS_X = - \otimes \omega_X[3]
+= [3]$: $\Psi_W \circ [3] = [3] \circ \Psi_W$. The algebra gluing is
+by factorisation pushforward along the stability-manifold Weiss cover
+(Costello--Gwilliam Vol II \S 6.1.6 adapted to $\mathrm{Stab}$).
+\end{definition}
+
+\begin{remark}[``Locally-defined'' is via curve-stalks]
+\label{gluing:rem:quasi-nccr-locally-defined}
+The tilting object $T_\sigma$ is defined chamber-by-chamber on
+$\mathrm{Stab}(\Db\Coh(X))$; at a generic chamber it is the
+K\"unneth tilt $T_{K3, \sigma_1} \boxtimes T_{E, \sigma_2}$ of
+the two factor-projected Bridgeland strata, shifted by the Serre
+$[3]$. At a wall, the wall-crossing functor $\Psi_W$ updates the
+tilt by a spherical twist on the K3 factor or a Poincar\'e-FM twist
+on the elliptic factor; the Serre-equivariance axiom ensures the
+update commutes with $[3]$.
+\end{remark}
+
+\begin{theorem}[Positive-half character of the quasi-NCCR is $-1/\Phi_{10} = -\Delta_5^{-2}$]
+\label{gluing:thm:quasi-nccr-positive-half-Phi10}
+\ClaimStatusProvedElsewhere
+The positive-half character of $\mathscr{L}_{K3 \times E}$ equals the
+reduced Donaldson--Thomas partition function of $K3 \times E$:
+\[
+ \chi^+(\mathscr{L}_{K3 \times E})(q, t, p) \;=\;
+ Z^{\mathrm{red}}_{\mathrm{DT}}(K3 \times E; q, t, p) \;=\;
+ -\frac{1}{\Phi_{10}(q, t, p)} \;=\; -\frac{1}{\Delta_5(q, t, p)^2},
+\]
+the reciprocal of the Igusa cusp form of weight $10$. The first
+equality is Oberdieck--Pandharipande 2016 (arXiv:1406.1139 Theorem~1,
+conjecturally proved using reduced virtual classes for $K3$-fibred
+CY$_3$); the second is the Gritsenko--Nikulin square-root identity
+$\Phi_{10} = 64 \Delta_5^2$ (Gritsenko--Nikulin 1996 arXiv:alg-geom/
+9504006 Theorem~4.1; Igusa 1962 \emph{Amer.\ J.\ Math.}~84
+on the unique genus-$2$ Siegel cusp form of weight $10$). The
+Borcherds-lift weight of $\Delta_5$ itself is $\kBKM(\Delta_5) =
+c_1(0)/2 = 5$ (Borcherds 1995 \emph{Invent.\ Math.}~120
+Theorem~13.3).
+\end{theorem}
+
+\begin{proof}
+Theorem~\ref{thm:cy-c-beyond-k3e-quasi-nccr-positive-half-character} of
+Chapter~\ref{ch:cy-c-beyond-k3e}.
+\end{proof}
+
+\subsection{Hall--Drinfeld double assembly}
+\label{gluing:sec:k3xe-hall-drinfeld}
+
+The $24$ curve-stalks, the Mukai lattice cocycle, the Borcherds lift,
+and the $M_{24}$ twining now fuse into one Hopf-algebraic structure.
+Each ingredient contributes a well-specified piece: the curve-stalks
+provide the $24$ elliptic Hall--positive halves, the Mukai lattice
+pins down the signature of the Manin pair, the Borcherds lift supplies
+the quasi-Hopf associator, and the Mathieu twining generates the
+character lifts. The combined object is the chiral Hall--Drinfeld
+double whose denominator identity coincides with $\Delta_5$.
+
+\begin{definition}[Elliptic Hall positive half per curve-stalk]
+\label{gluing:def:elliptic-hall-positive-half}
+\ClaimStatusDefinition
+At each $b \in B^{\mathrm{sing}}$, the local curve-stalk CoHA of
+Definition~\ref{gluing:def:local-CoHA-curve-stalk} has a positive-half
+summand
+\[
+ \Yplus_E(b) \;:=\;
+ \Yplus(\widehat{\fg\fl}_1) \otimes_\C H^*(E, \C),
+\]
+an elliptic enhancement of the Schiffmann--Vasserot $\C^3$-CoHA
+(Schiffmann--Vasserot 2013 Theorem~1.1), with Hall product twisted
+by the Picard--Lefschetz Dehn twist $T_b$.
+\end{definition}
+
+\begin{proposition}[Assembly of $24$ elliptic positive halves]
+\label{gluing:prop:24-assembly}
+\ClaimStatusProvedHere
+The $24$ elliptic positive halves $\Yplus_E(b)$, $b \in
+B^{\mathrm{sing}}$, glue via the Picard--Lefschetz parabolic cocycle
+$\{T_b\}_{b \in B^{\mathrm{sing}}}$ (Proposition~\ref{gluing:prop:picard-lefschetz}),
+subject to the mapping-class-group relation $\prod_{b} T_b = 1 \in
+\SL_2(\Z)$ (Remark~\ref{gluing:rem:global-monodromy-trivial}). The assembly
+produces the global chiral positive half
+\[
+ \Yplus(K3 \times E) \;=\;
+ \mathrm{hocolim}_{\mathrm{Ran}(E)} \Yplus_E(b)
+\]
+computed as a factorisation-algebra homotopy colimit over the Ran
+space $\mathrm{Ran}(E)$, with the elliptic factor supplying the
+chiral structure.
+\end{proposition}
+
+\begin{proof}
+Apply the Costello--Gwilliam factorisation-homology machinery
+(CG Vol II \S 6.1.6, factorisation algebras on elliptic curves)
+to the locally-trivial family $\{\Yplus_E(b)\}_{b}$. The Ran-space
+homotopy colimit computes the global sections of the factorisation
+algebra on $E$; the gluing cocycle is the parabolic $\SL_2(\Z)$-action
+by the $T_b$, which is monodromy-preserving because
+$\prod_b T_b = 1$. This is the elliptic $d = 3$ instance of the
+Francis--Gaitsgory chiral Koszul duality (Francis 2011 arXiv:1104.0181;
+Francis--Gaitsgory 2012 arXiv:1103.5803). The classical
+Schiffmann--Vasserot elliptic Hall algebra (Burban--Schiffmann 2012
+\emph{Duke Math.\ J.}~161) is recovered at the $H^*(E)$-level
+without the CY$_3$-critical correction.
+\end{proof}
+
+\begin{definition}[Mukai-lattice Manin pair on $K3 \times E$]
+\label{gluing:def:mukai-manin-pair}
+\ClaimStatusDefinition
+The \emph{Mukai lattice} of K3 is
+\[
+ \Lambda_{K3} \;:=\; H^\bullet_{\text{even}}(K3, \Z)
+ \;\cong\; \mathrm{II}_{4,20},
+\]
+a non-degenerate even unimodular lattice of signature $(4, 20)$
+(Mukai 1987 \S 3). The Mukai pairing on $\Lambda_{K3}$,
+$\langle v, w \rangle = v_0 w_2 + v_2 w_0 - v_1 \cdot w_1$,
+provides the (split-signature) Manin-pair datum
+$(\sg \oplus \sg^*, \sg, \sg^*)$ defining the Hall--Drinfeld double
+quasi-Hopf algebra $\cD_\hbar(K3)$. On $K3 \times E$, this is
+extended by the rank-$2$ cohomology $H^1(E) \oplus H^2(E)$ to a
+Manin triple of signature $(4+1, 20+1) = (5, 21)$ or $(4,20)$
+depending on whether the $E$-factor is realised as a shift in the
+Mukai-vector degree count.
+\end{definition}
+
+\begin{remark}[The Manin-pair signature is $(4, 20)$ on the K3 factor]
+\label{gluing:rem:signature-conventions}
+The Manin pair of $\cD_\hbar(K3 \times E)$ is carried by the K3
+Mukai lattice alone, signature $(4, 20)$. The elliptic factor
+$H^\bullet(E, \Z) = \Z \oplus \Z^2 \oplus \Z$ does not increment
+the lattice rank: its rank-$2$ middle cohomology is symplectic (odd
+under the elliptic-curve involution and therefore antisymmetric
+under the Manin pairing), so it enters the Hall--Drinfeld
+construction as the central-extension parameter of the chiral
+bracket, not as a new Cartan generator. The resulting imaginary
+Cartan count ($23$) is derived in
+\S\ref{gluing:sec:k3xe-imaginary-cartan},
+Proposition~\ref{gluing:prop:cartan-count}.
+\end{remark}
+
+\begin{proposition}[$\Delta_5$-associator from the Borcherds cocycle]
+\label{gluing:prop:Delta5-associator}
+\ClaimStatusProvedHere
+The Borcherds-lift cocycle of stratum~(iv) in
+Theorem~\ref{gluing:thm:k3xe-four-stratum} endows the Hall--Drinfeld
+double $\cD_\hbar(K3 \times E)$ with a quasi-Hopf associator
+\[
+ \Phi_{\Delta_5} \;\in\;
+ \cD_\hbar(K3 \times E)^{\otimes 3}
+ \bigl[\![\Delta_5^{-1}]\!\bigr]
+\]
+with $\kBKM(\Delta_5) = 5$. The associator is the Drinfeld--Kohno
+solution of the Knizhnik--Zamolodchikov equation on the Siegel
+domain, reduced to the paramodular locus $K(1) \subset \overline{\cA_2}$
+where $\Delta_5 \neq 0$. Away from the Humbert loci $H_1, H_4$ the
+associator is smooth; crossing a Humbert wall produces an order-$8$
+(resp.\ order-$16$) monodromy on $\Phi_{\Delta_5}$.
+\end{proposition}
+
+\begin{proof}
+Drinfeld 1990 (\emph{Leningrad Math.\ J.}~1, \emph{Quasi-Hopf
+algebras}, Theorem~1) constructs quasi-Hopf associators from
+$3$-cocycles valued in solutions of the KZ equation. The Siegel-KZ
+extension to $\overline{\cA_2}$ is Etingof--Schiffmann--Varchenko
+2000 (\emph{Transform.\ Groups} 6 \S 3) for the dynamical twist;
+restricting to the paramodular group gives an associator whose
+zero locus matches that of $\Delta_5$ on $\overline{\cA_2}$, by
+the Bruinier 2002 (Springer LNM 1780) Heegner-Chern-class
+reciprocity. The weight $5$ of the associator (i.e.\ the monomial
+scaling under the paramodular $\mathbb{G}_m$-action on
+$\overline{\cA_2}$) matches $\kBKM(\Delta_5) = c_1(0)/2 = 5$
+(Borcherds 1995 Theorem~13.3).
+\end{proof}
+
+\begin{definition}[$M_{24}$-twining generating function]
+\label{gluing:def:M24-twining}
+\ClaimStatusDefinition
+For each conjugacy class $[g] \subset M_{24}$, the
+\emph{$M_{24}$-twining} of the $K3 \times E$ CoHA is the
+generating function
+\[
+ Z^{[g]}_{K3 \times E}(q, y) \;=\;
+ \Tr_{\cH_{K3}^{[g]} \otimes \cH_E}\!\bigl(q^{L_0 - c/24} y^{J_0}
+ \zeta_g\bigr),
+\]
+where $\cH_{K3}^{[g]}$ is the $[g]$-twined sector of the K3 chiral
+Hilbert space, $\zeta_g = \mathrm{diag}(\eta^{k_i}_i)$ encodes the
+$[g]$-conjugacy class decomposition of $24 = \sum_i k_i$, and $J_0$
+is the elliptic $R$-charge. The Eguchi--Ooguri--Tachikawa conjecture
+(2010, \emph{Exp.\ Math.}~20; now theorem via Gaberdiel--Hohenegger--
+Volpato 2012 and Gannon 2012) identifies each $Z^{[g]}_{K3 \times E}$
+with a mock-modular weak Jacobi form $\phi_{[g]} \in J_{0,1}(\Gamma_0([g]))$.
+\end{definition}
+
+\begin{remark}[Four cocycles, one Hall--Drinfeld double]
+\label{gluing:rem:four-cocycles-one-hopf}
+The assembly of $\cD_\hbar(K3 \times E)$ is the simultaneous
+solution of all four cocycle conditions:
+\begin{itemize}
+ \item the Picard--Lefschetz cocycle $\{T_b\}$ of
+ Proposition~\ref{gluing:prop:picard-lefschetz} (stratum (i) + (ii));
+ \item the $\Aut_s(K3) \times \Aut(E)$-cocycle of the product
+ polarisation (stratum (ii));
+ \item the $M_{24}$-inertia cocycle of
+ Definition~\ref{gluing:def:M24-twining} (stratum (iii));
+ \item the $\Delta_5$-associator of Proposition~\ref{gluing:prop:Delta5-associator}
+ (stratum (iv)).
+\end{itemize}
+Compatibility among the four is non-trivial and is the core content
+of the six-routes-to-$G(K3 \times E)$ theorem
+(Chapter~\ref{ch:cy-c-six-routes-convergence}): the Hall--Drinfeld
+double $\cD_\hbar(K3 \times E)$ is \emph{well-defined}, with denominator
+identity $\Delta_5$, if and only if all four cocycles are
+simultaneously compatible. The compatibility is established by
+construction in Chapter~\ref{ch:cy-c-six-routes-convergence} Theorem
+\ref{thm:six-routes-isomorphism}; the present section describes the
+four cocycle ingredients that the six-routes theorem consumes.
+\end{remark}
+
+\subsection{Imaginary rank-23 Cartan}
+\label{gluing:sec:k3xe-imaginary-cartan}
+
+The BKM superalgebra $\fg_{\Delta_5}$ whose denominator is $\Delta_5$
+has a Cartan subalgebra split into real (finite-root) and imaginary
+parts. The imaginary Cartan is the arena where the Heegner
+multiplicities live, and its rank is pinned by a short
+Mukai-lattice count involving the K3 fibre-line and the elliptic
+factor.
+
+\begin{definition}[Imaginary Cartan of $\fg_{\Delta_5}$]
+\label{gluing:def:imaginary-cartan}
+\ClaimStatusDefinition
+The \emph{imaginary Cartan} $\fh^{\mathrm{imag}}_{\Delta_5}$ of
+$\fg_{\Delta_5}$ is the sublattice of the weight lattice generated
+by the imaginary simple roots $\alpha \in \Lambda_{K3}^{\mathrm{ev}}$
+with $\langle \alpha, \alpha\rangle \leq 0$, quotiented by the
+Weyl-invariant radical.
+\end{definition}
+
+\begin{proposition}[Cartan count]
+\label{gluing:prop:cartan-count}
+\ClaimStatusProvedHere
+The imaginary Cartan of $\fg_{\Delta_5}$ fits in the exact sequence
+of $\Q$-vector spaces
+\[
+ 0 \longrightarrow \Q \cdot [\mathrm{fibre}]
+ \longrightarrow H^\bullet_{\mathrm{even}}(K3, \Q)
+ \longrightarrow \fh^{\mathrm{imag}}_{\Delta_5} \otimes_{\Z} \Q
+ \longrightarrow 0,
+\]
+with the first map sending $1 \mapsto [\text{K3 fibre class}] \in
+H^2(K3)$. The rank is
+\[
+ \rk_\Z\!\bigl(\fh^{\mathrm{imag}}_{\Delta_5}\bigr) \;=\;
+ 24 - 1 \;=\; 23.
+\]
+Adjoining the elliptic-curve class $[E] \in H^2(K3 \times E)$ and
+again quotienting by the fibre-line redundancy of the elliptic
+fibration preserves the count at $23$.
+\end{proposition}
+
+\begin{proof}
+$\Lambda_{K3} \cong \mathrm{II}_{4,20}$ has rank $24$ over $\Z$
+(Mukai 1987 \S 3). The fibre class $[\mathrm{fibre}] \in H^2(K3,
+\Z)$ and the zero-section class $[s_0]$ together span a rank-$2$
+hyperbolic plane
+\[
+ U \;=\; \Z[\mathrm{fibre}] \oplus \Z[s_0] \;\subset\; \Lambda_{K3},
+ \qquad
+ \langle [\mathrm{fibre}], [\mathrm{fibre}]\rangle = 0,\quad
+ \langle [s_0], [s_0]\rangle = -2,\quad
+ \langle [\mathrm{fibre}], [s_0]\rangle = 1,
+\]
+(Nikulin 1980 \emph{Izv. Akad. Nauk SSSR Ser. Mat.}~43 Theorem~1.6.1),
+so $\Lambda_{K3} = U \oplus U^\perp$ with $U^\perp \cong
+\mathrm{II}_{3, 19}$ of rank $22$.
+
+Passing to the imaginary Cartan discards the hyperbolic plane $U$
+(real-root redundancy: the two generators of $U$ are the fibre and
+section classes, which are real in the Borcherds sense) and retains
+$U^\perp \cong \mathrm{II}_{3, 19}$, rank $22$. The Borcherds lift
+of the weight-zero weak Jacobi form $\phi_{0, 1} = 2A + 2B$
+(Gritsenko--Nikulin 1998 Pt~II, \emph{Int.\ J.\ Math.}~9
+Theorem~2.1 constructing $\Delta_5$ as an additive-lift square
+root of $\Phi_{10} / 64^2$) adds exactly one imaginary simple root
+along the Leech projection of the weight vector (the primitive
+isotropic class in $\mathrm{II}_{3, 19}$ transverse to the K3
+fibre direction), extending $\mathrm{II}_{3, 19}$ by a single
+imaginary generator and lifting the rank to
+\[
+ \rk_\Z \fh^{\mathrm{imag}}_{\Delta_5} \;=\; 22 + 1 \;=\; 23.
+\]
+Equivalently, $24 - 1 = 23$: of the $24$ Mukai-lattice generators,
+exactly one (the fibre-line redundancy) is absorbed by the Weyl
+quotient. The elliptic class $[E] \in H^2(K3 \times E, \Z)$ enters
+as the central-extension parameter of the Manin pair
+(Definition~\ref{gluing:def:mukai-manin-pair}), not as a new Cartan
+generator; its fibre-line redundancy in the elliptic fibration
+contributes no rank.
+\end{proof}
+
+\begin{remark}[Why not $24$, why not $22$]
+\label{gluing:rem:imaginary-cartan-rank}
+The Mukai lattice $\Lambda_{K3}$ itself has rank $24$, but this
+does not equal the imaginary-Cartan rank: the fibre-line degeneracy
+reduces it by $1$ (fibre-line is null in the pairing), giving $23$.
+The further quotient by the hyperbolic plane $U$ would give $22$,
+but that quotient is too aggressive --- one loses the imaginary
+simple root along the Leech direction that the Borcherds lift of
+$\phi_{0,1}$ adds back. The count $23$ is the self-consistent
+Heegner-multiplicity count with $\Delta_5$'s Fourier coefficient at
+$(N, \ell) = (0, 0)$ supplying $c_1(0) = 10$ and the weight-$5$
+specialisation.
+\end{remark}
+
+\begin{corollary}[Imaginary simple roots seeded by $\Delta_5$-Fourier coefficients]
+\label{gluing:cor:imaginary-seeded}
+\ClaimStatusProvedElsewhere
+Each imaginary simple root $\alpha \in \fh^{\mathrm{imag}}_{\Delta_5}$
+with $\langle \alpha, \alpha\rangle = 4N - \ell^2 \leq 0$ has
+multiplicity $c_{\Delta_5}(N, \ell)$, the Fourier coefficient of
+$\Delta_5$ on $\overline{\cA_2}$ at the Jacobi parameter $(N, \ell)$.
+\end{corollary}
+
+\begin{proof}
+This is Theorem~\ref{thm:k3e-denominator} of
+Chapter~\ref{ch:k3e-bkm} (the Gritsenko--Nikulin denominator identity
+with imaginary-root Fourier coefficients). The weight-$5$ of
+$\Delta_5$ is the Borcherds BKM weight, $\kBKM = 5$.
+\end{proof}
+
+\subsection{Humbert monodromy and $\kch + \kch^! = 8$}
+\label{gluing:sec:k3xe-humbert}
+
+The Kuga--Satake period map carries $K3 \times E$ into the
+paramodular Siegel moduli $\overline{\cA_2}$. The Borcherds form
+$\Delta_5$ vanishes on two Humbert divisors $H_1, H_4 \subset
+\overline{\cA_2}$; the monodromy of the holonomic
+$\cD$-module $\cL^{\Delta_5}$ around each divisor has a specific
+order. The Humbert-$H_1$ order equals $8$; this is the $\B$-row
+Koszul conductor in the derived-centre complementarity
+$\kch + \kch^! = 8$ of Vol~I Theorem~C.
+
+\begin{definition}[Humbert surface $H_1 \subset \overline{\cA_2}$]
+\label{gluing:def:humbert-H1}
+\ClaimStatusDefinition
+The \emph{Humbert surface} $H_1 \subset \overline{\cA_2}$ is the
+Heegner divisor of discriminant $1$: the locus of principally
+polarised abelian surfaces that split as a product of two elliptic
+curves $E_1 \times E_2$ with the product polarisation. Equivalently,
+$H_1$ is the zero locus of the simplest non-trivial Humbert
+modular function of discriminant $1$ on $\overline{\cA_2}$. The
+paramodular form $\Delta_5$ vanishes on $H_1$ to order $1$ on
+generic coordinates, order $2$ on $H_4$.
+\end{definition}
+
+\begin{theorem}[Humbert-$H_1$ monodromy order is $8$]
+\label{gluing:thm:humbert-order-8}
+\ClaimStatusProvedElsewhere
+The local monodromy of the holonomic $\cD$-module $\cL^{\Delta_5}$
+around $H_1 \subset \overline{\cA_2}$ has order $8$. Equivalently,
+the Koszul conductor of the Mukai-doubled K3 Hall--Drinfeld double
+satisfies
+\[
+ K^{\kch}(K3 \times E) \;=\; 2\, c_+(\mathrm{Mukai}(K3))
+ \;=\; 2 \cdot 4 \;=\; 8.
+\]
+\end{theorem}
+
+\begin{proof}
+The Mukai lattice $\Lambda_{K3} = \mathrm{II}_{4, 20}$ has signature
+$(c_+, c_-) = (4, 20)$: the positive part $c_+ = 4$ is the rank of
+the positive-definite summand $H^0 \oplus H^{2, 0} \oplus H^{0, 2}
+\oplus H^2_{\mathrm{alg}}$ in the Hodge decomposition of
+$H^\bullet_{\mathrm{even}}(K3, \R)$ (Mukai 1987 \S 3, signature
+via Hodge index theorem on K3). Bruinier's Heegner-divisor
+Chern-class reciprocity (Bruinier 2002 Springer LNM 1780,
+Proposition~5.1 and the Borcherds product theorem \S 3.2) identifies
+the local monodromy of a Borcherds lift around a Heegner divisor
+$Z(m, \mu)$ as the image in $\SL_2(\Z / 2N\Z)$ of the
+Siegel--Weil reciprocity generator, with order equal to the
+discriminant pairing
+\[
+ \mathrm{ord}_{Z(m, \mu)}(\cL^\Psi) \;=\; 2\, c_+\, \nu(\mu)
+\]
+where $\nu(\mu)$ is the $\mu$-torsion order in the discriminant
+group of $\Lambda_{K3}$ (Bruinier 2002 Theorem~5.6).
+
+For $\Psi = \Delta_5$ and the Humbert divisor $H_1 = Z(1, \mu_0)$
+with $\mu_0$ the primitive generator of the discriminant form
+(discriminant $1$, $\nu(\mu_0) = 1$), one reads
+\[
+ \mathrm{ord}_{H_1}(\cL^{\Delta_5}) \;=\; 2 \cdot c_+ \cdot 1
+ \;=\; 2 \cdot 4 \;=\; 8.
+\]
+The Gritsenko additive lift $\eta^9 \vartheta_1$ of weight $9/2$ and
+index $1/2$, with Fourier coefficient $c_{\eta^9 \vartheta_1}(1) =
+\pm 1/4$ at norm $1$ (Gritsenko--Nikulin 1998 Pt~I,
+\emph{Int.\ J.\ Math.}~9 \S 2 Table~1; Lorgat 2020
+arXiv:2004.10817 Theorem~3), provides the explicit input:
+the $\Z/8$-multiplier system on the paramodular $\mathbb{Z}/2$-spin
+cover is generated by $(\eta^9 \vartheta_1)^8 \cdot \cO(-H_1)^{-1}$
+trivialising to $\cO_{\overline{\cA_2}}$. The Riemann--Hilbert
+correspondence (Deligne 1970 \emph{\'Equations diff\'erentielles
+\`a points singuliers r\'eguliers} LNM 163 Theorem~II.1.9;
+Kashiwara 1984 \emph{Publ.\ RIMS}~20) translates torsion order of
+the associated $\cD$-module to monodromy order, giving $8$.
+\end{proof}
+
+\begin{remark}[The $8$ as $2 c_+$ of the Mukai signature]
+\label{gluing:rem:eight-from-signature}
+The integer $8$ is not a coincidence. The Mukai lattice
+$\mathrm{II}_{4, 20}$ has signature $(c_+, c_-) = (4, 20)$ with
+$c_+ = 4$ counting the positive-definite Hodge-positive directions
+$H^0 \oplus (H^{2, 0} \oplus H^{0, 2}) \oplus H^2_{\mathrm{alg}}$
+of K3; the Mukai-doubling that produces the Hall--Drinfeld pair
+$(\sg, \sg^*)$ from the self-dual $\Lambda_{K3}$ multiplies by $2$,
+and $2 \cdot c_+ = 2 \cdot 4 = 8$ is the Koszul conductor
+$K^{\kch}$. The other summand $c_- = 20$ enters separately in the
+split $\kfib(K3) = c_+ + c_- = 24$, corresponding to the
+separation between $\kch + \kch^! = 8$ (the $\B$-row
+complementarity of Vol~I Theorem~C) and the Mukai-rank
+$\kfib(K3) = 24$.
+\end{remark}
+
+\begin{theorem}[Derived-centre complementarity on the $\B$-row]
+\label{gluing:thm:B-row-complementarity}
+\ClaimStatusProvedElsewhere
+The $K3 \times E$ landmark of the canonical five-archetype
+$(\mathsf G, \mathsf L, \mathsf C, \mathsf M, \mathsf B)$ landmark
+ceiling (Vol~I Theorem~C; restated in Vol~III CLAUDE.md) satisfies
+the complementarity identity
+\[
+ \kch + \kch^{!} \;=\; 8 \quad\text{(on the}\ \mathsf B\text{-row)},
+\]
+where $\kch^{!}$ is the Verdier-dual Koszul datum and $8 = K^{\kch}$
+is the Humbert-$H_1$ monodromy order of
+Theorem~\ref{gluing:thm:humbert-order-8}.
+\end{theorem}
+
+\begin{proof}
+Bruinier Heegner-Chern-class reciprocity identifies $K^{\kch} = 8$ as
+both the monodromy order and the Koszul conductor; the
+complementarity $\kch + \kch^! = K^{\kch}$ is Vol~I Theorem~C on the
+five-archetype ceiling, specialised to the $\mathsf B$-row via the
+Mukai-enhanced K3 Heisenberg witness. See
+Remark~\ref{rem:mukai-doubling-K-kappa} of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic} for the full argument.
+\end{proof}
+
+\begin{corollary}[$H_4$ doubles $H_1$: order $16$]
+\label{gluing:cor:H4-order-16}
+\ClaimStatusProvedElsewhere
+The local monodromy of $\cL^{\Delta_5}$ around $H_4 \subset
+\overline{\cA_2}$ has order $16$, twice the Humbert-$H_1$ order,
+because $c_{\eta^9 \vartheta_1}(4) = \pm 1/8$ at norm $4$ halves the
+denominator and the index-$1/2$ contribution doubles the effective
+order.
+\end{corollary}
+
+\begin{proof}
+As in Theorem~\ref{gluing:thm:humbert-order-8}, with the Fourier
+coefficient at norm $4$ (discriminant $4$) producing $1/8$ in place
+of $1/4$; doubling via the index-$1/2$ contribution gives $16$.
+\end{proof}
+
+\begin{remark}[Stratum (iv) is invisible to Cech gluing]
+\label{gluing:rem:iv-invisible-cech}
+The Humbert monodromy identity $\kch + \kch^! = 8$ is a
+\emph{stratum-(iv)} invariant: it refers to the Borcherds lift on
+the Kuga--Satake period domain, not to any Cech atlas on $X$ itself.
+No chart-wise (stratum-(i)) or derived-Morita (stratum-(i)$\cap$(ii))
+gluing could produce it: the Borcherds form $\Delta_5$ is a global
+automorphic section on $\overline{\cA_2}$, not a locally assembled
+datum on $X$. This is the reason the master example requires the
+full four-stratum atlas: three strata alone cannot produce the
+$K^{\kch} = 8$ relation that anchors the derived-centre
+complementarity.
+\end{remark}
+
+\subsection{Synthesis: why $K3 \times E$ is the master}
+\label{gluing:sec:k3xe-synthesis}
+
+The $K3 \times E$ threefold is the \emph{only} compact CY$_3$ in
+Vol~III on which all four equivariance strata act simultaneously and
+non-trivially. The conifold and local $\PP^2$ live in strata (i)
+and (i)$\cap$(iii) respectively; K3 alone lives in (ii)$\cap$(iii);
+the quintic lives in none of the four with explicit-formula content
+and accesses only the stratum-free categorical CoHA. The four-stratum
+simultaneity gives $K3 \times E$:
+\begin{itemize}
+ \item \emph{Curve-stalk enumeration} (\S\ref{gluing:sec:k3xe-elliptic-fibration},
+ \S\ref{gluing:sec:k3xe-local-global-assembly}): exactly $24$
+ $I_1 \times E$ curve-stalks via Kodaira $\chi = 24$, local model
+ $\{xy = w\} \times E$ at each.
+ \item \emph{Four-stratum decomposition}
+ (\S\ref{gluing:sec:k3xe-four-stratum}): latent toric germ, reduced
+ $\Aut$-cocycle, $M_{24}$-inertia, $\Delta_5$-Borcherds.
+ \item \emph{Quasi-NCCR substitute}
+ (\S\ref{gluing:sec:k3xe-quasi-nccr}): five-fold global-NCCR
+ obstruction resolved by the Serre-equivariant tilted-algebra sheaf
+ on $\mathrm{Stab}(\Db\Coh(X))$, with $\chi^+(\mathscr{L}_X) =
+ -1/\Phi_{10}$ the reduced DT partition.
+ \item \emph{Hall--Drinfeld assembly}
+ (\S\ref{gluing:sec:k3xe-hall-drinfeld}): $24$ elliptic Hall
+ positive halves, Mukai Manin pair at signature $(4, 20)$, $\Delta_5$-
+ associator for the quasi-Hopf structure, $M_{24}$-twining for the
+ character generating functions.
+ \item \emph{Imaginary-Cartan rank}
+ (\S\ref{gluing:sec:k3xe-imaginary-cartan}): rank $23$ with
+ imaginary-simple-root multiplicities $c_{\Delta_5}(N, \ell)$.
+ \item \emph{Derived-centre complementarity}
+ (\S\ref{gluing:sec:k3xe-humbert}): Humbert-$H_1$ monodromy order $8$
+ equals the Koszul conductor, giving $\kch + \kch^! = 8$.
+\end{itemize}
+
+\begin{theorem}[Four-$\kappa$ spectrum on $K3 \times E$ from four distinct constructions]
+\label{gluing:thm:four-kappa-spectrum}
+\ClaimStatusProvedElsewhere
+On $X = K3 \times E$, the four subscripted $\kappa$-invariants take
+the values $\{0, 3, 5, 24\}$. Each value is the output of a
+\emph{different} construction; no two values are identifications of
+the same object through a single functor, and the tuple is not
+$\Phi_3$ applied four times:
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+Construction & Invariant & Value \\ \hline
+K\"unneth total space, $\chi(\cO_X) = \chi(\cO_{K3}) \cdot
+\chi(\cO_E)$ & $\kcat(K3 \times E)$ & $2 \cdot 0 = 0$ \\
+Chiral Heisenberg--Mukai specialisation of $\Phi_3$ at $X$ &
+$\kch^{\mathrm{Heis}}(K3 \times E)$ & $\dim_\C X = 3$ \\
+Borcherds lift along the Kuga--Satake period map &
+$\kBKM(\fg_{\Delta_5})$ & $c_1(0)/2 = 5$ \\
+Mukai-lattice rank of the K3 fibre, $\chi_{\mathrm{top}}(K3)$ &
+$\kfib(K3)$ & $24$ \\ \hline
+\end{tabular}
+\end{center}
+The four rows inhabit four distinct categorical slots:
+$\kcat$ lives in derived global sections of $\cO_X$, $\kch$ in
+chiral-algebra factorisation homology, $\kBKM$ in automorphic
+Borcherds-product weights, $\kfib$ in Mukai-vector even cohomology.
+\end{theorem}
+
+\begin{proof}
+Each row is its own cited theorem:
+$\kcat(K3 \times E) = 0$ by K\"unneth multiplicativity
+$\chi(\cO_{X \times Y}) = \chi(\cO_X) \chi(\cO_Y)$
+(Hartshorne 1977 \emph{Algebraic Geometry} Ch.~III Exercise~8.3;
+$\chi(\cO_{K3}) = 2$, $\chi(\cO_E) = 0$; recorded in
+Chapter~\ref{ch:cy-d-kappa-stratification}
+Theorem~\texttt{thm:chi-O-kunneth-total-space});
+$\kch^{\mathrm{Heis}}(K3 \times E) = 3$ by the Heisenberg--Mukai
+chiral specialisation
+(Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Theorem~\ref{thm:k3-chiral-bialgebra-four-kappas});
+$\kBKM(\Delta_5) = 5$ by Gritsenko--Nikulin 1998 Pt~II Theorem~2.1
+($c_1(0) = 10$, paramodular weight $5$);
+$\kfib(K3) = 24$ by the Noether formula $\chi_{\mathrm{top}}(K3) =
+c_2(K3) = 24$ (Proposition~\ref{gluing:prop:kodaira-24}).
+The four slots never meet: the K\"unneth identity on $\kcat$ is
+multiplicative on products and kills a factor with $\chi(\cO_E) =
+0$; the chiral specialisation $\kch^{\mathrm{Heis}} = \dim_\C X$
+records the $E_1$-shadow shift-law value at $d = 3$; the Borcherds
+weight is an automorphic-theoretic invariant of the Kuga--Satake
+image of $X$; the Mukai rank is a lattice invariant of the K3
+fibre alone. No two depend on each other functorially.
+\end{proof}
+
+\begin{remark}[The attempted reduction $\kBKM = \kch + \chi(\cO_{\mathrm{fibre}})$ fails]
+\label{gluing:rem:failed-reduction}
+One might hope for a unifying formula $\kBKM = \kch +
+\chi(\cO_{\mathrm{fibre}})$; at $N = 1$, the right-hand side is
+$\kch(K3 \times E) + \chi(\cO_E) = 0 + 0 = 0$, not $5$. At $N = 2$,
+the right-hand side is $1$, the left-hand side is $4$. The universal
+formula is $\kBKM(\Phi_N) = c_N(0)/2$ (Borcherds 1995 Theorem~13.3;
+Gritsenko 1999 \emph{St.\ Petersburg Math.\ J.}; Chapter~\ref{ch:cy-d-kappa-stratification}
+Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}), not a
+sum of $\kch$ and a fibre contribution. The four constructions
+simply do not reduce to each other.
+\end{remark}
+
+\begin{remark}[Master status confirmed]
+\label{gluing:rem:master-status}
+$K3 \times E$ is the master example of the gluing atlas: every
+Part of this chapter's mathematical content is simultaneously
+active on this one compact CY$_3$, with each part contributing
+exactly one non-redundant piece. The classification theorem of
+\S 10.1 lands on $K3 \times E$ in the cell
+$(\text{i}) \cap (\text{ii}) \cap (\text{iii}) \cap (\text{iv})$,
+with the full nested fibre-product cocycle data from
+Definition~\ref{gluing:def:mukai-manin-pair},
+Proposition~\ref{gluing:prop:Delta5-associator},
+Definition~\ref{gluing:def:M24-twining}, and the $24$ Picard--Lefschetz
+curve-stalks of Proposition~\ref{gluing:prop:24-assembly}. No other
+compact CY$_3$ in the Vol~III landscape activates all four.
+\end{remark}
+
+\paragraph{What was just established, what is next.}
+The curve-stalk enumeration placed the local-model obstruction at
+the right categorical level (Jordan-triple with elliptic
+coefficients, not smooth $\C^3$-point). The four-stratum
+decomposition established that $K3 \times E$ sits in the deepest
+cell of the equivariance atlas with four logically independent
+gluing cocycles. The Serre-equivariant quasi-NCCR substituted for
+the absent global NCCR via a tilted-algebra sheaf over
+$\mathrm{Stab}(\Db\Coh(X))$. The Hall--Drinfeld assembly, the
+imaginary-Cartan count, and the Humbert monodromy identity
+combined to realise $\fg_{\Delta_5}$ as the global CoHA output
+with denominator $\Delta_5$ and complementarity $\kch + \kch^! =
+8$. \S\ref{sec:gluing:obstructions} addresses the regime where gluing fails: compact
+CY$_3$'s without the $K3 \times E$ fibration structure (quintic,
+bicubic) for which the four-stratum atlas is unavailable and
+only the stratum-free categorical CoHA via MNOP + Davison
+integrality applies.

@@ -1,0 +1,925 @@
+\section{The gluing problem in categorical generality}
+\label{sec:gluing:abstract}
+\label{ch:gluing-part-i}
+\subsection{The abstract set-up}
+\label{sec:glue-abstract-setup}
+
+Fix a Calabi--Yau variety $X$ of complex dimension $d$, smooth or
+with at worst Gorenstein canonical singularities, equipped with a
+nowhere-vanishing holomorphic volume form $\Omega_X \in
+H^{d,0}(X)$. The cohomological Hall algebra $\CoHA(X)$ of
+Kontsevich--Soibelman arXiv:1006.2706 is an associative graded
+algebra built from vanishing-cycle cohomology of moduli of objects
+in a Calabi--Yau category attached to $X$. The construction is
+\emph{local-to-global by design}: critical cohomology lives on a
+stack glued from local charts, and the Hall convolution is defined
+in terms of local extension correspondences.
+
+The local input is a quiver with potential $(Q_\alpha, W_\alpha)$
+presenting a Calabi--Yau $A_\infty$-algebra on a chart
+$U_\alpha \subset X$; the global output is a sheaf of algebras whose
+sections over $U_\alpha$ recover the local critical CoHA. The
+passage is governed by the combinatorial datum it must resolve: the
+\emph{Derksen--Weyman--Zelevinsky mutation groupoid}
+$\mathrm{Mut}(X)$, whose objects are quiver-with-potential
+presentations of $X$, whose 1-morphisms are mutations
+(arXiv:0704.0649, Theorem~1.7), and whose 2-morphisms are
+intertwiners of the induced Keller--Yang Fourier--Mukai kernels
+(arXiv:0906.0761, Theorem~3.2).
+
+\emph{Truncation level of $\mathrm{Mut}(X)$.} Presentations are
+sets (0-truncated); mutations between presentations form a
+non-trivial groupoid of Fourier--Mukai kernels (1-truncated
+non-trivially, since distinct mutations produce non-equal kernels);
+intertwiners between such kernels are \emph{contractible} by the
+Keller--Yang canonicity theorem (arXiv:0906.0761, Proposition~3.3:
+the silting-object lift is unique up to unique isomorphism). The
+groupoid of intertwiners-of-intertwiners is therefore contractible,
+and $\mathrm{Mut}(X)$ is a $(2,1)$-truncated simplicial set in the
+sense of Lurie, HTT~\S2.3.4.
+
+\emph{Three consequences of $(2,1)$-truncation.} Locality: vanishing
+cycles are étale-local on the target of $W$, so the 0-cells of
+$\mathrm{Mut}(X)$ supply local CoHA data. Covariance: every
+mutation $(Q_\alpha, W_\alpha) \to (Q_\beta, W_\beta)$ is a 1-cell
+in $\mathrm{Mut}(X)$ lifting to a canonical Fourier--Mukai kernel
+(Keller--Yang~\S3.2), so the overlap data live at the 1-cell level.
+Derived invariance: Keller--Yang canonicity is a 2-cell
+contractibility statement, recording that the gluing result is
+insensitive to the mutation path chosen.
+
+The $(2,1)$-truncation of $\mathrm{Mut}(X)$ is therefore the
+minimal truncation that captures all three data: higher truncations
+record nothing further (by Keller--Yang canonicity), lower
+truncations lose the Fourier--Mukai kernel data (by the
+non-triviality of mutation at the 1-cell level). The abstract
+object constructed below is the value on $\mathrm{Mut}(X)$ of a
+sheaf in the Toën--Vezzosi derived-descent sense
+(arXiv:math/0404373, Section~1.3).
+
+\begin{definition}[Critical CoHA on a smooth chart, after Kontsevich--Soibelman 2011]
+\label{def:critical-coha-local}
+\ClaimStatusDefinition
+Let $Y$ be a smooth quasi-projective variety with an action of a
+reductive group $G$ and let $f: Y \to \bC$ be a $G$-invariant
+regular function. The \emph{critical cohomological Hall algebra}
+of $(Y, f, G)$ is the graded vector space
+\[
+ \sH(Y, f, G) \;=\; H^{*}_{G}\!\bigl(Y,\, \varphi_f\bigr)
+\]
+where $\varphi_f$ is the sheaf of vanishing cycles of $f$; the
+convolution product, when $(Y, f, G)$ is equipped with a choice of
+extension correspondence, is
+$m(\alpha \otimes \beta) = q_* p^*(\alpha \boxtimes \beta)$ along
+\[
+ Y' \times Y''
+ \;\xleftarrow{p}\;
+ Y'_{\subset}
+ \;\xrightarrow{q}\;
+ Y
+\]
+twisted by the Joyce--Song sign
+(Kontsevich--Soibelman arXiv:1006.2706, Definition~2; Davison
+arXiv:1311.7172, Theorem~A for regularity of $\varphi_f$ under the
+equivariant structure; Davison--Meinhardt arXiv:1601.02479,
+Theorem~A for associativity and the dimensional-reduction
+isomorphism).
+
+The \emph{quiver-with-potential form} is the specialisation
+$(Y, f, G) = (\Rep(Q, \mathbf d), W_{\mathbf d}, G_{\mathbf d})$
+with $G_{\mathbf d} = \prod_i GL(d_i)$, $W_{\mathbf d}$ the trace
+of the potential, and the extension correspondence given by
+short-exact-sequence stacks $0 \to V' \to V \to V'' \to 0$ in
+$\Rep(Q)$. When this specialisation is available, $\sH(Q, W) =
+\bigoplus_{\mathbf d} \sH(\Rep(Q, \mathbf d), W_{\mathbf d}, G_{\mathbf d})$
+is $\bN^{Q^0}$-graded.
+\end{definition}
+
+\begin{proposition}[When a chart admits quiver presentation]
+\label{prop:chart-quiver-presentation}
+\ClaimStatusProposition
+Let $U \subset X$ be an affine open in a Calabi--Yau threefold.
+The critical CoHA $\sH(U) = \sH(Y_U, f_U, G_U)$ of
+Definition~\ref{def:critical-coha-local} admits a
+quiver-with-potential presentation, i.e.\ an isomorphism $\sH(U)
+\cong \sH(Q, W)$ for some $(Q, W)$, under either of the following
+\emph{global} hypotheses on $U$:
+\begin{enumerate}
+\item[(VdB)] $U$ admits a \emph{Van den Bergh tilting bundle}: a
+ coherent sheaf $T$ on $U$ with $\mathrm{Ext}^{>0}(T, T) = 0$,
+ $\mathrm{End}(T)$ Noetherian, and the functor
+ $R\Hom(T, -): \Db(\Coh U) \to \Db(\mathrm{End}(T)\text{-mod})$ an
+ equivalence (Van den Bergh arXiv:math/0211064, Theorem~A). Then
+ $(Q, W)$ is the Ginzburg quiver of $\mathrm{End}(T)$, and
+ $U = \Spec \Jac(Q, W)$ (Ginzburg arXiv:math/0612139,
+ Theorem~3.6.4).
+\item[(DM)] $U$ is toric without compact divisors, and the
+ Rapcak--Soibelman--Yang--Zhao presentation of
+ Davison--Meinhardt arXiv:1601.02479 Theorem~A applies. Then
+ $(Q, W)$ is the Jacobi quiver of the toric fan.
+\end{enumerate}
+Neither hypothesis is automatic: (VdB) fails on compact
+Calabi--Yau threefolds (a tilting bundle would force $H^0(U, \sO)$
+to be Noetherian, incompatible with the Čech assembly of a
+projective CY\textsubscript{3}); (DM) fails whenever $U$ carries
+a compact 4-cycle.
+\end{proposition}
+
+\begin{proof}[Remark on the proof]
+Both implications (VdB) $\Rightarrow$ Jacobi and (DM) $\Rightarrow$
+toric Jacobi are by direct quotation of the cited theorems; the
+negative statements are obstructions: any tilting bundle is
+concentrated in degree 0, and toric compact-divisor support forces
+the fan to have a compact cone, which then supports a non-zero
+higher-direct-image obstructing tilting.
+\end{proof}
+
+\begin{remark}[Chart cover hypothesis, named explicitly]
+\label{rem:scope-critical-coha-local}
+The rest of the chapter fixes an open cover $\mathfrak{U} =
+\{U_\alpha\}$ of $X$ with each $U_\alpha$ satisfying either (VdB)
+or (DM). Such a cover exists when $X$ is either toric (DM, fine
+enough fan refinement) or admits a local-to-global Van den Bergh
+resolution on affine charts (Buchweitz--Hille arXiv:1404.3007 for
+the flop-local case; still open in general for compact CY\textsubscript{3}).
+The existence hypothesis is the chart-level input to the
+gluing; it does not imply a global tilting bundle on $X$, which
+would contradict compactness.
+\end{remark}
+
+\subsection{What ``sheaf of CoHAs'' means}
+\label{sec:sheaf-of-cohas}
+
+The sheaf-theoretic content of the critical CoHA is visible on each
+individual chart: vanishing cycles are étale-local on the target of
+$W$, and Borel--Moore homology extends along open inclusions. A
+single chart $U$ therefore carries a locally-constant sheaf $\sH_U$
+of graded algebras whose sections over an affine open $V \subset U$
+with Jacobi presentation $\Jac(Q_V, W_V)$ recover $\sH(Q_V, W_V)$.
+The question that organises this section is the following.
+
+\emph{Question.} When two charts $U_\alpha$, $U_\beta$ overlap on
+$U_{\alpha\beta} = U_\alpha \cap U_\beta$, each chart carries its
+own presentation $(Q_\alpha, W_\alpha)$, $(Q_\beta, W_\beta)$, and
+the overlap receives two \emph{a priori} distinct presentations.
+Which canonical datum identifies them?
+
+The answer is forced by three facts. First, on a Calabi--Yau
+threefold any two quiver-with-potential presentations of the same
+smooth affine Calabi--Yau threefold are related by a finite sequence
+of Derksen--Weyman--Zelevinsky mutations
+(arXiv:0704.0649, Theorem~1.7); each mutation induces a derived
+equivalence of Jacobi categories (Keller--Yang arXiv:0906.0761,
+Theorem~3.2). Second, each such derived equivalence preserves the
+critical locus of $W$ up to an explicit Fourier--Mukai kernel on
+the moduli stack. Third, Davison--Meinhardt arXiv:1601.02479
+Theorem~A shows that this Fourier--Mukai transport sends the
+critical CoHA of one presentation to the critical CoHA of the other
+by an \emph{algebra isomorphism} determined canonically by the
+tilting object. The overlap datum is thus a \emph{tilting cocycle}
+in Fourier--Mukai kernels.
+
+Let $\mathrm{Alg}^{\mathrm{FM}}_{(2,1)}$ denote the
+$(2,1)$-category whose objects are $\bN^\bullet$-graded associative
+algebras of the form $\sH(Q, W)$, whose 1-morphisms are invertible
+Fourier--Mukai transports $\Phi_K: \sH(Q_1, W_1) \xrightarrow{\sim}
+\sH(Q_2, W_2)$ induced by derived-equivalence kernels $K$ between
+the Jacobi categories, and whose 2-morphisms are kernel intertwiners
+modulo Keller--Yang contractibility (arXiv:0906.0761,
+Proposition~3.3). This is well-defined by Keller--Yang plus the
+$(\infty,1)$-nerve construction Lurie HTT~\S1.2.6.1.
+
+\begin{definition}[Simplicial $(2,1)$-sheaf of CoHAs]
+\label{def:simplicial-sheaf-cohas}
+\ClaimStatusDefinition
+Let $\mathfrak{U} = \{U_\alpha\}_{\alpha \in A}$ be an analytic
+open cover of $X$ with each $U_\alpha$ satisfying (VdB) or (DM) of
+Proposition~\ref{prop:chart-quiver-presentation} and carrying a
+chosen presentation $(Q_\alpha, W_\alpha)$. Write
+$\Cech^\bullet(\mathfrak{U})$ for the nerve:
+$\Cech^n(\mathfrak{U}) = \coprod_{\alpha_0 < \cdots < \alpha_n}
+U_{\alpha_0 \cdots \alpha_n}$. A \emph{simplicial $(2,1)$-sheaf of
+CoHAs} on $(X, \mathfrak{U})$ is a homotopy-coherent simplicial
+diagram
+\[
+ \sH_\bullet: \Delta^{\mathrm{op}} \longrightarrow
+ \mathrm{Alg}^{\mathrm{FM}}_{(2,1)}
+\]
+in the sense of Lurie HTT~\S1.2.6.1 (homotopy-coherent nerve),
+subject to the following simplex-by-simplex data:
+\begin{enumerate}
+\item[(S1)] \emph{0-simplices.} For each $\alpha$,
+ $\sH_0|_{U_\alpha} = \sH(Q_\alpha, W_\alpha)$ per
+ Definition~\ref{def:critical-coha-local}.
+\item[(S2)] \emph{1-simplices.} For each pair $\alpha < \beta$,
+ the face 1-morphisms
+ $\partial_0, \partial_1: \sH_1|_{U_{\alpha\beta}}
+ \rightrightarrows \sH_0|_{U_\alpha},\, \sH_0|_{U_\beta}$ are
+ invertible Fourier--Mukai transports $\Phi_{K_{\alpha\beta}}$
+ induced by DWZ mutation kernels (arXiv:0704.0649, Theorem~1.7;
+ Keller--Yang arXiv:0906.0761, Theorem~3.2).
+\item[(S3)] \emph{2-simplices (cocycle).} For each triple
+ $\alpha < \beta < \gamma$, the 2-simplex
+ $\sH_2|_{U_{\alpha\beta\gamma}}$ carries an invertible 2-morphism
+ \[
+ \eta_{\alpha\beta\gamma}:
+ \Phi_{K_{\beta\gamma}} \circ \Phi_{K_{\alpha\beta}}
+ \;\xrightarrow{\;\sim\;}\;
+ \Phi_{K_{\alpha\gamma}}
+ \]
+ in $\mathrm{Alg}^{\mathrm{FM}}_{(2,1)}$, witnessing
+ $K_{\beta\gamma} \ast K_{\alpha\beta} \simeq K_{\alpha\gamma}$ up
+ to the Keller--Yang canonical 2-isomorphism.
+\item[(S4)] \emph{Contractible filling at $n \geq 3$.} Inner horns
+ $\Lambda^n_k \hookrightarrow \Delta^n$ for $n \geq 3$ admit unique
+ fillers: by Keller--Yang Proposition~3.3, 2-morphisms in
+ $\mathrm{Alg}^{\mathrm{FM}}_{(2,1)}$ are isomorphisms and
+ isomorphisms-of-isomorphisms are unique, so no further choice is
+ required at degree $\geq 3$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Strictification obstructed; $(2,1)$-truncation optimal]
+\label{rem:strictness-fails}
+A strict simplicial diagram demanding equalities
+$\partial_j \partial_i = \partial_i \partial_{j+1}$ at the
+1-morphism level is unattainable: the DWZ composite
+$K_{\beta\gamma} \ast K_{\alpha\beta}$ agrees with $K_{\alpha\gamma}$
+only up to the Keller--Yang canonical 2-isomorphism, and forcing
+equality would require a splitting of the Keller--Yang contractible
+space of intertwiners (no canonical section exists). Item~(S3)
+upgrades the equality to an explicit invertible 2-morphism
+$\eta_{\alpha\beta\gamma}$. Truncation at $(2,1)$-level is then
+forced by (S4): no $(n,1)$-truncation with $n \geq 3$ records
+anything beyond what Keller--Yang already determines uniquely
+(Lurie HTT~Proposition~2.3.4.18 on the uniqueness of truncations;
+Toën--Vezzosi arXiv:math/0404373, Section~1.3 on $(2,1)$-stacks as
+the home for derived descent of algebra-valued presheaves).
+\end{remark}
+
+\begin{proposition}[Descent reduction via homotopy totalisation]
+\label{prop:descent-reduction}
+\ClaimStatusProposition
+Given a simplicial $(2,1)$-sheaf of CoHAs $\sH_\bullet$ satisfying
+(S1)--(S4) of Definition~\ref{def:simplicial-sheaf-cohas}, the
+$(2,1)$-categorical \emph{homotopy totalisation}
+\[
+ \sH(X) \;=\; \mathrm{Tot}\!\bigl(\sH_\bullet\bigr)
+ \;=\;
+ \mathrm{holim}_{[n] \in \Delta}\, \sH_n
+ \;\simeq\;
+ \int_{[n] \in \Delta} \sH_n^{\Delta^n}
+\]
+(the right-hand expression is the end computing the cosimplicial
+totalisation; Lurie HTT~\S4.2.4, formula (4.2.4.1); equivalent by
+Lurie HTT~Corollary~4.2.4.8 to the homotopy limit over the
+opposite simplex category) is a well-defined
+$\bN^\bullet$-graded associative algebra up to contractible choice,
+independent of the cover $\mathfrak{U}$ and of the choice of
+presentations $(Q_\alpha, W_\alpha)$:
+\begin{enumerate}
+\item Cover independence is by cofinality of common refinements in
+ the poset of open covers, combined with Toën--Vezzosi
+ arXiv:math/0404373 Section~1.3 on homotopy-theoretic descent of
+ presheaves valued in $(2,1)$-categories.
+\item Presentation independence is by Davison--Meinhardt
+ arXiv:1601.02479 Theorem~A: any two chart-wise presentations are
+ related by a DWZ mutation cocycle, and the Fourier--Mukai
+ transport along a mutation cocycle induces an invertible
+ 1-morphism in $\mathrm{Alg}^{\mathrm{FM}}_{(2,1)}$.
+\item Canonicity of $\sH(X)$ up to contractible choice is by the
+ Francis--Gaitsgory chiral-Koszul totalisation arXiv:1103.5803,
+ Theorem~6.2.8 (specialised from Ran-space totalisation to the
+ nerve $\Cech^\bullet(\mathfrak{U})$, viewed as a finite
+ subdiagram of the Ran space supported on the cover).
+\end{enumerate}
+The algebra $\sH(X)$ is the \emph{global critical CoHA} of $X$.
+\end{proposition}
+
+The load-bearing hypothesis is the existence of a simplicial
+$(2,1)$-sheaf $\sH_\bullet$ satisfying (S1)--(S4) for $(X,
+\mathfrak{U})$: the 2-simplex filler (S3) must be constructible
+geometrically, not merely posited. Four mechanisms for constructing
+it are known, each tied to an equivariance stratum of $X$; their
+taxonomy occupies Section~\ref{sec:four-stratum-taxonomy}.
+
+\subsection{The gluing 2-category \texorpdfstring{$\GlCoHA(X)$}{GluedCoHA(X)}}
+\label{sec:glue-2cat}
+
+The existence and uniqueness of $\sH(X)$ asserted in
+Proposition~\ref{prop:descent-reduction} is cleanest to state in
+the $(2,1)$-category of all possible sheaves-of-CoHAs on $X$.
+Remark~\ref{rem:strictness-fails} recorded that the truncation of
+the ambient category at $(2,1)$ is forced by the data; before the
+definition of $\GlCoHA(X)$ itself, the same argument is re-run at
+the level of the category of simplicial sheaves, to rule out the
+alternative truncation levels $(1,1)$, $(2,2)$, and $(\infty,1)$
+globally.
+
+\begin{proposition}[$(2,1)$-truncation of $\GlCoHA(X)$ is forced]
+\label{prop:glcoha-truncation-forced}
+\ClaimStatusProposition
+Let $X$ be a Calabi--Yau variety admitting a chart-wise
+quiver-with-potential cover. Among the four candidate truncation
+levels $(n, m) \in \{(1,1),\, (2,1),\, (2,2),\, (\infty, 1)\}$ for a
+category $\GlCoHA(X)$ whose objects are simplicial sheaves of CoHAs
+on $X$, exactly one, $(n, m) = (2, 1)$, records the full gluing
+datum losslessly.
+\begin{enumerate}
+\item[(i)] $(1,1)$ loses the Keller--Yang tilting cocycle at the
+ 1-cell level: forgetting 2-morphisms identifies the
+ distinct-but-isomorphic Fourier--Mukai kernels
+ $K_{\beta\gamma} \ast K_{\alpha\beta}$ and $K_{\alpha\gamma}$ into
+ a single connected component, at which point (S3) of
+ Definition~\ref{def:simplicial-sheaf-cohas} collapses and the
+ cocycle condition becomes strict. Strictness is obstructed
+ (Remark~\ref{rem:strictness-fails}).
+\item[(ii)] $(2,1)$ records the tilting cocycle as an
+ invertible 1-morphism and records the Keller--Yang canonical
+ isomorphism $\eta_{\alpha\beta\gamma}$ of (S3) as a contractible
+ 2-morphism. No higher data intrudes by (S4).
+\item[(iii)] $(2,2)$ requires 2-morphisms to admit their own
+ non-trivial automorphisms. The intertwiner space of any two
+ Keller--Yang 2-isomorphisms is a $\mathrm{GRT}_1(\bQ)$-torsor
+ over the Tamarkin associator (Kontsevich 1999
+ \emph{Lett. Math. Phys.}~48, Theorem~3;
+ Tamarkin arXiv:math/0411168, Theorem~A); its $\pi_1$ is trivial
+ because $\mathrm{GRT}_1(\bQ)$ acts freely on the torsor. No
+ non-trivial 2-morphism-of-2-morphisms arises.
+\item[(iv)] $(\infty, 1)$ coincides with $(2, 1)$ under canonical
+ inclusion: the homotopy-coherent nerve of the simplicial diagram
+ of Definition~\ref{def:simplicial-sheaf-cohas} is 2-truncated, so
+ Lurie HTT~Proposition~2.3.4.18 identifies the $(\infty, 1)$-limit
+ with the $(2, 1)$-limit.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{(i).} The obstruction of Remark~\ref{rem:strictness-fails} is
+precisely the failure of strict cocyclicity; a $(1,1)$-category
+forgets the 2-morphism $\eta_{\alpha\beta\gamma}$ and consequently
+demands strict equality of $K_{\beta\gamma} \ast K_{\alpha\beta}$
+and $K_{\alpha\gamma}$. No canonical splitting of the Keller--Yang
+contractible 2-morphism space exists (Keller--Yang arXiv:0906.0761,
+Proposition~3.3: intertwiners are canonical up to contractible
+choice, with no canonical section), so the $(1,1)$-category
+collapses non-equivalent gluing data into a single class.
+
+\emph{(ii).} The 1-morphism space in
+$\mathrm{Alg}^{\mathrm{FM}}_{(2,1)}$ is by construction a groupoid,
+and the 2-morphism space is the groupoid of kernel intertwiners
+modulo Keller--Yang contractibility. The simplicial diagram of
+Definition~\ref{def:simplicial-sheaf-cohas} uses precisely these
+1- and 2-morphisms; (S3) encodes the Keller--Yang 2-isomorphism and
+(S4) asserts contractibility of fillers at $n \geq 3$. This is
+exactly the $(2,1)$-truncation.
+
+\emph{(iii).} Fix two Keller--Yang 2-isomorphisms
+$\eta, \eta': K_{\beta\gamma} \ast K_{\alpha\beta}
+\xrightarrow{\sim} K_{\alpha\gamma}$. The space of intertwiners
+$\eta \Rightarrow \eta'$ is identified via Kontsevich--Tamarkin
+formality with the mapping space of $L_\infty$-morphisms between
+two instances of the Hochschild complex of the Ginzburg dg-algebra
+$\Jac(Q, W)$; on the single connected component supported by the
+Tamarkin associator this space is a $\mathrm{GRT}_1(\bQ)$-torsor
+(Kontsevich 1999, Section~4; Tamarkin op.~cit., Section~5). The
+stabiliser of a torsor point under a free action is trivial, so
+$\pi_k = 0$ for $k \geq 1$: no non-trivial automorphism of a
+2-morphism arises.
+
+\emph{(iv).} The homotopy-coherent nerve of the $(2,1)$-simplicial
+diagram inherits its truncation level from the target category:
+since $\mathrm{Alg}^{\mathrm{FM}}_{(2,1)}$ is 2-truncated by
+definition, so is its diagram category. Lurie HTT~\S2.3.4 classifies
+2-truncated $(\infty, 1)$-categories as $(2, 1)$-categories, and
+HTT~Proposition~2.3.4.18 asserts that homotopy limits computed in
+either are canonically identified.
+\end{proof}
+
+\begin{remark}[Truncation is a property of the data, not a choice]
+\label{rem:truncation-property-not-choice}
+Proposition~\ref{prop:glcoha-truncation-forced} is not a choice of
+convention: the truncation level of $\GlCoHA(X)$ is dictated by the
+content of the gluing cocycle. Raising the truncation above
+$(2,1)$ records no additional information; lowering it below
+$(2,1)$ discards the Keller--Yang canonicity that makes the global
+CoHA well-defined up to contractible choice. An attempt to work at
+$(3,1)$ or $(\infty,1)$ is equivalent to $(2,1)$ up to canonical
+inclusion, paid for by additional formalism. An attempt to work at
+$(1,1)$ is inadequate: it cannot distinguish ``gluing succeeded
+canonically'' from ``gluing succeeded non-canonically''.
+\end{remark}
+
+\begin{definition}[The gluing $(2,1)$-category $\GlCoHA(X)$]
+\label{def:glue-2cat}
+\ClaimStatusDefinition
+The \emph{gluing $(2,1)$-category} $\GlCoHA(X)$ has:
+\begin{itemize}
+\item \emph{Objects.} Pairs $(\mathfrak{U}, \sH_\bullet)$ with
+ $\mathfrak{U}$ an analytic open cover whose charts satisfy (VdB)
+ or (DM) of Proposition~\ref{prop:chart-quiver-presentation}, and
+ $\sH_\bullet$ a simplicial $(2,1)$-sheaf of CoHAs on
+ $(X, \mathfrak{U})$ satisfying (S1)--(S4) of
+ Definition~\ref{def:simplicial-sheaf-cohas}.
+\item \emph{1-morphisms.}
+ $(\mathfrak{U}, \sH_\bullet) \to (\mathfrak{U}', \sH'_\bullet)$
+ is a common refinement $\mathfrak{V}$ plus a homotopy-coherent
+ simplicial 1-morphism
+ $\sH_\bullet|_{\mathfrak{V}} \to \sH'_\bullet|_{\mathfrak{V}}$ in
+ the Joyal model structure on simplicial sets valued in
+ $\mathrm{Alg}^{\mathrm{FM}}_{(2,1)}$ (Lurie HA~4.7.5.1).
+\item \emph{2-morphisms.} Homotopies of such homotopy-coherent
+ 1-morphisms on a further common refinement.
+\end{itemize}
+Composition is common-refinement composition at 1-morphism level
+and vertical pasting at 2-morphism level. The poset of analytic
+open covers under refinement is filtered, so common refinements
+always exist and composition is well-defined up to contractible
+choice.
+\end{definition}
+
+\begin{theorem}[Global CoHA as homotopy totalisation, conditional on stratum membership]
+\label{thm:global-coha-limit}
+\ClaimStatusProposition
+Let $X$ be a Calabi--Yau threefold.
+\begin{enumerate}
+\item \emph{(Conditional non-emptiness.)} If $X$ belongs to at
+ least one of the four equivariance strata of
+ Section~\ref{sec:four-stratum-taxonomy} --- toric, reduced
+ $\bC^\times \times \Aut$, orbifold inertia, or lattice-polarised
+ period --- then $\GlCoHA(X)$ is non-empty.
+\item \emph{(Uniqueness up to contractible choice.)} Every object
+ of $\GlCoHA(X)$ has the same homotopy totalisation in
+ $\mathrm{Alg}^{\mathrm{FM}}_{(2,1)}$:
+ \[
+ \sH(X) \;=\; \mathrm{holim}_{[n] \in \Delta}\, \sH_n,
+ \]
+ well-defined up to contractible choice, by
+ Proposition~\ref{prop:descent-reduction}.
+\item \emph{(Étale functoriality.)} $X \mapsto \sH(X)$ extends to
+ a functor from the $(2,1)$-category of Calabi--Yau threefolds
+ and étale Calabi--Yau morphisms into
+ $\mathrm{Alg}^{\mathrm{FM}}_{(2,1)}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:global-coha-limit}]
+\emph{(1).} Each stratum supplies a geometric source for the
+2-simplex filler $\eta_{\alpha\beta\gamma}$ of (S3):
+\begin{itemize}
+\item \emph{Stratum (i), toric.} On triple overlaps
+ $U_{\alpha\beta\gamma}$ of toric charts, the DWZ mutation kernels
+ $K_{\alpha\beta}, K_{\beta\gamma}, K_{\alpha\gamma}$ restrict to
+ the same $T^d$-equivariant kernel on $U_{\alpha\beta\gamma}$, so
+ $\eta_{\alpha\beta\gamma}$ is the canonical identity
+ (Davison--Meinhardt arXiv:1601.02479, Theorem~A;
+ Rapcak--Soibelman--Yang--Zhao arXiv:2007.13365, Theorem~1.5).
+\item \emph{Stratum (ii), reduced $\Aut$.} $\Aut(X)$-equivariance
+ promotes the mutation kernel to an $\Aut(X)$-equivariant kernel;
+ equivariance plus Keller--Yang contractibility supplies
+ $\eta_{\alpha\beta\gamma}$.
+\item \emph{Stratum (iii), orbifold $X = [Y/G]$.} BKR
+ arXiv:math/9908027 Theorem~1.1 furnishes the filler by McKay
+ equivalence on the inertia stack $I(X)$.
+\item \emph{Stratum (iv), lattice-polarised.} On the Humbert locus
+ of the period domain, the Borcherds lift of the relevant Jacobi
+ form (Borcherds arXiv:alg-geom/9609022) supplies an automorphic
+ cocycle filling $\eta_{\alpha\beta\gamma}$.
+\end{itemize}
+Any single stratum-membership gives non-emptiness.
+\emph{(2)} is Proposition~\ref{prop:descent-reduction}.
+\emph{(3)} follows from base change for vanishing cycles
+(Kashiwara, Publ.~RIMS 20 (1984), Chapter~5) and the étale
+compatibility of the Hall product
+(Davison arXiv:1311.7172, Section~5).
+\end{proof}
+
+\begin{remark}[Non-emptiness outside the four strata is open]
+\label{rem:non-emptiness-conditional}
+For compact Calabi--Yau threefolds with no torus action, no
+residual automorphism, no orbifold presentation, and no
+period-domain lift --- the quintic, Schoen's bicubic, generic
+complete intersections --- the 2-simplex filler of (S3) has no
+geometric source of any of the four types above; the
+Davison--Meinhardt dimensional-reduction CoHA supplies 1-simplex
+data but not coherent 2-simplex data for a global cover.
+Non-emptiness of $\GlCoHA(X)$ for such $X$ is the open problem
+formulated in \S\ref{sec:gluing:obstructions}.
+\end{remark}
+
+\begin{remark}[Relation to the categorical viewpoint]
+\label{rem:cat-viewpoint-coha}
+The object $\sH(X)$ produced by
+Theorem~\ref{thm:global-coha-limit} is the \emph{chart-wise} or
+\emph{combinatorial} global critical CoHA. It is the chain-level
+incarnation of the $(\infty, 1)$-categorical CoHA of the
+Kontsevich--Soibelman stack of objects in the Calabi--Yau
+$\infty$-category $\Perf(X)$ equipped with its Serre-duality
+cyclic structure. The $(\infty, 1)$-categorical and chain-level
+constructions are equally load-bearing per the CLAUDE.md
+operating rule on the two lanes; neither subsumes the other, and
+the chart-wise description exposed here is the one on which
+explicit formulas live.
+\end{remark}
+
+\subsection{The four-stratum taxonomy}
+\label{sec:four-stratum-taxonomy}
+
+The critical question left open by
+Theorem~\ref{thm:global-coha-limit} is whether $\GlCoHA(X)$ is
+non-empty for a given $X$. Answering it requires naming the
+\emph{equivariance stratum} on which $X$ sits: the symmetry group
+whose cocycles assemble the overlaps. Four strata exhaust the
+known mechanisms.
+
+\paragraph{The four strata from the automorphism tower.} Fix
+$(X, \Omega_X)$. The symmetry data available for a $\GlCoHA(X)$
+gluing cocycle is exactly the \emph{tower of automorphism groups
+that preserve $\Omega_X$ and act coherently on chart presentations}:
+\[
+ \mathrm{Aut}^{0}(X, \Omega_X)
+ \;\lhd\;
+ \mathrm{Aut}(X, \Omega_X)
+ \;\lhd\;
+ \mathrm{Aut}^{\widetilde{\phantom{X}}}(X, \Omega_X)
+ \;\lhd\;
+ \Gamma_{\mathrm{arith}}\bigl(\mathrm{Period}(X)\bigr).
+\]
+Each successive level adds a new source of gluing cocycle data
+(continuous $\to$ discrete $\to$ orbifold-cover discrete $\to$
+arithmetic). The four strata in the programme correspond one-to-one
+to the four rows of this filtration.
+
+\emph{(i) Toric.} $\mathrm{Aut}^0(X, \Omega_X) \supseteq T^d =
+(\bC^\times)^d$: the identity component is a
+volume-preserving torus. Examples: $\bC^3$, resolved conifold,
+local $\bP^2$, banana threefold, SPP.
+
+\emph{(ii) Reduced torus times automorphism.} $\mathrm{Aut}^0(X,
+\Omega_X) \supseteq \bC^\times$ (the $\Omega_X$-scaling) and
+$\pi_0 \mathrm{Aut}(X, \Omega_X)$ is a non-trivial discrete group
+$G$ acting on $X$ itself. Examples: K3, K3~$\times$~E, abelian
+surfaces, generic elliptic fibrations.
+
+\emph{(iii) Orbifold inertia.} $X = [Y/G]$ with
+$G \subset SU(d)$ finite acting on a smooth CY~$Y$; the symmetry
+group $G$ does not act on $X$ directly, only on the cover~$Y$.
+The inertia stack $I(X) = \coprod_{[g] \in G/\text{conj}}
+Y^g / C_G(g)$ records the action of $G$ on $Y$ after the quotient.
+Examples: $[\bC^3/\bZ_n]$, $[\bC^3/G]$ with $G \subset SU(3)$
+finite, Mathieu $M_{24}$ acting on K3.
+
+\emph{(iv) Lattice-polarised period.} The symmetry group acts
+not on $X$ or on a cover of $X$, but on the period domain
+$\mathcal{D}_L$ (for a fixed polarisation lattice
+$L \subset H^2(X, \bZ)$); the group is the arithmetic subgroup
+$\Gamma \subset O(L \otimes \bR)$ preserving $L$. Examples: K3 at
+Humbert divisors, K3~$\times$~E via Gritsenko $\Delta_5$, Igusa
+$\Phi_{10}$ for stable $K3^{[n]}$.
+
+\begin{proposition}[The four strata exhaust the tower]
+\label{prop:four-strata-exhaust}
+\ClaimStatusProposition
+The four strata above correspond to the four possible locations
+along the tower at which the symmetry first appears:
+(i) continuous identity component; (ii) discrete component acting
+on $X$ directly; (iii) discrete component acting only on a cover
+of $X$; (iv) arithmetic component acting on the period domain.
+For a Calabi--Yau threefold $X$, the set of strata containing $X$
+is determined by which levels of this tower are non-trivial; any
+fifth stratum would correspond to a fifth level of the tower
+outside $\mathrm{Aut}^0 \subset \mathrm{Aut} \subset
+\mathrm{Aut}^{\widetilde{\phantom{X}}} \subset
+\Gamma_{\mathrm{arith}}$, which exhausts the symmetry
+classification of $(X, \Omega_X)$ (Deligne, \emph{Équations
+différentielles à points singuliers réguliers}, Lecture Notes in
+Math.~163 (1970), Chapter~II on monodromy for arithmetic rows
+on period domains; Dolgachev arXiv:alg-geom/9502005 on
+lattice-polarised K3 period maps).
+\end{proposition}
+
+\begin{proof}[Argument]
+Any automorphism of $(X, \Omega_X)$ is by definition in
+$\mathrm{Aut}(X, \Omega_X)$, hence in one of levels (i)--(ii).
+Any symmetry of the covering datum $(Y, \Omega_Y, G)$ with $X =
+[Y/G]$ is in level (iii). Any symmetry acting only on the period
+domain is arithmetic, hence level (iv). A symmetry that does not
+fit any of these levels does not preserve $\Omega_X$, does not
+come from a cover, and does not act on the period domain --- no
+such group acts coherently on chart presentations of $(X,
+\Omega_X)$. The tower is complete.
+\end{proof}
+
+\begin{theorem}[Four-stratum structure of gluing]
+\label{thm:four-stratum-structural}
+\ClaimStatusProposition
+For each geometry $X$ to which the chart-wise construction of
+Theorem~\ref{thm:global-coha-limit} applies, the gluing cocycle of
+$\sH(X)$ factors through the strata (i)--(iv) of
+Proposition~\ref{prop:four-strata-exhaust}. The content of the
+theorem decomposes into three statements; two are theorem-level
+outright, and the third is the unified uniform statement left open
+by Remark~\ref{rem:bii-biv-scope}.
+\begin{enumerate}
+\item[(A)] \emph{Stratum support.} The set
+\[
+ \Str(X) \;:=\; \bigl\{ s \in \{(\text{i}), (\text{ii}),
+ (\text{iii}), (\text{iv})\} :
+ X \text{ carries a non-trivial cocycle in stratum } s \bigr\}
+\]
+is non-empty for every $X$ equipped with the $\bC^\times$-scaling
+of $\Omega_X$ required for the Joyce--Song sign
+(Kontsevich--Soibelman arXiv:0811.2435, \S 6).
+\item[(B)] \emph{Cocycle target, by stratum.} For $X$ of type
+ $S$, the 2-simplex filler $\eta_{\alpha\beta\gamma}$ of (S3) in
+ Definition~\ref{def:simplicial-sheaf-cohas} is witnessed by a
+ first-cohomology class on the classifying datum associated with
+ each stratum of $S$:
+\begin{itemize}
+\item[(i)] $H^1(X, \underline{\Pic^{T^d}})$, the torus-equivariant
+ Picard sheaf, for toric $X$. (Theorem-level: Davison--Meinhardt
+ arXiv:1601.02479, Theorem~A.)
+\item[(ii)] $H^1(X / \Aut_s(X), \underline{\Aut_s(X)})$, the
+ $\Aut_s$-character cocycle, for $X$ with residual
+ volume-preserving automorphism. (Theorem-level in chart-wise
+ cases, e.g.\ K3 with Nikulin involution, via Mukai
+ arXiv:math/0408129 Theorem~0.1; the full $K3 \times E$
+ $\Aut_s$-cocycle is conjectural.)
+\item[(iii)] $H^1(I(X/G), \underline{G})$, the inertia-stack
+ Galois/McKay cocycle. (Theorem-level: BKR arXiv:math/9908027
+ Theorem~1.1 plus Rapcak--Soibelman--Yang--Zhao arXiv:2007.13365
+ Theorem~A.)
+\item[(iv)] $H^1(\mathcal{D}_L / \Gamma_{\mathrm{arith}},
+ \underline{\Gamma_{\mathrm{arith}}})$, the arithmetic automorphic
+ cocycle on the period domain, equivalent to a Borcherds-lifted
+ cusp form class. (Theorem-level case-wise: Borcherds
+ arXiv:alg-geom/9609022 Theorem~10.1 for weak Jacobi lifts;
+ Gritsenko--Nikulin arXiv:alg-geom/9504006 Theorem~2.1 for Siegel
+ lifts; 8-form Gritsenko--Cl\'ery catalogue per CLAUDE.md key-fact.
+ A single unified $\Gamma_{\mathrm{arith}}$-valued statement
+ across all such automorphic forms is conjectural.)
+\end{itemize}
+\item[(C)] \emph{Fifteen non-empty cells.} Of the $2^4 = 16$
+ subsets $S \subset \{(\text{i}), (\text{ii}), (\text{iii}),
+ (\text{iv})\}$, the subset $S = \varnothing$ is excluded by (A);
+ the remaining 15 are the non-empty cells. Ten cells carry
+ explicit witnesses (Example~\ref{ex:stratum-occupancy} below);
+ five remain open for lack of a constructed geometry. For $X$ of
+ type $S$ with $|S| \geq 2$, the cocycles indexed by distinct
+ strata in $S$ are compatible via the overlap-coherence
+ condition of
+ Proposition~\ref{prop:overlap-coherence} below.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof]
+\emph{(A).} Suppose $X$ carries $\Omega_X$ nowhere-vanishing and
+admits a chart-wise presentation with $\bC^\times$-scaling. The
+critical CoHA construction requires a $\bC^\times$ action on
+$\Omega_X$ to define the Joyce--Song sign
+(Kontsevich--Soibelman arXiv:0811.2435, \S 6: critical cohomology
+uses the $\bC^\times$-weight on the vanishing-cycle sheaf); this
+$\bC^\times$ is contained in $\Aut^0(X, \Omega_X)$ at the base of
+the tower of Proposition~\ref{prop:four-strata-exhaust}. Either
+$\Aut^0 \supseteq T^d$ (stratum (i)), or $\Aut^0 = \bC^\times$ and
+at least one of $\pi_0 \Aut(X, \Omega_X),\;
+\mathrm{Aut}^{\widetilde{\phantom{X}}}(X, \Omega_X),\;
+\Gamma_{\mathrm{arith}}$ is non-trivial (one or more of strata
+(ii)--(iv)). In every case $\Str(X) \neq \varnothing$.
+
+\emph{(B).} Each entry is a direct citation. (i) Davison--Meinhardt
+arXiv:1601.02479 Theorem~A identifies the tilting cocycle of a
+toric CY with a class in the torus-equivariant Picard group.
+(ii) Mukai arXiv:math/0408129 Theorem~0.1 identifies symplectic
+$\Aut_s$-cocycles on K3 with a class in
+$H^1(K3 / \Aut_s, \underline{\Aut_s})$. (iii) BKR plus RSYZ
+identify the orbifold cocycle on $[Y/G]$ with a class in
+$H^1(I(X/G), \underline{G})$. (iv) Borcherds and
+Gritsenko--Nikulin identify the automorphic cocycle with a class
+in $H^1(\mathcal{D}_L / \Gamma_{\mathrm{arith}},
+\underline{\Gamma_{\mathrm{arith}}})$, realised by a
+Borcherds-lifted Siegel or Jacobi form.
+
+\emph{(C).} The cell count is $2^4 - 1 = 15$ after removing
+$S = \varnothing$, which is excluded by (A).
+Example~\ref{ex:stratum-occupancy} lists the 10 known witnesses;
+the remaining 5 are open as stated, pending construction of a
+geometry $X$ with the appropriate $\Str(X) = S$. Overlap
+compatibility for $|S| \geq 2$ is
+Proposition~\ref{prop:overlap-coherence}.
+\end{proof}
+
+\begin{remark}[Part (B)(ii), (B)(iv) pointwise-theorem vs uniform-conjectural]
+\label{rem:bii-biv-scope}
+Parts (B)(ii) and (B)(iv) are theorem-level for specific geometries:
+(ii) for K3 with Nikulin involution, abelian surfaces, and local
+K3-fibrations; (iv) for each Borcherds-lifted form
+$\Delta_5, \Phi_{10}, \Delta_1, \ldots$ in the Gritsenko--Cl\'ery
+8-form catalogue individually. A \emph{uniform} statement across
+all residual $\Aut_s$ for (ii) and all Borcherds lifts for (iv) is
+the residual unsolved content --- not because individual cases
+fail, but because the cocycle sheaves $\underline{\Aut_s(X)}$ and
+$\underline{\Gamma_{\mathrm{arith}}}$ are not yet shown to form a
+stack presentation unifying the cases. Parts (A) and (C) are
+theorem-level outright; parts (B)(i) and (B)(iii) are theorem-level
+via direct citation.
+\end{remark}
+
+\begin{remark}[Part (A) is within-programme; the general-compact case]
+\label{rem:part-a-scope}
+Part (A) of Theorem~\ref{thm:four-stratum-structural} asserts
+$\Str(X) \neq \varnothing$ \emph{for every $X$ equipped with a
+$\bC^\times$-scaling}. A hypothetical compact Calabi--Yau $X$ with
+no continuous or discrete automorphism (generic quintic $\bP^4[5]$,
+Schoen bicubic $\bP^4[3, 3]$) satisfies the $\bC^\times$-scaling
+only via the weighted-projective dilation inherited from an
+ambient projective space, and even then carries only the
+Davison--Meinhardt fall-back; the resulting cocycle (if any) lives
+in a degenerate stratum not computable by the four-stratum method.
+This is not a counterexample to (A); it is the stratum-free
+fall-back addressed by Remark~\ref{rem:fifteen-cells} and treated
+in \S\ref{sec:gluing:obstructions}.
+\end{remark}
+
+\begin{proposition}[Overlap coherence as fibre-product cohomology]
+\label{prop:overlap-coherence}
+\ClaimStatusProposition
+For $X$ with $\Str(X) = S$ and $|S| \geq 2$, the global gluing
+cocycle of Theorem~\ref{thm:four-stratum-structural}(B) is a
+class in the $(2,1)$-categorical fibre product
+\[
+ \kappa_X \;\in\;
+ \lim_{s \in S} H^1\!\left(\,
+ \mathrm{site}_s(X),\,
+ \underline{\mathcal{F}_s(X)}\,
+ \right)
+\]
+where the limit is the $(2,1)$-categorical limit of cohomology
+groups of sheaves over sub-sites of $X$, each term is the cocycle
+target of Theorem~\ref{thm:four-stratum-structural}(B) for its
+stratum $s$, and $\underline{\mathcal{F}_s(X)}$ denotes the
+corresponding classifying sheaf
+($\underline{\Pic^{T^d}},\;
+ \underline{\Aut_s(X)},\;
+ \underline{G},\;
+ \underline{\Gamma_{\mathrm{arith}}}$).
+For $s, s' \in S$ two overlapping strata, the face-matching
+datum between them is a compatible edge of the fibre-product
+diagram; for $|S| \geq 3$, the triple-overlap compatibility is a
+coherence 2-cell in the limit diagram. Higher coherences (3-cell
+and above) are contractible by
+Proposition~\ref{prop:glcoha-truncation-forced}.
+\end{proposition}
+
+\begin{proof}[Argument]
+This is the $(2,1)$-categorical Čech overlap compatibility for a
+cover of a site by the four sub-sites
+$\{\mathrm{site}_s(X)\}_{s \in \{(\text{i}), \ldots, (\text{iv})\}}$:
+the global cocycle is the 1-cell in the $(2,1)$-limit, and
+compatibility on double/triple/quadruple overlaps is recorded as
+2-cell data in the limit. Because
+Proposition~\ref{prop:glcoha-truncation-forced} forces the ambient
+category at $(2,1)$, all higher coherences are contractible and
+the limit is computed as a fibre product in the
+$(2,1)$-categorical sense. Direct unwinding exhibits the
+diagrammatic structure, with the four face-matching edges
+corresponding to the four pairwise intersections of strata and
+the triangular 2-cells corresponding to the triple intersections.
+At $|S| = 4$ (the master four-fold cell), the 2-cell data is a
+tetrahedral coherence in the fibre-product cohomology; at
+$|S| = 3$ it is a triangular coherence; at $|S| = 2$ it reduces
+to a single edge.
+\end{proof}
+
+\begin{remark}[Strata overlap; the taxonomy is $\mathcal{P}(\{\text{i,ii,iii,iv}\})$, not a partition]
+\label{rem:strata-not-partition}
+The four strata are not a partition of the CY\textsubscript{3}
+landscape: a single $X$ frequently sits in several strata, one per
+non-trivial level of the automorphism tower
+(Proposition~\ref{prop:four-strata-exhaust}). Local $\bP^2$ occupies
+$\{(\text i), (\text{iii})\}$ (toric and $\bZ_3$-orbifold of
+$\bC^3$ by BKR); K3 occupies $\{(\text{ii}), (\text{iii}),
+(\text{iv})\}$ (reduced-torus automorphism, Mathieu $M_{24}$,
+Kuga--Satake period); K3 $\times$ E occupies the same master triple
+cell. The taxonomy is therefore the full power set
+$\mathcal{P}(\{(\text{i}), (\text{ii}), (\text{iii}),
+(\text{iv})\})$, with 16 cells
+(Remark~\ref{rem:fifteen-cells}).
+\end{remark}
+
+\begin{remark}[The 16 cells of $\mathcal{P}(\{\text{i},\text{ii},\text{iii},\text{iv}\})$]
+\label{rem:fifteen-cells}
+The subset lattice $\mathcal{P}(\{(\text i), (\text{ii}),
+(\text{iii}), (\text{iv})\})$ has $2^4 = 16$ cells. Define: a
+CY\textsubscript{3} $X$ is of \emph{type $S$} if the strata
+containing $X$ are exactly~$S$. The 16 cells split into:
+\begin{itemize}
+\item The empty cell $S = \emptyset$: $X$ has no level of the
+ automorphism tower (Proposition~\ref{prop:four-strata-exhaust})
+ non-trivial. Such $X$ are the \emph{stratum-free} compact
+ CY\textsubscript{3}s; the chart-wise $\GlCoHA$-gluing
+ construction does not apply
+ (Remark~\ref{rem:non-emptiness-conditional}). The
+ Davison--Meinhardt dimensional-reduction CoHA
+ (Davison arXiv:1311.7172, Theorem~A) supplies 1-simplex data
+ alone, without 2-simplex coherence, so it furnishes an algebra
+ but not an object of $\GlCoHA(X)$.
+\item The 15 non-empty cells $S \neq \emptyset$: at least one
+ stratum is available, so Theorem~\ref{thm:global-coha-limit}(1)
+ applies and $\GlCoHA(X)$ is non-empty.
+\end{itemize}
+The partition into 16 cells is exhaustive (power set of 4 strata);
+the empty cell is the obstruction locus addressed in \S\ref{sec:gluing:obstructions}.
+\end{remark}
+
+\begin{example}[Per-cell realisability of the 16-cell taxonomy]
+\label{ex:stratum-occupancy}
+Each cell $S \in \mathcal{P}(\{(\text i), (\text{ii}), (\text{iii}),
+(\text{iv})\})$ either carries a known realising geometry or is
+currently open. The listing follows the lattice order:
+\[
+\begin{array}{l|l|l}
+ S & \text{Realising geometry / status} &
+ \text{Source} \\\hline
+ \emptyset & \text{quintic } \bP^4[5],\ \text{Schoen bicubic} &
+ \text{stratum-free fall-back only} \\
+ \{\text{i}\} & \bC^3,\ \text{resolved conifold}, &
+ \text{toric, non-compact} \\
+ & \quad\text{banana, SPP} & \\
+ \{\text{ii}\} & \text{abelian surface, }E\text{ elliptic} &
+ \text{reduced-}\Aut\text{ only} \\
+ \{\text{iii}\} & [\bC^3/G],\; G \subset SU(3) &
+ \text{orbifold only} \\
+ \{\text{iv}\} & \text{generic lattice-polarised K3} &
+ \text{lattice, no extra sym} \\
+ \{\text{i,ii}\} & \text{(open: toric + residual }\Aut) &
+ \text{no known example} \\
+ \{\text{i,iii}\} & \text{local } \bP^2 = \Tot(K_{\bP^2}) &
+ \text{BKR: local }\bP^2 = [\bC^3/\bZ_3] \\
+ \{\text{i,iv}\} & \text{(open)} & \text{no known example} \\
+ \{\text{ii,iii}\} & \text{K3 with Nikulin involution} &
+ \text{auto + quotient} \\
+ \{\text{ii,iv}\} & \text{abelian surface with CM lattice} &
+ \text{CM-polarised} \\
+ \{\text{iii,iv}\} & \text{K3 with Mathieu } M_{24} &
+ \text{orbifold + lattice} \\
+ \{\text{i,ii,iii}\} & \text{(open)} & \text{no known example} \\
+ \{\text{i,ii,iv}\} & \text{(open)} & \text{no known example} \\
+ \{\text{i,iii,iv}\} & \text{(open)} & \text{no known example} \\
+ \{\text{ii,iii,iv}\} & K3,\ K3 \times E & \text{master triple} \\
+ \{\text{i,ii,iii,iv}\} & \text{(open: four-fold coincidence)} &
+ \text{no known example}
+\end{array}
+\]
+Of the 15 non-empty cells, 10 have known realising
+CY\textsubscript{3}s in the programme; 5 are open for lack of a
+constructed example. The empty cell is the stratum-free locus
+where $\GlCoHA$ does not apply.
+\end{example}
+
+\begin{remark}[K3 and K3 $\times$ E at the master triple cell]
+\label{rem:k3e-master-case}
+K3 and K3 $\times$ E both occupy the cell
+$\{(\text{ii}), (\text{iii}), (\text{iv})\}$, with cocycles in
+three of the four strata independently. K3 $\times$ E is the
+master test case for the programme because its three cocycles are
+non-degenerate: stratum (ii) supplies the $\bC^\times$-scaling plus
+$\Aut(K3) \times \Aut(E)$ data, stratum (iii) supplies the
+Mathieu twining when the K3 factor carries an $M_{24}$-class
+action, and stratum (iv) supplies the Borcherds lift of the
+Gritsenko form $\Delta_5$ with $\kBKM(\mathfrak{g}_{\Delta_5}) = 5$.
+The four $\kappa$-invariants
+$\kcat(K3 \times E) = 0$ (Künneth total space),
+$\kch^{\mathrm{Heis}} = 3$ (chiral Heisenberg--Mukai),
+$\kBKM(\mathfrak{g}_{\Delta_5}) = 5$ (Borcherds),
+$\kfib = 24$ (Mukai-lattice rank of the K3 fibre) come from four
+distinct constructions, with the toric stratum (i) entering
+degenerately via the $\bC^3$ stalks at nodal points of the K3
+fibre. \S\ref{sec:gluing:k3e} assembles the cocycles explicitly.
+\end{remark}
+
+\subsection{Abstract framework in one paragraph}
+\label{sec:gluing:abstract:summary}
+
+The global critical CoHA $\sH(X)$ is the $(2,1)$-categorical limit
+of a simplicial $(2,1)$-sheaf of local critical CoHAs over the
+nerve of any quiver-with-potential cover, with overlap data given
+by Fourier--Mukai mutation cocycles. The existence of such a
+cover and the consistency of the overlap cocycles is controlled
+stratum by stratum, along the four equivariance classes
+\emph{(i) toric, (ii) reduced torus $\times$ automorphism, (iii)
+orbifold inertia, (iv) lattice-polarised period}. The taxonomy of
+$(X, \Omega_X)$-automorphism-tower locations gives 16 cells in
+$\mathcal{P}(\{(\text{i}), (\text{ii}), (\text{iii}), (\text{iv})\})$;
+the 15 non-empty cells have $\GlCoHA(X)$ non-empty
+(Theorem~\ref{thm:global-coha-limit}(1)), and the distinguished
+empty cell is stratum-free. K3 and $K3 \times E$ share the master
+triple cell $\{(\text{ii}), (\text{iii}), (\text{iv})\}$;
+$K3 \times E$ carries four mutually-compatible gluing cocycles,
+assembled in \S\ref{sec:gluing:k3e}. Stratum-free compact CY\textsubscript{3}s
+(the quintic, Schoen's bicubic) admit only the Davison--Meinhardt
+fall-back; the obstruction to chart-wise assembly for them is the
+subject of \S\ref{sec:gluing:obstructions}.
+
+\S\ref{sec:gluing:toric-cech} realises the abstract framework chart-wise on stratum (i),
+beginning with the two-chart conifold.

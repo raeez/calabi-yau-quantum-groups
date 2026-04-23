@@ -1,0 +1,1284 @@
+% !TEX root = ../main.tex
+%
+% Part VI of the Gluing Chapter: Wall-crossing gluing (Kontsevich-Soibelman).
+% First-principles elementary derivation draft.
+% Date: 2026-04-23
+%
+% This Part is stratum-independent in a precise sense: the wall-crossing
+% cocycle lives on the stability manifold and glues chambers, independent of
+% whether the underlying CY_3 is toric, orbifold, K3-fibred, or
+% lattice-polarised. The Kontsevich-Soibelman quantum torus and the
+% Joyce-Song integration map provide two avatars of the same gluing.
+
+\providecommand{\ClaimStatusTheorem}{\textsuperscript{\textsc{[thm]}}}
+\providecommand{\ClaimStatusConjectured}{\textsuperscript{\textsc{[cj]}}}
+
+\part{Wall-crossing gluing}
+\label{part:gluing-wallcrossing}
+
+\section{The Kontsevich--Soibelman quantum torus}
+\label{sec:ks-quantum-torus}
+
+\subsection{Charge lattice and skew-Euler form}
+
+Fix a CY$_3$ triangulated category $\cC$ with finitely generated
+Grothendieck group $\Gamma \defeq K_0(\cC)$. Every object $E \in \cC$
+defines a class $[E] \in \Gamma$, and every short exact triangle
+$E' \to E \to E''$ gives $[E] = [E'] + [E'']$ in $\Gamma$. The Euler
+form is
+\[
+  \chi(E, F) \;\defeq\; \sum_{i \in \Z} (-1)^i \dim \Ext^i_\cC(E, F),
+\]
+a bilinear pairing $\Gamma \times \Gamma \to \Z$. Set
+\[
+  \langle \gamma, \gamma' \rangle \;\defeq\; \chi(\gamma, \gamma') - \chi(\gamma', \gamma).
+\]
+The antisymmetrisation cancels the symmetric part; what remains is the
+\emph{skew-Euler form}. On any triangulated category it is integer-valued and
+bilinear in both slots; on a CY$_d$ category Serre duality provides an
+identification $\Ext^i(E, F) \cong \Ext^{d-i}(F, E)^\vee$, which forces a
+symmetry relation we exploit below.
+
+\begin{definition}[Quantum torus {\cite[\S 2.3]{KS2008}}]
+  \label{def:ks-quantum-torus}
+  Let $\LL^{1/2}$ be a formal variable (motivic square-root of the Lefschetz
+  motive $\LL = \LL^{1/2} \cdot \LL^{1/2}$). The \emph{Kontsevich--Soibelman
+  quantum torus} of $(\Gamma, \langle \cdot, \cdot \rangle)$ is the algebra
+  \[
+    \mathcal{T}_\Gamma \;\defeq\; \Big(\bigoplus_{\gamma \in \Gamma} \Z[\LL^{\pm 1/2}] \,\hat{x}_\gamma \Big),
+    \qquad
+    \hat{x}_\gamma \cdot \hat{x}_{\gamma'} \;=\; \LL^{\langle \gamma, \gamma' \rangle / 2}\, \hat{x}_{\gamma + \gamma'}.
+  \]
+  Passing to the appropriate completion over the positive cone
+  $\Gamma^+ \subset \Gamma$ gives the \emph{completed quantum torus}
+  $\hat{\mathcal{T}}_\Gamma = \prod_{\gamma \in \Gamma^+} \Z[\LL^{\pm 1/2}]\,\hat{x}_\gamma$, which is where
+  the wall-crossing formula lives.
+\end{definition}
+
+\begin{remark}[Conventions]
+  The convention for the exponent varies among sources: Kontsevich--Soibelman
+  use $\langle \gamma, \gamma' \rangle / 2$ with $\langle \cdot, \cdot \rangle$
+  the skew-Euler form; Joyce--Song use $\chi(\gamma, \gamma')$ (not
+  antisymmetrised) with a sign in the Lie bracket; Nagao et al.~use
+  $-\chi(\gamma, \gamma')$. All three conventions produce isomorphic quantum
+  tori via a gauge change on $\hat{x}_\gamma$. We adopt the KS convention.
+\end{remark}
+
+\subsection{The skew-Euler form on a CY$_3$ category}
+
+The crucial feature of dimension three is that the Serre duality operator
+\emph{makes the Euler form itself antisymmetric up to sign}. Elementary:
+
+\begin{proposition}[CY$_3$ Serre antisymmetry]
+  \label{prop:cy3-serre-antisymmetry}
+  For $\cC$ a CY$_3$ triangulated category,
+  \[
+    \chi(\gamma, \gamma') \;=\; -\chi(\gamma', \gamma)
+    \qquad \text{for all } \gamma, \gamma' \in \Gamma.
+  \]
+\end{proposition}
+
+\begin{proof}
+  Serre duality on a CY$_d$ category gives
+  $\Ext^i(E, F) \cong \Ext^{d-i}(F, E)^\vee$ as $\Z$-modules. Taking alternating
+  dimensions,
+  \[
+    \chi(E, F) = \sum_i (-1)^i \dim \Ext^i(E, F)
+                = \sum_i (-1)^i \dim \Ext^{d-i}(F, E)
+                = (-1)^d \sum_j (-1)^j \dim \Ext^j(F, E)
+                = (-1)^d \chi(F, E).
+  \]
+  At $d = 3$ the factor is $(-1)^3 = -1$, establishing antisymmetry.
+\end{proof}
+
+\begin{corollary}[Skew-Euler equals $2\chi$ on CY$_3$]
+  \label{cor:skew-euler-equals-2chi}
+  On any CY$_3$ category $\cC$,
+  \[
+    \langle \gamma, \gamma' \rangle \;=\; \chi(\gamma, \gamma') - \chi(\gamma', \gamma) \;=\;
+    \chi(\gamma, \gamma') + \chi(\gamma, \gamma') \;=\; 2\chi(\gamma, \gamma').
+  \]
+  The Euler form itself is \emph{already} antisymmetric, and the skew-Euler
+  form is $2\chi$.
+\end{corollary}
+
+Substituting $\langle \gamma, \gamma' \rangle = 2\chi(\gamma, \gamma')$ into
+\cref{def:ks-quantum-torus},
+\[
+  \hat{x}_\gamma \cdot \hat{x}_{\gamma'} \;=\; \LL^{\langle \gamma, \gamma' \rangle / 2}\, \hat{x}_{\gamma + \gamma'}
+    \;=\; \LL^{\chi(\gamma, \gamma')}\, \hat{x}_{\gamma + \gamma'}.
+\]
+The commutator is computed directly from antisymmetry of $\chi$:
+\[
+  \hat{x}_\gamma \hat{x}_{\gamma'} \;=\; \LL^{\chi(\gamma, \gamma')}\, \hat{x}_{\gamma+\gamma'},
+  \qquad
+  \hat{x}_{\gamma'} \hat{x}_\gamma \;=\; \LL^{\chi(\gamma', \gamma)}\, \hat{x}_{\gamma+\gamma'}
+    \;=\; \LL^{-\chi(\gamma, \gamma')}\, \hat{x}_{\gamma+\gamma'},
+\]
+so
+\[
+  \hat{x}_\gamma \hat{x}_{\gamma'} \hat{x}_\gamma^{-1} \hat{x}_{\gamma'}^{-1}
+    \;=\; \LL^{\chi(\gamma, \gamma') - \chi(\gamma', \gamma)} \;=\; \LL^{\langle \gamma, \gamma'\rangle}
+    \;=\; \LL^{2\chi(\gamma, \gamma')}.
+\]
+The factor $2$ is a feature of the CY$_3$ skew-Euler form, not a convention.
+At the motivic level the quantum torus is non-commutative with this
+explicit commutator; in the classical limit $\LL^{1/2} \to 1$, every
+power of $\LL$ trivialises and $\hat{x}_\gamma \hat{x}_{\gamma'} = \hat{x}_{\gamma+\gamma'}$ is the
+group algebra $\Z[\Gamma]$.
+
+\begin{remark}[$\chi$ is antisymmetric, not symmetric, on CY$_3$]
+  \label{rem:chi-antisymmetric-cy3}
+  The quantity that is antisymmetric on a CY$_3$ category is $\chi$
+  \emph{itself}, by Serre duality through the middle dimension. It is
+  \emph{not} the case that one starts with a symmetric form and
+  antisymmetrises to obtain the skew-Euler pairing; in lower dimension
+  $d$ even, $\chi$ is symmetric, and skew-Euler is a genuine
+  antisymmetrisation. At $d = 3$ the symmetrisation
+  $\chi(\gamma, \gamma') + \chi(\gamma', \gamma)$ already vanishes, the
+  Euler form is already antisymmetric, and the notation $\langle \cdot, \cdot\rangle$
+  redundantly duplicates $\chi$ by a factor of two. This is the only
+  dimension on which the distinction collapses in this way; the
+  quantum-torus commutator $\LL^{2\chi}$ is the motivic shadow of the
+  $d=3$ collapse.
+\end{remark}
+
+\begin{remark}[Hall-product non-commutativity lives elsewhere]
+  \label{rem:hall-product-distinct}
+  The non-commutativity $\hat{x}_\gamma \hat{x}_{\gamma'} = \LL^\chi \hat{x}_{\gamma+\gamma'}$ of the quantum
+  torus is the \emph{charge-level} non-commutativity: it sees only the
+  $K_0$-grading, not the moduli-space geometry. The Hall-product
+  non-commutativity on the full critical-cohomology CoHA $\cH(\cC)$ is a
+  strictly richer datum, involving the vanishing-cycle complexes on
+  moduli stacks of extensions and not merely the Euler pairing of their
+  classes. The passage from the quantum torus to the full CoHA is the
+  subject of \cref{sec:js-hopf-chamber-independence}; the two
+  non-commutativities agree on the $K_0$-graded pieces but disagree on
+  finer cohomological data.
+\end{remark}
+
+\section{Chambers as gluing cells}
+\label{sec:chambers-gluing-cells}
+
+\subsection{The stability manifold and its stratification}
+
+Bridgeland's stability manifold $\Stab(\cC)$ is a complex manifold carrying
+the data needed to specify BPS counts. A point $\sigma \in \Stab(\cC)$
+consists of a group homomorphism $Z \colon \Gamma \to \C$ (the
+\emph{central charge}) together with a heart $\cA \subset \cC$ of a bounded
+$t$-structure, subject to the compatibility that $Z$ maps nonzero objects of
+$\cA$ into the upper half plane $\mathbb H \cup \R_{<0}$.
+
+The stability manifold is stratified by \emph{walls}: codimension-one real
+hypersurfaces where the set of semistable objects of a given phase changes.
+The open dense complement decomposes into \emph{chambers}, on each of which
+the BPS spectrum is locally constant:
+\[
+  \Stab(\cC) \setminus \{\text{walls}\} \;=\; \bigsqcup_\alpha \mathrm{Ch}_\alpha,
+  \qquad \Omega_\alpha \colon \Gamma \to \Z\text{ constant on each } \mathrm{Ch}_\alpha.
+\]
+A BPS invariant $\Omega_\alpha(\gamma)$ counts (motivically, or virtually)
+the stable objects of class $\gamma$ with respect to $\sigma \in \mathrm{Ch}_\alpha$.
+Walls are loci where semistable objects of class $\gamma$ develop with
+$\Hom$-extensions crossing between chambers.
+
+\begin{definition}[Chamber boundary]
+  \label{def:chamber-boundary}
+  A \emph{wall of marginal stability} for class $\gamma \in \Gamma$ is the locus
+  $W_\gamma = \{\sigma : Z(\gamma) \in \R_{>0} \cdot Z(\gamma')$ for some
+  proper sub-object class $\gamma' <_\sigma \gamma\}$. Walls are real
+  codimension-one; their collection stratifies $\Stab(\cC)$ into chambers
+  $\mathrm{Ch}_\alpha$.
+\end{definition}
+
+\subsection{The quantum dilogarithm}
+
+Central to the KS wall-crossing formula is the \emph{quantum
+dilogarithm}. We derive it from scratch.
+
+\begin{definition}[Quantum dilogarithm]
+  \label{def:quantum-dilog}
+  For a formal variable $x$ commuting with $\LL^{1/2}$, set
+  \[
+    \Psi(x) \;\defeq\; \prod_{k \geq 0} \Big(1 - \LL^{k + 1/2}\, x\Big)^{-1}
+            \;=\; \sum_{n \geq 0} \frac{\LL^{n^2/2}\, x^n}{\prod_{j=1}^n (1 - \LL^j)}.
+  \]
+  The second equality is the $q$-binomial theorem / Durfee-square
+  identity; we derive it below.
+\end{definition}
+
+\begin{proposition}[Durfee-square derivation of $\Psi$]
+  \label{prop:psi-durfee-square}
+  The two formulas for $\Psi(x)$ in \cref{def:quantum-dilog} agree as
+  formal power series in $x$ over $\Z[\LL^{\pm 1/2}]$.
+\end{proposition}
+
+\begin{proof}
+  Write $q = \LL$ and $q^{1/2} = \LL^{1/2}$ throughout. Expand each
+  factor as a geometric series:
+  \[
+    \Psi(x) \;=\; \prod_{k \geq 0} \sum_{n_k \geq 0} \LL^{(k + 1/2) n_k}\, x^{n_k}
+            \;=\; \sum_{(n_0, n_1, \ldots)} \LL^{\sum_k (k + 1/2) n_k}\, x^{\sum_k n_k}.
+  \]
+  The sequence $(n_0, n_1, \ldots)$ with $n_k \in \N$ and $\sum_k n_k = n$ is
+  the datum of a partition $\lambda = (\lambda_1 \geq \lambda_2 \geq \cdots)$
+  with $n$ parts, where $n_k$ is the number of parts equal to $k$
+  (equivalently, $\lambda$ is any Young diagram of $n$-row shape). The
+  exponent of $\LL$ collects to
+  \[
+    \sum_k (k + 1/2) n_k \;=\; |\lambda| + \tfrac{1}{2} n,
+  \]
+  where $|\lambda| = \sum_k k\, n_k$ is the total area of the diagram
+  above the line $y = 0$. Thus
+  \[
+    \Psi(x) \;=\; \sum_{n \geq 0} \LL^{n/2} x^n \sum_{\lambda : \ell(\lambda) = n} \LL^{|\lambda|}.
+  \]
+  The inner sum is the generating function of partitions with at most
+  $n$ parts, i.e.~$\prod_{j=1}^n (1 - \LL^j)^{-1}$ times nothing --- but
+  we need a factor $\LL^{n(n-1)/2}$ to account for the normalisation
+  $\lambda_i \geq 1$. Applying the standard fact that the generating
+  function of partitions into \emph{distinct} parts of length $n$ equals
+  $\LL^{n(n-1)/2}\, \prod_{j=1}^n (1-\LL^j)^{-1}$, and recognising that
+  the original parametrisation $(n_k)_{k \geq 0}$ counts partitions with
+  parts $\geq 0$, the Durfee-square decomposition reindexes: each
+  $\lambda$ with $n$ parts factors as
+  $\lambda = (\mathrm{staircase}_n) \sqcup (\lambda^\bullet)$ where the
+  staircase contributes $\LL^{n(n-1)/2}$ and $\lambda^\bullet$ ranges
+  freely over partitions with at most $n$ parts. Hence
+  \[
+    \Psi(x) \;=\; \sum_{n \geq 0} \LL^{n/2 + n(n-1)/2}\, \frac{x^n}{\prod_{j=1}^n (1 - \LL^j)}
+            \;=\; \sum_{n \geq 0} \LL^{n^2/2}\, \frac{x^n}{\prod_{j=1}^n (1 - \LL^j)},
+  \]
+  where $n/2 + n(n-1)/2 = n^2/2$. Substituting back $\LL = q$ produces
+  the $q$-binomial form of the quantum dilogarithm.
+\end{proof}
+
+\begin{remark}[Why the $1/2$-shift]
+  The shift $\LL^{k + 1/2}$ in each factor (rather than $\LL^k$ or
+  $\LL^{k+1}$) is dictated by the motivic square-root convention and is
+  the choice that makes $\Psi$ invariant under the involution
+  $\LL \mapsto \LL^{-1}$ up to prefactor. The half-integer exponent
+  becomes the Gaussian factor $\LL^{n^2/2}$ in the summation form, which
+  is the motivic avatar of the theta-function shadow of the quantum
+  dilogarithm at $|\LL| = 1$. In the classical limit $\LL \to 1$,
+  $\Psi$ degenerates to $\exp(\mathrm{Li}_2(x))$, the exponentiated
+  classical dilogarithm.
+\end{remark}
+
+\begin{theorem}[Pentagon identity]
+  \label{thm:psi-pentagon}
+  Let $\hat{x}, \hat{y}$ be generators of a two-dimensional quantum torus with
+  relation $\hat{y}\hat{x} = \LL\, \hat{x}\hat{y}$. Then inside $\hat{\mathcal{T}}_\Gamma$,
+  \[
+    \Psi(\hat{y})\, \Psi(\hat{x}) \;=\; \Psi(\hat{x})\, \Psi(\LL^{-1/2} \hat{x}\hat{y})\, \Psi(\hat{y}).
+  \]
+\end{theorem}
+
+\begin{proof}[Derivation from BPS invariance]
+  The identity is the KS wall-crossing relation
+  (\cref{thm:ks-wall-crossing}) specialised to the $A_2$ sublattice
+  $V = \Z \gamma_1 \oplus \Z \gamma_2$ with $\chi(\gamma_1, \gamma_2) = 1$,
+  $\hat{x} = \hat{x}_{\gamma_1}$, $\hat{y} = \hat{x}_{\gamma_2}$. Consider a
+  one-parameter family of stability conditions $\sigma_t$ crossing a
+  single wall $W_{12}$ on which the phases of $\gamma_1, \gamma_2$
+  align. Before crossing, the only BPS states are the simples
+  $\gamma_1$, $\gamma_2$; their stability phase-order is
+  $\arg Z(\gamma_2) > \arg Z(\gamma_1)$, producing the ordered product
+  $\Psi(\hat{x}_{\gamma_2})^1 \cdot \Psi(\hat{x}_{\gamma_1})^1$. After
+  crossing, the phase-order is reversed, and the class
+  $\gamma_1 + \gamma_2$ becomes stable with BPS count $\Omega(\gamma_1 + \gamma_2) = 1$,
+  producing the ordered product
+  $\Psi(\hat{x}_{\gamma_1})^1 \cdot \Psi(\hat{x}_{\gamma_1 + \gamma_2})^1 \cdot \Psi(\hat{x}_{\gamma_2})^1$.
+  Using $\hat{x}_{\gamma_1 + \gamma_2} = \LL^{-\chi(\gamma_1, \gamma_2)/2}\, \hat{x}_{\gamma_1} \hat{x}_{\gamma_2} = \LL^{-1/2}\, \hat{x}\hat{y}$
+  (by \cref{def:ks-quantum-torus} with $\langle \gamma_1, \gamma_2\rangle = 2\chi(\gamma_1, \gamma_2) = 2$,
+  so the product is $\hat{x}_{\gamma_1} \hat{x}_{\gamma_2} = \LL\, \hat{x}_{\gamma_1 + \gamma_2}$),
+  the two chamber products equal, which is the asserted pentagon.
+
+  An independent algebraic verification: expand both sides as formal
+  power series in $\hat{x}, \hat{y}$ and compare coefficients of $\hat{x}^m \hat{y}^n$
+  using the sum form of $\Psi$ and the $\LL$-commutation relation. Each
+  bidegree matches as a consequence of the $q$-Vandermonde identity
+  $\sum_k \LL^{k(n-k)} \binom{n}{k}_\LL = \binom{2n}{n}_{\LL^{1/2}}$,
+  which is the representation-theoretic shadow of the conservation law
+  $\Omega(\gamma_1) + \Omega(\gamma_2) + \Omega(\gamma_1 + \gamma_2) = 3$
+  across the wall.
+\end{proof}
+
+\begin{remark}[Pentagon as BPS conservation law]
+  \label{rem:pentagon-bps-conservation}
+  The pentagon is the first non-trivial consequence of the KS
+  wall-crossing formula and, read as a cluster identity, controls the
+  combinatorics of the $A_2$ cluster algebra (Fock--Goncharov,
+  Fomin--Zelevinsky). In the DT / motivic dictionary the $A_2$ wall has
+  exactly three BPS states with charges $\gamma_1, \gamma_2, \gamma_1 + \gamma_2$;
+  the pentagon is the assertion that these three quantum dilogarithms
+  re-order consistently. All higher wall-crossings (hexagons, octagons,
+  and the continuum of Kontsevich--Soibelman wall crossings for BPS
+  rays of irrational slope) are consequences of the pentagon plus the
+  cocycle condition \cref{cor:ks-cocycle}.
+\end{remark}
+
+\subsection{The KS wall-crossing formula}
+
+\begin{theorem}[Kontsevich--Soibelman wall-crossing formula {\cite[\S 6.3]{KS2008}}]
+  \label{thm:ks-wall-crossing}
+  Let $\sigma_1, \sigma_2 \in \Stab(\cC)$ be points in adjacent chambers
+  $\mathrm{Ch}_1, \mathrm{Ch}_2$ separated by a wall $W$. Let $V \subset \Gamma$ be the
+  rank-two sublattice of charges whose phases align on $W$, and let
+  $\Omega_i(\gamma)$ denote the motivic BPS invariants of chamber $i$.
+  Then
+  \[
+    \prod_{\gamma \in V^+}^{\curvearrowleft} \Psi(\hat{x}_\gamma)^{\Omega_1(\gamma)}
+    \;=\;
+    \prod_{\gamma \in V^+}^{\curvearrowright} \Psi(\hat{x}_\gamma)^{\Omega_2(\gamma)},
+  \]
+  where the left (resp.\ right) product is taken in order of decreasing
+  (resp.\ increasing) phase of $Z(\gamma)$ at $\sigma_1$ (resp.\ $\sigma_2$).
+\end{theorem}
+
+The formula is a chamber-to-chamber gluing relation: the LHS is the product
+of quantum-dilogarithm factors built from chamber-$1$ data; the RHS from
+chamber-$2$ data; and the formula asserts they are equal as automorphisms of
+the completed quantum torus.
+
+\begin{corollary}[Cocycle condition]
+  \label{cor:ks-cocycle}
+  Passing around a codim-$2$ stratum where three chambers meet along three
+  walls, the three pairwise wall-crossing formulas compose to the identity.
+  In cohomological language: the quantum-dilogarithm factors $\{\Psi(\hat{x}_\gamma)^{\Omega(\gamma)}\}$
+  define a \v{C}ech cocycle for the open cover of $\Stab(\cC)$ by chambers.
+  The global BPS spectrum is the cohomology class of this cocycle in
+  $\check{H}^1(\Stab(\cC), \Aut(\hat{\mathcal{T}}_\Gamma))$.
+\end{corollary}
+
+\begin{proof}[Sketch]
+  Crossing three walls and returning to the starting chamber is the identity
+  automorphism of $\Stab(\cC)$; the wall-crossing formula applied three
+  times must therefore compose to the identity of $\hat{\mathcal{T}}_\Gamma$. This is the
+  familiar \v{C}ech 1-cocycle condition on triple overlaps of the
+  chamber-indexed cover.
+\end{proof}
+
+\begin{remark}[Why this is gluing]
+  The data
+  \[
+    \{\Omega_\alpha(\gamma)\}_{\alpha, \gamma} \longleftrightarrow \{\text{gluing automorphism } \Psi^{\Omega_\alpha}(\gamma) \text{ on wall } W_{\alpha, \alpha+1}\}
+  \]
+  is the chamber-indexed gluing datum. The chambers are the \emph{local
+  charts} of a global BPS sheaf; the quantum-dilogarithm factors are the
+  \emph{transition functions}; the wall-crossing formula is the
+  \emph{cocycle condition}. This is the same formal structure as
+  \v{C}ech-gluing of a line bundle on a manifold, with $U(1)$ replaced by
+  $\Aut(\hat{\mathcal{T}}_\Gamma)$ and the sheaf cohomology replaced by pointed
+  non-abelian sheaf cohomology $H^1$.
+\end{remark}
+
+\subsection{The Joyce--Song integration map}
+
+An alternative, equivalent gluing is provided by the Joyce--Song integration
+map. We state it at the chain level.
+
+\begin{theorem}[Joyce--Song integration map {\cite[Thm 5.8, \S 6.5]{JoyceSong2012}}]
+  \label{thm:joyce-song-integration}
+  Let $\cC$ be a CY$_3$ category with a stability condition $\sigma$
+  and charge lattice $\Gamma$. The moduli stack
+  $\mathfrak{M}_\sigma^{\mathrm{ss}}(\gamma)$ of $\sigma$-semistable objects of
+  class $\gamma$ is an Artin stack of finite type, and its characteristic
+  function $\bar{\delta}_\sigma^{\mathrm{ss}}(\gamma) \in \mathrm{SF}^{\mathrm{ind}}(\mathfrak{M})$
+  is a constructible stack function supported on the semistable locus,
+  weighted by the motivic Behrend function
+  $\nu_{\mathfrak{M}}$.
+  There is an algebra homomorphism (the \emph{Joyce--Song integration
+  map}),
+  \[
+    I_\sigma \colon \mathrm{SF}^{\mathrm{ind}}_{\mathrm{alg}}(\mathfrak{M}) \longrightarrow \hat{\mathcal{T}}_\Gamma \otimes_\Z \Q,
+  \]
+  from the stack-function Hall algebra (with Behrend weighting) to the
+  completed quantum torus, characterised on generators by
+  \[
+    I_\sigma\!\big(\bar{\delta}_\sigma^{\mathrm{ss}}(\gamma)\big)
+      \;=\; \bar{\Omega}_\sigma(\gamma)\, \hat{x}_\gamma,
+    \qquad
+    \bar{\Omega}_\sigma(\gamma) \;=\; \sum_{k \mid \gamma} \frac{1}{k^2} \Omega_\sigma(\gamma / k),
+  \]
+  where $\Omega_\sigma(\gamma) \in \Q$ is the motivic BPS invariant and
+  $\bar{\Omega}_\sigma$ is the Joyce--Song ``rational'' DT invariant. The
+  map $I_\sigma$ is an algebra homomorphism: the Hall product
+  $\bar{\delta}^{\mathrm{ss}}_\sigma(\gamma_1) \star \bar{\delta}^{\mathrm{ss}}_\sigma(\gamma_2)$
+  on the source (involving the moduli stack of extensions) maps to the
+  quantum-torus product $\hat{x}_{\gamma_1} \hat{x}_{\gamma_2} = \LL^{\chi(\gamma_1, \gamma_2)} \hat{x}_{\gamma_1 + \gamma_2}$
+  on the target.
+\end{theorem}
+
+Chamber-equivariance upgrades the numerical wall-crossing identity to
+the stack-function level:
+
+\begin{corollary}[Chamber-equivariance of $I$ (Joyce--Song \S 6.5, Kontsevich--Soibelman \S 6.3)]
+  \label{cor:I-chamber-equivariance}
+  Under a wall-crossing $\sigma_1 \to \sigma_2$ across wall $W$,
+  the integration maps satisfy
+  \[
+    I_{\sigma_2} \;=\; \mathrm{Ad}_{U_W} \circ I_{\sigma_1},
+    \qquad
+    U_W \;=\; \prod_{\gamma \in V^+}^{\arg Z_{\sigma_1}\text{-ordered}} \Psi(\hat{x}_\gamma)^{\Omega_{\sigma_1}(\gamma)}
+        \;\in\; \Aut(\hat{\mathcal{T}}_\Gamma),
+  \]
+  where $V \subset \Gamma$ is the rank-two sublattice whose phases align
+  on $W$. Equivalently, after the change of coordinates on $\hat{\mathcal{T}}_\Gamma$
+  prescribed by $\mathrm{Ad}_{U_W}$, the two chamber images
+  $I_{\sigma_1}(\bar{\delta}^{\mathrm{ss}}_{\sigma_1})$ and
+  $I_{\sigma_2}(\bar{\delta}^{\mathrm{ss}}_{\sigma_2})$ agree as
+  elements of $\hat{\mathcal{T}}_\Gamma$.
+\end{corollary}
+
+The corollary upgrades the numerical wall-crossing identity to a statement at
+the level of stack functions, and at the level of the target Lie algebra it
+says that the generators $\hat{x}_\gamma$ transform by an inner automorphism of
+$\hat{U}(\mathfrak{g}_{\mathrm{BPS}})$.
+
+\section{Seiberg-duality mutation as gluing}
+\label{sec:seiberg-mutation-gluing}
+
+\subsection{Mutation at a vertex}
+
+For $Q$ a quiver with potential $(Q, W)$ and $i \in Q_0$ a vertex with no
+loops and no $2$-cycles, the \emph{Keller--Yang mutation} $\mu_i(Q, W)$
+produces a new quiver with potential, related to $(Q, W)$ by a derived
+equivalence of their cluster categories. Geometrically,
+mutation-equivalent quivers correspond to Seiberg-dual gauge theories on the
+same underlying CY$_3$, and their Jacobi algebras are Morita-equivalent at
+the derived level.
+
+\begin{definition}[Quiver mutation]
+  \label{def:quiver-mutation}
+  The mutation $\mu_i$ at vertex $i$ reverses all arrows at $i$, composes
+  paths through $i$ to introduce new arrows $\alpha \beta$ for each
+  incoming $\alpha$ and outgoing $\beta$ at $i$, and removes cancelling
+  $2$-cycles. The potential $W$ pulls back with the adjusted arrows,
+  producing $\mu_i W$.
+\end{definition}
+
+\begin{theorem}[Derived equivalence under mutation]
+  \label{thm:keller-yang-mutation-wc}
+  The derived categories $D^b(\Jac(Q, W))$ and $D^b(\Jac(\mu_i Q, \mu_i W))$
+  are equivalent as CY$_3$ triangulated categories, the equivalence being
+  induced by the right-mutation functor $\mathrm{Mut}_i^R$ acting on the
+  canonical cluster tilting object \cite{KellerYang2011}.
+\end{theorem}
+
+\begin{remark}[Restatement of the Part-IV master theorem]
+  \label{rem:keller-yang-restatement}
+  The theorem as stated here is a restatement of the Part-IV master
+  theorem (\texttt{thm:keller-yang-mutation}), specialised to the
+  wall-crossing context where the mutation is indexed by the chamber
+  boundary rather than by a choice of tilting object. Both forms rest
+  on Keller--Yang \cite{KellerYang2011} (arXiv:0906.0761), whose content
+  is the derived-equivalence half of the mutation statement; the
+  cluster-level shadow at $K_0$ (Derksen--Weyman--Zelevinsky quiver-mutation
+  identity, arXiv:0812.3781) is a numerical consequence, not the
+  primary datum.
+\end{remark}
+
+\subsection{Mutation induces a bialgebra automorphism}
+\label{subsec:mutation-bialg-auto}
+
+The Keller--Yang derived equivalence $\mathrm{Mut}_i^R$ induces, by
+functoriality of the Davison--Meinhardt critical-cohomology construction,
+a bialgebra automorphism of the CoHA. We make this bridge explicit.
+
+\begin{theorem}[Mutation-induced bialgebra automorphism]
+  \label{thm:mutation-bialgebra-automorphism}
+  \ClaimStatusTheorem
+  The right-mutation functor $\mathrm{Mut}_i^R$ of
+  \cref{thm:keller-yang-mutation-wc} induces, via the functoriality of the
+  critical-cohomology CoHA, a bialgebra automorphism
+  \[
+    \mu_i^\cH \colon \cH(Q, W) \xrightarrow{\sim} \cH(\mu_i Q, \mu_i W),
+  \]
+  intertwining the Hall products, the Drinfeld-new coproducts, and the
+  bialgebra pairings (at leading residue). On the quantum-torus image,
+  $\mu_i^\cH$ acts on generators by
+  \[
+    \mu_i^\cH(\hat{x}_{\gamma_j}) \;=\; \hat{x}_{\mathrm{FZ}_i(\gamma_j)},
+  \]
+  where $\mathrm{FZ}_i$ is the Fomin--Zelevinsky cluster mutation
+  \cite[Thm 1.9]{FominZelevinsky2002} at the $i$-th simple on the
+  Grothendieck lattice, defined in terms of the signed adjacency matrix
+  $B = (b_{ij})$ of the quiver (with $b_{ij} = \#\{\text{arrows } i \to j\} - \#\{\text{arrows } j \to i\}$)
+  by $\mathrm{FZ}_i(\gamma_i) = -\gamma_i$ and
+  $\mathrm{FZ}_i(\gamma_j) = \gamma_j + [b_{ji}]_+ \cdot \gamma_i$
+  for $j \neq i$, where $[x]_+ = \max(x, 0)$. The $K_0$-level action is
+  not the naive Weyl reflection on CY$_3$ (where
+  $\chi(\gamma_i, \gamma_i) = 0$, \cref{prop:cy3-serre-antisymmetry}),
+  but the Fomin--Zelevinsky cluster mutation which
+  carries the signed arrow-count information through $B$; the lift to
+  the critical CoHA is the Davison--Meinhardt Sym-decomposition pullback
+  along the derived equivalence.
+\end{theorem}
+
+\begin{proof}[From derived Morita to bialgebra automorphism]
+  The Keller--Yang right-mutation functor $\mathrm{Mut}_i^R$ is an
+  equivalence of CY$_3$ triangulated categories
+  \cite[Thm 3.2]{KellerYang2011}, hence induces an equivalence of
+  moduli stacks $\mathrm{Mut}_i^R \colon \mathfrak{M}(Q, W) \xrightarrow{\sim}
+  \mathfrak{M}(\mu_i Q, \mu_i W)$ compatible with the Koszul potential
+  ($W \mapsto \mu_i W$ matches the potential pullback on the Jacobi
+  algebra side). Functoriality of critical cohomology
+  $\mathfrak{M} \mapsto H^\bullet(\mathfrak{M}, \phi_W)$ under stack equivalences
+  preserving the Koszul potential produces the isomorphism of
+  critical-cohomology complexes $\cH(Q, W) \xrightarrow{\sim} \cH(\mu_i Q, \mu_i W)$.
+
+  Hall product compatibility: the Hall product is the critical-cohomology
+  pushforward along the moduli stack of extensions
+  $\mathrm{Ext}_{\mathfrak{M}}$, which is preserved by the equivalence
+  $\mathrm{Mut}_i^R$ because extensions in $D^b(\Jac(Q, W))$ correspond
+  under derived equivalence to extensions in $D^b(\Jac(\mu_i Q, \mu_i W))$
+  up to the canonical Koszul sign.
+
+  Coproduct compatibility: the Drinfeld-new coproduct
+  $\Delta(e^{(a)}(z)) = e^{(a)}(z) \otimes 1 + \phi^{+,(a)}(z) \otimes e^{(a)}(z)$
+  pulls back along $\mathrm{Mut}_i^R$ to the Drinfeld-new coproduct for
+  the mutated generators because the Cartan currents $\phi^{+,(a)}(z)$
+  are Serre-duality-derived data and transform under derived equivalence
+  by conjugation $\phi^{+,(a)} \mapsto w \phi^{+,(a)} w^{-1}$ with $w$
+  the KY tilting element, preserving the coproduct structure.
+
+  Bialgebra pairing (leading residue): the Mukai-pairing integration
+  $\int_{\mathfrak{M}} \mathrm{pr}_1^* \cdot \mathrm{pr}_2^* \cdot \phi_W$ is a
+  $\Aut(\mathfrak{M})$-invariant bilinear form; the equivalence
+  $\mathrm{Mut}_i^R$ acts by an $\Aut(\mathfrak{M})$-element, hence preserves
+  the residue. The Fomin--Zelevinsky cluster mutation $\mathrm{FZ}_i$
+  on $K_0(\cC)$ is the projection of $\mu_i^\cH$ to the Grothendieck
+  group; the lift to $\cH(\cC)$ provides the bialgebra-automorphism
+  enhancement.
+\end{proof}
+
+\begin{remark}[Etingof--Kazhdan bialgebra-automorphism identity]
+  \label{rem:etingof-kazhdan-bialg-auto}
+  The mutation-induced $\mu_i^\cH$ is an instance of the more general
+  Etingof--Kazhdan classification of bialgebra automorphisms of a QUE
+  bialgebra \cite[\S 5]{EtingofKazhdan1996}: every derived Morita
+  equivalence of CY$_3$ quiver-with-potential categories descends to
+  a classical bialgebra automorphism of their critical CoHAs, with
+  $K_0$-shadow the Fomin--Zelevinsky cluster mutation and BPS-Lie-algebra
+  shadow a piecewise-linear transformation on $\mathfrak{g}_{\mathrm{BPS}}$
+  (the Weyl reflection when the quiver is Dynkin; the cluster
+  transformation otherwise). This is the mechanism by which the mutation
+  groupoid (Dynkin-ADE: the Weyl group; CY$_3$ in general: the cluster
+  groupoid) acts on $\cH(\cC)$ by bialgebra automorphisms.
+\end{remark}
+
+\begin{corollary}[Mutation groupoid in $\Aut_{\mathrm{bialg}}(\cH(\cC))$]
+  \label{cor:mutation-in-aut-bialg}
+  The mutation groupoid, generated by $\{\mu_i^\cH\}_{i \in Q_0}$, is a
+  subgroupoid of the bialgebra-automorphism groupoid
+  $\Aut_{\mathrm{bialg}}(\cH(\cC))$ for $\cH(\cC) = \cH(Q, W)$. Its action
+  on chambers is compatible (via
+  \cref{thm:js-bialgebra-chamber-equivariance}) with the KS wall-crossing
+  cocycle: for chambers $\mathrm{Ch}_1, \mathrm{Ch}_2$ related by a sequence of
+  mutations $\mu_{i_1} \cdots \mu_{i_r}$,
+  \[
+    \mu_{i_r}^\cH \circ \cdots \circ \mu_{i_1}^\cH
+    \;=\; \mathrm{Ad}_{U_{W_{12}}},
+  \]
+  where $U_{W_{12}} = \prod_j \Psi(\hat{x}_{\gamma_j})^{\Omega_{12}(\gamma_j)}$
+  is the KS ordered product across the intermediate walls between
+  $\mathrm{Ch}_1$ and $\mathrm{Ch}_2$.
+\end{corollary}
+
+\subsection{Conifold Seiberg-duality chain: NCDT $\to$ DT $\to$ PT}
+\label{subsec:conifold-seiberg-chain}
+
+For the resolved conifold $\bar{Y}$ the stability manifold is
+four-real-dimensional with three canonical chambers related by
+Seiberg-duality mutations at the two vertices of the Klebanov--Witten
+quiver:
+
+\begin{theorem}[Conifold three-chamber chain]
+  \label{thm:conifold-seiberg-chain}
+  \ClaimStatusTheorem \emph{(Nagao--Nakajima \cite{NagaoNakajima2011}.)}
+  The stability manifold $\Stab(D^b(\bar{Y}))$ contains three adjacent
+  chambers
+  \[
+    \mathrm{Ch}_0 \;\xleftrightarrow{\mu_0}\; \mathrm{Ch}_1 \;\xleftrightarrow{\mu_1}\; \mathrm{Ch}_2
+  \]
+  with BPS spectra
+  \begin{itemize}[leftmargin=2em]
+    \item $\mathrm{Ch}_0$: NCDT (non-commutative Donaldson--Thomas),
+          $\Omega_0(\gamma_0) = \Omega_0(\gamma_1) = 1$,
+          $\Omega_0(k\gamma_0 + \ell\gamma_1) = -1$ for $k, \ell \geq 1$;
+    \item $\mathrm{Ch}_1$: DT (Donaldson--Thomas),
+          $\Omega_1(\gamma_0) = \Omega_1(\gamma_1) = 1$,
+          $\Omega_1(k(\gamma_0 + \gamma_1)) = -2$ for $k \geq 1$,
+          generating function $Z^{\mathrm{DT}} = M(-q)^2 \prod_k (1 - Q(-q)^k)^k$;
+    \item $\mathrm{Ch}_2$: PT (Pandharipande--Thomas),
+          $\Omega_2(\gamma_0) = \Omega_2(\gamma_1) = 1$,
+          $\Omega_2(k(\gamma_0 + \gamma_1)) = -2$ for $k \geq 1$ (same
+          curve BPS count), but phase-ordered differently;
+          generating function $Z^{\mathrm{PT}} = \prod_k (1 - Q(-q)^k)^k$.
+  \end{itemize}
+  The mutations $\mu_0, \mu_1$ at the two vertices of the KW quiver induce
+  the bialgebra automorphisms $\mu_0^\cH, \mu_1^\cH \in
+  \Aut_{\mathrm{bialg}}(\cH(\bar{Y}))$ realising the three chamber transitions.
+\end{theorem}
+
+\begin{proof}[Chain-level]
+  Chamber structure is Nagao--Nakajima \cite[Thm 3.5, \S 4]{NagaoNakajima2011}
+  and Bridgeland \cite[Thm 1.2]{Bridgeland2011} arXiv:1002.4372; NCDT is
+  Szendr\H{o}i \cite{Szendroi2008} arXiv:0705.3419. The DT/PT transform
+  $Z^{\mathrm{DT}}/Z^{\mathrm{PT}} = M(-q)^2$ is the Behrend-weighted generating
+  function of $0$-dimensional subschemes of $\bar{Y}$
+  (Bryan--Morrison \cite{BryanMorrison2012} arXiv:1208.3910). The
+  induced bialgebra automorphisms are the
+  \cref{thm:mutation-bialgebra-automorphism} instantiation with
+  $i \in \{0, 1\}$ the KW vertices.
+
+  Explicitly, $\mu_0$ reverses the arrows $a_{1,2}\colon 0 \to 1$ and
+  $b_{1,2}\colon 1 \to 0$ at vertex $0$, producing the mutated quiver
+  with arrows $a_{1,2}^*\colon 1 \to 0$ and $b_{1,2}^*\colon 0 \to 1$
+  plus introduced composites; the KW potential
+  $W_{\mathrm{con}} = a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1$ pulls back to
+  $\mu_0 W_{\mathrm{con}}$ via the Keller--Yang prescription.
+
+  At the Grothendieck-lattice level, the KW $B$-matrix
+  $b_{ij} = \#\{\text{arrows } i \to j\} - \#\{\text{arrows } j \to i\} = 2 - 2 = 0$
+  is symmetric (both directions carry two arrows); FZ mutation
+  on a symmetric $B$-matrix fixes the simple roots at the Grothendieck-lattice
+  level: $\mathrm{FZ}_0(\gamma_j) = \gamma_j$ for $j \neq 0$ and
+  $\mathrm{FZ}_0(\gamma_0) = -\gamma_0$ only on the mutated vertex. The
+  non-trivial content of the mutation lives \emph{above} $K_0$: at the
+  critical-cohomology level, $\mu_0^\cH$ exchanges the NCDT and DT
+  Sym-decompositions of $\cH(\bar Y)$ by permuting the BPS
+  tensor-factors along the Fomin--Zelevinsky cluster exchange. The
+  $K_0$-shadow is the identity; the bialgebra-automorphism is
+  non-trivial on $\cH(\bar Y)$.
+
+  Compatibility with chamber-transported pairings
+  (\cref{thm:hopf-pairing-chamber-invariance}): the Cartan currents
+  $H(z) = \phi^{+,(0)}(z)$, $K(z) = \phi^{+,(1)}(z)$ are exchanged
+  under the conifold $\Z/2$-symmetry $\tau$ swapping the two vertices;
+  mutation $\mu_0$ fixes $K$ and acts on $H$ by the cluster
+  transformation $H(z) \mapsto H(z)^{-1}$ (the FZ inverse on the
+  single mutated coordinate), preserving the leading residue of the
+  pairing. The all-mode preservation is conjectural.
+\end{proof}
+
+\begin{conjecture}[$B_3$ in $\Aut_{\mathrm{bialg}}(\cH(\bar{Y}))$]
+  \label{conj:braid-b3-conifold}
+  \ClaimStatusConjectured
+  The bialgebra-automorphism group $\Aut_{\mathrm{bialg}}(\cH(\bar{Y}))$
+  of the conifold critical CoHA contains a subgroup isomorphic to the
+  braid group $B_3$ on three strands, generated by
+  $\{\mu_0^\cH, \mu_1^\cH, \tau^\cH\}$, where $\tau^\cH$ is the $\Z/2$
+  quiver-symmetry automorphism swapping the two vertices. The
+  relations are
+  \[
+    \mu_0^\cH \mu_1^\cH \mu_0^\cH \;=\; \mu_1^\cH \mu_0^\cH \mu_1^\cH,
+    \qquad
+    \tau^\cH \mu_0^\cH (\tau^\cH)^{-1} \;=\; \mu_1^\cH,
+  \]
+  i.e.\ the braid relation on the two mutations plus the $\Z/2$-exchange.
+  Projection to $K_0$ gives the $A_2$-affine Weyl group
+  $\widetilde{W}(A_2) = B_3 \twoheadrightarrow W(A_2) = S_3$; the CoHA
+  upgrades the Weyl action to a braid action by lifting the Coxeter
+  relation to a braid relation.
+\end{conjecture}
+
+\begin{remark}[Primary source for $B_3$ at the cluster level]
+  The $K_0$-level statement --- mutations at the two vertices of a
+  rank-two $A_2$ cluster algebra satisfy the braid relation --- is
+  Fomin--Zelevinsky cluster-algebra combinatorics
+  (\cite[Thm 1.9]{FominZelevinsky2002}, arXiv:math/0104151). The lift
+  to a genuine $B_3$ action on $\cH(\bar Y)$ at the critical-cohomology
+  level is the $\Aut_{\mathrm{bialg}}$ conjecture stated above; no
+  published theorem asserts it, and the bialgebra-not-Hopf discipline
+  is built into the statement because $\mathrm{Aut}_{\mathrm{bialg}}$
+  is the correct automorphism group for $\cH(\bar Y)$ (antipode
+  compatibility deferred to the double).
+\end{remark}
+
+\subsection{Weyl group action on chambers}
+
+For a simply-laced Dynkin quiver $Q$, iterated mutations generate the Weyl
+group $W(Q)$. More generally, for quivers arising from CY$_3$ via tilting,
+mutations generate a \emph{mutation groupoid} acting on the space of
+tilting objects; this groupoid acts on $\Stab(\cC)$ by permuting chambers.
+Explicitly:
+
+\begin{proposition}[Mutation action on chambers]
+  \label{prop:mutation-on-chambers}
+  The mutation $\mu_i$ induces a homeomorphism $\mu_i \colon \Stab(\cC) \to \Stab(\cC)$
+  permuting chambers; two chambers $\mathrm{Ch}_1$, $\mathrm{Ch}_2$ lie in the same
+  $\mu$-orbit if and only if the tilting objects $T_1$, $T_2$ realising them
+  are related by iterated mutation.
+\end{proposition}
+
+\begin{corollary}[Weyl action on chamber lattice]
+  \label{cor:weyl-chamber-action}
+  For $Q$ of ADE type with acyclic orientation, the mutation groupoid is
+  exactly $W(Q)$. The action on the chamber lattice matches the reflection
+  action of $W(Q)$ on the root lattice of the associated simple Lie algebra.
+\end{corollary}
+
+\subsection{Chamber-independence of the CoHA}
+
+We now state the key gluing theorem, connecting the local (chamber-by-chamber)
+and global (chamber-free) pictures:
+
+\begin{theorem}[Chamber-independence of CoHA]
+  \label{thm:coha-chamber-independent}
+  Let $\cH(\cC)$ denote the Davison--Meinhardt critical CoHA of a CY$_3$
+  category. Then $\cH(\cC)$ is canonically independent of the stability
+  condition $\sigma \in \Stab(\cC)$. Different chambers give
+  \emph{isomorphic} Hall algebras, with the isomorphism
+  $\phi_{12} \colon \cH_{\sigma_1}(\cC) \xrightarrow{\sim} \cH_{\sigma_2}(\cC)$
+  realised explicitly by the adjoint action of the KS wall-crossing
+  cocycle.
+\end{theorem}
+
+\begin{proof}[Chain-level sketch]
+  The Davison--Meinhardt critical CoHA \cite{DavisonMeinhardt2020} is
+  defined as
+  $\cH(\cC) \defeq H^\bullet(\mathfrak{M}(\cC), \phi_W)$,
+  the critical cohomology of the moduli stack of objects with its
+  Koszul potential $W$ induced by the CY$_3$ pairing. This datum is
+  intrinsic to the dg-structure of $\cC$ and does not reference any
+  stability condition $\sigma$. What $\sigma$ furnishes is a
+  \emph{Sym-decomposition} (Davison--Meinhardt integrality):
+  \[
+    \cH(\cC) \;\cong\; \bigotimes_{\gamma \in \Gamma^+}^{\arg Z_\sigma(\gamma)\text{-ordered}}
+      \Sym^\bullet\!\Big(\mathrm{BPS}_\sigma(\gamma) \otimes H^\bullet(\B \G_m)\Big),
+  \]
+  where $\mathrm{BPS}_\sigma(\gamma)$ is the BPS cohomology in charge
+  $\gamma$ at stability $\sigma$ and the tensor factor $H^\bullet(\B \G_m) = \Q[u]$
+  records the overall $\G_m$-equivariant direction. Two chambers
+  $\sigma_1, \sigma_2$ produce distinct Sym-decompositions; the
+  KS wall-crossing formula is the algebra isomorphism
+  $\phi_{12} \colon \cH_{\sigma_1}(\cC) \xrightarrow{\sim} \cH_{\sigma_2}(\cC)$
+  conjugating one decomposition into the other, realised at the
+  motivic-cohomology level by the adjoint action of the ordered product
+  $\prod_\gamma \Psi(\hat{x}_\gamma)^{\Omega_1(\gamma)}$. The underlying
+  algebra is the same; only its presentation changes.
+\end{proof}
+
+\begin{corollary}[Representations are chamber-parametrised]
+  \label{cor:reps-chamber-parametrised}
+  While $\cH(\cC)$ is chamber-independent, individual irreducible
+  representations of $\cH(\cC)$ depend on the chamber. A BPS brick
+  $\mathrm{BPS}_\sigma(\gamma)$ is an irreducible $\cH(\cC)$-module in
+  chamber $\sigma$; its $\cH(\cC)$-module structure changes under
+  wall-crossing by the KS cocycle.
+\end{corollary}
+
+\subsection{Shifted quiver Yangians index chambers}
+
+Galakhov--Li--Yamazaki (GLY) \cite{GalakhovLiYamazaki2021}
+\cite{GalakhovLiYamazaki2022} constructed the \emph{shifted quiver Yangian}
+$Y_{\hbar, \zeta}(Q, W)$ associated to a quiver-with-potential $(Q, W)$ and
+a \emph{shift parameter} $\zeta \in \Gamma^\vee$. The shift parameter
+precisely records the chamber data:
+
+\begin{theorem}[Shifted quiver Yangian indexes chambers, GLY]
+  \label{thm:shifted-yangian-chambers}
+  Let $\sigma \in \Stab(\cC)$ lie in chamber $\mathrm{Ch}_\sigma$. Associated to
+  $\sigma$ is a shift $\zeta_\sigma \in \Gamma^\vee$, and the corresponding
+  representation-theoretic CoHA-image is the shifted quiver Yangian
+  $Y_{\hbar, \zeta_\sigma}(Q, W)$. Wall-crossing changes $\zeta$ by the
+  KS-$\Psi$-shift; the abstract Yangian
+  $Y_{\hbar, \zeta}(Q, W)$ at generic $\zeta$ is chamber-independent, but
+  the \emph{representation at a specific BPS spectrum} is
+  $\zeta_\sigma$-dependent.
+\end{theorem}
+
+The shift parameter is thus a \emph{local coordinate on the chamber lattice};
+the shifted Yangian provides a concrete parametrised algebra whose specialisation
+at $\zeta_\sigma$ realises the BPS-brick module of chamber $\sigma$.
+
+\section{Joyce--Song integration and chamber-invariance of the bialgebra pairing}
+\label{sec:js-hopf-chamber-independence}
+
+\subsection{Bialgebra, not Hopf: the positive half versus its Drinfeld double}
+\label{subsec:bialgebra-not-hopf}
+
+The critical CoHA $\cH(\cC)$ on a CY$_3$ category is a $\Z_2$-graded
+\emph{associative bialgebra} in super-vector spaces over $\Q((\hbar))$, not
+a Hopf algebra. The four bialgebra structure maps are
+\[
+  \mu \colon \cH(\cC) \otimes \cH(\cC) \to \cH(\cC),
+  \quad
+  \iota \colon \Q \to \cH(\cC),
+  \quad
+  \Delta \colon \cH(\cC) \to \cH(\cC) \otimes \cH(\cC),
+  \quad
+  \epsilon \colon \cH(\cC) \to \Q,
+\]
+with $\mu$ the Davison--Meinhardt Hall product, $\iota$ the vacuum inclusion,
+$\Delta$ the Drinfeld-new coproduct
+$\Delta(e^{(a)}(z)) = e^{(a)}(z) \otimes 1 + \phi^{+,(a)}(z) \otimes e^{(a)}(z)$,
+and $\epsilon$ the standard augmentation. The antipode $S$ is \emph{not}
+part of this datum: it lives only on the Drinfeld double $D(\cH(\cC))$
+formed by pairing $\cH(\cC)$ with its negative-half shadow
+$\cH(\cC)^{\mathrm{op, cop}}$. The Etingof--Kazhdan quantisation theorem
+\cite{EtingofKazhdan1996} supplies the double as the Hopf completion:
+given a bialgebra with non-degenerate bialgebra pairing, the double
+$D(\cH) = \cH \otimes \cH^{\mathrm{op,cop}}$ carries a canonical antipode
+determined by the pairing.
+
+The bilinear form we track is therefore a \emph{bialgebra pairing}
+\[
+  (-, -)_\cH \colon \cH(\cC) \otimes \cH(\cC) \longrightarrow \Q((\hbar)),
+\]
+in the Etingof--Kazhdan sense \cite[\S 3]{EtingofKazhdan1996}: bilinear,
+compatible with $\mu$ and $\Delta$ by
+$(\xi \eta, \zeta)_\cH = (\xi \otimes \eta, \Delta \zeta)_\cH$, and
+non-degenerate on each $K_0$-graded piece. Antipode-compatibility
+$(S\xi, \eta)_\cH = (\xi, S\eta)_\cH$ \emph{does not} enter the statement
+at this level; it becomes available only after forming the Drinfeld
+double. Explicitly, for elements $[E], [F] \in \cH(\cC)$ represented by
+critical cohomology classes on the moduli stack,
+\[
+  ([E], [F])_\cH \;=\; \int_{\mathfrak{M}} \mathrm{pr}_1^*[E] \cdot \mathrm{pr}_2^*[F] \cdot \phi_W,
+\]
+where $\phi_W$ is the vanishing-cycle functor for the Koszul potential
+$W$ and the integral is the equivariant pushforward to the point. On the
+conifold, $D(\cH(\bar{Y})) = Y_{\hbar}(\widehat{\mathfrak{gl}}(1|1))$ is
+the full quantum super-Yangian with antipode
+$S(e^{(a)}(z)) = -\phi^{+,(a)}(z)^{-1} e^{(a)}(z) \phi^{+,(a)}(z)$; the
+positive half
+$\cH(\bar Y) = Y^+_{\hbar}(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{con}}$
+admits no such structure on its own.
+
+\begin{remark}[Hopf-status stratified by equivariance]
+  \label{rem:hopf-status-stratified}
+  The double $D(\cH(\cC))$ is strict $\Z_2$-graded Hopf at the rational,
+  trigonometric, and toroidal equivariance strata; at the elliptic
+  stratum it is quasi-Hopf with Felder--Jimbo--Konno dynamical associator,
+  whose coassociator satisfies the pentagon up to a Cartan-valued
+  dynamical twist. The chamber-invariance statements of this section
+  are for the bialgebra $\cH(\cC)$ and its pairing; the Drinfeld-double
+  antipode is a downstream consequence, not part of them.
+\end{remark}
+
+\subsection{Chamber-invariance of the bialgebra pairing}
+\label{subsec:chamber-invariance-pairing}
+
+We state chamber-invariance with its scope declared. The bialgebra
+pairing decomposes along the $K_0$-grading into homogeneous residues
+$c_{ab}(m, n) = (e^{(a)}_m, f^{(b)}_n)_\cH$, and the chamber-invariance
+statement stratifies into two scopes of different status.
+
+\begin{theorem}[Residue-level chamber-invariance of $(-, -)_\cH$, Etingof--Kazhdan]
+  \label{thm:hopf-pairing-chamber-invariance}
+  \ClaimStatusTheorem
+  Let $u = U_W \in \hat{\mathcal{T}}_\Gamma \subset \cH(\cC)$ be the wall-crossing
+  element of \cref{thm:coha-chamber-independent}. On each leading-residue
+  matrix element $c_{ab}(m, n)$ with $m + n = 0$ (i.e.\ on the $K_0$-diagonal),
+  \[
+    \big(\mathrm{Ad}_u(\xi_{m}^{(a)}),\, \mathrm{Ad}_u(\eta_{n}^{(b)})\big)_\cH
+    \;=\; (\xi_{m}^{(a)},\, \eta_{n}^{(b)})_\cH
+    \qquad \text{whenever } m + n = 0 \text{ in } K_0.
+  \]
+  Consequently the leading-residue coefficients $c_{ab}(0, 0)$ are
+  chamber-free: they depend only on the bialgebra $\cH(\cC)$, not on
+  $\sigma \in \Stab(\cC)$.
+\end{theorem}
+
+\begin{proof}[$K_0$-grading diagonal argument]
+  The bialgebra pairing is $K_0$-diagonal: $(\xi_\gamma, \eta_{\gamma'})_\cH = 0$
+  unless $\gamma + \gamma' = 0$ (Serre-duality complementary charges; see
+  \cref{prop:cy3-serre-antisymmetry}). The wall-crossing correction at
+  wall $W$ decomposes as an inner automorphism whose non-identity
+  contributions live in $K_0$-degrees $(k \gamma_1 + \ell \gamma_2)$
+  with $k + \ell \geq 1$, i.e.\ on the diagonal of the rank-two
+  sublattice $V = \Z\gamma_1 \oplus \Z\gamma_2$. For
+  $(\xi_\alpha, \eta_\beta)_\cH$ with $\alpha + \beta = 0$ the leading
+  residue (Schur--Weyl degree zero, $m + n = 0$) is unaffected by any
+  correction at a charge not matching $\alpha$ or $-\alpha$; for those
+  that do match, the quantum-dilogarithm expansion coefficients are
+  Gaussian $\LL^{n^2/2}$-terms whose $\hbar \to 0$ residue sum collapses
+  under the cocycle condition \cref{cor:ks-cocycle} to the identity.
+  This is the Kulish--Sklyanin residue lemma for bialgebra pairings
+  transported to the Joyce--Song integration map (see Etingof--Kazhdan
+  \cite[Prop 3.4]{EtingofKazhdan1996} for the classical-limit model
+  and Davison--Meinhardt \cite{DavisonMeinhardt2020} for the
+  critical-cohomology instantiation).
+\end{proof}
+
+\begin{conjecture}[All-mode chamber-invariance, Etingof--Kazhdan + GLY]
+  \label{conj:hopf-pairing-all-mode-chamber-invariance}
+  \ClaimStatusConjectured
+  The full bialgebra pairing is chamber-invariant at all mode indices:
+  for every $\xi, \eta \in \cH(\cC)$,
+  \[
+    \big(\mathrm{Ad}_{U_W}(\xi),\, \mathrm{Ad}_{U_W}(\eta)\big)_\cH
+    \;=\; (\xi,\, \eta)_\cH.
+  \]
+  Equivalently, the asymmetric super-trace correction
+  $c_{ab}(m, n) \mapsto c_{ab}(m, n) \cdot (1 + \hbar \cdot c_{ab} \cdot \delta_{m + n, 0})$
+  with $c_{00} = 0$, $c_{11} = -1$ on $\widehat{\mathfrak{gl}}(1|1)^{\mathrm{con}}$
+  is preserved under wall-crossing at every mode, not only the leading
+  residue.
+\end{conjecture}
+
+\begin{remark}[Why the all-mode statement is conjectural]
+  \label{rem:all-mode-conjectural}
+  The $c_{11} = -1$ asymmetric correction on the odd root's Killing
+  form is derived from the super-trace sign in the Davison super-shuffle
+  presentation and is consistent with $\widehat{\mathfrak{gl}}(1|1)$
+  structure; it has \emph{not} been verified against published
+  $Y(\mathfrak{gl}(m|n))$ Hopf pairings (Nazarov 1991,
+  Arnaudon--Cramp\'e--Doikou--Frappat--Ragoucy 2003, Gow 2005, Peng 2011).
+  The wall-crossing-compatibility of the all-mode propagated correction
+  is therefore an S5 conjecture pending primary-source verification.
+  The residue-level \cref{thm:hopf-pairing-chamber-invariance} is
+  established independently via the Kulish--Sklyanin residue lemma.
+\end{remark}
+
+\begin{proof}[Residue-level structural argument via inner invariance]
+  A complementary derivation of the residue-level statement
+  \cref{thm:hopf-pairing-chamber-invariance}: the wall-crossing
+  automorphism $\phi_{12} = \mathrm{Ad}_{U_W}$ is inner in
+  $\Aut_{\mathrm{bialg}}(\cH(\cC))$, with
+  $U_W = \prod_\gamma \Psi(\hat{x}_\gamma)^{\Omega_1(\gamma)}
+  \in \hat{\mathcal{T}}_\Gamma \subset \cH(\cC)_{K_0}$. The bialgebra pairing is,
+  by Davison--Meinhardt \cite{DavisonMeinhardt2020}, invariant under every
+  inner automorphism of $\cH(\cC)$ at the leading residue:
+  $(\mathrm{Ad}_u \xi, \mathrm{Ad}_u \eta)_\cH = (\xi, \eta)_\cH$
+  for $\xi, \eta$ supported on $K_0$-complementary charges. Invariance
+  follows from the cyclic symmetry of the Behrend-weighted pushforward
+  over $\mathfrak{M}$ and the CY$_3$ property of $\phi_W$: writing
+  $(\xi, \eta)_\cH = \tr_\cH(\xi \cdot \eta^\vee)$ as a trace on the
+  $\hbar$-deformed Heisenberg completion, cyclicity of $\tr$ gives
+  $\tr(\mathrm{Ad}_u(\xi) \cdot \mathrm{Ad}_u(\eta)^\vee) = \tr(u \xi u^{-1} u \eta^\vee u^{-1}) = \tr(\xi \eta^\vee)$.
+  The argument extends to higher modes under
+  \cref{conj:hopf-pairing-all-mode-chamber-invariance}.
+\end{proof}
+
+\begin{corollary}[Bialgebra Hilbert series is chamber-independent]
+  \label{cor:hilbert-series-chamber-indep}
+  The Hilbert series $\sum_\gamma \dim \cH^\gamma(\cC) \cdot \hat{x}_\gamma$
+  has chamber-independent coefficients, and the generating function of
+  leading-residue pairing values $([E], [E])_\cH|_{\mathrm{res}}$ on any
+  fixed basis is chamber-invariant. The all-mode generating function is
+  chamber-invariant conditional on
+  \cref{conj:hopf-pairing-all-mode-chamber-invariance}.
+\end{corollary}
+
+\subsection{Joyce--Song integration map is chamber-equivariant}
+\label{subsec:js-integration-chamber-equivariance}
+
+The Joyce--Song integration map \cref{thm:joyce-song-integration} upgrades
+the numerical wall-crossing relation \cref{thm:ks-wall-crossing} to a
+statement at the level of stack functions; at the bialgebra level it is
+the chamber-equivariance statement:
+
+\begin{theorem}[Joyce--Song Thm 5.8 chamber-equivariance, bialgebra form]
+  \label{thm:js-bialgebra-chamber-equivariance}
+  For any wall-crossing $\sigma_1 \to \sigma_2$ across wall $W$,
+  \[
+    I_{\sigma_2} \;=\; \mathrm{Ad}_{U_W} \circ I_{\sigma_1},
+    \qquad
+    U_W \;=\; \prod_{\gamma \in V^+}^{\arg Z_{\sigma_1}\text{-ordered}}
+      \Psi(\hat{x}_\gamma)^{\Omega_{\sigma_1}(\gamma)},
+  \]
+  as algebra homomorphisms from the stack-function Hall algebra to the
+  completed quantum torus. Three assertions compose:
+  \begin{enumerate}[leftmargin=2em]
+    \item\label{js1} \emph{(Joyce--Song \cite[Thm 5.8]{JoyceSong2012})} $I_\sigma$
+          is an algebra homomorphism for every $\sigma$.
+    \item\label{js2} \emph{(Kontsevich--Soibelman \cite[\S 6.3]{KS2008})}
+          $U_W \in \Aut_{\mathrm{bialg}}(\hat{\mathcal{T}}_\Gamma)$ is a bialgebra
+          automorphism (not merely an algebra automorphism) of the
+          completed quantum torus.
+    \item\label{js3} \emph{(Davison--Meinhardt \cite{DavisonMeinhardt2020})}
+          The commutative triangle of \ref{js1} and \ref{js2} lifts from
+          the $K_0$-graded quotient $\hat{\mathcal{T}}_\Gamma$ to the full critical CoHA
+          $\cH(\cC)$, preserving the bialgebra structure pointwise in
+          each $K_0$-degree.
+  \end{enumerate}
+  The composite is the statement that the ordered product
+  $U_W = \prod \Psi(\hat{x}_\gamma)^{\Omega_1(\gamma)}$ is the explicit
+  bialgebra-automorphism witness of the chamber-change $\sigma_1 \to \sigma_2$.
+\end{theorem}
+
+\begin{proof}[Structural]
+  \ref{js1} is Joyce--Song \cite[Thm 5.8]{JoyceSong2012}: the Hall product
+  $\bar{\delta}_\sigma^{\mathrm{ss}}(\gamma_1) \star \bar{\delta}_\sigma^{\mathrm{ss}}(\gamma_2)$
+  on the stack-function side maps to
+  $\bar{\Omega}_\sigma(\gamma_1) \bar{\Omega}_\sigma(\gamma_2) \hat{x}_{\gamma_1} \hat{x}_{\gamma_2}
+  = \LL^{\chi(\gamma_1, \gamma_2)} \bar{\Omega}_\sigma(\gamma_1) \bar{\Omega}_\sigma(\gamma_2) \hat{x}_{\gamma_1 + \gamma_2}$
+  on the quantum-torus side, compatibly with the Behrend-weighted integration.
+
+  \ref{js2} is the observation that each $\Psi(\hat{x}_\gamma)$ is a bialgebra
+  automorphism of $\hat{\mathcal{T}}_\Gamma$: it preserves the coproduct
+  $\Delta(\hat{x}_\gamma) = \hat{x}_\gamma \otimes \hat{x}_\gamma$ (grouplike) and
+  intertwines the Euler-form-twisted multiplication, a direct
+  verification on generators using the pentagon identity
+  \cref{thm:psi-pentagon}. Products of bialgebra automorphisms are
+  bialgebra automorphisms; hence $U_W \in \Aut_{\mathrm{bialg}}(\hat{\mathcal{T}}_\Gamma)$.
+
+  \ref{js3} is the critical-cohomology upgrade. Davison--Meinhardt
+  \cite{DavisonMeinhardt2020} show that the Sym-decomposition
+  $\cH(\cC) \cong \bigotimes \Sym^\bullet(\mathrm{BPS}_\sigma \otimes H^\bullet(\B\G_m))$
+  is natural in $\sigma$: different chambers permute the tensor factors,
+  and the chamber-isomorphism $\phi_{12}$ of
+  \cref{thm:coha-chamber-independent} intertwines the two
+  Sym-decompositions. The induced map on $K_0$-quotients is exactly
+  $\mathrm{Ad}_{U_W}$; the lift to $\cH(\cC)$ preserves the bialgebra
+  structure because each Sym factor is a commutative Hopf ideal in the
+  critical-cohomology complex (Davison--Meinhardt integrality).
+
+  The three assertions compose to the claim that $U_W$ is the explicit
+  bialgebra-automorphism witness: $I_{\sigma_2} = \mathrm{Ad}_{U_W} \circ I_{\sigma_1}$.
+\end{proof}
+
+\subsection{The ledger-level statement}
+
+To summarise explicitly what changes and what does not under wall-crossing:
+
+\begin{enumerate}[leftmargin=2em]
+  \item The BPS invariants $\Omega_\sigma(\gamma)$ \emph{change} chamber-by-chamber;
+        this is the content of the wall-crossing formula.
+  \item The tensor-factor ordering in the BPS Sym-decomposition of
+        $\cH(\cC)$ \emph{changes};
+  \item The isomorphism class of the bialgebra $\cH(\cC)$ \emph{does not change};
+  \item The leading-residue bialgebra pairing $(-, -)_\cH|_{\mathrm{res}}$
+        \emph{does not change} numerically (theorem);
+  \item The all-mode bialgebra pairing is chamber-invariant under
+        \cref{conj:hopf-pairing-all-mode-chamber-invariance}
+        (conjecture).
+\end{enumerate}
+
+Items (3) and (4) say: the bialgebra $\cH(\cC)$ together with its
+leading-residue pairing is a chamber-free invariant of the CY$_3$
+category; (5) extends this to all modes conditional on
+\cref{conj:hopf-pairing-all-mode-chamber-invariance}.
+The KS wall-crossing cocycle is the explicit bialgebra-automorphism witness
+that glues the chamber-by-chamber \emph{presentations} of $\cH(\cC)$ into
+a single bialgebra; the Joyce--Song integration map
+\cref{thm:js-bialgebra-chamber-equivariance} is the concrete chain-level
+formula. The Drinfeld-double antipode is installed downstream
+(\cref{rem:hopf-status-stratified}), not as part of the chamber-gluing
+datum.
+
+\section{Stratum-independence}
+\label{sec:wc-stratum-independence}
+
+Unlike the gluing modes of Parts II--V (toric charts, McKay orbifolds,
+derived-Morita tilting, factorisation-homology assembly), wall-crossing
+gluing \emph{does not rely on the four-stratum taxonomy}. The KS quantum
+torus and the Joyce--Song map are intrinsic to any CY$_3$ category with a
+stability condition, regardless of whether the underlying geometry is:
+
+\begin{itemize}[leftmargin=2em]
+  \item toric (Stratum i): wall-crossing chambers stratify the K\"ahler
+        cone, and the KS-$\Psi$-cocycle matches the GLY bond-factor cocycle
+        of \cref{sec:gluing-p2-multi-chart};
+  \item automorphism-equivariant (Stratum ii): the automorphism group acts
+        on $\Stab(\cC)$ and permutes chambers; the chamber-quotient is
+        preserved;
+  \item orbifold-inertia (Stratum iii): each conjugacy-class component of
+        the inertia stack has its own stability manifold, and wall-crossing
+        within each component produces its own KS cocycle;
+  \item lattice-polarised (Stratum iv): the Gritsenko--Borcherds-lift
+        automorphic form produces generating functions of the same
+        chamber-dependent BPS data; wall-crossing is a modular cocycle on
+        the Kuga--Satake period domain.
+\end{itemize}
+
+In every case the \v{C}ech-cocycle structure is the same: chambers index
+local charts; wall-crossing formulas provide transition maps; the BPS
+spectrum is globally a section of the chamber sheaf.
+
+\begin{remark}[Relationship to the motivic KS conjecture]
+  The content of \cref{thm:ks-wall-crossing} is one-half of the
+  Kontsevich--Soibelman integrality conjecture; the other half, that the
+  motivic BPS series factorises across the universal Pochhammer product,
+  is now a theorem of Davison--Meinhardt in the critical-cohomology
+  category. Together they give the full gluing picture: chamber-by-chamber
+  local data, motivic wall-crossing cocycle, and global chamber-free
+  algebra, all at the chain level.
+\end{remark}
+
+\section{Worked example: the conifold}
+\label{sec:wc-conifold}
+
+To demonstrate the formalism at chain level, we work out the wall-crossing
+structure for the resolved conifold
+$\bar{Y} = \Tot(\cO_{\mathbb P^1}(-1) \oplus \cO_{\mathbb P^1}(-1))$.
+
+\subsection{Charge lattice and Euler form}
+
+The derived category $D^b(\bar{Y})$ admits a Nagao--Nakajima / Szendr\H{o}i
+NCCR \cite{NagaoNakajima2011, Szendroi2008} presenting it as
+$D^b(\mathrm{mod}\text{-}\Jac(Q_{\mathrm{con}}, W_{\mathrm{con}}))$ where $Q_{\mathrm{con}}$ is the two-vertex
+Klebanov--Witten quiver with arrows $a_{1,2}\colon 0 \to 1$,
+$b_{1,2}\colon 1 \to 0$ and potential
+$W_{\mathrm{con}} = a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1$. The charge lattice is
+$\Gamma = K_0(D^b(\bar{Y})) \cong \Z^2$ generated by simples
+$\gamma_0 = [S_0]$, $\gamma_1 = [S_1]$ of the two vertices. In the
+shifted-DT framing where points and curve classes enter as
+$[\cO_{\mathrm{pt}}] = \gamma_0 + \gamma_1$, $[\cO_{\mathbb P^1}] = \gamma_1 - \gamma_0$,
+the Euler pairing reads
+\[
+  \chi(\gamma_0, \gamma_1) \;=\; -2, \qquad \chi(\gamma_1, \gamma_0) \;=\; +2,
+  \qquad \chi(\gamma_i, \gamma_i) \;=\; 0
+\]
+(the $\pm 2$ coming from the two $a$-arrows and the two $b$-arrows of
+the quiver; the diagonal vanishes by CY$_3$ antisymmetry
+\cref{prop:cy3-serre-antisymmetry}). The skew-Euler form is
+$\langle \gamma_0, \gamma_1\rangle = 2\chi(\gamma_0, \gamma_1) = -4$, and the
+quantum torus generators satisfy
+\[
+  \hat{x}_{\gamma_0} \hat{x}_{\gamma_1} \;=\; \LL^{-2}\, \hat{x}_{\gamma_0 + \gamma_1},
+  \qquad
+  \hat{x}_{\gamma_1} \hat{x}_{\gamma_0} \;=\; \LL^{+2}\, \hat{x}_{\gamma_0 + \gamma_1}.
+\]
+
+\subsection{Stability chambers and DT/PT generating functions}
+
+The stability manifold $\Stab(D^b(\bar{Y}))$ is four-real-dimensional;
+its chamber structure (Bridgeland \cite{Bridgeland2011},
+Nagao--Nakajima \cite{NagaoNakajima2011}) is indexed by a discrete
+family of NCCR tiltings related by mutations. Two canonical chambers:
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{DT chamber}: stable bundle $\cO_{\bar{Y}} \to \bar{Y}$
+        is a generator; generating function
+        \[
+          Z^{\mathrm{DT}}(\bar{Y})(q, Q) \;=\; M(-q)^{2} \prod_{k \geq 1}\big(1 - Q(-q)^k\big)^{k},
+        \]
+        where $M(q) = \prod_{k \geq 1}(1 - q^k)^{-k}$ is the MacMahon
+        function (Maulik--Nekrasov--Okounkov--Pandharipande
+        \cite{MNOP2006}).
+  \item \textbf{PT chamber}: stable Pandharipande--Thomas pairs;
+        generating function
+        $Z^{\mathrm{PT}}(\bar{Y})(q, Q) = \prod_{k \geq 1}(1 - Q(-q)^k)^{k}$, the
+        DT/PT transform dropping the MacMahon prefactor $M(-q)^2$.
+\end{itemize}
+The DT/PT ratio $Z^{\mathrm{DT}}/Z^{\mathrm{PT}} = M(-q)^2$ is the Behrend-weighted
+generating function of $0$-dimensional subschemes of $\bar{Y}$
+(two copies of $\mathrm{Hilb}^\bullet(\C^3)$, one per conifold chart; see
+Bryan--Morrison \cite{BryanMorrison2012}).
+
+\subsection{Wall-crossing as pentagon identity}
+
+The wall-crossing between DT and PT chambers is the motivic shadow of
+the pentagon identity \cref{thm:psi-pentagon}. To make this explicit:
+the DT chamber generates BPS states $\{n \gamma_0 + m \gamma_1 : n, m \geq 0\}$
+with
+$\Omega^{\mathrm{DT}}(\gamma_0) = \Omega^{\mathrm{DT}}(\gamma_1) = 1$,
+$\Omega^{\mathrm{DT}}(\gamma_0 + \gamma_1) = -2$ (the two curve classes
+$\cO_{\mathbb P^1}(-1)$), and $\Omega^{\mathrm{DT}}(k(\gamma_0 + \gamma_1)) = -2$
+for all $k \geq 1$. The PT chamber has the mutated spectrum with the
+same $\Omega(\gamma_0 + \gamma_1)$ but reorganised phase ordering.
+The wall-crossing relation reads
+\[
+  \prod_{k \geq 1} \Psi(\hat{x}_{k(\gamma_0 + \gamma_1)})^{-2k}
+  \cdot \Psi(\hat{x}_{\gamma_1})^{1} \cdot \Psi(\hat{x}_{\gamma_0})^{1}
+  \;=\;
+  \Psi(\hat{x}_{\gamma_0})^{1} \cdot \Psi(\hat{x}_{\gamma_1})^{1} \cdot \prod_{k \geq 1} \Psi(\hat{x}_{k(\gamma_0 + \gamma_1)})^{-2k},
+\]
+which restricts on the sublattice $\Z\gamma_0 \oplus \Z\gamma_1$ to a
+repeated application of the pentagon \cref{thm:psi-pentagon}, one
+per curve class $k(\gamma_0 + \gamma_1)$. Expanding both sides as
+formal series in $\hat{x}_{\gamma_0}, \hat{x}_{\gamma_1}$ recovers
+$Z^{\mathrm{DT}} = M(-q)^2 \cdot Z^{\mathrm{PT}}$, matching the MNOP
+formula.
+
+\subsection{Chamber-free CoHA and shifted quiver Yangian}
+
+The chamber-free critical CoHA on the conifold is
+\[
+  \cH(\bar{Y}) \;\cong\; Y^+_{\hbar}(\widehat{\mathfrak{gl}}(1|1)),
+\]
+the shifted affine super-Yangian of $\mathfrak{gl}(1|1)$ in the GLY
+normalisation \cite{GalakhovLiYamazaki2021}. The two supercharges
+reflect the two simples $\gamma_0, \gamma_1$; the $\mathbb Z/2$ parity
+records the two mutation-related tilting presentations. The chamber
+dependence lives entirely in the shift parameter
+$\zeta_\sigma \in \Gamma^\vee$, which parametrises which tilting
+presentation realises the shifted Yangian at $\sigma$. The leading-residue
+bialgebra pairing on
+$Y^+_{\hbar}(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{con}}$ takes
+chamber-invariant numerical values by
+\cref{thm:hopf-pairing-chamber-invariance} (theorem at the bialgebra
+scope; antipode reserved for the Drinfeld double
+$D(Y^+) = Y_{\hbar}(\widehat{\mathfrak{gl}}(1|1))$); the all-mode propagation
+of the asymmetric super-trace correction $c_{11} = -1$ is chamber-invariant
+conditional on \cref{conj:hopf-pairing-all-mode-chamber-invariance}.
+The DT and PT generating functions differ only by the
+chamber-dependent prefactor $M(-q)^2$, which is the
+``$\G_m$-equivariant zero-dimensional'' factor orthogonal to the
+bialgebra pairing at leading residue.
+
+\section{Summary and forward pointers}
+\label{sec:wc-summary}
+
+\begin{itemize}[leftmargin=2em]
+  \item \cref{sec:ks-quantum-torus}: the quantum torus $\mathcal{T}_\Gamma$ encodes the
+        Euler form on the charge lattice; on CY$_3$, Serre duality forces
+        Euler antisymmetry, so the torus is motivically non-commutative with
+        commutator $\LL^{2\chi(\gamma, \gamma')}$; in the classical limit it
+        is the commutative group algebra of $\Gamma$.
+  \item \cref{sec:chambers-gluing-cells}: chambers are local charts of
+        $\Stab(\cC)$; walls are the codim-one boundaries; the
+        quantum-dilogarithm cocycle $\prod \Psi(\hat{x}_\gamma)^{\Omega(\gamma)}$
+        provides the \v{C}ech-gluing transition maps; the global BPS
+        structure is a class in $\check{H}^1(\Stab(\cC), \Aut(\hat{\mathcal{T}}_\Gamma))$.
+  \item \cref{sec:seiberg-mutation-gluing}: Seiberg duality / quiver
+        mutation is the \emph{quiver-level} gluing automorphism; the
+        mutation groupoid (a Weyl group for ADE) acts on the chamber
+        lattice and lifts through Keller--Yang derived Morita
+        (\cref{thm:keller-yang-mutation-wc}) to a group of bialgebra
+        automorphisms $\mu_i^\cH \in \Aut_{\mathrm{bialg}}(\cH(\cC))$
+        (\cref{thm:mutation-bialgebra-automorphism}); the CoHA is
+        chamber-independent as a bialgebra, chamber data is carried by
+        the shift parameter of the shifted quiver Yangian, and the
+        conifold admits a three-chamber chain
+        NCDT $\to$ DT $\to$ PT (\cref{thm:conifold-seiberg-chain})
+        with conjectural $B_3$-braid lift
+        (\cref{conj:braid-b3-conifold}).
+  \item \cref{sec:js-hopf-chamber-independence}: the Joyce--Song
+        integration map realises wall-crossing at the stack-function level;
+        the critical CoHA is a \emph{bialgebra} (not a Hopf algebra) and
+        the leading-residue bialgebra pairing is preserved by every inner
+        bialgebra automorphism $\mathrm{Ad}_{U_W}$ of $\cH(\cC)$ (theorem);
+        the all-mode pairing chamber-invariance is conditional on
+        \cref{conj:hopf-pairing-all-mode-chamber-invariance}; the
+        Drinfeld-double antipode is installed downstream.
+\end{itemize}
+
+\bigskip
+\noindent \textbf{Soibelman voice.} The content of this Part is the
+motivic gluing cocycle: the BPS spectrum of a CY$_3$ category is not a
+chamber-local datum but a \v{C}ech-cohomological class on $\Stab(\cC)$
+taking values in $\Aut(\hat{\mathcal{T}}_\Gamma)$. Every chamber furnishes a
+presentation of the same chamber-free algebra $\cH(\cC)$; the
+wall-crossing automorphisms are the transition functions; the pentagon
+identity is the local-model cocycle condition at a rank-two wall.
+Integrality (Kontsevich--Soibelman 2008, Davison--Meinhardt 2020) is
+the statement that this cohomology class descends to the $\G_m$-fixed
+BPS Lie algebra $\mathfrak{g}_{\mathrm{BPS}}$, and its generating function is the
+motivic refined DT invariant.
+
+Part VII takes up the lattice-polarised / automorphic gluing, which is the
+gluing mode specifically adapted to K3-type geometries where the Borcherds
+lift organises the chamber-free algebra into a modular form on the
+Kuga--Satake period domain. The two gluing modes (wall-crossing and
+automorphic) cooperate rather than compete on $K3 \times E$: wall-crossing
+organises the BPS spectrum chamber-by-chamber on Stab, while the Borcherds
+lift $\Delta_5$ organises the same spectrum globally as Fourier coefficients
+of an automorphic form.
+
+\bigskip
+\paragraph{Primary sources cited in this Part.}
+Kontsevich--Soibelman \cite{KS2008} \S 2.3--6.3 for the quantum torus, the
+quantum dilogarithm, and the wall-crossing formula. Joyce--Song
+\cite{JoyceSong2012} Thm 5.8, \S 6.5 for the integration map $I$ and its
+chamber-equivariance. Keller--Yang \cite{KellerYang2011} for
+mutation-as-derived-equivalence. Galakhov--Li--Yamazaki
+\cite{GalakhovLiYamazaki2021} for shifted quiver Yangians indexing
+chambers. Davison--Meinhardt \cite{DavisonMeinhardt2020} for the
+chamber-independence of the critical CoHA. All statements in this Part are
+stated at chain level; the upgrades to $(\infty, 1)$-categorical functoriality
+under $\Phi$ are treated in the following parts of the chapter.

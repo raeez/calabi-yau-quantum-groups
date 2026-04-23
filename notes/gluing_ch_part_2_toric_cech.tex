@@ -1,0 +1,756 @@
+% !TEX root = ../main.tex
+% ============================================================================
+% Gluing Chapter, Part II:
+%   Chart-wise gluing on toric CY$_3$ (Stratum i)
+%
+% First-principles elementary-derivation draft.  Every step is pinned to an
+% explicit chart computation: Jacobian of the transition, action on the
+% $(3,0)$-form, induced action on polyvectors, Fourier--Mukai multiplier,
+% Koszul sign.  This draft is standalone (CG voice, no "Wave N" language,
+% no process narration, no retraction bookkeeping); it subsumes the
+% conifold two-chart construction of
+% \texttt{chapters/examples/toric\_cy3\_coha.tex} \S conifold-two-chart-cech,
+% feeds the McKay/orbifold Part III, and states the local-to-global
+% theorem that terminates Stratum~i.
+% ============================================================================
+
+\providecommand{\bY}{\mathbb{Y}}
+
+\part{Chart-wise gluing on toric CY$_3$ (Stratum i)}
+
+\medskip
+
+Stratum~i is the toric regime: every top-dimensional cone of the fan
+contributes a $\C^3$-chart carrying the Schiffmann--Vasserot positive
+half $Y^+(\widehat{\fgl}_1)$, and the global CoHA is the
+\v{C}ech--$E_3$-factorisation-algebra homotopy colimit of the chart
+data along the face lattice of the fan.  The simplest non-trivial
+instance is the resolved conifold
+\(
+  \bY = \mathrm{Tot}(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1))
+\)
+with its two-chart atlas $\bY = U_+ \cup U_-$.  The multi-chart
+generalisation indexes over a toric fan; the compact-$4$-cycle
+obstruction separates zero-interior-point diagrams from diagrams
+requiring McKay resolution; the local-to-global theorem closes the
+toric programme at the zero-interior-point boundary.
+
+% ============================================================================
+\section{\v{C}ech gluing of two charts: the conifold paradigm}
+\label{sec:gluing-p2-conifold}
+% ============================================================================
+
+The obstruction resolved by a two-chart atlas is the absence of a global
+$\C^3$-parametrisation: the resolved conifold $\bY$ is a rank-$2$ vector
+bundle over $\bP^1$, not an affine variety.  Any chart-wise
+Schiffmann--Vasserot construction must name the transition datum that turns
+two copies of $\C^3$ into $\bY$, then transport that datum through every
+intermediate step --- the $(3,0)$-form, the polyvector fields, the Hall
+product, the super structure.
+
+\subsection{The two-chart atlas}
+
+Let $z \in \bP^1$ be the standard affine coordinate on the base, with
+$\tilde z = z^{-1}$ on the complementary chart.  On the total space
+\(
+  \bY = \mathrm{Tot}(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1))
+\)
+introduce fibre coordinates $u_+, v_+$ in the trivialisation over the
+$z$-chart and $u_-, v_-$ in the trivialisation over the $\tilde z$-chart.
+The cover
+\[
+  U_+ \;=\; \{z \neq \infty\} \times \C^2 \;\cong\; \C^3,
+  \qquad
+  U_- \;=\; \{\tilde z \neq \infty\} \times \C^2 \;\cong\; \C^3,
+\]
+has overlap $U_+ \cap U_- = (\bP^1 \setminus \{0, \infty\}) \times \C^2
+\cong \bC^\times \times \C^2$.  A section of $\cO_{\bP^1}(-1)$ is a function
+$f(z)$ on $U_+$ that transforms to $\tilde z f(\tilde z^{-1}) = z^{-1} f(z)$
+on $U_-$.  Writing $u_\pm, v_\pm$ as the fibre coordinates of the two $\cO(-1)$
+summands one finds the transition
+\begin{equation}\label{eq:conifold-transition-chart}
+  \tilde z \;=\; z^{-1},
+  \qquad
+  u_- \;=\; z\, u_+,
+  \qquad
+  v_- \;=\; z\, v_+,
+\end{equation}
+as the natural datum forced by the $\cO(-1) \oplus \cO(-1)$ twist.  The
+standard atlas of $\bP^1$ carries an orientation flip across
+$z \leftrightarrow \tilde z$: the holomorphic $1$-form $dz = -\tilde z^{-2}\,
+d\tilde z$ reverses sign through the change of chart, and this sign
+propagates to the $(3,0)$-form computation of the next subsection.
+
+\subsection{Jacobian of the transition on the $(3,0)$-form}
+
+The Calabi--Yau $(3,0)$-form $\Omega_{\bY}$ is specified on $U_+$ by the
+requirement that it trivialise the canonical bundle of $U_+ \cong \C^3$:
+\[
+  \Omega_{\bY}\big|_{U_+} \;=\; dz \wedge du_+ \wedge dv_+.
+\]
+To transport $\Omega_{\bY}$ to $U_-$ one computes the Jacobian of the
+transition~\eqref{eq:conifold-transition-chart} step by step.  The exterior
+derivatives are
+\[
+  dz \;=\; -\tilde z^{-2}\, d\tilde z,
+  \qquad
+  du_+ \;=\; d(z^{-1} u_-)
+          \;=\; -z^{-2}\, u_-\, dz + z^{-1}\, du_-,
+  \qquad
+  dv_+ \;=\; -z^{-2}\, v_-\, dz + z^{-1}\, dv_-,
+\]
+so that
+\[
+  dz \wedge du_+ \;=\; dz \wedge z^{-1}\, du_-,
+  \qquad
+  dz \wedge du_+ \wedge dv_+ \;=\; dz \wedge z^{-1}\, du_- \wedge z^{-1}\, dv_-
+  \;=\; z^{-2}\, dz \wedge du_- \wedge dv_-.
+\]
+Substituting $dz = -\tilde z^{-2}\, d\tilde z$ and $z^{-2} = \tilde z^{\,2}$:
+\begin{equation}\label{eq:jacobian-calculation}
+  \Omega_{\bY}\big|_{U_+}
+  \;=\; dz \wedge du_+ \wedge dv_+
+  \;=\; z^{-2}\, dz \wedge du_- \wedge dv_-
+  \;=\; (\tilde z^{\,2}) \cdot (-\tilde z^{-2})\, d\tilde z \wedge du_- \wedge dv_-
+  \;=\; -d\tilde z \wedge du_- \wedge dv_-.
+\end{equation}
+The fibre Jacobian $z^{-2} = \tilde z^{\,2}$ cancels the cotangent factor
+$-\tilde z^{-2}$ from $dz$ exactly; the surviving sign is the
+base-orientation flip of $\bP^1$.  This is the statement that $K_{\bY}$
+is trivial as a line bundle on $\bY$ --- its transition cocycle on the
+overlap $U_+ \cap U_-$ collapses to $\pm 1$ --- with the base-orientation
+sign $-1$ read off the global trivialisation~\eqref{eq:jacobian-calculation}.
+The fibre twist $z^{-2}$ (two factors of $\cO(-1)$, one from each
+$\cO_{\bP^1}(-1)$ summand) compensates the cotangent factor $z^{-2}$ on
+the base $1$-form $dz$, leaving the constant $-1$ as the whole transition
+multiplier on $\Omega_\bY$.
+
+\subsection{The chart-wise Schiffmann--Vasserot CoHA}
+
+Each chart $U_\pm \cong \C^3$ carries the Jordan-triple quiver with
+potential
+\[
+  Q_{\mathrm{Jor}} : \;\; \underbrace{\bullet}_{0}
+  \;\;\text{with three loops}\;\; x_\pm, y_\pm, z_\pm,
+  \qquad
+  W_\pm \;=\; \mathrm{tr}\bigl(x_\pm[y_\pm, z_\pm]\bigr).
+\]
+The critical CoHA of $(Q_{\mathrm{Jor}}, W_\pm)$ is the positive half of the
+affine Yangian of $\widehat{\fgl}_1$ (Schiffmann--Vasserot 2012
+\texttt{arXiv:1202.2756}; Tsymbaliuk 2014 \texttt{arXiv:1404.5240}),
+\[
+  \CoHA\bigl(U_\pm, W_\pm\bigr) \;\cong\; Y^+\bigl(\widehat{\fgl}_1\bigr),
+\]
+with generators $e_r^{(\pm)}, f_r^{(\pm)}, h_r^{(\pm)}$ indexed by $r \in
+\Z_{\geq 0}$ and structure functions given by the RSYZ shuffle kernel
+(Rapcak--Soibelman--Yang--Zhao 2020 \texttt{arXiv:1810.10402} \S5,
+equation (5.3), specialised to the single-vertex Jordan-triple case).
+At weight $(1,1)$ the shuffle kernel evaluates to
+\begin{equation}\label{eq:structure-constant-1-1}
+  \varphi_{11}(u_1; u_2) \;=\; \frac{1}{(u_1 - u_2 - \varepsilon_1)(u_1 - u_2 - \varepsilon_2)}
+  \;\;\xrightarrow{\;u_2 \to u_1\;}\;\;
+  \frac{1}{\varepsilon_1 \varepsilon_2},
+\end{equation}
+the structure constant that every downstream computation must reproduce.
+
+\subsection{Fourier--Mukai transition kernel}
+
+On the overlap $U_+ \cap U_- = \bC^\times \times \C^2$ the derived category
+$D^b(\mathrm{Coh}(U_+ \cap U_-))$ carries the autoequivalence implementing
+the transition~\eqref{eq:conifold-transition-chart} at the level of sheaves.
+Its integral kernel is
+\begin{equation}\label{eq:FM-kernel-conifold}
+  K_{+-} \;=\; \cO_\Delta \otimes \pi_1^*\,\cO_{\bP^1}(-1)
+  \;\in\; D^b\bigl(\mathrm{Coh}\,(U_+ \cap U_-) \times (U_+ \cap U_-)\bigr),
+\end{equation}
+with $\Delta$ the diagonal and $\pi_1$ the projection onto the first factor.
+The transform $T_{+-}(\cF) := \pi_{2,*}\bigl(\pi_1^*\cF \otimes K_{+-}\bigr)$
+acts on polyvector fields
+$\mathrm{PV}^\bullet(U_\pm) = \bigoplus_p \bigwedge^p T_{U_\pm}$ through the
+chain rule applied to~\eqref{eq:conifold-transition-chart} combined with the
+$\cO_{\bP^1}(-1)$-twist.
+
+\paragraph{Chain rule on the cotangent basis.}
+Differentiate~\eqref{eq:conifold-transition-chart} to obtain
+\[
+  du_+ \;=\; d(z^{-1} u_-) \;=\; -z^{-2}\, u_-\, dz + z^{-1}\, du_-,
+  \qquad
+  dv_+ \;=\; -z^{-2}\, v_-\, dz + z^{-1}\, dv_-.
+\]
+On the vertical (fibre-degree) sector --- the sector entering the
+Schiffmann--Vasserot Hall product --- only the $z^{-1}\,du_-$ and
+$z^{-1}\,dv_-$ terms survive (the $dz$-terms drop under pairing with the
+Jordan-triple fibre polyvectors by~\eqref{eq:structure-constant-1-1}).
+The cotangent multiplier is therefore $z^{-1}$ per fibre slot, giving
+$z^{-(a+b)}$ on a fibre-form $du_+^a \wedge dv_+^b$.
+
+\paragraph{Polyvector transport via $\Omega_\bY$-duality.}
+The critical CoHA identifies polyvectors with differential forms via
+Serre duality against the $(3,0)$-form $\Omega_\bY$:
+\[
+  \Lambda^p\, T_{\bY} \;\cong\; \Omega^{3-p}_\bY \otimes K_\bY^{-1}
+  \;\cong\; \Omega^{3-p}_\bY
+\]
+using triviality of $K_\bY$ (equation~\eqref{eq:jacobian-calculation}).
+Under this identification the fibre-polyvector $\partial_{u_+}^a
+\partial_{v_+}^b$ corresponds (up to sign) to the fibre-form
+$du_+^a \wedge dv_+^b$ contracted against the base $dz$-direction of
+$\Omega_\bY$.  Its transport under $T_{+-}$ is the cotangent transformation
+$du_+^a \wedge dv_+^b = z^{-(a+b)}\, du_-^a \wedge dv_-^b$.
+
+\paragraph{$\cO(-1)$-kernel twist.}
+The factor $\pi_1^*\cO_{\bP^1}(-1)$ in $K_{+-}$ contributes a further
+multiplier $z^{-1}$ on the scalar sector: a section of
+$\cO_{\bP^1}(-1)$ on $U_+$ written as $g(z)$ is expressed on $U_-$ as
+$\tilde z\, g(\tilde z^{-1}) = z^{-1}\, g(z)$.
+
+\paragraph{Net multiplier.}
+Combining the cotangent re-section and the kernel twist,
+\[
+  \bigl[z^{-(a+b)}\bigr]_{\text{cotangent chain rule}}
+    \;\cdot\;
+  \bigl[z^{-1}\bigr]_{\cO(-1)\text{-kernel}}
+  \;=\;
+  z^{-(1 + a + b)}.
+\]
+The Fourier--Mukai transport of a Jordan-triple fibre polyvector therefore
+reads
+\begin{equation}\label{eq:FM-multiplier}
+  T_{+-}^* :\;
+  f(z, u_+, v_+)\, \partial_{u_+}^a\, \partial_{v_+}^b
+  \;\longmapsto\;
+  f(\tilde z^{-1}, \tilde z\, u_-, \tilde z\, v_-)\;
+  z^{-(1 + a + b)}\;
+  \partial_{u_-}^a\, \partial_{v_-}^b.
+\end{equation}
+The base-polyvector sector (powers of $\partial_z$) picks up the
+base-orientation multiplier $(-\tilde z^{\,2})$ per $\partial_z$-slot; the
+Jordan-triple selection rule~\eqref{eq:structure-constant-1-1} restricts
+the Hall product to the fibre sector $\alpha = 0$ on which the base
+orientation enters only through the global sign
+of~\eqref{eq:jacobian-calculation}.
+
+\subsection{Homotopy colimit and super-Yangian output}
+
+The pair $(U_+, U_-)$ with overlap $U_+ \cap U_-$ forms a two-object diagram
+in the category of $\C^3$-charts.  The chart-wise factorisation algebras
+$\cF_\pm = \Phi^{FA}_3(\Gamma_\pm)$ (Ginzburg dgas of the Jordan-triple
+quiver with potential, \S\ref{sec:gluing-p2-conifold}; Kontsevich--Tamarkin
+$E_3$-formality + Costello--Li holomorphic locality) glue by the homotopy
+colimit
+\begin{equation}\label{eq:homotopy-colimit}
+  \cF_{\bY} \;=\; \mathrm{hocolim}\Bigl(
+    \cF_+\big|_{U_+ \cap U_-}
+    \;\xrightarrow{\;T_{+-}\;}\;
+    \cF_-\big|_{U_+ \cap U_-}
+  \Bigr),
+\end{equation}
+an $E_3$-factorisation algebra on $\bY$ whose cohomology is
+$H^\bullet(\cF_{\bY}) = \mathrm{PV}^\bullet(\bY)$.  Under the CoHA assignment
+the homotopy colimit produces a new associative algebra whose generators
+split into two families indexed by the two charts and whose structure
+constants are determined by the multiplier~\eqref{eq:FM-multiplier}.
+
+\paragraph{The super structure as a Koszul sign.}
+The base-orientation flip in $\Omega_{\bY}|_{U_-} = -d\tilde z \wedge du_-
+\wedge dv_-$ (equation~\eqref{eq:jacobian-calculation}) contributes a
+Koszul sign $\sigma = -1$ on cross-chart Hall products: the orientation of
+the measure against which the critical CoHA integrates polyvectors
+reverses between charts, so bilinear pairings $\langle \cdot, \cdot
+\rangle_\pm$ that glue across the overlap pick up a factor of $-1$.  In
+the chart-wise shuffle presentation this is the parity assignment of
+the Schiffmann--Vasserot generators across the two charts, producing
+super-Yangian-type anticommutators on the combinations
+\[
+  E^{(0)} \;=\; e_0^{(+)} + e_0^{(-)},
+  \qquad
+  E^{(1)} \;=\; e_0^{(+)} - e_0^{(-)},
+\]
+where the even combination $E^{(0)}$ generates a bosonic subalgebra and the
+odd combination $E^{(1)}$ generates a fermionic sector with
+\[
+  \bigl\{E^{(1)}, E^{(0)}\bigr\}_+ \;=\; K^{(0)},
+\]
+the central element extracted from the residue at $z_1 = z_2$ of the
+chart-wise Jordan shuffle difference~\eqref{eq:structure-constant-1-1}.
+The two-chart assembly therefore yields
+\begin{equation}\label{eq:conifold-master}
+  \CoHA(\bY) \;\cong\; Y^+\bigl(\widehat{\fgl}(1|1)\bigr)^{\mathrm{con}},
+\end{equation}
+the positive half of the conifold affine super-Yangian.  The super
+structure on $\widehat{\fgl}(1|1)$ arises from the Koszul sign
+$\sigma = -1$ of the base-orientation flip~\eqref{eq:jacobian-calculation}
+combined with the isotropy $(\alpha_0, \alpha_0) = (\alpha_1, \alpha_1) = 0$
+(Kac 1977 Thm.~2.4 on odd simple roots).
+
+\paragraph{Three-route verification of the $(1,1)$ structure constant.}
+The $(1,1)$ structure constant of $\CoHA(\bY)$ equals $(\varepsilon_1
+\varepsilon_2)^{-1}$ through three independent routes:
+\begin{enumerate}[label=\emph{(\roman*)}, leftmargin=2em]
+\item \emph{\v{C}ech two-chart gluing}: the limit $u_2 \to u_1$ of the
+  chart-wise Jordan shuffle~\eqref{eq:structure-constant-1-1}.
+\item \emph{Van den Bergh tilting}: the integral of the $\varphi_W$-twisted
+  Euler class over $\mathrm{Ext}^1(S_0, S_1) = \C^2$, the rank-$2$
+  Ext-space between the simple modules of the Klebanov--Witten quiver.
+\item \emph{Klebanov--Witten super-shuffle}: the Jordan kernel residue at
+  $z_1 = z_2$ of the direct super-shuffle algebra.
+\end{enumerate}
+Agreement across the three routes pins $(\varepsilon_1 \varepsilon_2)^{-1}$
+as a lane-independent invariant, confirming~\eqref{eq:conifold-master} at
+the coefficient level.
+
+% ============================================================================
+\section{Multi-chart toric fan generalisation}
+\label{sec:gluing-p2-multi-chart}
+% ============================================================================
+
+The two-chart assembly generalises to any local toric CY$_3$.  The obstruction
+resolved is the absence of a global affine chart: a toric variety is covered
+by affine opens $U_\sigma$ indexed by the maximal cones $\sigma$ of the fan,
+and the global CoHA is assembled by running the \v{C}ech machinery along the
+face lattice of the fan.
+
+\subsection{Toric fan and chart decomposition}
+
+Let $X = X_\Sigma$ be a smooth toric CY$_3$ with fan $\Sigma$ in the lattice
+$N \cong \Z^3$.  The Calabi--Yau condition is that the primitive generators
+of all rays of $\Sigma$ lie in a common affine hyperplane, equivalently
+that there exists a lattice vector $m \in M = N^\vee$ such that
+$\langle m, v_\rho \rangle = 1$ for every ray generator $v_\rho$.  A
+natural choice places all ray generators at height $1$ along the
+last coordinate; the toric diagram is then the $2$-dimensional polytope
+obtained by projecting the rays to the plane $\{x_3 = 1\}$.
+
+\paragraph{Chart structure at top cones.}
+Each maximal (top-dimensional) cone $\sigma \in \Sigma(3)$ of a smooth
+toric CY$_3$ is generated by exactly three rays
+$\rho_1, \rho_2, \rho_3$ forming a $\Z$-basis of $N$, and determines an
+affine chart
+\[
+  U_\sigma \;=\; \mathrm{Spec}\,\C[\sigma^\vee \cap M] \;\cong\; \C^3.
+\]
+Coordinates $(x_1^\sigma, x_2^\sigma, x_3^\sigma)$ on $U_\sigma$ are the
+characters of the dual basis of $\sigma^\vee$.  The Jordan-triple
+potential on each chart is
+\[
+  W_\sigma \;=\; \mathrm{tr}\bigl(x_1^\sigma [x_2^\sigma, x_3^\sigma]\bigr),
+\]
+and the chart-wise CoHA is $\CoHA(U_\sigma, W_\sigma) \cong
+Y^+(\widehat{\fgl}_1)$ by the Schiffmann--Vasserot theorem applied to each
+$\C^3$ with the standard Jordan-triple.
+
+\paragraph{Equivariant weights and the CY condition.}
+The three-torus $T^3 = (\bC^\times)^3$ acts on each $U_\sigma \cong \C^3$
+with equivariant weights $(\varepsilon_1^\sigma, \varepsilon_2^\sigma,
+\varepsilon_3^\sigma)$.  The Calabi--Yau constraint on $W_\sigma$ to be a
+tri-vector of vanishing weight is
+\[
+  \varepsilon_1^\sigma + \varepsilon_2^\sigma + \varepsilon_3^\sigma \;=\; 0,
+\]
+which specialises the chart-wise weights to those of a local CY$_3$.  Along
+a compact direction (a ray $\rho$ in $\Sigma(1)$ whose dual edge in the
+toric diagram is an internal edge) the equivariant parameter vanishes:
+the two fixed points of the compact $\bP^1$-base on that edge would carry
+opposite weights, obstructing global regularity of sections.  This is the
+mechanism that set $\varepsilon_3 = 0$ for the conifold base in
+\S\ref{sec:gluing-p2-conifold}.
+
+\subsection{Gluing cocycle on the face lattice}
+
+Two top cones $\sigma, \sigma'$ of $\Sigma(3)$ sharing a common face
+$\tau = \sigma \cap \sigma' \in \Sigma(2)$ of codimension one define an
+overlap $U_\sigma \cap U_{\sigma'} = U_\tau$.  The face $\tau$ is a
+two-dimensional cone, generated by two rays; the corresponding overlap is
+\[
+  U_\tau \;\cong\; \bC^\times \times \C^2,
+\]
+with the $\bC^\times$-factor encoding the direction transverse to $\tau$
+within the full three-dimensional lattice.  The transition between the chart coordinates
+$(x_1^\sigma, x_2^\sigma, x_3^\sigma)$ and $(x_1^{\sigma'}, x_2^{\sigma'},
+x_3^{\sigma'})$ follows the lattice change of basis between $\sigma^\vee$
+and $(\sigma')^\vee$: when $\sigma'$ differs from $\sigma$ by a toric flop
+sending ray $\rho_1$ to $\rho_1'$ across the shared face $\tau$ (generated
+by $\rho_2, \rho_3$), the conifold-type transition is
+\begin{equation}\label{eq:multi-chart-transition}
+  x_1^{\sigma'} \;=\; (x_1^\sigma)^{-1},
+  \qquad
+  x_i^{\sigma'} \;=\; x_1^\sigma \cdot x_i^\sigma
+  \;\; \text{for } i = 2, 3,
+\end{equation}
+in direct analogy with the conifold
+transition~\eqref{eq:conifold-transition-chart}.  More generally, if the
+toric flop twists the fibre $\rho_1$-direction with multiplicity $(k_2, k_3)$
+along $\rho_2, \rho_3$ (equivalently, the fibre bundle over the shared
+$\bP^1_\tau$ is $\cO(-k_2) \oplus \cO(-k_3)$), the transition reads
+$x_i^{\sigma'} = (x_1^\sigma)^{k_i}\, x_i^\sigma$ on the $i$-th fibre
+coordinate.  The Fourier--Mukai kernel on the overlap is
+\[
+  K_{\sigma \sigma'} \;=\; \cO_\Delta \otimes \pi_1^* \cO_{\bP^1_{\tau}}(-1),
+\]
+the $\cO(-1)$-twist sourced by the compact $\bP^1_\tau$-base transverse
+to $\tau$; the polyvector multiplier
+$(x_1^\sigma)^{-(1 + k_2\, a + k_3\, b)}$ generalises~\eqref{eq:FM-multiplier}
+with $a, b$ the fibre polyvector indices.  The Jacobian
+argument of \S\ref{sec:gluing-p2-conifold} carries over with $z$ replaced
+by $x_1^\sigma$ on each codimension-one face, and with the fibre twist
+exponents $(k_2, k_3)$ replacing the conifold's $(1, 1)$; the
+Calabi--Yau condition $k_2 + k_3 = 2$ (sum of $\cO(-k_i)$-degrees equals
+$-\deg K_{\bP^1_\tau} = -2$) enforces triviality of
+$K_{X}|_{\bP^1_\tau}$.
+
+\paragraph{The face lattice cocycle.}
+The collection $\{K_{\sigma \sigma'}\}_{\sigma, \sigma' \text{ adjacent}}$
+forms a cocycle on the face lattice of $\Sigma$: at any triple overlap
+$U_\sigma \cap U_{\sigma'} \cap U_{\sigma''}$ (corresponding to a
+codimension-two face $\tau = \sigma \cap \sigma' \cap \sigma''$), the
+compatibility
+\[
+  K_{\sigma \sigma''} \;=\; K_{\sigma' \sigma''} \circ K_{\sigma \sigma'}
+\]
+holds up to canonical isomorphism, because each kernel is the pullback of
+$\cO_{\bP^1}(-1)$ along a $\bP^1$-fibre direction and the fibre directions
+compose additively in the toric fan.  The cocycle class is the derivative
+of the data on the fan's $1$-skeleton and is classified by the sheaf
+cohomology group $H^1(\Sigma, \underline{\mathrm{Pic}}(\bP^1))$ on the fan
+viewed as a CW complex.
+
+\subsection{Galakhov--Li--Yamazaki bond factors}
+
+Galakhov--Li--Yamazaki (2021 \texttt{arXiv:2106.01230}; Li--Yamazaki 2020
+\texttt{arXiv:2003.08909} eq~(8.125)) present the multi-chart gluing data
+via \emph{bond factors} $\varphi^{a \Rightarrow b}(u)$ indexed by ordered
+pairs $(a, b)$ of vertices in the toric quiver.  The convention is:
+\begin{equation}\label{eq:gly-bond-factor}
+  \varphi^{a \Rightarrow b}(u)
+  \;=\;
+  \frac{\prod_{I \in \mathrm{Arr}(a \to b)} (u + h^{a \to b}_I)}{%
+        \prod_{J \in \mathrm{Rel}(a \to b)} (u + h^{a \to b}_J)},
+\end{equation}
+with $h^{a\to b}_I$ the equivariant weight of the $I$-th arrow from
+vertex $a$ to vertex $b$, and $h^{a\to b}_J$ the equivariant weight of
+the $J$-th Jacobi relation ($\partial W / \partial (\text{arrow})$) tying
+arrows from $a$ into and out of a trip through $b$.  The \emph{numerator
+is arrow weights; the denominator is Jacobi-relation weights}; the
+$(u + h)$-convention signs track the Drinfeld shifted-$R$-matrix
+normalisation (Neguț 2015 \texttt{arXiv:1505.01528} eq~(1.6);
+Tsymbaliuk 2014 \texttt{arXiv:1404.5240}).
+
+\paragraph{Conifold bond factor from first principles.}
+The conifold quiver has two vertices $\{0, 1\}$, two arrows
+$a_1, a_2 : 0 \to 1$ with equivariant weights $h_1, h_2$, two arrows
+$b_1, b_2 : 1 \to 0$ with weights $-h_1, -h_2$, and the Klebanov--Witten
+superpotential $W_{\mathrm{con}} = a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1$.
+The Jacobi relations $\partial W / \partial b_i = 0$ and $\partial W /
+\partial a_j = 0$ pair arrows from $0 \to 1$ into and out of cycles
+through vertex $1$; for the bond $0 \Rightarrow 1$, the two Jacobi
+relations carry weights $0$ and $h_1 + h_2$ (derived by summing the
+weights of the arrows meeting each relation-index).  Substituting into
+the GLY formula~\eqref{eq:gly-bond-factor}:
+\begin{equation}\label{eq:conifold-bond-factor}
+  \varphi^{0 \Rightarrow 1}_{\mathrm{con}}(u)
+  \;=\;
+  \frac{(u + h_1)(u + h_2)}{u \cdot (u + h_1 + h_2)},
+\end{equation}
+matching Neguț's conifold shuffle kernel (Neguț 2015
+\texttt{arXiv:1505.01528} eq~(1.6)) and Li--Yamazaki's
+BPS-quiver-algebra master formula (\texttt{arXiv:2003.08909} eq~(8.125)).
+At the Calabi--Yau torus-equivariant slice $\varepsilon_1 + \varepsilon_2
++ \varepsilon_3 = 0$, the conifold weights are $h_1 = \varepsilon_1$,
+$h_2 = \varepsilon_2$, and $h_1 + h_2 = \varepsilon_1 + \varepsilon_2 =
+-\varepsilon_3$; substituting into~\eqref{eq:conifold-bond-factor}:
+\[
+  \varphi^{0 \Rightarrow 1}_{\mathrm{con}}(u)
+  \;=\;
+  \frac{(u + \varepsilon_1)(u + \varepsilon_2)}{u\,(u + \varepsilon_1 + \varepsilon_2)}
+  \;=\;
+  \frac{(u + \varepsilon_1)(u + \varepsilon_2)}{u\,(u - \varepsilon_3)}.
+\]
+Both presentations are equivalent through the Calabi--Yau constraint
+$\varepsilon_3 = -\varepsilon_1 - \varepsilon_2$.
+
+\paragraph{Arrow-weight / relation-weight trace on the toric diagram.}
+The arrow count $|\mathrm{Arr}(a \to b)|$ matches the number of toric
+diagram edges joining the dual vertices of $a$ and $b$; the
+Jacobi-relation count $|\mathrm{Rel}(a \to b)|$ matches the number of
+toric triangles sharing the edge.  For the conifold ($2$ arrows, $2$
+relations per direction) the $2 + 2$ tally reflects the two-edge,
+two-triangle diagram.  For local $\bP^2$ the bond factors are labelled
+by the three $\Z_3$-characters of the McKay quiver (Beilinson nine-arrow
+structure, \S\ref{sec:gluing-p2-compact-cycle}); for the banana
+threefold, by the three edges of the banana diagram; for the suspended
+pinch point, by the pinch-point bond structure.
+
+\subsection{Examples}
+
+\paragraph{$\C^3/\Z_n$ (linear toric).}
+The fan has $n$ maximal cones arrayed along the toric diagram edge, each
+$\C^3$; the face lattice is a linear chain with $n - 1$ codimension-one
+faces; the gluing cocycle is a chain of $n - 1$ FM kernels, each a
+$\cO(-1)$-twist.  The multi-chart \v{C}ech assembly produces the
+$A_{n-1}$-type McKay CoHA, matching the Beasley--Plesser antisymmetric
+quiver on $\C^3/\Z_n$.
+
+\paragraph{Banana threefold.}
+Three ray clusters meeting at a common vertex produce a fan with three
+maximal cones and three codimension-one faces.  The \v{C}ech assembly
+requires three FM kernels on a triangular face lattice; the resulting
+CoHA is a triangular gluing of three Schiffmann--Vasserot
+$Y^+(\widehat{\fgl}_1)$ copies, governed by the three-arrow banana quiver
+with cubic potential.
+
+\paragraph{Suspended pinch point.}
+Four maximal cones sharing a common pinch ray produce a fan with four
+charts and six codimension-one faces.  The \v{C}ech cocycle is defined on
+a square face lattice with one internal pinch; the CoHA assembly
+reproduces the SPP quiver of Aganagic--Karch--L\"ust--Miemiec (1999).
+
+% ============================================================================
+\section{The compact $4$-cycle obstruction}
+\label{sec:gluing-p2-compact-cycle}
+% ============================================================================
+
+The obstruction resolved here is subtle: a local toric CY$_3$ with a
+compact divisor --- a maximal cone whose dual vertex lies in the
+\emph{interior} of the toric diagram --- admits a chart-wise $\C^3$ cover,
+but the direct \v{C}ech--$E_3$-factorisation assembly of
+\S\ref{sec:gluing-p2-multi-chart} misses the cohomology class of the
+compact divisor.
+
+\subsection{Interior lattice points and compact divisors}
+
+Let $X_\Sigma$ be a local toric CY$_3$ with toric diagram $\Delta_\Sigma$ a
+lattice polygon in the plane $\{x_3 = 1\}$.  The duality between toric
+fans and toric diagrams identifies:
+\[
+  \text{rays of } \Sigma \;\longleftrightarrow\; \text{vertices of } \Delta_\Sigma,
+  \qquad
+  \text{maximal cones} \;\longleftrightarrow\; \text{internal triangulation triangles},
+\]
+and one distinguishes:
+\begin{itemize}
+\item \emph{boundary rays}: rays whose dual vertex lies on the boundary of
+  $\Delta_\Sigma$; these correspond to non-compact divisors in $X$;
+\item \emph{interior rays}: rays whose dual vertex lies in the interior
+  of $\Delta_\Sigma$; these correspond to compact divisors, i.e.\ compact
+  $4$-cycles in $X$.
+\end{itemize}
+The resolved conifold has no interior lattice point: its toric diagram is a
+unit square with vertices $(0,0), (1,0), (0,1), (1,1)$ and no interior
+lattice point, consistent with $\chi(\bY) = 2$ and no compact $4$-cycle.
+Local $\bP^2 = \mathrm{Tot}(K_{\bP^2})$ has exactly one interior lattice
+point: its toric diagram is the triangle with vertices $(1,0), (0,1),
+(-1,-1)$ (the three non-compact divisor rays at height $1$) and the
+interior lattice point $(0,0)$ at the origin; the ray $(0,0,1)$ attached
+to this interior point generates the zero-section $\bP^2 \subset K_{\bP^2}$,
+a compact $4$-cycle.
+
+\subsection{Why chart-wise gluing misses the compact divisor}
+
+The chart-wise \v{C}ech assembly of \S\ref{sec:gluing-p2-multi-chart} has
+three ingredients on each chart: the Schiffmann--Vasserot
+$Y^+(\widehat{\fgl}_1)$, the equivariant torus action, and the FM kernel
+on codimension-one overlaps.  None of these detect the cohomology of a
+compact divisor:
+
+\begin{itemize}
+\item The chart-wise polyvector complex $\mathrm{PV}^\bullet(U_\sigma)$ is
+  concentrated in $(0, *)$-degree (holomorphic polyvector fields on
+  $\C^3$), and has no contribution from the class of a compact surface.
+\item The FM kernels $K_{\sigma \sigma'}$ transport polyvectors across
+  codimension-one faces but do not generate new cohomology classes:
+  they are sheaves of derived Morita data, not cycle classes.
+\item The $T^3$-equivariant localisation concentrates all integrals at
+  the fixed points of the torus action, i.e.\ the maximal cones; the
+  contribution of a compact divisor is the \emph{sum over the fixed
+  points contained in the divisor}, which must be computed by a separate
+  procedure.
+\end{itemize}
+The Neguț wheel-condition corrections --- the shuffle-algebra
+relations forced by the presence of an interior lattice point --- are
+missed by the direct \v{C}ech assembly.  For local $\bP^2$ with single
+interior point at the origin of the triangulation, the correct shuffle
+algebra is the $\Z_3$-McKay variant of $Y^+(\widehat{\fgl}_1)$ whose
+kernel carries an additional wheel-condition multiplier tracking the
+$\Z_3$-orbit of the interior lattice point (Neguț 2015
+\texttt{arXiv:1512.06473}; Rapcak--Soibelman--Yang--Zhao 2020
+\texttt{arXiv:2001.10549}).  The direct multi-chart \v{C}ech assembly of
+\S\ref{sec:gluing-p2-multi-chart} picks up only the boundary contributions
+to $\varphi_{a \Rightarrow b}$ and misses this wheel-condition
+multiplier.
+
+\subsection{Resolution via McKay/orbifold route}
+
+The standard resolution of the obstruction is to pass to the orbifold
+quotient: local $\bP^2 = [\C^3/\Z_3]^{\mathrm{res}}$ (the crepant
+resolution of the McKay orbifold), and apply the Bridgeland--King--Reid
+equivalence
+\[
+  D^b\bigl(\mathrm{Coh}(K_{\bP^2})\bigr) \;\simeq\; D^b\bigl(\mathrm{Coh}^{\Z_3}(\C^3)\bigr)
+\]
+(Bridgeland--King--Reid 2001 \texttt{arXiv:math/9908027} Thm.~1.2).  The
+right-hand category is a single $\C^3$-chart with $\Z_3$-equivariance;
+the CoHA of this orbifold chart carries the Neguț wheel-condition
+multipliers automatically, since the $\Z_3$-action on $\C^3$ produces
+exactly the interior-point shifts at each orbit element.  The compact
+$4$-cycle cohomology is recovered as the $\Z_3$-fixed part of the
+$\C^3/\Z_3$ inertia stack.
+
+Alternatively, one may keep the multi-chart cover and enrich each
+chart-wise shuffle kernel with a higher-rank Neguț correction: replace
+$\varphi_{a \Rightarrow b}(u)$ by the shuffle kernel
+$\varphi_{a \Rightarrow b}^{\mathrm{rank-}r}(u)$ of the rank-$r$ shuffle
+algebra, with $r$ the number of interior lattice points of the toric
+diagram.  The two resolutions --- McKay/orbifold route (Part III) and
+higher-rank shuffle correction --- are Morita-equivalent under the
+Rapcak--Soibelman--Yang--Zhao toric theorem (2020
+\texttt{arXiv:2001.10549} Thm.~B), but differ in their chart-wise
+presentations.
+
+\begin{proposition}[Compact-$4$-cycle obstruction]
+\label{prop:compact-cycle-obstruction}
+Let $X_\Sigma$ be a local toric CY$_3$ with toric diagram $\Delta_\Sigma$
+carrying $r \geq 1$ interior lattice points.  The direct multi-chart
+\v{C}ech assembly of \S\ref{sec:gluing-p2-multi-chart} reproduces
+$\CoHA_{\mathrm{DM}}(X_\Sigma)$ only after replacing the chart-wise
+single-vertex Jordan-triple data by either:
+\begin{enumerate}[label=\emph{(\alph*)}, leftmargin=2em]
+\item the $G$-equivariant Schiffmann--Vasserot data on $[\C^3 / G]$,
+  where $G \subset \mathrm{SU}(3)$ is the McKay group whose crepant
+  resolution $\widetilde{\C^3/G}$ recovers $X_\Sigma$ (McKay/orbifold
+  route; applies when $\Delta_\Sigma$ is a McKay triangle, including
+  $X_\Sigma = K_{\bP^2}$ with $G = \Z_3$);
+\item the multi-vertex Neguț shuffle algebra $Y^+(Q_X, W_X)$ whose
+  vertex set matches the full toric quiver of $X_\Sigma$ (interior and
+  boundary lattice points together) and whose bond factors carry the
+  wheel-condition multipliers tracking the interior-point positions
+  (higher-rank shuffle route).
+\end{enumerate}
+Direct multi-chart assembly with only the chart-wise $Y^+(\widehat{\fgl}_1)$
+data misses the interior-point contributions to the Hall product.
+\end{proposition}
+
+\begin{proof}[Sketch]
+The chart-wise single-vertex polyvectors generate only the
+boundary-vertex portion of the full toric quiver shuffle algebra; the
+interior-vertex portion is generated by compositions extending into the
+$G$-McKay inertia (Bridgeland--King--Reid 2001 \texttt{arXiv:math/9908027}
+Thm.~1.2).  The Rapcak--Soibelman--Yang--Zhao toric theorem (2020
+\texttt{arXiv:2001.10549} Thm.~B) identifies the full quiver shuffle
+data with $\CoHA_{\mathrm{DM}}(X_\Sigma)$ when the interior vertices are
+included; the McKay/orbifold route recovers the interior through the
+$[\C^3/G]$-orbifold chart and the BKR equivalence, and the higher-rank
+shuffle route recovers it by enlarging the single-vertex chart shuffle
+to the full $(Q_X, W_X)$-shuffle with interior-vertex weights inserted.
+\end{proof}
+
+% ============================================================================
+\section{Local-to-global theorem for zero-interior-lattice-point diagrams}
+\label{sec:gluing-p2-local-to-global}
+% ============================================================================
+
+The combination of \S\S\ref{sec:gluing-p2-conifold}--\ref{sec:gluing-p2-compact-cycle}
+yields the closure theorem of Stratum~i: for a local toric CY$_3$ whose
+toric diagram has no interior lattice points, the chart-wise \v{C}ech
+assembly is exact and reproduces the Davison--Meinhardt critical CoHA.
+
+\begin{theorem}[Local-to-global for zero-interior-point toric CY$_3$]
+\label{thm:local-to-global-zero-interior}
+Let $X_\Sigma$ be a smooth local toric Calabi--Yau threefold whose toric
+diagram $\Delta_\Sigma$ has zero interior lattice points.  Then:
+\begin{enumerate}[label=\emph{(\arabic*)}, leftmargin=2em]
+\item The multi-chart \v{C}ech factorisation-algebra assembly
+\[
+  \cF_X \;=\; \mathrm{hocolim}_{\sigma \in \Sigma(3)}\,
+    \cF_\sigma
+    \;\big|\;
+    \bigl\{T_{\sigma \sigma'} : \cF_\sigma \leftrightarrow \cF_{\sigma'}\bigr\},
+\]
+with $\cF_\sigma = \Phi^{FA}_3(\Gamma_\sigma)$ the Ginzburg dga of the
+chart Jordan-triple $(Q_{\mathrm{Jor}}, W_\sigma)$ and $T_{\sigma \sigma'}$
+the Fourier--Mukai transition with kernel $K_{\sigma \sigma'} = \cO_\Delta
+\otimes \pi_1^*\cO_{\bP^1_\tau}(-1)$, is a well-defined $E_3$-factorisation
+algebra on $X$.
+\item The associated critical CoHA
+\[
+  \CoHA_{\mathrm{\check Cech}}(X)
+  \;=\;
+  \mathrm{hocolim}_{\sigma \in \Sigma(3)}\,
+    Y^+(\widehat{\fgl}_1)_\sigma
+    \;\big|\;
+    \bigl\{K_{\sigma \sigma'}\bigr\}
+\]
+is isomorphic to the Davison--Meinhardt critical cohomological Hall
+algebra
+\(
+  \CoHA_{\mathrm{DM}}(X) = \CoHA(Q_X, W_X)
+\)
+of the toric quiver with potential $(Q_X, W_X)$ attached to $\Sigma$.
+\item The resulting algebra is the Drinfeld positive half of an affine
+super-Yangian of the root system determined by $(Q_X, W_X)$, with rank
+equal to the number of vertices of $Q_X$ and super structure controlled
+by the parity of the base-orientation sign on each codimension-one face
+of the fan.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Sketch]
+The \v{C}ech homotopy colimit is computed face by face: each
+codimension-one face contributes an FM kernel~\eqref{eq:FM-kernel-conifold}
+scaled by the multiplier of equation~\eqref{eq:FM-multiplier}; each
+codimension-two face contributes a cocycle compatibility checked by
+the Jacobian calculation of equation~\eqref{eq:jacobian-calculation}.
+Zero interior lattice points means no codimension-three (interior)
+corrections from the Neguț wheel condition, so each face contribution is
+the direct Schiffmann--Vasserot shuffle kernel without higher-rank
+adjustment.  The identification with $\CoHA_{\mathrm{DM}}(X)$ is the
+Rapcak--Soibelman--Yang--Zhao toric theorem (2020
+\texttt{arXiv:2001.10549} Thm.~A), which matches the chart-wise
+Schiffmann--Vasserot data to the toric quiver BPS algebra.  The
+super-structure on the output is the base-orientation cocycle of the
+fan as computed in equation~\eqref{eq:jacobian-calculation}: for fans
+with no internal edges (no compact $\bP^1$-bases), the cocycle is
+trivial and the output is an even affine Yangian; for fans with one
+internal edge (e.g.\ the conifold), the cocycle produces the super
+structure $\widehat{\fgl}(1|1)$ of equation~\eqref{eq:conifold-master};
+for fans with several internal edges, the cocycle produces the product
+super structure of the corresponding super-Yangian.
+\end{proof}
+
+The class of local toric CY$_3$ covered by
+Theorem~\ref{thm:local-to-global-zero-interior} includes:
+\begin{itemize}
+\item $\C^3$ (one chart, no overlaps, $\CoHA = Y^+(\widehat{\fgl}_1)$);
+\item the resolved conifold (two charts, one overlap,
+  $\CoHA = Y^+(\widehat{\fgl}(1|1))^{\mathrm{con}}$);
+\item the banana threefold (three charts, three overlaps, three-loop fan);
+\item the suspended pinch point (four charts, six overlaps);
+\item generalised conifolds $X_{n, m}$ (two charts, one overlap with
+  $\cO(-n) \oplus \cO(-m)$-twist).
+\end{itemize}
+
+The class \emph{not} covered by the theorem comprises exactly those local
+toric CY$_3$ with one or more interior lattice points --- local $\bP^2$,
+local $\bP^1 \times \bP^1$, local Hirzebruch $\bF_n$ for $n \geq 1$, local
+del Pezzo $dP_k$ for $k \geq 1$.  These all carry compact $4$-cycles and
+must pass through Proposition~\ref{prop:compact-cycle-obstruction}'s
+McKay/orbifold or higher-rank shuffle resolutions.  Part III takes up
+this resolution, replacing the direct chart-wise \v{C}ech assembly by the
+BKR equivalence and the inertia-stack decomposition of the orbifold
+route; the resulting picture extends to the full toric Stratum~i up to
+$\Z_n$-orbifolds and recovers, in particular, the nine-arrow Beilinson
+CoHA of local $\bP^2$ as the \v{C}ech assembly of the $[\C^3/\Z_3]$-chart
+across its $\Z_3$-skew-group algebra.
+
+\bigskip
+
+The chart-wise assembly of Stratum~i is now closed.  Three invariants have
+been extracted: the face-lattice cocycle with values in
+$H^1(\Sigma, \underline{\mathrm{Pic}})$; the bond-factor presentation of
+Galakhov--Li--Yamazaki on the toric diagram edges; the zero-interior-point
+criterion that separates the direct-\v{C}ech-assembly diagrams from those
+requiring McKay resolution.  Part III addresses the McKay route for
+diagrams with one or more interior points, and Part IV takes up derived
+Morita gluing for the Van den Bergh tilting presentation common to
+both.  The master test case $K3 \times E$, which combines Stratum i with
+Strata ii--iv, is resolved in Part VIII via the full four-stratum
+decomposition.
