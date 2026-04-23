@@ -2576,3 +2576,2415 @@ K3-Humbert).
 `/Users/raeez/calabi-yau-quantum-groups/appendices/first_principles_cache.md`
 (tip-table row V16).
 
+## Session antipatterns — manuscript hygiene (2026-04-22)
+
+**Principle.** Manuscript is self-complete, self-coherent, self-consistent.
+Current version stands for itself and only itself. Never reference previous
+versions, intermediate ansätze, earlier drafts, retracted values, superseded
+formulas, or drafting-history commentary. Every section and subsection title
+names a mathematical object, construction, theorem, or question --- never a
+process, wave, round, or meta-organising device. The prose does not explain
+mathematics; it *is* mathematics, carrying the same logical force as the
+displayed equations.
+
+This principle is inscribed in `CLAUDE.md` of all three volumes
+(`~/chiral-bar-cobar/CLAUDE.md` Vol I, `~/chiral-bar-cobar-vol2/CLAUDE.md`
+Vol II, `~/calabi-yau-quantum-groups/CLAUDE.md` Vol III) under the section
+"Writing standard: Chriss--Ginzburg north star" (Vol III CLAUDE.md lines on
+bookkeeping vocabulary and meta-narration). The present cache section
+catalogues the 55+ concrete trigger patterns caught during the 2026-04-22
+manuscript hygiene sweep, each with detect/repair protocol for future
+`/chriss-ginzburg-rectify` agents and the `beilinson-gate.sh` PostToolUse
+hook.
+
+Author: Raeez Lorgat.
+
+### Group A. Bookkeeping vocabulary leaking into manuscript prose
+
+#### A1. Wave-N session markers in prose and filenames
+
+**Name.** Wave-N session marker leakage.
+
+**Description.** Rectification-session labels `Wave~N`, `wave~N`, `Wave-N`
+(for integer $N$, typically $13 \le N \le 30$) appearing in reader-facing
+`.tex` prose, section titles, remark titles, theorem-proof comments, file
+names, or `\label{}` tokens. Waves are adversarial-swarm session indexing
+belonging in `notes/`, commit messages, and `memory/` — never the manuscript.
+The reader sees "Wave 23 Beilinson stabilisation" and cannot reconstruct any
+mathematical content from the phrase; the label is pure drafting scaffolding.
+
+**Regex trigger.** `\b[Ww]ave[~ \-][0-9]+\b|Wave~[0-9]+|wave-[0-9]+-`.
+
+**Protocol.**
+1. DETECT: `grep -nE '\b[Ww]ave[~ \-][0-9]+\b' chapters/**/*.tex frame/**/*.tex
+   appendices/**/*.tex bibliography/**/*.tex main.tex`.
+2. LOCALISE: section titles (e.g., `\section{Wave 14: ...}`); remark titles
+   (`\begin{remark}[Wave-23 reconstitution]`); `\label{thm:...-wave14-...}`
+   labels; bibliography source comments; occasional theorem-body citations
+   of "verified in Wave 19".
+3. MATH-CHECK: strip the wave label. What mathematical object / construction
+   / theorem did the wave attempt? That is the true title; the wave number
+   names the session, not the content.
+4. REPAIR: rename section/remark to name the object ("Beilinson
+   stabilisation at $c = 24$", not "Wave 23 stabilisation"); strip `waveN-`
+   from labels; delete wave-attribution from bibliography source comments.
+5. VERIFY: `grep -rE '\b[Ww]ave[~ \-][0-9]+\b' chapters/ frame/ appendices/
+   bibliography/ main.tex` returns zero matches; `make fast` confirms no
+   broken `\ref{}`s from the label renames.
+
+#### A2. AP-CYn / APn / AP-CAT-N catalogue-ID tags cited in prose
+
+**Name.** Antipattern catalogue-ID leakage into reader-facing prose.
+
+**Description.** Internal catalogue identifiers `AP-CY$n$`, `AP$n$`,
+`AP-CAT-$N$` (for integer $n$) appearing in manuscript prose, theorem
+statements, remark bodies. These IDs are for `notes/antipatterns_catalogue.md`
+and the `beilinson-gate.sh` hook's internal tracking; the reader of the
+manuscript has no way to resolve them. An audit-internal mnemonic is being
+exposed as mathematical content, destroying the prose economy.
+
+**Regex trigger.** `\bAP-CY[0-9]+\b|\bAP[0-9]+\b|\bAP-CAT-[0-9]+\b|\bFM[0-9]+\b`.
+
+**Protocol.**
+1. DETECT: `grep -nE '\b(AP-CY|AP-CAT-|AP|FM)[0-9]+\b' chapters/**/*.tex
+   frame/**/*.tex appendices/**/*.tex bibliography/**/*.tex main.tex`
+   excluding the appendix file `appendices/antipatterns.tex` itself
+   (which is the reader-facing mirror of the catalogue and thus may
+   legitimately carry the IDs as its own labels).
+2. LOCALISE: parenthetical citations in prose ("(see AP-CY55)"); remark
+   titles ("Remark (AP-CY60 discipline)"); proof-body asides; bibliography
+   comment lines; occasional `\label{rem:apcy60-...}` tokens.
+3. MATH-CHECK: what mathematical distinction does the AP-ID mark? "AP-CY55"
+   marks the manifold-vs-algebraization-invariant distinction; the prose
+   should state the distinction directly, not cite the catalogue.
+4. REPAIR: replace `(AP-CY55)` with a one-sentence statement of the
+   distinction ("$\kappa_{\mathrm{cat}}$ is a manifold invariant;
+   $\kappa_{\mathrm{ch}}$ is an algebraization residual"); strip labels;
+   delete parenthetical catalogue citations entirely.
+5. VERIFY: `grep -rE '\b(AP-CY|AP-CAT-|AP)[0-9]+\b' chapters/ frame/
+   main.tex` returns zero matches outside `appendices/antipatterns.tex`;
+   build passes.
+
+#### A3. FMn cross-programme footnote references
+
+**Name.** Formula-mechanical FM-tag leakage.
+
+**Description.** `FM$n$` (formula-mechanical antipattern) IDs, cross-programme
+bookkeeping from the shared Vol-I/II/III antipattern cascade, surfacing in
+Vol III prose. These tags belong in the cross-programme `notes/` layer; the
+reader of Vol III's `chapters/examples/k3_yangian_chapter.tex` has no route
+to resolve "FM42" and the tag adds zero mathematical content.
+
+**Regex trigger.** `\bFM[0-9]+\b`.
+
+**Protocol.**
+1. DETECT: `grep -nE '\bFM[0-9]+\b' chapters/**/*.tex frame/**/*.tex
+   appendices/**/*.tex main.tex`.
+2. LOCALISE: footnotes, parentheticals in remark bodies, comment lines
+   attached to bibliography entries, occasional theorem-proof asides.
+3. MATH-CHECK: what formula-mechanical failure mode does the FM-ID catalogue?
+   FM24 = B-cycle sign error, FM42 = mechanical rename corruptions, FM119 =
+   bare-$\kappa$-on-K3; each has a one-sentence mathematical paraphrase.
+4. REPAIR: inline the paraphrase if the failure mode is load-bearing for the
+   surrounding argument; otherwise delete the FM-tag entirely.
+5. VERIFY: `grep -rE '\bFM[0-9]+\b' chapters/ frame/ main.tex` returns
+   zero; build passes.
+
+#### A4. HZ-N / HZ-IV verification-protocol tags
+
+**Name.** Heegner-Zagier (HZ) verification-protocol tag leakage.
+
+**Description.** `HZ-N` / `HZ-IV` / `HZ3-14` tags naming internal
+independent-verification protocols (numbered audits of specific theorem
+classes). These are process markers for the audit layer; the manuscript
+states the theorem, not the protocol that certified it.
+
+**Regex trigger.** `\bHZ-?[0-9IV]+-?[0-9]*\b|\bHZ3-[0-9]+\b`.
+
+**Protocol.**
+1. DETECT: `grep -nE '\b(HZ-|HZ3-)[0-9IV]+' chapters/**/*.tex frame/**/*.tex
+   appendices/**/*.tex main.tex`.
+2. LOCALISE: remark bodies attached to theorem statements ("independent
+   verification per HZ-7"); verification-appendix asides; status tables.
+3. MATH-CHECK: HZ-7 = $\kappa$-subscript discipline, HZ-IV = quadruple
+   verification for Vol III theorems, HZ3-14 = cross-volume amplitude
+   vs occupation. Each is a protocol; the theorem under verification has
+   a mathematical statement independent of the protocol.
+4. REPAIR: for theorem-attached remarks, replace "verified per HZ-IV"
+   with "three independent verification paths: (i) direct, (ii) alternative
+   formula, (iii) limiting case" inline in the proof body or an
+   unlabelled remark; delete bare HZ-tags.
+5. VERIFY: `grep -rE '\bHZ[-0-9]' chapters/ frame/ main.tex` returns zero;
+   build passes.
+
+#### A5. DNA strand S-x planning-layer constructs
+
+**Name.** DNA-strand planning token leakage.
+
+**Description.** `DNA strand S$x$` or `DNA S$x$` (for letter $x \in
+\{A, B, C, \ldots\}$) planning-layer constructs from the adversarial-swarm
+session indexing. Strands are used to track parallel proof-attempt
+trajectories during rectification; the final manuscript records only the
+trajectory that succeeded, with the strand label stripped.
+
+**Regex trigger.** `\bDNA[~ ]?(strand[~ ])?S[A-Z][0-9a-z]*\b`.
+
+**Protocol.**
+1. DETECT: `grep -nE '\bDNA[~ ]?(strand[~ ])?S[A-Z]' chapters/**/*.tex
+   frame/**/*.tex appendices/**/*.tex main.tex`.
+2. LOCALISE: remark titles ("Remark (DNA strand SB, Beilinson route)");
+   proof-body comments; rarely in section titles.
+3. MATH-CHECK: what alternative-route hypothesis does the strand explore?
+   The strand label is a planning handle; once the route is inscribed,
+   the label is vestigial.
+4. REPAIR: rename the remark to its mathematical content; delete DNA/strand
+   parentheticals; strip strand labels from labels (`\label{rem:dna-SB-...}`
+   $\to$ `\label{rem:beilinson-route-...}`).
+5. VERIFY: `grep -rE '\bDNA' chapters/ frame/ main.tex` returns zero;
+   build passes.
+
+#### A6. CG-rectify pass-k rectification-pass markers
+
+**Name.** CG-rectify pass-counter leakage.
+
+**Description.** `CG-rectify pass~$k$`, `rectify~pass~$k$`,
+`rectification~pass~$k$` markers citing the iteration count of the
+Chriss--Ginzburg rectification loop on a chapter. The pass counter is
+workflow bookkeeping; the manuscript presents the post-convergence state
+as the whole truth.
+
+**Regex trigger.** `CG[ \-]rectify[ ~]+pass[ ~]*[0-9]+|rectif[yi][a-z]*[ ~]+pass[ ~]*[0-9]+`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'CG[ \-]rectify[ ~]+pass|rectif[yi][a-z]*[ ~]+pass'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies on status pages, process-mention asides, dated
+   comments, occasional theorem-attached provenance remarks.
+3. MATH-CHECK: the pass number marks workflow; no mathematical content is
+   hidden behind it.
+4. REPAIR: delete the entire pass-count phrase. If a multi-pass verification
+   history is genuinely load-bearing, replace with "three independent
+   verification paths" inline.
+5. VERIFY: `grep -rEi 'rectif[yi][a-z]*[ ~]+pass' chapters/ frame/ main.tex`
+   returns zero; build passes.
+
+#### A7. Cache-entry / Cached-Confusion / Cache-anchor scaffolding
+
+**Name.** Working-notes cache-scaffolding leakage.
+
+**Description.** `cache entry $n$`, `Cached Confusion \#$N$`, `Cache anchor`,
+`Cache append`, `cache row $k$` — working-notes scaffolding citing rows of
+`notes/first_principles_cache_comprehensive.md` (this very file). The
+reader of the manuscript does not have access to `notes/`; citing cache
+rows by number in prose is meta-bookkeeping that serves only the audit.
+
+**Regex trigger.** `[Cc]ach(e|ed)[~ ]+(entry|row|anchor|append|confusion)[~ #]*[0-9]*|Cached Confusion`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '[Cc]ach(e|ed)[~ ]+(entry|row|anchor|append|confusion)'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies attached to status-table theorems, proof
+   asides, occasional `\index{}` entries.
+3. MATH-CHECK: the cache row catalogues a confusion; the manuscript either
+   has the confusion under control (cache-row citation redundant) or still
+   makes the mistake (cache-row citation won't fix the mathematics).
+4. REPAIR: delete the cache-row citation; if the confusion is genuinely
+   load-bearing (e.g., the manuscript must warn off a common reader error),
+   inline the mathematical distinction directly.
+5. VERIFY: `grep -rEi '[Cc]ache|Cached Confusion' chapters/ frame/
+   main.tex` returns zero; build passes.
+
+#### A8. Wave-N spec / witnessing / verdict / insists meta-lexicon
+
+**Name.** Wave-workflow meta-verb leakage.
+
+**Description.** Phrases `Wave~$N$ spec`, `Wave~$N$ witnessing`, `Wave-$N$
+verdict`, `Wave-$N$ insists`, `Wave-$N$ audit`, `Wave-$N$ adjudication`
+— workflow verbs attributing judgment to sessions rather than to the
+mathematics. Even stripped of the integer $N$, "verdict" / "insists" /
+"adjudication" as meta-labels for mathematical conclusions are wrong voice.
+
+**Regex trigger.** `[Ww]ave[ ~\-]?[0-9]*[ ~]+(spec|witnessing|verdict|insists|audit|adjudicat[a-z]+)`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '[Ww]ave[ ~\-]?[0-9]*[ ~]+(spec|witness[a-z]*|verdict|insists|audit|adjudicat)'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark titles, status-table entries, proof-attribution asides.
+3. MATH-CHECK: the mathematical conclusion is independent of the session
+   that produced it; the "verdict" is just "theorem" or "corollary".
+4. REPAIR: replace "Wave-19 verdict: ..." with a plain theorem, corollary,
+   or proposition statement. Replace "Wave-23 witnessing shows" with "Direct
+   computation shows" or "By [cited primary source], ...".
+5. VERIFY: `grep -rEi '[Ww]ave[ ~\-]?[0-9]*[ ~]+(verdict|insists|witness|adjudicat)'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### A9. "programme-canonical" self-reference
+
+**Name.** Self-referential "programme-canonical" qualifier.
+
+**Description.** The modifier `programme-canonical` (as in "the
+programme-canonical $\kappa_{\mathrm{ch}}$") self-referentially marks a
+choice as canonical within the three-volume programme. In manuscript prose
+the reader takes "canonical" to mean "canonical in the mathematical sense";
+"programme-canonical" advertises that the canonicity is local to this
+programme and therefore not canonical in the broader sense — which is a
+methodological concession masquerading as a technical term.
+
+**Regex trigger.** `programme-canonical|programme canonical`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'programme-?canonical' chapters/**/*.tex
+   frame/**/*.tex main.tex`.
+2. LOCALISE: prose modifiers on notational choices, remark headers
+   ("Remark (programme-canonical convention)").
+3. MATH-CHECK: is the choice genuinely canonical (e.g., unique-up-to-
+   isomorphism, functorially determined)? If yes: drop "programme-".
+   If the choice is one of several equally natural options: name the
+   alternatives and explain the selection.
+4. REPAIR: `programme-canonical` $\to$ `canonical` when the object is
+   mathematically canonical; otherwise `we adopt the convention ...
+   (Gritsenko--Nikulin 1998), noting the alternative ... (Borcherds 1995)`.
+5. VERIFY: `grep -rEi 'programme-?canonical' chapters/ frame/ main.tex`
+   returns zero; build passes.
+
+#### A10. Type-error registry entry T-n bookkeeping indirection
+
+**Name.** Type-error registry bookkeeping leakage.
+
+**Description.** `type-error registry, entry T$n$` or `T$n$-typed
+confusion` — indirections into an internal type-error catalogue. Cache
+row redirection disguised as a type-theoretic annotation; no mathematical
+type-system content is present.
+
+**Regex trigger.** `type-error[ ~]+registry|entry[~ ]+T[0-9]+\b|T[0-9]+-typed[~ ]+confusion`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'type-error[ ~]+registry|entry[~ ]+T[0-9]+\b'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, status-table comment columns, proof-attribution
+   asides.
+3. MATH-CHECK: what is the actual type confusion? Manifold invariant vs
+   algebraization residual? $E_n$-level confusion? State the distinction
+   inline.
+4. REPAIR: replace "T7-typed confusion (manifold/algebraization)" with
+   direct statement "confusing manifold invariants with algebraization
+   residuals" or drop the registry qualifier entirely.
+5. VERIFY: `grep -rEi 'type-error[ ~]+registry|entry[~ ]+T[0-9]+'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+### Group B. Meta-narration and self-reference
+
+#### B11. "Narrative counterpart" / "narrative arc" meta-framing
+
+**Name.** Narrative-noun meta-framing.
+
+**Description.** Phrases `narrative counterpart`, `narrative arc`, `the ...
+narrative`, `Classical attribution for the ... narrative` — meta-framings
+casting the mathematical content as a story to be narrated. The CG voice
+is anti-narrative: one states the construction or the theorem, one does
+not narrate the path to it.
+
+**Regex trigger.** `\bnarrative\b|narration\b`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '\bnarrative\b|\bnarration\b' chapters/**/*.tex
+   frame/**/*.tex appendices/**/*.tex main.tex` excluding AP-CY57
+   "construction/narration" type tags which are internal category names
+   in `notes/first_principles_cache_comprehensive.md`.
+2. LOCALISE: section introduction paragraphs, preface bodies, transition
+   sentences between sections, occasional remark headers.
+3. MATH-CHECK: what construction or theorem is being narrated? State it
+   directly as a construction or theorem; delete the narrative framing.
+4. REPAIR: "the narrative counterpart of the Mukai lattice identification
+   is ..." $\to$ "the Mukai lattice identification is ...". "The
+   $\kappa_{\mathrm{BKM}}$-narrative" $\to$ "the $\kappa_{\mathrm{BKM}}$
+   identification via Borcherds weight".
+5. VERIFY: `grep -rEi '\bnarrative|\bnarration\b' chapters/ frame/
+   appendices/ main.tex` returns zero (modulo one or two legitimate uses
+   of "narrative" as a linguistic noun in literary-reference citations
+   that survive on case-by-case review); build passes.
+
+#### B12. Story / saga / odyssey / journey narrative nouns
+
+**Name.** Adventure-literature narrative-noun leakage.
+
+**Description.** Nouns `story`, `saga`, `odyssey`, `journey` applied to
+mathematical content. Maximally forbidden in manuscript prose; the
+manuscript records theorems, not adventures. File-name surface leak:
+`m3_b2_saga.tex` $\to$ `m3_b2_obstruction.tex` during this session.
+
+**Regex trigger.** `\b(story|saga|odyssey|journey|adventure|quest)\b` in `.tex` body text.
+
+**Protocol.**
+1. DETECT: `grep -nEi '\b(story|saga|odyssey|journey|adventure|quest)\b'
+   chapters/**/*.tex frame/**/*.tex main.tex`. Also check filenames:
+   `find chapters frame -name '*saga*' -o -name '*story*' -o -name
+   '*journey*' -o -name '*odyssey*'`.
+3. LOCALISE: prose, filenames, section titles, remark headers.
+3. MATH-CHECK: what mathematical object was this a "story" of? The
+   obstruction? The computation? The identification? Name the object.
+4. REPAIR: rename "the $m_3 B^{(2)}$ saga" $\to$ "the $m_3 B^{(2)}$
+   obstruction"; rename files `foo_saga.tex` $\to$ `foo_obstruction.tex`
+   or similar; update `\input{}` / `\include{}` in `main.tex`.
+5. VERIFY: `grep -rEi '\b(story|saga|odyssey|journey)\b' chapters/
+   frame/ main.tex` returns zero; `find chapters frame -name '*saga*'
+   -o -name '*story*'` returns empty; `make fast` confirms no broken
+   `\input{}`s.
+
+#### B13. Platonic-ideal CG-workflow jargon
+
+**Name.** "Platonic" workflow-label leakage.
+
+**Description.** `the Platonic ideal`, `Platonic form`, `platonic chapter`,
+`platonic architecture`, `Platonic ensemble`, `platonic synthesis`,
+`Platonic-form construction` — these are internal labels from the
+`/chriss-ginzburg-rectify` skill describing the post-convergence target
+state. Once the chapter has converged to its CG form, the workflow label
+is vestigial; the chapter is not "Platonic" in any Platonic-philosophical
+sense, it is simply mathematics.
+
+**Regex trigger.** `[Pp]latonic`.
+
+**Protocol.**
+1. DETECT: `grep -nE '[Pp]latonic' chapters/**/*.tex frame/**/*.tex
+   main.tex`.
+2. LOCALISE: section titles, chapter subtitles, remark headers,
+   occasional theorem-proof prologues, file labels
+   (`\label{ch:...-platonic}`), section labels, file names
+   (`*_platonic_*.tex`).
+3. MATH-CHECK: no mathematical content hides behind "Platonic";
+   strip entirely.
+4. REPAIR: delete "Platonic"/"platonic" as adjective everywhere in
+   prose; strip `-platonic` from `\label{}` tokens; file-name renames
+   are deferred but flagged (`chapters/examples/k3_chiral_bialgebra_platonic.tex`
+   $\to$ `k3_chiral_bialgebra.tex` in a dedicated rename pass).
+5. VERIFY: `grep -rE '[Pp]latonic' chapters/ frame/ main.tex` returns
+   zero; build passes.
+
+#### B14. Platonic Theorem-A label-references
+
+**Name.** Compound Platonic-theorem-label leakage.
+
+**Description.** `Platonic Theorem~A`, `Platonic Theorem~B`, etc. —
+compound references to the shared five-theorem core under the Platonic
+workflow qualifier. The reader needs "Theorem A"; the Platonic qualifier
+adds zero.
+
+**Regex trigger.** `Platonic[~ ]+Theorem[~ ]+[A-HZ]\b`.
+
+**Protocol.**
+1. DETECT: `grep -nE 'Platonic[~ ]+Theorem[~ ]+[A-Z]' chapters/**/*.tex
+   frame/**/*.tex main.tex`.
+2. LOCALISE: theorem-citation prose, remark cross-references, proof
+   preludes.
+3. MATH-CHECK: the theorem is Theorem A (shared-core), regardless of
+   which rectification state the chapter is in.
+4. REPAIR: `Platonic Theorem~A` $\to$ `Theorem~A`.
+5. VERIFY: `grep -rE 'Platonic[~ ]+Theorem' chapters/ frame/ main.tex`
+   returns zero; `\ref{thm:theorem-a}` cross-references still resolve;
+   build passes.
+
+#### B15. Function / role meta-prologue
+
+**Name.** Function-preamble meta-prose.
+
+**Description.** Phrases `This chapter's function is to...`, `This
+preface's role is to...`, `This section sharpens...`, `This chapter
+closes...`, `The present chapter is...`, `This section's job is to...`
+— meta-prologues that narrate the chapter's purpose instead of executing
+the mathematics. The reader learns what the chapter will do but receives
+no content in the sentence. CG voice: open with the first mathematical
+claim, not with a function statement.
+
+**Regex trigger.** `[Tt]his[~ ](chapter|section|preface|appendix)('s)?[~ ](function|role|job|purpose|aim|goal)[~ ]+is[~ ]+to|[Tt]his[~ ](chapter|section|preface|appendix)[~ ](closes|opens|sharpens|establishes|clarifies)`.
+
+**Protocol.**
+1. DETECT: `grep -nEi "[Tt]his[~ ](chapter|section|preface|appendix)('s)?[~ ](function|role|job|purpose|aim|goal)" chapters/**/*.tex
+   frame/**/*.tex main.tex`.
+2. LOCALISE: first paragraph of every chapter / section / preface /
+   appendix; occasional re-openers after a displayed theorem.
+3. MATH-CHECK: the first mathematical claim of the chapter is buried
+   somewhere after the meta-prologue; extract it.
+4. REPAIR: delete the meta-prologue; promote the first substantive claim
+   to the opening sentence. Do not replace with a weaker meta-phrase.
+5. VERIFY: `grep -rEi "[Tt]his[~ ](chapter|section|preface)('s)?[~ ](function|role|job|purpose)"
+   chapters/ frame/ main.tex` returns zero; the first sentence of every
+   chapter names a mathematical object.
+
+#### B16. Transition locutions ("we now turn to" etc.)
+
+**Name.** Transition-locution meta-signposts.
+
+**Description.** `we now turn to`, `having established`, `let us now`,
+`this brings us to`, `we now proceed to`, `turning next to`, `we are now
+ready to`, `with this in hand` — transition signposts that narrate the
+argument's motion rather than advance it. CG voice: sections begin with
+the next construction or theorem; the transition is executed by the
+mathematical content, not announced.
+
+**Regex trigger.** `we[~ ]+now[~ ]+(turn|proceed|consider|examine|establish)|having[~ ]+established|let[~ ]+us[~ ]+now|this[~ ]+brings[~ ]+us|turning[~ ]+next|with[~ ]+this[~ ]+in[~ ]+hand|we[~ ]+are[~ ]+now[~ ]+ready`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'we[~ ]+now[~ ]+(turn|proceed|consider|examine)|having[~ ]+established|let[~ ]+us[~ ]+now|this[~ ]+brings[~ ]+us|turning[~ ]+next|with[~ ]+this[~ ]+in[~ ]+hand'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: section transitions (end-of-section to start-of-next-section
+   boundaries), paragraph openers inside sections, subsection transitions.
+3. MATH-CHECK: the sentence after the transition contains the next
+   construction or claim; the transition itself is vestigial.
+4. REPAIR: delete the transition phrase; begin the next sentence with its
+   mathematical content. If a genuine logical link is load-bearing, restate
+   it as mathematics: "Since ..., the construction that follows ...".
+5. VERIFY: `grep -rEi 'we[~ ]+now[~ ]+(turn|proceed)|having[~ ]+established|let[~ ]+us[~ ]+now|this[~ ]+brings[~ ]+us'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### B17. Self-reference to "the author" / "our programme" / "the present work"
+
+**Name.** Author/programme/present-work self-reference.
+
+**Description.** `in the present work`, `the author`, `our programme`,
+`we have argued`, `it is worth noting`, `as the author has shown`,
+`our approach`, `the present approach` — first-person / self-referential
+framings that make the programme visible as an actor rather than the
+mathematics as the content. CG voice: the author is the mathematics,
+not a distinct narrating presence.
+
+**Regex trigger.** `the[~ ]+author\b|in[~ ]+the[~ ]+present[~ ]+work|our[~ ]+programme|our[~ ]+approach|we[~ ]+have[~ ]+argued|it[~ ]+is[~ ]+worth[~ ]+noting|the[~ ]+present[~ ]+(work|approach|paper|monograph|volume)`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'the[~ ]+author\b|in[~ ]+the[~ ]+present[~ ]+work|our[~ ]+programme|it[~ ]+is[~ ]+worth[~ ]+noting|the[~ ]+present[~ ]+(work|approach)'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: preface, introductions, remark bodies citing "our" result,
+   occasional proof-attribution asides.
+3. MATH-CHECK: what claim is being made? State the claim directly,
+   unattributed to author/programme.
+4. REPAIR: "we have argued that $X$" $\to$ "$X$" with precise citation
+   of the chapter where the argument lives. "The author has shown $X$"
+   $\to$ "$X$ (Theorem~\ref{thm:...}).".
+5. VERIFY: `grep -rEi 'the[~ ]+author|in[~ ]+the[~ ]+present[~ ]+work|our[~ ]+programme|it[~ ]+is[~ ]+worth[~ ]+noting'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### B18. Closing / opening programme commentary
+
+**Name.** Closing-the-programme meta-commentary.
+
+**Description.** Compound phrases such as `This chapter closes the
+seven-face programme... the present chapter is the algebraic engine that
+makes the bridges possible` — composite meta-sentences describing the
+chapter's position in the programme's architecture. Maximally forbidden:
+a chapter either contains the algebraic engine or not; it does not
+announce that it does.
+
+**Regex trigger.** `closes[~ ]+the[~ ](seven-face|programme)|the[~ ]+present[~ ]+chapter[~ ]+is[~ ]+the\b|the[~ ]+algebraic[~ ]+engine[~ ]+that`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'closes[~ ]+the[~ ](seven-face|programme)|the[~ ]+present[~ ]+chapter[~ ]+is[~ ]+the|the[~ ]+algebraic[~ ]+engine[~ ]+that'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: chapter openings, chapter closings, preface, foreword.
+3. MATH-CHECK: what algebraic engine does the chapter contain? State
+   the construction by name at the chapter's opening.
+4. REPAIR: delete the meta-prologue entirely; open with the main
+   construction or theorem statement.
+5. VERIFY: `grep -rEi 'closes[~ ]+the[~ ](seven-face|programme)|the[~ ]+algebraic[~ ]+engine'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### B19. Preface self-reference (opening paragraphs / close)
+
+**Name.** Preface self-referential navigation.
+
+**Description.** `the opening paragraphs of this preface`, `the preface's
+close`, `the preface opens with`, `as the preface noted` — the preface
+narrating itself. The preface has a single job (orient the reader); it
+does not need to quote itself.
+
+**Regex trigger.** `the[~ ]+opening[~ ]+paragraphs[~ ]+of[~ ]+this[~ ]+preface|the[~ ]+preface['s]*[~ ]+close|the[~ ]+preface[~ ]+opens[~ ]+with|as[~ ]+the[~ ]+preface[~ ]+noted`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'the[~ ]+opening[~ ]+paragraphs[~ ]+of[~ ]+this[~ ]+preface|the[~ ]+preface[^a-z]*close|the[~ ]+preface[~ ]+opens|as[~ ]+the[~ ]+preface'
+   frame/**/*.tex`.
+2. LOCALISE: preface body (`frame/preface.tex` or similar), introductory
+   chapters.
+3. MATH-CHECK: no mathematical content; pure self-reference.
+4. REPAIR: delete the self-quotation; rephrase the referenced claim
+   directly if load-bearing for the surrounding argument.
+5. VERIFY: `grep -rEi 'the[~ ]+opening[~ ]+paragraphs[~ ]+of[~ ]+this[~ ]+preface|the[~ ]+preface[~ ]+(opens|close)'
+   frame/ chapters/ main.tex` returns zero; build passes.
+
+#### B20. "Earlier in the volume" / "at earlier drafts" unreworked references
+
+**Name.** Unreworked cross-reference with drafting-history undertone.
+
+**Description.** Phrases `earlier in the volume`, `at earlier drafts`,
+`in an earlier version`, `in earlier sections of this volume` — phrased
+as drafting-history references rather than clean cross-references. Every
+cross-reference should be stated as `(Section~\ref{sec:...})` with no
+temporal framing; the current draft is the only draft.
+
+**Regex trigger.** `earlier[~ ]+in[~ ]+the[~ ]+(volume|chapter|monograph)|at[~ ]+earlier[~ ]+drafts|in[~ ]+an[~ ]+earlier[~ ]+version`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'earlier[~ ]+in[~ ]+the[~ ](volume|chapter)|at[~ ]+earlier[~ ]+drafts|in[~ ]+an[~ ]+earlier[~ ]+version'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: cross-reference prose, remark bodies, proof asides.
+3. MATH-CHECK: the cross-reference points to a definite section /
+   theorem / construction in the current draft.
+4. REPAIR: `earlier in the volume` $\to$ `in Section~\ref{sec:foundations}`
+   or similar precise reference.
+5. VERIFY: `grep -rEi 'earlier[~ ]+in[~ ]+the[~ ](volume|chapter)|at[~ ]+earlier[~ ]+drafts'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+### Group C. Version / drafting-history commentary
+
+#### C21. Retracted / retraction drafting-history comments
+
+**Name.** Retraction-history drafting commentary.
+
+**Description.** `retracted`, `retraction`, `retracted ansatz`, `now
+retracted`, `the retracted value`, `retracted conjecture` — drafting-history
+commentary recording what the manuscript used to say. The current
+manuscript says what it says; previous versions are not readable by
+the reader and do not exist for manuscript purposes.
+
+**Regex trigger.** `\bretract(ed|ion|s)?\b`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '\bretract(ed|ion)\b' chapters/**/*.tex
+   frame/**/*.tex appendices/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, proof asides, `% WARNING:` comment lines,
+   occasionally `\index{retraction!...}` entries.
+3. MATH-CHECK: what is currently true? State that directly. The retraction
+   marks a correction; the corrected statement is what appears.
+4. REPAIR: delete "retracted"/"retraction" entirely; state the correct
+   value / formula / identification without reference to the previous
+   wrong version. For `\index{retraction!...}` entries: delete.
+5. VERIFY: `grep -rEi '\bretract(ed|ion)\b' chapters/ frame/
+   appendices/ main.tex` returns zero outside the cache file itself and
+   `notes/`; build passes.
+
+#### C22. Superseded / "supersedes the naive" drafting language
+
+**Name.** Supersession drafting language.
+
+**Description.** `superseded`, `supersedes the naive`, `supersedes the
+earlier`, `now superseded by` — drafting-history framings where the
+current version is presented as superseding a previous one. The reader
+has only the current version; the supersession relation is internal to
+drafting.
+
+**Regex trigger.** `\bsupersed(e|es|ed|ing)\b`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '\bsupersed(e|es|ed|ing)\b' chapters/**/*.tex
+   frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, introduction paragraphs, status-table
+   entries, proof asides.
+3. MATH-CHECK: what is the current statement? State it directly; the
+   superseded version is not the reader's concern.
+4. REPAIR: delete supersession framing. "This formula supersedes the
+   naive $X$" $\to$ state the current formula without negative comparison;
+   if the contrast with the naive version is genuinely load-bearing
+   pedagogically, state it as "The natural first guess $X$ fails because
+   ...; the correct formula is ..." without "supersedes".
+5. VERIFY: `grep -rEi '\bsupersed' chapters/ frame/ main.tex` returns
+   zero; build passes.
+
+#### C23. Earlier-draft / previous-version / intermediate-ansatz references
+
+**Name.** Version-history drafting references.
+
+**Description.** `earlier draft`, `previous version`, `intermediate
+ansatz`, `prior derivation`, `earlier iteration`, `previous formulation`
+— drafting-history references that expose the versioning of the
+manuscript. The current version is the only version the reader sees.
+
+**Regex trigger.** `earlier[~ ]+draft|previous[~ ]+version|intermediate[~ ]+ansatz|prior[~ ]+derivation|earlier[~ ]+iteration|previous[~ ]+formulation`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'earlier[~ ]+draft|previous[~ ]+version|intermediate[~ ]+ansatz|prior[~ ]+derivation|earlier[~ ]+iteration'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, proof asides, occasional `% WARNING` comment
+   lines.
+3. MATH-CHECK: the current derivation is what the reader needs; the
+   historical iteration is irrelevant.
+4. REPAIR: delete the historical reference; state the current derivation
+   directly.
+5. VERIFY: `grep -rEi 'earlier[~ ]+draft|previous[~ ]+version|intermediate[~ ]+ansatz'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### C24. Previously-conjectural / previously-open status paintings
+
+**Name.** Previously-conjectural status drafting.
+
+**Description.** `previously conjectural`, `previously open`, `previously
+unresolved`, `previously obstructing`, `formerly conjectural` — status
+paintings describing how the theorem's status has changed. The manuscript
+states the current status (proved / conjectural / conditional) and does
+not narrate the transition.
+
+**Regex trigger.** `previously[~ ]+(conjectural|open|unresolved|obstructing)|formerly[~ ]+(conjectural|open)`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'previously[~ ]+(conjectural|open|unresolved|obstructing)|formerly[~ ]+(conjectural|open)'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies attached to upgraded theorems, status-table
+   notes, proof-prologue asides.
+3. MATH-CHECK: the current status is proved or conditional on some
+   specific remaining data; state that.
+4. REPAIR: "previously conjectural, now resolved" $\to$ "Theorem
+   \ref{thm:...}" (with no historical commentary); or if residual
+   conditionality remains, "conditional on [specific hypothesis]".
+5. VERIFY: `grep -rEi 'previously[~ ]+(conjectural|open|unresolved)'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### C25. "Now resolved" / "is now resolved" temporal framings
+
+**Name.** "Now resolved" temporal status framing.
+
+**Description.** Phrase `is now resolved in the $\infty$-categorical
+framework`, `now resolved`, `now proved`, `now constructed` — temporal
+qualifiers ("now") that situate the current status against a past state.
+Drop "now"; the current status is the status.
+
+**Regex trigger.** `\bnow[~ ]+(resolved|proved|constructed|established|known)`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '\bnow[~ ]+(resolved|proved|constructed|established|known)'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, proof prologues, status comments.
+3. MATH-CHECK: current status independent of "now".
+4. REPAIR: delete "now"; "is now resolved" $\to$ "is resolved" or
+   better, "is Theorem~\ref{thm:...}". Rephrase to remove the temporal
+   qualifier entirely.
+5. VERIFY: `grep -rEi '\bnow[~ ]+(resolved|proved|established)'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### C26. "Double-retraction" / "Three successive evaluations" / "History of the claim" headers
+
+**Name.** Drafting-history paragraph headers.
+
+**Description.** Paragraph-label-style phrases `double-retraction`,
+`Three successive evaluations`, `History of the claim`, `Drafting history`,
+`Revision log` — explicit drafting-history paragraph headers. Maximally
+forbidden: these turn the manuscript into a changelog.
+
+**Regex trigger.** `double[~ \-]?retraction|[Tt]hree[~ ]+successive[~ ]+evaluations|[Hh]istory[~ ]+of[~ ]+the[~ ]+claim|[Dd]rafting[~ ]+history|[Rr]evision[~ ]+log`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'double[~ \-]?retraction|[Tt]hree[~ ]+successive[~ ]+evaluations|[Hh]istory[~ ]+of[~ ]+the[~ ]+claim|[Dd]rafting[~ ]+history'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark titles, `\paragraph{}` heads, section sub-heads.
+3. MATH-CHECK: what was the final outcome of the evaluations / history?
+   State the final outcome.
+4. REPAIR: delete the header entirely; integrate the final value into
+   the surrounding prose.
+5. VERIFY: `grep -rEi 'double[~ \-]?retraction|History[~ ]+of[~ ]+the[~ ]+claim|Drafting[~ ]+history'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### C27. "Drafting record" / "drafting trajectory" commentary
+
+**Name.** Drafting-record commentary.
+
+**Description.** `drafting record`, `drafting trajectory`, `the drafting
+process`, `during drafting` — process commentary exposing the drafting
+workflow.
+
+**Regex trigger.** `drafting[~ ]+(record|trajectory|process)|during[~ ]+drafting`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'drafting[~ ]+(record|trajectory|process)|during[~ ]+drafting'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, occasional appendix commentary.
+3. MATH-CHECK: the content referenced is the final mathematical state.
+4. REPAIR: delete "drafting"-phrased prose; restate the content directly.
+5. VERIFY: `grep -rEi 'drafting[~ ]+(record|trajectory|process)'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### C28. ClaimStatusRetracted environment tag
+
+**Name.** `\ClaimStatusRetracted` tag leakage.
+
+**Description.** The LaTeX environment `\ClaimStatusRetracted` marks a
+theorem / proposition as having been retracted. Maximally forbidden in
+the final manuscript: the reader should see only current claims at their
+current status. A retracted claim is deleted, not status-annotated.
+
+**Regex trigger.** `\\ClaimStatusRetracted|ClaimStatus\{Retracted\}`.
+
+**Protocol.**
+1. DETECT: `grep -nE '\\\\ClaimStatusRetracted|ClaimStatus\{Retracted\}'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: theorem / proposition / remark environments with the
+   retracted status tag.
+3. MATH-CHECK: the claim was wrong. What is the correct statement? If
+   there is no corrected version, delete the whole theorem.
+4. REPAIR: delete the entire retracted theorem / remark (not just the
+   tag); if a corrected replacement exists, inscribe it with a proper
+   ProvedHere / Conjectured / Conditional status tag.
+5. VERIFY: `grep -rE '\\\\ClaimStatusRetracted' chapters/ frame/
+   main.tex` returns zero; `\ref{}` targets of any deleted theorems
+   updated; build passes.
+
+#### C29. Dated remarks and WARNING drafting-date comments
+
+**Name.** Dated remark / dated WARNING comment leakage.
+
+**Description.** Dated prose: `2026-04-17 reconstitution`, `Etingof
+2026-04-19 classification`, comment lines `% WARNING: an earlier draft
+of this display...` — drafting-timestamps embedded in the manuscript.
+The manuscript has no time axis external to the mathematics.
+
+**Regex trigger.** `20[0-9][0-9]-[0-9]{2}-[0-9]{2}|% WARNING.*earlier[~ ]+draft|% WARNING.*previous[~ ]+version`.
+
+**Protocol.**
+1. DETECT: `grep -nE '20[0-9][0-9]-[0-9]{2}-[0-9]{2}|% WARNING.*earlier[~ ]+draft'
+   chapters/**/*.tex frame/**/*.tex main.tex`. Note: legitimate dated
+   citations (e.g., "Borcherds 1995", "Gritsenko 1999") use year-only
+   and do not trigger this pattern.
+2. LOCALISE: remark headers, `% WARNING` / `% TODO` comment lines,
+   occasional section-prologue dated asides.
+3. MATH-CHECK: the mathematical content associated with the date is
+   either current (strip the date) or stale (delete entirely).
+4. REPAIR: strip ISO dates from remark titles; delete `% WARNING` comment
+   lines that reference drafting history; keep year-only citations to
+   primary literature ("Gritsenko 1999" OK, "2026-04-19 classification"
+   not OK).
+5. VERIFY: `grep -rE '20[0-9][0-9]-[0-9]{2}-[0-9]{2}' chapters/ frame/
+   main.tex` returns zero outside bibliography `.bib` preprint numbers;
+   build passes.
+
+#### C30. Index retraction entries
+
+**Name.** Retraction-indexed entries.
+
+**Description.** `\index{retraction!$X \to Y$}` entries that index the
+manuscript by retractions. The index is a reader-facing lookup into
+the mathematical content; retractions should not appear in it.
+
+**Regex trigger.** `\\index\{retraction\b`.
+
+**Protocol.**
+1. DETECT: `grep -nE '\\\\index\{retraction' chapters/**/*.tex
+   frame/**/*.tex main.tex`.
+2. LOCALISE: inline `\index{}` calls next to theorem statements or
+   remark bodies.
+3. MATH-CHECK: no mathematical content; pure bookkeeping.
+4. REPAIR: delete the `\index{retraction!...}` call.
+5. VERIFY: `grep -rE '\\\\index\{retraction' chapters/ frame/ main.tex`
+   returns zero; build passes.
+
+### Group D. Bookkeeping-content references and absolute paths
+
+#### D31. `notes/*.md` reader-facing notes-file citations
+
+**Name.** Notes-file citation leakage.
+
+**Description.** `\texttt{notes/SYNTHESIS_WAVES_14_TO_18.md}`,
+`\texttt{notes/INDEPENDENT_VERIFICATION.md}`,
+`\texttt{notes/first_principles_cache_comprehensive.md}`,
+`\texttt{notes/wave_lp2_*}`, `notes/vol3_rearchitecture_proposal.tex`
+— reader-facing citations to the `notes/` directory, which is not
+shipped to the reader. The reader sees the filename but cannot open
+the file. The `notes/` directory is internal.
+
+**Regex trigger.** `notes/[A-Za-z_0-9]+\.(md|tex|tsv|py)`.
+
+**Protocol.**
+1. DETECT: `grep -nE 'notes/[A-Za-z_0-9]+\\.(md|tex|tsv|py)'
+   chapters/**/*.tex frame/**/*.tex appendices/**/*.tex main.tex
+   bibliography/**/*.tex`.
+2. LOCALISE: `\texttt{}` file-citation passages, bibliography source
+   comments, occasional footnotes.
+3. MATH-CHECK: what mathematical claim was being sourced from the
+   notes file? Either inline the claim with primary-literature
+   citation, or delete.
+4. REPAIR: replace `\texttt{notes/WAVE14.md}` with the direct
+   mathematical statement and primary citation. If the reference was
+   purely bookkeeping, delete.
+5. VERIFY: `grep -rE 'notes/[A-Za-z_0-9]+\\.(md|tex|tsv|py)'
+   chapters/ frame/ appendices/ main.tex bibliography/` returns zero;
+   build passes.
+
+#### D32. Absolute author-path leaks in comments
+
+**Name.** Absolute filesystem-path leakage.
+
+**Description.** Path strings such as `/Users/raeez/calabi-yau-quantum-groups/chapters/`
+appearing in `.tex` files (typically in `%` comments but occasionally
+in `\texttt{}`). Author-filesystem leakage exposes the drafting
+environment; portable paths (relative to the repository root) are
+the correct form when a file-reference is genuinely needed.
+
+**Regex trigger.** `/Users/[a-z]+/|/home/[a-z]+/`.
+
+**Protocol.**
+1. DETECT: `grep -nE '/Users/[a-z]+/|/home/[a-z]+/' chapters/**/*.tex
+   frame/**/*.tex appendices/**/*.tex main.tex bibliography/**/*.tex`.
+2. LOCALISE: `%` comment lines with path annotations, occasional
+   `\texttt{}` file references.
+3. MATH-CHECK: the path is filesystem bookkeeping; no mathematical
+   content.
+4. REPAIR: delete `%` comment lines entirely; replace `\texttt{}`
+   absolute-path references with repository-relative paths
+   (`chapters/...`) if truly needed, or delete.
+5. VERIFY: `grep -rE '/Users/|/home/' chapters/ frame/ appendices/
+   main.tex bibliography/` returns zero; build passes.
+
+#### D33. TODO-librarian verification comments in bibliography
+
+**Name.** Librarian-TODO comment leakage in bibliography.
+
+**Description.** `% TODO: librarian verification` comments in
+`bibliography/references.tex` or `*.bib` files. These are drafting
+tasks for bibliography verification; they belong in an issue tracker
+or a dedicated TODO file, not in the bibliography.
+
+**Regex trigger.** `% TODO:[~ ]*librarian|% TODO:[~ ]*verify[~ ]+cit|% TODO:[~ ]*biblio`.
+
+**Protocol.**
+1. DETECT: `grep -nE '% TODO.*(librarian|verify|biblio)'
+   bibliography/**/*.tex bibliography/**/*.bib chapters/**/*.tex
+   main.tex`.
+2. LOCALISE: bibliography entries (comment lines above BibTeX entries).
+3. MATH-CHECK: no mathematical content. Either the citation is verified
+   (delete the TODO) or needs verification (move to a separate TODO
+   file).
+4. REPAIR: delete the `% TODO:` line; if the bibliography entry itself
+   is unverified, mark with a `.todo` file in a separate task tracker
+   and resolve before next build.
+5. VERIFY: `grep -rE '% TODO.*(librarian|verify|biblio)'
+   bibliography/ chapters/ main.tex` returns zero; build passes with
+   all citations resolving.
+
+#### D34. ALIAS / LEGACY-ALIAS bibliography bookkeeping
+
+**Name.** Bibliography alias-pair bookkeeping leakage.
+
+**Description.** Comment lines `% ALIAS`, `% LEGACY ALIAS`, `both keys
+used in prose`, `consolidate in future revision` inside bibliography
+entries. These track duplicate BibTeX keys where prose cites two names
+for the same paper; they belong in an internal TODO, not in the
+shipped bibliography.
+
+**Regex trigger.** `% ALIAS|% LEGACY[~ ]*ALIAS|both[~ ]+keys[~ ]+used|consolidate[~ ]+in[~ ]+future[~ ]+revision`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '% ALIAS|% LEGACY[~ ]*ALIAS|both[~ ]+keys[~ ]+used|consolidate[~ ]+in[~ ]+future[~ ]+revision'
+   bibliography/**/*.tex bibliography/**/*.bib main.tex`.
+2. LOCALISE: BibTeX entries, `references.tex` inline comment lines.
+3. MATH-CHECK: no mathematical content; bookkeeping on a duplication
+   to be resolved.
+4. REPAIR: resolve the duplication (pick a canonical key, global-replace
+   in prose, delete the alias); delete the comment.
+5. VERIFY: `grep -rEi '% ALIAS|% LEGACY|both[~ ]+keys[~ ]+used'
+   bibliography/ main.tex` returns zero; `biber` / `bibtex` reports
+   zero missing or duplicate keys.
+
+#### D35. Source-comment drafting history
+
+**Name.** Source-comment drafting-history in chapter heads.
+
+**Description.** Comment lines `% Source: NEW CHAPTER (see notes/...)`
+documenting the chapter's origin. The reader sees only the chapter;
+the provenance of the file (new vs. extracted vs. merged) is drafting
+history.
+
+**Regex trigger.** `% Source:[~ ]+(NEW|EXTRACTED|MERGED|REFACTORED)`.
+
+**Protocol.**
+1. DETECT: `grep -nE '% Source:[~ ]+(NEW|EXTRACTED|MERGED|REFACTORED)'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: chapter-head comment blocks, occasionally section heads.
+3. MATH-CHECK: no mathematical content.
+4. REPAIR: delete the `% Source: ...` comment lines entirely.
+5. VERIFY: `grep -rE '% Source:[~ ]+(NEW|EXTRACTED)' chapters/
+   frame/ main.tex` returns zero; build passes.
+
+#### D36. Compute-engine filenames rendering as `\texttt{}`
+
+**Name.** Compute-engine filename leakage via `\texttt{}`.
+
+**Description.** Python compute-module filenames like
+`k3_yangian_wave14_arthur_hecke_delta10.py` rendered as
+`\texttt{k3_yangian_wave14_...py}` in the manuscript PDF. The filename
+carries the wave label and exposes the compute layer's directory
+structure. Verification via a compute module should cite the mathematical
+content (e.g., "Arthur parameter Hecke verification at $\Delta_{10}$")
+and optionally the repository location, but not the wave-labelled
+filename.
+
+**Regex trigger.** `\\texttt\{[a-z_0-9]*wave[0-9]+[a-z_0-9]*\\.py\}|\\texttt\{compute/lib/[a-z_0-9]*\\.py\}`.
+
+**Protocol.**
+1. DETECT: `grep -nE '\\\\texttt\{[a-z_0-9]*wave[0-9]+[a-z_0-9]*\\.py|\\\\texttt\{compute/lib/'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: proof bodies citing computational verification, remark
+   bodies, `\index{compute module!...}` entries.
+3. MATH-CHECK: what is the computational verification of? State the
+   mathematical claim ("46 primes $p \le 199$ verify the Chenevier
+   determinant") and optionally cite the compute module via a
+   repository-relative path stripped of the wave label.
+4. REPAIR: `\texttt{compute/lib/k3_yangian_wave14_arthur_hecke_delta10.py}`
+   $\to$ "verified empirically at 46 primes $p \le 199$" (and optionally,
+   in a footnote, `\texttt{compute/lib/arthur_hecke_delta10.py}` after
+   the filename is renamed to strip the wave label).
+5. VERIFY: `grep -rE '\\\\texttt\{[^}]*wave[0-9]'
+   chapters/ frame/ main.tex` returns zero; `find compute/lib
+   -name '*wave*'` filename renames tracked separately.
+
+#### D37. Python function names wave-N-foo leaking via `\texttt{}` citations
+
+**Name.** Wave-indexed Python function-name leakage.
+
+**Description.** Python function names `wave14_foo`, `verify_wave23_bar`
+citing session-labelled entry points. These are internal identifiers;
+when the manuscript cites them via `\texttt{function~wave14_foo}`, the
+session label surfaces.
+
+**Regex trigger.** `\\texttt\{[a-z_0-9]*wave[0-9]+_[a-z_0-9]*\}|function[~ ]+wave[0-9]+_[a-z_0-9]+`.
+
+**Protocol.**
+1. DETECT: `grep -nE 'wave[0-9]+_[a-z_0-9]+' chapters/**/*.tex
+   frame/**/*.tex main.tex`.
+2. LOCALISE: `\texttt{}` function-name citations, proof-body
+   verification asides, occasional `\index{}` entries.
+3. MATH-CHECK: what does the function compute? State the computation,
+   cite the function by its stripped (wave-less) name.
+4. REPAIR: rename Python functions `wave14_foo` $\to$ `foo` or a more
+   descriptive name; update `\texttt{}` citations.
+5. VERIFY: `grep -rE 'wave[0-9]+_' chapters/ frame/ main.tex`
+   returns zero; Python test suite still passes after renames.
+
+### Group E. Warning boxes / hedge language / discipline wrappers
+
+#### E38. `\begin{warning}` environment leakage
+
+**Name.** Warning-box environment leakage.
+
+**Description.** `\begin{warning} ... \end{warning}` environments boxed
+around prose cautions. Warnings are meta-instructions to the reader;
+CG voice: state the mathematics directly and let the reader be a competent
+equal. If a common confusion truly warrants a warning, name the distinction
+as a remark or a lemma, not a warning box.
+
+**Regex trigger.** `\\begin\{warning\}|\\end\{warning\}`.
+
+**Protocol.**
+1. DETECT: `grep -nE '\\\\(begin|end)\{warning\}' chapters/**/*.tex
+   frame/**/*.tex main.tex`.
+2. LOCALISE: theorem-adjacent environments; sometimes attached to
+   bare-$\kappa$-style discipline passages.
+3. MATH-CHECK: what confusion does the warning pre-empt? The warning
+   typically names a distinction; name the distinction as a remark
+   or as part of a lemma statement.
+4. REPAIR: convert `\begin{warning} ... \end{warning}` to
+   `\begin{remark} ... \end{remark}` with a content-naming title, or
+   to an inline distinction in the theorem proof. Delete vacuous
+   warnings (e.g., "do not confuse the manifold invariant with the
+   algebraization residual" is better stated as a definition
+   disambiguation).
+5. VERIFY: `grep -rE '\\\\(begin|end)\{warning\}' chapters/ frame/
+   main.tex` returns zero; build passes.
+
+#### E39. "do not confuse" / "don't be fooled" / "beware" meta-directions
+
+**Name.** Warning-adjacent meta-directions.
+
+**Description.** Phrases `do not confuse`, `don't be fooled`, `beware`,
+`the reader should note`, `take care not to` — meta-directions pointing
+the reader at potential confusions. CG voice: name the distinction as
+mathematics; do not direct the reader.
+
+**Regex trigger.** `do[~ ]+not[~ ]+confuse|don['']t[~ ]+be[~ ]+fooled|\bbeware\b|take[~ ]+care[~ ]+not[~ ]+to|the[~ ]+reader[~ ]+should[~ ]+note`.
+
+**Protocol.**
+1. DETECT: `grep -nEi "do[~ ]+not[~ ]+confuse|don['']t[~ ]+be[~ ]+fooled|\\bbeware\\b|take[~ ]+care[~ ]+not[~ ]+to"
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, proof asides, warning boxes.
+3. MATH-CHECK: the distinction being warned about has a mathematical
+   statement.
+4. REPAIR: "do not confuse $A$ with $B$" $\to$ "$A$ and $B$ are distinct
+   objects; $A = \ldots$ while $B = \ldots$".
+5. VERIFY: `grep -rEi "do[~ ]+not[~ ]+confuse|beware|don['']t[~ ]+be"
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### E40. "We must be careful" prose hedge
+
+**Name.** Careful-hedge meta-prose.
+
+**Description.** Phrase `we must be careful`, `care is needed`, `we need
+to be careful about` — hedging qualifiers signalling that a subtle issue
+is coming. CG voice: state the subtle issue directly.
+
+**Regex trigger.** `we[~ ]+must[~ ]+be[~ ]+careful|care[~ ]+is[~ ]+needed|we[~ ]+need[~ ]+to[~ ]+be[~ ]+careful`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'we[~ ]+must[~ ]+be[~ ]+careful|care[~ ]+is[~ ]+needed|we[~ ]+need[~ ]+to[~ ]+be[~ ]+careful'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: prose prologues to subtle arguments, remark bodies.
+3. MATH-CHECK: what subtlety is present? State it.
+4. REPAIR: delete the hedge; the sentence that follows usually states
+   the subtlety and becomes the main sentence.
+5. VERIFY: `grep -rEi 'we[~ ]+must[~ ]+be[~ ]+careful|care[~ ]+is[~ ]+needed'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### E41. Gratuitous scope-restricted / scope-qualified wrappers
+
+**Name.** Vacuous scope-restriction wrappers.
+
+**Description.** Phrases `scope-restricted to ...`, `scope-qualified to
+...` used when the scope is either (a) manifestly the ambient domain
+(vacuous) or (b) already captured by the theorem's hypothesis. Keep only
+when genuinely narrowing.
+
+**Regex trigger.** `scope-restricted[~ ]+to|scope-qualified[~ ]+to`.
+
+**Protocol.**
+1. DETECT: `grep -nE 'scope-restricted[~ ]+to|scope-qualified[~ ]+to'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, theorem-statement prologues, proof asides.
+3. MATH-CHECK: is the scope restriction genuine (i.e., the statement
+   is false outside the stated scope) or vacuous (the statement's
+   natural domain is the stated scope)?
+4. REPAIR: if genuine, fold into the theorem hypothesis as a clean
+   precondition ("Assume $X$ is compact. Then..."). If vacuous, delete.
+5. VERIFY: `grep -rE 'scope-restricted[~ ]+to|scope-qualified[~ ]+to'
+   chapters/ frame/ main.tex` returns zero outside cases where the
+   scope distinction is genuinely load-bearing; build passes.
+
+#### E42. "Verdict" as meta-label for mathematical conclusion
+
+**Name.** "Verdict" as mathematical-conclusion meta-label.
+
+**Description.** The word `verdict` applied to a mathematical conclusion
+(e.g., `\paragraph{Verdict.}` or "the verdict is $X$"). Verdicts are
+judicial; mathematical conclusions are theorems, corollaries, or
+propositions.
+
+**Regex trigger.** `\\paragraph\{Verdict|the[~ ]+verdict[~ ]+is|verdict:\s*[A-Z]`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '\\\\paragraph\{[Vv]erdict|the[~ ]+verdict[~ ]+is|[Vv]erdict:\\s*[A-Z]'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: `\paragraph{}` heads, remark bodies, proof-summary asides.
+3. MATH-CHECK: what is the conclusion? It is a theorem / corollary /
+   proposition / lemma.
+4. REPAIR: replace `\paragraph{Verdict.}` with `\paragraph{Conclusion.}`
+   or better, with the named mathematical object (`\paragraph{Outcome.}`
+   works; best is to restructure into a proper theorem statement).
+5. VERIFY: `grep -rEi '\\\\paragraph\{[Vv]erdict|the[~ ]+verdict[~ ]+is'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+### Group F. Structural meta-naming
+
+#### F43. Chapter filenames with `_platonic` suffix
+
+**Name.** Platonic-suffix filename leakage.
+
+**Description.** Chapter filenames `k3_chiral_bialgebra_platonic.tex`,
+`humbert_monodromy_platonic.tex`, etc. The Platonic suffix marks the
+chapter as a product of the `/chriss-ginzburg-rectify` skill; after
+convergence the suffix is vestigial. Filename renames are deferred (the
+file system has high-inertia cross-references in `main.tex`, Git blame,
+etc.) but flagged for a dedicated cleanup pass.
+
+**Regex trigger.** Shell `find . -name '*_platonic*.tex'`.
+
+**Protocol.**
+1. DETECT: `find chapters frame -name '*_platonic*.tex'`.
+2. LOCALISE: `chapters/examples/`, `chapters/theory/`, occasionally
+   `frame/`.
+3. MATH-CHECK: the file's mathematical content is independent of the
+   filename.
+4. REPAIR: in a dedicated rename pass: `git mv foo_platonic.tex
+   foo.tex` (or a more content-naming rename), update `\input{}` /
+   `\include{}` in `main.tex`, update any `\labelformat` cross-references.
+   Until the rename pass, this is a flag-only rule; do not block
+   commits on filename alone.
+5. VERIFY: post-rename: `find chapters frame -name '*_platonic*'`
+   returns empty; `make fast` passes; `git grep 'input{.*platonic'`
+   returns zero.
+
+#### F44. Chapter labels `ch:...-platonic`
+
+**Name.** Platonic-suffix chapter-label leakage.
+
+**Description.** Chapter labels `\label{ch:k3-chiral-bialgebra-platonic}`
+contain the Platonic suffix. The label survives in `\ref{}` calls and
+typesets as the chapter number in the PDF (invisible to the reader
+directly), but shows up in log files, `.aux` files, and
+debug output. Strip the `-platonic` suffix from labels.
+
+**Regex trigger.** `\\label\{ch:[a-z0-9\-]*platonic[a-z0-9\-]*\}`.
+
+**Protocol.**
+1. DETECT: `grep -rE '\\\\label\{ch:[a-z0-9\-]*platonic' chapters/
+   frame/ main.tex`.
+2. LOCALISE: chapter `\label{}` calls at the top of each chapter file.
+3. MATH-CHECK: label is a token; no mathematical content.
+4. REPAIR: `\label{ch:k3-chiral-bialgebra-platonic}` $\to$
+   `\label{ch:k3-chiral-bialgebra}`. Global-replace in `\ref{}` call
+   sites.
+5. VERIFY: `grep -rE '\\\\label\{ch:[a-z0-9\-]*platonic' chapters/
+   frame/ main.tex` returns zero; `grep -rE
+   '\\\\ref\{ch:[a-z0-9\-]*platonic' chapters/ frame/ main.tex` returns
+   zero; build passes with no undefined references.
+
+#### F45. Section labels with bookkeeping tokens
+
+**Name.** Section-label bookkeeping-token leakage.
+
+**Description.** Section labels with bookkeeping tokens:
+`sec:k3-platonic-overture`, `sec:humbert-monodromy-platonic`,
+`sec:cyc-sixroutes-generator-level` — labels carrying workflow or
+catalogue tokens. Strip the tokens.
+
+**Regex trigger.** `\\label\{sec:[a-z0-9\-]*(platonic|overture|wave[0-9]+|ap[0-9]+)[a-z0-9\-]*\}`.
+
+**Protocol.**
+1. DETECT: `grep -rE '\\\\label\{sec:[a-z0-9\-]*(platonic|overture|wave[0-9]+|ap[0-9]+)'
+   chapters/ frame/ main.tex`.
+2. LOCALISE: section / subsection `\label{}` calls.
+3. MATH-CHECK: label is a token.
+4. REPAIR: strip the bookkeeping token, keeping the content token.
+   `sec:k3-platonic-overture` $\to$ `sec:k3-overture` or better
+   `sec:k3-introduction`. Update all `\ref{}` call sites.
+5. VERIFY: `grep -rE '\\\\label\{sec:[^}]*(platonic|wave[0-9]+|ap[0-9]+)'
+   chapters/ frame/ main.tex` returns zero; `grep -rE
+   '\\\\ref\{sec:[^}]*(platonic|wave[0-9]+|ap[0-9]+)' chapters/
+   frame/ main.tex` returns zero; build passes.
+
+#### F46. Theorem labels `thm:walgdeep-waveN-*`
+
+**Name.** Wave-indexed theorem-label leakage.
+
+**Description.** Theorem labels carrying a wave index:
+`thm:walgdeep-wave14-koszul`, `thm:delta10-wave23-arthur` — the wave
+index surfaces in `\ref{}` calls in `.aux` files and log output. Strip
+`waveN-`.
+
+**Regex trigger.** `\\label\{thm:[a-z0-9\-]*wave[0-9]+[a-z0-9\-]*\}`.
+
+**Protocol.**
+1. DETECT: `grep -rE '\\\\label\{thm:[a-z0-9\-]*wave[0-9]+' chapters/
+   frame/ main.tex`.
+2. LOCALISE: theorem `\label{}` calls.
+3. MATH-CHECK: label is a token.
+4. REPAIR: strip `-waveN-`. `thm:walgdeep-wave14-koszul` $\to$
+   `thm:walgdeep-koszul`. Update all `\ref{}` and `\cref{}` call sites.
+5. VERIFY: `grep -rE '\\\\label\{thm:[a-z0-9\-]*wave[0-9]+'
+   chapters/ frame/ main.tex` returns zero; `grep -rE
+   '\\\\(ref|cref)\{thm:[a-z0-9\-]*wave[0-9]+' chapters/ frame/
+   main.tex` returns zero; build passes.
+
+#### F47. Compute-module index entries
+
+**Name.** Compute-module `\index{}` leakage.
+
+**Description.** `\index{compute module!...}` entries indexing the
+manuscript by the compute layer's module names. The index is reader-
+facing; compute modules are internal.
+
+**Regex trigger.** `\\index\{compute[~ ]*module!`.
+
+**Protocol.**
+1. DETECT: `grep -rE '\\\\index\{compute[~ ]*module!' chapters/
+   frame/ main.tex`.
+2. LOCALISE: inline `\index{}` calls inside proofs or remarks.
+3. MATH-CHECK: no mathematical content; module names.
+4. REPAIR: delete the `\index{compute module!...}` calls; if the
+   computational verification is genuinely load-bearing, name the
+   mathematical verification (e.g., `\index{verification!Arthur--Hecke}`).
+5. VERIFY: `grep -rE '\\\\index\{compute[~ ]*module' chapters/
+   frame/ main.tex` returns zero; build passes.
+
+#### F48. Cache and first-principles-cache index entries
+
+**Name.** Cache `\index{}` leakage.
+
+**Description.** `\index{cache!...}` and `\index{first-principles
+cache!...}` entries indexing into internal caches. The reader does not
+see the caches; these entries serve no lookup function.
+
+**Regex trigger.** `\\index\{(cache|first-principles[~ ]+cache)!`.
+
+**Protocol.**
+1. DETECT: `grep -rE '\\\\index\{(cache|first-principles[~ ]+cache)!'
+   chapters/ frame/ main.tex`.
+2. LOCALISE: inline `\index{}` calls, typically attached to
+   bare-$\kappa$-style discipline passages or confusion-naming remarks.
+3. MATH-CHECK: no mathematical content.
+4. REPAIR: delete.
+5. VERIFY: `grep -rE '\\\\index\{(cache|first-principles[~ ]+cache)'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### F49. Retraction index entries (duplicate of C30 for symmetry)
+
+**Name.** Retraction `\index{}` leakage.
+
+**Description.** `\index{retraction!...}` entries, already catalogued
+as C30. Listed here for symmetry under the structural-meta-naming
+group; detect / repair identical to C30.
+
+**Regex trigger.** `\\index\{retraction!`.
+
+**Protocol.** (identical to C30)
+1. DETECT: `grep -rE '\\\\index\{retraction' chapters/ frame/ main.tex`.
+2. LOCALISE: inline `\index{}` calls.
+3. MATH-CHECK: no mathematical content.
+4. REPAIR: delete.
+5. VERIFY: `grep -rE '\\\\index\{retraction' chapters/ frame/
+   main.tex` returns zero; build passes.
+
+### Group G. Missed edge cases
+
+#### G50. "Five attack-heal calibrations" skill-name leakage
+
+**Name.** `attack-heal-swarm-loop` skill-name leakage.
+
+**Description.** Phrases `five attack-heal calibrations`, `attack-heal
+verification`, `attack-heal cycle` — surfaces of the
+`/attack-heal-swarm-loop` skill internal vocabulary. The skill runs
+adversarial attacks on claims and heals them back; the artifacts of
+this process should not appear in the manuscript.
+
+**Regex trigger.** `attack-heal|attack[~ ]+and[~ ]+heal|healing[~ ]+cycle`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'attack-heal|attack[~ ]+and[~ ]+heal|healing[~ ]+cycle'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies describing verification protocols, proof
+   prologues, status-table columns.
+3. MATH-CHECK: what mathematical verification was performed? State it:
+   "direct computation, alternative formula, limiting case"; the
+   attack-heal framing is a workflow name.
+4. REPAIR: `five attack-heal calibrations confirm` $\to$ "five
+   independent verification paths confirm" with the paths named;
+   delete "attack-heal" as a noun.
+5. VERIFY: `grep -rEi 'attack-heal|attack[~ ]+and[~ ]+heal|healing[~ ]+cycle'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### G51. "Reconstitution if the cancellation fails" workflow-token remark titles
+
+**Name.** Reconstitution-workflow remark-title leakage.
+
+**Description.** Remark titles such as `Remark (Reconstitution if the
+cancellation fails)` — workflow tokens ("reconstitution") in remark
+headers. CG voice: remarks are named by the mathematics, not by the
+workflow state.
+
+**Regex trigger.** `[Rr]econstitution[~ ]+if|Remark[~ ]*\([^)]*[Rr]econstitution`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'Reconstitution[~ ]+if|Remark[~ ]*\\([^)]*Reconstitution'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: `\begin{remark}[Reconstitution ...]` remark titles.
+3. MATH-CHECK: what mathematical contingency is the remark naming?
+   Typically a fall-back computation or an alternative formula.
+4. REPAIR: rename to name the fall-back mathematics: "Alternative
+   computation if the cancellation fails at weight $k$" $\to$ "Weight-$k$
+   alternative: the $\theta$-series formula".
+5. VERIFY: `grep -rEi 'Reconstitution[~ ]+if' chapters/ frame/
+   main.tex` returns zero; build passes.
+
+#### G52. "Inversion of the programme perspective" meta-framing
+
+**Name.** Programme-perspective inversion meta-framing.
+
+**Description.** Remark or paragraph titles naming a meta-move on the
+programme: `Inversion of the programme perspective`, `Reversal of the
+functor direction`, `Dual perspective on the programme`. These are
+meta-rhetorical framings; the mathematics is a construction or
+statement, not a perspective.
+
+**Regex trigger.** `[Ii]nversion[~ ]+of[~ ]+the[~ ]+programme|[Rr]eversal[~ ]+of[~ ]+the[~ ]+functor|[Dd]ual[~ ]+perspective[~ ]+on[~ ]+the[~ ]+programme`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '[Ii]nversion[~ ]+of[~ ]+the[~ ]+programme|[Rr]eversal[~ ]+of[~ ]+the[~ ]+functor|[Dd]ual[~ ]+perspective'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark titles, `\paragraph{}` heads.
+3. MATH-CHECK: what mathematical move is being named? "Inversion of
+   the programme" typically refers to the bar-cobar inversion or the
+   Koszul duality functor; state the concrete functor.
+4. REPAIR: "Inversion of the programme perspective" $\to$ "The
+   Koszul dual perspective: $\Omega B(A) = A$"; or "The bar-cobar
+   inversion". State the functor; delete "programme" framing.
+5. VERIFY: `grep -rEi '[Ii]nversion[~ ]+of[~ ]+the[~ ]+programme'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### G53. "History of the claim" drafting-history headers
+
+**Name.** Explicit drafting-history headers.
+
+**Description.** Section or paragraph headers such as `History of the
+claim`, `History of the identification`, `Provenance of the formula` —
+explicit drafting-history framings. These turn the manuscript into a
+changelog or a textbook-style "historical note".
+
+**Regex trigger.** `[Hh]istory[~ ]+of[~ ]+the[~ ](claim|identification|formula|proof)|[Pp]rovenance[~ ]+of[~ ]+the[~ ](formula|claim)`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '[Hh]istory[~ ]+of[~ ]+the[~ ](claim|identification|formula|proof)|[Pp]rovenance[~ ]+of[~ ]+the[~ ](formula|claim)'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark titles, `\paragraph{}` heads, occasional subsection
+   openings.
+3. MATH-CHECK: what did the history yield? State the final outcome.
+4. REPAIR: delete the header; integrate primary-literature citations
+   inline. If the history is textbook-important (rare), write a single
+   sentence in the running prose with named citations.
+5. VERIFY: `grep -rEi '[Hh]istory[~ ]+of[~ ]+the[~ ](claim|identification)'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### G54. "Gold-standard HZ-IV disjoint verification" verification-protocol lingo
+
+**Name.** Gold-standard-HZ-IV verification lingo.
+
+**Description.** Phrases like `gold-standard HZ-IV disjoint verification`,
+`gold-standard verification`, `HZ-IV discipline`, `HZ-IV enforcement` —
+internal verification-protocol lingo surfacing in prose. The protocol's
+name is workflow; the content is "three independent verification paths".
+
+**Regex trigger.** `gold-standard[~ ]+HZ-IV|HZ-IV[~ ]+(disjoint|discipline|enforcement)|gold-standard[~ ]+verification`.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'gold-standard[~ ]+HZ-IV|HZ-IV[~ ]+(disjoint|discipline|enforcement)|gold-standard[~ ]+verification'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, proof prologues, appendix verification
+   sections.
+3. MATH-CHECK: what verification paths are in force? State them.
+4. REPAIR: "gold-standard HZ-IV disjoint verification at 46 primes" $\to$
+   "three independent verification paths: (i) direct computation at
+   46 primes $p \le 199$, (ii) the Chenevier determinant axiom, (iii)
+   the Saito--Kurokawa factorisation".
+5. VERIFY: `grep -rEi 'gold-standard[~ ]+HZ-IV|HZ-IV[~ ]+(disjoint|discipline)'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+#### G55. "Three successive evaluations appear in the drafting record" drafting prose
+
+**Name.** Explicit drafting-record commentary in prose.
+
+**Description.** Sentences such as `Three successive evaluations appear
+in the drafting record`, or equivalently `Four successive attempts`,
+`Two previous attempts` — prose explicitly naming the drafting record
+and quoting iteration counts. Maximally forbidden: the manuscript has
+no drafting record visible to the reader.
+
+**Regex trigger.** `[Tt]hree[~ ]+successive[~ ]+evaluations|[Ff]our[~ ]+successive[~ ]+attempts|[Tt]wo[~ ]+previous[~ ]+attempts|successive[~ ]+evaluations[~ ]+appear`.
+
+**Protocol.**
+1. DETECT: `grep -nEi '[Tt]hree[~ ]+successive[~ ]+evaluations|[Ff]our[~ ]+successive[~ ]+attempts|[Tt]wo[~ ]+previous[~ ]+attempts|successive[~ ]+evaluations[~ ]+appear'
+   chapters/**/*.tex frame/**/*.tex main.tex`.
+2. LOCALISE: remark bodies, proof asides, occasional introductions.
+3. MATH-CHECK: what is the current correct value? State it; the history
+   is irrelevant.
+4. REPAIR: delete the drafting-record sentence; state the current
+   correct value directly.
+5. VERIFY: `grep -rEi '[Tt]hree[~ ]+successive[~ ]+evaluations|successive[~ ]+evaluations[~ ]+appear'
+   chapters/ frame/ main.tex` returns zero; build passes.
+
+---
+
+**Cross-reference summary.** These 55 patterns supplement the antipatterns
+catalogued at `notes/antipatterns_catalogue.md` (AP-CY1--AP-CY142, plus
+cross-programme AP150--AP164 and formula-mechanical FM24--FM27). Session
+antipatterns are pre-inscription prose hygiene; AP-CY entries catch
+mathematical-content errors. A chapter passing CG-rectification on all
+55 session patterns still requires the AP-CY sweep for mathematical
+correctness. The two layers compose: session hygiene (CG voice) then
+mathematical hygiene (Beilinson gate).
+
+**Hook integration.** `scripts/hooks/beilinson-gate.sh` should grow a
+"Section 1.5: CG voice enforcement" pass with the regex triggers
+above, firing on `.tex` files in `chapters/`, `frame/`, `appendices/`,
+and `main.tex` (not in `notes/` or `memory/`, where bookkeeping is
+endemic by design). Failures emit `WARNINGS` (not `ISSUES`) to avoid
+blocking substantive mathematical commits on prose-polish alone; the
+warning names the specific session antipattern (A1--G55) and the repair
+protocol row.
+
+## 6d hCS audit + Harmonies synthesis cache append (2026-04-22, E1--E24 / AP-CY203--AP-CY226)
+
+Twenty-four confusion patterns from the session's audit of the 6d hCS
+inscription and the downstream Harmonies synthesis. Each entry gives
+a (RIGHT) ghost theorem that the incorrect formulation mistakes itself
+for, a (WRONG) precise error, and a (CORRECT) replacement with
+first-principles derivation and primary-literature anchor. The entries
+pair with AP-CY203--AP-CY226 in `notes/antipatterns_catalogue.md` and
+with rows E1--E24 in `appendices/first_principles_cache.md`.
+
+#### E1. Seven-incarnation equivalence of $\mathbf H_{\Delta_5}$ overclaimed
+
+**Name.** Seven-framings-of-$\mathbf H_{\Delta_5}$ equivalence overclaim.
+
+**Description.** Writing that all seven framings of the K3 chiral
+bialgebra --- (i) shifted $\mathcal D_\hbar$-module, (ii) universal
+enveloping $U(\mathfrak g_{\Delta_5})$, (iii) quasi-Hopf
+Siegel--Borcherds $\widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}$,
+(iv) $6$D holomorphic Chern--Simons, (v) Hall--Drinfeld double of
+CoHA, (vi) BRST cohomology on $V_{\Lambda^{2,1}_{II}}\otimes V_{\mathrm{trans}}$,
+(vii) affine Landau--Ginzburg mirror --- are rigorously proved
+equivalent on the Koszul locus.
+
+**Regex trigger.** `seven[~ -]?(incarnations?|framings?|faces|routes|presentations?)|rigorous(ly)?\s+proved?\s+equivalent|all\s+seven\s+identifications?`.
+
+**Protocol (first-principles).**
+(a) RIGHT: the Harmonies synthesis does assemble seven constructions
+    with bridges; the organising question is how they interrelate.
+(b) WRONG: 0 of 7 are rigorously proved equivalent as written.
+    Two are type-errors (grading / ambient mismatch); three are
+    formal or open (bridges at $\hbar^{\leq 2}$ only, or on the
+    $M_{24}$-invariant block only, or conditional on CHL-reduced DT).
+(c) CORRECT: the seven framings are seven distinct constructions
+    linked by conjectural equivalences on the Koszul locus. Each
+    bridge has its own evidence class. TRUTH\_REPORT \S V catalogues
+    the overclaim and prescribes status labels per bridge.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'seven[~ -]?(incarnations?|framings?)|rigorous[ly]*\s+proved\s+equivalent' chapters/**/*.tex frame/**/*.tex`.
+2. LOCALISE: main-theorem statements for $\mathbf H_{\Delta_5}$;
+   chapter-summary paragraphs; appendix-B equivalence statements.
+3. MATH-CHECK: per-bridge, tag as proved / formal / conjectural.
+4. REPAIR: state each of the seven as a construction; label each
+   pairwise bridge with its evidence class (proved, formal,
+   conjectural); never assert global equivalence.
+5. VERIFY: `grep -rEi 'rigorous[ly]+\s+proved\s+equivalent' chapters/ frame/` returns zero.
+
+**Primary.** TRUTH\_REPORT \S V; Borcherds 1998 \emph{Invent Math} 132
+Thm 10.1; Costello 2021 \emph{Notices AMS}; Gritsenko--Nikulin 1998
+\emph{Duke} 94 Thm 2.1; Kerler--Lyubashenko 2001 LMS LNS 262. Paired
+AP: AP-CY203.
+
+#### E2. $\Delta_{E_6}$ Siegel weight is 18, not 16
+
+**Name.** $\Delta_{E_6}$ weight discipline.
+
+**Description.** Writing that the Gritsenko $E_6$-theta singular lift
+$\Delta_{E_6}$ has Siegel weight 16. The actual weight is 18.
+
+**Regex trigger.** `\\Delta_\{?E_?6\}?\s*.*(weight|wt)\s*=?\s*16|wt\(\\Delta_?\{?E_?6\}?\)\s*=?\s*16`.
+
+**Protocol (first-principles).**
+(a) RIGHT: $\Delta_{E_6}$ is the Gritsenko singular-theta lift of the
+    $E_6$ root lattice; it carries a canonical Siegel weight tabulated
+    in Gritsenko--Nikulin 1998.
+(b) WRONG: Siegel weight $16$; this value confuses it with a different
+    $E$-lattice lift (possibly $E_7$ at weight $12$ plus a mis-shift,
+    or $E_8$ at weight $4$ plus a mis-doubling).
+(c) CORRECT: Siegel weight 18. Per Gritsenko--Nikulin 1998
+    \emph{Duke} 94 Thm 4.3 and Gritsenko 1999 \emph{Math Nachr} 199
+    Table 2, the weights of $\Delta_{E_n}$ are tabulated as
+    $(\mathrm{wt}(\Delta_{E_6}), \mathrm{wt}(\Delta_{E_7}),
+    \mathrm{wt}(\Delta_{E_8})) = (18, 12, 4)$. Cross-check: LMFDB
+    Siegel-form row for $\Delta_{E_6}$ (tertiary).
+
+**Protocol.**
+1. DETECT: `grep -nE '\\\\Delta_\{?E_?6\}?.*(weight|wt).*[^0-9]1[68]' chapters/ frame/`.
+2. LOCALISE: citation of $\Delta_{E_6}$ weight in CY-3 reflective-lift
+   enumeration; paramodular-weight appendix tables; CY-C sibling rows.
+3. MATH-CHECK: consult Gritsenko--Nikulin 1998 Thm 4.3.
+4. REPAIR: $16 \to 18$; cite GN 1998 Thm 4.3.
+5. VERIFY: grep returns zero remaining 16-occurrences with
+   $\Delta_{E_6}$ context.
+
+**Primary.** Gritsenko--Nikulin 1998 \emph{Duke} 94 Thm 4.3; Gritsenko
+1999 \emph{Math Nachr} 199 Table 2; Borcherds 1998 \emph{Invent Math}
+132 Thm 10.1. Paired AP: AP-CY204.
+
+#### E3. "Maass spin cover" $\to$ "character twist"
+
+**Name.** Maass-spin-cover terminology discipline.
+
+**Description.** Writing "Maass spin cover" for the half-integral
+extension of the paramodular double cover carrying $\Delta_5$-type
+forms.
+
+**Regex trigger.** `Maass[~ \-]spin[~ \-]cover|Maass[~ \-]spin[~ \-]extension`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Maass 1979 \emph{Math Ann} 242 does construct a genus-1
+    spin lift relevant to half-integral modular forms; the name has
+    a primary source.
+(b) WRONG: The genus-2 object carrying $\Delta_5$ with order-$2$
+    multiplier $\nu_{\Delta_5}$ is a CHARACTER TWIST on $\Gamma^+_N$,
+    not a spin cover. The multiplier is $\chi \colon \Gamma^+_N \to
+    \mu_2$, not a double-cover group structure. "Maass spin cover"
+    conflates the genus-1 spin lift with a genus-2 multiplier.
+(c) CORRECT: use "character twist by $\nu_{\Delta_5}$" or
+    "half-integral weight on the double cover" per TRUTH\_REPORT \S V
+    canonical terminology.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'Maass[~ \-]spin[~ \-]cover' chapters/ frame/ appendices/`.
+2. LOCALISE: modular-form discussion of $\Delta_5$; multiplier
+   paragraphs; Siegel-paramodular-group setup.
+3. MATH-CHECK: the multiplier $\nu_{\Delta_5}$ is a character; no
+   group-theoretic cover structure.
+4. REPAIR: "Maass spin cover" $\to$ "character twist by $\nu_{\Delta_5}$".
+5. VERIFY: grep returns zero.
+
+**Primary.** TRUTH\_REPORT \S V; Gritsenko 1994 \emph{St Petersburg
+Math J} 6 \S 3; Gritsenko--Nikulin 1998 \emph{Duke} 94 \S 2. Paired
+AP: AP-CY205.
+
+#### E4. Pseudo-character $\to$ Chenevier determinant
+
+**Name.** Chenevier-determinant canonical terminology.
+
+**Description.** Writing "pseudo-character" or "Taylor--Wiles
+pseudo-character" for the axiomatic trace-like object in the
+deformation-theoretic analysis of $\mathbf H_{\Delta_5}$ Galois
+representations.
+
+**Regex trigger.** `pseudo[\- ]?character|pseudocharacter|Taylor[\- ]Wiles\s+pseudo`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Taylor--Wiles 1995 did introduce pseudo-characters for
+    the original $R = T$ theorem; the object is real.
+(b) WRONG: "Pseudo-character" is deprecated. Chenevier 2014 introduced
+    the determinant axiomatisation that subsumes pseudo-characters
+    and handles the $p = 2$ case where Taylor--Wiles fails.
+(c) CORRECT: "Chenevier determinant" is canonical (TRUTH\_REPORT
+    \S V, Pattern 295). A Chenevier determinant $D \colon R \to S$
+    satisfies the full degree-$n$ polynomial law; pseudo-characters
+    are the trace-only shadow. The two agree when $p \nmid n!$.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'pseudo[\- ]?character' chapters/ frame/ appendices/`.
+2. LOCALISE: deformation-theoretic sections; Galois-representation
+   discussion; $R = T$ chapters for BKM.
+3. MATH-CHECK: if $p = 2$ case is in scope, pseudo-character fails
+   outright; Chenevier determinant is required.
+4. REPAIR: "pseudo-character" $\to$ "Chenevier determinant", unless
+   specifically invoking the trace-only reduction.
+5. VERIFY: grep returns zero.
+
+**Primary.** Chenevier 2014 \emph{Camb J Math} 2; TRUTH\_REPORT \S V;
+Wiles 1995 \emph{Ann Math} 141 (historical); Taylor--Wiles 1995
+\emph{Ann Math} 141 (historical). Paired AP: AP-CY206.
+
+#### E5. Non-Leech Niemeier BKM count is 7, not 22/23
+
+**Name.** Non-Leech Niemeier BKM enumeration.
+
+**Description.** Writing that there are 22 or 23 non-Leech Niemeier
+Borcherds--Kac--Moody algebras.
+
+**Regex trigger.** `(22|23)\s+non[\- ]Leech\s+Niemeier|non[\- ]Leech[~ ]*Niemeier[~ ]*BKM[~ ]*(2[23])`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Niemeier 1973 classifies 24 even unimodular lattices of
+    rank 24; removing Leech leaves 23 "non-Leech Niemeier lattices".
+(b) WRONG: 23 lattices do NOT all produce Borcherds BKMs. Most fail
+    the reflectivity / modular-form hypothesis required by Borcherds
+    1998 Thm 10.1 for a Borcherds automorphic BKM lift.
+(c) CORRECT: 7 non-Leech Niemeier BKMs, corresponding to the seven
+    reflective Niemeier root-part arithmetic classes admitting
+    Gritsenko--Nikulin reflective lifts (TRUTH\_REPORT \S V). The
+    remaining 16 Niemeier lattices fail reflectivity.
+
+**Protocol.**
+1. DETECT: `grep -nE '\b(22|23)\s+non[\- ]Leech' chapters/ frame/`.
+2. LOCALISE: dimensional-sibling tower enumeration; BKM enumeration
+   appendix.
+3. MATH-CHECK: Scheithauer 2004 for reflectivity; GN 2003 for the
+   arithmetic classes.
+4. REPAIR: $22 \to 7$ or $23 \to 7$.
+5. VERIFY: grep returns zero.
+
+**Primary.** TRUTH\_REPORT \S V; Scheithauer 2004 \emph{Invent Math}
+164; Gritsenko--Nikulin 2003 arXiv:math/0312473 \S 3; Niemeier 1973
+\emph{J Number Theory} 5. Paired AP: AP-CY207.
+
+#### E6. Mukai rank 24 signature $(4, 20)$, not 22 / $(3, 19)$
+
+**Name.** Mukai-lattice rank discipline.
+
+**Description.** Writing that $\Lambda_{\mathrm{Mukai}}(K3)$ has rank
+22 or signature $(3, 19)$.
+
+**Regex trigger.** `Mukai(\s+lattice|\s+rank)?.*(22|\(3,?\s*19\))|\\Lambda_\{?\\?(mathrm|mathcal|text)?[~ ]?Mukai\}?.*rank.*22`.
+
+**Protocol (first-principles).**
+(a) RIGHT: The K3 cohomology $H^2(K3, \mathbb Z) = \mathrm{II}_{3, 19}$
+    has rank 22, signature $(3, 19)$.
+(b) WRONG: The Mukai lattice is NOT the middle cohomology. Mukai 1987
+    defined $\Lambda_{\mathrm{Mukai}}(K3) = H^0 \oplus H^2 \oplus H^4$,
+    equipped with the Mukai pairing $\langle v_1, v_2\rangle =
+    -\int_{K3} v_1^\vee \cdot v_2$.
+(c) CORRECT: $\Lambda_{\mathrm{Mukai}}(K3) = \mathrm{II}_{4, 20}$,
+    rank 24, signature $(4, 20)$. Three lattices to distinguish:
+    $H^2$ rank 22 signature $(3, 19)$; transcendental sublattice
+    $T_X \subseteq H^2$ rank $\leq 22$; Mukai lattice rank 24.
+
+**Protocol.**
+1. DETECT: `grep -nE 'Mukai.*(rank|signature).*22|\\(3,[~ ]*19\\)' chapters/ frame/`.
+2. LOCALISE: Bridgeland-stability paragraphs; Mukai-vector discussion;
+   derived-category sections.
+3. MATH-CHECK: Huybrechts 2016 Ch 16 for rank; Mukai 1987 for pairing.
+4. REPAIR: rank $22 \to 24$; signature $(3, 19) \to (4, 20)$.
+5. VERIFY: grep returns zero.
+
+**Primary.** Mukai 1987 \emph{Nagoya Math J} 108; Huybrechts 2016
+\emph{Lectures on K3 Surfaces} Ch 1, 6, 16; Nikulin 1979 \emph{Izv
+Akad Nauk SSSR} 43; Bridgeland 2008 \emph{Duke} 141. Paired AP: AP-CY208.
+
+#### E7. $\mathcal W_\infty[\lambda]$ vs $\mathcal W_{1+\infty}$: $u(1)$ current quotient
+
+**Name.** $\mathcal W_\infty$-vertex-algebra-family discipline.
+
+**Description.** Conflating $\mathcal W_\infty[\lambda]$ and
+$\mathcal W_{1+\infty}$ as the same vertex algebra.
+
+**Regex trigger.** `\\mathcal\s*W_\{?1\+\\infty\}?\s*=?\s*\\mathcal\s*W_\{?\\infty\}?\s*\[?\\?lambda|W_\{?1\+\\infty\}?\s*=\s*W_\\infty`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Both are one-parameter families of $\mathcal W$-type
+    vertex algebras extending Virasoro; both arise in CoHA /
+    affine-Yangian correspondence.
+(b) WRONG: $\mathcal W_{1+\infty}$ contains a $\widehat{\mathfrak u(1)}$
+    Heisenberg spin-1 current; $\mathcal W_\infty[\lambda]$ is the
+    quotient by that current. The two have different generator counts:
+    $\mathcal W_{1+\infty}$ has generators at spins $1, 2, 3, \ldots$;
+    $\mathcal W_\infty[\lambda]$ at spins $2, 3, 4, \ldots$.
+(c) CORRECT: $\mathcal W_{1+\infty} \twoheadrightarrow
+    \mathcal W_\infty[\lambda]$ by quotienting the spin-1 current.
+    CoHA($\mathbb C^3$) $= Y^+(\widehat{\mathfrak{gl}}_1) \cong
+    \mathcal W_{1+\infty}^+$ (positive half, SV 2013), NOT
+    $\mathcal W_\infty[\lambda]$.
+
+**Protocol.**
+1. DETECT: `grep -nE 'W_\{?1\+\\infty\}?\s*=\s*W_\\infty' chapters/ frame/`.
+2. LOCALISE: CoHA-vertex-algebra identification paragraphs; affine-
+   Yangian / $\mathcal W$-algebra correspondence.
+3. MATH-CHECK: consult Prochazka--Rapcak 2018 for the quotient.
+4. REPAIR: use $\mathcal W_{1+\infty}$ for CoHA($\mathbb C^3$) context;
+   $\mathcal W_\infty[\lambda]$ only when explicitly quotienting by
+   the Heisenberg current.
+5. VERIFY: grep returns zero erroneous equalities.
+
+**Primary.** Schiffmann--Vasserot 2013 \emph{Publ IH\'ES} 118;
+Prochazka--Rapcak 2018 \emph{JHEP} 2018:177; Gaiotto--Rapcak 2019
+arXiv:1903.10024; Prochazka 2015 \emph{JHEP} 1510:077. Paired AP:
+AP-CY209.
+
+#### E8. $\kappa_{\mathrm{cat}}(K3\times E) = 0$ (total), not 2 (fibre)
+
+**Name.** $\kappa_{\mathrm{cat}}$ Künneth-total-vs-fibre discipline.
+
+**Description.** Writing $\kappa_{\mathrm{cat}}(K3 \times E) = 2$,
+the K3 fibre value.
+
+**Regex trigger.** `\\kappa_\{?\\?(mathrm|text)?\{cat\}\}?\s*\(\s*K3\s*\\times\s*E\s*\)\s*=\s*2`.
+
+**Protocol (first-principles).**
+(a) RIGHT: $\chi(\mathcal O_{K3}) = 2$ is a real K3 invariant;
+    $\kappa$ reduces to $\chi(\mathcal O)$ on compact CY at
+    categorical level.
+(b) WRONG: For a PRODUCT of compact CY, $\chi(\mathcal O)$ splits
+    via Künneth: $\chi(\mathcal O_{X \times Y}) = \chi(\mathcal O_X)
+    \cdot \chi(\mathcal O_Y)$. For $K3 \times E$: $\chi(\mathcal O_E)
+    = 0$ (elliptic curve, trivial canonical), so
+    $\chi(\mathcal O_{K3 \times E}) = 2 \cdot 0 = 0$. Reporting 2
+    uses the fibre without the product.
+(c) CORRECT: $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (total space).
+    Distinct invariants: $\kappa_{\mathrm{fibre}}(K3) = 2$;
+    $\kappa_{\mathrm{total}}(K3\times E) = 0$; $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$.
+
+**Protocol.**
+1. DETECT: `grep -nE '\\\\kappa.*\\(.*K3\\s*\\\\times\\s*E.*\\)\\s*=\\s*2' chapters/ frame/`.
+2. LOCALISE: dimensional-sibling $\kappa$ tables; CY-3 census rows;
+   Mukai-Heisenberg identification.
+3. MATH-CHECK: Künneth on Hodge diamond.
+4. REPAIR: $2 \to 0$; add subscript $\kappa_{\mathrm{fibre}}$ vs
+   $\kappa_{\mathrm{total}}$ if ambiguous.
+5. VERIFY: grep returns zero.
+
+**Primary.** Huybrechts 2016 \emph{Lectures on K3 Surfaces}; Künneth
+decomposition on Hodge diamond. Cross-ref: Num1 / AP-CY190; C10
+($\eta^{-48}$ identity); AP-CY68. Paired AP: AP-CY210.
+
+#### E9. CoHA($\mathbb C^3$) = $Y^+$, not full $\mathcal W_{1+\infty}$
+
+**Name.** CoHA-positive-half discipline.
+
+**Description.** Writing CoHA($\mathbb C^3$) $= \mathcal W_{1+\infty}$
+or $= Y(\widehat{\mathfrak{gl}}_1)$ (full affine Yangian).
+
+**Regex trigger.** `CoHA\s*\(\s*\\mathbb\s*C\^?3\s*\)\s*=\s*\\mathcal\s*W_\{?1\+\\infty\}?|CoHA\s*\(\s*\\C\^?3\s*\)\s*=\s*Y\s*\(\s*\\widehat\{?\\mathfrak\{?gl\}?\}?_1\s*\)`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Schiffmann--Vasserot 2013 identifies CoHA($\mathbb C^3$)
+    with a central subalgebra of the affine Yangian of
+    $\widehat{\mathfrak{gl}}_1$; the identification is deep.
+(b) WRONG: CoHA is associative-algebraic (Hall multiplication only),
+    without Hopf structure. SV 2013 gives the POSITIVE half
+    $Y^+(\widehat{\mathfrak{gl}}_1)$; the full $\mathcal W_{1+\infty}$
+    needs Drinfeld doubling of $Y^+$ with $Y^-$.
+(c) CORRECT: CoHA($\mathbb C^3$) $= Y^+(\widehat{\mathfrak{gl}}_1)
+    = \mathcal W_{1+\infty}^+$ (positive half). Full affine Yangian:
+    $Y(\widehat{\mathfrak{gl}}_1) = D(Y^+, Y^-) = \mathcal W_{1+\infty}$
+    via Drinfeld double.
+
+**Protocol.**
+1. DETECT: `grep -nE 'CoHA\\(.*C\\^?3.*\\)\\s*=' chapters/ frame/`.
+2. LOCALISE: SV 2013 citation paragraphs; CoHA / affine-Yangian
+   bridge remarks.
+3. MATH-CHECK: consult SV 2013 Thm 8.2 for positive-half scope.
+4. REPAIR: CoHA $= \mathcal W_{1+\infty}$ (full) $\to$ CoHA $= Y^+$
+   (positive half) $= \mathcal W_{1+\infty}^+$; name Drinfeld doubling
+   when full Yangian is intended.
+5. VERIFY: grep returns zero unreduced equalities.
+
+**Primary.** Schiffmann--Vasserot 2013 \emph{Publ IH\'ES} 118 Thm
+8.2; Kontsevich--Soibelman 2011 \emph{Commun Number Theory Phys} 5;
+Drinfeld 1986 \emph{Dokl Akad Nauk} 289; Prochazka 2015 \emph{JHEP}
+1510:077. Paired AP: AP-CY211.
+
+#### E10. Six routes to $G(K3\times E)$ $\ne$ six $\Phi$-applications
+
+**Name.** $\Phi$-one-output-per-category discipline.
+
+**Description.** Writing that six routes to $G(K3 \times E)$ are
+six applications of $\Phi$ to the same CY-3 category.
+
+**Regex trigger.** `six\s+\\Phi-applications|six\s+routes\s+.*\\Phi|(6|six)\s+\\Phi[\-_]?(applications|outputs)`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Six distinct constructions of a candidate $G(K3 \times E)$
+    have been proposed (Hilbert-scheme + Grojnowski, Nakajima
+    quiver-variety + affine, cohomological DT / BPS, GW / DT,
+    chiral vertex on $E$, Siegel-paramodular Borcherds lift on K3).
+(b) WRONG: $\Phi$ produces ONE output per CY category (up to the
+    two-stage $(\Sigma_{d-1}, C)$-family). Six $\Phi$-applications
+    would be six different input categories, not six routes to
+    one target.
+(c) CORRECT: Six DIFFERENT constructions via six different functors,
+    not six applications of a single $\Phi$. Each construction has
+    its own $\kappa$-fingerprint; their bridges are CONJECTURAL
+    (six-route pairwise CY-C).
+
+**Protocol.**
+1. DETECT: `grep -nEi 'six\s+\\\\Phi|(6|six)\s+\\\\Phi[\-_]?applications' chapters/ frame/`.
+2. LOCALISE: $G(K3\times E)$ construction paragraphs; six-routes
+   discussion; CY-C statements.
+3. MATH-CHECK: $\Phi$ is a single functor applied once per input;
+   the six routes use six different functors.
+4. REPAIR: "six $\Phi$-applications" $\to$ "six different constructions";
+   label each route by its functor.
+5. VERIFY: grep returns zero.
+
+**Primary.** XX. CY-C six-routes comprehensive cache wave-14 entry;
+Oberdieck--Pandharipande 2018 \emph{J Alg Geom} 27; Gritsenko 1999
+\emph{Math Nachr} 199 Thm 6.1; Schiffmann--Vasserot 2013; Grojnowski
+1996. Paired AP: AP-CY212.
+
+#### E11. CY-C / $G(X)$ / super-Yangian each CONJECTURAL
+
+**Name.** Universality-of-existence discipline.
+
+**Description.** Writing CY-C unqualified; asserting $G(X)$ exists
+for arbitrary CY; referring to "super-Yangian" as an existing object.
+
+**Regex trigger.** `CY[\-]?C\s+(holds|is\s+proved)(?!\s+for)|G\(X\)\s+(is\s+constructed|exists)(?!\s+for\s+(K3|specific))|super[\- ]Yangian\s+(is|exists)`.
+
+**Protocol (first-principles).**
+(a) RIGHT: CY-C is proved for K3, $K3\times E$, Fake-Monster,
+    Enriques with ambient-qualifiers; $G(X)$ is constructed for
+    $X = K3$ (Grojnowski), $\mathbb C^3$ (CoHA), $K3\times E$
+    (six-route conjectural); super-Yangian is a programme-specific
+    construction in examples.
+(b) WRONG: (a) CY-C in general is CONJECTURAL; (b) $G(X)$ is
+    UNCONSTRUCTED in general; (c) super-Yangian is CONJECTURAL and
+    not a Kac $\osp$.
+(c) CORRECT: state status per object. Use "CY-C conjecturally / for
+    K3 specifically" / "$G(X)$ constructed for $X = $ K3 /
+    $\mathbb C^3$ / $K3\times E$" / "super-Yangian programme-specific
+    conjectural object, not Kac $\osp$".
+
+**Protocol.**
+1. DETECT: `grep -nEi 'CY[\\-]?C\\s+(holds|is\\s+proved)' chapters/ frame/`.
+2. LOCALISE: CY-C citation paragraphs; $G(X)$ existence statements;
+   super-Yangian definition remarks.
+3. MATH-CHECK: ambient-qualifier discipline (Pattern 236).
+4. REPAIR: qualify each statement with its ambient scope.
+5. VERIFY: grep returns qualified statements only.
+
+**Primary.** Lorgat 2020 arXiv:2004.09030; Schiffmann--Vasserot
+2013 \emph{Publ IH\'ES} 118; Grojnowski 1996 arXiv:alg-geom/9506020.
+Cross-ref: AP-CY11, AP-CY169 (Ret4), AP-CY172 (Ret7). Paired AP:
+AP-CY213.
+
+#### E12. $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal O_{\mathrm{fiber}})$ is $N=1$ coincidence
+
+**Name.** $\kappa_{\mathrm{BKM}}$ universality discipline.
+
+**Description.** Asserting that $\kappa_{\mathrm{BKM}}(\Phi_N) =
+\kappa_{\mathrm{ch}} + \chi(\mathcal O_{\mathrm{fiber}})$ holds
+universally across CHL levels $N \in \{1, 2, 3, 4, 6\}$.
+
+**Regex trigger.** `\\kappa_\{?BKM\}?\s*=\s*\\kappa_\{?ch\}?\s*\+\s*\\chi\(\\?mathcal\s*O_\{?(fiber|fibre|F)\}?\)`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Universal Borcherds-weight identity
+    $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ (Gritsenko 1999 Thm
+    6.1). This is the only universal.
+(b) WRONG: The split $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}}
+    + \chi(\mathcal O_{\mathrm{fiber}})$ fails even at $N = 1$:
+    LHS $= 5$, RHS $= 0 + 0 = 0$; at $N = 2$: LHS $= 4$, RHS $= 1$;
+    at $N = 3$: LHS $= 3$, RHS $= 2$. The "identity" is an
+    accidental coincidence at no level.
+(c) CORRECT: use $c_N(0)/2$ via Gritsenko 1999 Thm 6.1 uniformly;
+    drop the attempted additive split.
+
+**Protocol.**
+1. DETECT: `grep -nE '\\\\kappa_\{?BKM\}?\\s*=\\s*\\\\kappa_\{?ch\}?\\s*\\+' chapters/ frame/`.
+2. LOCALISE: $\kappa$-sibling tables; universal-identity statements.
+3. MATH-CHECK: Gritsenko 1999 Thm 6.1.
+4. REPAIR: replace with $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$.
+5. VERIFY: grep returns zero.
+
+**Primary.** Gritsenko 1999 \emph{Abh Math Sem Hamburg} 69 Thm 6.1;
+Borcherds 1995 \emph{Invent Math} 120; Gritsenko--Nikulin 1998
+\emph{Duke} 94. Cross-ref: AP-CY168 (Ret3); AP-Vol-III-prop-2;
+canonical preamble row 59; C3. Paired AP: AP-CY214.
+
+#### E13. Monster / $\Delta_5$ $\Psi$-siblings, not common-hFA co-shadows
+
+**Name.** $\Psi$-sibling vs common-hFA discipline.
+
+**Description.** Writing that Monster ($V^\natural$ on $\mathrm{II}_{1,1}$)
+and $\mathfrak g_{\Delta_5}$ ($K3$-BKM on $\mathrm{II}_{4,20}$ paramodular)
+are co-$(\Sigma_2, C)$-shadows of a common $E_3$-holomorphic
+factorisation algebra.
+
+**Regex trigger.** `Monster.*\\Delta_5.*(co[\- ]shadow|common\s+hFA|common\s+E_3)|co[\- ]\(\\Sigma[,_]?2,\s*C\)[\- ]shadow`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Dimensional siblings are real: $V^\natural$ at $d = 3$ on
+    $\Lambda_{\mathrm{Monster}}$; $\Delta_5$ at $d = 3$ on
+    K3-paramodular; bridges exist at the automorphic level.
+(b) WRONG: Cartan ranks are incompatible: Monster rank 2 (on
+    $\mathrm{II}_{1,1}$); K3-BKM rank 3 (on $\Lambda^{2,1}_{II}$).
+    Co-shadows of a common $E_3$-hFA would require matching Cartan
+    structure after factorisation; they do not.
+(c) CORRECT: $\Psi$-siblings across distinct hosts. The
+    correspondence is vertical via $\Psi_{d, d+2}$, not horizontal
+    via a single $E_3$-hFA.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'Monster.*\\\\Delta_?5.*(co[\\-]shadow|common\\s+hFA)' chapters/ frame/`.
+2. LOCALISE: dimensional-sibling structural paragraphs; $E_3$-hFA
+   cross-identifications.
+3. MATH-CHECK: compare Cartan ranks; compare lattice ranks.
+4. REPAIR: "common-hFA co-shadow" $\to$ "$\Psi$-sibling across distinct
+   hosts".
+5. VERIFY: grep returns zero.
+
+**Primary.** Borcherds 1992 \emph{Invent Math} 109; Gritsenko--Nikulin
+1998 \emph{Duke} 94; Harvey--Moore 1996 arXiv:hep-th/9510182. Cross-ref:
+C7 (dimensional sibling catalogue). Paired AP: AP-CY215.
+
+#### E14. Fake-Monster on $\mathrm{II}_{25,1}$ non-compact, not $K3\times K3\times E$
+
+**Name.** Fake-Monster host-and-dimension discipline.
+
+**Description.** Writing that Fake-Monster lives at $d = 3$ with
+compact CY host $K3 \times K3 \times E$.
+
+**Regex trigger.** `Fake[\- ]?Monster.*(d\s*=\s*3|K3\s*\\times\s*K3\s*\\times\s*E)|Fake\s+Monster.*compact\s+CY`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Fake-Monster is a real Borcherds BKM (Borcherds 1990),
+    living at a distinct dimensional stratum in the sibling family.
+(b) WRONG: Two errors: (i) stratum: Fake-Monster is at $d = 5$
+    (rank 26 Cartan on $\mathrm{II}_{25, 1}$), not $d = 3$.
+    (ii) host: Fake-Monster has NO compact CY host at any $d$; its
+    natural habitat is the non-compact Lorentzian lattice
+    $\mathrm{II}_{25, 1}$.
+(c) CORRECT: Fake-Monster at $d = 5$ on $\mathrm{II}_{25, 1}$
+    (non-compact), Leech-lattice-based, rank 26 Cartan.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'Fake[\\-]?Monster.*(d\\s*=\\s*3|K3.*K3.*E)' chapters/ frame/`.
+2. LOCALISE: dimensional-sibling tower paragraphs; Fake-Monster host
+   statement.
+3. MATH-CHECK: Borcherds 1990 Thm 1; Scheithauer 2000 Thm 1.
+4. REPAIR: "Fake-Monster at $d = 3$ with $K3 \times K3 \times E$ host"
+   $\to$ "Fake-Monster at $d = 5$ on non-compact $\mathrm{II}_{25, 1}$".
+5. VERIFY: grep returns zero.
+
+**Primary.** Borcherds 1990 \emph{Invent Math} 109; Scheithauer 2000
+\emph{Invent Math} 141; Gritsenko--Nikulin 2003 arXiv:math/0312473.
+Cross-ref: AP-CY169 (Ret4). Paired AP: AP-CY216.
+
+#### E15. CHL Siegel $k_N = 24/(N+1) - 2$
+
+**Name.** CHL Siegel-weight-arithmetic discipline.
+
+**Description.** Writing $k_N \in \{5, 4, 3, 2, 1\}$ as the Siegel
+weights for CHL levels $N \in \{1, 2, 3, 4, 6\}$.
+
+**Regex trigger.** `k_N\s*\\in\s*\\?\{\s*5,\s*4,\s*3,\s*2,\s*1\s*\\?\}|Siegel\s+weight.*\\?\{\s*5,\s*4,\s*3,\s*2,\s*1\s*\\?\}`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Paramodular weights descend by 1 across CHL levels
+    $N \in \{1, 2, 3, 4, 6\}$: $(5, 4, 3, 2, 1)$.
+(b) WRONG: At the SIEGEL level, Gritsenko--Nikulin 1998 Thm 4.3
+    gives $k_N = 24/(N+1) - 2$, yielding $\{10, 6, 4, 3, 2\}$.
+    The descending $\{5, 4, 3, 2, 1\}$ is the PARAMODULAR weight,
+    half the Siegel.
+(c) CORRECT: Siegel $k^{\mathrm{Sieg}}_N = 24/(N+1) - 2 \in
+    \{10, 6, 4, 3, 2\}$; paramodular $k^{\mathrm{par}}_N =
+    k^{\mathrm{Sieg}}_N / 2$. Name (Siegel vs paramodular) at every
+    use.
+
+**Protocol.**
+1. DETECT: `grep -nE '\\{?\\s*5,\\s*4,\\s*3,\\s*2,\\s*1\\s*\\}?.*CHL' chapters/ frame/`.
+2. LOCALISE: CHL weight tables; $\Phi_N$ weight statements.
+3. MATH-CHECK: GN 1998 Thm 4.3; $\kappa_{\mathrm{BKM}} = c_N(0)/2$
+   matches paramodular.
+4. REPAIR: distinguish Siegel vs paramodular; use $\{10, 6, 4, 3, 2\}$
+   for Siegel.
+5. VERIFY: every weight mention names (Siegel vs paramodular).
+
+**Primary.** Gritsenko--Nikulin 1998 \emph{Duke} 94 Thm 4.3; Gritsenko
+1999 \emph{Math Nachr} 199 Table 2; Sen 2008 \emph{JHEP} 0805:098.
+Paired AP: AP-CY217.
+
+#### E16. $[q^{24}]\eta^{-48}$ $\sim 10^{10}$, not $10^{21}$
+
+**Name.** $\eta^{-48}$-coefficient arithmetic discipline.
+
+**Description.** Writing $g_{24} = [q^{24}]\eta^{-48} = 993392557953227803294
+\sim 10^{21}$.
+
+**Regex trigger.** `g_\{?24\}?\s*=\s*9933\d{16,18}|993392557953227803294`.
+
+**Protocol (first-principles).**
+(a) RIGHT: $\eta^{-48}$ has integer Fourier coefficients tracking
+    $24$-fold Heisenberg-Fock counting; Hardy--Ramanujan gives
+    asymptotic $[q^n]\eta^{-48} \sim C n^{-27/4} \exp(4\pi\sqrt n)$.
+(b) WRONG: $993392557953227803294 \sim 10^{21}$ is UNRELATED to
+    $[q^{24}]\eta^{-48}$. Correct leading-order:
+    $\sim \tfrac{1}{\sqrt 2} (24)^{-27/4} \exp(4\pi\sqrt{24})
+    \approx 4.7 \times 10^{10}$.
+(c) CORRECT: $[q^{24}]\eta^{-48}$ of order $\sim 10^{10}$ per
+    Hardy--Ramanujan. The 21-digit giant is fabricated or transcribed
+    from a different $q$-series (e.g.\ a high-index Monster
+    McKay--Thompson coefficient).
+
+**Protocol.**
+1. DETECT: `grep -nE '9933925579|[1-9]\\d{20,}' chapters/ frame/`.
+2. LOCALISE: $\eta^{-48}$ Heisenberg-Mukai computations; partition-
+   function asymptotic paragraphs.
+3. MATH-CHECK: three verification paths: (i) direct eta expansion;
+   (ii) Hardy--Ramanujan asymptotic; (iii) Kac 1990 Ch 12.
+4. REPAIR: delete fabricated giant; cite asymptotic scale.
+5. VERIFY: grep returns zero fabricated-giant matches.
+
+**Primary.** Hardy--Ramanujan 1918 \emph{Proc Lond Math Soc} 17;
+Mukai 1987 \emph{Nagoya Math J} 108; Kac 1990 \emph{Infinite Dim Lie
+Algebras} Ch 12. Paired AP: AP-CY218.
+
+#### E17. Conway $\Psi^{\mathrm{metap}}$ super $c = 12$, not bosonic 5th image
+
+**Name.** Conway-sibling stratum discipline.
+
+**Description.** Writing that Conway group acts as the 5th bosonic
+$\Psi$-image in the dimensional sibling tower.
+
+**Regex trigger.** `Conway.*bosonic.*(5th|fifth)|fifth\s+bosonic\s+\\Psi|Conway.*\\Psi[\- ]image.*bosonic`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Conway $\mathrm{Co}_0 / \mathrm{Co}_1$ does participate
+    in the K3 / Leech sibling family; Duncan 2007 exhibits Conway
+    moonshine on a $c = 12$ SVOA.
+(b) WRONG: Conway moonshine is SUPERCONFORMAL at $c = 12$ (Duncan
+    2007) on the Leech lattice. No free-fermion realisation of
+    $V^{f\natural}$ realises Conway at integer-$c$ bosonic. Placing
+    Conway in the bosonic tower collides with Fake-Monster (bosonic
+    at $c = 26$).
+(c) CORRECT: Conway sibling lives at $\Psi^{\mathrm{metap}}$
+    (super-metaplectic) $c = 12$. Dimensional-sibling tower:
+    Monster bosonic $c = 24$; K3-BKM paramodular $c$-dependent;
+    Fake-Monster bosonic $c = 26$; Conway super-metaplectic $c = 12$;
+    Enriques bosonic $c = 12$ (distinct from Conway).
+
+**Protocol.**
+1. DETECT: `grep -nEi 'Conway.*bosonic.*(5th|fifth)|Conway.*c\\s*=\\s*24' chapters/ frame/`.
+2. LOCALISE: dimensional-sibling $\Psi$-tower tables.
+3. MATH-CHECK: Duncan 2007 for Conway's superconformal $c = 12$
+   realisation.
+4. REPAIR: "Conway bosonic $5$th $\Psi$-image" $\to$ "Conway
+   $\Psi^{\mathrm{metap}}$ super-metaplectic $c = 12$".
+5. VERIFY: grep returns zero.
+
+**Primary.** Duncan 2007 \emph{Notices AMS} 54; Duncan--Mack-Crane
+2016 arXiv:1506.06198; Conway--Sloane 1993 \emph{Sphere Packings}
+Ch 10; Harvey--Moore 1996. Paired AP: AP-CY219.
+
+#### E18. Four Yangian types: classical, chiral, spectral, dg-shifted
+
+**Name.** Yangian-type enumeration.
+
+**Description.** Writing "three Yangian variants" (classical,
+dg-shifted, chiral) and omitting the spectral Yangian.
+
+**Regex trigger.** `three\s+Yangian\s+(variants?|types?)|(3|three)\s+types\s+of\s+Yangian`.
+
+**Protocol (first-principles).**
+(a) RIGHT: The programme distinguishes multiple Yangian-type objects
+    on different spaces with different operadic structures (Vol I
+    feedback, Wave 14/15 audits).
+(b) WRONG: Four variants, not three: (i) classical Yangian
+    $Y_\hbar(\mathfrak g)$ (Drinfeld 1985, on a point); (ii) chiral
+    Yangian $Y_\hbar^{\mathrm{ch}}(\mathfrak g, C)$ (Costello--Witten--Yamazaki
+    2017, $E_1$-chiral on curve); (iii) spectral Yangian
+    $Y_\hbar^{\mathrm{sp}}(\mathfrak g, X)$ (Maulik--Okounkov 2012,
+    on equivariant cohomology); (iv) dg-shifted affine Yangian
+    $Y_\hbar^{[d]}(\mathfrak g)$ (Davison--Meinhardt / SV).
+(c) CORRECT: four Yangian types. Type-errors: conflating chiral and
+    spectral (both on varieties, different derived-category levels);
+    conflating classical and dg-shifted (both use $\hbar$, different
+    operadic levels).
+
+**Protocol.**
+1. DETECT: `grep -nE 'three\\s+Yangian|\\b3\\s+types?\\s+of\\s+Yangian' chapters/ frame/`.
+2. LOCALISE: Yangian-type discipline remarks; spectral-vs-chiral
+   distinctions.
+3. MATH-CHECK: consult Vol I \texttt{feedback\_yangian\_type\_distinction.md}.
+4. REPAIR: "three Yangian variants" $\to$ "four Yangian types
+   (classical, chiral, spectral, dg-shifted)".
+5. VERIFY: grep returns zero three-Yangian statements.
+
+**Primary.** Drinfeld 1985 \emph{Dokl Akad Nauk} 283; Costello--Witten--Yamazaki
+2017 arXiv:1709.09993; Maulik--Okounkov 2012 arXiv:1211.1287;
+Schiffmann--Vasserot 2013 \emph{Publ IH\'ES} 118. Paired AP: AP-CY220.
+
+#### E19. $\Phi_{10}$ Borcherds-mult vs $\Delta_5$ Gritsenko-add
+
+**Name.** Borcherds-mult-vs-Gritsenko-add construction distinction.
+
+**Description.** Treating $\Delta_5$ and $\Phi_{10}$ as interchangeable
+BKM Siegel forms.
+
+**Regex trigger.** `\\Delta_5\s*(and|=|\\equiv)\s*\\Phi_\{?10\}?\s+(are\s+interchangeable|same\s+(form|lift|construction))|\\Delta_5\s*=\s*\\Phi_\{?10\}?\s+up\s+to\s+normalisation`.
+
+**Protocol (first-principles).**
+(a) RIGHT: Numerical identity $\Phi_{10} = \Delta_5^2$ holds at the
+    Siegel-form level (Gritsenko 1994 Thm).
+(b) WRONG: Two DIFFERENT Borcherds-lift constructions. $\Phi_{10}$
+    is the Borcherds MULTIPLICATIVE lift of the K3 elliptic genus
+    $\phi_{0,1}$; $\Delta_5$ is the Gritsenko ADDITIVE lift of
+    $\eta^9 \vartheta_1$. Same target numeric relation, different
+    construction inputs.
+(c) CORRECT: $\Phi_{10} = \mathrm{BorcherdsMult}(\phi_{0,1})$ (mult);
+    $\Delta_5 = \mathrm{GritsenkoAdd}(\eta^9 \vartheta_1)$ (add).
+    Physical: $\Phi_{10}$ is DVV dyonic $1/4$-BPS; $\Delta_5$ is
+    chiral-half. Name (Borcherds-mult vs Gritsenko-add) AND
+    (chiral-half vs full-dyonic) at every use.
+
+**Protocol.**
+1. DETECT: `grep -nE '\\\\Delta_5\\s*(and|=)\\s*\\\\Phi_\\{?10\\}?\\s+(interchangeable|same)' chapters/ frame/`.
+2. LOCALISE: K3-BKM lift construction paragraphs; DVV dyonic-BPS
+   discussion.
+3. MATH-CHECK: Borcherds 1998 Thm 10.1 (mult); Gritsenko 1999 (add).
+4. REPAIR: "interchangeable" $\to$ "distinct lift constructions with
+   numerical identity $\Phi_{10} = \Delta_5^2$".
+5. VERIFY: grep returns zero interchangeability claims.
+
+**Primary.** Borcherds 1998 \emph{Invent Math} 132 Thm 10.1; Gritsenko
+1994 \emph{St Petersburg Math J} 6 \S 3; Gritsenko 1999 \emph{Math
+Nachr} 199; Dijkgraaf--Verlinde--Verlinde 1997 \emph{Nucl Phys B} 484.
+Cross-ref: AP-CY202. Paired AP: AP-CY221.
+
+#### E20. Three-faces identity: three rows inscribed, two notes-only
+
+**Name.** Three-faces universal-claim discipline.
+
+**Description.** Writing that the three-faces identity $\hbar^2
+K^{\kappa_{\mathrm{ch}}} = -1$ holds universally across all five
+$\Psi$-siblings (Monster $K=2$, K3-BKM $K=8$, Fake-Monster $K=50$,
+Enriques $K=4$, Conway metaplectic $K=2$).
+
+**Regex trigger.** `three[\- ]faces.*universal|universal.*three[\- ]faces|all\s+five.*\\Psi[\- ]siblings.*three[\- ]faces`.
+
+**Protocol (first-principles).**
+(a) RIGHT: The row-wise identity $\hbar^2 K^{\kappa_{\mathrm{ch}}}
+    = -1$ with family-dependent $K$ does hold in specific inscribed
+    rows.
+(b) WRONG: Per-row proved only for THREE rows, not five: Monster
+    ($K = 2$) at `k3e_bkm_chapter.tex:3856`; K3-BKM ($K = 8$) at
+    `k3e_bkm_chapter.tex:3955`; Fake-Monster ($K = 50$) at
+    `k3e_bkm_chapter.tex:4005`. Enriques ($K = 4$) and Conway
+    (metaplectic $K = 2$) are notes-only, not inscribed.
+(c) CORRECT: three rows proved in chapter; two rows notes-only
+    (inscription pending). Every universality claim must name exactly
+    which rows are inscribed.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'three[\\-]faces.*universal|five.*\\\\Psi[\\-]siblings.*three[\\-]faces' chapters/ frame/`.
+2. LOCALISE: three-faces synthesis paragraphs; universal-identity
+   statements.
+3. MATH-CHECK: visit the three file:line anchors above for the three
+   proved rows.
+4. REPAIR: "universal across all five" $\to$ "three rows inscribed
+   (Monster, K3-BKM, Fake-Monster), two notes-only (Enriques, Conway)".
+5. VERIFY: grep returns zero.
+
+**Primary.** \texttt{chapters/examples/k3e\_bkm\_chapter.tex}
+file:line 3856 / 3955 / 4005; canonical preamble row $K^\kappa$;
+three-faces synthesis entry in this cache. Paired AP: AP-CY222.
+
+#### E21. CoHA associative monoidal, not vertex algebra (AP-CY7 reinforce)
+
+**Name.** CoHA-is-not-a-vertex-algebra reinforcement.
+
+**Description.** Writing CoHA as if it were a vertex algebra.
+Reinforces AP-CY7; recurs in Harmonies-synthesis context.
+
+**Regex trigger.** `CoHA\s+is\s+(a\s+)?(vertex|chiral)\s+algebra|CoHA.*chiral\s+algebra`.
+
+**Protocol (first-principles).**
+(a) RIGHT: CoHA carries rich structure (Hall multiplication, grading,
+    equivariant cohomology of moduli stack); it sits adjacent to
+    chiral algebras via SV's identification.
+(b) WRONG: CoHA is ASSOCIATIVE MONOIDAL (Kontsevich--Soibelman 2011);
+    no factorisation data, no OPE, no conformal vector, no
+    state-operator correspondence. Not a vertex algebra.
+(c) CORRECT: CoHA is associative-algebraic, $E_1$-native on a point.
+    Chiral / vertex structure requires (a) functor $\Phi_{\mathcal C}$
+    (CY-to-chiral), or (b) explicit factorisation-homology
+    construction. Hall multiplication alone does not yield chirality.
+
+**Protocol.**
+1. DETECT: `grep -nEi 'CoHA\\s+is\\s+(a\\s+)?(vertex|chiral)\\s+algebra' chapters/ frame/`.
+2. LOCALISE: CoHA $\to$ chiral bridge paragraphs; SV-identification
+   statements; Harmonies-synthesis prose.
+3. MATH-CHECK: Kontsevich--Soibelman 2011 for associative monoidal
+   structure.
+4. REPAIR: insert $\Phi$-arrow step; qualify CoHA as associative-only.
+5. VERIFY: grep returns zero.
+
+**Primary.** Kontsevich--Soibelman 2011 \emph{Commun Number Theory
+Phys} 5; Schiffmann--Vasserot 2013 \emph{Publ IH\'ES} 118;
+Costello--Gwilliam 2017 Vol 1 Ch 5. Cross-ref: AP-CY7, AP-CY15W
+(Wave 15 $\Phi$-arrow discipline), C1 (two-stage factorisation).
+Paired AP: AP-CY223.
+
+#### E22. $\Phi_d$ output $d$-dependent per $(\Sigma_{d-1}, C)$ (FM43 reinforce)
+
+**Name.** $\Phi_d$-output $d$-dependence reinforcement.
+
+**Description.** Writing $\Phi_d$ output as $d$-independent; reinforces
+FM43 / AP-CY172.
+
+**Regex trigger.** `\\Phi_d.*(d[\- ]independent|same\s+output\s+across\s+d)|\\Phi_d\s+output.*independent\s+of\s+d`.
+
+**Protocol (first-principles).**
+(a) RIGHT: $\Phi_d$ has a $d$-parametric structure with
+    $E_{n(d)}$-chiral output per Francis 2013 (n(d) = $\infty, 2, 1$
+    at $d = 1, 2, \geq 3$). The programme's $\Phi_d$ produces a
+    family of outputs indexed by $(\Sigma_{d-1}, C)$.
+(b) WRONG: $\Phi_d$ output is $d$-dependent per $(\Sigma_{d-1}, C)$
+    choice: a single CY$_d$ category admits a FAMILY of $E_1$-chiral
+    shadows indexed by $(\Sigma_{d-1}, C)$.
+(c) CORRECT: two-stage factorisation $\Phi_d = \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1}, C}
+    \circ \Phi^{\mathrm{FA}}_d$. Stage 1 canonical $E_d$-hFA; Stage 2
+    factorisation homology over $\Sigma_{d-1}$ restricted to $C$.
+
+**Protocol.**
+1. DETECT: `grep -nE '\\\\Phi_d.*d[\\-]independent' chapters/ frame/`.
+2. LOCALISE: $\Phi$ definition paragraphs; CY-to-chiral introduction.
+3. MATH-CHECK: consult Vol III \texttt{cy\_to\_chiral.tex} two-stage
+   factorisation.
+4. REPAIR: "$\Phi_d$ output $d$-independent" $\to$ "$\Phi_d$ output
+   $d$-dependent per $(\Sigma_{d-1}, C)$-family; a CY$_d$ category
+   admits a family of $E_1$-chiral shadows".
+5. VERIFY: grep returns zero $d$-independent claims.
+
+**Primary.** Francis 2013 \emph{Geom Topol} 17 Thm 2.29; Costello--Gwilliam
+2017 Vol 2 \S 10-11; Costello--Li 2020 arXiv:1505.06703. Cross-ref:
+FM43 / AP-CY172 / AP-CY F8 / AP-CY144. Paired AP: AP-CY224.
+
+#### E23. $K_0^{\mathrm{num}}(K3)$ rank 24, not 22
+
+**Name.** $K_0^{\mathrm{num}}(K3)$ rank discipline.
+
+**Description.** Writing $\mathrm{rk}\,K_0^{\mathrm{num}}(K3) = 22$.
+
+**Regex trigger.** `K_0\^?\{?\\?(mathrm|text)?\{num\}\}?\s*\(\s*K3\s*\)\s*.*(rank|\\mathrm\{rk\}|rk).*22|\\mathrm\{rk\}\s*K_0\^?\{?num\}?.*22`.
+
+**Protocol (first-principles).**
+(a) RIGHT: $K_0^{\mathrm{num}}(K3)$ is the numerical K-theory of
+    $D^b\mathrm{Coh}(K3)$; its Mukai-vector identification relates
+    it to cohomology.
+(b) WRONG: Confuses $K_0^{\mathrm{num}}$ (rank 24) with the
+    transcendental sublattice (rank $\leq 22$). For generic K3 with
+    Picard 0, transcendental $= H^2 = \mathrm{II}_{3, 19}$ rank 22;
+    but $K_0^{\mathrm{num}}(K3) = \Lambda_{\mathrm{Mukai}} =
+    \mathrm{II}_{4, 20}$, rank 24.
+(c) CORRECT: $K_0^{\mathrm{num}}(K3) = \mathrm{II}_{4, 20}$, rank 24,
+    signature $(4, 20)$. Mukai pairing $\chi^{\mathrm{Muk}}(E, F) =
+    -\chi(E, F)$. Three invariants: $K_0^{\mathrm{num}}$ rank 24
+    (total); $H^2$ rank 22; $T_X$ rank $\leq 22 - \rho$.
+
+**Protocol.**
+1. DETECT: `grep -nE 'K_0\\^?\\{?num\\}?.*K3.*rank.*22' chapters/ frame/`.
+2. LOCALISE: K3 derived-category paragraphs; Bridgeland-stability
+   setup.
+3. MATH-CHECK: Huybrechts 2016 Ch 16 for $K_0^{\mathrm{num}}$ rank;
+   Mukai 1987 for pairing.
+4. REPAIR: rank $22 \to 24$; distinguish $K_0^{\mathrm{num}}$ from
+   $H^2$ from $T_X$.
+5. VERIFY: grep returns zero.
+
+**Primary.** Mukai 1987 \emph{Nagoya Math J} 108; Huybrechts 2016
+\emph{Lectures on K3 Surfaces} Ch 16; Bridgeland 2008 \emph{Duke} 141.
+Cross-ref: E6 / AP-CY208. Paired AP: AP-CY225.
+
+#### E24. Seven framings = seven constructions, not seven $\Phi$-applications (E1 / E10 reinforce)
+
+**Name.** Seven-framings-are-not-$\Phi$-applications reinforcement.
+
+**Description.** Writing that the seven framings of $\mathbf H_{\Delta_5}$
+are seven $\Phi$-applications. Reinforces E1 / E10.
+
+**Regex trigger.** `seven\s+\\Phi[\-_]?applications|(7|seven)\s+applications\s+of\s+\\Phi|seven\s+framings?\s+via\s+\\Phi`.
+
+**Protocol (first-principles).**
+(a) RIGHT: The seven-framings tower is a real organising synthesis;
+    the seven objects are real constructions; bridges are real
+    conjectures.
+(b) WRONG: Seven framings are constructions via SEVEN DIFFERENT
+    FUNCTORS (not seven $\Phi$-applications). $\Phi$ produces ONE
+    output per CY$_d$ category (with $(\Sigma_{d-1}, C)$ family).
+(c) CORRECT: Seven framings capture seven distinct ways to package
+    / realise / relate the $\Phi$-output: (i) classical limit;
+    (ii) quasi-Hopf deformation; (iii) $6$D-hCS realisation;
+    (iv) Hall--Drinfeld double; (v) BRST construction; (vi) affine-LG;
+    (vii) $\Phi$ itself.
+
+**Protocol.**
+1. DETECT: `grep -nE 'seven\\s+\\\\Phi[\\-_]?applications' chapters/ frame/`.
+2. LOCALISE: seven-framings tower paragraphs; $\Phi$-arrow remarks.
+3. MATH-CHECK: list the seven functors; verify $\Phi$ appears once.
+4. REPAIR: "seven $\Phi$-applications" $\to$ "seven different
+   constructions / seven framings via seven different functors".
+5. VERIFY: grep returns zero.
+
+**Primary.** TRUTH\_REPORT \S V; Borcherds 1998 \emph{Invent Math}
+132 Thm 10.1; Costello 2021 \emph{Notices AMS}; Gritsenko--Nikulin
+1998 \emph{Duke} 94; C1 (two-stage factorisation). Cross-ref: E1 /
+AP-CY203, E10 / AP-CY212. Paired AP: AP-CY226.
+
+---
+
+#### E25. 6d hCS anomaly-free locus — CANONICAL-ANOM-LOCUS (form c)
+
+**Name.** 6d hCS anomaly-free locus canonical form with $E_6$ strict
+exclusion and $A_2$ refined/unrefined distinction.
+
+**Description.** Writing any of the following antipattern forms for
+the 6d hCS anomaly-free locus on a CY$_3$:
+- Form (a) strict: ``anomaly-free $\iff$ Deligne $\setminus \{E_6,
+  A_2\}$'' without $A_2$-refined / $A_2$-unrefined distinction and
+  without the $K^{-1/2}$-refinement clause;
+- Form (b): ``anomaly-free $\iff$ Deligne $\setminus \{E_6\}$''
+  admitting undifferentiated $A_2$;
+- Full-Deligne-safe: ``anomaly-free $\iff$ full Deligne series'';
+- Cubic-only reading placing $E_6$ among ``$d^{abc} = 0$ safe'' algebras.
+
+**Regex trigger.**
+```
+Deligne.*\\setminus.*\\{E_6,\s*A_2\\}(?!.*refined)      # form (a)
+Deligne.*\\setminus.*\\{E_6\\}(?!.*A_2)                  # form (b)
+anomaly-free.*\\{A_1,\s*A_2,\s*G_2,\s*D_4,\s*F_4,\s*E_6  # full-Deligne
+(cubic|d\^\\{abc\\}).*(E_6|F_4|G_2).*safe                # cubic-only
+```
+
+**Protocol (first-principles).**
+(a) RIGHT: the Deligne exceptional series carries universal tensor
+    identity $\mathrm{tr}_{\mathrm{adj}}T^4 = \alpha_{\mathfrak g}
+    (\mathrm{tr}_{\mathrm{adj}}T^2)^2$ factorising the quartic
+    Casimir uniformly across $\{A_1, A_2, G_2, D_4, F_4, E_6, E_7,
+    E_8\}$. $E_6$ carries $\mathrm{Sym}^3(\mathbf{27}) \ne 0$ cubic
+    Jordan invariant $d^{abc}$ on $\mathfrak j_3^{\mathbb O}$;
+    $A_2 = \mathfrak{su}(3)$ carries the Gell-Mann $d$-tensor.
+(b) WRONG: each of forms (a), (b), full-Deligne, cubic-only
+    misrepresents the native-ambient locus. Form (a) lumps
+    $A_2$-refined with $A_2$-unrefined (wrongly excludes refined
+    sector); form (b) admits $A_2$-unrefined with live $d^{abc}$;
+    full-Deligne misses $E_6$ cubic; cubic-only reading placing
+    $E_6$ in a ``$d^{abc} = 0$'' safe set contradicts the Jordan
+    invariant.
+(c) CORRECT — CANONICAL-ANOM-LOCUS (form c): the native-ambient
+    6d hCS anomaly-free locus reads
+    $$\mathrm{Anom}_1 = 0 \iff \mathfrak g \in
+    \bigl(\mathrm{Deligne}^{\mathrm{exc}} \setminus \{E_6,\,
+    A_2\text{-unrefined}\}\bigr) \cup \{\mathrm{abelian}\}
+    \cup \{\mathrm{super-str}_{\mathrm{ad}} = 0\}
+    \cup \{\widehat{\mathfrak g}_{-h^\vee} \otimes K^{-1/2}
+    \text{-refined}\}.$$
+    Native-ambient distinctions:
+    - $E_6$ STRICTLY excluded. No refinement in the programme's
+      toolkit kills $\mathrm{Sym}^3(\mathbf{27})$ cubic $d^{abc}$
+      within native ambient; the $K^{-1/2}$ critical twist
+      addresses the quadratic, not the cubic.
+    - $A_2$-unrefined excluded: live $d^{abc}$ on $\mathfrak{su}(3)$
+      and live critical-level quadratic obstruction.
+    - $A_2$-refined INSIDE the locus: Feigin--Frenkel critical-level
+      $K^{-1/2}$ twist kills the quadratic; Dimofte-slab
+      anomaly-inflow from Vol II Part V provides Green--Schwarz
+      cubic cancellation.
+    - $\{A_1, G_2, D_4, F_4, E_7, E_8\}$ unconditionally inside.
+    Two obstructions distinguished: quartic adjoint Casimir
+    (Deligne-killed universally via factorisation, including for
+    $A_2, E_6$) vs cubic $d^{abc}$ (nonzero for $A_2, E_6$; cured
+    only in native ambient by Green--Schwarz-type inflow, operative
+    for $A_2$-refined, not for $E_6$).
+
+**Protocol.**
+1. DETECT: run the four regex triggers against
+   `chapters/**/*.tex`, `frame/**/*.tex`, `notes/**/*.md`.
+2. LOCALISE: main-theorem statements for 6d hCS anomaly cancellation;
+   corollary / remark blocks citing Deligne exceptional series;
+   cross-volume ledger rows E14.
+3. MATH-CHECK: verify the inscription names both obstructions
+   (quartic vs cubic), carries the $A_2$-unrefined qualifier, and
+   cites Green--Schwarz / critical-twist refinement data.
+4. REPAIR: replace form (a)/(b)/full-Deligne/cubic-only with
+   canonical (c) form above.
+5. VERIFY: re-run the regex triggers; zero matches in reader-facing
+   `.tex`.
+
+**Primary.** Deligne 1996 \emph{CR Acad Sci Paris} 322 (exceptional
+series universal identity); Cohen--de Man 1996 \emph{CR Acad Sci
+Paris} 322 (Vogel plane $\alpha_{\mathfrak g}$); Cvitanović 2008
+\emph{Group Theory} Ch 20 ($E_6$ cubic Jordan invariant); Baez 2002
+\emph{Bull AMS} 39 (Jordan algebra $\mathfrak j_3^{\mathbb O}$);
+Frampton--Kephart 1983 \emph{Phys Rev Lett} 50, 1347 (cubic-Casimir
+classification); Witten 1984 \emph{Comm Math Phys} 92, 455
+(Green--Schwarz); Candelas--Horowitz--Strominger--Witten 1985
+\emph{Nucl Phys B} 258, 46; Costello 2011 AMS Ch 5 Thm 5.6.1;
+Feigin--Frenkel 1992 \emph{Comm Math Phys} 147 (critical-level
+$K^{-1/2}$ twist); Dimofte 2014 slab anomaly-inflow. Cross-ref:
+Vol I AP979 / Pattern 445; V2-AP157 / AP-V2-54; AP-CY262 canonical
+form; AP-CY50-E14 cross-volume ledger.
+
+Paired AP: AP-CY262 (Vol III canonical form).
+
+---
+
+**Cross-reference summary.** Entries E1--E24 catalogue 24
+confusion patterns from the 6d hCS audit + Harmonies synthesis
+session of 2026-04-22. Entry E25 is the canonical-form (c)
+6d hCS anomaly-free locus appended via cross-volume propagation.
+They pair one-to-one with AP-CY203--AP-CY226 (and AP-CY262 for E25)
+in `notes/antipatterns_catalogue.md` and rows E1--E24 in
+`appendices/first_principles_cache.md`. Hook integration: the
+regex triggers above extend the PostToolUse `beilinson-gate.sh`
+sweep; a match in reader-facing `.tex` under `chapters/`, `frame/`,
+`examples/`, `theory/`, `connections/`, `bibliography/` emits an
+ISSUE. Matches in `notes/`, `FRONTIER.md`, commit messages, the
+local `memory/`, compute scripts, and private scaffolding are not
+violations.
+

@@ -12,9 +12,11 @@ Seeded from adversarial audit 2026-04-16 (first_principles_cache.md #57-68).
 
 ---
 
-## prop:bkm-weight-universal (kappa_BKM = c_N(0)/2) — HEALED at N=1 2026-04-17
+## prop:bkm-weight-universal (kappa_BKM = c_N(0)/2) — HEALED 2026-04-22 (W19-Z4 closure)
 
-**Status:** Manuscript clean. Engine N=1 case has genuine disjoint-source verification installed. Engine N=2..8 (orbifold cases) still pending Mathieu-twined verification — future compute-side work.
+**Status:** Manuscript clean and scope-saturated. Wave-19 Z4 (2026-04-22) inscribes the universal Borcherds-weight identity uniformly across all eight Gritsenko--Cléry simplest-divisor forms --- not just the 5 CHL orbifolds --- under the correct cover assignment $G^{(N)} \in \{\mathrm{Sp}_4, \mathrm{Mp}_4, \widetilde{\mathrm{Mp}}_4\}$, supplying the disjoint automorphic source for each row. See `notes/wave19_z4_N578_joint_automorphic.tex` Theorem `wn:thm:wave19-z4-universal-8`; closing note `notes/tautology_registry_healings_20260422.tex` §Entry~1.
+
+**Prior state (2026-04-17):** Manuscript clean. Engine N=1 case has genuine disjoint-source verification installed. Engine N=2..8 (orbifold cases) still pending Mathieu-twined verification.
 
 **File:** chapters/examples/k3_chiral_algebra.tex (manuscript), compute/tests/test_kappa_bkm_universal.py::TestIndependentVerificationN1 (engine).
 
@@ -58,6 +60,17 @@ Seeded from adversarial audit 2026-04-16 (first_principles_cache.md #57-68).
 - Engine-side independent verification of the Goodwillie tower convergence for compact non-connective A (or formality verification for specific compact CY_3 A_∞ models).
 - This is the chain-level rectification work. Several existing engines verify the formal cases; the compact non-formal case requires either (a) explicit chain-level rectification of [m_3, B^(2)] for specific non-formal CY_3 A_∞ algebras (e.g., quintic), or (b) a direct construction of the E_3-lift on a concrete family.
 
+**Scope (2026-04-22):** `thm:derived-framing-obstruction` (the CY-A_3 inf-categorical theorem, alias `thm:cy-a-3-inf-cat`; companion statement `thm:derived-framing-m3b2` at `chapters/theory/m3_b2_obstruction.tex` L671) holds for $A = \HH_\bullet(\cC)$ **connective and unit-connected** — the two hypotheses now surfaced explicitly in the theorem statement. The precise conditions the proof uses are:
+
+- $\pi_0(A) = k$ (unit-connectedness: $\HH^0(\cC) = k$, one vacuum state),
+- $\pi_i(A) = 0$ for $i < 0$ (connectivity: $\HH_n(\cC) = 0$ for $n < 0$ in homological grading / equivalently $A_{<0} = 0$ in cohomological grading).
+
+Step 2 of the proof (bar-resolution argument) uses the identification $\bar{A} = A_{\geq 1}$, which requires **both** hypotheses jointly: unit-connectedness supplies the augmentation $\varepsilon\colon A \to k$ and the identification $\bar{A} = A_{\geq 1}$; connectivity supplies $A_{<0} = 0$ so that $\bar{A}[1]$ is concentrated in degrees $\geq 2$ and the bar-filtration spectral sequence has $E_1^{-n,n-2} = 0$ for $n \geq 2$. Without connectivity the degree bound on $(\bar{A}[1])^{\otimes n}$ fails and $\HH^{-2}_{E_1}(A, A)$ need not vanish. Step 3 (Goodwillie tower) likewise uses connectivity of $A^{\otimes k}$ to bound the connectivity of $\mathrm{Map}(S^{k-1}, A^{\otimes k})$.
+
+**Outside this scope** — compact CY$_3$ with chain-level Serre self-duality $\HH_{-3}(\cC) \cong \HH_0(\cC)^* \cong k^* \neq 0$ (quintic, $K3 \times E$, complete-intersection threefolds) — $A$ is non-connective; the Kontsevich–Soibelman inf-categorical morphism preservation is **not established** from the bar-filtration argument alone. The chain-level lane (Costello TCFT, `thm:total-ainf-compat` at `chapters/theory/m3_b2_obstruction.tex` L531-545) and the operadic lane (open-closed TCFT on $\overline{\mathcal{M}}_{0,n}^{\mathrm{open}}$) remain available, but the inf-categorical lift is **conjectural**, conditional on either (a) chain-level formality of the underlying $A_\infty$-category, or (b) Goodwillie convergence in the non-connective category via Francis–Gaitsgory machinery. The three-level hierarchy (`def:three-levels` at `chapters/theory/m3_b2_obstruction.tex` L779) organises this: Level 1 (strict) and Level 2 (homotopy) carry without the scope restriction; Level 3 (derived / inf-categorical) is what the scope restriction controls.
+
+Cross-reference: the consolidated three-tier statement now invokes `def:three-levels` from within `thm:derived-framing-obstruction` (`chapters/theory/cy_to_chiral.tex` L2517 remark `rem:derived-framing-three-levels`) and from within `thm:derived-framing-m3b2` (`chapters/theory/m3_b2_obstruction.tex` L692 remark `rem:derived-framing-m3b2-three-levels`).
+
 ---
 
 ## prop:cy-a-three-saga-resolution-costello (total {b, B^(2)} = 0) — PARTIALLY HEALED 2026-04-17
@@ -96,11 +109,11 @@ Seeded from adversarial audit 2026-04-16 (first_principles_cache.md #57-68).
 
 ---
 
-## sec:k3e-six-routes (Six routes to G(K3 × E)) — HEALED 2026-04-17
+## sec:k3e-six-routes (Six routes to G(K3 × E)) — HEALED 2026-04-22 (two-stage factorisation structural rewrite)
 
-**Status:** HEALED via structural rewrite. AP-CY60 properly cited; convergence claim correctly tagged as content of CY-C.
+**Status:** HEALED via structural rewrite to the two-stage factorisation $\Phi_3 = \mathrm{Sp}_{\Sigma_2, C} \circ \Phi^{\mathrm{FA}}_3$ (Theorem `thm:phi-two-stage-factorisation`). The six routes are three-tier hierarchy: (tier 1) one canonical $E_3$-holomorphic factorisation algebra $\Phi^{\mathrm{FA}}_3(D^b\mathrm{Coh}(K3 \times E))$; (tier 2) one specialisation datum family $\{(\Sigma_2^{(j)}, C)\}_{j=1}^{6}$; (tier 3) six $E_1$-chiral shadows on $C$, one per $(\Sigma_2^{(j)}, C)$ pair. Route 4 is the CY-A$_3$ specialisation; Routes 1, 2, 3, 5, 6 are alternative specialisations of the same canonical stage-1 output. AP-CY60 properly cited; convergence claim tagged as content of CY-C. See `notes/wave12_u1_two_stage_functor.tex` Definition `def:two-stage-phi` and Corollary `cor:many-BKMs`; closing note `notes/tautology_registry_healings_20260422.tex` §Entry~5.
 
-**File:** chapters/examples/k3_chiral_algebra.tex L757-799
+**File:** chapters/examples/k3_chiral_algebra.tex L1197-1240 (section opener + six routes + comparison remarks)
 
 **What was done:**
 - Section opener (L760) explicitly states: "approached by six independent mathematical constructions (AP-CY60). Only Route~4 uses the CY-to-chiral functor Φ; the remaining five are independent constructions. That all six converge on the same target is the *content* of Conjecture~CY-C, not a consequence of functoriality."
