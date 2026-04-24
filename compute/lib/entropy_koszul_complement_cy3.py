@@ -351,7 +351,8 @@ def k3e_kappa() -> CY3KappaData:
     r"""K3 x E.
 
     kappa_BKM = 5 = weight(Delta_5).  This is the BKM-lane scalar,
-    not kappa_ch(K3 x E) = 3 and not chi_top/24 = 0.
+    not compact kappa_ch(K3 x E) = 0, not the relative
+    kappa_ch^Heis(K3 x E) = 3, and not chi_top/24 = 0.
 
     The E_1 Koszul dual: A_{K3xE}^{!,E_1}.
     This module does not construct the class-M BKM Koszul dual scalar.

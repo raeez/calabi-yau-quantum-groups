@@ -141,7 +141,7 @@ CONVENTIONS:
   - E_1 bar = ordered bar (no S_n coinvariants).
   - E_inf bar = symmetric bar (S_n coinvariants).
   - Shadow computations use the scalar appropriate to the chosen channel.
-  - For K3 x E this scalar is kappa_BKM = 5, not kappa_ch = 3.
+  - For K3 x E this scalar is kappa_BKM = 5, not kappa_ch_Heis = 3.
   - Q^contact = quartic contact invariant (arity-4 shadow).
   - All Fraction arithmetic for exact computations.
 
@@ -485,7 +485,7 @@ def cy3_shadow_data_quintic() -> CY3ShadowData:
     r"""Shadow data for quintic CY3.
 
     Rigid CY3, h^{1,1}=1, h^{2,1}=101.
-    kappa = chi_top/24 = -200/24 = -25/3 (CONJECTURAL, from BCOV).
+    kappa_BCOV_shadow_conjectural = chi_top/24 = -25/3.
     Shadow class M: infinite tower from GW invariants n^g_d.
     SC non-formal: the topological string partition function
     encodes infinitely many higher A_inf operations.
@@ -504,7 +504,7 @@ def cy3_shadow_data_quintic() -> CY3ShadowData:
         reasoning=(
             "Rigid CY3: h^{2,1}=101 complex structure deformations. "
             "GW invariants are nonzero at all genera and arbitrarily "
-            "high degree. kappa = chi_top/24 = -25/3 (CONJECTURAL). "
+            "high degree. kappa_BCOV_shadow_conjectural = chi_top/24 = -25/3. "
             "Class M, infinite shadow tower = topological string PF."
         ),
     )
@@ -514,8 +514,8 @@ def cy3_shadow_data_k3xe() -> CY3ShadowData:
     r"""Shadow data for K3 x E (CY3, non-rigid).
 
     The shadow scalar in this BKM lane is kappa_BKM = 5, the
-    Delta_5 Borcherds weight c_1(0)/2 = 10/2.  It is not the CY-D
-    Heisenberg-specialised value kappa_ch = 3 and not the total-space
+    Delta_5 Borcherds weight c_N(0)/2 at N=1, namely 10/2.  It is not the CY-D
+    Heisenberg-specialised value kappa_ch_Heis = 3 and not the total-space
     categorical value kappa_cat = chi(O_{K3 x E}) = 0.
 
     Shadow class M: BKM superalgebra gives infinite Borcherds product.
@@ -535,8 +535,9 @@ def cy3_shadow_data_k3xe() -> CY3ShadowData:
         reasoning=(
             "K3 x E: kappa_BKM=5 from the Delta_5 Borcherds lift. "
             "BKM superalgebra encodes infinite product structure. "
-            "The distinct K3 x E values are kappa_cat=0, kappa_ch=3, "
-            "kappa_BKM=5, and kappa_fiber=24. Class M, SC non-formal."
+            "The distinct K3 x E values are compact kappa_ch=0, "
+            "kappa_ch_Heis=3, kappa_cat=0, kappa_BKM=5, "
+            "and kappa_fiber=24. Class M, SC non-formal."
         ),
         kappa_label="kappa_BKM",
         kappa_ch=Fraction(3),

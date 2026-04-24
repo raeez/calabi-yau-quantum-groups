@@ -469,71 +469,25 @@ def all_questions() -> Dict[int, IdentificationQuestion]:
 # ---------------------------------------------------------------------------
 
 def kappa_ch_from_phi3() -> Dict[str, Any]:
-    r"""Compute kappa_ch(A_{K3xE}) from the Phi_3 functor output.
+    r"""Compute the compact and Heisenberg K3 x E scalar lanes.
 
-    By conclusion C4 of thm:cy-to-chiral-d3:
-      kappa_ch(A_C) = chi^CY(C) = chi(O_X)
+    Compact total-space PhiFA/Hodge supertrace:
+      kappa_ch(K3 x E) = chi(O_{K3 x E}) = 0.
 
-    For X = K3 x E:
-      chi(O_{K3 x E}) = chi(O_{K3}) * chi(O_E)
-                       = 2 * 1 = 2     ???
-
-    WAIT.  This is the multiplicative formula for chi(O).  But the
-    CLAUDE.md states kappa_ch(K3 x E) = 3, NOT 2.
-
-    Resolution: chi^CY is the CATEGORICAL CY Euler characteristic, not
-    chi(O_X).  For CY_3:
-      chi^CY(D^b(Coh(X))) = sum (-1)^p h^{p,0}(X)   (Hodge-filtered trace)
-                           = h^{0,0} - h^{1,0} + h^{2,0} - h^{3,0}
-
-    For K3 x E:
-      h^{0,0} = 1, h^{1,0} = 1 (from E), h^{2,0} = 1 (from K3), h^{3,0} = 1
-      chi^CY = 1 - 1 + 1 - 1 = 0    ???
-
-    That gives 0, also wrong.  The correct formula (from the manuscript,
-    cy_to_chiral.tex, conclusion C4) uses the HODGE-FILTERED trace:
-
-      kappa_ch = sum_{p=0}^{d} (-1)^p (d-p) h^{p,0}
-
-    For d=3, K3 x E:
-      = 3*h^{0,0} - 2*h^{1,0} + 1*h^{2,0} - 0*h^{3,0}
-      = 3*1 - 2*1 + 1*1 - 0*1
-      = 3 - 2 + 1 = 2
-
-    Still 2.  But CLAUDE.md says 3.  Let me check the actual formula.
-
-    From the manuscript (prop:categorical-euler): kappa_ch(K3 x E) = 3
-    is computed via ADDITIVITY:
-      kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) + 1
-                        = 2 + 0 + 1 = 3
-
-    The "+1" comes from the cross-term in the CY_3 Kuenneth formula:
-    the CY_3 trace couples H^2(K3) with H^1(E), contributing an extra
-    unit to kappa_ch.
-
-    Alternatively: kappa_ch = chi(O_X) for CY_d with d = complex dim:
-      chi(O_{K3xE}) = sum (-1)^p h^{0,p} = 1 - 1 + 1 - 1 = 0
-
-    But in the manuscript, kappa_ch(K3 x E) = 3 comes from a different
-    formula: kappa_ch = complex dimension d = 3 for the PRODUCT CY_3.
-
-    STATUS: The kappa_ch computation is SUBTLE.  The value 3 is from the
-    manuscript (multiple confirmations).  The derivation from Phi_3 requires
-    the full bar-identification (conclusion C2) and the Hodge-filtered trace.
-
-    AP113: kappa_ch (subscripted).
+    Relative Heisenberg-Mukai shadow:
+      kappa_ch_Heis(K3 x E) = kappa_ch_Heis(K3) + kappa_ch_Heis(E)
+                             = 2 + 1 = 3.
     """
     return {
         "kappa_ch_k3": Fraction(2),
         "kappa_ch_e": Fraction(0),
-        "kappa_ch_k3xe": Fraction(3),
+        "kappa_ch_Heis_e": Fraction(1),
+        "kappa_ch_k3xe": Fraction(0),
+        "kappa_ch_Heis_k3xe": Fraction(3),
         "derivation": (
-            "kappa_ch(K3 x E) = 3 from prop:categorical-euler "
-            "(CY_3 additivity with cross-term). "
-            "kappa_ch(K3) = 2 = chi(O_{K3}). "
-            "kappa_ch(E) = 0. "
-            "Cross-term from CY_3 Kuenneth: +1. "
-            "Total: 2 + 0 + 1 = 3."
+            "compact kappa_ch(K3 x E)=chi(O_{K3xE})=0; "
+            "kappa_ch_Heis(K3 x E)=2+1=3 from the relative "
+            "Heisenberg-Mukai additivity lane."
         ),
         "consistency_checks": {
             "chi_O_K3": "h^{0,0} - h^{0,1} + h^{0,2} = 1 - 0 + 1 = 2",
@@ -548,31 +502,32 @@ def kappa_ch_from_phi3() -> Dict[str, Any]:
 
 
 def kappa_ch_consistency_check() -> Dict[str, Any]:
-    r"""Verify kappa_ch = 3 for K3 x E via multiple routes.
+    r"""Verify compact kappa_ch=0 and Heisenberg shadow=3 for K3 x E.
 
-    Route 1: CY_3 additivity (prop:categorical-euler).
-    Route 2: C^3 comparison: kappa_ch(C^3) = 1 (PROVED, thm:kappa-c3).
-      K3 x E has chi(O) = 2 * 1 = 2 (Kuenneth for chi(O)), but
-      kappa_ch includes the cross-term, giving 3.
-    Route 3: Genus-1 DT: F_1 = kappa_ch/24.
-      K3 x E: F_1^{DT} = 5/24 (BKM), but kappa_ch/24 = 3/24 = 1/8.
-      The DISCREPANCY: F_1^{DT} uses kappa_BKM = 5, not kappa_ch = 3.
+    Route 1: compact Kunneth gives kappa_ch(K3 x E)=0.
+    Route 2: the relative Heisenberg specialization gives
+      kappa_ch_Heis(K3 x E)=2+1=3.
+    Route 3: Genus-1 DT uses the Borcherds scalar:
+      F_1^{DT} = 5/24 (BKM), not the compact scalar 0 or the
+      Heisenberg shadow 3.
       This is EXPECTED: the DT genus-1 free energy sees the BKM weight,
       not the chiral kappa_ch (AP113: different kappa subscripts).
 
-    STATUS: CONJECTURAL (the value 3 is from the manuscript, conditional
-    on the existence of A_{K3xE}).
+    STATUS: compact value proved; Heisenberg value conditional on the
+    relative specialisation.
     """
-    kappa_ch = Fraction(3)
+    kappa_ch = Fraction(0)
+    kappa_ch_heis = Fraction(3)
     kappa_bkm = Fraction(5)
     kappa_cat = Fraction(0)
     kappa_cat_fiber = Fraction(2)
 
-    f1_ch = kappa_ch / 24
+    f1_ch = kappa_ch_heis / 24
     f1_bkm = kappa_bkm / 24
 
     return {
         "kappa_ch": kappa_ch,
+        "kappa_ch_Heis": kappa_ch_heis,
         "kappa_bkm": kappa_bkm,
         "kappa_cat": kappa_cat,
         "kappa_cat_fiber": kappa_cat_fiber,
@@ -580,12 +535,13 @@ def kappa_ch_consistency_check() -> Dict[str, Any]:
         "F1_from_kappa_bkm": f1_bkm,
         "F1_observed_DT": f1_bkm,
         "discrepancy": (
-            "F_1^{DT} = 5/24 (BKM weight), NOT 3/24 (kappa_ch). "
+            "F_1^{DT} = 5/24 (BKM weight), NOT 3/24 (kappa_ch_Heis). "
             "This is the kappa-spectrum in action (AP113): "
-            "DT genus-1 sees kappa_BKM, not kappa_ch."
+            "DT genus-1 sees kappa_BKM, not compact kappa_ch."
         ),
         "all_kappa_values": {
-            "kappa_ch": 3,
+            "kappa_ch": 0,
+            "kappa_ch_Heis": 3,
             "kappa_BKM": 5,
             "kappa_cat": 0,
             "kappa_cat_fiber": 2,
@@ -852,9 +808,9 @@ def consequences_if_identification_holds() -> Dict[str, Any]:
     (T3) The Drinfeld coproduct = Miura factorization.
          Delta_z(T(u)) = T^L(u) T^R(u-z).
 
-    (T4) kappa_ch(A_{K3xE}) = 3 (from conclusion C4 of thm:cy-to-chiral-d3).
-         NOT the same as kappa_BKM = 5, kappa_cat = 0,
-         kappa_cat_fiber = 2, or kappa_fiber = 24.
+    (T4) compact kappa_ch(K3 x E) = 0, while the relative output-side
+         scalar is kappa_ch_Heis(A_{K3xE}) = 3.  Neither is the same as
+         kappa_BKM = 5, kappa_cat_fiber = 2, or kappa_fiber = 24.
 
     (T5) The shadow class of A_{K3xE} is M (infinite depth).
          The A_infinity corrections delta^{(k)} are the shadow coefficients S_k.
@@ -889,7 +845,7 @@ def consequences_if_identification_holds() -> Dict[str, Any]:
             },
             {
                 "label": "T4",
-                "statement": "kappa_ch = 3 (AP113: not kappa_BKM = 5)",
+                "statement": "kappa_ch_Heis = 3 (AP113: not compact kappa_ch=0 or kappa_BKM=5)",
                 "requires": "(I) via conclusion C4",
             },
             {
@@ -932,7 +888,7 @@ def cross_validate_with_k3e_yangian() -> Dict[str, Any]:
     1. Character match: both predict 1/eta^{24} at rank 1.
     2. Coproduct match: both predict z-degree s-1 at spin s.
     3. R-matrix match: both predict scalar g(u) at charge 1.
-    4. kappa match: both predict kappa_ch = 3.
+    4. kappa match: both predict the relative kappa_ch_Heis = 3.
     5. E_n level match: both predict E_1 (not E_2).
     """
     return {

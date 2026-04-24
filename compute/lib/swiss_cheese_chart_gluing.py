@@ -1102,9 +1102,10 @@ def _verify_conifold_gluing(
 # =========================================================================
 
 class OCComputationC3(NamedTuple):
-    """Detailed OC computation for C^3: CoHA -> W_{1+inf} Hochschild cochains.
+    """Detailed OC computation for C^3 after double/center evaluation.
 
-    For C^3 with CoHA = Y^+(gl_hat_1) and chiral algebra = W_{1+inf}:
+    For C^3 with CoHA = Y^+(gl_hat_1) and evaluated chiral algebra
+    W_{1+inf} obtained from the double/center:
       - The open sector is the Heisenberg H_1 (spin-1 part of W_{1+inf})
       - The closed sector is the full W_{1+inf} Hochschild cochains
       - The OC map sends the Heisenberg generator to the identity cochain

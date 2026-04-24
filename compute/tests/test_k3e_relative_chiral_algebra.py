@@ -18,7 +18,7 @@ Ground truth:
     - CY-A_2 (PROVED): Phi_2(D^b(K3)) = V_{tilde{Lambda}_{K3}}
     - Mukai lattice: rank 24, signature (4,20)
     - kappa_ch(K3) = 2 (chi(O_{K3}))
-    - kappa_ch(K3 x E) = 3 (additivity)
+    - compact kappa_ch(K3 x E) = 0; kappa_ch_Heis(K3 x E) = 3 (additivity)
     - kappa_BKM = 5 (weight of Delta_5)
     - kappa_fiber = 24 (Mukai rank)
     - Total root multiplicity per level = 24 (Jacobi form identity)
@@ -204,10 +204,11 @@ class TestBaseEllipticCurve:
 class TestRelativeChiralAlgebra:
     """The relative chiral algebra A_{K3xE/E}."""
 
-    def test_relative_kappa_ch(self):
-        """kappa_ch(K3xE) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3."""
+    def test_relative_kappa_ch_heis(self):
+        """kappa_ch_Heis(K3xE) = kappa_ch(K3) + kappa_ch_Heis(E) = 2 + 1 = 3."""
         data = relative_chiral_algebra_data()
-        assert data['relative_kappa_ch'] == 3
+        assert data['compact_kappa_ch'] == 0
+        assert data['relative_kappa_ch_Heis'] == 3
 
     def test_fiber_kappa_ch(self):
         """Fiber kappa_ch = 2."""
@@ -240,9 +241,9 @@ class TestRelativeChiralAlgebra:
         assert data['shadow_class_relative'] == 'M'
 
     def test_kappa_additivity(self):
-        """kappa_ch is additive: kappa_ch(K3xE) = kappa_ch(K3) + kappa_ch(E)."""
+        """The relative Heisenberg scalar is additive over the K3 and E lanes."""
         data = relative_chiral_algebra_data()
-        assert data['relative_kappa_ch'] == data['fiber_kappa_ch'] + data['base_kappa_ch']
+        assert data['relative_kappa_ch_Heis'] == data['fiber_kappa_ch'] + data['base_kappa_ch']
 
 
 # =========================================================================
@@ -292,9 +293,10 @@ class TestKappaSpectrum:
         assert spec['kappa_ch_K3'] == 2
 
     def test_kappa_ch_K3xE(self):
-        """kappa_ch(K3 x E) = 3."""
+        """compact kappa_ch(K3 x E) = 0; Heisenberg shadow = 3."""
         spec = kappa_spectrum_relative()
-        assert spec['kappa_ch_K3xE'] == 3
+        assert spec['kappa_ch_K3xE'] == 0
+        assert spec['kappa_ch_K3xE_Heis'] == 3
 
     def test_kappa_cat_total(self):
         """kappa_cat(K3 x E) = chi(O_{K3 x E}) = 0."""

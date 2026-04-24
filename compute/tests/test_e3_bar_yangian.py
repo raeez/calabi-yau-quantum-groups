@@ -66,7 +66,7 @@ E2_PAGE_GROUND_TRUTH = [
 # =========================================================================
 
 class TestYangianClassification:
-    """Y(gl_hat_1) = CoHA(C^3) is class L, shadow depth 3."""
+    """The Drinfeld double of CoHA(C^3)=Y^+ is class L, shadow depth 3."""
 
     def setup_method(self):
         self.omega = OmegaBackground(1, 2)  # generic point, h3=-3

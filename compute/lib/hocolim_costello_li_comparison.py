@@ -816,8 +816,13 @@ class ComparisonMap:
 def comparison_map_c3() -> ComparisonMap:
     """The comparison map for C^3.
 
-    Psi: CoHA(C^3) -> W_{1+inf}
-    Maps the CoHA generator e_{(d)} to the spin-d W-algebra field W_d.
+    Psi factors through the positive half and then through the
+    Drinfeld double/center plus vacuum/Fock evaluation:
+
+        CoHA(C^3)=Y^+(gl_1) -> D(Y^+) -> W_{1+inf}.
+
+    The evaluated map sends the positive-half generator e_{(d)} to the
+    spin-d W-algebra field W_d.
 
     At the Heisenberg level (d=1):
         Psi(e_{(1)}) = J  (the Heisenberg current, spin 1)

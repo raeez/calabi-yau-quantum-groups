@@ -2,7 +2,8 @@ r"""C^3 grand multi-path verification engine.
 
 C^3 is the Rosetta Stone for the d=3 CY-to-chiral functor. Everything is
 known on BOTH sides:
-  CoHA(C^3) = Y^+(gl_hat_1) = W_{1+infty}(c=1)  (E1 chiral algebra)
+  CoHA(C^3) = Y^+(gl_hat_1)  (positive half)
+  Drinfeld double / center / Fock evaluation -> W_{1+infty}(c=1)
   DT(C^3)  = MacMahon function M(q) = prod_{n>=1}(1-q^n)^{-n}
   Shadow obstruction tower from Vol I: kappa, C, Q, ...
 
@@ -123,7 +124,8 @@ References
   Rapcak-Soibelman-Yang-Zhao, "Cohomological Hall algebras, vertex algebras,
     and instantons" (arXiv:1810.10402)
   Lorgat, Vol I: shadow obstruction tower, Heisenberg bar complex
-  Lorgat, Vol III: CY-to-chiral functor, CoHA = affine Yangian
+  Lorgat, Vol III: CY-to-chiral functor, CoHA(C^3)=Y^+(gl_hat_1);
+    full W_{1+infty} appears after double/center/Fock evaluation
 
 Conventions
 -----------
@@ -1090,7 +1092,8 @@ def cross_volume_kappa() -> Dict[str, Any]:
 
     Vol I: kappa(H_1) = 1 (from Heisenberg shadow tower)
     Vol II: kappa(H_1) = 1 (from Swiss-cheese formality, class G)
-    Vol III: kappa(C^3) = 1 (from CoHA = Y^+(gl_hat_1) = W_{1+infty}(c=1) = H_1)
+    Vol III: kappa(C^3) = 1 (from CoHA = Y^+(gl_hat_1); the full
+    W_{1+infty}(c=1)=H_1 appears after double/center and Fock evaluation)
     """
     return {
         "vol1_kappa": Fraction(1),

@@ -84,7 +84,7 @@ MULTI-PATH VERIFICATION
 
 REFERENCES
     Maulik-Okounkov, arXiv:1211.1287 (quantum groups and quantum cohomology)
-    Schiffmann-Vasserot, arXiv:1212.5535 (CoHA = affine Yangian)
+    Schiffmann-Vasserot, arXiv:1212.5535 (CoHA(C^3) = Y^+ positive half)
     Kontsevich-Soibelman, arXiv:0811.2435 (motivic DT, wall-crossing)
     Tsymbaliuk, arXiv:1404.5240 (affine Yangian presentation)
     Okounkov, arXiv:1512.07363 (lectures on K-theoretic computations)

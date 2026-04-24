@@ -1249,7 +1249,7 @@ def k3e_four_chamber_gluing() -> CY3GluingData:
     return cy3_stability_gluing(
         num_chambers=4,
         adjacency=[(0, 1), (1, 2), (2, 3), (0, 3)],
-        kappa=Fraction(5),  # K3xE kappa = 5
+        kappa=Fraction(5),  # K3xE BKM-lane scalar kappa_BKM = 5
     )
 
 

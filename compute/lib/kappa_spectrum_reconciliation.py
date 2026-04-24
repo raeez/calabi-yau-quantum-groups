@@ -33,7 +33,7 @@ For K3 x E:
   kappa_ch_compact_hodge(K3 x E) = chi(O_{K3 x E}) = 0
   kappa_ch^{Heis}(K3 x E)        = 3
   kappa_cat(K3 fiber)            = 2
-  kappa_BKM(Delta_5)             = c_1(0)/2 = 5
+  kappa_BKM(Delta_5)             = c_N(0)/2 at N=1 = 5
 
 The equality 3 + 2 = 5 is a Heisenberg-specialisation fibre coincidence.
 It is not the derivation of kappa_BKM, whose theorem-level derivation is
@@ -183,7 +183,7 @@ def kappa_ch(X: HodgeData) -> int:
                               = 2 + 1 = 3.
 
     For compact rigid CICYs with h^{1,0}=0:
-      kappa_ch = chi_top / 24  (BCOV formula).
+      chi_top / 24 is only the BCOV-shadow candidate at this level.
 
     Note: kappa_ch(E) = 1 != chi(O_E) = 0. The chiral modular
     characteristic is NOT always chi(O_X). For K3 x E, use
@@ -201,14 +201,11 @@ def kappa_ch(X: HodgeData) -> int:
     elif X.name == "Enr":
         return 1  # chi(O_Enr) = 1, halving of K3
     elif X.name == "Quintic":
-        # BCOV formula: kappa_ch = chi_top / 24 for rigid compact CICYs
-        # with h^{1,0} = 0.
-        # -200/24 is NOT an integer; use Fraction for exactness.
-        # Return as integer is not possible; the quintic kappa_ch
-        # is rational. We return the numerator/denominator structure.
-        # For integer-returning API, use kappa_ch_rational.
+        # The BCOV scalar -200/24 is a conjectural shadow candidate, not
+        # constructed kappa_ch.
         raise ValueError(
-            "Quintic kappa_ch = -25/3 is rational, use kappa_ch_rational()"
+            "constructed kappa_ch(Quintic) is open; use "
+            "bcov_shadow_candidate() for the conjectural chi_top/24 lane"
         )
     elif X.name == "T^4":
         return 0  # chi(O_{T^4}) = 0
@@ -221,23 +218,30 @@ def kappa_ch_compact_hodge(X: HodgeData) -> int:
 
     This is the value relevant to the compact Hodge-supertrace reading.
     For K3 x E it is chi(O_{K3 x E}) = 0 by Kunneth. This is distinct
-    from the Heisenberg specialisation kappa_ch(K3 x E) = 3.
+    from the Heisenberg specialisation kappa_ch_Heis(K3 x E) = 3.
     """
     return X.chi_O()
 
 
-def kappa_ch_rational(X: HodgeData) -> Fraction:
-    r"""Chiral modular characteristic as a rational number.
+def bcov_shadow_candidate(X: HodgeData) -> Fraction:
+    r"""Compact strict-CY3 BCOV shadow scalar chi_top/24.
 
-    Handles the quintic and other CICYs where kappa_ch = chi_top/24
-    is rational (not necessarily integer).
+    This is not constructed kappa_ch.
     """
     if X.name == "Quintic":
         return Fraction(X.chi_top, 24)  # -200/24 = -25/3
-    try:
-        return Fraction(kappa_ch(X))
-    except ValueError:
-        raise
+    raise ValueError(f"BCOV shadow candidate not implemented for {X.name}")
+
+
+def kappa_ch_rational(X: HodgeData) -> Fraction:
+    r"""Backward-compatible access to rational scalar lanes.
+
+    For the quintic this returns kappa_BCOV_shadow_conjectural, not
+    constructed kappa_ch.
+    """
+    if X.name == "Quintic":
+        return bcov_shadow_candidate(X)
+    return Fraction(kappa_ch(X))
 
 
 def kappa_BKM(X: HodgeData) -> Optional[int]:
@@ -295,6 +299,8 @@ class KappaSpectrum(NamedTuple):
     kappa_ch: Fraction
     kappa_BKM: Optional[int]
     kappa_fiber: Optional[int]
+    kappa_ch_label: str
+    kappa_ch_constructed: bool
 
 
 def compute_spectrum(X: HodgeData) -> KappaSpectrum:
@@ -302,8 +308,12 @@ def compute_spectrum(X: HodgeData) -> KappaSpectrum:
     k_cat = kappa_cat(X)
     try:
         k_ch = Fraction(kappa_ch(X))
+        k_ch_label = "kappa_ch"
+        k_ch_constructed = True
     except ValueError:
-        k_ch = kappa_ch_rational(X)
+        k_ch = bcov_shadow_candidate(X)
+        k_ch_label = "kappa_BCOV_shadow_conjectural"
+        k_ch_constructed = False
     k_BKM = kappa_BKM(X)
     k_fib = kappa_fiber(X)
     return KappaSpectrum(
@@ -311,6 +321,8 @@ def compute_spectrum(X: HodgeData) -> KappaSpectrum:
         kappa_ch=k_ch,
         kappa_BKM=k_BKM,
         kappa_fiber=k_fib,
+        kappa_ch_label=k_ch_label,
+        kappa_ch_constructed=k_ch_constructed,
     )
 
 
@@ -371,7 +383,7 @@ def verify_BKM_decomposition_k3e() -> Dict[str, Any]:
       kappa_ch^{Heis}(K3 x E) = 3
       kappa_cat(K3 fiber) = chi(O_{K3}) = 2
 
-    The canonical theorem is kappa_BKM(Delta_5)=c_1(0)/2=5.
+    The canonical theorem is kappa_BKM(Delta_5)=c_N(0)/2 at N=1 = 5.
     The equality 3 + 2 = 5 is retained only as a named
     Heisenberg-specialisation fibre coincidence at N=1.
     """
@@ -447,8 +459,9 @@ def borcherds_weight_from_h11() -> Dict[str, Any]:
 def verify_chi_top_over_24_failure() -> Dict[str, Any]:
     r"""Verify that chi_top/24 does NOT give kappa_ch in general.
 
-    The BCOV formula kappa_ch = chi_top/24 holds for compact rigid CICYs
-    with h^{1,0} = 0 but fails for:
+    The BCOV shadow candidate chi_top/24 is a conjectural compact rigid
+    CICY scalar and is not constructed kappa_ch here.  The same numerical
+    expression fails as kappa_ch for:
       - E: chi_top/24 = 0, but kappa_ch = 1
       - K3: chi_top/24 = 1, but kappa_ch = 2
       - K3 x E: chi_top/24 = 0 matches the compact Hodge/PhiFA value,
@@ -480,12 +493,13 @@ def verify_chi_top_over_24_failure() -> Dict[str, Any]:
     )
     result["K3xE_heis_fails"] = Fraction(k3e.chi_top, 24) != kappa_ch(k3e)
 
-    # Success for quintic
+    # Quintic candidate lane.
     result["Quintic_chi_top_over_24"] = Fraction(quintic.chi_top, 24)
-    result["Quintic_kappa_ch"] = kappa_ch_rational(quintic)
-    result["Quintic_matches"] = (
-        Fraction(quintic.chi_top, 24) == kappa_ch_rational(quintic)
+    result["Quintic_BCOV_shadow_candidate"] = bcov_shadow_candidate(quintic)
+    result["Quintic_candidate_matches"] = (
+        Fraction(quintic.chi_top, 24) == bcov_shadow_candidate(quintic)
     )
+    result["Quintic_constructed_kappa_ch"] = False
 
     return result
 

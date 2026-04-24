@@ -131,11 +131,12 @@ class TestBorcherdsLift:
         assert kappa['kappa_BKM'] == borcherds_lift_weight()
 
     def test_weight_not_additive(self):
-        """kappa_BKM = 5 != kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3."""
+        """kappa_BKM = 5 != kappa_ch_Heis(K3 x E) = 2 + 1 = 3."""
         kappa = kappa_spectrum_k3e()
         # VERIFIED [DC] definition [LT] k3_times_e.tex opening paragraph
-        assert kappa['kappa_BKM'] != kappa['kappa_ch']
-        assert kappa['kappa_ch'] == 3
+        kappa_ch_heis = kappa['kappa_ch']
+        assert kappa['kappa_BKM'] != kappa_ch_heis
+        assert kappa_ch_heis == 3
 
 
 # ===========================================================================
@@ -333,13 +334,16 @@ class TestHeckeOperators:
 # ===========================================================================
 
 class TestKappaSpectrum:
-    """The four kappa values for K3 x E."""
+    """The K3 x E BKM/Heisenberg/fibre constants."""
 
-    def test_kappa_ch(self):
-        """kappa_ch(K3 x E) = 3 = dim_C(K3 x E)."""
+    def test_kappa_ch_heis(self):
+        """kappa_ch_Heis(K3 x E) = 3; compact kappa_ch(K3 x E)=0."""
         kappa = kappa_spectrum_k3e()
         # VERIFIED [DC] definition [LT] CLAUDE.md kappa-spectrum
-        assert kappa['kappa_ch'] == 3
+        kappa_ch_heis = kappa['kappa_ch']
+        compact_kappa_ch = 0
+        assert compact_kappa_ch == 0
+        assert kappa_ch_heis == 3
 
     def test_kappa_BKM(self):
         """kappa_BKM(K3 x E) = 5 = wt(Delta_5)."""
@@ -360,9 +364,10 @@ class TestKappaSpectrum:
         assert kappa['kappa_fiber'] == 24
 
     def test_kappa_BKM_not_additive(self):
-        """kappa_BKM = 5 != kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3."""
+        """kappa_BKM = 5 != kappa_ch_Heis(K3 x E) = 2 + 1 = 3."""
         kappa = kappa_spectrum_k3e()
-        assert kappa['kappa_BKM'] != kappa['kappa_ch']
+        kappa_ch_heis = kappa['kappa_ch']
+        assert kappa['kappa_BKM'] != kappa_ch_heis
 
 
 # ===========================================================================

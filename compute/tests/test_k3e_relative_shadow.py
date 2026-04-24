@@ -578,7 +578,7 @@ class TestCrossModuleConsistency:
         assert c_disc[4] == 108
 
     def test_kappa_k3xe_from_bkm(self):
-        """kappa(K3 x E) = 5 from BKM shadow tower module."""
+        """kappa_BKM(K3 x E) = 5 from BKM shadow tower module."""
         try:
             from lib.bkm_shadow_tower import kappa_projection
             # VERIFIED [DC] kappa formula [LT] Beauville83
@@ -602,7 +602,7 @@ class TestStructural:
         assert k == int(k)
 
     def test_global_kappa_is_integer(self):
-        """kappa(K3 x E) = 5 is a positive integer."""
+        """kappa_BKM(K3 x E) = 5 is a positive integer."""
         result = fibration_kappa_constraint()
         k = result['kappa_K3xE_BKM']
         # VERIFIED [DC] kappa computation [LT] Beauville83

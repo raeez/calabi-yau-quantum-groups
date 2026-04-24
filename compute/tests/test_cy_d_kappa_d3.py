@@ -1,18 +1,19 @@
-r"""Tests for cy_d_kappa_d3.py: CY-D at d=3 and the kappa_ch obstruction.
+r"""Tests for cy_d_kappa_d3.py: CY-D at d=3 and the kappa_ch lane split.
 
 MATHEMATICAL CONTENT
 ====================
 
-The central finding: kappa_ch != chi(O_X) at d=3 (and at d=1, and at d=2
-with h^{1,0}!=0). The identification kappa_ch = chi(O_X) is proved ONLY
-for CY_2 with h^{1,0}=0 (simply connected CY surfaces). For all CY_d with
-d odd, chi(O_X) = 0 by Serre duality, while kappa_ch can be nonzero.
+The central finding: compact total-space kappa_ch is the Hodge/PhiFA
+supertrace chi(O_X), while the relative Heisenberg specialization can
+carry the additive values 1, 2, 3. For all compact CY_d with d odd,
+chi(O_X)=0 by Serre duality; this is the compact kappa_ch value, not the
+relative Heisenberg shadow.
 
 Test structure:
     Section 1: chi(O_X) = 0 for odd-dimensional CY -- 10 tests
     Section 2: HH_{-1} obstruction group -- 8 tests
-    Section 3: kappa_ch != chi(O_X) falsification -- 10 tests
-    Section 4: Scope of kappa = chi(O) identification -- 8 tests
+    Section 3: Heisenberg-shadow discrepancies -- 10 tests
+    Section 4: Scope of compact kappa = chi(O) identification -- 8 tests
     Section 5: CY-D corrected statement at d=3 -- 8 tests
     Section 6: Additivity computations -- 8 tests
     Section 7: Quantum correction analysis -- 8 tests
@@ -29,11 +30,11 @@ Multi-path verification:
     Path 5 (CF): cross-family with existing kappa engines
 
 Manuscript references:
-    eq:kappa-hodge-filtered (cy_to_chiral.tex): kappa_ch = chi(O_X) at d=2
+    eq:kappa-hodge-filtered (cy_to_chiral.tex): compact kappa_ch = chi(O_X)
     conj:cy-kappa-identification (cy_to_chiral.tex): CY-D conjecture
     prop:cy-kappa-d2 (cy_to_chiral.tex): CY-D at d=2, PROVED
-    thm:cy-to-chiral-d3 conclusion (C4): INCORRECT chi(O_X) identification
-    prop:categorical-euler (cy_to_chiral.tex): kappa_ch(K3xE)=3
+    thm:cy-to-chiral-d3 conclusion (C4): compact Hodge/PhiFA supertrace
+    prop:categorical-euler (cy_to_chiral.tex): kappa_ch_Heis(K3xE)=3
 """
 
 import pytest
@@ -205,43 +206,44 @@ class TestHHMinus1:
 
 
 # =========================================================================
-# Section 3: kappa_ch != chi(O_X) falsification
+# Section 3: Heisenberg-shadow discrepancies
 # =========================================================================
 
 class TestKappaFalsification:
-    """Verify all cases where kappa_ch != chi(O_X)."""
+    """Verify cases where kappa_ch_Heis differs from compact chi(O_X)."""
 
     def test_falsification_count(self):
-        """Four known falsification cases."""
+        """Four known Heisenberg-shadow discrepancy cases."""
         table = kappa_falsification_table()
         assert len(table) == 4
 
-    def test_all_are_genuine_falsifications(self):
-        """Every entry has kappa_ch != chi(O)."""
+    def test_all_are_genuine_specialization_discrepancies(self):
+        """Every entry has kappa_ch_Heis != compact chi(O)."""
         for f in kappa_falsification_table():
-            assert f.kappa_ch != f.chi_O, f"Not a falsification: {f.name}"
+            assert f.kappa_ch != f.chi_O, f"Not a specialization discrepancy: {f.name}"
 
-    def test_point_falsification(self):
-        """Point: kappa=0, chi(O)=1."""
-        f = [x for x in kappa_falsification_table() if x.name == 'point'][0]
-        assert f.kappa_ch == F(0)
-        assert f.chi_O == F(1)
+    def test_no_point_falsification(self):
+        """Point: compact kappa_ch=chi(O)=1, so no discrepancy row."""
+        assert all(x.name != 'point' for x in kappa_falsification_table())
 
     def test_elliptic_falsification(self):
-        """E: kappa=1, chi(O)=0."""
-        f = [x for x in kappa_falsification_table() if x.name == 'elliptic curve'][0]
+        """E: kappa_ch_Heis=1, compact chi(O)=0."""
+        f = [x for x in kappa_falsification_table()
+             if x.name == 'elliptic curve Heisenberg shadow'][0]
         assert f.kappa_ch == F(1)
         assert f.chi_O == F(0)
 
     def test_abelian_surface_falsification(self):
-        """Ab.surf: kappa=2, chi(O)=0."""
-        f = [x for x in kappa_falsification_table() if x.name == 'abelian surface'][0]
+        """Ab.surf: kappa_ch_Heis=2, compact chi(O)=0."""
+        f = [x for x in kappa_falsification_table()
+             if x.name == 'abelian surface Heisenberg shadow'][0]
         assert f.kappa_ch == F(2)
         assert f.chi_O == F(0)
 
     def test_k3xe_falsification(self):
-        """K3xE: kappa=3, chi(O)=0."""
-        f = [x for x in kappa_falsification_table() if x.name == 'K3 x E'][0]
+        """K3xE: kappa_ch_Heis=3, compact chi(O)=0."""
+        f = [x for x in kappa_falsification_table()
+             if x.name == 'K3 x E Heisenberg shadow'][0]
         assert f.kappa_ch == F(3)
         assert f.chi_O == F(0)
 
@@ -251,19 +253,19 @@ class TestKappaFalsification:
             assert f.discrepancy == f.kappa_ch - f.chi_O
 
     def test_d3_falsification_is_d_odd(self):
-        """K3xE falsification is at d=3 (odd)."""
-        f = [x for x in kappa_falsification_table() if x.name == 'K3 x E'][0]
+        """K3xE Heisenberg discrepancy is at d=3 (odd)."""
+        f = [x for x in kappa_falsification_table()
+             if x.name == 'K3 x E Heisenberg shadow'][0]
         assert f.dimension == 3
         assert f.dimension % 2 == 1  # odd
 
-    def test_hh_minus1_nonzero_for_all_falsifications_except_point(self):
-        """HH_{-1} > 0 for all falsifications except the point."""
+    def test_hh_minus1_nonzero_for_all_discrepancies(self):
+        """HH_{-1} > 0 for all listed Heisenberg discrepancies."""
         for f in kappa_falsification_table():
-            if f.name != 'point':
-                assert f.hh_minus1 > 0, f"HH_{{-1}} should be > 0 for {f.name}"
+            assert f.hh_minus1 > 0, f"HH_{{-1}} should be > 0 for {f.name}"
 
     def test_odd_d_always_gives_chi_O_zero(self):
-        """For odd d falsifications, chi(O) = 0."""
+        """For odd-d Heisenberg discrepancies, compact chi(O) = 0."""
         for f in kappa_falsification_table():
             if f.dimension % 2 == 1:
                 assert f.chi_O == F(0)
@@ -274,14 +276,14 @@ class TestKappaFalsification:
 # =========================================================================
 
 class TestScope:
-    """Verify the precise scope where kappa = chi(O_X) is proved."""
+    """Verify the compact total-space scope where kappa = chi(O_X)."""
 
-    def test_only_k3_matches(self):
-        """Only K3 has kappa = chi(O) among the standard examples."""
+    def test_all_compact_examples_match(self):
+        """Every compact entry in this scope uses the compact supertrace."""
         scope = kappa_equals_chi_O_scope()
         matches = [s for s in scope if s.match]
-        assert len(matches) == 1
-        assert matches[0].name == 'K3 surface'
+        assert len(matches) == len(scope)
+        assert {s.name for s in matches} >= {'point', 'elliptic curve', 'K3 x E', 'quintic'}
 
     def test_k3_has_serre_kills(self):
         """K3: Serre argument applies (HH_{-1}=0)."""
@@ -294,35 +296,39 @@ class TestScope:
         k3 = [s for s in kappa_equals_chi_O_scope() if s.name == 'K3 surface'][0]
         assert 'PROVED' in k3.status
 
-    def test_elliptic_is_false(self):
-        """E: kappa != chi(O)."""
+    def test_elliptic_compact_matches(self):
+        """E: compact kappa_ch = chi(O) = 0."""
         e = [s for s in kappa_equals_chi_O_scope() if s.name == 'elliptic curve'][0]
-        assert e.match is False
-        assert 'FALSE' in e.status
+        assert e.match is True
+        assert e.kappa_ch == F(0)
+        assert 'PROVED' in e.status
 
-    def test_abelian_surface_is_false(self):
-        """Ab.surf: kappa != chi(O)."""
+    def test_abelian_surface_compact_matches(self):
+        """Ab.surf: compact kappa_ch = chi(O) = 0."""
         ab = [s for s in kappa_equals_chi_O_scope()
               if s.name == 'abelian surface'][0]
-        assert ab.match is False
-        assert 'FALSE' in ab.status
+        assert ab.match is True
+        assert ab.kappa_ch == F(0)
+        assert 'PROVED' in ab.status
 
-    def test_k3xe_is_false(self):
-        """K3xE: kappa != chi(O)."""
+    def test_k3xe_compact_matches(self):
+        """K3xE: compact kappa_ch = chi(O) = 0."""
         k3e = [s for s in kappa_equals_chi_O_scope() if s.name == 'K3 x E'][0]
-        assert k3e.match is False
-        assert 'FALSE' in k3e.status
+        assert k3e.match is True
+        assert k3e.kappa_ch == F(0)
+        assert 'PROVED' in k3e.status
 
-    def test_point_is_false(self):
-        """Point: kappa=0 != chi(O)=1."""
+    def test_point_compact_matches(self):
+        """Point: compact kappa_ch=chi(O)=1."""
         pt = [s for s in kappa_equals_chi_O_scope() if s.name == 'point'][0]
-        assert pt.match is False
+        assert pt.match is True
+        assert pt.kappa_ch == F(1)
 
-    def test_serre_fails_implies_no_proof(self):
-        """When Serre fails, the identification is not proved."""
+    def test_serre_failure_does_not_create_compact_mismatch(self):
+        """HH_{-1} can be nonzero while the compact supertrace still matches."""
         for s in kappa_equals_chi_O_scope():
             if not s.serre_kills and s.name != 'point':
-                assert 'PROVED' not in s.status
+                assert s.match is True
 
 
 # =========================================================================
@@ -337,40 +343,49 @@ class TestCYDCorrected:
         r = cy_d_d3_corrected()
         assert r['chi_O_k3xe'] == F(0)
 
-    def test_kappa_k3xe_is_three(self):
-        """kappa_ch(K3xE) = 3."""
+    def test_compact_kappa_k3xe_is_zero(self):
+        """compact kappa_ch(K3xE) = 0."""
         r = cy_d_d3_corrected()
-        assert r['kappa_ch_k3xe'] == F(3)
+        assert r['kappa_ch_k3xe'] == F(0)
 
-    def test_chi_O_not_equals_kappa(self):
-        """chi(O) != kappa for K3xE."""
+    def test_heisenberg_kappa_k3xe_is_three(self):
+        """kappa_ch_Heis(K3xE) = 3."""
         r = cy_d_d3_corrected()
-        assert r['chi_O_equals_kappa'] is False
+        assert r['kappa_ch_heis_k3xe'] == F(3)
+
+    def test_chi_O_equals_compact_not_heis(self):
+        """chi(O) equals compact kappa_ch but not the Heisenberg shadow."""
+        r = cy_d_d3_corrected()
+        assert r['chi_O_equals_kappa'] is True
+        assert r['chi_O_equals_heis'] is False
 
     def test_chi_O_quintic_is_zero(self):
         """chi(O_quintic) = 0."""
         r = cy_d_d3_corrected()
         assert r['chi_O_quintic'] == F(0)
 
-    def test_old_statement_contains_chi_O(self):
-        """The old (incorrect) statement references chi(O_X)."""
+    def test_old_statement_conflates_heisenberg(self):
+        """The old (incorrect) statement conflates compact and Heisenberg lanes."""
         r = cy_d_d3_corrected()
-        assert 'chi(O_X)' in r['old_statement']
+        assert 'Heisenberg' in r['old_statement']
 
-    def test_new_statement_is_categorical(self):
-        """The corrected statement uses categorical invariant."""
+    def test_new_statement_splits_compact_and_heisenberg(self):
+        """The corrected statement splits compact and Heisenberg lanes."""
         r = cy_d_d3_corrected()
-        assert 'categorical' in r['new_statement']
+        assert 'compact' in r['new_statement']
+        assert 'kappa_ch_Heis' in r['new_statement']
 
     def test_quintic_is_open(self):
-        """kappa_ch(quintic) is OPEN."""
+        """The BCOV/enumerative quintic shadow is OPEN."""
         r = cy_d_d3_corrected()
-        assert r['known_kappa_values_d3']['quintic'] == 'OPEN'
+        assert r['known_kappa_values_d3']['quintic compact supertrace'] == F(0)
+        assert r['known_kappa_values_d3']['quintic BCOV/enumerative shadow'] == 'OPEN'
 
     def test_k3xe_kappa_known(self):
-        """kappa_ch(K3xE) = 3 is known."""
+        """compact kappa_ch(K3xE)=0 and kappa_ch_Heis(K3xE)=3 are known."""
         r = cy_d_d3_corrected()
-        assert r['known_kappa_values_d3']['K3 x E'] == F(3)
+        assert r['known_kappa_values_d3']['K3 x E'] == F(0)
+        assert r['known_kappa_values_d3']['K3 x E Heisenberg shadow'] == F(3)
 
 
 # =========================================================================
@@ -378,47 +393,47 @@ class TestCYDCorrected:
 # =========================================================================
 
 class TestAdditivity:
-    """Verify kappa_ch values from Vol I additivity."""
+    """Verify kappa_ch_Heis values from Vol I free-field additivity."""
 
     def test_k3xe(self):
-        """kappa_ch(K3xE) = 2+1 = 3."""
+        """kappa_ch_Heis(K3xE) = 2+1 = 3."""
         r = kappa_ch_from_additivity()
         assert r['K3 x E'] == F(3)
 
     def test_e_squared(self):
-        """kappa_ch(ExE) = 1+1 = 2."""
+        """kappa_ch_Heis(ExE) = 1+1 = 2."""
         r = kappa_ch_from_additivity()
         assert r['E x E'] == F(2)
 
     def test_e_cubed(self):
-        """kappa_ch(E^3) = 3."""
+        """kappa_ch_Heis(E^3) = 3."""
         r = kappa_ch_from_additivity()
         assert r['E^3'] == F(3)
 
     def test_k3_squared(self):
-        """kappa_ch(K3xK3) = 2+2 = 4."""
+        """kappa_ch_Heis(K3xK3) = 2+2 = 4."""
         r = kappa_ch_from_additivity()
         assert r['K3 x K3'] == F(4)
 
     def test_k3_e_e(self):
-        """kappa_ch(K3xExE) = 2+1+1 = 4."""
+        """kappa_ch_Heis(K3xExE) = 2+1+1 = 4."""
         r = kappa_ch_from_additivity()
         assert r['K3 x E x E'] == F(4)
 
     def test_base_k3(self):
-        """Base value: kappa_ch(K3) = 2."""
+        """Base value: kappa_ch_Heis(K3) = 2."""
         r = kappa_ch_from_additivity()
         assert r['base_values']['K3'] == F(2)
 
     def test_base_e(self):
-        """Base value: kappa_ch(E) = 1."""
+        """Base value: kappa_ch_Heis(E) = 1."""
         r = kappa_ch_from_additivity()
         assert r['base_values']['E'] == F(1)
 
     def test_scope_products_only(self):
-        """Additivity only works for products."""
+        """Additivity only works for product Heisenberg shadows."""
         r = kappa_ch_from_additivity()
-        assert 'Products only' in r['scope']
+        assert 'Product Heisenberg shadows only' in r['scope']
 
 
 # =========================================================================
@@ -426,25 +441,25 @@ class TestAdditivity:
 # =========================================================================
 
 class TestQuantumCorrection:
-    """Analyze delta = kappa - chi(O_X)."""
+    """Analyze the Heisenberg-specialization gap over compact chi(O_X)."""
 
     def test_delta_k3_is_zero(self):
-        """K3: delta = 0 (Serre kills)."""
+        """K3: Heisenberg gap = 0."""
         r = quantum_correction_analysis()
         assert r['K3']['delta'] == F(0)
 
     def test_delta_elliptic_is_one(self):
-        """E: delta = 1."""
+        """E: Heisenberg gap = 1."""
         r = quantum_correction_analysis()
         assert r['elliptic curve']['delta'] == F(1)
 
     def test_delta_abelian_surface_is_two(self):
-        """Ab.surf: delta = 2."""
+        """Ab.surf: Heisenberg gap = 2."""
         r = quantum_correction_analysis()
         assert r['abelian surface']['delta'] == F(2)
 
     def test_delta_k3xe_is_three(self):
-        """K3xE: delta = 3."""
+        """K3xE: Heisenberg gap = 3."""
         r = quantum_correction_analysis()
         assert r['K3 x E']['delta'] == F(3)
 
@@ -454,7 +469,7 @@ class TestQuantumCorrection:
         assert r['delta_equals_dim_HH_minus1_universal'] is False
 
     def test_k3xe_counterexample(self):
-        """K3xE: delta=3 but dim HH_{-1}=23."""
+        """K3xE: Heisenberg gap=3 but dim HH_{-1}=23."""
         r = quantum_correction_analysis()
         k3e = r['K3 x E']
         assert k3e['delta'] == F(3)
@@ -462,7 +477,7 @@ class TestQuantumCorrection:
         assert k3e['delta'] != F(k3e['dim_HH_minus1'])
 
     def test_delta_equals_hh_minus1_for_simply_connected(self):
-        """delta = dim HH_{-1} for E and K3 (h^{0,q} determined by one factor)."""
+        """The gap equals dim HH_{-1} only in the smallest examples."""
         r = quantum_correction_analysis()
         # Holds for E (delta=1, HH_{-1}=1) and K3 (delta=0, HH_{-1}=0)
         assert r['elliptic curve']['delta_equals_hh_minus1'] is True
@@ -533,17 +548,19 @@ class TestLandscape:
         assert k3.kappa_equals_chi_O is True
 
     def test_k3xe_entry(self):
-        """K3xE: kappa=3, chi(O)=0, no match."""
+        """K3xE: compact kappa=0, chi(O)=0; Heisenberg shadow=3."""
         k3e = [e for e in kappa_landscape() if e.name == 'K3 x E'][0]
-        assert k3e.kappa_ch == F(3)
+        assert k3e.kappa_ch == F(0)
+        assert k3e.kappa_ch_Heis == F(3)
         assert k3e.chi_O == F(0)
-        assert k3e.kappa_equals_chi_O is False
+        assert k3e.kappa_equals_chi_O is True
 
-    def test_quintic_kappa_unknown(self):
-        """Quintic: kappa is None (OPEN)."""
+    def test_quintic_compact_kappa_known(self):
+        """Quintic: compact kappa_ch is the odd-dimensional supertrace 0."""
         q5 = [e for e in kappa_landscape() if e.name == 'quintic'][0]
-        assert q5.kappa_ch is None
-        assert q5.kappa_equals_chi_O is None
+        assert q5.kappa_ch == F(0)
+        assert q5.kappa_equals_chi_O is True
+        assert 'OPEN' in q5.status
 
     def test_quintic_chi_O_zero(self):
         """Quintic: chi(O) = 0."""
@@ -556,18 +573,18 @@ class TestLandscape:
         assert c3.compact is False
         assert c3.kappa_ch == F(1)
 
-    def test_all_compact_have_known_kappa_except_quintic(self):
-        """All compact entries have known kappa except quintic."""
+    def test_all_compact_have_known_compact_kappa(self):
+        """All compact entries have known compact kappa_ch."""
         for e in kappa_landscape():
-            if e.compact and e.name != 'quintic':
+            if e.compact:
                 assert e.kappa_ch is not None, f"kappa unknown for {e.name}"
 
-    def test_only_k3_has_kappa_equals_chi_O(self):
-        """Only K3 has kappa = chi(O) in the full landscape."""
+    def test_all_compact_entries_have_kappa_equals_chi_O(self):
+        """Every compact landscape entry has compact kappa_ch = chi(O)."""
         matches = [e for e in kappa_landscape()
-                   if e.kappa_equals_chi_O is True]
-        assert len(matches) == 1
-        assert matches[0].name == 'K3 surface'
+                   if e.compact and e.kappa_equals_chi_O is True]
+        compact_entries = [e for e in kappa_landscape() if e.compact]
+        assert len(matches) == len(compact_entries)
 
     def test_landscape_dimensions_correct(self):
         """All entries have correct CY dimensions."""
@@ -596,18 +613,17 @@ from compute.lib.independent_verification import independent_verification
 
 
 class TestChiKappaDiscrepancyIV:
-    r"""Independent verification of chi_top(X)/24 != kappa_ch(A_X).
+    r"""Independent verification of chi_top(X)/24 versus chiral shadows.
 
     The proposition states that for each of the four canonical CY
     examples (E, K3, K3 x E, resolved conifold), chi_top(X)/24 and
-    kappa_ch(A_X) take distinct values. The discrepancy is the
-    hinge that forces the CY-D correction: the modular characteristic
-    is an invariant of the QUANTUM CHIRAL ALGEBRA, not of the
-    topological manifold.
+    the non-topological chiral shadow under comparison take distinct
+    values. For E and K3 x E this is the Heisenberg/free-field shadow,
+    not the compact Hodge/PhiFA supertrace.
 
     Disjoint sources:
     - DERIVATION: the table entries are computed by standard methods
-      -- chi_top via Betti/Chern class counting, kappa_ch via the
+      -- chi_top via Betti/Chern class counting, chiral shadows via the
       explicit chiral-algebra construction (Heisenberg level,
       chiral de Rham additivity, N=4 central charge).
     - VERIFICATION: each entry is cross-checked by an independent
@@ -615,7 +631,7 @@ class TestChiKappaDiscrepancyIV:
       blow-up formula (or Todd computation), chi(E) = 0 via
       fundamental group pi_1(E) = Z^2 and rational cohomology,
       chi(K3 x E) = 0 via the multiplicativity of Euler characteristic
-      under products, and kappa_ch via the modular weight of the
+      under products, and the chiral shadow via the modular weight of the
       partition function Z_A(tau) (expanded via its free-field
       realisation, NOT the chiral de Rham additivity used in the
       derivation).
@@ -626,18 +642,18 @@ class TestChiKappaDiscrepancyIV:
         derived_from=[
             "chi_top(X) computed from Chern class integrals "
             "int_X c_d(TX) (topological derivation)",
-            "kappa_ch(A_X) computed from chiral algebra construction: "
+            "the chiral shadow computed from chiral algebra construction: "
             "level for Heisenberg, additivity for chiral de Rham, "
             "central charge for N=4 SCA",
-            "Table entries: chi_top(E)/24 = 0 vs kappa_ch(H_1) = 1; "
+            "Table entries: chi_top(E)/24 = 0 vs kappa_ch_Heis(H_1) = 1; "
             "chi_top(K3)/24 = 1 vs kappa_ch(A_K3) = 2; "
-            "chi_top(K3 x E)/24 = 0 vs kappa_ch = 3; "
+            "chi_top(K3 x E)/24 = 0 vs kappa_ch_Heis = 3; "
             "chi_top(conifold)/24 = 1/12 vs kappa_ch = 1",
         ],
         verified_against=[
             "Elliptic curve E: chi(E) = 0 via pi_1(E) = Z^2 and "
             "rational cohomology (H^0 = H^2 = C, H^1 = C^2); "
-            "kappa_ch(H_1) = 1 via the Heisenberg modular weight "
+            "kappa_ch_Heis(H_1) = 1 via the Heisenberg modular weight "
             "of the partition function 1/eta(tau) (weight -1/2; "
             "kappa_ch is normalised against this)",
             "K3 surface: chi(K3) = 24 via independent Hirzebruch-Todd "
@@ -647,40 +663,39 @@ class TestChiKappaDiscrepancyIV:
             "kappa_ch(A_K3) = 2 via the Gritsenko-Nikulin Jacobi form "
             "weight (NOT via chiral algebra construction)",
             "K3 x E: chi(K3 x E) = 0 via Kunneth chi = chi(K3) * "
-            "chi(E) = 24 * 0 = 0; kappa_ch(A_{K3 x E}) = 3 via "
-            "dim_C(K3 x E) = 3 (complex dimension, independent of "
-            "additivity argument)",
+            "chi(E) = 24 * 0 = 0; kappa_ch_Heis(K3 x E) = 3 via "
+            "the relative Heisenberg-Mukai specialization",
             "Resolved conifold: chi = 2 via explicit deformation "
             "retraction onto P^1 base (chi(P^1) = 2); kappa_ch = 1 "
             "via Gopakumar-Vafa count at D-brane resolution",
-            "In all four cases, chi_top/24 != kappa_ch when computed "
+            "In all four cases, chi_top/24 differs from the named chiral shadow "
             "from these independent sources",
         ],
         disjoint_rationale=(
             "The DERIVATION computes each column via standard tools: "
             "chi_top via Chern class integrals (topology) and "
-            "kappa_ch via chiral algebra construction (level, "
+            "chiral shadow via chiral algebra construction (level, "
             "additivity, central charge). The VERIFICATION cross-"
             "checks each entry using an independent classical source: "
             "pi_1(E) and rational cohomology for chi(E), "
             "Hirzebruch-Todd for chi(K3), Kunneth for chi(K3 x E), "
             "deformation retraction for the resolved conifold, and "
-            "modular Jacobi-form weights for kappa_ch. The Jacobi-"
+            "modular Jacobi-form weights for the chiral shadow. The Jacobi-"
             "form verification is genuinely disjoint: it uses "
             "Gritsenko-Nikulin liftings on Sp(2,Z) without invoking "
             "the chiral algebra construction of A_X. Agreement in "
             "all four cases confirms the discrepancy table."),
     )
-    def test_chi_over_24_neq_kappa_ch_at_four_examples(self):
-        """The KEY INEQUALITY: chi_top(X)/24 != kappa_ch(A_X) at all
+    def test_chi_over_24_neq_named_chiral_shadow_at_four_examples(self):
+        """The KEY INEQUALITY: chi_top(X)/24 differs from the named shadow at all
         four entries, verified from independent classical sources.
         """
         # (i) Elliptic curve E.
         chi_E = 0            # from pi_1(E) = Z^2 + rational cohomology
-        kappa_ch_E = 1       # from Heisenberg modular weight
-        assert F(chi_E, 24) != kappa_ch_E
+        kappa_ch_Heis_E = 1  # from Heisenberg modular weight
+        assert F(chi_E, 24) != kappa_ch_Heis_E
         assert F(chi_E, 24) == F(0)
-        assert kappa_ch_E == 1
+        assert kappa_ch_Heis_E == 1
 
         # (ii) K3 surface.
         chi_K3 = 24          # from Hirzebruch-Todd independent derivation
@@ -691,10 +706,10 @@ class TestChiKappaDiscrepancyIV:
 
         # (iii) K3 x E.
         chi_K3E = 0          # from Kunneth: chi(K3) * chi(E) = 24 * 0 = 0
-        kappa_ch_K3E = 3     # from dim_C(K3 x E) = 3
-        assert F(chi_K3E, 24) != kappa_ch_K3E
+        kappa_ch_Heis_K3E = 3  # relative Heisenberg-Mukai shadow
+        assert F(chi_K3E, 24) != kappa_ch_Heis_K3E
         assert F(chi_K3E, 24) == F(0)
-        assert kappa_ch_K3E == 3
+        assert kappa_ch_Heis_K3E == 3
 
         # (iv) Resolved conifold.
         chi_conifold = 2     # from deformation retraction onto P^1
@@ -705,9 +720,9 @@ class TestChiKappaDiscrepancyIV:
 
         # Meta-check: the discrepancy is GLOBAL -- no case matches.
         cases = [
-            (chi_E, kappa_ch_E),
+            (chi_E, kappa_ch_Heis_E),
             (chi_K3, kappa_ch_K3),
-            (chi_K3E, kappa_ch_K3E),
+            (chi_K3E, kappa_ch_Heis_K3E),
             (chi_conifold, kappa_ch_conifold),
         ]
         for chi, kappa in cases:

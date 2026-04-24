@@ -449,11 +449,17 @@ def lattice_vector_count_at_d3(max_l: int = 20) -> int:
 
     This grows without bound as max_l increases, confirming that
     the 64 generators are NOT in bijection with lattice vectors.
+    Since D=3 forces l odd, the count is the number of nonzero odd
+    integers in [-max_l, max_l]; it first exceeds 64 at max_l = 65.
 
     Examples
     --------
     >>> lattice_vector_count_at_d3(5) >= 6
     True
+    >>> lattice_vector_count_at_d3(50)
+    50
+    >>> lattice_vector_count_at_d3(65)
+    66
     """
     return len(lattice_vectors_at_d3(max_l))
 
@@ -1352,7 +1358,8 @@ def independence_analysis() -> Dict[str, Any]:
         'yangian_rank': {
             'rank': n,
             'description': (
-                f'The D=3 sector of the conjectural BKM Yangian has rank {n}: '
+                f'The D=3 sector of the conjectural Yangian-deformation '
+                f'model for the BKM algebra has rank {n}: '
                 f'{n} independent fermionic current generators e_3^{{(a)}}(u) '
                 f'for a = 1,...,{n}.'
             ),

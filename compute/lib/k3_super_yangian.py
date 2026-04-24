@@ -1,59 +1,57 @@
-r"""K3 super-Yangian: small-rank gl(m|n) framework and the osp(4|20) target.
+r"""K3 super-Yangian: small-rank gl(m|n) framework and the form-preserving targets.
 
-SCOPE CLARIFICATION (2026-04-17, AP239 / F19 heal)
-===================================================
+SCOPE CLARIFICATION
+===================
 
-EARLIER DRAFTS of this module and of the manuscript named the K3
-super-Yangian candidate Y(gl(4|20)).  This is a MISNOMER and has been
-corrected throughout the manuscript as follows.
+The K3 form-preserving Yangian is not Y(gl(4|20)).
 
     The Mukai form omega on H^*(K3, R) is ORTHOGONAL of signature (4, 20):
     a non-degenerate SYMMETRIC INDEFINITE bilinear form, with four positive
-    and twenty negative eigenvalues.  It is NOT a Z/2-super-grading on the
-    Mukai lattice.  The super-Lie algebra preserving a symmetric indefinite
-    (orthogonal) bilinear form on a Z/2-graded vector space is the
-    ORTHOSYMPLECTIC super-Lie algebra osp(m|n), NOT the general linear
-    super-Lie algebra gl(m|n).  The correct super-Yangian candidate
-    attached to the Mukai form is therefore
+    and twenty negative eigenvalues.  It is NOT itself a Z/2-super-grading
+    on the Mukai lattice.  The form-preserving envelope selected by the
+    Mukai form is the orthogonal Yangian Y(so(4,20)); its programme-specific
+    Hodge-parity super-extension has a symmetric form on both graded parts.
+    Kac's orthosymplectic algebra osp(4|20) is a comparison target, not the
+    Mukai-preserving object, because Kac osp requires a symplectic form on
+    the odd part.
 
-        Y_{osp(4|20)}    (Arnaudon-Crampe-Doikou-Frappat-Ragoucy 2003+
-                          reflection equation presentation)
-
-    and NOT Y(gl(4|20)).  See chapters/examples/k3_yangian_chapter.tex
-    Section 4.2 ("The K3 super-Yangian Y_{osp(4|20)}"), Conjecture
-    conj:osp-yangian-mukai, and Remark rem:gl-to-osp-correction.
-
-    The orthosymplectic construction:
+    Kac's orthosymplectic comparison construction:
       osp(4|20)_{0} = so(4) (+) sp(20)   (even, dim 6 + 210 = 216)
       osp(4|20)_{1} = V_+ (x) V_-        (odd, dim 4 * 20 = 80)
-      dim osp(4|20) = 216 + 2 * 80 = 376  (not 576 = 24^2 of gl(4|20))
+      dim osp(4|20) = 216 + 80 = 296  (not 576 = 24^2 of gl(4|20))
+
+    The programme-specific Hodge-parity so(4|20) comparison:
+      so(4|20)_{0} = so(4) (+) so(20)    (even, dim 6 + 190 = 196)
+      so(4|20)_{1} = V_+ (x) V_-         (odd, dim 4 * 20 = 80)
+      total dimension = 196 + 80 = 276.
 
     Alternative (non-super): Y(so(4, 20)) is a legitimate second
     candidate (Yangian of the real form of so(24, C) preserving the
     Mukai form directly).
 
-WHAT THIS MODULE ACTUALLY DOES (2026-04-17 honest scope)
-=========================================================
+WHAT THIS MODULE ACTUALLY DOES
+==============================
 
 This module implements the gl(m|n) super-Yangian RTT framework at
 SMALL RANK (primarily gl(1|1) and gl(2|1); the dimension-(4|20) case
 is accessible only via the 576-dim numerical routines and NOT at the
 symbolic RTT level).  These small-rank computations serve as a
-structural warm-up for the osp(4|20) target: they verify
+structural warm-up for the form-preserving targets: they verify
 
   - graded tensor-product signs (Kulish-Sklyanin convention);
   - standard super-unitarity P_s^2 = Id;
   - graded Yang-Baxter equation at small rank;
   - super-crossing symmetry at small rank.
 
-These are inherited by the osp construction (the osp R-matrix is
-built from P_s plus an additional trace-projector Q for the invariant
-form).  They do NOT verify the (4, 20)-rank orthosymplectic
-reflection equation, which remains OPEN.
+These are inherited by the form-preserving reflection-equation
+constructions (the orthogonal and osp R-matrices are built from P_s or
+P plus an additional trace-projector Q for the invariant form).  They do
+NOT verify the (4, 20)-rank reflection equation, which remains OPEN for
+the programme-specific Hodge-parity extension.
 
-STATUS: CONJECTURAL (AP-CY14).  The osp(4|20) existence conjecture
-is conj:osp-yangian-mukai in k3_yangian_chapter.tex.  This module
-retains the gl(m|n) small-rank verifications as genuinely useful
+STATUS: CONJECTURAL. The form-preserving existence
+conjecture is the K3 Yangian trichotomy in k3_yangian_chapter.tex. This
+module retains the gl(m|n) small-rank verifications as genuinely useful
 computational scaffolding.
 
 MATHEMATICAL CONTENT (gl(m|n) small-rank warm-up)
@@ -66,20 +64,17 @@ MATHEMATICAL CONTENT (gl(m|n) small-rank warm-up)
    with dim V_+ = 4 (positive-norm: H^0 + H^4 + 2 Kahler) and
    dim V_- = 20 (negative-norm: 19 from H^2 + 1 hyperbolic).
    This polarisation, NOT a Z/2-super-grading on C^{24} itself, is
-   what enters the osp construction.
+   what enters the form-preserving reflection-equation comparison.
 
    For the gl(m|n) small-rank WARM-UP (used below), we impose the
    parity convention p(i) = 0 for i = 1..m, p(i) = 1 for i = m+1..m+n
    by analogy, understanding that the (4, 20) instance requires the
    orthogonal form, not the super-grading.
 
-   PHYSICAL INTERPRETATION (osp side): negative-norm directions
-   contribute REFLECTION signs in the osp crossing symmetry, because
-   <e_i, e_i>_Muk = -1 flips the sign in the orthosymplectic form.
-   This is the standard mechanism by which osp super-algebras arise
-   from indefinite inner products in Kac's classification of finite-
-   dimensional simple Lie super-algebras.  No BPS fermion number
-   enters.
+   PHYSICAL INTERPRETATION (reflection-equation side): negative-norm directions
+   contribute reflection signs because <e_i, e_i>_Muk = -1.  This is
+   an orthogonal Mukai-form effect.  It is not Kac orthosymplectic
+   parity, and no BPS fermion number enters.
 
 2. THE GRADED PERMUTATION AND ITS RELATION TO P_omega.
 
@@ -240,6 +235,179 @@ M_EVEN = SIG_PLUS   # = 4  (positive Mukai directions = even)
 N_ODD = SIG_MINUS   # = 20 (negative Mukai directions = odd)
 SUPER_DIM = M_EVEN - N_ODD  # = -16 (superdimension)
 TOTAL_DIM = M_EVEN + N_ODD  # = 24
+
+COMPLETION_PRIMITIVES: Tuple[str, ...] = (
+    "completed_pbw_flatness",
+    "coproduct_antipode_continuity",
+    "universal_R_convergence",
+    "all_order_associator_topology",
+    "reflection_centre_delta5_match",
+    "zeta8_divided_power_integral_form",
+)
+
+
+def _so_dimension(n: int) -> int:
+    """Dimension of so(n)."""
+    return n * (n - 1) // 2
+
+
+def _sp_dimension(n: int) -> int:
+    """Dimension of sp(n), with n even in the physicists' vector convention."""
+    if n % 2 != 0:
+        raise ValueError("sp(n) requires even vector dimension n = 2r")
+    r = n // 2
+    return r * (2 * r + 1)
+
+
+def form_preserving_dimension_oracle(m: int = M_EVEN, n: int = N_ODD) -> Dict[str, Any]:
+    r"""Separate the gl, Kac-osp, and Hodge-parity so dimension counts.
+
+    For the K3 Mukai split (m,n)=(4,20), three different counts occur:
+
+    * gl(4|20): ambient matrix algebra, dimension (4+20)^2 = 576.
+    * Kac osp(4|20): even so(4)+sp(20), odd C^4 tensor C^20, total 296.
+    * programme Hodge-parity so(4|20): even so(4)+so(20), odd C^4 tensor C^20,
+      total 276.
+
+    The last object is not Kac osp, and neither super count proves the
+    Hall--Drinfeld / Borcherds completion.
+    """
+    so_m = _so_dimension(m)
+    so_n = _so_dimension(n)
+    sp_n = _sp_dimension(n)
+    odd = m * n
+    gl_dimension = (m + n) ** 2
+
+    return {
+        'm_even': m,
+        'n_odd': n,
+        'gl_dimension': gl_dimension,
+        'gl_mixed_off_diagonal_entries': 2 * odd,
+        'form_preserving_mixed_entries': odd,
+        'kac_osp_even_dimension': so_m + sp_n,
+        'kac_osp_odd_dimension': odd,
+        'kac_osp_total_dimension': so_m + sp_n + odd,
+        'hodge_so_even_dimension': so_m + so_n,
+        'hodge_so_odd_dimension': odd,
+        'hodge_so_total_dimension': so_m + so_n + odd,
+        'kac_osp_is_mukai_preserver': False,
+        'hodge_so_is_kac_osp': False,
+        'full_rank_reflection_equation_verified': False,
+        'hall_drinfeld_identification_proved': False,
+        'status': STATUS,
+    }
+
+
+def super_yangian_completion_obstruction_oracle() -> Dict[str, Any]:
+    r"""Record the remaining all-order primitives for the K3 Super-Yangian.
+
+    The finite orthogonal/Hodge-parity and small-rank gl(m|n) checks are useful
+    evidence for the local RTT/current boundary. They do not construct the
+    completed Hall--Drinfeld quasi-Hopf object. This oracle is deliberately
+    negative: each primitive is an obligation, not a computed theorem.
+    """
+    dimension_oracle = form_preserving_dimension_oracle()
+
+    primitives = {
+        "completed_pbw_flatness": {
+            "criterion": "C4",
+            "finite_evidence": "ordered current monomials span the formal presentation",
+            "required_witness": (
+                "linear independence after cone completion and "
+                "gr(Y_super) = U(g_Delta_5[u])^wedge over C[[hbar]]"
+            ),
+            "proved": False,
+            "all_order": False,
+            "failure_mode": "spanning data is not completed PBW flatness",
+        },
+        "coproduct_antipode_continuity": {
+            "criterion": "C5",
+            "finite_evidence": "small-rank RTT coproduct intuition and finite R-matrix unitarity",
+            "required_witness": (
+                "continuous Hall coproduct, continuous antipode, and compatibility "
+                "with the completed Drinfeld double pairing"
+            ),
+            "proved": False,
+            "all_order": False,
+            "failure_mode": "finite algebra maps do not define completed topological maps",
+        },
+        "universal_R_convergence": {
+            "criterion": "C6",
+            "finite_evidence": "rational Yang R-matrix checks at small rank",
+            "required_witness": (
+                "convergence of R_rat_Yang(u) * theta_K3(u,Z) in the joint "
+                "hbar-adic and positive-root-height topology"
+            ),
+            "proved": False,
+            "all_order": False,
+            "failure_mode": "finite Yang-Baxter checks do not control the Borcherds cone product",
+        },
+        "all_order_associator_topology": {
+            "criterion": "C7",
+            "finite_evidence": "displayed Siegel--Borcherds associator terms through hbar^3",
+            "required_witness": (
+                "K(1)-equivariant completed super-Drinfeld associator whose "
+                "pentagon holds to every hbar order"
+            ),
+            "checked_hbar_order": 3,
+            "proved": False,
+            "all_order": False,
+            "failure_mode": "order-hbar^3 agreement is not an all-order topology",
+        },
+        "reflection_centre_delta5_match": {
+            "criterion": "C8",
+            "finite_evidence": "finite centre candidates: Berezinian / reflection central series",
+            "required_witness": (
+                "central reflection-equation series mapping to the "
+                "Gritsenko--Borcherds denominator Delta_5 with preserved grading"
+            ),
+            "target_denominator": "Delta_5",
+            "proved": False,
+            "all_order": False,
+            "failure_mode": "finite central series is not the Borcherds denominator",
+        },
+        "zeta8_divided_power_integral_form": {
+            "criterion": "C8",
+            "finite_evidence": (
+                "8^129 is only the real-root positive-Borel / projective-index "
+                "cardinality in the zeta_8 surface"
+            ),
+            "required_witness": (
+                "one divided-power integral form for the completed object, stable "
+                "under coproduct, antipode, and R"
+            ),
+            "root_of_unity_order": 8,
+            "real_root_positive_borel_dimension": "8^129",
+            "full_hopf_dimension": None,
+            "full_hopf_is_finite": False,
+            "proved": False,
+            "all_order": False,
+            "failure_mode": "the imaginary cone remains pro-finite before the tilting quotient",
+        },
+    }
+
+    return {
+        "object": "Y_hbar^super(g_Delta_5)",
+        "comparison_target": "D_hbar^wedge(CoHA_{K3 x E})",
+        "status": STATUS,
+        "finite_boundary_status": "RTT/current warm-up only",
+        "dimension_oracle": {
+            "gl_dimension": dimension_oracle["gl_dimension"],
+            "kac_osp_total_dimension": dimension_oracle["kac_osp_total_dimension"],
+            "hodge_so_total_dimension": dimension_oracle["hodge_so_total_dimension"],
+        },
+        "primitives": primitives,
+        "primitive_order": COMPLETION_PRIMITIVES,
+        "missing_primitives": [name for name in COMPLETION_PRIMITIVES if not primitives[name]["proved"]],
+        "completion_proved": False,
+        "hall_drinfeld_identification_proved": False,
+        "tests_are_completion_proof": False,
+        "claim_boundary": (
+            "The compute surface checks finite-dimensional arithmetic, signs, and "
+            "small-rank identities. It does not prove the completed all-order "
+            "Hall--Drinfeld Super-Yangian."
+        ),
+    }
 
 
 # =========================================================================
@@ -567,7 +735,7 @@ class SuperTMatrixStructure(NamedTuple):
 
 
 def super_t_matrix_structure() -> SuperTMatrixStructure:
-    """Compute the block structure of the T-matrix for Y(gl(4|20)).
+    """Compute the block structure of the comparison T-matrix for Y(gl(4|20)).
 
     The T-matrix T(u) is a (4+20) x (4+20) = 24 x 24 matrix whose entries
     are formal power series in u^{-1} with operator-valued coefficients.
@@ -583,9 +751,10 @@ def super_t_matrix_structure() -> SuperTMatrixStructure:
     The 160 fermionic entries (B and C blocks) correspond to the mixed-sign
     pairs that have P_omega^2 eigenvalue -1.
 
-    This is the KEY correspondence: the 160/576 mixed-sign eigenvalues
-    from the adversarial analysis are EXACTLY the fermionic entries of
-    the super T-matrix.
+    This is a comparison correspondence only: the 160/576 mixed-sign
+    eigenvalues have the same count as the fermionic entries of the
+    super T-matrix after the Mukai form is forgotten.  The
+    form-preserving K3 target remains orthogonal.
     """
     m, n = M_EVEN, N_ODD
 
@@ -625,8 +794,9 @@ def verify_entry_count_matches_adversarial() -> Dict[str, Any]:
       Bosonic entries: 416 (A: 4x4 = 16, D: 20x20 = 400)
       Fermionic entries: 160 (B: 4x20 = 80, C: 20x4 = 80)
 
-    This is an EXACT match: the bosonic/fermionic decomposition of Y(gl(4|20))
-    captures precisely the same-sign/mixed-sign decomposition of P_omega^2.
+    This is a numerical comparison: the bosonic/fermionic decomposition
+    of Y(gl(4|20)) has the same counts as the same-sign/mixed-sign
+    decomposition of P_omega^2 after the Mukai form is forgotten.
     """
     # From adversarial analysis
     signs = mukai_diagonal_eigenvalues()
@@ -649,10 +819,11 @@ def verify_entry_count_matches_adversarial() -> Dict[str, Any]:
             pomega_minus == t_struct.fermionic_entries
         ),
         'interpretation': (
-            'EXACT MATCH: The 416 same-sign (P_omega^2 = +1) tensor directions '
-            'are the 416 bosonic entries of Y(gl(4|20)), and the 160 mixed-sign '
-            '(P_omega^2 = -1) directions are the 160 fermionic entries. '
-            'The super-Yangian structure is dictated by the Mukai signature.'
+            'COMPARISON MATCH: The 416 same-sign (P_omega^2 = +1) tensor '
+            'directions match the 416 bosonic entries of Y(gl(4|20)), and '
+            'the 160 mixed-sign (P_omega^2 = -1) directions match the 160 '
+            'fermionic entries after forgetting the Mukai form. The K3 '
+            'form-preserving target is orthogonal, not general-linear.'
         ),
         'status': STATUS,
     }
@@ -826,7 +997,7 @@ def verify_super_unitarity_small(m=2, n=1) -> Dict[str, Any]:
 # =========================================================================
 
 def quantum_berezinian_structure() -> Dict[str, Any]:
-    r"""Describe the quantum Berezinian for Y(gl(4|20)).
+    r"""Describe the quantum Berezinian for the comparison Y(gl(4|20)).
 
     For Y(gl(m|n)), the quantum Berezinian is (Nazarov 1991):
 
@@ -843,7 +1014,8 @@ def quantum_berezinian_structure() -> Dict[str, Any]:
     where h_i(u) are the diagonal Gauss generators.
 
     For gl(4|20): the numerator has 4 factors, the denominator has 20 factors.
-    This is the SUPER-quantum determinant that generates the center of Y(gl(4|20)).
+    This is the SUPER-quantum determinant that generates the center of
+    the comparison Y(gl(4|20)); it is not the K3 Mukai-form centre.
 
     COMPARISON WITH ORDINARY QUANTUM DETERMINANT:
     For Y(gl(24)) (non-super): qdet T(u) = product of all 24 diagonal factors.
@@ -1178,7 +1350,7 @@ def zte_super_vs_ordinary_numpy(kappa_val=0.3, u_vals=None) -> Dict[str, Any]:
 # =========================================================================
 
 def full_super_yangian_report() -> Dict[str, Any]:
-    r"""Comprehensive report on the K3 super-Yangian Y(gl(4|20)).
+    r"""Comprehensive report on the K3 super-Yangian warm-up surface.
 
     Synthesizes all analyses:
     1. Z_2-grading from Mukai signature
@@ -1191,15 +1363,8 @@ def full_super_yangian_report() -> Dict[str, Any]:
     8. Super-crossing symmetry
     9. ZTE comparison
 
-    OVERALL VERDICT: The super-Yangian Y(gl(4|20)) is the CORRECT
-    algebraic framework for the non-abelian K3 Yangian because:
-    (a) The Z_2-grading matches the Mukai signature
-    (b) The 416/160 bosonic/fermionic split matches P_omega^2 spectrum
-    (c) Standard super-unitarity replaces modified Mukai unitarity
-    (d) Super-crossing symmetry accommodates the sign flips
-    (e) The quantum Berezinian gives a well-defined central element
-
-    The super-structure does NOT resolve the ZTE obstruction (AP-CY30).
+    OVERALL VERDICT: these computations are finite RTT/current warm-ups.
+    They do not prove the completed Hall--Drinfeld Super-Yangian.
     """
     grading = mukai_super_grading()
     ps_spectrum = super_permutation_spectrum()
@@ -1211,6 +1376,7 @@ def full_super_yangian_report() -> Dict[str, Any]:
     # Small-rank verifications (expensive, do last)
     ybe = verify_super_ybe_small(m=2, n=1)
     unitarity = verify_super_unitarity_small(m=2, n=1)
+    completion = super_yangian_completion_obstruction_oracle()
 
     return {
         'grading': {
@@ -1249,15 +1415,15 @@ def full_super_yangian_report() -> Dict[str, Any]:
             'The ZTE correction requires genuinely 3D operators beyond '
             'pairwise R-matrices (thm:zte-failure, AP-CY30).'
         ),
+        'completion_obstructions': completion,
         'overall_verdict': (
-            'Y(gl(4|20)) is the CORRECT super-Yangian for the non-abelian '
-            'K3 Yangian. The Mukai signature (4,20) induces a Z_2-grading '
-            'with 4 even and 20 odd directions. The 416 bosonic and 160 '
-            'fermionic T-matrix entries match the P_omega^2 spectrum EXACTLY. '
-            'Super-unitarity holds (P_s^2 = Id), super-crossing uses the '
-            'supertranspose, and the quantum Berezinian replaces the quantum '
-            'determinant. The super-structure resolves the unitarity '
-            'obstruction but NOT the ZTE obstruction.'
+            'The gl(m|n) computations, finite orthogonal/Hodge-parity dimension '
+            'counts, and small-rank RTT checks form a warm-up boundary. They do '
+            'not prove Y_hbar^super(g_Delta_5), do not prove the completed '
+            'Hall--Drinfeld identification, and do not discharge PBW flatness, '
+            'coproduct/antipode continuity, universal R convergence, all-order '
+            'associator topology, reflection-centre-to-Delta_5 matching, or the '
+            'zeta_8 divided-power integral form.'
         ),
         'status': STATUS,
     }

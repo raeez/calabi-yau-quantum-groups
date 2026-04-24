@@ -494,7 +494,8 @@ def padic_euler_factor_c3(p: int, n: int) -> Fraction:
 
 K3_BETTI = [1, 0, 22, 0, 1]  # Betti numbers of K3
 K3_EULER = 24  # chi_top(K3) = 24 = kappa_fiber
-K3_KAPPA_CH = Fraction(3)   # kappa_ch(K3 x E) = 3 (AP113: subscripted)
+K3_KAPPA_CH = Fraction(0)   # compact kappa_ch(K3 x E) = chi(O_{K3xE}) = 0
+K3_KAPPA_CH_HEIS = Fraction(3)  # relative Heisenberg/free-field shadow scalar
 K3_KAPPA_BKM = Fraction(5)  # kappa_BKM(K3 x E) = 5 (weight of Delta_5)
 K3_KAPPA_CAT = Fraction(2)  # kappa_cat(K3) = chi(O_{K3}) = 2
 K3_KAPPA_FIBER = 24          # kappa_fiber = lattice rank
@@ -960,8 +961,9 @@ def c3_motivic_shadow_tower(max_arity: int = 10) -> MotivicShadowTowerData:
         S_2^{mot} = L^{3/2}  (chi -> 1 = kappa_ch)
         S_r^{mot} = 0         for r >= 3
 
-    This is because the CoHA of C^3 is free (the affine Yangian of gl_1
-    is generated in arity 1 with no higher relations in the E_1 sense).
+    This is because the positive half CoHA(C^3)=Y^+(gl_1) is free in
+    this shadow range.  The full affine Yangian or W_{1+\infty} appears
+    only after the Drinfeld double/center and a vacuum/Fock evaluation.
 
     VERIFIED [DC] motivic_e1_algebra.py [CF] c3_shadow_tower.py
     """

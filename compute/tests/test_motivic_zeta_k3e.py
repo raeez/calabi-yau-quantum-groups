@@ -2,7 +2,8 @@ r"""Tests for the motivic shadow zeta function of K3 x E (d=3).
 
 Verifies:
     1.  Kunneth topology: Betti numbers, chi_top, chi(O), Poincare duality, h^{3,0}=1
-    2.  kappa spectrum: kappa_ch=3, kappa_BKM=5, kappa_cat=0, kappa_fiber=24 (AP113)
+    2.  kappa spectrum: compact kappa_ch=0, kappa_ch^Heis=3,
+        kappa_BKM=5, kappa_cat=0, kappa_fiber=24 (AP113)
     3.  Motivic bar dimensions (Kunneth model): [B_n] = 24*(L^{n+1}+L^n), chi=48
     4.  DMVV diagonal exponents: e_diag(s)=24 for s=1,...,4 (Heisenberg regime)
     5.  Euler specialization: chi(zeta^{mot}(s)) consistency (two paths)
@@ -44,6 +45,7 @@ from compute.lib.motivic_zeta_k3e import (
     E_BETTI_NUMBERS,
     # kappa spectrum (AP113)
     KAPPA_CH_K3E,
+    KAPPA_CH_K3E_HEIS,
     KAPPA_BKM_K3E,
     KAPPA_CAT_K3E,
     KAPPA_FIBER_K3E,
@@ -186,9 +188,14 @@ class TestKappaSpectrum:
     """Tests for the kappa-spectrum of K3 x E (AP113: always subscripted)."""
 
     def test_kappa_ch(self):
-        """kappa_ch(K3 x E) = 3 (from chiral algebra via Phi)."""
-        # VERIFIED [DC] CLAUDE.md kappa spectrum table
-        assert KAPPA_CH_K3E == Fraction(3)
+        """Compact kappa_ch(K3 x E) = 0 by the Hodge/PhiFA supertrace."""
+        # VERIFIED [DC] Kunneth: chi(O_{K3xE}) = (1 - 0 + 1)(1 - 1) = 0
+        assert KAPPA_CH_K3E == Fraction(0)
+
+    def test_kappa_ch_heis(self):
+        """The relative Heisenberg/free-field shadow scalar is 3."""
+        # VERIFIED [DC] shadow lane split: 2 from K3 plus 1 from the elliptic factor
+        assert KAPPA_CH_K3E_HEIS == Fraction(3)
 
     def test_kappa_BKM(self):
         """kappa_BKM(K3 x E) = 5 (weight of Delta_5)."""
@@ -208,9 +215,15 @@ class TestKappaSpectrum:
         assert KAPPA_FIBER_K3E == MUKAI_RANK
 
     def test_kappa_spectrum_distinct(self):
-        """All four kappa values are distinct: {0, 3, 5, 24}."""
+        """The visible spectrum separates compact, Heisenberg, BKM, and fiber scalars."""
         # VERIFIED [DC] AP113 resolution
-        kappas = {KAPPA_CH_K3E, KAPPA_BKM_K3E, KAPPA_CAT_K3E, Fraction(KAPPA_FIBER_K3E)}
+        kappas = {
+            KAPPA_CH_K3E,
+            KAPPA_CH_K3E_HEIS,
+            KAPPA_BKM_K3E,
+            KAPPA_CAT_K3E,
+            Fraction(KAPPA_FIBER_K3E),
+        }
         assert kappas == {Fraction(0), Fraction(3), Fraction(5), Fraction(24)}
 
 

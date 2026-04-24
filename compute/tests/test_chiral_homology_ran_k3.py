@@ -8,7 +8,8 @@ CENTRAL RESULTS:
     (5) Factorization under degeneration: separating and non-separating.
     (6) Verlinde comparison: H_Muk (1 block) vs V_k(sl_2) (k+1 blocks).
     (7) K3 Yangian chiral homology: CONJECTURAL (AP-CY14).
-    (8) kappa-spectrum: kappa_ch=3, kappa_cat=2, kappa_BKM=5, kappa_fiber=24 (AP113).
+    (8) kappa-spectrum: compact kappa_ch=0, kappa_ch_Heis=3,
+        kappa_cat=0, kappa_cat_fiber=2, kappa_BKM=5, kappa_fiber=24 (AP113).
 
 Manuscript references:
     en_factorization.tex sec:e3-from-hcs (E_3 FH framework)
@@ -495,10 +496,14 @@ class TestVerlindeComparison:
 class TestKappaSpectrum:
     """AP113 compliance: all kappa values subscripted."""
 
-    def test_kappa_ch(self):
-        """kappa_ch(K3 x E) = 3."""
+    def test_kappa_ch_heis(self):
+        """The summary's legacy kappa_ch key is the Heisenberg scalar 3."""
         summary = chiral_homology_summary()
-        assert summary['kappa_ch'] == 3
+        kappa_ch_heis = summary['kappa_ch']
+        compact_kappa_ch = summary['kappa_cat']
+        assert compact_kappa_ch == 0
+        assert kappa_ch_heis == 3
+        assert compact_kappa_ch != kappa_ch_heis
 
     def test_kappa_cat_total(self):
         """kappa_cat(K3 x E) = chi(O_{K3 x E}) = 0."""

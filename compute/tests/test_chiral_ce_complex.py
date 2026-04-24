@@ -6,8 +6,9 @@ Verifies the identification B(U^ch(L)) = CE_*(L_A) across all shadow classes:
   2. Kac-Moody sl_2 (class L): CE_*(sl_2_hat), Poincare = (1+t)^3, d^2=0
   3. Virasoro (class M): L_infinity deformation, shadow tower S_2,S_3,S_4
   4. Yangian Y(gl_hat_1) (class L): strict Lie, Poincare = (1+t)^3
-  5. Derived center: CE^*(Heis) = HH*(U^ch(Heis), U^ch(Heis))
-  6. Genus-3 E_3 bar: (1+t)^{3g} for class L/C, infinite for class M
+    5. Derived center: finite CE shadow of HH*(U^ch(Heis), U^ch(Heis))
+  6. Genus-3 E_3 bar: (1+t)^{3g} for class L/C; class M has E_4 total 6^g
+     and E_4 = E_inf for g <= 3
 
 Every test uses AT LEAST 2 independent verification paths (AP10).
 
@@ -301,6 +302,12 @@ class TestCEDifferential:
 
 class TestPoincarePolynomial:
     """Test Poincare polynomial = (1+t)^n for CE_*(L)."""
+
+    def test_is_abelian_detects_zero_zeroth_products(self):
+        """Heisenberg has no 0-th product; sl_2 and Yangian do."""
+        assert heisenberg_lca().is_abelian is True
+        assert kac_moody_sl2_lca().is_abelian is False
+        assert yangian_gl1_lca().is_abelian is False
 
     def test_heisenberg_poincare(self):
         """Heisenberg: (1+t)^1 = 1 + t. Dim: {0:1, 1:1}."""
@@ -616,15 +623,20 @@ class TestE3BarGenus3:
         dim = e3_bar_dimension_class_L(1, genus=3)
         assert dim == 8
 
-    def test_class_M_infinite(self):
-        """Class M (Virasoro): E_3 bar cohomology is INFINITE-dimensional.
+    def test_class_M_finite_at_genus3(self):
+        """Class M (Virasoro): E_3 bar at genus 3 has dimension 6^3.
 
-        AP-CY21: d_4 survives for class M, so (1+t)^{3g} FAILS.
+        AP-CY21: d_4 survives for class M, so (1+t)^{3g}=8^g FAILS.
+        The E_4 page is (3t(1+t))^g, and for g <= 3 it equals E_inf.
         """
-        # VERIFIED [DC] class M [LT] AP-CY21: fails for class M
-        result = e3_bar_dimension_class_M()
-        assert "INFINITE" in result
-        assert "class M" in result
+        # VERIFIED [DC] 6^3 [LT] AP-CY21: class M has 216, not 512.
+        result = e3_bar_dimension_class_M(genus=3)
+        assert result["shadow_class"] == "M"
+        assert result["e4_total"] == 216
+        assert result["class_L_total_same_genus"] == 512
+        assert result["deficit_from_class_L"] == 296
+        assert result["einf_status"] == "proved_for_g_le_3"
+        assert result["higher_differentials_open"] is False
 
     def test_class_L_genus_g_formula(self):
         """For class L at genus g: total = 2^{n*g} for any g."""
@@ -778,7 +790,8 @@ class TestFullComputation:
         e3 = results["e3_genus3"]
         assert e3["class_L_yangian_3gen"] == 512
         assert e3["class_G_heis_1gen"] == 8
-        assert "INFINITE" in e3["class_M_virasoro"]
+        assert e3["class_M_virasoro"]["e4_total"] == 216
+        assert e3["class_M_virasoro"]["einf_status"] == "proved_for_g_le_3"
 
 
 # =========================================================================
@@ -790,13 +803,13 @@ from compute.lib.independent_verification import independent_verification
 
 
 class TestBarCEIdentificationIV:
-    r"""Independent verification of B^{ord}(U^ch(L)) = CE_*(L).
+    r"""Independent verification of the strict PBW bar shadow = CE_*(L).
 
     The proposition states: for L a Lie conformal algebra with
-    lambda-bracket, the ordered bar complex of the chiral envelope
-    U^ch(L) is isomorphic to the Chevalley-Eilenberg chain complex
-    of L, with the bar differential encoding the zero-th product
-    a_{(0)} b (the Lie bracket) as the CE differential.
+    lambda-bracket, the strict finite exterior shadow of the ordered bar
+    complex of the chiral envelope U^ch(L) is isomorphic to the
+    Chevalley-Eilenberg chain complex of L, with the shadow differential
+    encoding the zero-th product a_{(0)} b as the CE differential.
 
     Disjoint sources:
     - DERIVATION: Poincare-Birkhoff-Witt filtration on U^ch(L)
@@ -825,14 +838,15 @@ class TestBarCEIdentificationIV:
         verified_against=[
             "Heisenberg L = <J> (rank 1, abelian): direct wedge^* C "
             "computation gives Poincare polynomial (1 + t); "
-            "d_CE = 0 since L is abelian; matches B^{ord} of the "
-            "rank-1 Heisenberg by explicit lambda-bracket residue",
+            "d_CE = 0 since L is abelian; matches the strict exterior "
+            "shadow of the rank-1 Heisenberg by explicit lambda-bracket "
+            "residue",
             "Kac-Moody sl_2_hat at level k: L = <e, f, h> generates "
             "wedge^* C^3 with Poincare (1+t)^3 = 1 + 3t + 3t^2 + "
             "t^3 via binomial coefficients; d_CE on wedge^2 "
             "reproduces [e,f] = h, [h,e] = 2e, [h,f] = -2f; "
-            "matches B^{ord}(V_k(sl_2)) via OPE residue of the "
-            "Kac-Moody currents",
+            "matches the strict exterior shadow of V_k(sl_2) via OPE "
+            "residue of the Kac-Moody currents",
             "Feigin-Frenkel local Lie algebra cohomology of "
             "loop(g): H^*_Lie(L_g) = CE_*(L_g) computed in 1984 "
             "via residue / polynomial vertex operators, disjoint "
@@ -857,8 +871,7 @@ class TestBarCEIdentificationIV:
             "confirms the identification."),
     )
     def test_bar_ce_identification_at_heis_and_sl2hat(self):
-        """The KEY THEOREM: B^{ord}(U^ch(L)) = CE_*(L), verified at
-        Heisenberg + Kac-Moody sl_2 + Feigin-Frenkel local cohomology.
+        """Strict PBW bar shadow = CE_*(L), verified at three anchors.
         """
         from math import comb
 
@@ -882,8 +895,8 @@ class TestBarCEIdentificationIV:
         # H^*_Lie(L_g) for g = sl_2 has Poincare polynomial (1+t)^3
         # by independent 1984 computation (polynomial vertex
         # operators / residue). The Poincare polynomial of CE_*(L_g)
-        # agrees with the polynomial degree decomposition of the bar
-        # complex, confirming the identification B^{ord} = CE_*.
+        # agrees with the polynomial degree decomposition of the strict
+        # exterior bar shadow, confirming the shadow identification.
         ff_poincare_sl2 = [1, 3, 3, 1]
         assert ff_poincare_sl2 == poincare_sl2
 

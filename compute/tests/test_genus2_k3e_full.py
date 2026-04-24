@@ -44,6 +44,8 @@ from compute.lib.genus2_k3e_full import (
     K3E_KAPPA_CAT,
     K3E_KAPPA_CAT_FIBER,
     K3E_KAPPA_CH,
+    K3E_KAPPA_CH_COMPACT,
+    K3E_KAPPA_CH_HEIS,
     K3E_KAPPA_FIBER,
     borel_resummed_r_shadow_k3,
     e3_bar_genus2_k3xe,
@@ -171,10 +173,12 @@ class TestK3ECompoundData:
     """Test K3 x E compound constants and kappa spectrum."""
 
     def test_kappa_ch_k3e(self):
-        """kappa_ch(K3xE) = 3 = kappa_ch(K3) + kappa_ch(E)."""
-        # VERIFIED [DC] additivity [LT] prop:categorical-euler
-        assert K3E_KAPPA_CH == Fraction(3)
-        assert K3E_KAPPA_CH == K3_KAPPA_CH + Fraction(1)
+        """K3xE has compact kappa_ch=0 and Heisenberg shadow kappa_ch^Heis=3."""
+        # VERIFIED [DC] compact Hodge supertrace and Heisenberg additivity
+        assert K3E_KAPPA_CH_COMPACT == Fraction(0)
+        assert K3E_KAPPA_CH_HEIS == Fraction(3)
+        assert K3E_KAPPA_CH_HEIS == K3_KAPPA_CH + Fraction(1)
+        assert K3E_KAPPA_CH == K3E_KAPPA_CH_HEIS
 
     def test_kappa_cat_k3e_total(self):
         """kappa_cat(K3xE) = chi(O_{K3xE}) = 0."""
@@ -200,7 +204,8 @@ class TestK3ECompoundData:
         """K3xE separates total categorical and K3-fiber values."""
         # VERIFIED [DC] spectrum [LT] CLAUDE.md kappa-spectrum table
         spectrum = {int(K3E_KAPPA_CAT), int(K3E_KAPPA_CAT_FIBER),
-                    int(K3E_KAPPA_CH), int(K3E_KAPPA_BKM),
+                    int(K3E_KAPPA_CH_COMPACT), int(K3E_KAPPA_CH_HEIS),
+                    int(K3E_KAPPA_BKM),
                     int(K3E_KAPPA_FIBER)}
         assert spectrum == {0, 2, 3, 5, 24}
 
@@ -376,7 +381,8 @@ class TestFullPartitionFunction:
         """Output has correct kappa spectrum."""
         # VERIFIED [DC] kappa values [LT] CLAUDE.md kappa table
         result = genus2_partition_k3xe_full(TAU_DEEP, Z_DEEP, SIGMA_DEEP, max_shadow_depth=4)
-        assert result["kappa_ch"] == 3
+        assert result["kappa_ch"] == 0
+        assert result["kappa_ch_Heis"] == 3
         assert result["kappa_cat"] == 0
         assert result["kappa_cat_fiber"] == 2
         assert result["kappa_BKM"] == 5
@@ -448,7 +454,7 @@ class TestSecondQuantizationBridge:
         assert "O4_schottky" in gap
 
     def test_o2_kappa_ratio(self):
-        """O2: kappa_BKM/kappa_ch = 5/3."""
+        """O2: kappa_BKM/kappa_ch^Heis = 5/3; compact kappa_ch is 0."""
         # VERIFIED [DC] ratio [LT] kappa spectrum
         bridge = second_quantization_bridge(TAU_DEEP, Z_DEEP, SIGMA_DEEP, max_shadow_depth=4)
         assert "5/3" in bridge["shadow_siegel_gap"]["O2_modular_characteristic"] or \
@@ -557,7 +563,8 @@ class TestWeightTable:
         # VERIFIED [DC] completeness [LT] CLAUDE.md kappa-spectrum
         table = genus2_k3xe_weight_table()
         spectrum = table["kappa_spectrum"]
-        assert spectrum["kappa_ch"]["value"] == 3
+        assert spectrum["kappa_ch"]["value"] == 0
+        assert spectrum["kappa_ch_Heis"]["value"] == 3
         assert spectrum["kappa_cat"]["value"] == 0
         assert spectrum["kappa_cat_fiber"]["value"] == 2
         assert spectrum["kappa_BKM"]["value"] == 5

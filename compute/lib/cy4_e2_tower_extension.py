@@ -33,7 +33,8 @@ CENTRAL RESULTS
    - Shadow invariant S_3 at d=4: S_3 = 2*sigma_4/sigma_3 (conjectural).
 
 5. The "CY4 Yangian" does NOT exist as a native structure.
-   - For CY3: Y(gl_hat_1) is the Yangian obtained via the CoHA of C^3.
+   - For CY3: CoHA(C^3)=Y^+(gl_hat_1), and the full Yangian
+     Y(gl_hat_1) is obtained by Drinfeld double/center.
    - For CY4: the CoHA of C^4 is still E_1 (associative Hall product).
    - The Drinfeld center gives a braided category, but with a Z-twisted
      half-braiding from p_1. This is NOT a Yangian (no spectral parameter

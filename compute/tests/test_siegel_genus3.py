@@ -71,7 +71,8 @@ from compute.lib.genus2_k3e_full import (
     K3E_CENTRAL_CHARGE,
     K3E_KAPPA_BKM,
     K3E_KAPPA_CAT,
-    K3E_KAPPA_CH,
+    K3E_KAPPA_CH_COMPACT,
+    K3E_KAPPA_CH_HEIS,
     K3E_KAPPA_FIBER,
     k3_shadow_tower,
 )
@@ -589,7 +590,7 @@ class TestSchottkyGenus3:
         claim="subsec:shadow-siegel-gap",
         derived_from=[
             "shadow obstruction tower of K3 x E constructed from first-quantised F_g (rational tautological intersection on M-bar_g)",
-            "ratio kappa_BKM/kappa_ch = 5/3 computed from K3 x E via Phi_2 and Borcherds weight theorem",
+            "ratio kappa_BKM/kappa_ch^Heis = 5/3 computed from the K3 x E Heisenberg shadow input and Borcherds weight theorem",
         ],
         verified_against=[
             "Schottky codimension codim(J_g, A_g) = (g-2)(g-3)/2 (Schottky 1888; Riemann 1857 classical): numerical table values 0, 0, 0, 1, 3, 6, 10 for g = 1..7 computed from dim A_g = g(g+1)/2 and dim M_g = 3g-3",
@@ -597,8 +598,8 @@ class TestSchottkyGenus3:
         ],
         disjoint_rationale=(
             "The derivation side constructs shadow F_g as a rational number "
-            "in the Chow ring of M-bar_g and uses kappa_BKM/kappa_ch = 5/3 "
-            "computed from Phi_2 applied to D^b(Coh(K3)). The verification "
+            "in the Chow ring of M-bar_g and uses kappa_BKM/kappa_ch^Heis = 5/3 "
+            "computed from the K3 x E Heisenberg shadow input. The verification "
             "uses the classical Schottky codimension formula (pre-1900 "
             "Riemann/Schottky, purely Jacobian-Torelli theory) and Igusa's "
             "1972 weight-10 cusp form (Siegel modular forms over H_2, also "
@@ -846,7 +847,8 @@ class TestK3xEGenus3:
         """K3xE resolved kappa spectrum includes total and fiber labels."""
         # VERIFIED [DC] kappa values [LT] CLAUDE.md kappa table
         result = genus3_partition_k3xe(omega_deep, max_shadow_depth=4, N_terms=N_THETA)
-        assert result["kappa_ch"] == 3
+        assert result["kappa_ch"] == 0
+        assert result["kappa_ch_Heis"] == 3
         assert result["kappa_cat"] == 0
         assert result["kappa_cat_fiber"] == 2
         assert result["kappa_BKM"] == 5
@@ -924,7 +926,8 @@ class TestWeightTable:
         """Weight table contains the resolved K3xE kappa spectrum."""
         table = genus3_weight_table()
         ks = table["kappa_spectrum_k3xe"]
-        assert ks["kappa_ch"]["value"] == 3
+        assert ks["kappa_ch"]["value"] == 0
+        assert ks["kappa_ch_Heis"]["value"] == 3
         assert ks["kappa_cat"]["value"] == 0
         assert ks["kappa_cat_fiber"]["value"] == 2
         assert ks["kappa_BKM"]["value"] == 5

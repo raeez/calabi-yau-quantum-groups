@@ -43,7 +43,7 @@ from compute.lib.bps_microstate_shadow import (
     terms_for_1pct_accuracy,
     # Subleading
     A_HAT,
-    KAPPA_CH, BORCHERDS_C0_N1, KAPPA_BKM, KAPPA_CAT, KAPPA_CAT_FIBER,
+    KAPPA_CH, KAPPA_CH_COMPACT, KAPPA_CH_HEIS, BORCHERDS_C0_N1, KAPPA_BKM, KAPPA_CAT, KAPPA_CAT_FIBER,
     KAPPA_FIBER,
     subleading_corrections,
     entropy_with_corrections,
@@ -434,7 +434,8 @@ class TestOSVConjecture:
         chain = osv_bar_complex_chain()
         assert "chain" in chain
         assert len(chain["chain"]) == 6
-        assert chain["kappa_ch"] == 3.0
+        assert chain["kappa_ch"] == 0.0
+        assert chain["kappa_ch_Heis"] == 3.0
         assert chain["kappa_BKM"] == 5
 
     def test_osv_chain_cites_CY_A(self):
@@ -442,6 +443,7 @@ class TestOSVConjecture:
         chain = osv_bar_complex_chain()
         assert "CY_A_status" in chain
         assert chain["CY_A_status"]["d=2"] == "PROVED"
+        assert "GLOBAL_FUNCTORIALITY_OPEN" in chain["CY_A_status"]["d=3"]
 
     def test_osv_chain_cites_bar_euler(self):
         """The OSV chain mentions the bar Euler product (AP-CY8)."""
@@ -547,17 +549,17 @@ class TestCrossVerifications:
         assert all(checks.values())
 
     def test_total_space_kappa_identity_fails(self):
-        """kappa_BKM != kappa_ch + kappa_cat(K3 x E): 5 != 3 + 0."""
-        assert KAPPA_BKM != int(KAPPA_CH) + KAPPA_CAT
+        """kappa_BKM != compact kappa_ch + kappa_cat(K3 x E): 5 != 0 + 0."""
+        assert KAPPA_BKM != int(KAPPA_CH_COMPACT) + KAPPA_CAT
 
     def test_borcherds_weight_derives_kappa_BKM(self):
-        """kappa_BKM(Delta_5) is c_1(0)/2 = 10/2 = 5."""
+        """kappa_BKM(Delta_5) is c_N(0)/2 at N=1 = 10/2 = 5."""
         assert BORCHERDS_C0_N1 == 10
         assert KAPPA_BKM == BORCHERDS_C0_N1 // 2
 
     def test_fiber_sum_is_only_N1_coincidence(self):
         """3 + 2 = 5 is the N=1 Heisenberg-fiber coincidence only."""
-        assert KAPPA_BKM == int(KAPPA_CH) + KAPPA_CAT_FIBER
+        assert KAPPA_BKM == int(KAPPA_CH_HEIS) + KAPPA_CAT_FIBER
         checks = verify_kappa_spectrum_consistency()
         assert checks["fiber_sum_N1_heisenberg_coincidence_only"] is True
 
@@ -582,9 +584,10 @@ class TestCrossVerifications:
         assert abs(S_bps - S_here) < 1e-10
 
     def test_shadow_vs_bps_kappa_spectrum(self):
-        """Both engines agree on kappa values."""
+        """Both engines agree after compact and Heisenberg chiral slots separate."""
         from compute.lib.bps_entropy_shadow import K3E_KAPPA_SPECTRUM
-        assert float(KAPPA_CH) == float(K3E_KAPPA_SPECTRUM.kappa_ch)
+        assert float(KAPPA_CH_HEIS) == float(K3E_KAPPA_SPECTRUM.kappa_ch_Heis)
+        assert float(K3E_KAPPA_SPECTRUM.kappa_ch) == 0.0
         assert KAPPA_BKM == K3E_KAPPA_SPECTRUM.kappa_BKM
         assert KAPPA_CAT == K3E_KAPPA_SPECTRUM.kappa_cat
         assert KAPPA_CAT_FIBER == K3E_KAPPA_SPECTRUM.kappa_cat_fiber

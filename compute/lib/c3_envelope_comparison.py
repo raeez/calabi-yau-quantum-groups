@@ -1,12 +1,15 @@
-r"""Factorization envelope comparison for C^3: three constructions, five paths.
+r"""Factorization envelope comparison for C^3: positive half versus W-algebra.
 
-For C^3, three constructions should give the same vertex algebra:
+For C^3, two constructions give the same vertex algebra, while the CoHA gives
+the positive half acting on the plane-partition module:
   (a) Factorization envelope U^{ch}(PV*(C^3)) of the Schouten-Nijenhuis
       Lie conformal algebra on C^3,
   (b) W_{1+infty} at c = 1 (the Feigin-Frenkel W-algebra of gl_1),
-  (c) CoHA Y^+(gl_hat_1) (Schiffmann-Vasserot).
+  (c) CoHA(C^3) = Y^+(gl_hat_1), the Schiffmann-Vasserot positive half.
 
-If all three agree, the d=3 CY-to-chiral functor works for C^3.
+The raw CoHA is not the full W-algebra.  The full Yangian/W object appears
+only after Drinfeld double, center, Fock/evaluation, or dual-side
+reconstruction.  The comparison below tests exactly that boundary.
 
 FIVE INDEPENDENT VERIFICATION PATHS:
   Path 1 (Envelope): Compute OPE from the lambda-bracket of PV*(C^3).
@@ -772,7 +775,7 @@ class KacDeterminantComparison:
 # =========================================================================
 
 def compare_characters(max_weight: int = 15) -> Dict[str, Any]:
-    r"""Compare graded characters from all three constructions at N=1.
+    r"""Compare W-algebra characters against the CoHA/Fock module at N=1.
 
     The W-algebra character (from envelope, shuffle, free field)
     is P(q) = prod 1/(1-q^n). The CoHA/Yangian character is
@@ -999,14 +1002,15 @@ def full_c3_comparison(max_weight: int = 12) -> Dict[str, Any]:
 
     SUMMARY OF WHAT THE COMPARISON PROVES:
 
-    1. At N=1, the three constructions (envelope, W_{1+infty}, CoHA)
-       all produce the SAME vertex algebra: a single free boson (Heisenberg).
-       - Central charge: c = 1 in all three.
-       - OPE: J_{(1)}J = 1 in all three.
-       - Character (W-algebra): P(q) = ordinary partitions in all three.
+    1. At N=1, the envelope and W_{1+infty} constructions produce the
+       same vertex algebra: a single free boson (Heisenberg).
+       - Central charge: c = 1 on the W-algebra side.
+       - OPE: J_{(1)}J = 1 on the W-algebra side.
+       - Character (W-algebra): P(q) = ordinary partitions.
 
-    2. The CoHA Y^+(gl_hat_1) acts on a LARGER space (plane partitions,
-       character M(q)), which is a module over the W-algebra.
+    2. The CoHA remains Y^+(gl_hat_1), the positive half.  It acts on a
+       larger plane-partition/Fock module with character M(q); it is not
+       identified with the raw W-algebra.
 
     3. At generic N, the structure function is nontrivial (phi_3 != 0)
        and the algebra W_{1+infty}[N] has c = N, confirming the
@@ -1067,9 +1071,11 @@ def full_c3_comparison(max_weight: int = 12) -> Dict[str, Any]:
     results["all_five_paths_converge"] = all_pass
     results["verdict"] = (
         "ALL FIVE PATHS CONVERGE: The CY-to-chiral functor works for C^3. "
-        "At N=1, all three constructions (envelope, W_{1+infty}, CoHA) produce "
-        "the Heisenberg VOA at c=1. At generic N, the structure function is "
-        "nontrivial and consistent with W_{1+infty}[N] at c=N."
+        "At N=1, the envelope and W_{1+infty} constructions produce the "
+        "Heisenberg VOA at c=1; CoHA remains Y^+(gl_hat_1), the positive "
+        "half acting on the plane-partition Fock module. At generic N, the "
+        "structure function is nontrivial and consistent with W_{1+infty}[N] "
+        "at c=N after the appropriate full-Yangian/Fock construction."
         if all_pass else
         "DISCREPANCY FOUND — investigate."
     )

@@ -1,15 +1,24 @@
 r"""
-kappa_bkm_adversarial.py -- Adversarial investigation of the conjectural
-identity kappa_BKM = kappa_ch + kappa_cat(fiber) for CY3 manifolds of the
-form S x E.
+kappa_bkm_adversarial.py -- Adversarial investigation of two different
+additive claims around kappa_BKM.
 
 MAIN FINDING
 ============
 
-The equality kappa_BKM(K3 x E) = kappa_ch^{Heis}(K3 x E) + chi(O_{K3})
-= 3 + 2 = 5 is a NUMERICAL COINCIDENCE for K3 x E.  It FAILS for all
-Z/NZ-orbifolds with N >= 3, and requires a corrected formulation for
-N = 2 (Enriques).
+The literal CHL additive split
+
+    kappa_BKM(Phi_N) = kappa_ch(A_{X_N}) + chi(O_{fiber_N})
+
+FAILS at every programme-active CHL level N in {1, 2, 3, 4, 6}.  At
+N=1 the left side is 5 while the right side is 0+0=0.  At N=2 the
+left side is 4 while the right side is 1+0=1.  At N=3 the left side
+is 3 while the right side is 2.  The N=4 and N=6 failures are recorded
+source-level failures in the manuscript and antipattern catalogue; this
+engine does not guess their right-hand-side decompositions.
+
+The separate equality kappa_BKM(K3 x E) =
+kappa_ch^{Heis}(K3 x E) + chi(O_{K3}) = 3 + 2 = 5 is only a numerical
+coincidence at N=1.  It is not the literal CHL additive split above.
 
 The correct general formula is:
 
@@ -43,7 +52,7 @@ ATTACK VECTORS
    - The crepant resolution of K3/(Z/NZ) is again K3.
    - Therefore kappa_ch(X_N) = 3 and chi(O_{K3}) = 2 (unchanged).
    - But kappa_BKM(X_N) = c_N(0)/2 DECREASES with N.
-   - The decomposition kappa_BKM = kappa_ch + chi(O_S) predicts 5
+   - The Heisenberg-fibre equality kappa_BKM = kappa_ch + chi(O_S) predicts 5
      for all N >= 3, but the actual values are {3, 2, 2, 1, 1, 1}.
 
    Concrete counterexample: N = 3.
@@ -51,7 +60,7 @@ ATTACK VECTORS
 
 3. ENRIQUES (N = 2): The Enriques surface has chi(O_{Enr}) = 1.
    kappa_BKM = 4, kappa_ch(Enr x E) = 2, chi(O_{Enr}) = 1.
-   Decomposition predicts: 2 + 1 = 3 != 4. FAILS.
+   The Heisenberg-fibre equality predicts: 2 + 1 = 3 != 4. FAILS.
    (The existing code notes this failure with the comment "the Enriques
    decomposition is less clear".)
 
@@ -85,7 +94,8 @@ The values:
     7:     2       1          3         2              5              NO
     8:     2       1          3         2              5              NO
 
-Only N = 1 satisfies the Heisenberg-fibre equality.
+Only N = 1 satisfies the Heisenberg-fibre equality.  No CHL level
+satisfies the literal additive split.
 
 For N = 2 (Enriques), a MODIFIED formula can be attempted:
     kappa_BKM = kappa_ch(Enr x E) + chi(O_{Enr}) + 1 = 2 + 1 + 1 = 4.
@@ -189,7 +199,8 @@ class OrbifoldKappaData(NamedTuple):
     kappa_ch: int            # chiral modular char (conditional on CY-A_3)
     kappa_cat_fiber: int     # chi(O_S) where S = crepant resolution
     kappa_cat_total: int     # chi(O_{X_N}) = 0 for all CY3
-    heis_fiber_coincidence_holds: bool  # kappa_BKM == kappa_ch^{Heis} + chi(O_S)
+    # kappa_BKM == kappa_ch^{Heis} + chi(O_S)
+    heis_fiber_coincidence_holds: bool
     decomposition_deficit: int  # kappa_BKM - (kappa_ch + kappa_cat_fiber)
     surface_name: str
     notes: str
@@ -203,6 +214,28 @@ class OrbifoldKappaData(NamedTuple):
         kappa_BKM.
         """
         return self.heis_fiber_coincidence_holds
+
+
+class CHLAdditiveSplitData(NamedTuple):
+    """Literal CHL additive-split audit datum.
+
+    This is not the Heisenberg-fibre coincidence.  It tests the formula
+    named in the manuscript as false:
+
+        kappa_BKM(Phi_N) = kappa_ch(A_{X_N}) + chi(O_{fiber_N}).
+
+    For N=4 and N=6 the source records the mismatch but this compute
+    surface does not reconstruct the right-hand side; leaving it absent
+    is preferable to guessing a formula.
+    """
+    N: int
+    c_N_0: int
+    kappa_BKM: int
+    kappa_ch: Optional[int]
+    chi_O_fiber: Optional[int]
+    additive_rhs: Optional[int]
+    additive_identity_holds: bool
+    source_status: str
 
 
 # Frame shape data for the eight cases.
@@ -260,6 +293,77 @@ def _build_table():
 _build_table()
 
 
+CHL_LEVELS: Tuple[int, ...] = (1, 2, 3, 4, 6)
+
+CHL_LITERAL_ADDITIVE_TABLE: Dict[int, CHLAdditiveSplitData] = {
+    1: CHLAdditiveSplitData(
+        N=1,
+        c_N_0=10,
+        kappa_BKM=5,
+        kappa_ch=0,
+        chi_O_fiber=0,
+        additive_rhs=0,
+        additive_identity_holds=False,
+        source_status=(
+            "Exact: kappa_ch(A_{K3xE}) + chi(O_E) = 0 + 0 = 0; "
+            "cy_d_kappa_stratification.tex thm:borcherds-weight-kappa-BKM-universal."
+        ),
+    ),
+    2: CHLAdditiveSplitData(
+        N=2,
+        c_N_0=8,
+        kappa_BKM=4,
+        kappa_ch=1,
+        chi_O_fiber=0,
+        additive_rhs=1,
+        additive_identity_holds=False,
+        source_status=(
+            "Exact: kappa_ch(A_{Z_2}) + chi(O_{E_2}) = 1 + 0 = 1; "
+            "cy_d_kappa_stratification.tex thm:borcherds-weight-kappa-BKM-universal."
+        ),
+    ),
+    3: CHLAdditiveSplitData(
+        N=3,
+        c_N_0=6,
+        kappa_BKM=3,
+        kappa_ch=2,
+        chi_O_fiber=0,
+        additive_rhs=2,
+        additive_identity_holds=False,
+        source_status=(
+            "Exact RHS = 2 from AP-CY168/AP-CY255 cache entry; "
+            "matches the manuscript's direct-evaluation failure."
+        ),
+    ),
+    4: CHLAdditiveSplitData(
+        N=4,
+        c_N_0=4,
+        kappa_BKM=2,
+        kappa_ch=None,
+        chi_O_fiber=None,
+        additive_rhs=None,
+        additive_identity_holds=False,
+        source_status=(
+            "Source-level failure recorded in cy_d_kappa_stratification.tex "
+            "and AP-CY168/AP-CY255; exact RHS not reconstructed here."
+        ),
+    ),
+    6: CHLAdditiveSplitData(
+        N=6,
+        c_N_0=2,
+        kappa_BKM=1,
+        kappa_ch=None,
+        chi_O_fiber=None,
+        additive_rhs=None,
+        additive_identity_holds=False,
+        source_status=(
+            "Source-level failure recorded in cy_d_kappa_stratification.tex "
+            "and AP-CY168/AP-CY255; exact RHS not reconstructed here."
+        ),
+    ),
+}
+
+
 def orbifold_kappa(N: int) -> OrbifoldKappaData:
     """Return the complete kappa data for X_N = (K3 x E) / (Z/NZ)."""
     if N < 1 or N > 8:
@@ -267,8 +371,54 @@ def orbifold_kappa(N: int) -> OrbifoldKappaData:
     return ORBIFOLD_KAPPA_TABLE[N]
 
 
+def chl_bkm_constants() -> Dict[int, Dict[str, int]]:
+    """Return the programme-active CHL constants N -> c_N(0), kappa_BKM."""
+    return {
+        N: {"c_N_0": d.c_N_0, "kappa_BKM": d.kappa_BKM}
+        for N, d in CHL_LITERAL_ADDITIVE_TABLE.items()
+    }
+
+
+def literal_additive_split_all_chl_levels() -> Dict[int, Dict[str, Any]]:
+    """Audit the literal CHL split kappa_BKM = kappa_ch + chi(O_fiber)."""
+    return {
+        N: {
+            "N": d.N,
+            "c_N_0": d.c_N_0,
+            "kappa_BKM": d.kappa_BKM,
+            "kappa_ch": d.kappa_ch,
+            "chi_O_fiber": d.chi_O_fiber,
+            "additive_rhs": d.additive_rhs,
+            "additive_identity_holds": d.additive_identity_holds,
+            "source_status": d.source_status,
+        }
+        for N, d in CHL_LITERAL_ADDITIVE_TABLE.items()
+    }
+
+
+def count_literal_additive_split_successes() -> int:
+    """How many CHL levels satisfy the literal additive split."""
+    return sum(
+        1 for d in CHL_LITERAL_ADDITIVE_TABLE.values()
+        if d.additive_identity_holds
+    )
+
+
+def count_literal_additive_split_failures() -> int:
+    """How many CHL levels fail the literal additive split."""
+    return len(CHL_LITERAL_ADDITIVE_TABLE) - count_literal_additive_split_successes()
+
+
+def literal_additive_split_success_rate() -> Fraction:
+    """Fraction of CHL levels satisfying the literal additive split."""
+    return Fraction(
+        count_literal_additive_split_successes(),
+        len(CHL_LITERAL_ADDITIVE_TABLE),
+    )
+
+
 # =========================================================================
-# 2. ADVERSARIAL TESTS: DECOMPOSITION FAILURES
+# 2. ADVERSARIAL TESTS: HEISENBERG-FIBRE COINCIDENCE FAILURES
 # =========================================================================
 
 def heis_fiber_coincidence_all_N() -> Dict[int, Dict[str, Any]]:
@@ -402,13 +552,15 @@ def explicit_counterexample_N3() -> Dict[str, Any]:
     The crepant resolution of K3/(Z/3Z) is K3 itself (symplectic
     quotient singularities in dim 2 have crepant resolutions that
     are again K3).  Therefore:
-        kappa_ch(X_3) = kappa_ch(K3 x E) = 3  (unchanged)
+        compact kappa_ch(X_3) = compact kappa_ch(K3 x E) = 0
+        kappa_ch_Heis(X_3) = kappa_ch_Heis(K3 x E) = 3
         chi(O_{K3}) = 2  (unchanged)
 
     But the orbifold-averaged elliptic genus has c_3(0) = 6, giving:
         kappa_BKM(X_3) = 6/2 = 3
 
-    The decomposition predicts: 3 + 2 = 5 != 3.  FAILURE.
+    The Heisenberg-fibre decomposition predicts: 3 + 2 = 5 != 3.  FAILURE.
+    The compact total-space variant predicts: 0 + 2 = 2 != 3.  FAILURE.
 
     The deficit is -2: the orbifold REDUCES the Borcherds weight by 2
     compared to the unorbifolded case, even though it does not change
@@ -651,7 +803,7 @@ def second_quantization_correction() -> Dict[int, Dict[str, Any]]:
         7:    4
         8:    4
 
-    The correction_N ~ c_1(0)/2 - c_N(0)/2 = 5 - kappa_BKM(X_N).
+    The correction_N ~ c_N(0)/2|_{N=1} - c_N(0)/2 = 5 - kappa_BKM(X_N).
     This is circular: correction_N = 5 - kappa_BKM(X_N), so
     kappa_BKM = kappa_ch + chi(O_{K3}) - (5 - kappa_BKM), which gives
     2*kappa_BKM = kappa_ch + chi(O_{K3}) + kappa_BKM - 5, i.e., 0 = 0.
@@ -756,8 +908,12 @@ def effective_correction_formula() -> Dict[str, Any]:
 def verdict() -> Dict[str, Any]:
     r"""Summary of the adversarial investigation.
 
-    VERDICT: The identity kappa_BKM = kappa_ch + chi(O_{fiber}) is a
-    numerical coincidence for K3 x E (N=1).
+    VERDICT 1: The literal CHL additive split
+        kappa_BKM(Phi_N) = kappa_ch(A_{X_N}) + chi(O_{fiber_N})
+    fails at every N in {1,2,3,4,6}.
+
+    VERDICT: The equality kappa_BKM = kappa_ch^{Heis} + chi(O_{fiber})
+    is a numerical coincidence for K3 x E (N=1).
 
     It fails for:
     - N=2 (Enriques x E): kappa_BKM=4 != kappa_ch + chi(O_{Enr}) = 2+1=3
@@ -769,7 +925,7 @@ def verdict() -> Dict[str, Any]:
 
     which is PROVED and holds for all eight orbifolds by construction.
 
-    The only "decomposition" that works universally is:
+    The only theorem-level formula that works universally is:
         kappa_BKM = c(0)/2   (no decomposition into kappa_ch + anything)
 
     STATUS:
@@ -780,6 +936,8 @@ def verdict() -> Dict[str, Any]:
     - The manuscript remark rem:kappa-ch-vs-kappa-bkm-mechanism
       gives a physical argument that does not generalize.
     """
+    n_literal_success = count_literal_additive_split_successes()
+    n_literal_total = len(CHL_LITERAL_ADDITIVE_TABLE)
     n_success = count_heis_fiber_coincidence_successes()
     n_total = len(ORBIFOLD_KAPPA_TABLE)
 
@@ -796,7 +954,22 @@ def verdict() -> Dict[str, Any]:
             })
 
     return {
-        "identity_tested": "kappa_BKM = kappa_ch^{Heis} + chi(O_{fiber})",
+        "identity_tested": (
+            "literal CHL split kappa_BKM(Phi_N) = "
+            "kappa_ch(A_{X_N}) + chi(O_{fiber_N})"
+        ),
+        "literal_additive_split_successes": n_literal_success,
+        "literal_additive_split_failures": count_literal_additive_split_failures(),
+        "literal_additive_split_total": n_literal_total,
+        "literal_additive_split_success_rate": str(
+            Fraction(n_literal_success, n_literal_total)
+        ),
+        "literal_additive_split_is_universal": (
+            n_literal_success == n_literal_total
+        ),
+        "heis_fiber_identity_tested": (
+            "kappa_BKM = kappa_ch^{Heis} + chi(O_{fiber})"
+        ),
         "successes": n_success,
         "heis_fiber_coincidence_successes": n_success,
         "total": n_total,
@@ -804,6 +977,7 @@ def verdict() -> Dict[str, Any]:
         "is_universal": n_success == n_total,
         "is_coincidence": n_success <= 1,
         "failures": failures,
+        "literal_additive_failures": literal_additive_split_all_chl_levels(),
         "correct_universal_formula": "kappa_BKM = c(0)/2 (Borcherds weight)",
         "legacy_decomposition_holds": (
             "compatibility alias for heis_fiber_coincidence_holds"
@@ -812,7 +986,8 @@ def verdict() -> Dict[str, Any]:
         "recommendation": (
             "Narrow the scope: 'numerical coincidence for K3 x E (N=1)' "
             "rather than 'conjectural identity'. Add a warning that "
-            "the decomposition fails for all Z/NZ-orbifolds with N >= 2."
+            "the Heisenberg-fibre equality fails for all Z/NZ-orbifolds "
+            "with N >= 2."
         ),
     }
 
@@ -822,7 +997,7 @@ def verdict() -> Dict[str, Any]:
 # =========================================================================
 
 def run_full_adversarial_analysis(verbose: bool = True) -> Dict[str, Any]:
-    """Run the complete adversarial analysis of the kappa_BKM decomposition.
+    """Run the complete adversarial analysis of the kappa_BKM equality.
 
     Returns a comprehensive dict with all attack vectors and results.
     """
@@ -830,10 +1005,25 @@ def run_full_adversarial_analysis(verbose: bool = True) -> Dict[str, Any]:
 
     if verbose:
         print("=" * 70)
-        print("ADVERSARIAL ANALYSIS: kappa_BKM = kappa_ch + chi(O_fiber)")
+        print("ADVERSARIAL ANALYSIS: kappa_BKM = kappa_ch^Heis + chi(O_fiber)")
         print("=" * 70)
 
     # 1. Test the Heisenberg-fibre coincidence across all orbifolds
+    literal = literal_additive_split_all_chl_levels()
+    results["literal_additive_split_test"] = literal
+    if verbose:
+        print("\n--- Literal CHL additive split across N={1,2,3,4,6} ---")
+        for N, r in literal.items():
+            status = "PASS" if r["additive_identity_holds"] else "FAIL"
+            rhs = (
+                r["additive_rhs"]
+                if r["additive_rhs"] is not None
+                else "source-level mismatch"
+            )
+            print(f"  N={N}: kappa_BKM={r['kappa_BKM']}, "
+                  f"additive RHS={rhs}  [{status}]")
+
+    # 2. Test the Heisenberg-fibre coincidence across all orbifolds
     decomp = heis_fiber_coincidence_all_N()
     results["heis_fiber_coincidence_test"] = decomp
     results["decomposition_test"] = decomp  # legacy result key
@@ -892,7 +1082,7 @@ def run_full_adversarial_analysis(verbose: bool = True) -> Dict[str, Any]:
     if verbose:
         print(f"\n{'=' * 70}")
         print(f"VERDICT: {v['successes']}/{v['total']} orbifolds "
-              f"satisfy the decomposition.")
+              f"satisfy the Heisenberg-fibre equality.")
         print(f"  Success rate: {v['success_rate']}")
         print(f"  Is universal: {v['is_universal']}")
         print(f"  Is coincidence: {v['is_coincidence']}")

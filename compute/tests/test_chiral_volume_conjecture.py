@@ -188,11 +188,11 @@ class TestCY3Geometry:
         assert SCHOEN_MANIFOLD.abel_jacobi_trivial
         assert not QUINTIC.abel_jacobi_trivial
 
-    def test_kappa_ch_predicted(self):
-        """kappa_ch = chi/24 (AP113 compliant)."""
+    def test_bcov_shadow_candidate(self):
+        """BCOV-shadow candidate = chi/24."""
         from fractions import Fraction
-        assert K3_TIMES_E.kappa_ch_predicted == Fraction(0)
-        assert QUINTIC.kappa_ch_predicted == Fraction(-200, 24)
+        assert K3_TIMES_E.kappa_BCOV_shadow_conjectural == Fraction(0)
+        assert QUINTIC.kappa_BCOV_shadow_conjectural == Fraction(-200, 24)
 
 
 # =========================================================================
@@ -601,9 +601,9 @@ class TestCrossConsistency:
             assert g.euler == 2 * (g.h11 - g.h21)
 
     def test_k3e_kappa_zero(self):
-        """K3 x E has chi=0, so kappa_ch = 0."""
+        """K3 x E has chi=0, so its BCOV-shadow candidate is 0."""
         from fractions import Fraction
-        assert K3_TIMES_E.kappa_ch_predicted == Fraction(0)
+        assert K3_TIMES_E.kappa_BCOV_shadow_conjectural == Fraction(0)
 
     def test_quintic_large_h21(self):
         """Quintic has large intermediate Jacobian."""
@@ -765,15 +765,15 @@ class TestMultiPathVerification:
         # At very large psi these should agree well (w_0 -> 1)
         assert abs(path1 - path2) / abs(path2) < 0.001
 
-    def test_kappa_ch_cross_volume_consistency(self):
-        """Cross-check kappa_ch = chi/24 against known values.
+    def test_bcov_shadow_cross_volume_consistency(self):
+        """Cross-check the BCOV-shadow candidate chi/24.
 
-        Path 1: CY3Geometry.kappa_ch_predicted.
+        Path 1: CY3Geometry.kappa_BCOV_shadow_conjectural.
         Path 2: Direct chi/24 computation from Hodge numbers.
         """
         from fractions import Fraction
         for geom in [RESOLVED_CONIFOLD, QUINTIC, K3_TIMES_E, SCHOEN_MANIFOLD]:
-            path1 = geom.kappa_ch_predicted
+            path1 = geom.kappa_BCOV_shadow_conjectural
             path2 = Fraction(2 * (geom.h11 - geom.h21), 24)
             assert path1 == path2, f"{geom.name}: {path1} vs {path2}"
 

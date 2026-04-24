@@ -64,6 +64,8 @@ from compute.lib.compact_cy3_e1_chain import (
     quintic_full_analysis,
     compact_cy3_universality,
     k3_times_e_special,
+    compact_cy3_finite_stage_open_closed_bridge,
+    compact_cy3_oriented_dwr_ran_comparison,
     is_simply_connected,
     hh_compact_cy3_safe,
     A_HAT_COEFFS,
@@ -852,7 +854,7 @@ class TestK3xE:
         assert result["kappa_full"] == Fraction(5)
 
     def test_k3_times_e_kappa_const_vs_full(self):
-        """K3xE: kappa_const = 0 but kappa_full = 5."""
+        """K3xE: kappa_const = 0 but kappa_BKM = 5."""
         result = k3_times_e_special()
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa_const"] == Fraction(0)
@@ -873,8 +875,201 @@ class TestK3xE:
         assert result["hh"].total_dim == 208
 
 
+def _compact_phi_fa3_all_loop_gate(
+    cy: CompactCY3,
+    supplied_nullhomotopies: Dict[str, bool],
+) -> Dict[str, object]:
+    """Formal gate for compact all-loop PhiFA_3 promotion.
+
+    The gate models the manuscript criterion: one-loop cancellation is
+    necessary but does not certify higher-loop formality when H^1(T_X)
+    is nonzero.  A higher iterated-Atiyah primitive must be supplied.
+    """
+    one_loop_cancelled = cy.chi == 0 or cy.b1 == 0
+    higher_target_dim = cy.h21
+    needs_higher_primitive = higher_target_dim > 0
+    has_higher_primitive = supplied_nullhomotopies.get(
+        "iterated_atiyah_arity_ge_2", False
+    )
+    first_missing = None
+    if needs_higher_primitive and not has_higher_primitive:
+        first_missing = "iterated_atiyah_arity_ge_2"
+    return {
+        "one_loop_cancelled": one_loop_cancelled,
+        "higher_target_dim": higher_target_dim,
+        "needs_higher_primitive": needs_higher_primitive,
+        "all_loop_certified": one_loop_cancelled and first_missing is None,
+        "first_missing": first_missing,
+    }
+
+
+class TestCompactPhiFA3AllLoopGate:
+    """Regression tests for compact PhiFA_3 higher-loop scope."""
+
+    def test_k3xe_one_loop_cancellation_is_not_all_loop_certificate(self):
+        """K3xE has chi = 0, but still needs higher nullhomotopies."""
+        gate = _compact_phi_fa3_all_loop_gate(K3_TIMES_E, {})
+        assert K3_TIMES_E.chi == 0
+        assert gate["one_loop_cancelled"] is True
+        # VERIFIED [DC] Hodge target dimension [LT] Kunneth H^1(T) count
+        assert gate["higher_target_dim"] == 21
+        assert gate["all_loop_certified"] is False
+        assert gate["first_missing"] == "iterated_atiyah_arity_ge_2"
+
+    def test_quintic_hodge_cancellation_is_not_two_loop_certificate(self):
+        """The quintic has H^{0,1}=0 but a nonzero H^1(T_Q) target."""
+        gate = _compact_phi_fa3_all_loop_gate(QUINTIC, {})
+        assert QUINTIC.b1 == 0
+        assert gate["one_loop_cancelled"] is True
+        # VERIFIED [DC] Hodge target dimension [LT] quintic h21 = 101
+        assert gate["higher_target_dim"] == 101
+        assert gate["all_loop_certified"] is False
+
+    def test_supplied_iterated_atiyah_primitive_closes_formal_gate(self):
+        """A named primitive is the formal input that changes the status."""
+        gate = _compact_phi_fa3_all_loop_gate(
+            K3_TIMES_E,
+            {"iterated_atiyah_arity_ge_2": True},
+        )
+        assert gate["needs_higher_primitive"] is True
+        assert gate["first_missing"] is None
+        assert gate["all_loop_certified"] is True
+
+
 # ===========================================================================
-# Section 12: Shadow discriminant (quintic-specific)
+# Section 12: Compact CY3 finite-stage open-closed source bridge
+# ===========================================================================
+
+class TestCompactCY3OpenClosedBridge:
+    """Tests for the finite-stage Costello-Li/open-closed source bridge."""
+
+    def test_quintic_source_bridge_closed_with_source_data(self):
+        """The source bridge closes once the exact source hypotheses are fixed."""
+        result = compact_cy3_finite_stage_open_closed_bridge(QUINTIC)
+        assert result.source_bridge_closed is True
+        assert result.hall_bridge_closed is False
+        assert result.missing_source_primitives == ()
+        assert "Hall-valued orientation/descent" in result.obstruction_summary
+
+    def test_quintic_missing_anomaly_cancellation_is_source_obstruction(self):
+        """An uncancelled Costello-Li anomaly blocks the source bridge."""
+        result = compact_cy3_finite_stage_open_closed_bridge(
+            QUINTIC,
+            anomaly_cancelled=False,
+        )
+        assert result.source_bridge_closed is False
+        assert "costello_li_anomaly_cancelled" in result.missing_source_primitives
+
+    def test_hall_comparison_closes_only_with_orientation_and_dwr_descent(self):
+        """Hall closure is stricter than the Costello-Li source bridge."""
+        source_only = compact_cy3_finite_stage_open_closed_bridge(QUINTIC)
+        full = compact_cy3_finite_stage_open_closed_bridge(
+            QUINTIC,
+            has_hall_orientation=True,
+            has_dwr_thom_sebastiani_descent=True,
+        )
+        assert source_only.source_bridge_closed is True
+        assert source_only.hall_bridge_closed is False
+        assert full.source_bridge_closed is True
+        assert full.hall_bridge_closed is True
+        assert full.residual_hall_obligations == ()
+
+
+class TestCompactCY3OrientedDWRRanComparison:
+    """Tests for the finite oriented DWR/Ran hCS-to-Hall comparison gate."""
+
+    def _gate_name_map(self) -> Dict[str, str]:
+        return {
+            "has_full_renormalised_chart_maps": "full_renormalised_chart_maps",
+            "has_maps_on_all_simplices": "maps_on_all_dwr_ran_simplices",
+            "has_cech_mc_zero": "cech_ran_maurer_cartan_zero",
+            "has_vertex_quasi_isomorphisms": "vertex_quasi_isomorphisms",
+            "has_h0_invertible_on_nerve": "h0_invertible_on_nerve",
+            "has_relative_orientation_cocycle_zero": (
+                "relative_orientation_cocycle_zero"
+            ),
+            "has_grading_tate_compatible": "grading_tate_compatible",
+            "has_thom_sebastiani_coherent": "thom_sebastiani_coherent",
+            "has_factorization_product_compatible": (
+                "factorization_product_compatible"
+            ),
+            "has_completions_continuous": "completions_continuous",
+            "has_compact_support_refinement_compatible": (
+                "compact_support_refinement_compatible"
+            ),
+        }
+
+    def _full_gate_kwargs(self) -> Dict[str, bool]:
+        return {gate: True for gate in self._gate_name_map()}
+
+    def test_source_bridge_does_not_imply_oriented_hall_comparison(self):
+        """The Costello-Li source bridge is not the Hall-valued arrow."""
+        result = compact_cy3_oriented_dwr_ran_comparison(K3_TIMES_E)
+
+        assert result.source_bridge_closed is True
+        assert result.finite_oriented_comparison_closed is False
+        assert "relative_orientation_cocycle_zero" in result.missing_descent_gates
+        assert "thom_sebastiani_coherent" in result.missing_descent_gates
+        assert "finite DWR/Ran descent incomplete" in result.current_obstruction
+
+    def test_each_finite_descent_gate_is_independent(self):
+        """Deleting any one finite gate blocks the finite comparison."""
+        full = self._full_gate_kwargs()
+        gate_names = self._gate_name_map()
+        for missing_gate in sorted(full):
+            kwargs = dict(full)
+            kwargs[missing_gate] = False
+            result = compact_cy3_oriented_dwr_ran_comparison(
+                K3_TIMES_E,
+                **kwargs,
+            )
+
+            assert result.finite_oriented_comparison_closed is False
+            assert result.missing_descent_gates == (gate_names[missing_gate],)
+
+    def test_finite_gate_closes_before_global_pro_limit(self):
+        """Finite DWR/Ran closure still separates the completed limit."""
+        result = compact_cy3_oriented_dwr_ran_comparison(
+            K3_TIMES_E,
+            **self._full_gate_kwargs(),
+        )
+
+        assert result.finite_oriented_comparison_closed is True
+        assert result.global_comparison_closed is False
+        assert "pro-compatible inverse-limit descent" in result.current_obstruction
+        assert "Theta_{hCS->Hall" in result.comparison_map
+
+    def test_global_comparison_requires_pro_compatible_tower(self):
+        """The completed comparison adds the lim^1/pro-descent gate."""
+        result = compact_cy3_oriented_dwr_ran_comparison(
+            K3_TIMES_E,
+            **self._full_gate_kwargs(),
+            pro_limit_compatible=True,
+        )
+
+        assert result.finite_oriented_comparison_closed is True
+        assert result.global_comparison_closed is True
+        assert result.missing_descent_gates == ()
+        assert "lim^1/pro-descent" in result.remaining_global_condition
+
+    def test_source_obstruction_still_blocks_descent_gate(self):
+        """Finite Hall data cannot repair a missing source primitive."""
+        result = compact_cy3_oriented_dwr_ran_comparison(
+            QUINTIC,
+            anomaly_cancelled=False,
+            **self._full_gate_kwargs(),
+        )
+
+        assert result.source_bridge_closed is False
+        assert result.finite_oriented_comparison_closed is False
+        assert result.missing_descent_gates == ()
+        assert result.missing_source_primitives == (
+            "costello_li_anomaly_cancelled",
+        )
+
+
+# ===========================================================================
+# Section 13: Shadow discriminant (quintic-specific)
 # ===========================================================================
 
 class TestShadowDiscriminant:

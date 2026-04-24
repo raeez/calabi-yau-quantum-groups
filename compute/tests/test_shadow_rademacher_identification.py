@@ -63,6 +63,8 @@ from compute.lib.shadow_rademacher_identification import (
     PHI01_COEFFICIENTS,
     K3_KAPPA_CH,
     K3E_KAPPA_CH,
+    K3E_KAPPA_CH_COMPACT,
+    K3E_KAPPA_CH_HEIS,
 )
 
 
@@ -204,16 +206,24 @@ class TestBesselFunctions:
             assert bessel_I_9half(x) > 0
 
     def test_I_9half_large_asymptotic(self):
-        """I_{9/2}(x) ~ e^x / sqrt(2*pi*x) for large x.
+        """I_{9/2}(x) matches the corrected large-x asymptotic.
 
-        The recurrence accumulates subleading corrections. At x=10,
-        the relative error from O(v^2/x) terms is ~ 25%.
-        At x=100, it should be < 5%.
+        For nu=9/2 the leading correction is
+        -(4*nu^2 - 1)/(8*x) = -80/(8*x), about -10% at x=100.
+        The uncorrected leading term is therefore not a 5% approximation
+        at x=100.
         """
         x = 100.0
+        nu = 9.0 / 2.0
+        mu = 4.0 * nu * nu
         val = bessel_I_9half(x)
-        asymp = math.exp(x) / math.sqrt(2 * math.pi * x)
-        assert abs(val - asymp) / asymp < 0.05
+        leading = math.exp(x) / math.sqrt(2 * math.pi * x)
+        corrected = leading * (
+            1.0
+            - (mu - 1.0) / (8.0 * x)
+            + (mu - 1.0) * (mu - 9.0) / (2.0 * (8.0 * x) ** 2)
+        )
+        assert abs(val - corrected) / corrected < 0.001
 
 
 # =========================================================================
@@ -712,12 +722,14 @@ class TestCrossVerifications:
         assert K3_KAPPA_CH == mock_kappa
 
     def test_kappa_ch_k3e_matches_bps_entropy(self):
-        """Path 1: K3E_KAPPA_CH (this engine). Path 2: bps_entropy_shadow.py.
+        """This engine separates compact and Heisenberg K3 x E kappa_ch values.
 
-        The K3 x E kappa_ch value must agree between engines.
+        The legacy K3E_KAPPA_CH alias is the Heisenberg shadow value.
         """
         from compute.lib.bps_entropy_shadow import K3E_KAPPA_SPECTRUM
-        assert K3E_KAPPA_CH == K3E_KAPPA_SPECTRUM.kappa_ch
+        assert K3E_KAPPA_CH_COMPACT == K3E_KAPPA_SPECTRUM.kappa_ch
+        assert K3E_KAPPA_CH_HEIS == K3E_KAPPA_SPECTRUM.kappa_ch_Heis
+        assert K3E_KAPPA_CH == K3E_KAPPA_CH_HEIS
 
     def test_dedekind_reciprocity_multi_pair(self):
         """Cross-check: Dedekind reciprocity verified for 6 coprime pairs.

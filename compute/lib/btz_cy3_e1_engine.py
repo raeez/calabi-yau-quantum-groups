@@ -28,7 +28,7 @@ For specific families:
   - K3 x E:           kappa_BKM = 5 = weight(Delta_5)
   - Resolved conifold: kappa = 1 (rank-1 Heisenberg)
   - C^3:              kappa(regulated) depends on truncation
-  - Quintic:          kappa_ch = chi_top/24 = -25/3 (CONJECTURAL)
+  - Quintic:          kappa_BCOV_shadow_conjectural = chi_top/24 = -25/3
 
 BTZ ENTROPY FROM THE SHADOW TOWER
 ===================================
@@ -264,6 +264,7 @@ class CY3BTZData(NamedTuple):
     notes: str
     kappa_label: str = "kappa_ch"
     kappa_ch: Optional[Fraction] = None
+    kappa_ch_Heis: Optional[Fraction] = None
     kappa_cat: Optional[Fraction] = None
     kappa_BKM: Optional[Fraction] = None
     kappa_fiber: Optional[Fraction] = None
@@ -273,8 +274,8 @@ def cy3_k3e_data() -> CY3BTZData:
     r"""K3 x E: the canonical CY3 for BTZ.
 
     The BTZ shadow lane uses kappa_BKM = 5 = weight(Delta_5).  This is
-    the Borcherds-weight invariant c_1(0)/2, not the CY-D
-    Heisenberg-specialised kappa_ch = 3 and not the total-space
+    the Borcherds-weight invariant c_N(0)/2 at N=1, not the CY-D
+    Heisenberg-specialised kappa_ch_Heis = 3 and not the total-space
     kappa_cat = chi(O_{K3 x E}) = 0.
 
     Shadow class M: the Borcherds product has infinitely many imaginary
@@ -290,10 +291,12 @@ def cy3_k3e_data() -> CY3BTZData:
         is_proved=True,
         notes=(
             "BKM lane: kappa_BKM=5 from Delta_5; separate K3 x E values "
-            "are kappa_cat=0, kappa_ch=3, kappa_BKM=5, kappa_fiber=24"
+            "are kappa_cat=0, compact kappa_ch=0, kappa_ch_Heis=3, "
+            "kappa_BKM=5, kappa_fiber=24"
         ),
         kappa_label="kappa_BKM",
-        kappa_ch=Fraction(3),
+        kappa_ch=Fraction(0),
+        kappa_ch_Heis=Fraction(3),
         kappa_cat=Fraction(0),
         kappa_BKM=Fraction(5),
         kappa_fiber=Fraction(24),
@@ -1270,7 +1273,8 @@ def kappa_additivity_check() -> Dict[str, Any]:
     would suggest kappa_BKM(A_{K3 x E}) = kappa_ch(K3) + kappa_ch(E).
 
     REALITY CHECK: kappa_BKM(K3 x E) = 5, while
-    kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.  These are distinct
+    kappa_ch_Heis(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+    These are distinct
     constructions, not a failed additive law inside one invariant.
 
     The correct relation involves the PRODUCT category:
@@ -1282,16 +1286,17 @@ def kappa_additivity_check() -> Dict[str, Any]:
     """
     return {
         'k3xe_kappa_BKM': 5,
-        'k3xe_kappa_ch': 3,
+        'k3xe_kappa_ch': 0,
+        'k3xe_kappa_ch_Heis': 3,
         'k3xe_kappa_cat': 0,
         'k3_kappa_ch': 2,
         'e_kappa_ch': 1,
         'naive_kappa_ch_sum': 3,
         'actual_kappa_BKM': 5,
         'is_additive': False,
-        'reason': "K3 x E compares distinct constructions: kappa_BKM versus kappa_ch",
+        'reason': "K3 x E compares distinct constructions: kappa_BKM versus kappa_ch_Heis, with compact kappa_ch=0",
         'direct_sum_additivity': True,
-        'notes': "kappa_ch is additive in the Heisenberg lane; kappa_BKM comes from Delta_5",
+        'notes': "kappa_ch_Heis is additive in the Heisenberg lane; kappa_BKM comes from Delta_5",
     }
 
 
@@ -1386,7 +1391,7 @@ def cross_volume_bridge() -> Dict[str, str]:
     """
     return {
         'vol1_kappa_formula': 'kappa_ch = c/2 for the Virasoro lane (AP1)',
-        'vol3_kappa_formula': 'K3 x E separates kappa_cat=0, kappa_ch=3, kappa_BKM=5, kappa_fiber=24',
+        'vol3_kappa_formula': 'K3 x E separates kappa_cat=0, compact kappa_ch=0, kappa_ch_Heis=3, kappa_BKM=5, kappa_fiber=24',
         'bridge': 'c_eff_shadow = 2 * kappa_lane after the lane is named',
         'cardy_formula': 'S_BH = 2 pi sqrt(kappa_lane M / 3) in the shadow lane',
         'convention_check': 'c = 2 kappa_ch maps the Vol I Virasoro lane; K3 x E BTZ here uses kappa_BKM',

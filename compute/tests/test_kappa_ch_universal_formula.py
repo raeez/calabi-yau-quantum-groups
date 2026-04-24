@@ -3,8 +3,9 @@ r"""
 test_kappa_ch_universal_formula.py -- Tests for the d=3 kappa branch assessment.
 
 Tests the branch assessment:
+  compact CY3: kappa_ch = sum_q (-1)^q h^{0,q} = 0;
   strict compact CY3: kappa_BCOV_shadow_conjectural = chi_top(X)/24;
-  product CY3: constructed kappa_ch = h^{3,0}(X) + 2 by additivity.
+  product CY3: kappa_ch_Heis = h^{3,0}(X) + 2 by additivity.
 
 for all compact CY_3, plus the abelian surface bug fix and Beauville consistency.
 
@@ -50,6 +51,7 @@ from compute.lib.kappa_ch_universal_formula import (
     kappa_ch_compact,
     kappa_ch_noncompact,
     kappa_ch,
+    kappa_ch_Heis,
     kappa_ch_d2,
     # Beauville
     beauville_type,
@@ -66,17 +68,16 @@ from compute.lib.kappa_ch_universal_formula import (
 
 
 # =========================================================================
-# 1. The universal formula: compact strict CY_3 (h^{1,0}=0)
+# 1. Strict compact CY_3 BCOV-shadow branch (h^{1,0}=0)
 # =========================================================================
 
 class TestStrictCY3BCOVShadowCandidate(unittest.TestCase):
     """Test chi_top/24 as a strict-CY3 BCOV shadow candidate."""
 
     def test_quintic(self):
-        """Quintic: candidate = -200/24 = -25/3."""
+        """Quintic: compact kappa_ch=0; BCOV candidate = -25/3."""
         self.assertEqual(bcov_shadow_candidate(quintic()), F(-25, 3))
-        with self.assertRaises(NotImplementedError):
-            kappa_ch(quintic())
+        self.assertEqual(kappa_ch(quintic()), F(0))
 
     def test_p5_33(self):
         """P^5[3,3]: candidate = -144/24 = -6."""
@@ -116,23 +117,26 @@ class TestStrictCY3BCOVShadowCandidate(unittest.TestCase):
 
 
 # =========================================================================
-# 2. The universal formula: product CY_3 (h^{1,0}>0)
+# 2. Product CY_3 constructed branch (h^{1,0}>0)
 # =========================================================================
 
 class TestUniversalFormulaProductCY3(unittest.TestCase):
-    """Test kappa_ch = h^{3,0}+2 for product CY_3 (h10>0)."""
+    """Test kappa_ch_Heis = h^{3,0}+2 for product CY_3 (h10>0)."""
 
     def test_k3_times_e(self):
-        """K3xE: kappa = h30+2 = 1+2 = 3."""
-        self.assertEqual(kappa_ch(k3_times_e()), F(3))
+        """K3xE: compact kappa_ch=0; Heisenberg shadow = 3."""
+        self.assertEqual(kappa_ch(k3_times_e()), F(0))
+        self.assertEqual(kappa_ch_Heis(k3_times_e()), F(3))
 
     def test_enriques_times_e(self):
-        """EnrxE: kappa = h30+2 = 0+2 = 2."""
-        self.assertEqual(kappa_ch(enriques_times_e()), F(2))
+        """EnrxE: compact kappa_ch=0; Heisenberg shadow = 2."""
+        self.assertEqual(kappa_ch(enriques_times_e()), F(0))
+        self.assertEqual(kappa_ch_Heis(enriques_times_e()), F(2))
 
     def test_t6(self):
-        """T^6: kappa = h30+2 = 1+2 = 3."""
-        self.assertEqual(kappa_ch(t6_torus()), F(3))
+        """T^6: compact kappa_ch=0; Heisenberg shadow = 3."""
+        self.assertEqual(kappa_ch(t6_torus()), F(0))
+        self.assertEqual(kappa_ch_Heis(t6_torus()), F(3))
 
 
 # =========================================================================
@@ -178,53 +182,60 @@ class TestBeauvilleDecomposition(unittest.TestCase):
     def test_quintic_is_strict(self):
         bt = beauville_type(quintic())
         self.assertEqual(bt.type_name, 'strict_CY3')
-        self.assertEqual(bt.kappa_total, F(-25, 3))
+        self.assertEqual(bt.compact_kappa_ch, F(0))
+        self.assertEqual(bt.shadow_total, F(-25, 3))
+        self.assertEqual(bt.shadow_label, 'kappa_BCOV_shadow_conjectural')
 
     def test_k3xe_decomposition(self):
         bt = beauville_type(k3_times_e())
         self.assertEqual(bt.type_name, 'K3xE')
         self.assertEqual(bt.factors, ['K3', 'E'])
-        self.assertEqual(bt.factor_kappas, [F(2), F(1)])
-        self.assertEqual(bt.kappa_total, F(3))
+        self.assertEqual(bt.shadow_factors, [F(2), F(1)])
+        self.assertEqual(bt.compact_kappa_ch, F(0))
+        self.assertEqual(bt.shadow_total, F(3))
+        self.assertEqual(bt.shadow_label, 'kappa_ch_Heis')
 
     def test_enrxe_decomposition(self):
         bt = beauville_type(enriques_times_e())
         self.assertEqual(bt.type_name, 'EnrxE')
         self.assertEqual(bt.factors, ['Enr', 'E'])
-        self.assertEqual(bt.factor_kappas, [F(1), F(1)])
-        self.assertEqual(bt.kappa_total, F(2))
+        self.assertEqual(bt.shadow_factors, [F(1), F(1)])
+        self.assertEqual(bt.compact_kappa_ch, F(0))
+        self.assertEqual(bt.shadow_total, F(2))
 
     def test_t6_decomposition(self):
         bt = beauville_type(t6_torus())
         self.assertEqual(bt.type_name, 'T6')
         self.assertEqual(bt.factors, ['E', 'E', 'E'])
-        self.assertEqual(bt.kappa_total, F(3))
+        self.assertEqual(bt.compact_kappa_ch, F(0))
+        self.assertEqual(bt.shadow_total, F(3))
 
     def test_banana_is_strict(self):
         bt = beauville_type(banana())
         self.assertEqual(bt.type_name, 'strict_CY3')
-        self.assertEqual(bt.kappa_total, F(0))
+        self.assertEqual(bt.compact_kappa_ch, F(0))
+        self.assertEqual(bt.shadow_total, F(0))
 
 
 # =========================================================================
-# 5. Formula-vs-Beauville consistency
+# 5. Branch-vs-Beauville consistency
 # =========================================================================
 
 class TestFormulaBeauvilleConsistency(unittest.TestCase):
-    """The closed formula must agree with Beauville decomposition."""
+    """The compact assessment must agree with the compact Hodge branch."""
 
     def test_all_compact_consistent(self):
-        """For every compact CY_3, formula = Beauville sum."""
+        """For every compact CY_3, assessment value = compact Hodge value."""
         for X in all_compact_cy3():
             v = verify_formula_vs_beauville(X)
             self.assertTrue(
                 v['consistent'],
-                f"Formula inconsistent with Beauville for {X.name}: "
-                f"formula={v['formula_value']}, beauville={v['beauville_value']}",
+                f"Assessment inconsistent with compact branch for {X.name}: "
+                f"assessment={v['formula_value']}, beauville={v['beauville_value']}",
             )
 
     def test_all_compact_match_recorded_scalar(self):
-        """For every compact CY_3, assessment value equals the recorded scalar."""
+        """For every compact CY_3, assessment value equals the recorded compact scalar."""
         for X in all_compact_cy3():
             formula_val = decompose_formula(X).kappa_ch
             self.assertEqual(
@@ -239,22 +250,27 @@ class TestFormulaBeauvilleConsistency(unittest.TestCase):
 # =========================================================================
 
 class TestAbelianSurfaceBugFix(unittest.TestCase):
-    """Test that kappa_ch(Ab) = 2, not chi(O_Ab) = 0."""
+    """Test the abelian surface compact/Heisenberg split."""
 
-    def test_abelian_surface_kappa_is_2(self):
-        """kappa_ch(Ab.surf) = 2 (from additivity: kappa(E)+kappa(E))."""
+    def test_abelian_surface_compact_kappa_is_0(self):
+        """compact kappa_ch(Ab.surf) = chi(O_Ab)=0."""
         ab = cy2_abelian()
-        self.assertEqual(ab.kappa_ch(), F(2))
+        self.assertEqual(ab.kappa_ch(), F(0))
+
+    def test_abelian_surface_heis_is_2(self):
+        """kappa_ch_Heis(Ab.surf)=2 from E+E additivity."""
+        ab = cy2_abelian()
+        self.assertEqual(ab.kappa_ch_Heis(), F(2))
 
     def test_abelian_surface_chi_O_is_0(self):
         """chi(O_Ab) = 0 (which is WRONG for kappa_ch)."""
         ab = cy2_abelian()
         self.assertEqual(ab.chi_O, 0)
 
-    def test_abelian_surface_kappa_ne_chi_O(self):
-        """kappa_ch(Ab) != chi(O_Ab): the d=2 formula fails for h10>0."""
+    def test_abelian_surface_shadow_ne_compact(self):
+        """kappa_ch_Heis(Ab) != compact kappa_ch(Ab)."""
         ab = cy2_abelian()
-        self.assertNotEqual(ab.kappa_ch(), F(ab.chi_O))
+        self.assertNotEqual(ab.kappa_ch_Heis(), ab.kappa_ch())
 
     def test_k3_kappa_equals_chi_O(self):
         """kappa_ch(K3) = chi(O_K3) = 2: d=2 formula holds for h10=0."""
@@ -277,19 +293,19 @@ class TestCorrectedD2Formula(unittest.TestCase):
     """Test the corrected kappa_ch_d2."""
 
     def test_k3(self):
-        """K3 (h10=0, h20=1): kappa = 2."""
+        """K3 (h10=0, h20=1): kappa_ch = 2."""
         self.assertEqual(kappa_ch_d2(0, 1), F(2))
 
     def test_enriques(self):
-        """Enriques (h10=0, h20=0): kappa = 1."""
+        """Enriques (h10=0, h20=0): kappa_ch = 1."""
         self.assertEqual(kappa_ch_d2(0, 0), F(1))
 
     def test_abelian_surface(self):
-        """Abelian surface (h10=2, h20=1): kappa = 2, NOT 0."""
-        self.assertEqual(kappa_ch_d2(2, 1), F(2))
+        """Abelian surface (h10=2, h20=1): compact kappa_ch = 0."""
+        self.assertEqual(kappa_ch_d2(2, 1), F(0))
 
     def test_d2_h10_zero_is_chi_O(self):
-        """For h10=0: kappa = chi(O) = 1 + h20."""
+        """For h10=0: kappa_ch = chi(O) = 1 + h20."""
         for h20 in range(5):
             self.assertEqual(kappa_ch_d2(0, h20), F(1 + h20))
 
@@ -299,22 +315,23 @@ class TestCorrectedD2Formula(unittest.TestCase):
 # =========================================================================
 
 class TestT6Consistency(unittest.TestCase):
-    """T^6 = E^3 = Ab x E: kappa must be 3 by both decompositions."""
+    """T^6 = E^3 = Ab x E: Heisenberg shadow is 3 by both decompositions."""
 
     def test_t6_as_e_cubed(self):
-        """T^6 = E x E x E: kappa = 1+1+1 = 3."""
-        self.assertEqual(kappa_ch(t6_torus()), F(3))
+        """T^6 = E x E x E: kappa_ch_Heis = 1+1+1 = 3."""
+        self.assertEqual(kappa_ch_Heis(t6_torus()), F(3))
+        self.assertEqual(kappa_ch(t6_torus()), F(0))
 
     def test_t6_as_ab_times_e(self):
-        """T^6 = Ab x E: kappa = kappa(Ab)+kappa(E) = 2+1 = 3."""
+        """T^6 = Ab x E: kappa_ch_Heis = 2+1 = 3."""
         ab = cy2_abelian()
-        self.assertEqual(ab.kappa_ch() + F(1), F(3))
+        self.assertEqual(ab.kappa_ch_Heis() + F(1), F(3))
 
     def test_two_decompositions_agree(self):
         """Both decompositions give the same result."""
         ab = cy2_abelian()
         three_factor = F(1) + F(1) + F(1)
-        two_factor = ab.kappa_ch() + F(1)
+        two_factor = ab.kappa_ch_Heis() + F(1)
         self.assertEqual(three_factor, two_factor)
         self.assertEqual(three_factor, F(3))
 
@@ -348,32 +365,35 @@ class TestFormulaDecomposition(unittest.TestCase):
     """Test the two-branch decomposition of the formula."""
 
     def test_strict_cy3_uses_bcov(self):
-        """Strict CY_3 (h10=0) uses the BCOV branch."""
+        """Strict CY_3 has compact branch 0 and a BCOV shadow."""
         d = decompose_formula(quintic())
-        self.assertEqual(d.active_branch, 'BCOV')
-        self.assertEqual(d.proof_status, 'CONJECTURAL')
-        self.assertEqual(d.label, 'kappa_BCOV_shadow_conjectural')
-        self.assertFalse(d.constructed)
-        self.assertEqual(d.kappa_ch, F(-25, 3))
+        self.assertEqual(d.active_branch, 'compact_hodge')
+        self.assertEqual(d.proof_status, 'PROVED')
+        self.assertEqual(d.label, 'kappa_ch_compact_hodge')
+        self.assertTrue(d.constructed)
+        self.assertEqual(d.kappa_ch, F(0))
+        self.assertEqual(d.bcov_branch, F(-25, 3))
 
     def test_product_cy3_uses_beauville(self):
-        """Product CY_3 (h10>0) uses the Beauville branch."""
+        """Product CY_3 has compact branch 0 and a Heisenberg shadow."""
         d = decompose_formula(k3_times_e())
-        self.assertEqual(d.active_branch, 'Beauville')
+        self.assertEqual(d.active_branch, 'compact_hodge')
         self.assertEqual(d.proof_status, 'PROVED')
-        self.assertEqual(d.label, 'kappa_ch')
+        self.assertEqual(d.label, 'kappa_ch_compact_hodge')
         self.assertTrue(d.constructed)
-        self.assertEqual(d.kappa_ch, F(3))
+        self.assertEqual(d.kappa_ch, F(0))
+        self.assertEqual(d.beauville_branch, F(3))
 
     def test_enrxe_uses_beauville(self):
         d = decompose_formula(enriques_times_e())
-        self.assertEqual(d.active_branch, 'Beauville')
+        self.assertEqual(d.active_branch, 'compact_hodge')
         self.assertEqual(d.proof_status, 'PROVED')
-        self.assertEqual(d.kappa_ch, F(2))
+        self.assertEqual(d.kappa_ch, F(0))
+        self.assertEqual(d.beauville_branch, F(2))
 
     def test_banana_uses_bcov(self):
         d = decompose_formula(banana())
-        self.assertEqual(d.active_branch, 'BCOV')
+        self.assertEqual(d.active_branch, 'compact_hodge')
         self.assertEqual(d.kappa_ch, F(0))
 
 
@@ -397,7 +417,7 @@ class TestManuscriptValues(unittest.TestCase):
         self.assertEqual(k.denominator, 4)
 
     def test_bv_interpolation(self):
-        """BV(r,a,delta): kappa = (r-10)/2 for the standard BV family."""
+        """BV(r,a,delta): BCOV shadow = (r-10)/2 for the standard BV family."""
         # BV(1,1,1): (1-10)/2 = -9/2
         self.assertEqual(bcov_shadow_candidate(bv_1_1_1()), F(-9, 2))
         # BV(10,0,0): (10-10)/2 = 0
@@ -420,9 +440,10 @@ class TestManuscriptValues(unittest.TestCase):
                 self.assertEqual(is_int, divides, f"Integrality check failed for {X.name}")
 
     def test_k3xe_kappa_spectrum(self):
-        """K3xE kappa-spectrum: kappa_ch=3, kappa_cat=0."""
+        """K3xE spectrum: compact kappa_ch=0; product shadow kappa_ch_Heis=3."""
         k3e = k3_times_e()
-        self.assertEqual(kappa_ch(k3e), F(3))
+        self.assertEqual(kappa_ch(k3e), F(0))
+        self.assertEqual(kappa_ch_Heis(k3e), F(3))
         # kappa_cat = chi(O) = 0 for all CY3 (d=3 odd)
         chi_O = sum((-1)**q for q in range(4))  # h^{0,q} = (1,1,1,1) all 1
         self.assertEqual(chi_O, 0)
@@ -472,14 +493,20 @@ class TestLandscapeTable(unittest.TestCase):
 
     def test_table_values(self):
         table = {e.name: e for e in landscape_table()}
-        self.assertEqual(table['Quintic'].kappa_ch, F(-25, 3))
-        self.assertEqual(table['Quintic'].label, 'kappa_BCOV_shadow_conjectural')
-        self.assertFalse(table['Quintic'].constructed)
-        self.assertEqual(table['K3xE'].kappa_ch, F(3))
-        self.assertEqual(table['K3xE'].label, 'kappa_ch')
+        self.assertEqual(table['Quintic'].kappa_ch, F(0))
+        self.assertEqual(table['Quintic'].label, 'kappa_ch_compact_hodge')
+        self.assertTrue(table['Quintic'].constructed)
+        self.assertEqual(table['Quintic'].shadow_value, F(-25, 3))
+        self.assertEqual(table['Quintic'].shadow_label, 'kappa_BCOV_shadow_conjectural')
+        self.assertEqual(table['K3xE'].kappa_ch, F(0))
+        self.assertEqual(table['K3xE'].label, 'kappa_ch_compact_hodge')
         self.assertTrue(table['K3xE'].constructed)
-        self.assertEqual(table['EnrxE'].kappa_ch, F(2))
-        self.assertEqual(table['T^6'].kappa_ch, F(3))
+        self.assertEqual(table['K3xE'].shadow_value, F(3))
+        self.assertEqual(table['K3xE'].shadow_label, 'kappa_ch_Heis')
+        self.assertEqual(table['EnrxE'].kappa_ch, F(0))
+        self.assertEqual(table['EnrxE'].shadow_value, F(2))
+        self.assertEqual(table['T^6'].kappa_ch, F(0))
+        self.assertEqual(table['T^6'].shadow_value, F(3))
         self.assertEqual(table['C^3'].kappa_ch, F(1))
         self.assertEqual(table['LocalP2'].kappa_ch, F(3, 2))
 
@@ -489,26 +516,29 @@ class TestLandscapeTable(unittest.TestCase):
 # =========================================================================
 
 class TestAdditivity(unittest.TestCase):
-    """Cross-check additivity with Beauville decomposition."""
+    """Cross-check additivity for the Heisenberg shadow, not compact kappa_ch."""
 
     def test_k3xe_additivity(self):
-        """kappa(K3xE) = kappa(K3) + kappa(E) = 2+1 = 3."""
+        """kappa_ch_Heis(K3xE) = kappa_ch_Heis(K3) + kappa_ch_Heis(E) = 3."""
         k3 = cy2_k3()
-        self.assertEqual(k3.kappa_ch() + F(1), kappa_ch(k3_times_e()))
+        self.assertEqual(kappa_ch(k3_times_e()), F(0))
+        self.assertEqual(k3.kappa_ch_Heis() + F(1), kappa_ch_Heis(k3_times_e()))
 
     def test_enrxe_additivity(self):
-        """kappa(EnrxE) = kappa(Enr) + kappa(E) = 1+1 = 2."""
+        """kappa_ch_Heis(EnrxE) = kappa_ch_Heis(Enr) + kappa_ch_Heis(E) = 2."""
         enr = cy2_enriques()
-        self.assertEqual(enr.kappa_ch() + F(1), kappa_ch(enriques_times_e()))
+        self.assertEqual(kappa_ch(enriques_times_e()), F(0))
+        self.assertEqual(enr.kappa_ch_Heis() + F(1), kappa_ch_Heis(enriques_times_e()))
 
     def test_t6_additivity_three_factor(self):
-        """kappa(T^6) = 3*kappa(E) = 3."""
-        self.assertEqual(F(3) * F(1), kappa_ch(t6_torus()))
+        """kappa_ch_Heis(T^6) = 3*kappa_ch_Heis(E) = 3."""
+        self.assertEqual(kappa_ch(t6_torus()), F(0))
+        self.assertEqual(F(3) * F(1), kappa_ch_Heis(t6_torus()))
 
     def test_t6_additivity_two_factor(self):
-        """kappa(T^6) = kappa(Ab) + kappa(E) = 2+1 = 3."""
+        """kappa_ch_Heis(T^6) = kappa_ch_Heis(Ab) + kappa_ch_Heis(E) = 3."""
         ab = cy2_abelian()
-        self.assertEqual(ab.kappa_ch() + F(1), kappa_ch(t6_torus()))
+        self.assertEqual(ab.kappa_ch_Heis() + F(1), kappa_ch_Heis(t6_torus()))
 
 
 # =========================================================================
@@ -532,8 +562,7 @@ class TestEdgeCases(unittest.TestCase):
 
     def test_kappa_ch_dispatches_correctly(self):
         """kappa_ch dispatches to correct formula based on compactness."""
-        with self.assertRaises(NotImplementedError):
-            kappa_ch(quintic())
+        self.assertEqual(kappa_ch(quintic()), F(0))
         self.assertEqual(kappa_ch(k3_times_e()), kappa_ch_compact(k3_times_e()))
         self.assertEqual(kappa_ch(c3_affine()), kappa_ch_noncompact(c3_affine()))
 

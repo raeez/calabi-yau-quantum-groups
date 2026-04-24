@@ -593,7 +593,7 @@ def compute_c3_obstruction(N: int = 10) -> GlobalBraidingObstruction:
     Z(hocolim) = Z(CoHA) = hocolim(Z) = Z(CoHA).
     The obstruction is ZERO.
     """
-    # Z(CoHA(C^3)) = Y(gl_hat_1) with character M^2*P
+    # Z(CoHA(C^3)=Y^+) = Y(gl_hat_1) with character M^2*P
     ch = drinfeld_center_character_c3(N)
     dims = [int(ch[n]) for n in range(N)]
 

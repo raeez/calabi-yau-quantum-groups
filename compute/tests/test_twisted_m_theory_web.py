@@ -8,7 +8,7 @@ Verifies:
   (5) E_n level monotonicity
   (6) Euler characteristic multiplicativity
   (7) Hodge number Kuenneth formula
-  (8) kappa_BKM theorem: c_1(0)/2 = 5, with N=1 coincidence separated
+  (8) kappa_BKM theorem: c_N(0)/2 at N=1 = 5, with N=1 coincidence separated
   (9) kappa_cat = chi(O_K3) = 2
   (10) Structure function degeneration chain
   (11) Reduction commutativity
@@ -22,10 +22,11 @@ Manuscript references:
     chapters/connections/modular_koszul_bridge.tex (kappa = chi^CY)
 
 Ground truth:
-    kappa_ch(K3) = 2, kappa_ch(K3 x E) = 3, kappa_BKM(K3 x E) = 5
+    kappa_ch(K3) = 2, kappa_ch_Heis(K3 x E) = 3, compact kappa_ch(K3 x E)=0,
+    kappa_BKM(K3 x E) = 5
     kappa_cat(K3) = chi(O_K3) = 2, kappa_cat(K3 x E) = chi(O_{K3xE}) = 0
     kappa_fiber(K3) = 24 (Mukai lattice rank)
-    kappa_BKM(K3 x E) is Borcherds c_1(0)/2; 3 + 2 = 5 is only the
+    kappa_BKM(K3 x E) is Borcherds c_N(0)/2 at N=1; 3 + 2 = 5 is only the
     N=1 Heisenberg-specialisation/K3-fibre coincidence.
     chi_top(K3) = 24, chi_top(E) = 0, chi_top(K3 x E) = 0
 
@@ -49,6 +50,7 @@ from compute.lib.twisted_m_theory_web import (
     KAPPA_CH_K3,
     KAPPA_CH_K3E,
     KAPPA_CH_COMPACT_HODGE_K3E,
+    KAPPA_CH_HEIS_K3E,
     KAPPA_BKM_C0_K3E_N1,
     KAPPA_BKM_K3E,
     KAPPA_CAT_K3,
@@ -151,12 +153,13 @@ class TestKappaSpectrum:
         """kappa_ch(K3 Heisenberg) = 2."""
         assert KAPPA_CH_K3 == Rational(2)
 
-    def test_kappa_ch_k3e_equals_3(self):
-        """kappa_ch(K3 x E) = 3."""
-        assert KAPPA_CH_K3E == Rational(3)
+    def test_kappa_ch_k3e_split(self):
+        """compact kappa_ch(K3 x E)=0 and kappa_ch_Heis(K3 x E)=3."""
+        assert KAPPA_CH_K3E == Rational(0)
+        assert KAPPA_CH_HEIS_K3E == Rational(3)
 
     def test_kappa_bkm_k3e_equals_5(self):
-        """kappa_BKM(K3 x E) = c_1(0)/2 = 5."""
+        """kappa_BKM(K3 x E) = c_N(0)/2 at N=1 = 5."""
         assert KAPPA_BKM_C0_K3E_N1 == Rational(10)
         assert KAPPA_BKM_C0_K3E_N1 / 2 == Rational(5)
         assert KAPPA_BKM_K3E == Rational(5)
@@ -174,7 +177,7 @@ class TestKappaSpectrum:
         assert KAPPA_FIBER_K3 == Rational(24)
 
     def test_kappa_bkm_borcherds_weight_not_additive(self):
-        """kappa_BKM is Borcherds c_1(0)/2, not an additive kappa sum."""
+        """kappa_BKM is Borcherds c_N(0)/2 at N=1, not an additive kappa sum."""
         assert KAPPA_BKM_K3E == KAPPA_BKM_C0_K3E_N1 / 2
         assert KAPPA_BKM_K3E != KAPPA_CH_K3E + KAPPA_CAT_K3E
         assert KAPPA_BKM_K3E != KAPPA_CH_COMPACT_HODGE_K3E + KAPPA_CAT_E
@@ -183,7 +186,7 @@ class TestKappaSpectrum:
     def test_kappa_bkm_n1_heisenberg_fiber_coincidence(self):
         """The N=1 Heisenberg-specialisation/K3-fibre coincidence remains."""
         assert KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE == Rational(5)
-        assert KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE == KAPPA_CH_K3E + KAPPA_CAT_K3
+        assert KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE == KAPPA_CH_HEIS_K3E + KAPPA_CAT_K3
         assert KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE == KAPPA_BKM_K3E
 
     def test_kappa_ch_e_equals_0(self):
@@ -204,7 +207,7 @@ class TestKappaSpectrum:
                 )
 
     def test_four_kappa_spectrum_for_k3e(self):
-        """K3 x E has all four kappa values: {2, 3, 5, 24} subset."""
+        """K3 x E node carries compact values; Heis=3 is a separate shadow scalar."""
         web = build_m_theory_web()
         node = web["4d_IIA_K3xT2"]  # K3 x T^2 has full spectrum
         values = {
@@ -213,9 +216,9 @@ class TestKappaSpectrum:
             node.kappa_cat,
             node.kappa_fiber,
         }
-        # kappa_cat(K3 x E) = 0, not 2; kappa_cat(K3) = 2
-        expected = {Rational(3), Rational(5), Rational(0), Rational(24)}
+        expected = {Rational(5), Rational(0), Rational(24)}
         assert values == expected
+        assert KAPPA_CH_HEIS_K3E == Rational(3)
 
 
 # =========================================================================
@@ -395,10 +398,12 @@ class TestEulerCharacteristic:
         assert check.passed
 
     def test_kappa_bkm_borcherds_weight_check(self):
-        """kappa_BKM(K3 x E) is checked by c_1(0)/2."""
+        """kappa_BKM(K3 x E) is checked by c_N(0)/2 at N=1."""
         check = check_kappa_bkm_borcherds_weight()
         assert check.passed
         assert check.check_type == "kappa_bkm_borcherds_weight"
+        assert "additive" in check.notes
+        assert "N=1 coincidence" in check.notes
 
 
 # =========================================================================
@@ -610,12 +615,14 @@ class TestCrossEngineCompatibility:
         from compute.lib.hcs_hierarchy_k3 import (
             KAPPA_CH_K3 as HCS_KAPPA_CH_K3,
             KAPPA_CH_K3E as HCS_KAPPA_CH_K3E,
+            KAPPA_CH_K3E_HEIS as HCS_KAPPA_CH_K3E_HEIS,
             KAPPA_BKM_K3E as HCS_KAPPA_BKM_K3E,
             KAPPA_CAT_K3 as HCS_KAPPA_CAT_K3,
             KAPPA_FIBER_K3 as HCS_KAPPA_FIBER_K3,
         )
         assert KAPPA_CH_K3 == HCS_KAPPA_CH_K3
         assert KAPPA_CH_K3E == HCS_KAPPA_CH_K3E
+        assert KAPPA_CH_HEIS_K3E == HCS_KAPPA_CH_K3E_HEIS
         assert KAPPA_BKM_K3E == HCS_KAPPA_BKM_K3E
         assert KAPPA_CAT_K3 == HCS_KAPPA_CAT_K3
         assert KAPPA_FIBER_K3 == HCS_KAPPA_FIBER_K3

@@ -28,7 +28,8 @@ SHADOW TOWER DATA (K3 sigma model, from mock_modular_k3_proof.py):
   Class M: infinite depth (non-rational, C_2-cofinite).
 
 For K3 x E as a CY_3:
-  kappa_ch(K3xE) = 3  (= kappa_ch(K3) + kappa_ch(E) = 2 + 1)
+  compact kappa_ch(K3xE) = 0  (= Hodge/PhiFA supertrace on K3 x E)
+  kappa_ch^Heis(K3xE) = 3  (= kappa_ch(K3) + kappa_ch(E) = 2 + 1)
   kappa_cat       = 0  (= chi(O_{K3 x E}))
   kappa_cat_fiber = 2  (= chi(O_{K3}))
   kappa_BKM       = 5  (= weight of Delta_5 = c(0)/2)
@@ -48,7 +49,8 @@ SECOND-QUANTIZED ANSWER (the target):
 THE SHADOW-SIEGEL GAP (thm:shadow-siegel-gap):
   The shadow tower does NOT reconstruct 1/Phi_10. Four obstructions:
   (O1) Categorical: F_g in Q vs Phi_10 holomorphic on H_2.
-  (O2) Modular characteristic: kappa_ch=3 vs kappa_BKM=5 (ratio 5/3).
+  (O2) Modular characteristic: shadow input kappa_ch^Heis=3 vs
+       BKM output kappa_BKM=5 (ratio 5/3); compact kappa_ch=0.
   (O3) Second quantization: shadow is first-quantized; 1/Phi_10 is
        second-quantized (DMVV symmetric product).
   (O4) Schottky at g>=4: Jacobian locus != Siegel space.
@@ -191,7 +193,12 @@ K3_ALPHA = Fraction(2)           # cubic shadow coefficient
 K3_S4 = Fraction(5, 156)        # quartic shadow coefficient
 
 # K3 x E compound data
-K3E_KAPPA_CH = Fraction(3)      # = kappa_ch(K3) + kappa_ch(E) = 2 + 1
+K3E_KAPPA_CH_COMPACT = Fraction(0)  # compact Hodge/PhiFA supertrace
+K3E_KAPPA_CH_HEIS = Fraction(3)     # Heisenberg shadow = 2 + 1
+# Legacy compatibility alias: genus-2 shadow routines use the
+# Heisenberg-specialised value. New code should spell this as
+# K3E_KAPPA_CH_HEIS and use K3E_KAPPA_CH_COMPACT for the compact value.
+K3E_KAPPA_CH = K3E_KAPPA_CH_HEIS
 K3E_KAPPA_CAT = Fraction(0)     # = chi(O_{K3 x E})
 K3E_KAPPA_CAT_FIBER = Fraction(2)  # = chi(O_{K3})
 K3E_KAPPA_BKM = Fraction(5)     # = weight of Delta_5 = c(0)/2
@@ -607,7 +614,8 @@ def genus2_partition_k3xe_full(
         "Phi_10": phi10,
         "det_Im_Omega": det_Y,
         # Kappa spectrum (AP113)
-        "kappa_ch": float(K3E_KAPPA_CH),
+        "kappa_ch": float(K3E_KAPPA_CH_COMPACT),
+        "kappa_ch_Heis": float(K3E_KAPPA_CH_HEIS),
         "kappa_cat": float(K3E_KAPPA_CAT),
         "kappa_cat_fiber": float(K3E_KAPPA_CAT_FIBER),
         "kappa_BKM": float(K3E_KAPPA_BKM),
@@ -700,8 +708,10 @@ def second_quantization_bridge(
         "shadow_siegel_gap": {
             "O1_categorical": "F_g in Q vs Phi_10 holomorphic on H_2",
             "O2_modular_characteristic": (
-                f"kappa_ch={full['kappa_ch']} vs kappa_BKM={full['kappa_BKM']} "
-                f"(ratio {full['kappa_BKM']/full['kappa_ch']:.4f})"
+                f"kappa_ch^Heis={full['kappa_ch_Heis']} vs "
+                f"kappa_BKM={full['kappa_BKM']} "
+                f"(ratio {full['kappa_BKM']/full['kappa_ch_Heis']:.4f}); "
+                f"compact kappa_ch={full['kappa_ch']}"
             ),
             "O3_second_quantization": (
                 "Shadow = first-quantized; 1/Phi_10 = second-quantized (DMVV)"
@@ -918,8 +928,10 @@ def genus2_k3xe_weight_table() -> Dict[str, Any]:
     """
     return {
         "kappa_spectrum": {
-            "kappa_ch": {"value": 3, "source": "chiral algebra Phi(D^b(K3xE))",
-                         "status": "PROVED (additivity at d=2)"},
+            "kappa_ch": {"value": 0, "source": "compact Hodge/PhiFA supertrace on K3 x E",
+                         "status": "PROVED (Kunneth Hodge supertrace)"},
+            "kappa_ch_Heis": {"value": 3, "source": "Heisenberg shadow specialisation",
+                              "status": "CONDITIONAL shadow input on the CY-A_3 locus; additivity at K3 and E factors"},
             "kappa_cat": {"value": 0, "source": "chi(O_{K3 x E})",
                           "status": "PROVED (Kunneth)"},
             "kappa_cat_fiber": {"value": 2, "source": "chi(O_{K3})",

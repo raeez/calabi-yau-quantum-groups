@@ -4,7 +4,8 @@ THEOREM BEING TESTED:
     For a CY3 with quiver-with-potential (Q,W), the critical CoHA
     H(Q,W) is isomorphic to the E_1-sector of the CY3 chiral algebra.
 
-    CoHA(Q,W) = Y^+(g_hat_Q) = A^{E_1}_{CY3}
+    CoHA(Q,W) = Y^+(g_hat_Q), the positive E_1-sector; the full algebra
+    appears only after Drinfeld double/center/Fock reconstruction.
 
     The bar complex B^{E_1}(CoHA) = CC_*(Rep(Q,W)).
 

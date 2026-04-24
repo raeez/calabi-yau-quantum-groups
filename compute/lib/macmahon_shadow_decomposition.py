@@ -4,18 +4,23 @@ MATHEMATICAL PROBLEM
 ====================
 
 The MacMahon function M(q) = prod_{n>=1} 1/(1-q^n)^n is the generating
-function for plane partitions and the vacuum character of W_{1+infinity}.
-In DT theory, Z^{DT}_{C^3} = M(-q).
+function for plane partitions and the vacuum character of the full
+W_{1+infinity} vertex-algebra lane.  In DT theory,
+Z^{DT}_{C^3} = M(-q).  This does not identify CoHA(C^3) with
+W_{1+infinity}: the CoHA side is the positive half Y^+, while the
+full W_{1+infinity} object lives on the Drinfeld-double / vertex
+character side.
 
-If the d=3 CY-to-chiral functor Phi: CY_3-Cat -> E_2-ChirAlg exists, then
-M(q) should be recoverable from the shadow obstruction tower of the chiral
-algebra A_{C^3} = W_{1+infinity}.  The Vol I shadow tower at the scalar level
-produces genus-g amplitudes F_g(A) = kappa(A) * lambda_g^FP, and the
+If the d=3 CY-to-chiral functor Phi: CY_3-Cat -> E_1-ChirAlg exists, then
+M(q) should be compared with the shadow obstruction tower of the full
+vertex/double lane, not with the positive-half CoHA alone.  The Vol I
+shadow tower at the scalar level produces genus-g amplitudes
+F_g(A) = kappa_ch(A) * lambda_g^FP, and the
 generating function is:
 
-    sum_{g>=1} F_g * hbar^{2g} = kappa * (Ahat(i*hbar) - 1)
+    sum_{g>=1} F_g * hbar^{2g} = kappa_ch * (Ahat(i*hbar) - 1)
 
-The question: can we reverse-engineer the shadow tower invariants (kappa,
+The question: can we reverse-engineer the shadow tower invariants (kappa_ch,
 cubic shadow, quartic shadow, ...) from M(q)?
 
 ASYMPTOTIC ANALYSIS (Mellin-Barnes derivation)
@@ -61,7 +66,7 @@ where:
   - Power corrections: c_k = B_{2k} * B_{2k+2} / ((2k)! * (2k) * (2k+2))
 
 The leading term zeta(3)/beta^2 does NOT match the Virasoro/Heisenberg pattern
-F_1 = kappa/24 (which gives kappa/(24*beta^0) at genus 1).  This is because
+F_1 = kappa_ch/24 (which gives kappa_ch/(24*beta^0) at genus 1).  This is because
 the MacMahon function is NOT a genus expansion in the Faber-Pandharipande sense.
 Rather, M(q) is a FULL PARTITION FUNCTION whose free energy is:
 
@@ -90,15 +95,20 @@ We decompose log M(q) in two ways:
 
     g=0: zeta(3)/beta^2  (tree-level: NOT in the FP tower)
     g=1: (1/12)*log(beta) + const  (one-loop: logarithmic, not polynomial)
-    g>=2: c_k * beta^{2k} with c_k = (-1)^k * B_{2k+2}/(2k(2k+2))
+    g>=2: c_{g-1} * beta^{2g-2} with
+          c_{g-1} = B_{2g-2} * B_{2g}
+                    / ((2g-2)! * (2g-2) * 2g)
 
-    The genus-g>=2 terms correspond to F_g^{MacM} = (-1)^g * B_{2g+2}/(2g(2g+2)).
+    The genus-g>=2 terms have a double-Bernoulli structure:
+        F_g^{MacM} = B_{2g-2} * B_{2g}
+                     / ((2g-2)! * (2g-2) * 2g).
 
-    COMPARISON with the shadow tower formula F_g = kappa * lambda_g^FP:
-    If these matched, we'd need kappa such that kappa * lambda_g = F_g^{MacM}.
+    COMPARISON with the shadow tower formula F_g = kappa_ch * lambda_g^FP:
+    If these matched, we would need a single kappa_ch such that
+    kappa_ch * lambda_g = F_g^{MacM}.
     But lambda_g = (2^{2g-1}-1)/(2^{2g-1}) * |B_{2g}|/(2g)!.
     The ratio F_g^{MacM}/lambda_g is NOT constant in g, so there is NO single
-    kappa that works.  This is the key finding: M(q) does NOT decompose into
+    kappa_ch that works.  This is the key finding: M(q) does NOT decompose into
     a simple scalar shadow tower.
 
 (B) ARITY DECOMPOSITION:
@@ -128,16 +138,16 @@ RESULT: MISMATCH STRUCTURE
 ===========================
 
 The MacMahon function log M(q) does NOT admit a decomposition compatible
-with the Vol I shadow tower for any single value of kappa.  Specifically:
+with the Vol I shadow tower for any single value of kappa_ch.  Specifically:
 
 1. The leading asymptotics are zeta(3)/beta^2 (genus 0 in the string sense),
-   NOT kappa/24 (genus 1 in the FP sense).
+   NOT kappa_ch/24 (genus 1 in the FP sense).
 
 2. The genus-1 term is LOGARITHMIC (not polynomial), reflecting the
    quasi-modular nature of the partition function.
 
 3. The genus-g>=2 terms F_g^{MacM} = (-1)^g * B_{2g+2}/(2g(2g+2)) do NOT
-   satisfy F_g = kappa * lambda_g for any constant kappa.
+   satisfy F_g = kappa_ch * lambda_g for any constant kappa_ch.
 
 4. However, there IS a remarkable shadow-like structure: the ratio
    F_g^{MacM} / lambda_g^{FP} oscillates but converges, and the DOMINANT
@@ -145,8 +155,9 @@ with the Vol I shadow tower for any single value of kappa.  Specifically:
 
 The CORRECT interpretation: the MacMahon function encodes the FULL
 non-perturbative partition function, not just the scalar shadow tower.
-The shadow tower of W_{1+infinity} would contribute F_g^{shadow} = kappa * lambda_g
-with kappa = lim_{N->inf} kappa(W_N), and the MacMahon function includes
+The shadow tower of W_{1+infinity} would contribute
+F_g^{shadow} = kappa_ch * lambda_g with a single scalar kappa_ch.  The
+MacMahon function instead includes
 ALL arity contributions (the full MC element Theta_A, not just its scalar
 projection).
 
@@ -157,7 +168,7 @@ CONVENTIONS
 - zeta(s) = Riemann zeta function
 - B_n = Bernoulli numbers (B_2 = 1/6, B_4 = -1/30, ...)
 - lambda_g^FP = Faber-Pandharipande intersection number
-- kappa(A) = modular characteristic of chiral algebra A
+- kappa_ch(A) = modular characteristic of chiral algebra A
 
 REFERENCES
 ==========
@@ -457,10 +468,10 @@ def macmahon_genus_amplitude(g: int) -> Fraction:
 
 
 def shadow_tower_kappa_ratio(g: int) -> Optional[Fraction]:
-    r"""The "effective kappa" at genus g: F_g^{MacM} / lambda_g^{FP}.
+    r"""The effective kappa_ch at genus g: F_g^{MacM} / lambda_g^{FP}.
 
     If M(q) were a pure scalar shadow tower, this ratio would be
-    constant (= kappa) for all g.  The fact that it is NOT constant
+    constant (= kappa_ch) for all g.  The fact that it is NOT constant
     proves that M(q) is not a scalar shadow tower.
 
     For g >= 2:
@@ -576,140 +587,26 @@ def arity_dominance_at_genus(g: int, max_arity: int = 20) -> Dict[str, Any]:
 
     The beta^{2g-2} coefficient of F^{(r)} = -r*log(1-e^{-r*beta}) is:
 
-    For r=1: this is the Heisenberg-type channel.
-    For general r: the Euler-Maclaurin expansion of -r*log(1-e^{-r*beta}) gives:
-      = (1/r) * (1/beta) * zeta(2)^{BAD} ... no, this needs care.
+    Zeta-regularising the arity sum gives the same double-Bernoulli
+    coefficient as the Mellin-Barnes integral.  For the beta^{2k}
+    power correction, k >= 1, the arity-r contribution is
 
-    Actually, -r*log(1 - e^{-r*beta}) = r * sum_{m>=1} e^{-rm*beta}/m.
-    The asymptotic expansion of sum_{m>=1} e^{-rm*beta}/m:
-      = -log(1 - e^{-r*beta})
-      = -log(r*beta) + log(r*beta/(1-e^{-r*beta}))
-      = -log(r*beta) + sum_{k>=0} B_k^+ * (r*beta)^k / k!
+        - r^{2k+1} * B_{2k} / (2k * (2k)!).
 
-    where B_k^+ are Bernoulli numbers with B_1 = +1/2.
+    Summing over r gives zeta(-2k-1), hence
 
-    So -r*log(1-e^{-r*beta}) = r*[-log(r*beta) + sum_{k>=0} B_k^+ * (r*beta)^k/k!]
-                               = -r*log(r*beta) + r * sum_{k>=0} B_k^+ * r^k * beta^k/k!
+        B_{2k} * B_{2k+2}
+        / ((2k)! * (2k) * (2k+2)).
 
-    The beta^{2k} coefficient (k >= 1) is:
-        r * B_{2k}^+ * r^{2k} / (2k)! = r^{2k+1} * B_{2k} / (2k)!
-
-    Wait, this is for SINGLE r, not summed.  Let me reconsider.
-
-    The total genus-g (for g>=2) contribution is c_{g-1} = B_{2g}/(4(g-1)g).
-    The arity-r contribution to the beta^{2g-2} term is:
-
-    From F^{(r)}: the coefficient of beta^{2g-2} in -r*log(1-e^{-r*beta}).
-
-    -log(1-e^{-x}) has the asymptotic expansion (for x -> 0+):
-      = -log(x) + x/2 - sum_{k>=1} B_{2k}/(2k*(2k)!) * x^{2k}     [WRONG SIGN?]
-
-    Standard: -log(1-e^{-x}) = -log(x) + x/2 + sum_{k>=1} B_{2k}/(2k) * x^{2k-1}/(2k-1)!
-
-    Hmm, let me just use the exact Bernoulli expansion:
-    x/(e^x - 1) = sum_{n>=0} B_n * x^n / n!
-    So log(x/(1-e^{-x})) = log(x/(e^x-1)) + x = log(sum B_n x^n/n!)
-
-    This approach is getting complicated. Let me just numerically evaluate
-    each arity's contribution to the genus-g coefficient.
+    Thus the exact q-series arity decomposition is compatible with the
+    zeta-regularised power-correction sector.  The singular genus-0 and
+    genus-1 terms require the global Mellin-Barnes regularisation.
     """
-    # Numerical evaluation: for each arity r, compute the contribution
-    # to the genus-g coefficient of the asymptotic expansion.
-    #
-    # The beta^{2g-2} coefficient of -r*log(1-e^{-r*beta}) is:
-    # r * [r^{2g-2} * B_{2g-1}/(2g-1)! ... ] — too complicated symbolically.
-    #
-    # Instead: use the exact identity
-    # sum_{r>=1} c_k(r) = c_k^{total}
-    # where c_k(r) is the arity-r contribution to the k-th power coefficient.
-    #
-    # For the power beta^{2k} term (k >= 1):
-    # Total: c_k = B_{2k+2}/(4k(k+1))
-    #
-    # Arity-r contribution: from -r*log(1-e^{-r*beta}), the beta^{2k} term is
-    # r * (-1) * [coefficient of x^{2k} in log(1-e^{-rx})]_{non-log part}
-    #
-    # Since -log(1-e^{-x}) = sum_{m>=1} e^{-mx}/m, the beta^{2k} coefficient is
-    # sum_{m>=1} (-rm)^{2k}/(m*(2k)!) * ... No, the Taylor expansion of e^{-mx} is:
-    #
-    # e^{-m*r*beta}/m has the expansion sum_{j>=0} (-mr*beta)^j / (j! * m)
-    # = sum_{j>=0} (-1)^j * m^{j-1} * r^j * beta^j / j!
-    #
-    # So -r*log(1-e^{-r*beta}) = r * sum_{m>=1} sum_{j>=0} (-1)^j m^{j-1} r^j beta^j/j!
-    # = r * sum_{j>=0} (-1)^j r^j beta^j/j! * sum_{m>=1} m^{j-1}
-    # = r * sum_{j>=0} (-1)^j r^j beta^j/j! * zeta(1-j)   [for j >= 2]
-    #
-    # For j=0: sum 1/m = divergent (absorbed into log)
-    # For j=1: sum 1 = divergent (absorbed into log)
-    # For j >= 2: sum m^{j-1} = zeta(1-j)
-    #
-    # So the POWER correction (j=2k, k>=1):
-    # r * r^{2k} * beta^{2k} / (2k)! * zeta(1-2k)
-    # = r^{2k+1} * zeta(1-2k) * beta^{2k} / (2k)!
-    #
-    # And zeta(1-2k) = -B_{2k}/(2k).
-    # So the arity-r contribution to beta^{2k} is:
-    # r^{2k+1} * (-B_{2k}/(2k)) / (2k)! = -r^{2k+1} * B_{2k} / (2k * (2k)!)
-
-    # Total over all r: sum_{r>=1} [-r^{2k+1} * B_{2k} / (2k * (2k)!)]
-    # = -B_{2k}/(2k*(2k)!) * sum_{r>=1} r^{2k+1}
-    # = -B_{2k}/(2k*(2k)!) * zeta(-2k-1)
-    # = -B_{2k}/(2k*(2k)!) * (-B_{2k+2}/(2k+2))
-    # = B_{2k} * B_{2k+2} / (2k*(2k)!*(2k+2))
-    #
-    # But the TOTAL coefficient is c_k = B_{2k+2}/(4k(k+1)).
-    # Let's verify: 4k(k+1) = 4k^2+4k = 2k*(2k+2).
-    # So c_k = B_{2k+2}/(2k*(2k+2)).
-    # And the arity sum gives: B_{2k}*B_{2k+2}/(2k*(2k)!*(2k+2)).
-    # These are NOT equal unless B_{2k}/(2k)! = 1, which is false.
-    #
-    # RESOLUTION: The odd-j terms are nonzero!
-    # For j odd (j=2k+1): the contribution is
-    # r * r^{2k+1} * (-1)^{2k+1} * beta^{2k+1} / (2k+1)! * zeta(-2k)
-    # = -r^{2k+2} * beta^{2k+1} / (2k+1)! * zeta(-2k)
-    # But zeta(-2k) = 0 for k >= 1 (trivial zeros of zeta).
-    # So odd-j contributions vanish.
-    #
-    # For j=0 and j=1: these are the SINGULAR terms that give the
-    # zeta(3)/beta^2 and log terms.
-    #
-    # So my calculation IS the whole story for even j >= 2.
-    # The discrepancy means I made an error.
-    #
-    # RECHECK: The arity-r contribution to beta^{2k} is:
-    # From sum_{m>=1} r*e^{-rm*beta}/m, expand e^{-rm*beta}:
-    # = r * sum_{m>=1} (1/m) * sum_{j>=0} (-rm*beta)^j/j!
-    # = r * sum_{j>=0} (-r*beta)^j/j! * sum_{m>=1} m^{j-1}
-    #
-    # For j >= 2:
-    # sum_{m>=1} m^{j-1} = zeta(1-j)
-    # So the j=2k (k>=1) term is:
-    # r * (r*beta)^{2k} / (2k)! * zeta(1-2k) = r^{2k+1} * beta^{2k}/(2k)! * (-B_{2k}/(2k))
-    #
-    # Total: sum_{r>=1} r^{2k+1} * (-B_{2k}/(2k)) / (2k)!
-    # = zeta(-2k-1) * (-B_{2k}/(2k)) / (2k)!
-    # = (-B_{2k+2}/(2k+2)) * (-B_{2k}/(2k)) / (2k)!
-    # = B_{2k}*B_{2k+2} / ((2k)*(2k+2)*(2k)!)
-    #
-    # But we said total = B_{2k+2}/(4k(k+1)) = B_{2k+2}/(2k*(2k+2)).
-    #
-    # For these to agree: B_{2k}/((2k)!) = 1.
-    # At k=1: B_2/2! = (1/6)/2 = 1/12 != 1.
-    #
-    # CONCLUSION: the per-arity decomposition of the ASYMPTOTIC expansion
-    # is NOT simply "sum arity channels."  The Euler-Maclaurin procedure
-    # (integral + boundary corrections) mixes all arities.  The arity
-    # decomposition is exact at the POWER SERIES level but does not pass
-    # cleanly through the asymptotic expansion.
-    #
-    # This is the key mathematical finding: the MacMahon function has an
-    # exact arity decomposition log M = sum_r F^{(r)} at the q-series level,
-    # but the ASYMPTOTIC (genus) decomposition mixes all arities together.
-
     return {
         'genus': g,
-        'note': 'Arity decomposition does not pass cleanly through asymptotics; '
-                'see module docstring for the mathematical reason.',
+        'note': 'Power-correction arity channels zeta-regularize to the '
+                'double-Bernoulli MacMahon amplitude; genus 0 and genus 1 '
+                'remain globally regularized.',
         'total_genus_amplitude': macmahon_genus_amplitude(g),
     }
 
@@ -760,27 +657,18 @@ def root_multiplicity_generating_function(N: int) -> List[Fraction]:
 def shadow_tower_comparison(max_genus: int = 12) -> Dict[str, Any]:
     r"""Compare MacMahon genus amplitudes with the scalar shadow tower.
 
-    The scalar shadow tower predicts: F_g = kappa * lambda_g^FP.
-    The MacMahon genus amplitudes are: F_g^MacM = B_{2g}/(4(g-1)g).
+    The scalar shadow tower predicts: F_g = kappa_ch * lambda_g^FP.
+    The MacMahon genus amplitudes are:
+        F_g^MacM = B_{2g-2} * B_{2g}
+                   / ((2g-2)! * (2g-2) * 2g).
 
     The ratio kappa_ch(g) = F_g^MacM / lambda_g^FP should be constant
     if M(q) is a scalar shadow tower.  It is NOT.
 
-    HOWEVER, there is a remarkable structural parallel:
-
-    Both F_g^MacM and lambda_g^FP involve B_{2g}/(2g)!, so the ratio
-    simplifies significantly:
-
-    kappa_ch(g) = [B_{2g}/(4(g-1)g)] / [(2^{2g-1}-1)|B_{2g}|/(2^{2g-1}(2g)!)]
-                 = sgn(B_{2g}) * 2^{2g-1}(2g)! / [4(g-1)g(2^{2g-1}-1)]
-                 = (-1)^{g+1} * (2g)! / [2(2g-2)(2^{2g-1}-1)]  * 2^{2g-2}/1
-
-    Actually let me just compute it:
-      B_{2g}/|B_{2g}| = (-1)^{g+1}
-      So kappa_ch = (-1)^{g+1} * 2^{2g-1} * (2g)! / (4(g-1)*g*(2^{2g-1}-1))
+    The obstruction to scalarity is the extra Bernoulli factor
+    B_{2g-2}/(2g-2)! coming from zeta(s-1) in the Mellin-Barnes
+    integral; lambda_g^FP contains only B_{2g}.
     """
-    from math import factorial as mfact
-
     results = []
     for g in range(2, max_genus + 1):
         F_g_macm = macmahon_genus_amplitude(g)
@@ -807,9 +695,10 @@ def shadow_tower_comparison(max_genus: int = 12) -> Dict[str, Any]:
         'kappa_ch_values': kappa_values,
         'conclusion': (
             'The MacMahon function does NOT decompose as a scalar shadow tower. '
-            'The effective kappa varies with genus, growing as (2g)! * 2^{2g} / g^2. '
-            'This factorial growth is characteristic of a NON-PERTURBATIVE (full MC) '
-            'contribution rather than a scalar (kappa-only) shadow tower.'
+            'The effective kappa_ch varies with genus because the '
+            'Mellin-Barnes coefficient has a double-Bernoulli factor. '
+            'This is characteristic of a full MC contribution rather than '
+            'a scalar kappa_ch-only shadow tower.'
         ),
     }
 
@@ -818,21 +707,20 @@ def macmahon_vs_ahat(max_genus: int = 10) -> Dict[str, Any]:
     r"""Compare the MacMahon genus expansion with the A-hat generating function.
 
     The scalar shadow tower GF: sum_{g>=1} lambda_g x^{2g} = (x/2)/sin(x/2) - 1 = Ahat(ix) - 1.
-    The MacMahon genus expansion: sum_{g>=2} F_g^MacM x^{2g-2} with F_g = B_{2g}/(4(g-1)g).
+    The MacMahon genus expansion:
+        sum_{g>=2} F_g^MacM x^{2g-2}
+    with
+        F_g^MacM = B_{2g-2} * B_{2g}
+                   / ((2g-2)! * (2g-2) * 2g).
 
-    The A-hat GF grows as |B_{2g}|/(2g)! ~ 2*(2g)!/(2*pi)^{2g} (Stirling for Bernoulli).
-    The MacMahon amplitudes grow as |B_{2g}|/(4g^2) ~ 2*(2g)!/(2*pi)^{2g} * 1/(4g^2).
-
-    The ratio: F_g^MacM / lambda_g ~ (2g)! * 2^{2g} / g^2 grows factorially.
+    The ratio is not constant because MacMahon has the extra
+    B_{2g-2}/(2g-2)! factor.  This places M(q) outside the A-hat
+    scalar universality class.
     """
-    from math import factorial as mfact
-
     data = []
     for g in range(2, max_genus + 1):
-        B_2g = bernoulli_number(2 * g)
-
         # MacMahon amplitude
-        F_macm = B_2g / Fraction(4 * (g - 1) * g)
+        F_macm = macmahon_genus_amplitude(g)
 
         # FP lambda
         lam = lambda_fp(g)
@@ -848,15 +736,15 @@ def macmahon_vs_ahat(max_genus: int = 10) -> Dict[str, Any]:
             'F_MacM': float(F_macm),
             'lambda_FP': float(lam),
             'ratio': float(ratio) if ratio is not None else None,
-            '(2g)!': mfact(2 * g),
         })
 
     return {
         'data': data,
         'observation': (
-            'The ratio F_g^MacM/lambda_g grows as ~(2g)! * (2pi)^{-2g} * 4^g / g^2, '
-            'i.e., factorially. This means the MacMahon free energy is '
-            'NOT in the A-hat universality class.'
+            'The ratio F_g^MacM/lambda_g is genus-dependent because '
+            'MacMahon has the double-Bernoulli Mellin-Barnes factor. '
+            'This means the MacMahon free energy is NOT in the A-hat '
+            'scalar universality class.'
         ),
     }
 
@@ -989,30 +877,30 @@ def modular_s_transform_check(N_terms: int = 200) -> Dict[str, Any]:
 
 
 # ============================================================================
-# 9. The W_{1+inf} kappa and shadow depth
+# 9. The W_{1+inf} kappa_ch and shadow depth
 # ============================================================================
 
 def w_infinity_kappa_from_limit(N_max: int = 20) -> List[Dict[str, Any]]:
-    r"""Compute kappa(W_N) in the large-N limit.
+    r"""Compute kappa_ch(W_N) in the large-N limit.
 
-    kappa(W_N) = (H_N - 1) * c(W_N, k) for fixed level k.
+    kappa_ch(W_N) = (H_N - 1) * c(W_N, k) for fixed level k.
 
-    For k -> infinity with N fixed: c ~ (N-1), so kappa ~ (H_N - 1)(N-1).
+    For k -> infinity with N fixed: c ~ (N-1), so kappa_ch ~ (H_N - 1)(N-1).
 
     For N -> infinity with k fixed:
     c(W_N, k) = (N-1)[1 - N(N+1)/(k+N)]
               = (N-1) * [1 - N(N+1)/(N+k)]
               ~ (N-1) * (1 - N) = -(N-1)^2  as N -> inf with k fixed.
 
-    So kappa(W_N) ~ (H_N - 1) * (-(N-1)^2) ~ -log(N) * N^2 as N -> inf.
+    So kappa_ch(W_N) ~ (H_N - 1) * (-(N-1)^2) ~ -log(N) * N^2 as N -> inf.
 
     The 't Hooft limit: lambda = N/(k+N) fixed.
     c = (N-1)(1 - lambda * (N+1)/N) ~ -N*(lambda-1) + ... for large N.
-    kappa ~ (log N) * N for large N in the 't Hooft limit.
+    kappa_ch ~ (log N) * N for large N in the 't Hooft limit.
 
     NOTE: These diverge. The MacMahon function is the character of the
     FULL W_{1+inf}, which is an infinite-rank algebra. The individual
-    kappa(W_N) values diverge with N.
+    kappa_ch(W_N) values diverge with N.
     """
     results = []
     # Use a fixed level, say k = 10
@@ -1022,19 +910,20 @@ def w_infinity_kappa_from_limit(N_max: int = 20) -> List[Dict[str, Any]]:
         c_val = Fraction(N - 1) * (Fraction(1) - Fraction(N * (N + 1)) / (k + h_vee))
         H_N = sum(Fraction(1, j) for j in range(1, N + 1))
         rho = H_N - 1
-        kappa = rho * c_val
+        kappa_ch = rho * c_val
         results.append({
             'N': N,
             'c': float(c_val),
             'H_N': float(H_N),
             'rho': float(rho),
-            'kappa': float(kappa),
+            'kappa': float(kappa_ch),
+            'kappa_ch': float(kappa_ch),
         })
     return results
 
 
 def macmahon_effective_kappa() -> Dict[str, Any]:
-    r"""The "effective kappa" if one naively matches log M to the shadow tower.
+    r"""The effective kappa_ch if one naively matches log M to the shadow tower.
 
     Using the CORRECT Mellin-Barnes genus amplitudes:
     F_g^{MacM} = B_{2(g-1)} * B_{2g} / ((2(g-1))! * (2g-2) * 2g)
@@ -1088,14 +977,15 @@ def macmahon_shadow_data() -> Dict[str, Any]:
        (tree-level DT/GW contribution).  This has no shadow tower analogue
        because the shadow tower starts at genus 1.
 
-    2. The power corrections B_{2g}/(4(g-1)g) at each genus g >= 2 are
-       COMPUTABLE and have a clean Bernoulli structure.
+    2. The power corrections at each genus g >= 2 are COMPUTABLE and
+       have the double-Bernoulli structure
+       B_{2g-2} * B_{2g} / ((2g-2)! * (2g-2) * 2g).
 
     3. The arity decomposition log M = sum_r F^{(r)} is exact, with
        F^{(r)} = -r*log(1-q^r), and this IS a sum over "shadow channels."
 
     NEGATIVE FINDINGS:
-    4. There is no single kappa: kappa_ch(g) varies with genus.
+    4. There is no single kappa_ch: kappa_ch(g) varies with genus.
 
     5. The genus-1 term is anomalous (logarithmic, not polynomial).
 
@@ -1103,17 +993,18 @@ def macmahon_shadow_data() -> Dict[str, Any]:
 
     INTERPRETATION:
     The MacMahon function encodes the FULL MC element Theta_{W_{1+inf}},
-    not just the scalar projection.  The scalar projection F_g = kappa*lambda_g
+    not just the scalar projection.  The scalar projection F_g = kappa_ch*lambda_g
     captures only the UNIVERSAL (Virasoro) part of the shadow tower.
     The MacMahon-specific structure comes from the higher-arity components
     of Theta (the higher-spin W-algebra structure).
 
-    The genus-g amplitude F_g^{MacM} = B_{2g}/(4(g-1)g) can be written as:
+    The genus-g amplitude can be written as:
         F_g^{MacM} = lambda_g^{FP} * kappa_ch(g)
 
-    where kappa_ch(g) = (-1)^{g+1} * (2g)! * 2^{2g-1} / (4(g-1)g(2^{2g-1}-1))
-    grows factorially.  This factorial growth is the signature of the
-    INFINITE shadow depth of W_{1+inf} (class M with r_max = infinity).
+    where kappa_ch(g) is genus-dependent because of the extra
+    B_{2g-2}/(2g-2)! factor.  This non-scalar dependence is the
+    signature of the infinite shadow depth of W_{1+inf}
+    (class M with r_max = infinity).
     """
     # Compute first several genus amplitudes
     genus_data = []
@@ -1136,7 +1027,7 @@ def macmahon_shadow_data() -> Dict[str, Any]:
         'genus_1': {
             'type': 'anomalous (logarithmic)',
             'log_coefficient': '1/12',
-            'constant_part': "-zeta'(-1) = 1/12 - log(Glaisher)",
+            'constant_part': "zeta'(-1) = 1/12 - log(Glaisher)",
         },
         'genus_data': genus_data,
         'arity_decomposition': 'EXACT: log M = sum_r (-r)*log(1-q^r)',

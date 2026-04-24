@@ -61,15 +61,16 @@ The Frobenius acts diagonally on the tensor product:
 KAPPA SPECTRUM (AP113: always subscripted)
 ==========================================
 
-    kappa_ch(K3 x E) = 3           (from chiral algebra via Phi)
+    kappa_ch(K3 x E) = 0           (compact Hodge/PhiFA supertrace)
+    kappa_ch^Heis(K3 x E) = 3      (relative Heisenberg shadow)
     kappa_BKM(K3 x E) = 5          (weight of Delta_5)
     kappa_cat(K3 x E) = 0          (chi(O_{K3xE}) = 0)
     kappa_fiber(K3 x E) = 24       (lattice rank from K3 factor)
 
-    The kappa_cat = 0 (vanishing holomorphic Euler characteristic) is
-    the source of the depth jump: kappa_ch = 3 comes from the CHIRAL
-    algebra (which sees the non-trivial CY_3 structure), not from
-    the classical invariant chi(O) = 0.
+    The compact chiral scalar equals the holomorphic supertrace
+    1 - 1 + 1 - 1 = 0.  The value 3 belongs to the relative
+    Heisenberg/free-field shadow used in the DMVV and boundary-algebra
+    comparison; it is not the compact total-space kappa_ch.
 
 THE BORCHERDS PRODUCT CONNECTION
 ==================================
@@ -242,7 +243,8 @@ K3E_CHI_O = sum((-1)**p * h for p, h in enumerate(K3E_H_P0))
 # Expected: 1 - 1 + 1 - 1 = 0
 
 # kappa spectrum for K3 x E (AP113: ALWAYS subscripted)
-KAPPA_CH_K3E = Fraction(3)        # kappa_ch(K3 x E) = 3 (from chiral algebra via Phi)
+KAPPA_CH_K3E = Fraction(0)        # compact kappa_ch(K3 x E) = chi(O_{K3xE}) = 0
+KAPPA_CH_K3E_HEIS = Fraction(3)   # relative Heisenberg/free-field shadow scalar
 KAPPA_BKM_K3E = Fraction(5)       # kappa_BKM(K3 x E) = 5 (weight of Delta_5)
 KAPPA_CAT_K3E = Fraction(0)       # kappa_cat(K3 x E) = chi(O_{K3xE}) = 0
 KAPPA_FIBER_K3E = 24              # kappa_fiber = Mukai lattice rank (K3 factor)
@@ -1423,7 +1425,8 @@ def k3e_motivic_zeta_master_verification(
     4. p-adic shadow: Kunneth closed form, Frobenius refined
     5. Borcherds connection: diagonal exponents, e_diag(1) = 24
     6. Motivic DMVV: partition function, Euler specialization
-    7. kappa spectrum: kappa_ch=3, kappa_BKM=5, kappa_cat=0, kappa_fiber=24
+    7. kappa spectrum: kappa_ch=0, kappa_ch^Heis=3,
+       kappa_BKM=5, kappa_cat=0, kappa_fiber=24
     """
     results: Dict[str, Any] = {}
 
@@ -1456,7 +1459,8 @@ def k3e_motivic_zeta_master_verification(
     results['dmvv_euler_vs_borcherds'] = (Z_chi == borch_series)
 
     # 7. kappa spectrum (AP113)
-    results['kappa_ch'] = (KAPPA_CH_K3E == Fraction(3))
+    results['kappa_ch'] = (KAPPA_CH_K3E == Fraction(0))
+    results['kappa_ch_Heis'] = (KAPPA_CH_K3E_HEIS == Fraction(3))
     results['kappa_BKM'] = (KAPPA_BKM_K3E == Fraction(5))
     results['kappa_cat'] = (KAPPA_CAT_K3E == Fraction(0))
     results['kappa_fiber'] = (KAPPA_FIBER_K3E == 24)
@@ -1491,6 +1495,7 @@ if __name__ == "__main__":
     # kappa spectrum
     print(f"\n--- kappa Spectrum (AP113) ---")
     print(f"kappa_ch(K3xE) = {KAPPA_CH_K3E}")
+    print(f"kappa_ch^Heis(K3xE) = {KAPPA_CH_K3E_HEIS}")
     print(f"kappa_BKM(K3xE) = {KAPPA_BKM_K3E}")
     print(f"kappa_cat(K3xE) = {KAPPA_CAT_K3E}")
     print(f"kappa_fiber(K3xE) = {KAPPA_FIBER_K3E}")

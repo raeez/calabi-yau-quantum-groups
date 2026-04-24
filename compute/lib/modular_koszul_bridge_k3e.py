@@ -17,15 +17,17 @@ For K3 x E, this chain specializes to:
 THE WEIGHT PUZZLE
 =================
 
-The chiral modular characteristic kappa_ch(K3 x E) = 3 does NOT equal the
+The relative Heisenberg scalar kappa_ch_Heis(K3 x E) = 3 does NOT equal the
 weight of Delta_5 (which is 5). This is the kappa-spectrum polysemy (AP113):
 
-    kappa_ch = 3     (chiral de Rham: kappa(K3) + kappa(E) = 2 + 1)
+    compact kappa_ch = 0
+    kappa_ch_Heis = 3 (chiral de Rham/Heisenberg shadow: 2 + 1)
     kappa_BKM = 5    (Borcherds weight: c(0)/2 = 10/2)
 
 The bridge from kappa_ch to wt(Delta_5) passes through TWO mechanisms:
 
-    (1) kappa_ch = 3 controls the genus-1 obstruction: obs_g = 3 * lambda_g.
+    (1) kappa_ch_Heis = 3 controls the relative genus-1 obstruction:
+        obs_g = 3 * lambda_g.
     (2) The Borcherds lift weight = c(0)/2 = 10/2 = 5, where c(0) = 10 is
         the coefficient of phi_{0,1} at discriminant D = 0.
 
@@ -34,8 +36,8 @@ These are DIFFERENT invariants from DIFFERENT algebraizations (HZ3-2).
 The relationship: c(0) = 10 encodes the number of BPS states at D=0
 (the 20 short multiplets of K3, counted with sign: 10 bosonic - 10
 fermionic = 10 net). The Borcherds weight = c(0)/2 = 5 is a DERIVED
-quantity from the Jacobi form data. kappa_ch = 3 is an INDEPENDENT
-invariant from the chiral algebra structure.
+quantity from the Jacobi form data. The independent chiral-side scalar in
+this bridge is kappa_ch_Heis = 3; the compact total-space kappa_ch is 0.
 
 THE DIRECT BAR-TO-SIEGEL MAP
 =============================
@@ -185,36 +187,40 @@ class KappaSpectrum(NamedTuple):
     """
     name: str
     kappa_cat: Fraction       # chi(O_X) = holomorphic Euler characteristic
-    kappa_ch: Fraction        # kappa of chiral algebra A_C = Phi(C)
+    kappa_ch: Fraction        # compact Hodge/PhiFA kappa_ch
     kappa_bkm: Fraction       # weight of BKM automorphic form
     kappa_fiber: Fraction     # lattice rank / fiber structure
     status_cat: str           # proof status of kappa_cat
     status_ch: str            # proof status of kappa_ch
     status_bkm: str           # proof status of kappa_bkm
     status_fiber: str         # proof status of kappa_fiber
+    kappa_ch_Heis: Fraction | None = None  # relative Heisenberg shadow
 
 
 def kappa_spectrum_k3xe() -> KappaSpectrum:
     r"""The kappa-spectrum for K3 x E.
 
-    {kappa_cat, kappa_ch, kappa_BKM, kappa_fiber} = {0, 3, 5, 24}.
+    {kappa_cat, compact kappa_ch, kappa_ch_Heis, kappa_BKM, kappa_fiber}
+    = {0, 0, 3, 5, 24}.
 
     Each value from a different source:
         kappa_cat = chi(O_{K3 x E}) = 0  (Kunneth)
-        kappa_ch = kappa(K3) + kappa(E) = 2 + 1 = 3  (chiral de Rham)
+        kappa_ch = chi(O_{K3 x E}) = 0  (compact Hodge/PhiFA)
+        kappa_ch_Heis = kappa(K3) + kappa(E) = 2 + 1 = 3
         kappa_BKM = c(0)/2 = 10/2 = 5  (Borcherds weight)
         kappa_fiber = rank(Lambda_{K3}) = 24  (lattice rank)
     """
     return KappaSpectrum(
         name="K3 x E",
         kappa_cat=Fraction(0),
-        kappa_ch=Fraction(3),
+        kappa_ch=Fraction(0),
         kappa_bkm=Fraction(5),
         kappa_fiber=Fraction(24),
         status_cat="PROVED (Kunneth: chi(O_{K3}) chi(O_E) = 0)",
-        status_ch="PROVED (chiral de Rham, CY-A_2 for K3 factor)",
+        status_ch="PROVED (compact Hodge/PhiFA supertrace)",
         status_bkm="OBSERVATION (Borcherds lift of phi_{0,1})",
         status_fiber="PROVED (K3 lattice rank)",
+        kappa_ch_Heis=Fraction(3),
     )
 
 
@@ -330,7 +336,7 @@ def four_weight_formulas_k3xe() -> Dict[str, WeightFormula]:
     return {
         'W1': weight_formula_lattice_voa(24),           # wt = 12
         'W2': weight_formula_borcherds_lift(10),         # wt = 5 = kappa_BKM
-        'W3': weight_formula_chiral_obs(Fraction(3)),    # wt = 3 = kappa_ch
+        'W3': weight_formula_chiral_obs(Fraction(3)),    # wt = 3 = kappa_ch_Heis
         'W4': WeightFormula(
             name="BKM denominator (K3 x E)",
             formula="wt = kappa_BKM",
@@ -606,8 +612,9 @@ def reconstruct_delta5_from_bar_exponents(
 # =========================================================================
 
 class WeightPuzzleResolution(NamedTuple):
-    """Resolution of the kappa_ch = 3 vs wt(Delta_5) = 5 puzzle."""
+    """Resolution of kappa_ch_Heis = 3 vs wt(Delta_5) = 5."""
     kappa_ch: Fraction
+    kappa_ch_Heis: Fraction
     borcherds_weight: Fraction
     mismatch: bool
     resolution: str
@@ -616,26 +623,31 @@ class WeightPuzzleResolution(NamedTuple):
 
 
 def resolve_weight_puzzle_k3xe() -> WeightPuzzleResolution:
-    r"""Resolve the apparent contradiction kappa_ch = 3 vs wt(Delta_5) = 5.
+    r"""Resolve the apparent contradiction kappa_ch_Heis = 3 vs wt(Delta_5) = 5.
 
-    The resolution: kappa_ch and wt(Delta_5) measure DIFFERENT things.
+    The resolution: compact kappa_ch, kappa_ch_Heis, and wt(Delta_5)
+    measure DIFFERENT things.
 
-    kappa_ch = 3 is the modular characteristic of the chiral algebra
-    A_{K3xE} = A_{K3} \otimes H_1. It controls:
+    compact kappa_ch(K3 x E) = 0 is the Hodge/PhiFA total-space scalar.
+
+    kappa_ch_Heis = 3 is the relative Heisenberg shadow of the chiral
+    algebra A_{K3xE} = A_{K3} \otimes H_1. It controls:
         - The genus-1 obstruction: obs_1 = 3 * lambda_1
-        - The scalar complementarity: kappa_ch + kappa_ch' = 0 (KM branch)
+        - The scalar complementarity in the Heisenberg/KM branch
 
     wt(Delta_5) = 5 is the Borcherds lift weight = c(0)/2 = 10/2. It is:
         - The weight of the BKM automorphic form
         - Half the weight of chi_10 = Delta_5^2 (Igusa cusp form)
 
     The bridge from the bar complex to Delta_5 does NOT pass through kappa_ch.
-    It passes through the full root-multiplicity data c(D), of which kappa_ch
-    is only a SHADOW (the genus-1 shadow invariant S_2 relates to kappa_ch,
-    but the Borcherds weight comes from c(0) which is a different datum).
+    It passes through the full root-multiplicity data c(D), of which
+    kappa_ch_Heis is only a shadow (the genus-1 shadow invariant S_2
+    relates to kappa_ch_Heis, but the Borcherds weight comes from c(0)
+    which is a different datum).
 
     The chain:
-        kappa_ch = 3  (from chiral algebra, proved)
+        compact kappa_ch = 0  (from Kunneth/Hodge)
+        kappa_ch_Heis = 3  (from the relative Heisenberg shadow)
         c(0) = 10     (from elliptic genus phi_{0,1}, independent)
         wt = c(0)/2 = 5  (Borcherds theorem)
         kappa_BKM = 5    (definition: BKM weight)
@@ -643,15 +655,17 @@ def resolve_weight_puzzle_k3xe() -> WeightPuzzleResolution:
     No contradiction: different invariants from different algebraizations.
     """
     return WeightPuzzleResolution(
-        kappa_ch=Fraction(3),
+        kappa_ch=Fraction(0),
+        kappa_ch_Heis=Fraction(3),
         borcherds_weight=Fraction(5),
         mismatch=True,
         resolution=(
-            "kappa_ch and wt(Delta_5) are DIFFERENT invariants from "
-            "DIFFERENT algebraizations. kappa_ch = 3 controls the genus-1 "
-            "obstruction class. wt(Delta_5) = c(0)/2 = 5 is the Borcherds "
-            "lift weight. The bridge B(A) -> Delta_5 passes through the "
-            "FULL root-multiplicity data c(D), not through kappa_ch alone."
+            "compact kappa_ch, kappa_ch_Heis, and wt(Delta_5) are "
+            "DIFFERENT invariants from DIFFERENT algebraizations. "
+            "kappa_ch_Heis = 3 controls the genus-1 obstruction class. "
+            "wt(Delta_5) = c(0)/2 = 5 is the Borcherds lift weight. "
+            "The bridge B(A) -> Delta_5 passes through the FULL "
+            "root-multiplicity data c(D), not through kappa_ch alone."
         ),
         genus1_obstruction_weight=Fraction(3),
         siegel_form_weight=Fraction(5),
@@ -668,6 +682,7 @@ class DimensionComparison(NamedTuple):
     name_d3: str
     kappa_ch_d2: Fraction
     kappa_ch_d3: Fraction
+    kappa_ch_Heis_d3: Fraction
     output_form_d2: str
     output_form_d3: str
     weight_d2: Fraction
@@ -691,7 +706,7 @@ def compare_d2_d3() -> DimensionComparison:
         bar Euler = Borcherds product of phi_{0,1}
         modular form = Delta_5 (weight 5)
         weight formula: W2 (Borcherds c(0)/2 = 10/2 = 5)
-        kappa_ch = 3
+        compact kappa_ch = 0; kappa_ch_Heis = 3
 
     The key difference: at d=2 the 1D bar Euler product already determines
     the modular form (eta^{24} = Delta/q). At d=3, the 1D product (also
@@ -701,7 +716,8 @@ def compare_d2_d3() -> DimensionComparison:
         name_d2="K3 (CY_2)",
         name_d3="K3 x E (CY_3)",
         kappa_ch_d2=Fraction(2),
-        kappa_ch_d3=Fraction(3),
+        kappa_ch_d3=Fraction(0),
+        kappa_ch_Heis_d3=Fraction(3),
         output_form_d2="Delta(tau) = Ramanujan discriminant",
         output_form_d3="Delta_5 = Siegel modular form (Igusa)",
         weight_d2=Fraction(12),
@@ -718,11 +734,11 @@ def compare_d2_d3() -> DimensionComparison:
 # =========================================================================
 
 def verify_kappa_spectrum_k3xe() -> Dict[str, Any]:
-    r"""Verify the kappa-spectrum {0, 3, 5, 24} for K3 x E.
+    r"""Verify the kappa-spectrum {0, 0, 3, 5, 24} for K3 x E.
 
     Five independent verification paths:
         Path 1: kappa_cat = chi(O_{K3 x E}) = 0 from Kunneth.
-        Path 2: kappa_ch = 2 + 1 = 3 from chiral de Rham additivity.
+        Path 2: kappa_ch_Heis = 2 + 1 = 3 from chiral de Rham additivity.
         Path 3: kappa_BKM = c(0)/2 = 5 from phi_{0,1} coefficient.
         Path 4: kappa_fiber = 24 from K3 lattice rank.
         Path 5: Cross-check: all four values distinct (polysemy).
@@ -735,11 +751,14 @@ def verify_kappa_spectrum_k3xe() -> Dict[str, Any]:
     chi_O_e = Fraction(0)
     kappa_cat_verified = (spec.kappa_cat == k3_chi.chi_cy * chi_O_e)
 
-    # Path 2: kappa_ch from additivity
+    # Path 2: kappa_ch_Heis from additivity
     kappa_ch_k3 = Fraction(2)    # chi^CY(K3) = 2
     kappa_ch_e = Fraction(1)     # chi^CY(E) = 1
     kappa_ch_k3xe = kappa_ch_k3 + kappa_ch_e
-    kappa_ch_verified = (kappa_ch_k3xe == Fraction(3))
+    kappa_ch_verified = (
+        spec.kappa_ch == Fraction(0)
+        and spec.kappa_ch_Heis == kappa_ch_k3xe == Fraction(3)
+    )
 
     # Path 3: kappa_BKM from phi_{0,1}
     phi01_mod = _import_phi01()
@@ -751,14 +770,15 @@ def verify_kappa_spectrum_k3xe() -> Dict[str, Any]:
     # Path 4: kappa_fiber = 24
     kappa_fiber_verified = (spec.kappa_fiber == Fraction(24))
 
-    # Path 5: All four distinct
-    values = {spec.kappa_cat, spec.kappa_ch, spec.kappa_bkm, spec.kappa_fiber}
+    # Path 5: Heisenberg/BKM/category/fiber values distinct
+    values = {spec.kappa_ch_Heis, spec.kappa_bkm, spec.kappa_cat, spec.kappa_fiber}
     all_distinct = (len(values) == 4)
 
     return {
         'spectrum': {
             'kappa_cat': int(spec.kappa_cat),
             'kappa_ch': int(spec.kappa_ch),
+            'kappa_ch_Heis': int(spec.kappa_ch_Heis or 0),
             'kappa_bkm': int(spec.kappa_bkm),
             'kappa_fiber': int(spec.kappa_fiber),
         },
@@ -778,20 +798,22 @@ def verify_kappa_spectrum_k3xe() -> Dict[str, Any]:
 
 
 def verify_weight_puzzle_resolution() -> Dict[str, Any]:
-    r"""Verify that the weight puzzle kappa_ch=3 vs wt=5 is resolved.
+    r"""Verify that the weight puzzle kappa_ch_Heis=3 vs wt=5 is resolved.
 
     The resolution is verified by checking:
-        (1) kappa_ch = 3 is correct (from chiral de Rham).
-        (2) c(0) = 10 is correct (from phi_{0,1}).
-        (3) wt = c(0)/2 = 5 (Borcherds theorem).
-        (4) kappa_ch != wt(Delta_5) (the two are distinct).
-        (5) The bridge chain is complete and consistent.
+        (1) compact kappa_ch = 0 is correct.
+        (2) kappa_ch_Heis = 3 is correct (relative Heisenberg shadow).
+        (3) c(0) = 10 is correct (from phi_{0,1}).
+        (4) wt = c(0)/2 = 5 (Borcherds theorem).
+        (5) kappa_ch_Heis != wt(Delta_5) (the two are distinct).
+        (6) The bridge chain is complete and consistent.
     """
     resolution = resolve_weight_puzzle_k3xe()
     recon = reconstruct_delta5_from_bar_exponents(max_degree=5)
 
     return {
         'kappa_ch': int(resolution.kappa_ch),
+        'kappa_ch_Heis': int(resolution.kappa_ch_Heis),
         'borcherds_weight': int(resolution.borcherds_weight),
         'mismatch_acknowledged': resolution.mismatch,
         'c0_value': recon['c_table'][0],
@@ -799,7 +821,8 @@ def verify_weight_puzzle_resolution() -> Dict[str, Any]:
         'phi01_coefficients_match': recon['phi01_match'],
         'disc_constraint_satisfied': recon['disc_constraint_ok'],
         'resolution_valid': (
-            resolution.kappa_ch == 3
+            resolution.kappa_ch == 0
+            and resolution.kappa_ch_Heis == 3
             and resolution.borcherds_weight == 5
             and resolution.mismatch
             and recon['phi01_match']
@@ -893,6 +916,7 @@ def verify_d2_vs_d3_comparison() -> Dict[str, Any]:
         },
         'd3': {
             'kappa_ch': int(comp.kappa_ch_d3),
+            'kappa_ch_Heis': int(comp.kappa_ch_Heis_d3),
             'output_weight': int(comp.weight_d3),
             'weight_formula': comp.weight_formula_d3,
             'status': comp.status_d3,
@@ -904,6 +928,7 @@ def verify_d2_vs_d3_comparison() -> Dict[str, Any]:
         ),
         'weights_differ': (comp.weight_d2 != comp.weight_d3),
         'kappas_differ': (comp.kappa_ch_d2 != comp.kappa_ch_d3),
+        'heis_scalar_differs_from_d2': (comp.kappa_ch_d2 != comp.kappa_ch_Heis_d3),
     }
 
 
@@ -912,7 +937,7 @@ def verify_four_obstructions_k3xe() -> Dict[str, Any]:
 
     From thm:k3xe-shadow-cohft-igusa, part (iv):
         (O1) Categorical obstruction: shadow tower is CHIRAL, not categorical.
-        (O2) kappa mismatch: kappa_ch = 3 != kappa_BKM = 5.
+        (O2) kappa mismatch: kappa_ch_Heis = 3 != kappa_BKM = 5.
         (O3) Second quantization: Hilbert-Chow exceptional divisor.
         (O4) Schottky obstruction at g >= 4: codim (g-2)(g-3)/2.
 
@@ -927,10 +952,11 @@ def verify_four_obstructions_k3xe() -> Dict[str, Any]:
                       "directly on the CY category C",
         },
         'O2_kappa_mismatch': {
-            'description': "kappa_ch = 3 != kappa_BKM = 5",
+            'description': "kappa_ch_Heis = 3 != kappa_BKM = 5",
             'kappa_ch': int(spec.kappa_ch),
+            'kappa_ch_Heis': int(spec.kappa_ch_Heis or 0),
             'kappa_bkm': int(spec.kappa_bkm),
-            'mismatch': int(spec.kappa_ch) != int(spec.kappa_bkm),
+            'mismatch': int(spec.kappa_ch_Heis or 0) != int(spec.kappa_bkm),
         },
         'O3_second_quantization': {
             'description': "Hilbert-Chow exceptional divisor",

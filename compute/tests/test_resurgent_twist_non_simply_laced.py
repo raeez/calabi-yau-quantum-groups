@@ -2,6 +2,9 @@ r"""Tests for the non-simply-laced resurgent Drinfeld twist for $Y(\mathfrak{g})
 
 Verifies the split-Stokes data (singularities and operator-valued constants)
 for $B_n, C_n, F_4, G_2$ via multiple INDEPENDENT computation paths.
+These tests do not verify a four-loop 5d hCS obstruction class and do not
+construct a GRT_1-twisted nullhomotopy; they only certify the root-length
+and Stokes-data inputs used by the separate BV deformation-complex problem.
 
 Theorem under test:
   thm:Yfg-resurgent-Drinfeld-twist-non-simply-laced

@@ -335,14 +335,15 @@ class TestK3EExplicit:
         assert k3e.e_formal
 
     def test_kappa_ch_spectrum(self):
-        """kappa_ch(K3 x E) = 3 (AP113: subscripted kappa required).
+        """compact kappa_ch(K3 x E)=0; Heisenberg shadow=3.
 
-        Path 1: kappa_ch = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+        Path 1: kappa_ch_Heis = 2 + 1 = 3.
         Path 2: Mukai lattice rank kappa_fiber = 24.
         Path 3: These are DIFFERENT kappa values (AP113 spectrum).
         """
         k3e = compute_k3e_aq()
-        assert k3e.kappa_ch == 3
+        assert k3e.kappa_ch == 0
+        assert k3e.kappa_ch_Heis == 3
         assert k3e.mukai_rank == 24
 
     def test_k3_e2_structure(self):
@@ -707,11 +708,12 @@ class TestMasterVerification:
 
         Path 1: k3e_result is present.
         Path 2: D^4 = 0 for K3 x E.
-        Path 3: kappa_ch = 3 (AP113).
+        Path 3: compact kappa_ch=0 and kappa_ch_Heis=3 (AP113).
         """
         result = master_lurie_e3_analysis()
         assert result.k3e_result.d4_product == 0
-        assert result.k3e_result.kappa_ch == 3
+        assert result.k3e_result.kappa_ch == 0
+        assert result.k3e_result.kappa_ch_Heis == 3
 
     def test_local_p2_in_master(self):
         """Local P^2 result is included in master analysis.

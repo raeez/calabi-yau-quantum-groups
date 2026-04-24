@@ -19,7 +19,8 @@ MATHEMATICAL FOUNDATIONS:
    The CY condition (generators coplanar in Z^3) ensures X is CY.
    The critical CoHA H(Q_X, W_X) is the positive half Y^+(g_hat_{Q_X})
    of an affine super Yangian (Rapcak-Soibelman-Yang-Zhao).
-   The FULL Yangian Y(g_hat_{Q_X}) is the E1 chiral algebra A_Delta.
+   The full Yangian/W object appears only after Drinfeld double, center,
+   Fock/evaluation, or dual-side reconstruction; it is not the raw CoHA.
 
 2. MODULAR CHARACTERISTIC:
    For a LOCAL CY3 X = Tot(K_S -> S) over a smooth projective surface S:
@@ -861,7 +862,9 @@ def shadow_from_gv_two_kahler(gv_g0: Dict[Tuple[int, int], int],
 def c3_e1_algebra() -> E1ChiralAlgebra:
     """C^3: the vertex geometry.
 
-    Chiral algebra: W_{1+inf} (affine Yangian of gl_1).
+    Raw CoHA: Y^+(gl_hat_1), the positive half.  The chiral
+    W_{1+inf}/full-Yangian object appears after double/center/Fock
+    evaluation.
     kappa = 1 (from MacMahon function / W_{1+inf} identification).
     Shadow class: G (Gaussian, trivially terminates).
     The DT partition function Z = M(q) is PURELY perturbative with no

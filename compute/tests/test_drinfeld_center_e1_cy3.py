@@ -821,7 +821,7 @@ class TestQuinticAnalysis:
         assert qa["known_data"]["gv_genus_0"][1] == 2875
 
     def test_kappa_eff(self):
-        """kappa_ch = chi/24 = -200/24 = -25/3."""
+        """BCOV-shadow candidate = chi/24 = -200/24 = -25/3."""
         qa = quintic_quantum_group_analysis()
         # VERIFIED [DC] kappa formula [LT] Drinfeld center theory
         assert qa["known_data"]["kappa_ch"] == Fraction(-200, 24)

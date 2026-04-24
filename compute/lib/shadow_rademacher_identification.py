@@ -86,7 +86,8 @@ CONVENTIONS
   - c(D) = phi_{0,1} Fourier-Jacobi coefficient at discriminant D
   - kappa_ch subscripted per AP113. Bare kappa FORBIDDEN.
   - K3: kappa_ch = 2, d = 2 (CY-A_2 PROVED)
-  - K3 x E: kappa_ch = 3, d = 3 (CONDITIONAL on CY-A_3)
+  - K3 x E: compact kappa_ch = 0; Heisenberg-specialised
+    kappa_ch^Heis = 3 (CONDITIONAL shadow input on the CY-A_3 locus)
 
 REFERENCES
 ==========
@@ -139,7 +140,11 @@ K3_HALF_MULTIPLICITIES = {
 
 # kappa-spectrum (AP113)
 K3_KAPPA_CH = Fraction(2)
-K3E_KAPPA_CH = Fraction(3)
+K3E_KAPPA_CH_COMPACT = Fraction(0)
+K3E_KAPPA_CH_HEIS = Fraction(3)
+# Legacy compatibility alias: this engine's shadow tower uses the
+# Heisenberg-specialised K3 x E value, not the compact Hodge/PhiFA value.
+K3E_KAPPA_CH = K3E_KAPPA_CH_HEIS
 K3E_KAPPA_BKM = 5
 
 

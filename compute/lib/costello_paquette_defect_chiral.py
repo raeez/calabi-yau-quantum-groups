@@ -680,7 +680,8 @@ class K3UniversalDefect:
     where Phi^+ is the positive root system of the Mukai lattice Lambda_{K3}.
 
     The kappa-spectrum for K3 x E:
-      kappa_ch = 3 (from Phi: kappa_ch(K3) + kappa_ch(E) = 2 + 1)
+      compact kappa_ch = 0 (Hodge/PhiFA supertrace)
+      kappa_ch^Heis = 3 (relative Phi shadow: 2 + 1)
       kappa_BKM = 5 (weight of Delta_5)
       kappa_cat = 0 (= chi(O_{K3 x E}))
       kappa_cat_fiber = 2 (= chi(O_{K3}))

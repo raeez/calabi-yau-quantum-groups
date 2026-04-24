@@ -233,7 +233,7 @@ class TestStandardCY3s:
         """K3 x E: kappa_BKM = 5 from the Delta_5 BKM weight."""
         result = kappa_from_nerve(k3_times_e_atlas())
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
-        assert result.kappa_ch == Fraction(5)
+        assert result.kappa_scalar == Fraction(5)
         assert result.kappa_label == "kappa_BKM"
 
     def test_quintic_kappa_equals_minus_25_over_3(self):
@@ -585,7 +585,7 @@ class TestShadowTower:
         """K3 x E BKM lane: scalar shadow value is 5/24."""
         result = kappa_from_nerve(k3_times_e_atlas())
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
-        assert shadow_amplitude(result.kappa_ch, 1) == Fraction(5, 24)
+        assert shadow_amplitude(result.kappa_scalar, 1) == Fraction(5, 24)
 
     def test_f1_quintic(self):
         """Quintic: F_1 = -25/(3*24) = -25/72."""
@@ -715,10 +715,11 @@ class TestCrossVerification:
         assert result.kappa_ch == Fraction(1)
 
     def test_k3xe_kappa_from_nerve_matches(self):
-        """Nerve formula for K3xE matches known value."""
+        """Nerve formula for K3xE matches known BKM-lane value."""
         result = kappa_from_nerve(k3_times_e_atlas())
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
-        assert result.kappa_ch == Fraction(5)
+        assert result.kappa_scalar == Fraction(5)
+        assert result.kappa_label == "kappa_BKM"
 
     def test_quintic_kappa_from_nerve_matches(self):
         """Nerve formula for quintic matches known value."""
@@ -856,7 +857,7 @@ class TestMultiPath:
         assert result["chi_path_matches"]
 
     def test_k3xe_multi_path(self):
-        """K3xE: chi path does NOT match (chi=0, kappa=5)."""
+        """K3xE: chi path does NOT match (chi=0, kappa_BKM=5)."""
         result = f1_multi_path_verification(
             "K3xE", Fraction(5),
             chi_top=0, h11=21,
@@ -999,7 +1000,9 @@ class TestConsistencyWithExistingModules:
         """K3 x E: kappa_BKM = 5 matches weight of Delta_5."""
         # From modular_cy_characteristic.py
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
-        assert kappa_from_nerve(k3_times_e_atlas()).kappa_ch == Fraction(5)
+        result = kappa_from_nerve(k3_times_e_atlas())
+        assert result.kappa_scalar == Fraction(5)
+        assert result.kappa_label == "kappa_BKM"
 
     def test_quintic_matches_bcov(self):
         """Quintic: kappa = -25/3 matches chi/24."""

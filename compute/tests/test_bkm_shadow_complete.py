@@ -734,7 +734,7 @@ class TestBKMComparison:
         assert table['Fake Monster']['kappa'] == 12
 
     def test_delta5_kappa_in_table(self):
-        """g_{Delta_5} kappa = 5 in the table."""
+        """g_{Delta_5} kappa_BKM = 5 in the table."""
         table = bkm.bkm_comparison_table()
         # VERIFIED [DC] kappa formula [CF] cross-family census
         assert table['g_{Delta_5}']['kappa'] == 5

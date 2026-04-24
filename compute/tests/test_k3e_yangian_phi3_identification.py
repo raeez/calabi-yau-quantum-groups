@@ -183,10 +183,11 @@ class TestIdentificationQuestions:
 class TestKappaConsistency:
     """Tests for kappa_ch consistency."""
 
-    def test_kappa_ch_k3xe_is_3(self):
-        """kappa_ch(K3 x E) = 3 (from prop:categorical-euler)."""
+    def test_kappa_ch_k3xe_split(self):
+        """compact kappa_ch(K3 x E)=0; kappa_ch_Heis(K3 x E)=3."""
         result = kappa_ch_from_phi3()
-        assert result["kappa_ch_k3xe"] == Fraction(3)
+        assert result["kappa_ch_k3xe"] == Fraction(0)
+        assert result["kappa_ch_Heis_k3xe"] == Fraction(3)
 
     def test_kappa_ch_k3_is_2(self):
         """kappa_ch(K3) = 2 (PROVED via CY-A_2)."""
@@ -199,17 +200,19 @@ class TestKappaConsistency:
         assert result["kappa_ch_e"] == Fraction(0)
 
     def test_kappa_spectrum_distinct(self):
-        """AP113: the four kappa values are all distinct."""
+        """AP113: compact, Heisenberg, BKM, categorical, and fiber lanes are distinct when appropriate."""
         check = kappa_ch_consistency_check()
         values = check["all_kappa_values"]
-        assert values["kappa_ch"] == 3
+        assert values["kappa_ch"] == 0
+        assert values["kappa_ch_Heis"] == 3
         assert values["kappa_BKM"] == 5
         assert values["kappa_cat"] == 0
         assert values["kappa_cat_fiber"] == 2
         assert values["kappa_fiber"] == 24
-        # All distinct
-        vals = list(values.values())
-        assert len(vals) == len(set(vals)), "kappa values not all distinct"
+        vals = [values["kappa_ch_Heis"], values["kappa_BKM"],
+                values["kappa_cat"], values["kappa_cat_fiber"],
+                values["kappa_fiber"]]
+        assert len(vals) == len(set(vals)), "non-compact-shadow kappa values not all distinct"
 
     def test_f1_discrepancy(self):
         """F_1^{DT} = 5/24 (BKM), NOT 3/24 (kappa_ch)."""
@@ -495,29 +498,28 @@ class TestMultiPathVerification:
     one independent computation path.  This section provides those paths.
     """
 
-    # --- kappa_ch(K3 x E) = 3 via three independent routes ---
+    # --- kappa_ch_Heis(K3 x E) = 3 via three independent routes ---
 
-    def test_kappa_ch_k3xe_route1_additivity(self):
-        """Route 1: kappa_ch(K3 x E) = 3 via CY_3 additivity.
+    def test_kappa_ch_heis_k3xe_route1_additivity(self):
+        """Route 1: kappa_ch_Heis(K3 x E) = 3 via relative additivity.
 
         kappa_ch(K3) = chi(O_{K3}) = 2  (PROVED via CY-A_2).
-        kappa_ch(E) = chi(O_E) = 0.
-        Cross-term from CY_3 Kuenneth coupling: +1.
-        Total: 2 + 0 + 1 = 3.
+        kappa_ch_Heis(E) = 1.
+        Total: 2 + 1 = 3.
 
-        Cross-check: this is independent of the functor Phi_3.
+        Cross-check: compact kappa_ch(K3 x E) remains 0.
         """
         kappa_k3 = 2  # chi(O_{K3}) = h^{0,0} - h^{0,1} + h^{0,2} = 1 - 0 + 1
-        kappa_e = 0   # chi(O_E) = h^{0,0} - h^{0,1} = 1 - 1
-        cross = 1     # CY_3 Kuenneth cross-term
-        result_route1 = kappa_k3 + kappa_e + cross
+        kappa_e_heis = 1
+        result_route1 = kappa_k3 + kappa_e_heis
 
         # Compare with engine
         from_engine = kappa_ch_from_phi3()
-        assert result_route1 == from_engine["kappa_ch_k3xe"]
+        assert result_route1 == from_engine["kappa_ch_Heis_k3xe"]
+        assert from_engine["kappa_ch_k3xe"] == Fraction(0)
 
-    def test_kappa_ch_k3xe_route2_hodge(self):
-        """Route 2: kappa_ch(K3 x E) = 3 via Hodge numbers.
+    def test_kappa_ch_heis_k3xe_route2_hodge(self):
+        """Route 2: compact Hodge data gives 0, separating the Heisenberg 3.
 
         K3 x E Hodge diamond (Kuenneth):
           h^{p,q}(K3 x E) = sum_{a+c=p, b+d=q} h^{a,b}(K3) h^{c,d}(E)
@@ -534,12 +536,7 @@ class TestMultiPathVerification:
 
         chi(O) = 1 - 1 + 1 - 1 = 0  (this is the ARITHMETIC genus)
 
-        But kappa_ch for CY_3 uses the CHIRAL formula, not chi(O):
-          kappa_ch = complex dimension d = 3 for product CY_3
-          (from prop:categorical-euler, which computes the categorical
-           CY Euler characteristic including the cross-term).
-
-        The Hodge number route confirms h^{p,0} values used in route 1.
+        The Hodge number route confirms that 3 is not the compact scalar.
         """
         # K3 Hodge numbers h^{p,0}
         k3_h = {0: 1, 1: 0, 2: 1}
@@ -560,36 +557,34 @@ class TestMultiPathVerification:
         chi_O = sum((-1)**q * h0q[q] for q in range(4))
         assert chi_O == 0  # K3 x E has chi(O) = 0
 
-        # kappa_ch = 3 from categorical formula (NOT chi(O))
-        # This confirms the route-1 value is NOT chi(O) but uses the
-        # categorical CY Euler characteristic with cross-term
+        # Compact kappa_ch is chi(O); the value 3 is the Heisenberg shadow.
         from_engine = kappa_ch_from_phi3()
-        assert from_engine["kappa_ch_k3xe"] == Fraction(3)
-        assert from_engine["kappa_ch_k3xe"] != chi_O  # different from chi(O)!
+        assert from_engine["kappa_ch_k3xe"] == Fraction(0)
+        assert from_engine["kappa_ch_k3xe"] == chi_O
+        assert from_engine["kappa_ch_Heis_k3xe"] == Fraction(3)
 
-    def test_kappa_ch_k3xe_route3_c3_scaling(self):
-        """Route 3: kappa_ch(K3 x E) = 3 via C^3 comparison.
+    def test_kappa_ch_heis_k3xe_route3_c3_scaling(self):
+        """Route 3: the Heisenberg scalar 3 matches the CY_3 dimension sanity check.
 
         For C^3: kappa_ch = 1 (PROVED, thm:kappa-c3).
         C^3 is CY_3 with chi(O_{C^3}) = 1 (affine).
 
-        K3 x E: kappa_ch = 3.
-        The ratio kappa_ch(K3xE) / kappa_ch(C^3) = 3.
+        K3 x E: kappa_ch_Heis = 3.
+        The ratio kappa_ch_Heis(K3xE) / kappa_ch(C^3) = 3.
 
         Independent check: 3 = complex dimension of K3 x E.
-        This is the content of the "kappa_ch = dim" observation
-        for product CY manifolds.
+        This is not the compact Hodge/PhiFA oracle, which is 0.
         """
         kappa_c3 = 1  # PROVED
-        kappa_k3xe = 3  # from engine
+        kappa_k3xe = 3  # Heisenberg shadow from engine
         dim_k3xe = 3   # complex dimension
 
-        # The observation: for product CY_d, kappa_ch = d
+        # Output-side shadow sanity check: the Heisenberg scalar matches d.
         assert kappa_k3xe == dim_k3xe
         assert kappa_k3xe == 3 * kappa_c3
 
         from_engine = kappa_ch_from_phi3()
-        assert from_engine["kappa_ch_k3xe"] == kappa_k3xe
+        assert from_engine["kappa_ch_Heis_k3xe"] == kappa_k3xe
 
     # --- p_{24}(n) via two independent computation routes ---
 
@@ -726,7 +721,7 @@ class TestMultiPathVerification:
     def test_kappa_spectrum_route1_definitions(self):
         """Route 1: kappa spectrum values from their definitions.
 
-        kappa_ch = 3 (categorical CY Euler char with cross-term)
+        compact kappa_ch = 0; kappa_ch_Heis = 3
         kappa_BKM = 5 (weight of Igusa cusp form Delta_5)
         kappa_cat = 0 (= chi(O_{K3 x E}))
         kappa_cat_fiber = 2 (= chi(O_{K3}))
@@ -749,9 +744,10 @@ class TestMultiPathVerification:
         # Delta_5 is the unique Siegel cusp form of weight 5 on Sp_4(Z)
         kappa_BKM = 5
 
-        # kappa_ch: from engine
+        # kappa_ch lanes: from engine
         from_engine = kappa_ch_consistency_check()
-        assert from_engine["all_kappa_values"]["kappa_ch"] == 3
+        assert from_engine["all_kappa_values"]["kappa_ch"] == 0
+        assert from_engine["all_kappa_values"]["kappa_ch_Heis"] == 3
         assert from_engine["all_kappa_values"]["kappa_BKM"] == kappa_BKM
         assert from_engine["all_kappa_values"]["kappa_cat"] == kappa_cat
         assert from_engine["all_kappa_values"]["kappa_cat_fiber"] == kappa_cat_fiber

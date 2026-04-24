@@ -354,33 +354,38 @@ class TestKappaSpectrum:
     """
 
     def test_k3e_spectrum(self):
-        """N=1 (K3 x E): the canonical kappa-spectrum.
+        """N=1 (K3 x E): compact and Heisenberg kappa lanes.
 
         VERIFIED [DC] known values [LT] CLAUDE.md kappa-spectrum table
         """
         s = kappa_spectrum(1)
-        assert s['kappa_ch'] == 3
+        assert s['kappa_ch'] == 0
+        assert s['kappa_ch_Heis'] == 3
         assert s['kappa_BKM'] == 5
-        assert s['kappa_cat'] == 2
+        assert s['kappa_cat'] == 0
+        assert s['kappa_cat_fiber'] == 2
 
     def test_enriques_spectrum(self):
-        """N=2 (Enriques x E): kappa_ch = 2, kappa_BKM = 4.
+        """N=2 (Enriques x E): compact kappa_ch=0, Heis=2, BKM=4.
 
         VERIFIED [DC] known values [LT] conj:enriques-kappa-spectrum
         """
         s = kappa_spectrum(2)
-        assert s['kappa_ch'] == 2
+        assert s['kappa_ch'] == 0
+        assert s['kappa_ch_Heis'] == 2
         assert s['kappa_BKM'] == 4
-        assert s['kappa_cat'] == 1
+        assert s['kappa_cat'] == 0
+        assert s['kappa_cat_fiber'] == 1
 
     @pytest.mark.parametrize("N", range(3, 9))
     def test_symplectic_orbifold_kappa_ch(self, N):
-        """N >= 3 (symplectic orbifold): kappa_ch = 3 (crepant resolution is K3).
+        """N >= 3: compact kappa_ch=0; Heisenberg K3-lane value is 3.
 
         VERIFIED [DC] structural property [LT] symplectic resolution
         """
         s = kappa_spectrum(N)
-        assert s['kappa_ch'] == 3
+        assert s['kappa_ch'] == 0
+        assert s['kappa_ch_Heis'] == 3
 
     @pytest.mark.parametrize("N", range(1, 9))
     def test_spectrum_has_all_keys(self, N):

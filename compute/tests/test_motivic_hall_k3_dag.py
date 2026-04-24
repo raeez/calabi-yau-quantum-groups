@@ -144,9 +144,9 @@ class TestK3Constants:
         assert KAPPA_FIBER_K3 == 24
 
     def test_kappa_spectrum_values(self):
-        """kappa-spectrum: {2, 3, 5, 24} for K3 x E."""
+        """K3 x E constants separate compact, Heisenberg, BKM, and fibre lanes."""
         # VERIFIED [DC] structural property [LT] kappa-spectrum theory
-        # kappa_ch(K3) = 2, kappa_ch(K3 x E) = 3 (by additivity)
+        # compact kappa_ch(K3 x E)=0; kappa_ch_Heis(K3 x E)=3 by additivity.
         assert KAPPA_CH_K3 == 2
         assert KAPPA_BKM_K3XE == 5  # weight of Delta_5
         assert KAPPA_FIBER_K3 == 24  # lattice rank
@@ -888,8 +888,9 @@ class TestCrossEngineConsistency:
     def test_kappa_spectrum_cross_check(self):
         """kappa-spectrum values: cross-check with CLAUDE.md specification.
 
-        Vol III convention: kappa_ch=3 (K3 x E), kappa_BKM=5,
-        kappa_cat(K3 x E)=0, kappa_cat(K3 fiber)=2, kappa_fiber=24.
+        Vol III convention: compact kappa_ch(K3 x E)=0,
+        kappa_ch_Heis(K3 x E)=3, kappa_BKM=5, kappa_cat(K3 x E)=0,
+        kappa_cat(K3 fiber)=2, kappa_fiber=24.
         Engine: kappa_ch(K3)=2 (not K3 x E), kappa_BKM=5,
         kappa_cat(K3)=2, kappa_fiber=24.
         """

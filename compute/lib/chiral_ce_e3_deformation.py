@@ -1,4 +1,4 @@
-r"""E_3-chiral deformation theory of Chevalley-Eilenberg (co)chains.
+r"""Finite CE shadow of the E_3-chiral deformation theory.
 
 MATHEMATICAL FRAMEWORK
 ======================
@@ -9,11 +9,14 @@ an E_3 structure from the 3d embedding, and the quantum deformation
 CE_*(g)[[hbar]] = Obs^q(R^3) is the quantized CS observables. The E_3 Koszul
 dual of CE_*(g) is the quantum group U_q(g).
 
-This module develops the CHIRAL analogue: the E_3-chiral deformation theory
-of CE^{ch}_*(L) where L is a Lie conformal algebra. The key innovation is the
-replacement of C x R by C^3, and the three independent deformation directions
-(hbar_1, hbar_2, hbar_3) corresponding to the Omega-background parameters
-(h_1, h_2, h_3) with h_1 + h_2 + h_3 = 0 (CY condition).
+This module computes the finite exterior CE shadow of the chiral
+deformation problem.  The native controller is the completed ordered
+vertex-bar object implemented in ``ordered_chiral_e3_bar.py`` and
+defined in ``chapters/theory/cy3_chain_level_bridge.tex``.  The key
+shadow here is the replacement of C x R by C^3, and the three
+independent deformation directions (hbar_1, hbar_2, hbar_3)
+corresponding to the Omega-background parameters (h_1, h_2, h_3) with
+h_1 + h_2 + h_3 = 0 (CY condition).
 
 THE SIX COMPONENTS
 ==================
@@ -36,17 +39,21 @@ THE SIX COMPONENTS
    the E_3 Koszul dual is the affine Yangian Y(g_hat). This is CONJECTURAL
    for d=3 (CY-A_3 not proved; AP-CY6/AP-CY14).
 
-5. L_INFINITY DEFORMATION THEORY: Maurer-Cartan elements in CE^{ch,*}(L)[1]
-   are the classical deformations of L. The MC equation
+5. L_INFINITY SHADOW DEFORMATION THEORY: Maurer-Cartan elements in the
+   finite CE shadow CE^{ch,*}(L)[1] are consistency checks for the
+   classical deformations of L. The native chiral deformation functor is
+   controlled by the shifted completed chiral Hochschild/ordered vertex-bar
+   complex. The shadow MC equation
        d_CE(alpha) + (1/2)[alpha, alpha] + (1/6)l_3(alpha,alpha,alpha) + ... = 0
    has solutions parametrized by the shadow class:
    - Class G: MC space = point (no deformations of abelian Lie algebra)
    - Class L: MC space = finite-dimensional (rational)
    - Class M: MC space = infinite-dimensional (Gevrey-1)
 
-6. DERIVED MODULI: MC(CE^{ch,*}(L)) as a derived stack. The tangent complex
-   is CE^{ch,*}(L)[1], and the obstruction space is CE^{ch,2}(L). The
-   formal moduli problem is governed by the L_infinity algebra CE^{ch,*}(L)[1].
+6. DERIVED SHADOW MODULI: MC(CE^{ch,*}(L)) as a finite shadow stack. The
+   tangent complex is the exterior CE approximation CE^{ch,*}(L)[1], and
+   the obstruction space is CE^{ch,2}(L). The full formal moduli problem is
+   governed by the ordered chiral Hochschild/vertex-bar controller.
 
 THE THREE EXAMPLES
 ==================
@@ -65,8 +72,9 @@ YANGIAN Y(gl_hat_1) (class L):
   CE^{ch}_*(Y) = Lambda^*(e_0, e_1, e_2) with standard CE differential.
   d_h deforms the bracket: {e_i, e_j}_h = {e_i, e_j} + h*delta_{ij}(...).
   E_3 Koszul dual: quantum toroidal U_{q,t}(gl_hat_hat_1) at generic parameters.
-  MC space: affine space of dimension rank(g) (rational, finite).
-  Derived moduli: smooth stack (BTT unobstructedness for class L).
+  MC shadow: affine finite-dimensional consistency surface.
+  Derived shadow moduli: finite exterior CE shadow; not a BTT theorem for
+  the full chiral Hochschild deformation functor.
   Deformation type: rational (converges in a disk, class L).
 
 VIRASORO (class M):
@@ -99,7 +107,8 @@ AP COMPLIANCE
   NOT the algebraic E_3 from the Deligne conjecture (AP154).
 - kappa always subscripted: kappa_ch (AP113).
 - E_3 bar: (1+t)^{3g} for class L,C ONLY. Fails for class M (AP-CY21).
-- MC moduli requires COMPLETE shadow tower computation (AP-CY12).
+- MC moduli requires COMPLETE ordered vertex-bar / shadow tower computation
+  (AP-CY12).  Finite exterior CE is only a shadow.
 
 CONVENTIONS
 ===========
@@ -724,9 +733,11 @@ class ChiralMCDeformation:
         For n=1: virtual dim = 1 - 0 = 1 (but actual dim depends on d).
         For n=3: virtual dim = 3 - 3 = 0 (balanced tangent/obstruction).
 
-        The ACTUAL dimension depends on whether obstructions vanish:
+        The full chiral deformation dimension is not computed here.
+        This method reports the finite exterior CE shadow:
         - Class G: unobstructed, MC = point (abelian: all brackets zero).
-        - Class L: generically unobstructed by BTT (Bogomolov-Tian-Todorov).
+        - Class L: strict finite CE shadow. Full chiral Hochschild
+          unobstructedness requires the ordered vertex-bar controller.
         - Class M: obstructed in general (l_3, l_4 provide genuine constraints).
         """
         tang = self.tangent_dimension()
@@ -737,9 +748,10 @@ class ChiralMCDeformation:
             return f"point (class G: abelian, MC = {{0}}, vdim = {vdim})"
         elif self.shadow_class == "L":
             return (
-                f"smooth of dimension {tang} "
-                f"(class L: BTT unobstructedness, CE^2 = {obs} "
-                f"but obstructions killed by Jacobi, vdim = {vdim})"
+                f"finite CE shadow of dimension {tang} "
+                f"(class L: strict Lie shadow, CE^2 = {obs}; "
+                f"full chiral Hochschild unobstructedness not certified here, "
+                f"vdim = {vdim})"
             )
         elif self.shadow_class == "M":
             return (
@@ -800,8 +812,9 @@ class ChiralMCDeformation:
 
         Gauge group: exp(CE^{ch,0}(L)) = exp(k) acts trivially on MC.
 
-        The moduli of chiral deformations of L IS the moduli of boundary
-        conditions for the holomorphic CS theory on C^3.
+        This finite CE shadow is not the full moduli of chiral
+        deformations of L.  The full controller is the completed ordered
+        vertex-bar / chiral Hochschild complex.
         """
         tang = self.tangent_dimension()
         obs = self.obstruction_dimension()
@@ -813,11 +826,15 @@ class ChiralMCDeformation:
             "virtual_dim": tang - obs,
             "gauge_group_dim": self.dc.cochain_dimension(0),
             "shadow_class": self.shadow_class,
-            "unobstructed": obs == 0 or self.shadow_class in ("G", "L"),
+            "unobstructed": obs == 0,
+            "unobstructed_scope": "finite_exterior_CE_shadow",
+            "full_chiral_hochschild_unobstructed_certified": False,
+            "finite_shadow_unobstructed": obs == 0 or self.shadow_class in ("G", "L"),
             "mc_space_type": self.mc_moduli_dimension(),
             "hcs_interpretation": (
-                "Moduli of boundary conditions for holomorphic CS on C^3 "
-                f"(CONJECTURAL for d=3; AP-CY6)"
+                "Finite CE shadow of boundary-condition moduli for holomorphic "
+                "CS on C^3; the native controller is the completed ordered "
+                "vertex bar (CONJECTURAL for d=3; AP-CY6)"
             ),
         }
 
@@ -827,14 +844,14 @@ class ChiralMCDeformation:
 # =========================================================================
 
 class DerivedModuliStack:
-    r"""The derived moduli stack MC(CE^{ch,*}(L)) for the chiral CE cochains.
+    r"""The finite derived shadow stack MC(CE^{ch,*}(L)).
 
     The derived stack structure captures both:
     1. The classical moduli (MC elements modulo gauge)
     2. The derived structure (higher tangent data from the L_infinity algebra)
 
     For class G (Heisenberg): the derived stack is a point.
-    For class L (Yangian): smooth derived scheme, dim = rank(g).
+    For class L (Yangian): finite strict CE shadow, dim = rank(g).
     For class M (Virasoro): singular derived stack with obstructions.
 
     The E_3 deformation QUANTIZES this derived stack:
@@ -864,7 +881,7 @@ class DerivedModuliStack:
             return "point: abelian L has trivial MC space {0}"
         elif self.shadow_class == "L":
             t = self.mc.tangent_dimension()
-            return f"smooth scheme of dimension {t} (BTT unobstructed)"
+            return f"finite CE shadow of dimension {t} (strict class-L shadow)"
         elif self.shadow_class == "M":
             return (
                 "singular stack: L_infinity obstructions from infinite shadow tower"
@@ -961,7 +978,7 @@ def heisenberg_e3_deformation(
     omega: Optional[OmegaParams] = None,
     k: Fraction = Fraction(1),
 ) -> Dict[str, Any]:
-    r"""Complete E_3-chiral CE deformation theory for the Heisenberg (class G).
+    r"""Finite CE-shadow of the E_3-chiral deformation theory for Heisenberg.
 
     L = Heis, {J_lambda J} = k*lambda.
     Shadow class: G (Gaussian, no higher corrections).
@@ -1013,14 +1030,14 @@ def heisenberg_e3_deformation(
 def yangian_e3_deformation(
     omega: Optional[OmegaParams] = None,
 ) -> Dict[str, Any]:
-    r"""Complete E_3-chiral CE deformation theory for the Yangian (class L).
+    r"""Finite CE-shadow of the E_3-chiral deformation theory for Yangian.
 
     L = Y(gl_hat_1) truncated to 3 generators.
     Shadow class: L (strict Lie, rational structure functions).
     Deformation type: rational (converges in a disk).
     E_3 Koszul dual: quantum toroidal at generic parameters (CONJECTURAL).
-    MC moduli: smooth, dim = 3.
-    Derived moduli: smooth derived scheme.
+    MC moduli: finite strict-Lie shadow with tangent dimension 3.
+    Derived moduli: finite derived shadow stack.
 
     Parameters
     ----------
@@ -1064,14 +1081,15 @@ def virasoro_e3_deformation(
     omega: Optional[OmegaParams] = None,
     c: Fraction = Fraction(1),
 ) -> Dict[str, Any]:
-    r"""Complete E_3-chiral CE deformation theory for the Virasoro (class M).
+    r"""Finite CE-shadow of the E_3-chiral deformation theory for Virasoro.
 
     L = Vir, {T_lambda T} = (d+2*lambda)*T + (c/12)*lambda^3.
     Shadow class: M (infinite shadow tower, mock modular).
     Deformation type: Gevrey-1 divergent (Borel resummable).
     E_3 Koszul dual: W-algebra quantum group (CONJECTURAL).
-    MC moduli: singular (L_infinity obstructions from l_3, l_4, ...).
-    Derived moduli: singular derived stack.
+    MC moduli: singular finite shadow with L_infinity obstructions from
+    l_3, l_4, ...
+    Derived moduli: singular finite derived shadow stack.
 
     Parameters
     ----------

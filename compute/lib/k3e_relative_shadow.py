@@ -941,7 +941,7 @@ def shadow_fiber_composition_law() -> Dict[str, object]:
 
     For K3 x E -> E:
     - kappa(K3 fiber) = 24
-    - The global kappa(K3 x E) = 5 (weight of Delta_5)
+    - The global kappa_BKM(K3 x E) = 5 (weight of Delta_5)
 
     The relationship between fiber kappa and global kappa:
         global_kappa = c(0)/2 = phi_{0,1}(tau, 0)/2
@@ -950,12 +950,12 @@ def shadow_fiber_composition_law() -> Dict[str, object]:
     the K3 elliptic genus at z=0.  In EZ normalization:
         phi_{0,1}(tau, 0) = 10 + 108*q + 808*q^2 + ...
 
-    So c(0) = phi_{0,1}|_{q=0,z=0} = 10, giving kappa = 5.
+    So c(0) = phi_{0,1}|_{q=0,z=0} = 10, giving kappa_BKM = 5.
 
     The sewing formula for the global shadow tower:
         Theta^{K3xE} = sum_{r>=2} Theta^{K3xE}_{<=r}
 
-    where Theta^{K3xE}_{<=2} = kappa = 5 (real roots of g_{Delta_5}),
+    where Theta^{K3xE}_{<=2} = kappa_BKM = 5 (real roots of g_{Delta_5}),
     and higher arities come from imaginary roots.
 
     The fiber kappa = 24 appears in the GENERATING function of the product:
@@ -964,7 +964,7 @@ def shadow_fiber_composition_law() -> Dict[str, object]:
     it is the weight of the resulting Siegel modular form.
 
     Constraint check: does the fiber data (chi=24, phi_{0,1})
-    uniquely determine the global data (kappa=5, Delta_5)?
+    uniquely determine the global BKM data (kappa_BKM=5, Delta_5)?
     YES: the Borcherds lift is determined by phi_{0,1}, and
     weight = c(0)/2 is determined by phi_{0,1} at z=0.
     """
@@ -1052,7 +1052,7 @@ def shadow_additivity_across_fibers(max_fibers: int = 3) -> Dict[str, object]:
 
     At rank 1 (single fiber): kappa_1 = 24 (from chi(K3))
     If N independent fibers: kappa_N^{naive} = N * 24
-    But the ACTUAL global kappa = 5, which is MUCH less than N * 24.
+    But the ACTUAL global BKM weight is kappa_BKM = 5, much less than N * 24.
 
     This dramatic reduction (24 -> 5) is because:
     1. The Borcherds weight formula uses c(0) = 10, not chi(K3) = 24
@@ -1063,8 +1063,8 @@ def shadow_additivity_across_fibers(max_fibers: int = 3) -> Dict[str, object]:
        polar term c(-1)
 
     This is a concrete instance of the shadow tower phenomenon:
-    the full fiber data (chi = 24) contributes to the global invariant
-    (kappa = 5) via a nontrivial REDUCTION through the sewing formula.
+    the full fiber data (chi = 24) contributes to the global BKM invariant
+    (kappa_BKM = 5) via a nontrivial REDUCTION through the sewing formula.
     """
     c_disc = phi01_by_discriminant(5)
     c0 = c_disc.get(0, 0)
@@ -1108,13 +1108,13 @@ def fiber_genus_g_shadow(g: int) -> Dict[str, object]:
     - F_2 = 24 * 7/5760 = 7/240
     - F_3 = 24 * 31/967680 = 31/40320
 
-    For the GLOBAL K3 x E with kappa = 5 (but class M):
-    - The scalar part: F_g^{scal} = 5 * a_g (from kappa = 5)
+    For the GLOBAL K3 x E with kappa_BKM = 5 (but class M):
+    - The scalar part: F_g^{scal} = 5 * a_g (from kappa_BKM = 5)
     - But class M has ADDITIONAL contributions from higher-arity shadows
     - These additional contributions encode the imaginary root structure
 
     The fiber-to-global relationship at genus g:
-        F_g^{global} = F_g^{scal}(kappa=5) + sum_{r>=3} corrections_r
+        F_g^{global} = F_g^{scal}(kappa_BKM=5) + sum_{r>=3} corrections_r
     where the corrections come from the shadow tower at arity >= 3.
     """
     if g < 1:
@@ -1152,7 +1152,7 @@ def fiber_genus_g_shadow(g: int) -> Dict[str, object]:
         'ratio_fiber_to_global_scalar': fiber_Fg_val / global_scalar if global_scalar != 0 else None,
         'note': (
             f'Fiber F_{g} = {fiber_Fg_val} from kappa=24; '
-            f'global scalar F_{g}^{{scal}} = {global_scalar} from kappa=5; '
+            f'global scalar F_{g}^{{scal}} = {global_scalar} from kappa_BKM=5; '
             f'ratio = {float(fiber_Fg_val / global_scalar) if global_scalar != 0 else "N/A"}'
         ),
     }

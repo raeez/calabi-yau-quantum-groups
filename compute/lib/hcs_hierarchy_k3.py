@@ -85,7 +85,8 @@ THE MASTER DIAGRAM (Conjecture conj:hcs-k3-hierarchy):
 
   kappa-spectrum (AP113):
     kappa_ch(H_Muk) = 2            (K3 Heisenberg, d=2)
-    kappa_ch(K3 x E) = 3           (product, d=3)
+    kappa_ch(K3 x E) = 0           (compact total-space supertrace)
+    kappa_ch^Heis(K3 x E) = 3      (relative Heisenberg/Yangian shadow)
     kappa_BKM(K3 x E) = 5          (Igusa cusp form weight)
     kappa_cat(K3) = 2               (= chi(O_K3))
     kappa_fiber(K3) = 24            (Mukai lattice rank)
@@ -177,7 +178,8 @@ MUKAI_SIG = (4, 20)  # Signature (p, q)
 
 # kappa-spectrum for K3 x E (AP113: NEVER bare kappa)
 KAPPA_CH_K3 = Rational(2)          # kappa_ch(H_Muk) at d=2
-KAPPA_CH_K3E = Rational(3)         # kappa_ch(K3 x E) at d=3 (additivity: 2+1)
+KAPPA_CH_K3E = Rational(0)         # compact kappa_ch(K3 x E) = chi(O_{K3xE})
+KAPPA_CH_K3E_HEIS = Rational(3)    # relative Heisenberg/Yangian shadow (2+1)
 KAPPA_BKM_K3E = Rational(5)        # kappa_BKM: Igusa cusp form weight
 KAPPA_CAT_K3 = Rational(2)         # kappa_cat = chi(O_K3)
 KAPPA_CAT_K3E = Rational(0)        # kappa_cat(K3 x E) = 0 (Kuenneth)
@@ -474,7 +476,8 @@ class BoundaryData(NamedTuple):
     boundary_algebra: str   # Name of the algebra on the boundary
     bulk_algebra: str       # Name of the bulk (derived center) algebra
     defect_algebra: str     # Name of the Koszul dual (defect) algebra
-    kappa_ch: Rational      # kappa_ch of the boundary algebra (AP113)
+    kappa_ch: Rational      # compact total-space kappa_ch where applicable
+    kappa_ch_Heis: Rational # relative Heisenberg/Yangian shadow scalar
 
 
 def boundary_data_3d() -> BoundaryData:
@@ -486,6 +489,7 @@ def boundary_data_3d() -> BoundaryData:
         bulk_algebra='Z^{der}_ch(H_Muk) = HH*(H_Muk, H_Muk)',
         defect_algebra='H_Muk^! (Koszul dual Heisenberg)',
         kappa_ch=KAPPA_CH_K3,
+        kappa_ch_Heis=KAPPA_CH_K3,
     )
 
 
@@ -498,6 +502,7 @@ def boundary_data_5d(h_params: Optional[List[Rational]] = None) -> BoundaryData:
         bulk_algebra='Z^{der}_ch(Y(g_{K3})) (derived center)',
         defect_algebra='Y(g_{K3})^! (Koszul dual K3 Yangian)',
         kappa_ch=KAPPA_CH_K3E,
+        kappa_ch_Heis=KAPPA_CH_K3E_HEIS,
     )
 
 
@@ -510,6 +515,7 @@ def boundary_data_6d() -> BoundaryData:
         bulk_algebra='Z^{der}_ch(U_{q,t}) (derived center)',
         defect_algebra='U_{q,t}^! (Koszul dual K3 q-toroidal)',
         kappa_ch=KAPPA_CH_K3E,
+        kappa_ch_Heis=KAPPA_CH_K3E_HEIS,
     )
 
 
@@ -748,6 +754,7 @@ def master_diagram() -> Dict[str, Any]:
         'kappa_spectrum': {
             'kappa_ch_K3': int(KAPPA_CH_K3),
             'kappa_ch_K3E': int(KAPPA_CH_K3E),
+            'kappa_ch_K3E_Heis': int(KAPPA_CH_K3E_HEIS),
             'kappa_BKM_K3E': int(KAPPA_BKM_K3E),
             'kappa_cat_K3': int(KAPPA_CAT_K3),
             'kappa_cat_K3E': int(KAPPA_CAT_K3E),
@@ -801,19 +808,25 @@ def verify_kappa_spectrum_consistency() -> Dict[str, bool]:
     """Verify internal consistency of the kappa-spectrum (AP113).
 
     Checks:
-    1. kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E)  (additivity)
-    2. kappa_cat(K3) = chi(O_K3) = 2
-    3. kappa_cat(K3 x E) = chi(O_{K3}) * chi(O_E) = 2 * 0 = 0  (Kuenneth)
-    4. kappa_fiber = rank(Mukai lattice) = 24
-    5. kappa_BKM = 5 (Igusa weight)
-    6. The five distinct values are {0, 2, 3, 5, 24}
+    1. kappa_ch(K3 x E) = 0 by the compact Kunneth supertrace
+    2. kappa_ch^Heis(K3 x E) = kappa_ch(K3) + kappa_ch^Heis(E)
+       (relative boundary/Yangian additivity)
+    3. kappa_cat(K3) = chi(O_K3) = 2
+    4. kappa_cat(K3 x E) = chi(O_{K3}) * chi(O_E) = 2 * 0 = 0  (Kuenneth)
+    5. kappa_fiber = rank(Mukai lattice) = 24
+    6. kappa_BKM = 5 (Igusa weight)
+    7. The five visible values are {0, 2, 3, 5, 24}
     """
     checks = {}
 
-    # 1. Additivity: kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E)
-    # kappa_ch(E) = 1 (elliptic curve has kappa_ch = 1)
-    kappa_ch_E = Rational(1)
-    checks['additivity'] = (KAPPA_CH_K3E == KAPPA_CH_K3 + kappa_ch_E)
+    # 1. Compact total-space scalar: kappa_ch(K3 x E) = chi(O_{K3xE}) = 0.
+    checks['compact_kappa_ch_K3E'] = (KAPPA_CH_K3E == Rational(0))
+
+    # 2. Relative boundary/Yangian scalar: 2 from K3 plus 1 from E.
+    kappa_ch_E_Heis = Rational(1)
+    checks['heisenberg_additivity'] = (
+        KAPPA_CH_K3E_HEIS == KAPPA_CH_K3 + kappa_ch_E_Heis
+    )
 
     # 2. kappa_cat = chi(O_K3) = 2
     checks['kappa_cat_K3'] = (KAPPA_CAT_K3 == Rational(2))
@@ -830,7 +843,7 @@ def verify_kappa_spectrum_consistency() -> Dict[str, bool]:
 
     # 6. Five distinct values
     kappa_set = {
-        int(KAPPA_CAT_K3E), int(KAPPA_CH_K3), int(KAPPA_CH_K3E),
+        int(KAPPA_CAT_K3E), int(KAPPA_CH_K3), int(KAPPA_CH_K3E_HEIS),
         int(KAPPA_BKM_K3E), int(KAPPA_FIBER_K3),
     }
     checks['five_values'] = (kappa_set == {0, 2, 3, 5, 24})
@@ -871,6 +884,7 @@ def hierarchy_summary_table() -> List[Dict[str, Any]]:
             'bulk': bd.bulk_algebra,
             'defect': bd.defect_algebra,
             'kappa_ch': bd.kappa_ch,
+            'kappa_ch_Heis': bd.kappa_ch_Heis,
             'wilson_type': w.line_type,
             'wilson_index': w.index_space,
             'coproduct': w.coproduct_type,

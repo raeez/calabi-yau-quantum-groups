@@ -1,7 +1,7 @@
-r"""BKM simple roots of g_{Delta_5} as conjectural Yangian generators.
+r"""BKM simple roots of g_{Delta_5} as conjectural Yangian-deformation generators.
 
-STATUS: CONJECTURAL (AP-CY14).  No Drinfeld presentation for BKM Yangians
-exists.  This module constructs the DICTIONARY between BKM simple root
+STATUS: CONJECTURAL (AP-CY14).  No Drinfeld presentation for a Yangian
+deformation of this BKM algebra exists.  This module constructs the DICTIONARY between BKM simple root
 vectors and conjectural Yangian generators, identifying:
 
     (A) Real simple roots  <-->  Cartan-type generators h_i(u)
@@ -9,8 +9,8 @@ vectors and conjectural Yangian generators, identifying:
     (C) Imaginary simple roots of mult > 1  <-->  multiplet generators
 
 The dictionary is UNCONDITIONAL at the level of the Lie algebra (the BKM
-side is proved).  The YANGIAN SIDE is conjectural: the affine Yangian
-Y(g_hat_{Delta_5}) has not been constructed.
+side is proved).  The YANGIAN SIDE is conjectural: the putative affine
+deformation Y(g_hat_{Delta_5}) has not been constructed.
 
 MATHEMATICAL CONTENT
 ====================
@@ -126,7 +126,7 @@ MATHEMATICAL CONTENT
 
    The MO R-matrix (thm:k3e-mo-rmatrix) gives the charge-1 R-matrix
    for the abelian sector.  The non-abelian generalization requires
-   the full BKM Yangian, which has not been constructed.
+   the full Yangian deformation of the BKM algebra, which has not been constructed.
 
    The STRUCTURAL OBSTRUCTION: for a BKM algebra, the imaginary simple
    roots do NOT satisfy standard Serre relations.  Instead, they satisfy
@@ -250,8 +250,8 @@ def real_simple_roots() -> List[RealSimpleRoot]:
 
     Gram matrix: A_{ij} = (delta_i, delta_j) = ((2,-2,-2),(-2,2,-2),(-2,-2,2))
 
-    These correspond to the Cartan generators h_i(u) of the conjectural
-    Yangian Y(g_hat_{Delta_5}):
+    These would correspond to the Cartan generators h_i(u) in a conjectural
+    Yangian deformation Y(g_hat_{Delta_5}):
       h_i(u) = 1 + hbar * h_i / (u - c_i)  (Drinfeld generating function)
       [e_i(u), f_j(w)] = delta_{ij} * delta(u-w) * h_i(u)  (Drinfeld relation)
 
@@ -330,7 +330,8 @@ def weyl_group_data() -> Dict[str, Any]:
     The full orthogonal group of II_{2,1} is:
       O(II_{2,1})_+ = W * Aut(P_{II}) = S_3 * S_3
 
-    The Weyl group acts on the Yangian Y(g_hat_{Delta_5}) by automorphisms:
+    In the conjectural deformation model, the Weyl group would act on
+    Y(g_hat_{Delta_5}) by automorphisms:
       s_i: e_j(u) -> (ad e_i)^{-a_{ij}} f_j(u)  (Lusztig automorphism)
 
     where a_{ij} is the Cartan matrix entry.  This action permutes the
@@ -825,7 +826,7 @@ def borcherds_serre_relations() -> Dict[str, Any]:
 # =========================================================================
 
 def framework_assessment() -> Dict[str, Any]:
-    r"""Assessment of what framework can accommodate BKM Yangian generators.
+    r"""Assessment of what framework can accommodate conjectural Yangian-deformation generators.
 
     QUESTION: Can each BKM simple root vector be realized as a Yangian generator?
 

@@ -435,13 +435,19 @@ class CY3Geometry:
         return self.h21 == 0
 
     @property
-    def kappa_ch_predicted(self) -> Fraction:
-        """Predicted kappa_ch = chi/24 (AP113 compliant).
+    def kappa_BCOV_shadow_conjectural(self) -> Fraction:
+        """BCOV-shadow scalar chi/24 for the compact-CY3 prediction lane.
 
-        This is the modular characteristic from the chiral algebra A_X
-        (conditional on CY-A_3 for d=3, proved at d=2).
+        This is not constructed kappa_ch.  It is the scalar used by the
+        chiral-volume conjectural comparison unless an independent
+        chain-level chiral construction identifies it with kappa_ch.
         """
         return Fraction(self.euler, 24)
+
+    @property
+    def kappa_ch_predicted(self) -> Fraction:
+        """Backward-compatible alias for the BCOV-shadow candidate."""
+        return self.kappa_BCOV_shadow_conjectural
 
 
 # Standard CY3 examples

@@ -255,11 +255,12 @@ class TestDiscriminantStratification:
         assert result['borcherds_weight_is_5'] is True
 
     def test_kappa_spectrum_distinction(self):
-        """kappa_ch = 3 and kappa_BKM = 5 are DIFFERENT (AP113)."""
+        """compact kappa_ch=0, kappa_ch_Heis=3, and kappa_BKM=5 are distinct."""
         result = bkm_shadow_cross_check()
-        assert result['kappa_ch'] == 3
+        assert result['kappa_ch'] == 0
+        assert result['kappa_ch_Heis'] == 3
         assert result['kappa_BKM'] == Fraction(5)
-        assert result['kappa_ch'] != result['kappa_BKM']
+        assert result['kappa_ch_Heis'] != result['kappa_BKM']
 
 
 # ================================================================

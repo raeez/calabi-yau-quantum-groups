@@ -807,7 +807,7 @@ class KappaComputation(NamedTuple):
 
     RESOLUTION: kappa = chi/2 is the CONSTANT MAP contribution only.
     The full kappa includes instanton corrections. For K3 x E, the
-    instantons give kappa = 5 (the weight of Delta_5).
+    instantons give kappa_BKM = 5 (the weight of Delta_5).
 
     For the quintic: kappa^{const} = -100 (constant maps).
     The full kappa includes instanton corrections from GW invariants.
@@ -835,17 +835,17 @@ def kappa_compact_cy3(cy: CompactCY3) -> KappaComputation:
     kappa_const = Fraction(cy.chi, 2)
     f1_const = kappa_const * Fraction(1, 24)
 
-    # For specific CY3s, we know the full kappa:
+    # For specific CY3s, we know the relevant scalar in its declared lane:
     kappa_full: Optional[Fraction] = None
     instanton_desc = "Unknown (requires the full chiral algebra OPE)"
 
     if cy.name == "K3xE":
-        # K3 x E: kappa = 5 from the Borcherds product Delta_5.
+        # K3 x E: kappa_BKM = 5 from the Borcherds product Delta_5.
         # The constant-map contribution is 0 (chi=0).
-        # ALL of kappa comes from instantons (elliptic curve contributions).
+        # ALL of the BKM scalar comes from instantons (elliptic contributions).
         kappa_full = Fraction(5)
         instanton_desc = (
-            "kappa = 5 (weight of Borcherds product Delta_5). "
+            "kappa_BKM = 5 (weight of Borcherds product Delta_5). "
             "Constant-map kappa = 0 (chi=0). "
             "Full kappa entirely from E-curve wrappings."
         )
@@ -1388,17 +1388,17 @@ def conjecture_kappa_chi_over_2() -> Dict[str, Any]:
     REVISION: The formula is kappa = chi/2 ONLY for constant maps.
     The full kappa may differ.
 
-    For K3 x E: chi = 0, kappa_const = 0, kappa_full = 5. DIFFERS.
+    For K3 x E: chi = 0, kappa_const = 0, kappa_BKM = 5. DIFFERS.
 
     CONCLUSION: kappa = chi/2 is NOT correct in general. It is the
     constant-map contribution only. The conjecture is RETRACTED.
     """
     failures: List[str] = []
 
-    # K3 x E: kappa_full = 5 != chi/2 = 0
+    # K3 x E: kappa_BKM = 5 != chi/2 = 0
     if Fraction(K3_TIMES_E.chi, 2) != Fraction(5):
         failures.append(
-            f"K3xE: chi/2 = {Fraction(K3_TIMES_E.chi, 2)} != 5 = kappa_full"
+            f"K3xE: chi/2 = {Fraction(K3_TIMES_E.chi, 2)} != 5 = kappa_BKM"
         )
 
     return {
@@ -1638,13 +1638,290 @@ def k3_times_e_special() -> Dict[str, Any]:
         "note": (
             "K3xE has h^{1,0}=1, so the simply-connected formulas do NOT "
             "apply. The full HKR must be computed from the Kunneth Hodge "
-            "diamond. kappa_full = 5 (Borcherds product weight)."
+            "diamond. kappa_BKM = 5 (Borcherds product weight)."
         ),
     }
 
 
 # ===========================================================================
-# Section 17: Simply connected test
+# Section 17: Compact CY3 finite-stage open-closed source bridge
+# ===========================================================================
+
+class CompactCY3OpenClosedBridge(NamedTuple):
+    """Finite-stage compact CY3 Costello-Li/open-closed bridge.
+
+    The source-side bridge is the finite-stage chain map
+
+      C^-_*(Perf(X))_{<=N} -> C^*_{ch}(A_C^{N,r}, A_C^{N,r})
+
+    obtained by composing Costello's cyclic open-closed TCFT map with the
+    Costello-Li holomorphic BV finite jet/RG model and the Stage-2
+    boundary specialisation.  It does not include the Hall-valued
+    comparison.  The Hall comparison requires the Joyce-Kontsevich
+    orientation datum and DWR/Ran Thom-Sebastiani descent.
+    """
+    name: str
+    jet_order: int
+    rg_order: int
+    source_theorem: str
+    target_theorem: str
+    comparison_map: str
+    source_bridge_closed: bool
+    hall_bridge_closed: bool
+    missing_source_primitives: Tuple[str, ...]
+    residual_hall_obligations: Tuple[str, ...]
+    obstruction_summary: str
+
+
+class CompactCY3OrientedDWRRanComparison(NamedTuple):
+    """Finite-stage oriented hCS-to-Hall comparison witness.
+
+    This is the finite DWR/Ran gate sitting after the source-side
+    Costello-Li/open-closed bridge.  It records the exact oriented
+    comparison map on bounded jet/RG/Ran/charge truncations and keeps the
+    pro-descent condition separate from finite-stage closure.
+    """
+    name: str
+    jet_order: int
+    rg_order: int
+    ran_bound: int
+    charge_bound: int
+    source_theorem: str
+    target_theorem: str
+    comparison_map: str
+    source_bridge_closed: bool
+    finite_oriented_comparison_closed: bool
+    global_comparison_closed: bool
+    missing_source_primitives: Tuple[str, ...]
+    missing_descent_gates: Tuple[str, ...]
+    current_obstruction: str
+    healing_route: str
+    remaining_global_condition: str
+
+
+def compact_cy3_finite_stage_open_closed_bridge(
+    cy: CompactCY3,
+    jet_order: int = 3,
+    rg_order: int = 2,
+    *,
+    has_negative_cyclic_cy_class: bool = True,
+    has_stage1_formality: bool = True,
+    has_s3_framing: bool = True,
+    has_costello_li_witness: bool = True,
+    anomaly_cancelled: bool = True,
+    has_nuclear_completion: bool = True,
+    has_stage2_specialization: bool = True,
+    has_hall_orientation: bool = False,
+    has_dwr_thom_sebastiani_descent: bool = False,
+) -> CompactCY3OpenClosedBridge:
+    """Classify the compact CY3 open-closed bridge at finite stage.
+
+    This function is intentionally narrow.  It verifies the precise
+    source-side hypotheses needed for the finite-stage open-closed
+    comparison and refuses to conflate that source map with the
+    Hall-valued hCS-to-CoHA comparison.
+    """
+    if jet_order < 0:
+        raise ValueError("jet_order must be non-negative")
+    if rg_order < 0:
+        raise ValueError("rg_order must be non-negative")
+
+    source_requirements = {
+        "negative_cyclic_cy_class": has_negative_cyclic_cy_class,
+        "stage1_e3_formality": has_stage1_formality,
+        "s3_framing_witness": has_s3_framing,
+        "costello_li_holomorphic_witness": has_costello_li_witness,
+        "costello_li_anomaly_cancelled": anomaly_cancelled,
+        "nuclear_lf_completion": has_nuclear_completion,
+        "stage2_specialization": has_stage2_specialization,
+    }
+    missing_source = tuple(
+        name for name, present in source_requirements.items() if not present
+    )
+    source_closed = not missing_source
+
+    residual_hall = []
+    if not has_hall_orientation:
+        residual_hall.append("Joyce-Kontsevich orientation square roots")
+    if not has_dwr_thom_sebastiani_descent:
+        residual_hall.append("DWR/Ran Thom-Sebastiani descent comparison")
+
+    hall_closed = source_closed and not residual_hall
+
+    if source_closed and residual_hall:
+        obstruction_summary = (
+            "Costello-Li/open-closed source bridge closed at finite stage; "
+            "remaining obstruction is Hall-valued orientation/descent."
+        )
+    elif source_closed:
+        obstruction_summary = (
+            "Finite-stage source bridge and Hall-valued comparison data are closed."
+        )
+    else:
+        obstruction_summary = (
+            "Finite-stage source bridge still lacks named source primitives: "
+            + ", ".join(missing_source)
+        )
+
+    return CompactCY3OpenClosedBridge(
+        name=cy.name,
+        jet_order=jet_order,
+        rg_order=rg_order,
+        source_theorem=(
+            "Costello open-closed TCFT for cyclic A_infinity categories, "
+            "transported through Costello-Li holomorphic BV finite jet/RG stages"
+        ),
+        target_theorem=(
+            "Theorem thm:compact-cy3-finite-stage-open-closed-source"
+        ),
+        comparison_map=(
+            f"BB_{{{cy.name},C}}^{{N={jet_order},r={rg_order}}} = "
+            f"partial_{{X,C}}^{{N={jet_order},r={rg_order}}} "
+            f"circ OC_X^{{N={jet_order},r={rg_order}}}"
+        ),
+        source_bridge_closed=source_closed,
+        hall_bridge_closed=hall_closed,
+        missing_source_primitives=missing_source,
+        residual_hall_obligations=tuple(residual_hall),
+        obstruction_summary=obstruction_summary,
+    )
+
+
+def compact_cy3_oriented_dwr_ran_comparison(
+    cy: CompactCY3,
+    jet_order: int = 3,
+    rg_order: int = 2,
+    ran_bound: int = 2,
+    charge_bound: int = 1,
+    *,
+    has_negative_cyclic_cy_class: bool = True,
+    has_stage1_formality: bool = True,
+    has_s3_framing: bool = True,
+    has_costello_li_witness: bool = True,
+    anomaly_cancelled: bool = True,
+    has_nuclear_completion: bool = True,
+    has_stage2_specialization: bool = True,
+    has_full_renormalised_chart_maps: bool = False,
+    has_maps_on_all_simplices: bool = False,
+    has_cech_mc_zero: bool = False,
+    has_vertex_quasi_isomorphisms: bool = False,
+    has_h0_invertible_on_nerve: bool = False,
+    has_relative_orientation_cocycle_zero: bool = False,
+    has_grading_tate_compatible: bool = False,
+    has_thom_sebastiani_coherent: bool = False,
+    has_factorization_product_compatible: bool = False,
+    has_completions_continuous: bool = False,
+    has_compact_support_refinement_compatible: bool = False,
+    pro_limit_compatible: bool = False,
+) -> CompactCY3OrientedDWRRanComparison:
+    """Classify the finite oriented hCS-to-Hall DWR/Ran comparison.
+
+    The finite comparison closes only when the source bridge is closed
+    and every relative DWR/Ran descent gate is supplied.  The completed
+    global comparison additionally requires compatibility of the finite
+    nullhomotopies under jet, RG, charge, and Ran refinement limits.
+    """
+    if jet_order < 0:
+        raise ValueError("jet_order must be non-negative")
+    if rg_order < 0:
+        raise ValueError("rg_order must be non-negative")
+    if ran_bound < 0:
+        raise ValueError("ran_bound must be non-negative")
+    if charge_bound < 0:
+        raise ValueError("charge_bound must be non-negative")
+
+    source = compact_cy3_finite_stage_open_closed_bridge(
+        cy,
+        jet_order,
+        rg_order,
+        has_negative_cyclic_cy_class=has_negative_cyclic_cy_class,
+        has_stage1_formality=has_stage1_formality,
+        has_s3_framing=has_s3_framing,
+        has_costello_li_witness=has_costello_li_witness,
+        anomaly_cancelled=anomaly_cancelled,
+        has_nuclear_completion=has_nuclear_completion,
+        has_stage2_specialization=has_stage2_specialization,
+    )
+
+    descent_gates = {
+        "full_renormalised_chart_maps": has_full_renormalised_chart_maps,
+        "maps_on_all_dwr_ran_simplices": has_maps_on_all_simplices,
+        "cech_ran_maurer_cartan_zero": has_cech_mc_zero,
+        "vertex_quasi_isomorphisms": has_vertex_quasi_isomorphisms,
+        "h0_invertible_on_nerve": has_h0_invertible_on_nerve,
+        "relative_orientation_cocycle_zero": has_relative_orientation_cocycle_zero,
+        "grading_tate_compatible": has_grading_tate_compatible,
+        "thom_sebastiani_coherent": has_thom_sebastiani_coherent,
+        "factorization_product_compatible": has_factorization_product_compatible,
+        "completions_continuous": has_completions_continuous,
+        "compact_support_refinement_compatible": (
+            has_compact_support_refinement_compatible
+        ),
+    }
+    missing_descent = tuple(
+        name for name, present in descent_gates.items() if not present
+    )
+    finite_closed = source.source_bridge_closed and not missing_descent
+    global_closed = finite_closed and pro_limit_compatible
+
+    if not source.source_bridge_closed:
+        current_obstruction = (
+            "source bridge incomplete: "
+            + ", ".join(source.missing_source_primitives)
+        )
+    elif missing_descent:
+        current_obstruction = (
+            "finite DWR/Ran descent incomplete: "
+            + ", ".join(missing_descent)
+        )
+    elif not pro_limit_compatible:
+        current_obstruction = (
+            "finite DWR/Ran comparison closed; completed comparison still needs "
+            "pro-compatible inverse-limit descent"
+        )
+    else:
+        current_obstruction = (
+            "finite and completed oriented DWR/Ran comparison gates closed"
+        )
+
+    return CompactCY3OrientedDWRRanComparison(
+        name=cy.name,
+        jet_order=jet_order,
+        rg_order=rg_order,
+        ran_bound=ran_bound,
+        charge_bound=charge_bound,
+        source_theorem="Theorem thm:compact-cy3-finite-stage-open-closed-source",
+        target_theorem=(
+            "Theorem thm:finite-dwr-ran-oriented-hcs-hall-comparison"
+        ),
+        comparison_map=(
+            "Theta_{hCS->Hall,<=%d}^{or,N=%d,r=%d,Gamma<=%d} = "
+            "Tot_sigma(TS_sigma^or o gr_sigma o o_sigma^{1/2} o "
+            "theta_sigma^{N,r})"
+            % (ran_bound, jet_order, rg_order, charge_bound)
+        ),
+        source_bridge_closed=source.source_bridge_closed,
+        finite_oriented_comparison_closed=finite_closed,
+        global_comparison_closed=global_closed,
+        missing_source_primitives=source.missing_source_primitives,
+        missing_descent_gates=missing_descent,
+        current_obstruction=current_obstruction,
+        healing_route=(
+            "Supply full renormalised simplex maps, a Cech/Ran MC primitive, "
+            "relative Joyce-Kontsevich orientation square-root transport, "
+            "grading/Tate transport, Thom-Sebastiani and disjoint-factorisation "
+            "homotopies, continuity, compact-support refinement compatibility, "
+            "then a pro-compatible inverse-limit system."
+        ),
+        remaining_global_condition=(
+            "vanishing of the lim^1/pro-descent obstruction for the compatible "
+            "(N,r,charge,Ran)-tower of oriented comparison primitives"
+        ),
+    )
+
+
+# ===========================================================================
+# Section 18: Simply connected test
 # ===========================================================================
 
 def is_simply_connected(cy: CompactCY3) -> bool:

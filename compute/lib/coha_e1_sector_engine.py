@@ -3,8 +3,9 @@ r"""CoHA E_1-sector identification engine.
 THEOREM: For a CY3 with quiver-with-potential (Q,W), the critical CoHA
     H(Q,W) = bigoplus_d H^BM_*(Crit(Tr W)_d, phi_{Tr W})
 is an ASSOCIATIVE (E_1) algebra isomorphic to Y^+(g_hat_Q), the positive
-half of the affine super Yangian.  This is the E_1-sector of the CY3
-chiral algebra A^{E_2}_{CY3}.
+half of the affine super Yangian.  This is the positive E_1-sector;
+the full Yangian/W object is obtained only after Drinfeld double, center,
+Fock/evaluation, or dual-side reconstruction.
 
 THE BAR COMPLEX IDENTIFICATION:
     B^{E_1}(CoHA(Q,W)) = CC_*(Rep(Q,W))
@@ -19,7 +20,8 @@ DT/SHADOW IDENTIFICATION:
     F_g = genus-g shadow = higher DT (curve-counting) invariants
 
 FOUR QUIVER FAMILIES:
-    (a) Jordan quiver (C^3): CoHA = Y^+(gl_hat_1), chiral = W_{1+infty}
+    (a) Jordan quiver (C^3): CoHA = Y^+(gl_hat_1); chiral W_{1+infty}
+        appears after Drinfeld double/center and Fock evaluation
     (b) Conifold (2 vertices, 4 arrows): CoHA --> gl(1|1) Yangian
     (c) Local P^2 (3 vertices, 9 arrows, cubic W): resolved geometry
     (d) McKay quivers (C^3/G, G in SL_3): wreath product structure
@@ -27,7 +29,7 @@ FOUR QUIVER FAMILIES:
 REFERENCES:
     Kontsevich-Soibelman (2008): motivic DT, stability structures
     Schiffmann-Vasserot (2012, 2013): CoHA of C^3 = Y^+(gl_hat_1)
-    Rapcak-Soibelman-Yang-Zhao (2018): toric CY3 CoHA = Yangian
+    Rapcak-Soibelman-Yang-Zhao (2018): toric CY3 CoHA = positive Yangian half
     Maulik-Okounkov (2019): quantum groups from stable envelopes
     Tsymbaliuk (2014): affine Yangian presentation
     MNOP (2003): DT/GW correspondence
@@ -1267,7 +1269,7 @@ def cyclic_bar_complex_identification(quiver: QuiverWithPotential,
 # =========================================================================
 
 def jordan_quiver_e1_verification(max_degree: int = 6) -> Dict:
-    """Complete verification: CoHA(C^3) = Y^+(gl_hat_1) = E_1 sector of W_{1+infty}.
+    """Complete verification: CoHA(C^3)=Y^+(gl_hat_1), with W after double/evaluation.
 
     Five independent verification paths:
     (a) Character: dim CoHA_d = pp(d) = [q^d] M(q)

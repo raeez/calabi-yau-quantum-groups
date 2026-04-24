@@ -883,9 +883,10 @@ def qdet_bkm_connection(
         ),
         'kappa_connection': (
             'kappa_BKM = 5 (weight of Igusa cusp form Delta_5). '
-            'kappa_ch = 3 (from chiral algebra via Phi). '
+            'compact kappa_ch(K3xE)=0; relative kappa_ch^Heis=3. '
             'kappa_fiber = 24 (Mukai lattice rank = degree of qdet). '
-            'The degree of qdet equals kappa_fiber, NOT kappa_ch or kappa_BKM.'
+            'The degree of qdet equals kappa_fiber, NOT compact kappa_ch, '
+            'kappa_ch^Heis, or kappa_BKM.'
         ),
         'status': STATUS,
     }

@@ -166,10 +166,11 @@ KAPPA_CAT_K3 = Rational(2)          # kappa_cat = chi(O_{K3})
 KAPPA_FIBER_K3 = Rational(24)       # kappa_fiber = Mukai lattice rank
 
 # K3 x E
-KAPPA_CH_K3E = Rational(3)          # Heisenberg-specialisation kappa_ch
-KAPPA_CH_COMPACT_HODGE_K3E = Rational(0)  # total-space Hodge/PhiFA supertrace
-KAPPA_BKM_C0_K3E_N1 = Rational(10)  # c_1(0) for Delta_5
-KAPPA_BKM_K3E = KAPPA_BKM_C0_K3E_N1 / 2  # kappa_BKM = c_1(0)/2
+KAPPA_CH_K3E = Rational(0)          # compact total-space Hodge/PhiFA supertrace
+KAPPA_CH_COMPACT_HODGE_K3E = KAPPA_CH_K3E
+KAPPA_CH_HEIS_K3E = Rational(3)     # Heisenberg-specialisation shadow scalar
+KAPPA_BKM_C0_K3E_N1 = Rational(10)  # c_N(0) at N=1 for Delta_5
+KAPPA_BKM_K3E = KAPPA_BKM_C0_K3E_N1 / 2  # kappa_BKM = c_N(0)/2 at N=1
 KAPPA_CAT_K3E = Rational(0)         # kappa_cat(K3 x E) = chi(O) = 0
 KAPPA_FIBER_K3E = Rational(24)      # kappa_fiber = Mukai rank
 
@@ -177,8 +178,8 @@ KAPPA_FIBER_K3E = Rational(24)      # kappa_fiber = Mukai rank
 KAPPA_CH_E = Rational(0)            # kappa_ch(E) (trivial)
 KAPPA_CAT_E = Rational(0)           # kappa_cat(E) = chi(O_E) = 0
 
-# N=1 coincidence only; the theorem-level proof is Borcherds c_1(0)/2.
-KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE = KAPPA_CH_K3E + KAPPA_CAT_K3
+# N=1 coincidence only; the theorem-level proof is Borcherds c_N(0)/2.
+KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE = KAPPA_CH_HEIS_K3E + KAPPA_CAT_K3
 
 
 # =========================================================================
@@ -539,7 +540,7 @@ def build_m_theory_web() -> Dict[str, CompactificationNode]:
             "Vafa-Witten (1994) proved the partition function formula. "
             "DMVV (1997) proved the product formula. "
             "The BKM identification (Gritsenko-Nikulin 1997) is proved. "
-            "The chiral algebra identification (kappa_BKM = 5) is "
+            "The BKM modular-characteristic value (kappa_BKM = 5) is "
             "number-theoretic (PROVED). The CY-to-chiral identification "
             "of Z_VW with the bar Euler product is CONDITIONAL on CY-A "
             "and the Vol I anchor (AP-CY8)."
@@ -1014,7 +1015,7 @@ def check_hodge_chi_additivity() -> ConsistencyCheck:
 def check_kappa_bkm_borcherds_weight() -> ConsistencyCheck:
     """Verify kappa_BKM(K3 x E) by the Borcherds weight formula.
 
-    The theorem-level identity is kappa_BKM(Phi_1) = c_1(0)/2.
+    The theorem-level identity is kappa_BKM(Phi_N) = c_N(0)/2 at N=1.
     The equality between the Heisenberg-specialisation value and the K3
     fibre chi(O) is retained only as the N=1 coincidence.
     """
@@ -1034,13 +1035,13 @@ def check_kappa_bkm_borcherds_weight() -> ConsistencyCheck:
 
     return ConsistencyCheck(
         name="kappa_BKM Borcherds weight",
-        description="kappa_BKM(Phi_1) = c_1(0)/2 for K3 x E",
+        description="kappa_BKM(Phi_N) = c_N(0)/2 at N=1 for K3 x E",
         node_a="K3 x E",
         node_b="Borcherds product Delta_5",
         check_type="kappa_bkm_borcherds_weight",
         passed=passed,
         value_a=f"kappa_BKM = {KAPPA_BKM_K3E}",
-        value_b=f"c_1(0)/2 = {KAPPA_BKM_C0_K3E_N1}/2 = {borcherds_weight}",
+        value_b=f"c_N(0)/2 at N=1 = {KAPPA_BKM_C0_K3E_N1}/2 = {borcherds_weight}",
         notes=(
             "AP113: all kappa values subscripted. "
             "The additive total-space and fibre variants fail; "
@@ -1275,7 +1276,8 @@ def check_reduction_commutativity() -> List[ReductionCommutativity]:
         evidence=(
             "S-duality exchanges G <-> G^L (Langlands dual). "
             "On the chiral algebra: quantum Langlands k -> -k-h^vee. "
-            "kappa_ch is preserved (both sides have kappa_ch = 3). "
+            "compact kappa_ch is preserved (both sides have 0), and the "
+            "relative Heisenberg shadow is 3 on both sides. "
             "Vafa-Witten 1994, Feigin-Frenkel 2006."
         ),
     ))

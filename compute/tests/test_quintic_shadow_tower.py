@@ -4,15 +4,15 @@ quintic CY3 X = {x_0^5+...+x_4^5=0} in P^4.
 
 Ground truth:
   Quintic: h^{1,1}=1, h^{2,1}=101, chi=-200.
-  kappa_ch = -25/3 (conjectural, conditional on CY-A_3).
+  kappa_BCOV_shadow_conjectural = -25/3 (conjectural).
   Intersection number H^3 = 5.
   Classical Yukawa coupling C_111 = 5.
   Cubic shadow alpha = -3/5 (classical).
   Class M (infinite depth, from infinite GV invariants).
   GV genus-0: n^0_1 = 2875, n^0_2 = 609250 (COGP 1991).
 
-  K3 x E: kappa_ch = 3, kappa_BKM = 5 (for comparison).
-  Mirror quintic: chi = +200, kappa_ch = +25/3 (conjectural).
+  K3 x E: compact kappa_ch = 0, kappa_ch_Heis = 3, kappa_BKM = 5 (for comparison).
+  Mirror quintic: chi = +200, kappa_BCOV_shadow_conjectural = +25/3.
 
 All CY3 results conditional on CY-A_3 (AP-CY6).
 
@@ -35,8 +35,14 @@ from compute.lib.quintic_shadow_tower import (
     QUINTIC_GV_G2,
     A_HAT_COEFFICIENTS,
     # Kappa spectrum
+    QuinticE100BorcherdsNormalisationReduction,
+    QuinticE100PentagonCertificate,
     QuinticKappaSpectrum,
+    QuinticStrictificationAudit,
+    quintic_e100_borcherds_normalisation_reduction,
+    quintic_e100_pentagon_certificate,
     quintic_kappa_spectrum,
+    quintic_strictification_audit,
     # Classical shadow
     ClassicalShadowData,
     classical_shadow_data_quintic,
@@ -152,10 +158,13 @@ class TestKappaSpectrum:
     """Tests for the quintic kappa-spectrum."""
 
     def test_kappa_ch(self):
-        """kappa_ch = chi/24 = -200/24 = -25/3."""
+        """kappa_ch is the Hodge supertrace; BCOV shadow is separate."""
         # VERIFIED [DC] chi/24 formula [LT] cy_to_chiral.tex atlas table
         spec = quintic_kappa_spectrum()
-        assert spec.kappa_ch == Fraction(-25, 3)
+        assert spec.kappa_ch == Fraction(0)
+        assert spec.kappa_BCOV_shadow_candidate == Fraction(-25, 3)
+        assert spec.kappa_ch_label == "kappa_BCOV_shadow_conjectural"
+        assert spec.kappa_ch_constructed is False
 
     def test_kappa_cat_zero(self):
         """kappa_cat = chi(O_X) = 0 for any CY3."""
@@ -174,14 +183,192 @@ class TestKappaSpectrum:
         assert spec.kappa_fiber is None
 
     def test_kappa_ch_not_integer(self):
-        """kappa_ch = -25/3 is NOT an integer."""
+        """The BCOV-shadow candidate -25/3 is not an integer."""
         spec = quintic_kappa_spectrum()
-        assert spec.kappa_ch.denominator != 1
+        assert spec.kappa_BCOV_shadow_candidate.denominator != 1
 
     def test_kappa_ch_negative(self):
-        """kappa_ch < 0 for the quintic (chi < 0)."""
+        """The BCOV-shadow candidate is negative for the quintic."""
         spec = quintic_kappa_spectrum()
-        assert spec.kappa_ch < 0
+        assert spec.kappa_BCOV_shadow_candidate < 0
+
+
+class TestStrictificationAudit:
+    """Tests for compact non-formal quintic strictification bookkeeping."""
+
+    def test_audit_type(self):
+        """Strictification audit returns the expected record type."""
+        audit = quintic_strictification_audit()
+        assert isinstance(audit, QuinticStrictificationAudit)
+
+    def test_hodge_supertrace_zero(self):
+        """h^{0,*}=(1,0,0,1) gives chi(O)=0 independently."""
+        audit = quintic_strictification_audit()
+        alternating = sum(((-1) ** q) * h for q, h in enumerate(audit.h0q))
+        assert alternating == 0
+        assert audit.chi_o == Fraction(0)
+
+    def test_bcov_shadow_distinct_from_hodge_supertrace(self):
+        """The BCOV-shadow scalar is chi_top/24, not chi(O)."""
+        audit = quintic_strictification_audit()
+        assert audit.topological_euler == 2 * (audit.h11 - audit.h21)
+        assert audit.topological_euler == -200
+        assert audit.bcov_shadow_candidate == Fraction(audit.topological_euler, 24)
+        assert audit.bcov_shadow_candidate == Fraction(-25, 3)
+        assert audit.bcov_shadow_candidate != audit.chi_o
+
+    def test_yukawa_obstructs_strict_model(self):
+        """The large-volume Yukawa m3 is nonzero, so strict m3=0 is not witnessed."""
+        audit = quintic_strictification_audit()
+        assert audit.large_volume_yukawa == 5
+        assert audit.transferred_m3_vanishes is False
+        assert audit.strict_framing_witness_constructed is False
+
+    def test_orientation_without_bkm_or_framing_witness(self):
+        """The CY3 orientation exists, but no BKM or strict framing witness is constructed."""
+        audit = quintic_strictification_audit()
+        assert audit.negative_cyclic_orientation_exists is True
+        assert audit.bkm_weight_constructed is False
+        assert len(audit.required_witnesses) == 4
+
+
+class TestQuinticE100PentagonCertificate:
+    """Tests for the finite E100 pentagon obstruction certificate."""
+
+    def test_certificate_type_and_levels(self):
+        """The certificate records the level-500 to conductor-100 pinning."""
+        cert = quintic_e100_pentagon_certificate()
+        assert isinstance(cert, QuinticE100PentagonCertificate)
+        assert cert.curve_label == "LMFDB 100.a1"
+        assert cert.curve_weierstrass == (0, -1, 0, -33, 62)
+        assert cert.conductor == 100
+        assert cert.half_integral_level == 500
+        assert cert.character_modulus == 5
+        assert cert.shimura_space_dimension == 7
+        assert cert.oldform_dimension == 6
+        assert cert.newform_dimension == 1
+
+    def test_finite_heegner_support(self):
+        """The |D|<=50 obstruction support is exactly five discriminants."""
+        cert = quintic_e100_pentagon_certificate()
+        assert cert.finite_support == (-3, -7, -23, -24, -39)
+        assert [row[3] for row in cert.support_products] == [
+            Fraction(-120),
+            Fraction(120),
+            Fraction(120),
+            Fraction(-240),
+            Fraction(-240),
+        ]
+        assert sum(row[3] for row in cert.support_products) == Fraction(-360)
+
+    def test_alpha_profiles(self):
+        """Schematic obstruction is nonzero; orthogonality profile is zero."""
+        cert = quintic_e100_pentagon_certificate()
+        assert cert.schematic_alpha == Fraction(-360)
+        assert cert.orthogonality_alpha == Fraction(0)
+        assert cert.obstruction_vanishes_in_yy_normalisation is False
+
+    def test_yy_accumulator_exact_value(self):
+        """YY natural normalisation produces the exact rational obstruction."""
+        cert = quintic_e100_pentagon_certificate()
+        assert cert.yy_truncated_alpha == Fraction(
+            -57062154203807, 821695021056
+        )
+        assert cert.yy_nonzero_coefficients[-3] == Fraction(-625, 9)
+        assert cert.yy_nonzero_coefficients[-24] == Fraction(25, 870912)
+        assert cert.yy_nonzero_coefficients[-39] == Fraction(
+            36193, 821695021056
+        )
+
+    def test_e100_hecke_equivariance_witness(self):
+        """A_p^Sh is alpha times a_p(E100) at all five falsifier primes."""
+        cert = quintic_e100_pentagon_certificate()
+        assert cert.falsifier_primes == (3, 7, 13, 29, 37)
+        assert cert.hecke_eigenvalues == {3: 2, 7: -2, 13: -2, 29: 6, 37: -2}
+        assert cert.hecke_equivariant is True
+        for p in cert.falsifier_primes:
+            assert cert.yy_hecke_predictions[p] == (
+                cert.yy_truncated_alpha * cert.hecke_eigenvalues[p]
+            )
+
+    def test_first_missing_lemma_named(self):
+        """The certificate names the first missing theorem obligation."""
+        cert = quintic_e100_pentagon_certificate()
+        assert "Borcherds singular-theta normalisation" in cert.first_missing_lemma
+        assert "Yamaguchi--Yau 2004" in cert.source_theorem
+        assert "alpha=0" in cert.target_theorem
+        assert "non-zero" in cert.current_obstruction
+        assert "{-3,-7,-23,-24,-39}" in cert.healing_route
+
+
+class TestQuinticE100BorcherdsNormalisationReduction:
+    """Tests for the exact level-500 normalisation reduction."""
+
+    def test_reduction_records_exact_five_product_table(self):
+        """The YY/Petersson product vector is exact on the five discriminants."""
+        red = quintic_e100_borcherds_normalisation_reduction()
+        assert isinstance(red, QuinticE100BorcherdsNormalisationReduction)
+        assert red.level == 500
+        assert red.finite_support == (-3, -7, -23, -24, -39)
+        assert red.yy_coefficients == {
+            -3: Fraction(-625, 9),
+            -7: Fraction(0),
+            -23: Fraction(-25, 870912),
+            -24: Fraction(25, 870912),
+            -39: Fraction(36193, 821695021056),
+        }
+        assert red.h_coefficients == {
+            -3: Fraction(1),
+            -7: Fraction(1),
+            -23: Fraction(1),
+            -24: Fraction(1),
+            -39: Fraction(1),
+        }
+        assert red.yy_products == red.yy_coefficients
+
+    def test_cleared_integer_relation(self):
+        """Clearing denominators gives the precise missing hyperplane."""
+        red = quintic_e100_borcherds_normalisation_reduction()
+        assert red.clearing_denominator == 821695021056
+        assert red.integer_relation_coefficients == {
+            -3: -57062154240000,
+            -7: 0,
+            -23: -23587200,
+            -24: 23587200,
+            -39: 36193,
+        }
+        assert red.invisible_discriminants == (-7,)
+        assert red.cancelling_pairs == ((-23, -24),)
+
+    def test_unit_pair_normalisation_forces_unique_pivot(self):
+        """Unit values away from D=-39 force one rational pivot value."""
+        red = quintic_e100_borcherds_normalisation_reduction()
+        table = red.unit_pair_normalisation_table
+        assert table[-3] == Fraction(1)
+        assert table[-7] == Fraction(1)
+        assert table[-23] == Fraction(1)
+        assert table[-24] == Fraction(1)
+        assert red.pivot_discriminant == -39
+        assert red.pivot_value == Fraction(57062154240000, 36193)
+        assert table[-39] == red.pivot_value
+        assert red.unit_pair_normalised_sum == 0
+
+    def test_unit_table_is_the_nonzero_yy_obstruction(self):
+        """Without the pivot correction the unit table recovers alpha_YY."""
+        red = quintic_e100_borcherds_normalisation_reduction()
+        assert red.unit_table_sum == Fraction(-57062154203807, 821695021056)
+        assert red.unit_table_sum != 0
+        assert "conditional" in red.theorem_status_recommendation
+        assert "singular-theta lift" in red.remaining_obstruction
+
+    def test_pivot_perturbation_is_detected(self):
+        """Changing the forced pivot by one leaves a nonzero product residue."""
+        red = quintic_e100_borcherds_normalisation_reduction()
+        perturbed = dict(red.unit_pair_normalisation_table)
+        perturbed[-39] += 1
+        residue = sum(red.yy_products[D] * perturbed[D] for D in red.finite_support)
+        assert residue == red.yy_products[-39]
+        assert residue != 0
 
 
 # ======================================================================
@@ -397,7 +584,7 @@ class TestRecursiveShadowTower:
     """Tests for the recursive shadow tower computation."""
 
     def test_classical_s2(self):
-        """S_2 = kappa_ch = -25/3 (classical)."""
+        """S_2 = -25/3 in the classical BCOV-shadow lane."""
         tower = quintic_shadow_tower_classical()
         # S_2 = a_0 / 2 = 2*kappa / 2 = kappa
         assert tower[2] == Fraction(-25, 3)
@@ -484,7 +671,7 @@ class TestComparisonK3E:
         assert comp.class_B == "M"
 
     def test_kappa_values(self):
-        """kappa_ch(quintic) = -25/3, kappa_ch(K3xE) = 3."""
+        """Quintic shadow scalar is -25/3; K3xE active Heisenberg shadow is 3."""
         comp = compare_quintic_k3e()
         assert comp.kappa_A == Fraction(-25, 3)
         assert comp.kappa_B == Fraction(3)
@@ -505,7 +692,7 @@ class TestMirrorSymmetry:
     """Tests for the mirror symmetry transformation."""
 
     def test_kappa_complementarity(self):
-        """kappa_ch(X) + kappa_ch(X_mirror) = 0."""
+        """Mirror BCOV-shadow candidates sum to 0."""
         mirror = mirror_shadow_quintic()
         assert mirror.kappa_sum == Fraction(0)
 
@@ -714,7 +901,7 @@ class TestShadowCoefficients:
     """Tests for the main shadow coefficient computation."""
 
     def test_s2(self):
-        """S_2 = kappa_ch = -25/3."""
+        """S_2 = -25/3 in the BCOV-shadow lane."""
         coeffs = quintic_shadow_coefficients()
         assert coeffs.S_2 == Fraction(-25, 3)
 
@@ -794,6 +981,32 @@ class TestInstantonCorrectedShadow:
 
 
 # ======================================================================
+# 14b. BOOTH-LAZAREV BOUNDARY: LEADING SIGN ONLY
+# ======================================================================
+
+class TestQuinticBoothLazarevBoundary:
+    """Guardrails for the residual BL obstruction interpretation."""
+
+    def test_leading_lcs_borel_sign(self):
+        """The first LCS coefficient has the sign required by the Borel criterion."""
+        data = instanton_corrected_shadow_quintic()
+        kappa = data.kappa_ch
+        s4_leading = data.s4_instanton_coeffs[1]
+        assert kappa == Fraction(-25, 3)
+        assert s4_leading == Fraction(-345)
+        assert kappa**3 * s4_leading > 0
+
+    def test_leading_sign_is_not_full_borel_witness(self):
+        """Leading sign data do not construct the full sewing nullhomotopy."""
+        audit = quintic_strictification_audit()
+        data = instanton_corrected_shadow_quintic()
+        assert data.s4_instanton_coeffs[1] < 0
+        assert audit.strict_framing_witness_constructed is False
+        assert audit.bkm_weight_constructed is False
+        assert "admissible (Sigma_2,C) specialisation and OPE completion" in audit.required_witnesses
+
+
+# ======================================================================
 # 15. MASTER SUMMARY
 # ======================================================================
 
@@ -819,9 +1032,11 @@ class TestMasterSummary:
         assert len(types) == 3
 
     def test_summary_kappa_ch(self):
-        """Summary has kappa_ch = -25/3."""
+        """Summary separates Hodge kappa_ch from the BCOV-shadow candidate."""
         summary = quintic_shadow_tower_summary()
-        assert summary["kappa_spectrum"]["kappa_ch"] == "-25/3"
+        assert summary["kappa_spectrum"]["kappa_ch_hodge_supertrace"] == "0"
+        assert summary["kappa_spectrum"]["bcov_shadow_candidate"] == "-25/3"
+        assert summary["kappa_spectrum"]["bcov_shadow_is_constructed_kappa_ch"] is False
 
     def test_summary_mirror_sum(self):
         """Mirror kappa sum = 0."""
@@ -844,7 +1059,7 @@ class TestCrossChecks:
         assert data.alpha_classical < 0
 
     def test_f1_matches_bcov(self):
-        """F_1 = kappa_ch/24 = -25/72 matches BCOV constant map."""
+        """F_1 from the BCOV-shadow scalar matches the constant map."""
         # cy_to_chiral.tex line 2185: "F_1 = -25/72 matches"
         tower = quintic_scalar_shadow_tower()
         assert tower[1] == Fraction(-25, 72)
@@ -855,13 +1070,13 @@ class TestCrossChecks:
         assert metric["q0"] > 0
 
     def test_kappa_spectrum_consistent(self):
-        """kappa_ch from spectrum matches kappa from classical data."""
+        """BCOV-shadow scalar from spectrum matches the classical data."""
         spec = quintic_kappa_spectrum()
         data = classical_shadow_data_quintic()
-        assert spec.kappa_ch == data.kappa_ch
+        assert spec.kappa_BCOV_shadow_candidate == data.kappa_ch
 
     def test_tower_s2_equals_kappa(self):
-        """S_2 = kappa_ch from the recursive tower."""
+        """S_2 equals the BCOV-shadow scalar from the recursive tower."""
         tower = quintic_shadow_tower_classical()
         kappa = Fraction(-25, 3)
         assert tower[2] == kappa
@@ -879,6 +1094,6 @@ class TestCrossChecks:
         assert data.chi == -200
 
     def test_kappa_from_chi(self):
-        """kappa_ch = chi/24 = -200/24 = -25/3."""
+        """BCOV-shadow candidate = chi/24 = -200/24 = -25/3."""
         data = classical_shadow_data_quintic()
         assert data.kappa_ch == Fraction(data.chi, 24)

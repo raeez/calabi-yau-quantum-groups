@@ -1160,7 +1160,7 @@ class TestMultiPathVerification:
         assert critical_discriminant_cy3(Fraction(1), Fraction(0)) == 0
 
     def test_quintic_kappa_chi_top_relation(self):
-        """Quintic kappa = chi_top/24: cross-check.
+        """Quintic BCOV-shadow candidate = chi_top/24: cross-check.
 
         Path 1: kappa = -25/3 from shadow data.
         Path 2: chi_top/24 = -200/24 = -25/3.
@@ -1185,7 +1185,7 @@ class TestMultiPathVerification:
         """K3 x E kappa_BKM = 5: 3 independent verifications.
 
         Path 1: Shadow data labels its scalar as kappa_BKM = 5.
-        Path 2: Delta_5 Borcherds weight is c_1(0)/2 = 10/2 = 5.
+        Path 2: Delta_5 Borcherds weight is c_N(0)/2 at N=1, namely 10/2 = 5.
         Path 3: (chi(K3) - 4)/4 = (24-4)/4 = 5.
         """
         d = cy3_shadow_data_k3xe()
@@ -1195,7 +1195,7 @@ class TestMultiPathVerification:
         assert d.kappa_BKM == Fraction(5)
         assert d.kappa_ch == Fraction(3)
         assert d.kappa_cat == Fraction(0)
-        # Path 2: weight of Delta_5 = c_1(0)/2 = 10/2
+        # Path 2: weight of Delta_5 = c_N(0)/2 at N=1 = 10/2
         # VERIFIED [DC] kappa computation [LC] boundary/limiting case
         assert Fraction(10, 2) == Fraction(5)
         # Path 3: (chi(K3)-4)/4

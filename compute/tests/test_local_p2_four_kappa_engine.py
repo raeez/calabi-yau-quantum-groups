@@ -163,6 +163,16 @@ class TestKappaCat:
         # VERIFIED [DC] kappa computation [LC] Vol I landscape_census.tex
         assert val.denominator == 1
 
+    def test_noncompact_total_space_row_distinguishes_base(self):
+        """Base chi(O_{P^2})=1; noncompact frontier row has total-space kappa_cat=0."""
+        status = eng.kappa_cat_noncompact_total_space_status()
+        assert status["kappa_cat_base_chi_O"] == F(1)
+        assert status["kappa_cat_noncompact_total_space"] == F(0)
+        assert status["ordinary_proper_chi_defined_on_total_space"] is False
+        assert status["frontier_row"]["kappa_ch"] == F(3, 2)
+        assert status["frontier_row"]["kappa_ch_BV"] == F(-3, 2)
+        assert status["balance_holds"] is True
+
 
 # =========================================================================
 # 4. KAPPA_BKM
@@ -354,6 +364,9 @@ class TestComparisonTable:
         table = eng.four_kappa_comparison_table()
         k3xe = [r for r in table if r["geometry"] == "K3 x E"][0]
         assert k3xe["kappa_BKM"] == F(5)
+        assert k3xe["kappa_cat"] == F(0)
+        assert k3xe["kappa_ch_Heis"] == F(3)
+        assert k3xe["kappa_cat_fiber"] == F(2)
 
     def test_table_spectra_distinct(self):
         """No two geometries share the full four-kappa spectrum."""
@@ -385,3 +398,13 @@ class TestFullReport:
         assert "shadow_class" in report
         assert "relations" in report
         assert "comparison_table" in report
+        assert "lp2_E27_falsifier" in report
+
+    def test_full_report_e27_arithmetic_closed(self):
+        """E27 arithmetic falsifier side is closed in the executable report."""
+        report = eng.full_report()
+        cert = report["lp2_E27_falsifier"]
+        assert cert["arithmetic_closed"] is True
+        assert cert["exact_constants"]["a_2_E27"] == 0
+        assert cert["exact_constants"]["a_7_E27"] == -1
+        assert cert["split_prime_falsifier"]["beta_forced_zero"] is True

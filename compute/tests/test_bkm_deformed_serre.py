@@ -3,7 +3,7 @@ from the Borcherds deformed OPE.
 
 STATUS: ALL results are CONJECTURAL (AP-CY14).
 Tests verify INTERNAL CONSISTENCY of the deformed OPE approach,
-not existence of the BKM Yangian Y(g_hat_{Delta_5}).
+not existence of a constructed Y(g_hat_{Delta_5}) object.
 
 WHAT IS TESTED
 ==============
@@ -561,7 +561,7 @@ class TestImaginaryRealMixing:
 # ===========================================================================
 
 class TestSerreIdealFiniteness:
-    """Finiteness analysis of the BKM Yangian Serre ideal."""
+    """Finiteness analysis of the conjectural Yangian-deformation Serre ideal."""
 
     def test_infinitely_generated(self):
         """Serre ideal is infinitely generated (infinite discriminants)."""

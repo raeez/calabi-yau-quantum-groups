@@ -68,8 +68,8 @@ AP-CY6:  A_{K3} at d=2 IS proved (CY-A_2).  But the Yangian quantization
          step beyond CY-A_2 is open.
 AP-CY11: Results depending on coproduct interpretation are further
          conditional on CY-A_3 (for K3 x E fibered coproduct).
-AP113:   kappa subscripts: kappa_ch = 3, kappa_BKM = 5, kappa_cat = 2,
-         kappa_fiber = 24.
+AP113:   kappa subscripts: compact kappa_ch(K3xE)=0,
+         kappa_ch^Heis=3, kappa_BKM=5, kappa_cat(K3)=2, kappa_fiber=24.
 AP-CY10: Flop preserves kappa_ch; Koszul dual has kappa + kappa^! = K.
          Flop != Koszul dual.
 AP-CY8:  Borcherds denominator != bar Euler product (identification

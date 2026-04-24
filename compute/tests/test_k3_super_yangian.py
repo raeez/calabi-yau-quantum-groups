@@ -1,8 +1,10 @@
-r"""Tests for k3_super_yangian.py: K3 super-Yangian Y(gl(4|20)).
+r"""Tests for k3_super_yangian.py: K3 super-Yangian warm-up and scope checks.
 
 STATUS: ALL results are CONJECTURAL (AP-CY14).
-Tests verify internal consistency of the super-Yangian framework
-arising from the Mukai signature (4,20).
+Tests verify internal consistency of the small-rank super-Yangian
+framework arising from the Mukai signature (4,20), and keep the gl,
+Kac-osp, Hodge-parity so, and Hall--Drinfeld completion claims
+separated.
 
 SECTIONS:
     1. Super-grading from Mukai signature (5 tests)
@@ -16,10 +18,12 @@ SECTIONS:
     9. A_1 enhancement embedding (4 tests)
     10. Super-crossing symmetry (3 tests)
     11. ZTE comparison (5 tests)
-    12. Full report (3 tests)
+    12. Full report (5 tests)
     13. Multi-path cross-verification (8 tests)
+    14. Form-preserving dimension/status separation (3 tests)
+    15. Completion primitive/status separation (9 tests)
 
-Total: 59 tests.
+Total: 73 tests.
 """
 
 import pytest
@@ -48,6 +52,9 @@ from compute.lib.k3_super_yangian import (
     super_crossing_symmetry_small,
     zte_super_vs_ordinary_numpy,
     full_super_yangian_report,
+    form_preserving_dimension_oracle,
+    super_yangian_completion_obstruction_oracle,
+    COMPLETION_PRIMITIVES,
 )
 
 from compute.lib.k3_yangian import (
@@ -95,6 +102,125 @@ class TestSuperGrading:
             assert parity(i) == 1
         with pytest.raises(ValueError):
             parity(24)
+
+
+class TestFormPreservingDimensionOracle:
+    """Tests separating gl, Kac osp, and Hodge-parity so targets."""
+
+    def test_kac_osp_dimension_is_296_not_gl(self):
+        """Kac osp(4|20) has dimension 296, not 576 or 376."""
+        oracle = form_preserving_dimension_oracle()
+        assert oracle['kac_osp_even_dimension'] == 216
+        assert oracle['kac_osp_odd_dimension'] == 80
+        assert oracle['kac_osp_total_dimension'] == 296
+        assert oracle['kac_osp_total_dimension'] != oracle['gl_dimension']
+        assert oracle['kac_osp_total_dimension'] != 376
+
+    def test_hodge_so_dimension_is_276(self):
+        """The programme-specific symmetric Hodge-parity so(4|20) count is 276."""
+        oracle = form_preserving_dimension_oracle()
+        assert oracle['hodge_so_even_dimension'] == 196
+        assert oracle['hodge_so_odd_dimension'] == 80
+        assert oracle['hodge_so_total_dimension'] == 276
+        assert oracle['hodge_so_total_dimension'] != oracle['kac_osp_total_dimension']
+
+    def test_completion_flags_remain_open(self):
+        """Dimension arithmetic does not prove the completed Hall--Drinfeld object."""
+        oracle = form_preserving_dimension_oracle()
+        assert oracle['kac_osp_is_mukai_preserver'] is False
+        assert oracle['hodge_so_is_kac_osp'] is False
+        assert oracle['full_rank_reflection_equation_verified'] is False
+        assert oracle['hall_drinfeld_identification_proved'] is False
+
+
+class TestCompletionPrimitiveOracle:
+    """Tests keeping finite checks separate from all-order completion."""
+
+    def test_completion_primitive_keys_are_exactly_the_remaining_six(self):
+        """The oracle tracks exactly the six post-criterion primitives."""
+        oracle = super_yangian_completion_obstruction_oracle()
+        assert tuple(oracle['primitive_order']) == COMPLETION_PRIMITIVES
+        assert set(oracle['primitives']) == set(COMPLETION_PRIMITIVES)
+
+    def test_every_completion_primitive_remains_unproved(self):
+        """No finite compute witness is allowed to prove the completed object."""
+        oracle = super_yangian_completion_obstruction_oracle()
+        assert oracle['status'] == 'CONJECTURAL'
+        assert oracle['completion_proved'] is False
+        assert oracle['hall_drinfeld_identification_proved'] is False
+        assert all(not p['proved'] for p in oracle['primitives'].values())
+        assert set(oracle['missing_primitives']) == set(COMPLETION_PRIMITIVES)
+
+    def test_positive_dimension_evidence_does_not_overclaim(self):
+        """Dimension arithmetic is positive evidence only for finite envelopes."""
+        oracle = super_yangian_completion_obstruction_oracle()
+        dims = oracle['dimension_oracle']
+        assert dims['gl_dimension'] == 576
+        assert dims['kac_osp_total_dimension'] == 296
+        assert dims['hodge_so_total_dimension'] == 276
+        assert oracle['tests_are_completion_proof'] is False
+        assert oracle['finite_boundary_status'] == 'RTT/current warm-up only'
+
+    def test_completed_pbw_flatness_is_not_spanning(self):
+        """Formal monomial spanning is not completed PBW flatness."""
+        pbw = super_yangian_completion_obstruction_oracle()['primitives'][
+            'completed_pbw_flatness'
+        ]
+        assert pbw['criterion'] == 'C4'
+        assert pbw['proved'] is False
+        assert pbw['all_order'] is False
+        assert 'linear independence' in pbw['required_witness']
+
+    def test_coproduct_antipode_continuity_is_open(self):
+        """Small-rank RTT maps do not give continuous completed Hopf maps."""
+        coalgebra = super_yangian_completion_obstruction_oracle()['primitives'][
+            'coproduct_antipode_continuity'
+        ]
+        assert coalgebra['criterion'] == 'C5'
+        assert coalgebra['proved'] is False
+        assert 'continuous Hall coproduct' in coalgebra['required_witness']
+        assert 'completed topological maps' in coalgebra['failure_mode']
+
+    def test_universal_r_convergence_is_open(self):
+        """Finite Yang-Baxter checks do not prove Borcherds-cone convergence."""
+        r_data = super_yangian_completion_obstruction_oracle()['primitives'][
+            'universal_R_convergence'
+        ]
+        assert r_data['criterion'] == 'C6'
+        assert r_data['proved'] is False
+        assert 'positive-root-height topology' in r_data['required_witness']
+
+    def test_associator_order_three_is_not_all_order(self):
+        """The hbar^3 associator check is not an all-order topology."""
+        assoc = super_yangian_completion_obstruction_oracle()['primitives'][
+            'all_order_associator_topology'
+        ]
+        assert assoc['criterion'] == 'C7'
+        assert assoc['checked_hbar_order'] == 3
+        assert assoc['all_order'] is False
+        assert assoc['proved'] is False
+
+    def test_reflection_centre_delta5_match_is_open(self):
+        """Finite central series are not yet the Delta_5 denominator."""
+        centre = super_yangian_completion_obstruction_oracle()['primitives'][
+            'reflection_centre_delta5_match'
+        ]
+        assert centre['criterion'] == 'C8'
+        assert centre['target_denominator'] == 'Delta_5'
+        assert centre['proved'] is False
+        assert 'Borcherds denominator' in centre['failure_mode']
+
+    def test_zeta8_integral_form_separates_real_borel_from_full_hopf(self):
+        """8^129 is not the full Hopf dimension of the completed object."""
+        integral = super_yangian_completion_obstruction_oracle()['primitives'][
+            'zeta8_divided_power_integral_form'
+        ]
+        assert integral['criterion'] == 'C8'
+        assert integral['root_of_unity_order'] == 8
+        assert integral['real_root_positive_borel_dimension'] == '8^129'
+        assert integral['full_hopf_dimension'] is None
+        assert integral['full_hopf_is_finite'] is False
+        assert integral['proved'] is False
 
 
 # =========================================================================
@@ -443,6 +569,22 @@ class TestFullReport:
         result = full_super_yangian_report()
         assert result['ybe']['satisfied'] is True
         assert result['unitarity']['holds'] is True
+
+    def test_report_remains_conjectural_and_small_rank(self):
+        """Small-rank checks do not globalise the rank (4,20) object."""
+        result = full_super_yangian_report()
+        assert result['status'] == 'CONJECTURAL'
+        assert result['ybe']['verified_at'] == (2, 1)
+        assert result['unitarity']['verified_at'] == (2, 1)
+        assert result['ybe']['verified_at'] != (4, 20)
+
+    def test_report_carries_completion_boundary(self):
+        """The full report preserves the all-order obstruction boundary."""
+        result = full_super_yangian_report()
+        completion = result['completion_obstructions']
+        assert completion['completion_proved'] is False
+        assert completion['hall_drinfeld_identification_proved'] is False
+        assert 'warm-up boundary' in result['overall_verdict']
 
 
 # =========================================================================

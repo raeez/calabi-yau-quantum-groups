@@ -2,7 +2,7 @@ r"""Tests for bkm_d3_explicit_generators.py: the 64 BKM Serre generators at D=3.
 
 STATUS: ALL results are CONJECTURAL (AP-CY14).
 Tests verify INTERNAL CONSISTENCY of the D=3 explicit construction,
-not existence of the BKM Yangian Y(g_hat_{Delta_5}).
+not existence of a Yangian deformation of g_hat_{Delta_5}.
 
 WHAT IS TESTED
 ==============
@@ -192,8 +192,10 @@ class TestLatticeVectorsD3:
         assert c20 > c10
 
     def test_count_exceeds_64(self):
-        """Lattice vector count exceeds 64, confirming non-bijection with generators."""
-        count = lattice_vector_count_at_d3(50)
+        """Lattice vector count exceeds 64 exactly after the odd-l threshold."""
+        assert lattice_vector_count_at_d3(50) == 50
+
+        count = lattice_vector_count_at_d3(65)
         assert count > 64, (
             f"Expected > 64 lattice vectors at large max_l, got {count}"
         )

@@ -5,7 +5,7 @@ function for K3 x E.  Each numerical claim is verified by at least 2
 independent methods.
 
 Test organization:
-  1.  Kappa-spectrum (6 tests)
+  1.  Kappa-spectrum (8 tests)
   2.  Strominger-Vafa entropy (8 tests)
   3.  Cardy formula (5 tests)
   4.  BPS degeneracies (6 tests)
@@ -13,11 +13,12 @@ Test organization:
   6.  Rademacher expansion (5 tests)
   7.  Shadow tower contributions (6 tests)
   8.  Shadow vs Rademacher comparison (4 tests)
-  9.  Kappa-entropy analysis (5 tests)
+  9.  Kappa-entropy analysis (7 tests)
   10. Cross-verifications (6 tests)
   11. Entropy comparison table (5 tests)
+  12. Summary (1 test)
 
-Total: 60 tests.
+Total: 65 tests.
 """
 
 import math
@@ -63,14 +64,18 @@ from compute.lib.bps_entropy_shadow import (
 # =========================================================================
 
 class TestKappaSpectrum:
-    """Verify the four kappa values for K3 x E (AP113)."""
+    """Verify the subscripted kappa values for K3 x E (AP113)."""
 
-    def test_kappa_ch_equals_3(self):
-        """kappa_ch = 3 = dim_C(K3 x E)."""
-        assert K3E_KAPPA_SPECTRUM.kappa_ch == Fraction(3)
+    def test_kappa_ch_compact_equals_0(self):
+        """Compact Hodge/PhiFA kappa_ch(K3 x E) = 0."""
+        assert K3E_KAPPA_SPECTRUM.kappa_ch == Fraction(0)
+
+    def test_kappa_ch_heis_equals_3(self):
+        """Heisenberg-specialised kappa_ch^Heis(K3 x E) = 3."""
+        assert K3E_KAPPA_SPECTRUM.kappa_ch_Heis == Fraction(3)
 
     def test_kappa_BKM_equals_5(self):
-        """kappa_BKM = 5 = weight of Delta_5."""
+        """kappa_BKM(Delta5) = c_N(0)/2 at N=1 = 5."""
         assert K3E_KAPPA_SPECTRUM.kappa_BKM == 5
 
     def test_kappa_cat_total_equals_0(self):
@@ -85,11 +90,10 @@ class TestKappaSpectrum:
         """kappa_fiber = 24 = rank of Mukai lattice."""
         assert K3E_KAPPA_SPECTRUM.kappa_fiber == 24
 
-    def test_resolved_labels_distinct(self):
-        """Resolved total-space and fiber labels are distinct."""
-        ks = K3E_KAPPA_SPECTRUM
-        values = {ks.kappa_ch, ks.kappa_BKM, ks.kappa_cat, ks.kappa_cat_fiber, ks.kappa_fiber}
-        assert len(values) == 5
+    def test_resolved_labels_not_collapsed(self):
+        """Equal numeric values do not collapse distinct kappa labels."""
+        assert K3E_KAPPA_SPECTRUM.kappa_ch == K3E_KAPPA_SPECTRUM.kappa_cat == 0
+        assert "kappa_ch_Heis" in KappaSpectrum._fields
 
     def test_verify_kappa_spectrum_all_pass(self):
         """All kappa spectrum verifications pass."""
@@ -317,10 +321,10 @@ class TestShadowTower:
         assert abs(S_shadow - S_BH) < 1e-10
 
     def test_shadow_uses_kappa_ch(self):
-        """Shadow tower uses kappa_ch = 3, NOT kappa_BKM."""
+        """Shadow tower uses kappa_ch^Heis = 3, NOT compact kappa_ch or kappa_BKM."""
         D = 100
         data = shadow_entropy_full(D)
-        assert data.kappa_ch_used == Fraction(3)
+        assert data.kappa_ch_Heis_used == Fraction(3)
         assert data.kappa_BKM_used == 5
 
     def test_shadow_corrections_decrease_with_genus(self):
@@ -344,7 +348,7 @@ class TestShadowTower:
         data = shadow_entropy_full(7)
         assert data.discriminant == 7
         assert data.S_BH > 0
-        assert data.kappa_ch_used == Fraction(3)
+        assert data.kappa_ch_Heis_used == Fraction(3)
         assert data.kappa_BKM_used == 5
         assert isinstance(data.shadow_tower_corrections, dict)
 
@@ -374,7 +378,7 @@ class TestShadowVsRademacher:
         assert comp.rademacher_correction_ratio < 0.001
 
     def test_shadow_genus1_correction_sign(self):
-        """Genus-1 shadow correction is positive (kappa_ch > 0)."""
+        """Genus-1 shadow correction is positive (kappa_ch^Heis > 0)."""
         comp = shadow_vs_rademacher(100)
         assert comp.shadow_genus1_correction > 0
 
@@ -392,43 +396,54 @@ class TestKappaEntropyAnalysis:
     """Verify which kappa controls the black hole entropy."""
 
     def test_kappa_BKM_is_answer(self):
-        """kappa_BKM = 5 controls the entropy (not kappa_ch = 3)."""
+        """kappa_BKM = 5 controls the entropy (not compact or Heisenberg kappa_ch)."""
         analysis = kappa_entropy_analysis()
         assert "kappa_BKM" in analysis["answer"]
 
     def test_total_space_kappa_identity_fails(self):
-        """kappa_BKM != kappa_ch + kappa_cat(K3 x E): 5 != 3 + 0."""
+        """kappa_BKM != kappa_ch + kappa_cat(K3 x E): 5 != 0 + 0."""
         analysis = kappa_entropy_analysis()
         assert analysis["identity_kBKM_eq_kch_plus_kcat_total"] is False
 
-    def test_fiber_kappa_identity(self):
-        """kappa_BKM = kappa_ch + kappa_cat(K3 fiber) = 3 + 2 = 5."""
+    def test_compact_fiber_kappa_identity_fails(self):
+        """kappa_BKM != kappa_ch + chi(O_K3): 5 != 0 + 2."""
         analysis = kappa_entropy_analysis()
-        assert analysis["identity_kBKM_eq_kch_plus_kcat_fiber"] is True
+        assert analysis["identity_kBKM_eq_kch_plus_chi_O_K3_fiber"] is False
+
+    def test_heis_fiber_is_only_coincidence(self):
+        """kappa_ch^Heis + chi(O_K3) = 3 + 2 = 5 is only an N=1 coincidence."""
+        analysis = kappa_entropy_analysis()
+        assert analysis["coincidence_N1_kBKM_eq_kch_Heis_plus_chi_O_K3_fiber"] is True
 
     def test_spectrum_values(self):
         """The spectrum values are correctly reported."""
         analysis = kappa_entropy_analysis()
         spec = analysis["kappa_spectrum"]
-        assert spec["kappa_ch"] == 3.0
+        assert spec["kappa_ch"] == 0.0
+        assert spec["kappa_ch_Heis"] == 3.0
         assert spec["kappa_BKM"] == 5.0
         assert spec["kappa_cat"] == 0.0
-        assert spec["kappa_cat_fiber"] == 2.0
         assert spec["kappa_fiber"] == 24.0
+        assert analysis["auxiliary_fiber_values"]["chi_O_K3_fiber"] == 2.0
 
     def test_key_identity_string(self):
-        """The key identity is stated correctly."""
+        """The key identity rejects additive proofs and records only the coincidence."""
         analysis = kappa_entropy_analysis()
+        assert "c_N(0)/2 at N=1 = 5" in analysis["key_identity"]
+        assert "0 + 0 != 5" in analysis["key_identity"]
+        assert "0 + 2 != 5" in analysis["key_identity"]
+        assert "coincidence only" in analysis["key_identity"]
         assert "3 + 2 = 5" in analysis["key_identity"]
-        assert "3 + 0 != 5" in analysis["key_identity"]
 
     def test_rademacher_predictions_all_present(self):
-        """All four kappa candidates have Rademacher predictions."""
+        """All kappa candidates have Rademacher predictions."""
         analysis = kappa_entropy_analysis()
         preds = analysis["rademacher_predictions"]
         assert "kappa_ch" in preds
+        assert "kappa_ch_Heis" in preds
         assert "kappa_BKM" in preds
         assert "kappa_cat" in preds
+        assert "aux_chi_O_K3_fiber" in preds
         assert "kappa_fiber" in preds
 
 
@@ -445,7 +460,7 @@ class TestCrossVerifications:
         assert result["match"] is True
 
     def test_kappa_identity_all_paths(self):
-        """kappa_BKM = 5 verified by 3 independent paths."""
+        """kappa_BKM = c_N(0)/2 at N=1 and additive identities are rejected."""
         checks = verify_kappa_identity()
         assert all(checks.values())
 

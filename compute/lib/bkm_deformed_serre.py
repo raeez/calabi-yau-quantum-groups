@@ -144,7 +144,7 @@ relations come from the deformed OPE structure at eps=1.
 
 6. FINITENESS OF THE SERRE IDEAL.
 
-   The Serre ideal of the conjectural BKM Yangian is INFINITELY GENERATED
+   The Serre ideal of the conjectural Yangian deformation of the BKM algebra is INFINITELY GENERATED
    but FINITELY DETERMINED, in the following sense:
 
    (a) INFINITELY GENERATED: at each discriminant D with c(D) != 0,
@@ -173,7 +173,7 @@ relations come from the deformed OPE structure at eps=1.
    the trivial high-energy Serre (commuting for D >= 5), determines
    the full Serre ideal.
 
-   STRUCTURAL RESULT: The BKM Yangian Serre ideal has a FINITE
+   STRUCTURAL RESULT: The conjectural Yangian-deformation Serre ideal has a FINITE
    SERRE KERNEL (the nontrivial low-D relations) and an INFINITE
    TAIL of trivial relations (commuting generators for D >= 5).
    The Serre kernel is determined by 182 generators across D in {0, 3, 4}
@@ -902,7 +902,7 @@ def imaginary_real_mixing(D: int) -> Dict[str, Any]:
 
 def serre_ideal_finiteness(D_max: int = 20, epsilon: float = 1.0
                            ) -> Dict[str, Any]:
-    r"""Analyze the finiteness structure of the BKM Yangian Serre ideal.
+    r"""Analyze the finiteness structure of the conjectural Yangian-deformation Serre ideal.
 
     The key structural result: the Serre ideal of the conjectural BKM
     Yangian is INFINITELY GENERATED but FINITELY DETERMINED.
@@ -1176,7 +1176,8 @@ def d3_serre_relation(epsilon: float = 1.0) -> Dict[str, Any]:
             'deformed self-OPE. The triple pole produces the ONLY '
             'nontrivial Serre relation that BREAKS the standard Borcherds '
             'commutativity [e_alpha, e_beta] = 0. This is the central '
-            'new result of the deformed OPE approach: the BKM Yangian '
+            'new result of the deformed OPE approach: the conjectural '
+            'Yangian deformation of the BKM algebra '
             'has nontrivial self-interaction concentrated at a single '
             'discriminant level.'
         ),
@@ -1412,7 +1413,7 @@ def deformed_serre_summary(D_max: int = 20, epsilon: float = 1.0
         'key_formula': 'P_self(D, 1) = D * (D - 4)',
         'key_result': (
             'The self-OPE exponent P_self(D, 1) = D*(D-4) is negative '
-            'ONLY for D = 3. The BKM Yangian Serre ideal has a finite '
+            'ONLY for D = 3. The conjectural Yangian-deformation Serre ideal has a finite '
             'kernel of 182 generators at D in {0, 3, 4} and an infinite '
             'tail of free generators at D >= 5. The UNIQUE genuine '
             'pole (nontrivial Serre) is at D = 3 with pole order 3.'

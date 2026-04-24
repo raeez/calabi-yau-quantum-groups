@@ -881,12 +881,13 @@ class E3BarComplexHeisenberg:
 # =========================================================================
 
 class E3BarComplexYangian:
-    r"""E_3 bar complex of the affine Yangian Y(gl_hat_1), the first
+    r"""E_3 bar complex of the doubled affine Yangian Y(gl_hat_1), the first
     non-free-field case.
 
-    CLASSIFICATION: Y(gl_hat_1) = CoHA(C^3) is class L (Lie/tree),
-    shadow depth r_max = 3. The cubic shadow C is nonzero (from the
-    structure function g(u)), but the quartic shadow S_4 = 0.
+    CLASSIFICATION: CoHA(C^3)=Y^+(gl_hat_1) is the positive half.
+    After Drinfeld double/center one obtains Y(gl_hat_1), class L
+    (Lie/tree), shadow depth r_max = 3. The cubic shadow C is nonzero
+    (from the structure function g(u)), but the quartic shadow S_4 = 0.
 
     CRITICAL DIFFERENCE FROM HEISENBERG: the differentials d_1, d_2, d_3
     are NONZERO. The Heisenberg has no nonlinear OPE, so all differentials
@@ -993,7 +994,7 @@ class E3BarComplexYangian:
 
     @property
     def shadow_class(self) -> str:
-        """Y(gl_hat_1) as CoHA(C^3) is class L."""
+        """The doubled Yangian from CoHA(C^3)=Y^+ is class L."""
         return "L"
 
     @property
@@ -1405,7 +1406,7 @@ class E3BarComplexYangian:
         cohom_dims = [self.cohomology_dimension(n) for n in range(8)]
 
         return {
-            "algebra": "Y(gl_hat_1) = CoHA(C^3)",
+            "algebra": "D(CoHA(C^3)=Y^+(gl_hat_1)) -> Y(gl_hat_1)",
             "shadow_class": self.shadow_class,
             "shadow_depth": self.shadow_depth,
             "omega": repr(self.omega),

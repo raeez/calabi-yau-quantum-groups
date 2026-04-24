@@ -96,7 +96,8 @@ SPECIFIC CY_3 FAMILIES
 
 2. Quintic CY_3 (compact, non-toric).
    Shadow class: M (infinite shadow depth from non-formality).
-   kappa_ch = chi_top / 24 = -200/24 = -25/3 (BCOV, free-field branch).
+   kappa_BCOV_shadow_conjectural = chi_top / 24 = -25/3
+   (BCOV free-field branch, not constructed kappa_ch).
    Conductor: rho_K = 0 on the free-field branch.
    For the interacting branch: rho_K = c_crit/2 (family-dependent).
    CY-B2: PROGRAMME (class M at d=3 requires chain-level analysis).
@@ -439,7 +440,9 @@ def cy_b2_d3_heisenberg(omega: Optional[OmegaBackground] = None) -> CYB2D3ProofD
 def cy_b2_d3_yangian(omega: Optional[OmegaBackground] = None) -> CYB2D3ProofData:
     """CY-B2 at d=3 for the affine Yangian Y(gl_hat_1) (class L).
 
-    The affine Yangian is the CoHA of C^3, class L with shadow depth 3.
+    CoHA(C^3) is the positive half Y^+(gl_hat_1).  The full affine
+    Yangian enters after Drinfeld double/center; this class-L check is
+    for that doubled Yangian object, not for the raw CoHA alone.
     E_3 bar cohomology: (1+t)^3 = [1,3,3,1], dim = 8.
     E_2 restriction: (1+t)^2 = [1,2,1], dim = 4.
 
@@ -460,7 +463,7 @@ def cy_b2_d3_yangian(omega: Optional[OmegaBackground] = None) -> CYB2D3ProofData
     restriction = e3_to_e2_restriction("L", kappa, kappa_dual, Fraction(0))
 
     return CYB2D3ProofData(
-        family_name="Affine Yangian Y(gl_hat_1) (CY_3 CoHA)",
+        family_name="Affine Yangian Y(gl_hat_1) from Drinfeld double of CY_3 CoHA",
         cy_dimension=3,
         shadow_class="L",
         kappa_ch=kappa,
@@ -605,12 +608,12 @@ def cy_b2_d3_quintic() -> CYB2D3ProofData:
 
     The quintic threefold X in P^4 has chi_top(X) = -200.
     On the free-field branch (lattice VOA / class G):
-      kappa_ch = chi_top / 24 = -25/3
-      kappa_ch^! = 25/3
+      kappa_BCOV_shadow_conjectural = chi_top / 24 = -25/3
+      dual BCOV-shadow scalar = 25/3
       Conductor: rho_K = 0
 
     On the interacting branch (class M):
-      kappa_ch is the full BCOV invariant, class M.
+      constructed kappa_ch remains a class-M proof obligation.
       CY-B2 remains programme.
 
     This function computes the free-field branch (class G, PROVED).

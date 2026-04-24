@@ -474,13 +474,13 @@ class TestK3TimesEDeformation:
 
     # -- Kappa --
 
-    def test_kappa_equals_5(self):
-        """kappa(K3 x E) = 5 (Igusa cusp form weight)."""
+    def test_kappa_BKM_equals_5(self):
+        """kappa_BKM(K3 x E) = 5 (Igusa cusp form weight)."""
         # VERIFIED [DC] kappa formula [LT] standard CY tables
         assert self.data.kappa == Fraction(5)
 
     def test_kappa_not_chi_24(self):
-        """kappa != chi/24 for K3 x E (AP48)."""
+        """kappa_BKM != chi/24 for K3 x E (AP48)."""
         chi_24 = Fraction(self.data.euler_characteristic, 24)
         assert self.data.kappa != chi_24
         # VERIFIED [DC] Euler characteristic formula [LT] AP48

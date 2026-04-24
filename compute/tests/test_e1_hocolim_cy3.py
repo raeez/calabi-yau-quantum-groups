@@ -433,7 +433,8 @@ class TestKappaComputation:
         """κ(C³) = 1 (Heisenberg at level 1).
 
         From the CY3 geometry: χ(C³) = 2 (equivariant), κ = χ/2 = 1.
-        Equivalently: CoHA(C³) = Y⁺(ĝl₁), chiral = W_{1+∞} = H₁, κ(H₁) = 1.
+        Equivalently: CoHA(C³)=Y⁺(ĝl₁); after double/center and Fock
+        evaluation the chiral object is W_{1+∞}=H₁ with κ(H₁)=1.
         """
         decomp = c3_single_chamber()
         hocolim = E1HocolimCY3(decomp)

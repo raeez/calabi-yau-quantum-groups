@@ -460,12 +460,12 @@ class TestMCDeformation:
         mc_desc = heis["mc_deformation"].mc_moduli_dimension()
         assert "point" in mc_desc
 
-    def test_yangian_mc_is_smooth(self):
-        """Yangian MC moduli = smooth (BTT unobstructedness for class L)."""
-        # VERIFIED [DC] class L [LT] Bogomolov-Tian-Todorov
+    def test_yangian_mc_is_finite_ce_shadow(self):
+        """Yangian MC output is a finite strict CE shadow."""
+        # VERIFIED [DC] class L finite CE shadow [LT] strict Lie CE
         yang = yangian_e3_deformation()
         mc_desc = yang["mc_deformation"].mc_moduli_dimension()
-        assert "smooth" in mc_desc
+        assert "finite CE shadow" in mc_desc
 
     def test_virasoro_mc_is_singular(self):
         """Virasoro MC moduli = singular (L_infinity obstructions)."""
@@ -514,17 +514,22 @@ class TestMCDeformation:
         heis = heisenberg_e3_deformation()
         fm = heis["mc_deformation"].formal_moduli_description()
         assert fm["unobstructed"] is True
+        assert fm["unobstructed_scope"] == "finite_exterior_CE_shadow"
+        assert fm["full_chiral_hochschild_unobstructed_certified"] is False
         assert fm["obstruction_dim"] == 0
         assert fm["tangent_dim"] == 1
 
     def test_formal_moduli_yangian(self):
-        """Yangian formal moduli: unobstructed (BTT), smooth."""
-        # VERIFIED [DC] BTT [LT] class L unobstructedness
+        """Yangian formal moduli output is the finite CE shadow."""
+        # VERIFIED [DC] finite CE shadow [LT] strict Lie CE
         yang = yangian_e3_deformation()
         fm = yang["mc_deformation"].formal_moduli_description()
-        assert fm["unobstructed"] is True
+        assert fm["unobstructed"] is False
+        assert fm["unobstructed_scope"] == "finite_exterior_CE_shadow"
+        assert fm["full_chiral_hochschild_unobstructed_certified"] is False
+        assert fm["finite_shadow_unobstructed"] is True
         assert fm["tangent_dim"] == 3
-        assert fm["obstruction_dim"] == 3  # present but killed by Jacobi
+        assert fm["obstruction_dim"] == 3  # finite shadow obstruction dimension
 
     def test_formal_moduli_virasoro(self):
         """Virasoro formal moduli: CONJECTURAL interpretation."""
@@ -549,11 +554,11 @@ class TestDerivedModuliStack:
         assert "point" in desc
 
     def test_yangian_classical_moduli(self):
-        """Yangian classical moduli = smooth scheme."""
-        # VERIFIED [DC] class L [LT] BTT unobstructedness
+        """Yangian classical moduli output is finite CE shadow."""
+        # VERIFIED [DC] class L finite CE shadow [LT] strict Lie CE
         yang = yangian_e3_deformation()
         desc = yang["derived_moduli"].classical_moduli_description()
-        assert "smooth" in desc
+        assert "finite CE shadow" in desc
 
     def test_virasoro_classical_moduli(self):
         """Virasoro classical moduli = singular stack."""

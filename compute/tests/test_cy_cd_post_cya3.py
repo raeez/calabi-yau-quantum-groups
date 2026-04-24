@@ -290,16 +290,17 @@ class TestCYDStatus:
         assert 'CY-A_3' in cy_d_status(3).dependencies
 
     def test_kappa_ch_k3xe_additivity(self):
-        """kappa_ch(K3 x E) = 3 by additivity: 2 + 1 = 3.
+        """kappa_ch_Heis(K3 x E) = 3 by additivity: 2 + 1 = 3.
 
         # VERIFIED [DC] direct computation [LT] additivity
         """
         result = kappa_ch_k3_times_e_additivity()
-        assert result['kappa_ch_K3xE'] == F(3)
+        assert result['kappa_ch_K3xE'] == F(0)
+        assert result['kappa_ch_Heis_K3xE'] == F(3)
         assert result['additivity_holds'] is True
 
     def test_kappa_ch_k3xe_no_cya3(self):
-        """kappa_ch(K3 x E) = 3 does NOT require CY-A_3."""
+        """kappa_ch_Heis(K3 x E) = 3 does NOT require CY-A_3."""
         result = kappa_ch_k3_times_e_additivity()
         assert result['uses_cya3'] is False
 
@@ -332,7 +333,8 @@ class TestCYDStatus:
         assert KAPPA_CH_VALUES['point'] == F(0)
         assert KAPPA_CH_VALUES['elliptic_curve'] == F(1)
         assert KAPPA_CH_VALUES['K3'] == F(2)
-        assert KAPPA_CH_VALUES['K3_times_E'] == F(3)
+        assert KAPPA_CH_VALUES['K3_times_E'] == F(0)
+        assert KAPPA_CH_VALUES['K3_times_E_Heis'] == F(3)
         assert KAPPA_CH_VALUES['C3'] == F(1)
 
     def test_kappa_ch_k3_is_chi_o_k3(self):
@@ -362,17 +364,19 @@ class TestCYDD3:
         assert result['c3']['chi_cy'] == F(1)
 
     def test_k3xe_proved(self):
-        """kappa_ch(K3 x E) = 3 = chi^CY: PROVED by additivity."""
+        """Compact kappa_ch(K3 x E)=0; the Heisenberg shadow equals 3."""
         result = kappa_ch_cy_d_d3_assessment()
         assert result['k3xe']['proved'] is True
-        assert result['k3xe']['kappa_ch'] == F(3)
-        assert result['k3xe']['chi_cy'] == F(3)
+        assert result['k3xe']['kappa_ch'] == F(0)
+        assert result['k3xe']['kappa_ch_Heis'] == F(3)
+        assert result['k3xe']['chi_cy_compact'] == F(0)
 
     def test_quintic_open(self):
-        """kappa_ch(quintic) = -25/3: NOT proved."""
+        """Quintic has a BCOV-shadow candidate; constructed kappa_ch is open."""
         result = kappa_ch_cy_d_d3_assessment()
         assert result['quintic']['proved'] is False
-        assert result['quintic']['kappa_ch'] == F(-25, 3)
+        assert result['quintic']['kappa_BCOV_shadow_conjectural'] == F(-25, 3)
+        assert result['quintic']['kappa_ch_constructed'] is False
 
     def test_c3_match(self):
         """C^3: kappa_ch matches chi^CY."""
@@ -385,18 +389,18 @@ class TestCYDD3:
         assert result['k3xe']['match'] is True
 
     def test_quintic_conjectural_match(self):
-        """Quintic: kappa_ch matches chi^CY candidate (conjectural)."""
+        """Quintic: BCOV-shadow candidate matches chi^CY candidate conjecturally."""
         result = kappa_ch_cy_d_d3_assessment()
         assert result['quintic']['match'] is True
 
     def test_quintic_chi_top_24(self):
-        """Quintic: kappa_ch = chi_top/24 = -200/24 = -25/3.
+        """Quintic: BCOV-shadow candidate = chi_top/24 = -25/3.
 
         # VERIFIED [DC] direct computation
         """
         assert F(-200, 24) == F(-25, 3)
         result = kappa_ch_cy_d_d3_assessment()
-        assert result['quintic']['kappa_ch'] == F(-25, 3)
+        assert result['quintic']['kappa_BCOV_shadow_conjectural'] == F(-25, 3)
 
     def test_k3xe_additivity_method(self):
         """K3 x E: proved by additivity."""
@@ -411,8 +415,9 @@ class TestCYDD3:
     def test_status_summary_present(self):
         """Status summary present and describes d=3 situation."""
         result = kappa_ch_cy_d_d3_assessment()
-        assert 'DEFINED' in result['status_summary']
-        assert 'CONJECTURED' in result['status_summary']
+        assert 'constructed kappa_ch is PROVED' in result['status_summary']
+        assert 'BCOV-shadow candidate' in result['status_summary']
+        assert 'conjectural' in result['status_summary']
 
 
 # =========================================================================
@@ -481,13 +486,14 @@ class TestBFNRoute:
 class TestKappaSpectrum:
     """The four-kappa spectrum for K3 x E after CY-A_3."""
 
-    def test_kappa_ch_3(self):
-        """kappa_ch(K3 x E) = 3 (AP113).
+    def test_kappa_ch_slots(self):
+        """compact kappa_ch(K3 x E)=0 and kappa_ch_Heis(K3 x E)=3 (AP113).
 
         # VERIFIED [DC] additivity [LT] kappa_spectrum_reconciliation.py
         """
         result = kappa_spectrum_k3xe_post_cya3()
-        assert result['kappa_ch'] == F(3)
+        assert result['kappa_ch'] == F(0)
+        assert result['kappa_ch_Heis'] == F(3)
 
     def test_kappa_bkm_5(self):
         """kappa_BKM(K3 x E) = 5 (Borcherds weight)."""
@@ -510,16 +516,18 @@ class TestKappaSpectrum:
         assert result['kappa_fiber'] == F(24)
 
     def test_resolved_distinct_values(self):
-        """The resolved K3xE values are {0, 2, 3, 5, 24}."""
+        """The public K3xE values are {0, 3, 5, 24}; 2 is auxiliary fiber data."""
         result = kappa_spectrum_k3xe_post_cya3()
         spectrum = result['spectrum']
-        assert len(spectrum) == 5
-        assert spectrum == {F(0), F(2), F(3), F(5), F(24)}
+        assert len(spectrum) == 4
+        assert spectrum == {F(0), F(3), F(5), F(24)}
+        assert result['auxiliary_fiber_values'] == {F(2)}
 
     def test_kappa_ch_proved(self):
-        """kappa_ch = 3 is PROVED."""
+        """compact kappa_ch = 0 and kappa_ch_Heis = 3 are both typed."""
         result = kappa_spectrum_k3xe_post_cya3()
         assert 'PROVED' in result['kappa_ch_status']
+        assert 'PROVED' in result['kappa_ch_Heis_status']
 
     def test_kappa_bkm_conjectural(self):
         """kappa_BKM = 5 is CONJECTURAL."""
@@ -527,7 +535,7 @@ class TestKappaSpectrum:
         assert 'CONJECTURAL' in result['kappa_BKM_status']
 
     def test_kappa_ch_independent_of_cya3(self):
-        """kappa_ch(K3 x E) = 3 is independent of CY-A_3."""
+        """The K3xE slot separation is independent of CY-A_3."""
         result = kappa_spectrum_k3xe_post_cya3()
         assert result['kappa_ch_cya3_independent'] is True
 
@@ -556,7 +564,7 @@ class TestShadowPredictions:
         assert result['F_1'] == F(1, 24)
 
     def test_quintic_f1(self):
-        """F_1(quintic) = kappa_ch / 24 = (-25/3)/24 = -25/72.
+        """F_1(quintic) from the BCOV-shadow candidate is -25/72.
 
         # VERIFIED [DC] direct computation [LT] BCOV
         """
@@ -601,18 +609,20 @@ class TestFullReassessment:
         assert 'singly' in result['cy_c_change']
 
     def test_cyd_change(self):
-        """CY-D change: kappa_ch now defined at d=3."""
+        """CY-D change: proved lanes are separated from candidate lanes."""
         result = full_reassessment_post_cya3()
-        assert 'DEFINED' in result['cy_d_change']
+        assert 'proved lanes separated' in result['cy_d_change']
+        assert 'BCOV-shadow candidate' in result['cy_d_change']
 
     def test_kappa_ch_k3xe_proved(self):
-        """kappa_ch(K3 x E) = 3 is proved."""
+        """Compact kappa_ch(K3 x E)=0; the Heisenberg shadow equals 3."""
         result = full_reassessment_post_cya3()
-        assert result['kappa_ch_k3xe'] == F(3)
+        assert result['kappa_ch_k3xe'] == F(0)
+        assert result['kappa_ch_heis_k3xe'] == F(3)
         assert result['kappa_ch_k3xe_proved'] is True
 
     def test_kappa_ch_k3xe_no_cya3(self):
-        """kappa_ch(K3 x E) = 3 does not use CY-A_3."""
+        """The K3 x E compact and Heisenberg scalars do not use CY-A_3."""
         result = full_reassessment_post_cya3()
         assert result['kappa_ch_k3xe_uses_cya3'] is False
 

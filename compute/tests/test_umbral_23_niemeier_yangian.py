@@ -607,6 +607,16 @@ class TestLandscape:
         assert MOCK_POLAR_COEFF == -2
         assert ENGINE_STATUS == 'CONJECTURAL'
 
+    def test_landscape_does_not_claim_cy_host(self):
+        """The 23-umbral engine is a conjectural shadow engine, not a host."""
+        ls = umbral_23_landscape()
+        assert ls['num_niemeier'] == 23
+        assert ls['status'] == ENGINE_STATUS
+        assert ENGINE_STATUS == 'CONJECTURAL'
+        for entry in ls['landscape']:
+            assert entry['construction_uniform'] is True
+            assert 'host' not in entry
+
     def test_degenerate_lambencies_exist(self):
         """Some lambencies are shared: 6 (D_4^6 and A_5^4 D_4), etc."""
         lambency_counts = {}

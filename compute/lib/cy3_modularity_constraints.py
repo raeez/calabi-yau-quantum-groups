@@ -68,7 +68,8 @@ CONVENTIONS:
 
 CAUTIONS:
    - kappa_BKM(K3 x E) = 5 is NOT chi_top(K3 x E)/24 = 0 (AP48).
-   - The conjectural kappa = chi_top/24 for rigid CY3s is UNPROVED.
+   - The conjectural kappa_BCOV_shadow_conjectural = chi_top/24 for
+     rigid CY3s is UNPROVED as constructed kappa_ch.
    - F_1 = kappa/24 is genus-1 SCALAR shadow only; higher-arity
      corrections may contribute at genus >= 2.
    - Siegel modularity applies to the FULL amplitude, not just the
@@ -151,8 +152,9 @@ def cy3_modular_data_k3e() -> CY3ModularData:
     r"""K3 x E: Delta_5, Siegel modular form of weight 5 for Sp_4(Z).
 
     PROVED: Borcherds product / Gritsenko Delta_5 lane.
-    kappa_BKM = 5 = weight(Delta_5) = c_1(0)/2.
-    chi_top(K3 x E) = 0 and kappa_ch(K3 x E) = 3; neither is this lane.
+    kappa_BKM = 5 = weight(Delta_5) = c_N(0)/2 at N=1.
+    chi_top(K3 x E) = 0 and compact kappa_ch(K3 x E) = 0; neither is this lane.
+    The separate Heisenberg shadow has kappa_ch_Heis(K3 x E) = 3.
     """
     return CY3ModularData(
         name="K3 x E",
@@ -161,7 +163,7 @@ def cy3_modular_data_k3e() -> CY3ModularData:
         siegel_weight=Fraction(5),
         arithmetic_group="Sp_4(Z)",
         is_proved=True,
-        source="Borcherds lift of phi_{0,1}: kappa_BKM = c_1(0)/2",
+        source="Borcherds lift of phi_{0,1}: kappa_BKM = c_N(0)/2 at N=1",
         kappa_label="kappa_BKM",
     )
 
@@ -169,7 +171,7 @@ def cy3_modular_data_k3e() -> CY3ModularData:
 def cy3_modular_data_quintic() -> CY3ModularData:
     r"""Quintic CY3: CONJECTURAL.
 
-    chi_top = -200.  Conjectural: kappa = chi_top/24 = -25/3.
+    chi_top = -200.  Conjectural BCOV-shadow scalar: chi_top/24 = -25/3.
     The non-integrality of kappa means the automorphic form, if it exists,
     has fractional weight -- suggesting a metaplectic or vector-valued form.
     """
@@ -794,8 +796,8 @@ def structural_constraints_k3e() -> List[StructuralConstraint]:
         StructuralConstraint(
             name="weight_integrality",
             description=(
-                "Weight of Siegel form = kappa = 5 is integral. "
-                "This constrains kappa to be a positive integer "
+                "Weight of Siegel form = kappa_BKM = 5 is integral. "
+                "This constrains kappa_BKM to be a positive integer "
                 "for CY3s with a genuine BKM identification."
             ),
             applies_to="K3 x E",
@@ -862,8 +864,9 @@ def structural_constraints_general_cy3() -> List[StructuralConstraint]:
         StructuralConstraint(
             name="weight_constraint",
             description=(
-                "If chi(X) != 0: kappa = chi/24 (CONJECTURAL). "
-                "If chi = 0: kappa can be nonzero (K3 x E has chi=0, kappa=5). "
+                "If chi(X) != 0: the BCOV-shadow candidate is chi/24. "
+                "If chi = 0: BKM weights can be nonzero "
+                "(K3 x E has chi=0, kappa_BKM=5). "
                 "The weight need not be chi/24 in general."
             ),
             applies_to="general CY3",
@@ -1192,12 +1195,13 @@ def kappa_integrality_obstruction(chi_top: int) -> Dict[str, Any]:
     is an obstruction.
 
     Known cases:
-      K3 x E: chi_top = 0, but kappa = 5 (NOT chi_top/24).
+      K3 x E: chi_top = 0, but kappa_BKM = 5 (NOT chi_top/24).
       Quintic: chi_top = -200, chi_top/24 = -25/3 (non-integral).
       Resolved conifold: chi_top = 2, kappa = 1 (= chi_top/2, not /24).
 
-    The formula kappa = chi_top/24 is a CONJECTURE (BCOV) that holds
-    approximately but fails for K3-fibered CY3s.
+    The scalar chi_top/24 is a BCOV-shadow conjectural lane.  It is not
+    a universal constructed kappa_ch formula and fails for K3-fibered
+    CY3s when read that way.
     """
     kappa_conj = Fraction(chi_top, 24)
     is_integral = kappa_conj.denominator == 1
@@ -1210,8 +1214,8 @@ def kappa_integrality_obstruction(chi_top: int) -> Dict[str, Any]:
         "is_positive": is_positive,
         "bkm_obstruction": not is_integral,
         "note": (
-            "kappa = chi_top/24 is CONJECTURAL. "
-            "For K3 x E: chi_top=0 but kappa=5 (formula fails). "
+            "kappa_BCOV_shadow_conjectural = chi_top/24 is CONJECTURAL. "
+            "For K3 x E: chi_top=0 but kappa_BKM=5 (formula fails). "
             f"For chi_top={chi_top}: kappa_conj = {kappa_conj} "
             f"({'integral' if is_integral else 'NON-INTEGRAL'})."
         ),

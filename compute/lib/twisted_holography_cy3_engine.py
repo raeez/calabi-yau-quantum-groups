@@ -1239,7 +1239,7 @@ def twisted_holography_summary_c3() -> Dict[str, str]:
     return {
         'geometry': 'C³ (flat CY3 threefold)',
         'M_theory': 'M-theory on C³ × TN_k (Taub-NUT)',
-        'boundary': 'W_{1+∞} = Y(gl_hat_1) = CoHA(C³) doubled',
+        'boundary': 'W_{1+∞} = Y(gl_hat_1) from Drinfeld double of CoHA(C³)=Y⁺',
         'bulk': '5d holomorphic CS on C² × R_t',
         'koszul_dual': 'W_{1+∞}^! at reflected parameters',
         'r_matrix': 'Yang R-matrix (only odd poles, CY unitarity)',

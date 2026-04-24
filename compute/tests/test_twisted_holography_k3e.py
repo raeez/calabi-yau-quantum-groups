@@ -6,7 +6,7 @@ Verifies:
   (3) Defect algebra: E_1-chiral bialgebra axioms from Wilson lines
   (4) kappa_ch = 2 from four independent routes
   (5) Mukai signature (4,20) from R-matrix zero distribution
-  (6) kappa-spectrum polysemy: {2, 3, 5, 24}
+  (6) kappa-spectrum polysemy: compact 0 plus {2, 3, 5, 24}
   (7) Gravitational anomaly decomposition via index theorems
   (8) Cross-engine consistency with k3_yangian, drinfeld_center, e1_bialgebra
 
@@ -50,6 +50,8 @@ from compute.lib.twisted_holography_k3e import (
     KAPPA_BKM_K3E,
     KAPPA_CAT_K3,
     KAPPA_CH_E,
+    KAPPA_CH_HEIS_E,
+    KAPPA_CH_HEIS_K3E,
     KAPPA_CH_K3,
     KAPPA_CH_K3E,
     KAPPA_FIBER_K3,
@@ -158,27 +160,26 @@ class TestKappaSpectrum:
         assert KAPPA_CH_K3 == 2
 
     def test_kappa_ch_e(self):
-        """kappa_ch(E) = 1 (Heisenberg at level 1).
+        """Compact kappa_ch(E)=0, while the Heisenberg shadow scalar is 1.
 
-        # VERIFIED: DC (kappa_ch(H_k) = k with k=1), LT (landscape_census.tex)
+        # VERIFIED: DC chi(O_E)=1-1=0 and kappa_ch^Heis(H_1)=1.
         """
-        assert KAPPA_CH_E == 1
+        assert KAPPA_CH_E == 0
+        assert KAPPA_CH_HEIS_E == 1
 
     def test_kappa_ch_k3e(self):
-        """kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+        """Compact kappa_ch(K3 x E)=0 and kappa_ch^Heis(K3 x E)=3.
 
         # Route B (Heisenberg level / free-boson rank, AP-CY55 algebraisation
-        # invariant): kappa_ch(E) = 1 via k = 1 Heisenberg level, additive
+        # invariant): kappa_ch^Heis(E)=1 via k=1 Heisenberg level, additive
         # under product of free-boson constructions, giving 2 + 1 = 3.
         # Route A (Hodge supertrace, Kunneth-multiplicative) gives
-        # Xi(K3 x E) = Xi(K3) * Xi(E) = 2 * 0 = 0 (E has Xi = 1 - 1 = 0);
-        # the canonical Phi_d functor value is 0 per
-        # cy_d_kappa_stratification.tex:411-426. Both routes coexist under
-        # AP234 notational collision; this test pins the Route B value.
+        # Xi(K3 x E) = Xi(K3) * Xi(E) = 2 * 0 = 0.
         # VERIFIED: DC (Route B additivity), LT (modular_koszul_bridge_k3e.py)
         """
-        assert KAPPA_CH_K3E == KAPPA_CH_K3 + KAPPA_CH_E
-        assert KAPPA_CH_K3E == 3
+        assert KAPPA_CH_K3E == 0
+        assert KAPPA_CH_HEIS_K3E == KAPPA_CH_K3 + KAPPA_CH_HEIS_E
+        assert KAPPA_CH_HEIS_K3E == 3
 
     def test_kappa_bkm_k3e(self):
         """kappa_BKM(K3 x E) = wt(Delta_5) = c_1(0)/2 = 10/2 = 5.
@@ -214,13 +215,18 @@ class TestKappaSpectrum:
         assert KAPPA_CH_K3 == KAPPA_CAT_K3
 
     def test_kappa_spectrum_polysemy(self):
-        """The four kappa values {2, 3, 5, 24} are pairwise distinct.
+        """The visible compact/relative/BKM/fiber values are separated.
 
         # VERIFIED: DC (enumeration)
         """
-        kappas = {KAPPA_CH_K3, KAPPA_CH_K3E, KAPPA_BKM_K3E, KAPPA_FIBER_K3}
-        assert len(kappas) == 4
-        assert kappas == {2, 3, 5, 24}
+        kappas = {
+            KAPPA_CH_K3E,
+            KAPPA_CH_K3,
+            KAPPA_CH_HEIS_K3E,
+            KAPPA_BKM_K3E,
+            KAPPA_FIBER_K3,
+        }
+        assert kappas == {0, 2, 3, 5, 24}
 
 
 # =========================================================================

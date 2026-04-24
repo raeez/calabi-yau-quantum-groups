@@ -292,12 +292,12 @@ class TestPathD_BKMCrossCheck:
             assert ok, f"Arity {r} disagrees with BKM module"
 
     def test_kappa_value(self):
-        """kappa = 5 (weight of Delta_5)."""
+        """kappa_BKM = 5 (weight of Delta_5)."""
         # VERIFIED [DC] kappa formula [CF] cross-family census
         assert sd.hypothetical_kappa() == Fraction(5)
 
     def test_kappa_matches_bkm(self):
-        """Our kappa matches bkm_shadow_tower.kappa_projection()."""
+        """Our kappa_BKM matches bkm_shadow_tower.kappa_projection()."""
         assert sd.hypothetical_kappa() == bkm.kappa_projection()
 
     def test_arity2_is_all_real(self):

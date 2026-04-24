@@ -29,8 +29,8 @@ This module:
         by the UNION Lambda_1 + Lambda_2 (rather than the disjoint sum).
   (iv)  Borcherds sector: the imaginary-root contribution from
         g_{Delta_5} is NOT a Yangian.  We record the Borcherds-lift
-        weights of Phi_{10}^{-1} as the character of the "BKM Yangian
-        stand-in" and construct a DIAGONAL R-matrix that reproduces the
+        weights of Phi_{10}^{-1} as the character of the Hall-Borcherds
+        stand-in and construct a DIAGONAL R-matrix that reproduces the
         rank-1 Igusa-cusp divisor.  This is a character-level
         contribution, not a full R-matrix.
   (v)   Full direct-sum R-matrix
@@ -379,7 +379,7 @@ def cartan_glued_r_matrix(Omega_1: np.ndarray, N1: int,
 def borcherds_phi10_multiplicities(max_order: int = 12
                                    ) -> list[tuple[int, int]]:
     r"""Fourier coefficients of 1/Phi_{10}^{1/2} = 1/Delta_5, the Borcherds
-    lift relevant to the K3 Yangian BKM sector.  Truncate to max_order
+    lift relevant to the K3 Hall-Borcherds sector.  Truncate to max_order
     (in the Fourier variable p).
 
     Delta_5 is the unique weight-5 cusp form on Sp(4, Z); its Fourier

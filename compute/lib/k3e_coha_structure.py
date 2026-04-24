@@ -1,5 +1,5 @@
 r"""
-E1-chiral algebra structure of CoHA(K3 x E) from Oberdieck-Pixton.
+Associative Hall-side diagnostics for CoHA(K3 x E) from Oberdieck-Pixton.
 
 MATHEMATICAL CONTENT
 ====================
@@ -52,8 +52,11 @@ where c(D) are the discriminant coefficients of the weak Jacobi form phi_{0,1}.
 BKM IDENTIFICATION
 ==================
 
-The CENTRAL claim: CoHA(K3 x E) is isomorphic (as a graded algebra with
-product) to the POSITIVE HALF of the BKM superalgebra g_{Delta_5}:
+The central conditional target: an oriented compact critical
+CoHA(K3 x E), once the Hall product and Hall-to-Borcherds bracket
+comparison are constructed, should identify (as a graded associative
+algebra with product) with the POSITIVE HALF of the BKM superalgebra
+g_{Delta_5}:
 
     CoHA(K3 x E) = U(n_+)
 
@@ -65,11 +68,14 @@ Evidence:
 (2) The DMVV product = BKM denominator identity (Gritsenko-Nikulin).
 (3) The Weyl symmetry of g_{Delta_5} acts on the K3 moduli.
 
-EQUIVARIANT DEFORMATION (E1 STRUCTURE)
-=======================================
+EQUIVARIANT DEFORMATION (ASSOCIATIVE E1 ALGEBRA STRUCTURE)
+===========================================================
 
-The E1-chiral algebra structure emerges when equivariant parameters from the
-torus T action on E (the elliptic curve factor) are turned on.
+The associative E1 algebra structure emerges when equivariant parameters
+from the torus T action on E (the elliptic curve factor) are turned on.
+CoHA itself is not a chiral algebra; the chiral object appears only after
+the framed Phi_3 specialisation, completion, Hall/Drinfeld comparison,
+and centre data are supplied.
 
 Let epsilon be the equivariant parameter for the T-action on E.  Then:
 
@@ -88,14 +94,15 @@ For K3 x E, the Maulik-Okounkov construction shows:
     - The stable envelope gives the R-matrix.
     - The E1 product is the epsilon-deformation of the BKM algebra.
 
-This is the E1-chiral algebra: at the algebraic level it is a vertex algebra
-whose mode algebra is the affine extension of g_{Delta_5}.
+This is an associative Hall-side diagnostic, not an E1-chiral algebra.
+At the chiral level the corresponding vertex/chiral object is conditional
+on the manuscript comparison data.
 
 WHAT THIS MODULE COMPUTES
 =========================
 
 1. dim(CoHA_gamma) for low charges, via the DMVV formula + phi_{0,1}.
-2. The E1 product structure constants at low orders.
+2. The associative E1 product structure constants at low orders.
 3. Root multiplicities = dim(CoHA_gamma) verification.
 4. The equivariant deformation structure function.
 5. Generating functions for each rank sector.

@@ -1,4 +1,4 @@
-r"""Chiral Chevalley-Eilenberg complex: B(A) as CE chains of L_A.
+r"""Finite exterior chiral CE shadow of the ordered E3 vertex-bar.
 
 MATHEMATICAL FRAMEWORK
 ======================
@@ -15,14 +15,18 @@ where the differential d_CE encodes the lambda-bracket:
     d_CE(a ^ b ^ c) = {a_0 b} ^ c - {a_0 c} ^ b        (arity 3, Jacobi)
                       + {b_0 c} ^ a
 
-For the chiral envelope A = U^ch(L), the bar complex B(A) computes
-the derived indecomposables of A. The key identification:
+For the chiral envelope A = U^ch(L), the finite exterior CE complex is
+the locally constant strict-Lie shadow of the bar construction. The key
+identification:
 
-    B(U^ch(L)) = CE_*(L)
+    B(U^ch(L)) -> CE_*(L)
 
-when L is a Lie conformal algebra (i.e. the A_infinity structure on A is
-strict: m_k = 0 for k >= 3, which holds exactly when L is a strict Lie
-conformal algebra, not L_infinity).
+is a quotient from ordered tensor/bar data to exterior chains. It is a
+quasi-isomorphism only in the strict locally constant Lie-conformal
+shadow where the higher A_infinity operations, repeated-input vertex
+operations, and Fulton--MacPherson boundary corrections have vanished.
+The native repeated-input controller is implemented in
+``compute.lib.ordered_chiral_e3_bar``.
 
 THE FIVE EXAMPLES
 =================
@@ -44,37 +48,43 @@ THE FIVE EXAMPLES
    (d + 2*lambda)*T + c/12*lambda^3 is a Lie bracket (strict), BUT the
    OPE has poles of order > 2. The A_infinity structure on the bar complex
    has m_3 != 0 from the associator. The CE complex of the underlying
-   Lie conformal algebra captures only the m_2 part. The FULL bar complex
-   has corrections from m_3, m_4, ... (the shadow tower).
+   Lie conformal algebra captures only the m_2 part. The ordered
+   vertex-bar controller has corrections from m_3, m_4, ... and keeps
+   repeated inputs that this exterior shadow kills.
 
 4. W_{1+infinity} (class M): L = Lie conformal algebra with generators
    J (spin 1), T (spin 2), W (spin 3), .... The A_infinity structure is
    non-trivial from spin 2 onwards (Virasoro subsector is class M).
 
 5. YANGIAN Y(gl_hat_1) (class L): As a strict algebra (m_k = 0 for k >= 3),
-   its bar complex IS the CE complex of the underlying Lie algebra.
+   its finite strict-Lie shadow is represented by the CE complex of the
+   underlying Lie algebra.
    Poincare poly: (1+t)^3 for the 3-generator truncation.
 
-L_INFINITY DEFORMATION
-======================
+L_INFINITY SHADOW DEFORMATION
+=============================
 
-For a general A_infinity algebra A, the bar complex is the CE complex of
-an L_infinity algebra L_A. The L_infinity structure maps are:
+For a general A_infinity algebra A, this file records the finite
+exterior L_infinity shadow. The L_infinity structure maps are:
 
     l_1 = 0                    (no internal differential)
     l_2 = Lie bracket          (from m_2, the OPE residue)
     l_3 = Jacobiator           (from m_3, the associator)
     l_k = higher Jacobiators   (from m_k, the higher A_infinity operations)
 
-The identification is:
+The exterior-shadow identification is:
 
     B_k(A)   <-->   CE_k(L_A) = Lambda^k(L_A)
     d_bar    <-->   d_CE^{L_infinity}
 
-where d_CE^{L_infinity} = sum_{k>=2} d^{(k)} with d^{(k)} built from l_k.
+where d_CE^{L_infinity} = sum_{k>=2} d^{(k)} with d^{(k)} built from
+l_k, after passing through the exterior quotient. It does not replace
+the completed ordered chiral Hochschild/controller complex.
 
-For a strict Lie algebra (l_k = 0 for k >= 3): d_CE = d^{(2)} only.
-For class M (l_k != 0 for all k): d_CE has infinitely many terms.
+For a strict Lie algebra (l_k = 0 for k >= 3): the exterior shadow has
+d_CE = d^{(2)} only. For class M (l_k != 0 for all k): the ordered
+controller has infinitely many higher terms, while this exterior shadow
+sees only the projected terms that survive antisymmetrisation.
 
 SHADOW TOWER IDENTIFICATION
 ============================
@@ -239,8 +249,8 @@ class LieConformalAlgebra:
         for a in self.generators:
             for b in self.generators:
                 if self.zeroth_product(a, b):
-                    return True  # has a nonzero bracket
-        return False
+                    return False
+        return True
 
     @property
     def dim(self) -> int:
@@ -350,7 +360,8 @@ def yangian_gl1_lca() -> LieConformalAlgebra:
 
     Generators: e_0, e_1, e_2 (the first three positive-root generators
     of the affine Yangian). As a strict associative algebra (m_k = 0 for
-    k >= 3), the bar complex IS the CE complex of the underlying Lie algebra.
+    k >= 3), its finite strict-Lie shadow is represented by the CE complex
+    of the underlying Lie algebra.
 
     The Lie bracket (0-th product) is the Yangian commutator:
       {e_0, e_1}_{(0)} = e_1 (schematic, from [e_0, e_1] = e_1 relation)
@@ -487,8 +498,9 @@ class CEChainComplex:
 
     where [g_{ia}, g_{ib}] = (g_{ia})_{(0)} (g_{ib}) is the 0-th product (Lie bracket).
 
-    For a STRICT Lie conformal algebra, this is the complete bar differential
-    of U^ch(L): B(U^ch(L)) = CE_*(L).
+    For a strict Lie conformal algebra, this is the exterior CE shadow of
+    the bar differential of U^ch(L).  It becomes the complete controller
+    only after the ordered vertex-bar corrections vanish.
     """
 
     def __init__(self, lca: LieConformalAlgebra):
@@ -854,10 +866,10 @@ class LInfinityCEComplex:
                         # The L_infinity correction on a 1-generator algebra is zero
                         # at the exterior algebra level.
                         #
-                        # The shadow tower DOES have nonzero l_3 for Virasoro,
-                        # but this manifests in the FULL bar complex (tensor coalgebra)
-                        # not in the exterior algebra. The exterior algebra CE_*
-                        # only sees the commutative/symmetric part.
+                        # The shadow tower does have nonzero l_3 for Virasoro,
+                        # but this manifests in the ordered vertex-bar tensor
+                        # coalgebra, not in the exterior algebra. The exterior
+                        # CE shadow only sees the antisymmetric quotient.
                         #
                         # For multi-generator algebras (e.g. W_{1+inf}):
                         # l_3(T,T,T) = -2T contributes when T appears 3 times,
@@ -1015,13 +1027,16 @@ class DerivedCenterCE:
 # =========================================================================
 
 class BarCEComparison:
-    r"""Compare the bar complex B(A) with CE_*(L_A).
+    r"""Compare the strict PBW bar shadow of B(A) with CE_*(L_A).
 
     The key identification: for A = U^ch(L) with L a STRICT Lie conformal
-    algebra, B(A) = CE_*(L) as chain complexes.
+    algebra, the PBW associated graded / finite exterior shadow of the
+    ordered bar complex is CE_*(L) as a chain complex.
 
     For A with A_infinity structure (L_infinity deformation):
-    B(A) = CE_*(L_A) where L_A is the L_infinity algebra.
+    this exterior CE engine is only the finite shadow.  The native
+    controller is the completed ordered vertex-bar / chiral Hochschild
+    complex, which keeps repeated inputs and partial-diagonal residues.
 
     The comparison is verified by:
     1. Matching the graded dimensions (Poincare polynomials).
@@ -1099,7 +1114,9 @@ def e3_bar_dimension_class_L(n_generators: int, genus: int = 3) -> int:
                                    = 2^{n*genus}
 
     AP-CY21: (1+t)^{3g} holds for classes L and C.
-    For class M: FAILS (infinite-dimensional cohomology from d_4 survival).
+    For class M: FAILS; the surviving d_4 contracts the top exterior
+    class and gives E_4 dimension 6^g.  For g <= 3, degree reasons give
+    E_4 = E_inf.  For g >= 4, higher differentials remain open.
 
     Parameters
     ----------
@@ -1111,17 +1128,29 @@ def e3_bar_dimension_class_L(n_generators: int, genus: int = 3) -> int:
     return 2 ** (n_generators * genus)
 
 
-def e3_bar_dimension_class_M(max_arity: int = 10) -> str:
-    r"""E_3 bar COHOMOLOGY for class M is INFINITE-dimensional.
+def e3_bar_dimension_class_M(genus: int = 3) -> dict:
+    r"""E_3 bar cohomology for class M at genus ``genus``.
 
-    AP-CY21: The tricomplex model P(q)^{3g} gives chain-level dimensions,
-    but the cohomology depends on the shadow class. For class M, the d_4
-    differential survives and the cohomology is infinite-dimensional.
+    AP-CY21: The class-L formula ``(1+t)^{3g}`` fails for class M.  The
+    d_4 differential survives and leaves
 
-    The chain-level dimension is finite (P(q)^{3g}), but the cohomology
-    is not bounded by any polynomial in arity.
+        E_4 = (3t(1+t))^g,
+        dim E_4 = 6^g.
+
+    For ``genus <= 3`` this equals E_inf by degree reasons.  For
+    ``genus >= 4`` this function reports the E_4 page only; higher
+    differentials may reduce the answer.
     """
-    return "INFINITE (class M: d_4 survives, AP-CY21)"
+    if genus < 1:
+        raise ValueError("genus must be positive")
+    return {
+        "shadow_class": "M",
+        "e4_total": 6 ** genus,
+        "class_L_total_same_genus": 8 ** genus,
+        "deficit_from_class_L": 8 ** genus - 6 ** genus,
+        "einf_status": "proved_for_g_le_3" if genus <= 3 else "open_after_e4",
+        "higher_differentials_open": genus >= 4,
+    }
 
 
 # =========================================================================
@@ -1150,7 +1179,7 @@ def compute_chiral_ce_complex():
         "d_squared_zero": comp_heis.d_squared_zero(),
         "genus_3_dim": ce_heis.genus_g_total_dimension(3),
         "genus_3_poincare": ce_heis.genus_g_poincare(3),
-        "is_abelian": not heis.is_abelian,
+        "is_abelian": heis.is_abelian,
         # Abelian: no 0th product, d_CE = 0
     }
 
@@ -1224,7 +1253,7 @@ def compute_chiral_ce_complex():
         "class_L_yangian_3gen": e3_bar_dimension_class_L(3, genus=3),
         "class_L_sl2_3gen": e3_bar_dimension_class_L(3, genus=3),
         "class_G_heis_1gen": e3_bar_dimension_class_L(1, genus=3),
-        "class_M_virasoro": e3_bar_dimension_class_M(),
+        "class_M_virasoro": e3_bar_dimension_class_M(genus=3),
     }
 
     return results

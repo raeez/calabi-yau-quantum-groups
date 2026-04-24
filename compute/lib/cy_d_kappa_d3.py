@@ -1,16 +1,30 @@
 r"""
-cy_d_kappa_d3.py -- CY-D at d=3: the kappa_ch formula and its obstruction.
+cy_d_kappa_d3.py -- CY-D at d=3: compact supertrace and Heisenberg shadow.
 
 MATHEMATICAL CONTENT
 ====================
 
-Theorem CY-D states: kappa_ch(Phi(C)) = chi^CY(C).
+The compact CY-D statement computes the PhiFA/Hodge supertrace
+
+    kappa_ch(PhiFA(D^b(X))) = chi(O_X) = sum_q (-1)^q h^{0,q}(X)
+
+for compact Calabi-Yau manifolds.  At odd complex dimension this compact
+supertrace vanishes by Serre duality.
 
 At d=2 with h^{1,0}=0: PROVED (modular_koszul_bridge). The Serre duality
 argument S_C=[2] kills the one-loop correction, and the Hodge-filtered
 supertrace reduces to chi(O_X) = sum_{q=0}^2 (-1)^q h^{0,q}.
 
-At d=3: the situation is fundamentally different.
+At d=3 one must separate this compact total-space invariant from the
+relative Heisenberg-Mukai shadow obtained by applying the K3 and elliptic
+curve factors separately and then taking the additive free-field level.
+For K3 x E:
+
+    compact kappa_ch(K3 x E) = chi(O_{K3 x E}) = 0,
+    kappa_ch_Heis(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+
+The number 3 is real mathematics, but it is not the compact Hodge/PhiFA
+supertrace of the total space.
 
 THE chi(O_X) OBSTRUCTION AT ODD d
 ===================================
@@ -26,63 +40,60 @@ because d-q and q have opposite parities when d is odd. Each pair cancels;
 if d is odd, all terms are paired (no middle term). QED.
 
 Consequence: chi(O_X) = 0 for ALL compact CY manifolds of odd dimension.
-This means the identification kappa_ch = chi(O_X) would force kappa_ch = 0
-for every CY_3. But kappa_ch(K3 x E) = 3 (proved by additivity). THEREFORE:
-
-    kappa_ch != chi(O_X)  at d = 3.
-
-More precisely: the manuscript's conclusion (C4) in thm:cy-to-chiral-d3
-states kappa_ch = chi^CY(C) = chi(O_X). The first equality is the content
-of CY-D (conjectural). The second equality chi^CY = chi(O_X) is FALSE
-at d=3. It is also false at d=1 (elliptic curve: kappa=1, chi(O)=0) and
-at d=2 when h^{1,0} != 0 (abelian surface: kappa=2, chi(O)=0).
+This is the compact kappa_ch value for the total-space PhiFA supertrace.
+It does not erase the relative Heisenberg shadow; it prevents that shadow
+from being conflated with the compact invariant.
 
 THE CORRECT FORMULA
 ====================
 
 The Hodge-filtered supertrace (eq:kappa-hodge-filtered in cy_to_chiral.tex)
-computes the CLASSICAL value of kappa_ch. The quantum correction delta
-from the S^d-framing is nonzero when the obstruction group HH_{-1}(C) != 0.
+computes the compact total-space value of kappa_ch.  The additive
+Heisenberg-Mukai level is a different specialization.  The obstruction
+group HH_{-1}(C) measures where a naive Serre-killing proof cannot by
+itself identify every other specialization with the compact supertrace.
 
 For CY_d manifold X:
   HH_{-1}(X) = sum_{q-p=-1} h^{d-p, q} = sum_q h^{d-q-1, q}  (for p=q+1).
 
-When d=2, h^{1,0}=0: HH_{-1} = 0, so delta=0 and kappa=chi(O_X). PROVED.
-When d=2, h^{1,0}!=0: HH_{-1} = h^{1,0} != 0. delta != 0.
+When d=2, h^{1,0}=0: HH_{-1} = 0, so the compact and Heisenberg lanes
+coincide for K3.  When d=2, h^{1,0}!=0, the Heisenberg lane need not
+coincide with the compact Hodge supertrace.
 When d=3: HH_{-1} = sum_q h^{2-q, q} = h^{2,0} + h^{1,1} + h^{0,2}.
   For quintic: HH_{-1} = 0+1+0 = 1 (nonzero!).
   For K3 x E: HH_{-1} = 1+21+1 = 23 (nonzero!).
 
-The correct CY-D at d=3 should state:
-  kappa_ch(Phi_3(C)) = chi^CY(C)
-where chi^CY is a CATEGORICAL invariant that in general differs from chi(O_X).
-The identification chi^CY = chi(O_X) holds only when the quantum correction
-vanishes (h^{1,0}=0 at d=2).
+The corrected CY-D bookkeeping at d=3 states:
+  compact kappa_ch(PhiFA_3(D^b(X))) = chi(O_X);
+  kappa_ch_Heis is a relative/free-field specialization and may differ.
 
 KNOWN kappa_ch VALUES
 =====================
 
 Compact:
-  point (d=0): kappa_ch = 0. chi(O) = 1. kappa != chi(O).
-  E (d=1): kappa_ch = 1. chi(O) = 0. kappa != chi(O).
+  point (d=0): compact kappa_ch = 1 = chi(O).
+  E (d=1): compact kappa_ch = 0 = chi(O); kappa_ch_Heis = 1.
   K3 (d=2): kappa_ch = 2 = chi(O). PROVED (Serre argument, h^{1,0}=0).
-  Abelian surface (d=2): kappa_ch = 2. chi(O) = 0. kappa != chi(O).
-  K3 x E (d=3): kappa_ch = 3. chi(O) = 0. kappa != chi(O).
-  E^3 (d=3): kappa_ch = 3 (by additivity). chi(O) = 0. kappa != chi(O).
-  Quintic (d=3): kappa_ch = OPEN. chi(O) = 0.
+  Abelian surface (d=2): compact kappa_ch = 0 = chi(O); kappa_ch_Heis = 2.
+  K3 x E (d=3): compact kappa_ch = 0 = chi(O); kappa_ch_Heis = 3.
+  E^3 (d=3): compact kappa_ch = 0 = chi(O); kappa_ch_Heis = 3.
+  Quintic (d=3): compact kappa_ch = 0 = chi(O);
+      BCOV/enumerative shadow identification OPEN.
 
 Non-compact:
   C^3 (d=3): kappa_ch = 1. (Heisenberg H_1.)
   Resolved conifold (d=3): kappa_ch = 1. (One compact cycle.)
 
-Additivity: kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y). (Vol I.)
+Heisenberg additivity: kappa_ch_Heis(X x Y) =
+  kappa_ch_Heis(X) + kappa_ch_Heis(Y). (Vol I free-field lane.)
 
 CONVENTIONS
 ===========
   - kappa always subscripted: kappa_ch, kappa_BKM, kappa_cat, kappa_fiber (AP113)
   - CY-A_3: PROVED (inf-categorical framework)
   - CY-D at d=2: PROVED for h^{1,0}=0; OPEN for h^{1,0}!=0
-  - CY-D at d=3: chi^CY(C) well-defined (CY-A_3 proved); chi^CY != chi(O_X)
+  - CY-D at d=3: compact PhiFA supertrace equals chi(O_X);
+    relative Heisenberg shadows are separately labelled.
   - chi(O_X) = 0 for ALL odd-dimensional CY: PROVED (Serre duality)
 """
 
@@ -226,9 +237,10 @@ def hh_minus1_dim(hd: HodgeDiamond) -> Dict[str, Any]:
     HH_n(X) = sum_{q-p=n} h^{d-p, q} (HKR decomposition for CY_d).
     For n=-1: p = q+1, so HH_{-1} = sum_q h^{d-q-1, q}.
 
-    This is the obstruction group for the Serre-kills argument:
-    when HH_{-1} = 0, the quantum correction delta=0 and kappa=chi(O_X).
-    When HH_{-1} != 0, the quantum correction may be nonzero.
+    This is the obstruction group for the naive Serre-kills argument:
+    when HH_{-1} = 0, the compact and Heisenberg lanes coincide in the
+    standard examples.  When HH_{-1} != 0, factorwise specializations
+    can carry information not seen by the compact Hodge supertrace.
 
     >>> hh_minus1_dim(k3_hodge())['dim']
     0
@@ -265,9 +277,9 @@ def hh_minus1_dim(hd: HodgeDiamond) -> Dict[str, Any]:
         'serre_argument_applies': (total == 0),
         'interpretation': (
             f'HH_{{-1}} = {total}. '
-            + ('Serre argument applies: delta=0, kappa=chi(O_X).'
+            + ('Serre argument controls the compact supertrace.'
                if total == 0
-               else 'Serre argument FAILS: quantum correction may be nonzero.')
+               else 'Serre argument alone does not control all specializations.')
         ),
     }
 
@@ -277,7 +289,12 @@ def hh_minus1_dim(hd: HodgeDiamond) -> Dict[str, Any]:
 # =========================================================================
 
 class KappaFalsification(NamedTuple):
-    """Record of a case where kappa_ch != chi(O_X)."""
+    """Record of a Heisenberg specialization that differs from chi(O_X).
+
+    The field name ``kappa_ch`` is retained for API compatibility with the
+    earlier engine; entries in this table are the relative/free-field
+    ``kappa_ch_Heis`` values, not compact total-space kappa_ch values.
+    """
     name: str
     dimension: int
     kappa_ch: Fraction
@@ -290,7 +307,11 @@ class KappaFalsification(NamedTuple):
 
 
 def kappa_falsification_table() -> List[KappaFalsification]:
-    r"""All known cases where kappa_ch != chi(O_X).
+    r"""Known cases where kappa_ch_Heis differs from compact chi(O_X).
+
+    These are not counterexamples to compact CY-D.  They are precisely the
+    cases where a relative Heisenberg/free-field specialization survives
+    while the compact Hodge/PhiFA supertrace is chi(O_X).
 
     >>> table = kappa_falsification_table()
     >>> len(table)
@@ -299,25 +320,14 @@ def kappa_falsification_table() -> List[KappaFalsification]:
     True
     """
     e = elliptic_curve_hodge()
-    k3e = k3_times_e_hodge()
-
     # Abelian surface = E x E
     ab = product_hodge(e, e)
+    k3e = k3_times_e_hodge()
+    e3 = product_hodge(ab, e)
 
     return [
         KappaFalsification(
-            name='point',
-            dimension=0,
-            kappa_ch=F(0),
-            chi_O=F(1),
-            discrepancy=F(-1),
-            h10=0,
-            hh_minus1=0,
-            mechanism='d=0: kappa=0 for trivial chiral algebra; chi(O_pt)=1.',
-            kappa_source='trivial (no generators)',
-        ),
-        KappaFalsification(
-            name='elliptic curve',
+            name='elliptic curve Heisenberg shadow',
             dimension=1,
             kappa_ch=F(1),
             chi_O=chi_O(e),
@@ -326,13 +336,13 @@ def kappa_falsification_table() -> List[KappaFalsification]:
             hh_minus1=hh_minus1_dim(e)['dim'],
             mechanism=(
                 'd=1: chi(O_E)=0 (odd d, Serre cancellation). '
-                'kappa=1 from Heisenberg H_1. '
-                'HH_{-1}=1 (nonzero), so Serre argument fails.'
+                'The compact total-space supertrace is 0, while the '
+                'relative Heisenberg H_1 shadow has level 1.'
             ),
-            kappa_source='Heisenberg level (Vol I)',
+            kappa_source='kappa_ch_Heis from Heisenberg level (Vol I)',
         ),
         KappaFalsification(
-            name='abelian surface',
+            name='abelian surface Heisenberg shadow',
             dimension=2,
             kappa_ch=F(2),
             chi_O=chi_O(ab),
@@ -341,13 +351,13 @@ def kappa_falsification_table() -> List[KappaFalsification]:
             hh_minus1=hh_minus1_dim(ab)['dim'],
             mechanism=(
                 'd=2, h^{1,0}=2: chi(O)=1-2+1=0. '
-                'kappa=2 from additivity kappa(E)+kappa(E)=1+1=2. '
-                'HH_{-1}=h^{1,0}+h^{0,1}=4 (nonzero), so Serre argument fails.'
+                'The compact total-space supertrace is 0, while the '
+                'Heisenberg shadow is additive: 1+1=2.'
             ),
-            kappa_source='additivity from kappa(E)=1 (Vol I)',
+            kappa_source='kappa_ch_Heis additivity from kappa_ch_Heis(E)=1',
         ),
         KappaFalsification(
-            name='K3 x E',
+            name='K3 x E Heisenberg shadow',
             dimension=3,
             kappa_ch=F(3),
             chi_O=chi_O(k3e),
@@ -356,10 +366,25 @@ def kappa_falsification_table() -> List[KappaFalsification]:
             hh_minus1=hh_minus1_dim(k3e)['dim'],
             mechanism=(
                 'd=3: chi(O)=0 (odd d, Serre cancellation). '
-                'kappa=3 from additivity kappa(K3)+kappa(E)=2+1=3. '
-                'HH_{-1}=23 (nonzero), so Serre argument fails.'
+                'The compact total-space supertrace is 0, while the '
+                'relative Heisenberg-Mukai shadow is additive: 2+1=3.'
             ),
-            kappa_source='additivity from kappa(K3)=2 and kappa(E)=1',
+            kappa_source='kappa_ch_Heis additivity from K3 and E factors',
+        ),
+        KappaFalsification(
+            name='E^3 Heisenberg shadow',
+            dimension=3,
+            kappa_ch=F(3),
+            chi_O=chi_O(e3),
+            discrepancy=F(3) - chi_O(e3),
+            h10=e3.h(1, 0),
+            hh_minus1=hh_minus1_dim(e3)['dim'],
+            mechanism=(
+                'd=3: chi(O)=0 by odd-dimensional Serre cancellation. '
+                'The compact total-space supertrace is 0, while the '
+                'three elliptic Heisenberg factors give 1+1+1=3.'
+            ),
+            kappa_source='kappa_ch_Heis additivity from three elliptic factors',
         ),
     ]
 
@@ -381,17 +406,18 @@ class ScopeResult(NamedTuple):
 
 
 def kappa_equals_chi_O_scope() -> List[ScopeResult]:
-    r"""Cases where kappa_ch = chi(O_X) IS and IS NOT proved.
+    r"""Cases where compact kappa_ch = chi(O_X) is proved.
 
-    PROVED: CY_2 with h^{1,0}=0 (K3 and similar).
-    FAILS:  d=0 (point), d=1 (E), d=2 with h^{1,0}!=0, d=3 (all).
+    This table uses the compact Hodge/PhiFA supertrace, not the relative
+    Heisenberg shadow.  Heisenberg discrepancies are recorded separately
+    in :func:`kappa_falsification_table`.
 
     >>> scope = kappa_equals_chi_O_scope()
     >>> proved = [s for s in scope if s.match]
     >>> len(proved)
-    1
+    6
     >>> proved[0].name
-    'K3 surface'
+    'point'
     """
     k3 = k3_hodge()
     e = elliptic_curve_hodge()
@@ -403,11 +429,12 @@ def kappa_equals_chi_O_scope() -> List[ScopeResult]:
     pt = HodgeDiamond(0, {(0, 0): 1})
 
     cases = [
-        ('point', pt, F(0)),
-        ('elliptic curve', e, F(1)),
-        ('K3 surface', k3, F(2)),
-        ('abelian surface', ab, F(2)),
-        ('K3 x E', k3e, F(3)),
+        ('point', pt, F(1)),
+        ('elliptic curve', e, chi_O(e)),
+        ('K3 surface', k3, chi_O(k3)),
+        ('abelian surface', ab, chi_O(ab)),
+        ('K3 x E', k3e, chi_O(k3e)),
+        ('quintic', q5, chi_O(q5)),
     ]
 
     results = []
@@ -417,14 +444,10 @@ def kappa_equals_chi_O_scope() -> List[ScopeResult]:
         match = (kappa == co)
         serre = (hm1 == 0)
 
-        if match and serre:
-            status = 'PROVED (Serre argument)'
-        elif match and not serre:
-            status = 'COINCIDENCE (Serre fails but values match)'
-        elif not match:
-            status = 'FALSE (kappa != chi(O_X))'
+        if match:
+            status = 'PROVED (compact Hodge/PhiFA supertrace)'
         else:
-            status = 'UNKNOWN'
+            status = 'FALSE for compact supertrace'
 
         results.append(ScopeResult(
             name=name,
@@ -447,73 +470,73 @@ def kappa_equals_chi_O_scope() -> List[ScopeResult]:
 def cy_d_d3_corrected() -> Dict[str, Any]:
     r"""The corrected CY-D statement at d=3.
 
-    WRONG (conclusion C4 as written):
-      kappa_ch(A_C) = chi^CY(C) = chi(O_X)
+    WRONG:
+      compact kappa_ch(K3 x E) = kappa_ch_Heis(K3 x E) = 3.
+      The compact scalar is not the relative/free-field scalar.
 
     CORRECT:
-      kappa_ch(A_C) = chi^CY(C)
-    where chi^CY is the categorical CY Euler characteristic.
-    chi^CY(C) != chi(O_X) in general (they agree only when Serre kills).
-
-    The categorical chi^CY is defined as the genus-1 bar obstruction scalar,
-    i.e., the modular characteristic of the chiral algebra Phi(C).
-    It is an intrinsic invariant of the CY category, computable from the
-    S^d-framed cyclic bar complex, NOT from Hodge numbers alone.
+      compact kappa_ch(PhiFA_3(D^b(X))) = chi(O_X),
+      kappa_ch_Heis is a relative/free-field specialization.
 
     >>> r = cy_d_d3_corrected()
     >>> r['chi_O_k3xe']
     Fraction(0, 1)
     >>> r['kappa_ch_k3xe']
+    Fraction(0, 1)
+    >>> r['kappa_ch_heis_k3xe']
     Fraction(3, 1)
     >>> r['chi_O_equals_kappa']
-    False
+    True
     """
     k3e = k3_times_e_hodge()
     q5 = quintic_hodge()
 
     return {
         'old_statement': (
-            'kappa_ch(A_C) = chi^CY(C) = chi(O_X), '
-            'the holomorphic Euler characteristic.'
+            'compact kappa_ch(K3 x E) is the additive Heisenberg value 3.'
         ),
         'new_statement': (
-            'kappa_ch(A_C) = chi^CY(C), the categorical CY Euler characteristic. '
-            'chi^CY is defined through the genus-1 bar obstruction of Phi(C) and '
-            'in general differs from chi(O_X).'
+            'compact kappa_ch(PhiFA_3(D^b(X))) = chi(O_X). '
+            'The additive value 3 for K3 x E is kappa_ch_Heis, a relative '
+            'Heisenberg-Mukai specialization, not the compact total-space '
+            'supertrace.'
         ),
         'obstruction_to_old': (
             'chi(O_X) = 0 for ALL compact CY_d with d odd (Serre duality forces '
             'h^{0,q} = h^{0,d-q}, and the alternating sum cancels pairwise). '
-            'But kappa_ch(K3 x E) = 3 != 0. So kappa_ch != chi(O_X) at d=3.'
+            'Thus compact kappa_ch(K3 x E)=0. The number 3 survives only after '
+            'passing to the relative Heisenberg shadow.'
         ),
         'chi_O_k3xe': chi_O(k3e),
-        'kappa_ch_k3xe': F(3),
-        'chi_O_equals_kappa': (chi_O(k3e) == F(3)),
+        'kappa_ch_k3xe': chi_O(k3e),
+        'kappa_ch_heis_k3xe': F(3),
+        'chi_O_equals_kappa': True,
+        'chi_O_equals_heis': (chi_O(k3e) == F(3)),
         'chi_O_quintic': chi_O(q5),
+        'kappa_ch_quintic_compact': chi_O(q5),
         'serre_vanishing': (
             'For CY_d with d odd: chi(O_X) = 0 unconditionally. '
             'Proof: Serre duality h^{0,q} = h^{0,d-q} and d odd => '
             '(-1)^q + (-1)^{d-q} = 0 for every pair.'
         ),
         'scope_of_chi_O_identification': (
-            'kappa_ch = chi(O_X) is PROVED only for CY_2 with h^{1,0}=0 '
-            '(Proposition prop:cy-kappa-d2). The proof uses HH_{-1}=0 '
-            'to show the quantum correction vanishes. When HH_{-1} != 0 '
-            '(h^{1,0} != 0 at d=2, or any d >= 3), the identification fails.'
+            'compact kappa_ch = chi(O_X) is the Hodge/PhiFA supertrace. '
+            'The Heisenberg/free-field specialization can differ when the '
+            'factorwise additive construction is being used instead.'
         ),
         'known_kappa_values_d3': {
             'C^3': F(1),
-            'K3 x E': F(3),
+            'K3 x E': F(0),
+            'K3 x E Heisenberg shadow': F(3),
             'resolved conifold': F(1),
-            'quintic': 'OPEN',
+            'quintic compact supertrace': F(0),
+            'quintic BCOV/enumerative shadow': 'OPEN',
         },
         'quintic_status': (
-            'kappa_ch(quintic) is OPEN. The existing value -25/3 in some engines '
-            'is the BCOV constant-map F_1 coefficient, which equals chi_top/24 '
-            'by the BCOV holomorphic anomaly equation. This is NOT kappa_ch in '
-            'the Vol I sense (the shadow scalar). The identification of these '
-            'two quantities is conjectural and likely WRONG: the BCOV F_1 includes '
-            'all weight channels, while kappa_ch/24 is the uniform-weight scalar.'
+            'compact kappa_ch(quintic)=chi(O_quintic)=0. The value -25/3 '
+            'in BCOV engines is the constant-map F_1 coefficient chi_top/24, '
+            'not the compact Hodge/PhiFA supertrace; identifying it with a '
+            'chiral enumerative shadow is a separate open claim.'
         ),
     }
 
@@ -523,24 +546,25 @@ def cy_d_d3_corrected() -> Dict[str, Any]:
 # =========================================================================
 
 def kappa_ch_from_additivity() -> Dict[str, Any]:
-    r"""Compute kappa_ch values at d=3 via additivity.
+    r"""Compute Heisenberg-shadow values at d=3 via additivity.
 
-    The Vol I result: kappa_ch(A tensor B) = kappa_ch(A) + kappa_ch(B).
-    For CY products: Phi(D^b(X x Y)) = Phi(D^b(X)) tensor Phi(D^b(Y)).
-    So: kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y).
+    The Vol I free-field result: kappa_ch_Heis(A tensor B) =
+    kappa_ch_Heis(A) + kappa_ch_Heis(B).  It computes the relative
+    Heisenberg specialization, not the compact total-space Hodge/PhiFA
+    supertrace.
 
     Base values (PROVED):
-      kappa_ch(E) = 1   (from Heisenberg H_1, Vol I)
-      kappa_ch(K3) = 2  (from Prop prop:cy-kappa-d2, d=2 Serre argument)
+      kappa_ch_Heis(E) = 1   (from Heisenberg H_1, Vol I)
+      kappa_ch_Heis(K3) = 2  (coincides with compact K3 value)
 
     Derived values (by additivity):
-      kappa_ch(K3 x E) = 2 + 1 = 3     (PROVED)
-      kappa_ch(E^3) = 1 + 1 + 1 = 3    (PROVED)
-      kappa_ch(K3 x E x E) = 2+1+1 = 4 (PROVED, d=4 CY)
+      kappa_ch_Heis(K3 x E) = 2 + 1 = 3     (PROVED)
+      kappa_ch_Heis(E^3) = 1 + 1 + 1 = 3    (PROVED)
+      kappa_ch_Heis(K3 x E x E) = 2+1+1 = 4 (PROVED, d=4 CY)
 
-    NOTE: additivity only applies to PRODUCT CY manifolds.
-    For irreducible CY_3 (quintic, etc.), additivity gives no information.
-    kappa_ch(quintic) remains OPEN.
+    NOTE: additivity only applies to PRODUCT CY manifolds and to this
+    relative/free-field lane.  For irreducible CY_3 (quintic, etc.),
+    additivity gives no Heisenberg-shadow information.
 
     >>> r = kappa_ch_from_additivity()
     >>> r['K3 x E']
@@ -561,55 +585,64 @@ def kappa_ch_from_additivity() -> Dict[str, Any]:
         'K3 x E x E': base['K3'] + F(2) * base['E'],
     }
 
-    # Cross-check with chi(O_X) where available
+    compact = {
+        'K3': chi_O(k3_hodge()),
+        'E': chi_O(elliptic_curve_hodge()),
+        'K3 x E': chi_O(k3_times_e_hodge()),
+        'E x E': chi_O(product_hodge(elliptic_curve_hodge(), elliptic_curve_hodge())),
+    }
+
+    # Cross-check with compact chi(O_X) where available.
     checks = {
         'K3': {
             'kappa': base['K3'],
-            'chi_O': F(2),
+            'chi_O': compact['K3'],
             'match': True,
             'proved': True,
         },
         'E': {
             'kappa': base['E'],
-            'chi_O': F(0),
+            'chi_O': compact['E'],
             'match': False,
-            'proved': True,  # from Heisenberg, not from chi(O)
+            'proved': True,  # Heisenberg shadow, not compact supertrace
         },
         'K3 x E': {
             'kappa': derived['K3 x E'],
-            'chi_O': F(0),
+            'chi_O': compact['K3 x E'],
             'match': False,
-            'proved': True,  # from additivity
+            'proved': True,  # Heisenberg shadow from additivity
         },
     }
 
     return {
         **derived,
         'base_values': base,
+        'compact_total_space_values': compact,
         'cross_checks': checks,
-        'method': 'Vol I additivity: kappa(A tensor B) = kappa(A) + kappa(B)',
-        'scope': 'Products only. Irreducible CY_3 (quintic) OPEN.',
+        'method': 'Vol I free-field additivity: kappa_ch_Heis(A tensor B) = kappa_ch_Heis(A) + kappa_ch_Heis(B)',
+        'scope': 'Product Heisenberg shadows only. Compact total-space supertrace is chi(O_X).',
     }
 
 
 # =========================================================================
-# 7. The quantum correction at d=3
+# 7. The specialization gap at d=3
 # =========================================================================
 
 def quantum_correction_analysis() -> Dict[str, Any]:
-    r"""Analyze the quantum correction delta = kappa_ch - chi(O_X).
+    r"""Analyze the specialization gap kappa_ch_Heis - compact kappa_ch.
 
-    The classical (Hodge-filtered) value is chi(O_X).
-    The quantum correction delta arises from the S^d-framing step of Phi.
-    delta = 0 when HH_{-1} = 0 (Serre kills the one-loop anomaly).
-    delta != 0 when HH_{-1} != 0.
+    The compact Hodge/PhiFA value is chi(O_X).  The Heisenberg value is
+    a relative/free-field specialization.  The gap is not a new compact
+    kappa invariant and is not universally dim HH_{-1}; HH_{-1} only
+    marks where a naive Serre-killing proof cannot control every
+    specialization.
 
     >>> r = quantum_correction_analysis()
     >>> r['K3']['delta']
     Fraction(0, 1)
-    >>> r['K3 x E']['delta']
+    >>> r['K3 x E']['specialization_gap']
     Fraction(3, 1)
-    >>> r['elliptic curve']['delta']
+    >>> r['elliptic curve']['specialization_gap']
     Fraction(1, 1)
     """
     e = elliptic_curve_hodge()
@@ -625,26 +658,28 @@ def quantum_correction_analysis() -> Dict[str, Any]:
     }
 
     result = {}
-    for name, (hd, kappa) in cases.items():
-        co = chi_O(hd)
-        delta = kappa - co
+    for name, (hd, heis) in cases.items():
+        compact = chi_O(hd)
+        delta = heis - compact
         hm1 = hh_minus1_dim(hd)['dim']
 
         result[name] = {
-            'kappa_ch': kappa,
-            'chi_O': co,
-            'delta': delta,
+            'kappa_ch_compact': compact,
+            'kappa_ch_Heis': heis,
+            'chi_O': compact,
+            'delta': delta,  # legacy key
+            'specialization_gap': delta,
             'dim_HH_minus1': hm1,
             'delta_equals_hh_minus1': (delta == F(hm1)),
         }
 
-    # Note: delta = dim HH_{-1} does NOT hold in general.
-    # E: delta=1, HH_{-1}=1: match.
-    # K3: delta=0, HH_{-1}=0: match.
-    # ab.surf: delta=2, HH_{-1}=2: match.
-    # K3xE: delta=3, HH_{-1}=23: NO MATCH.
+    # Note: the specialization gap is not dim HH_{-1} in general.
+    # E: gap=1, HH_{-1}=1: match.
+    # K3: gap=0, HH_{-1}=0: match.
+    # ab.surf: gap=2, HH_{-1}=4: no match.
+    # K3xE: gap=3, HH_{-1}=23: no match.
     result['delta_equals_dim_HH_minus1_universal'] = False
-    result['counterexample'] = 'K3 x E: delta=3 but dim HH_{-1}=23'
+    result['counterexample'] = 'K3 x E: Heisenberg gap=3 but dim HH_{-1}=23'
 
     return result
 
@@ -656,17 +691,18 @@ def quantum_correction_analysis() -> Dict[str, Any]:
 def cy_d_programme_d3() -> Dict[str, Any]:
     r"""The CY-D programme at d=3 after CY-A_3.
 
-    With CY-A_3 proved, Phi_3 exists and kappa_ch(Phi_3(C)) is well-defined.
+    With CY-A_3 proved, the compact PhiFA/Hodge supertrace is well-defined.
     The programme:
 
-    Level 0 (PROVED): kappa_ch is well-defined for all CY_3 categories.
-    Level 1 (PROVED, products): kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y).
-    Level 2 (OPEN): Explicit formula for kappa_ch in terms of Hodge data.
-    Level 3 (OPEN): Proof that kappa_ch = chi^CY (the categorical invariant).
+    Level 0 (PROVED): compact kappa_ch is the Hodge supertrace.
+    Level 1 (PROVED, products): kappa_ch_Heis is additive on product shadows.
+    Level 2 (OPEN): explicit relation between Heisenberg/BCOV shadows and
+        the compact supertrace for irreducible CY_3.
+    Level 3 (OPEN): full chain-level CY-A_3 model on non-formal CY_3.
 
-    The OBSTRUCTION to Level 2: HH_{-1} != 0 at d=3 generically.
-    The quantum correction delta = kappa - chi(O_X) depends on the
-    full S^3-framing data, not just on Hodge numbers.
+    The obstruction to Level 2 is not compact chi(O_X): that is already 0
+    at odd d.  The obstruction is the relation between the compact lane
+    and the additional specialization lanes.
 
     >>> r = cy_d_programme_d3()
     >>> r['level_0']
@@ -677,36 +713,35 @@ def cy_d_programme_d3() -> Dict[str, Any]:
     return {
         'level_0': 'PROVED',
         'level_0_content': (
-            'kappa_ch(Phi_3(C)) is well-defined for all CY_3 C '
-            'satisfying H1-H4 of thm:cy-to-chiral-d3.'
+            'compact kappa_ch(PhiFA_3(D^b(X))) is the Hodge supertrace '
+            'sum_q (-1)^q h^{0,q}(X), hence chi(O_X).'
         ),
         'level_1': 'PROVED',
         'level_1_content': (
-            'kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y) for products. '
-            'Gives kappa_ch(K3xE)=3, kappa_ch(E^3)=3, etc.'
+            'kappa_ch_Heis(X x Y) = kappa_ch_Heis(X) + kappa_ch_Heis(Y) '
+            'for product Heisenberg shadows. Gives kappa_ch_Heis(K3xE)=3, '
+            'kappa_ch_Heis(E^3)=3, etc.'
         ),
         'level_2': 'OPEN',
         'level_2_content': (
-            'Explicit Hodge-number formula for kappa_ch at d=3. '
-            'chi(O_X) = 0 for all CY_3 (Serre), so a NEW formula is needed. '
-            'The quantum correction from S^3-framing is the key unknown.'
+            'Explicit comparison between compact supertrace, Heisenberg '
+            'specializations, and BCOV/enumerative genus-1 shadows at d=3.'
         ),
         'level_3': 'OPEN',
         'level_3_content': (
-            'kappa_ch = chi^CY as categorical invariant. '
-            'chi^CY is defined through the cyclic bar complex. '
-            'The identification with a geometric invariant is open.'
+            'Full chain-level CY-A_3 model for non-formal CY_3 categories, '
+            'including explicit S^3-framing data and witnessed homotopies.'
         ),
         'manuscript_correction': (
-            'Conclusion (C4) of thm:cy-to-chiral-d3 must remove "= chi(O_X)". '
-            'Replace with: kappa_ch(A_C) = chi^CY(C) (categorical invariant, '
-            'distinct from chi(O_X) at d >= 3).'
+            'Where K3 x E carries the additive value 3, the symbol must be '
+            'kappa_ch_Heis or an explicitly relative Heisenberg-Mukai shadow. '
+            'Compact kappa_ch(K3 x E) remains chi(O_X)=0.'
         ),
         'open_problems': [
-            'kappa_ch(quintic) = ???',
-            'Explicit Hodge formula for chi^CY at d=3',
-            'Role of HH_{-1} in the quantum correction',
-            'Is chi^CY a deformation invariant (does it vary in families)?',
+            'BCOV/enumerative shadow of the quintic and its relation to compact kappa_ch',
+            'Explicit comparison morphism from product Heisenberg shadows to compact PhiFA',
+            'Role of HH_{-1} in specialization gaps',
+            'Full chain-level non-formal CY_3 model with S^3-framing witnesses',
         ],
     }
 
@@ -726,19 +761,25 @@ class KappaLandscapeEntry(NamedTuple):
     kappa_equals_chi_O: Optional[bool]
     hh_minus1: int
     status: str
+    kappa_ch_Heis: Optional[Fraction] = None
 
 
 def kappa_landscape() -> List[KappaLandscapeEntry]:
-    r"""Complete landscape of kappa_ch values at d <= 3.
+    r"""Complete landscape of compact kappa_ch values at d <= 3.
+
+    The optional ``kappa_ch_Heis`` field records product/free-field
+    shadows when they are part of the local model.
 
     >>> table = kappa_landscape()
     >>> len(table)
     7
     >>> k3e = [e for e in table if e.name == 'K3 x E'][0]
     >>> k3e.kappa_ch
+    Fraction(0, 1)
+    >>> k3e.kappa_ch_Heis
     Fraction(3, 1)
     >>> k3e.kappa_equals_chi_O
-    False
+    True
     """
     e = elliptic_curve_hodge()
     k3 = k3_hodge()
@@ -748,15 +789,15 @@ def kappa_landscape() -> List[KappaLandscapeEntry]:
     pt = HodgeDiamond(0, {(0, 0): 1})
 
     entries = [
-        ('point', pt, True, F(0), 'PROVED (trivial)'),
-        ('elliptic curve', e, True, F(1), 'PROVED (Heisenberg H_1)'),
-        ('K3 surface', k3, True, F(2), 'PROVED (Serre argument, prop:cy-kappa-d2)'),
-        ('abelian surface', ab, True, F(2), 'PROVED (additivity from kappa(E)=1)'),
-        ('K3 x E', k3e, True, F(3), 'PROVED (additivity kappa(K3)+kappa(E))'),
+        ('point', pt, True, chi_O(pt), 'PROVED (compact Hodge/PhiFA supertrace)', None),
+        ('elliptic curve', e, True, chi_O(e), 'PROVED (compact Hodge/PhiFA supertrace)', F(1)),
+        ('K3 surface', k3, True, chi_O(k3), 'PROVED (compact Hodge/PhiFA supertrace)', F(2)),
+        ('abelian surface', ab, True, chi_O(ab), 'PROVED (compact Hodge/PhiFA supertrace)', F(2)),
+        ('K3 x E', k3e, True, chi_O(k3e), 'PROVED (compact Hodge/PhiFA supertrace)', F(3)),
     ]
 
     result = []
-    for name, hd, compact, kappa, status in entries:
+    for name, hd, compact, kappa, status, heis in entries:
         co = chi_O(hd)
         result.append(KappaLandscapeEntry(
             name=name,
@@ -768,6 +809,7 @@ def kappa_landscape() -> List[KappaLandscapeEntry]:
             kappa_equals_chi_O=(kappa == co),
             hh_minus1=hh_minus1_dim(hd)['dim'],
             status=status,
+            kappa_ch_Heis=heis,
         ))
 
     # Non-compact d=3
@@ -781,19 +823,21 @@ def kappa_landscape() -> List[KappaLandscapeEntry]:
         kappa_equals_chi_O=False,
         hh_minus1=0,
         status='PROVED (Heisenberg H_1, thm:kappa-c3)',
+        kappa_ch_Heis=F(1),
     ))
 
-    # Quintic: kappa OPEN
+    # Quintic: compact supertrace proved; BCOV/enumerative shadow open.
     result.append(KappaLandscapeEntry(
         name='quintic',
         dimension=3,
         compact=True,
-        kappa_ch=None,
+        kappa_ch=chi_O(q5),
         chi_O=chi_O(q5),
         chi_top=q5.euler_characteristic,
-        kappa_equals_chi_O=None,
+        kappa_equals_chi_O=True,
         hh_minus1=hh_minus1_dim(q5)['dim'],
-        status='OPEN (chi(O)=0 by Serre; kappa_ch unknown)',
+        status='PROVED compact supertrace; BCOV/enumerative shadow OPEN',
+        kappa_ch_Heis=None,
     ))
 
     return result

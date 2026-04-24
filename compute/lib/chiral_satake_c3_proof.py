@@ -797,7 +797,7 @@ def dg_equivalence_status() -> DGEquivalenceData:
             "K-theory match: partition functions agree on both sides",
             "Hochschild cohomology match (HH* dimensions agree)",
             "Costello 5d hCS provides physical DG model (PROVED)",
-            "Schiffmann-Vasserot shuffle algebra = Yangian (PROVED)",
+            "Schiffmann-Vasserot shuffle algebra = Y^+ positive half (PROVED)",
             "Tannakian reconstruction at abelian level (PROVED, Step D)",
         ],
         evidence_against=[

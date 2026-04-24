@@ -554,8 +554,8 @@ class TestKappaComputation:
     def test_kappa_k3xe(self):
         """kappa_from_cy(K3xE) = 0 (chi = 0, BCOV = 0).
 
-        WARNING: This is the BCOV kappa, NOT the Igusa kappa.
-        The Igusa kappa = 5 (from cy_euler.py) is a different
+        WARNING: This is the BCOV-shadow scalar, NOT the Igusa/BKM weight.
+        The Igusa kappa_BKM = 5 (from cy_euler.py) is a different
         invariant reflecting the Sp_4 automorphic structure.
         """
         kxe = k3_times_e_data()

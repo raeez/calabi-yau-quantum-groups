@@ -651,18 +651,18 @@ def shadow_multiplicity_at_discriminant(D: int, max_arity: int = 10) -> Dict[int
 # =========================================================================
 
 def hypothetical_kappa() -> Fraction:
-    """Hypothetical modular characteristic kappa for the K3 x E system.
+    """BKM denominator projection kappa_BKM for the K3 x E system.
 
-    From k3_times_e.tex: kappa(A_{K3xE}) = 5 (the weight of Delta_5).
+    From k3_times_e.tex: kappa_BKM(K3xE) = 5 (the weight of Delta_5).
     This is the arity-2 shadow projection.
 
     Verification: the weight of the Siegel modular form Delta_5 is 5.
     The Borcherds product for Delta_5 has the Weyl vector contribution
-    exp(-2*pi*i*<rho,Z>) which gives the leading q-power, and kappa = 5
+    exp(-2*pi*i*<rho,Z>) which gives the leading q-power, and kappa_BKM = 5
     is the weight of the resulting automorphic form.
 
-    Cross-check with Vol I: kappa = weight of Delta_k means the
-    Hodge class coefficient. For the BKM shadow, kappa = 5.
+    Cross-check with Vol I: kappa_BKM = weight of Delta_k means the
+    Hodge class coefficient. For the BKM shadow, kappa_BKM = 5.
     """
     return bkm_kappa_projection()
 

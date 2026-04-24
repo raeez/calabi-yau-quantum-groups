@@ -946,7 +946,9 @@ def tilting_cover_c3() -> TiltingChartCover:
     stability conditions give the same heart).
 
     Number of charts: 1 (one maximal cone in the trivial fan).
-    The CoHA is Y^+(gl_hat_1) = W_{1+infinity}.
+    The CoHA is the positive half Y^+(gl_hat_1).  The full
+    W_{1+infinity} algebra appears only after Drinfeld double/center
+    and vacuum/Fock evaluation.
     """
     c = chart_c3()
     return TiltingChartCover(

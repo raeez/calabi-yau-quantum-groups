@@ -25,19 +25,25 @@ This changes the logical status of both CY-C and CY-D:
    With Phi_3 proved, one can now ASK whether Rep^{E_2}(Phi_3(C)) = Rep(A_hbar).
 
 2. CY-D (modular CY characteristic):
-   BEFORE: kappa_ch(A_C) undefined at d=3 (Phi_3 didn't exist).
-   AFTER:  kappa_ch(A_C) is DEFINED for all CY_3 with chain-level framing.
+   BEFORE: many d=3 lanes had no chain-level chiral construction.
+   AFTER:  kappa_ch(A_C) is defined only where the chain-level framing
+   and construction are supplied; strict compact CY_3 examples still carry
+   BCOV-shadow candidates unless that identification is proved.
 
    The QUESTION kappa_ch = chi^CY is conclusion (C4) of thm:cy-to-chiral-d3,
    marked as Conjecture conj:cy-kappa-identification. NOT yet proved at d=3.
 
    For K3 x E specifically:
-     kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3
+     compact kappa_ch(K3 x E) = chi(O_{K3 x E}) = 0,
+     while the Heisenberg-specialised shadow has
+     kappa_ch_Heis(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3
    by ADDITIVITY, using CY-A_2 and CY-A_1 only (no CY-A_3 needed).
-   So kappa_ch(K3 x E) = 3 was proved BEFORE CY-A_3.
+   Thus the value 3 belongs to the Heisenberg shadow lane, not to the
+   compact total-space Hodge supertrace.
 
-   What CY-A_3 adds: kappa_ch is now defined for ALL CY_3 (quintic,
-   complete intersections, etc.), not just fibered ones.
+   What CY-A_3 adds: a precise target for strict compact CY_3 candidates
+   (quintic, complete intersections, etc.), not a blanket proof that the
+   BCOV shadow equals constructed kappa_ch.
 
 3. The BFN route to CY-C at d=3:
    The BFN quantized Coulomb branch A_hbar(G,N) provides a candidate
@@ -73,7 +79,7 @@ REFERENCES
   bfn_coulomb_k3_yangian.py: BFN route to K3 Yangian (93 tests)
   chiral_qg_rep_category.py: Rep^{E_2}(Y(g_{K3})) (76 tests)
   modular_cy_characteristic.py: kappa_ch computations (80 tests)
-  modular_koszul_bridge_k3e.py: kappa_ch(K3 x E) = 3 (proved)
+  modular_koszul_bridge_k3e.py: kappa_ch_Heis(K3 x E) = 3 (proved Heisenberg lane)
 """
 
 from __future__ import annotations
@@ -263,8 +269,9 @@ def cy_d_status(d: int) -> TheoremStatus:
                 'kappa_ch(A_C) is DEFINED (CY-A_3 proved). '
                 'Equality kappa_ch = chi^CY is conclusion (C4) of '
                 'thm:cy-to-chiral-d3, marked as conj:cy-kappa-identification. '
-                'NOT yet proved. Verified for C^3 (kappa=1) and '
-                'K3 x E (kappa=3 by additivity).'
+                'NOT yet proved. Verified for C^3 (kappa_ch=1). '
+                'For K3 x E the compact value is kappa_ch=0, while '
+                'the separate Heisenberg shadow has kappa_ch_Heis=3 by additivity.'
             ),
         )
     else:
@@ -296,7 +303,7 @@ def cy_d_definedness_post_cya3() -> Dict[str, Any]:
             'd=3': False,
         },
         'equality_status_d3': 'CONJECTURED (conj:cy-kappa-identification)',
-        'verified_cases_d3': ['C^3 (kappa_ch=1)', 'K3 x E (kappa_ch=3, by additivity)'],
+        'verified_cases_d3': ['C^3 (kappa_ch=1)', 'K3 x E (compact kappa_ch=0; kappa_ch_Heis=3 by additivity)'],
     }
 
 
@@ -476,7 +483,8 @@ KAPPA_CH_VALUES = {
     'elliptic_curve': F(1),
     'K3': F(2),
     'abelian_surface': F(2),
-    'K3_times_E': F(3),
+    'K3_times_E': F(0),
+    'K3_times_E_Heis': F(3),
     'C3': F(1),
     'resolved_conifold': F(1),
     'quintic': F(-25, 3),        # conjectural
@@ -485,31 +493,33 @@ KAPPA_CH_VALUES = {
 
 
 def kappa_ch_k3_times_e_additivity() -> Dict[str, Any]:
-    """Prove kappa_ch(K3 x E) = 3 by additivity.
+    """Record kappa_ch_Heis(K3 x E) = 3 by additivity.
 
-    kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+    compact kappa_ch(K3 x E) = 0, while
+    kappa_ch_Heis(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
 
     This uses CY-A_2 and CY-A_1 ONLY. No CY-A_3 needed.
     The additivity is from Vol I prop:independent-sum-factorization.
 
     >>> result = kappa_ch_k3_times_e_additivity()
-    >>> result['kappa_ch_K3xE']
+    >>> result['kappa_ch_Heis_K3xE']
     Fraction(3, 1)
     """
     kappa_k3 = F(2)
     kappa_e = F(1)
-    kappa_k3xe = kappa_k3 + kappa_e
+    kappa_k3xe_heis = kappa_k3 + kappa_e
 
     return {
         'kappa_ch_K3': kappa_k3,
         'kappa_ch_E': kappa_e,
-        'kappa_ch_K3xE': kappa_k3xe,
-        'additivity_holds': kappa_k3xe == F(3),
+        'kappa_ch_K3xE': F(0),
+        'kappa_ch_Heis_K3xE': kappa_k3xe_heis,
+        'additivity_holds': kappa_k3xe_heis == F(3),
         'uses_cya3': False,
         'dependencies': ('CY-A_2', 'CY-A_1'),
         'status': 'PROVED',
         'notes': (
-            'kappa_ch(K3 x E) = 3 by additivity. '
+            'kappa_ch_Heis(K3 x E) = 3 by additivity; compact kappa_ch=0. '
             'Does NOT require CY-A_3. Uses CY-A_2 + CY-A_1 only.'
         ),
     }
@@ -521,25 +531,28 @@ def kappa_ch_defined_post_cya3() -> Dict[str, Any]:
     Before CY-A_3: kappa_ch defined only via CY-A_2 (d <= 2) or
     by additivity/indirect arguments.
 
-    After CY-A_3: kappa_ch(Phi_3(C)) is defined for ALL CY_3 categories
-    satisfying H1-H4 of thm:cy-to-chiral-d3. This includes:
-      - quintic (h^{1,1}=1, h^{2,1}=101)
+    After CY-A_3: kappa_ch(Phi_3(C)) is defined only in the lanes where
+    the chain-level construction is supplied.  The BCOV-shadow scalar is
+    visible for strict compact CY_3 examples, but is not constructed
+    kappa_ch by itself.  The accessible test cases include:
+      - quintic BCOV-shadow candidate (h^{1,1}=1, h^{2,1}=101)
       - complete intersections in P^n
-      - K3 x E (already had kappa_ch=3 by additivity)
+      - K3 x E (compact kappa_ch=0; already had kappa_ch_Heis=3 by additivity)
       - Enriques x E (conjectural orbifold extension)
       - C^3 (already had kappa_ch=1 via CoHA)
 
-    The VALUE is defined; the EQUALITY kappa_ch = chi^CY is conjectural.
+    The BCOV-shadow value is defined; its identification with kappa_ch is
+    conjectural.
 
     >>> result = kappa_ch_defined_post_cya3()
-    >>> result['quintic_kappa_defined']
+    >>> result['quintic_bcov_shadow_candidate_defined']
     True
     """
     return {
-        'quintic_kappa_defined': True,
+        'quintic_bcov_shadow_candidate_defined': True,
         'complete_intersection_kappa_defined': True,
         'k3xe_kappa_defined': True,  # was already defined by additivity
-        'k3xe_new_info': False,      # CY-A_3 adds nothing new for K3 x E kappa
+        'k3xe_new_info': False,      # CY-A_3 adds no new Heisenberg additivity for K3 x E
         'newly_accessible': [
             'quintic (rigid CY_3, h^{1,1}=1)',
             'CICY (complete intersection CY_3)',
@@ -548,8 +561,12 @@ def kappa_ch_defined_post_cya3() -> Dict[str, Any]:
         ],
         'equality_status': {
             'C3': 'PROVED (kappa_ch=1=chi^CY)',
-            'K3_times_E': 'PROVED by additivity (kappa_ch=3)',
-            'quintic': 'CONJECTURED (kappa_ch=-25/3=chi_top/24)',
+            'K3_times_E': 'compact kappa_ch=0; Heisenberg shadow kappa_ch_Heis=3 by additivity',
+            'quintic': (
+                'CONJECTURED BCOV-shadow candidate '
+                '(kappa_BCOV_shadow_conjectural=-25/3=chi_top/24); '
+                'constructed kappa_ch open'
+            ),
             'general_CY3': 'CONJECTURED (conj:cy-kappa-identification)',
         },
     }
@@ -563,15 +580,14 @@ def kappa_ch_cy_d_d3_assessment() -> Dict[str, Any]:
     At d=3: kappa_ch is now DEFINED. Can we prove the equality?
 
     For C^3: kappa_ch = 1 = chi^CY(C^3). PROVED (five paths).
-    For K3 x E: kappa_ch = 3. What is chi^CY(K3 x E)?
-      chi^CY(K3 x E) = chi^CY(K3) + chi^CY(E) = 2 + 1 = 3.
-      (Additivity of chi^CY for products.)
-      So kappa_ch = chi^CY = 3. PROVED by additivity.
+    For K3 x E: compact kappa_ch = 0.  The separate Heisenberg
+      shadow value is kappa_ch_Heis = 3 by additivity
+      kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
 
-    For quintic: kappa_ch DEFINED by CY-A_3.
-      Conjectural: kappa_ch = chi_top/24 = -200/24 = -25/3.
-      BCOV genus-1 matching: F_1 = kappa_ch/24 = -25/72.
-      But equality is CONJECTURAL (no independent chi^CY computation).
+    For quintic: the BCOV-shadow scalar is defined by chi_top/24.
+      Conjectural: kappa_BCOV_shadow_conjectural = -200/24 = -25/3.
+      Constructed kappa_ch remains open until a chain-level chiral proof
+      identifies the BCOV shadow with the chiral modular characteristic.
 
     >>> result = kappa_ch_cy_d_d3_assessment()
     >>> result['c3']['proved']
@@ -590,25 +606,30 @@ def kappa_ch_cy_d_d3_assessment() -> Dict[str, Any]:
             'method': 'five-path verification (thm:kappa-c3)',
         },
         'k3xe': {
-            'kappa_ch': F(3),
-            'chi_cy': F(3),
+            'kappa_ch': F(0),
+            'kappa_ch_Heis': F(3),
+            'chi_cy_compact': F(0),
             'match': True,
             'proved': True,
-            'method': 'additivity: kappa(K3)+kappa(E)=2+1=3; '
-                      'chi^CY(K3)+chi^CY(E)=2+1=3',
+            'method': 'compact Hodge/PhiFA total-space supertrace is 0; '
+                      'Heisenberg additivity gives 2+1=3 in the separate shadow lane',
         },
         'quintic': {
-            'kappa_ch': F(-25, 3),
+            'kappa_BCOV_shadow_conjectural': F(-25, 3),
+            'kappa_ch_constructed': False,
             'chi_cy_candidate': F(-25, 3),
             'match': True,  # conjectural match
             'proved': False,
             'method': 'BCOV genus-1 matching (conjectural)',
-            'notes': 'kappa_ch = chi_top/24 for quintic (observation)',
+            'notes': (
+                'BCOV-shadow candidate chi_top/24 for quintic; '
+                'not constructed kappa_ch'
+            ),
         },
         'status_summary': (
-            'CY-D at d=3: kappa_ch is now DEFINED for all CY_3 '
-            '(by CY-A_3). Equality kappa_ch = chi^CY is PROVED for '
-            'C^3 and K3 x E, CONJECTURED for quintic and general CY_3.'
+            'CY-D at d=3: constructed kappa_ch is PROVED for C^3 and '
+            'K3 x E in these lanes.  For the quintic this engine records '
+            'only the BCOV-shadow candidate; general CY_3 remains conjectural.'
         ),
     }
 
@@ -725,29 +746,31 @@ def kappa_spectrum_k3xe_post_cya3() -> Dict[str, Any]:
     """The resolved kappa spectrum for K3 x E after CY-A_3.
 
     AP113: bare kappa is forbidden. The four subscripted values:
-      kappa_ch   = 3 (from chiral algebra via Phi; PROVED by additivity)
+      compact kappa_ch = 0 (total-space Hodge/PhiFA supertrace)
+      kappa_ch_Heis = 3 (Heisenberg shadow; PROVED by additivity)
       kappa_BKM  = 5 (from Borcherds weight; CONJECTURAL as modular char)
       kappa_cat  = 0 (from chi(O_{K3 x E}); PROVED)
-      kappa_cat_fiber = 2 (from chi(O_{K3}); PROVED)
+      chi_O_K3_fiber = 2 (auxiliary, from chi(O_{K3}); PROVED)
       kappa_fiber = 24 (from lattice rank; PROVED)
 
     What CY-A_3 changes:
-      kappa_ch is now INDEPENDENTLY defined via Phi_3 (not just additivity).
-      The equality kappa_ch(Phi_3(D^b(K3xE))) = 3 is a PREDICTION of CY-D_3
-      that can be checked once the functor is evaluated explicitly.
+      compact kappa_ch is now independently typed via Phi_3.  The value 3
+      remains the Heisenberg specialisation, not the compact total-space
+      Hodge supertrace.
 
     >>> result = kappa_spectrum_k3xe_post_cya3()
-    >>> result['kappa_ch']
+    >>> result['kappa_ch_Heis']
     Fraction(3, 1)
     """
     return {
-        'kappa_ch': F(3),
-        'kappa_ch_status': 'PROVED (additivity, CY-A_2 + CY-A_1)',
+        'kappa_ch': F(0),
+        'kappa_ch_status': 'PROVED (compact Hodge/PhiFA total-space supertrace)',
+        'kappa_ch_Heis': F(3),
+        'kappa_ch_Heis_status': 'PROVED (additivity, CY-A_2 + CY-A_1)',
         'kappa_ch_cya3_independent': True,
         'kappa_ch_cya3_prediction': (
-            'CY-A_3 + CY-D_3 predict kappa_ch(Phi_3(D^b(K3xE))) = 3. '
-            'This is consistent with the additivity proof but provides '
-            'an INDEPENDENT verification when Phi_3 is evaluated explicitly.'
+            'CY-A_3 types compact kappa_ch(Phi_3(D^b(K3xE))) as 0 on the '
+            'total-space Hodge/PhiFA lane; the value 3 is kappa_ch_Heis.'
         ),
         'kappa_BKM': F(5),
         'kappa_BKM_status': 'CONJECTURAL (Borcherds weight)',
@@ -757,10 +780,11 @@ def kappa_spectrum_k3xe_post_cya3() -> Dict[str, Any]:
         'kappa_cat_fiber_status': 'PROVED (chi(O_{K3}))',
         'kappa_fiber': F(24),
         'kappa_fiber_status': 'PROVED (Mukai lattice rank)',
-        'spectrum': {F(0), F(2), F(3), F(5), F(24)},
+        'spectrum': {F(0), F(3), F(5), F(24)},
+        'auxiliary_fiber_values': {F(2)},
         'contradiction_resolved': (
-            'kappa=3 vs kappa=5 resolved by AP113 polysemy: '
-            'kappa_ch=3 (chiral) != kappa_BKM=5 (Borcherds).'
+            'kappa_ch_Heis=3 vs kappa_BKM=5 resolved by AP113 polysemy: '
+            'compact kappa_ch=0, Heisenberg shadow=3, Borcherds weight=5.'
         ),
     }
 
@@ -841,22 +865,31 @@ def full_reassessment_post_cya3() -> Dict[str, Any]:
 
         # CY-D
         'cy_d_d2_status': 'PROVED',
-        'cy_d_d3_status': 'CONJECTURED (kappa_ch DEFINED, equality open)',
-        'cy_d_change': 'd=3: kappa_ch now DEFINED; equality still conjectural',
+        'cy_d_d3_status': (
+            'MIXED: C3 and K3xE constructed; strict compact CY3 BCOV-shadow '
+            'candidate only'
+        ),
+        'cy_d_change': (
+            'd=3: proved lanes separated from BCOV-shadow candidate lanes'
+        ),
         'cy_d_verified_d3': {
             'C3': 'kappa_ch=1=chi^CY (PROVED)',
-            'K3xE': 'kappa_ch=3=chi^CY (PROVED by additivity)',
-            'quintic': 'kappa_ch=-25/3 (CONJECTURAL)',
+            'K3xE': 'compact kappa_ch=0; kappa_ch_Heis=3 by additivity',
+            'quintic': (
+                'kappa_BCOV_shadow_conjectural=-25/3; '
+                'constructed kappa_ch open'
+            ),
         },
 
         # kappa_ch
-        'kappa_ch_k3xe': F(3),
+        'kappa_ch_k3xe': F(0),
+        'kappa_ch_heis_k3xe': F(3),
         'kappa_ch_k3xe_proved': True,
         'kappa_ch_k3xe_uses_cya3': False,
 
         # New capabilities
         'new_capabilities': [
-            'kappa_ch defined for ALL CY_3 with chain-level framing',
+            'BCOV-shadow candidates tracked separately from constructed kappa_ch',
             'Shadow amplitudes defined for ALL CY_3',
             'Route (a) to Y(g_{K3}) is now constructive',
             'Comparison Phi_3(C) vs A_hbar is well-defined question',

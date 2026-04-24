@@ -37,7 +37,8 @@ SIX STANDARD EXAMPLES
 (1) C^3 (equivariant):
     Stab = C^3 / CY constraint ~ C^2.
     Simply connected, pi_1 = 0.
-    No monodromy, A_X = single CoHA (W_{1+inf}).
+    No monodromy, A_X has Hall positive-half shadow CoHA = Y^+(gl_hat_1);
+    W_{1+inf} appears after Drinfeld double/center and Fock evaluation.
 
 (2) Resolved conifold:
     Stab ~ C x H (H = upper half-plane, after suitable quotient).
@@ -1199,13 +1200,13 @@ def pi1_k3xe() -> FundamentalGroupData:
 def chamber_growth_k3xe() -> ChamberGrowthData:
     r"""Chamber growth for K3 x E.
 
-    K3 x E is a compact CY3 with chi = 0 and kappa = 5 (from the
-    modular form convention).
+    K3 x E is a compact CY3 with chi = 0 and kappa_BKM = 5 (from the
+    modular form convention; kappa_ch = 3 is separate).
 
     The chamber structure is infinite: controlled by BPS states
     which include D-brane wrapping modes on K3 x E.
 
-    The growth rate: since kappa = 5, the Cardy formula gives
+    The growth rate: since kappa_BKM = 5, the Cardy formula gives
       N(R) ~ exp(2*pi*sqrt(2*5) * R) = exp(2*pi*sqrt(10) * R)
 
     The BPS states are counted by the elliptic genus of K3
@@ -2200,7 +2201,7 @@ def stab_dimension_table() -> Dict[str, Dict[str, Any]]:
             'pi1': 'Aut(D^b(K3)) x SL_2(Z)',
             'simply_connected': False,
             'aspherical': 'conjectural',
-            'growth': 'exponential (kappa = 5)',
+            'growth': 'exponential (kappa_BKM = 5)',
         },
         'quintic': {
             'dim_stab': 4,

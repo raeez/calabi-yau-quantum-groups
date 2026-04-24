@@ -104,14 +104,14 @@ class TestHodgeDataSanity:
 
 
 # ======================================================================
-# 2. kappa_ch = 3: individual routes
+# 2. kappa_ch^Heis = 3: individual routes
 # ======================================================================
 
 class TestKappaChRoutes:
-    """Test each independent route to kappa_ch(K3 x E) = 3."""
+    """Test each independent route to kappa_ch^Heis(K3 x E) = 3."""
 
     def test_additive_route(self):
-        """kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3."""
+        """kappa_ch(K3) + kappa_ch^Heis(E) = 2 + 1 = 3."""
         r = kappa_ch_route_additive()
         # VERIFIED [DC] additivity 2+1=3 [LC] prop:kappa-spectrum-reconciliation
         assert r.agrees
@@ -146,7 +146,7 @@ class TestKappaChRoutes:
     def test_yangian_route(self):
         """Yangian route gives 3 but is conditional."""
         r = kappa_ch_route_yangian()
-        # VERIFIED [DC] Yangian kappa_ch = 3 [LC] conditional on CY-A
+        # VERIFIED [DC] Yangian kappa_ch^Heis = 3 [LC] conditional on CY-A
         assert r.agrees
         assert r.computed_value == 3
         assert r.proof_status == "conditional"
@@ -162,13 +162,13 @@ class TestKappaChRoutes:
     def test_chiral_de_rham_route(self):
         """Chiral de Rham complex: 2+1 = 3."""
         r = kappa_ch_route_chiral_de_rham()
-        # VERIFIED [DC] chiral de Rham kappa_ch = 3 [LC] product structure
+        # VERIFIED [DC] chiral de Rham kappa_ch^Heis = 3 [LC] product structure
         assert r.agrees
         assert r.computed_value == 3
         assert r.proof_status == "proved"
 
     def test_genus1_free_energy_route(self):
-        """F_1 = kappa_ch / 24 = 3/24 = 1/8."""
+        """F_1 = kappa_ch^Heis / 24 = 3/24 = 1/8."""
         r = kappa_ch_route_genus1_free_energy()
         # VERIFIED [DC] F_1 = 1/8 [LC] topological string
         assert r.agrees
@@ -176,7 +176,7 @@ class TestKappaChRoutes:
         assert r.proof_status == "proved"
 
     def test_all_routes_consistent(self):
-        """All 7 routes for kappa_ch agree on 3."""
+        """All 7 routes for kappa_ch^Heis agree on 3."""
         report = verify_kappa_ch_all_routes()
         # VERIFIED [DC] 7-route consistency [LC] adversarial
         assert report.all_agree
@@ -274,7 +274,7 @@ class TestKappaBKMRoutes:
         assert r.proof_status == "proved"
 
     def test_NOT_sum_route_correctly_fails(self):
-        """kappa_ch + kappa_cat(total) = 3 + 0 = 3 != 5. CORRECTLY FAILS."""
+        """kappa_ch^Heis + kappa_cat(total) = 3 + 0 = 3 != 5."""
         r = kappa_BKM_route_NOT_sum()
         # VERIFIED [DC] sum 3+0=3!=5 [LC] correctly fails (AP-CY8)
         assert not r.agrees  # INTENTIONALLY fails
@@ -282,7 +282,7 @@ class TestKappaBKMRoutes:
         assert r.proof_status == "wrong"
 
     def test_fiber_coincidence_route(self):
-        """kappa_ch + chi(O_K3) = 3 + 2 = 5. Coincidence for N=1."""
+        """kappa_ch^Heis + chi(O_K3) = 3 + 2 = 5. Coincidence for N=1."""
         r = kappa_BKM_route_fiber_coincidence()
         # VERIFIED [DC] fiber coincidence 3+2=5 [LC] N=1 only
         assert r.agrees  # numerically correct for N=1
@@ -399,7 +399,7 @@ class TestCrossKappaAdversarial:
     """Cross-kappa structural tests."""
 
     def test_sum_correctly_fails(self):
-        """kappa_ch + kappa_cat = 3 + 0 = 3 != 5 = kappa_BKM."""
+        """kappa_ch^Heis + kappa_cat = 3 + 0 = 3 != 5 = kappa_BKM."""
         result = verify_kappa_ch_plus_kappa_cat_neq_kappa_BKM()
         # VERIFIED [DC] sum != BKM [LC] fundamental
         assert not result["sum_equals_BKM"]
@@ -417,10 +417,10 @@ class TestCrossKappaAdversarial:
         assert result["BKM_NOT_total"]
 
     def test_BKM_over_ch_ratio(self):
-        """kappa_BKM / kappa_ch = 5/3."""
+        """kappa_BKM / kappa_ch^Heis = 5/3."""
         ratios = verify_all_ratios()
         # VERIFIED [DC] BKM/ch ratio [LC] second quantization
-        assert ratios["kappa_BKM/kappa_ch"] == Fraction(5, 3)
+        assert ratios["kappa_BKM/kappa_ch_Heis"] == Fraction(5, 3)
 
     def test_fiber_over_BKM_ratio(self):
         """kappa_fiber / kappa_BKM = 24/5."""
@@ -429,11 +429,11 @@ class TestCrossKappaAdversarial:
         assert ratios["kappa_fiber/kappa_BKM"] == Fraction(24, 5)
 
     def test_fiber_over_ch_ratio(self):
-        """kappa_fiber / kappa_ch = 24/3 = 8."""
+        """kappa_fiber / kappa_ch^Heis = 24/3 = 8."""
         ratios = verify_all_ratios()
         # VERIFIED [DC] fiber/ch ratio [LC] lattice-to-chiral
-        assert ratios["kappa_fiber/kappa_ch"] == Fraction(24, 3)
-        assert ratios["kappa_fiber/kappa_ch"] == 8
+        assert ratios["kappa_fiber/kappa_ch_Heis"] == Fraction(24, 3)
+        assert ratios["kappa_fiber/kappa_ch_Heis"] == 8
 
     def test_fiber_over_cat_fiber_ratio(self):
         """kappa_fiber / kappa_cat_fiber = 24/2 = 12."""
@@ -514,11 +514,11 @@ class TestBCOVAdversarial:
         assert 1 != 2  # kappa_ch(K3) = 2
 
     def test_bcov_fails_K3xE(self):
-        """chi_top(K3 x E)/24 = 0 != 3 = kappa_ch(K3 x E)."""
+        """chi_top(K3 x E)/24 = 0; it does not produce kappa_ch^Heis = 3."""
         k3e = k3_times_e()
         # VERIFIED [DC] BCOV fails for K3 x E [LC] chi_top = 0
         assert Fraction(k3e.chi_top, 24) == 0
-        assert 0 != 3  # kappa_ch(K3 x E) = 3
+        assert 0 != 3  # kappa_ch^Heis(K3 x E) = 3
 
     def test_bcov_works_quintic(self):
         """chi_top(Quintic)/24 = -25/3 = kappa_ch(Quintic)."""
@@ -553,7 +553,7 @@ class TestMasterVerification:
         assert result["wrong_routes_documented"] == 2
 
     def test_kappa_ch_no_discrepancies(self):
-        """kappa_ch: all 7 routes agree."""
+        """kappa_ch^Heis: all 7 routes agree."""
         result = verify_all_kappa_consistency()
         # VERIFIED [DC] kappa_ch clean [LC] 7-route
         assert result["kappa_ch_report"].all_agree
@@ -577,7 +577,7 @@ class TestMasterVerification:
         assert result["kappa_fiber_report"].all_agree
 
     def test_cross_kappa_failure(self):
-        """kappa_ch + kappa_cat = 3 != 5 = kappa_BKM."""
+        """kappa_ch^Heis + kappa_cat = 3 != 5 = kappa_BKM."""
         result = verify_all_kappa_consistency()
         # VERIFIED [DC] cross-kappa failure [LC] fundamental
         assert not result["cross_kappa_check"]["sum_equals_BKM"]

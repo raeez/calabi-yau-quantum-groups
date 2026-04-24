@@ -52,7 +52,8 @@ WHAT THE RELATIVE CONSTRUCTION SEES
    multiplicities c(D) are visible as dimensions of graded
    components of the relative bar complex.
 
-4. The kappa spectrum: kappa_ch = 2 (from Phi_2 applied to K3),
+4. The kappa spectrum: kappa_ch(K3) = 2 (from Phi_2 applied to K3),
+   compact kappa_ch(K3 x E) = 0, kappa_ch_Heis(K3 x E) = 3,
    kappa_fiber = 24 (lattice rank), kappa_BKM = 5 (Borcherds weight).
 
 WHAT THE RELATIVE CONSTRUCTION MISSES
@@ -311,7 +312,8 @@ def relative_chiral_algebra_data() -> Dict[str, object]:
         'type': 'Factorization algebra on E with fiber V_{tilde{Lambda}_{K3}}',
         'fiber_kappa_ch': fiber['kappa_ch'],
         'base_kappa_ch': base['kappa_ch_E'],
-        'relative_kappa_ch': fiber['kappa_ch'] + base['kappa_ch_E'],  # = 3
+        'compact_kappa_ch': 0,
+        'relative_kappa_ch_Heis': fiber['kappa_ch'] + base['kappa_ch_E'],  # = 3
         'kappa_fiber': MUKAI_RANK,  # = 24
         'kappa_BKM': 5,  # weight of Delta_5
         'E_n_level_fiber': 2,  # E_2 from CY_2
@@ -460,9 +462,10 @@ def kappa_spectrum_relative() -> Dict[str, object]:
     The relative construction (fiberwise Phi_2 + factorization homology
     over E) sees the following kappa values:
 
-    kappa_ch = 2: from Phi_2(D^b(K3)).  PROVED (CY-A_2).
-    kappa_ch(K3 x E) = 3: by additivity kappa_ch(K3) + kappa_ch(E) = 2 + 1.
-        PROVED (follows from CY-A_2 + CY-A_1).
+    kappa_ch(K3) = 2: from Phi_2(D^b(K3)).  PROVED (CY-A_2).
+    compact kappa_ch(K3 x E) = 0: total-space Hodge/PhiFA supertrace.
+    kappa_ch_Heis(K3 x E) = 3: by additivity kappa_ch(K3) + kappa_ch_Heis(E) = 2 + 1.
+        PROVED in the relative Heisenberg shadow (follows from CY-A_2 + CY-A_1).
     kappa_cat(K3 x E) = 0: chi(O_{K3 x E}) = 0.  PROVED (Kunneth).
     kappa_cat_fiber = 2: chi(O_{K3}) = 2.  PROVED (Hodge theory).
     kappa_fiber = 24: Mukai lattice rank.  PROVED (lattice theory).
@@ -482,14 +485,16 @@ def kappa_spectrum_relative() -> Dict[str, object]:
 
     return {
         'kappa_ch_K3': 2,
-        'kappa_ch_K3xE': 3,
+        'kappa_ch_K3xE': 0,
+        'kappa_ch_K3xE_Heis': 3,
         'kappa_cat': 0,
         'kappa_cat_fiber': 2,
         'kappa_fiber': 24,
         'kappa_BKM': Fraction(c0, 2),
         'c0': c0,
         'kappa_ch_K3_status': 'PROVED (CY-A_2)',
-        'kappa_ch_K3xE_status': 'PROVED (CY-A_2 + CY-A_1, additivity)',
+        'kappa_ch_K3xE_status': 'PROVED compact total-space Hodge/PhiFA supertrace',
+        'kappa_ch_K3xE_Heis_status': 'PROVED relative Heisenberg shadow (CY-A_2 + CY-A_1, additivity)',
         'kappa_cat_status': 'PROVED (Kunneth)',
         'kappa_cat_fiber_status': 'PROVED (Hodge theory)',
         'kappa_fiber_status': 'PROVED (Mukai lattice)',

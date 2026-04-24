@@ -3,6 +3,9 @@
 Verifies the Costello construction (arXiv:1303.2632): 5d holomorphic
 Chern-Simons theory on C^2 x R with gauge algebra gl_1 produces the
 affine Yangian Y(gl_hat_1) as the boundary chiral algebra.
+The suite verifies the gl_1 baseline; it does not compute the non-
+simply-laced four-loop Dynkin-twisted BV obstruction or a GRT_1
+nullhomotopy.
 
 Test organization (12 suites, 87 tests):
 

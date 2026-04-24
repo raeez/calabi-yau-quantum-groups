@@ -63,7 +63,7 @@ REFERENCES
 ===========
   Weil (1949): Numbers of solutions of equations in finite fields
   Ireland-Rosen (1990): A Classical Introduction to Modern Number Theory
-  Schiffmann-Vasserot (2013): CoHA = affine Yangian
+  Schiffmann-Vasserot (2013): CoHA(C^3) = Y^+(gl_hat_1), positive half
   Kontsevich-Soibelman (2008): motivic DT, stability structures
   Candelas-de la Ossa-Rodriguez-Villegas (2003): Calabi-Yau manifolds over
     finite fields I, hep-th/0012233

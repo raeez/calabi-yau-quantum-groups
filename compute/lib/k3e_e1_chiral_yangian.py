@@ -1034,7 +1034,8 @@ def cy2_vs_cy3_comparison() -> Dict[str, Any]:
       - E_n level: E_1 (ordered, NOT braided)
       - Bar Euler product: controlled by DMVV (class M)
       - Shadow class: M (infinite depth)
-      - kappa_ch = 3 (complex dimension)
+      - compact kappa_ch = 0 (Hodge/PhiFA supertrace)
+      - kappa_ch_Heis = 3 (relative output-side shadow)
 
     The PASSAGE K3 -> K3 x E:
       - Adds the E-direction weight eps3 = -(eps1 + eps2)
@@ -1063,7 +1064,8 @@ def cy2_vs_cy3_comparison() -> Dict[str, Any]:
             "r_matrix_charge1_dim": "1x1 (scalar)",
             "bar_euler": "DMVV product (class M, infinite depth)",
             "shadow_class": "M (infinite depth)",
-            "kappa_ch": 3,
+            "kappa_ch": 0,
+            "kappa_ch_Heis": 3,
             "status": "CONJECTURAL (CY-A_3)",
         },
         "degeneration": {

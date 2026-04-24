@@ -4,6 +4,9 @@ Verifies the deformation-theoretic analysis of the Zamolodchikov
 tetrahedron equation obstruction, computing H^0, H^1, H^2 of the
 deformation complex and proving that the ZTE correction EXISTS via
 cohomological vanishing in the gauge-extended complex.
+This is the ordinary ZTE deformation complex. It is not the
+lacing-decorated 5d hCS BV complex and does not decide the non-simply-
+laced four-loop obstruction or a GRT_1-twisted nullhomotopy.
 
 Key results verified:
   1. Chain complex: d^1 . d^0 = 0 (deformation complex well-defined).

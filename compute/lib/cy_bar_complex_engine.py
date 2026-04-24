@@ -30,13 +30,14 @@ MATHEMATICAL CONTENTS:
    The bar complex computes Lie algebra homology H_*(g) = H_*(HH^*(X)[1]).
 
 3. CATEGORICAL kappa for CY categories.
-   kappa(D^b(X)) = chi^CY(X), the CY Euler characteristic (Theorem CY-D).
-   Computed via the categorical trace on HH_0:
-     CY1 (elliptic):         kappa = 1
-     CY2 (K3):               kappa = 2 (= chi(O_X))
-     CY3 (K3 x E):           kappa = 5 (= weight of Delta_5)
-     CY3 (quintic, CONJ):    kappa = -25/3 (= chi_top/24)
-     CY3 (resolved conifold): kappa = 1
+   kappa_ch(D^b(X)) = chi^CY(X), the CY Euler characteristic (Theorem CY-D).
+   BKM denominator weights are recorded in a separate kappa_BKM lane:
+     CY1 (elliptic):         kappa_ch = 1
+     CY2 (K3):               kappa_ch = 2 (= chi(O_X))
+     CY3 (K3 x E):           compact kappa_ch = 0,
+                              kappa_ch_Heis = 3, kappa_BKM = 5 (= weight of Delta_5)
+     CY3 (quintic, CONJ):    kappa_BCOV_shadow_conjectural = -25/3 (= chi_top/24)
+     CY3 (resolved conifold): kappa_ch = 1
 
 4. SHADOW DEPTH CLASSIFICATION.
    G (Gaussian, r_max=2): free field / Heisenberg type.
@@ -83,7 +84,7 @@ MATHEMATICAL CONTENTS:
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
   - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
-  - kappa(A) = modular characteristic from Vol I.
+  - kappa_ch(A) = modular characteristic from Vol I.
   - chi^CY(C) = CY Euler characteristic (Theorem CY-D, NOT chi_top).
   - All Fraction arithmetic for exact computations.
 
@@ -517,10 +518,10 @@ def bar_complex_quintic(max_bar_degree: int = 4) -> BarComplexData:
 # =========================================================================
 
 class CategoricalKappa(NamedTuple):
-    """The categorical modular characteristic kappa(D^b(X)).
+    """The categorical modular characteristic kappa_ch(D^b(X)).
 
     This is chi^CY(X), the CY Euler characteristic.
-    Theorem CY-D: kappa(A_C) = chi^CY(C).
+    Theorem CY-D lane: kappa_ch(A_C) = chi^CY(C).
 
     IMPORTANT (AP48): kappa depends on the FULL algebra, not just
     the Virasoro subalgebra. kappa = c/2 only for Virasoro itself.
@@ -535,9 +536,10 @@ class CategoricalKappa(NamedTuple):
         of the CATEGORY. Theorem CY-D equates kappa(A_C) = chi^CY(C),
         but A_{K3} may not be the full lattice VOA.
 
-      CY3 (K3 x E): kappa = 5 (weight of Delta_5).
-      CY3 (quintic, CONJ): kappa = chi_top/24 = -25/3.
-      CY3 (resolved conifold): kappa = 1.
+      CY3 (K3 x E): compact kappa_ch = 0;
+        kappa_ch_Heis = 3; kappa_BKM = 5 (weight of Delta_5).
+      CY3 (quintic, CONJ): kappa_BCOV_shadow_conjectural = chi_top/24 = -25/3.
+      CY3 (resolved conifold): kappa_ch = 1.
     """
     name: str
     kappa: Fraction
@@ -545,6 +547,9 @@ class CategoricalKappa(NamedTuple):
     dimension: int       # CY dimension
     chi_top: int         # topological Euler characteristic
     chi_O: Fraction      # arithmetic genus chi(O_X) = sum (-1)^q h^{0,q}
+    kappa_label: str = "kappa_ch"
+    kappa_BKM: Optional[Fraction] = None
+    kappa_ch_Heis: Optional[Fraction] = None
 
 
 def categorical_kappa(hd: HodgeDiamond, name: str = "",
@@ -555,11 +560,13 @@ def categorical_kappa(hd: HodgeDiamond, name: str = "",
       d=0: kappa = 0
       d=1: kappa = 1 (Heisenberg level)
       d=2: kappa = chi(O_X)
-      d=3: kappa = chi_top/24 (CONJECTURAL for rigid CY3)
-           kappa = special value for K3 fibrations
+      d=3: kappa_BCOV_shadow_conjectural = chi_top/24
+           (CONJECTURAL for rigid CY3, not constructed kappa_ch)
+           K3 x E is handled by kappa_k3_times_e():
+           compact kappa_ch=0, kappa_ch_Heis=3, kappa_BKM=5
 
     WARNING: the d=3 formula is CONJECTURAL for general rigid CY3.
-    For K3 x E: kappa = 5 is PROVED but does NOT come from chi_top/24 = 0.
+    For K3 x E: kappa_BKM = 5 is PROVED but does NOT come from chi_top/24 = 0.
     """
     d = hd.n
     chi_top = hd.euler_characteristic
@@ -569,6 +576,7 @@ def categorical_kappa(hd: HodgeDiamond, name: str = "",
     for q in range(d + 1):
         chi_O += Fraction((-1) ** q) * Fraction(hd.h(0, q))
 
+    kappa_label = "kappa_ch"
     if d == 0:
         kappa = Fraction(0)
     elif d == 1:
@@ -576,9 +584,10 @@ def categorical_kappa(hd: HodgeDiamond, name: str = "",
     elif d == 2:
         kappa = chi_O
     elif d == 3:
-        # For rigid CY3: conjectural kappa = chi_top / 24.
-        # For K3 fibrations: different formula.
+        # For rigid CY3: conjectural BCOV-shadow scalar chi_top / 24.
+        # This is not a constructed kappa_ch for general compact CY3s.
         kappa = Fraction(chi_top, 24)
+        kappa_label = "kappa_BCOV_shadow_conjectural"
     else:
         # Higher-dimensional CY: no general formula known.
         # Conjectural: related to Todd class integral.
@@ -591,6 +600,7 @@ def categorical_kappa(hd: HodgeDiamond, name: str = "",
         dimension=d,
         chi_top=chi_top,
         chi_O=chi_O,
+        kappa_label=kappa_label,
     )
 
 
@@ -605,26 +615,34 @@ def kappa_k3() -> CategoricalKappa:
 
 
 def kappa_k3_times_e() -> CategoricalKappa:
-    """kappa(D^b(K3 x E)) = 5 (PROVED, Theorem CY-D).
+    """compact kappa_ch(D^b(K3 x E)) = 0, with Heisenberg shadow 3.
 
-    This does NOT come from the general chi_top/24 formula
-    (which gives 0 since chi_top(K3 x E) = 0).
-    It comes from the weight of the Igusa cusp form Delta_5.
+    The compact Hodge/PhiFA supertrace is the total-space value
+    kappa_ch(K3 x E) = chi(O_{K3 x E}) = 0.  The rank-additive
+    Heisenberg specialisation is a separate shadow lane:
+    kappa_ch_Heis(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+    The automorphic Borcherds denominator has the separate weight
+    kappa_BKM = 5 = wt(Delta_5).  The values 0, 3, and 5 are not
+    interchangeable.
     """
     return CategoricalKappa(
         name="K3 x E",
-        kappa=Fraction(5),
+        kappa=Fraction(0),
         status="PROVED",
         dimension=3,
         chi_top=0,
         chi_O=Fraction(0),
+        kappa_label="kappa_ch",
+        kappa_BKM=Fraction(5),
+        kappa_ch_Heis=Fraction(3),
     )
 
 
 def kappa_quintic() -> CategoricalKappa:
-    """kappa(D^b(quintic)) = -25/3 (CONJECTURAL).
+    """BCOV-shadow candidate for D^b(quintic): -25/3 (CONJECTURAL).
 
-    From chi_top/24 = -200/24 = -25/3.
+    From chi_top/24 = -200/24 = -25/3.  This is not a constructed
+    kappa_ch theorem for the compact quintic.
     """
     return categorical_kappa(quintic_hodge(), "quintic", "CONJECTURAL")
 
@@ -827,10 +845,12 @@ class ModularTrace(NamedTuple):
     genus_amplitudes: Dict[int, Fraction]  # g -> F_g
     log_Z_coefficients: Dict[int, float]   # 2g -> coefficient of hbar^{2g} in log Z
     partition_function_terms: int            # number of terms computed
+    kappa_label: str = "kappa_ch"
 
 
 def modular_trace(name: str, kappa: Fraction,
-                  max_genus: int = 5) -> ModularTrace:
+                  max_genus: int = 5,
+                  kappa_label: str = "kappa_ch") -> ModularTrace:
     """Compute the modular trace / shadow partition function.
 
     log Z^sh = sum_{g >= 1} F_g * hbar^{2g}
@@ -852,6 +872,7 @@ def modular_trace(name: str, kappa: Fraction,
         genus_amplitudes=tower,
         log_Z_coefficients=log_coeffs,
         partition_function_terms=max_genus,
+        kappa_label=kappa_label,
     )
 
 
@@ -868,20 +889,26 @@ def modular_trace_k3() -> ModularTrace:
 def modular_trace_quintic() -> ModularTrace:
     """Shadow partition function for D^b(quintic), CONJECTURAL.
 
-    kappa = -25/3.  F_1 = (-25/3)/24 = -25/72.
+    kappa_BCOV_shadow_conjectural = -25/3.  F_1 = (-25/3)/24 = -25/72.
     The NEGATIVE sign reflects the negative Euler characteristic:
     the quintic has chi_top = -200 < 0.
     """
-    return modular_trace("quintic", Fraction(-25, 3))
+    return modular_trace(
+        "quintic",
+        Fraction(-25, 3),
+        kappa_label="kappa_BCOV_shadow_conjectural",
+    )
 
 
 def modular_trace_k3xe() -> ModularTrace:
-    """Shadow partition function for D^b(K3 x E).
+    """BKM-denominator shadow partition function for K3 x E.
 
-    kappa = 5.  F_1 = 5/24.  All F_g > 0.
+    kappa_BKM = 5.  F_1 = 5/24.  All F_g > 0.
     DT partition function: Z = C / (Delta_5)^2.
+    The chiral/CY categorical scalar is kappa_ch = 3 and is not used
+    in this automorphic denominator trace.
     """
-    return modular_trace("K3 x E", Fraction(5))
+    return modular_trace("K3 x E", Fraction(5), kappa_label="kappa_BKM")
 
 
 def modular_trace_conifold() -> ModularTrace:
@@ -1056,6 +1083,7 @@ class DTShadowData(NamedTuple):
     constant_map_tower: Dict[int, Fraction]  # genus -> F_g^{const}
     macmahon_exponent: Optional[Fraction]    # exponent in M(q)^alpha
     gopakumar_vafa: Optional[Dict[int, int]]  # degree -> n^0_d
+    kappa_label: str = "kappa_ch"
 
 
 def dt_from_shadow_c3() -> DTShadowData:
@@ -1133,18 +1161,21 @@ def dt_from_shadow_quintic() -> DTShadowData:
         constant_map_tower=tower,
         macmahon_exponent=None,
         gopakumar_vafa=gv,
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
 def dt_from_shadow_k3xe() -> DTShadowData:
-    """DT invariants of K3 x E from the shadow tower (PROVED).
+    """DT invariants of K3 x E from the BKM shadow tower (PROVED).
 
-    kappa = 5.  Z^DT = C / (Delta_5)^2 (Theorem CY-D).
+    kappa_BKM = 5.  Z^DT = C / (Delta_5)^2.
     The shadow tower gives:
       F_1 = 5/24, F_2 = 7*5/5760 = 7/1152, ...
 
     The DT partition function is a Siegel modular form of weight -10
-    (= -2 * 5 = -2 * kappa).
+    (= -2 * 5 = -2 * kappa_BKM).  The compact scalar
+    kappa_ch(K3 x E) = 0 and the Heisenberg shadow
+    kappa_ch_Heis(K3 x E) = 3 are stored by kappa_k3_times_e().
     """
     tower = shadow_tower_scalar(Fraction(5), 5)
 
@@ -1156,6 +1187,7 @@ def dt_from_shadow_k3xe() -> DTShadowData:
         constant_map_tower=tower,
         macmahon_exponent=None,
         gopakumar_vafa=None,
+        kappa_label="kappa_BKM",
     )
 
 
@@ -1292,8 +1324,10 @@ def verify_kappa_additivity(kappa1: Fraction, kappa2: Fraction,
 
     kappa(C_1 x C_2) vs kappa(C_1) + kappa(C_2).
 
-    IMPORTANT: kappa is additive for DIRECT SUMS (independent fields)
-    but NOT for PRODUCTS in general (K3 x E: 5 != 2 + 1 = 3).
+    IMPORTANT: this is only meaningful lane-by-lane.  In the proved
+    Heisenberg shadow lane, K3 x E is additive: 3 = 2 + 1.  The old
+    discrepancy 5 != 3 compares kappa_BKM to kappa_ch_Heis and is not an
+    additivity test.
     """
     sum_kappa = kappa1 + kappa2
     return {
@@ -1378,7 +1412,9 @@ def verify_all() -> Dict[str, bool]:
     kk = kappa_k3()
     results["kappa_k3_2"] = (kk.kappa == 2)
     kke = kappa_k3_times_e()
-    results["kappa_k3xe_5"] = (kke.kappa == 5)
+    results["kappa_ch_k3xe_0"] = (kke.kappa == 0 and kke.kappa_label == "kappa_ch")
+    results["kappa_ch_heis_k3xe_3"] = (kke.kappa_ch_Heis == 3)
+    results["kappa_bkm_k3xe_5"] = (kke.kappa_BKM == 5)
     kq = kappa_quintic()
     results["kappa_quintic_minus25over3"] = (kq.kappa == Fraction(-25, 3))
     kc = kappa_resolved_conifold()
@@ -1392,8 +1428,8 @@ def verify_all() -> Dict[str, bool]:
     results["shadow_e_f2"] = (tower_e[2] == Fraction(7, 5760))
 
     tower_k3xe = shadow_tower_scalar(Fraction(5), 3)
-    results["shadow_k3xe_f1"] = (tower_k3xe[1] == Fraction(5, 24))
-    results["shadow_k3xe_f2"] = (tower_k3xe[2] == Fraction(7, 1152))
+    results["shadow_bkm_k3xe_f1"] = (tower_k3xe[1] == Fraction(5, 24))
+    results["shadow_bkm_k3xe_f2"] = (tower_k3xe[2] == Fraction(7, 1152))
 
     # 5. MacMahon function
     mc = macmahon_coefficients(11)

@@ -9,21 +9,22 @@ For EACH kappa in the K3 x E spectrum, verify that EVERY independent
 derivation route gives the SAME answer.  Document any discrepancy and
 its reconciliation.
 
-The four kappa values and their independent routes:
+The visible kappa values and their independent routes:
 
-  kappa_ch  = 3 : additive (2+1), dim_C(K3xE), bar Euler, Yangian,
-                   sigma model, chiral de Rham, genus-1 free energy
+  kappa_ch(K3xE) = 0 : compact Hodge/PhiFA supertrace
+  kappa_ch^Heis = 3 : additive (2+1), dim_C shadow, bar Euler, Yangian,
+                      sigma model, chiral de Rham, genus-1 free energy
   kappa_cat = 0 : Kunneth (2*0), Hodge (1-1+1-1=0), Hirzebruch chi_y,
                    HKR, Serre duality
   kappa_BKM = 5 : Borcherds c(0)/2, wt(Delta_5), DMVV second quantization,
-                   NOT kappa_ch + kappa_cat (this CORRECTLY fails: 3+0=3!=5)
+                   NOT kappa_ch^Heis + kappa_cat (this CORRECTLY fails: 3+0=3!=5)
   kappa_fiber = 24 : rk(Mukai), chi_top(K3), h^0+h^2+h^4, lattice theory,
                      1/eta^24 character
 
 CRITICAL ADVERSARIAL FINDINGS
 ==============================
 
-1. kappa_ch + kappa_cat = 3 + 0 = 3 != 5 = kappa_BKM.
+1. kappa_ch^Heis + kappa_cat = 3 + 0 = 3 != 5 = kappa_BKM.
    The sum CORRECTLY FAILS.  This confirms that kappa_BKM is NOT the sum
    of kappa_ch and kappa_cat of the TOTAL SPACE.
 
@@ -32,12 +33,10 @@ CRITICAL ADVERSARIAL FINDINGS
    The conjectural decomposition uses the FIBER: 3 + 2 = 5.
    This is a numerical coincidence for N=1 only (kappa_bkm_adversarial.py).
 
-3. The "dim_C route" for kappa_ch: dim_C(K3 x E) = 3.  This agrees with
-   the additive route kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.  BUT the
-   dim_C formula is NOT universal: it fails for non-product CY3s (quintic:
-   dim_C = 3 but kappa_ch = -25/3).  The dim_C agreement for K3 x E is
-   because kappa_ch = dim_C for PRODUCT CY manifolds with trivial h^{0,q}
-   pattern; it is NOT a general principle.
+3. The "dim_C route" is a route to the relative Heisenberg shadow, not
+   to compact kappa_ch: dim_C(K3 x E) = 3 agrees with
+   kappa_ch(K3) + kappa_ch^Heis(E) = 2 + 1 = 3.  It is not a general
+   formula for compact kappa_ch.
 
 4. The "sigma model c = 6d" route: central charge c = 6*3 = 18 for K3 x E.
    The naive formula kappa = c/6 = 3 agrees with kappa_ch.  But this is the
@@ -144,25 +143,25 @@ class KappaConsistencyReport(NamedTuple):
 
 
 # =========================================================================
-# 3. kappa_ch = 3: ALL ROUTES
+# 3. kappa_ch^Heis = 3: ALL ROUTES
 # =========================================================================
 
 def kappa_ch_route_additive() -> RouteVerification:
-    r"""Route 1: kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+    r"""Route 1: kappa_ch^Heis(K3 x E) = kappa_ch(K3) + kappa_ch^Heis(E).
 
     Proved. Uses additivity of the chiral modular characteristic
     under products, via the product decomposition of the chiral
     de Rham complex: Omega^{ch}(S x E) = Omega^{ch}(S) tensor Omega^{ch}(E).
 
     kappa_ch(K3) = 2 (Proposition prop:kappa-k3-five-paths, PROVED at d=2)
-    kappa_ch(E) = 1 (the single free boson on E, PROVED at d=1)
+    kappa_ch^Heis(E) = 1 (the single free boson on E, PROVED at d=1)
     """
     kappa_ch_K3 = 2   # 5 independent paths, all give 2
     kappa_ch_E = 1    # dim_C(E) = 1 (free boson)
     computed = kappa_ch_K3 + kappa_ch_E  # 3
 
     return RouteVerification(
-        kappa_name="kappa_ch",
+        kappa_name="kappa_ch^Heis",
         route_name="additive (2+1)",
         expected_value=3,
         computed_value=computed,
@@ -177,7 +176,7 @@ def kappa_ch_route_additive() -> RouteVerification:
 
 
 def kappa_ch_route_dim_C() -> RouteVerification:
-    r"""Route 2: kappa_ch(K3 x E) = dim_C(K3 x E) = 3.
+    r"""Route 2: kappa_ch^Heis(K3 x E) = dim_C(K3 x E) = 3.
 
     This is NOT a general formula. It works for K3 x E because:
     - kappa_ch(E) = 1 = dim_C(E) (elliptic curve: free boson)
@@ -191,14 +190,14 @@ def kappa_ch_route_dim_C() -> RouteVerification:
     computed = k3e.dim_C  # 3
 
     return RouteVerification(
-        kappa_name="kappa_ch",
+        kappa_name="kappa_ch^Heis",
         route_name="dim_C(K3 x E)",
         expected_value=3,
         computed_value=computed,
         agrees=(computed == 3),
         proof_status="observational",
         notes=(
-            "dim_C = 3 agrees with kappa_ch = 3 for K3 x E, but this is NOT "
+            "dim_C = 3 agrees with kappa_ch^Heis = 3 for K3 x E, but this is NOT "
             "a general formula. Fails for quintic: dim_C = 3, kappa_ch = -25/3."
         ),
         caveats=[
@@ -217,12 +216,12 @@ def kappa_ch_route_bar_euler() -> RouteVerification:
     For E: F_1(E) = 1/24.
     For K3 x E: F_1 = 3/24 = 1/8 (by additivity of F_1 under products).
 
-    The bar Euler product for K3 x E has weight kappa_ch = 3.
+    The relative bar Euler product for K3 x E has weight kappa_ch^Heis = 3.
     This is verified against the bar complex computation in
     bar_euler_borcherds.py (the single-copy bar Euler, NOT the
     second-quantized Borcherds product which has weight kappa_BKM = 5).
 
-    CRUCIAL: the bar Euler product has weight kappa_ch = 3, NOT 5.
+    CRUCIAL: the bar Euler product has weight kappa_ch^Heis = 3, NOT 5.
     The weight 5 belongs to Delta_5 (the Borcherds product), which is
     the SECOND-QUANTIZED lift, not the single-copy bar Euler.
     """
@@ -232,7 +231,7 @@ def kappa_ch_route_bar_euler() -> RouteVerification:
     computed = int(F_1_K3E * 24)  # = 3
 
     return RouteVerification(
-        kappa_name="kappa_ch",
+        kappa_name="kappa_ch^Heis",
         route_name="bar Euler (genus-1 free energy)",
         expected_value=3,
         computed_value=computed,
@@ -262,19 +261,19 @@ def kappa_ch_route_yangian() -> RouteVerification:
     The Yangian does NOT independently determine kappa_ch for K3 x E.
     It determines the STRUCTURE FUNCTION g(u) of the K3 quantum group,
     whose degree encodes kappa_fiber = 24 (the Miura factorization rank).
-    The extraction of kappa_ch = 3 from the Yangian requires the
+    The extraction of kappa_ch^Heis = 3 from the Yangian requires the
     CY-to-chiral functor output.
 
     IMPORTANT: the K3 Yangian presentation (thm:k3-abelian-yangian-
     presentation) is a d=2 result.  For K3 x E at d=3, the Yangian
     kappa_ch extraction is CONDITIONAL on CY-A_3.
     """
-    # The Yangian route gives kappa_ch = 3 for K3 x E, but
+    # The Yangian route gives kappa_ch^Heis = 3 for K3 x E, but
     # this is not truly independent: it chains through CY-A.
     computed = 3  # from the CY-A_2 output + additivity
 
     return RouteVerification(
-        kappa_name="kappa_ch",
+        kappa_name="kappa_ch^Heis",
         route_name="Yangian (K3 structure function)",
         expected_value=3,
         computed_value=computed,
@@ -282,7 +281,7 @@ def kappa_ch_route_yangian() -> RouteVerification:
         proof_status="conditional",
         notes=(
             "K3 Yangian has degree-(24,24) structure function. "
-            "kappa_ch = 3 extraction requires CY-A_2 (proved) + "
+            "kappa_ch^Heis = 3 extraction requires CY-A_2 (proved) + "
             "additivity for E factor. Not truly independent of "
             "the additive route."
         ),
@@ -319,7 +318,7 @@ def kappa_ch_route_sigma_model() -> RouteVerification:
     kappa_naive = c_total // 6  # 3
 
     return RouteVerification(
-        kappa_name="kappa_ch",
+        kappa_name="kappa_ch^Heis",
         route_name="sigma model (level-rank / c = 6d)",
         expected_value=3,
         computed_value=kappa_naive,
@@ -355,7 +354,7 @@ def kappa_ch_route_chiral_de_rham() -> RouteVerification:
     computed = 2 + 1  # chi(O_{K3}) + dim_C(E)
 
     return RouteVerification(
-        kappa_name="kappa_ch",
+        kappa_name="kappa_ch^Heis",
         route_name="chiral de Rham complex",
         expected_value=3,
         computed_value=computed,
@@ -379,7 +378,7 @@ def kappa_ch_route_genus1_free_energy() -> RouteVerification:
 
     For K3 x E, by the BCOV holomorphic anomaly equation:
       F_1 = kappa_ch / 24 * deg(lambda_1)
-    with kappa_ch = 3, giving F_1 = 3/24 = 1/8.
+    with kappa_ch^Heis = 3, giving F_1 = 3/24 = 1/8.
 
     This is verified against the one-loop computation in the
     topological B-model.
@@ -393,7 +392,7 @@ def kappa_ch_route_genus1_free_energy() -> RouteVerification:
     computed = int(F_1 * 24)  # = 3
 
     return RouteVerification(
-        kappa_name="kappa_ch",
+        kappa_name="kappa_ch^Heis",
         route_name="genus-1 free energy F_1",
         expected_value=3,
         computed_value=computed,
@@ -412,7 +411,7 @@ def kappa_ch_route_genus1_free_energy() -> RouteVerification:
 
 
 def verify_kappa_ch_all_routes() -> KappaConsistencyReport:
-    """Run all kappa_ch = 3 verification routes."""
+    """Run all relative kappa_ch^Heis = 3 verification routes."""
     routes = [
         kappa_ch_route_additive(),
         kappa_ch_route_dim_C(),
@@ -424,7 +423,7 @@ def verify_kappa_ch_all_routes() -> KappaConsistencyReport:
     ]
     discrepancies = [r for r in routes if not r.agrees]
     return KappaConsistencyReport(
-        kappa_name="kappa_ch",
+        kappa_name="kappa_ch^Heis",
         canonical_value=3,
         routes=routes,
         all_agree=len(discrepancies) == 0,
@@ -751,15 +750,15 @@ def kappa_BKM_route_dmvv() -> RouteVerification:
 
 
 def kappa_BKM_route_NOT_sum() -> RouteVerification:
-    r"""ADVERSARIAL Route 4: kappa_ch + kappa_cat(total space) = 3 + 0 = 3 != 5.
+    r"""ADVERSARIAL Route 4: kappa_ch^Heis + kappa_cat(total space) = 3 + 0 = 3 != 5.
 
-    This route CORRECTLY FAILS.  The sum kappa_ch + kappa_cat is NOT
+    This route CORRECTLY FAILS.  The sum kappa_ch^Heis + kappa_cat is NOT
     a valid route to kappa_BKM.
 
-    The user correctly identifies: kappa_ch + kappa_cat = 3 + 0 = 3 != 5.
+    The user correctly identifies: kappa_ch^Heis + kappa_cat = 3 + 0 = 3 != 5.
 
     The conjectural decomposition that DOES hold for N=1 uses the FIBER
-    value: kappa_ch + chi(O_{K3}) = 3 + 2 = 5.  But this is a numerical
+    value: kappa_ch^Heis + chi(O_{K3}) = 3 + 2 = 5.  But this is a numerical
     coincidence (kappa_bkm_adversarial.py proved it fails for N >= 2).
     """
     kappa_ch_val = 3
@@ -773,27 +772,27 @@ def kappa_BKM_route_NOT_sum() -> RouteVerification:
 
     return RouteVerification(
         kappa_name="kappa_BKM",
-        route_name="kappa_ch + kappa_cat(total) = 3+0 (CORRECTLY FAILS)",
+        route_name="kappa_ch^Heis + kappa_cat(total) = 3+0 (CORRECTLY FAILS)",
         expected_value=5,
         computed_value=computed,
         agrees=False,  # INTENTIONALLY fails: this route is BROKEN
         proof_status="wrong",
         notes=(
-            "kappa_ch + kappa_cat(K3xE) = 3 + 0 = 3 != 5. CORRECTLY FAILS. "
+            "kappa_ch^Heis + kappa_cat(K3xE) = 3 + 0 = 3 != 5. CORRECTLY FAILS. "
             "The fiber-value coincidence 3 + 2 = 5 holds only for N=1 "
             "(kappa_bkm_adversarial.py). The correct universal formula is "
             "c(0)/2 = 5 (Borcherds weight theorem)."
         ),
         caveats=[
             "This route is INTENTIONALLY wrong",
-            "Documents that kappa_BKM != kappa_ch + kappa_cat",
+            "Documents that kappa_BKM != kappa_ch^Heis + kappa_cat",
             "The fiber coincidence 3+2=5 is falsified for orbifolds",
         ],
     )
 
 
 def kappa_BKM_route_fiber_coincidence() -> RouteVerification:
-    r"""Route 5: kappa_ch + chi(O_{K3}) = 3 + 2 = 5.
+    r"""Route 5: kappa_ch^Heis + chi(O_{K3}) = 3 + 2 = 5.
 
     This is the CONJECTURAL decomposition.  It gives the correct answer
     for N=1 (K3 x E) but FAILS for the orbifold family:
@@ -810,7 +809,7 @@ def kappa_BKM_route_fiber_coincidence() -> RouteVerification:
 
     return RouteVerification(
         kappa_name="kappa_BKM",
-        route_name="kappa_ch + chi(O_{K3}) = 3+2 (coincidence, N=1 only)",
+        route_name="kappa_ch^Heis + chi(O_{K3}) = 3+2 (coincidence, N=1 only)",
         expected_value=5,
         computed_value=computed,
         agrees=(computed == 5),  # numerically correct for N=1
@@ -1047,7 +1046,7 @@ def verify_kappa_fiber_all_routes() -> KappaConsistencyReport:
 # =========================================================================
 
 def verify_kappa_ch_plus_kappa_cat_neq_kappa_BKM() -> Dict[str, Any]:
-    r"""CRITICAL: kappa_ch + kappa_cat(total) = 3 + 0 = 3 != 5 = kappa_BKM.
+    r"""CRITICAL: kappa_ch^Heis + kappa_cat(total) = 3 + 0 = 3 != 5 = kappa_BKM.
 
     This is the fundamental test that the four kappa values are NOT
     related by naive addition.  The user correctly identifies this.
@@ -1060,13 +1059,14 @@ def verify_kappa_ch_plus_kappa_cat_neq_kappa_BKM() -> Dict[str, Any]:
     matches = (naive_sum == kappa_BKM_val)  # False
 
     return {
-        "kappa_ch": kappa_ch_val,
+        "kappa_ch": 0,
+        "kappa_ch_Heis": kappa_ch_val,
         "kappa_cat_total": kappa_cat_total,
         "kappa_BKM": kappa_BKM_val,
         "naive_sum": naive_sum,
         "sum_equals_BKM": matches,  # False -- CORRECTLY FAILS
         "explanation": (
-            "kappa_ch + kappa_cat(K3xE) = 3 + 0 = 3 != 5 = kappa_BKM. "
+            "kappa_ch^Heis + kappa_cat(K3xE) = 3 + 0 = 3 != 5 = kappa_BKM. "
             "The sum uses the TOTAL SPACE kappa_cat = 0, which is correct. "
             "The FIBER coincidence 3 + 2 = 5 is observational only."
         ),
@@ -1103,15 +1103,16 @@ def verify_all_ratios() -> Dict[str, Fraction]:
     r"""Compute all pairwise ratios of the kappa-spectrum values.
 
     The ratios encode structural information:
-    - kappa_BKM / kappa_ch = 5/3 (second quantization multiplier)
+    - kappa_BKM / kappa_ch_Heis = 5/3 (second quantization multiplier)
     - kappa_fiber / kappa_BKM = 24/5 (lattice-to-automorphic)
-    - kappa_fiber / kappa_ch = 24/3 = 8 (lattice-to-chiral)
+    - kappa_fiber / kappa_ch_Heis = 24/3 = 8 (lattice-to-chiral shadow)
     - kappa_fiber / kappa_cat_fiber = 24/2 = 12 (lattice-to-Euler)
     """
     spectrum = {
         "kappa_cat_total": 0,
         "kappa_cat_fiber": 2,
-        "kappa_ch": 3,
+        "kappa_ch": 0,
+        "kappa_ch_Heis": 3,
         "kappa_BKM": 5,
         "kappa_fiber": 24,
     }
@@ -1132,7 +1133,7 @@ def verify_spectrum_completeness() -> Dict[str, Any]:
     The five values are:
       0  = kappa_cat(K3 x E)  = chi(O_{K3xE})
       2  = kappa_cat(K3)       = chi(O_{K3})    [fiber value]
-      3  = kappa_ch(K3 x E)   = 2 + 1           [additive]
+      3  = kappa_ch^Heis(K3 x E) = 2 + 1        [relative additive]
       5  = kappa_BKM(K3 x E)  = c(0)/2          [Borcherds]
      24  = kappa_fiber          = rk(Mukai)       [lattice]
 

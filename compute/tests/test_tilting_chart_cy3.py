@@ -1271,8 +1271,7 @@ class TestCrossVerification:
         assert coha.kappa_from_dt() == Fraction(1)
 
     def test_quintic_kappa_matches_euler(self):
-        """For the quintic: kappa = chi_top/24 = -200/24 = -25/3.
-        This matches the BCOV formula (valid for rigid CICYs)."""
+        """For the quintic: BCOV-shadow candidate = chi_top/24 = -25/3."""
         coha = CoHAFromChart(chart_quintic_large_volume())
         # VERIFIED [DC] kappa formula [LT] tilting generator theory
         assert coha.kappa_from_dt() == Fraction(-25, 3)

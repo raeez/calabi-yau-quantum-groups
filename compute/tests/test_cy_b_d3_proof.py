@@ -201,7 +201,7 @@ class TestClassGFamilies:
         assert data.conductor == Fraction(0)
 
     def test_quintic_kappa_value(self) -> None:
-        """Quintic: kappa_ch = chi_top/24 = -200/24 = -25/3."""
+        """Quintic free-field BCOV-shadow scalar = chi_top/24 = -25/3."""
         data = cy_b2_d3_quintic()
         assert data.kappa_ch == Fraction(-25, 3)
         assert data.kappa_ch_dual == Fraction(25, 3)

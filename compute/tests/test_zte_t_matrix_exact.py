@@ -2,6 +2,8 @@
 
 Verifies the construction of T with exact Fraction entries such that
 S^{corr} = S^{fact} + T resolves the O(kappa^2) ZTE obstruction.
+This exact T-matrix is a ternary ZTE correction, not a four-loop 5d hCS
+Dynkin-twisted graph-complex nullhomotopy.
 
 Key results verified:
 

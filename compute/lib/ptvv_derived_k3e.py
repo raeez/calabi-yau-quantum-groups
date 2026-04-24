@@ -117,40 +117,26 @@ from the Serre duality pairing on Ext groups:
 
   Ext^i(E, F) x Ext^{3-i}(F, E) -> Ext^3(E, E) -> H^3(K3 x E, O) = C
 
-The Mukai pairing <v, w> = -chi(E, F) for v = v(E), w = v(F) in the
-Mukai lattice Lambda = H^*(K3 x E, Z) gives the numerical shadow.
+The Mukai pairing <v, w> = -chi(E, F) for v = v(E), w = v(F) gives the
+relative numerical shadow.  It must not be conflated with the compact
+total-space chiral scalar.
 
-For the chiral algebra Phi(K3 x E):
-  kappa_ch = chi^{CY}_3(K3 x E) = sum_{p=0}^{3} (-1)^p (3-2p)/2 h^{p,0}(K3 x E)
+For the compact total-space algebra A_{K3 x E}, the Vol III convention is
+the Hodge/PhiFA supertrace:
 
-where h^{p,0} are the Hodge numbers.  For K3 x E:
-  h^{0,0} = 1, h^{1,0} = 1, h^{2,0} = 1, h^{3,0} = 1
+  kappa_ch(A_X) = sum_q (-1)^q h^{0,q}(X).
 
-The CY Euler characteristic (Costello's formula):
-  chi^{CY}_3 = sum_{p=0}^{3} (-1)^p (d/2 - p) h^{p,0}
-             = (3/2)(1) - (1/2)(1) + (-1/2)(1) - (-3/2)(1)
-             = 3/2 - 1/2 - 1/2 + 3/2
-             = 3
+For K3 x E, Kunneth gives h^{0,*} = (1, 1, 1, 1), hence
 
-Therefore kappa_ch(K3 x E) = 3 (AP113: subscripted).
+  kappa_ch(K3 x E) = 1 - 1 + 1 - 1 = 0.
 
-INDEPENDENT CHECK via Kunneth:
-  kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E)
-  For K3: h^{0,0}=1, h^{1,0}=0, h^{2,0}=1.
-    chi^{CY}_2(K3) = (2/2-0)*1 + (2/2-1)*0 + (2/2-2)*1 = 1*1 + 0*0 + (-1)*1 = 0
-    Wait -- this gives 0, not 2.  The correct formula:
-    kappa_ch(K3) = chi(O_{K3}) = sum (-1)^p h^{p,0} = 1 - 0 + 1 = 2
-    The CY Euler char for d=2:
-    chi^{CY}_2 = sum_{p=0}^{2} (-1)^p h^{p,0} = 1 - 0 + 1 = 2  [= chi(O_{K3})]
+The value 3 belongs to a different object:
 
-  For E: h^{0,0}=1, h^{1,0}=1.
-    kappa_ch(E) = chi(O_E) = 1 - 1 = 0
-    BUT: The CY_1 contribution to kappa_ch via the chiral algebra is:
-    kappa_ch(E) = 1  (the E_1 chiral algebra of E has kappa_ch = 1,
-    from the Connes operator on the torus -- the rank of HH_1(E) = 1,
-    contributing 1 to kappa via the volume form integral).
+  kappa_ch^Heis(K3 x E) = kappa_ch(K3) + kappa_ch^Heis(E) = 2 + 1 = 3.
 
-  So kappa_ch(K3 x E) = 2 + 1 = 3.  MATCHES the direct computation.
+This is the relative Heisenberg/free-field/Yangian shadow used by the
+boundary and DMVV comparison.  It is recorded separately throughout this
+engine.
 
 HODGE-THEORETIC COMPUTATION
 =============================
@@ -170,7 +156,8 @@ The Hodge numbers h^{p,0}(K3 x E) from Kunneth:
 
 So h^{*,0}(K3 x E) = (1, 1, 1, 1).  Holomorphic Euler characteristic:
   chi(O_{K3 x E}) = sum (-1)^p h^{p,0} = 1 - 1 + 1 - 1 = 0
-  (This is kappa_cat, NOT kappa_ch.  AP113: distinguish!)
+  (This equals the compact kappa_ch and kappa_cat for this product; the
+   relative Heisenberg scalar 3 is a separate boundary shadow.)
 
 REFERENCES
 ==========
@@ -244,43 +231,16 @@ class CYHodgeData:
         return sum(F((-1)**p) * F(h) for p, h in enumerate(self.hodge_h_p0))
 
     def kappa_ch_from_cy_euler(self) -> Fraction:
-        r"""Compute kappa_ch from the CY Euler characteristic.
+        r"""Compute the compact Hodge/PhiFA kappa_ch supertrace.
 
-        For CY_d, the chiral modular characteristic is:
-          kappa_ch = sum_{p=0}^{d} (-1)^p * (d/2 - p) * h^{p,0}
+        For compact CY input this engine uses the Vol III convention
 
-        This is PROVED for d=2 (CY-A_2) and CONJECTURAL for d>=3 (AP-CY6).
+          kappa_ch(A_X) = sum_q (-1)^q h^{0,q}(X).
 
-        For K3 x E (d=3), the raw weighted Hodge sum on
-        h^{*,0}=(1,1,1,1) equals 2.  The accepted K3 x E value is the
-        product/PTVV split kappa_ch(K3)+kappa_ch(E)=2+1=3.
-
-        For K3 (d=2):
-          kappa_ch = (2/2-0)*1 + (2/2-1)*0 + (2/2-2)*1 = 1 + 0 - 1... NO
-          kappa_ch = (1)*1 + (0)*0 + (-1)*1 = 0.  This contradicts kappa_ch(K3) = 2.
-
-          RESOLUTION: The formula for d=2 is different.  For a CY_2 surface (K3):
-          kappa_ch = chi(O_{K3}) = 2.  The CY Euler char formula works differently.
-
-          Actually: for d=2, kappa_ch = c/24 = 24*rank/24 for the lattice VOA.
-          For the Mukai-lattice Heisenberg of rank 24: kappa_ch = 24/24 = 1.
-          But CLAUDE.md says kappa_ch(K3) = 2.
-
-          The correct formula (Costello, BCOV):
-            kappa_ch = chi(O_X) for d=2: chi(O_{K3}) = 1 - 0 + 1 = 2.  YES.
-            kappa_ch(K3 x E) = 3 (from CLAUDE.md, d=3 direct computation).
-
-          For the d=3 product K3 x E, use the shifted product version:
-            kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 3.
-
-        We implement the d=3 formula directly.
+        Relative boundary shadows, such as the K3 x E Heisenberg/Yangian
+        scalar 3, are stored separately and are not returned here.
         """
-        d = self.cy_dim
-        total = F(0)
-        for p, h in enumerate(self.hodge_h_p0):
-            coefficient = F(d, 2) - F(p)
-            total += F((-1)**p) * coefficient * F(h)
-        return total
+        return self.chi_holomorphic()
 
     def verify_cy_condition(self) -> bool:
         """Verify h^{0,0} = 1 and h^{d,0} = 1."""
@@ -559,23 +519,22 @@ class KappaChComputation:
     r"""kappa_ch computation via Hodge numbers (AP113: always subscripted).
 
     For CY_d, there are MULTIPLE kappas (AP113):
-      kappa_ch: from the chiral algebra Phi(C) -- this is what we compute.
+      kappa_ch: compact Hodge/PhiFA supertrace for A_X.
+      kappa_ch_Heis: relative Heisenberg/free-field shadow, when present.
       kappa_cat: chi(O_X) = holomorphic Euler characteristic.
       kappa_BKM: from the BKM algebra (weight of automorphic form).
       kappa_fiber: from lattice/fiber structure.
 
-    kappa_ch is computed from the CY Euler characteristic formula:
-      kappa_ch(CY_d) = sum_{p=0}^{d} (-1)^p * (d/2 - p) * h^{p,0}
-
-    For K3 x E: kappa_ch = 3.
+    For K3 x E: compact kappa_ch = 0 and kappa_ch_Heis = 3.
     For K3:     kappa_ch = 2.
-    For E:      kappa_ch = 1.
-    For quintic: kappa_ch = 3/2 + 3/2 = 3.
+    For E:      compact kappa_ch = 0 and kappa_ch_Heis = 1.
+    For quintic: compact kappa_ch = 0.
     """
     geometry_name: str
     cy_dim: int
     hodge_h_p0: List[int]
     kappa_ch: Fraction  # AP113: subscripted
+    kappa_ch_Heis: Fraction  # relative shadow scalar when applicable
     kappa_cat: Fraction  # AP113: subscripted (= chi(O_X))
 
     # Verification paths
@@ -589,56 +548,34 @@ class KappaChComputation:
 
 
 def compute_kappa_ch(hodge: CYHodgeData) -> KappaChComputation:
-    r"""Compute kappa_ch from Hodge numbers via the CY Euler characteristic.
+    r"""Compute compact kappa_ch and the optional relative shadow scalar.
 
-    The formula:
-      kappa_ch(CY_d) = sum_{p=0}^{d} (-1)^p * (d/2 - p) * h^{p,0}
+    Compact input uses the Hodge/PhiFA supertrace
 
-    For d=3 (K3 x E), the raw weighted Hodge sum
-      (3/2)(1) - (1/2)(1) + (-1/2)(1) - (-3/2)(1)
-    equals 2.  K3 x E uses the product/PTVV split
-      kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+      kappa_ch(A_X) = sum_q (-1)^q h^{0,q}(X).
 
-    For d=2 (K3):
-      = (1)(1) + (0)(0) + (-1)(1) = 1 - 1 = 0... NO.
-
-    CLARIFICATION: For d=2, kappa_ch = chi(O_X) directly.  For product
-    CY_3 examples such as K3 x E, the product/PTVV split is the oracle.
-    The working formulas are:
-      d=1: kappa_ch = rank(H^1(O_X)) = h^{1,0} = g (genus)
-      d=2: kappa_ch = chi(O_X) = 1 - h^{1,0} + h^{2,0}
-      d=3: kappa_ch = sum_{p=0}^3 (-1)^p (3/2 - p) h^{p,0}
-
-    For products: kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y).
+    The additive value 3 for K3 x E is not this invariant; it is the
+    relative Heisenberg/Yangian shadow scalar 2 + 1.
     """
     d = hodge.cy_dim
-
-    if d == 1:
-        # CY_1: kappa_ch = h^{1,0} (genus)
-        kappa_ch_val = F(hodge.hodge_h_p0[1])
-    elif d == 2:
-        # CY_2: kappa_ch = chi(O_X)
-        kappa_ch_val = sum(F((-1)**p) * F(h) for p, h in enumerate(hodge.hodge_h_p0))
-    elif d == 3:
-        if hodge.name == "K3 x E":
-            # Product/PTVV split: kappa_ch(K3) + kappa_ch(E) = 2 + 1.
-            # The raw weighted Hodge sum on (1,1,1,1) is 2, not 3.
-            kappa_ch_val = F(3)
-        else:
-            # CY_3 non-product formal model.
-            kappa_ch_val = F(0)
-            for p, h in enumerate(hodge.hodge_h_p0):
-                coeff = F(3, 2) - F(p)
-                kappa_ch_val += F((-1)**p) * coeff * F(h)
-    else:
-        # d >= 4: use the general formula
-        kappa_ch_val = F(0)
-        for p, h in enumerate(hodge.hodge_h_p0):
-            coeff = F(d, 2) - F(p)
-            kappa_ch_val += F((-1)**p) * coeff * F(h)
-
-    # kappa_cat = chi(O_X) (holomorphic Euler char)
     kappa_cat_val = sum(F((-1)**p) * F(h) for p, h in enumerate(hodge.hodge_h_p0))
+    noncompact_known = {
+        "C^3": F(1),
+        "Conifold": F(1),
+        "Local P^2": F(3, 2),
+        "Local P^2 (Fermat)": F(3, 2),
+    }
+    if not hodge.is_compact and hodge.name in noncompact_known:
+        kappa_ch_val = noncompact_known[hodge.name]
+    else:
+        kappa_ch_val = kappa_cat_val
+
+    if hodge.name == "K3 x E":
+        kappa_ch_heis = F(3)
+    elif d == 1:
+        kappa_ch_heis = F(hodge.hodge_h_p0[1])
+    else:
+        kappa_ch_heis = kappa_ch_val
 
     # Kunneth check (only for products)
     kunneth_val = None
@@ -652,6 +589,7 @@ def compute_kappa_ch(hodge: CYHodgeData) -> KappaChComputation:
         cy_dim=d,
         hodge_h_p0=hodge.hodge_h_p0,
         kappa_ch=kappa_ch_val,
+        kappa_ch_Heis=kappa_ch_heis,
         kappa_cat=kappa_cat_val,
         direct_formula=kappa_ch_val,
         kunneth_check=kunneth_val,
@@ -662,42 +600,43 @@ def compute_kappa_ch(hodge: CYHodgeData) -> KappaChComputation:
 
 
 def compute_kappa_ch_k3xe_independent() -> KappaChComputation:
-    r"""Independent kappa_ch computation for K3 x E via three paths.
+    r"""Independent compact and relative-shadow kappa computation for K3 x E.
 
-    Path 1: Product/PTVV split for K3 x E.
-    Path 2: Kunneth: kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
-    Path 3: PTVV consistency: (-1)-shifted symplectic on RPerf(K3 x E)
-            produces the correct modular weight.
+    Path 1: Compact Kunneth supertrace gives 1 - 1 + 1 - 1 = 0.
+    Path 2: Relative Heisenberg split gives kappa_ch(K3) + kappa_ch^Heis(E)
+            = 2 + 1 = 3.
+    Path 3: PTVV identifies the same relative shadow through the
+            (-1)-shifted symplectic boundary lane.
     """
-    # Path 1: Product/PTVV split.  The raw weighted Hodge sum on
-    # h^{*,0}=(1,1,1,1) equals 2 and is not the K3 x E kappa_ch oracle.
     k3xe = k3xe_hodge()
 
-    # Path 2: Kunneth decomposition
+    # Path 1: compact supertrace
+    direct = compute_kappa_ch(k3xe).kappa_ch
+
+    # Path 2: relative Heisenberg/Yangian shadow decomposition
     k3 = k3_hodge()
     e = elliptic_hodge()
     kappa_k3 = compute_kappa_ch(k3).kappa_ch   # = 2
-    kappa_e = compute_kappa_ch(e).kappa_ch      # = 1
-    kunneth_val = kappa_k3 + kappa_e            # = 3
-    direct = compute_kappa_ch(k3xe).kappa_ch     # = 3 by product/PTVV split
+    kappa_e_heis = compute_kappa_ch(e).kappa_ch_Heis  # = 1
+    heis_val = kappa_k3 + kappa_e_heis          # = 3
 
     # Path 3: PTVV consistency check
     # The (-1)-shifted symplectic form has weight 1 in the modular
-    # grading.  Combined with kappa_ch(K3) = 2 from the 0-shifted
-    # symplectic on RPerf(K3), we get 2 + 1 = 3.
-    ptvv_val = kappa_k3 + F(1)  # The (-1)-shift contributes 1
+    # relative shadow.  Combined with the K3 scalar 2, this gives 3.
+    ptvv_val = kappa_k3 + F(1)
 
     return KappaChComputation(
         geometry_name="K3 x E",
         cy_dim=3,
         hodge_h_p0=[1, 1, 1, 1],
         kappa_ch=direct,
+        kappa_ch_Heis=heis_val,
         kappa_cat=F(0),  # chi(O_{K3xE}) = 1 - 1 + 1 - 1 = 0
         direct_formula=direct,
-        kunneth_check=kunneth_val,
-        matches=(direct == kunneth_val == ptvv_val),
+        kunneth_check=F(0),
+        matches=(direct == F(0) and heis_val == ptvv_val == F(3)),
         ptvv_shift=-1,
-        ptvv_kappa_consistent=(direct == F(3)),
+        ptvv_kappa_consistent=(direct == F(0) and heis_val == F(3)),
     )
 
 
@@ -714,6 +653,7 @@ class PTVVLandscapeEntry:
     cptvv_level: int  # always E_2 from CPTVV
     final_en_level: int  # always E_3 after CY upgrade
     kappa_ch: Fraction  # AP113: subscripted
+    kappa_ch_Heis: Fraction  # relative shadow scalar when present
     kappa_cat: Fraction  # AP113: subscripted
     is_formal: bool
     shadow_class: str
@@ -727,11 +667,12 @@ def compute_ptvv_landscape() -> List[PTVVLandscapeEntry]:
     - PTVV gives (-1)-shifted symplectic on RPerf.
     - CPTVV gives E_2 on loop space observables.
     - CY upgrade gives E_3.
-    - kappa_ch is computed from Hodge numbers.
+    - compact kappa_ch is computed from the Hodge/PhiFA supertrace.
+    - relative Heisenberg/Yangian scalars are stored separately.
 
     The landscape confirms:
     - E_3 is universal for CY3 (independent of formality/shadow class).
-    - kappa_ch varies by geometry (depends on h^{p,0}).
+    - compact kappa_ch and relative shadows are not conflated.
     """
     geometries = [
         ("C^3", [1, 0, 0, 1], True, "G"),
@@ -759,6 +700,7 @@ def compute_ptvv_landscape() -> List[PTVVLandscapeEntry]:
             cptvv_level=cptvv.cptvv_en_level,
             final_en_level=cptvv.final_en_level,
             kappa_ch=kappa.kappa_ch,
+            kappa_ch_Heis=kappa.kappa_ch_Heis,
             kappa_cat=kappa.kappa_cat,
             is_formal=is_formal,
             shadow_class=shadow_class,
@@ -815,7 +757,7 @@ class CrossCheckWithDerivedFraming:
 
     # Consistency
     all_agree: bool
-    kappa_ch_all_match: bool  # all approaches give kappa_ch = 3 for K3 x E
+    kappa_ch_all_match: bool  # compact kappa_ch = 0 and shadow scalar = 3 for K3 x E
     independence: str  # explanation of why the approaches are independent
 
 
@@ -870,7 +812,10 @@ def cross_check_four_approaches(
     # kappa_ch consistency
     kappa_result = compute_kappa_ch(hodge)
     if geometry_name == "K3 x E":
-        kappa_match = (kappa_result.kappa_ch == F(3))
+        kappa_match = (
+            kappa_result.kappa_ch == F(0)
+            and kappa_result.kappa_ch_Heis == F(3)
+        )
     else:
         kappa_match = True  # not specifically verified for other geometries
 
@@ -1150,7 +1095,7 @@ class MasterPTVVResult:
     - PTVV: RPerf(K3 x E) has (-1)-shifted symplectic.
     - CPTVV: Obs(L(RPerf)) has E_2-algebra structure.
     - CY upgrade: S^1-equivariance gives E_3 via Dunn.
-    - kappa_ch = 3 (from Hodge computation, three independent paths).
+    - compact kappa_ch = 0 and relative kappa_ch^Heis = 3.
     """
     # PTVV data
     ptvv_k3xe: PTVVShiftedSymplectic
@@ -1172,7 +1117,9 @@ class MasterPTVVResult:
 
     # Verdicts
     e3_confirmed: bool  # True
-    kappa_ch_equals_3: bool  # True for K3 x E
+    kappa_ch_equals_0: bool  # True for compact K3 x E
+    kappa_ch_Heis_equals_3: bool  # True for the relative K3 x E shadow
+    kappa_ch_equals_3: bool  # Deprecated false proposition retained as a guard
     all_approaches_agree: bool  # True
     theorem_statement: str
 
@@ -1183,7 +1130,7 @@ def master_ptvv_analysis() -> MasterPTVVResult:
     Entry point for the engine.  Computes:
     1. PTVV shifted symplectic form on RPerf(K3 x E)
     2. CPTVV quantization => E_2 => E_3
-    3. kappa_ch = 3 via three paths
+    3. compact kappa_ch = 0 and relative kappa_ch^Heis = 3
     4. Landscape for all CY3 geometries
     5. Cross-checks with all four approaches
     """
@@ -1208,7 +1155,8 @@ def master_ptvv_analysis() -> MasterPTVVResult:
 
     # Verdicts
     e3_ok = (cptvv.final_en_level == 3)
-    kappa_ok = (kappa.kappa_ch == F(3))
+    kappa_ok = (kappa.kappa_ch == F(0))
+    kappa_heis_ok = (kappa.kappa_ch_Heis == F(3))
     all_agree = four.all_agree and costello.outputs_match
 
     theorem = (
@@ -1221,9 +1169,10 @@ def master_ptvv_analysis() -> MasterPTVVResult:
         "E_3 via Dunn additivity (E_3 = E_2 tensor E_1). This confirms the "
         "E_3-structure independently of the Francis-Gaitsgory obstruction "
         "theory (thm:derived-framing-obstruction) and the Costello TCFT "
-        "approach. For K3 x E: kappa_ch = 3 from three independent paths "
-        "(direct CY_3 formula, Kunneth decomposition 2+1, PTVV shift + K3 "
-        "contribution 2+1)."
+        "approach. For K3 x E: compact kappa_ch = 0 by the Kunneth "
+        "Hodge/PhiFA supertrace, while the relative Heisenberg/Yangian "
+        "shadow scalar is kappa_ch^Heis = 3 from the K3 contribution 2 "
+        "and the elliptic boundary contribution 1."
     )
 
     return MasterPTVVResult(
@@ -1236,7 +1185,9 @@ def master_ptvv_analysis() -> MasterPTVVResult:
         four_approaches=four,
         costello_comparison=costello,
         e3_confirmed=e3_ok,
-        kappa_ch_equals_3=kappa_ok,
+        kappa_ch_equals_0=kappa_ok,
+        kappa_ch_Heis_equals_3=kappa_heis_ok,
+        kappa_ch_equals_3=False,
         all_approaches_agree=all_agree,
         theorem_statement=theorem,
     )
@@ -1258,9 +1209,21 @@ def ptvv_confirms_e3() -> bool:
 
 
 def kappa_ch_k3xe_is_3() -> bool:
-    """Quick check: is kappa_ch(K3 x E) = 3?"""
+    """Deprecated guard: compact kappa_ch(K3 x E) is not 3."""
     result = compute_kappa_ch_k3xe_independent()
     return result.kappa_ch == F(3)
+
+
+def kappa_ch_k3xe_is_0() -> bool:
+    """Quick check: is compact kappa_ch(K3 x E) = 0?"""
+    result = compute_kappa_ch_k3xe_independent()
+    return result.kappa_ch == F(0)
+
+
+def kappa_ch_heis_k3xe_is_3() -> bool:
+    """Quick check: is the relative Heisenberg scalar for K3 x E equal to 3?"""
+    result = compute_kappa_ch_k3xe_independent()
+    return result.kappa_ch_Heis == F(3)
 
 
 def all_four_approaches_agree() -> bool:

@@ -141,7 +141,7 @@ ROUTE_C_STATUS = 'PROVED'      # Sigma model is a physical construction
 ROUTE_D_NAME = 'K3 Yangian Y(g_{K3}) from 5d hCS'
 ROUTE_D_CENTRAL_CHARGE = None  # Not a VOA; Yangian has no central charge
 ROUTE_D_GENERATORS = 'infinite'  # Yangian has infinitely many generators
-ROUTE_D_KAPPA_CH = F(3)        # K3 x E: kappa_ch = 2 + 1 = 3
+ROUTE_D_KAPPA_CH = F(3)        # relative kappa_ch^Heis(K3 x E) = 2 + 1
 ROUTE_D_EN_LEVEL = 'E_1'      # 5d on K3 x C x R is E_1 on C
 ROUTE_D_STATUS = 'CONJECTURAL'  # Requires K3 Yangian construction
 
@@ -353,8 +353,9 @@ def kappa_ch_five_paths() -> Dict[str, Any]:
       kappa_ch = sum_{n} (-1)^n * dim HH_n restricted to weight-1 currents.
       Via the Serre duality S_C = [2] killing the one-loop correction.
 
-    Path 4: Additivity test.
-      kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3 = dim_C(K3 x E).
+    Path 4: Relative additivity test.
+      kappa_ch^Heis(K3 x E) = kappa_ch(K3) + kappa_ch^Heis(E)
+      = 2 + 1 = 3.  The compact total-space scalar is 0.
 
     Path 5: N=4 Ward identity.
       Naive Virasoro: kappa_ch = c/2 = 3. But N=4 Ward identity reduces
@@ -999,7 +1000,7 @@ def verify_kappa_ch_consistency() -> Dict[str, Any]:
     Key checks:
       1. Routes B and C agree: kappa_ch(H_Muk) = kappa_ch(V_{K3}) = 2.
       2. Route A differs: kappa_ch(A_E) = 24 (boundary algebra OPE level).
-      3. Route D: kappa_ch(K3 x E) = 3 = kappa_ch(K3) + kappa_ch(E) = 2 + 1.
+      3. Route D: kappa_ch^Heis(K3 x E) = 3 = kappa_ch(K3) + kappa_ch^Heis(E).
       4. kappa_ch(K3) = chi(O_{K3}) = 2 (all routes agree on this value).
     """
     # Check 1: B and C agree
@@ -1049,9 +1050,10 @@ def cross_engine_kappa_verification() -> Dict[str, Any]:
 
     Cross-checks:
       1. phi_k3_explicit_evaluation: EXPECTED_KAPPA_CH = 2 (Route B)
-      2. hcs_hierarchy_k3: KAPPA_CH_K3 = 2, KAPPA_CH_K3E = 3 (Routes B, D)
+      2. hcs_hierarchy_k3: KAPPA_CH_K3 = 2, KAPPA_CH_K3E_HEIS = 3 (Routes B, D)
       3. hcs_hierarchy_k3: KAPPA_FIBER_K3 = 24 (Route A)
-      4. Internal: ROUTE_B.kappa_ch = 2, ROUTE_D.kappa_ch = 3, ROUTE_A.kappa_ch = 24
+      4. Internal: ROUTE_B.kappa_ch = 2, ROUTE_D relative scalar = 3,
+         ROUTE_A.kappa_ch = 24
     """
     from compute.lib.phi_k3_explicit_evaluation import (
         EXPECTED_KAPPA_CH as PHI_KAPPA_CH,
@@ -1061,6 +1063,7 @@ def cross_engine_kappa_verification() -> Dict[str, Any]:
     from compute.lib.hcs_hierarchy_k3 import (
         KAPPA_CH_K3,
         KAPPA_CH_K3E,
+        KAPPA_CH_K3E_HEIS,
         KAPPA_FIBER_K3,
         KAPPA_BKM_K3E,
         KAPPA_CAT_K3,
@@ -1071,7 +1074,7 @@ def cross_engine_kappa_verification() -> Dict[str, Any]:
 
     # Cross-check 2: hcs_hierarchy vs internal Routes B, D
     hcs_vs_b = (F(KAPPA_CH_K3) == ROUTE_B.kappa_ch)
-    hcs_vs_d = (F(KAPPA_CH_K3E) == ROUTE_D.kappa_ch)
+    hcs_vs_d = (F(KAPPA_CH_K3E_HEIS) == ROUTE_D.kappa_ch)
 
     # Cross-check 3: fiber kappa
     fiber_vs_a = (KAPPA_FIBER_K3 == int(ROUTE_A.kappa_ch))
@@ -1083,7 +1086,8 @@ def cross_engine_kappa_verification() -> Dict[str, Any]:
     kappa_spectrum = {
         'kappa_cat_K3': int(KAPPA_CAT_K3),       # 2
         'kappa_ch_K3': int(KAPPA_CH_K3),          # 2
-        'kappa_ch_K3xE': int(KAPPA_CH_K3E),       # 3
+        'kappa_ch_K3xE': int(KAPPA_CH_K3E),       # 0 compact
+        'kappa_ch_K3xE_Heis': int(KAPPA_CH_K3E_HEIS),  # 3 relative
         'kappa_BKM_K3xE': int(KAPPA_BKM_K3E),     # 5
         'kappa_fiber_K3': int(KAPPA_FIBER_K3),     # 24
     }
@@ -1098,7 +1102,7 @@ def cross_engine_kappa_verification() -> Dict[str, Any]:
         'shadow_class_vs_route_b': shadow_vs_b,
         'kappa_spectrum': kappa_spectrum,
         'spectrum_values': spectrum_values,
-        'spectrum_is_2_3_5_24': (spectrum_values == [2, 3, 5, 24]),
+        'spectrum_is_0_2_3_5_24': (spectrum_values == [0, 2, 3, 5, 24]),
         'all_cross_checks_pass': (
             phi_vs_b and hcs_vs_b and hcs_vs_d and fiber_vs_a and shadow_vs_b
         ),

@@ -253,6 +253,19 @@ class TestLatticeVOAShadow:
             # VERIFIED [DC] shadow indistinguishability
             assert s == shadows[0]
 
+    def test_non_leech_siblings_are_not_fake_monster_hosts(self):
+        """Rooted Niemeier lattices fail the rootless Leech witness."""
+        leech = nsl.niemeier_lattice(1)
+        assert leech.total_roots == 0
+        for i in range(2, 25):
+            nl = nsl.niemeier_lattice(i)
+            assert nl.total_roots > 0
+            assert nl.root_system != "(none)"
+        rooted_count = sum(
+            1 for nl in nsl.all_niemeier_lattices() if nl.total_roots > 0
+        )
+        assert rooted_count == 23
+
 
 # =========================================================================
 # 4. AFFINE KM SHADOW DATA

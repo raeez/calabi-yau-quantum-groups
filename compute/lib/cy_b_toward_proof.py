@@ -835,8 +835,8 @@ def cy_b_for_cy3_free_field(chi_top: Fraction) -> Dict[str, Any]:
     both with rho_K = 0.
 
     For a CY3 X with topological Euler characteristic chi_top:
-        kappa_ch = chi_top / 24  (BCOV prediction, class G)
-        kappa_ch^! = -chi_top / 24
+        kappa_BCOV_shadow_conjectural = chi_top / 24  (class-G candidate)
+        dual BCOV-shadow scalar = -chi_top / 24
         rho_K = 0
     """
     kappa = chi_top / Fraction(24)

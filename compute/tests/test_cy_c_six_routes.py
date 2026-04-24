@@ -1,14 +1,12 @@
 r"""Tests for the CY-C six-routes convergence chapter.
 
-Verifies the three ProvedHere claims inscribed in
+Verifies the two ProvedHere invariant claims inscribed in
 ``chapters/examples/cy_c_six_routes_convergence.tex'':
 
-  * thm:pairwise-all-proved-closes-CY-C (six-cycle closure: pairwise bridges
-    close CY-C)
   * thm:kappa-stratification-CY-C (four distinct kappa-values on K3 x E)
   * prop:kappa-spectrum-k3-healed (FM119 heal: kappa(K3) stratification)
 
-Each ProvedHere test carries an ``@independent_verification'' decorator
+Each ProvedHere invariant test carries an ``@independent_verification'' decorator
 (HZ-IV) whose DERIVED_FROM and VERIFIED_AGAINST source sets are disjoint.
 The three disjoint-source buckets used here are:
 
@@ -167,22 +165,25 @@ class TestRouteOutputAudit:
     def test_pairwise_bridge_status_distribution(self):
         """Honest status audit of the six pairwise bridges.
 
-        Adversarial check: not all six are ProvedHere. Only one
-        (alpha_23, Borcherds 1992) is unconditional.
+        Adversarial check: not all six are ProvedHere.  The only
+        unconditional item is the chi_23 character/Fock-sector identity
+        from Borcherds 1992; the chiral alpha_23 bridge remains
+        conditional until a positive-half realization is supplied.
         """
         status = {
             "alpha_12": "Conditional",
-            "alpha_23": "ProvedElsewhere",
+            "alpha_23": "Conditional",
             "alpha_34": "Conditional",
             "alpha_45": "Conditional",
             "alpha_56": "Conditional",
             "alpha_61": "Conditional",
+            "chi_23_character": "ProvedElsewhere",
         }
         provedelsewhere = sum(1 for s in status.values() if s == "ProvedElsewhere")
         conditional = sum(1 for s in status.values() if s == "Conditional")
-        assert provedelsewhere == 1      # only Borcherds 1992 bridge
-        assert conditional == 5          # five remaining
-        assert provedelsewhere + conditional == 6
+        assert provedelsewhere == 1      # only Borcherds 1992 character identity
+        assert conditional == 6          # all six chiral bridges remain conditional
+        assert provedelsewhere + conditional == 7
 
 
 # =========================================================================
@@ -297,44 +298,21 @@ class TestKappaK3HealedIndependent:
         assert KAPPA_CH_K3_BY_ROUTE["R3"] != KAPPA_CH_K3_BY_ROUTE["R1"]
 
 
-class TestCycleClosureIndependent:
-    """Theorem thm:pairwise-all-proved-closes-CY-C under independent verification."""
+class TestCycleClosureConditional:
+    """Conditional cycle-closure criterion for CY-C."""
 
-    @independent_verification(
-        claim="thm:pairwise-all-proved-closes-CY-C",
-        derived_from=[
-            "Six pairwise bridges of Propositions prop:route1-route2-bridge through prop:route6-route1-closure",
-            "Borcherds 1992 denominator identity for alpha_23",
-        ],
-        verified_against=[
-            "Maulik-Okounkov stable-envelope independent R-matrix on Hilb^n(S)",
-            "Huybrechts 2016 Chow motive of K3 surfaces",
-        ],
-        disjoint_rationale=(
-            "The derivation side uses the six pairwise bridges, which in "
-            "turn derive from the Borcherds 1992 denominator identity "
-            "(modular/automorphic side). The verification side uses "
-            "Maulik-Okounkov stable-envelope fixed-point computation of the "
-            "quantum-vertex R-matrix on Hilb^n(S), which is independent of "
-            "the Borcherds lift (symplectic/geometric side), and the "
-            "Huybrechts 2016 Chow motive calculation, which factors through "
-            "neither the Borcherds lift nor the stable envelope (Hodge/motivic "
-            "side)."
-        ),
-    )
-    def test_six_cycle_commutativity(self):
-        """The 6-cycle of named arrows alpha_ij commutes.
+    def test_six_cycle_commutativity_condition_is_formally_consistent(self):
+        """The conditional 6-cycle relation is compatible with invariants.
 
-        Encoded as: composition of the six arrows is the identity on R1,
-        verified at the level of invariants. Each arrow preserves the
-        kappa_ch value modulo the construction-specific transformation
-        (orbifold halving, rank promotion), so the cycle preserves the
-        kappa_ch-spectrum as a SET.
+        This is not an independent verification of CY-C.  It only checks
+        that the formal hypothesis ``alpha_61 ... alpha_12 = id'' does not
+        contradict the recorded kappa-spectrum.
         """
         # The spectrum of algebraization values is invariant under the
         # 6-cycle composition (as a multiset of values).
         before = {v for v in KAPPA_CH_BY_ROUTE.values() if v is not None}
-        # After applying alpha_61 o ... o alpha_12 we return to the R1 value.
+        # Under the conditional cycle relation, alpha_61 o ... o alpha_12
+        # returns to the R1 value.
         after_identity_on_R1 = KAPPA_CH_BY_ROUTE["R1"]
         assert after_identity_on_R1 in before
         assert after_identity_on_R1 == F(3)

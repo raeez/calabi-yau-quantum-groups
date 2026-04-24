@@ -25,11 +25,13 @@ MATHEMATICAL CONTENT:
       - Soft moduli J^0_alpha, alpha=1,...,h^{2,1}(X)+1 (spin 0 operators)
     With OPE controlled by the collinear splitting functions of the 4d theory.
 
-4.  THE IDENTIFICATION A^{cel}_{CY3} = A^{E_1}_{CY3}
+    4.  THE IDENTIFICATION A^{cel}_{CY3} = A^{E_1}_{CY3}
     The thesis: the celestial chiral algebra equals the E_1 (chiral) algebra
     constructed from the CY3 internal geometry, at genus 0.
 
-    For C^3: A^{E_1}_{C^3} = W_{1+infty} at c=1.
+    For C^3: the raw CoHA sector is Y^+(gl_hat_1).  The full
+    W_{1+infty} algebra at c=1 appears after Drinfeld double/center
+    and Fock/evaluation; this is the object compared to the celestial side.
     The celestial algebra of 4d gravity from C^3 is w_{1+infty} = classical
     limit of W_{1+infty}.
 
@@ -1111,6 +1113,7 @@ CELESTIAL_CY3_DICTIONARY = {
 CELESTIAL_CY3_EXAMPLES = {
     "C^3": {
         "G(X)": "W_{1+infty} = Y(gl_hat_1)",
+        "raw_CoHA": "Y^+(gl_hat_1) positive half",
         "celestial_algebra": "w_{1+infty}",
         "kappa_graviton": "c/2",
         "shadow_depth": "M (infinite)",

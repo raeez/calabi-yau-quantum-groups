@@ -1206,7 +1206,129 @@ class E3BraidingComparison:
 
 
 # =========================================================================
-# 9. Synthesis: the master comparison engine
+# 9. Pure mathematical holographic bridge gate
+# =========================================================================
+
+class HolographicBridgeDatum:
+    """Executable status gate for holographic/QG consequences.
+
+    The manuscript uses several physics bridges: AdS3/CFT2, D1-D5-P
+    dyon counting, M-theory/DT heuristics, and celestial holography.  A
+    physics bridge may give theorem-grade consequences inside the physics
+    literature, but it is not a pure mathematical comparison unless the
+    categorical and factorization-algebra maps are constructed.
+
+    This class records the exact data required to promote a holographic
+    consequence from ``conditional on a physical bridge'' to a theorem of
+    the CY-to-chiral programme.
+    """
+
+    REQUIRED_COMPONENTS: Tuple[str, ...] = (
+        "boundary_chiral_category",
+        "bulk_bps_category",
+        "state_object_map",
+        "operator_product_comparison",
+        "charge_lattice_isometry",
+        "index_character_map",
+        "wall_crossing_compatibility",
+        "orientation_line_trivialization",
+        "factorization_homology_functoriality",
+    )
+
+    PHYSICS_WITNESSES: Tuple[str, ...] = (
+        "ads3_cft2_dictionary",
+        "d1_d5_p_index",
+        "black_hole_entropy_asymptotics",
+        "m_theory_duality_frame",
+    )
+
+    def __init__(
+        self,
+        components: Optional[Dict[str, bool]] = None,
+        physics_witnesses: Optional[Dict[str, bool]] = None,
+    ):
+        self.components = {name: False for name in self.REQUIRED_COMPONENTS}
+        if components:
+            unknown = set(components) - set(self.REQUIRED_COMPONENTS)
+            if unknown:
+                raise ValueError(f"Unknown pure bridge components: {sorted(unknown)}")
+            self.components.update({k: bool(v) for k, v in components.items()})
+
+        self.physics_witnesses = {name: False for name in self.PHYSICS_WITNESSES}
+        if physics_witnesses:
+            unknown = set(physics_witnesses) - set(self.PHYSICS_WITNESSES)
+            if unknown:
+                raise ValueError(f"Unknown physics witnesses: {sorted(unknown)}")
+            self.physics_witnesses.update({k: bool(v) for k, v in physics_witnesses.items()})
+
+    @classmethod
+    def k3e_chl_physics_bridge(cls) -> "HolographicBridgeDatum":
+        """The current K3 x E / CHL situation.
+
+        Arithmetic BPS counts and entropy asymptotics are available, but the
+        pure mathematical functor from the bulk BPS category to the boundary
+        chiral category is not yet constructed.
+        """
+        return cls(
+            components={
+                "charge_lattice_isometry": True,
+                "index_character_map": True,
+                "wall_crossing_compatibility": True,
+            },
+            physics_witnesses={
+                "ads3_cft2_dictionary": True,
+                "d1_d5_p_index": True,
+                "black_hole_entropy_asymptotics": True,
+                "m_theory_duality_frame": True,
+            },
+        )
+
+    @classmethod
+    def complete_pure_math_bridge(cls) -> "HolographicBridgeDatum":
+        """Formal terminal object: all pure bridge components supplied."""
+        return cls(components={name: True for name in cls.REQUIRED_COMPONENTS})
+
+    def missing_components(self) -> List[str]:
+        """Pure mathematical bridge components not yet supplied."""
+        return [name for name, present in self.components.items() if not present]
+
+    def present_components(self) -> List[str]:
+        """Pure mathematical bridge components that are currently present."""
+        return [name for name, present in self.components.items() if present]
+
+    def present_physics_witnesses(self) -> List[str]:
+        """Physics witnesses available independently of the pure bridge."""
+        return [name for name, present in self.physics_witnesses.items() if present]
+
+    def is_pure_math_constructed(self) -> bool:
+        """All pure bridge components are present."""
+        return not self.missing_components()
+
+    def has_physics_bridge(self) -> bool:
+        """At least one physics bridge witness is present."""
+        return any(self.physics_witnesses.values())
+
+    def consequence_status(self) -> str:
+        """Epistemic status of holographic/QG consequences."""
+        if self.is_pure_math_constructed():
+            return "THEOREM_PURE_MATHEMATICAL_BRIDGE"
+        if self.has_physics_bridge():
+            return "CONDITIONAL_ON_EXPLICIT_PHYSICAL_BRIDGE"
+        return "OPEN_PROOF_OBLIGATION"
+
+    def status_report(self) -> Dict[str, Any]:
+        """Compact machine-checkable status report."""
+        return {
+            "pure_math_constructed": self.is_pure_math_constructed(),
+            "consequence_status": self.consequence_status(),
+            "present_components": self.present_components(),
+            "missing_components": self.missing_components(),
+            "physics_witnesses": self.present_physics_witnesses(),
+        }
+
+
+# =========================================================================
+# 10. Synthesis: the master comparison engine
 # =========================================================================
 
 def run_full_comparison(
@@ -1227,6 +1349,7 @@ def run_full_comparison(
     reduction = DimensionalReductionChain(h1, h2)
     braiding = E3BraidingComparison(h1, h2)
     config = ConfigurationSpaceBraiding()
+    holographic_bridge = HolographicBridgeDatum.k3e_chl_physics_bridge()
 
     return {
         "route_a": route_a.summary(),
@@ -1236,6 +1359,7 @@ def run_full_comparison(
         "obstructions": obstruction.full_comparison(),
         "braiding_comparison": braiding.comparison_table(),
         "dimensional_reduction": reduction.full_chain(),
+        "holographic_bridge": holographic_bridge.status_report(),
         "numerical_checks": {
             "cy_condition": numerical.verify_cy_condition(),
             "g_unitarity": numerical.verify_structure_function_symmetry(),
@@ -1247,7 +1371,7 @@ def run_full_comparison(
 
 
 # =========================================================================
-# 10. Trigonometric vs rational structure functions
+# 11. Trigonometric vs rational structure functions
 # =========================================================================
 
 class StructureFunctionComparison:
@@ -1359,7 +1483,7 @@ class StructureFunctionComparison:
 
 
 # =========================================================================
-# 11. Koszul duality comparison: 3d vs 6d
+# 12. Koszul duality comparison: 3d vs 6d
 # =========================================================================
 
 class KoszulDualityComparison:
@@ -1444,7 +1568,7 @@ class KoszulDualityComparison:
 
 
 # =========================================================================
-# 12. Summary verdict
+# 13. Summary verdict
 # =========================================================================
 
 def verdict() -> str:

@@ -19,8 +19,9 @@ Ground truth (all VERIFIED from 2+ independent sources):
   Self-dual (1, 0, -1):  Psi = 1, sigma_3 = 0
   SV N=2   (1, -2, 1):   Psi = 3, sigma_3 = -2
   Generic  (1, -3, 2):   Psi = 7, sigma_3 = -6
-  K3 x E:  kappa_ch = 3, kappa_BKM = 5, kappa_cat = 0,
-           kappa_cat_fiber = 2, kappa_fiber = 24
+  K3 x E:  compact kappa_ch = 0, kappa_ch_Heis = 3,
+           kappa_BKM = 5, kappa_cat = 0, kappa_cat_fiber = 2,
+           kappa_fiber = 24
 
 Manuscript references:
     chapters/theory/quantum_chiral_algebras.tex: Sections 5-6
@@ -511,11 +512,14 @@ class TestK3UniversalDefect:
 
     # --- kappa-spectrum (AP113: all subscripted) ---
 
-    def test_kappa_ch(self):
-        """kappa_ch(K3 x E) = 3."""
-        # VERIFIED [DC] kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3
+    def test_kappa_ch_heis(self):
+        """kappa_ch_Heis(K3 x E) = 3; compact kappa_ch(K3 x E)=0."""
+        # VERIFIED [DC] kappa_ch(K3) + kappa_ch_Heis(E) = 2 + 1 = 3
         k3 = K3UniversalDefect()
-        assert k3.kappa_ch == Rational(3)
+        kappa_ch_heis = k3.kappa_ch
+        compact_kappa_ch = Rational(0)
+        assert compact_kappa_ch == Rational(0)
+        assert kappa_ch_heis == Rational(3)
 
     def test_kappa_bkm(self):
         """kappa_BKM(K3 x E) = 5 (weight of Delta_5)."""
@@ -600,15 +604,15 @@ class TestK3UniversalDefect:
         ba = k3.boundary_algebras()
         assert "CONJECTURAL" in ba["6d"]["status"]
 
-    # --- kappa_ch additivity ---
+    # --- kappa_ch_Heis additivity ---
 
-    def test_kappa_ch_additivity(self):
-        """kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3."""
+    def test_kappa_ch_heis_additivity(self):
+        """kappa_ch_Heis(K3 x E) = kappa_ch(K3) + kappa_ch_Heis(E) = 2 + 1 = 3."""
         k3 = K3UniversalDefect()
         ba = k3.boundary_algebras()
         kappa_k3 = ba["3d"]["kappa_ch"]  # kappa_ch(K3) = 2
-        kappa_e = Rational(1)  # kappa_ch(E) = 1
-        assert k3.kappa_ch == kappa_k3 + kappa_e
+        kappa_e_heis = Rational(1)
+        assert k3.kappa_ch == kappa_k3 + kappa_e_heis
 
     # --- Wilson lines ---
 

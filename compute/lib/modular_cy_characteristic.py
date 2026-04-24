@@ -28,7 +28,8 @@ KEY DISTINCTION (from Vol I, AP20/AP24):
   of the CY category C.
 
   chi^CY is NOT the topological Euler characteristic chi_top(X).
-  For K3 x E: chi_top = 0; kappa_ch = chi^CY = 3, kappa_BKM = 5.
+  For K3 x E: chi_top = 0; compact kappa_ch = chi^CY = 0,
+  kappa_ch_Heis = 3, kappa_BKM = 5.
 
 DEFINITION of chi^CY (operational, matching Theorem CY-D):
 
@@ -36,8 +37,9 @@ DEFINITION of chi^CY (operational, matching Theorem CY-D):
   scalar.  Automorphic denominator weights, when present, are recorded
   separately as kappa_BKM.
 
-  For K3 x E:      kappa_ch = 3 (proved, chiral de Rham);
-                    kappa_BKM = 5 = weight(Delta_5) = c_1(0)/2.
+  For K3 x E:      compact kappa_ch = 0 (total-space Hodge/PhiFA);
+                    kappa_ch_Heis = 3 (Heisenberg shadow);
+                    kappa_BKM = 5 = weight(Delta_5) = c_N(0)/2 at N=1.
   For elliptic E:  kappa_ch = 1 = level of Heisenberg H_1.
   For K3 surface:  kappa_ch = 2 = chi(O_{K3}) (arithmetic genus).
   For point:       kappa_ch = 0.
@@ -210,6 +212,7 @@ class ModularCYCharacteristic(NamedTuple):
     dimension: int             # CY dimension
     kappa_label: str = "kappa_ch"
     kappa_BKM: Optional[Fraction] = None
+    kappa_ch_Heis: Optional[Fraction] = None
 
 
 def chi_cy_point() -> ModularCYCharacteristic:
@@ -260,36 +263,39 @@ def chi_cy_k3() -> ModularCYCharacteristic:
 
 
 def chi_cy_k3_times_e() -> ModularCYCharacteristic:
-    r"""chi^CY(D^b(K3 x E)) in the chiral lane.
+    r"""Compact chi^CY(D^b(K3 x E)) and the separate Heisenberg shadow.
 
     TWO DISTINCT KAPPAS (AP113):
-      kappa_ch(K3 x E) = 3  (chiral de Rham/PTVV split:
-                              kappa_ch(K3) + kappa_ch(E) = 2 + 1)
-      kappa_BKM(K3 x E) = 5 (Borcherds weight: c_1(0)/2 = 10/2)
+      compact kappa_ch(K3 x E) = 0  (total-space Hodge/PhiFA supertrace)
+      kappa_ch_Heis(K3 x E) = 3     (Heisenberg shadow:
+                                     kappa_ch(K3) + kappa_ch(E) = 2 + 1)
+      kappa_BKM(K3 x E) = 5         (Borcherds weight: c_N(0)/2 at N=1)
 
-    The .chi_cy and .kappa fields both store the chiral value 3.
+    The .chi_cy and .kappa fields store the compact chiral value 0.
+    The .kappa_ch_Heis field stores the Heisenberg shadow value 3.
     The .kappa_BKM field stores the automorphic weight 5.
 
     DT partition function: Z = C / (Delta_5)^2, weight(Delta_5) = 5.
     """
     return ModularCYCharacteristic(
         name="K3 x E",
-        chi_cy=Fraction(3),
-        kappa=Fraction(3),
+        chi_cy=Fraction(0),
+        kappa=Fraction(0),
         match=True,
-        source="kappa_ch=chi^CY via chiral de Rham/PTVV split; kappa_BKM separate",
+        source="compact kappa_ch=chi^CY=0; kappa_ch_Heis=3 and kappa_BKM=5 separate",
         chi_top=0,
         dimension=3,
         kappa_label="kappa_ch",
         kappa_BKM=Fraction(5),
+        kappa_ch_Heis=Fraction(3),
     )
 
 
 def kappa_ch_k3_times_e() -> Fraction:
-    r"""kappa_ch(K3 x E) = 3 (PROVED, chiral de Rham).
+    r"""Compatibility alias for kappa_ch_Heis(K3 x E) = 3.
 
-    kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
-    This is the modular characteristic of the chiral algebra.
+    kappa_ch_Heis(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+    The compact total-space value stored in chi_cy_k3_times_e().kappa is 0.
     AP113: subscript _ch mandatory in Vol III.
     """
     # AP1: from landscape_census; k=0 -> 0 trivially (abelian)
@@ -299,7 +305,7 @@ def kappa_ch_k3_times_e() -> Fraction:
 def kappa_bkm_k3_times_e() -> Fraction:
     r"""kappa_BKM(K3 x E) = 5 (Borcherds weight).
 
-    weight(Delta_5) = 5 = c_1(0)/2 = 10/2.
+    weight(Delta_5) = 5 = c_N(0)/2 at N=1 = 10/2.
     This is the weight of the Borcherds automorphic form, NOT the
     chiral modular characteristic.  AP113: subscript _BKM mandatory.
     """
@@ -390,11 +396,12 @@ def chi_cy_additivity_test() -> Dict[str, Any]:
     Additivity HOLDS for direct sums of categories:
       chi^CY(C_1 oplus C_2) = chi^CY(C_1) + chi^CY(C_2)
 
-    kappa_ch IS additive for K3 x E (AP113):
-      kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3 = kappa_ch(K3 x E).
+    kappa_ch_Heis IS additive for K3 x E (AP113):
+      kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3 = kappa_ch_Heis(K3 x E).
+    The compact total-space kappa_ch(K3 x E) is 0.
 
-    The NON-additivity is between kappa_ch=3 and kappa_BKM=5:
-      kappa_BKM(K3 x E) = 5 != kappa_ch(K3 x E) = 3.
+    The NON-additivity is between kappa_ch_Heis=3 and kappa_BKM=5:
+      kappa_BKM(K3 x E) = 5 != kappa_ch_Heis(K3 x E) = 3.
 
     Additivity HOLDS for products of elliptic curves:
       kappa(E x E) = kappa(H_1 + H_1) = 1 + 1 = 2.
@@ -414,8 +421,11 @@ def chi_cy_additivity_test() -> Dict[str, Any]:
     results["kappa_E_single"] = int(e.kappa)
     results["kappa_K3_plus_E"] = int(k3.kappa + e.kappa)
     results["kappa_K3xE"] = int(k3e.kappa)
+    results["kappa_K3xE_Heis"] = int(k3e.kappa_ch_Heis or 0)
     results["product_is_additive_K3xE"] = (k3.kappa + e.kappa == k3e.kappa)
+    results["product_is_additive_K3xE_Heis"] = (k3.kappa + e.kappa == k3e.kappa_ch_Heis)
     results["K3xE_discrepancy"] = int(k3e.kappa - k3.kappa - e.kappa)
+    results["K3xE_Heis_discrepancy"] = int((k3e.kappa_ch_Heis or 0) - k3.kappa - e.kappa)
 
     return results
 
@@ -800,7 +810,8 @@ def verify_all_cy_characteristics() -> Dict[str, bool]:
     results["chi_cy_elliptic_1"] = (chi_cy_elliptic().chi_cy == 1)
     results["chi_cy_k3_2"] = (chi_cy_k3().chi_cy == 2)
     k3e_chi = chi_cy_k3_times_e()
-    results["chi_cy_k3xe_3"] = (k3e_chi.chi_cy == 3)
+    results["chi_cy_k3xe_0"] = (k3e_chi.chi_cy == 0)
+    results["kappa_ch_heis_k3xe_3"] = (k3e_chi.kappa_ch_Heis == 3)
     results["kappa_BKM_k3xe_5"] = (k3e_chi.kappa_BKM == 5)
     results["chi_cy_conifold_1"] = (chi_cy_resolved_conifold().chi_cy == 1)
 
@@ -813,7 +824,7 @@ def verify_all_cy_characteristics() -> Dict[str, bool]:
     results["match_K3xE_kappa_ch_eq_chi_cy"] = (chi_cy_k3_times_e().match is True)
 
     # Shadow obstruction tower positivity for positive kappa
-    # AP113: use kappa_ch=3 for the chiral shadow tower
+    # AP113: use kappa_ch_Heis=3 for the active Heisenberg shadow tower
     tower_k3xe = shadow_tower_scalar(Fraction(3), 5)
     results["shadow_k3xe_all_positive"] = all(f > 0 for f in tower_k3xe.values())
 

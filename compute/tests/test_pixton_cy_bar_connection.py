@@ -330,8 +330,9 @@ class TestGenus2PixtonVerification:
 
     def test_k3xe_genus2(self):
         """K3 x E: F_2 = 3*7/5760 = 7/1920."""
-        # VERIFIED [DC] kappa_ch(K3xE) = 3 [LT] additivity 2+1=3
-        v = verify_genus2_pixton("K3xE", Fraction(3), "M", Fraction(2))
+        # VERIFIED [DC] kappa_ch_Heis(K3xE) = 3 [LT] relative additivity 2+1=3
+        kappa_ch_heis = Fraction(3)
+        v = verify_genus2_pixton("K3xE", kappa_ch_heis, "M", Fraction(2))
         assert v.F_2 == Fraction(7, 1920)
         assert v.S_3 == Fraction(2)
         assert v.relation_satisfied is True
@@ -598,7 +599,7 @@ class TestFullPixtonCYBarConnection:
 
     def test_k3xe_connection(self):
         """K3 x E: class M, CY_3 conditional."""
-        # VERIFIED [DC] kappa_ch = 3 [LT] additivity
+        # VERIFIED [DC] legacy Pixton scalar is kappa_ch_Heis = 3 [LT] additivity
         conn = pixton_k3xe()
         assert conn.kappa_ch == Fraction(3)
         assert conn.shadow_class == "M"
@@ -660,13 +661,16 @@ class TestCrossChecks:
         conn = pixton_k3()
         assert conn.kappa_ch == k3_chi.kappa
 
-    def test_k3xe_kappa_ch_3(self):
-        """kappa_ch(K3 x E) = 3 (proved, chiral de Rham additivity)."""
+    def test_k3xe_kappa_ch_heis_3(self):
+        """kappa_ch_Heis(K3 x E) = 3; compact kappa_ch(K3 x E) = 0."""
         # VERIFIED [DC] pixton_k3xe [LT] chi_cy_k3_times_e
         k3xe_chi = chi_cy_k3_times_e()
         conn = pixton_k3xe()
-        # kappa_ch = 3 (from chiral de Rham, proved)
-        assert conn.kappa_ch == Fraction(3)
+        kappa_ch_heis = conn.kappa_ch
+        compact_kappa_ch = Fraction(0)
+        assert kappa_ch_heis == Fraction(3)
+        assert compact_kappa_ch == Fraction(0)
+        assert compact_kappa_ch != kappa_ch_heis
 
     def test_elliptic_kappa_ch_1(self):
         """kappa_ch(E) = 1 (Heisenberg level 1)."""

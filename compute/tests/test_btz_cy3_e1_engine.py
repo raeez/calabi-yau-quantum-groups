@@ -139,7 +139,8 @@ class TestCY3Data:
         # VERIFIED [DC] kappa formula [LT] BTZ entropy
         assert data.kappa_label == "kappa_BKM"
         assert data.kappa == data.kappa_BKM == Fraction(5)
-        assert data.kappa_ch == Fraction(3)
+        assert data.kappa_ch == Fraction(0)
+        assert data.kappa_ch_Heis == Fraction(3)
         assert data.kappa_cat == Fraction(0)
         assert data.kappa_fiber == Fraction(24)
 
@@ -848,7 +849,8 @@ class TestCY3Comparisons:
         assert result['is_additive'] is False
         # VERIFIED [DC] kappa formula [LT] BTZ entropy
         assert result['k3xe_kappa_BKM'] == 5
-        assert result['k3xe_kappa_ch'] == 3
+        assert result['k3xe_kappa_ch'] == 0
+        assert result['k3xe_kappa_ch_Heis'] == 3
         assert result['k3xe_kappa_cat'] == 0
         # VERIFIED [DC] kappa computation [LT] BTZ entropy
         assert result['naive_kappa_ch_sum'] == 3
@@ -1152,7 +1154,7 @@ class TestIntegration:
                 # VERIFIED [DC] consistency check [LT] BTZ entropy
                 assert S > 0, f"S_BH should be > 0 for {name}"
 
-        # K3 x E has the largest kappa (5), so should have the largest entropy
+        # K3 x E has the largest BKM-lane scalar (5), so should have the largest entropy
         if "K3 x E" in entropies:
             for name, S in entropies.items():
                 if name != "K3 x E":

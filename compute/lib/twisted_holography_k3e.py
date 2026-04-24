@@ -130,11 +130,13 @@ MUKAI_SIG_MINUS = 20           # negative eigenvalues of Mukai pairing
 # K3 x E invariants
 CHI_E = 0                      # Euler characteristic of elliptic curve E
 CHI_K3E = CHI_K3 * CHI_E      # chi(K3 x E) = 0 (product formula)
-CHI_O_K3E = CHI_O_K3 * 1      # chi(O_{K3xE}) = chi(O_{K3}) * chi(O_E) = 2*1 = 2
-# AP113: kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3
+CHI_O_K3E = CHI_O_K3 * 0      # chi(O_{K3xE}) = chi(O_{K3}) * chi(O_E) = 2*0 = 0
+# AP113: compact kappa_ch(K3 x E)=0; kappa_ch_Heis(K3 x E)=2+1=3
 KAPPA_CH_K3 = 2                # kappa_ch of K3 chiral algebra (PROVED, CY-A_2)
-KAPPA_CH_E = 1                 # kappa_ch of E (Heisenberg at level 1)
-KAPPA_CH_K3E = 3               # kappa_ch of K3 x E (AP113)
+KAPPA_CH_E = 0                 # compact kappa_ch of E
+KAPPA_CH_HEIS_E = 1            # Heisenberg at level 1
+KAPPA_CH_K3E = 0               # compact kappa_ch of K3 x E
+KAPPA_CH_HEIS_K3E = 3          # relative Heisenberg shadow
 KAPPA_BKM_K3E = 5              # Borcherds weight of Delta_5 (AP113)
 KAPPA_CAT_K3 = 2               # chi(O_{K3}) (AP113)
 KAPPA_FIBER_K3 = 24            # Mukai lattice rank (AP113)

@@ -1,23 +1,20 @@
 #!/usr/bin/env python3
 r"""
-kappa_ch_universal_formula.py -- Branch assessment for d=3 kappa scalars.
+kappa_ch_universal_formula.py -- CY3 compact kappa_ch and shadow scalars.
 
 BRANCH ASSESSMENT
 =================
 
-For a COMPACT CY_3 manifold X the useful exact scalar is
+For a COMPACT CY_3 manifold X the compact Hodge/PhiFA scalar is
 
-    chi_top(X)/24 + [h^{1,0}(X) > 0] * (h^{3,0}(X) + 2)
+    kappa_ch(A_X) = sum_q (-1)^q h^{0,q}(X) = chi(O_X) = 0.
 
-where [P] is the Iverson bracket (1 if P true, 0 otherwise).
-
-This is NOT a universal theorem identifying every branch with constructed
-kappa_ch.  It separates two lanes:
+This file also records two labelled shadow lanes.  They are not compact
+kappa_ch:
   - Strict CY_3 (h^{1,0}=0, SU(3) holonomy):
       kappa_BCOV_shadow_conjectural = chi_top/24.
-      Constructed kappa_ch is open without the missing chain-level proof.
   - Products S x E and T^6 (h^{1,0}>0):
-      kappa_ch is computed by Beauville/additivity.
+      kappa_ch_Heis is computed by Beauville/free-field additivity.
 
 For NON-COMPACT CY_3:
   - C^3: kappa_ch = 1 (MacMahon/Heisenberg).
@@ -35,10 +32,10 @@ The formula follows from two ingredients:
     where T^{2g} is a complex torus, Y_i are strict CY (SU holonomy),
     Z_j are irreducible holomorphic symplectic (Sp holonomy).
 
-(B) Additivity of kappa_ch under tensor products of chiral algebras:
-      kappa_ch(A tensor B) = kappa_ch(A) + kappa_ch(B).
-    Combined with functoriality Phi(X x Y) = Phi(X) tensor Phi(Y):
-      kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y).
+(B) Additivity of the Heisenberg/free-field shadow under tensor products:
+      kappa_ch_Heis(A tensor B) =
+      kappa_ch_Heis(A) + kappa_ch_Heis(B).
+    This is a shadow lane, not the compact Hodge/PhiFA scalar.
 
 For a compact CY_3, the Beauville decomposition gives exactly four types:
 
@@ -48,15 +45,15 @@ For a compact CY_3, the Beauville decomposition gives exactly four types:
         not constructed kappa_ch.
 
   (ii)  h^{1,0} = 1, h^{3,0} = 1: X = K3 x E.
-        kappa_ch = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3 = h^{3,0} + 2.
+        kappa_ch_Heis = 2 + 1 = 3 = h^{3,0} + 2.
         PROVED (additivity + d=2 result for K3).
 
   (iii) h^{1,0} = 1, h^{3,0} = 0: X = Enriques x E (generalized CY_3).
-        kappa_ch = kappa_ch(Enr) + kappa_ch(E) = 1 + 1 = 2 = h^{3,0} + 2.
+        kappa_ch_Heis = 1 + 1 = 2 = h^{3,0} + 2.
         PROVED (additivity + d=2 result for Enriques).
 
   (iv)  h^{1,0} = 3: X = T^6 = E^3.
-        kappa_ch = 3 * kappa_ch(E) = 3.
+        kappa_ch_Heis = 3.
         PROVED (additivity).
 
 No other types exist for dim_C = 3 with c_1 = 0. In particular:
@@ -64,39 +61,25 @@ No other types exist for dim_C = 3 with c_1 = 0. In particular:
     h^{1,0} = 1, but no such irreducible CY_2 exists (K3 has h^{1,0}=0,
     abelian surfaces have h^{1,0}=2 and decompose further as ExE).
 
-The unification: in cases (ii)-(iv), chi_top(X) = 0 (since X contains
-an elliptic curve factor with chi_top(E) = 0, and chi_top is multiplicative).
-So the formula chi_top/24 + [h10>0]*(h30+2) reduces to:
-  h10=0: chi_top/24 + 0 = chi_top/24.
-  h10>0: 0 + h30+2 = h30+2.
+The compact scalar is different: all compact CY_3 rows have odd-dimensional
+Serre cancellation in the h^{0,bullet} column and hence compact
+kappa_ch = chi(O_X) = 0.
 
-BUG FIX: ABELIAN SURFACE kappa_ch
-===================================
+ABELIAN SURFACE: COMPACT VS HEISENBERG
+======================================
 
-The existing code (kappa_ch_d3_formula.py) applies kappa_ch = chi(O_X) for
-ALL d=2 manifolds. But Proposition prop:cy-kappa-d2 in the manuscript
-RESTRICTS this to h^{1,0}=0. For abelian surfaces (h^{1,0}=2):
+For abelian surfaces (h^{1,0}=2):
 
-  kappa_ch(Ab) = 2 (from additivity: kappa(E) + kappa(E) = 1 + 1),
-  NOT chi(O_Ab) = 0.
+  compact kappa_ch(Ab) = chi(O_Ab) = 0,
+  kappa_ch_Heis(Ab) = 2 (from additivity: 1 + 1).
 
-The manuscript (cy_to_chiral.tex L69) confirms:
-  "For abelian surfaces, h^{1,0}=2 and HH_{-1} != 0; the formula FAILS:
-   chi(O_A) = 0 but kappa_ch = 2 (from additivity: kappa(E)+kappa(E)=1+1)."
-
-This engine provides the corrected d=2 formula:
-  kappa_ch(X, d=2) = chi(O_X) if h^{1,0}=0.  (PROVED, Prop cy-kappa-d2.)
-  kappa_ch(X, d=2) = sum over Beauville factors if h^{1,0}>0.  (Additivity.)
-
-Concretely for d=2:
-  K3: kappa = 2 = chi(O_K3).  (h10=0, PROVED.)
-  Enriques: kappa = 1 = chi(O_Enr).  (h10=0, PROVED.)
-  Abelian surface: kappa = 2.  (h10=2, by additivity. NOT chi(O)=0.)
+The API therefore exposes compact kappa_ch and kappa_ch_Heis separately.
 
 CONSISTENCY CHECK: T^6 = Ab x E
-  By 2-factor additivity: kappa(Ab x E) = kappa(Ab) + kappa(E) = 2 + 1 = 3.
-  By 3-factor additivity: kappa(E^3) = 1 + 1 + 1 = 3.
-  CONSISTENT (once the abelian surface bug is fixed).
+  By 2-factor Heisenberg additivity:
+      kappa_ch_Heis(Ab x E) = 2 + 1 = 3.
+  By 3-factor Heisenberg additivity:
+      kappa_ch_Heis(E^3) = 1 + 1 + 1 = 3.
 
 CANDIDATE ANALYSIS
 ==================
@@ -114,14 +97,13 @@ Three candidates were tested against 13 CY_3 families:
     independent of h^{1,1} and h^{2,1}. Cannot distinguish quintic (-25/3)
     from banana (0).
 
-  Candidate 3: kappa_ch = F_1 (genus-1 free energy of topological string).
-    PARTIALLY CORRECT: F_1 = kappa_ch/24 (not kappa_ch itself). The
-    relationship kappa_ch = 24*F_1 holds, but F_1 is the genus-1 free energy,
-    not a closed formula. It is EQUIVALENT to kappa_ch, not a formula for it.
+  Candidate 3: compact kappa_ch = F_1 (genus-1 free energy of topological string).
+    REJECTED AS COMPACT kappa_ch: this belongs to the BCOV-shadow lane, not
+    to the Hodge/PhiFA supertrace chi(O_X).
 
   The corrected assessment:
     strict branch: kappa_BCOV_shadow_conjectural = chi_top/24;
-    product branch: constructed kappa_ch = h30+2 by additivity.
+    product branch: kappa_ch_Heis = h30+2 by additivity.
 
 NON-COMPACT CY_3
 =================
@@ -138,14 +120,14 @@ AP COMPLIANCE
 =============
 
 AP113: All kappa values subscripted (kappa_ch, kappa_cat, kappa_BKM, kappa_fiber).
-AP-CY6: Results conditional on CY-A_3 for d=3. The h10=0 branch (BCOV) is
-  conditional on CY-A_3. The h10>0 branch uses additivity (proved) and d<=2
-  results (proved for h10=0 factors).
-AP-CY11: Conditional transitivity: the h10=0 branch is conditional on CY-A_3.
+AP-CY6: The compact scalar is the Hodge/PhiFA supertrace. The BCOV and
+  Heisenberg lanes are explicitly labelled shadows.
+AP-CY11: Conditional transitivity: the h10=0 BCOV shadow is conditional
+  and not constructed kappa_ch.
 AP155: Not claiming novelty for BCOV; the novelty is the unification via Beauville.
-AP-CY14: The Beauville reduction formula does NOT invoke unconstructed objects.
-  It reduces to proved results (additivity, d<=2) for the h10>0 branch.
-  The h10=0 branch invokes BCOV (conjectural).
+AP-CY14: The h10>0 Beauville branch does NOT invoke unconstructed objects.
+  It reduces to proved shadow results (additivity, d<=2).  The h10=0 branch is
+  only the BCOV-shadow candidate and is not constructed kappa_ch here.
 
 Ground truth:
   chapters/theory/cy_to_chiral.tex (Proposition prop:cy-kappa-d2, Theorem thm:chi-neq-kappa)
@@ -179,37 +161,31 @@ class CY3Data(NamedTuple):
     h30: Optional[int]           # h^{3,0}
     h11: Optional[int]           # h^{1,1}
     h21: Optional[int]           # h^{2,1}
-    kappa_ch_known: Optional[Fraction]  # constructed value or labelled candidate
+    kappa_ch_known: Optional[Fraction]  # compact value for compact; known value for non-compact
     beauville_type: str          # 'strict_CY3', 'K3xE', 'EnrxE', 'T6', 'noncompact', 'other'
     status: str                  # 'PROVED', 'CONJECTURAL', 'OPEN'
 
 
 class CY2Data(NamedTuple):
-    """Hodge data for a CY_2 surface (for the d=2 bug fix)."""
+    """Hodge data for a CY_2 surface."""
     name: str
     h10: int       # h^{1,0}
     h20: int       # h^{2,0}
     chi_O: int     # chi(O_X) = 1 - h10 + h20
 
     def kappa_ch(self) -> Fraction:
-        """Corrected kappa_ch for CY_2.
+        """Compact kappa_ch for CY_2: the h^{0,bullet} supertrace."""
+        return F(self.chi_O)
 
-        For h^{1,0}=0: kappa = chi(O_X). PROVED.
-        For h^{1,0}>0: kappa = sum over Beauville factors. NOT chi(O_X).
-        """
-        if self.h10 == 0:
-            return F(self.chi_O)
-        else:
-            # Beauville: CY_2 with h10>0 is abelian surface = ExE.
-            # kappa = kappa(E) + kappa(E) = 1 + 1 = 2.
-            # This equals h10 (since h10 = 2*g for an abelian surface of dim g... no)
-            # Actually: abelian surface has h10=2. Beauville: Ab = ExE.
-            # kappa = 2*kappa(E) = 2*1 = 2 = h10.
+    def kappa_ch_Heis(self) -> Fraction:
+        """Heisenberg/free-field shadow for product surfaces."""
+        if self.h10 > 0:
             return F(self.h10)
+        return F(self.chi_O)
 
 
 # =========================================================================
-# 2. CY_2 surface library (for Beauville factor kappa)
+# 2. CY_2 surface library (for Beauville factor kappa_ch)
 # =========================================================================
 
 def cy2_k3() -> CY2Data:
@@ -225,8 +201,7 @@ def cy2_enriques() -> CY2Data:
 def cy2_abelian() -> CY2Data:
     """Abelian surface: CY_2, h^{1,0}=2, h^{2,0}=1, chi(O)=0.
 
-    BUG FIX: kappa_ch = 2 (from additivity), NOT chi(O) = 0.
-    The manuscript (cy_to_chiral.tex L69) confirms this.
+    Compact kappa_ch=0; the Heisenberg shadow is 2.
     """
     return CY2Data("Ab", 2, 1, 0)
 
@@ -240,61 +215,61 @@ def cy2_abelian() -> CY2Data:
 def quintic() -> CY3Data:
     """Quintic threefold in P^4: chi=-200, h11=1, h21=101."""
     return CY3Data("Quintic", True, -200, 0, 1, 1, 101,
-                   F(-25, 3), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 def p5_33() -> CY3Data:
     """P^5[3,3]: chi=-144, h11=1, h21=73."""
     return CY3Data("P5[3,3]", True, -144, 0, 1, 1, 73,
-                   F(-6), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 def p5_24() -> CY3Data:
     """P^5[2,4]: chi=-176, h11=1, h21=89."""
     return CY3Data("P5[2,4]", True, -176, 0, 1, 1, 89,
-                   F(-22, 3), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 def p6_223() -> CY3Data:
     """P^6[2,2,3]: chi=-144, h11=1, h21=73."""
     return CY3Data("P6[2,2,3]", True, -144, 0, 1, 1, 73,
-                   F(-6), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 def p7_2222() -> CY3Data:
     """P^7[2,2,2,2]: chi=-128, h11=1, h21=65."""
     return CY3Data("P7[2,2,2,2]", True, -128, 0, 1, 1, 65,
-                   F(-16, 3), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 def bicubic() -> CY3Data:
     """Bicubic in P^2 x P^2: chi=-162, h11=2, h21=83."""
     return CY3Data("Bicubic", True, -162, 0, 1, 2, 83,
-                   F(-27, 4), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 def banana() -> CY3Data:
     """Banana manifold (Schoen): chi=0, h11=h21=19."""
     return CY3Data("Banana", True, 0, 0, 1, 19, 19,
-                   F(0), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 def bv_1_1_1() -> CY3Data:
     """Borcea-Voisin BV(1,1,1): chi=-108."""
     return CY3Data("BV(1,1,1)", True, -108, 0, 1, None, None,
-                   F(-9, 2), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 def bv_10_0_0() -> CY3Data:
     """Borcea-Voisin BV(10,0,0): chi=0."""
     return CY3Data("BV(10,0,0)", True, 0, 0, 1, 35, 35,
-                   F(0), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 def bv_20_2_0() -> CY3Data:
     """Borcea-Voisin BV(20,2,0): chi=120."""
     return CY3Data("BV(20,2,0)", True, 120, 0, 1, 61, 1,
-                   F(5), 'strict_CY3', 'CONJECTURAL')
+                   F(0), 'strict_CY3', 'PROVED')
 
 
 # --- Compact product CY_3 (h^{1,0} > 0) ---
@@ -302,55 +277,55 @@ def bv_20_2_0() -> CY3Data:
 def k3_times_e() -> CY3Data:
     """K3 x E: h10=1, h30=1, chi=0."""
     return CY3Data("K3xE", True, 0, 1, 1, 21, 21,
-                   F(3), 'K3xE', 'PROVED')
+                   F(0), 'K3xE', 'PROVED')
 
 
 def enriques_times_e() -> CY3Data:
     """Enriques x E: h10=1, h30=0, chi=0."""
     return CY3Data("EnrxE", True, 0, 1, 0, 11, 11,
-                   F(2), 'EnrxE', 'PROVED')
+                   F(0), 'EnrxE', 'PROVED')
 
 
 def t6_torus() -> CY3Data:
     """T^6 = E^3: h10=3, h30=1, chi=0."""
     return CY3Data("T^6", True, 0, 3, 1, 9, 9,
-                   F(3), 'T6', 'PROVED')
+                   F(0), 'T6', 'PROVED')
 
 
 # --- Non-compact CY_3 ---
 
 def c3_affine() -> CY3Data:
-    """C^3: non-compact, kappa=1."""
+    """C^3: non-compact, kappa_ch=1."""
     return CY3Data("C^3", False, None, None, None, None, None,
                    F(1), 'noncompact', 'PROVED')
 
 
 def resolved_conifold() -> CY3Data:
-    """Resolved conifold: non-compact, kappa=1."""
+    """Resolved conifold: non-compact, kappa_ch=1."""
     return CY3Data("ResCon", False, None, None, None, None, None,
                    F(1), 'noncompact', 'PROVED')
 
 
 def local_p2() -> CY3Data:
-    """Local P^2 = Tot(K_{P^2}): non-compact, kappa=3/2."""
+    """Local P^2 = Tot(K_{P^2}): non-compact, kappa_ch=3/2."""
     return CY3Data("LocalP2", False, None, None, None, 1, 0,
                    F(3, 2), 'noncompact', 'CONJECTURAL')
 
 
 def local_p1p1() -> CY3Data:
-    """Local P^1 x P^1 = Tot(K_{P1xP1}): non-compact, kappa=2."""
+    """Local P^1 x P^1 = Tot(K_{P1xP1}): non-compact, kappa_ch=2."""
     return CY3Data("LocalP1P1", False, None, None, None, 2, 0,
                    F(2), 'noncompact', 'CONJECTURAL')
 
 
 def local_f1() -> CY3Data:
-    """Local F_1 = Tot(K_{F_1}): non-compact, kappa=2."""
+    """Local F_1 = Tot(K_{F_1}): non-compact, kappa_ch=2."""
     return CY3Data("LocalF1", False, None, None, None, 2, 0,
                    F(2), 'noncompact', 'CONJECTURAL')
 
 
 # =========================================================================
-# 4. The universal formula
+# 4. Compact branch assessment
 # =========================================================================
 
 def bcov_shadow_candidate(X: CY3Data) -> Fraction:
@@ -370,24 +345,17 @@ def bcov_shadow_candidate(X: CY3Data) -> Fraction:
 
 
 def kappa_ch_compact(X: CY3Data) -> Fraction:
-    r"""Constructed kappa_ch for compact product CY_3 lanes.
+    r"""Compact kappa_ch for compact CY_3: the h^{0,bullet} supertrace.
 
-    The strict branch h^{1,0}=0 has only the BCOV-shadow candidate
-    chi_top(X)/24 at this level; use bcov_shadow_candidate() when that
-    conjectural lane is intended.
-
-    For h^{1,0} > 0 (product by Beauville): reduces to h^{3,0} + 2.
-
-    The formula works because chi_top = 0 whenever h^{1,0} > 0
-    (the product contains an elliptic curve factor with chi_top(E)=0,
-    and chi_top is multiplicative under products).
+    Every compact CY_3 in this library has odd-dimensional Serre
+    cancellation in the h^{0,bullet} column, so chi(O_X)=0.  Use
+    bcov_shadow_candidate() for chi_top/24 and kappa_ch_Heis() for
+    product/free-field additivity.
 
     >>> kappa_ch_compact(k3_times_e())
-    Fraction(3, 1)
-    >>> kappa_ch_compact(enriques_times_e())
-    Fraction(2, 1)
-    >>> kappa_ch_compact(t6_torus())
-    Fraction(3, 1)
+    Fraction(0, 1)
+    >>> kappa_ch_compact(quintic())
+    Fraction(0, 1)
     """
     if not X.compact:
         raise ValueError(
@@ -398,18 +366,20 @@ def kappa_ch_compact(X: CY3Data) -> Fraction:
         raise ValueError(
             f"Insufficient Hodge data for {X.name}: need chi_top, h10, h30."
         )
+    return F(0)
 
-    if X.h10 == 0:
-        candidate = bcov_shadow_candidate(X)
-        raise NotImplementedError(
-            f"constructed kappa_ch for strict compact CY3 {X.name} is OPEN. "
-            f"The BCOV-shadow candidate is {candidate}; use "
-            f"bcov_shadow_candidate() or decompose_formula() for that lane."
-        )
 
-    # Product/additivity branch.
-    iverson = 1 if X.h10 > 0 else 0
-    return F(X.chi_top, 24) + F(iverson) * F(X.h30 + 2)
+def kappa_ch_Heis(X: CY3Data) -> Fraction:
+    r"""Heisenberg/free-field shadow for compact product CY_3 rows."""
+    if not X.compact:
+        return kappa_ch_noncompact(X)
+    if X.beauville_type == 'K3xE':
+        return F(3)
+    if X.beauville_type == 'EnrxE':
+        return F(2)
+    if X.beauville_type == 'T6':
+        return F(3)
+    raise ValueError(f"{X.name} has no product Heisenberg shadow in this engine.")
 
 
 def kappa_ch_noncompact(X: CY3Data) -> Fraction:
@@ -449,11 +419,13 @@ def kappa_ch(X: CY3Data) -> Fraction:
 # =========================================================================
 
 class BeauvilleType(NamedTuple):
-    """The Beauville-Bogomolov decomposition type of a compact CY_3."""
+    """The Beauville-Bogomolov type and its labelled shadow scalar."""
     type_name: str               # 'strict_CY3', 'K3xE', 'EnrxE', 'T6'
     factors: List[str]           # names of irreducible factors
-    factor_kappas: List[Fraction]  # kappa_ch of each factor
-    kappa_total: Fraction        # sum of factor kappas
+    compact_kappa_ch: Fraction
+    shadow_factors: List[Fraction]
+    shadow_total: Fraction
+    shadow_label: str
 
 
 def beauville_type(X: CY3Data) -> BeauvilleType:
@@ -471,9 +443,9 @@ def beauville_type(X: CY3Data) -> BeauvilleType:
     >>> bt = beauville_type(k3_times_e())
     >>> bt.type_name
     'K3xE'
-    >>> bt.factor_kappas
+    >>> bt.shadow_factors
     [Fraction(2, 1), Fraction(1, 1)]
-    >>> bt.kappa_total
+    >>> bt.shadow_total
     Fraction(3, 1)
     """
     if not X.compact:
@@ -485,14 +457,16 @@ def beauville_type(X: CY3Data) -> BeauvilleType:
 
     if h10 == 0 and h30 == 1:
         # Strict CY_3 (SU(3) holonomy, irreducible)
-        kappa = F(X.chi_top, 24) if X.chi_top is not None else None
-        if kappa is None:
+        shadow = F(X.chi_top, 24) if X.chi_top is not None else None
+        if shadow is None:
             raise ValueError(f"Need chi_top for strict CY3 {X.name}.")
         return BeauvilleType(
             type_name='strict_CY3',
             factors=['strict_CY3'],
-            factor_kappas=[kappa],
-            kappa_total=kappa,
+            compact_kappa_ch=F(0),
+            shadow_factors=[shadow],
+            shadow_total=shadow,
+            shadow_label='kappa_BCOV_shadow_conjectural',
         )
 
     elif h10 == 1 and h30 == 1:
@@ -500,8 +474,10 @@ def beauville_type(X: CY3Data) -> BeauvilleType:
         return BeauvilleType(
             type_name='K3xE',
             factors=['K3', 'E'],
-            factor_kappas=[F(2), F(1)],
-            kappa_total=F(3),
+            compact_kappa_ch=F(0),
+            shadow_factors=[F(2), F(1)],
+            shadow_total=F(3),
+            shadow_label='kappa_ch_Heis',
         )
 
     elif h10 == 1 and h30 == 0:
@@ -509,8 +485,10 @@ def beauville_type(X: CY3Data) -> BeauvilleType:
         return BeauvilleType(
             type_name='EnrxE',
             factors=['Enr', 'E'],
-            factor_kappas=[F(1), F(1)],
-            kappa_total=F(2),
+            compact_kappa_ch=F(0),
+            shadow_factors=[F(1), F(1)],
+            shadow_total=F(2),
+            shadow_label='kappa_ch_Heis',
         )
 
     elif h10 == 3 and h30 == 1:
@@ -518,8 +496,10 @@ def beauville_type(X: CY3Data) -> BeauvilleType:
         return BeauvilleType(
             type_name='T6',
             factors=['E', 'E', 'E'],
-            factor_kappas=[F(1), F(1), F(1)],
-            kappa_total=F(3),
+            compact_kappa_ch=F(0),
+            shadow_factors=[F(1), F(1), F(1)],
+            shadow_total=F(3),
+            shadow_label='kappa_ch_Heis',
         )
 
     else:
@@ -534,16 +514,16 @@ def beauville_type(X: CY3Data) -> BeauvilleType:
 # =========================================================================
 
 def verify_formula_vs_beauville(X: CY3Data) -> Dict[str, Any]:
-    r"""Verify branch arithmetic against the Beauville decomposition.
+    r"""Verify compact kappa_ch while retaining the Beauville shadow data.
 
-    For strict CY3s this checks only the BCOV-shadow candidate branch.
-    For product CY3s it checks constructed kappa_ch from additivity.
+    For strict CY3s the shadow is BCOV chi_top/24.  For products the
+    shadow is kappa_ch_Heis.  Neither shadow is the compact kappa_ch.
 
     >>> r = verify_formula_vs_beauville(k3_times_e())
     >>> r['consistent']
     True
     >>> r['formula_value']
-    Fraction(3, 1)
+    Fraction(0, 1)
     """
     if not X.compact:
         return {
@@ -556,15 +536,17 @@ def verify_formula_vs_beauville(X: CY3Data) -> Dict[str, Any]:
     decomposition = decompose_formula(X)
     formula_val = decomposition.kappa_ch
     bt = beauville_type(X)
-    beauville_val = bt.kappa_total
+    compact_val = bt.compact_kappa_ch
 
     return {
         'name': X.name,
         'compact': True,
         'formula_value': formula_val,
-        'beauville_value': beauville_val,
+        'beauville_value': compact_val,
         'beauville_type': bt.type_name,
-        'consistent': formula_val == beauville_val,
+        'consistent': formula_val == compact_val,
+        'shadow_value': bt.shadow_total,
+        'shadow_label': bt.shadow_label,
         'known_value': X.kappa_ch_known,
         'label': decomposition.label,
         'constructed': decomposition.constructed,
@@ -603,7 +585,7 @@ def all_cy3() -> List[CY3Data]:
 
 
 def verify_all() -> Dict[str, Any]:
-    r"""Verify the universal formula against all known CY_3 families.
+    r"""Verify the branch assessment against recorded CY_3 scalars.
 
     >>> r = verify_all()
     >>> r['all_compact_pass']
@@ -615,7 +597,7 @@ def verify_all() -> Dict[str, Any]:
     """
     results: Dict[str, Any] = {}
 
-    # Compact CY3: verify formula = known value for all
+    # Compact CY3: verify compact value = recorded compact value.
     compact_checks = []
     for X in all_compact_cy3():
         v = verify_formula_vs_beauville(X)
@@ -627,7 +609,7 @@ def verify_all() -> Dict[str, Any]:
         c.get('matches_known', True) for c in compact_checks
     )
 
-    # Non-compact CY3: verify known values
+    # Non-compact CY3: verify recorded values.
     noncompact_checks = []
     for X in all_noncompact_cy3():
         if X.kappa_ch_known is not None:
@@ -641,10 +623,12 @@ def verify_all() -> Dict[str, Any]:
     results['noncompact_checks'] = noncompact_checks
     results['all_noncompact_pass'] = all(c['match'] for c in noncompact_checks)
 
-    # Abelian surface bug fix verification
+    # Abelian surface compact/Heisenberg split verification.
     ab = cy2_abelian()
-    results['abelian_surface_fixed'] = ab.kappa_ch() == F(2)
-    results['abelian_surface_old_wrong'] = F(ab.chi_O) != ab.kappa_ch()
+    results['abelian_surface_fixed'] = (
+        ab.kappa_ch() == F(0) and ab.kappa_ch_Heis() == F(2)
+    )
+    results['abelian_surface_old_wrong'] = ab.kappa_ch_Heis() != ab.kappa_ch()
 
     # K3 d=2 still correct
     k3 = cy2_k3()
@@ -652,7 +636,7 @@ def verify_all() -> Dict[str, Any]:
 
     # T^6 = Ab x E consistency
     results['t6_ab_e_consistent'] = (
-        ab.kappa_ch() + F(1) == F(3) == kappa_ch(t6_torus())
+        ab.kappa_ch_Heis() + F(1) == F(3) == kappa_ch_Heis(t6_torus())
     )
 
     return results
@@ -663,29 +647,19 @@ def verify_all() -> Dict[str, Any]:
 # =========================================================================
 
 def kappa_ch_d2(h10: int, h20: int) -> Fraction:
-    r"""Corrected kappa_ch at d=2.
+    r"""Compact kappa_ch at d=2.
 
-    For h^{1,0}=0: kappa = chi(O_X) = 1 + h^{2,0}. PROVED.
-    For h^{1,0}>0: kappa = h^{1,0} (Beauville: surface is ExE...xE).
+    kappa_ch = chi(O_X) = 1 - h^{1,0} + h^{2,0}.  The Heisenberg
+    product shadow is separate.
 
-    Note: chi(O_X) = 1 - h^{1,0} + h^{2,0} for a surface.
-    For h10=0: chi(O) = 1 + h20 = kappa. PROVED.
-    For h10=2 (abelian surface): chi(O) = 0, but kappa = 2. BUG FIX.
-
-    >>> kappa_ch_d2(0, 1)   # K3
+    >>> kappa_ch_d2(0, 1)
     Fraction(2, 1)
-    >>> kappa_ch_d2(0, 0)   # Enriques
+    >>> kappa_ch_d2(0, 0)
     Fraction(1, 1)
-    >>> kappa_ch_d2(2, 1)   # Abelian surface
-    Fraction(2, 1)
+    >>> kappa_ch_d2(2, 1)
+    Fraction(0, 1)
     """
-    if h10 == 0:
-        # Proved: kappa = chi(O_X) = 1 + h20
-        return F(1 + h20)
-    else:
-        # Beauville: CY_2 with h10>0 is abelian = ExE...
-        # kappa = h10 (number of E factors * kappa(E)=1)
-        return F(h10)
+    return F(1 - h10 + h20)
 
 
 # =========================================================================
@@ -693,31 +667,31 @@ def kappa_ch_d2(h10: int, h20: int) -> Fraction:
 # =========================================================================
 
 class FormulaDecomposition(NamedTuple):
-    """Decomposition of the compact CY3 scalar assessment into branches."""
+    """Compact CY3 scalar with labelled shadow branches."""
     name: str
     h10: int
     h30: int
     chi_top: int
     bcov_branch: Fraction      # chi_top/24
-    beauville_branch: Fraction # h30 + 2
-    active_branch: str          # 'BCOV' or 'Beauville'
-    kappa_ch: Fraction          # constructed value or labelled candidate
+    beauville_branch: Fraction # shadow selected by Beauville classification
+    active_branch: str          # compact_hodge
+    kappa_ch: Fraction          # compact Hodge/PhiFA value
     label: str
     constructed: bool
     proof_status: str           # 'PROVED' or 'CONJECTURAL'
 
 
 def decompose_formula(X: CY3Data) -> FormulaDecomposition:
-    r"""Decompose the formula into its two branches for a compact CY_3.
+    r"""Decompose compact kappa_ch and the two shadow branches.
 
     >>> d = decompose_formula(quintic())
     >>> d.active_branch
-    'BCOV'
+    'compact_hodge'
     >>> d.proof_status
-    'CONJECTURAL'
+    'PROVED'
     >>> d = decompose_formula(k3_times_e())
     >>> d.active_branch
-    'Beauville'
+    'compact_hodge'
     >>> d.proof_status
     'PROVED'
     """
@@ -727,36 +701,22 @@ def decompose_formula(X: CY3Data) -> FormulaDecomposition:
         raise ValueError(f"Need full Hodge data for {X.name}.")
 
     bcov = F(X.chi_top, 24)
-    beauville = F(X.h30 + 2)
+    bt = beauville_type(X)
+    beauville = bt.shadow_total
 
-    if X.h10 == 0:
-        return FormulaDecomposition(
-            name=X.name,
-            h10=X.h10,
-            h30=X.h30,
-            chi_top=X.chi_top,
-            bcov_branch=bcov,
-            beauville_branch=beauville,
-            active_branch='BCOV',
-            kappa_ch=bcov,
-            label='kappa_BCOV_shadow_conjectural',
-            constructed=False,
-            proof_status='CONJECTURAL',
-        )
-    else:
-        return FormulaDecomposition(
-            name=X.name,
-            h10=X.h10,
-            h30=X.h30,
-            chi_top=X.chi_top,
-            bcov_branch=bcov,
-            beauville_branch=beauville,
-            active_branch='Beauville',
-            kappa_ch=beauville,
-            label='kappa_ch',
-            constructed=True,
-            proof_status='PROVED',
-        )
+    return FormulaDecomposition(
+        name=X.name,
+        h10=X.h10,
+        h30=X.h30,
+        chi_top=X.chi_top,
+        bcov_branch=bcov,
+        beauville_branch=beauville,
+        active_branch='compact_hodge',
+        kappa_ch=kappa_ch_compact(X),
+        label='kappa_ch_compact_hodge',
+        constructed=True,
+        proof_status='PROVED',
+    )
 
 
 # =========================================================================
@@ -808,7 +768,7 @@ def h10_equals_2_impossible() -> Dict[str, Any]:
 # =========================================================================
 
 class LandscapeEntry(NamedTuple):
-    """Entry in the kappa_ch and d=3 candidate landscape table."""
+    """Entry in the kappa_ch and d=3 shadow landscape table."""
     name: str
     compact: bool
     chi_top: Optional[int]
@@ -818,8 +778,10 @@ class LandscapeEntry(NamedTuple):
     label: str
     constructed: bool
     beauville_type: str
-    formula_branch: str   # 'BCOV', 'Beauville', 'DT/case-by-case'
+    formula_branch: str   # compact_hodge or DT/case-by-case
     status: str
+    shadow_value: Optional[Fraction] = None
+    shadow_label: Optional[str] = None
 
 
 def landscape_table() -> List[LandscapeEntry]:
@@ -830,17 +792,22 @@ def landscape_table() -> List[LandscapeEntry]:
     True
     >>> k3e = [e for e in table if e.name == 'K3xE'][0]
     >>> k3e.kappa_ch
+    Fraction(0, 1)
+    >>> k3e.shadow_value
     Fraction(3, 1)
     """
     entries = []
     for X in all_compact_cy3():
         d = decompose_formula(X)
+        bt = beauville_type(X)
         entries.append(LandscapeEntry(
             name=X.name, compact=True, chi_top=X.chi_top,
             h10=X.h10, h30=X.h30,
             kappa_ch=d.kappa_ch, label=d.label, constructed=d.constructed,
-            beauville_type=d.active_branch,
+            beauville_type=bt.type_name,
             formula_branch=d.active_branch, status=d.proof_status,
+            shadow_value=bt.shadow_total,
+            shadow_label=bt.shadow_label,
         ))
     for X in all_noncompact_cy3():
         entries.append(LandscapeEntry(

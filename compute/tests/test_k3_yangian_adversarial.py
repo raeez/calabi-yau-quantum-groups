@@ -214,6 +214,13 @@ class TestCYA3Obstruction:
         result = cy_a3_obstruction_analysis()
         assert result['nonabelian_requires_cy_a3'] is True
 
+    def test_no_global_hodge_parity_upgrade(self):
+        """The adversarial report keeps the compact super-Yangian conditional."""
+        result = full_adversarial_report()
+        assert '1_indefinite_signature' in result['genuine_obstructions']
+        assert '5_cy_a3_obstruction' in result['genuine_obstructions']
+        assert 'Layer 3-4' in result['recommendation']
+
 
 # =========================================================================
 # Attack 6: Coassociativity at Rank 24

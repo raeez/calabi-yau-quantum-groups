@@ -1,23 +1,23 @@
 r"""
 Tests for kappa_bkm_adversarial.py -- adversarial investigation of the
-conjectural identity kappa_BKM = kappa_ch + chi(O_fiber).
+Heisenberg-fibre equality kappa_BKM = kappa_ch^{Heis} + chi(O_fiber).
 
 SUMMARY OF FINDINGS
 ====================
 
-The identity kappa_BKM = kappa_ch + chi(O_{fiber}) is a numerical
+The equality kappa_BKM = kappa_ch^{Heis} + chi(O_{fiber}) is a numerical
 coincidence for K3 x E (N=1).  It FAILS for all Z/NZ-orbifolds with
 N >= 2.  The correct universal formula is the Borcherds weight formula:
 kappa_BKM = c(0)/2.
 
 These tests verify:
-1. The decomposition holds for N=1 (K3 x E) only.
+1. The Heisenberg-fibre coincidence holds for N=1 (K3 x E) only.
 2. Explicit counterexamples at N=2 (Enriques) and N=3 (symplectic Z/3).
 3. The Borcherds weight formula c(0)/2 holds universally.
 4. The quintic has no BKM algebra.
 5. The DMVV square root is consistent.
 6. The delta pattern (kappa_BKM - kappa_ch) analysis.
-7. The verdict: coincidence, not universal identity.
+7. The verdict: coincidence, not universal additive decomposition.
 """
 
 import sys
@@ -29,10 +29,20 @@ import pytest
 # Import the engine
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'lib'))
 from kappa_bkm_adversarial import (
+    CHL_LITERAL_ADDITIVE_TABLE,
+    CHL_LEVELS,
     ORBIFOLD_KAPPA_TABLE,
+    chl_bkm_constants,
+    count_literal_additive_split_failures,
+    count_literal_additive_split_successes,
+    literal_additive_split_all_chl_levels,
+    literal_additive_split_success_rate,
     orbifold_kappa,
+    heis_fiber_coincidence_all_N,
     test_decomposition_all_N as _lib_test_decomposition_all_N,
+    count_heis_fiber_coincidence_successes,
     count_decomposition_successes,
+    heis_fiber_coincidence_success_rate,
     decomposition_success_rate,
     fiber_vs_total_space,
     explicit_counterexample_N3,
@@ -108,40 +118,113 @@ class TestTableIntegrity:
 
 
 # =========================================================================
-# 2. DECOMPOSITION TESTS
+# 2. LITERAL CHL ADDITIVE-SPLIT TESTS
 # =========================================================================
 
-class TestDecomposition:
-    """Test the conjectural identity kappa_BKM = kappa_ch + chi(O_fiber)."""
+class TestLiteralCHLAdditiveSplit:
+    """Test the literal split kappa_BKM = kappa_ch + chi(O_fiber)."""
 
-    def test_decomposition_holds_only_for_N1(self):
-        """The decomposition holds ONLY for N=1 (K3 x E)."""
-        results = _lib_test_decomposition_all_N()
+    def test_chl_levels_are_programme_active(self):
+        assert CHL_LEVELS == (1, 2, 3, 4, 6)
+
+    def test_chl_bkm_constants(self):
+        """Exact constants: kappa_BKM(Phi_N)=c_N(0)/2 on the CHL ladder."""
+        expected = {
+            1: {"c_N_0": 10, "kappa_BKM": 5},
+            2: {"c_N_0": 8, "kappa_BKM": 4},
+            3: {"c_N_0": 6, "kappa_BKM": 3},
+            4: {"c_N_0": 4, "kappa_BKM": 2},
+            6: {"c_N_0": 2, "kappa_BKM": 1},
+        }
+        assert chl_bkm_constants() == expected
+
+    def test_literal_split_has_zero_successes(self):
+        """The literal additive split fails at every CHL level."""
+        assert count_literal_additive_split_successes() == 0
+        assert count_literal_additive_split_failures() == 5
+        assert literal_additive_split_success_rate() == Fraction(0, 1)
+
+    def test_literal_split_failure_flags_all_levels(self):
+        results = literal_additive_split_all_chl_levels()
+        assert set(results) == set(CHL_LEVELS)
+        for N, row in results.items():
+            assert not row["additive_identity_holds"], f"N={N} should fail"
+
+    def test_exact_rhs_values_where_reconstructed(self):
+        """Exact RHS values currently reconstructed for N=1,2,3."""
+        assert CHL_LITERAL_ADDITIVE_TABLE[1].additive_rhs == 0
+        assert CHL_LITERAL_ADDITIVE_TABLE[2].additive_rhs == 1
+        assert CHL_LITERAL_ADDITIVE_TABLE[3].additive_rhs == 2
+        assert CHL_LITERAL_ADDITIVE_TABLE[1].kappa_BKM != 0
+        assert CHL_LITERAL_ADDITIVE_TABLE[2].kappa_BKM != 1
+        assert CHL_LITERAL_ADDITIVE_TABLE[3].kappa_BKM != 2
+
+    def test_N4_N6_not_guessed(self):
+        """The oracle records N=4,6 failure status without inventing RHS values."""
+        assert CHL_LITERAL_ADDITIVE_TABLE[4].additive_rhs is None
+        assert CHL_LITERAL_ADDITIVE_TABLE[6].additive_rhs is None
+        assert "exact RHS not reconstructed" in CHL_LITERAL_ADDITIVE_TABLE[4].source_status
+        assert "exact RHS not reconstructed" in CHL_LITERAL_ADDITIVE_TABLE[6].source_status
+
+
+# =========================================================================
+# 3. HEISENBERG-FIBRE COINCIDENCE TESTS
+# =========================================================================
+
+class TestHeisFiberCoincidence:
+    """Test the N=1 equality, not a theorem-level BKM decomposition."""
+
+    def test_heis_fiber_coincidence_holds_only_for_N1(self):
+        """The Heisenberg-fibre equality holds ONLY for N=1 (K3 x E)."""
+        results = heis_fiber_coincidence_all_N()
         for N, r in results.items():
             if N == 1:
-                assert r["holds"], "N=1 should satisfy the decomposition"
+                assert r["heis_fiber_coincidence_holds"], (
+                    "N=1 should satisfy the Heisenberg-fibre coincidence"
+                )
             else:
-                assert not r["holds"], (
-                    f"N={N} should FAIL the decomposition, "
+                assert not r["heis_fiber_coincidence_holds"], (
+                    f"N={N} should FAIL the Heisenberg-fibre equality, "
                     f"but got kappa_BKM={r['kappa_BKM']} == "
                     f"predicted={r['predicted']}"
                 )
 
     def test_exactly_one_success(self):
-        """Only 1 of 8 orbifolds satisfies the decomposition."""
-        assert count_decomposition_successes() == 1
+        """Only 1 of 8 orbifolds satisfies the Heisenberg-fibre equality."""
+        assert count_heis_fiber_coincidence_successes() == 1
 
     def test_success_rate_is_one_eighth(self):
         """Success rate = 1/8."""
-        assert decomposition_success_rate() == Fraction(1, 8)
+        assert heis_fiber_coincidence_success_rate() == Fraction(1, 8)
+
+    def test_legacy_decomposition_holds_access_is_alias_only(self):
+        """Legacy access remains available but names only the N=1 coincidence."""
+        d = ORBIFOLD_KAPPA_TABLE[1]
+        assert d.heis_fiber_coincidence_holds is True
+        assert d.decomposition_holds is d.heis_fiber_coincidence_holds
+        assert "heis_fiber_coincidence_holds" in d._fields
+        assert "decomposition_holds" not in d._fields
+
+        canonical = heis_fiber_coincidence_all_N()
+        legacy = _lib_test_decomposition_all_N()
+        assert legacy == canonical
+        assert (
+            count_decomposition_successes()
+            == count_heis_fiber_coincidence_successes()
+        )
+        assert (
+            decomposition_success_rate()
+            == heis_fiber_coincidence_success_rate()
+        )
 
     def test_N1_specific_values(self):
-        """N=1: kappa_BKM=5 = kappa_ch(3) + chi(O_{K3})(2)."""
+        """N=1: kappa_BKM=5 = kappa_ch^{Heis}(3) + chi(O_{K3})(2)."""
         d = ORBIFOLD_KAPPA_TABLE[1]
         assert d.kappa_BKM == 5
         assert d.kappa_ch == 3
         assert d.kappa_cat_fiber == 2
         assert d.kappa_BKM == d.kappa_ch + d.kappa_cat_fiber
+        assert d.heis_fiber_coincidence_holds
 
     def test_deficit_N2(self):
         """N=2 (Enriques): deficit = +1."""
@@ -178,6 +261,7 @@ class TestCounterexamples:
         assert r["kappa_BKM"] == 3
         assert r["predicted_by_decomposition"] == 5
         assert r["actual"] == 3
+        assert not r["heis_fiber_coincidence_holds"]
         assert not r["decomposition_holds"]
         assert r["deficit"] == -2
         assert r["frame_shape"] == {1: 6, 3: 6}
@@ -188,6 +272,7 @@ class TestCounterexamples:
         assert r["kappa_BKM"] == 4
         assert r["predicted_by_decomposition"] == 3
         assert r["actual"] == 4
+        assert not r["heis_fiber_coincidence_holds"]
         assert not r["decomposition_holds"]
         assert r["deficit"] == 1
         assert r["chi_O_Enr"] == 1
@@ -336,6 +421,11 @@ class TestDeltaPattern:
 class TestVerdict:
     """Test the final verdict."""
 
+    def test_literal_split_zero_successes(self):
+        v = verdict()
+        assert v["literal_additive_split_successes"] == 0
+        assert v["literal_additive_split_failures"] == 5
+
     def test_exactly_one_success(self):
         v = verdict()
         assert v["successes"] == 1
@@ -435,16 +525,19 @@ class TestCrossChecksMultiPath:
             assert ORBIFOLD_KAPPA_TABLE[N].kappa_BKM == w
 
     def test_kappa_spectrum_vs_diagonal_siegel_all_N(self):
-        """Cross-check kappa_ch and kappa_cat against diagonal_siegel.kappa_spectrum."""
+        """Cross-check Heisenberg, total-space, and fibre kappas against diagonal_siegel."""
         from diagonal_siegel_cy_orbifolds import kappa_spectrum as ds_spec
         for N in range(1, 9):
             ours = ORBIFOLD_KAPPA_TABLE[N]
             theirs = ds_spec(N)
-            assert ours.kappa_ch == theirs['kappa_ch'], (
-                f"N={N}: kappa_ch mismatch: {ours.kappa_ch} vs {theirs['kappa_ch']}"
+            assert ours.kappa_ch == theirs['kappa_ch_Heis'], (
+                f"N={N}: kappa_ch_Heis mismatch: {ours.kappa_ch} vs {theirs['kappa_ch_Heis']}"
             )
-            assert ours.kappa_cat_fiber == theirs['kappa_cat'], (
-                f"N={N}: kappa_cat mismatch: {ours.kappa_cat_fiber} vs {theirs['kappa_cat']}"
+            assert ours.kappa_cat_total == theirs['kappa_cat_total_space'], (
+                f"N={N}: total kappa_cat mismatch: {ours.kappa_cat_total} vs {theirs['kappa_cat_total_space']}"
+            )
+            assert ours.kappa_cat_fiber == theirs['kappa_cat_fiber'], (
+                f"N={N}: fibre kappa_cat mismatch: {ours.kappa_cat_fiber} vs {theirs['kappa_cat_fiber']}"
             )
 
     # --- Path B: kappa_spectrum_reconciliation.py ---
@@ -483,7 +576,7 @@ class TestCrossChecksMultiPath:
         assert not recon["decomposition_holds"]
         assert (
             recon["heis_fiber_coincidence_holds"]
-            == ORBIFOLD_KAPPA_TABLE[1].decomposition_holds
+            == ORBIFOLD_KAPPA_TABLE[1].heis_fiber_coincidence_holds
         )
         assert recon["kappa_ch_K3xE"] == ORBIFOLD_KAPPA_TABLE[1].kappa_ch
         assert recon["kappa_BKM_K3xE"] == ORBIFOLD_KAPPA_TABLE[1].kappa_BKM
@@ -570,6 +663,7 @@ class TestCrossChecksMultiPath:
         d = orbifold_kappa(1)
         assert d.N == 1
         assert d.kappa_BKM == 5
+        assert d.heis_fiber_coincidence_holds
         assert d.decomposition_holds
 
     def test_orbifold_kappa_out_of_range(self):

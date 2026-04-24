@@ -1017,7 +1017,7 @@ def deformed_serre_relations(D1: int, D2: int, epsilon: float = 1.0
 def rmatrix_from_monodromy(D: int, epsilon: float = 1.0) -> Dict[str, Any]:
     r"""Extract the R-matrix from the monodromy of deformed vertex operators.
 
-    The R-matrix of the conjectural BKM Yangian can be obtained from the
+    The R-matrix of the conjectural Yangian deformation of the BKM algebra can be obtained from the
     MONODROMY of vertex operators: the phase acquired by V_eps(alpha, z)
     as z encircles another vertex operator V_eps(beta, w).
 
@@ -1109,7 +1109,7 @@ def rmatrix_from_monodromy(D: int, epsilon: float = 1.0) -> Dict[str, Any]:
 def borcherds_vertex_yangian_summary(D_max: int = 16) -> Dict[str, Any]:
     r"""Comprehensive summary of the Borcherds vertex operator approach.
 
-    This approach constructs BKM Yangian generators DIRECTLY from
+    This approach constructs conjectural Yangian-deformation generators directly from
     Borcherds' original vertex algebra construction, bypassing the
     nonexistent Drinfeld presentation.
 
@@ -1169,7 +1169,7 @@ def borcherds_vertex_yangian_summary(D_max: int = 16) -> Dict[str, Any]:
     }
 
     return {
-        'title': 'Borcherds vertex algebra approach to BKM Yangian generators',
+        'title': 'Borcherds vertex algebra approach to conjectural Yangian-deformation generators',
         'programme': [
             '1. Start with V_{II_{2,1}} lattice VOA and its vertex operators.',
             '2. Apply Omega-background deformation (spectral flow at leading order).',

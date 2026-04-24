@@ -154,6 +154,7 @@ class TestCY3Data:
         # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert cy.chi_over_24 == Fraction(-25, 3)
         assert not cy.chi_over_24_is_integer
+        assert cy.kappa_cy == Fraction(0)
 
     def test_k3_times_e_chi(self):
         """chi(K3 x E) = 0."""
@@ -162,7 +163,7 @@ class TestCY3Data:
         assert cy.chi == 0
 
     def test_k3_times_e_kappa(self):
-        """kappa(K3 x E) = 5 (weight of Delta_5, NOT chi/24 = 0).
+        """kappa_BKM(K3 x E) = 5 (weight of Delta_5, NOT chi/24 = 0).
 
         AP48: kappa depends on the full algebra, not the Virasoro sub.
         """
@@ -527,9 +528,9 @@ class TestE1ShadowTower:
         assert shadow.discriminant != 0
 
     def test_quintic_kappa(self):
-        """kappa(quintic) = -25/3 (from chi/24)."""
+        """The quintic E1 routine uses the BCOV shadow scalar, not kappa_ch."""
         shadow = e1_shadow_quintic()
-        # VERIFIED [DC] kappa formula [LT] BPS state counting
+        # VERIFIED [DC] BCOV scalar-shadow formula [LT] BPS state counting
         assert shadow.kappa == Fraction(-25, 3)
 
     def test_shadow_tower_s2_equals_kappa(self):

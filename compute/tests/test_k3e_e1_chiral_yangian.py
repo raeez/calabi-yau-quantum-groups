@@ -456,10 +456,11 @@ class TestCY2vsCY3:
         assert "E_1" in comp["k3e_cy3"]["en_level"]
 
     def test_kappa_values(self):
-        """kappa_ch: K3 = 2, K3 x E = 3."""
+        """K3 has kappa_ch=2; compact K3 x E has kappa_ch=0 and Heis=3."""
         comp = cy2_vs_cy3_comparison()
         assert comp["k3_cy2"]["kappa_ch"] == 2
-        assert comp["k3e_cy3"]["kappa_ch"] == 3
+        assert comp["k3e_cy3"]["kappa_ch"] == 0
+        assert comp["k3e_cy3"]["kappa_ch_Heis"] == 3
 
     def test_status_asymmetry(self):
         """CY_2 is proved, CY_3 is conjectural."""

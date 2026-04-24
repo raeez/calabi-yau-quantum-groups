@@ -407,12 +407,13 @@ class TestK3E:
     """Test K3 x E wavefunction and its relation to 1/Phi_10."""
 
     def test_kappa_spectrum(self):
-        """K3 x E kappa spectrum: kappa_ch=3, kappa_BKM=5, kappa_fiber=24.
+        """K3 x E kappa spectrum: compact kappa_ch=0, Heis=3, BKM=5, fiber=24.
 
         (AP113: always subscripted.)
         """
         data = k3e_wavefunction(5)
-        assert data.kappa_ch == Fraction(3)
+        assert data.kappa_ch == Fraction(0)
+        assert data.kappa_ch_Heis == Fraction(3)
         assert data.kappa_BKM == 5
         assert data.kappa_fiber == 24
 
@@ -420,11 +421,11 @@ class TestK3E:
         """K3 x E: F_1 = 3/24 = 1/8.
 
         Path 1: from k3e_wavefunction.
-        Path 2: kappa_ch * lambda_1 = 3 * 1/24 = 1/8.
+        Path 2: kappa_ch_Heis * lambda_1 = 3 * 1/24 = 1/8.
         """
         data = k3e_wavefunction(5)
         assert data.F_1 == Fraction(1, 8)
-        assert data.F_1 == Fraction(3) * lambda_fp(1)
+        assert data.F_1 == data.kappa_ch_Heis * lambda_fp(1)
 
     def test_rank1_gottsche(self):
         """Rank-1 Gottsche formula verified (UNCONDITIONAL).
@@ -526,13 +527,15 @@ class TestOSV:
         Path 2: from K3E_KAPPA_SPECTRUM constant in topological_string_from_bar.
         """
         osv = osv_conjecture_k3e()
-        assert osv.kappa_spectrum["kappa_ch"] == Fraction(3)
+        assert osv.kappa_spectrum["kappa_ch"] == Fraction(0)
+        assert osv.kappa_spectrum["kappa_ch_Heis"] == Fraction(3)
         assert osv.kappa_spectrum["kappa_BKM"] == 5
         assert osv.kappa_spectrum["kappa_cat"] == Fraction(0)
         assert osv.kappa_spectrum["kappa_cat_fiber"] == 2
         assert osv.kappa_spectrum["kappa_fiber"] == 24
         # Path 2: cross-check against imported constant
         assert osv.kappa_spectrum["kappa_ch"] == K3E_KAPPA_SPECTRUM["kappa_ch"]
+        assert osv.kappa_spectrum["kappa_ch_Heis"] == K3E_KAPPA_SPECTRUM["kappa_ch_Heis"]
         assert osv.kappa_spectrum["kappa_BKM"] == K3E_KAPPA_SPECTRUM["kappa_BKM"]
         assert osv.kappa_spectrum["kappa_cat"] == K3E_KAPPA_SPECTRUM["kappa_cat"]
 

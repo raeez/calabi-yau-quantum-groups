@@ -675,7 +675,8 @@ class K3EAQResult:
     d4_k3: int  # D^4_{E_2}(HH_*(K3))
     d4_e: int  # D^4_{E_inf}(HH_*(E))
     d4_product: int  # D^4_{E_2}(HH_*(K3 x E))
-    kappa_ch: int  # kappa_ch for K3 x E (= 3 per AP113)
+    kappa_ch: int  # compact kappa_ch(K3 x E) = chi(O_{K3 x E}) = 0
+    kappa_ch_Heis: int  # relative Heisenberg shadow (= 3)
     mukai_rank: int  # lattice rank (= 24)
     mechanism: str
 
@@ -688,8 +689,9 @@ def compute_k3e_aq() -> K3EAQResult:
     2. Formality: K3 x E is formal, so AQ cohomology simplifies
     3. Product decomposition: D^4 of product = 0 from both factors
 
-    NOTE: kappa_ch(K3 x E) = 3 (AP113 spectrum: kappa_ch = kappa_ch(K3) +
-    kappa_ch(E) = 2 + 1 = 3).  This is NOT bare kappa.
+    NOTE: compact kappa_ch(K3 x E) = 0.  The additive value
+    kappa_ch_Heis(K3 x E) = kappa_ch_Heis(K3) + kappa_ch_Heis(E)
+    = 2 + 1 = 3 belongs to the relative Heisenberg shadow.
     """
     return K3EAQResult(
         k3_formal=True,
@@ -700,7 +702,8 @@ def compute_k3e_aq() -> K3EAQResult:
         d4_k3=0,
         d4_e=0,
         d4_product=0,
-        kappa_ch=3,  # kappa_ch(K3 x E) = 2 + 1 = 3
+        kappa_ch=0,
+        kappa_ch_Heis=3,
         mukai_rank=24,  # kappa_fiber = Mukai lattice rank
         mechanism=(
             "K3 x E is formal (DGMS + trivial).  The E_2-AQ cohomology "

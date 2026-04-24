@@ -27,8 +27,9 @@ THE MICROSTATE COUNTING PROBLEM:
 THE SHADOW TOWER CONTRIBUTION:
 
   The shadow obstruction tower of the chiral algebra A_{K3 x E}
-  (conditional on CY-A_3, now proved in the infinity-categorical
-  framework) provides the corrections through the A_infinity data:
+  is read under the framed object-level CY-A_3 datum and the
+  still-open compact/global functoriality hypotheses.  It provides the
+  corrections through the A_infinity data only on that witnessed locus:
 
     S_2 = kappa_ch (modular characteristic, leading BH entropy)
     S_3 = alpha/3 = 2 (cubic shadow, first non-Gaussian correction)
@@ -102,7 +103,8 @@ CONVENTIONS
 ===========
   - Discriminant Delta = 4nm - l^2 for K3 x E charges (n, l, m)
     (same as D in bps_entropy_shadow.py)
-  - kappa_ch = 3, kappa_BKM = c_1(0)/2 = 10/2 = 5, and
+  - compact kappa_ch = 0, kappa_ch_Heis = 3,
+    kappa_BKM = c_N(0)/2 at N=1 = 10/2 = 5, and
     kappa_cat(K3 x E) = 0 per AP113.
   - The auxiliary value 2 is kappa_cat(K3), the K3-fiber holomorphic
     Euler characteristic, not kappa_cat of the total space.  The
@@ -572,9 +574,11 @@ A_HAT = {
 }
 
 # kappa-spectrum (AP113)
-KAPPA_CH = Fraction(3)       # chiral Heisenberg-Mukai specialization
-BORCHERDS_C0_N1 = 10         # zeta^0 q^0 coefficient c_1(0) for Delta_5
-KAPPA_BKM = BORCHERDS_C0_N1 // 2  # Borcherds-Kac-Moody weight c_1(0)/2
+KAPPA_CH_COMPACT = Fraction(0)    # compact Hodge/PhiFA total-space supertrace
+KAPPA_CH_HEIS = Fraction(3)       # Heisenberg-Mukai shadow specialization
+KAPPA_CH = KAPPA_CH_HEIS          # compatibility alias: active Heisenberg shadow, not compact kappa_ch
+BORCHERDS_C0_N1 = 10              # zeta^0 q^0 coefficient c_N(0) at N=1 for Delta_5
+KAPPA_BKM = BORCHERDS_C0_N1 // 2  # Borcherds-Kac-Moody weight c_N(0)/2 at N=1
 KAPPA_CAT = 0                # categorical total, chi(O_{K3 x E})
 KAPPA_CAT_FIBER = 2          # K3 fiber categorical value, chi(O_{K3})
 KAPPA_FIBER = 24             # Mukai-lattice rank of the K3 fiber
@@ -779,9 +783,9 @@ def osv_bar_complex_chain() -> Dict[str, Any]:
 
     The OSV conjecture is mediated by the bar complex:
 
-    (1) Shadow tower (input: kappa_ch = 3):
+    (1) Shadow tower (input: kappa_ch_Heis = 3):
         Z^{sh} = exp(sum_g F_g g_s^{2g-2})
-        with F_g = kappa_ch * A_hat_g.
+        with F_g = kappa_ch_Heis * A_hat_g.
 
     (2) Bar Euler product (Vol I, sec:bar-euler):
         EP(A) = prod_{n,l,m} (1 - q^n y^l p^m)^{c(4nm-l^2)}
@@ -799,18 +803,19 @@ def osv_bar_complex_chain() -> Dict[str, Any]:
     """
     return {
         "chain": [
-            "kappa_ch = 3 (chiral algebra input, AP113)",
+            "kappa_ch_Heis = 3 (Heisenberg shadow input, AP113); compact kappa_ch = 0",
             "shadow tower Z^{sh} = exp(sum_g F_g g_s^{2g-2})",
             "bar Euler product EP(A) = Borcherds product (Vol I + CY-A)",
             "EP(A) = Phi_{10} / Weyl (automorphic identification, AP-CY8)",
             "d(Delta) = Fourier(1/Phi_{10}) (BPS degeneracies)",
             "|Z_top|^2 = |EP(A)|^{-1} = 1/|Phi_{10}| = Z_BH (OSV)",
         ],
-        "kappa_ch": float(KAPPA_CH),
+        "kappa_ch": float(KAPPA_CH_COMPACT),
+        "kappa_ch_Heis": float(KAPPA_CH_HEIS),
         "kappa_BKM": KAPPA_BKM,
         "CY_A_status": {
             "d=2": "PROVED",
-            "d=3": "PROVED (infinity-categorical framework)",
+            "d=3": "FRAMED_OBJECT_LEVEL_UNDER_H1_H4; GLOBAL_FUNCTORIALITY_OPEN",
         },
         "AP_CY8_check": "Both CY-A and Vol I bar Euler product cited",
         "osv_status": "The bar complex reproduces OSV at the scalar shadow level",
@@ -920,7 +925,7 @@ def physical_prediction_subleading(D: int = 100) -> Dict[str, Any]:
 
     The shadow tower prediction for the subleading correction combines:
     (a) The kappa_BKM = 5 controlled logarithmic term (universal, proved).
-    (b) The kappa_ch = 3 controlled genus expansion (shadow tower).
+    (b) The kappa_ch_Heis = 3 controlled genus expansion (shadow tower).
     (c) The exponentially small Rademacher corrections.
 
     The PHYSICAL PREDICTION is:
@@ -1006,9 +1011,10 @@ def verify_kappa_spectrum_consistency() -> Dict[str, bool]:
     """Cross-verify the kappa-spectrum values.
 
     kappa_BKM(Delta_5) is derived from the Borcherds weight
-    c_1(0)/2 = 10/2 = 5.  The total-space identity using
-    kappa_cat(K3 x E) is false: 5 != 3 + 0.  The arithmetic equality
-    3 + 2 = 5 using kappa_cat(K3) is kept only as the N=1
+    c_N(0)/2 at N=1 = 10/2 = 5.  The total-space identity using
+    compact kappa_ch and kappa_cat(K3 x E) is false: 5 != 0 + 0.
+    The arithmetic equality 3 + 2 = 5 using kappa_ch_Heis and
+    kappa_cat(K3) is kept only as the N=1
     Heisenberg-fiber numerical coincidence, not as a formula for
     kappa_BKM.
     """
@@ -1016,13 +1022,14 @@ def verify_kappa_spectrum_consistency() -> Dict[str, bool]:
     return {
         "borcherds_weight_derives_kappa_BKM_N1": KAPPA_BKM == borcherds_weight_N1,
         "kappa_BKM_eq_5": KAPPA_BKM == 5,
-        "kappa_ch_eq_3": KAPPA_CH == Fraction(3),
+        "kappa_ch_compact_eq_0": KAPPA_CH_COMPACT == Fraction(0),
+        "kappa_ch_Heis_eq_3": KAPPA_CH_HEIS == Fraction(3),
         "kappa_cat_total_eq_0": KAPPA_CAT == 0,
         "kappa_cat_fiber_eq_2": KAPPA_CAT_FIBER == 2,
         "kappa_fiber_eq_24": KAPPA_FIBER == 24,
-        "identity_total_space_fails": KAPPA_BKM != int(KAPPA_CH) + KAPPA_CAT,
-        "fiber_sum_N1_heisenberg_coincidence_only": KAPPA_BKM == int(KAPPA_CH) + KAPPA_CAT_FIBER,
-        "resolved_labels_distinct": len({float(KAPPA_CH), KAPPA_BKM, KAPPA_CAT, KAPPA_CAT_FIBER, KAPPA_FIBER}) == 5,
+        "identity_total_space_fails": KAPPA_BKM != int(KAPPA_CH_COMPACT) + KAPPA_CAT,
+        "fiber_sum_N1_heisenberg_coincidence_only": KAPPA_BKM == int(KAPPA_CH_HEIS) + KAPPA_CAT_FIBER,
+        "resolved_public_labels_distinct": len({float(KAPPA_CH_COMPACT), float(KAPPA_CH_HEIS), KAPPA_BKM, KAPPA_FIBER}) == 4,
     }
 
 

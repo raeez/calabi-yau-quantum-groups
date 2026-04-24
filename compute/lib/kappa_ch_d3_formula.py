@@ -5,8 +5,8 @@ kappa_ch_d3_formula.py -- Constructed kappa_ch values and d=3 candidates.
 RESOLUTION OF THE CY-D INCONSISTENCY
 =====================================
 
-The conjecture conj:cy-kappa-identification claims kappa_ch = chi^CY(C) = chi(O_X)
-for d >= 3.  This is INTERNALLY REFUTED by the manuscript's own data:
+The old CY-D confusion treated several d=3 shadows as if they were the
+same invariant as the compact Hodge/PhiFA value kappa_ch = chi(O_X):
 
   For ANY strict compact CY_d with d odd:
     h^{0,q} = (1, 0, ..., 0, 1)  with d+1 entries,
@@ -14,50 +14,38 @@ for d >= 3.  This is INTERNALLY REFUTED by the manuscript's own data:
     For d odd: chi(O_X) = 0.
 
   But the d=3 scalar lanes already separate:
-    K3 x E:  kappa_ch = 3,   chi(O) = 0       (product-additive lane)
+    K3 x E:  compact kappa_ch = 0, kappa_ch_Heis = 3
     Quintic: kappa_BCOV_shadow_conjectural = -25/3, chi(O) = 0
     C^3:     kappa_ch = 1,     (non-compact MacMahon/Heisenberg lane)
 
-The CORRECT analysis separates two contributions:
-
-  kappa_ch(A_C) = kappa^cl(C) + delta_kappa(C),
-
-where:
-  kappa^cl = chi(O_X)              (classical, from Hodge-filtered supertrace)
-  delta_kappa                       (quantum correction from Step 4 of Phi)
-
-At d=2: delta_kappa = 0 (PROVED, Serre duality S_C = [2] kills it).
-At d!=2: delta_kappa is generically nonzero.
+The CORRECT analysis separates the compact Hodge/PhiFA supertrace from
+Heisenberg, BCOV, and local-surface shadows.  The compact value is
+chi(O_X); the additive value 3 on K3 x E is kappa_ch_Heis.
 
 THE CORRECT FORMULA (DIMENSION-STRATIFIED)
 ==========================================
 
-There is NO single closed formula for kappa_ch in terms of topological invariants.
-Instead, the formula is DIMENSION-STRATIFIED:
+There is NO single closed formula covering compact, Heisenberg, BCOV,
+and local-surface lanes.  The formulas are DIMENSION-STRATIFIED:
 
-  d=0: kappa_ch = 0.
+  d=0: compact kappa_ch = chi(O_pt) = 1.
 
-  d=1: kappa_ch = h^{1,0}(X) = dim_C of the abelian variety.
-       For E: kappa_ch = 1.  For T^2g: kappa_ch = g.
-       The quantum correction is delta_kappa = h^{1,0} - chi(O) = h^{1,0}.
-       Mechanism: each holomorphic 1-form contributes a free boson to A_C.
+  d=1: compact kappa_ch = chi(O_X) = 0 for an elliptic curve.
+       The Heisenberg shadow is kappa_ch_Heis(E) = 1.
 
   d=2: kappa_ch = chi(O_X) = 1 - h^{1,0} + h^{2,0}.  PROVED.
        For K3: kappa_ch = 2.  For T^4: kappa_ch = 0.
        delta_kappa = 0 (Serre duality kills it).
 
-  d=3 (compact, h^{1,0}=0):
+  d=3 (compact):
+       compact kappa_ch = chi(O_X) = 0.
        kappa_BCOV_shadow_conjectural = chi_top(X) / 24.
-       Constructed kappa_ch remains OPEN unless a chain-level chiral
-       algebra construction is supplied.  For quintic:
+       For quintic:
        kappa_BCOV_shadow_conjectural = -200/24 = -25/3.
-       Note: chi(O_X) = 0 for ALL such CY3s.
-       The quantum correction is delta_kappa = chi_top / 24.
 
-  d=3 (K3-fibered S x E): kappa_ch = kappa_ch(S) + kappa_ch(E).  PROVED.
-       Uses additivity of kappa_ch under chiral de Rham product.
-       For K3 x E: kappa_ch = 2 + 1 = 3.
-       For Enr x E: kappa_ch = 1 + 1 = 2.
+  d=3 (K3-fibered S x E): kappa_ch_Heis = kappa_ch_Heis(S) + kappa_ch_Heis(E).
+       For K3 x E: kappa_ch_Heis = 2 + 1 = 3.
+       For Enr x E: kappa_ch_Heis = 1 + 1 = 2.
 
   d=3 (local surface Tot(K_S -> S)): kappa_ch = chi_top(S) / 2.  CONJECTURAL.
        For local P^2: kappa_ch = 3/2.
@@ -73,24 +61,25 @@ Instead, the formula is DIMENSION-STRATIFIED:
 ADDITIVITY VS MULTIPLICATIVITY
 ===============================
 
-The root cause of the CY-D failure at d >= 3 is the clash between:
+The root cause of the old CY-D confusion at d >= 3 is the clash between:
 
-  kappa_ch: ADDITIVE under products.    kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y).
+  kappa_ch_Heis: ADDITIVE under products.
+  kappa_ch_Heis(X x Y) = kappa_ch_Heis(X) + kappa_ch_Heis(Y).
   chi(O_X): MULTIPLICATIVE under products.  chi(O_{X x Y}) = chi(O_X) * chi(O_Y).
 
 These are compatible only when chi(O) = 0 (K3 x E: 0 = 2*0, OK) or when
 the product structure is trivial.  For the d=2 PROVED case, the formula
 kappa_ch = chi(O_X) holds for INDIVIDUAL CY2s, but the product formula
-kappa_ch(S x E) = kappa_ch(S) + kappa_ch(E) = chi(O_S) + 1 != chi(O_{S x E}) = 0
+kappa_ch_Heis(S x E) = kappa_ch_Heis(S) + kappa_ch_Heis(E)
+need not equal chi(O_{S x E}) = 0
 ALREADY breaks at d=3.
 
-This is the fundamental reason the conjecture is false: kappa_ch is an ADDITIVE
-invariant (it's a trace/supertrace on a vector space of generators), while chi(O_X)
-is a MULTIPLICATIVE invariant (it's an Euler characteristic of a sheaf).  The two
-can coincide at fixed dimension (d=2) but their behaviour under products differs.
+This is the fundamental reason the old generic API drifted: kappa_ch_Heis is
+additive, while compact chi(O_X) is multiplicative.  They may agree on
+individual d=2 surfaces, but their product behaviour already separates at d=3.
 
-QUANTUM CORRECTION MECHANISM
-=============================
+SHADOW GAP MECHANISM
+====================
 
 At d=1: the free boson from H^{1,0} = H^0(Omega^1_X) is NOT killed by Serre duality
   (S_C = [1] pairs HH_0 with HH_1, but does not force the anomaly to vanish).
@@ -102,9 +91,8 @@ At d=2: Serre duality S_C = [2] forces HH^3(C) = HH_{-1}^vee = 0, killing
 At d=3: Serre duality S_C = [3] does NOT force the anomaly to vanish.
   The obstruction group HH^4(C) = HH_{-1}^vee; for h^{1,0}=0 CY3,
   HH_{-1} = 0, so the anomaly vanishes in HH^4, BUT this does not control
-  the full quantum correction.  The correction comes from a different source:
-  the chain-level S^3-framing (hypothesis H4 of thm:cy-to-chiral-d3) introduces
-  a non-trivial contribution to kappa_ch beyond the Hodge-filtered supertrace.
+  BCOV-shadow or Heisenberg-shadow values.  Those shadows are not promoted to
+  compact kappa_ch without the missing chain-level proof.
 
   For compact CY3 with h^{1,0}=0:
     the BCOV-shadow candidate is chi_top / 24 =
@@ -112,9 +100,8 @@ At d=3: Serre duality S_C = [3] does NOT force the anomaly to vanish.
     kappa_ch without the missing chain-level proof.
 
   For product CY3 (S x E):
-    delta_kappa = kappa_ch(S) + kappa_ch(E) - chi(O_{S x E})
-                = kappa_ch(S) + kappa_ch(E) - chi(O_S) * chi(O_E)
-    For K3 x E: delta_kappa = 3 - 0 = 3.
+    Heisenberg gap = kappa_ch_Heis(S) + kappa_ch_Heis(E) - chi(O_{S x E}).
+    For K3 x E: Heisenberg gap = 3 - 0 = 3.
 
 
 AP COMPLIANCE
@@ -278,19 +265,19 @@ def bcov_shadow_candidate(X: CYHodgeData) -> Fraction:
 
 def kappa_ch_assessment(X: CYHodgeData) -> KappaChAssessment:
     r"""Assess the d-dependent scalar without erasing its proof status."""
-    if X.dim_C == 3 and X.compact and len(X.h0q) == 4 and X.h0q[1] == 0:
+    if X.compact:
         return KappaChAssessment(
             manifold=X.name,
             dim_C=X.dim_C,
-            value=bcov_shadow_candidate(X),
-            label="kappa_BCOV_shadow_conjectural",
-            status="CONJECTURAL",
-            constructed=False,
-            proof_lane="BCOV chi_top/24 shadow; constructed kappa_ch is open",
+            value=kappa_ch(X),
+            label="kappa_ch_compact_hodge",
+            status="PROVED",
+            constructed=True,
+            proof_lane="compact Hodge/PhiFA supertrace chi(O_X)",
         )
 
     value = kappa_ch(X)
-    if X.dim_C in (0, 1, 2) or X.name in ("C^3", "ResCon", "K3xE"):
+    if X.name in ("C^3", "ResCon"):
         status = "PROVED"
         constructed = True
     elif X.name in ("LocalP2", "LocalP1P1", "EnrxE", "T^6"):
@@ -322,53 +309,55 @@ def kappa_ch_assessment(X: CYHodgeData) -> KappaChAssessment:
 
 
 def kappa_ch(X: CYHodgeData) -> Fraction:
-    r"""Chiral modular characteristic: the genus-1 bar-complex coefficient.
+    r"""Compact chiral modular characteristic: the Hodge/PhiFA supertrace.
 
     This is the CORRECT dimension-stratified formula:
 
-      d=0: kappa_ch = 0.
-      d=1: kappa_ch = h^{1,0}(X).
-      d=2: kappa_ch = chi(O_X) = sum (-1)^q h^{0,q}.  PROVED.
-      d=3 (compact, h^{1,0}=0): constructed kappa_ch is OPEN;
-          chi_top/24 is available as kappa_BCOV_shadow_conjectural.
-      d=3 (product S x E): kappa_ch = kappa_ch(S) + kappa_ch(E).  PROVED.
+      compact: kappa_ch = chi(O_X) = sum (-1)^q h^{0,q}.  PROVED.
+      d=3 (product S x E): kappa_ch_Heis = kappa_ch_Heis(S) + kappa_ch_Heis(E).
       d=3 (local surface Tot(K_S)): kappa_ch = chi_top(S) / 2.
       d=3 (C^3): kappa_ch = 1.  PROVED.
       d=3 (resolved conifold): kappa_ch = 1.  PROVED.
 
-    Returns Fraction for constructed lanes.  Use kappa_ch_assessment()
-    or bcov_shadow_candidate() for conjectural d=3 shadow scalars.
+    Returns Fraction for the compact/noncompact lane.  Use
+    kappa_ch_Heis() for additive product shadows and
+    bcov_shadow_candidate() for BCOV chi_top/24 shadows.
     """
-    if X.dim_C == 0:
-        return Fraction(0)
-
-    elif X.dim_C == 1:
-        # kappa_ch = h^{1,0} = number of free bosons from holomorphic 1-forms
-        return Fraction(X.h0q[1])  # h^{0,1} = h^{1,0} for CY
-
-    elif X.dim_C == 2:
-        # PROVED: kappa_ch = chi(O_X) at d=2 (Serre duality kills corrections)
+    if X.compact:
         return Fraction(X.chi_O())
-
-    elif X.dim_C == 3:
+    if X.dim_C == 3:
         return _kappa_ch_d3(X)
+    raise NotImplementedError(
+        f"kappa_ch not implemented for noncompact d={X.dim_C}."
+    )
 
-    else:
-        raise NotImplementedError(
-            f"kappa_ch not implemented for d={X.dim_C}. "
-            f"The formula at d >= 4 is open."
-        )
+
+def kappa_ch_Heis(X: CYHodgeData) -> Fraction:
+    r"""Relative Heisenberg/free-field scalar.
+
+    This is the additive product lane.  It is not the compact total-space
+    Hodge/PhiFA supertrace.
+    """
+    if X.product_of is not None:
+        fiber_name, base_name = X.product_of
+        return kappa_ch_Heis(_get_manifold_by_name(fiber_name)) + kappa_ch_Heis(_get_manifold_by_name(base_name))
+    if X.name == "point":
+        return Fraction(0)
+    if X.name == "E":
+        return Fraction(1)
+    if X.name == "K3":
+        return Fraction(2)
+    if X.name == "Enr":
+        return Fraction(1)
+    if X.name == "T^4":
+        return Fraction(2)
+    if X.name == "T^6":
+        return Fraction(3)
+    return kappa_ch(X)
 
 
 def _kappa_ch_d3(X: CYHodgeData) -> Fraction:
     """Compute kappa_ch at d=3 using the correct stratified formula."""
-
-    # Product CY3: use additivity
-    if X.product_of is not None:
-        fiber_name, base_name = X.product_of
-        fiber = _get_manifold_by_name(fiber_name)
-        base = _get_manifold_by_name(base_name)
-        return kappa_ch(fiber) + kappa_ch(base)
 
     # C^3: proved via Heisenberg identification
     if X.name == "C^3":
@@ -384,30 +373,8 @@ def _kappa_ch_d3(X: CYHodgeData) -> Fraction:
             raise ValueError(f"chi_top required for local surface {X.name}")
         return Fraction(X.chi_top, 2)
 
-    # T^6: additive from 3 copies of E
-    if X.name == "T^6":
-        # T^6 = E x E x E, so kappa_ch = 3 * kappa_ch(E) = 3 * 1 = 3
-        # But additivity applies to the bar-complex level, and T^6 = E^3
-        # gives kappa_ch(T^6) = 3 * kappa_ch(E) = 3.
-        # This is CONJECTURAL at d=3 for non-product CY3 structures.
-        return Fraction(3)
-
-    # Compact CY3 with h^{1,0} = 0: BCOV gives only a shadow candidate.
-    if X.compact and len(X.h0q) == 4 and X.h0q[1] == 0:
-        candidate = bcov_shadow_candidate(X)
-        raise NotImplementedError(
-            f"constructed kappa_ch for compact strict CY3 {X.name} is OPEN. "
-            f"The BCOV-shadow candidate is {candidate} = chi_top/24; use "
-            f"bcov_shadow_candidate() or kappa_ch_assessment() when that "
-            f"conjectural lane is intended."
-        )
-
-    # Compact CY3 with h^{1,0} != 0 (not a product): OPEN
-    # The BCOV formula does not apply when h^{1,0} != 0.
     raise NotImplementedError(
-        f"kappa_ch for compact CY3 {X.name} with h^{{1,0}} = {X.h0q[1]} > 0 "
-        f"and non-product structure: OPEN PROBLEM. "
-        f"The BCOV formula chi_top/24 requires h^{{1,0}}=0."
+        f"kappa_ch for noncompact CY3 {X.name} is not in the implemented lane."
     )
 
 
@@ -429,12 +396,12 @@ def _get_manifold_by_name(name: str) -> CYHodgeData:
 # =========================================================================
 
 class QuantumCorrection(NamedTuple):
-    """The correction value in the selected scalar lane."""
+    """The gap between the selected scalar lane and compact chi(O_X)."""
     manifold: str
     dim_C: int
     chi_O: int                  # classical value = chi(O_X)
-    kappa_ch: Fraction          # constructed kappa_ch or labelled candidate
-    delta_kappa: Fraction       # quantum correction
+    kappa_ch: Fraction          # compact kappa_ch or labelled candidate
+    delta_kappa: Fraction       # selected scalar minus chi(O_X)
     delta_vanishes: bool        # whether delta_kappa = 0
     mechanism: str              # explanation of the correction
     label: str                  # kappa_ch or a labelled candidate lane
@@ -443,9 +410,10 @@ class QuantumCorrection(NamedTuple):
 
 
 def quantum_correction(X: CYHodgeData) -> QuantumCorrection:
-    """Compute the quantum correction delta_kappa = kappa_ch - chi(O_X).
+    """Compute selected scalar minus chi(O_X).
 
-    This measures the failure of CY-D in the selected scalar lane.
+    For compact kappa_ch this vanishes by construction.  BCOV and
+    Heisenberg shadows should be compared by their own named helpers.
     """
     chi = X.chi_O()
     assessment = kappa_ch_assessment(X)
@@ -455,31 +423,22 @@ def quantum_correction(X: CYHodgeData) -> QuantumCorrection:
     if X.dim_C == 0:
         mechanism = "trivial (d=0)"
     elif X.dim_C == 1:
-        mechanism = (
-            f"Free boson contribution: h^{{1,0}} = {X.h0q[1]} holomorphic "
-            f"1-forms each contribute 1 unit. Serre S_C=[1] does NOT kill "
-            f"the one-loop anomaly."
-        )
+        mechanism = "compact odd-dimensional Hodge supertrace"
     elif X.dim_C == 2:
         mechanism = (
-            "Serre duality S_C=[2] kills the one-loop anomaly: "
-            "HH^3(C) = HH_{-1}^vee = 0 (for h^{1,0}=0), "
-            "and the Serre involution pairs the non-F^0 contributions."
+            "compact Hodge/PhiFA supertrace equals chi(O_X)"
         )
     elif X.dim_C == 3:
         if X.compact and len(X.h0q) == 4 and X.h0q[1] == 0:
             mechanism = (
-                f"BCOV-shadow candidate: chi_top/24 = {X.chi_top}/24. "
-                f"This records a conjectural shadow scalar, not constructed "
-                f"kappa_ch.  The missing input is the chain-level chiral "
-                f"construction identifying this scalar with kappa_ch."
+                f"Compact odd-dimensional Hodge supertrace: chi(O_X)=0. "
+                f"The separate BCOV-shadow candidate is {X.chi_top}/24."
             )
         elif X.product_of is not None:
             mechanism = (
-                f"Product structure: kappa_ch is ADDITIVE under products "
-                f"but chi(O) is MULTIPLICATIVE. For {X.name}: "
-                f"kappa_ch = {k_ch} by additivity, "
-                f"chi(O) = {chi} by multiplicativity."
+                f"Compact product value: kappa_ch=chi(O_X)={chi}. "
+                f"The Heisenberg shadow is additive and equals "
+                f"{kappa_ch_Heis(X)}."
             )
         else:
             mechanism = (
@@ -504,18 +463,11 @@ def quantum_correction(X: CYHodgeData) -> QuantumCorrection:
 
 
 # =========================================================================
-# 5. The refutation of CY-D at d != 2
+# 5. Compact CY-D and shadow separation
 # =========================================================================
 
 def verify_cyd_refutation() -> Dict[str, Any]:
-    r"""Verify that CY-D (kappa_ch = chi(O_X)) fails at d != 2.
-
-    CY-D is PROVED at d=2 (Proposition prop:cy-kappa-d2).
-    CY-D is REFUTED at d=1 and d=3 by explicit counterexamples.
-
-    The refutation is a mathematical THEOREM, not a conjecture:
-      - At d=1: kappa_ch(E) = 1, chi(O_E) = 0.
-      - At d=3: kappa_ch(K3xE) = 3, chi(O_{K3xE}) = 0.
+    r"""Verify the compact CY-D statement and separate shadow lanes.
 
     The quintic supplies only a BCOV-shadow candidate at this level:
       kappa_BCOV_shadow_conjectural(Quintic) = -25/3.
@@ -524,9 +476,10 @@ def verify_cyd_refutation() -> Dict[str, Any]:
 
     # d=1 counterexample
     e = elliptic_curve()
-    results["E_kappa_ch"] = int(kappa_ch(e))           # 1
+    results["E_kappa_ch"] = int(kappa_ch(e))           # 0
+    results["E_kappa_ch_Heis"] = int(kappa_ch_Heis(e))  # 1
     results["E_chi_O"] = kappa_cat(e)                    # 0
-    results["E_refutes_CYD"] = kappa_ch(e) != kappa_cat(e)  # True
+    results["E_CYD_holds"] = kappa_ch(e) == kappa_cat(e)  # True
 
     # d=2 verification (CY-D holds)
     k3 = k3_surface()
@@ -539,27 +492,31 @@ def verify_cyd_refutation() -> Dict[str, Any]:
     results["T4_chi_O"] = kappa_cat(t4)                  # 0
     results["T4_CYD_holds"] = kappa_ch(t4) == kappa_cat(t4)  # True
 
-    # d=3 counterexamples
+    # d=3 compact value and Heisenberg shadow
     k3e = k3_times_e()
-    results["K3xE_kappa_ch"] = int(kappa_ch(k3e))       # 3
+    results["K3xE_kappa_ch"] = int(kappa_ch(k3e))       # 0
+    results["K3xE_kappa_ch_Heis"] = int(kappa_ch_Heis(k3e))  # 3
     results["K3xE_chi_O"] = kappa_cat(k3e)               # 0
-    results["K3xE_refutes_CYD"] = kappa_ch(k3e) != kappa_cat(k3e)  # True
+    results["K3xE_CYD_holds"] = kappa_ch(k3e) == kappa_cat(k3e)  # True
 
     q = quintic_threefold()
     q_assessment = kappa_ch_assessment(q)
-    results["Quintic_BCOV_shadow_candidate"] = q_assessment.value  # -25/3
+    q_bcov = bcov_shadow_candidate(q)
+    results["Quintic_BCOV_shadow_candidate"] = q_bcov  # -25/3
     results["Quintic_chi_O"] = kappa_cat(q)               # 0
     results["Quintic_candidate_differs_from_CYD"] = (
-        q_assessment.value != kappa_cat(q)
+        q_bcov != kappa_cat(q)
     )
+    results["Quintic_compact_kappa_ch"] = kappa_ch(q)
     results["Quintic_constructed_kappa_ch"] = q_assessment.constructed
 
-    # The root cause: additivity vs multiplicativity
-    results["additivity_test"] = kappa_ch(k3e) == kappa_ch(k3) + kappa_ch(e)  # True (3 = 2+1)
+    # Heisenberg additivity is separate from compact multiplicativity.
+    results["additivity_test"] = kappa_ch_Heis(k3e) == kappa_ch_Heis(k3) + kappa_ch_Heis(e)  # True (3 = 2+1)
     results["multiplicativity_test"] = kappa_cat(k3e) == kappa_cat(k3) * kappa_cat(e)  # True (0 = 2*0)
-    results["clash"] = (
-        kappa_ch(k3) + kappa_ch(e) != kappa_cat(k3) * kappa_cat(e)
+    results["shadow_differs_from_compact"] = (
+        kappa_ch_Heis(k3e) != kappa_ch(k3e)
     )  # True (3 != 0)
+    results["clash"] = results["shadow_differs_from_compact"]
 
     # chi(O_X) = 0 for ALL strict CY3s with h^{1,0}=0
     results["chi_O_vanishes_for_strict_CY3"] = True
@@ -588,17 +545,17 @@ def cyd_status_table() -> Dict[int, CYDStatus]:
     return {
         0: CYDStatus(
             dimension=0,
-            formula="kappa_ch = 0",
+            formula="compact kappa_ch = chi(O_pt) = 1",
             status="PROVED",
-            delta_kappa_formula="delta = 0 - chi(O) = 0 - 1 = -1",
-            examples="point: kappa_ch = 0, chi(O) = 1",
+            delta_kappa_formula="compact delta = 0",
+            examples="point: compact kappa_ch = 1 = chi(O)",
         ),
         1: CYDStatus(
             dimension=1,
-            formula="kappa_ch = h^{1,0}(X)",
+            formula="compact kappa_ch = chi(O_X); kappa_ch_Heis = h^{1,0}(X)",
             status="PROVED",
-            delta_kappa_formula="delta = h^{1,0} (free-boson zero modes)",
-            examples="E: kappa_ch = 1, chi(O_E) = 0, delta = 1",
+            delta_kappa_formula="compact delta = 0; Heisenberg gap = h^{1,0}",
+            examples="E: compact kappa_ch = 0 = chi(O_E); kappa_ch_Heis = 1",
         ),
         2: CYDStatus(
             dimension=2,
@@ -609,18 +566,16 @@ def cyd_status_table() -> Dict[int, CYDStatus]:
         ),
         3: CYDStatus(
             dimension=3,
-            formula="kappa_ch = chi(O_X) + delta(X) [dimension-stratified]",
-            status="CONJECTURAL (except for proved cases: C^3, K3xE, toric)",
+            formula="compact kappa_ch = chi(O_X); shadows are separately labelled",
+            status="PROVED for compact Hodge/PhiFA; shadow comparisons OPEN/CONJECTURAL",
             delta_kappa_formula=(
-                "Compact h^{1,0}=0: BCOV-shadow candidate = chi_top/24; "
-                "Products S x E: delta = kappa_ch(S) + kappa_ch(E) "
-                "(additivity); "
-                "Local surfaces: delta = chi_top(base)/2"
+                "compact delta = 0; BCOV shadow = chi_top/24; "
+                "products S x E have kappa_ch_Heis by additivity"
             ),
             examples=(
-                "K3xE: kappa_ch=3, chi(O)=0, delta=3; "
+                "K3xE: compact kappa_ch=0, kappa_ch_Heis=3; "
                 "Quintic: kappa_BCOV_shadow_conjectural=-25/3, "
-                "chi(O)=0, constructed kappa_ch open; "
+                "compact kappa_ch=0; "
                 "C^3: kappa_ch=1"
             ),
         ),
@@ -643,6 +598,7 @@ class KappaLandscapeEntry(NamedTuple):
     status: str
     label: str
     constructed: bool
+    kappa_ch_Heis: Optional[Fraction] = None
 
 
 def kappa_ch_landscape() -> list:
@@ -651,8 +607,8 @@ def kappa_ch_landscape() -> list:
     This table is authoritative only together with the label/status columns.
     """
     manifolds = [
-        (point(), "trivial", "PROVED"),
-        (elliptic_curve(), "h^{1,0}", "PROVED"),
+        (point(), "compact chi(O_X)", "PROVED"),
+        (elliptic_curve(), "compact chi(O_X)", "PROVED"),
         (abelian_surface(), "chi(O_X) at d=2", "PROVED"),
         (k3_surface(), "chi(O_X) at d=2", "PROVED"),
         (enriques_surface(), "chi(O_X) at d=2", "PROVED"),
@@ -660,10 +616,10 @@ def kappa_ch_landscape() -> list:
         (resolved_conifold(), "BPS cycle count", "PROVED"),
         (local_p2(), "chi_top(base)/2", "CONJECTURAL"),
         (local_p1p1(), "chi_top(base)/2", "CONJECTURAL"),
-        (k3_times_e(), "additivity", "PROVED"),
-        (enriques_times_e(), "additivity", "CONJECTURAL"),
-        (quintic_threefold(), "chi_top/24 (BCOV)", "CONJECTURAL"),
-        (t6_abelian(), "3 * kappa_ch(E)", "CONJECTURAL"),
+        (k3_times_e(), "compact chi(O_X)", "PROVED"),
+        (enriques_times_e(), "compact chi(O_X)", "PROVED"),
+        (quintic_threefold(), "compact chi(O_X); BCOV shadow separate", "PROVED"),
+        (t6_abelian(), "compact chi(O_X)", "PROVED"),
     ]
 
     table = []
@@ -683,6 +639,7 @@ def kappa_ch_landscape() -> list:
             status=assessment.status if status == "CONJECTURAL" else status,
             label=assessment.label,
             constructed=assessment.constructed,
+            kappa_ch_Heis=kappa_ch_Heis(X) if X.compact else None,
         ))
     return table
 
@@ -692,12 +649,10 @@ def kappa_ch_landscape() -> list:
 # =========================================================================
 
 def additivity_vs_multiplicativity() -> Dict[str, Any]:
-    r"""Demonstrate the fundamental clash between additivity and multiplicativity.
+    r"""Demonstrate compact multiplicativity versus Heisenberg additivity.
 
-    kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y)     [additive]
+    kappa_ch_Heis(X x Y) = kappa_ch_Heis(X) + kappa_ch_Heis(Y) [additive]
     chi(O_{X x Y})  = chi(O_X) * chi(O_Y)            [multiplicative, Kunneth]
-
-    The two can coincide for individual manifolds but clash under products.
     """
     e = elliptic_curve()
     k3 = k3_surface()
@@ -706,23 +661,24 @@ def additivity_vs_multiplicativity() -> Dict[str, Any]:
 
     results: Dict[str, Any] = {}
 
-    # K3 x E: the definitive counterexample
     results["K3xE"] = {
-        "kappa_ch_additive": kappa_ch(k3) + kappa_ch(e),   # 2 + 1 = 3
-        "kappa_ch_actual": kappa_ch(k3e),                    # 3
+        "kappa_ch_Heis_additive": kappa_ch_Heis(k3) + kappa_ch_Heis(e),   # 2 + 1 = 3
+        "kappa_ch_Heis_actual": kappa_ch_Heis(k3e),                    # 3
+        "kappa_ch_compact": kappa_ch(k3e),                             # 0
         "chi_O_multiplicative": kappa_cat(k3) * kappa_cat(e),  # 2 * 0 = 0
         "chi_O_actual": kappa_cat(k3e),                      # 0
-        "additivity_holds": kappa_ch(k3e) == kappa_ch(k3) + kappa_ch(e),
+        "additivity_holds": kappa_ch_Heis(k3e) == kappa_ch_Heis(k3) + kappa_ch_Heis(e),
         "multiplicativity_holds": kappa_cat(k3e) == kappa_cat(k3) * kappa_cat(e),
-        "clash": kappa_ch(k3e) != kappa_cat(k3e),
+        "compact_agrees": kappa_ch(k3e) == kappa_cat(k3e),
+        "shadow_differs_from_compact": kappa_ch_Heis(k3e) != kappa_ch(k3e),
     }
 
-    # T^4 x E (hypothetical): kappa_ch(T^4) + kappa_ch(E) = 0 + 1 = 1
+    # T^4 x E (hypothetical): kappa_ch_Heis(T^4) + kappa_ch_Heis(E) = 2 + 1 = 3
     # chi(O_{T^4 x E}) = chi(O_{T^4}) * chi(O_E) = 0 * 0 = 0
     results["T4xE_hypothetical"] = {
-        "kappa_ch_predicted": kappa_ch(t4) + kappa_ch(e),  # 0 + 1 = 1
+        "kappa_ch_Heis_predicted": kappa_ch_Heis(t4) + kappa_ch_Heis(e),  # 2 + 1 = 3
         "chi_O_predicted": kappa_cat(t4) * kappa_cat(e),   # 0 * 0 = 0
-        "clash": (kappa_ch(t4) + kappa_ch(e)) != (kappa_cat(t4) * kappa_cat(e)),
+        "shadow_differs_from_compact": (kappa_ch_Heis(t4) + kappa_ch_Heis(e)) != (kappa_cat(t4) * kappa_cat(e)),
     }
 
     # Why they agree at d=2 individually but not under products:
@@ -733,7 +689,8 @@ def additivity_vs_multiplicativity() -> Dict[str, Any]:
         "T4": kappa_ch(t4) == Fraction(kappa_cat(t4)),       # True
     }
     results["d3_product_disagreement"] = {
-        "K3xE": kappa_ch(k3e) != Fraction(kappa_cat(k3e)),  # True
+        "K3xE_compact": kappa_ch(k3e) == Fraction(kappa_cat(k3e)),  # True
+        "K3xE_Heis": kappa_ch_Heis(k3e) != Fraction(kappa_cat(k3e)),  # True
     }
 
     return results
@@ -750,17 +707,15 @@ def corrected_cyd_statement() -> str:
       kappa_ch(A_C) = chi^{CY}(C) = chi(O_X)  for all d.
 
     CORRECTED:
-      (CY-D_2, PROVED): kappa_ch(A_C) = chi(O_X)  at d=2.
-      (CY-D_3, CONJECTURAL): the scalar picture at d=3 is
-        dimension-stratified:
+      compact kappa_ch(A_C) = chi(O_X).
+      At d=3 the additional scalar shadows are dimension-stratified:
 
         (i) For compact CY3 with h^{1,0}=0:
             kappa_BCOV_shadow_conjectural = chi_top(X) / 24.
-            Constructed kappa_ch is open without a chain-level chiral
-            proof identifying this shadow scalar.
+            This is not the compact kappa_ch.
 
         (ii) For product CY3 of the form S x E:
-             kappa_ch = kappa_ch(S) + kappa_ch(E).
+             kappa_ch_Heis = kappa_ch_Heis(S) + kappa_ch_Heis(E).
              [Additivity of the chiral de Rham complex]
 
         (iii) For local surfaces Tot(K_S -> S):
@@ -769,14 +724,11 @@ def corrected_cyd_statement() -> str:
 
         (iv) The three cases are consistent where they overlap:
              K3 x E satisfies both (ii) and (i)+(ii) mixed,
-             giving kappa_ch = 2 + 1 = 3.
+             giving kappa_ch_Heis = 2 + 1 = 3 while compact kappa_ch=0.
              The BCOV formula does NOT apply to K3 x E (h^{1,0}=1).
 
-    The root cause of the failure of the original CY-D is that kappa_ch
-    is an ADDITIVE invariant (genus-1 bar coefficient = supertrace on
-    generators) while chi(O_X) is MULTIPLICATIVE under products.  At d=2,
-    the Serre duality S_C=[2] forces their agreement for individual manifolds,
-    but the agreement CANNOT survive products with d=1 factors.
+    The root cause of the old confusion is that kappa_ch_Heis is additive
+    while chi(O_X) is multiplicative under products.
     """
     return "See docstring"
 
@@ -789,7 +741,7 @@ def verify_all() -> Dict[str, Any]:
     """Run all verifications of the corrected CY-D formula."""
     results: Dict[str, Any] = {}
 
-    # 1. CY-D refutation
+    # 1. CY-D compact/shadow separation
     results["cyd_refutation"] = verify_cyd_refutation()
 
     # 2. Landscape table
@@ -841,19 +793,22 @@ def verify_all() -> Dict[str, Any]:
 
     # 6. Key numerical checks
     results["numerical_checks"] = {
-        "kappa_ch_E": kappa_ch(elliptic_curve()) == 1,
+        "kappa_ch_E": kappa_ch(elliptic_curve()) == 0,
+        "kappa_ch_Heis_E": kappa_ch_Heis(elliptic_curve()) == 1,
         "kappa_ch_K3": kappa_ch(k3_surface()) == 2,
-        "kappa_ch_K3xE": kappa_ch(k3_times_e()) == 3,
+        "kappa_ch_K3xE": kappa_ch(k3_times_e()) == 0,
+        "kappa_ch_Heis_K3xE": kappa_ch_Heis(k3_times_e()) == 3,
         "kappa_BCOV_shadow_candidate_Quintic": (
             bcov_shadow_candidate(quintic_threefold()) == Fraction(-25, 3)
         ),
-        "Quintic_constructed_kappa_ch_open": (
-            kappa_ch_assessment(quintic_threefold()).constructed is False
+        "Quintic_compact_kappa_ch": (
+            kappa_ch(quintic_threefold()) == 0
         ),
         "kappa_ch_C3": kappa_ch(c3_affine()) == 1,
         "kappa_ch_LocalP2": kappa_ch(local_p2()) == Fraction(3, 2),
         "kappa_ch_ResCon": kappa_ch(resolved_conifold()) == 1,
-        "kappa_ch_T6": kappa_ch(t6_abelian()) == 3,
+        "kappa_ch_T6": kappa_ch(t6_abelian()) == 0,
+        "kappa_ch_Heis_T6": kappa_ch_Heis(t6_abelian()) == 3,
         "chi_O_vanishes_for_all_strict_CY3": all(
             X.chi_O() == 0
             for X in [quintic_threefold(), k3_times_e(), t6_abelian()]

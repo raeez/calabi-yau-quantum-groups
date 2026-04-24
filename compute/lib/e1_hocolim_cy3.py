@@ -1581,7 +1581,8 @@ def compute_conifold_hocolim(max_arity: int = 6, N: int = 10) -> HocolimResult:
 def compute_c3_hocolim(max_arity: int = 6) -> HocolimResult:
     """Hocolim for C³ (trivial single chamber).
 
-    CoHA(C³) = Y⁺(ĝl₁), chiral algebra = W_{1+∞} at c=1 = H₁.
+    CoHA(C³) = Y⁺(ĝl₁).  The chiral W_{1+∞} algebra at c=1 = H₁
+    appears only after Drinfeld double/center and Fock evaluation.
     κ(H₁) = 1.
 
     The hocolim is trivially the CoHA itself (single chamber, no walls).

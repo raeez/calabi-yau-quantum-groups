@@ -248,16 +248,17 @@ class TestKappaCollapse:
         assert data['collapse_ratio_lower'] >= 10
 
     def test_second_quantization_ratio(self):
-        """kappa_BKM / kappa_ch = 5/3.
+        """kappa_BKM / kappa_ch_Heis = 5/3.
 
         AP113: approved subscripts {ch, cat, BKM, fiber}.
-        kappa_ch(K3 x E) = 3 (proved, chiral de Rham).
+        kappa_ch_Heis(K3 x E) = 3 (relative Heisenberg shadow).
+        compact kappa_ch(K3 x E) = 0.
         kappa_BKM(K3 x E) = 5 (conjectural, Borcherds weight).
         """
-        # kappa_ch(K3 x E) = kappa(K3) + kappa(E) = 2 + 1 = 3
-        kappa_ch = KAPPA_SIGMA + F(1)  # +1 for E
-        assert kappa_ch == F(3)
-        assert F(5) / kappa_ch == F(5, 3)
+        # kappa_ch_Heis(K3 x E) = kappa(K3) + kappa_Heis(E) = 2 + 1 = 3
+        kappa_ch_heis = KAPPA_SIGMA + F(1)  # +1 for E
+        assert kappa_ch_heis == F(3)
+        assert F(5) / kappa_ch_heis == F(5, 3)
 
 
 # =========================================================================

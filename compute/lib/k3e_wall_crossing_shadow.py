@@ -1043,10 +1043,11 @@ def bkm_shadow_cross_check(max_D: int = 8) -> Dict[str, Any]:
     At arity 2: total contribution = sum_{D} c(D) (sum over all roots)
     At arity 3: cubic shadow = sum_{D>0} c(D) * D/2
 
-    The shadow tower kappa_ch (arity 2 generating data) is:
-        kappa_ch = 2 * sum of arity-2 contributions / normalization
+    The shadow tower Heisenberg scalar (arity 2 generating data) is:
+        kappa_ch_Heis = 2 * sum of arity-2 contributions / normalization
 
-    For K3 x E: kappa_ch = 3 (chiral algebra), kappa_BKM = 5 (Borcherds weight).
+    For compact K3 x E: kappa_ch = 0.  The relative Heisenberg shadow has
+    kappa_ch_Heis = 3, while kappa_BKM = 5 is the Borcherds weight.
 
     Returns
     -------
@@ -1079,7 +1080,8 @@ def bkm_shadow_cross_check(max_D: int = 8) -> Dict[str, Any]:
         'c(0)': c0,
         'borcherds_weight': borcherds_weight,
         'kappa_BKM': borcherds_weight,
-        'kappa_ch': 3,  # From the chiral algebra (different from BKM!)
+        'kappa_ch': 0,  # Compact Hodge/PhiFA supertrace on K3 x E.
+        'kappa_ch_Heis': 3,  # Relative Heisenberg shadow, distinct from BKM.
         'arity_2_total': arity_2_total,
         'arity_3_cubic': arity_3_cubic,
         'c_neg1_is_1': c_neg1 == 1,

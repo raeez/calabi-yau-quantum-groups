@@ -858,7 +858,7 @@ class TestK3ESpectralSequence:
         assert len(walls) == 3
 
     def test_kappa_value(self):
-        """kappa = 5 for K3 x E charts."""
+        """kappa_BKM = 5 for K3 x E charts."""
         cech = k3e_cech_complex(3)
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert cech.charts[0].kappa == Fraction(5)

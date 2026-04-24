@@ -508,18 +508,19 @@ class TestBPSFactorizationCategory:
 
     def test_kappa_spectrum(self):
         """AP113: resolved kappa spectrum for K3 x E.
-        # VERIFIED: [DC] kappa_ch = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3
+        # VERIFIED: [DC] compact kappa_ch=0; kappa_ch_Heis = 2 + 1 = 3
         # [LT] Vol III CLAUDE.md kappa-spectrum table
         # [CF] kappa_BKM = weight of Delta_5 = 5 (Igusa cusp form)
         # [DC] kappa_cat(K3 x E) = 0, kappa_cat(K3 fiber) = 2
         """
         bps = bps_factorization_category_k3()
-        assert bps.kappa_ch == 3
+        assert bps.kappa_ch == 0
+        assert bps.kappa_ch_Heis == 3
         assert bps.kappa_BKM == 5
         assert bps.kappa_cat == 0
         assert bps.kappa_cat_fiber == 2
         # SY path: resolved labels are distinct (AP113)
-        assert len({bps.kappa_ch, bps.kappa_BKM, bps.kappa_cat, bps.kappa_cat_fiber}) == 4
+        assert len({bps.kappa_ch_Heis, bps.kappa_BKM, bps.kappa_cat, bps.kappa_cat_fiber}) == 4
 
     def test_conjectural_status(self):
         """BPS category is CONJECTURAL (AP-CY14)."""
@@ -729,12 +730,13 @@ class TestFactorizationCategoryLandscape:
         assert 2 in dims
         assert 3 in dims
 
-    def test_k3xe_kappa_ch_3(self):
-        """K3 x E entry has kappa_ch = 3."""
+    def test_k3xe_kappa_ch_split(self):
+        """K3 x E entry separates compact kappa_ch from Heisenberg shadow."""
         lsc = factorization_category_landscape()
         k3xe = [e for e in lsc if 'K3 x E' in e.cy_geometry]
         assert len(k3xe) == 1
-        assert '3' in k3xe[0].kappa_ch
+        assert '0' in k3xe[0].kappa_ch
+        assert 'Heis' in k3xe[0].kappa_ch
 
     def test_k3xe_conjectural(self):
         """K3 x E is CONJECTURAL (CY-A_3)."""

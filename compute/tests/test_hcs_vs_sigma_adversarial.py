@@ -377,7 +377,7 @@ class TestCrossEngine:
         assert result['check_2_a_is_24'] is True
 
     def test_kappa_ch_d_additive(self):
-        """Route D: kappa_ch(K3 x E) = 2 + 1 = 3 (additivity)."""
+        """Route D: relative kappa_ch^Heis(K3 x E) = 2 + 1 = 3."""
         # VERIFIED [MAN] prop:kappa-k3 path (vi)
         result = verify_kappa_ch_consistency()
         assert result['check_3_d_additive'] is True
@@ -439,7 +439,7 @@ class TestCrossEngineKappa:
         assert result['hcs_hierarchy_vs_route_b'] is True
 
     def test_hcs_hierarchy_vs_route_d(self):
-        """hcs_hierarchy_k3 agrees with Route D: KAPPA_CH_K3E = 3."""
+        """hcs_hierarchy_k3 agrees with Route D: KAPPA_CH_K3E_HEIS = 3."""
         # VERIFIED [XE] cross-engine
         result = cross_engine_kappa_verification()
         assert result['hcs_hierarchy_vs_route_d'] is True
@@ -457,10 +457,10 @@ class TestCrossEngineKappa:
         assert result['shadow_class_vs_route_b'] is True
 
     def test_kappa_spectrum_values(self):
-        """Kappa-spectrum values are {2, 3, 5, 24} (AP113)."""
+        """Kappa-spectrum values are {0, 2, 3, 5, 24} (AP113)."""
         # VERIFIED [DC] from hcs_hierarchy_k3 kappa constants
         result = cross_engine_kappa_verification()
-        assert result['spectrum_is_2_3_5_24'] is True
+        assert result['spectrum_is_0_2_3_5_24'] is True
 
     def test_all_cross_checks_pass(self):
         """All cross-engine kappa checks pass."""

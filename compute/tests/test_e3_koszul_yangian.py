@@ -8,7 +8,8 @@ Verifies the five claims of the theorem:
   (v)   S_3-equivariance of the cohomological isomorphism
 
 Ground truth:
-  Y = Y(gl_hat_1) = CoHA(C^3), class L, shadow depth 3, S_4 = 0.
+  CoHA(C^3)=Y^+(gl_hat_1); its Drinfeld double Y(gl_hat_1) is class L,
+  shadow depth 3, S_4 = 0.
   Y^! = Verdier dual at (-h1, -h2, -h3), also class L.
   H^*(B_{E_3}(Y)) = H^*(B_{E_3}(Y^!)) = [1, 3, 3, 1] = (1+t)^3.
   kappa_ch(Y|_C) = -sigma_2, kappa_ch(Y^!|_C) = sigma_2, sum = 0 = rho_K.

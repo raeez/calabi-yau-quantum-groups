@@ -799,8 +799,8 @@ class TestCrossChecks:
         # VERIFIED [DC] rank count [DA] dimensional consistency
         assert rep.lattice_rank == 4
 
-    def test_k3xe_kappa_5(self):
-        """K3 x E has kappa = 5."""
+    def test_k3xe_kappa_BKM_5(self):
+        """K3 x E has kappa_BKM = 5 in the chamber-growth lane."""
         cg = chamber_growth_k3xe()
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert cg.kappa == Fraction(5)

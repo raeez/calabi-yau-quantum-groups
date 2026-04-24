@@ -1,15 +1,15 @@
 r"""Tests for the LP^2 - E_{27/Q} mock-modular completion falsifier.
 
-Verifies the conditional ProvedHere theorems inscribed in
-``chapters/examples/cy_c_six_routes_convergence.tex'' (subsec:lp2-W3-Hecke-pinning):
+Verifies the arithmetic side of the local P^2 / E_{27/Q} falsifier:
 
   * thm:lp2-receptacle-pinning  (W_3-Hecke eigenvalue T_{(2)} = -3)
   * thm:lp2-E27-pinning         (Skoruppa-Zagier image attached to E_{27/Q})
   * thm:lp2-E27-pentagon-equivalence  (beta = 0 <=> Pentagon at LP^2)
 
-These are status Conditional in the chapter (per AP-CY60), but the underlying
-arithmetic side -- the Hecke eigenvalues a_p(E_{27.a3}) -- is rigorous and
-reproducible with three mutually-disjoint verification sources.
+The engine ``compute.lib.local_p2_four_kappa_engine'' now carries the
+executable arithmetic certificate. The remaining non-arithmetic obligation is
+the source-map computation of [q^7]SZ(xi^{LP^2}) from the chain-level local
+P^2 Pentagon datum.
 
 DISJOINT-SOURCE BUCKETS (per HZ3-11 protocol)
 ---------------------------------------------
@@ -21,10 +21,10 @@ DISJOINT-SOURCE BUCKETS (per HZ3-11 protocol)
   (c) Riemann-Hurwitz dimension formula for dim S_2(Gamma_0(27)) (only
       modular-curve arithmetic, no curve equation, no CM)
 
-KEY ARITHMETIC FACT (corrected from initial brief)
----------------------------------------------------
+KEY ARITHMETIC FACT
+-------------------
 For E_{27.a3}: y^2 + y = x^3 with CM by Z[zeta_3], the Hecke eigenvalues are:
-  a_p = 0  for ALL p == 2 mod 3 INCLUDING p = 2 (the original brief was right)
+  a_p = 0  for ALL p == 2 mod 3 INCLUDING p = 2
   a_p = +/- L  for p == 1 mod 3 with 4p = L^2 + 27 M^2
 
 The single-prime T_2 falsifier therefore CANNOT distinguish beta = 0 (since
@@ -44,6 +44,7 @@ from fractions import Fraction as F
 
 import pytest
 
+from compute.lib import local_p2_four_kappa_engine as lp2
 from compute.lib.independent_verification import independent_verification
 
 
@@ -59,32 +60,7 @@ from compute.lib.independent_verification import independent_verification
 # All inert primes (p == 2 mod 3) give a_p = 0; split primes give the
 # CM-decomposition value.
 
-A_P_E27 = {
-    2: 0,
-    5: 0,
-    7: -1,
-    11: 0,
-    13: 5,
-    17: 0,
-    19: -7,
-    23: 0,
-    29: 0,
-    31: -4,
-    37: 11,
-    41: 0,
-    43: 8,
-    47: 0,
-    53: 0,
-    59: 0,
-    61: -1,
-    67: 5,
-    71: 0,
-    73: -7,
-    79: 17,
-    83: 0,
-    89: 0,
-    97: -19,
-}
+A_P_E27 = lp2.A_P_E27
 
 
 # =========================================================================
@@ -354,6 +330,58 @@ class TestThreeSourceAgreement:
 
 
 # =========================================================================
+# Engine-level executable certificate
+# =========================================================================
+
+
+class TestEngineExecutableCertificate:
+    """The local P^2 engine exports the E27 arithmetic certificate."""
+
+    def test_engine_point_count_table_matches_independent_count(self):
+        """Engine a_p values agree with direct point count at all stored primes."""
+        report = lp2.e27_arithmetic_witness_report()
+        assert report["point_count_agrees"] is True
+        for p, ap in A_P_E27.items():
+            assert lp2.e27_ap_from_point_count(p) == ap
+            assert _ap_from_point_count(p) == ap
+
+    def test_engine_cm_and_newform_certificate(self):
+        """CM split/inert dichotomy and newform uniqueness are executable."""
+        report = lp2.e27_arithmetic_witness_report()
+        assert report["split_cm_agrees"] is True
+        assert report["inert_zero_agrees"] is True
+        assert report["newform_unique"] is True
+        assert report["oldform_empty"] is True
+        assert report["newform_dimension"]["dim_new_27"] == 1
+
+    def test_engine_t2_is_not_falsifier_and_t7_is(self):
+        """a_2=0 is consistency only; a_7=-1 is the first split-prime witness."""
+        report = lp2.e27_arithmetic_witness_report()
+        assert report["t2_is_falsifier"] is False
+        assert report["first_split_falsifier_prime"] == 7
+        assert report["a_7"] == -1
+        assert report["a_7_nonzero"] is True
+
+    def test_engine_beta_solver_at_q7(self):
+        """If the source coefficient [q^7]SZ(xi^LP2) is 0, beta is forced to 0."""
+        certificate = lp2.lp2_e27_beta_from_split_coefficient(7, 0)
+        assert certificate["a_p"] == -1
+        assert certificate["beta"] == F(0)
+        assert certificate["beta_forced_zero"] is True
+
+    def test_engine_certificate_names_remaining_source_obligation(self):
+        """The residual obligation is the source-map computation, not arithmetic."""
+        certificate = lp2.lp2_e27_falsifier_certificate()
+        assert certificate["arithmetic_closed"] is True
+        assert certificate["exact_constants"]["T_W3_2"] == -3
+        assert certificate["exact_constants"]["a_2_E27"] == 0
+        assert certificate["exact_constants"]["a_7_E27"] == -1
+        obligation = certificate["remaining_proof_obligation"]
+        assert obligation["arithmetic_dependency"] == "none; arithmetic side is executable here"
+        assert "[q^7]" in obligation["source"]
+
+
+# =========================================================================
 # HZ-IV decorated test: the falsifier theorem
 # =========================================================================
 
@@ -361,9 +389,9 @@ class TestThreeSourceAgreement:
 class TestLP2E27Falsifier:
     """The split-prime falsifier: beta = 0 from coefficient vanishing.
 
-    The original brief's "single-prime T_2 falsifier" turned out to be
-    insufficient (a_2 = 0 makes T_2 trivially compatible with any beta).
-    The CORRECT falsifier uses split primes p in {7, 13, 19, 31, ...}
+    The single-prime T_2 test is insufficient: a_2 = 0 makes T_2
+    trivially compatible with any beta. The sharp falsifier uses split
+    primes p in {7, 13, 19, 31, ...}
     where a_p(E_27) != 0.
 
     Mechanism: the Skoruppa-Zagier image lives in S_2(Gamma_0(27)) =
@@ -547,12 +575,12 @@ class TestCMSymmetryAt7AttackPrimes:
 
 
 # =========================================================================
-# Confidence interval test: verified at 7 + 17 = 24 primes
+# Arithmetic closure test: verified at 7 + 17 = 24 primes
 # =========================================================================
 
 
-class TestConfidenceInterval:
-    """Document the confidence interval on beta = 0."""
+class TestArithmeticClosure:
+    """Document the arithmetic closure and the remaining source-map input."""
 
     def test_verified_at_24_small_primes(self):
         """All 24 documented small primes (excluding bad p=3) have a_p verified."""
@@ -569,8 +597,8 @@ class TestConfidenceInterval:
         all_primes = set(A_P_E27.keys())
         assert attack.issubset(all_primes)
 
-    def test_confidence_high_conditional_rigorous(self):
-        """Confidence interval: HIGH, conditionally rigorous.
+    def test_arithmetic_closed_source_map_pending(self):
+        """Arithmetic closed; source coefficient is the remaining input.
 
         The split-prime falsifier forces beta = 0 once an INDEPENDENT
         computation of [q^p] SZ(xi^{LP^2}) from LP^2 GV data is made at
@@ -593,10 +621,9 @@ class TestConfidenceInterval:
         """At inert primes (a_p = 0), the SZ-image vanishing is CONSISTENT
         with any beta -- it does NOT distinguish beta = 0 from beta != 0.
 
-        This corrects the original brief's "inert-prime vanishing forces
-        beta = 0" claim. Inert vanishing is automatic (a_p = 0 trivially
-        kills beta * a_p), and provides only a CONSISTENCY check, not a
-        falsifier. The falsifier MUST come from a split prime.
+        Inert vanishing is automatic (a_p = 0 trivially kills beta * a_p),
+        and provides only a CONSISTENCY check, not a falsifier. The
+        falsifier MUST come from a split prime.
         """
         # At inert p = 5: a_p = 0
         assert A_P_E27[5] == 0

@@ -143,7 +143,8 @@ CONVENTIONS:
   - Omega_3 = 3x3 symmetric complex matrix in H_3
   - q_i = e^{2*pi*i*tau_i}, r_{ij} = e^{2*pi*i*z_{ij}}
   - Im(Omega_3) > 0: positive definite imaginary part (3x3)
-  - kappa_ch: from chiral algebra (AP113, always subscripted)
+  - kappa_ch: compact Hodge/PhiFA supertrace (AP113, always subscripted)
+  - kappa_ch^Heis: Heisenberg-specialised shadow input
   - kappa_cat: holomorphic Euler characteristic chi(O_X)
   - kappa_BKM: weight of the Borcherds product / BKM denominator
 
@@ -198,7 +199,8 @@ from compute.lib.genus2_k3e_full import (
     K3E_KAPPA_BKM,
     K3E_KAPPA_CAT,
     K3E_KAPPA_CAT_FIBER,
-    K3E_KAPPA_CH,
+    K3E_KAPPA_CH_COMPACT,
+    K3E_KAPPA_CH_HEIS,
     K3E_KAPPA_FIBER,
     k3_shadow_tower,
 )
@@ -1159,7 +1161,8 @@ def genus3_partition_k3xe(
         "chi_36": c18**2 if abs(c18) < float('inf') else float('inf'),
         "det_Im_Omega": det_Y,
         # Kappa spectrum (AP113)
-        "kappa_ch": float(K3E_KAPPA_CH),
+        "kappa_ch": float(K3E_KAPPA_CH_COMPACT),
+        "kappa_ch_Heis": float(K3E_KAPPA_CH_HEIS),
         "kappa_cat": float(K3E_KAPPA_CAT),
         "kappa_cat_fiber": float(K3E_KAPPA_CAT_FIBER),
         "kappa_BKM": float(K3E_KAPPA_BKM),
@@ -1346,7 +1349,8 @@ def genus3_weight_table() -> Dict[str, Any]:
                      "group": "Sp_6(Z)"},
         },
         "kappa_spectrum_k3xe": {
-            "kappa_ch": {"value": 3, "status": "PROVED (additivity at d=2)"},
+            "kappa_ch": {"value": 0, "status": "PROVED (Kunneth Hodge supertrace)"},
+            "kappa_ch_Heis": {"value": 3, "status": "CONDITIONAL shadow input on the CY-A_3 locus"},
             "kappa_cat": {"value": 0, "status": "PROVED (Kunneth)"},
             "kappa_cat_fiber": {"value": 2, "status": "PROVED (classical)"},
             "kappa_BKM": {"value": 5, "status": "PROVED (Borcherds)"},

@@ -11,8 +11,8 @@ SUMMARY
 2. For non-K3-fibered CY3s (Class B), kappa_BKM is UNDEFINED.
    Replacement invariants: kappa_BCOV, shadow depth, DT degree.
 
-3. The decomposition kappa_BKM = kappa_ch + chi(O_fiber) is FALSIFIED
-   (coincidence for N=1 only, 7/8 failures).
+3. The literal decomposition kappa_BKM = kappa_ch + chi(O_fiber) is
+   FALSIFIED on CHL N in {1,2,3,4,6} with zero successes.
 
 4. c_N(0) decreases monotonically with the orbifold order N.
 
@@ -190,12 +190,12 @@ class TestUniversalityStatus:
         assert status["contrast_with_decomposition"]["depends_on_CY_A"]
 
     def test_decomposition_seven_failures(self, status):
-        """The decomposition has 7 failures."""
-        assert status["contrast_with_decomposition"]["failures"] == 7
+        """The literal CHL decomposition has 5 failures."""
+        assert status["contrast_with_decomposition"]["failures"] == 5
 
     def test_decomposition_one_success(self, status):
-        """The decomposition has only 1 success."""
-        assert status["contrast_with_decomposition"]["successes"] == 1
+        """The literal CHL decomposition has no success."""
+        assert status["contrast_with_decomposition"]["successes"] == 0
 
 
 # =========================================================================
@@ -540,11 +540,12 @@ class TestCrossValidation:
         if "error" not in path_b:
             assert path_b["c0_is_universal"]
 
-    def test_path_b_one_decomposition_success(self, cv):
-        """Path B (adversarial): only 1 decomposition success."""
+    def test_path_b_literal_decomposition_zero_success(self, cv):
+        """Path B (adversarial): no literal CHL additive-split success."""
         path_b = cv.get("path_B_adversarial", {})
         if "error" not in path_b:
-            assert path_b["decomposition_successes"] == 1
+            assert path_b["literal_additive_split_successes"] == 0
+            assert path_b["literal_additive_split_failures"] == 5
 
     def test_path_c_weight_5(self, cv):
         """Path C (borcherds_lift): weight = 5 for phi_{0,1}."""

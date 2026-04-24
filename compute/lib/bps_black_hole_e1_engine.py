@@ -60,7 +60,7 @@ THE OSV CONJECTURE IN E_1 LANGUAGE:
 COMPUTATIONS FOR SPECIFIC CY3s:
 
   1. C^3: no compact cycles, no BPS black holes, but Z_top = M(q) (MacMahon).
-     Shadow: kappa = regulated divergent sum, Z^sh matches M(q) at finite N.
+     Shadow: kappa_shadow is a regulated divergent sum, Z^sh matches M(q) at finite N.
 
   2. Resolved conifold O(-1)+O(-1) -> P^1:
      - Charge lattice: Gamma = Z (D2-brane wrapping P^1)
@@ -68,18 +68,19 @@ COMPUTATIONS FOR SPECIFIC CY3s:
        For primitive: Omega([P^1]) = 1 (single hypermultiplet)
      - Central charge: Z([P^1], t) = t  (the Kahler modulus of P^1)
      - Attractor: t_* = 0 (the conifold point)
-     - Shadow: kappa(conifold) = 1, Q_L(t) = (2 + 3*alpha*t)^2 + ...
+     - Shadow: kappa_ch(conifold) = 1, Q_L(t) = (2 + 3*alpha*t)^2 + ...
      - Z_top = exp(sum F_g g_s^{2g-2}) with F_0 = t^3/6 + lower
-       and F_g = kappa * a_hat_g * (from shadow tower)
+       and F_g = kappa_shadow * a_hat_g * (from shadow tower)
 
   3. Quintic P^4[5]:
      - h^{1,1}=1, h^{2,1}=101, chi=-200
-     - kappa(quintic) = chi/24 = -200/24 = -25/3 (conjectural)
+     - kappa_BCOV_shadow_conjectural(quintic) = chi/24 = -200/24 = -25/3
      - Central charge: Z(gamma, t) determined by periods of Omega_3
      - Attractor: at the points of enhanced symmetry
 
   4. K3 x E:
-     - kappa = 5 (weight of Igusa cusp form Delta_5)
+     - kappa_BKM = 5 (weight of Igusa cusp form Delta_5)
+       while compact kappa_ch = 0 and the Heisenberg shadow kappa_ch_Heis = 3
      - BPS states counted by phi_{0,1} (K3 elliptic genus)
      - Entropy: S = pi * |Z|^2 at attractor
 
@@ -91,8 +92,8 @@ THE BEKENSTEIN-HAWKING FORMULA:
   where Delta(gamma) is the quartic invariant of the N=2 duality group.
   For the STU model: Delta = 4(p^0 q_0)(p^1 q_1)(p^2 q_2)(p^3 q_3) - ...
 
-  The connection to kappa:
-    S_BH = pi * kappa(A_X) * f(gamma)
+  The connection to the selected scalar lane:
+    S_BH = pi * kappa_shadow(A_X) * f(gamma)
   where f(gamma) is a charge-dependent factor coming from the intersection
   form and the CY periods.
 
@@ -103,8 +104,9 @@ CONVENTIONS
   - CY3 Euler characteristic: chi = 2(h^{1,1} - h^{2,1})
   - Central charge: Z(gamma, t) = <gamma, Pi(t)> where Pi is the period vector
   - Attractor: dZ/dt = 0 at t_* (more precisely: D_t Z = 0 where D is Kahler-covariant)
-  - Shadow metric: Q_L(t) = (2*kappa + 3*alpha*t)^2 + 2*Delta*t^2
-  - Topological string: F_g = chi/24 * a_hat_g (BCOV constant map contribution)
+  - Shadow metric: Q_L(t) = (2*kappa_shadow + 3*alpha*t)^2 + 2*Delta*t^2
+  - Topological string: F_g uses the declared scalar lane
+    (BCOV shadow, chiral scalar, or BKM denominator weight)
   - OSV: Z_BH(p, phi) = |Z_top(X, t_top)|^2 with t_top = p + i*phi
 
 REFERENCES
@@ -227,8 +229,9 @@ class CY3Data(NamedTuple):
     h11: h^{1,1}(X) = number of Kahler moduli
     h21: h^{2,1}(X) = number of complex structure moduli
     chi: Euler characteristic = 2(h11 - h21)
-    kappa_cy: the modular characteristic kappa(A_X) of the associated
-              chiral algebra (AP48: this is NOT always chi/24!)
+    kappa_cy: legacy scalar slot; read with the family lane in the
+              constructor docstring (kappa_ch, kappa_BKM, or BCOV shadow).
+              AP48: this is NOT always chi/24.
     name: identifier
     """
     h11: int
@@ -271,11 +274,13 @@ def quintic_data() -> CY3Data:
     """Quintic hypersurface in P^4.
 
     h11=1, h21=101, chi=-200.
-    kappa = chi/24 = -25/3 (CONJECTURAL for compact CY3, from BCOV).
+    kappa_cy is the constructed Hodge-supertrace kappa_ch = chi(O_X)=0.
+    The scalar chi_top/24 = -25/3 is a BCOV-shadow candidate and must
+    not be exposed as constructed kappa_ch or kappa_BKM.
     """
     return CY3Data(
         h11=1, h21=101, chi=-200,
-        kappa_cy=Fraction(-25, 3), name="quintic"
+        kappa_cy=Fraction(0), name="quintic"
     )
 
 
@@ -283,8 +288,8 @@ def k3_times_e_data() -> CY3Data:
     """K3 x E (K3 surface times elliptic curve).
 
     h11=21, h21=21, chi=0 (product formula).
-    kappa = 5 (weight of the Igusa cusp form Delta_5).
-    NOT chi/24 = 0!  (AP48 applies: kappa depends on full algebra, not Virasoro sub.)
+    kappa_cy stores kappa_BKM = 5 (weight of the Igusa cusp form Delta_5).
+    NOT chi/24 = 0!  The chiral/CY categorical scalar is kappa_ch = 3.
     """
     return CY3Data(
         h11=21, h21=21, chi=0,
@@ -827,8 +832,8 @@ def e1_shadow_tower(cy3: CY3Data,
     For CY3 categories, the shadow data depends on the type:
       - Conifold: class G (kappa=1, alpha=0, S4=0) -- free field type
       - C^3: class G (kappa regularized, alpha=0, S4=0) after reg.
-      - K3 x E: class M (kappa=5, complex OPE structure)
-      - Quintic: class M (kappa=-25/3, complex mirror map)
+      - K3 x E: class M (kappa_BKM=5, complex OPE structure)
+      - Quintic: class M (kappa_BCOV_shadow_conjectural=-25/3, complex mirror map)
 
     The E_1 structure means the shadow tower lives in the associative
     (non-braided) sector.  The E_2 enhancement via Drinfeld center
@@ -1065,16 +1070,16 @@ def e1_shadow_conifold(max_arity: int = 8) -> E1ShadowData:
 def e1_shadow_k3e(max_arity: int = 8) -> E1ShadowData:
     """E_1 shadow tower for K3 x E.
 
-    kappa = 5 (weight of Delta_5).
+    kappa_BKM = 5 (weight of Delta_5).
     The OPE structure of the K3 x E chiral algebra gives nonzero
     cubic and quartic shadows, making this class M (infinite tower).
 
     The cubic shadow alpha comes from the OPE of the spin-2 (Virasoro)
     sector at c = 24*5/12 = 10 ... actually the K3 sigma model has c = 6.
     For the full K3 x E: c = 6 + 1 = 7 (K3 has c=6, elliptic curve has c=1).
-    But kappa = 5, not c/2 = 7/2 (AP48: kappa depends on the full algebra!).
+    But kappa_BKM = 5, not c/2 = 7/2 (AP48: kappa depends on the full algebra!).
 
-    For a model computation, we use the Virasoro-like shadow with kappa=5:
+    For a model computation, we use the Virasoro-like shadow with kappa_BKM=5:
       alpha = 2 (from the T-T OPE cubic term)
       S4 = kappa * alpha^2 / (kappa * (5*kappa + 22))
          = 5 * 4 / (5 * 47) = 20/235 = 4/47
@@ -1092,13 +1097,18 @@ def e1_shadow_k3e(max_arity: int = 8) -> E1ShadowData:
 def e1_shadow_quintic(max_arity: int = 8) -> E1ShadowData:
     """E_1 shadow tower for the quintic.
 
-    kappa = chi/24 = -25/3 (CONJECTURAL for compact CY3).
-    Negative kappa means NEGATIVE curvature in the shadow metric.
+    This routine computes the BCOV scalar-shadow tower with
+    chi_top/24 = -25/3. It is not the constructed kappa_ch of the
+    quintic, which is the Hodge supertrace chi(O_X)=0.
+    Negative BCOV shadow scalar means NEGATIVE curvature in the shadow metric.
 
     The quintic is class M (infinite shadow tower) because the mirror
     map introduces arbitrarily high-order instanton corrections.
     """
-    cy3 = quintic_data()
+    cy3 = quintic_data()._replace(
+        kappa_cy=Fraction(-25, 3),
+        name="quintic_BCOV_shadow_candidate",
+    )
     # Model alpha from the mirror map
     alpha = Fraction(0)  # to leading order, no cubic (symmetric quintic)
     # S4 from genus-2 Gromov-Witten: schematic

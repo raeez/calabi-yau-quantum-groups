@@ -25,6 +25,7 @@ from compute.lib.kappa_spectrum_reconciliation import (
     kappa_cat,
     kappa_ch,
     kappa_ch_compact_hodge,
+    bcov_shadow_candidate,
     kappa_ch_rational,
     kappa_BKM,
     kappa_fiber,
@@ -227,10 +228,13 @@ class TestKappaCh:
         assert kappa_ch(enr) == 1
         assert kappa_ch(enr) == kappa_ch(k3_surface()) // 2
 
-    def test_kappa_ch_quintic_is_rational(self):
-        """kappa_ch(Quintic) = -25/3 (rational, from BCOV formula)."""
+    def test_quintic_bcov_shadow_candidate_is_rational(self):
+        """The quintic BCOV-shadow candidate is -25/3."""
         q = quintic_threefold()
-        # VERIFIED [DC] kappa_ch(Quintic) = -25/3 [LC] BCOV formula
+        # VERIFIED [DC] BCOV-shadow candidate [LC] chi_top/24
+        with pytest.raises(ValueError):
+            kappa_ch(q)
+        assert bcov_shadow_candidate(q) == Fraction(-25, 3)
         assert kappa_ch_rational(q) == Fraction(-25, 3)
 
     def test_kappa_ch_abelian_surface(self):
@@ -340,8 +344,9 @@ class TestKappaRelations:
         assert result["K3_fails"]     # 1 != 2
         assert result["K3xE_compact_matches"]  # 0 = 0
         assert result["K3xE_heis_fails"]       # 0 != 3
-        # But quintic matches
-        assert result["Quintic_matches"]  # -25/3 = -25/3
+        # Quintic matches only in the BCOV-shadow candidate lane.
+        assert result["Quintic_candidate_matches"]  # -25/3 = -25/3
+        assert not result["Quintic_constructed_kappa_ch"]
 
     def test_kappa_ch_neq_chi_O_for_E(self):
         """kappa_ch(E) = 1 != chi(O_E) = 0.

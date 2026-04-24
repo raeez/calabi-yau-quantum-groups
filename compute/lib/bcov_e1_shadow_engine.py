@@ -257,7 +257,9 @@ class CY3Data(NamedTuple):
 def c3_data() -> CY3Data:
     """C^3 = the simplest non-compact toric CY3.
 
-    The E_1 chiral algebra is W_{1+infty} at c=1 = Heisenberg H_1.
+    The raw CoHA sector is Y^+(gl_hat_1), the positive half.  The full
+    W_{1+infty}(c=1)=Heisenberg H_1 object appears after Drinfeld
+    double/center and Fock/evaluation.
     kappa(H_1) = 1 (the level; NOT c/2 = 1/2; AP48/AP39).
     chi(C^3) is not defined in the usual sense (non-compact), but the
     effective chi entering the DT partition function is chi_eff = 1

@@ -613,6 +613,7 @@ def wavefunction_as_bar_generating_function(
 class K3EWavefunctionData(NamedTuple):
     """K3 x E wavefunction data and its relation to 1/Phi_10."""
     kappa_ch: Fraction
+    kappa_ch_Heis: Fraction
     kappa_BKM: int
     kappa_fiber: int
     F_1: Fraction
@@ -629,7 +630,8 @@ def k3e_wavefunction(max_genus: int = 5) -> K3EWavefunctionData:
     CONDITIONAL on CY-A_3 (AP-CY6).
 
     For K3 x E:
-      kappa_ch = 3 (AP113: from chiral algebra, NOT 5)
+      compact kappa_ch = 0 (total-space Hodge/PhiFA supertrace)
+      kappa_ch_Heis = 3 (relative Heisenberg-Mukai scalar lane, NOT 5)
       kappa_BKM = 5 (from Borcherds-Kac-Moody)
       kappa_fiber = 24 (from chi(K3))
 
@@ -653,8 +655,9 @@ def k3e_wavefunction(max_genus: int = 5) -> K3EWavefunctionData:
       Z_1 = prod_{k>=1} 1/(1-q^k)^{24} = sum chi(Hilb^n(K3)) q^n
       This is Gottsche's formula (PROVED).
     """
-    kappa_ch = Fraction(3)
-    wf = bcov_wavefunction(kappa_ch, max_genus, shadow_class="M")
+    kappa_ch = Fraction(0)
+    kappa_ch_heis = Fraction(3)
+    wf = bcov_wavefunction(kappa_ch_heis, max_genus, shadow_class="M")
 
     # Verify rank-1 Gottsche formula
     gottsche = gottsche_from_bar_exponents(5)
@@ -666,6 +669,7 @@ def k3e_wavefunction(max_genus: int = 5) -> K3EWavefunctionData:
 
     return K3EWavefunctionData(
         kappa_ch=kappa_ch,
+        kappa_ch_Heis=kappa_ch_heis,
         kappa_BKM=5,
         kappa_fiber=24,
         F_1=wf.prefactor_F1,
@@ -915,19 +919,20 @@ def quintic_wavefunction(max_genus: int = 5) -> Dict[str, Any]:
 
     CONDITIONAL on CY-A_3 (AP-CY6).
 
-    kappa_ch = -25/3 (chi/24 = -200/24 = -25/3). Class M.
-    F_g = (-25/3) * lambda_g^FP on the scalar lane.
+    kappa_BCOV_shadow_conjectural = -25/3 (chi/24 = -200/24 = -25/3).
+    Class M.  F_g = (-25/3) * lambda_g^FP on the scalar lane.
 
     NOTE: For compact CY3 at g >= 2, the BCOV constant-map formula
     has B_{2g}*B_{2g-2} (product), differing from the scalar-lane
     formula B_{2g} alone. The wavefunction on the scalar lane captures
     only part of the full BCOV answer for compact CY3.
     """
-    kappa_ch = Fraction(-25, 3)
-    wf = bcov_wavefunction(kappa_ch, max_genus, shadow_class="M")
+    kappa_BCOV_shadow_conjectural = Fraction(-25, 3)
+    wf = bcov_wavefunction(kappa_BCOV_shadow_conjectural, max_genus, shadow_class="M")
     return {
         "geometry": "quintic",
-        "kappa_ch": kappa_ch,
+        "kappa_ch": kappa_BCOV_shadow_conjectural,
+        "kappa_label": "kappa_BCOV_shadow_conjectural",
         "shadow_class": "M",
         "F_1": wf.prefactor_F1,
         "F_1_value": Fraction(-25, 72),
@@ -1013,6 +1018,7 @@ def grand_verification() -> Dict[str, Any]:
     task4_pass = k3e_data.rank1_partition_match
     results["task_4_k3xe"] = {
         "kappa_ch": k3e_data.kappa_ch,
+        "kappa_ch_Heis": k3e_data.kappa_ch_Heis,
         "kappa_BKM": k3e_data.kappa_BKM,
         "rank1_gottsche_match": k3e_data.rank1_partition_match,
         "conditional_on": k3e_data.conditional_on,
@@ -1024,7 +1030,8 @@ def grand_verification() -> Dict[str, Any]:
     task5_structural = (
         osv.shadow_class == "M"
         and "CONDITIONAL" in osv.status
-        and osv.kappa_spectrum["kappa_ch"] == Fraction(3)
+        and osv.kappa_spectrum["kappa_ch"] == Fraction(0)
+        and osv.kappa_spectrum["kappa_ch_Heis"] == Fraction(3)
         and osv.kappa_spectrum["kappa_BKM"] == 5
     )
     results["task_5_osv"] = {
@@ -1068,8 +1075,9 @@ def main_results() -> Dict[str, Any]:
             "C -> convergent; M -> Gevrey-1 divergent (mock modular)."
         ),
         "k3xe": (
-            "K3 x E: kappa_ch = 3, class M. |Psi|^2 ~ 1/Phi_10 (CONDITIONAL on "
-            "CY-A_3). Rank-1 sector: Gottsche formula verified (UNCONDITIONAL). "
+            "K3 x E: compact kappa_ch = 0, Heisenberg shadow kappa_ch_Heis = 3, "
+            "class M. |Psi|^2 ~ 1/Phi_10 (CONDITIONAL on CY-A_3). "
+            "Rank-1 sector: Gottsche formula verified (UNCONDITIONAL). "
             "Bridge requires 4 steps (AP-CY8): Phi, bar Euler, Borcherds, DMVV."
         ),
         "osv": (

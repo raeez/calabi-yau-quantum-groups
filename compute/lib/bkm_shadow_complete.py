@@ -1193,9 +1193,9 @@ def bkm_shadow_kappa_from_weight(weight: int) -> int:
     - Algebraic side: shadow kappa = k (leading Hodge class coefficient)
 
     For:
-        g_{Delta_5}: weight 5, kappa = 5
-        Fake Monster: weight 12, kappa = 12
-        Enriques: weight 4, kappa = 4
+        g_{Delta_5}: weight 5, kappa_BKM = 5
+        Fake Monster: weight 12, kappa_BKM = 12
+        Enriques: weight 4, kappa_BKM = 4
     """
     return weight
 

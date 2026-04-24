@@ -26,8 +26,9 @@ k3_times_e.tex / toroidal_elliptic.tex):
     blowup_modes = 16 (A_1 Z/2 orbifold of T^4)
 
   Green-Schwarz mechanism:
-    kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3
-    Proved at d=2 (CY-A_2).
+    compact kappa_ch(K3 x E) = chi(O_{K3}) chi(O_E) = 2 * 0 = 0.
+    kappa_ch^Heis(K3 x E) = kappa_ch(K3) + kappa_ch^Heis(E) = 2 + 1 = 3.
+    The K3 factor is proved at d=2 (CY-A_2).
 
   Modular invariance:
     c mod 24 = 6
@@ -43,11 +44,12 @@ k3_times_e.tex / toroidal_elliptic.tex):
   Kappa-spectrum: {0, 2, 3, 5, 24} all distinct, each from a different anomaly.
 
   Kappa identities (7 verified):
-    I1: kappa_ch = kappa_cat(K3) + kappa_ch(E) = 2+1 = 3
+    I1: compact kappa_ch = kappa_cat(K3) * chi(O_E) = 2*0 = 0
+    I1': kappa_ch^Heis = kappa_cat(K3) + kappa_ch^Heis(E) = 2+1 = 3
     I2: kappa_BKM = c(0)/2 = 5
     I3: kappa_fiber = chi(K3) = 24
     I4: kappa_fiber - kappa_BKM = 19 = codim(Lambda^{3,2})
-    I5: kappa_BKM - kappa_ch = 2 = kappa_cat (COINCIDENCE, N=1 only)
+    I5: kappa_BKM - kappa_ch^Heis = 2 = kappa_cat (COINCIDENCE, N=1 only)
     I6: kappa_Koszul = 0
     I7: c(0) = h^{1,1}/2 = 10
 
@@ -68,6 +70,7 @@ from sympy import Rational
 from compute.lib.anomaly_shadow_consistency import (
     KAPPA_CAT,
     KAPPA_CH,
+    KAPPA_CH_HEIS,
     KAPPA_BKM,
     KAPPA_FIBER,
     KAPPA_KOSZUL,
@@ -120,8 +123,12 @@ class TestConstants:
         assert KAPPA_CAT == F(2)
 
     def test_kappa_ch_value(self):
-        """kappa_ch(K3 x E) = 3."""
-        assert KAPPA_CH == F(3)
+        """Compact kappa_ch(K3 x E) = 0."""
+        assert KAPPA_CH == F(0)
+
+    def test_kappa_ch_heis_value(self):
+        """Relative kappa_ch^Heis(K3 x E) = 3."""
+        assert KAPPA_CH_HEIS == F(3)
 
     def test_kappa_bkm_value(self):
         """kappa_BKM = c(0)/2 = 5."""
@@ -137,12 +144,12 @@ class TestConstants:
 
     def test_kappa_spectrum_distinct(self):
         """All five kappa values are distinct."""
-        spectrum = {KAPPA_KOSZUL, KAPPA_CAT, KAPPA_CH, KAPPA_BKM, KAPPA_FIBER}
+        spectrum = {KAPPA_KOSZUL, KAPPA_CAT, KAPPA_CH_HEIS, KAPPA_BKM, KAPPA_FIBER}
         assert len(spectrum) == 5
 
     def test_kappa_spectrum_ordered(self):
         """kappa values are ordered: 0 < 2 < 3 < 5 < 24."""
-        assert KAPPA_KOSZUL < KAPPA_CAT < KAPPA_CH < KAPPA_BKM < KAPPA_FIBER
+        assert KAPPA_KOSZUL < KAPPA_CAT < KAPPA_CH_HEIS < KAPPA_BKM < KAPPA_FIBER
 
     def test_chi_top_k3(self):
         """chi_top(K3) = 24."""
@@ -403,33 +410,39 @@ class TestGreenSchwarz:
     """Verify Green-Schwarz mechanism consistency."""
 
     def test_gs_consistent(self):
-        """Green-Schwarz gives kappa_ch = 3, matching expected."""
+        """Green-Schwarz separates compact kappa_ch=0 from the Heisenberg shadow 3."""
         result = green_schwarz_check()
         assert result.gs_consistent is True
 
     def test_kappa_ch_from_gs(self):
-        """kappa_ch(K3 x E) = 2 + 1 = 3 from GS additivity."""
+        """Compact kappa_ch(K3 x E)=0 from Kunneth."""
         result = green_schwarz_check()
-        assert result.kappa_ch_from_gs == F(3)
+        assert result.kappa_ch_from_gs == F(0)
+
+    def test_kappa_ch_heis_from_gs(self):
+        """kappa_ch^Heis(K3 x E) = 2 + 1 = 3 from GS additivity."""
+        result = green_schwarz_check()
+        assert result.kappa_ch_Heis_from_gs == F(3)
 
     def test_kappa_ch_expected(self):
-        """Expected kappa_ch = 3."""
+        """Expected compact kappa_ch = 0."""
         result = green_schwarz_check()
         assert result.kappa_ch_expected == KAPPA_CH
+        assert result.kappa_ch_Heis_expected == KAPPA_CH_HEIS
 
     def test_gs_additivity(self):
-        """kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E).
+        """kappa_ch^Heis(K3 x E) = kappa_ch(K3) + kappa_ch^Heis(E).
 
         kappa_ch(K3) = chi(O_{K3}) = 2 (proved at d=2 by CY-A_2).
-        kappa_ch(E) = 1 (Heisenberg, free boson at level 1).
+        kappa_ch^Heis(E) = 1 (Heisenberg, free boson at level 1).
         """
         result = green_schwarz_check()
-        assert result.kappa_ch_from_gs == F(2) + F(1)
+        assert result.kappa_ch_Heis_from_gs == F(2) + F(1)
 
     def test_shadow_arity_2(self):
-        """Shadow tower arity 2 = kappa_ch = 3."""
+        """Shadow tower arity 2 = kappa_ch^Heis = 3."""
         result = green_schwarz_check()
-        assert result.shadow_arity_2_value == KAPPA_CH
+        assert result.shadow_arity_2_value == KAPPA_CH_HEIS
 
     def test_anomaly_polynomial_mentions_c2(self):
         """Anomaly polynomial involves c_2(T_{K3})."""
@@ -585,15 +598,22 @@ class TestKappaAnomalyDictionary:
     """Verify the kappa-anomaly dictionary completeness."""
 
     def test_dictionary_length(self):
-        """Five entries: one per kappa in the spectrum."""
+        """Six entries: compact kappa_ch plus the visible anomaly spectrum."""
         d = kappa_anomaly_dictionary()
-        assert len(d) == 5
+        assert len(d) == 6
 
     def test_kappa_names(self):
-        """All five kappa names present."""
+        """All kappa names present."""
         d = kappa_anomaly_dictionary()
         names = {entry.kappa_name for entry in d}
-        assert names == {'kappa_Koszul', 'kappa_cat', 'kappa_ch', 'kappa_BKM', 'kappa_fiber'}
+        assert names == {
+            'kappa_Koszul',
+            'kappa_cat',
+            'kappa_ch',
+            'kappa_ch_Heis',
+            'kappa_BKM',
+            'kappa_fiber',
+        }
 
     def test_kappa_values(self):
         """Correct values for each kappa."""
@@ -601,7 +621,8 @@ class TestKappaAnomalyDictionary:
         value_map = {entry.kappa_name: entry.kappa_value for entry in d}
         assert value_map['kappa_Koszul'] == F(0)
         assert value_map['kappa_cat'] == F(2)
-        assert value_map['kappa_ch'] == F(3)
+        assert value_map['kappa_ch'] == F(0)
+        assert value_map['kappa_ch_Heis'] == F(3)
         assert value_map['kappa_BKM'] == F(5)
         assert value_map['kappa_fiber'] == F(24)
 
@@ -631,9 +652,9 @@ class TestKappaAnomalyDictionary:
         assert 'BCOV' in cat_entry.anomaly_type or 'olomorphic' in cat_entry.anomaly_type
 
     def test_kappa_ch_green_schwarz(self):
-        """kappa_ch from Green-Schwarz B-field coupling."""
+        """kappa_ch^Heis from Green-Schwarz B-field coupling."""
         d = kappa_anomaly_dictionary()
-        ch_entry = [e for e in d if e.kappa_name == 'kappa_ch'][0]
+        ch_entry = [e for e in d if e.kappa_name == 'kappa_ch_Heis'][0]
         assert 'Green-Schwarz' in ch_entry.anomaly_type
 
     def test_kappa_bkm_sp4(self):
@@ -772,21 +793,28 @@ class TestKappaIdentities:
     """Verify identities among kappa values from anomaly cancellation."""
 
     def test_all_hold(self):
-        """All 7 identities hold."""
+        """All identities hold."""
         result = kappa_identity_verification()
         assert result['all_hold'] is True
 
     def test_num_identities(self):
-        """7 identities checked."""
+        """8 identities checked."""
         result = kappa_identity_verification()
-        assert result['num_identities'] == 7
+        assert result['num_identities'] == 8
 
-    def test_i1_gs_additivity(self):
-        """I1: kappa_ch = kappa_cat(K3) + kappa_ch(E) = 2+1 = 3."""
+    def test_i1_compact_kunneth(self):
+        """I1: compact kappa_ch = kappa_cat(K3) * chi(O_E) = 2*0 = 0."""
         result = kappa_identity_verification()
-        assert result['identities']['I1_GS_additivity']['holds'] is True
-        assert result['identities']['I1_GS_additivity']['lhs_value'] == F(3)
-        assert result['identities']['I1_GS_additivity']['rhs_value'] == F(3)
+        assert result['identities']['I1_compact_Kunneth']['holds'] is True
+        assert result['identities']['I1_compact_Kunneth']['lhs_value'] == F(0)
+        assert result['identities']['I1_compact_Kunneth']['rhs_value'] == F(0)
+
+    def test_i1p_gs_heis_additivity(self):
+        """I1': kappa_ch^Heis = kappa_cat(K3) + kappa_ch^Heis(E) = 2+1 = 3."""
+        result = kappa_identity_verification()
+        assert result['identities']['I1p_GS_Heis_additivity']['holds'] is True
+        assert result['identities']['I1p_GS_Heis_additivity']['lhs_value'] == F(3)
+        assert result['identities']['I1p_GS_Heis_additivity']['rhs_value'] == F(3)
 
     def test_i2_borcherds_weight(self):
         """I2: kappa_BKM = c(0)/2 = 5."""
@@ -807,7 +835,7 @@ class TestKappaIdentities:
         assert result['identities']['I4_lattice_codimension']['lhs_value'] == F(19)
 
     def test_i5_bkm_ch_deficit_coincidence(self):
-        """I5: kappa_BKM - kappa_ch = 2 = kappa_cat (COINCIDENCE for N=1).
+        """I5: kappa_BKM - kappa_ch^Heis = 2 = kappa_cat (N=1 coincidence).
 
         This is NOT a theorem -- it fails for Z/N orbifolds with N >= 2.
         """
@@ -918,9 +946,10 @@ class TestFullReport:
         assert report['gravitational_anomaly']['supertrace_z0'] == 16
 
     def test_kappa_ch_gs_in_report(self):
-        """kappa_ch from GS = 3 in report."""
+        """GS report separates compact kappa_ch=0 from kappa_ch^Heis=3."""
         report = full_anomaly_shadow_report()
-        assert report['green_schwarz']['kappa_ch_gs'] == F(3)
+        assert report['green_schwarz']['kappa_ch_gs'] == F(0)
+        assert report['green_schwarz']['kappa_ch_Heis_gs'] == F(3)
 
     def test_c_0_in_report(self):
         """c(0) = 10 in report."""
@@ -936,7 +965,7 @@ class TestFullReport:
         """All identities hold in report."""
         report = full_anomaly_shadow_report()
         assert report['identities']['all_hold'] is True
-        assert report['identities']['num_checked'] == 7
+        assert report['identities']['num_checked'] == 8
 
     def test_numerical_in_report(self):
         """Numerical unitarity passes in report."""
@@ -989,9 +1018,9 @@ class TestCrossEngineConsistency:
         assert g_0 == 1
 
     def test_kappa_ch_from_modular_engine(self):
-        """kappa_ch(K3 x E) = 3 from modular engine."""
+        """The modular engine returns the relative K3 x E Heisenberg scalar 3."""
         from compute.lib.modular_cy_characteristic import kappa_ch_k3_times_e
-        assert F(kappa_ch_k3_times_e()) == KAPPA_CH
+        assert F(kappa_ch_k3_times_e()) == KAPPA_CH_HEIS
 
     def test_kappa_bkm_from_modular_engine(self):
         """kappa_BKM(K3 x E) = 5 from modular engine."""
@@ -1015,8 +1044,9 @@ class TestKappaSpectrumFilters:
         assert C_L == C_R  # This is a constraint on the sigma model, not kappa
 
     def test_gs_filter_kappa_ch(self):
-        """Green-Schwarz: kappa_ch must be additive (2+1=3)."""
-        assert KAPPA_CH == KAPPA_CAT + F(1)  # kappa_ch(K3) + kappa_ch(E)
+        """Green-Schwarz: kappa_ch^Heis must be additive (2+1=3)."""
+        assert KAPPA_CH == F(0)
+        assert KAPPA_CH_HEIS == KAPPA_CAT + F(1)  # kappa_ch(K3) + kappa_ch^Heis(E)
 
     def test_modular_filter_kappa_bkm(self):
         """Modular: kappa_BKM = c(0)/2 = 5, independently determined."""
@@ -1032,12 +1062,12 @@ class TestKappaSpectrumFilters:
 
     def test_no_negative_kappas(self):
         """All kappa values are non-negative."""
-        for kappa in [KAPPA_KOSZUL, KAPPA_CAT, KAPPA_CH, KAPPA_BKM, KAPPA_FIBER]:
+        for kappa in [KAPPA_KOSZUL, KAPPA_CH, KAPPA_CAT, KAPPA_CH_HEIS, KAPPA_BKM, KAPPA_FIBER]:
             assert kappa >= 0
 
     def test_kappa_spectrum_is_set_0_2_3_5_24(self):
         """The complete spectrum is exactly {0, 2, 3, 5, 24}."""
-        spectrum = sorted([KAPPA_KOSZUL, KAPPA_CAT, KAPPA_CH, KAPPA_BKM, KAPPA_FIBER])
+        spectrum = sorted([KAPPA_KOSZUL, KAPPA_CAT, KAPPA_CH_HEIS, KAPPA_BKM, KAPPA_FIBER])
         assert spectrum == [F(0), F(2), F(3), F(5), F(24)]
 
     def test_kappa_cat_from_hodge(self):
@@ -1100,7 +1130,7 @@ class TestAPCompliance:
             assert entry.kappa_name.startswith('kappa_')
             # The part after 'kappa_' must be one of the approved subscripts
             subscript = entry.kappa_name[len('kappa_'):]
-            assert subscript in {'Koszul', 'cat', 'ch', 'BKM', 'fiber'}
+            assert subscript in {'Koszul', 'cat', 'ch', 'ch_Heis', 'BKM', 'fiber'}
 
     def test_ap_cy14_all_conjectural(self):
         """AP-CY14: all anomaly checks are conjectural."""

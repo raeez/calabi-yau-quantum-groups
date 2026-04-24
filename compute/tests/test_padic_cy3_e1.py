@@ -29,7 +29,7 @@ References:
   Candelas-de la Ossa-Rodriguez-Villegas, hep-th/0012233
   Ireland-Rosen, A Classical Introduction to Modern Number Theory
   Weil (1949): Numbers of solutions of equations in finite fields
-  Schiffmann-Vasserot (2013): CoHA = affine Yangian
+  Schiffmann-Vasserot (2013): CoHA(C^3) = Y^+(gl_hat_1), positive half
   Lorgat, Vol III: CY-to-chiral functor, shadow obstruction tower
 """
 

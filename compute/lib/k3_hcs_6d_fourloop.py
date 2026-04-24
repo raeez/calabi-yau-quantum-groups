@@ -5,9 +5,20 @@ WAVE-5 ATTACK MODULE (Costello voice). Raeez Lorgat sole author.
 MATHEMATICAL CONTENT
 ====================
 
-Wave-4 produced:
+Wave-4 proposed:
     A_3(g, K3) = (12 + h^v/2)^3 - 3*(h^v/2)^2*(12+h^v/2)/4 + (h^v)^3/120
     CT_3(u) = -A_3 * [(3P/2 - t(x)t) (x) t (x) t]_{sym} / u^6
+
+ADVERSARIAL STATUS, 2026-04-24
+==============================
+
+This module is a four-loop coefficient/ansatz diagnostic.  It is not a
+certified YBE-restoration oracle, because the lower-order two-loop input now
+detects an hbar^3 obstruction in the legacy naive-fish path.  After the
+one-loop Yang-normalisation repair is imposed, the old sunset ansatz still
+has a nonzero hbar^5 obstruction.  An hbar^8 four-loop counterterm cannot
+cancel either lower-order defect by filtration degree.  Any four-loop YBE
+theorem is therefore conditional on a prior two-loop repair.
 
 Wave-5 pushes to FOUR LOOPS (hbar^8). The four-loop diagrams contributing
 at hbar^8 to the R-matrix of 6d hCS on K3 x E with surface defect are:
@@ -55,8 +66,8 @@ The signs come from the Feynman-diagram alternation, and the denominators
 from the graph automorphism groups: |Aut(fish)|=2, |Aut(sunset)|=3!,
 |Aut(K_4)|=24, |Aut(K_5)|=120 (with internal-leg correction factor 6).
 
-The four-loop counterterm CT_4 is forced by H^1_{hbar^8} of the Costello
-deformation complex:
+The candidate four-loop counterterm CT_4 would live in H^1_{hbar^8} of the
+Costello deformation complex:
 
     CT_4(u) = -A_4(g, K3) * [(3P/2 - t(x)t) (x) t (x) t (x) t]_{sym} / u^8.
 
@@ -92,14 +103,16 @@ We compute d^{(3)} for F_4 and G_2 and the resulting A_3 correction.
 
                          ~~~~  YBE AT hbar^9  ~~~~
 
-With CT_4 in hand, YBE is restored at hbar^9. We verify numerically at
-sl_2 with hbar = 0.01; hbar^9 = 1e-18 is at machine precision.
+The hbar^9 claim is blocked by lower-order residuals: hbar^3 in the legacy
+path and hbar^5 after the one-loop repair.  The diagnostic below records the
+residual rather than certifying restoration.
 
 COSTELLO STANDARD
 =================
 
-- Factorisation algebra framework: H^1_{hbar^8} computed.
-- Derived geometry exact: four-loop BV obstruction analysed.
+- Factorisation algebra framework: H^1_{hbar^8} ansatz recorded.
+- Derived geometry exactness is blocked by the lower-order YBE residuals:
+  hbar^3 in the legacy path, hbar^5 after one-loop normalisation.
 - Gauge invariance verified via BRST cohomology on quartic-Casimir
   sector.
 - Modular invariance: E_8 (weight 8) Eisenstein available at Wave 6.
@@ -488,7 +501,7 @@ def R_fourloop_naive_correction(u: float, hbar: float, N: int, c_v: float, dim_g
 
 
 def R_fourloop_counterterm(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> np.ndarray:
-    r"""Four-loop YBE-restoring counterterm CT_4(u).
+    r"""Candidate four-loop counterterm CT_4(u).
 
     From H^1_{hbar^8} of the Costello deformation complex:
         CT_4(u) = -A_4(g, K3) * [(3P/2 - t(x)t) (x) t (x) t (x) t]_{sym} / u^8.
@@ -506,7 +519,7 @@ def R_fourloop_counterterm(u: float, hbar: float, N: int, c_v: float, dim_g: flo
 
 
 def R_fourloop_YBE(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> np.ndarray:
-    r"""Full four-loop R-matrix with counterterm."""
+    r"""Backward-compatible name for the four-loop ansatz."""
     return (
         R_fourloop_naive_correction(u, hbar, N, c_v, dim_g)
         + R_fourloop_counterterm(u, hbar, N, c_v, dim_g)
@@ -514,7 +527,11 @@ def R_fourloop_YBE(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> n
 
 
 def R_full_through_fourloop(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> np.ndarray:
-    r"""Tree + 1L + 2L + 3L + 4L YBE-restoring R-matrix through O(hbar^8)."""
+    r"""Tree plus one-, two-, three-, and four-loop ansatz through O(hbar^8).
+
+    This object inherits lower-order YBE obstructions and is not a certified
+    YBE-restoring R-matrix.
+    """
     return (
         R_full_through_threeloop(u, hbar, N, c_v, dim_g)
         + R_fourloop_YBE(u, hbar, N, c_v, dim_g)
@@ -641,13 +658,11 @@ def ybe_at_hbar9(
     u: float = 2.3,
     v: float = 1.7,
 ) -> dict:
-    r"""Verify YBE at hbar^9 for R^tree + h^2 R^{1,YBE} + h^4 R^{2,YBE} +
-    h^6 R^{3,YBE} + h^8 R^{4,YBE}.
+    r"""Diagnose the blocked hbar^9 YBE claim for the four-loop ansatz.
 
-    Structural verification: if CT_4 cancels Obs_{hbar^8} in the quartic
-    Casimir sector, then YBE holds at hbar^9. Numerically, at hbar = 0.01,
-    hbar^9 ~ 1e-18, near machine precision; we check the CUMULATIVE residual
-    is consistent with hbar^{2k+1} scaling.
+    The four-loop hbar^8 term cannot certify an hbar^9 theorem while the
+    lower-order input carries an hbar^3 residual in the legacy path and an
+    hbar^5 residual after one-loop normalisation.
     """
     R_4YBE_12 = embed_12(R_full_through_fourloop(u - v, hbar, N, c_v, dim_g), N)
     R_4YBE_13 = embed_13(R_full_through_fourloop(u, hbar, N, c_v, dim_g), N)
@@ -666,8 +681,8 @@ def ybe_at_hbar9(
         R_3YBE_12 @ R_3YBE_13 @ R_3YBE_23 - R_3YBE_23 @ R_3YBE_13 @ R_3YBE_12
     )))
 
-    # Expected scaling: residual should improve by a factor hbar^2
-    # between three-loop-YBE and four-loop-YBE.
+    # A genuine four-loop repair would not be allowed to leave inherited
+    # lower-order residuals.  This ratio is diagnostic only.
     ratio = res_4loop_YBE / max(res_3loop_YBE, 1e-20)
     expected_ratio = hbar ** 2  # factor 1e-4 at hbar=0.01
 
@@ -678,10 +693,16 @@ def ybe_at_hbar9(
         "four_loop_YBE_residual": res_4loop_YBE,
         "ratio_4loop_to_3loop": ratio,
         "expected_ratio_hbar_squared": expected_ratio,
-        "improvement_factor_matches": ratio < 10.0 * expected_ratio,
+        "residual_order_detected": "legacy-hbar^3; after-CT1-hbar^5",
+        "legacy_missing_one_loop_ybe_repair": True,
+        "missing_two_loop_ybe_repair_after_CT1": True,
+        "four_loop_counterterm_can_cancel_lower_residual": False,
+        "improvement_factor_matches": False,
         "note": (
-            "At hbar = 0.01, hbar^9 = 1e-18 is at or below double-precision floor. "
-            "Structural YBE at hbar^9 follows from FA4 with CT_4 cancelling Obs_{hbar^8}."
+            "The four-loop ansatz is blocked by lower-order YBE residuals: "
+            "hbar^3 in the legacy naive-fish path, and hbar^5 after the "
+            "one-loop Yang-normalisation repair. An hbar^8 counterterm can "
+            "affect hbar^9-and-higher terms, not those lower-order defects."
         ),
     }
 

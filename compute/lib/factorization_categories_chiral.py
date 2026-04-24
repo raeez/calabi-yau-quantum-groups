@@ -618,7 +618,8 @@ class BPSFactorizationData(NamedTuple):
     fiber_over_point: str         # category at each point of E
     hecke_action: str             # instanton creation/annihilation
     global_sections_char: str     # character of int_E BPS(K3; -)
-    kappa_ch: int                 # kappa_ch(K3 x E) = 3
+    kappa_ch: int                 # compact kappa_ch(K3 x E) = 0
+    kappa_ch_Heis: int            # relative Heisenberg shadow = 3
     kappa_BKM: int                # kappa_BKM(K3 x E) = 5
     kappa_cat: int                # kappa_cat(K3 x E) = chi(O_{K3 x E}) = 0
     kappa_cat_fiber: int          # kappa_cat(K3) = chi(O_{K3}) = 2
@@ -649,7 +650,8 @@ def bps_factorization_category_k3(max_n: int = 6) -> BPSFactorizationData:
     This is the character of the chiral homology int_E Rep(H_Muk),
     which is the FREE-FIELD approximation to the BPS category.
 
-    AP113: kappa_ch = 3 (chiral), kappa_BKM = 5 (Borcherds weight of
+    AP113: compact kappa_ch = 0, kappa_ch_Heis = 3,
+    kappa_BKM = 5 (Borcherds weight of
     Delta_5), kappa_cat(K3 x E) = 0, and kappa_cat_fiber = 2 =
     chi(O_{K3}). These are DIFFERENT invariants.
     """
@@ -665,7 +667,8 @@ def bps_factorization_category_k3(max_n: int = 6) -> BPSFactorizationData:
             '(creation E_0), dual Hecke (annihilation F_0)'
         ),
         global_sections_char='1/eta(tau)^{24} (Gottsche, unconditional)',
-        kappa_ch=3,
+        kappa_ch=0,
+        kappa_ch_Heis=3,
         kappa_BKM=5,
         kappa_cat=0,
         kappa_cat_fiber=2,
@@ -1076,7 +1079,7 @@ def factorization_category_landscape() -> List[FactCatLandscapeEntry]:
             en_level='E_1 (ordered)',
             fact_cat_type='monoidal (E_1), braided via Z(-)',
             num_simples='expected: continuous',
-            kappa_ch='kappa_ch = 3',
+            kappa_ch='compact kappa_ch = 0; kappa_ch_Heis = 3',
             proof_status='CONJECTURAL (CY-A_3)',
         ),
         FactCatLandscapeEntry(
@@ -1202,7 +1205,8 @@ def verify_bps_category_consistency() -> Dict[str, Any]:
     bps = bps_factorization_category_k3(max_n=5)
 
     # Check 1: kappa spectrum (AP113)
-    checks['kappa_ch_3'] = (bps.kappa_ch == 3, bps.kappa_ch)
+    checks['kappa_ch_compact_0'] = (bps.kappa_ch == 0, bps.kappa_ch)
+    checks['kappa_ch_Heis_3'] = (bps.kappa_ch_Heis == 3, bps.kappa_ch_Heis)
     checks['kappa_BKM_5'] = (bps.kappa_BKM == 5, bps.kappa_BKM)
     checks['kappa_cat_total_0'] = (bps.kappa_cat == 0, bps.kappa_cat)
     checks['kappa_cat_fiber_2'] = (bps.kappa_cat_fiber == 2, bps.kappa_cat_fiber)

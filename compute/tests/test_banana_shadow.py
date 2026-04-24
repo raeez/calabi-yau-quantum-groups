@@ -694,7 +694,7 @@ class TestBananaShadowIV:
     The proposition states the shadow obstruction tower of the
     banana CY_3 X_ban (Schoen 1988, fiber product of two rational
     elliptic surfaces over P^1):
-      (i) kappa_ch = chi/24 = 0 (degree-2 scalar shadow vanishes)
+      (i) BCOV-shadow candidate chi/24 = 0 (degree-2 scalar shadow vanishes)
       (ii) S_4 = -44 (quartic shadow from genus-0 GV invariants
            n^0_{d_1, d_2} = -2 of the banana curve classes)
       (iii) Shadow tower starts at degree 4, not 2 (cubic shadow
@@ -739,9 +739,8 @@ class TestBananaShadowIV:
             "genus-0 invariants of banana curves is verified from "
             "the BKY partition function",
             "Serre duality odd-d vanishing: chi(O_{X_ban}) = 0 by "
-            "prop:chi-O-vanishes-odd-d (d = 3 case), hence "
-            "kappa_ch = chi/24 = 0 at the BCOV normalisation for "
-            "class B CY_3 with h^{1,0} = 0",
+            "prop:chi-O-vanishes-odd-d (d = 3 case); the BCOV-shadow "
+            "candidate chi/24 vanishes for class B CY_3 with h^{1,0} = 0",
             "Multiplicativity of Euler characteristic under fiber "
             "product: chi(X_ban) = chi(E^rational elliptic surface) * "
             "chi(other surface) / chi(P^1) = 12 * 12 / 2 - corrections "

@@ -4591,11 +4591,12 @@ class TestBeauvilleKappaFormulaIV:
             "diamond data at four canonical compact CY_3 examples "
             "(K3 × E, Enriques × E, T^6, quintic) — purely topological "
             "/ Dolbeault invariants from algebraic-geometric references. "
-            "All four agree at the predicted κ_ch values."
+            "The product lanes agree at constructed κ_ch values; the strict "
+            "compact lane records the BCOV-shadow candidate."
         ),
     )
     def test_beauville_formula_at_canonical_compact_CY3(self):
-        """The KEY PROPOSITION: κ_ch(X) = chi_top/24 + [h^{1,0}>0]·(h^{3,0}+2)
+        """Branch assessment: chi_top/24 shadow plus product additivity
         at four canonical compact CY_3.
         """
         from fractions import Fraction

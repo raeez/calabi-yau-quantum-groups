@@ -52,7 +52,9 @@ from lib.k3e_topological_string_shadow import (
     CHI_K3,
     KAPPA_CH_K3,
     KAPPA_CH_E,
+    KAPPA_CH_HEIS_E,
     KAPPA_CH_K3E,
+    KAPPA_CH_HEIS_K3E,
     KAPPA_BKM,
     KAPPA_FIBER,
     # Gottsche / eta
@@ -279,9 +281,10 @@ class TestKappaSpectrum:
     """Test the four-valued kappa-spectrum of K3 x E."""
 
     def test_kappa_ch_k3xe(self):
-        """kappa_ch(K3 x E) = 3 by additivity."""
-        assert KAPPA_CH_K3E == KAPPA_CH_K3 + KAPPA_CH_E
-        assert KAPPA_CH_K3E == 3
+        """compact kappa_ch(K3 x E)=0; Heisenberg shadow is additive 2+1=3."""
+        assert KAPPA_CH_K3E == 0
+        assert KAPPA_CH_HEIS_K3E == KAPPA_CH_K3 + KAPPA_CH_HEIS_E
+        assert KAPPA_CH_HEIS_K3E == 3
 
     def test_kappa_bkm(self):
         """kappa_BKM = 5 = weight of Delta_5."""
@@ -301,18 +304,19 @@ class TestKappaSpectrum:
         assert spectrum['all_distinct']
 
     def test_kappa_ch_neq_kappa_bkm(self):
-        """kappa_ch = 3 != 5 = kappa_BKM. The source of the subscript confusion."""
-        assert KAPPA_CH_K3E != KAPPA_BKM
+        """kappa_ch^Heis = 3 != 5 = kappa_BKM."""
+        assert KAPPA_CH_HEIS_K3E != KAPPA_BKM
 
     def test_borcherds_weight_formula(self):
         """wt(Delta_5) = c(0)/2 = 10/2 = 5."""
         assert borcherds_weight() == 5
 
     def test_chi_top_over_24_wrong(self):
-        """chi_top(K3 x E)/24 = 0, which is WRONG for kappa_ch."""
+        """chi_top(K3 x E)/24 = 0: it matches compact kappa_ch, not BKM/Heis."""
         chi_top = CHI_K3 * 0  # chi(E) = 0
         assert chi_top // 24 == 0
-        assert chi_top // 24 != KAPPA_CH_K3E  # 0 != 3
+        assert chi_top // 24 == KAPPA_CH_K3E
+        assert chi_top // 24 != KAPPA_CH_HEIS_K3E  # 0 != 3
         assert chi_top // 24 != KAPPA_BKM     # 0 != 5
 
 
@@ -458,9 +462,10 @@ class TestWallCrossingShadowDictionary:
         assert wc['shadow_class'] == 'M'
 
     def test_kappa_values_in_dictionary(self):
-        """Dictionary records both kappa_ch and kappa_BKM."""
+        """Dictionary records compact kappa_ch, kappa_ch^Heis, and kappa_BKM."""
         wc = wall_crossing_shadow_tower_dictionary(20)
-        assert wc['kappa_ch'] == 3
+        assert wc['kappa_ch'] == 0
+        assert wc['kappa_ch_Heis'] == 3
         assert wc['kappa_BKM'] == 5
 
     def test_real_root_at_d_neg1(self):
@@ -505,7 +510,8 @@ class TestFullComparison:
         """Summary records correct kappa-spectrum."""
         summary = topological_string_shadow_comparison_summary(6)
         ks = summary['kappa_spectrum']
-        assert ks['kappa_ch'] == 3
+        assert ks['kappa_ch'] == 0
+        assert ks['kappa_ch_Heis'] == 3
         assert ks['kappa_BKM'] == 5
         assert ks['kappa_cat'] == 0
         assert ks['kappa_cat_fiber'] == 2

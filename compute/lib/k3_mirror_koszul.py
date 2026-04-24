@@ -28,9 +28,10 @@ The KEY RESULT (Theorem thm:k3-chiral-koszul-selfdual):
 For K3 x E (d=3, all conditional on CY-A_3):
   - h^{1,1}(K3 x E) = 21 = h^{2,1}(K3 x E)
   - chi(K3 x E) = 0 (topological)
-  - kappa_ch(K3 x E) = 3 (additivity: 2 + 1)
-  - kappa_ch(K3 x E^v) = 3 (same computation)
-  - Koszul sum: 3 + 3 = 6 != 0 (outside free-field class)
+  - compact kappa_ch(K3 x E) = 0
+  - relative kappa_ch^Heis(K3 x E) = 3 (additivity: 2 + 1)
+  - same compact/relative split for K3 x E^v
+  - relative mirror sum: 3 + 3 = 6 != 0 (outside free-field class)
   - Koszul conductor K = 5 = kappa_BKM (holographic datum)
 
 References:
@@ -334,10 +335,15 @@ def k3e_hodge_numbers() -> Dict[str, int]:
 
 
 def k3e_kappa_ch() -> Fraction:
-    """kappa_ch(K3 x E) by additivity.
+    """Compact kappa_ch(K3 x E) by Kunneth.
 
-    kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+    kappa_ch(K3 x E) = chi(O_{K3}) chi(O_E) = 2 * 0 = 0.
     """
+    return Fraction(0)
+
+
+def k3e_kappa_ch_heis() -> Fraction:
+    """Relative kappa_ch^Heis(K3 x E) by additivity: 2 + 1 = 3."""
     return Fraction(2) + Fraction(1)
 
 
@@ -350,12 +356,12 @@ def k3e_koszul_conductor() -> Fraction:
     """Koszul conductor for K3 x E.
 
     From the holographic datum (constr:k3e-holographic-datum):
-      kappa_ch(A^!) = kappa_BKM - kappa_ch = 5 - 3 = 2
-      K = kappa_ch + kappa_ch^! = 3 + 2 = 5
+      kappa_ch^Heis(A^!) = kappa_BKM - kappa_ch^Heis = 5 - 3 = 2
+      K = kappa_ch^Heis + kappa_ch^! = 3 + 2 = 5
 
     This is NONZERO, so K3 x E is OUTSIDE the free-field Koszul class.
     """
-    kappa_ch = k3e_kappa_ch()      # = 3
+    kappa_ch = k3e_kappa_ch_heis() # = 3, relative branch
     kappa_bkm = k3e_kappa_bkm()    # = 5
     kappa_dual = kappa_bkm - kappa_ch  # = 2
     return kappa_ch + kappa_dual   # = 5
@@ -364,11 +370,11 @@ def k3e_koszul_conductor() -> Fraction:
 def k3e_mirror_kappa_sum() -> Fraction:
     """The naive Koszul sum for K3 x E mirror pair.
 
-    K3 x E and K3 x E^v have the same kappa_ch = 3 (same computation).
+    K3 x E and K3 x E^v have the same relative kappa_ch^Heis = 3.
     The sum 3 + 3 = 6 is NOT the Koszul conductor (which is 5).
     This confirms that mirror symmetry != Koszul duality for K3 x E.
     """
-    return k3e_kappa_ch() + k3e_kappa_ch()
+    return k3e_kappa_ch_heis() + k3e_kappa_ch_heis()
 
 
 # =========================================================================
@@ -512,8 +518,9 @@ def test_k3e_chi_top_vanishes():
 
 
 def test_k3e_kappa_ch():
-    """Test 18: kappa_ch(K3 x E) = 3."""
-    assert k3e_kappa_ch() == 3
+    """Test 18: compact kappa_ch(K3 x E) = 0; relative shadow = 3."""
+    assert k3e_kappa_ch() == 0
+    assert k3e_kappa_ch_heis() == 3
 
 
 def test_k3e_kappa_bkm():

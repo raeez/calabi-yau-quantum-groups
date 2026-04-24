@@ -274,7 +274,8 @@ class TestK3xEDMVV:
     def test_kappa_spectrum(self):
         """Path 3: K3 x E total and fiber kappa labels are separated."""
         # VERIFIED [DC] kappa-spectrum [LT] Vol III CLAUDE.md
-        assert K3E_KAPPA_SPECTRUM["kappa_ch"] == Fraction(3)
+        assert K3E_KAPPA_SPECTRUM["kappa_ch"] == Fraction(0)
+        assert K3E_KAPPA_SPECTRUM["kappa_ch_Heis"] == Fraction(3)
         assert K3E_KAPPA_SPECTRUM["kappa_BKM"] == 5
         assert K3E_KAPPA_SPECTRUM["kappa_cat"] == Fraction(0)
         assert K3E_KAPPA_SPECTRUM["kappa_cat_fiber"] == 2
@@ -425,7 +426,8 @@ class TestShadowGenusExpansion:
         """
         result = k3e_genus_expansion(3)
         assert "CY-A_3" in result["conditional_on"]
-        assert result["kappa_spectrum"]["kappa_ch"] == Fraction(3)
+        assert result["kappa_spectrum"]["kappa_ch"] == Fraction(0)
+        assert result["kappa_spectrum"]["kappa_ch_Heis"] == Fraction(3)
 
 
 # =====================================================================

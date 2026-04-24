@@ -1197,7 +1197,7 @@ def conifold_shadow_class_jump() -> Dict[str, Any]:
     The conifold transition DOES change:
     - The Hodge numbers (h11, h21)
     - The Euler characteristic chi
-    - The kappa_ch (conjecturally: -25/3 -> -49/6, if kappa_ch = chi/24)
+    - The BCOV-shadow candidate (-25/3 -> -49/6 via chi/24)
     - The GV invariants
     - The shadow tower COEFFICIENTS (S_k values change)
 

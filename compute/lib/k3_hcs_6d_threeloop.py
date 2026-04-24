@@ -5,11 +5,26 @@ WAVE-4 ATTACK MODULE (Costello voice). Raeez Lorgat sole author.
 MATHEMATICAL CONTENT
 ====================
 
-Wave-3 produced:
-- CT_1(u) = -(12 + h^v/2) * (t (x) t - P/2) / u^2      [proved from FA1-FA4]
+Wave-3 proposed:
+- CT_1(u) = -(12 + h^v/2) * (t (x) t - P/2) / u^2      [historical ansatz; hCS derivation open]
 - A_2(g, K3) = (12 + h^v/2)^2 - (h^v)^2 / 12            [sunset coefficient]
 - CT_2(u)  = -A_2 * ((3P/2 - t(x)t) (x) t)_sym / u^4    [cohomological]
-- YBE restored at hbar^5.
+- YBE restoration is not verified: the legacy two-loop oracle detects an
+  order-hbar^3 residual before the one-loop Yang-normalisation repair, and
+  a nonzero order-hbar^5 residual for the old sunset ansatz after that
+  one-loop repair is imposed.
+
+ADVERSARIAL STATUS, 2026-04-24
+==============================
+
+This module is a three-loop coefficient/ansatz diagnostic, not a certified
+YBE-restoration oracle.  It imports the legacy R_full_through_twoloop path,
+which still contains the naive one-loop fish term and therefore reports an
+hbar^3 obstruction.  The repaired one-loop Yang-normalisation removes that
+lower obstruction, but the legacy sunset ansatz then has a nonzero hbar^5
+obstruction.  By hbar-filtration degree, an hbar^6 three-loop counterterm
+cannot cancel either lower-order defect.  Therefore all YBE claims below are
+conditional on a prior two-loop repair after the one-loop normalisation.
 
 Wave-4 pushes to THREE LOOPS. The three-loop diagrams contributing at
 hbar^6 to the R-matrix of 6d hCS on K3 x E with a surface defect are:
@@ -30,7 +45,7 @@ hbar^6 to the R-matrix of 6d hCS on K3 x E with a surface defect are:
 
                          ~~~~  WAVE-4 MAIN  RESULT  ~~~~
 
-The three-loop coefficient (rational limit) is
+The candidate three-loop coefficient (rational limit) is
 
     A_3(g, K3) = (12 + h^v/2)^3 - 3 * (h^v/2)^2 * (12 + h^v/2) / 4
                + (h^v)^3 * zeta_E(3) / 120
@@ -40,8 +55,8 @@ E; rational in rational limit tau -> i*infty).  The first term is the
 iterated-fish cube (factorised), the second term the double-sunset
 sub-leading, and the third the genuine tetrahedron piece.
 
-The three-loop counterterm CT_3 is forced by H^1_{hbar^6} of the Costello
-deformation complex:
+The candidate three-loop counterterm CT_3 would live in H^1_{hbar^6} of the
+Costello deformation complex:
 
     CT_3(u) = -A_3(g, K3) * [(3P/2 - t(x)t) (x) t (x) t]_{sym} / u^6
               + (tetrahedron-specific W_3-type correction).
@@ -78,8 +93,9 @@ the order of the Igusa-Siegel modular weight denominator.
 COSTELLO STANDARD
 =================
 
-- Factorisation algebra framework: H^1_{hbar^6} computed.
-- Derived geometry exact: three-loop BV obstruction analysed.
+- Factorisation algebra framework: H^1_{hbar^6} ansatz recorded.
+- Derived geometry exactness is blocked by the lower-order YBE residuals:
+  hbar^3 in the legacy path, hbar^5 after one-loop normalisation.
 - Gauge invariance verified via BRST cohomology on the cubic
   Casimir-invariant sector (t (x) t (x) t)_{sym}.
 - Modular invariance via the Eisenstein E_6 weight matching.
@@ -304,7 +320,7 @@ def R_threeloop_naive_correction(u: float, hbar: float, N: int, c_v: float, dim_
 
 
 def R_threeloop_counterterm(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> np.ndarray:
-    r"""Three-loop YBE-restoring counterterm CT_3(u).
+    r"""Candidate three-loop counterterm CT_3(u).
 
     From the factorisation-algebra RG equation at hbar^6:
 
@@ -329,7 +345,13 @@ def R_threeloop_counterterm(u: float, hbar: float, N: int, c_v: float, dim_g: fl
 
 
 def R_threeloop_YBE(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> np.ndarray:
-    r"""Full three-loop R-matrix with counterterm: YBE-preserving."""
+    r"""Backward-compatible name for the three-loop ansatz.
+
+    This is not a certified YBE-preserving R-matrix.  The legacy lower-order
+    input has an hbar^3 obstruction; after the one-loop Yang-normalisation
+    repair, the old two-loop sunset ansatz still has a nonzero hbar^5
+    obstruction.
+    """
     return (
         R_threeloop_naive_correction(u, hbar, N, c_v, dim_g)
         + R_threeloop_counterterm(u, hbar, N, c_v, dim_g)
@@ -337,7 +359,13 @@ def R_threeloop_YBE(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> 
 
 
 def R_full_through_threeloop(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> np.ndarray:
-    r"""Tree + 1-loop-YBE + 2-loop-YBE + 3-loop-YBE R-matrix through O(hbar^6)."""
+    r"""Tree plus one-, two-, and three-loop ansatz through O(hbar^6).
+
+    The name is kept for downstream imports, but this object inherits the
+    lower-order YBE obstruction from R_full_through_twoloop: hbar^3 in the
+    legacy naive-fish path, and hbar^5 after the one-loop normalisation
+    repair is imposed on the old sunset ansatz.
+    """
     return R_full_through_twoloop(u, hbar, N, c_v, dim_g) + R_threeloop_YBE(u, hbar, N, c_v, dim_g)
 
 
@@ -441,16 +469,16 @@ def ybe_at_hbar7(
     u: float = 2.3,
     v: float = 1.7,
 ) -> dict:
-    r"""Verify YBE at hbar^7 for R^tree + h^2 R^{1,YBE} + h^4 R^{2,YBE} + h^6 R^{3,YBE}.
+    r"""Diagnose the blocked hbar^7 YBE claim for the three-loop ansatz.
 
-    Structural verification: if CT_3 cancels Obs_{hbar^6} in the cubic Casimir
-    sector, then YBE holds at hbar^7.
-
-    Numerically: at hbar = 0.01, hbar^7 ~ 1e-14, below machine precision for
-    common double-precision arithmetic; we verify the CUMULATIVE residual at
-    each order is below the corresponding hbar^{2k+1} tolerance.
+    The current legacy lower-order input has an hbar^3 residual.  After the
+    one-loop Yang-normalisation repair, the old two-loop sunset ansatz still
+    has a nonzero hbar^5 residual.  This diagnostic keeps the old numerical
+    surface alive while reporting that a three-loop hbar^6 counterterm cannot
+    certify an hbar^7 theorem before those lower-order obstructions are
+    repaired.
     """
-    # Tree, 1-loop-YBE, 2-loop-YBE, 3-loop-YBE residuals.
+    # Tree and full-through-three-loop residuals.
     R_tree_12 = embed_12(R_tree_rational(u - v, hbar, N), N)
     R_tree_13 = embed_13(R_tree_rational(u, hbar, N), N)
     R_tree_23 = embed_23(R_tree_rational(v, hbar, N), N)
@@ -459,8 +487,8 @@ def ybe_at_hbar7(
         R_tree_12 @ R_tree_13 @ R_tree_23 - R_tree_23 @ R_tree_13 @ R_tree_12
     )))
 
-    # Full through three-loop YBE.
-    dim_g_used = float(max(N, 1))
+    # Full through three-loop ansatz, inheriting the lower-order obstruction.
+    dim_g_used = float(dim_g)
     R_3YBE_12 = embed_12(R_full_through_threeloop(u - v, hbar, N, c_v, dim_g=dim_g_used), N)
     R_3YBE_13 = embed_13(R_full_through_threeloop(u, hbar, N, c_v, dim_g=dim_g_used), N)
     R_3YBE_23 = embed_23(R_full_through_threeloop(v, hbar, N, c_v, dim_g=dim_g_used), N)
@@ -481,11 +509,16 @@ def ybe_at_hbar7(
         "tree_ybe_residual": res_tree,
         "three_loop_YBE_residual": res_3loop_YBE,
         "hbar7_coefficient_estimate": order7_estimate,
-        "three_loop_verification_passed": abs(res_3loop_YBE) < 10.0 * hbar ** 5,
+        "residual_order_detected": "legacy-hbar^3; after-CT1-hbar^5",
+        "legacy_missing_one_loop_ybe_repair": True,
+        "missing_two_loop_ybe_repair_after_CT1": True,
+        "three_loop_counterterm_can_cancel_lower_residual": False,
+        "three_loop_verification_passed": False,
         "note": (
-            "At hbar = 0.01, hbar^7 = 1e-14 is below standard double-precision floor. "
-            "Numerical residual is dominated by accumulated Casimir-structure approximation. "
-            "Structural (cohomological) YBE at hbar^7 follows from FA4 with CT_3."
+            "The three-loop ansatz is blocked by lower-order YBE residuals: "
+            "hbar^3 in the legacy naive-fish path, and hbar^5 after the "
+            "one-loop Yang-normalisation repair. An hbar^6 counterterm can "
+            "affect hbar^7-and-higher terms, not those lower-order defects."
         ),
     }
 

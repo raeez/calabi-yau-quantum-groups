@@ -661,7 +661,8 @@ def k3xe_free_field_pipeline() -> DefectKoszulPipeline:
 def k3xe_bkm_pipeline() -> DefectKoszulPipeline:
     """K3 x E (d=3), BKM / holographic branch: CONJECTURAL.
 
-    On this branch: kappa_ch = 3, kappa_BKM = 5, K = 5, kappa_ch^! = 2.
+    On this branch: relative kappa_ch^Heis = 3, compact kappa_ch = 0,
+    kappa_BKM = 5, K = 5, kappa_ch^! = 2.
     The defect algebra is a deformation of V_{g_{Delta_5}}^!.
 
     All results conditional on CY-A_3 (AP-CY6, AP-CY14).

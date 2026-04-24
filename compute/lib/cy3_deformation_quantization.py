@@ -644,8 +644,8 @@ def k3_times_e_deformation_data() -> CY3DeformationData:
     Complex structure moduli: dim M_{cs} = h^{2,1} = 21.
     At each point, the CY-compatible quantization is unique.
 
-    kappa(K3 x E) = 5 (weight of Igusa cusp form Delta_5).
-    NOTE: kappa != chi/24 = 0 for K3 x E (AP48).
+    kappa_BKM(K3 x E) = 5 (weight of Igusa cusp form Delta_5).
+    NOTE: kappa_BKM != chi/24 = 0 for K3 x E (AP48).
     """
     # K3 Hodge
     k3_h = {
@@ -1466,7 +1466,7 @@ def k3e_hh2_analysis() -> Dict[str, Any]:
     the E_1 algebra of K3 x E decomposes as an E_2 algebra (from K3)
     tensored with an E_1 algebra (from E), subject to a compatibility.
 
-    kappa(K3 x E) = 5 (from Igusa cusp form, NOT chi/24 = 0).
+    kappa_BKM(K3 x E) = 5 (from Igusa cusp form, NOT chi/24 = 0).
     """
     k3e = k3_times_e_deformation_data()
     hh2 = k3e.hh2

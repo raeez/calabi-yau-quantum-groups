@@ -3,7 +3,7 @@ r"""CY3/Langlands bridge via E₁ Koszul duality.
 # AP42 WARNING: The identification "Geometric Langlands = E₁ Koszul duality"
 # is a CONJECTURAL THESIS, not a proved theorem. It holds at the level of
 # matching algebraic structures (FF duality = self-duality at critical level,
-# CoHA = Yangian, oper = Hitchin) but the full categorical equivalence
+# CoHA = positive Yangian half, oper = Hitchin) but the full categorical equivalence
 # D-mod(Bun_G) ≃ QCoh(LocSys_{G^∨}) via E₁ bar complexes is NOT proved.
 # The numerical checks in this module verify NECESSARY CONDITIONS for the
 # conjecture (κ vanishing, FF fixed point, R-matrix structure), not the
@@ -374,7 +374,7 @@ def ff_critical_fixed_point(N: int) -> Dict[str, Any]:
 # =========================================================================
 
 class CoHAIdentification(NamedTuple):
-    """CoHA ≃ Yangian identification for CY3 = T*[P^{N-1}]."""
+    """CoHA positive-half Yangian identification for CY3 = T*[P^{N-1}]."""
     N: int
     cy3: CY3GeometryData
     yangian_type: str        # "Y^+(gl_N)"

@@ -2,10 +2,40 @@ r"""6d hCS on K3 x E with surface defect: two-loop sunset-diagram computations.
 
 WAVE-3 ATTACK MODULE (Costello voice). Raeez Lorgat sole author.
 
+ADVERSARIAL STATUS, 2026-04-24
+===============================
+
+The original Wave-3 text below advertised a YBE-preserving two-loop
+repair.  Direct computation falsifies that claim: the legacy ansatz
+retains an order-hbar^3 one-loop obstruction
+
+    ((12 + c_v/2) / (u v (u - v))) * (P12 P23 - P23 P12) * hbar^3.
+
+An hbar^4 two-loop counterterm can first affect the Yang-Baxter residual
+at order hbar^5, so it cannot cancel this obstruction.  The public API is
+kept for backwards-compatible diagnostics, but `ybe_at_hbar5` reports
+the obstruction instead of certifying a theorem.
+
+The exact one-loop repair is a normalization identity, not the old
+diagonal Casimir ansatz.  With a = 12 + c_v/2,
+
+    R_tree(u; hbar) + R_fish(u; hbar) + CT_1(u; hbar)
+      = R_tree(u; hbar + a hbar^2).
+
+The right-hand side is again the normalized rational Yang R-matrix, hence
+satisfies YBE exactly.  After this lower obstruction is removed, the
+legacy two-loop sunset ansatz still has a nonzero hbar^5 linearized YBE
+obstruction.  The only YBE repair constructed here is the corresponding
+two-loop Yang-normalisation: subtract the non-tangent legacy sunset tensor
+and retain a tangent correction b(P-I)/u.  This is an exact algebraic
+counterterm for the rational YBE normal form; it is not a derivation of
+the hCS Feynman counterterm from first principles.
+
 MATHEMATICAL CONTENT
 ====================
 
-Wave-2 produced the one-loop R-matrix and YBE-restoring counterterm
+The historical Wave-2 ansatz proposed the one-loop R-matrix and
+YBE-restoring counterterm
 
     R^{1-loop,naive}(u) = hbar^2 * (12 + h^v/2) * P / u^2,
     CT(u)               = -(12 + h^v/2) * (t (x) t - P/2) / u^2,
@@ -32,23 +62,24 @@ times an elliptic triple-zeta integral on E. In the rational limit
 tau -> i*infty, the triple-zeta collapses to 1/u^4, producing a hbar^4
 correction to the R-matrix at order 1/u^4.
 
-                         ~~~~  WAVE-3 MAIN  RESULT  ~~~~
+                         ~~~~  WAVE-3 HISTORICAL ANSATZ  ~~~~
 
 The two-loop R-matrix correction is
 
     R^{2-loop,naive}(u) = hbar^4 * A_2(g, K3) * P / u^4
 
-with A_2(g, K3) = universal coefficient derived below. YBE at hbar^5
-forces a two-loop counterterm
+with A_2(g, K3) = universal coefficient derived below. The historical
+Wave-3 ansatz asserted that YBE at hbar^5 would force a two-loop
+counterterm
 
     CT_2(u) = -A_2(g, K3) * (3P/2 - t (x) t) / u^4 * (extra structure)
 
-whose explicit form is derived from the factorisation-algebra
-renormalisation-group equation: CT_2 is FORCED by requiring the
-factorisation-coproduct Delta_fact to commute with the RG flow at
-order hbar^4.
+whose explicit form would be derived from the factorisation-algebra
+renormalisation-group equation. The current negative oracle below keeps
+this as historical context and rejects it as a theorem for the legacy
+sunset tensor.
 
-                         ~~~~  DERIVATION  ~~~~
+               ~~~~  REJECTED HISTORICAL DERIVATION SKETCH  ~~~~
 
 STEP 1 (Costello-Gwilliam axiom). The factorisation algebra F on
 Ran(K3 x E) satisfies the COSHEAF AXIOM: for any disjoint open cover
@@ -65,31 +96,37 @@ hbar-series of corrections, and the RG equation
 must preserve the cosheaf structure. The counterterm CT_n at order
 hbar^{2n} is the UNIQUE element of C^*_BV(F) that restores exactness.
 
-STEP 2 (Extraction of CT_1 from axiom). At one loop, the failure of
-Delta_fact to commute with RG is
+STEP 2 (historical CT_1 ansatz, not an hCS proof). At one loop, the
+claimed failure of Delta_fact to commute with RG was modelled as
 
     [RG, Delta_fact] F_hbar |_{hbar^2} = (12 + h^v/2) * [P, t (x) t] * (1/u^2),
 
-a first-order Poisson bracket. Restoration requires CT_1 to cancel this,
-giving the Wave-2 formula.
+a first-order Poisson bracket. The executable repair used in this module
+instead imposes exact Yang-normalisation at one loop; deriving that
+normalisation from the 6d hCS factorisation axioms remains open.
 
-STEP 3 (Extraction of CT_2 from axiom). At two loops, the failure is
+STEP 3 (historical CT_2 ansatz, not an hCS proof). The old text
+modelled the two-loop factorisation/RG failure as
 
     [RG, Delta_fact] F_hbar |_{hbar^4}
         = A_2(g, K3) * [P, (3P/2 - t (x) t) (x) t] * (1/u^4) + (lower).
 
-The two-loop counterterm is
+It then proposed the two-loop counterterm
 
     CT_2(u) = -A_2(g, K3) * [(3P/2 - t (x) t) (x) t]_{sym} / u^4.
 
-Its explicit closed form involves the ADJOINT-CASIMIR double t (x) t (x) t.
+The executable oracle rejects this as a theorem for the legacy sunset tensor.
+The only proved repair in this module is the algebraic Yang-normalised tangent
+counterterm constructed below.  The missing analytic primitive is a genuine
+Costello factorisation-RG/Feynman local functional CT_2^{Feyn/RG} whose defect
+projection equals the Yang-normalised CT_2 modulo BRST-exact and central terms.
 
                          ~~~~  NUMERICAL  VERIFICATION  ~~~~
 
-For sl_2, sl_3, so(8), we verify at (u, v, hbar) = (2.3, 1.7, 0.01):
-
-    YBE_residual(tree + 1-loop-YBE + 2-loop-naive) ~ A_2 * hbar^5 / u^4
-    YBE_residual(tree + 1-loop-YBE + 2-loop-YBE)   ~ machine precision
+For sl_2, sl_3, so(8), the direct diagnostic at
+(u, v, hbar) = (2.3, 1.7, 0.01) finds an order-hbar^3 residual inherited
+from the one-loop input.  The two-loop ansatz is therefore not a
+theorem-grade YBE repair.
 
                          ~~~~  CWY CROSS-CHECK  ~~~~
 
@@ -122,19 +159,577 @@ from __future__ import annotations
 import math
 import numpy as np
 from dataclasses import dataclass
+from fractions import Fraction
 from typing import Callable
 
 # Re-use one-loop utilities.
-from k3_hcs_6d_oneloop import (
-    permutation,
-    embed_12,
-    embed_23,
-    embed_13,
-    ybe_residual,
-    R_tree_rational,
-    R_oneloop_correction,
-    R_oneloop_full,
-)
+try:
+    from .k3_hcs_6d_oneloop import (
+        permutation,
+        embed_12,
+        embed_23,
+        embed_13,
+        ybe_residual,
+        R_tree_rational,
+        R_oneloop_correction,
+        R_oneloop_full,
+    )
+except ImportError:  # pragma: no cover - direct execution from compute/lib
+    from k3_hcs_6d_oneloop import (
+        permutation,
+        embed_12,
+        embed_23,
+        embed_13,
+        ybe_residual,
+        R_tree_rational,
+        R_oneloop_correction,
+        R_oneloop_full,
+    )
+
+
+# ---------------------------------------------------------------------
+# Exact one-loop obstruction and normalization model
+# ---------------------------------------------------------------------
+
+Permutation3 = tuple[int, int, int]
+GroupAlgebra = dict[Permutation3, Fraction]
+
+_E: Permutation3 = (0, 1, 2)
+_P12: Permutation3 = (1, 0, 2)
+_P13: Permutation3 = (2, 1, 0)
+_P23: Permutation3 = (0, 2, 1)
+
+_PERM_LABELS = {
+    _E: "I",
+    _P12: "P12",
+    _P13: "P13",
+    _P23: "P23",
+    (2, 0, 1): "P12P23",
+    (1, 2, 0): "P23P12",
+}
+
+
+def _as_fraction(value: float | int | Fraction) -> Fraction:
+    if isinstance(value, Fraction):
+        return value
+    return Fraction(str(value))
+
+
+def _compose(left: Permutation3, right: Permutation3) -> Permutation3:
+    """Composition matching matrix product left @ right on V^{tensor 3}."""
+    return tuple(right[left[i]] for i in range(3))
+
+
+def _ga_basis(perm: Permutation3, coeff: Fraction | int = Fraction(1)) -> GroupAlgebra:
+    coeff = _as_fraction(coeff)
+    return {} if coeff == 0 else {perm: coeff}
+
+
+def _ga_add(*terms: GroupAlgebra) -> GroupAlgebra:
+    result: GroupAlgebra = {}
+    for term in terms:
+        for perm, coeff in term.items():
+            result[perm] = result.get(perm, Fraction(0)) + coeff
+            if result[perm] == 0:
+                del result[perm]
+    return result
+
+
+def _ga_neg(term: GroupAlgebra) -> GroupAlgebra:
+    return {perm: -coeff for perm, coeff in term.items()}
+
+
+def _ga_sub(left: GroupAlgebra, right: GroupAlgebra) -> GroupAlgebra:
+    return _ga_add(left, _ga_neg(right))
+
+
+def _ga_scale(coeff: Fraction | int, term: GroupAlgebra) -> GroupAlgebra:
+    coeff = _as_fraction(coeff)
+    if coeff == 0:
+        return {}
+    return {perm: coeff * value for perm, value in term.items()}
+
+
+def _ga_mul(left: GroupAlgebra, right: GroupAlgebra) -> GroupAlgebra:
+    result: GroupAlgebra = {}
+    for p_left, c_left in left.items():
+        for p_right, c_right in right.items():
+            perm = _compose(p_left, p_right)
+            result[perm] = result.get(perm, Fraction(0)) + c_left * c_right
+            if result[perm] == 0:
+                del result[perm]
+    return result
+
+
+def _ga_labels(term: GroupAlgebra) -> dict[str, str]:
+    return {
+        _PERM_LABELS.get(perm, str(perm)): str(coeff)
+        for perm, coeff in sorted(term.items(), key=lambda item: _PERM_LABELS.get(item[0], str(item[0])))
+    }
+
+
+def _slot_operator(slot: str) -> GroupAlgebra:
+    if slot == "12":
+        return _ga_basis(_P12)
+    if slot == "13":
+        return _ga_basis(_P13)
+    if slot == "23":
+        return _ga_basis(_P23)
+    raise ValueError(f"unknown tensor slot {slot!r}")
+
+
+def _slot_denominator(slot: str, u: Fraction, v: Fraction) -> Fraction:
+    if slot == "12":
+        return u - v
+    if slot == "13":
+        return u
+    if slot == "23":
+        return v
+    raise ValueError(f"unknown tensor slot {slot!r}")
+
+
+def _r_slot(slot: str, u: Fraction, v: Fraction) -> GroupAlgebra:
+    denominator = _slot_denominator(slot, u, v)
+    return _ga_scale(Fraction(1, 1) / denominator, _ga_sub(_slot_operator(slot), _ga_basis(_E)))
+
+
+def _p_power_slot(slot: str, u: Fraction, v: Fraction, power: int, coeff: Fraction) -> GroupAlgebra:
+    denominator = _slot_denominator(slot, u, v)
+    return _ga_scale(coeff / (denominator ** power), _slot_operator(slot))
+
+
+def _normalized_tangent_slot(slot: str, u: Fraction, v: Fraction, coeff: Fraction) -> GroupAlgebra:
+    return _ga_scale(coeff, _r_slot(slot, u, v))
+
+
+def _legacy_twoloop_slot(slot: str, u: Fraction, v: Fraction, c_v: Fraction, dim_g: Fraction) -> GroupAlgebra:
+    denominator = _slot_denominator(slot, u, v)
+    a2 = _sunset_total_coefficient_exact(c_v)
+    identity_part = _ga_scale(a2 * c_v / (dim_g * denominator ** 4), _ga_basis(_E))
+    permutation_part = _ga_scale(-a2 / (2 * denominator ** 4), _slot_operator(slot))
+    return _ga_add(identity_part, permutation_part)
+
+
+def _linearized_ybe_obstruction(
+    u: Fraction,
+    v: Fraction,
+    correction_12: GroupAlgebra,
+    correction_13: GroupAlgebra,
+    correction_23: GroupAlgebra,
+) -> GroupAlgebra:
+    """Linearized YBE obstruction from one inserted correction and one tree r."""
+    r12 = _r_slot("12", u, v)
+    r13 = _r_slot("13", u, v)
+    r23 = _r_slot("23", u, v)
+
+    lhs = _ga_add(
+        _ga_mul(correction_12, r13),
+        _ga_mul(correction_12, r23),
+        _ga_mul(r12, correction_13),
+        _ga_mul(correction_13, r23),
+        _ga_mul(r12, correction_23),
+        _ga_mul(r13, correction_23),
+    )
+    rhs = _ga_add(
+        _ga_mul(correction_23, r13),
+        _ga_mul(correction_23, r12),
+        _ga_mul(r23, correction_13),
+        _ga_mul(correction_13, r12),
+        _ga_mul(r23, correction_12),
+        _ga_mul(r13, correction_12),
+    )
+    return _ga_sub(lhs, rhs)
+
+
+def one_loop_coefficient(c_v: float | int | Fraction) -> Fraction:
+    r"""Exact K3 one-loop coefficient a = chi(K3)/2 + h^v/2."""
+    return Fraction(12, 1) + _as_fraction(c_v) / 2
+
+
+def _sunset_total_coefficient_exact(c_v: Fraction) -> Fraction:
+    return one_loop_coefficient(c_v) ** 2 - c_v ** 2 / 12
+
+
+def one_loop_effective_hbar(hbar: float, c_v: float) -> float:
+    r"""One-loop normalized Yang coupling.
+
+    The normalization condition is not "add a fish term" but
+
+        R_tree(u; hbar) + R_fish(u; hbar) + CT_1(u; hbar)
+        = R_tree(u; hbar + (12 + h^v/2) hbar^2).
+
+    The right-hand side is a rational Yang R-matrix, hence satisfies YBE
+    exactly for every value of the effective coupling.
+    """
+    return hbar + float(one_loop_coefficient(c_v)) * hbar ** 2
+
+
+def R_oneloop_normalization_counterterm(u: float, hbar: float, N: int, c_v: float) -> np.ndarray:
+    r"""Counterterm forcing the one-loop fish term into Yang normalization."""
+    return (
+        R_tree_rational(u, one_loop_effective_hbar(hbar, c_v), N)
+        - R_tree_rational(u, hbar, N)
+        - R_oneloop_correction(u, hbar, N, c_v)
+    )
+
+
+def R_oneloop_normalized(u: float, hbar: float, N: int, c_v: float) -> np.ndarray:
+    r"""Tree plus fish plus exact one-loop normalization counterterm."""
+    return R_tree_rational(u, one_loop_effective_hbar(hbar, c_v), N)
+
+
+def one_loop_normalization_condition(
+    c_v: float | int | Fraction,
+    u: float | int | Fraction = Fraction(23, 10),
+    v: float | int | Fraction = Fraction(17, 10),
+) -> dict:
+    r"""Exact order-hbar^3 obstruction and its one-loop normalization cure.
+
+    Naive fish correction:
+
+        delta q_ij = a P_ij / u_ij^2,        a = 12 + h^v/2.
+
+    This gives
+
+        a/(u v (u-v)) (P12 P23 - P23 P12),
+
+    so the advertised one-loop YBE restoration is false unless a
+    counterterm is added before any two-loop hbar^5 claim is considered.
+
+    Normalized Yang correction:
+
+        delta q_ij = a (P_ij - I) / u_ij.
+
+    This is the tangent to the coupling normalization
+    hbar -> hbar + a hbar^2 and has zero linearized YBE obstruction.
+    """
+    u_f = _as_fraction(u)
+    v_f = _as_fraction(v)
+    coeff = one_loop_coefficient(c_v)
+
+    naive = _linearized_ybe_obstruction(
+        u_f,
+        v_f,
+        _p_power_slot("12", u_f, v_f, 2, coeff),
+        _p_power_slot("13", u_f, v_f, 2, coeff),
+        _p_power_slot("23", u_f, v_f, 2, coeff),
+    )
+    normalized = _linearized_ybe_obstruction(
+        u_f,
+        v_f,
+        _normalized_tangent_slot("12", u_f, v_f, coeff),
+        _normalized_tangent_slot("13", u_f, v_f, coeff),
+        _normalized_tangent_slot("23", u_f, v_f, coeff),
+    )
+    counterterm_hbar2 = _ga_sub(
+        _normalized_tangent_slot("12", u_f, v_f, coeff),
+        _p_power_slot("12", u_f, v_f, 2, coeff),
+    )
+
+    return {
+        "c_v": str(_as_fraction(c_v)),
+        "u": str(u_f),
+        "v": str(v_f),
+        "u_minus_v": str(u_f - v_f),
+        "one_loop_coefficient": str(coeff),
+        "naive_obstruction": _ga_labels(naive),
+        "naive_obstruction_vanishes": naive == {},
+        "expected_naive_commutator_coefficient": str(coeff / (u_f * v_f * (u_f - v_f))),
+        "normalized_obstruction": _ga_labels(normalized),
+        "normalized_obstruction_vanishes": normalized == {},
+        "slot_12_counterterm_hbar2": _ga_labels(counterterm_hbar2),
+        "normalization_identity": "R_tree(hbar) + R_fish + CT_1 = R_tree(hbar + (12 + h^v/2) hbar^2)",
+    }
+
+
+def ybe_with_one_loop_normalization(
+    N: int,
+    c_v: float,
+    hbar: float = 0.01,
+    u: float = 2.3,
+    v: float = 1.7,
+) -> dict:
+    r"""Numerical YBE check after the exact one-loop normalization."""
+    R12 = embed_12(R_oneloop_normalized(u - v, hbar, N, c_v), N)
+    R13 = embed_13(R_oneloop_normalized(u, hbar, N, c_v), N)
+    R23 = embed_23(R_oneloop_normalized(v, hbar, N, c_v), N)
+    residual = float(np.max(np.abs(R12 @ R13 @ R23 - R23 @ R13 @ R12)))
+    return {
+        "N": N,
+        "c_v": c_v,
+        "hbar": hbar,
+        "hbar_effective": one_loop_effective_hbar(hbar, c_v),
+        "one_loop_normalized_ybe_residual": residual,
+        "one_loop_normalization_passed": residual < 1e-12,
+    }
+
+
+def legacy_twoloop_hbar5_obstruction_exact(
+    c_v: float | int | Fraction,
+    dim_g: float | int | Fraction,
+    u: float | int | Fraction = Fraction(23, 10),
+    v: float | int | Fraction = Fraction(17, 10),
+) -> dict:
+    r"""Exact hbar^5 obstruction of the legacy two-loop ansatz after CT_1.
+
+    The lower hbar^3 obstruction is removed first by the one-loop Yang
+    normalization.  This function then inserts the legacy hbar^4 two-loop
+    tensor into the linearized YBE equation.  A nonzero answer means the
+    old hbar^5 theorem is still not restored.
+    """
+    u_f = _as_fraction(u)
+    v_f = _as_fraction(v)
+    c_v_f = _as_fraction(c_v)
+    dim_g_f = _as_fraction(dim_g)
+    obstruction = _linearized_ybe_obstruction(
+        u_f,
+        v_f,
+        _legacy_twoloop_slot("12", u_f, v_f, c_v_f, dim_g_f),
+        _legacy_twoloop_slot("13", u_f, v_f, c_v_f, dim_g_f),
+        _legacy_twoloop_slot("23", u_f, v_f, c_v_f, dim_g_f),
+    )
+    return {
+        "c_v": str(c_v_f),
+        "dim_g": str(dim_g_f),
+        "u": str(u_f),
+        "v": str(v_f),
+        "A2_total_normalised": str(_sunset_total_coefficient_exact(c_v_f)),
+        "legacy_hbar5_obstruction": _ga_labels(obstruction),
+        "legacy_hbar5_obstruction_vanishes": obstruction == {},
+        "two_loop_hbar5_restored": obstruction == {},
+        "diagnosis": (
+            "The one-loop normalization removes the hbar^3 obstruction, "
+            "but the legacy sunset counterterm has a nonzero hbar^5 "
+            "linearized YBE obstruction."
+        ),
+    }
+
+
+def twoloop_yang_normalization_condition(
+    c_v: float | int | Fraction,
+    dim_g: float | int | Fraction,
+    u: float | int | Fraction = Fraction(23, 10),
+    v: float | int | Fraction = Fraction(17, 10),
+    tangent_coefficient: float | int | Fraction | None = None,
+) -> dict:
+    r"""Exact hbar^5 YBE repair by two-loop Yang normalization.
+
+    After the one-loop repair the rational Yang family is
+
+        R(u; h_eff) = I + h_eff (P-I)/u.
+
+    Therefore an order-hbar^4 correction can preserve the linearized
+    Yang-Baxter equation only when its non-central part lies in the
+    tangent direction
+
+        b (P_ij-I) / u_ij.
+
+    The legacy sunset tensor is not in that tangent line.  The minimal
+    YBE-normalising two-loop counterterm is consequently
+
+        CT_2,ij = b (P_ij-I) / u_ij - Q_2,ij^legacy,
+
+    where ``Q_2^legacy`` is the old sunset tensor.  The default choice
+    ``b = A_2`` keeps the same scalar coefficient as the sunset
+    coefficient; setting ``b = 0`` subtracts the legacy tensor entirely.
+
+    This function proves the algebraic YBE normal form exactly in the
+    group algebra of S_3.  It deliberately does not claim that the hCS
+    factorisation-RG calculation has produced this counterterm.
+    """
+
+    u_f = _as_fraction(u)
+    v_f = _as_fraction(v)
+    c_v_f = _as_fraction(c_v)
+    dim_g_f = _as_fraction(dim_g)
+    if tangent_coefficient is None:
+        tangent_f = _sunset_total_coefficient_exact(c_v_f)
+    else:
+        tangent_f = _as_fraction(tangent_coefficient)
+
+    legacy_slots = {
+        slot: _legacy_twoloop_slot(slot, u_f, v_f, c_v_f, dim_g_f)
+        for slot in ("12", "13", "23")
+    }
+    tangent_slots = {
+        slot: _normalized_tangent_slot(slot, u_f, v_f, tangent_f)
+        for slot in ("12", "13", "23")
+    }
+    counterterm_slots = {
+        slot: _ga_sub(tangent_slots[slot], legacy_slots[slot])
+        for slot in ("12", "13", "23")
+    }
+
+    legacy_obstruction = _linearized_ybe_obstruction(
+        u_f, v_f, legacy_slots["12"], legacy_slots["13"], legacy_slots["23"]
+    )
+    repaired_obstruction = _linearized_ybe_obstruction(
+        u_f, v_f, tangent_slots["12"], tangent_slots["13"], tangent_slots["23"]
+    )
+    counterterm_obstruction = _linearized_ybe_obstruction(
+        u_f,
+        v_f,
+        counterterm_slots["12"],
+        counterterm_slots["13"],
+        counterterm_slots["23"],
+    )
+
+    return {
+        "c_v": str(c_v_f),
+        "dim_g": str(dim_g_f),
+        "u": str(u_f),
+        "v": str(v_f),
+        "A2_total_normalised": str(_sunset_total_coefficient_exact(c_v_f)),
+        "tangent_coefficient": str(tangent_f),
+        "legacy_hbar5_obstruction": _ga_labels(legacy_obstruction),
+        "legacy_hbar5_obstruction_vanishes": legacy_obstruction == {},
+        "slot_12_counterterm_hbar4": _ga_labels(counterterm_slots["12"]),
+        "counterterm_linearized_obstruction": _ga_labels(counterterm_obstruction),
+        "repaired_hbar5_obstruction": _ga_labels(repaired_obstruction),
+        "repaired_hbar5_obstruction_vanishes": repaired_obstruction == {},
+        "two_loop_ybe_normal_form_restored": repaired_obstruction == {},
+        "diagnosis": (
+            "The legacy hbar^4 sunset tensor is projected to the tangent "
+            "line of the rational Yang family. This restores the hbar^5 "
+            "linearized YBE algebraically; deriving the same CT_2 from "
+            "6d hCS RG remains a separate proof obligation."
+        ),
+    }
+
+
+def feynman_rg_locality_obstruction_exact(
+    c_v: float | int | Fraction,
+    dim_g: float | int | Fraction,
+    u: float | int | Fraction = Fraction(23, 10),
+    v: float | int | Fraction = Fraction(17, 10),
+    tangent_coefficient: float | int | Fraction | None = None,
+) -> dict:
+    r"""Compare the local two-loop Feynman/RG primitive with the Yang oracle.
+
+    The algebraic oracle permits the hbar^4 Yang-normalised family
+
+        CT_2,ij = b (P_ij - I) / u_ij - Q_2,ij^legacy.
+
+    A local two-loop sunset/Feynman counterterm on the defect has the same
+    pole order as the two-loop graph it subtracts: it lives in the span of
+    I/u_ij^4 and P_ij/u_ij^4.  It can therefore supply the singular
+    projection ``-Q_2^legacy``.  It does not, by itself, determine the
+    finite tangent term ``b(P_ij-I)/u_ij``.  This is the precise obstruction
+    to deriving the default Yang-normalised counterterm from the Feynman/RG
+    data currently encoded in this module.
+
+    The zero-tangent choice ``b=0`` is YBE-admissible and local; the default
+    choice ``b=A_2`` is Yang-normalised but needs an additional finite
+    coupling-renormalisation condition.
+    """
+
+    u_f = _as_fraction(u)
+    v_f = _as_fraction(v)
+    c_v_f = _as_fraction(c_v)
+    dim_g_f = _as_fraction(dim_g)
+    if tangent_coefficient is None:
+        tangent_f = _sunset_total_coefficient_exact(c_v_f)
+    else:
+        tangent_f = _as_fraction(tangent_coefficient)
+
+    legacy_slots = {
+        slot: _legacy_twoloop_slot(slot, u_f, v_f, c_v_f, dim_g_f)
+        for slot in ("12", "13", "23")
+    }
+    local_counterterm_slots = {
+        slot: _ga_neg(legacy_slots[slot])
+        for slot in ("12", "13", "23")
+    }
+    tangent_slots = {
+        slot: _normalized_tangent_slot(slot, u_f, v_f, tangent_f)
+        for slot in ("12", "13", "23")
+    }
+    algebraic_counterterm_slots = {
+        slot: _ga_add(local_counterterm_slots[slot], tangent_slots[slot])
+        for slot in ("12", "13", "23")
+    }
+    zero_tangent_repaired_slots = {
+        slot: _ga_add(legacy_slots[slot], local_counterterm_slots[slot])
+        for slot in ("12", "13", "23")
+    }
+
+    zero_tangent_obstruction = _linearized_ybe_obstruction(
+        u_f,
+        v_f,
+        zero_tangent_repaired_slots["12"],
+        zero_tangent_repaired_slots["13"],
+        zero_tangent_repaired_slots["23"],
+    )
+    algebraic_obstruction = _linearized_ybe_obstruction(
+        u_f,
+        v_f,
+        tangent_slots["12"],
+        tangent_slots["13"],
+        tangent_slots["23"],
+    )
+
+    missing_tangent_slots = {
+        slot: _ga_sub(algebraic_counterterm_slots[slot], local_counterterm_slots[slot])
+        for slot in ("12", "13", "23")
+    }
+    default_tangent = _sunset_total_coefficient_exact(c_v_f)
+    chosen_counterterm_is_local = tangent_f == 0
+    default_counterterm_is_local = default_tangent == 0
+
+    return {
+        "c_v": str(c_v_f),
+        "dim_g": str(dim_g_f),
+        "u": str(u_f),
+        "v": str(v_f),
+        "A2_total_normalised": str(default_tangent),
+        "yang_tangent_coefficient": str(tangent_f),
+        "local_pole_order": "4",
+        "yang_tangent_pole_order": "1",
+        "feynman_rg_local_counterterm_slot_12": _ga_labels(local_counterterm_slots["12"]),
+        "algebraic_yang_counterterm_slot_12": _ga_labels(algebraic_counterterm_slots["12"]),
+        "missing_tangent_slot_12": _ga_labels(missing_tangent_slots["12"]),
+        "local_counterterm_equals_zero_tangent_oracle": all(
+            repaired == {} for repaired in zero_tangent_repaired_slots.values()
+        ),
+        "local_counterterm_restores_ybe_by_subtraction": zero_tangent_obstruction == {},
+        "algebraic_yang_counterterm_restores_ybe": algebraic_obstruction == {},
+        "chosen_yang_counterterm_derived_from_local_rg": chosen_counterterm_is_local,
+        "default_yang_counterterm_derived_from_local_rg": default_counterterm_is_local,
+        "missing_primitive": (
+            "A local two-loop Feynman/RG subtraction fixes the pole-four "
+            "piece -Q_2^legacy. It does not fix the simple-pole tangent "
+            "finite renormalisation b(P-I)/u; deriving b requires an "
+            "extra scheme or Ward identity beyond the current sunset/RG data."
+        ),
+    }
+
+
+def ybe_twoloop_after_one_loop_normalization(
+    N: int,
+    c_v: float,
+    dim_g: float,
+    hbar: float = 0.01,
+    u: float = 2.3,
+    v: float = 1.7,
+) -> dict:
+    r"""Numerical legacy two-loop diagnostic after the exact CT_1 repair."""
+    R12 = embed_12(R_oneloop_normalized(u - v, hbar, N, c_v) + R_twoloop_YBE(u - v, hbar, N, c_v, dim_g), N)
+    R13 = embed_13(R_oneloop_normalized(u, hbar, N, c_v) + R_twoloop_YBE(u, hbar, N, c_v, dim_g), N)
+    R23 = embed_23(R_oneloop_normalized(v, hbar, N, c_v) + R_twoloop_YBE(v, hbar, N, c_v, dim_g), N)
+    residual = float(np.max(np.abs(R12 @ R13 @ R23 - R23 @ R13 @ R12)))
+    exact = legacy_twoloop_hbar5_obstruction_exact(c_v, dim_g, Fraction(str(u)), Fraction(str(v)))
+    return {
+        "N": N,
+        "c_v": c_v,
+        "dim_g": dim_g,
+        "hbar": hbar,
+        "two_loop_after_CT1_residual": residual,
+        "hbar5_coefficient_estimate": residual / hbar ** 5 if hbar > 0 else 0.0,
+        "one_loop_normalization_applied": True,
+        "legacy_hbar5_obstruction_vanishes": exact["legacy_hbar5_obstruction_vanishes"],
+        "two_loop_hbar5_restored": exact["two_loop_hbar5_restored"],
+        "diagnosis": exact["diagnosis"],
+    }
 
 
 # ---------------------------------------------------------------------
@@ -255,8 +850,8 @@ def R_twoloop_naive_correction(u: float, hbar: float, N: int, c_v: float, dim_g:
 
     R^{2-loop,naive}(u) = hbar^4 * A_2(g, K3) * P / u^4.
 
-    This does NOT preserve YBE at order hbar^5; the compensating
-    counterterm is computed in R_twoloop_counterterm.
+    This does NOT preserve YBE at order hbar^5; the legacy compensating
+    counterterm is kept in R_twoloop_counterterm for diagnostics.
     """
     P = permutation(N)
     d = N * N
@@ -267,9 +862,10 @@ def R_twoloop_naive_correction(u: float, hbar: float, N: int, c_v: float, dim_g:
 
 
 def R_twoloop_counterterm(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> np.ndarray:
-    r"""Two-loop YBE-restoring counterterm CT_2(u).
+    r"""Two-loop diagonal counterterm ansatz CT_2(u).
 
-    Derived from the factorisation-algebra RG equation at hbar^4:
+    The original derivation proposed this as the hbar^4 part of a
+    YBE-restoring counterterm:
 
         CT_2(u) = -A_2(g, K3) * (3P/2 - t (x) t)_{sym} / u^4,
 
@@ -278,9 +874,14 @@ def R_twoloop_counterterm(u: float, hbar: float, N: int, c_v: float, dim_g: floa
 
     On V = C^N (treating V as the defining rep, diag-approx):
         t (x) t ~ (h^v / dim g) * Id + (subleading off-diag).
-    We use the leading-diagonal approximation for numerical purposes:
+    This implementation uses only the leading-diagonal approximation for
+    numerical purposes:
 
         CT_2(u) ~ -A_2 * (3P/2 - (h^v/dim_g) * Id) / u^4.
+
+    It is not a certified YBE-restoring tensor.  The current public
+    diagnostic shows that the one-loop input already leaves an
+    order-hbar^3 obstruction.
     """
     P = permutation(N)
     d = N * N
@@ -294,14 +895,22 @@ def R_twoloop_counterterm(u: float, hbar: float, N: int, c_v: float, dim_g: floa
 
 
 def R_twoloop_YBE(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> np.ndarray:
-    r"""Full two-loop R-matrix with counterterm: YBE-preserving."""
+    r"""Backward-compatible name for the two-loop counterterm ansatz.
+
+    Despite the historical name, this function is not known to preserve
+    the Yang-Baxter equation.  Use `ybe_at_hbar5` for the obstruction
+    diagnostic.
+    """
     return R_twoloop_naive_correction(u, hbar, N, c_v, dim_g) + R_twoloop_counterterm(u, hbar, N, c_v, dim_g)
 
 
 def R_full_through_twoloop(u: float, hbar: float, N: int, c_v: float, dim_g: float) -> np.ndarray:
-    r"""Tree + one-loop-YBE + two-loop-YBE R-matrix through O(hbar^4).
+    r"""Tree + one-loop fish term + two-loop ansatz through O(hbar^4).
 
-    R(u) = R^tree(u) + hbar^2 * R^{1-loop,YBE}(u) + hbar^4 * R^{2-loop,YBE}(u) + O(hbar^6).
+    R(u) = R^tree(u) + hbar^2 * R^{1-loop,fish}(u) + hbar^4 * R^{2-loop,ansatz}(u) + O(hbar^6).
+
+    The one-loop term used here is the naive fish term from
+    `R_oneloop_correction`, not a completed YBE counterterm.
     """
     return (
         R_tree_rational(u, hbar, N)
@@ -323,16 +932,15 @@ def ybe_at_hbar5(
     u: float = 2.3,
     v: float = 1.7,
 ) -> dict:
-    r"""Verify YBE for R^{tree} + h^2 R^{1,YBE} + h^4 R^{2,YBE} at (u, v).
+    r"""Diagnose the advertised hbar^5 YBE claim at (u, v).
 
     Reports residuals at each order:
       - tree-only (expected ~ 1e-16)
       - tree + 1-loop-naive (expected ~ (12+h^v/2) * hbar^3)
-      - tree + 1-loop-YBE (expected ~ 1e-16 if CT_1 correct)
-      - tree + 1-loop-YBE + 2-loop-naive (expected ~ A_2 * hbar^5)
-      - tree + 1-loop-YBE + 2-loop-YBE (expected ~ 1e-16 if CT_2 correct)
+      - tree + one-loop fish + two-loop ansatz
 
-    At hbar = 0.01, hbar^3 ~ 1e-6, hbar^5 ~ 1e-10, hbar^7 ~ 1e-14.
+    The current ansatz is expected to fail at order hbar^3.  At
+    hbar = 0.01, hbar^3 ~ 1e-6 and hbar^5 ~ 1e-10.
     """
     R_tree_12 = embed_12(R_tree_rational(u - v, hbar, N), N)
     R_tree_13 = embed_13(R_tree_rational(u, hbar, N), N)
@@ -343,10 +951,10 @@ def ybe_at_hbar5(
     R_1naive_13 = embed_13(R_tree_rational(u, hbar, N) + R_oneloop_correction(u, hbar, N, c_v), N)
     R_1naive_23 = embed_23(R_tree_rational(v, hbar, N) + R_oneloop_correction(v, hbar, N, c_v), N)
 
-    # 1-loop YBE (Wave-2 with counterterm: approximated by scaling one-loop
-    # correction by (3/2 - c_v/dim_g_eff) to mimic (3P/2 - t(x)t) structure).
-    # For clean numerical comparison, we use the one-loop-naive residual and
-    # expect the counterterm to cancel the hbar^3 piece to leading order.
+    # Legacy one-loop path retained as a negative oracle. The exact CT_1
+    # diagnostics below handle the repaired Yang-normalisation; the two-loop
+    # sunset ansatz is tested only after that lower-order normalization is
+    # imposed.
 
     # Tree-only residual
     res_tree = float(np.max(np.abs(
@@ -358,10 +966,10 @@ def ybe_at_hbar5(
         R_1naive_12 @ R_1naive_13 @ R_1naive_23 - R_1naive_23 @ R_1naive_13 @ R_1naive_12
     )))
 
-    # Full through two-loop YBE-corrected.
-    R_2YBE_12 = embed_12(R_full_through_twoloop(u - v, hbar, N, c_v, dim_g=float(max(N, 1))), N)
-    R_2YBE_13 = embed_13(R_full_through_twoloop(u, hbar, N, c_v, dim_g=float(max(N, 1))), N)
-    R_2YBE_23 = embed_23(R_full_through_twoloop(v, hbar, N, c_v, dim_g=float(max(N, 1))), N)
+    # Full through the current two-loop ansatz.
+    R_2YBE_12 = embed_12(R_full_through_twoloop(u - v, hbar, N, c_v, dim_g=dim_g), N)
+    R_2YBE_13 = embed_13(R_full_through_twoloop(u, hbar, N, c_v, dim_g=dim_g), N)
+    R_2YBE_23 = embed_23(R_full_through_twoloop(v, hbar, N, c_v, dim_g=dim_g), N)
 
     res_2loop_YBE = float(np.max(np.abs(
         R_2YBE_12 @ R_2YBE_13 @ R_2YBE_23 - R_2YBE_23 @ R_2YBE_13 @ R_2YBE_12
@@ -371,10 +979,17 @@ def ybe_at_hbar5(
     # scaled by hbar^-5).
     order5_estimate = (res_2loop_YBE - res_tree) / (hbar ** 5) if hbar > 0 else 0.0
 
+    threshold = 10.0 * hbar ** 5
+    passed = abs(res_2loop_YBE) < threshold
+    obstruction_coeff = (12.0 + c_v / 2.0) / (u * v * (u - v))
+    normalization = one_loop_normalization_condition(c_v, Fraction(str(u)), Fraction(str(v)))
+    legacy_after_ct1 = legacy_twoloop_hbar5_obstruction_exact(c_v, dim_g, Fraction(str(u)), Fraction(str(v)))
+
     return {
         "N": N,
         "c_v": c_v,
-        "dim_g_approx": N,
+        "dim_g": dim_g,
+        "dim_g_approx": dim_g,
         "hbar": hbar,
         "u_minus_v": u - v,
         "tree_ybe_residual": res_tree,
@@ -382,7 +997,23 @@ def ybe_at_hbar5(
         "two_loop_YBE_residual": res_2loop_YBE,
         "hbar5_coefficient_estimate": order5_estimate,
         "one_loop_expected_hbar3_ratio": res_1loop_naive / (hbar ** 3) if hbar > 0 else 0.0,
-        "two_loop_verification_passed": abs(res_2loop_YBE) < 10.0 * hbar ** 5,
+        "one_loop_hbar3_obstruction_coefficient": obstruction_coeff,
+        "two_loop_verification_passed": passed,
+        "residual_order_detected": "hbar^5-or-better" if passed else "hbar^3",
+        "full_adjoint_casimir_tensor_implemented": False,
+        "missing_one_loop_ybe_counterterm": True,
+        "two_loop_counterterm_can_cancel_hbar3": False,
+        "one_loop_normalization_condition": normalization,
+        "one_loop_normalized_hbar3_obstruction_vanishes": normalization["normalized_obstruction_vanishes"],
+        "legacy_after_CT1_hbar5_obstruction_vanishes": legacy_after_ct1["legacy_hbar5_obstruction_vanishes"],
+        "two_loop_hbar5_restored_after_CT1": legacy_after_ct1["two_loop_hbar5_restored"],
+        "diagnosis": (
+            "The current two-loop ansatz cannot prove the advertised hbar^5 YBE claim: "
+            "the naive one-loop fish term leaves an order-hbar^3 permutation-commutator "
+            "obstruction. The exact one-loop Yang normalization cancels that lower "
+            "obstruction, but the legacy sunset ansatz still has a nonzero hbar^5 "
+            "linearized YBE obstruction after CT_1."
+        ),
     }
 
 
@@ -504,7 +1135,7 @@ def brst_gauge_invariance_attack(N: int, c_v: float, hbar: float = 0.01) -> dict
 
         Q_BRST R(u) = [Q_BRST, R(u)].
 
-    Gauge invariance at two loops requires
+    A genuine two-loop theorem would require
 
         [Q_BRST, R^{2-loop,YBE}(u)] = 0 mod BRST-exact.
 
@@ -520,8 +1151,9 @@ def brst_gauge_invariance_attack(N: int, c_v: float, hbar: float = 0.01) -> dict
     on the permutation sector.
 
     Numerically: compute the SU(N)-commutator with R_2YBE for N=2 (SU(2)).
-    Gauge invariance holds iff the residual is within the expected hbar^5
-    tolerance.
+    This diagnostic is not a substitute for the missing hbar^5 theorem:
+    the public YBE oracle already detects a lower hbar^3 obstruction for
+    the naive one-loop term and a nonzero hbar^5 obstruction after CT_1.
     """
     # Pauli matrices for su(2), N=2.
     if N == 2:
@@ -585,10 +1217,15 @@ def run_all_wave3() -> dict:
     results["A2_sl3"] = sunset_total_coefficient(c_v=3.0, dim_g=8.0)
     results["A2_so8"] = sunset_total_coefficient(c_v=6.0, dim_g=28.0)
 
-    # (4) YBE at hbar^5:
+    # (4) hbar^5 YBE diagnostic, expected to reject the legacy theorem:
     results["ybe5_sl2"] = ybe_at_hbar5(N=2, c_v=2.0, dim_g=3.0)
     results["ybe5_sl3"] = ybe_at_hbar5(N=3, c_v=3.0, dim_g=8.0)
     results["ybe5_so8"] = ybe_at_hbar5(N=8, c_v=6.0, dim_g=28.0)
+    results["one_loop_normalization_sl2"] = one_loop_normalization_condition(c_v=2.0)
+    results["one_loop_normalized_ybe_sl2"] = ybe_with_one_loop_normalization(N=2, c_v=2.0)
+    results["twoloop_after_CT1_sl2"] = ybe_twoloop_after_one_loop_normalization(N=2, c_v=2.0, dim_g=3.0)
+    results["twoloop_yang_normalization_sl2"] = twoloop_yang_normalization_condition(c_v=2.0, dim_g=3.0)
+    results["feynman_rg_locality_obstruction_sl2"] = feynman_rg_locality_obstruction_exact(c_v=2.0, dim_g=3.0)
 
     # (5) Witten-Costello Noether reconciliation:
     results["noether_sl2"] = rg_flow_noether_match(c_v=2.0, dim_g=3.0)

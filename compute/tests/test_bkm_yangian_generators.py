@@ -1,8 +1,8 @@
-r"""Tests for bkm_yangian_generators.py: BKM simple roots as Yangian generators.
+r"""Tests for bkm_yangian_generators.py: BKM simple roots as conjectural Yangian-deformation generators.
 
 STATUS: ALL Yangian interpretations are CONJECTURAL (AP-CY14).
 Tests verify INTERNAL CONSISTENCY of the dictionary, not existence
-of the Yangian Y(g_hat_{Delta_5}).
+of the putative deformation Y(g_hat_{Delta_5}).
 
 WHAT IS TESTED
 ==============
@@ -363,7 +363,7 @@ class TestBorcherdsSerre:
 # ===========================================================================
 
 class TestFramework:
-    """Framework assessment for BKM Yangian generators."""
+    """Framework assessment for conjectural Yangian-deformation generators."""
 
     def test_real_roots_proved(self):
         """Real root Yangian realization is standard (proved)."""

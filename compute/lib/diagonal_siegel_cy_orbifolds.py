@@ -1,13 +1,18 @@
 r"""
-diagonal_siegel_cy_orbifolds.py -- The eight diagonal Siegel modular forms
-from CY3 orbifolds X_N = (S x E) / (Z/NZ).
+diagonal_siegel_cy_orbifolds.py -- diagonal Siegel modular forms attached
+to the K3-orbifold Borcherds ladder.
 
 MATHEMATICAL OVERVIEW
 =====================
 
-For each N in {1, 2, 3, 4, 5, 6, 7, 8}, the CY3 orbifold
-X_N = (S x E) / (Z/NZ) produces a BKM superalgebra whose denominator
-identity is a Siegel modular form.  The eight cases are:
+The programme-active CHL ladder has smooth CY3 host geometry at
+N in {1, 2, 3, 4, 6}.  The Mukai-admissible extensions N in {5, 7, 8}
+record the same Borcherds-weight normalization but their smooth
+K3 x E host status is conjectural.  The invariant computed here is
+kappa_BKM = c_N(0)/2, the Borcherds product weight.  It is not
+kappa_cat and it is not the compact Hodge/PhiFA supertrace.
+
+The eight cases are:
 
     N=1: K3 x E (no orbifold).  Siegel form = Delta_5 (weight 5).
          BKM algebra = g_{Delta_5}.  kappa_BKM = 5.
@@ -25,11 +30,11 @@ identity is a Siegel modular form.  The eight cases are:
          the Z/3Z-orbifold elliptic genus.  Weight = 3.
          kappa_BKM = 3.
 
-    N=4: (K3 x E) / (Z/4Z).  Weight = 2.  kappa_BKM = 2.
-    N=5: (K3 x E) / (Z/5Z).  Weight = 2.  kappa_BKM = 2.
-    N=6: (K3 x E) / (Z/6Z).  Weight = 1.  kappa_BKM = 1.
-    N=7: (K3 x E) / (Z/7Z).  Weight = 1.  kappa_BKM = 1.
-    N=8: (K3 x E) / (Z/8Z).  Weight = 1.  kappa_BKM = 1.
+    N=4: CHL K3-orbifold ladder entry.  Weight = 2.  kappa_BKM = 2.
+    N=5: Mukai-admissible extension.  Weight = 2.  kappa_BKM = 2.
+    N=6: CHL K3-orbifold ladder entry.  Weight = 1.  kappa_BKM = 1.
+    N=7: Mukai-admissible extension.  Weight = 1.  kappa_BKM = 1.
+    N=8: Mukai-admissible extension.  Weight = 1.  kappa_BKM = 1.
 
 THE Z/NZ-ORBIFOLD ELLIPTIC GENUS
 ---------------------------------
@@ -155,14 +160,31 @@ The net effect on the orbifold Borcherds weight is:
 
 where c_N(D=0) is the orbifold-averaged discriminant-0 coefficient.
 
-AP-CY6 WARNING: ALL X_N for N >= 1 are CY3 orbifolds, so the chiral
-algebra A_{X_N} does NOT exist (conditional on CY-A_3).  ALL results
-involving G(X_N) are CONJECTURAL.  Use ClaimStatusConjectured.
+AP-CY6 WARNING: the CHL host entries are CY3 orbifold data conditional
+on CY-A_3.  The N in {5, 7, 8} extensions record Borcherds-weight
+normalization but do not have the same smooth K3 x E CHL host status.
+All results involving G(X_N) remain CONJECTURAL.  Use
+ClaimStatusConjectured.
 
 AP-CY9 WARNING: Discriminant constraints must be respected.  For
 index-1 Jacobi forms: D = 0 or D = 3 mod 4 only.
 
 AP113 WARNING: kappa_BKM is subscripted for each N.  Never bare kappa.
+
+FOUR-KAPPA NORMALIZATION
+------------------------
+
+For K3 x E at N=1 the lanes are separated as follows:
+
+    kappa_cat(K3 x E)              = chi(O_{K3 x E}) = 0
+    kappa_ch_compact_hodge(K3 x E) = Xi(K3 x E) = 0
+    kappa_ch_Heis(K3 x E)          = 3
+    kappa_BKM(Delta_5)             = c_1(0)/2 = 10/2 = 5
+    kappa_fiber(K3)                = rank H^*(K3, Z) = 24
+    kappa_cat_K3_fiber             = chi(O_{K3}) = 2
+
+The equality 3 + 2 = 5 is a Heisenberg-fibre coincidence at N=1,
+not a derivation of kappa_BKM.
 
 References
 ----------
@@ -597,59 +619,48 @@ def kappa_spectrum(N: int) -> Dict[str, Any]:
     AP113: NEVER bare kappa.  Always subscripted.
 
     The four kappa values:
-    - kappa_ch: from the chiral algebra A_{X_N} (conditional on CY-A_3)
+    - kappa_ch: total-space Hodge/PhiFA supertrace
+    - kappa_ch_Heis: Heisenberg-specialisation lane (conditional on CY-A_3)
     - kappa_BKM: from the Borcherds-Kac-Moody algebra (= Siegel form weight)
-    - kappa_cat: from the categorical/holomorphic Euler characteristic
+    - kappa_cat: chi(O_{X_N}) of the total CY3 host
+    - kappa_cat_fiber: chi(O_S) of the K3/Enriques surface lane
     - kappa_fiber: from the lattice/fiber structure
     """
     data = FRAME_SHAPE_DATA[N]
 
-    # kappa_ch: for K3 x E, kappa_ch = 3 (dim_C of the CY3).
-    # For orbifolds X_N with N >= 2, kappa_ch = dim_C = 3 (still a CY3).
-    # HOWEVER: the chiral de Rham value kappa_ch = chi(O_S) + 1 (for S x E)
-    # depends on chi(O_S), which is N-dependent.
-    # For K3: chi(O_{K3}) = 2, so kappa_ch = 2 + 1 = 3.
-    # For Enriques: chi(O_{Enr}) = 1, so kappa_ch = 1 + 1 = 2.
-    # For higher orbifolds: chi(O_{S/G}) depends on the action.
-    #
-    # More precisely: kappa_ch(S x E) = kappa_ch(S) + kappa_ch(E)
-    # where kappa_ch(S) = chi(O_S) and kappa_ch(E) = chi(O_E) = 1.
-    #
-    # For a Z/N-quotient S_N = K3 / (Z/NZ):
-    # chi(O_{S_N}) = dim H^0(O) - dim H^1(O) + dim H^2(O)
-    #             = 1 - h^{1,0} + h^{2,0}
-    #
-    # For symplectic automorphisms of K3 (which preserve the holomorphic 2-form):
-    # h^{2,0}(S_N) depends on whether g preserves omega.
-    # If g is SYMPLECTIC: g^* omega = omega, so omega descends to quotient,
-    # and H^0(K_{S_N}) = H^0(omega_{S_N}) is nonzero.
-    # But S_N = K3/G has quotient singularities (for N >= 3, the action
-    # has fixed points), so we must take the crepant resolution.
-    # The crepant resolution of K3/(Z/NZ) for symplectic g is again a K3.
-    #
-    # For N=2 with FIXED-POINT-FREE involution (Enriques): different story.
-    # The Enriques surface has h^{2,0} = 0 (omega is anti-invariant).
-
+    # The compact total-space lanes vanish for the CY3 host: chi(O_X)=0
+    # and the Hodge/PhiFA supertrace Xi(X)=0 in odd compact dimension.
+    # The Heisenberg-specialisation lane is separate and records the
+    # surface-plus-elliptic specialisation used in the N=1 coincidence.
     if N == 1:
-        kappa_ch = 3   # K3 x E: chi(O_{K3}) + chi(O_E) = 2 + 1
-        kappa_cat = 2  # chi(O_{K3}) = 2
+        kappa_ch_heis = 3
+        kappa_cat_fiber = 2
+        fiber_description = 'K3 Mukai lattice'
     elif N == 2:
-        kappa_ch = 2   # Enriques x E: chi(O_{Enr}) + chi(O_E) = 1 + 1
-        kappa_cat = 1  # chi(O_{Enr}) = 1
+        kappa_ch_heis = 2
+        kappa_cat_fiber = 1
+        fiber_description = 'Enriques surface lane'
     else:
-        # For N >= 3: symplectic orbifold.  The crepant resolution is K3.
-        # So kappa_ch and kappa_cat are the SAME as the K3 case.
-        # The orbifold structure shows up only in kappa_BKM.
-        kappa_ch = 3
-        kappa_cat = 2
+        kappa_ch_heis = 3
+        kappa_cat_fiber = 2
+        fiber_description = 'K3 crepant-resolution lane'
+
+    kappa_cat_total = 0
+    kappa_ch_compact_hodge = 0
+    kappa_fiber_value = 24 if N == 1 else sum(m for m in data.frame_shape.values())
 
     return {
         'N': N,
-        'kappa_ch': kappa_ch,
+        'kappa_ch': kappa_ch_compact_hodge,
+        'kappa_ch_Heis': kappa_ch_heis,
+        'kappa_ch_compact_hodge': kappa_ch_compact_hodge,
         'kappa_BKM': data.borcherds_weight,
-        'kappa_cat': kappa_cat,
-        'kappa_fiber': sum(m for m in data.frame_shape.values()),
-        # Number of cycles in the Frame shape = "fiber rank"
+        'kappa_cat': kappa_cat_total,
+        'kappa_cat_total_space': kappa_cat_total,
+        'kappa_cat_fiber': kappa_cat_fiber,
+        'kappa_fiber': kappa_fiber_value,
+        'kappa_fiber_description': fiber_description,
+        'frame_shape_cycle_count': sum(m for m in data.frame_shape.values()),
         'weight': data.borcherds_weight,
         'c_neg1': orbifold_c_neg1(N),
         'c_0': data.c_disc_0,
@@ -777,8 +788,10 @@ def bkm_algebra_data(N: int) -> BKMAlgebraData:
 def landscape_table() -> List[Dict[str, Any]]:
     """Generate the full landscape table for the eight diagonal forms.
 
-    Returns a list of dicts, one per N, containing all relevant data
-    for the CY3 orbifold X_N = (S x E) / (Z/NZ).
+    Returns a list of dicts, one per N, containing the Borcherds ladder
+    data.  The CHL host interpretation is programme-active at
+    N in {1, 2, 3, 4, 6}; N in {5, 7, 8} are Mukai-admissible
+    Borcherds extensions with conjectural CY3 host status.
 
     AP-CY6: ALL entries are conditional on CY-A_3.
     AP-CY14: ALL G(X_N) are unconstructed.
@@ -797,7 +810,9 @@ def landscape_table() -> List[Dict[str, Any]]:
             'siegel_weight': data.borcherds_weight,
             'kappa_BKM': data.borcherds_weight,
             'kappa_ch': spectrum['kappa_ch'],
+            'kappa_ch_compact_hodge': spectrum['kappa_ch_compact_hodge'],
             'kappa_cat': spectrum['kappa_cat'],
+            'kappa_cat_fiber': spectrum['kappa_cat_fiber'],
             'c_neg1': str(orbifold_c_neg1(N)),
             'c_0': data.c_disc_0,
             'orthogonal_group': form.orthogonal_group,

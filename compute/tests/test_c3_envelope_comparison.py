@@ -521,7 +521,7 @@ class TestShuffleStructure:
 # =========================================================================
 
 class TestFullComparison:
-    """Tests for the full three-way comparison."""
+    """Tests for the W-algebra comparison with the CoHA positive-half module."""
 
     def test_all_five_paths_converge(self):
         """The definitive test: all five verification paths agree."""
@@ -531,6 +531,8 @@ class TestFullComparison:
     def test_verdict(self):
         result = full_c3_comparison(max_weight=10)
         assert "ALL FIVE PATHS CONVERGE" in result["verdict"]
+        assert "CoHA remains Y^+(gl_hat_1)" in result["verdict"]
+        assert "positive half" in result["verdict"]
 
 
 class TestAdditionalCrossChecks:

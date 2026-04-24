@@ -16,14 +16,17 @@ FOUR GAUGE THEORIES ON CY3
 (a) 6d N=(1,0) on CY3:
     Haydys-Witten equations. The twisted theory localizes onto solutions of
     the Donaldson-Thomas equations (holomorphic Chern-Simons). For GL(1):
-    the E_1 chiral algebra is W_{1+infty} (the affine Yangian of gl_1).
+    the raw CoHA is the positive half Y^+(gl_1); the full
+    W_{1+infty}/affine-Yangian object appears after Drinfeld
+    double/center and Fock evaluation.
     Partition function = MacMahon M(q) (crystal melting).
 
 (b) 7d CS on CY3 x R (Costello):
     Costello's holomorphic-topological twist of 7d Chern-Simons theory.
-    The boundary E_1 algebra is the affine Yangian Y(gl_hat_1), acting on
-    the space of states = CoHA of CY3. For GL(1) on C^3:
-    the boundary algebra is Y(gl_hat_1) with character M(q).
+    The boundary E_1 algebra is the doubled affine Yangian Y(gl_hat_1),
+    acting on the Fock evaluation of the positive-half CoHA of CY3.
+    For GL(1) on C^3 the positive half is Y^+(gl_hat_1), with
+    MacMahon character after the standard Fock evaluation.
 
 (c) 4d N=4 on S^2 x CY3 (Kapustin-Witten):
     The KW twist along S^2 produces a 2d theory on CY3. The E_1 algebra
@@ -247,9 +250,9 @@ class HaydysWittenGL1:
     The twist localizes onto holomorphic Chern-Simons configurations.
     For CY3 = C^3, the partition function is M(q) (crystal melting).
 
-    The E_1 chiral algebra is W_{1+infty} at the self-dual level.
-    More precisely, the positive half Y^+(gl_hat_1) acts on the
-    Hilbert scheme Hilb(C^3) as a creation algebra (CoHA).
+    The raw CoHA sector is Y^+(gl_hat_1), the positive half.  The full
+    W_{1+infty}/affine-Yangian object appears only after Drinfeld
+    double/center and Fock evaluation.
 
     DICTIONARY:
         gauge field A          <->  E_1 generator e_0
@@ -283,7 +286,7 @@ class HaydysWittenGL1:
         return [int(c) for c in m]
 
     def e1_character(self) -> List[Fraction]:
-        """Character of the E_1 algebra = character of Y^+(gl_hat_1) = M(q)."""
+        """Character of the positive-half CoHA sector Y^+(gl_hat_1): M(q)."""
         return self.partition_function()
 
     def hilbert_scheme_euler_char(self, n: int) -> int:

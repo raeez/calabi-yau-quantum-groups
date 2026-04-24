@@ -253,6 +253,37 @@ def kappa_cat_verify_three_paths() -> Dict[str, Any]:
     }
 
 
+def kappa_cat_noncompact_total_space_status() -> Dict[str, Any]:
+    r"""Distinguish the base witness from the non-compact total-space row.
+
+    The base surface \(S = P^2\) has \(\chi(O_S)=1\).  The non-compact
+    CY3 \(X = Tot(K_{P^2})\) is not a smooth proper variety, so the
+    ordinary proper holomorphic Euler characteristic is not the invariant
+    used in the non-compact CY3 frontier row.  In that row the ordinary
+    total-space contribution is set to zero and the missing contribution is
+    carried by the Costello-Li boundary/BCOV coefficient.
+    """
+    base_value = kappa_cat_from_structure_sheaf()
+    total_space_value = F(0)
+    return {
+        "base_surface": "P^2",
+        "total_space": "Tot(K_{P^2})",
+        "kappa_cat_base_chi_O": base_value,
+        "kappa_cat_noncompact_total_space": total_space_value,
+        "ordinary_proper_chi_defined_on_total_space": False,
+        "frontier_row": {
+            "kappa_ch": kappa_ch_from_euler_char(),
+            "kappa_cat": total_space_value,
+            "kappa_vertex": kappa_ch_from_euler_char(),
+            "kappa_ch_BV": -kappa_ch_from_euler_char(),
+        },
+        "balance_holds": (
+            kappa_ch_from_euler_char() - kappa_ch_from_euler_char()
+            == total_space_value
+        ),
+    }
+
+
 # =========================================================================
 # 4. KAPPA_BKM: BKM AUTOMORPHIC KAPPA
 # =========================================================================
@@ -486,8 +517,10 @@ def four_kappa_spectrum() -> Dict[str, Any]:
 
     The spectrum {3/2, 1, None, 1} distinguishes local P^2 from:
       - C^3:     {1/2, 1, None, 0}   (chi(point) = 1, rank H_2 = 0 -- degenerate)
-      - K3 x E:  {0, 2, 5, 24}       (chi(K3xE)/2 = 0, chi(O_K3) = 2, BKM = 5)
-      - Quintic: {-25/3, -25/3, ?, 1} (compact: kappa_ch = chi/24 convention differs)
+      - K3 x E:  {0, 0, 5, 24}       (compact total-space kappa_ch/kappa_cat vanish;
+                                      chi(O_K3)=2 is a separate fibre witness)
+      - Quintic: {-25/3, -25/3, ?, 1}
+        (compact: first entry is BCOV-shadow candidate chi/24)
     """
     kappa_ch_val = kappa_ch_from_euler_char()
     kappa_cat_val = kappa_cat_from_structure_sheaf()
@@ -546,11 +579,13 @@ def four_kappa_comparison_table() -> List[Dict[str, Any]]:
         {
             "geometry": "K3 x E",
             "kappa_ch": F(0),
-            "kappa_cat": F(2),
+            "kappa_cat": F(0),
+            "kappa_ch_Heis": F(3),
+            "kappa_cat_fiber": F(2),
             "kappa_BKM": F(5),
             "kappa_fiber": F(24),
             "shadow_class": "M",
-            "notes": "chi(K3xE) = 0; BKM from Igusa cusp form",
+            "notes": "chi(O_{K3xE}) = 0; Heisenberg 3 and chi(O_K3)=2 are separate witnesses",
         },
     ]
 
@@ -603,7 +638,278 @@ def kappa_relations() -> Dict[str, Any]:
 
 
 # =========================================================================
-# 9. FULL REPORT
+# 9. LOCAL P^2 / E_{27/Q} ARITHMETIC FALSIFIER
+# =========================================================================
+
+# E_{27.a3}: y^2 + y = x^3, conductor 27, CM by Z[zeta_3].
+E27_CONDUCTOR = 27
+E27_BAD_PRIMES = (3,)
+E27_ATTACK_PRIMES = (2, 5, 7, 11, 13, 17, 19)
+LOCAL_P2_GV_N01 = 3
+MIKI_ANTI_INVOLUTION_SIGN = -1
+
+# Hecke eigenvalues a_p of the unique normalised newform in
+# S_2(Gamma_0(27)), verified below by point count and CM decomposition.
+A_P_E27 = {
+    2: 0,
+    5: 0,
+    7: -1,
+    11: 0,
+    13: 5,
+    17: 0,
+    19: -7,
+    23: 0,
+    29: 0,
+    31: -4,
+    37: 11,
+    41: 0,
+    43: 8,
+    47: 0,
+    53: 0,
+    59: 0,
+    61: -1,
+    67: 5,
+    71: 0,
+    73: -7,
+    79: 17,
+    83: 0,
+    89: 0,
+    97: -19,
+}
+
+
+def e27_point_count(p: int) -> int:
+    r"""Count \(\#E_{27}(F_p)\) for \(E_{27}: y^2 + y = x^3\).
+
+    The enumeration deliberately does not use the discriminant shortcut:
+    at \(p=2\) the shortcut using division by \(2\) is invalid, while
+    \(p=2\) is a good inert prime and must return \(a_2=0\).
+    """
+    if p in E27_BAD_PRIMES:
+        raise ValueError("p=3 is the bad prime for E_{27}: y^2 + y = x^3")
+    count = 1  # point at infinity
+    for x in range(p):
+        rhs = (x * x * x) % p
+        for y in range(p):
+            if (y * y + y) % p == rhs:
+                count += 1
+    return count
+
+
+def e27_ap_from_point_count(p: int) -> int:
+    r"""Compute \(a_p(E_{27}) = p + 1 - \#E_{27}(F_p)\)."""
+    return p + 1 - e27_point_count(p)
+
+
+def e27_cm_decompose(p: int) -> Optional[Tuple[int, int]]:
+    r"""Return \(L, M\) with \(4p = L^2 + 27M^2\) at split primes.
+
+    For primes inert in \(\mathbb{Z}[\zeta_3]\), i.e. \(p \equiv 2\)
+    mod \(3\), the CM formula gives \(a_p=0\) and there is no such
+    decomposition.
+    """
+    if p % 3 != 1 or p in E27_BAD_PRIMES:
+        return None
+    for m_val in range(0, int((4 * p) ** 0.5) + 2):
+        rem = 4 * p - 27 * m_val * m_val
+        if rem < 0:
+            break
+        root = int(round(rem ** 0.5))
+        for l_val in (root, root - 1, root + 1):
+            if l_val >= 0 and l_val * l_val == rem:
+                return (l_val, m_val)
+    return None
+
+
+def e27_prime_type(p: int) -> str:
+    r"""Classify a prime for the CM order \(\mathbb{Z}[\zeta_3]\)."""
+    if p in E27_BAD_PRIMES:
+        return "bad"
+    return "split" if p % 3 == 1 else "inert"
+
+
+def gamma0_index(N: int) -> int:
+    r"""Index \([SL_2(Z):\Gamma_0(N)] = N\prod_{q|N}(1+1/q)\)."""
+    n_val = N
+    prime_divisors = []
+    q_val = 2
+    while q_val * q_val <= n_val:
+        if n_val % q_val == 0:
+            prime_divisors.append(q_val)
+            while n_val % q_val == 0:
+                n_val //= q_val
+        q_val += 1
+    if n_val > 1:
+        prime_divisors.append(n_val)
+
+    index = N
+    for q_val in prime_divisors:
+        index = index * (q_val + 1) // q_val
+    return index
+
+
+def _euler_phi(n_val: int) -> int:
+    result = n_val
+    q_val = 2
+    while q_val * q_val <= n_val:
+        if n_val % q_val == 0:
+            while n_val % q_val == 0:
+                n_val //= q_val
+            result -= result // q_val
+        q_val += 1
+    if n_val > 1:
+        result -= result // n_val
+    return result
+
+
+def gamma0_num_cusps(N: int) -> int:
+    r"""Number of cusps of \(X_0(N)\)."""
+    from math import gcd
+
+    total = 0
+    for divisor in range(1, N + 1):
+        if N % divisor == 0:
+            total += _euler_phi(gcd(divisor, N // divisor))
+    return total
+
+
+def dim_s2_gamma0_3_power(N: int) -> int:
+    r"""Dimension of \(S_2(\Gamma_0(N))\) for \(N \in \{3,9,27\}\)."""
+    if N not in (3, 9, 27):
+        raise NotImplementedError("only the 3-power levels 3, 9, 27 are used")
+    index = gamma0_index(N)
+    cusps = gamma0_num_cusps(N)
+    nu_2 = 0
+    nu_3 = 1 if N == 3 else 0
+    genus = F(1) + F(index, 12) - F(cusps, 2) - F(nu_2, 4) - F(nu_3, 3)
+    if genus.denominator != 1:
+        raise ArithmeticError(f"non-integral genus formula at N={N}: {genus}")
+    return max(genus.numerator, 0)
+
+
+def e27_newform_dimension() -> Dict[str, int]:
+    r"""Return the new-form dimension certificate at conductor \(27\)."""
+    dim_27 = dim_s2_gamma0_3_power(27)
+    dim_9 = dim_s2_gamma0_3_power(9)
+    return {
+        "dim_S2_Gamma0_27": dim_27,
+        "dim_S2_Gamma0_9": dim_9,
+        "dim_new_27": dim_27 - dim_9,
+        "index_Gamma0_27": gamma0_index(27),
+        "cusps_X0_27": gamma0_num_cusps(27),
+    }
+
+
+def e27_arithmetic_witness_report() -> Dict[str, Any]:
+    r"""Executable arithmetic witness for the local \(P^2/E_{27}\) lane."""
+    point_count_table = {p: e27_ap_from_point_count(p) for p in A_P_E27}
+    split_cm_table = {}
+    inert_zero_table = {}
+    for p, ap_val in A_P_E27.items():
+        p_type = e27_prime_type(p)
+        if p_type == "split":
+            decomp = e27_cm_decompose(p)
+            split_cm_table[p] = {
+                "L_M": decomp,
+                "abs_ap": abs(ap_val),
+                "cm_abs_agrees": decomp is not None and decomp[0] == abs(ap_val),
+            }
+        elif p_type == "inert":
+            inert_zero_table[p] = ap_val == 0
+
+    newform = e27_newform_dimension()
+    return {
+        "curve": "E_{27}: y^2 + y = x^3",
+        "conductor": E27_CONDUCTOR,
+        "bad_primes": E27_BAD_PRIMES,
+        "ap_table": dict(A_P_E27),
+        "point_count_table": point_count_table,
+        "point_count_agrees": point_count_table == A_P_E27,
+        "split_cm_table": split_cm_table,
+        "split_cm_agrees": all(row["cm_abs_agrees"] for row in split_cm_table.values()),
+        "inert_zero_table": inert_zero_table,
+        "inert_zero_agrees": all(inert_zero_table.values()),
+        "newform_dimension": newform,
+        "newform_unique": newform["dim_new_27"] == 1,
+        "oldform_dimension": newform["dim_S2_Gamma0_9"],
+        "oldform_empty": newform["dim_S2_Gamma0_9"] == 0,
+        "t2_is_falsifier": A_P_E27[2] != 0,
+        "first_split_falsifier_prime": 7,
+        "a_7": A_P_E27[7],
+        "a_7_nonzero": A_P_E27[7] != 0,
+    }
+
+
+def lp2_receptacle_eigenvalue() -> int:
+    r"""The local \(P^2\) receptacle eigenvalue \(-3\)."""
+    return MIKI_ANTI_INVOLUTION_SIGN * LOCAL_P2_GV_N01
+
+
+def lp2_e27_beta_from_split_coefficient(p: int, sz_coefficient: int) -> Dict[str, Any]:
+    r"""Solve \([q^p]SZ(\xi^{LP^2}) = \beta a_p(E_{27})\) at a split prime."""
+    if e27_prime_type(p) != "split":
+        raise ValueError("beta can be solved only at a split prime")
+    ap_val = e27_ap_from_point_count(p)
+    if ap_val == 0:
+        raise ValueError("split-prime falsifier requires a_p != 0")
+    beta = F(sz_coefficient, ap_val)
+    return {
+        "prime": p,
+        "a_p": ap_val,
+        "sz_coefficient": sz_coefficient,
+        "beta": beta,
+        "beta_forced_zero": beta == 0,
+        "source_map": f"[q^{p}] SZ(xi^{{LP^2}})",
+        "target_map": f"beta * a_{p}(E_{{27}})",
+    }
+
+
+def lp2_e27_falsifier_certificate() -> Dict[str, Any]:
+    r"""Arithmetic closure certificate and remaining chain-level obligation.
+
+    The arithmetic theorem is unconditional: \(a_2=0\) is only a
+    consistency check, \(a_7=-1\) is the first nonzero split-prime
+    falsifier, and \(S_2^{new}(\Gamma_0(27))\) is one-dimensional with
+    no old-form sector.  The remaining obligation is not arithmetic: it is
+    the source-map computation of the \(q^7\) Skoruppa-Zagier coefficient
+    from the local \(P^2\) chain-level Pentagon datum.
+    """
+    arithmetic = e27_arithmetic_witness_report()
+    return {
+        "arithmetic_closed": (
+            arithmetic["point_count_agrees"]
+            and arithmetic["split_cm_agrees"]
+            and arithmetic["inert_zero_agrees"]
+            and arithmetic["newform_unique"]
+            and arithmetic["oldform_empty"]
+            and arithmetic["a_7_nonzero"]
+        ),
+        "t2_diagnosis": "a_2=0, so T_2 cannot force beta",
+        "split_prime_falsifier": lp2_e27_beta_from_split_coefficient(7, 0),
+        "receptacle_eigenvalue": lp2_receptacle_eigenvalue(),
+        "exact_constants": {
+            "n_0_1_local_P2": LOCAL_P2_GV_N01,
+            "miki_sign": MIKI_ANTI_INVOLUTION_SIGN,
+            "T_W3_2": lp2_receptacle_eigenvalue(),
+            "a_2_E27": A_P_E27[2],
+            "a_7_E27": A_P_E27[7],
+            "dim_S2_new_Gamma0_27": arithmetic["newform_dimension"]["dim_new_27"],
+        },
+        "remaining_proof_obligation": {
+            "source": "[q^7] SZ(xi^{LP^2}) from the local P^2 GV/Pentagon chain complex",
+            "target": "beta * a_7(E_{27}) in C * f_{27.a3}",
+            "obstruction": (
+                "construct the Costello-Li/open-closed chain map or an "
+                "equivalent compactly-supported toric substitute proving "
+                "the q^7 source coefficient vanishes"
+            ),
+            "arithmetic_dependency": "none; arithmetic side is executable here",
+        },
+    }
+
+
+# =========================================================================
+# 10. FULL REPORT
 # =========================================================================
 
 def full_report() -> Dict[str, Any]:
@@ -611,17 +917,20 @@ def full_report() -> Dict[str, Any]:
     spectrum = four_kappa_spectrum()
     ch_verify = kappa_ch_verify_four_paths()
     cat_verify = kappa_cat_verify_three_paths()
+    cat_noncompact = kappa_cat_noncompact_total_space_status()
     bkm_info = kappa_bkm_status()
     fiber_verify = kappa_fiber_verify_three_paths()
     class_info = shadow_class_evidence()
     relations = kappa_relations()
     comparison = four_kappa_comparison_table()
+    e27_falsifier = lp2_e27_falsifier_certificate()
 
     all_verified = (
         ch_verify["all_agree"]
         and cat_verify["all_agree"]
         and fiber_verify["all_agree"]
         and not bkm_info["defined"]
+        and e27_falsifier["arithmetic_closed"]
     )
 
     return {
@@ -629,12 +938,14 @@ def full_report() -> Dict[str, Any]:
         "verification": {
             "kappa_ch": ch_verify,
             "kappa_cat": cat_verify,
+            "kappa_cat_noncompact_total_space": cat_noncompact,
             "kappa_BKM": bkm_info,
             "kappa_fiber": fiber_verify,
         },
         "shadow_class": class_info,
         "relations": relations,
         "comparison_table": comparison,
+        "lp2_E27_falsifier": e27_falsifier,
         "all_verified": all_verified,
         "summary": (
             "Four-kappa spectrum of local P^2: "

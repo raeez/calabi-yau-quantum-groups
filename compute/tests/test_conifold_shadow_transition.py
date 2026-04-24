@@ -3,7 +3,7 @@ r"""Tests for the conifold shadow transition engine.
 Verifies:
     1. Hodge number arithmetic across the conifold transition
     2. Euler characteristic change: delta_chi = 4 per node
-    3. Conjectural kappa_ch = chi/24 in both phases
+    3. BCOV-shadow candidate chi/24 in both phases
     4. Shadow tower class preservation (M -> M)
     5. GV-to-shadow dictionary (seed mechanism n^0_1 = 1)
     6. Log period corrections (alternating sign)
@@ -14,8 +14,8 @@ Verifies:
     11. Comprehensive analysis consistency
 
 Ground truth:
-    Quintic: h^{1,1}=1, h^{2,1}=101, chi=-200, kappa_ch=-25/3.
-    Resolved (1 node): h^{1,1}=2, h^{2,1}=100, chi=-196, kappa_ch=-49/12.
+    Quintic: h^{1,1}=1, h^{2,1}=101, chi=-200, shadow scalar=-25/3.
+    Resolved (1 node): h^{1,1}=2, h^{2,1}=100, chi=-196, shadow scalar=-49/6.
     Delta_chi = 4, delta_kappa = 1/6.
     GV seed: n^0_1 = 1 (single vanishing cycle, class G, depth 2).
     Conifold monodromy: unipotent index 2, nilpotent rank 1.
@@ -139,10 +139,10 @@ class TestHodgeArithmetic:
 # ================================================================
 
 class TestKappaTransition:
-    """Verify conjectural kappa_ch = chi/24 across phases."""
+    """Verify the BCOV-shadow candidate chi/24 across phases."""
 
     def test_kappa_before(self):
-        """kappa_ch(quintic) = -25/3 (conjectural, chi/24)."""
+        """Quintic BCOV-shadow candidate = -25/3."""
         t = quintic_conifold_transition()
         # VERIFIED [DC] chi/24 = -200/24 = -25/3 [LT] fractional kappa
         assert t.kappa_ch_before == Fraction(-25, 3)
@@ -195,12 +195,12 @@ class TestShadowTowerPhases:
         assert s.shadow_depth == -1  # infinite
 
     def test_smooth_phase_kappa(self):
-        """Smooth quintic kappa_ch = -25/3."""
+        """Smooth quintic BCOV-shadow candidate = -25/3."""
         s = shadow_tower_smooth_quintic()
         assert s.kappa_ch == Fraction(-25, 3)
 
     def test_smooth_phase_S2(self):
-        """S_2 = kappa_ch for the smooth quintic."""
+        """S_2 equals the smooth quintic BCOV-shadow scalar."""
         s = shadow_tower_smooth_quintic()
         assert s.S_2 == s.kappa_ch
 

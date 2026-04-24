@@ -466,15 +466,17 @@ class TestAhatComparison:
     """Compare MacMahon genus amplitudes with the A-hat universality class."""
 
     def test_macmahon_not_in_ahat_class(self):
-        """F_g^MacM / lambda_g grows factorially, confirming non-A-hat structure."""
-        result = macmahon_vs_ahat(max_genus=8)
+        """F_g^MacM / lambda_g is genus-dependent and eventually grows fast."""
+        result = macmahon_vs_ahat(max_genus=11)
         ratios = [d['ratio'] for d in result['data'] if d['ratio'] is not None]
-        # Ratios should grow (in absolute value) at least by a factor
         abs_ratios = [abs(r) for r in ratios]
-        # Between g=2 and g=8, the growth should be dramatic (factorial)
+        assert len(set(round(r, 8) for r in ratios)) > 1, \
+            "MacMahon/A-hat ratio should not be constant"
+        # The double-Bernoulli factor has an initial dip; the eventual
+        # growth is visible by genus 11.
         # VERIFIED [DC] partition function [CF] cross-family census
-        assert abs_ratios[-1] / abs_ratios[0] > 10, \
-            "Ratio growth too slow for factorial behavior"
+        assert abs_ratios[-1] / abs_ratios[2] > 1e4, \
+            "Eventual MacMahon/A-hat ratio growth too slow"
 
 
 # ============================================================================

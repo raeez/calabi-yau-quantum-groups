@@ -26,7 +26,7 @@ The key computations are:
    BPS degeneracies counted by 1/Phi_5 (reciprocal Igusa cusp form, weight 5).
    Asymptotic: log Omega(gamma) ~ pi*sqrt(2*|gamma.gamma|) for large charges.
    This matches Bekenstein-Hawking: S_BH = pi*sqrt(2*|D|) with D = gamma.gamma.
-   The shadow tower kappa = 5 controls the growth.
+   The shadow tower kappa_BKM = 5 controls the growth.
 
 3. CONIFOLD (RIGID, NON-COMPACT):
    Omega(n*beta) = (-1)^{n-1} for all n >= 1 (single BPS state per charge).
@@ -67,17 +67,18 @@ CONVENTIONS
 - All exact arithmetic via fractions.Fraction where possible
 - Cohomological grading: |d| = +1
 - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
-- kappa = modular characteristic (AP1, AP20, AP48: family-specific!)
+- kappa_shadow = modular characteristic in the selected lane
+  (AP1, AP20, AP48: family-specific!)
 
 BEILINSON WARNINGS
 ==================
-AP1:  kappa formulas are family-specific.  kappa(W_{1+inf,c=1}) = 1,
-      kappa(K3 x E) = 5, kappa(conifold) = 1.  NEVER copy between families.
+AP1:  kappa formulas are family-specific.  kappa_ch(W_{1+inf,c=1}) = 1,
+      kappa_BKM(K3 x E) = 5, kappa_ch(conifold) = 1.  NEVER copy between families.
 AP10: Tests must use INDEPENDENT verification, not hardcoded wrong values.
 AP20: kappa(A) is intrinsic to A, not the physical system.
 AP38: Literature conventions for phi_{0,1} differ (DVV vs EZ).
 AP42: Shadow-entropy identification holds at the asymptotic level.
-AP48: kappa != c/2 in general; kappa != chi_top/2 in general.
+AP48: kappa_ch != c/2 in general; kappa_BKM != chi_top/2 in general.
 
 REFERENCES
 ==========
@@ -352,7 +353,7 @@ def conifold_entropy(n: int) -> float:
 #   S_BH = 4*pi*sqrt(D)
 #
 # The connection to the shadow tower:
-#   kappa(K3 x E) = 5 (weight of Phi_5)
+#   kappa_BKM(K3 x E) = 5 (weight of Phi_5)
 #   The Rademacher expansion controls the corrections.
 
 # Exact d(D) values for small D, from the Fourier expansion of 1/Phi_5
@@ -649,7 +650,7 @@ def kappa_from_entropy_scaling(alpha: float, leading_C: float,
     For C^3: kappa = 1 (single vertex), alpha = 2/3.
     General toric: kappa = number of vertices (or chi of toric diagram).
 
-    For K3 x E: kappa = 5 (Siegel modular form weight), alpha = 1/2.
+    For K3 x E: kappa_BKM = 5 (Siegel modular form weight), alpha = 1/2.
 
     The relationship between kappa and the growth constant C is:
     C = alpha^{-1/(alpha)} * (kappa * some_zeta)^{1/... }
@@ -662,7 +663,7 @@ def kappa_from_entropy_scaling(alpha: float, leading_C: float,
         return 4.0 * (leading_C / 3.0) ** 3 / ZETA_3
     elif geometry_type == "k3e":
         # S = C * sqrt(D), C = 4*pi.
-        # This gives kappa = 5 from the Siegel form weight.
+        # This gives kappa_BKM = 5 from the Siegel form weight.
         return 5.0  # Direct
     else:
         return leading_C
@@ -1113,9 +1114,9 @@ def entropy_from_kappa_k3e(D: int, kappa: float = 5.0) -> float:
     """Entropy S(D) for K3 x E type (Siegel modular form).
 
     S(D) ~ 2*pi*sqrt(D * something(kappa)).
-    For kappa = 5 (K3 x E): S = 4*pi*sqrt(D).
+    For kappa_BKM = 5 (K3 x E): S = 4*pi*sqrt(D).
 
-    The relationship: the weight of the Siegel form = kappa.
+    The relationship: the weight of the Siegel form = kappa_BKM.
     The Rademacher expansion gives:
     S_BH = 4*pi*sqrt(D) for the leading Bessel in 1/Phi_kappa.
 

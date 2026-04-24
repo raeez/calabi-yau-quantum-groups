@@ -195,8 +195,10 @@ KNOWN_HILB_CHI = _relative_mod.KNOWN_HILB_CHI
 
 CHI_K3 = 24
 KAPPA_CH_K3 = 2
-KAPPA_CH_E = 1
-KAPPA_CH_K3E = 3  # = kappa_ch(K3) + kappa_ch(E) by additivity
+KAPPA_CH_E = 0
+KAPPA_CH_HEIS_E = 1
+KAPPA_CH_K3E = 0  # compact kappa_ch(K3 x E) = chi(O_{K3xE})
+KAPPA_CH_HEIS_K3E = 3  # relative Heisenberg shadow = 2 + 1
 KAPPA_BKM = 5     # = weight of Delta_5 = c(0)/2 = 10/2
 KAPPA_FIBER = 24  # = chi(K3) = rank of fiber Heisenberg
 
@@ -701,7 +703,8 @@ def compare_dmvv_rank1_vs_gottsche(max_inst: int) -> Dict[str, object]:
 def kappa_spectrum_k3e() -> Dict[str, object]:
     r"""The resolved kappa-spectrum of K3 x E.
 
-    kappa_ch   = 3: from chiral algebra A_C via Phi (additive: 2+1)
+    kappa_ch   = 0: compact Hodge/PhiFA supertrace on K3 x E
+    kappa_ch_Heis = 3: relative Heisenberg/topological-string shadow (2+1)
     kappa_BKM  = 5: from Borcherds-Kac-Moody algebra (weight of Delta_5)
     kappa_cat  = 0: from categorical/holomorphic Euler char chi(O_{K3 x E})
     kappa_cat_fiber = 2: from categorical/holomorphic Euler char chi(O_{K3})
@@ -713,15 +716,16 @@ def kappa_spectrum_k3e() -> Dict[str, object]:
     """
     return {
         'kappa_ch': KAPPA_CH_K3E,
+        'kappa_ch_Heis': KAPPA_CH_HEIS_K3E,
         'kappa_BKM': KAPPA_BKM,
         'kappa_cat': Fraction(0),  # chi(O_{K3 x E}) = 0
         'kappa_cat_fiber': KAPPA_CH_K3,  # chi(O_{K3}) = 2
         'kappa_fiber': KAPPA_FIBER,
         'all_distinct': len({
-            Fraction(0), KAPPA_CH_K3, KAPPA_CH_K3E, KAPPA_BKM, KAPPA_FIBER,
+            Fraction(0), KAPPA_CH_K3, KAPPA_CH_HEIS_K3E, KAPPA_BKM, KAPPA_FIBER,
         }) == 5,
         'weight_formula': f"wt(Delta_5) = c(0)/2 = {phi01_by_discriminant(2).get(0, '?')}/2 = {KAPPA_BKM}",
-        'additivity': f"kappa_ch(K3xE) = kappa_ch(K3) + kappa_ch(E) = {KAPPA_CH_K3} + {KAPPA_CH_E} = {KAPPA_CH_K3E}",
+        'additivity': f"kappa_ch_Heis(K3xE) = kappa_ch(K3) + kappa_ch_Heis(E) = {KAPPA_CH_K3} + {KAPPA_CH_HEIS_E} = {KAPPA_CH_HEIS_K3E}",
     }
 
 
@@ -771,7 +775,7 @@ def wall_crossing_shadow_tower_dictionary(max_D: int) -> Dict[str, object]:
 
     Shadow tower side:
     - Degree-r shadow Theta_A^{<=r}: captures roots at |D| <= r
-    - kappa_ch = 3 (fiber modular characteristic via Phi)
+    - kappa_ch_Heis = 3 (relative fiber modular shadow via Phi)
     - Shadow depth: class M (infinite, from BKM root growth)
     - Cubic shadow at degree 3: first fermionic root (D=3, c(3)=-64)
 
@@ -804,6 +808,7 @@ def wall_crossing_shadow_tower_dictionary(max_D: int) -> Dict[str, object]:
         'first_fermionic_mult': c_disc.get(3, None),
         'shadow_class': 'M',
         'kappa_ch': KAPPA_CH_K3E,
+        'kappa_ch_Heis': KAPPA_CH_HEIS_K3E,
         'kappa_BKM': KAPPA_BKM,
         'conditional_on': 'CY-A_3 (for shadow tower), proven elsewhere (for KS)',
     }
@@ -894,6 +899,7 @@ def topological_string_shadow_comparison_summary(max_n: int = 10) -> Dict[str, o
         },
         'kappa_spectrum': {
             'kappa_ch': KAPPA_CH_K3E,
+            'kappa_ch_Heis': KAPPA_CH_HEIS_K3E,
             'kappa_BKM': KAPPA_BKM,
             'kappa_cat': Fraction(0),
             'kappa_cat_fiber': KAPPA_CH_K3,

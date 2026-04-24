@@ -24,14 +24,14 @@ Enriques x E is a Calabi-Yau threefold:
 
     chi_top(S_Enr x E) = chi_top(S_Enr) * chi_top(E) = 12 * 0 = 0.
 
-This vanishing of chi_top does NOT imply kappa = 0. The CY modular
-characteristic kappa is a DERIVED invariant (AP20), not the topological
-Euler characteristic.
+This vanishing of chi_top does NOT imply kappa_BKM = 0. The Borcherds
+weight is an automorphic denominator invariant, not the topological Euler
+characteristic.
 
-For K3 x E: kappa = 5 (weight of Delta_5, the Igusa cusp form).
-For Enriques x E: kappa = 4 (weight of the Enriques Borcherds product).
+For K3 x E: kappa_BKM = 5 (weight of Delta_5, the Igusa cusp form).
+For Enriques x E: kappa_BKM = 4 (weight of the Enriques Borcherds product).
 
-The difference kappa(K3 x E) - kappa(Enr x E) = 5 - 4 = 1 reflects the
+The difference kappa_BKM(K3 x E) - kappa_BKM(Enr x E) = 5 - 4 = 1 reflects the
 Z_2 quotient: the fundamental group pi_1 = Z_2 reduces the automorphic
 weight by 1.
 
@@ -455,14 +455,14 @@ def k3_vs_enriques_multiplicities(max_n: int = 5) -> Dict[int, Dict[str, Any]]:
 # =========================================================================
 
 def kappa_enriques_times_e() -> int:
-    """Modular characteristic kappa for Enriques x E.
+    """Borcherds denominator weight kappa_BKM for Enriques x E.
 
-    kappa = 4, the weight of the Enriques Borcherds product on O(2,10).
+    kappa_BKM = 4, the weight of the Enriques Borcherds product on O(2,10).
 
     This follows from:
     (1) Allcock (2000): the Borcherds product for Enriques has weight 4.
-    (2) The BKM-shadow correspondence: kappa(BKM) = weight(denominator form).
-    (3) Independent check: kappa(K3 x E) = 5, and the Z_2 quotient reduces
+    (2) The BKM-shadow correspondence: kappa_BKM = weight(denominator form).
+    (3) Independent check: kappa_BKM(K3 x E) = 5, and the Z_2 quotient reduces
         the weight by 1 (from the halving of the input modular form's
         zeroth coefficient: c_{K3}(0) = 20, c_{Enr}(0) = 10, and weight
         = c(0)/2 = 10/2 = 5 for K3, 10/2... no, this doesn't directly
@@ -488,12 +488,12 @@ def kappa_enriques_times_e() -> int:
 
 
 def kappa_k3_times_e() -> int:
-    """Modular characteristic kappa for K3 x E = 5 (weight of Delta_5)."""
+    """Borcherds denominator weight kappa_BKM(K3 x E) = 5."""
     return 5
 
 
 def kappa_difference() -> int:
-    """kappa(K3 x E) - kappa(Enr x E) = 5 - 4 = 1.
+    """kappa_BKM(K3 x E) - kappa_BKM(Enr x E) = 5 - 4 = 1.
 
     This difference = 1 reflects the Z_2 quotient structure.
     """
@@ -790,9 +790,9 @@ def z2_quotient_effects() -> Dict[str, Any]:
     5. Changes lattice: II^{3,19} -> E_8(-1) + U
     6. Introduces pi_1 = Z_2
 
-    The key observation: kappa does NOT simply halve.
-    kappa(K3 x E) / kappa(Enr x E) = 5/4 (not 2).
-    This is because kappa is a WEIGHT of an automorphic form,
+    The key observation: kappa_BKM does NOT simply halve.
+    kappa_BKM(K3 x E) / kappa_BKM(Enr x E) = 5/4 (not 2).
+    This is because kappa_BKM is a WEIGHT of an automorphic form,
     determined by the lattice structure, not a simple scaling.
     """
     return {

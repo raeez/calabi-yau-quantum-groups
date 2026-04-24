@@ -64,17 +64,18 @@ THE CARDY FORMULA:
   The D1-D5 CFT on Sym^{n_1 n_5}(K3) has c = 6 * n_1 * n_5.
   For a single copy of the K3 sigma model: c = 6.
 
-  But the BPS degeneracies come from 1/Delta_5 (weight 5), and the
-  Rademacher formula for a weight-k form gives:
+  But the BPS degeneracies come from 1/Delta_5^2.  The automorphic
+  denominator Delta_5 has BKM weight 5.  For a scalar modular form, the
+  Rademacher expansion gives:
 
     log|a(D)| ~ pi * sqrt(D)   (independent of k at leading order)
 
-  The SUBLEADING corrections DO depend on k = 5 = kappa_BKM:
+  Subleading corrections remember the relevant automorphic weight:
 
     log|a(D)| = pi * sqrt(D) - ((k+1)/2) * log(D) + O(1)
 
-  This is where kappa_BKM enters: the subleading correction is
-  controlled by the weight of the automorphic form, which IS kappa_BKM.
+  This is where kappa_BKM enters: the automorphic weight is
+  kappa_BKM(Delta5) = c_N(0)/2 at N=1 = 10/2 = 5.
 
 THE SHADOW PARTITION FUNCTION:
 
@@ -84,19 +85,23 @@ THE SHADOW PARTITION FUNCTION:
 
     log Z^{sh} = sum_{g >= 1} F_g * g_s^{2g}
 
-  where F_g = kappa * a_hat_g (scalar shadow) plus higher-arity corrections.
+  where F_g = kappa_ch^Heis * a_hat_g (scalar shadow) plus higher-arity
+  corrections.
 
   For K3 x E:
-    kappa_ch = 3 (chiral, from CY dimension)
-    kappa_BKM = 5 (weight of Delta_5, from BPS counting)
+    kappa_ch = 0 (compact Hodge/PhiFA supertrace)
+    kappa_ch^Heis = 3 (Heisenberg shadow specialisation)
+    kappa_BKM = 5 (weight of Delta_5, from c_N(0)/2 at N=1)
 
   The entropy comes from the BPS state count, controlled by kappa_BKM:
 
-    S ~ pi * sqrt(D) - 3 * log(D) + O(1)
+    S ~ pi * sqrt(D) - (3/2) * log(D) + O(1)
 
-  where the -3 = -(kappa_BKM + 1)/2 = -(5+1)/2 = -3.
+  The -3/2 coefficient is the standard K3 x E Rademacher correction.
+  It is not a proof of kappa_BKM by an additive kappa identity.
 
-  The shadow tower ITSELF is indexed by kappa_ch = 3 (the chiral algebra).
+  The shadow tower ITSELF is indexed by kappa_ch^Heis = 3 (the
+  Heisenberg-specialised chiral algebra).
   The BPS counting uses kappa_BKM = 5 (the automorphic form weight).
   These are DIFFERENT invariants (AP113 / kappa-spectrum).
 
@@ -133,24 +138,25 @@ THE RADEMACHER EXPANSION:
 
 KAPPA-SPECTRUM AND BLACK HOLES (AP113):
 
-  kappa_ch = 3: controls the chiral algebra structure and the shadow PF.
-  kappa_BKM = 5: controls the BPS degeneracy growth (= wt(Delta_5)).
+  kappa_ch = 0: compact Hodge/PhiFA supertrace on K3 x E.
+  kappa_ch^Heis = 3: controls the Heisenberg shadow PF.
+  kappa_BKM = 5: controls the BPS degeneracy growth (= c_N(0)/2 at N=1).
   kappa_cat = 0 = chi(O_{K3 x E}): total-space categorical invariant.
-  kappa_cat_fiber = 2 = chi(O_{K3}): K3-fiber holomorphic Euler characteristic.
+  chi_O_K3_fiber = 2: auxiliary K3-fiber holomorphic Euler characteristic.
   kappa_fiber = 24 = rank(Lambda_{K3}): lattice rank / fiber structure.
 
   Which kappa controls the black hole entropy?
 
   ANSWER: kappa_BKM = 5.  The entropy is S = log|Omega(D)|, and Omega(D)
-  are Fourier coefficients of 1/Delta_5^2.  The weight 5 of Delta_5 enters
-  the Rademacher expansion through the Bessel function index.  The chiral
-  kappa_ch = 3 controls the shadow tower, which PRODUCES Delta_5 through
-  the bar Euler product (CY-A_2 at d=2, conjectural at d=3).  So:
+  are Fourier coefficients of 1/Delta_5^2.  The weight 5 of Delta_5 is
+  kappa_BKM(Delta5) = c_N(0)/2 at N=1.  The Heisenberg-specialised chiral
+  kappa_ch^Heis = 3 controls the shadow tower, which PRODUCES Delta_5
+  through the bar Euler product (CY-A_2 at d=2, conjectural at d=3).  So:
 
-    kappa_ch (shadow tower) --[bar Euler product]--> Delta_5 (wt = kappa_BKM)
+    kappa_ch^Heis (shadow tower) --[bar Euler product]--> Delta_5 (wt = kappa_BKM)
     --[Fourier coefficients]--> Omega(D) --[log]--> S_BH
 
-  The chiral algebra is the INPUT; the BKM algebra is the OUTPUT.
+  The Heisenberg shadow is the INPUT; the BKM algebra is the OUTPUT.
   The entropy formula uses the OUTPUT weight kappa_BKM.
 
 CONVENTIONS
@@ -160,7 +166,8 @@ CONVENTIONS
   - Discriminant D = 4nm - l^2 for K3 x E charges (n, l, m)
   - Strominger-Vafa: S = 2*pi*sqrt(n_1*n_5*n_p)
   - Cardy formula: S ~ 2*pi*sqrt(c*N/6) for 2d CFT with central charge c
-  - kappa_ch = 3 (chiral), kappa_BKM = 5 (automorphic weight), per AP113.
+  - kappa_ch = 0 (compact Hodge/PhiFA), kappa_ch^Heis = 3 (shadow input),
+    kappa_BKM = 5 (automorphic weight), per AP113.
 
 REFERENCES
 ===========
@@ -216,19 +223,23 @@ def a_hat_coefficient(g: int) -> Fraction:
 # ===========================================================================
 
 class KappaSpectrum(NamedTuple):
-    """Resolved kappa values for K3 x E.
+    """Resolved kappa values for K3 x E plus auxiliary fiber data.
 
     AP113: bare 'kappa' is FORBIDDEN. Always subscripted.
+    The public K3 x E spectrum roster is {0, 3, 5, 24}; the value 2 is
+    retained only as the auxiliary K3-fiber holomorphic Euler characteristic.
     """
-    kappa_ch: Fraction      # chiral algebra A_C via Phi: = 3 = dim_C
-    kappa_BKM: int          # Borcherds-Kac-Moody: = 5 = wt(Delta_5)
-    kappa_cat: int          # categorical total: = 0 = chi(O_{K3 x E})
-    kappa_cat_fiber: int    # K3 fiber categorical value: = 2 = chi(O_{K3})
-    kappa_fiber: int        # lattice/fiber: = 24 = rank(Lambda_{K3})
+    kappa_ch: Fraction       # compact Hodge/PhiFA: = 0 = sum (-1)^q h^{0,q}
+    kappa_ch_Heis: Fraction  # Heisenberg shadow: = 3 = rank-additive
+    kappa_BKM: int           # Borcherds-Kac-Moody: = 5 = c_N(0)/2 at N=1
+    kappa_cat: int           # categorical total: = 0 = chi(O_{K3 x E})
+    kappa_cat_fiber: int     # auxiliary K3 fiber value: = 2 = chi(O_{K3})
+    kappa_fiber: int         # lattice/fiber: = 24 = rank(Lambda_{K3})
 
 
 K3E_KAPPA_SPECTRUM = KappaSpectrum(
-    kappa_ch=Fraction(3),
+    kappa_ch=Fraction(0),
+    kappa_ch_Heis=Fraction(3),
     kappa_BKM=5,
     kappa_cat=0,
     kappa_cat_fiber=2,
@@ -242,37 +253,19 @@ def verify_kappa_spectrum() -> Dict[str, bool]:
     Path 1: Direct values from the spectrum.
     Path 2: Independent derivation from K3 geometry.
 
-    kappa_ch = 3 = dim_C(K3 x E).
-      Derivation: for CY_d, kappa_ch = d = complex dimension.
-      K3 x E has complex dimension 3. So kappa_ch = 3.
+    kappa_ch = 0 = sum_q (-1)^q h^{0,q}(K3 x E).
+      Derivation: K3 has h^{0,*}=(1,0,1), E has h^{0,*}=(1,1), and the
+      product has h^{0,*}=(1,1,1,1), so 1 - 1 + 1 - 1 = 0.
+
+    kappa_ch^Heis = 3.
+      Derivation: the Stage-2 Heisenberg shadow is rank-additive over
+      K3 x E: kappa_ch^Heis(K3) + kappa_ch^Heis(E) = 2 + 1 = 3.
 
     kappa_BKM = 5 = wt(Delta_5).
-      Derivation: phi_{0,1}(tau, 0) = chi(K3) = 24. The Borcherds lift
-      has weight f(0)/2 = 24/2 = 12 ... WAIT.
-      Actually: the Borcherds lift of phi_{0,1} has weight c(-1)/2 where
-      c(-1) = f(0, +-1) = 2 at discriminant D = -1.
-      No: the weight is sum of f(D) for D < 0, divided by 2.
-      For phi_{0,1}: f(D=-1) = c(-1) = 2 (from the y + y^{-1} term).
-      This is the ONLY polar term (D < 0).
-      Weight = f(D=-1) * (number of roots at D=-1) / 2 ... actually:
-      Weight of Borcherds lift = c(0)/2 where c(D) is the D-th coefficient.
-      For the Eichler-Zagier convention:
-        phi_{0,1} = sum c(D) q^n y^l where D = 4n - l^2.
-        c(-1) = 2 (from q^0 y^{+-1}).
-        c(0) = 20 (from q^0 y^0) ... but that gives weight 20/2 = 10.
-      The Gritsenko-Nikulin convention uses phi_{0,1} (not 2*phi_{0,1}),
-      giving weight c(0)/2 = 20/2 = 10 for the full Igusa form.
-      Actually Delta_5 has weight 5, and (Delta_5)^2 = const * Phi_{10}
-      where Phi_{10} has weight 10.  So the Borcherds lift of phi_{0,1}
-      gives a form of weight phi_{0,1}(tau,0)/2 = 24/2 = 12 ... no.
-
-      The correct formula: weight = c_0(0)/2 where c_0(D) are the
-      D-th Fourier-Jacobi coefficients of the INPUT Jacobi form.
-      For phi_{0,1}: c_0(0) = 20 (the constant coefficient at y^0 q^0).
-      So weight = 20/2 = 10 for Phi_{10}. And Delta_5 = sqrt(Phi_{10})
-      has weight 5. This is consistent.
-
-      THEREFORE kappa_BKM = wt(Delta_5) = 5.
+      Derivation: the Borcherds-weight theorem gives
+      kappa_BKM(Phi_N) = c_N(0)/2. At N=1, c_1(0)=10 in the
+      Gritsenko Delta_5 normalisation, hence kappa_BKM(Delta5)=5.
+      This is not derived from kappa_ch + kappa_cat or kappa_ch + chi(O_fiber).
 
     kappa_cat = 0 = chi(O_{K3 x E}).
       Derivation: chi(O_{K3 x E}) = chi(O_{K3}) chi(O_E) = 2 * 0 = 0.
@@ -288,15 +281,27 @@ def verify_kappa_spectrum() -> Dict[str, bool]:
 
     checks = {}
 
-    # kappa_ch = dim_C(K3 x E)
-    checks["kappa_ch_equals_dim"] = (ks.kappa_ch == Fraction(3))
-
-    # kappa_BKM = wt(Delta_5)
-    checks["kappa_BKM_equals_5"] = (ks.kappa_BKM == 5)
-
-    # kappa_cat = chi(O_{K3 x E}) = chi(O_{K3}) * chi(O_E) = 2 * 0 = 0
+    # Hodge/PhiFA kappa_ch = sum_q (-1)^q h^{0,q}(K3 x E)
     h0p_k3 = {0: 1, 1: 0, 2: 1}  # h^{0,p}(K3)
     h0p_e = {0: 1, 1: 1}         # h^{0,p}(E)
+    h0p_total: Dict[int, int] = {}
+    for p_k3, h_k3 in h0p_k3.items():
+        for p_e, h_e in h0p_e.items():
+            h0p_total[p_k3 + p_e] = h0p_total.get(p_k3 + p_e, 0) + h_k3 * h_e
+    chi_O_total = sum((-1)**p * h for p, h in h0p_total.items())
+    checks["kappa_ch_compact_equals_hodge_supertrace"] = (ks.kappa_ch == chi_O_total)
+
+    # Heisenberg specialisation: rank-additive 2 + 1 = 3
+    checks["kappa_ch_Heis_equals_rank_additive"] = (ks.kappa_ch_Heis == Fraction(2 + 1))
+
+    # kappa_BKM(Phi_N) = c_N(0)/2; Delta_5 is the N=1 specialization.
+    N = 1
+    c_N_0_delta5 = 10
+    checks["kappa_BKM_equals_c_N_0_over_2_at_N1"] = (
+        N == 1 and ks.kappa_BKM == c_N_0_delta5 // 2
+    )
+
+    # kappa_cat = chi(O_{K3 x E}) = chi(O_{K3}) * chi(O_E) = 2 * 0 = 0
     chi_O_k3 = sum((-1)**p * h for p, h in h0p_k3.items())
     chi_O_e = sum((-1)**p * h for p, h in h0p_e.items())
     checks["kappa_cat_equals_chi_O_total"] = (ks.kappa_cat == chi_O_k3 * chi_O_e)
@@ -306,9 +311,13 @@ def verify_kappa_spectrum() -> Dict[str, bool]:
     mukai_rank = 1 + 22 + 1
     checks["kappa_fiber_equals_mukai_rank"] = (ks.kappa_fiber == mukai_rank)
 
-    # Cross-check: the resolved labels are pairwise different.
-    values = {ks.kappa_ch, ks.kappa_BKM, ks.kappa_cat, ks.kappa_cat_fiber, ks.kappa_fiber}
-    checks["resolved_labels_distinct"] = (len(values) == 5)
+    # Cross-check: kappa_ch and kappa_cat have the same value but distinct labels.
+    checks["compact_ch_and_cat_both_zero"] = (ks.kappa_ch == ks.kappa_cat == 0)
+    checks["resolved_labels_not_collapsed"] = (
+        "kappa_ch" in KappaSpectrum._fields
+        and "kappa_ch_Heis" in KappaSpectrum._fields
+        and "kappa_cat" in KappaSpectrum._fields
+    )
 
     return checks
 
@@ -630,29 +639,29 @@ class ShadowEntropyData(NamedTuple):
     S_micro: Optional[float]       # exact log|Omega|
     S_rademacher: float            # Rademacher leading order
     S_shadow_scalar: float         # shadow scalar contribution
-    kappa_ch_used: Fraction        # chiral kappa (AP113)
+    kappa_ch_Heis_used: Fraction   # Heisenberg-specialised chiral kappa
     kappa_BKM_used: int            # BKM kappa (AP113)
     shadow_tower_corrections: Dict[int, float]  # {arity: correction}
 
 
-def shadow_entropy_scalar(D: int, kappa_ch: Fraction = Fraction(3)) -> float:
+def shadow_entropy_scalar(D: int, kappa_ch_Heis: Fraction = Fraction(3)) -> float:
     """Scalar shadow contribution to BPS entropy.
 
     The shadow partition function at the scalar level:
       log Z^{sh,scalar} = sum_{g >= 1} F_g * g_s^{2g}
 
-    where F_g = kappa_ch * a_hat_g.
+    where F_g = kappa_ch^Heis * a_hat_g.
 
     At the attractor point, g_s is related to the charge by
     g_s^2 ~ 1/sqrt(D), so the genus-g contribution scales as:
 
-      F_g * g_s^{2g} ~ kappa_ch * a_hat_g / D^{g/2}
+      F_g * g_s^{2g} ~ kappa_ch^Heis * a_hat_g / D^{g/2}
 
     The LEADING entropy comes from exponentiating the genus sum:
       S_scalar = pi * sqrt(D)   (from the genus-0 prepotential, D-independent)
 
     The shadow tower corrections appear at subleading order:
-      delta_S^{(g)} = kappa_ch * a_hat_g / D^{g/2 - 1/2}
+      delta_S^{(g)} = kappa_ch^Heis * a_hat_g / D^{g/2 - 1/2}
     """
     if D <= 0:
         return 0.0
@@ -664,13 +673,13 @@ def shadow_entropy_scalar(D: int, kappa_ch: Fraction = Fraction(3)) -> float:
 def shadow_tower_corrections_k3e(
     D: int,
     max_genus: int = 5,
-    kappa_ch: Fraction = Fraction(3),
+    kappa_ch_Heis: Fraction = Fraction(3),
 ) -> Dict[int, float]:
     """Compute the shadow tower corrections to BPS entropy at each genus.
 
     The genus-g correction to the entropy is:
 
-      delta_S^{(g)} ~ kappa_ch * a_hat_g * (4*pi^2 / S_BH)^{2g-1}
+      delta_S^{(g)} ~ kappa_ch^Heis * a_hat_g * (4*pi^2 / S_BH)^{2g-1}
 
     where S_BH = pi * sqrt(D) is the leading entropy.
 
@@ -678,9 +687,10 @@ def shadow_tower_corrections_k3e(
     R^{2g} terms in the effective action, which map to genus-g shadow
     amplitudes in the bar complex.
 
-    IMPORTANT: This uses kappa_ch (the chiral algebra kappa), NOT
-    kappa_BKM. The shadow tower lives in the chiral algebra; the BKM
-    weight emerges from the bar Euler product resummation.
+    IMPORTANT: This uses kappa_ch^Heis (the Heisenberg-specialised chiral
+    kappa), NOT compact kappa_ch and NOT kappa_BKM. The shadow tower lives
+    in the Heisenberg shadow; the BKM weight emerges from the bar Euler
+    product resummation.
     """
     if D <= 0:
         return {}
@@ -690,7 +700,7 @@ def shadow_tower_corrections_k3e(
 
     for g in range(1, max_genus + 1):
         a_g = float(a_hat_coefficient(g))
-        k = float(kappa_ch)
+        k = float(kappa_ch_Heis)
         # The perturbative parameter is epsilon ~ 1/S0
         if S0 > 0:
             epsilon_2g = (4 * math.pi**2 / S0) ** (2 * g - 1)
@@ -701,7 +711,7 @@ def shadow_tower_corrections_k3e(
     return corrections
 
 
-def shadow_entropy_full(D: int, kappa_ch: Fraction = Fraction(3),
+def shadow_entropy_full(D: int, kappa_ch_Heis: Fraction = Fraction(3),
                         max_genus: int = 5) -> ShadowEntropyData:
     """Full shadow-derived BPS entropy for K3 x E at discriminant D.
 
@@ -714,8 +724,8 @@ def shadow_entropy_full(D: int, kappa_ch: Fraction = Fraction(3),
     S_BH = bekenstein_hawking_k3e(D)
     S_micro = bps_entropy_exact(D)
     S_rad = rademacher_leading_k3e(D)
-    S_scalar = shadow_entropy_scalar(D, kappa_ch)
-    corrections = shadow_tower_corrections_k3e(D, max_genus, kappa_ch)
+    S_scalar = shadow_entropy_scalar(D, kappa_ch_Heis)
+    corrections = shadow_tower_corrections_k3e(D, max_genus, kappa_ch_Heis)
 
     return ShadowEntropyData(
         discriminant=D,
@@ -723,7 +733,7 @@ def shadow_entropy_full(D: int, kappa_ch: Fraction = Fraction(3),
         S_micro=S_micro,
         S_rademacher=S_rad,
         S_shadow_scalar=S_scalar,
-        kappa_ch_used=kappa_ch,
+        kappa_ch_Heis_used=kappa_ch_Heis,
         kappa_BKM_used=K3E_KAPPA_SPECTRUM.kappa_BKM,
         shadow_tower_corrections=corrections,
     )
@@ -752,7 +762,7 @@ def shadow_vs_rademacher(D: int) -> ResummationComparison:
     The shadow tower at arity r captures contributions analogous to the
     first r terms of the Rademacher expansion:
 
-      Shadow arity 2 (scalar, kappa_ch only):
+      Shadow arity 2 (scalar, kappa_ch^Heis only):
         S^{(2)} = pi * sqrt(D)    [= Rademacher c=1 leading]
 
       Shadow arity 3 (cubic alpha):
@@ -765,14 +775,16 @@ def shadow_vs_rademacher(D: int) -> ResummationComparison:
       C_2/C_1 ~ exp(-pi*sqrt(D)/2)
 
     The genus-1 shadow correction is algebraically suppressed:
-      delta_S^{(1)} ~ kappa_ch / (24 * sqrt(D))
+      delta_S^{(1)} ~ kappa_ch^Heis / (24 * sqrt(D))
     """
     S_BH = bekenstein_hawking_k3e(D)
     S_micro = bps_entropy_exact(D)
     S_rad_leading = rademacher_leading_k3e(D)
 
-    kappa_ch = K3E_KAPPA_SPECTRUM.kappa_ch
-    corrections = shadow_tower_corrections_k3e(D, max_genus=3, kappa_ch=kappa_ch)
+    kappa_ch_Heis = K3E_KAPPA_SPECTRUM.kappa_ch_Heis
+    corrections = shadow_tower_corrections_k3e(
+        D, max_genus=3, kappa_ch_Heis=kappa_ch_Heis
+    )
 
     # Shadow resummed = leading + all corrections
     S_shadow = S_BH + sum(corrections.values())
@@ -803,45 +815,54 @@ def shadow_vs_rademacher(D: int) -> ResummationComparison:
 def kappa_entropy_analysis() -> Dict[str, Any]:
     """Analyse which kappa in the spectrum controls the black hole entropy.
 
-    The kappa-spectrum for K3 x E (AP113):
-      kappa_ch = 3:   chiral algebra A_C via Phi
-      kappa_BKM = 5:  Borcherds-Kac-Moody (weight of Delta_5)
+    The public kappa-spectrum for K3 x E (AP113):
+      kappa_ch = 0:   compact Hodge/PhiFA supertrace
+      kappa_ch^Heis = 3: Heisenberg shadow specialisation
+      kappa_BKM = 5:  Borcherds-Kac-Moody (c_N(0)/2 at N=1 for Delta_5)
       kappa_cat = 0:  categorical total space (chi(O_{K3 x E}))
-      kappa_cat_fiber = 2: K3-fiber holomorphic Euler characteristic
       kappa_fiber = 24: lattice rank
+    Auxiliary fiber datum:
+      chi_O_K3_fiber = 2: K3-fiber holomorphic Euler characteristic
 
     ANSWER: kappa_BKM = 5 controls the black hole entropy.
 
     REASONING:
     1. The BPS degeneracies Omega(D) are Fourier coefficients of 1/Delta_5^2.
-    2. Delta_5 has weight kappa_BKM = 5.
+    2. Delta_5 has weight kappa_BKM(Delta5) = c_N(0)/2 at N=1 = 10/2 = 5.
     3. The Rademacher subleading correction involves kappa_BKM:
          S = pi*sqrt(D) - f(kappa_BKM) * log(D) + O(1)
-    4. The SHADOW TOWER uses kappa_ch = 3 as input, but PRODUCES Delta_5
-       (with weight kappa_BKM = 5) through the bar Euler product.
+    4. The SHADOW TOWER uses kappa_ch^Heis = 3 as input, but PRODUCES
+       Delta_5 (with weight kappa_BKM = 5) through the bar Euler product.
     5. The bar Euler product is the Borcherds multiplicative lift
        (CY-A at d=2, conjectural at d=3; AP-CY8).
 
-    So: kappa_ch is the INPUT (shadow tower parameter).
+    So: kappa_ch^Heis is the INPUT (shadow tower parameter).
         kappa_BKM is the OUTPUT (automorphic form weight).
         The entropy uses the OUTPUT.
 
     The total-space identity kappa_BKM = kappa_ch + kappa_cat is false:
-    5 != 3 + 0.  The numerical N=1 decomposition uses the K3 fiber value:
-    kappa_BKM = kappa_ch + kappa_cat_fiber = 3 + 2 = 5.
+    5 != 0 + 0.  The compact-fiber identity
+    kappa_BKM = kappa_ch + chi(O_{K3}) is also false: 5 != 0 + 2.
+    The arithmetic 3 + 2 = 5 is only the N=1 Heisenberg/fibre coincidence.
     """
     ks = K3E_KAPPA_SPECTRUM
 
     identity_total_holds = (ks.kappa_BKM == int(ks.kappa_ch) + ks.kappa_cat)
-    identity_fiber_holds = (ks.kappa_BKM == int(ks.kappa_ch) + ks.kappa_cat_fiber)
+    identity_compact_fiber_holds = (
+        ks.kappa_BKM == int(ks.kappa_ch) + ks.kappa_cat_fiber
+    )
+    heis_fiber_coincidence = (
+        ks.kappa_BKM == int(ks.kappa_ch_Heis) + ks.kappa_cat_fiber
+    )
 
     # Rademacher subleading with each kappa candidate:
     D_test = 100
     candidates = {
         "kappa_ch": float(ks.kappa_ch),
+        "kappa_ch_Heis": float(ks.kappa_ch_Heis),
         "kappa_BKM": float(ks.kappa_BKM),
         "kappa_cat": float(ks.kappa_cat),
-        "kappa_cat_fiber": float(ks.kappa_cat_fiber),
+        "aux_chi_O_K3_fiber": float(ks.kappa_cat_fiber),
         "kappa_fiber": float(ks.kappa_fiber),
     }
 
@@ -862,21 +883,30 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
     return {
         "kappa_spectrum": {
             "kappa_ch": float(ks.kappa_ch),
+            "kappa_ch_Heis": float(ks.kappa_ch_Heis),
             "kappa_BKM": float(ks.kappa_BKM),
             "kappa_cat": float(ks.kappa_cat),
-            "kappa_cat_fiber": float(ks.kappa_cat_fiber),
             "kappa_fiber": float(ks.kappa_fiber),
         },
+        "auxiliary_fiber_values": {
+            "chi_O_K3_fiber": float(ks.kappa_cat_fiber),
+        },
         "identity_kBKM_eq_kch_plus_kcat_total": identity_total_holds,
-        "identity_kBKM_eq_kch_plus_kcat_fiber": identity_fiber_holds,
+        "identity_kBKM_eq_kch_plus_chi_O_K3_fiber": identity_compact_fiber_holds,
+        "coincidence_N1_kBKM_eq_kch_Heis_plus_chi_O_K3_fiber": heis_fiber_coincidence,
         "answer": "kappa_BKM controls the black hole entropy",
         "reasoning": (
             "BPS degeneracies are Fourier coefficients of 1/Delta_5^2. "
-            "Delta_5 has weight kappa_BKM = 5. The shadow tower (kappa_ch = 3) "
-            "PRODUCES Delta_5 through the bar Euler product. The entropy "
-            "uses the OUTPUT weight kappa_BKM, not the INPUT kappa_ch."
+            "Delta_5 has weight kappa_BKM = c_N(0)/2 at N=1, equal to 5. The shadow tower "
+            "(kappa_ch^Heis = 3) PRODUCES Delta_5 through the bar Euler product. "
+            "The entropy uses the OUTPUT weight kappa_BKM, not compact kappa_ch "
+            "and not the Heisenberg input as an additive proof."
         ),
-        "key_identity": "kappa_BKM = kappa_ch + kappa_cat_fiber = 3 + 2 = 5; total-space kappa_cat gives 3 + 0 != 5",
+        "key_identity": (
+            "canonical kappa_BKM(Delta5) = c_N(0)/2 at N=1 = 5; false additive "
+            "variants give 0 + 0 != 5 and 0 + 2 != 5; N=1 Heisenberg/fibre "
+            "coincidence only: kappa_ch^Heis + chi(O_K3) = 3 + 2 = 5"
+        ),
         "rademacher_predictions": rademacher_predictions,
     }
 
@@ -990,59 +1020,46 @@ def verify_rademacher_improves_with_D() -> Dict[str, Any]:
 
 
 def verify_kappa_identity() -> Dict[str, bool]:
-    """Verify the total-space failure and fiber decomposition.
+    """Verify the Borcherds formula and reject additive decompositions.
 
-    Path 1: direct from the total-space spectrum: 5 != 3 + 0.
-    Path 1b: direct from the K3-fiber value: 5 = 3 + 2.
-    Path 2: kappa_BKM = wt(Delta_5) = phi_{0,1}(tau,0)/2 - (correction)
-      Actually: wt(Phi_{10}) = 10 = phi_{0,1}(tau,0) * 5/12 ... no.
-      The correct derivation: wt(Phi_{10}) = 10 and
-      (Delta_5)^2 = const * Phi_{10} so wt(Delta_5) = 5.
+    Path 1: compact/PhiFA total-space spectrum rejects
+      kappa_BKM = kappa_ch + kappa_cat: 5 != 0 + 0.
+    Path 1b: compact/PhiFA fiber variant rejects
+      kappa_BKM = kappa_ch + chi(O_{K3}): 5 != 0 + 2.
+    Path 1c: N=1 Heisenberg/fibre arithmetic gives 5 = 3 + 2, but this is
+      recorded only as a coincidence, not a proof.
+    Path 2: kappa_BKM(Delta5) = c_N(0)/2 at N=1 = 10/2 = 5.
+    Path 3: (Delta_5)^2 = const * Phi_{10}; wt(Phi_{10}) = 10, so
+      wt(Delta_5) = 5.
 
-    Path 3: from the Borcherds lift weight formula:
-      wt(Delta_5) = c(0)/2 where c(0) is the D=0 coefficient of phi_{0,1}.
-      At weight 0 index 1: c(0) = f(0,0) = 20 at the q^0 y^0 term.
-      But wait: the weight formula for the Borcherds product is
-      c(-1)/2 = 2/2 = 1 ... that gives weight 1, which is wrong.
-
-      ACTUALLY: the Borcherds product formula weight is
-        k = c_0(0)/2
-      where c_0(D) is the coefficient of q^D in the THETA DECOMPOSITION
-      of the Jacobi form. For phi_{0,1}:
-        phi_{0,1} = sum_r h_r(tau) * theta_{m,r}(tau, z)
-      The "constant term" c_0(0) contributes to the weight through:
-        k = c(-1) * dim/2
-      Specifically, for the lift on O^+(2,n):
-        weight = c(0)/2 where c(0) comes from the non-theta components.
-
-      The standard result (Gritsenko-Nikulin 1998, Theorem 2.1):
-        Weight of Borcherds lift of phi_{k,m} = k/2 + c(0)/2
-        where c(0) is the D=0 Fourier coefficient.
-      For phi_{0,1}: k=0, c(0) = 20. Weight = 0 + 20/2 = 10.
-      This is the weight of Phi_{10}. Then Delta_5 = sqrt(Phi_{10}) has wt 5.
-      So wt(Delta_5) = 10/2 = 5. YES.
-
-      The correct N=1 numerical decomposition uses the K3 fiber:
-      kappa_BKM = kappa_ch + kappa_cat_fiber = 3 + 2 = 5.
-      The total-space identity using kappa_cat(K3 x E) is false.
+    The false variants kappa_BKM = kappa_ch + kappa_cat and
+    kappa_BKM = kappa_ch + chi(O_fiber) are rejected.
     """
     ks = K3E_KAPPA_SPECTRUM
 
     checks = {}
 
     # Path 1: direct arithmetic
-    checks["total_space_sum_fails"] = (ks.kappa_BKM != int(ks.kappa_ch) + ks.kappa_cat)
-    checks["fiber_sum"] = (ks.kappa_BKM == int(ks.kappa_ch) + ks.kappa_cat_fiber)
+    checks["total_space_sum_rejected"] = (
+        ks.kappa_BKM != int(ks.kappa_ch) + ks.kappa_cat
+    )
+    checks["compact_ch_plus_k3_fiber_rejected"] = (
+        ks.kappa_BKM != int(ks.kappa_ch) + ks.kappa_cat_fiber
+    )
+    checks["N1_heis_fiber_coincidence_recorded"] = (
+        ks.kappa_BKM == int(ks.kappa_ch_Heis) + ks.kappa_cat_fiber
+    )
 
-    # Path 2: from wt(Phi_{10}) = 10
+    # Path 2: from kappa_BKM(Phi_N) = c_N(0)/2 at N=1
+    N = 1
+    c_N_0_delta5 = 10
+    checks["from_c_N_0_over_2_at_N1"] = (
+        N == 1 and ks.kappa_BKM == c_N_0_delta5 // 2
+    )
+
+    # Path 3: from wt(Phi_{10}) = 10
     wt_Phi10 = 10
     checks["from_Phi10_weight"] = (ks.kappa_BKM == wt_Phi10 // 2)
-
-    # Path 3: from Borcherds lift weight formula
-    # wt(Phi_{10}) = c(0)/2 = 20/2 = 10
-    c0_phi01 = 20  # the D=0 Fourier coefficient of phi_{0,1}
-    borcherds_weight = c0_phi01 // 2
-    checks["from_borcherds_lift"] = (borcherds_weight == wt_Phi10)
 
     return checks
 

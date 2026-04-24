@@ -14,8 +14,9 @@ MATHEMATICAL CONTENT
 1. SMOOTH PHASE (before transition).
 
    The smooth quintic Q in P^4 has h^{1,1}=1, h^{2,1}=101, chi=-200.
-   Conjectural kappa_ch = chi/24 = -25/3 (fractional; AP-CY157: this is
-   the CONIFOLD degeneration type, not large complex structure).
+   BCOV-shadow candidate chi/24 = -25/3 (fractional; AP-CY157: this is
+   the CONIFOLD degeneration type, not large complex structure).  This is
+   not promoted to constructed kappa_ch in this engine.
 
    The shadow tower is class M (infinite depth) because the quintic
    has infinitely many nonzero GV invariants n^0_d for all d >= 1.
@@ -67,7 +68,7 @@ MATHEMATICAL CONTENT
    The conifold transition changes chi by +4 per node resolved.
    For k nodes: Delta_chi = 4k.
 
-   If kappa_ch = chi/24 (conjectural for compact CY3):
+   In the BCOV-shadow candidate lane chi/24:
      Before: -200/24 = -25/3.
      After:  -196/24 = -49/12.
      Delta_kappa = 4/24 = 1/6 per node.
@@ -139,12 +140,12 @@ class ConifoldTransitionData(NamedTuple):
     h11_before: int
     h21_before: int
     chi_before: int
-    kappa_ch_before: Fraction  # conjectural: chi/24
+    kappa_ch_before: Fraction  # legacy field: BCOV-shadow candidate chi/24
     # After transition (resolved phase)
     h11_after: int
     h21_after: int
     chi_after: int
-    kappa_ch_after: Fraction   # conjectural: chi/24
+    kappa_ch_after: Fraction   # legacy field: BCOV-shadow candidate chi/24
     # Transition data
     num_nodes: int             # number of nodes resolved
     delta_chi: int             # chi_after - chi_before = 4 * num_nodes
@@ -159,8 +160,9 @@ def conifold_transition_data(name: str, h11: int, h21: int,
       h^{1,1} -> h^{1,1} + num_nodes
       h^{2,1} -> h^{2,1} - num_nodes
 
-    Conjectural kappa_ch = chi/24 for compact CY3 (AP-CY157: conifold
-    degeneration type).
+    BCOV-shadow candidate = chi/24 for compact CY3 (AP-CY157: conifold
+    degeneration type).  The field names are legacy API names; their
+    values are not constructed kappa_ch.
     """
     chi_before = 2 * (h11 - h21)
     h11_after = h11 + num_nodes
@@ -445,10 +447,10 @@ def _factorial(n: int) -> Fraction:
 class ShadowTowerData(NamedTuple):
     """Shadow tower data for a CY3 at a specific phase."""
     phase: str          # "smooth", "conifold_point", "resolved"
-    kappa_ch: Fraction
+    kappa_ch: Fraction  # legacy field: constructed kappa_ch or BCOV-shadow candidate
     shadow_class: str   # "G", "L", "C", "M"
     shadow_depth: int   # 2 for G, infinity for M (encoded as -1)
-    S_2: Fraction       # arity-2 shadow = kappa_ch
+    S_2: Fraction       # arity-2 shadow in the same scalar lane
     S_3: Fraction       # cubic shadow
     S_4: Fraction       # quartic shadow
     log_correction: bool  # whether log period correction is present
@@ -457,9 +459,9 @@ class ShadowTowerData(NamedTuple):
 def shadow_tower_smooth_quintic() -> ShadowTowerData:
     """Shadow tower of the smooth quintic (before conifold transition).
 
-    kappa_ch = -25/3 (conjectural, from chi/24).
+    BCOV-shadow candidate = -25/3 (from chi/24).
     Class M: infinite depth (from GV invariants).
-    S_2 = kappa_ch = -25/3.
+    S_2 = -25/3 in this conjectural shadow lane.
     S_3: unknown (requires the quintic chiral algebra OPE).
     S_4: unknown (requires quartic contact invariant).
 
@@ -486,9 +488,9 @@ def shadow_tower_conifold_point() -> ShadowTowerData:
         Pi ~ t * log(t).
 
     This produces a logarithmic correction to the shadow coefficients.
-    The kappa_ch is ILL-DEFINED at the singular point (the chiral
-    algebra degenerates), but the LIMIT from the smooth side gives
-    kappa_ch -> -25/3.
+    The constructed kappa_ch is ill-defined at the singular point (the
+    chiral algebra degenerates), but the BCOV-shadow limit from the
+    smooth side gives -25/3.
 
     The massless BPS state contributes an additional term to S_2:
         delta_S_2 = 1 (from n^0_1 = 1, the vanishing cycle).
@@ -522,7 +524,7 @@ def shadow_tower_resolved(num_nodes: int = 1) -> ShadowTowerData:
         h^{2,1} = 101 - num_nodes
         chi = -200 + 4*num_nodes
 
-    kappa_ch = chi'/24 (conjectural).
+    BCOV-shadow candidate = chi'/24 (conjectural).
     Class M: still infinite depth.
 
     The new shadow data decomposes as:

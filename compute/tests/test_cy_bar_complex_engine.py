@@ -330,17 +330,22 @@ class TestCategoricalKappa:
         assert k.kappa == k.chi_O
 
     def test_kappa_k3xe(self):
-        """kappa(D^b(K3 x E)) = 5 (weight of Delta_5)."""
+        """compact kappa_ch(D^b(K3 x E)) = 0; Heisenberg shadow = 3."""
         k = kappa_k3_times_e()
         # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
-        assert k.kappa == Fraction(5)
+        assert k.kappa == Fraction(0)
+        assert k.kappa_label == "kappa_ch"
+        assert k.kappa_ch_Heis == Fraction(3)
+        assert k.kappa_BKM == Fraction(5)
 
     def test_kappa_k3xe_not_from_chi_top(self):
-        """kappa = 5 does NOT come from chi_top/24 = 0/24 = 0."""
+        """Heisenberg shadow 3 and kappa_BKM=5 do not come from chi_top/24=0."""
         k = kappa_k3_times_e()
         # VERIFIED [DC] Euler characteristic formula [LT] operadic Koszul theory
         assert k.chi_top == 0
-        assert k.kappa != Fraction(k.chi_top, 24)
+        assert k.kappa == Fraction(k.chi_top, 24)
+        assert k.kappa_ch_Heis != Fraction(k.chi_top, 24)
+        assert k.kappa_BKM != Fraction(k.chi_top, 24)
 
     def test_kappa_quintic(self):
         """kappa(D^b(quintic)) = -25/3 (CONJECTURAL)."""
@@ -349,7 +354,7 @@ class TestCategoricalKappa:
         assert k.kappa == Fraction(-25, 3)
 
     def test_kappa_quintic_from_chi_top(self):
-        """kappa = chi_top/24 = -200/24 = -25/3."""
+        """BCOV-shadow candidate = chi_top/24 = -200/24 = -25/3."""
         k = kappa_quintic()
         # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert k.kappa == Fraction(-200, 24)
@@ -372,11 +377,17 @@ class TestCategoricalKappa:
         # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert k.kappa == Fraction(0)
 
-    def test_kappa_not_additive_for_product(self):
-        """kappa(K3 x E) = 5 != kappa(K3) + kappa(E) = 2 + 1 = 3."""
+    def test_kappa_additive_for_k3xe_chiral_lane(self):
+        """kappa_ch^Heis(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3."""
+        r = verify_kappa_additivity(Fraction(2), Fraction(1), Fraction(3))
+        assert r["is_additive"]
+        # VERIFIED [DC] kappa computation [LT] operadic Koszul theory
+        assert r["discrepancy"] == 0
+
+    def test_k3xe_bkm_not_chiral_additivity(self):
+        """The old 5-3 discrepancy compares kappa_BKM with kappa_ch^Heis."""
         r = verify_kappa_additivity(Fraction(2), Fraction(1), Fraction(5))
         assert not r["is_additive"]
-        # VERIFIED [DC] kappa computation [LT] operadic Koszul theory
         assert r["discrepancy"] == 2
 
     def test_kappa_additive_for_elliptic_product(self):
@@ -522,10 +533,11 @@ class TestModularTrace:
         assert mt.genus_amplitudes[1] == Fraction(2, 24)
 
     def test_k3xe_f1(self):
-        """F_1(D^b(K3 x E)) = 5/24."""
+        """F_1(K3 x E BKM denominator lane) = 5/24."""
         mt = modular_trace_k3xe()
         # VERIFIED [DC] genus tower [LT] operadic Koszul theory
         assert mt.genus_amplitudes[1] == Fraction(5, 24)
+        assert mt.kappa_label == "kappa_BKM"
 
     def test_quintic_f1(self):
         """F_1(D^b(quintic)) = (-25/3)/24 = -25/72."""
@@ -540,10 +552,11 @@ class TestModularTrace:
         assert mt.genus_amplitudes[1] == Fraction(1, 24)
 
     def test_k3xe_f2(self):
-        """F_2(D^b(K3 x E)) = 5 * 7/5760 = 7/1152."""
+        """F_2(K3 x E BKM denominator lane) = 5 * 7/5760 = 7/1152."""
         mt = modular_trace_k3xe()
         # VERIFIED [DC] genus tower [LT] operadic Koszul theory
         assert mt.genus_amplitudes[2] == Fraction(5) * Fraction(7, 5760)
+        assert mt.kappa_label == "kappa_BKM"
 
     def test_shadow_f_g_linearity(self):
         """F_g(kappa) = kappa * a_hat_g: verify linearity."""
@@ -657,13 +670,14 @@ class TestDTShadow:
         assert dt.gopakumar_vafa[3] == 317206375
 
     def test_k3xe_dt_kappa(self):
-        """K3 x E: kappa = 5."""
+        """K3 x E DT shadow uses kappa_BKM = 5."""
         dt = dt_from_shadow_k3xe()
         # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert dt.kappa == Fraction(5)
+        assert dt.kappa_label == "kappa_BKM"
 
     def test_k3xe_f1_shadow(self):
-        """K3 x E: F_1 = 5/24 from shadow tower."""
+        """K3 x E: F_1 = 5/24 from the BKM shadow tower."""
         dt = dt_from_shadow_k3xe()
         # VERIFIED [DC] DT invariant [LT] operadic Koszul theory
         assert dt.constant_map_tower[1] == Fraction(5, 24)
@@ -786,9 +800,10 @@ class TestCrossChecks:
             assert verify_hh_total_equals_sum_hodge(hd_func())
 
     def test_shadow_tower_f1_is_kappa_over_24(self):
-        """Multi-path: F_1 = kappa/24 for all families."""
+        """Multi-path: F_1 = scalar/24 lane-by-lane."""
         for name, kappa in [("E", Fraction(1)), ("K3", Fraction(2)),
-                            ("K3xE", Fraction(5)), ("quintic", Fraction(-25, 3)),
+                            ("K3xE chiral", Fraction(3)), ("K3xE BKM", Fraction(5)),
+                            ("quintic", Fraction(-25, 3)),
                             ("conifold", Fraction(1))]:
             tower = shadow_tower_scalar(kappa, 1)
             assert tower[1] == kappa / 24, f"F_1 wrong for {name}"
@@ -856,10 +871,11 @@ class TestNumericalValues:
         assert mt.genus_amplitudes[2] == expected
 
     def test_k3xe_f1_numerical(self):
-        """F_1(K3 x E) = 5/24 ~ 0.2083."""
+        """F_1(K3 x E BKM denominator lane) = 5/24 ~ 0.2083."""
         mt = modular_trace_k3xe()
         # VERIFIED [DC] genus tower [LT] operadic Koszul theory
         assert float(mt.genus_amplitudes[1]) == pytest.approx(5 / 24)
+        assert mt.kappa_label == "kappa_BKM"
 
     def test_macmahon_growth(self):
         """MacMahon coefficients grow: p(n) < p(n+1) for n >= 1."""
@@ -880,11 +896,13 @@ class TestNumericalValues:
         # VERIFIED [DC] shadow structure [LT] operadic Koszul theory
         assert data.r_max == -1
 
-    def test_k3xe_kappa_equals_delta5_weight(self):
-        """kappa(K3 x E) = 5 = weight(Delta_5)."""
+    def test_k3xe_bkm_equals_delta5_weight(self):
+        """kappa_BKM(K3 x E) = 5 = weight(Delta_5)."""
         k = kappa_k3_times_e()
         # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
-        assert k.kappa == Fraction(5)
+        assert k.kappa == Fraction(0)
+        assert k.kappa_ch_Heis == Fraction(3)
+        assert k.kappa_BKM == Fraction(5)
         # Delta_5 is the Igusa cusp form of weight 5 on Sp(4, Z).
 
     def test_quintic_hh_symmetry(self):

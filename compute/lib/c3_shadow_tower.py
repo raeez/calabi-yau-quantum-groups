@@ -762,13 +762,13 @@ def coha_graded_dimension_check(N: int = 21) -> Dict[str, Any]:
 # ===========================================================================
 
 def rosetta_stone() -> Dict[str, str]:
-    """The W_{1+inf} / CoHA / DT / Shadow dictionary.
+    """The W_{1+inf} / positive-half CoHA / DT / Shadow dictionary.
 
     Maps between four languages for the same mathematics.
     """
     return {
         # VOA language -> DT language
-        'W_{1+inf} at c=1': 'CoHA Y^+(gl_hat_1) of C^3',
+        'W_{1+inf} at c=1': 'Drinfeld double/center evaluation of CoHA Y^+(gl_hat_1)',
         'shadow tower Theta_{W_{1+inf}}': 'DT obstruction theory on C^3',
         'kappa_s = 1/s': 'virtual rank per spin channel',
         'total kappa (divergent)': 'non-compact Euler characteristic (regularize)',

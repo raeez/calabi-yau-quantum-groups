@@ -736,8 +736,9 @@ class TestAPCompliance:
 
     def test_ap_cy7_coha_not_chiral(self):
         """AP-CY7: engine does not conflate CoHA with chiral algebra."""
-        # The engine treats the Yangian Y(gl_hat_1) as the target,
-        # NOT the CoHA. The CoHA is the E_1 side (Iwahori).
+        # The engine treats the full Yangian Y(gl_hat_1) as the
+        # reconstructed target, NOT the raw CoHA. The CoHA is the
+        # positive half Y^+ side (Iwahori).
         tr = tannakian_reconstruction()
         assert "Y(gl_hat_1)" in tr.algebra_name
-        # The algebra is the full Yangian, not the CoHA
+        assert "Y^+" not in tr.algebra_name

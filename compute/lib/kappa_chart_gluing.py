@@ -9,7 +9,7 @@ local toric charts, compact BCOV constant-map predictions, abelian
 Heisenberg factors, and BKM denominator identities live in different
 lanes.  The K3 x E scalar used here is specifically
 
-    kappa_BKM(Delta_5) = weight(Delta_5) = c_1(0)/2 = 10/2 = 5.
+    kappa_BKM(Delta_5) = weight(Delta_5) = c_N(0)/2 at N=1 = 10/2 = 5.
 
 It is not chi_top(K3 x E)/24 = 0, not the compact total-space
 kappa_cat, and not a Kunneth product of separate K3 and elliptic-curve
@@ -153,6 +153,11 @@ class KappaGluingResult(NamedTuple):
     n_charts: int
     kappa_label: str
     verification_paths: Dict[str, Fraction]
+
+    @property
+    def kappa_scalar(self) -> Fraction:
+        """Lane-declared scalar value; prefer over the legacy kappa_ch name."""
+        return self.kappa_ch
 
 
 # =========================================================================
@@ -501,7 +506,7 @@ def k3_times_e_atlas() -> CY3Atlas:
 
     This is the Igusa/Borcherds lane:
 
-      kappa_BKM(Delta_5) = weight(Delta_5) = c_1(0)/2 = 10/2 = 5.
+      kappa_BKM(Delta_5) = weight(Delta_5) = c_N(0)/2 at N=1 = 10/2 = 5.
 
     It is not chi_top(K3 x E)/24 = 0 and not a product formula
     kappa_ch(K3) + kappa_ch(E).  The single chart here is a placeholder
@@ -755,7 +760,7 @@ def kappa_from_k3_fibration_weight(chi_k3: int = 24) -> Fraction:
         (chi(K3) - 4) / 4 = (24 - 4) / 4 = 5.
 
     The source is the Borcherds product weight, equivalently
-    kappa_BKM(Delta_5) = c_1(0)/2 = 10/2 = 5.  Do not use this as a
+    kappa_BKM(Delta_5) = c_N(0)/2 at N=1 = 10/2 = 5.  Do not use this as a
     general product or fibration formula.
     """
     return Fraction(chi_k3 - 4, 4)
@@ -929,7 +934,7 @@ def correct_kappa_formula_analysis() -> Dict[str, Any]:
         kappa_BCOV_shadow = chi_top(X) / 24  (CONJECTURAL)
 
     (C) K3 x E BKM denominator:
-        kappa_BKM(Delta_5) = c_1(0)/2 = 5
+        kappa_BKM(Delta_5) = c_N(0)/2 at N=1 = 5
 
     (D) Abelian CY3 (product of elliptic curves):
         kappa_ch = dim(X) = 3  (independent Heisenberg lane)
@@ -938,7 +943,7 @@ def correct_kappa_formula_analysis() -> Dict[str, Any]:
         "universal_formula_exists": False,
         "type_A_toric": "kappa_ch = chi_top(S)/2",
         "type_B_rigid": "kappa_BCOV_shadow = chi_top(X)/24 (CONJECTURAL)",
-        "type_C_k3e_bkm": "kappa_BKM(Delta_5) = c_1(0)/2 = 5",
+        "type_C_k3e_bkm": "kappa_BKM(Delta_5) = c_N(0)/2 at N=1 = 5",
         "type_D_abelian": "kappa_ch = dim(X)",
         "type_E_product_warning": (
             "No product formula is asserted for kappa_BKM(K3 x E)."

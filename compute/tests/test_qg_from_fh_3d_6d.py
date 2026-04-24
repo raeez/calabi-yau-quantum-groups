@@ -49,6 +49,7 @@ from qg_from_fh_3d_6d import (
     NumericalVerification,
     DimensionalReductionChain,
     E3BraidingComparison,
+    HolographicBridgeDatum,
     StructureFunctionComparison,
     KoszulDualityComparison,
     run_full_comparison,
@@ -644,6 +645,7 @@ class TestMasterComparison:
         assert "route_a" in result
         assert "route_b" in result
         assert "obstructions" in result
+        assert "holographic_bridge" in result
         assert "numerical_checks" in result
 
     def test_all_numerical_checks_pass(self):
@@ -686,6 +688,47 @@ class TestMasterComparison:
         result = run_full_comparison()
         assert "PROVED" in result["route_5d"]["status"]
         assert result["route_5d"]["en_level"] == 2  # Between E_3 and E_1
+
+
+# =========================================================================
+# Section 12b: Holographic/QG bridge gate
+# =========================================================================
+
+class TestHolographicBridgeDatum:
+    """The pure mathematical holographic bridge is a typed datum, not a slogan."""
+
+    def test_default_bridge_is_open(self):
+        """With no data, holographic consequences are open proof obligations."""
+        bridge = HolographicBridgeDatum()
+        report = bridge.status_report()
+        assert report["pure_math_constructed"] is False
+        assert report["consequence_status"] == "OPEN_PROOF_OBLIGATION"
+        assert set(report["missing_components"]) == set(HolographicBridgeDatum.REQUIRED_COMPONENTS)
+
+    def test_k3e_chl_physics_bridge_is_conditional(self):
+        """The current K3 x E / CHL bridge has physics witnesses but no pure functor."""
+        bridge = HolographicBridgeDatum.k3e_chl_physics_bridge()
+        report = bridge.status_report()
+        assert report["pure_math_constructed"] is False
+        assert report["consequence_status"] == "CONDITIONAL_ON_EXPLICIT_PHYSICAL_BRIDGE"
+        assert "charge_lattice_isometry" in report["present_components"]
+        assert "index_character_map" in report["present_components"]
+        assert "boundary_chiral_category" in report["missing_components"]
+        assert "factorization_homology_functoriality" in report["missing_components"]
+        assert "ads3_cft2_dictionary" in report["physics_witnesses"]
+
+    def test_complete_bridge_promotes_to_pure_theorem(self):
+        """Only all required components promote the bridge to pure mathematics."""
+        bridge = HolographicBridgeDatum.complete_pure_math_bridge()
+        report = bridge.status_report()
+        assert report["pure_math_constructed"] is True
+        assert report["missing_components"] == []
+        assert report["consequence_status"] == "THEOREM_PURE_MATHEMATICAL_BRIDGE"
+
+    def test_unknown_bridge_component_rejected(self):
+        """The oracle rejects vague or untyped bridge components."""
+        with pytest.raises(ValueError):
+            HolographicBridgeDatum(components={"physics_says_so": True})
 
 
 # =========================================================================

@@ -203,7 +203,7 @@ def genus_1_from_shadow(kappa_ch: Fraction) -> Genus1Data:
     This identification is UNCONDITIONAL: it depends only on
     kappa_ch(A_X), not on the full shadow tower. For CY3:
       C^3:    kappa_ch = 1,    F_1 = 1/24
-      K3 x E: kappa_ch = 3,   F_1 = 1/8   (AP113: kappa_ch, not bare kappa)
+      K3 x E: compact kappa_ch = 0, kappa_ch_Heis = 3, F_1^Heis = 1/8
       Quintic: kappa_ch = -25/3, F_1 = -25/72 (CONDITIONAL on CY-A_3)
     """
     lam_1 = lambda_fp(1)  # = 1/24
@@ -225,7 +225,7 @@ def genus_1_verification_all_cases() -> Dict[str, Genus1Data]:
         "C^3": Fraction(1),
         "conifold": Fraction(1),
         "local_P2": Fraction(3),       # kappa_ch = chi_equiv for deg-0
-        "K3xE": Fraction(3),           # kappa_ch(K3xE) = 3 (AP113)
+        "K3xE": Fraction(3),           # kappa_ch_Heis(K3xE) = 3 (AP113)
         "quintic": Fraction(-25, 3),   # chi/24 = -200/24, CONDITIONAL
         "Virasoro_c1": Fraction(1, 2), # spin-2 channel of W_{1+inf}
     }
@@ -676,7 +676,8 @@ PHI01_DISCRIMINANT_COEFFS: Dict[int, int] = {
 # relates to the bar complex through the identification:
 
 K3E_KAPPA_SPECTRUM: Dict[str, Any] = {
-    "kappa_ch": Fraction(3),     # from chiral algebra A_{K3xE} via Phi
+    "kappa_ch": Fraction(0),     # compact total-space Hodge/PhiFA supertrace
+    "kappa_ch_Heis": Fraction(3),  # relative Heisenberg-Mukai shadow
     "kappa_BKM": 5,              # from Borcherds-Kac-Moody (weight of Delta_5)
     "kappa_cat": Fraction(0),    # total-space chi(O_{K3 x E}) = 2 * 0
     "kappa_cat_fiber": 2,        # from chi(O_{K3}) = 2
@@ -756,7 +757,7 @@ def dmvv_as_bar_complex(max_rank: int = 3) -> Dict[str, Any]:
         "ap_compliance": {
             "AP-CY6": "A_{K3xE} not constructed; results CONDITIONAL",
             "AP-CY8": "All 4 bridge steps cited explicitly",
-            "AP113": "kappa_ch = 3, kappa_BKM = 5 (subscripted)",
+            "AP113": "compact kappa_ch = 0; kappa_ch_Heis = 3; kappa_BKM = 5",
             "AP155": "DMVV, Gottsche, Delta_5 are known; construction path is new",
         },
     }
@@ -883,7 +884,7 @@ def mock_modular_from_class_m(kappa_ch: Fraction,
                                kappa_fiber: int = 24) -> Dict[str, Any]:
     r"""Mock modular structure for class M algebras.
 
-    For class M (e.g., K3 x E with kappa_ch = 3):
+    For class M (e.g., K3 x E with kappa_ch_Heis = 3):
     - The genus expansion is Gevrey-1 divergent
     - Borel transform has singularities at instanton actions
     - The non-holomorphic completion produces mock modular forms

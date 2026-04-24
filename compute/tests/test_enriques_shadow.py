@@ -257,12 +257,12 @@ class TestKappa:
     """Verify kappa for Enriques x E and its relationship to K3 x E."""
 
     def test_kappa_enriques_is_4(self):
-        """kappa(Enriques x E) = 4 (Allcock weight)."""
+        """kappa_BKM(Enriques x E) = 4 (Allcock weight)."""
         # VERIFIED [DC] kappa formula [CF] cross-family census
         assert es.kappa_enriques_times_e() == 4
 
     def test_kappa_k3_is_5(self):
-        """kappa(K3 x E) = 5 (weight of Delta_5)."""
+        """kappa_BKM(K3 x E) = 5 (weight of Delta_5)."""
         # VERIFIED [DC] kappa formula [CF] cross-family census
         assert es.kappa_k3_times_e() == 5
 

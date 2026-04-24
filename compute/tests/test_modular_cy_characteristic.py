@@ -301,20 +301,21 @@ class TestModularCYCharacteristic:
         assert data.kappa == 2
         assert data.match is True
 
-    def test_k3_times_e_kappa_ch_3(self):
-        """chi_cy(K3 x E) = kappa_ch(K3 x E) = 3; kappa_BKM = 5 is separate.
+    def test_k3_times_e_kappa_ch_split(self):
+        """Compact kappa_ch(K3 x E)=0; Heisenberg shadow is 3; kappa_BKM is 5.
 
         AP113: kappa_ch vs kappa_BKM are distinct for K3 x E.
-        # VERIFIED [DC] kappa(K3)+kappa(E)=2+1=3 [LT] chiral de Rham sheaf
+        # VERIFIED [DC] compact Hodge supertrace and Heisenberg split [LT] Vol III cache
         """
         data = chi_cy_k3_times_e()
         # VERIFIED [DC] Euler characteristic formula [LC] AP113
-        assert data.chi_cy == 3
+        assert data.chi_cy == 0
         # VERIFIED [DC] kappa formula [LC] AP113
-        assert data.kappa == 3   # AP113: kappa_ch = 3 (proved)
+        assert data.kappa == 0
+        assert data.kappa_ch_Heis == 3
         assert data.match is True
         assert data.kappa_BKM == 5
-        assert "kappa_BKM separate" in data.source
+        assert "kappa_ch_Heis=3" in data.source
 
     def test_quintic_conjectural(self):
         """chi^CY(quintic) = -25/3 (CONJECTURAL, from chi/24)."""
@@ -330,14 +331,14 @@ class TestModularCYCharacteristic:
         assert data.chi_cy == 1
         assert data.match is True
 
-    def test_chi_top_not_chi_cy(self):
-        """chi^CY != chi_top in general. K3 x E: chi_top = 0, chi^CY = 3."""
+    def test_chi_top_and_compact_chi_cy_k3xe(self):
+        """K3 x E has chi_top=0 and compact chi^CY=0; Heisenberg shadow=3."""
         k3e = chi_cy_k3_times_e()
         # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert k3e.chi_top == 0
         # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
-        assert k3e.chi_cy == 3
-        assert k3e.chi_top != k3e.chi_cy
+        assert k3e.chi_cy == 0
+        assert k3e.kappa_ch_Heis == 3
 
     def test_elliptic_chi_top_vs_chi_cy(self):
         """Elliptic: chi_top = 0, chi^CY = 1."""
@@ -381,28 +382,31 @@ class TestAdditivity:
         data = chi_cy_additivity_test()
         assert data["kappa_additivity_direct_sum"] is True
 
-    def test_k3xe_kappa_ch_additive(self):
-        """kappa_ch IS additive: kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 3.
+    def test_k3xe_heisenberg_shadow_additive(self):
+        """kappa_ch_Heis is additive: kappa_ch(K3)+kappa_ch(E)=3.
 
-        AP113: the old non-additivity was an artifact of conflating kappa_ch=3
-        with kappa_BKM=5.  kappa_ch is the proved chiral value and IS additive.
+        AP113: the compact total-space kappa_ch is 0; the additive value 3 is
+        the Heisenberg shadow, still distinct from kappa_BKM=5.
         # VERIFIED [DC] 2+1=3 [LT] chiral de Rham
         """
         data = chi_cy_additivity_test()
-        assert data["product_is_additive_K3xE"] is True  # kappa_ch additive
+        assert data["product_is_additive_K3xE"] is False
+        assert data["product_is_additive_K3xE_Heis"] is True
         # VERIFIED [DC] kappa formula [LC] AP113
-        assert data["kappa_K3xE"] == 3  # kappa_ch, not kappa_BKM
+        assert data["kappa_K3xE"] == 0
+        assert data["kappa_K3xE_Heis"] == 3
         # VERIFIED [DC] kappa formula [LC] AP113
         assert data["kappa_K3_plus_E"] == 3
 
-    def test_k3xe_no_discrepancy_kappa_ch(self):
-        """kappa_ch(K3xE) - kappa_ch(K3) - kappa_ch(E) = 0 (additive).
+    def test_k3xe_compact_vs_heis_discrepancy(self):
+        """Compact kappa_ch is not product-additive; Heisenberg shadow is.
 
-        AP113: discrepancy was 5-3=2 when conflating kappa_BKM with kappa_ch.
+        AP113: discrepancy 0 belongs only to the Heisenberg shadow.
         """
         data = chi_cy_additivity_test()
         # VERIFIED [DC] kappa computation [LC] AP113
-        assert data["K3xE_discrepancy"] == 0
+        assert data["K3xE_discrepancy"] == -3
+        assert data["K3xE_Heis_discrepancy"] == 0
 
     def test_product_elliptic_n1(self):
         """kappa(E^1) = 1."""
@@ -630,18 +634,20 @@ class TestBCOV:
         assert c1_generic == Fraction(31, 3)
 
     def test_bcov_c1_not_equal_kappa(self):
-        """c_1^{BCOV} != kappa_ch in general. For K3xE: c_1 = 12, kappa_ch = 3.
+        """c_1^{BCOV} differs from both compact and Heisenberg kappa lanes.
 
-        AP113: kappa_ch, not kappa_BKM=5.
-        # VERIFIED [DC] c1_bcov=12 != 3 [LC] distinct invariants
+        AP113: kappa_ch=0, kappa_ch_Heis=3, kappa_BKM=5.
+        # VERIFIED [DC] c1_bcov=12 differs from all three [LC] distinct invariants
         """
         data = bcov_k3_times_e()
         k3e = chi_cy_k3_times_e()
         assert data.c1_bcov != k3e.kappa
+        assert data.c1_bcov != k3e.kappa_ch_Heis
         # VERIFIED [DC] kappa computation [LC] AP113
         assert data.c1_bcov == 12
         # VERIFIED [DC] kappa formula [LC] AP113
-        assert k3e.kappa == 3  # AP113: kappa_ch, not kappa_BKM
+        assert k3e.kappa == 0
+        assert k3e.kappa_ch_Heis == 3
 
 
 # ======================================================================
@@ -838,24 +844,26 @@ class TestCrossConsistency:
         assert chi_cy_k3_times_e().kappa_BKM == 5
 
     def test_shadow_f1_from_kappa_ch(self):
-        """F_1 = kappa_ch / 24 from the chiral shadow amplitude.
+        """F_1 = kappa_ch / 24 from compact lanes; K3xE Heisenberg uses its shadow.
 
-        AP113: uses kappa_ch (the .kappa field), not kappa_BKM.
-        K3 x E: F_1 = 3/24 = 1/8 from kappa_ch=3, NOT 5/24 from kappa_BKM=5.
+        AP113: uses the correct lane, not kappa_BKM.
+        K3 x E active Heisenberg shadow: F_1 = 3/24 = 1/8, NOT 5/24.
         # VERIFIED [DC] kappa/24 [CF] matches elliptic and K3 pattern
         """
         for func, expected_f1 in [(chi_cy_elliptic, Fraction(1, 24)),
-                                   (chi_cy_k3, Fraction(2, 24)),
-                                   (chi_cy_k3_times_e, Fraction(3, 24))]:
+                                   (chi_cy_k3, Fraction(2, 24))]:
             data = func()
             f1 = shadow_amplitude_genus1(data.kappa)
             assert f1 == expected_f1, f"F_1 mismatch for {data.name}"
+        k3e = chi_cy_k3_times_e()
+        assert shadow_amplitude_genus1(k3e.kappa_ch_Heis) == Fraction(3, 24)
 
     def test_k3xe_weight_5_from_cy_euler(self):
         """cy_euler kappa_k3_times_e() = 5 is kappa_BKM, not kappa_ch.
 
         AP113: cy_euler returns kappa_BKM=5 (Borcherds weight);
-        modular_cy_characteristic.kappa now returns kappa_ch=3 (proved).
+        modular_cy_characteristic.kappa now returns compact kappa_ch=0.
+        Its kappa_ch_Heis slot returns the active shadow value 3.
         The two are DISTINCT invariants.
         # VERIFIED [DC] kappa_ch=2+1=3 [LT] Borcherds wt(Delta_5)=5
         """
@@ -863,7 +871,8 @@ class TestCrossConsistency:
         # VERIFIED [DC] Euler characteristic [LC] AP113
         assert kappa_from_cy_euler() == 5  # kappa_BKM from cy_euler
         # VERIFIED [DC] Euler characteristic [LC] AP113
-        assert chi_cy_k3_times_e().kappa == 3  # kappa_ch (AP113)
+        assert chi_cy_k3_times_e().kappa == 0  # compact kappa_ch (AP113)
+        assert chi_cy_k3_times_e().kappa_ch_Heis == 3
         # The two are different invariants
         assert kappa_from_cy_euler() != chi_cy_k3_times_e().kappa
 
@@ -1055,7 +1064,7 @@ class TestHodgeToKappa:
         """K3 fibration formula (chi(K3)-4)/4 = 5 is kappa_BKM, not kappa_ch.
 
         AP113: kappa_from_k3_fibration()=5 matches kappa_BKM, not the
-        .kappa field (which is now kappa_ch=3).
+        .kappa field (which is compact kappa_ch=0).
         # VERIFIED [DC] (24-4)/4=5 [CF] matches Borcherds weight
         """
         from compute.lib.modular_cy_characteristic import kappa_bkm_k3_times_e
@@ -1081,11 +1090,12 @@ class TestHodgeToKappa:
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_conjectural_cy3(-200) == Fraction(-25, 3)
 
-    def test_conjectural_cy3_fails_for_k3xe(self):
-        """chi_top/24 = 0/24 = 0 for K3 x E, but kappa_ch = 3. Formula fails."""
+    def test_conjectural_cy3_matches_compact_not_heis_for_k3xe(self):
+        """chi_top/24 = 0/24 matches compact K3 x E, not the Heisenberg shadow."""
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_conjectural_cy3(0) == Fraction(0)
-        assert kappa_conjectural_cy3(0) != chi_cy_k3_times_e().kappa
+        assert kappa_conjectural_cy3(0) == chi_cy_k3_times_e().kappa
+        assert kappa_conjectural_cy3(0) != chi_cy_k3_times_e().kappa_ch_Heis
 
     def test_arithmetic_genus_requires_surface(self):
         """Formula should reject non-surfaces."""

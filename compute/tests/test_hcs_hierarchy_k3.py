@@ -6,13 +6,14 @@ cross-engine compatibility.
 
 MATHEMATICAL GROUND TRUTH:
   - 3d level: H_Muk, g(u) = 1, kappa_ch = 2.  PROVED (CY-A_2).
-  - 5d level: Y(g_{K3}), g(u) = prod (u-h_i)/(u+h_i), kappa_ch = 3.
+  - 5d level: Y(g_{K3}), g(u) = prod (u-h_i)/(u+h_i),
+    compact kappa_ch = 0 and relative kappa_ch^Heis = 3.
     CONJECTURAL (AP-CY14).
   - 6d level: U_{q,t}(g_{K3}^{tor}), G(x) = prod (1-q_a x)/(1-q_a^{-1} x).
     CONJECTURAL (AP-CY14).
   - 6d -> 5d: shrink E, trigonometric -> rational.
   - 5d -> 3d: shrink C, rational -> classical (g = 1).
-  - kappa-spectrum: {0, 2, 3, 5, 24} (AP113).
+  - kappa-spectrum: compact/Heis/BKM/fiber values {0, 2, 3, 5, 24} (AP113).
 
 TEST STRUCTURE:
   1. Hierarchy levels and status
@@ -45,7 +46,7 @@ from compute.lib.hcs_hierarchy_k3 import (
     STATUS_3D, STATUS_5D, STATUS_6D,
     STATUS_K3_3D, STATUS_K3_5D, STATUS_K3_6D,
     MUKAI_RANK, MUKAI_SIG,
-    KAPPA_CH_K3, KAPPA_CH_K3E, KAPPA_BKM_K3E,
+    KAPPA_CH_K3, KAPPA_CH_K3E, KAPPA_CH_K3E_HEIS, KAPPA_BKM_K3E,
     KAPPA_CAT_K3, KAPPA_CAT_K3E, KAPPA_FIBER_K3,
     # Hierarchy data
     FLAT_HIERARCHY, K3_HIERARCHY,
@@ -373,14 +374,16 @@ class TestBoundaryData:
         assert bd.level == 5
         assert 'Yangian' in bd.boundary_algebra
         assert 'CONJECTURAL' in bd.boundary_algebra  # AP-CY14
-        assert bd.kappa_ch == Rational(3)  # VERIFIED [LT] kappa_ch(K3 x E) = 3
+        assert bd.kappa_ch == Rational(0)  # compact total-space kappa_ch
+        assert bd.kappa_ch_Heis == Rational(3)  # relative Yangian shadow scalar
 
     def test_6d_boundary(self):
         bd = boundary_data_6d()
         assert bd.level == 6
         assert 'toroidal' in bd.boundary_algebra
         assert 'CONJECTURAL' in bd.boundary_algebra  # AP-CY14
-        assert bd.kappa_ch == Rational(3)
+        assert bd.kappa_ch == Rational(0)
+        assert bd.kappa_ch_Heis == Rational(3)
 
     def test_all_levels_have_bulk(self):
         """Every level has a bulk algebra (derived center)."""
@@ -454,9 +457,14 @@ class TestKappaSpectrum:
         assert KAPPA_CH_K3 == Rational(2)
 
     def test_kappa_ch_k3e(self):
-        """kappa_ch(K3 x E) = 3 (additivity: 2 + 1)."""
-        # VERIFIED [LT] product formula, [DC] 2 + 1 = 3
-        assert KAPPA_CH_K3E == Rational(3)
+        """Compact kappa_ch(K3 x E) = 0 by Kunneth."""
+        # VERIFIED [LT] chi(O_{K3xE}) = chi(O_K3) * chi(O_E) = 2 * 0
+        assert KAPPA_CH_K3E == Rational(0)
+
+    def test_kappa_ch_k3e_heis(self):
+        """Relative kappa_ch^Heis(K3 x E) = 3 by boundary additivity."""
+        # VERIFIED [LT] product shadow formula, [DC] 2 + 1 = 3
+        assert KAPPA_CH_K3E_HEIS == Rational(3)
 
     def test_kappa_bkm(self):
         """kappa_BKM(K3 x E) = 5 (Igusa cusp form weight)."""
@@ -484,7 +492,7 @@ class TestKappaSpectrum:
         assert checks['five_values']
 
     def test_all_kappa_consistency(self):
-        """All six consistency checks pass."""
+        """All compact, Heisenberg, BKM, and fiber consistency checks pass."""
         checks = verify_kappa_spectrum_consistency()
         for name, result in checks.items():
             assert result, f"kappa consistency check '{name}' failed"
@@ -545,7 +553,8 @@ class TestMasterDiagram:
         d = master_diagram()
         ks = d['kappa_spectrum']
         assert ks['kappa_ch_K3'] == 2
-        assert ks['kappa_ch_K3E'] == 3
+        assert ks['kappa_ch_K3E'] == 0
+        assert ks['kappa_ch_K3E_Heis'] == 3
         assert ks['kappa_BKM_K3E'] == 5
         assert ks['kappa_fiber_K3'] == 24
 

@@ -29,7 +29,7 @@ MATHEMATICAL CONTENT:
     chi = 2*(h^{1,1} - h^{2,1}) = 0.  Verified.
 
 2. MODULAR CHARACTERISTIC PREDICTION:
-    The naive BCOV prediction is kappa = chi_top/24 = 0/24 = 0.
+    The naive BCOV-shadow candidate is chi_top/24 = 0/24 = 0.
     With kappa = 0, the arity-2 scalar shadow VANISHES.
     But AP31 warns: kappa = 0 does NOT imply Theta_A = 0.
     Higher-arity shadows can survive.
@@ -842,15 +842,16 @@ def ap31_comparison() -> Dict[str, Dict[str, Any]]:
 
     Three chi=0 CY3s with very different shadow structure:
     1. Banana (h^{1,1}=2): class M (instantons from banana curves)
-    2. K3 x E (h^{1,1}=21): class M (BKM superalgebra, kappa=5 != 0)
-       Wait: K3xE has kappa = 5, NOT 0.  chi_top = 0 but chi^CY = 5.
+    2. K3 x E (h^{1,1}=21): class M (BKM superalgebra,
+       kappa_BKM=5 != 0).  chi_top = 0, kappa_ch = 3, and the
+       BKM denominator weight is 5; the three lanes are distinct.
        So K3xE does NOT test AP31.
     3. E^3 abelian 3-fold (h^{1,1}=9): class G (rank-3 Heisenberg)
        kappa(E^3) = 3 (additive: 3 * kappa(E)).
        So E^3 also does NOT test AP31.
 
-    CORRECTION: The naive kappa = chi_top/24 = 0 is the BCOV prediction.
-    For K3xE, the ACTUAL kappa = 5 (from Borcherds lift).
+    CORRECTION: The naive chi_top/24 = 0 is only the BCOV-shadow candidate.
+    For K3xE, the BKM denominator scalar is kappa_BKM = 5.
     For E^3, the ACTUAL kappa = 3 (from rank-3 Heisenberg).
     For banana, the ACTUAL kappa could be nonzero too!
 

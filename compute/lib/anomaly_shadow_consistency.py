@@ -112,8 +112,10 @@ The five anomaly constraints and their Yangian translations:
      kappa_ch = 2.
 
    Wait -- this gives kappa_ch(K3) = 2, which IS correct for K3.
-   For K3 x E: the anomaly polynomial factorizes, and:
-     kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
+   For K3 x E the compact total-space scalar is multiplicative:
+     kappa_ch(K3 x E) = chi(O_{K3}) chi(O_E) = 2 * 0 = 0.
+   The relative Green-Schwarz/Heisenberg shadow is additive:
+     kappa_ch^Heis(K3 x E) = kappa_ch(K3) + kappa_ch^Heis(E) = 2 + 1 = 3.
 
 4. MODULAR INVARIANCE (partition function constraints on kappa).
    ==============================================================
@@ -135,9 +137,9 @@ The five anomaly constraints and their Yangian translations:
      p_2 = holomorphic, transforms as weight 2
      p_3 = 0 (CY_2 constraint implies odd p_k with k>1 are small)
 
-   The deeper constraint: the PARTITION FUNCTION of the bar complex
-   of Y(g_{K3}) must be a modular form of weight kappa_ch = 3
-   (at genus 1, conditional on CY-A_2).
+   The deeper constraint: the relative bar/Green-Schwarz shadow of
+   Y(g_{K3}) has scalar kappa_ch^Heis = 3
+   (conditional on CY-A_2/CY-A_3 input).
 
 5. TADPOLE CANCELLATION (D-branes on K3).
    =========================================
@@ -171,9 +173,12 @@ anomaly cancellation condition:
     contribution to the index theorem.  Anomaly: the holomorphic
     anomaly (Bershadsky-Cecotti-Ooguri-Vafa) at genus 1.
 
-  kappa_ch = 3 = chi(O_{K3}) + chi(O_E) = 2 + 1:
-    The chiral modular characteristic.  Anomaly: Green-Schwarz
-    mechanism for the chiral algebra (shadow tower arity 2).
+  kappa_ch = 0 = chi(O_{K3 x E}) = 2 * 0:
+    The compact total-space Hodge/PhiFA supertrace.
+
+  kappa_ch^Heis = 3 = chi(O_{K3}) + kappa_ch^Heis(E) = 2 + 1:
+    The relative chiral shadow.  Anomaly: Green-Schwarz mechanism
+    for the boundary/Yangian shadow tower at arity 2.
 
   kappa_BKM = 5 = c(0)/2:
     The Borcherds lift weight.  Anomaly: the Sp_4(Z) modular anomaly
@@ -254,7 +259,8 @@ F = Fraction
 # =========================================================================
 
 KAPPA_CAT = F(2)       # chi(O_{K3}) = h^{0,0} - h^{0,1} + h^{0,2} = 1-0+1 = 2
-KAPPA_CH = F(3)         # kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2+1
+KAPPA_CH = F(0)        # compact kappa_ch(K3 x E) = chi(O_{K3xE}) = 2*0
+KAPPA_CH_HEIS = F(3)   # relative Heisenberg/Green-Schwarz shadow = 2+1
 KAPPA_BKM = F(5)        # c(0)/2 = 10/2 = 5 (Borcherds lift weight)
 KAPPA_FIBER = F(24)     # rank(Mukai lattice) = chi(K3) = 24
 KAPPA_KOSZUL = F(0)     # Koszul conductor for free-field/KM branch
@@ -503,11 +509,13 @@ def gauge_anomaly_check(
 
 class GreenSchwarzResult(NamedTuple):
     """Result of Green-Schwarz consistency check."""
-    kappa_ch_from_gs: Rational        # kappa_ch computed from GS
-    kappa_ch_expected: Rational        # kappa_ch from direct computation
+    kappa_ch_from_gs: Rational        # compact kappa_ch from GS-compatible total space
+    kappa_ch_Heis_from_gs: Rational   # relative GS/Heisenberg shadow scalar
+    kappa_ch_expected: Rational        # compact kappa_ch from direct computation
+    kappa_ch_Heis_expected: Rational   # relative shadow scalar from direct computation
     gs_consistent: bool               # whether they agree
     anomaly_polynomial_k3: str        # description
-    shadow_arity_2_value: Rational    # shadow tower at arity 2 = kappa_ch
+    shadow_arity_2_value: Rational    # shadow tower at arity 2 = kappa_ch^Heis
     bfield_coupling: str              # B-field coupling description
     status: str
 
@@ -521,11 +529,13 @@ def green_schwarz_check(
     - The anomaly 8-form I_8 factorizes as I_8 = X_4 * X_4'
     - The B-field coupling S_GS = int B ^ X_4 cancels the anomaly
     - At the chiral algebra level, the B-field contributes to the
-      shadow tower at arity r=2 (the scalar shadow kappa_ch)
+      shadow tower at arity r=2 (the relative scalar kappa_ch^Heis)
 
     For K3 x E, the GS mechanism gives:
-      kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E)
-    where the additivity comes from the factorized anomaly polynomial.
+      kappa_ch^Heis(K3 x E) = kappa_ch(K3) + kappa_ch^Heis(E)
+    where the relative additivity comes from the factorized anomaly
+    polynomial.  The compact total-space scalar remains
+      kappa_ch(K3 x E) = chi(O_{K3xE}) = 0.
 
     The GS constraint on kappa_ch(K3):
       From the Dirac index on K3: chi(O_{K3}) = (1/12)*int_{K3} ch_2(T)
@@ -533,8 +543,9 @@ def green_schwarz_check(
       int_{K3} c_2(T_{K3}) = chi_top(K3) = 24
       chi(O_{K3}) = 24/12 = 2 = kappa_cat = kappa_ch(K3).
 
-    For the elliptic curve: kappa_ch(E) = 1 (single free boson).
-    Total: kappa_ch(K3 x E) = 2 + 1 = 3.
+    For the elliptic curve: compact kappa_ch(E)=0, while
+    kappa_ch^Heis(E)=1 (single free boson).
+    Total relative scalar: kappa_ch^Heis(K3 x E) = 2 + 1 = 3.
 
     STATUS: kappa_ch(K3) = 2 is PROVED at d=2 (CY-A_2).
     """
@@ -559,20 +570,24 @@ def green_schwarz_check(
 
     # kappa_ch(K3) = chi(O_{K3}) = 2 at d=2 (proved by CY-A_2)
     kappa_ch_k3 = F(2)
-    # kappa_ch(E) = 1 (Heisenberg level 1)
-    kappa_ch_e = F(1)
-    # Green-Schwarz additivity:
-    kappa_ch_gs = kappa_ch_k3 + kappa_ch_e
+    # compact kappa_ch(E)=0; relative Heisenberg level is 1
+    kappa_ch_e_compact = F(0)
+    kappa_ch_e_heis = F(1)
+    # Compact Kunneth and relative Green-Schwarz additivity:
+    kappa_ch_gs = kappa_ch_k3 * kappa_ch_e_compact
+    kappa_ch_heis_gs = kappa_ch_k3 + kappa_ch_e_heis
 
     return GreenSchwarzResult(
         kappa_ch_from_gs=kappa_ch_gs,
+        kappa_ch_Heis_from_gs=kappa_ch_heis_gs,
         kappa_ch_expected=KAPPA_CH,
-        gs_consistent=(kappa_ch_gs == KAPPA_CH),
+        kappa_ch_Heis_expected=KAPPA_CH_HEIS,
+        gs_consistent=(kappa_ch_gs == KAPPA_CH and kappa_ch_heis_gs == KAPPA_CH_HEIS),
         anomaly_polynomial_k3=(
             'I_4 = (1/12)*c_2(T_{K3}), int c_2 = 24, '
             'chi(O_{K3}) = int Td = c_2/12 = 2'
         ),
-        shadow_arity_2_value=KAPPA_CH,
+        shadow_arity_2_value=KAPPA_CH_HEIS,
         bfield_coupling=(
             'S_GS = int B ^ (c_2/12) cancels mixed anomaly; '
             'the B-field coupling strength = chi(O_{K3})/12 = 2/12 = 1/6'
@@ -770,16 +785,32 @@ def kappa_anomaly_dictionary() -> List[KappaAnomalyEntry]:
         KappaAnomalyEntry(
             kappa_name='kappa_ch',
             kappa_value=KAPPA_CH,
-            anomaly_type='Green-Schwarz (B-field shadow tower)',
+            anomaly_type='Compact CY3 Hodge/PhiFA supertrace',
             anomaly_mechanism=(
-                'kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3. '
-                'The GS B-field coupling generates the arity-2 shadow tower. '
-                'Additivity under products follows from factorization of '
-                'the anomaly polynomial.'
+                'kappa_ch(K3 x E) = chi(O_{K3xE}) = '
+                'chi(O_{K3}) chi(O_E) = 2 * 0 = 0. '
+                'This is the compact total-space scalar, not the relative '
+                'Green-Schwarz shadow.'
             ),
             verification=(
-                'kappa_ch = 3 verified against bar complex coefficient '
-                'and GS additivity. Proved at d=2 for the K3 factor.'
+                'Kunneth for h^{0,*}: (1,0,1) times (1,1) gives '
+                '(1,1,1,1), hence 1-1+1-1=0.'
+            ),
+        ),
+        KappaAnomalyEntry(
+            kappa_name='kappa_ch_Heis',
+            kappa_value=KAPPA_CH_HEIS,
+            anomaly_type='Green-Schwarz (B-field shadow tower)',
+            anomaly_mechanism=(
+                'kappa_ch^Heis(K3 x E) = kappa_ch(K3) + '
+                'kappa_ch^Heis(E) = 2 + 1 = 3. '
+                'The GS B-field coupling generates the arity-2 shadow tower. '
+                'Additivity under products is a relative boundary-shadow '
+                'statement, not the compact total-space scalar.'
+            ),
+            verification=(
+                'kappa_ch^Heis = 3 verified against the bar shadow '
+                'coefficient and GS additivity. Proved at d=2 for the K3 factor.'
             ),
         ),
         KappaAnomalyEntry(
@@ -913,7 +944,7 @@ def cross_constraint_consistency(
     spectrum = {
         'kappa_Koszul': KAPPA_KOSZUL,
         'kappa_cat': KAPPA_CAT,
-        'kappa_ch': KAPPA_CH,
+        'kappa_ch_Heis': KAPPA_CH_HEIS,
         'kappa_BKM': KAPPA_BKM,
         'kappa_fiber': KAPPA_FIBER,
     }
@@ -950,8 +981,11 @@ def kappa_identity_verification() -> Dict[str, Any]:
     The five kappa values are NOT independent.  Anomaly cancellation
     imposes the following relations (AP113: all kappa subscripted):
 
-    (I1) kappa_ch = kappa_cat(K3) + kappa_ch(E) = 2 + 1 = 3
-         (Green-Schwarz additivity)
+    (I1) kappa_ch(K3 x E) = chi(O_{K3xE}) = 2 * 0 = 0
+         (compact Kunneth supertrace)
+
+    (I1') kappa_ch^Heis = kappa_cat(K3) + kappa_ch^Heis(E) = 2 + 1 = 3
+          (relative Green-Schwarz additivity)
 
     (I2) kappa_BKM = c(0)/2 = 5
          (Borcherds weight theorem, UNCONDITIONAL)
@@ -963,13 +997,13 @@ def kappa_identity_verification() -> Dict[str, Any]:
          = codim(Lambda^{3,2} in Lambda_Mukai)
          (lattice-theoretic: imaginary root families)
 
-    (I5) kappa_BKM - kappa_ch = 5 - 3 = 2 = chi(O_{K3}) = kappa_cat
+    (I5) kappa_BKM - kappa_ch^Heis = 5 - 3 = 2 = chi(O_{K3}) = kappa_cat
          (NUMERICAL COINCIDENCE for N=1 only! See rem:bkm-decomposition-adversarial)
          NOT a theorem. Fails for Z/N orbifolds with N >= 2.
 
     (I6) kappa_Koszul = 0 (free-field branch: self-Koszul dual)
 
-    (I7) kappa_ch + kappa_Koszul = 3 + 0 = 3 = kappa_ch
+    (I7) kappa_ch^Heis + kappa_Koszul = 3 + 0 = 3 = kappa_ch^Heis
          (Koszul conductor = 0 for free-field branch)
 
     (I8) kappa_fiber / kappa_BKM = 24/5 (NOT integer: no simple ratio)
@@ -981,15 +1015,26 @@ def kappa_identity_verification() -> Dict[str, Any]:
     """
     identities = {}
 
-    # I1: Green-Schwarz additivity
+    # I1: compact Kunneth scalar
     i1_lhs = KAPPA_CH
-    i1_rhs = KAPPA_CAT + F(1)  # kappa_cat(K3) + kappa_ch(E) = 2 + 1
-    identities['I1_GS_additivity'] = {
+    i1_rhs = KAPPA_CAT * CHI_O_E  # chi(O_K3) * chi(O_E) = 2 * 0
+    identities['I1_compact_Kunneth'] = {
         'lhs': 'kappa_ch(K3 x E)',
-        'rhs': 'kappa_cat(K3) + kappa_ch(E)',
+        'rhs': 'kappa_cat(K3) * chi(O_E)',
         'lhs_value': i1_lhs,
         'rhs_value': i1_rhs,
         'holds': i1_lhs == i1_rhs,
+    }
+
+    # I1': relative Green-Schwarz additivity
+    i1h_lhs = KAPPA_CH_HEIS
+    i1h_rhs = KAPPA_CAT + F(1)  # kappa_cat(K3) + kappa_ch^Heis(E) = 2 + 1
+    identities['I1p_GS_Heis_additivity'] = {
+        'lhs': 'kappa_ch^Heis(K3 x E)',
+        'rhs': 'kappa_cat(K3) + kappa_ch^Heis(E)',
+        'lhs_value': i1h_lhs,
+        'rhs_value': i1h_rhs,
+        'holds': i1h_lhs == i1h_rhs,
     }
 
     # I2: Borcherds weight
@@ -1025,11 +1070,11 @@ def kappa_identity_verification() -> Dict[str, Any]:
         'holds': i4_lhs == i4_rhs,
     }
 
-    # I5: BKM-ch deficit = kappa_cat (coincidence, NOT theorem)
-    i5_lhs = KAPPA_BKM - KAPPA_CH
+    # I5: BKM-Heis deficit = kappa_cat (coincidence, NOT theorem)
+    i5_lhs = KAPPA_BKM - KAPPA_CH_HEIS
     i5_rhs = KAPPA_CAT
     identities['I5_bkm_ch_deficit_COINCIDENCE'] = {
-        'lhs': 'kappa_BKM - kappa_ch',
+        'lhs': 'kappa_BKM - kappa_ch^Heis',
         'rhs': 'kappa_cat(K3)',
         'lhs_value': i5_lhs,
         'rhs_value': i5_rhs,
@@ -1181,7 +1226,9 @@ def full_anomaly_shadow_report(
         },
         'green_schwarz': {
             'kappa_ch_gs': gs.kappa_ch_from_gs,
+            'kappa_ch_Heis_gs': gs.kappa_ch_Heis_from_gs,
             'kappa_ch_expected': gs.kappa_ch_expected,
+            'kappa_ch_Heis_expected': gs.kappa_ch_Heis_expected,
             'consistent': gs.gs_consistent,
         },
         'modular_invariance': {

@@ -19,7 +19,7 @@ SHADOW TOWER STRUCTURE
 The shadow coefficients S_k for the quintic chiral algebra encode the
 genus expansion of the topological B-model. The dictionary:
 
-  S_2 = kappa_ch    (modular characteristic, from genus 1)
+  S_2 = kappa_BCOV_shadow_conjectural    (BCOV-shadow scalar, from genus 1)
   S_3 = alpha       (cubic shadow, from genus 0 Yukawa coupling)
   S_4              (quartic shadow, from genus 0 four-point function)
   S_k for k >= 5   (higher shadows, from the Picard-Fuchs recursion)
@@ -29,16 +29,12 @@ KAPPA DETERMINATION (AP113: subscripted kappa)
 
 Multiple kappa values coexist:
 
-  kappa_ch = -25/3   (from F_1 = chi/24 * 1/24 = -25/72, the genus-1
-                       BCOV constant-map contribution; used in the atlas
-                       table of cy_to_chiral.tex line 2223)
+  kappa_BCOV_shadow_conjectural = -25/3
+                       (from F_1 = chi/24 * 1/24 = -25/72, the genus-1
+                       BCOV constant-map contribution; not constructed
+                       kappa_ch in this engine)
 
-  kappa_cat = chi(O_X) = 2  (holomorphic Euler characteristic;
-                              for the quintic, chi(O_X) = 1 - 0 + 0 - 1 = 0
-                              WAIT: h^{0,0}=1, h^{1,0}=0, h^{2,0}=0, h^{3,0}=1
-                              so chi(O_X) = 1 - 0 + 0 - 1 = 0. NOT 2.)
-
-  kappa_cat = chi(O_X) = 0  (CORRECTED: for any CY3, chi(O_X) = 0 because
+  kappa_cat = chi(O_X) = 0  (for any strict compact CY3,
                               h^{p,0} = (1,0,0,1) gives alternating sum 0)
 
 CUBIC SHADOW FROM GW DATA
@@ -60,7 +56,7 @@ At q=0 (large volume limit): C(0) = 5 (the degree of the hypersurface,
 = intersection number H^3 on the quintic).
 
 The cubic shadow coefficient:
-  alpha = C(0) / kappa_ch = 5 / (-25/3) = -3/5
+  alpha = C(0) / kappa_BCOV_shadow_conjectural = 5 / (-25/3) = -3/5
 
 QUARTIC SHADOW FROM THE PICARD-FUCHS EQUATION
 ==============================================
@@ -79,7 +75,7 @@ complex moduli space has three regular singular points:
 
 The quartic shadow S_4 is determined by the genus-0 four-point function:
 
-  S_4 = (1/kappa_ch) * (d^4 F_0/dt^4)|_{t -> large vol}
+  S_4 = (1/kappa_BCOV_shadow_conjectural) * (d^4 F_0/dt^4)|_{t -> large vol}
 
 which is the derivative of the Yukawa coupling. At the classical level
 (no instantons): d^4 F_0/dt^4 = 0 (the cubic prepotential has vanishing
@@ -99,7 +95,7 @@ K3 x E: h^{1,1}=21, h^{2,1}=21, chi=0.
   - GV invariants: infinite (from K3 elliptic genus phi_{0,1})
 
 Quintic: h^{1,1}=1, h^{2,1}=101, chi=-200.
-  - kappa_ch = -25/3 (conjectural, from chi/24)
+  - kappa_BCOV_shadow_conjectural = -25/3 (conjectural, from chi/24)
   - Shadow tower: class M (infinite GV invariants)
   - GV invariants: infinite (from COGP mirror symmetry)
 
@@ -120,7 +116,8 @@ Under mirror symmetry, the quintic X and its mirror X_mirror exchange:
   h^{1,1}(X) = 1       <->  h^{2,1}(X_mirror) = 1
   h^{2,1}(X) = 101     <->  h^{1,1}(X_mirror) = 101
   chi(X) = -200         <->  chi(X_mirror) = +200
-  kappa_ch(X) = -25/3   <->  kappa_ch(X_mirror) = +25/3  (conjectural)
+  kappa_BCOV_shadow_conjectural(X) = -25/3
+    <->  kappa_BCOV_shadow_conjectural(X_mirror) = +25/3
 
 The shadow tower transforms:
   S_k(X) at LCS  <->  S_k(X_mirror) at LCS of mirror
@@ -130,7 +127,9 @@ Mirror symmetry maps A-model (GW) to B-model (complex structure).
 The shadow tower on the A-side encodes GW invariants; the shadow tower
 on the B-side encodes periods of the holomorphic 3-form.
 
-The kappa-complementarity: kappa_ch(X) + kappa_ch(X_mirror) = 0.
+The BCOV-shadow complementarity:
+  kappa_BCOV_shadow_conjectural(X)
+  + kappa_BCOV_shadow_conjectural(X_mirror) = 0.
 
 CONIFOLD POINT psi=1
 =====================
@@ -165,7 +164,8 @@ AP157: All degeneration limits specify the degeneration type explicitly.
 
 Conventions:
   - Cohomological grading (|d| = +1), bar uses desuspension
-  - kappa_ch is the chiral modular characteristic (AP113: always subscripted)
+  - kappa_BCOV_shadow_conjectural is the strict-compact-CY3 shadow scalar;
+    constructed kappa_ch requires a separate chain-level proof.
   - GV invariants n^g_d in the Gopakumar-Vafa convention
   - A-hat coefficients are POSITIVE (AP22)
   - Mirror map: t = log(z)/(2*pi*i) + regular (COGP)
@@ -248,19 +248,118 @@ class QuinticKappaSpectrum(NamedTuple):
     """The kappa-spectrum of the quintic CY3 (AP113).
 
     Multiple kappa values arise from different algebraizations.
-    For the quintic, kappa_ch is CONJECTURAL (depends on CY-A_3).
+    For the quintic, this file records the BCOV-shadow scalar and does
+    not promote it to constructed kappa_ch.
     """
-    kappa_ch: Fraction      # chiral: from Phi(D^b(X)), = chi/24 = -25/3
+    kappa_ch: Fraction      # Hodge-supertrace kappa_ch = chi(O_X) = 0
+    kappa_BCOV_shadow_candidate: Fraction  # BCOV-shadow scalar chi_top/24
     kappa_cat: Fraction      # categorical: chi(O_X) = 0 for CY3
     kappa_BKM: Optional[Fraction]  # BKM: UNKNOWN for quintic (no BKM algebra)
     kappa_fiber: Optional[Fraction]  # fiber: not applicable (no fibration)
+    kappa_ch_label: str
+    kappa_ch_constructed: bool
+
+
+class QuinticStrictificationAudit(NamedTuple):
+    """Exact bookkeeping for the compact non-formal quintic branch.
+
+    The audit records what the elementary Hodge/intersection data prove:
+    the negative-cyclic CY3 orientation exists, the transferred cubic
+    operation has non-zero large-volume Yukawa value, and no strict
+    chain-level framing witness is constructed by these data alone.
+    """
+    h0q: Tuple[int, int, int, int]
+    chi_o: Fraction
+    h11: int
+    h21: int
+    topological_euler: int
+    bcov_shadow_candidate: Fraction
+    large_volume_yukawa: int
+    transferred_m3_vanishes: bool
+    negative_cyclic_orientation_exists: bool
+    strict_framing_witness_constructed: bool
+    bkm_weight_constructed: bool
+    required_witnesses: Tuple[str, ...]
+
+
+class QuinticE100PentagonCertificate(NamedTuple):
+    """Finite certificate for the quintic--E100 pentagon obstruction.
+
+    The certificate deliberately separates what is executable from what
+    remains a theorem obligation.  The Niwa--Shintani/Kohnen--Zagier
+    kernel reduces the new-form projection to a finite Heegner sum at a
+    fixed truncation.  The YY accumulator supplies exact rational
+    BCOV-natural coefficients.  The first missing lemma is the
+    Borcherds singular-theta normalisation converting those rational
+    coefficients to the Petersson-normalised half-integral-weight
+    coefficients at level 500.
+    """
+    curve_label: str
+    curve_weierstrass: Tuple[int, int, int, int, int]
+    conductor: int
+    half_integral_level: int
+    character_modulus: int
+    character_name: str
+    shimura_space_dimension: int
+    oldform_dimension: int
+    newform_dimension: int
+    falsifier_primes: Tuple[int, ...]
+    hecke_eigenvalues: Dict[int, int]
+    finite_support: Tuple[int, ...]
+    support_products: Tuple[Tuple[int, Fraction, Fraction, Fraction], ...]
+    schematic_alpha: Fraction
+    orthogonality_alpha: Fraction
+    yy_truncated_alpha: Fraction
+    yy_nonzero_coefficients: Dict[int, Fraction]
+    yy_hecke_predictions: Dict[int, Fraction]
+    hecke_equivariant: bool
+    obstruction_vanishes_in_yy_normalisation: bool
+    first_missing_lemma: str
+    source_theorem: str
+    target_theorem: str
+    current_obstruction: str
+    healing_route: str
+
+
+class QuinticE100BorcherdsNormalisationReduction(NamedTuple):
+    """Exact reduction of the level-500 Borcherds normalisation obligation.
+
+    The local engines do not construct the singular-theta/Petersson
+    normalising factors themselves.  They do construct the exact finite
+    coefficient vector
+
+        q_D = c_xi^YY(D) * c_{h_E100}(D)
+
+    on the five-discriminant support.  The missing lemma is therefore the
+    rational hyperplane sum_D q_D Z_Borch^{(500)}(D)=0.  The table recorded
+    below is an algebraic reduction under the stated unit/pair convention,
+    not an asserted value of the actual Borcherds singular-theta lift.
+    """
+    level: int
+    finite_support: Tuple[int, ...]
+    yy_coefficients: Dict[int, Fraction]
+    h_coefficients: Dict[int, Fraction]
+    yy_products: Dict[int, Fraction]
+    clearing_denominator: int
+    integer_relation_coefficients: Dict[int, int]
+    invisible_discriminants: Tuple[int, ...]
+    cancelling_pairs: Tuple[Tuple[int, int], ...]
+    unit_pair_normalisation_table: Dict[int, Fraction]
+    unit_pair_normalised_sum: Fraction
+    unit_table_sum: Fraction
+    pivot_discriminant: int
+    pivot_value: Fraction
+    exact_relation: str
+    theorem_status_recommendation: str
+    remaining_obstruction: str
 
 
 def quintic_kappa_spectrum() -> QuinticKappaSpectrum:
     """Compute the kappa-spectrum for the quintic.
 
-    kappa_ch = chi/24 = -25/3 (conjectural, from the atlas table in
-    cy_to_chiral.tex and the BCOV genus-1 constant map contribution).
+    kappa_BCOV_shadow_conjectural = chi/24 = -25/3 (conjectural, from
+    the atlas table in cy_to_chiral.tex and the BCOV genus-1 constant map
+    contribution).  This is not constructed kappa_ch here.
 
     kappa_cat = chi(O_X) = 0 for any simply connected CY3.
     (h^{p,0} = (1, 0, 0, 1), alternating sum = 1 - 0 + 0 - 1 = 0.)
@@ -272,10 +371,242 @@ def quintic_kappa_spectrum() -> QuinticKappaSpectrum:
     in general position).
     """
     return QuinticKappaSpectrum(
-        kappa_ch=Fraction(-25, 3),
+        kappa_ch=Fraction(0),
+        kappa_BCOV_shadow_candidate=Fraction(-25, 3),
         kappa_cat=Fraction(0),
         kappa_BKM=None,
         kappa_fiber=None,
+        kappa_ch_label="kappa_BCOV_shadow_conjectural",
+        kappa_ch_constructed=False,
+    )
+
+
+def quintic_e100_pentagon_certificate(
+    D_max: int = 50,
+    genus_bound: int = 14,
+) -> QuinticE100PentagonCertificate:
+    """Compute the finite E100 obstruction certificate for the quintic lane.
+
+    Parameters
+    ----------
+    D_max:
+        Truncation bound for negative fundamental discriminants.
+    genus_bound:
+        Yamaguchi--Yau genus bound.  `genus_bound=14` is sufficient for
+        `D_max=50` by the local YY bound `ceil(|D|/4)+1`.
+
+    Returns
+    -------
+    QuinticE100PentagonCertificate
+        Exact rational certificate recording the finite support, the
+        schematic and orthogonality profiles, the YY accumulator, and the
+        first missing lemma.
+    """
+    from compute.lib.quintic_niwa_shintani_kernel import (
+        A_P_E100,
+        localised_obstruction_support,
+        petersson_inner_product_xi_h_E100,
+    )
+    from compute.lib.quintic_yamaguchi_yau import (
+        alpha_yy_accumulator,
+        all_falsifier_predictions,
+        hecke_equivariance_check,
+    )
+
+    support = localised_obstruction_support(D_max)
+    support_products = tuple(
+        (D, c_xi, c_h, c_xi * c_h)
+        for D, c_xi, c_h in support
+    )
+    schematic_alpha = petersson_inner_product_xi_h_E100(
+        D_max=D_max, profile="schematic"
+    )
+    orthogonality_alpha = petersson_inner_product_xi_h_E100(
+        D_max=D_max, profile="alpha_zero"
+    )
+    yy_alpha, _, yy_coeffs = alpha_yy_accumulator(
+        G=genus_bound, D_min=-D_max
+    )
+    yy_nonzero = {D: value for D, value in yy_coeffs.items() if value}
+    yy_predictions_raw = all_falsifier_predictions(
+        G=genus_bound, D_min=-D_max
+    )
+    yy_predictions = {p: data[0] for p, data in yy_predictions_raw.items()}
+
+    return QuinticE100PentagonCertificate(
+        curve_label="LMFDB 100.a1",
+        curve_weierstrass=(0, -1, 0, -33, 62),
+        conductor=100,
+        half_integral_level=500,
+        character_modulus=5,
+        character_name="chi_5(n)=(n/5)",
+        shimura_space_dimension=7,
+        oldform_dimension=6,
+        newform_dimension=1,
+        falsifier_primes=tuple(sorted(A_P_E100)),
+        hecke_eigenvalues=dict(A_P_E100),
+        finite_support=tuple(D for D, _, _ in support),
+        support_products=support_products,
+        schematic_alpha=schematic_alpha,
+        orthogonality_alpha=orthogonality_alpha,
+        yy_truncated_alpha=yy_alpha,
+        yy_nonzero_coefficients=yy_nonzero,
+        yy_hecke_predictions=yy_predictions,
+        hecke_equivariant=hecke_equivariance_check(
+            G=genus_bound, D_min=-D_max
+        ),
+        obstruction_vanishes_in_yy_normalisation=(yy_alpha == 0),
+        first_missing_lemma=(
+            "Borcherds singular-theta normalisation at level 500: compute "
+            "Z_norm(D) on the finite E100 support and prove that the "
+            "Petersson-normalised sum of c_xi^YY(D)c_h(D)Z_norm(D) "
+            "vanishes through the YY bound."
+        ),
+        source_theorem=(
+            "Yamaguchi--Yau 2004 finite polynomial recursion plus "
+            "Niwa--Shintani/Kohnen--Zagier Shimura kernel."
+        ),
+        target_theorem=(
+            "Quintic--E100 pentagon equivalence: alpha=0 iff the "
+            "chain-level E1 pentagon cocycle vanishes."
+        ),
+        current_obstruction=(
+            "The executable YY-natural truncation gives non-zero "
+            "alpha_{<=14, |D|<=50}; the zero statement is therefore not "
+            "available before the Borcherds/Petersson normalising factor "
+            "is constructed."
+        ),
+        healing_route=(
+            "Evaluate the level-500 singular-theta/Borcherds normalisation "
+            "on D in {-3,-7,-23,-24,-39}, extend the same computation to "
+            "the YY bound through g<=51, and rerun the E100 Hecke "
+            "equivariance witness at p in {3,7,13,29,37}."
+        ),
+    )
+
+
+def quintic_e100_borcherds_normalisation_reduction(
+    D_max: int = 50,
+    genus_bound: int = 14,
+) -> QuinticE100BorcherdsNormalisationReduction:
+    """Reduce the level-500 Borcherds/Petersson table to exact arithmetic.
+
+    The output is the strongest certificate presently available inside the
+    repository.  It computes the five YY-normalised products exactly and
+    clears denominators in the missing relation
+
+        sum_D c_xi^YY(D)c_h(D) Z_Borch^{(500)}(D) = 0.
+
+    With the additional algebraic convention
+    Z(-3)=Z(-7)=Z(-23)=Z(-24)=1, the pivot value at D=-39 is forced to be
+    57062154240000/36193.  This convention is not promoted to a theorem
+    about the singular-theta lift until the actual Borcherds/Petersson
+    construction is supplied.
+    """
+    from compute.lib.quintic_niwa_shintani_kernel import h_E100_coefficient
+    from compute.lib.quintic_yamaguchi_yau import alpha_yy_accumulator
+
+    support = (-3, -7, -23, -24, -39)
+    alpha, _, yy_coeffs = alpha_yy_accumulator(
+        G=genus_bound, D_min=-D_max
+    )
+    yy_coefficients = {D: yy_coeffs.get(D, Fraction(0, 1)) for D in support}
+    h_coefficients = {D: h_E100_coefficient(D) for D in support}
+    yy_products = {
+        D: yy_coefficients[D] * h_coefficients[D] for D in support
+    }
+
+    clearing_denominator = 1
+    for product in yy_products.values():
+        clearing_denominator = math.lcm(clearing_denominator, product.denominator)
+    integer_relation = {
+        D: int(yy_products[D] * clearing_denominator) for D in support
+    }
+
+    pivot_D = -39
+    anchored_table = {D: Fraction(1, 1) for D in support}
+    non_pivot_sum = sum(
+        yy_products[D] * anchored_table[D] for D in support if D != pivot_D
+    )
+    if yy_products[pivot_D] == 0:
+        raise ArithmeticError("pivot discriminant has zero YY product")
+    pivot_value = -non_pivot_sum / yy_products[pivot_D]
+    anchored_table[pivot_D] = pivot_value
+
+    unit_pair_sum = sum(
+        yy_products[D] * anchored_table[D] for D in support
+    )
+    unit_table_sum = sum(yy_products.values())
+    if unit_table_sum != alpha:
+        raise ArithmeticError("YY product table does not recover alpha")
+
+    relation_terms = []
+    for D in support:
+        coefficient = integer_relation[D]
+        if coefficient:
+            relation_terms.append(f"{coefficient}*Z({D})")
+    exact_relation = " + ".join(relation_terms) + " = 0"
+
+    return QuinticE100BorcherdsNormalisationReduction(
+        level=500,
+        finite_support=support,
+        yy_coefficients=yy_coefficients,
+        h_coefficients=h_coefficients,
+        yy_products=yy_products,
+        clearing_denominator=clearing_denominator,
+        integer_relation_coefficients=integer_relation,
+        invisible_discriminants=tuple(D for D in support if yy_products[D] == 0),
+        cancelling_pairs=((-23, -24),),
+        unit_pair_normalisation_table=anchored_table,
+        unit_pair_normalised_sum=unit_pair_sum,
+        unit_table_sum=unit_table_sum,
+        pivot_discriminant=pivot_D,
+        pivot_value=pivot_value,
+        exact_relation=exact_relation,
+        theorem_status_recommendation=(
+            "ProvedHere for the exact finite reduction; conditional for the "
+            "identification of this algebraic table with the actual "
+            "level-500 Borcherds singular-theta/Petersson table."
+        ),
+        remaining_obstruction=(
+            "Construct Z_Borch^{(500)} by the singular-theta lift and prove "
+            "that its values on {-3,-7,-23,-24,-39} satisfy the cleared "
+            "linear relation recorded by integer_relation_coefficients."
+        ),
+    )
+
+
+def quintic_strictification_audit() -> QuinticStrictificationAudit:
+    """Audit the strictification/framing evidence available for the quintic.
+
+    No formula is inferred from the shadow engine.  The values are the
+    standard exact inputs for a smooth quintic threefold:
+    h^{0,*}=(1,0,0,1), h^{1,1}=1, h^{2,1}=101, and H^3=5.
+    """
+    h0q = (1, 0, 0, 1)
+    chi_o = sum(Fraction((-1) ** q * h, 1) for q, h in enumerate(h0q))
+    h11 = 1
+    h21 = 101
+    topological_euler = 2 * (h11 - h21)
+
+    return QuinticStrictificationAudit(
+        h0q=h0q,
+        chi_o=chi_o,
+        h11=h11,
+        h21=h21,
+        topological_euler=topological_euler,
+        bcov_shadow_candidate=Fraction(topological_euler, 24),
+        large_volume_yukawa=5,
+        transferred_m3_vanishes=False,
+        negative_cyclic_orientation_exists=True,
+        strict_framing_witness_constructed=False,
+        bkm_weight_constructed=False,
+        required_witnesses=(
+            "cyclic null-homotopy or curvature absorbing the Yukawa m3",
+            "negative-cyclic lift compatible with the chosen S3 framing",
+            "admissible (Sigma_2,C) specialisation and OPE completion",
+            "derived-centre comparison for the resulting framed object",
+        ),
     )
 
 
@@ -542,7 +873,7 @@ def scalar_shadow_amplitude(kappa_ch: Fraction, g: int) -> Fraction:
 
 
 def quintic_scalar_shadow_tower(max_genus: int = 5) -> Dict[int, Fraction]:
-    """Scalar shadow tower for the quintic with kappa_ch = -25/3.
+    """Scalar shadow tower for the quintic with BCOV-shadow scalar -25/3.
 
     F_g = (-25/3) * a_hat_g.
 
@@ -652,7 +983,7 @@ def quintic_shadow_tower_classical(max_arity: int = 20) -> Dict[int, Fraction]:
 
     Degeneration type: large complex structure (LCS) limit.
 
-    kappa_ch = -25/3, alpha = -3/5, S_4 = 0.
+    kappa_BCOV_shadow_conjectural = -25/3, alpha = -3/5, S_4 = 0.
     Class L (depth 3): S_r = 0 for r >= 4.
 
     Verification: with S_4 = 0 and Delta = 0, the shadow metric is a
@@ -712,14 +1043,14 @@ def compare_quintic_k3e() -> ShadowComparison:
     """Compare the quintic and K3 x E shadow towers.
 
     K3 x E data (from bkm_shadow_tower.py):
-      kappa_ch = 3 (by additivity)
+      compact kappa_ch = 0; kappa_ch_Heis = 3 (Heisenberg additivity)
       kappa_BKM = 5 (weight of Delta_5)
       alpha: determined by the phi_{0,1} elliptic genus
       h^{1,1} = 21 (Mukai lattice)
       class M (infinite BKM root multiplicities)
 
     Quintic data:
-      kappa_ch = -25/3 (conjectural)
+      kappa_BCOV_shadow_conjectural = -25/3 (conjectural)
       alpha = -3/5 (classical Yukawa)
       h^{1,1} = 1 (single Kahler modulus)
       class M (infinite GV invariants)
@@ -730,8 +1061,9 @@ def compare_quintic_k3e() -> ShadowComparison:
        K3 x E lives on the Mukai lattice Lambda^{3,2} (rank 5 for the
        BKM, or rank 24 for the full lattice).
 
-    2. Sign of kappa: quintic has kappa < 0, K3 x E has kappa > 0.
-       The shadow amplitudes F_g have OPPOSITE sign.
+    2. Sign of the active shadow scalar: quintic has negative BCOV shadow,
+       K3 x E has positive Heisenberg shadow. The shadow amplitudes F_g
+       have OPPOSITE sign.
 
     3. BKM structure: K3 x E has a BKM superalgebra g_{Delta_5} with
        Borcherds product formula. The quintic has NO known BKM
@@ -755,8 +1087,8 @@ def compare_quintic_k3e() -> ShadowComparison:
         class_B="M",
         structural_difference=(
             "The quintic shadow tower is rank-1 (single Kahler modulus) "
-            "with kappa_ch = -25/3 < 0 and no known BKM structure. "
-            "K3 x E is rank-21 with kappa_ch = 3 > 0 and the BKM "
+            "with kappa_BCOV_shadow_conjectural = -25/3 < 0 and no known BKM structure. "
+            "K3 x E is rank-21 with kappa_ch_Heis = 3 > 0, compact kappa_ch = 0, and the BKM "
             "superalgebra g_{Delta_5}. Both are class M (infinite depth), "
             "but the quintic tower encodes a single GV sequence while "
             "K3 x E encodes a lattice-indexed BPS spectrum."
@@ -854,10 +1186,10 @@ def mirror_shadow_quintic() -> MirrorShadowData:
       A-model of X  <->  B-model of X_mirror
       GW invariants of X  <->  periods of X_mirror
 
-    kappa_ch(X) = -25/3  (conjectural)
-    kappa_ch(X_mirror) = chi(X_mirror)/24 = 200/24 = 25/3  (conjectural)
+    kappa_BCOV_shadow_conjectural(X) = -25/3
+    kappa_BCOV_shadow_conjectural(X_mirror) = chi(X_mirror)/24 = 25/3
 
-    Complementarity: kappa_ch(X) + kappa_ch(X_mirror) = 0.
+    Complementarity: the two BCOV-shadow candidates sum to 0.
 
     The shadow tower transforms:
       S_k(X) encodes GW invariants of X (A-model at LCS of mirror)
@@ -947,10 +1279,9 @@ def conifold_transition_shadow() -> ConifoldTransitionData:
         complex structure deformations and replaces them with 1 Kahler
         deformation.
 
-    After the conifold transition to the resolved conifold:
-      h^{1,1} = 2, h^{2,1} = 0 (WAIT: the resolved conifold is
-      non-compact. For the transition of the compact quintic, the
-      result depends on the specific deformation.)
+    After a compact conifold transition from the quintic, the resulting
+    Hodge numbers depend on the chosen nodal degeneration and small
+    resolution. The local resolved conifold itself is non-compact.
 
     For the LOCAL conifold model (the standard resolved conifold
     O(-1)+O(-1) -> P^1):
@@ -1185,7 +1516,7 @@ class QuinticShadowCoefficients(NamedTuple):
     All conditional on CY-A_3 (AP-CY6).
     Degeneration type: large complex structure (LCS) limit.
 
-    S_2 = kappa_ch / 2 (the scalar shadow, from genus-1 BCOV)
+    S_2 = kappa_BCOV_shadow_conjectural / 2 (the scalar shadow, from genus-1 BCOV)
 
     S_3 = alpha / 3 (the cubic shadow, from genus-0 Yukawa coupling)
         = (C_111 / kappa_ch) / 3 = (5 / (-25/3)) / 3 = (-3/5) / 3 = -1/5
@@ -1215,13 +1546,12 @@ def quintic_shadow_coefficients() -> QuinticShadowCoefficients:
 
     DERIVATION:
 
-    S_2 = kappa_ch / 2:
+    S_2 = kappa_BCOV_shadow_conjectural / 2:
       By definition, S_2 is the leading shadow coefficient. For the
-      scalar shadow tower, S_2 * 2 = kappa_ch (the modular characteristic
-      appears at arity 2 with the factor of 2 from the normalization
-      S_r = a_{r-2}/r, so S_2 = a_0/2 = 2*kappa/(2) = kappa).
-
-      WAIT: S_2 = a_0 / 2 = (2*kappa) / 2 = kappa = -25/3.
+      scalar shadow tower, S_2 * 2 is the BCOV-shadow scalar, appearing
+      at arity 2 with the factor of 2 from the normalization
+      S_r = a_{r-2}/r, so S_2 = a_0/2 =
+      2*kappa_BCOV_shadow_conjectural/(2) = kappa_BCOV_shadow_conjectural).
 
     S_3 = a_1 / 3:
       a_1 = q_1/(2*a_0) = 12*kappa*alpha / (2*2*kappa) = 3*alpha.
@@ -1306,7 +1636,9 @@ def quintic_shadow_tower_summary() -> Dict[str, Any]:
 
     return {
         "kappa_spectrum": {
-            "kappa_ch": str(kappa_spec.kappa_ch),
+            "kappa_ch_hodge_supertrace": str(kappa_spec.kappa_ch),
+            "bcov_shadow_candidate": str(kappa_spec.kappa_BCOV_shadow_candidate),
+            "bcov_shadow_is_constructed_kappa_ch": kappa_spec.kappa_ch_constructed,
             "kappa_cat": str(kappa_spec.kappa_cat),
             "kappa_BKM": "UNKNOWN",
             "kappa_fiber": "N/A",

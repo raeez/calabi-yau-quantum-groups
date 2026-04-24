@@ -73,10 +73,11 @@ class TestKappaSpectrum:
         assert spec.kappa_cat == Fraction(0)
 
     def test_k3xe_kappa_ch(self):
-        """kappa_ch(K3 x E) = 3 (chiral de Rham additivity: 2 + 1)."""
+        """compact kappa_ch(K3 x E)=0; Heisenberg shadow=3."""
         # VERIFIED [DC] chiral de Rham [LT] CY-A_2 for K3 factor
         spec = kappa_spectrum_k3xe()
-        assert spec.kappa_ch == Fraction(3)
+        assert spec.kappa_ch == Fraction(0)
+        assert spec.kappa_ch_Heis == Fraction(3)
 
     def test_k3xe_kappa_bkm(self):
         """kappa_BKM(K3 x E) = 5 = c(0)/2 = 10/2."""
@@ -91,21 +92,22 @@ class TestKappaSpectrum:
         assert spec.kappa_fiber == Fraction(24)
 
     def test_k3xe_all_distinct(self):
-        """All four kappa values are distinct (polysemy, AP113)."""
+        """Heisenberg, BKM, compact category, and fiber values are distinct."""
         # VERIFIED [DC] spectral structure [LT] kappa-spectrum uniqueness
         spec = kappa_spectrum_k3xe()
-        values = {spec.kappa_cat, spec.kappa_ch, spec.kappa_bkm, spec.kappa_fiber}
+        values = {spec.kappa_ch_Heis, spec.kappa_bkm, spec.kappa_cat, spec.kappa_fiber}
         assert len(values) == 4
 
     def test_k3xe_kappa_ch_additivity(self):
-        """kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3."""
+        """kappa_ch_Heis(K3 x E) = 2 + 1 = 3."""
         # VERIFIED [DC] additivity [LT] Proposition kappa-non-multiplicative
         k3 = kappa_spectrum_k3()
         assert k3.kappa_ch == Fraction(2)
         e = kappa_spectrum_elliptic()
         assert e.kappa_ch == Fraction(1)
         k3xe = kappa_spectrum_k3xe()
-        assert k3xe.kappa_ch == k3.kappa_ch + e.kappa_ch
+        assert k3xe.kappa_ch == Fraction(0)
+        assert k3xe.kappa_ch_Heis == k3.kappa_ch + e.kappa_ch
 
     def test_k3_kappa_spectrum(self):
         """K3 (CY_2) kappa-spectrum: {2, 2, 12, 24}."""
@@ -129,7 +131,8 @@ class TestKappaSpectrum:
         assert result['all_paths_pass']
         assert result['spectrum'] == {
             'kappa_cat': 0,
-            'kappa_ch': 3,
+            'kappa_ch': 0,
+            'kappa_ch_Heis': 3,
             'kappa_bkm': 5,
             'kappa_fiber': 24,
         }
@@ -309,13 +312,14 @@ class TestReconstruction:
 # ===========================================================================
 
 class TestWeightPuzzle:
-    """Verify the resolution of kappa_ch=3 vs wt(Delta_5)=5."""
+    """Verify the resolution of kappa_ch_Heis=3 vs wt(Delta_5)=5."""
 
-    def test_kappa_ch_equals_3(self):
-        """kappa_ch(K3 x E) = 3 (proved)."""
+    def test_kappa_ch_heis_equals_3(self):
+        """kappa_ch_Heis(K3 x E) = 3; compact kappa_ch=0."""
         # VERIFIED [DC] chiral de Rham [LT] additivity
         res = resolve_weight_puzzle_k3xe()
-        assert res.kappa_ch == Fraction(3)
+        assert res.kappa_ch == Fraction(0)
+        assert res.kappa_ch_Heis == Fraction(3)
 
     def test_borcherds_weight_equals_5(self):
         """wt(Delta_5) = 5 (Borcherds)."""
@@ -324,14 +328,14 @@ class TestWeightPuzzle:
         assert res.borcherds_weight == Fraction(5)
 
     def test_mismatch_acknowledged(self):
-        """kappa_ch != wt(Delta_5) is a feature, not a bug."""
+        """kappa_ch_Heis != wt(Delta_5) is a feature, not a bug."""
         # VERIFIED [DC] polysemy [LT] AP113 kappa-spectrum
         res = resolve_weight_puzzle_k3xe()
         assert res.mismatch
-        assert res.kappa_ch != res.borcherds_weight
+        assert res.kappa_ch_Heis != res.borcherds_weight
 
     def test_genus1_obstruction_weight(self):
-        """Genus-1 obstruction weight = kappa_ch = 3 (not 5)."""
+        """Genus-1 obstruction weight = kappa_ch_Heis = 3 (not 5)."""
         # VERIFIED [DC] Vol I Theorem D [LT] genus-1 shadow
         res = resolve_weight_puzzle_k3xe()
         assert res.genus1_obstruction_weight == Fraction(3)
@@ -347,7 +351,8 @@ class TestWeightPuzzle:
         # VERIFIED [DC] resolution validity [LT] five-check consistency
         result = verify_weight_puzzle_resolution()
         assert result['resolution_valid']
-        assert result['kappa_ch'] == 3
+        assert result['kappa_ch'] == 0
+        assert result['kappa_ch_Heis'] == 3
         assert result['borcherds_weight'] == 5
         assert result['c0_value'] == 10
         assert result['c0_over_2'] == 5
@@ -369,12 +374,14 @@ class TestD2vsD3:
         assert comp.weight_d2 != comp.weight_d3
 
     def test_kappas_differ(self):
-        """d=2 kappa_ch (2) != d=3 kappa_ch (3)."""
+        """d=2 kappa_ch (2) differs from compact d=3 kappa_ch (0) and Heis (3)."""
         # VERIFIED [DC] dimension comparison [LT] kappa additivity
         comp = compare_d2_d3()
         assert comp.kappa_ch_d2 == Fraction(2)
-        assert comp.kappa_ch_d3 == Fraction(3)
+        assert comp.kappa_ch_d3 == Fraction(0)
+        assert comp.kappa_ch_Heis_d3 == Fraction(3)
         assert comp.kappa_ch_d2 != comp.kappa_ch_d3
+        assert comp.kappa_ch_d2 != comp.kappa_ch_Heis_d3
 
     def test_d2_proved(self):
         """d=2 bridge is PROVED."""
@@ -418,11 +425,12 @@ class TestFourObstructions:
     """Verify the four obstructions separating shadow tower from Phi_10."""
 
     def test_O2_kappa_mismatch(self):
-        """O2: kappa_ch = 3 != kappa_BKM = 5."""
+        """O2: kappa_ch_Heis = 3 != kappa_BKM = 5."""
         # VERIFIED [DC] kappa-spectrum [LT] AP113 polysemy
         result = verify_four_obstructions_k3xe()
         assert result['O2_kappa_mismatch']['mismatch']
-        assert result['O2_kappa_mismatch']['kappa_ch'] == 3
+        assert result['O2_kappa_mismatch']['kappa_ch'] == 0
+        assert result['O2_kappa_mismatch']['kappa_ch_Heis'] == 3
         assert result['O2_kappa_mismatch']['kappa_bkm'] == 5
 
     def test_O4_schottky_codimension(self):
@@ -448,12 +456,13 @@ class TestCrossChecks:
     """Cross-checks against existing compute/lib infrastructure."""
 
     def test_kappa_ch_matches_modular_cy(self):
-        """kappa_ch = 3 matches modular_cy_characteristic.py."""
+        """kappa_ch_Heis = 3 matches legacy modular_cy_characteristic.py."""
         # VERIFIED [DC] cross-engine [LT] consistency
         from compute.lib.modular_cy_characteristic import kappa_ch_k3_times_e
         assert kappa_ch_k3_times_e() == Fraction(3)
         spec = kappa_spectrum_k3xe()
-        assert spec.kappa_ch == kappa_ch_k3_times_e()
+        assert spec.kappa_ch == Fraction(0)
+        assert spec.kappa_ch_Heis == kappa_ch_k3_times_e()
 
     def test_kappa_bkm_matches_modular_cy(self):
         """kappa_BKM = 5 matches modular_cy_characteristic.py."""

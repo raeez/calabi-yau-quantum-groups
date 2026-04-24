@@ -518,7 +518,8 @@ def c3_equivariant() -> E1DeformationComplex:
     Equivariant parameters: h_1, h_2, h_3 (Lie algebra of T).
     CY condition: h_1 + h_2 + h_3 = 0 (weight of Omega^3 = 0).
 
-    The E_1 chiral algebra is W_{1+infty}(h_1, h_2, h_3):
+    The CoHA is the positive half Y^+(gl_1).  Its Drinfeld double/center,
+    after vacuum/Fock evaluation, gives W_{1+infty}(h_1, h_2, h_3):
     - Generators: W^{(s)} for s = 1, 2, 3, ... (spin-s currents)
     - Central charge: c = c(h_1, h_2, h_3) = ... (complicated)
     - The three parameters (h_1, h_2, h_3) with h_1+h_2+h_3=0
@@ -1349,7 +1350,7 @@ class W1InfinityE1:
     def hh_dimensions(self) -> Dict[int, int]:
         r"""Dimensions of Hochschild cohomology HH^n.
 
-        For W_{1+infty} as the CoHA of C^3:
+        For the W_{1+infty} double/center associated to CoHA(C^3):
           HH^0 = 1 (center = C, from the trace)
           HH^1 = 2 (outer derivations = Lie(T)/inner, T = (C*)^2 acting on C^3
                     with CY constraint)

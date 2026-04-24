@@ -55,6 +55,8 @@ from compute.lib.ptvv_derived_k3e import (
     elliptic_hodge,
     k3_hodge,
     k3xe_hodge,
+    kappa_ch_heis_k3xe_is_3,
+    kappa_ch_k3xe_is_0,
     kappa_ch_k3xe_is_3,
     kunneth_hodge,
     local_p2_hodge,
@@ -333,24 +335,25 @@ class TestCPTVVQuantization:
 class TestKappaCh:
     """Tests for kappa_ch computation (AP113: always subscripted)."""
 
-    def test_kappa_ch_k3xe_equals_3(self):
-        """kappa_ch(K3 x E) = 3 (AP113: subscripted).
+    def test_kappa_ch_k3xe_equals_0_and_heis_equals_3(self):
+        """Compact kappa_ch(K3 x E) = 0, while the Heisenberg shadow is 3.
 
-        Path 1: Product/PTVV split for h^{*,0} = (1,1,1,1).
-        Path 2: Kunneth: kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
-        Path 3: PTVV shift + K3 contribution = 1 + 2 = 3.
+        Path 1: Compact Kunneth: 1 - 1 + 1 - 1 = 0.
+        Path 2: Relative split: kappa_ch(K3) + kappa_ch^Heis(E) = 2 + 1 = 3.
+        Path 3: PTVV shift records the same relative boundary scalar.
         """
         result = compute_kappa_ch_k3xe_independent()
-        assert result.kappa_ch == F(3)
+        assert result.kappa_ch == F(0)
+        assert result.kappa_ch_Heis == F(3)
         assert result.matches
         assert result.ptvv_kappa_consistent
 
-    def test_kappa_ch_weighted_hodge_sum_is_not_the_product_oracle(self):
-        """The raw weighted Hodge sum equals 2, so it is not the K3xE oracle.
+    def test_kappa_ch_weighted_hodge_sum_is_not_compact_oracle(self):
+        """The raw weighted Hodge sum equals 2, so it is not the compact oracle.
 
         Path 1: Term-by-term weighted Hodge computation.
-        Path 2: Product/PTVV split: kappa_ch(K3)+kappa_ch(E)=2+1=3.
-        Path 3: The engine uses the product/PTVV split for K3 x E.
+        Path 2: Compact Hodge/PhiFA supertrace gives 0.
+        Path 3: Relative Heisenberg shadow gives 3.
         """
         # Term by term
         t0 = F(3, 2) * F(1)   # p=0: (3/2)*1 = 3/2
@@ -359,7 +362,9 @@ class TestKappaCh:
         t3 = F(-1) * F(-3, 2) * F(1)  # p=3: -(-3/2)*1 = 3/2
         total = t0 + t1 + t2 + t3
         assert total == F(2)
-        assert compute_kappa_ch(k3xe_hodge()).kappa_ch == F(3)
+        result = compute_kappa_ch(k3xe_hodge())
+        assert result.kappa_ch == F(0)
+        assert result.kappa_ch_Heis == F(3)
 
     def test_kappa_ch_k3_equals_2(self):
         """kappa_ch(K3) = chi(O_{K3}) = 2 (AP113: subscripted).
@@ -371,56 +376,60 @@ class TestKappaCh:
         result = compute_kappa_ch(k3_hodge())
         assert result.kappa_ch == F(2)
 
-    def test_kappa_ch_elliptic_equals_1(self):
-        """kappa_ch(E) = 1 (from genus of E).
+    def test_kappa_ch_elliptic_compact_zero_heis_one(self):
+        """Compact kappa_ch(E) = 0 and kappa_ch^Heis(E) = 1.
 
-        Path 1: For d=1: kappa_ch = h^{1,0} = 1.
-        Path 2: Connes operator contribution = 1.
-        Path 3: Kunneth consistency: kappa_ch(K3xE) - kappa_ch(K3) = 3 - 2 = 1.
+        Path 1: Compact supertrace chi(O_E)=1-1=0.
+        Path 2: The genus-one Heisenberg boundary scalar is 1.
+        Path 3: K3xE relative split subtracts the K3 scalar: 3 - 2 = 1.
         """
         result = compute_kappa_ch(elliptic_hodge())
-        assert result.kappa_ch == F(1)
+        assert result.kappa_ch == F(0)
+        assert result.kappa_ch_Heis == F(1)
 
-    def test_kappa_ch_kunneth_additivity(self):
-        """kappa_ch is additive under products: kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y).
+    def test_kappa_ch_heis_kunneth_additivity(self):
+        """The relative Heisenberg scalar is additive under this product.
 
-        Path 1: kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3 = kappa_ch(K3 x E).
-        Path 2: CY Euler char is additive under products.
-        Path 3: The Costello-Li formula respects Kunneth.
+        Path 1: kappa_ch(K3) + kappa_ch^Heis(E) = 2 + 1 = 3.
+        Path 2: Compact K3 x E computation remains 0.
+        Path 3: The matches flag checks both lanes.
         """
         result = compute_kappa_ch_k3xe_independent()
-        assert result.kunneth_check == F(3)
-        assert result.kappa_ch == result.kunneth_check
+        assert result.kappa_ch == F(0)
+        assert result.kappa_ch_Heis == F(3)
+        assert result.matches
 
     def test_kappa_cat_k3xe_equals_0(self):
-        """kappa_cat(K3 x E) = chi(O_{K3xE}) = 0 (AP113: NOT kappa_ch!).
+        """kappa_cat(K3 x E) = chi(O_{K3xE}) = 0.
 
         Path 1: chi(O_{K3xE}) = 1 - 1 + 1 - 1 = 0.
         Path 2: Kunneth: chi(O_{K3}) * chi(O_E) = 2 * 0 = 0.
-        Path 3: This is kappa_cat, different from kappa_ch = 3.
+        Path 3: This equals compact kappa_ch here, but not the Heisenberg shadow.
         """
         result = compute_kappa_ch_k3xe_independent()
         assert result.kappa_cat == F(0)
-        assert result.kappa_cat != result.kappa_ch  # AP113: different kappas!
+        assert result.kappa_cat == result.kappa_ch
+        assert result.kappa_cat != result.kappa_ch_Heis  # AP113: different lanes
 
     def test_kappa_ch_quintic(self):
-        """kappa_ch(quintic) from CY_3 formula on (1, 0, 0, 1).
+        """Compact kappa_ch(quintic) = 0 by the CY_3 Hodge supertrace.
 
-        Path 1: (3/2)(1) - (1/2)(0) + (-1/2)(0) - (-3/2)(1) = 3/2 + 3/2 = 3.
-        Path 2: Same as K3 x E because h^{*,0} pattern matters.
+        Path 1: chi(O_X)=1-1=0 for compact CY_3.
+        Path 2: Same compact convention as K3 x E.
         Path 3: Direct Fraction computation.
         """
         result = compute_kappa_ch(quintic_hodge())
-        assert result.kappa_ch == F(3)
+        assert result.kappa_ch == F(0)
 
     def test_kappa_spectrum_k3xe(self):
         """The kappa-spectrum for K3 x E (AP113).
 
-        kappa_ch = 3, kappa_cat = 0 (total space), kappa_BKM = 5, kappa_fiber = 24.
-        These are ALL DIFFERENT kappas. Bare kappa is FORBIDDEN.
+        compact kappa_ch = 0, kappa_ch^Heis = 3, kappa_cat = 0,
+        kappa_BKM = 5, kappa_fiber = 24. Bare kappa is FORBIDDEN.
         """
         result = compute_kappa_ch_k3xe_independent()
-        assert result.kappa_ch == F(3)
+        assert result.kappa_ch == F(0)
+        assert result.kappa_ch_Heis == F(3)
         assert result.kappa_cat == F(0)
         # kappa_BKM and kappa_fiber are computed in other engines
 
@@ -539,10 +548,10 @@ class TestCrossChecks:
         assert result.costello_total_commutator_vanishes
 
     def test_kappa_ch_matches_across_approaches(self):
-        """kappa_ch = 3 for K3 x E in all approaches (AP113).
+        """Compact and Heisenberg kappa lanes match across approaches.
 
-        Path 1: PTVV Hodge computation.
-        Path 2: kappa_ch_k3xe_independent (three paths).
+        Path 1: PTVV Hodge computation gives compact kappa_ch = 0.
+        Path 2: kappa_ch_k3xe_independent gives kappa_ch^Heis = 3.
         Path 3: Cross-check flag.
         """
         result = cross_check_four_approaches("K3 x E")
@@ -734,15 +743,17 @@ class TestMasterVerification:
         result = master_ptvv_analysis()
         assert result.e3_confirmed
 
-    def test_kappa_ch_equals_3(self):
-        """Master analysis confirms kappa_ch = 3 for K3 x E.
+    def test_kappa_ch_compact_zero_and_heis_three(self):
+        """Master analysis separates compact kappa_ch = 0 from kappa_ch^Heis = 3.
 
-        Path 1: kappa_ch_k3xe_is_3() returns True.
-        Path 2: Master result kappa_ch_equals_3 flag.
-        Path 3: Three independent computation paths.
+        Path 1: kappa_ch_k3xe_is_0() returns True.
+        Path 2: kappa_ch_heis_k3xe_is_3() returns True.
+        Path 3: Master result carries both flags.
         """
         result = master_ptvv_analysis()
-        assert result.kappa_ch_equals_3
+        assert result.kappa_ch_equals_0
+        assert result.kappa_ch_Heis_equals_3
+        assert not result.kappa_ch_equals_3
 
     def test_all_approaches_agree(self):
         """Master analysis confirms all four approaches agree.
@@ -759,12 +770,14 @@ class TestMasterVerification:
 
         Path 1: Theorem string is nonempty.
         Path 2: Mentions PTVV and E_3.
-        Path 3: Mentions kappa_ch = 3.
+        Path 3: Mentions compact kappa_ch and kappa_ch^Heis separately.
         """
         result = master_ptvv_analysis()
         assert len(result.theorem_statement) > 100
         assert "PTVV" in result.theorem_statement
         assert "E_3" in result.theorem_statement
+        assert "kappa_ch = 0" in result.theorem_statement
+        assert "kappa_ch^Heis = 3" in result.theorem_statement
 
     def test_landscape_populated(self):
         """Master analysis populates the landscape.
@@ -782,11 +795,13 @@ class TestMasterVerification:
         """Convenience aliases work correctly.
 
         Path 1: ptvv_confirms_e3().
-        Path 2: kappa_ch_k3xe_is_3().
+        Path 2: kappa_ch_k3xe_is_0() and kappa_ch_heis_k3xe_is_3().
         Path 3: all_four_approaches_agree().
         """
         assert ptvv_confirms_e3()
-        assert kappa_ch_k3xe_is_3()
+        assert kappa_ch_k3xe_is_0()
+        assert kappa_ch_heis_k3xe_is_3()
+        assert not kappa_ch_k3xe_is_3()
         assert all_four_approaches_agree()
 
     def test_master_verification_alias(self):
@@ -812,24 +827,27 @@ class TestEdgeCases:
         """AP113: bare kappa is FORBIDDEN. Always subscripted.
 
         All kappa references in results must be subscripted:
-        kappa_ch, kappa_cat, kappa_BKM, kappa_fiber.
+        kappa_ch, kappa_ch_Heis, kappa_cat, kappa_BKM, kappa_fiber.
         """
         result = compute_kappa_ch_k3xe_independent()
         # The result has kappa_ch and kappa_cat, both subscripted
         assert hasattr(result, 'kappa_ch')
+        assert hasattr(result, 'kappa_ch_Heis')
         assert hasattr(result, 'kappa_cat')
-        # Different values for different kappas
-        assert result.kappa_ch != result.kappa_cat
+        # The compact and categorical traces agree here; the boundary shadow does not.
+        assert result.kappa_ch == result.kappa_cat
+        assert result.kappa_ch_Heis != result.kappa_cat
 
-    def test_kappa_cat_is_not_kappa_ch(self):
-        """AP113: kappa_cat != kappa_ch for K3 x E.
+    def test_kappa_cat_is_not_kappa_ch_heis(self):
+        """AP113: kappa_cat is not the relative Heisenberg scalar.
 
         kappa_cat(K3 x E) = chi(O_{K3xE}) = 0.
-        kappa_ch(K3 x E) = 3.
-        These are DIFFERENT. Conflation is AP113 violation.
+        compact kappa_ch(K3 x E) = 0.
+        kappa_ch^Heis(K3 x E) = 3.
         """
         result = compute_kappa_ch_k3xe_independent()
-        assert result.kappa_ch == F(3)
+        assert result.kappa_ch == F(0)
+        assert result.kappa_ch_Heis == F(3)
         assert result.kappa_cat == F(0)
 
     def test_ptvv_shift_not_symplectic_shift_confusion(self):

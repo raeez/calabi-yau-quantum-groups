@@ -75,21 +75,23 @@ counting function is NOT a Siegel modular form.  Instead:
       weight theorem still applies, but the modular form lives on a
       different domain (paramodular group instead of Sp_4(Z)).
 
-THE DECOMPOSITION kappa_BKM = kappa_ch + chi(O_S) IS FALSE
-============================================================
+THE ADDITIVE SPLIT kappa_BKM = kappa_ch + chi(O_fiber) IS FALSE
+================================================================
 
 The adversarial engine (kappa_bkm_adversarial.py) proved that the
-decomposition kappa_BKM = kappa_ch + chi(O_fiber) is a numerical
-coincidence for K3 x E (N=1 only).  This engine completes the story
-by establishing the CORRECT universal formula.
+literal CHL split kappa_BKM = kappa_ch + chi(O_fiber) fails at every
+N in {1,2,3,4,6}.  The separate Heisenberg-fibre equality 5 = 3+2 at
+N=1 is a coincidence of different Stage-2 constructions, not this split.
+This engine completes the story by establishing the CORRECT universal formula.
 
 The decomposition CANNOT be universal because:
   1. kappa_ch depends on the CHIRAL ALGEBRA (conditional on CY-A),
      while c(0) depends on the JACOBI FORM (unconditional).
   2. chi(O_S) is a topological invariant of the fiber, while the
      orbifold averaging affects c(0) BEFORE the Borcherds lift.
-  3. For N >= 3, kappa_ch and chi(O_S) are UNCHANGED (both depend on
-     the crepant resolution, which is K3), but c(0) decreases.
+  3. The CHL right-hand side is a chiral/fibre supertrace, while c(0)
+     is a Borcherds-input Fourier coefficient; the two have different
+     functorial origins and different level dependence.
 
 THE CORRECT PROOF STRUCTURE
 ============================
@@ -277,10 +279,11 @@ def universality_status() -> Dict[str, Any]:
         "no_cy_a_dependence_verified": no_cy_a_dependence,
         "contrast_with_decomposition": {
             "formula": "kappa_BKM = kappa_ch + chi(O_fiber)",
-            "status": "FALSIFIED for N >= 2 (coincidence for N=1 only)",
+            "status": "FALSIFIED on CHL N in {1,2,3,4,6}; no successes",
             "depends_on_CY_A": True,
-            "failures": 7,
-            "successes": 1,
+            "failures": 5,
+            "successes": 0,
+            "scope": "literal CHL additive split, not the Heisenberg-fibre N=1 coincidence",
         },
     }
 
@@ -613,7 +616,9 @@ def prove_universality() -> Dict[str, Any]:
         },
         "contrast": {
             "decomposition_formula": "kappa_BKM = kappa_ch + chi(O_fiber)",
-            "decomposition_status": "FALSIFIED (coincidence for N=1 only)",
+            "decomposition_status": (
+                "FALSIFIED on CHL N in {1,2,3,4,6}; no successes"
+            ),
             "decomposition_requires_CY_A": True,
             "weight_formula": "kappa_BKM = c(0)/2",
             "weight_status": "PROVED universally for Class A",
@@ -804,7 +809,15 @@ def cross_validate_all_engines() -> Dict[str, Any]:
         adv_mod = _import_module('kappa_bkm_adversarial')
         results["path_B_adversarial"] = {
             "c0_is_universal": adv_mod.c0_is_universal(),
-            "decomposition_successes": adv_mod.count_decomposition_successes(),
+            "heis_fiber_coincidence_successes": (
+                adv_mod.count_decomposition_successes()
+            ),
+            "literal_additive_split_successes": (
+                adv_mod.count_literal_additive_split_successes()
+            ),
+            "literal_additive_split_failures": (
+                adv_mod.count_literal_additive_split_failures()
+            ),
         }
     except Exception as e:
         results["path_B_adversarial"] = {"error": str(e)}
