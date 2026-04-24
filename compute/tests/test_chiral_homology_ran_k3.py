@@ -500,10 +500,15 @@ class TestKappaSpectrum:
         summary = chiral_homology_summary()
         assert summary['kappa_ch'] == 3
 
-    def test_kappa_cat(self):
-        """kappa_cat(K3 x E) = 2 = chi(O_{K3})."""
+    def test_kappa_cat_total(self):
+        """kappa_cat(K3 x E) = chi(O_{K3 x E}) = 0."""
         summary = chiral_homology_summary()
-        assert summary['kappa_cat'] == 2
+        assert summary['kappa_cat'] == 0
+
+    def test_kappa_cat_fiber(self):
+        """kappa_cat(K3 fiber) = chi(O_{K3}) = 2."""
+        summary = chiral_homology_summary()
+        assert summary['kappa_cat_fiber'] == 2
 
     def test_kappa_bkm(self):
         """kappa_BKM(K3 x E) = 5 (weight of Delta_5)."""

@@ -132,9 +132,9 @@ Pipeline:
 6. Full algebra: the full affine super Yangian Y(hat{g}_{Q_X}) is the quantum vertex chiral group
 
 For C^3:
-- Quiver: Jordan quiver (one vertex, one loop)
+- Quiver: tripled Jordan quiver (one vertex, three loops with cubic potential)
 - CoHA = Y^+(hat{gl}_1) (Schiffmann-Vasserot)
-- Full algebra: affine Yangian Y(hat{gl}_1) (same as W_{1+infty} at self-dual level!)
+- Full algebra: affine Yangian Y(hat{gl}_1), with W_{1+infty} reached through the completed Fock/evaluation representation.
 - Connection to Vol I: W_{1+infty} is already in the standard landscape! Its MC4 is solved by weight stabilization. The Yangian R-matrix is DK-0.
 
 For general toric CY3 without compact 4-cycles (RSYZ):

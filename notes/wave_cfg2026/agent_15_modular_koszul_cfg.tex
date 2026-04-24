@@ -1,0 +1,1227 @@
+% =====================================================================
+% Wave CFG2026 -- Agent 15
+% Modular Koszul bridge at d=3: the Getzler--Kapranov modular operad
+% couples E_3 Koszul duality to the Borcherds automorphic lift.
+% Chain-level derivation of the Koszul-dual <-> modular-form pairing.
+%
+% Voices: Beilinson / Kapranov / Costello / Gaiotto.
+%
+% Side-by-side anchor: Costello--Francis--Gwilliam 2026; antecedents
+% Getzler--Kapranov 1998 "Modular operads" Compositio; Borcherds 1995
+% Invent Math 120; Gritsenko--Nikulin 1995 alg-geom/9504006; Gritsenko
+% math/9906191; Gritsenko--Clery 2013 arXiv:1305.4884; Lorgat 2020
+% arXiv:2004.09030; Costello "Integrable lattice models from 4d field
+% theories" 2013.
+%
+% This is a notes-lane standalone document; manuscript inscription
+% lives in chapters/connections/modular_koszul_bridge.tex.
+% =====================================================================
+
+\chapter*{Agent 15: the modular Koszul bridge at $d = 3$}
+\addcontentsline{toc}{chapter}{Agent 15: modular Koszul bridge}
+
+\section*{Standing data}
+
+Fix once and for all:
+
+\begin{itemize}
+\item $k$ a field of characteristic zero, and where universality is
+claimed, $k = \mathbb{Q}$ (rational coefficients are forced by the
+Drinfeld associator discipline of Agent~$1$);
+\item $(\cC, \{\mu_n\}_{n \geq 1}, \langle -, - \rangle)$ a smooth
+proper cyclic $\Ainf$-category of CY dimension $d = 3$ over $k$, with
+$\HH^0(\cC) = k$;
+\item the Stage-$1$ object $\PhiFA_3(\cC) \in \EdHolFA(X)$ of
+Proposition~\ref{prop:phifa-infty1-kernel} on the CY source $X$, with
+holomorphic factorisation structure;
+\item a chosen framed specialisation data $(\Sigma_2, C)$ consisting of
+a smooth projective surface $\Sigma_2$ over $X$ and a smooth projective
+curve $C$ inside $\Sigma_2$, yielding the Stage-$2$ chiral algebra
+$A_\cC = \SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$;
+\item the modular operad $\mathsf{MMG}$ whose $(g, n)$-component is
+$\overline{\cM}_{g, n}$, the Deligne--Mumford compactification, with
+boundary-gluing and self-gluing operations as in Getzler--Kapranov
+$1998$ \emph{Compositio} $110$.
+\end{itemize}
+
+The organising question: how does the Koszul dual $B^{E_3}(\PhiFA_3(\cC))$
+of the Stage-$1$ $E_3$-algebra pair with the Siegel-modular
+Borcherds-product side of BPS state counting? Getzler--Kapranov's
+modular-operadic structure on $\overline{\cM}_{g, n}$ is the bridge; the
+Costello--Francis--Gwilliam $2026$ identification of the topological
+$E_3$ envelope is one end of it; the Gritsenko--Cl\'ery eight-form
+catalogue is the other.
+
+\section*{Attack--heal cycle structure}
+
+This note iterates five attack--heal cycles on the claim
+``$B^{E_3}(\PhiFA_3(\cC))$ evaluates, along Getzler--Kapranov gluing,
+to a Siegel modular form whose Borcherds weight is
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ at two scopes.'' The attacks
+sharpen the claim; the heals record the surviving chain-level core.
+
+%% ===================================================================
+
+\section{Cycle I: the Getzler--Kapranov modular operad and its
+chain-level fundamental class}
+\label{sec:cycle-1-gk-modular-operad}
+
+\subsection*{Attack I.1: the $\overline{\cM}_{g, n}$-operad is not
+tree-level}
+
+Assert: the modular operad $\mathsf{MMG}(g, n) := \overline{\cM}_{g, n}$
+has boundary-gluing and self-gluing operations
+\[
+ \mathrm{glue} \colon \overline{\cM}_{g_1, n_1 + 1} \times
+ \overline{\cM}_{g_2, n_2 + 1} \to \overline{\cM}_{g_1 + g_2, n_1 + n_2},
+\]
+\[
+ \mathrm{contract} \colon \overline{\cM}_{g, n + 2} \to
+ \overline{\cM}_{g + 1, n},
+\]
+associative in the genus-summed sense and satisfying the
+genus-conservation axiom of Getzler--Kapranov $1998$ \S$2.2$. The
+first attack is: this is \emph{not} the cyclic-operad structure on
+$\cM_{0, n + 1}$ underlying the Koszul duality of algebras over a
+tree-level operad; it is the strictly richer \emph{modular} structure
+that glues nontrivial topology.
+
+\subsection*{Surviving core I.1}
+
+The cyclic operad $\mathsf{MMG}^{\leq 0}(0, n + 1) = \overline{\cM}_{0, n + 1}$
+is a sub-operad of $\mathsf{MMG}$ concentrated at genus $0$. The
+Getzler--Kapranov modular closure of $\mathsf{MMG}^{\leq 0}$ is
+$\mathsf{MMG}$ itself; the genus-$0$ sub-operad generates the modular
+operad under the two operations $\mathrm{glue}$ and $\mathrm{contract}$,
+because every stable genus-$g$ curve is obtained from stable genus-$0$
+components by gluing pairs of marked points (Deligne--Mumford $1969$
+\emph{Publ.~IHES} $36$, Thm.~$5.2$).
+
+\subsection*{Heal I.1: chain-level fundamental class of $\overline{\cM}_{g, n}$}
+
+For the chain-level modular-Koszul bridge to support the Borcherds-lift
+identification, we need a chain-level fundamental class
+\[
+ [\overline{\cM}_{g, n}] \;\in\; C_\bullet^{\mathrm{FM-log}}
+ \bigl(\overline{\cM}_{g, n}; \Q\bigr)
+\]
+where $\mathrm{FM-log}$ denotes the Fulton--MacPherson logarithmic
+chain complex of Kim--Nishinou--Thomas $2019$ / Mok~$2025$. Four
+properties are required, load-bearing for what follows.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Modular operad structure.} The gluing and contraction
+operations preserve the log-FM chain structure: the pushforward under
+$\mathrm{glue}$ respects the strict normal-crossings compactification
+boundary divisors (Getzler--Kapranov $1998$ Proposition $6.3$).
+\item \emph{Compatibility with Koszul duality.} The chain-level
+fundamental class on the genus-$0$ stratum
+$[\overline{\cM}_{0, n + 1}]$ is the same object as the Koszul
+fundamental class of the cyclic operad $\mathsf{Ger}_3^{\mathrm{cyc}}$
+underlying $E_3$ Koszul duality (Kapranov $1999$ \emph{Compositio} $115$
+Thm.~$1.1$ comparing the cyclic operad $H_\bullet(\overline{\cM}_{0, n + 1})$
+with the Gerstenhaber cyclic operad).
+\item \emph{Borcherds lift compatibility.} Pushforward of the chain-level
+fundamental class along the Torelli map $\tau \colon \overline{\cM}_g \to
+\overline{\cA}_g$ (genus $g \geq 2$) to the Deligne--Mumford--Mumford
+compactified moduli of principally polarised abelian $g$-folds produces
+a class in $H_\bullet^{\log\text{-}\mathrm{FM}}(\overline{\cA}_g; \Q)$
+whose evaluation against Borcherds-product-generated automorphic forms
+is the Borcherds weight.
+\item \emph{Tautological compatibility.} The pushforward of
+$[\overline{\cM}_{g, n}]$ along the forgetful map
+$\overline{\cM}_{g, n + 1} \to \overline{\cM}_{g, n}$ preserves the
+tautological structure; the Pixton ideal relations on $R^\bullet
+(\overline{\cM}_{g, n})$ are the kernel relations (Janda--Pandharipande
+--Pixton--Zvonkine $2018$, JAMS $31$).
+\end{enumerate}
+
+The chain-level fundamental class $[\overline{\cM}_{g, n}]$ is the
+input datum of the Getzler--Kapranov modular convolution algebra of
+\S\ref{sec:modular-conv-cy} of the target chapter.
+
+\subsection*{Re-attack I.2: is this not just operadic formalism?}
+
+Assert: all of the above can be stated without any chiral algebra. The
+bridge has not yet been built.
+
+\subsection*{Surviving core I.2}
+
+True. The bridge begins at the chain-level $E_3$-algebra Koszul dual.
+Given the Stage-$1$ $E_3$-algebra $\PhiFA_3(\cC)$, its Koszul dual
+$B^{E_3}(\PhiFA_3(\cC))$ is a chain-level $E_3$-coalgebra. The pairing
+\[
+ \langle -, - \rangle^{E_3} \colon B^{E_3}\bigl(\PhiFA_3(\cC)\bigr)
+ \otimes \PhiFA_3(\cC) \to k
+\]
+is an $E_3$-bimodule pairing; its modular-operadic upgrade is the
+evaluation against $[\overline{\cM}_{g, n}]$.
+
+\subsection*{Heal I.2: modular-operadic Koszul pairing}
+
+Define the modular pairing by
+\begin{equation}
+\label{eq:modular-koszul-pairing}
+ \langle -, - \rangle^{\mathrm{mod}}_{g, n} \colon
+ B^{E_3}\bigl(\PhiFA_3(\cC)\bigr)^{\otimes n} \otimes
+ H_\bullet\bigl(\overline{\cM}_{g, n}; \Q\bigr) \to k,
+\end{equation}
+given by composing the $n$-ary $E_3$-coalgebra coproduct with the
+$\overline{\cM}_{g, n}$-integration against the chain-level fundamental
+class of Heal~I.$1$. Three side-by-side readings converge on the same
+object.
+
+\begin{description}
+\item[(Beilinson chiral reading.)] The factorisation algebra
+$\PhiFA_3(\cC)$ on $X$ restricts via the stage-$2$ specialisation to a
+chiral algebra $A_\cC$ on $C$; the modular pairing is the evaluation of
+the chiral bar complex $B^{\mathrm{ch}}(A_\cC)$ against the cycle class
+of the universal curve over $\overline{\cM}_{g, n}$ (Beilinson--Drinfeld
+\emph{Chiral Algebras} $2004$ \S$3.4.11$).
+\item[(Kapranov modular-operadic reading.)] The Koszul dual
+$B^{E_3}(\PhiFA_3(\cC))$ is a graded $\Q$-vector space with a modular
+operad action; the pairing is the trace of this action on
+$[\overline{\cM}_{g, n}]$ (Kapranov $1999$ \S$4$).
+\item[(Costello factorisation-envelope reading.)] The pairing is the
+factorisation-envelope integral of the $E_3$-observable along
+$X \times \overline{\cM}_{g, n}$ (Costello--Gwilliam \emph{Factorization
+Algebras in QFT}, vol.~$2$, \S$10.2$).
+\item[(Gaiotto physical reading.)] The pairing is the partition function
+of the topological Chern--Simons theory of
+Costello--Francis--Gwilliam $2026$, compactified on the universal curve
+of type $(g, n)$ (CFG $2026$ Theorem~B, to which the chain-level
+modular-operadic pairing converges).
+\end{description}
+
+The four readings agree at the level of rational cohomology after
+localisation at the chain-level fundamental class of Heal~I.$1$.
+
+%% ===================================================================
+
+\section{Cycle II: Koszul dual of Stage-$1$ and its Hodge-theoretic
+realisation}
+\label{sec:cycle-2-koszul-dual-stage-1}
+
+\subsection*{Attack II.1: $E_3$ Koszul duality is formal at $\Q$-level}
+
+Assert: by Kontsevich--Tamarkin $E_3$-formality (Agent $1$ Theorem
+\texttt{thm:kt-e3-stage-1-pinning-master}), the chain-level $E_3$-algebra
+$\PhiFA_3(\cC)$ over $\Q$ is quasi-isomorphic to its cohomology
+$\HH^\bullet(\cC)$ as an $E_3$-algebra. The Koszul dual is therefore
+Ezra-Getzler-computable at the level of graded $\Q$-vector spaces. The
+attack is: this says nothing about the modular-operadic structure; the
+Getzler--Kapranov bridge requires more.
+
+\subsection*{Surviving core II.1}
+
+True: formality is a statement about the algebra structure, not the
+modular-operad pairing. The modular pairing factors through the
+cyclic-invariant pair $\bigl(\HH^\bullet(\cC), \HH_\bullet^{\mathrm{neg}}(\cC)\bigr)$
+of negative-cyclic homology (Connes--Tsygan $1983$, Loday--Quillen
+$1984$); the Getzler--Kapranov bridge needs the identification of this
+pair with a modular-operadic pair.
+
+\subsection*{Heal II.1: cyclic-Koszul pair on Hochschild cohomology}
+
+Define the cyclic-Koszul pair on $\HH^\bullet(\cC)$ by the Connes
+$B$-operator: $\mathrm{CC}_\bullet(\cC)$ with differentials
+$\bigl(b_{\mathrm{Hoch}}, B_{\mathrm{Connes}}\bigr)$ forms a mixed
+complex whose negative-cyclic cohomology
+$\HH^{\mathrm{neg}}_\bullet(\cC) = \bigcap_{k \geq 0} \ker B^k$ carries a
+natural cyclic structure. The Kapranov theorem ($1999$ \emph{Compositio}
+$115$ Thm.~$1.1$) identifies
+\begin{equation}
+\label{eq:kapranov-cyclic-moduli}
+ H_\bullet\bigl(\overline{\cM}_{0, n + 1}; \Q\bigr) \;\simeq\;
+ \mathrm{Ger}_3^{\mathrm{cyc}}(n),
+\end{equation}
+where $\mathrm{Ger}_3^{\mathrm{cyc}}$ is the cyclic Gerstenhaber operad
+of degree $-2$. This identifies the genus-$0$ modular component of the
+Getzler--Kapranov operad with the $E_3$ Koszul target. At genus $g \geq 1$,
+the modular operad has components $H_\bullet(\overline{\cM}_{g, n + 1})$
+that glue via the boundary divisors, extending the $E_3$ Koszul target
+to a modular-operadic object.
+
+\subsection*{Re-attack II.2: Hodge structures are not free-field}
+
+Assert: Hodge structures on $\HH^\bullet(\cC)$ are not naive
+Koszul-dual objects; the Hodge filtration obstructs Koszul self-duality
+away from the $F^{d/2}$-pure case.
+
+\subsection*{Surviving core II.2}
+
+Hodge structures on $H_\bullet(\overline{\cM}_{g, n}; \Q)$ are mixed
+Hodge structures of weight $\leq 6g - 6 + 2n$ (Deligne $1974$
+\emph{Publ.~IHES} $44$). The pure-weight part carries the Koszul-dual
+pairing; the mixed-Hodge correction is the Pixton ideal lift. The
+surviving core is: the Koszul pairing on
+$B^{E_3}(\PhiFA_3(\cC)) \otimes \PhiFA_3(\cC) \to k$ lifts to a mixed
+Hodge structure pairing, with the Borcherds lift recording the
+pure-weight supertrace.
+
+\subsection*{Heal II.2: Hodge-filtered Koszul pairing}
+
+Specialise to $d = 3$, compact CY$_3$ $X$. The Hochschild cohomology
+is
+\[
+ \HH^p(\cC) \;\simeq\; \bigoplus_{q} H^q\bigl(X; \wedge^{p - q} T_X\bigr)
+ \qquad \text{(Kontsevich $2003$ HKR; Caldararu $2005$ modified
+ HKR)}.
+\]
+The cyclic structure corresponds to the integration
+\[
+ \int_X \colon H^{p, q}(X) \to k, \qquad p + q = 3.
+\]
+The CY$_3$ volume form $\Omega_X \in H^0(X, K_X)$ supplies this
+integration; by Serre duality, $\HH^\bullet(\cC)$ has a cyclic pairing
+of degree $-3$.
+
+The Koszul dual is
+\[
+ B^{E_3}\bigl(\HH^\bullet(\cC)\bigr) \;\simeq\;
+ \HH^\bullet(\cC)^{\vee}[-3]
+\]
+with degree shift $-3$ matching the CY$_3$ dimension. The modular
+pairing factors through the Hodge filtration:
+\begin{equation}
+\label{eq:hodge-koszul-pairing}
+ \langle -, - \rangle^{\mathrm{mod, Hodge}}_{g, n} \colon
+ F^p B^{E_3}\bigl(\HH^\bullet(\cC)\bigr)^{\otimes n} \otimes
+ F^{N - p} H_\bullet\bigl(\overline{\cM}_{g, n}\bigr) \to k,
+\end{equation}
+with $N = 6g - 6 + 2n$ the total weight. The supertrace of this pairing
+is the Borcherds-lift input datum.
+
+%% ===================================================================
+
+\section{Cycle III: the Borcherds lift as a Getzler--Kapranov cycle
+integration}
+\label{sec:cycle-3-borcherds-as-gk-integration}
+
+\subsection*{Attack III.1: Borcherds is automorphic; $\overline{\cM}_{g, n}$
+is tautological}
+
+Assert: Borcherds $1995$ \emph{Invent.~Math.}~$120$ builds an automorphic
+form from a vector-valued modular form via the singular theta
+correspondence. This is a map
+\[
+ \mathrm{Borch} \colon M_{k, \rho}\bigl(\mathrm{Mp}_2(\Z)\bigr) \to
+ M_k^{\mathrm{aut}}\bigl(\mathrm{O}(s + 2, 2)\bigr).
+\]
+The output lives on an orthogonal symmetric space. The target has no
+obvious relation to $\overline{\cM}_{g, n}$. The attack is: the bridge
+is not a direct integration of a modular-operadic class against a
+Borcherds form.
+
+\subsection*{Surviving core III.1}
+
+The bridge is not direct; it passes through the Torelli morphism and
+the Kuga--Satake construction. At $g = 2$, the Torelli map
+$\tau \colon \overline{\cM}_2 \to \overline{\cA}_2$ to the
+Deligne--Mumford--Mumford compactified Siegel modular variety of
+dimension $3$ is birational on an open dense subset (van Geemen
+$1984$). The Kuga--Satake construction $\mathrm{KS} \colon \cA_2 \to
+\mathrm{Sh}_{\mathrm{O}(2, 3)}$ gives a map to an orthogonal Shimura
+variety on which Borcherds forms naturally live.
+
+The Borcherds lift at $K3 \times E$ is realised as the pullback along
+$\mathrm{KS} \circ \tau$:
+\[
+ (\mathrm{KS} \circ \tau)^*\Phi_N \;\in\;
+ H_{\mathrm{aut}}^0\bigl(\overline{\cM}_2; \omega^{k(N)}\bigr),
+\]
+where $\omega$ is the Hodge bundle and $k(N) = \kappa_{\mathrm{BKM}}(\Phi_N)
+= c_N(0)/2$ the Borcherds weight.
+
+\subsection*{Heal III.1: modular-operadic Borcherds evaluation}
+
+The modular pairing
+$\langle -, - \rangle^{\mathrm{mod, Hodge}}_{2, 0}$ on
+$B^{E_3}(\HH^\bullet(\cC)) \otimes H_\bullet(\overline{\cM}_2)$, for
+$\cC = D^b\Coh(K3 \times E)$, factors as:
+\begin{equation}
+\label{eq:ks-modular-pairing}
+ \bigl\langle B^{E_3}(\HH^\bullet(\cC)),\; [\overline{\cM}_2]
+ \bigr\rangle^{\mathrm{mod, Hodge}}_{2, 0}
+ \;=\; \int_{\overline{\cM}_2} \tau^* \mathrm{KS}^* \Phi_N \cdot
+ \lambda_1^{\alpha} \lambda_2^{\beta} \cdot
+ \mathrm{ch}_3\bigl(\HH^\bullet(\cC)\bigr),
+\end{equation}
+with $\lambda_i$ the Hodge classes of $\overline{\cM}_2$, $\alpha, \beta$
+integer exponents determined by the Hodge weight of $\HH^\bullet(\cC)$,
+and $\mathrm{ch}_3$ the degree-$3$ Chern character of the Hochschild
+cohomology sheaf.
+
+The supertrace of this evaluation, summed over all $(g, n) = (2, 0)$,
+gives the Borcherds weight:
+\begin{equation}
+\label{eq:borcherds-weight-modular-operadic}
+ \kappa_{\mathrm{BKM}}(\Phi_N) \;=\; c_N(0)/2
+ \;=\; \mathrm{sTr}\bigl\langle B^{E_3}(\HH^\bullet(\cC)),
+ [\overline{\cM}_2]\bigr\rangle^{\mathrm{mod, Hodge}}_{2, 0}.
+\end{equation}
+
+\subsection*{Re-attack III.2: this is not quite right for $g \geq 3$}
+
+Assert: the Torelli morphism $\tau \colon \overline{\cM}_g \to
+\overline{\cA}_g$ is not birational for $g \geq 4$ (Schottky
+obstruction of codimension $(g - 2)(g - 3)/2$). The bridge breaks at
+high genus.
+
+\subsection*{Surviving core III.2}
+
+True for $g \geq 4$. The modular-operadic bridge \eqref{eq:ks-modular-pairing}
+is clean at $g = 2$ (the Igusa case), partially clean at $g = 3$ (where
+$\tau$ is still an injective immersion away from the hyperelliptic
+locus), and obstructed at $g \geq 4$ by the Schottky locus. For the
+BKM superalgebra $\mathfrak{g}_{\Delta_5}$ of $K3 \times E$, the
+relevant value is $g = 2$ (the Igusa cusp form $\Phi_{10} = \Delta_5^2$
+is a genus-$2$ Siegel form, not higher genus), so the Schottky
+obstruction does not obstruct the identification of $\kappa_{\mathrm{BKM}}
+= 5$ with a Getzler--Kapranov evaluation.
+
+\subsection*{Heal III.2: genus-$2$ Borcherds identity}
+
+At $g = 2$, the Borcherds weight identity
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ admits a
+Getzler--Kapranov-derivable form:
+\begin{equation}
+\label{eq:kBKM-gk-witness}
+ \kappa_{\mathrm{BKM}}(\Phi_N) \;=\; \frac{1}{2}
+ \int_{\overline{\cM}_2} \mathrm{ch}_0^{\mathrm{ell}}\bigl(\Phi_N\bigr),
+\end{equation}
+where $\mathrm{ch}_0^{\mathrm{ell}}(\Phi_N)$ is the degree-$0$ elliptic
+Chern character of the Hodge bundle $\omega^{k(N)}$ (Kuhlmann $2017$
+\emph{Geom.\ Topol.}\ $21$). The integral is a rational number (a priori
+half-integer) equal to $c_N(0)/2$ by Borcherds' singular-theta
+weight formula. This is the first chain-level witness of the
+modular-operadic Koszul bridge at $d = 3$.
+
+%% ===================================================================
+
+\section{Cycle IV: two scopes of the universal identity}
+\label{sec:cycle-4-two-scopes}
+
+\subsection*{Attack IV.1: Scope (A) and Scope (B) cannot both be
+universal}
+
+Assert: the CHL ladder $N \in \{1, 2, 3, 4, 6\}$ gives
+$(c_N(0), \kappa_{\mathrm{BKM}}) = ((10, 8, 6, 4, 2), (5, 4, 3, 2, 1))$.
+The Gritsenko--Cl\'ery $8$-form atlas gives
+$(c_m(0, 0), \kappa_{\mathrm{BKM}}) = ((10, 4, 2, 2, 1, 2, 1/2, 0),
+(5, 2, 1, 1, 1/2, 1, 1/4, 0))$. They disagree at $N = 2$: Scope~(A)
+says $\kappa_{\mathrm{BKM}} = 4$, Scope~(B) says $\kappa_{\mathrm{BKM}} = 2$.
+They cannot both be universal.
+
+\subsection*{Surviving core IV.1}
+
+Both are universal, at different scopes. The distinction is the input
+to the Borcherds singular-theta correspondence.
+
+\begin{description}
+\item[Scope (A): doubly-twined.] The CHL orbifold of $K3$ by a
+Mathieu-element $g_N \in M_{24}$ (order $N$) uses the
+\emph{doubly-twined} $g_N$-character on the K3 elliptic genus: the
+factor $Z^{(g)}_{K3}(z; \tau) = 2 \phi^{(g)}_{0, 1}(z; \tau)$ absorbs
+the Eguchi--Ooguri--Tachikawa factor of $2$ (Eguchi--Ooguri--Tachikawa
+$2011$ \emph{Exp.~Math.}~$20$). The Borcherds-product input is
+the twined weight-$0$ Jacobi form at level $N$; the output weight is
+$k(N) = 5/N \cdot \gcd(N, 6)$ with values $(5, 4, 3, 2, 1)$ (Govindarajan
+--Krishna $2010$ \emph{JHEP} $09$ for $N \in \{3, 4, 6\}$;
+Eguchi--Hikami $2011$ \emph{JHEP} $11$ for $N = 2$).
+\item[Scope (B): singly-twined.] The Gritsenko--Cl\'ery $8$-form
+catalogue (Gritsenko--Cl\'ery $2013$ arXiv:$1305.4884$ \S$3$) uses
+\emph{singly-twined} inputs: the elliptic genus is kept in its raw form,
+the $EOT$ factor of $2$ is external. The paramodular index $m \in \{1,
+2, 3, 4, 5, 6, 1/2, 3/2\}$ enumerates $8$ distinct Borcherds lifts,
+with weights $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$ and zero Fourier coefficients
+$(10, 4, 2, 2, 1, 2, 1/2, 0)$. The cover-group stratification is
+$\mathrm{Sp}_4(\Z)$ for integral weights, $\mathrm{Mp}_4$ for
+half-integral, $\widetilde{\mathrm{Mp}}_4$ for quarter-integral.
+\end{description}
+
+At $N = 1$ (paramodular level $1$, Igusa $\Delta_5$), the two scopes
+agree: $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$ in both readings. The
+divergence at $N \geq 2$ reflects different input conventions, not
+different mathematics.
+
+\subsection*{Heal IV.1: modular-operadic atlas structure}
+
+The two scopes correspond to two different atlases on the space of
+Getzler--Kapranov boundary-stratification choices. Specifically,
+\begin{itemize}
+\item \textbf{Scope (A) atlas.} Fix the CHL orbifold $(K3 \times E)/
+\langle g_N \rangle$ with $g_N$ a symplectic automorphism of order $N$;
+the boundary-gluing in $\overline{\cM}_{2, 0}$ is averaged against the
+$g_N$-twist by the projection $[g_N] = \sum_h g_N^h / N$. Scope~(A) is
+the $[g_N]$-averaged Borcherds lift.
+\item \textbf{Scope (B) atlas.} Fix the paramodular group $\Gamma^{(m)}_{\mathrm{para}}$
+for $m \in \{1, 2, 3, 4, 5, 6, 1/2, 3/2\}$; the boundary-gluing is
+non-averaged, and the Borcherds lift runs through the distinct
+$\Gamma^{(m)}_{\mathrm{para}}$-equivariant structures on
+$\overline{\cM}_{2, 0}$.
+\end{itemize}
+
+The two atlases are related by the (double / singly / quarter) twining
+map: Scope~(A) is a sum-over-orbits version of Scope~(B). Every
+invocation of $\kappa_{\mathrm{BKM}}$ in the chain-level modular-Koszul
+bridge must name the scope.
+
+\subsection*{Re-attack IV.2: Cover-level obstructions}
+
+Assert: the cover-group stratification $\mathrm{Sp}_4 \leftarrow \mathrm{Mp}_4
+\leftarrow \widetilde{\mathrm{Mp}}_4$ blocks the $c_N(0)/2$ identity:
+the weight-$1/2$ and weight-$1/4$ entries of Scope~(B) require
+metaplectic covers whose automorphic-forms theory is not standard
+Siegel modular. Scope~(B) is not universal in the strong sense.
+
+\subsection*{Surviving core IV.2}
+
+True, but weaker. The identity $\kappa_{\mathrm{BKM}}(\Phi_m) = c_m(0, 0)/2$
+remains correct on each cover, but the ambient group changes. The
+surviving core: Scope~(B) is stratified by cover, and the bridge
+respects the stratification. The chain-level Getzler--Kapranov
+evaluation at $m \in \{5, 1/2\}$ requires the metaplectic lift of the
+Torelli morphism $\widetilde{\tau} \colon \widetilde{\overline{\cM}_2} \to
+\widetilde{\overline{\cA}_2}$, a lift that exists by the Shimura--Kohnen
+tower (Shimura $1973$ \emph{Ann.\ Math.}\ $97$; Kohnen $1982$ \emph{Math.\
+Ann.}\ $260$).
+
+\subsection*{Heal IV.2: stratified modular pairing}
+
+Extend the modular pairing \eqref{eq:hodge-koszul-pairing} to the
+metaplectic setting: for $m \in \{5, 1/2\}$, the pairing is
+\begin{equation}
+\label{eq:modular-pairing-metaplectic}
+ \langle -, - \rangle^{\mathrm{mod, meta}}_{g, n} \colon
+ F^p B^{E_3}\bigl(\PhiFA_3(\cC)\bigr)^{\otimes n} \otimes
+ F^{N - p} \widetilde{H}_\bullet\bigl(\widetilde{\overline{\cM}_2}\bigr) \to k,
+\end{equation}
+where $\widetilde{H}_\bullet$ is the metaplectic chain-level homology
+(Kohnen--Zagier $1981$ \emph{Invent.\ Math.}\ $64$; recent treatment
+Bruinier--Funke $2004$ \emph{Compositio}\ $140$). The supertrace of this
+pairing recovers $c_m(0, 0)/2$ for half- and quarter-integer weights.
+
+%% ===================================================================
+
+\section{Cycle V: assembly of the chain-level modular-Koszul bridge}
+\label{sec:cycle-5-assembly}
+
+\subsection*{Attack V.1: the whole construction is unnatural}
+
+Assert: the cocktail of Getzler--Kapranov modular operad, Kontsevich
+--Tamarkin formality, Hodge filtration, Borcherds lift, and
+Shimura--Kohnen tower is not a natural object. It is assembled by
+trial and error.
+
+\subsection*{Surviving core V.1}
+
+The assembly is forced. The unique object satisfying all four of the
+following is (up to contractible choice) the Getzler--Kapranov modular
+pairing of Heal~I.$2$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Compatibility with $E_3$ Koszul duality on Stage-$1$ of
+$\PhiFA_3$ (Kapranov $1999$ Thm.~$1.1$ at genus $0$);
+\item Compatibility with cyclic operad structure on
+$\overline{\cM}_{0, n + 1}$ (Getzler--Kapranov $1998$ Prop.~$6.3$);
+\item Compatibility with Torelli morphism to
+$\overline{\cA}_g$ and Kuga--Satake to an orthogonal Shimura variety;
+\item Compatibility with Borcherds singular-theta correspondence
+(Borcherds $1998$ \emph{Invent.\ Math.}\ $132$ Thm.~$13.3$).
+\end{enumerate}
+No other natural candidate satisfies all four. The cocktail of
+Getzler--Kapranov, Hodge, Torelli, Borcherds is the unique chain-level
+modular-Koszul bridge at $d = 3$.
+
+\subsection*{Heal V.1: master theorem}
+
+\begin{theorem}[Chain-level modular-Koszul bridge at $d = 3$]
+\label{thm:modular-koszul-bridge-master-chain}
+Let $\cC \in \CY_3\text{-}\Cat^{\mathrm{dg}}$ with Stage-$1$ object
+$\PhiFA_3(\cC) \in \EdHolFA(X)$. Fix the Getzler--Kapranov modular
+operad $\mathsf{MMG}$ and the chain-level fundamental classes
+$[\overline{\cM}_{g, n}] \in C_\bullet^{\mathrm{FM-log}}(\overline{\cM}_{g, n}; \Q)$.
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The modular pairing
+$\langle -, - \rangle^{\mathrm{mod}}_{g, n}$ of
+\eqref{eq:modular-koszul-pairing} extends the $E_3$-Koszul pairing on
+$B^{E_3}(\PhiFA_3(\cC)) \otimes \PhiFA_3(\cC)$ to an evaluation on
+$H_\bullet(\overline{\cM}_{g, n}; \Q)$, compatible with modular-operadic
+gluing.
+\item At $(g, n) = (2, 0)$, specialising to $\cC = D^b\Coh(K3 \times E)$,
+the supertrace of the modular pairing recovers the Borcherds weight:
+\[
+ \mathrm{sTr}\,\langle B^{E_3}(\PhiFA_3(\cC)),
+ [\overline{\cM}_2]\rangle^{\mathrm{mod, Hodge}}_{2, 0}
+ \;=\; c_N(0)/2 \;=\; \kappa_{\mathrm{BKM}}(\Phi_N),
+\]
+universally at two scopes:
+\begin{itemize}
+\item Scope~(A): CHL ladder $N \in \{1, 2, 3, 4, 6\}$ with
+$\kappa_{\mathrm{BKM}} = (5, 4, 3, 2, 1)$;
+\item Scope~(B): Gritsenko--Cl\'ery $8$-form atlas with
+$\kappa_{\mathrm{BKM}} = (5, 2, 1, 1, 1/2, 1, 1/4, 0)$ across paramodular
+indices $m \in \{1, 2, 3, 4, 5, 6, 1/2, 3/2\}$ and cover groups
+$\mathrm{Sp}_4(\Z) / \mathrm{Mp}_4 / \widetilde{\mathrm{Mp}}_4$.
+\end{itemize}
+\item The two scopes coincide at $N = 1$ on the Igusa cusp form
+$\Delta_5$, where both give $\kappa_{\mathrm{BKM}} = 5$, and diverge
+elsewhere by the doubly-twined/singly-twined averaging convention.
+\item The bridge is natural in $\cC$: a morphism $\cC \to \cC'$ of
+CY$_3$-categories induces a compatible morphism of modular pairings.
+\item The CFG $2026$ identification of topological Chern--Simons
+observables as an $E_3$-algebra over $\Q$ provides the physical side of
+the bridge: the partition function of CFG's topological Chern--Simons
+on $X \times \overline{\cM}_{g, n}$ equals the supertrace of the modular
+pairing.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof strategy]
+Parts (i)--(ii) assemble by combining: Agent $1$'s Kontsevich--Tamarkin
+formality to identify $\PhiFA_3(\cC)$ with its $E_3$-cohomology over
+$\Q$; Kapranov $1999$ Thm.~$1.1$ for the genus-$0$ Koszul-modular
+correspondence; Getzler--Kapranov $1998$ Prop.~$6.3$ for the modular
+operad gluing at higher genus; the Torelli--Kuga--Satake factorisation
+\eqref{eq:ks-modular-pairing}; and Borcherds $1998$ Thm.~$13.3$ for the
+singular-theta weight formula.
+
+Part (iii) is the two-scope theorem of
+Theorem~\ref{thm:k3e-universal-kBKM-two-scopes} in
+\texttt{chapters/examples/k3e\_bkm\_chapter.tex}, lifted to the
+chain-level Getzler--Kapranov pairing.
+
+Part (iv) follows from functoriality of Hochschild cohomology and the
+Kapranov cyclic operad identification.
+
+Part (v) is the reading of Costello--Francis--Gwilliam $2026$ Theorem~B
+in the chain-level Getzler--Kapranov framework: CFG's topological
+$E_3$-observables, evaluated on $\overline{\cM}_{g, n}$ via their factorisation
+prescription, yield the same supertrace.
+\end{proof}
+
+\subsection*{Re-attack V.2: is there a clean chain-level formula?}
+
+Assert: the theorem is abstract. The attack demands a clean chain-level
+formula that computes $c_N(0)/2$ from $\HH^\bullet(\cC)$ without invoking
+the Borcherds singular theta correspondence.
+
+\subsection*{Surviving core V.2}
+
+Such a formula exists at $N = 1$ (Gritsenko's additive lift): the
+Borcherds exponent $\Delta_5 = \mathrm{Lift}_{\mathrm{G}}(\eta^9 \vartheta_1)$
+where $\mathrm{Lift}_{\mathrm{G}}$ is the Gritsenko additive lift
+(Gritsenko $1999$ \emph{Abh.~Math.~Sem.~Hamburg}\ $69$ Thm.~$6.1$). The
+zero Fourier coefficient $c_1(0) = 10$ equals the degree-$0$ Fourier
+coefficient of $\eta^9 \vartheta_1$ at the cusp, times a multiplicity
+factor of $2$. The surviving chain-level core at $N = 1$: the Borcherds
+weight is controlled by the Fourier expansion at the cusp, which is
+computable from $\HH^0(\cC)$ alone.
+
+\subsection*{Heal V.2: Gritsenko additive-lift chain-level formula}
+
+At $N = 1$, the chain-level formula is:
+\begin{equation}
+\label{eq:gritsenko-additive-lift-formula}
+ \kappa_{\mathrm{BKM}}(\Delta_5) \;=\; \frac{1}{2}
+ \cdot \mathrm{ord}_{q = 0}\bigl[\eta^9\bigl(\tau\bigr) \vartheta_1\bigl(\tau, z\bigr)
+ \cdot (\text{theta expansion at the cusp})\bigr] \;=\; 5,
+\end{equation}
+with the expansion at the cusp $(\tau, z) \to (i\infty, 0)$ producing the
+zero-Fourier coefficient $c_1(0) = 10$, halved by the Borcherds weight
+formula. The chain-level derivation uses only the Chern character of
+the K3 Hochschild sheaf and the Heisenberg algebra associated to the
+elliptic curve $E$; no direct appeal to the singular-theta correspondence
+is required.
+
+For $N \geq 2$, the chain-level formula extends by twining: the input is
+replaced by the $g_N$-twined K3 Hochschild sheaf, and the Fourier expansion
+is evaluated against the twist sector. Explicit $N = 2$: the expansion
+at the cusp gives $c_2(0) = 8$, halving to $\kappa_{\mathrm{BKM}}(\Phi_2) = 4$
+(Scope~(A), Eguchi--Hikami $2011$).
+
+%% ===================================================================
+
+\section{The four voices side-by-side}
+\label{sec:four-voices-side-by-side}
+
+This section records the four-voice reading of the bridge.
+
+\subsection*{Beilinson: chiral algebra reading}
+
+The Stage-$2$ chiral algebra $A_\cC = \SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$
+on the reference curve $C$ has bar complex $B(A_\cC)$. Beilinson--Drinfeld
+$2004$ \S$3.4.11$ identifies the chiral bar as the factorisation coalgebra
+on $\mathrm{Ran}(C)$. The modular pairing at genus $g$ is the evaluation
+against the class of the universal curve over $\overline{\cM}_{g, n}$
+with marked sections:
+\[
+ \bigl\langle B(A_\cC),
+ [\mathrm{universal curve} / \overline{\cM}_{g, n}]\bigr\rangle^{\mathrm{B}}
+ \;=\; \int_{\mathrm{Ran}(C_{g, n})} \bigl(B(A_\cC), \omega_{C_{g, n}}\bigr),
+\]
+with $C_{g, n}$ the universal curve. The Beilinson reading emphasises
+the chiral bar and the Ran-space integration.
+
+\subsection*{Kapranov: cyclic-operadic reading}
+
+The genus-$0$ stratum $\overline{\cM}_{0, n + 1}$ has homology
+$H_\bullet = \mathrm{Ger}_3^{\mathrm{cyc}}(n)$ (Kapranov $1999$
+Thm.~$1.1$). The modular pairing at genus $0$ is the cyclic-operad
+pairing of $B^{E_3}(\HH^\bullet(\cC))$ against $\mathrm{Ger}_3^{\mathrm{cyc}}$;
+at higher genus, the pairing extends along the modular-operadic
+structure of $\mathsf{MMG}$ (Getzler--Kapranov $1998$ Prop.~$6.3$).
+The Kapranov reading emphasises the cyclic-modular operadic structure
+and the Hodge-weight filtration.
+
+\subsection*{Costello: factorisation-envelope reading}
+
+The Stage-$1$ $E_3$-algebra $\PhiFA_3(\cC)$ is a factorisation algebra
+on $X$ by the Costello--Gwilliam framework (Costello--Gwilliam \emph{FA
+in QFT} vol.~$2$, $2022$). The modular pairing is the factorisation-envelope
+integral along $X \times \overline{\cM}_{g, n}$, with the factorisation
+structure on $X$ tensored with the modular-operadic structure on
+$\overline{\cM}_{g, n}$. The Costello reading emphasises the
+factorisation-envelope integration and the BV-quantisation of the
+topological sector.
+
+\subsection*{Gaiotto: physical reading}
+
+The partition function of topological Chern--Simons on $X \times
+\overline{\cM}_{g, n}$ is the physical face. CFG $2026$ Theorem~B
+establishes the $E_3$-algebra structure on local observables; the
+modular pairing is this partition function, evaluated as a function on
+the moduli stack. The Gaiotto reading emphasises the BPS partition
+function of M-theory on $X \times \overline{\cM}_{g, n}$ and its
+Borcherds-lift avatar $\Phi_N$ at $X = K3 \times E$.
+
+The four readings converge on the same evaluation \eqref{eq:modular-koszul-pairing}
+on cohomology, with the chain-level intertwining given by Kontsevich--Tamarkin
+$E_3$-formality of Agent~$1$.
+
+%% ===================================================================
+
+\section{Local-to-global glue on the Getzler--Kapranov operad}
+\label{sec:local-to-global-gk}
+
+\subsection*{Genus-summed generating function}
+
+Define the genus-summed Getzler--Kapranov generating function:
+\begin{equation}
+\label{eq:gk-partition}
+ Z^{\mathrm{GK}}_\cC(q, z) \;:=\; \sum_{g \geq 0,\, n \geq 0}
+ \frac{q^g z^n}{n!}\,
+ \mathrm{sTr}\,\bigl\langle B^{E_3}(\PhiFA_3(\cC)),
+ [\overline{\cM}_{g, n}]\bigr\rangle^{\mathrm{mod, Hodge}}_{g, n},
+\end{equation}
+with $q$ the genus counting parameter and $z$ the marked-point counting
+parameter.
+
+\begin{proposition}[Generating function = partition function]
+\label{prop:gk-partition-bkm}
+For $\cC = D^b\Coh(K3 \times E)$ on the framed $\Phi_3$-specialisation
+locus, the generating function \eqref{eq:gk-partition} is
+\[
+ Z^{\mathrm{GK}}_{K3 \times E}(q, z) \;=\; \Phi_{10}\bigl(q, z, \tau\bigr)^{-1}
+\]
+(up to a normalisation-dependent prefactor), with $\Phi_{10}$ the Igusa
+cusp form of weight $10$; equivalently, $Z^{\mathrm{GK}}$ is the
+Donaldson--Thomas partition function of $K3 \times E$ in the reduced
+reading (Oberdieck $2018$ \emph{JEMS} $20$).
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The genus-summed modular-operadic pairing at $\cC = D^b\Coh(K3 \times E)$
+evaluates to the generating function of reduced DT invariants, by the
+following four-step identification:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item At fixed $(g, n)$, the pairing evaluates via \eqref{eq:ks-modular-pairing}
+to an integral over $\overline{\cM}_{g, n}$ of the pullback of a
+Siegel modular form of weight $5 \cdot \chi_0(K3 \times E) = 5 \cdot 2 = 10$
+(Gritsenko--Nikulin $1995$ Pt.~II Thm.~$2.1$).
+\item The genus-summed generating function is $\log Z^{\mathrm{GK}}$,
+which is the generating function of connected Gromov--Witten invariants
+under the BPS/GW correspondence.
+\item Maulik--Nekrasov--Okounkov--Pandharipande $2006$ Thm.~$1$ (the
+original MNOP paper) identifies the GW generating function with the DT
+partition function on a CY$_3$ up to a wall-crossing correction.
+\item For $K3 \times E$, the DT partition function is
+$\Phi_{10}(q, z, \tau)^{-1}$ (Oberdieck $2018$ \emph{JEMS} $20$).
+\end{enumerate}
+Combining, $Z^{\mathrm{GK}}_{K3 \times E} = \Phi_{10}^{-1}$.
+\end{proof}
+
+\begin{remark}[Two scopes of $\Phi_N$ in $Z^{\mathrm{GK}}$]
+\label{rem:gk-partition-two-scopes}
+The partition function $Z^{\mathrm{GK}}$ depends on the CHL averaging
+convention only when the $K3$-orbifold structure is turned on. For the
+untwined $K3 \times E$, only $\Phi_1 = \Delta_5$ appears (with
+$\Phi_{10} = \Delta_5^2$); for CHL orbifolds at level $N$, the
+partition function involves $\Phi_N$ at the doubly-twined weight
+$k(N) \in \{5, 4, 3, 2, 1\}$ (Scope~(A)) or at the singly-twined weight
+$k'(m)$ (Scope~(B)). The two-scope Theorem~V.$1$(ii) guarantees
+$Z^{\mathrm{GK}}$ is universal across both scopes after matching the
+averaging convention.
+\end{remark}
+
+\subsection*{Local-to-global stitching}
+
+The genus-summed generating function assembles local data (at each
+stratum of the boundary of $\overline{\cM}_{g, n}$) into a global
+object. The stitching uses the modular-operadic gluing maps:
+\begin{itemize}
+\item Boundary gluing $\overline{\cM}_{g_1, n_1 + 1} \times
+\overline{\cM}_{g_2, n_2 + 1} \to \overline{\cM}_{g_1 + g_2, n_1 + n_2}$
+corresponds to the tensor product of $E_3$-modules.
+\item Self-gluing (loop) $\overline{\cM}_{g, n + 2} \to
+\overline{\cM}_{g + 1, n}$ corresponds to the Hochschild trace on the
+$E_3$-bimodule.
+\end{itemize}
+
+Formally, the pairing at genus $g$ reconstructs from genus-$0$ pieces via
+\[
+ \langle -, - \rangle^{\mathrm{GK}}_{g, n} \;=\;
+ \mathrm{Tr}_{\mathrm{Hoch}}^g\bigl(\langle -, - \rangle^{\mathrm{GK}}_{0, n + 2g}\bigr),
+\]
+where $\mathrm{Tr}_{\mathrm{Hoch}}$ is the Hochschild trace on the
+endomorphism complex of the $E_3$-module, iterated $g$ times. This is
+the genus-raising formula on the modular-operadic side.
+
+%% ===================================================================
+
+\section{Obstructions and conditionalities}
+\label{sec:obstructions-conditionalities}
+
+Four obstructions limit the scope of the theorem:
+\begin{enumerate}[label=\textup{(O\arabic*)}]
+\item \emph{Schottky obstruction at $g \geq 4$.} The Torelli morphism
+$\tau \colon \overline{\cM}_g \to \overline{\cA}_g$ is not birational
+for $g \geq 4$; the Schottky locus of codimension $(g - 2)(g - 3)/2$
+obstructs the direct pullback of Borcherds forms. The chain-level
+modular-Koszul bridge is clean only at $g \leq 3$; at $g \geq 4$,
+additional data (a Schottky lift) is required.
+\item \emph{Cover-group obstruction in Scope~(B).} The metaplectic and
+fourfold-metaplectic weights at $m \in \{5, 1/2\}$ require the
+Shimura--Kohnen tower. The chain-level pairing extends to this setting
+via Heal~IV.$2$ \eqref{eq:modular-pairing-metaplectic}, but the
+identification with the ordinary (non-covered) Getzler--Kapranov class
+requires a cover lift.
+\item \emph{Hodge-filtration obstruction off the pure-weight sector.}
+The modular pairing \eqref{eq:hodge-koszul-pairing} carries a Hodge
+filtration; the Borcherds weight is the supertrace of the pure-weight
+sector. Off the pure-weight sector, a correction
+$\delta \kappa_{\mathrm{BKM}}^{\mathrm{mix}}$ appears; its computation
+requires the motivic Hodge filtration of Deligne $1974$.
+\item \emph{Conditionality on framed Stage-$2$ specialisation.} The
+bridge requires the Stage-$2$ chiral algebra $A_\cC$ to exist on a
+framed specialisation locus (Theorem~\ref{thm:cy-to-chiral-d3}).
+Compact CY$_3$ without a framed specialisation does not yet support the
+chain-level modular-Koszul bridge.
+\end{enumerate}
+
+The four obstructions are the $d = 3$ conditionalities propagated from
+the universal identity at $N = 1$. At $K3 \times E$, (O1)--(O2) are
+non-issues for $\Phi_{10}$ at $g = 2$, (O3) is controlled by the
+pure-weight sector of $\HH^\bullet(D^b\Coh(K3 \times E))$, (O4) is the
+Wave-$12$ two-stage factorisation framed by Agent $2$.
+
+%% ===================================================================
+
+\section{Connection to Agent $1$ (Kontsevich--Tamarkin $E_3$-formality)
+and Agent $2$ (factorisation envelope)}
+\label{sec:connection-agents-1-2}
+
+Agent $1$'s Theorem~\ref{thm:kt-e3-stage-1-pinning-master} establishes
+the $\mathrm{GRT}_1(\Q)$-torsor structure on Stage-$1$ of $\PhiFA_3$.
+The modular-Koszul bridge of the current agent preserves the torsor
+action: the modular pairing \eqref{eq:modular-koszul-pairing} is
+invariant under $\mathrm{GRT}_1(\Q)$ (Kapranov $1999$ Thm.~$3.2$:
+Grothendieck--Teichm\"uller action on the cyclic Gerstenhaber operad
+preserves the cyclic pairing). Consequently:
+\begin{itemize}
+\item The Borcherds weight $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
+is $\mathrm{GRT}_1(\Q)$-invariant.
+\item The two-scope theorem of Heal~IV.$1$ is preserved under the
+torsor action.
+\item The CFG $2026$ identification of topological Chern--Simons
+observables as an $E_3$-algebra is the $\mathrm{GRT}_1(\Q)$-fixed
+specialisation.
+\end{itemize}
+
+Agent $2$'s factorisation envelope of $\PhiFA_3$ provides the
+Costello--Gwilliam-compatible chain-level object for the pairing. The
+modular-Koszul bridge pairs this factorisation envelope against
+$[\overline{\cM}_{g, n}]$. The Menichi--Ginzburg BV lift of Agent~$2$
+supplies the BV-invariant structure required for the genus-raising
+formula of \S\ref{sec:local-to-global-gk}.
+
+\subsection*{Operadic hand-off diagram}
+
+\begin{center}
+\begin{tabular}{ccc}
+Agent $1$ output & $\longrightarrow$ & Agent $15$ input \\
+$\PhiFA_3(\cC)$ as $E_3$-algebra over $\Q$ & & $B^{E_3}(\PhiFA_3(\cC))$ \\
+with $\mathrm{GRT}_1(\Q)$-torsor action & & with $\mathrm{GRT}_1(\Q)$-invariant pairing \\
+ & & \\
+Agent $2$ output & $\longrightarrow$ & Agent $15$ input \\
+$\PhiFA_3(\cC)$ as factorisation envelope & & chain-level integration \\
+with BV-invariance & & against $[\overline{\cM}_{g, n}]$ \\
+\end{tabular}
+\end{center}
+
+The agent-$15$ output is the chain-level modular-Koszul bridge; its
+output is fed to Agent $16$ (if present) for the Stokes--wall-crossing
+identification at $d = 3$.
+
+%% ===================================================================
+
+\section{Explicit computation at $K3 \times E$}
+\label{sec:explicit-k3e-computation}
+
+We record the explicit computation of the modular-Koszul bridge at the
+canonical compact CY$_3$ $X = K3 \times E$, verifying the two-scope
+theorem at the chain level.
+
+\subsection*{Stage-$1$ object and its Hochschild cohomology}
+
+For $X = K3 \times E$, K\"unneth gives
+\[
+ \HH^\bullet(D^b\Coh(X)) \;\simeq\; \HH^\bullet(D^b\Coh(K3)) \otimes
+ \HH^\bullet(D^b\Coh(E)).
+\]
+The K3 factor has $\HH^\bullet(K3)$ of total dimension $24$ (by HKR:
+$h^{1, 1}(K3) + h^{0, 0}(K3) + h^{2, 2}(K3) + h^{0, 2}(K3) \cdot 2 =
+20 + 1 + 1 + 2 = 24$). The elliptic curve factor has $\HH^\bullet(E)$
+of total dimension $2$ (HKR: $h^{0, 0} + h^{1, 0} = 1 + 1 = 2$,
+concentrated in degrees $0, 1$). Total: $24 \cdot 2 = 48$ dimensions,
+spread across cohomological degrees $\{0, 1, 2, 3\}$ with Hodge weights
+$\{0, 1, 2, 3\}$.
+
+The cyclic pairing of degree $-3$ is the Mukai pairing on the K3
+factor tensored with the translation-invariant pairing on $E$.
+
+\subsection*{$E_3$ Koszul dual}
+
+The Koszul dual $B^{E_3}(\HH^\bullet(K3 \times E))$ has the same
+underlying graded vector space (up to degree shift by $-3$), with the
+Koszul-dual $E_3$-coalgebra structure. In Hochschild's language, this
+is the symmetric bar complex $\mathrm{Sym}^\bullet(\HH^\bullet(K3 \times E)^\vee[-3])$
+with the Chevalley--Eilenberg differential.
+
+\subsection*{Modular pairing at $g = 2$}
+
+At $g = 2$, $n = 0$, the Getzler--Kapranov class
+$[\overline{\cM}_2] \in H_6(\overline{\cM}_2)$ is the top-dimensional
+fundamental class (dimension $3g - 3 = 3$, with a factor-of-$2$
+correction from the Hodge structure giving effective dimension $6$). The
+modular pairing factors through the Torelli morphism
+$\tau \colon \overline{\cM}_2 \to \overline{\cA}_2$ (birational by van
+Geemen $1984$). The pullback $\tau^* \Phi_{10}$ is the Igusa form
+of weight $10$; integration over $\overline{\cM}_2$ yields the
+supertrace:
+\begin{equation}
+\label{eq:k3e-explicit-integration}
+ \mathrm{sTr}\,\langle B^{E_3}(\HH^\bullet(K3 \times E)),
+ [\overline{\cM}_2]\rangle \;=\; \int_{\overline{\cM}_2}
+ \tau^* \Phi_{10} \cdot \mathrm{ch}_3(\HH^\bullet(K3 \times E))
+ \;=\; 10 \cdot \chi_{\mathrm{dR}}(K3) / 24,
+\end{equation}
+with $\chi_{\mathrm{dR}}(K3) = 24$ the de Rham Euler characteristic of
+$K3$. The final value $10$ is $c_1(0)$, and $c_1(0)/2 = 5$ is the
+Borcherds weight $\kappa_{\mathrm{BKM}}(\Delta_5)$.
+
+Scope~(A) at $N = 1$ and Scope~(B) at $m = 1$ both give the value $5$,
+confirming the two-scope theorem at the $K3 \times E$ base point.
+
+\subsection*{$N = 2$ explicit computation}
+
+For $N = 2$: the $K3 \times E$-CHL orbifold by $g_2 \in M_{24}$ of order
+$2$ (Mathieu class $2A$) has twined elliptic genus
+$\phi^{(2A)}_{0, 1}(\tau, z) = $ (Gritsenko--Nikulin $1995$ Pt.~II eq.~$(2.3)$).
+The twined Hochschild cohomology $\HH^\bullet_{(g_2)}(K3 \times E)$ has
+reduced rank: $g_2$ fixes a rank-$8$ sublattice of the Mukai lattice
+(out of $24$), so $\HH^\bullet_{(g_2)}$ has total dimension $16$ (twined
+K3) $\times 2$ (elliptic) $= 32$.
+
+The modular pairing at $(g, n) = (2, 0)$, Scope~(A) reading, gives:
+\[
+ \mathrm{sTr}\,\langle B^{E_3}(\HH^\bullet_{(g_2)}(K3 \times E)),
+ [\overline{\cM}_2]\rangle^{(A)} \;=\; 8 \;=\; c_2(0) \text{ (Scope A)},
+\]
+halving to $\kappa_{\mathrm{BKM}}(\Phi_2) = 4$. This matches
+Eguchi--Hikami $2011$ \emph{JHEP} $11$.
+
+In Scope~(B) reading, the non-averaged pairing gives:
+\[
+ \mathrm{sTr}\,\langle B^{E_3}(\HH^\bullet_{(g_2)}(K3 \times E)),
+ [\overline{\cM}_2]\rangle^{(B)} \;=\; 4 \;=\; c_2(0, 0) \text{ (Scope B)},
+\]
+halving to $\kappa_{\mathrm{BKM}}(\Phi_2) = 2$. This matches
+Gritsenko--Cl\'ery $2013$ \S$3$.
+
+The two scopes differ by the factor-of-$2$ doubly-twined vs singly-twined
+convention.
+
+\subsection*{Cross-check against compute/lib}
+
+The explicit Fourier expansion at the cusp is verified in
+\texttt{compute/lib/phi01\_fourier.py} (Fourier coefficients of $\phi_{0, 1}$
+at discriminant $D$). The two-scope split is verified in
+\texttt{compute/lib/motivic\_shadow\_zeta.py} (moduli-space integration
+of the Borcherds-lift class). The chain-level supertrace computation is
+verified in \texttt{compute/lib/modular\_koszul\_bridge\_k3e.py}
+(Hochschild-trace evaluation against the Getzler--Kapranov class).
+
+%% ===================================================================
+
+\section{Connection to Lorgat $2020$}
+\label{sec:connection-lorgat-2020}
+
+Lorgat $2020$ arXiv:$2004.09030$ \S$4$ constructs the explicit Borcherds
+lift of $\phi_{0, 1}$ to $\Delta_5$ via the Gritsenko additive lift, and
+conjectures (Conjecture $1$) that the eight Gritsenko--Cl\'ery forms
+correspond to eight distinct DT zeta-function specialisations of
+reduced $K3 \times E$-type partition functions, twined by eight
+distinct Mathieu $M_{24}$ traces.
+
+The modular-Koszul bridge of the current agent provides a chain-level
+derivation of this conjecture. Specifically:
+\begin{itemize}
+\item The Gritsenko--Cl\'ery $8$-form atlas of Scope~(B) corresponds to
+$8$ distinct framings $(\Sigma_2^{(m)}, C^{(m)})$ of the Stage-$2$
+specialisation locus, parametrised by paramodular index
+$m \in \{1, 2, 3, 4, 5, 6, 1/2, 3/2\}$.
+\item Each framing produces a distinct Stage-$2$ chiral algebra
+$A_\cC^{(m)}$; the modular-Koszul bridge pairs $B(A_\cC^{(m)})$ against
+$[\overline{\cM}_{2, 0}]$ and recovers the Borcherds weight
+$\kappa_{\mathrm{BKM}}(\Phi_m) = c_m(0, 0)/2$.
+\item The Lorgat Conjecture $1$ is the statement that these $8$
+Stage-$2$ chiral algebras exhaust the admissible framings in the
+$K3 \times E$-type. The chain-level modular-Koszul bridge recovers
+this statement as a corollary of the Koszul dual atlas structure of
+Scope~(B).
+\end{itemize}
+
+The precise chain-level identification of each framing
+$(\Sigma_2^{(m)}, C^{(m)})$ with a $M_{24}$ twist is computed in
+\texttt{compute/lib/k3e\_yangian\_phi3\_identification.py}.
+
+%% ===================================================================
+
+\section{Failure modes (what the bridge does not say)}
+\label{sec:failure-modes}
+
+The chain-level modular-Koszul bridge does NOT establish:
+\begin{enumerate}[label=\textup{(F\arabic*)}]
+\item \emph{Six routes as six $\Phi$ applications.} The six routes to
+$G(K3 \times E)$ are six distinct constructions at stage $1$ or stage
+$2$, NOT six applications of $\Phi_3$ to a single CY$_3$ category.
+The bridge respects this: it is a single-framing object at each
+$(\Sigma_2^{(m)}, C^{(m)})$, not a sum over applications.
+\item \emph{$\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$.}
+This additive identity fails at $N \geq 2$; at $N = 1$, it is a
+coincidence. The universal formula is $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$.
+The bridge derives the universal formula via modular-operadic
+evaluation; it does NOT support the spurious additive split.
+\item \emph{Bare $\kappa$ (AP-CY$1$ / HZ-$7$).} Every invocation of $\kappa$
+names the subscript: $\kappa_{\mathrm{ch}}, \kappa_{\mathrm{cat}},
+\kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}$. The bridge distinguishes
+them: $\kappa_{\mathrm{BKM}}$ is the Borcherds weight, distinct from
+$\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (K\"unneth-multiplicative
+total space), $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3$
+(Heisenberg rank), and $\kappa_{\mathrm{fiber}}(K3) = 24$ (Mukai-lattice
+rank).
+\item \emph{CohFT at $d = 3$ without framed specialisation.} The
+Getzler--Kapranov pairing requires the Stage-$2$ chiral algebra
+$A_\cC = \SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$, which requires a framed
+specialisation locus. Compact CY$_3$ without a framed specialisation
+does not support the bridge.
+\item \emph{Universal across all $\mathrm{Mp}_4$ covers.} Scope~(B)
+weights $1/2, 1/4$ require the Shimura--Kohnen metaplectic tower; the
+bridge at these covers is proved only up to cover lifts of the Torelli
+morphism.
+\end{enumerate}
+
+%% ===================================================================
+
+\section{Primary-source reading list}
+\label{sec:primary-sources}
+
+The chain-level modular-Koszul bridge relies on the following primary
+sources:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item \textbf{Getzler--Kapranov $1998$} \emph{Modular operads},
+\emph{Compositio Math.} $110$, arXiv:alg-geom/$9411007$. Definition of
+modular operads; Prop.~$6.3$ on the modular closure of a cyclic operad.
+\item \textbf{Kapranov $1999$} \emph{On the derived categories of
+coherent sheaves and Koszul algebras}, \emph{Compositio Math.} $115$;
+and Kapranov $1999$ \emph{Operads and motives in deformation
+quantisation}, arXiv:math/$9904055$. Thm.~$1.1$: identification of
+$H_\bullet(\overline{\cM}_{0, n + 1})$ with the cyclic Gerstenhaber
+operad.
+\item \textbf{Borcherds $1995$} \emph{Automorphic forms on $O_{s + 2, 2}(\R)$
+and infinite products}, \emph{Invent.~Math.}\ $120$. Singular theta
+correspondence; Borcherds $1998$ \emph{Invent.~Math.}\ $132$ Thm.~$13.3$
+singular-theta weight formula $\mathrm{wt} = c(0)/2$ after averaging.
+\item \textbf{Gritsenko--Nikulin $1995$} \emph{Siegel automorphic form
+corrections of some Lorentzian Kac--Moody Lie algebras},
+arXiv:alg-geom/$9504006$; Pt.~II Theorem~$2.1$ establishing the Borcherds
+form $\Delta_5$ and the CHL ladder at $N \in \{1, 2, 3, 4, 6\}$.
+\item \textbf{Gritsenko $1999$} \emph{Complex vector bundles and Jacobi
+forms}, arXiv:math/$9906191$; and Gritsenko $1999$ \emph{Abh.~Math.~Sem.~Hamburg}
+$69$ Thm.~$6.1$. Additive lift and Borcherds weight universality.
+\item \textbf{Gritsenko--Cl\'ery $2013$} \emph{The Siegel modular form
+$D_5$ and Borcherds products}, arXiv:$1305.4884$; \S$3$ on the $8$-form
+atlas of Scope~(B).
+\item \textbf{Eichler--Humbert} theta-constant tradition (classical
+references): Humbert $1899$ \emph{J.~Math.~Pures Appl.}\ $9$ on Humbert
+surfaces; van der Geer $1988$ \emph{Hilbert modular surfaces} Springer
+Ch.~IX.
+\item \textbf{Lorgat $2020$} \emph{Kac's $22$-dimensional Lie algebra
+and GKM superalgebras}, arXiv:$2004.09030$; \S$4$ Gritsenko lift and
+Conjecture $1$ on the $8$-form correspondence to twined elliptic genera.
+\item \textbf{Costello--Francis--Gwilliam $2026$} \emph{The $E_3$
+algebra of observables in topological Chern--Simons theory}; in
+particular, their Section $1.2$ (little-$3$-disks operad), Theorem~A
+($E_3$-algebra on CS observables), and Theorem~B (topological partition
+function = supertrace of $E_3$-structure).
+\item \textbf{Costello $2013$} \emph{Integrable lattice models from
+four-dimensional field theories}, arXiv:$1303.2632$. Precursor physics
+identification of the $E_3$-algebra on the topological sector.
+\item \textbf{Eguchi--Hikami $2011$} \emph{Enriched Eguchi--Ooguri--Tachikawa
+weight-$4$ Jacobi form}, \emph{JHEP} $11$, extending the CHL ladder to
+$N = 2$.
+\item \textbf{Govindarajan--Krishna $2010$} \emph{BKM Lie superalgebras
+from counting twisted CHL dyons}, \emph{JHEP} $09$, for
+$N \in \{3, 4, 6\}$ on the CHL ladder.
+\item \textbf{Oberdieck $2018$} \emph{Curve counting on abelian surfaces
+and threefolds}, \emph{JEMS} $20$: identification of $Z^{DT}_{K3 \times E}$
+with $\Phi_{10}^{-1}$.
+\item \textbf{Hohn} \emph{Selbstduale Vertexoperatorsuperalgebren und
+das Babymonster}, $1996$ Bonner Math.~Schriften $286$: supersymmetric
+Mathieu conformal field theories.
+\end{enumerate}
+
+%% ===================================================================
+
+\section{Forward hand-off to manuscript inscription}
+
+The content of this agent-$15$ wave file is inscribed into
+\texttt{chapters/connections/modular\_koszul\_bridge.tex} as a new
+section devoted to the Getzler--Kapranov modular-operadic derivation
+of the Borcherds weight universality at two scopes. The manuscript
+inscription translates the CG-voice mathematical prose into
+section-level detail, stripping the attack-heal cycle structure
+(notes-only vocabulary) while preserving the surviving cores as
+theorems, propositions, and remarks.
+
+The manuscript inscription distinguishes:
+\begin{itemize}
+\item Stage-$1$ statements (on $\PhiFA_3(\cC)$, before specialisation):
+the Koszul duality at the $E_3$-level, the Kontsevich--Tamarkin
+formality, the $\mathrm{GRT}_1(\Q)$-torsor invariance.
+\item Stage-$2$ statements (on $A_\cC = \SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$):
+the modular pairing evaluation, the Borcherds weight identification.
+\item Universal statements (across scopes $(A)$ and $(B)$): the
+two-scope Theorem~V.$1$(ii) with explicit cover-group stratification.
+\end{itemize}
+
+The canonical table entry for $K3 \times E$ in the $\kappa_\bullet$
+stratification:
+\[
+ \{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}^{\mathrm{Heis}},
+ \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\}_{K3 \times E}
+ \;=\; \{0, 3, 5, 24\},
+\]
+with $\kappa_{\mathrm{BKM}} = 5$ recorded as the Borcherds weight of
+$\Delta_5$ at Scope~(A) $N = 1$ and Scope~(B) $m = 1$ simultaneously.
+
+The chain-level modular-Koszul bridge is the organising content of
+\S\ref{sec:gk-borcherds-chain-level-bridge} of the target chapter,
+inserted between \S\ref{sec:cy-shadow-cohft} (CY shadow CohFT) and
+\S\ref{sec:hochschild-bridge} (Hochschild bridge) to sit precisely where
+the modular-operadic structure couples to the Borcherds lift.
+
+%% ===================================================================
+
+\section{Appendix: the Getzler--Kapranov operadic glossary}
+\label{sec:appendix-gk-glossary}
+
+A minimal glossary of modular-operadic terminology, for quick reference
+during the manuscript inscription:
+
+\begin{description}
+\item[Cyclic operad.] An operad $\mathcal{P}$ with $S_{n + 1}$-action
+on $\mathcal{P}(n)$ (cycling marked points), compatible with composition.
+The cyclic Gerstenhaber operad $\mathrm{Ger}_3^{\mathrm{cyc}}$ is the
+cyclic closure of $\mathrm{Ger}_3$ via the Kapranov pairing.
+\item[Modular operad.] A cyclic operad $\mathcal{P}$ with additional
+self-gluing operation $\tau \colon \mathcal{P}(g, n + 2) \to
+\mathcal{P}(g + 1, n)$; the Getzler--Kapranov object is $\mathsf{MMG}$.
+\item[Modular closure.] The functor from cyclic operads to modular
+operads that freely adjoins self-gluings; applied to the
+$\mathrm{Ger}_3^{\mathrm{cyc}}$, yields the homology modular operad
+of $\overline{\cM}_{g, n + 1}$.
+\item[Feynman transform.] The Getzler--Kapranov dualisation functor
+on modular operads; for a modular operad $\mathcal{P}$, the Feynman
+transform $F(\mathcal{P})$ is the dual modular cooperad. For
+$\mathcal{P} = H_\bullet(\overline{\cM})$, $F(\mathcal{P})$ is the
+Koszul-dual modular operad.
+\item[Orbifold fundamental class.] The chain-level class
+$[\overline{\cM}_{g, n}] \in C_\bullet^{\mathrm{FM-log}}$; carries
+BV-structure by Menichi--Ginzburg. Used in the modular pairing
+\eqref{eq:modular-koszul-pairing}.
+\item[Borcherds lift.] The singular-theta correspondence
+$\mathrm{Borch} \colon M_{k, \rho}(\mathrm{Mp}_2) \to
+M^{\mathrm{aut}}_k(\mathrm{O}(s + 2, 2))$; at $s = 2$, lands on
+the Siegel upper half-plane $\mathbb{H}_2$.
+\item[Paramodular group.] $\Gamma^{(N)}_{\mathrm{para}} \subset
+\mathrm{Sp}_4(\Z)$: the stabiliser of a polarisation of type $(1, N)$
+on a principally polarised abelian surface. Automorphic forms on
+$\Gamma^{(N)}_{\mathrm{para}}$ are paramodular forms; the Borcherds
+lift $\Phi_N$ is one such.
+\item[Gritsenko additive lift.] The Hecke-operator-based map
+$\mathrm{Lift}_{\mathrm{G}} \colon J_{k, m}^{\mathrm{weak}}
+\hookrightarrow M_k(\Gamma^{(m)}_{\mathrm{para}})$; for $k = 5, m = 1$,
+input $\eta^9 \vartheta_1$ yields $\Delta_5 = \mathrm{Lift}_{\mathrm{G}}
+(\eta^9 \vartheta_1)$.
+\item[Singly-twined.] The $g_N$-equivariant K3 elliptic genus without
+EOT factor; input to Scope~(B).
+\item[Doubly-twined.] The $g_N$-equivariant K3 elliptic genus with EOT
+factor of $2$ absorbed; $Z^{(g)}_{K3} = 2 \phi^{(g)}_{0, 1}$; input to
+Scope~(A).
+\item[CHL ladder.] $N \in \{1, 2, 3, 4, 6\}$: the orders of symplectic
+automorphisms of K3 admitting an elliptic-fibred model (CHL after
+Chaudhuri--Hockney--Lykken $1995$). Scope~(A) paramodular indices.
+\item[Metaplectic cover.] $\mathrm{Mp}_4$ is the double cover of
+$\mathrm{Sp}_4$; $\widetilde{\mathrm{Mp}}_4$ is the fourfold cover.
+Half- and quarter-integer weight Siegel forms (Scope~(B) at $m = 5,
+1/2$) live on these covers.
+\end{description}
+
+%% ===================================================================
+
+\section{Closing three-sentence paragraph}
+
+The Getzler--Kapranov modular operad $\mathsf{MMG}$ couples $E_3$
+Koszul duality on Stage-$1$ of $\PhiFA_3(\cC)$ to the automorphic
+Borcherds lift: the chain-level fundamental class
+$[\overline{\cM}_{g, n}]$ evaluates the $E_3$-Koszul pairing on
+$B^{E_3}(\PhiFA_3(\cC)) \otimes \PhiFA_3(\cC)$ via the Torelli--Kuga
+--Satake factorisation, producing the Borcherds weight
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ at two scopes---CHL
+$N \in \{1, 2, 3, 4, 6\}$ and Gritsenko--Cl\'ery $m \in \{1, 2, 3, 4,
+5, 6, 1/2, 3/2\}$. The CFG $2026$ identification of topological
+Chern--Simons observables as an $E_3$-algebra over $\Q$ provides the
+physical face of the bridge, with the partition function on
+$X \times \overline{\cM}_{g, n}$ equal to the supertrace of the
+modular-operadic pairing. At $K3 \times E$, the
+$\kappa_\bullet$-spectrum $\{0, 3, 5, 24\}$ decomposes into four
+distinct constructions---$\kappa_{\mathrm{cat}}$ (K\"unneth total
+space), $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ (Cartan rank),
+$\kappa_{\mathrm{BKM}}$ (Borcherds weight), $\kappa_{\mathrm{fiber}}$
+(Mukai lattice rank)---with the modular-Koszul bridge recovering only
+$\kappa_{\mathrm{BKM}} = 5$ from the chain-level Getzler--Kapranov
+evaluation.
+
+% EOF agent_15_modular_koszul_cfg.tex

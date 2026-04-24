@@ -27,8 +27,9 @@ Literature ground truth:
     ZTE obstruction: O(kappa^2), antisymmetric => Tr = 0 at leading order.
     S^{E_3}(u,0) = [S^{E_2}(u)]^2 * S^{E_2}(0) (FJ restriction).
     g(0) = -1 (CY sign).
-    kappa_cat(K3) = 2, kappa_BKM = 5, kappa_ch = 3.
-    E_3 Siegel weight (conjectured): -2*kappa_cat = -4.
+    kappa_cat(K3 x E) = 0, kappa_cat(K3 fiber) = 2,
+    kappa_BKM = 5, kappa_ch = 3.
+    E_3 Siegel weight (conjectured): -2*kappa_cat_fiber = -4.
     Weight decomposition: hat{S} = Phi_10^{-1} * E_6.
 """
 
@@ -390,18 +391,19 @@ class TestWeightPrediction:
         ks = pred["kappa_spectrum"]
         assert ks["kappa_ch"] == 3
         assert ks["kappa_BKM"] == 5
-        assert ks["kappa_cat"] == 2
+        assert ks["kappa_cat"] == 0
+        assert ks["kappa_cat_fiber"] == 2
         assert ks["kappa_fiber"] == 24
 
     def test_e2_weight(self):
-        """E_2 S-matrix weight = -kappa_cat."""
+        """E_2 S-matrix weight = -kappa_cat_fiber."""
         pred = siegel_weight_prediction()
-        assert pred["e2_weight"] == -2  # = -kappa_cat
+        assert pred["e2_weight"] == -2  # = -kappa_cat_fiber
 
     def test_e3_weight_conjectured(self):
-        """E_3 Siegel form weight = -2*kappa_cat (conjectured)."""
+        """E_3 Siegel form weight = -2*kappa_cat_fiber (conjectured)."""
         pred = siegel_weight_prediction()
-        assert pred["e3_weight_conjectured"] == -4  # = -2*kappa_cat
+        assert pred["e3_weight_conjectured"] == -4  # = -2*kappa_cat_fiber
 
     def test_weight_decomposition(self):
         """hat{S} = Phi_10^{-1} * E_6: weight check -4 = -10 + 6."""
@@ -596,7 +598,7 @@ class TestSummaryAndCompliance:
         summary = sp4_modularity_summary()
         kr = summary["key_results"]
         assert "-4" in kr["weight_prediction"] or \
-               "-2*kappa_cat" in kr["weight_prediction"]
+               "-2*kappa_cat_fiber" in kr["weight_prediction"]
 
     def test_summary_sp4_mechanism(self):
         """Summary should explain the Sp_4(Z) mechanism."""

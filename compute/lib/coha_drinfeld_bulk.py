@@ -252,7 +252,11 @@ def hook_product(lam: Partition) -> int:
 # =========================================================================
 
 class JordanCoHA:
-    r"""CoHA of the Jordan quiver (one vertex, one loop) = CoHA of C^3.
+    r"""CoHA of the tripled Jordan quiver = CoHA of C^3.
+
+    The C^3 critical-CoHA chart is one vertex with three loops and cubic
+    potential Tr(X[Y,Z]); the historical "Jordan" label here names the
+    resulting one-charge CoHA sector, not a one-loop quiver with W=0.
 
     As a vector space: CoHA_n = H^*(Hilb^n(C^3)) = Q[x_1,...,x_n]^{S_n}
     (symmetric functions in n variables).

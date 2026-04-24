@@ -42,6 +42,7 @@ from compute.lib.genus2_k3e_full import (
     K3E_CENTRAL_CHARGE,
     K3E_KAPPA_BKM,
     K3E_KAPPA_CAT,
+    K3E_KAPPA_CAT_FIBER,
     K3E_KAPPA_CH,
     K3E_KAPPA_FIBER,
     borel_resummed_r_shadow_k3,
@@ -175,10 +176,15 @@ class TestK3ECompoundData:
         assert K3E_KAPPA_CH == Fraction(3)
         assert K3E_KAPPA_CH == K3_KAPPA_CH + Fraction(1)
 
-    def test_kappa_cat_k3e(self):
-        """kappa_cat = chi(O_{K3}) = 2."""
+    def test_kappa_cat_k3e_total(self):
+        """kappa_cat(K3xE) = chi(O_{K3xE}) = 0."""
+        # VERIFIED [DC] value [LT] Kunneth
+        assert K3E_KAPPA_CAT == Fraction(0)
+
+    def test_kappa_cat_k3_fiber(self):
+        """kappa_cat(K3 fiber) = chi(O_{K3}) = 2."""
         # VERIFIED [DC] value [LT] classical Hodge number computation
-        assert K3E_KAPPA_CAT == Fraction(2)
+        assert K3E_KAPPA_CAT_FIBER == Fraction(2)
 
     def test_kappa_bkm_k3e(self):
         """kappa_BKM = 5 = c(0)/2 = weight of Delta_5."""
@@ -190,12 +196,13 @@ class TestK3ECompoundData:
         # VERIFIED [DC] value [LT] Mukai lattice Lambda^{3,19} oplus U^4
         assert K3E_KAPPA_FIBER == Fraction(24)
 
-    def test_kappa_spectrum_four_values(self):
-        """K3xE has the four-kappa spectrum: {2, 3, 5, 24}."""
+    def test_kappa_spectrum_resolved_values(self):
+        """K3xE separates total categorical and K3-fiber values."""
         # VERIFIED [DC] spectrum [LT] CLAUDE.md kappa-spectrum table
-        spectrum = {int(K3E_KAPPA_CAT), int(K3E_KAPPA_CH),
-                    int(K3E_KAPPA_BKM), int(K3E_KAPPA_FIBER)}
-        assert spectrum == {2, 3, 5, 24}
+        spectrum = {int(K3E_KAPPA_CAT), int(K3E_KAPPA_CAT_FIBER),
+                    int(K3E_KAPPA_CH), int(K3E_KAPPA_BKM),
+                    int(K3E_KAPPA_FIBER)}
+        assert spectrum == {0, 2, 3, 5, 24}
 
     def test_central_charge(self):
         """c = 24 for K3 x E."""
@@ -370,7 +377,8 @@ class TestFullPartitionFunction:
         # VERIFIED [DC] kappa values [LT] CLAUDE.md kappa table
         result = genus2_partition_k3xe_full(TAU_DEEP, Z_DEEP, SIGMA_DEEP, max_shadow_depth=4)
         assert result["kappa_ch"] == 3
-        assert result["kappa_cat"] == 2
+        assert result["kappa_cat"] == 0
+        assert result["kappa_cat_fiber"] == 2
         assert result["kappa_BKM"] == 5
         assert result["kappa_fiber"] == 24
 
@@ -381,11 +389,11 @@ class TestFullPartitionFunction:
         assert result["weight_Z2_heis"] == -12
 
     def test_weight_s_hat(self):
-        """S-hat has weight -4 = -2*kappa_cat."""
+        """S-hat has weight -4 = -2*kappa_cat_fiber."""
         # VERIFIED [DC] weight formula [LT] conj:sp4-modularity
         result = genus2_partition_k3xe_full(TAU_DEEP, Z_DEEP, SIGMA_DEEP, max_shadow_depth=4)
         assert result["weight_S_hat"] == -4
-        assert result["weight_S_hat"] == -2 * result["kappa_cat"]
+        assert result["weight_S_hat"] == -2 * result["kappa_cat_fiber"]
 
     def test_shadow_class_m(self):
         """K3xE is class M (mock Siegel modular)."""
@@ -550,7 +558,8 @@ class TestWeightTable:
         table = genus2_k3xe_weight_table()
         spectrum = table["kappa_spectrum"]
         assert spectrum["kappa_ch"]["value"] == 3
-        assert spectrum["kappa_cat"]["value"] == 2
+        assert spectrum["kappa_cat"]["value"] == 0
+        assert spectrum["kappa_cat_fiber"]["value"] == 2
         assert spectrum["kappa_BKM"]["value"] == 5
         assert spectrum["kappa_fiber"]["value"] == 24
 
@@ -559,7 +568,7 @@ class TestWeightTable:
         # VERIFIED [DC] arithmetic [LT] modular weight additivity
         table = genus2_k3xe_weight_table()
         wr = table["weight_relations"]
-        assert "wt(S_hat) = -2*kappa_cat" in wr
+        assert "wt(S_hat) = -2*kappa_cat_fiber" in wr
         assert "wt(Phi_10) = 2*kappa_BKM" in wr
 
     def test_heis_weight_minus_12(self):
@@ -637,11 +646,11 @@ class TestSp4ModularityK3E:
         data = sp4_modularity_analysis_k3xe(TAU_DEEP, Z_DEEP, SIGMA_DEEP)
         assert data["weight_discrepancy"] == -2
 
-    def test_weight_discrepancy_equals_minus_kappa_cat(self):
-        """Weight discrepancy = -kappa_cat = -2."""
+    def test_weight_discrepancy_equals_minus_kappa_cat_fiber(self):
+        """Weight discrepancy = -kappa_cat_fiber = -2."""
         # VERIFIED [DC] identity [LT] weight relation
         data = sp4_modularity_analysis_k3xe(TAU_DEEP, Z_DEEP, SIGMA_DEEP)
-        assert data["weight_discrepancy_equals_minus_kappa_cat"]
+        assert data["weight_discrepancy_equals_minus_kappa_cat_fiber"]
 
     def test_delta5_multiplier(self):
         """Delta_5 picks up sign -1 under tau -> tau+1."""

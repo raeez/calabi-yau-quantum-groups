@@ -18,16 +18,17 @@ Type IIA on CY3 gives 4d N=2 supergravity; compactifying the extra S^1
 produces 3d N=4.  In either case, the effective 3d gravity theory admits
 BTZ black hole solutions.
 
-The central charge of the dual 2d CFT is determined by the CY3:
-  c(X) = kappa(A_X)
-where kappa(A_X) is the modular characteristic of the E_1 chiral algebra.
+The shadow effective central charge of the dual 2d CFT is determined by
+the scalar selected by the shadow lane:
+  c_eff^{shadow}(X) = 2 * kappa_lane(A_X).
+For K3 x E in the BKM lane this is kappa_BKM, not kappa_ch.
 
-IMPORTANT (AP48, AP39): kappa(A_X) is NOT simply chi_top(X)/24 in general.
+IMPORTANT (AP48, AP39): the lane scalar is NOT simply chi_top(X)/24 in general.
 For specific families:
-  - K3 x E:           kappa = 5 = weight(Delta_5)
+  - K3 x E:           kappa_BKM = 5 = weight(Delta_5)
   - Resolved conifold: kappa = 1 (rank-1 Heisenberg)
   - C^3:              kappa(regulated) depends on truncation
-  - Quintic:          kappa = chi_top/24 = -25/3 (CONJECTURAL)
+  - Quintic:          kappa_ch = chi_top/24 = -25/3 (CONJECTURAL)
 
 BTZ ENTROPY FROM THE SHADOW TOWER
 ===================================
@@ -43,7 +44,7 @@ to this framework.  It equals the standard CFT c_eff only for the Virasoro
 algebra (where kappa = c/2, so c_eff(shadow) = 2*(c/2) = c = c_eff(standard)).
 For other algebras they DIVERGE:
 
-  K3 x E:  kappa = 5, c_eff(shadow) = 10, c_eff(standard) = c = 24.
+  K3 x E:  kappa_BKM = 5, c_eff(shadow) = 10, c_eff(standard) = c = 24.
   Conifold: kappa = 1, c_eff(shadow) = 2,  c_eff(standard) = c = 2.
 
 The shadow Cardy formula S = 2*pi*sqrt(kappa*M/3) does NOT reproduce
@@ -62,7 +63,7 @@ Quantum corrections from the shadow CohFT:
   S_g = F_g(A_X) * (2 pi / S_BH)^{2g-2}    (g >= 2)
   S_1 = -(3/2) log(S_BH / (2 pi))           (one-loop / logarithmic)
 
-where F_g(A_X) = kappa(A_X) * lambda_g^{FP} on the scalar lane
+where F_g(A_X) = kappa_lane(A_X) * lambda_g^{FP} on the scalar lane
 (exact for class G/L algebras; class M receives planted-forest corrections).
 
 THE MacMAHON IDENTIFICATION (C^3)
@@ -130,8 +131,8 @@ Every computed quantity has at least 3 independent verification paths:
 CONVENTIONS
 ===========
 
-  - kappa = modular characteristic of the E_1 chiral algebra (AP1, AP48)
-  - c_eff = 2 * kappa  (the SHADOW effective central charge; AP20)
+  - kappa_lane = selected scalar for the shadow lane (AP1, AP48)
+  - c_eff = 2 * kappa_lane  (the SHADOW effective central charge; AP20)
     WARNING: c_eff(shadow) != c_eff(standard) in general.
     c_eff(shadow) = 2*kappa = c only for Virasoro.  For K3xE:
     c_eff(shadow) = 10 but c_eff(standard) = c = 24.  Shadow Cardy
@@ -139,7 +140,7 @@ CONVENTIONS
   - beta = inverse temperature (beta > 0)
   - q = e^{-beta}  (|q| < 1)
   - M(q) = MacMahon function = prod_{n>=1} (1-q^n)^{-n}
-  - S_BH = 2 pi sqrt(kappa * M_mass / 3)  (Cardy formula with c_eff = 2*kappa)
+  - S_BH = 2 pi sqrt(kappa_lane * M_mass / 3)  (Cardy formula with c_eff = 2*kappa_lane)
   - Faber-Pandharipande: lambda_g^FP > 0 for all g >= 1 (AP22)
 
 References:
@@ -152,7 +153,7 @@ References:
   Carlip 1998: hep-th/9806026 (logarithmic corrections)
   Gopakumar-Vafa 1998: hep-th/9812127 (GV invariants)
   Vol I: thm:shadow-cohft, thm:theorem-d (shadow CohFT, modular characteristic)
-  Vol III: thm:e1-universality-cy3, Theorem CY-D
+  Vol III: thm:e1-universality-cy3 and the K3 x E BKM-weight lane
 """
 
 from __future__ import annotations
@@ -236,7 +237,7 @@ def lambda_fp(g: int) -> Fraction:
 
 
 # =========================================================================
-# Section 1: CY3 modular characteristics (kappa values)
+# Section 1: CY3 shadow scalars
 # =========================================================================
 
 class CY3BTZData(NamedTuple):
@@ -244,7 +245,8 @@ class CY3BTZData(NamedTuple):
 
     Attributes:
         name: CY3 identifier
-        kappa: modular characteristic of E_1 chiral algebra
+        kappa: legacy scalar used by generic BTZ formulas. Read with
+            kappa_label; for K3 x E this is kappa_BKM, not kappa_ch.
         c_eff: effective central charge for Cardy formula (= 2 * kappa)
         chi_top: topological Euler characteristic
         shadow_class: G/L/C/M shadow depth class
@@ -260,23 +262,41 @@ class CY3BTZData(NamedTuple):
     is_compact: bool
     is_proved: bool
     notes: str
+    kappa_label: str = "kappa_ch"
+    kappa_ch: Optional[Fraction] = None
+    kappa_cat: Optional[Fraction] = None
+    kappa_BKM: Optional[Fraction] = None
+    kappa_fiber: Optional[Fraction] = None
 
 
 def cy3_k3e_data() -> CY3BTZData:
     r"""K3 x E: the canonical CY3 for BTZ.
 
-    kappa = 5 = weight(Delta_5). PROVED (Theorem CY-D).
-    Shadow class L (cubic shadow from KM contributions, terminates at arity 3).
+    The BTZ shadow lane uses kappa_BKM = 5 = weight(Delta_5).  This is
+    the Borcherds-weight invariant c_1(0)/2, not the CY-D
+    Heisenberg-specialised kappa_ch = 3 and not the total-space
+    kappa_cat = chi(O_{K3 x E}) = 0.
+
+    Shadow class M: the Borcherds product has infinitely many imaginary
+    root factors, hence infinite shadow depth.
     """
     return CY3BTZData(
         name="K3 x E",
         kappa=Fraction(5),
         c_eff=Fraction(10),
         chi_top=0,
-        shadow_class="L",
+        shadow_class="M",
         is_compact=True,
         is_proved=True,
-        notes="Delta_5 Siegel modular form, Borcherds product",
+        notes=(
+            "BKM lane: kappa_BKM=5 from Delta_5; separate K3 x E values "
+            "are kappa_cat=0, kappa_ch=3, kappa_BKM=5, kappa_fiber=24"
+        ),
+        kappa_label="kappa_BKM",
+        kappa_ch=Fraction(3),
+        kappa_cat=Fraction(0),
+        kappa_BKM=Fraction(5),
+        kappa_fiber=Fraction(24),
     )
 
 
@@ -345,17 +365,21 @@ def cy3_local_p2_data() -> CY3BTZData:
 
     Non-compact CY3.  chi_top = 3.
     The E_1 chiral algebra involves the topological vertex at the three
-    vertices of the toric web diagram.
+    vertices of the toric web diagram.  The scalar lane has
+    kappa_ch = 3/2, but the full reduced DT/GW tower is infinite, so
+    the shadow class is M rather than L.
     """
     return CY3BTZData(
         name="local P^2",
         kappa=Fraction(3, 2),
         c_eff=Fraction(3),
         chi_top=3,
-        shadow_class="L",
+        shadow_class="M",
         is_compact=False,
         is_proved=False,
-        notes="Toric CY3 with triangle web diagram; kappa from vertex counting",
+        notes="Toric CY3 with triangle web diagram; kappa_ch=3/2 and class M",
+        kappa_label="kappa_ch",
+        kappa_ch=Fraction(3, 2),
     )
 
 
@@ -446,7 +470,7 @@ def standard_cardy_entropy(c, M_mass: float) -> float:
       standard_cardy_entropy(c, M) = bekenstein_hawking_entropy(c/2, M)
       [AGREE]
 
-    For K3 x E (kappa = 5, c = 24):
+    For K3 x E (BKM-lane kappa_BKM = 5, c = 24):
       standard_cardy_entropy(24, M) = 2 pi sqrt(24 M / 6) = 2 pi sqrt(4 M)
       bekenstein_hawking_entropy(5, M) = 2 pi sqrt(5 M / 3)
       Ratio: sqrt(4 M) / sqrt(5 M / 3) = sqrt(12/5) ~ 1.549
@@ -454,7 +478,7 @@ def standard_cardy_entropy(c, M_mass: float) -> float:
 
     Strominger-Vafa (1996) uses the STANDARD formula with c = 24 for
     K3 x E, giving S = 4 pi sqrt(D) for a state with D = n_1 n_5 n_p.
-    The shadow formula with kappa = 5 gives a DIFFERENT (smaller) answer.
+    The shadow formula with kappa_BKM = 5 gives a DIFFERENT (smaller) answer.
 
     Parameters
     ----------
@@ -479,7 +503,7 @@ def shadow_vs_standard_cardy(kappa, c, M_mass: float) -> Dict[str, Any]:
 
     These agree when kappa = c/2 (Virasoro) and disagree otherwise.
 
-    For K3 x E: kappa = 5, c = 24.
+    For K3 x E: kappa_BKM = 5, c = 24.
       S_shadow   = 2 pi sqrt(5 M / 3)
       S_standard = 2 pi sqrt(4 M)
       Ratio = sqrt(12/5) ~ 1.549
@@ -524,7 +548,7 @@ def shadow_vs_standard_cardy(kappa, c, M_mass: float) -> Dict[str, Any]:
         'agrees': agrees,
         'notes': (
             'Shadow and standard Cardy agree only when kappa = c/2 (Virasoro). '
-            'For K3 x E: kappa = 5, c = 24, ratio = sqrt(12/5) ~ 1.549. '
+            'For K3 x E: kappa_BKM = 5, c = 24, ratio = sqrt(12/5) ~ 1.549. '
             'Strominger-Vafa uses c = 24 (standard), not c_eff(shadow) = 10.'
         ),
     }
@@ -1240,31 +1264,34 @@ def cy3_btz_comparison_table(M_mass: float = 10.0) -> List[Dict[str, Any]]:
 
 
 def kappa_additivity_check() -> Dict[str, Any]:
-    r"""Verify kappa additivity: kappa(A + B) = kappa(A) + kappa(B).
+    r"""Verify that the K3 x E BKM lane is not product-additive.
 
-    For K3 x E: if the E_1 chiral algebra decomposes as A_{K3} + A_E,
-    then kappa(A_{K3 x E}) should equal kappa(A_{K3}) + kappa(A_E)?
+    For K3 x E, confusing the BKM-lane scalar with the Heisenberg lane
+    would suggest kappa_BKM(A_{K3 x E}) = kappa_ch(K3) + kappa_ch(E).
 
-    REALITY CHECK: kappa(K3 x E) = 5, kappa(K3) = 2, kappa(E) = 1.
-    5 != 2 + 1 = 3.  So the decomposition is NOT additive in this naive sense.
+    REALITY CHECK: kappa_BKM(K3 x E) = 5, while
+    kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.  These are distinct
+    constructions, not a failed additive law inside one invariant.
 
     The correct relation involves the PRODUCT category:
       D^b(K3 x E) = D^b(K3) boxtimes D^b(E)
-    and chi^CY satisfies a MULTIPLICATIVE/MIXED formula, not simple additivity.
+    with kappa_cat(K3 x E) = chi(O_K3) * chi(O_E) = 0.
 
     For direct sum: kappa(A oplus B) = kappa(A) + kappa(B) (PROVED, prop:independent-sum).
     For tensor product: the formula is more subtle.
     """
     return {
-        'k3xe_kappa': 5,
-        'k3_kappa': 2,
-        'e_kappa': 1,
-        'naive_sum': 3,
-        'actual': 5,
+        'k3xe_kappa_BKM': 5,
+        'k3xe_kappa_ch': 3,
+        'k3xe_kappa_cat': 0,
+        'k3_kappa_ch': 2,
+        'e_kappa_ch': 1,
+        'naive_kappa_ch_sum': 3,
+        'actual_kappa_BKM': 5,
         'is_additive': False,
-        'reason': "K3 x E uses boxtimes (product category), not oplus (direct sum)",
+        'reason': "K3 x E compares distinct constructions: kappa_BKM versus kappa_ch",
         'direct_sum_additivity': True,
-        'notes': "kappa is additive for direct sums, not for products",
+        'notes': "kappa_ch is additive in the Heisenberg lane; kappa_BKM comes from Delta_5",
     }
 
 
@@ -1275,7 +1302,8 @@ def kappa_additivity_check() -> Dict[str, Any]:
 def koszul_dual_btz_entropy(kappa, M_mass: float) -> Dict[str, float]:
     r"""BTZ entropy for the Koszul dual algebra A^!.
 
-    For K3 x E: kappa(A) = 5, kappa(A^!) follows from complementarity.
+    For K3 x E in the BKM lane, kappa_BKM(A) = 5; duality claims must
+    name the lane before applying complementarity.
     For KM/free fields: kappa + kappa' = 0 (AP24).
     For W-algebras: kappa + kappa' = rho * K.
 
@@ -1357,11 +1385,11 @@ def cross_volume_bridge() -> Dict[str, str]:
     AP49: cross-volume formula propagation requires convention checks.
     """
     return {
-        'vol1_kappa_formula': 'kappa = c/2 for Virasoro (AP1)',
-        'vol3_kappa_formula': 'kappa = chi^CY(D^b(X)) for CY3 (Theorem CY-D)',
-        'bridge': 'c_eff = 2 * kappa in both volumes',
-        'cardy_formula': 'S_BH = 2 pi sqrt(kappa M / 3) in both volumes',
-        'convention_check': 'c = 2 kappa maps Vol I Virasoro to Vol III CY3',
+        'vol1_kappa_formula': 'kappa_ch = c/2 for the Virasoro lane (AP1)',
+        'vol3_kappa_formula': 'K3 x E separates kappa_cat=0, kappa_ch=3, kappa_BKM=5, kappa_fiber=24',
+        'bridge': 'c_eff_shadow = 2 * kappa_lane after the lane is named',
+        'cardy_formula': 'S_BH = 2 pi sqrt(kappa_lane M / 3) in the shadow lane',
+        'convention_check': 'c = 2 kappa_ch maps the Vol I Virasoro lane; K3 x E BTZ here uses kappa_BKM',
         'planted_forest': 'Class G/L CY3 algebras have no planted-forest corrections',
         'macmahon_identification': 'Z_{BTZ}(C^3) = M(q) is a Vol III construction',
         'vol1_ref': 'btz_quantum_gravity_engine.py',

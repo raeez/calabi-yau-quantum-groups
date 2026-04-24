@@ -10,29 +10,32 @@ THE GRAND ATLAS TABLE
 
 For each CY3 family X, we compute and record:
 
-  | CY3         | chi  | h11 | h21 | kappa_pred | DT/GV known | BKM? | CoHA? | Chiral alg? | Shadow depth |
-  |-------------|------|-----|-----|------------|-------------|------|-------|-------------|--------------|
-  | C^3         | --   | --  | --  | 1          | MacMahon    | No   | Y^+   | W_{1+inf}   | 0 (trivial)  |
-  | Conifold    | --   | 1   | 0   | 1          | Known       | No   | Known | W_{1+inf}^2 | 2 (Gaussian) |
-  | Local P^2   | --   | 1   | 0   | 3/2        | Known       | No   | McKay | Partial     | inf (M)      |
-  | Local P1xP1 | --   | 2   | 0   | 2          | Known       | No   | McKay | Partial     | 4 (contact)  |
-  | Local F_1   | --   | 2   | 0   | 2          | Known       | No   | McKay | Partial     | >=4 (mixed?) |
-  | K3 x E      | 0    | 21  | 21  | 5          | Delta_5     | Yes  | Part  | Partial     | inf (M)      |
-  | Enriques xE | 0    | 11  | 11  | 4          | Known       | Part | No    | Conjectural | inf (M)      |
-  | Quintic     | -200 | 1   | 101 | -25/3      | High deg    | No   | No    | Conjectural | inf (M)      |
-  | P5[3,3]     | -144 | 1   | 73  | -6         | Known       | No   | No    | Conjectural | inf (M)      |
-  | P5[2,4]     | -176 | 1   | 89  | -22/3      | Known       | No   | No    | Conjectural | inf (M)      |
-  | Banana      | 0    | 19  | 19  | 0          | BKY         | Part | No    | Conjectural | >=2          |
-  | BV(K3,inv)  | var  | var | var | chi/24     | Partial     | Cond | No    | Conjectural | inf (M)      |
+  | CY3         | chi  | h11 | h21 | scalar(label)                    | DT/GV known | BKM? | CoHA? | Chiral alg? | Shadow depth |
+  |-------------|------|-----|-----|----------------------------------|-------------|------|-------|-------------|--------------|
+  | C^3         | --   | --  | --  | 1 (kappa_ch)                     | MacMahon    | No   | Y^+   | W_{1+inf}   | 0 (trivial)  |
+  | Conifold    | --   | 1   | 0   | 1 (kappa_ch)                     | Known       | No   | Known | W_{1+inf}^2 | 2 (Gaussian) |
+  | Local P^2   | --   | 1   | 0   | 3/2 (kappa_ch)                   | Known       | No   | McKay | Partial     | inf (M)      |
+  | Local P1xP1 | --   | 2   | 0   | 2 (kappa_ch)                     | Known       | No   | McKay | Partial     | 4 (contact)  |
+  | Local F_1   | --   | 2   | 0   | 2 (kappa_ch)                     | Known       | No   | McKay | Partial     | >=4 (mixed?) |
+  | K3 x E      | 0    | 21  | 21  | 5 (kappa_BKM)                    | Delta_5     | Yes  | Part  | Partial     | inf (M)      |
+  | Enriques xE | 0    | 11  | 11  | 4 (kappa_BKM/automorphic weight) | Known       | Part | No    | Conjectural | inf (M)      |
+  | Quintic     | -200 | 1   | 101 | -25/3 (BCOV-shadow conjectural)  | High deg    | No   | No    | Conjectural | inf (M)      |
+  | P5[3,3]     | -144 | 1   | 73  | -6 (BCOV-shadow conjectural)     | Known       | No   | No    | Conjectural | inf (M)      |
+  | P5[2,4]     | -176 | 1   | 89  | -22/3 (BCOV-shadow conjectural)  | Known       | No   | No    | Conjectural | inf (M)      |
+  | Banana      | 0    | 19  | 19  | 0 (BCOV-shadow conjectural)      | BKY         | Part | No    | Conjectural | >=2          |
+  | BV(K3,inv)  | var  | var | var | chi/24 (BCOV-shadow conjectural) | Partial     | Cond | No    | Conjectural | inf (M)      |
 
 KEY DISTINCTION (from Vol I AP48, AP20):
-  kappa(A_X) is the modular characteristic of the chiral algebra A_X,
-  NOT a naive function of the topological Euler characteristic alone.
+  kappa_ch(A_X) is the modular characteristic of a constructed chiral
+  algebra A_X.  The atlas also records BKM automorphic weights and
+  compact BCOV-shadow predictions.  These are labelled scalars, not one
+  invariant wearing different costumes.
 
-  For compact CY3: kappa_pred = chi_top / 24 (BCOV conjecture).
-  For non-compact toric CY3: kappa is extracted from the genus-1 free
+  For compact CY3: kappa_pred = chi_top / 24 is a BCOV-shadow conjecture
+  unless an independent chiral algebra calculation is available.
+  For non-compact toric CY3: kappa_ch is extracted from the genus-1 free
   energy F_1 or equivalently from the DT degree-0 MacMahon exponent.
-  For K3 x E: kappa = 5 = weight(Delta_5), NOT chi_top/24 = 0.
+  For K3 x E: kappa_BKM = 5 = weight(Delta_5), NOT chi_top/24 = 0.
 
 ==========================================================================
 SHADOW DEPTH CLASSIFICATION
@@ -67,10 +70,10 @@ MULTI-PATH VERIFICATION ARCHITECTURE
 
 For each atlas entry, we verify by at least 3 independent paths:
 
-  (a) Hodge-theoretic: chi = 2(h^{1,1} - h^{2,1}), kappa from Hodge data
-  (b) DT partition function: extract kappa from degree-0 / genus-1
+  (a) Hodge-theoretic: chi = 2(h^{1,1} - h^{2,1}), BCOV-shadow candidate
+  (b) DT partition function: extract the chiral scalar from degree-0 / genus-1
   (c) GV invariants: consistency with known genus-0 BPS counts
-  (d) BKM/automorphic: when available, compare kappa with form weight
+  (d) BKM/automorphic: when available, record the form weight as kappa_BKM
   (e) CoHA dimension: when available, compare graded dimension with DT
 
 ==========================================================================
@@ -79,8 +82,9 @@ CONVENTIONS
 
   - chi = topological Euler characteristic (compact CY3)
   - For non-compact: chi_equiv = equivariant chi (torus-localized)
-  - kappa_pred = chi/24 for compact CY3 (BCOV prediction)
-  - For non-compact toric: kappa extracted from DT/GV directly
+  - kappa_pred is a legacy numeric field; read it with kappa_label.
+  - For compact CY3: chi/24 is labelled kappa_BCOV_shadow_conjectural.
+  - For non-compact toric: kappa_ch is extracted from DT/GV directly.
   - GV invariants n^g_d: BPS state counts at genus g, degree d
   - BKM = Borcherds-Kac-Moody superalgebra exists
   - CoHA = Cohomological Hall Algebra known explicitly
@@ -125,7 +129,7 @@ class CY3Family(NamedTuple):
     compact: bool             # True for compact CY3
     toric: bool               # True for toric CY3
     # Shadow tower data
-    kappa_pred: Fraction      # predicted modular characteristic
+    kappa_pred: Fraction      # legacy numeric scalar; read with kappa_label
     shadow_depth_class: str   # G, L, C, M, or ?
     shadow_depth: Optional[int]  # r_max (None for infinity)
     # External data availability
@@ -137,6 +141,7 @@ class CY3Family(NamedTuple):
     gv_genus0: Dict[int, int]  # {degree: n^0_d}
     # Notes
     notes: str
+    kappa_label: str = "kappa_ch"
 
 
 class AtlasEntry(NamedTuple):
@@ -145,6 +150,7 @@ class AtlasEntry(NamedTuple):
     kappa_from_hodge: Optional[Fraction]   # chi/24 (compact only)
     kappa_from_dt: Optional[Fraction]      # from DT partition function
     kappa_from_bkm: Optional[Fraction]     # from BKM form weight
+    kappa_label: str                       # selected scalar lane
     kappa_consistent: bool                 # all available kappas agree
     gv_integrality: bool                   # GV invariants are integers
     gv_finiteness: bool                    # n^g_d = 0 for g >> 0
@@ -166,8 +172,8 @@ def c3_family() -> CY3Family:
     The chiral algebra is W_{1+infinity} at level 1 (equivalently,
     the Heisenberg VOA at the free-boson point).
 
-    kappa = 1: the chiral algebra is the Heisenberg VOA H_1 at level k=1.
-    From Vol I (authoritative, AP39/AP48): kappa(H_k) = k, so kappa(H_1) = 1.
+    kappa_ch = 1: the chiral algebra is the Heisenberg VOA H_1 at level k=1.
+    From Vol I (authoritative, AP39/AP48): kappa_ch(H_k) = k, so kappa_ch(H_1) = 1.
     NOT kappa = c/2 = 1/2 (that is the Virasoro sub-formula, not the
     Heisenberg formula). Verified by 5 independent paths in
     c3_grand_verification.py.
@@ -205,15 +211,15 @@ def conifold_family() -> CY3Family:
     All higher GV invariants vanish: n^g_d = 0 for (g,d) != (0,1).
     This is the content of the GV structure theorem for the conifold.
 
-    kappa = 1: from the CY bar complex of the conifold CoHA.
+    kappa_ch = 1: from the CY bar complex of the conifold CoHA.
     The conifold has a single compact P^1 with n^0_1 = 1 (one BPS state).
-    The modular characteristic kappa = 1 is the DT degree-0 MacMahon
+    The modular characteristic kappa_ch = 1 is the DT degree-0 MacMahon
     exponent from the resolved conifold partition function.
     Verified in conifold_bar_complex.py (authoritative).
 
-    NOTE: The old value kappa = -1/2 used a signed/halved convention
+    NOTE: The old value kappa_ch = -1/2 used a signed/halved convention
     from the genus-1 amplitude normalization. The authoritative per-geometry
-    module conifold_bar_complex.py gives kappa = 1 (positive, matching the
+    module conifold_bar_complex.py gives kappa_ch = 1 (positive, matching the
     single compact curve class contribution).
 
     Shadow depth: 2 (Gaussian). Only one BPS state at degree 1,
@@ -248,7 +254,7 @@ def local_p2_family() -> CY3Family:
     The CoHA comes from the McKay quiver of Z_3 acting on C^3.
     The quiver has 3 vertices and 9 arrows with CY3 potential.
 
-    kappa = 3/2: from chi(P^2)/2 = 3/2. Verified by 3 independent paths
+    kappa_ch = 3/2: from chi(P^2)/2 = 3/2. Verified by 3 independent paths
     in local_p2_shadow.py (authoritative).
     This is NOT chi(P^2)/24 = 3/24 = 1/8; the kappa for a non-compact
     CY3 is extracted from the full DT/GV computation, not from naive
@@ -377,14 +383,14 @@ def k3_times_e_family() -> CY3Family:
 
     Consistency check: chi = 2(h^{1,1} - h^{2,1}) = 2(21 - 21) = 0. Correct.
 
-    kappa = 5 = weight(Delta_5):
+    kappa_BKM = 5 = weight(Delta_5):
     The DT partition function of K3 x E is controlled by the Igusa
     cusp form Delta_5 of weight 5 on Sp_4(Z). This is the denominator
     identity of the BKM superalgebra g_{Delta_5} (Gritsenko-Nikulin).
 
-    CRITICAL: kappa = 5 is NOT chi_top/24 = 0. The CY Euler characteristic
-    chi^CY (from Hochschild homology / categorical trace) gives the correct
-    kappa. See modular_cy_characteristic.py for the derivation.
+    CRITICAL: kappa_BKM = 5 is NOT chi_top/24 = 0 and not the compact
+    total-space kappa_cat.  The source is the Borcherds denominator
+    identity for Delta_5.
 
     Shadow depth: infinity (class M). The BKM superalgebra has infinitely
     many imaginary root multiplicities, generating an infinite shadow tower.
@@ -407,7 +413,8 @@ def k3_times_e_family() -> CY3Family:
         coha_known=False,  # Only partially known
         chiral_algebra="Partial (rank-1 = Heisenberg H_{24})",
         gv_genus0={},  # K3 x E GV is organized differently (via Siegel modular forms)
-        notes="Igusa Delta_5. BKM = g_{Delta_5}. DMVV formula."
+        notes="Igusa Delta_5. BKM = g_{Delta_5}. DMVV formula.",
+        kappa_label="kappa_BKM",
     )
 
 
@@ -461,9 +468,9 @@ def enriques_times_e_family() -> CY3Family:
 
     For the atlas we include it as a "generalized CY3" and note the issue.
 
-    kappa = 4: the weight of the Allcock Borcherds product on O(2,10).
+    kappa_BKM = 4: the weight of the Allcock Borcherds product on O(2,10).
     This is NOT half of K3 x E (which would be 5/2). The ratio
-    kappa(K3xE)/kappa(EnrxE) = 5/4, reflecting the change in automorphic
+    kappa_BKM(K3xE)/kappa_BKM(EnrxE) = 5/4, reflecting the change in automorphic
     weight from Delta_5 (weight 5, Sp_4(Z)) to Allcock's form (weight 4, O(2,10)).
     Verified by compute/lib/enriques_shadow.py (72 tests).
     """
@@ -479,7 +486,8 @@ def enriques_times_e_family() -> CY3Family:
         coha_known=False,
         chiral_algebra="Conjectural (Enriques VOA?)",
         gv_genus0={},
-        notes="Generalized CY3 (torsion canonical). Paramodular forms. chi=0."
+        notes="Generalized CY3 (torsion canonical). Paramodular forms. chi=0.",
+        kappa_label="kappa_BKM",
     )
 
 
@@ -492,7 +500,7 @@ def quintic_family() -> CY3Family:
 
     h^{1,1} = 1, h^{2,1} = 101, chi = 2(1 - 101) = -200.
 
-    kappa_pred = chi/24 = -200/24 = -25/3.
+    kappa_pred = chi/24 = -200/24 = -25/3 as a BCOV-shadow conjectural scalar.
 
     GW invariants known to high degree (Candelas et al. 1991; Givental;
     Lian-Liu-Yau via mirror symmetry):
@@ -543,7 +551,8 @@ def quintic_family() -> CY3Family:
         chiral_algebra="Conjectural (BCOV-governed)",
         gv_genus0={1: 2875, 2: 609250, 3: 317206375,
                    4: 242467530000, 5: 229305888887602},
-        notes="Mirror symmetry. CDGP 1991. BCOV holomorphic anomaly."
+        notes="Mirror symmetry. CDGP 1991. BCOV holomorphic anomaly.",
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -570,7 +579,8 @@ def p5_33_family() -> CY3Family:
         coha_known=False,
         chiral_algebra="Conjectural",
         gv_genus0={1: 1053, 2: 52812, 3: 6424326},
-        notes="Two cubics in P^5. chi = -144."
+        notes="Two cubics in P^5. chi = -144.",
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -597,7 +607,8 @@ def p5_24_family() -> CY3Family:
         coha_known=False,
         chiral_algebra="Conjectural",
         gv_genus0={1: 1280, 2: 92288, 3: 15655168},
-        notes="Quadric + quartic in P^5. chi = -176."
+        notes="Quadric + quartic in P^5. chi = -176.",
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -624,7 +635,8 @@ def p6_223_family() -> CY3Family:
         coha_known=False,
         chiral_algebra="Conjectural",
         gv_genus0={1: 720, 2: 22428},
-        notes="Two quadrics + cubic in P^6. Same chi as P^5[3,3]."
+        notes="Two quadrics + cubic in P^6. Same chi as P^5[3,3].",
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -650,7 +662,8 @@ def p7_2222_family() -> CY3Family:
         coha_known=False,
         chiral_algebra="Conjectural",
         gv_genus0={1: 512, 2: 9728},
-        notes="Four quadrics in P^7. chi = -128."
+        notes="Four quadrics in P^7. chi = -128.",
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -677,7 +690,8 @@ def bicubic_p2xp2_family() -> CY3Family:
         coha_known=False,
         chiral_algebra="Conjectural",
         gv_genus0={1: 189, 2: 2268},
-        notes="Bidegree (3,3) in P^2 x P^2. chi = -162."
+        notes="Bidegree (3,3) in P^2 x P^2. chi = -162.",
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -729,7 +743,8 @@ def banana_manifold_family() -> CY3Family:
         coha_known=False,
         chiral_algebra="Conjectural",
         gv_genus0={},  # Banana curves are NOT rational curves
-        notes="Schoen CY3. Banana DT via BKY. kappa=0 but nontrivial DT."
+        notes="Schoen CY3. Banana DT via BKY. BCOV-shadow scalar 0 but nontrivial DT.",
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -751,17 +766,20 @@ def borcea_voisin_family(r: int, a: int, delta: int) -> CY3Family:
     chi = 2(h^{1,1} - h^{2,1}) = 2(5 + 3r - 2a - 65 + 3r + 2a) = 2(6r - 60) = 12(r - 10)
     kappa_pred = chi/24 = (r-10)/2.
 
-    IMPORTANT: For r = 10 (the "balanced" involution), chi = 0 and kappa = 0.
-    For r < 10: chi < 0 and kappa < 0. For r > 10: chi > 0 and kappa > 0.
+    IMPORTANT: For r = 10 (the "balanced" involution), chi = 0 and the
+    BCOV-shadow prediction is 0.  For r < 10 it is negative; for r > 10
+    it is positive.
     This gives a FAMILY of CY3s parametrized by the involution lattice
-    invariants, with kappa ranging from -9/2 (r=1) to +5 (r=20).
+    invariants, with BCOV-shadow predictions ranging from -9/2 (r=1)
+    to +5 (r=20).
 
     When r=20: this is the Kummer K3 (involution is -1 on H^{2,0}),
-    and the BV CY3 has chi = 12*10 = 120, kappa = 5.
-    This matches K3 x E kappa = 5! The Kummer BV at r=20 is birational
-    to a K3 x E quotient.
+    and the BV CY3 has chi = 12*10 = 120, so its BCOV-shadow prediction
+    is 5.  This numerical equality with kappa_BKM(K3 x E) is not a lane
+    identification.
 
-    When r=10: h^{1,1} = 35 - 2a, h^{2,1} = 35 - 2a, chi = 0, kappa = 0.
+    When r=10: h^{1,1} = 35 - 2a, h^{2,1} = 35 - 2a, chi = 0, and the
+    BCOV-shadow prediction is 0.
     """
     # Validate input
     assert 1 <= r <= 20, f"r must be in [1,20], got {r}"
@@ -780,12 +798,13 @@ def borcea_voisin_family(r: int, a: int, delta: int) -> CY3Family:
         shadow_depth_class="M" if chi != 0 else "?",
         shadow_depth=None,
         dt_gv_known=False,  # GV not generally known for BV
-        bkm_exists=(chi == 0),  # BKM only for chi=0 families
+        bkm_exists=False,  # no BKM denominator installed by this atlas row
         coha_known=False,
         chiral_algebra="Conjectural",
         gv_genus0={},
         notes=f"Borcea-Voisin. h11={h11}, h21={h21}, chi={chi}. "
-              f"Lattice invariants (r,a,delta)=({r},{a},{delta})."
+              f"Lattice invariants (r,a,delta)=({r},{a},{delta}).",
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -846,7 +865,7 @@ def chi_from_hodge(h11: int, h21: int) -> int:
 
 
 def kappa_bcov(chi: int) -> Fraction:
-    """BCOV prediction: kappa = chi/24 for compact CY3."""
+    """BCOV-shadow conjectural scalar chi/24 for compact CY3."""
     return Fraction(chi, 24)
 
 
@@ -866,7 +885,7 @@ def verify_hodge_consistency(fam: CY3Family) -> Dict[str, bool]:
         # For CY3: h^{3,0} = 1 implies chi = 2 + 2*h^{2,1} - 2*h^{1,1}
         # Wait, standard: chi = 2(h^{1,1} - h^{2,1}), same as above.
 
-        # kappa_pred should match chi/24 for compact CY3
+        # kappa_pred should match chi/24 only in the BCOV-shadow lane.
         if fam.chi is not None:
             kappa_hodge = kappa_bcov(fam.chi)
             results["kappa_matches_bcov"] = (fam.kappa_pred == kappa_hodge)
@@ -959,13 +978,14 @@ def predict_shadow_depth_compact(chi: int) -> str:
 # =========================================================================
 
 def kappa_integrality_analysis(families: List[CY3Family]) -> Dict[str, Any]:
-    """Analyze when kappa is an integer.
+    """Analyze when the selected atlas scalar is an integer.
 
-    For compact CY3: kappa = chi/24. This is an integer iff 24 | chi.
-    Consequence: most compact CY3 have fractional kappa.
-    The integrality of kappa is a STRONG constraint.
+    For compact BCOV-shadow rows: chi/24 is an integer iff 24 | chi.
+    Consequence: many compact BCOV-shadow predictions are fractional.
+    The integrality of a selected scalar is a strong lane-dependent
+    constraint.
 
-    For K3 x E: kappa = 5 (integer). chi_top = 0, so kappa != chi_top/24.
+    For K3 x E: kappa_BKM = 5 (integer). chi_top/24 = 0.
     """
     results: Dict[str, Any] = {}
     integer_kappa = []
@@ -1049,14 +1069,18 @@ def shadow_depth_universality(families: List[CY3Family]) -> Dict[str, Any]:
 def process_atlas_entry(fam: CY3Family) -> AtlasEntry:
     """Process a CY3 family into a full atlas entry with cross-checks."""
 
-    # kappa from Hodge (compact only)
+    # BCOV-shadow candidate from Hodge data (compact only)
     kappa_from_hodge = None
     if fam.compact and fam.chi is not None:
         kappa_from_hodge = kappa_bcov(fam.chi)
 
-    # kappa from DT (when available)
-    # For non-compact toric CY3, kappa is extracted from the DT computation
-    kappa_from_dt = fam.kappa_pred if fam.dt_gv_known else None
+    # DT/GV-selected scalar when the atlas label says the numeric is read
+    # from a constructed chiral/DT lane rather than merely a BCOV prediction.
+    kappa_from_dt = (
+        fam.kappa_pred
+        if fam.dt_gv_known and fam.kappa_label in {"kappa_ch", "kappa_BKM"}
+        else None
+    )
 
     # kappa from BKM (when available)
     kappa_from_bkm = None
@@ -1071,15 +1095,16 @@ def process_atlas_entry(fam: CY3Family) -> AtlasEntry:
                         if k is not None]
     kappa_consistent = len(set(available_kappas)) <= 1 if available_kappas else True
 
-    # Special case: K3 x E has kappa=5 which does NOT equal chi/24=0
-    if fam.name == "K3 x E":
-        kappa_consistent = True  # kappa_pred is from BKM, not BCOV
+    # BKM-weight rows intentionally compare a different scalar lane to chi/24.
+    if fam.kappa_label == "kappa_BKM":
+        kappa_consistent = True
 
     return AtlasEntry(
         family=fam,
         kappa_from_hodge=kappa_from_hodge,
         kappa_from_dt=kappa_from_dt,
         kappa_from_bkm=kappa_from_bkm,
+        kappa_label=fam.kappa_label,
         kappa_consistent=kappa_consistent,
         gv_integrality=verify_gv_integrality(fam.gv_genus0),
         gv_finiteness=True  # Always true for these families
@@ -1122,7 +1147,7 @@ def atlas_summary() -> Dict[str, Any]:
     # Shadow depth universality
     summary["shadow_depth_universality"] = shadow_depth_universality(families)
 
-    # Pattern: chi/24 vs kappa for compact CY3
+    # Pattern: chi/24 vs the selected scalar for compact CY3
     compact_kappa_comparison = []
     for f in families:
         if f.compact and f.chi is not None:
@@ -1132,13 +1157,14 @@ def atlas_summary() -> Dict[str, Any]:
                 "name": f.name,
                 "chi": f.chi,
                 "kappa_pred": str(f.kappa_pred),
+                "kappa_label": f.kappa_label,
                 "kappa_bcov": str(kappa_bcov_val),
                 "matches_bcov": matches
             })
     summary["compact_kappa_bcov_comparison"] = compact_kappa_comparison
 
     # BKM existence pattern
-    bkm_families = [(f.name, f.chi, str(f.kappa_pred))
+    bkm_families = [(f.name, f.chi, str(f.kappa_pred), f.kappa_label)
                     for f in families if f.bkm_exists]
     summary["bkm_families"] = bkm_families
 
@@ -1380,7 +1406,7 @@ def format_atlas_table() -> str:
 
     header = (
         f"{'CY3':<25} {'chi':>6} {'h11':>5} {'h21':>5} "
-        f"{'kappa':>10} {'depth':>6} {'BKM':>5} {'CoHA':>5} {'GV#':>5}"
+        f"{'scalar':>10} {'label':>18} {'depth':>6} {'BKM':>5} {'CoHA':>5} {'GV#':>5}"
     )
     lines.append(header)
     lines.append("-" * len(header))
@@ -1390,6 +1416,7 @@ def format_atlas_table() -> str:
         h11_str = str(f.h11) if f.h11 is not None else "--"
         h21_str = str(f.h21) if f.h21 is not None else "--"
         kappa_str = str(f.kappa_pred)
+        label_str = f.kappa_label.replace("kappa_", "")
         depth_str = f.shadow_depth_class
         if f.shadow_depth is not None:
             depth_str += f"({f.shadow_depth})"
@@ -1401,7 +1428,7 @@ def format_atlas_table() -> str:
 
         lines.append(
             f"{f.name:<25} {chi_str:>6} {h11_str:>5} {h21_str:>5} "
-            f"{kappa_str:>10} {depth_str:>6} {bkm_str:>5} {coha_str:>5} {gv_count:>5}"
+            f"{kappa_str:>10} {label_str:>18} {depth_str:>6} {bkm_str:>5} {coha_str:>5} {gv_count:>5}"
         )
 
     return "\n".join(lines)
@@ -1415,12 +1442,12 @@ def atlas_conjectures() -> Dict[str, str]:
     """Status of key conjectures tested by the atlas.
 
     CONJECTURE 1 (BCOV for compact CY3):
-      kappa(A_X) = chi_top(X) / 24 for all compact CY3 X.
-      STATUS: OPEN. True for all CICYs by definition (the chiral algebra
-      is not independently constructed; kappa is predicted, not verified).
-      FALSE for K3 x E if interpreted naively (chi_top = 0 but kappa = 5).
-      The correct statement: kappa = chi^CY (categorical CY Euler char),
-      which equals chi_top/24 for rigid CY3 but differs for fibered ones.
+      The compact BCOV-shadow scalar equals chi_top(X) / 24.
+      STATUS: OPEN as a chiral algebra statement.  True for CICY rows here
+      by definition of the stored prediction, not by an independently
+      constructed chiral algebra.  K3 x E is not a counterexample in this
+      lane: chi_top/24 = 0, while the atlas also records the different
+      BKM lane scalar kappa_BKM(Delta_5) = 5.
 
     CONJECTURE 2 (Toric vertex bound):
       For toric CY3 with N vertices, shadow_depth <= N.
@@ -1447,7 +1474,7 @@ def atlas_conjectures() -> Dict[str, str]:
       for integrality via the MC algebraic constraint.
     """
     return {
-        "BCOV_kappa": "OPEN (true for rigid CY3, needs categorical trace for fibered)",
+        "BCOV_kappa": "OPEN as chiral theorem; atlas CICY values are BCOV-shadow predictions",
         "toric_vertex_bound": "VERIFIED (N=1,2,3,4)",
         "compact_infinite_depth": "CONJECTURAL (strongly supported)",
         "chi_0_depth_reduction": "OPEN",

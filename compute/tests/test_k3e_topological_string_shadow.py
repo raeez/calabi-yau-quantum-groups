@@ -287,8 +287,8 @@ class TestKappaSpectrum:
         """kappa_BKM = 5 = weight of Delta_5."""
         assert KAPPA_BKM == 5
 
-    def test_kappa_cat(self):
-        """kappa_cat = chi(O_{K3}) = 2."""
+    def test_kappa_cat_fiber(self):
+        """kappa_cat(K3 fiber) = chi(O_{K3}) = 2."""
         assert KAPPA_CH_K3 == 2
 
     def test_kappa_fiber(self):
@@ -507,7 +507,8 @@ class TestFullComparison:
         ks = summary['kappa_spectrum']
         assert ks['kappa_ch'] == 3
         assert ks['kappa_BKM'] == 5
-        assert ks['kappa_cat'] == 2
+        assert ks['kappa_cat'] == 0
+        assert ks['kappa_cat_fiber'] == 2
         assert ks['kappa_fiber'] == 24
 
     def test_summary_dt_vanishing(self):

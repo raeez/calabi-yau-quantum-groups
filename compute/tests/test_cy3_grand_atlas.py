@@ -286,13 +286,14 @@ class TestK3xE:
         assert chi_from_hodge(fam.h11, fam.h21) == 0
 
     def test_kappa_is_5(self):
-        """kappa(K3 x E) = 5 = weight(Delta_5) (NOT chi/24 = 0)."""
+        """kappa_BKM(K3 x E) = 5 = weight(Delta_5) (NOT chi/24 = 0)."""
         fam = k3_times_e_family()
         # VERIFIED [DC] kappa formula [LT] standard CY tables
         assert fam.kappa_pred == Fraction(5)
+        assert fam.kappa_label == "kappa_BKM"
 
     def test_kappa_not_bcov(self):
-        """kappa = 5 != chi/24 = 0. K3xE is the canonical counterexample to naive BCOV."""
+        """kappa_BKM = 5 lives in a different lane from chi/24 = 0."""
         fam = k3_times_e_family()
         assert fam.kappa_pred != kappa_bcov(fam.chi)
 
@@ -329,13 +330,14 @@ class TestEnriquesxE:
         assert fam.chi == 0
 
     def test_kappa(self):
-        """kappa(Enriques x E) = 4 (Allcock Borcherds product weight)."""
+        """kappa_BKM(Enriques x E) = 4 (Allcock Borcherds product weight)."""
         fam = enriques_times_e_family()
         # VERIFIED [DC] kappa formula [LT] standard CY tables
         assert fam.kappa_pred == 4
+        assert fam.kappa_label == "kappa_BKM"
 
     def test_kappa_ratio_k3xe(self):
-        """kappa(K3 x E) / kappa(Enriques x E) = 5/4."""
+        """kappa_BKM(K3 x E) / kappa_BKM(Enriques x E) = 5/4."""
         k_enr = enriques_times_e_family().kappa_pred
         k_k3e = k3_times_e_family().kappa_pred
         # VERIFIED [DC] kappa computation [LT] standard CY tables
@@ -370,10 +372,11 @@ class TestQuintic:
         assert chi_from_hodge(1, 101) == -200
 
     def test_kappa_bcov(self):
-        """kappa = chi/24 = -200/24 = -25/3."""
+        """Conjectural BCOV-shadow scalar = chi/24 = -25/3."""
         fam = quintic_family()
         # VERIFIED [DC] kappa formula [LT] standard CY tables
         assert fam.kappa_pred == Fraction(-25, 3)
+        assert fam.kappa_label == "kappa_BCOV_shadow_conjectural"
 
     def test_kappa_matches_bcov(self):
         fam = quintic_family()
@@ -551,10 +554,11 @@ class TestBorceaVoisin:
         assert bv.kappa_pred == Fraction(0)
 
     def test_bv_maximal_r(self):
-        """r = 20 gives kappa = 5 (same as K3 x E)."""
+        """r = 20 gives BCOV-shadow prediction 5."""
         bv = borcea_voisin_family(20, 2, 0)
         # VERIFIED [DC] kappa formula [LT] standard CY tables
         assert bv.kappa_pred == Fraction(5)
+        assert bv.kappa_label == "kappa_BCOV_shadow_conjectural"
         assert bv.kappa_pred == k3_times_e_family().kappa_pred
 
     def test_bv_sum_rule(self):
@@ -740,7 +744,7 @@ class TestAtlasPatterns:
                 assert fam.toric, f"{fam.name}: CoHA known but not toric"
 
     def test_bkm_implies_chi_zero(self):
-        """BKM existence correlates with chi = 0 (K3-fibered)."""
+        """Stored compact BKM rows have chi = 0 in this atlas."""
         for fam in build_grand_atlas():
             if fam.bkm_exists and fam.compact:
                 # VERIFIED [DC] Euler characteristic formula [LT] standard CY tables
@@ -821,6 +825,7 @@ class TestFullAtlas:
         table = format_atlas_table()
         # VERIFIED [DC] structural property [LT] standard CY tables
         assert len(table) > 100  # Should be a substantial table
+        assert "label" in table
 
     def test_conjectures_listed(self):
         conj = atlas_conjectures()
@@ -836,14 +841,15 @@ class TestKappaRelations:
     """Tests for mathematical relations between kappa values."""
 
     def test_enriques_ratio_k3(self):
-        """kappa(K3 x E) / kappa(Enriques x E) = 5/4."""
+        """kappa_BKM(K3 x E) / kappa_BKM(Enriques x E) = 5/4."""
         # VERIFIED [DC] kappa formula [LT] standard CY tables
         assert Fraction(k3_times_e_family().kappa_pred, enriques_times_e_family().kappa_pred) == Fraction(5, 4)
 
     def test_bv_r20_equals_k3xe(self):
-        """BV at r=20 has kappa = 5, same as K3 x E."""
+        """BV r=20 has numeric scalar 5 but not the K3 x E BKM label."""
         bv20 = borcea_voisin_family(20, 2, 0)
         assert bv20.kappa_pred == k3_times_e_family().kappa_pred
+        assert bv20.kappa_label != k3_times_e_family().kappa_label
 
     def test_bv_kappa_range(self):
         """BV kappa ranges from -9/2 (r=1) to 5 (r=20)."""
@@ -937,6 +943,7 @@ class TestAtlasEntryProcessing:
         entry = process_atlas_entry(k3_times_e_family())
         # VERIFIED [DC] kappa formula [LT] standard CY tables
         assert entry.kappa_from_bkm == Fraction(5)
+        assert entry.kappa_label == "kappa_BKM"
         assert entry.kappa_consistent  # K3 x E is special case
 
     def test_all_entries_have_consistent_kappa(self):

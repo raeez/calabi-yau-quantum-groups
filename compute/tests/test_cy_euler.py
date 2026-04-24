@@ -1,9 +1,9 @@
 """Tests for cy_euler: CY Euler characteristics, Hodge data, and the
-Delta_5 / kappa connection for quantum vertex chiral groups.
+Delta_5 / kappa_BKM connection for quantum vertex chiral groups.
 
 Ground truth:
-  chapters/theory/modular_trace.tex (Theorem CY-D: kappa(A_C) = chi^CY(C)),
-  chapters/examples/k3_times_e.tex (K3 x E tower, Delta_5, DT = C/(Delta_5)^2),
+  chapters/examples/cy_d_kappa_stratification.tex (kappa_BKM = c_N(0)/2),
+  chapters/examples/k3e_bkm_chapter.tex (K3 x E tower, Delta_5, c_1(0)=10),
   Gritsenko-Nikulin (Siegel automorphic form corrections of Lorentzian KM algebras),
   Batyrev (toric CY mirror construction),
   Candelas-de la Ossa-Green-Parkes (quintic: chi=-200).
@@ -483,14 +483,14 @@ class TestCICY:
 
 
 # ======================================================================
-# 7. The Delta_5 connection: kappa(K3 x E) = 5
+# 7. The Delta_5 connection: kappa_BKM(K3 x E) = 5
 # ======================================================================
 
 class TestDelta5Connection:
-    """Tests for the central identity kappa(A_{K3 x E}) = weight(Delta_5) = 5."""
+    """Tests for kappa_BKM(Delta_5) = weight(Delta_5) = c_1(0)/2 = 5."""
 
     def test_kappa_equals_5(self):
-        """kappa(A_{K3 x E}) = 5 (Theorem CY-D)."""
+        """kappa_BKM(Delta_5) = 5 by the Borcherds weight theorem."""
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_k3_times_e() == 5
 
@@ -514,22 +514,22 @@ class TestDelta5Connection:
         # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert borcherds_product_weight_from_phi01() == 5
 
-    def test_kappa_from_h11_K3(self):
-        """kappa = h^{1,1}(K3) / 4 = 20/4 = 5."""
+    def test_h11_over_4_is_coincidence_not_source(self):
+        """h^{1,1}(K3)/4 = 5 is a sanity check, not a source formula."""
         k3 = k3_hodge()
         # VERIFIED [DC] kappa computation [LC] boundary/limiting case
         assert k3.h(1, 1) == 20
         # VERIFIED [DC] kappa computation [LC] boundary/limiting case
         assert Fraction(k3.h(1, 1), 4) == 5
 
-    def test_kappa_from_chi_K3(self):
-        """kappa = (chi(K3) - 4) / 4 = (24 - 4)/4 = 5."""
+    def test_chi_minus_4_over_4_is_coincidence_not_source(self):
+        """(chi(K3)-4)/4 = 5 is a sanity check, not a source formula."""
         k3 = k3_hodge()
         # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Fraction(k3.euler_characteristic - 4, 4) == 5
 
     def test_dim_Sp4_over_2(self):
-        """weight(Delta_5) = dim(Sp_4)/2 = 10/2 = 5."""
+        """dim(Sp_4)/2 matches 5 but is not the source."""
         # dim Sp_4 as a real Lie group = 10 (= 2*2 + 2*2*(2-1)/2 ... no,
         # dim Sp_{2n} = n(2n+1). For n=2: 2*5 = 10.)
         dim_sp4 = 2 * (2 * 2 + 1)  # n(2n+1) with n=2
@@ -554,35 +554,38 @@ class TestDTWeightIdentity:
         # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert dt["weight_Delta5_squared"] == 10
 
-    def test_10_is_2_kappa(self):
-        """10 = 2 * kappa(K3 x E)."""
+    def test_10_is_2_kappa_BKM(self):
+        """10 = 2 * kappa_BKM(K3 x E)."""
         dt = dt_weight_identity()
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
-        assert dt["2_times_kappa"] == 10
+        assert dt["2_times_kappa_BKM"] == 10
 
     def test_10_is_dim_Sp4(self):
-        """10 = dim(Sp_4)."""
+        """dim(Sp_4) matches 10 but is not the source."""
         dt = dt_weight_identity()
         # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dt["dim_Sp4"] == 10
+        assert dt["dim_Sp4_is_source"] is False
 
     def test_10_from_chi_K3(self):
-        """10 = (chi(K3) - 4) / 2 = (24 - 4) / 2."""
+        """(chi(K3)-4)/2 matches 10 but is not the source."""
         dt = dt_weight_identity()
         # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert dt["chi_K3_minus_4_over_2"] == 10
+        assert dt["chi_K3_minus_4_over_2_is_source"] is False
 
     def test_10_from_h11_K3(self):
-        """10 = h^{1,1}(K3) / 2 = 20/2."""
+        """h^{1,1}(K3)/2 matches 10 but is not the source."""
         dt = dt_weight_identity()
         # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert dt["h11_K3_over_2"] == 10
+        assert dt["h11_K3_over_2_is_source"] is False
 
-    def test_10_is_borcherds_c_f_0(self):
-        """10 = c_f(0), the Borcherds input coefficient."""
+    def test_10_is_borcherds_c_1_0(self):
+        """10 = c_1(0), the Borcherds input coefficient."""
         dt = dt_weight_identity()
         # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
-        assert dt["c_f_0"] == 10
+        assert dt["c_1_0"] == 10
 
     def test_all_equal(self):
         """All expressions for weight 10 agree."""
@@ -595,7 +598,7 @@ class TestDTWeightIdentity:
 # ======================================================================
 
 class TestDecomposeWeight5:
-    """Test the decomposition of weight 5 into K3 / E invariants."""
+    """Test the lane-separated diagnostics around weight 5."""
 
     def test_basic_data(self):
         d = decompose_weight_5()
@@ -611,39 +614,44 @@ class TestDecomposeWeight5:
         assert d["h20_K3"] == 1
 
     def test_h11_over_4_formula(self):
-        """kappa = h^{1,1}(K3)/4 = 5."""
+        """h^{1,1}(K3)/4 matches 5 but is not the source."""
         d = decompose_weight_5()
         # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert d["h11_K3_over_4"] == 5
-        assert d["formula_h11_over_4_matches"] is True
+        assert d["h11_over_4_matches_kappa_BKM"] is True
+        assert d["h11_over_4_is_source"] is False
 
     def test_chi_minus_4_over_4_formula(self):
-        """kappa = (chi(K3) - 4)/4 = 5."""
+        """(chi(K3)-4)/4 matches 5 but is not the source."""
         d = decompose_weight_5()
         # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert d["chi_K3_minus_4_over_4"] == 5
-        assert d["formula_chi_minus_4_over_4_matches"] is True
+        assert d["chi_minus_4_over_4_matches_kappa_BKM"] is True
+        assert d["chi_minus_4_over_4_is_source"] is False
 
     def test_borcherds_perspective(self):
-        """c_f(0) = h^{1,1}(K3)/2 = 10, weight = c_f(0)/2 = 5."""
+        """c_1(0)=10 is the Borcherds input, weight = c_1(0)/2 = 5."""
         d = decompose_weight_5()
         # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
-        assert d["c_f_0"] == 10
+        assert d["c_1_0"] == 10
         # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert d["weight_from_borcherds"] == 5
+        assert d["h11_K3_over_2_matches_c_1_0"] is True
+        assert d["h11_K3_over_2_is_source"] is False
 
     def test_sp4_perspective(self):
-        """dim(Sp_4) = 10, weight = dim(Sp_4)/2 = 5."""
+        """dim(Sp_4)/2 matches 5 but is not the source."""
         d = decompose_weight_5()
         # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d["dim_Sp4"] == 10
         # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d["dim_Sp4_over_2"] == 5
+        assert d["dim_Sp4_over_2_is_source"] is False
 
     def test_dt_consistency(self):
-        """2 * kappa = weight(1/Z)."""
+        """2 * kappa_BKM = weight(1/Z)."""
         d = decompose_weight_5()
-        assert d["two_kappa_equals_weight_inverse_Z"] is True
+        assert d["two_kappa_BKM_equals_weight_inverse_Z"] is True
 
 
 # ======================================================================
@@ -750,12 +758,12 @@ class TestPhi01:
         # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert q0_sum == 24
 
-    def test_c_f_0_gives_weight(self):
-        """c_f(0) = c(0,0)/2 = 10 => weight = c_f(0)/2 = 5."""
+    def test_c_1_0_gives_weight(self):
+        """The raw q^0 head is consistent with the program c_1(0)=10."""
         from compute.lib.cy_euler import _theta_jacobi_coeffs
         coeffs = _theta_jacobi_coeffs(2, 3)
-        c_f_0 = coeffs[(0, 0)] // 2  # = 10
-        weight = c_f_0 // 2  # = 5
+        c_1_0_from_raw_head = coeffs[(0, 0)] // 2  # = 10
+        weight = c_1_0_from_raw_head // 2  # = 5
         # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert weight == 5
 
@@ -771,7 +779,8 @@ class TestCY3Families:
         families = kappa_cy3_families()
         k3e = families["K3 x E"]
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
-        assert k3e["kappa"] == 5
+        assert k3e["kappa_label"] == "kappa_BKM"
+        assert k3e["kappa_BKM"] == 5
         # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert k3e["chi"] == 0
         # VERIFIED [DC] Hodge diamond [LT] literature cross-check
@@ -788,8 +797,9 @@ class TestCY3Families:
         assert q["h11"] == 1
         # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert q["h21"] == 101
-        # kappa is None (not determined by Sp_4 theory alone)
-        assert q["kappa"] is None
+        # kappa_BKM is undefined here without a Borcherds denominator.
+        assert q["kappa_label"] == "kappa_BKM"
+        assert q["kappa_BKM"] is None
 
     def test_quintic_chi_over_24(self):
         """chi(quintic)/24 = -200/24 = -25/3 (not an integer)."""

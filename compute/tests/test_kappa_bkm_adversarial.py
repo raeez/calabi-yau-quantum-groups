@@ -477,10 +477,14 @@ class TestCrossChecksMultiPath:
         assert ORBIFOLD_KAPPA_TABLE[1].kappa_cat_fiber == recon_kappa_cat(k3)
 
     def test_k3xe_decomposition_vs_reconciliation(self):
-        """Cross-check the BKM decomposition result against reconciliation."""
+        """Cross-check canonical failure and N=1 Heisenberg-fibre coincidence."""
         from kappa_spectrum_reconciliation import verify_BKM_decomposition_k3e
         recon = verify_BKM_decomposition_k3e()
-        assert recon["decomposition_holds"] == ORBIFOLD_KAPPA_TABLE[1].decomposition_holds
+        assert not recon["decomposition_holds"]
+        assert (
+            recon["heis_fiber_coincidence_holds"]
+            == ORBIFOLD_KAPPA_TABLE[1].decomposition_holds
+        )
         assert recon["kappa_ch_K3xE"] == ORBIFOLD_KAPPA_TABLE[1].kappa_ch
         assert recon["kappa_BKM_K3xE"] == ORBIFOLD_KAPPA_TABLE[1].kappa_BKM
         assert recon["kappa_cat_K3"] == ORBIFOLD_KAPPA_TABLE[1].kappa_cat_fiber

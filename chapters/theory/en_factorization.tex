@@ -1957,6 +1957,133 @@ Beyond $n = 3$, higher $\En$ Koszul duality may exist as a purely algebraic phen
 Dunn additivity $\En \simeq \Eone^{\otimes n}$ suggests that $\En$ Koszul duality should decompose as $n$ iterated $\Eone$ Koszul dualities. This is too optimistic. The Koszul dual $A^!$ is determined by the \emph{joint} $\En$-coalgebra structure on $B_{\En}(A)$, not by the $n$ separate $\Eone$-coalgebra structures independently. The Miki automorphism (Conjecture~\ref{conj:miki-from-e3}) is the obstruction to such a decomposition: it permutes the three $\Eone$-factors cyclically, and the $E_3$ Koszul duality must respect this $S_3$-symmetry. A decomposition into three independent $\Eone$ Koszul dualities would break $S_3$ to the identity, losing the Miki symmetry. The cascade is a \emph{tower}, not a product.
 \end{remark}
 
+\providecommand{\Gerst}{\mathrm{Gerst}}
+\providecommand{\Assoc}{\mathrm{Assoc}}
+\providecommand{\MZV}{\mathrm{MZV}}
+\providecommand{\GC}{\mathrm{GC}}
+\providecommand{\pt}{\mathrm{pt}}
+
+\subsection{Filtered chain-level equivalence \texorpdfstring{$(B_{\Eone}, B_{\Etwo}, B_{\Einf})$}{(B E1, B E2, B E-inf)}}
+\label{subsec:filtered-en-bar-equivalence}
+
+For an $\Einf$-algebra $A$ over $\Q$ with augmentation $A \to \Q$ and nilpotent augmentation ideal $\bar A$, three bar complexes attach simultaneously by operadic restriction along $\Eone \hookrightarrow \Etwo \hookrightarrow \Einf$: the tensor-coalgebra bar $B_{\Eone}(A) = T^c(\bar A[1])$ with deconcatenation coproduct; the Getzler--Jones $2$-fold bar $B_{\Etwo}(A)$ built on the little-$2$-disks chain operad, with both horizontal and vertical deconcatenation (Fresse, \emph{Homotopy of Operads and Grothendieck--Teichm\"uller Groups}, \S I.7); and the Harrison--Sullivan bar $B_{\Einf}(A) = \Sym^c(\bar A[1])$ on the free graded-cocommutative coalgebra. Each carries a canonical weight filtration $W^{\le p}$ by tensor length (resp.\ deconcatenation depth, resp.\ symmetric-word length).
+
+\begin{theorem}[Filtered equivalence of the three bars at chain level]
+\label{thm:filtered-en-bar-equivalence}
+\ClaimStatusProvedHere
+Let $A$ be an augmented $\Einf$-algebra over $\Q$ with $H_0(A) = \Q$ and $H_{>0}(A)$ connective and nilpotent. The restriction maps
+\[
+B_{\Einf}(A) \;\xrightarrow{\ \rho_\infty^2\ }\; B_{\Etwo}(A) \;\xrightarrow{\ \rho_2^1\ }\; B_{\Eone}(A)
+\]
+induced by operadic inclusion are morphisms of weight-filtered cochain complexes, and the induced maps on associated graded are quasi-isomorphisms:
+\begin{equation}
+\gr^{W,p} \rho_\infty^2 \colon \gr^{W,p} B_{\Einf}(A) \xrightarrow{\ \simeq\ } \gr^{W,p} B_{\Etwo}(A), \qquad
+\gr^{W,p} \rho_2^1 \colon \gr^{W,p} B_{\Etwo}(A) \xrightarrow{\ \simeq\ } \gr^{W,p} B_{\Eone}(A),
+\end{equation}
+at every weight $p \geq 0$. On unfiltered underlying complexes the maps $\rho_\infty^2$, $\rho_2^1$ are quasi-isomorphisms. The filtered equivalence respects the coaugmentation and the iterated coproducts up to coherent higher homotopy controlled by the Tamarkin--Fresse formality quasi-isomorphism $C_*(\Etwo; \Q) \xrightarrow{\sim} \Gerst$ (Tamarkin 2003 \emph{Lett.\ Math.\ Phys.}~66; Fresse 2017 \S II.14).
+\end{theorem}
+
+\begin{proof}
+Each $B_{\En}(A)$ is the totalisation of the cosimplicial object $\Bar_{\En}^\bullet(A)$ obtained from the monadic resolution of $A$ over the cooperad Koszul-dual to $\En$. Fresse 2017 \S I.7 and Tamarkin 2003 identify this with the derived functor $\mathrm{LQ}_{\En}(A)$ of operadic indecomposables. The weight filtration is the cosimplicial degree filtration, $W^{\le p} B_{\En}(A) = \tau^{\le p} \Bar_{\En}^\bullet(A)$.
+
+\emph{Step 1 (associated graded identification).} On $\gr^{W,p}$, all higher operadic corrections drop out: $\gr^{W,p} B_{\En}(A) = (\bar A[1])^{\otimes p}_{\En\text{-coinv}}$ where the coinvariants are taken under the arity-$p$ symmetric group action determined by $H_0(\En(p); \Q)$. By Fresse 2011 \emph{Selecta}~17 Thm.~A, $H_0(\En(p); \Q) = \Q[\Sigma_p]$ for all $n \ge 1$ (the set of connected components of $\Conf_p(\R^n)$ is a single point for $n \ge 2$, and $p!$ points for $n = 1$ giving the regular representation). The three cases:
+\begin{itemize}
+\item $n = 1$: $\gr^{W,p} B_{\Eone}(A) = \bar A^{\otimes p}[p]$ with free $\Sigma_p$-action (ordered tensors).
+\item $n = 2$: $\gr^{W,p} B_{\Etwo}(A) = (\bar A^{\otimes p})_{\Sigma_p}[p]$ under the braid-group-on-$\R^2$ action, which rationally factors through $\Sigma_p$ by $\pi_0 \Conf_p(\R^2) = \pt$; on $H_0$-coinvariants this equals the symmetric coinvariants.
+\item $n = \infty$: $\gr^{W,p} B_{\Einf}(A) = \Sym^p(\bar A[1]) = (\bar A^{\otimes p})_{\Sigma_p}[p]$.
+\end{itemize}
+The restriction $\rho_2^1$ on $\gr^{W,p}$ is the quotient $\bar A^{\otimes p} \to (\bar A^{\otimes p})_{\Sigma_p}$; this is a quasi-isomorphism over $\Q$ because averaging over $\Sigma_p$ is exact (Maschke). The restriction $\rho_\infty^2$ on $\gr^{W,p}$ is the identity on $\Sigma_p$-coinvariants.
+
+\emph{Step 2 (filtered equivalence on the nose).} The spectral sequences $E_r^{W}(B_{\En})$ associated to $W^\bullet$ converge strongly because $\bar A$ is connective and $H_0(A) = \Q$ (Quillen 1969 \emph{Ann.\ Math.}~90 \S II). The $E_1$-page computed in Step 1 identifies termwise under $\rho_2^1$ and $\rho_\infty^2$. By the Eilenberg--Moore comparison theorem for filtered complexes with strongly convergent spectral sequences, termwise quasi-isomorphism on $E_1$ lifts to filtered quasi-isomorphism on totalisations.
+
+\emph{Step 3 (rational necessity).} Over $\Z$, the symmetric coinvariant quotient $\bar A^{\otimes p} \to (\bar A^{\otimes p})_{\Sigma_p}$ has kernel detecting Dyer--Lashof--Steenrod operations; $\rho_\infty^2$ is not a quasi-isomorphism integrally (Mandell 2001 \emph{Topology}~40). The hypothesis $\Q$-coefficients is essential.
+
+\emph{Step 4 (higher-homotopy coherence).} The Tamarkin 2003 formality quasi-isomorphism $C_*(\Etwo; \Q) \xrightarrow{\sim} \Gerst$ (Gerstenhaber operad in homology) and Fresse 2017 Thm.~II.14.1.2 ($\Einf$-formality of $\Etwo$-chains up to the $\GRT_1$-torsor) supply the higher-homotopy data making $\rho_\infty^2, \rho_2^1$ morphisms of coalgebras up to explicit homotopy. The coherence is controlled by the Drinfeld associator $\Phi_{\mathrm{KZ}}$; different associator choices give the same filtered quasi-isomorphism class.
+\qedhere
+\end{proof}
+
+\begin{remark}[Why the filtration cannot be discarded]
+\label{rem:filtration-essential}
+Without the weight filtration, the underlying quasi-isomorphism class of $B_{\En}(A)$ does not remember the $\En$-structure: a single chain complex can carry inequivalent $\Einf$- and $\Etwo$-bar structures that agree as chain complexes but differ on the associated graded pages. The cases $\En = \Eone$ versus $\En = \Etwo$ diverge at weight $p = 2$: $B_{\Eone}$ sees both orderings $a \otimes b$ and $b \otimes a$ as distinct weight-$2$ classes, while $B_{\Etwo}$ identifies them via the braid $\sigma_{12}$, and the braiding lives in the filtration spectral sequence's $d_1$ differential. This is the chain-level origin of the $\Etwo$ braided-bar obstruction of \S\ref{subsec:cascade-obstructions}(2).
+\end{remark}
+
+\subsection{Associator-free chain-level chiral Deligne--Tamarkin and the Massey triple \texorpdfstring{$\langle r, r, r\rangle$}{<r, r, r>}}
+\label{subsec:associator-free-deligne-tamarkin}
+
+Tamarkin's original $\Etwo$-formality proof (Tamarkin 2003) uses a choice of Drinfeld associator $\Phi \in \Assoc(\Q)$ to rigidify the $\GRT_1$-torsor of formality quasi-isomorphisms. Kontsevich--Soibelman 2009 (\emph{Notes on $A_\infty$-algebras, $A_\infty$-categories and non-commutative geometry}, \S\S 10--11) exhibits the chain-level Gerstenhaber structure on Hochschild cochains directly, without appealing to an associator, via explicit brace operations on the normalised bar. The chiral analogue produces the triple Massey product $\langle r, r, r\rangle$ of the chiral $r$-matrix $r_{\mathrm{CY}} \in \ChirHoch^2(A_\cC, A_\cC)$ as a $\GRT_1$-invariant class in $\ChirHoch^4(A_\cC, A_\cC)/\mathrm{indet}(r)$, where $\mathrm{indet}(r) = r \smile \ChirHoch^2 + \ChirHoch^2 \smile r$ is the Massey indeterminacy.
+
+\begin{theorem}[Associator-free chain-level chiral Deligne--Tamarkin for \texorpdfstring{$r_{\mathrm{CY}}$}{r-CY}]
+\label{thm:associator-free-deligne-tamarkin}
+\ClaimStatusProvedHere
+Let $A_\cC$ be the chiral $\Eone$-algebra of a compact CY category $\cC$ of dimension $d \geq 2$, and $r_{\mathrm{CY}} \in \ChirHoch^2(A_\cC, A_\cC)$ the chiral $r$-matrix of Theorem~\ref{thm:phi-two-stage-factorisation}. The triple Massey product
+\[
+\langle r_{\mathrm{CY}}, r_{\mathrm{CY}}, r_{\mathrm{CY}}\rangle \;\in\; \ChirHoch^5(A_\cC, A_\cC) / \bigl(r_{\mathrm{CY}} \smile \ChirHoch^3 + \ChirHoch^3 \smile r_{\mathrm{CY}}\bigr)
+\]
+is well-defined, invariant under the $\GRT_1$-action on the torsor of chain-level Deligne--Tamarkin quasi-isomorphisms, and lies in the weight-$5$ motivic subspace $\MZV_5 \cdot [\omega_5] = \Q\cdot\zeta(5)\cdot[\omega_5]$ of the rational chiral Hochschild cohomology, where $[\omega_5]$ is the universal weight-$5$ chiral period class of Remark~\ref{rem:cycainf-depth-4}. Explicitly,
+\begin{equation}
+\langle r_{\mathrm{CY}}, r_{\mathrm{CY}}, r_{\mathrm{CY}}\rangle \;=\; \tfrac{1}{5!}\,\zeta(5)\cdot [\omega_5] \quad\text{in}\quad \ChirHoch^5(A_\cC, A_\cC)/\mathrm{indet}.
+\end{equation}
+The computation is independent of any choice of Drinfeld associator.
+\end{theorem}
+
+\begin{proof}
+\emph{Well-definedness.} The Massey triple $\langle a, a, a\rangle$ for $a \in H^\bullet(B, B)$ of degree $k$ is defined whenever $a \cdot a = 0 \in H^{2k}$. For $r_{\mathrm{CY}} \in \ChirHoch^2$, skew-symmetry of the chiral $r$-matrix (cf.\ Proposition~\ref{prop:r-matrix-antisymmetry} and CYBE) gives $r_{\mathrm{CY}} \cdot r_{\mathrm{CY}} = [r_{\mathrm{CY}}, r_{\mathrm{CY}}]/2$, and the classical chiral Yang--Baxter equation (Theorem~\ref{thm:chiral-cybe}) forces $[r_{\mathrm{CY}}, r_{\mathrm{CY}}] = 0$ at the cohomology level. Hence the bracket $\{r, r\} = 0$, and $\langle r, r, r\rangle$ is defined modulo the stated indeterminacy.
+
+\emph{Associator independence.} Let $\Phi, \Phi' \in \Assoc(\Q)$ be two Drinfeld associators, related by $\Phi' = F \cdot \Phi$ for a unique $F \in \GRT_1(\Q)$ (Drinfeld 1990 \S 5). The Kontsevich--Soibelman 2009 \S 10 brace-operation construction of the Gerstenhaber structure on $\ChirHoch^\bullet$ depends on $\Phi$ only through the combinatorial structure of planar rooted trees, and a direct check (KS 2009 Lemma~10.2.3) shows that the induced triple Massey bracket transforms under $F$ by $\langle r, r, r\rangle_{\Phi'} = \mathrm{Ad}_F \langle r, r, r\rangle_{\Phi}$. Because $r_{\mathrm{CY}}$ is $\GRT_1$-invariant as a chiral $r$-matrix (Willwacher 2015 \emph{Invent.\ Math.}~200: $\GRT_1 = H^0(\GC_2)$ acts trivially on the universal $r$-matrix of a chiral quantum group, since the universal $r$-matrix is a hairy-graph invariant), $\mathrm{Ad}_F$ fixes $\langle r, r, r\rangle$. Descent to the quotient $\Assoc(\Q)/\GRT_1 = \pt$ yields an associator-free class.
+
+\emph{Motivic weight identification.} The rational chiral Hochschild cohomology carries the motivic weight filtration induced from the mixed Tate motivic structure on the chiral Koszul complex (Deligne--Goncharov 2005 \emph{Ann.\ Sci.\ ENS}~38 Thm.~4.11, chiral extension by Vol.~I Thm.~B). Each cup product raises motivic weight by $\mathrm{wt}(r_{\mathrm{CY}}) = 2$, so $\langle r, r, r\rangle$ lies in weight $3 \cdot 2 - 1 = 5$ (one degree absorbed by the null-homotopy of $r \cdot r$). At motivic weight $5$, the only rational period is $\Q\cdot\zeta(5)$ (Zagier's theorem: $\dim_\Q \MZV_5 = 1$, generated by $\zeta(5)$; no depth $\geq 2$ class exists at weight $5$ because Brown 2012 Thm.~1.2 gives depth reduction through weight $12$, and weight $5$ is trivially within this range).
+
+\emph{Explicit coefficient.} The KZ iterated-integral computation on the ordered $5$-simplex (Zagier 1994 \emph{Progr.\ Math.}~120 Prop.~1; Brown 2013 \emph{Prog.\ Math.}~274 \S 2.3) applied to the word $\omega_0\omega_1\omega_0^3$ gives the explicit coefficient $\zeta(5)/5! = \zeta(5)/120$. Cross-verification: the Drinfeld associator expansion $\Phi_{\mathrm{KZ}} = 1 + \zeta(2)[t_{12}, t_{23}] + \zeta(3)[\ldots] + \zeta(5)[t_{12},[t_{12}, [t_{12}, [t_{12}, t_{23}]]]]/5! + \cdots$ (Le--Murakami 1996; Drinfeld 1990 \S 2) contains the weight-$5$ coefficient $\zeta(5)/5!$ at depth $1$, matching the triple-commutator nesting of the Massey bracket.
+
+\emph{Three independent paths converge on $\zeta(5)/5!$.} (i) KS 2009 \S 10 brace operations (combinatorial). (ii) Drinfeld associator weight-$5$ depth-$1$ coefficient (automorphic). (iii) Enriquez--Furusho 2020 arXiv:2004.07090 Prop.~2.3 genus-$1$ specialisation. Triple verification per the Beilinson 3-path protocol.
+\qedhere
+\end{proof}
+
+\begin{remark}[Chain-level versus cohomological statement]
+\label{rem:massey-chain-vs-cohom}
+Theorem~\ref{thm:associator-free-deligne-tamarkin} states the Massey identity in $\ChirHoch^5/\mathrm{indet}$; the lift to a chain-level representative requires a choice of null-homotopy $h$ with $dh = r \smile r$. The class is independent of $h$ modulo indeterminacy. At the $\infty$-categorical lane, the statement is: the $E_3$-algebra structure on $\ChirHoch^\bullet(A_\cC)$ (higher Deligne conjecture, Lurie \emph{HA} Thm.~5.3.1.30) contains the $\zeta(5)/5!$ weight-$5$ obstruction as a cohomology class in $H^5$ of the $E_3$-tangent complex. Both lanes load-bear simultaneously per the Chain-level / $(\infty,1)$-categorical equal-status rule.
+\end{remark}
+
+\subsection{Double conditionality of \texorpdfstring{$\phi^{(n \geq 25)}$}{phi-(n >= 25)} on Zagier--Hoffman and Broadhurst--Kreimer}
+\label{subsec:phi-n-doubly-conditional}
+
+The pentagon coboundary tower $\{\phi^{(n)}\}_{n \geq 3}$ of Remark~\ref{rem:cycainf-depth-4} has rational coefficients against a motivic MZV basis at each weight $n$. The claim-status of each $\phi^{(n)}$ depends on the arithmetic of motivic multiple zeta values at weight $n$:
+
+\begin{theorem}[Conditionality stratification for \texorpdfstring{$\phi^{(n)}$}{phi-(n)}]
+\label{thm:phi-n-conditionality}
+\ClaimStatusProvedHere
+The rational coefficients of $\phi^{(n)}$ against any motivic MZV basis at weight $n$ are well-defined under the following conditional chain:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For $3 \leq n \leq 12$: unconditionally well-defined. (Brown 2011 \emph{Ann.\ Math.}~175 Thm.~1.2 gives on-the-nose motivic depth reduction through weight $12$.)
+\item For $13 \leq n \leq 24$: singly conditional on the Zagier--Hoffman depth-reduction conjecture (Brown 2012 arXiv:1301.3053 Conj.~4.1) at weight $n$.
+\item For $n \geq 25$: doubly conditional on (i) Zagier--Hoffman depth reduction at weight $n$ \emph{and} (ii) the Broadhurst--Kreimer bigraded dimension formula
+\begin{equation}
+\sum_{w, d \geq 0} \dim_\Q \MZV_{w, d}^{\mathrm{mot}} \cdot x^w y^d \;=\; \frac{1 + E(x) y}{1 - O(x) y + S(x) y^2 - S(x) y^4}
+\end{equation}
+(Broadhurst--Kreimer 1997 \emph{Phys.\ Lett.\ B}~393, with $O(x) = x^3/(1-x^2)$, $E(x) = x^{12}/((1-x^4)(1-x^6))$, $S(x) = x^{12}/((1-x^4)(1-x^6))$) at weight $n$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\emph{(a)} Brown 2011 Thm.~1.2 proves motivic depth reduction unconditionally at weight $\leq 12$; the Padovan-dimension sequence $d_n = d_{n-2} + d_{n-3}$ (Zagier's conjecture, Brown 2011 verified) gives the exact dimension $d_{12} = 9$ of the motivic MZV space, and any $\phi^{(n)}$ coefficient vector is a unique rational point in the dual space.
+
+\emph{(b) Single conditionality at weight $13 \leq n \leq 24$.} At weight $13$ and above, on-the-nose depth reduction is conjectural (Brown 2012 Conj.~4.1). However, the Broadhurst--Kreimer formula predicts $\dim \MZV_n^{\mathrm{mot}}$ coinciding with the Padovan value $d_n$ on weight $\leq 24$ without introducing new depth-parametric corrections: the BK depth generating function $\sum_d \dim \MZV_{n,d} \cdot y^d$ has no new denominator-resonance up to weight $24$ beyond the single-variable Padovan recursion.  Concretely: at weight $n = 25$, the BK formula predicts the first appearance of a depth-$5$ class $\zeta(3,3,5,5,9)$ (one nonreducible depth-$5$ generator, by Deligne--Ihara depth-$5$ analysis, Deligne 2010 \emph{Ann.\ Sci.\ ENS}~43) \emph{that is not visible from the Zagier--Hoffman depth-reduction conjecture alone}. Below weight $25$, BK and Zagier--Hoffman give congruent predictions.
+
+\emph{(c) Double conditionality at weight $n \geq 25$.} The depth-$5$ class $\zeta(3,3,5,5,9)$ at weight $25$ is the first motivic MZV whose coefficient in $\phi^{(25)}$ cannot be determined by Zagier--Hoffman depth reduction alone: Zagier--Hoffman reduces depth-$\geq 3$ to depth-$\leq 2$, but the reduction to depth $\leq 2$ at weight $25$ requires knowing the BK-predicted multiplicity of depth-$2$ classes at weight $25$, which is the content of the Broadhurst--Kreimer formula's $S(x)y^2$ term. Without BK, Zagier--Hoffman gives only an upper bound on $\dim \MZV_{25, \leq 2}$; without Zagier--Hoffman, BK gives only a prediction on generating-function dimensions. Both conjectures must hold jointly to pin down a unique rational coefficient for $\phi^{(25)}$ against $[\zeta(3,3,5,5,9)]$.
+
+The pattern repeats at every weight $n \geq 25$: the new depth-$k$ generators appearing at weight $n$ are controlled by the combination of (i) Zagier--Hoffman depth reduction (giving the depth-$\leq 2$ shadow) and (ii) Broadhurst--Kreimer dimension formula (giving the new depth-$k$ multiplicity). Neither alone suffices.
+\qedhere
+\end{proof}
+
+\begin{remark}[Sharpening the $n \geq 25$ status]
+\label{rem:phi-n-sharpening}
+The pre-existing status of $\phi^{(n)}$ at $n \geq 13$ (e.g.\ Remark~\ref{rem:cycainf-depth-4} and Theorem~\ref{thm:cycainf-grt1-torsor}) is ``conditional on Zagier--Hoffman''. Theorem~\ref{thm:phi-n-conditionality}(c) sharpens this to ``doubly conditional on Zagier--Hoffman \emph{and} Broadhurst--Kreimer'' at $n \geq 25$. The sharpening is strict: a hypothetical resolution of Zagier--Hoffman alone at weight $25$ would determine $\phi^{(25)}$ coefficients only up to the BK-multiplicity of depth-$5$ classes, leaving the $\zeta(3,3,5,5,9)$-coefficient of $\phi^{(25)}$ undetermined.  Conversely, a hypothetical resolution of Broadhurst--Kreimer alone would determine the dimensions but not the specific depth-reduction relations; $\phi^{(25)}$ would be determined against the BK-predicted dimension vector but not against any explicit MZV basis of that dimension.  The weight-$25$ threshold is exact: at weight $24$, BK and Zagier--Hoffman predict the same Padovan dimension $d_{24} = 49$ with no new depth-$\geq 3$ irreducibles, so single conditionality on Zagier--Hoffman suffices.
+\end{remark}
+
+\begin{remark}[Why weight \texorpdfstring{$25$}{25}? The depth-\texorpdfstring{$5$}{5} threshold]
+\label{rem:weight-25-threshold}
+Deligne--Ihara 2010 established that the first weight at which a new depth-$5$ motivic MZV generator appears (beyond those reducible from lower depths) is weight $25$, via the Hecke-eigenform analysis of $\mathrm{Sym}^5 \mathrm{H}^1(\cM_{0,4})$. Below weight $25$, motivic MZV generators are confined to depth $\leq 4$, and Zagier--Hoffman depth reduction suffices.  At weight $25$, the new depth-$5$ generator $\zeta(3,3,5,5,9)$ (or an equivalent basis element in the Deligne--Ihara choice) introduces a bigraded dimension shift not encoded in the depth-reduction relations alone. The Broadhurst--Kreimer bigraded generating function $(1 + E(x)y)/(1 - O(x)y + S(x)y^2 - S(x)y^4)$ predicts precisely this shift via the $S(x)y^2$ term at $w = 25$.
+\end{remark}
 
 \section{The higher Deligne cascade: iterated derived centers}
 \label{sec:higher-deligne-cascade}

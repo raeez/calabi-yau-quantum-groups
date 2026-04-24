@@ -272,11 +272,12 @@ class TestK3xEDMVV:
     """
 
     def test_kappa_spectrum(self):
-        """Path 3 (literature): K3 x E kappa-spectrum = {2, 3, 5, 24} (AP113)."""
+        """Path 3: K3 x E total and fiber kappa labels are separated."""
         # VERIFIED [DC] kappa-spectrum [LT] Vol III CLAUDE.md
         assert K3E_KAPPA_SPECTRUM["kappa_ch"] == Fraction(3)
         assert K3E_KAPPA_SPECTRUM["kappa_BKM"] == 5
-        assert K3E_KAPPA_SPECTRUM["kappa_cat"] == 2
+        assert K3E_KAPPA_SPECTRUM["kappa_cat"] == Fraction(0)
+        assert K3E_KAPPA_SPECTRUM["kappa_cat_fiber"] == 2
         assert K3E_KAPPA_SPECTRUM["kappa_fiber"] == 24
 
     def test_gottsche_hilb0(self):

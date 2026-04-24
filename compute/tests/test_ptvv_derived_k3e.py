@@ -336,7 +336,7 @@ class TestKappaCh:
     def test_kappa_ch_k3xe_equals_3(self):
         """kappa_ch(K3 x E) = 3 (AP113: subscripted).
 
-        Path 1: Direct CY_3 formula on h^{*,0} = (1,1,1,1).
+        Path 1: Product/PTVV split for h^{*,0} = (1,1,1,1).
         Path 2: Kunneth: kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
         Path 3: PTVV shift + K3 contribution = 1 + 2 = 3.
         """
@@ -345,12 +345,12 @@ class TestKappaCh:
         assert result.matches
         assert result.ptvv_kappa_consistent
 
-    def test_kappa_ch_direct_formula(self):
-        """Direct CY_3 formula: (3/2)(1) - (1/2)(1) + (-1/2)(1) - (-3/2)(1) = 3.
+    def test_kappa_ch_weighted_hodge_sum_is_not_the_product_oracle(self):
+        """The raw weighted Hodge sum equals 2, so it is not the K3xE oracle.
 
-        Path 1: Term-by-term computation.
-        Path 2: Simplified: 3/2 - 1/2 - 1/2 + 3/2 = 3.
-        Path 3: As Fraction arithmetic.
+        Path 1: Term-by-term weighted Hodge computation.
+        Path 2: Product/PTVV split: kappa_ch(K3)+kappa_ch(E)=2+1=3.
+        Path 3: The engine uses the product/PTVV split for K3 x E.
         """
         # Term by term
         t0 = F(3, 2) * F(1)   # p=0: (3/2)*1 = 3/2
@@ -358,7 +358,8 @@ class TestKappaCh:
         t2 = F(1) * F(-1, 2) * F(1)  # p=2: +(-1/2)*1 = -1/2
         t3 = F(-1) * F(-3, 2) * F(1)  # p=3: -(-3/2)*1 = 3/2
         total = t0 + t1 + t2 + t3
-        assert total == F(3)
+        assert total == F(2)
+        assert compute_kappa_ch(k3xe_hodge()).kappa_ch == F(3)
 
     def test_kappa_ch_k3_equals_2(self):
         """kappa_ch(K3) = chi(O_{K3}) = 2 (AP113: subscripted).

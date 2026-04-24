@@ -237,7 +237,7 @@ def euler_characteristic_m_g(g: int) -> Fraction:
 
 
 # ===========================================================================
-# 2. CY3 DATA: Hodge numbers, kappa, chi
+# 2. CY3 DATA: Hodge numbers, labelled scalar, chi
 # ===========================================================================
 
 class CY3Data(NamedTuple):
@@ -246,8 +246,9 @@ class CY3Data(NamedTuple):
     h11: int                    # h^{1,1}
     h21: int                    # h^{2,1}
     chi: int                    # Euler char = 2(h11 - h21)
-    kappa: Fraction             # modular characteristic kappa(A_X)
-    kappa_source: str           # where kappa comes from
+    kappa: Fraction             # scalar used by this engine
+    kappa_label: str            # the invariant lane for kappa
+    kappa_source: str           # where the scalar comes from
     is_compact: bool            # compact vs non-compact
     is_toric: bool              # toric CY3
 
@@ -266,6 +267,7 @@ def c3_data() -> CY3Data:
         name="C^3",
         h11=0, h21=0, chi=0,
         kappa=Fraction(1),
+        kappa_label="kappa_ch",
         kappa_source="Heisenberg H_1 level k=1",
         is_compact=False,
         is_toric=True,
@@ -282,6 +284,7 @@ def conifold_data() -> CY3Data:
         name="resolved conifold",
         h11=1, h21=0, chi=2,
         kappa=Fraction(1),
+        kappa_label="kappa_ch",
         kappa_source="single compact P^1, DT Omega(beta)=1",
         is_compact=False,
         is_toric=True,
@@ -302,6 +305,7 @@ def local_p2_data() -> CY3Data:
         name="local P^2",
         h11=1, h21=0, chi=0,
         kappa=Fraction(3, 2),
+        kappa_label="kappa_ch",
         kappa_source="chi(P^2)/2 = 3/2 (cross-checked with bar_hocolim IE)",
         is_compact=False,
         is_toric=True,
@@ -318,6 +322,7 @@ def quintic_data() -> CY3Data:
         name="quintic P4[5]",
         h11=1, h21=101, chi=-200,
         kappa=Fraction(-25, 3),
+        kappa_label="kappa_BCOV_shadow",
         kappa_source="chi/24 = -200/24 = -25/3 (CONJECTURAL)",
         is_compact=True,
         is_toric=False,
@@ -328,14 +333,16 @@ def k3_times_e_data() -> CY3Data:
     """K3 x E (K3 surface times elliptic curve).
 
     Compact CY3 with h^{1,1}=h^{2,1}=21, chi=0.
-    kappa = 5 (weight of the Borcherds product Delta_5).
-    NOT chi/24 = 0. This is the key example showing kappa != chi/24.
+    The scalar stored here is kappa_BKM = 5, the Borcherds weight
+    c_1(0)/2 of Delta_5.  It is not chi/24 = 0 and not the compact
+    total-space kappa_cat.
     """
     return CY3Data(
         name="K3 x E",
         h11=21, h21=21, chi=0,
         kappa=Fraction(5),
-        kappa_source="weight(Delta_5) from BKM superalgebra",
+        kappa_label="kappa_BKM",
+        kappa_source="Borcherds weight c_1(0)/2 = 10/2 from Delta_5",
         is_compact=True,
         is_toric=False,
     )
@@ -1251,7 +1258,7 @@ def shadow_depth_bcov_classification() -> List[ShadowDepthBCOV]:
             shadow_class="M",
             r_max=None,  # infinity
             bcov_interpretation=(
-                "K3 x E: chi=0 but kappa=5. Class M: infinite shadow tower. "
+                "K3 x E: chi=0 but kappa_BKM=5. Class M: infinite shadow tower. "
                 "The BKM superalgebra has infinitely many imaginary roots, "
                 "and the Borcherds product Delta_5 has infinitely many "
                 "Fourier coefficients. The BCOV analogue: the topological "
@@ -1357,15 +1364,15 @@ def bcov_e1_identification_evidence() -> List[IdentificationEvidence]:
             evidence_number=7,
             statement=(
                 "Genus-1 anomaly: F_1^{BCOV} = (chi/24) * lambda_1 for compact CY3. "
-                "The E_1 shadow: F_1^{E_1} = kappa(A_X) * lambda_1. These agree when "
-                "kappa(A_X) = chi(X)/24 (the conjectural kappa for compact CY3)."
+                "The scalar E_1 shadow is F_1^{E_1} = kappa_lane(A_X) * lambda_1. "
+                "This is lane-compatible only when the chosen lane is the BCOV "
+                "compact anomaly scalar chi(X)/24."
             ),
             status="CONJECTURAL",
             verification_method=(
-                "kappa = chi/24 is conjectural for compact CY3s. "
-                "For K3 x E: kappa = 5 != chi/24 = 0 (AP48). "
-                "The correct formula is kappa = weight of automorphic form, "
-                "which for K3 x E is 5 (weight of Delta_5), not chi/24."
+                "For K3 x E the automorphic scalar used by the BKM lane is "
+                "kappa_BKM = c_1(0)/2 = 5, while chi/24 = 0.  These are "
+                "different lanes, not competing formulas for one scalar."
             ),
         ),
         IdentificationEvidence(
@@ -1537,7 +1544,8 @@ def constant_map_comparison(cy3: CY3Data, max_genus: int = 5) -> Dict[int, Dict[
       shadow w/ kappa(A_X):   F_g = kappa(A_X) * lambda_g^{FP}
 
     If kappa = chi/24, these agree by construction (tautological).
-    If kappa != chi/24 (e.g., K3 x E: kappa = 5, chi/24 = 0), they DISAGREE.
+    If the selected scalar is not the BCOV compact anomaly scalar
+    (e.g., K3 x E uses kappa_BKM = 5 while chi/24 = 0), they DISAGREE.
     """
     results = {}
     for g in range(1, max_genus + 1):

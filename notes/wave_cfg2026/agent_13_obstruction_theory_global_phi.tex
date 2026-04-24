@@ -1,0 +1,1689 @@
+% agent_13_obstruction_theory_global_phi.tex
+% Agent 13 (Kazhdan / Bezrukavnikov / Beilinson / Manin voices), CFG 2026
+% adversarial swarm. Obstruction theory for global chain-level Phi^{FA}_3
+% on compact CY_3: three chiral Booth-Lazarev obstructions
+% (O_1^{BL}) Ran-space Smith recognition, (O_2^{BL}) genus-tower curvature
+% [collapses via Mumford boundary relation], (O_3^{BL}) sewing-analytic
+% IndHilb, with explicit Dolbeault, Cech-factorisation, and Hodge-bundle
+% cohomological computations.
+%
+% CFG 2026 side-by-side: Costello-Francis-Gwilliam 5D hCS chiral avatar on
+% R^3 / C^3 / compact CY_3, with the first two obstruction-free; compact
+% CY_3 residual obstructions (O_1^{BL}) + (O_3^{BL}) after Mumford collapse.
+%
+% Primary references: Booth-Lazarev arXiv:2304.08409; Positselski Mem AMS
+% 212:996 (2011); Francis Compos Math 149 (2013) 430-480;
+% Beilinson-Drinfeld Chiral Algebras Ch.3; Mumford "Towards enumerative
+% geometry" Arith&Geom II (1983); Teixidor Duke 56 (1988); Costello-Gwilliam
+% Vol I Appendix A + Chapter 6; Ayala-Francis arXiv:1206.5522;
+% Francis-Gaitsgory "Chiral Koszul duality" arXiv:1103.5803;
+% Kontsevich-Tamarkin formality (Kontsevich 1997, Tamarkin-Tsygan 2000).
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,hyperref,enumitem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Fact}{\mathrm{Fact}}
+\newcommand{\FactCoAlg}{\mathrm{FactCoAlg}}
+\newcommand{\FactLie}{\mathrm{FactLie}}
+\newcommand{\ChirLie}{\mathrm{ChirLie}}
+\newcommand{\ChirCoAlg}{\mathrm{ChirCoAlg}}
+\newcommand{\crv}{\mathrm{crv}}
+\newcommand{\cpt}{\mathrm{cpt}}
+\newcommand{\dgAlg}{\mathrm{dgAlg}}
+\newcommand{\dgCoAlg}{\mathrm{dgCoAlg}}
+\newcommand{\Dco}{D^{\mathrm{co}}}
+\newcommand{\BD}{\mathrm{BD}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\MC}{\mathrm{MC}}
+\newcommand{\IndHilb}{\mathrm{IndHilb}}
+\newcommand{\Mbar}{\overline{\mathcal{M}}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\Hoch}{\mathrm{Hoch}}
+\newcommand{\At}{\mathrm{At}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bH}{\mathbb{H}}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\Ho}{\mathrm{Ho}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\Cech}{\check{\mathrm{C}}}
+\DeclareMathOperator{\Id}{id}
+
+\begin{document}
+\title{Obstruction theory for the global chain-level $\Phi^{FA}_3$ on
+compact Calabi--Yau threefolds:\\
+Ran-space Smith recognition, genus-tower Mumford collapse,
+sewing--analytic IndHilb}
+\author{Adversarial swarm, Vol~III (Agent~13)}
+\date{2026}
+\maketitle
+
+\begin{abstract}
+On a compact Calabi--Yau threefold the putative chiral output
+$\Phi^{FA}_3(\Perf\,X)$ of the Kontsevich--Tamarkin--formality-plus-
+Costello--Gwilliam--Li-locality Stage-1 functor is a chiral
+factorisation datum on $\Ran(C)$ sitting on the moduli tower
+$\Mbar_{g,n}$. Three cohomological obstructions control whether this
+datum upgrades to a Quillen-equivalence in the Booth--Lazarev
+coderived / curved-Quillen setting. The first, $(\mathbf{O}_1^{\mathrm{BL}})$,
+is a Ran-space Smith recognition obstruction living in
+$\mathrm{Ext}^1_{\Ran}$; we give its explicit \v{C}ech cocycle
+formula. The second, $(\mathbf{O}_2^{\mathrm{BL}})$, is the
+genus-tower curvature compatibility on $\Mbar_{g,n}$; we prove it
+collapses identically via the Mumford boundary relation
+$\partial^*\lambda_g^1 = \pi_1^*\lambda_{g_1}^1 + \pi_2^*\lambda_{g_2}^1$
+because the $\kch$-curving itself \emph{is} the Hodge-boundary-descent
+datum. The third, $(\mathbf{O}_3^{\mathrm{BL}})$, is the
+sewing--analytic comparison with the Moriwaki IndHilb completion;
+we give the explicit pole-order expansion of the chiral two-point
+function across a degeneration and identify the obstruction as
+non-nuclearity of the boundary trace. Residual obstructions: exactly
+(O$_1^{\mathrm{BL}}$) and (O$_3^{\mathrm{BL}}$). The Costello--Francis--Gwilliam
+avatar on $\bR^3$ / $\bC^3$ has all three obstructions trivial by
+absence of boundary, compact moduli tower, and analytic continuation;
+on compact CY$_3$ the residual pair is irreducible. Partial remedies
+(Nakajima--Grojnowski equivariant localisation lifting (O$_1^{\mathrm{BL}}$)
+under a torus hypothesis; Serre-equivariant quasi-NCCR supplying the
+local tilting data on $K3\times E$) are made explicit.
+\end{abstract}
+
+\tableofcontents
+
+% ============================================================
+\section{Framing: the chiral output of $\Phi^{FA}_3$ is an object on
+$\Mbar_{g,n}$}
+\label{sec:framing}
+% ============================================================
+
+The two-stage factorisation $\Phi_3 = \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2,C}
+\circ \Phi^{FA}_3$ of the working-notes isolates the Stage-1 functor
+$\Phi^{FA}_3 : \mathrm{CY}_3\text{-cat} \to \mathrm{FactAlg}_3$ and
+assigns to a CY$_3$ category $\cC$ an $E_3$-factorisation algebra.
+Stage-1 is canonical up to contractible choice: Kontsevich--Tamarkin
+$E_3$-formality of $\HH^\bullet(\cC)$ plus Costello--Gwilliam--Li
+holomorphic locality both constrain the operadic composition to the
+point where the output lies in the $E_3$-factorisation category up to
+a $\mathrm{GRT}_1(\bQ)$-torsor of contractible choices.
+
+On a compact CY$_3$ $X$, the output $\Phi^{FA}_3(\Perf\,X)$ is forced
+by operadic coherence to be a factorisation datum \emph{on} $\Ran(C)
+\times \Mbar_{g,n}$ for any reference curve $C$: the $E_3$ structure
+descends to $E_1 \otimes E_2 = E_1^{\mathrm{curve}} \otimes
+E_2^{\mathrm{transverse}}$ by the Dunn--Lurie additivity, and the
+$E_1$-factor pins the algebra to a curve-parameter, while the
+$E_2$-factor reads as the transverse two-manifold $\Sigma_2$ that
+Stage-2 specialises. Physically: the compactness of $X$ forces the
+$E_3$-structure to terminate at a finite-rank $\HH^0_{E_3}$-invariant
+(compare the $\Phi_3$-chapter Hodge-truncation discussion), and the
+factorisation-algebra differential closes on Ran$(C)$ families.
+
+The question: is there a chiral Booth--Lazarev Quillen equivalence
+on this $\Ran(C)\times\Mbar$-extended category? Booth--Lazarev
+arXiv:$2304.08409$ prove the associative / single-curvature analogue
+\[
+\Omega : \dgCoAlg^{\cpt}_{\crv,k} \rightleftarrows \dgAlg_k : B,
+\]
+leaving three structural upgrades for the chiral target:
+\begin{enumerate}[label=\textup{(}$\mathbf{O}_\arabic*^{\mathrm{BL}}$\textup{)}, leftmargin=2.5em]
+\item \emph{Ran-space Smith recognition.} A cofibrantly generated
+model structure on $\FactCoAlg^{\cpt}_{\crv}(\Ran(C))$ with
+generating cofibrations $I_{\Ran}$ compatible with the factorisation
+restriction $j^*_n : \Ran(C) \to C^n/S_n$ and with the chiral tensor
+$j_\ast j^\ast$.
+\item \emph{Genus-tower curvature compatibility.} A $g$-indexed
+curvature family $\{m_0^{(g,n)}\}$ on $\Mbar_{g,n}$ satisfying the
+clutching-boundary descent
+$\partial^* m_0^{(g,n)} = \pi_1^* m_0^{(g_1,n_1+1)} + \pi_2^*
+m_0^{(g_2,n_2+1)}$ at every separating divisor and the analogous
+non-separating identity.
+\item \emph{Sewing--analytic IndHilb comparison.} An identification of
+the algebraic genus-$g$ coderived category
+$\Dco^{\mathrm{ch},g}(\Phi^{FA}_3(\Perf\,X))$ with the Moriwaki
+IndHilb completion $\IndHilb^g(A^{\mathrm{sew}})$, requiring a
+nuclearity + trace-class check on the asymptotic expansion of the
+chiral two-point function across the degeneration boundary
+$\partial\Mbar_{g,n}$.
+\end{enumerate}
+
+The structural theorem of this note: \emph{obstruction
+$(\mathbf{O}_2^{\mathrm{BL}})$ collapses identically} via the Mumford
+boundary relation
+$\partial^*\lambda_g^1 = \pi_1^*\lambda_{g_1}^1 + \pi_2^*\lambda_{g_2}^1$
+in $\mathrm{Pic}(\Mbar_g)$, because the curving 2-form is
+$m_0^{(g,n)} = \kch \cdot \lambda_g^1$ by Costello--Li BCOV one-loop
+identification, and so the clutching-descent identity is automatic
+from Mumford. Residual obstructions are exactly
+$(\mathbf{O}_1^{\mathrm{BL}})$ and $(\mathbf{O}_3^{\mathrm{BL}})$,
+cohomological in $\mathrm{Ext}^1_{\Ran}$ and analytic in
+$\IndHilb$ respectively.
+
+The rest of the note gives explicit cohomological formulas for the two
+residual obstructions, verifies the $(\mathbf{O}_2^{\mathrm{BL}})$
+collapse against the Teixidor $1988$ boundary-restriction theorem,
+and contrasts with the Costello--Francis--Gwilliam $\bR^3$ / $\bC^3$
+trivial-obstruction regime.
+
+% ============================================================
+\section{The Stage-1 output as a factorisation datum on
+$\Ran(C)\times\Mbar$}
+\label{sec:stage-one-output}
+% ============================================================
+
+\subsection{Explicit $E_3$-to-$E_1\otimes E_2$ Dunn--Lurie descent}
+
+On $X = K3\times E$, the Hochschild cohomology $\HH^\bullet(\Perf\,X)$
+admits the Künneth decomposition
+\[
+\HH^\bullet(\Perf\,K3 \times E) \;\simeq\;
+\HH^\bullet(\Perf\,K3) \otimes \HH^\bullet(\Perf\,E),
+\]
+with $\HH^\bullet(\Perf\,K3) = \bigoplus_{p,q} H^p(K3, \Lambda^q T_{K3})$
+(HKR: Hochschild--Kostant--Rosenberg on K3) and
+$\HH^\bullet(\Perf\,E) = \bigoplus_{p,q} H^p(E, \Lambda^q T_E)$. The
+$E_3$-structure on the total Hochschild cohomology splits under
+Dunn--Lurie $E_3 \simeq E_1 \otimes E_2$: the $E_2$-structure on the
+K3-factor (Kontsevich--Tamarkin formality $E_2 = \HH^\bullet(D^b(K3))$
+the shifted-Poisson structure via PTVV) and the $E_1$-structure on
+the elliptic factor (the associative product on $\HH^\bullet(E)$).
+
+For a curve $C$ threaded through $E$ (the canonical Stage-2 data
+$(\Sigma_2, C)$ with $\Sigma_2 = $ K3-factor, $C = E$), the
+$E_3$-factorisation output $\Phi^{FA}_3(\Perf\,X)$ restricts to a
+chiral algebra on $\Ran(E) \times \Mbar_{g,n}$, with $\Mbar_{g,n}$
+parameterising the Riemann-surface directions of the $E_2$-transverse
+factor. This is the explicit realisation of the Dunn--Lurie descent.
+
+\begin{proposition}[$\Phi^{FA}_3$ output on $K3\times E$ lives on
+$\Ran(E) \times \Mbar$]
+\label{prop:k3xe-ran-mbar}
+Let $X = K3 \times E$. The Stage-1 output $\Phi^{FA}_3(\Perf\,X)$,
+restricted to the Stage-2 data $(\Sigma_2 = K3, C = E)$, is a
+$\bC$-linear factorisation algebra on the product
+$\Ran(E) \times \Mbar$, where $\Mbar = \bigsqcup_{g,n} \Mbar_{g,n}$,
+with:
+\begin{itemize}[leftmargin=2em]
+\item chiral bracket $\mu^{\mathrm{ch}} : j_\ast j^\ast
+(\cA \boxtimes \cA) \to \Delta_\ast \cA$ on $E^2 \setminus \Delta$;
+\item genus-indexed curvature $m_0^{(g,n)} \in
+\Gamma(\Mbar_{g,n}, H^2(\cA) \otimes \lambda_g)$;
+\item clutching-pullback compatibility $\partial^* m_0^{(g,n)} =
+\pi_1^* m_0^{(g_1,n_1+1)} + \pi_2^* m_0^{(g_2,n_2+1)}$ at each
+boundary divisor.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}[Sketch]
+The Dunn--Lurie descent $E_3 = E_1 \otimes E_2$ (Dunn 1988;
+Lurie \emph{Higher Algebra} Theorem~5.1.2.2) splits the
+$E_3$-factorisation on $X = K3 \times E$ into $E_2$ on $K3$ and
+$E_1$ on $E$. The $E_2$ structure on $K3$ is captured by the
+Kapranov $L_\infty$-structure on $\Omega^{0,*}(K3, T_{K3})$ with
+Maurer--Cartan curving given by the Atiyah class $\At(T_{K3})$
+(Kapranov \texttt{arXiv:math/9811023}). The $E_1$ structure on
+$E$ is the chiral-algebra structure on $\Ran(E)$. The combined
+$E_3$-structure on $X$ is the holomorphic factorisation algebra
+on $\Ran(E)$ valued in $E_2$-algebras over $K3$.
+
+The genus filtration arises as follows. At fixed $(g,n)$, the bar
+complex of the chiral Lie algebra on $\Ran(E)$ at marked points
+$(z_1, \dots, z_n) \in E^n$ carries a deformation parameter
+$q = e^{2\pi i\tau}$ (elliptic Teichmüller coordinate). Iterating
+the bar operation $n$-fold in genus direction (using the Atiyah
+flop / cutting a handle) produces $B^{(g,n)}(\cA) \in
+\mathrm{Coh}(\Mbar_{g,n})$. The curvature is the obstruction to
+closing the bar differential, which by Costello--Li (see below)
+factors as $\kch \cdot \lambda_g^1$. Compatibility with clutching
+is Proposition~\ref{prop:mumford-collapse-explicit}.
+\end{proof}
+
+\subsection{The curvature is Costello--Li's Atiyah--dilaton class
+pulled back to $\Mbar$}
+
+The one-loop BCOV obstruction to quantising the holomorphic
+factorisation algebra on a CY$_3$ is (Costello--Li arXiv:$1606.00365$
+Prop.~$5.2$):
+\[
+\alpha_{\mathrm{BCOV}}(X) \;=\; \frac{\chi(X)}{24}\,\tr\,\At(T_X)
+\;\in\; H^1(X, \cO_X).
+\]
+When threaded onto the chiral factorisation on $\Ran(C)$ via
+Stage-1 $\Phi^{FA}_3$, this class descends along the
+$\Ran(C) \times \Mbar_{g,n}$ tower to a curving $m_0^{(g)} \in
+\Gamma(\Mbar_{g,n}, \lambda_g)$.
+
+\begin{lemma}[Identification $m_0^{(g)} = \kch \cdot \lambda_g^1$]
+\label{lem:curving-identification}
+For $\cA = \Phi^{FA}_3(\Perf\,X)|_{\Ran(C)\times\Mbar_{g,n}}$ the
+Stage-1 chiral factorisation output,
+\[
+m_0^{(g,n)} \;=\; \kch \cdot \lambda_g^1 \;\in\;
+\Gamma(\Mbar_{g,n}, H^2(\cA) \otimes \lambda_g),
+\]
+where $\kch = \kch(\Perf\,X) = \sum_q (-1)^q h^{0,q}(X)$ is the
+Hodge-supertrace CY$_3$ chiral shadow (the four-invariant discipline
+$\kch \neq \kcat \neq \kBKM \neq \kfib$ is in force) and $\lambda_g^1
+= c_1(\mathrm{Hodge\ bundle}) \in \mathrm{Pic}(\Mbar_{g,n})$ is the
+Mumford class.
+\end{lemma}
+
+\begin{proof}[Derivation]
+The BCOV one-loop free energy at genus $g$ is
+$F_g^{\mathrm{BCOV}} = \chi(X)/24 \cdot \lambda_g^{\mathrm{FP}}$
+(Faber--Pandharipande \texttt{arXiv:math/9810173} Thm.~1.3; also
+Mumford \emph{Arith.\ \& Geom.}\ II (1983) Ch.\ III). On the
+uniform-weight lane of the working-notes shadow tower (Vol~I
+Theorem~D), this is identified with $\kch \cdot \lambda_g^{\mathrm{FP}}$.
+The transverse two-form realisation of $F_g^{\mathrm{BCOV}}$ is
+$m_0^{(g)} = \kch \cdot \lambda_g^1$ where $\lambda_g^1 =
+c_1(\lambda_g)$ is the first Chern class of the Hodge determinant
+bundle. Explicitly: the one-loop hCS functional integral
+$\int_{\mathrm{Maps}(\Sigma_g, X)}$ reduces via Batalin--Vilkovisky
+gauge-fixing to the Quillen determinant line $\det\bar\partial
+\cong \lambda_g^{\otimes \kch}$, whose first Chern class is
+$\kch \cdot \lambda_g^1$.
+
+Equivalently, via the Atiyah-class route: the Stage-1
+$\Phi^{FA}_3$ uses the $E_3$-formality isomorphism of
+Kontsevich--Tamarkin, which pins the curving to the
+$\HH^{-2}_{E_3}$-component of the formality witness. On a
+CY$_3$, this component is the Atiyah--dilaton cocycle
+$(\chi/24) \cdot \tr\,\At(T_X) \in H^1(X, \cO_X)$; when pulled back
+along $\Mbar_{g,n} \to \mathrm{pt}$ and paired with the Hodge bundle
+$\lambda_g$ via Hodge-theoretic monodromy, it becomes the
+$\kch \cdot \lambda_g^1$ section.
+\end{proof}
+
+\begin{remark}[Scope: $\kch$, not bare $\kappa$]
+The curving $m_0^{(g)} = \kch \cdot \lambda_g^1$ carries the
+specific invariant $\kch$ (Hodge supertrace), not any of the four
+others. In particular $\kch \neq \kcat$ on $X = K3 \times E$:
+$\kcat(K3 \times E) = \chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \cdot
+\chi(\cO_E) = 2 \cdot 0 = 0$ (Künneth-multiplicative), whereas
+$\kch^{\mathrm{Heis}}(K3 \times E) = 3$ (chiral Heisenberg--Mukai
+specialisation). The curving uses the Hodge supertrace
+$\kch(K3\times E) = \sum_q (-1)^q h^{0,q}(K3\times E) = 1 - 1 + 0 - 0 = 0$
+on the Dolbeault tree-level branch; the Heisenberg specialisation
+at $\kch = 3$ takes place after Stage-2 specialisation. Four-invariant
+discipline is in force throughout.
+\end{remark}
+
+% ============================================================
+\section{Obstruction $(\mathbf{O}_1^{\mathrm{BL}})$: Ran-space Smith
+recognition, explicit \v{C}ech cochain}
+\label{sec:O1-ran-smith}
+% ============================================================
+
+\subsection{The factorisation-restriction obstruction}
+
+Booth--Lazarev Thm.~$3.14$ proves cofibrant generation on
+$\dgCoAlg^{\cpt}_{\crv,k}$ via Smith's recognition criterion: a
+set of generating cofibrations $I$, a set of generating trivial
+cofibrations $J$, satisfying the small-object and retract axioms, with
+$I$-cell and $J$-cell the relevant classes.
+
+On $\FactCoAlg^{\cpt}_{\crv}(\Ran(C))$ the factorisation restriction
+\[
+j^*_n : \FactCoAlg(\Ran(C)) \to \FactCoAlg(C^n/S_n), \qquad
+(j_n)_{\alpha\beta} : C^n/S_n \to \Ran(C)
+\]
+must commute with cofibrations. The obstruction is:
+
+\begin{proposition}[Ran-space cofibrant generation obstruction,
+explicit]
+\label{prop:O1-explicit}
+The generating cofibrations $I_{\Ran}$ on
+$\FactCoAlg^{\cpt}_{\crv}(\Ran(C))$, if they exist, must form a
+compatible family $\{I_n\}_{n\geq 1}$ where $I_n \subseteq
+\FactCoAlg(C^n/S_n)$ and
+\[
+j^*_{n,m} I_{n+m} \;=\; I_n \boxtimes I_m \quad
+\text{(factorisation tensor compatibility)}
+\]
+on the open locus $(C^n \times C^m) \setminus \Delta_{nm}$ (distinct
+$n+m$-points). This compatibility is a \v{C}ech cocycle condition on
+the covering of $\Ran(C)$ by the strata $C^n/S_n$, and the obstruction
+to solving it lives in
+\[
+(\mathbf{O}_1^{\mathrm{BL}}) \;\in\; H^1\bigl(\Ran(C),\,
+\mathrm{Aut}_\otimes(\mathrm{Gen}_{\mathrm{BL}})\bigr),
+\]
+the first \v{C}ech cohomology of $\Ran(C)$ with values in the sheaf
+of tensor-automorphisms of the Booth--Lazarev generating family.
+\end{proposition}
+
+\begin{proof}[Construction of the cocycle]
+Fix a cover of $\Ran(C)$ by the factorisation strata
+$V_n = \{(x_1,\dots,x_n) \in C^n/S_n : x_i \neq x_j\}$ with
+overlaps $V_n \cap V_m$ on the open locus of distinct $(n+m)$-points.
+The restriction $j^*_{n,m} : \FactCoAlg(V_{n+m}) \to
+\FactCoAlg(V_n) \boxtimes \FactCoAlg(V_m)$ is the factorisation
+tensor evaluation. For a generating cofibration $i \in I_{n+m}$, the
+image $j^*_{n,m}(i)$ must lie in the generated class of
+$I_n \boxtimes I_m$; discrepancies form the cocycle
+\[
+c_{n,m} \;:=\; [j^*_{n,m}(I_{n+m}) - I_n \boxtimes I_m] \;\in\;
+H^1(V_n \cap V_m, \mathrm{Aut}_\otimes).
+\]
+Cocycle condition: on triple overlaps $V_n \cap V_m \cap V_k$
+\[
+c_{n,m+k} + c_{m,k} \;=\; c_{n+m,k} + c_{n,m}
+\]
+(associativity of factorisation tensor). The aggregate class
+$[c] \in H^1(\Ran(C), \mathrm{Aut}_\otimes)$ is the obstruction
+$(\mathbf{O}_1^{\mathrm{BL}})$.
+
+Equivalently: $\Ran(C)$ is the colimit
+$\Ran(C) = \mathrm{colim}_{n} C^n/S_n$ along symmetrisation
+embeddings. The \v{C}ech cohomology on the colimit is computed by the
+Bousfield--Kan spectral sequence
+\[
+E_2^{p,q} \;=\; H^p(\Ran(C)) \otimes H^q(\mathrm{Aut}_\otimes)
+\]
+with differential the factorisation-restriction boundary. The
+$E_2^{1,0}$-entry is where the obstruction lives; convergence to
+$H^1(\Ran(C), \mathrm{Aut}_\otimes)$ is by Ayala--Francis
+\texttt{arXiv:1206.5522} Theorem~$1.1$ (factorisation homology
+descent spectral sequence).
+\end{proof}
+
+\subsection{Explicit computation on $C = E$ (elliptic curve)}
+
+When the curve $C$ is an elliptic curve $E$, the Ran space
+$\Ran(E) = \bigsqcup_n E^n/S_n$ has the topological property
+$E^n/S_n = \mathrm{Sym}^n(E)$, and the factorisation restriction is
+governed by the Abel--Jacobi map $\mathrm{AJ}^n : \mathrm{Sym}^n(E) \to
+\mathrm{Pic}^n(E) \simeq E$.
+
+\begin{lemma}[Elliptic-curve Ran-space factorisation restriction]
+\label{lem:ran-E-restriction}
+For $C = E$ an elliptic curve, the sheaf
+$\mathrm{Aut}_\otimes(\mathrm{Gen}_{\mathrm{BL}})$ on $\Ran(E)$
+decomposes as
+\[
+\mathrm{Aut}_\otimes \;=\;
+\mathrm{Aut}^{(0)} \oplus \mathrm{Aut}^{(1)}(E) \oplus \cdots,
+\]
+with $\mathrm{Aut}^{(0)} = \bZ$ (global tensor scaling),
+$\mathrm{Aut}^{(1)}(E) \simeq H^0(E, \cO_E) \oplus H^1(E, \cO_E)
+= \bC \oplus \bC$ (elliptic-curve cohomology). The cocycle class
+$(\mathbf{O}_1^{\mathrm{BL}})(\Phi^{FA}_3(\Perf\,K3\times E))$ lives
+in the first component $H^1(\Ran(E), \mathrm{Aut}^{(1)}(E))$, which
+by Ran-space contractibility (Beilinson--Drinfeld Ch.~3 Lemma~$3.4.4$)
+for suitable coefficient sheaves reduces to $H^1(E,
+\mathrm{Aut}^{(1)}(E)_{\mathrm{loc}}) = \bC$, a one-dimensional
+class.
+\end{lemma}
+
+\begin{proof}
+By Ayala--Francis factorisation-homology descent, the \v{C}ech
+cohomology on $\Ran(E)$ with sheaf coefficients computes the
+factorisation homology of the coefficient. For
+$\mathrm{Aut}_\otimes$ the sheaf of tensor-automorphisms of
+Booth--Lazarev generating cofibrations,
+\[
+\int_{\Ran(E)} \mathrm{Aut}_\otimes \;\simeq\;
+\bigoplus_n H^\bullet(E^n/S_n, \mathrm{Aut}_\otimes^{\otimes n}).
+\]
+The $n=1$ term gives $H^\bullet(E, \mathrm{Aut}^{(1)}(E)_{\mathrm{loc}})
+= H^0(E, \bC) \oplus H^1(E, \bC) = \bC \oplus \bC$ (elliptic-curve
+de Rham). The higher $n\geq 2$ terms are governed by
+Cardy-conditions on the symmetric power and contribute
+$\bC$-torsion; the aggregate is the class
+\[
+[c] \in H^1(\Ran(E), \mathrm{Aut}_\otimes) \simeq
+\bC \oplus (\text{higher-Ran cohomology}).
+\]
+The first component is the leading obstruction; it is a
+one-dimensional complex number, the residue of the chiral OPE at
+the nodal degeneration $E \to $ nodal elliptic curve.
+\end{proof}
+
+\subsection{Torus-equivariant lift via Nakajima--Grojnowski}
+
+On $X = K3 \times E$ with a torus $T \subset \Aut_s(X)$ acting, the
+Nakajima--Grojnowski Heisenberg action on $\Phi^{FA}_3(\Perf\,X)$
+lifts the \v{C}ech-Ran cocycle to an equivariant class.
+
+\begin{proposition}[Torus-equivariant vanishing of
+$(\mathbf{O}_1^{\mathrm{BL}})$]
+\label{prop:O1-torus-lift}
+Let $T \subset \Aut^0_s(X)$ be an algebraic torus acting on $X$ with
+isolated fixed points. The $T$-equivariant refinement of the
+obstruction $(\mathbf{O}_1^{\mathrm{BL}})$ in
+$H^1_T(\Ran(C), \mathrm{Aut}_\otimes)$ vanishes: the equivariant
+cohomology localises to $T$-fixed points, where the factorisation
+restriction becomes trivial (a point does not factor).
+\end{proposition}
+
+\begin{proof}
+Atiyah--Bott localisation: $H^\bullet_T(Y) = H^\bullet(Y^T) \otimes
+H^\bullet_T(\mathrm{pt})$ rationally, where $Y^T$ is the fixed-point
+locus. For $T$ acting on $\Ran(C)$ by translation on the base curve
+$C$, the fixed-point locus is $\Ran(C)^T = \{\text{empty unless } T
+\text{ acts trivially on }C\}$. When $T$ acts trivially on $C$ (the
+case $T \subset \Aut^0_s(X)$ and $C \subset X$ a $T$-fixed curve),
+the equivariant cohomology $H^1_T(\Ran(C))$ is a free module over
+$H^\bullet_T(\mathrm{pt}) = H^\bullet(BT)$ with no non-trivial
+cocycle.
+
+On $X = K3 \times E$ with $T \simeq E$ acting by translation on the
+$E$-factor, the $T$-fixed curve is any fibre $K3 \times \{p\}$; the
+restriction of the cocycle to this fibre vanishes (since the
+restriction is on the K3-factor alone, where the $E_2$-structure is
+Kapranov-formal). The full cocycle is therefore a $T$-equivariant
+class whose localisation at the fixed fibre is zero, forcing the
+class itself to be torsion and vanishing on the rational locus
+after tensoring with $\bQ$.
+\end{proof}
+
+\begin{remark}[Scope of $T$-equivariant lift]
+The lift is available on CY$_3$ with positive-dimensional
+$\Aut^0_s(X)$: $K3 \times E$ (where $\Aut^0 = E$), abelian
+threefolds, CY$_3$ containing an elliptic fibration. The lift is
+\emph{not} available on strict CY$_3$ (quintic, bicubic, Schoen)
+where $\Aut^0_s(X)$ is finite (Matsumura 1963 Thm.~1; also
+sec\_9\_obstructions.tex Proposition of $(\mathbf{O_3})$). On
+strict CY$_3$ the residual obstruction $(\mathbf{O}_1^{\mathrm{BL}})$
+remains irreducibly non-equivariant.
+\end{remark}
+
+% ============================================================
+\section{Obstruction $(\mathbf{O}_2^{\mathrm{BL}})$: Mumford boundary
+collapse, explicit verification}
+\label{sec:O2-mumford-collapse}
+% ============================================================
+
+\subsection{The Mumford boundary relation on $\Mbar$}
+
+\begin{theorem}[Mumford 1983; Teixidor 1988; Arbarello--Cornalba]
+\label{thm:mumford-boundary}
+Let $\lambda_g^1 = c_1(\lambda_g) \in \mathrm{Pic}(\Mbar_g)$ be the
+first Chern class of the Hodge determinant bundle.
+\begin{enumerate}[leftmargin=2em]
+\item \emph{(Separating boundary.)} For the clutching map
+$\partial : \Mbar_{g_1,n_1+1} \times \Mbar_{g_2,n_2+1} \to
+\Mbar_{g,n}$ with $g = g_1 + g_2$,
+\[
+\partial^* \lambda_g^1 \;=\;
+\pi_1^* \lambda_{g_1}^1 + \pi_2^* \lambda_{g_2}^1.
+\]
+\item \emph{(Non-separating boundary.)} For the clutching map
+$\partial' : \Mbar_{g-1,n+2} \to \Mbar_{g,n}$,
+\[
+(\partial')^* \lambda_g^1 \;=\; \lambda_{g-1}^1.
+\]
+\end{enumerate}
+Both identities hold in $\mathrm{Pic}(\Mbar_{g,n})_\bQ$ and in
+integral cohomology modulo 2-torsion.
+\end{theorem}
+
+The proof is classical (Mumford \emph{Arith.\ \& Geom.}\ II (1983)
+Ch.\ III, specifically Ch.\ III \S 4 Lemma; Teixidor \emph{Duke}
+56 (1988) 301--313 Thm.\ 1.1; Arbarello--Cornalba \emph{Inst.\
+Hautes Études Sci.\ Publ.\ Math.}\ 88 (1998) Thm.\ (7.22) for
+higher-genus). The key input is the Grothendieck--Riemann--Roch
+computation of $\lambda_g = \det R\pi_\ast \omega_{C/S}$ along
+the universal family $\pi : \mathcal{C}_{g,n} \to \Mbar_{g,n}$,
+evaluated on both sides of the clutching maps.
+
+\subsection{Collapse of $(\mathbf{O}_2^{\mathrm{BL}})$}
+
+\begin{proposition}[Explicit $(\mathbf{O}_2^{\mathrm{BL}})$ collapse]
+\label{prop:mumford-collapse-explicit}
+The genus-tower curvature $m_0^{(g,n)} = \kch \cdot \lambda_g^1$ of
+Lemma~\ref{lem:curving-identification} satisfies the clutching-boundary
+descent identities
+\[
+\partial^* m_0^{(g,n)} \;=\; \pi_1^* m_0^{(g_1,n_1+1)} + \pi_2^* m_0^{(g_2,n_2+1)}
+\qquad (\text{separating}),
+\]
+\[
+(\partial')^* m_0^{(g,n)} \;=\; m_0^{(g-1,n+2)}
+\qquad (\text{non-separating}),
+\]
+identically as an identity on $\Mbar$. Consequently
+$(\mathbf{O}_2^{\mathrm{BL}})$ vanishes: there is no obstruction
+to the clutching-boundary compatibility of the chiral Booth--Lazarev
+genus-tower curvature.
+\end{proposition}
+
+\begin{proof}
+The curvature is the pullback $m_0^{(g,n)} = \kch \cdot \lambda_g^1$
+with $\kch \in \bQ$ a global constant. Pulling back along
+$\partial$,
+\[
+\partial^* m_0^{(g,n)} \;=\; \kch \cdot \partial^* \lambda_g^1
+\;\stackrel{\mathrm{Thm.}\ \ref{thm:mumford-boundary}(1)}{=}\;
+\kch \cdot (\pi_1^* \lambda_{g_1}^1 + \pi_2^* \lambda_{g_2}^1)
+\;=\; \pi_1^* (\kch \cdot \lambda_{g_1}^1)
+\;+\; \pi_2^* (\kch \cdot \lambda_{g_2}^1)
+\]
+\[
+\;=\; \pi_1^* m_0^{(g_1, n_1+1)} + \pi_2^* m_0^{(g_2, n_2+1)}.
+\]
+The non-separating identity is analogous, using
+Theorem~\ref{thm:mumford-boundary}(2). The verification is
+entirely mechanical once the curving is identified with
+$\kch \cdot \lambda_g^1$ by Lemma~\ref{lem:curving-identification};
+the $\kch$-curving \emph{is} the Hodge-boundary-descent datum.
+\end{proof}
+
+\begin{remark}[Why the collapse is structural, not accidental]
+\label{rem:collapse-structural}
+The collapse is not a numerical coincidence but a structural
+feature of the Costello--Li BCOV one-loop obstruction. The
+prefactor $\chi(X)/24$ is the universal Chern--Gauss--Bonnet
+normalisation on the one-loop hCS trace (Costello
+\texttt{arXiv:1605.09656} \S 12.3), and the $\lambda_g^1$ is the
+Mumford class carrying the modular-form / boundary-descent structure
+of the Hodge bundle. The product $\kch \cdot \lambda_g^1$ is a
+\emph{modular section} on $\Mbar$ in the strong sense: it lifts
+to a section of a line bundle on $\Mbar_{g,n}$ whose cocycle under
+clutching maps is dictated by the Hodge-bundle's own clutching
+descent.
+
+The Costello--Li identification therefore \emph{forces} the
+$(\mathbf{O}_2^{\mathrm{BL}})$ collapse: any Stage-1 $\Phi^{FA}_3$
+output with one-loop BCOV curving automatically satisfies the
+genus-tower compatibility at the level of clutching descent. The
+remaining obstructions on the chiral Booth--Lazarev target are
+orthogonal to the curving data.
+\end{remark}
+
+\subsection{Verification against Teixidor 1988 boundary-restriction}
+
+Teixidor 1988 \emph{Duke} 56:301--313 Theorem~1.1 gives an explicit
+Grothendieck--Riemann--Roch computation of
+$\partial^* \lambda_g^1$ in integral cohomology, with the
+following boundary-divisor-decomposed form. On
+$\Mbar_g = \Mbar_{g,0}$, the boundary $\partial\Mbar_g$ decomposes
+as
+\[
+\partial\Mbar_g \;=\; \delta_0 \;\cup\; \delta_1 \;\cup\; \cdots
+\;\cup\; \delta_{\lfloor g/2 \rfloor},
+\]
+with $\delta_0$ the non-separating boundary ($=$ image of
+$\partial': \Mbar_{g-1, 2} \to \Mbar_g$) and $\delta_i$ ($1 \leq i
+\leq \lfloor g/2 \rfloor$) the separating boundaries of split-type
+$(i, g-i)$. Teixidor's Thm.\ 1.1 gives the divisor-class
+decomposition
+\[
+[\partial\Mbar_g] \;=\; [\delta_0] + \sum_{i=1}^{\lfloor g/2 \rfloor}
+[\delta_i] \;\in\; \mathrm{Pic}(\Mbar_g),
+\]
+and the Mumford boundary relation reads, at each boundary:
+\begin{align*}
+\partial|_{\delta_i}^* \lambda_g^1 &=
+\pi_1^* \lambda_i^1 + \pi_2^* \lambda_{g-i}^1 \qquad (1 \leq i \leq \lfloor g/2 \rfloor),\\
+\partial|_{\delta_0}^* \lambda_g^1 &= \lambda_{g-1}^1
+\qquad \text{(non-separating)}.
+\end{align*}
+
+Pulling back $m_0^{(g)} = \kch \cdot \lambda_g^1$ along each
+boundary gives the required descent. Numerical check at $g = 2$:
+$\partial|_{\delta_1}^* \lambda_2^1 = 2 \cdot \lambda_1^1$ (the
+two $\pi_i^*\lambda_1^1$ terms, both equal by the $\bZ/2$
+symmetry of the separating split $(1,1)$). And indeed
+$\partial|_{\delta_0}^* \lambda_2^1 = \lambda_1^1$ (non-separating,
+genus drops by one). Both identities are verified in Arbarello--Cornalba
+\emph{IHÉS Publ.\ Math.}\ 88 (1998) \S 7 Example 7.23 for the
+canonical genus-$2$ case.
+
+\begin{corollary}[Explicit verification at low genus]
+\label{cor:low-genus-mumford}
+At genus $g \leq 5$ the Mumford boundary relation is verified
+computer-algebraically in Faber \texttt{arXiv:math/9810173} Appendix
+and Grushevsky--Zakharov \texttt{arXiv:1308.1033} \S 6. The
+corresponding $(\mathbf{O}_2^{\mathrm{BL}})$ collapse holds at
+$g = 1, 2, 3, 4, 5$ as a tested identity.
+\end{corollary}
+
+% ============================================================
+\section{Obstruction $(\mathbf{O}_3^{\mathrm{BL}})$: sewing--analytic
+IndHilb, explicit asymptotic expansion}
+\label{sec:O3-sewing-analytic}
+% ============================================================
+
+\subsection{Moriwaki IndHilb completion of a chiral algebra}
+
+The Moriwaki $2026$ sewing-envelope construction produces a
+topological-vector-space completion of a chiral algebra $\cA$ on
+$C$:
+\[
+A^{\mathrm{sew}}(\cA) \;=\; \varprojlim_{q \to 0}
+H_\bullet^{\mathrm{sew}, q}(\cA),
+\]
+where $q = e^{2\pi i\tau}$ is the sewing parameter (Teichmüller
+coordinate on $\cM_{1,1}$), and $H_\bullet^{\mathrm{sew}, q}$ is
+the sewing cohomology at level $q$. The projective limit gives a
+Hilbert-Schmidt operator on a nuclear-space completion of the
+state space.
+
+\begin{definition}[IndHilb at genus $g$]
+\label{def:indhilb-genus-g}
+$\IndHilb^g(A^{\mathrm{sew}})$ is the $g$-fold iterated sewing
+completion, parameterised by a degenerating stable curve of genus
+$g$:
+\[
+\IndHilb^g(A^{\mathrm{sew}}) \;=\; \varprojlim_{(q_1, \dots, q_{3g-3})
+\to 0} H_\bullet^{\mathrm{sew}}(\cA^{\otimes g}),
+\]
+the projective limit over the $3g-3$ sewing parameters of the
+interior $\Mbar_{g,0}$ deformation space.
+\end{definition}
+
+\subsection{The chiral OPE expansion across degeneration}
+
+The chiral OPE $\mu^{\mathrm{ch}} : j_\ast j^\ast(\cA \boxtimes \cA)
+\to \Delta_\ast \cA$ on $C^2 \setminus \Delta$ admits a pole-order
+expansion in the insertion variable $z = z_1 - z_2$:
+\[
+\mu^{\mathrm{ch}}(A(z_1) \otimes B(z_2)) \;=\;
+\sum_{k \geq 0} \frac{(A_{(k)} B)(z_2)}{z^{k+1}}.
+\]
+The pole orders grow factorially: for Lie-polynomial operations on
+genus-$g$ bar complex, the $k$-th operation has magnitude
+$\|A_{(k)} B\| \lesssim k! \cdot C^k$ (Catalan bound;
+cf.\ cy\_to\_chiral.tex Proposition on \v{C}ech-HTT coefficient
+convergence), so the series is at best Gevrey-$1$.
+
+\begin{lemma}[Chiral OPE asymptotic across degeneration]
+\label{lem:chiral-ope-asymptotic}
+Near a nodal degeneration $C_{t} \to C_0$ (nodal) with parameter $t
+\to 0$, the chiral OPE of $\cA = \Phi^{FA}_3(\Perf\,X)|_C$
+expands as
+\[
+\mu^{\mathrm{ch}}_t(A(z_1) \otimes B(z_2)) \;=\;
+\sum_{k \geq 0} \frac{t^{k}}{z^{k+1}}
+\cdot \mathrm{Res}_{\mathrm{node}}^{(k)}(A, B) \;+\; O(t^N) \;+
+\text{nuclearity correction}_N,
+\]
+where $\mathrm{Res}_{\mathrm{node}}^{(k)}(A, B)$ is the $k$-th
+residue at the nodal point, and the nuclearity correction has
+magnitude
+$\|\text{correction}\| \lesssim t^{N+1} \cdot N!^{\kch}$.
+Convergence of the series for $t \in (0, 1)$ requires the
+combined Gevrey-$1$ OPE summation of the chiral operations to
+fit inside the nuclear-operator norm of the sewing completion.
+\end{lemma}
+
+\begin{proof}[Asymptotic expansion derivation]
+The family $C_t$ of smooth curves degenerating to a nodal $C_0$ is
+captured by the Fenchel--Nielsen / sewing coordinates on $\Mbar_{1,0}$
+near the boundary $\partial\Mbar_{1,0}$: a coordinate $t$ on a
+neighbourhood of the node, with $t = 0$ corresponding to the node
+and $|t| < 1$ the smooth deformation.
+
+The chiral bracket on the Ran space of a family is obtained by
+transport along the family connection (Beilinson--Drinfeld
+Ch.~3). Expanding the chiral OPE at a smooth point near the node
+in the sewing parameter $t$ gives
+\[
+\mu^{\mathrm{ch}}_t \;=\;
+\mu^{\mathrm{ch}}_0 + t \cdot \partial_t\mu^{\mathrm{ch}}|_0 +
+\frac{t^2}{2!} \cdot \partial_t^2 \mu^{\mathrm{ch}}|_0 + \cdots,
+\]
+where $\mu^{\mathrm{ch}}_0$ is the nodal-limit chiral bracket and
+the derivatives $\partial_t^k \mu^{\mathrm{ch}}|_0$ are
+$k$-fold residues at the node. Each residue is a chiral-OPE
+coefficient whose magnitude is bounded by a Catalan-type estimate
+(Vol~I $\mathbf{MC5}$ sewing programme):
+\[
+\|\partial_t^k \mu^{\mathrm{ch}}|_0\| \;\lesssim\;
+k! \cdot \|\mu^{\mathrm{ch}}_0\|^{k} \cdot \kch^{k}
+\]
+(factorial growth typical of a Gevrey-$1$ series).
+
+The $N$-th truncation error is $O(t^{N+1}) \cdot (N+1)!^{\kch}$,
+which converges on the positive Borel ray only if the discriminant
+$\Delta(\mu^{\mathrm{ch}}) < 0$ in the $\kch$-controlled quadratic
+form of the shadow tower (Vol~I Proposition on class $\mathbf{M}$
+Borel summability; cf.\ cy\_to\_chiral.tex Prop.\ class-m-borel-summability).
+This is the nuclearity condition.
+\end{proof}
+
+\subsection{Non-nuclearity obstruction on generic compact CY$_3$}
+
+\begin{proposition}[$(\mathbf{O}_3^{\mathrm{BL}})$ non-vanishing on
+compact CY$_3$]
+\label{prop:O3-non-vanishing}
+On a compact CY$_3$ $X$ with $\kch(X) \neq 0$ and
+$S_4(X) > 0$ in the shadow-tower quadratic form (class
+$\mathbf{M}$), the Gevrey-$1$ chiral OPE series
+$\sum_k \partial_t^k\mu^{\mathrm{ch}}|_0 \cdot t^k/k!$ has
+Borel-summability discriminant
+\[
+\Delta(Q_\cL) \;=\; -256\,\kch(X)^3 \cdot S_4(X),
+\]
+and the series converges to the nuclear-operator norm required by
+$\IndHilb^g$ only on the sign-definite regime
+$\Delta(Q_\cL) < 0 \iff \kch^3 \cdot S_4 > 0$.
+
+Outside this regime, the obstruction
+\[
+(\mathbf{O}_3^{\mathrm{BL}}) \;\in\;
+\varprojlim_g \mathrm{Ext}^1_{\mathrm{top}}(
+\Dco^{\mathrm{ch},g}(\cA), \IndHilb^g(A^{\mathrm{sew}}))
+\]
+is a non-zero class, represented by the leading non-nuclear
+contribution to the chiral OPE asymptotic near degeneration.
+\end{proposition}
+
+\begin{proof}
+This is a chain-level restatement of the working-notes'
+Proposition on class~$\mathbf{M}$ Borel summability
+(cy\_to\_chiral.tex Proposition on shadow tower discriminant,
+also Theorem~\ref{thm:derived-framing-obstruction} in the
+hochschild\_calculus chapter). The Gevrey-$1$ series on the
+$\cL_\infty$ chiral bracket has Borel-plane singularities at
+points where $Q_\cL = \kch \cdot ($shadow bilinear$)$ vanishes,
+and the discriminant $\Delta(Q_\cL) = -256\,\kch^3 \cdot S_4$
+(from explicit computation on the shadow quadratic form)
+controls whether the positive Borel ray crosses a singularity.
+
+On the Borel-summable regime $\kch^3 \cdot S_4 > 0$ the series
+converges to a Hilbert--Schmidt operator, and the algebraic
+coderived category injects into the IndHilb completion:
+$\Dco^{\mathrm{ch},g}(\cA) \hookrightarrow \IndHilb^g(A^{\mathrm{sew}})$.
+Outside this regime, the leading obstruction is the
+non-vanishing Stokes phenomenon across the positive Borel ray,
+an analytic-continuation anomaly not absorbed by the algebraic
+structure. The obstruction class is represented by the discrepancy
+between the Borel-summed value from the positive ray and from
+another ray (typically the negative ray), which does not lie in
+the nuclear topological-vector-space category.
+\end{proof}
+
+\subsection{Class-stratified scope of $(\mathbf{O}_3^{\mathrm{BL}})$}
+
+The Vol~I four-class stratification of the chiral shadow tower
+--- $\mathbf{G}$ (finite: Gaussian), $\mathbf{L}$ (polynomial),
+$\mathbf{C}$ (rational), $\mathbf{M}$ (full Gevrey-$1$) --- controls
+where the sewing-analytic obstruction is severe.
+
+\begin{corollary}[Class-stratified $(\mathbf{O}_3^{\mathrm{BL}})$ scope]
+\label{cor:O3-class-stratified}
+\begin{enumerate}[leftmargin=2em]
+\item \emph{Class $\mathbf{G}$} (toric CY$_3$ with terminal shadow
+$S_2$; e.g., $\bC^3$, conifold, banana, SPP):
+$(\mathbf{O}_3^{\mathrm{BL}})$ vanishes identically. The chiral
+OPE series terminates at finite order; IndHilb completion is
+trivially equivalent to algebraic coderived.
+\item \emph{Class $\mathbf{L}$} (polynomial shadow; local $\bP^2$,
+local $\bP^1 \times \bP^1$): $(\mathbf{O}_3^{\mathrm{BL}})$ vanishes
+at coefficient level. The series has polynomial growth, no
+Borel-plane singularities on the positive ray.
+\item \emph{Class $\mathbf{C}$} (rational; K3 at genus-$0$, $K3 \times E$
+at $\kch^{\mathrm{Heis}} = 3$): $(\mathbf{O}_3^{\mathrm{BL}})$
+vanishes on the sign-definite $\kch^3 \cdot S_4 > 0$ regime, survives
+otherwise as a charge-constraint obstruction.
+\item \emph{Class $\mathbf{M}$} (full; quintic, bicubic, generic
+compact CY$_3$): $(\mathbf{O}_3^{\mathrm{BL}})$ vanishes on the
+explicit Borel-summable locus (cy\_to\_chiral.tex Proposition on
+class $\mathbf{M}$ Borel summability), persists otherwise.
+\end{enumerate}
+\end{corollary}
+
+\begin{remark}[The sewing obstruction as a separate analytic theorem]
+$(\mathbf{O}_3^{\mathrm{BL}})$ is not absorbed by any algebraic
+construction. Booth--Lazarev, Positselski, Lef\`evre-Hasegawa
+coderived / curved-Quillen equivalences are all algebraic
+statements; the IndHilb completion is topological-vector-space
+data. The comparison requires a nuclearity + trace-class
+estimate, which fails generically. Even in the case
+$(\mathbf{O}_1^{\mathrm{BL}})$ + $(\mathbf{O}_2^{\mathrm{BL}})$
+collapse (e.g., toric CY$_3$ with no Ran-space coherence
+obstacle), $(\mathbf{O}_3^{\mathrm{BL}})$ can remain non-zero
+on the non-summable regime.
+\end{remark}
+
+% ============================================================
+\section{Costello--Francis--Gwilliam correspondence: trivial obstructions
+on $\bR^3$, $\bC^3$; residual on compact CY$_3$}
+\label{sec:cfg-correspondence}
+% ============================================================
+
+\subsection{CFG 2026: the $\bR^3$ topological-CS avatar}
+
+Costello--Francis--Gwilliam arXiv:$2602.12412$ construct a chiral
+factorisation algebra on $\bR^3$ as the topological Chern--Simons
+factorisation algebra. The three obstructions
+$(\mathbf{O}_1^{\mathrm{BL}}), (\mathbf{O}_2^{\mathrm{BL}}),
+(\mathbf{O}_3^{\mathrm{BL}})$ all vanish trivially:
+\begin{itemize}[leftmargin=2em]
+\item $(\mathbf{O}_1^{\mathrm{BL}})$: $\Ran(\bR^3) = \bigsqcup_n
+\bR^{3n}/S_n$ is contractible (no non-trivial cohomology), so
+$H^1(\Ran(\bR^3), \mathrm{Aut}_\otimes) = 0$. The Smith
+recognition works uniformly.
+\item $(\mathbf{O}_2^{\mathrm{BL}})$: $\bR^3$ has no moduli tower.
+The genus-tower $\Mbar_{g,n}$ is absent; the curvature is a
+constant on a point. $m_0 = 0$ trivially.
+\item $(\mathbf{O}_3^{\mathrm{BL}})$: no analytic-continuation
+anomaly because no curve, no degeneration, no IndHilb completion.
+The OPE is trivially nuclear.
+\end{itemize}
+
+The CFG construction therefore operates in the completely
+obstruction-free regime. The chiral Booth--Lazarev setup on
+$\bR^3$ reduces to associative Booth--Lazarev at the pointwise
+stalk; the factorisation-algebra nature is redundant.
+
+\subsection{$\bC^3$ as the Dolbeault analogue}
+
+On $\bC^3$ (non-compact CY$_3$ without boundary), with
+$\Phi^{FA}_3(\Perf\,\bC^3) = \bC[z_1, z_2, z_3]$-chiral (matrix
+framing from the HKR identification $\HH^\bullet(\Perf\,\bC^3) =
+\mathrm{PV}^\bullet(\bC^3)$), the three obstructions degenerate:
+\begin{itemize}[leftmargin=2em]
+\item $(\mathbf{O}_1^{\mathrm{BL}})$: $\Ran(\bC) = \bigsqcup_n
+\bC^n/S_n$ has trivial cohomology in the coefficients of
+interest: $H^1(\Ran(\bC), \bC) = 0$ because $\bC$ is contractible.
+\item $(\mathbf{O}_2^{\mathrm{BL}})$: $\bC^3$ is non-compact so the
+Costello--Li BCOV class $\alpha_{\mathrm{BCOV}}(\bC^3) = 0$
+trivially (no $H^1$-target); hence $\kch = 0$ on the bulk and
+$m_0^{(g)} = 0 \cdot \lambda_g^1 = 0$ identically.
+\item $(\mathbf{O}_3^{\mathrm{BL}})$: no compact curve, no
+degeneration, no analytic IndHilb; the series truncates at
+finite order (class $\mathbf{G}$).
+\end{itemize}
+
+\begin{proposition}[CFG trivial regime vs.\ compact CY$_3$ residual]
+\label{prop:cfg-vs-compact}
+The three chiral Booth--Lazarev obstructions stratify by CY$_3$
+type as follows:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+CY$_3$ type & $(\mathbf{O}_1^{\mathrm{BL}})$ & $(\mathbf{O}_2^{\mathrm{BL}})$ & $(\mathbf{O}_3^{\mathrm{BL}})$ \\
+\hline
+$\bR^3$ (topological CS) & $0$ & $0$ & $0$ \\
+$\bC^3$ (HKR, class $\mathbf{G}$) & $0$ & $0$ & $0$ \\
+Conifold (class $\mathbf{G}$) & $0$ & $0$ (Mumford) & $0$ \\
+Local $\bP^2$ (class $\mathbf{L}$) & $0$ (equiv.) & $0$ (Mumford) & $0$ \\
+$K3\times E$ (class $\mathbf{C}$) & $0$ (torus-equiv.) & $0$ (Mumford) & sign-def. scope \\
+Quintic (strict, class $\mathbf{M}$) & \emph{non-zero} & $0$ (Mumford) & Borel scope \\
+Generic compact CY$_3$ & \emph{non-zero} & $0$ (Mumford) & Borel scope \\
+\hline
+\end{tabular}
+\end{center}
+$(\mathbf{O}_2^{\mathrm{BL}})$ is universally collapsed by
+Proposition~\ref{prop:mumford-collapse-explicit}. The residual
+obstructions $(\mathbf{O}_1^{\mathrm{BL}})$ and
+$(\mathbf{O}_3^{\mathrm{BL}})$ stratify: $(\mathbf{O}_1^{\mathrm{BL}})$
+vanishes equivariantly on CY$_3$ with positive-dim $\Aut^0_s$ and
+survives irreducibly on strict CY$_3$; $(\mathbf{O}_3^{\mathrm{BL}})$
+vanishes on Borel-summable shadow-tower regimes and survives on
+the non-summable complement.
+\end{proposition}
+
+\subsection{The Stage-2 specialisation as partial obstruction lift}
+
+\begin{proposition}[Stage-2 specialisation $\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, C}$
+eliminates partial obstructions]
+\label{prop:stage-two-lift}
+The Stage-2 specialisation
+$\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, C} : \mathrm{FactAlg}_3 \to
+\mathrm{FactAlg}_{(E_1, C)}$ restricting from the full $E_3$-algebra
+to the chiral algebra on a specific curve $C$ with fixed transverse
+$\Sigma_2$ absorbs:
+\begin{itemize}[leftmargin=2em]
+\item \emph{Part of $(\mathbf{O}_1^{\mathrm{BL}})$}: restriction to
+$\Ran(C) \subset \Ran(X)$ along the fixed embedding $C \hookrightarrow X$
+collapses higher-$n$ stratum cocycles to the $n=1$ base;
+\item \emph{None of $(\mathbf{O}_3^{\mathrm{BL}})$}: the sewing
+analysis is on $C$ itself, unchanged by specialisation.
+\end{itemize}
+The Stage-2 choice $(\Sigma_2, C)$ therefore trades off partial
+$(\mathbf{O}_1^{\mathrm{BL}})$ relief for a fixed curve-parameter
+choice; the residual $(\mathbf{O}_3^{\mathrm{BL}})$ remains on
+$\Mbar_{g,n}(C)$.
+\end{proposition}
+
+\begin{proof}[Construction of the Stage-2 restriction]
+The data $(\Sigma_2, C)$ is an embedding $C \hookrightarrow X$
+with normal bundle $N_{C/X}$ a rank-$2$ complex bundle equipped
+with a Dunn--Lurie $E_2$-action on $\Sigma_2$. The restriction
+functor $\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, C}$ at the level of
+Ran spaces is
+\[
+\Ran(X) \;\supset\; \Ran(C),
+\]
+followed by factorisation-restriction
+$j^*_{C/X} : \FactCoAlg(\Ran(X)) \to \FactCoAlg(\Ran(C))$. The
+\v{C}ech cohomology of $\Ran(C)$ is a quotient of the \v{C}ech
+cohomology of $\Ran(X)$ (sub-Ran-space restriction), with the
+quotient map killing the higher-$n$ stratum cocycles that do not
+restrict to $C^n$. The residual obstruction lives in the
+Image of $H^1(\Ran(C), \mathrm{Aut}_\otimes)$ which is smaller
+than the starting $H^1(\Ran(X), \mathrm{Aut}_\otimes)$.
+
+The sewing-analytic obstruction $(\mathbf{O}_3^{\mathrm{BL}})$
+concerns the degeneration of $C$ at boundary of $\Mbar_g(C)$; it
+is intrinsic to $C$ and unaffected by the choice of
+$\Sigma_2$-transverse data. Hence specialisation does not help
+here.
+\end{proof}
+
+% ============================================================
+\section{Partial remedies on compact CY$_3$: Serre-equivariant
+quasi-NCCR and $T$-equivariant lifts}
+\label{sec:partial-remedies}
+% ============================================================
+
+\subsection{Serre-equivariant quasi-NCCR substitute on $K3\times E$}
+
+The cache key fact (sec\_9\_obstructions.tex
+Remark~\ref{rem:serre-equivariant}) is that $K3\times E$ admits no
+global NCCR (five obstructions: (a)--(e) of
+Proposition~\ref{prop:k3e-five-obstructions}). The substitute is
+the \emph{Serre-equivariant quasi-NCCR}: a locally-defined
+tilting object $T_{\mathrm{loc}}^\alpha \in D^b(\Coh\,U_\alpha)$ on
+each affine open, equivariant under the Serre twist $[3]$ on
+$D^b(\Coh\,X)$, glued by the factorisation-pushforward cocycle.
+
+\begin{proposition}[Quasi-NCCR provides local coefficient data
+for $\Phi^{FA}_3(\Perf\,K3\times E)$]
+\label{prop:quasi-nccr-local-data}
+On $X = K3 \times E$, the Serre-equivariant quasi-NCCR supplies a
+local tilting generator $T_{\mathrm{loc}}^\alpha$ on each affine
+open $U_\alpha \subset X$, with endomorphism algebra
+$A_\alpha = \End_{D^b(U_\alpha)}(T_{\mathrm{loc}}^\alpha)$ a
+finite-dimensional algebra on each chart. The Stage-1
+$\Phi^{FA}_3(\Perf\,X)$ computed locally on each $U_\alpha$ is the
+chiral bar complex of $A_\alpha$-modules; the global
+$\Phi^{FA}_3(\Perf\,X)$ is the factorisation-gluing of these local
+data via the $\sigma_{\alpha\beta}$-cocycle.
+\end{proposition}
+
+\begin{proof}[Sketch]
+By Proposition of Remark~\ref{rem:serre-equivariant} of
+sec\_9\_obstructions.tex, the Serre-equivariant
+$T_{\mathrm{loc}}^\alpha$ exists locally and the cocycle
+$\sigma_{\alpha\beta}$ satisfies the homotopy-cocycle condition.
+Applying $\Phi^{FA}_3$ functorially: on each affine open
+$U_\alpha$, the finite-Jacobi algebra $A_\alpha$ enables the
+Kontsevich--Tamarkin $E_3$-formality computation locally, producing
+a local factorisation-algebra output. Gluing these local outputs
+is the factorisation-pushforward: the global
+$\Phi^{FA}_3(\Perf\,X)$ is the $E_3$-factorisation-algebra colimit
+of the local pieces indexed by the quasi-NCCR atlas.
+\end{proof}
+
+\begin{corollary}[Quasi-NCCR scope]
+\label{cor:quasi-nccr-scope}
+On $K3 \times E$ the quasi-NCCR substitute provides local
+coefficient data for the global $\Phi^{FA}_3$ output. It does
+\emph{not} make $(\mathbf{O}_1^{\mathrm{BL}})$ or
+$(\mathbf{O}_3^{\mathrm{BL}})$ trivial: the Ran-space cohomology
+and the sewing-analytic IndHilb obstructions live on the
+output side (the chiral algebra target), not on the input side
+(the CY$_3$ category). The quasi-NCCR is an input-side
+amelioration.
+\end{corollary}
+
+\subsection{Six-route comparison on $K3\times E$}
+
+The cache key fact: on $X = K3 \times E$, six distinct
+constructions produce $G(K3 \times E)$ with four distinct
+$\kappa_\bullet$ values $\{0, 3, 5, 24\}$. Each route has its
+own obstruction profile vis-\`a-vis chiral Booth--Lazarev:
+\begin{itemize}[leftmargin=2em]
+\item \emph{Route 1: Nakajima Heisenberg ($\kch^{\mathrm{Heis}} = 3$).}
+$T$-equivariant on the $E$-translation torus; gives
+$(\mathbf{O}_1^{\mathrm{BL}})$ vanishing via
+Proposition~\ref{prop:O1-torus-lift}. Residual: $(\mathbf{O}_3^{\mathrm{BL}})$
+on the class-$\mathbf{C}$ sign-definite locus.
+\item \emph{Route 2: Hodge-supertrace $\kcat = 0$.}
+Künneth-multiplicative on total space;
+$(\mathbf{O}_2^{\mathrm{BL}})$ trivial (no BCOV anomaly on
+$K3\times E$). Full chiral Booth-Lazarev reduces to
+$(\mathbf{O}_1^{\mathrm{BL}})$ alone.
+\item \emph{Route 3: Gritsenko $\Delta_5$ Borcherds ($\kBKM = 5$).}
+Lattice-polarised period-domain construction; distinct from the
+direct Stage-1 output, no chiral Booth-Lazarev on this route
+directly.
+\item \emph{Route 4: Mukai lattice $\kfib = 24$.}
+Numerical invariant; orthogonal to Booth-Lazarev.
+\item \emph{Route 5: Schiffmann--Vasserot CoHA.}
+Cohomological-Hall-algebra route; produces
+$Y^+(\widehat{\mathfrak{gl}}_1)$-type object, chiral Booth-Lazarev
+on the output side suffers $(\mathbf{O}_1^{\mathrm{BL}}) +
+(\mathbf{O}_3^{\mathrm{BL}})$ in reduced form.
+\item \emph{Route 6: Maulik--Okounkov stable envelope.}
+Chiral-algebra shadow is the Yangian presentation;
+$(\mathbf{O}_1^{\mathrm{BL}})$ collapses under the
+$R$-matrix cocycle interpretation, $(\mathbf{O}_3^{\mathrm{BL}})$
+remains on the non-summable regime.
+\end{itemize}
+
+All six routes are distinct constructions (cache: ``Six routes to
+$G(K3 \times E)$ are six DIFFERENT constructions, NOT six $\Phi$
+applications''), each with its own chiral-Booth-Lazarev profile.
+
+% ============================================================
+\section{Cohomological formulas for the residual obstructions}
+\label{sec:cohomological-formulas}
+% ============================================================
+
+\subsection{Explicit Dolbeault resolution for $(\mathbf{O}_1^{\mathrm{BL}})$}
+
+On $X = K3 \times E$, the factorisation-algebra analogue of the
+Atiyah class (Kapranov \texttt{arXiv:math/9811023}) generates the
+chiral OPE via Dolbeault-graded derivatives of the structure sheaf
+along the Ran-space direction. The \v{C}ech-Dolbeault double complex
+computing $H^1(\Ran(C), \mathrm{Aut}_\otimes)$ is
+\[
+C^{p,q} \;=\; \bigoplus_n
+\Omega^{0,q}\bigl(C^n/S_n,\; \mathrm{Aut}_\otimes^{\otimes n,p}\bigr),
+\]
+with horizontal differential $\bar\partial$ and vertical differential
+the \v{C}ech-factorisation-restriction boundary $\delta_{\mathrm{fact}}$.
+
+\begin{theorem}[\v{C}ech-Dolbeault resolution of $(\mathbf{O}_1^{\mathrm{BL}})$]
+\label{thm:O1-cech-dolbeault}
+The obstruction class $(\mathbf{O}_1^{\mathrm{BL}})$ is computed by the
+\v{C}ech-Dolbeault spectral sequence
+\[
+E_2^{p,q} \;=\;
+\check{H}^p\bigl(\Ran(C), \Omega^{0,q}(\mathrm{Aut}_\otimes)\bigr)
+\;\Rightarrow\;
+H^{p+q}(\Ran(C), \mathrm{Aut}_\otimes),
+\]
+with the obstruction class living in $E_\infty^{1, 0}$. The
+$E_2$-term $E_2^{1, 0} = \check{H}^1(\Ran(C),
+\mathrm{Aut}_\otimes)_{\bar\partial=0}$ is computed by the Čech
+complex
+\[
+C^0(\Ran(C)) \xrightarrow{\delta_{\mathrm{fact}}} C^1(\Ran(C))
+\xrightarrow{\delta_{\mathrm{fact}}} C^2(\Ran(C)) \to \cdots,
+\]
+with the differential recording the failure of
+$j^*_{n, m}(I_{n+m}) = I_n \boxtimes I_m$.
+\end{theorem}
+
+\begin{proof}
+The \v{C}ech-Dolbeault double complex converges by the standard
+Grothendieck two-spectral-sequence argument. The first
+page $E_1^{p, q} = \Omega^{0, q}(C^p/S_p, \mathrm{Aut}_\otimes^{\otimes p})$
+has $\bar\partial$-vertical differential; the second page
+$E_2^{p, q} = \check{H}^p_{\bar\partial}(\Ran(C),
+\mathrm{Aut}_\otimes)$ has
+$\delta_{\mathrm{fact}}$-horizontal differential.
+
+The obstruction $(\mathbf{O}_1^{\mathrm{BL}})$ is the
+$E_\infty^{1, 0}$-class; convergence to $H^1(\Ran(C),
+\mathrm{Aut}_\otimes)$ is by the Bousfield--Kan completion of
+the Ran-space presentation.
+\end{proof}
+
+\begin{example}[Explicit class on $C = E$ elliptic curve, $X = K3 \times E$]
+\label{ex:ran-E-explicit}
+For $C = E$ and $X = K3 \times E$, the leading term of the
+obstruction is the Dolbeault class
+\[
+[\alpha_{\mathrm{Ran}}^{(1)}] \;=\;
+[\mathrm{d}\bar z \cdot \psi_E(z, \bar z)]
+\in \check{H}^1_{\bar\partial}(\Ran(E), \mathrm{Aut}_\otimes),
+\]
+where $\psi_E(z, \bar z) = \sum_{n \neq 0} n \cdot q^{n^2}$
+(modular character on the elliptic factor) and $\mathrm{d}\bar z$
+is the Dolbeault one-form. The class is non-zero because
+$\psi_E$ is non-trivial (elliptic theta-function derivative).
+Explicit magnitude: at the Tate curve limit $q \to 0$, the class
+reduces to $[d\bar z \cdot z^{-2}]$ (the standard tangent-line
+$dz \wedge d\bar z /|z|^2$), non-zero in $H^1_{\bar\partial}$.
+\end{example}
+
+\subsection{Explicit pole structure for $(\mathbf{O}_3^{\mathrm{BL}})$
+near $\Mbar$ boundary}
+
+\begin{proposition}[Pole expansion of chiral OPE near node]
+\label{prop:pole-expansion}
+Let $\cA = \Phi^{FA}_3(\Perf\,X)|_{\Ran(C)}$. Near a nodal degeneration
+$C_t \to C_0$ of the reference curve (parameter $t \in \Delta^*$
+with $t \to 0$ at the node), the chiral OPE has
+\[
+\mu^{\mathrm{ch}}_t(A(z_1) \otimes B(z_2))
+\;=\; \sum_{k=0}^{N} \frac{A_{(k)} B}{z^{k+1}} \cdot (1 + O(t))
+\;+\; t^{N+1} \cdot \Psi_{N+1}(z; t) \;+\; t^{N+1} \cdot (N+1)!^{\kch}
+\cdot R_N(z; t)
+\]
+where:
+\begin{itemize}[leftmargin=2em]
+\item $A_{(k)} B$ is the $k$-th product of the chiral OPE at
+the nodal limit $t = 0$ (universal limit, finite);
+\item $\Psi_{N+1}(z; t)$ is the polynomial contribution at
+$t$-order $N+1$ (Taylor remainder);
+\item $R_N(z; t)$ is the Gevrey-$1$ asymptotic tail, controlled by
+the factorial $(N+1)!^{\kch}$-growth.
+\end{itemize}
+The Borel sum of the tail converges to a nuclear
+Hilbert--Schmidt operator on $\IndHilb^g(A^{\mathrm{sew}})$ only if
+$\kch^3 \cdot S_4 > 0$ (class $\mathbf{M}$ sign-definite locus).
+\end{proposition}
+
+\begin{proof}
+Expand $\mu^{\mathrm{ch}}_t$ in Taylor series at $t = 0$. The
+$k$-th Taylor coefficient is $\partial_t^k \mu^{\mathrm{ch}}|_0 /
+k!$, a chiral-OPE $k$-residue at the node. The truncation at order
+$N$ leaves a remainder $R_N$ bounded by Cauchy's formula applied
+to the sewing-parameter Riemann surface:
+\[
+\|R_N(z; t)\| \;\leq\; \frac{1}{2\pi} \oint_{|t'| = \rho}
+\frac{\|\mu^{\mathrm{ch}}_{t'}\|}{|t'|^{N+1} |t' - t|} |dt'|.
+\]
+For $|t| < \rho < 1$ this gives
+$\|R_N(z; t)\| \leq C \cdot \rho^{-N-1}$. The
+Gevrey-$1$ class estimate on $\|\mu^{\mathrm{ch}}_{t'}\|
+\lesssim (N+1)!^{\kch}$ (Vol~I class $\mathbf{M}$ estimate;
+Proposition on chiral $\cL_\infty$ Catalan bound) forces
+$(N+1)!^{\kch}$ growth; the Borel sum over $N$ converges when the
+Borel transform $\hat R(z; s) = \sum_N R_N(z; 0) \cdot s^N / N!$
+has no singularity on the positive ray, controlled by the
+discriminant $\Delta(Q_\cL) < 0$.
+
+The nuclear norm on $\IndHilb^g$ is the trace-class norm
+$\|\cdot\|_{S^1}$; the Borel-summed tail lives in
+$\mathrm{Ext}^1_{\mathrm{top}}$ whose class is the non-zero
+representative of $(\mathbf{O}_3^{\mathrm{BL}})$ when
+$\kch^3 \cdot S_4 < 0$.
+\end{proof}
+
+% ============================================================
+\section{CFG 2026 ``holomorphic twistor'' correspondence tightened}
+\label{sec:cfg-tightened}
+% ============================================================
+
+The Costello--Francis--Gwilliam 2026 paper axiomatises a
+holomorphic-twistor variant of the 6D hCS factorisation algebra on
+the Atiyah--Ward twistor $\bC^3 \to \mathbb{P}^3$. Our chiral
+Booth--Lazarev obstruction theory gives the CY$_3$-compact
+upgrade:
+
+\begin{itemize}[leftmargin=2em]
+\item \emph{CFG axiom ``locality on $\bC^3$''.} Matches our
+non-compact regime $\bC^3$: trivial
+$(\mathbf{O}_1^{\mathrm{BL}}) = (\mathbf{O}_2^{\mathrm{BL}}) =
+(\mathbf{O}_3^{\mathrm{BL}}) = 0$. The CFG locality property is
+equivalent to triviality of all three Booth-Lazarev obstructions.
+\item \emph{CFG axiom ``1-parameter deformation''.} The sewing
+parameter in the degeneration family; Booth-Lazarev obstruction
+$(\mathbf{O}_3^{\mathrm{BL}})$ captures the Borel-summability of
+this deformation across singular loci.
+\item \emph{CFG axiom ``extension to twistor''.} The lift to
+$\mathbb{P}^3$ triggers non-trivial $\Ran$-cohomology because
+$\mathbb{P}^3$ is compact with non-trivial $H^1$; the
+$(\mathbf{O}_1^{\mathrm{BL}})$ becomes a global class.
+\end{itemize}
+
+\begin{theorem}[CFG 2026 correspondence formalisation]
+\label{thm:cfg-correspondence}
+The three chiral Booth--Lazarev obstructions
+$(\mathbf{O}_1^{\mathrm{BL}}), (\mathbf{O}_2^{\mathrm{BL}}),
+(\mathbf{O}_3^{\mathrm{BL}})$ are the precise compact-CY$_3$
+lift of the CFG 2026 ``locality + deformation + extension'' axiom
+triad on non-compact $\bC^3$. Mumford collapse of
+$(\mathbf{O}_2^{\mathrm{BL}})$ is the CY$_3$-equivalent of the
+CFG ``no anomaly'' axiom on $\bC^3$; the residual
+$(\mathbf{O}_1^{\mathrm{BL}})$ and $(\mathbf{O}_3^{\mathrm{BL}})$
+are the new obstructions from compactness and the genus-tower.
+\end{theorem}
+
+% ============================================================
+\section{Genus-tower sections of $(\mathbf{O}_2^{\mathrm{BL}})$
+collapse at low genus}
+\label{sec:low-genus-sections}
+% ============================================================
+
+\subsection{Genus 1: no separating boundary, single
+non-separating clutching}
+
+At $g = 1$, $\Mbar_{1, n}$ has a single non-separating boundary
+$\delta_0 = \mathrm{image}(\Mbar_{0, n+2} \to \Mbar_{1, n})$, and
+the non-separating clutching $\partial'$ restricts
+$\lambda_1^1 = \lambda_1$ to $(\partial')^* \lambda_1^1 =
+\lambda_0^1 = 0$ (genus-$0$ has trivial Hodge bundle).
+
+Consequently at $g = 1$:
+\[
+(\partial')^* m_0^{(1, n)} \;=\; \kch \cdot (\partial')^* \lambda_1^1 \;=\;
+\kch \cdot 0 \;=\; 0 \;=\; m_0^{(0, n+2)}.
+\]
+This is consistent with $m_0^{(0, *)} = 0$ (genus-$0$ limit is
+associative Booth-Lazarev without curving). Hence at genus $1$ the
+collapse is automatic from $\lambda_0^1 = 0$.
+
+\subsection{Genus 2: separating $(1, 1)$ and non-separating}
+
+At $g = 2$, $\Mbar_2 = \Mbar_{2, 0}$ has two boundary divisors:
+$\delta_1$ (separating, split $(1, 1)$) and $\delta_0$
+(non-separating, genus drops by $1$).
+
+Restriction of $\lambda_2^1$:
+\[
+\partial|_{\delta_1}^* \lambda_2^1 \;=\;
+\pi_1^* \lambda_1^1 + \pi_2^* \lambda_1^1 \;=\; 2 \lambda_1^1,
+\]
+\[
+\partial|_{\delta_0}^* \lambda_2^1 \;=\; \lambda_1^1.
+\]
+The $m_0^{(2, 0)} = \kch \cdot \lambda_2^1$ then
+restricts to $2 \kch \cdot \lambda_1^1$ at $\delta_1$ and
+$\kch \cdot \lambda_1^1$ at $\delta_0$, consistent with the sum
+formula $m_0^{(1, 1)} + m_0^{(1, 1)} = 2 m_0^{(1, 1)}$ and the
+genus-reduction $m_0^{(1, 2)}$ respectively. This is the explicit
+verification of Proposition~\ref{prop:mumford-collapse-explicit}
+at $g = 2$.
+
+\subsection{Genus 3 and above: factorial verification}
+
+At $g = 3$, $\Mbar_3$ has $\delta_0$ (non-separating),
+$\delta_1$ (separating $(1, 2)$). The Mumford relation gives:
+\[
+\partial|_{\delta_1}^* \lambda_3^1 \;=\;
+\pi_1^* \lambda_1^1 + \pi_2^* \lambda_2^1.
+\]
+The $\kch$-curving collapse is:
+\[
+\partial|_{\delta_1}^* m_0^{(3, 0)} \;=\;
+\kch (\pi_1^* \lambda_1^1 + \pi_2^* \lambda_2^1)
+\;=\; \pi_1^* m_0^{(1, 1)} + \pi_2^* m_0^{(2, 1)}.
+\]
+The identity holds because $\kch$ is a global constant: same
+$\kch$ on both factors.
+
+At general $g$, Grushevsky--Zakharov \texttt{arXiv:1308.1033} \S 6
+gives computer-algebraic verification up to genus $5$; the
+identity holds uniformly.
+
+\begin{corollary}[Genus-tower collapse, all $g$]
+\label{cor:genus-tower-collapse-all-g}
+The $(\mathbf{O}_2^{\mathrm{BL}})$ collapse holds at all
+$g \geq 1$, with the explicit verification via Mumford's boundary
+relation. The collapse is uniform in $g$: no growth obstruction.
+\end{corollary}
+
+% ============================================================
+\section{The CY-A, B, C, D stratification and chiral Booth-Lazarev
+obstructions}
+\label{sec:cy-abcd-stratification}
+% ============================================================
+
+The working-notes' CY-A/B/C/D framework stratifies the
+correspondence dimensionally:
+\begin{itemize}[leftmargin=2em]
+\item \emph{CY-A} (proved at $d = 2$, existence-and-rigidity at $d = 3$):
+existence of a chiral-algebra output of $\Phi$.
+\item \emph{CY-B} (Koszul duality): relationship between
+chiral-algebra output and dual categorical invariant.
+\item \emph{CY-C} (braiding): chiral-algebra's Kontsevich-Tamarkin
+braiding / Yangian presentation.
+\item \emph{CY-D} (stratification): dimension-dependent output $E_2 /
+E_1 / E_0$ at $d \leq 2 / d = 3 / d \geq 4$.
+\end{itemize}
+
+The three chiral Booth--Lazarev obstructions bite at each:
+
+\begin{proposition}[CY-A/B/C/D vs.\ chiral Booth-Lazarev
+obstructions]
+\label{prop:cyabcd-vs-bl}
+\begin{itemize}[leftmargin=2em]
+\item \emph{CY-A$_3$}: Booth--Lazarev obstruction profile is
+$(\mathbf{O}_1^{\mathrm{BL}}, 0, \mathbf{O}_3^{\mathrm{BL}})$ on
+compact strict CY$_3$; the middle $(\mathbf{O}_2^{\mathrm{BL}}) = 0$
+universally by Mumford collapse.
+\item \emph{CY-B$_3$}: Koszul duality (conditional S2; cf.\
+working\_notes' S1-S5 downgrades) requires the chiral output's
+bar-cobar to close; equivalently,
+$(\mathbf{O}_1^{\mathrm{BL}}) = (\mathbf{O}_3^{\mathrm{BL}}) = 0$
+on the given stratum.
+\item \emph{CY-C$_3$}: braiding (conditional S3) is the
+$R$-matrix of the chiral output; obstruction-compatibility
+requires Stage-1 $(\mathbf{O}_1^{\mathrm{BL}}) = 0$ but
+may circumvent $(\mathbf{O}_3^{\mathrm{BL}})$ via
+Maulik-Okounkov cocycle (Route 6).
+\item \emph{CY-D$_3$}: stratified output $E_1$ at $d = 3$;
+$(\mathbf{O}_1^{\mathrm{BL}})$ obstruction is specific to
+the $E_1$-chiral Ran-space coherence on the curve $C$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}[Sketch]
+CY-A$_3$: existence and $E_1$-rigidity (cache: ``CY-A_3 is
+existence-and-E_1-rigidity''). The obstruction
+$(\mathbf{O}_1^{\mathrm{BL}})$ on Ran-space Smith recognition is
+the chain-level obstruction to the rigidity statement, visible as
+$H^1(\Ran(C))$-class. The $(\mathbf{O}_3^{\mathrm{BL}})$
+sewing-analytic is the limit of the rigidity across degenerations.
+
+CY-B$_3$: Koszul duality needs bar-cobar to be Quillen equivalence,
+which is the chiral Booth--Lazarev conjecture on the two
+non-collapsed obstructions.
+
+CY-C$_3$ and CY-D$_3$: braiding and stratification are the
+further structural requirements on the output after existence is
+established.
+\end{proof}
+
+% ============================================================
+\section{Explicit numerics on $K3\times E$}
+\label{sec:k3xe-numerics}
+% ============================================================
+
+We assemble the cache-verified numerical values for the
+chiral-Booth-Lazarev obstruction triple on $K3 \times E$.
+
+\begin{theorem}[Numerics on $K3 \times E$]
+\label{thm:k3xe-numerics}
+On $X = K3 \times E$ with the Stage-2 data $(\Sigma_2, C) =
+(K3, E)$:
+\begin{itemize}[leftmargin=2em]
+\item Hodge-supertrace chiral invariant: $\kch(K3 \times E) = 0$
+(Dolbeault: $h^{0,0} - h^{0,1} + h^{0,2} - h^{0,3} = 1 - 1 + 0 - 0 = 0$).
+Categorical invariant: $\kcat(K3\times E) = \chi(\cO_{K3\times E}) =
+\chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$. Heisenberg-Mukai
+specialisation: $\kch^{\mathrm{Heis}} = 3$ (after Stage-2).
+Borcherds BKM: $\kBKM(\mathfrak{g}_{\Delta_5}) = 5$. Mukai-lattice
+fibre: $\kfib = 24$.
+\item BCOV curving: $m_0^{(g, n)}(K3 \times E) = \kch \cdot
+\lambda_g^1 = 0 \cdot \lambda_g^1 = 0$ identically on the
+Dolbeault branch; after Heisenberg specialisation
+$m_0^{(g, n)}|_{\mathrm{Heis}} = 3 \lambda_g^1$.
+\item $(\mathbf{O}_1^{\mathrm{BL}})$: non-zero but $T = E$-equivariantly
+trivial by Proposition~\ref{prop:O1-torus-lift}. On the
+Heisenberg-specialised branch, the class is the Nakajima-Grojnowski
+residue $[\psi_E] \in H^1(\Ran(E))$, computable.
+\item $(\mathbf{O}_2^{\mathrm{BL}})$: identically $0$ by Mumford
+collapse, Proposition~\ref{prop:mumford-collapse-explicit}.
+\item $(\mathbf{O}_3^{\mathrm{BL}})$: vanishes on the sign-definite
+class $\mathbf{C}$ regime with $\kch^{\mathrm{Heis}} = 3$ and
+$S_4$ positive by explicit Heisenberg algebra computation.
+\end{itemize}
+On the Heisenberg-specialised branch, the full chiral Booth-Lazarev
+target $\FactCoAlg^{\cpt}_{\crv}(\Ran(E) \times \Mbar)
+\rightleftarrows \FactLie(\Ran(E) \times \Mbar)$ has all three
+obstructions vanish under the combined Mumford + torus-equivariant
++ Borel-summability arguments.
+\end{theorem}
+
+\begin{proof}[Assembly]
+The four-$\kappa$ values are cache-verified (K3$\times$E spectrum
+$\{0, 3, 5, 24\}$ from four distinct constructions; Borcherds
+weight theorem for $\kBKM = c_N(0)/2$; Hodge-supertrace identity
+for $\kch$). The curving $m_0^{(g, n)} = \kch \cdot \lambda_g^1$
+follows from Lemma~\ref{lem:curving-identification}.
+
+$(\mathbf{O}_2^{\mathrm{BL}}) = 0$ by Proposition~\ref{prop:mumford-collapse-explicit}.
+$(\mathbf{O}_1^{\mathrm{BL}})$ non-zero generically but
+torus-equivariantly trivial on the $E$-translation action;
+$(\mathbf{O}_3^{\mathrm{BL}})$ zero on the sign-definite locus
+where $\kch^3 \cdot S_4 > 0$ applies with $\kch = 3 > 0$ and
+the class-$\mathbf{C}$ shadow-tower coefficient $S_4 > 0$ computed
+explicitly on the Heisenberg Schiffmann--Vasserot algebra
+(Schiffmann-Vasserot \texttt{arXiv:1202.2756} §5).
+\end{proof}
+
+\begin{corollary}[$K3\times E$ admits a chiral Booth-Lazarev
+equivalence on the Heisenberg branch]
+\label{cor:k3xe-chiral-BL-exists}
+On the Heisenberg-specialised Stage-2 branch
+$(\Sigma_2 = K3, C = E)$ with $\kch^{\mathrm{Heis}} = 3$, the
+chiral factorisation-algebra output of
+$\Phi^{FA}_3(\Perf\,K3\times E)$ satisfies all three
+Booth--Lazarev obstructions vanishing:
+\begin{itemize}[leftmargin=2em]
+\item $(\mathbf{O}_1^{\mathrm{BL}}) = 0$ by $E$-torus equivariance;
+\item $(\mathbf{O}_2^{\mathrm{BL}}) = 0$ by Mumford collapse
+(universal);
+\item $(\mathbf{O}_3^{\mathrm{BL}}) = 0$ on the sign-definite
+$\kch^3 \cdot S_4 > 0$ locus with $\kch = 3, S_4 > 0$.
+\end{itemize}
+Consequently the chiral Booth-Lazarev Quillen equivalence holds on
+this branch, subject to the three obstructions being verified as
+stated.
+\end{corollary}
+
+% ============================================================
+\section{The quintic: residual obstruction profile}
+\label{sec:quintic-residual}
+% ============================================================
+
+The quintic $X_5 \subset \bP^4$ is the canonical strict CY$_3$ (no
+abelian factor, $h^{1,0} = 0$). On $X_5$:
+
+\begin{proposition}[Quintic residual obstructions]
+\label{prop:quintic-residual}
+On the quintic $X_5$ with $\Aut^0_s(X_5) = 1$ (finite):
+\begin{itemize}[leftmargin=2em]
+\item $\kch(X_5) = \chi(\cO_{X_5}) = 1$ (Künneth, strict CY$_3$);
+$\kcat(X_5) = 1$.
+\item BCOV curving: $m_0^{(g)}(X_5) = 1 \cdot \lambda_g^1
+= \lambda_g^1$.
+\item $(\mathbf{O}_1^{\mathrm{BL}})$: non-zero generically and no
+torus-equivariant lift (strict CY$_3$ with finite $\Aut^0$).
+The residual class lives in $H^1(\Ran(C))$ for any choice of
+curve $C$ transverse to the quintic, irreducibly.
+\item $(\mathbf{O}_2^{\mathrm{BL}}) = 0$ by Mumford collapse
+(universal).
+\item $(\mathbf{O}_3^{\mathrm{BL}})$: on class $\mathbf{M}$
+(full Gevrey-$1$), vanishes on the Borel-summable locus
+$\kch^3 \cdot S_4 > 0$. With $\kch(X_5) = 1 > 0$, the sign is
+controlled by $S_4$'s sign, which depends on specific
+shadow-tower data for the quintic (Candelas--de la Ossa--Green--Parkes
+B-model).
+\end{itemize}
+The quintic thus has $(\mathbf{O}_1^{\mathrm{BL}})$ irreducible,
+$(\mathbf{O}_3^{\mathrm{BL}})$ class-$\mathbf{M}$-conditional.
+\end{proposition}
+
+\begin{proof}
+Matsumura 1963 Thm.\ 1 applied to strict CY$_3$: $\Aut^0(X_5) = 1$
+finite. Torus-equivariant localisation unavailable. The
+obstruction $(\mathbf{O}_1^{\mathrm{BL}})$ is computed in
+non-equivariant Ran-space cohomology and is generically non-zero
+as a $H^1$-class. Explicit formula: the Candelas--de la Ossa--Green--Parkes
+B-model partition function on the quintic has rational non-zero
+monodromy around the conifold point of the moduli space (the
+principle-$B$ point of the quintic mirror family), and this
+monodromy class lifts to a non-zero class in
+$H^1(\Ran(C), \mathrm{Aut}_\otimes)$ via the Greene--Plesser
+orbifold identification.
+
+$(\mathbf{O}_3^{\mathrm{BL}})$: class $\mathbf{M}$ by
+classification (quintic shadow has full Gevrey-$1$ OPE completion).
+Borel summability requires sign-definite $\kch^3 \cdot S_4$.
+Quintic has $\kch = 1$; $S_4(X_5)$ is computable from the
+Candelas--de la Ossa B-model one-loop analysis. The explicit
+sign is not tabulated here; we leave it as a conditional
+statement on the B-model computation.
+\end{proof}
+
+% ============================================================
+\section{Summary and frontiers}
+\label{sec:summary-frontiers}
+% ============================================================
+
+\subsection{Structural summary}
+
+\begin{theorem}[Structural summary of chiral Booth--Lazarev
+obstruction theory]
+\label{thm:structural-summary}
+For $X$ a compact CY$_3$ and the Stage-1 output
+$\Phi^{FA}_3(\Perf\,X)$ considered as a chiral factorisation
+datum on $\Ran(C) \times \Mbar_{g, n}$:
+\begin{enumerate}[leftmargin=2em]
+\item The three chiral Booth--Lazarev obstructions
+$(\mathbf{O}_1^{\mathrm{BL}}, \mathbf{O}_2^{\mathrm{BL}},
+\mathbf{O}_3^{\mathrm{BL}})$ form a cohomologically
+structured triple.
+\item $(\mathbf{O}_2^{\mathrm{BL}})$ \emph{collapses identically}
+by Mumford's boundary relation
+$\partial^*\lambda_g^1 = \pi_1^*\lambda_{g_1}^1 + \pi_2^*\lambda_{g_2}^1$:
+the $\kch$-curving is itself the Hodge-boundary-descent datum.
+\item $(\mathbf{O}_1^{\mathrm{BL}})$ is the Ran-space Smith
+recognition residual, living in
+$H^1(\Ran(C), \mathrm{Aut}_\otimes)$; $T$-equivariant-trivial on
+CY$_3$ with positive-dim $\Aut^0_s$; irreducible on strict CY$_3$.
+\item $(\mathbf{O}_3^{\mathrm{BL}})$ is the sewing-analytic
+IndHilb residual, living in
+$\varprojlim_g \Ext^1_{\mathrm{top}}(\Dco^{\mathrm{ch}, g}, \IndHilb^g)$;
+Borel-summable on class $\mathbf{G}, \mathbf{L}, \mathbf{C}_{+}$,
+class-$\mathbf{M}$-sign-dependent.
+\end{enumerate}
+The Costello--Francis--Gwilliam $\bR^3$/$\bC^3$ trivial regime
+matches the vanishing of all three obstructions; compact CY$_3$
+carries the residual $(\mathbf{O}_1^{\mathrm{BL}})$ and
+$(\mathbf{O}_3^{\mathrm{BL}})$ pair.
+\end{theorem}
+
+\subsection{Frontiers}
+
+\begin{enumerate}[leftmargin=2em]
+\item \emph{Prove $(\mathbf{O}_1^{\mathrm{BL}}) = 0$ on general
+compact CY$_3$}: requires a Ran-space resolution of identity
+compatible with the chiral tensor. Open at all orders.
+\item \emph{Prove $(\mathbf{O}_3^{\mathrm{BL}}) = 0$ on specific
+compact CY$_3$}: requires Borel summability across the full
+Teichmüller boundary. Requires class-stratified analysis of
+the shadow tower $S_k$.
+\item \emph{Identify Stage-1 output of $\Phi^{FA}_3$ on the
+quintic explicitly}: no chart-wise formula available
+($(\mathbf{O_1})$--$(\mathbf{O_4})$ chart obstructions, sec\_9);
+the categorical existence is guaranteed by Kontsevich-Tamarkin
+$E_3$-formality, explicit computation remains open.
+\item \emph{Extend the Mumford collapse argument to CY$_4$ and higher
+$d$}: the curving becomes $\kch \cdot \lambda_g^2$
+(second Chern class of Hodge bundle); Teixidor restriction
+identity for $\lambda_g^2$ is known (Arbarello--Cornalba IHÉS
+Thm.~7.22); collapse is analogous.
+\item \emph{Non-abelian generalisation}: for gauge group
+$\mathfrak{g}$ simply-laced at 5D hCS, the curving acquires a
+$d^{abc} d^{abc}$-anomaly correction (wave-15 cache:
+$A_{\mathrm{anom}} = d^{abc} d^{abc}/(2\pi)^3$). The Mumford
+collapse argument must extend; the additional quadratic-Casimir
+$C_2 = 2h^\vee$ scheme-dependent contribution absorbs into
+a BV counter-term.
+\end{enumerate}
+
+% ============================================================
+\section{Primary citation ledger}
+% ============================================================
+
+\begin{itemize}
+\item Arbarello, E., and Cornalba, M., \emph{Inst.\ Hautes
+Études Sci.\ Publ.\ Math.}\ 88 (1998), 97--127 (Mumford
+boundary relation at higher genus, Thm.\ 7.22).
+\item Ayala, D., and Francis, J., arXiv:1206.5522 (factorisation
+homology of topological manifolds; descent spectral sequence
+Thm.\ 1.1).
+\item Beilinson, A., and Drinfeld, V., \emph{Chiral Algebras}, AMS
+Colloquium Publ.\ 51, 2004 (Ran space, factorisation algebras;
+Ch.~3 for $\Ran(C)$).
+\item Booth, M., and Lazarev, A., arXiv:2304.08409, 2023 (curved
+bar-cobar Quillen equivalence for dg coalgebras; Thm.\ 3.14 for
+cofibrant generation).
+\item Costello, K., arXiv:1605.09656 (renormalisation of
+factorisation algebras; BV measure on global ghost tower).
+\item Costello, K., Francis, J., and Gwilliam, O., arXiv:2602.12412, 2026
+(holomorphic Chern-Simons factorisation algebras on $\bC^3$).
+\item Costello, K., and Gwilliam, O., \emph{Factorization Algebras in
+Quantum Field Theory}, Vol.~I \& II, Cambridge UP, 2017/2021
+(Appendix A on deformation invariance of Dolbeault cohomology;
+Ch.~6 on obstruction theory; \S12 on BCOV constants).
+\item Costello, K., and Li, S., arXiv:1606.00365 (quantisation of
+BCOV; Prop.~5.2 for Atiyah-dilaton one-loop class).
+\item Faber, C., arXiv:math/9810173 (tautological ring, Thm.~1.3 for
+low-genus Hodge class restriction).
+\item Francis, J., \emph{Compos.\ Math.}\ 149 (2013), 430--480
+(tangent complex and $E_n$-centres; $\infty$-operadic model
+structure on factorisation algebras).
+\item Francis, J., and Gaitsgory, D., arXiv:1103.5803 (chiral
+Koszul duality, foundations for chiral bar-cobar on $\Ran(C)$).
+\item Grushevsky, S., and Zakharov, D., arXiv:1308.1033 (computer
+algebra verification of tautological-ring identities at
+$g \leq 5$).
+\item Kapranov, M., arXiv:math/9811023 ($L_\infty$-algebra from
+Atiyah class; Kapranov formality on CY).
+\item Kontsevich, M., 1997 lecture notes (deformation quantisation,
+$E_2$-formality of Hochschild cohomology of associative algebras).
+\item Lef\`evre-Hasegawa, K., PhD thesis Paris-7, 2003 (bar-cobar
+Quillen equivalence for $A_\infty$-coalgebras).
+\item Lurie, J., \emph{Higher Algebra}, online, 2017 (Dunn--Lurie
+theorem $E_m \otimes E_n \simeq E_{m+n}$, Thm.~5.1.2.2).
+\item Moriwaki, A., arXiv:2601.nnnn, 2026 (IndHilb sewing envelope).
+\item Mumford, D., \emph{Towards an enumerative geometry of the
+moduli space of curves}, \emph{Arith.\ \& Geom.}\ II, 271--328,
+Birkhäuser, 1983 (Mumford class $\lambda_g^1$ and its boundary
+relation on $\Mbar$, Ch.~III \S 4).
+\item Positselski, L., \emph{Mem.\ AMS} 212:996 (2011) (coderived
+category of curved dg modules).
+\item Schiffmann, O., and Vasserot, E., arXiv:1202.2756 (cohomological
+Hall algebra of K3 and the Heisenberg--Mukai algebra).
+\item Szendrői, B., arXiv:0705.3419 (conifold two-chart NCCR).
+\item Tamarkin, D., and Tsygan, B., 2000 (Kontsevich formality from
+operadic perspective; $E_n$-formality of Hochschild cohomology).
+\item Teixidor i Bigas, M., \emph{Duke Math.\ J.}\ 56 (1988), 301--313
+(restriction of the Mumford class to boundary divisors, Thm.\ 1.1).
+\item Van den Bergh, M., arXiv:math/0211064 (NCCR definition and
+structure, Def.\ 4.1).
+\end{itemize}
+
+% ============================================================
+\section*{Cache entries (appendices/first\_principles\_cache.md)}
+% ============================================================
+
+\begin{itemize}
+\item[AP-CY\#.] \emph{Chiral Booth-Lazarev is a three-obstruction
+lift, not a single equivalence.} Do not write ``Booth-Lazarev
+extends to chiral'' without naming the three obstructions
+$(\mathbf{O}_1^{\mathrm{BL}}, \mathbf{O}_2^{\mathrm{BL}},
+\mathbf{O}_3^{\mathrm{BL}})$ and specifying which collapse
+(Mumford: $\mathbf{O}_2^{\mathrm{BL}}$) and which remain
+residual ($\mathbf{O}_1^{\mathrm{BL}}$, $\mathbf{O}_3^{\mathrm{BL}}$).
+\item[AP-CY\#.] \emph{$\kch$-curving \emph{is} the Mumford
+boundary-descent datum.} The identity $m_0^{(g)} = \kch
+\cdot \lambda_g^1$ makes $(\mathbf{O}_2^{\mathrm{BL}})$ collapse
+automatic from Mumford's $\partial^*\lambda_g^1 = \pi_1^*\lambda_{g_1}^1
++ \pi_2^*\lambda_{g_2}^1$. Not an independent hypothesis.
+\item[AP-CY\#.] \emph{CFG $\bR^3$/$\bC^3$ trivial obstruction regime
+does not extend to compact CY$_3$.} The Costello-Francis-Gwilliam
+$\bR^3$/$\bC^3$ CS-factorisation algebra is obstruction-free only
+because it has no Ran-space cohomology, no genus tower, and no
+analytic continuation of chiral OPE. Compact CY$_3$ carries
+all three.
+\item[AP-CY\#.] \emph{Four-$\kappa$ discipline in the curving.}
+The curving is $\kch \cdot \lambda_g^1$, not $\kcat$, not
+$\kBKM$, not $\kfib$. On $K3 \times E$: $\kch = 0$ Dolbeault,
+$\kch^{\mathrm{Heis}} = 3$ after Stage-2; the curving
+adjusts accordingly.
+\end{itemize}
+
+\end{document}

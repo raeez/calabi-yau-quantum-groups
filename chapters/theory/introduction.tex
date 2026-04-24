@@ -3,6 +3,7 @@
 
 \providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
 \providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
+\providecommand{\ClaimStatusConditional}{\textsc{[Conditional]}}
 \providecommand{\ClaimStatusDefinition}{\textsc{[Definition]}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
@@ -27,24 +28,39 @@
 \section{The positive-geometry grammar: the object of study}
 \label{wn:sec:platonic-intro-object}
 
-Let $\cA$ be a Calabi--Yau category of complex dimension $d$ in the
-Kontsevich--Soibelman sense: a pretriangulated differential graded
-category equipped with a non-degenerate cyclic pairing of degree $-d$
-respecting the $A_\infty$-structure up to coherent homotopy. Such
-a category sits on a Calabi--Yau variety $X$ in one of two
-complementary senses. Either $X$ carries $\cA$ as the derived category
-of coherent sheaves $D^b \mathrm{Coh}(X)$ equipped with its Serre-duality
-cyclic structure; or $X$ carries $\cA$ as a category of
-matrix factorisations of a Landau--Ginzburg potential $W$ on a
-Calabi--Yau quiver with potential $(Q, W)$. The Van~den Bergh
-non-commutative crepant resolution bridges the two: any smooth
-affine Calabi--Yau threefold admits a presentation as the bounded
-derived category of a Calabi--Yau algebra $A_Q = \mathbb{C}[Q] /
-\partial W$; any compact Calabi--Yau threefold admits a cover by
-such charts glued by Morita tilting cocycles.
+A single Calabi--Yau input does not carry a single numerical shadow.
+At $X = K3\times E$ the four invariants
+\[
+ \kcat(X)=0,\qquad
+ \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(X)=3,\qquad
+ \kBKM(\Delta_5)=5,\qquad
+ \kfib(K3)=24
+\]
+are all correct and mutually incommensurable.  The first is the
+K\"unneth-multiplicative holomorphic Euler characteristic of the total
+space.  The second is the Heisenberg--Mukai chiral reading of the
+$K3$ and elliptic factors.  The third is the Borcherds weight
+$c_1(0)/2$ of the Gritsenko denominator.  The fourth is the rank of
+the Mukai lattice of the fibre.  The equality to be proved is never
+``four values of one $\kappa_\bullet$-invariant'' and never ``six
+applications of one functor''.  The object of study is the mechanism that explains why
+these different measurements are read from one Calabi--Yau datum.
 
-Write $\Omega_X \in H^{d, 0}(X)$ for the holomorphic volume form. This
-volume form is the load-bearing datum: all structure derives from it.
+Let $\cA$ be a Calabi--Yau category of complex dimension $d$ in the
+Kontsevich--Soibelman sense: a pretriangulated dg category equipped
+with a non-degenerate cyclic pairing of degree $-d$, compatible with
+the $\Ainf$-structure up to coherent homotopy.  For a smooth
+projective Calabi--Yau variety $X$, the model example is
+$\Perf(X)$ with its Serre-duality trace.  For a Landau--Ginzburg
+chart $(Q,W)$, the model is the matrix-factorisation or critical-CoHA
+category attached to $W$.  Van~den Bergh non-commutative crepant
+resolutions and Morita tilting charts bridge these models where such
+charts exist; no global NCCR or finite quiver chart is assumed for an
+arbitrary compact Calabi--Yau threefold.
+
+Write $\Omega_X\in H^{d,0}(X)$ for the holomorphic volume form.  It
+rigidifies the cyclic trace into the holomorphic BV datum used in the
+native factorisation algebra.
 
 \subsection{The functor}
 \label{wn:sec:platonic-intro-functor}
@@ -53,43 +69,56 @@ The Calabi--Yau-to-chiral functor
 \[
 \Phi_d: \CYcat_d \longrightarrow \ChirAlg
 \]
-factors canonically into a stage-1 native functor producing a
-holomorphic factorisation algebra on $X$ and a stage-2 specialisation
-to a reference curve $C \subset X$.
+is a two-stage construction.  Stage~$1$ produces a native
+$E_d$-holomorphic factorisation algebra on the Calabi--Yau target.
+Stage~$2$ evaluates that native object on a geometric datum
+$(\Sigma_{d-1},C)$, with $\Sigma_{d-1}\subset X$ a closed
+$(d-1)$-cycle and $C\subset X$ a reference curve.  The notation
+$\Phi_d(\cA)$ abbreviates this composite only after the specialisation
+datum has been fixed.
 
 \begin{theorem}[Stage 1: the holomorphic factorisation algebra]
 \label{wn:thm:platonic-intro-stage-1}
-\ClaimStatusTheorem\
-There is a canonical functor
+\ClaimStatusConditional\
+On the verified loci there is a canonical assignment
 \[
 \Phi^{\mathrm{FA}}_d: \CYcat_d \longrightarrow E_d\text{-}\HolFA(X)
 \]
-sending a Calabi--Yau category $\cA$ over $X$ to the
-Costello--Gwilliam holomorphic factorisation algebra of observables of
-the six-dimensional (resp.\ $2d$-dimensional) holomorphic Chern--Simons
-theory on $X$ with gauge data read from $\cA$. The assignment is
-determined up to contractible choice by: the Kontsevich 1999 /
-Tamarkin 2003 $E_d$-formality of the Dolbeault little-$d$-disks
-operad; the Costello--Gwilliam 2017 factorisation axiom; the
-Costello--Li 2016 holomorphic-twist identification at $d = 3$; the
-Francis--Gaitsgory 2012 chiral Koszul duality for $E_d$-algebras;
-and the Gwilliam--Williams 2021 $E_d^{\mathrm{hol}}$-to-$E_d$ comparison.
+sending a Calabi--Yau category $\cA$ over $X$ to the holomorphic
+factorisation algebra of observables on $X$ with gauge data read from
+$\cA$.  The assignment is pinned, up to contractible choice, by the
+conjunction of Kontsevich--Tamarkin $E_d$-formality for the
+degree-$(1-d)$ Gerstenhaber bracket on $\HH^\bullet(\cA)$,
+Costello--Gwilliam locality, and the Costello--Li holomorphic BV
+twist determined by $\Omega_X$.  It is theorem-grade in the loci
+proved in Chapter~\ref{ch:cy-to-chiral}: unconditionally at
+$d\leq 2$, at $d=3$ on the smooth proper object-level locus by the
+three obstruction vanishings of Theorem~\ref{thm:cya3-existence-rigidity},
+and on explicit toric/formal charts.  Functoriality on all
+Calabi--Yau morphisms and compact non-formal chain models beyond the
+verified loci remain part of Conjecture~\ref{conj:phi-d-functoriality}
+and the compact CY$_3$ strictification programme.
 \end{theorem}
 
 \begin{theorem}[Stage 2: specialisation to a curve]
 \label{wn:thm:platonic-intro-stage-2}
 \ClaimStatusTheorem\
-For any closed $(d{-}1)$-dimensional subvariety $\Sigma_{d-1} \subset X$
-and reference curve $C \subset X$,
-factorisation homology fibrewise along the projection
-$X \to C$ yields a functor
+For any admissible specialisation datum
+$(\Sigma_{d-1}, C)$, with $\Sigma_{d-1}\subset X$ a closed
+$(d{-}1)$-cycle for which the factorisation-homology pushforward is
+defined and $C\subset X$ a reference curve, factorisation homology
+along $\Sigma_{d-1}$ followed by restriction to $C$ yields a functor
 \[
-\Sp_{\Sigma_{d-1}, C}: E_d\text{-}\HolFA(X) \longrightarrow
+\SpCh_{\Sigma_{d-1}, C}: E_d\text{-}\HolFA(X) \longrightarrow
 E_1\text{-}\ChirAlg(C).
 \]
-The composite $\Phi_d = \Sp_{\Sigma_{d-1}, C} \circ \Phi^{\mathrm{FA}}_d$
-depends on the pair $(\Sigma_{d-1}, C)$. Different choices produce
-different chiral-algebra shadows of the same Stage-1 output.
+The composite $\Phi_d = \SpCh_{\Sigma_{d-1}, C} \circ \Phi^{\mathrm{FA}}_d$
+depends on the pair $(\Sigma_{d-1}, C)$.  Different choices produce
+different chiral shadows of the same Stage-$1$ output.  At
+$d\geq 3$ these shadows are natively $\Eone$-chiral; the
+non-symmetric $\Etwo$ braiding is recovered from the Drinfeld centre
+of the $\Eone$ representation category, not from an $\Etwo$ structure
+on the shadow itself.
 \end{theorem}
 
 The six routes to $G(K3 \times E)$
@@ -107,21 +136,24 @@ their apparent conflict.
 \subsection{The quantum group}
 \label{wn:sec:platonic-intro-quantum-group}
 
-Inside $\cF_\cA$ lives the positive effective moduli stack
-$\Meff(X)$ carrying the Kontsevich--Soibelman critical cohomological
-Hall algebra structure. Its equivariant vanishing-cycle cohomology
-is the positive half of the quantum group:
+Inside the Stage-$1$ object lies the positive effective moduli stack
+$\Meff(X)$ carrying the Kontsevich--Soibelman critical CoHA structure
+whenever the required critical atlas is available.  Its equivariant
+vanishing-cycle cohomology is the positive half:
 \[
 Y^+(X) \;:=\; H^{\bullet}_{\mathrm{eq}}\!\bigl(\Meff(X),\,\phi_W\bigr).
 \]
-The Drinfeld double
+When the PBW integrality and Hopf pairing are constructed, the
+Drinfeld double
 \[
 G(X) \;:=\; D(Y^+(X)) \;=\; Y^+(X) \bowtie Y^0(X) \bowtie Y^-(X)
 \]
-is the quantum group attached to $\cA$. The Hopf pairing comes from
-Serre duality on the compact locus, supplemented by
-Davison--Meinhardt PBW integration; the spectral structure comes from
-Maulik--Okounkov stable envelopes transported by positive-half
+is the quantum group attached to the datum.  This last sentence is a
+theorem for the toric and explicitly constructed Hall loci and a
+conjectural envelope for general compact CY$_3$ targets.  The Hopf
+pairing comes from Serre duality on the compact locus, supplemented
+by Davison--Meinhardt PBW integration; the spectral structure comes
+from Maulik--Okounkov stable envelopes transported by positive-half
 gluing cocycles.
 
 The equivariance label stratifies by geometric type: full toric $T^d$
@@ -146,9 +178,9 @@ denominator identity is the singular theta lift of $\phi_{0,1}$ in
 the sense of Borcherds 1998.
 
 The generalised Kac--Moody superalgebra $\fg_{\Delta_5}$ of
-Gritsenko--Nikulin 1998 is the pull-back along the automorphic
-correction; a programme-level conjecture identifies it with the
-bracket completion of the BPS Lie algebra extracted from
+Gritsenko--Nikulin 1998 is the automorphic correction.  A
+programme-level conjecture identifies it with the bracket completion
+of the BPS Lie algebra extracted from
 $\Meff(K3 \times E)$ by Davison--Meinhardt integrality. The
 graded dimensions coincide unconditionally; the bracket-level
 identification is the canonical frontier, outlined in
@@ -157,18 +189,22 @@ Chapter~\ref{ch:k3-times-e}.
 \subsection{The eight-form class}
 \label{wn:sec:platonic-intro-eight-form}
 
-Gritsenko and Cl\'ery 2008 classified the diagonal-divisor
-paramodular cusp forms of Hecke type. There are exactly eight.
-In weight-ordered list:
+Gritsenko and Cl\'ery classified the diagonal-divisor paramodular
+cusp forms of Hecke type.  This volume uses the resulting eight-form
+class as a controlled testing ground for $\kBKM$: one can separate
+the CHL slice, where elliptic automorphisms force
+$N\in\{1,2,3,4,6\}$, from the full Borcherds-weight reading on the
+Gritsenko--Cl\'ery list.  In the normalisation used for the
+Borcherds denominator scope, the weight-ordered list is
 \[
 \Delta_5, \quad \Delta_2^{(2)}, \quad \Delta_1^{(3)}, \quad
 \Delta_1^{(4)}, \quad \Delta_{1/2}^{(5)}, \quad \Delta_1^{(6)},
 \quad \Delta_{1/4}^{(7)}, \quad \Delta_0^{(8)}.
 \]
-The universal weight identity $\kBKM(\Phi_N) = c_N(0)/2$ holds
-uniformly across all eight forms with cover selection
-$\{\Sp_4, \Mp_4, \widetilde{\Mp}_4\}$ determined by weight
-integrality. The Chaudhuri--Hockney--Lykken subset
+The universal weight identity $\kBKM(\Phi_N)=c_N(0)/2$ holds
+uniformly in its Borcherds-weight scope, with cover selection
+$\{\Sp_4,\Mp_4,\widetilde{\Mp}_4\}$ determined by weight
+integrality.  The Chaudhuri--Hockney--Lykken subset
 $N \in \{1, 2, 3, 4, 6\}$ --- precisely those $N$ with
 $\varphi(N) \mid 2$ --- realises each $\Phi_N$ as the denominator
 of a generalised Kac--Moody superalgebra on the twisted-reduced
@@ -185,55 +221,45 @@ Each form supplies a four-corner data: a Calabi--Yau geometric host,
 a cohomological Hall algebra extracted from its positive effective
 moduli, a BPS Lie algebra extracted by Davison--Meinhardt
 integrality, and an automorphic correction realising the
-generalised Kac--Moody as a Borcherds singular theta lift.
-For $N = 1$ these four corners commute unconditionally (with
-the bracket-level matching conditional); for $N \in \{2, 3, 4, 6\}$
-they commute on the Bryan--Oberdieck primitive-class sublocus,
-with the imprimitive completion conditional on Oberdieck--Shen;
-for $N \in \{5, 7, 8\}$ they commute conditionally on the three
-non-CHL host constructions listed above.
+generalised Kac--Moody as a Borcherds singular theta lift.  At
+$N=1$ the automorphic and character-level corners are theorem-grade,
+while the bracket completion remains conditional.  At
+$N\in\{2,3,4,6\}$ the primitive-class statements are theorem-grade on
+the Bryan--Oberdieck locus and the imprimitive completion is
+conditional.  At $N\in\{5,7,8\}$ the host construction itself is
+conditional.
 
 \subsection{Structure of the volume}
 \label{wn:sec:platonic-intro-structure}
 
-Part~I (Foundations: CY Categories and Cyclic $\Ainf$) assembles
-the $A_\infty / L_\infty$ algebraic apparatus, the Calabi--Yau
-category definitions, the cyclic $\Ainf$-structure carrying the CY
-trace, and the Hochschild calculus.
+Part~\ref{part:cy-categories} fixes the CY input: categories, cyclic
+$\Ainf$ traces, and Hochschild calculus.
 
-Part~II (The CY-to-Chiral Functor) constructs $\PhiFA_d$ and
-$\SpCh_{\Sigma_{d-1}, C}$, proves the two-stage factorisation, and
-develops the six-dimensional holomorphic Chern--Simons machinery.
+Part~\ref{part:bridge} constructs $\PhiFA_d$ and
+$\SpCh_{\Sigma_{d-1}, C}$ and proves the two-stage factorisation in
+the stated loci.
 
-Part~III (The $E_n$ Hierarchy and Chiral Quantum Groups) tracks how
-$\Phi_d$ lands in $E_1, E_2, E_d$-chiral algebras for
-$d = 1, 2, \geq 3$ respectively, constructs $G(X) = D(Y^+(X))$, and
-develops its $R$-matrix, braided tensor category, and
-$(\infty, 1)$-centre structures.
+Part~\ref{part:en-hierarchy} records the $E_n$ hierarchy:
+$E_\infty$ at $d=1$, $E_2$ at $d=2$, and $\Eone$ shadows at
+$d\geq 3$, with braiding recovered on Drinfeld centres.
 
-Part~IV (The K3 Yangian) constructs the rank-$24$ abelian K3
+Part~\ref{part:k3-yangian} constructs the rank-$24$ abelian K3
 Heisenberg Yangian $Y_\hbar^{\mathrm{Heis}}(\Lambda_{K3})$, the
 BFN affine-Yangian sub-quantisation at resolved ADE surface
 singularities, and the non-abelian envelope $Y_\hbar(\mathfrak{so}(4,20))$
 with its K3 chiral bialgebra crown $\mathbf{H}_{\Delta_5}$.
 
-Part~V (The CY Landscape) realises the functor on the derived
-categories of K3, on $K3 \times E$, on the conifold, on local
-$\mathbb{P}^2$, on toric CY$_3$ threefolds, on elliptic Calabi--Yau
-threefolds, and on the eight-form Gritsenko--Cl\'ery tower.
+Part~\ref{part:examples} tests the construction on K3, $K3\times E$,
+the conifold, local $\mathbb{P}^2$, toric CY$_3$ threefolds,
+elliptic CY$_3$ targets, and the Gritsenko--Cl\'ery tower.
 
-Part~VI (The Seven Faces of $r_{\mathrm{CY}}(z)$) catalogues the
-stratification of $\Phi$-output by Calabi--Yau dimension, organises
-the six routes to $G(K3 \times E)$ into two-stage specialisations,
-and develops the cross-volume bridges to Volumes~I and~II.
+Part~\ref{part:connections} reads the seven faces of
+$r_{\mathrm{CY}}(z)$ through the same stage distinction and supplies
+the bridges to Volumes~I and~II.
 
-Part~VII (Frontiers) houses the conjectural extensions, the non-CHL
-hosts, the higher-dimensional cousins at $d = 5$, the super-Riccati
-shadow tower, and the catalogue of open problems.
-
-The reader who wishes to see the full positive-geometry grammar
-concretely should turn to Chapter~\ref{ch:k3-times-e}
-first, then return to Part~II for the foundational theorems.
+Part~\ref{part:frontier} isolates the conjectural extensions:
+non-CHL hosts, higher-dimensional cousins at $d=5$, the
+super-Riccati shadow tower, and the remaining construction problems.
 
 \section{The two-stage factorisation \texorpdfstring{$\Phi_d = \SpCh_{\Sigma_{d-1}, C}\circ\PhiFA_d$}{Phi-d = SpCh-Sigma-d-1, CoPhiFA-d}}
 \label{sec:two-stage-factorisation}
@@ -273,11 +299,11 @@ level between dimensions; the uniform presentation lives on
 the native stage. A given CY$_d$ category therefore admits a
 \emph{family} of $E_n$-chiral shadows on~$C$, one per choice of
 $(\Sigma_{d-1}, C)$
-(Remark~\ref{rem:multiple-e1-specialisations}); the six routes
-to $G(K3\times E)$ catalogued below are six distinct
-specialisations of the single canonical
-$\PhiFA_3(D^b\Coh(K3\times E))$, not six applications of
-$\Phi_3$ to one object.
+	(Remark~\ref{rem:multiple-e1-specialisations}); the six routes
+	to $G(K3\times E)$ catalogued below are six distinct
+	constructions compared through named intertwiners, not six
+	specialisations of one $\PhiFA_3$ and not six applications of
+	$\Phi_3$ to one object.
 
 A Calabi--Yau category~$\cC$ of dimension~$d$ carries a
 canonical cyclic $\Ainf$-structure: a non-degenerate trace
@@ -371,11 +397,12 @@ restricted to a reference curve~$C$ yields an $\Etwo$-chiral
 algebra $\cA_\cC$ on~$C$ whose bar complex $B(\cA_\cC)$ encodes
 the CY cyclic homology (Theorem~CY-A$_2$). At $d = 3$, the
 chain-level $\mathbb{S}^3$-framing obstruction at stage~1 is
-resolved by an $\infty$-categorical argument
-($\HH^{-2}_{E_1}(\cC) = 0$ for every smooth proper CY$_3$
-category, the space of $E_3$-liftings contractible;
-Theorem~\ref{thm:derived-framing-obstruction}), so $\PhiFA_3(\cC)$
-is a canonical $E_3$-hFA on the CY$_3$ variety~$X$. The stage-2
+resolved on the connective, unit-connected framed locus by an
+$\infty$-categorical argument
+($\HH^{-2}_{E_1}(\cC) = 0$ and the space of $E_3$-liftings is
+contractible; Theorem~\ref{thm:derived-framing-obstruction}), so
+$\PhiFA_3(\cC)$ is available on that locus as an $E_3$-hFA on the
+CY$_3$ variety~$X$. The stage-2
 specialisation $\SpCh_{\Sigma_2, C}$ along a real surface
 $\Sigma_2\subset X$ produces an $\Eone$-chiral shadow on~$C$
 (Theorem~CY-A$_3$); different $\Sigma_2$-data produce different
@@ -668,10 +695,11 @@ one universal trace identity.
   $E_\infty$-datum at $d = 1$, the $\mathbb{S}^2$-framing
   supplies the $E_2$-datum at $d = 2$, and the
   $\infty$-categorical argument of
-  Theorem~\ref{thm:derived-framing-obstruction}
-  ($\HH^{-2}_{E_1}(\cC) = 0$ on smooth proper CY$_3$
-  categories; space of $E_3$-liftings contractible) supplies
-  the $E_3$-datum at $d = 3$. Stage~2 is choice-dependent in
+	  Theorem~\ref{thm:derived-framing-obstruction}
+	  ($\HH^{-2}_{E_1}(\cC) = 0$ on the connective,
+	  unit-connected framed CY$_3$ locus; space of $E_3$-liftings
+	  contractible) supplies the $E_3$-datum at $d = 3$ where
+	  those hypotheses are witnessed. Stage~2 is choice-dependent in
   the geometric datum $(\Sigma_{d-1}, C)$: a given CY$_d$
   variety carrying several $\Sigma_{d-1}$-fibrations generates
   a family of $\Eone$-chiral shadows on a fixed reference
@@ -749,10 +777,13 @@ one universal trace identity.
   yields $\kappa_{\mathrm{BKM}}(\Phi_N) \in
   \{5, 2, 1, 1, 1/2, 1, 1/4, 0\}$, including metaplectic
   ($N = 5$, weight $1/2$) and spin double-cover ($N = 7$,
-  weight $1/4$) specialisations. The CHL-slice tuple $(5, 4, 3, 2, 1)$ is the Family~(i) CHL-averaged paramodular weight $\mathrm{wt}(\Delta_1^{(N)})$ of Gritsenko~$1999$ Thm.~$1.2$ (additive lift of the weight-$k(N)$ index-$1$ Jacobi input); the coexisting Family~(ii) twined Borcherds weights of Gritsenko--Nikulin~$1998$ Thm.~$2.1$ give $\kappa_{\mathrm{BKM}}(\Phi_N) \in (5, 2, 1, 1, 1)$ with $(c_N(0)) = (10, 4, 2, 2, 2)$, which extend to the 8-form tuple $\{5, 2, 1, 1, 1/2, 1, 1/4, 0\}$ on $N \in \{1, \ldots, 8\}$ (Borcherds~$1998$ Thm.~$10.1/13.3$). The two families coincide at $N = 1$ (both give $5$ on $\Delta_5$) and diverge at $N \in \{2, 3, 4, 6\}$; the default on the symbol $\kappa_{\mathrm{BKM}}$ is the Family~(ii) twined Borcherds weight. The naive decomposition
-  $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}}
-  + \chi(\cO_{\mathrm{fiber}})$ is a numerical coincidence at
-  $N = 1$ and fails at every $N \geq 2$
+  weight $1/4$) specialisations. The CHL-slice tuple $(5, 4, 3, 2, 1)$ is the Family~(i) CHL-averaged paramodular weight $\mathrm{wt}(\Delta_1^{(N)})$ of Gritsenko~$1999$ Thm.~$1.2$ (additive lift of the weight-$k(N)$ index-$1$ Jacobi input); the coexisting Family~(ii) twined Borcherds weights of Gritsenko--Nikulin~$1998$ Thm.~$2.1$ give $\kappa_{\mathrm{BKM}}(\Phi_N) \in (5, 2, 1, 1, 1)$ with $(c_N(0)) = (10, 4, 2, 2, 2)$, which extend to the 8-form tuple $\{5, 2, 1, 1, 1/2, 1, 1/4, 0\}$ on $N \in \{1, \ldots, 8\}$ (Borcherds~$1998$ Thm.~$10.1/13.3$). The two families coincide at $N = 1$ (both give $5$ on $\Delta_5$) and diverge at $N \in \{2, 3, 4, 6\}$; the default on the symbol $\kappa_{\mathrm{BKM}}$ is the Family~(ii) twined Borcherds weight. The naive attempted decomposition
+  $\kappa_{\mathrm{BKM}} \stackrel{?}{=} \kappa_{\mathrm{ch}}
+  + \chi(\cO_{\mathrm{fiber}})$ fails already at $N=1$ under
+  the total-space convention; the apparent identity $5=3+2$
+  mixes the Heisenberg Stage-$2$ reading with the K3 fibre
+  Euler characteristic. It also fails at every
+  $N \in \{2,3,4,6\}$
   (Remark~\ref{rem:bkm-decomposition-adversarial}).
 \end{enumerate}
 
@@ -1098,7 +1129,8 @@ The five objects are connected by four functors (bar $B$,
 cohomology $H^*$, linear duality $(-)^\vee$, Hochschild
 cochains), none of which should be conflated. Bar--cobar
 $\Omega(B(\cA_\cC)) \xrightarrow{\sim} \cA_\cC$ is
-\emph{inversion} (recovering the algebra), not Koszul duality;
+\emph{inversion} (recovering the algebra), distinct from
+Verdier--Koszul duality;
 $\Zder(\cA_\cC)$ is the Hochschild construction, not the
 output of bar--cobar. The modular characteristic
 $\kappa_{\mathrm{ch}}(\cA_\cC)$ governs the curvature of
@@ -1124,7 +1156,7 @@ $\SC^{\mathrm{ch,top}}$ pair \emph{is} a boundary--bulk system;
 the \emph{holographic boundary-CFT description} of pure 3d
 gravity (Brown--Henneaux~1986, Witten~2007, with boundary
 Virasoro at $c = 3\ell/(2G_{N})$) is the climax. \emph{Scope
-qualifier.} ``3d quantum gravity'' is used in the Witten 2007
+qualifier.} \emph{3d quantum gravity} is used in the Witten 2007
 holographic boundary-CFT sense, not as a first-principles
 dynamical-metric path integral; see Vol~II
 \texttt{programme\_climax\_platonic.tex},
@@ -1184,7 +1216,7 @@ landscape completes here into the five-archetype
 $\mathbf{G}/\mathbf{L}/\mathbf{C}/\mathbf{M}/\mathbf{B}$ stratification
 with complementarity spectrum
 \[
- \kappa_{\mathrm{ch}} + \kappa^!_{\mathrm{ch}}
+ \kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^!
  \;\in\; \{0,\; 8,\; 13,\; 250/3,\; 98/3\},
 \]
 carried respectively by Heisenberg ($\mathbf{G}$), the BKM crown
@@ -1192,7 +1224,7 @@ $\mathbf{H}_{\Delta_5}$ on $K3\times E$ ($\mathbf{B}$), affine Kac--Moody
 at generic level ($\mathbf{L}$), the $\beta\gamma$ system at the
 Virasoro-entangled locus ($\mathbf{C}$), and Virasoro ($\mathbf{M}$).
 The archetype $\mathbf{B}$ with
-$\kappa_{\mathrm{ch}} + \kappa^!_{\mathrm{ch}} = 8$ is the
+$\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = 8$ is the
 Vol~III-native addition: its complementarity integer coincides with
 the order-$8$ monodromy of the Borcherds line bundle
 $\mathcal L^{\Delta_5}|_{H_1}$, with the Lusztig specialisation
@@ -1306,10 +1338,8 @@ and $\chi_{\mathrm{top}}(X_5^\vee)/2 = +100$; the sign flip
  \chi_{\mathrm{top}}(X_5)/2 + \chi_{\mathrm{top}}(X_5^\vee)/2
  \;=\; 0
 \]
-is the CY analogue of the Koszul complementarity
-$\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = K$ at $K = 0$,
-consistent with the vanishing Koszul conductor for KM/free
-families in Volume~I.
+is the CY analogue of the Volume~I Koszul complementarity relation
+at vanishing conductor, consistent with the KM/free families.
 
 Three independent consistency checks confirm the resulting
 quintic normalization: the Gepner model matrix factorization
@@ -1463,24 +1493,27 @@ obstruction tower}:
 \end{center}
 The denominator identity of $\frakg_X$ ($\Delta_5$ for
 $K3 \times E$, the DT partition function for toric CY$_3$) is
-the bar-complex Euler product of the quantum vertex chiral
-group. For toric CY$_3$ the full identification with classical
-quantum group categories is part of Conjecture~CY-C. For
-$K3 \times E$, Theorem~CY-A$_3$ constructs $\cA_{K3 \times E}$,
-and the product formula for $\Delta_5$ follows from the
-CY-A$_3$ construction combined with the Vol~I Borcherds-lift
+read as the bar-complex Euler product only on constructed
+Hall/Borcherds loci. For toric CY$_3$ the full identification
+with classical quantum group categories is part of
+Conjecture~CY-C. For $K3 \times E$, the fixed framed
+specialisation
+$\SpCh_{K3,E}(\PhiFA_3(D^b\Coh(K3\times E)))$ gives the
+$\Delta_5$ shadow; the product formula follows from this
+specialisation together with the Vol~I Borcherds-lift
 identification of bar Euler products. The bar Euler product
 of lattice VOAs recovers the Borcherds denominator identity
 (verified for $E_8$ and the Leech lattice; for $K3 \times E$
-via CY-A$_3$ combined with the Vol~I bar-Euler-product
-identification).
+through the fixed $(K3,E)$ specialisation and the Vol~I
+bar-Euler-product identification).
 
 \section{Main results}
 \label{sec:main-results}
 
 \begin{itemize}[leftmargin=1.5em,topsep=0.3ex,itemsep=0.5ex]
  \item \textbf{Theorem CY-A$_d$} (two-stage factorisation;
-  \emph{proved at all $d \leq 3$}): construction of
+  \emph{proved functorially at $d \leq 2$; framed
+  object-level at $d = 3$}): construction of
   $\Phi_d = \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d
   \colon \CY_d\text{-}\Cat \to E_n\text{-}\mathrm{ChirAlg}$
   as a composite of the canonical stage-1 $E_d$-hFA
@@ -1524,7 +1557,8 @@ identification).
   a family of shadows
   (Remark~\ref{rem:multiple-e1-specialisations}).
  \item \textbf{Theorem CY-B} ($\En$-chiral Koszul duality;
-  \emph{proved at all $d \leq 3$}): at stage~1,
+  \emph{proved at $d \leq 2$ and conditional on the framed
+  $d = 3$ locus}): at stage~1,
   $E_d$-Koszul duality on the native
   $\PhiFA_d(\cC) \in \EdHolFA(X)$ via the $E_d$ bar complex
   $B_{E_d}(\PhiFA_d(\cC))$, for every $d \leq 3$ where
@@ -1534,8 +1568,10 @@ identification).
   the reference curve~$C$. At $d = 2$:
   $\cA_\cC = \Phi_2(\cC)$ is natively $E_2$-chiral and stage-2
   CY-B reads $E_2$-chiral Koszul duality on $\cA_\cC$
-  directly. At $d = 3$: $\cA_\cC = \Phi_3(\cC)$ is natively
-  $\Eone$-chiral on~$C$ and stage-2 CY-B reads
+	  directly. At $d = 3$: $\cA_\cC =
+	  \Phi_3^{(\Sigma_2,C)}(\cC)$ is natively
+	  $\Eone$-chiral on~$C$ on the framed object-level locus, and
+	  stage-2 CY-B reads
   $\Eone$-chiral Koszul duality on $\cA_\cC$ via the Verdier
   spectral functor (Theorem~\ref{thm:verdier-spectral-functor}),
   inducing $\Etwo$-braided equivalence on the Drinfeld centre
@@ -1566,14 +1602,15 @@ identification).
   (Theorem~\ref{thm:cy-c-six-routes-generator-level-convergence})
   and the pentagon colimit over the five named intertwiners
   (Proposition~\ref{prop:cy-c-pentagon-colimit}).
-  \emph{Conjectural envelope}: for toric CY$_3$,
-  $\cZ(\Rep^{E_1}(\Phi_3(\cC)))$ is braided monoidal
+	  \emph{Conjectural envelope}: for toric CY$_3$,
+	  $\cZ(\Rep^{E_1}(\Phi_3^{(\Sigma_2,C)}(\cC)))$ is braided monoidal
   equivalent to $\Rep(Y(\widehat{\mathfrak{g}}_{Q_X}))$;
   for $K3 \times E$, the $\Sp_4(\Z)$-module structure on the
   denominator identity recovers the braided structure.
   The critical CoHA is the $\Eone$-sector (positive half).
-  The chiral algebra $\cA_\cC$ is constructed by CY-A$_3$
-  (Theorem~\ref{thm:cy-to-chiral-d3}); the quantum vertex
+	  The chiral algebra $\cA_\cC$ is constructed by CY-A$_3$
+	  only on the framed object-level locus
+	  (Theorem~\ref{thm:cy-to-chiral-d3}); the quantum vertex
   chiral group $C(\frakg, q)$ is not yet constructed in
   general. Abelian level:
   $C(\frakg, q) = D(Y^+(\mathfrak{g}_{K3}))$.
@@ -1586,13 +1623,12 @@ identification).
   $R_2$ as source; the chiral characteristic
   $\kappa_{\mathrm{ch}}$ is route-independent (Hodge
   supertrace, Theorem~\ref{thm:kappa-stratification-by-d}).
-  The six routes are six \emph{different constructions
-  witnessing the same canonical
-  $\PhiFA_3(D^b\mathrm{Coh}(K3 \times E))$}, not six
-  applications of~$\Phi_3$; each is the
-  $\SpCh_{\Sigma_2, C}$-shadow of the single native
-  $E_3$-hFA for one choice of $\Sigma_2 \subset K3 \times E$
-  (K3-fibre class, $T^2$-fibre class, Kummer class). The
+  The six routes are six \emph{different constructions}
+  compared through the pentagon intertwiners, not six
+  applications of~$\Phi_3$ and not six $\SpCh$-shadows of one
+  native $E_3$-hFA. The CY-to-chiral route is the single
+  $\SpCh_{K3,E}$ specialisation; the other routes enter CY-C
+  through comparison data. The
   correct universal object is the pentagon colimit over five
   named intertwiners
   $\beta_{13}, \beta_{34}, \beta_{45}, \beta_{56},
@@ -1612,8 +1648,9 @@ identification).
   $d = 2$: $\kappa_{\mathrm{ch}}(\Phi_2(\cC)) = \chi^{\CY}(\cC)$
   coincides with the CY Euler characteristic via Serre duality
   $S_\cC = [2]$ (proved,
-  Proposition~\ref{prop:cy-kappa-d2}). For $K3 \times E$
-  ($d = 3$), $\Phi_3$ constructs $\cA_{K3 \times E}$, and the
+	  Proposition~\ref{prop:cy-kappa-d2}). For $K3 \times E$
+	  ($d = 3$), the framed specialisation
+	  $\Phi_3^{(K3,E)}$ constructs $\cA_{K3 \times E}^{(K3,E)}$, and the
   Borcherds weight gives the distinct stage-2 invariant
   $\kappa_{\mathrm{BKM}} = 5$; the Künneth-additive operational
   convention gives $\kappa_{\mathrm{ch}}^{\mathrm{K}}(K3 \times
@@ -1644,10 +1681,11 @@ identification).
   $\osp$, not $\fgl$, because the Mukai form is symmetric
   indefinite, not $\Z/2$-super-graded) provides the natural
   envelope.
-  For $K3 \times E$, six independent constructions (BKM
-  via Borcherds lift, lattice VOA via Frenkel--Kac, Kummer
-  orbifold, CY-to-chiral $\Phi_3$ as the only route using
-  the functor, sigma model BRST, and BLLPR 4d Schur
+	  For $K3 \times E$, six independent constructions (BKM
+	  via Borcherds lift, lattice VOA via Frenkel--Kac, Kummer
+	  orbifold, the framed CY-to-chiral specialisation
+	  $\Phi_3^{(K3,E)}$ as the only route using the two-stage
+	  assignment, sigma model BRST, and BLLPR 4d Schur
   sector) approach a quantum vertex chiral group whose
   denominator identity is $\Phi_{10}$; their conjectural
   convergence is Conjecture~CY-C. At the Lie level the Hall
@@ -1714,8 +1752,8 @@ identification).
   is $c_N(0)/2$, with $N = 1$ recovering Gritsenko's
   weight-$5$ $\Delta_5$
   and $\kappa_{\mathrm{BKM}}(\Phi_1) = 10/2 = 5$.
-  The naive decomposition
-  $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
+  The naive attempted decomposition
+  $\kappa_{\mathrm{BKM}} \stackrel{?}{=} \kappa_{\mathrm{ch}} +
   \chi(\cO_{\mathrm{fiber}})$ fails for every $N$: with the
   $\chi(\cO_E) = 0$ indexation of the fiber (total-space $\kappa_{\mathrm{ch}}$
   convention), already at $N = 1$ it predicts $0 \neq 5$; with
@@ -1885,7 +1923,7 @@ identification).
  \item The categorical $\Etwo$-obstruction for CY$_3$
   (Proposition~\ref{prop:e1-obstruction-categorical}):
   Serre duality forces antisymmetry of the Euler form,
-  universally obstructing $\Etwo$-enhancement without torus
+  obstructing $\Etwo$-enhancement without torus
   hypotheses.
  \item Quiver-chart gluing for toric CY$_3$
   (Theorem~\ref{thm:toric-chart-gluing}): the global
@@ -2227,20 +2265,21 @@ Chapter~\ref{chap:toroidal-elliptic}.
  to the Monster module, the Conway module, and all
  holomorphic VOAs.
 \item \emph{Second-quantization bridge.}
- The ratio $\kappa_{\mathrm{BKM}}/\kappa_{\mathrm{ch}} = 5/3$
- encodes the first-to-second-quantization passage: the
- single-copy chiral algebra sees $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$,
- while the Borcherds lift sees $\kappa_{\mathrm{BKM}} = 5$.
- For $K3 \times E$ at orbifold order $N = 1$, the numerical
- coincidence
- $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{cat}}(S)
- + \kappa_{\mathrm{ch}}(S \times E) = 2 + 3 = 5$
- holds, but this decomposition \emph{fails} for all
- $\Z/N\Z$-orbifolds with $N \geq 2$
- (Remark~\ref{rem:bkm-decomposition-adversarial}); the correct
- universal formula is $\kappa_{\mathrm{BKM}} = c_N(0)/2$
- (Borcherds weight theorem,
- Proposition~\ref{prop:bkm-weight-universal}). The
+ The ratio $5/3$ compares two different invariants on two
+ different constructions: the single-copy Heisenberg branch sees
+ $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$, while the Borcherds
+ lift sees $\kappa_{\mathrm{BKM}} = 5$.
+ For $K3 \times E$ at orbifold order $N = 1$, the apparent
+ equality $2+3=5$ mixes the K3 fibre value with the
+ Heisenberg branch and is not a structural decomposition of
+ $\kappa_{\mathrm{BKM}}$. The formula
+ $\kappa_{\mathrm{BKM}} =
+ \kappa_{\mathrm{ch}}+\chi(\mathcal O_{\mathrm{fiber}})$
+ fails already under the compact total-space convention and
+ fails across the CHL family; the universal identity is
+ $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$.
+ At $N \geq 2$ no apparent equality remains
+ (Remark~\ref{rem:bkm-decomposition-adversarial}). The
  Hilbert--Chow exceptional divisor accounts for
  $\chi(\mathrm{Hilb}^2) - \chi(\mathrm{Sym}^2) = 24 = \chi(K3)$,
  and the DMVV symmetric product formula implements the
@@ -2783,16 +2822,18 @@ F-theory, Type~I) await explicit computational instantiation.
 \label{sec:guide}
 
 The volume has seven parts, organised by the two-stage
-factorisation. Part~I fixes CY input categories; Part~II
-constructs $\Phi_d = \SpCh_{\Sigma_{d-1}, C}\circ\PhiFA_d$ and
-its stage-1 $\infty$-categorical closure; Part~III records the
-$\En$-hierarchy on native and shadow sides; Part~IV evaluates
-at the K3 data at $d = 2$ and the K3-fibre specialisation at
-$d = 3$; Part~V surveys the wider CY landscape of stage-2
-specialisations; Part~VI reads the seven faces of $r_{\mathrm{CY}}$
-through the three-tier stratification of
-\S\ref{sec:r-cy-three-tier}; Part~VII collects the unresolved
-extensions. The dependencies are:
+factorisation. Part~\ref{part:cy-categories} fixes CY input
+categories; Part~\ref{part:bridge} constructs
+$\Phi_d = \SpCh_{\Sigma_{d-1}, C}\circ\PhiFA_d$ and its stage-$1$
+$\infty$-categorical closure; Part~\ref{part:en-hierarchy} records
+the $\En$-hierarchy on native and shadow sides;
+Part~\ref{part:k3-yangian} evaluates at the K3 data at $d = 2$ and
+the K3-fibre specialisation at $d = 3$; Part~\ref{part:examples}
+surveys the wider CY landscape of stage-$2$ specialisations;
+Part~\ref{part:connections} reads the seven faces of
+$r_{\mathrm{CY}}$ through the three-tier stratification of
+\S\ref{sec:r-cy-three-tier}; Part~\ref{part:frontier} collects the
+unresolved extensions. The dependencies are:
 \[
 \begin{array}{c}
 \text{I (CY input)}
@@ -3032,13 +3073,13 @@ $\chi(\cO_X)$, a categorical invariant),
 $\kappa_{\mathrm{BKM}}$ (the half-weight of the Borcherds
 automorphic form, an automorphic invariant), and
 $\kappa_{\mathrm{fiber}}$ (the lattice rank of the fiber,
-relevant for fibered CY manifolds). Every occurrence of $\kappa$
-in this volume carries one of these explicit subscripts; each
+relevant for fibered CY manifolds). Every modular-characteristic
+symbol in this volume carries one of these explicit subscripts; each
 subscript names a specific invariant and the subscripts do not
 interchange.
 
 \emph{Operadic terminology.} Following Volume~I, the word
-``degree'' is used universally for: bar complex grading,
+``degree'' is used throughout for: bar complex grading,
 operadic input count, tree vertex valence, Stasheff identity
 level, Swiss-cheese mixed sector parameters, and all
 index-counting contexts. The word ``arity'' does not appear.
@@ -3113,8 +3154,10 @@ The Schur sector reaches the K3 elliptic genus only through
  \Delta_5.
 \]
 
-These two chapters do not construct neighbouring objects. They expose
-six normal forms of one CY-to-chiral output. The Drinfeld lens sees the
+These two chapters do not construct neighbouring objects, and they do
+not exhibit six normal forms of a single two-stage CY-to-chiral output.
+They expose six comparison lenses around the fixed $K3\times E$
+Borcherds shadow. The Drinfeld lens sees the
 Hall--Drinfeld double; the Frenkel--Kac/Borcherds lens sees the
 imaginary-root vertex closure; the Siegel/paramodular lens sees the
 twisted genus-$2$ associator; the bi-based factorization lens sees the
@@ -3123,7 +3166,8 @@ $\overline{\mathcal{A}_2}$ via Kodaira-$j$, Kuga--Satake, and Torelli;
 the Costello lens sees $\Delta_5$ as the $1$-loop output of the twisted
 parent; the class-$\mathcal{S}$/AGT lens sees the same object as the
 chiral algebra attached to $\mathcal{T}[A_1,\Sigma_{0,24}]$. The six
-lenses are six coordinate systems on $\mathbf{H}_{\Delta_5}$ itself
+lenses are six coordinate systems on the $\mathbf{H}_{\Delta_5}$ comparison
+locus
 \cite{Drinfeld1985,Drinfeld1988,GritsenkoNikulin1995,GritsenkoNikulin1998,Gritsenko1999,Borcherds1992,Borcherds1998,Miki07}.
 They meet again on the order-$8$ identity
 \[
@@ -3158,4 +3202,3 @@ where the K3 datum is tested against the wider CY landscape, then into
 Part~\ref{part:connections}, where the six lenses reappear as faces of
 $r_{\mathrm{CY}}$, and finally into Part~\ref{part:frontier}, where
 the remaining unconstructed extensions are isolated.
-

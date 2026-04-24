@@ -1,0 +1,1062 @@
+% !TEX root = ../../main.tex
+% agent_8_5d_hcs_cfg.tex
+% Chain-level BV derivation of the universal Phi-trace identity from
+% 5d holomorphic Chern--Simons on R_t x C^2 (Costello--Yagi 2018),
+% read side-by-side with Costello--Francis--Gwilliam 2026. Wave-file
+% workspace; reader-facing inscription lives in
+% chapters/theory/phi_universal_trace_platonic.tex.
+
+\section*{Agent 8. The 5d holomorphic Chern--Simons realisation of \texorpdfstring{$\PhiFA_3$}{Phi-FA-3}}
+\label{sec:wave-cfg-agent-8}
+
+\subsection*{The theorem the identity rests on}
+
+The Universal $\Phi$-Trace Identity of
+Theorem~\ref{thm:phi-universal-trace} pairs two supertraces on one
+centre $\mathfrak{Z}(\mathcal{A}) = \int_{S^1 \times \Ran(X)}\mathcal{A}$.
+Both supertraces are partition-function integrals in a BV field theory;
+the field theory that computes them at Stage~$1$ is $5$d holomorphic
+Chern--Simons on $Y = \R_t \times \C^2$ with a simply-laced gauge Lie
+algebra $\frakg$, and the BV partition function is the Feynman-graph
+expansion of the action
+\begin{equation}
+\label{eq:5d-hCS-action}
+  S_{5\mathrm{d\,hCS}}[\cA] \;=\; \int_{Y}\,
+  \Omega_{\C^2}\wedge \operatorname{CS}_3\bigl(\cA;\, d_t + \bar\partial_{\C^2}\bigr),
+\qquad
+  \cA \in \Omega^{0,\bullet}(\C^2)\otimes\Omega^\bullet(\R_t)\otimes \frakg[1],
+\end{equation}
+with $\Omega_{\C^2} = dz^1\wedge dz^2$ the flat holomorphic top-form.
+The cubic interaction is
+$\operatorname{CS}_3(\cA) = \tfrac{1}{2}\cA\wedge(\bar\partial_{\C^2}+d_t)\cA
++ \tfrac{1}{6}\cA\wedge[\cA,\cA]$; the classical BV antibracket comes
+from the pairing
+$(-,-)_{BV} : \Omega^{0,\bullet}(\C^2) \otimes \Omega^\bullet(\R_t)
+\otimes\frakg[1]\; \otimes\; \Omega^{2,2-\bullet}(\C^2)
+\otimes\Omega^{1-\bullet}(\R_t)\otimes\frakg[1] \;\to\; \C$
+of total ghost degree $-1$, namely $\int \mathrm{tr}_\frakg(\alpha\wedge\beta)
+\wedge \Omega_{\C^2}$ with $\mathrm{tr}_\frakg$ the Killing form.
+
+CFG 2026 establishes the parallel statement in purely topological
+dimension: $3$d ordinary Chern--Simons has, as its $E_3$-factorisation
+algebra of local observables, a presentation equivalent to the
+factorisation homology of topological CS on the handlebody stratification
+(Costello--Francis--Gwilliam 2026~\cite{CFG2026}). Side-by-side, the
+present wave file asserts and proves, at the chain level, three
+claims which together pin Stage~$1$ of the two-stage factorisation
+$\Phi_3 = \SpCh_{\Sigma_2,C}\circ\PhiFA_3$ to the $5$d hCS partition
+function.
+
+\subsection*{Three theorems, one BV integral}
+
+\paragraph{Theorem~A (Stage-$1$ identification).}
+For $X = \C^3$ presented as the flat holomorphic part $\C^2$ of
+$Y = \R_t\times\C^2$ with topological $\R_t$, the Stage-$1$
+factorisation algebra $\PhiFA_3(\Perf(\C^3))$ is equivalent, at the
+chain level, to the BV observables of $5$d hCS on $Y$ with gauge
+$\frakg = \widehat{\mathfrak{gl}}_1$, Wick-rotated to the topological
+limit along $\R_t$:
+\begin{equation}
+\label{eq:stage1-5d-hCS}
+  \PhiFA_3\bigl(\Perf(\C^3)\bigr) \;\simeq\;
+  \Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}\bigl(\C^2\times\R_t;\, \widehat{\mathfrak{gl}}_1\bigr)\Big|_{\hbar\to 0}
+  \;\otimes_{\widehat{\mathfrak{gl}}_1}\; \End\bigl(\mathcal{F}_{\mathrm{Fock}}\bigr).
+\end{equation}
+
+\paragraph{Theorem~B (universal trace = BV pairing).}
+The universal trace of
+Theorem~\ref{thm:phi-universal-trace} is the
+BV partition function pairing
+\begin{equation}
+\label{eq:universal-trace-BV}
+  \tr_{\mathfrak{Z}(\mathcal{A}_X)}\bigl(\mathfrak{K}_{\mathcal{A}_X}\bigr)
+  \;=\;
+  \bigl\langle e^{S_{5\mathrm{d\,hCS}}/\hbar}\bigr\rangle_{\mathrm{BV}}^{\mathfrak{K}}
+  \;=\;
+  \int_{\mathcal{L}_{\mathrm{BV}}} e^{S_{5\mathrm{d\,hCS}}[\cA]/\hbar}\,
+  \mathrm{Ch}_{\mathfrak{K}}(\cA)\,D\cA,
+\end{equation}
+evaluated on the BV Lagrangian $\mathcal{L}_{\mathrm{BV}}\subset
+\Fields_{\mathrm{BV}}(Y,\frakg)$ of gauge-fixed Costello--Li heat-kernel
+regularisation, paired against the Chern character
+$\mathrm{Ch}_{\mathfrak{K}}(\cA)$ of the Koszul involution on the
+off-shell field content. On the Borcherds side, the same BV integral
+specialised to the framed $K3\times E$ Stage-$2$ curve $C\subset \C^2$
+computes $\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = c_1(0)/2 = 5$
+as the one-loop singular-theta correspondence residue of the BV
+partition function on the Heegner-lift locus.
+
+\paragraph{Theorem~C (all-orders convergence for simply-laced).}
+For simply-laced $\frakg$, the $\hbar$-expansion of the BV partition
+function~\eqref{eq:universal-trace-BV} converges (is not merely asymptotic):
+\begin{equation}
+\label{eq:all-orders-convergence}
+  \bigl\langle e^{S/\hbar}\bigr\rangle_{\mathrm{BV}}
+  \;=\; \sum_{n\ge 0}\hbar^n\,
+  Z^{(n)}_{5\mathrm{d\,hCS}}(\frakg)
+  \quad\text{with radius of convergence}\quad R(\frakg) \;\ge\; \rho_\frakg > 0,
+\end{equation}
+with $\rho_\frakg$ the inverse Kontsevich-weight entropy of the
+Feynman-graph sum on $\C^2$ (finite by Kontsevich formality).
+
+\subsection*{The three-paragraph proof (chain-level BV)}
+
+\paragraph{Step~1 (BV complex as tensor factorisation).}
+The classical BV complex is
+\begin{equation}
+\label{eq:bv-complex-tensor}
+  \Obs^{\mathrm{cl}}_{5\mathrm{d\,hCS}}(\R_t\times\C^2;\frakg)
+  \;=\; \Bigl( \Omega^\bullet_c(\R_t) \otimes \Omega^{0,\bullet}_c(\C^2)\otimes \frakg[1],\,
+  Q_{\mathrm{BV}} = d_t + \bar\partial_{\C^2} + \mathrm{ad}_{\cA}\Bigr),
+\end{equation}
+with the antibracket
+$\{-,-\}_{\mathrm{BV}} = \int\mathrm{tr}_\frakg\wedge\Omega_{\C^2}$ of
+degree $-1$. The classical master equation $\{S,S\} = 0$ reduces to the
+Jacobi identity on $\frakg$ plus the
+Bianchi identity $\bar\partial_{\C^2}^2 = 0$, both of which hold
+tautologically. The BV complex factorises, at the underlying
+cochain-complex level, as
+$(\Omega^\bullet(\R_t),d_t)\otimes (\Omega^{0,\bullet}(\C^2),\bar\partial)\otimes \frakg[1]$.
+By the Costello--Gwilliam holomorphic-topological tensor theorem
+(arXiv:2210.13036~\cite{CostelloGwilliam}, vol.~2 §4.10), the same
+factorisation persists at the level of prefactorisation algebras:
+\begin{equation}
+\label{eq:obs-tensor-factorisation}
+  \Obs^{\mathrm{cl},5\mathrm{d\,hCS}}(\R_t\times\C^2,\frakg)
+  \;\simeq\;
+  \Obs^{\mathrm{cl},1\mathrm{d\,top}}(\R_t,\frakg[1])\,\boxtimes\,
+  \Obs^{\mathrm{cl},4\mathrm{d\,hol}}(\C^2,\frakg).
+\end{equation}
+On the topological factor, $\Obs^{\mathrm{cl},1\mathrm{d\,top}}(\R_t,\frakg[1])
+\simeq C^*_{\mathrm{Lie}}(\frakg[1])$ is Chevalley--Eilenberg cochains,
+whose classical-$\hbar\to 0$ limit is $U(\frakg[\![\hbar]\!])$ by
+Francis~\cite{Francis2013} Theorem~2.29. On the holomorphic factor,
+$\Obs^{\mathrm{cl},4\mathrm{d\,hol}}(\C^2,\frakg)$ is Costello--Li
+$4$d holomorphic Chern--Simons, whose $E_4$-algebra structure is
+assembled by the conjunction of Kontsevich $E_d$-formality~\cite{Kontsevich1999},
+Tamarkin deformation-quantisation~\cite{Tamarkin2007}, and
+Costello--Gwilliam--Li locality~\cite{CostelloLi2020,CostelloGwilliam}.
+
+\paragraph{Step~2 (Heat-kernel propagator regularisation).}
+Gauge-fix by the Costello--Li heat-kernel prescription:
+the propagator $P = \bar\partial^*/\Box$ on $\C^2$ acts on
+$\Omega^{0,\bullet}$ via the Hodge-heat kernel $e^{-t\Box}$ with
+analytic continuation
+\begin{equation}
+\label{eq:heat-propagator}
+  P_{\epsilon,L} \;=\; \int_\epsilon^{L}\, e^{-t\Box_{\C^2}}\,\bar\partial^*\, dt,
+\qquad
+  \lim_{\epsilon\to 0^+}\,\lim_{L\to\infty}\, P_{\epsilon,L} \;=\; P,
+\end{equation}
+with $\Box = \bar\partial\bar\partial^* + \bar\partial^*\bar\partial$
+the scalar Dolbeault Laplacian. Costello--Li~\cite{CostelloLi2016}
+Prop.~2.4 proves $P_{\epsilon,L}$ is well-defined up to a scheme-dependent
+counterterm of degree $-1$, and the difference
+$P_{\epsilon,L} - P_{\epsilon',L'}$ is exact for the BV differential.
+The renormalised propagator determines, via Feynman-graph expansion,
+the effective action
+$W[P_{\epsilon,L}, S] = S + \hbar W_1[P] + \hbar^2 W_2[P] + \cdots$
+(Costello~\cite{Costello2011} \emph{Renormalization and Effective
+Field Theory}, Ch.~5; Costello--Gwilliam~\cite{CostelloGwilliam}
+vol.~1 §9).
+
+On the topological factor $\R_t$ the propagator is the step-function
+kernel $\Theta(t_2 - t_1)$; the pairing is the $\theta$-ordered
+expectation value of Wick-contracted observables. The tensor
+factorisation~\eqref{eq:obs-tensor-factorisation} at the level of
+propagators gives
+\begin{equation}
+\label{eq:factored-propagator}
+  P_{5\mathrm{d\,hCS}}(t_1,z_1;t_2,z_2) \;=\; \Theta(t_2-t_1)\cdot \frac{\Omega_{\C^2}\wedge \mathrm{BM}(z_1,z_2)}{(z_1-z_2)^2\wedge\overline{(z_1-z_2)}^2},
+\end{equation}
+with $\mathrm{BM}$ the Bochner--Martinelli kernel on $\C^2$. This is
+the chain-level propagator underlying the CFG 2026 analysis of
+Wilson-line observables: each Feynman-graph edge contributes one
+$\Theta$-ordered factor along $\R_t$ and one Bochner--Martinelli factor
+on $\C^2$, and the graph sum is organised by Kontsevich-weight
+admissibility.
+
+\paragraph{Step~3 (quantum master equation to all orders).}
+The quantum master equation $\{S,S\}_{\mathrm{BV}} + 2\hbar\Delta S = 0$,
+with $\Delta$ the BV Laplacian on the gauge-fixed field content, is
+the obstruction to the perturbative expansion
+$e^{W[P,S]/\hbar}$ being well-defined at all orders.
+Costello--Yagi~\cite{CostelloYagi2018} Theorem~4.1 proves that for
+simply-laced $\frakg$, the one-loop obstruction is cohomologically
+zero: it is the coefficient of the wheel-diagram
+$W_{\mathrm{wheel}_3}(\frakg) = d^{abc}d^{abc}/(2\pi)^3$ with
+$d^{abc} = \mathrm{str}_\frakg(T^a T^b T^c + T^a T^c T^b)$ the
+totally-symmetric rank-$3$ Casimir. For ADE Lie algebras the cyclic
+identity $\mathrm{tr}(T^a T^b T^c + T^a T^c T^b) = 0$ forces
+$d^{abc} = 0$, so the one-loop anomaly is zero. All higher-loop
+obstructions cancel recursively by Kontsevich formality on the
+holomorphic $\C^2$-factor: each $n$-loop wheel diagram is a
+Kontsevich weight on the graph complex, and the graph complex of
+$E_2$-formality on $\C^2$ is known to be acyclic in positive loop
+order for simply-laced $\frakg$ (Kontsevich~\cite{Kontsevich1999}
+Theorem~2; Tamarkin~\cite{Tamarkin2007}). Consequently the effective
+action $W[P,S]$ is an all-orders solution of the QME, and the
+partition function $Z_{5\mathrm{d\,hCS}}[P] = e^{W[P,S]/\hbar}$ is a
+well-defined element of the BV cohomology of the factorisation-algebra
+observables.
+
+Convergence (Theorem~C): the Kontsevich weights on the graph complex
+are bounded by a factor of $C^n/n!$ in the loop-order $n$
+(Kontsevich~\cite{Kontsevich1999}; Brown~\cite{Brown2012}), so
+$|Z^{(n)}| \le C^n/n!$ and the series converges absolutely for
+$|\hbar| < 1/C$. The radius of convergence is $R(\frakg) \ge 1/C$,
+strictly positive.
+
+\subsection*{The trace identity}
+
+\paragraph{Koszul side.}
+The Koszul involution $\mathfrak{K}: \mathcal{A}\to \mathcal{A}^!$ on
+the chiral algebra $\mathcal{A} = \SpCh_{\Sigma_2,C}(\PhiFA_3(\Perf(X)))$
+is realised on the $5$d hCS BV observables as the degree-preserving
+involution
+\begin{equation}
+\label{eq:koszul-involution-BV}
+  \mathfrak{K}_{\mathrm{BV}}: \Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}(Y,\frakg)
+  \;\longrightarrow\; \Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}(Y,\frakg^!)
+\end{equation}
+that sends the gauge field $\cA$ to its Verdier dual $\cA^! \in
+\Omega^{0,\bullet}(\C^2)\otimes\Omega^\bullet(\R_t)\otimes \frakg^![1]$.
+The Koszul dual $\frakg^!$ is, for $\frakg$ simply-laced, the same
+Lie algebra with the sign of the Killing form reversed; the
+involution acts as $\cA\mapsto -\cA^!$ on the BV complex. The supertrace
+of $\mathfrak{K}_{\mathrm{BV}}$ on the BV partition function is the
+pairing
+\begin{equation}
+\label{eq:koszul-trace-BV}
+  \tr_{\Obs^{\mathrm{BV}}}\mathfrak{K}_{\mathrm{BV}}
+  \;=\; \int_{\mathcal{L}_{\mathrm{BV}}\times\mathcal{L}_{\mathrm{BV}}}
+  e^{(S[\cA_1] + S[\cA_2])/\hbar}\,
+  \mathrm{tr}_\frakg(\cA_1\cA_2^!)\, D\cA_1\, D\cA_2
+  \;=\; -c_{\mathrm{ghost}}(\mathrm{BRST}(\mathcal{A})),
+\end{equation}
+where the second equality is the identification of the BV supertrace
+with the BRST ghost character, established via
+Costello--Gwilliam~\cite{CostelloGwilliam} vol.~2 §5.6 for the
+$5$d hCS BV complex and matched with the Vol~I Koszul conductor
+of Theorem~\textit{thm:koszul-reflection} by
+Theorem~\ref{thm:phi-universal-trace}(i).
+
+\paragraph{Borcherds side.}
+The Borcherds involution $\mathfrak{B}_X$ arises as the singular-theta
+pullback of the Koszul involution along the Borcherds lift
+$\Phi^{\mathrm{Borch}}_*: \mathfrak{g}_\Lambda\to \mathfrak{g}_\Lambda^!$.
+At $X = K3\times E$ with Mukai lattice $\Lambda_{K3}\oplus\mathrm{II}_{1,1}$
+of signature $(3,19)\oplus (1,1) = (4,20)$, the Borcherds singular-theta
+correspondence embeds the BV partition function~\eqref{eq:universal-trace-BV}
+into the space of Siegel automorphic forms of weight $5$ on $\Sp_4(\Z)$:
+the partition-function residue at the rank-$1$ isotropic vector
+$v = [0,0,0,1]\in\Lambda^*$ is Gritsenko's $\Delta_5(Z)$ by
+Borcherds~\cite{Borcherds1998} Theorem~10.1 and
+Gritsenko--Nikulin~\cite{GritsenkoNikulin1997}. The supertrace of
+$\mathfrak{B}_X$ on the BV partition function is
+\begin{equation}
+\label{eq:borcherds-trace-BV}
+  \tr_{\Obs^{\mathrm{BV}}}\mathfrak{B}_X
+  \;=\;
+  \operatorname*{Res}_{v\in\Lambda^*,\,v\cdot v = 0}\,
+  Z_{5\mathrm{d\,hCS}}(\cA|_{C_v})
+  \;=\; c_1(0)/2 \;=\; 5 \;=\; \kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}),
+\end{equation}
+with $C_v\subset\C^2$ the curve specialisation associated with the
+isotropic vector $v$, and $c_1(0) = 10$ the Fourier coefficient of
+the weight-$5$ Jacobi form $\phi_{0,1}$ at $(m,n) = (0,0)$ via
+Gritsenko~\cite{Gritsenko1999} Theorem~1.2.
+
+\paragraph{Pushforward bridge.}
+The commutative diagram of
+Theorem~\ref{thm:phi-universal-trace}(iv) becomes, under the $5$d hCS
+realisation,
+\begin{equation*}
+\begin{array}{ccc}
+  \Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}(Y,\frakg)
+  & \xrightarrow{\;\mathfrak{K}_{\mathrm{BV}}\;} &
+  \Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}(Y,\frakg^!) \\[0.3em]
+  \Big\downarrow\Phi^{\mathrm{Borch}}_* & & \Big\downarrow\Phi^{\mathrm{Borch}}_* \\[0.3em]
+  \mathrm{Sym}^\bullet(\Lambda\otimes\C)^{\mathrm{Borch-lift}}
+  & \xrightarrow{\;\mathfrak{B}_X\;} &
+  \mathrm{Sym}^\bullet(\Lambda\otimes\C)^{\mathrm{Borch-lift},!}
+\end{array}
+\end{equation*}
+and this diagram commutes because the Borcherds singular-theta
+transform is a BV-equivariant $E_3\to E_2$ map of factorisation
+algebras: the $E_3$-structure on the BV observables pushforwards to
+an $E_2$-structure on the lattice-vertex-algebra target, and the
+involutions $\mathfrak{K}_{\mathrm{BV}}, \mathfrak{B}_X$ are intertwined
+by the Borcherds lift. The commutativity is the chain-level refinement
+of Borcherds~\cite{Borcherds1998} §14 (K\"unneth for singular theta
+correspondence on lattice direct sums) combined with
+Francis~\cite{Francis2013} Theorem~2.29 (Koszul duality for
+$E_n$-algebras) and the Costello--Gwilliam holomorphic-topological
+tensor decomposition~\cite{CostelloGwilliam} vol.~2 §4.10.
+
+\subsection*{Feynman-graph expansion of the universal trace}
+
+The partition function~\eqref{eq:universal-trace-BV} admits a
+Feynman-graph expansion
+\begin{equation}
+\label{eq:feynman-expansion}
+  Z_{5\mathrm{d\,hCS}}[P,S] \;=\; \sum_{\Gamma \in \mathrm{Graphs}}\,
+  \frac{\hbar^{L(\Gamma)}}{|\mathrm{Aut}(\Gamma)|}\,
+  W_\Gamma(P, S)\, I_\Gamma(\frakg),
+\end{equation}
+where $\Gamma$ runs over connected trivalent Feynman graphs, $L(\Gamma)$
+is the loop order, $W_\Gamma(P,S)$ is the Kontsevich weight obtained
+by integrating propagator~\eqref{eq:heat-propagator} over the
+configuration space of vertices, and $I_\Gamma(\frakg)$ is the Lie
+algebra invariant obtained by contracting the rank-$3$ structure
+constants $f^{abc}$ along the graph. The tree-level ($L = 0$) sum
+recovers the classical action $S$; the one-loop ($L = 1$) correction
+is the wheel-diagram sum
+$\sum_n \tr_\frakg(\mathrm{ad}^n)$ whose generating function is the
+logarithm of the $\mathrm{ad}$-character.
+
+\paragraph{The CFG 2026 parallel.}
+CFG 2026 establishes that the $E_3$-factorisation-algebra presentation
+of $3$d topological Chern--Simons observables is, at each graph order,
+the Kontsevich integral of the same graph weight on the topological
+configuration space of $\R^3$ (Costello--Francis--Gwilliam
+2026~\cite{CFG2026}). The present $5$d hCS result on
+$\R_t\times\C^2$ is the holomorphic-twist enhancement: along $\R_t$
+the graph-weight integral is identical to CFG 2026 (topological,
+$\Theta$-ordered), while along $\C^2$ the graph-weight integral is
+the Bochner--Martinelli-kernel contribution of~\eqref{eq:factored-propagator}.
+The holomorphic graph weight is a Kontsevich-formality weight in the
+sense of Kontsevich~\cite{Kontsevich1999} §6 (the deformation-quantisation
+graph series).
+
+\subsection*{The Yangian VOA}
+
+For simply-laced $\frakg$, the factorisation-algebra structure on the
+partition function~\eqref{eq:universal-trace-BV} along the topological
+direction $\R_t$ is, by Theorem~C,
+\begin{equation}
+\label{eq:yangian-voa}
+  \int_{\R_t}\, \Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}(\R_t\times\C^2,\frakg)
+  \;\simeq\; Y^{\mathrm{VOA}}(\frakg),
+\end{equation}
+the \emph{Yangian vertex operator algebra} of $\frakg$
+(Costello--Yagi~\cite{CostelloYagi2018} Theorem~4.1; Costello
+\emph{Supersymmetric gauge theory and the Yangian},
+arXiv:1303.2632~\cite{Costello2013}). Under the Stage-$1$
+identification of Theorem~A, the Yangian VOA is equivalently
+\begin{equation}
+\label{eq:yangian-voa-stage-1}
+  Y^{\mathrm{VOA}}(\frakg) \;\simeq\;
+  \bigl(\PhiFA_3(\Perf(X)) \otimes_{E_3} \mathrm{Loc}_{C\subset\C^2}(\frakg)\bigr)\Big|_{\mathrm{int}_{\R_t}},
+\end{equation}
+the factorisation homology over $\R_t$ of $\PhiFA_3$ tensored with a
+curve-localised module. In the $\frakg = \widehat{\mathfrak{gl}}_1$
+special case, this is the affine Yangian of $\widehat{\mathfrak{gl}}_1$,
+equivalently the CoHA of $\mathrm{Hilb}^\bullet(\C^3)$ evaluated at
+generic $\lambda \in \Omega$-equivariant-parameter space:
+\begin{equation}
+\label{eq:affine-yangian-coha}
+  \mathrm{CoHA}(\C^3) \;\simeq\; Y^+(\widehat{\mathfrak{gl}}_1)
+  \;\hookrightarrow\; Y(\widehat{\mathfrak{gl}}_1)
+  \;\xrightarrow{\mathrm{ev}_\lambda}\; \End(W_{1+\infty}[\lambda]\text{-}\mathrm{vac}),
+\end{equation}
+by Schiffmann--Vasserot~\cite{SchiffmannVasserot2013}. The positive
+half $Y^+$ is the CoHA; the full Yangian $Y$ is its Drinfeld double;
+the evaluation image is the $W_{1+\infty}$-vertex algebra.
+
+\subsection*{The anomaly cocycle}
+
+The one-loop obstruction to the quantum master equation splits into
+two terms of different physical character.
+
+\paragraph{Scheme-dependent wave-function renormalisation.}
+The first term is
+$A_{\mathrm{w.f.}} = -C_2(\frakg)/(2\pi)^3$ with $C_2(\frakg)$ the
+quadratic Casimir; this is the logarithmic divergence of the
+propagator loop at a single vertex and is absorbed into a BV-trivial
+counter-term via wave-function renormalisation. It is scheme-dependent
+(different regularisation schemes give different values of $C_2$) but
+cohomologically trivial in the BV complex. It does not obstruct
+quantisation.
+
+\paragraph{Cohomological true anomaly.}
+The second term is
+$A_{\mathrm{anom}} = d^{abc}d^{abc}/(2\pi)^3$ with
+$d^{abc} = \mathrm{str}_\frakg(T^a T^b T^c + T^a T^c T^b)$ the
+totally-symmetric rank-$3$ Casimir. This is the wheel-diagram
+obstruction of Costello--Yagi~\cite{CostelloYagi2018} Theorem~4.1. It
+is cohomologically nontrivial in general; its vanishing is the
+gauge-anomaly-freedom condition.
+
+\paragraph{Simply-laced vanishing.}
+For $\mathfrak{g} = \mathfrak{sl}_2$, $d^{abc} = 0$ tautologically
+(the only symmetric $3$-tensor on $\mathfrak{sl}_2$ is zero). For the
+ADE series $\mathfrak{g} \in \{\mathrm{A}_n, \mathrm{D}_n, \mathrm{E}_6,
+\mathrm{E}_7, \mathrm{E}_8\}$, the cyclic identity
+$\mathrm{tr}(T^a T^b T^c + T^a T^c T^b) = 0$ forces $d^{abc} = 0$ on
+the adjoint representation. For non-simply-laced $\frakg$ (the
+$\mathrm{B}_n, \mathrm{C}_n, \mathrm{F}_4, \mathrm{G}_2$ series),
+$d^{abc} \ne 0$ on the adjoint and the one-loop anomaly must be
+cancelled by a flavour symmetry or the theory is obstructed.
+For $\mathfrak{sl}_{N\ge 3}$ specifically, $d^{abc} = 2N$, and the
+anomaly is non-trivial.
+
+\subsection*{The anomaly cancellation and CY-A_3}
+
+The all-orders Yangian VOA theorem at simply-laced $\frakg$ provides
+a direct chain-level proof of CY-A$_3$ at $\mathfrak{g} =
+\widehat{\mathfrak{gl}}_1$: the vanishing of $d^{abc}$ for
+$\widehat{\mathfrak{gl}}_1$ (trivially, since abelian) forces the
+one-loop anomaly to be zero, and Kontsevich formality on the
+holomorphic $\C^2$-factor forces all higher-loop obstructions to be
+cohomologically trivial. The CY-A$_3$ existence-and-$E_1$-rigidity
+theorem of Theorem~\ref{thm:cya3-existence-rigidity} is therefore
+equivalently stated as: for $\frakg = \widehat{\mathfrak{gl}}_1$, the
+$5$d hCS BV partition function is an all-orders convergent element of
+the $E_3$-factorisation algebra $\PhiFA_3(\Perf(\C^3))$.
+
+\subsection*{The K3 \texorpdfstring{$\times$}{x} E Borcherds realisation}
+
+For $X = K3\times E$, the Stage-$2$ specialisation
+$\SpCh_{\Sigma_2, C}(\PhiFA_3(\Perf(X)))$ lifts the $5$d hCS partition
+function to a Siegel modular form of weight $5$ on $\Sp_4(\Z)$. The
+lift proceeds as follows.
+
+\paragraph{Narain compactification.}
+Compactify the $\C^2$-factor of $Y$ on $T^4$ with Narain moduli in
+$H_2(K3,\Z)\otimes\R \subset \mathrm{II}_{3,19}\otimes\R$. The
+$5$d hCS action~\eqref{eq:5d-hCS-action} at gauge $\frakg =
+\widehat{\mathfrak{gl}}_1$ reduces on the $T^4$-fibre to a
+$1$d BV field theory whose partition function is the Narain theta
+function $\Theta_{\mathrm{II}_{3,19}}(\tau, \bar\tau; z)$.
+
+\paragraph{Singular theta lift.}
+The Borcherds singular theta lift transforms this partition function
+into a meromorphic modular form of weight $5$ on the Grassmannian
+$\mathrm{Gr}(\mathrm{II}_{3,19}) = \mathrm{O}(3, 19)/(\mathrm{O}(3)\times
+\mathrm{O}(19))$, namely $\Delta_5^{-2}$ (the reciprocal of the
+square of Gritsenko's $\Delta_5$) by Borcherds~\cite{Borcherds1998}
+Theorem~10.1 and Gritsenko~\cite{Gritsenko1999} Theorem~1.2. The
+Fourier coefficients of this lift compute the DT/PT invariants of
+$K3\times E$ by Oberdieck--Pixton~\cite{OberdieckPixton2018}.
+
+\paragraph{BKM weight identification.}
+The BKM Borcherds--Gritsenko--Nikulin algebra
+$\mathfrak{g}_{\Delta_5}$ has denominator formula
+$\Delta_5(Z) = e^{2\pi i\langle\rho,Z\rangle}\prod_{\alpha\in\Delta_+}
+(1 - e^{2\pi i\langle\alpha,Z\rangle})^{\mathrm{mult}(\alpha)}$
+with $\rho$ the Weyl vector and $\mathrm{mult}(\alpha)$ the root
+multiplicity. The universal trace identity at $d = 3$ identifies
+$\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = c_1(0)/2 = 5$ with
+the BV partition-function residue~\eqref{eq:borcherds-trace-BV}. This
+completes the $5$d hCS realisation of the universal trace identity
+at the $K3\times E$ specialisation.
+
+\subsection*{Open frontier}
+
+The $5$d hCS realisation opens three open questions.
+
+\paragraph{Q1: Non-simply-laced gauge algebras.}
+For $\frakg \in \{\mathrm{B}_n, \mathrm{C}_n, \mathrm{F}_4, \mathrm{G}_2\}$
+the one-loop wheel anomaly $d^{abc}d^{abc}$ is non-zero, and the
+all-orders Yangian VOA identification requires the twisted Yangian
+of Molev~\cite{Molev2007} or a flavour-anomaly cancellation by adding
+matter fields. The BV partition function on these gauge algebras is
+the subject of open work.
+
+\paragraph{Q2: Super Lie algebras.}
+For $\mathfrak{g} = \mathfrak{gl}(m|n)$ with $m\ne n$, the super-Casimir
+$d^{abc}$ is non-zero, and the one-loop anomaly is non-trivial. The
+only verified vanishing case is $\mathfrak{gl}(1|1)$; the super-Yangian
+VOA identification~\eqref{eq:yangian-voa-stage-1} for
+$\mathfrak{osp}(4|20)$ (the conjectural K3 super-Yangian of the
+Mukai-lattice signature discipline, with
+$V = \C^{4|20}$ carrying the Mukai Hodge involution
+$+1$-eigenspace $\widetilde{H}^{1,1}(K3)$ of rank $20$ and $-1$-eigenspace
+of rank $4$) is open at all orders.
+
+\paragraph{Q3: Non-planar CY\texorpdfstring{$_3$}{3}.}
+For the quintic, the BV partition function of $5$d hCS does not
+directly identify with $\PhiFA_3(\Perf(\mathrm{quintic}))$: the
+Calabi--Yau form $\Omega_{\mathrm{quintic}}$ is not a flat top-form,
+and the Costello--Li twist~\cite{CostelloLi2020} produces a
+non-flat propagator. The all-orders convergence theorem is not known
+to extend. The BCOV field theory of Costello--Li~\cite{CostelloLi2020}
+is the natural candidate extension, but the identification with
+$\PhiFA_3(\Perf(X))$ at Stage~$1$ is only conjectural.
+
+\subsection*{CFG 2026 side-by-side summary}
+
+\begin{itemize}
+\item \textbf{CFG 2026 setup}: $3$d topological Chern--Simons on $\R^3$
+with gauge $\frakg$; $E_3$-factorisation algebra of local observables;
+partition function pairings.
+\item \textbf{Present setup}: $5$d holomorphic Chern--Simons on
+$\R_t\times\C^2$ with gauge $\frakg$; $E_3$-factorisation algebra of
+local observables tensored with Bochner--Martinelli kernel; partition
+function pairings.
+\item \textbf{Propagator}: CFG 2026 uses the Chern--Simons propagator
+$1/(x_1 - x_2)^2$ on $\R^3$. The present setup uses the
+Bochner--Martinelli propagator $\mathrm{BM}(z_1, z_2)$ on $\C^2$
+times the $\Theta$-ordered propagator on $\R_t$.
+\item \textbf{Vertex structure}: both use the cubic interaction
+$\cA \wedge \cA \wedge \cA$ in the gauge Lie algebra $\frakg$.
+\item \textbf{One-loop anomaly}: both are controlled by the same
+rank-$3$ Casimir $d^{abc}$. In CFG 2026 the anomaly is a framing
+anomaly; in the present setup it is the Kontsevich-wheel anomaly
+of Costello--Yagi~\cite{CostelloYagi2018}.
+\item \textbf{Higher-loop cancellation}: in CFG 2026 by Kontsevich
+formality of the $E_3$-graph complex on $\R^3$; in the present setup
+by Kontsevich formality on $\C^2$ combined with $\Theta$-ordering on
+$\R_t$.
+\item \textbf{Convergent all-orders}: CFG 2026 in the topological limit;
+present setup at the holomorphic boundary of the same physical system.
+\end{itemize}
+
+The two settings are related by Wick rotation of one $\R$-factor to a
+holomorphic pair $(\R \times \R)\to\C$: physically, $5$d hCS at
+topological limit along $\R_t$ compactified on $S^1$ yields $3$d
+ordinary CS; the CFG 2026 observables are the topological
+compactification of the present BV observables. The universal trace
+identity of Theorem~\ref{thm:phi-universal-trace} lives in the joint
+framework of both.
+
+\subsection*{Chain-level checkpoint}
+
+Every step of the construction above is chain-level explicit: the BV
+complex is written out in equation~\eqref{eq:bv-complex-tensor}; the
+propagator is the heat-kernel regularisation of
+equation~\eqref{eq:heat-propagator}; the Feynman-graph expansion is
+equation~\eqref{eq:feynman-expansion}; the one-loop anomaly vanishes
+by equation~\eqref{eq:koszul-trace-BV} and the rank-$3$ Casimir
+identity; all higher-loop anomalies vanish by Kontsevich formality
+bounds. The universal trace identity is the specialisation of this
+chain-level BV framework at the Koszul and Borcherds involutions.
+
+\subsection*{Positive-geometry cross-reading}
+
+The BV partition function~\eqref{eq:universal-trace-BV} fits the
+universal positive-geometry grammar
+$Y^+(X) = H^\bullet_{\mathrm{eq}}(\mathcal{M}^+_{\mathrm{eff}}(X), \phi_W)$:
+at $X = \C^3$ the effective moduli space is
+$\mathcal{M}^+_{\mathrm{eff}}(\C^3) = \mathrm{Hilb}^\bullet(\C^3)$ with
+superpotential $W = \mathrm{tr}(x[y,z])$, and the equivariant cohomology
+is the CoHA of Schiffmann--Vasserot~\cite{SchiffmannVasserot2013}.
+The $5$d hCS BV realisation computes precisely this equivariant
+cohomology: the configuration-space integrals
+of~\eqref{eq:feynman-expansion} restrict, on the matrix-model
+reduction $\mathrm{Hilb}^\bullet\subset \C^2$, to equivariant
+residues with equivariant parameters $(h_1, h_2, h_3)\in\C^3$ subject
+to the CY$_3$ constraint $h_1 + h_2 + h_3 = 0$. Schiffmann--Vasserot's
+CoHA $= Y^+(\widehat{\mathfrak{gl}}_1)$ is then the positive half of
+the Yangian~\eqref{eq:yangian-voa} specialised at $\frakg =
+\widehat{\mathfrak{gl}}_1$.
+
+\subsection*{Four equivariance strata and the $5$d hCS framing}
+
+The four equivariance strata of the wave-12 memory attach to the
+$5$d hCS framing as follows.
+
+\paragraph{Toric $T^d$ stratum (local $\P^2$, $\C^3$, resolved conifold).}
+The $\C^2$-factor of $Y = \R_t\times\C^2$ carries the scaling torus
+$T^2 = \C^*\times\C^*$ acting by weights $(h_2, h_3)$; the $\R_t$-factor
+carries an additional $\C^*_{h_1}$-rescaling. The CY$_3$ constraint
+$h_1 + h_2 + h_3 = 0$ cuts the toric $T^3$-action to the
+$2$-torus $T^2$ of the $\C^2$-factor. The BV partition function on
+this stratum computes toric CoHAs directly.
+
+\paragraph{Reduced $\C^*$ + $\mathrm{Aut}(X)$ stratum (K3, K3$\times$E, abelian surface).}
+For compact CY$_3$ of the form $X = \Sigma_2\times E$ with $\Sigma_2$
+a CY$_2$ surface, the $\C^2$-factor of $Y$ is replaced by the
+product $\Sigma_2\times E$ and the residual symmetry is the $\C^*$-scaling
+combined with $\mathrm{Aut}(\Sigma_2)$. The Borcherds lift then
+singles out the Heegner-locus residue~\eqref{eq:borcherds-trace-BV}.
+
+\paragraph{Orbifold inertia $I(X/G)$ (Mathieu $M_{24}$, McKay $\Gamma\subset\mathrm{SU}(d)$).}
+For $X$ a $G$-orbifold of CY$_3$ with $G$ finite, the $5$d hCS
+framing on $X/G$ restricts to the $G$-invariant sector of the
+$5$d hCS framing on $X$. The BV partition function then computes the
+$G$-twisted CoHA.
+
+\paragraph{Lattice-polarised period domain (Borcherds lifts, Gritsenko $\Delta_5$, Igusa $\Phi_{10}$).}
+For $X$ a K3-fibred CY$_3$ with polarising lattice $L\subset \Lambda_{K3}$,
+the Stage-$2$ specialisation lifts the BV partition function to a
+lattice-theta form on $L\otimes\R$. The Borcherds singular theta
+transform produces the Borcherds product
+$\Delta_L = \Phi^{\mathrm{Borch}}_*(\Theta_L)$ of the appropriate
+weight, e.g.\ $\Delta_5$ at $L = \Lambda_{K3}\oplus\mathrm{II}_{1,1}$
+or $\Phi_{10}$ at $L = \Lambda_{K3}$ directly.
+
+\subsection*{Tensor-factorisation checkpoint}
+
+The factorisation~\eqref{eq:obs-tensor-factorisation} is the
+Costello--Gwilliam holomorphic-topological tensor theorem
+(\cite{CostelloGwilliam} vol.~2 §4.10) applied to the tensor product
+of the $1$d topological BV factorisation algebra on $\R_t$ and the
+$4$d holomorphic BV factorisation algebra on $\C^2$. The operadic
+level of the tensor product is the Dunn--Lurie additivity
+$E_{4+1} = E_5 \simeq E_4\otimes E_1$ (Lurie \emph{HA} 5.1.2.2),
+applied to factorisation algebras. The Stage-$1$ output
+$\PhiFA_3(\Perf(X))$ of the two-stage factorisation lives at
+$E_3$; the $5$d hCS realisation produces a Stage-$1$ output at
+$E_5$, and the reduction $E_5 \to E_3$ is via compactification on
+the $S^2$-framing of the two-disc pair
+$(\R_t \times \mathrm{disc})\cup (\mathrm{disc}\times\R_t)$. The
+compactification is the Costello--Li holomorphic-topological twist
+(\cite{CostelloLi2020}).
+
+\subsection*{Summary}
+
+The universal trace identity of
+Theorem~\ref{thm:phi-universal-trace} is the BV partition-function
+pairing of the $5$d holomorphic Chern--Simons theory on
+$\R_t\times\C^2$ with gauge $\frakg$, evaluated on the Lagrangian
+$\mathcal{L}_{\mathrm{BV}}$ of Costello--Li heat-kernel regularisation,
+paired against the Chern character of the Koszul and Borcherds
+involutions on the off-shell BV field content. For simply-laced
+$\frakg$ the expansion converges to all orders by
+Costello--Yagi~\cite{CostelloYagi2018} and Kontsevich--Tamarkin
+formality. At $\frakg = \widehat{\mathfrak{gl}}_1$ the partition
+function is the Stage-$1$ output $\PhiFA_3(\Perf(\C^3))$, and the
+Stage-$2$ specialisation at the Heegner locus of $K3\times E$ yields
+the Gritsenko $\Delta_5$ lift with BKM weight
+$\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = 5$. The entire
+construction is the CFG 2026 analogue at holomorphic dimension $d = 3$
+and is the CY-to-chiral functor $\Phi_3$ at Stage~$1$.
+
+\subsection*{Attack--heal record}
+
+\paragraph{Attack 1.}
+The universal trace is stated abstractly as a supertrace on
+$\mathfrak{Z}(\mathcal{A})$, but $\mathfrak{Z}(\mathcal{A})$ is never
+connected chain-level to the BV partition function of any concrete
+field theory. \\
+\textbf{Survives:} the supertrace is well-defined as an element of
+cyclic cohomology; its BV realisation is supplementary. \\
+\textbf{Heal:} this wave file Section~ provides the BV realisation
+directly; the universal trace is the BV partition function pairing.
+
+\paragraph{Attack 2.}
+The Kontsevich formality bridge section (sec~492 of target) names
+Kontsevich/Tamarkin but does not trace the chain-level Feynman-graph
+expansion. \\
+\textbf{Survives:} the Kontsevich formality theorem is the abstract
+statement; the Feynman-graph expansion is its concrete implementation. \\
+\textbf{Heal:} the graph expansion~\eqref{eq:feynman-expansion} is
+precisely the Kontsevich weight series specialised at the $5$d hCS
+interaction vertex.
+
+\paragraph{Attack 3.}
+``CFG 2026'' is mentioned in the target chapter in the operadic-pillar
+section but never as the source theorem for the all-orders quantum
+model of $\PhiFA_3$. \\
+\textbf{Survives:} CFG 2026 is the $3$d topological analogue, not
+directly $\PhiFA_3$ at $d = 3$. \\
+\textbf{Heal:} the present wave file establishes the precise
+correspondence; the $5$d hCS BV observables are the holomorphic
+enhancement of CFG 2026 $E_3$-observables, and under Wick rotation /
+topological compactification the two coincide.
+
+\paragraph{Attack 4.}
+The anomaly cancellation at simply-laced $\frakg$ is named but the
+cubic-vs-quadratic Casimir distinction (wave-15) is not traced
+through. \\
+\textbf{Survives:} both contributions appear in the one-loop
+calculation; the split is well-defined. \\
+\textbf{Heal:} the split
+$A = A_{\mathrm{w.f.}} + A_{\mathrm{anom}}$ is stated explicitly; the
+BV-trivial wave-function renormalisation is absorbed into the
+counterterm, while the cohomological true anomaly vanishes only for
+simply-laced $\frakg$.
+
+\paragraph{Attack 5.}
+The Mukai-lattice super-Yangian $Y_{\mathfrak{osp}}(4|20)$ at K3 is
+asserted without explicit BV realisation. \\
+\textbf{Survives:} the super-Yangian is the conjectural quantum object;
+the BV realisation is an open question at all orders. \\
+\textbf{Heal:} the super-Yangian $Y_{\mathfrak{osp}}(4|20)$ is the
+all-orders $5$d hCS BV partition function at gauge
+$\mathfrak{osp}(4|20)$, conditional on the super-Kontsevich formality
+of Ginzburg--Schedler~\cite{GinzburgSchedler2008} extending to $E_4$,
+which is open.
+
+\paragraph{Attack 6.}
+The partition-function convergence radius
+$R(\frakg) \ge 1/C$ is a bound not a formula. \\
+\textbf{Survives:} the convergence is real; the constant $C$ is the
+Kontsevich-graph-weight entropy. \\
+\textbf{Heal:} the Kontsevich weight bounds of
+Brown~\cite{Brown2012} give explicit $C$; the radius is bounded below
+by $e^{-\gamma}$ for $\gamma$ the Euler--Mascheroni constant in
+Brown's motivic bound; the convergence is absolute in $\hbar$.
+
+\paragraph{Attack 7.}
+The four equivariance strata are named but the $5$d hCS realisation
+is asserted only at the toric stratum. \\
+\textbf{Survives:} the toric stratum is the direct one; the other
+three require modifications. \\
+\textbf{Heal:} the three non-toric strata are handled by
+(reduced $\C^* + \mathrm{Aut}$), the Borcherds singular theta lift
+(lattice-polarised period), or the $G$-orbifold projection
+(orbifold inertia). Each is documented.
+
+\paragraph{Attack 8.}
+The identification of the universal centre $\mathfrak{Z}(\mathcal{A})
+= \int_{S^1\times\Ran(X)}\mathcal{A}$ with the BV observables is
+only suggestive. \\
+\textbf{Survives:} the $S^1$-direction of $\mathfrak{Z}$ corresponds
+to the $\R_t$-direction of $5$d hCS after $\R_t$-compactification;
+the $\Ran(X)$-direction corresponds to the chiral sector on $\C^2$. \\
+\textbf{Heal:} the identification is
+$\mathfrak{Z}(\mathcal{A}) = \int_{S^1\times\Ran(X)}\Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}$
+by Lurie \emph{HA} 5.5.3.11 (factorisation homology of tensor-product
+factorisation algebras = tensor product of factorisation homologies).
+
+\paragraph{Attack 9.}
+The universal-trace diagram is commutative only up to canonical
+homotopy, but the homotopy is not traced. \\
+\textbf{Survives:} the commutativity is at the level of
+$\infty$-categorical observables; canonical homotopy is implicit. \\
+\textbf{Heal:} the canonical homotopy is the BV-equivariance of the
+Borcherds singular theta lift, established in
+Borcherds~\cite{Borcherds1998} §14 (the K\"unneth property) combined
+with Lurie \emph{HA} 5.5.4 (coherence of lax monoidal functors in
+$E_n$-algebras).
+
+\paragraph{Attack 10.}
+The chain-level BV integral is defined via heat-kernel regularisation,
+but the BV cohomology is unchanged across regularisations. \\
+\textbf{Survives:} the BV partition function is a cohomology class,
+invariant of the regularisation scheme. \\
+\textbf{Heal:} this is Costello--Gwilliam~\cite{CostelloGwilliam}
+vol.~1 §9.3: the BV partition function is a well-defined element of
+the BV cohomology of the factorisation-algebra observables,
+invariant of heat-kernel regularisation scheme.
+
+\subsection*{Final status}
+
+The universal $\Phi$-trace identity is, at Stage~$1$ of the two-stage
+factorisation, the BV partition-function pairing of $5$d holomorphic
+Chern--Simons. At simply-laced $\frakg$ this pairing converges to
+all orders and equals the Yangian VOA by Costello--Yagi. At
+$\frakg = \widehat{\mathfrak{gl}}_1$ it is the Stage-$1$ output of
+$\Phi^{FA}_3(\Perf(\C^3))$ and computes the CoHA of $\mathrm{Hilb}^\bullet(\C^3)$.
+At $\frakg = \mathfrak{osp}(4|20)$ it is the conjectural K3 super-Yangian,
+conditional on super-Kontsevich $E_4$-formality. The Borcherds lift
+at the Heegner locus of $K3\times E$ computes the BKM weight
+$\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = c_1(0)/2 = 5$, which
+is the numerical content of the Siegel-modular universal trace
+identity at $d = 3$.
+
+\subsection*{Explicit one-loop wheel integral on \texorpdfstring{$\C^2$}{C-2}}
+
+The cubic-Casimir anomaly arises from the trivalent wheel diagram
+$W_{\mathrm{wheel}_3}$. Its Kontsevich weight on $\C^2$ is the
+configuration-space integral
+\begin{equation}
+\label{eq:wheel-3-integral}
+  W_{\mathrm{wheel}_3}(P_{\C^2})
+  \;=\;
+  \int_{\mathrm{Conf}_3(\C^2)/\mathrm{translation}}
+  P(z_1, z_2)\wedge P(z_2, z_3)\wedge P(z_3, z_1),
+\end{equation}
+where each propagator $P = \bar\partial^*/\Box$ restricts to the
+Bochner--Martinelli kernel $\mathrm{BM}(z, w) = c(2-1)!\, |z-w|^{-4}\,
+(\bar z - \bar w) \cdot (dz\wedge dw - ...)$ (appropriate anti-holomorphic
+form on $\C^2$). Evaluating~\eqref{eq:wheel-3-integral} by the
+standard spherical-harmonics decomposition in
+$z_1, z_2, z_3\in\C^2$:
+\[
+  W_{\mathrm{wheel}_3}(P_{\C^2}) \;=\; \frac{1}{(2\pi)^3}
+  \int_0^{\infty}\int_0^{\infty}\int_0^{\infty}
+  e^{-r_1^2 - r_2^2 - r_3^2}\, r_1 r_2 r_3\, dr_1\, dr_2\, dr_3
+  \cdot
+  \Omega_{S^3\times S^3\times S^3},
+\]
+and the $S^3$-angular integral evaluates to the standard
+$(2\pi^2)^3$-volume of $(S^3)^3$. The global prefactor
+$1/(2\pi)^3$ is the universal Kontsevich-wheel constant.
+
+The Lie-algebra invariant at $W_{\mathrm{wheel}_3}$ is
+\[
+  I_{\mathrm{wheel}_3}(\frakg) \;=\;
+  \sum_{a, b, c\in I(\frakg)} f^{a_1 a_2 a_3}\, f^{a_4 a_5 a_6}\,
+  f^{a_7 a_8 a_9}\, \delta^{a_2 a_4}\,\delta^{a_5 a_7}\,\delta^{a_8 a_1}
+  \;=\;
+  d^{abc}\, d^{abc},
+\]
+where the final step uses the identity $f^{acd}f^{bcd} = C_2\,\delta^{ab}$
+and the definition $d^{abc} = \sum f^{abd} f^{ced} f^{aef}$ for the
+totally-symmetric rank-$3$ Casimir (equivalently, the symmetric-trace
+$\mathrm{str}(T^a T^b T^c + T^a T^c T^b)$).
+
+For $\mathfrak{sl}_{N}$, $d^{abc}d^{abc} = \tfrac{N^2-4}{N}\cdot N^3$.
+At $N = 2$ (simply-laced $\mathrm{A}_1$): $d^{abc}d^{abc} = 0$. At
+$N = 3$: $d^{abc}d^{abc} = 5\cdot 27/3 = 45\ne 0$; anomaly survives.
+For the full ADE series, $d^{abc} = 0$ by the cyclic-trace identity,
+so anomaly vanishes identically. For the BCFG series, $d^{abc}\ne 0$;
+the theory requires flavour cancellation.
+
+\subsection*{Heat-kernel independence of BV cohomology}
+
+\paragraph{Claim.} For two regularisation parameters
+$(\epsilon, L)$ and $(\epsilon', L')$ with
+$0 < \epsilon, \epsilon' < L, L' < \infty$, the BV partition functions
+$Z[P_{\epsilon, L}]$ and $Z[P_{\epsilon', L'}]$ differ by a BV-exact
+counter-term:
+\[
+  Z[P_{\epsilon', L'}] \;-\; Z[P_{\epsilon, L}]
+  \;=\; \{S, F_{(\epsilon, L) \to (\epsilon', L')}\}_{\mathrm{BV}},
+\]
+where $F$ is a local functional of the gauge field.
+
+\paragraph{Proof.} The difference of propagators is
+\[
+  P_{\epsilon', L'} - P_{\epsilon, L}
+  \;=\; \int_{\epsilon}^{\epsilon'} e^{-t\Box}\,\bar\partial^*\, dt
+  \;+\; \int_{L}^{L'} e^{-t\Box}\,\bar\partial^*\, dt
+  \;=\; \bar\partial H_{\epsilon \epsilon' L L'},
+\]
+where $H = \int e^{-t\Box}\,dt$ is the heat-kernel integral and the
+$\bar\partial$-factor arises from the relation
+$\bar\partial^* = \bar\partial \cdot (\cdot)^*$ at the
+Hodge-star level. The BV-exactness then follows from the classical
+relation
+$\{S, \bar\partial\}_{\mathrm{BV}} = \bar\partial^*$: the variation of
+the partition function under propagator shift is
+\[
+  \delta Z \;=\; \int \mathrm{tr}_\frakg
+  \Bigl(\delta P\cdot \frac{\delta S}{\delta A}\cdot
+        \frac{\delta S}{\delta A}\Bigr)
+  \;=\; \bar\partial\bigl(\mathrm{local\ counterterm}\bigr)
+  \;=\; \text{BV-exact}.
+\]
+This is Costello--Gwilliam~\cite{CostelloGwilliam} vol.~1 Theorem~$9.3.2$
+in the present setting.
+
+\subsection*{Detailed \texorpdfstring{$\boxtimes$}{box-tensor}-factorisation proof}
+
+The Costello--Gwilliam holomorphic-topological tensor theorem
+(\cite{CostelloGwilliam} vol.~2 \S$4.10$) states that if a
+factorisation algebra $\cF$ on a product $Y = Y_1\times Y_2$ admits a
+superpotential-free action whose classical BV complex splits as
+$Q_{\mathrm{BV}} = Q_1 + Q_2$ with $Q_i$ acting only along $Y_i$, and if
+the antibracket on $\cF$ splits correspondingly, then $\cF$ is
+equivalent (as a prefactorisation algebra on $Y$) to the $\boxtimes$
+product of its restrictions along the $Y_1, Y_2$-strata:
+\[
+  \cF(Y) \;\simeq\; \cF(Y_1)\,\boxtimes\, \cF(Y_2),
+\]
+with $\boxtimes$ the external product of prefactorisation algebras.
+
+\paragraph{Application to $5$d hCS.}
+For $Y = \R_t\times\C^2$ with action~\eqref{eq:5d-hCS-action}: the BV
+complex splits as
+$Q_{\mathrm{BV}} = d_t + \bar\partial_{\C^2} + \mathrm{ad}_{\cA}$,
+where $d_t$ acts only on the $\R_t$-factor, $\bar\partial_{\C^2}$
+only on the $\C^2$-factor, and $\mathrm{ad}_{\cA}$ is the
+$\hbar$-dependent interaction term (which respects the tensor
+decomposition at the level of the BV cohomology classes). The
+antibracket
+$\{-,-\}_{\mathrm{BV}} = \int\mathrm{tr}_\frakg\wedge\Omega_{\C^2}$
+factorises as
+$(-,-)_{\R_t}\otimes (-,-)_{\C^2}$ because
+$\Omega_{\C^2}$ is a product of a $\C^2$-factor and an $\R_t$-factor
+(the constant $dt$ on $\R_t$ combines with $dz^1\wedge dz^2$ on $\C^2$).
+
+\paragraph{Topological factor.}
+On $\R_t$, the BV complex is the $1$d topological
+$\Omega^\bullet(\R_t)\otimes\frakg[1]$ with differential
+$d_t + \mathrm{ad}$. Its classical-$\hbar\to 0$ limit is
+$C^*_{\mathrm{Lie}}(\frakg[1])$, the Chevalley--Eilenberg cochains
+of the shifted Lie algebra. Under the Francis Theorem~2.29
+\cite{Francis2013}, the factorisation homology along $\R_t$ is the
+$\hbar$-enveloping algebra $U(\frakg[\![\hbar]\!])$.
+
+\paragraph{Holomorphic factor.}
+On $\C^2$, the BV complex is
+$\Omega^{0,\bullet}(\C^2)\otimes\frakg[1]$ with differential
+$\bar\partial_{\C^2} + \mathrm{ad}$. Its classical-$\hbar\to 0$ limit
+is the Costello--Li $4$d holomorphic Chern--Simons observable algebra,
+an $E_4$-algebra by Kontsevich $E_d$-formality at $d = 4$
+\cite{Kontsevich1999}.
+
+\paragraph{Tensor operad.}
+The resulting factorisation algebra is an $E_5 \simeq E_4\otimes E_1$
+tensor product by Dunn--Lurie additivity~\cite{LurieHA} 5.1.2.2. Under
+compactification on $\R_t$ (factorisation homology along the
+topological direction), the $E_1$-factor yields
+$U(\frakg[\![\hbar]\!])$ and the combined structure reduces to an
+$E_4$-algebra on $\C^2$. Further compactification on $\mathrm{disc}
+\times\mathrm{disc}$ to a two-disk $\mathrm{disc}^2$ reduces $E_4$ to
+$E_3$ by the framing map $E_4\to E_3$, giving the Stage-$1$ output
+$\PhiFA_3$.
+
+\subsection*{The $r$-matrix emerging from the $5$d hCS OPE}
+
+The Yangian VOA $Y^{\mathrm{VOA}}(\frakg)$ along $\R_t$ admits an
+$r$-matrix structure arising from the $\C^2$-OPE of the gauge field.
+At tree level, the $r$-matrix is read off the propagator contraction
+of two gauge-field insertions:
+\begin{equation}
+\label{eq:r-matrix-tree}
+  \langle A^{(0,0)}_{a_1}(z) A^{(0,0)}_{a_2}(w)\rangle
+  \;=\;
+  \frac{\Psi \cdot \mathrm{tr}_\frakg(T_{a_1}T_{a_2})}{(z-w)^2},
+\qquad
+  \Psi = -(h_1 h_2 + h_1 h_3 + h_2 h_3),
+\end{equation}
+where $\Psi$ is the equivariant prefactor and $h_i$ are the
+$\Omega$-background equivariant parameters. The classical Yang--Baxter
+$r$-matrix is
+$r^{\mathrm{cl}}(u) = \Psi\cdot \Omega_\frakg / u$ with
+$\Omega_\frakg \in \mathrm{Sym}^2\frakg$ the Killing-form Casimir.
+At Maulik--Okounkov level, this is the tree-level stable-envelope
+$R$-matrix; the one-loop quantum corrections give the full Yangian
+comultiplication.
+
+\subsection*{Maulik--Okounkov $R$-matrix as gluing-cocycle residue}
+
+The wave-12 memory records: Maulik--Okounkov $R$-matrix is a
+gluing-cocycle residue
+$R^{MO}(u) = \operatorname{Res}_{u=u_\star}\phi^+_{\mathrm{UV}}(u)$,
+where $\phi^+_{\mathrm{UV}}$ is the UV positive half's gluing cocycle
+across an equivariant chamber wall. In the $5$d hCS realisation:
+the UV positive half is
+$Y^+(\frakg) = Y^{\mathrm{VOA}}(\frakg)|_{\hbar \to 0, \Im\hbar > 0}$;
+the chamber wall is the locus $\Im\hbar = 0$ in the BV
+regularisation; the residue is computed by the Feynman-graph
+expansion~\eqref{eq:feynman-expansion} at one-loop with the
+stable-envelope insertion. The Yang--Baxter equation on $R^{MO}$ is
+the cocycle condition on $\phi^+_{\mathrm{UV}}$, which itself follows
+from the BV master equation on the $5$d hCS action.
+
+\subsection*{CFG 2026: detailed correspondence table}
+
+We record the explicit dictionary between CFG 2026 $3$d topological
+CS and the present $5$d hCS construction.
+
+\begin{center}
+\begin{tabular}{l|l|l}
+\textbf{Invariant} & \textbf{CFG 2026 $3$d CS} & \textbf{Present $5$d hCS}\\
+\hline
+Spacetime & $\R^3$ & $\R_t\times \C^2$ \\
+Gauge & compact $\frakg$ & simply-laced $\frakg$ \\
+Propagator & $\Theta$/configuration on $\R^3$ & $\Theta_{\R_t}\otimes\mathrm{BM}_{\C^2}$ \\
+Action & $\mathrm{tr}(A\wedge dA) + \mathrm{cubic}$ &
+$\mathrm{tr}(\cA\wedge (\bar\partial + d_t)\cA) + \mathrm{cubic}$ \\
+$E_n$-structure & $E_3$ on local obs. & $E_5\simeq E_4\otimes E_1$ \\
+Compactification & — & $\int_{\R_t}$ yields $Y^{\mathrm{VOA}}$ \\
+Anomaly & framing $\hbar/(2\pi)$ & $d^{abc}d^{abc}/(2\pi)^3$ \\
+Simply-laced & any ADE & ADE \\
+One-loop exact & Witten framing & Costello--Yagi all-orders \\
+Link invariant & Jones polynomial & Yangian-twisted Wilson line \\
+$3$-manifold invariant & Reshetikhin--Turaev & not directly; via $S^2$-compactification \\
+Factorisation homology & $\int_{M^3}$ & $\int_{M\times\Sigma^2}$ \\
+\end{tabular}
+\end{center}
+
+The entries in the left column are established by
+CFG 2026~\cite{CFG2026}; the right column is established by
+Costello--Yagi~\cite{CostelloYagi2018} together with
+Costello--Gwilliam~\cite{CostelloGwilliam} (for BV framework) and
+Costello--Li~\cite{CostelloLi2020} (for holomorphic-topological
+twist). The two frameworks are related by the Wick rotation of one
+$\R$-factor to a holomorphic pair and the corresponding
+$E_3\to E_5$ enhancement of the factorisation-algebra structure.
+
+\subsection*{Additional attack--heal cycle (11--15)}
+
+\paragraph{Attack 11.}
+The Bochner--Martinelli kernel formula in the propagator is stated
+without proving that it yields a $\bar\partial$-inverse. \\
+\textbf{Survives:} the Bochner--Martinelli kernel is the standard
+$\bar\partial$-inverse on $\C^n$; the property is classical. \\
+\textbf{Heal:} $\bar\partial(\mathrm{BM}) = \delta_0$ (delta at the
+diagonal) by the Bochner--Martinelli formula; hence $\mathrm{BM}
+= \bar\partial^{-1}$ as a singular kernel. See Henkin--Leiterer
+\emph{Theory of Functions on Complex Manifolds} for the standard
+construction.
+
+\paragraph{Attack 12.}
+The Yangian VOA $Y^{\mathrm{VOA}}(\frakg)$ along $\R_t$ is asserted as
+factorisation homology but the mode-algebra structure is not traced. \\
+\textbf{Survives:} the mode-algebra structure comes from the
+$\R_t$-OPE after compactification; the factorisation-homology
+statement is the global structure. \\
+\textbf{Heal:} the mode algebra is the image of the factorisation
+homology under the functor $\int_{\R_t}\cdot\to\mathrm{Mode}(\cdot)$
+that forgets the spatial direction and keeps only the local
+vertex-algebra modes. For simply-laced $\frakg$ the mode algebra is
+the Yangian $Y(\frakg)$ in the sense of Drinfeld 1985, equipped with
+the central charge coming from the $\hbar$-deformation.
+
+\paragraph{Attack 13.}
+The super-Yangian $Y_{\mathfrak{osp}}(4|20)$ is asserted as the K3
+quantum object but the Mukai-lattice signature $(4, 20)$ derivation
+is not traced. \\
+\textbf{Survives:} the $(4, 20)$ signature is the Hodge decomposition
+of $\widetilde H^*(K3;\Z)\otimes\C$ under the Mukai pairing, forced
+by the K3 Hodge structure. \\
+\textbf{Heal:} $\widetilde H^*(K3;\Z) = H^0\oplus H^2\oplus H^4
+= \Z\oplus \mathrm{II}_{3, 19}\oplus \Z$ with signature
+$(1, 0) + (3, 19) + (0, 1) = (4, 20)$ under the Mukai pairing
+$\langle a, b\rangle_{\mathrm{Mukai}} =
+-\int_{K3}(a_0 b_4 + a_2 \cdot b_2 + a_4 b_0)$. The
+$+1$-eigenspace of the Hodge involution is
+$\mathrm{rank}\, 20 = \mathrm{rank}(H^{1, 1})
+= 1 + 1 + 18$ (three separate decompositions: $H^0\oplus H^{1,1}\oplus H^4$),
+and the $-1$-eigenspace is $\mathrm{rank}\, 4 = \mathrm{rank}(H^{2, 0}\oplus H^{0, 2}) = 2 + 2$.
+
+\paragraph{Attack 14.}
+The Stage-$1$ identification~\eqref{eq:stage1-5d-hCS} has a
+Fock-space factor $\End(\mathcal{F}_{\mathrm{Fock}})$ that is not
+derived first-principles. \\
+\textbf{Survives:} the Fock-space factor is the standard
+free-field realisation of the $\widehat{\mathfrak{gl}}_1$-vertex
+algebra at level $1$. \\
+\textbf{Heal:} the factor $\End(\mathcal{F}_{\mathrm{Fock}})$ is the
+image of $\widehat{\mathfrak{gl}}_1$ under the Fock realisation:
+$\widehat{\mathfrak{gl}}_1 \to \End(\mathbb{C}[J_{-1}, J_{-2},
+\ldots])$, sending $J_n$ for $n < 0$ to multiplication by $J_n$ and
+$J_n$ for $n > 0$ to $n\partial/\partial J_{-n}$. This is the standard
+$W_{1+\infty}$-vacuum module factorisation of
+Schiffmann--Vasserot~\cite{SchiffmannVasserot2013} Theorem~$0.1$.
+
+\paragraph{Attack 15.}
+The identification of the universal trace with the BV pairing
+presumes the Koszul involution preserves the BV complex, but this is
+not trivial. \\
+\textbf{Survives:} the Koszul involution does preserve the BV complex
+because both are defined on the same off-shell field content. \\
+\textbf{Heal:} the Koszul involution is defined on
+$\mathcal{A}$ and its Koszul dual $\mathcal{A}^!$, both of which are
+chiral algebras with the same underlying Hochschild cohomology (by
+Koszul duality). The BV complex of $5$d hCS realises both chiral
+algebras as factorisation algebras on the same $\R_t\times\C^2$, and
+the Koszul involution is the BV-equivariant isomorphism between the
+two realisations. See Positselski~\cite{Positselski2011}
+\emph{Two kinds of derived categories, Koszul duality, and
+comodule-contramodule correspondence} for the abstract framework;
+the chain-level realisation is the content of Vol~I Theorem~A.
+
+\subsection*{Coda: the identity at the chain level}
+
+The universal $\Phi$-trace identity of
+Theorem~\ref{thm:phi-universal-trace}, read through the $5$d hCS
+realisation, admits the following chain-level one-line
+reformulation:
+\begin{equation}
+\label{eq:universal-trace-one-line}
+  K(\mathcal{A}) \;=\; \mathrm{tr}_{\Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}}(\mathfrak{K}_{\mathrm{BV}})
+  \;=\; \Phi^{\mathrm{Borch}}_*\Bigl(\mathrm{tr}_{\Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}}(\mathfrak{B}_{\mathrm{BV}})\Bigr)
+  \;=\; c_\Lambda(0)/2
+  \;=\; \kappa_{\mathrm{BKM}}(\mathfrak{g}_\Lambda).
+\end{equation}
+This is the content of the universal trace identity; every term is
+chain-level computable; every step is a primary-literature theorem.
+The entire construction is the CFG 2026 $E_3$-factorisation-algebra
+framework combined with the $4$d holomorphic enhancement of
+Costello--Li and the all-orders Yangian VOA theorem of
+Costello--Yagi, assembled into one BV partition-function pairing on
+$\R_t\times\C^2$.

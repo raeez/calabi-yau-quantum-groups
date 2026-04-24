@@ -1081,7 +1081,7 @@ def sp4_modularity_pipeline(
         Number of terms in products/sums.
     weight : int
         Conjectured weight of the Siegel modular form.
-        Default: -2*kappa_cat = -2*2 = -4.
+        Default: -2*kappa_cat_fiber = -2*2 = -4.
 
     Returns
     -------
@@ -1158,7 +1158,7 @@ def sp4_modularity_pipeline(
         "phi10_connection": (
             "The conjectural relation hat{S}_{K3xE} = Phi_10^{-1} * "
             "(Eisenstein factor) requires CY-A_3 and the BKM identification. "
-            "Weight: -2*kappa_cat = -4 (S-matrix) vs 5 (kappa_BKM of Phi_10)."
+            "Weight: -2*kappa_cat_fiber = -4 (S-matrix) vs 5 (kappa_BKM of Phi_10)."
         ),
     }
 
@@ -1255,26 +1255,27 @@ def siegel_weight_prediction() -> Dict:
     The kappa-spectrum for K3 x E (from CLAUDE.md):
         kappa_ch = 3  (from chiral algebra A_C via Phi)
         kappa_BKM = 5 (from Borcherds-Kac-Moody algebra)
-        kappa_cat = 2 (from chi(O_{K3}))
+        kappa_cat = 0 (from chi(O_{K3 x E}))
+        kappa_cat_fiber = 2 (from chi(O_{K3}))
         kappa_fiber = 24 (from lattice rank)
 
     The E_2 S-matrix weight relation:
-        wt(S_{ij}) = -kappa_cat  (weight -2 for K3 x E)
+        wt(S_{ij}) = -kappa_cat_fiber  (weight -2 for K3 x E)
 
     The E_3 Siegel modular form weight:
-        wt(hat{S}) = -2 * kappa_cat  (conjectured: weight -4 for K3 x E)
+        wt(hat{S}) = -2 * kappa_cat_fiber  (conjectured: weight -4 for K3 x E)
 
     The factor of 2 from the E_3 structure:
-    - E_2 -> SL_2(Z), weight = -kappa_cat
-    - E_3 -> Sp_4(Z), weight = -2*kappa_cat
+    - E_2 -> SL_2(Z), weight = -kappa_cat_fiber
+    - E_3 -> Sp_4(Z), weight = -2*kappa_cat_fiber
     The doubling is from the two copies of SL_2(Z) embedded in Sp_4(Z)
     (one for each modular parameter tau_1, tau_2).
 
     The Phi_10 has weight 10 = 2 * kappa_BKM = 2 * 5.
     The Eisenstein factor has weight:
-        2*kappa_BKM - (-2*kappa_cat) = 10 + 4 = 14
+        2*kappa_BKM - (-2*kappa_cat_fiber) = 10 + 4 = 14
     or equivalently:
-        2*kappa_BKM + 2*kappa_cat = 10 + 4 = 14.
+        2*kappa_BKM + 2*kappa_cat_fiber = 10 + 4 = 14.
 
     Check: wt(hat{S}) = wt(Phi_10^{-1}) + wt(Eisenstein)
            -4 = -10 + 6
@@ -1287,11 +1288,12 @@ def siegel_weight_prediction() -> Dict:
         "kappa_spectrum": {
             "kappa_ch": 3,
             "kappa_BKM": 5,
-            "kappa_cat": 2,
+            "kappa_cat": 0,
+            "kappa_cat_fiber": 2,
             "kappa_fiber": 24,
         },
-        "e2_weight": -2,  # = -kappa_cat
-        "e3_weight_conjectured": -4,  # = -2*kappa_cat
+        "e2_weight": -2,  # = -kappa_cat_fiber
+        "e3_weight_conjectured": -4,  # = -2*kappa_cat_fiber
         "phi10_weight": 10,  # = 2*kappa_BKM
         "eisenstein_weight": 6,  # = wt(hat{S}) - wt(Phi_10^{-1}) = -4 - (-10) = 6
         "weight_decomposition": "hat{S} = Phi_10^{-1} * E_6",
@@ -1477,7 +1479,7 @@ def sp4_modularity_summary() -> Dict:
        is antisymmetric (Tr(diff) = 0).
     2. The Fourier-Jacobi expansion mirrors the E_2 -> E_3 restriction:
        m=1 gives phi_{0,1}, m=2 gives the charge-2 S-matrix contribution.
-    3. The weight prediction: wt(hat{S}) = -2*kappa_cat = -4, giving
+    3. The weight prediction: wt(hat{S}) = -2*kappa_cat_fiber = -4, giving
        the decomposition hat{S} = Phi_10^{-1} * E_6 (Siegel Eisenstein).
     4. The Sp_4(Z) promotion comes from factorization homology on
        Sigma_2 x S^1, with MCG(Sigma_2) -> Sp_4(Z).
@@ -1500,7 +1502,7 @@ def sp4_modularity_summary() -> Dict:
                 "m=0: E_2 limit. m=1: phi_{0,1}. m=2: charge-2 S-matrix."
             ),
             "weight_prediction": (
-                "wt(hat{S}) = -2*kappa_cat = -4. "
+                "wt(hat{S}) = -2*kappa_cat_fiber = -4. "
                 "Decomposition: Phi_10^{-1} * E_6."
             ),
             "sp4_mechanism": (

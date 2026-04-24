@@ -6,13 +6,13 @@
 
 ## I. Two-stage factorisation
 
-$$\boxed{\;\Phi_d=\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\circ\Phi^{\mathrm{FA}}_d\colon\mathrm{CY}_d^{\mathrm{cat}}\to\mathrm{Alg}_{E_1^{\mathrm{ch}}}(C)\text{ in }\mathrm{PresStCat}_\infty,\text{ factoring through }\mathrm{Fact}^{\mathrm{hol}}_{E_d}(X).\;}$$
+$$\boxed{\;\Phi_d^{(\Sigma_{d-1},C)}(\mathcal C)=\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\bigl(\Phi^{\mathrm{FA}}_d(\mathcal C)\bigr)\in\mathrm{Alg}_{E_1^{\mathrm{ch}}}(C),\quad \Phi^{\mathrm{FA}}_d(\mathcal C)\in\mathrm{Fact}^{\mathrm{hol}}_{E_d}(X).\;}$$
 
 $$\begin{array}{ccc}\mathrm{CY}_d^{\mathrm{cat}}&\xrightarrow{\;\Phi^{\mathrm{FA}}_d\;}&\mathrm{Fact}^{\mathrm{hol}}_{E_d}(X)\\ \big\downarrow\,{\scriptstyle\mathrm{Shad}_\bullet}&&\big\downarrow\,{\scriptstyle\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}}\\ \mathrm{Alg}_{E_1^{\mathrm{ch}}}(C)&\xleftarrow[\;\Omega^{\mathrm{ch}}_C\;]{B^{\mathrm{ch}}_C}&\mathrm{CoAlg}^{\mathrm{fact}}_{E_1^{\mathrm{ch}}}(C)\end{array}$$
 
-Diagonal $\mathrm{Shad}_\bullet=\Phi_d$. $\mathrm{CY}_d^{\mathrm{cat}}\subset\mathrm{PresStCat}_\infty$: proper smooth $\mathbb C$-linear stable with $\mathbb S_{\mathcal T}\simeq[d]$ (Bondal 1990; Kuznetsov 2004; BBDJS 2015). Dunn forbids $E_d=E_1$ for $d>1$; passage factors through $E_d$-holomorphic. Stage 1: KT $E_d$-formality (Willwacher 2014 Thm 1.2 $H^0(\mathsf{GC}_2)=\mathfrak{grt}_1$) $\cap$ CGL $(0,d)$-locality (Costello-Li 2016 Prop 5.2). Stage 2: $\int_{\Sigma_{d-1}}$ + restriction (Ayala-Francis 2015 Thm 3.16). Family-of-shadows $\mathrm{Shad}_X\colon\mathrm{CycCurve}(X)\to\mathrm{Alg}_{E_1^{\mathrm{ch}}}(\mathrm{SmCurve})$. At $d=5$ FM on $(K3\times K3\times E)/\Z_2$ via PTVV; Borcherds 1998 §14 gives $\Phi_{12}|_{\mathrm{II}_{2,2}}=\Phi_{10}=\Delta_5^2$ as $d=3$ shadow.
+Diagonal $\mathrm{Shad}_\bullet$ is the family of object-level shadows obtained after choosing $(\Sigma_{d-1},C)$. $\mathrm{CY}_d^{\mathrm{cat}}\subset\mathrm{PresStCat}_\infty$: proper smooth $\mathbb C$-linear stable with $\mathbb S_{\mathcal T}\simeq[d]$ (Bondal 1990; Kuznetsov 2004; BBDJS 2015). Dunn forbids $E_d=E_1$ for $d>1$; passage factors through $E_d$-holomorphic. Stage 1: KT $E_d$-formality (Willwacher 2014 Thm 1.2 $H^0(\mathsf{GC}_2)=\mathfrak{grt}_1$) $\cap$ CGL $(0,d)$-locality (Costello-Li 2016 Prop 5.2), on the loci where the holomorphic twist and framing data have been constructed. Stage 2: $\int_{\Sigma_{d-1}}$ + restriction (Ayala-Francis 2015 Thm 3.16). Functoriality on arbitrary CY morphisms is Conjecture~\ref{conj:phi-d-functoriality} in the body, not a consequence of the object-level construction. At $d=5$ FM on $(K3\times K3\times E)/\Z_2$ via PTVV remains a frontier comparison; Borcherds 1998 §14 gives $\Phi_{12}|_{\mathrm{II}_{2,2}}=\Phi_{10}=\Delta_5^2$ as a lattice shadow, not a proved generic $d=5$ $\Phi$-output.
 
-**Stage-1 canonicity scope.** $\Phi^{\mathrm{FA}}_d$ is canonical up to contractible choice (Drinfeld associator $\cap$ gauge-fixing $\cap$ RG-propagator, each contractible in its $(\infty,1)$-category) on the *formal locus* $\mathcal U^{\mathrm{adm}}_{\mathrm{at}}(X)$ where $\mathrm{HH}^\bullet(\mathcal C)$ is formal as an $E_d$-algebra: always at $d=1$ (Kontsevich 1999); generically at $d=2$ since $\Omega^3_{K3}=0$ kills the Kuranishi cubic obstruction; on $K3\times E$ at $d=3$ since $\mathrm{At}(T_E)=0$ (elliptic curve is complex Lie group); generally *non*-formal on compact CY-3 with $\mathrm{At}(T_X)\ne 0$ (quintic). Category-level $E_d$-formality of $\mathrm{HH}^\bullet(\mathcal C)$ is proved at $d\le 3$ via three-vanishing; open at $d\ge 4$. (Operad-level $E_d$-formality is Fresse Vol I Thm 14.1.A unconditional, distinct from category-level.)
+**Stage-1 canonicity scope.** $\Phi^{\mathrm{FA}}_d$ is canonical up to contractible choice on the formal/admissible locus where the relevant Atiyah--Connes obstruction vanishes after the CY contraction. This is not the statement $\mathrm{At}(T_X)=0$ in general. At $d=1$ the classical lattice-VOA case is unobstructed. At $d=2$ the K3 Mukai-Heisenberg construction is proved on the smooth proper K3 locus. At $d=3$ the body proves an object-level existence-and-rigidity theorem on verified framed loci; for $K3\times E$ the obstruction contraction vanishes by the named Künneth cohomology calculation, while arbitrary compact non-formal CY$_3$ targets such as the quintic remain outside the strict Stage-1 theorem unless the framing and analytic-completion hypotheses are witnessed. Operad-level $E_d$-formality is unconditional; category-level formality of $\mathrm{HH}^\bullet(\mathcal C)$ and functoriality on morphisms are separate claims with separate status.
 
 **Native level dispatch.** PTVV 2013 $(2-d)$-shifted symplectic structure on $\mathcal M(\mathcal C)$ + Dunn-Lurie additivity forces
 $$
@@ -20,8 +20,7 @@ d=1\Rightarrow n=\infty \text{ (lattice VOA)},\qquad d=2\Rightarrow n=2\text{ (M
 $$
 Schouten-Nijenhuis vanishing at $d\ge 3$ is a concurrent fact, not the driver.
 
-**Uniqueness on the Koszul-self-dual locus.** On $\mathcal C_d^{\mathrm{Kosz}}\subset\mathrm{CY}_d\text{-Cat}^{\mathrm{cyclic,prop}}$ the four universal properties
-(U1) Hochschild pullback $B^{\mathrm{ord}}(\Phi(\mathcal C))\simeq CC_\bullet(\mathcal C)$, (U2) CY-morphism functoriality (wall-crossing $\to$ R-matrix gauge), (U3) Drinfeld-centre compatibility $Z(\mathrm{Rep}^{E_1}(\Phi(\mathcal C)))\simeq\mathrm{Rep}^{E_2}(\Phi(\mathcal C))^{\mathrm{centered}}$ for $d\ge 3$, (U4) standard-input recovery (Coh(E) $\to$ lattice VOA at $d=1$; $D^b(K3)\to E_2$-Mukai-Heisenberg at $d=2$; $\mathrm{CoHA}(\C^3)\to Y^+(\widehat{\mathfrak{gl}}_1)$ at $d=3$) characterise $\Phi$ up to natural isomorphism. Off the Koszul-self-dual locus, the central-charge-twisted $\widetilde\Phi_3(\mathcal C):=\Phi_3(\mathcal C)\otimes\varepsilon$ satisfies (U1, U3, U4) but differs from $\Phi_3$; uniqueness then requires Fourier-Mukai kernel rigidification (U5).
+**Uniqueness on the Koszul-self-dual locus.** On objects, the three properties (U1) Hochschild pullback $B^{\mathrm{ord}}(\Phi(\mathcal C))\simeq CC_\bullet(\mathcal C)$, (U3) Drinfeld-centre compatibility on constructed $d\ge 3$ loci, and (U4) standard-input recovery (Coh(E) $\to$ lattice VOA at $d=1$; $D^b(K3)\to E_2$-Mukai-Heisenberg at $d=2$; $\mathrm{CoHA}(\C^3)\to Y^+(\widehat{\mathfrak{gl}}_1)$ at $d=3$) characterise the object-level assignment on the Koszul-self-dual locus. (U2), CY-morphism functoriality and wall-crossing-to-$R$-matrix gauge, is the morphism-level conjecture; it cannot be used to prove uniqueness of a functor before the functoriality theorem exists. Off the Koszul-self-dual locus, the central-charge-twisted $\widetilde\Phi_3(\mathcal C):=\Phi_3(\mathcal C)\otimes\varepsilon$ satisfies the object-level tests but differs from $\Phi_3$; uniqueness then requires Fourier-Mukai kernel rigidification (U5).
 
 ## I-bis. $\Phi_3$ on $T^3$
 
@@ -61,7 +60,7 @@ Coefficient $(d-1)!/(2\pi i)^d$ at $d=3$ verifies $2/(2\pi i)^3$. $E_3$-structur
 
 *Deformation moduli:* $\mathrm{Def}(\mathrm{Obs}_{\mathrm{hCS}})=\mathrm{HH}^*_{E_3}(\mathrm{Obs},\mathrm{Obs})[3]$; on flat $\C^3$ with simple $\mathfrak g$, $T_0\mathcal M=H^{0,3}_{\bar\partial,c}(\C^3)\otimes\mathrm{Sym}^2(\mathfrak g^\vee)^{\mathrm{inv}}=\C\cdot\mathrm{Kil}$ matches $Y_{\varepsilon_1,\varepsilon_2,\varepsilon_3}$ Yangian modulo CY slice.
 
-*Minimal $L_\infty$-model:* on flat $\C^3$, $\ell_n^{\min}=0$ for all $n\ge 3$ (Kontsevich-Soibelman homotopy transfer); on compact CY-3, $\mathrm{At}(TX)\in H^1(X,\Omega^1\otimes\mathrm{End}(TX))$ is the formality obstruction; on $K3\times E$, $\mathrm{At}(T_E)=0$ and $\Omega^3_{K3}=0$ kill Kuranishi cubic, formality holds.
+*Minimal $L_\infty$-model:* on flat $\C^3$, $\ell_n^{\min}=0$ for all $n\ge 3$ (Kontsevich-Soibelman homotopy transfer). On compact CY-3, the Atiyah class enters the formality obstruction through the contracted class $\mathrm{At}(TX)\cup B^{(2)}_{\mathrm{Connes}}$; the design target is vanishing of this obstruction class, not vanishing of $\mathrm{At}(TX)$ itself. On $K3\times E$ the obstruction contraction vanishes in the stated Künneth cohomology group; compact non-formal CY$_3$ targets such as the quintic remain outside the strict object-level theorem until the framing and analytic-completion hypotheses are supplied.
 
 *$E_3$-Koszul self-duality:* $\mathcal D_3^!\simeq\mathrm{Lie}[2]$ (Fresse 2017 Vol I Thm 14.1.A). Strict (Gwilliam-Williams 2021) vs homotopy (Francis-Gaitsgory 2012) Koszul compatible via Fresse Thm 12.3.A + Positselski coderived-contraderived transfer. Non-abelian 3-dualisability fails on flat $\C^3$ (HH$^*$ infinite-dim per Gwilliam-Williams 2021 Prop 5.3.2); recovers on compact CY-3.
 
@@ -77,7 +76,7 @@ Coefficient $(d-1)!/(2\pi i)^d$ at $d=3$ verifies $2/(2\pi i)^3$. $E_3$-structur
 
 **Route D (Borcherds log-derivative):** $Z_{\mathrm{hCS}}^{(1)}[K3\times E]=\log(\Phi_{10}/\eta^{24}(\tau)\eta^{24}(\tau'))$ one-loop via CGP 2018 K3$\times$E instanton. Log-derivative pulls out weight-10 leading coefficient at singular cusp $\Phi_{10}=\Delta_5^2$ (Igusa 1964 Amer J 86 Thm 3).
 
-**Four-route convergence** at $\mathbf H_{\Delta_5}$ for $K3\times E$ CHL siblings $N\in\{1,2,3,4,6\}$: Routes A, B, C, D return same Hall-Drinfeld double construction up to explicit gauge equivalence (witness Monster $V^\natural$ $(K,\hbar^2)=(2,-1/2)$; K3 $(8,-1/8)$; Fake Monster $(50,-1/50)$; Enriques $(4,-1/4)$). **Six routes to $G(K3\times E)$** — Borcherds lift, Mukai pairing, McKay quiver, Maulik-Okounkov instanton lift, factorisation homology via 6D hCS Stage-2, Costello 5d hCS uplift — converge to naturally isomorphic $\Phi_3(D^b(K3\times E))$-outputs; six isomorphisms form a common limit cone in $\mathrm{ChirAlg}^{E_1}_C$. This convergence is *literal* for $K3\times E$ CHL siblings; it is *not* literal for Monster vs Igusa, which are distinct CY-3 inputs, not sibling specialisations.
+**Four-route comparison** at $\mathbf H_{\Delta_5}$ for $K3\times E$ CHL siblings $N\in\{1,2,3,4,6\}$: Routes A, B, C, D agree on the named Borcherds weights, lattice signatures, and Hall--Drinfeld double targets where the relevant constructions exist. **Six routes to $G(K3\times E)$** — Borcherds lift, Mukai pairing, McKay quiver, Maulik--Okounkov instanton lift, factorisation homology via 6D hCS Stage-2, Costello 5d hCS uplift — are six different mathematical constructions. Only the CY-to-chiral route is a direct $\Phi_3$ route; the common quantum vertex chiral group remains CY-C-level convergence data until the comparison arrows are constructed. The proved core is value-level and presentation-level agreement on specified loci, not a literal common limit cone of six $\Phi_3$ outputs.
 
 **Conway boundary** $(2,-1/2)$ is Monster-transported via Duncan 2007 super-twin sign character; routes A, B undefined on positive-definite $\Lambda_{24}$ (no Lorentzian time, no cusp); routes C, D return $+$-sign. Conway is the structural boundary of the $\hbar^2 K=-1$ identity: non-vacuity control.
 
@@ -143,7 +142,7 @@ $\kappa_{\mathrm{BKM}}(\Delta_5)=5$ K3 half-BPS; $\kappa_{\mathrm{BKM}}(\Phi_{10
 
 Square-doubling $\Phi_{10}=\Delta_5^2$ at $N=1$ only (Igusa 1964 + GN 1995). Programme-canonical ladder is Stage-2 $\Phi_3$-canonical on $K3\times E$. Vol I uses 12 (FM); Vol III uses 5 (K3); the difference reflects the target lattice, not a convention clash.
 
-The additive split $\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\mathcal O_{\mathrm{fiber}})$ is **false at every $N$**. At $N=1$: $\kappa_{\mathrm{ch}}(K3\times E)=0$ (Kunneth Hodge supertrace + Serre at odd $d$), $\chi(\mathcal O_{K3})=2$, RHS $=2\ne 5=\kappa_{\mathrm{BKM}}$. At $N\ge 2$: 62 adversarial-test witnesses confirm failure.
+The additive split $\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\mathcal O_{\mathrm{fiber}})$ is **false at every $N$**. At $N=1$, $\kappa_{\mathrm{ch}}(K3\times E)=0$ by Künneth Hodge supertrace and Serre at odd $d$. If the fibre is the elliptic Stage-2 fibre, $\chi(\mathcal O_E)=0$ and the right side is $0$; if the fibre is read as the K3 fibre, $\chi(\mathcal O_{K3})=2$ and the right side is $2$. Neither equals $5=\kappa_{\mathrm{BKM}}(\Delta_5)$. The ambiguity is the error: $\kappa_{\mathrm{BKM}}$ is the Borcherds weight $c_N(0)/2$, not an additive Hodge correction.
 
 **Cross-volume bridge at value level.** The Vol I conductor and Vol III Borcherds weight satisfy, on K3-fibered CHL Class A at $N\in\{1,2,3,4,6\}$:
 $$
@@ -183,11 +182,15 @@ $\Delta_{E_6}$ weight 16 via $f_{16}=E_4\Delta$. Chenevier $D^{\mathrm{Chen}}\eq
 
 ## XII. Scope discipline
 
-Chain-level and $(\infty,1)$-categorical have equal status (Pattern 269; Vol I $\leftrightarrows$ Vol II $\leftrightarrows$ Vol III). Koszul admissible locus
+Chain-level and $(\infty,1)$-categorical have equal status (Pattern 269; Vol I $\leftrightarrows$ Vol II $\leftrightarrows$ Vol III). Humbert-admissible notation must carry its ambient convention. The Vol I/II Humbert convention is
 $$
-\mathcal U^{\mathrm{adm}}=\overline{\mathcal A_2}\setminus\bigcup_{n\equiv 0,3\bmod 4}H_n.
+\mathcal U^{\mathrm{adm}}_{\mathrm{Hum},4}=\overline{\mathcal A_2}\setminus\bigcup_{n\equiv 0,3\bmod 4}H_n,
 $$
-Two distinct Koszul loci coexist: Atiyah $\mathcal U^{\mathrm{adm}}_{\mathrm{at}}\subset X$ (vanishing of $\mathrm{At}(T_X)\cup B^{(2)}_{\mathrm{Connes}}$) vs Humbert $U^{\mathrm{adm}}\subset\overline{\mathcal A_2}$ (Eichler-Zagier codim-1 theta divisors).
+while the $K3\times E$ Stage-2 convention used below is
+$$
+\mathcal U^{\mathrm{adm}}_{\mathrm{Hum},8}=\overline{\mathcal A_2}\setminus\bigcup_{n\equiv 3,5\bmod 8}H_n.
+$$
+Two distinct Koszul loci coexist: Atiyah $\mathcal U^{\mathrm{adm}}_{\mathrm{at}}\subset X$ (vanishing of the obstruction class $\mathrm{At}(T_X)\cup B^{(2)}_{\mathrm{Connes}}$ after the relevant contraction) and Humbert $\mathcal U^{\mathrm{adm}}_{\mathrm{Hum},\bullet}\subset\overline{\mathcal A_2}$ (Eichler-Zagier codim-1 theta divisors).
 
 ## XIII. Cross-volume bridges
 
@@ -201,7 +204,7 @@ $c_{\phi_{-2,1}}(-n)=0$, $c_{\phi_{0,1}^{K3}}(-1)=2$, $c(0)=20$. Theta prefactor
 
 ## XV. One-sentence summary
 
-Vol III establishes $\Phi_d=\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\circ\Phi^{\mathrm{FA}}_d$ as $(\infty,1)$-functor $\mathrm{CY}_d^{\mathrm{cat}}\to\mathrm{Alg}_{E_1^{\mathrm{ch}}}(C)$ canonical on the formal Koszul-self-dual locus; crystallises $\mathbf H_{\Delta_5}$ under $\hbar^2 K=-1$, $K=2c_+(L)$; four-sibling $\Psi=\{\Psi,\Psi^{\mathrm{tor}},\Psi^{\mathrm{metap}},\Psi^{\mathrm{deg}}\}$ jointly surjective on GN-reflective sig-$(2,n\ge 3)$; CY$_d$ stratified $\{\kappa_{\mathrm{cat}},\kappa_{\mathrm{ch}},\kappa_{\mathrm{fiber}},\kappa_{\mathrm{BKM}}\}$; cross-volume value-level $K=2\kappa_{\mathrm{BKM}}=c_N(0)$ on K3-fibered CHL Class A.
+Vol III constructs the object-level two-stage assignment $\Phi_d^{(\Sigma_{d-1},C)}=\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\circ\Phi^{\mathrm{FA}}_d$ on its verified loci; functoriality on arbitrary CY morphisms is a separate conjecture. It crystallises $\mathbf H_{\Delta_5}$ under $\hbar^2 K=-1$, $K=2c_+(L)$ on the K3-fibered locus; separates $\Psi=\{\Psi,\Psi^{\mathrm{tor}},\Psi^{\mathrm{metap}},\Psi^{\mathrm{deg}}\}$ from the hostless BKM complement; stratifies CY$_d$ by $\{\kappa_{\mathrm{cat}},\kappa_{\mathrm{ch}},\kappa_{\mathrm{fiber}},\kappa_{\mathrm{BKM}}\}$; and records the cross-volume value-level bridge $K=2\kappa_{\mathrm{BKM}}=c_N(0)$ on K3-fibered CHL Class A.
 
 ## XVI. Attack-heal closure
 
@@ -239,8 +242,8 @@ Stage-1 canonical up to contractible choice on $\mathcal U^{\mathrm{adm}}$ via K
 | FA-III.2 | Stage-2 factorisation-homology $\int_{\Sigma_{d-1}}$; AF 2015 smooth vs AFT 2017 stratified |
 | FA-III.3 | BV on compact CY-3: Costello 2011 Thm 13.4.1 direct; CG Vol 2 Thm 8.6.9 non-compact |
 | FA-III.4 | Dolbeault $E_{2d}\to E_d$ via $H^{0,\bullet}$ |
-| FA-III.5 | CY-$d$ formality on $\mathcal U^{\mathrm{adm}}$ via Atiyah-class vanishing |
-| FA-III.6 | $\mathrm{Shad}_X$ as $(\infty,1)$-functor; K3 Picard $\rho$: $(\rho-1)$-dim image |
+| FA-III.5 | CY-$d$ formality on $\mathcal U^{\mathrm{adm}}$ via vanishing of the Atiyah--Connes obstruction class, not via $\mathrm{At}(T_X)=0$ in general |
+| FA-III.6 | $\mathrm{Shad}_X$ as a family of object-level specialisations; morphism functoriality is Conjecture~\ref{conj:phi-d-functoriality} |
 
 ## XX. $\mathrm{Ran}(X)$ precision
 
@@ -276,7 +279,7 @@ Stage-1 = closed colour; Stage-2 = open colour via Dolbeault-topologisation. Dir
 
 **Net union.** $\dim_\C\mathcal U^{\mathrm{net}}_{\Phi_3}=\max_X\dim_\C\mathcal U^{\mathrm{canonical}}_{\Phi_3}(X)=120$ (Schoen). $K3\times E$ 21-dim is the minimal non-degenerate Mukai-enhanced stratum; Schoen 120-dim is the maximal with $K=8$ persistent; Borcea-Voisin 22-dim hosts sub-ceiling $K=23/2$.
 
-**Atiyah-Koszul on $K3\times E$.** $\mathrm{at}_{K3\times E}=\pi_1^*\mathrm{at}_{K3}+\pi_2^*\mathrm{at}_E=0$ via DGMS 1975 Thm 2.1 + Costello-Li 2016 Prop 5.2; $\mathcal U^{\mathrm{adm}}_{\mathrm{at}}(K3\times E)=\mathcal M_{\mathrm{cx}}(K3\times E)$, 21-dim. Humbert-Koszul: $U^{\mathrm{adm}}=\overline{\mathcal A_2}\setminus\bigcup_{n\equiv 3,5\bmod 8}H_n$ (EZ 1985 Thm 3.4); Kuga-Satake $\mathcal P$ via Morrison 1984 Thm 6.3 + Shioda-Inose 1977 Thm 6.3 + Nikulin 1980. Intersection $\mathcal U^{\mathrm{canonical}}_{\Phi_3}(K3\times E)=\mathcal P^{-1}(U^{\mathrm{adm}})$ dense open. Witness $(K3^{\mathrm{gen}}_{\rho=2},E_\tau)$ transcendental. CM witnesses $(K3^{\mathrm{gen}}_{\rho=2},E_{\zeta_3})$ and $(K3^{\mathrm{gen}}_{\rho=2},E_i)$ fail: land on $H_3\cup H_{13}$, $H_5\cup H_{13}$. $\dim_\C=20+1=21$.
+**Atiyah-Koszul on $K3\times E$.** The tangent Atiyah class of the K3 factor is not zero as a bare class. The admissible statement is the contracted obstruction statement: the class $\mathrm{At}(T_{K3\times E})\cup B^{(2)}_{\mathrm{Connes}}$, after the CY pairing used in the Stage-1 construction, lands in the Künneth component that vanishes on the stated $K3\times E$ locus. Thus $\mathcal U^{\mathrm{adm}}_{\mathrm{at}}(K3\times E)$ is the locus where this obstruction contraction vanishes, not the locus where $\mathrm{At}(T_{K3\times E})=0$. Humbert-Koszul: $U^{\mathrm{adm}}_{\mathrm{Hum},8}=\overline{\mathcal A_2}\setminus\bigcup_{n\equiv 3,5\bmod 8}H_n$ (EZ 1985 Thm 3.4); Kuga-Satake $\mathcal P$ via Morrison 1984 Thm 6.3 + Shioda-Inose 1977 Thm 6.3 + Nikulin 1980. Intersection $\mathcal U^{\mathrm{canonical}}_{\Phi_3}(K3\times E)=\mathcal U^{\mathrm{adm}}_{\mathrm{at}}\cap\mathcal P^{-1}(U^{\mathrm{adm}}_{\mathrm{Hum},8})$ is the dense-open candidate. Witness $(K3^{\mathrm{gen}}_{\rho=2},E_\tau)$ transcendental. CM witnesses $(K3^{\mathrm{gen}}_{\rho=2},E_{\zeta_3})$ and $(K3^{\mathrm{gen}}_{\rho=2},E_i)$ fail: land on $H_3\cup H_{13}$, $H_5\cup H_{13}$. $\dim_\C=20+1=21$ when the obstruction-contraction vanishing and generic-submersion hypotheses are in force.
 
 ## XXVI. Conway resolution
 
@@ -338,15 +341,15 @@ Stage-2 $E_1$-chiral shadow $\mathcal A^{\mathrm{sh}}_{X,\Sigma_{d-1},C}$ has OP
 
 ## XXXI. Kontsevich universal anchor
 
-**Theorem.** On $\mathcal U^{\mathrm{adm}}=\mathcal U^{\mathrm{adm}}_{\mathrm{at}}(X)\cap\mathcal P^{-1}(\mathcal U^{\mathrm{adm}}_{\overline{\mathcal A_2}})$, four-way equivalence
+**Conditional anchor.** On $\mathcal U^{\mathrm{adm}}=\mathcal U^{\mathrm{adm}}_{\mathrm{at}}(X)\cap\mathcal P^{-1}(\mathcal U^{\mathrm{adm}}_{\overline{\mathcal A_2}})$, the programme expects the four tests
 $$
-\boxed{\;[m_3,B^{(2)}]_X=0\iff(\text{Theorem B})\iff(\text{Stage-1 canonical})\iff(\mathbf H_{\Delta_5}\text{ canonical})\iff(\hbar^2K=-1).\;}
+\boxed{\;[m_3,B^{(2)}]_X=0,\quad(\text{Theorem B}),\quad(\text{Stage-1 canonical}),\quad(\mathbf H_{\Delta_5}\text{ canonical}),\quad(\hbar^2K=-1)\;}
 $$
-Universal Atiyah cocycle $\mathrm{at}_X\cup B^{(2)}_{\mathrm{Connes}}$ vanishes iff two-stage $\Phi_d$ produces canonical $E_1$-chiral shadow (Theorem A), iff Stage-1 KT $\cap$ CGL holds, iff $\mathbf H_{\Delta_5}$ realised as CoHA-Hall at $\hbar^2=-1/8$, iff three-faces identity at $K=2c_+(L)$ via Bruinier.
+to coincide on the K3-fibered admissible locus. The proved direction used in the body is narrower: vanishing of the obstruction class is sufficient for the named Stage-1 object-level construction; the Borcherds weight identity supplies the value-level $\hbar^2K=-1$ witness; and the global equivalence among all four tests is a convergence target, not a theorem available for arbitrary CY$_3$ input.
 
 Proof via Kapranov 1999 Prop 4.4 $A_\infty$-structure $m_3=\mathrm{at}_X$; Caldararu-Willerton 2010 Thm 1.6 cyclic $B^{(2)}_{\mathrm{Connes}}$; Quillen 1969 §9 Malcev; Calaque-Van den Bergh 2010 Thm 4.2 Duflo-HKR; Positselski 2011 Thm 7.2.2; Kontsevich-Soibelman 2008 Thm 4.5.1; Borcherds 1995 Thm 10.4; Bruinier 2002 Prop 5.1.
 
-**Verification on $K3\times E$.** $H^{1,3}(K3\times E)=0$ by Künneth (BHPV 2004 §VIII.3 + elliptic $h^{0,q}=0$ for $q\ge 1$); $[m_3,B^{(2)}]_{K3\times E}\cdot\Omega=0$ unconditionally; Humbert admissibility $\mathcal P(K3\times E)\in\mathcal U^{\mathrm{adm}}_{\overline{\mathcal A_2}}$ on transcendental 20-moduli dense open (Deligne 1972 §6 Kuga-Satake); all four climaxes hold unconditionally on 21-dim dense open. Cross-volume $\{5,5,5\}=\{c_{\Delta_5}(0)/2,\,\text{Pentagon trace},\,\omega_{\mathrm{Borcherds}}\}$ at $N=1$.
+**Verification on $K3\times E$.** The body uses the Künneth calculation to kill the contracted obstruction class on the specified $K3\times E$ locus; Humbert admissibility is imposed by $\mathcal P(K3\times E)\in\mathcal U^{\mathrm{adm}}_{\overline{\mathcal A_2}}$ on the transcendental dense-open branch. This gives the object-level Stage-1/Stage-2 construction and the value-level cross-volume equality $\{5,5,5\}=\{c_{\Delta_5}(0)/2,\,\text{Pentagon trace},\,\omega_{\mathrm{Borcherds}}\}$ at $N=1$. It does not by itself prove global CY-C or arbitrary-morphism functoriality.
 
 **Failure on $Q_5$.** $\mathrm{at}_{Q_5}\ne 0$ with 101-dim bracket $[m_3,B^{(2)}]_{Q_5}\ne 0$ (Kapranov 1999 §4; $h^{2,1}(Q_5)=101$); all four climaxes fail strictly. Three-route convergence at $K=8$ unconditional; siblings $\{K=2$ Monster, $K=4$ Enriques, $K=12$ Conway-$K=2$-transported, $K=50$ FM$\}$ conditional on Dunn-Lurie Serre-CM.
 

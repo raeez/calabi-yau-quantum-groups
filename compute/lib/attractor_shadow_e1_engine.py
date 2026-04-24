@@ -106,8 +106,9 @@ SPECIFIC CY3 EXAMPLES:
       ASYMPTOTIC (large volume) regime; the conifold point t=0 is the
       boundary of the moduli space where the chiral algebra degenerates.
 
-  (b) K3 x E: kappa = 5. Multi-moduli (h^{1,1} = 20 for K3, + 1 for E).
-      On the E-factor modulus: alpha = 0, S_4 = 0 (Heisenberg).
+  (b) K3 x E: kappa_BKM = 5. Multi-moduli (h^{1,1} = 20 for K3, + 1 for E).
+      On the E-factor projection: alpha = 0, S_4 = 0 (Heisenberg).
+      The full BKM tower is class M; the projection is not the full tower.
       On the K3 Kahler moduli: the shadow metric involves the Picard
       lattice structure.
       The attractor locus is determined by the charges in H^*(K3 x E, Z).
@@ -663,6 +664,8 @@ K3E_SG = SpecialGeometryData(
     h21=20
 )
 
+# Leading E-factor projection only.  The full K3 x E BKM shadow is class M;
+# do not classify the total space from this quadratic projection.
 K3E_SHADOW = ShadowData(kappa=5.0, alpha=0.0, S4=0.0)
 
 
@@ -1247,9 +1250,14 @@ def shadow_depth_classification() -> Dict[str, CY3ShadowClassification]:
     result["resolved conifold"] = classify_cy3_shadow(
         "resolved conifold", CONIFOLD_SHADOW)
 
-    # K3 x E: class G (kappa = 5, but alpha = 0 on E-factor)
-    result["K3 x E"] = classify_cy3_shadow(
-        "K3 x E", K3E_SHADOW)
+    # K3 x E: the stored ShadowData is only the E-factor projection.
+    # The full BKM Borcherds product has infinite shadow depth (class M).
+    k3e_projection = classify_cy3_shadow("K3 x E", K3E_SHADOW)
+    result["K3 x E"] = k3e_projection._replace(
+        shadow_class="M",
+        attractor_structure="mixed/full BKM tower (quadratic data is only the E-factor projection)",
+        convergence_radius=float("nan"),
+    )
 
     # Quintic (conjectural): class G in classical approximation,
     # class M with instantons

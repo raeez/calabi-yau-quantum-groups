@@ -4988,3 +4988,238 @@ ISSUE. Matches in `notes/`, `FRONTIER.md`, commit messages, the
 local `memory/`, compute scripts, and private scaffolding are not
 violations.
 
+
+
+## Session-level metacognitive cache — harness patterns (2026-04-24)
+
+Entries M1--M6 are *harness-level* (wave dispatch, agent prompting,
+post-wave synthesis), distinct from the confusion-pattern entries above.
+They emerged from a 20-agent attack-heal wave that produced several
+high-signal inscriptions masked by wave-level inefficiencies. Prevention
+is at the **prompt-composition** layer (what each agent is told) and the
+**dispatcher** layer (what the parent wave-launcher checks before firing
+agents), not at the hook layer alone.
+
+### M1 — Scope-directive vs cache conflict on object labels
+
+**Wrong pattern.** Wave-dispatch tells an agent to "prove existence of
+$Y_{\osp(4\mid 20)}$" when cache entry ## 9 of the reader-facing
+`appendices/first_principles_cache.md` explicitly falsifies the
+$\osp$ label: the Mukai form is symmetric indefinite of signature
+$(4, 20)$ on both the even and odd parts, so the preserving Lie
+algebra is $\mathfrak{so}(4, 20)$, not Kac $\osp(4 \mid 20)$. Agent
+treats the directive as authoritative, inscribes a YBE proof for
+$R^{\osp}$, and the manuscript acquires a theorem with a wrong label.
+
+**Regex trigger.** Scope list contains `osp(4|20)|Y_{osp\|osp(4\mid 20)`
+AND `appendices/first_principles_cache.md` contains the 
+$\mathfrak{so}$-vs-$\osp$ entry.
+
+**5-step protocol.**
+1. Before dispatching any agent, grep the scope list tokens against
+   `appendices/first_principles_cache.md` and
+   `notes/first_principles_cache_comprehensive.md`.
+2. For each hit, extract the "Correct Relationship" column as the
+   cache verdict.
+3. If the scope directive contradicts the verdict, **do not silently
+   rename in the prompt** (that hides the contradiction from the
+   agent). Instead: append to the prompt "Cache entry ## $k$ asserts
+   $X$; reconcile before healing -- prove or refute the directive
+   against the cache verdict explicitly."
+4. Agent's heal must resolve the contradiction as mathematics (either
+   demonstrate the directive is right and cache wrong -- which must
+   be a primary-literature win, not a preference; or adopt the cache
+   verdict and inscribe the *cache-correct* theorem).
+5. Post-wave merge check: `grep -rn 'Y_{\\osp}\(4\\\?|\\\?20\)\|osp(4\\s*|\\s*20)'
+   chapters/` must return no inscriptions under $\osp$ labelling a
+   K3 Mukai Yangian. $\mathfrak{so}(4, 20)$ is the corrected label.
+
+### M2 — Agent skips `/rectify` citing report-cap or commit-opt-in
+
+**Wrong pattern.** Prompt says "Report $\leq 400$ words" and "commit
+only when user requests"; agent interprets *both* as blockers to
+running `/rectify` (Chriss-Ginzburg whole-file linear sweep) and
+`/investigate` (first-principles critical analysis) after inscribing.
+Result: manuscript acquires un-rectified prose and an un-investigated
+claim; `/rectify`-level polish is deferred indefinitely.
+
+**Regex trigger.** Agent report text matches
+`skipping.*rectify\|skipping.*investigate\|not run.*rectify\|would normally.*rectify`.
+
+**5-step protocol.**
+1. Prompt must separate three axes explicitly: *inscription work*
+   (mandatory, includes `/rectify` and `/investigate`), *report
+   length* (capped, applies only to the end-of-run summary back to
+   parent), *commit policy* (user-opt-in for repo-main commits;
+   mandatory for worktree-branch commits as atomic merge units).
+2. Prompt boilerplate: "`/rectify` and `/investigate` are MANDATORY
+   after any manuscript edit. The 400-word cap applies to the
+   report only, not to work."
+3. Prompt rewrites "only commit when user asks" to "commit to your
+   worktree branch atomically; repo-main commits are gated by the
+   parent synthesis step."
+4. Parent post-wave summary step checks each agent report for the
+   $M2$ regex and relaunches any agent that skipped `/rectify` with
+   the narrow follow-up: "rectify and investigate the inscriptions
+   made during your prior run."
+5. Hook-side: no fully-reliable signature; the signal is in the agent
+   report, not the file. Tracked in dispatcher logic only.
+
+### M3 — Attack-heal converges into `notes/`, inscription signal lost
+
+**Wrong pattern.** Agent runs $\geq 5$ attack-heal cycles, produces
+three genuinely new mathematical increments (bridge lemma,
+counterexample, sharpened hypothesis $+$ proof), and writes them
+into `notes/ATTACK_HEAL_CYCLES_*.md`. Chapters under `chapters/theory/`,
+`chapters/examples/`, `chapters/connections/` that would have hosted
+these increments are unchanged. A reader of the manuscript sees no
+evidence of the five cycles; the wave-level mathematics is lost
+until a downstream agent re-derives or reads `notes/`.
+
+**Regex trigger.** Agent report contains
+`inscribed into notes/\|file.*notes/.*\.md\|output.*notes/.*\.md`
+AND `theorem\|proposition\|lemma\|sharpened hypothesis` but does
+NOT contain `chapters/\|frame/\|examples/\|theory/\|connections/`
+as a target file.
+
+**5-step protocol.**
+1. Prompt explicit: "Mathematical increments (new theorem, lemma,
+   counterexample, sharpened hypothesis with proof, cite-repair)
+   land in reader-facing `.tex` under `chapters/`, `frame/`,
+   `examples/`, `theory/`, `connections/`, or `bibliography/`.
+   `notes/` is scratchpad only (attack record, ghost-theorem logs,
+   internal reasoning). An increment that lands only in `notes/`
+   is a failed inscription."
+2. Agent's close step: name at least one reader-facing `.tex` file
+   touched, or explicitly declare "no reader-facing inscription
+   warranted; cycles converged within existing scope" with
+   evidence.
+3. Parent synthesis step: if report shows convergence but no reader-
+   facing `.tex` file touched, relaunch agent with "inscribe the
+   converged increments into the relevant reader-facing chapter(s)."
+4. Reader-facing scope check: if the increment is cross-volume
+   (e.g., filtered equivalence spans Vol I + Vol II + Vol III),
+   inscription lives in each volume's chapter at the appropriate
+   cross-volume AP5 row.
+5. Exception: if the new increment is purely harness / wave-level
+   (this file, `notes/first_principles_cache_comprehensive.md`),
+   then `notes/` is correct.
+
+### M4 — Build artefact stale at wave close (PDF regression UX)
+
+**Wrong pattern.** Wave closes with ten reader-facing `.tex` files
+edited across five volumes. `out/main.pdf` is not rebuilt; user
+opens the PDF and sees pre-heal content; reports the heals as "lost"
+or "regressed"; a full diagnosis session follows to discover it was
+a stale artefact.
+
+**Regex trigger.** Dispatcher-side: any wave closing with
+`git diff --name-only HEAD` showing edits to `chapters/`, `frame/`,
+`examples/`, `theory/`, `connections/`, `appendices/`, or `main.tex`
+without a subsequent `make fast`, `make release`, or `pdflatex main`
+invocation.
+
+**5-step protocol.**
+1. Post-wave synthesis step, after deep-semantic-merge: run
+   `make fast` (default) or `make release` (session-end) in each
+   volume with manuscript-file edits.
+2. If build fails: quote the first fatal error in the synthesis
+   summary before declaring convergence.
+3. If build succeeds: copy to `out/main.pdf` (Makefile handles),
+   and for `make release` copy to
+   `calabi_yau_quantum_groups.pdf` at top level.
+4. Synthesis summary must name: files edited, build status, PDF
+   path, number of undef refs / undef cites / compile warnings.
+5. Equivalent for Vol I (`make fast` in `chiral-bar-cobar`), Vol II
+   (`chiral-bar-cobar-vol2`), `igusa-cusp-form`, `topological-
+   strings`.
+
+### M5 — Worktree branch uncommitted changes obstruct deep-semantic-merge
+
+**Wrong pattern.** Agent runs in worktree isolation, edits files,
+converges, reports. Worktree branch has changes but no commit.
+Parent wave-synthesis step attempts deep-semantic-merge of the
+worktree branch into repo-main; `git log` on the branch shows no
+commits, so there are no atomic units to merge; parent either
+reloads the full working-tree diff (loss of semantic atomicity) or
+discards changes entirely.
+
+**Regex trigger.** Post-agent-completion check: worktree-branch
+$\verb|git status|$ is non-empty AND
+$\verb|git log main..worktree-branch|$ is empty.
+
+**5-step protocol.**
+1. Prompt clarifies: "Commit to your worktree branch atomically as
+   each attack-heal cycle closes. These commits are the atomic
+   units the parent synthesis step will deep-semantic-merge into
+   repo-main. The CLAUDE.md rule 'commit only when user requests'
+   applies to repo-main commits, not to your isolated worktree
+   branch."
+2. Commit messages: Chriss-Ginzburg style; zero AI attribution (no
+   Claude, no Anthropic, no Co-Authored-By, no "Generated with",
+   no 🤖); one-line subject naming the mathematical increment, not
+   the wave or agent.
+3. Parent post-wave check: for each agent-worktree, verify
+   $\verb|git log main..branch|$ non-empty before attempting merge.
+4. If empty but working tree has changes: parent performs
+   `git add -A && git commit` with a CG-style message capturing the
+   agent's reported increment, under Raeez Lorgat authorship, then
+   proceeds to merge.
+5. Deep-semantic-merge discipline: read each commit's diff; preserve
+   both sides' inscribed mathematics; renumber cache-entry collisions;
+   re-run hook consistency checks after merge.
+
+### M6 — Intra-wave coordination absent; two agents attack same scope
+
+**Wrong pattern.** Wave dispatch allocates 20 agents across 12
+priority items $+$ 8 frontier items without a shared dispatch
+scratchpad. Two agents (e.g., V3-E on hCS $\to \mathfrak g_{\Delta_5}$
+and V3-F on 6d hCS CFG E$_3$ avatar) independently attack
+overlapping scope (anomaly split, Costello renormalisation machine,
+BCOV one-loop); both inscribe similar lemmas with slightly different
+phrasings; parent synthesis step spends cycles deduplicating.
+
+**Regex trigger.** Dispatcher-side: two agents in the same wave
+with prompts containing overlapping keyword sets (threshold: $\geq 3$
+shared multi-word technical tokens like "Costello renormalisation",
+"anomaly $d^{abc}$", "BCOV one-loop").
+
+**5-step protocol.**
+1. Wave-launch creates `/tmp/wave-W$n$-dispatch.md` with columns
+   `agent | scope | files-claimed | primary-keywords`.
+2. Each agent's prompt includes the wave-dispatch-file path and
+   instruction: "read this file on start; record your file-claim
+   list; do NOT touch files already claimed by another agent
+   without coordination through a cross-agent scratchpad file at
+   `/tmp/wave-W$n$-coord-<topic>.md`."
+3. Cross-agent coordination: when two agents' scope intersects,
+   designate one as owner of the overlap, the other as
+   contributor-via-coord-file. Owner inscribes; contributor appends
+   to owner's scratchpad.
+4. Parent post-wave step consumes the dispatch file to route
+   conflicts in deep-semantic-merge.
+5. Exception: the 5 frontier/cross-consistency agents are
+   *expected* to touch overlapping scope as verifiers; their
+   coordination rule is "read-only on overlaps, write only to
+   cross-consistency scratchpads under `notes/`."
+
+### Hook integration
+
+Hook cannot reliably catch M1--M6 through static regex on individual
+files, because these are cross-file, cross-agent, and cross-wave
+patterns. The conservative auto-detectable signatures added to
+`scripts/hooks/beilinson-gate.sh` below are:
+
+- **H-M1**: inscription of `Y_{\\osp(4\\s*|\\s*20)}` or
+  `\\osp(4\\s*\\mid\\s*20)` in chapters/ flags "cache entry \# 9:
+  Mukai Yangian classical limit is $\\mathfrak{so}(4, 20)$, not
+  Kac $\\osp(4 \\mid 20)$. Reconcile before inscribing."
+- **H-M3**: edit to `notes/*.md` introducing `\\begin{theorem}` or
+  `\\begin{lemma}` or `\\begin{proposition}` without matching
+  `\\label{thm:\|\\label{lem:\|\\label{prop:` in `chapters/` within
+  the same wave flags "converged mathematical increment inscribed
+  into notes/ only; consider reader-facing chapter target."
+
+M2, M4, M5, M6 are dispatcher-layer, not hook-layer; they are
+enforced in the wave-launch + wave-synthesis prompt boilerplate.
+

@@ -678,7 +678,8 @@ PHI01_DISCRIMINANT_COEFFS: Dict[int, int] = {
 K3E_KAPPA_SPECTRUM: Dict[str, Any] = {
     "kappa_ch": Fraction(3),     # from chiral algebra A_{K3xE} via Phi
     "kappa_BKM": 5,              # from Borcherds-Kac-Moody (weight of Delta_5)
-    "kappa_cat": 2,              # from chi(O_{K3}) = 2
+    "kappa_cat": Fraction(0),    # total-space chi(O_{K3 x E}) = 2 * 0
+    "kappa_cat_fiber": 2,        # from chi(O_{K3}) = 2
     "kappa_fiber": 24,           # from chi(K3) = 24 (lattice rank)
 }
 

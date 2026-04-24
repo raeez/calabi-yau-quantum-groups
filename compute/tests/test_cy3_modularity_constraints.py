@@ -54,10 +54,11 @@ _spec_phi.loader.exec_module(phi01)
 class TestCY3ModularData:
     """Test the basic modularity data for CY3 examples."""
 
-    def test_k3e_kappa(self):
-        """kappa(K3 x E) = 5 (Theorem CY-D)."""
+    def test_k3e_kappa_bkm(self):
+        """kappa_BKM(K3 x E) = 5 from the Delta_5 Borcherds weight."""
         d = mc.cy3_modular_data_k3e()
         # VERIFIED [DC] kappa formula [LT] standard CY tables
+        assert d.kappa_label == "kappa_BKM"
         assert d.kappa == Fraction(5)
 
     def test_k3e_siegel_weight(self):
@@ -73,7 +74,7 @@ class TestCY3ModularData:
         assert d.chi_top == 0
 
     def test_k3e_kappa_not_chi_over_24(self):
-        """kappa(K3 x E) != chi_top/24 (the naive formula FAILS here)."""
+        """kappa_BKM(K3 x E) != chi_top/24."""
         d = mc.cy3_modular_data_k3e()
         assert d.kappa != Fraction(d.chi_top, 24)
 
@@ -604,17 +605,18 @@ class TestWeightKappaRelationship:
         assert w == Fraction(5)
 
     def test_kappa_equals_weight(self):
-        """kappa = weight for K3 x E."""
+        """kappa_BKM = weight for K3 x E."""
         w = mc.kappa_from_siegel_weight(Fraction(5))
         # VERIFIED [DC] kappa computation [LT] standard CY tables
         assert w == Fraction(5)
 
     def test_k3e_consistency_4_paths(self):
-        """K3 x E: kappa = 5 verified by 4 independent paths."""
+        """K3 x E: kappa_BKM = 5 verified by independent BKM paths."""
         result = mc.kappa_weight_consistency("K3 x E")
         assert result["all_paths_agree"] is True
         # VERIFIED [DC] Euler characteristic formula [LT] standard CY tables
-        assert result["path1_cy_euler"] == Fraction(5)
+        assert result["kappa_label"] == "kappa_BKM"
+        assert result["path1_bkm_oracle"] == Fraction(5)
         # VERIFIED [DC] consistency check [LT] standard CY tables
         assert result["path2_borcherds"] == Fraction(5)
         # VERIFIED [DC] consistency check [LT] standard CY tables
@@ -697,7 +699,7 @@ class TestIntegralityObstruction:
         assert result["is_integral"] is True
         # VERIFIED [DC] kappa formula [LT] standard CY tables
         assert result["kappa_conjectural"] == Fraction(0)
-        # But kappa(K3 x E) = 5 != 0, so chi/24 is the WRONG formula.
+        # But kappa_BKM(K3 x E) = 5 != 0, so chi/24 is the WRONG BKM formula.
 
     def test_euler_480_integral(self):
         """chi = 480: chi/24 = 20 is integral."""
@@ -878,7 +880,7 @@ class TestEdgeCases:
         assert D == -5
 
     def test_k3e_kappa_vs_c_over_2(self):
-        """kappa(K3 x E) = 5 != c/2 for any sensible c.
+        """kappa_BKM(K3 x E) = 5 != c/2 for any sensible c.
 
         This verifies AP48: kappa depends on the full algebra, not a Virasoro formula.
         K3 x E has no single Virasoro subalgebra whose c/2 gives 5.
@@ -942,11 +944,11 @@ class TestAHatConsistency:
 
 
 # =========================================================================
-# 19. MULTI-PATH VERIFICATION: kappa(K3 x E) = 5
+# 19. MULTI-PATH VERIFICATION: kappa_BKM(K3 x E) = 5
 # =========================================================================
 
 class TestKappaK3E5Paths:
-    """Verify kappa(K3 x E) = 5 via 5 independent paths."""
+    """Verify kappa_BKM(K3 x E) = 5 with convention checks."""
 
     def test_path1_borcherds_weight(self):
         """Path 1: weight of Borcherds lift = c(0)/2 = 10/2 = 5."""
@@ -967,13 +969,14 @@ class TestKappaK3E5Paths:
         # VERIFIED [DC] structural property [LT] standard CY tables
         assert dim_sp4 // 2 == 5
 
-    def test_path4_cy_euler_characteristic(self):
-        """Path 4: chi^CY(K3 x E) = 5 (Theorem CY-D)."""
-        # This is the categorical CY Euler characteristic,
-        # NOT the topological Euler characteristic.
+    def test_path4_not_cy_euler_characteristic(self):
+        """Path 4: BKM weight is distinct from CY Euler data."""
         d = mc.cy3_modular_data_k3e()
         # VERIFIED [DC] kappa formula [LT] standard CY tables
+        assert d.kappa_label == "kappa_BKM"
         assert d.kappa == Fraction(5)
+        assert d.chi_top == 0
+        assert d.kappa != Fraction(d.chi_top, 24)
 
     def test_path5_bkm_weyl_vector(self):
         """Path 5: from BKM theory, the weight equals the coefficient

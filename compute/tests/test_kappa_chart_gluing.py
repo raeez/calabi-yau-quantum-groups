@@ -1,4 +1,4 @@
-r"""Tests for kappa_chart_gluing.py: local-to-global kappa computation.
+r"""Tests for kappa_chart_gluing.py: local-to-global scalar computation.
 
 Tests are organized into the following sections:
 
@@ -7,7 +7,7 @@ Tests are organized into the following sections:
   3. ATLAS INDEPENDENCE: two presentations of the same CY3 agree
   4. chi/24 CONJECTURE: test failures and successes
   5. HODGE FORMULA: BCOV and toric formulas
-  6. PRODUCT FORMULAS: additivity and cross-terms
+  6. PRODUCT FORMULAS: additivity and residual diagnostics
   7. ORBIFOLD AND RESOLUTION: kappa under group actions
   8. SHADOW TOWER: F_g from glued kappa
   9. TORIC LANDSCAPE: all toric CY3s
@@ -230,16 +230,18 @@ class TestStandardCY3s:
         assert result.kappa_ch == Fraction(2)
 
     def test_k3_times_e_kappa_equals_5(self):
-        """K3 x E: kappa = 5 from BKM weight."""
+        """K3 x E: kappa_BKM = 5 from the Delta_5 BKM weight."""
         result = kappa_from_nerve(k3_times_e_atlas())
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert result.kappa_ch == Fraction(5)
+        assert result.kappa_label == "kappa_BKM"
 
     def test_quintic_kappa_equals_minus_25_over_3(self):
-        """Quintic: kappa = -25/3 (conjectural, from chi/24)."""
+        """Quintic: conjectural BCOV-shadow scalar is chi/24 = -25/3."""
         result = kappa_from_nerve(quintic_atlas())
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert result.kappa_ch == Fraction(-25, 3)
+        assert result.kappa_label == "kappa_BCOV_shadow_conjectural"
 
     def test_quintic_two_phase_kappa(self):
         """Quintic two-phase: same kappa as single chart."""
@@ -339,7 +341,7 @@ class TestAtlasIndependence:
 # =====================================================================
 
 class TestChiOver24:
-    """Test the conjecture kappa = chi_top / 24."""
+    """Test whether the selected scalar equals chi_top / 24."""
 
     def test_quintic_chi_over_24_matches(self):
         """Quintic: chi/24 = -200/24 = -25/3 matches."""
@@ -347,7 +349,7 @@ class TestChiOver24:
         assert kappa_from_chi_top_over_24(-200) == Fraction(-25, 3)
 
     def test_k3xe_chi_over_24_fails(self):
-        """K3 x E: chi/24 = 0 does NOT match kappa = 5."""
+        """K3 x E: chi/24 = 0 does NOT match kappa_BKM = 5."""
         assert kappa_from_chi_top_over_24(0) != Fraction(5)
 
     def test_e_cubed_chi_over_24_fails(self):
@@ -417,7 +419,7 @@ class TestHodgeFormulas:
         assert bcov != Fraction(-25, 3)
 
     def test_k3_fibration_weight(self):
-        """K3 fibration: (24-4)/4 = 5."""
+        """K3 x E BKM row: (24-4)/4 = 5 is a weight mnemonic."""
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_from_k3_fibration_weight(24) == Fraction(5)
 
@@ -491,18 +493,18 @@ class TestProductFormulas:
         assert kappa == Fraction(3)
 
     def test_k3xe_not_additive(self):
-        """K3 x E: kappa = 5 != 2 + 1 = 3."""
+        """K3 x E BKM weight is not the additive Heisenberg scalar 2 + 1."""
         kappa_additive = kappa_product_additive(Fraction(2), Fraction(1))
         assert kappa_additive != Fraction(5)
 
-    def test_k3xe_cross_term(self):
-        """K3 x E cross term: 5 - 2 - 1 = 2."""
+    def test_k3xe_residual_is_not_a_product_formula(self):
+        """The residual 5 - 2 - 1 is diagnostic, not a Kunneth theorem."""
         cross = kappa_product_cross_term(Fraction(2), Fraction(1), Fraction(5))
         # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert cross == Fraction(2)
 
     def test_e_squared_additive(self):
-        """E x E: kappa = 1 + 1 = 2 (no cross-term for abelian varieties)."""
+        """E x E: independent Heisenberg scalar is 1 + 1 = 2."""
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_product_additive(Fraction(1), Fraction(1)) == Fraction(2)
 
@@ -580,7 +582,7 @@ class TestShadowTower:
         assert shadow_amplitude(result.kappa_ch, 1) == Fraction(1, 24)
 
     def test_f1_k3xe(self):
-        """K3 x E: F_1 = 5/24."""
+        """K3 x E BKM lane: scalar shadow value is 5/24."""
         result = kappa_from_nerve(k3_times_e_atlas())
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert shadow_amplitude(result.kappa_ch, 1) == Fraction(5, 24)
@@ -994,7 +996,7 @@ class TestConsistencyWithExistingModules:
         assert kappa_from_nerve(local_p2_atlas()).kappa_ch == Fraction(3, 2)
 
     def test_k3xe_matches_igusa_weight(self):
-        """K3 x E: kappa = 5 matches weight of Delta_5."""
+        """K3 x E: kappa_BKM = 5 matches weight of Delta_5."""
         # From modular_cy_characteristic.py
         # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_from_nerve(k3_times_e_atlas()).kappa_ch == Fraction(5)

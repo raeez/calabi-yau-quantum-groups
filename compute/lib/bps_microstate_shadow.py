@@ -102,7 +102,9 @@ CONVENTIONS
 ===========
   - Discriminant Delta = 4nm - l^2 for K3 x E charges (n, l, m)
     (same as D in bps_entropy_shadow.py)
-  - kappa_ch = 3, kappa_BKM = 5 per AP113
+  - kappa_ch = 3, kappa_BKM = 5, kappa_cat(K3 x E) = 0 per AP113
+  - The auxiliary value 2 is kappa_cat(K3), the K3-fiber holomorphic
+    Euler characteristic, not kappa_cat of the total space.
   - Shadow invariants S_k from the Virasoro (spin-2) channel at c=1
   - A-hat coefficients: A_hat_g = (2^{2g}-2)|B_{2g}|/(4^g (2g)!)
   - The 4d Siegel convention uses 4*pi*sqrt(Delta) (not pi*sqrt(D) from 5d)
@@ -569,7 +571,8 @@ A_HAT = {
 # kappa-spectrum (AP113)
 KAPPA_CH = Fraction(3)       # chiral, from CY dimension
 KAPPA_BKM = 5                # Borcherds-Kac-Moody, weight of Delta_5
-KAPPA_CAT = 2                # categorical, chi(O_{K3})
+KAPPA_CAT = 0                # categorical total, chi(O_{K3 x E})
+KAPPA_CAT_FIBER = 2          # K3 fiber categorical value, chi(O_{K3})
 KAPPA_FIBER = 24             # lattice rank
 
 
@@ -998,16 +1001,19 @@ def verify_shadow_growth() -> Dict[int, float]:
 def verify_kappa_spectrum_consistency() -> Dict[str, bool]:
     """Cross-verify the kappa-spectrum values.
 
-    kappa_BKM = kappa_ch + kappa_cat = 3 + 2 = 5 (numerical coincidence
-    for N=1; fails for N >= 2).
+    kappa_BKM = kappa_ch + kappa_cat(K3 fiber) = 3 + 2 = 5 is the N=1
+    fiber decomposition.  The total-space identity using
+    kappa_cat(K3 x E) is false: 5 != 3 + 0.
     """
     return {
         "kappa_BKM_eq_5": KAPPA_BKM == 5,
         "kappa_ch_eq_3": KAPPA_CH == Fraction(3),
-        "kappa_cat_eq_2": KAPPA_CAT == 2,
+        "kappa_cat_total_eq_0": KAPPA_CAT == 0,
+        "kappa_cat_fiber_eq_2": KAPPA_CAT_FIBER == 2,
         "kappa_fiber_eq_24": KAPPA_FIBER == 24,
-        "identity_N1": KAPPA_BKM == int(KAPPA_CH) + KAPPA_CAT,
-        "all_distinct": len({float(KAPPA_CH), KAPPA_BKM, KAPPA_CAT, KAPPA_FIBER}) == 4,
+        "identity_total_space_fails": KAPPA_BKM != int(KAPPA_CH) + KAPPA_CAT,
+        "identity_fiber_N1": KAPPA_BKM == int(KAPPA_CH) + KAPPA_CAT_FIBER,
+        "resolved_labels_distinct": len({float(KAPPA_CH), KAPPA_BKM, KAPPA_CAT, KAPPA_CAT_FIBER, KAPPA_FIBER}) == 5,
     }
 
 

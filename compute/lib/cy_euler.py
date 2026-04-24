@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 r"""
 cy_euler.py -- Euler characteristics and Hodge data for Calabi-Yau threefolds,
-with verification of connections to automorphic form weights via the modular
-characteristic kappa(A_C) = chi^CY(C).
+with a separately labelled K3 x E Borcherds-weight witness.
 
 Ground truth:
-  chapters/theory/modular_trace.tex (Theorem CY-D),
-  chapters/examples/k3_times_e.tex (K3 x E tower, Delta_5).
+  chapters/examples/cy_d_kappa_stratification.tex
+    (kappa_BKM(Phi_N) = c_N(0)/2),
+  chapters/examples/k3e_bkm_chapter.tex
+    (K3 x E tower, Delta_5, c_1(0) = 10).
 
 CONTENTS:
 
@@ -18,46 +19,25 @@ CONTENTS:
 3. Toric CY3: chi from toric data (reflexive polytopes, Batyrev formula).
 4. Quintic threefold: chi=-200, h^{1,1}=1, h^{2,1}=101.
 5. Complete intersection CY3s (CICY): chi from multi-degree and ambient space.
-6. The Delta_5 connection: weight 5 and the invariant kappa(K3 x E) = 5.
+6. The Delta_5 connection: weight 5 and kappa_BKM(K3 x E) = 5.
 
 The key identity verified here:
 
-  kappa(A_{K3 x E}) = weight(Delta_5) = 5
+  kappa_BKM(Delta_5) = weight(Delta_5) = c_1(0)/2 = 10/2 = 5
 
 The DT partition function Z^X = C / (Delta_5)^2 (Theorem thm:dt-igusa),
-so 1/Z ~ (Delta_5)^2 has weight 2 * 5 = 10.  This "10" is
-chi(K3)/2 - dim(E)/2 = 24/2 - 2/2 = 12 - 1 = 11... no.  The correct
-decomposition:
+so 1/Z ~ (Delta_5)^2 has weight 2 * 5 = 10.
 
-  weight(Delta_5) = 5 = (chi(K3) - 4) / 4 + 1/2
-                      ... or simply: it is the SECOND CHERN CHARACTER
-                      contribution to the Todd class integral.
+This file deliberately keeps three lanes apart:
 
-More precisely, kappa is NOT a naive combination of chi(K3) and chi(E).
-It is the CY Euler characteristic chi^CY, defined via the categorical
-trace on Hochschild homology, which for K3 x E evaluates to 5.  This
-equals the weight of the Siegel modular form whose denominator identity
-is the BKM superalgebra -- the content of Theorem CY-D.
+  * chi_top(K3 x E) = chi(K3) chi(E) = 0;
+  * kappa_ch / kappa_cat for the compact total space are not computed
+    from the Borcherds denominator here;
+  * kappa_BKM(Delta_5) is the automorphic weight c_1(0)/2.
 
-The decomposition of 5 in terms of K3 invariants:
-
-  kappa(K3 x E) = 5 = (h^{2,0}(K3) + 1)(h^{1,0}(E) + 1) + h^{1,1}(K3)/20
-                     ... no, the actual formula is:
-
-  For the Igusa cusp form Delta_k on Sp_4(Z), the weight k is determined
-  by the root system of the BKM superalgebra.  For the K3 x E tower with
-  N=1, the additive lift structure gives:
-
-    k = (1/2) * rank(Pic(K3)_generic + 2)
-
-  For a generic K3 (Picard rank 0 in the generic point of moduli), the
-  Igusa form weight is controlled by the index of the Jacobi form phi_{0,1},
-  which is 1, and the Sp_4 representation theory gives weight = 5.
-
-  Concretely:
-    weight(Delta_5) = dim(Sp_4)/2 = 10/2 = 5.
-
-  This is verified numerically below.
+The identities h^{1,1}(K3)/4 = 5, (chi(K3)-4)/4 = 5, and
+dim Sp_4 / 2 = 5 are recorded only as numerical sanity checks.  They
+are not derivations of kappa_BKM and must not be used as source formulas.
 """
 
 from __future__ import annotations
@@ -756,8 +736,10 @@ def cicy_database() -> List[CICYConfig]:
 
 
 # =========================================================================
-# 8. The Delta_5 connection and kappa(K3 x E)
+# 8. The Delta_5 connection and kappa_BKM(K3 x E)
 # =========================================================================
+
+BORCHERDS_C1_ZERO_K3E = 10
 
 def igusa_cusp_form_weight(N: int = 1) -> int:
     """Weight of the Igusa cusp form Delta_k for the K3 x E tower.
@@ -784,174 +766,28 @@ def igusa_cusp_form_weight(N: int = 1) -> int:
 
 
 def kappa_k3_times_e() -> int:
-    """The modular characteristic kappa(A_{K3 x E}) = 5.
+    """The Borcherds modular characteristic kappa_BKM(Delta_5) = 5.
 
-    This is the CY Euler characteristic chi^CY in the sense of Theorem CY-D.
-    It equals the weight of the Igusa cusp form Delta_5.
+    This is the N=1 value of the universal Borcherds-weight identity
+    kappa_BKM(Phi_N) = c_N(0)/2.  For K3 x E, c_1(0) = 10 and
+    the associated Gritsenko-Nikulin form has weight 5.
 
-    NOT to be confused with chi_top(K3 x E) = 0 (topological Euler char).
+    It is not chi_top(K3 x E), kappa_cat(K3 x E), or kappa_ch(K3 x E).
     """
-    return 5
+    return BORCHERDS_C1_ZERO_K3E // 2
 
 
 def decompose_weight_5() -> Dict[str, Any]:
-    r"""Investigate what invariant of K3 x E equals 5.
+    r"""Return lane-separated diagnostics for the value 5.
 
-    The weight of Delta_5 is 5. We seek its expression in terms of
-    geometric invariants of K3 and E.
+    The source identity is not a Hodge-number formula.  It is the
+    Borcherds-weight theorem applied to the N=1 K3 elliptic-genus input:
 
-    ANALYSIS:
+        kappa_BKM(Delta_5) = c_1(0)/2 = 10/2 = 5.
 
-    1. Topological chi: chi(K3 x E) = chi(K3) * chi(E) = 24 * 0 = 0.
-       NO -- this vanishes.
-
-    2. chi(K3)/2 - 1 = 12 - 1 = 11.  NO.
-
-    3. The DT partition function for K3 x E is Z = C / (Delta_5)^2.
-       So (Delta_5)^2 has weight 10. Is 10 a natural invariant?
-       chi(K3)/2 - 1/2 = 11.5.  NO.
-       (chi(K3) - 4)/2 = 10.  YES!  So (Delta_5)^2 has weight
-       (chi(K3) - 4)/2.  Then weight(Delta_5) = (chi(K3) - 4)/4 = 5.
-
-    4. Alternative: the index of the Jacobi form phi_{0,1} is 1, and
-       the Gritsenko lifting from Jacobi forms to Siegel modular forms
-       sends phi_{0,m} of index m to a Siegel form of weight
-       (1/2) * (phi's weight + m + 1) ... no, the additive lift gives
-       weight = k/2 for the input Jacobi form of weight k... Let's
-       just look at the actual formula.
-
-       The Borcherds/Gritsenko additive lift sends a weak Jacobi form
-       phi_{0,1} (weight 0, index 1) to a Siegel modular form of
-       weight k where:
-         k = (number of negative-norm simple roots + extra data).
-
-       For the standard Fake Monster Lie algebra, the product formula
-       gives k = 12 (related to chi(K3)/2 = 12, the weight of Delta).
-
-       For the BKM superalgebra g_{Delta_5}, the three real simple roots
-       have norm 2, and the weight is 5.
-
-    5. The correct formula (Gritsenko-Nikulin):
-
-       For the BKM attached to a lattice L of signature (2,1) with
-       Weyl vector rho satisfying (rho, rho) = some_value, the weight
-       of the automorphic form is:
-
-         k = (rho, rho) / 2 + 1
-
-       For our lattice Lambda^{2,1} with rho = f_2 - (1/2)f_3 + f_{-2},
-       we compute (rho, rho) using the Gram matrix of Lambda^{3,2}
-       restricted to Lambda^{2,1}.
-
-       The Gram matrix in basis (f_2, f_3, f_{-2}):
-       (f_2, f_2) = 0, (f_2, f_3) = 0, (f_2, f_{-2}) = -1
-       ... this requires knowing the inner products. From the
-       delta_i Gram matrix:
-         delta_1 = 2f_2 - f_3, delta_2 = 2f_{-2} - f_3, delta_3 = f_3
-         (delta_i, delta_j) given.
-
-       We can recover (f_i, f_j) from delta expressions:
-         (delta_3, delta_3) = (f_3, f_3) = 2
-         (delta_1, delta_3) = (2f_2 - f_3, f_3) = 2(f_2,f_3) - (f_3,f_3) = -2
-           => (f_2, f_3) = 0
-         (delta_2, delta_3) = (2f_{-2} - f_3, f_3) = 2(f_{-2},f_3) - 2 = -2
-           => (f_{-2}, f_3) = 0
-         (delta_1, delta_1) = (2f_2-f_3, 2f_2-f_3) = 4(f_2,f_2) - 4(f_2,f_3) + (f_3,f_3)
-           = 4(f_2,f_2) + 2 = 2  =>  (f_2,f_2) = 0
-         Similarly (f_{-2}, f_{-2}) = 0.
-         (delta_1, delta_2) = (2f_2-f_3, 2f_{-2}-f_3) = 4(f_2,f_{-2}) - 2(f_2,f_3) - 2(f_{-2},f_3) + (f_3,f_3)
-           = 4(f_2,f_{-2}) + 2 = -2  => (f_2, f_{-2}) = -1.
-
-       So the Gram matrix in (f_2, f_3, f_{-2}) is:
-         [[ 0,  0, -1],
-          [ 0,  2,  0],
-          [-1,  0,  0]]
-
-       This is Lambda^{1,1} + [2], signature (1,2)... wait, the eigenvalues
-       are 2, and those of [[0,-1],[-1,0]] which are +1, -1. So signature
-       is (2,1). Good.
-
-       rho = f_2 - (1/2)f_3 + f_{-2}.
-       (rho, rho) = (f_2,f_2) + (1/4)(f_3,f_3) + (f_{-2},f_{-2})
-                   - (f_2,f_3) + 2(f_2,f_{-2}) - (f_{-2},f_3)
-                   = 0 + 1/2 + 0 - 0 + 2(-1) - 0 = -3/2.
-
-       Hmm, that doesn't directly give 5 via (rho,rho)/2 + 1 = -3/4 + 1 = 1/4.
-
-    6. The correct weight formula for Borcherds products:
-
-       The singular weight of an automorphic form on O(2,n) is n/2.
-       For Lambda^{3,2}: O(3,2) ~ Sp_4, and n = 3 (the "n" in O(2,n)
-       where we split off a hyperbolic plane). Singular weight = 3/2.
-       But Delta_5 has weight 5, which is NOT singular.
-
-       The additive Gritsenko lift of phi_{0,1} (a Jacobi form of
-       weight 0 and index 1) gives a form of weight k where the
-       lifting formula is:
-
-       Delta_5(Z) = sum_{N>0} sum_{d|N} d^{k-1} c(N^2/d^2) e^{2pi i N tau}
-
-       ... The actual construction is:
-       The Borcherds product for the expansion coefficients of phi_{0,1}
-       produces an automorphic form of weight c(0)/2 = 10/2 = 5,
-       where c(0) is the 0-th Fourier coefficient of phi_{0,1}:
-         phi_{0,1}(tau, z) = 2y + 20 + 2y^{-1} + ... (y = e^{2pi i z})
-         so c(0) = c(n=0, l) summed appropriately.
-
-       In the Borcherds product formula, the weight is
-         k = c(0)/2  where c(0) is the constant term of the
-         INPUT weak Jacobi form.  For phi_{0,1}:
-           phi_{0,1}(tau, 0) = 2 + 20 + 2 = 24 = chi(K3)... no.
-           Actually phi_{0,1}(tau, z) = sum_{n,l} c(n,l) q^n y^l.
-           The n=0 terms: c(0,1) + c(0,0) + c(0,-1) = 2 + 20 + 2 = 24.
-           But "c(0)" in the Borcherds weight formula refers to the
-           coefficient c(0) of the VECTOR-VALUED modular form f that
-           is the theta-decomposition input. For the standard case,
-           this gives c(0) = 10, hence weight = 10/2 = 5.
-
-       Actually: the Borcherds product weight formula is
-         k = (1/2) * c_f(0)
-       where c_f(0) is the 0-th Fourier coefficient of the vector-valued
-       form f. For the K3 case, this is well-known to be 10 (coming
-       from the multiplicity of the zero root), giving weight 5.
-
-       But also: c_f(0) = (1/12) * integral of phi_{0,1}(tau,0) over
-       the fundamental domain = chi(K3)/2 - ... hmm.
-
-       The simplest correct statement:
-
-         weight(Delta_5) = chi(K3)/2 - 7 = 12 - 7 = 5.
-
-       But that "7" seems ad hoc. Better:
-
-         weight(Delta_5) = (chi_10(K3) + sigma(K3) + ...) / something.
-
-       Let me just state the clean facts:
-
-    CONCLUSION:
-
-    The weight 5 arises from the Borcherds product formula. The input
-    data is the K3 elliptic genus phi_{0,1}, and the weight of the
-    output Siegel modular form is determined by the multiplicity of the
-    zero vector in the root system, which is c(0,0) = 10 for phi_{0,1}
-    (since phi_{0,1} = 2(y + 10 + y^{-1}) + ..., giving c(0,0) = 20,
-    but accounting for the Weyl vector shift gives effective c_f(0) = 10).
-
-    The invariant that equals 5:
-
-      kappa(K3 x E) = weight(Delta_5) = c_f(0)/2 = 10/2 = 5
-
-    where c_f(0) = h^{1,1}(K3)/2 = 20/2 = 10.
-
-    CHECK: h^{1,1}(K3) = 20, and 20/4 = 5. YES!
-
-      kappa(K3 x E) = h^{1,1}(K3) / 4 = 20/4 = 5.
-
-    Or equivalently:
-      kappa(K3 x E) = (chi(K3) - 4) / 4 = (24 - 4)/4 = 5.
-
-    The "4" subtracted is 2 * (h^{2,0}(K3) + h^{0,0}(K3)) = 2*(1+1) = 4,
-    reflecting the removal of the "trivial" part of the cohomology.
+    The Kunneth computation gives chi_top(K3 x E)=0.  The Hodge and
+    Lie-dimension equalities that also evaluate to 5 are therefore
+    recorded as coincidences/sanity checks, not as source formulas.
     """
     k3 = k3_hodge()
     e = elliptic_curve_hodge()
@@ -977,30 +813,41 @@ def decompose_weight_5() -> Dict[str, Any]:
     # DT partition function: Z = C / (Delta_5)^2
     results["weight_1_over_Z"] = 2 * 5  # = 10
 
-    # The kappa = 5 decomposition
-    results["kappa_K3xE"] = 5
+    # The BKM-lane scalar.
+    results["kappa_label"] = "kappa_BKM"
+    results["kappa_BKM_K3xE"] = kappa_k3_times_e()
+    results["kappa_source"] = "Borcherds weight: c_1(0)/2"
+    results["c_1_0"] = BORCHERDS_C1_ZERO_K3E
 
-    # Formula: kappa = h^{1,1}(K3) / 4
+    # Arithmetic coincidences: useful sanity checks, not source formulas.
     results["h11_K3_over_4"] = Fraction(k3.h(1, 1), 4)  # 20/4 = 5
-    results["formula_h11_over_4_matches"] = (Fraction(k3.h(1, 1), 4) == 5)
-
-    # Alternative: kappa = (chi(K3) - 4) / 4
-    results["chi_K3_minus_4_over_4"] = Fraction(k3.euler_characteristic - 4, 4)  # (24-4)/4 = 5
-    results["formula_chi_minus_4_over_4_matches"] = (
-        Fraction(k3.euler_characteristic - 4, 4) == 5
+    results["h11_over_4_matches_kappa_BKM"] = (
+        Fraction(k3.h(1, 1), 4) == results["kappa_BKM_K3xE"]
     )
+    results["h11_over_4_is_source"] = False
 
-    # Borcherds product perspective: c_f(0) = h^{1,1}(K3)/2 = 10
-    results["c_f_0"] = k3.h(1, 1) // 2  # 10
-    results["weight_from_borcherds"] = results["c_f_0"] // 2  # 5
+    results["chi_K3_minus_4_over_4"] = Fraction(k3.euler_characteristic - 4, 4)  # (24-4)/4 = 5
+    results["chi_minus_4_over_4_matches_kappa_BKM"] = (
+        Fraction(k3.euler_characteristic - 4, 4) == results["kappa_BKM_K3xE"]
+    )
+    results["chi_minus_4_over_4_is_source"] = False
+
+    # Borcherds product perspective: c_1(0) is the input coefficient.
+    results["weight_from_borcherds"] = results["c_1_0"] // 2  # 5
+    results["h11_K3_over_2"] = k3.h(1, 1) // 2  # 10
+    results["h11_K3_over_2_matches_c_1_0"] = (
+        results["h11_K3_over_2"] == results["c_1_0"]
+    )
+    results["h11_K3_over_2_is_source"] = False
 
     # Sp_4 perspective: dim(Sp_4)/2 = 10/2 = 5
     results["dim_Sp4"] = 10  # dim of Sp_4 as a Lie group
     results["dim_Sp4_over_2"] = 5
+    results["dim_Sp4_over_2_is_source"] = False
 
-    # Check: 2 * kappa = weight of (Delta_5)^2 = weight of 1/Z
-    results["two_kappa_equals_weight_inverse_Z"] = (
-        2 * results["kappa_K3xE"] == results["weight_1_over_Z"]
+    # Check: 2 * kappa_BKM = weight of (Delta_5)^2 = weight of 1/Z.
+    results["two_kappa_BKM_equals_weight_inverse_Z"] = (
+        2 * results["kappa_BKM_K3xE"] == results["weight_1_over_Z"]
     )
 
     return results
@@ -1028,243 +875,34 @@ def _eta_coeffs(max_n: int) -> List[int]:
 
 @lru_cache(maxsize=256)
 def _theta_jacobi_coeffs(max_n: int, max_l: int) -> Dict[Tuple[int, int], int]:
-    """Fourier coefficients c(n,l) of the weak Jacobi form phi_{0,1}.
+    """Low-order coefficients of the standard weak Jacobi form phi_{0,1}.
 
-    phi_{0,1}(tau, z) = (theta_2(tau,z)^2 / theta_2(tau,0)^2
-                       + theta_3(tau,z)^2 / theta_3(tau,0)^2
-                       + theta_4(tau,z)^2 / theta_4(tau,0)^2) * (2/3)
-    ... actually, the standard formula is:
+    This helper intentionally exposes only the q^0 head used by the tests:
+    c(0,0)=20 and c(0,+/-1)=2, so phi_{0,1}(tau,0)=24 at q^0.
 
-    phi_{0,1} = 4 * [ (theta_2(tau,z)/theta_2(tau,0))^2
-                     + (theta_3(tau,z)/theta_3(tau,0))^2
-                     + (theta_4(tau,z)/theta_4(tau,0))^2 ]
-
-    ... but let me use the simpler characterization.
-
-    phi_{0,1}(tau, z) is the unique (up to scalar) weak Jacobi form of
-    weight 0, index 1. Its expansion is:
-      phi_{0,1} = (y + 10 + y^{-1}) + (10y^2 + 108y + 10*64*... )q + ...
-    Actually: phi_{0,1} = sum_{4n - l^2 >= -1} c(4n-l^2) q^n y^l, where
-      c(-1) = 2, c(0) = 20, c(3) = -2*128 = ... no.
-
-    Known Fourier coefficients c(D) where D = 4n - l^2:
-      c(-1) = 2
-      c(0) = 20  (this is c(n=0, l=0) = 20 but really it's the
-                   coefficient of the D=0 term)
-      Wait, the standard convention: phi_{0,1} = sum c(n,l) q^n y^l where
-      c(n,l) depends only on D = 4n - l^2. The "c(D)" values:
-        D = -1: c = 2  (the terms y and y^{-1} at n=0)
-        D = 0: c = 20  (the term 20 at n=0, l=0... but 4*0 - 0^2 = 0)
-               Hmm, but c(0,1) has D = 4*0 - 1 = -1, and c(0,0) has D = 0.
-               So c(D=-1) = 2 means c(0, +/-1) = 2.
-               And c(D=0) means c(0,0) = 20.
-        Wait, the expansion at n=0:
-          phi_{0,1} = ... + 2y^{-1} + 20 + 2y + ... + q*(...)
-        So c(0,0) = 20, c(0,1) = c(0,-1) = 2.
-        D(0,0) = 0, c(D=0) = 20.
-        D(0,1) = -1, c(D=-1) = 2.
-
-    These are the root multiplicities! For the BKM algebra, the
-    weight of the Borcherds product is c(D=0)/2 = 20/2 = 10.
-    Then the Siegel form weight = 10/2 = 5.
-
-    Let me just hard-code the known values.
+    The Borcherds-weight scalar used elsewhere in this module is the
+    program-normalised input coefficient c_1(0)=10 for the K3 x E
+    Delta_5 lift. It is not derived here from the raw Jacobi coefficient
+    c(0,0)=20.
     """
-    # c(D) = coefficient depending on discriminant D = 4n - l^2
-    # Known values from the expansion of phi_{0,1}:
-    c_of_D = {
-        -1: 2,
-        0: 20,   # This is h^{1,1}(K3) = 20 (the constant term)
-        3: -128,  # c(1,1) with D = 4-1 = 3 -> -128... actually
-                   # the correct values are:
-                   # c(D=3) = -2 * 64 = ... let me look this up.
-    }
-    # Actually, the standard expansion:
-    # phi_{0,1} = 2y + 20 + 2/y
-    #           + q(-2y^2 + 20y - 128 + 20/y - 2/y^2) [Wait, not right]
-    #           + q(-2y^2 + 216y + 20 * ... ) [Need to be more careful]
-
-    # The correct Fourier expansion of phi_{0,1}:
-    # phi_{0,1} = sum c(n,l) q^n y^l
-    # n=0: c(0,0)=20, c(0,+/-1)=2
-    # n=1: c(1,0)=-128... no. Let's use the known c(D):
-    # D = -1: c=2
-    # D = 0: c=20
-    # D = 3: c=-2 (this is wrong... the sign pattern needs care)
-    # D = 4: c=216... wait.
-
-    # Let me just compute from the definition.
-    # phi_{0,1} = phi_{12,1}/Delta_12 where phi_{12,1} is the unique
-    # cusp Jacobi form of weight 12, index 1, and Delta_12 = eta^{24}.
-    #
-    # phi_{12,1}(tau, z) = eta(tau)^{18} theta_1(tau, z)^2 * theta_1'(tau, 0)^{-2} * ...
-    # This is getting complicated. Let me just return the known values.
-
-    # Correct c(D) values (from e.g., Zagier or any standard reference):
-    # D:  -1  0   3   4   7   8  11  12  15  16
-    # c:   2  20 -2  216 -2  ...
-    # Hmm, these are the coefficients of the elliptic genus of K3.
-    # Actually, the correct thing: phi_{0,1} has c(4n-l^2) given by
-    # the expansion of 2*sum_{k in Z} (-1)^k * q^{k(k+1)/2} * y^k / ...
-    # or equivalently from the relation to the Mathieu group M24.
-
-    # For our purposes, the key fact is c(0) = 20 = h^{1,1}(K3).
-    # Let me hard-code the low-lying values.
-
     result: Dict[Tuple[int, int], int] = {}
-
-    # n = 0 terms
-    result[(0, 0)] = 20
-    result[(0, 1)] = 2
-    result[(0, -1)] = 2
-
-    # Higher terms from the q-expansion.
-    # At n=1: the discriminants are D = 4 - l^2.
-    # l=0: D=4, l=+/-1: D=3, l=+/-2: D=0 (same as c(0)=20), l=+/-3: D=-5 (no)
-    # c(1, 0) = c(D=4). Known: c(D=4) = -128... no.
-    # Actually, the c(D) for phi_{0,1} via the relation to eta-products:
-    # phi_{0,1} = (sum_m A(m) q^m) where A(m) tracks BPS states.
-
-    # From standard tables (e.g., Eichler-Zagier):
-    # The coefficients c(D) are:
-    # D=-1: 2,  D=0: -1 (after subtracting something?) ...
-
-    # I realize I'm getting confused by conventions. Let me compute
-    # phi_{0,1} via its definition as a character:
-    # phi_{0,1}(tau, z) = Tr_{K3}((-1)^F y^{J_0} q^{L_0 - c/24})
-    # = chi(K3) (at q=0, y=1) = 24... but phi_{0,1}(tau, 0) =
-    # 2 + 20 + 2 = 24 at q = 0. Yes! phi_{0,1}(tau, 0) = 24 = chi(K3)
-    # for all tau (it's a modular form of weight 0 with a constant).
-    # Actually phi_{0,1}(tau, 0) is the specialization z=0, which is
-    # a modular form of weight 0 for SL_2(Z), hence a constant = 24.
-
-    # So c(0, -1) + c(0, 0) + c(0, 1) = 2 + 20 + 2 = 24 ✓
-
-    # At n = 1: sum_l c(1,l) = ?
-    # phi_{0,1}(tau, 0) = 24 for all tau means the q^n coefficient
-    # at z=0 is 0 for n >= 1: sum_l c(n,l) = 0 for n >= 1.
-
-    # At n=1: c(1, -2) + c(1, -1) + c(1, 0) + c(1, 1) + c(1, 2) = 0
-    # (higher |l| give 4n - l^2 < -1 which is impossible for weak Jacobi)
-    # 4*1 - l^2 >= -1 => l^2 <= 5 => |l| <= 2.
-    # c(1, +/-2): D = 4 - 4 = 0, so c(D=0) = 20 ... but wait, c(D)
-    # is the same function for all (n,l) pairs with the same D.
-    # c(1, 2) = c(D=0) = 20? Then c(1, -2) = 20 also.
-    # c(1, +/-1): D = 4-1 = 3. So c(1,+/-1) = c(D=3).
-    # c(1, 0): D = 4. So c(1,0) = c(D=4).
-    # Sum: 20 + c(D=3) + c(D=4) + c(D=3) + 20 = 0
-    # => 40 + 2c(3) + c(4) = 0
-    # => c(4) = -40 - 2c(3)
-
-    # At n=2: sum_l c(2,l) = 0
-    # 4*2 - l^2 >= -1 => l^2 <= 9 => |l| <= 3.
-    # c(2, +/-3): D = 8-9 = -1, c = 2
-    # c(2, +/-2): D = 8-4 = 4, c = c(4)
-    # c(2, +/-1): D = 8-1 = 7, c = c(7)
-    # c(2, 0): D = 8, c = c(8)
-    # Sum: 2*2 + 2*c(4) + 2*c(7) + c(8) = 0
-    # => 4 + 2c(4) + 2c(7) + c(8) = 0
-
-    # We need more constraints. From the Mathieu moonshine / known
-    # BPS multiplicities, the first several c(D) values are:
-    #   c(-1) = 2
-    #   c(0) = 20
-    #   c(3) = -128 + 2*90 = ... this is getting circular.
-
-    # Let me use the DEFINITIVE formula.
-    # phi_{0,1}(tau, z) = 12 * sum_{n>=0} sum_{r mod 2} H(4n - r^2) q^n y^r
-    # where H(N) is the Hurwitz class number... no, that's for phi_{-2,1}.
-
-    # OK, the cleanest approach: phi_{0,1} = E_4(tau) * phi_{-2,1}(tau, z) + ...
-    # where phi_{-2,1} = theta_1(tau,z)^2 / eta(tau)^6.
-
-    # Actually: there's a unique weak Jacobi form of weight 0, index 1
-    # (up to scalar), and it's:
-    # phi_{0,1} = 4 [(theta_2(z)/theta_2)^2 + (theta_3(z)/theta_3)^2 + (theta_4(z)/theta_4)^2]
-
-    # Let me just hard-code the known c(n, l) values for small n.
-    # From the expansion phi_{0,1} = (y^{1/2} - y^{-1/2})^{-2} * phi_{-2,1}
-    # ... where phi_{-2,1} = (theta_1/eta^3)^2.
-
-    # Actually, the simplest: phi_{0,1} = [E_4 * phi_{-2,1} + 12 * C_{0,1}] / ...
-    # I give up on deriving this from scratch and just hard-code from tables.
-
-    # From Dabholkar-Murthy-Zagier (2012), Table 2, the Fourier coefficients
-    # c(n,l) of phi_{0,1} for small values:
-
-    # n=0: already have c(0,0)=20, c(0,+/-1)=2
-    # By the constraint sum_l c(n,l) = 0 for n>=1 and the D-dependence:
-
-    # Known: c(D=3) = -128 [this is the multiplicity of the first level
-    # of BPS states in the K3 sigma model, related to dim_C M_{K3} = 20 -> ... ]
-    # Actually c(D=3) corresponds to the first BPS level and equals
-    # 2*A_1(1) where A_1 is the Mathieu M24 McKay-Thompson series.
-    # The M24 decomposition gives: c(D=3) = 2*45 + 2... no.
-
-    # From Eguchi-Ooguri-Tachikawa (2010):
-    # c(D) = 2 for D = -1
-    # c(D) = 20 for D = 0 [stated as 20 = -2 + 2 * dim(trivial_M24 + ...) ]
-    # Actually they write phi_{0,1} = 24 mu(tau,z) + H(tau)
-    # where mu is the Appell-Lerch sum and H is a mock modular form
-    # with coefficients A_n:
-    # A_1 = 90, A_2 = 462, A_3 = 1540, ...
-    # And c(D) = 2A_{(D+1)/4} for D = 4n-1, c(D) = -2 + 2A_{D/4+...} etc.
-
-    # This is extremely intricate. For the compute module, the essential
-    # numerical facts are:
-    # c(0,0) = 20, c(0,+/-1) = 2, phi_{0,1}(tau,0) = 24 = chi(K3).
-    # The Borcherds product weight = c(0,0)/2 = 10, divided by 2 gives 5.
-
-    # We return just the established low-order terms.
+    if max_n >= 0 and max_l >= 0:
+        result[(0, 0)] = 20
+    if max_n >= 0 and max_l >= 1:
+        result[(0, 1)] = 2
+        result[(0, -1)] = 2
     return result
 
 
 def borcherds_product_weight_from_phi01() -> int:
-    """Weight of the Borcherds product from the Jacobi form phi_{0,1}.
+    """Borcherds weight of the N=1 K3 x E Delta_5 lift.
 
-    The Borcherds product formula produces a Siegel modular form whose
-    weight is c(0)/2, where c(0) is the coefficient of the input
-    modular form at the zero vector. For the additive lift of phi_{0,1}:
-
-    The "c(0)" in the Borcherds formula is the multiplicity of the zero
-    root, which for phi_{0,1} is c(D=0)/2 = 20/2 = 10. Actually:
-
-    The precise formula (Borcherds 1998, Theorem 13.3): for a weakly
-    holomorphic modular form f = sum c(D) q^D, the product
-
-      Psi(Z) = q^A r^B s^C prod_{(n,l,m)>0} (1 - q^n r^l s^m)^{c(nm, l)}
-
-    is an automorphic form of weight c(0)/2.
-
-    For the K3 case: c(0) = c(D=0) = 20.
-    Wait, but c(0,0) = 20 and this is c(D=0) where D = 4*0 - 0^2 = 0.
-
-    However, c(0) in the Borcherds formula refers to the coefficient of
-    the SCALAR-valued modular form input, not the Jacobi form directly.
-    The vector-valued form has coefficient c_0(0) = 10 at the zero component.
-
-    The clean statement: for the Borcherds product associated to phi_{0,1},
-
-      weight = c_{scalar}(0) / 2 = 10 / 2 = 5.
-
-    The "10" arises as:
-      c_{scalar}(0) = h^{1,1}(K3) / 2 = 20 / 2 = 10
-    or equivalently:
-      c_{scalar}(0) = (chi(K3) - 4) / 2 = (24 - 4) / 2 = 10.
-
-    So:
-      weight = (chi(K3) - 4) / 4 = 5.
+    The program convention fixes the relevant input coefficient as
+    c_1(0)=10.  Borcherds' weight formula gives weight c_1(0)/2=5.
+    Hodge equalities with the same number are checked elsewhere only
+    as sanity checks, not as derivations.
     """
-    chi_K3 = 24
-    h11_K3 = 20
-
-    # Two equivalent expressions for c_f(0)
-    c_f_0_from_h11 = h11_K3 // 2  # = 10
-    c_f_0_from_chi = (chi_K3 - 4) // 2  # = 10
-    assert c_f_0_from_h11 == c_f_0_from_chi == 10
-
-    weight = c_f_0_from_chi // 2  # = 5
-    return weight
+    return BORCHERDS_C1_ZERO_K3E // 2
 
 
 # =========================================================================
@@ -1280,12 +918,11 @@ def dt_weight_identity() -> Dict[str, Any]:
     Therefore:
       1/Z ~ (Delta_5)^2, a Siegel modular form of weight 2 * 5 = 10.
 
-    The weight 10 factorizes as:
-      10 = 2 * kappa(K3 x E)
-      10 = dim(Sp_4)
-      10 = (chi(K3) - 4) / 2
-      10 = h^{1,1}(K3) / 2
-      10 = c_f(0) (Borcherds input coefficient)
+    The source factorization is:
+      10 = 2 * kappa_BKM(K3 x E) = 2 * c_1(0)/2.
+
+    The equalities 10 = dim(Sp_4), 10 = (chi(K3)-4)/2, and
+    10 = h^{1,1}(K3)/2 are recorded as arithmetic coincidences here.
 
     The factor of 2 in Z = C/(Delta_5)^2 corresponds to the two
     "halves" of the BPS spectrum (particles and anti-particles),
@@ -1294,22 +931,33 @@ def dt_weight_identity() -> Dict[str, Any]:
     results: Dict[str, Any] = {}
 
     k = kappa_k3_times_e()  # = 5
-    results["kappa"] = k
+    results["kappa_label"] = "kappa_BKM"
+    results["kappa_BKM"] = k
     results["weight_Delta5"] = 5
     results["weight_Delta5_squared"] = 10
     results["weight_inverse_Z"] = 10
 
-    # All ways to decompose 10
-    results["2_times_kappa"] = 2 * k  # 10
+    # Source identity and sanity checks.
+    results["2_times_kappa_BKM"] = 2 * k  # 10
     results["dim_Sp4"] = 10
     results["chi_K3_minus_4_over_2"] = (24 - 4) // 2  # 10
     results["h11_K3_over_2"] = 20 // 2  # 10
-    results["c_f_0"] = 10
+    results["c_1_0"] = BORCHERDS_C1_ZERO_K3E
+    results["dim_Sp4_is_source"] = False
+    results["chi_K3_minus_4_over_2_is_source"] = False
+    results["h11_K3_over_2_is_source"] = False
 
     # Verify all equal
     results["all_equal_10"] = all(
         v == 10 for key, v in results.items()
-        if key not in ("kappa", "weight_Delta5")
+        if key not in (
+            "kappa_label",
+            "kappa_BKM",
+            "weight_Delta5",
+            "dim_Sp4_is_source",
+            "chi_K3_minus_4_over_2_is_source",
+            "h11_K3_over_2_is_source",
+        )
     )
 
     return results
@@ -1320,27 +968,22 @@ def dt_weight_identity() -> Dict[str, Any]:
 # =========================================================================
 
 def kappa_cy3_families() -> Dict[str, Dict[str, Any]]:
-    """Modular characteristics for various CY3 families.
+    """Lane-labelled modular characteristics for various CY3 families.
 
     For each family, we record:
     - The topological Euler characteristic chi
     - The Hodge numbers h^{1,1}, h^{2,1}
     - The associated automorphic form (when known)
-    - The modular characteristic kappa = chi^CY (when computable)
+    - The specific kappa-lane only when it is actually constructed.
 
-    For K3 x E, kappa = 5 (Theorem CY-D, verified above).
+    For K3 x E, the constructed value in this module is
+    kappa_BKM = 5 = c_1(0)/2.  It is not chi_top, kappa_cat, or the
+    compact-total-space Hodge supertrace.
 
     For the quintic, the analogue of the DT generating function is
     the BCOV partition function, and the "weight" is related to
-    chi/12... the analysis is more subtle because the Siegel modular
-    form structure is specific to the K3 x E family (which has Sp_4
-    automorphic structure via the lattice Lambda^{3,2}).
-
-    For a general CY3 X, the natural candidate for kappa is:
-      kappa(X) = chi(X) / 24 * (correction factor depending on h^{1,1}, h^{2,1})
-
-    But this is NOT simply chi/24 in general. The K3 x E case is special
-    because of the product structure and the Sp_4 symmetry.
+    chi/12 in a different anomaly lane.  No kappa_BKM value is assigned
+    here without a Borcherds denominator.
     """
     families: Dict[str, Dict[str, Any]] = {}
 
@@ -1348,17 +991,19 @@ def kappa_cy3_families() -> Dict[str, Dict[str, Any]]:
     families["K3 x E"] = {
         "h11": 21, "h21": 21, "chi": 0,
         "automorphic_form": "Igusa cusp form Delta_5 (Sp_4(Z))",
-        "kappa": 5,
-        "kappa_source": "Theorem CY-D + Borcherds product",
-        "formula": "h^{1,1}(K3)/4 = 20/4 = 5",
+        "kappa_label": "kappa_BKM",
+        "kappa_BKM": 5,
+        "kappa_source": "Borcherds weight c_1(0)/2 = 10/2",
+        "formula": "c_1(0)/2 = 5",
     }
 
     # Quintic
     families["Quintic P4[5]"] = {
         "h11": 1, "h21": 101, "chi": -200,
         "automorphic_form": "BCOV holomorphic anomaly (not a single Siegel form)",
-        "kappa": None,  # Not directly computable from Sp_4 theory
-        "kappa_source": "Conjectural: related to chi/24 or BCOV data",
+        "kappa_label": "kappa_BKM",
+        "kappa_BKM": None,
+        "kappa_source": "undefined here: no Borcherds denominator supplied",
         "chi_over_24": Fraction(-200, 24),
     }
 
@@ -1366,7 +1011,8 @@ def kappa_cy3_families() -> Dict[str, Dict[str, Any]]:
     families["WP4(1,1,2,2,2)[8]"] = {
         "h11": 1, "h21": 149, "chi": -296,
         "automorphic_form": None,
-        "kappa": None,
+        "kappa_label": "kappa_BKM",
+        "kappa_BKM": None,
         "chi_over_24": Fraction(-296, 24),
     }
 
@@ -1435,16 +1081,17 @@ def verify_all() -> Dict[str, bool]:
         v[2] == 2 * (v[0] - v[1]) for v in toric.values()
     )
 
-    # Delta_5 connection
-    results["kappa_K3xE_eq_5"] = (kappa_k3_times_e() == 5)
+    # Delta_5 BKM connection
+    results["kappa_BKM_K3xE_eq_5"] = (kappa_k3_times_e() == 5)
     results["igusa_weight_eq_5"] = (igusa_cusp_form_weight(1) == 5)
     results["borcherds_weight_eq_5"] = (borcherds_product_weight_from_phi01() == 5)
 
-    # The formula kappa = h^{1,1}(K3) / 4
-    results["kappa_formula_h11"] = (k3.h(1, 1) // 4 == 5)
+    # Arithmetic coincidences only; they are not source formulas.
+    results["h11_over_4_matches_kappa_BKM"] = (k3.h(1, 1) // 4 == 5)
 
-    # The formula kappa = (chi(K3) - 4) / 4
-    results["kappa_formula_chi"] = ((k3.euler_characteristic - 4) // 4 == 5)
+    results["chi_minus_4_over_4_matches_kappa_BKM"] = (
+        (k3.euler_characteristic - 4) // 4 == 5
+    )
 
     # DT weight identity
     dt = dt_weight_identity()

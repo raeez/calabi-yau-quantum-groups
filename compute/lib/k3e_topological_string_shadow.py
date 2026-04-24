@@ -699,22 +699,27 @@ def compare_dmvv_rank1_vs_gottsche(max_inst: int) -> Dict[str, object]:
 
 
 def kappa_spectrum_k3e() -> Dict[str, object]:
-    r"""The kappa-spectrum of K3 x E (four distinct modular characteristics).
+    r"""The resolved kappa-spectrum of K3 x E.
 
     kappa_ch   = 3: from chiral algebra A_C via Phi (additive: 2+1)
     kappa_BKM  = 5: from Borcherds-Kac-Moody algebra (weight of Delta_5)
-    kappa_cat  = 2: from categorical/holomorphic Euler char chi(O_{K3})
+    kappa_cat  = 0: from categorical/holomorphic Euler char chi(O_{K3 x E})
+    kappa_cat_fiber = 2: from categorical/holomorphic Euler char chi(O_{K3})
     kappa_fiber = 24: from lattice/fiber structure (rank of K3 lattice)
 
-    The four values {2, 3, 5, 24} are ALL distinct. Conflating any two
-    is the source of the kappa-spectrum confusion.
+    The resolved values {0, 2, 3, 5, 24} are ALL distinct. Conflating
+    total-space and fiber categorical values is the source of the
+    kappa-spectrum confusion.
     """
     return {
         'kappa_ch': KAPPA_CH_K3E,
         'kappa_BKM': KAPPA_BKM,
-        'kappa_cat': KAPPA_CH_K3,  # chi(O_{K3}) = 2
+        'kappa_cat': Fraction(0),  # chi(O_{K3 x E}) = 0
+        'kappa_cat_fiber': KAPPA_CH_K3,  # chi(O_{K3}) = 2
         'kappa_fiber': KAPPA_FIBER,
-        'all_distinct': len({KAPPA_CH_K3E, KAPPA_BKM, KAPPA_CH_K3, KAPPA_FIBER}) == 4,
+        'all_distinct': len({
+            Fraction(0), KAPPA_CH_K3, KAPPA_CH_K3E, KAPPA_BKM, KAPPA_FIBER,
+        }) == 5,
         'weight_formula': f"wt(Delta_5) = c(0)/2 = {phi01_by_discriminant(2).get(0, '?')}/2 = {KAPPA_BKM}",
         'additivity': f"kappa_ch(K3xE) = kappa_ch(K3) + kappa_ch(E) = {KAPPA_CH_K3} + {KAPPA_CH_E} = {KAPPA_CH_K3E}",
     }
@@ -890,7 +895,8 @@ def topological_string_shadow_comparison_summary(max_n: int = 10) -> Dict[str, o
         'kappa_spectrum': {
             'kappa_ch': KAPPA_CH_K3E,
             'kappa_BKM': KAPPA_BKM,
-            'kappa_cat': KAPPA_CH_K3,
+            'kappa_cat': Fraction(0),
+            'kappa_cat_fiber': KAPPA_CH_K3,
             'kappa_fiber': KAPPA_FIBER,
         },
         'dt_vanishing': {

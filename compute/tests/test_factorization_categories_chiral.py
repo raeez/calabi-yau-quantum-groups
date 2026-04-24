@@ -507,18 +507,19 @@ class TestBPSFactorizationCategory:
     """BPS factorization category for K3 x E."""
 
     def test_kappa_spectrum(self):
-        """AP113: kappa spectrum {3, 5, 2, 24} for K3 x E.
+        """AP113: resolved kappa spectrum for K3 x E.
         # VERIFIED: [DC] kappa_ch = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3
         # [LT] Vol III CLAUDE.md kappa-spectrum table
         # [CF] kappa_BKM = weight of Delta_5 = 5 (Igusa cusp form)
-        # [DC] kappa_cat = chi(O_{K3}) = 2 (Hodge numbers h^{0,0}=h^{0,2}=1)
+        # [DC] kappa_cat(K3 x E) = 0, kappa_cat(K3 fiber) = 2
         """
         bps = bps_factorization_category_k3()
         assert bps.kappa_ch == 3
         assert bps.kappa_BKM == 5
-        assert bps.kappa_cat == 2
-        # SY path: kappa_ch != kappa_BKM != kappa_cat (all distinct, AP113)
-        assert len({bps.kappa_ch, bps.kappa_BKM, bps.kappa_cat}) == 3
+        assert bps.kappa_cat == 0
+        assert bps.kappa_cat_fiber == 2
+        # SY path: resolved labels are distinct (AP113)
+        assert len({bps.kappa_ch, bps.kappa_BKM, bps.kappa_cat, bps.kappa_cat_fiber}) == 4
 
     def test_conjectural_status(self):
         """BPS category is CONJECTURAL (AP-CY14)."""

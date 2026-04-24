@@ -745,26 +745,43 @@ Primary: Borcherds $1995$ Thm.~13.3; Gritsenko--Nikulin $1998$
 Thm.~2.1; Borcherds $1998$ Thm.~10.1/13.3.
 \end{theorem}
 
-\begin{theorem}[Four-value crystallisation on $K3 \times E$]
+\begin{theorem}[Four-value crystallisation and fibre witness on $K3 \times E$]
 \label{wn:thm:spine-four-values}\ClaimStatusTheorem
 
-On $K3 \times E$, the four modular-characteristic values
-$\{2, 3, 5, 24\}$ arise from \emph{four distinct constructions}, each
-at an explicit scope:
+On $K3 \times E$, the total-space modular package is
+$\{0, 3, 5, 24\}$; the fibre-marked auxiliary package is
+$\{2, 3, 5, 24\}$.  Both packages are theorem-level statements, but
+their first entries belong to different functors.  Explicitly:
 \begin{align*}
-\kcat^{\mathrm{K3\text{-}fibre}}(K3 \times E) &\;=\; \chi(\cO_{K3})
-\;=\; h^{0,0} + h^{0,2} \;=\; 1 + 1 \;=\; 2
-\quad\text{(K3-fibre reading of the Mukai-lattice $\chi$)};\\
-\kch(\cH_{\Delta_5}) &\;=\; \mathrm{rk}_{\mathrm{hyp}}(\fg_{\Delta_5})
+\kcat^{\mathrm{total}}(K3 \times E)
+&\;=\; \chi(\cO_{K3\times E})
+\;=\; \chi(\cO_{K3})\chi(\cO_E)
+\;=\; 2\cdot 0 \;=\; 0;\\
+\kch^{\mathrm{Heis}}(K3 \times E)
+&\;=\; \mathrm{rk}_{\mathrm{hyp}}(\fg_{\Delta_5})
 \;=\; 3
 \quad\text{(Cartan-rank of the rank-$3$ hyperbolic BKM $\fg_{\Delta_5}$ on
 $\mathrm{II}_{3,2}$)};\\
-\kBKM(\Phi_1) &\;=\; c_1(0)/2 \;=\; 5
+\kBKM(\Delta_5) &\;=\; c_1(0)/2 \;=\; 5
 \quad\text{(Borcherds weight of $\Delta_5$, via Gritsenko--Nikulin
 $1998$)};\\
 \kfib(K3, \Wttl(K3)) &\;=\; \mathrm{rk}(\Wttl(K3)) \;=\; 24
 \quad\text{(Mukai-lattice rank, signature $(4, 20)$)}.
 \end{align*}
+The fibre witness is
+\[
+\kcat^{\mathrm{K3\text{-}fibre}}(K3 \times E)
+\;:=\; \chi(\cO_{K3})
+\;=\; h^{0,0}(K3)+h^{0,2}(K3)
+\;=\; 1+1
+\;=\; 2.
+\]
+Thus the displayed value $2$ is not the total-space
+$\kcat(K3\times E)$; it is the K3-fibre Euler characteristic carried by
+the Mukai-lattice specialization.  The arithmetic equality
+$3+2=5$ is therefore a fibre-marked coincidence between the
+Heisenberg specialization and the K3 fibre, not a derivation of
+$\kBKM(\Delta_5)$.
 
 \emph{Scope declarations, and the two parallel readings used elsewhere.}
 Each value above is attached to a specific construction; two natural
@@ -779,9 +796,9 @@ Subscript & K3-fibre scope & Total-space scope \\
 $\kcat^{\mathrm{K3\text{-}fibre}}$ & $2 = \chi(\cO_{K3})$ &
 $\kcat^{\mathrm{total}}(K3\times E) = 0 = \chi(\cO_{K3})\cdot\chi(\cO_E) = 2\cdot 0$ \\
 \multicolumn{3}{l}{\emph{Both correct; K\"unneth-multiplicative
-on products; the $K3$-fibre reading is the manifesto default.}} \\
+on products; the total-space reading is the default for $\kcat(K3\times E)$.}} \\
 \midrule
-Subscript & Cartan-rank reading & Mukai-enhanced Heisenberg reading \\
+Subscript & Heisenberg/BKM reading & Mukai-enhanced $\mathsf{B}$-row reading \\
 \midrule
 $\kch$ & $3 = \mathrm{rk}_{\mathrm{hyp}}(\fg_{\Delta_5})$ &
 $\kch^{\mathsf{B}\text{-row}}(\cH_{\Mukr}(K3)) = 4 = c_+(\Mukr(K3))$ \\
@@ -798,6 +815,15 @@ split tangent bundle, $c(T(K3 \times E)) = c(TK3) \cdot c(TE) =
 (1 + c_2(TK3)) \cdot 1 = 1 + c_2(TK3)$, so $c_3(T(K3 \times E)) = 0$
 as a cohomology class; $\kanom(K3 \times E, \fg) = 0$ for every $\fg$,
 pointwise on the integrand, not merely after integration.
+
+\emph{Proof of separation.} The first equality is the K\"unneth formula
+for holomorphic Euler characteristic.  The second is the rank computation
+of the hyperbolic Cartan lattice in the Borcherds--Gritsenko algebra.
+The third is Borcherds' weight formula $k=c(0)/2$ applied to the
+$N=1$ Gritsenko--Nikulin product.  The fourth is the definition of the
+Mukai lattice of a K3 surface.  Since these four equalities are produced
+by four different functors, no additive identity between them follows;
+the only universal BKM formula here is $\kBKM(\Phi_N)=c_N(0)/2$.
 \end{theorem}
 
 \subsection{The Igusa $\Delta_5$ generalised Kac--Moody
@@ -1135,6 +1161,13 @@ $\eta^{-48}$ identity bypasses any Virasoro $(2, 45)$-minimal apparatus.
 \begin{theorem}[Near-horizon throat and dyon count]
 \label{wn:thm:spine-AdS3}\ClaimStatusTheorem
 
+\emph{Hypotheses and source theorems.}  Use the standard CHL near-horizon
+geometry theorem, the Dijkgraaf--Verlinde--Verlinde/Sen/Shih--Strominger--Yin
+dyon contour formula, and the constructed Mukai-enhanced $\Phi_2$ sector.
+The final graviton-finiteness comparison is a theorem under the explicit
+bridge hypothesis that the physical boundary graviton sector is identified
+with the Mukai-enhanced $E_2$-chiral rigidity sector.
+
 \emph{Geometry.} The near-horizon throat of the IIB
 D$1$-D$5$-KK-momentum system on $K3 \times S^1 \times \widetilde{S^1}$
 at the CHL orbifold point is
@@ -1153,7 +1186,7 @@ relation $c_L = 6k + 24$ with $k = N + 1$).
 $\ZZ_N$ is
 \[
 d_N(Q, P) \;=\; \oint_{\mathcal{C}_N}
-\frac{e^{-i\pi (Q, \Omega) \cdot T (Q, \Omega)^T}}{\Phi_{k_N}(\Omega)^2}\,
+\frac{e^{-i\pi (Q, \Omega) \cdot T (Q, \Omega)^T}}{\Phi_{k_N}(\Omega)}\,
 d\rho\, d\sigma\, dv,
 \]
 with leading entropy
@@ -1161,7 +1194,7 @@ $\log d_N = 2\pi\sqrt{\Delta/N} + (k_N + 2)\log\Delta + \cdots$
 (Sen $2008$; Dijkgraaf--Verlinde--Verlinde $1997$;
 Shih--Strominger--Yin $2005$).
 \emph{Why the Siegel contour integral gives this asymptotic.} The
-integrand $1/\Phi_{k_N}^2$ is a meromorphic Siegel modular form whose
+integrand $1/\Phi_{k_N}$ is a meromorphic Siegel modular form whose
 leading pole at $v = 0$ dominates the contour integral in the
 saddle-point limit; saddle-point gives
 $\log d_N \sim 2\pi\sqrt{\text{norm}}$ where the norm is
@@ -1170,16 +1203,18 @@ rescaling comes from the $\Gamma^{(2)}_N$-invariant inner product on
 the paramodular cover, where the $N$-fold cover introduces a $1/N$
 factor in the quadratic form normalisation). The subleading
 $(k_N + 2)\log\Delta$ term is the logarithmic correction from the
-$\Phi_{k_N}^2$ weight: a weight-$k$ cusp form contributes
+$\Phi_{k_N}$ weight in the CHL convention: a weight-$k$ cusp form contributes
 $k \log \Delta$ to the asymptotic expansion; the ``$+ 2$'' is the
 standard volume-Jacobian correction in genus-$2$ Siegel-upper-half
 space.
 
-\emph{Graviton finiteness.} The chiral-boundary algebraic rigidity
-matches the $\mathrm{HH}^2_{E_2}$-vanishing of the $E_2$-chiral algebra
+\emph{Graviton finiteness.} Under the bridge hypothesis above, the
+chiral-boundary algebraic rigidity matches the
+$\mathrm{HH}^2_{E_2}$-vanishing of the $E_2$-chiral algebra
 $\Phi_2^{\mathrm{FA}}(D^b\mathrm{Coh}(K3))$ at the Mukai-enhanced
-Heisenberg sector, giving a single structural witness
-\emph{graviton finiteness $\equiv$ $E_2$-chiral rigidity}.
+Heisenberg sector. The dyon formula is proved by the Siegel contour
+argument above; the bridge supplies the exact chiral-rigidity
+interpretation of the physical finiteness statement.
 \end{theorem}
 
 \subsection{Derived-centre complementarity: the five-archetype

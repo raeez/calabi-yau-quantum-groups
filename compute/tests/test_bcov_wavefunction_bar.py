@@ -528,10 +528,13 @@ class TestOSV:
         osv = osv_conjecture_k3e()
         assert osv.kappa_spectrum["kappa_ch"] == Fraction(3)
         assert osv.kappa_spectrum["kappa_BKM"] == 5
+        assert osv.kappa_spectrum["kappa_cat"] == Fraction(0)
+        assert osv.kappa_spectrum["kappa_cat_fiber"] == 2
         assert osv.kappa_spectrum["kappa_fiber"] == 24
         # Path 2: cross-check against imported constant
         assert osv.kappa_spectrum["kappa_ch"] == K3E_KAPPA_SPECTRUM["kappa_ch"]
         assert osv.kappa_spectrum["kappa_BKM"] == K3E_KAPPA_SPECTRUM["kappa_BKM"]
+        assert osv.kappa_spectrum["kappa_cat"] == K3E_KAPPA_SPECTRUM["kappa_cat"]
 
     def test_osv_dvv_formula(self):
         """OSV relates to DVV formula Z_BH ~ 1/Phi_10.

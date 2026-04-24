@@ -302,18 +302,19 @@ class TestModularCYCharacteristic:
         assert data.match is True
 
     def test_k3_times_e_kappa_ch_3(self):
-        """kappa_ch(K3 x E) = 3 (proved, chiral de Rham); chi_cy = 5 (BKM weight).
+        """chi_cy(K3 x E) = kappa_ch(K3 x E) = 3; kappa_BKM = 5 is separate.
 
         AP113: kappa_ch vs kappa_BKM are distinct for K3 x E.
         # VERIFIED [DC] kappa(K3)+kappa(E)=2+1=3 [LT] chiral de Rham sheaf
         """
         data = chi_cy_k3_times_e()
         # VERIFIED [DC] Euler characteristic formula [LC] AP113
-        assert data.chi_cy == 5  # BKM weight, backward compat
+        assert data.chi_cy == 3
         # VERIFIED [DC] kappa formula [LC] AP113
         assert data.kappa == 3   # AP113: kappa_ch = 3 (proved)
-        assert data.match is False  # chi_cy=5 (BKM) != kappa_ch=3
-        assert "kappa_ch PROVED" in data.source
+        assert data.match is True
+        assert data.kappa_BKM == 5
+        assert "kappa_BKM separate" in data.source
 
     def test_quintic_conjectural(self):
         """chi^CY(quintic) = -25/3 (CONJECTURAL, from chi/24)."""
@@ -330,12 +331,12 @@ class TestModularCYCharacteristic:
         assert data.match is True
 
     def test_chi_top_not_chi_cy(self):
-        """chi^CY != chi_top in general. K3 x E: chi_top = 0, chi^CY = 5."""
+        """chi^CY != chi_top in general. K3 x E: chi_top = 0, chi^CY = 3."""
         k3e = chi_cy_k3_times_e()
         # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert k3e.chi_top == 0
         # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
-        assert k3e.chi_cy == 5
+        assert k3e.chi_cy == 3
         assert k3e.chi_top != k3e.chi_cy
 
     def test_elliptic_chi_top_vs_chi_cy(self):
@@ -631,7 +632,7 @@ class TestBCOV:
     def test_bcov_c1_not_equal_kappa(self):
         """c_1^{BCOV} != kappa_ch in general. For K3xE: c_1 = 12, kappa_ch = 3.
 
-        AP113: kappa_ch (proved), not kappa_BKM=5 (conjectural).
+        AP113: kappa_ch, not kappa_BKM=5.
         # VERIFIED [DC] c1_bcov=12 != 3 [LC] distinct invariants
         """
         data = bcov_k3_times_e()
@@ -828,18 +829,13 @@ class TestCrossConsistency:
         assert hkr_k3_times_e().euler_hh == 0
 
     def test_chi_cy_matches_kappa_for_proved(self):
-        """chi^CY = kappa for proved cases where the two coincide.
-
-        AP113: K3 x E excluded -- kappa_ch=3 != chi_cy=5 (the latter is kappa_BKM).
-        """
+        """chi^CY = kappa_ch for proved chiral-lane cases."""
         proved_matching = [chi_cy_point, chi_cy_elliptic, chi_cy_k3,
-                           chi_cy_resolved_conifold]
+                           chi_cy_k3_times_e, chi_cy_resolved_conifold]
         for func in proved_matching:
             data = func()
             assert data.match is True, f"Mismatch for {data.name}"
-        # K3 x E: match is False (kappa_ch=3 vs chi_cy=5=kappa_BKM)
-        k3e = chi_cy_k3_times_e()
-        assert k3e.match is False, "K3xE: kappa_ch != chi_cy (AP113)"
+        assert chi_cy_k3_times_e().kappa_BKM == 5
 
     def test_shadow_f1_from_kappa_ch(self):
         """F_1 = kappa_ch / 24 from the chiral shadow amplitude.

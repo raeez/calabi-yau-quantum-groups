@@ -15,7 +15,7 @@ The weight puzzle: kappa_ch = 3 != wt(Delta_5) = 5. Resolution: these
 are DIFFERENT invariants from DIFFERENT algebraizations (AP113).
 
 Test structure:
-    - Kappa-spectrum: {2, 3, 5, 24} verification (5 paths)
+    - Kappa-spectrum: {0, 3, 5, 24} verification (5 paths)
     - Weight formulas: W1-W4 for K3 x E
     - Bridge chain: Steps 1-5 consistency
     - Reconstruction: bar data -> phi_{0,1} -> Delta_5
@@ -64,13 +64,13 @@ from compute.lib.modular_koszul_bridge_k3e import (
 # ===========================================================================
 
 class TestKappaSpectrum:
-    """Verify the kappa-spectrum {2, 3, 5, 24} for K3 x E."""
+    """Verify the total-space kappa-spectrum {0, 3, 5, 24} for K3 x E."""
 
     def test_k3xe_kappa_cat(self):
-        """kappa_cat(K3 x E) = chi(O_{K3}) = 2."""
-        # VERIFIED [DC] Hodge diamond [LT] holomorphic Euler characteristic
+        """kappa_cat(K3 x E) = chi(O_{K3 x E}) = 0."""
+        # VERIFIED [DC] Kunneth [LT] holomorphic Euler characteristic
         spec = kappa_spectrum_k3xe()
-        assert spec.kappa_cat == Fraction(2)
+        assert spec.kappa_cat == Fraction(0)
 
     def test_k3xe_kappa_ch(self):
         """kappa_ch(K3 x E) = 3 (chiral de Rham additivity: 2 + 1)."""
@@ -128,7 +128,7 @@ class TestKappaSpectrum:
         result = verify_kappa_spectrum_k3xe()
         assert result['all_paths_pass']
         assert result['spectrum'] == {
-            'kappa_cat': 2,
+            'kappa_cat': 0,
             'kappa_ch': 3,
             'kappa_bkm': 5,
             'kappa_fiber': 24,

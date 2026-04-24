@@ -197,21 +197,21 @@ class KappaSpectrum(NamedTuple):
 def kappa_spectrum_k3xe() -> KappaSpectrum:
     r"""The kappa-spectrum for K3 x E.
 
-    {kappa_cat, kappa_ch, kappa_BKM, kappa_fiber} = {2, 3, 5, 24}.
+    {kappa_cat, kappa_ch, kappa_BKM, kappa_fiber} = {0, 3, 5, 24}.
 
     Each value from a different source:
-        kappa_cat = chi(O_{K3}) = 2  (Hodge diamond)
+        kappa_cat = chi(O_{K3 x E}) = 0  (Kunneth)
         kappa_ch = kappa(K3) + kappa(E) = 2 + 1 = 3  (chiral de Rham)
         kappa_BKM = c(0)/2 = 10/2 = 5  (Borcherds weight)
         kappa_fiber = rank(Lambda_{K3}) = 24  (lattice rank)
     """
     return KappaSpectrum(
         name="K3 x E",
-        kappa_cat=Fraction(2),
+        kappa_cat=Fraction(0),
         kappa_ch=Fraction(3),
         kappa_bkm=Fraction(5),
         kappa_fiber=Fraction(24),
-        status_cat="PROVED (Hodge diamond)",
+        status_cat="PROVED (Kunneth: chi(O_{K3}) chi(O_E) = 0)",
         status_ch="PROVED (chiral de Rham, CY-A_2 for K3 factor)",
         status_bkm="OBSERVATION (Borcherds lift of phi_{0,1})",
         status_fiber="PROVED (K3 lattice rank)",
@@ -718,10 +718,10 @@ def compare_d2_d3() -> DimensionComparison:
 # =========================================================================
 
 def verify_kappa_spectrum_k3xe() -> Dict[str, Any]:
-    r"""Verify the kappa-spectrum {2, 3, 5, 24} for K3 x E.
+    r"""Verify the kappa-spectrum {0, 3, 5, 24} for K3 x E.
 
     Five independent verification paths:
-        Path 1: kappa_cat = chi(O_{K3}) = 2 from Hodge diamond.
+        Path 1: kappa_cat = chi(O_{K3 x E}) = 0 from Kunneth.
         Path 2: kappa_ch = 2 + 1 = 3 from chiral de Rham additivity.
         Path 3: kappa_BKM = c(0)/2 = 5 from phi_{0,1} coefficient.
         Path 4: kappa_fiber = 24 from K3 lattice rank.
@@ -730,9 +730,10 @@ def verify_kappa_spectrum_k3xe() -> Dict[str, Any]:
     spec = kappa_spectrum_k3xe()
     mod_cy = _import_modular_cy()
 
-    # Path 1: kappa_cat from Hodge diamond
+    # Path 1: kappa_cat from Kunneth
     k3_chi = mod_cy.chi_cy_k3()
-    kappa_cat_verified = (k3_chi.chi_cy == Fraction(2))
+    chi_O_e = Fraction(0)
+    kappa_cat_verified = (spec.kappa_cat == k3_chi.chi_cy * chi_O_e)
 
     # Path 2: kappa_ch from additivity
     kappa_ch_k3 = Fraction(2)    # chi^CY(K3) = 2

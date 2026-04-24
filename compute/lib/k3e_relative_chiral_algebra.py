@@ -463,7 +463,8 @@ def kappa_spectrum_relative() -> Dict[str, object]:
     kappa_ch = 2: from Phi_2(D^b(K3)).  PROVED (CY-A_2).
     kappa_ch(K3 x E) = 3: by additivity kappa_ch(K3) + kappa_ch(E) = 2 + 1.
         PROVED (follows from CY-A_2 + CY-A_1).
-    kappa_cat = 2: chi(O_{K3}) = 2.  PROVED (Hodge theory).
+    kappa_cat(K3 x E) = 0: chi(O_{K3 x E}) = 0.  PROVED (Kunneth).
+    kappa_cat_fiber = 2: chi(O_{K3}) = 2.  PROVED (Hodge theory).
     kappa_fiber = 24: Mukai lattice rank.  PROVED (lattice theory).
     kappa_BKM = 5: weight of Delta_5 = c(0)/2 = 10/2.  PROVED (Borcherds).
 
@@ -482,13 +483,15 @@ def kappa_spectrum_relative() -> Dict[str, object]:
     return {
         'kappa_ch_K3': 2,
         'kappa_ch_K3xE': 3,
-        'kappa_cat': 2,
+        'kappa_cat': 0,
+        'kappa_cat_fiber': 2,
         'kappa_fiber': 24,
         'kappa_BKM': Fraction(c0, 2),
         'c0': c0,
         'kappa_ch_K3_status': 'PROVED (CY-A_2)',
         'kappa_ch_K3xE_status': 'PROVED (CY-A_2 + CY-A_1, additivity)',
-        'kappa_cat_status': 'PROVED (Hodge theory)',
+        'kappa_cat_status': 'PROVED (Kunneth)',
+        'kappa_cat_fiber_status': 'PROVED (Hodge theory)',
         'kappa_fiber_status': 'PROVED (Mukai lattice)',
         'kappa_BKM_status': 'PROVED (Borcherds weight formula)',
         'all_from_relative': True,

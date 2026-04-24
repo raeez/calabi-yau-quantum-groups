@@ -50,7 +50,7 @@ Let $\cC$ be a smooth proper CY$_3$ category with Serre functor $\mathbb{S}_\cC 
   \;\xrightarrow{\;\SpCh_{\Sigma_{d-1},C}\;}
   \EnHolFA(C)
 \]
-produces first a canonical $\EdHolFA$ object on the CY source via $\PhiFA_d$ (stage~1), then specialises it to a curve $C$ via $\SpCh$ (stage~2). The bar-cobar bridge operates at \emph{stage~1}: the identification $\mathrm{CC}_\bullet(\cC) \simeq B(A_\cC)$ is a statement about the $\PhiFA_d(\cC)$ object before any curve-specialisation. Let $A = A_\cC$ denote the stage-2 chiral algebra $\SpCh_{\Sigma_{d-1},C}(\PhiFA_d(\cC))$ (Theorem~CY-A$_2$ for $d = 2$; Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}, for $d = 3$). The cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ and the chiral bar complex $B(A)$ are related by a canonical quasi-isomorphism
+produces first a canonical $\EdHolFA$ object on the CY source via $\PhiFA_d$ (stage~1), then specialises it to a curve $C$ via $\SpCh$ (stage~2). The bar-cobar bridge operates at \emph{stage~1}: the identification $\mathrm{CC}_\bullet(\cC) \simeq B(A_\cC)$ is a statement about the $\PhiFA_d(\cC)$ object before any curve-specialisation. Let $A = A_\cC$ denote the stage-2 chiral algebra $\SpCh_{\Sigma_{d-1},C}(\PhiFA_d(\cC))$ (Theorem~CY-A$_2$ for $d = 2$; for $d = 3$, only after choosing a framed $\Phi_3$-specialisation datum as in Theorem~\ref{thm:cy-to-chiral-d3}). The cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ and the chiral bar complex $B(A)$ are related by a canonical quasi-isomorphism
 \[
  \mathrm{CC}_\bullet(\cC) \;\simeq\; B(A_\cC)
  \tag{CY-A(ii)}
@@ -91,6 +91,10 @@ These are not the same operation, and the CY cyclic bar complex $\mathrm{CC}_\bu
 \label{sec:c3-shadow-tower}
 
 The affine threefold $\mathbb{C}^3$ is the simplest case where both sides of the CY-to-chiral correspondence are explicit.
+Its CoHA side is the positive half
+$\mathrm{CoHA}(\mathbb{C}^3) \simeq Y^+(\widehat{\fgl}_1)$; the
+$W_{1+\infty}$ vertex algebra appears only after the Drinfeld
+double/centre and vacuum evaluation of the envelope.
 
 \begin{theorem}[Shadow tower of \texorpdfstring{$\mathbb{C}^3$}{C-3}]
 \label{thm:c3-shadow-tower}
@@ -166,6 +170,227 @@ Verification: \texttt{compute/lib/bar\_comparison\_c3.py}, \texttt{compute/lib/e
 
 
 %% ===================================================================
+%% SECTION 3b: Operadic E_3 Koszul self-duality and Stage-1 pairing
+%% ===================================================================
+
+\section{Operadic \texorpdfstring{$E_3$}{E-3} Koszul self-duality and the Stage-\texorpdfstring{$1$}{1} self-pairing}
+\label{sec:e3-operadic-self-duality}
+
+The $\C^3$-specific chain-level Koszul duality of
+Theorem~\ref{thm:c3-koszul-chain-level} lifts to an operadic-level
+statement holding for every CY$_3$ category: the $E_3$-operad is
+Koszul self-dual up to shift, and this operadic self-duality
+supplies the Stage-$1$ object $\PhiFA_3(\cC)$ with a canonical
+self-pairing of degree $3$ that descends under $\SpCh_{\Sigma_2, C}$
+to the Vol~I chiral Koszul duality on $C$.
+
+\begin{theorem}[Fresse--Ayala--Francis: \texorpdfstring{$E_n$}{E-n} Koszul self-duality up to shift]
+\label{thm:en-koszul-self-duality-shift}
+\ClaimStatusProvedHere
+Over $\Q$, there is a quasi-isomorphism of dg-operads
+\[
+  E_n^{!} \;\simeq\; E_n\{n\}
+\]
+in the $(\infty,1)$-category of dg-operads. Equivalently at the
+cohomology level, $\mathrm{Ger}_n^{!} \simeq \mathrm{Ger}_n\{n\}$, with
+$\mathrm{Ger}_n$ the Gerstenhaber operad of shift $1 - n$ (commutative
+product in degree $0$, graded Lie bracket of degree $1 - n$, Leibniz
+coupling). For $n = 3$: the $E_3$-operad is Koszul self-dual up to a
+shift by $3$, matching the CY$_3$ Serre shift on Hochschild cohomology.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Two independent routes, both reducing to classical Ginzburg--Kapranov
+computations. Route A (algebraic): the quadratic presentation of
+$\mathrm{Ger}_n$ has generators $\mu$ (degree $0$, commutative product)
+and $\{-, -\}$ (degree $1 - n$, graded Lie bracket) with associativity,
+Jacobi, and Leibniz relations. The Koszul dual operad has dual
+generators $\mu^\vee$ and $\{-, -\}^\vee$ with dual relations;
+Fresse~$2011$ \textit{Selecta Math.}~$17$ Theorem~$1$ verifies that
+the Koszul dual equals $\mathrm{Ger}_n\{n\}$ by direct computation of
+$R^\perp$. Route B (topological): the Fulton--MacPherson compactification
+$\overline{F}(k, \R^n)^{\mathrm{FM}}$ is an oriented compact
+$n(k-1)$-manifold with corners; Ayala--Francis $2014$ arXiv:$1409.2478$
+Theorem~$2.1$ (\emph{Poincar\'e/Koszul duality}) establishes that the
+Poincar\'e pairing on this compactification realises the operadic
+Koszul self-duality $C_\bullet(D_n)^{!} \simeq C_\bullet(D_n)\{n\}$ at
+the Fulton--MacPherson chain level. The two routes agree modulo the
+Grothendieck--Teichm\"uller torsor $\mathrm{GRT}_1(\Q)$ parametrising
+$E_n$-formality zig-zags (Calaque--Willwacher $2011$ arXiv:$1111.0810$).
+\end{proof}
+
+\begin{corollary}[\texorpdfstring{$E_3$}{E-3} bar-cobar inversion up to shift]
+\label{cor:e3-bar-cobar-shift}
+\ClaimStatusProvedHere
+For an augmented $E_3$-algebra $\cA$ with pro-nilpotent augmentation
+ideal $\overline{\cA}$, the bar-cobar round-trip is
+\[
+  \Omega^{E_3}\bigl(B^{E_3}(\cA)\bigr) \;\xrightarrow{\;\sim\;}\; \cA\{3\},
+\]
+the Serre shift of $\cA$ by $3$. For $\cA = \HH^\bullet(\cC)$ on a
+CY$_3$ category $\cC$, the right-hand side is
+$\HH^{\bullet - 3}(\cC)$, matching the categorical Serre shift
+$\mathbb{S}_\cC \simeq [3]$.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:en-koszul-self-duality-shift}, the Koszul dual
+$E_3$-operad satisfies $E_3^{!} \simeq E_3\{3\}$; the derived Koszul
+double-dual of an $E_3$-algebra satisfies
+$\cA^{!!, E_3} \simeq \cA\{3 + (-3) + 3\} = \cA\{3\}$. The
+bar-cobar round-trip computes $\cA^{!!, E_3}$ on the pro-nilpotent
+locus (Fresse $2011$ Theorem $3.2$; Francis $2013$
+\textit{Compos.~Math.}~$149$ Corollary $5.3$). Pro-nilpotence
+guarantees convergence of the spectral sequence.
+\end{proof}
+
+\begin{theorem}[Stage-\texorpdfstring{$1$}{1} operadic Poincar\'e self-pairing]
+\label{thm:stage-1-self-pairing-operadic}
+\ClaimStatusProvedHere
+Let $\cC$ be a CY$_3$ category with cyclic $\Ainf$-structure of parity
+$+3$ and CY trace $\langle -, - \rangle_{\CY} \colon \HH^\bullet(\cC)^{\otimes 2} \to \Q[3]$
+of degree $3$. The Stage-$1$ object $\PhiFA_3(\cC) \in \EdHolFA(X)$
+carries a canonical cyclic self-pairing
+\[
+  \langle -, - \rangle_{\PhiFA_3}
+  \;\colon\;
+  \PhiFA_3(\cC) \otimes \PhiFA_3(\cC) \longrightarrow \omega_X[3]
+\]
+of cohomological degree $3$, equivalently a Koszul self-duality datum
+on Stage-$1$ in the sense of
+Theorem~\ref{thm:en-koszul-self-duality-shift}. This Stage-$1$
+self-pairing is:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $E_3$-cyclic: compatible with the $E_3$-algebra structure,
+        satisfying
+        $\langle \mu_{E_3}(a, b), c \rangle = (-1)^{|a|(|b|+|c|)} \langle b, \mu_{E_3}(c, a) \rangle$
+        at arity $2$, with the configuration-space-labelled-tree
+        generalisation at higher arity;
+  \item Fulton--MacPherson realised: on each stratum of
+        $\overline{F}(k, X)^{\mathrm{FM}}$, the local pairing is the
+        Ayala--Francis Poincar\'e pairing pulled back via the CG
+        Locality Axiom;
+  \item Compatible with $B^{E_3}$: under the $E_3$-bar of
+        $\HH^\bullet(\cC)$, the Stage-$1$ pairing satisfies
+        $\langle a, b \rangle_{\PhiFA_3} = \bigl\langle B^{E_3}(a), B^{E_3}(b) \bigr\rangle_{B^{E_3}}$
+        with the right-hand side valued in degree $-3$, summing to
+        total degree $0$ on the bar;
+  \item Cyclicity-preserving under $\SpCh_{\Sigma_2, C}$: the
+        Stage-$2$ output $\SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$ carries a
+        cyclic pairing of degree $1$ on $C$, the Vol~I chiral Koszul
+        pairing, obtained by integrating the Stage-$1$ degree-$3$
+        pairing over $\Sigma_2$ via factorisation homology.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+\emph{Existence of the pairing.} The cyclic $\Ainf$-pairing on $\cC$
+produces an $E_3$-cyclic structure on $\HH^\bullet(\cC)$ via
+Kontsevich--Soibelman $2009$ Theorem $10.2.1$ (cyclic
+$\Ainf \to$ cyclic $E_d$ Gerstenhaber shift) combined with the PTVV
+shift law. The CG Locality Axiom (Costello--Gwilliam $2017$ \S$2.6$,
+Theorem $3.2.3$) lifts cyclic structure on the $E_d$-algebra input to
+cyclic structure on the factorisation-algebra output $\PhiFA_3(\cC)$.
+
+\emph{(i) $E_3$-cyclicity.} At arity $2$, the pairing identity is
+the cyclic $\Ainf$-pairing identity of $\cC$ transported through the
+assembly; at arity $3$ and higher, the identity follows from the
+Fulton--MacPherson-labelled tree compatibility of the CG assembly.
+
+\emph{(ii) Fulton--MacPherson realisation.} Each stratum of
+$\overline{F}(k, X)^{\mathrm{FM}}$ is locally modelled on
+$\overline{F}(k_i, \R^3)^{\mathrm{FM}}$; by
+Theorem~\ref{thm:en-koszul-self-duality-shift} Route B, the Poincar\'e
+pairing on this local model realises the operadic Koszul self-duality.
+CG Locality supplies the pullback to the global factorisation algebra.
+
+\emph{(iii) Bar compatibility.} The $E_3$-bar $B^{E_3}(\HH^\bullet(\cC))$
+is dualised via the Koszul pairing of
+Theorem~\ref{thm:en-koszul-self-duality-shift}; the degree on the bar
+complex is $-3$ by the shift in the $E_3$-bar definition
+(Fresse $2011$ \S$3$), matching the Stage-$1$ pairing's degree $+3$
+under the total-degree-$0$ constraint.
+
+\emph{(iv) Specialisation to chiral Koszul.} Factorisation homology
+$\int_{\Sigma_2}$ on a closed oriented $2$-cycle integrates a
+degree-$3$ pairing to a degree-$1$ pairing on the residual $E_1$-chiral
+algebra (Ayala--Francis $2014$ factorisation-homology degree formula).
+The Stage-$2$ output $\SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$ then carries
+the Vol~I chiral Koszul pairing of degree $1$, matching the
+Francis--Gaitsgory chiral Koszul duality $\mathrm{Lie}^{\mathrm{ch}} \leftrightarrow \mathrm{Com}^{\mathrm{ch, fact}}$.
+\end{proof}
+
+\begin{remark}[Witness at \texorpdfstring{$\C^3$}{C-3}: Theorem~\ref{thm:c3-koszul-chain-level} recovered]
+\label{rem:c3-recovered-from-operadic}
+Theorem~\ref{thm:c3-koszul-chain-level}~(iii) at
+$A = \bigwedge^*(\C^3)$ with $\Omega(B(\bigwedge^* V)) \simeq \bigwedge^* V$
+is the $E_1$-level shadow of
+Corollary~\ref{cor:e3-bar-cobar-shift} at
+$\cA = \HH^\bullet(\mathrm{Perf}(\C^3)) = \mathrm{PV}^\bullet(\C^3)
+= \Q[x_1, x_2, x_3] \otimes \bigwedge^\bullet[\partial_1, \partial_2, \partial_3]$.
+At the $E_3$-level, the round-trip produces the Serre-shifted
+polyvector fields $\mathrm{PV}^{\bullet - 3}(\C^3)$; at the $E_1$-level
+(after $\SpCh$), the shift is absorbed into the cohomological degree
+convention, and the round-trip produces $\bigwedge^* V$ as stated.
+The Stage-$1$ self-pairing of
+Theorem~\ref{thm:stage-1-self-pairing-operadic} at $\C^3$ coincides
+with the Ayala--Francis Poincar\'e pairing on
+$\overline{F}(k, \R^3)^{\mathrm{FM}}$ pulled back through the
+polyvector-field factorisation algebra.
+\end{remark}
+
+\begin{remark}[Compatibility diagram with chiral Koszul duality]
+\label{rem:spch-chiral-koszul-compat-diagram}
+The compatibility of the Stage-$1$ $E_3$ bar-cobar with the Stage-$2$
+chiral Koszul duality fits into a commutative square:
+\[
+  \begin{tikzcd}[column sep=4em]
+    \PhiFA_3(\cC) \ar[r, "{B^{E_3}}"] \ar[d, "{\SpCh_{\Sigma_2, C}}"'] & B^{E_3}(\PhiFA_3(\cC)) \ar[d, "{\SpCh_{\Sigma_2, C}}"] \\
+    \SpCh_{\Sigma_2, C}(\PhiFA_3(\cC)) \ar[r, "{B^{\mathrm{ch}}}"'] & B^{\mathrm{ch}}(\SpCh_{\Sigma_2, C}(\PhiFA_3(\cC)))
+  \end{tikzcd}
+\]
+quasi-commuting in the $(\infty,1)$-category of factorisation algebras.
+Dunn-additivity $E_3 = E_2 \otimes^{\mathrm{Dunn}} E_1$ factorises the
+$E_3$-bar as $B^{E_2} \circ B^{E_1}$; integrating over $\Sigma_2$ via
+$\int_{\Sigma_2}$ collapses the $E_2$-factor (Ayala--Francis
+Poincar\'e--Koszul on the $2$-cycle), leaving the residual
+$B^{E_1}$ which is the Vol~I chiral bar-cobar. The shift
+$\{3\}$ on the Stage-$1$ side becomes $\{3 - 2\} = \{1\}$ after
+$\int_{\Sigma_2}$, matching the Vol~I $E_1$-cohomological convention
+(Francis--Gaitsgory $2012$ Theorem $6.4.2$).
+\end{remark}
+
+\begin{remark}[Chain-level vs \texorpdfstring{$(\infty,1)$}{(infinity, 1)}-categorical readings]
+\label{rem:bar-cobar-chain-vs-inf1}
+The operadic Koszul self-duality of
+Theorem~\ref{thm:en-koszul-self-duality-shift} is a statement in
+$\mathrm{Op}(\mathrm{Ch}(\Q))$ (dg-operads); it holds independently
+of any $E_3$-algebra choice and applies to both chain-level objects
+and $(\infty,1)$-categorical functors. The chain-level
+bar-cobar of Corollary~\ref{cor:e3-bar-cobar-shift} is the
+object-level witness on a specific $E_3$-algebra; the
+Stage-$1$ self-pairing of
+Theorem~\ref{thm:stage-1-self-pairing-operadic} is the functorial
+upgrade to the Stage-$1$ output. The
+$(\infty,1)$-categorical $\PhiFA_3$-functor inherits the operadic
+self-duality as a target-category symmetry on the subcategory of
+pro-nilpotent $E_3$-algebras with cyclic structure of parity $+3$;
+this is a different statement from $\PhiFA_3$ itself being Koszul
+self-dual (which it is not, since its source $\CY_3\text{-}\Cat^{\mathrm{dg}}$
+is not a category of $E_3$-algebras). Both readings are preserved
+under the Stage-$1$ assembly.
+\end{remark}
+
+Verification: the chain-level content is instantiated at $\C^3$ in
+Theorem~\ref{thm:c3-koszul-chain-level} and at CY$_3$ categories via
+Theorem~\ref{thm:stage-1-self-pairing-operadic};
+\texttt{compute/lib/e2\_barcobar\_koszul.py} verifies the
+$n = 2$ arity-by-arity pairing; the $n = 3$ arity-$2$ Poincar\'e pairing
+on $\overline{F}(2, \R^3)^{\mathrm{FM}} \simeq S^2$ is a direct
+configuration-space computation.
+
+
+%% ===================================================================
 %% SECTION 4: The shuffle product and the seven-step chain
 %% ===================================================================
 
@@ -179,16 +404,20 @@ The Schiffmann--Vasserot shuffle presentation of $Y^+(\widehat{\fgl}_1)$ does \e
 The chain connecting the shuffle algebra to the chiral algebra:
 \begin{enumerate}
  \item \textbf{Shuffle algebra} $\mathrm{Sh}(h_1, h_2, h_3)$: the associative algebra with generators $e(z)$ at each spectral parameter $z$ and multiplication by the rational shuffle kernel $\zeta(z_i - z_j) = \prod_a (z_i - z_j + h_a)/(z_i - z_j - h_a)$.
- \item \textbf{Affine Yangian} $Y(\widehat{\fgl}_1)$: the $\RTT$-presentation with generators $e_j, f_j, \psi_j$ satisfying the affine Yangian relations. Schiffmann--Vasserot proved $\mathrm{Sh}^+ \simeq Y^+(\widehat{\fgl}_1)$.
- \item \textbf{$W_{1+\infty}$ modes}: the Feigin--Frenkel realization of $W_{1+\infty}$ as the limit $\lim_{N \to \infty} W_N$, with explicit mode algebra generators $W^s_n$ for spin $s$ and mode $n$.
+ \item \textbf{Positive affine Yangian} $Y^+(\widehat{\fgl}_1)$: the positive $\RTT$ half with generators $e_j,\psi_j$; Schiffmann--Vasserot prove $\mathrm{Sh}^+ \simeq Y^+(\widehat{\fgl}_1) \simeq \mathrm{CoHA}(\mathbb{C}^3)$.
+ \item \textbf{Drinfeld double/centre and $W_{1+\infty}$ modes}: adjoining the negative half and passing to the centre/vacuum evaluation gives the Feigin--Frenkel realization of $W_{1+\infty}$ as the limit $\lim_{N \to \infty} W_N$, with explicit mode algebra generators $W^s_n$ for spin $s$ and mode $n$.
  \item \textbf{OPE modes}: the vertex algebra OPE $W^s(z) W^{s'}(w) \sim \sum_n C^{ss'}_n(W)(z-w)^{-n-1}$, extracting the singular coefficients $C^{ss'}_n$.
  \item \textbf{$\lambda$-bracket}: $\{W^s_\lambda W^{s'}\} = \sum_n \lambda^{(n)} C^{ss'}_n(W)$, where $\lambda^{(n)} = \lambda^n / n!$ is the divided power.
  \item \textbf{Lie conformal algebra} $R_{\mathbb{C}^3}$: the $\mathrm{GL}(3)$-invariant subalgebra of the Schouten--Nijenhuis Lie conformal algebra on polyvector fields $\mathrm{PV}^*(\mathbb{C}^3)$.
  \item \textbf{Factorization envelope} $U^{\mathrm{ch}}(R_{\mathbb{C}^3})$: the enveloping vertex algebra, which by the Nishinaka--Vicedo construction recovers $W_{1+\infty}$.
 \end{enumerate}
-Steps 1$\to$2 is Schiffmann--Vasserot. Steps 2$\to$3 is Prochazka--Rapcak. Steps 3$\to$4 is the standard mode-to-OPE dictionary. Step 4$\to$5 requires the divided-power convention. Steps 5$\to$6 is the Kontsevich--Soibelman identification of $R_{\mathbb{C}^3}$ as the $\mathrm{GL}(3)$-invariant part of $\mathrm{PV}^*(\mathbb{C}^3)$ with the Schouten--Nijenhuis bracket. Step 6$\to$7 is the factorization envelope.
+Steps 1$\to$2 is Schiffmann--Vasserot. Steps 2$\to$3 pass through the Drinfeld double/centre and the Prochazka--Rapcak vacuum evaluation; this is where $W_{1+\infty}$ enters, not at the CoHA-positive-half stage. Steps 3$\to$4 is the standard mode-to-OPE dictionary. Step 4$\to$5 requires the divided-power convention. Steps 5$\to$6 is the Kontsevich--Soibelman identification of $R_{\mathbb{C}^3}$ as the $\mathrm{GL}(3)$-invariant part of $\mathrm{PV}^*(\mathbb{C}^3)$ with the Schouten--Nijenhuis bracket. Step 6$\to$7 is the factorization envelope.
 
-The composition $1 \to 7$ is the full CY-to-chiral correspondence $\Phi_3$ for $\mathbb{C}^3$.
+The composition $1 \to 7$ is the framed toric $\Phi_3$ output for
+$\mathbb{C}^3$; the identity at step~2 is
+$\mathrm{CoHA}(\mathbb{C}^3)=Y^+(\widehat{\fgl}_1)$, while the
+$W_{1+\infty}$ vertex algebra is reached only after the Drinfeld
+double/centre and vacuum evaluation.
 \end{construction}
 
 Verification: \texttt{compute/lib/c3\_lie\_conformal.py}, \texttt{compute/lib/c3\_envelope\_comparison.py} (52 tests).
@@ -240,7 +469,7 @@ For a CY$_3$ category $\cC$ with chiral algebra $A = A_\cC$:
 \label{sec:five-theorems-cy}
 
 \begin{theorem*}[The five theorems for CY chiral algebras]
-Let $A = A_\cC$ be the chiral algebra of a CY$_3$ category $\cC$. Then:
+Let $A = A_\cC$ be the framed stage-2 chiral algebra of a CY$_3$ category $\cC$. Then:
 \begin{description}
  \item[Theorem A (adjunction; Vol~I T1a narrowed).] The bar-cobar adjunction $\Omega^{\mathrm{ch}} \dashv B^{\mathrm{ch}}$ (cobar left, bar right) restricts to CY chiral algebras: $B(A_\cC)$ is a factorization coalgebra on $\Ran(X)$ in the Francis--Gaitsgory ambient, taken in its \emph{weight-completed / pro-conilpotent} form $\mathrm{pro}\text{-}\mathrm{CoAlg}_{\mathrm{conil}}(\mathrm{Fact}(X))$ whenever $A_\cC$ has unbounded conformal-weight grading (class~$\mathsf{M}$ and, more generally, any CY chiral algebra whose bar filtration has unbounded conformal weight); the raw bounded direct-sum ambient $\mathrm{Ch}(\mathrm{Vect})$ suffices for class~$\mathsf{G}$/class~$\mathsf{L}$ CY loci only. In the stated ambient, $D_{\Ran}(B(A_\cC)) \simeq B(A_{\cC^!})$ (Vol~I T1b Verdier intertwining, unconditional). The CY identification CY-A(ii) gives $\mathrm{CC}_\bullet(\cC) \simeq B(A_\cC)$. See Vol~I Remark~18.1.7 (class-$\mathsf{M}$ pro-conilpotent discipline; \texttt{rem:class-M-pro-conilpotent}).
 
@@ -253,6 +482,63 @@ Let $A = A_\cC$ be the chiral algebra of a CY$_3$ category $\cC$. Then:
  \item[Theorem H (Hochschild; ordered bar).] $\ChirHoch^*(A_\cC) = H^*(\mathrm{CoDer}(B^{\mathrm{ord}}(A_\cC)))$ is polynomial in degrees $\{0, 1, 2\}$ on the \emph{ordered} bar complex (Vol~I Theorem~H proper, stated on the ordered bar). The CY Hochschild calculus of $\cC$ (HKR decomposition, Connes operator, categorical Hodge structure) is faithfully reflected in $\ChirHoch^*(A_\cC)$ via the CY-to-chiral functor $\Phi$ at the ordered level. Symmetric-bar concentration $\ChirHoch^\bullet(A_\cC)$ concentrated in $\{0,1,2\}$ descends via the averaging corollary on classes $\mathsf{G}/\mathsf{L}$ at generic parameter; the $E_1$-only regime and class-$\mathsf{M}$ non-generic points are conjectural in Vol~I and inherit that conjectural status here.
 \end{description}
 \end{theorem*}
+
+
+%% ===================================================================
+%% SECTION 6.5: Curved bar-cobar at genus $g$ and the Mumford descent
+%% ===================================================================
+
+\section{Curved bar--cobar and the Mumford boundary datum}
+\label{sec:curved-bar-cobar-mumford}
+
+The genus-$g$ bar complex $\barB^{(g)}(A_\cC)$ of a CY chiral algebra carries
+curvature $m_0^{(g)} = \kappa_{\mathrm{ch}}(A_\cC)\cdot\lambda_g^{1}$, with
+$\lambda_g^{1} = c_1(\mathbb{E}_g)$ the first Chern class of the Hodge bundle
+on $\overline{\cM}_{g,n}$. Booth--Lazarev~\cite{BoothLazarev23} prove the
+associative curved bar--cobar Quillen equivalence $\Omega\dashv B$ on
+curved $A_\infty$-coalgebras; the chiral instantiation on factorisation
+coalgebras over $\Ran(X)\times\overline{\cM}_{g,n}$ is an upgrade with three
+structural obstructions, of which one is identically closed.
+
+\begin{proposition}[$\kappa_{\mathrm{ch}}$-curving is the Mumford boundary datum]
+\label{prop:kappa-ch-boundary-descent}
+\ClaimStatusProvedHere
+Let $A_\cC$ be a CY chiral algebra with $\kappa_{\mathrm{ch}}(A_\cC)\in\mathbb{Q}$.
+The genus-indexed curvature $m_0^{(g,n)} = \kappa_{\mathrm{ch}}(A_\cC)\cdot
+\lambda_g^{1}$ satisfies
+\[
+\partial^*\, m_0^{(g,n)} \;=\; \pi_1^*\, m_0^{(g_1,n_1+1)}+\pi_2^*\,
+ m_0^{(g_2,n_2+1)}
+\qquad (g=g_1+g_2\text{ separating clutching}),
+\]
+and $\partial'^* m_0^{(g,n)} = m_0^{(g-1,n+2)}$ at non-separating clutching.
+\end{proposition}
+
+\begin{proof}
+Linearity of pullback on Mumford's boundary relation
+$\partial^*\lambda_g^{1} = \pi_1^*\lambda_{g_1}^{1}+\pi_2^*\lambda_{g_2}^{1}$
+(\cite{Mumford1983}; \cite{TeixidorBigas1988} for non-separating).
+\end{proof}
+
+Ran-space contractibility $(\Ran(C)\simeq\mathrm{pt}$ for every connected $C$;
+\cite{BeilinsonDrinfeld} Ch.~3.4.1) and the vanishing $\lambda_0^{1}\equiv 0$
+on $\overline{\cM}_{0,n}$ collapse the chiral curved bar--cobar problem at
+$g=0$ to the associative Lef\`evre-Hasegawa Quillen equivalence, for every
+value of $\kappa_{\mathrm{ch}}$. At $g\geq 1$, Prop.~\ref{prop:kappa-ch-boundary-descent}
+reduces the fibred equivalence over $\overline{\cM}_{g,n}$ to \'etale-local
+constancy (a single scalar curvature after trivialising $\lambda_g$), with
+boundary compatibility automatic from the Mumford relation. The residual
+obstruction at each genus is the descent-gluing theorem along an \'etale
+cover of $\overline{\cM}_{g,n}$ for cofibrantly generated model structures
+in the curved setting, and the sewing-analytic comparison
+$D^{\mathrm{co},g}(A_\cC)\hookrightarrow\mathrm{IndHilb}^g(A_\cC^{\mathrm{sew}})$
+which holds as a dense realisation on class~$\mathsf{G}$/$\mathsf{L}$ loci.
+
+The concrete non-null witness is local~$\mathbb{P}^2$, where
+$\kappa_{\mathrm{ch}} = 3/2$ generates a non-zero curved bar complex at every
+$g\geq 1$. The degenerate case $K3\times E$ with
+$\kappa_{\mathrm{ch}}(K3\times E) = 0$ has uncurved bar at every genus and
+tests only the uncurved specialisation.
 
 
 %% ===================================================================
@@ -374,7 +660,7 @@ Verification: \texttt{compute/lib/quintic\_shadow\_obstruction.py} (86 tests).
 
 \begin{proposition}[Quintic shadow coefficients from Gromov--Witten data]
 \label{prop:quintic-shadow-coefficients}
-\ClaimStatusProvedHere{By CY-A$_3$ (Theorem~\textup{\ref{thm:cy-to-chiral-d3}}, proved).}
+\ClaimStatusConditional{on the framed large-complex-structure $\Phi_3$ locus of Theorem~\textup{\ref{thm:cy-to-chiral-d3}}.}
 At the large complex structure limit \textup{(}LCS degeneration type\textup{)}, the first shadow coefficients of the quintic chiral algebra are:
 \begin{enumerate}[label=(\roman*)]
  \item $S_2 = \kappa_{\mathrm{ch}} = -25/3$. The scalar shadow, from the genus-$1$ BCOV constant-map contribution $F_1 = \kappa_{\mathrm{ch}}/24 = -25/72$.
@@ -783,7 +1069,7 @@ The Dijkgraaf--Moore--Verlinde--Verlinde product formula \cite{DMVV}
 \]
 is recovered from the bar complex of $A_{K3 \times E}$ via the four-step bridge:
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item CY-to-chiral correspondence $\Phi_3\colon K3 \times E \to A_{K3 \times E}$ \textup{(}CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}, proved\textup{)}.
+ \item Framed CY-to-chiral specialisation $\SpCh_{\Sigma_2,C}(\PhiFA_3(D^b\Coh(K3 \times E))) = A_{K3 \times E}$ \textup{(}Theorem~\ref{thm:cy-to-chiral-d3}, conditional on the chosen $K3\times E$ framed locus\textup{)}.
  \item Bar Euler product $\Theta_A$ \textup{(}Vol~I\textup{)}.
  \item Borcherds lift identification $\Theta \to \Delta_5$ \textup{(}Vol~I bridge: NOT direct\textup{)}.
  \item Oberdieck--Pixton: $Z_{\mathrm{DMVV}} = C / \Delta_5^2$.
@@ -1802,9 +2088,9 @@ a single identity. We list the explicit arrows.
 
 \paragraph{Vol~III anchors used.}
 \begin{itemize}
-  \item \texttt{chap:cy-to-chiral} (CY-A$_2$, CY-A$_3$): the functor
+  \item \texttt{chap:cy-to-chiral} (CY-A$_2$ and framed CY$_3$ loci): the functor
         $\Phi$ sends a CY category to a chiral algebra (E$_2$ at
-        $d \leq 2$; E$_1$ at $d \geq 3$), with Universal Properties
+        $d \leq 2$; E$_1$ at framed $d \geq 3$ outputs), with Universal Properties
         $\Phi$U1--$\Phi$U4 (cf.\ Vol~III \texttt{thm:cy-to-chiral-universal-properties}).
   \item \texttt{thm:kappa-stratification-by-d} (Vol~III dimension-stratified
         $\kappa_{\mathrm{ch}}$ formula): $\kappa_{\mathrm{ch}}(A_\cC)

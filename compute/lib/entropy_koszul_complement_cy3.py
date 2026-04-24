@@ -277,21 +277,23 @@ def _factorial(n: int) -> int:
 class CY3KappaData(NamedTuple):
     """Modular characteristic data for a CY3 family.
 
-    kappa: modular characteristic of the chiral algebra A_X
-    kappa_dual: modular characteristic of the E_1 Koszul dual A_X^{!,E_1}
-    complementarity_sum: kappa + kappa_dual
+    kappa: selected modular characteristic of the chiral algebra A_X
+    kappa_dual: modular characteristic of the E_1 Koszul dual A_X^{!,E_1},
+        when this scalar has been constructed
+    complementarity_sum: kappa + kappa_dual, when both sides are known
     family_type: 'KM', 'W', or 'general' (determines complementarity behavior)
     """
     name: str
     kappa: Fraction
-    kappa_dual: Fraction
-    complementarity_sum: Fraction
+    kappa_dual: Optional[Fraction]
+    complementarity_sum: Optional[Fraction]
     chi: Optional[int]          # topological Euler characteristic
     h11: Optional[int]
     h21: Optional[int]
     family_type: str            # 'KM_free', 'W_algebra', 'general'
     kappa_source: str           # how kappa was determined
     is_proved: bool
+    dual_status: str = "proved"
 
 
 def c3_kappa() -> CY3KappaData:
@@ -348,31 +350,27 @@ def conifold_kappa() -> CY3KappaData:
 def k3e_kappa() -> CY3KappaData:
     r"""K3 x E.
 
-    kappa = 5 = weight(Delta_5).
-    NOT chi_top/24 = 0 (AP48).
+    kappa_BKM = 5 = weight(Delta_5).  This is the BKM-lane scalar,
+    not kappa_ch(K3 x E) = 3 and not chi_top/24 = 0.
 
     The E_1 Koszul dual: A_{K3xE}^{!,E_1}.
-    For the K3 x E DT category, the Koszul duality inverts the
-    BKM denominator: the Koszul dual has kappa = -5.
-
-    kappa + kappa^! = 0 (the K3 x E chiral algebra has free-field
-    / affine structure in the Heisenberg rank-24 sense).
+    This module does not construct the class-M BKM Koszul dual scalar.
+    Therefore kappa_dual and the scalar complementarity sum are OPEN here.
 
     CAUTION: The lattice VOA interpretation gives kappa(V_Lambda) = rank(Lambda) = 24
-    (AP48). The CY categorical kappa chi^CY = 5 is a DIFFERENT invariant.
-    We use chi^CY = 5 here because it is the weight of the automorphic form
-    controlling the DT partition function (Theorem CY-D).
+    (AP48).  The BKM weight kappa_BKM = 5 is a DIFFERENT invariant.
     """
     return CY3KappaData(
         name="K3 x E",
         kappa=Fraction(5),
-        kappa_dual=Fraction(-5),
-        complementarity_sum=Fraction(0),
+        kappa_dual=None,
+        complementarity_sum=None,
         chi=0,
         h11=21, h21=21,
-        family_type='KM_free',
-        kappa_source="weight(Delta_5) = 5, Theorem CY-D",
+        family_type='BKM_class_M',
+        kappa_source="kappa_BKM(Delta_5) = c_1(0)/2 = 10/2 = 5",
         is_proved=True,
+        dual_status="open: class-M BKM Koszul-dual scalar not constructed here",
     )
 
 
@@ -558,7 +556,12 @@ def complementarity_defect_full(cy3_data: CY3KappaData, g: int,
 
     lam_g = faber_pandharipande_lambda(g)
 
-    # Scalar contribution: always present
+    # Scalar contribution: present only after the dual scalar is constructed.
+    if cy3_data.complementarity_sum is None:
+        raise ValueError(
+            f"Complementarity sum for {cy3_data.name} is not constructed: "
+            f"{cy3_data.dual_status}"
+        )
     delta_scalar = cy3_data.complementarity_sum * lam_g
 
     # Cubic contribution: visible at g >= 2
@@ -629,8 +632,8 @@ def genus_expansion_c3_dual(g_max: int = 3) -> Dict[int, Fraction]:
 def genus_expansion_k3e(g_max: int = 3) -> Dict[int, Fraction]:
     """Compute F_g(K3 x E) for g = 1, ..., g_max.
 
-    kappa(K3 x E) = 5.
-    F_g = 5 * lambda_g^FP.
+    Scalar BKM lane only: kappa_BKM(K3 x E) = 5, so
+    F_g^{scal} = 5 * lambda_g^FP.
 
     NOTE: K3 x E is class M (infinite shadow tower), so the full
     genus-g amplitude may receive higher-arity corrections at g >= 2.
@@ -731,12 +734,13 @@ def k3e_bps_from_defect(max_disc: int = 8) -> List[BPSDegeneracy]:
 
     The Fourier coefficients a(T) of 1/Delta_5 give the BPS counts.
 
-    The connection to the complementarity defect:
-    At genus g, the shadow amplitude F_g contributes to the g-th
-    Taylor coefficient of log(Z^{DT}). The complementarity defect
-    delta_g = F_g(A) + F_g(A^!) = 0 (for K3 x E, anti-symmetric).
+    The connection to the complementarity defect is only partial here:
+    the proved input is the BKM-lane scalar kappa_BKM = 5 and the
+    Borcherds product.  This module does not construct the K3 x E
+    Koszul-dual scalar, so it does not assert
+    F_g(A) + F_g(A^!) = 0.
 
-    The BPS degeneracies come from EXPONENTIATING the log:
+    The BPS degeneracies come from EXPONENTIATING the Borcherds log:
         Z = exp(sum_g F_g * g_s^{2g-2})
     and the Omega(gamma) are NOT the delta_g themselves, but the
     coefficients of the EXPONENTIAL of the genus expansion.
@@ -924,10 +928,11 @@ class ComplementarityLandscape(NamedTuple):
     """Landscape of complementarity sums kappa + kappa^! across CY3 families."""
     name: str
     kappa: Fraction
-    kappa_dual: Fraction
-    comp_sum: Fraction
+    kappa_dual: Optional[Fraction]
+    comp_sum: Optional[Fraction]
     family_type: str
     is_antisymmetric: bool
+    dual_status: str = "proved"
 
 
 def complementarity_landscape() -> List[ComplementarityLandscape]:
@@ -938,6 +943,7 @@ def complementarity_landscape() -> List[ComplementarityLandscape]:
     The key classification:
     - Anti-symmetric (comp_sum = 0): KM/free-field type CY3 algebras
     - Non-anti-symmetric (comp_sum != 0): W-algebra type CY3 algebras
+    - Unknown (comp_sum is None): the dual scalar is not constructed
 
     For anti-symmetric families:
         The scalar complementarity defect VANISHES at all genera.
@@ -958,6 +964,7 @@ def complementarity_landscape() -> List[ComplementarityLandscape]:
             comp_sum=data.complementarity_sum,
             family_type=data.family_type,
             is_antisymmetric=(data.complementarity_sum == 0),
+            dual_status=data.dual_status,
         ))
 
     return result
@@ -1185,8 +1192,12 @@ def master_entropy_table() -> Dict[str, Dict[str, Any]]:
         data = data_fn()
 
         fg_A = {g: scalar_shadow_amplitude(data.kappa, g) for g in range(1, 4)}
-        fg_dual = {g: scalar_shadow_amplitude(data.kappa_dual, g) for g in range(1, 4)}
-        delta_g = {g: fg_A[g] + fg_dual[g] for g in range(1, 4)}
+        if data.kappa_dual is None:
+            fg_dual = None
+            delta_g = None
+        else:
+            fg_dual = {g: scalar_shadow_amplitude(data.kappa_dual, g) for g in range(1, 4)}
+            delta_g = {g: fg_A[g] + fg_dual[g] for g in range(1, 4)}
 
         table[name] = {
             'kappa': data.kappa,
@@ -1194,6 +1205,7 @@ def master_entropy_table() -> Dict[str, Dict[str, Any]]:
             'comp_sum': data.complementarity_sum,
             'family_type': data.family_type,
             'is_proved': data.is_proved,
+            'dual_status': data.dual_status,
             'F_g(A)': fg_A,
             'F_g(A^!)': fg_dual,
             'delta_g': delta_g,
@@ -1315,6 +1327,9 @@ def verify_complementarity_consistency():
 
     landscape = complementarity_landscape()
     for entry in landscape:
+        if entry.comp_sum is None or entry.kappa_dual is None:
+            checks[entry.name + "_dual_open"] = ("open" in entry.dual_status)
+            continue
         if entry.is_antisymmetric:
             checks[entry.name + "_antisym"] = (entry.comp_sum == 0)
         checks[entry.name + "_comp_sum"] = (entry.comp_sum == entry.kappa + entry.kappa_dual)
@@ -1340,9 +1355,10 @@ def theory_summary() -> str:
         delta_g(A_X) = F_g(A_X) + F_g(A_X^{!,E_1})
                      = (kappa + kappa^!) * lambda_g + ...
 
-    For K3 x E (anti-symmetric, kappa + kappa^! = 0):
-        The scalar defect vanishes. BPS content comes from the
-        EXPONENTIAL of the individual shadow amplitudes F_g(A).
+    For K3 x E:
+        kappa_BKM = 5 is proved from the Delta_5 Borcherds weight.
+        The Koszul-dual scalar is open in this module, so no
+        anti-symmetric scalar-defect claim is made.
         S_BH = pi*sqrt(D) (Strominger-Vafa).
 
     For compact CY3 with chi != 0 (e.g., quintic):

@@ -723,7 +723,7 @@ def main() -> None:
     print("-" * 68)
     print(f"  Summary: {report['n_passing']}/{report['n_total']} cross-checks pass")
     if report["all_pass"]:
-        print("  All 8 Wave-14/15/16 claims verified end-to-end.")
+        print("  All 8 Wave-14/15/16 executable cross-checks pass.")
     else:
         print("  FAIL: at least one cross-check did not pass.")
     print("=" * 68)

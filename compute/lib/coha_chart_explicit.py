@@ -1281,13 +1281,18 @@ class ChartCoHA:
     def verify_pbw(self) -> Dict:
         return self.pbw.verify_pbw()
 
-    def kappa(self) -> Fraction:
-        """Modular characteristic kappa from the shadow identification.
+    def chart_shadow_kappa(self) -> Fraction:
+        """Chart-shadow normalization used by the legacy shadow tests.
 
-        For C^3 (Heisenberg at k=1): kappa = 1 (AP48: NOT c/2).
-        For conifold (diagonal): kappa = 2 (two Heisenberg copies).
-        For local P^2 (diagonal): kappa = 3 (chi(P^2) = 3).
-        For McKay Z_n: kappa = n (n copies by McKay).
+        This is not the canonical chiral invariant kappa_ch in every
+        geometry.  In particular, conifold=2 and local P^2=3 are doubled
+        chart/shadow normalizations; the canonical kappa_ch values used
+        in the manuscript are exposed by ``kappa_ch`` below.
+
+        For C^3 (Heisenberg at k=1): chart shadow = 1.
+        For conifold (diagonal): chart shadow = 2 (two chart copies).
+        For local P^2 (diagonal): chart shadow = 3 (chi(P^2)).
+        For McKay Z_n: chart shadow = n (n McKay sectors).
         """
         name = self.quiver.name
         if name == "Jordan (C^3)":
@@ -1299,6 +1304,32 @@ class ChartCoHA:
         elif name.startswith("McKay Z_"):
             return Fraction(self.quiver.n_vertices)
         raise NotImplementedError(f"kappa for {name}")
+
+    def kappa(self) -> Fraction:
+        """Backward-compatible alias for ``chart_shadow_kappa``.
+
+        New code that needs the manuscript invariant should call
+        ``kappa_ch`` instead.
+        """
+        return self.chart_shadow_kappa()
+
+    def kappa_ch(self) -> Fraction:
+        """Canonical chiral modular characteristic for known chart examples.
+
+        These are the values stated in the Vol III manuscript:
+        C^3 has kappa_ch=1, the conifold has kappa_ch=1 by direct McKay,
+        and local P^2 has kappa_ch=3/2.  General McKay Z_n chart-shadow
+        values are not promoted here to canonical kappa_ch without a
+        separate geometry-specific normalisation.
+        """
+        name = self.quiver.name
+        if name == "Jordan (C^3)":
+            return Fraction(1)
+        if name == "Conifold":
+            return Fraction(1)
+        if name == "Local P^2":
+            return Fraction(3, 2)
+        raise NotImplementedError(f"kappa_ch for {name}")
 
     def shadow_genus_1(self) -> Fraction:
         """F_1 = kappa / 24."""

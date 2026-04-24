@@ -505,7 +505,7 @@ class TestK3xEGenus2:
             assert abs(result["Z2"] - expected) / abs(expected) < 1e-10
 
     def test_kappa_spectrum(self):
-        """K3xE has the four-kappa spectrum: kappa_ch=3, kappa_BKM=5, kappa_cat=2.
+        """K3xE separates total categorical and K3-fiber values.
 
         AP113: every kappa must be subscripted.
         """
@@ -513,7 +513,8 @@ class TestK3xEGenus2:
         result = genus2_partition_k3xe(TAU_DEEP, Z_DEEP, SIGMA_DEEP)
         assert result["kappa_ch"] == 3
         assert result["kappa_BKM"] == 5
-        assert result["kappa_cat"] == 2
+        assert result["kappa_cat"] == 0
+        assert result["kappa_cat_fiber"] == 2
 
     def test_weight_phi10(self):
         """Phi_10 has Siegel modular weight 10 = 2 * kappa_BKM."""
@@ -523,18 +524,18 @@ class TestK3xEGenus2:
         assert result["weight_Phi10"] == 2 * result["kappa_BKM"]
 
     def test_s_matrix_weight(self):
-        """S-hat has weight -4 = -2 * kappa_cat."""
+        """S-hat has weight -4 = -2 * kappa_cat_fiber."""
         # VERIFIED [DC] weight formula [LT] conj:sp4-modularity
         result = genus2_partition_k3xe(TAU_DEEP, Z_DEEP, SIGMA_DEEP)
         assert result["weight_S_hat"] == -4
-        assert result["weight_S_hat"] == -2 * result["kappa_cat"]
+        assert result["weight_S_hat"] == -2 * result["kappa_cat_fiber"]
 
     def test_eisenstein_weight(self):
-        """Eisenstein normalizer has weight 6 = 2*kappa_BKM - 2*kappa_cat."""
+        """Eisenstein normalizer has weight 6 = 2*kappa_BKM - 2*kappa_cat_fiber."""
         # VERIFIED [DC] weight decomposition [LT] conj:s-matrix-phi10
         result = genus2_partition_k3xe(TAU_DEEP, Z_DEEP, SIGMA_DEEP)
         assert result["weight_Eisenstein"] == 6
-        assert result["weight_Eisenstein"] == 2 * result["kappa_BKM"] - 2 * result["kappa_cat"]
+        assert result["weight_Eisenstein"] == 2 * result["kappa_BKM"] - 2 * result["kappa_cat_fiber"]
 
     def test_weight_decomposition_consistent(self):
         """wt(S-hat) = wt(1/Phi_10) + wt(Eisenstein) = -10 + 6 = -4."""
@@ -702,9 +703,9 @@ class TestWeightTable:
         table = genus2_weight_table()
         k3 = table["K3xE"]
         assert k3["weight_S_matrix"] == -4
-        assert k3["weight_S_matrix"] == -2 * k3["kappa_cat"]
+        assert k3["weight_S_matrix"] == -2 * k3["kappa_cat_fiber"]
         assert k3["weight_Phi10"] == 2 * k3["kappa_BKM"]
-        assert k3["weight_Eisenstein"] == 2 * k3["kappa_BKM"] - 2 * k3["kappa_cat"]
+        assert k3["weight_Eisenstein"] == 2 * k3["kappa_BKM"] - 2 * k3["kappa_cat_fiber"]
 
     def test_k3xe_conjectural(self):
         """K3xE entry is marked CONJECTURAL."""
@@ -723,10 +724,10 @@ class TestCategoricalSMatrixSummary:
     """Test the S-matrix weight summary."""
 
     def test_e3_weight_formula(self):
-        """E_3 weight formula: wt(S-hat) = -2 * kappa_cat."""
+        """E_3 weight formula: wt(S-hat) = -2 * kappa_cat_fiber for K3xE."""
         # VERIFIED [DC] formula [LT] conj:sp4-modularity
         summary = categorical_s_matrix_summary()
-        assert summary["E3_weight_formula"] == "wt(S-hat) = -2 * kappa_cat"
+        assert summary["E3_weight_formula"] == "wt(S-hat) = -2 * kappa_cat_fiber"
 
     def test_genus_doubling(self):
         """E_3 -> genus 2: weight doubles relative to E_2."""

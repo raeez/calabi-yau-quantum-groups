@@ -135,7 +135,8 @@ KAPPA-SPECTRUM AND BLACK HOLES (AP113):
 
   kappa_ch = 3: controls the chiral algebra structure and the shadow PF.
   kappa_BKM = 5: controls the BPS degeneracy growth (= wt(Delta_5)).
-  kappa_cat = 2 = chi(O_{K3}): categorical/holomorphic Euler characteristic.
+  kappa_cat = 0 = chi(O_{K3 x E}): total-space categorical invariant.
+  kappa_cat_fiber = 2 = chi(O_{K3}): K3-fiber holomorphic Euler characteristic.
   kappa_fiber = 24 = rank(Lambda_{K3}): lattice rank / fiber structure.
 
   Which kappa controls the black hole entropy?
@@ -215,20 +216,22 @@ def a_hat_coefficient(g: int) -> Fraction:
 # ===========================================================================
 
 class KappaSpectrum(NamedTuple):
-    """The four kappa values for K3 x E.
+    """Resolved kappa values for K3 x E.
 
     AP113: bare 'kappa' is FORBIDDEN. Always subscripted.
     """
     kappa_ch: Fraction      # chiral algebra A_C via Phi: = 3 = dim_C
     kappa_BKM: int          # Borcherds-Kac-Moody: = 5 = wt(Delta_5)
-    kappa_cat: int          # categorical: = 2 = chi(O_{K3})
+    kappa_cat: int          # categorical total: = 0 = chi(O_{K3 x E})
+    kappa_cat_fiber: int    # K3 fiber categorical value: = 2 = chi(O_{K3})
     kappa_fiber: int        # lattice/fiber: = 24 = rank(Lambda_{K3})
 
 
 K3E_KAPPA_SPECTRUM = KappaSpectrum(
     kappa_ch=Fraction(3),
     kappa_BKM=5,
-    kappa_cat=2,
+    kappa_cat=0,
+    kappa_cat_fiber=2,
     kappa_fiber=24,
 )
 
@@ -271,7 +274,10 @@ def verify_kappa_spectrum() -> Dict[str, bool]:
 
       THEREFORE kappa_BKM = wt(Delta_5) = 5.
 
-    kappa_cat = 2 = chi(O_{K3}).
+    kappa_cat = 0 = chi(O_{K3 x E}).
+      Derivation: chi(O_{K3 x E}) = chi(O_{K3}) chi(O_E) = 2 * 0 = 0.
+
+    kappa_cat_fiber = 2 = chi(O_{K3}).
       Derivation: chi(O_{K3}) = sum (-1)^p h^{0,p}(K3) = 1 + 0 + 1 = 2.
 
     kappa_fiber = 24 = rank of K3 lattice Lambda = H^2(K3, Z).
@@ -288,18 +294,21 @@ def verify_kappa_spectrum() -> Dict[str, bool]:
     # kappa_BKM = wt(Delta_5)
     checks["kappa_BKM_equals_5"] = (ks.kappa_BKM == 5)
 
-    # kappa_cat = chi(O_{K3}) = 1 + 0 + 1 = 2
-    h0p = {0: 1, 1: 0, 2: 1}  # h^{0,p}(K3)
-    chi_O = sum((-1)**p * h for p, h in h0p.items())
-    checks["kappa_cat_equals_chi_O"] = (ks.kappa_cat == chi_O)
+    # kappa_cat = chi(O_{K3 x E}) = chi(O_{K3}) * chi(O_E) = 2 * 0 = 0
+    h0p_k3 = {0: 1, 1: 0, 2: 1}  # h^{0,p}(K3)
+    h0p_e = {0: 1, 1: 1}         # h^{0,p}(E)
+    chi_O_k3 = sum((-1)**p * h for p, h in h0p_k3.items())
+    chi_O_e = sum((-1)**p * h for p, h in h0p_e.items())
+    checks["kappa_cat_equals_chi_O_total"] = (ks.kappa_cat == chi_O_k3 * chi_O_e)
+    checks["kappa_cat_fiber_equals_chi_O_K3"] = (ks.kappa_cat_fiber == chi_O_k3)
 
     # kappa_fiber = rank(Mukai lattice) = b_0 + b_2 + b_4 = 1 + 22 + 1 = 24
     mukai_rank = 1 + 22 + 1
     checks["kappa_fiber_equals_mukai_rank"] = (ks.kappa_fiber == mukai_rank)
 
-    # Cross-check: these are ALL DIFFERENT
-    values = {ks.kappa_ch, ks.kappa_BKM, ks.kappa_cat, ks.kappa_fiber}
-    checks["all_kappas_distinct"] = (len(values) == 4)
+    # Cross-check: the resolved labels are pairwise different.
+    values = {ks.kappa_ch, ks.kappa_BKM, ks.kappa_cat, ks.kappa_cat_fiber, ks.kappa_fiber}
+    checks["resolved_labels_distinct"] = (len(values) == 5)
 
     return checks
 
@@ -797,7 +806,8 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
     The kappa-spectrum for K3 x E (AP113):
       kappa_ch = 3:   chiral algebra A_C via Phi
       kappa_BKM = 5:  Borcherds-Kac-Moody (weight of Delta_5)
-      kappa_cat = 2:  categorical (chi(O_{K3}))
+      kappa_cat = 0:  categorical total space (chi(O_{K3 x E}))
+      kappa_cat_fiber = 2: K3-fiber holomorphic Euler characteristic
       kappa_fiber = 24: lattice rank
 
     ANSWER: kappa_BKM = 5 controls the black hole entropy.
@@ -816,14 +826,14 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
         kappa_BKM is the OUTPUT (automorphic form weight).
         The entropy uses the OUTPUT.
 
-    The relationship kappa_BKM = kappa_ch + kappa_cat = 3 + 2 = 5
-    expresses the fact that the BKM weight combines the chiral and
-    categorical kappas.
+    The total-space identity kappa_BKM = kappa_ch + kappa_cat is false:
+    5 != 3 + 0.  The numerical N=1 decomposition uses the K3 fiber value:
+    kappa_BKM = kappa_ch + kappa_cat_fiber = 3 + 2 = 5.
     """
     ks = K3E_KAPPA_SPECTRUM
 
-    # The key identity: kappa_BKM = kappa_ch + kappa_cat
-    identity_holds = (ks.kappa_BKM == int(ks.kappa_ch) + ks.kappa_cat)
+    identity_total_holds = (ks.kappa_BKM == int(ks.kappa_ch) + ks.kappa_cat)
+    identity_fiber_holds = (ks.kappa_BKM == int(ks.kappa_ch) + ks.kappa_cat_fiber)
 
     # Rademacher subleading with each kappa candidate:
     D_test = 100
@@ -831,6 +841,7 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
         "kappa_ch": float(ks.kappa_ch),
         "kappa_BKM": float(ks.kappa_BKM),
         "kappa_cat": float(ks.kappa_cat),
+        "kappa_cat_fiber": float(ks.kappa_cat_fiber),
         "kappa_fiber": float(ks.kappa_fiber),
     }
 
@@ -853,9 +864,11 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
             "kappa_ch": float(ks.kappa_ch),
             "kappa_BKM": float(ks.kappa_BKM),
             "kappa_cat": float(ks.kappa_cat),
+            "kappa_cat_fiber": float(ks.kappa_cat_fiber),
             "kappa_fiber": float(ks.kappa_fiber),
         },
-        "identity_kBKM_eq_kch_plus_kcat": identity_holds,
+        "identity_kBKM_eq_kch_plus_kcat_total": identity_total_holds,
+        "identity_kBKM_eq_kch_plus_kcat_fiber": identity_fiber_holds,
         "answer": "kappa_BKM controls the black hole entropy",
         "reasoning": (
             "BPS degeneracies are Fourier coefficients of 1/Delta_5^2. "
@@ -863,7 +876,7 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
             "PRODUCES Delta_5 through the bar Euler product. The entropy "
             "uses the OUTPUT weight kappa_BKM, not the INPUT kappa_ch."
         ),
-        "key_identity": "kappa_BKM = kappa_ch + kappa_cat = 3 + 2 = 5",
+        "key_identity": "kappa_BKM = kappa_ch + kappa_cat_fiber = 3 + 2 = 5; total-space kappa_cat gives 3 + 0 != 5",
         "rademacher_predictions": rademacher_predictions,
     }
 
@@ -977,9 +990,10 @@ def verify_rademacher_improves_with_D() -> Dict[str, Any]:
 
 
 def verify_kappa_identity() -> Dict[str, bool]:
-    """Verify the key identity kappa_BKM = kappa_ch + kappa_cat.
+    """Verify the total-space failure and fiber decomposition.
 
-    Path 1: direct from the spectrum: 5 = 3 + 2.
+    Path 1: direct from the total-space spectrum: 5 != 3 + 0.
+    Path 1b: direct from the K3-fiber value: 5 = 3 + 2.
     Path 2: kappa_BKM = wt(Delta_5) = phi_{0,1}(tau,0)/2 - (correction)
       Actually: wt(Phi_{10}) = 10 = phi_{0,1}(tau,0) * 5/12 ... no.
       The correct derivation: wt(Phi_{10}) = 10 and
@@ -1008,15 +1022,17 @@ def verify_kappa_identity() -> Dict[str, bool]:
       This is the weight of Phi_{10}. Then Delta_5 = sqrt(Phi_{10}) has wt 5.
       So wt(Delta_5) = 10/2 = 5. YES.
 
-      But we claimed kappa_BKM = kappa_ch + kappa_cat = 3 + 2 = 5.
-      Path 2 gives kappa_BKM = wt(Phi_{10})/2 = 10/2 = 5. Consistent.
+      The correct N=1 numerical decomposition uses the K3 fiber:
+      kappa_BKM = kappa_ch + kappa_cat_fiber = 3 + 2 = 5.
+      The total-space identity using kappa_cat(K3 x E) is false.
     """
     ks = K3E_KAPPA_SPECTRUM
 
     checks = {}
 
     # Path 1: direct arithmetic
-    checks["direct_sum"] = (ks.kappa_BKM == int(ks.kappa_ch) + ks.kappa_cat)
+    checks["total_space_sum_fails"] = (ks.kappa_BKM != int(ks.kappa_ch) + ks.kappa_cat)
+    checks["fiber_sum"] = (ks.kappa_BKM == int(ks.kappa_ch) + ks.kappa_cat_fiber)
 
     # Path 2: from wt(Phi_{10}) = 10
     wt_Phi10 = 10

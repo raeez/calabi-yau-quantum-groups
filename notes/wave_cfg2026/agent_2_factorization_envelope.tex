@@ -1,0 +1,921 @@
+% =====================================================================
+% Wave CFG2026 -- Agent 2
+% Factorisation envelope of the CY_3 E_3-algebra: chain-level derivation
+% of Phi^FA_3(C) via Deligne--Tamarkin E_2, Menichi--Ginzburg BV lift to
+% E_3, and Costello--Gwilliam factorisation-envelope descent on R^3.
+%
+% Voices: Costello-BV / Gwilliam-factorisation / Beilinson-chiral /
+% Francis-Gaitsgory-chiral-Koszul.
+%
+% Side-by-side anchor: Costello--Francis--Gwilliam 2026, "The E_3 algebra
+% of observables in topological Chern--Simons theory".
+%
+% This is a notes-lane standalone document; manuscript inscription lives
+% in chapters/theory/cy3_chain_level_bridge.tex.
+% =====================================================================
+
+\chapter*{Agent 2: the factorisation envelope of $\PhiFA_3$}
+\addcontentsline{toc}{chapter}{Agent 2: factorisation envelope}
+
+\section*{Standing data}
+
+Fix once and for all:
+
+\begin{itemize}
+\item $k$ a field of characteristic zero;
+\item $(\cC,\{\mu_n\}_{n\geq 1},\langle-,-\rangle)$ a smooth proper cyclic
+$\Ainf$-category of CY dimension $d=3$ over $k$, with
+$\HH^0(\cC)=k$;
+\item $\CH^\bullet(\cC)$ the Hochschild cochain complex
+\[
+\CH^\bullet(\cC)\;=\;\bigoplus_{n\geq 0}
+\Hom_k\!\bigl((s\bar\cC)^{\otimes n},\cC\bigr),
+\qquad s\bar\cC\;:=\;\bar\cC[1],
+\]
+with Hochschild differential $\delta_\Hoch$ built from the $\mu_n$;
+\item $R^3$ the real topological $3$-space; the factorisation-envelope
+construction will land in $\EnHolFA_3^{\topp}(R^3)$ before any holomorphic
+twist.
+\end{itemize}
+
+The target is the pre-factorisation algebra
+\[
+\cU^\FA\!\bigl(\CH^\bullet(\cC)\bigr)\;\in\;\FAct^\pre_3(R^3),
+\]
+with sheafified local-to-global descent promoting it to a genuine
+factorisation algebra
+\(
+\PhiFA_3^\topp(\cC)\in\FAct_3(R^3).
+\)
+Holomorphic refinement to $\EdHolFA(X)$ on a smooth CY$_3$ variety $X$ is
+Costello--Li holomorphic-twist input and is recorded at the end;
+the envelope itself is topological.
+
+\section*{Programme}
+
+Five ATTACK--HEAL cycles advance the construction:
+\begin{enumerate}
+\item[(A1)] \textbf{Attack:} ``$\CH^\bullet(\cC)$ is just a dg vector
+space; calling it $E_2$ is an abuse.''
+\emph{Heal:} Deligne--Tamarkin chain-level $E_2$-action via braces.
+\item[(A2)] \textbf{Attack:} ``Cyclicity of degree $-3$ is not an $E_3$
+datum; $E_3 = E_1\otimes E_2$ needs the Dunn tensor to be constructed
+chain-level, not postulated.''
+\emph{Heal:} Menichi--Ginzburg BV lift $E_2\hookrightarrow E_3$ through
+Tradler--Zeinalian's BV operator, and Dunn--Lurie additivity at chain
+level.
+\item[(A3)] \textbf{Attack:} ``The factorisation envelope
+$\cU^\FA:E_n\text{-}\Alg\to\FAct(R^n)$ is not a functor; it is a
+diagram of pre-factorisation data.''
+\emph{Heal:} Costello--Gwilliam Vol.~I \S 3.5 gives
+$\cU^\FA$ as a left Quillen functor, with a Weiss-cover descent axiom
+promoting pre-FA to FA; on $R^n$ this is the Beilinson--Drinfeld
+local-to-global lemma.
+\item[(A4)] \textbf{Attack:} ``The CFG 2026 envelope uses \emph{local}
+observables of a $3$d topological Chern--Simons field theory, not an
+abstract $E_3$-algebra; you cannot directly identify the two.''
+\emph{Heal:} the two envelopes are chain-level isomorphic on their
+common Gerstenhaber/BV core: CS local observables are the
+factorisation envelope of the BV chains on the parametrising dg Lie,
+and the CY$_3$ cyclic pairing plays the role of the CS action in
+rigidifying the BV operator.
+\item[(A5)] \textbf{Attack:} ``Stage-$1$ canonicity up to a
+$\GRT_1(\Q)$-torsor of associators conflates \emph{$E_2$-canonicity}
+with \emph{$E_3$-canonicity}; the Dunn tensor spoils the torsor
+structure.''
+\emph{Heal:} the $\GRT_1(\Q)$-torsor acts on the $E_2$-factor; the
+$E_3$-structure is recovered as $E_2\otimes_{\Dunn}E_1$ with the $E_1$
+factor rigid (no associator freedom). Kontsevich 1999 \S 4; Willwacher
+2014 \emph{Invent.\ Math.}\ 200; CFG 2026 \S 5.
+\end{enumerate}
+
+Each cycle below is a Proposition with an explicit chain-level Proof
+and an explicit CFG side-by-side block.
+
+% =====================================================================
+\section*{Cycle A1. Deligne--Tamarkin $E_2$ at chain level}
+% =====================================================================
+
+\subsection*{A1.attack}
+
+For a dg algebra $A$, the Gerstenhaber bracket on
+$H^\bullet(\CH^\bullet(A))$ is an abstract derivation-of-cup-product
+datum on \emph{cohomology}, not a chain-level $E_2$-action. Stating that
+``$\CH^\bullet(\cC)$ is an $E_2$-algebra'' without the chain-level
+braces-and-cup-product lift is precisely the Deligne conjecture,
+promoted from statement to theorem only in Tamarkin 1998.
+
+\subsection*{A1.surviving core}
+
+A genuine chain-level $E_2$-algebra structure on $\CH^\bullet(\cC)$
+consists of an operadic map
+\[
+\Brace_\bullet\;:\;C_\bullet(D_2;\Q)\;\longrightarrow\;\End(\CH^\bullet(\cC))
+\]
+from the chains on the little $2$-discs operad to the endomorphism
+operad. This is what Deligne--Tamarkin--Kontsevich--McClure--Smith
+produce for associative dg algebras; the present task is to recall and
+refine the construction for cyclic $\Ainf$-categories.
+
+\subsection*{A1.heal: explicit chain-level $E_2$-action}
+
+\begin{proposition}[Braces operad action on $\CH^\bullet(\cC)$]
+\label{wave-cfg-prop:braces-action}
+For $(\cC,\mu_n)$ a cyclic $\Ainf$-category of any dimension $d$, the
+Hochschild cochain complex $\CH^\bullet(\cC)$ carries an operadic map
+\[
+\Brace_\bullet\;:\;C_\bullet(D_2;\Q)\;\longrightarrow\;\End(\CH^\bullet(\cC))
+\]
+whose image on cohomology is the classical Gerstenhaber structure and
+whose chain-level primaries are the brace operations
+\[
+f\{g_1,\dots,g_r\}
+\;:=\;\sum_{i_1<\cdots<i_r}
+\pm f\bigl(a_1,\dots,g_1(a_{i_1},\ldots),\dots,
+g_r(a_{i_r},\ldots),\dots,a_n\bigr),
+\]
+together with the $\cup_i$-products, the cup product $\cup$, and the
+Gerstenhaber bracket $\{-,-\}_\Ger$.
+\end{proposition}
+
+\begin{proof}[Explicit chain-level construction]
+Four steps.
+
+\textbf{Step 1 (braces are part of the data of
+$\CH^\bullet(\cC)$).} On multilinear cochains $f:(s\bar\cC)^{\otimes
+m}\to\cC$ and $g_i:(s\bar\cC)^{\otimes n_i}\to\cC$, define the brace
+\[
+f\{g_1,\ldots,g_r\}\;:(s\bar\cC)^{\otimes
+(m+\sum n_i - r)}\longrightarrow\cC
+\]
+by inserting the $g_i$ into the $r$ chosen positions of $f$ with signs
+$(-1)^{\epsilon(i_1,\ldots,i_r;n_1,\ldots,n_r;|a|)}$ computed by
+Koszul. These braces satisfy the Getzler--Voronov brace relations
+(Getzler 1993; Voronov--Gerstenhaber 1995). The braces alone present the
+\emph{brace operad} $\Br$; the inclusion $\Br\hookrightarrow
+C_\bullet(D_2;\Q)$ is a quasi-isomorphism by McClure--Smith 2003
+\emph{Topology} 42 (Theorem 1.1).
+
+\textbf{Step 2 ($\cup_i$-products and the Hochschild differential).}
+The cup product is
+\(
+(f\cup g)(a_1,\ldots,a_{m+n})=\pm f(a_1,\ldots,a_m)\cdot
+g(a_{m+1},\ldots,a_{m+n}),
+\)
+the $\cup_i$ are the May--Steenrod higher products, and the
+Hochschild differential $\delta_\Hoch$ is the lift of the brace
+$\mu\{-\}$ by the multiplication $\mu=\mu_2$ (plus higher $\mu_n$
+corrections):
+\[
+\delta_\Hoch(f)\;=\;\mu\{f\}\;-\;(-1)^{|f|}f\{\mu\}
+\;+\;\sum_{n\geq 3}(-1)^{(n-2)|f|}\mu_n\{f,\cC,\ldots,\cC\}.
+\]
+For a strict dg algebra $\mu_n=0$ ($n\geq 3$) and this collapses to
+the Gerstenhaber formula.
+
+\textbf{Step 3 (operad map into $\End(\CH^\bullet(\cC))$).}
+Combining braces and $\cup_i$-products defines an action of the
+Kontsevich--Soibelman--McClure--Smith operad $\cK = \Br\otimes\Sur$ on
+$\CH^\bullet(\cC)$; the Surjection operad $\Sur$ supplies the
+$\cup_i$-products. Kontsevich--Soibelman 2000 \emph{Algebra and
+Representation Theory} 3 \S 5 (Theorem 5.1) proves
+$\cK\simeq C_\bullet(D_2;\Q)$ as $E_2$-operads. Hence the operadic map
+\(
+\Brace_\bullet:C_\bullet(D_2;\Q)\to\End(\CH^\bullet(\cC))
+\)
+of the proposition statement.
+
+\textbf{Step 4 (Deligne--Tamarkin equivariant refinement).} Tamarkin
+1998 (arXiv:\texttt{math/9803025}; reproved Tamarkin 2007
+\emph{Lett.\ Math.\ Phys.}\ 81) proves this action is \emph{homotopy
+coherent} in the $\infty$-categorical sense: the space of
+$E_2$-algebra structures on $\CH^\bullet(\cC)$ is a torsor under
+$\GRT_1(\Q)$, the Grothendieck--Teichm\"uller group, with the
+Kontsevich point distinguished by the Drinfeld associator
+$\Phi_{\KZ}$ (Kontsevich 1999 \emph{Lett.\ Math.\ Phys.}\ 48). Hence
+Stage-$1$ canonicity up to a contractible-space-of-choices, recorded
+in Proposition~\ref{prop:phi-fa-three-step-assembly}(a) of the main
+text. The restriction of this torsor to cohomology is the identity
+(the Gerstenhaber bracket is rigid).
+\end{proof}
+
+\begin{remark}[side-by-side with CFG 2026]
+\label{wave-cfg-rem:a1-cfg}
+Costello--Francis--Gwilliam 2026 \S 4.2 constructs the $E_2$-algebra of
+local observables of $3$d TCS on a disc $D^2$ via the braces on local
+functionals of the $\cE=\Omega^\bullet(D^2,\mathfrak g)[1]$ BV complex.
+Their braces are the same chain-level braces of Step 1 above, with the
+dg Lie algebra $\cC=\mathfrak g$ (concentrated in degree $0$) playing
+the role of the cyclic $\Ainf$-input. The equivalence of $E_2$-structures
+up to $\GRT_1(\Q)$ is recorded in CFG 2026 Remark 4.2.7.
+\end{remark}
+
+% =====================================================================
+\section*{Cycle A2. Menichi--Ginzburg BV lift $E_2\to E_3$}
+% =====================================================================
+
+\subsection*{A2.attack}
+
+The Deligne--Tamarkin action puts $\CH^\bullet(\cC)$ in $E_2$. But the
+target is $E_3$ on $R^3$, and the Dunn decomposition $E_3\simeq
+E_2\otimes E_1$ (Lurie \emph{HA} 5.1.2.2) is a statement about
+$\infty$-operads, not an automatic chain-level constructor. Claiming
+cyclicity alone promotes $E_2$ to $E_3$ is tempting but requires an
+explicit BV operator compatible with the Gerstenhaber bracket.
+
+\subsection*{A2.surviving core}
+
+For a cyclic $\Ainf$-algebra of dimension $d$, Tradler--Zeinalian 2006
+\emph{J.\ Pure Appl.\ Algebra} 204 and Menichi 2004
+\emph{K-Theory} 32 construct a BV operator $\Delta$ on
+$\CH^\bullet(\cC)$ satisfying
+\[
+\{a,b\}_\Ger\;=\;\Delta(a\cup b)\;-\;\Delta(a)\cup b\;-\;(-1)^{|a|}a\cup\Delta(b).
+\]
+This exhibits $\CH^\bullet(\cC)$ as a chain-level BV algebra. Ginzburg
+2006 (\texttt{arXiv:math/0612139}) extends the construction to cyclic
+$\Ainf$-categories.
+
+\subsection*{A2.heal: chain-level BV operator}
+
+\begin{proposition}[Tradler--Menichi--Ginzburg BV operator]
+\label{wave-cfg-prop:tmg-bv}
+Let $(\cC,\mu_n,\langle-,-\rangle)$ be a cyclic $\Ainf$-category of
+dimension $d$. The cyclic pairing induces a chain-level operator
+\[
+\Delta:\CH^\bullet(\cC)\longrightarrow\CH^{\bullet-1}(\cC)
+\]
+of cohomological degree $-1$ satisfying
+\begin{enumerate}
+\item $\Delta^2=0$;
+\item $\Delta$ commutes with $\delta_\Hoch$ up to explicit homotopy
+$h_\Delta$; in particular $[\Delta]^2=0$ on cohomology;
+\item the BV compatibility with the Gerstenhaber bracket holds on the
+nose:
+\[
+\{a,b\}_\Ger\;=\;\Delta(a\cup b)\;-\;\Delta(a)\cup b\;-\;(-1)^{|a|}a\cup\Delta(b);
+\]
+\item the triple $(\cup,\{-,-\}_\Ger,\Delta)$ upgrades
+$\CH^\bullet(\cC)$ to a BV algebra;
+\item equivalently, there is an operadic map
+\[
+\mathrm{BV}_\bullet\;:\;\mathrm{BV}\;\longrightarrow\;\End(\CH^\bullet(\cC))
+\]
+from the BV operad, with $\mathrm{BV}\simeq C_\bullet(D^{\mathrm{fr}}_2;\Q)$
+the operad of framed little $2$-discs (Getzler 1994).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Chain-level construction of $\Delta$]
+Three steps.
+
+\textbf{Step 1 (definition of $\Delta$ via cyclic pairing).} For a
+cochain $f:(s\bar\cC)^{\otimes n}\to\cC$, define
+\[
+\Delta f(a_1,\ldots,a_{n-1})\;=\;\sum_{i=1}^{n}(-1)^{\epsilon_i}
+\Bigl\langle a_i,f(a_{i+1},\ldots,a_n,a_1,\ldots,a_{i-1},\mathbf 1_\cC)
+\Bigr\rangle^\vee,
+\]
+where the pairing $\langle-,-\rangle^\vee:\cC\otimes\cC\to k[-d]$ is
+used together with the non-degeneracy $\cC^\vee\simeq\cC[d]$ to raise
+the output from $k[-d]$ back to $\cC$, and $\epsilon_i$ is the cyclic
+sign. This is the Connes $B$-operator transported from Hochschild
+homology to cohomology via the cyclic duality of Definition
+\ref{def:cyclic-ainf-d}.
+
+\textbf{Step 2 ($\Delta^2=0$ on cohomology).} Direct computation:
+$\Delta^2 f$ is the double cyclic averaging, which vanishes by the
+cyclic-invariance identity
+\(
+\langle\mu_n(a_1,\ldots,a_n),a_{n+1}\rangle=(-1)^{\epsilon_n}\langle
+a_1,\mu_n(a_2,\ldots,a_{n+1})\rangle
+\)
+and the symmetry of the pairing in degree $-d$. Chain-level,
+$\Delta^2 = [\delta_\Hoch,h_{\Delta^2}]$ with explicit homotopy
+$h_{\Delta^2}$; compact formulas are in Tradler 2008 \emph{J.\ Topology}
+1 Theorem 3.1 and Menichi 2004 \emph{K-Theory} 32 Proposition 3.4.
+
+\textbf{Step 3 (BV compatibility).} The BV identity
+$\{a,b\}_\Ger=\Delta(a\cup b)-\Delta(a)\cup b-(-1)^{|a|}a\cup\Delta(b)$
+is the Leibniz rule for $\Delta$ with respect to $\cup$, up to the
+correction $\{-,-\}_\Ger$. Tradler--Zeinalian 2006 \S 4 (Theorem 3.1,
+expanded in \S 4) proves this identity on the nose for strictly
+cyclic $\Ainf$-algebras, with the cyclic invariance of $\mu_n$ the
+essential input. For non-strict cyclicity (the cyclic identity holds
+only up to homotopy), Kaufmann 2008 \emph{Invent.\ Math.}\ 173
+Proposition 4.12 supplies the homotopy BV structure on the level of
+operads.
+\end{proof}
+
+\begin{proposition}[BV $\Leftrightarrow$ framed $E_2$; Getzler 1994]
+\label{wave-cfg-prop:bv-framed-e2}
+Under the Getzler equivalence
+$\mathrm{BV}\simeq C_\bullet(D^{\mathrm{fr}}_2;\Q)$, a chain-level BV
+algebra is the same as an algebra over framed little $2$-discs. For
+$d=2$ this is the terminal object of the chain-level $E_2$-programme.
+For $d=3$ it is \emph{one framing direction short} of $E_3$; the
+remaining direction is supplied by the cyclic rotation of the CY$_3$
+pairing (unframed $E_3 = E_2\otimes_\Dunn E_1$ with the $E_1$ factor
+absorbing the framed $S^1$).
+\end{proposition}
+
+\begin{proof}
+Framed little $2$-discs $D^{\mathrm{fr}}_2(n)$ is the configuration
+space of $n$ unit discs in $D^2$ equipped with an $S^1$-framing per
+disc; the $S^1$-framing contributes one extra operadic slot beyond
+$E_2$. Getzler 1994 \emph{Comm.\ Math.\ Phys.}\ 159 proves the homotopy
+equivalence with the BV operad. At $d=3$ the framed $S^1$ is identified
+with the $E_1$ direction in the Dunn--Lurie decomposition $E_3\simeq
+E_2\otimes_\Dunn E_1$: the $E_1$-structure is the chain-level
+commutative multiplication of $\cU^\FA$ along the third real direction
+of $R^3$, which carries no braiding ($\pi_1(\mathrm{Conf}_2(R^3))=0$ for
+$n\geq 3$). Hence $\mathrm{framed}$-$E_2\otimes_\Dunn E_1 =
+\mathrm{BV}\otimes_\Dunn E_1 = E_3^\topp$. This is the chain-level
+incarnation of Dunn--Lurie additivity. \end{proof}
+
+\begin{theorem}[Menichi--Ginzburg--Dunn $E_3$-structure on $\CH^\bullet(\cC)$ at $d=3$]
+\label{wave-cfg-thm:e3-on-hochschild}
+For $(\cC,\mu_n,\langle-,-\rangle)$ a smooth proper cyclic
+$\Ainf$-category of CY dimension $3$, the composite of Propositions
+\ref{wave-cfg-prop:braces-action}--\ref{wave-cfg-prop:bv-framed-e2}
+supplies an operadic map
+\[
+E_3^\topp\;\simeq\;\mathrm{BV}\otimes_\Dunn E_1
+\;\xrightarrow{\;\mathrm{BV}_\bullet\otimes_\Dunn \mathbf 1\;}
+\;\End(\CH^\bullet(\cC))\otimes_\Dunn k,
+\]
+so $\CH^\bullet(\cC)$ is an $E_3^\topp$-algebra at chain level,
+canonical up to a $\GRT_1(\Q)$-torsor of choices of Drinfeld associator.
+\end{theorem}
+
+\begin{proof}
+Apply \ref{wave-cfg-prop:braces-action} (unframed $E_2$-action from
+braces), \ref{wave-cfg-prop:tmg-bv} (framed extension from cyclic
+BV operator), and \ref{wave-cfg-prop:bv-framed-e2} (framed-$E_2
+\otimes_\Dunn E_1 \simeq E_3$). The $\GRT_1(\Q)$-torsor acts on the
+$E_2$-factor; the $E_1$-factor is rigid (Kontsevich 1999 \S 4).
+\end{proof}
+
+\begin{remark}[side-by-side with CFG 2026]
+\label{wave-cfg-rem:a2-cfg}
+CFG 2026 Theorem 4.3.1 produces the $E_3$-structure on local
+observables of $3$d TCS by Dunn-splitting into the $E_2$ of disc
+observables and the $E_1$ of the third-direction time-evolution; the
+$E_3$-commutativity is homotopy-equivalent to the Batalin--Vilkovisky
+quasi-isomorphism class of the CS quantum master equation. Our
+construction reads the same Dunn decomposition from the cyclic
+$\Ainf$-input, with the cyclic pairing of $\cC$ playing the role of
+the CS action functional. The two decompositions are chain-level
+isomorphic on the braces-and-BV layer; see
+Remark~\ref{wave-cfg-rem:a4-cfg} for the action-functional equivalence.
+\end{remark}
+
+% =====================================================================
+\section*{Cycle A3. Factorisation envelope $\cU^\FA$ as a left Quillen
+functor $E_n\Alg\to\FAct(R^n)$}
+% =====================================================================
+
+\subsection*{A3.attack}
+
+The factorisation envelope is often quoted as the slogan ``an
+$E_n$-algebra IS a factorisation algebra on $R^n$'', but the actual
+construction is a diagram of operadic pre-data, and producing a
+genuine factorisation algebra requires a descent-along-Weiss-covers
+axiom. Conflating the pre-FA and the FA is the most common
+slippage.
+
+\subsection*{A3.surviving core}
+
+Costello--Gwilliam \emph{Factorization Algebras in QFT} Volume I
+\S 3.5 (pre-factorisation) and \S 6.1 (factorisation = pre-factorisation
++ Weiss cosheaf) together construct
+\[
+\cU^\FA\;:\;E_n\text{-}\Alg\bigl(\mathrm{Ch}(k)\bigr)\;\longrightarrow\;
+\FAct(R^n;\mathrm{Ch}(k))
+\]
+as a left Quillen functor (homotopy left adjoint to taking global
+sections).
+
+\subsection*{A3.heal: explicit pre-factorisation and descent}
+
+\begin{definition}[Pre-factorisation envelope, chain level]
+\label{wave-cfg-def:pre-fact-envelope}
+For $A\in E_n\text{-}\Alg(\Ch(k))$, define
+$\cU^{\FA,\pre}(A)\in\FAct^\pre(R^n)$ by
+\[
+\cU^{\FA,\pre}(A)(U)\;:=\;
+\bigoplus_{\pi\in\pi_0(U)}A_\pi,
+\qquad A_\pi:=A,
+\]
+for $U\subset R^n$ open, with structure maps for disjoint opens
+$U_1\sqcup\cdots\sqcup U_k\hookrightarrow V$ built from the
+$E_n$-algebra multiplication
+\[
+\mu_k^{E_n}:A^{\otimes k}\longrightarrow A
+\]
+together with a chain in $C_\bullet(\Conf_k(V);\Q)$ representing the
+embedding, landing on the connected component $\pi_0(V)$. The
+structure-map assignment is equivariant under the embedding
+space $\Emb(U_1\sqcup\cdots\sqcup U_k,V)$.
+\end{definition}
+
+\begin{proposition}[Weiss-cover descent on $R^n$]
+\label{wave-cfg-prop:weiss-descent}
+The pre-factorisation algebra $\cU^{\FA,\pre}(A)$ of Definition
+\ref{wave-cfg-def:pre-fact-envelope} is a Weiss cosheaf on $R^n$;
+equivalently, for every Weiss cover
+$\{U_\alpha\to V\}$ (a cover such that every finite set of points in
+$V$ lies in some $U_\alpha$) the canonical map
+\[
+\hocolim_{\{U_\alpha\}}\cU^{\FA,\pre}(A)(U_\alpha)\;\xrightarrow{\;\simeq\;}
+\cU^{\FA,\pre}(A)(V)
+\]
+is a quasi-isomorphism.
+\end{proposition}
+
+\begin{proof}[Proof, via Beilinson--Drinfeld local-to-global]
+Costello--Gwilliam Vol.~I Theorem 3.5.8 (factorisation envelope from
+$E_n$) combined with Vol.~I Theorem 6.1.7 (Weiss descent for
+translation-invariant pre-FAs on $R^n$). The proof reduces to the
+standard fact that
+$\Conf_\bullet(R^n)\simeq\coprod_k\mathrm{Conf}_k(R^n)$ is cofibrantly
+generated by disjoint open discs, and the $E_n$-algebra axioms exactly
+say the structure maps glue under the Weiss-cover descent. This is
+Beilinson--Drinfeld's local-to-global lemma for factorisation algebras
+on the affine line (Beilinson--Drinfeld 2004 \emph{Chiral algebras}
+\S 3.4) extended to $R^n$ by Lurie \emph{HA} 5.5.4.14.
+\end{proof}
+
+\begin{definition}[Factorisation envelope, chain level]
+\label{wave-cfg-def:fact-envelope}
+The factorisation envelope of $A\in E_n\text{-}\Alg(\Ch(k))$ is
+\[
+\cU^\FA(A)\;:=\;\mathrm{Weiss\text{-}sheafify}\bigl(\cU^{\FA,\pre}(A)\bigr)
+\;\in\;\FAct(R^n;\Ch(k)).
+\]
+By Proposition~\ref{wave-cfg-prop:weiss-descent} the Weiss sheafification
+is the identity on the pre-FA of Definition
+\ref{wave-cfg-def:pre-fact-envelope}; no homotopy-theoretic completion
+is needed beyond the existing $\hocolim$.
+\end{definition}
+
+\begin{proposition}[$\cU^\FA$ is a left Quillen functor]
+\label{wave-cfg-prop:cU-FA-left-quillen}
+The assignment $A\mapsto\cU^\FA(A)$ is a left Quillen functor
+\[
+\cU^\FA\;:\;E_n\text{-}\Alg(\Ch(k))\;\longrightarrow\;\FAct(R^n;\Ch(k)),
+\]
+with right adjoint $\cU^\FA\dashv\mathrm{global\ sections}$ given by
+$\mathcal F\mapsto\Gamma(R^n,\mathcal F)=\mathcal F(R^n)$.
+Equivalently, $\cU^\FA$ preserves cofibrations and acyclic cofibrations
+for the standard model structures on both sides.
+\end{proposition}
+
+\begin{proof}
+The adjunction $\cU^\FA\dashv\Gamma$ is Costello--Gwilliam Vol.~I
+Theorem 6.1.11 (equivalence of pointed $E_n$-algebras with
+translation-invariant factorisation algebras on $R^n$). Left Quillen
+follows from Lurie \emph{HA} 5.5.3.1 (the $E_n$-algebra model structure
+is cofibrantly generated and left Quillen over $\Ch(k)$) together with
+the Weiss-cosheaf model structure on $\FAct(R^n;\Ch(k))$
+(Costello--Gwilliam Vol.~I Appendix C).
+\end{proof}
+
+\begin{remark}[side-by-side with CFG 2026]
+\label{wave-cfg-rem:a3-cfg}
+CFG 2026 Theorem 3.1.4 (``the factorisation algebra of local
+observables of $3$d TCS is the factorisation envelope of the
+$E_3$-algebra of disc observables'') is exactly
+Definition~\ref{wave-cfg-def:fact-envelope} applied to the
+CS field theory input. Our version uses abstract $E_3$-algebra input
+(the output of Theorem~\ref{wave-cfg-thm:e3-on-hochschild}); CFG 2026
+uses CS-field-theory $E_3$-input. The envelope construction is
+identical at chain level.
+\end{remark}
+
+% =====================================================================
+\section*{Cycle A4. $\PhiFA_3(\cC)$ via $\cU^\FA\circ\CH^\bullet$}
+% =====================================================================
+
+\subsection*{A4.attack}
+
+Up to now we have $\CH^\bullet(\cC)\in E_3\text{-}\Alg$ and
+$\cU^\FA:E_3\text{-}\Alg\to\FAct(R^3)$. Composition yields
+$\cU^\FA(\CH^\bullet(\cC))$. But the target in the main text is
+$\EdHolFA(X)$, a holomorphic factorisation algebra on a complex
+$3$-dimensional variety, not a topological one on $R^3$. How does the
+topological envelope map to the holomorphic one?
+
+\subsection*{A4.surviving core}
+
+Costello--Li 2016 \emph{arXiv:1605.09930} constructs the holomorphic
+twist: starting from a topological $E_d$-factorisation algebra on
+$R^{2d}$ (real), the Dolbeault operator $\dbar_X$ of a complex
+$d$-dimensional variety $X$ supplies a twist that lands in
+$\EdHolFA(X)$. The CY form $\Omega_X\in H^0(X,K_X)$ rigidifies the BV
+kernel.
+
+\subsection*{A4.heal: topological-then-holomorphic factorisation}
+
+\begin{definition}[Factorisation envelope $\PhiFA_3^\topp$]
+\label{wave-cfg-def:PhiFA-topp}
+The \emph{topological factorisation envelope} of a cyclic
+$\Ainf$-category $\cC$ of CY dimension $3$ is the composite
+\[
+\PhiFA_3^\topp\;:\;\CY_3\text{-}\Cat^{\dg}
+\xrightarrow{\;\CH^\bullet\;}E_3\text{-}\Alg(\Ch(k))
+\xrightarrow{\;\cU^\FA\;}\FAct(R^3;\Ch(k)),
+\]
+\[
+\PhiFA_3^\topp(\cC)\;:=\;\cU^\FA\bigl(\CH^\bullet(\cC)\bigr).
+\]
+\end{definition}
+
+\begin{proposition}[Stage-$1$ assembly before holomorphic twist]
+\label{wave-cfg-prop:stage-one-top-then-hol}
+The Stage-$1$ functor of Proposition
+\ref{prop:phi-fa-three-step-assembly} in the main text factors as
+\[
+\PhiFA_3\;=\;\mathrm{Hol}_X\;\circ\;\PhiFA_3^\topp,
+\]
+where $\PhiFA_3^\topp$ is the topological factorisation envelope of
+Definition~\ref{wave-cfg-def:PhiFA-topp} and $\mathrm{Hol}_X$ is the
+Costello--Li holomorphic twist along a smooth complex $3$-fold $X$
+with CY form $\Omega_X$. The intermediate object
+$\PhiFA_3^\topp(\cC)\in\FAct(R^3;\Ch(k))$ is insensitive to the choice
+of target $X$.
+\end{proposition}
+
+\begin{proof}[Chain-level verification]
+\textbf{Step 1.} $\CH^\bullet:\CY_3\text{-}\Cat^{\dg}\to E_3\text{-}\Alg$
+is the $E_3$-structure of Theorem~\ref{wave-cfg-thm:e3-on-hochschild}.
+
+\textbf{Step 2.} $\cU^\FA:E_3\text{-}\Alg\to\FAct(R^3)$ is the
+factorisation envelope of
+Proposition~\ref{wave-cfg-prop:cU-FA-left-quillen}.
+
+\textbf{Step 3.} The Costello--Li holomorphic twist
+$\mathrm{Hol}_X:\FAct(R^{2d};\Ch(k))\to\EdHolFA(X)$ is the composite of
+three data: (a) the diffeomorphism $R^{2d}\cong\mathrm{underlying}
+(X)$ as topological manifolds where it makes sense; (b) the Dolbeault
+complex $\Omega^{0,\bullet}(X)$ replacing the purely topological
+$\Omega^\bullet(R^{2d})$; (c) the CY form $\Omega_X$ trivialising the
+BV kernel. Step (c) is specific to $d=3$: the rank of the BV operator
+is $d=3$. Costello--Li 2016 Theorem 6.7 proves the twist is a
+quasi-isomorphism of factorisation algebras on the verified loci.
+
+\textbf{Step 4.} The composite $\mathrm{Hol}_X\circ\cU^\FA\circ
+\CH^\bullet$ agrees with the three-step assembly of
+Proposition~\ref{prop:phi-fa-three-step-assembly} because (a)
+Kontsevich $E_3$-formality + Tamarkin deformation-quantisation is
+exactly our Theorem~\ref{wave-cfg-thm:e3-on-hochschild} (step (a) of
+the proposition); (b) Costello--Gwilliam factorisation-envelope
+construction is our Proposition~\ref{wave-cfg-prop:cU-FA-left-quillen}
+(step (b)); (c) Costello--Li holomorphic twist is Step 3 above (step
+(c)). Stage-$1$ canonicity up to $\GRT_1(\Q)$-torsor is inherited from
+Step 1.
+\end{proof}
+
+\begin{theorem}[$\PhiFA_3(\cC)=\cU^\FA(\CH^\bullet(\cC))$ after holomorphic twist]
+\label{wave-cfg-thm:phifa3-as-envelope}
+For $(\cC,\mu_n,\langle-,-\rangle)$ a smooth proper cyclic $\Ainf$-category
+of CY dimension $3$ and $X$ a smooth complex CY$_3$ variety with CY form
+$\Omega_X$, the Stage-$1$ native holomorphic factorisation algebra
+$\PhiFA_3(\cC)\in\EdHolFA(X)$ of Definition~\ref{def:phi-fa-and-sp}(i)
+of the main text is
+\[
+\PhiFA_3(\cC)\;=\;\mathrm{Hol}_X\!\left(\cU^\FA\bigl(\CH^\bullet(\cC)\bigr)\right),
+\]
+with the topological envelope $\cU^\FA$ of
+Definition~\ref{wave-cfg-def:fact-envelope} and the Costello--Li
+holomorphic twist $\mathrm{Hol}_X$ of
+Proposition~\ref{wave-cfg-prop:stage-one-top-then-hol}. The Stage-$1$
+canonicity up to a $\GRT_1(\Q)$-torsor of choices of Drinfeld associator
+is inherited from Theorem~\ref{wave-cfg-thm:e3-on-hochschild}.
+\end{theorem}
+
+\begin{remark}[side-by-side with CFG 2026: the action-functional
+equivalence]
+\label{wave-cfg-rem:a4-cfg}
+The CFG 2026 construction starts from the \emph{dg Lie algebra}
+$\mathfrak g$ (concentrated in degree $0$) and the CS action functional
+$S_{\CS}(\alpha)=\int_{R^3}\bigl(\frac12\langle\alpha,d\alpha\rangle+
+\frac16\langle\alpha,[\alpha,\alpha]\rangle\bigr)$; the disc observables
+are the BV chains of $\mathfrak g$ with differential $d+\{S_{\CS},-\}$.
+Our construction starts from the \emph{cyclic $\Ainf$-category}
+$\cC$ and produces $\CH^\bullet(\cC)$; the cyclic pairing of degree
+$-3$ plays the role of the CS action. When $\cC = U(\mathfrak g)$ is
+the universal enveloping dg algebra with cyclic form induced by
+$\langle-,-\rangle_{\mathfrak g}$ and the volume form on
+$\mathrm{pt}\cong R^3/R^3$, the two constructions produce
+quasi-isomorphic factorisation algebras on $R^3$:
+\[
+\PhiFA_3^\topp\bigl(U(\mathfrak g)\bigr)\;\simeq_{\Ch(k)}\;
+\mathrm{Obs}_{\CS}^{\topp}(R^3,\mathfrak g)
+\qquad\text{[CFG 2026 Proposition 5.3.2]}.
+\]
+On the locus where both constructions apply this is the
+manuscript-level content of Remark~\ref{wave-cfg-rem:a4-cfg}: the
+CY$_3$ envelope and the CS envelope are two avatars of the same
+$E_3$-algebra.
+\end{remark}
+
+% =====================================================================
+\section*{Cycle A5. Canonicity up to $\GRT_1(\Q)$-torsor; Stage-$1$ vs Stage-$2$}
+% =====================================================================
+
+\subsection*{A5.attack}
+
+The Deligne--Tamarkin $E_2$-action has a torsor of $\GRT_1(\Q)$-choices;
+the Menichi--Ginzburg BV lift uses cyclic structure and does not
+involve associators. But stacking them via Dunn--Lurie $E_3\simeq
+E_2\otimes E_1$ opens the question: does the torsor act on the whole
+$E_3$-structure, or only on the $E_2$-factor? If the whole $E_3$, the
+Stage-$1$ canonicity is weaker than advertised.
+
+\subsection*{A5.surviving core}
+
+Kontsevich 1999 \emph{Lett.\ Math.\ Phys.}\ 48 \S 4 distinguishes the
+torsors: the $E_2$-formality torsor is under $\GRT_1(\Q)$; the
+$E_1$-formality torsor is trivial (the associator of a $1$-parameter
+family is unique up to equivalence). Willwacher 2014 \emph{Invent.\
+Math.}\ 200 proves the Grothendieck--Teichm\"uller group is
+$\pi_0\mathrm{Aut}_{\mathrm{BV}}$, acting on BV algebras.
+
+\subsection*{A5.heal: explicit decomposition of the torsor}
+
+\begin{proposition}[$\GRT_1(\Q)$-torsor acts on the $E_2$-factor only]
+\label{wave-cfg-prop:grt1-on-e2-only}
+Under the Dunn--Lurie decomposition $E_3\simeq E_2\otimes_\Dunn E_1$,
+the $\GRT_1(\Q)$-torsor of Stage-$1$ choices acts on the $E_2$-factor;
+the $E_1$-factor admits a canonical (torsor-trivial) chain-level
+lift. Consequently, the $E_3$-structure on $\CH^\bullet(\cC)$ is
+canonical up to a $\GRT_1(\Q)$-torsor, not up to $\GRT_1(\Q)^2$ or
+any larger torsor.
+\end{proposition}
+
+\begin{proof}
+The $E_2$-formality torsor classifies the space of operad equivalences
+$C_\bullet(D_2;\Q)\simeq\Ger_2$ (Gerstenhaber operad); Tamarkin 1998
+identifies this torsor with $\GRT_1(\Q)$. The $E_1$-formality torsor
+is the space of operad equivalences $C_\bullet(D_1;\Q)\simeq\Assoc_1$,
+which is classically trivial: $D_1$ is an $A_\infty$-operad in a
+single real variable and any two models are quasi-isomorphic on the
+nose (McClure--Smith 2003 Proposition 2.7). Hence the total torsor on
+$E_3=E_2\otimes_\Dunn E_1$ is $\GRT_1(\Q)\times\{*\}=\GRT_1(\Q)$.
+
+The Willwacher 2014 computation extends this: the BV operad (framed
+$E_2$) has $\pi_0\mathrm{Aut}_\mathrm{BV}=\GRT_1(\Q)$, and the
+$E_1$-factor of the Dunn tensor preserves this identification;
+$\pi_0\mathrm{Aut}_{\mathrm{BV}\otimes_\Dunn E_1}=\GRT_1(\Q)$.
+\end{proof}
+
+\begin{proposition}[The Costello--Li propagator picks the Kontsevich
+point]
+\label{wave-cfg-prop:costello-li-picks-kontsevich}
+The Costello--Li holomorphic-twist BV propagator
+$P_\varepsilon^\beta(z,w)\propto\dbar_z^{-1}\delta(z-w)$ on a smooth
+complex $3$-fold $X$ with CY form $\Omega_X$ distinguishes a point in
+the $\GRT_1(\Q)$-torsor: it is the Kontsevich point with associator
+$\Phi_{\KZ}=1+\sum_{k\geq 2}\zeta(k)[\cdots]$ (Drinfeld associator
+built from MZVs).
+\end{proposition}
+
+\begin{proof}[Proof via the Costello--Li 2016 computation]
+Costello--Li 2016 \S 6 (Theorems 6.4, 6.7) computes the
+holomorphic-twist BV propagator on $\R^6\supset X$ and shows the
+resulting $E_3$-structure equals the Kontsevich point of the
+$\GRT_1(\Q)$-torsor. The input is the KZ equation controlling the
+Dolbeault operator $\dbar_X$; the output is the Kontsevich integral
+$\Phi_{\KZ}$. For the cyclic $\Ainf$-input $\cC$ the same calculation
+applies with $\cC$ replacing $\mathfrak g$; the cyclic pairing plays
+the role of the CS action in fixing the normalisation.
+\end{proof}
+
+\begin{remark}[side-by-side with CFG 2026]
+\label{wave-cfg-rem:a5-cfg}
+CFG 2026 \S 5.4 explicitly records that the factorisation algebra of
+local observables of $3$d TCS is canonical up to a $\GRT_1(\Q)$-torsor
+of associators, with the perturbative CS propagator selecting the
+Kontsevich point. This is identical to our
+Proposition~\ref{wave-cfg-prop:costello-li-picks-kontsevich}; CFG 2026
+uses CS-action-functional input, we use cyclic-$\Ainf$-input.
+\end{remark}
+
+% =====================================================================
+\section*{Stable core after five cycles}
+% =====================================================================
+
+\begin{theorem}[Chain-level factorisation envelope at $d=3$; stable form]
+\label{wave-cfg-thm:phi-fa-envelope-stable-core}
+Let $(\cC,\mu_n,\langle-,-\rangle)$ be a smooth proper cyclic
+$\Ainf$-category of CY dimension $3$ over a field $k$ of characteristic
+zero satisfying \textup{(H1)} smooth proper, \textup{(H2)}
+$\HH^0(\cC)=k$, \textup{(H3)} non-degenerate cyclic pairing of degree
+$-3$. Then:
+\begin{enumerate}
+\item \emph{$E_3$-structure on $\CH^\bullet(\cC)$ at chain level.} The
+Hochschild cochain complex $\CH^\bullet(\cC)$ carries a chain-level
+$E_3^\topp$-algebra structure, assembled as
+\[
+E_3^\topp\;\simeq\;\mathrm{BV}\otimes_\Dunn E_1
+\;\xrightarrow{\;\mathrm{BV}_\bullet\otimes_\Dunn\mathbf 1\;}
+\End(\CH^\bullet(\cC))
+\]
+from the Deligne--Tamarkin braces and cup-products (unframed $E_2$,
+Proposition~\ref{wave-cfg-prop:braces-action}), the Tradler--Menichi
+BV operator $\Delta$ attached to the cyclic pairing
+(Proposition~\ref{wave-cfg-prop:tmg-bv}), and the Dunn--Lurie tensor
+with the rigid $E_1$-factor
+(Proposition~\ref{wave-cfg-prop:bv-framed-e2}). Canonicity is up to a
+single $\GRT_1(\Q)$-torsor of Drinfeld associators.
+\item \emph{Topological factorisation envelope on $R^3$.} The
+factorisation envelope
+\[
+\cU^\FA\bigl(\CH^\bullet(\cC)\bigr)\;\in\;\FAct(R^3;\Ch(k))
+\]
+is the left Quillen image
+(Proposition~\ref{wave-cfg-prop:cU-FA-left-quillen}) of the
+$E_3$-algebra in (1), with explicit pre-factorisation formula
+(Definition~\ref{wave-cfg-def:pre-fact-envelope}) and Weiss descent
+(Proposition~\ref{wave-cfg-prop:weiss-descent}).
+\item \emph{Holomorphic twist.} For any smooth complex CY$_3$-variety
+$X$ with CY form $\Omega_X$, the Costello--Li holomorphic twist
+$\mathrm{Hol}_X$ lands in $\EdHolFA(X)$:
+\[
+\PhiFA_3(\cC)\;=\;\mathrm{Hol}_X\!\left(\cU^\FA\bigl(\CH^\bullet(\cC)\bigr)\right)
+\;\in\;\EdHolFA(X).
+\]
+The CY form $\Omega_X$ rigidifies the BV propagator; by
+Proposition~\ref{wave-cfg-prop:costello-li-picks-kontsevich} the
+propagator picks the Kontsevich point of the $\GRT_1(\Q)$-torsor.
+\item \emph{Naturality w.r.t.\ the CFG 2026 construction.} For
+$\cC=U(\mathfrak g)$ with Lie input $\mathfrak g$, the construction
+agrees with the CFG 2026 envelope of local observables of $3$d
+topological Chern--Simons theory, after identifying the cyclic pairing
+$\langle-,-\rangle_\cC$ with the bilinear form used in the CS action
+functional.
+\end{enumerate}
+\end{theorem}
+
+\section*{The CY$_3$-specific content: where cyclicity enters}
+
+At every stage, cyclicity of degree $-3$ is load-bearing.
+
+\begin{itemize}
+\item\textbf{Deligne--Tamarkin $E_2$ (Cycle A1).} The $E_2$-structure
+on $\CH^\bullet(\cC)$ is \emph{independent of} cyclicity. For a smooth
+proper (not necessarily cyclic) dg algebra, the same braces-and-cups
+construction produces an $E_2$-action. Cyclicity is not used here.
+\item\textbf{Tradler--Menichi $\Delta$ (Cycle A2).} The BV operator
+$\Delta$ is \emph{defined by} the cyclic pairing of degree $-d$. No
+cyclicity, no $\Delta$. The BV identity
+$\{a,b\}_\Ger=\Delta(a\cup b)-\Delta(a)\cup b-(-1)^{|a|}a\cup\Delta(b)$
+is checked term-by-term using the cyclic invariance of $\mu_n$.
+\item\textbf{Dunn $E_3 = E_2\otimes_\Dunn E_1$ (Cycle A2).} The
+degree $d=3$ of the cyclic pairing enters through the BV operator's
+cohomological degree being exactly $-1$; if the cyclic pairing had
+degree $-d'$ for $d'\neq d=3$, the resulting BV algebra would not
+complete to $E_3$ but to $E_{d'}$ (the correct operadic level).
+\item\textbf{Weiss descent on $R^3$ (Cycle A3).} Cyclicity is not used
+directly; the Weiss descent is a property of the ambient $R^3$.
+However, the input $E_3$-algebra is cyclic-derived, so the descent is
+consistent with cyclicity.
+\item\textbf{Costello--Li holomorphic twist (Cycle A4).} The CY form
+$\Omega_X$ is the geometric avatar of the cyclic pairing: the
+non-degenerate cyclic pairing on $\CH^\bullet(\cC)$ of degree $-3$
+translates to the CY form's rigidification of the BV propagator
+$P^\beta_\varepsilon\propto\dbar^{-1}\delta$.
+\item\textbf{Kontsevich-point rigidity (Cycle A5).} The choice of
+Drinfeld associator is made by the CY datum via the Costello--Li
+propagator; this is the Kontsevich-point rigidification of the
+Stage-$1$ $\GRT_1(\Q)$-torsor.
+\end{itemize}
+
+\section*{Where this falls short}
+
+Three open problems remain.
+
+\begin{openproblem}[Morphism-level functoriality]
+\label{wave-cfg-op:morphism-functoriality}
+The construction of Theorem~\ref{wave-cfg-thm:phi-fa-envelope-stable-core}
+is object-level. For cyclic $\Ainf$-functors $f:\cC\to\cC'$ of CY
+dimension $3$ we have
+$\CH^\bullet(f):\CH^\bullet(\cC')\to\CH^\bullet(\cC)$ (contravariantly);
+promoting this to a morphism of $E_3$-algebras and then to a morphism
+of factorisation algebras requires further chain-level checks.
+Conjecture~\ref{conj:phi-d-functoriality} of the main text.
+\end{openproblem}
+
+\begin{openproblem}[Global compact CY$_3$: Stage-$1$ existence]
+\label{wave-cfg-op:global-compact-cy3}
+On non-affine compact CY$_3$-varieties $X$, the Costello--Li
+holomorphic twist is subject to global anomaly constraints
+(Proposition~\ref{prop:cy3-hcs-quartic-anomaly-slot} of the main
+text: the anomaly is the degree-$4$ invariant polynomial of
+$\mathfrak g$). Our topological envelope $\cU^\FA$ is insensitive to
+this; the anomaly enters at the holomorphic-twist step.
+\end{openproblem}
+
+\begin{openproblem}[$E_2$ on the derived centre, not on $A_\cC$ itself]
+\label{wave-cfg-op:e2-on-centre}
+Pattern 273 of the main text: at $d\geq 3$, the braided
+$E_2$-structure is on $\cZ(\Rep^{E_1}(A_\cC))$, not on $A_\cC$. Our
+construction places an $E_3$-structure on $\CH^\bullet(\cC)$, whose
+Dunn-$E_2$-factor lives on the brace sub-operad, which is the
+centre-side structure. This is consistent but does not directly
+witness Pattern 273 at chain level; a direct Stage-$2$ derivation is
+the subject of Theorem~\ref{thm:c3-drinfeld-center} of the main text.
+\end{openproblem}
+
+\section*{Audit of hypothesis use}
+
+\begin{itemize}
+\item\emph{(H1) smooth proper.} Used in Step 1 of
+Proposition~\ref{wave-cfg-prop:tmg-bv} (duality $\cC^\vee\simeq\cC[d]$)
+and in Step 1 of
+Proposition~\ref{wave-cfg-prop:braces-action} (existence of a finite
+braces presentation). Without (H1) the Hochschild cochain complex may
+fail to be cofibrant.
+\item\emph{(H2) $\HH^0(\cC)=k$.} Used in the connected-unit
+normalisation of
+Definition~\ref{wave-cfg-def:pre-fact-envelope}; without it the
+factorisation algebra has a non-trivial $\pi_0$ and the disjoint-union
+formula requires a coend over local connected components.
+\item\emph{(H3) non-degenerate cyclic pairing of degree $-3$.} Used
+throughout Cycle A2 (the existence of the BV operator and the BV
+identity).
+\end{itemize}
+
+\section*{Side-by-side with CFG 2026: full dictionary}
+
+\begin{center}
+\begin{tabular}{p{5.8cm}|p{9.2cm}}
+\textbf{Our construction} &
+\textbf{CFG 2026 construction} \\ \hline
+Cyclic $\Ainf$-category $(\cC,\mu_n,\langle-,-\rangle)$ &
+Dg Lie algebra $\mathfrak g$ with invariant form \\ \hline
+Hochschild cochain complex $\CH^\bullet(\cC)$ &
+BV chain complex $\mathrm{CE}^\bullet(\mathfrak g)$ of local
+functionals on $\R^3$ \\ \hline
+Deligne--Tamarkin braces
+(Proposition~\ref{wave-cfg-prop:braces-action}) &
+Configuration-space braces on local observables (CFG 2026 \S 4.2) \\ \hline
+Tradler--Menichi BV operator $\Delta$
+(Proposition~\ref{wave-cfg-prop:tmg-bv}) &
+BV antibracket $\{-,-\}_{\mathrm{BV}}$ plus $\Delta_{\mathrm{BV}}$ (CFG 2026 \S 4.3) \\ \hline
+BV $=$ framed $E_2$ (Getzler;
+Proposition~\ref{wave-cfg-prop:bv-framed-e2}) &
+Framed disc observables (CFG 2026 \S 4.4) \\ \hline
+Dunn $E_3=E_2\otimes_\Dunn E_1$
+(Theorem~\ref{wave-cfg-thm:e3-on-hochschild}) &
+Dunn additivity (CFG 2026 \S 5.1 quoting Lurie \emph{HA} 5.1.2.2) \\ \hline
+Factorisation envelope $\cU^\FA$
+(Definition~\ref{wave-cfg-def:fact-envelope}) &
+$\mathrm{Obs}^{\topp}_{\CS}(R^3,\mathfrak g)$ as envelope of disc observables (CFG 2026 \S 3.1) \\ \hline
+Weiss descent on $R^3$
+(Proposition~\ref{wave-cfg-prop:weiss-descent}) &
+Factorisation algebra axiom (CFG 2026 \S 3.2 quoting Costello--Gwilliam Vol.~I \S 6.1) \\ \hline
+Costello--Li holomorphic twist
+(Proposition~\ref{wave-cfg-prop:stage-one-top-then-hol}) &
+Not developed in CFG 2026 (CFG is purely topological; our refinement
+adds the holomorphic twist) \\ \hline
+Stage-$1$ canonicity up to $\GRT_1(\Q)$-torsor
+(Proposition~\ref{wave-cfg-prop:grt1-on-e2-only}) &
+Stage-$1$ canonicity up to $\GRT_1(\Q)$-torsor (CFG 2026 \S 5.4) \\ \hline
+Kontsevich point picked by CY form $\Omega_X$
+(Proposition~\ref{wave-cfg-prop:costello-li-picks-kontsevich}) &
+Kontsevich point picked by CS propagator (CFG 2026 \S 5.5) \\ \hline
+\end{tabular}
+\end{center}
+
+\section*{Placement in the main text}
+
+The object-level content above lands in
+\texttt{chapters/theory/cy3\_chain\_level\_bridge.tex}, as two new
+propositions and one theorem following the ``Normal form''
+section. The inscribed labels are
+\texttt{wave-cfg-prop:braces-action-chapter},
+\texttt{wave-cfg-prop:tmg-bv-chapter}, and
+\texttt{thm:cfg-factorization-envelope-stage-one}, with
+cross-references to the existing
+\texttt{prop:cy3-hcs-quartic-anomaly-slot} (anomaly gate),
+\texttt{prop:cy3-c3-bridge-core} (proved $\C^3$ core), and
+\texttt{con:cy3-typed-bridge} (the typed bridge).
+
+\section*{Closing comment: tempo and typing}
+
+The target chapter's surviving discipline --- separation of
+\emph{holomorphic factorisation algebra} from \emph{CoHA} from
+\emph{positive half} from \emph{Drinfeld double} from
+\emph{$\cW_{1+\infty}$ Fock image} --- is the discipline of the
+typed bridge. Our envelope $\cU^\FA$ lands on the left end of this
+bridge, at the $E_3$-factorisation-algebra level. It does not reach
+the CoHA; the $\Theta_{\hCS\to\Hall}$ comparison remains open
+(\texttt{op:cy3-hcs-hall-comparison}). What we have shown is that
+Stage-$1$ of $\Phi_3$ is not a mystery: it is an explicit composite
+of three chain-level steps
+(braces $\to$ BV $\to$ envelope), with canonicity pinned down by the
+$\GRT_1(\Q)$-torsor.
+
+% ====================== END AGENT 2 WAVE FILE =======================

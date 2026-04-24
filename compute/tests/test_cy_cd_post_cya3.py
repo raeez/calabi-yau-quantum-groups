@@ -494,22 +494,27 @@ class TestKappaSpectrum:
         result = kappa_spectrum_k3xe_post_cya3()
         assert result['kappa_BKM'] == F(5)
 
-    def test_kappa_cat_2(self):
-        """kappa_cat(K3 x E) = 2 = chi(O_{K3})."""
+    def test_kappa_cat_total_0(self):
+        """kappa_cat(K3 x E) = chi(O_{K3 x E}) = 0."""
         result = kappa_spectrum_k3xe_post_cya3()
-        assert result['kappa_cat'] == F(2)
+        assert result['kappa_cat'] == F(0)
+
+    def test_kappa_cat_fiber_2(self):
+        """kappa_cat(K3 fiber) = chi(O_{K3}) = 2."""
+        result = kappa_spectrum_k3xe_post_cya3()
+        assert result['kappa_cat_fiber'] == F(2)
 
     def test_kappa_fiber_24(self):
         """kappa_fiber(K3 x E) = 24 (Mukai lattice rank)."""
         result = kappa_spectrum_k3xe_post_cya3()
         assert result['kappa_fiber'] == F(24)
 
-    def test_four_distinct_values(self):
-        """The four kappa values are {2, 3, 5, 24} (all distinct)."""
+    def test_resolved_distinct_values(self):
+        """The resolved K3xE values are {0, 2, 3, 5, 24}."""
         result = kappa_spectrum_k3xe_post_cya3()
         spectrum = result['spectrum']
-        assert len(spectrum) == 4
-        assert spectrum == {F(2), F(3), F(5), F(24)}
+        assert len(spectrum) == 5
+        assert spectrum == {F(0), F(2), F(3), F(5), F(24)}
 
     def test_kappa_ch_proved(self):
         """kappa_ch = 3 is PROVED."""

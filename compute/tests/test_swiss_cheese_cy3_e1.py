@@ -412,11 +412,15 @@ class TestCY3ShadowData:
         # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.shadow_class == "M"
 
-    def test_k3xe_kappa(self):
-        """K3 x E kappa = 5 (from Theorem CY-D)."""
+    def test_k3xe_kappa_BKM(self):
+        """K3 x E BKM-lane shadow scalar is kappa_BKM = 5."""
         d = cy3_shadow_data_k3xe()
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
-        assert d.kappa == Fraction(5)
+        assert d.kappa_label == "kappa_BKM"
+        assert d.kappa == d.kappa_BKM == Fraction(5)
+        assert d.kappa_ch == Fraction(3)
+        assert d.kappa_cat == Fraction(0)
+        assert d.kappa_fiber == Fraction(24)
 
     # --- Census ---
 
@@ -650,7 +654,10 @@ class TestShadowGeometryBridge:
         # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b.shadow_class == "M"
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
+        assert b.kappa_label == "kappa_BKM"
         assert b.kappa == Fraction(5)
+        assert b.kappa_BKM == Fraction(5)
+        assert b.kappa_ch == Fraction(3)
 
     def test_bridge_kappa_matches_shadow_data(self):
         """Bridge kappa matches shadow data for all CY3s."""
@@ -1174,20 +1181,23 @@ class TestMultiPathVerification:
         # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Fraction(chi_top, 24) == Fraction(-25, 3)
 
-    def test_k3xe_kappa_5_3_paths(self):
-        """K3 x E kappa = 5: 3 independent verifications.
+    def test_k3xe_kappa_BKM_5_3_paths(self):
+        """K3 x E kappa_BKM = 5: 3 independent verifications.
 
-        Path 1: Shadow data kappa = 5.
-        Path 2: Weight of Delta_5 = 5 (the Igusa cusp form).
+        Path 1: Shadow data labels its scalar as kappa_BKM = 5.
+        Path 2: Delta_5 Borcherds weight is c_1(0)/2 = 10/2 = 5.
         Path 3: (chi(K3) - 4)/4 = (24-4)/4 = 5.
         """
         d = cy3_shadow_data_k3xe()
         # Path 1
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
-        assert d.kappa == Fraction(5)
-        # Path 2: weight of Delta_5 = 5
+        assert d.kappa_label == "kappa_BKM"
+        assert d.kappa_BKM == Fraction(5)
+        assert d.kappa_ch == Fraction(3)
+        assert d.kappa_cat == Fraction(0)
+        # Path 2: weight of Delta_5 = c_1(0)/2 = 10/2
         # VERIFIED [DC] kappa computation [LC] boundary/limiting case
-        assert 5 == 5
+        assert Fraction(10, 2) == Fraction(5)
         # Path 3: (chi(K3)-4)/4
         chi_k3 = 24  # topological Euler characteristic of K3
         # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case

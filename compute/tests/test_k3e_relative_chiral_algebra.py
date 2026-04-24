@@ -296,10 +296,15 @@ class TestKappaSpectrum:
         spec = kappa_spectrum_relative()
         assert spec['kappa_ch_K3xE'] == 3
 
-    def test_kappa_cat(self):
-        """kappa_cat = 2 = chi(O_{K3})."""
+    def test_kappa_cat_total(self):
+        """kappa_cat(K3 x E) = chi(O_{K3 x E}) = 0."""
         spec = kappa_spectrum_relative()
-        assert spec['kappa_cat'] == 2
+        assert spec['kappa_cat'] == 0
+
+    def test_kappa_cat_fiber(self):
+        """kappa_cat(K3 fiber) = chi(O_{K3}) = 2."""
+        spec = kappa_spectrum_relative()
+        assert spec['kappa_cat_fiber'] == 2
 
     def test_kappa_fiber(self):
         """kappa_fiber = 24."""

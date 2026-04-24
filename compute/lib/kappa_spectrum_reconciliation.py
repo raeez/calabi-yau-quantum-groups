@@ -25,15 +25,19 @@ The kappa-spectrum for a CY manifold X consists of four DISTINCT invariants:
                    (lattice modular characteristic)
 
 At d=2, kappa_ch = kappa_cat (Proposition prop:kappa-cat-chi-cy, PROVED).
-At d=3, kappa_ch = kappa_cat is CONJECTURAL.
+At d=3, the compact Hodge/PhiFA supertrace and the Heisenberg
+specialisation must be separated.
 
-For K3 x E, the conjectural decomposition is:
+For K3 x E:
 
-  kappa_BKM(K3 x E) = kappa_ch(K3 x E) + kappa_cat(K3)
-                     = 3 + 2 = 5
+  kappa_ch_compact_hodge(K3 x E) = chi(O_{K3 x E}) = 0
+  kappa_ch^{Heis}(K3 x E)        = 3
+  kappa_cat(K3 fiber)            = 2
+  kappa_BKM(Delta_5)             = c_1(0)/2 = 5
 
-where kappa_cat(K3) = chi(O_{K3}) = 2 is the holomorphic Euler
-characteristic of the K3 FIBER (not the total space: chi(O_{K3 x E}) = 0).
+The equality 3 + 2 = 5 is a Heisenberg-specialisation fibre coincidence.
+It is not the derivation of kappa_BKM, whose theorem-level derivation is
+the Borcherds weight formula c_N(0)/2.
 """
 
 from __future__ import annotations
@@ -170,18 +174,21 @@ def kappa_cat(X: HodgeData) -> int:
 
 
 def kappa_ch(X: HodgeData) -> int:
-    r"""Chiral modular characteristic.
+    r"""Heisenberg-specialisation chiral modular characteristic.
 
     At d=2: kappa_ch = kappa_cat = chi(O_X). PROVED.
     At d=1: kappa_ch(E) = 1 = dim_C(E). PROVED.
-    At d=3 for products: kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E)
-                        = 2 + 1 = 3 by additivity.
+    At d=3 for the K3 x E product-specialisation:
+      kappa_ch^{Heis}(K3 x E) = kappa_ch(K3) + kappa_ch(E)
+                              = 2 + 1 = 3.
 
     For compact rigid CICYs with h^{1,0}=0:
       kappa_ch = chi_top / 24  (BCOV formula).
 
     Note: kappa_ch(E) = 1 != chi(O_E) = 0. The chiral modular
-    characteristic is NOT always chi(O_X).
+    characteristic is NOT always chi(O_X). For K3 x E, use
+    kappa_ch_compact_hodge(X) for the compact total-space Hodge/PhiFA
+    supertrace, which is 0.
 
     Reference: cy_to_chiral.tex, Proposition prop:cy-kappa-d2.
     """
@@ -207,6 +214,16 @@ def kappa_ch(X: HodgeData) -> int:
         return 0  # chi(O_{T^4}) = 0
     else:
         raise ValueError(f"kappa_ch not implemented for {X.name}")
+
+
+def kappa_ch_compact_hodge(X: HodgeData) -> int:
+    r"""Compact total-space Hodge/PhiFA supertrace.
+
+    This is the value relevant to the compact Hodge-supertrace reading.
+    For K3 x E it is chi(O_{K3 x E}) = 0 by Kunneth. This is distinct
+    from the Heisenberg specialisation kappa_ch(K3 x E) = 3.
+    """
+    return X.chi_O()
 
 
 def kappa_ch_rational(X: HodgeData) -> Fraction:
@@ -322,10 +339,12 @@ def verify_kappa_ch_equals_kappa_cat_at_d2(X: HodgeData) -> bool:
 def verify_kappa_ch_additivity(
     X_fiber: HodgeData, X_base: HodgeData, X_product: HodgeData
 ) -> bool:
-    """Verify kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y).
+    """Verify Heisenberg-specialisation additivity.
 
-    This is the additivity property of the chiral modular characteristic
-    under products. PROVED for K3 x E via the chiral de Rham complex.
+    For K3 x E this checks the specialisation
+    kappa_ch^{Heis}(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 3.
+    It is not the compact Hodge/PhiFA supertrace, which is multiplicative
+    and vanishes for K3 x E.
     """
     try:
         return kappa_ch(X_product) == kappa_ch(X_fiber) + kappa_ch(X_base)
@@ -344,35 +363,41 @@ def verify_chi_O_multiplicativity(
 
 
 def verify_BKM_decomposition_k3e() -> Dict[str, Any]:
-    r"""The conjectural decomposition kappa_BKM = kappa_ch + kappa_cat(K3).
+    r"""Separate the false canonical BKM decomposition from the N=1 coincidence.
 
     For K3 x E:
       kappa_BKM(K3 x E) = 5
-      kappa_ch(K3 x E) = 3
-      kappa_cat(K3) = chi(O_{K3}) = 2
-      5 = 3 + 2
+      kappa_ch_compact_hodge(K3 x E) = 0
+      kappa_ch^{Heis}(K3 x E) = 3
+      kappa_cat(K3 fiber) = chi(O_{K3}) = 2
 
-    The extra 2 units come from the K3 FIBER's holomorphic Euler
-    characteristic. This is NOT kappa_cat(K3 x E) = chi(O_{K3xE}) = 0,
-    but kappa_cat of the K3 fiber specifically.
-
-    CONJECTURAL: the decomposition is an observation, not a theorem.
-    See working_notes.tex Section sec:motivic-second-quantization.
+    The canonical theorem is kappa_BKM(Delta_5)=c_1(0)/2=5.
+    The equality 3 + 2 = 5 is retained only as a named
+    Heisenberg-specialisation fibre coincidence at N=1.
     """
     k3 = k3_surface()
+    e = elliptic_curve()
     k3e = k3_times_e()
 
-    k_ch = kappa_ch(k3e)    # 3
+    k_ch_heis = kappa_ch(k3e)  # 3
+    k_ch_compact = kappa_ch_compact_hodge(k3e)  # 0
     k_BKM = kappa_BKM(k3e)  # 5
     k_cat_K3 = kappa_cat(k3)  # 2 = chi(O_{K3})
+    k_cat_E = kappa_cat(e)  # 0 = chi(O_E)
     k_cat_K3E = kappa_cat(k3e)  # 0 = chi(O_{K3xE})
 
     result: Dict[str, Any] = {
-        "kappa_ch_K3xE": k_ch,
+        "kappa_ch_K3xE": k_ch_heis,
+        "kappa_ch_Heis_K3xE": k_ch_heis,
+        "kappa_ch_compact_hodge_K3xE": k_ch_compact,
         "kappa_BKM_K3xE": k_BKM,
         "kappa_cat_K3": k_cat_K3,
+        "kappa_cat_E": k_cat_E,
         "kappa_cat_K3xE": k_cat_K3E,
-        "decomposition_holds": k_BKM == k_ch + k_cat_K3,
+        "decomposition_holds": False,
+        "compact_total_plus_K3_fiber_holds": k_BKM == k_ch_compact + k_cat_K3,
+        "compact_total_plus_elliptic_fiber_holds": k_BKM == k_ch_compact + k_cat_E,
+        "heis_fiber_coincidence_holds": k_BKM == k_ch_heis + k_cat_K3,
         "uses_fiber_kappa_cat": True,
         "fiber_not_total_space": k_cat_K3 != k_cat_K3E,
         "chi_O_total_space_vanishes": k_cat_K3E == 0,
@@ -426,7 +451,8 @@ def verify_chi_top_over_24_failure() -> Dict[str, Any]:
     with h^{1,0} = 0 but fails for:
       - E: chi_top/24 = 0, but kappa_ch = 1
       - K3: chi_top/24 = 1, but kappa_ch = 2
-      - K3 x E: chi_top/24 = 0, but kappa_ch = 3
+      - K3 x E: chi_top/24 = 0 matches the compact Hodge/PhiFA value,
+        but differs from the Heisenberg specialisation kappa_ch^{Heis}=3.
 
     Reference: k3_times_e.tex, Warning warn:k3e-chi-kappa.
     """
@@ -447,8 +473,12 @@ def verify_chi_top_over_24_failure() -> Dict[str, Any]:
     result["K3_fails"] = Fraction(k3.chi_top, 24) != kappa_ch(k3)
 
     result["K3xE_chi_top_over_24"] = Fraction(k3e.chi_top, 24)
-    result["K3xE_kappa_ch"] = kappa_ch(k3e)
-    result["K3xE_fails"] = Fraction(k3e.chi_top, 24) != kappa_ch(k3e)
+    result["K3xE_kappa_ch_Heis"] = kappa_ch(k3e)
+    result["K3xE_kappa_ch_compact_hodge"] = kappa_ch_compact_hodge(k3e)
+    result["K3xE_compact_matches"] = (
+        Fraction(k3e.chi_top, 24) == kappa_ch_compact_hodge(k3e)
+    )
+    result["K3xE_heis_fails"] = Fraction(k3e.chi_top, 24) != kappa_ch(k3e)
 
     # Success for quintic
     result["Quintic_chi_top_over_24"] = Fraction(quintic.chi_top, 24)
@@ -490,7 +520,8 @@ def k3e_spectrum() -> Dict[str, Any]:
 
       kappa_cat(K3 x E) = chi(O_{K3xE}) = 0
       kappa_cat(K3)      = chi(O_{K3})   = 2   [fiber value]
-      kappa_ch(K3 x E)   = 3 = 2 + 1           [additive]
+      kappa_ch^{Heis}(K3 x E) = 3 = 2 + 1      [specialisation]
+      kappa_ch^{compact}(K3 x E) = 0           [Hodge/PhiFA]
       kappa_BKM(K3 x E)  = 5 = wt(Delta_5)     [Borcherds lift]
       kappa_fiber         = 24                   [Mukai lattice rank]
 
@@ -507,19 +538,36 @@ def k3e_spectrum() -> Dict[str, Any]:
         "CY_dimension": 3,
         "kappa_cat_total_space": spec.kappa_cat,  # 0 = chi(O_{K3xE})
         "kappa_cat_K3_fiber": kappa_cat(k3),       # 2 = chi(O_{K3})
-        "kappa_ch": int(spec.kappa_ch),             # 3
+        "kappa_ch": int(spec.kappa_ch),             # 3, legacy Heis API
+        "kappa_ch_Heis": int(spec.kappa_ch),        # 3
+        "kappa_ch_compact_hodge": kappa_ch_compact_hodge(k3e),  # 0
         "kappa_BKM": spec.kappa_BKM,                # 5
         "kappa_fiber": spec.kappa_fiber,             # 24
-        "BKM_decomposition": (
+        "BKM_decomposition": False,
+        "BKM_heis_fiber_coincidence": (
             spec.kappa_BKM == int(spec.kappa_ch) + kappa_cat(k3)
-        ),  # 5 = 3 + 2
-        "spectrum_set": sorted(set(
+        ),  # 5 = 3 + 2, N=1 coincidence
+        "spectrum_set_total_space": sorted(set(
+            v for v in [
+                spec.kappa_cat, int(spec.kappa_ch), spec.kappa_BKM,
+                spec.kappa_fiber,
+            ]
+            if v is not None
+        )),  # {0, 3, 5, 24}
+        "spectrum_set_with_fiber_witness": sorted(set(
             v for v in [
                 spec.kappa_cat, kappa_cat(k3),
                 int(spec.kappa_ch), spec.kappa_BKM, spec.kappa_fiber,
             ]
             if v is not None
         )),  # {0, 2, 3, 5, 24}
+        "spectrum_set": sorted(set(
+            v for v in [
+                spec.kappa_cat, kappa_cat(k3),
+                int(spec.kappa_ch), spec.kappa_BKM, spec.kappa_fiber,
+            ]
+            if v is not None
+        )),  # compatibility: includes the fibre witness
     }
 
 
@@ -552,9 +600,9 @@ def physical_meaning() -> Dict[str, str]:
               For K3: the 2 holomorphic forms (Omega^{2,0} and 1)
               contribute kappa_cat = 2.
 
-    kappa_ch:  the genus-1 free energy coefficient F_1 = kappa_ch/24.
-              Controls the one-loop effective action of the topological
-              string. For K3 x E: F_1 = 3/24 = 1/8.
+    kappa_ch:  the genus-1 free energy coefficient in the specified
+              specialisation. For K3 x E: the Heisenberg specialisation
+              gives 3/24, while the compact Hodge/PhiFA supertrace is 0.
 
     kappa_BKM: the weight of the BPS state generating function. In the
               type II string on K3 x E, the 1/4-BPS degeneracies are
@@ -571,8 +619,9 @@ def physical_meaning() -> Dict[str, str]:
             "of the CY sigma model. = chi(O_X)."
         ),
         "kappa_ch": (
-            "Genus-1 free energy coefficient: F_1 = kappa_ch / 24. "
-            "Controls the one-loop effective action of the topological string."
+            "Genus-1 coefficient in the specified specialisation. For "
+            "K3 x E: Heisenberg specialisation is 3; compact Hodge/PhiFA "
+            "supertrace is 0."
         ),
         "kappa_BKM": (
             "Weight of the BPS generating function. For K3 x E: the 1/4-BPS "
@@ -610,7 +659,8 @@ def verify_all() -> Dict[str, Any]:
     )
 
     # 3. Additivity
-    results["additivity_K3xE"] = verify_kappa_ch_additivity(k3, e, k3e)
+    results["heis_additivity_K3xE"] = verify_kappa_ch_additivity(k3, e, k3e)
+    results["additivity_K3xE"] = results["heis_additivity_K3xE"]
 
     # 4. chi(O) multiplicativity
     results["chi_O_multiplicative"] = verify_chi_O_multiplicativity(k3, e, k3e)
@@ -633,6 +683,8 @@ def verify_all() -> Dict[str, Any]:
         "kappa_cat_total": 0,
         "kappa_cat_fiber": 2,
         "kappa_ch": 3,
+        "kappa_ch_Heis": 3,
+        "kappa_ch_compact_hodge": 0,
         "kappa_BKM": 5,
         "kappa_fiber": 24,
     }

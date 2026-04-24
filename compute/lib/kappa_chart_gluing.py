@@ -1,32 +1,41 @@
-r"""kappa_chart_gluing.py -- Local-to-global computation of kappa(A_X) from chart data.
+r"""kappa_chart_gluing.py -- Local-to-global scalar extraction from chart data.
 
 MATHEMATICAL CONTENT
 =====================
 
-For a CY3 X with E_1 chiral algebra A_X = Phi(D^b(X)), the modular
-characteristic kappa(A_X) is the single most important numerical invariant
-of the shadow obstruction tower.
+This module computes the scalar that a chosen shadow lane assigns to a
+CY3 chart atlas.  The scalar is not a universal topological invariant:
+local toric charts, compact BCOV constant-map predictions, abelian
+Heisenberg factors, and BKM denominator identities live in different
+lanes.  The K3 x E scalar used here is specifically
+
+    kappa_BKM(Delta_5) = weight(Delta_5) = c_1(0)/2 = 10/2 = 5.
+
+It is not chi_top(K3 x E)/24 = 0, not the compact total-space
+kappa_cat, and not a Kunneth product of separate K3 and elliptic-curve
+chiral characteristics.
 
 The CY-to-chiral functor Phi globalizes via homotopy colimits: if
 {U_alpha} is an open cover of X (or an atlas of quiver charts for the
 CoHA), then A_X = hocolim_alpha A_{U_alpha}.
 
 THEOREM (thm:kappa-gluing-invariance):
-  kappa(hocolim_alpha CoHA(Q_alpha, W_alpha)) is independent of atlas choice.
+  In a fixed scalar lane, the Cech nerve alternating sum is independent
+  of atlas choice whenever the chart algebra and overlap algebra carry
+  compatible scalar normalizations.
 
 PROOF STRUCTURE:
-  (a) kappa is a homotopy invariant (proved in Vol I for E_infty chiral
-      algebras; extends to E_1 via the genus-1 shadow F_1 = kappa * lambda_1,
-      which depends only on the homotopy type of the bar complex).
-  (b) For E_1 algebras, kappa^{E_1} is defined as the genus-1 shadow
-      F_1 = kappa * lambda_1^{FP}.
-  (c) The hocolim preserves kappa because it preserves the genus-1 shadow
-      (the genus-1 bar complex is functorial).
+  (a) The genus-1 shadow scalar is homotopy invariant in its lane.
+  (b) For an E_1 algebra this scalar is read from the genus-1 bar complex,
+      F_1 = kappa_scalar * lambda_1^{FP}.
+  (c) The hocolim preserves the scalar when the genus-1 bar complex is
+      functorial for the chart descent datum.
   (d) Different atlas choices give homotopy equivalent hocolims (descent
       for the CY3 category is a theorem of Toen-Vaquie / Schurmann).
 
 LOCAL-TO-GLOBAL FORMULA (thm:kappa-nerve-formula):
-  kappa(A_X) = sum_{k >= 0} (-1)^k  sum_{|S|=k+1} kappa(CoHA_{cap S})
+  kappa_scalar(A_X) =
+      sum_{k >= 0} (-1)^k sum_{|S|=k+1} kappa_scalar(CoHA_{cap S})
   This is the Euler characteristic formula applied to the nerve of the cover.
 
   The formula follows from:
@@ -39,14 +48,13 @@ LOCAL-TO-GLOBAL FORMULA (thm:kappa-nerve-formula):
   (iii) Additivity of F_1 on the Cech complex gives the alternating sum.
 
 CRITICAL DISTINCTION (AP48):
-  kappa(A_X) is NOT chi_top(X)/24 in general.  The nerve formula computes
-  kappa from LOCAL chart kappas, which encode DT/CoHA data, not topology.
+  The scalar computed here is NOT chi_top(X)/24 in general.  The nerve
+  formula computes a lane-normalized scalar from chart data.
 
-  kappa = chi_top/24 holds for RIGID CY3s where the only contribution to
-  F_1 is the constant-map contribution.  For K3 x E:
-    chi_top = 0, but kappa = 5 (from the BKM superalgebra).
+  chi_top/24 is a compact BCOV constant-map prediction.  For K3 x E:
+    chi_top/24 = 0, but kappa_BKM(Delta_5) = 5.
 
-THE HODGE FORMULA FOR kappa:
+THE BCOV CONSTANT-MAP COEFFICIENT:
   For a smooth projective CY3 X, the BCOV genus-1 free energy gives:
     F_1 = (1/2)(3 + h^{1,1} - chi/12) * (1/24) + (instanton corrections)
 
@@ -56,38 +64,26 @@ THE HODGE FORMULA FOR kappa:
   For the quintic: kappa^{const} = (1/2)(3 + 1 + 200/12) = (4 + 50/3)/2 = 31/3
   For K3 x E:     kappa^{const} = (1/2)(3 + 21 - 0) = 12
 
-  The FULL kappa includes instanton corrections.  For local CY3s over
-  a surface S, the formula simplifies:
-    kappa(Tot(K_S)) = chi(O_S) = h^0(O_S) - h^1(O_S) + h^2(O_S)
-
-  For toric surfaces: chi(O_S) = 1 (always, by Serre duality + rationality).
-  BUT the DT partition function sees chi_top(S)/2, NOT chi(O_S).
+  This coefficient is a BCOV scalar.  It is not the K3 x E BKM weight.
 
 THE CORRECT LOCAL FORMULA (for non-compact toric CY3):
-  kappa(Tot(K_S -> S)) = chi_top(S) / 2
-  - C^3: S = C^2, chi_top = 1, kappa = 1/2... NO.
-    Actually C^3 is NOT Tot(K_S) for any compact S.
-    C^3: kappa = 1 from W_{1+infty}.
-  - Conifold = Tot(O(-1)+O(-1) -> P^1): chi_top(P^1) = 2, kappa = 1.
-  - Local P^2 = Tot(K_{P^2}): chi_top(P^2) = 3, kappa = 3/2.
-  - Local P^1xP^1: chi_top(P^1xP^1) = 4, kappa = 2.
-  - Local F_1 (Hirzebruch): chi_top(F_1) = 4, kappa = 2.
+  kappa_ch(Tot(K_S -> S)) = chi_top(S) / 2
+  - C^3 is a special affine chart: kappa_ch = 1 from W_{1+infty}.
+  - Conifold = Tot(O(-1)+O(-1) -> P^1): chi_top(P^1) = 2, kappa_ch = 1.
+  - Local P^2 = Tot(K_{P^2}): chi_top(P^2) = 3, kappa_ch = 3/2.
+  - Local P^1xP^1: chi_top(P^1xP^1) = 4, kappa_ch = 2.
+  - Local F_1 (Hirzebruch): chi_top(F_1) = 4, kappa_ch = 2.
 
   For C^3: special case.  MacMahon function M(q) = prod 1/(1-q^n)^n.
-  kappa(W_{1+infty}) = 1 from the genus-1 coefficient of log M(q).
+  kappa_ch(W_{1+infty}) = 1 from the genus-1 coefficient of log M(q).
 
 PRODUCT CY3s:
-  For K3 x E: kappa = 5 = (chi(K3) - 4)/4.  This is NOT additive:
-    kappa(K3) + kappa(E) = 2 + 1 = 3 != 5.
-  The product formula requires the REFINED Kunneth decomposition of the
-  CoHA, which introduces cross-terms.
+  The line kappa_BKM(K3 x E) = 5 belongs to the BKM denominator identity
+  for Delta_5.  It is not obtained by adding separate K3 and elliptic
+  curve scalars, and the residual 5 - 2 - 1 is only a diagnostic mismatch,
+  not a proved Hochschild-Kunneth cross-term.
 
-  For E x E x E: kappa = 3 (additive, no cross-terms because E is 1D).
-
-  The general product formula for X x Y (with X CY_d1, Y CY_d2):
-    kappa(X x Y) = kappa(X) + kappa(Y) + kappa_{cross}(X, Y)
-  where kappa_{cross} is the cross-term from the Kunneth mixing of
-  Hochschild homology.
+  For E x E x E: kappa_ch = 3 in the independent Heisenberg lane.
 
 CONVENTIONS
 ===========
@@ -119,7 +115,7 @@ class CY3Chart(NamedTuple):
 
     Each chart carries:
       - name: identifier
-      - kappa_local: kappa(CoHA(Q_alpha, W_alpha))
+      - kappa_local: lane-normalized scalar for CoHA(Q_alpha, W_alpha)
       - shadow_class: G/L/C/M classification
       - dimension_vector_rank: number of vertices in quiver
       - chi_compact: Euler characteristic of compact part (if applicable)
@@ -135,21 +131,27 @@ class CY3Atlas(NamedTuple):
     """An atlas of charts for a CY3 X with intersection data.
 
     charts: list of CY3Chart objects
-    intersections: dict mapping frozenset of chart indices -> kappa of intersection
+    intersections: dict mapping frozenset of chart indices -> scalar of intersection
     """
     name: str
     charts: List[CY3Chart]
     intersections: Dict[FrozenSet[int], Fraction]
     chi_top: Optional[int]           # topological Euler char of X (if known)
     hodge_data: Optional[Dict[str, int]]  # h^{p,q} data
+    kappa_label: str = "kappa_ch"
 
 
 class KappaGluingResult(NamedTuple):
-    """Result of the local-to-global kappa computation."""
+    """Result of the local-to-global scalar computation.
+
+    The legacy field name kappa_ch is retained for API compatibility.
+    Read it together with kappa_label; for K3 x E the label is kappa_BKM.
+    """
     kappa_ch: Fraction
-    kappa_nerve_terms: Dict[int, Fraction]  # k -> sum_{|S|=k+1} kappa(S)
+    kappa_nerve_terms: Dict[int, Fraction]  # k -> sum_{|S|=k+1} scalar(S)
     atlas_name: str
     n_charts: int
+    kappa_label: str
     verification_paths: Dict[str, Fraction]
 
 
@@ -158,13 +160,14 @@ class KappaGluingResult(NamedTuple):
 # =========================================================================
 
 def kappa_from_nerve(atlas: CY3Atlas) -> KappaGluingResult:
-    """Compute kappa(A_X) from the nerve of the atlas.
+    """Compute the lane-normalized scalar from the nerve of the atlas.
 
-    kappa(A_X) = sum_{k >= 0} (-1)^k sum_{|S|=k+1} kappa(intersection_S)
+    kappa_scalar(A_X) =
+        sum_{k >= 0} (-1)^k sum_{|S|=k+1} kappa_scalar(intersection_S)
 
-    For k=0: sum_alpha kappa(CoHA_alpha) = sum of chart kappas
-    For k=1: - sum_{alpha < beta} kappa(CoHA_alpha cap CoHA_beta)
-    For k=2: + sum_{alpha < beta < gamma} kappa(triple intersection)
+    For k=0: sum_alpha scalar(CoHA_alpha) = sum of chart scalars
+    For k=1: - sum_{alpha < beta} scalar(CoHA_alpha cap CoHA_beta)
+    For k=2: + sum_{alpha < beta < gamma} scalar(triple intersection)
     ...
 
     This is the alternating sum over the nerve of the cover.
@@ -184,22 +187,23 @@ def kappa_from_nerve(atlas: CY3Atlas) -> KappaGluingResult:
         nerve_terms[k] += kappa_S
 
     # Alternating sum
-    kappa_ch = Fraction(0)
+    kappa_scalar = Fraction(0)
     for k, total in nerve_terms.items():
-        kappa_ch += (-1) ** k * total
+        kappa_scalar += (-1) ** k * total
 
     # Collect verification paths
     verification: Dict[str, Fraction] = {
-        "nerve_alternating_sum": kappa_ch,
+        "nerve_alternating_sum": kappa_scalar,
     }
     if atlas.chi_top is not None:
         verification["chi_top_over_24"] = Fraction(atlas.chi_top, 24)
 
     return KappaGluingResult(
-        kappa_ch=kappa_ch,
+        kappa_ch=kappa_scalar,
         kappa_nerve_terms=nerve_terms,
         atlas_name=atlas.name,
         n_charts=n,
+        kappa_label=atlas.kappa_label,
         verification_paths=verification,
     )
 
@@ -212,7 +216,7 @@ def kappa_euler_formula(
 ) -> Fraction:
     """Simplified nerve formula for small covers.
 
-    kappa = sum(chart) - sum(wall) + sum(triple) - sum(quadruple) + ...
+    kappa_scalar = sum(chart) - sum(wall) + sum(triple) - sum(quadruple) + ...
     """
     result = sum(chart_kappas) - sum(wall_kappas)
     if triple_kappas:
@@ -493,16 +497,15 @@ def local_hirzebruch_atlas(n: int) -> CY3Atlas:
 def k3_times_e_atlas() -> CY3Atlas:
     r"""Atlas for K3 x E (product CY3).
 
-    kappa(K3 x E) = 5.  This is NOT kappa(K3) + kappa(E) = 2 + 1 = 3.
+    The scalar carried by this atlas is kappa_BKM(K3 x E) = 5.
 
-    The product introduces cross-terms in the Hochschild homology
-    Kunneth decomposition.  The REFINED formula is:
+    This is the Igusa/Borcherds lane:
 
-      kappa(K3 x E) = chi(K3) * kappa(E) / chi(E) ... no.
+      kappa_BKM(Delta_5) = weight(Delta_5) = c_1(0)/2 = 10/2 = 5.
 
-    The correct derivation: kappa = 5 comes from weight(Delta_5),
-    where Delta_5 is the Igusa cusp form that appears as the denominator
-    of the DT partition function: Z_{DT}(K3 x E) = 1/Delta_5^2.
+    It is not chi_top(K3 x E)/24 = 0 and not a product formula
+    kappa_ch(K3) + kappa_ch(E).  The single chart here is a placeholder
+    for the global BKM denominator identity, not a local toric cover.
 
     As a chart computation: K3 x E requires a single "global" chart
     because the BKM superalgebra structure is inherently global.
@@ -520,6 +523,7 @@ def k3_times_e_atlas() -> CY3Atlas:
         intersections={},
         chi_top=0,
         hodge_data={"h11": 21, "h21": 21},
+        kappa_label="kappa_BKM",
     )
 
 
@@ -528,7 +532,7 @@ def quintic_atlas() -> CY3Atlas:
 
     The quintic has chi_top = -200, h^{1,1} = 1, h^{2,1} = 101.
 
-    Conjectural kappa = chi_top/24 = -200/24 = -25/3.
+    Conjectural BCOV-shadow scalar = chi_top/24 = -200/24 = -25/3.
 
     The quintic can be presented as:
       Chart I: large volume (geometric) phase
@@ -538,7 +542,7 @@ def quintic_atlas() -> CY3Atlas:
     Both charts contribute to the genus-1 free energy through
     constant map + instanton corrections.
 
-    kappa = -25/3 from the BCOV genus-1 computation:
+    kappa_BCOV_shadow = -25/3 from the BCOV genus-1 computation:
       F_1 = -25/(3 * 24)
     """
     chart_LV = CY3Chart(
@@ -554,6 +558,7 @@ def quintic_atlas() -> CY3Atlas:
         intersections={},
         chi_top=-200,
         hodge_data={"h11": 1, "h21": 101},
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -565,7 +570,7 @@ def quintic_two_phase_atlas() -> CY3Atlas:
       Phase II: Gepner point (LG orbifold)
       Wall: conifold transition
 
-    The kappa decomposition:
+    The scalar decomposition:
       kappa_LV + kappa_Gepner - kappa_wall = -25/3
 
     By mirror symmetry, the Gepner point contributes the MIRROR
@@ -617,6 +622,7 @@ def quintic_two_phase_atlas() -> CY3Atlas:
         },
         chi_top=-200,
         hodge_data={"h11": 1, "h21": 101},
+        kappa_label="kappa_BCOV_shadow_conjectural",
     )
 
 
@@ -709,10 +715,10 @@ def c3_z3_orbifold_atlas() -> CY3Atlas:
 # =========================================================================
 
 def kappa_from_chi_top_over_24(chi_top: int) -> Fraction:
-    """kappa = chi_top / 24.
+    """Compact BCOV-shadow candidate chi_top / 24.
 
     Valid for: RIGID CY3s in the constant-map sector (quintic, mirror quintic).
-    FAILS for: K3 x E (chi_top = 0 but kappa = 5).
+    FAILS for: K3 x E BKM lane (chi_top = 0 but kappa_BKM = 5).
     FAILS for: non-compact CY3s (chi_top not well-defined).
     Status: CONJECTURAL for compact rigid CY3s.
     """
@@ -736,17 +742,21 @@ def kappa_from_bcov_genus1(chi_top: int, h11: int) -> Fraction:
     For the quintic: (3 + 1 + 200/12) / 2 = (4 + 50/3) / 2 = 31/3.
     For K3 x E: (3 + 21) / 2 = 12.
 
-    NOTE: This is NOT the same as kappa in general.  The BCOV coefficient
-    includes contributions from ALL sectors, not just the constant map.
+    NOTE: This is not the K3 x E BKM weight.  For h11=21 and chi_top=0
+    it gives 12, while kappa_BKM(Delta_5) is 5.
     """
     return (Fraction(3) + Fraction(h11) - Fraction(chi_top, 12)) / Fraction(2)
 
 
 def kappa_from_k3_fibration_weight(chi_k3: int = 24) -> Fraction:
-    """kappa for K3-fibered CY3: (chi(K3) - 4) / 4.
+    """BKM-weight mnemonic for the standard K3-fiber row.
 
-    Standard K3: (24 - 4) / 4 = 5.
-    This is the weight of the Igusa cusp form Delta_k.
+    For the K3 x E / Delta_5 row:
+        (chi(K3) - 4) / 4 = (24 - 4) / 4 = 5.
+
+    The source is the Borcherds product weight, equivalently
+    kappa_BKM(Delta_5) = c_1(0)/2 = 10/2 = 5.  Do not use this as a
+    general product or fibration formula.
     """
     return Fraction(chi_k3 - 4, 4)
 
@@ -777,15 +787,15 @@ def kappa_from_macmahon_exponent(exponent: Fraction) -> Fraction:
 
 
 def kappa_product_additive(kappa_1: Fraction, kappa_2: Fraction) -> Fraction:
-    """kappa for the direct sum A_1 oplus A_2.
+    """Scalar for an independent direct sum A_1 oplus A_2.
 
-    kappa(A_1 oplus A_2) = kappa(A_1) + kappa(A_2).
+    kappa_scalar(A_1 oplus A_2) = kappa_scalar(A_1) + kappa_scalar(A_2).
 
     Valid for INDEPENDENT factors (no cross-coupling).
-    Example: E x E x E has kappa = 1 + 1 + 1 = 3.
+    Example: E x E x E has kappa_ch = 1 + 1 + 1 = 3.
 
-    FAILS when cross-terms are present:
-    K3 x E has kappa = 5 != 2 + 1.
+    This function does not compute kappa_BKM(K3 x E); that value is a
+    BKM denominator weight, not an additive product scalar.
     """
     return kappa_1 + kappa_2
 
@@ -795,9 +805,9 @@ def kappa_product_cross_term(
     kappa_Y: Fraction,
     kappa_XY: Fraction,
 ) -> Fraction:
-    """Extract the cross-term kappa_cross from the product formula.
+    """Return the residual after subtracting two proposed summands.
 
-    kappa(X x Y) = kappa(X) + kappa(Y) + kappa_cross(X, Y).
+    This is a diagnostic number, not a proof of a Kunneth cross-term.
     """
     return kappa_XY - kappa_X - kappa_Y
 
@@ -807,7 +817,7 @@ def kappa_product_cross_term(
 # =========================================================================
 
 class ChiOver24Analysis(NamedTuple):
-    """Analysis of whether kappa = chi_top/24 for a given CY3."""
+    """Analysis of whether a chosen scalar equals chi_top/24."""
     name: str
     chi_top: int
     kappa_actual: Fraction
@@ -818,7 +828,7 @@ class ChiOver24Analysis(NamedTuple):
 
 
 def chi_over_24_conjecture_tests() -> List[ChiOver24Analysis]:
-    """Test the conjecture kappa = chi_top / 24 for all standard CY3s.
+    """Test whether the chosen scalar equals chi_top / 24.
 
     RESULT: The conjecture FAILS for K3 x E and non-compact CY3s.
     It holds (conjecturally) for rigid CY3s like the quintic.
@@ -836,7 +846,7 @@ def chi_over_24_conjecture_tests() -> List[ChiOver24Analysis]:
         explanation="Conjectural match via BCOV constant-map contribution",
     ))
 
-    # K3 x E: chi = 0, kappa = 5
+    # K3 x E: chi = 0, kappa_BKM = 5
     tests.append(ChiOver24Analysis(
         name="K3 x E",
         chi_top=0,
@@ -845,9 +855,9 @@ def chi_over_24_conjecture_tests() -> List[ChiOver24Analysis]:
         matches=False,
         discrepancy=Fraction(5),
         explanation=(
-            "FAILS: chi_top = 0 (product of K3 and E) but kappa = 5 "
-            "(from BKM superalgebra weight). The non-perturbative BPS "
-            "contributions dominate the genus-1 amplitude."
+            "FAILS: chi_top = 0 (product of K3 and E) but "
+            "kappa_BKM(Delta_5) = 5 from the Borcherds product weight. "
+            "This compares different scalar lanes."
         ),
     ))
 
@@ -906,41 +916,35 @@ def chi_over_24_conjecture_tests() -> List[ChiOver24Analysis]:
 
 
 def correct_kappa_formula_analysis() -> Dict[str, Any]:
-    """Analyze what the CORRECT universal kappa formula is.
+    """Analyze why there is no universal scalar formula.
 
-    CONCLUSION: There is NO single formula kappa = f(chi_top, h^{p,q}).
+    CONCLUSION: There is NO single formula kappa_scalar = f(chi_top, h^{p,q}).
 
-    The correct formula depends on the TYPE of CY3:
+    The source depends on the lane:
 
     (A) Non-compact toric CY3 = Tot(K_S -> S):
-        kappa = chi_top(S) / 2
+        kappa_ch = chi_top(S) / 2
 
     (B) Compact rigid CY3 (h^{2,1} >> h^{1,1}):
-        kappa = chi_top(X) / 24  (CONJECTURAL, from BCOV)
+        kappa_BCOV_shadow = chi_top(X) / 24  (CONJECTURAL)
 
-    (C) K3-fibered CY3 (product or fibration):
-        kappa = (chi(K3_fiber) - 4) / 4  (from BKM weight)
+    (C) K3 x E BKM denominator:
+        kappa_BKM(Delta_5) = c_1(0)/2 = 5
 
     (D) Abelian CY3 (product of elliptic curves):
-        kappa = dim(X) = 3  (additive Heisenberg)
-
-    The UNDERLYING formula (valid for all types) involves the
-    categorical trace on HH_0(D^b(X)), which is:
-        kappa(A_X) = chi^CY(D^b(X))
-    where chi^CY is the CY Euler characteristic defined via the
-    derived categorical trace.  This is a DERIVED INVARIANT,
-    not a topological one.
+        kappa_ch = dim(X) = 3  (independent Heisenberg lane)
     """
     return {
         "universal_formula_exists": False,
-        "type_A_toric": "kappa = chi_top(S)/2",
-        "type_B_rigid": "kappa = chi_top(X)/24 (CONJECTURAL)",
-        "type_C_k3_fibered": "kappa = (chi(K3) - 4)/4 = 5",
-        "type_D_abelian": "kappa = dim(X)",
-        "type_E_product": "kappa = kappa_1 + kappa_2 + kappa_cross",
-        "underlying_formula": "kappa = chi^CY(D^b(X)) = categorical CY trace",
-        "chi_over_24_counterexample": "K3 x E: chi=0, kappa=5",
-        "chi_over_2_counterexample": "quintic: chi=-200, kappa=-25/3 != -100",
+        "type_A_toric": "kappa_ch = chi_top(S)/2",
+        "type_B_rigid": "kappa_BCOV_shadow = chi_top(X)/24 (CONJECTURAL)",
+        "type_C_k3e_bkm": "kappa_BKM(Delta_5) = c_1(0)/2 = 5",
+        "type_D_abelian": "kappa_ch = dim(X)",
+        "type_E_product_warning": (
+            "No product formula is asserted for kappa_BKM(K3 x E)."
+        ),
+        "chi_over_24_counterexample": "K3 x E: chi_top/24=0, kappa_BKM=5",
+        "chi_over_2_counterexample": "quintic: chi=-200, chi/24=-25/3 != -100",
     }
 
 

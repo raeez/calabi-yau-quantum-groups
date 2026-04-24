@@ -234,10 +234,10 @@ class MotivicClass:
         return MotivicClass({k: n * v for k, v in self.coeffs.items()})
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, MotivicClass):
+        if not hasattr(other, 'coeffs'):
             return NotImplemented
         a = {k: v for k, v in self.coeffs.items() if v != 0}
-        b = {k: v for k, v in other.coeffs.items() if v != 0}
+        b = {k: v for k, v in getattr(other, 'coeffs').items() if v != 0}
         return a == b
 
     def __repr__(self) -> str:

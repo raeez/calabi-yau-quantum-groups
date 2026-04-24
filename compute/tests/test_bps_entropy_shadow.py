@@ -73,19 +73,23 @@ class TestKappaSpectrum:
         """kappa_BKM = 5 = weight of Delta_5."""
         assert K3E_KAPPA_SPECTRUM.kappa_BKM == 5
 
-    def test_kappa_cat_equals_2(self):
-        """kappa_cat = 2 = chi(O_{K3}) = 1 + 0 + 1."""
-        assert K3E_KAPPA_SPECTRUM.kappa_cat == 2
+    def test_kappa_cat_total_equals_0(self):
+        """kappa_cat(K3 x E) = chi(O_{K3 x E}) = 2 * 0 = 0."""
+        assert K3E_KAPPA_SPECTRUM.kappa_cat == 0
+
+    def test_kappa_cat_fiber_equals_2(self):
+        """kappa_cat(K3 fiber) = chi(O_{K3}) = 1 + 0 + 1 = 2."""
+        assert K3E_KAPPA_SPECTRUM.kappa_cat_fiber == 2
 
     def test_kappa_fiber_equals_24(self):
         """kappa_fiber = 24 = rank of Mukai lattice."""
         assert K3E_KAPPA_SPECTRUM.kappa_fiber == 24
 
-    def test_all_kappas_distinct(self):
-        """All four kappa values are distinct (AP113: never confuse)."""
+    def test_resolved_labels_distinct(self):
+        """Resolved total-space and fiber labels are distinct."""
         ks = K3E_KAPPA_SPECTRUM
-        values = {ks.kappa_ch, ks.kappa_BKM, ks.kappa_cat, ks.kappa_fiber}
-        assert len(values) == 4
+        values = {ks.kappa_ch, ks.kappa_BKM, ks.kappa_cat, ks.kappa_cat_fiber, ks.kappa_fiber}
+        assert len(values) == 5
 
     def test_verify_kappa_spectrum_all_pass(self):
         """All kappa spectrum verifications pass."""
@@ -392,10 +396,15 @@ class TestKappaEntropyAnalysis:
         analysis = kappa_entropy_analysis()
         assert "kappa_BKM" in analysis["answer"]
 
-    def test_kappa_identity(self):
-        """kappa_BKM = kappa_ch + kappa_cat = 3 + 2 = 5."""
+    def test_total_space_kappa_identity_fails(self):
+        """kappa_BKM != kappa_ch + kappa_cat(K3 x E): 5 != 3 + 0."""
         analysis = kappa_entropy_analysis()
-        assert analysis["identity_kBKM_eq_kch_plus_kcat"] is True
+        assert analysis["identity_kBKM_eq_kch_plus_kcat_total"] is False
+
+    def test_fiber_kappa_identity(self):
+        """kappa_BKM = kappa_ch + kappa_cat(K3 fiber) = 3 + 2 = 5."""
+        analysis = kappa_entropy_analysis()
+        assert analysis["identity_kBKM_eq_kch_plus_kcat_fiber"] is True
 
     def test_spectrum_values(self):
         """The spectrum values are correctly reported."""
@@ -403,13 +412,15 @@ class TestKappaEntropyAnalysis:
         spec = analysis["kappa_spectrum"]
         assert spec["kappa_ch"] == 3.0
         assert spec["kappa_BKM"] == 5.0
-        assert spec["kappa_cat"] == 2.0
+        assert spec["kappa_cat"] == 0.0
+        assert spec["kappa_cat_fiber"] == 2.0
         assert spec["kappa_fiber"] == 24.0
 
     def test_key_identity_string(self):
         """The key identity is stated correctly."""
         analysis = kappa_entropy_analysis()
         assert "3 + 2 = 5" in analysis["key_identity"]
+        assert "3 + 0 != 5" in analysis["key_identity"]
 
     def test_rademacher_predictions_all_present(self):
         """All four kappa candidates have Rademacher predictions."""

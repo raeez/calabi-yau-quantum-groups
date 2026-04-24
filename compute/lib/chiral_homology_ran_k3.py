@@ -969,7 +969,8 @@ def chiral_homology_summary(rank: int = MUKAI_RANK) -> Dict[str, Any]:
             'deformation': '1/eta^{24} -> 1/Delta_5 (genus 1)',
         },
         'kappa_ch': 3,
-        'kappa_cat': 2,
+        'kappa_cat': 0,
+        'kappa_cat_fiber': 2,
         'kappa_BKM': 5,
         'kappa_fiber': rank,
     }
@@ -1111,12 +1112,14 @@ def verify_kappa_spectrum_consistency() -> Dict[str, Any]:
     Per CLAUDE.md:
       kappa_ch  = 3  (from chiral algebra A_C via Phi)
       kappa_BKM = 5  (weight of Delta_5)
-      kappa_cat = 2  (holomorphic Euler characteristic chi(O_{K3}))
+      kappa_cat = 0  (holomorphic Euler characteristic chi(O_{K3 x E}))
+      kappa_cat_fiber = 2  (holomorphic Euler characteristic chi(O_{K3}))
       kappa_fiber = 24 (lattice rank)
 
     In the chiral homology context:
       kappa_fiber appears in 1/eta^{24} (24 = rank of Mukai lattice)
-      kappa_cat = 2 = chi(O_{K3}) = h^{0,0} - h^{0,1} + h^{0,2} = 1-0+1
+      kappa_cat = 0 = chi(O_{K3 x E}) by Kunneth
+      kappa_cat_fiber = 2 = chi(O_{K3}) = h^{0,0} - h^{0,1} + h^{0,2} = 1-0+1
       kappa_ch = 3: this is the Vol III chiral kappa from Phi(D^b(Coh(K3)))
       kappa_BKM = 5: weight of Igusa cusp form Delta_5
     """
@@ -1127,8 +1130,11 @@ def verify_kappa_spectrum_consistency() -> Dict[str, Any]:
         'kappa_ch_expected': 3,
         'kappa_ch_match': summary['kappa_ch'] == 3,
         'kappa_cat': summary['kappa_cat'],
-        'kappa_cat_expected': 2,
-        'kappa_cat_match': summary['kappa_cat'] == 2,
+        'kappa_cat_expected': 0,
+        'kappa_cat_match': summary['kappa_cat'] == 0,
+        'kappa_cat_fiber': summary['kappa_cat_fiber'],
+        'kappa_cat_fiber_expected': 2,
+        'kappa_cat_fiber_match': summary['kappa_cat_fiber'] == 2,
         'kappa_BKM': summary['kappa_BKM'],
         'kappa_BKM_expected': 5,
         'kappa_BKM_match': summary['kappa_BKM'] == 5,

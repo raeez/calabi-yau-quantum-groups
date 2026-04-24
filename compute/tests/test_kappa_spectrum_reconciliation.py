@@ -24,6 +24,7 @@ from compute.lib.kappa_spectrum_reconciliation import (
     abelian_surface,
     kappa_cat,
     kappa_ch,
+    kappa_ch_compact_hodge,
     kappa_ch_rational,
     kappa_BKM,
     kappa_fiber,
@@ -191,9 +192,11 @@ class TestKappaCh:
         assert kappa_ch(k3) == kappa_cat(k3)
 
     def test_kappa_ch_K3xE(self):
-        """kappa_ch(K3 x E) = 3 = kappa_ch(K3) + kappa_ch(E) = 2 + 1."""
+        """K3 x E has compact value 0 and Heisenberg-specialisation value 3."""
         k3e = k3_times_e()
-        # VERIFIED [DC] kappa_ch(K3xE) = 3 [LC] additivity
+        # VERIFIED [DC] compact Hodge/PhiFA supertrace [LC] Kunneth
+        assert kappa_ch_compact_hodge(k3e) == 0
+        # VERIFIED [DC] kappa_ch^{Heis}(K3xE) = 3 [LC] specialisation additivity
         assert kappa_ch(k3e) == 3
 
     def test_kappa_ch_additivity(self):
@@ -308,17 +311,22 @@ class TestKappaRelations:
     """Cross-relations between the four kappa invariants."""
 
     def test_BKM_decomposition(self):
-        """kappa_BKM = kappa_ch + kappa_cat(K3_fiber) = 3 + 2 = 5.
+        """The canonical additive BKM decomposition is false.
 
-        CONJECTURAL: the decomposition uses kappa_cat of the K3 FIBER,
-        not kappa_cat of the total space K3 x E (which is 0).
+        The equality 3 + 2 = 5 survives only as a named
+        Heisenberg-specialisation fibre coincidence at N=1.
         """
         result = verify_BKM_decomposition_k3e()
-        # VERIFIED [DC] BKM decomposition [LC] conjectural splitting
-        assert result["decomposition_holds"]
-        assert result["kappa_ch_K3xE"] == 3
+        # VERIFIED [DC] BKM decomposition rejected [LC] Borcherds weight theorem
+        assert not result["decomposition_holds"]
+        assert not result["compact_total_plus_K3_fiber_holds"]
+        assert not result["compact_total_plus_elliptic_fiber_holds"]
+        assert result["heis_fiber_coincidence_holds"]
+        assert result["kappa_ch_Heis_K3xE"] == 3
+        assert result["kappa_ch_compact_hodge_K3xE"] == 0
         assert result["kappa_BKM_K3xE"] == 5
         assert result["kappa_cat_K3"] == 2
+        assert result["kappa_cat_E"] == 0
         assert result["kappa_cat_K3xE"] == 0
         # Critical: uses FIBER chi(O), not total space chi(O)
         assert result["fiber_not_total_space"]
@@ -330,7 +338,8 @@ class TestKappaRelations:
         # VERIFIED [DC] chi_top/24 failure [LC] multiple examples
         assert result["E_fails"]      # 0 != 1
         assert result["K3_fails"]     # 1 != 2
-        assert result["K3xE_fails"]   # 0 != 3
+        assert result["K3xE_compact_matches"]  # 0 = 0
+        assert result["K3xE_heis_fails"]       # 0 != 3
         # But quintic matches
         assert result["Quintic_matches"]  # -25/3 = -25/3
 
@@ -347,25 +356,19 @@ class TestKappaRelations:
         assert kappa_ch(e) != kappa_cat(e)
 
     def test_four_values_distinct_K3xE(self):
-        """The four kappa values for K3 x E are pairwise distinct.
+        """The K3 x E total package and fibre witness are separated.
 
-        {0, 2, 3, 5, 24} -- five distinct values when including
-        both kappa_cat(K3xE) and kappa_cat(K3).
+        Total-space package: {0, 3, 5, 24}.
+        Including the K3-fibre witness gives {0, 2, 3, 5, 24}.
         """
         spec = k3e_spectrum()
-        values = [
-            spec["kappa_cat_total_space"],  # 0
-            spec["kappa_cat_K3_fiber"],      # 2
-            spec["kappa_ch"],                 # 3
-            spec["kappa_BKM"],                # 5
-            spec["kappa_fiber"],              # 24
-        ]
-        # VERIFIED [DC] all kappa values distinct [LC] explicit
-        assert len(set(values)) == 5
-        assert sorted(set(values)) == [0, 2, 3, 5, 24]
+        # VERIFIED [DC] total-space package [LC] explicit
+        assert spec["spectrum_set_total_space"] == [0, 3, 5, 24]
+        # VERIFIED [DC] fibre witness separated [LC] explicit
+        assert spec["spectrum_set_with_fiber_witness"] == [0, 2, 3, 5, 24]
 
     def test_kappa_BKM_over_kappa_ch_ratio(self):
-        """kappa_BKM / kappa_ch = 5/3 (second-quantization multiplier)."""
+        """kappa_BKM / kappa_ch^{Heis} = 5/3."""
         k3e = k3_times_e()
         # VERIFIED [DC] BKM/ch ratio [LC] second quantization
         assert Fraction(kappa_BKM(k3e), kappa_ch(k3e)) == Fraction(5, 3)
@@ -402,15 +405,20 @@ class TestSpectrumTables:
         assert spec["kappa_BKM"] is None
 
     def test_k3e_spectrum(self):
-        """K3 x E spectrum: {0, 2, 3, 5, 24}."""
+        """K3 x E total spectrum is {0, 3, 5, 24}; fibre witness adds 2."""
         spec = k3e_spectrum()
         # VERIFIED [DC] K3xE spectrum [LC] Proposition prop:kappa-spectrum-reconciliation
         assert spec["kappa_cat_total_space"] == 0
         assert spec["kappa_cat_K3_fiber"] == 2
         assert spec["kappa_ch"] == 3
+        assert spec["kappa_ch_Heis"] == 3
+        assert spec["kappa_ch_compact_hodge"] == 0
         assert spec["kappa_BKM"] == 5
         assert spec["kappa_fiber"] == 24
-        assert spec["BKM_decomposition"]
+        assert not spec["BKM_decomposition"]
+        assert spec["BKM_heis_fiber_coincidence"]
+        assert spec["spectrum_set_total_space"] == [0, 3, 5, 24]
+        assert spec["spectrum_set_with_fiber_witness"] == [0, 2, 3, 5, 24]
 
     def test_enriques_spectrum(self):
         """Enriques x E conjectural spectrum."""
@@ -454,14 +462,16 @@ class TestMasterVerification:
         assert results["kappa_ch_eq_kappa_cat_K3"]
         assert results["kappa_ch_eq_kappa_cat_T4"]
 
-        # Additivity
+        # Heisenberg-specialisation additivity
         assert results["additivity_K3xE"]
+        assert results["heis_additivity_K3xE"]
 
         # chi(O) multiplicativity
         assert results["chi_O_multiplicative"]
 
-        # BKM decomposition
-        assert results["BKM_decomposition"]["decomposition_holds"]
+        # BKM decomposition is false; the N=1 Heisenberg-fibre coincidence remains
+        assert not results["BKM_decomposition"]["decomposition_holds"]
+        assert results["BKM_decomposition"]["heis_fiber_coincidence_holds"]
 
         # Borcherds weight
         assert results["borcherds_weight"]["kappa_BKM"] == 5
@@ -474,5 +484,7 @@ class TestMasterVerification:
         assert vals["kappa_cat_total"] == 0
         assert vals["kappa_cat_fiber"] == 2
         assert vals["kappa_ch"] == 3
+        assert vals["kappa_ch_Heis"] == 3
+        assert vals["kappa_ch_compact_hodge"] == 0
         assert vals["kappa_BKM"] == 5
         assert vals["kappa_fiber"] == 24

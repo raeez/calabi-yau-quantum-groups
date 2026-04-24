@@ -4,8 +4,10 @@ Ground truth: Schiffmann-Vasserot (arXiv:1211.1287), Tsymbaliuk (arXiv:1404.5240
 Prochazka-Rapcak (arXiv:1910.07997), Maulik-Okounkov (arXiv:1211.1287).
 
 The critical CoHA of C^3 is isomorphic to Y^+(gl_hat_1) (thm:sv-c3 in
-toric_cy3_coha.tex). The full affine Yangian is isomorphic to W_{1+infinity}
-at the self-dual level.
+toric_cy3_coha.tex). The full affine Yangian is the Drinfeld double /
+mode-algebra side; W_{1+infinity} is reached through the completed
+Fock/evaluation representation, not by identifying the positive half
+with the vertex algebra.
 
 STRUCTURE FUNCTION:
     g(z) = (z - h1)(z - h2)(z - h3) / (z + h1)(z + h2)(z + h3)
@@ -13,8 +15,10 @@ STRUCTURE FUNCTION:
 with the CY condition h1 + h2 + h3 = 0. Parameters:
     h1 = sigma_1, h2 = sigma_2, h3 = sigma_3 = -(sigma_1 + sigma_2)
 
-At the self-dual point sigma_1 = 1, sigma_2 = epsilon, sigma_3 = -1-epsilon,
-the limit epsilon -> 0 recovers W_{1+infinity}.
+At the self-dual path h1 = 1, h2 = epsilon, h3 = -1-epsilon, the
+unrescaled limit epsilon -> 0 has trivial structure function g(z)=1.
+The nontrivial W_{1+infinity} limit requires the usual rescaled or
+finite-N limiting data.
 
 CONVENTIONS:
     - psi(z) = 1 + sigma_3 sum_{i>=0} psi_i z^{-i-1}  (Tsymbaliuk's normalization)

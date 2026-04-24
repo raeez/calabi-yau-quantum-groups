@@ -12,7 +12,7 @@ THEOREM BEING TESTED:
 MULTI-PATH VERIFICATION (3+ paths per claim, per CLAUDE.md mandate):
     Path 1: Direct computation from definitions
     Path 2: Generating function comparison (MacMahon, Goettsche, plethystic)
-    Path 3: Cross-family consistency (kappa additivity, McKay scaling)
+    Path 3: Cross-family consistency (chart-shadow normalization, McKay scaling)
     Path 4: DT/shadow identification (Faber-Pandharipande)
     Path 5: Bar complex Euler characteristic
     Path 6: Literature values (OEIS, Schiffmann-Vasserot, MNOP)
@@ -799,22 +799,35 @@ class TestChartCoHA:
         assert chart.coha_dimension(2) == 3
 
     def test_c3_kappa(self):
-        """kappa(C^3) = 1 (Heisenberg at k=1, AP48: NOT c/2)."""
+        """chart_shadow_kappa(C^3) = kappa_ch(C^3) = 1."""
         chart = ChartCoHA(jordan_quiver(), N=10)
         # VERIFIED [DC] kappa formula [LC] AP48
         assert chart.kappa() == Fraction(1)
 
     def test_conifold_kappa(self):
-        """kappa(conifold) = 2."""
+        """legacy chart_shadow_kappa(conifold) = 2."""
         chart = ChartCoHA(conifold_quiver(), N=10)
         # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert chart.kappa() == Fraction(2)
 
     def test_local_p2_kappa(self):
-        """kappa(local P^2) = 3."""
+        """legacy chart_shadow_kappa(local P^2) = 3."""
         chart = ChartCoHA(local_p2_quiver(), N=10)
         # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert chart.kappa() == Fraction(3)
+
+    def test_canonical_kappa_ch_known_toric_values(self):
+        """Canonical kappa_ch values are not the legacy chart shadows."""
+        c3 = ChartCoHA(jordan_quiver(), N=10)
+        conifold = ChartCoHA(conifold_quiver(), N=10)
+        local_p2 = ChartCoHA(local_p2_quiver(), N=10)
+
+        assert c3.kappa_ch() == Fraction(1)
+        assert conifold.kappa_ch() == Fraction(1)
+        assert local_p2.kappa_ch() == Fraction(3, 2)
+
+        assert conifold.chart_shadow_kappa() == Fraction(2)
+        assert local_p2.chart_shadow_kappa() == Fraction(3)
 
     def test_mckay_z2_kappa(self):
         """kappa(C^3/Z_2) = 2."""

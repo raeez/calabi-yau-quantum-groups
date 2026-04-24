@@ -16,8 +16,8 @@ The shadow tower {F_g} are the genus-g projections of log(Z^DT).
 1. K3 x E (the canonical case):
    - Denominator identity: Delta_5 is a Siegel modular form of weight 5
      for Sp_4(Z).
-   - kappa(K3 x E) = 5 = weight(Delta_5).
-   - F_1 = kappa/24 = 5/24.
+   - kappa_BKM(K3 x E) = 5 = weight(Delta_5).
+   - F_1^{scal} = kappa_BKM/24 = 5/24.
    - The full DT partition function Z = C / (Delta_5)^2 is an automorphic
      form of weight -10 for Sp_4(Z).
    - Each F_g appears in the Fourier-Jacobi expansion of log(Z).
@@ -60,14 +60,14 @@ MULTI-PATH VERIFICATION:
    (e) Growth bounds (Ramanujan-Petersson for Siegel forms)
 
 CONVENTIONS:
-   - kappa is the modular characteristic (AP1: family-specific).
-   - Weight of Siegel form = kappa for the chiral algebra (Theorem CY-D).
+   - kappa_label records which scalar lane is active.
+   - For K3 x E the active scalar here is kappa_BKM, the Borcherds weight.
    - Fourier coefficients a(T) indexed by half-integral matrices T >= 0.
    - Discriminant D(T) = 4*det(T) for T = ((n, r/2), (r/2, m)).
    - phi_{0,1} coefficients in Eichler-Zagier convention (AP38).
 
 CAUTIONS:
-   - kappa(K3 x E) = 5 is NOT chi_top(K3 x E)/24 = 0 (AP48).
+   - kappa_BKM(K3 x E) = 5 is NOT chi_top(K3 x E)/24 = 0 (AP48).
    - The conjectural kappa = chi_top/24 for rigid CY3s is UNPROVED.
    - F_1 = kappa/24 is genus-1 SCALAR shadow only; higher-arity
      corrections may contribute at genus >= 2.
@@ -129,7 +129,8 @@ class CY3ModularData(NamedTuple):
 
     Attributes:
         name: CY3 identifier.
-        kappa: modular characteristic (weight of automorphic form).
+        kappa: scalar in the lane named by kappa_label.
+        kappa_label: subscripted meaning of kappa.
         chi_top: topological Euler characteristic.
         siegel_weight: weight of the controlling Siegel modular form.
         arithmetic_group: arithmetic group for the automorphic form.
@@ -143,14 +144,15 @@ class CY3ModularData(NamedTuple):
     arithmetic_group: str
     is_proved: bool
     source: str
+    kappa_label: str = "kappa_ch"
 
 
 def cy3_modular_data_k3e() -> CY3ModularData:
     r"""K3 x E: Delta_5, Siegel modular form of weight 5 for Sp_4(Z).
 
-    PROVED: Theorem CY-D + Borcherds product.
-    kappa = 5 = weight(Delta_5) = dim(Sp_4)/2.
-    chi_top(K3 x E) = 0 (but kappa = 5, NOT chi_top/24 = 0).
+    PROVED: Borcherds product / Gritsenko Delta_5 lane.
+    kappa_BKM = 5 = weight(Delta_5) = c_1(0)/2.
+    chi_top(K3 x E) = 0 and kappa_ch(K3 x E) = 3; neither is this lane.
     """
     return CY3ModularData(
         name="K3 x E",
@@ -159,7 +161,8 @@ def cy3_modular_data_k3e() -> CY3ModularData:
         siegel_weight=Fraction(5),
         arithmetic_group="Sp_4(Z)",
         is_proved=True,
-        source="Theorem CY-D + Borcherds lift of phi_{0,1}",
+        source="Borcherds lift of phi_{0,1}: kappa_BKM = c_1(0)/2",
+        kappa_label="kappa_BKM",
     )
 
 
@@ -1058,10 +1061,9 @@ def weight_from_borcherds_lift(c_0: int) -> Fraction:
 
 
 def kappa_from_siegel_weight(weight: Fraction) -> Fraction:
-    """kappa(A_C) = weight of the controlling Siegel modular form.
+    """BKM-lane scalar equals the controlling Siegel modular weight.
 
-    For K3 x E: kappa = weight(Delta_5) = 5.
-    This is Theorem CY-D.
+    For K3 x E: kappa_BKM = weight(Delta_5) = 5.
     """
     return weight
 
@@ -1070,7 +1072,7 @@ def kappa_weight_consistency(name: str) -> Dict[str, Any]:
     r"""Verify consistency between kappa and Siegel weight.
 
     Multi-path verification:
-    Path 1: kappa from the CY Euler characteristic definition.
+    Path 1: declared BKM oracle value for the selected lane.
     Path 2: weight from the Borcherds lift formula (c(0)/2).
     Path 3: weight from Igusa's classification of Sp_4(Z) forms.
     """
@@ -1082,19 +1084,20 @@ def kappa_weight_consistency(name: str) -> Dict[str, Any]:
     result: Dict[str, Any] = {
         "name": name,
         "kappa": d.kappa,
+        "kappa_label": d.kappa_label,
         "siegel_weight": d.siegel_weight,
     }
 
     if name == "K3 x E":
-        # Path 1: CY Euler characteristic
-        result["path1_cy_euler"] = Fraction(5)
+        # Path 1: selected BKM-lane oracle
+        result["path1_bkm_oracle"] = Fraction(5)
         # Path 2: Borcherds lift weight = c(0)/2 = 10/2 = 5
         result["path2_borcherds"] = weight_from_borcherds_lift(10)
         # Path 3: Igusa classification: Delta_5 is weight 5
         result["path3_igusa"] = Fraction(5)
         # All three agree
         result["all_paths_agree"] = (
-            result["path1_cy_euler"] == result["path2_borcherds"]
+            result["path1_bkm_oracle"] == result["path2_borcherds"]
             == result["path3_igusa"]
             == d.kappa
         )

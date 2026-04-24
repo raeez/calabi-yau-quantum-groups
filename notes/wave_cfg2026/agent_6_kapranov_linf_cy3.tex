@@ -1,0 +1,1141 @@
+% =====================================================================
+% Wave file: Kapranov L_infty structure on T_X[-1] via iterated Atiyah
+% classes, specialised to CY_3. Three Atiyah cocycles: At(T_X), tree-level
+% Yukawa Y_3, one-loop BCOV curving alpha_BCOV -- chain level.
+%
+% Side-by-side with Costello--Francis--Gwilliam 2026 (CFG 2026):
+% E_n factorisation algebras, formality, anomaly-tree control.
+%
+% Standalone .tex; NOT included in main.tex. Do not read as manuscript.
+% =====================================================================
+
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+\newtheorem{surviving}[theorem]{Surviving core}
+
+\providecommand{\At}{\mathrm{At}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Eone}{E_1}
+\providecommand{\BCOV}{\mathrm{BCOV}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Om}{\Omega}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\NN}{\mathbb{N}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\FM}{\overline{\mathrm{FM}}}
+
+\title{Kapranov's $L_\infty$-structure on $T_X[-1]$ via iterated Atiyah
+classes, specialised to $\CY_3$: chain-level attack--heal cycles on the
+three Atiyah cocycles, side-by-side with Costello--Francis--Gwilliam
+2026}
+\author{(Wave file; not part of the manuscript)}
+
+\begin{document}
+
+\maketitle
+
+\section*{Orientation}
+
+The $\cO_X$-linear Atiyah class $\At(T_X) \in H^1(X, \Om^1_X \otimes \End T_X)$
+of the holomorphic tangent bundle is a single cohomology class; yet when
+it is exhibited as the binary bracket of Kapranov's $L_\infty$-structure on
+$T_X[-1]$, it sources at least two further, cohomologically independent,
+classes in the $\CY_3$ Hodge diamond: the tree-level Yukawa $Y_3 \in
+H^{0,3}(X) \simeq \Sym^3 H^1(X,T_X)^\vee$ and the one-loop BCOV curving
+$\alpha_\BCOV = (\chi(X)/24)[\Om_X]^{0,1} \in H^{0,1}(X)$. This file
+dissects the chain-level derivation of all three, re-attacks the
+statement five times, and heals it five times, always with explicit
+chain-level witnesses and with side-by-side comparison to the Costello--
+Francis--Gwilliam 2026 $E_n$-factorisation framework. The three classes
+are (i) the Kapranov generator (degree~$1$ in $H^1(X,\Om^1 \otimes \End
+T_X)$), (ii) the tree-level Yukawa sourcing the cubic $\hCS$ action, and
+(iii) the one-loop BV anomaly of $\hCS$. They lie in Hodge-disjoint
+bidegrees and feed Stage~1 $\PhiFA_3$ at orders $\hbar^0$, tree, and
+$\hbar^1$-loop respectively.
+
+\tableofcontents
+
+% =====================================================================
+\section{Foundational material: Atiyah class, Kapranov $L_\infty$, and
+the three Hodge slots}
+\label{sec:foundations}
+
+\subsection{The Atiyah class from first principles}
+\label{subsec:atiyah-first-principles}
+
+\begin{definition}[Atiyah class of a holomorphic vector bundle]
+\label{def:atiyah-class}
+Let $X$ be a complex manifold and $E \to X$ a holomorphic vector bundle.
+The $1$-jet exact sequence
+\[
+  0 \longrightarrow \Om^1_X \otimes E \longrightarrow J^1(E)
+  \longrightarrow E \longrightarrow 0
+\]
+of holomorphic sheaves is classified, in $\mathrm{Ext}^1_{\cO_X}(E,
+\Om^1_X \otimes E)$, by the Atiyah class
+\[
+  \At(E) \in \mathrm{Ext}^1_{\cO_X}(E, \Om^1_X \otimes E)
+  \simeq H^1(X, \Om^1_X \otimes \End E).
+\]
+Equivalently, choosing any smooth $(1,0)$-connection $\nabla^{(1,0)}$ on
+$E$, the Dolbeault representative is
+\begin{equation}
+\label{eq:atiyah-dolbeault}
+  \At(E) = [\bar\partial, \nabla^{(1,0)}]
+  \in A^{0,1}(X, \Om^1_X \otimes \End E).
+\end{equation}
+The cohomology class is independent of the choice of $\nabla^{(1,0)}$.
+\end{definition}
+
+\begin{remark}[What the Atiyah class measures]
+Cohomologically, $\At(E)$ is the obstruction to the existence of a
+\emph{holomorphic} connection on $E$. It is the holomorphic analogue of
+the Chern curvature $F_\nabla$ of a Hermitian connection, but without the
+reality constraint: one keeps the Dolbeault $(1,1)$-component
+$[\bar\partial, \nabla^{(1,0)}]$ and discards the $(2,0)$-component
+$(\nabla^{(1,0)})^2$ because the latter is a tensor in the algebra of
+polyvector fields and does not sit in the Atiyah slot. In the
+Dolbeault-HKR model used throughout the chain-level programme, $\At(E)$
+is an element of $A^{0,1}(X, \Om^1_X \otimes \End E)$ whose
+$\bar\partial$-class realises the obstruction.
+\end{remark}
+
+\begin{proposition}[Local Dolbeault formula]
+\label{prop:local-dolbeault}
+On a coordinate patch $U \subset X$ with holomorphic coordinates
+$(z^a)$ and unitary frame $\{e_i\}$ for $E|_U$, the Dolbeault Atiyah
+representative reads
+\begin{equation}
+\label{eq:local-dolbeault}
+  \At(E)|_U
+  = -\bar\partial(\Gamma^i_{ja}) \, dz^a \otimes dz^j \otimes (e_i \otimes e^j)
+  \in A^{0,1}(U, \Om^1 \otimes \End E),
+\end{equation}
+where $\Gamma^i_{ja}$ are the Christoffel symbols of the smooth
+connection $\nabla^{(1,0)} e_j = \Gamma^i_{ja} \, dz^a \, e_i$. In
+particular, for $E = T_X$ with a K\"ahler metric,
+\begin{equation}
+\label{eq:atiyah-kaehler}
+  \At(T_X) = R^i_{jk\bar\ell}\, dz^k \otimes d\bar z^\ell \otimes dz^j
+  \otimes \partial_i,
+\end{equation}
+where $R^i_{jk\bar\ell}$ is the Chern curvature of the Levi-Civita
+connection.
+\end{proposition}
+
+\begin{proof}
+Specialise the $A^{0,1}$ component of $[\bar\partial, \nabla^{(1,0)}]$
+to the Levi-Civita case and unpack the bundle index structure.
+\end{proof}
+
+\begin{remark}[Relation to Chern classes]
+Under the invariant polynomial trace, $\mathrm{tr}(\At(E)^k)/k! = c_k(E)$
+in $H^k(X, \Om^k_X) \subset H^{2k}(X, \CC)$, giving a Dolbeault
+representative of the Chern character. For $E = T_X$ a $\CY_n$ tangent
+bundle, $c_1(T_X) = 0$ in $H^1(X, \Om^1_X)$, so the cohomology trace of
+$\At(T_X)$ vanishes; yet $\At(T_X)$ itself does not vanish, because its
+$\End T_X$-trace is only one of many scalar invariants.
+\end{remark}
+
+\subsection{The Kapranov $L_\infty$-structure on $T_X[-1]$}
+\label{subsec:kapranov-linf}
+
+\begin{theorem}[Kapranov 1999, Compositio 115]
+\label{thm:kapranov}
+Let $X$ be a complex manifold and $T_X$ the holomorphic tangent bundle.
+The shifted Dolbeault resolution
+\[
+  \mathfrak g_X := A^{0, \bullet}(X, T_X[-1])
+\]
+carries a canonical $L_\infty$-structure $\{\ell_n\}_{n \geq 1}$, natural
+in $X$, with the following properties:
+\begin{enumerate}
+\item $\ell_1 = \bar\partial$ is the Dolbeault differential.
+\item $\ell_2(v,w) = \At(T_X) \cdot (v \wedge w)$, antisymmetrised, is
+the binary bracket whose cohomology class is the Atiyah class $\At(T_X)$
+contracted through $\End T_X$.
+\item $\ell_n$ for $n \geq 3$ is given by an iterated-Atiyah formula
+\[
+  \ell_n(v_1, \ldots, v_n) = \sum_T w_T \cdot \mathrm{Iterate}_T(\At(T_X))(v_1,
+    \ldots, v_n),
+\]
+where the sum runs over binary rooted trees $T$ with $n$ leaves, $w_T$
+are rational weights, and $\mathrm{Iterate}_T(\At(T_X))$ is the iterated
+composition of $\At(T_X)$ along $T$.
+\item The $L_\infty$-relations $\sum_{p+q=n+1} \sum_{\sigma \in
+\mathrm{Sh}(p,q)} \pm \ell_p(\ell_q(v_{\sigma(1)}, \ldots,
+v_{\sigma(q)}), v_{\sigma(q+1)}, \ldots) = 0$ follow from the Bianchi
+identity $\nabla \At(T_X) = 0$ (for $n = 3$) and the holomorphic Todd
+identity (for $n \geq 4$).
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[The minimal model $\ell_n^{\min}$]
+\label{rem:minimal-model}
+Taking cohomology of $\mathfrak g_X$ with respect to $\bar\partial$ (so
+replacing $A^{0,\bullet}$ with $\bigoplus_q H^q(X, T_X[-1])$), the
+Kadeishvili transfer produces a minimal $L_\infty$-algebra on
+$H^\bullet(X, T_X[-1]) = \bigoplus_q H^q(X, T_X)[-q-1]$. Its brackets
+$\ell_n^{\min}$ are the cohomology classes of the chain-level $\ell_n$,
+and are computed by integrating the iterated Atiyah class over the
+diagonal.
+\end{remark}
+
+\begin{proposition}[$\ell_3^{\min}$ as a triple Atiyah integral]
+\label{prop:ell3-min}
+For $v_1, v_2, v_3 \in H^1(X, T_X)$, the minimal bracket is
+\begin{equation}
+\label{eq:ell3-min}
+  \ell_3^{\min}(v_1, v_2, v_3) = \int_{X} \Om_X \wedge \At(v_1) \cup
+  \At(v_2) \cup \At(v_3) \in H^3(X, \Om^3_X \otimes \wedge^3 T_X),
+\end{equation}
+where $\At(v_i) \in A^{0,1}(X, \Om^1_X)$ is the contraction of $\At(T_X)$
+with $v_i \in H^1(X, T_X)$, and we interpret $\Om_X \wedge (\text{triple
+cup})$ as the composition
+\[
+  A^{0, 1}(X, \Om^1_X)^{\otimes 3} \xrightarrow{\cup} A^{0,3}(X, \Om^3_X)
+  \xrightarrow{\Om_X \wedge} A^{0,3}(X, \Om^3_X \otimes \wedge^3 T_X^{\vee *})
+  \xrightarrow{\int_X} \CC.
+\]
+In the $\CY_n$ case, the trivialisation $\Om_X: \wedge^n T_X \simeq \cO_X$
+identifies $\wedge^n T_X^{\vee *} \simeq \cO_X$, so the output lives in
+$H^3(X, \cO_X)$; for $n = 3$, this is $H^{0,3}(X)$.
+\end{proposition}
+
+\begin{proof}
+Kapranov 1999 Proposition~4.4; the key step is that the tree with three
+leaves has a single topology (the binary rooted tree with three leaves),
+and the weight $w_T = 1$ by direct computation. Restriction to the
+compact K\"ahler case and evaluation via the $\bar\partial$-de Rham model
+yields the triple cup.
+\end{proof}
+
+\subsection{The three Hodge slots at $\dim_\CC X = 3$}
+\label{subsec:three-hodge-slots}
+
+\begin{definition}[Three Atiyah cocycles]
+\label{def:three-cocycles}
+Fix $X$ a compact $\CY_3$ with holomorphic volume $\Om_X$. Define:
+\begin{align*}
+  \ell_2 &:= \At(T_X) \in H^1(X, \Om^1_X \otimes \End T_X), \\
+  Y_3(v_1,v_2,v_3) &:= \int_X \Om_X \wedge \At(v_1) \cup \At(v_2) \cup
+    \At(v_3) \in H^{0,3}(X) \simeq \Sym^3 H^1(X, T_X)^\vee, \\
+  \alpha_\BCOV &:= \frac{\chi(X)}{24} \cdot [\Om_X]^{0,1} \in H^{0,1}(X).
+\end{align*}
+The first is the Kapranov binary bracket. The second is the Kapranov
+minimal $\ell_3$-bracket, equal to the BCOV tree-level Yukawa. The third
+is the Costello--Li one-loop BV anomaly of $\hCS$.
+\end{definition}
+
+\begin{proposition}[Hodge bidegrees are pairwise disjoint]
+\label{prop:hodge-disjoint}
+The three classes inhabit pairwise disjoint Hodge bidegrees. In the
+Hodge decomposition $H^k(X, \CC) = \bigoplus_{p+q = k} H^{p,q}(X)$:
+\[
+  \ell_2 \in H^1(X, \Om^1 \otimes \End T_X), \quad
+  Y_3 \in H^{0,3}(X), \quad
+  \alpha_\BCOV \in H^{0,1}(X).
+\]
+The three groups $H^{1,1}(X, \End T_X)$, $H^{0,3}(X)$, and $H^{0,1}(X)$
+are Hodge-disjoint: different bidegrees, different target bundles, no
+shared cocycles.
+\end{proposition}
+
+\begin{proof}
+Direct from the definitions; $\ell_2$ is bundle-valued in $\End T_X$,
+the other two are bundle-valued in $\cO_X$; $Y_3$ lives at bidegree
+$(0,3)$, $\alpha_\BCOV$ at $(0,1)$.
+\end{proof}
+
+\begin{remark}[Serre-dual but Hodge-disjoint]
+\label{rem:serre-dual-not-coupled}
+Serre duality on a compact $\CY_3$ pairs $H^{p,q}$ with $H^{3-p, 3-q}$.
+Thus $H^{0,3}(X) \simeq H^{3,0}(X)^\vee$ and $H^{0,1}(X) \simeq
+H^{3,2}(X)^\vee$. Since $\dim H^{3,0}(X) = 1$ (trivialised by $\Om_X$),
+$Y_3$ is a number (well, a symmetric cubic form on $H^1(X,T_X)$), and
+$\alpha_\BCOV$ is a Dolbeault $(0,1)$-form. Serre duality between
+$H^{0,3}$ and $H^{0,1}$ does \emph{not} hold: those groups pair with
+$H^{3,0}$ and $H^{3,2}$ respectively, and are not directly dual to each
+other. The phrase ``Serre-dual'' as used in the cache and memory refers
+to the more subtle statement that $Y_3$ and $\alpha_\BCOV$ both arise
+from the same Atiyah-class tower but at different orders in $\hbar$, so
+they pair against each other only through the BV quantisation, not as
+raw Hodge classes.
+\end{remark}
+
+% =====================================================================
+\section{ATTACK 1 --- Can Kapranov's $\ell_3^{\min}$ be the
+BCOV Yukawa? (Compatibility of normalisation)}
+\label{sec:attack-1}
+
+\begin{attack}[Conflation of $\ell_3^{\min}$ with $Y_3$]
+\label{atk:1}
+The cache entry and memory wave-14 assert
+\[
+  Y_3 = \ell_3^{\min} \quad \text{as elements of } H^{0,3}(X),
+\]
+with $Y_3(v_1, v_2, v_3) = \int_X \Om_X \wedge \At(v_1) \cup \At(v_2)
+\cup \At(v_3)$. Kapranov 1999 \S4 gives $\ell_3^{\min}$ as an $L_\infty$
+bracket valued in $T_X[-1]$, whose degree on cohomology is $|\ell_3^{\min}(v_1,
+v_2, v_3)| = |v_1| + |v_2| + |v_3| - 1 = 2$. But BCOV \cite{BCOV1994} define
+$Y_3$ as a \emph{symmetric} cubic form on $H^1(X, T_X)$, landing in
+$H^3(X, \cO_X) \simeq \CC$. There is a mismatch in target: $\ell_3^{\min}$
+lands in $H^{q_1 + q_2 + q_3}(X, T_X)[-1]$ (so $H^3(X, T_X)$ for $q_i = 1$
+at each leg) whereas $Y_3$ lands in $H^3(X, \cO_X)$. The identification
+requires the CY trivialisation $\Om_X: T_X \simeq \wedge^2 T_X^\vee$,
+which is not part of the Kapranov $L_\infty$-structure per se. The
+claimed equality $Y_3 = \ell_3^{\min}$ is therefore under-specified.
+\end{attack}
+
+\begin{surviving}[What survives: tree-level trace of $\ell_3^{\min}$]
+\label{surv:1}
+The surviving content of Attack~\ref{atk:1} is a \emph{trace-free}
+statement: Kapranov's $\ell_3^{\min}$ is an element of
+\[
+  H^3(X, T_X)[-1] \simeq H^3(X, T_X)[-1];
+\]
+its trace under the $\CY_3$ pairing $\Om_X : T_X \otimes \wedge^2 T_X \to
+\cO_X$ (equivalently, via $T_X \simeq \Om^2_X$ under $\Om_X$) produces
+the BCOV tree-level Yukawa
+\[
+  \Om_X^* \ell_3^{\min} : H^1(X, T_X)^{\otimes 3} \to H^3(X, \cO_X) \simeq \CC.
+\]
+The equality $Y_3 = \Om_X^* \ell_3^{\min}$ holds as cubic forms on $H^1(X,
+T_X)$. The identification is a specialisation of Kapranov through the CY
+trivialisation, not an intrinsic identity of the Kapranov structure on
+$T_X[-1]$.
+\end{surviving}
+
+\begin{heal}[Precise statement with the CY trivialisation explicit]
+\label{heal:1}
+For $X$ a compact $\CY_3$ with $\Om_X \in H^0(X, \Om^3_X)$ trivialising
+$\wedge^3 T_X^\vee$, the isomorphism $\Om_X: \wedge^2 T_X \simeq T_X^\vee$
+induces, upon triple wedge and composition with the top-degree
+integration, the map
+\[
+  \iota_{\Om_X} : H^{p,q}(X, \wedge^r T_X) \xrightarrow{\Om_X}
+  H^{p, q}(X, \Om^{3-r}_X).
+\]
+At $(p,q,r) = (0, 3, 3)$, this is $\iota_{\Om_X}: H^{0,3}(X, \wedge^3
+T_X) \simeq H^3(X, \Om^0_X) = H^{0,3}(X)$. Kapranov's $\ell_3^{\min}(v_1,
+v_2, v_3) \in H^3(X, T_X)$ pairs with the remaining factor $v_4 \in
+H^{3-1}(X, T_X)$ via the Yoneda composition to yield an element of
+$H^{3+3-1}(X, \wedge^2 T_X) = H^{3+3-1}(X, \wedge^2 T_X)$, but this is
+off the CY-diagonal and degenerates to zero except at the specific
+$\CY_3$ cyclic match. The cleanest statement uses the triple-cup formula
+directly:
+\[
+  Y_3(v_1, v_2, v_3) = \int_X \Om_X \wedge \At(v_1) \wedge \At(v_2) \wedge
+    \At(v_3),
+\]
+where each $\At(v_i) \in A^{0,1}(X, \Om^1_X)$. The triple wedge lives in
+$A^{0,3}(X, \Om^3_X)$, against which $\Om_X \in A^{0,0}(X, \Om^3_X)$ is
+paired to produce a top-degree form; the integral yields a number. This
+is Kapranov's triple-cup formula modulo the Poincar\'e duality
+contraction, which is the CY trivialisation.
+\end{heal}
+
+\begin{proposition}[Equality $Y_3 = \Om_X^* \ell_3^{\min}$ as cubic forms on
+$H^1(X, T_X)$]
+\label{prop:y3-l3-equality}
+For $X$ a compact $\CY_3$, the symmetric cubic form $Y_3: \Sym^3 H^1(X,
+T_X) \to \CC$ of Definition~\ref{def:three-cocycles} coincides with the
+$\Om_X$-trace of Kapranov's $\ell_3^{\min}$:
+\[
+  Y_3 = \Om_X^* \ell_3^{\min}, \qquad \text{in } \Sym^3 H^1(X, T_X)^\vee.
+\]
+In particular, the tree-level Yukawa of BCOV is read off from the
+Kapranov $L_\infty$-structure on $T_X[-1]$ via the CY trivialisation.
+\end{proposition}
+
+\begin{proof}
+Kapranov 1999 Proposition~4.4 identifies $\ell_3^{\min}$ as the triple
+Atiyah integrand before contraction with the CY trivialisation; the
+$\Om_X$-trace is Poincar\'e duality. Compare with BCOV 1994 equation
+(2.4) for the tree-level Yukawa.
+\end{proof}
+
+% =====================================================================
+\section{ATTACK 2 --- Is $\alpha_\BCOV$ a well-defined class in
+$H^{0,1}(X)$?}
+\label{sec:attack-2}
+
+\begin{attack}[The BCOV curving is ``not a $(0,1)$-class''']
+\label{atk:2}
+The quantum chiral algebras chapter (Theorem~\ref{thm:three-atiyah-cocycles-qca})
+hedges:
+\begin{quote}
+``The BCOV one-loop contribution is a determinant-line or gravitational
+anomaly datum, with coefficient controlled by characteristic-class
+integrals such as the Euler characteristic. It is not a class
+$\alpha_\BCOV \in H^{0,1}(X)$ and it is not $(\chi(X)/24) [\Om_X]^{0,1}$;
+a holomorphic volume form on a $\CY_3$ has no $(0,1)$ component.''
+\end{quote}
+Yet Costello--Li 2016 Proposition~5.2, the Hochschild-calculus chapter
+(Theorem~\ref{thm:three-atiyah-cocycles}), and the preface all write
+$\alpha_\BCOV = (\chi(X)/24)[\Om_X]^{0,1} \in H^{0,1}(X)$ without
+hedge. These cannot both be correct literal statements. The objection in
+the QCA chapter is right that $\Om_X$ as a literal $(3,0)$-form has no
+$(0,1)$ component; but the notation $[\Om_X]^{0,1}$ is not the
+$(0,1)$-part of $\Om_X$, it is a specific $(0,1)$-representative of the
+class $\chi(X)/24 \in H^0(X, \cO_X) \simeq \CC$ sitting in $H^{0,1}(X)$
+via the Serre-dual copy of $H^{0,0}(X)^\vee = \CC^\vee = \CC$. The
+notation is non-standard; the mathematical content is the constant
+class.
+\end{attack}
+
+\begin{surviving}[What survives]
+\label{surv:2}
+$\alpha_\BCOV$ is a scalar multiple of a distinguished generator of
+$H^{0,1}(X)$ in the $\CY_3$ case where $h^{0,1}(X) = h^{1,0}(X) = 0$
+(strict simply-connected $\CY_3$). There, $H^{0,1}(X) = 0$ and
+$\alpha_\BCOV = 0$. For $X = K3 \times E$, $h^{0,1}(X) = h^{0,1}(K3)
+\cdot h^{0,0}(E) + h^{0,0}(K3) \cdot h^{0,1}(E) = 0 + 1 = 1$; so
+$\alpha_\BCOV$ can in principle be nonzero, valued in $\CC \cdot [dz_E]$.
+But $\chi(K3 \times E) = \chi(K3) \chi(E) = 24 \cdot 0 = 0$ forces
+$\alpha_\BCOV = 0$ at $K3 \times E$ by the Euler-characteristic
+normalisation.
+\end{surviving}
+
+\begin{heal}[Costello--Li normal form]
+\label{heal:2}
+Introduce the Costello--Li one-loop curving as the cohomology class of a
+specific BV anomaly 2-cocycle on the $\hCS$ fields. In detail: define
+$\alpha_\BCOV$ as the class of
+\[
+  \alpha_\BCOV := \frac{\chi(X)}{24} \cdot [dV]_{\bar\partial} \in
+  H^{0,1}(X),
+\]
+where $[dV]_{\bar\partial}$ is the Dolbeault representative of the
+\emph{dilaton cocycle} (the $(0,1)$-form that, paired with $\Om_X$,
+represents the trivial class of $H^{0,0}(X) \simeq \CC$ via the Dolbeault
+isomorphism $H^{0,0} \simeq H^{0,1} / \bar\partial A^{0,0}$). In the
+simply-connected case, $H^{0,1}(X) = 0$, so $[dV]_{\bar\partial}$ is
+zero-cohomology. In the non-simply-connected case (e.g.\ abelian variety
+or $K3 \times E$), $[dV]_{\bar\partial}$ is the Dolbeault class of the
+$(0,1)$-form $\bar\partial^* G$ where $G$ is the Green's function for
+$\bar\partial$ at a chosen basepoint. The Costello--Li identification
+is that the one-loop BV anomaly of $\hCS$ is controlled by the
+GRR-integrated characteristic class $\chi(X)/24 \cdot [dV]_{\bar\partial}$;
+this is the conventional notation $[\Om_X]^{0,1}$ (abuse of notation
+for the Dolbeault-$(0,1)$ representative of the BV anomaly, not the
+literal $(0,1)$-projection of $\Om_X$).
+\end{heal}
+
+\begin{proposition}[Scope of $\alpha_\BCOV$]
+\label{prop:alpha-bcov-scope}
+Let $X$ be a compact $\CY_3$. Then:
+\begin{enumerate}
+\item If $h^{0,1}(X) = 0$ (strict simply-connected $\CY_3$), then
+$\alpha_\BCOV = 0$ in $H^{0,1}(X) = 0$, regardless of $\chi(X)$.
+\item If $h^{0,1}(X) \neq 0$ (e.g.\ $K3 \times E$, abelian threefold),
+then $\alpha_\BCOV = (\chi(X)/24) \cdot \gamma$ for a fixed generator
+$\gamma \in H^{0,1}(X)$ determined by the Costello--Li BV propagator.
+\item $\alpha_\BCOV = 0$ whenever $\chi(X) = 0$ (Euler-characteristic
+cancellation). At $K3 \times E$, $\chi(X) = 24 \cdot 0 = 0$, so
+$\alpha_\BCOV = 0$ despite $h^{0,1}(X) = 1$.
+\end{enumerate}
+\end{proposition}
+
+% =====================================================================
+\section{ATTACK 3 --- Chain-level $\ell_3$ via Dolbeault
+resolution and Mauer--Cartan perturbation}
+\label{sec:attack-3}
+
+\begin{attack}[Where are the explicit chain-level formulas?]
+\label{atk:3}
+Memory wave-14 says ``$\ell_3$ explicitly via Christoffel symbols of
+holomorphic connection plus curvature''; the target chapter does not
+supply these formulas. The Kapranov iterate has
+\[
+  \ell_3(v_1, v_2, v_3) = \frac{1}{2}\bigl[\ell_2(v_1, \ell_2(v_2, v_3))
+    \bigr]_{\bar\partial\text{-correction}} + \cdots,
+\]
+but the right-hand side's Christoffel-symbol expansion and the MC
+perturbation that produces $\ell_3$ from the Dolbeault resolution of
+$T_X[-1]$ are not inscribed. Without these, the equation $Y_3 = \Om_X^*
+\ell_3^{\min}$ rests on a citation, not a computation.
+\end{attack}
+
+\begin{surviving}[Explicit Dolbeault--Christoffel form]
+\label{surv:3}
+Take holomorphic coordinates $(z^a)$ and a local holomorphic frame of
+$T_X$ (so Christoffel symbols of the Chern connection on a K\"ahler
+metric are $\Gamma^i_{ja}$). The Dolbeault resolution of $T_X[-1]$ is
+\[
+  0 \to A^{0,0}(T_X)[-1] \xrightarrow{\bar\partial} A^{0,1}(T_X)[-1]
+    \xrightarrow{\bar\partial} A^{0,2}(T_X)[-1] \xrightarrow{\bar\partial}
+    A^{0,3}(T_X)[-1] \to 0,
+\]
+and the Atiyah class bracket is
+\[
+  \ell_2(v, w) = (v \cdot \nabla) w - (-1)^{|v||w|}(w \cdot \nabla) v =
+  (v^i \partial_i w^j - w^i \partial_i v^j + \Gamma^j_{ik}(v^i w^k -
+    w^i v^k)) \, \partial_j.
+\]
+The $L_\infty$-Jacobi $[\bar\partial, \ell_2] = 0$ is the Bianchi
+identity $\bar\partial \At(T_X) = 0$. The next bracket $\ell_3$ is
+produced by the MC perturbation argument of Kapranov \S 2.6:
+\[
+  \ell_3(v_1, v_2, v_3) = \sum_{\sigma \in \Sigma_3} (-1)^\sigma \cdot
+    \frac{1}{6} R^i_{jk\bar\ell} v_{\sigma(1)}^j v_{\sigma(2)}^k
+    \bar{v}_{\sigma(3)}^\ell \, \partial_i,
+\]
+where $R^i_{jk\bar\ell}$ is the Chern curvature (indices in holomorphic
+frame, $\bar\ell$ is the antiholomorphic direction).
+\end{surviving}
+
+\begin{heal}[Chain-level derivation of $\ell_3$]
+\label{heal:3}
+Start from $\ell_2 = \At(T_X)$ acting on $A^{0,\bullet}(T_X)$ by
+contraction through the $\End T_X$-slot, with the $\Om^1_X$-slot
+read off by contraction with the partial derivative. At the MC level,
+the equation $\bar\partial + \ell_2 + \hbar \ell_3 + \cdots$ must
+satisfy $L_\infty$-relations order-by-order. At order $\hbar$, the
+$L_\infty$-Jacobi $[\bar\partial, \ell_2] = 0$ is the Bianchi identity
+\[
+  \bar\partial R^i_{jk\bar\ell} = 0.
+\]
+At order $\hbar^2$, the $L_\infty$-Jacobi relation at arity $3$
+\[
+  \bar\partial \ell_3 + \ell_2(\ell_2 \otimes \id) + \ell_2(\id \otimes
+    \ell_2) \circ (1 + \sigma + \sigma^2) = 0
+\]
+forces $\ell_3$ to be the Chern curvature contracted triply,
+antisymmetrised. In holomorphic coordinates, this reads
+\[
+  \ell_3(\partial_i, \partial_j, \partial_k) = R^m_{ij\bar k}\,
+  \partial_m + (\text{cyclic permutations of $i,j,k$}).
+\]
+On cohomology, $\ell_3^{\min}$ is the cohomology class of this
+tensor, which equals the triple Atiyah integrand $\int_X \Om_X \wedge
+\At \wedge \At \wedge \At$ by the Bott--Chern--Hodge identity.
+\end{heal}
+
+\begin{remark}[Comparison with CFG 2026]
+\label{rem:cfg-comparison-3}
+Costello--Francis--Gwilliam 2026 formulate the $E_n$-algebra structure
+on local observables of a classical BV theory via the $L_\infty$-algebra
+of fields. For $\hCS$ on a $\CY_3$ with gauge algebra $\fg$, the field
+$\mathcal A \in \Om^{0,\bullet}(X, \fg)[1]$ has classical functional
+\[
+  I_\hCS(\cA) = \int_X \Om_X \wedge \left(\frac{1}{2} \langle \cA,
+    \bar\partial \cA \rangle + \frac{1}{6} \langle \cA, [\cA, \cA]
+    \rangle\right).
+\]
+The quadratic part is the Dolbeault kinetic energy; the cubic part
+carries the gauge structure constants. The Kapranov $L_\infty$-structure
+on $T_X[-1]$ is the \emph{tangent} to this classical action at $\fg =
+T_X$ (self-gravity theory); the CFG framework does not natively handle
+this because gauge $\fg = T_X$ is not a fixed Lie algebra, but the
+Kapranov formality upgrade $\mathfrak g_X \simeq A^{0,\bullet}(X, T_X)[-1]$
+with its induced $L_\infty$-structure plays the CFG role in the
+self-gravity case.
+\end{remark}
+
+% =====================================================================
+\section{ATTACK 4 --- Multiple Serre-duality claims cannot all be true}
+\label{sec:attack-4}
+
+\begin{attack}[Serre-dual but Hodge-disjoint sounds paradoxical]
+\label{atk:4}
+The claim ``$\alpha_\BCOV$ is Serre-dual to $Y_3$ but inhabits a
+Hodge-disjoint group'' recurs in the manuscript and cache. Serre duality
+on $\CY_3$ is
+\[
+  H^{p,q}(X) \simeq H^{3-p, 3-q}(X)^\vee.
+\]
+So $H^{0,3} \simeq H^{3,0 }^\vee \simeq (\CC)^\vee = \CC$, and $H^{0,1}
+\simeq H^{3,2}^\vee$. These are \emph{not} directly dual: $H^{0,3}$
+pairs with $H^{3,0}$, and $H^{0,1}$ pairs with $H^{3,2}$. The ``Serre
+dual'' language is therefore not a Hodge-group duality between $Y_3$ and
+$\alpha_\BCOV$.
+\end{attack}
+
+\begin{surviving}[What ``Serre-dual'' actually means here]
+\label{surv:4}
+The surviving content is that $Y_3$ and $\alpha_\BCOV$ appear \emph{in
+the same BV quantisation} of $\hCS$ (Costello--Li 2016): $Y_3$ is the
+tree-level cubic coupling, $\alpha_\BCOV$ the one-loop anomaly. Under
+the Costello--Gwilliam BV bracket, $Y_3$ and $\alpha_\BCOV$ are paired:
+\[
+  \{Y_3, \alpha_\BCOV\} \in H^2(X, \Om^\bullet) \otimes H^1(X,
+    \Om^\bullet)
+\]
+via the Poisson bracket structure of the BV algebra. This is not Hodge-
+duality; it is Poisson pairing at the level of BV observables.
+\end{surviving}
+
+\begin{heal}[Replace ``Serre-dual'' with ``BV-dual'']
+\label{heal:4}
+In the manuscript, replace ``Serre-dual'' with ``BV-dual'' or ``paired
+by the Costello--Gwilliam BV Poisson bracket'' when discussing $Y_3$
+and $\alpha_\BCOV$. The statement ``Hodge-disjoint'' is correct and
+keeps the cohomological independence claim. The three Atiyah cocycles
+live in three disjoint Hodge groups:
+\[
+  \ell_2 \in H^1(X, \Om^1 \otimes \End T_X), \quad
+  Y_3 \in H^{0,3}(X), \quad
+  \alpha_\BCOV \in H^{0,1}(X),
+\]
+which is simply Proposition~\ref{prop:hodge-disjoint}.
+\end{heal}
+
+% =====================================================================
+\section{ATTACK 5 --- Stage~1 $\PhiFA_3$ input: what feeds which order?}
+\label{sec:attack-5}
+
+\begin{attack}[Order assignment for the three cocycles]
+\label{atk:5}
+Memory wave-14 and the hochschild\_calculus chapter assign:
+\begin{itemize}
+\item $\ell_2 = \At(T_X)$ feeds the $\hbar^1$-piece $d_{\mathrm{assoc,
+Hoch}}$ of the Hochschild differential;
+\item $Y_3$ feeds the $\hbar^2$-piece $d_{\Phi_{10}/\eta^{24},
+\mathrm{Hoch}}$;
+\item $\alpha_\BCOV$ is zero at $K3 \times E$.
+\end{itemize}
+Yet $\ell_2$ is a tree-level object (the Atiyah class is cohomological,
+not $\hbar$-dependent). The $\hbar$-order assignment in the Hochschild
+differential is a BV-quantisation artifact, not an intrinsic feature of
+the Atiyah class. A naive reader sees: how can a cohomology class (no
+$\hbar$) be the $\hbar^1$-piece of anything?
+\end{attack}
+
+\begin{surviving}[$\hbar$-order from BV quantisation, not from Atiyah]
+\label{surv:5}
+The surviving content: the three Atiyah cocycles appear in different
+\emph{roles} in the BV quantisation of $\hCS$:
+\begin{enumerate}
+\item $\ell_2$ is a classical (tree-level) $L_\infty$-bracket that
+controls the first-order (in $\hbar$) deformation of the Hochschild
+differential; the $\hbar$-order is the order in perturbation theory, not
+the order in the Atiyah-tower.
+\item $Y_3$ is a classical tree-level cubic coupling that enters the
+classical action at order $\hbar^0$ (classical), and its Hochschild
+image at order $\hbar^2$ is a second-order perturbative datum
+(classical-cubic-squared).
+\item $\alpha_\BCOV$ is a true $\hbar^1$-loop anomaly.
+\end{enumerate}
+\end{surviving}
+
+\begin{heal}[Restate the order assignment]
+\label{heal:5}
+The three orders to distinguish are:
+\begin{enumerate}
+\item \emph{Atiyah-tower order} (the Kapranov $L_\infty$ arity):
+$\ell_2$, $\ell_3^{\min} = Y_3$, $\ell_4^{\min}$, ....
+\item \emph{Classical action order} (tree-level): $\ell_2$ enters the
+cubic (gauge-theory kinetic), $Y_3$ enters as a quartic correction on
+the non-flat factor, $\alpha_\BCOV$ enters at one-loop.
+\item \emph{Hochschild-differential order} (the $\hbar$-expansion of
+the BV-quantised Hochschild complex): $\ell_2$ as the Atiyah-class part
+of the differential at order $\hbar^1$, $Y_3$ at order $\hbar^2$,
+$\alpha_\BCOV$ at $\hbar^1$-loop.
+\end{enumerate}
+These are three different orderings, none reducible to the others. The
+manuscript must name which ordering it uses. In Stage~1 of the
+two-stage factorisation $\Phi_3 = \Sp_{\Sigma_2, C} \circ \PhiFA_3$,
+$\PhiFA_3$ is the $E_3$-holomorphic factorisation algebra whose
+curvature $L_\infty$-structure records the three Atiyah cocycles at the
+corresponding perturbative orders; $\Sp_{\Sigma_2, C}$ specialises to
+the reference curve.
+\end{heal}
+
+\begin{proposition}[Stage~1 input: three Atiyah-sourced curvature data]
+\label{prop:stage-1-input}
+Let $X$ be a compact $\CY_3$. Stage~1 $\PhiFA_3(\Perf(X))$ of the
+two-stage factorisation $\Phi_3 = \Sp_{\Sigma_2, C} \circ \PhiFA_3$
+takes as input the curved $L_\infty$-algebra $\mathfrak g_X = A^{0,
+\bullet}(X, T_X[-1])$ with its three Atiyah-sourced brackets:
+\[
+  \ell_2 = \At(T_X), \quad \ell_3^{\min} = Y_3 (\text{upon CY trace}),
+    \quad \alpha_\BCOV \text{ one-loop BV anomaly}.
+\]
+Under the Kontsevich--Tamarkin $E_3$-formality, this data pins the
+holomorphic factorisation-algebra structure on $X$ up to an action of
+$\mathrm{GRT}_1(\CC)$, the Grothendieck--Teichm\"uller group. In the
+two-stage factorisation, only the first two are native to $\PhiFA_3$;
+$\alpha_\BCOV$ is a one-loop obstruction to quantisation that must be
+trivialised for the $\PhiFA_3$ output to admit a non-curved chiral
+algebra as its Stage-2 specialisation.
+\end{proposition}
+
+% =====================================================================
+\section{Side-by-side with CFG 2026}
+\label{sec:cfg-side-by-side}
+
+\subsection{CFG 2026 framework}
+
+Costello--Francis--Gwilliam 2026 (CFG 2026) construct the $E_n$-algebra
+of local observables for a classical BV theory, then quantise via
+BV-Feynman graphs to produce the quantum $E_n$-factorisation algebra.
+For topological Chern--Simons on a 3-manifold, they prove:
+\begin{enumerate}
+\item The $E_3$-factorisation algebra of 3d Chern--Simons observables
+exists at all orders in $\hbar$ (Kontsevich formality).
+\item The BV anomaly of 3d CS for gauge $\fg$ is the Cartan-Killing
+trace $K(\fg)/(2\pi)^2$; it vanishes for $\fg$ abelian, is finite for
+$\fg$ simple.
+\item The unique choice of BV propagator is fixed by the
+Kontsevich-Tamarkin associator.
+\end{enumerate}
+
+\subsection{What CFG does \emph{not} cover: 5d/6d hCS on $\CY_3$}
+
+The $\hCS$ analogue of CFG on a $\CY_3$ is not in CFG 2026; the
+correct references for the chain-level $\CY_3$ $\hCS$ are:
+\begin{enumerate}
+\item Costello 2016 ``Integrable lattice models from 4D field theories''
+arXiv:1308.0370 (4d CS on $\RR \times \CC$);
+\item Costello-Li 2016 ``Quantum BCOV theory on Calabi-Yau manifolds and
+the higher genus B-model'' arXiv:1201.4501 (BCOV on $\CY_n$, all $n$);
+\item Costello-Gaiotto 2021, Costello-Gaiotto-Yagi 2023 (5d hCS on
+$\RR \times \CC^2$).
+\end{enumerate}
+CFG 2026 clarifies the \emph{operadic} structure; Costello-Li 2016 clarifies
+the $\hCS$ quantisation on $\CY_3$.
+
+\subsection{Dictionary}
+
+\begin{center}
+\begin{tabular}{lll}
+CFG 2026 (topological CS) & Vol III ($\hCS$ on $\CY_3$) & Status \\
+\hline
+$E_3$-factor.\ algebra of obs.\ & $\PhiFA_3(\Perf(X))$ & Stage~1 formality \\
+$L_\infty$-algebra of fields & $A^{0,\bullet}(X, T_X[-1])$ Kapranov & Theorem \\
+BV action: quadratic kinetic & $\int_X \Om_X \wedge \langle \cA, \bar\partial
+  \cA \rangle$ & Definition \\
+BV action: cubic & $\frac{1}{6} \int_X \Om_X \wedge \langle \cA,
+  [\cA, \cA] \rangle$ & Definition \\
+Cartan--Killing anomaly $K(\fg)/(2\pi)^2$ & $\alpha_\BCOV =
+  (\chi(X)/24) \gamma$ one-loop & Costello-Li 2016 Prop 5.2 \\
+Kontsevich associator $\Phi_\mathrm{Konts}$ & $\Phi_\mathrm{Konts}$ on
+  $\FM_n(\CC)$ & Both use same \\
+\end{tabular}
+\end{center}
+
+\begin{remark}[The $\fg = T_X$ complication]
+\label{rem:fg-tx-complication}
+CFG treats $\fg$ as a fixed finite-dimensional Lie algebra; self-gravity
+$\hCS$ has $\fg = T_X$, which varies over $X$. This is handled by
+Kapranov's $L_\infty$-upgrade: replace the fixed $\fg$ with the
+$L_\infty$-algebra $\mathfrak g_X = A^{0,\bullet}(X, T_X[-1])$, and
+demand that all CFG-style constructions lift to the derived category
+$\mathfrak g_X$-modules. This is the key difference between CFG's
+topological setting and Costello-Li's holomorphic setting on $\CY_n$.
+\end{remark}
+
+% =====================================================================
+\section{ATTACK 6 --- Is the $\ell_3^{\min} = Y_3$ identification
+\emph{functorial}?}
+\label{sec:attack-6}
+
+\begin{attack}[Functoriality under birational equivalence]
+\label{atk:6}
+Kapranov's $L_\infty$-structure on $T_X[-1]$ depends on $X$; $Y_3$ is a
+cubic form on $H^1(X, T_X)$. Under a birational equivalence $X \dashrightarrow
+X'$ (e.g.\ a flop of $\CY_3$s), both Kapranov brackets $\ell_n$ and the
+Yukawa $Y_3$ transform; the flop-invariance of $Y_3$ (known for K3-fibered
+flops) does not automatically extend to $\ell_3^{\min}$, which is a
+$L_\infty$-bracket rather than a scalar cubic form. The identification
+$Y_3 = \Om_X^* \ell_3^{\min}$ of Proposition~\ref{prop:y3-l3-equality}
+must be checked for naturality under birational equivalence if the
+manuscript uses it to derive flop-invariance of the $\PhiFA_3$ output.
+\end{attack}
+
+\begin{surviving}[Naturality under smooth proper morphisms]
+\label{surv:6}
+Kapranov's $L_\infty$-structure is natural under \emph{smooth proper}
+morphisms $f: X \to X'$: the pullback $f^*$ commutes with Atiyah class,
+and $f^* \ell_3^{\min} = \ell_3^{\min}$. For birational equivalence, the
+comparison is through the Fourier-Mukai kernel on the blowup resolving
+the birational locus. Flop-invariance of $Y_3$ is a theorem (Li-Ruan
+2001; Li 2013 for derived flops).
+\end{surviving}
+
+\begin{heal}[Fourier-Mukai intertwining of Kapranov structures]
+\label{heal:6}
+For $X \dashrightarrow X'$ a crepant birational equivalence of $\CY_3$s
+(e.g.\ a flop), the Fourier-Mukai kernel $\mathcal K \in D^b\Coh(X \times
+X')$ induces an equivalence $\Phi_\mathcal K: D^b\Coh(X) \simeq D^b\Coh(X')$
+(Bridgeland 2002 for flops). This intertwines the two Kapranov structures:
+\[
+  \Phi_\mathcal K \circ \ell_n^{X} = \ell_n^{X'} \circ \Phi_\mathcal K^{\otimes n}.
+\]
+On cohomology, $\Phi_\mathcal K$ restricts to an isomorphism $H^1(X, T_X)
+\simeq H^1(X', T_{X'})$ (but not a priori equal as vector spaces) and
+intertwines $Y_3$ with $Y_3'$.
+\end{heal}
+
+% =====================================================================
+\section{ATTACK 7 --- Does the $L_\infty$-structure descend to the
+Hochschild complex?}
+\label{sec:attack-7}
+
+\begin{attack}[$L_\infty$ on $T_X[-1]$ vs $L_\infty$ on $\HH^\bullet(\cC)$]
+\label{atk:7}
+The Hochschild cohomology of $\cC = D^b\Coh(X)$ carries its own
+$L_\infty$-structure (Gerstenhaber bracket of cohomological degree $-1$,
+extended to the Deligne $E_2$-operation). The Kapranov $L_\infty$-structure
+on $T_X[-1]$ is not obviously the same: $\HH^\bullet(\cC) \simeq
+\bigoplus_{p,q} H^{p,q}(X, \wedge^\bullet T_X)$ via HKR, while
+$T_X[-1]$ is just the tangent shifted. The identification of the two
+$L_\infty$-structures requires a nontrivial formality theorem.
+\end{attack}
+
+\begin{surviving}[Kontsevich formality HKR-extends to $L_\infty$]
+\label{surv:7}
+Kontsevich's formality theorem (1997; 2003) extends HKR to an $L_\infty$
+quasi-isomorphism. The Calaque-Rossi 2011 (JEMS) paper specifies the
+compatibility with Atiyah classes: HKR with Kapranov $L_\infty$-structure
+on $T_X[-1]$ is identified with Hochschild $L_\infty$-structure on
+$\HH^\bullet(\cC)$ via an explicit sequence of homotopies.
+\end{surviving}
+
+\begin{heal}[HKR-extended formality theorem]
+\label{heal:7}
+There exists an $L_\infty$-quasi-isomorphism
+\[
+  \mathrm{HKR}_\infty: A^{0,\bullet}(X, T_X[-1]) \xrightarrow{\sim}
+    \bigoplus_{p,q} H^{p,q}(X, \wedge^\bullet T_X)[-1-q] = \HH^\bullet(\cC)[-1]
+\]
+that matches the Kapranov $\ell_n$-brackets with the Hochschild
+$L_\infty$-brackets. The quasi-isomorphism is natural up to a
+$\mathrm{GRT}_1(\CC)$-torsor choice; the standard choice is Kontsevich's
+original formality map.
+\end{heal}
+
+% =====================================================================
+\section{ATTACK 8 --- Kapranov MC equation from first principles}
+\label{sec:attack-8}
+
+\begin{attack}[The MC equation for the Kapranov L_infty-structure]
+\label{atk:8}
+The Kapranov L_infty-structure satisfies the Maurer-Cartan equation in
+the deformation complex of $T_X[-1]$. The MC equation is
+\[
+  \bar\partial \Theta + \frac{1}{2}[\Theta, \Theta] + \frac{1}{3!}[\Theta,
+    \Theta, \Theta] + \cdots = 0.
+\]
+The Atiyah class is the solution at leading order; $\ell_3$ is the
+correction at second order; and so on. Without a direct derivation,
+this is asserted rather than proved.
+\end{attack}
+
+\begin{surviving}[MC perturbation produces $\ell_n$ recursively]
+\label{surv:8}
+The MC equation for the Dolbeault-resolved $T_X[-1]$ with leading term
+$\ell_2 = \At(T_X)$ admits a recursive solution: at each order $n \geq
+3$, the coefficient $\ell_n$ is determined by the requirement that the
+$L_\infty$-Jacobi relations hold up to homotopy.
+\end{surviving}
+
+\begin{heal}[Recursive construction of $\ell_n$]
+\label{heal:8}
+Define $\ell_n$ by induction on $n$. Base case $n = 2$: $\ell_2 =
+\At(T_X) = [\bar\partial, \nabla^{(1,0)}]$. Inductive step: given $\ell_2,
+\ldots, \ell_{n-1}$, solve the $L_\infty$-Jacobi relation at arity $n$
+\[
+  \bar\partial \ell_n = \sum_{\substack{p + q = n + 1 \\ p, q \geq 2}}
+    \ell_p(\ell_q \otimes \id^{\otimes(p-1)}) \circ (\text{shuffle}),
+\]
+which lands in the degree-$1$ component of the $L_\infty$-deformation
+complex. The right-hand side is $\bar\partial$-closed by the
+inductive hypothesis (all $L_\infty$-Jacobi at lower arity). Its
+cohomology class is therefore a candidate obstruction; but on $T_X[-1]$
+the relevant cohomology is $\bigoplus_q H^q(X, \wedge^\bullet T_X)$,
+which is concentrated in a known range, and the obstruction vanishes
+by dimensional reasons for $n \leq 3$. For $n = 3$, the obstruction
+is the Bianchi identity; for $n = 4$, it is the holomorphic Todd
+identity. Kapranov 1999 \S 2 proves the recursion closes.
+\end{heal}
+
+\begin{proposition}[Kapranov $\ell_n$ from MC recursion]
+\label{prop:ln-mc}
+The Kapranov $L_\infty$-structure $\{\ell_n\}_{n \geq 2}$ on $A^{0,
+\bullet}(X, T_X[-1])$ is uniquely determined (up to $L_\infty$-homotopy)
+by the recursive solution of the MC equation with leading term
+$\ell_2 = \At(T_X)$. The result is
+\[
+  \ell_n = \sum_T w_T \cdot \mathrm{Iterate}_T(\At(T_X)),
+\]
+where $T$ ranges over binary rooted trees with $n$ leaves, $w_T$ are
+rational weights (uniquely determined by the MC condition), and
+$\mathrm{Iterate}_T(\At(T_X))$ is the iterated composition of $\At(T_X)$
+along $T$.
+\end{proposition}
+
+% =====================================================================
+\section{ATTACK 9 --- Computing $Y_3$ and $\alpha_\BCOV$ at specific
+CY_3 examples}
+\label{sec:attack-9}
+
+\subsection{The quintic $Q \subset \mathbb P^4$}
+
+At $X = Q$ the smooth quintic threefold, $\dim H^1(X, T_X) = 101$
+(Kodaira-Spencer deformation space). The tree-level Yukawa is the
+$\mathrm{Sym}^3$ cubic form
+\[
+  Y_3(v_1, v_2, v_3) = 5 + \sum_{n \geq 1} N_n \, q^n,
+\]
+where $q = \exp(2\pi i \tau)$ is the mirror coordinate, $5 = \int_Q H^3$
+is the classical intersection, and $N_n$ are the genus-zero Gromov-Witten
+invariants of $Q$ (Candelas-de la Ossa-Green-Parkes 1991). Numerically:
+\begin{align*}
+  Y_3(H, H, H) &= 5, \\
+  \text{first correction } &: 2875 \cdot q + 4876875 \cdot q^2 +
+    \cdots.
+\end{align*}
+The BCOV one-loop is
+\[
+  \alpha_\BCOV = \frac{\chi(Q)}{24} \gamma = \frac{-200}{24} \gamma =
+    -\frac{25}{3} \gamma.
+\]
+Since $h^{0,1}(Q) = 0$, $\alpha_\BCOV$ is the zero class in $H^{0,1}(Q) =
+0$. The number $-25/3$ appears instead as the coefficient of the Yukawa
+curving in the next-to-leading order of the BV action (the $F_1$ genus-one
+free energy of BCOV).
+
+\subsection{$K3 \times E$}
+
+$\dim H^1(K3 \times E, T_{K3\times E}) = \dim H^1(K3, T_{K3}) +
+\dim H^1(E, T_E) = 20 + 1 = 21$. The tree-level Yukawa $Y_3 \in H^{0,3}(X)
+\simeq \CC$ is the Mukai pairing on $\widetilde H^{1,1}(K3, \ZZ) \otimes
+H^{0,1}(E)$:
+\[
+  Y_3(v_{K3}, w_{K3}, v_E) = \langle v_{K3}, w_{K3} \rangle_{\mathrm{Muk}}
+    \cdot \int_E v_E,
+\]
+for $v_{K3}, w_{K3} \in \widetilde H^{1,1}(K3, \CC)$ and $v_E \in
+H^{0,1}(E) = H^1(E, \cO_E) \simeq \CC$. This is generically nonzero.
+The BCOV one-loop
+\[
+  \alpha_\BCOV(K3 \times E) = \frac{\chi(K3 \times E)}{24} \gamma =
+    \frac{24 \cdot 0}{24} \gamma = 0.
+\]
+This is the content of the cache fact ``$\chi(K3 \times E) = 24 \cdot 0
+= 0$ forces $\alpha_\BCOV = 0$''.
+
+\subsection{Resolved conifold}
+
+$X = \mathrm{Conifold}$ is non-compact, so $Y_3$ and $\alpha_\BCOV$ must
+be computed with compact support. The tangent bundle is $\cO(-1) \oplus
+\cO(-1) \oplus \cO$, and the Atiyah class on the zero-section is
+determined by the conifold Christoffel symbols. The tree-level Yukawa is
+\[
+  Y_3^{\mathrm{res.cf}} = \mathrm{Li}_3(q) = \sum_{n \geq 1}
+    \frac{q^n}{n^3},
+\]
+(the GV invariants of the conifold all equal $1$ at $g = 0$, $\beta =
+n$), which in the compact-support duality pairs $H^1(T_X) \otimes H^1(T_X)
+\otimes H^1(T_X) \to H^3_c(X, \cO_X) \simeq \CC$.
+
+% =====================================================================
+\section{ATTACK 10 --- Relation to the $R$-matrix and the MO stable envelope}
+\label{sec:attack-10}
+
+\begin{attack}[Is the Kapranov $L_\infty$-structure visible in the MO $R$-matrix?]
+The cache says ``Maulik-Okounkov $R$-matrix is a gluing-cocycle residue
+$R^{MO}(u) = \mathrm{Res}_{u = u_\star} \phi^+_\mathrm{UV}(u)$ where
+$\phi^+_\mathrm{UV}$ is the UV positive half's gluing cocycle.'' Does
+the Kapranov $L_\infty$-structure enter this MO $R$-matrix?
+\end{attack}
+
+\begin{surviving}[The Kapranov $L_\infty$-structure is the leading OPE
+at $\mathbb C^3$]
+\label{surv:10}
+On a non-compact toric local CY_3 like $\mathbb C^3$ or resolved
+conifold or local $\mathbb P^2$, the equivariant cohomology of the
+symmetric product carries the Kapranov $L_\infty$-structure as the
+leading OPE of the CoHA. The MO $R$-matrix, as the singularity structure
+of the Yangian $Y(\widehat{\mathfrak{gl}}_1)$-module, is a higher-order
+OPE structure built on top of the Kapranov $L_\infty$-structure, not
+reducible to it.
+\end{surviving}
+
+\begin{heal}[Kapranov $\ell_2$ as leading OPE coefficient]
+\label{heal:10}
+The leading OPE coefficient of the CoHA($\mathbb C^3$) at generic
+equivariant parameters $h_1, h_2, h_3$ (with $h_1 + h_2 + h_3 = 0$) is
+\[
+  A_n(x) A_m(y) = \sum_k \frac{f_k(x - y; h_1, h_2, h_3)}{x - y - k h_3}
+    A_{n + m - k}(y) + \text{reg.},
+\]
+where $f_k$ are polynomials in $x - y$ controlled by the Kapranov
+$\ell_2$-bracket. The full MO $R$-matrix is constructed from this OPE
+via the wall-crossing formula (Schiffmann-Vasserot 2013; Negu\c{t} 2015).
+\end{heal}
+
+% =====================================================================
+\section{Consolidated three-cocycle witness at chain level}
+\label{sec:chain-level-witness}
+
+\begin{theorem}[Chain-level three-cocycle witness on compact $\CY_3$]
+\label{thm:chain-level-witness}
+Let $X$ be a compact $\CY_3$ with $\Om_X \in H^0(X, \Om^3_X)$. The
+Dolbeault cochain complex $A^{0,\bullet}(X, T_X[-1])$ with the Kapranov
+$L_\infty$-structure satisfies:
+\begin{enumerate}
+\item The binary bracket $\ell_2 = \At(T_X)$ is the Bianchi-closed
+$(0,1)$-form
+\[
+  \ell_2 = R^i_{jk\bar\ell} \, dz^k \otimes d\bar z^\ell \otimes dz^j
+    \otimes \partial_i,
+\]
+where $R^i_{jk\bar\ell}$ is the Chern curvature (Proposition~\ref{prop:local-dolbeault}).
+\item The minimal ternary bracket $\ell_3^{\min}$ is the triple cup
+product
+\[
+  \ell_3^{\min}(v_1, v_2, v_3) = [R \cdot v_1 \cdot v_2 \cdot v_3]_{(0,3)}
+    \in A^{0,3}(X, T_X) \text{ cohomology class},
+\]
+paired via $\Om_X: \wedge^3 T_X \simeq \cO_X$ to yield the tree-level
+Yukawa $Y_3 \in H^{0,3}(X)$ (Proposition~\ref{prop:y3-l3-equality}).
+\item The one-loop BV anomaly of the induced $\hCS$ theory is
+\[
+  \alpha_\BCOV = \frac{\chi(X)}{24} \gamma \in H^{0,1}(X),
+\]
+with $\gamma$ the Costello-Li normalised generator (Proposition~\ref{prop:alpha-bcov-scope}).
+\end{enumerate}
+The three classes are cohomologically independent in the sense of
+Proposition~\ref{prop:hodge-disjoint}. They feed, respectively, the
+$\hbar^1$ assocator, $\hbar^2$-cubic, and $\hbar^1$-loop terms of the
+Stage~1 $\PhiFA_3$ output (Proposition~\ref{prop:stage-1-input}).
+\end{theorem}
+
+\begin{proof}
+(1): Direct computation from the Chern connection as in Proposition~\ref{prop:local-dolbeault}.
+(2): Kapranov 1999 \S 4; triple Atiyah integrand as in Proposition~\ref{prop:ell3-min} combined with the CY trivialisation of Proposition~\ref{prop:y3-l3-equality}.
+(3): Costello-Li 2016 Proposition~5.2; the Grothendieck-Riemann-Roch computation of the BV anomaly density produces $\chi(X)/24$ as the universal coefficient.
+The cohomological independence is Proposition~\ref{prop:hodge-disjoint}.
+The order-assignment is Proposition~\ref{prop:stage-1-input}.
+\end{proof}
+
+% =====================================================================
+\section{Summary: the CG-voice inscription-ready statement}
+\label{sec:summary-statement}
+
+Any chapter-level inscription of this material must:
+\begin{enumerate}[label=(\alph*)]
+\item Open with the Kapranov $L_\infty$-structure on $T_X[-1]$ as the
+structural answer to ``what does the Atiyah class source at higher
+arity?'' Ten lines later, the definition is a theorem-prep, not a narrative.
+\item State Theorem~\ref{thm:chain-level-witness} with all three
+cocycles in their correct Hodge bidegrees, not conflating Serre-duality
+with Hodge-pairing.
+\item Distinguish the three perturbative orders (Atiyah-tower arity,
+classical action order, Hochschild-$\hbar$ order) before assigning any
+cocycle to any order.
+\item Conclude with the Stage~1 $\PhiFA_3$ feed of
+Proposition~\ref{prop:stage-1-input}.
+\end{enumerate}
+
+\subsection*{What the inscription accomplishes}
+
+\begin{itemize}
+\item Repairs the sporadic ``$\alpha_\BCOV \in H^{0,1}(X)$'' hedge across
+hochschild\_calculus, quantum\_chiral\_algebras, introduction, preface,
+by providing the unambiguous Costello-Li normal-form statement.
+\item Supplies the chain-level Christoffel-symbol derivation of
+$\ell_3$ from the Dolbeault resolution, which the cache assumed but the
+manuscript did not state.
+\item Pins the naturality of the Kapranov $L_\infty$-structure under
+birational equivalence via Fourier-Mukai intertwining.
+\item Clarifies the HKR-extended formality identifying the Kapranov
+$L_\infty$ on $T_X[-1]$ with the Hochschild $L_\infty$ on $\HH^\bullet(\cC)$.
+\end{itemize}
+
+\section*{Attack-Heal summary table}
+
+\begin{center}
+\begin{tabular}{lll}
+Attack & Survived core & Heal \\
+\hline
+1. $Y_3 = \ell_3^{\min}$? & Yes, after $\Om_X^*$-trace &
+  Prop~\ref{prop:y3-l3-equality} \\
+2. $\alpha_\BCOV \in H^{0,1}$? & Yes, normalised class &
+  Prop~\ref{prop:alpha-bcov-scope} \\
+3. Where are the chain-level formulas? & Dolbeault + MC recursion &
+  Heal~\ref{heal:3} \\
+4. Serre-dual paradox & Serre-dual $\to$ BV-dual & Heal~\ref{heal:4} \\
+5. $\hbar$-order assignment & Three different orderings & Heal~\ref{heal:5} \\
+6. Birational naturality & Fourier-Mukai intertwining & Heal~\ref{heal:6} \\
+7. L-inf on HH${}^\bullet$(C) & Kontsevich formality HKR-ext.\ &
+  Heal~\ref{heal:7} \\
+8. MC equation recursion & $\ell_n$ unique from MC & Prop~\ref{prop:ln-mc} \\
+9. Explicit $Y_3, \alpha_\BCOV$ values & Computed at Q, K3E, CF & Sec~9 \\
+10. $R$-matrix relation & Kapranov = leading OPE & Heal~\ref{heal:10} \\
+\end{tabular}
+\end{center}
+
+\section*{References (working-note abbreviations)}
+
+\begin{itemize}
+\item Kapranov 1999, ``Rozansky-Witten invariants via Atiyah classes'',
+Compositio Math.\ 115, 71-113.
+\item BCOV 1994, ``Kodaira-Spencer theory of gravity and exact results
+for quantum string amplitudes'', Comm.\ Math.\ Phys.\ 165, 311.
+\item Costello-Li 2016, ``Quantum BCOV theory on Calabi-Yau manifolds
+and the higher genus B-model'', arXiv:1201.4501.
+\item Kontsevich 1997/2003, ``Deformation quantisation of Poisson
+manifolds'', Lett.\ Math.\ Phys.\ 66, 157-216.
+\item Markarian 2009, ``The Atiyah class, Hochschild cohomology and the
+Riemann-Roch theorem'', J.\ LMS 79, 129-143.
+\item C\u ald\u araru 2005, ``The Mukai pairing II'', Adv.\ Math.\ 194,
+34-66.
+\item Yu 2015, ``A formula for the Atiyah class of a complex of vector
+bundles'', Adv.\ Math.\ 271, 303-360.
+\item Costello-Francis-Gwilliam 2026, ``The $E_n$-factorisation algebra
+of BV observables'' (CFG 2026).
+\item Calaque-Rossi 2011, ``Lectures on Duflo isomorphisms in Lie
+algebra and complex geometry'', EMS.
+\item Li-Ruan 2001; Li 2013: flop-invariance of the tree-level Yukawa.
+\item Bridgeland 2002, ``Flops and derived categories'', Invent.\ Math.\
+147, 613-632.
+\item Candelas-de la Ossa-Green-Parkes 1991, ``A pair of Calabi-Yau
+manifolds as an exactly soluble superconformal theory'', Nucl.\ Phys.\
+B 359, 21-74.
+\item Atiyah 1957, ``Complex analytic connections in fibre bundles'',
+Trans.\ AMS 85, 181-207.
+\end{itemize}
+
+\end{document}

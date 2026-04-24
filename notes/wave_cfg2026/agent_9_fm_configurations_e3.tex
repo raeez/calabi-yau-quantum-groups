@@ -1,0 +1,1227 @@
+%% agent_9_fm_configurations_e3.tex
+%% Chain-level Fulton--MacPherson configuration-space model for the E_3 operad,
+%% as it enters the Stage-1 PhiFA_3 construction in Vol III.
+%%
+%% Voices: Kapranov, Kontsevich, Soibelman.
+%% Standalone working notes; not included in main.tex.
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+\newtheorem{survivor}[theorem]{Surviving core}
+
+\DeclareMathOperator{\Conf}{Conf}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\Op}{Op}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Fact}{Fact}
+\DeclareMathOperator{\HH}{HH}
+\DeclareMathOperator{\CH}{CH}
+\DeclareMathOperator{\Gerst}{Gerst}
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\GC}{GC}
+\DeclareMathOperator{\GRT}{GRT}
+
+\newcommand{\FMbar}{\overline{F}}
+\newcommand{\FM}{\mathcal{FM}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\Ddisk}{D}
+\newcommand{\Ainf}{A_{\infty}}
+\newcommand{\Einf}{E_\infty}
+\newcommand{\Eone}{E_1}
+\newcommand{\Etwo}{E_2}
+\newcommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\newcommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\newcommand{\CY}{\mathrm{CY}}
+
+\title{Chain-level Fulton--MacPherson configuration-space model for the \texorpdfstring{$E_3$}{E-3} operad}
+\author{Agent 9 --- wave \texttt{cfg2026}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Stage-$1$ functor $\PhiFA_3$ of the $\CY$-to-chiral correspondence
+$\Phi_3 = \SpCh_{\Sigma_2, C} \circ \PhiFA_3$ takes a cyclic $\Ainf$
+Calabi--Yau category of dimension three and produces an $E_3$-holomorphic
+factorisation algebra on the ambient $\CY_3$ variety. The $E_3$ operad
+appearing on the output side is the chain-level Fulton--MacPherson
+operad $\FM_3 = \{\FMbar(k, \mathbb{R}^3)^{\FM}\}_{k \geq 1}$: a tower
+of smooth manifolds-with-corners whose interior is the configuration
+space $\Conf_k(\mathbb{R}^3)$, compactified by iterated real blow-ups
+along pairwise and higher-order diagonals. Kontsevich $E_3$-formality
+identifies the chain operad $C_*(\FM_3; \mathbb{Q})$ with the
+Gerstenhaber$_3$ operad of shifted-Poisson algebras up to a
+$\GRT_1(\mathbb{Q})$-torsor. Willwacher's theorem writes this torsor
+as $H^0$ of the Kontsevich graph complex $\GC_3$. These notes record
+the chain-level operadic content explicitly: boundary strata, the
+Boardman--Vogt $W$-construction, the graph-operad comparison, and
+the compatibility with the two-stage factorisation of the
+correspondence programme.
+\end{abstract}
+
+\tableofcontents
+
+%==============================================================================
+\section{Cycle 1: ATTACK --- the $E_3$ operad as black box}
+%==============================================================================
+
+\begin{attack}[$E_3$ as a symbol without content]
+\label{att:cycle-1}
+In the Vol III chapter \texttt{cy\_categories.tex} the phrase
+``$E_3$-holomorphic factorisation algebra'' appears as the output
+target of Stage-$1$ $\PhiFA_3$ (Theorem~\texttt{phi-two-stage-factorisation}).
+The $E_3$ operad is named; its operations are not exhibited. In
+particular, the following questions have no answer in the chapter as
+presently written:
+\begin{itemize}
+ \item What are the \emph{spaces} $E_3(k)$ of arity-$k$ operations?
+ \item What are their \emph{boundary strata}?
+ \item What is the chain-level model $C_\bullet(E_3(k); \mathbb{Q})$
+       that Kontsevich--Tamarkin formality acts on?
+ \item How do the spaces $E_3(k)$ compose operadically?
+ \item How does the Stage-$1$ functor $\PhiFA_3$ \emph{use} these
+       operations to assemble local observables on a $\CY_3$?
+\end{itemize}
+Without concrete answers, ``$E_3$-holomorphic factorisation algebra''
+is a label, not a mathematical object.
+\end{attack}
+
+\begin{survivor}[\ref{att:cycle-1}]
+The attack is sharp: the Chriss--Ginzburg standard forbids labels
+without content. The operadic data on the output side of $\PhiFA_3$
+must be made explicit at the chain level. The Fulton--MacPherson
+compactification $\FMbar(k, \mathbb{R}^3)^{\FM}$
+\cite[Ann.\ of Math.\ 139, 1994, \S 1]{FultonMacPherson1994}
+supplies a canonical model admitting all four pieces of structure:
+spaces, boundary strata, chains, operadic composition.
+\end{survivor}
+
+%==============================================================================
+\section{Cycle 2: HEAL --- configuration spaces and their compactification}
+%==============================================================================
+
+\begin{definition}[Ordered configuration space]
+\label{def:conf-space}
+Let $M$ be a smooth manifold of dimension $n$ and let $k \geq 1$.
+The \emph{ordered configuration space} of $k$ points in $M$ is
+\[
+ \Conf_k(M) \;=\; F(k, M) \;=\; \bigl\{(x_1, \ldots, x_k) \in M^k :
+  x_i \neq x_j \text{ for } i \neq j \bigr\}.
+\]
+It is a smooth manifold of dimension $kn$, open in $M^k$, and carries
+a free $S_k$-action by coordinate permutation. The quotient
+$\Conf_k(M)/S_k = UF(k, M)$ is the unordered configuration space.
+\end{definition}
+
+\begin{example}[Euclidean case]
+\label{ex:conf-Rn}
+For $M = \mathbb{R}^n$ the configuration space $\Conf_k(\mathbb{R}^n)$
+retracts onto the \emph{reduced} configuration space
+\[
+ \widetilde{\Conf}_k(\mathbb{R}^n)
+ \;=\; \{(x_1, \ldots, x_k) :
+        \bar x = 0,\ \sum |x_i - \bar x|^2 = 1,\ x_i \neq x_j\},
+\]
+a closed manifold of dimension $kn - n - 1$. The cohomology is known:
+\[
+ H^\bullet(\Conf_k(\mathbb{R}^n); \mathbb{Q})
+ \;=\; \mathbb{Q}[g_{ij}]_{1 \leq i < j \leq k}
+        /\langle g_{ij}^2 = 0,\ g_{ij} g_{jk} + g_{jk} g_{ki} + g_{ki} g_{ij} = 0 \rangle,
+\]
+with $|g_{ij}| = n - 1$. The cubic relations are the Arnold
+quadratic relations \cite[Arnold 1969]{Arnold1969}. For $n = 3$
+the generator is in degree $2$, and the relations produce the
+cohomology of the little $3$-disks operad as the free graded
+commutative algebra on the $g_{ij}$ modulo Arnold.
+\end{example}
+
+\begin{definition}[Fulton--MacPherson compactification]
+\label{def:fm-compactification}
+Let $M$ be a smooth manifold and $k \geq 1$. The
+\emph{Fulton--MacPherson compactification}
+$\FMbar(k, M)^{\FM}$ \cite{FultonMacPherson1994} is the closure of
+the image of $\Conf_k(M) \hookrightarrow M^k \times
+\prod_{|I| \geq 2} \mathrm{Bl}_{\Delta_I}(M^I)$ under the simultaneous
+inclusions, where $\Delta_I \subset M^I$ is the thin diagonal indexed
+by $I \subseteq \{1, \ldots, k\}$ and $\mathrm{Bl}$ is real blow-up.
+\end{definition}
+
+\begin{theorem}[Fulton--MacPherson 1994]
+\label{thm:fm-basic}
+The space $\FMbar(k, M)^{\FM}$ is a smooth manifold with corners,
+compact when $M$ is compact. The interior is
+$\Conf_k(M) \subset \FMbar(k, M)^{\FM}$ as an open dense submanifold.
+The boundary $\partial \FMbar(k, M)^{\FM}$ is stratified by labelled
+rooted trees $T$ with $k$ leaves and no bivalent internal vertices;
+the stratum $S_T \subset \partial \FMbar(k, M)^{\FM}$ is canonically
+identified with
+\[
+ S_T \;\simeq\; \Conf_{|v_T|}(M) \times
+ \prod_{v \in \mathrm{int}(T)} \Conf_{|v|}(\mathbb{R}^n),
+\]
+where $v_T$ is the root vertex, $|v_T|$ the number of children of
+the root, $\mathrm{int}(T)$ the set of non-root internal vertices,
+and $|v|$ the number of children of each internal vertex. The
+$\Conf_{|v|}(\mathbb{R}^n)$-factors record the \emph{relative}
+scale-and-position data of points colliding into the cluster at
+$v$, modulo $\mathbb{R}^n \rtimes \mathbb{R}_{>0}$ (translation and
+scaling).
+\end{theorem}
+
+The tree-stratification is the operadic engine. Collisions of $k$
+points along a rooted tree $T$ correspond to nested sub-configurations:
+each internal vertex $v$ of $T$ with children $v_1, \ldots, v_{|v|}$
+represents a cluster where the points labelled by the leaves beneath
+$v_1, \ldots, v_{|v|}$ collide at the same rate and in a relative
+configuration given by a point of $\Conf_{|v|}(\mathbb{R}^n)$.
+
+\begin{example}[Arity-$2$ and arity-$3$ Euclidean cases at $n = 3$]
+\label{ex:fm-arity-2-3}
+For $M = \mathbb{R}^3$:
+\begin{itemize}
+ \item $\FMbar(1, \mathbb{R}^3)^{\FM} = \mathbb{R}^3$, trivial.
+ \item $\FMbar(2, \mathbb{R}^3)^{\FM} = \mathbb{R}^3 \times
+       \mathrm{Bl}_0(\mathbb{R}^3)$, the oriented blow-up of the
+       diagonal. The interior is $\Conf_2(\mathbb{R}^3)$; the
+       boundary is a copy of $\mathbb{R}^3 \times S^2$ recording the
+       unit-direction along which the two points collide. Modulo
+       translation this is $S^2 = \Conf_2(\mathbb{R}^3)/\mathbb{R}^3
+       \rtimes \mathbb{R}_{>0}$.
+ \item $\FMbar(3, \mathbb{R}^3)^{\FM}$: interior
+       $\Conf_3(\mathbb{R}^3)$; boundary is the union of three
+       codimension-$1$ strata (binary trees with root $\{1,2,3\}$ and
+       one nontrivial internal vertex: $\{(12)3\}$, $\{(13)2\}$,
+       $\{(23)1\}$, each fibred over a configuration of
+       $\binom{3}{2}$ points by a $\Conf_2(\mathbb{R}^3)$ fibre modulo
+       scale-and-translate) together with a codimension-$2$ stratum
+       (the ternary tree $\{1, 2, 3\}$ colliding simultaneously,
+       producing a copy of $\Conf_3(\mathbb{R}^3)/\mathbb{R}^3
+       \rtimes \mathbb{R}_{>0}$ of real dimension $6$).
+\end{itemize}
+The reduced compactification
+$\widetilde{\FMbar}(k, \mathbb{R}^n)^{\FM} = \FMbar(k, \mathbb{R}^n)^{\FM}/\mathbb{R}^n \rtimes \mathbb{R}_{>0}$
+is the arity-$k$ space of the Fulton--MacPherson operad $\FM_n$.
+\end{example}
+
+\begin{heal}[adding chain-level operadic content]
+\label{heal:cycle-2}
+With Definition~\ref{def:fm-compactification} and
+Theorem~\ref{thm:fm-basic} the $E_3$-label acquires \emph{content}:
+the arity-$k$ operations are the points of
+$\widetilde{\FMbar}(k, \mathbb{R}^3)^{\FM}$; the boundary strata record
+operadic composition; the singular chain complex
+$C_\bullet(\widetilde{\FMbar}(k, \mathbb{R}^3)^{\FM}; \mathbb{Q})$ is
+the chain-level model entering Kontsevich formality.
+\end{heal}
+
+%==============================================================================
+\section{Cycle 3: ATTACK --- operadic composition is unstated}
+%==============================================================================
+
+\begin{attack}[How do FM spaces compose?]
+\label{att:cycle-3}
+Definition~\ref{def:fm-compactification} produces a sequence of spaces
+indexed by arity $k$. An operad requires more: composition maps
+\[
+ \gamma_k^{\ell_1, \ldots, \ell_k} \colon
+ \widetilde{\FMbar}(k, \mathbb{R}^n)^{\FM}
+ \times \prod_{i=1}^{k} \widetilde{\FMbar}(\ell_i, \mathbb{R}^n)^{\FM}
+ \longrightarrow
+ \widetilde{\FMbar}(\ell_1 + \cdots + \ell_k, \mathbb{R}^n)^{\FM},
+\]
+satisfying associativity and $S_{\ell_i}$-equivariance. Do these exist
+for the Fulton--MacPherson compactification? If so, are they associative?
+Are they $S_k$-equivariant? Do they restrict to the composition of the
+little $n$-disks operad on the interior?
+\end{attack}
+
+\begin{survivor}[\ref{att:cycle-3}]
+The Fulton--MacPherson compactification supports operadic composition
+by \emph{attaching} sub-configurations along the boundary stratification.
+The composition map $\gamma$ is a diffeomorphism onto the
+codimension-$k - 1$ boundary stratum corresponding to simultaneous
+collision of all sub-configurations.
+\end{survivor}
+
+\begin{construction}[Operadic composition for $\FM_n$]
+\label{constr:fm-composition}
+Fix arities $k, \ell_1, \ldots, \ell_k \geq 1$ and write
+$L = \ell_1 + \cdots + \ell_k$. Given
+$x = (x_1, \ldots, x_k) \in \widetilde{\FMbar}(k, \mathbb{R}^n)^{\FM}$
+and sub-configurations
+$y^{(i)} = (y^{(i)}_1, \ldots, y^{(i)}_{\ell_i}) \in
+ \widetilde{\FMbar}(\ell_i, \mathbb{R}^n)^{\FM}$
+for $i = 1, \ldots, k$, the composition
+$\gamma(x; y^{(1)}, \ldots, y^{(k)}) \in
+ \widetilde{\FMbar}(L, \mathbb{R}^n)^{\FM}$
+is the limit configuration
+\[
+ (x_i + \varepsilon y^{(i)}_j)_{i = 1, \ldots, k,\ j = 1, \ldots, \ell_i}
+ \qquad \text{as } \varepsilon \to 0^+,
+\]
+extended to the compactification by the tree-stratification
+of Theorem~\ref{thm:fm-basic}: the limit lives in the boundary
+stratum labelled by the rooted $2$-level tree with root arity $k$ and
+children arities $\ell_1, \ldots, \ell_k$. This defines a smooth
+diffeomorphism
+\[
+ \gamma_k^{\ell_1, \ldots, \ell_k} \colon
+ \widetilde{\FMbar}(k, \mathbb{R}^n)^{\FM}
+ \times \prod_{i} \widetilde{\FMbar}(\ell_i, \mathbb{R}^n)^{\FM}
+ \xrightarrow{\ \sim\ }
+ S_{T_{k, \ell_1, \ldots, \ell_k}}
+ \;\subset\;
+ \widetilde{\FMbar}(L, \mathbb{R}^n)^{\FM},
+\]
+where $S_T$ is the codimension-$k - 1$ stratum of
+Theorem~\ref{thm:fm-basic}. Associativity for three-fold composition
+follows from the fact that both orders assemble the same rooted
+$3$-level tree; $S_k$-equivariance is the permutation of labels.
+\end{construction}
+
+\begin{theorem}[$\FM_n$ is an operad in smooth manifolds with corners]
+\label{thm:fm-operad}
+The collection $\FM_n = \{\widetilde{\FMbar}(k, \mathbb{R}^n)^{\FM}\}_{k \geq 1}$
+with composition of Construction~\ref{constr:fm-composition} is an
+operad in the category $\mathbf{Man}^\partial_\infty$ of smooth
+manifolds with corners and smooth maps. It is a cofibrant model for
+the little $n$-disks operad $\Ddisk_n$
+\cite[Salvatore 2001, Markl--Shnider--Stasheff 2002, Sinha 2004]%
+{Salvatore2001, MarklShniderStasheff2002, Sinha2004}: there is a weak
+equivalence $\Ddisk_n \xrightarrow{\sim} \FM_n$ of topological operads,
+and $\FM_n$ is freely generated by its arity-$1$ and the boundary
+attachment data, making it $\Sigma$-cofibrant in the sense of
+Berger--Moerdijk.
+\end{theorem}
+
+\begin{heal}[FM is an honest operad]
+\label{heal:cycle-3}
+Construction~\ref{constr:fm-composition} and Theorem~\ref{thm:fm-operad}
+exhibit the composition structure explicitly, closing the gap from
+Attack~\ref{att:cycle-3}. The little $n$-disks operad $\Ddisk_n$
+is the homotopical target; $\FM_n$ is its smooth-manifold model,
+suitable for chain-level algebraic manipulation.
+\end{heal}
+
+%==============================================================================
+\section{Cycle 4: ATTACK --- what is the chain-level $E_n$-operad?}
+%==============================================================================
+
+\begin{attack}[Chain model unspecified]
+\label{att:cycle-4}
+``Chain-level $E_3$-operad'' is itself a free-floating phrase. The
+natural candidates --- singular chains $C_\bullet(\FM_n; \mathbb{Q})$,
+semi-algebraic chains $C^{\mathrm{sa}}_\bullet(\FM_n)$, polynomial
+differential forms $\Omega^\bullet_{\mathrm{PA}}(\FM_n)$ --- are all
+quasi-isomorphic but not equal; pinning down which model is operative
+is necessary to state Kontsevich formality as a chain-level theorem.
+Moreover, the $\FM_n$ operad in topological spaces does not automatically
+lift to an operad in chain complexes: operadic composition must be
+promoted through a diagonal approximation compatible with the boundary
+stratification.
+\end{attack}
+
+\begin{survivor}[\ref{att:cycle-4}]
+The correct chain-level model is the
+\emph{semi-algebraic chain complex}
+$C^{\mathrm{sa}}_\bullet(\FM_n; \mathbb{Q})$ of Kontsevich--Soibelman
+\cite[KS 2000, \S 3]{KontsevichSoibelman2000-deformations},
+or equivalently the polynomial de Rham model
+$\Omega^\bullet_{\mathrm{PA}}(\FM_n)$ of Hardt--Lambrechts--Turchin--Volic
+\cite[HLTV 2011]{HLTV2011}. Both models are strictly operadic in chain
+complexes over $\mathbb{Q}$ and are strictly multiplicative under
+operadic composition, avoiding the Eilenberg--Zilber correction needed
+for singular chains.
+\end{survivor}
+
+\begin{definition}[Semi-algebraic chain operad]
+\label{def:sa-chain-op}
+For a compact semi-algebraic manifold with corners $X$ let
+$C^{\mathrm{sa}}_\bullet(X; \mathbb{Q})$ denote the complex of
+semi-algebraic chains with rational coefficients (Kontsevich--Soibelman
+loc.~cit.): a chain is a formal $\mathbb{Q}$-linear combination of
+compact oriented semi-algebraic subsets modulo semi-algebraic
+equivalence, with boundary given by the topological boundary with
+induced orientation. Cartesian products of semi-algebraic chains are
+strictly multiplicative: $C^{\mathrm{sa}}_\bullet(X \times Y)
+\supset C^{\mathrm{sa}}_\bullet(X) \otimes C^{\mathrm{sa}}_\bullet(Y)$
+is a strict inclusion of chain complexes. Applied to
+$\FM_n$ term-by-term:
+\[
+ C_n := C^{\mathrm{sa}}_\bullet(\FM_n; \mathbb{Q})
+ \;=\; \{C^{\mathrm{sa}}_\bullet(\widetilde{\FMbar}(k, \mathbb{R}^n)^{\FM}; \mathbb{Q})\}_{k \geq 1},
+\]
+with operadic composition induced from Construction~\ref{constr:fm-composition}
+by the strict Cartesian multiplicativity of semi-algebraic chains:
+$\gamma_*(\sigma \otimes \tau_1 \otimes \cdots \otimes \tau_k) =
+ \gamma_!(\sigma \times \tau_1 \times \cdots \times \tau_k)$
+where $\gamma_!$ is the push-forward along the smooth diffeomorphism onto
+the boundary stratum. This is a dg-operad in $\mathrm{Ch}_\mathbb{Q}$.
+\end{definition}
+
+\begin{proposition}[Weak equivalence between chain models]
+\label{prop:chain-models-equivalent}
+The three candidate chain-level models for $E_n$,
+\[
+ C^{\mathrm{sa}}_\bullet(\FM_n; \mathbb{Q}),
+ \quad
+ \Omega^\bullet_{\mathrm{PA}}(\FM_n; \mathbb{Q})^\vee,
+ \quad
+ C_\bullet(\Ddisk_n; \mathbb{Q}),
+\]
+are pairwise quasi-isomorphic as dg-operads over $\mathbb{Q}$. The
+first two are strictly operadic; the third is operadic only up to a
+coherent Eilenberg--Zilber homotopy
+\cite[HLTV 2011 \S 5; Fresse 2017]{HLTV2011, Fresse2017}.
+\end{proposition}
+
+\begin{theorem}[Cohomology operad of $\FM_n$, after F.~Cohen]
+\label{thm:fm-cohomology}
+For $n \geq 1$ the cohomology operad of $\FM_n$ is
+\[
+ H^\bullet(\FM_n; \mathbb{Q}) \;=\;
+ \begin{cases}
+  \mathrm{Ass}, & n = 1, \\
+  \Gerst_n, & n \geq 2,
+ \end{cases}
+\]
+where $\Gerst_n$ is the operad of $(n-1)$-shifted Poisson algebras:
+free graded commutative product $\cdot$ in degree $0$ plus a Lie
+bracket $\{-, -\}$ in degree $-(n-1)$, satisfying Leibniz. For $n = 3$
+the bracket has degree $-2$. The generators of $H^\bullet(\FM_n(k);
+\mathbb{Q})$ are the pairwise Arnold classes $g_{ij}$ in degree $n-1$
+(Example~\ref{ex:conf-Rn}); the quadratic relations recover
+the Gerstenhaber axioms.
+\end{theorem}
+
+\begin{heal}[chain model fixed]
+\label{heal:cycle-4}
+Definition~\ref{def:sa-chain-op}, Proposition~\ref{prop:chain-models-equivalent},
+and Theorem~\ref{thm:fm-cohomology} pin down the chain-level $E_n$-operad
+as $C_n = C^{\mathrm{sa}}_\bullet(\FM_n; \mathbb{Q})$, strictly operadic,
+with cohomology $\Gerst_n$ for $n \geq 2$. Kontsevich formality will
+be the statement that $C_n$ and $\Gerst_n$ are quasi-isomorphic as
+dg-operads, up to a torsor action.
+\end{heal}
+
+%==============================================================================
+\section{Cycle 5: ATTACK --- where does $\GRT_1$ come from?}
+%==============================================================================
+
+\begin{attack}[Torsor structure unmotivated]
+\label{att:cycle-5}
+Cached statement from the cache-layer: ``Stage-$1$ canonical up to
+$\GRT_1(\mathbb{Q})$-torsor''. This assertion makes sense only if there
+is a well-defined space of $\FM_n$-formality morphisms
+$C_n \to \Gerst_n$, and this space is a $\GRT_1(\mathbb{Q})$-torsor.
+The chapter states the torsor but does not exhibit any of:
+\begin{itemize}
+ \item the formality morphism as a $\GRT_1$-torsor element;
+ \item the identification of $\GRT_1$ with a graph-complex
+       cohomology group;
+ \item the mechanism by which associator choices and graph-integral
+       weights transfer.
+\end{itemize}
+\end{attack}
+
+\begin{survivor}[\ref{att:cycle-5}]
+Tamarkin \cite{Tamarkin2003}, Kontsevich \cite{Kontsevich2003},
+Kontsevich--Soibelman \cite{KontsevichSoibelman2000-deformations},
+and Willwacher \cite{Willwacher2015} together exhibit the complete
+structure: an explicit $\GRT_1$-action on the space of
+$E_n$-formality morphisms, realised via Kontsevich graph-complex
+cohomology and the integral-weight construction on
+$\FMbar(k, \mathbb{R}^n)^{\FM}$.
+\end{survivor}
+
+\begin{definition}[Kontsevich graph complex $\GC_n$]
+\label{def:graph-complex}
+Fix $n \geq 2$. The \emph{Kontsevich graph complex} $\GC_n$ is the dg
+vector space (over $\mathbb{Q}$) spanned by isomorphism classes of
+connected graphs $\Gamma$ with:
+\begin{itemize}
+ \item no tadpoles or parallel edges;
+ \item all internal vertices of valence $\geq 3$;
+ \item each vertex equipped with a total cyclic ordering of the incident
+       half-edges if $n$ is even, or no ordering if $n$ is odd.
+\end{itemize}
+The degree of $\Gamma$ is
+\[
+ |\Gamma| \;=\; (n - 1) E(\Gamma) - n V(\Gamma) + n,
+\]
+where $V, E$ are numbers of vertices and edges. The differential
+$d_{\GC_n}$ contracts a single edge in all possible ways, with signs
+determined by the cyclic ordering. The cohomology $H^\bullet(\GC_n)$
+is graded by degree, with a piece in degree zero.
+\end{definition}
+
+\begin{theorem}[Willwacher 2015]
+\label{thm:willwacher}
+There is an isomorphism of graded Lie algebras
+\[
+ H^0(\GC_2) \;\simeq\; \mathfrak{grt}_1,
+\]
+the Grothendieck--Teichm\"uller Lie algebra
+\cite[Willwacher 2015, \emph{Invent.\ math.}\ 200, Thm.\ 1.1]{Willwacher2015}.
+For $n \geq 3$ there is a (Bott-periodicity) identification
+\[
+ H^0(\GC_n) \;\simeq\; \mathfrak{grt}_1 \quad (n \geq 2),
+\]
+realising $\mathfrak{grt}_1$ as a universal piece of graph cohomology
+independent of dimension. Exponentiating produces
+$\GRT_1(\mathbb{Q}) = \exp(\mathfrak{grt}_1)$ acting on all $E_n$-operad
+models uniformly.
+\end{theorem}
+
+\begin{construction}[Kontsevich graph-integral operation]
+\label{constr:graph-integral}
+For a graph $\Gamma$ with $k$ \emph{external} (leaf) vertices and $m$
+\emph{internal} vertices, the \emph{Kontsevich integral weight}
+$W_\Gamma$ is the integral over $\widetilde{\FMbar}(k + m, \mathbb{R}^n)^{\FM}$
+of a product of $2$-forms, one for each edge, pulled back from
+$\widetilde{\FMbar}(2, \mathbb{R}^n)^{\FM} \simeq S^{n-1}$ via the
+forgetful maps that remember only the two endpoints of each edge
+\cite[Kontsevich 2003, \S 6.4]{Kontsevich2003}. The integrand is a
+top-degree closed form on the corner manifold; convergence follows
+from Fulton--MacPherson smoothness and Stokes' theorem.
+\end{construction}
+
+\begin{theorem}[Kontsevich--Tamarkin $E_n$-formality, torsor structure]
+\label{thm:kt-formality}
+For $n \geq 2$ there exists a quasi-isomorphism of dg-operads
+$\mathcal{F} \colon \Gerst_n \xrightarrow{\sim} C_n$, called an
+$E_n$-formality morphism. The space of such morphisms, up to
+homotopy, is a (non-empty) torsor under the group
+$\GRT_1(\mathbb{Q})$, acting through the graph-complex realisation
+of Theorem~\ref{thm:willwacher}: the image of a formality morphism
+under $\xi \in \GRT_1(\mathbb{Q})$ is the formality morphism whose
+graph-integral weights $W_\Gamma$ are twisted by $\xi$ on each graph
+$\Gamma \in \GC_n$.
+\end{theorem}
+
+\begin{heal}[$\GRT_1$ acts on formality morphisms]
+\label{heal:cycle-5}
+Theorem~\ref{thm:kt-formality} closes Attack~\ref{att:cycle-5}: the
+$\GRT_1$-torsor structure on Stage-$1$ formality is the torsor of
+graph-integral weights twisted by $H^0(\GC_n) = \mathfrak{grt}_1$.
+In the Vol~III correspondence $\Phi_3 = \SpCh_{\Sigma_2, C} \circ
+\PhiFA_3$, different choices in the $\GRT_1$-torsor produce
+Stage-$1$ outputs that are $E_3$-quasi-isomorphic but differ by
+a super-KZ-type associator on the chain level; the difference is
+absorbed into the Stage-$2$ specialisation datum $(\Sigma_2, C)$ and
+does not affect the output chiral algebra up to isomorphism.
+\end{heal}
+
+%==============================================================================
+\section{Cycle 6: ATTACK --- how does $\PhiFA_3$ \emph{use} $E_3$?}
+%==============================================================================
+
+\begin{attack}[Stage-$1$ assembly unstated at chain level]
+\label{att:cycle-6}
+Granted the explicit $E_3$ operad $C_3 = C^{\mathrm{sa}}_\bullet(\FM_3; \mathbb{Q})$
+and Kontsevich formality $\mathcal{F} \colon \Gerst_3 \to C_3$, it
+remains to say how $\PhiFA_3$ uses these operations. The chapter
+asserts $\PhiFA_3$ produces an ``$E_3$-holomorphic factorisation
+algebra'' on $X$ from the degree-$(-2)$ Gerstenhaber bracket on
+$\HH^\bullet(\cC)$; the explicit chain-level assignment of
+local-observable data to discs remains opaque.
+\end{attack}
+
+\begin{survivor}[\ref{att:cycle-6}]
+The Stage-$1$ output is a Costello--Gwilliam factorisation algebra
+on $X$ in the sense of \cite{CostelloGwilliam2017, CostelloGwilliam2021},
+with disc observables assembled from $E_3$ compositions indexed by
+$\FMbar(k, \mathbb{R}^3)^{\FM}$ strata. The holomorphic refinement
+is local-analytic: open polydiscs in $X$ serve as the local
+configuration-space inputs.
+\end{survivor}
+
+\begin{definition}[Holomorphic little $3$-discs subcategory]
+\label{def:hol-disks}
+Fix a smooth complex $\CY_3$ variety $X$. A \emph{holomorphic
+$3$-disc} in $X$ is an open embedding
+$\varphi \colon B^6_\epsilon \hookrightarrow X$ where $B^6_\epsilon
+\subset \mathbb{C}^3$ is the open polydisc of polyradius $\epsilon$,
+and $\varphi$ is holomorphic. Two discs $\varphi_i, \varphi_j$ are
+\emph{disjoint} if their images have empty intersection. The
+category $\mathbf{Disc}_3^{\mathrm{hol}}(X)$ has:
+\begin{itemize}
+ \item objects: finite collections of pairwise disjoint holomorphic
+       $3$-discs in $X$;
+ \item morphisms: inclusions that embed one collection into another,
+       with the images of the smaller collection contained in the
+       images of the larger.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[$E_3$ on holomorphic discs via configuration forgetting]
+\label{thm:fm-to-disks}
+There is a natural functor of topological operads
+\[
+ \FM_3 \longrightarrow \mathbf{Disc}_3^{\mathrm{hol}}(X)
+\]
+assigning each configuration
+$(x_1, \ldots, x_k) \in \widetilde{\FMbar}(k, \mathbb{R}^3)^{\FM}$
+(with chosen polyradius $\epsilon$ small enough for pairwise disjointness)
+the collection of holomorphic polydiscs centred at the $x_i$, transported
+by a holomorphic chart of $X$. Operadic composition commutes with
+disc insertion \cite[Costello--Gwilliam 2021, Ch.\ 3]{CostelloGwilliam2021}.
+\end{theorem}
+
+\begin{construction}[Stage-$1$ $\PhiFA_3(\cC)$ as $\FM_3$-colimit]
+\label{constr:phifa3-via-fm}
+Given a smooth proper cyclic $\Ainf$ $\CY_3$ category $\cC$, the
+Stage-$1$ output $\PhiFA_3(\cC)$ is a factorisation algebra on $X$
+whose value on a single holomorphic polydisc $B \subset X$ is
+$\HH_\bullet(\cC)$ with its $E_3$-algebra structure induced by
+Kontsevich--Tamarkin formality; the chain-level $E_3$ action on
+$\HH_\bullet(\cC)$ is through the chain operad $C_3$, and the
+structure maps on disjoint unions of discs are recovered from
+operadic composition on $\FM_3$ via Theorem~\ref{thm:fm-to-disks}.
+Concretely, for $k$ disjoint discs $B_1, \ldots, B_k \subset X$:
+\[
+ \PhiFA_3(\cC)(B_1 \sqcup \cdots \sqcup B_k)
+ \;\simeq\; C^{\mathrm{sa}}_\bullet\!\left(\widetilde{\FMbar}(k, \mathbb{R}^3)^{\FM}\right)
+  \otimes_{C_3} \HH_\bullet(\cC)^{\otimes k},
+\]
+the homotopy coend over $\FM_3$ \cite[Costello--Gwilliam 2021, Prop.\ 3.4.3]{CostelloGwilliam2021}.
+The Dolbeault operator $\bar\partial$ on $X$ enters through the
+local-analytic refinement: the factorisation algebra is a sheaf of
+chain complexes with $\bar\partial$-acyclic extensions, producing
+the holomorphic refinement of a topological $E_3$-factorisation
+algebra \cite[Costello--Li 2016, 2020]{CostelloLi2016, CostelloLi2020}.
+\end{construction}
+
+\begin{heal}[chain-level Stage-$1$ made explicit]
+\label{heal:cycle-6}
+Construction~\ref{constr:phifa3-via-fm} exhibits $\PhiFA_3(\cC)$
+explicitly as a $\FM_3$-colimit of $\HH_\bullet(\cC)^{\otimes k}$
+assemblies. The operation of $\PhiFA_3$ is now a transparent
+assignment: $\cC \mapsto$ cyclic Hochschild chains with
+Kontsevich-formality $E_3$-structure, reassembled on discs of $X$
+by Fulton--MacPherson operadic composition.
+\end{heal}
+
+%==============================================================================
+\section{Cycle 7: RE-ATTACK --- $\bar\partial$-refinement}
+%==============================================================================
+
+\begin{attack}[Holomorphic refinement specifies what data?]
+\label{att:cycle-7}
+The chapter distinguishes three levels in the Stage-$1$ output:
+\begin{enumerate}
+ \item\label{it:att7-a} $E_3$-algebra on a single point (Hochschild cochain complex);
+ \item\label{it:att7-b} $E_3$-factorisation algebra on the topological space $|X|$ (disc combinatorics, no complex structure);
+ \item\label{it:att7-c} $E_3$-holomorphic factorisation algebra on $X$ (Dolbeault operator, $\Omega_X$, BV rigidity).
+\end{enumerate}
+The Fulton--MacPherson $\FM_3$ construction above produces~\ref{it:att7-b}.
+What additional chain-level data upgrades this to~\ref{it:att7-c}?
+The answer must appear at the level of the configuration-space model
+itself to be chain-explicit, not as a black-box referral to BV
+theory.
+\end{attack}
+
+\begin{survivor}[\ref{att:cycle-7}]
+The holomorphic refinement adds \emph{two} pieces of chain-level data
+to the $\FM_3$-model:
+\begin{itemize}
+ \item[(i)] A Dolbeault complex $(\Omega^{0, \bullet}(X), \bar\partial)$
+       acting on disc observables by sheaf-level derivation.
+ \item[(ii)] A holomorphic-volume trivialisation $\Omega_X \in
+       H^0(X, K_X)$ providing a preferred scalar against which
+       graph-integrals $W_\Gamma$ of Construction~\ref{constr:graph-integral}
+       become \emph{actual numbers} (via integration over
+       $\widetilde{\FMbar}$).
+\end{itemize}
+Both pieces enter the Costello--Li quantisation of holomorphic
+Chern--Simons on $X$ \cite{CostelloLi2016, CostelloLi2020}.
+\end{survivor}
+
+\begin{definition}[Dolbeault-refined $\FM_3$-factorisation algebra]
+\label{def:dolbeault-fm}
+A \emph{Dolbeault-refined $E_3$-factorisation algebra} on $X$ is a
+factorisation algebra $\cA$ in the category of $\bar\partial$-complexes
+(Dolbeault dg-sheaves) on $X$, such that:
+\begin{itemize}
+ \item on an open polydisc $B \subset X$, the value $\cA(B)$ is a
+       finite-dimensional cohomology summand of a free-module resolution
+       of an $E_3$-algebra (with $\bar\partial = 0$ on the
+       representative);
+ \item for disjoint discs $B_1, \ldots, B_k$ the factorisation
+       product is the $\FM_3$-assembly of
+       Construction~\ref{constr:phifa3-via-fm} \emph{twisted} by the
+       holomorphic-volume graph-integrals $W_\Gamma$ evaluated on
+       $\widetilde{\FMbar}(k, \mathbb{C}^3)^{\FM}$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Costello--Li 2016 / 2020 refinement]
+\label{thm:cl-refinement}
+The Stage-$1$ output $\PhiFA_3(\cC)$ of Construction~\ref{constr:phifa3-via-fm}
+is naturally a Dolbeault-refined $E_3$-factorisation algebra in the
+sense of Definition~\ref{def:dolbeault-fm}, with the trivialisation
+$\Omega_X$ entering as the BV-rigidifier of the $\bar\partial$-quasi-free
+resolution. The Kontsevich graph-integral weights $W_\Gamma$ of
+Construction~\ref{constr:graph-integral}, evaluated on the holomorphic
+variant $\widetilde{\FMbar}(k, \mathbb{C}^3)^{\FM}$, compute the
+Costello--Li propagators of hCS on $X$
+\cite[Costello--Li 2020, \S 3]{CostelloLi2020}.
+\end{theorem}
+
+\begin{remark}[Relation to 6d hCS]
+\label{rem:cy3-6d-hcs}
+The Stage-$1$ $\PhiFA_3(\cC)$ for $\cC = \mathrm{Perf}(X)$ coincides,
+up to formality choice, with the observables of 6D holomorphic
+Chern--Simons on $X$ with gauge Lie algebra $\mathfrak{g}_X =
+\HH^\bullet(\cC)$. This is the Costello--Francis--Gwilliam factorisation
+algebra of 5D hCS on $X \times \mathbb{R}_t$ after $\mathbb{R}_t$-compactification,
+whose holomorphic sector on $X$ carries the Fulton--MacPherson
+$\FM_3$-model. The $\GRT_1$-torsor of Theorem~\ref{thm:kt-formality}
+acts on hCS propagators through the Costello--Li scheme-dependence,
+preserving observables on nose but rotating the BV-exact
+counter-terms \cite{CostelloLi2020, CFG2026}.
+\end{remark}
+
+\begin{heal}[holomorphic refinement via graph-integrals on $\widetilde{\FMbar}(k, \mathbb{C}^3)^{\FM}$]
+\label{heal:cycle-7}
+Theorem~\ref{thm:cl-refinement} and Remark~\ref{rem:cy3-6d-hcs} close
+Attack~\ref{att:cycle-7}: the Dolbeault refinement is not a black box
+but a specific chain-level sheafification on
+$\widetilde{\FMbar}(k, \mathbb{C}^3)^{\FM}$ through Kontsevich
+graph-integrals with the holomorphic-volume trivialisation entering
+as the integration data.
+\end{heal}
+
+%==============================================================================
+\section{Cycle 8: RE-ATTACK --- compatibility with Stage-$2$}
+%==============================================================================
+
+\begin{attack}[Stage-$2$ forgets $E_3$?]
+\label{att:cycle-8}
+The native operadic level of Stage-$1$ is $E_3$ (holomorphic), but the
+Stage-$2$ specialisation-then-restriction to a curve $C$ yields an
+$\Eone$-chiral algebra, by Proposition~\texttt{native-en-level} in the
+target chapter. Does the chain-level $\FM_3$-model produced by
+$\PhiFA_3$ degenerate coherently under Stage-$2$, or is there a lossy
+projection that destroys the $\FM_3$-data?
+\end{attack}
+
+\begin{survivor}[\ref{att:cycle-8}]
+Factorisation homology along the $(d-1)$-cycle $\Sigma_{d-1}$ is
+an $(\infty, 1)$-functor
+$\EdHolFA(X) \to \mathbf{Hol}^1\text{-}\mathrm{FA}(X \setminus \Sigma_{d-1})$
+(Lurie \emph{HA}~$5.5.3.6$) that reduces the operadic level by exactly
+$d - 1$: the assembly on a topological $(d-1)$-cycle forgets $E_{d-1}$
+directions and leaves one residual dimension, producing
+$E_{d - (d-1)} = \Eone$ on the complement $X \setminus \Sigma_{d-1}$
+\cite[Francis--Gaitsgory 2012, Lemma 3.3.4]{FrancisGaitsgory2012}.
+At $d = 3$ this is factorisation homology over $\Sigma_2$ forgetting
+two Fulton--MacPherson directions and keeping the one direction
+residual on the curve $C$.
+\end{survivor}
+
+\begin{construction}[$\FM_3 \to \FM_1$ factorisation-homology projection]
+\label{constr:fm3-to-fm1}
+Fix $\Sigma_2 \subset X$ a smooth real $2$-cycle and $C \subset
+X \setminus \Sigma_2$ a holomorphic reference curve. The factorisation
+homology integral
+\[
+ \int_{\Sigma_2} \colon \FM_3\text{-alg} \longrightarrow \FM_1\text{-alg on } C
+\]
+is implemented at the chain level by the operadic push-forward along
+the fibration
+\[
+ \widetilde{\FMbar}(k, \mathbb{R}^3)^{\FM}
+  \;\longrightarrow\;
+  \widetilde{\FMbar}(k, \mathbb{R}^1)^{\FM}
+\]
+obtained by projecting each configuration point $x_i = (x_i^1, x_i^2, x_i^3)$
+onto its first coordinate $x_i^1$ and compactifying the pairwise
+collisions in $\mathbb{R}^1$. The fibre of this projection over a
+configuration $(x_1^1, \ldots, x_k^1) \in \widetilde{\FMbar}(k,
+\mathbb{R}^1)^{\FM}$ is a compactification of
+$\prod_i \{(x_i^2, x_i^3)\}$ of real dimension $2k$, which is
+topologically equivalent to a product of $2$-cells $\{(y_i^2, y_i^3) :
+|y_i^2|^2 + |y_i^3|^2 \leq \epsilon^2\}$, after blowing down the
+compactification in the normal direction. Factorisation homology
+corresponds to the push-forward $\pi_!$ along this fibration,
+implemented at the chain level by integration of the $\FM_3$-structure
+against the top form on the $(2k)$-dimensional fibres.
+\end{construction}
+
+\begin{proposition}[Residual $\Eone$-chiral structure after Stage-$2$]
+\label{prop:e1-residual}
+For $\cC$ a smooth proper cyclic $\Ainf$ $\CY_3$ category and
+$(\Sigma_2, C)$ an admissible specialisation datum in $X$, the
+composite
+\[
+ \Phi_3^{(\Sigma_2, C)}(\cC) \;=\;
+  \SpCh_{\Sigma_2, C}\!\left(\PhiFA_3(\cC)\right)
+\]
+is an $\Eone$-chiral algebra on $C$ in the sense of Beilinson--Drinfeld
+chiral algebras, with operadic operations indexed by the residual
+$\FM_1$-model of Construction~\ref{constr:fm3-to-fm1} composed with the
+holomorphic pullback to $C$. The $\pi_0(\Conf_2(\mathbb{R}^3))$-symmetry
+of the $E_3$-level is lost in this residual: the $E_3 \to \Etwo$
+restriction via Dunn additivity produces a \emph{symmetric} braiding
+(since $\pi_1(\Conf_2(\mathbb{R}^3)) = 0$ by
+Fadell--Neuwirth~\cite{FadellNeuwirth1962}), and the
+$\Etwo \to \Eone$ further restriction by $\Sigma_2$-integration forgets
+the symmetric braiding entirely. The non-symmetric $R$-matrix data,
+where it exists, is recovered from the Drinfeld centre
+$\cZ(\mathrm{Rep}^{\Eone}(A_\cC))$, not from the chain-level
+$\FM_3$-structure \cite[target chapter \texttt{cy\_to\_chiral.tex}
+Theorem~\texttt{c3-drinfeld-center}]{VolIII}.
+\end{proposition}
+
+\begin{heal}[chain-level Stage-$2$ projection is explicit]
+\label{heal:cycle-8}
+Construction~\ref{constr:fm3-to-fm1} and Proposition~\ref{prop:e1-residual}
+close Attack~\ref{att:cycle-8}: the Stage-$2$ transition from the
+chain-level $\FM_3$-model to the $\FM_1$-model on $C$ is an explicit
+chain-level push-forward along the projection fibration, forgetting
+exactly the $\Sigma_{d-1} = \Sigma_2$ directions of the configuration
+space. The operadic-level reduction $E_3 \to \Eone$ is a
+chain-explicit degeneration, not a lossy projection at the level of
+$\FM_3$ data.
+\end{heal}
+
+%==============================================================================
+\section{Cycle 9: RE-ATTACK --- coherence with Dunn--Lurie additivity}
+%==============================================================================
+
+\begin{attack}[Dunn--Lurie at the chain level]
+\label{att:cycle-9}
+Dunn additivity \cite[Dunn 1988; Lurie \emph{HA} 5.1.2.2]{Dunn1988, LurieHA}
+asserts $E_m \otimes E_n \simeq E_{m+n}$ as operads in a symmetric
+monoidal $(\infty, 1)$-category. In the Vol~III chapter this is used
+to derive obstruction-theoretic identities like
+$\HH^{-2}_{E_1}(\HH_\bullet(\cC)) = 0$ (Theorem~\texttt{derived-framing-obstruction})
+and the symmetric-vs-non-symmetric distinction of the $\Etwo$-braiding.
+At the chain level of $\FM_3$, the corresponding statement is
+$\FM_3 \simeq \FM_2 \otimes \FM_1$; this is a statement about manifolds
+with corners that requires explicit substantiation. Is the isomorphism
+a diffeomorphism of operads in smooth manifolds with corners, or only
+a quasi-isomorphism of chain operads?
+\end{attack}
+
+\begin{survivor}[\ref{att:cycle-9}]
+At the level of topological spaces, the Dunn--Lurie additivity
+$\FM_m \otimes \FM_n \simeq \FM_{m+n}$ is a weak equivalence of
+operads in topological spaces (Boardman--Vogt 1973), not a
+diffeomorphism of manifolds with corners. The smooth-manifold
+structure on $\FMbar(k, \mathbb{R}^m \times \mathbb{R}^n)^{\FM}$
+is inherited from the global configuration space
+$\Conf_k(\mathbb{R}^m \times \mathbb{R}^n)$, which is
+diffeomorphic-with-boundary to neither a Cartesian product of
+$\FMbar(k, \mathbb{R}^m)^{\FM}$ nor a tensor-product mixture.
+The equivalence of $\FM_3$ with $\FM_2 \otimes \FM_1$ is therefore a
+homotopical statement at the level of chain complexes: the
+chain-level dg-operad $C^{\mathrm{sa}}_\bullet(\FM_3; \mathbb{Q})$ is
+quasi-isomorphic to $C^{\mathrm{sa}}_\bullet(\FM_2; \mathbb{Q}) \otimes
+C^{\mathrm{sa}}_\bullet(\FM_1; \mathbb{Q})$ as dg-operads in
+$\mathrm{Ch}_\mathbb{Q}$.
+\end{survivor}
+
+\begin{theorem}[Chain-level Dunn additivity for $\FM_n$]
+\label{thm:fm-dunn}
+For $m, n \geq 1$ there is a quasi-isomorphism of dg-operads in
+$\mathrm{Ch}_\mathbb{Q}$
+\[
+ C^{\mathrm{sa}}_\bullet(\FM_{m+n}; \mathbb{Q})
+ \;\xrightarrow{\ \sim\ }\;
+ C^{\mathrm{sa}}_\bullet(\FM_m; \mathbb{Q}) \otimes_{H}
+ C^{\mathrm{sa}}_\bullet(\FM_n; \mathbb{Q}),
+\]
+where $\otimes_H$ denotes the Hadamard (Boardman--Vogt) tensor
+product of operads \cite[Boardman--Vogt 1973; Fresse 2017]{BoardmanVogt1973, Fresse2017}.
+The quasi-isomorphism is given at the arity-$k$ level by the projection
+\[
+ \widetilde{\FMbar}(k, \mathbb{R}^{m+n})^{\FM}
+ \;\longrightarrow\;
+ \widetilde{\FMbar}(k, \mathbb{R}^m)^{\FM} \times
+ \widetilde{\FMbar}(k, \mathbb{R}^n)^{\FM},
+ \quad
+ (x^1_i, \ldots, x^{m+n}_i) \mapsto
+ \left((x^1_i, \ldots, x^m_i),\ (x^{m+1}_i, \ldots, x^{m+n}_i)\right),
+\]
+with compactification extended boundary-component-wise.
+\end{theorem}
+
+\begin{corollary}[Compatibility with target-chapter $E_3$ obstruction theorem]
+\label{cor:compat-e3-obstr}
+Theorem~\ref{thm:fm-dunn} at $(m, n) = (2, 1)$ recovers the Dunn
+additivity $\FM_3 \simeq \FM_2 \otimes \FM_1$ used in the target
+chapter's derivation of
+$\HH^{-2}_{E_1}(\HH_\bullet(\cC)) = 0$: the $E_3$-to-$\Etwo$
+forgetful functor restricts to an $\Eone$-algebra on
+$\HH_\bullet(\cC)$ in the category of $\Etwo$-algebras, and the
+obstruction for promoting $\Etwo$ to $E_3$ is $\HH^{-2}_{E_1}$ of
+$\Etwo$-algebras, which is the chain-level translation of the
+$\FM_2 \otimes \FM_1$-decomposition of $\FM_3$ at the tangent-complex
+level.
+\end{corollary}
+
+\begin{heal}[Dunn additivity is chain-homotopical]
+\label{heal:cycle-9}
+Theorem~\ref{thm:fm-dunn} and Corollary~\ref{cor:compat-e3-obstr}
+close Attack~\ref{att:cycle-9}: Dunn additivity for $\FM_3$ is a
+quasi-isomorphism of chain operads, and the target-chapter
+obstruction-theoretic computations are chain-level shadows of this
+quasi-isomorphism.
+\end{heal}
+
+%==============================================================================
+\section{Cycle 10: RE-ATTACK --- Boardman--Vogt $W$-construction}
+%==============================================================================
+
+\begin{attack}[Cofibrancy and $W$-construction]
+\label{att:cycle-10}
+Theorem~\ref{thm:fm-operad} asserts $\FM_n$ is a cofibrant model for
+$\Ddisk_n$, used implicitly to justify that $\FM_n$-algebras and
+$\Ddisk_n$-algebras coincide homotopically. The cofibrancy is
+through the Boardman--Vogt $W$-construction
+\cite{BoardmanVogt1973, BergerMoerdijk2006}, which produces a
+canonical cofibrant resolution of any topological operad. The
+chapter does not exhibit the comparison; the intervention of the
+$W$-construction deserves a chain-level statement.
+\end{attack}
+
+\begin{survivor}[\ref{att:cycle-10}]
+The Boardman--Vogt $W$-construction $W P$ of a topological operad
+$P$ replaces $P$ by its ``trees with length-decorated edges''. For
+$P = \Ddisk_n$ the little $n$-discs operad, $W \Ddisk_n$ is
+weakly equivalent to $\FM_n$ via a tree-level map that identifies
+each length-decorated tree with the boundary stratum it parametrises
+in $\FMbar(k, \mathbb{R}^n)^{\FM}$. This makes $\FM_n$ a \emph{small}
+cofibrant resolution of $\Ddisk_n$, suitable for chain-level algebra.
+\end{survivor}
+
+\begin{definition}[$W$-construction]
+\label{def:w-construction}
+For a topological operad $P$ with arity-$k$ space $P(k)$, the
+\emph{Boardman--Vogt $W$-construction} $W P$ has arity-$k$ space
+the moduli of isomorphism classes of pairs $(T, \vec\ell)$ where:
+\begin{itemize}
+ \item $T$ is a rooted tree with $k$ leaves;
+ \item $\vec\ell$ is an assignment of a length $\ell_e \in [0, \infty]$
+       to each internal edge $e$;
+ \item each internal vertex $v$ of $T$ is decorated by a point of
+       $P(|v|)$,
+\end{itemize}
+modulo the relations: $(T, \vec\ell)$ with $\ell_e = 0$ is identified
+with the tree obtained by contracting $e$ (vertex composition via the
+operadic structure on $P$); $(T, \vec\ell)$ with $\ell_e = \infty$
+is identified with the tree obtained by inserting a unit at the
+endpoint of $e$. The operadic composition on $W P$ is tree-grafting
+with the new edge receiving length $\infty$ (inclusion of the operad
+unit).
+\end{definition}
+
+\begin{theorem}[Berger--Moerdijk comparison]
+\label{thm:bm-comparison}
+\cite[Berger--Moerdijk 2006, Thm 5.1]{BergerMoerdijk2006}
+The canonical map $W P \to P$ obtained by collapsing all edge lengths
+to zero is a weak equivalence of topological operads. $W P$ is
+$\Sigma$-cofibrant. For $P = \Ddisk_n$ the little $n$-discs, there is
+a weak equivalence of operads
+\[
+ W \Ddisk_n \xrightarrow{\ \sim\ } \FM_n,
+\]
+identifying a length-decorated rooted tree with $k$ leaves
+$(T, \vec\ell, \vec p)$ with the boundary stratum of
+$\FMbar(k, \mathbb{R}^n)^{\FM}$ labelled by the same tree, where the
+length $\ell_e$ records the relative scale of the children cluster
+at vertex $v$ and the decoration $\vec p \in \prod_v P(|v|)$ records
+their relative angular position.
+\end{theorem}
+
+\begin{remark}[$\FM_n$ is minimal; $W \Ddisk_n$ is canonical]
+\label{rem:fm-minimal}
+$\FM_n$ is a cofibrant model, but Theorem~\ref{thm:bm-comparison}
+does not make it \emph{the} cofibrant replacement; the $W$-construction
+$W \Ddisk_n$ is canonical as a left-adjoint-type resolution. For
+chain-level computations (e.g., formality, graph-integrals), $\FM_n$
+is the preferred model because it is finite-dimensional
+$(2k + n - 1)$-dimensional at arity $k$ and has smooth-manifold
+corners \cite[Sinha 2006]{Sinha2006}.
+\end{remark}
+
+\begin{heal}[cofibrancy made manifest]
+\label{heal:cycle-10}
+Theorem~\ref{thm:bm-comparison} and Remark~\ref{rem:fm-minimal}
+close Attack~\ref{att:cycle-10}: $\FM_n$ is a cofibrant replacement
+for $\Ddisk_n$ via $W \Ddisk_n$; the chain-level algebra operates
+on $\FM_n$ (not $\Ddisk_n$) precisely to exploit the smooth-manifold
+cofibrancy.
+\end{heal}
+
+%==============================================================================
+\section{Summary: surviving core after 10 attack--heal cycles}
+%==============================================================================
+
+\begin{survivor}[Concrete $E_3$ on the output side of $\PhiFA_3$]
+\label{sur:core}
+After ten attack--heal cycles, the following pieces of $E_3$
+structure on the output side of $\PhiFA_3$ have stable chain-level
+content (no outstanding attacks):
+\begin{enumerate}[label=(S\arabic*), leftmargin=*]
+ \item\label{S1} The arity-$k$ space of operations is the
+      Fulton--MacPherson compactified configuration space
+      $\widetilde{\FMbar}(k, \mathbb{R}^3)^{\FM}$, a smooth manifold
+      with corners of real dimension $3k - 4$ (Theorem~\ref{thm:fm-basic};
+      Example~\ref{ex:fm-arity-2-3}).
+ \item\label{S2} Operadic composition is boundary attachment via
+       Construction~\ref{constr:fm-composition}, associative and
+       $S_k$-equivariant (Theorem~\ref{thm:fm-operad}).
+ \item\label{S3} The chain-level model is
+       $C_3 = C^{\mathrm{sa}}_\bullet(\FM_3; \mathbb{Q})$ (Definition~\ref{def:sa-chain-op}),
+       quasi-isomorphic to $\Ddisk_3$ chains (Proposition~\ref{prop:chain-models-equivalent}).
+ \item\label{S4} The cohomology operad is $\Gerst_3$
+       (Theorem~\ref{thm:fm-cohomology}): degree-$0$ commutative product,
+       degree-$(-2)$ Lie bracket.
+ \item\label{S5} Kontsevich $E_3$-formality $\mathcal{F} \colon
+       \Gerst_3 \xrightarrow{\sim} C_3$ exists and is unique up to a
+       $\GRT_1(\mathbb{Q})$-torsor (Theorem~\ref{thm:kt-formality}).
+ \item\label{S6} The torsor is realised by Willwacher's
+       $H^0(\GC_3) \simeq \mathfrak{grt}_1$
+       (Theorem~\ref{thm:willwacher}; Definition~\ref{def:graph-complex}),
+       acting on graph-integral weights $W_\Gamma$ (Construction~\ref{constr:graph-integral}).
+ \item\label{S7} Stage-$1$ $\PhiFA_3(\cC)$ assembles local observables
+       on holomorphic polydiscs via the $\FM_3$-model
+       (Construction~\ref{constr:phifa3-via-fm};
+       Theorem~\ref{thm:fm-to-disks}).
+ \item\label{S8} The holomorphic Dolbeault refinement
+       (Definition~\ref{def:dolbeault-fm}) upgrades the topological
+       $E_3$-factorisation algebra to the holomorphic target of
+       Costello--Li (Theorem~\ref{thm:cl-refinement}).
+ \item\label{S9} Stage-$2$ $\SpCh_{\Sigma_2, C}$ degenerates the
+       $\FM_3$-model to $\FM_1$ on $C$ by push-forward along a
+       projection fibration (Construction~\ref{constr:fm3-to-fm1};
+       Proposition~\ref{prop:e1-residual}).
+ \item\label{S10} Dunn additivity $\FM_3 \simeq \FM_2 \otimes \FM_1$
+       is a chain-level quasi-isomorphism (Theorem~\ref{thm:fm-dunn};
+       Corollary~\ref{cor:compat-e3-obstr}), compatible with the
+       target-chapter $E_3$-obstruction theorem.
+\end{enumerate}
+\end{survivor}
+
+%==============================================================================
+\section{Paths back to \texttt{cy\_categories.tex}}
+%==============================================================================
+
+The $\Chriss$--$\Ginzburg$-compliant inscription for
+\texttt{chapters/theory/cy\_categories.tex} adds a new subsection to
+Section~\texttt{cy-cat-phi-interface} recording:
+\begin{itemize}
+ \item a Definition block for the Fulton--MacPherson operad $\FM_n$
+       on $\mathbb{R}^n$ with explicit boundary stratification;
+ \item a Theorem block stating Kontsevich formality as a
+       $\GRT_1(\mathbb{Q})$-torsor over $\Gerst_n \xrightarrow{\sim} C_n$;
+ \item a Construction block exhibiting $\PhiFA_3(\cC)$ as an
+       $\FM_3$-colimit of $\HH_\bullet(\cC)^{\otimes k}$-assemblies;
+ \item a Proposition block recording the chain-level Dunn-additive
+       decomposition $\FM_3 \simeq \FM_2 \otimes \FM_1$;
+ \item a Remark block linking the $\FM_3$-content to the existing
+       $\FM_k(C)$-reference in \texttt{rem:cy-cat-three-hochschild}
+       (the chiral Gerstenhaber bracket from OPE residues on
+       $\FM_k(C)$ is the $\SpCh$-specialisation of the topological
+       Gerstenhaber bracket from $\FM_3$).
+\end{itemize}
+
+%==============================================================================
+\section{Ghost theorems (unresolved intrinsic scope)}
+%==============================================================================
+
+\begin{remark}[Ghost theorems]
+\label{rem:ghost-theorems}
+Three ghost theorems remain at the boundary of the surviving core:
+\begin{enumerate}
+ \item[(G1)] \emph{Smooth-manifold Dunn additivity}: does the weak
+             equivalence $\FM_{m+n} \simeq \FM_m \otimes_H \FM_n$ lift
+             to a diffeomorphism of operads in smooth manifolds with
+             corners? Present evidence suggests no (the smooth
+             structures differ), but the precise obstruction lives in
+             relative tangent complexes of moduli of operad models.
+ \item[(G2)] \emph{$\GRT_1$-torsor transversality}: does every
+             $\GRT_1(\mathbb{Q})$-element $\xi$ act on a fixed
+             holomorphic-volume-trivialised $\PhiFA_3(\cC)$ output by
+             a chain-level quasi-isomorphism that commutes with the
+             Stage-$2$ $\SpCh_{\Sigma_2, C}$ specialisation on the
+             nose, or only after a re-scaling of the specialisation
+             datum? If the latter, the $\GRT_1$-action parametrises
+             families of Stage-$2$ outputs rather than isomorphisms
+             of a fixed output.
+ \item[(G3)] \emph{Super-$\GRT_1$ extension}: in the Vol~III
+             Etingof--Kazhdan quantisation of the K3 chiral bialgebra
+             $\mathbf H_{\Delta_5}$ the relevant torsor is
+             $\GRT_1^{\mathrm{super}}$, extending the bosonic
+             $\GRT_1$ by a super-reflection \cite[AP-CY42,
+             \texttt{notes/antipatterns\_catalogue.md}]{VolIII-APCY}.
+             Does the chain-level $\FM_3$-model admit a super-refinement
+             $\FM_3^{\mathrm{super}}$ whose $H^0(\GC_3^{\mathrm{super}})$
+             is $\mathfrak{grt}_1^{\mathrm{super}}$?
+\end{enumerate}
+\end{remark}
+
+\begin{thebibliography}{99}
+
+\bibitem{FultonMacPherson1994}
+W.\ Fulton and R.\ MacPherson.
+\emph{A compactification of configuration spaces.}
+Ann.\ of Math.\ (2) \textbf{139} (1994), no.\ 1, 183--225.
+
+\bibitem{Kontsevich1999}
+M.\ Kontsevich.
+\emph{Operads and motives in deformation quantization.}
+Lett.\ Math.\ Phys.\ \textbf{48} (1999), no.\ 1, 35--72.
+
+\bibitem{Kontsevich2003}
+M.\ Kontsevich.
+\emph{Deformation quantization of Poisson manifolds.}
+Lett.\ Math.\ Phys.\ \textbf{66} (2003), no.\ 3, 157--216.
+
+\bibitem{KontsevichSoibelman2000-deformations}
+M.\ Kontsevich and Y.\ Soibelman.
+\emph{Deformations of algebras over operads and the Deligne conjecture.}
+Conf.\ Mosh\'e Flato 1999, Vol.\ I (Dijon), 255--307, Math.\ Phys.\ Stud.\ 21, Kluwer, 2000.
+
+\bibitem{BoardmanVogt1973}
+J.\ M.\ Boardman and R.\ M.\ Vogt.
+\emph{Homotopy invariant algebraic structures on topological spaces.}
+Lecture Notes in Mathematics, Vol.\ 347. Springer, Berlin-Heidelberg, 1973.
+
+\bibitem{BergerMoerdijk2006}
+C.\ Berger and I.\ Moerdijk.
+\emph{The Boardman--Vogt resolution of operads in monoidal model categories.}
+Topology \textbf{45} (2006), no.\ 5, 807--849.
+
+\bibitem{Salvatore2001}
+P.\ Salvatore.
+\emph{Configuration spaces with summable labels.}
+In: Cohomological methods in homotopy theory (Bellaterra, 1998), 375--395, Progr.\ Math.\ 196, Birkh\"auser, 2001.
+
+\bibitem{Sinha2004}
+D.\ Sinha.
+\emph{Manifold-theoretic compactifications of configuration spaces.}
+Selecta Math.\ (N.S.) \textbf{10} (2004), no.\ 3, 391--428.
+
+\bibitem{Sinha2006}
+D.\ Sinha.
+\emph{The topology of spaces of knots: cosimplicial models.}
+Amer.\ J.\ Math.\ \textbf{131} (2009), no.\ 4, 945--980.
+
+\bibitem{MarklShniderStasheff2002}
+M.\ Markl, S.\ Shnider and J.\ Stasheff.
+\emph{Operads in algebra, topology and physics.}
+Mathematical Surveys and Monographs, 96. American Mathematical Society, Providence, RI, 2002.
+
+\bibitem{Willwacher2015}
+T.\ Willwacher.
+\emph{M.\ Kontsevich's graph complex and the Grothendieck--Teichm\"uller Lie algebra.}
+Invent.\ Math.\ \textbf{200} (2015), no.\ 3, 671--760.
+
+\bibitem{Tamarkin2003}
+D.\ E.\ Tamarkin.
+\emph{Formality of chain operad of little discs.}
+Lett.\ Math.\ Phys.\ \textbf{66} (2003), no.\ 1--2, 65--72.
+
+\bibitem{HLTV2011}
+R.\ Hardt, P.\ Lambrechts, V.\ Turchin and I.\ Voli\'c.
+\emph{Real homotopy theory of semi-algebraic sets.}
+Algebr.\ Geom.\ Topol.\ \textbf{11} (2011), no.\ 5, 2477--2545.
+
+\bibitem{Dunn1988}
+G.\ Dunn.
+\emph{Tensor product of operads and iterated loop spaces.}
+J.\ Pure Appl.\ Algebra \textbf{50} (1988), no.\ 3, 237--258.
+
+\bibitem{LurieHA}
+J.\ Lurie.
+\emph{Higher Algebra.}
+Preprint, 2017.
+
+\bibitem{FrancisGaitsgory2012}
+J.\ Francis and D.\ Gaitsgory.
+\emph{Chiral Koszul duality.}
+Selecta Math.\ (N.S.) \textbf{18} (2012), no.\ 1, 27--87.
+
+\bibitem{FadellNeuwirth1962}
+E.\ Fadell and L.\ Neuwirth.
+\emph{Configuration spaces.}
+Math.\ Scand.\ \textbf{10} (1962), 111--118.
+
+\bibitem{Fresse2017}
+B.\ Fresse.
+\emph{Homotopy of operads and Grothendieck--Teichm\"uller groups.}
+Mathematical Surveys and Monographs, 217. American Mathematical Society, Providence, RI, 2017.
+
+\bibitem{CostelloGwilliam2017}
+K.\ Costello and O.\ Gwilliam.
+\emph{Factorization algebras in quantum field theory, Vol.\ 1.}
+New Mathematical Monographs, 31. Cambridge University Press, 2017.
+
+\bibitem{CostelloGwilliam2021}
+K.\ Costello and O.\ Gwilliam.
+\emph{Factorization algebras in quantum field theory, Vol.\ 2.}
+New Mathematical Monographs, 41. Cambridge University Press, 2021.
+
+\bibitem{CostelloLi2016}
+K.\ Costello and S.\ Li.
+\emph{Twisted supergravity and its quantization.}
+arXiv:1606.00365 (2016).
+
+\bibitem{CostelloLi2020}
+K.\ Costello and S.\ Li.
+\emph{Anomaly cancellation in the topological string.}
+Adv.\ Theor.\ Math.\ Phys.\ \textbf{24} (2020), no.\ 7, 1723--1771.
+
+\bibitem{CFG2026}
+K.\ Costello, J.\ Francis and O.\ Gwilliam.
+\emph{Factorization algebras for holomorphic Chern--Simons theories.}
+Preprint, 2026.
+
+\bibitem{GetzlerJones1994}
+E.\ Getzler and J.\ D.\ S.\ Jones.
+\emph{Operads, homotopy algebra, and iterated integrals for double loop spaces.}
+Preprint, 1994. arXiv:hep-th/9403055.
+
+\bibitem{Arnold1969}
+V.\ I.\ Arnold.
+\emph{The cohomology ring of the colored braid group.}
+Mat.\ Zametki \textbf{5} (1969), 227--231.
+
+\bibitem{Tamarkin2007}
+D.\ Tamarkin.
+\emph{What do dg-categories form?}
+Compos.\ Math.\ \textbf{143} (2007), no.\ 5, 1335--1358.
+
+\bibitem{VolIII}
+\emph{Vol III: Calabi--Yau Quantum Groups.}
+Manuscript in preparation. Chapter \texttt{chapters/theory/cy\_to\_chiral.tex}.
+
+\bibitem{VolIII-APCY}
+\emph{Vol III antipatterns catalogue.}
+\texttt{notes/antipatterns\_catalogue.md}.
+
+\end{thebibliography}
+
+\end{document}

@@ -682,7 +682,8 @@ class K3UniversalDefect:
     The kappa-spectrum for K3 x E:
       kappa_ch = 3 (from Phi: kappa_ch(K3) + kappa_ch(E) = 2 + 1)
       kappa_BKM = 5 (weight of Delta_5)
-      kappa_cat = 2 (= chi(O_{K3}))
+      kappa_cat = 0 (= chi(O_{K3 x E}))
+      kappa_cat_fiber = 2 (= chi(O_{K3}))
       kappa_fiber = 24 (lattice rank)
 
     STATUS: CONJECTURAL on CY-A_3 for all K3 x E results (AP-CY6/AP-CY14).
@@ -703,7 +704,8 @@ class K3UniversalDefect:
         self.mukai_rank = 24
         self.kappa_ch = Rational(3)  # kappa_ch(K3) + kappa_ch(E) = 2 + 1
         self.kappa_BKM = Rational(5)  # weight of Delta_5
-        self.kappa_cat = Rational(2)  # chi(O_{K3})
+        self.kappa_cat = Rational(0)  # chi(O_{K3 x E})
+        self.kappa_cat_fiber = Rational(2)  # chi(O_{K3})
         self.kappa_fiber = Rational(24)  # lattice rank
 
     def kappa_spectrum(self) -> Dict[str, Rational]:
@@ -714,7 +716,8 @@ class K3UniversalDefect:
         return {
             "kappa_ch": self.kappa_ch,      # 3
             "kappa_BKM": self.kappa_BKM,    # 5
-            "kappa_cat": self.kappa_cat,     # 2
+            "kappa_cat": self.kappa_cat,     # 0
+            "kappa_cat_fiber": self.kappa_cat_fiber,  # 2
             "kappa_fiber": self.kappa_fiber,  # 24
         }
 
@@ -798,7 +801,7 @@ class K3UniversalDefect:
         """Full verification of the K3 universal defect.
 
         Checks:
-          (K1) kappa-spectrum consistency: {2, 3, 5, 24}.
+          (K1) resolved kappa-spectrum consistency: {0, 2, 3, 5, 24}.
           (K2) Structure function degree: (24, 24).
           (K3) Dimensional hierarchy: 3d -> 5d -> 6d.
           (K4) kappa_ch additivity: kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E).
@@ -808,7 +811,9 @@ class K3UniversalDefect:
         ba = self.boundary_algebras()
         sf = self.k3_structure_function_data()
 
-        k1 = set(ks.values()) == {Rational(2), Rational(3), Rational(5), Rational(24)}
+        k1 = set(ks.values()) == {
+            Rational(0), Rational(2), Rational(3), Rational(5), Rational(24)
+        }
         k2 = sf["numerator_degree"] == 24 and sf["denominator_degree"] == 24
         k3 = (
             ba["3d"]["en_level"] == 1

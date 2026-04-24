@@ -133,14 +133,18 @@ class TestFaberPandharipande:
 class TestCY3Data:
     """Verify CY3 modular characteristic data."""
 
-    def test_k3e_kappa(self):
-        """VP1: kappa(K3 x E) = 5."""
+    def test_k3e_kappa_BKM(self):
+        """VP1: K3 x E BTZ lane uses kappa_BKM = 5."""
         data = cy3_k3e_data()
         # VERIFIED [DC] kappa formula [LT] BTZ entropy
-        assert data.kappa == Fraction(5)
+        assert data.kappa_label == "kappa_BKM"
+        assert data.kappa == data.kappa_BKM == Fraction(5)
+        assert data.kappa_ch == Fraction(3)
+        assert data.kappa_cat == Fraction(0)
+        assert data.kappa_fiber == Fraction(24)
 
     def test_k3e_c_eff(self):
-        """VP2: c_eff(K3 x E) = 2 * kappa = 10."""
+        """VP2: c_eff(K3 x E) = 2 * kappa_BKM = 10 in this lane."""
         data = cy3_k3e_data()
         # VERIFIED [DC] kappa formula [LT] BTZ entropy
         assert data.c_eff == 2 * data.kappa
@@ -839,13 +843,15 @@ class TestCY3Comparisons:
         assert S_k3e > S_p2 > S_con
 
     def test_kappa_additivity_check(self):
-        """VP4: kappa is NOT additive for products (K3 x E != K3 + E)."""
+        """VP4: K3 x E BKM lane is not the Heisenberg additive lane."""
         result = kappa_additivity_check()
         assert result['is_additive'] is False
         # VERIFIED [DC] kappa formula [LT] BTZ entropy
-        assert result['k3xe_kappa'] == 5
+        assert result['k3xe_kappa_BKM'] == 5
+        assert result['k3xe_kappa_ch'] == 3
+        assert result['k3xe_kappa_cat'] == 0
         # VERIFIED [DC] kappa computation [LT] BTZ entropy
-        assert result['naive_sum'] == 3
+        assert result['naive_kappa_ch_sum'] == 3
 
     def test_koszul_dual_entropy(self):
         """VP4: Koszul dual structure for free-field CY3."""
@@ -861,9 +867,11 @@ class TestCY3Comparisons:
     def test_shadow_class_assignments(self):
         """VP1: Shadow classes are correctly assigned."""
         # VERIFIED [DC] shadow structure [LT] BTZ entropy
-        assert cy3_k3e_data().shadow_class == "L"
+        assert cy3_k3e_data().shadow_class == "M"
         # VERIFIED [DC] shadow structure [LT] BTZ entropy
         assert cy3_conifold_data().shadow_class == "G"
+        # VERIFIED [DC] shadow structure [LT] BTZ entropy
+        assert cy3_local_p2_data().shadow_class == "M"
         # VERIFIED [DC] shadow structure [LT] BTZ entropy
         assert cy3_quintic_data().shadow_class == "M"
 
@@ -1155,8 +1163,8 @@ class TestIntegration:
 # =========================================================================
 # Section 17: Shadow vs Standard Cardy discrepancy (12 tests)
 #
-# WARNING: c_eff(shadow) = 2*kappa is a SHADOW INVARIANT that does NOT
-# equal the standard CFT c_eff in general.  For K3 x E: kappa = 5,
+# WARNING: c_eff(shadow) = 2*kappa_lane is a SHADOW INVARIANT that does NOT
+# equal the standard CFT c_eff in general.  For K3 x E: kappa_BKM = 5,
 # c_eff(shadow) = 10, but c(standard) = 24.  The shadow Cardy formula
 # does NOT reproduce Strominger-Vafa.  These tests document and verify
 # the discrepancy.
@@ -1166,12 +1174,12 @@ class TestShadowVsStandardCardy:
     """Verify and document the discrepancy between shadow Cardy and
     standard Cardy entropy formulas.
 
-    The shadow formula S = 2*pi*sqrt(kappa*M/3) uses the modular
-    characteristic kappa, while the standard Cardy formula
+    The shadow formula S = 2*pi*sqrt(kappa_lane*M/3) uses the selected
+    shadow-lane scalar, while the standard Cardy formula
     S = 2*pi*sqrt(c*M/6) uses the actual CFT central charge c.
 
-    These agree when kappa = c/2 (Virasoro) and DISAGREE otherwise.
-    For K3 x E: kappa = 5, c = 24, so shadow gives sqrt(10*D/3)
+    These agree when kappa_ch = c/2 (Virasoro) and DISAGREE otherwise.
+    For K3 x E: kappa_BKM = 5, c = 24, so shadow gives sqrt(10*D/3)
     while Strominger-Vafa gives 4*pi*sqrt(D) using c = 24.
     """
 
@@ -1201,7 +1209,7 @@ class TestShadowVsStandardCardy:
     def test_shadow_cardy_k3e_disagrees(self):
         """VP1+VP4: Shadow formula gives DIFFERENT answer for K3 x E.
 
-        Shadow: S = 2*pi*sqrt(5*D/3) with kappa = 5.
+        Shadow: S = 2*pi*sqrt(5*D/3) with kappa_BKM = 5.
         Standard: S = 4*pi*sqrt(D) with c = 24.
         These differ by factor sqrt(12/5) ~ 1.549.
         """

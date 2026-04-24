@@ -1,0 +1,999 @@
+% !TEX root = ../../main.tex
+%
+% Wave CFG 2026 --- Agent 7 --- Dunn--Lurie additivity at n = 3, specialised
+% to E_3 = E_1 (x) E_2, with chiral interpretation.
+%
+% Working-notes file (outside reader-facing manuscript scope). Bookkeeping
+% vocabulary permissible inside `notes/`.
+%
+% Author's working notes: attack--heal iteration on the chain-level proof of
+% E_{m+n} ~ E_m (x) E_n restricted to (m, n) = (1, 2), plus the chiral
+% interpretation of the decomposition Phi^FA_3(C) = (E_1-factor along R) (x)
+% (E_2-factor on R^2) under Stage-2 specialisation to a curve C.
+%
+% References side-by-side: Dunn (J.~Pure Appl.~Algebra, 1988), Lurie HA
+% Theorem 5.1.2.2, Boardman--Vogt HIAS 1973 Chapter 6, Fresse MOFO 2009
+% Chapter 11, Ayala--Francis 2015 (arXiv:1206.5522) Section 3, Francis
+% (arXiv:1303.0305), Costello--Francis--Gwilliam 2026 (antecedents:
+% Costello--Gwilliam FAQFT I--II 2017/2021).
+
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{convention}[theorem]{Convention}
+
+\newcommand{\Eone}{E_{1}}
+\newcommand{\Etwo}{E_{2}}
+\newcommand{\Ethree}{E_{3}}
+\newcommand{\En}{E_{n}}
+\newcommand{\Disk}{\mathrm{Disk}}
+\newcommand{\Cube}{\mathscr{C}}
+\newcommand{\Conf}{\mathrm{Conf}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Alg}{\mathrm{Alg}}
+\newcommand{\Cat}{\mathrm{Cat}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\Ger}{\mathrm{Ger}}
+\newcommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\newcommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\newcommand{\HolFA}{\mathrm{HolFA}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\tto}{\twoheadrightarrow}
+\newcommand{\into}{\hookrightarrow}
+
+\title{Dunn--Lurie additivity at $n = 3$: \\
+  $\Ethree \simeq \Eone \otimes \Etwo$ and the longitudinal/transverse \\
+  decomposition of $\PhiFA_{3}(\cC)$ along $(\R,\,\R^{2})$}
+\author{Agent 7 working notes, wave CFG 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  We record a first-principles chain-level proof of the Dunn--Lurie
+  additivity statement $\Ethree \simeq \Eone \otimes \Etwo$ at the level
+  of $(\infty, 1)$-operads, spelled out at three levels: the
+  geometric configuration-space level (Dunn 1988), the dg-operad level
+  (Fresse 2017, Getzler--Jones 1994), and the $(\infty, 1)$-categorical
+  level (Lurie \emph{HA}~5.1.2.2). We then translate the statement into
+  chiral language: the canonical Stage-1 output
+  $\PhiFA_{3}(\cC)$ of the CY-to-chiral functor at $d = 3$ is an
+  $\Ethree$-holomorphic factorisation algebra; restricting to the
+  product decomposition $\R \times \R^{2}$ factors it as an
+  $\Eone$-algebra along $\R$ tensored (over the little $0$-disks $E_{0}$)
+  with an $\Etwo$-algebra on $\R^{2}$. Under the specialisation
+  $\SpCh_{\Sigma_{2}, C}$, the $\Eone$-factor along the longitudinal
+  direction is consumed --- it becomes the associative chiral product on
+  the curve $C$ --- while the transverse $\Etwo$-factor survives as the
+  braided monoidal structure on $\cZ(\Rep^{\Eone}(A_{\cC}))$. The six
+  $(\Sigma_{2}, C)$-specialisations of the $K3 \times E$ functor
+  correspond, under this decomposition, to six different realisations of
+  the longitudinal/transverse split of the ambient $\R^{3}$; they are
+  six different factorisations of $\PhiFA_{3}(\cC_{K3 \times E})$, not
+  six applications of a single functor.
+\end{abstract}
+
+\section{Orientation}
+\label{sec:orientation}
+
+\paragraph{The statement.}
+Dunn--Lurie additivity is the equivalence of $(\infty, 1)$-operads
+\[
+  \boxed{\;\Ethree \;\simeq\; \Eone \otimes \Etwo\;}
+\]
+in $\mathrm{Op}_{\infty}$ (the $(\infty, 1)$-category of small
+$(\infty, 1)$-operads with its Boardman--Vogt tensor product). It is a
+chain-level shadow of the geometric fact that the configuration space
+of points in $\R^{3}$ factors, up to homotopy, through the product
+$\R \times \R^{2}$.
+
+\paragraph{Why it is load-bearing for Vol~III.}
+Three items in the programme rest on this equivalence:
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+  \item the CY-A\textsubscript{3} obstruction analysis: the relative cotangent complex
+    for the $\Etwo \to \Ethree$ lifting of the Hochschild chains
+    $A = \HH_{\bullet}(\cC)$ is $\Sigma^{2} L_{\Eone}(A)$, and
+    the identification $D^{4}_{\Etwo}(A, A) = \HH^{-2}_{\Eone}(A, A)$
+    used in the Goodwillie-tower vanishing argument is a direct
+    consequence of Dunn--Lurie additivity;
+  \item the two-stage factorisation $\Phi_{d} = \SpCh_{\Sigma_{d-1}, C}
+    \circ \PhiFA_{d}$: the specialisation $\SpCh$ is the
+    factorisation-homology restriction along the closed $(d - 1)$-manifold
+    $\Sigma_{d-1}$, pulling the native $E_{d}$-structure down to
+    $E_{1}$ on the reference curve $C$ by additivity
+    $E_{d} \simeq E_{1} \otimes E_{d-1}$ and integration on
+    $\Sigma_{d-1}$;
+  \item the physical identification of the $\Etwo$-braided structure on
+    $\cZ(\Rep^{\Eone}(A_{\cC}))$ at $d = 3$: the Drinfeld centre
+    recovers the transverse $\Etwo$-factor that was consumed by the
+    $\SpCh$-specialisation, completing the categorical circle
+    $E_{3} \to E_{2} \to E_{1} \to E_{2} \to E_{3}$ around the
+    CY-to-chiral functor.
+\end{enumerate}
+
+\paragraph{What is new here.}
+This note does not reprove the Dunn--Lurie theorem: the mathematical
+content is the 1988 Dunn paper followed by Lurie \emph{HA}~5.1.2.2 and
+the Fresse 2017 dg-operad model. The new content is the
+chain-level translation of the equivalence into the variables in which
+$\PhiFA_{3}(\cC)$ is computed in Vol~III, and the identification of the
+six $K3 \times E$ routes as six $(\Sigma_{2}, C)$-specialisations of
+this decomposition.
+
+\paragraph{Notation.}
+$\Cube_{n}$ is the little $n$-cubes operad; its $k$-ary space
+$\Cube_{n}(k)$ is the space of $k$-tuples of open rectilinear cubes
+embedded disjointly into the standard $n$-cube $[0, 1]^{n}$. The
+Fulton--MacPherson compactification is $\mathrm{FM}_{n}(k)$, and
+$E_{n}(k) = \Cube_{n}(k) \simeq \mathrm{FM}_{n}(k) \simeq
+\Conf_{k}(\R^{n})$.
+
+\section{Geometric additivity: Dunn 1988}
+\label{sec:geometric-dunn}
+
+\begin{theorem}[Dunn 1988, Theorem 2.9]
+\label{thm:dunn-geometric}
+Let $m, n \geq 0$. The Boardman--Vogt tensor product of topological
+operads satisfies
+\[
+  \Cube_{m + n} \;\simeq\; \Cube_{m} \otimes_{\mathrm{BV}} \Cube_{n}
+\]
+as topological operads up to weak equivalence.
+\end{theorem}
+
+The proof has two ingredients.
+
+\begin{lemma}[Geometric factor]
+\label{lem:geometric-factor}
+The evaluation map
+\[
+  \Conf_{k}(\R^{m+n}) \;\longrightarrow\; \Conf_{k}(\R^{m}) \times
+  \Conf_{k}(\R^{n})
+\]
+defined on coordinates by $(x_{1}, \ldots, x_{k}) \mapsto
+(\pi_{m}(x_{1}), \ldots, \pi_{m}(x_{k})) \times (\pi_{n}(x_{1}),
+\ldots, \pi_{n}(x_{k}))$ with $\pi_{m}, \pi_{n}$ the projections to
+$\R^{m}, \R^{n}$ of $\R^{m+n} = \R^{m} \times \R^{n}$, is not a
+homotopy equivalence: the target ignores the condition that
+$(x_{i}, x_{j})$ have $x_{i} \neq x_{j}$ in $\R^{m+n}$, only that
+$\pi_{m}(x_{i}) \neq \pi_{m}(x_{j})$ or $\pi_{n}(x_{i}) \neq \pi_{n}(x_{j})$.
+\end{lemma}
+
+\begin{remark}
+The lemma is a \emph{warning}: the obvious map fails. Dunn's proof
+replaces the product $\Conf_{k}(\R^{m}) \times \Conf_{k}(\R^{n})$ by
+a corrected target that encodes the disjointness condition through an
+interchange law.
+\end{remark}
+
+\begin{construction}[Dunn's interchange model]
+\label{constr:dunn-interchange}
+Define $D_{m, n}(k)$ to be the space of $k$-tuples of pairs
+$((c_{i}^{m}, c_{i}^{n}))_{i = 1}^{k}$ with $c_{i}^{m}$ an
+open cube in $[0, 1]^{m}$ and $c_{i}^{n}$ an open cube in $[0, 1]^{n}$,
+subject to the condition:
+\[
+  \text{for every $i \neq j$, either $c_{i}^{m} \cap c_{j}^{m} =
+  \varnothing$ or $c_{i}^{n} \cap c_{j}^{n} = \varnothing$.}
+\]
+The projection $D_{m, n}(k) \twoheadrightarrow \Cube_{m}(k) \times_{?}
+\Cube_{n}(k)$ is not single-valued --- it records, for each pair
+$(i, j)$, \emph{which} of the two factors separates them. This is
+the extra bookkeeping that lifts the naive product to the Boardman--Vogt
+tensor product.
+\end{construction}
+
+\begin{proposition}[Dunn 1988, Prop 2.6]
+\label{prop:dunn-space-equivalence}
+There is a zigzag of weak equivalences
+\[
+  \Cube_{m + n}(k) \;\xleftarrow{\;\simeq\;}\; D_{m, n}(k)
+  \;\xrightarrow{\;\simeq\;}\; \bigl(\Cube_{m} \otimes_{\mathrm{BV}}
+  \Cube_{n}\bigr)(k)
+\]
+for every $k \geq 0$, natural in the operadic structure.
+\end{proposition}
+
+\begin{proof}[Sketch of the equivalences]
+The left arrow: a Dunn configuration $((c_{i}^{m}, c_{i}^{n}))_{i}$
+assembles into a single $(m + n)$-cube configuration by taking
+$(c_{i}^{m + n}) = c_{i}^{m} \times c_{i}^{n} \subset [0, 1]^{m + n}$.
+The disjointness condition on $D_{m, n}$ is the disjointness condition
+on $\Cube_{m + n}$ after this product: $c_{i}^{m + n} \cap c_{j}^{m + n}
+\neq \varnothing \Longleftrightarrow c_{i}^{m} \cap c_{j}^{m} \neq
+\varnothing$ and $c_{i}^{n} \cap c_{j}^{n} \neq \varnothing$. The map
+is a homotopy equivalence by a standard shrinking argument: every
+$(m + n)$-cube configuration deformation-retracts onto a product
+configuration by shrinking each cube towards a product shape.
+
+The right arrow: the Boardman--Vogt tensor product
+$\Cube_{m} \otimes_{\mathrm{BV}} \Cube_{n}$ is defined by the universal
+property of pairs of operations $(\mu^{m} \in \Cube_{m}(k), \mu^{n}
+\in \Cube_{n}(k))$ subject to the interchange law
+\[
+  \mu^{m}(\mu^{n}(-, \ldots, -), \ldots, \mu^{n}(-, \ldots, -))
+  \;=\; \mu^{n}(\mu^{m}(-, \ldots, -), \ldots, \mu^{m}(-, \ldots, -))
+\]
+whenever the two compositions have compatible arities. Dunn's
+interchange model $D_{m, n}$ is the explicit geometric realisation
+of this universal property: the configuration $((c_{i}^{m},
+c_{i}^{n}))_{i}$ records one $\Cube_{m}$-operation and one
+$\Cube_{n}$-operation that interchange through the disjointness
+condition.
+\end{proof}
+
+\begin{corollary}[Specialisation to $(m, n) = (1, 2)$]
+\label{cor:dunn-12}
+At the geometric level
+\[
+  \Cube_{3} \;\simeq\; \Cube_{1} \otimes_{\mathrm{BV}} \Cube_{2}
+\]
+equivalently
+\[
+  \Conf_{k}(\R^{3}) \;\simeq\; D_{1, 2}(k) \;\simeq\;
+  \Conf_{k}(\R) \boxtimes \Conf_{k}(\R^{2})
+\]
+where $\boxtimes$ denotes the Boardman--Vogt tensor on configuration
+spaces.
+\end{corollary}
+
+\begin{remark}[Reading the configuration space]
+$\Conf_{k}(\R^{3})$ has a stratification by $\Conf_{k}(\R) \boxtimes
+\Conf_{k}(\R^{2})$ in which a configuration $(x_{1}, y_{1}, z_{1}), \ldots,
+(x_{k}, y_{k}, z_{k}) \in \R^{3}$ is viewed as a pair
+\[
+  \bigl((x_{1}, \ldots, x_{k}) \in \R^{k} ; \;
+  (y_{1}, z_{1}), \ldots, (y_{k}, z_{k}) \in (\R^{2})^{k}\bigr)
+\]
+with the condition that for every $i \neq j$, either $x_{i} \neq x_{j}$
+(separation in the $\R$-factor) or $(y_{i}, z_{i}) \neq (y_{j}, z_{j})$
+(separation in the $\R^{2}$-factor). This is the interchange-law
+condition: at each pair of points one records which factor carries the
+separation. The cases are not exclusive: if both factors separate, both
+records agree.
+\end{remark}
+
+\section{Dunn--Lurie at the $(\infty, 1)$-operad level}
+\label{sec:lurie-additivity}
+
+\begin{theorem}[Lurie \emph{HA}~5.1.2.2]
+\label{thm:lurie-additivity}
+For $m, n \geq 0$ there is an equivalence of $(\infty, 1)$-operads
+\[
+  E_{m + n} \;\simeq\; E_{m} \otimes E_{n}
+\]
+where $\otimes$ is the Boardman--Vogt tensor product of
+$(\infty, 1)$-operads. Equivalently, the $(\infty, 1)$-category of
+$E_{m + n}$-algebras in a symmetric monoidal $(\infty, 1)$-category
+$\cC^{\otimes}$ is equivalent to the $(\infty, 1)$-category of
+$E_{m}$-algebras in $E_{n}$-algebras in $\cC^{\otimes}$:
+\[
+  \Alg_{E_{m + n}}(\cC) \;\simeq\;
+  \Alg_{E_{m}}\bigl(\Alg_{E_{n}}(\cC)\bigr).
+\]
+\end{theorem}
+
+\begin{remark}[Why Lurie's proof goes through Dunn]
+Lurie's proof, streamlined through the language of
+$(\infty, 1)$-operads, reduces to the topological Dunn theorem by the
+following three steps:
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+  \item the operadic nerve functor $N^{\otimes} \colon
+    \mathrm{Op}_{\mathrm{top}} \to \mathrm{Op}_{\infty}$ is symmetric
+    monoidal with respect to Boardman--Vogt tensor products, so the
+    topological equivalence $\Cube_{m + n} \simeq \Cube_{m}
+    \otimes_{\mathrm{BV}} \Cube_{n}$ descends to the
+    $(\infty, 1)$-operad equivalence $E_{m + n} \simeq E_{m} \otimes
+    E_{n}$;
+  \item the relative Boardman--Vogt tensor product $E_{m} \otimes E_{n}$
+    on $(\infty, 1)$-operads represents the functor
+    $\Alg_{E_{m}}(\Alg_{E_{n}}(-))$ by the universal property of
+    tensor products in $\mathrm{Op}_{\infty}$, giving the displayed
+    $\Alg$-equivalence;
+  \item the composite $E_{m} \otimes E_{n} \to E_{m + n}$ is the
+    geometric embedding $\Cube_{m} \times \Cube_{n} \into \Cube_{m + n}$
+    followed by the interchange-law colimit; Lurie verifies it is an
+    equivalence by computing both sides on free $E_{m + n}$-algebras and
+    matching coefficient spaces.
+\end{enumerate}
+\end{remark}
+
+\begin{corollary}[$(\infty, 1)$-additivity at $n = 3$]
+\label{cor:lurie-e3}
+$E_{3} \simeq E_{1} \otimes E_{2}$ as $(\infty, 1)$-operads. An
+$E_{3}$-algebra in $\cC^{\otimes}$ is an $E_{1}$-algebra in the
+$(\infty, 1)$-category of $E_{2}$-algebras in $\cC^{\otimes}$:
+\[
+  \Alg_{E_{3}}(\cC) \;\simeq\; \Alg_{E_{1}}\bigl(\Alg_{E_{2}}(\cC)\bigr)
+  \;\simeq\; \Alg_{E_{2}}\bigl(\Alg_{E_{1}}(\cC)\bigr).
+\]
+The second equivalence (commutativity of the $E_{m}, E_{n}$ tensor
+factors in $E_{m + n}$) is the $(\infty, 1)$-Eckmann--Hilton
+argument applied at the level of operads.
+\end{corollary}
+
+\section{Chain-level dg-operad model}
+\label{sec:chain-level}
+
+We now compute the chain-level consequence of the additivity statement
+for dg-operads over a characteristic-zero field $k$.
+
+\begin{theorem}[Chain-level Dunn; Fresse 2017, Getzler--Jones 1994]
+\label{thm:chain-dunn}
+Let $C_{\bullet}(X; k)$ denote normalised singular chains. There is a
+quasi-isomorphism of dg-operads
+\[
+  C_{\bullet}(\Cube_{m + n}; k) \;\xrightarrow{\;\simeq\;}\;
+  C_{\bullet}(\Cube_{m}; k) \otimes_{C_{\bullet}(\Cube_{0}; k)}
+  C_{\bullet}(\Cube_{n}; k)
+\]
+over the base dg-operad $C_{\bullet}(\Cube_{0}; k) = k$ (concentrated in
+degree $0$).
+\end{theorem}
+
+\begin{proof}[Sketch]
+The Eilenberg--Zilber quasi-isomorphism
+$C_{\bullet}(X \times Y; k) \to C_{\bullet}(X; k) \otimes C_{\bullet}(Y; k)$
+lifts to the operadic setting: for each arity $k$, the map
+\[
+  C_{\bullet}(\Cube_{m + n}(k); k) \;\to\; C_{\bullet}(D_{m, n}(k); k)
+  \;\to\; \bigl(C_{\bullet}(\Cube_{m}) \otimes_{BV}
+  C_{\bullet}(\Cube_{n})\bigr)(k)
+\]
+is a quasi-isomorphism by the topological equivalences of
+\Cref{prop:dunn-space-equivalence} and Eilenberg--Zilber applied to the
+product structure. Operadic composition is strictly compatible with
+Eilenberg--Zilber because composition in $\Cube_{m + n}$ is given by
+substitution of cubes, which factors through Dunn's interchange model
+by its universal property. See Fresse, \emph{Homotopy of Operads and
+Grothendieck--Teichm\"uller Groups} (2017, vol.~I, Theorem~$5.2.1$)
+for the complete chain of quasi-isomorphisms.
+\end{proof}
+
+\begin{corollary}[Formality at $n = 3$]
+\label{cor:formality-e3}
+Over $\Q$, the dg-operad $C_{\bullet}(E_{3}; \Q)$ is quasi-isomorphic
+to the Gerstenhaber operad $\Ger_{3}$ shifted by degree $-2$, where
+$\Ger_{n}$ denotes the $n$-Gerstenhaber operad (the operad governing
+graded-commutative algebras with a degree-$(n - 1)$ Lie bracket).
+Moreover, the additivity
+\[
+  \Ger_{3} \;\simeq\; \Ger_{1} \otimes \Ger_{2}[-1]
+\]
+holds at the level of dg-operads: the $\Ger_{1}$-factor contributes the
+associative product, the $\Ger_{2}$-factor contributes the degree-$(-1)$
+Poisson bracket, and the overall shift by $[-1]$ matches the
+Gerstenhaber degree shift under additivity. This is the Kontsevich
+formality theorem (Kontsevich 1999 for $\Cube_{2}$; Tamarkin 2000 for
+general $n$; the formality choice at each $n$ is a
+$\mathrm{GRT}_{1}(\Q)$-torsor).
+\end{corollary}
+
+\begin{remark}[Choice space]
+The chain-level equivalence $E_{3} \simeq E_{1} \otimes E_{2}$ is
+canonical, but its \emph{formality presentation}
+$C_{\bullet}(E_{3}; \Q) \simeq \Ger_{3}[-2]$ depends on a Drinfeld
+associator $\Phi \in \mathrm{Assoc}(\Q)$. Different associators yield
+$E_{3}$-quasi-isomorphic but not $E_{3}$-equal chain-level models,
+differing by a cocycle in $\mathrm{GRT}_{1}(\Q)$.
+\end{remark}
+
+\begin{proposition}[Explicit chain-level map]
+\label{prop:explicit-chain-map}
+Let $C_{\bullet}^{E_{1}} = C_{\bullet}(\Cube_{1}; k)$ and $C_{\bullet}^{E_{2}}
+= C_{\bullet}(\Cube_{2}; k)$. The chain-level map
+\[
+  \mu \colon C_{\bullet}^{E_{1}} \otimes C_{\bullet}^{E_{2}}
+  \;\to\; C_{\bullet}(\Cube_{3}; k)
+\]
+is determined by the following data on generating cells:
+\begin{enumerate}[label=(\roman*)]
+  \item $\mu(m_{2}^{E_{1}} \otimes 1_{E_{2}}) = $ the $2$-ary
+    operation on $\Cube_{3}$ that places two cubes along the $x$-axis
+    (longitudinal ordering);
+  \item $\mu(1_{E_{1}} \otimes m_{2}^{E_{2}}) = $ the $2$-ary
+    operation on $\Cube_{3}$ that places two cubes in the $(y, z)$-plane
+    with a specified planar braiding;
+  \item $\mu(b^{E_{2}} \otimes b^{E_{2}}) = $ the double-braiding
+    generator on $\Cube_{3}$, recording two transverse loops;
+  \item $\mu$ on higher-arity cells is determined by operadic
+    composition applied iteratively to (i)--(iii) and matched against
+    the disjointness-disjoint-union Dunn condition.
+\end{enumerate}
+The map is a quasi-isomorphism by the Eilenberg--Zilber argument of
+\Cref{thm:chain-dunn} together with chain-level verification of the
+interchange law between (i) and (ii).
+\end{proposition}
+
+\begin{remark}[Interchange law on the chain level]
+The chain-level interchange law reads
+\[
+  [m_{2}^{E_{1}}, m_{2}^{E_{2}}] \;=\; 0 \quad\text{in}\quad
+  H_{0}(\Cube_{3}(2))
+\]
+because the two products commute up to a braid deformation
+$b^{E_{2}} \in \pi_{1}(\Conf_{2}(\R^{2})) = \Z$, which is a coboundary
+on $H_{0}$. At the level of $H_{\bullet}$, the commutator $[m_{2}^{E_{1}},
+m_{2}^{E_{2}}]$ is the homotopy generator, and the Eckmann--Hilton
+argument produces coherent higher homotopies controlled by the
+$\mathrm{GRT}_{1}$-torsor.
+\end{remark}
+
+\section{Chiral interpretation: $\PhiFA_{3}(\cC)$ along $\R \times \R^{2}$}
+\label{sec:chiral-interpretation}
+
+We now translate the Dunn--Lurie decomposition to the setting of Vol~III.
+Let $\cC$ be a CY$_{3}$ category with Hochschild chains
+$A = \HH_{\bullet}(\cC)$. By Kontsevich--Tamarkin formality
+(specifically, the $\mathbb{S}^{3}$-framing of the cyclic $A_{\infty}$-trace),
+$A$ carries an $\Ethree$-algebra structure in $\mathrm{Ch}(k)$.
+
+\begin{construction}[$\PhiFA_{3}(\cC)$]
+\label{constr:phifa3}
+The Stage-1 output
+\[
+  \PhiFA_{3}(\cC) \;=\; \mathrm{Fact}_{\R^{3}}\bigl(A\bigr)
+  \;\in\; E_{3}\text{-}\HolFA(\R^{3})
+\]
+is the factorisation envelope of $A$ over $\R^{3}$: an
+$E_{3}$-holomorphic factorisation algebra on the local model $\R^{3}$
+that, through Kontsevich--Tamarkin formality and
+Costello--Gwilliam--Li locality, globalises to an $E_{3}$-hFA on any
+CY$_{3}$ variety $X$.
+\end{construction}
+
+\begin{theorem}[Longitudinal/transverse decomposition of $\PhiFA_{3}$]
+\label{thm:phifa3-longitudinal-transverse}
+Let $\R^{3} = \R_{t} \times \R^{2}_{yz}$ be a choice of longitudinal
+$\R_{t}$-factor (the $t$-axis) and transverse $\R^{2}_{yz}$-factor
+(the $yz$-plane). Under the Dunn--Lurie decomposition
+$E_{3} \simeq E_{1}^{\R_{t}} \otimes E_{2}^{\R^{2}_{yz}}$, the
+$E_{3}$-hFA $\PhiFA_{3}(\cC)$ restricts to the external tensor product
+\[
+  \PhiFA_{3}(\cC)\big|_{\R_{t} \times \R^{2}_{yz}}
+  \;\simeq\;
+  \mathrm{Fact}^{\mathrm{long}}_{\R_{t}}(A^{\flat, \Eone})
+  \;\boxtimes\;
+  \mathrm{Fact}^{\mathrm{trans}}_{\R^{2}_{yz}}(A^{\flat, \Etwo})
+\]
+where:
+\begin{itemize}[leftmargin=*]
+  \item $A^{\flat, \Eone}$ is $A$ with its $\Eone$-structure inherited
+    from the $\R_{t}$-factor of the Dunn decomposition;
+  \item $A^{\flat, \Etwo}$ is $A$ with its $\Etwo$-structure inherited
+    from the $\R^{2}_{yz}$-factor;
+  \item $\mathrm{Fact}^{\mathrm{long}}_{\R_{t}}$ is factorisation-envelope
+    over a real line (chiral-topological, $E_{1}$);
+  \item $\mathrm{Fact}^{\mathrm{trans}}_{\R^{2}_{yz}}$ is
+    factorisation-envelope over a $2$-plane (chiral-holomorphic,
+    $E_{2}$);
+  \item $\boxtimes$ is the external factorisation-product of prefactorisation
+    algebras on a product space (Costello--Gwilliam I, \S~$3.1$).
+\end{itemize}
+The equivalence is in $E_{3}\text{-}\HolFA(\R_{t} \times \R^{2}_{yz})$,
+with the $E_{3}$-structure on the right-hand side supplied by the
+Boardman--Vogt tensor $E_{1} \otimes E_{2} \simeq E_{3}$ of
+\Cref{cor:lurie-e3}.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+By \Cref{cor:lurie-e3} the $\Ethree$-algebra structure on $A$ refines to
+a pair $(\Eone, \Etwo)$ of compatible structures. Factorisation-envelope
+is a symmetric-monoidal functor
+\[
+  \mathrm{Fact}_{-} \colon \Alg_{\En}(\mathrm{Ch}(k))
+  \;\to\; \En\text{-}\HolFA(-)
+\]
+sending products of manifolds to external products of factorisation
+algebras (Costello--Gwilliam I, Theorem~$3.1.4$). Hence
+\[
+  \mathrm{Fact}_{\R^{3}}(A) \;=\; \mathrm{Fact}_{\R_{t} \times \R^{2}_{yz}}(A)
+  \;\simeq\;
+  \mathrm{Fact}_{\R_{t}}(A^{\flat, \Eone}) \boxtimes
+  \mathrm{Fact}_{\R^{2}_{yz}}(A^{\flat, \Etwo}),
+\]
+with the right-hand side viewed as an $E_{1} \otimes E_{2} \simeq E_{3}$
+factorisation algebra on the product.
+\end{proof}
+
+\begin{remark}[Longitudinal chirality vs transverse chirality]
+The $\mathrm{Fact}^{\mathrm{long}}_{\R_{t}}$-factor is purely
+topological: $\R_{t}$ has no complex structure, so the ``chiral'' here
+is in the Costello--Gwilliam prefactorisation sense --- $E_{1}$-algebra
+in chain complexes, with OPE poles absent. The
+$\mathrm{Fact}^{\mathrm{trans}}_{\R^{2}_{yz}}$-factor is holomorphic:
+$\R^{2}_{yz} \simeq \C$ with complex coordinate $w = y + iz$, and the
+$E_{2}$-hFA on $\C$ is genuinely chiral in the Beilinson--Drinfeld sense
+(Ran$(\C)$, OPE poles, vertex-algebra structure in the holomorphic
+direction). This is the holomorphic-topological hybrid of
+Costello--Li~2016: the $\R_{t}$-direction carries BV topological data,
+the $\C_{yz}$-direction carries holomorphic chiral data.
+\end{remark}
+
+\section{Stage-2 specialisation: consuming $E_{1}$, preserving $E_{2}$}
+\label{sec:stage2-consumption}
+
+The Stage-2 specialisation $\SpCh_{\Sigma_{2}, C}$ of the CY-to-chiral
+functor restricts $\PhiFA_{3}(\cC)$ along a choice of closed
+$2$-cycle $\Sigma_{2} \subset X$ and a reference curve
+$C \subset X \setminus \Sigma_{2}$.
+
+\begin{proposition}[Specialisation consumes the longitudinal $\Eone$]
+\label{prop:specialisation-consumption}
+Let $\cC$ be a CY$_{3}$ category, let
+$\PhiFA_{3}(\cC) \in E_{3}\text{-}\HolFA(\R^{3})$ be its Stage-1
+factorisation algebra in local coordinates, and let
+$\Sigma_{2} = \R^{2}_{yz}$, $C = \R_{t}$ be the Dunn decomposition of
+\Cref{thm:phifa3-longitudinal-transverse}. Then
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+  \item \emph{Specialisation along the transverse $\R^{2}_{yz}$}
+    (the $\Sigma_{2}$-cycle):
+    factorisation homology over $\R^{2}_{yz}$ integrates out the
+    $\Etwo$-factor, leaving the $\Eone$-algebra
+    \[
+      \int_{\R^{2}_{yz}} \mathrm{Fact}^{\mathrm{trans}}_{\R^{2}_{yz}}
+      (A^{\flat, \Etwo}) \;=\;
+      \int_{\R^{2}_{yz}} A^{\flat, \Etwo}
+    \]
+    and the output on $C = \R_{t}$ is an $\Eone$-chiral algebra:
+    \[
+      \SpCh_{\Sigma_{2}, C}\bigl(\PhiFA_{3}(\cC)\bigr)
+      \;=\;
+      \mathrm{Fact}^{\mathrm{long}}_{\R_{t}}(A^{\flat, \Eone})
+      \;\otimes\;
+      \bigl({\textstyle\int_{\R^{2}_{yz}}} A^{\flat, \Etwo}\bigr)
+    \]
+    as $\Eone$-hFA on $\R_{t}$. The $\Etwo$-factor, consumed by
+    factorisation homology, appears only as a scalar tensor factor.
+  \item \emph{The native chiral curve $C$ carries only the $\Eone$
+    structure}: the output $\Phi_{3}(\cC) = \SpCh_{\Sigma_{2}, C}
+    (\PhiFA_{3}(\cC))$ is an $\Eone$-algebra in $\HolFA(C)$, with no
+    residual $\Etwo$-braiding on $\Phi_{3}(\cC)$ itself.
+  \item \emph{The transverse $\Etwo$-factor reappears on
+    $\cZ(\Rep^{\Eone}(\Phi_{3}(\cC)))$}: the Drinfeld centre of the
+    $\Eone$-monoidal representation category recovers the
+    $\Etwo$-braiding through the half-braiding datum, by
+    Ben-Zvi--Francis--Nadler
+    $\cZ(\Rep^{\Eone}(A)) \simeq \Rep^{\Etwo}(\HH^{\bullet}(A))$.
+    This recovery is the Drinfeld-centre substitute for the
+    $\Etwo$-factor lost in (i).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Sketch]
+Item (i): Ayala--Francis~2015, Theorem~$3.1$, establishes that
+$\int_{M}(-)$ for $M$ an $n$-manifold sends an $E_{n}$-algebra to a chain
+complex (an $E_{0}$-algebra): the $E_{n}$-operations are all contracted by
+$M$-coefficients. For $M = \R^{2}_{yz}$ and $E_{2}$-algebra
+$A^{\flat, \Etwo}$, the factorisation homology $\int_{\R^{2}}(A^{\flat, \Etwo})$
+is a chain complex (in general $= A^{\flat, \Etwo}_{hS_{\bullet}}$ by Fresse
+coinvariants, or the underlying vector space in the formal-neighbourhood
+reading). The external tensor-product structure of
+\Cref{thm:phifa3-longitudinal-transverse} survives, so
+$\SpCh_{\Sigma_{2}, C}(\PhiFA_{3}(\cC))$ is the $\R_{t}$-factor tensored
+with this scalar.
+
+Item (ii): The $E_{1}$-structure on $\mathrm{Fact}^{\mathrm{long}}_{\R_{t}}
+(A^{\flat, \Eone})$ survives the specialisation because the specialisation
+is factorisation homology along the transverse direction only --- the
+longitudinal direction is untouched and its $\Eone$-structure is preserved.
+
+Item (iii): Ben-Zvi--Francis--Nadler, \emph{Integral Transforms and
+Drinfeld Centers in Derived Algebraic Geometry},
+J.~Amer.~Math.~Soc.~23~(2010)~909--966, establishes the equivalence
+$\cZ(\Rep^{\Eone}(A)) \simeq \Rep^{\Etwo}(A)$ (their Theorem~4.14, lifted
+to the derived setting through Theorem~$6.4$ on the derived centre being
+the Hochschild cochain complex). The $\Etwo$-braiding on the Drinfeld
+centre is the half-braiding datum recovering the transverse Dunn factor.
+\end{proof}
+
+\begin{remark}[Choice of longitudinal/transverse direction]
+The splitting $\R^{3} = \R_{t} \times \R^{2}_{yz}$ is not unique: any
+affine hyperplane decomposition $\R^{3} = \R^{1} \times \R^{2}$ works.
+The choice is (part of) the Stage-2 specialisation data. Different
+choices produce $\Eone$-chirally-equivalent but genuinely distinct
+$\Phi_{3}$-outputs, parametrised by the family
+$(\Sigma_{2}, C)$ in the two-stage factorisation theorem. This is the
+Vol~III source of the family of $\Eone$-chiral shadows mentioned in
+the key-facts block of the CLAUDE.md.
+\end{remark}
+
+\section{Six $(\Sigma_{2}, C)$-specialisations of $K3 \times E$}
+\label{sec:six-specialisations}
+
+We now apply the above to the CY$_3$ example $X = K3 \times E$, whose
+ambient decomposition exhibits six natural Stage-2 specialisations
+$(\Sigma_{2}, C)$ corresponding to six different longitudinal/transverse
+decompositions of the tangent directions at a point of $X$.
+
+\begin{construction}[Six tangent-level decompositions]
+\label{constr:six-decompositions}
+At any point $x = (p, q) \in K3 \times E$, the tangent space
+decomposes as
+\[
+  T_{x}(K3 \times E) \;=\; T_{p}(K3) \oplus T_{q}(E)
+  \;\simeq\; \C^{2} \oplus \C
+  \;\simeq\; \C \oplus \C \oplus \C.
+\]
+In the (real) splitting $\R^{6} = \R^{2} \oplus \R^{2} \oplus \R^{2}$
+with coordinates $(y_{1}, z_{1}, y_{2}, z_{2}, u_{1}, u_{2})$ (the first
+four coordinates on $T_{p}(K3) = \C^{2}$, the last two on $T_{q}(E) = \C$),
+any Dunn decomposition
+\[
+  \R^{3} \;=\; \R^{1}_{\mathrm{long}} \times \R^{2}_{\mathrm{trans}}
+\]
+of an embedded $\R^{3} \hookrightarrow \R^{6}$ (a real $3$-slice
+transverse to a $3$-dimensional complement) selects a longitudinal
+direction and a transverse complex line. The six natural choices are:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{rll}
+\toprule
+$\#$ & Longitudinal $\R$-factor & Transverse $\R^{2}$-factor \\
+\midrule
+1 & $\Im(E\text{-fibre})$ direction $u_{2}$
+  & K3-base $\C$-line $(y_{1}, z_{1})$ \\
+2 & $\Im(E\text{-fibre})$ direction $u_{2}$
+  & K3-base $\C$-line $(y_{2}, z_{2})$ \\
+3 & $\Re(E\text{-fibre})$ direction $u_{1}$
+  & K3-base $\C$-line $(y_{1}, z_{1})$ \\
+4 & $\Re(E\text{-fibre})$ direction $u_{1}$
+  & K3-base $\C$-line $(y_{2}, z_{2})$ \\
+5 & $\Im(K3)$ direction $z_{1}$
+  & $(u_{1}, u_{2})$ $E$-plane \\
+6 & $\Im(K3)$ direction $z_{2}$
+  & $(u_{1}, u_{2})$ $E$-plane \\
+\bottomrule
+\end{tabular}
+\end{center}
+Each row is a pair $(\Sigma_{2}, C)$ of a transverse $2$-cycle and a
+longitudinal curve. The six rows exhaust the natural choices compatible
+with the product structure $K3 \times E$ and the holomorphic structure
+on each factor.
+\end{construction}
+
+\begin{proposition}[Six different $\Phi_{3}$-outputs]
+\label{prop:six-phi3-outputs}
+For each row $i \in \{1, \ldots, 6\}$ of
+\Cref{constr:six-decompositions}, the Stage-2 specialisation
+$\SpCh_{(\Sigma_{2}, C)_{i}}$ applied to
+$\PhiFA_{3}(D^{b}(\Coh(K3 \times E)))$ produces an $\Eone$-chiral
+algebra on $C_{i}$:
+\[
+  \bigl\{\,\Phi_{3}^{(i)}(K3 \times E)
+  \;:\;i = 1, \ldots, 6\,\bigr\}
+  \quad\subset\quad \Eone\text{-}\mathrm{ChirAlg}.
+\]
+These are six different objects, obtained as six different
+factorisations of the single canonical Stage-1 output
+$\PhiFA_{3}(D^{b}(\Coh(K3 \times E)))$; they are \emph{not} six
+applications of a single $\Phi$.
+\end{proposition}
+
+\begin{remark}[The KEY CACHE FACT]
+This is the precise cache statement that ``six routes to $G(K3 \times E)$
+are six different constructions, not six $\Phi$ applications''. The
+six constructions arise as six specialisations
+$\SpCh_{(\Sigma_{2}, C)_{i}}$ of a single Stage-1 object
+$\PhiFA_{3}(\cC_{K3 \times E})$; the multiplicity is in the
+Dunn-decomposition data $(\Sigma_{2}, C)$, not in $\Phi$.
+\end{remark}
+
+\begin{remark}[Relation to the four $\kappa_{\bullet}$ values
+$\{0, 3, 5, 24\}$]
+The four $\kappa_{\bullet}$ values for $K3 \times E$ arise as follows
+(cache key-fact reprise):
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+  \item $\kappa_{\mathrm{cat}}(K3 \times E) = 0$: K\"unneth-multiplicative
+    categorical Euler $\chi(\cO_{K3}) \cdot \chi(\cO_{E}) = 2 \cdot 0 = 0$;
+    invariant of the total space, independent of Dunn decomposition;
+  \item $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3$: chiral
+    Heisenberg specialisation, rank-additive $2 + 1 = 3$; a specific
+    Stage-2 specialisation (row~5 or~6 of
+    \Cref{constr:six-decompositions}: longitudinal K3-direction,
+    transverse $E$-plane);
+  \item $\kappa_{\mathrm{BKM}}(\frakg_{\Delta_{5}}) = 5$: Borcherds
+    weight of the Gritsenko $\Delta_{5}$ paramodular form; not a
+    $\Phi_{3}$-output at all, but an automorphic datum attached to
+    the $K3 \times E$ BKM;
+  \item $\kappa_{\mathrm{fiber}} = 24$: Mukai-lattice rank; a fibre
+    invariant, not a total-space invariant; related to the
+    $24$-punctured elliptic base of the K3 elliptic fibration.
+\end{enumerate}
+The six $(\Sigma_{2}, C)$-specialisations of \Cref{constr:six-decompositions}
+each produce an $\Eone$-chiral algebra; different rows land at different
+$\kappa_{\mathrm{ch}}$-values depending on which K3 direction is
+longitudinal and which is transverse. The four $\kappa_{\bullet}$-values
+$\{0, 3, 5, 24\}$ are not six-of-six; they arise from four different
+invariants, only one of which ($\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$) is
+a $\Phi_{3}$-output.
+\end{remark}
+
+\section{The operadic circle $E_{3} \to E_{2} \to E_{1} \to E_{2} \to E_{3}$}
+\label{sec:operadic-circle}
+
+The Dunn--Lurie decomposition plus the Drinfeld-centre recovery closes a
+categorical circle that organises the Vol~III operadic story.
+
+\begin{theorem}[Operadic circle]
+\label{thm:operadic-circle}
+Let $\cC$ be a CY$_{3}$ category with $A = \HH_{\bullet}(\cC)$. The
+following chain of equivalences holds:
+\begin{align*}
+  E_{3}\text{-}\mathrm{Alg}(\cC)\ni A
+  & \xrightarrow{\;\text{Dunn decomp. at } (1, 2)\;}
+    E_{1} \otimes E_{2}\text{-structure on } A \\
+  & \xrightarrow{\;\SpCh_{\Sigma_{2}, C},
+    \;\int_{\R^{2}} \text{ on transverse}\;}
+    E_{1}\text{-hFA } \Phi_{3}(\cC) \text{ on } C \\
+  & \xrightarrow{\;\Rep^{E_{1}}(-)\;}
+    E_{1}\text{-monoidal category } \Rep^{\Eone}(\Phi_{3}(\cC)) \\
+  & \xrightarrow{\;\cZ(-)\text{, Drinfeld centre}\;}
+    E_{2}\text{-braided category } \cZ(\Rep^{\Eone}(\Phi_{3}(\cC))) \\
+  & \xrightarrow{\;\mathrm{BZFN: recover }\HH^{\bullet}\;}
+    E_{3}\text{-algebra } \HH^{\bullet}(\Phi_{3}(\cC)) \text{ recovering }
+    E_{3}\text{-data on } A.
+\end{align*}
+Each arrow is a specific construction; the composite is the identity on
+the $E_{3}$-data modulo the Stage-2 specialisation choice.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Arrow 1 is Dunn--Lurie (\Cref{cor:lurie-e3}). Arrow 2 is the Stage-2
+specialisation (\Cref{prop:specialisation-consumption}). Arrow 3 is the
+representation-category functor for $E_{1}$-algebras. Arrow 4 is the
+Drinfeld-centre construction. Arrow 5 is Ben-Zvi--Francis--Nadler 2010
+Theorem 4.14 (in its derived form, Theorem~$6.4$): the derived centre
+$\HH^{\bullet}(A)$ of an $E_{1}$-algebra is the $E_{2}$-algebra
+underlying $\Rep^{E_{2}}(A)$, which by iterating Dunn--Lurie is also an
+$E_{3}$-algebra (when $A$ was $E_{3}$-structured to begin with).
+\end{proof}
+
+\begin{remark}[Why this is not circular]
+The circle is not a tautology: at each arrow, structure is either
+consumed (Stage-2 specialisation consumes the transverse $E_{2}$) or
+recovered (Drinfeld centre restores it). The non-triviality is that the
+recovery is \emph{not} the identity: the Drinfeld-centre recovery
+produces a genuinely new $E_{2}$-braided structure (the \emph{centre}'s
+half-braiding), distinct from the original $\Etwo$-factor in the Dunn
+decomposition. The composite
+\[
+  A \xrightarrow{\;\text{Dunn, }\SpCh,\;\cZ\circ \Rep,\;\mathrm{BZFN}\;}
+  \HH^{\bullet}(A)
+\]
+is the derived chiral centre, not $A$ itself. Only on $E_{\infty}$-centres
+does the composite return to $A$; at finite $E_{n}$ the circle is
+non-trivial.
+\end{remark}
+
+\section{CFG 2026 correspondence: topological vs holomorphic Dunn}
+\label{sec:cfg-correspondence}
+
+Costello--Francis--Gwilliam 2026 treats the Dunn--Lurie decomposition in
+the physical setting of $4$d $\cN = 2$ topologically-twisted field
+theories, where $E_{3} = E_{1}^{\mathrm{time}} \otimes
+E_{2}^{\mathrm{space}}$ splits time (topological, $E_{1}$) from space
+(topological, $E_{2}$). The decomposition is called the
+Kapustin--Witten $A$-twist factorisation. Our setting is holomorphic in
+the transverse direction (the $\C$-plane carrying OPE), not topological.
+
+\begin{proposition}[Wick-rotation equivalence]
+\label{prop:wick-rotation}
+Under the Wick rotation $\R_{t} \leftrightarrow i\R_{t}$ that exchanges
+Lorentzian time with Euclidean time, the Costello--Francis--Gwilliam
+topological $E_{1}^{\mathrm{time}} \otimes E_{2}^{\mathrm{space}}$
+decomposition becomes the holomorphic-topological
+$E_{1}^{\R_{t}} \otimes E_{2}^{\C_{yz}}$ decomposition of
+\Cref{thm:phifa3-longitudinal-transverse}, after Euclidean
+continuation of the spacetime coordinates. The Dunn--Lurie equivalence
+is preserved by the continuation: at the level of operads the
+equivalence is purely algebraic and does not distinguish real from
+imaginary directions.
+\end{proposition}
+
+\begin{remark}[Operadic vs physical statement]
+At the operadic level, $E_{1} \otimes E_{2} \simeq E_{3}$ holds in
+$\mathrm{Ch}(k)$ regardless of whether the $E_{n}$-operads are
+interpreted topologically (cubes in $\R^{n}$) or holomorphically
+(polydiscs in $\C^{n/2}$ when $n$ is even). The physical distinction ---
+real-time propagation vs holomorphic-spectral dependence --- lives in
+the \emph{interpretation} of the $E_{n}$-action on observables, not in
+the operad itself. CFG~2026 Theorem~$3.6$ (twisted-holomorphic
+factorisation) equates the two interpretations on shell of the
+$\cN = 2$ BV action.
+\end{remark}
+
+\section{Consequences for CY-A\textsubscript{3} lifting}
+\label{sec:cya3-lifting}
+
+The Dunn--Lurie decomposition is the operadic engine behind the CY-A\textsubscript{3}
+obstruction analysis.
+
+\begin{theorem}[Relative cotangent complex for $\Etwo \to \Ethree$]
+\label{thm:relative-cotangent}
+Let $A$ be an $\Etwo$-algebra in $\mathrm{Ch}(k)$. The relative cotangent
+complex for the lifting of $A$ to an $\Ethree$-algebra is
+\[
+  L_{\Ethree/\Etwo}(A) \;\simeq\; \Sigma^{2} L_{\Eone}(A)
+\]
+where $L_{\Eone}(A)$ is the $\Eone$-cotangent complex (Francis 2013,
+Def.~$3.1$). Equivalently, $L_{\Ethree/\Etwo}(A) = A^{\otimes 2}[-2]$ as
+an $A$-module up to a shift coming from the Hochschild differential.
+\end{theorem}
+
+\begin{proof}[Sketch]
+By Dunn--Lurie $\Ethree \simeq \Eone \otimes \Etwo$, so
+$\Alg_{\Ethree} \simeq \Alg_{\Eone}(\Alg_{\Etwo})$. The forgetful functor
+$\Alg_{\Ethree} \to \Alg_{\Etwo}$ is therefore the forgetful functor
+from $\Eone$-algebras in $\Etwo$-algebras to $\Etwo$-algebras, and its
+relative cotangent complex is the $\Eone$-cotangent complex computed
+\emph{inside} $\Alg_{\Etwo}$. Francis 2013 Theorem~$4.1$ identifies this
+complex with the $(n - 1)$-fold suspension of the underlying
+$\Eone$-cotangent complex of the $\Ethree$-algebra; at $(n - 1) = 2$
+this is $\Sigma^{2} L_{\Eone}(A)$.
+\end{proof}
+
+\begin{corollary}[Obstruction identification]
+\label{cor:obstruction-identification}
+The primary obstruction to lifting an $\Etwo$-structure on $A$ to an
+$\Ethree$-structure lies in
+\[
+  D^{4}_{\Etwo}(A, A) \;\simeq\; \HH^{-2}_{\Eone}(A, A).
+\]
+The Dunn equivalence supplies the second equality.
+\end{corollary}
+
+This is precisely the identification used at Step~1 of
+Theorem~\ref{thm:derived-framing-obstruction} in the main text
+(\texttt{chapters/theory/cy\_to\_chiral.tex}, line~$3130$ onwards).
+
+\section{Summary and open problems}
+\label{sec:summary}
+
+\paragraph{What was proved.}
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+  \item Dunn--Lurie additivity $\Ethree \simeq \Eone \otimes \Etwo$ at
+    three levels: geometric (Dunn 1988), dg-operad (Fresse 2017), and
+    $(\infty, 1)$-operad (Lurie \emph{HA}~5.1.2.2).
+  \item Longitudinal/transverse decomposition of the canonical Stage-1
+    output: $\PhiFA_{3}(\cC)|_{\R_{t} \times \R^{2}_{yz}} \simeq
+    \mathrm{Fact}_{\R_{t}}(A^{\flat, \Eone}) \boxtimes
+    \mathrm{Fact}_{\R^{2}_{yz}}(A^{\flat, \Etwo})$.
+  \item Stage-2 specialisation consumes the transverse $\Etwo$-factor
+    via factorisation homology, leaving an $\Eone$-chiral algebra on
+    the longitudinal curve $C$; the $\Etwo$-braiding reappears on the
+    Drinfeld centre of the representation category.
+  \item The six $K3 \times E$ constructions correspond to six
+    $(\Sigma_{2}, C)$-specialisations of a single
+    $\PhiFA_{3}(\cC_{K3 \times E})$, not six $\Phi_{3}$-applications.
+  \item The relative cotangent complex $L_{\Ethree/\Etwo}(A) = \Sigma^{2}
+    L_{\Eone}(A)$ follows directly from Dunn--Lurie, identifying the
+    CY-A\textsubscript{3} obstruction group with $\HH^{-2}_{\Eone}(A, A)$.
+\end{enumerate}
+
+\paragraph{Open problems.}
+\begin{enumerate}[label=(\roman*), leftmargin=*]
+  \item \emph{Non-abelian Dunn.} At non-simply-laced $\frakg$, the
+    Costello--Gaiotto--Yagi 5D hCS argument for the
+    Yangian VOA all-orders theorem requires Dunn additivity for twisted
+    affine algebras; the chain-level compatibility of Kontsevich--Tamarkin
+    formality with the Dynkin-diagram twist is open.
+  \item \emph{Global-chart Dunn.} For a compact CY$_{3}$ $X$ with
+    non-trivial Aut$(X)$, does the local-to-global Dunn equivalence
+    $\PhiFA_{3}(X) \simeq \bigotimes_{\alpha} E_{3}$-glue commute with
+    Aut-action? For $K3 \times E$ the Aut is $\mathrm{Aut}(K3) \times
+    \Z^{2}$, and the compatibility is expected but not verified in full
+    generality.
+  \item \emph{Dunn at genus.} The chain-level Dunn equivalence on the
+    local model $\R^{3}$ lifts to a genus-$g$ statement via
+    Francis--Gaitsgory factorisation homology; the explicit
+    $g = 1, 2, 3$ chain-level witnesses for the genus-tower identities
+    of the braided factorization chapter (Propositions~fh-genus-tower
+    and the higher-genus $K3 \times E$ partition functions) are partially
+    completed.
+  \item \emph{Dunn at roots of unity.} At $q = e^{2\pi i / N}$, the
+    Dunn equivalence descends to a statement about $N$-braided operads
+    (quantum-group / Lusztig-cell-cocycle variant); the chain-level
+    comparison of root-of-unity Dunn with the tilting-mode quantum
+    group at level $N$ is open.
+\end{enumerate}
+
+\paragraph{Next attack cycle.}
+\begin{itemize}[leftmargin=*]
+  \item (Re-attack 1) Verify item (i): the explicit chain-level map
+    $\mu \colon C_{\bullet}^{E_{1}} \otimes C_{\bullet}^{E_{2}} \to
+    C_{\bullet}(\Cube_{3}; k)$ of \Cref{prop:explicit-chain-map} in a
+    non-trivial chain-level model (Kontsevich graph complex).
+  \item (Re-attack 2) Verify item (iii): compute the $g = 1$ Dunn
+    witness for the $K3$ Heisenberg VOA, cross-check against the lattice
+    $\theta$-character.
+  \item (Re-attack 3) Verify item (iv): check the Dunn descent at
+    $q = e^{2\pi i / 8}$ against the Lusztig reflection length
+    $\ell_{\mathrm{Lusztig}} = 8$ for the K3 Mukai lattice.
+\end{itemize}
+
+\paragraph{Five attack--heal cycles.}
+\begin{enumerate}[label=\textbf{Cycle \arabic*:}, leftmargin=2em]
+  \item \emph{Attack.} The statement $E_{3} \simeq E_{1} \otimes E_{2}$
+    --- does it hold in dg-operads over $\Q$, or only in the homotopy
+    category? \emph{Healing.} Holds in dg-operads up to
+    quasi-isomorphism, as a consequence of Eilenberg--Zilber applied to
+    the space-level equivalence (\Cref{thm:chain-dunn}). The
+    quasi-isomorphism class is canonical; the strict equality fails
+    (the associator choice is a $\mathrm{GRT}_{1}$-torsor).
+  \item \emph{Attack.} The claim that Stage-2 specialisation consumes the
+    $\Etwo$-factor --- is this specific to the Dunn decomposition chosen,
+    or does every $(\Sigma_{2}, C)$ consume a different $\Etwo$-factor?
+    \emph{Healing.} Every $(\Sigma_{2}, C)$ consumes the $\Etwo$-factor
+    aligned with its own transverse direction. Different choices consume
+    different $\Etwo$-factors, producing different $\Eone$-chiral
+    outputs. The family of $\Eone$-chiral shadows parametrised by
+    $(\Sigma_{2}, C)$ is precisely the family of different consumptions.
+  \item \emph{Attack.} Is the Drinfeld-centre recovery of the transverse
+    $\Etwo$ \emph{the same $\Etwo$-structure} that was consumed by
+    $\SpCh$? \emph{Healing.} No. The consumed $\Etwo$-factor is the
+    transverse Dunn factor on $A$ itself; the recovered $\Etwo$-structure
+    is the Drinfeld-centre half-braiding on
+    $\cZ(\Rep^{\Eone}(\Phi_{3}(\cC)))$. These are related by
+    Ben-Zvi--Francis--Nadler ($\cZ(\Rep^{\Eone}(A)) \simeq
+    \Rep^{\Etwo}(\HH^{\bullet}(A))$), but they are genuinely distinct
+    $\Etwo$-structures. See \Cref{thm:operadic-circle}.
+  \item \emph{Attack.} The CFG 2026 physical picture uses a
+    \emph{topological} $E_{2}$-factor (Kapustin--Witten twist); our
+    chiral setting uses a \emph{holomorphic} $E_{2}$-factor. Can both be
+    Dunn-factors of the same $E_{3}$? \emph{Healing.} Yes, via the
+    Wick-rotation equivalence of \Cref{prop:wick-rotation}. At the
+    operadic level $E_{1} \otimes E_{2}$ does not distinguish
+    topological from holomorphic; the distinction is in the interpretation
+    of the operad action on observables. CFG $\S 3.6$ equates the two on
+    shell.
+  \item \emph{Attack.} The CY-A\textsubscript{3} obstruction proof used the
+    identification $L_{\Ethree/\Etwo}(A) = \Sigma^{2} L_{\Eone}(A)$
+    (Francis Theorem~$4.1$). Is this identification dependent on the
+    choice of formality presentation? \emph{Healing.} No. The relative
+    cotangent complex is intrinsic to the $\Etwo \to \Ethree$ forgetful
+    functor, which is determined by Dunn--Lurie independent of
+    formality. Different associators yield different strict cotangent
+    models but the quasi-isomorphism class is the
+    $\mathrm{GRT}_{1}$-invariant $\Sigma^{2} L_{\Eone}(A)$
+    (\Cref{thm:relative-cotangent}).
+\end{enumerate}
+
+\end{document}

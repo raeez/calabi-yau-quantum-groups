@@ -620,7 +620,8 @@ class BPSFactorizationData(NamedTuple):
     global_sections_char: str     # character of int_E BPS(K3; -)
     kappa_ch: int                 # kappa_ch(K3 x E) = 3
     kappa_BKM: int                # kappa_BKM(K3 x E) = 5
-    kappa_cat: int                # kappa_cat(K3) = chi(O_{K3}) = 2
+    kappa_cat: int                # kappa_cat(K3 x E) = chi(O_{K3 x E}) = 0
+    kappa_cat_fiber: int          # kappa_cat(K3) = chi(O_{K3}) = 2
     hilb_euler_chars: Dict[int, int]  # chi(Hilb^n(K3))
     proof_status: str
 
@@ -649,7 +650,8 @@ def bps_factorization_category_k3(max_n: int = 6) -> BPSFactorizationData:
     which is the FREE-FIELD approximation to the BPS category.
 
     AP113: kappa_ch = 3 (chiral), kappa_BKM = 5 (Borcherds weight of
-    Delta_5), kappa_cat = 2 = chi(O_{K3}). These are DIFFERENT invariants.
+    Delta_5), kappa_cat(K3 x E) = 0, and kappa_cat_fiber = 2 =
+    chi(O_{K3}). These are DIFFERENT invariants.
     """
     hilb_chi = _coloured_partition_numbers(MUKAI_RANK, max_n)
 
@@ -665,7 +667,8 @@ def bps_factorization_category_k3(max_n: int = 6) -> BPSFactorizationData:
         global_sections_char='1/eta(tau)^{24} (Gottsche, unconditional)',
         kappa_ch=3,
         kappa_BKM=5,
-        kappa_cat=2,
+        kappa_cat=0,
+        kappa_cat_fiber=2,
         hilb_euler_chars=hilb_chi,
         proof_status='CONJECTURAL (depends on CY-A_3 for categorical interpretation)',
     )
@@ -1201,7 +1204,8 @@ def verify_bps_category_consistency() -> Dict[str, Any]:
     # Check 1: kappa spectrum (AP113)
     checks['kappa_ch_3'] = (bps.kappa_ch == 3, bps.kappa_ch)
     checks['kappa_BKM_5'] = (bps.kappa_BKM == 5, bps.kappa_BKM)
-    checks['kappa_cat_2'] = (bps.kappa_cat == 2, bps.kappa_cat)
+    checks['kappa_cat_total_0'] = (bps.kappa_cat == 0, bps.kappa_cat)
+    checks['kappa_cat_fiber_2'] = (bps.kappa_cat_fiber == 2, bps.kappa_cat_fiber)
 
     # Check 2: Hilb^n(K3) Euler characteristics match Gottsche
     # VERIFIED: [DC] recursion, [LT] Gottsche (1990)

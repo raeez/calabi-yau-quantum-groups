@@ -119,8 +119,9 @@ this contribution happens to equal chi(O_{K3}) = 2.  But for orbifolds:
     after, so the "Hilbert scheme contribution" is NOT a universal constant.
 
 VERDICT: The identity kappa_BKM = kappa_ch + kappa_cat(fiber) is BROKEN
-by the Z/NZ orbifold family.  It should be downgraded from "conjectural
-identity" to "numerical coincidence specific to K3 x E (N=1)".
+by the Z/NZ orbifold family.  The proof is healed by replacing that
+candidate identity with the theorem-level Borcherds weight formula and
+by retaining 3 + 2 = 5 only as the N=1 Heisenberg-fibre coincidence.
 
 The correct invariant is kappa_BKM = c(0)/2 (the Borcherds weight formula),
 which is the ONLY formula that works across the full orbifold family.
@@ -180,7 +181,7 @@ class OrbifoldKappaData(NamedTuple):
     kappa_ch: int            # chiral modular char (conditional on CY-A_3)
     kappa_cat_fiber: int     # chi(O_S) where S = crepant resolution
     kappa_cat_total: int     # chi(O_{X_N}) = 0 for all CY3
-    decomposition_holds: bool  # kappa_BKM == kappa_ch + kappa_cat_fiber ?
+    decomposition_holds: bool  # legacy: Heisenberg-fibre coincidence?
     decomposition_deficit: int  # kappa_BKM - (kappa_ch + kappa_cat_fiber)
     surface_name: str
     notes: str
@@ -212,7 +213,7 @@ def _build_table():
         holds = (k_BKM == predicted)
         deficit = k_BKM - predicted
         if N == 1:
-            notes = "The ONLY case where the decomposition holds."
+            notes = "The ONLY case where the Heisenberg-fibre coincidence holds."
         elif N == 2:
             notes = (
                 f"Enriques: kappa_BKM={k_BKM}, predicted={predicted}. "

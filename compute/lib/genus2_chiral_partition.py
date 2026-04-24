@@ -105,16 +105,17 @@ Sp_4(Z) TRANSFORMATION:
   WEIGHT DETERMINATION:
   - Heisenberg: k = -c/2 (negative weight, from the 1/eta analogy)
   - For c=1: k = -1/2 (half-integral weight, on a metaplectic cover)
-  - K3 x E: k = -2*kappa_cat = -4 for the S-matrix
+  - K3 x E: k = -2*kappa_cat_fiber = -4 for the S-matrix
   - K3 x E: k = 5 for the BKM denominator (Delta_5 has weight 5)
-  - The S-matrix has weight -2*kappa_cat = -2*2 = -4.
+  - The S-matrix has weight -2*kappa_cat_fiber = -2*2 = -4.
   - The partition function has weight -c/2 = -12 for K3 (c=24).
 
   The weight formula (from conj:sp4-modularity in braided_factorization.tex):
 
-      wt(S-hat) = -2 * kappa_cat
+      wt(S-hat) = -2 * kappa_cat_fiber
 
-  For K3 x E: kappa_cat = chi(O_{K3}) = 2, so wt = -4.
+  For K3 x E: kappa_cat(K3 x E) = 0, while the S-matrix normalizer
+  uses the K3-fiber value kappa_cat_fiber = chi(O_{K3}) = 2, so wt = -4.
 
 K3 x E CONNECTION:
   For K3 x E (c=24), the genus-2 partition function is:
@@ -777,7 +778,7 @@ def genus2_partition_k3xe(
         wt(1/Phi_10) = -10
 
     The S-matrix has weight:
-        wt(S-hat) = -2 * kappa_cat = -2 * 2 = -4
+        wt(S-hat) = -2 * kappa_cat_fiber = -2 * 2 = -4
 
     The relationship (from conj:s-matrix-phi10):
         S-hat = Phi_10^{-1} * (Eisenstein of weight 6)
@@ -814,19 +815,20 @@ def genus2_partition_k3xe(
         "Z2": Z2,
         "Phi_10": phi10,
         "Delta_5": d5,
-        "kappa_cat": 2,           # chi(O_{K3}) = 2
+        "kappa_cat": 0,           # chi(O_{K3 x E}) = 0
+        "kappa_cat_fiber": 2,     # chi(O_{K3}) = 2
         "kappa_BKM": 5,           # weight of Delta_5
         "kappa_ch": 3,            # chiral algebra kappa (from Phi functor)
         "weight_Phi10": 10,
         "weight_1_over_Phi10": -10,
-        "weight_S_hat": -4,       # = -2 * kappa_cat
-        "weight_Eisenstein": 6,    # = 2*kappa_BKM - 2*kappa_cat = 10-4
+        "weight_S_hat": -4,       # = -2 * kappa_cat_fiber
+        "weight_Eisenstein": 6,    # = 2*kappa_BKM - 2*kappa_cat_fiber = 10-4
         "sp4_representation": "trivial (scalar)",
         "claim_status": "CONJECTURAL (depends on CY-A_3)",
         "explanation": (
             "K3 x E: Z_2 = 1/Phi_10(Omega). "
             "Phi_10 = Delta_5^2, weight 10 on Sp_4(Z). "
-            "S-hat = Phi_10^{-1} * E_6 has weight -10+6 = -4 = -2*kappa_cat. "
+            "S-hat = Phi_10^{-1} * E_6 has weight -10+6 = -4 = -2*kappa_cat_fiber. "
             "The Borcherds product equals the bar Euler product of the K3 "
             "elliptic genus (OBSERVATION, AP-CY8, not theorem). "
             "CONDITIONAL on CY-A_3 for the chiral algebra A_{K3xE}."
@@ -1180,7 +1182,7 @@ def genus2_weight_table() -> Dict[str, Dict]:
 
     WEIGHT FORMULA (from conj:sp4-modularity):
         Holomorphic partition function: wt = -c/2
-        S-matrix: wt = -2 * kappa_cat
+        S-matrix: wt = -2 * kappa_cat_fiber
         BKM denominator: wt = kappa_BKM (= c(0)/2 of input Jacobi form)
 
     For the S-matrix vs partition function:
@@ -1226,12 +1228,13 @@ def genus2_weight_table() -> Dict[str, Dict]:
             "shadow_class": "M (conjectured)",
             "c": 24,
             "weight_partition": -12,       # -c/2 = -24/2
-            "weight_S_matrix": -4,         # -2 * kappa_cat
+            "weight_S_matrix": -4,         # -2 * kappa_cat_fiber
             "kappa_ch": 3,
-            "kappa_cat": 2,                # chi(O_{K3})
+            "kappa_cat": 0,                # chi(O_{K3 x E})
+            "kappa_cat_fiber": 2,          # chi(O_{K3})
             "kappa_BKM": 5,                # weight of Delta_5
             "weight_Phi10": 10,            # 2 * kappa_BKM
-            "weight_Eisenstein": 6,        # 2*kappa_BKM - 2*kappa_cat
+            "weight_Eisenstein": 6,        # 2*kappa_BKM - 2*kappa_cat_fiber
             "sp4_subgroup": "Sp_4(Z) (full group, scalar representation)",
             "claim_status": "CONJECTURAL",
         },
@@ -1253,20 +1256,21 @@ def categorical_s_matrix_summary() -> Dict[str, str]:
 
     The E_3 categorical S-matrix S-hat(Omega) on H_2 has:
 
-        wt(S-hat) = -2 * kappa_cat
+        wt(S-hat) = -2 * kappa_cat_fiber
 
     This comes from:
         S-hat = Phi_10^{-1} * E_{wt=6}
-        wt(S-hat) = -10 + 6 = -4 = -2 * 2 = -2 * kappa_cat
+        wt(S-hat) = -10 + 6 = -4 = -2 * 2 = -2 * kappa_cat_fiber
 
-    The factor of 2 compared to the E_2 formula (wt(S) = -kappa_cat)
-    reflects the genus doubling: E_3 promotes genus 1 to genus 2,
-    and the modular weight doubles accordingly.
+    The total-space value kappa_cat(K3 x E) is 0; using it here would
+    give the wrong weight.  The factor of 2 compared to the E_2 formula
+    reflects genus doubling of the fiber normalizer.
     """
     return {
         "E2_weight_formula": "wt(S_{ij}) = -kappa_cat",
-        "E3_weight_formula": "wt(S-hat) = -2 * kappa_cat",
-        "K3xE_kappa_cat": "2 (= chi(O_{K3}))",
+        "E3_weight_formula": "wt(S-hat) = -2 * kappa_cat_fiber",
+        "K3xE_kappa_cat": "0 (= chi(O_{K3 x E}))",
+        "K3xE_kappa_cat_fiber": "2 (= chi(O_{K3}))",
         "K3xE_wt_S_hat": "-4",
         "K3xE_decomposition": "S-hat = Phi_10^{-1} * E_6",
         "weight_check": "-10 + 6 = -4 = -2*2",

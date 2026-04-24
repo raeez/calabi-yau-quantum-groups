@@ -5,8 +5,8 @@ shadow tower with fractional kappa, BCOV comparison, and CY3 survey.
 Ground truth:
     Quintic Q in P^4: h^{1,1}=1, h^{2,1}=101, chi=-200.
     chi/24 = -25/3 (NOT integer).
-    K3 x E: chi=0, kappa=5 (from Delta_5), NOT chi/24=0.
-    K3: chi=24, kappa=2 (from chi(O_K3)), NOT chi/24=1.
+    K3 x E: chi=0, kappa_BKM=5 (from Delta_5), NOT chi/24=0.
+    K3: chi=24, kappa_cat=2 (from chi(O_K3)), NOT chi/24=1.
 
 References:
     Bershadsky-Cecotti-Ooguri-Vafa (BCOV), hep-th/9309140
@@ -327,7 +327,7 @@ class TestShadowTower:
             assert Fg < 0, f"F_{g} = {Fg} is not negative"
 
     def test_k3xe_all_positive(self):
-        """All F_g are positive for K3 x E (kappa = 5 > 0)."""
+        """All F_g are positive for the K3 x E BKM scalar 5."""
         tower = shadow_tower_scalar(Fraction(5), 5)
         for g, Fg in tower.items():
             # VERIFIED [DC] positivity check [LT] Candelas+91
@@ -603,7 +603,7 @@ class TestKappaComparison:
     """Tests for kappa formula comparison across CY families."""
 
     def test_chi24_fails_for_k3xe(self):
-        """chi/24 != kappa for K3 x E."""
+        """chi/24 != kappa_BKM for K3 x E."""
         comp = kappa_formula_comparison()
         k3xe = [c for c in comp["comparisons"] if c["name"] == "K3 x E"][0]
         assert not k3xe["match"]
@@ -611,6 +611,7 @@ class TestKappaComparison:
         assert k3xe["chi/24"] == Fraction(0)
         # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert k3xe["kappa"] == Fraction(5)
+        assert k3xe["kappa_label"] == "kappa_BKM"
 
     def test_chi24_fails_for_k3(self):
         """chi/24 != kappa for K3."""
@@ -640,9 +641,9 @@ class TestKappaComparison:
         assert not con["match"]
 
     def test_conclusion_documents_failure(self):
-        """Conclusion notes that chi/24 != kappa in all known cases."""
+        """Conclusion forbids chi/24 as a universal scalar formula."""
         comp = kappa_formula_comparison()
-        assert "NOT the correct formula" in comp["conclusion"]
+        assert "universal scalar formula" in comp["conclusion"]
 
 
 # ======================================================================

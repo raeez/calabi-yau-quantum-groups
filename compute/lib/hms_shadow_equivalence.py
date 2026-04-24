@@ -1817,17 +1817,19 @@ def shadow_invariants_table() -> Dict[str, Dict[str, Any]]:
 
 
 def kappa_additivity_check() -> Dict[str, Any]:
-    """Verify kappa additivity for product CY manifolds.
+    """Separate HMS toy-product normalization from Vol III K3 x E data.
 
-    For X = Y x Z (product):
-        kappa(X) = kappa(Y) + kappa(Z)  (modular characteristic is additive).
+    This HMS module uses a surface-normalized scalar
+    kappa_HMS(K3)=chi_top(K3)/24=1 for its K3 example.  That scalar is
+    not the Vol III chiral invariant kappa_ch(K3)=2 and cannot be
+    multiplied with the topological elliptic value to obtain a canonical
+    K3 x E invariant.
 
-    Examples:
-        E_tau x E_tau: kappa = 1 + 1 = 2
-        K3 x E: kappa = 1 + 0 = 1 (since kappa(E) = 0 for genus-1 curve)
+    Canonically, K3 x E carries the four-value spectrum:
+        kappa_ch=3, kappa_cat=0, kappa_BKM=5, kappa_fiber=24.
     """
     kappa_E = Fraction(1)     # Elliptic curve: kappa(H_1) = 1
-    kappa_K3 = Fraction(1)    # K3 (HMS convention)
+    kappa_K3_HMS = Fraction(1)  # K3 (HMS surface-normalized convention)
     kappa_E_genus1 = Fraction(0)  # Elliptic curve as a genus-1 Riemann surface
     # NOTE: kappa(E) = 1 as a CY 1-fold (Heisenberg H_1, kappa = k = 1).
     # As a Riemann surface of genus 1: chi(E) = 0, so F_1 = 0, kappa = 0.
@@ -1841,11 +1843,22 @@ def kappa_additivity_check() -> Dict[str, Any]:
             'expected': Fraction(2),
             'match': (kappa_E + kappa_E) == Fraction(2),
         },
-        'K3_x_E': {
-            'kappa_product': kappa_K3 + kappa_E_genus1,
+        'HMS_K3_surface_x_E_topological_lane': {
+            'kappa_product': kappa_K3_HMS + kappa_E_genus1,
             'expected': Fraction(1),
-            'match': (kappa_K3 + kappa_E_genus1) == Fraction(1),
-            'note': 'kappa(E as genus-1 surface) = 0, not 1',
+            'match': (kappa_K3_HMS + kappa_E_genus1) == Fraction(1),
+            'note': 'HMS surface-normalized toy lane only; not a Vol III K3 x E invariant',
+        },
+        'K3_x_E': {
+            'kappa_ch': Fraction(3),
+            'kappa_cat': Fraction(0),
+            'kappa_BKM': Fraction(5),
+            'kappa_fiber': Fraction(24),
+            'kappa_ch_additive_sum': Fraction(2) + Fraction(1),
+            'kappa_ch_additivity_match': (Fraction(2) + Fraction(1)) == Fraction(3),
+            'hms_surface_lane_value': kappa_K3_HMS + kappa_E_genus1,
+            'hms_surface_lane_is_canonical': False,
+            'note': 'canonical Vol III K3 x E spectrum; HMS 1+0 lane is not canonical',
         },
     }
 

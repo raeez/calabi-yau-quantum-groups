@@ -211,7 +211,7 @@ def q1_existence() -> IdentificationQuestion:
 
     Evidence:
     - Topological obstruction vanishes (pi_3(B Sp) = 0).
-    - C^3 functor chain verified end-to-end (~600 tests).
+    - C^3 Hall/representation-side chain verified by focused tests.
     - Toric CY_3 chart gluing verified for resolved conifold, local P^2.
     - Kummer route Steps 1-4 proved (prop:kummer-orbifold).
 
@@ -539,7 +539,8 @@ def kappa_ch_from_phi3() -> Dict[str, Any]:
             "chi_O_K3": "h^{0,0} - h^{0,1} + h^{0,2} = 1 - 0 + 1 = 2",
             "chi_O_E": "h^{0,0} - h^{0,1} = 1 - 1 = 0",
             "kappa_BKM_k3xe": "5 (Borcherds weight of Delta_5)",
-            "kappa_cat_k3xe": "2 (= chi(O_{K3}), ignoring E contribution)",
+            "kappa_cat_k3xe": "0 (= chi(O_{K3 x E}) = 2 * 0)",
+            "kappa_cat_k3_fiber": "2 (= chi(O_{K3}))",
             "kappa_fiber_k3xe": "24 (Mukai lattice rank)",
         },
         "status": STATUS,
@@ -564,7 +565,8 @@ def kappa_ch_consistency_check() -> Dict[str, Any]:
     """
     kappa_ch = Fraction(3)
     kappa_bkm = Fraction(5)
-    kappa_cat = Fraction(2)
+    kappa_cat = Fraction(0)
+    kappa_cat_fiber = Fraction(2)
 
     f1_ch = kappa_ch / 24
     f1_bkm = kappa_bkm / 24
@@ -573,6 +575,7 @@ def kappa_ch_consistency_check() -> Dict[str, Any]:
         "kappa_ch": kappa_ch,
         "kappa_bkm": kappa_bkm,
         "kappa_cat": kappa_cat,
+        "kappa_cat_fiber": kappa_cat_fiber,
         "F1_from_kappa_ch": f1_ch,
         "F1_from_kappa_bkm": f1_bkm,
         "F1_observed_DT": f1_bkm,
@@ -584,7 +587,8 @@ def kappa_ch_consistency_check() -> Dict[str, Any]:
         "all_kappa_values": {
             "kappa_ch": 3,
             "kappa_BKM": 5,
-            "kappa_cat": 2,
+            "kappa_cat": 0,
+            "kappa_cat_fiber": 2,
             "kappa_fiber": 24,
         },
         "status": STATUS,
@@ -849,7 +853,8 @@ def consequences_if_identification_holds() -> Dict[str, Any]:
          Delta_z(T(u)) = T^L(u) T^R(u-z).
 
     (T4) kappa_ch(A_{K3xE}) = 3 (from conclusion C4 of thm:cy-to-chiral-d3).
-         NOT the same as kappa_BKM = 5 or kappa_cat = 2 or kappa_fiber = 24.
+         NOT the same as kappa_BKM = 5, kappa_cat = 0,
+         kappa_cat_fiber = 2, or kappa_fiber = 24.
 
     (T5) The shadow class of A_{K3xE} is M (infinite depth).
          The A_infinity corrections delta^{(k)} are the shadow coefficients S_k.

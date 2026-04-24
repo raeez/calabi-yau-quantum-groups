@@ -204,7 +204,8 @@ class TestKappaConsistency:
         values = check["all_kappa_values"]
         assert values["kappa_ch"] == 3
         assert values["kappa_BKM"] == 5
-        assert values["kappa_cat"] == 2
+        assert values["kappa_cat"] == 0
+        assert values["kappa_cat_fiber"] == 2
         assert values["kappa_fiber"] == 24
         # All distinct
         vals = list(values.values())
@@ -727,12 +728,17 @@ class TestMultiPathVerification:
 
         kappa_ch = 3 (categorical CY Euler char with cross-term)
         kappa_BKM = 5 (weight of Igusa cusp form Delta_5)
-        kappa_cat = 2 (= chi(O_{K3}), ignoring E)
+        kappa_cat = 0 (= chi(O_{K3 x E}))
+        kappa_cat_fiber = 2 (= chi(O_{K3}))
         kappa_fiber = 24 (Mukai lattice rank = rk(H^*(K3, Z)))
         """
-        # kappa_cat: chi(O_{K3})
-        kappa_cat = 1 - 0 + 1  # h^{0,0} - h^{0,1} + h^{0,2} for K3
-        assert kappa_cat == 2
+        # kappa_cat total: chi(O_{K3}) * chi(O_E) = 2 * 0
+        kappa_cat = (1 - 0 + 1) * (1 - 1)
+        assert kappa_cat == 0
+
+        # kappa_cat_fiber: chi(O_{K3})
+        kappa_cat_fiber = 1 - 0 + 1
+        assert kappa_cat_fiber == 2
 
         # kappa_fiber: Mukai lattice rank
         # H^*(K3, Z) = H^0 + H^2 + H^4 = Z + Z^{22} + Z
@@ -748,22 +754,23 @@ class TestMultiPathVerification:
         assert from_engine["all_kappa_values"]["kappa_ch"] == 3
         assert from_engine["all_kappa_values"]["kappa_BKM"] == kappa_BKM
         assert from_engine["all_kappa_values"]["kappa_cat"] == kappa_cat
+        assert from_engine["all_kappa_values"]["kappa_cat_fiber"] == kappa_cat_fiber
         assert from_engine["all_kappa_values"]["kappa_fiber"] == kappa_fiber
 
     def test_kappa_spectrum_route2_all_distinct(self):
         """Route 2: verify distinctness by direct comparison.
 
-        The kappa-spectrum {2, 3, 5, 24} has no repeated values.
+        The resolved kappa-spectrum {0, 2, 3, 5, 24} has no repeated values.
         This is nontrivial: it refutes the conflation kappa_ch = kappa_BKM
         that was the source of the original "3 vs 5" contradiction (AP113).
         """
         check = kappa_ch_consistency_check()
         vals = check["all_kappa_values"]
         value_set = set(vals.values())
-        assert len(value_set) == 4, (
+        assert len(value_set) == 5, (
             f"kappa values not all distinct: {vals}"
         )
-        assert value_set == {2, 3, 5, 24}
+        assert value_set == {0, 2, 3, 5, 24}
 
     # --- Parity g(0) = (-1)^d via direct computation ---
 

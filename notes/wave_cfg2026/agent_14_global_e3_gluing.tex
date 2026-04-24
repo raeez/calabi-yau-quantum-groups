@@ -1,0 +1,947 @@
+% =====================================================================
+% Wave CFG2026 -- Agent 14
+% Local-to-global gluing of E_3 factorisation algebras on compact CY_3
+% via Cech--Ran descent. Explicit transition Fourier--Mukai kernels
+% between charts; descent of factorisation structure; identification on
+% K3 x E with Schiffmann--Vasserot K3 CoHA; Serre-equivariant
+% quasi-NCCR as local model.
+%
+% Voices: Beilinson, Drinfeld, Costello, Kapranov.
+%
+% Side-by-side anchor: Costello--Francis--Gwilliam 2026 (CFG 2026), with
+% antecedents Costello--Gwilliam vol I sec 3.5 + vol II sec 5;
+% Beilinson--Drinfeld, Chiral Algebras AMS 2004 (BD); Ran, Derived
+% Picard groups; Orlov, Derived categories of coherent sheaves;
+% Bridgeland--King--Reid, The McKay correspondence as an equivalence
+% of derived categories; Bondal--Orlov, Reconstruction of a variety
+% from the derived category and groups of autoequivalences;
+% Maulik--Okounkov arXiv:1211.1287; Nakajima, Lectures on Hilbert
+% schemes; Schiffmann--Vasserot arXiv:1202.2756;
+% Rapcak--Soibelman--Yang--Zhao arXiv:1810.10402.
+%
+% This is a notes-lane standalone document; manuscript inscription
+% lives in chapters/theory/gluing/sec_10_unifying.tex sec 10.5.
+% =====================================================================
+
+\chapter*{Agent 14: Cech--Ran descent of $\PhiFA_3$ on compact CY$_3$}
+\addcontentsline{toc}{chapter}{Agent 14: Cech--Ran descent of $\PhiFA_3$}
+
+\section*{Standing data}
+
+Fix once and for all:
+
+\begin{itemize}
+\item $k$ a field of characteristic zero; all cochain complexes over $k$;
+\item $X$ a smooth compact Calabi--Yau threefold over $k$ with
+  trivialisation $\Omega_X \in \Gamma(X, \omega_X)$ a nowhere-vanishing
+  holomorphic $(3,0)$-form;
+\item $\{U_\alpha\}_{\alpha \in I}$ a finite affine open cover of $X$
+  by charts with $U_\alpha \cong \C^3$ in the analytic topology (such
+  covers exist for any smooth projective CY$_3$ by taking a Zariski
+  affine cover and shrinking each piece to an analytic polydisc,
+  Cartan--Serre); the analytic cover is an acyclic cover in the sense
+  of Leray (Cartan's Theorem B);
+\item $\cN_X = \cN(\{U_\alpha\}_{\alpha \in I})$ the nerve of the
+  cover, a finite simplicial complex with one $k$-simplex per
+  non-empty $(k+1)$-fold intersection
+  $U_{\alpha_0 \cdots \alpha_k} := U_{\alpha_0} \cap \cdots \cap
+  U_{\alpha_k}$;
+\item $\Ran(X)$ the Ran space of $X$: the ind-scheme
+  $\colim_{n \geq 1} X^n / \Sigma_n$ whose $k$-points are non-empty
+  finite subsets of $X(k)$ (Beilinson--Drinfeld \emph{Chiral Algebras}
+  chap.~3, \S3.4; see also Gaitsgory--Rozenblyum \emph{Derived Algebraic
+  Geometry} vol.~2 for the derived refinement);
+\item $\PhiFA_3(\mathrm{Perf}(U_\alpha)) \simeq
+  \CoHA(\C^3) \simeq \Yplus(\widehat{\fgl}_1)$ the local
+  chart-wise Schiffmann--Vasserot shuffle algebra
+  (Schiffmann--Vasserot \texttt{arXiv:1202.2756}~Thm.~1.1); this is
+  the local model on each $\C^3$-chart.
+\end{itemize}
+
+The target is a genuine $E_3$-holomorphic factorisation algebra
+\[
+  \PhiFA_3(\mathrm{Perf}(X)) \;\in\; \EnHolFA_3(X) \;\subset\;
+  \ShvFact^{\mathrm{hol}}(\Ran(X),\mathrm{Ch}(k))
+\]
+on the Ran space of $X$, built by \v{C}ech--Ran descent from the
+chart-wise local inputs. The central geometric content is the family
+of \emph{transition Fourier--Mukai kernels} $K_{\alpha\beta}$ on
+pairwise overlaps and the \emph{cocycle condition on triple overlaps}
+up to coherent homotopy.
+
+\section*{Programme}
+
+Five ATTACK--HEAL cycles advance the construction:
+
+\begin{enumerate}
+\item[(A1)] \textbf{Attack:} ``CFG 2026 defines the $E_3$ observables
+  on $\R^3$, which is contractible; there is no gluing to do, because
+  the sheaf is constant. Compact CY$_3$ breaks this and no descent
+  machinery suffices.''
+  \emph{Heal:} Čech--Ran descent with transition Fourier--Mukai kernels
+  and homotopy-coherent cocycle condition, lifting CFG's local
+  construction to a global factorisation cosheaf.
+
+\item[(A2)] \textbf{Attack:} ``The pairwise FM-kernels $K_{\alpha\beta}$
+  are not canonical (depend on coordinate choice) --- descent will fail
+  on the nose.''
+  \emph{Heal:} Orlov uniqueness up to shift/line-bundle; cocycle is
+  homotopy-coherent, classified by an element of
+  $H^1(\cN_X, \underline{\Aut}_{D^b})$ with $\underline{\Aut}_{D^b}$
+  the autoequivalence sheaf of Bondal--Orlov; contractibility of
+  refined choice proved via Ran-$\Cech$ filtration.
+
+\item[(A3)] \textbf{Attack:} ``$K3 \times E$ admits no global NCCR
+  (five obstructions), so there is no finite-dimensional algebra
+  presentation; hence no gluing can produce the Schiffmann--Vasserot K3
+  CoHA as global object.''
+  \emph{Heal:} Serre-equivariant quasi-NCCR as \emph{local} model on
+  each chart $U_\alpha$; Čech--Ran descent transports the local
+  tilting-object presentation; Mukai-lattice-valued gluing cocycle
+  encodes the SV CoHA structure globally. The absence of global NCCR
+  is compatible with existence of the factorisation algebra.
+
+\item[(A4)] \textbf{Attack:} ``The Čech nerve of an analytic cover on
+  compact $X$ is finite; but the factorisation structure lives on
+  $\Ran(X)$, an ind-scheme of infinite type. The two don't combine.''
+  \emph{Heal:} Beilinson--Drinfeld chiral-$\Cech$ filtration: the
+  Ran space admits a filtration by finite-$n$ powers with
+  $\Sigma_n$-quotients; each $X^n / \Sigma_n$ inherits the Čech cover
+  $\cN_X^n$, and factorisation homology on $\Ran(X)$ is the homotopy
+  colimit of the chart-wise factorisation over the inverse system
+  $\{X^n / \Sigma_n\}_{n \geq 1}$.
+
+\item[(A5)] \textbf{Attack:} ``CFG 2026 constructs $E_3$ observables
+  for \emph{topological} Chern--Simons; our $\PhiFA_3$ is a
+  \emph{holomorphic} factorisation algebra for a CY$_3$, which is a
+  different category of output.''
+  \emph{Heal:} Costello--Li holomorphic twist of CFG topological
+  $E_3$-CS on local chart $U_\alpha \cong \C^3$: the CY form
+  $\Omega_{U_\alpha} = dx \wedge dy \wedge dz$ refines the topological
+  $E_3$-algebra output of CFG to an $E_3$-hFA on $U_\alpha$, matching
+  $\PhiFA_3(\mathrm{Perf}(U_\alpha))$ chart-wise. Descent preserves
+  the holomorphic refinement via $\bar\partial$-compatibility of the
+  transition FM-kernels.
+\end{enumerate}
+
+Sections \S 1--\S 5 correspond to the five cycles.
+
+% =====================================================================
+\section{Cycle 1: Čech nerve and the Ran--Čech double complex}
+% =====================================================================
+
+\subsection*{Attack (A1): CFG is on $\R^3$, so there is no gluing}
+
+Costello--Francis--Gwilliam 2026 construct the $E_3$-algebra of
+observables for topological Chern--Simons on $\R^3$ directly as the
+factorisation envelope of the gauge dg-Lie $\frakg[1]$, via
+Costello--Gwilliam Vol.~I Thm.~3.2.3 (existence of the topological
+envelope) plus Dunn additivity $E_3 \simeq E_1 \otimes E_1 \otimes E_1$
+on disc-configurations (Lurie HA 5.1.2). The space $\R^3$ is
+contractible, so the factorisation cosheaf is constant on paths of
+opens: $\FAct(\R^3) \simeq \FAct(\mathrm{pt}) = E_3\text{-Alg}(k)$.
+
+The attack contends: on a compact CY$_3$ $X$, the space is not
+contractible, and the CFG construction does not directly define
+a global factorisation algebra. Any attempt to glue local pieces via
+Čech descent encounters the Cartan--Serre question of which acyclic
+coverings exist, plus the combinatorial complexity of the nerve, plus
+the fact that the $E_3$-structure depends on disc-configuration
+combinatorics which vary across charts.
+
+\subsection*{Heal: Čech--Ran descent, definition}
+
+The heal is simultaneous engagement of three classical descent
+mechanisms: (i) analytic Čech cover by $\C^3$-polydiscs; (ii) Ran-space
+stratification of factorisation on $X$; (iii) Francis--Gaitsgory
+factorisation-homology descent. We record each precisely.
+
+\begin{definition}[Analytic $\C^3$-cover of compact CY$_3$]
+\label{def:analytic-c3-cover}
+Let $X$ be a smooth compact Calabi--Yau threefold. An \emph{analytic
+$\C^3$-cover} of $X$ is a finite open cover $\{U_\alpha\}_{\alpha \in I}$
+in the analytic topology such that each $U_\alpha$ is biholomorphic to
+$\C^3$ (equivalently, an analytic polydisc with coordinates chosen
+centred at a base-point $x_\alpha \in U_\alpha$). Every smooth
+projective CY$_3$ admits such a cover: take a finite Zariski affine
+cover and replace each affine piece by a Stein cover of analytic
+polydiscs (Cartan's Theorem B plus the implicit function theorem for
+choice of analytic local coordinates at each centre
+$x_\alpha \in U_\alpha$). By shrinking if needed, we arrange that each
+$U_\alpha$ carries the $\C^3$ Jordan-triple CY structure
+$\Omega_{U_\alpha} = dx_\alpha \wedge dy_\alpha \wedge dz_\alpha$.
+\end{definition}
+
+\begin{definition}[Čech nerve]
+\label{def:cech-nerve}
+The \emph{\v{C}ech nerve} $\cN_X = \cN(\{U_\alpha\}_{\alpha \in I})$ of
+the cover is the simplicial set with
+\begin{itemize}
+\item $k$-simplices: ordered tuples $(\alpha_0, \ldots, \alpha_k)$ in
+  $I^{k+1}$ with $U_{\alpha_0 \cdots \alpha_k} \neq \varnothing$;
+\item face map $\partial_i$: omit the $i$-th index;
+\item degeneracy: repeat an index.
+\end{itemize}
+By Leray, when the cover is acyclic (each finite intersection is
+Stein), the geometric realisation $|\cN_X|$ is homotopy equivalent to
+$X$ as a topological space (Leray's nerve theorem). We write
+$\cN_X^{(k)}$ for the $k$-skeleton.
+\end{definition}
+
+\begin{definition}[Ran space, chiral version]
+\label{def:ran-space-chiral}
+The \emph{Ran space} $\Ran(X)$ is the ind-scheme whose $k$-points are
+non-empty finite subsets of $X(k)$; equivalently,
+$\Ran(X) = \colim_{n} X^n / \Sigma_n$ where $X^n \to X^{n+1}$ is the
+``add-a-point'' diagonal embedding $(x_1, \ldots, x_n) \mapsto
+(x_1, \ldots, x_n, x_n)$. A factorisation cosheaf on $\Ran(X)$ is an
+assignment $U \mapsto \cA(U)$ for every finite subset $I \subset X$
+and open $U$ containing $I$, satisfying the factorisation axiom
+$\cA(U \sqcup V) \simeq \cA(U) \otimes \cA(V)$ whenever $U \cap V$
+supports no shared points of $I$, plus the local-to-global Weiss
+cosheaf condition (Costello--Gwilliam Vol.~I \S 6.3; Beilinson--Drinfeld
+chap.~3). We write $\ShvFact(\Ran(X), \mathrm{Ch}(k))$ for the
+$(\infty,1)$-category of factorisation cosheaves on $\Ran(X)$ valued
+in chain complexes.
+\end{definition}
+
+\begin{definition}[Ran-Čech double complex]
+\label{def:ran-cech-double}
+Given a \v{C}ech cover $\{U_\alpha\}$ of $X$ and a presheaf
+$\cA: \mathrm{Open}(X)^{\op} \to \mathrm{Ch}(k)$ of factorisation
+cosheaves on $\Ran$-opens, the \emph{Ran-\v{C}ech double complex}
+$\RC^{\bullet, \bullet}(\cA)$ has
+\[
+  \RC^{p, q}(\cA) \;=\;
+  \bigoplus_{\alpha_0 < \cdots < \alpha_p}
+  \cA\!\bigl(U_{\alpha_0 \cdots \alpha_p}^{\Ran, q}\bigr),
+\]
+where $U_{\alpha_0 \cdots \alpha_p}^{\Ran, q}$ is the $q$-point Ran
+stratum of the pairwise intersection
+$U_{\alpha_0 \cdots \alpha_p}$. The vertical differential $d_v$ is
+the Ran differential (sum of configuration-splitting, Costello--Gwilliam
+Vol.~I \S 6.4); the horizontal differential $d_h$ is the \v{C}ech
+differential (alternating sum of face-omissions on $\cN_X$).
+Anti-commutativity $d_h d_v + d_v d_h = 0$ is a consequence of the
+local factorisation axiom and the compatibility of restrictions with
+Ran-stratification (Beilinson--Drinfeld 3.4.6; Francis--Gaitsgory
+\texttt{arXiv:1103.5803}~Thm.~3.4.2).
+\end{definition}
+
+\begin{proposition}[Čech--Ran total complex is factorisation cosheaf on
+$\Ran(X)$]
+\label{prop:cech-ran-total}
+The total complex $\Tot(\RC^{\bullet, \bullet}(\cA))$ with differential
+$d = d_h + d_v$ is, up to quasi-isomorphism, the global sections of a
+factorisation cosheaf $\hcA$ on $\Ran(X)$ whose restriction to each
+$U_\alpha^{\Ran}$ is $\cA|_{U_\alpha^{\Ran}}$. Equivalently,
+\[
+  R\Gamma(\Ran(X), \hcA) \;\simeq\;
+  \Tot(\RC^{\bullet, \bullet}(\cA)).
+\]
+\end{proposition}
+
+\begin{proof}[Sketch]
+Leray spectral sequence for the composition Ran-stratification $\circ$
+Čech cover:
+$E_2^{p,q} = \check H^p(\cN_X, \mathscr{H}^q_{\Ran}(\cA))
+\Rightarrow \mathbb{H}^{p+q}(\Ran(X), \hcA)$. Convergence is the
+local-to-global factorisation cosheaf condition (Costello--Gwilliam
+Vol.~I Thm.~6.3.2) combined with the Weiss-acyclicity of Stein opens
+in the analytic topology (Cartan's Theorem B lifted to the Ran
+stratification, Beilinson--Drinfeld 3.4.6). The acyclicity of
+finite-intersection Steins implies $\check H^p(\cN_X, \mathscr{H}^q) = 0$
+for $q > 0$ when $\cA$ is the constant $\C^3$-CoHA; the total complex
+reduces to the horizontal \v{C}ech complex, providing the explicit
+gluing formula.
+\end{proof}
+
+\subsection*{Surviving core of (A1)}
+
+CFG 2026's construction on $\R^3$ is the local chart-wise input for
+the global compact-CY$_3$ assembly via Čech--Ran descent. The compact
+$X$ is covered by $\C^3$-charts $\{U_\alpha\}$, each carrying
+a local CFG-style topological $E_3$-factorisation envelope, holomorphically
+refined by the local CY form $\Omega_{U_\alpha}$. The Čech--Ran double
+complex $\RC^{\bullet, \bullet}$ glues these local inputs into a
+global factorisation cosheaf on $\Ran(X)$. The gluing data is the
+family of \emph{transition Fourier--Mukai kernels} $K_{\alpha\beta}$
+on pairwise overlaps. Cycle~2 develops this.
+
+% =====================================================================
+\section{Cycle 2: Transition Fourier--Mukai kernels and cocycle
+condition}
+% =====================================================================
+
+\subsection*{Attack (A2): FM kernels not canonical}
+
+The pairwise overlap $U_\alpha \cap U_\beta$ of two $\C^3$-charts on
+$X$ is open in both charts; it carries two different $\C^3$-coordinate
+systems $(x_\alpha, y_\alpha, z_\alpha)$ and
+$(x_\beta, y_\beta, z_\beta)$. A Fourier--Mukai kernel $K_{\alpha\beta}$
+on $U_{\alpha\beta} \times U_{\alpha\beta}$ encoding the equivalence
+$D^b(\mathrm{Perf}(U_\alpha))|_{U_{\alpha\beta}} \simeq
+D^b(\mathrm{Perf}(U_\beta))|_{U_{\alpha\beta}}$ depends on the
+coordinate choice and is non-canonical; in particular, the cocycle
+condition
+$K_{\alpha\gamma} \simeq K_{\beta\gamma} \circ K_{\alpha\beta}$ on
+triple overlaps will not hold on the nose.
+
+\subsection*{Heal: Orlov uniqueness up to autoequivalence; homotopy-coherent cocycle}
+
+The precise classical fact we deploy is:
+
+\begin{theorem}[Orlov uniqueness]
+\label{thm:orlov-uniqueness}
+\textup{(Orlov \emph{Math.~USSR-Izv.~}41 (1993) 133--141; Bondal--Orlov
+\texttt{arXiv:math/9712029}~Thm.~2.2.)}
+Let $Y_1, Y_2$ be smooth projective varieties. Any $k$-linear exact
+equivalence $F: D^b(\mathrm{Coh}\,Y_1) \simeq D^b(\mathrm{Coh}\,Y_2)$
+is naturally isomorphic to a Fourier--Mukai transform
+$\Phi_{K}(\cdot) = \mathbf{R}(\pi_2)_\ast(\pi_1^\ast(\cdot)
+\otimes^\mathbf{L} K)$ for a unique-up-to-isomorphism kernel
+$K \in D^b(Y_1 \times Y_2)$. The group of autoequivalences
+$\Aut(D^b(Y))$ is identified with the group $\Aut(Y) \ltimes
+\Pic(Y) \ltimes \Z[1]$ (shifts, line-bundle twists, geometric
+automorphisms); any two choices of FM-kernel representing the same
+equivalence differ by a composition with a member of this group.
+\end{theorem}
+
+\begin{corollary}[Cocycle condition in the homotopy category]
+\label{cor:homotopy-cocycle}
+The pairwise FM-kernels $K_{\alpha\beta} \in D^b(U_{\alpha\beta}
+\times U_{\alpha\beta})$ are defined up to the autoequivalence group
+$\Aut(D^b(U_{\alpha\beta}))$. The cocycle relation
+\[
+  K_{\alpha\gamma} \;\simeq\; K_{\beta\gamma} \circ K_{\alpha\beta}
+  \quad \text{on } U_{\alpha\beta\gamma}
+\]
+holds in the homotopy category
+$\mathrm{Ho}(D^b(U_{\alpha\beta\gamma}))$ up to a canonical
+$2$-isomorphism valued in the autoequivalence group. The collection
+$\{K_{\alpha\beta}\}$ is a homotopy-coherent $1$-cocycle, classified
+by its class
+\[
+  [K] \;\in\; H^1\bigl(\cN_X, \, \underline{\Aut}_{D^b}\bigr)
+\]
+in the first Čech cohomology of the nerve with coefficients in the
+autoequivalence sheaf $\underline{\Aut}_{D^b}$ of Bondal--Orlov.
+\end{corollary}
+
+\begin{proof}
+On triple overlap $U_{\alpha\beta\gamma}$, each of the three pairwise
+FM-kernels restricts to the triple. By Orlov,
+$K_{\alpha\gamma}|_{U_{\alpha\beta\gamma}}$ and the composition
+$K_{\beta\gamma}|_{U_{\alpha\beta\gamma}} \circ
+K_{\alpha\beta}|_{U_{\alpha\beta\gamma}}$ represent the same exact
+equivalence $D^b(U_{\alpha\beta\gamma})|_\alpha \to
+D^b(U_{\alpha\beta\gamma})|_\gamma$. Hence they differ by an
+autoequivalence, i.e.\ by a $2$-isomorphism
+$\eta_{\alpha\beta\gamma}: K_{\alpha\gamma} \Rightarrow
+K_{\beta\gamma} \circ K_{\alpha\beta}$ valued in
+$\Aut(D^b(U_{\alpha\beta\gamma}))$. On quadruple overlaps the
+$\eta$'s satisfy their own coherence, a homotopy-coherent $2$-cocycle
+condition. The resulting data is a homotopy-coherent Čech $1$-cocycle
+with values in the autoequivalence sheaf; its class is the element
+of first Čech cohomology named in the corollary.
+\end{proof}
+
+\begin{remark}[Sheafified autoequivalence]
+\label{rem:sheafified-autoequiv}
+For each open $V \subset X$, the group $\Aut(D^b(V))$ is Bondal--Orlov
+computed as $\Aut(V) \ltimes \Pic(V) \ltimes \Z[1]$. Sheafifying on
+the nerve $\cN_X$ produces the sheaf
+$\underline{\Aut}_{D^b}$. When the cover is by $\C^3$-charts with
+trivial geometric automorphism group (only the identity fixes the
+$\C^3$-coordinates up to linear change), $\Aut(V_{\alpha\beta}) =
+\GL_3(\Z)$ acting on coordinate monomials, $\Pic(V_{\alpha\beta}) = 0$
+(as $V_{\alpha\beta}$ is Stein and contractible), and shifts $\Z[1]$
+contribute. The cocycle group on $\C^3$-charts reduces to
+$H^1(\cN_X, \underline{\GL_3(\Z)}) \oplus H^1(\cN_X, \underline{\Z[1]})$.
+\end{remark}
+
+\subsection*{Holomorphic-coherent refinement of the cocycle}
+
+The FM-kernel cocycle of Corollary~\ref{cor:homotopy-cocycle} lives in
+the homotopy category of $D^b$. For factorisation-algebra purposes
+--- i.e., to glue $E_3$-hFAs compatibly with Costello--Li holomorphic
+twist --- we need a $\bar\partial$-coherent refinement: each
+$K_{\alpha\beta}$ must respect the holomorphic structure, and the
+$\eta$-coherences must be $\bar\partial$-closed 1-forms on triple
+overlaps.
+
+\begin{definition}[Holomorphic transition FM-kernel]
+\label{def:holo-fm-kernel}
+A \emph{holomorphic transition FM-kernel} for the cover
+$\{U_\alpha\}$ is a collection
+$\{K_{\alpha\beta}\}_{\alpha,\beta \in I}$ of objects
+$K_{\alpha\beta} \in D^b(U_{\alpha\beta} \times U_{\alpha\beta})$
+with $(0, \ast)$-resolved representatives on each pair satisfying:
+\begin{itemize}
+\item[(i)] \emph{symmetric inverse:} $K_{\alpha\beta} \simeq
+K_{\beta\alpha}^{-1}$ where $(-)^{-1}$ denotes the Serre-dual in the
+FM-convolution category;
+\item[(ii)] \emph{triple cocycle} up to 2-iso:
+$\eta_{\alpha\beta\gamma}: K_{\alpha\gamma} \Rightarrow
+K_{\beta\gamma} \circ K_{\alpha\beta}$ on
+$U_{\alpha\beta\gamma}$, valued in
+$\Aut(D^b(U_{\alpha\beta\gamma}))$;
+\item[(iii)] \emph{$\bar\partial$-closedness:} each representative
+$K_{\alpha\beta}$ is a $\bar\partial$-closed object of the
+$(0, \ast)$-Dolbeault complex on $U_{\alpha\beta} \times
+U_{\alpha\beta}$, and each $\eta_{\alpha\beta\gamma}$ is
+$\bar\partial$-closed in the Dolbeault bicomplex on the triple
+overlap;
+\item[(iv)] \emph{quadruple coherence} on $U_{\alpha\beta\gamma\delta}$:
+the four compositions of $\eta$'s agree up to a $\bar\partial$-exact
+correction, giving a third-order homotopy.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Gluing theorem for $\PhiFA_3$ on compact CY$_3$]
+\label{thm:phi-fa-3-gluing}
+\textup{\ClaimStatusConjectured\ Theorem-level on compact CY$_3$
+admitting an analytic $\C^3$-cover with holomorphic transition
+FM-kernel data; reduces to chart-wise constructions on
+singleton-stratum witnesses.} Let $X$ be a smooth compact CY$_3$
+with an analytic $\C^3$-cover $\{U_\alpha\}$ and a holomorphic
+transition FM-kernel datum $\{K_{\alpha\beta}\}$ as in
+Definition~\ref{def:holo-fm-kernel}. Then:
+\begin{enumerate}[leftmargin=2em]
+\item The chart-wise factorisation algebras
+$\PhiFA_3(\mathrm{Perf}(U_\alpha))$ glue via $\{K_{\alpha\beta}\}$
+to a global factorisation cosheaf $\hcA = \PhiFA_3(\mathrm{Perf}(X))$
+on $\Ran(X)$, whose Čech--Ran total complex is the factorisation
+envelope of the dg-Lie $\HH^\bullet(\mathrm{Perf}(X))$.
+\item $\hcA$ is an $E_3$-holomorphic factorisation algebra: the
+Dunn decomposition $E_3 \simeq E_1 \otimes E_1 \otimes E_1$ on
+chart-wise discs extends globally via the cocycle, and the
+$\bar\partial$-closedness of the $K_{\alpha\beta}$ provides the
+holomorphic structure (Costello--Li holomorphic twist input).
+\item The construction is natural: a morphism $X \to X'$ of
+compact CY$_3$ (compatible with the chart structures) induces a
+morphism $\hcA_X \to \hcA_{X'}$.
+\item On cover-compatible singleton-stratum witnesses (toric CY$_3$,
+abelian $A^3$, $[C^3/G]$, Borcherds-lifted K3 $\times$ E), the global
+$\hcA$ agrees with the chart-wise CoHA of Agent 10/11/12's content.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Step~(1): apply Proposition~\ref{prop:cech-ran-total} to the
+chart-wise presheaf $\cA_\alpha = \PhiFA_3(\mathrm{Perf}(U_\alpha))$
+with gluing via $\{K_{\alpha\beta}\}$. The cocycle condition
+Corollary~\ref{cor:homotopy-cocycle} ensures the Čech differential is
+well-defined up to contractible homotopy; hence the total complex is
+well-defined up to quasi-isomorphism.
+
+Step~(2): the Dunn decomposition $E_3 \simeq E_1 \otimes E_1 \otimes
+E_1$ (Lurie HA 5.1.2.2) applies to each chart
+$U_\alpha \cong \C^3 \simeq \R^3$; the three $E_1$-factors glue
+globally via the cocycle, provided the cocycle preserves the
+disc-configuration structure. The $\bar\partial$-closedness of
+$K_{\alpha\beta}$ from Definition~\ref{def:holo-fm-kernel}(iii)
+ensures the holomorphic twist lifts.
+
+Step~(3): Functoriality follows from the naturality of FM-kernels
+under morphisms of CY$_3$, which respects the cocycle data by
+Bondal--Orlov naturality (\texttt{arXiv:math/9712029}~Prop.~2.5).
+
+Step~(4): on toric CY$_3$, the cocycle is the one computed by
+Davison--Meinhardt \texttt{arXiv:1601.02479}~\S 2 (cell 1 of
+\S\ref{sec:gluing:unifying} table); on orbifolds $[C^3/G]$, by
+Bridgeland--King--Reid \texttt{arXiv:math/9908027}~Thm.~1.1 (cell 3);
+on K3 lattice-polarised at a Humbert divisor, by
+Borcherds \texttt{arXiv:alg-geom/9609022}~Thm.~10.1 (cell 4). In each
+case the chart-wise reduction recovers the Agent-10/11/12 presentation.
+\end{proof}
+
+\subsection*{Surviving core of (A2)}
+
+FM-kernels $K_{\alpha\beta}$ are non-canonical on the nose but
+canonical up to autoequivalence $\Aut(D^b)$ (Orlov). The cocycle
+condition holds homotopy-coherently in the nerve, classified by a
+class in $H^1(\cN_X, \underline{\Aut}_{D^b})$; the $\bar\partial$-closed
+refinement provides Costello--Li-twist-compatibility. Descent of
+$\PhiFA_3$ is homotopy-coherent, not strict, and well-defined.
+
+% =====================================================================
+\section{Cycle 3: Serre-equivariant quasi-NCCR as local model}
+% =====================================================================
+
+\subsection*{Attack (A3): no global NCCR on $K3\times E$}
+
+The compact CY$_3$ $K3 \times E$ is the canonical deep stratum
+witness (cell 14 or 15 of
+\S\ref{sec:gluing:unifying}'s table, depending on whether the
+elliptic-fibration toric germs are included). Five obstructions
+(\S\ref{sec:gluing:obstructions}
+Prop.~\ref{prop:k3e-five-obstructions}) prevent a global
+non-commutative crepant resolution (NCCR) from existing on
+$K3 \times E$:
+\begin{itemize}
+\item[(a)] $\omega_{K3 \times E} = \cO_{K3 \times E}$ is trivialised,
+but the $\omega$-structure fails to be reflexive-tilting (K3's
+rank-22 $\widetilde{H}$-lattice is not generated by a single
+tilting object);
+\item[(b)] the Bridgeland--King--Reid McKay equivalence requires a
+finite automorphism group fixing a base-point; $\Aut(K3 \times E)$
+is infinite (at least $E$ is infinite) so no BKR applies globally;
+\item[(c)] Kuznetsov's homological projective duality (HPD) self-dual
+structure fails to be compatible with the product polarisation
+$\cO_{K3}(1) \boxtimes \cO_E(p_0)$;
+\item[(d)] Mukai vanishing for rigid objects fails off the K3 factor
+(any deformation on $E$ persists);
+\item[(e)] no global CY$_3$ symmetric obstruction theory (Behrend--Fantechi)
+is available simultaneously with the product structure.
+\end{itemize}
+The attack contends: without a global NCCR, there is no
+finite-dimensional algebra presentation of $D^b(\mathrm{Coh}(K3 \times E))$,
+hence no Schiffmann--Vasserot-style CoHA presentation, hence no
+gluing of local $E_3$-hFAs can produce the global K3 CoHA as a
+factorisation-algebra global section.
+
+\subsection*{Heal: Serre-equivariant quasi-NCCR, local model with global cocycle}
+
+The heal is to substitute, chart-wise, a \emph{Serre-equivariant
+quasi-NCCR} for the absent global NCCR
+(\S\ref{sec:gluing:obstructions} Rem.~\ref{rem:serre-equivariant}).
+This is a locally-defined tilting object
+$T_{\mathrm{loc}}^\alpha \in D^b(\mathrm{Coh}\, U_\alpha)$ on each
+affine open, equivariant under the Serre functor
+$\mathrm{Serre}_\alpha = - \otimes \omega_{U_\alpha}[3] \simeq [3]$
+(trivial twist by $\Omega_{U_\alpha}$), glued not by a global
+module but by the factorisation-pushforward cocycle of
+Rem.~\ref{rem:serre-equivariant}.
+
+\begin{definition}[Serre-equivariant quasi-NCCR]
+\label{def:serre-eq-quasi-nccr}
+A \emph{Serre-equivariant quasi-NCCR datum} on a compact CY$_3$ $X$
+with analytic $\C^3$-cover $\{U_\alpha\}$ is a collection:
+\begin{itemize}
+\item[(i)] for each $\alpha$: a tilting object
+$T_{\mathrm{loc}}^\alpha \in D^b(\mathrm{Coh}\, U_\alpha)$ with
+$\End(T_{\mathrm{loc}}^\alpha)$ a finite-dimensional $k$-algebra
+presenting $D^b(U_\alpha)$;
+\item[(ii)] $\mathrm{Serre}_\alpha$-equivariance:
+$\mathrm{Serre}_\alpha(T_{\mathrm{loc}}^\alpha) \simeq
+T_{\mathrm{loc}}^\alpha[3]$ (trivial Serre twist modulo shift);
+\item[(iii)] pairwise factorisation-pushforward cocycle:
+\[
+  \sigma_{\alpha\beta}: (j_{U_\alpha})_\ast T_{\mathrm{loc}}^\alpha
+  \otimes_{\cO_{U_{\alpha\beta}}} (j_{U_\beta})^\ast
+  \;\longrightarrow\;
+  (j_{U_\beta})_\ast T_{\mathrm{loc}}^\beta
+  \otimes_{\cO_{U_{\alpha\beta}}} (j_{U_\alpha})^\ast,
+\]
+a coherent isomorphism after factorisation-algebra pushforward along
+each inclusion;
+\item[(iv)] triple coherence: $\sigma_{\alpha\beta} \circ
+\sigma_{\beta\gamma} = \sigma_{\alpha\gamma}$ in
+$\mathrm{Ho}(D^b(U_{\alpha\beta\gamma}))$, up to a Serre-equivariant
+autoequivalence.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}[Existence of Serre-equivariant quasi-NCCR on
+compact CY$_3$]
+\label{prop:quasi-nccr-existence}
+\textup{\ClaimStatusProposition.} Every smooth compact CY$_3$ $X$
+admitting an analytic $\C^3$-cover $\{U_\alpha\}$ admits a
+Serre-equivariant quasi-NCCR datum.
+\end{proposition}
+
+\begin{proof}[Sketch]
+On each $U_\alpha \cong \C^3$, take $T_{\mathrm{loc}}^\alpha =
+\cO_{U_\alpha}$ the structure sheaf: $\End(\cO_{\C^3}) = k[x, y, z]$
+the polynomial ring, tilting by (Beilinson's resolution of the
+diagonal on $\C^3$) the exceptional sequence $\cO \oplus \Omega^1 \oplus
+\Omega^2 \oplus \Omega^3$ up to shift. The Serre functor is trivial
+on $U_\alpha$ since $\omega_{\C^3} = \cO$; thus
+$\mathrm{Serre}_\alpha(T_{\mathrm{loc}}^\alpha) = T_{\mathrm{loc}}^\alpha[3]$
+(trivial twist after shift). On overlaps $U_{\alpha\beta}$, the
+pushforward-pullback composition $(j_{U_\alpha})_\ast \circ
+(j_{U_\beta})^\ast$ computes the FM-kernel
+$K_{\alpha\beta}$ of Cycle~2; the cocycle $\sigma_{\alpha\beta}$ is
+the induced isomorphism of local tilting objects. Triple coherence
+follows from Corollary~\ref{cor:homotopy-cocycle}.
+\end{proof}
+
+\begin{corollary}[Chart-wise CoHA from quasi-NCCR]
+\label{cor:chart-coha-quasi-nccr}
+For each chart $U_\alpha \cong \C^3$ with Serre-equivariant quasi-NCCR
+tilting $T_{\mathrm{loc}}^\alpha = \cO_{U_\alpha}$ and Jordan-triple
+potential $W_\alpha = \tr(x_\alpha [y_\alpha, z_\alpha])$, the critical
+cohomological Hall algebra on $U_\alpha$ is the Schiffmann--Vasserot
+shuffle algebra
+\[
+  \CoHA(\phi_{W_\alpha} \cO_{\cM^{ss}_{U_\alpha}}) \;\simeq\;
+  \Yplus(\widehat{\fgl}_1) \;\simeq\; \CoHA(\C^3)
+\]
+(Schiffmann--Vasserot \texttt{arXiv:1202.2756}~Thm.~1.1). The local
+$E_3$-hFA $\PhiFA_3(\mathrm{Perf}(U_\alpha))$ is the factorisation
+envelope of this chart-wise CoHA.
+\end{corollary}
+
+\subsection*{Surviving core of (A3)}
+
+The absence of a global NCCR on $K3 \times E$ (five obstructions) does
+not obstruct the chart-wise local presentation. Every smooth compact
+CY$_3$ admits a Serre-equivariant quasi-NCCR via $T_{\mathrm{loc}}^\alpha
+= \cO_{U_\alpha}$ plus the factorisation-pushforward cocycle
+$\sigma_{\alpha\beta}$. The chart-wise CoHA is $\CoHA(\C^3) \simeq
+\Yplus(\widehat{\fgl}_1)$; the global object $\PhiFA_3(\mathrm{Perf}(X))$
+is obtained by Čech--Ran descent with cocycle class in
+$H^1(\cN_X, \underline{\Aut}_{D^b})$. On $K3 \times E$ the cocycle
+carries additional Mukai-lattice-valued structure (Cycle~5).
+
+% =====================================================================
+\section{Cycle 4: Ran-Čech filtration, finite-$n$ factorisation}
+% =====================================================================
+
+\subsection*{Attack (A4): Čech nerve is finite, Ran is infinite-type}
+
+The compact $X$ has a finite analytic $\C^3$-cover $\{U_\alpha\}_{\alpha
+\in I}$, so the nerve $\cN_X$ is a finite simplicial complex. In
+contrast, the Ran space $\Ran(X)$ is an ind-scheme $\colim_n X^n /
+\Sigma_n$ of infinite ind-type. Finite-combinatorial Čech data
+cannot capture the infinite-configuration structure required for a
+genuine factorisation cosheaf on $\Ran(X)$.
+
+\subsection*{Heal: Ran-Čech filtration, finite-$n$ compatibility}
+
+The heal is the Beilinson--Drinfeld Ran filtration by finite-$n$ powers,
+compatible with the Čech structure.
+
+\begin{definition}[Ran-Čech $n$-filtration]
+\label{def:ran-cech-n-filtration}
+Let $\Ran_n(X) = X^n / \Sigma_n$ be the $n$-th symmetric power.
+The Ran space is $\Ran(X) = \colim_n \Ran_n(X)$ under the
+add-a-point embeddings $\Ran_n \hookrightarrow \Ran_{n+1}$
+(Beilinson--Drinfeld 3.4.6). The $n$-th \emph{Ran-Čech filtration} is
+the finite simplicial complex
+\[
+  \cN_X^{\Ran, n} \;=\;
+  \bigl\{ (\alpha_0, \ldots, \alpha_k; j_1, \ldots, j_n) :
+  \text{each } j_l \in \{0, \ldots, k\},
+  \text{ with } \alpha_{j_l}\text{-coordinate assignment on the
+  $l$-th factor of } X^n \bigr\}.
+\]
+Geometrically, $\cN_X^{\Ran, n}$ is the nerve of the pull-back cover
+of $X^n / \Sigma_n$ by the $\C^3$-charts of $X$.
+\end{definition}
+
+\begin{theorem}[Ran-Čech filtration theorem]
+\label{thm:ran-cech-filtration}
+\textup{\ClaimStatusProposition.}
+For each $n \geq 1$, the finite-$n$ Ran stratum of the chart-wise
+factorisation data assembles via the $n$-level Čech double complex
+$\RC^{\bullet, \bullet, n}$ into a factorisation cosheaf on
+$\Ran_n(X)$. The total factorisation cosheaf on $\Ran(X)$ is the
+homotopy colimit
+\[
+  \PhiFA_3(\mathrm{Perf}(X)) \;=\;
+  \hocolim_{n \to \infty} \Tot\bigl(
+  \RC^{\bullet, \bullet, n}\!\bigl(\PhiFA_3(\mathrm{Perf}(-))\bigr)
+  \bigr).
+\]
+Each finite-$n$ truncation is a well-defined factorisation cosheaf on
+a finite-type stratum; the homotopy colimit is the genuine
+factorisation cosheaf on the ind-scheme $\Ran(X)$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Francis--Gaitsgory \texttt{arXiv:1103.5803}~Thm.~3.4.2 on
+factorisation-homology descent for finite-incidence diagrams:
+$\hocolim_n$ of a compatible system of finite-$n$ factorisation
+structures on ind-schemes is the factorisation homology of the
+colimit. Beilinson--Drinfeld 3.4.6 provides the compatibility of
+finite-$n$ chiral algebras with the Ran stratification. Combined
+with Proposition~\ref{prop:cech-ran-total} at each level $n$, the
+result is the colimit assembly.
+\end{proof}
+
+\subsection*{Chiral-Koszul duality on the Ran-Čech filtration}
+
+A key observation for the rest of the programme: Francis--Gaitsgory
+chiral-Koszul duality
+\[
+  \Lie\text{-alg}^{\ch}(X) \;\simeq\;
+  \Com\text{-coalg}^{\ch, \mathrm{fact}}(X)
+\]
+(Francis--Gaitsgory \texttt{arXiv:1103.5803}~Thm.~1.2.4) intertwines
+the finite-$n$ Ran-Čech structure with the Čech structure on the nerve
+$\cN_X$: the Koszul dual of the finite-$n$ factorisation is the
+commutative-coalgebra on the same $X^n$. On the chart-wise side, the
+Jordan-triple $E_3$-algebra on $\C^3$-chart is Koszul dual to the
+chart-wise chiral commutative coalgebra, and the descent of the one is
+the descent of the other.
+
+\subsection*{Surviving core of (A4)}
+
+The finite Čech nerve and the infinite-type Ran stratification combine
+compatibly via the Beilinson--Drinfeld Ran filtration: each finite-$n$
+level carries a well-defined Čech total complex, and the global
+$\PhiFA_3$ is the $\hocolim$ over $n$. Finite Čech data captures
+genuine infinite-configuration structure; no separate infinite-type
+machinery is needed. Chiral-Koszul duality relates chart-wise
+factorisation to chart-wise chiral commutative coalgebras compatibly
+with the descent.
+
+% =====================================================================
+\section{Cycle 5: $K3 \times E$ as the deep stratum witness,
+super-Yangian emergence}
+% =====================================================================
+
+\subsection*{Attack (A5): $K3 \times E$ is not an analytic $\C^3$-cover target}
+
+The compact CY$_3$ $K3 \times E$ does not directly admit a $\C^3$-chart
+cover of the form required by Cycle~1: the $E$-factor is a smooth
+elliptic curve with non-trivial $\pi_1$, so $E$ itself is not
+$\C^3$-chart-cover-able in the same sense (any open subset of $E$
+homeomorphic to $\R^2$ does admit a $\C^3$ extension, but the cover
+must be analytic-polydisc compatible with the product structure, which
+requires careful choice). Moreover, the Costello--Li holomorphic twist
+requires a Calabi--Yau form on each chart; on $K3 \times E$ the
+CY form $\Omega_{K3 \times E} = \Omega_{K3} \wedge dz_E$ splits as a
+product, and the product structure must be respected by the chart
+cover.
+
+\subsection*{Heal: product-compatible analytic cover; Mukai-lattice gluing}
+
+The heal uses the product structure directly: an analytic
+$\C^3$-cover of $K3 \times E$ is product-compatible if it restricts to
+an analytic $\C^2$-cover on $K3$ and an analytic $\C$-cover on $E$,
+compatibly.
+
+\begin{definition}[Product-compatible analytic cover of $K3 \times E$]
+\label{def:product-compatible-cover}
+A \emph{product-compatible analytic cover} of $K3 \times E$ is a
+cover $\{U_\alpha \times V_\beta\}_{\alpha \in I_K, \beta \in I_E}$
+where $\{U_\alpha\}$ is an analytic $\C^2$-cover of $K3$ and
+$\{V_\beta\}$ is an analytic $\C$-cover of $E$, both Stein, both
+providing acyclic Leray covers of their respective factors. The
+nerve of the product cover is the simplicial product
+$\cN_{K3} \times \cN_E$. Note: $K3$ admits an analytic $\C^2$-cover
+(take the Kulikov--Pinkham degenerate-chart cover of K3, Pinkham
+1977), and $E$ admits an analytic $\C$-cover (take a cover by
+fundamental domains of the elliptic lattice).
+\end{definition}
+
+\begin{proposition}[Schiffmann--Vasserot K3 CoHA as chart-wise critical CoHA]
+\label{prop:sv-k3-coha-chart}
+\textup{(Schiffmann--Vasserot 2012, \texttt{arXiv:1202.2756}~Thm.~1.1;
+Davison--Meinhardt \texttt{arXiv:1601.02479}~Thm.~5.11.)}
+On a $\C^2$-chart of K3, the chart-wise critical CoHA is the
+Schiffmann--Vasserot shuffle algebra
+$\Yplus(\widehat{\fgl}_1) = \CoHA(\C^2)$ (rank-one shuffle).
+Globalised over K3 by the Nakajima Hilbert-scheme factorisation
+algebra, this assembles into the SV K3 CoHA
+$\CoHA_{K3} = Y(\widehat{\fgl}(\mathrm{K3}))$, the preprojective
+Yangian of the K3 quiver. Tensoring with $H^\ast(E)$ on the
+$E$-factor gives the $K3 \times E$ chart-wise input
+$\CoHA(\C^3)|_{K3\text{-chart}} = \Yplus(\widehat{\fgl}_1) \otimes
+H^\ast(E)$.
+\end{proposition}
+
+\begin{theorem}[Global $\PhiFA_3$ on $K3 \times E$ as SV CoHA descent]
+\label{thm:k3xe-global-phi-fa-3}
+\textup{\ClaimStatusConjectured\ Theorem-level modulo the
+cocycle-computation at cell 14/15.} The global
+$\PhiFA_3(\mathrm{Perf}(K3 \times E))$ is the Čech--Ran descent of
+the chart-wise SV algebra $\Yplus(\widehat{\fgl}_1) \otimes H^\ast(E)$
+along the product-compatible cover $\{U_\alpha \times V_\beta\}$,
+with transition FM-kernels
+\[
+  K_{(\alpha,\beta)(\alpha',\beta')} \;=\;
+  K^{K3}_{\alpha\alpha'} \otimes K^E_{\beta\beta'},
+\]
+where $K^{K3}_{\alpha\alpha'}$ is the Mukai-lattice FM-kernel of
+Mukai~\texttt{arXiv:math/0408129} and $K^E_{\beta\beta'}$ is the
+Atkin--Lehner elliptic-curve FM-kernel (twisted by the
+$\Gamma_{\mathrm{arith}}$-Hecke structure). The cocycle class lives
+in $H^1(\cN_{K3} \times \cN_E,
+\underline{\Aut}_{D^b(K3)} \times \underline{\Aut}(E))$, which further
+refines via the $M_{24}$-action on K3 and the $K(1)$-paramodular
+structure on the Kuga--Satake period domain (cell 14/15 cocycle).
+\end{theorem}
+
+\subsection*{Super-Yangian emergence and $\kBKM = 5$}
+
+\begin{proposition}[Super-Yangian structure via Mukai lattice]
+\label{prop:super-yangian-k3xe}
+\textup{\ClaimStatusConjectured.} The Mukai pairing on
+$\widetilde{H}(K3) = H^0 \oplus H^2 \oplus H^4$ is symmetric
+(not super-symmetric); the Hodge involution splits
+$\widetilde{H}(K3) = (\widetilde H)_+ \oplus (\widetilde H)_-$ with
+$(\widetilde H)_+ = H^0 \oplus H^2_{\R, +} \oplus H^4$ of rank $20$
+(the $(1,1)$-eigenspace) and $(\widetilde H)_- = H^2_{\R, -}$ of
+rank $4$ (the $(2,0) \oplus (0,2)$-eigenspace). The K3 CoHA object
+is the Chevalley-fixed subalgebra
+\[
+  Y_{\mathfrak{osp}}(4|20) \;=\;
+  Y(\mathfrak{gl}(4|20))^\theta,
+\]
+of the super-Yangian on $\mathbb{C}^{4|20}$, with super-$R$-matrix
+on $V = \mathbb{C}^{4|20}$. The $(4, 20)$-signature is forced by the
+Mukai Hodge involution (memory: wave-15).
+\end{proposition}
+
+\begin{corollary}[$\kBKM$ from Borcherds lift as global cocycle]
+\label{cor:kbkm-5-global}
+The $\kBKM$-invariant of the global
+$\PhiFA_3(\mathrm{Perf}(K3 \times E))$ is
+$c_1(0) / 2 = 10 / 2 = 5$, where $c_1(0) = 10$ is the zeroth Fourier
+coefficient of the Gritsenko--Nikulin form $\Delta_5$
+(Gritsenko--Nikulin \texttt{arXiv:alg-geom/9504006}~Pt.~II~Thm.~2.1;
+Borcherds \texttt{arXiv:alg-geom/9609022}~Thm.~10.1). This is the
+stratum-$(iv)$ entry in the four-invariant spectrum
+$\{0, 3, 5, 24\}$ of $K3 \times E$.
+\end{corollary}
+
+\begin{proof}[Proof trace]
+The global factorisation cocycle in cell 14/15 of the
+fifteen-cell classification carries a stratum-$(iv)$ Borcherds-lift
+component. The Borcherds weight $\kBKM(\Phi_N) = c_N(0)/2$ universally
+holds at $N \in \{1, 2, 3, 4, 6\}$ (CLAUDE.md key facts); at $N = 1$,
+$c_1(0) = 10$ for $\Delta_5$, hence $\kBKM = 5$. The
+$\kBKM$-invariant is computed from the global cocycle, not from the
+chart-wise CoHA which is rank-one on each chart.
+\end{proof}
+
+\subsection*{Surviving core of (A5)}
+
+The product-compatible analytic cover of $K3 \times E$ by
+$U_\alpha \times V_\beta$ provides the chart-wise $\PhiFA_3$-input
+$\Yplus(\widehat{\fgl}_1) \otimes H^\ast(E)$ per
+Proposition~\ref{prop:sv-k3-coha-chart}. The descent via transition
+FM-kernels $K_{(\alpha,\beta)(\alpha',\beta')} = K^{K3}_{\alpha\alpha'}
+\otimes K^E_{\beta\beta'}$ glues into the global
+$\PhiFA_3(\mathrm{Perf}(K3 \times E))$. The super-Yangian structure
+$Y_{\mathfrak{osp}}(4|20)$ emerges from the Mukai Hodge involution;
+the Borcherds lift $\Delta_5$ at $N = 1$ supplies
+$\kBKM = 5$ as the stratum-$(iv)$ global cocycle.
+
+% =====================================================================
+\section{Cross-volume corridor, five mirror statements}
+% =====================================================================
+
+The Čech--Ran descent of this Agent locks into the
+three-volume programme as follows.
+
+\paragraph{Vol I (bar-cobar).} The bar-cobar adjunction
+$(B, \Omega)$ of Vol I Theorem~A acts on the $E_1$-chiral output of
+Stage~2 specialisation $\SpCh_{\Sigma_2, C}$ applied to
+$\PhiFA_3(\mathrm{Perf}(X))$. The Čech--Ran cocycle class on $X$
+pushes forward through $\SpCh$ to a cocycle on $B(\Phi_3(X))$:
+the Vol I bar-cobar is the shadow, on the reference curve $C$, of
+the global factorisation-algebra descent datum on $X$.
+
+\paragraph{Vol II (3D HT QFT).} The Vol II $E_2$-hFA construction on
+$\Sigma_2 \times C \subset X$ factors through the Dunn decomposition
+$E_3 \simeq E_2 \otimes E_1$ (Lurie HA 5.1.2.4): our global
+$\PhiFA_3$ is the $E_3$-hFA on $X$; restricting to $\Sigma_2 \times C$
+and performing factorisation homology over $\Sigma_2$ lands in
+Vol II's $E_1$-chiral algebra on $C$. The Vol II ``geometric engine''
+is the transverse-to-$\Sigma_2$ factor of our global Čech--Ran
+descent.
+
+\paragraph{Vol III (CY quantum groups).} The global
+$\PhiFA_3(\mathrm{Perf}(X))$ is the base for all seven Vol III
+$r_{\mathrm{CY}}$-face calculations: the chart-wise critical CoHA is
+$\Yplus(\widehat{\fgl}_1)$ on each $\C^3$-chart, the global
+CoHA $\cH(X)$ is the Čech--Ran descent, and the
+specialisations to $K3 \times E$, local $\bP^2$, abelian $A^3$,
+conifold, and the toric family are each cocycle-computations in
+$H^1(\cN_X, \underline{F}_{\Str(X)})$.
+
+\paragraph{Pattern 273 (object-level vs functorial $\Phi$).} Object-level
+$\Phi$ is the chart-wise local construction
+$\PhiFA_3(\mathrm{Perf}(U_\alpha)) = \Yplus(\widehat{\fgl}_1)$.
+Functorial $\Phi$ is the global descent
+$\PhiFA_3: \CY_3\text{-Cat} \to \EnHolFA_3$, lifted through the
+Čech--Ran total complex. The two are compatible by
+Theorem~\ref{thm:phi-fa-3-gluing}; in particular, Pattern~273 is
+resolved here as a \emph{scope distinction}: chart-wise and
+global are both load-bearing, at different levels of the descent.
+
+\paragraph{CFG 2026 correspondence.} Costello--Francis--Gwilliam 2026
+construct the $E_3$-algebra of topological Chern--Simons observables
+on $\R^3$ as the factorisation envelope of the gauge dg-Lie.
+Our global $\PhiFA_3$ on compact CY$_3$ is the Costello--Li
+holomorphic twist of this CFG topological construction, globalised
+via Čech--Ran descent with transition FM-kernels. The CFG
+construction is the \emph{local chart-wise input}; the global
+descent is our new content, provided by transition FM-kernels,
+Serre-equivariant quasi-NCCR on each chart, and the Ran-Čech
+filtration of Theorem~\ref{thm:ran-cech-filtration}.
+
+% =====================================================================
+\section{Epilogue: four frontier obstructions}
+% =====================================================================
+
+Four concrete frontier obstructions remain beyond the scope of this
+Agent's construction:
+
+\paragraph{(F1) Cocycle cohomology at cell 14/15 of $K3 \times E$.}
+The cocycle class of Theorem~\ref{thm:k3xe-global-phi-fa-3} lives in
+$H^1(\cN_{K3} \times \cN_E, \underline{\Aut}_{D^b(K3)} \times
+\underline{\Aut}(E))$, refined by the $M_{24}$ and paramodular
+$K(1)$ actions. Computing this explicit cohomology group (e.g.\
+dimension, generator-relation presentation) requires identifying
+the three-factor semidirect structure and the Heegner-divisor
+geometry on the Kuga--Satake domain. The $\kBKM = 5$ value of
+Corollary~\ref{cor:kbkm-5-global} is an invariant read off from
+the cocycle, not a direct computation of the cohomology.
+
+\paragraph{(F2) 24-stalk chain-level formula.} The elliptic
+fibration $\pi: K3 \to \bP^1$ has 24 $I_1$-singular fibres. Each
+stalk contributes a curve-stalk Jordan-triple potential tensored
+with $E$-coefficients. The 24-stalk sum via the Mukai-lattice cocycle
+is a definite prescription at the critical-CoHA level, but the
+explicit chain-level Hall-product formula has not been written out.
+
+\paragraph{(F3) Explicit super-$R$-matrix on $V = \mathbb{C}^{4|20}$.}
+Proposition~\ref{prop:super-yangian-k3xe} asserts the super-Yangian
+structure $Y_{\mathfrak{osp}}(4|20)$; the explicit RTT presentation
+(generators, relations, super-$R$-matrix) is a separate calculation.
+Following Maulik--Okounkov \texttt{arXiv:1211.1287}, the
+super-$R$-matrix should emerge as a residue of the UV gluing cocycle
+at the equivariant-chamber wall.
+
+\paragraph{(F4) Non-simply-laced K3 generalisations.} The SV K3 CoHA
+construction is for the simply-laced preprojective Yangian of the K3
+quiver. Non-simply-laced generalisations (e.g.\ twisted K3
+orbifolds with non-simply-laced McKay quiver, quotients by
+non-abelian subgroups) require twisted-Yangian machinery, and the
+Čech--Ran descent on such K3-quotients is a separate program.
+
+\subsection*{Status summary}
+
+\begin{enumerate}[leftmargin=2em]
+\item Theorem~\ref{thm:phi-fa-3-gluing} establishes a Čech--Ran
+descent construction of $\PhiFA_3(\mathrm{Perf}(X))$ on compact CY$_3$
+admitting an analytic $\C^3$-cover; \ClaimStatusConjectured\ at
+theorem level, with primary references Beilinson--Drinfeld, Francis--Gaitsgory,
+Costello--Gwilliam, Orlov, Bondal--Orlov.
+\item Proposition~\ref{prop:quasi-nccr-existence} establishes the
+Serre-equivariant quasi-NCCR as local model on each chart; the cocycle
+condition via factorisation-pushforward agrees with the FM-kernel
+cocycle of Corollary~\ref{cor:homotopy-cocycle}.
+\item Theorem~\ref{thm:ran-cech-filtration} resolves the
+finite-Čech/infinite-Ran tension via the Beilinson--Drinfeld $n$-level
+filtration with $\hocolim$ assembly.
+\item Theorem~\ref{thm:k3xe-global-phi-fa-3} instantiates the global
+$\PhiFA_3$ on $K3 \times E$ via product-compatible cover and
+transition FM-kernel product structure; super-Yangian
+$Y_{\mathfrak{osp}}(4|20)$ emerges from Mukai Hodge involution;
+Borcherds $\Delta_5$ supplies global $\kBKM = 5$.
+\end{enumerate}
+
+The Čech--Ran descent programme is compatible with all prior Vol~III
+content (fifteen-cell classification, five K3 $\times$ E obstructions,
+two-stage factorisation of $\Phi_3$, four $\kappa$-invariants), and
+it provides the explicit construction of the global factorisation
+algebra that underlies every cell-specific computation.
+
+% end of agent 14

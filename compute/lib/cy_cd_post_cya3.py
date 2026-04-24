@@ -722,12 +722,13 @@ def three_route_post_cya3() -> Dict[str, Any]:
 # =========================================================================
 
 def kappa_spectrum_k3xe_post_cya3() -> Dict[str, Any]:
-    """The four-kappa spectrum for K3 x E after CY-A_3.
+    """The resolved kappa spectrum for K3 x E after CY-A_3.
 
     AP113: bare kappa is forbidden. The four subscripted values:
       kappa_ch   = 3 (from chiral algebra via Phi; PROVED by additivity)
       kappa_BKM  = 5 (from Borcherds weight; CONJECTURAL as modular char)
-      kappa_cat  = 2 (from chi(O_{K3}); PROVED)
+      kappa_cat  = 0 (from chi(O_{K3 x E}); PROVED)
+      kappa_cat_fiber = 2 (from chi(O_{K3}); PROVED)
       kappa_fiber = 24 (from lattice rank; PROVED)
 
     What CY-A_3 changes:
@@ -750,11 +751,13 @@ def kappa_spectrum_k3xe_post_cya3() -> Dict[str, Any]:
         ),
         'kappa_BKM': F(5),
         'kappa_BKM_status': 'CONJECTURAL (Borcherds weight)',
-        'kappa_cat': F(2),
-        'kappa_cat_status': 'PROVED (chi(O_{K3}))',
+        'kappa_cat': F(0),
+        'kappa_cat_status': 'PROVED (Kunneth: chi(O_{K3}) chi(O_E) = 0)',
+        'kappa_cat_fiber': F(2),
+        'kappa_cat_fiber_status': 'PROVED (chi(O_{K3}))',
         'kappa_fiber': F(24),
         'kappa_fiber_status': 'PROVED (Mukai lattice rank)',
-        'spectrum': {F(2), F(3), F(5), F(24)},
+        'spectrum': {F(0), F(2), F(3), F(5), F(24)},
         'contradiction_resolved': (
             'kappa=3 vs kappa=5 resolved by AP113 polysemy: '
             'kappa_ch=3 (chiral) != kappa_BKM=5 (Borcherds).'

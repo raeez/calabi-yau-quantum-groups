@@ -124,7 +124,7 @@ MATHEMATICAL BACKGROUND:
 
 7. SHADOW DEPTH AND CY3 GEOMETRY.
    The shadow depth of a CY3 chiral algebra encodes:
-     - Euler characteristic: kappa = chi^CY(X), the leading coefficient.
+     - the subscripted scalar controlling the chosen shadow channel.
      - Hodge numbers: affect the number of independent channels.
      - DT invariants: the GV invariants n^g_d drive the infinite tower
        for class-M algebras. The shadow tower IS the topological string
@@ -140,8 +140,8 @@ CONVENTIONS:
   - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
   - E_1 bar = ordered bar (no S_n coinvariants).
   - E_inf bar = symmetric bar (S_n coinvariants).
-  - kappa(A) = modular characteristic from Vol I.
-  - For CY3 algebras: kappa = chi^CY(X) (Theorem CY-D).
+  - Shadow computations use the scalar appropriate to the chosen channel.
+  - For K3 x E this scalar is kappa_BKM = 5, not kappa_ch = 3.
   - Q^contact = quartic contact invariant (arity-4 shadow).
   - All Fraction arithmetic for exact computations.
 
@@ -339,7 +339,8 @@ class CY3ShadowData(NamedTuple):
 
     Fields:
       name: geometry name
-      kappa: modular characteristic chi^CY(X)
+      kappa: legacy channel scalar used by generic shadow recurrences.
+        Read together with kappa_label; it is not always kappa_ch.
       shadow_class: G/L/C/M
       r_max: maximum arity with nonzero shadow (-1 = infinity)
       sc_formal: whether the SC structure is formal
@@ -349,6 +350,9 @@ class CY3ShadowData(NamedTuple):
       bps_finite: whether the BPS spectrum is finitely generated
       e1_koszul_dual: description of E_1-Koszul dual
       reasoning: explanation
+      kappa_label: subscripted meaning of the legacy channel scalar
+      kappa_ch/kappa_cat/kappa_BKM/kappa_fiber: explicit K3 x E spectrum
+        fields when those invariants are part of the datum
     """
     name: str
     kappa: Fraction
@@ -361,6 +365,11 @@ class CY3ShadowData(NamedTuple):
     bps_finite: bool
     e1_koszul_dual: str
     reasoning: str
+    kappa_label: str = "kappa_ch"
+    kappa_ch: Optional[Fraction] = None
+    kappa_cat: Optional[Fraction] = None
+    kappa_BKM: Optional[Fraction] = None
+    kappa_fiber: Optional[Fraction] = None
 
 
 def cy3_shadow_data_c3() -> CY3ShadowData:
@@ -504,7 +513,11 @@ def cy3_shadow_data_quintic() -> CY3ShadowData:
 def cy3_shadow_data_k3xe() -> CY3ShadowData:
     r"""Shadow data for K3 x E (CY3, non-rigid).
 
-    kappa = 5 (Theorem CY-D, from weight of Delta_5).
+    The shadow scalar in this BKM lane is kappa_BKM = 5, the
+    Delta_5 Borcherds weight c_1(0)/2 = 10/2.  It is not the CY-D
+    Heisenberg-specialised value kappa_ch = 3 and not the total-space
+    categorical value kappa_cat = chi(O_{K3 x E}) = 0.
+
     Shadow class M: BKM superalgebra gives infinite Borcherds product.
     SC non-formal.
     """
@@ -520,10 +533,16 @@ def cy3_shadow_data_k3xe() -> CY3ShadowData:
         bps_finite=False,
         e1_koszul_dual="BKM dual algebra (Borcherds product involution)",
         reasoning=(
-            "K3 x E: kappa=5 from Borcherds/Theta lift. "
+            "K3 x E: kappa_BKM=5 from the Delta_5 Borcherds lift. "
             "BKM superalgebra encodes infinite product structure. "
-            "Class M, SC non-formal."
+            "The distinct K3 x E values are kappa_cat=0, kappa_ch=3, "
+            "kappa_BKM=5, and kappa_fiber=24. Class M, SC non-formal."
         ),
+        kappa_label="kappa_BKM",
+        kappa_ch=Fraction(3),
+        kappa_cat=Fraction(0),
+        kappa_BKM=Fraction(5),
+        kappa_fiber=Fraction(24),
     )
 
 
@@ -765,9 +784,9 @@ class ShadowGeometryBridge(NamedTuple):
     This encodes the structural question: does shadow depth encode
     invariants of the CY3 geometry?
 
-    For compact CY3s:
-      kappa = chi_top/24 (CONJECTURAL for rigid CY3s)
-      kappa is a rational number determined by Hodge numbers.
+    The bridge records the scalar used by the selected shadow channel.
+    For K3 x E this is kappa_BKM = 5; for the Heisenberg-specialised
+    CY-D lane the separate value is kappa_ch = 3.
 
     Shadow class:
       G: free-field realization (no bound states). CY3 geometry: local
@@ -788,6 +807,11 @@ class ShadowGeometryBridge(NamedTuple):
     dt_finite: bool
     gw_finite: bool
     depth_encodes_geometry: str
+    kappa_label: str = "kappa_ch"
+    kappa_ch: Optional[Fraction] = None
+    kappa_cat: Optional[Fraction] = None
+    kappa_BKM: Optional[Fraction] = None
+    kappa_fiber: Optional[Fraction] = None
 
 
 def shadow_geometry_bridge(name: str) -> ShadowGeometryBridge:
@@ -806,28 +830,39 @@ def shadow_geometry_bridge(name: str) -> ShadowGeometryBridge:
         dt_finite=d.bps_finite,
         gw_finite=(d.shadow_class in ('G', 'L')),
         depth_encodes_geometry=_depth_geometry_description(d),
+        kappa_label=d.kappa_label,
+        kappa_ch=d.kappa_ch,
+        kappa_cat=d.kappa_cat,
+        kappa_BKM=d.kappa_BKM,
+        kappa_fiber=d.kappa_fiber,
     )
+
+
+def _kappa_scalar_description(d: CY3ShadowData) -> str:
+    """Subscripted label for the scalar used by the selected channel."""
+    return f"{d.kappa_label}={d.kappa}"
 
 
 def _depth_geometry_description(d: CY3ShadowData) -> str:
     """Describe what shadow depth encodes geometrically."""
+    scalar = _kappa_scalar_description(d)
     if d.shadow_class == 'G':
         return (
-            f"Class G (r_max={d.r_max}): kappa={d.kappa} encodes Euler "
+            f"Class G (r_max={d.r_max}): {scalar} encodes Euler "
             f"characteristic. Shadow terminates: BPS spectrum finitely "
             f"generated, only quadratic OPE data."
         )
     elif d.shadow_class == 'L':
         return (
-            f"Class L (r_max={d.r_max}): kappa={d.kappa} + cubic shadow "
+            f"Class L (r_max={d.r_max}): {scalar} + cubic shadow "
             f"encode Euler characteristic + first GW correction. "
             f"Cubic shadow from 3-vertex quiver interaction."
         )
     elif d.shadow_class == 'M':
         return (
-            f"Class M (r_max=inf): kappa={d.kappa} is the leading "
+            f"Class M (r_max=inf): {scalar} is the leading "
             f"coefficient. The full infinite tower encodes ALL GW/DT "
-            f"invariants: F_g = kappa * lambda_g + higher-arity "
+            f"invariants: F_g = {d.kappa_label} * lambda_g + higher-arity "
             f"corrections. Shadow depth = complexity of DT theory."
         )
     else:

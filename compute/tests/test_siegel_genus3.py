@@ -843,11 +843,12 @@ class TestK3xEGenus3:
             assert abs(result["Z3_k3e"] - expected) / abs(expected) < 1e-10
 
     def test_kappa_spectrum(self, omega_deep):
-        """K3xE kappa spectrum: {2, 3, 5, 24}."""
+        """K3xE resolved kappa spectrum includes total and fiber labels."""
         # VERIFIED [DC] kappa values [LT] CLAUDE.md kappa table
         result = genus3_partition_k3xe(omega_deep, max_shadow_depth=4, N_terms=N_THETA)
         assert result["kappa_ch"] == 3
-        assert result["kappa_cat"] == 2
+        assert result["kappa_cat"] == 0
+        assert result["kappa_cat_fiber"] == 2
         assert result["kappa_BKM"] == 5
         assert result["kappa_fiber"] == 24
 
@@ -920,11 +921,12 @@ class TestWeightTable:
         assert table["heisenberg_weights"]["c24"]["weight"] == -12
 
     def test_kappa_spectrum(self):
-        """Weight table contains the four-kappa spectrum."""
+        """Weight table contains the resolved K3xE kappa spectrum."""
         table = genus3_weight_table()
         ks = table["kappa_spectrum_k3xe"]
         assert ks["kappa_ch"]["value"] == 3
-        assert ks["kappa_cat"]["value"] == 2
+        assert ks["kappa_cat"]["value"] == 0
+        assert ks["kappa_cat_fiber"]["value"] == 2
         assert ks["kappa_BKM"]["value"] == 5
         assert ks["kappa_fiber"]["value"] == 24
 

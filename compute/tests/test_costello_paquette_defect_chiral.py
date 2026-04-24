@@ -19,7 +19,8 @@ Ground truth (all VERIFIED from 2+ independent sources):
   Self-dual (1, 0, -1):  Psi = 1, sigma_3 = 0
   SV N=2   (1, -2, 1):   Psi = 3, sigma_3 = -2
   Generic  (1, -3, 2):   Psi = 7, sigma_3 = -6
-  K3 x E:  kappa_ch = 3, kappa_BKM = 5, kappa_cat = 2, kappa_fiber = 24
+  K3 x E:  kappa_ch = 3, kappa_BKM = 5, kappa_cat = 0,
+           kappa_cat_fiber = 2, kappa_fiber = 24
 
 Manuscript references:
     chapters/theory/quantum_chiral_algebras.tex: Sections 5-6
@@ -522,11 +523,17 @@ class TestK3UniversalDefect:
         k3 = K3UniversalDefect()
         assert k3.kappa_BKM == Rational(5)
 
-    def test_kappa_cat(self):
-        """kappa_cat(K3 x E) = 2 = chi(O_{K3})."""
+    def test_kappa_cat_total(self):
+        """kappa_cat(K3 x E) = chi(O_{K3 x E}) = 0."""
+        # VERIFIED [LT] Kunneth: chi(O_{K3}) chi(O_E) = 2 * 0 = 0
+        k3 = K3UniversalDefect()
+        assert k3.kappa_cat == Rational(0)
+
+    def test_kappa_cat_fiber(self):
+        """kappa_cat(K3 fiber) = chi(O_{K3}) = 2."""
         # VERIFIED [LT] chi(O_{K3}) = 1 - 0 + 1 = 2
         k3 = K3UniversalDefect()
-        assert k3.kappa_cat == Rational(2)
+        assert k3.kappa_cat_fiber == Rational(2)
 
     def test_kappa_fiber(self):
         """kappa_fiber(K3 x E) = 24 (lattice rank)."""
@@ -535,10 +542,12 @@ class TestK3UniversalDefect:
         assert k3.kappa_fiber == Rational(24)
 
     def test_kappa_spectrum_set(self):
-        """The kappa-spectrum is {2, 3, 5, 24}."""
+        """The resolved kappa-spectrum is {0, 2, 3, 5, 24}."""
         k3 = K3UniversalDefect()
         ks = k3.kappa_spectrum()
-        assert set(ks.values()) == {Rational(2), Rational(3), Rational(5), Rational(24)}
+        assert set(ks.values()) == {
+            Rational(0), Rational(2), Rational(3), Rational(5), Rational(24)
+        }
 
     def test_no_bare_kappa(self):
         """AP113: all kappa are subscripted in the kappa-spectrum dict."""

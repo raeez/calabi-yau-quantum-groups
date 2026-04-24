@@ -747,9 +747,15 @@ class TestCrossCutting:
         assert result['E_tau_x_E_tau']['match']
 
     def test_additivity_K3xE(self):
-        """kappa(K3 x E) = 1 + 0 = 1."""
+        """Canonical K3 x E spectrum is not the HMS surface toy lane."""
         result = kappa_additivity_check()
-        assert result['K3_x_E']['match']
+        assert result['HMS_K3_surface_x_E_topological_lane']['match']
+        assert result['K3_x_E']['kappa_ch'] == Fraction(3)
+        assert result['K3_x_E']['kappa_cat'] == Fraction(0)
+        assert result['K3_x_E']['kappa_BKM'] == Fraction(5)
+        assert result['K3_x_E']['kappa_fiber'] == Fraction(24)
+        assert result['K3_x_E']['kappa_ch_additivity_match']
+        assert result['K3_x_E']['hms_surface_lane_is_canonical'] is False
 
     def test_conifold_elliptic_ratio(self):
         """kappa(conifold) / kappa(elliptic) = -1/2."""

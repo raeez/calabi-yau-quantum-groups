@@ -359,11 +359,12 @@ class TestCY3Data:
         assert quintic_data().kappa == Fraction(-25, 3)
 
     def test_k3xe_kappa(self):
-        """kappa(K3 x E) = 5 (weight of Delta_5), NOT chi/24 = 0."""
+        """kappa_BKM(K3 x E) = 5, NOT chi/24 = 0."""
         # VERIFIED [DC] kappa formula [CF] cross-family census
         assert k3_times_e_data().kappa == Fraction(5)
+        assert k3_times_e_data().kappa_label == "kappa_BKM"
         # VERIFIED [DC] Euler characteristic [CF] cross-family census
-        assert k3_times_e_data().chi == 0  # chi/24 = 0 != kappa
+        assert k3_times_e_data().chi == 0  # chi/24 = 0 != kappa_BKM
 
     def test_k3xe_chi(self):
         """chi(K3 x E) = 2(21-21) = 0."""
@@ -376,11 +377,11 @@ class TestCY3Data:
         assert local_p2_data().kappa == Fraction(3, 2)
 
     def test_kappa_not_chi_over_24(self):
-        """AP48: kappa != chi/24 in general. K3 x E is the key counterexample."""
+        """AP48: kappa_BKM and chi/24 are different lanes on K3 x E."""
         k3xe = k3_times_e_data()
         chi_over_24 = Fraction(k3xe.chi, 24) if k3xe.chi != 0 else Fraction(0)
         assert k3xe.kappa != chi_over_24, (
-            "AP48: kappa(K3 x E) = 5 != chi/24 = 0"
+            "AP48: kappa_BKM(K3 x E) = 5 != chi/24 = 0"
         )
 
 
@@ -465,7 +466,7 @@ class TestE1Shadow:
             assert e1_shadow_fg(Fraction(1), g) == lambda_fp(g)
 
     def test_e1_kappa_5(self):
-        """F_g^{E_1}(kappa=5) = 5*lambda_g (K3 x E)."""
+        """F_g^{E_1}(kappa_BKM=5) = 5*lambda_g on the K3 x E BKM lane."""
         for g in range(1, 5):
             # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
             assert e1_shadow_fg(Fraction(5), g) == 5 * lambda_fp(g)
@@ -571,7 +572,7 @@ class TestBCOVvsE1:
             assert r.match
 
     def test_k3xe_comparison(self):
-        """K3 x E: TAUTOLOGICAL -- both sides = kappa * lambda_g with kappa = 5."""
+        """K3 x E: TAUTOLOGICAL -- both sides use kappa_BKM * lambda_g."""
         results = compare_bcov_e1(k3_times_e_data(), 5)
         for r in results:
             assert r.match
@@ -950,7 +951,7 @@ class TestQuinticK3xE:
         assert "609250" in s  # number of conics
 
     def test_k3xe_f1(self):
-        """F_1(K3 x E) = 5/24 (kappa = 5)."""
+        """F_1(K3 x E) = 5/24 on the kappa_BKM scalar lane."""
         # VERIFIED [DC] structural property [CF] cross-family census
         assert e1_shadow_fg(Fraction(5), 1) == Fraction(5, 24)
 
@@ -970,8 +971,8 @@ class TestQuinticK3xE:
 
     def test_constant_map_k3xe(self):
         """Constant map for K3 x E: F_g^{const} = 0 (chi=0).
-        But E_1 shadow: F_g = 5 * lambda_g (kappa=5).
-        These DISAGREE because kappa != chi/24 for K3 x E.
+        But the BKM-lane E_1 shadow is F_g = 5 * lambda_g.
+        These DISAGREE because kappa_BKM and chi/24 are different lanes.
         """
         comparison = constant_map_comparison(k3_times_e_data(), 3)
         for g in range(1, 4):

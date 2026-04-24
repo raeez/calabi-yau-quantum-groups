@@ -888,8 +888,10 @@ class TestCrossEngineConsistency:
     def test_kappa_spectrum_cross_check(self):
         """kappa-spectrum values: cross-check with CLAUDE.md specification.
 
-        CLAUDE.md: kappa_ch=3 (K3 x E), kappa_BKM=5, kappa_cat=2, kappa_fiber=24.
-        Engine: kappa_ch(K3)=2 (not K3 x E), kappa_BKM=5, kappa_cat=2, kappa_fiber=24.
+        Vol III convention: kappa_ch=3 (K3 x E), kappa_BKM=5,
+        kappa_cat(K3 x E)=0, kappa_cat(K3 fiber)=2, kappa_fiber=24.
+        Engine: kappa_ch(K3)=2 (not K3 x E), kappa_BKM=5,
+        kappa_cat(K3)=2, kappa_fiber=24.
         """
         # kappa_ch(K3) = 2 = chi(O_{K3})
         assert KAPPA_CH_K3 == K3_CHI_O

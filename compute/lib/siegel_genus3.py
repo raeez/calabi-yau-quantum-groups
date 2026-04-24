@@ -197,6 +197,7 @@ from compute.lib.genus2_k3e_full import (
     K3E_CENTRAL_CHARGE,
     K3E_KAPPA_BKM,
     K3E_KAPPA_CAT,
+    K3E_KAPPA_CAT_FIBER,
     K3E_KAPPA_CH,
     K3E_KAPPA_FIBER,
     k3_shadow_tower,
@@ -1160,6 +1161,7 @@ def genus3_partition_k3xe(
         # Kappa spectrum (AP113)
         "kappa_ch": float(K3E_KAPPA_CH),
         "kappa_cat": float(K3E_KAPPA_CAT),
+        "kappa_cat_fiber": float(K3E_KAPPA_CAT_FIBER),
         "kappa_BKM": float(K3E_KAPPA_BKM),
         "kappa_fiber": float(K3E_KAPPA_FIBER),
         # Weights
@@ -1345,7 +1347,8 @@ def genus3_weight_table() -> Dict[str, Any]:
         },
         "kappa_spectrum_k3xe": {
             "kappa_ch": {"value": 3, "status": "PROVED (additivity at d=2)"},
-            "kappa_cat": {"value": 2, "status": "PROVED (classical)"},
+            "kappa_cat": {"value": 0, "status": "PROVED (Kunneth)"},
+            "kappa_cat_fiber": {"value": 2, "status": "PROVED (classical)"},
             "kappa_BKM": {"value": 5, "status": "PROVED (Borcherds)"},
             "kappa_fiber": {"value": 24, "status": "PROVED (classical)"},
         },

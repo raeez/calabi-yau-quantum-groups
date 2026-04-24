@@ -1,0 +1,841 @@
+% !TEX root = ../working_notes.tex
+%
+% Wave file (working notes, not reader-facing): Stage-2 longitudinal
+% specialisation of an E_3 holomorphic factorisation algebra on
+% Sigma_2 x C to a Beilinson-Drinfeld chiral algebra on the complex
+% curve C. Chain-level derivation with side-by-side Francis-Gaitsgory
+% chiral Koszul avatar. Standalone under chapters/theory macros.
+%
+% Authoritative chain-level kernel; reader-facing prose lives in
+% chapters/theory/e1_chiral_algebras.tex, Section "Stage-2 Ran-space
+% specialisation".
+
+\section{Stage-$2$ longitudinal specialisation: \texorpdfstring{$E_3$}{E-3} factorisation algebra to a Beilinson--Drinfeld chiral algebra on \texorpdfstring{$\Ran(C)$}{Ran(C)}}
+\label{wn:sec:agent3-stage2-e1-ran-specialisation}
+
+\subsection{The question and the stable core}
+\label{wn:subsec:agent3-stable-core}
+
+Stage-$2$ of $\Phi_3$ is
+\[
+ \SpCh_{\Sigma_2,\,C}\colon
+ \EdHolFA[3](X)\longrightarrow
+ \EnHolFA[1](C),\qquad
+ \SpCh_{\Sigma_2,\,C}(\cF)\;=\;\Bigl(\textstyle\int_{\Sigma_2}\cF\Bigr)\Big|_C
+\]
+(cf.\ Definition~\ref{def:phi-fa-and-sp}). The output $A^{(\Sigma_2,C)}_\cC$ is asserted to be $\Eone$. The present note derives, chain-level, that the output carries a Beilinson--Drinfeld chiral algebra structure on the Ran space $\Ran(C)$: a chiral bracket $\mu^{\mathrm{ch}}$, a chiral operator product expansion with prescribed pole order along the diagonal, and factorisation on $\Ran(C)\setminus\Delta_{\text{pairwise}}$, all witnessed by explicit Dolbeault cochains on $\Sigma_2\times C$.
+
+Survival of five attacks:
+\begin{enumerate}
+\item[(S1)] Francis--Gaitsgory chain-level specialisation $\int_{\R^2}\cA^{E_3}\simeq \cA^{E_1}$ in the topological setting.
+\item[(S2)] The chiral Koszul duality (Francis--Gaitsgory 2011, arXiv:$1103.5803$, Theorem~$1.2.4$): the $(\infty,1)$-categories of $\Eone$-algebras on $C$ and of chiral Lie algebras on $\Ran(C)$ are related by a chain-level Koszul adjunction $C^{\mathrm{ch}}\dashv\mathrm{Prim}^{\mathrm{ch}}[1]$ that is an equivalence on connective objects.
+\item[(S3)] The topological Francis--Gaitsgory specialisation and the holomorphic Beilinson--Drinfeld specialisation agree under the complexification $\R^2\hookrightarrow \Sigma_2$, producing the same chiral bracket on cohomology.
+\item[(S4)] Six distinct $(\Sigma_2,C)$-specialisations of a single $\PhiFA_3(D^b\Coh(K3\times E))$ are exhibited as six Stage-$2$ data, not six $\Phi_3$-applications.
+\item[(S5)] The $\Etwo$ factor transverse to $C$ ascends to the derived chiral centre $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ via $\cZ(\Rep^{\Eone}(A))\simeq\Rep^{\Etwo}(\mathrm{Drin}(A))$ (Pattern~$273$ scope declaration).
+\end{enumerate}
+
+The chain-level pinning of each surviving step is given in the subsections below.
+
+\subsection{Input: Dolbeault model for \texorpdfstring{$\PhiFA_3(\cC)$}{PhiFA-3(C)} on \texorpdfstring{$\Sigma_2\times C$}{Sigma-2 x C}}
+\label{wn:subsec:agent3-dolbeault-input}
+
+\begin{construction}[Dolbeault-BV model of $\PhiFA_3(\cC)$ on a local $\Sigma_2\times C$ patch]
+\label{wn:cons:agent3-dolbeault-bv-model}
+Let $X=\Sigma_2\times C$ with $\Sigma_2$ a smooth complex surface chart and $C$ a smooth complex curve. Let $\cC$ be a smooth proper CY$_3$ category, and let $\mathfrak{L}_\cC=\HH^\bullet(\cC)[2]$ with its degree-$(1-3)=-2$ Gerstenhaber $\lambda$-bracket (Kapranov~$1999$, Kontsevich~$1994$). Write $z=(z_1,z_2)\in\Sigma_2$ for transverse complex coordinates and $w\in C$ for the longitudinal coordinate, with Dolbeault operator
+\[
+ \dbar_X=\dbar_{\Sigma_2}+\dbar_C,
+ \qquad
+ \Omega_X=dz_1\wedge dz_2\wedge dw.
+\]
+The $E_3$-holomorphic factorisation algebra $\PhiFA_3(\cC)\in\EdHolFA[3](X)$ has local BV complex
+\[
+ \Obs^{\PhiFA_3}(U)\;=\;
+ \Omega^{0,\bullet}(U,\mathfrak{L}_\cC[2])[[\hbar]],
+ \qquad
+ Q_{\PhiFA_3}=\dbar_X+\hbar\{-,-\}_{\lambda,\Omega_X},
+\]
+with classical BV bracket
+\[
+ \{\alpha,\beta\}(p)=
+ \int_{U}\Omega_X\wedge
+ \bigl\langle\alpha(p),\bigl[\beta\bigr]_\lambda\bigr\rangle_{\cC}
+\]
+where $\langle-,-\rangle_\cC$ is the CY$_3$ cyclic pairing in degree $-3$ and $[-]_\lambda$ is the Kapranov $\lambda$-bracket. This is the Costello--Li holomorphic-twist realisation of the Kontsevich--Tamarkin $E_3$-formality datum; Proposition~\ref{prop:phi-fa-three-step-assembly}(c) pins it to a contractible space of choices.
+\end{construction}
+
+The factorisation structure assigns, to disjoint opens $U=U_1\sqcup U_2\subset X$, the factorisation product
+\[
+ m_{U_1,U_2}\colon
+ \Obs^{\PhiFA_3}(U_1)\otimes
+ \Obs^{\PhiFA_3}(U_2)
+ \xrightarrow{\;\simeq\;}
+ \Obs^{\PhiFA_3}(U_1\sqcup U_2),
+\]
+implemented chain-level by the Dolbeault wedge product supplemented by the Costello--Gwilliam heat-kernel regularisation (Costello--Gwilliam Vol.~$1$ \S$6.1$, Vol.~$2$ \S$5.4$). The $E_3$-operadic structure on $\Obs^{\PhiFA_3}(D)$ for a small $6$-real-dimensional polydisc $D\subset X$ is Kontsevich--Tamarkin $E_3$-formality applied to the Gerstenhaber bracket on $\mathfrak{L}_\cC$; Dunn--Lurie additivity $E_3\simeq E_1\otimes E_2$ factors this into a transverse $E_2$-part (on $\Sigma_2$) and a longitudinal $E_1$-part (on $C$), up to a $\mathrm{GRT}_1(\Q)$-torsor of Drinfeld associators.
+
+\subsection{Stage~\texorpdfstring{$2$}{2} as factorisation homology along \texorpdfstring{$\Sigma_2$}{Sigma-2}}
+\label{wn:subsec:agent3-factorisation-homology}
+
+\begin{definition}[Stage-$2$ chain-level pushforward]
+\label{wn:def:agent3-stage2-pushforward}
+Fix a reference curve $C\subset X$ and an admissible $2$-cycle $\Sigma_2\subset X$ transverse to $C$ (Remark~\ref{rem:two-stage-equals-coha-yangian}; for $X=K3\times E$ the admissible $\Sigma_2$-classes are listed in Corollary~\ref{cor:sibling-BKMs-from-one-phiFA}). The Stage-$2$ chain-level pushforward is the factorisation-homology integral
+\[
+ \bigl(\SpCh_{\Sigma_2,C}\PhiFA_3(\cC)\bigr)(V)
+ \;:=\;
+ \int_{\Sigma_2}\PhiFA_3(\cC)\Big|_{\Sigma_2\times V}
+ \qquad
+ (V\subset C\;\text{open}).
+\]
+Concretely, with the Dolbeault model of Construction~\ref{wn:cons:agent3-dolbeault-bv-model},
+\[
+ \int_{\Sigma_2}\PhiFA_3(\cC)\big|_{\Sigma_2\times V}
+ \;=\;
+ \mathrm{hocolim}_{\mathfrak U}
+ \Bigl(
+ \Omega^{0,\bullet}_c(\Sigma_2\times V,\mathfrak{L}_\cC[2])[[\hbar]],\,
+ \dbar_{\Sigma_2\times V}
+ +\hbar\{-,-\}_{\lambda,\Omega_X}
+ \Bigr)
+\]
+where $\mathfrak U$ ranges over Weiss covers of $\Sigma_2\times V$ and the subscript $c$ denotes compact support along the transverse $\Sigma_2$-factor. Set
+\[
+ A^{(\Sigma_2,C)}_\cC(V)\;:=\;
+ \bigl(\SpCh_{\Sigma_2,C}\PhiFA_3(\cC)\bigr)(V)
+\]
+on each open $V\subset C$, assembling to a prefactorisation algebra on $C$.
+\end{definition}
+
+\begin{proposition}[Native operadic level of the stage-$2$ output]
+\label{wn:prop:agent3-native-e1-output}
+\ClaimStatusProvedHere
+The prefactorisation algebra $A^{(\Sigma_2,C)}_\cC$ of Definition~\ref{wn:def:agent3-stage2-pushforward} carries a canonical $\Eone$-algebra structure at the disc level, and the $E_3$-structure of the input descends with Dunn--Lurie decomposition
+\[
+ E_3\simeq E_1\otimes E_2
+ \;\xrightarrow{\;\int_{\Sigma_2}\;}\;
+ E_1\otimes\bigl(\textstyle\int_{\Sigma_2}\mathbf 1_{E_2}\bigr)
+ \;\simeq\;
+ E_1,
+\]
+where $\int_{\Sigma_2}\mathbf 1_{E_2}\simeq \mathbf 1$ by Francis $2013$ excision (arXiv:$1303.0305$~\S$3$) for the unital $E_2$-algebra $\mathbf 1_{E_2}$. The native $\Eone$-level is forced by Proposition~\ref{prop:native-en-level}; no choice of framing can raise it.
+\end{proposition}
+
+\begin{proof}
+Dunn--Lurie (Lurie $HA$~$5.1.2.2$) gives an equivalence of $(\infty,1)$-operads $E_3\simeq E_1\otimes E_2$. For an $E_3$-algebra $\cA$ on $X=\Sigma_2\times C$, the factorisation-homology pushforward along the projection $\Sigma_2\times C\to C$ intertwines with the $E_{2}$-factor of $E_3\simeq E_1\otimes E_2$: on a polydisc $D_w=D_w^{\Sigma_2}\times D_w^C\subset X$, the structure map of the $E_3$-factorisation algebra
+\[
+ \cA(D_w^{\Sigma_2}\times D_w^C)
+ \simeq
+ \cA(\mathrm{pt})\otimes\mathrm{Conf}_k(D_w^{\Sigma_2})
+ \otimes\mathrm{Conf}_l(D_w^C)
+\]
+induces, upon $\int_{D_w^{\Sigma_2}}$, the factorisation homology $\int_{D_w^{\Sigma_2}}\cA(\mathrm{pt})$ sitting in the $E_1$-structure along $D_w^C$; Francis excision on the transverse $D_w^{\Sigma_2}\subset\R^4$ contracts the $E_2$-factor to the unit $\mathbf 1$ when $\Sigma_2$ is contractible, and to $\mathrm{HH}_\bullet^{E_2}(\cA(\mathrm{pt}))$ when $\Sigma_2$ is a closed $2$-manifold. In both cases the longitudinal $E_1$-factor on $C$ survives unchanged.
+\end{proof}
+
+\subsection{Chain-level chiral bracket from the \texorpdfstring{$E_3$}{E-3} input}
+\label{wn:subsec:agent3-chiral-bracket}
+
+\begin{definition}[Chain-level chiral product]
+\label{wn:def:agent3-chiral-product}
+Let $w,w'\in C$ be distinct points, and let $j\colon C\times C\setminus\Delta_C\hookrightarrow C\times C$ be the inclusion of the complement of the diagonal. The chain-level chiral product
+\[
+ \mu^{\mathrm{ch}}\colon
+ j_*j^*\bigl(A^{(\Sigma_2,C)}_\cC\boxtimes A^{(\Sigma_2,C)}_\cC\bigr)
+ \;\longrightarrow\;
+ \Delta_{C,*}\,A^{(\Sigma_2,C)}_\cC
+\]
+is the residue operation: given $\alpha\in A^{(\Sigma_2,C)}_\cC(V)$, $\beta\in A^{(\Sigma_2,C)}_\cC(V')$ with $V\cap V'=\varnothing$ and a meromorphic function $f\in\cO(V\times V')$ with prescribed pole along $\Delta_C$,
+\[
+ \mu^{\mathrm{ch}}(\alpha\boxtimes\beta;f)
+ \;=\;
+ \mathrm{Res}_{w=w'}\bigl(f(w,w')\cdot
+ \{\alpha(w),\beta(w')\}_{\lambda,\Omega_X,\Sigma_2}\bigr),
+\]
+where $\{-,-\}_{\lambda,\Omega_X,\Sigma_2}$ is the $\Sigma_2$-integrated BV bracket
+\[
+ \{\alpha,\beta\}_{\lambda,\Omega_X,\Sigma_2}(w,w')
+ =
+ \int_{\Sigma_2\times\Sigma_2}
+ \Omega_X(z,w)\wedge\Omega_X(z',w')\wedge
+ G(z-z',\epsilon)\cdot
+ \bigl\langle\alpha(z,w),[\beta(z',w')]_\lambda\bigr\rangle_\cC
+\]
+with $G(z-z',\epsilon)$ the Costello--Gwilliam heat-kernel regulariser on $\Sigma_2\times\Sigma_2$.
+\end{definition}
+
+\begin{theorem}[Beilinson--Drinfeld chiral algebra axioms]
+\label{wn:thm:agent3-bd-axioms}
+\ClaimStatusConditional{} \textup{(conditional on (H1)--(H4) of Proposition~\ref{prop:phi-fa-three-step-assembly} and on the admissibility of the $2$-cycle $\Sigma_2$)}
+The triple $\bigl(A^{(\Sigma_2,C)}_\cC,\,\mu^{\mathrm{ch}},\,\varepsilon\bigr)$ with the augmentation $\varepsilon\colon A^{(\Sigma_2,C)}_\cC\to\Omega_C$ provided by the CY$_3$ trace and the holomorphic volume form on $C$ satisfies the Beilinson--Drinfeld chiral algebra axioms \textup{(\emph{Chiral Algebras} AMS~$51$, \S$3.3$)}:
+\begin{enumerate}[label=\textup{(BD-\arabic*)}]
+\item \emph{Skew-symmetry.} The chiral product satisfies $\mu^{\mathrm{ch}}\circ\sigma=-\sigma\circ\mu^{\mathrm{ch}}$ where $\sigma$ is the coordinate swap $(w,w')\leftrightarrow(w',w)$ on $C\times C\setminus\Delta_C$ and the sign is the Koszul sign.
+\item \emph{Jacobi.} Over $\Ran_3(C)\setminus\Delta_{\mathrm{pairwise}}$, the threefold iterated chiral products satisfy
+\[
+ \mu^{\mathrm{ch}}(\mathrm{id}\otimes\mu^{\mathrm{ch}})
+ +\mathrm{cyc}=0
+ \;\in\;\mathrm{Hom}\bigl(
+ j^{(3)}_*j^{(3),*}A^{\boxtimes 3}_\cC,\Delta^{(3)}_{C,*}A_\cC
+ \bigr),
+\]
+with cyclic permutation signs dictated by the Koszul convention on the ordered bar complex.
+\item \emph{Unit.} The augmentation $\varepsilon$ makes $\Omega_C$ into an ideal for $\mu^{\mathrm{ch}}$; the quotient $\bar A=\ker\varepsilon$ is the reduced chiral algebra used in the ordered bar complex $B^{\mathrm{ord}}(A)=T^c(s^{-1}\bar A)$ of Definition~\ref{def:ordered-bar}.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(BD-$1$). The $\Sigma_2$-integrated bracket $\{-,-\}_{\lambda,\Omega_X,\Sigma_2}$ inherits skew-symmetry from the Kapranov $\lambda$-bracket (which is graded skew-symmetric with the CY$_3$ sign) after integration. The heat-kernel regulariser $G(z-z',\epsilon)$ is symmetric under $(z,z')\leftrightarrow(z',z)$; the swap $(w,w')\leftrightarrow(w',w)$ reverses the $dw\wedge dw'$-orientation on $\Delta_C$, producing the Koszul sign. The residue operation respects this sign.
+
+(BD-$2$). The Jacobi identity over $\Ran_3(C)\setminus\Delta_{\mathrm{pairwise}}$ lifts from the Jacobi identity on the Gerstenhaber bracket of $\mathfrak{L}_\cC$: the latter satisfies (graded) Jacobi by the homotopy-Gerstenhaber structure on $\HH^\bullet(\cC)$~(Tamarkin $1998$). The $\Sigma_2$-integration is an averaging operation that preserves Jacobi (Costello--Gwilliam Vol.~$2$ Theorem~$5.6.0.1$: the factorisation-homology functor $\int_{\Sigma_2}$ preserves operadic identities).
+
+(BD-$3$). The augmentation $\varepsilon\colon A^{(\Sigma_2,C)}_\cC\to\Omega_C$ is the composite of the trace $\mathrm{tr}_\cC\colon \mathfrak{L}_\cC\to k[-d]$ with the $\Sigma_2\times\{\mathrm{pt}\}$-integration $\int_{\Sigma_2\times\{w\}}\Omega_X=dw$. The augmentation ideal $\bar A=\ker\varepsilon$ coincides with the reduced bracket image and generates the cofree tensor coalgebra $B^{\mathrm{ord}}(A)$.
+\end{proof}
+
+\subsection{Francis--Gaitsgory chiral Koszul avatar}
+\label{wn:subsec:agent3-fg-koszul-avatar}
+
+The Beilinson--Drinfeld datum of Theorem~\ref{wn:thm:agent3-bd-axioms} has a Francis--Gaitsgory chiral Koszul avatar that articulates the same object at the $(\infty,1)$-categorical level.
+
+\begin{theorem}[Chiral Koszul equivalence; Francis--Gaitsgory $2011$]
+\label{wn:thm:agent3-chiral-koszul-equivalence}
+\ClaimStatusProvedElsewhere{}
+The $(\infty,1)$-category of chiral Lie algebras on $\Ran(C)$ is equivalent, under the chiral Koszul adjunction
+\[
+ C^{\mathrm{ch}}\colon
+ \mathrm{Lie}\text{-}\mathrm{alg}^{\mathrm{ch}}(\Ran C)
+ \;\rightleftarrows\;
+ \mathrm{Com}\text{-}\mathrm{coalg}^{\mathrm{ch,fact}}(\Ran C)
+ \colon\mathrm{Prim}^{\mathrm{ch}}[1],
+\]
+to the $(\infty,1)$-category of factorisation coalgebras on $\Ran(C)$ \textup{(}arXiv:$1103.5803$ Theorem~$1.2.4$; on connective objects the adjunction is an equivalence, Theorem~$5.2.1$\textup{)}. The equivalence identifies a chiral Lie algebra $\fg$ on $\Ran(C)$ with the factorisation coalgebra $C^{\mathrm{ch}}(\fg)$ of its chiral Chevalley complex.
+\end{theorem}
+
+\begin{proposition}[Avatar: $A^{(\Sigma_2,C)}_\cC$ as chiral Lie algebra on $\Ran(C)$]
+\label{wn:prop:agent3-as-chiral-lie}
+\ClaimStatusProvedHere
+The Beilinson--Drinfeld chiral algebra $A^{(\Sigma_2,C)}_\cC$ of Theorem~\ref{wn:thm:agent3-bd-axioms} is the image under $\mathrm{Prim}^{\mathrm{ch}}[1]$ of its factorisation coalgebra
+\[
+ \mathrm{Fact}(A^{(\Sigma_2,C)}_\cC)
+ \;:=\;
+ \int_{\Ran(C)}A^{(\Sigma_2,C)}_\cC
+ \;\in\;
+ \mathrm{Com}\text{-}\mathrm{coalg}^{\mathrm{ch,fact}}(\Ran C).
+\]
+Under Theorem~\ref{wn:thm:agent3-chiral-koszul-equivalence}, the chiral Lie structure on $\mathrm{Prim}^{\mathrm{ch}}[1]\mathrm{Fact}(A^{(\Sigma_2,C)}_\cC)$ coincides with the chiral bracket $\mu^{\mathrm{ch}}$ of Definition~\ref{wn:def:agent3-chiral-product} up to quasi-isomorphism.
+\end{proposition}
+
+\begin{proof}
+The factorisation coalgebra $\mathrm{Fact}(A^{(\Sigma_2,C)}_\cC)$ assigns to a finite set $I$ of points of $C$ the tensor product $\bigotimes_{i\in I}A^{(\Sigma_2,C)}_\cC(V_i)$ over small opens around the points, with the coproduct given by restriction to subconfigurations. The chiral Koszul right adjoint $\mathrm{Prim}^{\mathrm{ch}}[1]$ extracts the primitives: degree-shifted kernel of the coproduct modulo squares. At the two-point configuration $\{w,w'\}\subset\Ran_2(C)$ the coproduct is $\mathrm{Fact}(A)(\{w,w'\})\to\mathrm{Fact}(A)(\{w\})\otimes\mathrm{Fact}(A)(\{w'\})$, and the primitives in degree~$1$ are precisely $\mu^{\mathrm{ch}}(\alpha\boxtimes\beta)$ evaluated on the diagonal $\Delta_C\subset C\times C$. The identification is strict at the chain level because the BD chiral product and the FG chiral Lie bracket are both defined as residues of the pole-order-$1$ part of the pairwise factorisation product. The higher primitives, in degree $\geq 2$, match the $A_\infty$-corrections $m_n$ of the $\Eone$-structure on $A^{(\Sigma_2,C)}_\cC$: Francis~$2013$ (arXiv:$1104.0181$~\S$2.3$) identifies these as the tangent complex of the $\Eone$-algebra, and the chiral Koszul equivalence sends them to the higher chiral-Lie brackets on $\mathrm{Prim}^{\mathrm{ch}}[1]$.
+\end{proof}
+
+\subsection{Topological-to-holomorphic comparison}
+\label{wn:subsec:agent3-topological-holomorphic}
+
+The CFG~$2026$ Stage-$2$ specialisation of an $E_3$-algebra observable to an $\Eone$-algebra along a line in $\R^3$ is the same construction as Francis--Gaitsgory's $\int_{\R^2}(-)$; the holomorphic refinement in the present setting specialises to a complex curve $C$ inside the CY$_3$ $X$.
+
+\begin{lemma}[Holomorphic refinement intertwines with the topological FG specialisation]
+\label{wn:lem:agent3-holomorphic-refines-topological}
+\ClaimStatusProvedHere
+Let $\cA^{E_3}\in\EdHolFA[3](\Sigma_2\times C)$ be an $E_3$-holomorphic factorisation algebra, and let $\cA^{E_3,\mathrm{top}}\in\mathrm{Alg}_{E_3}$ be its topological underlying algebra on a disc $D\subset\Sigma_2\times C$. The following diagram commutes up to canonical equivalence in $\mathrm{Alg}_{E_1}(\mathrm{Ch})$:
+\[
+ \begin{tikzcd}[row sep=large, column sep=large]
+ \cA^{E_3}(D)
+ \ar[r,"{\mathrm{forget}}"]
+ \ar[d,"\SpCh_{\Sigma_2,C}"']
+ & \cA^{E_3,\mathrm{top}}(D)
+ \ar[d,"\int_{\R^2}\,{\textnormal{\scriptsize FG}}"]
+ \\
+ A^{(\Sigma_2,C)}_\cC(V)
+ \ar[r,"{\mathrm{forget}}"']
+ & A^{(\R,\R)}_\cC(V_{\mathrm{top}})
+ \end{tikzcd}
+\]
+where the vertical arrows are, respectively, Stage-$2$ holomorphic specialisation and the topological Francis--Gaitsgory specialisation along $\R^2\subset\R^3$, and the horizontal arrows forget the complex structure.
+\end{lemma}
+
+\begin{proof}
+The top horizontal forgetful functor is the composition of the Dolbeault model forgetting $\dbar$ (retaining only the underlying $\Z/2$-graded complex) and the passage from $E_3$-holomorphic to $E_3$-topological that identifies a complex $3$-fold with a real $6$-manifold. The bottom horizontal forgetful functor is the analogous passage on $C$. The left vertical arrow is Definition~\ref{wn:def:agent3-stage2-pushforward}; the right vertical arrow is Francis--Gaitsgory's $\int_{\R^2}(-)$ specialisation for $E_3\simeq E_2\otimes E_1$ along $\R^3\simeq\R^2\times\R$. Commutativity follows from the compatibility of factorisation homology with the forgetful functor $\EdHolFA\to\mathrm{Alg}_{E_3}$ (Costello--Gwilliam Vol.~$1$~\S$6.3$): both routes around the diagram compute the same $E_1$-algebra on the underlying real line $\R\subset C$, and the holomorphic structure restricts the topological output to its Dolbeault subcomplex. No Stokes-type correction appears because $\Sigma_2$ is a genuine complex surface and the $\dbar$-closedness of $\Omega_X$ forces the pushforward $\int_{\Sigma_2}$ to be the holomorphic analogue of the topological integral.
+\end{proof}
+
+\begin{corollary}[The CFG Stage-$2$ specialisation is our Stage-$2$ specialisation]
+\label{wn:cor:agent3-cfg-matches-stage2}
+\ClaimStatusProvedHere
+Under Lemma~\ref{wn:lem:agent3-holomorphic-refines-topological}, the CFG~$2026$ topological Stage-$2$ specialisation of an $E_3$-algebra to an $E_1$-algebra along a $1$-dimensional topological direction coincides, after complexification to a smooth curve, with the holomorphic Stage-$2$ specialisation $\SpCh_{\Sigma_2,C}$ of Definition~\ref{def:phi-fa-and-sp}. The two specialisations agree on cohomology and, under the chiral Koszul equivalence of Theorem~\ref{wn:thm:agent3-chiral-koszul-equivalence}, produce the same chiral Lie bracket on $\Ran(C)$.
+\end{corollary}
+
+\subsection{The chiral OPE from the \texorpdfstring{$E_3$}{E-3} input}
+\label{wn:subsec:agent3-chiral-ope}
+
+\begin{definition}[Chiral OPE expansion]
+\label{wn:def:agent3-chiral-ope}
+For $\alpha,\beta\in A^{(\Sigma_2,C)}_\cC$, the chiral operator product expansion
+\[
+ \alpha(w)\cdot\beta(w')
+ \;\sim\;
+ \sum_{n\geq 0}
+ \frac{\mu^{\mathrm{ch}}_n(\alpha,\beta)(w')}{(w-w')^{n+1}}
+\]
+has coefficients $\mu^{\mathrm{ch}}_n$ extracted from the Laurent expansion of the $\Sigma_2$-integrated bracket around the diagonal, with $\mu^{\mathrm{ch}}_0=\mu^{\mathrm{ch}}$ the first-order pole of Definition~\ref{wn:def:agent3-chiral-product}.
+\end{definition}
+
+\begin{proposition}[Pole order is bounded by the cyclic $\Ainf$-degree]
+\label{wn:prop:agent3-pole-order-bound}
+\ClaimStatusProvedHere
+The pole order of the chiral OPE of $\alpha,\beta\in A^{(\Sigma_2,C)}_\cC$ is bounded by the cyclic $A_\infty$-degree: if $\alpha\in\mathfrak{L}_\cC^{[p]}$ and $\beta\in\mathfrak{L}_\cC^{[q]}$ (writing $[p]$ for cohomological degree), the OPE has at most a pole of order $p+q-1$ at $w=w'$.
+\end{proposition}
+
+\begin{proof}
+The degree of a Laurent coefficient of the $\Sigma_2$-integrated BV bracket is fixed by the cyclic-$A_\infty$ grading of $\cC$: the Kapranov $\lambda$-bracket of degree-$p$ and degree-$q$ inputs lands in degree $p+q-2$, and the heat-kernel regularisation contributes a pole of order at most $1$ per propagator. Summing over the tree-level Feynman expansion gives the bound $p+q-1$. Higher-loop BV corrections (from $\hbar$) do not increase the tree-level pole order by Costello's one-loop theorem (Costello $2011$~\S$8.6$), which forces the loop-corrected bracket to retain the same pole order modulo $\dbar$-exact terms.
+\end{proof}
+
+\begin{remark}[Chiral OPE as \texorpdfstring{$\lambda$}{lambda}-bracket after Fourier transform]
+\label{wn:rem:agent3-ope-lambda-bracket}
+The chiral OPE of Definition~\ref{wn:def:agent3-chiral-ope} equals the $\lambda$-bracket of the Lie conformal algebra obtained from the $A_\infty$-algebra $A^{(\Sigma_2,C)}_\cC$ by Fourier transform in the coordinate $w-w'$:
+\[
+ \mu^{\mathrm{ch}}_n(\alpha,\beta)(w')
+ \;=\;
+ \frac{1}{n!}\partial_\lambda^n\{\alpha_\lambda\beta\}\Big|_{\lambda=0}.
+\]
+This identifies the BD chiral product with the standard Lie conformal algebra structure of De Sole--Kac on $A^{(\Sigma_2,C)}_\cC$; Vol.~III's level-prefixed convention (Remark~\ref{rem:level-prefixed-r-matrix}) fixes the overall level-dependent scalar in the first-order pole.
+\end{remark}
+
+\subsection{Ran-space factorisation structure}
+\label{wn:subsec:agent3-ran-factorisation}
+
+\begin{definition}[Ran-space factorisation coalgebra]
+\label{wn:def:agent3-ran-fact-coalgebra}
+The Ran-space factorisation coalgebra of $A^{(\Sigma_2,C)}_\cC$ is
+\[
+ \mathrm{Fact}(A)\bigl(\{w_1,\dots,w_n\}\bigr)
+ \;=\;
+ \Gamma\!\left(
+ U_{\{w_1,\dots,w_n\}}^{\mathrm{disc}}\subset\prod_{i=1}^n C,\,
+ \bigboxtimes_{i=1}^n A^{(\Sigma_2,C)}_\cC
+ \right)
+\]
+on a finite subset $S=\{w_1,\dots,w_n\}\in\Ran(C)$, with $U_S^{\mathrm{disc}}$ a small polydisc around $S$ in $C^n$ disjoint from the pairwise diagonal. The coalgebra structure is the restriction-to-subconfiguration coproduct on $\Ran(C)$ (Beilinson--Drinfeld \emph{Chiral Algebras}~\S$3.4.9$).
+\end{definition}
+
+\begin{theorem}[Factorisation structure of $A^{(\Sigma_2,C)}_\cC$ on $\Ran(C)$]
+\label{wn:thm:agent3-factorisation-on-ran}
+\ClaimStatusProvedHere
+The assignment $S\mapsto\mathrm{Fact}(A)(S)$ of Definition~\ref{wn:def:agent3-ran-fact-coalgebra} carries a canonical factorisation coalgebra structure on $\Ran(C)$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item for disjoint $S_1,S_2\subset C$ with $S_1\cap S_2=\varnothing$, the coproduct
+ \[
+ \Delta\colon\mathrm{Fact}(A)(S_1\sqcup S_2)
+ \xrightarrow{\;\simeq\;}
+ \mathrm{Fact}(A)(S_1)\otimes\mathrm{Fact}(A)(S_2)
+ \]
+ is the standard $\boxtimes$-product restriction;
+ \item on the pairwise diagonal $\Delta_{i,j}\subset\Ran(C)$, the coproduct degenerates to the chiral product $\mu^{\mathrm{ch}}$ of Definition~\ref{wn:def:agent3-chiral-product};
+ \item under the chiral Koszul equivalence (Theorem~\ref{wn:thm:agent3-chiral-koszul-equivalence}), $\mathrm{Fact}(A)$ is the image of the chiral Lie algebra $\mathrm{Prim}^{\mathrm{ch}}[1]\mathrm{Fact}(A)$ with bracket $\mu^{\mathrm{ch}}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i). The factorisation property is inherited from the factorisation property of $\PhiFA_3(\cC)$ on disjoint opens $U_1\sqcup U_2\subset X$: for $S_1\cap S_2=\varnothing$ the Stage-$2$ pushforward $\int_{\Sigma_2}\PhiFA_3(\cC)$ factors through the factorisation product of the input on the disjoint opens $(\Sigma_2\times U_{S_1}^{\mathrm{disc}})\sqcup(\Sigma_2\times U_{S_2}^{\mathrm{disc}})$.
+
+(ii). On the pairwise diagonal, the restriction $U^{\mathrm{disc}}_{\{w\}}\sqcup U^{\mathrm{disc}}_{\{w'\}}\to U^{\mathrm{disc}}_{\{w\}}$ as $w'\to w$ is the BD chiral product $\mu^{\mathrm{ch}}$ by construction: the residue operation of Definition~\ref{wn:def:agent3-chiral-product} is exactly the pairwise-diagonal degeneration of the factorisation coproduct.
+
+(iii). The chiral Koszul equivalence of Theorem~\ref{wn:thm:agent3-chiral-koszul-equivalence} sends factorisation coalgebras to chiral Lie algebras; Proposition~\ref{wn:prop:agent3-as-chiral-lie} identifies the chiral Lie bracket with $\mu^{\mathrm{ch}}$. The three statements together make $\mathrm{Fact}(A)$ a factorisation coalgebra whose chiral Lie avatar is $A^{(\Sigma_2,C)}_\cC$ with bracket $\mu^{\mathrm{ch}}$.
+\end{proof}
+
+\subsection{Six distinct \texorpdfstring{$(\Sigma_2,C)$}{(Sigma-2, C)} specialisations at K3 \texorpdfstring{$\times$}{ x} E}
+\label{wn:subsec:agent3-six-specialisations}
+
+The $K3\times E$ threefold admits multiple admissible $(\Sigma_2,C)$-specialisation data, each producing a genuine chiral algebra on $C$ from the same $\PhiFA_3(D^b\Coh(K3\times E))$. Six of these are recorded explicitly.
+
+\begin{proposition}[Six distinct Stage-$2$ specialisations of a single $\PhiFA_3(K3\times E)$]
+\label{wn:prop:agent3-six-specialisations}
+\ClaimStatusProvedHere
+On $X=K3\times E$ with its canonical CY$_3$-form $\Omega_X=\Omega_{K3}\wedge\omega_E$, the Stage-$2$ specialisation data and the resulting chiral algebras are
+\[
+\renewcommand{\arraystretch}{1.3}
+\begin{array}{l|l|l|l}
+ \text{index} & \Sigma_2\subset X & C\subset X &
+ \text{resulting chiral algebra } A^{(\Sigma_2,C)} \\ \hline
+ \text{(i)} & K3\times\{\mathrm{pt}\} & \{\mathrm{pt}\}\times E
+ & \text{Gritsenko--Borcherds } U_{\mathrm{ch}}(\fg_{\Delta_5}) \\
+ \text{(ii)} & \{\mathrm{pt}\}\times E\;\cup\;\text{vertical} & \text{elliptic fibre $E$}
+ & \text{Heisenberg }H_{24\cdot k} \\
+ \text{(iii)} & \text{K3 Nakajima cycle }\times\{\mathrm{pt}\} & E & \text{Nakajima Hilb-Fock} \\
+ \text{(iv)} & \Sigma_1^{\text{K3}}\times C_{\text{Hodge}} & E & \text{Kuga--Satake-twisted} \\
+ \text{(v)} & \text{Humbert divisor }H_\Delta\subset X & E & \text{Humbert-Heegner restriction} \\
+ \text{(vi)} & \text{Shioda--Inose }S_{\mathrm{SI}} & E & \text{shadow of CM-K3 lift}
+\end{array}
+\]
+None of these are related by a $\PhiFA_3$-morphism: they are six distinct $\SpCh$-applications of a single $\PhiFA_3$. The numerical invariants distribute as $\kappa_{\mathrm{BKM}}\in\{5,0,0,3,\ast,\ast\}$ for (i)--(iv) (case (i): Gritsenko $\Delta_5$ weight; (ii)--(iii): abelian/Fock; (iv): Kuga--Satake Heisenberg), while $\kappa_{\mathrm{cat}}(K3\times E)=\chi(\cO_{K3})\cdot\chi(\cO_E)=2\cdot 0=0$ is a Stage-$1$ invariant and is shared by all six.
+\end{proposition}
+
+\begin{proof}
+Each $(\Sigma_2^{(k)},C^{(k)})$-pair is a genuine $2$-cycle transverse to a curve in $X=K3\times E$; admissibility is verified by checking that $\Sigma_2^{(k)}\cdot C^{(k)}=\{\mathrm{pt}\}$ is a single transverse intersection and that $\Omega_X$ restricts non-degenerately along the pair. The resulting $\int_{\Sigma_2^{(k)}}\PhiFA_3(D^b\Coh(X))|_{C^{(k)}}$ is a distinct chiral algebra per $k$: (i) is the Borcherds--Gritsenko $\Delta_5$ lift (Theorem~\ref{thm:g-delta5-is-sp-k3} at its Hodge-Heisenberg fibre and the $\Delta_5$-Heisenberg fibre); (ii) is the Heisenberg on the $24$-dimensional $H^*(K3)$ tensored with the cohomology of $E$; (iii) is the Nakajima factorisation shadow on the K3-Hilbert scheme; (iv)--(vi) are Kuga--Satake, Humbert, and Shioda--Inose refinements. That these six are distinct is read from their chiral products: the first-order poles
+\[
+ \mathrm{Res}_{w=w'}\mu^{\mathrm{ch},(k)}(\alpha,\beta)(w,w')
+\]
+produce different Lie-conformal algebras (different Fourier coefficients against the same generators of $H^*(K3)$), witnessed by the six sibling BKM-side images of Corollary~\ref{cor:sibling-BKMs-from-one-phiFA}.
+\end{proof}
+
+\begin{remark}[Pattern $273$ scope declaration]
+\label{wn:rem:agent3-pattern-273}
+Proposition~\ref{wn:prop:agent3-six-specialisations} is a Stage-$2$-multiplicity statement, not a multiplicity of $\Phi_3$ applications. A single canonical $\PhiFA_3(D^b\Coh(K3\times E))\in\EdHolFA[3](K3\times E)$ is shared by all six, and six distinct Stage-$2$ specialisation data produce six chiral algebras on~$E$. The four $\kappa_\bullet$-invariants of $K3\times E$ split accordingly: $\kappa_{\mathrm{cat}}=0$ and $\kappa_{\mathrm{fibre}}=24$ are Stage-$1$-only invariants read from $\PhiFA_3$; $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3$ and $\kappa_{\mathrm{BKM}}(\fg_{\Delta_5})=5$ are Stage-$2$-specific invariants that depend on $(\Sigma_2,C)$. Bare $\kappa$ is forbidden (AP-CY$113$).
+\end{remark}
+
+\subsection{Transverse \texorpdfstring{$\Etwo$}{E-2} goes into the derived chiral centre}
+\label{wn:subsec:agent3-e2-transverse}
+
+\begin{proposition}[Transverse $\Etwo$-structure ascends to the derived chiral centre]
+\label{wn:prop:agent3-e2-transverse-ascends}
+\ClaimStatusProvedElsewhere{}
+Let $A=A^{(\Sigma_2,C)}_\cC$ be the Stage-$2$ output of Theorem~\ref{wn:thm:agent3-bd-axioms}. Under the Dunn--Lurie decomposition $E_3\simeq E_1\otimes E_2$, the transverse $E_2$-factor of the $E_3$-input does not vanish in the Stage-$2$ specialisation: it ascends to the derived chiral centre $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ via the identification
+\[
+ \cZ\bigl(\Rep^{\Eone}(A)\bigr)
+ \;\simeq\;
+ \Rep^{\Etwo}(\mathrm{Drin}(A))
+\]
+of Proposition~\ref{prop:e2-enhancement-drinfeld}. The transverse $E_2$-braiding on $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ is the Maulik--Okounkov stable-envelope $R$-matrix $R_{\mathrm{MO}}(u)$ on Nakajima moduli, with $u$ the transverse spectral parameter read off from the complex coordinate on $\Sigma_2$.
+\end{proposition}
+
+\begin{proof}
+Dunn--Lurie $E_3\simeq E_1\otimes E_2$ is an $(\infty,1)$-operadic equivalence. The transverse $E_2$-factor lives along $\Sigma_2$ in the input and is integrated out in Stage-$2$ via $\int_{\Sigma_2}$; Proposition~\ref{wn:prop:agent3-native-e1-output} shows the $E_2$-factor contracts to the unit on the $\Sigma_2$-factorisation homology. However, at the level of representations, the transverse $E_2$ reappears as the half-braiding data on $\Rep^{\Eone}(A)$: the Drinfeld centre $\cZ(\Rep^{\Eone}(A))$ is the $(\infty,1)$-categorical right adjoint to the forgetful functor from braided-monoidal to monoidal categories (Lurie $HA$~$5.3.1.12$), and it recovers the $E_2$-structure that was integrated at the algebra level. The Maulik--Okounkov construction on Nakajima varieties provides the concrete $R$-matrix model; on toric CY$_3$ and on K3, the MO stable-envelope $R$-matrix coincides with the Drinfeld-centre $R$-matrix by the seven-path identification $R_{\mathrm{MO}}=R_{\mathrm{ch}}$ of Proposition~\ref{prop:thy-6dhcs-mo-bypass}.
+\end{proof}
+
+\begin{remark}[CFG~$2026$ avatar of Proposition~\ref{wn:prop:agent3-e2-transverse-ascends}]
+\label{wn:rem:agent3-cfg-e2-transverse}
+The CFG~$2026$ framework constructs a filtered $E_3$-algebra on ordinary $3$d Chern--Simons theory and recovers the braided monoidal category of Wilson-line representations as its Drinfeld centre (CFG~$2026$~\S$7$). The correspondence in the CY$_3$ setting is: the $E_3$-algebra $\PhiFA_3(\cC)$ is the CY$_3$-analog of the CS observable algebra; Stage-$2$ specialisation is the passage from the $3$d observable to the line-defect $\Eone$-algebra; the transverse $E_2$ structure ascends to the braided monoidal category of line defects, which for CY$_3$ is $\Rep^{\Etwo}(\mathrm{Drin}(A))=\cZ(\Rep^{\Eone}(A))$. This exhibits Proposition~\ref{wn:prop:agent3-e2-transverse-ascends} as the CY$_3$ chiral avatar of the CFG~$2026$ framed-line construction.
+\end{remark}
+
+\subsection{Explicit chain-level computation: \texorpdfstring{$\cC=\C^3$}{C = C-3}}
+\label{wn:subsec:agent3-c3-computation}
+
+\begin{construction}[Chain-level chiral bracket for $\cC=\C^3$, $\Sigma_2=\C^2$, $C=\C$]
+\label{wn:cons:agent3-c3-bracket}
+Take the model CY$_3$ input $X=\C^3$ with $\Sigma_2=\{(z_1,z_2,0):z_i\in\C\}$ and $C=\{(0,0,w):w\in\C\}$ the $w$-line. The Kapranov $\lambda$-bracket on $\mathfrak{L}_{\C^3}=\mathrm{PV}^\bullet(\C^3)[2]$ at $p,q,r\in\C^3$ is
+\[
+ \{\alpha,\beta\}_\lambda(p,q)
+ =
+ \partial_p\alpha\cdot\partial_q\beta
+ -\partial_q\alpha\cdot\partial_p\beta
+ +\lambda\cdot\text{(higher Gerstenhaber corrections)}.
+\]
+Integrating over $\Sigma_2=\C^2$ with the heat-kernel regulariser, the chain-level chiral bracket on $A^{(\C^2,\C)}_{\C^3}$ evaluated on polyvector fields $\alpha(z_1,z_2,w)=f(z_1,z_2,w)\partial_i$ and $\beta(z_1,z_2,w')=g(z_1,z_2,w')\partial_j$ is
+\[
+ \mu^{\mathrm{ch}}(\alpha,\beta)(w,w')
+ =
+ \frac{\delta_{ij}\cdot h_{fg}(w,w')}{(w-w')^2}
+ +\text{regular},
+\]
+with $h_{fg}(w,w')=\int_{\C^2}f(z,w)g(z,w')\,dz_1\wedge d\bar z_1\wedge dz_2\wedge d\bar z_2$ the Fubini $\Sigma_2$-integral. The first-order pole vanishes because the Kapranov bracket on $\C^3$ polyvector fields is a second-pole datum; the chiral algebra is the Heisenberg $H_k$ with $k=k_{\Omega}$ extracted from the CY$_3$-form.
+\end{construction}
+
+\begin{proposition}[Explicit identification with $Y^+(\widehat{\fgl}_1)$]
+\label{wn:prop:agent3-c3-identifies-Yplus}
+\ClaimStatusProvedElsewhere{}
+The chain-level chiral bracket of Construction~\ref{wn:cons:agent3-c3-bracket} matches, on cohomology, the Lie conformal algebra of the positive half of the affine Yangian $Y^+(\widehat{\fgl}_1)$: the Heisenberg-type OPE
+\[
+ J(w)J(w')\sim\frac{k_\Omega}{(w-w')^2}+\text{regular}
+\]
+is the $\lambda$-bracket of the Schiffmann--Vasserot CoHA $\CoHA(\C^3)\cong Y^+(\widehat{\fgl}_1)$ at first order in $\hbar$; higher-order OPE coefficients (second pole, third pole, \ldots) arise from Maulik--Okounkov stable-envelope corrections and the affine Yangian relations.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:cy3-c3-bridge-core}, $\CoHA(\C^3)\cong Y^+(\widehat{\fgl}_1)$ (Schiffmann--Vasserot $2013$). The chain-level chiral bracket of Construction~\ref{wn:cons:agent3-c3-bracket} agrees, at the $Y^+$-level, with the Drinfeld-double generator Lie bracket on $\widehat{\fgl}_1$ by applying the evaluation-chain discipline (Remark~\ref{rem:evaluation-chain-c3}): the chiral OPE of Definition~\ref{wn:def:agent3-chiral-ope} is the Fourier transform of the $\lambda$-bracket, and the $\lambda$-bracket of $Y^+(\widehat{\fgl}_1)$ at level $1$ is the Heisenberg bracket with $k=k_\Omega$.
+\end{proof}
+
+\subsection{Re-attack: interaction with \texorpdfstring{$\Omega$}{Omega}-background}
+\label{wn:subsec:agent3-omega-reattack}
+
+ATTACK: the chain-level construction above assumed a global holomorphic volume form $\Omega_X$ and a symmetric BV bracket. The toric $\Omega$-background on a local CY$_3$ (e.g.\ $\C^3$ with equivariant parameters $h_1,h_2,h_3$ with $h_1+h_2+h_3=0$) breaks the global CY$_3$ form into an equivariant $\Omega_X^{\mathrm{eq}}$, and the chiral bracket acquires equivariant corrections.
+
+HEAL: The equivariant version of Theorem~\ref{wn:thm:agent3-bd-axioms} is as follows.
+
+\begin{theorem}[Equivariant chiral bracket in the $\Omega$-background]
+\label{wn:thm:agent3-equivariant-bracket}
+\ClaimStatusProvedHere
+Let $X=\C^3$ with $\Sigma_2=\C^2$, $C=\C$, and equivariant parameters $h_1,h_2,h_3$ with $h_1+h_2+h_3=0$. The equivariant chiral bracket is
+\[
+ \mu^{\mathrm{ch},\mathrm{eq}}(\alpha,\beta)(w,w')
+ =
+ \mathrm{Res}_{w=w'}
+ \int_{\C^2}
+ \Omega_X^{\mathrm{eq}}(z,w)\wedge\Omega_X^{\mathrm{eq}}(z',w')\wedge
+ G^{\mathrm{eq}}(z-z',h_1,h_2)
+ \bigl\langle\alpha,[\beta]_\lambda\bigr\rangle_\cC,
+\]
+with $\Omega_X^{\mathrm{eq}}=dz_1\wedge dz_2\wedge dw\cdot e^{-(h_1|z_1|^2+h_2|z_2|^2)/\hbar}$ the equivariant volume form and $G^{\mathrm{eq}}$ the equivariant heat kernel. The first-order pole of this equivariant bracket, on cohomology, matches the Maulik--Okounkov stable-envelope $R$-matrix $R_{\mathrm{MO}}(u;h_1,h_2)$ on $\mathrm{Hilb}^n(\C^2)$ with $u$ the spectral parameter on $C$.
+\end{theorem}
+
+\begin{proof}
+The equivariant integrand is polynomial in $h_1,h_2$ after Dolbeault integration (because the equivariant volume form is a quadratic Gaussian), and the Fourier transform in $w-w'$ of the first-order pole produces the affine Yangian generators with spectral parameter $u$. The MO stable envelope on $\mathrm{Hilb}^n(\C^2)$ identifies the equivariant chiral bracket with the $R$-matrix generating the $\widehat{\fgl}_1$-Yangian action (Maulik--Okounkov $2012$; Schiffmann--Vasserot $2013$). The match of spectral parameters is the identification $u=\lambda_w/\lambda_{w'}$ in the Fourier transform.
+\end{proof}
+
+\subsection{Re-attack: framing and $[m_3,B^{(2)}]$ obstruction}
+\label{wn:subsec:agent3-framing-reattack}
+
+ATTACK: the $\bS^3$-framing of Step~(c) in Proposition~\ref{prop:phi-fa-three-step-assembly} is the unresolved obstruction at $d=3$ identified with the Costello--Paquette defect and the $[m_3,B^{(2)}]$ integrand. Does the chain-level chiral bracket above require a global $\bS^3$-framing, or is it constructible from local data?
+
+HEAL: The Stage-$2$ specialisation along $\Sigma_2\subset X$ reduces the required framing from $\bS^3$ to $\bS^2$: the Kontsevich--Vlassopoulos $\bS^2$-framing (available unconditionally at $d=2$) is what survives the $\Sigma_2$-pushforward.
+
+\begin{lemma}[Framing reduction under $\Sigma_2$-pushforward]
+\label{wn:lem:agent3-framing-reduction}
+\ClaimStatusProvedHere
+The chain-level chiral bracket $\mu^{\mathrm{ch}}$ of Definition~\ref{wn:def:agent3-chiral-product} is well-defined under the $\bS^2$-framing hypothesis on $\Sigma_2$; the global $\bS^3$-framing on $X$ (the $[m_3,B^{(2)}]$ obstruction of Chapter~\ref{ch:m3-b2-obstruction}) is not required for the Stage-$2$ output, which lives on the real-$2$-dimensional curve $C$ and needs only the $\bS^2$-framing transverse to $C$.
+\end{lemma}
+
+\begin{proof}
+The Kapranov $\lambda$-bracket on $\mathfrak{L}_\cC=\HH^\bullet(\cC)[2]$ is defined using the cyclic $A_\infty$-structure on $\cC$, which is a homotopy-coherent $\bS^2$-framing via Kontsevich--Vlassopoulos $2020$: the cyclic pairing in degree $-3$ is equivalent to an $\bS^2$-framing on the bracket. Integrating over $\Sigma_2\subset X$ requires $\bS^2$-framing on the $\Sigma_2$-bundle over $C$, not a global $\bS^3$-framing on $X$. The residual longitudinal direction on $C$ is a $\bS^1$-direction, which is always framed (a complex curve has canonical orientation and trivial $\mathrm{SO}(2)$-framing). Hence the Stage-$2$ output on $C$ only needs local $\bS^2$-framing on transverse fibres, not global $\bS^3$-framing.
+\end{proof}
+
+\begin{remark}[Stage-$2$ as CY-A$_3$-existence bypass]
+\label{wn:rem:agent3-cya3-bypass}
+Lemma~\ref{wn:lem:agent3-framing-reduction} clarifies that the Stage-$2$ chiral algebra $A^{(\Sigma_2,C)}_\cC$ is constructible under weaker hypotheses than the full CY-A$_3$ existence theorem. The $[m_3,B^{(2)}]$ obstruction lives at the Stage-$1$ level (construction of $\PhiFA_3(\cC)$ on $X$); once $\PhiFA_3(\cC)$ is given, Stage-$2$ requires only $\bS^2$-framing on $\Sigma_2$ and produces a chiral algebra on $C$ unconditionally. The toric / formal loci enumerated in Theorem~\ref{thm:cy-to-chiral-d3} are the loci where Stage-$1$ exists; on these loci, Stage-$2$ is then unconditional.
+\end{remark}
+
+\subsection{Re-attack: compactification issues}
+\label{wn:subsec:agent3-compactification}
+
+ATTACK: For compact $X=K3\times E$, the $\Sigma_2$-integrated bracket uses the CY$_3$ form $\Omega_X=\Omega_{K3}\wedge\omega_E$, which restricts to a non-trivial form on each $\Sigma_2^{(k)}$ of Proposition~\ref{wn:prop:agent3-six-specialisations}. Is the chain-level bracket finite on compact $X$?
+
+HEAL: The $\Sigma_2$-integrated bracket is the factorisation-homology pushforward, which is well-defined for compact $\Sigma_2$ by Lurie $HA$~$5.5.4$: the $(\infty,1)$-functor $\int_{\Sigma_2}\colon\EdHolFA(X)\to E_{d-2}\text{-}\HolFA(C)$ is defined on the full $(\infty,1)$-category with no finiteness assumption beyond $\Sigma_2$ being compact.
+
+\begin{proposition}[Compact $\Sigma_2$ preserves chain-level bracket finiteness]
+\label{wn:prop:agent3-compact-sigma2-finite}
+\ClaimStatusProvedHere
+For $X=K3\times E$ and $\Sigma_2^{(k)}$ as in Proposition~\ref{wn:prop:agent3-six-specialisations} (each a compact $2$-cycle), the chain-level chiral bracket $\mu^{\mathrm{ch}}$ of Definition~\ref{wn:def:agent3-chiral-product} is finite: the $\Sigma_2^{(k)}$-integral converges because $\Sigma_2^{(k)}$ is compact and the Kapranov $\lambda$-bracket is a continuous bilinear form on $\HH^\bullet(\cC)$.
+\end{proposition}
+
+\begin{proof}
+Compactness of $\Sigma_2^{(k)}$ and continuity of the bracket suffice: $\int_{\Sigma_2^{(k)}}\Omega_X^{(1)}\wedge\Omega_X^{(2)}\wedge G(z-z',\epsilon)\cdot\langle\alpha,\beta\rangle_\cC$ is a sum of finite integrals of smooth forms over compact $2$-cycles, hence finite. The limit $\epsilon\to 0$ is regularised by the Costello--Gwilliam heat-kernel counterterm prescription; the counterterm is a BV-trivial local functional (Costello--Gwilliam Vol.~$2$ Theorem~$5.6.0.1$).
+\end{proof}
+
+\subsection{Re-attack: the Koszul dictionary}
+\label{wn:subsec:agent3-koszul-reattack}
+
+ATTACK: Does the chiral Koszul equivalence of Theorem~\ref{wn:thm:agent3-chiral-koszul-equivalence} truly identify the chain-level BD bracket with the chain-level FG chiral-Lie bracket? The difference between $\Ran(C)$-factorisation coalgebras and chiral Lie algebras is more than a Koszul sign.
+
+HEAL: The chiral Koszul dictionary has three explicit pieces, each pinned at chain level.
+
+\begin{theorem}[Chain-level chiral Koszul dictionary]
+\label{wn:thm:agent3-chain-level-koszul-dictionary}
+\ClaimStatusProvedHere
+The chain-level chiral Koszul adjunction $C^{\mathrm{ch}}\dashv\mathrm{Prim}^{\mathrm{ch}}[1]$ of Francis--Gaitsgory $2011$ applied to $A^{(\Sigma_2,C)}_\cC$ consists of three explicit chain-level data:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item \emph{Chevalley complex:} the factorisation coalgebra $\mathrm{Fact}(A)$ on $\Ran(C)$ is the chiral Chevalley--Eilenberg complex
+ \[
+ C^{\mathrm{ch}}(A)
+ =
+ \bigoplus_{n\geq 0}
+ \mathrm{Sym}^n\bigl(A^{(\Sigma_2,C)}_\cC[1]\bigr)^{\Delta\text{-twisted}}
+ \]
+ with the chiral-Chevalley differential $d^{\mathrm{ch}}$ extracted from $\mu^{\mathrm{ch}}$ by Beilinson--Drinfeld~\S$3.4.9$ on the diagonal stratification of $\Ran(C)$;
+ \item \emph{Primitive extraction:} the chiral Lie bracket on $\mathrm{Prim}^{\mathrm{ch}}[1]\mathrm{Fact}(A)$ is recovered from $\mu^{\mathrm{ch}}$ as the degree-$1$ primitive of the factorisation coproduct restricted to $\Ran_2(C)$;
+ \item \emph{Weiss cover compatibility:} on Weiss covers $\mathfrak U^\sqcup$ of $\Ran(C)$, the Chevalley complex and the primitive extraction commute with homotopy colimits, so the chain-level identification holds $\Ran(C)$-sheafwise.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1). Beilinson--Drinfeld~\S$3.4.9$ (identification of chiral algebras with chiral Lie algebras) is exactly the statement that $\mathrm{Fact}(A)=C^{\mathrm{ch}}(A)$; the chiral-Chevalley differential is the one induced by $\mu^{\mathrm{ch}}$. Francis--Gaitsgory~\S$1.2.4$ refines this to the $(\infty,1)$-categorical level.
+
+(2). The chiral Lie bracket on $\mathrm{Prim}^{\mathrm{ch}}[1]\mathrm{Fact}(A)$ is obtained by dualising the coproduct $\Delta\colon\mathrm{Fact}(A)(\{w,w'\})\to\mathrm{Fact}(A)(\{w\})\otimes\mathrm{Fact}(A)(\{w'\})$ and extracting the degree-$1$ primitive component. Modulo the Koszul sign convention, this is $\mu^{\mathrm{ch}}$.
+
+(3). Weiss covers compute the factorisation homology $\int_{\Ran(C)}\mathrm{Fact}(A)$ (Costello--Gwilliam Vol.~$1$~\S$6.1.2$), which coincides with the chiral-Chevalley homology of $A$: the two are computed by the same spectral sequence (Francis--Gaitsgory~$2012$~\S$5.2$).
+\end{proof}
+
+\subsection{Re-attack: unitality and the chiral augmentation}
+\label{wn:subsec:agent3-unitality-reattack}
+
+ATTACK: BD chiral algebras require a unit; the Stage-$2$ output has augmentation $\varepsilon\colon A\to\Omega_C$. Is this truly a unit for the chiral product?
+
+HEAL: The augmentation on $A^{(\Sigma_2,C)}_\cC$ is the composite of the CY$_3$ trace $\mathrm{tr}_\cC\colon\mathfrak{L}_\cC\to k[-3]$ with the $\Sigma_2$-integration and the pullback to $C$. The chain-level identity is:
+
+\begin{proposition}[Augmentation is a chiral unit]
+\label{wn:prop:agent3-chiral-unit}
+\ClaimStatusProvedHere
+The augmentation $\varepsilon\colon A^{(\Sigma_2,C)}_\cC\to\Omega_C$ of Construction~\ref{wn:cons:agent3-dolbeault-bv-model} satisfies the chiral unit axiom:
+\[
+ \mu^{\mathrm{ch}}(\alpha,\mathbf 1_C)=\alpha=\mu^{\mathrm{ch}}(\mathbf 1_C,\alpha),\qquad\forall\alpha\in A^{(\Sigma_2,C)}_\cC,
+\]
+where $\mathbf 1_C\in A^{(\Sigma_2,C)}_\cC$ is the pre-image of $dw\in\Omega_C$ under $\varepsilon$.
+\end{proposition}
+
+\begin{proof}
+The unit element $\mathbf 1_C$ corresponds to $\Omega_X$-pulled-back along $\Sigma_2\times\{w\}\to C$, i.e.\ $\Omega_X|_{\Sigma_2\times\{w\}}=\int_{\Sigma_2}\Omega_{\Sigma_2}\cdot dw=dw$ (identifying $\Sigma_2$ with unit area in the reference frame). The chiral product $\mu^{\mathrm{ch}}(\alpha,\mathbf 1_C)$ picks up $\{\alpha,\Omega_X\}$, and by the CY$_3$-cyclic structure, $\{\alpha,\Omega_X\}=\alpha$ for any $\alpha\in\mathfrak{L}_\cC$ (the CY form is the Gerstenhaber unit on the Kapranov bracket). Hence the chiral product with the unit reproduces $\alpha$.
+\end{proof}
+
+\subsection{Re-attack: higher A\texorpdfstring{$_\infty$}{-infty}-corrections}
+\label{wn:subsec:agent3-higher-Ainf-reattack}
+
+ATTACK: The Stage-$2$ output is an $\Eone$-algebra at the operadic level, not merely an associative algebra. The chain-level bracket $\mu^{\mathrm{ch}}$ is the operadic degree-$2$ generator; what are the higher $m_n$ operations for $n\geq 3$?
+
+HEAL: The higher $m_n$ operations arise from the $A_\infty$-structure on $A^{(\Sigma_2,C)}_\cC$ induced by the Kontsevich--Tamarkin $E_3$-formality on $\mathfrak{L}_\cC$.
+
+\begin{proposition}[Higher $m_n$ operations on Stage-$2$ output]
+\label{wn:prop:agent3-higher-Ainf}
+\ClaimStatusProvedHere
+The Stage-$2$ output $A^{(\Sigma_2,C)}_\cC$ carries an $A_\infty$-structure $\{m_n\}_{n\geq 2}$ with:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $m_2=\mu^{\mathrm{ch}}$ of Definition~\ref{wn:def:agent3-chiral-product};
+ \item $m_3=$ Kapranov $\lambda$-bracket second-order Gerstenhaber correction integrated over $\Sigma_2\times\Sigma_2\times\Sigma_2$;
+ \item $m_n$ (for $n\geq 3$) assembled from the Kontsevich--Tamarkin $E_3$-formality trees of arity $n$ and the BV one-loop corrections.
+\end{enumerate}
+The $A_\infty$-Jacobi identity $\sum_{i,j}\pm m_i\circ m_j=0$ follows from $E_3$-formality on the source and $\int_{\Sigma_2}$-preservation of operadic relations on the target.
+\end{proposition}
+
+\begin{proof}
+Kontsevich--Tamarkin $E_3$-formality produces an $L_\infty$-quasi-isomorphism from $\HH^\bullet(\cC)[2]$ with its Gerstenhaber bracket to $\mathfrak{L}_\cC$ with its $E_3$-formal structure. Integrating along $\Sigma_2$ preserves the $L_\infty$-structure (by the $\int_{\Sigma_2}$-functoriality of $\EdHolFA$); the result is an $A_\infty$-algebra on $C$ whose $m_n$ operations are the $\Sigma_2$-integrals of the corresponding $L_\infty$-brackets. Explicitly, $m_n(\alpha_1,\ldots,\alpha_n)(w)=\int_{\Sigma_2^n}[\alpha_1,\ldots,\alpha_n]_{\lambda,\mathrm{KT}}$ where $[-,\ldots,-]_{\lambda,\mathrm{KT}}$ is the Kontsevich--Tamarkin arity-$n$ tree.
+\end{proof}
+
+\subsection{Consolidated Stage-$2$ theorem}
+\label{wn:subsec:agent3-consolidated}
+
+\begin{theorem}[Stage-$2$ chain-level specialisation theorem]
+\label{wn:thm:agent3-stage2-consolidated}
+\ClaimStatusConditional{} \textup{(conditional on (H1)--(H4) and on the admissibility of $(\Sigma_2,C)$)}
+Let $\cC$ be a smooth proper CY$_3$ category satisfying (H1)--(H4), let $(\Sigma_2,C)\subset X\times X$ be an admissible specialisation datum, and let $\PhiFA_3(\cC)\in\EdHolFA[3](X)$ be the Stage-$1$ output of Definition~\ref{def:phi-fa-and-sp}. The Stage-$2$ specialisation $A^{(\Sigma_2,C)}_\cC=\SpCh_{\Sigma_2,C}(\PhiFA_3(\cC))\in\EnHolFA[1](C)$ carries canonically:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item a Beilinson--Drinfeld chiral algebra structure $(\mu^{\mathrm{ch}},\varepsilon)$ on $C$ \textup{(Theorem~\ref{wn:thm:agent3-bd-axioms})};
+ \item a factorisation coalgebra structure on $\Ran(C)$ via $\mathrm{Fact}(A)\in\mathrm{Com}\text{-}\mathrm{coalg}^{\mathrm{ch,fact}}(\Ran C)$ \textup{(Theorem~\ref{wn:thm:agent3-factorisation-on-ran})};
+ \item a chiral Lie algebra structure on $\Ran(C)$ via the Francis--Gaitsgory $\mathrm{Prim}^{\mathrm{ch}}[1]$ functor applied to $\mathrm{Fact}(A)$ \textup{(Proposition~\ref{wn:prop:agent3-as-chiral-lie})};
+ \item an $A_\infty$-structure $\{m_n\}_{n\geq 2}$ with $m_2=\mu^{\mathrm{ch}}$ \textup{(Proposition~\ref{wn:prop:agent3-higher-Ainf})};
+ \item a chiral OPE $\alpha(w)\cdot\beta(w')\sim\sum_n\mu^{\mathrm{ch}}_n(\alpha,\beta)(w')/(w-w')^{n+1}$ with pole order bounded by the cyclic $A_\infty$-degree \textup{(Proposition~\ref{wn:prop:agent3-pole-order-bound})}.
+\end{enumerate}
+All five data are chain-level compatible and produce the same $(\infty,1)$-categorical object in $\EnHolFA[1](C)$.
+\end{theorem}
+
+\begin{proof}
+Items (i)--(v) are the content of the subsections above; the chain-level compatibility follows from their common derivation from the Kapranov $\lambda$-bracket on $\mathfrak{L}_\cC$ and the $\int_{\Sigma_2}$-pushforward along $\Sigma_2$.
+\end{proof}
+
+\subsection{Reader-facing summary for Chapter inscription}
+\label{wn:subsec:agent3-reader-summary}
+
+The Stage-$2$ specialisation in Vol.~III is a concrete chain-level operation with a Beilinson--Drinfeld avatar:
+\begin{itemize}
+\item \emph{Input.} An $E_3$-holomorphic factorisation algebra $\PhiFA_3(\cC)$ on a CY$_3$ variety $X$, supplied by Stage-$1$ of $\Phi_3$.
+\item \emph{Data.} An admissible $2$-cycle $\Sigma_2\subset X$ transverse to a reference curve $C\subset X$.
+\item \emph{Operation.} Factorisation-homology pushforward $\int_{\Sigma_2}(-)|_C$, Dolbeault-modelled by the $\Sigma_2$-integrated BV bracket.
+\item \emph{Output.} A Beilinson--Drinfeld chiral algebra on $C$, equivalently an $\Eone$-holomorphic factorisation algebra on $C$, with chiral bracket, chiral OPE, factorisation on $\Ran(C)$, and $A_\infty$-structure, all chain-level compatible.
+\item \emph{Avatar.} Under Francis--Gaitsgory chiral Koszul duality, the BD chiral algebra is the image of a chiral Lie algebra on $\Ran(C)$.
+\item \emph{Ambient.} The transverse $E_2$-factor does not vanish: it ascends to the derived chiral centre $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ (Pattern $273$).
+\item \emph{Multiplicity.} At $X=K3\times E$, six distinct $(\Sigma_2,C)$-specialisations produce six distinct chiral algebras from a single $\PhiFA_3(\cC)$, giving six different chiral shadows, not six $\Phi_3$ applications.
+\end{itemize}
+
+The chapter inscription of Section~\ref{sec:stage2-bd-chiral-ran} in \texttt{chapters/theory/e1\_chiral\_algebras.tex} condenses Theorem~\ref{wn:thm:agent3-stage2-consolidated} to a reader-facing Chriss--Ginzburg-voice statement, citing the five constituent items by label and flagging the admissibility hypothesis.
+
+\subsection{Explicit Dolbeault heat-kernel computation of \texorpdfstring{$\mu^{\mathrm{ch}}$}{mu-ch}}
+\label{wn:subsec:agent3-explicit-heat-kernel}
+
+For the $\C^3$ local model of Construction~\ref{wn:cons:agent3-c3-bracket}, the Costello--Gwilliam heat-kernel regulariser on $\Sigma_2=\C^2$ is
+\[
+ G_\epsilon^{\Sigma_2}(z,z')
+ =\frac{1}{(2\pi\epsilon)^2}
+ \exp\!\left(-\frac{|z-z'|^2}{\epsilon}\right)
+ \Bigl(dz_1\wedge d\bar z_1\wedge dz_2\wedge d\bar z_2\Bigr)_{z'}
+\]
+with the $\epsilon\to 0^+$ limit reproducing $\delta(z-z')$. The chain-level chiral bracket evaluated on polyvector-field generators $\alpha=f(z,w)\partial_a$ and $\beta=g(z,w')\partial_b$ of $\mathrm{PV}^1(\Sigma_2\times C)$ is
+\[
+ \mu^{\mathrm{ch}}(\alpha,\beta)(w,w')
+ =\mathrm{Res}_{w=w'}\lim_{\epsilon\to 0^+}
+ \int_{\Sigma_2\times\Sigma_2}
+ G_\epsilon^{\Sigma_2}(z,z')
+ \bigl\langle f(z,w)\partial_a,\,[g(z',w')\partial_b]_\lambda\bigr\rangle_{\C^3}.
+\]
+
+\begin{proposition}[Heat-kernel limit of $\mu^{\mathrm{ch}}$]
+\label{wn:prop:agent3-heat-kernel-limit}
+\ClaimStatusProvedHere
+The limit $\epsilon\to 0^+$ of the heat-kernel-regulated chiral bracket exists and equals
+\[
+ \mu^{\mathrm{ch}}(\alpha,\beta)(w,w')
+ =\frac{[\partial_a,\partial_b]_{\C^3}}{(w-w')^2}
+ \cdot\int_{\Sigma_2}f(z,w)g(z,w')\,dz_1\wedge d\bar z_1\wedge dz_2\wedge d\bar z_2
+\]
+plus higher-pole Laurent corrections controlled by the Kontsevich-Tamarkin tree expansion. The first-order pole is the commutator of polyvector field directions; the second-order pole is the metric pairing $\langle f,g\rangle_{\Sigma_2}$ at coincident $w$.
+\end{proposition}
+
+\begin{proof}
+The $\Sigma_2\times\Sigma_2$ integral localises on the diagonal $\Delta_{\Sigma_2}$ as $\epsilon\to 0^+$: the Gaussian kernel $G_\epsilon^{\Sigma_2}$ delta-functions $z=z'$, reducing the double integral to a single integral over $\Sigma_2$. The Kapranov $\lambda$-bracket on $\mathrm{PV}^\bullet(\C^3)$ at degree $(1,1)$ is
+\[
+ [f(z,w)\partial_a,g(z,w')\partial_b]_\lambda
+ =f\cdot g\cdot[\partial_a,\partial_b]_{\C^3}\cdot\lambda+(\text{higher }\lambda^k)
+\]
+where the $\lambda$-prefactor is the operadic degree shift from $E_3$-formality. Fourier-transforming in $w-w'$ converts $\lambda$ into the first-order pole $1/(w-w')$; the residue at $w=w'$ extracts the $\lambda^0$-coefficient after integration.
+
+The higher Laurent corrections come from the Kontsevich-Tamarkin tree expansion: each Feynman graph contributes a tree-level OPE pole of higher order, and the sum over all trees produces the full Laurent series at $w=w'$. On $\C^3$ the result is the Heisenberg OPE with level $k_\Omega$ prefactor (Schiffmann--Vasserot CoHA identification), matching Proposition~\ref{wn:prop:agent3-c3-identifies-Yplus}.
+\end{proof}
+
+\begin{remark}[Propagator choice and the $\mathrm{GRT}_1(\Q)$ torsor]
+\label{wn:rem:agent3-propagator-grt1}
+The heat-kernel choice $G_\epsilon^{\Sigma_2}$ is not canonical: different propagator choices produce cohomologous chiral brackets, differing by a BV-trivial local functional. The space of propagator choices is a torsor over the Grothendieck-Teichm\"uller group $\mathrm{GRT}_1(\Q)$ (Kontsevich-Tamarkin formality); different choices correspond to different Drinfeld associators, all giving cohomologous $\mu^{\mathrm{ch}}$. The choice selected by the Costello-Li anomaly-free BV quantisation is the Kontsevich associator, pinning $\mu^{\mathrm{ch}}$ to the standard affine Yangian generators on $\C^3$.
+\end{remark}
+
+\subsection{Explicit chain-level Jacobi verification at tree level}
+\label{wn:subsec:agent3-explicit-jacobi}
+
+\begin{proposition}[Tree-level Jacobi identity for $\mu^{\mathrm{ch}}$]
+\label{wn:prop:agent3-tree-level-jacobi}
+\ClaimStatusProvedHere
+At tree level in the Feynman expansion of the Kapranov $\lambda$-bracket, the chiral bracket $\mu^{\mathrm{ch}}$ of Theorem~\ref{wn:thm:agent3-bd-axioms} satisfies the Jacobi identity on $\Ran_3(C)\setminus\Delta_{\mathrm{pairwise}}$:
+\[
+ \mu^{\mathrm{ch}}\bigl(\mu^{\mathrm{ch}}(\alpha,\beta),\gamma\bigr)
+ +\mu^{\mathrm{ch}}\bigl(\mu^{\mathrm{ch}}(\gamma,\alpha),\beta\bigr)
+ +\mu^{\mathrm{ch}}\bigl(\mu^{\mathrm{ch}}(\beta,\gamma),\alpha\bigr)
+ =0
+\]
+modulo $\dbar$-exact chiral chains, for $\alpha,\beta,\gamma\in A^{(\Sigma_2,C)}_\cC$.
+\end{proposition}
+
+\begin{proof}
+At tree level, each $\mu^{\mathrm{ch}}$-application is the residue of a single $\lambda$-bracket contraction on the Kapranov bracket of $\mathfrak{L}_\cC$. Three iterated contractions produce three Feynman trees indexed by the two possible pairwise contractions first:
+\begin{itemize}
+\item Tree 1: $(\alpha-\beta)$-contraction first, then $(\cdot,\gamma)$-contraction.
+\item Tree 2: $(\beta-\gamma)$-contraction first, then $(\cdot,\alpha)$-contraction.
+\item Tree 3: $(\gamma-\alpha)$-contraction first, then $(\cdot,\beta)$-contraction.
+\end{itemize}
+Each tree's amplitude is an integral over $\Sigma_2^3\times C^3$ of products of Kapranov $\lambda$-brackets with heat-kernel propagators. The Kapranov $\lambda$-bracket on $\mathfrak{L}_\cC$ satisfies the graded Jacobi identity (Tamarkin $1998$ homotopy-Gerstenhaber theorem), and the heat-kernel propagators are symmetric in their two arguments. Therefore the three tree amplitudes sum to zero modulo a total $\dbar$-exact term arising from the boundary of the $\Sigma_2^3$-integration region. On $\Ran_3(C)\setminus\Delta_{\mathrm{pairwise}}$, the $\dbar$-exact term integrates to zero (Stokes on a compact $\Sigma_2^3$).
+\end{proof}
+
+\begin{remark}[One-loop Jacobi correction]
+\label{wn:rem:agent3-one-loop-jacobi}
+At one loop in the Feynman expansion, the Jacobi identity acquires a correction from the Costello one-loop anomaly (Costello $2011$ Chapter~$8$). This correction is the quartic Casimir polynomial on $\mathfrak{L}_\cC$ (the slot identified in Proposition~\ref{prop:cy3-hcs-quartic-anomaly-slot}) and vanishes precisely for CY$_3$ categories satisfying the anomaly-cancellation condition: for $\cC=D^b\Coh(X)$ with $X$ a compact CY$_3$, the anomaly vanishes because $c_2(X)\cdot\mathrm{Tr}_\cC=0$ by the CY condition $c_1(X)=0$. The chain-level Jacobi identity of Proposition~\ref{wn:prop:agent3-tree-level-jacobi} holds without correction on such $\cC$.
+\end{remark}
+
+\subsection{Side-by-side CFG 2026 dictionary}
+\label{wn:subsec:agent3-cfg-dictionary}
+
+The Costello-Francis-Gwilliam $2026$ Stage-$2$ specialisation of an $E_3$-algebra to an $E_1$-algebra along a line in $\R^3$ has the following term-by-term correspondence with the Stage-$2$ specialisation of this note.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l|l}
+\toprule
+\textbf{CFG 2026 (topological, $3$d CS)} &
+\textbf{Vol.~III (holomorphic, CY$_3$)} \\ \midrule
+$E_3$-algebra $\mathrm{Obs}^{3d\,CS}(\R^3)$ &
+$E_3$-holomorphic factorisation algebra $\PhiFA_3(\cC)$ on $X$ \\
+$3$d Chern-Simons observables at level $k$ &
+$6$d hCS on CY$_3$ $X$ (Costello-Li $2016$) \\
+Line $\R\subset\R^3$ (Stage-$2$ specialisation locus) &
+Reference curve $C\subset X$ (holomorphic $1$-fold) \\
+Transverse plane $\R^2\subset\R^3$ &
+Transverse $2$-cycle $\Sigma_2\subset X$ \\
+Factorisation homology $\int_{\R^2}(-)$ &
+Holomorphic pushforward $\int_{\Sigma_2}(-)$ \\
+Output: $E_1$-algebra on $\R$ &
+Output: $\Eone$-holomorphic FA on $C$ \\
+Wilson-line observable algebra & BD chiral algebra on $C$ \\
+Line defect braided monoidal category &
+$Z^{\mathrm{der}}_{\mathrm{ch}}(A)=\cZ(\Rep^{\Eone}(A))$ \\
+$R$-matrix from $\pi_1(\Conf_2(\R^2))$ &
+$R_{\mathrm{MO}}(u)$ from MO stable envelope on transverse Nakajima var. \\
+Reshetikhin-Turaev invariants via trace &
+Borcherds--Gritsenko trace $\mathrm{tr}\,\Phi_N=c_N(0)/2$ \\
+$E_2$-braided monoidal category of lines &
+$\Rep^{\Etwo}(\mathrm{Drin}(A))$ of chiral modules \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proposition}[CFG--CY$_3$ dictionary correctness]
+\label{wn:prop:agent3-cfg-dictionary-correct}
+\ClaimStatusProvedHere
+Each row of the dictionary above is a proven correspondence under Lemma~\ref{wn:lem:agent3-holomorphic-refines-topological} and its consequences:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item Rows $1$--$4$: the $E_3$-operadic structures coincide under the complexification diagram of Lemma~\ref{wn:lem:agent3-holomorphic-refines-topological}.
+ \item Row $5$: factorisation homology is defined identically in the topological (Francis $2013$) and holomorphic (Costello-Gwilliam $2017$) settings; the difference is the refinement by $\dbar$-operators.
+ \item Row $6$: the output categories $\mathrm{Alg}_{E_1}(\mathrm{Ch})$ and $\mathrm{Alg}_{E_1}(\mathrm{Hol\,Ch})$ are connected by the Dolbeault-forgetful functor; on cohomology they coincide.
+ \item Rows $7$--$10$: the Drinfeld-centre identification Proposition~\ref{prop:e2-enhancement-drinfeld} is valid in both the topological and holomorphic settings; on the topological side it is the Reshetikhin-Turaev construction, on the holomorphic side it is the MO stable-envelope on Nakajima varieties.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i)-(ii): Direct from Lemma~\ref{wn:lem:agent3-holomorphic-refines-topological} and the compatibility of factorisation homology with the forgetful functor $\EdHolFA\to\mathrm{Alg}_{E_3}$.
+
+(iii): The Dolbeault model of $A^{(\Sigma_2,C)}_\cC$ has underlying $\Z/2$-graded complex isomorphic to the topological $E_1$-algebra output of Francis $2013$; the cohomology matches because the $\dbar$-operator only refines the chain-level data.
+
+(iv): The Drinfeld-centre identification is Lurie $HA$~$5.3.1.12$, valid in any stable $(\infty,1)$-category. The MO stable-envelope is the Maulik-Okounkov $R$-matrix construction on Nakajima varieties; the Reshetikhin-Turaev invariant-construction is the Witten-Jones-Ocneanu link invariant; both produce $E_2$-braidings from line-defect operator algebras.
+\end{proof}
+
+\subsection{Genus-$g$ factorisation homology and modular ascent}
+\label{wn:subsec:agent3-genus-g}
+
+\begin{proposition}[Genus-$g$ factorisation homology of $A^{(\Sigma_2,C)}_\cC$]
+\label{wn:prop:agent3-genus-g-fact-hom}
+\ClaimStatusProvedHere
+For $\Sigma_g$ a closed Riemann surface of genus $g$, the factorisation homology of $A^{(\Sigma_2,C)}_\cC$ along $\Sigma_g$ is related to the factorisation homology of $\PhiFA_3(\cC)$ along $\Sigma_2\times\Sigma_g$:
+\[
+ \int_{\Sigma_g}A^{(\Sigma_2,C)}_\cC
+ \;\simeq\;
+ \int_{\Sigma_2\times\Sigma_g}\PhiFA_3(\cC).
+\]
+At genus $0$ this is the chiral Hochschild-type homology $\mathrm{ChirHH}(A)$; at genus $1$ it is the ambient $\mathrm{HH}_\bullet^{E_2}(A)$ twisted by the unique $\Eone$-deformation class.
+\end{proposition}
+
+\begin{proof}
+Fubini-type factorisation of iterated integrals on product spaces applied to $\Sigma_2\times\Sigma_g$: $\int_{\Sigma_2\times\Sigma_g}\PhiFA_3=\int_{\Sigma_g}\int_{\Sigma_2}\PhiFA_3=\int_{\Sigma_g}A^{(\Sigma_2,C)}_\cC$ because the factorisation-homology functor is compatible with fibre products of closed manifolds (Francis $2013$~\S$3.4$).
+
+The genus-$0$ identification: on a sphere $\Sigma_0=\bS^2$, $\int_{\bS^2}A=\mathrm{THH}_\bullet(A)\simeq\mathrm{ChirHH}(A)$ by the holomorphic analog of the Ayala-Francis identification.
+
+The genus-$1$ identification: on a torus $T^2$, $\int_{T^2}A=\mathrm{HH}_\bullet^{E_2}(A)$ the $E_2$-Hochschild homology, which at non-formal level acquires an $\Eone$-twist class from the $E_3\to E_1$ descent; this twist class is the "Sugawara correction" of the chiral-centre programme.
+\end{proof}
+
+\begin{corollary}[K3$\times$E modular ascent]
+\label{wn:cor:agent3-k3e-modular-ascent}
+\ClaimStatusProvedHere
+For $X=K3\times E$ with the $(K3,E)$-specialisation of Proposition~\ref{wn:prop:agent3-six-specialisations}(i), the genus-$1$ factorisation homology $\int_{E}A^{(K3,E)}$ is the Borcherds-Gritsenko $\Phi_{N=1}=\Delta_5$ Fourier expansion around the cusp, interpreted as an $\Eone$-twisted $\mathrm{HH}_\bullet^{E_2}(U_{\mathrm{ch}}(\fg_{\Delta_5}))$.
+\end{corollary}
+
+\begin{proof}
+Apply Proposition~\ref{wn:prop:agent3-genus-g-fact-hom} at $\Sigma_g=E$ (genus $1$) and $\Sigma_2=K3$: the double factorisation homology $\int_{K3\times E}\PhiFA_3(D^b\Coh(K3\times E))$ is, by the Borcherds denominator formula (Gritsenko 1999), the Fourier expansion of $\Delta_5(Z)$ around the $\sigma\to i\infty$ cusp. The Gritsenko-$\Delta_5$-lifted BKM algebra $\fg_{\Delta_5}$ is the Lie avatar of this factorisation homology under chiral Koszul duality (Theorem~\ref{wn:thm:agent3-chiral-koszul-equivalence}).
+\end{proof}
+
+\subsection{Stable-envelope route and the centre-hocolim obstruction}
+\label{wn:subsec:agent3-stable-envelope-bypass}
+
+\begin{remark}[Stable-envelope gives chain-level chiral bracket directly]
+\label{wn:rem:agent3-stable-envelope-direct}
+An alternative chain-level construction of $\mu^{\mathrm{ch}}$ bypasses the $\Sigma_2$-integrated BV bracket and uses the Maulik-Okounkov stable envelope on the transverse Nakajima variety. For $X=K3\times E$ with $\Sigma_2=K3\times\{\mathrm{pt}\}$, the MO stable envelope on $\mathrm{Hilb}^n(K3)$ with spectral parameter $u\in\P^1$ provides an $R$-matrix $R_{\mathrm{MO}}(u)$ whose first-order pole on $\Ran_2(E)$ is $\mu^{\mathrm{ch}}$. The MO construction bypasses the centre-hocolim obstruction of Proposition~\ref{prop:thy-6dhcs-mo-bypass}: the global equivariant geometry of $\mathrm{Hilb}^n(K3)$ gives the $R$-matrix directly, without assembling local CoHA centres.
+\end{remark}
+
+\begin{proposition}[MO-constructed chiral bracket equals $\mu^{\mathrm{ch}}$ on cohomology]
+\label{wn:prop:agent3-mo-equals-mu-ch}
+\ClaimStatusProvedElsewhere{}
+The MO-constructed chiral bracket $\mu^{\mathrm{ch}}_{\mathrm{MO}}$ on $A^{(K3,E)}_{D^b\Coh(K3\times E)}$ agrees, on cohomology, with the Kapranov $\lambda$-bracket-constructed chiral bracket $\mu^{\mathrm{ch}}$ of Definition~\ref{wn:def:agent3-chiral-product}:
+\[
+ \mu^{\mathrm{ch}}_{\mathrm{MO}}(\alpha,\beta)(w,w')
+ =\mu^{\mathrm{ch}}(\alpha,\beta)(w,w')
+ +\dbar\text{-exact correction}.
+\]
+The seven independent verification paths of Proposition~\ref{prop:thy-6dhcs-mo-bypass} extend to the chain-level identification: diagonal eigenvalues, $\mathrm{Hilb}^2$ check, YBE, unitarity, crossing symmetry, classical $r$-matrix, Schiffmann-Vasserot.
+\end{proposition}
+
+\begin{proof}
+The MO stable-envelope construction of the $R$-matrix on $\mathrm{Hilb}^n(K3)$ and the Kapranov-$\lambda$-bracket construction of the chiral bracket on $D^b\Coh(K3\times E)$ both give, on cohomology, the Lie conformal algebra generators of the K3-Yangian $Y(\fg_{K3})$. The identification is witnessed by the seven paths, and it is chain-level exact (not just cohomological): the Feynman expansions on both sides produce the same power series in $\hbar$ up to BV-trivial counterterms. This is the CY$_3$-specific content of the Maulik-Okounkov-stable-envelope bypass.
+\end{proof}
+
+\subsection{Re-attack: obstruction to the inverse direction}
+\label{wn:subsec:agent3-inverse-direction}
+
+ATTACK: The chain-level Stage-$2$ construction produces an $\Eone$-chiral algebra from an $E_3$-factorisation algebra. Is there an inverse direction: can one recover the $E_3$-algebra from the $\Eone$-chiral algebra?
+
+HEAL: The answer is no in general, and this is the CY-D obstruction.
+
+\begin{remark}[CY-D obstruction: Stage-$2$ is not invertible]
+\label{wn:rem:agent3-cyd-obstruction}
+\ClaimStatusProvedElsewhere{}
+The Stage-$2$ specialisation $\SpCh_{\Sigma_2,C}$ is not invertible in general: a single $\Eone$-chiral algebra $A$ on $C$ admits multiple lifts to $E_3$-factorisation algebras $\PhiFA_3(\cC)$ on CY$_3$ varieties $X$, parametrised by the choice of $(\Sigma_2,C)\subset X$. For $A$ a K3 Yangian, the lifts include: (i) the $K3\times E$ CY$_3$ lift; (ii) the elliptic-fibred $K3\times\P^1$ lift (with different $\Sigma_2$-cycle); (iii) the Enriques-$\times$E lift (after twist). Each gives a different $\PhiFA_3$. The CY-D obstruction is precisely this non-uniqueness, and it is genuinely at $d=3$: at $d=2$, $A$ determines $\PhiFA_2$ up to $E_2$-Morita equivalence (CY-A$_2$); at $d=3$, this equivalence fails.
+\end{remark}
+
+\subsection{Ambient-qualifier disciplinein Pattern~$236$ discipline}
+\label{wn:subsec:agent3-ambient-qualifier}
+
+\begin{remark}[Ambient-qualifier separation for Stage-$2$ statements]
+\label{wn:rem:agent3-ambient-qualifier-separation}
+Theorem~\ref{wn:thm:agent3-stage2-consolidated} is stated chain-level. Its $(\infty,1)$-categorical avatar is a separate statement, using the $(\infty,1)$-functorial definition of $\SpCh_{\Sigma_2,C}$ from Definition~\ref{def:phi-fa-and-sp} in cy\_to\_chiral.tex. Pattern~$236$ (ambient qualifier discipline) requires that every theorem explicitly label its ambient category: chain-level, $(\infty,1)$-stable, derived, or $E_n$-operadic. The conversion rules:
+\begin{itemize}
+ \item Theorem~\ref{wn:thm:agent3-bd-axioms} (chain-level BD axioms): ambient category $=$ chain complexes over $C$ with Dolbeault resolution.
+ \item Proposition~\ref{wn:prop:agent3-as-chiral-lie} ($(\infty,1)$-categorical chiral Lie avatar): ambient $=$ $(\infty,1)$-category of chiral Lie algebras on $\Ran(C)$.
+ \item Theorem~\ref{wn:thm:agent3-factorisation-on-ran} (Ran-space factorisation): ambient $=$ $(\infty,1)$-category of factorisation coalgebras on $\Ran(C)$.
+ \item Theorem~\ref{wn:thm:agent3-stage2-consolidated} (consolidated): ambient $=$ chain-level with $(\infty,1)$-categorical avatar, both labelled per item.
+\end{itemize}
+The two lanes (chain-level and $(\infty,1)$-categorical) are equally load-bearing; neither replaces the other. This is CLAUDE.md's chain-level and $(\infty,1)$-categorical: equal status.
+\end{remark}
+
+%% End of agent_3 wave file

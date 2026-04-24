@@ -1034,4 +1034,202 @@ $\PhiFA_3(\mathcal C)$.
 The asymmetry in visible invariants is Yoneda-asymmetry between an object and its framings: an external gauge $\mathfrak{g}$ is the endomorphism algebra $H^0(R\End_{\mathcal{C}}(V))$ of a chosen framing $V \in \mathcal{C}$; the whole $R\End_{\mathcal{C}}(-)$ sheaf over $\mathcal{C}^{\cong}$ is the internal datum. The geometric grammar fixes one fibre of this sheaf; the categorical grammar carries all fibres simultaneously, together with the 2-groupoid $\mathrm{Aut}^\otimes(\mathcal{C})$ of Fourier--Mukai autoequivalences that relate them. Morita-invariant categorical invariants (Serre pairing, Hochschild cohomology, formal-locus $E_3$-structure) are common to all framings; framing-specific invariants (quartic anomaly slot, BV determinant, specific propagator regularisation) depend on the choice of fibre.
 \end{remark}
 
+%--------------------------------------------------------------------------------
+\subsection{The $E_3$ holomorphic algebra of observables: first-principles avatar}
+\label{subsec:E3-algebra-of-observables-avatar}
+%--------------------------------------------------------------------------------
+
+Costello--Francis--Gwilliam 2026 (CFG) treats the ordinary three-dimensional Chern--Simons theory on $\R^3$: its factorisation algebra of observables is a locally-constant factorisation algebra on $\R^3$, hence by Lurie's recognition theorem an $E_3$-algebra in chain complexes. The present subsection constructs the six-dimensional holomorphic Chern--Simons avatar side by side with that source: the field-theoretic input is different (holomorphic rather than topological), but the operadic scaffolding is the same.
+
+\subsubsection{The holomorphic $E_3$ operad on $\C^3$}
+\label{sssec:holE3-operad}
+
+\begin{definition}[Holomorphic $E_3$ operad]
+\label{def:holE3-operad-avatar}
+Let $\C^3$ be equipped with its Dolbeault complex structure. The operad $E_3^{\hol}$ of \emph{holomorphic little $3$-polydisks} has:
+\begin{itemize}
+\item $\operatorname{Ar}(n) = \mathrm{Conf}_n(\C^3)$ (unordered configurations of $n$ points in $\C^3$).
+\item Composition by nested inclusion of polydisks $D_r(z) = \{w : |w_i - z_i| < r_i\}$.
+\item $\mathbb{T}^3$-equivariance by the diagonal torus action on $\C^3$.
+\end{itemize}
+$\pi_1(\mathrm{Conf}_2(\C^3)) = \pi_1(S^5) = 0$ (Hurewicz), so $E_3^{\hol}$ is simply connected: no braid monodromy, but the Koszul $(-2)$-shifted bracket is nonzero. Over $\Q$, $H_*(E_3^{\hol}; \Q) \simeq H_*(E_3^{\top}; \Q) \simeq \Pois_3$, the shifted Poisson operad; over chain complexes this is not equivalent to commutative algebras.
+\end{definition}
+
+\begin{proposition}[Koszul dual of $E_3^{\hol}$]
+\label{prop:e3-hol-koszul}
+The Koszul dual operad of $E_3^{\hol}$ in chain complexes is $(E_3^{\hol})^! \simeq \Lie[2]$, the $2$-shifted Lie operad. In particular, an $E_3^{\hol}$-algebra in chain complexes is modelled by a chain complex $\obsc$ with a graded-commutative product and a Poisson bracket $\{-,-\}$ of degree $-2$ satisfying Leibniz. (Fresse 2017 Vol.~I Thm.~14.1.A.)
+\end{proposition}
+
+\begin{remark}[CFG vs avatar operad]
+\label{rem:cfg-vs-avatar-operad}
+CFG 2026 works with $E_3^{\top} = $ topological little $3$-disks on $\R^3$: same $\pi_1 = 0$, same rational Poisson-$3$ homotopy type, but its factorisation algebras on $\R^3$ recover all topological $E_3$-algebras. The avatar operad $E_3^{\hol}$ recovers only the Dolbeault-holomorphic sector on $\C^3$. Every theorem on the CFG side that depends only on operadic $E_3$-homotopy type transports across; theorems that depend on full topological locality (e.g.\ smooth-manifold invariance of factorisation homology) do not transport without additional holomorphic-locality hypotheses.
+\end{remark}
+
+\subsubsection{Classical BV datum from first principles}
+\label{sssec:classical-BV-datum}
+
+\begin{definition}[hCS BV complex on $\C^3$]
+\label{def:hCS-BV-avatar}
+Fix a finite-dimensional Lie algebra $\fg$ with invariant non-degenerate pairing $\langle -, - \rangle$ and holomorphic volume $\Omega = dz_1 \wedge dz_2 \wedge dz_3$. The classical BV field complex is
+\[
+\cE_{\hCS} := \Omega^{0,\bullet}(\C^3, \fg)[1],
+\]
+graded by BV ghost number: $c \in \Omega^{0,0}(\fg)[1]$ (ghost, gh $= -1$), $A \in \Omega^{0,1}(\fg)$ (gauge field, gh $= 0$), $A^* \in \Omega^{0,2}(\fg)[-1]$ (antifield, gh $= +1$), $c^* \in \Omega^{0,3}(\fg)[-2]$ (antighost, gh $= +2$). Pair via
+\[
+\omega(\alpha, \beta) := \int_{\C^3} \Omega \wedge \langle \alpha, \beta \rangle,
+\]
+a $(-1)$-shifted symplectic pairing by Serre duality $H^{0,3}(\C^3, \omega_c) \simeq \C$.
+\end{definition}
+
+\begin{proposition}[Classical master equation]
+\label{prop:classical-ME-avatar}
+The classical action
+\[
+S_{\mathrm{cl}}[\cA] \;=\; \int_{\C^3} \Omega \wedge \left( \tfrac{1}{2} \langle \cA, \bar\partial \cA \rangle + \tfrac{1}{6} \langle \cA, [\cA, \cA] \rangle \right), \qquad \cA \in \cE_{\hCS}
+\]
+satisfies $\{S_{\mathrm{cl}}, S_{\mathrm{cl}}\} = 0$ by the Jacobi identity on $\fg$ and integration by parts against $\bar\partial\Omega = 0$. Expanding $\cA = c + A + A^* + c^*$ and reading the $(3,3)$-form component produces the usual BRST structure: $Q_0 c = \tfrac{1}{2}[c,c]$, $Q_0 A = \bar\partial c + [c, A]$, $Q_0 A^* = [c, A^*] + \bar\partial A + \tfrac{1}{2}[A, A]$, $Q_0 c^* = [c, c^*] + \bar\partial A^* + [A, A^*]$.
+\end{proposition}
+
+\subsubsection{Maurer--Cartan, twisting, $L_\infty$-obstruction}
+\label{sssec:MC-twisting-Linf}
+
+\begin{proposition}[Maurer--Cartan = flat hCS]
+\label{prop:MC-flat-hCS-avatar}
+The classical BV field complex $\cE_{\hCS}$ is a dg $L_\infty$-algebra with:
+\begin{itemize}
+\item $\ell_1(\cA) = \bar\partial \cA$;
+\item $\ell_2(\cA_1, \cA_2) = [\cA_1, \cA_2]$;
+\item $\ell_k = 0$ for $k \geq 3$ (on $\C^3$; compact CY$_3$ acquires $\ell_3^{\min} = Y_3$ via Kapranov).
+\end{itemize}
+The Maurer--Cartan set
+$\mathrm{MC}(\cE_{\hCS}) = \{\cA : \bar\partial \cA + \tfrac{1}{2}[\cA, \cA] = 0\}$
+is the locus of solutions to the classical hCS equation of motion, and the gauge quotient
+$\mathrm{MC}(\cE_{\hCS}) / \mathcal{G}$ is the moduli of holomorphic $\fg$-bundles on $\C^3$ with BV gauge-fixing.
+\end{proposition}
+
+\begin{proposition}[Twisting and formal deformation theory]
+\label{prop:twisting-hCS-avatar}
+For $\cA_0 \in \mathrm{MC}(\cE_{\hCS})$, the twisted $L_\infty$-algebra $(\cE_{\hCS}^{\cA_0}, \ell_1^{\cA_0}, \ell_2^{\cA_0}, \ldots)$ has
+\[
+\ell_1^{\cA_0}(\alpha) = \bar\partial \alpha + [\cA_0, \alpha], \qquad \ell_2^{\cA_0} = [\cdot, \cdot],
+\]
+and formal deformations of $\cA_0$ are classified by $H^1(\cE_{\hCS}^{\cA_0})$; obstructions live in $H^2(\cE_{\hCS}^{\cA_0})$. For $\cA_0 = 0$ on $\C^3$: $H^1 = H^{0,1}(\C^3, \fg) = 0$ (rigid), $H^2 = H^{0,2}(\C^3, \fg) = 0$ (unobstructed).
+\end{proposition}
+
+\subsubsection{The BV--BRST complex and factorisation algebra}
+\label{sssec:BV-BRST-factorisation}
+
+\begin{definition}[Classical observables as CE cochains]
+\label{def:classical-obs-CE-avatar}
+\[
+\mathrm{Obs}^{\mathrm{cl}}_{\hCS}(U) := \mathrm{CE}^\bullet(\cE_{\hCS}(U)) = \widehat{\mathrm{Sym}}^\bullet\!\left(\cE_{\hCS}(U)^\vee[-1]\right), \quad U \subset \C^3 \text{ open},
+\]
+with Chevalley--Eilenberg differential $Q_0$ dual to the $L_\infty$-structure. This is the algebra of formal functions on the $L_\infty$-field complex, with $(-1)$-shifted symplectic structure induced from $\omega$.
+\end{definition}
+
+\begin{theorem}[Classical prefactorisation algebra]
+\label{thm:classical-prefact-avatar}
+$U \mapsto \mathrm{Obs}^{\mathrm{cl}}_{\hCS}(U)$ forms a holomorphic prefactorisation algebra on $\C^3$: for disjoint $U_1, \ldots, U_n \subset V$, the structure maps
+\[
+\mathrm{Obs}^{\mathrm{cl}}_{\hCS}(U_1) \otimes \cdots \otimes \mathrm{Obs}^{\mathrm{cl}}_{\hCS}(U_n) \to \mathrm{Obs}^{\mathrm{cl}}_{\hCS}(V)
+\]
+are the pullback along pullback of the $L_\infty$-field complex, compatible with $Q_0$ and holomorphic with respect to the Dolbeault complex structure. (Costello--Gwilliam 2017 Vol.~II §5.1.)
+\end{theorem}
+
+\subsubsection{Costello renormalisation in the chiral avatar}
+\label{sssec:costello-renormalisation-avatar}
+
+\begin{definition}[Heat-kernel regulator]
+\label{def:heat-kernel-avatar}
+For $\varepsilon > 0$ let $K_\varepsilon : \C^3 \times \C^3 \to \wedge^3 T^*_{\C^3} \otimes \wedge^3 T^*_{\C^3}$ be the heat kernel for the Laplacian $\Delta_{\bar\partial}$ at time $\varepsilon$. The regularised propagator is
+\[
+P_{\varepsilon, L}(z, w) = \int_\varepsilon^L (\bar\partial^* \otimes 1) K_t(z, w) \, dt,
+\]
+degenerating at $\varepsilon \to 0$ to the Bochner--Martinelli kernel
+\[
+P_{\mathrm{BM}}(z, w) = \frac{2}{(2\pi i)^3} \sum_{k=1}^{3} \frac{(-1)^{k-1} \overline{(z_k - w_k)}}{\|z - w\|^6} \, \widehat{d\bar z_k} \wedge dw_1 \wedge dw_2 \wedge dw_3.
+\]
+\end{definition}
+
+\begin{theorem}[Renormalisation group flow and counterterms]
+\label{thm:RG-flow-avatar}
+Costello's RG flow $W(P_{\varepsilon, L}, S) = \hbar \log \int e^{(S + I)/\hbar}$ extends the classical action $S_{\mathrm{cl}}$ to a family of effective interactions $\{I[L]\}_{L>0}$ satisfying:
+\begin{enumerate}
+\item \emph{RG equation:} $I[L'] = W(P_{L, L'}, I[L])$.
+\item \emph{Scale-zero locality:} $\lim_{L \to 0} I[L]$ exists modulo local counterterms $\hbar \sum_n \hbar^n I^{\mathrm{c.t.}}_n[\varepsilon]$.
+\item \emph{Quantum master equation:} $(Q_0 + \hbar \Delta) e^{(S + I[L])/\hbar} = 0$, equivalently $Q_0 I + \tfrac{1}{2}\{I, I\} + \hbar \Delta I = 0$.
+\end{enumerate}
+The space of counterterms is parametrised by a finite-dimensional renormalisation group; on $\C^3$ with gauge $\fgl_r$ the one-loop counterterm is the wave-function $- \hbar C_2(\fg)(4\pi)^{-3} \log(L/\varepsilon) \int \Omega \wedge \mathrm{Tr}(\cA \bar\partial \cA)$ plus the BCOV one-loop curving $\chi(X)/24 \cdot [\Omega]^{0,1}$ in the compact case.
+\end{theorem}
+
+\subsubsection{The quantum $E_3$ holomorphic factorisation algebra}
+\label{sssec:quantum-E3-factorisation}
+
+\begin{theorem}[Quantum observables as $E_3$-holomorphic factorisation algebra]
+\label{thm:quantum-obs-E3-avatar}
+At each renormalisation scale $L$, the quantum observables
+\[
+\mathrm{Obs}^{\mathrm{q}}_{\hCS}(U)[L] := \left( \mathrm{CE}^\bullet(\cE_{\hCS}(U))[[\hbar]], \; Q_0 + \hbar \{I[L], -\} + \hbar \Delta_L \right)
+\]
+form an $E_3$-holomorphic factorisation algebra on $\C^3$ in the sense of Costello--Gwilliam Vol.~II §5.3: disjoint-union structure maps are chain maps, Dolbeault-holomorphic in $z$, and the operad action by $\mathrm{Conf}_n(\C^3) / \mathbb{T}^3$ is coherent through the Bochner--Martinelli Feynman weights.
+
+\noindent
+\emph{Proof sketch.} The prefactorisation structure is Theorem~\ref{thm:classical-prefact-avatar} transported to the quantum level via the Costello RG (Theorem~\ref{thm:RG-flow-avatar}); holomorphic locality is the Dolbeault compatibility of $P_{\mathrm{BM}}$ (Definition~\ref{def:heat-kernel-avatar}); the $E_3$-operad coherence is the integration-over-$\overline{\mathrm{Conf}}_n(\C^3)$ formula for the Feynman amplitudes, which agree with the Kontsevich graph-weight formula on $\R^3$ upon restriction to real configurations, and hence pick the Kontsevich associator in the $\mathrm{GRT}_1(\Q)$-torsor (Tamarkin 1998, Willwacher 2014).
+\end{theorem}
+
+\begin{corollary}[Generators and relations]
+\label{cor:E3-gens-rels-avatar}
+As an $E_3^{\hol}$-algebra in chain complexes, $\mathrm{Obs}^{\mathrm{q}}_{\hCS}(\C^3)$ is generated by the linear observables
+\[
+\cO_\phi[\cA] := \int_{\C^3} \Omega \wedge \langle \phi, \cA \rangle, \qquad \phi \in \Omega^{0,\bullet}_c(\C^3, \fg^\vee)
+\]
+subject to the relations:
+\begin{enumerate}
+\item $\cO_{\bar\partial \phi} = Q_0 \cO_\phi$ (compatibility with $\ell_1$);
+\item $\cO_\phi \star \cO_\psi - (-1)^{|\phi||\psi|} \cO_\psi \star \cO_\phi = \hbar \cO_{[\phi, \psi]_{\mathrm{BM}}}$ (Poisson bracket via Bochner--Martinelli propagator) up to quantum corrections;
+\item $\cO_\phi \star \cO_\psi \star \cO_\chi = \sum_\Gamma w_\Gamma \cdot B_\Gamma(\phi, \psi, \chi)$ with $w_\Gamma = \int_{\overline{\mathrm{Conf}}_n(\C^3)} \omega_\Gamma$ (the Kontsevich cubic).
+\end{enumerate}
+These exhibit $\mathrm{Obs}^{\mathrm{q}}_{\hCS}(\C^3)$ as the $E_3^{\hol}$-enveloping algebra $U^{E_3^{\hol}}(\cE_{\hCS}[1])$ of the $L_\infty$-algebra $\cE_{\hCS}$ with its shifted pairing.
+\end{corollary}
+
+\begin{theorem}[BV--BRST trace]
+\label{thm:BV-BRST-trace-avatar}
+For compact $X$ a Calabi--Yau threefold, the BV--BRST trace on $\mathrm{Obs}^{\mathrm{q}}_{\hCS}(X)$ is
+\[
+\mathrm{Tr}_{\mathrm{BV}}(\cO) = \int_{\mathcal{L}} e^{(S + I[L])/\hbar} \cdot \cO
+\]
+where $\mathcal{L} \subset \cE_{\hCS}(X)$ is a $(-1)$-shifted Lagrangian (gauge-fixing). On the Stage-$1$ factorisation algebra this agrees with the $E_3$-trace determined by the nondegenerate pairing $S^5 \subset \partial \overline{\mathrm{Conf}}_2(\C^3)$, giving a trace class $\mathrm{Tr}_{E_3} \in \mathrm{HH}_{-3}^{E_3}(\mathrm{Obs}^{\mathrm{q}}_{\hCS})$.
+\end{theorem}
+
+\subsubsection{Cross-consistency: CoHA, $\mathcal{W}_{1+\infty}$, and the $E_3$ avatar}
+\label{sssec:cross-consistency-CoHA-W-E3}
+
+\begin{theorem}[Avatar cross-consistency with CoHA chain]
+\label{thm:cross-consistency-avatar}
+The three structures
+\[
+\begin{array}{c}
+\mathrm{CoHA}(\C^3) \;\simeq\; Y^+(\widehat{\fgl}_1) \\
+\downarrow \text{\small(Drinfeld double)} \\
+Y(\widehat{\fgl}_1) \;\simeq\; \mathcal{W}_{1+\infty} \text{ affine Yangian} \\
+\updownarrow \text{\small(hCS-to-Hall comparison, conjectural)} \\
+\mathrm{Obs}^{\mathrm{q}}_{\hCS}(\C^3) \text{ in } E_3^{\hol}\text{-}\HolFA(\C^3)
+\end{array}
+\]
+are compatible in the following precise sense:
+\begin{enumerate}
+\item $\mathrm{CoHA}(\C^3) \simeq Y^+$ only; the full $\mathcal{W}_{1+\infty}$ requires the Drinfeld double, NOT $\mathrm{CoHA}$ directly (cache discipline).
+\item $\mathrm{Obs}^{\mathrm{q}}_{\hCS}(\C^3)$ is an $E_3^{\hol}$-algebra on $\C^3$; $\mathcal{W}_{1+\infty}$ is an $E_2$-(vertex) algebra on $\C$. The passage $E_3^{\hol}(\C^3) \to E_2(\C)$ is Stage-$2$ factorisation homology along the transverse $\C^2$ fibre:
+\[
+\int_{\C^2} \mathrm{Obs}^{\mathrm{q}}_{\hCS}(\C^3) \;\simeq\; \mathrm{Obs}^{\mathrm{q}}_{\mathrm{defect}}(\C), \quad \text{a vertex algebra.}
+\]
+\item The identification $\mathrm{Obs}^{\mathrm{q}}_{\mathrm{defect}}(\C) \simeq \mathcal{W}_{1+\infty}$ is the Costello 2013 + Gaiotto--Rap\v{c}\'ak 2018 conjectural defect identification, not a direct theorem of CFG 2026.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[AP-CY discipline at $d = 3$]
+\label{rem:AP-CY-d3-avatar}
+At $d = 3$, the CY chiral algebra $A_{\C^3} = \Phi_3(\Perf(\C^3))$ is $E_1$. The $E_3^{\hol}$-structure on $\mathrm{Obs}^{\mathrm{q}}_{\hCS}(\C^3)$ is a statement about the \emph{factorisation algebra of the 6d hCS field theory on $\C^3$}, not about $A_{\C^3}$ itself. The $E_2$-braided enhancement, when it exists, lives on the Drinfeld centre $\cZ(\mathrm{Rep}^{E_1}(A_{\C^3}))$; at the field-theoretic level this is the statement that Stage-$2$ specialisation $\int_{\C^2}$ produces an $E_1 = E_2 \otimes E_{-1}$-structure, with the $E_2$-shadow recovered on $\cZ$. Conflating the ambient $E_3^{\hol}$-structure on the factorisation algebra with an $E_2$-structure on $A$ is AP-CY: the ambient field-theory operad is not the CY-category-output operad.
+\end{remark}
+
 \emph{End of treatise.}

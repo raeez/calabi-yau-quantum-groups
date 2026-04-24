@@ -1,5 +1,6 @@
 from compute.lib.attractor_shadow_e1_engine import (
     CONIFOLD_SHADOW,
+    shadow_depth_classification,
     verify_bridge_conifold,
     verify_parallel_transport,
 )
@@ -21,3 +22,10 @@ def test_conifold_shadow_parallel_transport_is_flat():
 
     assert transport["error"]
     assert max(transport["error"]) < 1e-8
+
+
+def test_k3xe_full_bkm_shadow_is_class_m_not_projection_class_g():
+    classification = shadow_depth_classification()["K3 x E"]
+
+    assert classification.shadow_class == "M"
+    assert "projection" in classification.attractor_structure

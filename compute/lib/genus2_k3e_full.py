@@ -29,7 +29,8 @@ SHADOW TOWER DATA (K3 sigma model, from mock_modular_k3_proof.py):
 
 For K3 x E as a CY_3:
   kappa_ch(K3xE) = 3  (= kappa_ch(K3) + kappa_ch(E) = 2 + 1)
-  kappa_cat       = 2  (= chi(O_{K3}))
+  kappa_cat       = 0  (= chi(O_{K3 x E}))
+  kappa_cat_fiber = 2  (= chi(O_{K3}))
   kappa_BKM       = 5  (= weight of Delta_5 = c(0)/2)
   kappa_fiber     = 24 (= Mukai lattice rank)
 
@@ -98,10 +99,10 @@ WEIGHTS UNDER Sp_4(Z):
   R_shadow: NOT a Siegel modular form (class M => mock modular)
   Z_2^{K3xE} = Z_2^{Heis} * R_shadow: mock Siegel modular, weight -12
   1/Phi_10: true Siegel modular, weight -10 (the DMVV answer)
-  S-hat: weight -4 = -2*kappa_cat
+  S-hat: weight -4 = -2*kappa_cat_fiber
 
   The weight discrepancy -12 vs -10 is exactly:
-    wt(1/Phi_10) - wt(Z_2^{Heis}) = -10 - (-12) = 2 = kappa_cat
+    wt(1/Phi_10) - wt(Z_2^{Heis}) = -10 - (-12) = 2 = kappa_cat_fiber
   This factor is the contribution of the Eisenstein normaliser.
 
 CLAIM STATUS:
@@ -114,7 +115,7 @@ CLAIM STATUS:
 
 AP COMPLIANCE:
   AP113: bare kappa FORBIDDEN. All kappa subscripted: kappa_ch, kappa_cat,
-         kappa_BKM, kappa_fiber.
+         kappa_cat_fiber, kappa_BKM, kappa_fiber.
   AP-CY6/14: A_{K3xE} for d=3 does NOT exist as proved object. Results
              CONJECTURAL. Uses conjecture environment.
   AP-CY8: Borcherds product = bar Euler product is OBSERVATION.
@@ -191,7 +192,8 @@ K3_S4 = Fraction(5, 156)        # quartic shadow coefficient
 
 # K3 x E compound data
 K3E_KAPPA_CH = Fraction(3)      # = kappa_ch(K3) + kappa_ch(E) = 2 + 1
-K3E_KAPPA_CAT = Fraction(2)     # = chi(O_{K3})
+K3E_KAPPA_CAT = Fraction(0)     # = chi(O_{K3 x E})
+K3E_KAPPA_CAT_FIBER = Fraction(2)  # = chi(O_{K3})
 K3E_KAPPA_BKM = Fraction(5)     # = weight of Delta_5 = c(0)/2
 K3E_KAPPA_FIBER = Fraction(24)  # = Mukai lattice rank
 K3E_CENTRAL_CHARGE = 24         # c = 24 for K3 x E
@@ -607,13 +609,14 @@ def genus2_partition_k3xe_full(
         # Kappa spectrum (AP113)
         "kappa_ch": float(K3E_KAPPA_CH),
         "kappa_cat": float(K3E_KAPPA_CAT),
+        "kappa_cat_fiber": float(K3E_KAPPA_CAT_FIBER),
         "kappa_BKM": float(K3E_KAPPA_BKM),
         "kappa_fiber": float(K3E_KAPPA_FIBER),
         # Weights
         "weight_Z2_heis": -K3E_CENTRAL_CHARGE / 2.0,   # -12
         "weight_1_over_Phi10": -10,
-        "weight_S_hat": -2 * float(K3E_KAPPA_CAT),      # -4
-        "weight_Eisenstein": 2 * float(K3E_KAPPA_BKM) - 2 * float(K3E_KAPPA_CAT),  # 6
+        "weight_S_hat": -2 * float(K3E_KAPPA_CAT_FIBER),      # -4
+        "weight_Eisenstein": 2 * float(K3E_KAPPA_BKM) - 2 * float(K3E_KAPPA_CAT_FIBER),  # 6
         # Comparison to DMVV
         "ratio_dmvv_over_z2": ratio_to_dmvv,
         "shadow_siegel_gap_present": True,
@@ -797,7 +800,7 @@ def sp4_modularity_analysis_k3xe(
       Z_2^{K3xE}:      mock Siegel modular, weight -12
 
       1/Phi_10:         true Siegel modular, weight -10
-      S-hat:            weight -4 = -2*kappa_cat
+      S-hat:            weight -4 = -2*kappa_cat_fiber
 
     The MOCK part comes from:
       C_3 contains E_2(tau) which transforms as:
@@ -831,7 +834,10 @@ def sp4_modularity_analysis_k3xe(
         "weight_S_hat": -4,
         "weight_discrepancy": -12 - (-10),  # = -2
         "kappa_cat": float(K3E_KAPPA_CAT),
-        "weight_discrepancy_equals_minus_kappa_cat": (-12 - (-10)) == -int(K3E_KAPPA_CAT),
+        "kappa_cat_fiber": float(K3E_KAPPA_CAT_FIBER),
+        "weight_discrepancy_equals_minus_kappa_cat_fiber": (
+            (-12 - (-10)) == -int(K3E_KAPPA_CAT_FIBER)
+        ),
         "delta5_t1_multiplier": d5_ratio_t1,
         "E2_star_tau": E2_star_tau,
         "E2_star_sigma": E2_star_sigma,
@@ -914,8 +920,10 @@ def genus2_k3xe_weight_table() -> Dict[str, Any]:
         "kappa_spectrum": {
             "kappa_ch": {"value": 3, "source": "chiral algebra Phi(D^b(K3xE))",
                          "status": "PROVED (additivity at d=2)"},
-            "kappa_cat": {"value": 2, "source": "chi(O_{K3})",
-                          "status": "PROVED (classical)"},
+            "kappa_cat": {"value": 0, "source": "chi(O_{K3 x E})",
+                          "status": "PROVED (Kunneth)"},
+            "kappa_cat_fiber": {"value": 2, "source": "chi(O_{K3})",
+                                "status": "PROVED (classical)"},
             "kappa_BKM": {"value": 5, "source": "weight of Delta_5 = c(0)/2",
                           "status": "PROVED (Borcherds)"},
             "kappa_fiber": {"value": 24, "source": "Mukai lattice rank",
@@ -933,9 +941,9 @@ def genus2_k3xe_weight_table() -> Dict[str, Any]:
                       "group": "Sp_4(Z)", "type": "true modular"},
         },
         "weight_relations": {
-            "wt(S_hat) = -2*kappa_cat": f"-4 = -2*{2}",
+            "wt(S_hat) = -2*kappa_cat_fiber": f"-4 = -2*{2}",
             "wt(Phi_10) = 2*kappa_BKM": f"10 = 2*{5}",
-            "wt(E_6) = 2*kappa_BKM - 2*kappa_cat": f"6 = 2*{5} - 2*{2}",
+            "wt(E_6) = 2*kappa_BKM - 2*kappa_cat_fiber": f"6 = 2*{5} - 2*{2}",
             "wt(S_hat) = wt(1/Phi_10) + wt(E_6)": "-4 = -10 + 6",
         },
         "shadow_siegel_gap_summary": (

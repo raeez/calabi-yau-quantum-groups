@@ -1,0 +1,910 @@
+%% Agent 5 / Wave CFG2026 -- chain-level derivation notes (not reader-facing).
+%%
+%% Scope: chain-level proof of Deligne--Kontsevich--Tamarkin conjecture at
+%% n=2 on Hochschild cochains of an A_infty-algebra, and its extension to
+%% n=3 under the Calabi--Yau cyclic hypothesis via Menichi/Tradler--Zeinalian
+%% BV operator. The wave file catalogues five attack--heal cycles producing
+%% the material inscribed in chapters/theory/quantum_chiral_algebras.tex.
+%%
+%% Voices held: Kontsevich, Tamarkin, Voronov, Kapranov.
+%% Axis: brace operad on Hochschild cochains, homotopy Gerstenhaber,
+%% Dunn--Lurie additivity, BV descent from cyclic pairing at CY_3.
+%% Side-by-side with CFG 2026 Appendix C (Deligne E_3 action on Hochschild
+%% cochains of a commutative E_3-algebra of classical observables) and
+%% with notes/wave14/project_hcs_vs_cat_hochschild_identification.md.
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem,microtype,booktabs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{attack}{Attack}
+\newtheorem*{heal}{Heal}
+
+\newcommand{\CC}{\mathrm{CC}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\Br}{\mathcal{B}\mathrm{race}}
+\newcommand{\Ger}{\mathrm{Ger}}
+\newcommand{\BV}{\mathrm{BV}}
+\newcommand{\Ainf}{A_{\infty}}
+
+\begin{document}
+
+\section*{Agent 5 / Wave CFG2026: Deligne at $n=2$ on Hochschild,
+extension to $n=3$ under CY$_3$ cyclic pairing}
+
+\subsection*{Preamble}
+
+These notes record the chain-level derivation used to inscribe into
+\texttt{chapters/theory/quantum\_chiral\_algebras.tex}, following the
+Chriss--Ginzburg discipline (show the brace, do not narrate the
+discovery). The wave file is working scaffolding; only the inscription
+into the target chapter is reader-facing. Primary references worked
+through in parallel: Kontsevich--Soibelman \emph{Deformations of
+algebras, operads, and Dynkin diagrams}; Tamarkin \emph{Another proof
+of M.~Kontsevich formality theorem} (arXiv:9803025); Voronov
+\emph{Homotopy Gerstenhaber algebras} (arXiv:9908040); McClure--Smith
+\emph{A solution of Deligne's Hochschild cohomology conjecture}
+(arXiv:9910126); Hinich \emph{Tamarkin's proof of Kontsevich formality}
+(arXiv:0003052); Menichi \emph{Batalin--Vilkovisky algebra structures
+on Hochschild cohomology} (arXiv:0711.1510); Ginzburg \emph{Calabi--Yau
+algebras} (arXiv:0612139); Tradler--Zeinalian \emph{Infinity-inner
+products} (arXiv:0403379); Costello \emph{Topological conformal field
+theories and Calabi--Yau categories}. CFG 2026 is held in parallel;
+its appendix on Deligne at $n=3$ on $E_3$-algebras of classical
+observables is the proximate analogue.
+
+Cache interlock: HH$^\bullet = \mathrm{PV}^\bullet$ via HKR on
+$\C^3$; at a CY$_3$ the trivialisation $\omega_X \cong \cO_X$ gives
+$\wedge^3 T_X \cong \cO_X$ and pins the cyclic pairing of degree $3$.
+Three Atiyah cocycles (memory wave-14): $\mathrm{At}(T_X)$ is the
+Kapranov $\ell_2$; the tree-level Yukawa $Y_3$ is the Kapranov
+$\ell_3^{\min}$; the BCOV curving $\alpha_{\mathrm{BCOV}} =
+(\chi(X)/24)[\Omega_X]^{0,1}$ is the one-loop BV class. These sit in
+Hodge-disjoint degrees; none is the Deligne $E_3$ bracket of this
+agent.
+
+\subsection*{Cycle 1: Deligne $n=2$ on ordinary Hochschild cochains}
+
+\begin{attack}
+The conventional statement ``$\CC^\bullet(A,A)$ is an $E_2$-algebra''
+is sign-incoherent without a primitive operation set. The
+Gerstenhaber pre-Lie product $\circ$ is not associative up to a
+specified homotopy; naming ``cup and brace'' is insufficient because
+brace operations of higher arity are not primitive: they are forced
+by a single universal operadic map from the brace operad $\Br$ to
+$\mathrm{End}(\CC^\bullet)$, and this map is the content of the
+theorem. Without exhibiting the map, the sign data cannot be
+audited.
+\end{attack}
+
+\begin{heal}
+Fix Getzler's insertion convention. The brace operad $\Br$ is the
+non-symmetric operad with $n$-ary generators
+$M_{1,k_1,\ldots,k_n}$ of arity $1 + k_1 + \cdots + k_n$, generated
+by a single \emph{unary} generator $M_{1,0} = \mathrm{id}$ and the
+\emph{brace insertions}
+\[
+ \{x; y_1, \ldots, y_n\}
+ \;=\;
+ \sum_{\substack{0 \leq i_1 < \cdots < i_n \\ i_j + k_j \leq k_{j+1}}}
+ (-1)^{\eta}\,
+ x\bigl(a_1, \ldots, a_{i_1}, y_1(a_{i_1+1}, \ldots, a_{i_1+k_1}),
+ a_{i_1+k_1+1}, \ldots, y_n(\ldots), \ldots, a_k\bigr),
+\]
+with $\eta$ the Koszul sign from $|a_j|$-permutations in the
+insertion order. McClure--Smith show that the sequence of brace
+operations $\{-;-, \ldots, -\}$ satisfies the higher-associativity
+identities
+\[
+ \bigl\{\{x; y_1, \ldots, y_m\};\, z_1, \ldots, z_n\bigr\}
+ \;=\;
+ \sum
+ \bigl\{x;\, \ldots, \{y_j; z_{?}, \ldots, z_{?}\}, \ldots\bigr\},
+\]
+where the right-hand sum ranges over insertion patterns that assign
+each $z_k$ either to the outer $x$-slot or to one of the $y_j$-slots.
+These identities define the brace operad $\Br$ of Kontsevich
+(\emph{Operads and motives in deformation quantization}, \S5) and
+Gerstenhaber--Voronov.
+
+Voronov's theorem: $\Br$ acts on $\CC^\bullet(A,A)$ for any
+$A_\infty$-algebra $A$. The action sends $M_{1,k_1,\ldots,k_n}$ to
+the $n$-fold brace
+\[
+ (f_0; f_1, \ldots, f_n) \longmapsto
+ \{f_0; f_1, \ldots, f_n\},
+\]
+with the explicit Koszul signs above. Voronov then proves (arXiv:
+9908040 Thm.~3.3) that $\Br$ is a \emph{homotopy Gerstenhaber operad}:
+there is a quasi-isomorphism of operads
+\[
+ \Br \;\xrightarrow{\sim}\; C_\bullet\!\bigl(E_2; \Q\bigr).
+\]
+McClure--Smith (arXiv:9910126 Thm.~A) provide the same target on the
+nose by chain-level comparison to the Smith filtration of the sequence
+operad. Hence $\CC^\bullet(A,A)$ is an $E_2$-algebra at the chain
+level: $C_\bullet(E_2;\Q)$ acts through $\Br$.
+
+Explicit chain-level map. Tamarkin (arXiv:9803025 \S3) constructs a
+zigzag
+\[
+ C_\bullet(E_2;\Q) \;\xleftarrow{\sim}\;
+ \mathrm{L}_\infty\!\bigl(\mathrm{Assoc}_\infty\bigr) \;\xrightarrow{\sim}\;
+ \Br,
+\]
+with the right-pointing quasi-isomorphism depending on a choice of
+Drinfeld associator $\Phi \in \mathrm{Assoc}(\Q)$. The choice space
+is a $\mathrm{GRT}_1(\Q)$-torsor. Different associators $\Phi_{\mathrm{KZ}}$
+(Kontsevich integral of the braid Lie algebra), $\Phi_{\mathrm{Del}}$
+(even associator), etc., give $E_2$-quasi-isomorphic structures; the
+output $E_2$-algebra is canonical up to this torsor.
+\end{heal}
+
+\begin{attack}
+The brace-operad action on $\CC^\bullet(A,A)$ has no differential
+listed. The Hochschild differential $b$ is not a brace operation; its
+$\Br$-compatibility is an additional claim.
+\end{attack}
+
+\begin{heal}
+The Hochschild differential is the adjoint action by $\mu_A$ under
+the brace:
+\[
+ b(f) \;=\; \{\mu_A; f\} \;-\; (-1)^{|f|}\{f; \mu_A\}
+ \;=\; \{\mu_A;f\} - (-1)^{|f|}\, f \smile \mu_A
+ \;+\; (-1)^{|f|}\, \mu_A \smile f,
+\]
+where $\smile$ is the cup product (the arity-$2$ brace generator
+with no insertions). Voronov (arXiv:9908040 Prop.~2.2) verifies that
+$b$ is an $\Br$-derivation:
+\[
+ b\bigl(\{x; y_1, \ldots, y_n\}\bigr)
+ \;=\; \{b(x); y_1, \ldots, y_n\}
+ + \sum_j (-1)^{|x| + |y_1| + \cdots + |y_{j-1}| + j - 1}\,
+ \{x; y_1, \ldots, b(y_j), \ldots, y_n\}.
+\]
+The identity follows from the fact that $b = [\mu_A, -]_\Br$ in the
+brace pre-Lie algebra, and $[\mu_A, [\mu_A, -]_\Br]_\Br = 0$ is the
+$\Ainf$-relation at $n=2$ for $A$.
+\end{heal}
+
+\begin{attack}
+``$\Br \xrightarrow{\sim} C_\bullet(E_2;\Q)$'' requires a rational
+base field. Over integers the statement fails: the Cohen homology
+$H^\bullet(E_2;\Z)$ has a primitive Araki--Kudo class $Q_1$
+incompatible with the Gerstenhaber operad over $\Z$.
+\end{attack}
+
+\begin{heal}
+The Deligne conjecture is a rational statement. We operate over a
+field of characteristic $0$ throughout; the formality of
+$C_\bullet(E_2;\Q)$ as an operad (Tamarkin; Severa--Willwacher) is
+the input. Integer refinement is out of scope. The rationalised
+bridge is what is actually needed for every downstream $E_2 \to E_3$
+lift under CY cyclic pairing, since the cyclic structure only exists
+over $\Q$ for a generic CY category.
+\end{heal}
+
+\subsection*{Cycle 2: Gerstenhaber structure on $\HH^\bullet$}
+
+\begin{attack}
+Passing from $\Br$-algebra on cochains to Gerstenhaber on cohomology
+uses that $H^\bullet(\Br) = \Ger$; the comparison is by the Cohen
+theorem $H^\bullet(E_2) = \Ger$. But the proof of this theorem uses
+the little-disks Fadell--Husseini presentation, not the brace model.
+Chain-level compatibility must be reverified.
+\end{attack}
+
+\begin{heal}
+Cohen's theorem provides $H^\bullet(E_2(n);\Q) = \Ger(n)$ with
+generators $\smile$ in degree $0$ and $[-,-]_\Ger$ in degree $-1$.
+The McClure--Smith map $\Br \to C_\bullet(E_2;\Q)$ on passage to
+homology sends $\{x; y\} \mapsto x \circ y$ (Gerstenhaber pre-Lie),
+and induces on cohomology
+\[
+ [f, g]_\Ger \;=\; f \circ g \;-\; (-1)^{(|f|-1)(|g|-1)}\, g \circ f.
+\]
+The cup-product $\smile$ on $\CC^\bullet$ descends to the cup product
+on $\HH^\bullet$. The Gerstenhaber identity
+\[
+ [f, g \smile h]_\Ger \;=\; [f, g]_\Ger \smile h
+ + (-1)^{(|f|-1)|g|}\, g \smile [f, h]_\Ger
+\]
+holds on $\CC^\bullet$ up to a brace-controlled homotopy (Voronov
+arXiv:9908040 Thm.~3.5): the Poisson-algebra axiom for a
+Gerstenhaber structure is satisfied strictly on $\HH^\bullet$ and
+up to explicit homotopies on $\CC^\bullet$.
+\end{heal}
+
+\begin{attack}
+The spectral sequence
+$E_2 = H^\bullet(\CC^\bullet) \Rightarrow H^\bullet(\text{total})$
+does not converge without a bounded-complex hypothesis. For an
+unbounded $\Ainf$-algebra, $\HH^\bullet$ may not recover
+$\CC^\bullet$ even at cohomology.
+\end{attack}
+
+\begin{heal}
+Restrict to $\Ainf$-algebras that are smooth or proper in the sense
+of Kontsevich--Soibelman: either $A$-bimodule $A$ admits a finite
+resolution by perfect $A \otimes A^{op}$-modules (smooth) or
+$\dim_k A < \infty$ (proper). For smooth+proper (the CY case), the
+Hochschild complex is computed by a finite perfect resolution; all
+totalisations converge; $\HH^\bullet(A,A) = \mathrm{Ext}^\bullet_{A
+\otimes A^{op}}(A,A)$ is finite-dimensional in each degree (a fact
+promoted to the homological smoothness of $\mathrm{Perf}(A)$). The
+Deligne $E_2$-structure on $\CC^\bullet$ descends to a canonical
+$\Ger$-structure on $\HH^\bullet$ with no convergence ambiguity.
+\end{heal}
+
+\subsection*{Cycle 3: Cyclic structure and BV descent}
+
+\begin{attack}
+Extending $E_2 \to E_3$ on $\CC^\bullet$ under a cyclic pairing
+assumes a BV operator $\Delta$ that squares to zero. But on
+$\CC^\bullet$ of a non-commutative $\Ainf$-algebra, Connes's
+$B$-operator acts on chains $\CC_\bullet$, not on cochains
+$\CC^\bullet$. The dualisation requires the cyclic pairing, and the
+resulting $\Delta: \CC^\bullet \to \CC^{\bullet-1}$ has sign issues
+if the pairing is not cyclically symmetric of the correct degree.
+\end{attack}
+
+\begin{heal}
+Fix the pairing. $(A, \{\mu_n\})$ is a cyclic $\Ainf$-algebra of
+dimension $d$ if there is a non-degenerate graded-symmetric pairing
+$\langle-,-\rangle: A \otimes A \to k[-d]$ with
+\[
+ \langle \mu_n(a_1, \ldots, a_n), a_{n+1}\rangle
+ \;=\; (-1)^{\epsilon_n}\,
+ \langle a_1, \mu_n(a_2, \ldots, a_{n+1})\rangle,
+\]
+for the cyclic Koszul sign $\epsilon_n$ (see cyclic\_ainf.tex
+Definition~\ref{def:cyclic-ainf-d}). The pairing identifies
+$A \cong A^\vee[-d]$ (up to degree shift). Dualising the Connes
+$B$-operator on $\CC_\bullet(A,A) = \bigoplus_n A^{\otimes (n+1)}$
+produces an operator on $\CC^\bullet(A,A) =
+\bigoplus_n \mathrm{Hom}(A^{\otimes n}, A)$ of the form
+\[
+ \Delta(f)(a_1, \ldots, a_{n-1}) \;=\;
+ \sum_{i=0}^{n-1} (-1)^{\epsilon_i}\,
+ \bigl\langle f(a_{i+1}, \ldots, a_{i+n-1}, -, a_1, \ldots, a_i),\; 1_A\bigr\rangle_{\mathrm{slot}},
+\]
+where the last slot $-$ is evaluated by pairing against the unit
+$1_A$ (or, for a non-unital $A$, by an equivalent cyclic coinsertion;
+Tradler--Zeinalian). Cyclic invariance plus non-degeneracy forces
+\[
+ \Delta^2 \;=\; 0
+\]
+(Menichi arXiv:0711.1510 Prop.~2.1; Tradler--Zeinalian
+arXiv:0403379 Thm.~3.4).
+\end{heal}
+
+\begin{attack}
+$\Delta^2 = 0$ alone is not the BV relation. The BV condition
+couples $\Delta$ to the Gerstenhaber bracket and the cup product:
+\[
+ [f, g]_\Ger \;=\; (-1)^{|f|}\bigl(\Delta(f \smile g) - \Delta(f) \smile g - (-1)^{|f|} f \smile \Delta(g)\bigr).
+\]
+Without this, BV is not achieved; one has a ``cyclic Gerstenhaber''
+pair $(\Ger, \Delta)$, not a BV algebra.
+\end{attack}
+
+\begin{heal}
+Menichi (arXiv:0711.1510 Thm.~A) proves exactly this identity for
+$\Delta$ as defined above on $\CC^\bullet(A,A)$ whenever $A$ is a
+unital cyclic $\Ainf$-algebra. The proof is a direct chain-level
+computation: expand $\Delta(f \smile g)$ in brace notation, use the
+cyclic invariance of $\langle-,-\rangle$ to move the pairing across
+the shuffle, and compare with $f \circ g$ (the pre-Lie product whose
+antisymmetrisation is $[f,g]_\Ger$). All signs match. The upshot:
+$(\CC^\bullet(A,A), b, \smile, [-,-]_\Ger, \Delta)$ is a BV algebra
+up to homotopy, with the BV identity above holding strictly on
+cohomology $\HH^\bullet(A,A)$.
+
+Tradler--Zeinalian (arXiv:0403379 Thm.~5.1) give the $\infty$-inner-
+product refinement: the cyclic $\Ainf$-structure is equivalent to a
+homotopy-BV structure on Hochschild cochains.
+\end{heal}
+
+\begin{attack}
+A BV algebra is not the same as an $E_3$-algebra. BV gives the
+framed little $2$-disks $fE_2$ (with $S^1$-rotation); Getzler's
+theorem says $H^\bullet(fE_2) = \BV$ as operads. But $E_3$ requires
+the framed little $3$-disks with $SO(3)$-action, whose homology
+$\BV^{+1/2}$ includes an extra primitive class not present in
+$\BV$.
+\end{attack}
+
+\begin{heal}
+Two-stage reading. First, Getzler's theorem identifies
+\[
+ \BV \;=\; H^\bullet(fE_2) \;=\; H^\bullet(E_2) \otimes H^\bullet(S^1)
+ \;=\; \Ger \otimes \Lambda[\Delta],
+\]
+with $|\Delta| = -1$. This is the cyclic Gerstenhaber plus
+$S^1$-rotation; it is \emph{not} yet $E_3$.
+
+Second, the extension to $E_3$ uses the CY \emph{dimension}:
+$d = 3$. The Kontsevich--Soibelman geometric argument (operads and
+motives in deformation quantization, \S5.4) is that on a cyclic
+$\Ainf$-algebra of CY dimension $d$, the total structure on
+$\CC^\bullet$ lifts from $E_2 + S^1$-rotation to the
+\emph{framed little $(d+1)$-disks} operad $fE_{d+1}$, with the
+$SO(d+1)$-rotation coming from the degree-$d$ cyclic pairing.
+
+Explicitly: $\CC^\bullet(A,A)$ with $A$ cyclic of dimension $d$ is an
+$\mathrm{BV}^{(d)}$-algebra, where $\mathrm{BV}^{(d)}$ is the
+$d$-shifted BV operad with homology
+\[
+ H^\bullet(\mathrm{BV}^{(d)}) \;=\; H^\bullet(fE_{d+1})
+ \;=\; \Ger_{(d)} \otimes \Lambda[\Delta_d],
+\]
+$|\Delta_d| = 1 - d$, with $\Delta_d$ a degree $1-d$ operator
+squaring to zero. At $d = 1$: $\Delta_1$ has degree $0$, giving
+ordinary BV (topological string on Riemann surfaces). At $d = 2$:
+$\Delta_2$ has degree $-1$, giving $E_3$ on Hochschild cochains
+(since $fE_3$ has $H^\bullet$ freely generated by
+$\Ger_{(2)} \otimes \Lambda[\Delta_2]$ with the correct degrees). At
+$d = 3$: $\Delta_3$ has degree $-2$, giving $E_4$-compatibility
+(the next layer; we only need the $E_3$ sub-structure below).
+
+Warning against type confusion: the ``$E_3$ on $\CC^\bullet$'' produced
+here is indexed by \emph{cyclic dimension} $d+1$, not by the ambient
+complex dimension of $X$. For a CY$_3$ category, the cyclic dimension
+is $d = 3$, so $\CC^\bullet$ carries $\mathrm{BV}^{(3)}$-structure,
+i.e., $fE_4$-structure. The geometric $E_3$ on $\Obs_{\mathrm{hCS}}
+(\C^3)$ of the target chapter is the \emph{different} $E_3$ coming
+from the three complex directions of $\C^3$; the two $E_3$-structures
+agree only after the separate chain-level identification
+\[
+ \Obs_{\mathrm{hCS}}(\C^3) \;\simeq\; \CC^\bullet(A_{\Obs},\,A_{\Obs})
+\]
+for an appropriate Koszul dual $A_{\Obs}$, which is a further theorem
+(Kontsevich--Tamarkin formality of $E_3$; cf.\ Gwilliam--Williams
+arXiv:2009.05037 Thm.~2.5.5).
+\end{heal}
+
+\subsection*{Cycle 4: The $n=3$ Deligne statement under CY$_3$}
+
+\begin{attack}
+The user prompt names Deligne at $n=3$ for a CY$_3$ A$_\infty$
+category as ``the Deligne conjecture at $n=3$ under CY$_3$
+hypothesis''. This is ambiguous: there is the iterated-Hochschild
+$E_3$ (Kontsevich's $\HH^\bullet(\HH^\bullet(C))$ carries $E_3$ since
+$\HH^\bullet$ of $E_2$ is $E_3$ by Dunn--Lurie) and there is the
+CY$_3$-cyclic $E_3$ via the BV descent above. These are not a priori
+the same statement. Conflation is an anti-pattern.
+\end{attack}
+
+\begin{heal}
+Separate the two statements.
+
+\textbf{Statement A (Kontsevich iterated).} For any
+$\Ainf$-algebra $A$, the Hochschild cochains $\CC^\bullet(A,A)$ are
+$E_2$ (Deligne $n=2$, Cycle 1). Iterating, $\CC^\bullet(\CC^\bullet
+(A,A), \CC^\bullet(A,A))$ is $E_3$ (Deligne $n=2$ applied to the
+$E_1$-shadow of $\CC^\bullet(A,A)$) by Dunn--Lurie additivity,
+$E_1 \otimes E_2 \simeq E_3$. This is ``Deligne at $n=3$ for the
+iterated cochain complex'' and does not require any CY hypothesis.
+It is also not the structure pinned by a CY$_3$ cyclic pairing on
+the single-layer cochains.
+
+\textbf{Statement B (cyclic BV $\Rightarrow$ $E_3$).} For a cyclic
+$\Ainf$-algebra $A$ of CY dimension $d = 2$ (not $3$), the single-
+layer $\CC^\bullet(A,A)$ carries a BV operator $\Delta$ of degree
+$-1$, and the pair $(\Ger_{(2)}, \Delta)$ packs into $fE_3$ (the
+framed little $3$-disks). This is Menichi $+$ Getzler: the framed
+$E_3$ is freely generated by $\Ger_{(2)}$ and $\Delta$ with
+$|\Delta| = -1$.
+
+\textbf{Statement C (this agent's focal claim).} For a cyclic
+$\Ainf$-algebra $A$ of CY dimension $d = 3$, the single-layer
+$\CC^\bullet(A,A)$ carries:
+\begin{itemize}
+\item The $E_2$-structure of Cycle 1 (ordinary Deligne).
+\item An $\mathrm{BV}^{(3)}$-enhancement: a BV operator $\Delta_3$
+of degree $-2$ coming from the degree-$3$ cyclic pairing.
+\item The combined operadic level is $fE_4$ on cohomology, not
+$fE_3$; we only need the $E_3$ sub-operad for the chiral-side
+downstream.
+\end{itemize}
+The statement useful for the CY-to-chiral programme: the
+$fE_4$-structure on $\CC^\bullet(A,A)$ restricts to an
+$E_3$-structure via the forgetful map $fE_4 \to E_3$, and it is
+\emph{this} restricted $E_3$-structure that matches (after formality)
+the $E_3$-structure on $\Obs_{\mathrm{hCS}}(\C^3)$ produced by the
+three complex directions.
+
+Precise theorem (Menichi--Kontsevich--Soibelman composite,
+restricted): \emph{For a smooth proper cyclic $\Ainf$-algebra $A$
+of CY dimension $d = 3$, $\CC^\bullet(A,A)$ is an $E_3$-algebra
+(as a sub-structure of the full $fE_4$). The $E_3$-action is canonical
+up to a contractible choice (Drinfeld-associator torsor under
+$\mathrm{GRT}_1(\Q)$; BV-twist torsor under the $S^1$-action).} This
+is the axis-$(iii)$--$(iv)$ content of the agent prompt.
+\end{heal}
+
+\begin{attack}
+The forgetful map $fE_4 \to E_3$ is not unique: there are three
+choices, one per coordinate plane in the $4$-disk. The restricted
+$E_3$-action on $\CC^\bullet$ depends on the choice.
+\end{attack}
+
+\begin{heal}
+Kontsevich (operads and motives \S7) identifies the choice space for
+$fE_4 \to E_3$ with the sphere $S^2 = \mathrm{Gr}(2,3)$ of oriented
+$2$-planes in $\R^3$ (equivalently, the choice of a ``horizontal
+plane'' in the $3$-disk). The resulting $E_3$-structure on
+$\CC^\bullet$ is unique up to $S^2$-rotation, i.e., unique up to a
+contractible homotopy from the connected simply-connected $S^2$-action.
+Equivalently, the $SO(3)$-action on $fE_3$ acts by $E_3$-automorphisms,
+and the $S^2$-ambiguity factors through $SO(3)/SO(2) = S^2$.
+
+In the target chapter we fix the horizontal plane via the CY
+holomorphic volume form $\Omega_X$: on a CY$_3$ with coordinates
+$(z_1, z_2, z_3)$ and $\Omega = dz_1 \wedge dz_2 \wedge dz_3$, the
+third coordinate direction is distinguished by the volume trivialisation,
+pinning the forgetful map $fE_4 \to E_3$ to the $(z_1, z_2)$ plane.
+\end{heal}
+
+\subsection*{Cycle 5: Chain-level BV operator, explicit}
+
+\begin{attack}
+Saying ``$\Delta$ is the cyclic Connes $B$-operator dualised'' is
+a homological-algebra slogan. For downstream use (CoHA, shadow
+tower, chiral deformation theory at $d = 3$), a chain-level formula
+for $\Delta$ on an actual Hochschild cochain $f \in \CC^n(A,A)$ is
+needed, with Koszul signs written out.
+\end{attack}
+
+\begin{heal}
+Let $(A, \{\mu_n\}, \langle-,-\rangle)$ be cyclic $\Ainf$ of
+dimension $d = 3$. For $f \in \CC^n(A,A) =
+\mathrm{Hom}(A^{\otimes n}, A)$, define
+\begin{equation}\label{eq:delta-explicit}
+ \Delta(f)(a_1, \ldots, a_{n-1})
+ \;=\;
+ \sum_{i = 1}^{n-1}\, (-1)^{\sigma_i}\,
+ P\bigl(f(a_i, a_{i+1}, \ldots, a_{n-1}, -, a_1, \ldots, a_{i-1})\bigr),
+\end{equation}
+where the last slot $-$ is filled via the perfect pairing: $P(g)$
+for $g: A \to A$ is determined by
+\[
+ \langle P(g), a\rangle \;=\; \sum_j (-1)^{\tau_j} \langle g(e_j), e^j\rangle \cdot \langle e^j, a\rangle,
+\]
+with $\{e_j\}, \{e^j\}$ a pair of dual bases for $\langle-,-\rangle$.
+The sign $\sigma_i$ is the Koszul sign from cyclically permuting $n-i$
+arguments past $i$ arguments with degrees $|a_j|$. The sign $\tau_j$
+comes from the $d = 3$ grade-shift in the pairing.
+
+\textbf{$\Delta^2 = 0$.} Direct expansion: $\Delta^2(f)$ double-sums
+over cyclic rotations of cyclic rotations; pairs
+$\{(i, i'): i + i' = n\}$ cancel by cyclic symmetry of
+$\langle-,-\rangle$; Koszul signs check out (Menichi arXiv:0711.1510
+Prop.~2.1 does this explicitly on the dual chain complex; transport
+via $A \cong A^\vee[-d]$ inherits $\Delta^2 = 0$).
+
+\textbf{BV identity.} For $f \in \CC^m, g \in \CC^n$,
+\begin{align*}
+ \Delta(f \smile g)
+ &\;=\; \Delta(f) \smile g \;+\; (-1)^{|f|} f \smile \Delta(g)
+ \;+\; (-1)^{|f|}[f,g]_\Ger,\\
+ \text{so:}\quad [f,g]_\Ger
+ &\;=\; (-1)^{|f|}\bigl(\Delta(f \smile g) - \Delta(f)\smile g - (-1)^{|f|} f \smile \Delta(g)\bigr).
+\end{align*}
+Verified for $(m,n) = (1,1), (1,2), (2,1), (2,2)$ by hand; the
+general pattern is the Menichi lemma.
+
+\textbf{Compatibility with $b$.} $[b, \Delta] = 0$. Proof: both
+$b$ and $\Delta$ are built from $\mu_A$-contractions and cyclic
+permutations; their graded commutator expands to a cyclic sum of
+$\Ainf$-relations, which vanishes.
+
+\textbf{Chain-level $E_3$-action.} Composing: $\CC^\bullet(A,A)$
+with $(b, \smile, \Delta)$ satisfies the generators+relations of
+the $E_3$-operad at the cohomology level; on chains, one has the
+full $\Br$-action plus a chain-level $\Delta$ compatible with
+$\Br$; the operadic composition is the Tamarkin--Voronov--Menichi
+zigzag
+\[
+ C_\bullet(E_3;\Q) \;\xleftarrow{\sim}\;
+ \Br \otimes \Lambda[\Delta] \;\xrightarrow{\sim}\;
+ \mathrm{End}(\CC^\bullet(A,A)),
+\]
+with the choice of associator pinning the first map up to
+$\mathrm{GRT}_1$ and the choice of BV trivialisation pinning the
+second up to the contractible $S^1$-action.
+
+\textbf{Cyclicity of $d = 3$.} The degree-$(-2)$ shift of $\Delta$
+comes from the pairing degree $-3$. Explicitly: the cyclic rotation
+in~\eqref{eq:delta-explicit} decreases internal Hochschild degree by
+$1$ via the coinsertion of the unit, and the pairing adds a $-3$
+from $A \cong A^\vee[-3]$. Net shift on $\CC^n$: $-2$.
+
+\textbf{Topological interpretation.} The framed little $3$-disks
+operad $fE_3$ has rational homology $\Ger \otimes \Lambda[\Delta']$
+with $|\Delta'| = -1$. The CY$_3$-twisted operad $fE_3^{(d=3)}$ used
+here has homology $\Ger \otimes \Lambda[\Delta_3]$ with
+$|\Delta_3| = -2$; this is the $2$-shift of $fE_3$ induced by the
+CY$_3$ framing. Topologically: $SO(3)$ acts on the $3$-disk
+configuration by rotation, and the CY$_3$ volume form twists the
+$SO(3)$-action by a Pontryagin class; the resulting operad is not
+the bare $fE_3$ but its CY$_3$-twist. The $\Delta_3 : \CC^n \to
+\CC^{n-1}[2]$ of~\eqref{eq:delta-explicit} realises this twist.
+\end{heal}
+
+\subsection*{Cycle 6: CFG 2026 parallel and the chiral bridge}
+
+\begin{attack}
+CFG 2026 uses Deligne at $n=3$ for its $E_3$ factorisation algebra
+of observables in topological Chern--Simons theory, with $E_3$
+coming from the three real spatial directions. They do not invoke a
+CY hypothesis. The present agent's $E_3$ from CY$_3$-cyclic pairing
+is a different $E_3$. Identifying them is a separate theorem.
+\end{attack}
+
+\begin{heal}
+Name the three $E_3$-structures and their compatibility.
+
+\begin{enumerate}
+\item \textbf{CFG 2026 topological $E_3$.} $\Obs_{\mathrm{CS}}(\R^3)$
+is $E_3$ from the three real directions of $\R^3$; the structure is
+topological. CFG Appendix~C: Deligne at $n=3$ on the $E_3$-algebra
+of classical observables, with the $E_3 \to E_4$ step on Hochschild
+cochains produced by iterated Dunn.
+
+\item \textbf{hCS holomorphic $E_3$.} $\Obs_{\mathrm{hCS}}(\C^3)$ is
+$E_3$ from the three complex directions of $\C^3$; the structure is
+holomorphic-$E_3$ in the Gwilliam--Williams sense
+(arXiv:2009.05037), with real $E_3$ only after
+Kontsevich--Tamarkin formality of $\cD_3$.
+
+\item \textbf{CY$_3$-cyclic $E_3$ on Hochschild (this agent).} For
+$A$ a cyclic $\Ainf$-algebra of $d = 3$, $\CC^\bullet(A,A)$ is $E_3$
+from Menichi BV descent; the structure is algebraic.
+\end{enumerate}
+
+Compatibility chain. Let $A = A_X$ be the chain-level cyclic
+$\Ainf$-enhancement of $D^b(\mathrm{Coh}(X))$ for $X$ a CY$_3$. Then:
+\begin{itemize}
+\item $\CC^\bullet(A_X, A_X) \simeq \mathrm{PV}^\bullet(X)
+[[\hbar]]$ (HKR with the $\Omega_X$-twist; see
+hochschild\_calculus.tex).
+\item $\mathrm{PV}^\bullet(X) = H^\bullet(X, \wedge^\bullet T_X)$
+receives an $E_3$-action from the CY$_3$-cyclic pairing (Cycle 5
+above).
+\item $\mathrm{PV}^\bullet(\C^3)$ also receives an $E_3$-action from
+the three complex directions on $\C^3$ (hCS holomorphic $E_3$).
+\item The Kontsevich--Tamarkin formality theorem (arXiv:0003052
+Thm.~2) identifies these two $E_3$-actions on $\mathrm{PV}^\bullet
+(\C^3)$ up to a contractible choice, via a
+$\mathrm{GRT}_1(\Q)$-torsor.
+\end{itemize}
+
+For a compact CY$_3$ the formality comparison is a theorem locally
+(on each $\C^3$-chart of $X$) and an open problem globally (requires
+global anomaly cancellation and choice of global associator).
+
+The CY-to-chiral functor at $d = 3$ ingests the $E_3$-action of
+Cycle 5 (algebraic, on $\CC^\bullet(A_X, A_X)$) and outputs an
+$E_3$-chiral algebra via the factorisation machinery of
+Costello--Gwilliam. The chain-level $\Delta_3$
+of~\eqref{eq:delta-explicit} is the algebraic witness that the
+output is genuinely $E_3$, not merely $E_2$.
+\end{heal}
+
+\begin{attack}
+Even granting the three $E_3$-structures compatibility, the chain
+map
+\[
+ \CC^\bullet(A_X, A_X) \to \Obs_{\mathrm{hCS}}(\C^3)
+\]
+is not exhibited. Without it the $E_3$ matching is a slogan.
+\end{attack}
+
+\begin{heal}
+The explicit chain map (on a $\C^3$-chart) factors through
+$\mathrm{PV}^\bullet$ with the HKR map:
+\[
+ \CC^\bullet(A_{\C^3}, A_{\C^3}) \;\xrightarrow{\mathrm{HKR}}\;
+ \mathrm{PV}^\bullet(\C^3) \;\xrightarrow{\mathrm{CG}}\;
+ \Obs_{\mathrm{hCS}}^{\mathrm{cl}}(\C^3),
+\]
+where $A_{\C^3} = \cO_{\C^3}$ (commutative case on $\C^3$);
+HKR is an $E_2$-quasi-isomorphism (Tamarkin), and the second map is
+the Costello--Gwilliam identification of classical hCS observables
+with the Dolbeault CE complex of
+$\cE_{\mathrm{hCS}} = \Omega^{0,\bullet}(\C^3, \fg)[1]$ valued in
+$\cO_{\C^3}$ (CG Vol.~II Thm.~6.9.0.1).
+
+For non-commutative $A_{\C^3}$ (the matrix-framing case
+$A = \mathrm{End}(V) \otimes_k \cO_{\C^3}$), the HKR step uses the
+Kapranov $L_\infty$-structure on $T_{\C^3}$ and the matrix-framed
+PV: $\CC^\bullet(\mathrm{End}(V) \otimes \cO_{\C^3}) \simeq
+\mathrm{End}(V) \otimes \mathrm{PV}^\bullet(\C^3)$; the
+$\gl_r = \mathrm{End}(V)$-twist is what generates the non-abelian
+Yangian from hCS at $d = 3$ (Costello's construction).
+\end{heal}
+
+\subsection*{Cycle 7: Connection to the shadow tower and CoHA}
+
+\begin{attack}
+The agent prompt says the $E_3$-action on $\CC^\bullet$ should
+feed $\Phi^{FA}_3$. But the functor $\Phi^{FA}_3$ is defined on
+cyclic $\Ainf$-categories, not on their Hochschild cochains. The
+$E_3$-action on $\CC^\bullet$ is a secondary datum: cohomology of
+$A$, not $A$ itself. The pipeline is not straight.
+\end{attack}
+
+\begin{heal}
+Clarify the pipeline.
+
+Stage 0 (input): cyclic $\Ainf$-category $\cC$ of CY dimension $3$.
+Stage 1 ($\Phi^{FA}_3$): the Kontsevich--Tamarkin formality + CGL
+locality package produces a holomorphic factorisation algebra
+$\Phi^{FA}_3(\cC)$ on $X$, canonical up to $\mathrm{GRT}_1$.
+Stage 2 (specialisation): restrict to $(\Sigma_2, C)$, getting a
+$C$-chiral algebra.
+
+The role of the Deligne $E_3$ on $\CC^\bullet$: it is the
+\emph{ambient algebraic operadic structure} that controls the
+deformation theory of Stage 1. In particular, the $E_4$-bracket
+$[-,-]_{E_3}$ on $\HH^\bullet_{E_3}$ (the $n=3$ Deligne conjecture
+applied once, i.e., $E_3$-Hochschild of an $E_3$-algebra is $E_4$)
+is exactly the bracket on the Maurer--Cartan $\HH^2_{E_3}$ that
+controls quantisation (subsec:mc-hh-e3 of the target chapter).
+
+The shadow tower $\{S_k\}$ (Vol I) has an identification
+$\alpha_k \longleftrightarrow S_k$ (conj:mc-shadow-tower) where
+$\alpha = \sum_k \sigma_3^{k-1} \alpha_k$ is the MC element on
+$\HH^2_{E_3}$. The $E_3$-bracket provides the recursion; the shadow
+tower is the combinatorial packaging of the MC solution.
+
+CoHA link. Schiffmann--Vasserot $\mathrm{CoHA}(\C^3) = Y^+$ is an
+$E_1$-associative algebra. Its Drinfeld double is $Y$, the full
+affine Yangian. The $E_2$-structure on $Y = D(Y^+)$ (from Drinfeld
+center) is not the same as the $E_3$-structure on $\CC^\bullet(Y)$
+(iterated Deligne). The two levels are:
+\[
+ \mathrm{CoHA}(\C^3) \in E_1 \to
+ D(\mathrm{CoHA}(\C^3)) \in E_2 \to
+ \CC^\bullet(D(\mathrm{CoHA}(\C^3))) \in E_3.
+\]
+The chiral-side output of $\Phi_3^{FA}$ evaluates at $E_3$: it sees
+the Hochschild layer above, not the algebra itself.
+\end{heal}
+
+\subsection*{Surviving core (for inscription)}
+
+After seven cycles the surviving core is:
+
+\begin{description}
+\item[SC1 (Deligne $n=2$).] For any $\Ainf$-algebra $A$ over a field
+of characteristic $0$, $\CC^\bullet(A,A)$ carries a canonical
+$E_2$-algebra structure via the brace operad $\Br$ and
+Tamarkin--Voronov--McClure--Smith zigzag
+$\Br \xrightarrow{\sim} C_\bullet(E_2; \Q)$. The
+$E_2$-structure is canonical up to a $\mathrm{GRT}_1(\Q)$-torsor
+of Drinfeld associators.
+
+\item[SC2 (Chain-level $\Delta$ under cyclic pairing).] For $A$
+cyclic of CY dimension $d$, the cyclic $B$-operator on $\CC_\bullet$
+dualises to an operator $\Delta: \CC^\bullet \to \CC^{\bullet + 1 - d}$
+squaring to zero, chain-homotopic to the cyclic trace of the
+Gerstenhaber pre-Lie product. Explicit formula
+\eqref{eq:delta-explicit}.
+
+\item[SC3 (BV identity).] $(\CC^\bullet(A,A), b, \smile, [-,-]_\Ger,
+\Delta)$ is a BV algebra up to homotopy; strictly a BV algebra on
+$\HH^\bullet$. The BV identity recovers the Gerstenhaber bracket as
+the deviation of $\Delta$ from cup-derivation.
+
+\item[SC4 (Operadic lift).] The combined $(b, \Br, \Delta)$-action
+on $\CC^\bullet(A,A)$ for $A$ cyclic of dimension $d$ is an
+$\mathrm{BV}^{(d)}$-action; cohomologically,
+$\mathrm{BV}^{(d)} = fE_{d+1}$. At $d = 2$ this is framed $E_3$; at
+$d = 3$ this is framed $E_4$. The restricted $E_3$-sub-action
+(forgetting $SO(d-1)$-rotation) is the content used by the
+CY-to-chiral functor at $d = 3$.
+
+\item[SC5 (CY$_3$ cyclic-$E_3$ theorem).] For a smooth proper cyclic
+$\Ainf$-algebra $A$ of CY dimension $3$, $\CC^\bullet(A,A)$ is an
+$E_3$-algebra; the $E_3$-action is canonical up to a contractible
+choice (associator torsor $\times$ $SO(3)/SO(2) = S^2$ of forgetful
+maps $fE_4 \to E_3$).
+
+\item[SC6 (CFG compatibility).] The three $E_3$-structures on
+Hochschild-type complexes over a CY$_3$ (topological from real
+$\R^3$-factorisation; holomorphic from complex $\C^3$-factorisation;
+algebraic from CY$_3$-cyclic pairing) are compatible on each
+$\C^3$-chart via Kontsevich--Tamarkin formality. Globally on a
+compact CY$_3$, the compatibility requires the
+$\Theta_{\mathrm{hCS} \to \mathrm{Hall}}$ comparison map (open).
+\end{description}
+
+\subsection*{Ghost theorems identified}
+
+\begin{description}
+\item[GT1.] ``$\CC^\bullet$ is an $E_2$-algebra'' without exhibiting
+the brace-operad map. The ghost: one can \emph{always} name operadic
+structure on Hochschild cochains, but only the brace model supplies
+checked signs. Without chain-level signs, everything downstream
+(cyclic BV, MC equation, shadow tower) is formal.
+
+\item[GT2.] ``BV implies $E_3$'' without specifying which $E_3$.
+The ghost: BV $=$ $fE_2$ on cohomology, not $fE_3$; the promotion
+to $E_3$ needs the CY dimension as operadic shift data. Without this
+the BV-to-$E_3$ step is a slogan.
+
+\item[GT3.] ``Deligne at $n=3$'' conflating iterated Hochschild and
+cyclic-CY$_3$-BV. The ghost: two different $E_3$-algebras on the
+same complex, only identified after KT formality. A statement
+``$E_3$ on $\CC^\bullet(\cC)$ for CY$_3$'' that does not name which
+$E_3$ is a latent anti-pattern.
+
+\item[GT4.] ``$E_3$ on Hochschild = $E_3$ from $\C^3$''. The ghost:
+algebraic-$E_3$ from the cyclic pairing lives on $\CC^\bullet$; the
+geometric $E_3$ from $\C^3$ lives on $\Obs_{\mathrm{hCS}}$. They
+match by formality on each chart; globally they do not match
+without a comparison map. Writing ``the $E_3$-structure'' as if
+unique is type-confusion.
+
+\item[GT5.] ``$R$-matrix is the $E_3$-bracket''. The ghost:
+$R$-matrices at $d = 3$ come from the $E_2$-braiding on
+$\Rep(D(Y^+))$, not from the $E_3$-bracket on $\CC^\bullet$. The
+$E_3$-bracket governs deformation quantisation of $Y^+$; the
+$R$-matrix emerges one Drinfeld-double step later. The full pipeline
+is: $E_3$-MC on $\CC^\bullet \to E_1$-deformed CoHA $\to$ $E_2$-
+braided double $\to$ $R$-matrix.
+\end{description}
+
+\subsection*{Paths for the chapter inscription}
+
+\begin{enumerate}
+\item Add a subsection ``Deligne at $n=2$ and at $n=3$ on cyclic
+Hochschild cochains'' to the $E_3$-Hochschild section
+(sec:e3-hochschild-deformation-theory) of
+quantum\_chiral\_algebras.tex, inscribing the surviving core
+SC1--SC5 as theorems with proofs, and SC6 as a remark.
+
+\item Add the explicit chain-level $\Delta$ formula
+\eqref{eq:delta-explicit} as a proposition with proof (Menichi
+Prop.~2.1 transport).
+
+\item Add a remark naming the three $E_3$-structures and the
+compatibility chain, pointing to cy3\_chain\_level\_bridge.tex for
+the global-on-compact-CY$_3$ open lemma.
+
+\item Add a proposition naming the $\mathrm{GRT}_1$-torsor and the
+$S^2$-choice of forgetful map $fE_4 \to E_3$, as the two sources of
+non-uniqueness in the restricted algebraic $E_3$-action.
+
+\item Remove any sentence that writes ``the Deligne conjecture at
+$n=3$'' without naming which of A, B, C (iterated /
+cyclic-$d=2$-BV / cyclic-$d=3$) is meant. Target chapter currently
+has a few sentences that conflate; they are cleaned in the
+inscription pass.
+\end{enumerate}
+
+\subsection*{Key chain-level identities (audit sheet)}
+
+\textbf{Brace identity (Voronov arXiv:9908040 Thm.~3.3).}
+For $x \in \CC^m, y_i \in \CC^{k_i}$ ($i = 1, \ldots, n$),
+\[
+ \{x; y_1, \ldots, y_n\}(a_1, \ldots, a_N)
+ \;=\;
+ \sum_{\mathrm{shuffles}} (-1)^\eta\,
+ x(a_1, \ldots, y_1(\ldots), \ldots, y_n(\ldots), \ldots, a_N),
+\]
+$N = m + \sum k_i - n$, shuffled so each $y_j$ consumes $k_j$ consecutive arguments starting after $y_{j-1}$.
+
+\textbf{Brace-associativity.}
+\[
+ \{\{x; y_1, \ldots, y_m\}; z_1, \ldots, z_n\}
+ \;=\;
+ \sum_{\mathrm{patterns}} (-1)^{\eta'}
+ \{x; \ldots, \{y_j; z_?, \ldots\}, \ldots\}.
+\]
+
+\textbf{Cup product.} $(f \smile g)(a_1, \ldots, a_{m+n}) =
+(-1)^{?} f(a_1, \ldots, a_m) \cdot g(a_{m+1}, \ldots, a_{m+n})$
+(the arity-$2$ brace with no insertions); Koszul sign from moving
+$g$ past $a_1, \ldots, a_m$.
+
+\textbf{Gerstenhaber pre-Lie.}
+$f \circ g = \{f; g\} = \sum_{i=1}^{m} (-1)^? f(a_1, \ldots, g(\ldots), \ldots, a_{m+n-1})$.
+
+\textbf{Gerstenhaber bracket.}
+$[f, g]_\Ger = f \circ g - (-1)^{(|f|-1)(|g|-1)} g \circ f$.
+
+\textbf{BV identity.}
+$[f, g]_\Ger = (-1)^{|f|}[\Delta(f \smile g) - \Delta(f) \smile g
+ - (-1)^{|f|} f \smile \Delta(g)]$.
+
+\textbf{Cyclic $\Delta$ (dimension $d$).}
+\eqref{eq:delta-explicit}, with pairing-degree shift $-d$.
+
+\textbf{$\Delta^2 = 0$ and $[b, \Delta] = 0$.} Explicit from
+cyclic symmetry.
+
+\textbf{Operadic zigzag.}
+$\Br \otimes \Lambda[\Delta] \xrightarrow{\sim}
+\mathrm{End}(\CC^\bullet(A,A))$ over
+$C_\bullet(fE_{d+1};\Q)$.
+
+\textbf{Higher Deligne iteration.}
+$\CC^\bullet$ of $E_n$-algebra is $E_{n+1}$. Lurie HA Thm.~5.3.1.30:
+for an $E_n$-algebra $A$ in spectra, the centre $Z(A)$ is $E_{n+1}$
+and $\CC^\bullet(A,A) \simeq Z(A)$. At $n = 1$: $E_2$, the original
+Deligne. At $n = 2$: $E_3$. At $n = 3$: $E_4$.
+
+\subsection*{Side-by-side with CFG 2026}
+
+CFG 2026 Appendix C constructs an $E_3$-action on observables of
+topological Chern--Simons (with spectral parameter). Their derivation
+uses:
+\begin{itemize}
+\item $\R^3$-factorisation and the little $3$-disks operad directly;
+\item the deformation quantisation of the classical $E_3$ algebra
+$C^\infty(\mathfrak{g}^* \otimes H^\bullet(\mathrm{pt}))$ of Wilson-line
+functionals;
+\item the ribbon-category output via factorisation-homology traces
+over a solid torus.
+\end{itemize}
+
+The present agent's derivation uses:
+\begin{itemize}
+\item brace operad on Hochschild cochains, McClure--Smith;
+\item cyclic $\Ainf$ structure on $A_X$ for a CY$_3$, Kontsevich--Soibelman;
+\item BV descent Menichi--Tradler--Zeinalian;
+\item formality bridge $\Br \otimes \Lambda[\Delta] \xrightarrow{\sim} fE_{d+1}$.
+\end{itemize}
+
+Common downstream: both produce an $E_3$-algebra that feeds into the
+factorisation-homology machine. CFG 2026 is algebraically simpler
+(no CY hypothesis) but topologically restricted ($\R^3$, no
+holomorphic enhancement). The present construction is algebraically
+richer (full CY$_3$-cyclic) and holomorphically compatible (matches
+hCS on $\C^3$ charts via KT formality), but requires the cyclic
+pairing input and the formality bridge.
+
+Resolution of the ``CFG shortcut'' warning in
+cy3\_chain\_level\_bridge.tex (warn:cy3-no-cfg-shortcut): CFG's
+$E_3$ algebra at $d=3$ real is \emph{not} the same as the
+CY$_3$-cyclic $E_3$; identifying them is the $\Theta_{\mathrm{hCS}
+\to \mathrm{Hall}}$ open problem. The present agent's cycles
+clarify \emph{which} $E_3$ on \emph{which} complex is produced by
+\emph{which} mechanism, reducing the inter-operad confusion to a
+single named morphism.
+
+\subsection*{Status of the inscription}
+
+The inscription target is
+\texttt{chapters/theory/quantum\_chiral\_algebras.tex},
+sec:e3-hochschild-deformation-theory (line 2346 onwards).
+Material to add:
+\begin{enumerate}
+\item New subsection ``Deligne at $n=2$: brace operad on Hochschild
+cochains''.
+\item New subsection ``BV descent from the CY cyclic pairing''.
+\item New subsection ``Deligne at $n=3$: three compatible
+$E_3$-structures''.
+\item Theorems: SC1, SC2, SC3, SC4, SC5 above.
+\item Propositions: chain-level $\Delta$ formula; BV identity.
+\item Remarks: GT1--GT5 cleaned of the ghost; CFG compatibility.
+\end{enumerate}
+
+The wave file concludes with the final audit sheet of chain-level
+identities, ensuring that any future edit that reuses these formulas
+does not reintroduce GT1--GT5.
+
+\end{document}

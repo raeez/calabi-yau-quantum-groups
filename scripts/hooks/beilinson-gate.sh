@@ -208,6 +208,40 @@ if [[ "$FILE_PATH" == *.tex ]]; then
       ;;
   esac
 
+  # --- H-M1: osp(4|20) vs so(4,20) Mukai Yangian label (cache entry #9) ---
+  # The Mukai form is symmetric indefinite of signature (4,20) on both
+  # even and odd parts, so the preserving Lie algebra is so(4,20), NOT
+  # Kac osp(4|20). Any inscription of Y_{osp}(4|20) in reader-facing
+  # .tex under chapters/ flags M1 for reconciliation.
+  case "$FILE_PATH" in
+    *calabi-yau-quantum-groups/chapters/*|*calabi-yau-quantum-groups/frame/*|*calabi-yau-quantum-groups/appendices/*)
+      if grep -qE 'Y_\{?\\\\osp\}?\(4[^)]*\|[^)]*20\)|\\\\osp\(4\s*\\\\mid\s*20\)|\\\\mathfrak\{osp\}\(4[^)]*\|[^)]*20\)' "$FILE_PATH" 2>/dev/null; then
+        MATCHES=$(grep -nE 'Y_\{?\\\\osp\}?\(4[^)]*\|[^)]*20\)|\\\\osp\(4\s*\\\\mid\s*20\)|\\\\mathfrak\{osp\}\(4[^)]*\|[^)]*20\)' "$FILE_PATH" | head -3)
+        if [ -n "$MATCHES" ]; then
+          WARNINGS="${WARNINGS}H-M1 / cache entry #9: Y_osp(4|20) or osp(4|20) in reader-facing Vol III. Mukai pairing is symmetric on BOTH even and odd parts (rank 24, signature (4,20)); preserving Lie algebra is so(4,20), NOT Kac osp(4|20) (orthosymplectic = symplectic on odd part). The Hodge-parity Z/2-super-extension Y_hbar(so(4|20)) is programme-specific non-Kac; distinct from Kac osp. Reconcile before inscribing. Lines: ${MATCHES}\n"
+        fi
+      fi
+      ;;
+  esac
+
+  # --- H-M3: Converged theorem/lemma/proposition inscribed into notes/ only ---
+  # If the edit introduces a proof-bearing block inside notes/*.md or
+  # notes/*.tex WITHOUT a corresponding \label{thm:|lem:|prop:} in the
+  # reader-facing chapter files, the mathematical increment may be
+  # landing in the scratchpad and losing manuscript signal. This is
+  # advisory; genuine scratchpad content (attack records, ghost-theorem
+  # logs) is legitimate.
+  case "$FILE_PATH" in
+    */notes/*.md|*/notes/*.tex)
+      NEW_CONTENT_M3=$(echo "$INPUT" | jq -r '(.tool_input.new_string // .tool_input.content) // empty' 2>/dev/null)
+      if echo "$NEW_CONTENT_M3" | grep -qE '\\begin\{(theorem|lemma|proposition|corollary)\}' 2>/dev/null; then
+        if ! echo "$NEW_CONTENT_M3" | grep -qE '(ATTACK|ghost|cycle|scratchpad|dispatch|notes-side|notes scratchpad)' 2>/dev/null; then
+          WARNINGS="${WARNINGS}H-M3: Proof-bearing block inscribed into notes/. If this is a converged mathematical increment (bridge lemma, counterexample, sharpened hypothesis with proof, cite-repair), the reader-facing target is chapters/ / frame/ / examples/ / theory/ / connections/ / bibliography/. notes/ is scratchpad for attack records and ghost-theorem logs. Confirm target is correct.\n"
+        fi
+      fi
+      ;;
+  esac
+
   # --- AP186/AP-CY61: Shallow correction detection ---
   OLD_STR=$(echo "$INPUT" | jq -r '.tool_input.old_string // empty' 2>/dev/null)
   NEW_STR=$(echo "$INPUT" | jq -r '.tool_input.new_string // empty' 2>/dev/null)

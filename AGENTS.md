@@ -6,7 +6,7 @@
 >
 > **Load order.** `INVARIANTS.md` → `AGENTS-HARNESS.md` → this repo's `CLAUDE.md` → this file's repo-local section (if any). The closest `AGENTS.md` in the directory tree wins per `agents.md`; explicit principal chat instructions outrank everything.
 >
-> **Model target.** gpt-5-codex family, `reasoning_effort=high` or `xhigh` for non-trivial work (Pro-class). Terse, declarative voice per `INVARIANTS.md §IV`. No LLM attribution on commits (`INVARIANTS.md §VI`).
+> **Model target.** Deepest host-exposed GPT-5.5 / GPT-5-Codex-family model, `reasoning_effort=xhigh` for any non-trivial mathematical work (never lower than `high`). Terse, declarative voice per `INVARIANTS.md §IV`. No LLM attribution on commits (`INVARIANTS.md §VI`).
 
 ---
 
@@ -166,8 +166,10 @@ Bare $\kappa$ forbidden (HZ-7 / AP113).
 - A new CY example: $\kappa_{\mathrm{ch}}, \kappa_{\mathrm{cat}},
   \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}$ for a CY not yet
   tabulated in `cy_d_kappa_stratification.tex`.
-- A falsified claim at a specific parameter point.
-- A sharpened scope: narrowest hypothesis on which a proof holds.
+- A falsified claim repaired by a corrected statement, construction, or
+  proof obligation.
+- A healed statement: the natural hypothesis and proof on which the
+  intended theorem actually holds.
 - A first-principles computation replacing a citation black box.
 
 ## What does NOT count as progress
@@ -201,7 +203,9 @@ concordance > CLAUDE.md > memory.
    are operational constraints to manage, not repo-level prohibitions.
 7. **HZ-7 discipline**: $\kappa$ always subscripted. HZ-3-11
    Independent Verification Protocol applies to ProvedHere decorators.
-8. Claim-status tags default `\ClaimStatusConjectured` when uncertain.
+8. Claim-status tags are temporary bookkeeping, not repairs. When
+   uncertain, name the exact proof obligation and heal the proof,
+   statement, or construction; do not downgrade the manuscript to close.
    CY-C is conjectural; $G(X)$ is unconstructed in general;
    Super-Yangian is conjectural.
 
@@ -365,12 +369,52 @@ Vol III of the chiral bar–cobar series: **Calabi–Yau-to-chiral frontier, Yan
 | Parameter | Setting | Rationale |
 |---|---|---|
 | `reasoning_effort` | **`xhigh`** (always; never lower than `high`) | CY frontier / Yangian / BKM / mock-modular / MO $E_2$ — frontier proof engineering across eight lanes. No downgrade permitted. |
-| `model` | **gpt-5-codex family, latest** (current preferred: gpt-5.3-codex; fallback: gpt-5.2-codex) | Pro-class coding + mathematics harness. |
+| `model` | **Deepest host-exposed model**: GPT-5.5 Pro / Heavy in ChatGPT when available; GPT-5.5 or latest GPT-5-Codex-family model in Codex; API fallback latest GPT-5.4 / GPT-5-Codex model with `xhigh` where supported. | Pro-class coding + mathematics harness. |
 | `verbosity` | As the proof requires | No abridgment of load-bearing calculations. Terse where terse is honest. |
 | Token budget | **Unbounded** for research tasks | If context fills, compact side work. Never elide load-bearing equations, Fourier constants, or named lemmas. |
 | Tool use | **Parallel reads** for TeX / compute / Coq / Lean sources | Batch `read_file` over every citation before writing. |
 | Persistence | **Absolute** | Do not yield on a partial proof. Either close the argument or name the open obligation precisely. |
 | Self-reflection rubric | **Required** before any inscription | See `~/ecosystem/AGENTS-HARNESS.md §VIII`; research-grade instantiation below. |
+
+### Long-form proof harness — GPT-5.5 Pro / Heavy analogue
+
+Public OpenAI material describes GPT-5.5 Pro as the ChatGPT
+research-grade option for the hardest long-running workflows and
+GPT-5.5 in Codex as a 400K-context agentic coding model. The private
+ChatGPT Pro harness is not public. This repo encodes the open analogue:
+deepest model, maximum reasoning effort, large context, tool-grounded
+verification, and repeated attack-heal cycles.
+
+1. **Deliberation budget.** For theorem repair, cross-volume synthesis,
+   adversarial review, or primary-source reconstruction, a 30-60 minute
+   agent run is normal. Do not stop because the first plan is plausible.
+   Stop only when the proof closes, a computation decides the point, or
+   the exact open obligation is named.
+2. **Private scratch, public proof trace.** Use private reasoning for
+   search and synthesis; never expose raw scratchpad as an answer. The
+   deliverable is the checked proof path: definitions, reductions,
+   cited theorems, computations, and the remaining obstruction if any.
+3. **Context before invention.** Load `CLAUDE.md`, this file, the target
+   chapter, its local dependencies, cited bibliography entries, compute
+   files, and cross-volume anchors before the first mathematical edit.
+   Build an internal outline; do not write from memory.
+4. **Multiple routes.** For any load-bearing identity, seek independent
+   derivations: worked example, formal argument, primary literature,
+   local computation, and cross-volume consistency. Agreement is
+   evidence; disagreement is the deliverable.
+5. **Adversarial loop.** After a proposed repair, attack the strongest
+   failure mode: convention/sign, ambient category, missing hypothesis,
+   false functoriality, unproved equivalence, numerical constant. Heal,
+   then attack again until no fatal objection survives.
+6. **Agent topology.** Large swarms are partitioned by disjoint proof
+   obligations or files. Subagents provide evidence, not authority. The
+   main thread integrates by deep semantic merge and heals the proof,
+   statement, or construction rather than voting truth into existence or
+   degrading the manuscript.
+7. **Progress reports.** Long runs emit compact `commentary` checkpoints:
+   what has been read, what has been ruled out, what proof obligation
+   remains. The final answer is short unless the proof itself is the
+   requested artifact.
 
 ### Research-grade discipline — `INVARIANTS.md §IV` made actionable
 
@@ -452,4 +496,3 @@ Any claim about $\kappa_{\mathrm{BKM}}$, $\Phi(K3 \times E)$, K3 abelian Yangian
 - Cross-volume disagreement → stop, report.
 - Compute-vs-prose disagreement → stop, report; the computation is usually right.
 - 8-row / 10-row / Gritsenko–Cléry inconsistency (cover-group stratification) → stop, report; do not silently reassign a row.
-

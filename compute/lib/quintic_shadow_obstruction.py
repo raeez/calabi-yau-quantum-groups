@@ -5,30 +5,34 @@ for the quintic CY3 and compact Calabi-Yau threefolds.
 THE CHI/24 OBSTRUCTION
 ======================
 
-For K3 x E (non-rigid CY3): chi = 0, and kappa = 5 (weight of Delta_5).
-    chi/24 = 0, which is an integer, but kappa = 5 != chi/24.
-    So even for K3 x E, kappa != chi/24.
+For K3 x E (non-rigid CY3): chi_top = 0, but the BKM denominator lane has
+    kappa_BKM(Delta_5) = weight(Delta_5) = c_1(0)/2 = 10/2 = 5.
+    Thus chi_top/24 = 0 and kappa_BKM = 5 are different scalar lanes.
 
 For the quintic Q in P^4: chi = -200, so chi/24 = -25/3, NOT an integer.
 This non-integrality is often cited as an obstruction to a naive BKM structure.
 
 KEY DISTINCTION (AP20/AP48):
-    kappa(A) is the modular characteristic of the chiral algebra A.
+    kappa_ch(A) is the modular characteristic of a constructed chiral algebra A.
+    For the quintic, such an A is not constructed in this engine.
     chi/24 is the ratio of topological Euler characteristic to 24.
-    These are DIFFERENT quantities that coincide ONLY in special cases.
+    kappa_BKM is the automorphic denominator weight when a BKM denominator
+    identity is actually present.
+    These are DIFFERENT quantities that coincide only under an identified
+    comparison theorem.
 
 For non-compact CY3s (toric, local models):
-    kappa = chi_loc/2 where chi_loc counts compact cycles.
-    Example: resolved conifold, kappa = 1.
+    kappa_ch = chi_loc/2 where chi_loc counts compact cycles.
+    Example: resolved conifold, kappa_ch = 1.
 
 For K3 x E:
-    kappa = 5 (weight of Borcherds product Delta_5).
-    chi/24 = 0/24 = 0.  So kappa != chi/24.
-    The correct formula: kappa = weight(automorphic form in denominator identity).
+    kappa_BKM = 5 (weight of Borcherds product Delta_5).
+    chi_top/24 = 0/24 = 0.  So kappa_BKM != chi_top/24.
 
 For compact rigid CY3s (quintic, etc.):
-    CONJECTURAL: kappa might be chi/24 = -25/3 (fractional!).
-    ALTERNATIVE: kappa might be determined by BCOV data, not chi alone.
+    CONJECTURAL: a shadow scalar might equal chi_top/24 = -25/3.
+    This is a candidate value, not a constructed kappa_ch.
+    ALTERNATIVE: the scalar is constrained by full BCOV/DT data, not chi alone.
 
 THE BCOV ALTERNATIVE
 ====================
@@ -50,18 +54,18 @@ characteristic of M_{1,1} integrated against c_{top}).
 SHADOW TOWER CANDIDATES
 ========================
 
-If we set kappa = chi/24 = -25/3, the shadow tower machinery still works
-(the formulas accept any rational kappa):
+If we set the candidate scalar to chi/24 = -25/3, the shadow tower
+machinery still works formally (the formulas accept any rational scalar):
 
-    F_g = kappa * a_hat_g = (-25/3) * a_hat_g
+    F_g = kappa_candidate * a_hat_g = (-25/3) * a_hat_g
 
     F_1 = (-25/3) * (1/24) = -25/72
     F_2 = (-25/3) * (7/5760) = -175/17280 = -35/3456
 
-The shadow metric Q_L(t) and discriminant Delta = 8*kappa*S_4 also work
-with fractional kappa.
+The shadow metric Q_L(t) and discriminant Delta = 8*kappa_candidate*S_4
+also work formally with a fractional candidate.
 
-ALTERNATIVE: If kappa is NOT chi/24 but some other quantity (perhaps
+ALTERNATIVE: If the true scalar is NOT chi/24 but some other quantity (perhaps
 related to the BCOV anomaly coefficient, or the Borcherds lift weight),
 then the shadow tower gives different predictions.
 
@@ -87,13 +91,14 @@ Observation: chi/24 is integral when 12 | (h^{1,1} - h^{2,1}).
 SHADOW DEPTH FOR THE QUINTIC
 =============================
 
-Since kappa = -25/3 (conjectural), the shadow tower data is:
+With the conjectural candidate kappa_candidate = -25/3, the shadow tower data is:
     alpha: unknown (requires the quintic chiral algebra OPE)
     S_4: unknown (requires quartic contact invariant)
 
 But we CAN analyze the shadow metric assuming the quintic chiral algebra
 (if it exists) has the standard form:
-    Q_L(t) = 4*kappa^2 + 12*kappa*alpha*t + (9*alpha^2 + 16*kappa*S_4)*t^2
+    Q_L(t) = 4*kappa_candidate^2 + 12*kappa_candidate*alpha*t
+             + (9*alpha^2 + 16*kappa_candidate*S_4)*t^2
 
 With kappa = -25/3: Q_L(0) = 4*(625/9) = 2500/9 > 0.
 The shadow metric is well-defined for any nonzero kappa.
@@ -111,8 +116,8 @@ MATHEMATICAL CONTENT
 
 This module computes:
     1. chi/24 for standard compact CY3s (integrality analysis)
-    2. Conjectural kappa candidates for the quintic
-    3. Shadow tower with fractional kappa
+    2. Conjectural scalar candidates for the quintic
+    3. Shadow tower with fractional candidate scalar
     4. Shadow metric and discriminant analysis
     5. BCOV anomaly coefficient and comparison
     6. GV invariant growth rates as shadow data
@@ -120,7 +125,7 @@ This module computes:
 
 Conventions:
     - Cohomological grading (|d| = +1), bar uses desuspension
-    - kappa is the modular characteristic (AP1: family-specific)
+    - every scalar is lane-specific; K3 x E uses kappa_BKM
     - chi is the topological Euler characteristic
     - A-hat coefficients are POSITIVE (AP22: Bernoulli signs after i-rotation)
     - The BCOV convention differs from DVV by normalization (AP38)
@@ -273,7 +278,7 @@ def bcov_k3_times_e() -> BCOVAnomalyData:
 # =========================================================================
 
 class KappaCandidate(NamedTuple):
-    """A candidate for kappa of a compact CY3 chiral algebra."""
+    """A candidate scalar for a compact CY3 shadow lane."""
     name: str
     formula_description: str
     value: Fraction
@@ -282,16 +287,17 @@ class KappaCandidate(NamedTuple):
 
 
 def quintic_kappa_candidates() -> List[KappaCandidate]:
-    """All candidate kappa values for the quintic CY3.
+    """All candidate scalar values for the quintic CY3.
 
-    Multiple candidates because kappa(A) depends on the chiral algebra A,
-    not just the topology of the underlying manifold. For the quintic,
-    the chiral algebra is not known explicitly (unlike K3 x E where
-    A = lattice VOA and kappa = 5).
+    Multiple candidates appear because the chiral algebra A_Q is not
+    constructed here.  Therefore this function does not compute
+    kappa_ch(A_Q); it records exact rational candidates whose status is
+    explicit.  K3 x E is different: the value 5 belongs to the BKM
+    denominator lane, kappa_BKM(Delta_5).
 
-    IMPORTANT (AP48): kappa depends on the FULL algebra, not the Virasoro
-    subalgebra. For a general VOA, kappa must be computed from the full
-    bar complex.
+    IMPORTANT (AP48): kappa_ch depends on the full algebra, not the
+    Virasoro subalgebra.  For a general VOA, it must be computed from
+    the full bar complex.
     """
     chi = -200
     h11 = 1
@@ -305,7 +311,7 @@ def quintic_kappa_candidates() -> List[KappaCandidate]:
             formula_description="chi(Q)/24 = -200/24 = -25/3",
             value=Fraction(chi, 24),
             is_integer=False,
-            source="Naive BKM analogy (FAILS: not integer)",
+            source="Conjectural BCOV-shadow candidate; naive BKM integrality fails",
         ),
         KappaCandidate(
             name="chi/2",
@@ -702,7 +708,7 @@ def quintic_obstruction_analysis() -> ObstructionAnalysis:
             "the standard product formula fails."
         ),
         shadow_status=(
-            "The shadow tower machinery works with fractional kappa. "
+            "The shadow tower machinery works with a fractional candidate scalar. "
             "F_g = (-25/3) * a_hat_g is well-defined for all g. "
             "The shadow metric Q_L(t) requires additional data (alpha, S_4) "
             "from the quintic chiral algebra OPE, which is not known explicitly."
@@ -722,14 +728,14 @@ def compact_cy3_obstruction_survey() -> List[ObstructionAnalysis]:
 
         if is_int:
             bkm_obs = f"chi/24 = {ratio} is integer. No chi/24 obstruction."
-            shadow_st = f"Shadow tower well-defined with kappa = {ratio}."
+            shadow_st = f"Shadow tower formally well-defined with candidate scalar {ratio}."
         else:
             bkm_obs = (
                 f"chi/24 = {ratio} is NOT integer. "
                 f"Naive BKM structure obstructed."
             )
             shadow_st = (
-                f"Shadow tower works with fractional kappa = {ratio}. "
+                f"Shadow tower works formally with fractional candidate scalar {ratio}. "
                 f"F_g = ({ratio}) * a_hat_g."
             )
 
@@ -750,17 +756,18 @@ def compact_cy3_obstruction_survey() -> List[ObstructionAnalysis]:
 # =========================================================================
 
 def kappa_formula_comparison() -> Dict[str, Any]:
-    """Compare different kappa formulas across CY families.
+    """Compare scalar sources across CY families.
 
-    The key insight: kappa depends on the ALGEBRA, not just the manifold.
-    Different CY3s with the same chi can have different kappa.
+    The key point is lane separation.  A chiral modular characteristic,
+    a BKM denominator weight, and a compact BCOV chi/24 candidate are not
+    interchangeable scalars.
 
-    For K3 x E: chi = 0, kappa = 5.   chi/24 = 0 != 5.
-    For elliptic: chi = 0, kappa = 1.  chi/24 = 0 != 1.
-    For K3: chi = 24, kappa = 2.       chi/24 = 1 != 2.
+    For K3 x E: chi = 0, kappa_BKM = 5.   chi/24 = 0 != 5.
+    For elliptic: chi = 0, kappa_ch = 1.  chi/24 = 0 != 1.
+    For K3: chi = 24, kappa_cat = 2.      chi/24 = 1 != 2.
 
-    The formula kappa = chi/24 FAILS for all known cases where kappa
-    is independently determined.
+    The formula "the selected scalar equals chi/24" fails for all listed
+    cases where the selected scalar is independently determined.
     """
     comparisons = [
         {
@@ -768,6 +775,7 @@ def kappa_formula_comparison() -> Dict[str, Any]:
             "chi": 0,
             "chi/24": Fraction(0),
             "kappa": Fraction(1),
+            "kappa_label": "kappa_ch",
             "match": False,
             "kappa_source": "Heisenberg H_1",
         },
@@ -776,6 +784,7 @@ def kappa_formula_comparison() -> Dict[str, Any]:
             "chi": 24,
             "chi/24": Fraction(1),
             "kappa": Fraction(2),
+            "kappa_label": "kappa_cat",
             "match": False,
             "kappa_source": "chi(O_K3) = 2",
         },
@@ -784,14 +793,16 @@ def kappa_formula_comparison() -> Dict[str, Any]:
             "chi": 0,
             "chi/24": Fraction(0),
             "kappa": Fraction(5),
+            "kappa_label": "kappa_BKM",
             "match": False,
-            "kappa_source": "weight(Delta_5) = 5",
+            "kappa_source": "Borcherds weight: c_1(0)/2 = 10/2",
         },
         {
             "name": "resolved conifold",
             "chi": 2,
             "chi/24": Fraction(1, 12),
             "kappa": Fraction(1),
+            "kappa_label": "kappa_ch",
             "match": False,
             "kappa_source": "Heisenberg from compact P1",
         },
@@ -800,6 +811,7 @@ def kappa_formula_comparison() -> Dict[str, Any]:
             "chi": -200,
             "chi/24": Fraction(-25, 3),
             "kappa": Fraction(-25, 3),
+            "kappa_label": "kappa_BCOV_shadow_conjectural",
             "match": True,
             "kappa_source": "CONJECTURAL (chi/24)",
         },
@@ -816,10 +828,10 @@ def kappa_formula_comparison() -> Dict[str, Any]:
         "n_match": n_match,
         "n_total": n_total,
         "conclusion": (
-            f"chi/24 matches kappa in {n_match}/{n_total} cases. "
-            f"In the {n_known} cases where kappa is independently known, "
-            f"chi/24 != kappa for ALL of them. "
-            f"This strongly suggests chi/24 is NOT the correct formula for kappa."
+            f"chi/24 matches the selected scalar in {n_match}/{n_total} cases. "
+            f"In the {n_known} cases where the selected scalar is independently "
+            f"known, chi/24 differs from it in every case. "
+            f"This forbids using chi/24 as a universal scalar formula."
         ),
     }
 
@@ -841,9 +853,9 @@ def correct_interpretation() -> Dict[str, str]:
        involves chi/24. Non-integrality of chi/24 obstructs the
        standard BKM product formula.
 
-    Neither role identifies chi/24 with kappa(A_X). The modular
-    characteristic kappa is determined by the full chiral algebra,
-    not by the topological Euler characteristic alone.
+    Neither role identifies chi/24 with kappa_ch(A_X).  The chiral modular
+    characteristic is determined by the full chiral algebra, not by the
+    topological Euler characteristic alone.
 
     For compact rigid CY3s where no explicit chiral algebra is known,
     kappa is UNDETERMINED (not chi/24 by default).
@@ -858,22 +870,24 @@ def correct_interpretation() -> Dict[str, str]:
             "obstructs the denominator identity in the standard form."
         ),
         "kappa determination": (
-            "kappa(A_X) = modular characteristic of the chiral algebra A_X. "
-            "For K3 x E: kappa = 5 (from Delta_5). "
-            "For quintic: kappa is UNDETERMINED (no known chiral algebra). "
-            "The assignment kappa = chi/24 is a CONJECTURE, not a theorem."
+            "kappa_ch(A_X) is the modular characteristic of a constructed "
+            "chiral algebra A_X. For K3 x E, the cited value is "
+            "kappa_BKM(Delta_5) = 5 from the Borcherds denominator. "
+            "For the quintic: kappa_ch is UNDETERMINED (no known chiral "
+            "algebra). The assignment chi/24 is a CONJECTURAL shadow scalar, "
+            "not a theorem."
         ),
         "shadow tower status": (
-            "The shadow obstruction tower machinery works for any rational kappa. "
-            "With kappa = -25/3: F_g = (-25/3) * a_hat_g (negative amplitudes). "
-            "The negativity may signal that -25/3 is NOT the correct kappa."
+            "The shadow obstruction tower machinery works for any rational scalar. "
+            "With candidate -25/3: F_g = (-25/3) * a_hat_g. "
+            "The sign is data to be interpreted, not a proof of the candidate."
         ),
         "resolution paths": (
-            "Path 1: Construct the quintic chiral algebra explicitly and compute kappa. "
-            "Path 2: Use BCOV holomorphic anomaly to constrain kappa. "
+            "Path 1: Construct the quintic chiral algebra explicitly and compute kappa_ch. "
+            "Path 2: Use BCOV holomorphic anomaly to constrain the scalar. "
             "Path 3: Use the DT/GV correspondence to identify the automorphic form "
-            "   whose weight gives kappa (generalizing Delta_5 for K3 x E). "
-            "Path 4: Accept fractional kappa as a feature of rigid CY3s, "
+            "   whose weight gives a BKM scalar if such a lift exists. "
+            "Path 4: Accept a fractional candidate as a feature of rigid CY3s, "
             "   requiring an orbifold/fractional BKM structure."
         ),
     }

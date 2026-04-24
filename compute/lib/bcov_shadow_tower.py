@@ -824,7 +824,7 @@ def genus_1_from_shadow(kappa_ch: Fraction) -> Dict[str, Any]:
       C^3: kappa_ch = 1, F_1 = 1/24
       Conifold: kappa_ch = 1, F_1 = 1/24
       Quintic: kappa_ch = -25/3, F_1 = -25/72
-      K3 x E: kappa_ch = 5, F_1 = 5/24
+      K3 x E BKM lane: kappa_BKM = 5, F_1 = 5/24
       Virasoro c=1: kappa_ch = 1/2, F_1 = 1/48
     """
     f1 = kappa_ch * lambda_fp(1)
@@ -1142,7 +1142,8 @@ def bcov_shadow_master_table(max_genus: int = 5) -> Dict[str, Any]:
     4. BCOV recursion structure (handle + factorization terms)
     5. Recursion ratios (universal on scalar lane)
     """
-    # CY3 examples with their kappa_ch values
+    # CY3 examples with their scalar-lane values.  K3 x E uses the BKM
+    # automorphic scalar, not the compact total-space kappa_ch.
     examples = {
         "C^3": Fraction(1),
         "conifold": Fraction(1),
@@ -1150,6 +1151,14 @@ def bcov_shadow_master_table(max_genus: int = 5) -> Dict[str, Any]:
         "quintic": Fraction(-25, 3),
         "K3 x E": Fraction(5),
         "Virasoro_c1": Fraction(1, 2),
+    }
+    labels = {
+        "C^3": "kappa_ch",
+        "conifold": "kappa_ch",
+        "local_P^2": "kappa_ch",
+        "quintic": "kappa_BCOV_shadow",
+        "K3 x E": "kappa_BKM",
+        "Virasoro_c1": "kappa_ch",
     }
 
     table = {}
@@ -1163,7 +1172,8 @@ def bcov_shadow_master_table(max_genus: int = 5) -> Dict[str, Any]:
                 "lambda_g": lambda_fp(g),
             }
         table[name] = {
-            "kappa_ch": kappa,
+            "kappa_scalar": kappa,
+            "kappa_label": labels[name],
             "genus_data": genus_data,
         }
 

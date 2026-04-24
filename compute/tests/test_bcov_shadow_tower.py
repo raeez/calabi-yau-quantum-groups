@@ -131,7 +131,7 @@ class TestGenus1Seed:
         assert data["F_1"] == Fraction(-25, 72)
 
     def test_f1_k3xe(self):
-        """K3 x E: F_1 = 5/24 (kappa_ch = 5)."""
+        """K3 x E BKM lane: F_1 = 5/24 (kappa_BKM = 5)."""
         data = genus_1_from_shadow(Fraction(5))
         assert data["F_1"] == Fraction(5, 24)
 
@@ -513,6 +513,12 @@ class TestMasterComparisonTable:
         table = bcov_shadow_master_table()
         expected = {"C^3", "conifold", "local_P^2", "quintic", "K3 x E", "Virasoro_c1"}
         assert set(table["examples"].keys()) == expected
+
+    def test_k3xe_label_is_bkm(self):
+        """The K3 x E scalar in this table is kappa_BKM, not kappa_ch."""
+        table = bcov_shadow_master_table()
+        assert table["examples"]["K3 x E"]["kappa_label"] == "kappa_BKM"
+        assert table["examples"]["K3 x E"]["kappa_scalar"] == Fraction(5)
 
     def test_c3_genus_1(self):
         """C^3: F_1 = 1/24."""
