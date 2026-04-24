@@ -2,6 +2,155 @@
 
 *Raeez Lorgat, Perimeter Institute.*
 
+*Extended 2026-04-24 with Wave-17 addendum (§0-α below). 2026-04-22 battle-hardened content preserved verbatim from §I onward.*
+
+---
+
+## §0-α. Wave-17 Addendum (2026-04-24)
+
+Wave-17 deployed 30 adversarial agents (15 Opus 4.7 elite-voice + 15 Codex) against the 2026-04-17 master synthesis. Agent deliverables under `~/chiral-bar-cobar/notes/wave17_opus_20260424/` and `~/chiral-bar-cobar/notes/wave17_codex_20260424/` (49 files, ~30K lines; committed Vol I `f30e4a1`). This addendum records Vol III-specific corrections: twelve retractions, thirty-one refinements, five new theorems, ten open frontiers F1–F10 (full mathematical content in each referenced agent file).
+
+### Vol III critical retractions (Wave-17)
+
+**R4 — UTI-1 at functor level FALSE at $d = 3$** (opus_07 825 lines + 6 cycles; agent_06 1242 lines + 5 cycles; codex_07). Previously claimed:
+$$
+\text{(UTI-1):}\quad K \circ \Phi = \kappa_{\mathrm{ch}} \quad \text{in } \mathrm{Func}(\mathrm{CY}_d\text{-Cat}^{\mathrm{cyclic, prop}}, \mathbb Z) \text{ for all } d \ge 1.
+$$
+**Fails** at $d = 3$: $\kappa_{\mathrm{ch}}(K3 \times E) = 0$ by Kunneth + Serre duality at odd $d$, so $\kappa_{\mathrm{ch}} \ne 2\kappa_{\mathrm{BKM}} = 10$. Fails at $d = 2$ K3 in the stated form too ($\kappa_{\mathrm{ch}}(K3) = 2$ but $K(\Phi_2(K3)) = $ rank of Mukai-Heisenberg Cartan $= 24$, not $2$).
+
+**Surviving rebuilt bridge** (opus_07 cycle 6):
+$$
+\boxed{\,K(A_{X_N}) = c_N(0) = 2\, \kappa_{\mathrm{BKM}}(\Phi_N) \quad \text{on K3-fibered CHL Class A, } N \in \{1, 2, 3, 4, 6\};\,\text{values } \{10, 4, 2, 2, 2\}.\,}
+$$
+**Mediator is $K$ (Vol I conductor), NOT $\kappa_{\mathrm{ch}}$.** Factor-2 derivable: (a) bar-cobar total grading $\deg(B) + \deg(\Omega) = 2$; (b) $\mathrm{Sp}_4(\mathbb Z)\backslash \mathcal H_2$ two-cusp divisor pair each contributing Borcherds weight once.
+
+**R6 — Decomposition $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal O_{\mathrm{fiber}})$ FAILS AT $N = 1$ TOO** (opus_07, agent_14, 62 adversarial tests at $N \in \{2..8\}$). At $N = 1$ $K3 \times E$:
+$$
+\kappa_{\mathrm{ch}}(K3 \times E) = 0 \text{ (Kunneth + Serre at $d = 3$ odd)},\quad \chi(\mathcal O_{K3}) = 2,\quad \text{RHS} = 0 + 2 = 2 \ne 5 = \kappa_{\mathrm{BKM}}.
+$$
+The "N=1 COINCIDENCE" framing of 2026-04-17 §4 is itself incorrect — the decomposition fails at every $N$ including $N = 1$.
+
+**R10 — 6D hCS one-loop anomaly is QUARTIC Casimir, NOT cubic $d^{abc}$** (opus_13 1059 lines; codex_11 58K full CFG derivation). Wave-15 draft:
+$$
+\kappa_{\mathrm{anom}}(X, \mathfrak g) = \hbar A(\mathfrak g) \cdot \frac{\chi_{\mathrm{top}}(X)}{2(4\pi)^3} \cdot \|\Omega_X\|^2 \quad\text{with } A(\mathfrak g) = d^{abc}
+$$
+RETRACTED. The cubic $d^{abc}$ vanishes by adjoint self-duality. For $d = 3$ holomorphic CS, the local holomorphic gauge anomaly is controlled by a degree-$(d+1) = 4$ invariant polynomial:
+$$
+\int_X \mathrm{Tr}_{\mathrm{ad}}\bigl(A\, (F_A)^3\bigr) \quad\text{(QUARTIC Casimir)}.
+$$
+Wave-function renormalisation $S^{(1)}_{\mathrm{c.t.}} = -\hbar\, C_2(\mathfrak g) (4\pi)^{-3} \log(L/\varepsilon) \int \Omega \wedge \mathrm{Tr}(A \bar\partial A)$ (with $C_2(\mathfrak g)$ quadratic, $\mathrm{SU}(N)$ coefficient $N/(32\pi^3)$) is DISTINCT from anomaly (AP113, preserved).
+
+**R11 — CFG 2026 ≠ 6D hCS; avatar framing only** (codex_11). CFG 2026 $=$ Costello-Francis-Gwilliam 2026 $=$ "Chern-Simons factorization algebras and knot polynomials" (arXiv:2602.12412). Its Theorem 1.1 concerns ORDINARY THREE-DIMENSIONAL Chern-Simons theory, a filtered $E_3$-algebra $\mathcal A_\lambda$, perfect modules, and Reshetikhin-Turaev link invariants. **It does NOT contain six-dimensional holomorphic Chern-Simons on CY_3, Bochner-Martinelli propagators, or wave-function renormalisation.** Wave-15 assertion of "line-by-line CFG 2026 6D hCS match" is therefore not source-verifiable. **The 6D hCS $\leftrightarrow E_3$-algebra story is an AVATAR / conditional comparison, not a CFG-match.**
+
+### Vol III refinements (Φ functor + Stage-1 scope)
+
+**G4 (U1)-(U4) uniqueness on Koszul-self-dual locus ONLY** (opus_06 1110 lines + 7 cycles; agent_05 887 lines; codex_06 13K). Off-locus counter-example: central-charge-twisted $\widetilde\Phi_3(\mathcal C) := \Phi_3(\mathcal C) \otimes \varepsilon$ agrees on four canonical inputs (U4) but differs off-locus. **Fix:** uniqueness requires restriction to Koszul-self-dual $\mathcal C_d^{\mathrm{Kosz}} \subset \mathrm{CY}_d\text{-Cat}^{\mathrm{cyclic, prop}}$; full uniqueness off-locus needs Fourier-Mukai kernel rigidification (U5).
+
+**Stage-1 Φ^{FA}_d FORMAL-LOCUS ONLY** (codex_06 13K audit). $\Phi^{\mathrm{FA}}_d: \mathrm{CY}_d\text{-Cat} \to E_d\text{-HolFA}(X)$ canonical only where $\mathrm{HH}^\bullet(\mathcal C)$ is formal as an $E_d$-algebra:
+- $d = 1$ (E): ALWAYS formal (Kontsevich 1999).
+- $d = 2$ (K3): formal generically; $\mathrm{At}(T_{K3})$ obstruction kills since $\Omega^3_{K3} = 0$.
+- $d = 3$ (compact CY_3): formal on $K3 \times E$ since $\mathrm{At}(T_E) = 0$ (E is complex Lie group) and $\Omega^3_{K3} = 0$; GENERALLY NON-FORMAL on quintic ($\mathrm{At}(TX_5) \ne 0$).
+- $d \ge 4$: formality-obstruction theorem OPEN (**F9 frontier**).
+
+**Operad-level vs category-level $E_d$-formality distinguished** (opus_06 cycle 3):
+- Operad-level: Fresse Vol I Thm 14.1.A. UNCONDITIONAL.
+- Category-level: formality of $\mathrm{HH}^\bullet(\mathcal C)$ as an $E_d$-algebra. PROVED at $d \le 3$ via three-vanishing theorem; OPEN at $d \ge 4$.
+
+**PTVV-forced native level** (opus_06 cycle 6; agent_05 cycle 6). $\mathrm{PTVV}\ 2013$ shifted symplectic structure on $\mathcal M(\mathcal C)$ has shift $(2 - d)$. Dunn-Lurie additivity + $(2-d)$-shift FORCES:
+$$
+d = 1 \to n = \infty \text{ (lattice VOA on E)};\quad d = 2 \to n = 2 \text{ (Mukai-Heisenberg on K3)};\quad d \ge 3 \to n = 1 \text{ (CoHA / Yangian / BKM)}.
+$$
+Native dispatch is PTVV + Dunn driven, NOT Schouten-Nijenhuis (which is concurrent fact, not driver).
+
+### Vol III $\kappa_{\mathrm{ch}}$ Hodge supertrace values explicit (opus_12 879 lines; agent_12 1547 lines)
+
+$$\kappa_{\mathrm{ch}}(A_X) = \sum_q (-1)^q h^{0,q}(X) \text{ (Hodge supertrace)}$$
+
+- $d=1$ (E): $\kappa_{\mathrm{ch}} = 1 - 1 = 0$
+- $d=2$ K3: $\kappa_{\mathrm{ch}} = 1 + 0 + 1 = 2$; abelian surface: $1 - 2 + 1 = 0$; bielliptic: $0$
+- $d=3$ ANY compact CY_3: $\kappa_{\mathrm{ch}} = 0$ (Serre duality at odd $d$ forces vanishing); quintic, $K3 \times E$, $E^3$, octic-double all $= 0$
+- $d=3$ local $\mathbb P^2$: $3/2$; resolved conifold (regularised): $1$
+- $d=4$ sextic: $2$; octic-double: $151$; $K3^{[2]}$: $3$; F(Y): $3$
+- $d=5$: all $= 0$ by odd-$d$ Serre
+
+**Class A rigorous definition** (opus_12 cycle 2): K3-fibered CY_3 satisfying (A1) generic K3 fibres, (A2) Mathieu-$M_{23}$ monodromy on K3 fibre, (A3) Jacobi-form elliptic genus lifting to non-zero Siegel paramodular form. Eight orbifolds = Gritsenko-Cléry 2008 simplest-divisor census. STU = Harvey-Moore 1996 heterotic $K3 \times T^2$ threshold.
+
+**$N \in \{1, 2, 3, 4, 6\}$ triple coincidence** (opus_12 cycle 3): three independent restrictions — (i) CM on E: $\varphi(N) | 2$; (ii) Mathieu-$M_{23}$ symplectic order $\le 23$; (iii) Nikulin fixed-count $N^*(N)$ — all converge.
+
+### Vol III Universal Borcherds weight eight-row table (agent_14 943 lines)
+
+```
+N | c_N(0) | κ_BKM | cover           | CY_3 host          | source
+--|--------|-------|-----------------|--------------------|-------------------------
+1 |   10   |   5   | Sp_4(Z)         | K3 × E              | Gritsenko 1999 Thm 1.2
+2 |    4   |   2   | Sp_4(Z)         | (K3×E)/Z_2          | Gritsenko-Nikulin 1998
+3 |    2   |   1   | Sp_4(Z)         | (K3×E)/Z_3          | ibid
+4 |    2   |   1   | Sp_4(Z)         | (K3×E)/Z_4          | ibid
+5 |    1   |  1/2  | Mp_4(Z)         | Borcea-Voisin       | Gritsenko 1994 Γ_0(5)^+
+6 |    2   |   1   | Sp_4(Z)         | (K3×E)/Z_6          | Gritsenko-Nikulin 1998
+7 |   1/2  |  1/4  | widetilde{Mp}_4 | Nikulin-singular     | Scheithauer 2015 Duke
+8 |    0   |   0   | —                | Kum³(A)/Z_8          | Mongardi-Tari-Wandel (terminal)
+```
+
+Cover assignment DERIVED from Weil representation via Stone-von Neumann at lattice signature $(2, 3)$. **Q4 inscription target:** Vol III `cy_d_kappa_stratification.tex:2013-2052` uses Family (i) CHL-averaged weights $\{5,4,3,2,1\}$; CLAUDE.md §"2026-04-22 cross-volume sharpenings" uses Family (ii) twined Borcherds weights $\{5,2,1,1,1\}$. Cross-volume convention discipline needed to pin Family (ii) canonically.
+
+### Vol III Three-factor identity ζ-regularisation (opus_07 cycle 5)
+
+Resolution of nilpotency apparent paradox $Q_{\mathrm{BRST}}^2 = 0 \Rightarrow \mathrm{tr} = 0 \ne c_N(0)/2$: the trace is ζ-REGULARISED supertrace on infinite-dim ghost Fock space, landing in Euler-class dimension of BRST cohomology via Dabholkar-Harvey BPS counting (IIA on $K3 \times T^2$, $\mathcal N = 4$, $D = 4$ BPS supermultiplicity):
+$$
+\mathrm{tr}^\zeta_{\mathrm{ghost}}(Q_{\mathrm{BRST}}^2) = \mathrm{tr}_{\mathrm{Pentagon}} = \omega_{\mathrm{Borcherds}} = c_N(0)/2.
+$$
+**At $N = 1$ four paths converge at 10:** (i) $K(\Phi_3(K3 \times E))$ via Vol I BRST ghost anomaly; (ii) $2\kappa_{\mathrm{BKM}}(\Phi_1)$ via Gritsenko 1999 Thm 1.2; (iii) $\mathrm{tr}_{\mathrm{Pentagon}}$ via Heptagon face 4 / Dimofte slab; (iv) ζ-regularised analytic trace via Dabholkar-Harvey.
+
+### Vol III Six routes to $G(K3 \times E)$: common-limit-cone LITERAL for K3×E (opus_06 cycle 7; agent_05 cycle 7)
+
+Six routes produce NATURALLY ISOMORPHIC $\Phi_3(D^b(K3 \times E))$-outputs for K3 × E CHL siblings $N \in \{1, 2, 3, 4, 6\}$:
+$R_1$ Borcherds lift; $R_2$ Mukai pairing; $R_3$ McKay quiver; $R_4$ MO instanton lift; $R_5$ factorisation homology (6D hCS Stage-2); $R_6$ Costello 5d hCS.
+
+**NOT literal for Monster vs Igusa** — different CY_3 inputs, not sibling specialisations. Monster obstructed from compact CY_3 by rank bound:
+$$
+h^{1,1}(X) \le h^{1,1}(\text{K3 fiber}) + 2h^{0,2}(\text{K3 fiber}) \le 20 + 2 = 22 < 24 = \mathrm{rank}(\Lambda_{\mathrm{Leech}}).
+$$
+Robust across all K3-fibered CY_3.
+
+### Vol III CoHA → Y^+ → W_{1+∞} triangle (opus_14 1004 lines; agent_13 1456 lines)
+
+Jordan triple loop quiver $Q$: one vertex, three loops $X, Y, Z$, potential $W = \mathrm{tr}(X[Y, Z])$. Jacobi $J(Q, W) = k[X, Y, Z] = \mathcal O_{\mathbb C^3}$ via cyclic derivatives $\partial_X W = [Y, Z] = 0$, etc. Schiffmann-Vasserot 2013 shuffle $\mathrm{CoHA}(\mathbb C^3) \otimes_{\mathbb F} \mathbb F((z)) \cong \mathrm{Sh}$ with
+$$
+\omega(z, w) = \frac{(z - w - \varepsilon_1)(z - w - \varepsilon_2)(z - w - \varepsilon_3)}{(z - w)^3}.
+$$
+$Y^+(\widehat{\mathfrak{gl}}_1) := \mathrm{CoHA}(\mathbb C^3)_+$. Tsymbaliuk 2017 Drinfeld double $=$ affine Yangian of $\mathfrak{gl}_1$ with $\varphi(u) = (u+\varepsilon_1)(u+\varepsilon_2)(u+\varepsilon_3)/u^3$. Gaiotto-Rapčák 2017 $\mathrm{ev}_\lambda: Y(\widehat{\mathfrak{gl}}_1) \twoheadrightarrow \mathrm{End}(\mathcal W_{1+\infty}[\lambda]\text{-vac})$.
+
+**Two $\lambda$-parameters distinguished** (opus_14 cycle 7; AP-CY56):
+- $\lambda_{\mathrm{Tr}} = (\varepsilon_1 + \varepsilon_2)/\varepsilon_3$ (SV/Tsymbaliuk truncation, pre-CY_3).
+- $\lambda_W$ (Gaiotto-Rapčák $\mathcal W_{1+\infty}$ central-charge parameter, free).
+
+Under CY_3 slice $\varepsilon_1 + \varepsilon_2 + \varepsilon_3 = 0$: $\lambda_{\mathrm{Tr}} = -1$ identically constrained. **But $\lambda_W$ is FREE — the $\mathcal W_{1+\infty}$-family does NOT collapse.** Physical slice parameter is $\lambda_{\mathrm{GR}}$, not $\lambda_{\mathrm{Tr}}$. AP934 discipline enforced: $\mathrm{CoHA}(\mathbb C^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ primitive; $\mathcal W_{1+\infty}$ via $\mathrm{ev}_\lambda$ evaluation, NOT directly.
+
+### Vol III inscription queue (Wave-17)
+
+| # | Target | Correction |
+|---|--------|-----------|
+| Q4 | `chapters/examples/cy_d_kappa_stratification.tex:2013-2052` vs CLAUDE.md §"2026-04-22" | Pin Family (i) vs Family (ii) Borcherds convention canonically |
+| Q11 | `chapters/theory/cy_to_chiral.tex` | Stage-1 formal-locus scope; three corrections (list in codex_06_stage1_formality_audit.md) |
+| Q12 | `notes/platonic_synthesis_waves_11_through_16.tex:wn:thm:plat-anomaly` | Replace cubic Casimir $d^{abc}$ with quartic degree-$(d+1)$ Casimir |
+| Q13 | Same doc | CFG 2026 is 3D CS not 6D hCS; reframe as avatar |
+| Q14 | Same doc | 12 flagged errors E1–E12 (agent_15 audit) |
+
+**Twelve flagged errors (agent_15):** (E1) $g_{24}$ coefficient off by ~10 orders; (E2) heterotic $K3 \times T^2 \to \Phi_{10}^{-1}$ NOT $\Phi_{12}^{-1}$; (E3) Cartan signature $(2,1)$; (E4) Weyl-vector $f_i$ non-canonical; (E5) Mukai $(4,20)$ vs Narain $(3,19)$ conflation; (E6) Gritsenko $\Delta_5$ vs Borcherds $\Phi_{10}$ conflation; (E7) Cubic-Casimir list omits $\mathrm{Sp}(2N)$; (E8) $c_{2d} = -214$ parsing error ($= -12 c_{4d}$); (E9) Whitehead 2nd lemma retracted; (E10) closed-curve $c_{4d}$ fails at $n=4$; (E11) "Fake Monster at $d=5$ Stage-2" is fiction; (E12) $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal O_{\mathrm{fiber}})$ fails at $N=1$ (see R6).
+
+### Vol III open frontiers (Wave-17)
+
+- **F8** (new): Stage-1 chain-level at $d \ge 4$.
+- **F9** (new): Category-level $E_d$-formality at $d \ge 4$.
+- **F10** (new): Bracket-level BPS Lie algebra on K3 × E — $\mathfrak g_{\mathrm{BPS}} \cong \mathfrak g_{\Delta_5}$ graded-dim unconditional (Oberdieck-Pixton reduced DT $Z^{\mathrm{red}}_{DT} = -1/\Phi_{10} = -\Delta_5^{-2}$), **bracket-level identification OPEN**.
+
+### Agent index (Vol III-relevant deliverables)
+
+Opus 4.7: opus_06 (Φ uniqueness on KSDual 1110 lines), agent_05 (PTVV force + many-BKMs 887 lines), opus_07/agent_06 (UTI retraction + rebuild), opus_12 (κ_ch stratification 879 lines), agent_12 (E_3 FA gens-rels 1547 lines), opus_13 (6D hCS full 1059 lines, quartic anomaly), agent_11 (Stage-1 S1-S16 dictionary 1350 lines), opus_14/agent_13 (CoHA → W_{1+∞} 1004 + 1456 lines), agent_14 (Universal Borcherds 943 lines), agent_15 (harmonies audit 1079 lines, 12 flagged errors).
+
+Codex: codex_06 (Stage-1 formal-locus 13K), codex_10 (F5 Drinfeld double deep audit 40K), codex_11 (full 6D hCS + CFG 2026 retraction 58K), codex_12 (E_3 FA gens-rels 4.4K), codex_14 (six routes to G(K3 × E) common-limit-cone).
+
 ---
 
 ## I. Two-stage factorisation
