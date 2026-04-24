@@ -1,36 +1,36 @@
 # Theorem Registry (calabi-yau-quantum-groups)
 
-Auto-generated 2026-04-23.
+Auto-generated 2026-04-24.
 
 ## Snapshot
 
 | Metric | Value |
 |---|---:|
-| ProvedHere claims | 775 |
-| Total tagged claims | 1388 |
-| Active files in `main.tex` | 45 |
-| Total `.tex` files scanned | 55 |
+| ProvedHere claims | 773 |
+| Total tagged claims | 1793 |
+| Active files in `main.tex` | 48 |
+| Total `.tex` files scanned | 66 |
 
 ## Status Totals
 
 | Status | Count |
 |---|---:|
-| `ProvedHere` | 775 |
-| `ProvedElsewhere` | 259 |
-| `Conjectured` | 285 |
-| `Conditional` | 59 |
-| `Heuristic` | 10 |
+| `ProvedHere` | 773 |
+| `ProvedElsewhere` | 300 |
+| `Conjectured` | 310 |
+| `Conditional` | 401 |
+| `Heuristic` | 9 |
 | `Open` | 0 |
 
 ## ProvedHere By Environment
 
 | Environment | Count |
 |---|---:|
-| `theorem` | 370 |
-| `proposition` | 268 |
-| `corollary` | 79 |
-| `remark` | 40 |
-| `lemma` | 17 |
+| `theorem` | 378 |
+| `proposition` | 282 |
+| `corollary` | 63 |
+| `remark` | 28 |
+| `lemma` | 21 |
 | `computation` | 1 |
 
 ## ProvedHere By Part
@@ -38,8 +38,8 @@ Auto-generated 2026-04-23.
 | Part | Count |
 |---|---:|
 | Frame | 0 |
-| Theory | 318 |
-| Examples | 419 |
-| Connections | 38 |
+| Theory | 349 |
+| Examples | 377 |
+| Connections | 47 |
 | Standalones | 0 |
 | Appendices | 0 |
