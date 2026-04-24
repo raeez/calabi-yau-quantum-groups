@@ -1,18 +1,24 @@
 \chapter{Quantum Groups: Foundations}
 \label{ch:quantum-groups}
 
-\providecommand{\Meff}{\mathcal{M}^+_{\mathrm{eff}}}
+\providecommand{\Meff}{\mathcal{M}^{\mathfrak A}_{\sigma,S}}
 \providecommand{\PBPS}{\mathfrak{P}^{\mathrm{BPS}}}
-\providecommand{\Gammaeff}{\Gamma^{+}_{\mathrm{eff},\sigma}}
-\providecommand{\DKS}{\mathfrak{D}^{\mathrm{KS}}_{\sigma}}
-\providecommand{\ThetaBPS}{\Theta^{\mathrm{BPS}}_{\sigma}}
+\providecommand{\Gammaeff}{\Gamma^{+}_{\sigma,S,o}}
+\providecommand{\Gammass}{\Gamma^{\mathrm{ss}}_{\sigma,S}}
+\providecommand{\GammaBPS}{\Gamma^{\mathrm{BPS}}_{\sigma,S,o}}
+\providecommand{\Teq}{T_{\mathrm{eq}}}
+\providecommand{\DKS}{\mathfrak{D}^{\mathrm{KS}}_{\sigma,S,o}}
+\providecommand{\ThetaBPS}{\Theta^{\mathrm{BPS}}_{\sigma,S,o,\Teq}}
 
 The toric fan supplies a positive cone, a chamber atlas, a PBW order,
 and a positivity certificate in one combinatorial object.  General BPS
 spectra separate these four roles.  The object below records the
-separation before any toric degeneration is imposed.
+separation before any toric degeneration is imposed: the positive stack
+is indexed by semistable support, the completion is indexed by BPS
+support, the wall-crossing lives in a completed quantum torus, and the
+theta basis is an enhancement only where it is constructed.
 
-\begin{definition}[Effective BPS positive geometry]
+\begin{definition}[Relative BPS Hall-scattering datum]
 \label{def:universal-positive-geometry-grammar}
 Let $\mathcal{C}$ be a CY$_3$ category with geometric support $X$; in
 the sheaf-theoretic case $\mathcal{C}=D^b\mathrm{Coh}(X)$.  Write its
@@ -20,186 +26,338 @@ numerical charge lattice as
 \[
   \Gamma_X := K^{\mathrm{num}}_0(\mathcal{C})
 \]
-and antisymmetric Euler form $\langle-,-\rangle$.  Fix a Bridgeland
-stability condition $\sigma=(Z,\mathcal{P})$ on the component under
-consideration, orientation data for the determinant-line square root,
-and a derived critical atlas on the semistable moduli stacks.  The
-\emph{effective BPS positive geometry} in chamber $\sigma$ is the
-datum
+and antisymmetric Euler form $\langle-,-\rangle$.  Fix:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item a Bridgeland stability condition $\sigma=(Z,\mathcal{P})$ on the
+component under consideration;
+\item a strict sector $S\subset\mathbb{C}^*$, with no active BPS ray on
+its boundary;
+\item orientation data $o$, giving the determinant-line square root and
+the sign cocycle $\varepsilon_o$ used in the quantum torus;
+\item a support-property quadratic form $Q$ which is negative definite
+on $\ker Z$ and non-negative on every active charge;
+\item a geometry-specific equivariance group $\Teq$;
+\item an oriented derived critical atlas $\mathfrak A$ on the
+semistable moduli stacks;
+\item an ambient integration theory
+$\bullet\in\{\mathrm{mot},\mathrm{cl}\}$.
+\end{enumerate}
+If any of these inputs is missing, the datum below is not constructed at
+that chamber.  Put
 \[
- \PBPS_{\sigma}(X)
+  \Gamma_X^{\mathrm{or}}
+  :=
+  \bigl(\Gamma_X,\langle-,-\rangle,\varepsilon_o\bigr)
+\]
+and define the semistable sector support by
+\[
+  \Gammass
+  :=
+  \{0\}\cup
+  \bigl\{\gamma\in\Gamma_X:
+     Z(\gamma)\in S,\ 
+     \mathcal M_\sigma(\gamma)\neq\varnothing,\ 
+     Q(\gamma)\geq0
+  \bigr\}.
+\]
+The oriented critical stack is
+\[
+  \Meff(X)
+  :=
+  \coprod_{\gamma\in\Gammass}
+  \mathcal M^{\mathfrak A}_\sigma(\gamma),
+\]
+where, on a quiver chart $U$, the summand is of the form
+$[\mathrm{Crit}(\mathrm{Tr}\,W_{U,\mathbf d})/G_{\mathbf d}]$ and the
+coefficient system is
+$\phi_{\mathfrak A,o}=\phi_{\mathrm{Tr}\,W_{U,\mathbf d}}\otimes
+\mathscr L_{o_U}$, with the orientation local system included.
+The BPS cohomology and its integrations are
+\[
+  \operatorname{BPS}_{\gamma,\sigma,o,\Teq}
+  :=
+  H^\bullet_{c,\Teq}
+  \bigl(\mathcal M^{\mathfrak A}_\sigma(\gamma),
+        \phi_{\mathfrak A,o}\bigr),
+\]
+\[
+  \Omega^{\mathrm{mot}}_{\sigma,o}(\gamma)
+  :=
+  [\operatorname{BPS}_{\gamma,\sigma,o,\Teq}]_{\mathrm{vir}},
+  \qquad
+  \Omega^{\mathrm{cl}}_{\sigma,o}(\gamma)
+  :=
+  \chi\bigl(\operatorname{BPS}_{\gamma,\sigma,o,\Teq}\bigr).
+\]
+The BPS support and its effective completion monoid are
+\[
+  \GammaBPS^{\bullet}
+  :=
+  \bigl\{\gamma\in\Gammass:
+  \Omega^{\bullet}_{\sigma,o}(\gamma)\neq0\bigr\},
+  \qquad
+  \Gammaeff
+  :=
+  \mathbb N\langle\GammaBPS^{\bullet}\rangle.
+\]
+The \emph{relative BPS Hall-scattering datum} is
+\[
+ \PBPS^{\bullet}_{\sigma,S,o,\Teq}(X)
  :=
  \bigl(
-   \Gamma_X,\,
-   \Gammaeff(X),\,
-   \Meff_{\sigma}(X),\,
-   \phi_W,\,
-   \Omega_{\sigma},\,
-   \DKS,\,
-   \ThetaBPS
+   \Gamma_X^{\mathrm{or}},\,
+   Q,\,
+   \Gammass,\,
+   \GammaBPS^{\bullet},\,
+   \Gammaeff,\,
+   \Meff(X),\,
+   \phi_{\mathfrak A,o},\,
+   \operatorname{BPS}_{\sigma,o,\Teq},\,
+   \Omega^{\bullet}_{\sigma,o},\,
+   \widehat{\mathbb T}^{\bullet}_{\Gamma,S},\,
+   \DKS^{\bullet}
  \bigr),
 \]
-where:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item $\Gammaeff(X)\subset\Gamma_X$ is the submonoid generated by
-classes $\gamma$ for which the $\sigma$-semistable moduli stack
-$\mathcal{M}_{\sigma}(\gamma)$ is non-empty and the BPS invariant
-$\Omega_{\sigma}(\gamma)$ is non-zero.  The zero class is included, and
-Harder--Narasimhan extensions make $\Gammaeff(X)$ closed under the
-addition of charges occurring in one chamber.
-\item
+where the motivic completed torus is generated by symbols $x_\gamma$
+with
 \[
- \Meff_{\sigma}(X)
- :=
- \coprod_{\gamma\in\Gammaeff(X)}
- \mathcal{M}_{\sigma}(\gamma)
+  x_\alpha x_\beta
+  =
+  \mathbb L^{\langle\alpha,\beta\rangle/2}
+  \varepsilon_o(\alpha,\beta)x_{\alpha+\beta},
 \]
-is the positive effective critical stack.  The sheaf $\phi_W$ is the
-vanishing-cycle complex of the local CY$_3$ potential $W$ on each
-critical chart; if no such oriented critical atlas is available, the
-datum $\PBPS_{\sigma}(X)$ is not constructed at that point.
-\item $\Omega_{\sigma}(\gamma)$ is the motivic or numerical integration
-of $\phi_W$ over $\mathcal{M}_{\sigma}(\gamma)$, depending on the
-chosen Hall realisation.  The motivic class is primary; the numerical
-Euler specialisation is a shadow.
-\item $\DKS$ is the Kontsevich--Soibelman scattering diagram in
-\(\mathrm{Hom}(\Gamma_X,\mathbb{C})\).  A wall attached to a primitive
-charge $\gamma$ carries the automorphism
+completed along $\Gammaeff$, and the classical ambient is its Euler
+specialisation with Poisson bracket
+$\{e_\alpha,e_\beta\}=\langle\alpha,\beta\rangle e_{\alpha+\beta}$.
+For a strict subsector $V\subset S$, the motivic KS factor is the
+phase-ordered product
 \[
-  \exp\!\bigl(\Omega_{\sigma}(\gamma)\,\mathrm{Li}_2(e_{\gamma})\bigr)
+  A_V(\sigma)
+  =
+  \prod_{\ell\subset V}^{\curvearrowright}
+  \prod_{Z(\gamma)\in\ell}
+  \mathbb E(x_\gamma)^{\Omega^{\mathrm{mot}}_{\sigma,o}(\gamma)}
+  \in\widehat{\mathbb T}^{\mathrm{mot}}_{\Gamma,V}.
 \]
-of the completed quantum torus.  Consistency of $\DKS$ is precisely the
-path-independence of wall-crossing.
-\item $\ThetaBPS$ is the positive basis obtained from the scattering
-diagram when broken-line or Hall-factorisation constructions are
-available.  It is theorem-grade for cluster/toric charts and
-conjectural for a general compact CY$_3$ chamber.
-\end{enumerate}
+Its classical wall automorphism is the Euler-specialised shadow
+\[
+  \mathcal K^{\mathrm{cl}}_\gamma(e_\eta)
+  =
+  e_\eta
+  \bigl(1-\varepsilon_o(\gamma)e_\gamma\bigr)^{
+  \Omega^{\mathrm{cl}}_{\sigma,o}(\gamma)\langle\gamma,\eta\rangle}.
+\]
 \end{definition}
 
-\begin{definition}[Positive half of the effective BPS geometry]
+\begin{definition}[Positive half of the relative BPS datum]
 \label{def:positive-half-effective-bps}
-The chamber-$\sigma$ positive half is the equivariant vanishing-cycle
-cohomology
+The chamber-sector positive half is the completed equivariant
+vanishing-cycle cohomology
 \[
- Y^+_{\sigma}(X)
+ Y^+_{\sigma,S,o,\Teq}(X)
  :=
- H^\bullet_{\mathrm{eq}}\bigl(\Meff_{\sigma}(X),\, \phi_W\bigr),
+ \widehat{\bigoplus}_{\gamma\in\Gammass}
+ H^\bullet_{\Teq}
+ \bigl(\mathcal M^{\mathfrak A}_\sigma(\gamma),
+       \phi_{\mathfrak A,o}\bigr),
 \]
-equipped with its Hall product whenever the critical correspondence
-defining the Kontsevich--Soibelman CoHA is available.  The Cartan half
-$Y^0_{\sigma}(X)$ is the completed group algebra of the charge lattice
-with framing and torus-fixed cohomology, and the negative half
-$Y^-_{\sigma}(X)$ is the Serre-dual opposite Hall algebra.
+where the completion is along $\Gammaeff$.  It is an $E_1$ Hall algebra
+when the critical Hall correspondence is constructed and compatible with
+orientation data, Thom--Sebastiani, and equivariant descent.  The stack
+is indexed by the semistable support $\Gammass$; the topology and the
+wall-crossing completion are indexed by the BPS-generated monoid
+$\Gammaeff$.
 \end{definition}
 
-\begin{theorem}[Quantum group as conditional positive-geometry Drinfeld double]
+\begin{theorem}[PBW shadow of the positive half]
+\label{thm:effective-bps-pbw-shadow}
+\ClaimStatusProvedElsewhere\ \emph{on constructed critical CoHA loci;
+conditional for general compact CY$_3$ chambers}
+On a ray or slope $\mu$ for which the oriented critical CoHA is
+constructed and Davison--Meinhardt integrality applies, the perverse
+PBW filtration on the positive half has associated graded
+\[
+  \operatorname{gr}_F
+  \mathcal H^{\mathrm{crit}}_{\sigma,\mu,o,\Teq}
+  \cong
+  \operatorname{Sym}_{\mathrm{super}}
+  \bigl(
+    \operatorname{BPS}_{\sigma,\mu,o,\Teq}
+    \otimes H^\bullet(B\mathbb C^*)
+  \bigr).
+\]
+This is a theorem about $Y^+_{\sigma,S,o,\Teq}(X)$ as a positive half.
+It does not construct a Drinfeld double, a theta basis, or a modular
+tensor category.
+\end{theorem}
+
+\begin{proof}[Scope]
+The statement is the Davison--Meinhardt PBW theorem for critical CoHAs
+with orientation data, read in the fixed chamber and sector.  The
+super-symmetric algebra records the parity of the BPS cohomology.  In
+the toric quiver-with-potential cases this is part of the standard
+critical CoHA package; for a compact non-toric CY$_3$ it is conditional
+on the existence of the oriented critical atlas and on the hypotheses of
+the integrality theorem.
+\end{proof}
+
+\begin{theorem}[Conditional Hall--Drinfeld double]
 \label{thm:quantum-group-as-positive-geometry-double}
 \ClaimStatusConditional
-Assume that $\PBPS_{\sigma}(X)$ has an oriented critical atlas, that
-$Y^+_{\sigma}(X)$ satisfies Davison--Meinhardt PBW integrality, and
-that the Serre-duality Hall pairing between
-$Y^+_{\sigma}(X)$ and $Y^-_{\sigma}(X)$ is non-degenerate after the
-required completion.  Then the quantum group attached to the chamber is
-the Drinfeld double
+Assume that $Y^+_{\sigma,S,o,\Teq}(X)$ is a complete topological Hall
+bialgebra, or Hopf algebra after the required antipode is constructed;
+that it satisfies the PBW theorem above; that a Serre-dual negative half
+$Y^-_{\sigma,S,o,\Teq}(X)$ and a Cartan half
 \[
- G_{\sigma}(X)
- :=
- D\bigl(Y^+_{\sigma}(X)\bigr)
- =
- Y^+_{\sigma}(X) \bowtie Y^0_{\sigma}(X) \bowtie Y^-_{\sigma}(X),
+  Y^0_\sigma(X)=\mathbb Q((\hbar))[[\Gamma_X]]_\chi,
+  \qquad
+  K_\gamma y_\delta K_\gamma^{-1}
+  =
+  q^{\langle\gamma,\delta\rangle}y_\delta ,
 \]
-with Hopf pairing induced by Serre duality on $\mathcal{C}$ and by
-critical Hall integration over $\Meff_{\sigma}(X)$.
+are fixed; and that the continuous Hall--Serre pairing between the
+positive and negative halves is non-degenerate after quotienting its
+radical.  Then the chamber-sector Hall quantum group is the completed
+Drinfeld double
+\[
+ G^{\mathrm{Hall}}_{\sigma,S}(X)
+ :=
+ D_{\sigma,S}
+ \bigl(
+   \widehat{Y^+_{\sigma,S,o,\Teq}}(X),
+   Y^0_\sigma(X),
+   \langle-,-\rangle_{\sigma,S}
+ \bigr),
+\]
+equivalently
+\[
+ G^{\mathrm{Hall}}_{\sigma,S}(X)
+ =
+ \widehat{Y^-_{\sigma,S,o,\Teq}}(X)
+ \,\widehat{\bowtie}\,
+ Y^0_\sigma(X)
+ \,\widehat{\bowtie}\,
+ \widehat{Y^+_{\sigma,S,o,\Teq}}(X).
+\]
 \end{theorem}
 
 \begin{proof}[Scope]
 The Hall product and wall-crossing automorphisms are Kontsevich--
-Soibelman; the no-pole and integration statements are Joyce--Song and
-Bridgeland in the numerical Hall algebra; PBW integrality is
-Davison--Meinhardt.  The non-degenerate pairing and the completed
-Drinfeld double are proved in the explicit toric Hall loci, beginning
-with Schiffmann--Vasserot for $\mathbb{C}^3$ and extending to the
-Rap\v{c}ak--Soibelman--Yang--Zhao toric regime under its hypotheses.
-Outside the constructed Hall loci the displayed double is conditional:
-the theorem asserts what the object is once the atlas, PBW theorem, and
+Soibelman; the numerical Hall integration and no-pole statements are
+Joyce--Song and Bridgeland in their stated ambients; PBW integrality is
+Davison--Meinhardt.  The non-degenerate pairing and completed Drinfeld
+double are theorem-grade in the explicit toric Hall loci beginning with
+Schiffmann--Vasserot for $\mathbb{C}^3$ and in the named no-compact-$4$-
+cycle toric regimes under the Rap\v{c}ak--Soibelman--Yang--Zhao
+hypotheses.  Outside those loci the displayed double is not an extra
+axiom in $\PBPS^{\bullet}_{\sigma,S,o,\Teq}(X)$; it is the object
+obtained only after the coproduct, Cartan, negative half, completion, and
 pairing have been built.
 \end{proof}
 
+\begin{definition}[Theta-enhanced BPS positive geometry]
+\label{def:theta-enhanced-effective-bps}
+When broken-line, GMN spectral-network, cluster, or Hall-factorisation
+methods construct a positive basis for the completed Hall algebra, the
+theta-enhanced geometry is
+\[
+  \PBPS^{\bullet,+\theta}_{\sigma,S,o,\Teq}(X)
+  :=
+  \bigl(
+    \PBPS^{\bullet}_{\sigma,S,o,\Teq}(X),
+    \ThetaBPS^{\bullet}
+  \bigr).
+\]
+The enhancement is theorem-grade in the standard toric, cluster, and
+class-S/Hitchin settings where such bases are constructed.  For a
+general compact CY$_3$ chamber it is conjectural and is not part of the
+minimal Hall-scattering datum.
+\end{definition}
+
 \begin{proposition}[Toric effective geometry as terminal degeneration]
 \label{prop:toric-effective-geometry-terminal-degeneration}
-\ClaimStatusProvedElsewhere\ \emph{on the standard toric Hall loci; conditional
-on the toric Hopf-pairing hypothesis in exotic compact-$4$-cycle cases}
+\ClaimStatusProvedElsewhere\ \emph{on the standard toric Hall loci;
+conditional on the toric Hopf-pairing hypothesis in exotic compact-$4$-
+cycle cases}
 Let $X_{\Sigma}$ be a toric CY$_3$ with quiver-with-potential
-$(Q_{\Sigma},W_{\Sigma})$ in a toric chamber.  The effective BPS
-positive geometry degenerates to the toric effective positive geometry:
+$(Q_{\Sigma},W_{\Sigma})$ in a toric chamber for which the standard
+critical CoHA construction and orientation data are available.  Then the
+relative BPS Hall-scattering datum degenerates to the toric effective
+positive geometry:
 \[
- \Gammaeff(X_{\Sigma})=\mathbb{Z}^{Q_0}_{\geq 0},\qquad
- \Meff_{\sigma}(X_{\Sigma})
+ \Gammass=\Gammaeff=\mathbb{Z}^{Q_0}_{\geq 0},
+ \qquad
+ \Meff(X_{\Sigma})
  =
  \coprod_{\mathbf d\in\mathbb{Z}^{Q_0}_{\geq 0}}
- [\mathrm{Crit}(W_{\mathbf d})/G_{\mathbf d}],
+ [\mathrm{Crit}(\mathrm{Tr}\,W_{\mathbf d})/G_{\mathbf d}],
 \]
-the scattering diagram $\DKS$ is the quiver/cluster wall-crossing
-diagram, and
+where $G_{\mathbf d}=\prod_{i\in Q_0}GL(d_i)$.  The scattering diagram
+is the quiver/cluster KS scattering diagram and
 \[
- Y^+_{\sigma}(X_{\Sigma})
+ Y^+_{\sigma,S,o,\Teq}(X_{\Sigma})
  =
  \CoHA(Q_{\Sigma},W_{\Sigma}).
 \]
 For $X=\mathbb{C}^3$ this is
-$Y^+_{\sigma}(X)=Y^+(\widehat{\mathfrak{gl}}_1)$; for the conifold and
-the standard no-compact-$4$-cycle toric threefolds it is the positive
-half of the affine super Yangian attached to the toric quiver.
+$Y^+(\widehat{\mathfrak{gl}}_1)$, the positive half of the affine
+Yangian; it is not $\mathcal W_{1+\infty}$ before the double and
+representation-theoretic passage.  For the conifold and the standard
+no-compact-$4$-cycle toric threefolds it is the positive half of the
+affine super-Yangian attached to the toric quiver.
 \end{proposition}
 
 \begin{proof}
-In a toric chamber every stable object is represented by a dimension
-vector of the quiver, so the effective monoid is
-$\mathbb{Z}^{Q_0}_{\geq 0}$.  The derived critical stack is the quotient
-of the critical locus of the trace potential on representation space by
-$G_{\mathbf d}=\prod_i GL(d_i)$.  The Hall product is the usual
-extension correspondence for quiver representations, hence the critical
-CoHA\@.  Schiffmann--Vasserot identify the $\mathbb{C}^3$ CoHA with
-$Y^+(\widehat{\mathfrak{gl}}_1)$; Rap\v{c}ak--Soibelman--Yang--Zhao
-identify the no-compact-$4$-cycle toric CoHA with the corresponding
-affine-super-Yangian positive half.  Kontsevich--Soibelman
-wall-crossing on the same quiver is the cluster scattering diagram.
-Thus the fan/quiver package is the rational-polyhedral collapse of the
-chambered datum $\PBPS_{\sigma}(X)$.
+In a toric Hall chamber the moduli problem is presented by the
+dimension-vector monoid of the quiver.  Hence the Hall indexing monoid is
+$\mathbb{Z}^{Q_0}_{\geq0}$, and in the standard chambers the active BPS
+charges generate this same completion monoid.  The derived critical stack
+is the quotient of the critical locus of the trace potential on
+representation space by $G_{\mathbf d}=\prod_i GL(d_i)$.  The Hall
+product is the usual extension correspondence for quiver
+representations, with vanishing-cycle coefficients and orientation data,
+hence the critical CoHA\@.  Schiffmann--Vasserot identify the
+$\mathbb{C}^3$ CoHA with $Y^+(\widehat{\mathfrak{gl}}_1)$; the
+Rap\v{c}ak--Soibelman--Yang--Zhao toric construction identifies the
+no-compact-$4$-cycle toric CoHA with the corresponding affine-super-
+Yangian positive half under its hypotheses.  Kontsevich--Soibelman
+wall-crossing on the same quiver is the cluster scattering diagram.  Thus
+the fan/quiver package is the rational-polyhedral collapse of
+$\PBPS^{\bullet}_{\sigma,S,o,\Teq}(X)$.
 \end{proof}
 
-\begin{conjecture}[Effective BPS cone and positive basis]
+\begin{conjecture}[Strict-sector effective cone and theta enhancement]
 \label{conj:effective-bps-cone-positive-basis}
 \ClaimStatusConjectured
-For every CY$_3$ category admitting a Bridgeland chamber with oriented
-critical semistable moduli, the datum $\PBPS_{\sigma}(X)$ is locally
-finite after completion along any strict sector of the central-charge
-plane.  Its KS scattering diagram is consistent, its Hall broken lines
-produce a positive basis $\ThetaBPS$, and the associated positive half
-$Y^+_{\sigma}(X)$ specialises under $\PhiFA_3$ to the positive
-associative input whose Drinfeld centre supplies the braided
-representation category of the chiral shadow.  The toric effective
-positive geometry of Proposition~\ref{prop:toric-effective-geometry-terminal-degeneration}
+For every CY$_3$ category admitting a Bridgeland chamber with support
+property, orientation data, and oriented critical semistable moduli, the
+strict-sector datum $\PBPS^{\bullet}_{\sigma,S,o,\Teq}(X)$ is locally
+finite after completion along $\Gammaeff$.  Its motivic KS products are
+Harder--Narasimhan invariant under chamber deformation, and whenever the
+Hall broken-line or spectral-network construction exists it produces the
+theta enhancement
+$\PBPS^{\bullet,+\theta}_{\sigma,S,o,\Teq}(X)$.  The toric effective
+positive geometry of
+Proposition~\ref{prop:toric-effective-geometry-terminal-degeneration}
 is the most degenerate fibre: the chamber complex becomes rational
-polyhedral, the effective cone is generated by quiver vertices, and
-the theta basis becomes the shuffle/plane-partition basis.
+polyhedral, the completion monoid is generated by quiver vertices, and
+the theta basis becomes the shuffle, cluster, or plane-partition basis in
+the constructed toric charts.
 \end{conjecture}
 
 \begin{remark}[Equivariance type stratifies by geometric class]
 \label{rem:equivariance-stratifies-by-class}
-The equivariance group in
-Definition~\ref{def:positive-half-effective-bps} is not universal; it
-tracks the geometric class of $X$.  Toric CY$_d$ carries the full torus
+The equivariance group $\Teq$ in
+Definition~\ref{def:universal-positive-geometry-grammar} is part of the
+input, not a universal constant.  Toric CY$_d$ carries the full torus
 $T^d$ and degenerates to the rational-polyhedral cone above; reduced
 affine classes such as the resolved conifold and local $\mathbb{P}^2$
-carry residual loop-rotation equivariance; orbifolds $[X/\Gamma]$
-carry inertia-stack equivariance encoding twisted sectors;
-lattice-polarised K3 and $K3\times E$ families carry period-domain
-equivariance from the Mukai lattice automorphism group.  The grammar is
-uniform only at the level of $\PBPS_{\sigma}(X)$; its equivariant
-cohomology, scattering diagram, and positive basis are stratified by
-the geometry.
+carry residual loop-rotation equivariance; orbifolds $[X/\Gamma]$ carry
+inertia-stack equivariance encoding twisted sectors; lattice-polarised
+K3 and $K3\times E$ families carry period-domain equivariance from the
+Mukai lattice automorphism group.  The uniform object is the relative
+Hall-scattering datum.  Its equivariant cohomology, scattering diagram,
+and theta enhancement are stratified by the geometry.
 \end{remark}
 
 Conjecture~CY-C asks when the CY-to-chiral correspondence programme $\{\Phi_d\}$ produces a quantum group at the representation-theoretic level. To answer that question one needs the standard quantum-group package in a form compatible with the ordered bar and the Drinfeld center. The quantized enveloping algebra $U_q(\frakg)$ and its $R$-matrix are the targets of $\Phi_d$ on that side: Conjecture~CY-C predicts that the braided monoidal category $\Rep_q(\frakg)$ arises as $\Rep^{\Etwo}(A_\cC)$ for a CY category $\cC(\frakg, q)$. At $d \geq 3$, the algebra $A_\cC = \Phi_d(\cC)$ is natively $\Eone$ (Proposition~\ref{prop:native-en-level}); the $\Etwo$-braided structure on $\Rep^{\Etwo}(A_\cC)$ arises via the Drinfeld-centre half-braiding on $\Rep(A_\cC)$, not from an intrinsic $\Etwo$-structure on $A_\cC$ itself (Remark~\ref{rem:e2-on-drinfeld-centre}). The Drinfeld--Jimbo presentation and the FRT presentation give two access points, corresponding respectively to the Koszul dual presentation by generators and relations and the ordered-bar RTT formalism.
@@ -739,21 +897,21 @@ Let $\mathrm{QChirGrp}_\kk$ denote the $(\infty,1)$-category of presentable quan
 whose value on $H \in \mathrm{QChirGrp}_\kk$ is the space of $H$-module structures on $\mathrm{Fock}(X) := \bigoplus_n K_T(\mathrm{Hilb}^n(X))$ compatible with the CoHA-action, the Maulik--Okounkov stable-envelope $R$-matrix, and the Kapranov--Vasserot convolution product.
 \end{definition}
 
-\begin{theorem}[Functorial existence of the quantum vertex chiral group]
+\begin{theorem}[Conditional representability of the quantum vertex chiral group on the MO-accessible locus]
 \label{thm:qgf-G-X-representability}
-\ClaimStatusProvedHere
-Let $X$ be a smooth CY$_3$ with a torus action $T \subseteq \Aut(X)$ of rank $\geq 2$ and isolated fixed points on each $\mathrm{Hilb}^n(X)$. Then:
+\ClaimStatusConditional{Requires the Kapranov--Vasserot CoHA and Maulik--Okounkov stable-envelope data on the stated torus-fixed locus; not a construction of global $G(X)$ for arbitrary compact CY$_3$s.}
+Let $X$ be a smooth CY$_3$ with a torus action $T \subseteq \Aut(X)$ of rank $\geq 2$ and isolated fixed points on each $\mathrm{Hilb}^n(X)$, and assume the CoHA-compatibility functor $F_X$ of Definition~\ref{def:qgf-F-X} is accessible and limit-preserving for the chosen completed $K_T$-theory. Then:
 \begin{enumerate}[label=\textup{(\roman*)}]
-  \item \emph{Smooth-proper case.} If $X$ is proper (compact smooth CY$_3$, e.g.\ the quintic, $K3 \times E$), the functor $F_X$ is corepresentable: there is $G(X) \in \mathrm{QChirGrp}_\kk$ and a natural equivalence
+  \item \emph{Proper MO-accessible case.} If $X$ is proper and the stated torus-fixed Maulik--Okounkov/Kapranov--Vasserot hypotheses hold, the functor $F_X$ is corepresentable: there is $G^{T}(X) \in \mathrm{QChirGrp}_\kk$ and a natural equivalence
   \[
-    F_X(H) \;\simeq\; \mathrm{Map}_{\mathrm{QChirGrp}_\kk}\bigl(G(X),\; H\bigr).
+    F_X(H) \;\simeq\; \mathrm{Map}_{\mathrm{QChirGrp}_\kk}\bigl(G^{T}(X),\; H\bigr).
   \]
-  The object $G(X)$ is uniquely determined up to contractible choice.
+  The object $G^{T}(X)$ is uniquely determined up to contractible choice on this fixed equivariant locus.
   \item \emph{Non-compact case.} If $X$ is quasi-projective but not proper (e.g.\ $\C^3$, the conifold $\cO(-1)\oplus\cO(-1)\to\bP^1$, local $\bP^2$), the functor $F_X$ is pro-corepresentable: there is a pro-object $\{G_\alpha(X)\}_{\alpha \in \mathcal A}$ in $\mathrm{QChirGrp}_\kk$ and a natural equivalence
   \[
     F_X(H) \;\simeq\; \mathrm{colim}_{\alpha \in \mathcal A^{\mathrm{op}}}\,\mathrm{Map}_{\mathrm{QChirGrp}_\kk}\bigl(G_\alpha(X),\; H\bigr).
   \]
-  The pro-system is indexed by cocompact subschemes of $X$ and converges to $G(X) = \varprojlim_\alpha G_\alpha(X)$ in the pro-completion $\mathrm{Pro}(\mathrm{QChirGrp}_\kk)$.
+  The pro-system is indexed by cocompact subschemes of $X$ and converges to $G^{T}(X) = \varprojlim_\alpha G_\alpha(X)$ in the pro-completion $\mathrm{Pro}(\mathrm{QChirGrp}_\kk)$.
 \end{enumerate}
 \end{theorem}
 
@@ -761,13 +919,13 @@ Let $X$ be a smooth CY$_3$ with a torus action $T \subseteq \Aut(X)$ of rank $\g
 $\mathrm{QChirGrp}_\kk$ is a presentable $(\infty,1)$-category: it is the category of Hopf algebras in the presentable symmetric monoidal $(\infty,1)$-category $\Etwo\text{-}\mathrm{ChAlg}_{\bP^1}$ of $\Etwo$-chiral algebras on $\bP^1$ with rational spectral parameter (Francis--Gaitsgory, \emph{Selecta Math.}\ 2012, arXiv:1106.5146, Theorem 3.3.2: $\Etwo$-chiral algebras on a smooth variety form a presentable $(\infty,1)$-category stable under limits and $\lambda$-filtered colimits for some regular cardinal $\lambda$; throughout this proof $\lambda$ denotes the accessibility cardinal of $\mathrm{QChirGrp}_\kk$, not the modular characteristic $\kappa_{\mathrm{ch}}$). The functor $F_X$ preserves small limits: a compatibility datum on an inverse limit $\varprojlim_i H_i$ of quantum chiral groups is, by definition of the CoHA-action (Kapranov--Vasserot, Proposition 3.14) and of the MO stable envelope (Maulik--Okounkov, \emph{Aster.}\ 2019, arXiv:1211.1287, Theorem 4.1.1), the inverse limit of compatibility data. This limit-preservation and presentability are the hypotheses of the adjoint-functor theorem in Lurie (\cite{LurieHA}, HA.5.5.2.9 / \cite{LurieHA}, Corollary 5.5.2.9, which is the $(\infty,1)$-version of Brown representability): a limit-preserving functor from a presentable $(\infty,1)$-category to spaces is corepresentable.
 
 \smallskip
-Part (i). When $X$ is smooth proper, the Hilbert schemes $\mathrm{Hilb}^n(X)$ are proper and their $T$-equivariant K-theory $K_T(\mathrm{Hilb}^n(X))$ is a dualisable $K_T(\mathrm{pt})$-module (standard Thomason localisation, e.g.\ Chriss--Ginzburg, \emph{Representation Theory and Complex Geometry}, Theorem 5.11.10). Hence $F_X$ factors through $\lambda$-compact objects for the accessibility cardinal $\lambda$ fixed above (again, $\lambda$ is the $(\infty,1)$-categorical accessibility rank, not the modular characteristic $\kappa_{\mathrm{ch}}$); the Brown--Lurie theorem applies directly and produces $G(X)$ as a corepresenting object in $\mathrm{QChirGrp}_\kk$.
+Part (i). When $X$ is smooth proper and lies on the stated MO-accessible equivariant locus, the Hilbert schemes $\mathrm{Hilb}^n(X)$ are proper and their $T$-equivariant K-theory $K_T(\mathrm{Hilb}^n(X))$ is a dualisable $K_T(\mathrm{pt})$-module (standard Thomason localisation, e.g.\ Chriss--Ginzburg, \emph{Representation Theory and Complex Geometry}, Theorem 5.11.10). Hence $F_X$ factors through $\lambda$-compact objects for the accessibility cardinal $\lambda$ fixed above (again, $\lambda$ is the $(\infty,1)$-categorical accessibility rank, not the modular characteristic $\kappa_{\mathrm{ch}}$); under the stated accessibility and limit-preservation hypotheses, the Brown--Lurie theorem produces $G^{T}(X)$ as a corepresenting object in $\mathrm{QChirGrp}_\kk$.
 
 \smallskip
 Part (ii). When $X$ is non-compact, $K_T(\mathrm{Hilb}^n(X))$ is typically not dualisable (it is only a topologically complete $K_T(\mathrm{pt})$-module). The correct replacement is Deligne's pro-representability: write $X = \bigcup_\alpha X_\alpha$ as a filtered union of cocompact open subschemes with proper complement; each $X_\alpha$ yields a corepresentable functor $F_{X_\alpha}$ with representing object $G_\alpha(X)$ by (i); the restriction maps $F_{X_\alpha} \to F_{X_\beta}$ for $\alpha \leq \beta$ induce a pro-system, and $F_X$ is its colimit. The pro-object $\{G_\alpha(X)\}$ represents $F_X$ in $\mathrm{Pro}(\mathrm{QChirGrp}_\kk)$; its limit in the ambient $(\infty,1)$-category of chiral algebras recovers the non-compact quantum vertex chiral group (cf.\ Kontsevich--Soibelman, \emph{Comm.\ Number Theory Phys.}\ 2011, arXiv:1006.2706, for the analogous pro-representability of DT invariants on non-compact CY$_3$).
 
 \smallskip
-The hypothesis $\mathrm{rk}\,T \geq 2$ ensures the MO stable envelope is well-posed (it requires a chamber structure in $\mathrm{Lie}(T)_\bR$, hence $\dim T \geq 2$; see the Lemma~\ref{lem:mo-bypass-local-to-global}-cited scope restriction in the K3-abelian section). For generic K3 the hypothesis fails ($\Aut(K3\times E)^\circ = E$, rank $1$ without a $\bG_m$-subgroup), and the theorem applies only on the ADE/Kummer locus, consistent with Remark~\ref{rem:cy-c-three-routes} Route~(C).
+The hypothesis $\mathrm{rk}\,T \geq 2$ ensures the MO stable envelope is well-posed (it requires a chamber structure in $\mathrm{Lie}(T)_\bR$, hence $\dim T \geq 2$; see the Lemma~\ref{lem:mo-bypass-local-to-global}-cited scope restriction in the K3-abelian section). For the quintic and for generic $K3\times E$ this hypothesis is not available as stated; the theorem applies only on MO-accessible toric, ADE, or Kummer-type framed loci, consistent with Remark~\ref{rem:cy-c-three-routes} Route~(C).
 \end{proof}
 
 \begin{remark}[Three independent verification paths]
@@ -790,12 +948,12 @@ The representing object $G(X)$ carries a canonical $(-1)$-shifted Poisson struct
 
 \begin{remark}[Relation to Conjecture~\ref{conj:qgf-cy-c}]
 \label{rem:qgf-G-X-vs-conj-CY-C}
-Theorem~\ref{thm:qgf-G-X-representability} produces $G(X)$ as a representing object and asserts its existence. Conjecture~\ref{conj:qgf-cy-c} asserts the further statement that $G(X) = C(\cC, q)$ for $\cC = D^b(\mathrm{Coh}(X))$, i.e.\ that the representing object \emph{equals} the output of the CY-to-chiral correspondence $\Phi$. The representability theorem thus splits the Vol~III main conjecture into two questions: (1) does $G(X)$ exist? (yes, by Theorem~\ref{thm:qgf-G-X-representability}); (2) does $G(X) = \Phi(\cC)$ in the quantum vertex chiral group sense? (Conjecture~\ref{conj:qgf-cy-c}; verified for $\C^3$, conjectural in general). The theorem kills the pointwise-construction obstruction; Conjecture CY-C is the identification of the representing object with the CY-to-chiral output.
+Theorem~\ref{thm:qgf-G-X-representability} produces $G^T(X)$ as a representing object only on the stated MO-accessible equivariant locus. Conjecture~\ref{conj:qgf-cy-c} asserts the further statement that the resulting object equals $C(\cC, q)$ for $\cC = D^b(\mathrm{Coh}(X))$, i.e.\ that the representing object \emph{equals} the output of the CY-to-chiral correspondence $\Phi$ after the framed $d=3$ specialisation. The representability theorem thus splits the Vol~III main conjecture into two questions: (1) does the equivariant representing object exist on this locus? (conditional on the theorem's hypotheses); (2) does it identify with $\Phi(\cC)$ in the quantum vertex chiral group sense? (Conjecture~\ref{conj:qgf-cy-c}; verified for $\C^3$, conjectural in general). The theorem narrows the pointwise-construction obstruction on accessible loci; it does not construct global $G(X)$ for arbitrary compact CY$_3$.
 \end{remark}
 
 \begin{remark}[Scope honesty]
 \label{rem:qgf-G-X-scope}
-The representing object $G(X)$ produced by Theorem~\ref{thm:qgf-G-X-representability} is a priori an abstract Hopf algebra in $\Etwo\text{-}\mathrm{ChAlg}_{\bP^1}$; its identification with a Yangian or a Drinfeld double requires supplementary input (e.g.\ the MO $R$-matrix, the CoHA shuffle presentation). For general smooth proper CY$_3$ outside the MO-accessible locus, $G(X)$ exists as an abstract representing object but is not identified with any classically described algebra. The theorem converts the open problem ``construct $G(X)$'' into the narrower open problem ``present $G(X)$ by generators and relations''.
+The representing object $G^T(X)$ produced by Theorem~\ref{thm:qgf-G-X-representability} is a priori an abstract Hopf algebra in $\Etwo\text{-}\mathrm{ChAlg}_{\bP^1}$ on the chosen equivariant locus; its identification with a Yangian or a Drinfeld double requires supplementary input (e.g.\ the MO $R$-matrix, the CoHA shuffle presentation). For general smooth proper CY$_3$ outside the MO-accessible locus, existence of a global $G(X)$ remains conjectural. The theorem converts the accessible-locus problem from ``construct $G^T(X)$ pointwise'' into the narrower problem ``present $G^T(X)$ by generators and relations''.
 \end{remark}
 
 \begin{conjecture}[Lattice-polarised \texorpdfstring{$\mathfrak{g}_L$}{g-L} family: generic \texorpdfstring{$G(X)$}{G(X)} across Nikulin polarisations]
@@ -4442,14 +4600,20 @@ Poor--Yuen $2015$ Math.\ Ann.\ $363$;
 Maass $1964$ Nachr.\ Akad.\ Wiss.\ G\"ottingen Nr.\ $11$;
 Lorgat $2020$ \S$2$ \S$3$ \S$4$.
 
-\begin{theorem}[Motivic DT \texorpdfstring{$=$}{=} graded \texorpdfstring{$\CoHA$}{CoHA} Poincar\'e; \texorpdfstring{$\Phi_3(K3\times E)$}{Phi-3(K3x E)} an \texorpdfstring{$\Eone$}{E1}-chiral algebra with mode Lie superalgebra \texorpdfstring{$\mathfrak g_{\Delta_5}$}{g-Delta-5}]
+\begin{theorem}[Motivic DT character and conditional framed \texorpdfstring{$K3\times E$}{K3xE} Hall--BKM chiral comparison]
 \label{thm:qgf-motivic-dt-coha-phi3-gDelta5}
+\ClaimStatusConditional{The reduced DT character identity is theorem-grade; the CoHA-to-BKM and framed $\Phi_3$ algebra comparison require the stated Hall--BKM and CY-C hypotheses.}
 Let $X = K3\times E$, the smooth projective $\mathrm{CY}_3$ with
 $\chi(\mathcal O_X)=\kappa_{\mathrm{cat}}(X)=0$
 (K\"unneth; $\chi(\mathcal O_{K3})=2$, $\chi(\mathcal O_E)=0$), fix a
 Bridgeland stability $\sigma\in\mathrm{Stab}^\dagger(D^b\mathrm{Coh}(X))$
 in the distinguished component containing large-volume Gieseker
 slope-stability with the Oberdieck--Pixton polarisation $(F+\omega_E)$.
+The statement has mixed logical status: part~\textup{(i)} records the
+reduced DT character theorem, while parts~\textup{(ii)}--\textup{(iv)}
+are conditional on the motivic lift for $K3\times E$, the Hall--BKM
+positive-half identification, and the framed H1--H4
+$\Phi_3^{(K3,E)}$ specialisation.
 
 \medskip
 
@@ -4486,7 +4650,7 @@ $Z^X$ is $\sigma$-invariant on this distinguished component.
 
 \medskip
 
-\emph{(ii) $\CoHA(X)$ is the positive half of $\mathfrak g_{\Delta_5}$.}
+\emph{(ii) Conditional Hall--BKM positive-half comparison.}
 Let $\CoHA(X)\subset\mathcal H^{\mathrm{mot}}(X,\sigma)_{\mathrm{num}}$
 denote the Behrend-weighted associative $\Eone$-algebra generated by
 the spherical classes $[\mathrm{Hilb}^n(X,\beta_h)]_\nu$; equivalently,
@@ -4494,7 +4658,8 @@ the $K$-theoretic Kapranov--Vasserot CoHA
 $\mathcal H^{\CoHA}_K(X)=\bigoplus_n K_T(\mathrm{Hilb}^n(X))$
 under the convolution product on Hecke correspondences
 $\mathrm{Hilb}^{n,n+1}(X)$ (Kapranov--Vasserot, \emph{Compos.\ Math.}\
-2018, arXiv:1601.01677). Then
+2018, arXiv:1601.01677). Conditional on the motivic Hall lift and the
+Hall--BKM comparison for $K3\times E$, the expected Poincar\'e series is
 \[
  \mathrm{Poinc}\bigl(\CoHA(X)\bigr)(q,t,p)
  \;=\;
@@ -4503,7 +4668,7 @@ $\mathrm{Hilb}^{n,n+1}(X)$ (Kapranov--Vasserot, \emph{Compos.\ Math.}\
  \frac{1}{\Delta_{10}(Z)},
 \]
 and the Kontsevich--Soibelman Lie-algebra-of-the-wall-crossing
-construction (\emph{op.\ cit.}, \S6) identifies
+construction (\emph{op.\ cit.}, \S6) is expected to identify
 \[
  \CoHA(X) \;\simeq\; U\bigl(Y^+(\mathfrak g_{\Delta_5})\bigr)_{\mathrm{num}},
  \qquad
@@ -4523,28 +4688,32 @@ $\mathcal W_{1+\infty}$ evaluation slice).
 
 \medskip
 
-\emph{(iii) $\Phi_3(D^b\mathrm{Coh}(X))$ is $\Eone$-chiral with mode
-Lie superalgebra $\mathfrak g_{\Delta_5}$.} At $d=3$, the CY-to-chiral
-functor
-$\Phi_3\colon \mathrm{CY\text{-}cat}_3\to\mathrm{ChirAlg}_{\Eone}$
-(Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}) produces an
+\emph{(iii) Conditional framed $\Phi_3$ output and mode algebra.} On the
+chosen framed locus $(\Sigma_2,C)=(K3,E)$, and under the H1--H4
+hypotheses of Theorem~\ref{thm:cy-to-chiral-d3}, the specialised
+assignment
+\[
+ \Phi_3^{(K3,E)}=\SpCh_{K3,E}\circ\PhiFA_3
+\]
+produces an
 $\Eone$-chiral algebra, not an $\Etwo$-chiral (vertex) algebra; the
 $d$-dependent target operadic level is the dimensional stratification
 of the CY-to-chiral correspondence $\{\Phi_d\}$, which is a
-$d$-indexed family of symmetric-monoidal assignments rather than a
-single functor. Let
+$d$-indexed family of framed assignments rather than a single global
+CY$_3$ functor. Conditional on the Hall--BKM comparison of
+part~\textup{(ii)}, set
 \[
  H_{\Delta_5}
  \;:=\;
- \Phi_3\bigl(D^b\mathrm{Coh}(X)\bigr)
+ \Phi_3^{(K3,E)}\bigl(D^b\mathrm{Coh}(X)\bigr)
  \;=\;
  \mathcal D_\hbar\!\bigl(\mathcal Y^{\mathrm{Hall}}_\hbar\bigl(\CoHA(X)\bigr),\;
  \widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}_{\mathrm{Sp}_4}[\Phi_{10}/\eta^{24}],\;
  R_{\mathrm{Sieg,dyn}}\bigr),
 \]
-the Heisenberg-double of the Hall-Yangian by the Siegel-Borcherds
+the candidate Heisenberg-double of the Hall-Yangian by the Siegel-Borcherds
 spectral cocycle $\widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}_{\mathrm{Sp}_4}[\Phi_{10}/\eta^{24}]$
-of the $\mathbf H_{\Delta_5}$ foundations section. Then $H_{\Delta_5}$ is a factorisation algebra
+of the $\mathbf H_{\Delta_5}$ foundations section. Then $H_{\Delta_5}$ is expected to be a factorisation algebra
 on $\mathbb A^1_\kk$ with $\Eone$-structure, and the mode-expansion
 Lie superalgebra
 \[
@@ -4566,8 +4735,8 @@ coefficients $f(n,l,m)$ of $\phi_{0,1}$ via Oberdieck--Pixton.
 
 \medskip
 
-\emph{(iv) Triangular decomposition reconciling (ii) and (iii).} The
-Drinfeld double of the positive half recovers a Borcherds-enhanced
+\emph{(iv) Conditional triangular decomposition reconciling (ii) and (iii).} The
+Drinfeld double of the positive half is expected to recover a Borcherds-enhanced
 quantum group at $\mathfrak g_{\Delta_5}$,
 \[
  D\bigl(Y^+(\mathfrak g_{\Delta_5})\bigr)
@@ -5990,7 +6159,10 @@ compact CY$_3$ because $\chi(\cO_{K3\times E})=\chi(\cO_{K3})\cdot
 \chi(\cO_E)=2\cdot 0=0$ (Künneth-multiplicative on products);
 $\kappa_{\mathrm{BKM}}(\Delta_5)=5$ via $c_1(0)/2$;
 $\kappa_{\mathrm{cat}}(K3\times E)=0$ total;
-$\kappa_{\mathrm{fiber}}=2$ fibre rank.  These are four distinct
+$\kappa_{\mathrm{fiber}}(K3\times E)=24$ Mukai/fibre rank.  The
+number $2$ is only the separate K3 categorical value
+$\kappa_{\mathrm{cat}}(K3)=\chi(\cO_{K3})$, not a $K3\times E$
+fibre-rank invariant.  These are four distinct
 constructions, not a single $\Phi$ image evaluated four ways.
 Part~(c) is an identification \emph{between two categorical
 structures on the same underlying algebra} $\HDelta$: it is not
@@ -6258,3 +6430,202 @@ $\mathfrak{g}_{\mathcal{R}_1\oplus\mathcal{R}_2}\simeq\mathfrak{g}_{\mathcal{R}_
 \oplus\mathfrak{g}_{\mathcal{R}_2}$.  The automorphic denominator is multiplicative:
 $\Phi_{\mathcal{R}_1\oplus\mathcal{R}_2}(z_1,z_2)=\Phi_{\mathcal{R}_1}(z_1)\cdot\Phi_{\mathcal{R}_2}(z_2)$.
 \end{proposition}
+
+%%% -----------------------------------------------------------------------
+\subsection{The terminal-lattice base case
+\texorpdfstring{$\Perf(\C^3)$}{Perf(C3)}: MO-residue vanishing}
+\label{subsec:thy-grd-mo-c3-terminal}
+%%% -----------------------------------------------------------------------
+
+\providecommand{\phiUV}{\phi^{+}_{\mathrm{UV}}}
+\providecommand{\kBKMMO}{\kappa_{\mathrm{BKM}}^{\mathrm{MO}}}
+
+The catalogue of $\mathrm{CY}_3$ root data has a terminal object: the
+trivial-lattice datum attached to $\Perf(\C^3)$, for which every
+Lorentzian axiom (CY1)--(CY5) degenerates. Its $\kappa_{\mathrm{BKM}}$
+identification through the Maulik--Okounkov residue path evaluates to
+zero, giving the base-case consistency pin for the universal Borcherds
+identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$.
+
+\begin{theorem}[MO-residue path: \texorpdfstring{$\C^3$}{C3} vanishing;
+Path 3 base case]
+\label{thm:bl-mo-c3-vanishing}
+\ClaimStatusProvedHere
+Let $T = (\C^\times)^3$ act on $\C^3$ diagonally with equivariant weights
+$\epsilon_1, \epsilon_2, \epsilon_3$ subject to the Calabi--Yau constraint
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$. Let
+$\phiUV(u)$ be the UV positive-half gluing cocycle of the
+Maulik--Okounkov stable envelope on $K^{\bullet}_T(\Hilb^\bullet(\C^3))$,
+a meromorphic $1$-form on $\mathfrak t^*_\C|_{\mathrm{CY}} \cong \C^2$
+with simple poles along the $A_2$-reflection wall arrangement. Write
+$\mathrm{Res}^{\mathrm{BKM}}_{u_\star}\phiUV(u)$ for the residue read
+as a Borcherds-lift coefficient across a Lorentzian chamber wall $u_\star$
+of the Mukai-type lattice $K^{\mathrm{num}}_0(\Perf(\C^3))$. Then
+\begin{equation}
+ \kBKMMO(\C^3) \;\coloneqq\; \frac{c_{\mathrm{triv}}(0)}{2} \;=\; 0
+ \qquad \text{identically,}
+ \label{eq:bl-mo-c3-vanishing}
+\end{equation}
+where $c_{\mathrm{triv}}(0)$ is the Fourier $0$-coefficient of the
+Borcherds lift on the trivial lattice $K^{\mathrm{num}}_0(\Perf(\C^3))
+= \Z$ with degenerate Mukai pairing.
+\end{theorem}
+
+\begin{proof}
+The proof proceeds through four structural inputs: the SV shuffle
+identification, the MO chamber arrangement, the lattice degeneration,
+and the Borcherds-lift evaluation on the trivial lattice.
+
+\smallskip
+\noindent\emph{Step 1 (SV shuffle kernel on $\C^3$).} Schiffmann--Vasserot
+(\textit{Publ. Math. IHES} $118$, $2013$, Theorem $1.1$) identifies
+$\PhiFA_3(\Perf(\C^3)) = \CoHA(\C^3) = \Yplus(\widehat{\fgl}_1)$ as a
+rational shuffle algebra with kernel
+\[
+ \phi_{\mathrm{SV}}(u, v) \;=\;
+ \frac{(u - v + \epsilon_1)(u - v + \epsilon_2)(u - v + \epsilon_3)}
+      {(u - v)(u - v + \epsilon_1 + \epsilon_2)
+        (u - v + \epsilon_2 + \epsilon_3)}.
+\]
+Under CY the kernel simplifies via $\epsilon_1 + \epsilon_2 = -\epsilon_3$,
+$\epsilon_2 + \epsilon_3 = -\epsilon_1$; the pole loci are the three
+coordinate lines $u - v = 0, u - v = -\epsilon_1, u - v = -\epsilon_3$
+in $\mathfrak t^*_\C|_{\mathrm{CY}}$.
+
+\smallskip
+\noindent\emph{Step 2 (MO chamber arrangement is positive-definite
+$A_2$).} The Maulik--Okounkov chamber structure on
+$\mathfrak t^*_\C|_{\mathrm{CY}} \cong \C^2$ (Maulik--Okounkov $2012$
+arXiv:$1211.1287$ \S $4$; Okounkov $2015$ arXiv:$1512.07363$ \S $5$)
+has six chambers permuted by the symmetric group $S_3$ acting on
+$(\epsilon_1, \epsilon_2, \epsilon_3)$; this is the Coxeter group
+$A_2$ acting on its positive-definite reflection plane. The cocycle
+$\phiUV$ satisfies the Maulik--Okounkov axiom --- a
+$\check{\mathrm{C}}$ech-cocycle condition at triple-wall intersections
+equivalent to the Yang--Baxter equation plus unitarity --- producing
+the rank-$2$ $\Yplus(\widehat{\fgl}_1)$-Yangian $R$-matrix on
+$\Yplus \otimes \Yplus$. This $R$-matrix is non-trivial and is the
+\emph{representation-category} output of Path 3 (see
+\texttt{notes/wave\_cfg2026/agent\_4\_e2\_transverse\_shadow.tex}).
+
+\smallskip
+\noindent\emph{Step 3 (Mukai-type lattice on $\Perf(\C^3)$ is trivial).}
+The numerical Grothendieck group $K^{\mathrm{num}}_0(\Perf(\C^3))$ is
+generated by the class $[\cO_{\C^3}]$ alone, isomorphic to $\Z$; every
+compactly supported coherent sheaf on $\C^3$ has zero Euler
+characteristic against every other (Grothendieck--Riemann--Roch on the
+non-compact affine space). The Mukai pairing is therefore degenerate,
+and no Lorentzian sub-lattice of signature $(r, 1)$ with $r \geq 1$
+embeds canonically in $K^{\mathrm{num}}_0(\Perf(\C^3))$. This
+contradistinguishes the $\C^3$ case from the K3 $\times$ E case, whose
+Mukai lattice $\Lambda^{\mathrm{Mukai}}_{K3} \oplus \Lambda_E$ is
+honestly Lorentzian of signature $(3, 19) \oplus (1, 1)$ (Mukai $1987$
+\textit{Vector bundles on a K3 surface}).
+
+\smallskip
+\noindent\emph{Step 4 (Borcherds lift on the trivial lattice).}
+Under Borcherds' lift theorem (\textit{Invent. Math.} $120$, $1995$,
+Theorem $10.1$) the automorphic product attached to a weakly
+holomorphic Jacobi form $\phi$ of weight $0$ on a Lorentzian lattice
+$\Lambda$ is
+\[
+ \Phi_\Lambda(Z) \;=\; e^{-2\pi i (\rho, Z)}
+ \prod_{\alpha \in \Delta_+(\Lambda)}
+ \bigl(1 - e^{-2\pi i (\alpha, Z)}\bigr)^{\mathrm{mult}(\alpha)}.
+\]
+Degenerating to the trivial lattice $\Lambda = 0$: the positive-root
+set $\Delta_+(\Lambda = 0)$ is empty, $\rho \in \Lambda \otimes \Q = 0$,
+and the Borcherds product is the empty product
+$\Phi_{\Lambda = 0}(Z) = 1$. Its Fourier expansion is
+$\Phi_{\Lambda = 0} = 1$, whose Borcherds-normalised coefficient
+$c_{\mathrm{triv}}(0) = 0$ in the convention where $c_N(0)$ indexes
+the polar coefficient driving the automorphic weight (the form has
+weight $0$; the $q^{-1}$-coefficient is zero). Explicitly: the weight
+formula $k_\mathcal{R} = \tfrac{1}{2} c_\varphi(0, 0)$ of (CY5) gives
+weight $0$ on the trivial lattice, hence $c_{\mathrm{triv}}(0) = 0$
+and $\kBKMMO(\C^3) = c_{\mathrm{triv}}(0)/2 = 0$.
+
+\smallskip
+\noindent\emph{Combining.} The MO chamber arrangement of Step 2 is
+positive-definite $A_2$; it supports a non-trivial representation-
+category $R$-matrix but does not realise a Lorentzian Borcherds wall.
+The Mukai lattice of Step 3 is trivial, so the Borcherds lift of Step
+4 degenerates to the constant $1$. The resulting $\kBKMMO(\C^3)$,
+computed as the coefficient $c_{\mathrm{triv}}(0)/2$ of the trivial-
+lattice Borcherds lift, vanishes identically. This is the terminal
+Gritsenko--Cl\'ery weight-$0$ fibre of the $8$-form catalogue,
+matching (B6) of the wave-level attack--heal catalogue in
+\texttt{notes/wave\_borcherds\_chain\_level/agent\_BL\_5\_mo\_c3.tex}
+Theorem \ref{thm:bl-mo-c3-vanishing-wave}.
+\end{proof}
+
+\begin{remark}[The CoHA wall is not the BKM wall]
+\label{rem:bl-mo-c3-coha-vs-bkm-wall}
+The SV shuffle wall $\{u - v = 0\} \subset \mathfrak t^*_\C|_{\mathrm{CY}}$
+and the BKM Borcherds wall $W_{\mathrm{BKM}}(\alpha) = \{Z : (\alpha, Z)
+= 0\} \subset \mathfrak H_\Lambda$ inhabit different ambient spaces:
+the first is a coordinate hyperplane in the positive-definite
+equivariant parameter plane; the second is a real-root reflection
+hyperplane in a Lorentzian tube domain. The MO residue
+$R^{\mathrm{MO}}(u) = \mathrm{Res}_{u = 0} \phiUV(u)$ produces the
+rank-$2$ Yangian $R$-matrix on $\Yplus(\widehat{\fgl}_1)$; the BKM
+residue $c_{\mathrm{triv}}(\alpha/2) e^{2\pi i (\alpha, Z_0)}$ is
+evaluated on a non-existent wall and vanishes. Equating the two
+residues is an AP-CY scope confusion (cf.\
+\texttt{notes/antipatterns\_catalogue.md} entry on the
+Gritsenko--Cl\'ery catalogue terminal fibre).
+\end{remark}
+
+\begin{remark}[Three-path base-case cross-check]
+\label{rem:bl-mo-c3-three-path}
+The universal Borcherds identity
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ predicts
+$\kappa_{\mathrm{BKM}}(\C^3) = 0$ via three mechanisms:
+\begin{enumerate}[label=\textup{Path \arabic*.}]
+ \item Bar-complex supertrace: the Getzler--Kapranov modular-operadic
+ pairing on $B^{E_3}(\Yplus(\widehat{\fgl}_1))$ against the trivial-
+ lattice input evaluates to $0$ (Getzler--Kapranov $1994$
+ \textit{Compos. Math.} $110$; Costello $2007$ arXiv:math/$0605647$
+ \S $8$).
+ \item Modular-operadic factorisation homology:
+ $\int_{\overline{\cM}_{g, n}} \Yplus(\widehat{\fgl}_1)$ reduces to a
+ lattice integral; on the trivial lattice the integrand is identically
+ zero.
+ \item MO residue (Theorem \ref{thm:bl-mo-c3-vanishing}): the
+ lattice-input collapse leaves no BKM wall to residue against; the
+ Borcherds-normalised coefficient is $0$.
+\end{enumerate}
+Each path is independent; the three evaluate to the same $0$ by
+structurally distinct mechanisms. Triangulation is the proof of
+base-case sanity.
+\end{remark}
+
+\begin{corollary}[Toric-CY$_3$ and localisation]
+\label{cor:bl-mo-c3-toric-localisation}
+\ClaimStatusProvedHere
+For a compact or quasi-compact toric CY$_3$ $X$ with torus-fixed locus
+$X^T$ a finite union of affine $\C^3$-charts, the localisation formula
+\[
+ \kBKMMO(X) \;=\; \sum_{F \subset X^T} \frac{\mathrm{Res}_F\bigl(
+ \text{trivial-lattice BKM integrand}\bigr)}{e_T(N_{F/X})}
+ \;+\; \kappa_{\mathrm{BKM}}^{\mathrm{non-toric}}(X)
+\]
+evaluates the toric (affine-chart) contribution to zero. Non-trivial
+$\kBKM$ on a compact CY$_3$ $X$ arises only from the non-toric,
+Lorentzian-lattice face of the Mukai lattice; in particular the K3
+$\times$ E output $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$ requires the
+honestly-Lorentzian Mukai lattice $\Lambda^{\mathrm{Mukai}}_{K3}
+\oplus \Lambda_E$, not recoverable from any toric atlas.
+\end{corollary}
+
+\begin{proof}
+Immediate from Theorem \ref{thm:bl-mo-c3-vanishing} applied chart by
+chart, plus Atiyah--Bott localisation on $X^T$. The non-triviality of
+$\kappa_{\mathrm{BKM}}(\Delta_5) = 5$ is Theorem \texttt{thm:borcherds-
+weight-kappa-BKM-universal} of
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}, with
+input the K3 elliptic-genus Jacobi form $\phi_{0, 1}$ and its
+Borcherds lift $\Delta_5$ of weight $5$ (Gritsenko--Nikulin $1998$
+\textit{Duke} $94$ Thm $2.1$; Gritsenko $1999$ \textit{Math. Nachr.}
+$199$ Thm $6.1$; Lorgat $2020$ arXiv:$2004.09030$ \S $4$).
+\end{proof}

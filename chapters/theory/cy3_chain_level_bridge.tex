@@ -22,6 +22,20 @@ holomorphic Chern--Simons BV field complex is
   \qquad
   Q_{\hCS}=\dbar .
 \]
+On an open chart $U$ the local BV theory uses
+$\cE_{\hCS,c}(U,\mathfrak g)=\Omega_c^{0,\bullet}(U,\mathfrak g)[1]$
+paired with $\cE_{\hCS}(U,\mathfrak g)$ by Serre duality; when $X$ is
+compact the support subscript may be suppressed.
+The BV pairing is the degree-$(-1)$ local pairing
+\[
+  (\alpha,\beta)_{\hCS}
+  =
+  \int_X \Omega_X\wedge \langle \alpha,\beta\rangle ,
+  \qquad
+  \alpha,\beta\in\Omega^{0,\bullet}_c(X,\mathfrak g)[1],
+\]
+and the induced odd Poisson bracket on local functionals is the BV
+bracket used below.
 Its local classical functional is
 \[
   I_{\hCS}(\alpha)
@@ -35,11 +49,53 @@ Its local classical functional is
 \]
 where the displayed superfield expression means: multiply in
 $\Omega^{0,\bullet}(X)$, take the $\Omega^{0,3}$ component, and integrate
-the resulting $(3,3)$-form.  The factorisation algebra of quantum
+the resulting $(3,3)$-form. With
+$[\alpha,\beta]=\alpha\wedge\beta\otimes[\,,\,]_{\mathfrak g}$, its
+variation is
+\[
+  \delta I_{\hCS}(\alpha)
+  =
+  \int_X\Omega_X\wedge
+  \left\langle
+    \delta\alpha,\,
+    \dbar\alpha+\frac{1}{2}[\alpha,\alpha]
+  \right\rangle .
+\]
+The classical master equation
+$\{I_{\hCS},I_{\hCS}\}_{\BV}=0$ follows from $\dbar^2=0$, invariance of
+$\langle-,-\rangle$, and Jacobi. The factorisation algebra of quantum
 observables, when the local anomaly is cancelled, is denoted
 \[
   \Obs_{\hCS}^{q}(X,\mathfrak g).
 \]
+\end{definition}
+
+\begin{definition}[Quantum hCS observables]
+\label{def:cy3-hcs-quantum-observables}
+\ClaimStatusDefinitional{}
+On an admissible open $U\subset X$ with compact-support convention fixed
+above, the quantum observable factorisation algebra is the
+Costello--Gwilliam renormalised BV complex
+\[
+  \Obs_{\hCS}^{q}(U,\mathfrak g)
+  =
+  \left(
+    \mathcal O(\cE_{\hCS,c}(U,\mathfrak g))[[\hbar]],
+    Q_{\hCS}+\{I[L],-\}_{\BV}+\hbar\Delta_L
+  \right).
+\]
+Here $I[L]$ is the scale-$L$ effective interaction, $\Delta_L$ is the BV
+Laplacian determined by the heat-kernel propagator, and the quantum
+master equation
+\[
+  Q_{\hCS} I[L]
+  +\frac{1}{2}\{I[L],I[L]\}_{\BV}
+  +\hbar\Delta_L I[L]
+  =0
+\]
+is part of the anomaly-cancellation hypothesis. Factorisation products
+are induced by disjoint support. This is the source object in
+Problem~\ref{op:cy3-hcs-hall-comparison}.
 \end{definition}
 
 \begin{definition}[The many-variable chiral CE model]
@@ -85,10 +141,18 @@ Equivalently, the stage-one local model is
   \mathrm{CE}^{\mathrm{ch},E_3}_*
   \bigl(\mathfrak L_{\cC}\bigr),
 \]
-on the loci where the hCS realisation of $\PhiFA_3$ is available.  The
+on the loci where the hCS realisation of $\PhiFA_3$ is available. This
+is the retained Stage-$1$ $\Ethree$ bar/CE object; after Stage-$2$
+specialisation to a curve and forgetting the Stage-$1$ datum, the output
+is only an $\Eone$-chiral algebra.  The
 factorisation products are products over disjoint holomorphic polydiscs;
-their singularities lie only on partial diagonals.  In local fields this
-means that an operator product is expanded as
+their singularities lie only on the union of partial diagonals
+$\Delta_\pi\subset P^n$. A collision operation is the local-cohomology
+Grothendieck residue along a refinement of partitions; binary OPE is the
+special case of one pairwise diagonal, and associativity is equality of
+iterated residues for nested refinements with the Fulton--MacPherson
+boundary orientation. In a meromorphically trivialised local-field chart
+the binary diagonal singularity may be written as
 \[
   a(z)b(w)
   \sim
@@ -98,8 +162,23 @@ means that an operator product is expanded as
    (z_2-w_2)^{\alpha_2+1}
    (z_3-w_3)^{\alpha_3+1}},
 \]
-where $a_{(\alpha)}b$ is computed by iterated residues in the three
-holomorphic directions.  The ordinary Chevalley--Eilenberg algebra
+where the coefficient is the three-normal-direction residue
+\[
+  a_{(\alpha)}b(w)
+  :=
+  \frac{1}{(2\pi i)^3}
+  \int_{|z_i-w_i|=\varepsilon_i}
+  (z-w)^\alpha\,a(z)b(w)\,
+  dz_1\wedge dz_2\wedge dz_3 .
+\]
+The product torus is oriented in the order $(z_1,z_2,z_3)$; the
+Calabi--Yau volume form $\Omega_X$ absorbs the Jacobian under holomorphic
+coordinate change; and the residue is independent of small radii as long
+as the torus remains in the complement of the other polar strata.  The
+factorisation algebra is defined by the preceding partial-diagonal
+local-cohomology residue condition; the displayed Laurent expansion is a
+coordinate normal form, not an additional structure.  The ordinary
+Chevalley--Eilenberg algebra
 $C^\bullet(\mathfrak g)$ is obtained only after applying the locally
 constant shadow
 \[
@@ -145,7 +224,9 @@ identification is $\CoHA(\C^3)\cong Y^+$.
 \label{def:hall-valued-factorisation-cosheaf-target}
 \ClaimStatusDefinitional{}
 Let $X$ be a CY$_3$ equipped with a Dolbeault/Weiss/Ran site
-$\mathsf{DW\!R}(X)$.  An object of
+$\mathsf{DW\!R}(X)$ and a Weiss-cofinal holomorphic-polydisc basis
+$\mathcal B_{\mathrm{poly}}$ whose finite intersections are refined by
+objects of the same basis.  An object of
 \[
   \mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)
 \]
@@ -168,9 +249,12 @@ on the Hall side, $\hbar$-adic and continuous-dual on the hCS side;
 correspondences, including the signs, Tate twists, and orientation
 local systems needed for associativity.
 \end{enumerate}
-A morphism in this category is a continuous natural transformation of
-factorisation cosheaves preserving all five pieces of structure.  Thus
-the phrase ``hCS-to-Hall quasi-isomorphism'' is meaningful only after
+A morphism in this category is a continuous natural transformation on
+the whole \v{C}ech/Ran nerve, not merely on $0$-simplices. Thus for
+every finite string $U_0,\ldots,U_p$ in the chosen DWR cover the map on
+$U_0\cap\cdots\cap U_p$ is specified, continuous, compatible with
+coface maps, and multiplicative for disjoint holomorphic polydiscs.
+The phrase ``hCS-to-Hall quasi-isomorphism'' is meaningful only after
 both sides have first been placed in this category, or after an
 explicit forgetful functor from this category has been named.
 \end{definition}
@@ -242,27 +326,28 @@ doubling is only the positive half.
 \label{prop:cy3-local-to-toric-descent-package}
 \ClaimStatusConditional{} \textup{(conditional on the comparison map
 in Problem~\ref{op:cy3-hcs-hall-comparison})}
-Assume that on every affine toric chart $U\simeq \C^3$ in a smooth toric
-CY$_3$ there is a natural transformation in
-$\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$ whose value on $U$
-is a quasi-isomorphism
+Assume that on the DWR \v{C}ech/Ran nerve of a smooth toric CY$_3$
+there is a continuous natural transformation in
+$\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$ whose value on each
+affine toric chart $U\simeq\C^3$ is a quasi-isomorphism
 \[
   \Theta_U\colon
   \Obs_{\hCS}^{q}(U,\mathfrak g)
   \longrightarrow
   \CoHA_{\mathrm{crit}}^{\mathrm{or}}(U)
 \]
-compatible with restriction to overlaps, orientation-torsor transport,
-and the Hall correspondence product.  Then the chartwise identifications
+and whose higher-simplex components are compatible with compact-support
+extension maps, orientation-torsor transport, coordinate changes, and
+the Hall correspondence product. Then the chartwise identifications
 $\CoHA(U)\cong Y^+$ glue through the toric descent diagram of
 Theorem~\ref{thm:toric-chart-gluing} to give a chain-level witness for
 the CY$_3$ stage-one bridge on that toric locus.
 \end{proposition}
 
 \begin{proof}
-The hypotheses make $\{\Theta_U\}$ a morphism of factorisation cosheaves
-of local observables into the oriented Hall cosheaf; this is stronger
-than a list of chartwise quasi-isomorphisms.  Weiss descent for
+The hypotheses make $\Theta_\bullet$ a morphism of factorisation
+cosheaves of local observables into the oriented Hall cosheaf; this is
+stronger than a list of chartwise quasi-isomorphisms.  Weiss descent for
 factorisation algebras then identifies the global observable algebra
 with the homotopy colimit of the chartwise observables.  The Hall
 multiplication is associative and compatible with restriction by
@@ -270,8 +355,8 @@ assumption, hence the homotopy colimit carries the same $E_1$ product.
 On each chart the Schiffmann--Vasserot theorem supplies the $Y^+$ model,
 and Theorem~\ref{thm:toric-chart-gluing} is precisely the manuscript's
 gluing theorem for these toric $Y^+$ charts.  No new global CY$_3$
-existence theorem is used: the non-formal data are the oriented
-comparison maps $\Theta_U$ on charts and overlaps.
+existence theorem is used: the non-formal datum is the oriented
+comparison map $\Theta_\bullet$ on the full descent nerve.
 \end{proof}
 
 \section{The anomaly gate}
@@ -289,14 +374,35 @@ slot governing the complex-surface or five-dimensional hCS descendants.
 \end{proposition}
 
 \begin{proof}
-For a holomorphic theory on a complex $d$-fold, the wheel anomaly is a
-local functional with $d+1$ Lie-algebra inputs: the Dolbeault heat-kernel
-contraction supplies the holomorphic volume density, and the remaining
-vertex count is fixed by locality and degree.  Thus the invariant
-polynomial has degree $d+1$.  Substituting $d=3$ gives degree $4$.  The
-cubic class is the $d=2$ specialization and therefore cannot be
-transported unchanged into the CY$_3$ hCS bridge.
+Costello--Li identify the one-loop obstruction for a holomorphic theory
+on a complex $d$-fold with the local Lie-algebra cohomology class
+attached to an invariant polynomial
+$P_{d+1}\in\Sym^{d+1}(\mathfrak g^\vee)^{\mathfrak g}$. In local
+coordinates the representative has schematic form
+\[
+  \Theta_{P_{d+1}}(\alpha_0,\ldots,\alpha_d)
+  =
+  \int_X\Omega_X\wedge
+  P_{d+1}(\alpha_0,\partial\alpha_1,\ldots,\partial\alpha_d),
+\]
+with the Dolbeault heat-kernel regularisation supplying the local
+functional. Thus the invariant-polynomial slot has degree $d+1$.
+Substituting $d=3$ gives
+$P_4\in\Sym^4(\mathfrak g^\vee)^{\mathfrak g}$. The cubic class is the
+$d=2$ specialization and therefore cannot be transported unchanged into
+the CY$_3$ hCS bridge.
 \end{proof}
+
+\begin{warning}[Two quartic data]
+\label{warn:cy3-quartic-anomaly-vs-shadow}
+\ClaimStatusDefinitional{}
+The Costello--Li anomaly polynomial
+$P_4\in\Sym^4(\mathfrak g^\vee)^{\mathfrak g}$ is not the shadow
+coefficient $S_4$ in the $E_3$-bar spectral sequence. The first is a
+gauge-anomaly class for quantising hCS observables; the second is a bar
+differential coefficient of a chiral algebra. Any comparison between
+them requires an explicit BV-to-bar transfer map.
+\end{warning}
 
 \begin{warning}[No CFG shortcut]
 \label{warn:cy3-no-cfg-shortcut}
@@ -324,8 +430,10 @@ it remains a separate mathematical datum.
 \begin{openproblem}[hCS-to-Hall comparison]
 \label{op:cy3-hcs-hall-comparison}
 \ClaimStatusOpen{}
-Construct, for the local CY$_3$ charts needed by $\PhiFA_3$, a natural
-orientation-preserving quasi-isomorphism in
+Construct, for a smooth CY$_3$ $X$ with holomorphic volume form
+$\Omega_X$ and a Dolbeault/Weiss/Ran-good Stein-polydisc cover
+$\mathfrak U$, a continuous natural transformation on the whole DWR
+\v{C}ech/Ran nerve in
 $\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$
 \[
   \Theta_{\hCS\to\Hall}^{\mathrm{or}}\colon
@@ -342,17 +450,19 @@ coordinates this means
   \bigoplus_{\mathbf d}
   H^{\mathrm{BM}}_{G_{\mathbf d}}
   \!\left(
-    \mathrm{Crit}(\mathrm{Tr}W_{\mathbf d}),
-    \phi_{\mathrm{Tr}W_{\mathbf d}}\otimes\mathscr L_{o_U}
-  \right)
+	    \mathrm{Crit}(\mathrm{Tr}W_{\mathbf d}),
+	    \phi_{\mathrm{Tr}W_{\mathbf d}}\otimes\mathscr L_{o_U}
+	  \right)
+  [s(U,\mathbf d)](t(U,\mathbf d))
 \]
-with the shift and Tate twist fixed as part of the data.  The
-orientation datum $o_U$ is a KS/Joyce square root of the virtual
-determinant line with extension and overlap coherences; it is not merely
-a formal notation for $K_{\mathfrak M_U}^{1/2}$.  The comparison must
-state the gauge/rank datum, equivariant parameters, stability condition,
-anomaly cancellation, completion, and compact-support convention, and it
-must satisfy all six conditions:
+with the perverse shift $s(U,\mathbf d)$ and Tate twist
+$t(U,\mathbf d)$ fixed as part of the data.  The orientation datum $o_U$
+is a KS/Joyce square root of the virtual determinant line with extension
+transport, orientation local systems, and overlap coherences; it is not
+merely a formal notation for $K_{\mathfrak M_U}^{1/2}$.  The comparison
+must state the gauge/rank datum, equivariant parameters, stability
+condition, anomaly cancellation, completion, and compact-support
+convention, and it must satisfy all seven conditions:
 \begin{enumerate}
 \item it is local for the Dolbeault topology and respects Weiss descent;
 \item it intertwines the BV bracket and the Hall correspondence product
@@ -364,8 +474,12 @@ $\CoHA(\C^3)=Y^+$;
 $\cW_{1+\infty}$ Fock/evaluation representation;
 \item it transports determinant-line square roots on overlaps and kills
 the residual $\Z/2$ orientation cocycle on triple overlaps;
-\item it respects Thom--Sebastiani for short exact sequences and the
-Hall convolution product.
+\item it preserves the specified shifts, Tate twists, and equivariant
+weights, so the comparison is degree-zero only after those conventions
+are fixed;
+\item it respects Thom--Sebastiani for every iterated short exact
+sequence correspondence, including both parenthesisations of Hall
+convolution and the transported orientation local systems.
 \end{enumerate}
 This is the first lemma whose proof would turn the present local
 bridge into a non-formal compact CY$_3$ theorem.
@@ -404,11 +518,13 @@ as the open arrow; its left end, $\PhiFA_3(\cC)$ itself, is not a
 slogan but an explicit composite of three chain-level steps.
 Deligne--Tamarkin supplies a chain-level $\Etwo$-action on the
 Hochschild cochain complex via braces and cup-products;
-Tradler--Menichi--Ginzburg promote this to a BV algebra using the
-cyclic pairing of degree $-3$; Costello--Gwilliam's factorisation
-envelope sends the resulting $\Ethree$-algebra to a factorisation
-algebra on $\R^3$, whose Costello--Li holomorphic twist lands in
-$\EdHolFA(X)$. The right end of the bridge, the CoHA, is not produced
+Tradler--Menichi--Ginzburg supply the framed $\Etwo$ / BV layer from the
+cyclic pairing of degree $-3$; the $\Ethree$ input is the additional
+Stage-$1$ lift fixed by a formality point and by the Costello--Li
+holomorphic witness on the verified CY$_3$ locus. Costello--Gwilliam's
+factorisation envelope sends that chosen $\Ethree$ lift to a
+factorisation algebra, whose Costello--Li holomorphic refinement lands
+in $\EdHolFA(X)$. The right end of the bridge, the CoHA, is not produced
 by this construction: it is the image of $\Theta_{\hCS\to\Hall}$, a
 separate piece of data whose existence is
 Problem~\ref{op:cy3-hcs-hall-comparison}. The present section records
@@ -462,15 +578,15 @@ a chain-level BV operator
 \Delta\;:\;\HH^\bullet(\cC)\;\longrightarrow\;\HH^{\bullet-1}(\cC),
 \]
 of cohomological degree $-1$, with $\Delta^2=0$ on cohomology,
-satisfying the BV identity
+and gives a chain-level $\BV_\infty$ structure whose homology satisfies
+the BV identity
 \[
 \{a,b\}_\Ger\;=\;\Delta(a\cup b)\;-\;\Delta(a)\cup b
 \;-\;(-1)^{|a|}a\cup\Delta(b)
 \]
-on the nose. The triple $(\cup,\{-,-\}_\Ger,\Delta)$ upgrades
-$\HH^\bullet(\cC)$ to a chain-level BV algebra; equivalently, to an
-algebra over framed little $2$-discs via the Getzler equivalence
-$\BV\simeq C_\bullet(\Conf_2^{\mathrm{fr}};\Q)$.
+after passing to cohomology. Thus $(\cup,\{-,-\}_\Ger,\Delta)$ is the
+homological shadow of a framed little-$2$-discs action; at chain level
+the higher homotopies are part of the data and cannot be discarded.
 \end{proposition}
 
 \begin{proof}[Attribution and audit]
@@ -485,36 +601,54 @@ $f:(s\bar\cC)^{\otimes n}\to\cC$ is the cyclic-rotation average
 \]
 with $\langle-,-\rangle^\vee$ the pairing composed with the duality
 $\cC^\vee\simeq\cC[d]$; cyclic invariance of $\mu_n$ is exactly what
-forces $\Delta^2=0$ and the BV identity. The Getzler equivalence
-$\BV\simeq C_\bullet(\Conf_2^{\mathrm{fr}};\Q)$ is
-Getzler~$1994$ (\emph{Comm.\ Math.\ Phys.}~$159$).
+forces the cyclic Deligne homotopies whose homology is the displayed BV
+operator and bracket identity. This $\Delta$ is the cochain BV operator
+dual to cyclic rotation; it is not the Connes $B$ operator on chains and
+not the hCS field-theoretic BV bracket $\{-,-\}_{\BV}$. The Getzler identification
+$H_\bullet(\Conf_2^{\mathrm{fr}};\Q)\simeq\BV$ is
+Getzler~$1994$ (\emph{Comm.\ Math.\ Phys.}~$159$); the chain-level
+statement is the framed cyclic Deligne action, not a strict equality
+with the homology operad.
 \end{proof}
 
-\begin{proposition}[$\Ethree$-structure on $\HH^\bullet(\cC)$ at $d=3$ via Dunn]
+\begin{proposition}[The \texorpdfstring{$E_3$}{E3} lift is Stage-\texorpdfstring{$1$}{1} data]
 \label{prop:cy3-e3-structure-hochschild}
-\ClaimStatusProvedElsewhere{}
-Under the Dunn--Lurie decomposition $\Ethree\simeq\Etwo\otimes_{\mathrm{Dunn}}\Eone$,
-the framed $\Etwo$-structure of Proposition~\ref{prop:cy3-tmg-bv}
-combines with the canonical $\Eone$-structure on the third real
-direction of $\R^3$ to produce a chain-level $\Ethree$-algebra
-structure on $\HH^\bullet(\cC)$ for a cyclic $\Ainf$-category of
-CY dimension $3$. The canonicity of this $\Ethree$-structure is under a
-single $\GRT_1(\Q)$-torsor, with the torsor acting on the $\Etwo$-factor
-and the $\Eone$-factor rigid.
+\ClaimStatusConditional{} \textup{(on the verified Stage-$1$ CY$_3$
+locus)}
+For a smooth proper cyclic $\Ainf$-category $\cC$ of CY dimension $3$,
+Propositions~\ref{prop:cy3-braces-action} and~\ref{prop:cy3-tmg-bv}
+give a framed $\Etwo$ / $\BV_\infty$ structure on
+$\HH^\bullet(\cC)$. They do not by themselves produce an $\Ethree$
+structure. An $\Ethree$-algebra structure on the same Hochschild
+cochain complex is the extra Stage-$1$ datum fixed by
+Proposition~\ref{prop:phi-fa-three-step-assembly}: a formality point
+$F\in\mathrm{Form}_3(\Q)$ together with the CY$_3$ chain-level
+framing and Costello--Li holomorphic witness. With that datum fixed,
+write the resulting object as
+\[
+  \HH^\bullet(\cC)_F\in\Ethree\text{-}\mathrm{Alg}(\mathrm{Ch}(k)).
+\]
+The ambiguity is the stated $\GRT_1(\Q)$-torsor; the BV circle action is
+a compatibility constraint on the lift, not a construction of the third
+little-disc direction.
 \end{proposition}
 
 \begin{proof}
 Dunn--Lurie additivity (Lurie, \emph{Higher Algebra}, Theorem
-$5.1.2.2$) gives $\Ethree\simeq\Etwo\otimes_{\mathrm{Dunn}}\Eone$ as
-$\infty$-operads. Proposition~\ref{prop:cy3-tmg-bv} realises
-$\BV\simeq\Etwo^{\mathrm{fr}}$ on $\HH^\bullet(\cC)$. The Dunn-tensor
-$\Eone$-factor acts by the canonical chain-level commutative
-multiplication on the extra real direction; framed $\Etwo
-\otimes_{\mathrm{Dunn}}\Eone\simeq\Ethree^{\mathrm{top}}$ (as topological operads) is the
-unframed $\Ethree$ because $\pi_1(\Conf_2(\R^3))=0$. The torsor
-computation is Willwacher~$2014$ (\emph{Invent.\ Math.}~$200$):
-$\pi_0\mathrm{Aut}_\BV=\GRT_1(\Q)$, with the $\Eone$-factor contributing
-no extra freedom (McClure--Smith~$2003$ Proposition~$2.7$).
+$5.1.2.2$) says that an $\Ethree$-algebra is equivalently an $\Eone$
+algebra object in $\Etwo$-algebras. This is a recognition theorem, not
+a source of the missing $\Eone$-object. The cyclic Deligne theorem
+supplies the framed $\Etwo$ layer of
+Proposition~\ref{prop:cy3-tmg-bv}; the third direction is the
+configuration-space/formality datum named in
+Proposition~\ref{prop:phi-fa-three-step-assembly}. Willwacher's graph
+complex computation identifies the resulting space of rational
+formality choices with the $\GRT_1(\Q)$-torsor already recorded in
+Chapter~\ref{ch:cy-to-chiral}. The Costello--Li witness transports
+that chosen lift from chains on little $3$-discs to holomorphic
+factorisation observables on the verified CY$_3$ locus. Without this
+extra witness the statement reduces to the framed $\Etwo$ / BV layer and
+does not land in $\Ethree\text{-}\mathrm{Alg}$.
 \end{proof}
 
 \begin{definition}[Topological factorisation envelope on $\R^3$]
@@ -556,7 +690,8 @@ Stage-$1$ native factorisation algebra
 $\PhiFA_3(\cC)\in\EdHolFA(X)$ of
 Definition~\ref{def:phi-fa-and-sp}\textup{(i)} factors as
 \[
-\PhiFA_3(\cC)\;=\;\mathrm{Hol}_X\!\left(\cU^\FA\bigl(\HH^\bullet(\cC)\bigr)\right),
+\PhiFA_3(\cC)_F\;\simeq\;
+\mathrm{Hol}_{X,\Omega_X}\!\left(\cU^\FA\bigl(\HH^\bullet(\cC)_F\bigr)\right),
 \]
 whose CY$_3$ local normal form on a holomorphic polydisc is the
 many-variable Dolbeault--chiral CE model of
@@ -565,19 +700,21 @@ $C^\bullet(\mathfrak g)$ appears only after the locally constant shadow
 $\Omega^{0,\bullet}(P)\simeq\mathbb C$ has been applied.
 The factors are:
 \begin{enumerate}
-\item $\HH^\bullet(\cC)\in\Ethree\text{-}\mathrm{Alg}(\mathrm{Ch}(k))$ by
+\item $\HH^\bullet(\cC)_F\in\Ethree\text{-}\mathrm{Alg}(\mathrm{Ch}(k))$ by
 Proposition~\ref{prop:cy3-e3-structure-hochschild};
 \item $\cU^\FA$ the topological factorisation envelope on $\R^3$ of
 Definition~\ref{def:cy3-topological-envelope};
-\item $\mathrm{Hol}_X:\mathrm{FAct}(\R^6;\mathrm{Ch}(k))\to\EdHolFA(X)$
-the Costello--Li holomorphic twist at the Dolbeault operator $\dbar_X$,
-rigidified by the CY form $\Omega_X$
+\item $\mathrm{Hol}_{X,\Omega_X}$ the Costello--Li holomorphic
+refinement of that locally constant envelope at the Dolbeault operator
+$\dbar_X$, rigidified by the CY form $\Omega_X$
 \textup{(Costello--Li~$2016$~\cite{CostelloLi2016},
 Costello--Li~$2020$~\cite{CostelloLi2020}, Theorem~$6.7$)}.
 \end{enumerate}
 Canonicity is up to a single $\GRT_1(\Q)$-torsor of Drinfeld
-associators, with the Costello--Li propagator picking the Kontsevich
-point.
+associators. In a specified local graph-integral model the Costello--Li
+propagator picks a representative of that torsor; identifying it with
+the Kontsevich point is part of the chosen comparison datum, not a
+canonical equality before the datum is fixed.
 \end{theorem}
 
 \begin{proof}[Audit against the three-step decomposition]
@@ -587,25 +724,26 @@ match item-by-item:
 \item[(a)] Kontsevich $E_d$-formality plus Tamarkin
 deformation-quantisation is exactly
 Propositions~\ref{prop:cy3-braces-action}--\ref{prop:cy3-e3-structure-hochschild}
-at $d=3$: the $\Ethree$-structure on $\HH^\bullet(\cC)$ composed of
-the unframed $\Etwo$ from braces and the framed $\Etwo\otimes_{\mathrm{Dunn}}
-\Eone=\Ethree$ from the BV operator.
+at $d=3$: braces and cyclicity give the framed $\Etwo$ compatibility,
+while the chosen formality point $F$ and the CY$_3$ chain-level witness
+give the actual $\Ethree$ lift $\HH^\bullet(\cC)_F$.
 \item[(b)] Costello--Gwilliam locality on the topological space
 underlying $X$ is Definition~\ref{def:cy3-topological-envelope}: the
-factorisation envelope $\cU^\FA(\HH^\bullet(\cC))\in\mathrm{FAct}(\R^3;
+factorisation envelope $\cU^\FA(\HH^\bullet(\cC)_F)\in\mathrm{FAct}(\R^3;
 \mathrm{Ch}(k))$ for the $\Ethree$-algebra input.
 \item[(c)] Costello--Li holomorphic twist with CY form $\Omega_X$ is
-$\mathrm{Hol}_X$: the topological factorisation algebra on $\R^6$ gets
-refined to a holomorphic factorisation algebra on $X$ by replacing
-$\Omega^\bullet(\R^6)$ with $\Omega^{0,\bullet}(X)$ and using
-$\Omega_X$ to trivialise the BV propagator
+$\mathrm{Hol}_{X,\Omega_X}$: the locally constant envelope is refined
+to the Dolbeault polydisc model on $X$ by replacing the de Rham
+resolution with $\Omega^{0,\bullet}(X)$ and using $\Omega_X$ to
+trivialise the BV propagator
 $P^\beta_\varepsilon\propto\dbar_X^{-1}\delta$.
 \end{itemize}
 Stage-$1$ canonicity is up to $\GRT_1(\Q)$-torsor by
-Proposition~\ref{prop:cy3-e3-structure-hochschild}; Costello--Li's
-explicit propagator on $\R^6$ reduces to the Kontsevich integral of
-multi-zeta values~\cite{CostelloLi2016}, picking the Drinfeld-associator
-point of the torsor.
+Proposition~\ref{prop:cy3-e3-structure-hochschild}. Costello--Li's
+explicit propagator on $\R^6$ supplies the local graph-integral
+representative used here; the comparison with the Kontsevich
+multi-zeta-value integral~\cite{CostelloLi2016} is the selected
+formality datum.
 \end{proof}
 
 \begin{remark}[Side-by-side with Costello--Francis--Gwilliam~$2026$]
@@ -627,11 +765,11 @@ $\HH^\bullet(\cC)$ with Deligne--Tamarkin $\Etwo$ &
 Local functionals with disc $\Etwo$ \\ \hline
 Tradler--Menichi BV from cyclic pairing &
 BV antibracket from CS action \\ \hline
-Dunn $\Ethree=\Etwo\otimes_{\mathrm{Dunn}}\Eone$ &
+Chosen $\Ethree$ lift $F$ compatible with Dunn additivity &
 Dunn additivity on disc observables \\ \hline
-$\cU^\FA(\HH^\bullet(\cC))$ on $\R^3$ &
+$\cU^\FA(\HH^\bullet(\cC)_F)$ on $\R^3$ &
 $\mathrm{Obs}^{\mathrm{top}}_{\mathrm{CS}}(\R^3,\mathfrak g)$ \\ \hline
-$\GRT_1(\Q)$-torsor; CY form picks Kontsevich &
+$\GRT_1(\Q)$-torsor; CY form enters $\mathrm{Hol}_{X,\Omega_X}$ &
 $\GRT_1(\Q)$-torsor; CS propagator picks Kontsevich \\ \hline
 \end{tabular}
 \end{center}
@@ -641,7 +779,7 @@ Dolbeault input to a finite Lie algebra.  Before this forgetful step,
 CFG has no Dolbeault differential, holomorphic jets in
 $z_1,z_2,z_3$, polydisc OPE residues, orientation datum, or Hall
 target; no quasi-isomorphism with $\PhiFA_3$ is asserted.  The
-holomorphic twist $\mathrm{Hol}_X$ of
+holomorphic refinement $\mathrm{Hol}_{X,\Omega_X}$ of
 Theorem~\ref{thm:cfg-factorization-envelope-stage-one}\textup{(3)} is
 beyond the scope of CFG~$2026$; it is the Costello--Li refinement that
 lands in $\EdHolFA(X)$.
@@ -651,9 +789,9 @@ lands in $\EdHolFA(X)$.
 \label{rem:cfg-envelope-scope}
 \ClaimStatusDefinitional{}
 Theorem~\ref{thm:cfg-factorization-envelope-stage-one} gives the
-object-level Stage-$1$ envelope: $\PhiFA_3(\cC)$ is the
+object-level Stage-$1$ envelope: $\PhiFA_3(\cC)_F$ is the
 holomorphic-twist of the factorisation envelope of the
-$\Ethree$-Hochschild cochain complex. Three scope restrictions are
+$\Ethree$ lift $\HH^\bullet(\cC)_F$. Three scope restrictions are
 recorded:
 \begin{enumerate}
 \item \emph{Object level, not morphism level.} Promoting a cyclic

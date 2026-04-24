@@ -43,7 +43,8 @@ from compute.lib.bps_microstate_shadow import (
     terms_for_1pct_accuracy,
     # Subleading
     A_HAT,
-    KAPPA_CH, KAPPA_BKM, KAPPA_CAT, KAPPA_CAT_FIBER, KAPPA_FIBER,
+    KAPPA_CH, BORCHERDS_C0_N1, KAPPA_BKM, KAPPA_CAT, KAPPA_CAT_FIBER,
+    KAPPA_FIBER,
     subleading_corrections,
     entropy_with_corrections,
     # OSV
@@ -541,15 +542,24 @@ class TestCrossVerifications:
     def test_kappa_spectrum_all_pass(self):
         """All kappa spectrum verifications pass."""
         checks = verify_kappa_spectrum_consistency()
+        assert "borcherds_weight_derives_kappa_BKM_N1" in checks
+        assert "identity_fiber_N1" not in checks
         assert all(checks.values())
 
     def test_total_space_kappa_identity_fails(self):
         """kappa_BKM != kappa_ch + kappa_cat(K3 x E): 5 != 3 + 0."""
         assert KAPPA_BKM != int(KAPPA_CH) + KAPPA_CAT
 
-    def test_fiber_kappa_identity(self):
-        """kappa_BKM = kappa_ch + kappa_cat(K3 fiber) = 3 + 2 = 5."""
+    def test_borcherds_weight_derives_kappa_BKM(self):
+        """kappa_BKM(Delta_5) is c_1(0)/2 = 10/2 = 5."""
+        assert BORCHERDS_C0_N1 == 10
+        assert KAPPA_BKM == BORCHERDS_C0_N1 // 2
+
+    def test_fiber_sum_is_only_N1_coincidence(self):
+        """3 + 2 = 5 is the N=1 Heisenberg-fiber coincidence only."""
         assert KAPPA_BKM == int(KAPPA_CH) + KAPPA_CAT_FIBER
+        checks = verify_kappa_spectrum_consistency()
+        assert checks["fiber_sum_N1_heisenberg_coincidence_only"] is True
 
     def test_shadow_growth_class_M(self):
         """Shadow tower growth is consistent with class M (Gevrey-1)."""

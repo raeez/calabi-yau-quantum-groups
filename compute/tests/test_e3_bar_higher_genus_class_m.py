@@ -1,8 +1,9 @@
 r"""Tests for the E_3 bar cohomology of class M (Virasoro) at higher genus.
 
 MAIN RESULT:
-  E_inf(class M, genus g) has Poincare polynomial (3t(1+t))^g.
-  Total dimension = 6^g (proved for g <= 3; at g >= 4, d_5 may act).
+  E_4(class M, genus g) has Poincare polynomial (3t(1+t))^g.
+  Total dimension = 6^g. This equals E_inf for g <= 3; at g >= 4,
+  d_5 may act.
 
 The d_4 differential decomposes as a sum of per-copy contractions.
 By the Kunneth theorem: E_4 = tensor^g [0, 3, 3, 0].
@@ -14,7 +15,7 @@ Degree-by-degree:
 
 Class comparison (same genus):
   Class L (Yangian): E_inf = (1+t)^{3g}, dim = 8^g
-  Class M (Virasoro): E_inf = (3t(1+t))^g, dim = 6^g
+  Class M (Virasoro): E_4 = (3t(1+t))^g, dim = 6^g
   Deficit: 8^g - 6^g (exponentially growing, ratio (4/3)^g)
 
 Higher differentials:
@@ -231,11 +232,11 @@ class TestKunnethVerification:
 
 
 # =========================================================================
-# 5. Closed form: dim E_inf = 6^g
+# 5. Closed form: dim E_4 = 6^g
 # =========================================================================
 
 class TestClosedForm:
-    """The main result: dim E_inf(class M, genus g) = 6^g."""
+    """The main result: dim E_4(class M, genus g) = 6^g."""
 
     @pytest.mark.parametrize("g", range(1, 8))
     def test_total_is_6_to_the_g(self, g):

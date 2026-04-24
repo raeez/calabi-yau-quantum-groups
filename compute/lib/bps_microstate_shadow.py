@@ -102,9 +102,12 @@ CONVENTIONS
 ===========
   - Discriminant Delta = 4nm - l^2 for K3 x E charges (n, l, m)
     (same as D in bps_entropy_shadow.py)
-  - kappa_ch = 3, kappa_BKM = 5, kappa_cat(K3 x E) = 0 per AP113
+  - kappa_ch = 3, kappa_BKM = c_1(0)/2 = 10/2 = 5, and
+    kappa_cat(K3 x E) = 0 per AP113.
   - The auxiliary value 2 is kappa_cat(K3), the K3-fiber holomorphic
-    Euler characteristic, not kappa_cat of the total space.
+    Euler characteristic, not kappa_cat of the total space.  The
+    arithmetic 3 + 2 = 5 at N = 1 is only a Heisenberg-fiber
+    coincidence; the Borcherds weight c_N(0)/2 is the derivation.
   - Shadow invariants S_k from the Virasoro (spin-2) channel at c=1
   - A-hat coefficients: A_hat_g = (2^{2g}-2)|B_{2g}|/(4^g (2g)!)
   - The 4d Siegel convention uses 4*pi*sqrt(Delta) (not pi*sqrt(D) from 5d)
@@ -569,11 +572,12 @@ A_HAT = {
 }
 
 # kappa-spectrum (AP113)
-KAPPA_CH = Fraction(3)       # chiral, from CY dimension
-KAPPA_BKM = 5                # Borcherds-Kac-Moody, weight of Delta_5
+KAPPA_CH = Fraction(3)       # chiral Heisenberg-Mukai specialization
+BORCHERDS_C0_N1 = 10         # zeta^0 q^0 coefficient c_1(0) for Delta_5
+KAPPA_BKM = BORCHERDS_C0_N1 // 2  # Borcherds-Kac-Moody weight c_1(0)/2
 KAPPA_CAT = 0                # categorical total, chi(O_{K3 x E})
 KAPPA_CAT_FIBER = 2          # K3 fiber categorical value, chi(O_{K3})
-KAPPA_FIBER = 24             # lattice rank
+KAPPA_FIBER = 24             # Mukai-lattice rank of the K3 fiber
 
 
 class SubleadingCorrection(NamedTuple):
@@ -735,8 +739,8 @@ def osv_genus_amplitudes(max_genus: int = 5,
     # The shadow contribution is kappa_ch * A_hat_1 = 3 * (1/24) = 1/8.
     k = float(kappa_ch)
     F1_shadow = k * float(A_HAT[1])
-    # Known: F_1 for K3 x E topological string = (chi(K3 x E) / 24) * log(...)
-    # At leading order, F_1 = kappa_ch/24 = 3/24 = 1/8.
+    # Scalar shadow normalization, not the compact total-space
+    # Hodge-supertrace value: F_1 = kappa_ch/24 = 3/24 = 1/8.
     F1_topstring = k / 24.0
     results.append(OSVVerification(
         genus=1,
@@ -1001,18 +1005,23 @@ def verify_shadow_growth() -> Dict[int, float]:
 def verify_kappa_spectrum_consistency() -> Dict[str, bool]:
     """Cross-verify the kappa-spectrum values.
 
-    kappa_BKM = kappa_ch + kappa_cat(K3 fiber) = 3 + 2 = 5 is the N=1
-    fiber decomposition.  The total-space identity using
-    kappa_cat(K3 x E) is false: 5 != 3 + 0.
+    kappa_BKM(Delta_5) is derived from the Borcherds weight
+    c_1(0)/2 = 10/2 = 5.  The total-space identity using
+    kappa_cat(K3 x E) is false: 5 != 3 + 0.  The arithmetic equality
+    3 + 2 = 5 using kappa_cat(K3) is kept only as the N=1
+    Heisenberg-fiber numerical coincidence, not as a formula for
+    kappa_BKM.
     """
+    borcherds_weight_N1 = BORCHERDS_C0_N1 // 2
     return {
+        "borcherds_weight_derives_kappa_BKM_N1": KAPPA_BKM == borcherds_weight_N1,
         "kappa_BKM_eq_5": KAPPA_BKM == 5,
         "kappa_ch_eq_3": KAPPA_CH == Fraction(3),
         "kappa_cat_total_eq_0": KAPPA_CAT == 0,
         "kappa_cat_fiber_eq_2": KAPPA_CAT_FIBER == 2,
         "kappa_fiber_eq_24": KAPPA_FIBER == 24,
         "identity_total_space_fails": KAPPA_BKM != int(KAPPA_CH) + KAPPA_CAT,
-        "identity_fiber_N1": KAPPA_BKM == int(KAPPA_CH) + KAPPA_CAT_FIBER,
+        "fiber_sum_N1_heisenberg_coincidence_only": KAPPA_BKM == int(KAPPA_CH) + KAPPA_CAT_FIBER,
         "resolved_labels_distinct": len({float(KAPPA_CH), KAPPA_BKM, KAPPA_CAT, KAPPA_CAT_FIBER, KAPPA_FIBER}) == 5,
     }
 
