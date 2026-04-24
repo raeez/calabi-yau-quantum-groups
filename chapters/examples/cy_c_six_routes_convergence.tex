@@ -1635,7 +1635,18 @@ For $X = K3 \times E$ as a CY$_3$ total space: $c_1(X) = c_1(K3) + c_1(E) = 0 + 
 
 \begin{remark}[Eight cross-checks on \texorpdfstring{$\mathbf{H}_{\Delta_5}$}{H-Delta-5}]
 \label{rem:cy-c-six-routes-unified-engine}
-The numerical cross-verification of the six-route synthesis runs through the unified compute engine \texttt{compute/lib/k3\_yangian\_unified\_cross\_check.py}. The engine imports from ten predecessor modules (Schur-index, Arthur--Hecke, Gritsenko additive, twisted 11D SUGRA 1-loop, bi-based Ran, Humbert monodromy, pentagon coboundary, $M_{24}$ umbral cocycle, pentagon $\hbar^{4,5}$, Schur-index $A_{N-1}$) and exposes \texttt{verify\_all()} returning a pass/fail dictionary for eight identities: (A) $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$ with $K = 8$ via three independent faces (Mukai doubling, Humbert monodromy, Lusztig specialisation); (B) $(c_{4d}, c_{2d}) = (107/6, -214)$ via Chacaltana--Distler $(5n-13)/6$ cross-checked with Beem--Rastelli $c_{2d} = -12 c_{4d}$; (C) BKM Cartan rank $3$ with Gritsenko--Nikulin Gram determinant $-32$ and Mukai rank $24$; (D) Siegel weight $5$ of $\Delta_5$ via three independent routes (additive source $\eta^9\theta_1$, $\chi(\mathcal{O}_{K3}) + $ Kodaira, paramodular anomaly sum); (E) five-frame duality convergence on Narain $II_{3,19}$; (F) Heegner pattern $c_n \propto [H_n]$ at $n = 1, 2, 3$ matching EOT $2011$ discriminant table; (G) Arthur packet $\psi_{\Delta_{10}} = \phi_{\Delta_{E_6}} \boxplus \mathrm{Sym}^1$ with first-principles $a_p(E_4 \Delta)$ at $p \le 11$ and Ramanujan--Petersson $|a_p| \le 2 p^{15/2}$ (Deligne $1974$; Weissauer $2009$); (H) Schur-index $\mathrm{PE}[(72q - 22q^2)/(1-q)]$ through $q^{10}$ reproducing the Gadde--Rastelli--Razamat--Yan $\{1, 72, 2678, 68474, 1351775, \ldots\}$ manuscript table. All eight pass; $58$ pytest assertions pass. The engine also runs a conflation audit enforcing the five most-likely misreadings: CoHA $\neq$ chiral (uses $\Phi$-arrow); $\kappa_{\mathrm{cat}}(K3 \times E) = 0$; native vs.\ derived $E_n$; six routes different, not six $\Phi$'s; averaging vs.\ derived centre. Documentation: \texttt{compute/lib/README\_cross\_check.md}.
+The numerical cross-verification of the six-route synthesis runs through the unified compute engine \texttt{compute/lib/k3\_yangian\_unified\_cross\_check.py}. The engine imports from ten predecessor modules (Schur-index, Arthur--Hecke, Gritsenko additive, twisted 11D SUGRA 1-loop, bi-based Ran, Humbert monodromy, pentagon coboundary, $M_{24}$ umbral cocycle, pentagon $\hbar^{4,5}$, Schur-index $A_{N-1}$) and exposes \texttt{verify\_all()} returning a pass/fail dictionary for eight checks:
+\begin{itemize}
+\item Bridge-A: the left side is $\hbar^2$ times the $K$-power whose exponent is $\kappa_{\mathrm{ch}}$; after inserting the Humbert value $K=8$, the engine evaluates it at $-1$ by Mukai doubling, Humbert monodromy, and Lusztig specialisation.
+\item The central-charge pair $(c_{4d}, c_{2d}) = (107/6, -214)$ is cross-checked by Chacaltana--Distler $(5n-13)/6$ and Beem--Rastelli $c_{2d} = -12 c_{4d}$.
+\item The BKM Cartan rank is $3$, the Gritsenko--Nikulin Gram determinant is $-32$, and the Mukai rank is $24$.
+\item The Siegel weight of $\Delta_5$ is $5$ by three independent routes: additive source $\eta^9\theta_1$, $\chi(\mathcal{O}_{K3})+$Kodaira, and the paramodular anomaly sum.
+\item Five duality frames converge on Narain $II_{3,19}$.
+\item The Heegner pattern $c_n \propto [H_n]$ at $n = 1,2,3$ matches the EOT $2011$ discriminant table.
+\item The Arthur packet $\psi_{\Delta_{10}} = \phi_{\Delta_{E_6}}\boxplus\mathrm{Sym}^1$ passes the first-principles $a_p(E_4\Delta)$ computation at $p\le 11$ and the Ramanujan--Petersson bound $|a_p|\le 2p^{15/2}$ (Deligne $1974$; Weissauer $2009$).
+\item The Schur-index expansion $\mathrm{PE}[(72q-22q^2)/(1-q)]$ through $q^{10}$ reproduces the Gadde--Rastelli--Razamat--Yan coefficients $\{1,72,2678,68474,1351775,\ldots\}$.
+\end{itemize}
+All eight pass; $58$ pytest assertions pass. The engine also runs a conflation audit enforcing the five most-likely misreadings: CoHA $\neq$ chiral (uses $\Phi$-arrow); the categorical total-space value for $K3 \times E$ is $0$; native vs.\ derived $E_n$; six routes different, not six $\Phi$'s; averaging vs.\ derived centre. Documentation: \texttt{compute/lib/README\_cross\_check.md}.
 \end{remark}
 
 \begin{remark}[What the engine cross-verifies and what remains open]
@@ -1730,7 +1741,7 @@ Remark~\ref{rem:cy-c-six-routes-kontsevich-deformation}, the per-route
 $\kappa_\bullet$-stratification of
 Theorem~\ref{thm:kappa-stratification-CY-C} acquires a motivic-Galois
 interpretation: the route-distinguishing invariants $\rho^{R_i}\in
-\{3, 12, 24\}$ and the route-specific scalars $\kappa^{R_i}_\bullet$
+\{3, 12, 24\}$ and the route-specific scalars $\kappa_\bullet^{R_i}$
 are compatible with the $\mathrm{GRT}_1(\bQ)$-action on the MZV
 $\bQ$-algebra $\cZ$ in the following sense: if the CY-C isomorphism
 holds (Conjecture~\ref{thm:six-routes-isomorphism}), then the
@@ -1741,7 +1752,7 @@ motivic-Galois orbit of $\mathbf{H}_{\Delta_5}$ as a super-Kontsevich
 deformation quantisation. The Lusztig dyadic fixed point
 $\mathrm{GRT}_1(\bZ[1/2])$ distinguishes $\hbar^2 = -1/8$ on the
 full $\hbar$-moduli, providing a motivic justification for the
-numerical identity $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$ of
+Bridge-A evaluation of $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}}$ at $-1$ in
 the unified cross-check engine (Bridge~A in
 Remark~\ref{rem:cy-c-six-routes-unified-engine}). The equivariance
 claim is conditional on CY-C; what is unconditional is the
