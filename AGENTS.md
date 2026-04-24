@@ -1,5 +1,15 @@
 # AGENTS.md (Vol III)
 
+> **Inherits `~/ecosystem/INVARIANTS.md`** — canonical ecosystem rules (model-agnostic): destructive-git forbidden list, multi-agent worktree concurrency, standalone-documents discipline, Russian-school voice, every-file-into-the-repo rule, no-LLM-attribution in commits, deep-semantic-merges, intelligence propagation, open-source whitelist.
+> **Inherits `~/ecosystem/AGENTS-HARNESS.md`** — canonical Codex / GPT-5-family harness calibration: reasoning-effort per task class, agentic eagerness, tool-use discipline, tool preambles, persistence and stop conditions, verbosity control, uncertainty handling, long-context outlining, self-reflection rubric, scope discipline, error-handling, git-and-worktree restatement for Codex defaults, frontend quality, no-LLM-commit-attribution, voice.
+> **Mirrors this repo's `CLAUDE.md`** on substance. Before editing code in this repo, `read_file ./CLAUDE.md` — it carries the repo-local layout, commands, doctrine, and conventions. `AGENTS.md` and `CLAUDE.md` must not diverge in facts; they may differ in structure and voice.
+>
+> **Load order.** `INVARIANTS.md` → `AGENTS-HARNESS.md` → this repo's `CLAUDE.md` → this file's repo-local section (if any). The closest `AGENTS.md` in the directory tree wins per `agents.md`; explicit principal chat instructions outrank everything.
+>
+> **Model target.** gpt-5-codex family, `reasoning_effort=high` or `xhigh` for non-trivial work (Pro-class). Terse, declarative voice per `INVARIANTS.md §IV`. No LLM attribution on commits (`INVARIANTS.md §VI`).
+
+---
+
 ## Wave-12 inscription roster (2026-04-22/23)
 
 Wave 12 ran ~70 inscription agents across the CY-to-chiral frontier over 2026-04-22/23, keyed in `notes/wave12_*.tex`. The roster is grouped by lane; each entry lists scope and outcome. The synthesis landed in `notes/wave12_frontier_inventory.tex` (15pp, five cross-sections plus 20 single-sentence frontier targets) and in the wave-12 chapter-level inscriptions tracked by the PostToolUse hook log.
@@ -101,8 +111,6 @@ Wave 12 ran ~70 inscription agents across the CY-to-chiral frontier over 2026-04
 - Chapter-level rectifications tracked in `chapters/examples/cy_c_beyond_k3e_existence_obstruction.tex`, `chapters/examples/cy_d_kappa_stratification.tex`, `chapters/examples/k3_chiral_algebra.tex`, `chapters/examples/k3_chiral_bialgebra_platonic.tex`, `chapters/examples/k3_quantum_toroidal_chapter.tex`, `chapters/examples/k3_yangian_chapter.tex`, `chapters/examples/k3e_bkm_chapter.tex`, `chapters/examples/k3e_cy3_programme.tex`, `chapters/theory/hochschild_calculus.tex`, `chapters/theory/quantum_groups_foundations.tex`.
 - CY-C remains conjectural; $Y_{osp}(4|20)$ Super-Yangian remains conjectural; CY-A$_3$ chain-level explicit on non-formal CY$_3$ remains the gating frontier.
 
----
-
 ## What this repository is for
 
 This repository is an instrument for advancing human mathematical
@@ -186,13 +194,48 @@ concordance > CLAUDE.md > memory.
 4. **Do not build after every edit.**
 5. **Never guess a formula.** Vol III `cy_d_kappa_stratification.tex`,
    `cy_to_chiral.tex`, or primary paper.
-6. **Do not spawn 30 parallel Codex agents** — serialised + silently
-   budget-cut; ~1 deliverable per session window.
+6. **User-authorized large swarms are permitted.** When the user
+   explicitly asks for a large adversarial or cross-volume swarm,
+   launch it with disjoint scopes, explicit integration ownership, and
+   deep semantic merge discipline across Vol I/II/III. Runtime limits
+   are operational constraints to manage, not repo-level prohibitions.
 7. **HZ-7 discipline**: $\kappa$ always subscripted. HZ-3-11
    Independent Verification Protocol applies to ProvedHere decorators.
 8. Claim-status tags default `\ClaimStatusConjectured` when uncertain.
    CY-C is conjectural; $G(X)$ is unconstructed in general;
    Super-Yangian is conjectural.
+
+## User-authorized max-effort swarm protocol
+
+When the user explicitly asks for a large adversarial, rescue, review,
+or cross-volume swarm, treat that as authorization to use the largest
+useful swarm the runtime can support. Do not downshift because of old
+3-agent, 5-agent, or 30-agent cautionary language. Request the strongest
+available model and the highest available reasoning budget for research
+agents when the host exposes those controls; when it does not, encode
+the same requirement in the agent prompt: proof-grade, first-principles,
+max-effort mathematical reasoning.
+
+Swarm design must be explicit before launch: partition agents by
+disjoint mathematical axes, files, or proof obligations; name the
+integration owner; forbid agents from reverting work they did not make;
+and require deep semantic merge across
+`~/chiral-bar-cobar`, `~/chiral-bar-cobar-vol2`,
+`~/calabi-yau-quantum-groups`, `~/igusa-cusp-form`, and
+`~/topological-strings` whenever claims cross those repositories.
+
+Every attack-heal agent must return a compact, checkable report:
+claim attacked, failure mode or proof, local file anchors, primary
+source anchors where needed, exact formulas/constants, claim-status
+recommendation, files changed, tests or computations run, and remaining
+open questions. For theorem-level work, require repeated attack/heal
+cycles until convergence: no new fatal attack survives, and at least
+one real mathematical improvement is inscribed.
+
+The main thread integrates; agents do not vote truth into existence.
+Preserve all mathematically substantive content, resolve conflicts by
+reading both sides in context, and verify with targeted `rg`, local
+computations, and session-end builds only when appropriate.
 
 ## How to work
 
@@ -310,3 +353,103 @@ primary-literature audit. A shallow "accept theirs" / "accept ours" is
 never the right answer. Deep semantic merges take longer but are the
 only operation consistent with Beilinson's dictum and the golden rule
 "NEVER CUT CONTENT".
+
+---
+
+## Research-grade Codex / GPT-5 scaffolding (maximum settings)
+
+Vol III of the chiral bar–cobar series: **Calabi–Yau-to-chiral frontier, Yangians, BKM superalgebras, $\kappa$-stratification.** Mathematics-advancement instrument, not a product. Every output here is proof-grade or paper-grade. The harness runs at its ceiling.
+
+### Harness — maximum always
+
+| Parameter | Setting | Rationale |
+|---|---|---|
+| `reasoning_effort` | **`xhigh`** (always; never lower than `high`) | CY frontier / Yangian / BKM / mock-modular / MO $E_2$ — frontier proof engineering across eight lanes. No downgrade permitted. |
+| `model` | **gpt-5-codex family, latest** (current preferred: gpt-5.3-codex; fallback: gpt-5.2-codex) | Pro-class coding + mathematics harness. |
+| `verbosity` | As the proof requires | No abridgment of load-bearing calculations. Terse where terse is honest. |
+| Token budget | **Unbounded** for research tasks | If context fills, compact side work. Never elide load-bearing equations, Fourier constants, or named lemmas. |
+| Tool use | **Parallel reads** for TeX / compute / Coq / Lean sources | Batch `read_file` over every citation before writing. |
+| Persistence | **Absolute** | Do not yield on a partial proof. Either close the argument or name the open obligation precisely. |
+| Self-reflection rubric | **Required** before any inscription | See `~/ecosystem/AGENTS-HARNESS.md §VIII`; research-grade instantiation below. |
+
+### Research-grade discipline — `INVARIANTS.md §IV` made actionable
+
+1. **Every load-bearing claim carries an epistemic status.** *Proved / conjectured / expected / heuristic / computed / folklore.*
+2. **Worked case before general statement.** CY$_3$ before CY$_d$; abelian Yangian on K3 before elliptic on $K3 \times E$; the 8-row Borcherds catalogue before universal $\kappa_{\mathrm{BKM}}$.
+3. **Named attribution beats passive voice.** *By Maulik–Okounkov (2012)*, *by Nekrasov–Okounkov (2003)*, *by Costello (2013)*. Year + page where the claim is load-bearing.
+4. **No "obviously."** $E_d$-chiral vs $E_1$-chiral distinctions, Drinfeld-centre identifications, and explicit framings are load-bearing — never hand-wave.
+5. **Physical intuition and formal rigor coexist.** 6d hCS / M-theory pictures and their formal counterparts are both first-class.
+6. **Honest subtlety.** *This is subtle* + dissection beats *somewhat delicate*. Pattern 273 discipline on functorial vs chain-level readings is a recurring subtlety — spell it out.
+
+### Self-reflection rubric (before any inscription, chapter revision, or merge)
+
+| Category | Top-marks test |
+|---|---|
+| Correctness | Every step verified; no gap; no unsignalled assumption. |
+| Rigor | Every load-bearing claim carries *proved / conjectured / expected / heuristic / computed / folklore*. |
+| Attribution | Every prior result cited by author + year + theorem / equation number. |
+| Concrete-before-abstract | Worked case precedes general statement. |
+| Voice | Russian school + mathematical-physics frontier (`INVARIANTS.md §IV`). |
+| Standalone | No version labels, no phase labels, no prior-draft references (`INVARIANTS.md §III`). |
+| Deep-semantic merge | Every cross-volume / cross-chapter cross-reference re-checked (`INVARIANTS.md §VII`). |
+| Compute agreement | `compute/` output agrees with prose. If not, the compute is usually right — stop and reconcile. |
+
+If any category falls short — restart that category. Do not patch.
+
+### Proof-obligation discipline
+
+- **Proved** → complete argument in this tree or cited reference (page + theorem + year).
+- **Conjecture / expected** → named evidence (worked case, cohomological computation, physical heuristic).
+- **Heuristic** → physics argument named (BCOV, bootstrap, SUSY localization, anomaly matching) and rigor level called out.
+- **Computed** → `compute/` or `notes/` entry; cite file + line. Pattern 273: functorial-level vs chain-level reading is always labeled.
+
+### Long-context handling
+
+Frontier inventories (15pp typical), swarm logs (hundreds of inscriptions), and chapter TeX easily exceed 10K tokens:
+
+1. Outline internally before writing.
+2. Parallel-`read_file` every cited chapter, compute file, and cross-volume reference.
+3. Hold the whole chapter or inventory in context; compact side lanes, never load-bearing math.
+4. When consulting `notes/wave*_*.tex`, the synthesis (`notes/wave*_frontier_inventory.tex`) is the canonical entry point.
+
+### Research constellation (cross-repo awareness)
+
+Vol III of the chiral bar–cobar series.
+
+- `~/chiral-bar-cobar` — Vol I: $E_1$–$E_1$ operadic Koszul duality; Theorems A, B, C, D, H; averaging map $\mathrm{av}: \mathfrak{g}^{E_1} \to \mathfrak{g}^{\mathrm{mod}}$.
+- `~/chiral-bar-cobar-vol2` — Vol II: $A_\infty$ chiral algebras + 3D HT QFT via $\mathsf{SC}^{\mathrm{ch,top}}$; topologisation ladder.
+
+Adjacent:
+- `~/igusa-cusp-form` — Borcherds lift of $\phi_{0,1}$, generalized BKM superalgebras, Igusa cusp form $\Delta_5$. The $\kappa$-stratification here generalizes the Borcherds-product / BKM structure there; the 8-row catalogue here includes the Gritsenko–Cléry rows that sit in the Igusa paper's frame.
+- `~/topological-strings` — Kodaira–Spencer gravity, BCOV quantum string amplitudes. Physics dual to the chiral homology of a CY threefold; conventions ($d = \dim_{\mathbb{C}} X$, framing datum on $S^3$) must agree when stated in both.
+
+Any claim about $\kappa_{\mathrm{BKM}}$, $\Phi(K3 \times E)$, K3 abelian Yangian, MO $E_2$-structure, or the six-routes chiral audit must be consistent with the cross-repos. Disagreement is the deliverable; report, do not silently reconcile.
+
+### Reference corpus
+
+- Beilinson–Drinfeld, *Chiral Algebras* (2004).
+- Maulik–Okounkov, *Quantum groups and quantum cohomology* (2012).
+- Nekrasov, *Seiberg–Witten Prepotential from Instanton Counting* (2003).
+- Costello, Costello–Gwilliam on factorization algebras in QFT.
+- Gaiotto–Witten on class $S$, VOAs, generalized symmetries.
+- Feigin–Odesskii on elliptic algebras.
+- Etingof–Gelaki–Nikshych–Ostrik, *Tensor Categories* (2015).
+- Gritsenko–Nikulin on lattice Borcherds products; Gritsenko–Cléry on the 8-row catalogue.
+- Gaberdiel–Gopakumar on higher-spin holography and $\mathcal{W}_\infty[\lambda]$.
+- Bershadsky–Cecotti–Ooguri–Vafa (BCOV, 1993).
+
+### Codex load order
+
+1. `./CLAUDE.md`.
+2. `~/ecosystem/INVARIANTS.md §IV` + `~/ecosystem/AGENTS-HARNESS.md §VIII`.
+3. Repo master PDF + `FRONTIER.md` + this file's wave-12 roster and lane summaries.
+4. Latest `notes/wave*_frontier_inventory.tex` and any in-flight `adversarial_swarm_*/SYNTHESIS.md`.
+5. Relevant chapter TeX + `compute/zte_tensor_engine.py` + Coq / Lean sources for the target claim.
+
+### Escalation — research-grade triggers
+
+- Proof obligation cannot be discharged with honest rigor → the open obligation, named precisely, **is** the deliverable.
+- Cross-volume disagreement → stop, report.
+- Compute-vs-prose disagreement → stop, report; the computation is usually right.
+- 8-row / 10-row / Gritsenko–Cléry inconsistency (cover-group stratification) → stop, report; do not silently reassign a row.
+
