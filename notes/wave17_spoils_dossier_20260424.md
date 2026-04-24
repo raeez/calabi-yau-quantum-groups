@@ -61,8 +61,13 @@ $$|\omega|^2(c) \;=\; \frac{c^2(5c+22)}{4(45c+218)}, \qquad |\omega|(c) = \frac{
 Stokes pole at $c=c_S=-218/45$ (zero of $180c+872$). Replaces the earlier iter-35 assertion $|\omega|(c)=2-1/(4c)$, which was incorrect.
 
 **N3 — Shadow coefficient $S_6(\mathrm{Vir}_c)$ closed form.**
-$$S_6(\mathrm{Vir}_c) \;=\; \frac{40(45c+188)}{3c^3(5c+22)^2}$$
-forced by $[t^6]H^2=0$. Higher coefficients $S_r$, $r\ge 7$, recursive from Riccati-in-$U$.
+$$S_6(\mathrm{Vir}_c) \;=\; \frac{4(240c+1031)}{c^3(5c+22)^2}$$
+forced by the order-$t^8$ null-state equation
+$2S_2S_6+2S_3S_5+S_4^2=0$. The preliminary dossier formula
+$40(45c+188)/[3c^3(5c+22)^2]$ is superseded by the later
+attack-verified Vol I commit. The companion weighted Riccati-metric
+coefficient is $\widehat S_6=80(45c+193)/[3c^3(5c+22)^2]$. Higher
+coefficients $S_r$, $r\ge 7$, recursive from Riccati-in-$U$.
 
 **N4 — F5 Drinfeld-double global obstruction class.** The universal Drinfeld double $D(\cA,\cA^!)$ exists over $\overline{M}_{g,n}$ for $g=0$ unconditionally; extends to $g=1$ via Enriquez $\mathrm{GRT}_1^{\mathrm{ell}}(\Q)$. For $g\ge 2$, explicit cohomological obstruction:
 $$\mathrm{obs}^{(1)}_{\mathrm{double}} \;\in\; H^2(\mathfrak{grt}^{\mathrm{ell}},\, \mathfrak{sp}(\cA)\otimes\mathfrak{sp}(\cA^!))$$
