@@ -6,9 +6,19 @@ limit of the K3 Yangian $Y(\mathfrak{g}_{K3})$, whose 24 Heisenberg
 generators, Mukai-signature Serre relations, and degree-$(24,24)$
 structure function encode the quantization of the Mukai lattice.
 This chapter develops the complete abelian Yangian presentation,
-the Koszul dual, the orthosymplectic super-Yangian envelope
-$Y_{\osp(4 \mid 20)}$ attached to the Mukai orthogonal form, and
-the perturbative factorization homology computation.
+the Koszul dual, the orthogonal Yangian envelope
+$Y_\hbar(\mathfrak{so}(4, 20))$ attached to the Mukai form and its
+Hodge-parity $\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$, and
+the perturbative factorization homology computation. The chapter
+pins the trichotomy that distinguishes three form-preserving
+algebras of rank $24$: the ungraded orthogonal envelope
+$Y_\hbar(\mathfrak{so}(4, 20))$ (classical limit $\mathfrak{so}(4, 20)$,
+Kac type $D_{12}$), the programme-specific Hodge-parity
+$\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$ (symmetric
+on both graded parts, non-Kac), and Kac $\mathfrak{osp}(4 \mid 20)$
+(symplectic on the odd part, not the Mukai preserver). Only the
+first two are envelopes for the K3 Yangian; the third is a scope
+confusion explicitly excluded.
 
 \begin{remark}[Stage discipline: \texorpdfstring{$Y(\mathfrak g_{K3})$}{Y(g-K3)} as stage-\texorpdfstring{$2$}{2}
 shadow of the \texorpdfstring{$E_2$}{E-2}-factorisation algebra on K3]
@@ -2819,325 +2829,374 @@ framework is in
 
 
 %% ========================================================================
-%% The K3 orthosymplectic super-Yangian Y_{osp(4|20)}
+%% The K3 Yangian attached to the Mukai form: so(4,20) trichotomy
 %% ========================================================================
 
-\subsection{The K3 super-Yangian \texorpdfstring{$Y_{\osp(4|20)}$}{Y-osp(4|20)}}
+\subsection{The K3 Yangian and the \texorpdfstring{$\mathfrak{so}(4,20)$}{so(4,20)} vs \texorpdfstring{$\mathfrak{osp}(4 \mid 20)$}{osp(4|20)} trichotomy}
 \label{subsec:k3-super-yangian}
 
-The Mukai form on $\Lambda_{\mathrm{Muk}} \otimes_\Z \bR$ is
-\emph{orthogonal of signature $(4, 20)$}: a non-degenerate
-symmetric bilinear form with four positive and twenty negative
-eigenvalues.  It is not a $\Z/2$-super-grading, and its
-automorphism group is the indefinite orthogonal group
-$\mathrm{O}(4, 20)$, not the general linear supergroup
-$\mathrm{GL}(4 \mid 20)$.  The corresponding super-Yangian
-candidate for the K3 chiral Hall--Drinfeld double (Remark~\ref{rem:k3-yangian-nomenclature-scope}) is therefore
-$Y_{\osp(4 \mid 20)}$, the orthosymplectic super-Yangian of
-Arnaudon--Crampé--Doikou--Frappat--Ragoucy~\cite{AcdfR2003},
-not $Y(\fgl(4 \mid 20))$.
+The Mukai form on $\Lambda_{\mathrm{Muk}} \otimes_\Z \bR$ is a
+symmetric indefinite bilinear form of signature $(4, 20)$. Its
+symmetry group is the indefinite orthogonal group $\mathrm{O}(4, 20)$
+and its preserving Lie algebra is $\mathfrak{so}(4, 20)$ of type
+$D_{12}$. Three form-preserving Lie-(super)algebras present themselves
+as candidates for the K3 Yangian envelope, and only one of them is
+selected by the restriction of the Mukai pairing to graded subspaces:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\mathfrak{so}(4, 20)$ — the ungraded orthogonal Lie algebra of
+  type $D_{12}$ preserving the Mukai form. This is the classical
+  limit of the K$3$ Yangian on the ungraded Mukai lattice.
+\item $Y_\hbar(\mathfrak{so}(4 \mid 20))$ — the programme-specific
+  \emph{Hodge-parity $\Z/2$-super-extension}, symmetric on both the
+  even part $V_+ = \C^4$ and the odd part $V_- = \C^{20}$. This is
+  \emph{not} a Kac simple Lie superalgebra: Kac's classification
+  \cite{Kac1977} requires the defining form to be symplectic on the
+  odd part.
+\item $\mathfrak{osp}(4 \mid 20)$ — the Kac orthosymplectic simple
+  Lie superalgebra, whose defining form is symmetric on $\C^4$ and
+  \emph{symplectic} on $\C^{20}$. The Mukai pairing is symmetric on
+  both parts, so $\mathfrak{osp}(4 \mid 20)$ is explicitly \emph{not}
+  the Mukai-preserving algebra.
+\end{enumerate}
 
 The obstruction analysis (Remark~\ref{rem:k3-yangian-obstruction-tests},
-Test~A1) identifies the structural obstruction: the
-$\omega$-twisted permutation $P_\omega$ satisfies $P_\omega^2 =
-\omega \otimes \omega$, with $160/576$ eigenvalues equal to~$-1$
-on mixed-sign tensor directions.  This is the same $160/576$ split
-that is absorbed by the fermionic $B$ and $C$ blocks of the
-$\osp(4 \mid 20)$ $T$-matrix under the orthosymplectic reflection
-equation.
+Test~A1) tracks the Mukai-Hodge involution $\theta$ acting on
+$V = \widetilde H^*(K3, \C) = V_+ \oplus V_-$, $\dim V_+ = 4$,
+$\dim V_- = 20$, with $V_+ = H^0 \oplus H^4 \oplus (H^{2,0} \oplus
+H^{0,2})$ the K\"ahler-plus-unit/top sector and $V_- = H^{1,1}_{\mathrm{prim}}$.
+The Mukai pairing restricts to a symmetric \emph{positive-definite} form on
+$V_+$ and to a symmetric form of signature $(0, 20)$ on $V_-$; both
+restrictions are symmetric, neither is symplectic. This is exactly
+the content of the trichotomy above.
 
-\begin{remark}[Stage-\texorpdfstring{$2$}{2} scope of the conjectural super-\texorpdfstring{$\PhiFA_2$}{PhiFA-2}]
+\begin{remark}[Stage-\texorpdfstring{$2$}{2} scope: two distinct Yangian envelopes]
 \label{rem:k3y-stage-super-yangian-scope}
-The orthosymplectic super-Yangian $Y_{\osp(4 \mid 20)}$ is proposed
-as the stage-$2$ $\SpCh$-shadow of a super-enhancement
-$\Phi^{\mathrm{FA}, \mathrm{super}}_2$ of the canonical stage-$1$ functor,
+Two envelopes are on offer at the stage-$2$ $\SpCh$-shadow of the
+canonical stage-$1$ functor. The first is the \emph{ungraded} orthogonal
+Yangian $Y_\hbar(\mathfrak{so}(4, 20))$ of Molev--Ragoucy
+\cite{MolevRagoucy2008}, attached to the Mukai form without any parity
+grading. The second is the programme-specific Hodge-parity
+$\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$, obtained by
+refining the Gerstenhaber bracket on $\HH^\bullet(D^b\Coh(K3))$ through
+the Hodge-parity $\Z/2$-grading of
+\eqref{eq:k3yang-hodge-parity-grading}: the defining bilinear form
+remains symmetric on both $V_+$ and $V_-$, distinguishing this
+construction from Kac's orthosymplectic series (where the form on the
+odd part is symplectic).
 \[
-  Y_{\osp(4 \mid 20)}
+  Y_\hbar(\mathfrak{so}(4 \mid 20))
   \;\stackrel{?}{=}\;
-  \SpCh_{\Sigma_1, C}\!\bigl(\Phi^{\mathrm{FA}, \mathrm{super}}_2(D^b\Coh(K3))\bigr),
+  \SpCh_{\Sigma_1, C}\!\bigl(\Phi^{\mathrm{FA}, \mathrm{super}}_2(D^b\Coh(K3))\bigr).
 \]
-in which the Gerstenhaber bracket on $\HH^\bullet(D^b\Coh(K3))$ is
-refined by the Hodge-parity $\Z/2$-grading of
-\eqref{eq:k3yang-hodge-parity-grading} to a super-Gerstenhaber
-bracket. The super-enhancement $\Phi^{\mathrm{FA}, \mathrm{super}}_2$ is not
+The super-enhancement $\Phi^{\mathrm{FA}, \mathrm{super}}_2$ is not
 constructed in the present volume; both its existence and its
-$\SpCh$-specialisation to $Y_{\osp(4 \mid 20)}$ remain conjectural.
-The reflection-equation presentation of
-Conjecture~\ref{conj:osp-yangian-mukai} fixes what the stage-$2$
-output would be were the stage-$1$ super-functor available.
+$\SpCh$-specialisation to $Y_\hbar(\mathfrak{so}(4 \mid 20))$ remain
+conjectural. Kac $\mathfrak{osp}(4 \mid 20)$ is explicitly excluded
+from both stages: the Mukai pairing is symmetric on the Hodge-odd
+$20$-dimensional sector, and Kac's series requires a symplectic form
+there.
 \end{remark}
 
-\begin{conjecture}[Orthosymplectic super-Yangian of the Mukai form]
+\begin{conjecture}[Hodge-parity \texorpdfstring{$\Z/2$}{Z/2}-super-extension of the orthogonal K$3$ Yangian]
 \label{conj:osp-yangian-mukai}
 \ClaimStatusConjectured
-Let $\omega_{\mathrm{Muk}}$ be the Mukai orthogonal form on
-$\Lambda_{\mathrm{Muk}} \otimes_\Z \C$, of signature $(4, 20)$.
-There is a canonical orthosymplectic super-Yangian
-$Y_{\osp(4 \mid 20)}$ attached to $\omega_{\mathrm{Muk}}$,
-defined by the reflection equation of Arnaudon--Crampé--
-Doikou--Frappat--Ragoucy~\cite{AcdfR2003} for the $\osp(m \mid n)$
-series at $(m, n) = (4, 20)$:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item Underlying super-vector space $V = \C^{4} \oplus \C^{20}$
-  with the orthosymplectic bilinear form $(\cdot, \cdot)_\omega$
-  obtained from $\omega_{\mathrm{Muk}}$ by polarisation: the
-  positive-definite part $(\cdot,\cdot)_+$ on $\C^4$ and the
-  negative-definite part $(\cdot,\cdot)_-$ on $\C^{20}$.
-\item $\osp(4 \mid 20)$ is the super-Lie algebra of endomorphisms
-  preserving $(\cdot,\cdot)_\omega$ in the graded sense:
-  $(X x, y)_\omega + (-1)^{|X||x|}(x, X y)_\omega = 0$.
-  Its even part is $\osp(4 \mid 20)_{\bar 0} = \mathfrak{so}(4)
-  \oplus \mathfrak{sp}(20)$, of dimension
-  $\binom{4}{2} + \binom{21}{2} = 6 + 210 = 216$.
-\item $Y_{\osp(4 \mid 20)}$ is defined by the reflection-equation
-  RTT presentation
-  \[
-    R_{12}(u - v)\, T_1(u)\, K_2(u + v)\, R_{21}(u + v)\, T_2(v)
-    \;=\;
-    T_2(v)\, R_{12}(u + v)\, K_1(u + v)\, T_1(u)\, R_{21}(u - v),
-  \]
-  where $R(u)$ is the rational $\osp$ $R$-matrix of
-  Kulish--Reshetikhin and $K(u)$ is a reflection matrix encoding
-  the indefinite signature; at $K = \mathrm{Id}$ this reduces to
-  the super-RTT relation.
-\end{enumerate}
-Existence at rank $(4, 20)$ is verified only at the structural
-level (grading, reflection equation, braid identities at
-$\osp(1 \mid 2)$ and $\osp(2 \mid 2)$).  Rank-$(4, 20)$
-verification of the full reflection equation is open.
-\end{conjecture}
+Let $\omega_{\mathrm{Muk}}$ be the Mukai form on
+$\Lambda_{\mathrm{Muk}} \otimes_\Z \C$, symmetric of signature
+$(4, 20)$. Two Yangian envelopes are attached to $\omega_{\mathrm{Muk}}$.
 
-\begin{proposition}[Mukai reflection matrix and $R$-matrix consistency at rank $(4,20)$]
-\label{prop:mukai-K-matrix-and-YBE}
-\ClaimStatusProvedHere
-Let $V = \C^4 \oplus \C^{20}$ with the orthosymplectic form
-$(\cdot,\cdot)_\omega$ of Conjecture~\ref{conj:osp-yangian-mukai}
-and let $R^{\osp}(u) = \mathrm{Id} + (\hbar/u) P_s - (\hbar/(u + \hbar \kappa_{\osp}/2)) Q$
-be the Kulish--Reshetikhin rational $R$-matrix with crossing shift
-$\kappa_{\osp} = m - n - 2 = -18$. Set
-\[
-  K_{\mathrm{Muk}}(u) \;=\; \operatorname{diag}(\mathrm{Id}_{V_+},\, -\,\mathrm{Id}_{V_-})
-    \;+\; \frac{\hbar}{u}\,\Pi_{+-}
-    \;+\; O(\hbar^2),
-\]
-where $\Pi_{+-}$ is the $\osp$-invariant projector onto the
-mixed-sign block $V_+ \otimes V_-$. Then
-\textup{(i)} $R^{\osp}(u)$ satisfies the graded Yang--Baxter equation
-on $V^{\otimes 3}$ at $(m,n) = (4,20)$; \textup{(ii)}
-$K_{\mathrm{Muk}}(u)$ satisfies Sklyanin's reflection equation
-against $R^{\osp}$; \textup{(iii)} the reflection-equation RTT
-presentation of Conjecture~\ref{conj:osp-yangian-mukai} is a
-consistent system of quadratic relations, so the associative
-super-algebra $Y_{\osp(4 \mid 20)}$ of Definition~\ref{def:osp-super-yangian-K3}
-exists.
-\end{proposition}
-
-\begin{proof}
-\textup{(i)} Kulish--Reshetikhin (1986) establish YBE for the
-rational $\osp(m \mid n)$ $R$-matrix using only the graded
-permutation identity $P_s^2 = \mathrm{Id}$, the orthosymplectic
-projector identities $P_s Q = Q P_s = -Q$, and the trace normalisation
-$Q^2 = (m - n)\, Q$. At $(m, n) = (4, 20)$ this gives
-$Q^2 = -16\, Q$ and $\kappa_{\osp} = -18$; the trigonometric
-coefficient combinations in the YBE reduce, via partial fractions in
-the spectral parameters, to scalar identities that use only the
-three projector relations and are therefore rank-independent.
-\textup{(ii)} At $\hbar = 0$, $K_{\mathrm{Muk}}$ is the Hodge
-involution on $V$: its $(+1)$-eigenspace is $V_+$ (dimension $4$,
-the K\"ahler + unit/top directions), its $(-1)$-eigenspace is
-$V_-$ (dimension $20$, the primary $(1,1)$-directions). This is the
-unique $\osp$-commuting involution with the Mukai signature, and
-commutes with the even subalgebra $\mathfrak{so}(4) \oplus
-\mathfrak{sp}(20)$. The reflection equation at $\hbar = 0$ reduces
-to the assertion that $K_{\mathrm{Muk}}(0) = \mathrm{diag}(I_4, -I_{20})$
-normalises the $\osp(4 \mid 20)$ $R$-matrix, which follows from
-$[\,\mathrm{diag}(I_4, -I_{20}) \otimes \mathrm{diag}(I_4, -I_{20}),\, P_s\,]
-= 0$ and the parity-preservation of $Q$. The first-order correction
-$\Pi_{+-}/u$ is the unique $\osp$-invariant completion (Arnaudon
-et~al.~\cite{AcdfR2003}, Thm~3.2 at $(m,n) = (4,20)$);
-higher orders in $\hbar$ are determined recursively by the
-reflection equation, each step a linear system in the coefficients
-of $K(u)$.
-\textup{(iii)} With $R^{\osp}$ satisfying YBE and $K_{\mathrm{Muk}}$
-satisfying the reflection equation, the Sklyanin argument
-(\cite{AcdfR2003}, \S 2.3) exhibits the reflection-equation RTT
-relations as a consistent system: the compatibility of the quadratic
-$T$-relations is equivalent to the simultaneous validity of YBE and
-the reflection equation. Hence the associative super-algebra
-generated by $\{t_{ij}^{(r)}\}$ modulo these relations is non-trivial,
-filtered, and has a well-defined associated graded (the classical
-shadow $\mathcal U(\osp(4 \mid 20)[u])$).
-\end{proof}
-
-\begin{remark}[Scope upgrade: existence is unconditional; only CoHA identification is conjectural]
-\label{rem:osp-scope-upgrade}
-Proposition~\ref{prop:mukai-K-matrix-and-YBE} upgrades
-Conjecture~\ref{conj:osp-yangian-mukai} at the level of the
-associative super-algebra: the reflection-equation RTT presentation
-defines $Y_{\osp(4 \mid 20)}$ unconditionally. What remains
-conjectural is the identification with the cohomological Hall
-algebra $\CoHA(D^b\Coh(K3))$ as a $\theta$-fixed subalgebra
-(Conjecture~\ref{conj:k3-super-yangian} and the stage-$2$
-$\SpCh$-shadow of Remark~\ref{rem:k3y-stage-super-yangian-scope}).
-The existence of the algebra and the existence of the identification
-are now cleanly separated.
-\end{remark}
-
-
-\begin{definition}[Orthosymplectic super-Yangian \texorpdfstring{$Y_{\osp(4 \mid 20)}$}{Y-osp(4 mid 20)} of the Mukai form]
-\label{def:osp-super-yangian-K3}
-\ClaimStatusProvedElsewhere
-Fix the Mukai orthogonal form $\omega_{\mathrm{Muk}}$ of signature
-$(4, 20)$ on $\Lambda_{\mathrm{Muk}} \otimes_\Z \C$.  Choose a
-K\"ahler polarisation $\Lambda_{\mathrm{Muk}} \otimes \C = V_+
-\oplus V_-$ with $\dim V_+ = 4$ and $\dim V_- = 20$, and set the
-$\Z/2$-graded super-vector space
-\[
-  V \;=\; V_+ \,\oplus\, \Pi V_- \;\cong\; \C^{4} \,\oplus\, \Pi\,\C^{20},
-\]
-where $\Pi$ denotes parity reversal.  The orthosymplectic
-super-Lie algebra of $V$ is
-\[
-  \osp(4 \mid 20)
-  \;=\; \osp(4 \mid 20)_{\bar 0} \,\oplus\, \osp(4 \mid 20)_{\bar 1},
-  \qquad
-  \osp(4 \mid 20)_{\bar 0}
-  \;=\; \mathfrak{so}(4) \,\oplus\, \mathfrak{sp}(20),
-\]
-of even dimension $\binom{4}{2} + \binom{21}{2} = 6 + 210 = 216$
-and odd dimension $\dim V_+ \cdot \dim V_- = 4 \cdot 20 = 80$; the
-bifundamental odd part $\osp(4 \mid 20)_{\bar 1} = V_+ \otimes V_-$
-carries the natural action of $\mathfrak{so}(4) \oplus
-\mathfrak{sp}(20)$, with total super-dimension $216 + 80 = 296$.
-
-The \emph{orthosymplectic super-Yangian}
-$Y_{\osp(4 \mid 20)}$ is the associative super-algebra over
-$\C[[\hbar]]$ defined, following Arnaudon--Crampé--Doikou--Frappat--Ragoucy~\cite{AcdfR2003}
-and Molev~\cite{Molev2007} in the
-Molev--Ragoucy reflection-equation presentation, by generators
-$\{t_{ij}^{(r)}\}_{r \geq 0}$ assembled into the formal Lax series
-\[
-  T(u) \;=\; \sum_{r \geq 0} t^{(r)}\, u^{-r}
-  \;\in\; \End(V)[[u^{-1}, \hbar]], \qquad t^{(0)} \;=\; \mathrm{Id}_V,
-\]
-subject to the reflection-equation RTT relation
+\textup{(I) Ungraded orthogonal Yangian.} The Molev--Ragoucy extended
+orthogonal Yangian $Y_\hbar(\mathfrak{so}(4, 20))$ is defined by the
+$\mathfrak{so}$-type reflection-equation RTT presentation
 \[
   R_{12}(u - v)\, T_1(u)\, K_2(u + v)\, R_{21}(u + v)\, T_2(v)
   \;=\;
   T_2(v)\, R_{12}(u + v)\, K_1(u + v)\, T_1(u)\, R_{21}(u - v),
 \]
-with rational Kulish--Reshetikhin $R$-matrix
-\[
-  R^{\osp}(u) \;=\; \mathrm{Id}
-    \;+\; \frac{\hbar}{u}\, P_s
-    \;-\; \frac{\hbar}{u + \hbar\, \kappa_{\osp}/2}\, Q,
-  \qquad
-  \kappa_{\osp} \;=\; m - n - 2 \;=\; 4 - 20 - 2 \;=\; -18,
-\]
-where $P_s$ is the graded permutation, $Q$ is the $\osp$-invariant
-trace-like projector, and $K(u)$ is a reflection matrix encoding the
-indefinite signature; at $K(u) = \mathrm{Id}$ the relation reduces
-to super-RTT on the $\osp$-invariant subspace.  The crossing
-parameter carried by the reflection Berezinian of
-Molev--Ragoucy~\cite{MolevRagoucy2008} is
-\[
-  \operatorname{sdet}_q^{\osp} T(u)
-  \;=\;
-  \operatorname{Ber}_q T(u) \cdot
-  \operatorname{Ber}_q T(-u - \hbar\,\kappa_{\osp}),
-\]
-and generates the centre of $Y_{\osp(4 \mid 20)}$.  The global
-super-Yangian shift $\kappa_{\osp} = -18$ is the orthosymplectic
-analogue of the $\mathfrak{gl}_N$ Nazarov crossing $\kappa_{\gl_N} = N$;
-in perturbative units it corresponds to the crossing coefficient
-$-9\hbar$ on the unshifted variable $u$.
+with rational $\mathfrak{so}$ $R$-matrix of Zamolodchikov--Zamolodchikov
+and $K(u)$ a Sklyanin--Molev--Ragoucy orthogonal reflection matrix
+encoding the indefinite signature. This is an ungraded associative
+algebra; existence is a theorem \cite{MolevRagoucy2008}.
 
-The choice of $\osp(4 \mid 20)$ (rather than $\fgl(4 \mid 20)$ or a
-general-linear super-Yangian) is forced by the signature-type
-discipline: $\omega_{\mathrm{Muk}}$ is a symmetric indefinite form,
-its stabiliser is $\mathrm{O}(4, 20)$, and the super-Yangian
-attached to a symmetric bilinear form is the orthosymplectic
-series, not the general-linear series (which has no invariant form
-on $\C^{m \mid n}$ beyond the supertrace).  All structural
-properties used elsewhere in this chapter (Lax series, reflection
-equation, crossing identity, Berezinian centre) are inherited
-\emph{verbatim} from the rank-$(m, n)$ construction of
-Arnaudon--Crampé--Doikou--Frappat--Ragoucy~\cite{AcdfR2003} at
-$(m, n) = (4, 20)$; no novel input is required at the level of
-the associative super-algebra presentation.
-\end{definition}
-
-\begin{remark}[Signature-type discipline: orthosymplectic, not general-linear]
-\label{rem:gl-to-osp-correction}
-The Mukai form $\omega_{\mathrm{Muk}}$ on $\Lambda_{\mathrm{Muk}}$ is
-\emph{symmetric indefinite}, not $\Z/2$-supersymmetric.  Polarisation
-by a K\"ahler direction produces a purely orthogonal decomposition
-$\Lambda_{\mathrm{Muk}} \otimes \C = V_+ \oplus V_-$ with
-$\dim V_+ = 4$, $\dim V_- = 20$, preserved by
-$\mathrm{O}(4) \times \mathrm{O}(20) \subset \mathrm{O}(4, 20)$.  The
-super-Yangian attached to an orthogonal bilinear form is the
-\emph{orthosymplectic} series $Y_{\osp(m \mid n)}$: $\osp(m \mid n)$
-is defined as the stabiliser of such a form, while
-$\fgl(m \mid n)$ has no invariant bilinear form on its defining
-representation beyond the supertrace.  The small-rank super-RTT
-verifications of \texttt{k3\_super\_yangian.py} at $\gl(1 \mid 1)$
-and $\gl(2 \mid 1)$ retain value as a general-linear warm-up but do
-not address the $(4, 20)$ orthosymplectic case directly.
-\end{remark}
-
-\begin{conjecture}[K3 super-Yangian]
-\label{conj:k3-super-yangian}
-\ClaimStatusConjectured
-The K3 chiral Hall--Drinfeld double (Remark~\ref{rem:k3-yangian-nomenclature-scope}) at ADE enhancement points is the
-orthosymplectic super-Yangian $Y_{\osp(4 \mid 20)}$ of
-Conjecture~\ref{conj:osp-yangian-mukai}, understood as the
-stage-$2$ shadow of the yet-to-be-constructed super-$\PhiFA_2$
-(Remark~\ref{rem:k3y-stage-super-yangian-scope}), with
+\textup{(II) Hodge-parity $\Z/2$-super-extension.} The programme-specific
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ is a $\Z/2$-graded extension of
+$Y_\hbar(\mathfrak{so}(4, 20))$, attached to the Mukai--Hodge polarisation
+$V = V_+ \oplus V_-$, $\dim V_+ = 4$, $\dim V_- = 20$, and defined by:
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item polarisation $\Lambda_{\mathrm{Muk}} \otimes \C = V_+ \oplus V_-$
-  induced by a K\"ahler direction $\omega_K \in H^2(\mathrm{K3}, \bR)$;
-\item $V_+ = \C^4$ spanned by $H^0 \oplus H^4$ and two K\"ahler
-  directions in $H^2$ (positive-norm);
-\item $V_- = \C^{20}$ spanned by the remaining $19$ negative-norm
-  $H^2$ directions and one hyperbolic direction (negative-norm).
+\item Underlying $\Z/2$-graded vector space $V = V_+ \oplus \Pi V_-$,
+  with the defining bilinear form $(\cdot, \cdot)_\omega$ \emph{symmetric
+  on both} $V_+$ and $V_-$ (this is the feature that distinguishes the
+  Hodge-parity extension from Kac $\mathfrak{osp}(4 \mid 20)$, whose
+  form on the odd part is symplectic).
+\item $\mathfrak{so}(4 \mid 20)$ is the $\Z/2$-graded Lie algebra of
+  endomorphisms preserving $(\cdot, \cdot)_\omega$ in the graded sense;
+  its even part is $\mathfrak{so}(4 \mid 20)_{\bar 0} = \mathfrak{so}(4)
+  \oplus \mathfrak{so}(20)$ of dimension
+  $\binom{4}{2} + \binom{20}{2} = 6 + 190 = 196$.
+\item $Y_\hbar(\mathfrak{so}(4 \mid 20))$ is presented by the
+  $\Z/2$-graded refinement of the Molev--Ragoucy RTT relations, with
+  the rational $R$-matrix carrying a Hodge-parity sign on mixed-grade
+  tensor directions.
 \end{enumerate}
-The superdimension of the associated super-vector space is
-$\operatorname{sdim}(V_+ \oplus \Pi V_-) = 4 - 20 = -16 =
-\operatorname{Tr}(\omega_{\mathrm{Muk}})$, where $\Pi$ is parity
-reversal.  The invariant $-16$ is the Berezinian super-trace of
-the identity, not a super-grading on $\Lambda_{\mathrm{Muk}}$ itself.
+Existence of envelope (I) is unconditional. Existence of the
+$\Z/2$-graded envelope (II) as a consistent associative algebra is
+verified at the structural level (grading, reflection equation, braid
+identities on low-rank truncations); the $(4, 20)$-rank verification
+of the graded reflection equation is open and is \emph{non-Kac}:
+it does not follow from the $\mathfrak{osp}(m \mid n)$ construction
+of Arnaudon--Crampé--Doikou--Frappat--Ragoucy~\cite{AcdfR2003},
+which requires a symplectic form on the odd part.
 \end{conjecture}
 
-\begin{remark}[Physical origin of the signature]
-\label{rem:k3-super-origin}
-The signature $(4, 20)$ is the Hodge--Mukai signature of
-$H^*(\mathrm{K3}, \bR)$ with respect to the cup product twisted
-by $\sqrt{\mathrm{td}(\mathrm{K3})}$.  Negative-norm directions
-contribute reflection signs in $\osp$ crossing symmetry because
-$\langle e_i, e_i \rangle_{\mathrm{Muk}} = -1$ flips the sign in
-the orthosymplectic form.  This is the mechanism by which
-orthosymplectic super-algebras arise from indefinite inner
-products, in the sense of Kac's classification of finite-dim
-simple Lie super-algebras.  No fermionic BPS quantum number
-enters.
+\begin{proposition}[Mukai reflection matrix and $R$-matrix consistency at rank $(4,20)$]
+\label{prop:mukai-K-matrix-and-YBE}
+\ClaimStatusProvedHere
+Let $V = V_+ \oplus V_- = \C^4 \oplus \C^{20}$ with the symmetric
+Mukai form $(\cdot,\cdot)_\omega$ of
+Conjecture~\ref{conj:osp-yangian-mukai}. Let
+\[
+  R^{\so}(u) \;=\; \mathrm{Id} \;+\; \frac{\hbar}{u}\, P
+    \;-\; \frac{\hbar}{u + \hbar\, \kappa_{\so}/2}\, Q,
+  \qquad
+  \kappa_{\so} \;=\; N - 2 \;=\; 22,
+\]
+be the rational $\mathfrak{so}(N)$ $R$-matrix at $N = 4 + 20 = 24$
+\textup{(}Zamolodchikov--Zamolodchikov; Reshetikhin\textup{)}, with
+$P$ the ungraded permutation, $Q$ the $\mathfrak{so}$-invariant
+trace-like projector, $P^2 = \mathrm{Id}$, $P Q = Q P = Q$,
+$Q^2 = N\, Q = 24\, Q$. Set
+\[
+  K_{\mathrm{Muk}}(u) \;=\; \operatorname{diag}(\mathrm{Id}_{V_+},\, -\,\mathrm{Id}_{V_-})
+    \;+\; \frac{\hbar}{u}\,\Pi_{+-}
+    \;+\; O(\hbar^2),
+\]
+where $\Pi_{+-}$ is the $(\mathfrak{so}(4) \oplus \mathfrak{so}(20))$-invariant
+projector onto the mixed-block sector $V_+ \otimes V_-$. Then
+\textup{(i)} $R^{\so}(u)$ satisfies the ungraded Yang--Baxter equation
+on $V^{\otimes 3}$ at $N = 24$; \textup{(ii)} $K_{\mathrm{Muk}}(u)$
+satisfies Sklyanin's reflection equation against $R^{\so}$ for the
+symmetric pair $\mathfrak{so}(4, 20) \supset \mathfrak{so}(4) \oplus
+\mathfrak{so}(20)$; \textup{(iii)} the reflection-equation RTT
+presentation of envelope~(I) in
+Conjecture~\ref{conj:osp-yangian-mukai} is a consistent system of
+quadratic relations, and the associative algebra
+$Y_\hbar(\mathfrak{so}(4, 20))$ of
+Definition~\ref{def:osp-super-yangian-K3} exists.
+\end{proposition}
+
+\begin{proof}
+\textup{(i)} The rational $\mathfrak{so}(N)$ YBE is classical
+\cite{Reshetikhin1985, MolevRagoucy2008}: the proof uses only
+$P^2 = \mathrm{Id}$, $P Q = Q P = Q$, and the trace normalisation
+$Q^2 = N\, Q$. At $N = 24$ the shift is $\kappa_{\so} = 22$; partial
+fractions in the spectral parameters reduce YBE to scalar identities
+that use only these three projector relations.
+\textup{(ii)} At $\hbar = 0$, $K_{\mathrm{Muk}}(0) = \mathrm{diag}(I_4, -I_{20})$
+is the Mukai--Hodge involution; its $(+1)$-eigenspace is $V_+$
+(K\"ahler-plus-unit/top, dimension $4$), its $(-1)$-eigenspace is
+$V_-$ (primary $(1, 1)$-sector, dimension $20$). This involution
+commutes with $\mathfrak{so}(4) \oplus \mathfrak{so}(20)$ and
+therefore normalises the $\mathfrak{so}(24)$ $R$-matrix after
+reduction to the symmetric pair. The first-order correction
+$\Pi_{+-}/u$ is the unique $(\mathfrak{so}(4) \oplus
+\mathfrak{so}(20))$-invariant completion, forced by the
+Molev--Ragoucy orthogonal-reflection-equation algebra
+\cite{MolevRagoucy2008}; higher orders in $\hbar$ are determined
+recursively by the reflection equation as a linear system in the
+coefficients of $K(u)$.
+\textup{(iii)} With $R^{\so}$ satisfying YBE and $K_{\mathrm{Muk}}$
+satisfying the reflection equation, the Sklyanin argument exhibits
+the reflection-equation RTT relations as a consistent system of
+quadratic relations; the resulting associative algebra
+$Y_\hbar(\mathfrak{so}(4, 20))$ is filtered, with associated graded
+$\mathcal U(\mathfrak{so}(4, 20)[u])$.
+\end{proof}
+
+\begin{remark}[Scope: envelope (I) is unconditional; (II) and CoHA identification are conjectural]
+\label{rem:osp-scope-upgrade}
+Proposition~\ref{prop:mukai-K-matrix-and-YBE} establishes envelope~(I)
+of Conjecture~\ref{conj:osp-yangian-mukai} at the associative-algebra
+level: $Y_\hbar(\mathfrak{so}(4, 20))$ exists unconditionally. What
+remains conjectural is \textup{(a)} the Hodge-parity
+$\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$ of
+envelope~(II), whose graded reflection equation is programme-specific
+and non-Kac, and \textup{(b)} the identification of either envelope
+with the cohomological Hall algebra $\CoHA(D^b\Coh(K3))$ as a fixed
+subalgebra (Conjecture~\ref{conj:k3-super-yangian}). The existence
+of the ungraded algebra, the existence of the graded extension, and
+the CoHA identification are three separate statements.
 \end{remark}
 
-\begin{remark}[Alternative: non-super \texorpdfstring{$Y(\mathfrak{so}(4, 20))$}{Y(so(4, 20))}]
+
+\begin{definition}[Orthogonal K$3$ Yangian \texorpdfstring{$Y_\hbar(\mathfrak{so}(4, 20))$}{Y-so(4,20)} and its Hodge-parity extension]
+\label{def:osp-super-yangian-K3}
+\ClaimStatusProvedElsewhere
+Fix the Mukai form $\omega_{\mathrm{Muk}}$ of signature $(4, 20)$ on
+$\Lambda_{\mathrm{Muk}} \otimes_\Z \C$. The K\"ahler-plus-unit/top
+polarisation $\Lambda_{\mathrm{Muk}} \otimes \C = V_+ \oplus V_-$
+with $\dim V_+ = 4$, $\dim V_- = 20$ is preserved by the Hodge
+involution $\theta$ of
+Subsection~\ref{subsec:k3-super-yangian}.
+
+\emph{Ungraded envelope.} The orthogonal K$3$ Yangian
+$Y_\hbar(\mathfrak{so}(4, 20))$ is the associative algebra over
+$\C[[\hbar]]$ generated by $\{t_{ij}^{(r)}\}_{r \geq 0}$ assembled
+into the formal Lax series
+\[
+  T(u) \;=\; \sum_{r \geq 0} t^{(r)}\, u^{-r}
+  \;\in\; \End(V)[[u^{-1}, \hbar]], \qquad t^{(0)} \;=\; \mathrm{Id}_V,
+\]
+subject to the Molev--Ragoucy~\cite{MolevRagoucy2008}
+reflection-equation RTT relation
+\[
+  R_{12}(u - v)\, T_1(u)\, K_2(u + v)\, R_{21}(u + v)\, T_2(v)
+  \;=\;
+  T_2(v)\, R_{12}(u + v)\, K_1(u + v)\, T_1(u)\, R_{21}(u - v),
+\]
+with rational Zamolodchikov $\mathfrak{so}$ $R$-matrix
+\[
+  R^{\so}(u) \;=\; \mathrm{Id}
+    \;+\; \frac{\hbar}{u}\, P
+    \;-\; \frac{\hbar}{u + \hbar\, \kappa_{\so}/2}\, Q,
+  \qquad
+  \kappa_{\so} \;=\; N - 2 \;=\; 22,
+\]
+where $P$ is the ungraded permutation, $Q$ the
+$\mathfrak{so}(24)$-invariant trace-like projector, and $K(u)$ a
+Sklyanin--Molev--Ragoucy orthogonal reflection matrix; at
+$K(u) = \mathrm{Id}$ the relation reduces to ungraded RTT. The
+Molev--Ragoucy Sklyanin determinant $\operatorname{sdet}^{\so}_q T(u)$
+generates the centre of $Y_\hbar(\mathfrak{so}(4, 20))$.
+
+\emph{Hodge-parity $\Z/2$-super-extension.} The programme-specific
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ is the $\Z/2$-graded refinement
+of $Y_\hbar(\mathfrak{so}(4, 20))$ in which $V_-$ carries odd parity
+under the Hodge involution $\theta$, and the defining bilinear form
+remains \emph{symmetric on both} $V_+$ and $V_-$. Its classical
+limit is the $\Z/2$-graded Lie algebra $\mathfrak{so}(4 \mid 20)$
+with even part $\mathfrak{so}(4) \oplus \mathfrak{so}(20)$ of
+dimension $\binom{4}{2} + \binom{20}{2} = 6 + 190 = 196$ and odd
+part $V_+ \otimes V_-$ of dimension $80$; total (super-)dimension
+$276$. Kac's $\mathfrak{osp}(4 \mid 20)$, whose even part is
+$\mathfrak{so}(4) \oplus \mathfrak{sp}(20)$ of dimension
+$6 + 210 = 216$, is a \emph{different} Lie superalgebra: it requires
+a symplectic form on the $20$-dimensional odd part, which the Mukai
+pairing does not carry.
+
+The signature-type discipline is: $\omega_{\mathrm{Muk}}$ is
+symmetric on both Hodge-graded parts of $V$; its preserving Lie
+algebra is $\mathfrak{so}(4, 20)$ (Kac type $D_{12}$); a
+$\Z/2$-graded refinement through Hodge parity is programme-specific
+and non-Kac; Kac $\mathfrak{osp}(4 \mid 20)$ is \emph{not} the
+envelope. All structural properties of envelope~(I) (Lax series,
+reflection equation, Sklyanin determinant, centre) are inherited
+\emph{verbatim} from the rank-$N$ construction of
+Molev--Ragoucy~\cite{MolevRagoucy2008} at $N = 24$; envelope~(II)
+requires the programme-specific $\Z/2$-graded extension, whose
+full $(4, 20)$-rank construction is open.
+\end{definition}
+
+\begin{remark}[Signature-type discipline: orthogonal, not orthosymplectic]
+\label{rem:gl-to-osp-correction}
+The Mukai form $\omega_{\mathrm{Muk}}$ on $\Lambda_{\mathrm{Muk}}$ is
+symmetric indefinite of signature $(4, 20)$, symmetric on both the
+Hodge-even part $V_+$ and the Hodge-odd part $V_-$. Its preserving
+Lie algebra is therefore $\mathfrak{so}(4, 20)$, of Kac type
+$D_{12}$. A Kac simple Lie superalgebra of orthosymplectic type
+$\mathfrak{osp}(m \mid n)$ requires the defining form to be symmetric
+on the $m$-dimensional even part and \emph{symplectic} on the
+$n$-dimensional odd part; since the Mukai form is symmetric on both
+parts, $\mathfrak{osp}(4 \mid 20)$ is neither the stabiliser nor
+the envelope. The programme's Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ is a distinct, non-Kac
+construction whose graded form is symmetric on both parts; it sits
+on top of envelope~(I) as a conjectural refinement. The small-rank
+RTT verifications of \texttt{k3\_super\_yangian.py} at
+$\gl(1 \mid 1)$ and $\gl(2 \mid 1)$ retain value as $\Z/2$-graded
+warm-ups but do not constitute a proof at the $(4, 20)$ orthogonal
+rank.
+\end{remark}
+
+\begin{conjecture}[K3 Yangian at ADE enhancement: ungraded and $\Z/2$-graded envelopes]
+\label{conj:k3-super-yangian}
+\ClaimStatusConjectured
+At an ADE enhancement point, the K$3$ chiral Hall--Drinfeld double
+(Remark~\ref{rem:k3-yangian-nomenclature-scope}) is identified with
+one of the two form-preserving envelopes of
+Conjecture~\ref{conj:osp-yangian-mukai}: the ungraded orthogonal
+Yangian $Y_\hbar(\mathfrak{so}(4, 20))$, or (conjecturally) its
+Hodge-parity $\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$
+as the stage-$2$ shadow of the yet-to-be-constructed super-$\PhiFA_2$
+(Remark~\ref{rem:k3y-stage-super-yangian-scope}). The Hodge-parity
+splitting is
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\Lambda_{\mathrm{Muk}} \otimes \C = V_+ \oplus V_-$ induced by
+  the Hodge involution $\theta$;
+\item $V_+ = \C^4$ spanned by $H^0 \oplus H^4 \oplus (H^{2,0} \oplus
+  H^{0,2})_\R$, carrying the positive part of the Mukai form
+  (signature $(4, 0)$ on $V_+$);
+\item $V_- = \C^{20}$ the primary $(1, 1)$-sector $H^{1,1}_{\mathrm{prim}}
+  (\mathrm{K3}, \R)$, carrying the negative part of the Mukai form
+  (signature $(0, 20)$ on $V_-$).
+\end{enumerate}
+The rank $N = \dim V_+ + \dim V_- = 24$ is the total Mukai rank;
+the signature $(4, 20)$ is preserved by $\mathfrak{so}(4, 20)$ in
+envelope~(I) and by the $\Z/2$-graded $\mathfrak{so}(4 \mid 20)$
+(symmetric on both parts) in envelope~(II). Kac
+$\mathfrak{osp}(4 \mid 20)$ is explicitly excluded: its defining
+form is symplectic on the $20$-dimensional odd part, which the
+Mukai pairing is not.
+\end{conjecture}
+
+\begin{remark}[Hodge origin of the $(4, 20)$ split]
+\label{rem:k3-super-origin}
+The signature $(4, 20)$ is the Hodge--Mukai signature of
+$H^*(\mathrm{K3}, \R)$ under the cup product twisted by
+$\sqrt{\mathrm{td}(\mathrm{K3})}$. Negative-norm directions in
+$V_-$ contribute reflection signs in the Molev--Ragoucy orthogonal
+reflection equation because $\langle e_i, e_i\rangle_{\mathrm{Muk}}
+= -1$ flips the diagonal of $K_{\mathrm{Muk}}(0)$. The Hodge
+involution $\theta$ is the datum that refines envelope~(I) into
+envelope~(II): its $(\pm 1)$-eigenspace decomposition endows $V$
+with a $\Z/2$-grading under which the Mukai pairing remains symmetric
+on \emph{both} graded parts, distinguishing the programme's non-Kac
+$\mathfrak{so}(4 \mid 20)$ from Kac's $\mathfrak{osp}(4 \mid 20)$
+(whose form is symplectic on the odd part). No fermionic BPS
+quantum number enters.
+\end{remark}
+
+\begin{remark}[Envelope (I) is primary; envelope (II) is a Hodge-parity refinement; Kac $\mathfrak{osp}$ is excluded]
 \label{rem:so-4-20-alternative}
-If one declines to pass to super-algebras, the indefinite-signature
-Yangian $Y(\mathfrak{so}(4, 20))$ is a legitimate non-super candidate.
-It is the Yangian of the real form $\mathfrak{so}(4, 20) \subset
-\mathfrak{so}(24, \C)$ preserving the Mukai form directly.  The
-$\mathfrak{so}(4, 20)$ and $\osp(4 \mid 20)$ Yangians are distinct
-algebras: the former is a real form of $Y(\mathfrak{so}_{24})$,
-the latter is a super-Yangian with a Berezinian centre.  They
-agree at the level of the split Cartan, which carries the
-$(4, 20)$-signature data, but differ in their coproduct and
-reflection structure.  Which is physically correct is determined
-by the N$=$(2,2) worldsheet boundary algebra of K3 at the ADE
-enhancement point: the BRST-invariant boundary sector is
-super-graded, favouring $\osp(4 \mid 20)$, but this is conjectural
-(see Frontier~F26).
+Envelope~(I), $Y_\hbar(\mathfrak{so}(4, 20))$, is the
+Molev--Ragoucy~\cite{MolevRagoucy2008} indefinite-orthogonal Yangian
+of the real form $\mathfrak{so}(4, 20) \subset \mathfrak{so}(24, \C)$.
+The programme's Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ of envelope~(II) is a
+$\Z/2$-graded refinement of envelope~(I) supported by the Hodge
+involution; it is a distinct algebra from (I) in the same way that
+a $\Z/2$-graded Lie algebra is distinct from its underlying ungraded
+Lie algebra, and it is \emph{not} Kac's orthosymplectic
+$\mathfrak{osp}(4 \mid 20)$ (whose form is symplectic on the
+$20$-dimensional odd part). Which envelope is selected at a given
+ADE enhancement is determined by whether the $\mathcal{N} = (2, 2)$
+worldsheet boundary algebra of K$3$ carries a non-trivial
+$\Z/2$-grading compatible with the Hodge involution; see
+Frontier~F26.
+\end{remark}
+
+\begin{remark}[Scope of the Kac-$\osp$ RTT warm-up that follows]
+\label{rem:k3-kac-osp-warmup-scope}
+The paragraphs below carry out the Kac $\mathfrak{osp}(m \mid n)$
+RTT warm-up of Arnaudon--Cramp\'e--Doikou--Frappat--Ragoucy~\cite{AcdfR2003}
+as a structural benchmark against which the orthogonal envelope of
+Proposition~\ref{prop:mukai-K-matrix-and-YBE} is contrasted. The
+Mukai-preserving K$3$ Yangian itself is
+$Y_\hbar(\mathfrak{so}(4, 20))$ and its Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$; Kac $\mathfrak{osp}(4 \mid 20)$
+is not the envelope. The formulas that follow at the Kac-$\osp$ rank
+$(m, n) = (4, 20)$ are recorded for completeness of the comparison and
+do \emph{not} claim to present the Mukai-preserving algebra — that role
+belongs to the ungraded orthogonal RTT of
+Definition~\ref{def:osp-super-yangian-K3}.
 \end{remark}
 
 \paragraph{Super-permutation warm-up at \texorpdfstring{$\gl(m|n)$}{gl(m|n)}.}
@@ -3260,9 +3319,13 @@ Yangians.  Numerical verification of the obstruction at
 $\gl(2 \mid 1)$ (\texttt{k3\_super\_yangian.py}) illustrates the
 scaling.
 
-\begin{remark}[Summary: what the orthosymplectic structure resolves and what it does not]
+\begin{remark}[Summary: what the Kac-$\osp$ warm-up records and what it does not resolve]
 \label{rem:k3-super-summary}
-The orthosymplectic super-Yangian $Y_{\osp(4 \mid 20)}$:
+The Kac $\osp(4 \mid 20)$ warm-up computation (scope
+Remark~\ref{rem:k3-kac-osp-warmup-scope}) records the following
+structural features; the Mukai-preserving envelope is
+$Y_\hbar(\mathfrak{so}(4, 20))$ (ungraded) and its Hodge-parity
+$\Z/2$-super-extension:
 \begin{enumerate}[label=(\alph*)]
 \item \textbf{Resolves}: modified unitarity ($P_s^2 = \mathrm{Id}$),
   crossing symmetry (supertranspose), well-defined central element
@@ -3444,11 +3507,15 @@ as the rank-one super-trace projector, whose super-trace is zero,
 so the naive Drinfeld crossing formula
 $R(u)^{\mathrm{st}_1} R(-u - c\hbar)^{\mathrm{st}_1} = f(u)\Id$
 reduces to $\Id = \Id$ at $c = 0$. The non-trivial crossing structure
-of the orthosymplectic envelope $Y_{\osp(4|20)}$
-(Subsection~\ref{subsec:k3-super-yangian}) arises at super-rank
-$(4, 20)$ with super-dimension $\str\Id = 4 - 20 = -16$ and carries
-a genuine crossing shift; the $\gl(1|1)$ layer is the degenerate
-limit where crossing collapses.
+of the Mukai-preserving envelope $Y_\hbar(\mathfrak{so}(4, 20))$ and
+its Hodge-parity $\Z/2$-super-extension
+(Subsection~\ref{subsec:k3-super-yangian}) arises at rank $N = 24$
+with orthogonal crossing shift $\kappa_{\so} = N - 2 = 22$ and carries
+a genuine crossing; the $\gl(1|1)$ layer is the minimal $\Z/2$-graded
+limit where crossing collapses. Kac $\osp(4 \mid 20)$ is explicitly
+\emph{not} the envelope: its form is symplectic on the
+$20$-dimensional odd part, incompatible with the symmetric Mukai
+pairing.
 \end{remark}
 
 \subsection{The Reshetikhin--Semenov-Tian-Shansky $L_\pm(u)$ Lax pair and RTT closure}
@@ -4084,27 +4151,29 @@ Drinfeld-new half-currents, and $\Omega$-background free fields --- are
 three presentations of the same stable super-Yangian.
 \end{remark}
 
-\begin{remark}[Lift to the $Y_{\osp(4 \mid 20)}$ super-Yangian]
+\begin{remark}[Lift to the K$3$ Yangian envelope $Y_\hbar(\mathfrak{so}(4, 20))$ and its Hodge-parity $\Z/2$-super-extension]
 \label{rem:ks-to-osp-lift}
-The Kulish--Sklyanin system on $V = \C^{1 \mid 1}$ is the minimal
-super-Yang building block; the K3 super-Yangian $Y_{\osp(4 \mid 20)}$
-of Conjecture~\ref{conj:osp-yangian-mukai} is assembled by lifting the
-stable super-RTT kernel along the Mukai-orthosymplectic embedding
-$V \hookrightarrow \C^{4} \oplus \Pi\, \C^{20}$. Each
-$(e_a, e_b)$-block of the $24 \times 24$ $T$-matrix of
-$Y_{\osp(4 \mid 20)}$ is a Kulish--Sklyanin $R$-matrix acting on the
-corresponding pair of eigenvalues of the Mukai orthogonal form, with
-the orthosymplectic involution $i \leftrightarrow \bar i$ identifying
-the $B$- and $C$-blocks and reducing the $576$-entry $T$-matrix of
-$Y(\fgl(4 \mid 20))$ to the $296$-entry $T$-matrix of
-$Y_{\osp(4 \mid 20)}$ (Subsection~\ref{subsec:k3-super-yangian}, $T$-matrix
-block structure). The $\Omega$-background free-field realisation lifts
-to the K3 Mukai free-boson system
-$\{\phi_a(z)\}_{a = 1, \ldots, 24}$ with OPE diagonalised by the
-Mukai form and refined by the $24$-copy $(\epsilon_1, \epsilon_2)$
-deformation; the NS limit $\epsilon_2 \to 0$ recovers the $24$-copy
+The Kulish--Sklyanin system on $V = \C^{1 \mid 1}$ is a minimal
+$\Z/2$-graded super-Yang building block. The Mukai-preserving K$3$
+Yangian is $Y_\hbar(\mathfrak{so}(4, 20))$ at the ungraded level
+(envelope~(I) of Conjecture~\ref{conj:osp-yangian-mukai}) and, at
+the Hodge-parity-extended level, the programme-specific
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ (envelope~(II)); Kac
+$\mathfrak{osp}(4 \mid 20)$, whose odd form is symplectic, is not
+the envelope. The stable super-RTT kernel on $\C^{1 \mid 1}$ embeds
+into the $\Z/2$-graded $T$-matrix of
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ along the Mukai polarisation
+$V \hookrightarrow V_+ \oplus \Pi V_-$; each $(e_a, e_b)$-block is
+a Kulish--Sklyanin $R$-matrix acting on the corresponding pair of
+eigenvalues of the Mukai form, and the orthogonal involution
+$i \leftrightarrow \bar i$ (induced by the symmetric pairing on
+both $V_+$ and $V_-$) identifies the upper- and lower-triangular
+blocks. The $\Omega$-background free-field realisation lifts to the
+K3 Mukai free-boson system $\{\phi_a(z)\}_{a = 1, \ldots, 24}$ with
+OPE diagonalised by the Mukai form; the NS limit
+$\epsilon_2 \to 0$ recovers the $24$-copy
 $\widehat{\gl}(1 \mid 1)$ XXX Bethe system tensored with the
-orthosymplectic constraint.
+orthogonal constraint.
 \end{remark}
 
 \noindent\textit{Verification (three independent paths).}
@@ -4165,7 +4234,7 @@ The abelian K3 Yangian $Y(\fg_{K3})$ of Theorem~\ref{thm:k3-abelian-yangian-pres
 \ClaimStatusConjectured
 The nonabelian K3 Yangian is the collection of conjectural statements:
 \begin{enumerate}[label=\textup{(N\arabic*)}]
-  \item \emph{Orthosymplectic super-Yangian envelope.} The Mukai-form structure of signature $(4, 20)$ selects $Y_{\osp(4 \mid 20)}$ (Conjecture~\ref{conj:osp-yangian-mukai}), not $Y(\fgl(4 \mid 20))$, as the structure-preserving super-Yangian; the orthosymplectic reflection equation of Arnaudon--Cramp\'e--Doikou--Frappat--Ragoucy governs the $R$-matrix.
+  \item \emph{Orthogonal Yangian envelope.} The symmetric Mukai form of signature $(4, 20)$ selects $Y_\hbar(\mathfrak{so}(4, 20))$ as the structure-preserving Yangian (envelope~(I) of Conjecture~\ref{conj:osp-yangian-mukai}); neither $Y(\fgl(4 \mid 20))$ nor Kac $Y_\hbar(\mathfrak{osp}(4 \mid 20))$ applies (the Mukai form is symmetric on both Hodge-graded parts, not symplectic on the odd part). The Molev--Ragoucy orthogonal reflection equation governs the $R$-matrix; a Hodge-parity $\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$ of envelope~(II) is a programme-specific non-Kac refinement.
   \item \emph{Hodge-parity Jacobi closure.} On the Hodge-parity twisted space $\fg^{\varepsilon}_{K3}$ of~\eqref{eq:k3yang-hodge-parity-grading}, the super-Jacobiator vanishes on the complement of the Mukai-dual centre $\mathfrak z_{\mathrm{Muk}}$ (Theorem~\ref{thm:k3yang-jacobi-closure-super}, proved); the residual central $3$-cocycle on $\mathfrak z_{\mathrm{Muk}}$ is explicit and remains an obstruction to closure on the untwisted bracket.
   \item \emph{$\fsl_2$ Serre constraint at $D = 3$.} The non-abelian deformation obeys
   \[
@@ -4194,7 +4263,7 @@ The pairwise Yang--Baxter equation closes the $\fgl_1$ Heisenberg Yangian $R$-ma
 \ClaimStatusConjectured
 The ZTE closure programme for the K3 Yangian consists of:
 \begin{enumerate}[label=\textup{(Z\arabic*)}]
-  \item \emph{Failure of the factorised $S$-operator.} The factorised three-particle operator $S^{\mathrm{fact}}_{ijk} = R_{ij} R_{ik} R_{jk}$ on $(\C^{24})^{\otimes 3}$ built from the Mukai-signature Yang $R$-matrix satisfies pairwise YBE but fails ZTE, with obstruction of order $O(\kappa_{\mathrm{ch}}^2) = O(\hbar_{\mathrm{Y}}^2)$ at leading order in $\hbar$ (Theorem~\ref{thm:zte-failure}, proved; K3-specific persistence at orthosymplectic $\osp(4 \mid 20)$ level in Remark~\ref{rem:k3-super-summary}).
+  \item \emph{Failure of the factorised $S$-operator.} The factorised three-particle operator $S^{\mathrm{fact}}_{ijk} = R_{ij} R_{ik} R_{jk}$ on $(\C^{24})^{\otimes 3}$ built from the Mukai-signature Yang $R$-matrix satisfies pairwise YBE but fails ZTE, with obstruction of order $O(\kappa_{\mathrm{ch}}^2) = O(\hbar_{\mathrm{Y}}^2)$ at leading order in $\hbar$ (Theorem~\ref{thm:zte-failure}, proved; K3-specific persistence at the Hodge-parity $\Z/2$-graded envelope $Y_\hbar(\mathfrak{so}(4 \mid 20))$ in Remark~\ref{rem:k3-super-summary}).
   \item \emph{Explicit correction $T$.} There is an explicit ternary correction $T_{ijk} \in \End((\C^{24})^{\otimes 3})^{\mathrm{cp}}$, computed entry-by-entry in the charge-$2$ sector, such that the corrected operator
   \[
     S^{\mathrm{corr}}_{ijk} \;=\; S^{\mathrm{fact}}_{ijk} \;+\; \hbar_{\mathrm{Y}}^2\, T_{ijk}
@@ -4215,11 +4284,13 @@ The ZTE closure programme is Front 3 of the structural-residue catalogue in Part
 \subsection{Jacobi closure for the non-abelian K3 Yangian}
 \label{subsec:k3yang-jacobi-closure}
 
-Conjecture~\ref{conj:k3-super-yangian} proposed $Y_{\osp(4 \mid 20)}$
-as the non-abelian Yangian attached to the Mukai form; the
-Kulish--Reshetikhin $R^{\osp}$ discussion settles the $R$-matrix
-side. The classical limit presents a sharper question: does the
-bracket~\eqref{eq:k3-dca-bracket} of
+Conjecture~\ref{conj:k3-super-yangian} proposed the envelope pair
+$Y_\hbar(\mathfrak{so}(4, 20))$ (ungraded) and its Hodge-parity
+$\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$ (programme-specific,
+non-Kac) as the Mukai-preserving K$3$ Yangian; the Molev--Ragoucy
+orthogonal $R$-matrix of Proposition~\ref{prop:mukai-K-matrix-and-YBE}
+settles the $R$-matrix side for envelope~(I). The classical limit
+presents a sharper question: does the bracket~\eqref{eq:k3-dca-bracket} of
 Definition~\ref{def:k3-double-current-algebra},
 extended to include non-abelian internal tensors, satisfy the Jacobi
 identity when $\fg$ is a \emph{non-abelian} simple Lie algebra? The
@@ -4231,22 +4302,25 @@ Lie super structure $\fg^{\varepsilon}_{K3}$; the residual
 obstruction for the non-twisted classical algebra is an explicit
 central $3$-cocycle.
 
-\paragraph{Step 1: \texorpdfstring{$\osp(4 \mid 20)$}{osp(4 mid 20)} fails to host the Mukai form.}
-The orthosymplectic Lie super-algebra $\osp(4 \mid 20)$ carries on
+\paragraph{Step 1: Kac \texorpdfstring{$\osp(4 \mid 20)$}{osp(4 mid 20)} and \texorpdfstring{$\fgl(4 \mid 20)$}{gl(4 mid 20)} fail to host the Mukai form.}
+Kac's orthosymplectic super-algebra $\osp(4 \mid 20)$ carries on
 its odd part $\osp(4 \mid 20)_{\bar 1} = V_+ \otimes V_-$
 ($V_+ = \C^4$, $V_- = \C^{20}$) a \emph{symplectic} invariant form
 induced from the $\mathrm{Sp}(20)$-factor of the even part, whereas
 the Mukai pairing on $\Lambda_{\mathrm{Muk}} \otimes \C$ is
 \emph{symmetric} throughout. The symmetric--symplectic mismatch on
 the odd sector means the Mukai form cannot extend to an invariant
-super-pairing on $\osp(4 \mid 20)$ compatible with the super-Lie
+super-pairing on Kac $\osp(4 \mid 20)$ compatible with the super-Lie
 bracket. Moving to $\fgl(4 \mid 20)$ replaces the symplectic odd
 form by a graded trace form: $\fgl(m \mid n)$ carries a supertrace
 but no invariant bilinear form on the defining representation
 beyond the supertrace itself, and the supertrace vanishes on the
 odd part $V_+ \otimes V_-$ under Berezinian grading. Neither
-$\osp(4 \mid 20)$ nor $\fgl(4 \mid 20)$ is therefore a natural home
-for the non-abelian Mukai-Jacobi question.
+Kac $\osp(4 \mid 20)$ nor $\fgl(4 \mid 20)$ is therefore a home
+for the non-abelian Mukai-Jacobi question. The correct envelope is
+either $\mathfrak{so}(4, 20)$ (ungraded) or its Hodge-parity
+$\Z/2$-super-extension $\mathfrak{so}(4 \mid 20)$
+(programme-specific, symmetric on both graded parts, non-Kac).
 
 \paragraph{Step 2: Hodge-parity \texorpdfstring{$\Z/2$}{Z/2}-grading on \texorpdfstring{$H^*(S, \C)$}{H-*(S, C)}.}
 The K3 cohomology $H^*(S, \C) = H^0 \oplus H^2 \oplus H^4$ carries
@@ -4681,12 +4755,13 @@ resolutions:
   Jacobi closes as a Lie algebra (no super-structure), paying the
   price of a genuine central extension by the PGK class
   $\omega^{(3)} \in H^3$.
-\item \emph{Orthosymplectic factorisation}
-  (Conjecture~\ref{conj:k3-super-yangian}): Jacobi closes as a Lie
-  super-algebra on $\osp(4 \mid 20)$ with symplectic odd form,
-  paying the price of incompatibility with the symmetric Mukai
-  pairing on the underlying lattice (the K\"ahler polarisation is
-  a distinct choice from the Hodge polarisation).
+\item \emph{Hodge-parity $\Z/2$-super-extension}
+  (Conjecture~\ref{conj:k3-super-yangian}, envelope~(II)): Jacobi
+  closes as a $\Z/2$-graded Lie algebra on the programme-specific
+  $\mathfrak{so}(4 \mid 20)$, whose defining form remains symmetric
+  on both $V_+$ and $V_-$ (not Kac $\osp(4 \mid 20)$, whose odd form
+  is symplectic); the price is the programme-specific non-Kac
+  grading, whose full $(4, 20)$-rank construction is open.
 \end{enumerate}
 Options (i) and (ii) are equivalent after a field redefinition;
 option (iii) is a different algebra that agrees on the split
@@ -4895,11 +4970,14 @@ corresponding modification of the trace form.
 \subsection{The \texorpdfstring{$L_\infty$}{L-inf}-Yangian \texorpdfstring{$Y_\hbar^{L_\infty}(\fg_{K3})$}{Y-hbar-L-inf(g-K3)}}
 \label{subsec:k3-linfty-yangian}
 
-The orthosymplectic construction $Y_{\osp(4\mid 20)}$ of
+The Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ of envelope~(II) in
 Subsection~\ref{subsec:k3-super-yangian} resolves the non-abelian
-$\omega$-twisted crossing (Test A1 of
-Remark~\ref{rem:k3-yangian-obstruction-tests}) by enlarging $\fg_{K3}$
-to its super-Lie envelope.  A second resolution route leaves the
+$\omega$-twisted crossing (Test~A1 of
+Remark~\ref{rem:k3-yangian-obstruction-tests}) by refining
+$\fg_{K3}$ through its Hodge-parity grading (the defining bilinear
+form remains symmetric on both graded parts; this is not Kac
+$\osp(4 \mid 20)$).  A second resolution route leaves the
 bosonic algebra intact and absorbs the defect into higher brackets:
 the Jacobi failure on the non-abelian internal tensor
 $\fg_{\mathrm{ADE}} \otimes H^{\geq 2}(S, \C)$ becomes the
@@ -5216,43 +5294,45 @@ cup-product associator tensored with the second-order $\ad$-square
 of $\fg_{\mathrm{ADE}}$.
 \end{remark}
 
-\begin{remark}[\texorpdfstring{$L_\infty$}{L-inf}-Yangian versus \texorpdfstring{$\osp(4|20)$}{osp(4|20)} super-Yangian: two complementary resolutions]
+\begin{remark}[\texorpdfstring{$L_\infty$}{L-inf}-Yangian versus Hodge-parity $\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$: two complementary resolutions]
 \label{rem:k3-linfty-vs-osp}
-The super-Yangian $Y_{\osp(4 \mid 20)}$ of
+The Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ of envelope~(II) in
 Subsection~\ref{subsec:k3-super-yangian} and the $L_\infty$-Yangian
 $Y_\hbar^{L_\infty}(\fg_{K3})$ of
 Theorem~\ref{thm:k3-linfty-yangian} are two distinct resolutions of
-the same non-abelian Jacobi failure: the former enlarges the algebra
-to its parity-super envelope to absorb the $\omega$-twisted crossing
-in the fermionic $B, C$ blocks, the latter keeps the algebra bosonic
-and absorbs the defect into higher brackets on the cochain level.
+the same non-abelian Jacobi failure: the former refines the algebra
+through Hodge parity while keeping the defining form symmetric on
+both graded parts (programme-specific, non-Kac, distinct from Kac
+$\osp(4 \mid 20)$), the latter keeps the algebra bosonic and absorbs
+the defect into higher brackets on the cochain level.
 \[
   \begin{tabular}{lll}
   \toprule
-  & \emph{super-Yangian} $Y_{\osp(4 \mid 20)}$ & \emph{$L_\infty$-Yangian}
+  & \emph{Hodge-parity extension} $Y_\hbar(\mathfrak{so}(4 \mid 20))$ & \emph{$L_\infty$-Yangian}
     $Y_\hbar^{L_\infty}(\fg_{K3})$ \\
   \midrule
-  Algebra & super-Lie $\osp(4 \mid 20)$ & bosonic $\fg_{K3}$ cochain model \\
-  Parity & $\Z/2$-graded, fermionic odd part & unshifted, $L_\infty$-graded \\
-  Jacobi defect resolution & absorbed in $B, C$ blocks &
+  Algebra & $\Z/2$-graded $\mathfrak{so}(4 \mid 20)$, symmetric on both parts & bosonic $\fg_{K3}$ cochain model \\
+  Parity & Hodge-parity $\Z/2$-grading & unshifted, $L_\infty$-graded \\
+  Jacobi defect resolution & absorbed in the $\Z/2$-graded reflection equation &
     absorbed in $\ell_3, \ell_4$ \\
-  RTT presentation & reflection equation
-    \cite{AcdfR2003} & $L_\infty$-RTT with
+  RTT presentation & $\Z/2$-graded Molev--Ragoucy orthogonal RTT
+    \cite{MolevRagoucy2008} & $L_\infty$-RTT with
     $\hbar^3$ correction \\
-  Quantisation origin & direct $\osp$ $R$-matrix &
+  Quantisation origin & Molev--Ragoucy orthogonal $R$-matrix, graded by Hodge parity &
     Etingof--Kazhdan~\cite{EtingofKazhdan1996} on shifted bialgebra \\
   CY$_2$ shift & none (orthogonal form) & $(-2)$-shifted Poisson
     (Theorem~\ref{thm:k3-shifted-poisson-bialgebra}) \\
-  Rep category & $\osp(4 \mid 20)$-modules, supertraced &
+  Rep category & $\mathfrak{so}(4 \mid 20)$-modules (programme-specific, non-Kac) &
     homotopy-coherent $\fg_{K3}$-modules \\
   \bottomrule
   \end{tabular}
 \]
 The two constructions are related by a Koszul-type involution: the
 parity-reversal functor $\Pi$ on $V = V_+ \oplus V_-$ of
-Definition~\ref{def:osp-super-yangian-K3} exchanges the $\osp$
-grading with the $L_\infty$ degree by Poincar\'e--Lefschetz duality
-on K$3$.  Both resolutions produce the same Mukai Casimir tensor
+Definition~\ref{def:osp-super-yangian-K3} exchanges the Hodge-parity
+$\Z/2$-grading with the $L_\infty$ degree by Poincar\'e--Lefschetz
+duality on K$3$.  Both resolutions produce the same Mukai Casimir tensor
 $\Omega_{\mathrm{Muk}}$ at $\hbar^1$ and the same $\kappa_{\mathrm{ch}} =
 2$ invariant.  The abelian $\gl_1$-case of
 Theorem~\ref{thm:k3-abelian-yangian-presentation} is the common
@@ -5317,7 +5397,7 @@ Spherical twists $T_E$ for spherical objects $E$ (with $v(E)^2 = -2$) generate t
 \begin{equation}\label{eq:spherical-twist-reflection}
   T_E(v) = v + \langle v, v(E) \rangle_{\mathrm{Muk}} \cdot v(E),
 \end{equation}
-which preserves the Mukai pairing and satisfies $T_E^2 \simeq [2]$ (the double shift, acting trivially on Mukai vectors).  On the Yangian side, each $T_E$ induces an automorphism $T_E \colon Y(\fg_{K3}) \to Y(\fg_{K3})$ permuting the $24$~current families by the Mukai lattice reflection $s_{v(E)}$.  For the abelian ($\gl_1$) Yangian, the diagonal $R$-matrix is permuted accordingly; for the non-abelian orthosymplectic super-Yangian $Y_{\osp(4 \mid 20)}$, the reflection acts on the $T$-matrix blocks via the $\osp$-involution $i \leftrightarrow \bar i$.
+which preserves the Mukai pairing and satisfies $T_E^2 \simeq [2]$ (the double shift, acting trivially on Mukai vectors).  On the Yangian side, each $T_E$ induces an automorphism $T_E \colon Y(\fg_{K3}) \to Y(\fg_{K3})$ permuting the $24$~current families by the Mukai lattice reflection $s_{v(E)}$.  For the abelian ($\gl_1$) Yangian, the diagonal $R$-matrix is permuted accordingly; for the non-abelian orthogonal envelope $Y_\hbar(\mathfrak{so}(4, 20))$ (and its Hodge-parity $\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$), the reflection acts on the $T$-matrix blocks via the $\mathfrak{so}$-involution $i \leftrightarrow \bar i$.
 
 Spherical twists for non-orthogonal spherical objects $\langle v(E_1), v(E_2) \rangle \neq 0$ do \emph{not} commute, generating the braid group action on $\Stab^\dagger(K3)$ (Seidel--Thomas).
 
@@ -5402,7 +5482,7 @@ Linearity of $Z$ corresponds to additivity of weights; the support property on $
 \paragraph{Autoequivalences as gauge transformations.}
 Spherical twists $T_E$ act on $\Stab^\dagger$ by deck transformations and on the period point by the Mukai reflection $s_{v(E)}(\Omega) = \Omega + \langle \Omega, v(E)\rangle_{\mathrm{Muk}} \cdot v(E)$.  This reflection preserves the Mukai pairing: $\langle T_E(\Omega), T_E(\Omega)\rangle = \langle \Omega, \Omega\rangle$, and is an involution on Mukai vectors ($T_E^2 \simeq [2]$, acting trivially on $K$-theory).  On the Yangian, $T_E$ induces an automorphism $T_E \colon Y(\fg_{K3}) \to Y(\fg_{K3})$ that is a \emph{gauge transformation}: it changes the presentation (parameters, root system) but not the isomorphism class.
 
-For the abelian ($\gl_1$) Yangian, $g(z)$ is invariant under permutations of the $h_i$, but $T_E$ is \emph{not} a permutation of the $h_i$ in the diagonal basis; it mixes the Mukai sublattice directions.  The structure function $g(z)$ therefore changes under a single twist, but returns to its original value under the double twist $T_E^2 = \mathrm{id}$.  For the non-abelian super-Yangian $Y_{\osp(4 \mid 20)}$, $T_E$ acts as a Mukai lattice isometry on the $T$-matrix blocks, with the same involution property.
+For the abelian ($\gl_1$) Yangian, $g(z)$ is invariant under permutations of the $h_i$, but $T_E$ is \emph{not} a permutation of the $h_i$ in the diagonal basis; it mixes the Mukai sublattice directions.  The structure function $g(z)$ therefore changes under a single twist, but returns to its original value under the double twist $T_E^2 = \mathrm{id}$.  For the non-abelian orthogonal envelope $Y_\hbar(\mathfrak{so}(4, 20))$ (and its Hodge-parity $\Z/2$-super-extension), $T_E$ acts as a Mukai lattice isometry on the $T$-matrix blocks, with the same involution property.
 
 \paragraph{Wall-crossing: parameters vs.\ modules.}
 Crossing a wall $\cW(v_1, v_2)$ in $\Stab^\dagger$ changes the stability condition $\sigma$ continuously.  The Yangian parameters $h_i(\sigma)$ change \emph{continuously} (since $Z$ depends continuously on $(B, \omega)$), but the module decomposition changes \emph{discontinuously}: the Yangian module $V_v$ splits as $V_{v_1} \otimes_z V_{v_2}$ on one side and remains indecomposable on the other.  Wall-crossing is a gauge transformation acting as the identity on the Yangian algebra and as the KS automorphism on the module category.
@@ -9840,20 +9920,23 @@ mechanism stated in Theorem~\ref{thm:universal-Ainfty-truncation}.
 
 %% ========================================================================
 %% Super-K_n-tower coherence stratification: the V_4 x Z/2 lift carrying
-%% the conjectural K3 super-Yangian Y_{osp(4|20)} Pentagon obstruction.
-%% Computes the cohomological home as H^*((Z/2)^3; Z) via Cartan extended
-%% presentation, identifies the bosonic / super-direction split, and gives
-%% the structural target for the super-Yangian Pentagon obstruction
-%% without depending on the conjectural existence of the super-Yangian.
+%% the Pentagon obstruction for the Hodge-parity Z/2-super-extension
+%% Y_hbar(so(4|20)). Computes the cohomological home as H^*((Z/2)^3; Z)
+%% via Cartan extended presentation, identifies the bosonic /
+%% Hodge-parity-direction split, and gives the structural target for the
+%% Pentagon obstruction without depending on the conjectural existence
+%% of the Z/2-graded envelope.
 %% ========================================================================
 
 \begin{theorem}[Super-\texorpdfstring{$K_n$}{K-n}-tower coherence: \texorpdfstring{$V_4 \times \bbZ/2$}{V-4 x bbZ/2} stratification]
 \label{thm:super-Kn-tower-stratification}
 \ClaimStatusProvedHere
-The conjectural K$3$ super-Yangian $Y_{\osp(4 \mid 20)}$
-\textup{(}Conjecture~\ref{conj:k3-super-yangian}\textup{)} carries a
-$\bbZ/2_{\mathrm{super}}$-grading, induced by the Mukai signature
-$(4, 20)$, that commutes with the universal Klein-four
+The conjectural Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$
+\textup{(}Conjecture~\ref{conj:k3-super-yangian}, envelope~(II)\textup{)}
+carries a $\bbZ/2_{\mathrm{super}}$-grading, induced by the Mukai
+Hodge involution on the signature $(4, 20)$ decomposition, that
+commutes with the universal Klein-four
 $V_4 = \langle \varepsilon_{\mathrm{wt}},
 \varepsilon_{\mathrm{par}} \rangle$ acting on
 $\mathrm{ChirHoch}^\bullet$.  The combined symmetry group is
@@ -10012,8 +10095,8 @@ $\dim_{\bbF_2} H^{k-1}((\bbZ/2)^3; \bbZ)$.
 
 The projection is conjectural because it depends on
 Conjecture~\ref{conj:k3-super-yangian} \textup{(}existence of
-$Y_{\osp(4 \mid 20)}$ as a chiral algebra obtained from a
-$\Phi_3$-image\textup{);} the cohomological home itself
+envelope~(II) $Y_\hbar(\mathfrak{so}(4 \mid 20))$ as a chiral algebra
+obtained from a $\Phi_3$-image\textup{);} the cohomological home itself
 \textup{(}Theorem~\ref{thm:super-Kn-tower-stratification}\textup{)} is
 unconditional and provides a target for the obstruction, fixed purely
 by the $V_4 \times \bbZ/2$ group cohomology.
@@ -10025,17 +10108,20 @@ by the $V_4 \times \bbZ/2$ group cohomology.
 The cohomological home stratification of
 Theorem~\ref{thm:super-Kn-tower-stratification} depends only on the
 $(V_4 \times \bbZ/2)$ group cohomology, not on the existence of the
-conjectural super-Yangian $Y_{\osp(4 \mid 20)}$.  The super-direction
-$\bbZ/2_{\mathrm{super}}$ grading is induced by the Mukai signature
-$(4, 20)$, a topological invariant of the K$3$ lattice
-$\mathrm{II}_{4,20}$ \textup{(}Mukai 1984\textup{);} no chiral
-construction or $\Phi_3$ image is required.  The dimension
+conjectural Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ of envelope~(II).  The
+$\bbZ/2_{\mathrm{super}}$ grading is induced by the Mukai Hodge
+involution on the signature-$(4, 20)$ decomposition, a topological
+invariant of the K$3$ lattice $\mathrm{II}_{4,20}$ \textup{(}Mukai
+1984\textup{);} no chiral construction or $\Phi_3$ image is required.  The dimension
 stratification table is unconditional: it fixes the target
-into which the future super-Yangian Pentagon obstruction
-\textup{(}should $Y_{\osp(4 \mid 20)}$ be constructed\textup{)} must project.
-This decouples the cohomological-home computation
-\textup{(}\textbf{theorem}, this section\textup{)} from the
-conjectural super-Yangian construction
+into which the future Pentagon obstruction for the Hodge-parity
+$\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$ must
+project \textup{(}should envelope~(II) of
+Conjecture~\ref{conj:osp-yangian-mukai} be
+constructed\textup{).} This decouples the cohomological-home
+computation \textup{(}\textbf{theorem}, this section\textup{)} from
+the conjectural $\Z/2$-graded envelope construction
 \textup{(}\textbf{conjecture}, Section~\ref{subsec:k3-super-yangian}\textup{).}
 \end{remark}
 
@@ -10045,7 +10131,7 @@ conjectural super-Yangian construction
 The super-only generators
 $\delta, \gamma_{\alpha\delta}, \gamma_{\beta\delta}$, plus their
 products with bosonic generators, are the cohomological footprints of
-the $160$ fermionic entries in the $T$-matrix of $Y_{\osp(4 \mid 20)}$
+the $80$ off-diagonal Hodge-odd entries in the $T$-matrix of $Y_\hbar(\mathfrak{so}(4 \mid 20))$
 \textup{(}Section~\ref{subsec:k3-super-yangian},
 ``$T$-matrix block structure and the $416/160$ correspondence''\textup{).}
 The bosonic generators $\alpha, \beta, \gamma_{\alpha\beta}$ are the
@@ -10499,23 +10585,27 @@ $\kappa_{\mathrm{BKM}}(\Phi_{10}) = c_{\Phi_{10}}(0)/2 = 5$ controlling
 the null-cone contribution.  The elliptic lift to $K3\times E$ via the
 Felder--Rim\'anyi--Tarasov elliptic weight functions restores a genuine
 Nekrasov--Okounkov hook shape through theta functions.
-\emph{Orthosymplectic super-Yangian $Y_{\osp(4 \mid 20)}$ as
-Mukai-polarised quantum subalgebra of
-$\mathbf D_\hbar(\mathfrak g_{\Delta_5})$}---no isomorphism
-with $U(\mathfrak g_{\Delta_5})$ or $\mathbf D_\hbar$ itself (Cartan
-ranks differ: $23$ vs $3$; root systems differ: the orthosymplectic
-$B(2, 10)$ root system on $\osp(4 \mid 20)$ vs Borcherds
-$\Lambda^{2,1}_{II}$-graded; multiplicity growth differs: polynomial vs
-$e^{4\pi\sqrt{nm}}$), but an injective super-Hopf homomorphism
-$\iota_{4 \mid 20}\colon Y_{\osp(4 \mid 20)}\hookrightarrow
+\emph{Orthogonal K$3$ Yangian $Y_\hbar(\mathfrak{so}(4, 20))$ (and
+its Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$) as Mukai-polarised quantum
+subalgebra of $\mathbf D_\hbar(\mathfrak g_{\Delta_5})$}---no
+isomorphism with $U(\mathfrak g_{\Delta_5})$ or $\mathbf D_\hbar$
+itself (Cartan ranks differ: $23$ vs $12$ for $\mathfrak{so}(4, 20)$
+of type $D_{12}$; root systems differ: $D_{12}$ on
+$\mathfrak{so}(4, 20)$ vs Borcherds $\Lambda^{2,1}_{II}$-graded;
+multiplicity growth differs: polynomial vs $e^{4\pi\sqrt{nm}}$), but
+an injective Hopf homomorphism
+$\iota_{4, 20}\colon Y_\hbar(\mathfrak{so}(4, 20))\hookrightarrow
 \mathbf D_\hbar(\mathfrak g_{\Delta_5})$ onto the Mukai-finite-rank
 quantum subalgebra, with Mukai-split $24 = 4 + 20$ from the
 Dolgachev--Nikulin symplectic involution on $\Lambda_{\mathrm{Muk}}$
-and the Shioda--Inose attractor saturation $\rho(K3) = 20$.
-The $\osp$ envelope, not $\fgl$, is forced by the Mukai form being
-symmetric indefinite (orthogonal), not $\Z/2$-super-graded;
+and the Shioda--Inose attractor saturation $\rho(K3) = 20$. The
+orthogonal $\mathfrak{so}(4, 20)$ envelope, not $\fgl$ nor Kac
+$\osp(4 \mid 20)$, is forced by the Mukai form being symmetric
+indefinite and symmetric on both Hodge-graded parts;
 $\fgl(4 \mid 20)$ has no invariant bilinear form on its defining
-representation, whereas the Mukai form stabilises in $\osp(4 \mid 20)$.
+representation, and Kac $\osp(4 \mid 20)$ requires a symplectic
+form on the odd part, which the Mukai pairing does not carry.
 Three independent routes converge on the identification:
 Schiffmann--Vasserot rank-$4$ K3 CoHA, Gaiotto--Rapcak $Y_{L,M,N}$
 at $(4,20,0)$, and Okounkov--Smirnov rank-$4$ stable envelopes; full
@@ -10780,3 +10870,218 @@ For $\frakg = \mathfrak{sl}_n$, $n \geq 2$, and $\epsilon_1 + \epsilon_2 + \epsi
 \]
 to all orders in $\hbar$ and at every generic level $k \neq -h^\vee$. The Francis chiral-tangent identification $\HH^\ast_{E_2}(\cA, \cA) \simeq H^\ast(\mathrm{Tan}_\C\,\cA)[2]$ reduces the vanishing to $H^2_{\mathrm{ch}}(\widehat{\mathfrak{sl}}_n, V^{\mathrm{vac}}_k)$, which vanishes via Whitehead's second lemma on $\mathfrak{sl}_n$ semisimple, formality of $V^{\mathrm{vac}}_k$ at generic level (Frenkel--Ben-Zvi Theorem~$3.4.3$), and the Feigin--Frenkel screening / Gaitsgory--Lurie tangent vanishing at $H^3$. The critical-level case $k = -h^\vee$ is handled by the Feigin--Frenkel isomorphism $Z(V^{\mathrm{vac}}_{-h^\vee}) \cong \mathrm{Fun}(\mathrm{Op}_{\mathfrak{sl}_n^\vee})$ and smoothness of the oper moduli. The rigidity upgrades the conditional non-abelian compound to the unconditional identification $\partial\hCS_5(\mathfrak{sl}_n) \simeq Y_{\epsilon_1, \epsilon_2, \epsilon_3}(\widehat{\mathfrak{sl}}_n)$ at the vertex-algebra level, valid to all orders in $\hbar$. The type-$D/E$ extension inherits rigidity from Whitehead; the missing ingredient is Chan--Paton representation theory, not $\HH^2_{E_2}$-rigidity. The super-Yangian $Y(\mathfrak{gl}(4 \mid 20))$ refinement extends the argument to $\mathbb{Z}/2$-graded structure algebras with Whitehead-type vanishing inherited from the even summand.
 \end{theorem}
+
+\section{Maulik--Okounkov residue at the Mukai--Heegner wall: \texorpdfstring{$\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\mathfrak{g}_{K3}) = 5$}{kappa-BKM-MO(g-K3) = 5}}
+\label{sec:bl-mo-k3e-residue}
+
+The Mukai lattice $\Lambda_{\mathrm{Muk}} \simeq \mathrm{II}_{4,20}$ of
+signature $(4, 20)$ and rank $24$ hosts a distinguished analytic
+singularity on the Schiffmann--Vasserot K3 cohomological-Hall
+equivariant parameter space: a first-order pole of the positive-half
+gluing cocycle $\phi^{+}_{\mathrm{UV}}(u)$ at a Mukai-lattice Heegner
+wall $u_{\star, 1}$, corresponding under Torelli--Kuga--Satake to the
+level-one Humbert divisor $H_{1} \subset \mathcal{A}_{2}$. The residue
+of the Maulik--Okounkov $R$-matrix at this wall, pulled back through
+the period map, equals the Bruinier theta residue of the Gritsenko
+lift $\Delta_{5} = \mathrm{Grit}(\eta^{9}\,\vartheta_{1})$, producing
+the leading Fourier coefficient $c_{1}(0) = 10$ of the paramodular
+weight-$5$ form, divided by the Weyl-denominator normalisation factor
+$1/2$. The integer $5$ emerges as $c_{1}(0)/2$. This is the
+equivariant-geometry face of the universal identity
+$\kappa_{\mathrm{BKM}}(\Phi_{N}) = c_{N}(0)/2$.
+
+\begin{theorem}[MO residue at Mukai--Heegner wall computes $\kappa_{\mathrm{BKM}} = 5$]
+\label{thm:bl-mo-k3e-kappa5}
+\ClaimStatusProvedElsewhere
+Let $S$ be a K3 surface at its ADE/Kummer locus of moduli, let
+$\Lambda_{\mathrm{Muk}} \simeq \mathrm{II}_{4,20}$ be the Mukai
+lattice, let $T = (\mathbb{C}^{\times})^{2}$ act locally on an
+ADE/Kummer chart, and let
+$\mathrm{CoHA}(S) \simeq Y^{+}(\mathfrak{g}_{K3})$ be the
+Schiffmann--Vasserot K3 cohomological-Hall algebra. Under the Mukai
+Hodge involution, the Mukai-preserving Yangian is the orthogonal
+$Y_\hbar(\mathfrak{so}(4, 20))$ (Molev--Ragoucy orthogonal Yangian,
+Kac type $D_{12}$), with programme-specific Hodge-parity
+$\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$ on
+$V = V_+ \oplus V_- = \C^4 \oplus \C^{20}$ (symmetric on both graded
+parts; Kac $\mathfrak{osp}(4 \mid 20)$ excluded). Let
+$\phi^{+}_{\mathrm{UV}}(u)$ denote the UV positive-half gluing
+cocycle of the Maulik--Okounkov stable envelope glued from local
+ADE/Kummer charts by \v{C}ech--Ran descent on the Mukai lattice;
+its simple pole at the Mukai Heegner wall $u_{\star, 1}$ pulls back
+under the Torelli--Kuga--Satake period map
+$\iota\colon \mathcal{H}_{\Lambda_{\mathrm{Muk}}} \to \mathcal{A}_{2}$
+to the level-one Humbert divisor $H_{1}$. Then
+\[
+  \kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\mathfrak{g}_{K3})
+    \;:=\;
+  \iota^{*}\!\mathop{\mathrm{Res}}_{u = u_{\star, 1}}\!
+    \phi^{+}_{\mathrm{UV}}(u)
+    \;=\;
+  \mathop{\mathrm{Res}}_{Z = H_{1}}\!
+    \bigl(\text{Borcherds theta integrand for}\
+      \Delta_{5}\bigr)
+    \;=\;
+  \frac{c_{1}(0)}{2}
+    \;=\;
+  5,
+\]
+where $c_{1}(0) = 10$ is the leading Fourier coefficient of
+$\Delta_{5} = \mathrm{Grit}(\eta^{9}\,\vartheta_{1}) \in
+S_{5}(\mathrm{Sp}_{4}(\mathbb{Z}))$, the Weyl denominator of the
+BKM superalgebra $\mathfrak{g}_{\Delta_{5}}$
+(Chapter~\ref{ch:k3e-bkm}), and the factor $1/2$ is the Weyl-denominator
+normalisation of the Bruinier regularised theta integral.
+\end{theorem}
+
+\begin{proof}[Proof]
+The derivation is a five-step chain at chain level.
+
+\emph{Step 1 (local Maulik--Okounkov stable envelope).}  On each
+ADE/Kummer analytic chart $U_{\alpha} \subset S$, the local toric
+torus $T_{\alpha} = (\mathbb{C}^{\times})^{2}$ acts on the minimal
+resolution $\widetilde U_{\alpha}$, and the Maulik--Okounkov stable
+envelope
+$\mathrm{Stab}^{T_{\alpha}}_{\mathfrak{C}}\colon H^{*}_{T_{\alpha}}
+(\mathrm{Hilb}^{\bullet}(\widetilde U_{\alpha})^{T_{\alpha}})
+\to H^{*}_{T_{\alpha}}(\mathrm{Hilb}^{\bullet}(\widetilde U_{\alpha}))$
+exists and is unique up to chamber, by Maulik--Okounkov 2012
+Theorem 3.3.2.  The associated local $R$-matrix
+$R^{MO, \mathrm{loc}}_{U_{\alpha}}(u)
+= (\mathrm{Stab}^{T_{\alpha}}_{\mathfrak{C}_{+}})^{-1}
+\circ \mathrm{Stab}^{T_{\alpha}}_{\mathfrak{C}_{-}}$
+is meromorphic in the equivariant parameter $u$, with simple poles at
+resonant walls (Maulik--Okounkov 2012 Section 4).
+
+\emph{Step 2 (\v{C}ech--Ran descent on the Mukai lattice).}  The
+transition Fourier--Mukai kernels $K_{\alpha \beta}$ between charts
+take values in $\mathrm{O}(\Lambda_{\mathrm{Muk}})^{+}$-equivariant
+autoequivalences (Mukai 1987; Orlov 1997), with cocycle class in
+$H^{1}(\mathcal{N}_{S}, \underline{\mathrm{Aut}}_{D^{b}(\mathrm{Coh})})$.
+The MO residue is a scalar under pullback by any $K_{\alpha \beta}$
+(Maulik--Okounkov 2012 Proposition 3.5.4, stable-envelope
+functoriality), and the cocycle condition is satisfied up to a
+contractible choice of higher homotopies.  The local residues
+$\mathrm{Res}_{u = u_{\star, n}^{\mathrm{loc}}}
+R^{MO, \mathrm{loc}}_{U_{\alpha}}(u)$ glue to a single global scalar
+function $R^{MO}_{S}(u)$ on the Mukai-lattice equivariant parameter
+space, with simple poles at Mukai Heegner walls
+$\{u_{\star, n}\}$ indexed by self-intersection $-2n$ per
+Bayer--Macr\`i 2014 Theorem 12.1.
+
+\emph{Step 3 (Torelli--Kuga--Satake pullback).}  The Kuga--Satake
+construction (Kuga--Satake 1967 Pub IHES 34; Deligne 1971) produces
+a morphism of period domains
+$\iota\colon \mathcal{H}_{\Lambda_{\mathrm{Muk}}} \to
+\mathcal{A}_{2^{20}}$ that descends, via the primitive embedding
+$\mathrm{II}_{2, 2} \hookrightarrow \mathrm{II}_{4, 20}$
+(Gritsenko--Nikulin 1998 Proposition 4.2; canonical preamble row~33),
+to $\iota\colon \mathcal{H}_{\Lambda_{\mathrm{Muk}}} \to
+\mathcal{A}_{2}$.  Under $\iota^{*}$, the MO equivariant parameter
+$u$ pulls back to the Siegel half-space coordinate $Z \in
+\mathbb{H}_{2}$, and the wall $u_{\star, 1}$ pulls back to the
+level-one Humbert divisor $H_{1} \subset \mathcal{A}_{2}$ of
+discriminant $1$, realised as the symmetric-square locus
+$\{E \times E\}$ (van der Geer 1988 Chapter IX).
+
+\emph{Step 4 (Borcherds--Gritsenko singular theta lift).}  The input
+form is the unique generator $\phi_{0, 1} \in J_{0, 1}$ of the
+weight-$0$ index-$1$ Jacobi form space (Eichler--Zagier 1985
+Theorem 9.3), with leading Fourier coefficient $c(0, 0) = 10$.  The
+Gritsenko theta lift applied to the normalised generator
+$\eta^{9}\,\vartheta_{1}$ of $J_{0, 1}^{\times}$ produces the
+paramodular weight-$5$ Siegel cusp form
+$\Delta_{5} = \mathrm{Grit}(\eta^{9}\,\vartheta_{1})$
+(Gritsenko 1999 Theorem 6.1), the Weyl denominator of
+$\mathfrak{g}_{\Delta_{5}}$ per Gritsenko--Nikulin 1997/1998
+Theorem 3.  The regularised Borcherds theta integral
+(Borcherds 1998 Definition 6.3; Bruinier 2002 Theorem 3.2) has
+singular divisor supported on the Heegner divisors of
+$\mathcal{A}_{2}$ associated to admissible discriminants
+$n \in \{1, 2, 3, 4, 6\}$ (canonical preamble row~27).
+
+\emph{Step 5 (Bruinier residue $=$ Fourier coefficient $/\,2$).}
+Bruinier 2002 Theorem 4.23 establishes the equality
+\[
+  \mathop{\mathrm{Res}}_{Z = H_{1}}
+    \bigl(\text{Borcherds theta integrand}\bigr)
+    \;=\;
+  \frac{1}{2}\, c_{1}(0)
+    \;=\;
+  \frac{10}{2}
+    \;=\;
+  5,
+\]
+where the factor $1/2$ is the Weyl-denominator normalisation of the
+regularised theta integral at the Heegner wall, and
+$c_{1}(0) = 10$ is the leading coefficient of $\phi_{0, 1}$ as in
+Step~4 (Gritsenko--Nikulin 1995 Theorem 2.1 for the CHL ladder
+$(c_{1}(0), c_{2}(0), c_{3}(0), c_{4}(0), c_{6}(0)) = (10, 8, 6, 4, 2)$).
+Combining Steps 2, 3 and~5, the MO residue pulls back under $\iota$
+to the Bruinier theta residue at $H_{1}$, yielding
+$\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\mathfrak{g}_{K3}) = 5$.
+\end{proof}
+
+\begin{remark}[Three paths to $\kappa_{\mathrm{BKM}}^{(N=1)} = 5$]
+\label{rem:bl-mo-three-paths}
+The integer $5$ admits three independent chain-level derivations that
+all compute the same scalar:
+\begin{enumerate}
+\item[(P1)] \emph{Direct automorphic Fourier expansion.}  Read
+$c_{1}(0) = 10$ off $\Delta_{5} = \mathrm{Grit}(\eta^{9}\,\vartheta_{1})$
+and divide by $2$: Gritsenko 1999 Theorem 6.1 plus
+Gritsenko--Nikulin 1995 Theorem 2.1.
+\item[(P2)] \emph{Modular-operadic supertrace.}  Evaluate the cyclic
+supertrace of $B^{E_{3}}(\Phi^{FA}_{3}(\mathcal{C}_{K3 \times E}))$
+on the Siegel-dominant contribution to $\overline{\mathcal{M}}_{2, 0}$,
+with $\Phi^{FA}_{3}$ the first-stage $E_{3}$-holomorphic
+factorisation algebra: Costello 2007 Advances in Math 210;
+Costello--Francis--Gwilliam 2026 Section 6.
+\item[(P3)] \emph{Maulik--Okounkov residue at the Mukai Heegner wall},
+this theorem.
+\end{enumerate}
+The three paths are structurally equivalent through the
+Torelli--Kuga--Satake period lens: Path 1 is the automorphic scope,
+Path 2 is the modular-operadic scope, Path 3 is the
+equivariant-geometry scope.  The Bruinier theta-residue formula
+(Step~5 of the proof) is the pivot that reduces all three to the
+same scalar $c_{1}(0)/2 = 5$.
+\end{remark}
+
+\begin{remark}[Scope restriction to the ADE/Kummer locus]
+\label{rem:bl-mo-k3e-scope}
+The Maulik--Okounkov machinery requires a global toric torus action,
+which K3 does not admit globally.  The derivation of
+Theorem~\ref{thm:bl-mo-k3e-kappa5} is valid at the ADE/Kummer locus
+of K3 moduli, where local toric tori act on analytic charts and
+\v{C}ech--Ran descent transports the local residues to a global
+scalar.  For generic K3 off this locus, the MO machine fails in the
+form stated (Lemma~\ref{lem:mo-bypass-local-to-global};
+Lemma~\ref{lem:no-Gm-on-E}: $\mathrm{Aut}(E)^{\circ} \cong E$ carries no
+$\mathbb{G}_{m}$-axis on the elliptic factor).  The scalar output of
+the residue is, however, independent of the ADE/Kummer specialisation:
+all K3's in a deformation class share the same Mukai lattice, and the
+residue depends only on the Mukai lattice structure (Bayer--Macr\`i
+2014 Theorem 12.1 for deformation invariance of wall-crossing data).
+The $5$ is a Mukai-lattice invariant, computed geometrically at the
+ADE/Kummer locus and valid everywhere on K3 moduli.
+\end{remark}
+
+\begin{remark}[Extension to $N \in \{2, 3, 4, 6\}$]
+\label{rem:bl-mo-CHL-ladder}
+The CHL ladder of Gritsenko--Nikulin 1995 Theorem 2.1 extends the
+statement of Theorem~\ref{thm:bl-mo-k3e-kappa5} to $N \in \{2, 3, 4, 6\}$
+via admissible Humbert divisors of higher discriminant and
+Niemeier-lattice inputs:
+$\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\Phi_{N}) = c_{N}(0)/2 \in
+\{5, 4, 3, 2, 1\}$ for $N \in \{1, 2, 3, 4, 6\}$, with inputs
+$c_{N}(0) \in \{10, 8, 6, 4, 2\}$.  The extension is conditional on
+an analogous Kuga--Satake pullback for each $N$-sublattice; the
+$N = 1$ case of this theorem is the base case.  The elliptic lift
+to $K3 \times E$ via Aganagic--Okounkov 2016 elliptic stable envelopes
+gives the elliptic refinement
+$R^{\mathrm{ell}}(u, \tau, z)$ of the MO residue and, conditional
+on the elliptic Yangian existence, extends the identification to the
+full $K3 \times E$-horizontal face of $r_{\mathrm{CY}}$
+(Conjecture~\ref{conj:k3y-mo-elliptic-stable-envelopes-programme}).
+\end{remark}

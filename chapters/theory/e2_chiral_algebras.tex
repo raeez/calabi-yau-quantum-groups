@@ -199,12 +199,12 @@ The $\Etwo$-chiral algebra $\Phi_{E_2}(\cC)$ is the chiral Drinfeld
 centre of $\Phi_{E_1}(\cC)$
 (Conjecture~\ref{conj:phi-e2-drinfeld-center}), \emph{not} a direct
 output of the CY-to-chiral correspondence programme $\{\Phi_d\}$.
-The expected representation category is $\CoHA(\cC)$ \textup{(}the
-cohomological Hall algebra of $\cC$ in the sense of
-Kontsevich--Soibelman~\cite{KontsevichSoibelmanCoHA}: an
-associative algebra on the cohomology of moduli of objects, with
-Hall product from extension stacks; not itself a chiral
-algebra\textup{)} with its Kontsevich--Soibelman braided structure.
+The expected representation category is the Drinfeld centre, equivalently
+the representation category of the Drinfeld double of the positive-half
+CoHA of $\cC$.  The CoHA itself is the associative Hall algebra of
+$\cC$ in the sense of Kontsevich--Soibelman~\cite{KontsevichSoibelmanCoHA},
+with Hall product from extension stacks; it supplies the BPS/positive-half
+data and is not itself a chiral algebra.
 Conditional on Conjecture~\ref{conj:phi-e2-drinfeld-center}
 ($\Phi_{E_2} = Z^{\mathrm{ch}} \circ \Phi_{E_1}$);
 CY-A$_3$ itself is proved (Theorem~\ref{thm:cy-to-chiral-d3}).
@@ -309,9 +309,10 @@ Conjecture~\ref{conj:mtc-k3} at the level of the paramodular lift.
 \label{conj:mtc-cy3-coha}
 \ClaimStatusConjectured
 Conditional on Conjecture~\ref{conj:e2-chiral-from-cy3}, the MTC of
-$\Phi_{E_2}(\cC)$ is $\CoHA(\cC)$ with its Kontsevich-Soibelman
-braided structure: BPS indices as simples, braiding computing refined
-DT wall-crossing. Conditional on
+$\Phi_{E_2}(\cC)$ is the Drinfeld centre of the representation category
+of the positive-half CoHA, equivalently the representation category of
+the Drinfeld double $D(\CoHA(\cC))$: BPS indices supply the positive
+generators, and the braiding computes refined DT wall-crossing. Conditional on
 Conjecture~\ref{conj:e2-chiral-from-cy3} (which itself depends on
 the center identification
 Conjecture~\ref{conj:phi-e2-drinfeld-center}; CY-A$_3$ is proved).
@@ -688,7 +689,7 @@ transverse $E_2$-shadow admits an explicit Hopf-algebraic presentation:
  $Y(\widehat{\mathfrak{gl}}_1)$ (affine Yangian) \\
  $D^b(\Coh(K3 \times E))$ (reduced) &
  $Y^+$ with Mukai super-structure &
- $Y_{\mathfrak{osp}}(4|20) = Y(\mathfrak{gl}(4|20))^\theta$ \\
+ $Y_\hbar(\mathfrak{so}(4, 20))$ (Hodge-parity $\Z/2$-super-ext.\ $Y_\hbar(\mathfrak{so}(4 \mid 20))$) \\
  $\Perf(\mathrm{LP}^2)$, $\Perf(\text{conifold})$, toric CY$_3$ &
  RSYZ shuffle algebra &
  quantum toroidal $U_{q, t}(\widehat{\widehat{\mathfrak{gl}}}_r)$ \\
@@ -703,8 +704,9 @@ the $R^{\mathrm{ch}}$ of Theorem~\ref{thm:mo-equals-cocycle}.
 
 \begin{proof}
 Case $\C^3$: Schiffmann--Vasserot 2013 \emph{Publ.\ Math.\ IHES}~118
-Theorem~8.3 establishes that the Drinfeld double of the positive half
-$Y^+(\widehat{\mathfrak{gl}}_1)$ is the full affine Yangian; the
+Theorem~8.3 establishes that
+$D\bigl(Y^+(\widehat{\mathfrak{gl}}_1)\bigr)$, the Drinfeld double of
+the positive half, is the full affine Yangian; the
 explicit $R$-matrix on Fock-module evaluations is Feigin--Jimbo--Miwa--
 Mukhin 2017 \emph{J.~Integrable Systems}~2, and it coincides with the
 MO $R$-matrix of $\Hilb^n(\C^2)$ (Maulik--Okounkov
@@ -712,23 +714,27 @@ MO $R$-matrix of $\Hilb^n(\C^2)$ (Maulik--Okounkov
 $\Hilb^n(\C^3)^T$ at the CY$_3$ subtorus).
 
 Case $K3 \times E$ (reduced): the Mukai Hodge involution
-$\theta$ on $\widetilde H^*(K3, \C) = \C^{4|20}$ splits the $24$-dim
-cohomology into $4$-dim $(+1)$-eigenspace (from $H^{2,0} + H^{0,2} +
-H^{0,0} + H^{2,2}$) and $20$-dim $(-1)$-eigenspace (from $H^{1,1}$),
-imposing an $\mathfrak{osp}(4|20)$-symmetry on the Mukai pairing.
-The CoHA of $K3$ carries the corresponding $\Z/2$-graded
-super-structure, and Schiffmann--Vasserot 2017
-\emph{arXiv:1705.07341} computes it via stable envelopes on derived
-moduli.  The elliptic fibre $E$
-contributes the spectral-parameter direction; the Drinfeld double is
-$Y_{\mathfrak{osp}}(4|20)$ as a Chevalley-fixed subalgebra of
-$Y(\mathfrak{gl}(4|20))$ (Avan--Frappat super-Yangian conventions,
-e.g.\ Arnaudon--Avan--Cramp\'e--Doikou--Frappat--Ragoucy 2006
-\emph{J.~Math.~Phys.}~47); the $R$-matrix is the super-analogue $R(u) =
-1 + \hbar \Omega_{\mathfrak{osp}(4|20)} / u + O(\hbar^2)$.  The
-Mukai-Hodge-rigidity underwriting $(4, 20)$ matches
-Wave-15 project memory
-\texttt{project\_super\_yangian\_Y\_osp\_4\_20.md}.
+$\theta$ on $\widetilde H^*(K3, \C) = \C^{24}$ splits the $24$-dim
+cohomology into the $4$-dim $(+1)$-eigenspace $V_+$ (from
+$H^0 \oplus H^4 \oplus (H^{2,0} \oplus H^{0,2})_\R$) and the $20$-dim
+$(-1)$-eigenspace $V_-$ (the primary $(1, 1)$-sector
+$H^{1,1}_{\mathrm{prim}}$), imposing the orthogonal
+$\mathfrak{so}(4, 20)$ symmetry of the symmetric Mukai pairing. On
+both graded parts the pairing restricts to a symmetric form, so Kac
+$\mathfrak{osp}(4 \mid 20)$ (symplectic on the odd part) is
+explicitly not the envelope; the Mukai-preserving Yangian is the
+orthogonal $Y_\hbar(\mathfrak{so}(4, 20))$ of
+Molev--Ragoucy~\cite{MolevRagoucy2008}, or conjecturally its
+Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ (programme-specific, non-Kac).
+The CoHA of $K3$ carries the corresponding $\Z/2$-graded structure,
+and Schiffmann--Vasserot 2017 \emph{arXiv:1705.07341} computes it
+via stable envelopes on derived moduli. The elliptic fibre $E$
+contributes the spectral-parameter direction; the $R$-matrix is the
+rational $\mathfrak{so}(24)$ $R$-matrix
+$R(u) = 1 + \hbar\, \Omega_{\mathrm{Muk}}/u + O(\hbar^2)$ with
+Casimir $\Omega_{\mathrm{Muk}}$ normalised by the Mukai pairing and
+crossing shift $\kappa_{\so} = 22$.
 
 Case toric CY$_3$ with compact $4$-cycle: Rapcak--Soibelman--Yang--Zhao
 \cite{RSYZ2020} compute the CoHA as a shuffle algebra; the Drinfeld double

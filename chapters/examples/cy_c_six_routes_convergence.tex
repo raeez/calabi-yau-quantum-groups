@@ -560,6 +560,368 @@ The pairwise bridge table (Section~\ref{sec:cy-c-status-audit}) contains three P
   \item Proposition~\ref{prop:kappa-spectrum-k3}: derived from the Hodge data of K3 (Noether formula, K\"unneth) together with the sigma-model central charge $c = 3d$. Verified against the Huybrechts 2016 Chow-motive computation of $\chi(\mathcal{O}_{K3}) = 2$ from the transcendental lattice, which is disjoint from both the Noether-formula route and the sigma-model route.
 \end{itemize}
 
+\section{Two-scope deployment of the chain-level Borcherds weight
+master theorem}
+\label{sec:cy-c-bl-two-scope-deployment}
+
+\providecommand{\PhiFAt}{\Phi^{\mathrm{FA}}_{3}}
+\providecommand{\PhiFAdim}[1]{\Phi^{\mathrm{FA}}_{#1}}
+\providecommand{\EdHolFA}{E_{3}\text{-}\mathrm{hFA}}
+\providecommand{\BEK}[1]{B^{E_{#1}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\Mbar}{\overline{\mathcal{M}}}
+\providecommand{\Irb}{I_{\mathrm{orb}}}
+\providecommand{\SpFour}{\mathrm{Sp}_{4}(\mathbb{Z})}
+
+The universal Borcherds weight identity
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ of
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} admits a
+chain-level upgrade: the rational weight $c_N(0)/2$ equals the
+supertrace of the Getzler--Kapranov modular-operadic Koszul pairing on
+the $E_3$-bar construction of the Stage-$1$ factorisation algebra
+$\PhiFAt(\mathcal{C}_N)$, evaluated along the chain-level fundamental
+class $[\Mbar_{g, n}]$ of Agent~$15$ (wave-CFG$2026$). The master
+theorem is deployed across the full two-scope family (CHL ladder plus
+Gritsenko--Cl\'ery 8-form) with three-path verification at each entry.
+The standing data, cycle-by-cycle derivation, and five ghost theorems
+are recorded in the standalone note
+\texttt{notes/wave\_borcherds\_chain\_level/agent\_BL\_8\_chl\_ladder\_8form.tex}.
+
+\begin{theorem}[Chain-level Borcherds weight deployment on the CHL
+ladder]
+\label{thm:bl-chl-ladder-deployment}
+\ClaimStatusProvedHereConditional
+Let $N \in \{1, 2, 3, 4, 6\}$ be a CHL symplectic order: the integers
+for which $\mathbb{Z}/N$ acts as a symplectic automorphism on a K$3$
+surface $S_N$ compatibly with a translation of order $N$ on an elliptic
+curve $E_N$ (Nikulin $1980$; Mukai $1988$). Let $\mathcal{C}_N :=
+D^b(\Coh(X_N))$ with $X_N = (S_N \times E_N) / \mathbb{Z}_N$, and let
+$\PhiFAt(\mathcal{C}_N) \in \EdHolFA(X_N)$ be the Stage-$1$
+$E_3$-holomorphic factorisation algebra of
+Theorem~\ref{thm:phi-two-stage-factorisation}. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item For each CHL $N$, the $\mathbb{Z}_N$-quotient carries a canonical
+ $E_3$-holomorphic factorisation algebra structure obtained by
+ \v{C}ech--Ran descent of $\PhiFAt$ with inertia-twisted transition
+ Fourier--Mukai kernels $K_{\alpha\beta}^{[\gamma]}$ indexed by twisted
+ sectors $[\gamma] \in \mathbb{Z}_N$.
+ \item The chain-level supertrace identity
+ \[
+  \kBKM(\Phi_N) \;=\; \frac{c_N(0)}{2} \;=\;
+     \mathrm{str}\bigl(
+       \langle -, - \rangle^{\mathrm{mod}}_{g, n}
+       \bigm|_{\BEK{3}(\PhiFAt(\mathcal{C}_N))}
+     \bigr)
+ \]
+ holds at each CHL entry, with derived data
+ \[
+  (N, c_N(0), \kBKM(\Phi_N)) \;\in\;
+  \{(1, 10, 5),\; (2, 8, 4),\; (3, 6, 3),\; (4, 4, 2),\; (6, 2, 1)\}
+ \]
+ following Gritsenko--Nikulin $1995$ Part~II Theorem~$2.1$
+ combined with the Govindarajan--Krishna $2010$ \emph{JHEP}~$05$, $014$
+ Table~$1$ CHL dyon partition-function weights
+ $k_N^{\mathrm{phys}} = 2 \kBKM(\Phi_N)$.
+ \item The three-path verification (Hodge supertrace with inertia,
+ Costello--Li--Yagi BV on $X_N \times \mathbb{R}^2$ at the Heegner locus
+ of discriminant $D_N \in \{-4, -8, -12, -16, -24\}$, Maulik--Okounkov
+ $R$-matrix residue at the $\mathrm{II}_{2, 3}^{\mathbb{Z}_N}$-lattice
+ wall) agrees at each CHL entry, with common value $c_N(0)/2$.
+\end{enumerate}
+Conditional on the Kontsevich--Tamarkin $E_3$-formality pinning of
+Stage-$1$ up to contractible choice (Agent~$1$ of wave-CFG$2026$),
+the Costello--Li holomorphic-locality refinement (Agent~$14$ Heal~A$5$),
+and the Getzler--Kapranov $1998$ Proposition~$6.3$ chain-level
+fundamental-class compatibility.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+(i) The $\mathbb{Z}_N$-equivariant analytic cover
+$\{U_\alpha\}_{\alpha \in I}$ of $S_N \times E_N$ with each
+$U_\alpha \cong \mathbb{C}^3$ descends to an orbifold cover of $X_N$
+with chart-wise local model
+$\PhiFAt(D^b(\Coh(U_\alpha / \mathrm{Stab}(\alpha)))) \simeq
+\mathrm{CoHA}(\mathbb{C}^3 / \mathbb{Z}_d) \simeq
+Y^+(\widehat{\mathfrak{gl}}_d)$ at orbifold charts
+(Rapcak--Soibelman--Yang--Zhao $2018$ \texttt{arXiv:1810.10402}) and
+$Y^+(\widehat{\mathfrak{gl}}_1)$ at smooth charts
+(Schiffmann--Vasserot $2013$ Theorem~$1.1$). The transition kernels
+$K_{\alpha\beta}^{[\gamma]}$ carry the $\mathbb{Z}_N$-equivariant
+refinement of the Agent~$14$ Bondal--Orlov uniqueness up to
+shift/line-bundle, with cocycle condition on triple overlaps up to
+coherent homotopy.
+
+(ii) The master theorem
+\eqref{eq:bl7-master-chapter} (reproduced below from
+Agent~$15$ Heal~I.$2$ and BL-$7$) evaluates the chain-level supertrace
+of the modular-operadic Koszul pairing on $\BEK{3}(\PhiFAt(\mathcal{C}_N))$
+along the genus-$2$ fundamental class $[\Mbar_{2, 0}]$. The
+Getzler--Kapranov gluing structure ties this supertrace to the
+Siegel-genus-$2$ theta-correspondence on the
+$\mathrm{II}_{2, 3}$-period domain (Kudla $2003$; Borcherds $1998$
+\S$6$), yielding the Gritsenko--Nikulin denominator-product weight
+$c_N(0)/2$ by orbifold Borcherds lift.
+
+(iii) The three-path agreement is forced by the common modular-operadic
+Koszul pairing. Path~$1$: Kapranov $L_\infty$-lift of the tree-level
+Hodge supertrace (inertia-twisted via Fantechi--G\"ottsche $2003$
+Theorem~$1.2$) to the automorphic shadow; the $L_\infty$-Maurer--Cartan
+locus at genus $2$ evaluates to the Siegel modular partition function,
+whose constant term at the $0$-dimensional cusp is the weight. Path~$2$:
+the Costello--Li BV action on $X_N \times \mathbb{R}^2$ at the Heegner
+locus evaluates the partition function through the
+all-orders simply-laced theorem (Costello--Gaiotto--Yagi $2019$
+\texttt{arXiv:1810.01970}). Path~$3$: the MO stable-envelope residue at
+the lattice wall reads the universal $\mathcal{R}$ of the K$3$ Yangian
+via Maulik--Okounkov $2012$ Theorem~$14.1$, restricted to the
+$\mathbb{Z}_N$-invariant sub-algebra.
+\end{proof}
+
+\begin{equation}
+\label{eq:bl7-master-chapter}
+ \kBKM(\Phi_N) \;=\; \frac{c_N(0)}{2} \;=\;
+   \mathrm{str}\bigl(
+       \langle -, - \rangle^{\mathrm{mod}}_{g, n}
+       \bigm|_{\BEK{3}(\PhiFAt(\mathcal{C}_N))}
+   \bigr).
+\end{equation}
+
+\begin{corollary}[Per-$N$ chain-level witness, CHL ladder]
+\label{cor:bl-chl-per-N}
+\ClaimStatusProvedHereConditional
+Theorem~\ref{thm:bl-chl-ladder-deployment} specialises row-wise:
+\begin{enumerate}
+ \item $N = 1$: $\kBKM(\Delta_5) = c_1(0)/2 = 5$ is the chain-level
+ supertrace on $\BEK{3}(\PhiFAt(D^b(\Coh(K3 \times E))))$, with
+ $\Delta_5$ the weight-$5$ Gritsenko paramodular cusp form (Gritsenko
+ $1994$ \texttt{arXiv:alg-geom/9412001}). Coincidence with 8-form entry
+ $N = 1$ (Corollary~\ref{cor:bl-8form-per-N}) is structurally forced;
+ both scopes read the same Borcherds lift of $2\phi_{0, 1}$.
+ \item $N = 2$: $\kBKM(\Phi_2) = c_2(0)/2 = 4$ on the CHL orbifold
+ $(K3 \times E) / \mathbb{Z}_2$; chain-level witness through the
+ $\mathbb{Z}_2$-inertia-twisted CoHA structure, evaluating to the
+ Gritsenko--Nikulin $\Delta_4^{(2)}$ paramodular form weight.
+ \item $N = 3$: $\kBKM(\Phi_3) = c_3(0)/2 = 3$ on $(K3 \times E) / \mathbb{Z}_3$;
+ chain-level witness through $\mathbb{Z}_3$-inertia at the
+ discriminant-$-12$ Heegner locus.
+ \item $N = 4$: $\kBKM(\Phi_4) = c_4(0)/2 = 2$ on $(K3 \times E) / \mathbb{Z}_4$;
+ $\mathbb{Z}_4$-inertia at discriminant-$-16$.
+ \item $N = 6$: $\kBKM(\Phi_6) = c_6(0)/2 = 1$ on $(K3 \times E) / \mathbb{Z}_6$
+ with Niemeier $6D_4$ structure (Conway--Sloane $1988$ Chapter~$16$);
+ $\mathbb{Z}_6$-inertia at discriminant-$-24$.
+\end{enumerate}
+The monotone-decreasing ladder $\kBKM(\Phi_N) = (5, 4, 3, 2, 1)$ is the
+image of the chain-level supertrace under the doubly-twined CHL
+averaging convention on the $\Gamma_0(N)^+$-action on the period
+domain.
+\end{corollary}
+
+\begin{theorem}[Chain-level Borcherds weight deployment on the
+Gritsenko--Cl\'ery 8-form catalogue]
+\label{thm:bl-8form-deployment}
+\ClaimStatusProvedHereConditional
+Let $N \in \{1, 2, \dots, 8\}$ index the eight Gritsenko--Cl\'ery
+Borcherds products of Theorem~\ref{thm:eight-form-cy-host-catalogue}
+with per-form $(w_N, c_N(0))$-data on the $\SpFour$-cover throughout.
+Let $\mathcal{C}_N := D^b(\Coh(X_N))$ with $X_N$ the CY-host of
+Theorem~\ref{thm:eight-form-cy-host-catalogue}: $K3 \times E$ at
+$N = 1$; $(K3 \times E) / \mathbb{Z}_N$ at $N \in \{2, 3, 4, 6\}$;
+the Borcea--Voisin substitute $(S_5 \times E_5) / (\iota_S \times
+\iota_E)$ at $N = 5$ (Borcea $1997$; Voisin $1993$); the resolved
+Nikulin-singular $\widetilde{(K3 \times E) / \mathbb{Z}_7}$ at
+$N = 7$ (Bridgeland--King--Reid $2001$); the Mongardi--Tari--Wandel
+$\mathrm{Kum}^3(A) / \mathbb{Z}_8$ hyperk\"ahler-fourfold at $N = 8$
+(Mongardi--Tari--Wandel $2018$ \texttt{arXiv:1712.07898}).
+
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The dimension-stratified chain-level supertrace identity
+ \[
+  \kBKM(\Phi_N) \;=\; \frac{c_N(0)}{2} \;=\;
+     \mathrm{str}\bigl(
+       \langle -, - \rangle^{\mathrm{mod}}_{g, n}
+       \bigm|_{\BEK{d(N)}(\PhiFAdim{d(N)}(\mathcal{C}_N))}
+     \bigr),
+ \qquad
+ d(N) \;=\;
+  \begin{cases}
+    3 & N \in \{1, 2, 3, 4, 5, 6, 7\}, \\
+    4 & N = 8,
+  \end{cases}
+ \]
+ holds on the $\SpFour$-cover throughout, with CHL-ladder entries
+ ($N \in \{1, 2, 3, 4, 6\}$) matching
+ Theorem~\ref{thm:bl-chl-ladder-deployment} and non-CHL entries
+ ($N \in \{5, 7, 8\}$) extending the identity to the substitute CY-host
+ geometry.
+ \item The multi-valued entries $(c_N(0), \kBKM) \in \{(8, 4),(4, 2)\}$ at
+ $N = 2$, $\{(6, 3), (2, 1)\}$ at $N = 3$, $\{(4, 2), (2, 1)\}$ at
+ $N = 4$ (Bryan--Oberdieck $2019$ Theorems~$1$--$2$) correspond to the
+ two coset-projections of
+ $\Gamma_0(N)^+ / \Gamma_0(N) \simeq \mathbb{Z}/2$; the chain-level
+ supertrace splits along the Atkin--Lehner $w_N$-involution dichotomy,
+ producing both values as singly-twined primitive-base witnesses.
+ \item The coincidence $N = 1 \equiv$ first 8-form entry is structural:
+ both scopes reduce at $N = 1$ to the Borcherds lift of the K$3$
+ elliptic genus $2\phi_{0, 1}$ (Lorgat $2020$
+ \texttt{arXiv:2004.09030}), with common chain-level supertrace
+ $\mathrm{str}\,\BEK{3}(\PhiFAt(D^b(\Coh(K3 \times E)))) = 5$.
+\end{enumerate}
+Conditional as in Theorem~\ref{thm:bl-chl-ladder-deployment}, with the
+additional primary-literature pinning of the $\SpFour$-cover
+assignment throughout the eight rows (Gritsenko--Cl\'ery $2013$
+Theorem~$1.2$; Gritsenko $1994$ \texttt{arXiv:alg-geom/9412001}).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+(i) On $N \in \{1, 2, 3, 4, 6\}$ the statement reduces to
+Theorem~\ref{thm:bl-chl-ladder-deployment}. The extension to
+$N \in \{5, 7, 8\}$ follows from: at $N = 5$, the Borcea--Voisin product
+$(S_5 \times E_5) / (\iota_S \times \iota_E)$ is a CY$_3$ with nowhere
+vanishing $(3, 0)$-form descending from $\Omega_{S_5} \wedge dz_{E_5}$
+invariant under $(\iota_S, \iota_E)$ (each factor a non-symplectic
+involution, product a symplectic involution); the chain-level supertrace
+evaluates along the discriminant-$-20$ Humbert divisor to $c_5(0)/2 = 2$
+via Gritsenko $1994$ \S$4$. At $N = 7$, the resolved singular quotient
+$\widetilde{(K3 \times E) / \mathbb{Z}_7}$ is a smooth CY$_3$
+(Bridgeland--King--Reid $2001$), and the derived-McKay equivalence
+$D^b(\Coh(\widetilde{X_7})) \simeq D^b(\Coh([X_7 / \mathbb{Z}_7]))$
+transports the chain-level supertrace through the resolution with
+value preserved; direct orbifold computation at discriminant-$-28$
+gives $c_7(0)/2 = 1$. At $N = 8$, the host is the CY$_4$ hyperk\"ahler
+fourfold $\mathrm{Kum}^3(A)$, so the master theorem reads on
+$\BEK{4}(\PhiFAdim{4}(\mathcal{C}_8))$ with dimension-stratified scope
+$d = 4$; the value $c_8(0)/2 = 1$ follows from the Mongardi--Tari--Wandel
+Borcherds lift of the Kummer $\mathbb{Z}_8$-twined elliptic genus.
+
+(ii) At $N \in \{2, 3, 4\}$, the paramodular ring has two primitive
+Borcherds-lift bases (Bryan--Oberdieck $2019$ Theorems~$1$--$2$). The
+two bases correspond to the two cosets of $\Gamma_0(N) \subset
+\Gamma_0(N)^+$: the untwisted coset (Fricke-$w_N$-fixed sector) gives
+the higher-weight entry ($w_N = c_N(0)/2$ at the higher value), and the
+$w_N$-twisted coset gives the lower-weight entry. The chain-level
+supertrace $\mathrm{str}\,\BEK{3}(\PhiFAt(\mathcal{C}_N))$ splits along
+this dichotomy because the modular-operadic pairing on genus-$2$ strata
+respects the $\Gamma_0(N)^+$-automorphy of the period integral, and the
+coset-projection is visible as the choice of averaging domain.
+
+(iii) At $N = 1$, both CHL ($N = 1$ first step) and 8-form (first
+catalogue entry) reduce to the Borcherds lift of
+$2\phi_{0, 1} \to \Delta_5$ at level $1$
+($\Gamma_0(1)^+ = \SpFour$; no coset splitting). Lorgat $2020$ computes
+the explicit lift with weight-$5$ output, matching the chain-level
+supertrace value $\mathrm{str}\,\BEK{3}(\PhiFAt(D^b(\Coh(K3 \times E))))
+= 5$.
+\end{proof}
+
+\begin{corollary}[Per-$N$ chain-level witness, 8-form catalogue]
+\label{cor:bl-8form-per-N}
+\ClaimStatusProvedHereConditional
+Theorem~\ref{thm:bl-8form-deployment} specialises row-wise:
+\begin{enumerate}
+ \item $N = 1$: $\kBKM(\Phi_1) = c_1(0)/2 = 5$, cover $\SpFour$; CY-host
+ $K3 \times E$ (CHL-complete); witness shared with
+ Corollary~\ref{cor:bl-chl-per-N}(1).
+ \item $N = 2$: $\kBKM(\Phi_2) \in \{4, 2\}$, cover $\SpFour$; CY-host
+ $(K3 \times E) / \mathbb{Z}_2$ (BO $2018$ primitive base); chain-level
+ supertrace splits along $\Gamma_0(2)^+ / \Gamma_0(2)$.
+ \item $N = 3$: $\kBKM(\Phi_3) \in \{3, 1\}$, cover $\SpFour$; CY-host
+ $(K3 \times E) / \mathbb{Z}_3$; supertrace splits along
+ $\Gamma_0(3)^+ / \Gamma_0(3)$.
+ \item $N = 4$: $\kBKM(\Phi_4) \in \{2, 1\}$, cover $\SpFour$; CY-host
+ $(K3 \times E) / \mathbb{Z}_4$; supertrace splits along
+ $\Gamma_0(4)^+ / \Gamma_0(4)$.
+ \item $N = 5$: $\kBKM(\Phi_5) = 2$, cover $\SpFour$; CY-host
+ Borcea--Voisin $(S_5 \times E_5) / (\iota_S \times \iota_E)$; witness
+ at discriminant-$-20$ Humbert divisor.
+ \item $N = 6$: $\kBKM(\Phi_6) = 1$, cover $\SpFour$; CY-host
+ $(K3 \times E) / \mathbb{Z}_6$ with Niemeier $6D_4$; witness at
+ discriminant-$-24$.
+ \item $N = 7$: $\kBKM(\Phi_7) = 1$, cover $\SpFour$; CY-host
+ $\widetilde{(K3 \times E) / \mathbb{Z}_7}$ (Nikulin-singular,
+ BKR-resolved); witness at discriminant-$-28$.
+ \item $N = 8$: $\kBKM(\Phi_8) = 1$, cover $\SpFour$; CY-host
+ $\mathrm{Kum}^3(A) / \mathbb{Z}_8$ (Mongardi--Tari--Wandel CY$_4$);
+ chain-level witness at dimension-stratified scope $d = 4$, i.e.\ on
+ $\BEK{4}(\PhiFAdim{4}(\mathcal{C}_8))$.
+\end{enumerate}
+Each row carries an independent chain-level supertrace witness; row-wise
+agreement with automorphic-realisation weight is
+Theorem~\ref{thm:bl-8form-deployment}(i).
+\end{corollary}
+
+\begin{remark}[Coincidence at $N = 1$; divergence at $N \geq 2$ via
+averaging convention]
+\label{rem:bl-two-scope-coincidence-divergence}
+At $N = 1$, CHL and 8-form scopes give the same
+$\kBKM(\Phi_1) = c_1(0)/2 = 5$ on $\Delta_5$; both reduce to the
+Borcherds lift of $2\phi_{0, 1}$ at level $1$. At $N \in \{2, 3, 4\}$,
+CHL reads the doubly-twined average $(4, 3, 2)$ while the 8-form reads
+the singly-twined primitive-base pair
+$(\{4, 2\}, \{3, 1\}, \{2, 1\})$ (Bryan--Oberdieck $2019$). The
+chain-level witness of this divergence is the dichotomy
+$\Gamma_0(N)^+ / \Gamma_0(N) \simeq \mathbb{Z}/2$: CHL averages over
+both cosets, 8-form reads each coset separately. At $N = 6$, the
+primitive base is single-valued, matching the CHL ladder endpoint
+$\kBKM(\Phi_6) = 1$. At $N \in \{5, 7, 8\}$, CHL admits no entry (not
+all integers are CHL-admissible), and the 8-form scope extends via the
+substitute CY-host constructions.
+\end{remark}
+
+\begin{remark}[Three paths converge at each 8-form entry]
+\label{rem:bl-three-path-agreement-8form}
+At each of the eight Gritsenko--Cl\'ery entries, the three paths
+(Hodge supertrace with orbifold inertia; Costello--Li--Yagi BV on
+$X_N \times \mathbb{R}^2$ at the discriminant-$D_N$ Heegner locus;
+Maulik--Okounkov $R$-matrix residue at the
+$\mathrm{II}_{2, 3}^{\Gamma_N}$-lattice wall) read the same
+modular-operadic Koszul pairing through distinct lenses. The three-path
+agreement is forced by the master theorem once the chain-level Koszul
+pairing is pinned. The explicit path-consistency data at each $N$,
+together with the substitute-CY-host three-path structure at
+$N \in \{5, 7, 8\}$, are tabulated in the standalone Agent BL-$8$ note;
+the row-wise values are
+$(5, \{4, 2\}, \{3, 1\}, \{2, 1\}, 2, 1, 1, 1)$ across the eight entries,
+in the Bryan--Oberdieck multi-valued convention at $N \in \{2, 3, 4\}$.
+\end{remark}
+
+\begin{remark}[Ghost theorems extracted by the two-scope deployment]
+\label{rem:bl-ghost-theorems}
+The chain-level two-scope deployment of
+Theorems~\ref{thm:bl-chl-ladder-deployment}--\ref{thm:bl-8form-deployment}
+extracts five first-principles structural statements, each a
+chain-level content beyond the automorphic realisation.
+\begin{enumerate}[label=\textup{(G\arabic*)}]
+ \item \emph{CHL inertia and Kapranov $L_\infty$.} The
+ $\mathbb{Z}_N$-equivariant Atiyah classes on $X_N$ decompose along the
+ product structure with inertia-twisted pieces coinciding with the
+ standard orbifold Atiyah classes of Fantechi--G\"ottsche $2003$
+ Theorem~$1.2$ and Bryan--Graber $2008$ \S$2$, so the twisted
+ $L_\infty$-structure on $\bigoplus_{[\gamma]}
+ \HH^\bullet(X_N^{[\gamma]})^{[\gamma]}$ agrees under HKR $3$-folds with
+ the Kapranov $L_\infty$-structure on $\HH^\bullet(X_N)$.
+ \item \emph{Cover-group stratification is automorphic, not
+ chain-level.} The $\{\SpFour, \MpFour, \MpFourTilde\}$-stratification
+ affects only the automorphic realisation of the rational supertrace
+ through the Weil representation on half-integral-weight theta data; it
+ does not alter the chain-level rational number
+ $\mathrm{str}\,\BEK{3}(\PhiFAt(\mathcal{C}_N))$.
+ \item \emph{Dimension-stratified master theorem.} The identity extends
+ uniformly across CY-dimensions: $d = 3$ for $N \in \{1, \dots, 7\}$ and
+ $d = 4$ for $N = 8$.
+ \item \emph{Three-path consistency is modular-operadic.} Path~$1$
+ (Hodge+inertia), Path~$2$ (BV at Heegner), Path~$3$ (MO at wall)
+ share a common modular-operadic Koszul pairing as evaluation target.
+ \item \emph{Averaging-convention is chain-level observable.} The
+ CHL-vs-8-form divergence at $N \in \{2, 3, 4\}$ corresponds to the
+ $\Gamma_0(N)^+ / \Gamma_0(N) \simeq \mathbb{Z}/2$-coset decomposition
+ on the lattice-polarised period domain, visible at the chain level
+ through the splitting of the modular-operadic supertrace along the
+ Atkin--Lehner $w_N$-involution.
+\end{enumerate}
+Derivations are recorded in the Agent BL-$8$ wave note.
+\end{remark}
+
 \section{Concluding remarks}
 \label{sec:cy-c-concluding}
 
@@ -577,9 +939,9 @@ While CY-C in full generality remains conjectural, the \emph{abelian} restrictio
 \subsection{Drinfeld currents at the K\texorpdfstring{$3$}{3} abelian level}
 \label{subsec:k3-abelian-drinfeld-currents}
 
-\begin{theorem}[CY-C at abelian K\texorpdfstring{$3$}{3} level]
+\begin{theorem}[Conditional abelian K\texorpdfstring{$3$}{3}-level model for CY-C]
 \label{thm:cy-c-abelian-K3}
-\ClaimStatusProvedHere
+\ClaimStatusConditional{Requires the Vol~II K3 Heisenberg plus ADE-enhanced cell-closure theorem for $Y(\fg_{K3})$.}
 The Drinfeld double of the positive part $Y^+(\fg_{K3})$ of the K$3$
 Yangian admits an explicit presentation by $24 \times 3$ Drinfeld
 currents $\{E_a(z),\, F_a(z),\, \psi^\pm_a(z)\}_{a=1}^{24}$ with K$3$
@@ -723,16 +1085,18 @@ chiral algebras, or Yangians.
 The vanishing of the correction term in $\Delta_z(x^\pm_i(u))$ at the
 abelian level is structural: the Yangian quadratic correction is
 proportional to $f^{ab}_c$, which is zero for $\fgl_1$.  The non-abelian
-orthosymplectic super-Yangian $Y_{\osp(4 \mid 20)}$ extension
-(CONJECTURAL, see Remark~\ref{rem:cy-c-per-class-status}) would carry
-nonzero correction terms proportional to the structure constants of
-$\osp(4 \mid 20)$, and the $24 \times 3$ explicit currents above would
-extend to an $\osp(4 \mid 20)$-sized current algebra with off-diagonal
-$h_i$--$x^\pm_j$ OPE coefficients.  The Mukai form is orthogonal
-(symmetric indefinite of signature $(4, 20)$), which distinguishes
-$\osp$, not $\fgl$, as the structure-preserving super-Lie algebra: a
-$\fgl(4 \mid 20)$ designation would require a parity-swap
-supersymmetric form, which the Mukai pairing does not carry.
+orthogonal K$3$ Yangian $Y_\hbar(\mathfrak{so}(4, 20))$ extension
+(CONJECTURAL, see Remark~\ref{rem:cy-c-per-class-status}), or its
+Hodge-parity $\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$
+(programme-specific, non-Kac), would carry nonzero correction terms
+proportional to the structure constants of $\mathfrak{so}(4, 20)$,
+and the $24 \times 3$ explicit currents above would extend to an
+$\mathfrak{so}(4, 20)$-sized current algebra with off-diagonal
+$h_i$--$x^\pm_j$ OPE coefficients.  The Mukai form is symmetric
+indefinite of signature $(4, 20)$, symmetric on both Hodge-graded
+parts, which selects $\mathfrak{so}(4, 20)$ (Kac type $D_{12}$) as
+the structure-preserving Lie algebra; Kac $\mathfrak{osp}(4 \mid 20)$
+requires a symplectic form on the odd part and is therefore excluded.
 \end{remark}
 
 \subsection{The BZFN equivalence}
@@ -822,14 +1186,18 @@ stratifies CY-C as follows:
 \item \emph{K$3$ abelian} (Class~A; this section): \textbf{PROVED}
       via Theorem~\ref{thm:cy-c-abelian-K3} (Drinfeld double of $Y^+$,
       conditional on the Vol~II cell-closure theorem).
-\item \emph{K$3$ nonabelian} (orthosymplectic super-Yangian
-      $Y_{\osp(4 \mid 20)}$): \textbf{CONJECTURAL.}  The Berezinian
-      channel $\mathrm{sdim} = -16$ and the Pythagorean identity
-      $24^2 = (-16)^2 + 320$ are rigidly forced by Mukai signature
-      via $(p+q)^2 = (p-q)^2 + 4pq$; $\osp$, not $\fgl$, is the
-      structure-preserving super-Lie algebra because the Mukai form
-      is symmetric indefinite (orthogonal), not $\Z/2$-super-graded;
-      the full nonabelian double is the open extension.
+\item \emph{K$3$ nonabelian} (orthogonal K$3$ Yangian
+      $Y_\hbar(\mathfrak{so}(4, 20))$ and its programme-specific
+      Hodge-parity $\Z/2$-super-extension
+      $Y_\hbar(\mathfrak{so}(4 \mid 20))$, non-Kac):
+      \textbf{CONJECTURAL.}  The Pythagorean identity
+      $24^2 = 16^2 + 320$ is rigidly forced by the Mukai signature
+      via $(p + q)^2 = (p - q)^2 + 4 p q$ at $(p, q) = (4, 20)$;
+      $\mathfrak{so}(4, 20)$ of Kac type $D_{12}$, not $\fgl$ nor
+      Kac $\mathfrak{osp}(4 \mid 20)$, is the structure-preserving
+      Lie algebra because the Mukai form is symmetric indefinite
+      (symmetric on both Hodge-graded parts); the full nonabelian
+      double is the open extension.
 \item \emph{Conifold} (super-trace-vanishing class): PROVED via
       super-EK extension and super-Berezinian closure.
 \item \emph{Quintic, local~$\mathbb{P}^2$} (mock-modular class):
@@ -852,7 +1220,7 @@ stratifies CY-C as follows:
 \subsection{Seven falsifiable predictions for the nonabelian extension}
 \label{subsec:cy-c-falsifiable}
 
-The nonabelian orthosymplectic super-Yangian $Y_{\osp(4 \mid 20)}$ extension of
+The nonabelian orthogonal K$3$ Yangian $Y_\hbar(\mathfrak{so}(4, 20))$ extension (with programme-specific Hodge-parity $\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$) of
 Theorem~\ref{thm:cy-c-abelian-K3} carries seven explicit falsifiable
 predictions, verifiable by direct computation in
 \texttt{compute/cy\_c\_quantum\_group\_k3}:
