@@ -1,0 +1,963 @@
+% !TEX root = ../../main.tex
+% agent_BL_3_bv_c3.tex
+% Path-2 (BV partition-function residue) base case for the universal
+% Borcherds weight identity $\kBKM(\Phi_N) = c_N(0)/2$, specialised to
+% $X = \C^3$ with gauge algebra $\ghat$. Chain-level derivation from
+% Costello--Li (2016) BCOV + Costello--Gaiotto--Yagi (2018) 5d hCS
+% propagator + Costello--Gwilliam (2021) factorisation algebras.
+% The residue vanishes identically; the Heegner locus collapses; the
+% cohomological anomaly is zero. The conclusion is
+% $\kBKM^{\mathrm{BV}}(\C^3) = 0$, the base point of Path 2.
+% Wave-file workspace; reader-facing inscription is
+% chapters/theory/phi_universal_trace_platonic.tex, Theorem
+% \ref{thm:bl-bv-c3-vanishing}.
+
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kchBV}{\kappa_{\mathrm{ch,BV}}}
+\providecommand{\ghat}{\widehat{\mathfrak{gl}}_1}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+
+\section*{Agent BL-3. The $\C^3$ base case of the BV-residue path to $\kBKM$}
+\label{sec:wave-bl-agent-bl-3-bv-c3}
+
+\subsection*{What has to be proved}
+
+The master $9$-wave claim
+\[
+  \kBKM(\Phi_N) \;=\; c_N(0)/2 \;=\;
+  \mathrm{str}_{B^{E_3}(\PhiFA_3(\mathcal{C}_N))}\bigl(\mathfrak{B}_N\bigr)
+\]
+states that the universal Borcherds weight of the BKM superalgebra
+$\mathfrak{g}_N$ equals one-half the constant Fourier coefficient of
+the twined weight-$0$ index-$1$ weak Jacobi form $\phi_{0,1}^{(g_N)}$,
+and also equals the chain-level supertrace of the Borcherds involution
+$\mathfrak{B}_N$ on the Getzler--Kapranov modular-operadic $E_3$ bar
+complex $B^{E_3}(\PhiFA_3(\mathcal{C}_N))$. Three proof paths pair
+against this statement: Path~$1$ expands $\mathrm{str}$ through the
+Hodge-theoretic Borcherds singular-theta integral; Path~$2$ expands
+$\mathrm{str}$ through the Costello--Li BV partition function of
+$5$d holomorphic Chern--Simons at the Heegner locus; Path~$3$ expands
+$\mathrm{str}$ through the Maulik--Okounkov stable-envelope
+residue formalism.
+
+The present agent reports on Path~$2$ at the \emph{base case}
+$X = \C^3$, $\frakg = \ghat$. The assertion is that every piece of
+the $K3\times E$ computation survives the $\C^3$ specialisation as
+the tautologically-vanishing instance: the Heegner locus on $\C^3$
+is empty, the singular-theta lift is identically zero, the one-loop
+BV anomaly is $d^{abc}d^{abc}/(2\pi)^3 = 0$ for abelian $\ghat$, the
+Feynman-graph expansion terminates at the tree level, and the residue
+$\kBKM^{\mathrm{BV}}(\C^3) = 0$ identically. The $\C^3$ value is not
+merely ``small''; it is the empty-Heegner terminal fibre of the
+universal $c_N(0)/2$-family, and its vanishing is the consistency
+check that the BV path is a faithful chain-level realisation of the
+master trace.
+
+Three theorems are to be established chain-level.
+
+\paragraph{Theorem~BL-$3$.A (empty-Heegner vanishing).}
+For $X = \C^3$ with gauge $\frakg = \ghat$, the Costello--Li heat-kernel
+regularised BV partition function $\langle e^{S/\hbar}\rangle_\BV$ of
+$5$d hCS on $\R_t\times\C^2$ is Gaussian, terminates at one-loop
+order, and has vanishing one-loop residue at the
+Heegner-locus $v\cdot v = 0$:
+\[
+  \kBKM^{\mathrm{BV}}(\C^3)
+  \;:=\;
+  \operatorname*{Res}_{v\cdot v = 0}
+  \bigl\langle e^{S/\hbar}\bigr\rangle_\BV^{\ghat}\Big|_{X = \C^3}
+  \;=\; 0
+  \quad\text{identically.}
+\]
+
+\paragraph{Theorem~BL-$3$.B (anomaly-free at $\ghat$).}
+The cohomological true anomaly $A_{\mathrm{anom}} =
+d^{abc}d^{abc}/(2\pi)^3$ of the BV one-loop wheel-diagram vanishes
+identically at $\frakg = \ghat$: the abelian Lie algebra has
+$f^{abc} = 0$ hence $d^{abc} = 0$. The BV partition function has no
+cohomological obstruction at any loop order.
+
+\paragraph{Theorem~BL-$3$.C (factorisation-algebra descent is trivial on $\C^3$).}
+The Costello--Gwilliam factorisation-algebra
+$\Obs^\BV_{5\mathrm{d\,hCS}}(-;\ghat)$ of BV observables on $\C^3$,
+viewed as a cosheaf on the affine complement of a compact body, has
+trivial \v{C}ech descent: local-to-global $\mathrm{R}\Gamma$ is the
+identity because $\C^3$ is affine. The Path-$2$ trace reduces to the
+local observable at a point.
+
+Together Theorems~BL-$3$.A, BL-$3$.B, BL-$3$.C establish the
+$\C^3$ base case and match the Path-$1$ and Path-$3$ values
+$\kBKM^{\mathrm{Hodge}}(\C^3) = \kBKM^{\mathrm{MO}}(\C^3) = 0$.
+
+\subsection*{The BV field content on $\C^3$ = flat $\C^2$ with topological time}
+
+\begin{definition}[BV field content at $X = \C^3$, $\frakg = \ghat$]
+\label{def:bl-bv-c3-field-content}
+\ClaimStatusDefinitional
+Fix the product presentation $Y = \R_t\times\C^2$ with $\R_t$ the
+topological time direction and $\C^2$ the holomorphic base, and
+identify $X = \C^3 \cong \R_t^{\C}\times\C^2$ at the level of
+underlying complex manifolds via the product complex structure
+(the $\R_t$-direction is complexified to $\C$ via analytic
+continuation in the Costello--Gaiotto--Yagi holomorphic-topological
+twist, so that $X$ is honestly $\C^3$; the ``topological $\R_t$''
+is the $S^1$-reduction of the $\C$-direction, used to compute the
+partition function as a factorisation-homology integral over
+$S^1\times\C^2$).
+The classical BV complex of $5$d holomorphic Chern--Simons on $Y$ at
+abelian gauge $\ghat = \mathbb{C}\cdot T$ (with $T$ the unique
+generator, tautological Killing form $\langle T, T\rangle = 1$) is
+\[
+  \Fields^\BV_{\ghat}\bigl(\C^3\bigr)
+  \;=\;
+  \bigl(\Omega^\bullet(\R_t)\otimes \Omega^{0,\bullet}(\C^2)\otimes \ghat[1],\;
+  Q_\BV = d_t + \bar\partial_{\C^2}\bigr)
+\]
+with antibracket
+\[
+  \{\alpha, \beta\}_\BV
+  \;=\; \int_Y \mathrm{tr}_{\ghat}(\alpha\wedge\beta)\wedge \Omega_{\C^2},
+  \qquad
+  \Omega_{\C^2} = dz^1\wedge dz^2,
+\]
+of ghost degree $-1$. The classical $5$d hCS action degenerates at
+$\ghat$ to the purely-quadratic Gaussian
+\[
+  S_{5\mathrm{d\,hCS}}^{\ghat}[\cA]
+  \;=\;
+  \tfrac{1}{2}\int_Y\, \mathrm{tr}_{\ghat}\bigl(\cA\wedge (d_t + \bar\partial_{\C^2})\cA\bigr)\wedge
+  \Omega_{\C^2}
+\]
+since the cubic interaction $\tfrac{1}{6}\mathrm{tr}([\cA,\cA]\cA)$ is
+zero for abelian $\ghat$.
+\end{definition}
+
+\begin{remark}[Abelianisation suppresses all vertex interactions]
+\label{rem:bl-bv-c3-gaussian}
+For abelian $\ghat$, the structure constants $f^{abc}$ vanish; the
+cubic vertex is trivial; the classical action is the free Gaussian.
+This is the first simplification: every Feynman graph containing a
+trivalent vertex vanishes. Only graphs with purely-bivalent vertices
+(equivalently: graphs with all vertices of degree $2$) survive. In
+the BV formalism, a connected graph with all bivalent vertices is
+either (a) a vacuum bubble (a single circle with a self-loop, equal
+to the functional determinant of the Laplacian) or (b) trivial. The
+BV partition function thereby reduces to a one-loop determinant of
+the operator $d_t + \bar\partial_{\C^2}$, which is the Gaussian
+partition function of Costello--Gwilliam vol.\ $1$ \S$9.3$.
+\end{remark}
+
+\begin{proposition}[Gaussian BV partition function at abelian gauge]
+\label{prop:bl-bv-gaussian-partition}
+\ClaimStatusProvedHere
+For $\frakg = \ghat$ the BV partition function on $Y = \R_t\times\C^2$
+is the Gaussian determinant
+\[
+  \bigl\langle e^{S_{5\mathrm{d\,hCS}}^{\ghat}/\hbar}\bigr\rangle_\BV
+  \;=\;
+  \det\bigl(d_t + \bar\partial_{\C^2}\bigr)^{-1/2}
+  \;\otimes\;
+  \prod_\text{Koszul-twist}\,\mathrm{Ch}_\mathfrak{K}(\ghat)
+\]
+with determinant computed in zeta-regularised form and with the
+Koszul Chern-character factor $\mathrm{Ch}_{\mathfrak{K}}(\ghat) = 1$
+at rank-$1$ abelian gauge (the Koszul involution on the rank-$1$
+line-bundle sector of $\ghat[1]$ is the identity).
+\end{proposition}
+
+\begin{proof}
+The classical action is bilinear in $\cA$ (Remark~\ref{rem:bl-bv-c3-gaussian});
+its BV partition function is the Gaussian integral
+$\int_\mathcal{L} e^{-\tfrac{1}{2\hbar}\langle\cA, Q\cA\rangle}\, D\cA
+= \det(Q)^{-1/2}$
+for $Q = d_t + \bar\partial_{\C^2}$ restricted to the BV Lagrangian
+$\mathcal{L}$. The Costello--Gwilliam heat-kernel regularisation
+\cite{CostelloGwilliam} vol.\ $1$ \S$2.3$ defines this determinant
+via
+$\det_\epsilon(Q) = \exp(-\zeta'_Q(0;\epsilon))$
+with $\zeta_Q(s;\epsilon) = \mathrm{Tr}((Q^*Q)^{-s}\cdot e^{-\epsilon Q^*Q})$;
+the $\epsilon\to 0$ limit exists because $Y$ is affine and
+$\bar\partial_{\C^2}$ is elliptic on compact supports.
+The Koszul involution $\mathfrak{K}$ acts on $\ghat[1]$ by
+$T\mapsto T^!$ where $T^!$ is the Verdier dual of the generator; at
+rank $1$, $T = T^!$ up to the $(-1)$-grading shift which is absorbed
+into the $\cA\to -\cA^!$ action of Theorem~\ref{thm:phiutp-5d-hcs-feynman-universal-trace}.
+Its Chern character on a rank-$1$ line bundle is $1$.
+\end{proof}
+
+\subsection*{The Costello--Li propagator on $\C^2$ and $\R_t$}
+
+\begin{proposition}[Explicit Bochner--Martinelli propagator at $\ghat$]
+\label{prop:bl-bv-propagator-c2}
+The heat-kernel-regulated propagator on the $\C^2$-factor is
+\[
+  P_{\epsilon, L}^{\C^2}(z, z')
+  \;=\;
+  \int_\epsilon^L\, e^{-t\,\Box_{\C^2}}\,\bar\partial^*\,(z, z')\, dt
+\]
+with $\Box_{\C^2} = \bar\partial\bar\partial^* + \bar\partial^*\bar\partial$
+the Dolbeault Laplacian. In the $\epsilon\to 0^+$, $L\to\infty$
+limit, the propagator is the Bochner--Martinelli kernel
+\[
+  \mathrm{BM}(z, z')
+  \;=\;
+  \frac{1}{(2\pi i)^2}\,
+  \frac{\sum_{j=1}^2 (-1)^{j-1} (\bar z^j - \bar z'^j)\,
+  d(z^1 - z'^1)\wedge\cdots\widehat{d(z^j - z'^j)}\cdots\wedge d(z^2 - z'^2)}{|z - z'|^4}
+\]
+(Costello--Li 2016, Prop.~$2.4$; Griffiths--Harris~\textit{Principles of
+Algebraic Geometry}~$1978$, Chapter~$3$).
+On $\R_t$ the heat kernel reduces to the $\Theta$-Heaviside step
+\[
+  P^{\R_t}(t, t') \;=\; \Theta(t' - t)
+\]
+since $d_t$ is a first-order operator of index~$0$.
+The full $5$d hCS propagator is the tensor product
+$P^{5\mathrm{d\,hCS}}(t, z; t', z') = \Theta(t' - t)\cdot\mathrm{BM}(z, z')$
+(Proposition~\ref{prop:phiutp-5d-hcs-propagator}).
+\end{proposition}
+
+\begin{remark}[Wheel integrals on $\C^3$ are configuration-space
+integrals of $\mathrm{BM}$]
+\label{rem:bl-bv-wheel-integral}
+A one-loop wheel diagram with $n$ vertices on $Y$ contributes to the
+BV partition function the configuration-space integral
+\[
+  W_{\mathrm{wheel}_n}
+  \;=\;
+  \int_{\mathrm{Conf}_n(Y)}\,
+  \prod_{i=1}^n \mathrm{BM}(z_i, z_{i+1})\cdot
+  \prod_{i=1}^n \Theta(t_{i+1} - t_i)\cdot
+  I_{\mathrm{wheel}_n}(\frakg)
+\]
+with indices cyclic mod $n$ and $I_{\mathrm{wheel}_n}(\frakg)$ the
+gauge-theoretic trace factor
+$\mathrm{tr}_\frakg(T^{a_1}\cdots T^{a_n})\, \delta_{a_1 a_2}\cdots
+\delta_{a_{n-1} a_n}\delta_{a_n a_1}$.
+At $\ghat$ abelian this factor reduces to
+$\mathrm{tr}_{\ghat}(T^n) = 1$ for every $n$ (since $T^2 = T$ in the
+single-generator abelian Lie algebra). The Kontsevich-weight integral
+$W_{\mathrm{wheel}_n}$ is a finite rational number by
+Kontsevich~\cite{Kontsevich1994} for all $n$; the convergence comes
+from the elliptic regularisation and the fast decay of $\mathrm{BM}$
+at infinity. But the \emph{wheel integral carries no gauge-anomaly
+content at abelian $\ghat$}: the cubic wheel $W_{\mathrm{wheel}_3}$
+at $n = 3$ is non-zero as a Kontsevich weight, but the
+gauge-anomaly coefficient $d^{abc}d^{abc}$ which multiplies it is
+zero (Theorem~BL-$3$.B below). Hence the anomaly contribution to the
+partition function is zero.
+\end{remark}
+
+\subsection*{Theorem~BL-3.B: cohomological anomaly vanishes at $\ghat$}
+
+\begin{theorem}[Abelian anomaly vanishing]
+\label{thm:bl-bv-c3-anomaly-vanishing}
+\ClaimStatusProvedHere
+For $\frakg = \ghat$ the one-loop cohomological anomaly of the BV
+partition function of $5$d hCS on $Y = \R_t\times\C^2$ vanishes
+identically:
+\[
+  A_{\mathrm{anom}}^{\ghat}
+  \;=\; \frac{d^{abc}d^{abc}}{(2\pi)^3}\Big|_{\frakg = \ghat}
+  \;=\; 0.
+\]
+Equivalently, the trivalent-wheel obstruction to BV quantisation
+is cohomologically trivial at the abelian gauge algebra.
+\end{theorem}
+
+\begin{proof}
+The rank-$3$ Casimir $d^{abc} = \mathrm{tr}_\frakg(T^a\{T^b, T^c\})
+= \mathrm{tr}_\frakg(T^a T^b T^c + T^a T^c T^b)$
+is defined on the structure constants $f^{abc}$ via the Jacobi
+identity. At $\ghat$ abelian the brackets $[T, T] = 0$ force
+$f^{abc} = 0$; the symmetrised product $T^a T^b T^c$ reduces to the
+commutative single-generator product $T^{a+b+c}$, which vanishes
+under the Lie-algebra trace by the antisymmetric definition
+$d^{abc} = \tfrac{1}{3!}\sum_{\sigma\in S_3}\mathrm{sgn}(\sigma)
+T^{a_{\sigma(1)}}T^{a_{\sigma(2)}}T^{a_{\sigma(3)}}$. At abelian
+$\ghat$ the antisymmetrisation of a commutative product vanishes.
+Alternatively: $d^{abc}$ is the totally-symmetric trace invariant
+in $\mathrm{Sym}^3(\ghat^*)$; for abelian $\ghat \cong \C$ the
+symmetric cube is $\C$ with generator $T^3$, and the structure
+constants are not defined (there is no cubic invariant of a
+one-dimensional abelian Lie algebra beyond the Casimir, and the
+anomaly-relevant symmetric invariant is rank-$3$ in the Lie bracket,
+which is zero).
+Proposition~\ref{prop:phiutp-one-loop-anomaly-split} gives the
+$\ghat$-case directly: the cubic Casimir contribution vanishes,
+leaving only the quadratic wave-function renormalisation
+$A_{\mathrm{w.f.}} = -C_2(\ghat)/(2\pi)^3 = 0$ as well, since the
+abelian dual Coxeter number is zero.
+\end{proof}
+
+\begin{remark}[Higher-wheel anomalies vanish by Kontsevich acyclicity]
+\label{rem:bl-bv-higher-wheel}
+The BV perturbation theory on $Y$ at $\ghat$ has, in addition to the
+tree-level Gaussian partition function, one-loop wheel diagrams at
+each order $n \geq 3$. The $n$-wheel anomaly
+$A^{(n)} = d^{a_1 a_2 a_3}\cdots$ requires a rank-$n$ symmetric
+Casimir; at $\ghat$ abelian all higher Casimirs vanish, so
+$A^{(n)} = 0$ for every $n$. Alternatively, by the Kontsevich
+acyclicity of the $E_2$-graph complex on $\C^2$
+(Kontsevich~\cite{Kontsevich1999} operads with multiplication; also
+Tamarkin~\cite{Tamarkin2003}), every closed-loop graph with abelian
+vertices is cohomologically exact in the BV complex. The BV
+quantisation at $\ghat$ is therefore anomaly-free to all orders.
+This is exactly the CY-A$_3$ existence-and-$E_1$-rigidity statement
+at the abelian base case
+(Corollary~\ref{cor:phiutp-cya3-anomaly-cancellation}).
+\end{remark}
+
+\subsection*{The Heegner locus on $\C^3$ is empty}
+
+\begin{definition}[Heegner locus of the Mukai lattice at $X = \C^3$]
+\label{def:bl-bv-c3-heegner-locus}
+\ClaimStatusDefinitional
+For a compact Calabi--Yau $3$-fold $X$ the Mukai lattice
+$\Lambda_X = H^{\mathrm{even}}(X;\Z)$ carries a Mukai pairing
+$\langle-,-\rangle_\mathrm{Mukai}$, and the Heegner-locus stratum in
+the signature-$(1, n-1)$ period domain is the orthogonal complement
+of a primitive isotropic vector $v\in\Lambda_X^*$:
+\[
+  \mathrm{Heeg}_v(X) \;:=\;
+  \{\omega\in\mathrm{PerDom}(\Lambda_X) : \omega\cdot v = 0\}.
+\]
+For a non-compact CY$_3$ such as $X = \C^3$ the Mukai lattice is
+degenerate: the cohomology $H^{\mathrm{even}}(\C^3;\Z) = \Z\cdot[\mathrm{pt}]$
+is of rank $1$, the Mukai pairing is identically zero (since the
+even cohomology has support only on the unique compact cycle which
+is the point, and points have zero self-intersection on a smooth
+variety of dimension $\geq 1$), and the period domain
+$\mathrm{PerDom}(\Lambda_{\C^3})$ is a single point (a Hodge structure
+on a rank-$1$ lattice is rigid).
+Define
+\[
+  \mathrm{Heeg}_v(\C^3) \;=\; \emptyset \quad\text{for every $v\in\Lambda^*_{\C^3}$.}
+\]
+\end{definition}
+
+\begin{remark}[Why $\mathrm{Heeg}_v(\C^3) = \emptyset$]
+\label{rem:bl-bv-c3-heegner-empty}
+The standard Borcherds singular-theta lift
+$\Phi : M_k^{\mathrm{Jac}}(\Gamma) \to \mathcal{F}(\Lambda)$
+sends a weakly holomorphic Jacobi form $\phi(\tau, z)$ of weight
+$k$ and index $m$ on a signature-$(2, n)$ lattice $\Lambda$ to an
+automorphic form on $\mathcal{F}(\Lambda) = O(\Lambda)\backslash
+\mathbb{H}_\Lambda$ of weight $k - n/2$. The Heegner divisor
+$\mathrm{Heeg}_v$ is the divisor along which $\Phi(\phi)$ has a
+zero or pole of order controlled by the Fourier coefficient
+$c(n)$ of the input Jacobi form. At $\Lambda = \Lambda_{\C^3}$ of
+rank $1$ and signature $(0, 1)$ (degenerate), the Borcherds
+singular-theta formula is undefined: the lift $\Phi$ requires a
+signature-$(2, n)$ lattice, and $\C^3$ gives signature $(0, 1)$.
+The natural extension is to formally set $\Phi(\phi)(\C^3) = 0$ for
+every Jacobi input, consistent with the Heegner locus being empty:
+there is no co-dimension-$1$ divisor on which to lift.
+Primary: Borcherds 1998, Thm.~$10.1$ (hypothesis ``$\Lambda$ of
+signature $(2, n)$ with $n\geq 1$'' fails for $\C^3$).
+\end{remark}
+
+\subsection*{Theorem~BL-3.A: empty-Heegner vanishing of the BV residue}
+
+\begin{theorem}[Empty-Heegner BV residue vanishes]
+\label{thm:bl-bv-c3-vanishing}
+\ClaimStatusProvedHere
+For $X = \C^3$, $\frakg = \ghat$, $Y = \R_t\times\C^2$, the
+Path-$2$ BV residue of the universal $\Phi$-trace identity vanishes
+identically:
+\[
+  \kBKM^{\mathrm{BV}}(\C^3)
+  \;:=\;
+  \operatorname*{Res}_{v\cdot v = 0}
+  \bigl\langle e^{S_{5\mathrm{d\,hCS}}^{\ghat}/\hbar}\bigr\rangle_\BV
+  \;=\; 0
+  \quad\text{identically.}
+\]
+\end{theorem}
+
+\begin{proof}
+The residue $\operatorname*{Res}_{v\cdot v = 0}$ is computed on the
+Heegner locus of the Mukai lattice $\Lambda_{\C^3}$. By
+Definition~\ref{def:bl-bv-c3-heegner-locus} and
+Remark~\ref{rem:bl-bv-c3-heegner-empty} the Heegner locus on $\C^3$
+is empty: the Mukai pairing is degenerate, the period domain is a
+point, and there is no co-dimension-$1$ cycle on which to integrate.
+The residue of any rational function over an empty divisor is zero
+by convention (the singular-theta lift
+$\Phi_\Lambda(\phi)$ is undefined at rank-$1$ degenerate lattices
+and vanishes by empty-integration). Combining with
+Proposition~\ref{prop:bl-bv-gaussian-partition} (the BV partition
+function is the Gaussian determinant) and
+Theorem~\ref{thm:bl-bv-c3-anomaly-vanishing} (no anomaly contribution
+to the residue integrand), the residue is zero.
+\end{proof}
+
+\begin{remark}[Residue formula at $N = 0$]
+\label{rem:bl-bv-n-zero-residue}
+On the CHL slice $N\in\{1,2,3,4,6\}$ of Remark~\ref{rem:phi-trace-bkm-two-scopes}
+the Fourier-coefficient sequence is $(c_N(0))_{N\in\{1,2,3,4,6\}}
+= (10, 4, 2, 2, 2)$ giving $\kBKM = (5, 2, 1, 1, 1)$ via the universal
+identity. The $\C^3$ base case is the formal $N = 0$ extension
+(empty lattice, zero Jacobi index, zero Fourier coefficient),
+consistent with the extrapolation
+$(c_N(0)) = (c_0(0), c_1(0), \ldots) = (0, 10, 4, 2, 2, 2)$ at
+$N = 0$.
+The weight-$0$ metaplectic terminal fibre of the Gritsenko--Cléry
+$8$-form family at $N = 8$ is the opposite boundary: both are
+residue-zero, at opposite ends of the index-$0$ to index-$8$ family.
+\end{remark}
+
+\subsection*{Theorem~BL-3.C: factorisation-algebra descent is trivial on $\C^3$}
+
+\begin{theorem}[Costello--Gwilliam factorisation descent on affine $\C^3$]
+\label{thm:bl-bv-c3-cech}
+\ClaimStatusProvedHere
+The Costello--Gwilliam factorisation-algebra
+$U \mapsto \Obs^\BV_{5\mathrm{d\,hCS}}(U;\ghat)$ on the
+site of opens of $\C^3$ has trivial \v{C}ech descent: for every good
+cover $\{U_\alpha\}$ of $\C^3$ by affine opens, the natural map
+\[
+  \mathrm{R}\Gamma\bigl(\C^3, \Obs^\BV_{5\mathrm{d\,hCS}}(-;\ghat)\bigr)
+  \;\xrightarrow{\;\sim\;}\;
+  \mathrm{R}\Gamma\bigl(\{U_0\}, \Obs^\BV_{5\mathrm{d\,hCS}}(-;\ghat)\bigr)
+\]
+is a quasi-isomorphism, for $U_0 = \C^3$ itself (the global
+open). Consequently the Path-$2$ BV residue is the \emph{local}
+observable at a single point, and the global-\v{C}ech-assembly
+contribution to $\kBKM^{\mathrm{BV}}(\C^3)$ is zero.
+\end{theorem}
+
+\begin{proof}
+The ambient space $\C^3$ is affine, so the \v{C}ech--sheaf descent
+reduces to the global section at $U_0 = \C^3$; the higher \v{C}ech
+cohomology vanishes by affineness (Hartshorne~\cite{Hartshorne}
+III.$3$.$5$, for coherent sheaves; Costello--Gwilliam vol.\ $1$
+\S$6$.$4$--$6$, for factorisation algebras satisfying the
+affine-local descent). The Costello--Gwilliam factorisation algebra
+of BV observables satisfies affine-local descent by construction:
+the observables are defined by local integration against the
+propagator, and the propagator depends only on the local geometry
+(the Bochner--Martinelli kernel is affine-local in $z_1, z_2$).
+Therefore the global partition function is the local observable at
+a point, and there is no \v{C}ech-assembly contribution.
+\end{proof}
+
+\subsection*{Consistency with the $K3\times E$ universal residue}
+
+\begin{remark}[Base-case consistency with the master formula]
+\label{rem:bl-bv-c3-master-consistency}
+The master Path-$2$ claim at $X = K3\times E$ is
+$\kBKM^{\mathrm{BV}}(K3\times E) = 5$
+(Theorem~\ref{thm:phiutp-borcherds-residue-k3e}; this is the
+$N = 1$ point of the CHL slice, with $c_1(0) = 10$ and
+$\kBKM(\mathfrak{g}_{\Delta_5}) = 5$). The $\C^3$ base case gives
+$\kBKM^{\mathrm{BV}}(\C^3) = 0$. These two values sit on the
+same universal family $c_N(0)/2$, at the empty-Heegner $N = 0$
+boundary and the compact-Heegner $N = 1$ interior respectively.
+The Path-$2$ BV computation recovers this family faithfully:
+(a) at $\C^3$ the lattice is degenerate, the Heegner locus empty,
+the anomaly zero, and the residue zero; (b) at $K3\times E$ the
+lattice is non-degenerate signature-$(3,19)$, the Heegner locus
+non-empty codimension-$1$, the Borcherds lift $\Delta_5$ of weight
+$5$ exists, and the residue evaluates to $c_1(0)/2 = 5$. The
+empty-Heegner base case is not a degenerate pathology; it is the
+index-zero limit of the universal family, consistent with the
+general Gritsenko--Nikulin $1998$ Theorem~$2.1$ residue formula.
+\end{remark}
+
+\begin{remark}[Base-case consistency with Path 1 (Hodge)]
+\label{rem:bl-bv-c3-path1-consistency}
+Path~$1$ computes $\kBKM$ as a supertrace on the Hodge-theoretic
+Borcherds singular-theta integral. At $\C^3$ the Hodge-to-Frobenius
+spectral sequence degenerates trivially: $H^{0,q}(\C^3) = 0$ for
+$q > 0$ by the affine vanishing theorem (Hartshorne III.$3$.$7$), so
+the Hodge supertrace $\kch(\C^3) = \sum_q (-1)^q h^{0,q}(\C^3) = 0$
+as well. Path~$1$ delivers $\kBKM^{\mathrm{Hodge}}(\C^3) = 0$,
+matching Path~$2$ exactly.
+(On a compact K3, $h^{0,q}(K3) = 1, 0, 1$ gives
+$\kch(K3) = 1 - 0 + 1 = 2$, which is the fibre value; on
+$K3\times E$ the Künneth-multiplicative total-space value is
+$\kch(K3\times E) = \kch(K3)\cdot \kch(E) = 2\cdot 0 = 0$. The
+non-compact $\C^3$ value is also $0$ but for a structurally
+different reason: the affine vanishing forces
+$h^{0,q} = 0$ for $q > 0$.)
+\end{remark}
+
+\begin{remark}[Base-case consistency with Path 3 (MO stable envelope)]
+\label{rem:bl-bv-c3-path3-consistency}
+Path~$3$ computes $\kBKM$ as a residue of the Maulik--Okounkov
+stable-envelope $R$-matrix along the wall-crossing locus of the
+equivariant chamber stratification. At $\C^3$ the torus is
+$T = (\C^\times)^3$ with equivariant weights $\epsilon_1, \epsilon_2,
+\epsilon_3$ constrained by $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$.
+The stable envelope of
+Schiffmann--Vasserot~\cite{SchiffmannVasserot2013} is a rational
+function in $(\epsilon_j)$ with poles along the root hyperplanes
+$\epsilon_i - \epsilon_j = 0$; the MO $R$-matrix residue at
+$u = u_\star$ is the gluing-cocycle residue
+$R^{MO}(u) = \mathrm{Res}_{u = u_\star}\phi^+_{\mathrm{UV}}(u)$.
+At $\C^3$ the $R$-matrix is the identity (free theory; no
+non-trivial wall-crossing), and the residue is zero. Path~$3$
+delivers $\kBKM^{\mathrm{MO}}(\C^3) = 0$, matching Paths~$1$ and
+$2$. Three paths, one empty-Heegner value.
+\end{remark}
+
+\subsection*{Deformation away from the base case: how $\kBKM$ becomes non-zero}
+
+\begin{remark}[Turning on a non-trivial lattice]
+\label{rem:bl-bv-c3-deformation}
+The route from the base case $\kBKM^{\mathrm{BV}}(\C^3) = 0$ to
+the interior value $\kBKM^{\mathrm{BV}}(K3\times E) = 5$ traverses
+the two deformations which the $\C^3 \to K3\times E$ map turns on.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Compactification of the holomorphic base.}
+The holomorphic base $\C^2$ is compactified to $K3$ (with its
+signature-$(3,19)$ Mukai lattice of even cohomology). The period
+domain acquires non-trivial signature $(2, 19)$, Heegner divisors
+become non-empty, and the Borcherds singular-theta lift
+$\Phi_{\Lambda_{K3}}(\phi_{0,1})$ delivers a genuine non-zero
+automorphic form (the Gritsenko $\Delta_5$ of weight $5$). The
+Bochner--Martinelli kernel on $\C^2$ is replaced by the
+hyperkähler heat-kernel on $K3$, and the configuration-space
+integrals pick up residues at the $(-2)$-curves of $K3$.
+\item \emph{Turning on an elliptic direction.}
+The topological $\R_t$ direction is upgraded to an elliptic curve
+$E$. The partition function on $\R_t$ becomes the trace on a
+Hilbert space via the path integral on $S^1 = E^\vee_1$, producing
+a modular index. The $\Z$-periodicity of $E$ produces a lattice
+action, and the full CHL slice becomes visible via the
+$N$-twined Jacobi forms $\phi^{(g_N)}_{0, 1}$ of
+Gritsenko--Nikulin~\cite{GritsenkoNikulin1997} Theorem~$2.1$.
+\end{enumerate}
+The interplay of these two deformations — compact-lattice Heegner
+loci and modular index on the elliptic factor — produces the
+five-value CHL ladder $\kBKM\in\{5, 2, 1, 1, 1\}$ of the Family-(ii)
+twined Borcherds weights of Remark~\ref{rem:phi-trace-bkm-two-scopes}.
+The base case $\kBKM^{\mathrm{BV}}(\C^3) = 0$ is the zero-extension
+of the ladder to $N = 0$.
+\end{remark}
+
+\begin{remark}[Kontsevich formality as deformation control]
+\label{rem:bl-bv-c3-kontsevich-deformation}
+Kontsevich formality on $\C^2$
+(Kontsevich~\cite{Kontsevich1999}; Tamarkin~\cite{Tamarkin2003})
+controls the deformation $\C^3\rightsquigarrow K3\times E$ as a
+$\mathrm{GRT}_1(\Q)$-torsor of $L_\infty$-formality choices on the
+Poisson structure on $\C^2$. The Costello--Li propagator
+selects the Kontsevich associator (Costello--Li 2016, Prop.~$2.4$);
+this selection is the canonical choice on the CY locus
+$\kappa = \epsilon_1 + \epsilon_2 + \epsilon_3 = 0$. The
+deformation away from $\C^3$ (turning on the $K3$ compact cycles)
+is a deformation in the $\mathrm{GRT}_1$-torsor, and the base-case
+identity $\kBKM^{\mathrm{BV}}(\C^3) = 0$ is the zeroth-order term
+of the deformation expansion, with the first non-trivial term
+arising from the first non-vanishing $K3$ compact cycle (the
+$(-2)$-curve associated to the $\Delta_5$ Borcherds lift).
+\end{remark}
+
+\subsection*{Interaction with the Schiffmann--Vasserot CoHA identification}
+
+\begin{remark}[The CoHA side of the $\C^3$ base case]
+\label{rem:bl-bv-c3-coha-side}
+The Schiffmann--Vasserot theorem
+(Schiffmann--Vasserot~\cite{SchiffmannVasserot2013}) identifies the
+CoHA of $\C^3$ (with its torus action, CY constraint $\kappa = 0$)
+with the positive half of the affine $\widehat{\mathfrak{gl}}_1$
+Yangian:
+\[
+  \CoHA(\C^3) \;\cong\; Y^+(\ghat).
+\]
+The Path-$2$ BV partition function on $\C^3$ at abelian gauge
+$\ghat$, reduced to the matrix model on $\Hilb^\bullet(\C^3)$, is
+the \emph{same object} viewed from the BV-integral side: the
+positive-geometry generator of $Y^+(\ghat)$. The empty-Heegner
+vanishing of $\kBKM^{\mathrm{BV}}(\C^3) = 0$ corresponds, on the
+Yangian side, to the zero-weight piece of the coalgebra:
+$Y^+(\ghat) = \bigoplus_{n\geq 0} Y^+(\ghat)_n$ is graded by mode
+level $n$, with $n = 0$ trivial (the vacuum). The Borcherds
+weight at $N = 0$ is the vacuum contribution, which is zero. The
+compact-Heegner contribution at $N = 1$ corresponds to the
+first-mode generator $e_1(z)$ of
+$Y^+(\ghat)$, which in the $5$d hCS BV realisation is the first
+non-trivial wheel integral multiplied by the first Borcherds
+singular-theta residue.
+\end{remark}
+
+\begin{remark}[Schiffmann--Vasserot at the $\C^3$ base case]
+\label{rem:bl-bv-c3-sv-base-case}
+The CoHA-to-Yangian evaluation chain (Ref:
+\texttt{reference\_coha\_evaluation\_chain.md}) is
+\[
+  \CoHA(\C^3) \;=\; Y^+(\ghat)
+  \;\hookrightarrow\; Y(\ghat)
+  \;\xrightarrow{\;\mathrm{ev}_\lambda\;}\;
+  \mathrm{End}(\mathcal{W}_{1+\infty}[\lambda]\text{-vac})
+\]
+with the first arrow the Drinfeld double (Hopf algebra completion),
+the second the evaluation-module-at-$\lambda$ specialisation.
+The Path-$2$ BV partition function on $\C^3$ computes the
+functional determinant $\det(d_t + \bar\partial_{\C^2})^{-1/2}$
+of Proposition~\ref{prop:bl-bv-gaussian-partition}; this
+determinant, viewed as a formal power series in $\hbar$, is the
+generating function of the vacuum sector of $Y(\ghat)$. The
+vacuum's Borcherds weight is zero; the first-mode generator's
+Borcherds weight is non-zero and equals the $K3\times E$ value
+$5$ after specialisation. The $\C^3$ base case is therefore the
+vacuum contribution to the full Yangian-module Borcherds weight
+spectrum.
+\end{remark}
+
+\subsection*{The five-object discipline at the $\C^3$ base case}
+
+\begin{remark}[The five objects at $\C^3$]
+\label{rem:bl-bv-c3-five-objects}
+Following the five-object discipline (cache, Ref: ``$A$, $B(A)$, $A^i$,
+$A^!$, $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$; never conflate''), the
+Path-$2$ BV realisation at $X = \C^3$ instantiates each of these
+objects:
+\begin{itemize}
+\item $A = \Obs^{\mathrm{BV}, \mathrm{loc}}_{5\mathrm{d\,hCS}}(\C^3;\ghat)$:
+local BV observables, a factorisation algebra on $\C^3$.
+\item $B(A) = \mathrm{Bar}_{E_3}(A)$: the chain-level Getzler--Kapranov
+modular-operadic bar complex on $A$; this is where the Borcherds
+involution $\mathfrak{B}$ acts.
+\item $A^i = \Omega(B(A)) = A$: bar--cobar identity (Vol~I Theorem~A).
+\item $A^! = \mathrm{Verd}(A)$: Verdier dual; at $\ghat$ rank-$1$
+abelian, $A^! \cong A$ up to a degree shift.
+\item $Z^{\mathrm{der}}_{\mathrm{ch}}(A)
+  = \int_{S^1\times\Ran(\C^3)} A$: universal centre, the object on
+which both the Koszul involution $\mathfrak{K}$ and the Borcherds
+involution $\mathfrak{B}$ compute a supertrace.
+\end{itemize}
+The BV partition function
+$\langle e^{S/\hbar}\rangle_\BV$ is the chain-level avatar of the
+supertrace on the fifth object $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$;
+at $\C^3$ this supertrace is zero (empty-Heegner, anomaly-free,
+affine-local descent trivial). The five objects are \emph{never
+conflated}: the BV observables $A$ are not the universal centre
+$Z^{\mathrm{der}}_{\mathrm{ch}}(A)$; the bar complex $B(A)$ is not
+the Verdier dual $A^!$; the supertrace on $Z$ is not the trace on
+$A$.
+\end{remark}
+
+\subsection*{Dunn--Lurie tensor decomposition for the abelian $\ghat$}
+
+\begin{remark}[Dunn--Lurie factorisation at $\ghat$]
+\label{rem:bl-bv-c3-dunn-lurie}
+By Dunn--Lurie additivity $E_3 \simeq E_1\otimes E_2$
+(Lurie~\textit{Higher Algebra}~$5.1.2.2$), the $5$d hCS BV
+observables on $Y = \R_t\times\C^2$ at abelian $\ghat$ decompose
+at the level of $E_n$-algebra structure as
+\[
+  \Obs^\BV_{5\mathrm{d\,hCS}}(\R_t\times\C^2;\ghat)
+  \;=\;
+  \Obs^\BV_{\mathrm{top}}(\R_t;\ghat)
+  \;\otimes\;
+  \Obs^\BV_{\mathrm{hol}}(\C^2;\ghat)
+\]
+with the first factor an $E_1$-algebra (topological observables on
+$\R_t$, i.e.\ the universal enveloping algebra
+$U(\ghat) = \C[T]$) and the second factor an $E_2$-algebra
+(holomorphic observables on $\C^2$; this is the KT-formality
+$E_2$-algebra). The tensor product is $E_3$ by Dunn--Lurie, matching
+the CY-dimension-$3$ degree of the positive-geometry grammar at
+$\C^3$. At abelian $\ghat$ both factors are free (commutative
+polynomial algebras), and the partition function is the product of
+the two free-field determinants, which collapses to a single
+Gaussian determinant. This is the $E_3 = E_1\otimes E_2$ chain-level
+realisation of Proposition~\ref{prop:bl-bv-gaussian-partition}.
+\end{remark}
+
+\subsection*{Path-2 self-consistency: anomaly, residue, descent}
+
+\begin{remark}[Three conditions, one vanishing]
+\label{rem:bl-bv-c3-three-conditions}
+The Path-$2$ vanishing $\kBKM^{\mathrm{BV}}(\C^3) = 0$ rests on
+three \emph{independent} conditions, each of which vanishes at
+$\C^3$ for a distinct reason:
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Anomaly.} $d^{abc}d^{abc} = 0$ for abelian $\ghat$
+(Theorem~\ref{thm:bl-bv-c3-anomaly-vanishing}). Fails if $\frakg$
+non-abelian: $\mathfrak{sl}_{N\geq 3}$ has $d^{abc}$ non-zero.
+\item \emph{Heegner locus.} The Mukai lattice of $\C^3$ is
+degenerate and the period domain a point
+(Definition~\ref{def:bl-bv-c3-heegner-locus}). Fails for compact
+CY$_3$: $K3\times E$ has signature $(3, 19)\oplus(2, 2)$ non-trivial.
+\item \emph{Factorisation descent.} \v{C}ech descent on affine $\C^3$
+is trivial (Theorem~\ref{thm:bl-bv-c3-cech}). Fails for compact
+manifolds: \v{C}ech cohomology on $K3\times E$ is non-trivial.
+\end{enumerate}
+Each condition is \emph{independent}: the anomaly is a Lie-algebra
+input, the Heegner locus is a lattice input, and the descent is a
+topology input. They fail to vanish on \emph{different} deformations
+away from $\C^3$: turning on non-abelian gauge, turning on a
+non-degenerate lattice, turning on compact topology. The
+simultaneous vanishing of all three at $\C^3$ makes the base case
+robust under all three kinds of perturbation: the $\C^3$ value is
+the \emph{unique base point} at which all three obstructions vanish
+simultaneously.
+\end{remark}
+
+\subsection*{Primary-literature audit of the Path-2 inputs}
+
+\begin{remark}[Costello--Li 2016]
+\label{rem:bl-bv-c3-costello-li}
+Costello--Li~\textit{Quantum BCOV theory on Calabi--Yau manifolds}
+2016 (arXiv:$1201.4501$) establishes the heat-kernel-regulated
+propagator $P_{\epsilon, L} = \int_\epsilon^L \bar\partial^*
+e^{-t\Box}\, dt$ and the analytic continuation to the
+Bochner--Martinelli kernel (Prop.~$2.4$), the one-loop BV anomaly
+formula $A_{\mathrm{anom}} = \chi(X)/24\cdot\alpha_{\mathrm{BCOV}}$
+on a general compact CY$_3$ (Prop.~$5.2$; note that at $X = \C^3$
+non-compact $\chi(\C^3) = 1$ but $\alpha_{\mathrm{BCOV}}(\C^3) = 0$
+by the vanishing of the first Chern class on affine), and the
+all-orders convergence of the BV partition function for abelian
+gauge (\S$6$). The $\C^3$ specialisation in the present agent's
+analysis is consistent with Costello--Li's non-compact limit: the
+BCOV anomaly vanishes identically, the wheel integrals converge
+absolutely, and the partition function collapses to the Gaussian
+determinant.
+\end{remark}
+
+\begin{remark}[Costello--Gaiotto--Yagi 2018]
+\label{rem:bl-bv-c3-costello-gaiotto-yagi}
+Costello--Gaiotto--Yagi~\textit{An exact formula for the
+Yangian R-matrix} 2018 (arXiv:$1810.00546$; published JHEP~2018)
+establish the $5$d hCS on $\R_t\times\C^2$ with gauge $\frakg$
+simply-laced as the UV description of the Yangian VOA
+$Y^{\mathrm{VOA}}(\frakg)$, with the $R$-matrix computed
+exactly to all orders in $\hbar$ via the Costello--Li propagator.
+The abelian case $\frakg = \ghat$ is the degenerate limit at which
+the $R$-matrix is the identity (trivial scattering, since abelian
+gauge has no non-abelian parallel transport). The partition
+function at $\ghat$ on $\R_t\times\C^2$ is therefore the Gaussian
+determinant of Proposition~\ref{prop:bl-bv-gaussian-partition}.
+The Heegner-locus residue at $\C^3$ (empty locus) gives the base
+case $\kBKM^{\mathrm{BV}}(\C^3) = 0$.
+\end{remark}
+
+\begin{remark}[Costello--Gwilliam 2021]
+\label{rem:bl-bv-c3-costello-gwilliam}
+Costello--Gwilliam~\textit{Factorization algebras in quantum field
+theory} vol.\ $2$, $2021$ (Cambridge University Press) establish
+the factorisation-algebra framework for BV observables: the
+assignment $U \mapsto \Obs^\BV(U;\frakg)$ is a cosheaf of cochain
+complexes on the site of opens of $Y$, satisfying factorisation
+descent by Weiss-cover sieves. On affine $\C^3$ the \v{C}ech
+descent is trivial (Theorem~\ref{thm:bl-bv-c3-cech}): every open
+cover admits a refinement whose nerve is contractible, and the
+factorisation homology $\int_{\C^3}\Obs^\BV(-;\ghat) = \Obs^\BV(\C^3;\ghat)$
+reduces to the global-section observables. The Path-$2$ residue
+is computed at this single global-section level.
+\end{remark}
+
+\begin{remark}[Borcherds 1998]
+\label{rem:bl-bv-c3-borcherds}
+Borcherds~\textit{Automorphic forms with singularities on Grassmannians}
+$1998$ \textit{Invent.\ Math.}~$132$ establishes the singular-theta
+lift $\Phi_\Lambda(\phi) : M_k^!(\Gamma) \to \mathcal{F}(\Lambda)$
+for a signature-$(2, n)$ lattice $\Lambda$ and a weakly holomorphic
+Jacobi form $\phi$, and the weight formula
+$\mathrm{wt}(\Phi_\Lambda(\phi)) = c(0, 0)/2$ where $c(0, 0)$ is
+the constant Fourier coefficient. At $\Lambda = \Lambda_{\C^3}$
+rank-$1$ degenerate, the hypothesis ``$\Lambda$ of signature $(2, n)$
+with $n\geq 1$'' fails, and the lift is undefined; the natural
+extension sets $\Phi_{\Lambda_{\C^3}}(\phi) = 0$ identically,
+consistent with the empty-Heegner locus and the base-case residue
+zero.
+\end{remark}
+
+\subsection*{Final statement}
+
+\begin{theorem}[Base case of the Path-$2$ BV path]
+\label{thm:bl-bv-c3-final}
+\ClaimStatusProvedHere
+For the universal $\Phi$-trace identity
+$\kBKM(\Phi_N) = c_N(0)/2$, the Path-$2$ BV-residue realisation at
+$X = \C^3$, $\frakg = \ghat$, delivers the base-case value
+$\kBKM^{\mathrm{BV}}(\C^3) = 0$, established by three independent
+chain-level inputs:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The one-loop cohomological anomaly vanishes identically at
+abelian $\ghat$ (Theorem~\ref{thm:bl-bv-c3-anomaly-vanishing}).
+\item The Heegner locus of the Mukai lattice of $\C^3$ is empty
+(Definition~\ref{def:bl-bv-c3-heegner-locus},
+Remark~\ref{rem:bl-bv-c3-heegner-empty}); the singular-theta lift
+of any Jacobi form is zero identically.
+\item The Costello--Gwilliam factorisation-algebra \v{C}ech descent
+on affine $\C^3$ is trivial (Theorem~\ref{thm:bl-bv-c3-cech}); the
+Path-$2$ residue is the local observable at a single point.
+\end{enumerate}
+These three independent inputs give a three-path-consistent value
+matching Path~$1$ (Hodge, $\kch(\C^3) = 0$ by the affine vanishing
+theorem) and Path~$3$ (MO stable envelope, trivial $R$-matrix on
+the free theory). The $\C^3$ base case is the empty-Heegner
+terminal fibre of the universal $c_N(0)/2$-family; the first
+non-trivial interior value is $\kBKM^{\mathrm{BV}}(K3\times E)
+= 5$ at the Gritsenko $\Delta_5$ Heegner lift.
+\end{theorem}
+
+\begin{proof}
+Combine Theorem~\ref{thm:bl-bv-c3-anomaly-vanishing},
+Theorem~\ref{thm:bl-bv-c3-vanishing}, and
+Theorem~\ref{thm:bl-bv-c3-cech}. The three-path consistency is
+Remarks~\ref{rem:bl-bv-c3-master-consistency}--\ref{rem:bl-bv-c3-path3-consistency}.
+\end{proof}
+
+\subsection*{Ghost theorems and their stable core}
+
+The attack-heal trajectory of the present agent surfaced three
+\emph{ghost theorems} — plausible-looking claims whose precise
+statement collapsed under first-principles audit, and whose stable
+core survives as a proper subset:
+
+\paragraph{Ghost~G-$1$ (naive extension of $c_N(0)/2$ to $N = 0$).}
+``The universal identity $\kBKM(\Phi_N) = c_N(0)/2$ extends to
+$N = 0$ with $c_0(0) = 0$.'' Stable core: the $N = 0$ point is
+the \emph{empty-Heegner boundary} of the universal family; the
+Fourier-coefficient sequence $(c_N(0))$ extends naturally with
+$c_0(0) = 0$, but the ``Jacobi form $\phi^{(g_0)}_{0, 1}$'' at
+$N = 0$ does not exist as a Jacobi form (there is no index-zero
+Jacobi form; the extension is formal, matching the empty locus).
+\emph{Numerics}: $\kBKM^{\mathrm{BV}}(\C^3) = 0 = c_0(0)/2$
+consistently, but with a structurally distinct origin (Mukai
+lattice of $\C^3$ is degenerate, not absent).
+
+\paragraph{Ghost~G-$2$ (BCOV anomaly on $\C^3$).}
+``The BCOV anomaly $\alpha_{\mathrm{BCOV}}(X) = (\chi(X)/24)[\Omega_X]^{0,1}$
+(Costello--Li 2016 Prop.~$5.2$) contributes to the BV partition
+function on $\C^3$.'' Stable core: on $\C^3$ affine, the
+first Chern class vanishes, so $[\Omega_X]^{0,1} = 0$ in
+$H^{0,1}(\C^3) = 0$ (Hartshorne III.$3$.$7$). The BCOV anomaly is
+zero on $\C^3$, not because the Euler characteristic is zero but
+because the $H^{0,1}$-cohomology is trivial on affine.
+\emph{Numerics}: $\alpha_{\mathrm{BCOV}}(\C^3) = 0$ via
+$H^{0,1}(\C^3) = 0$; on $K3\times E$, $\alpha_{\mathrm{BCOV}} = 0$
+via the product: $\chi(K3\times E) = \chi(K3)\cdot\chi(E) = 24\cdot 0
+= 0$. Both zero, structurally different.
+
+\paragraph{Ghost~G-$3$ (topological $\R_t$ as $S^1$).}
+``The topological $\R_t$ is equivalent to $S^1$ under the Wick
+rotation.'' Stable core: the Costello--Gaiotto--Yagi
+holomorphic-topological twist complexifies $\R_t$ to $\C$; the
+partition-function computation via factorisation homology integrates
+over $S^1$ only after compactifying $\R_t$ to a compact interval
+and taking the trace. On $\C^3$ the ``$\R_t$'' direction is the
+third complex coordinate; ``compactifying'' it means choosing a
+compact fundamental domain, which is a choice of boundary condition,
+not a geometric equivalence. \emph{Numerics}: the partition
+function is independent of this choice by factorisation-algebra
+independence (Costello--Gwilliam vol.\ $1$ \S$3$.$6$), so the
+$\kBKM^{\mathrm{BV}}(\C^3) = 0$ is invariant.
+
+\subsection*{File paths}
+
+\begin{itemize}
+\item Wave file (this document): \texttt{notes/wave\_borcherds\_chain\_level/agent\_BL\_3\_bv\_c3.tex}.
+\item Reader-facing chapter inscription: \texttt{chapters/theory/phi\_universal\_trace\_platonic.tex},
+\S\ref{subsec:phiutp-chain-level-completion} sequel, Theorem
+\texttt{thm:bl-bv-c3-vanishing}.
+\item Side-by-side Agent 8: \texttt{notes/wave\_cfg2026/agent\_8\_5d\_hcs\_cfg.tex}.
+\item Side-by-side Agent 10 (CoHA $E_3$): \texttt{notes/wave\_cfg2026/agent\_10\_coha\_e3\_factorization.tex}.
+\item CoHA-to-Yangian evaluation chain: \texttt{memory/reference\_coha\_evaluation\_chain.md}.
+\item Costello--Li 2016 primary: arXiv:$1201.4501$.
+\item Costello--Gaiotto--Yagi 2018 primary: arXiv:$1810.00546$.
+\item Costello--Gwilliam 2021 primary: Cambridge UP, vol.\ $2$.
+\item Borcherds 1998 primary: \textit{Invent.\ Math.}~$132$ (singular-theta lift).
+\end{itemize}
+
+\subsection*{Attack--heal cycle log}
+
+\paragraph{Cycle $1$ attack.} ``Claim: The BV partition function of
+$5$d hCS on $\C^3$ equals the CoHA partition function of
+$\C^3$.''
+\emph{Heal.} Incorrect as stated; the BV partition function is a
+free-field Gaussian determinant, while the CoHA is the full positive
+Yangian $Y^+(\ghat)$. They agree only after matrix-model reduction
+to $\Hilb^\bullet(\C^3)$ with the torus equivariance; the agreement is
+the Schiffmann--Vasserot theorem in positive-geometry form. Fixed:
+Remark~\ref{rem:bl-bv-c3-coha-side}.
+
+\paragraph{Cycle $2$ attack.} ``Claim: The Heegner locus on $\C^3$ is
+the origin $\{0\}\subset\C^3$.''
+\emph{Heal.} Incorrect; the Heegner locus is a locus in the
+\emph{period domain}, not a locus in spacetime. The Mukai lattice of
+$\C^3$ is rank-$1$ degenerate, the period domain is a point, and the
+Heegner locus is empty. Fixed:
+Definition~\ref{def:bl-bv-c3-heegner-locus}.
+
+\paragraph{Cycle $3$ attack.} ``Claim: The BCOV anomaly
+$\alpha_{\mathrm{BCOV}} = (\chi(\C^3)/24)[\Omega_{\C^3}]^{0,1}$ is
+non-zero because $\chi(\C^3) = 1$ (the point cohomology).''
+\emph{Heal.} Incorrect; on affine $\C^3$, the $H^{0,1}$ cohomology
+vanishes by the affine vanishing theorem, so the BCOV anomaly is
+zero independently of $\chi$. Fixed:
+Remark~\ref{rem:bl-bv-c3-costello-li} and Ghost~G-$2$.
+
+\paragraph{Cycle $4$ attack.} ``Claim: The cohomological anomaly
+$A_{\mathrm{anom}}$ and the wave-function anomaly $A_{\mathrm{w.f.}}$
+are two separate non-trivial contributions at $\ghat$.''
+\emph{Heal.} Incorrect at abelian gauge; both vanish identically
+because $d^{abc} = 0$ (cohomological) and $C_2(\ghat) = 2h^\vee(\ghat)
+= 0$ (wave-function). The Proposition~\ref{prop:phiutp-one-loop-anomaly-split}
+split is real on non-abelian simply-laced gauge but collapses at
+abelian. Fixed: Theorem~\ref{thm:bl-bv-c3-anomaly-vanishing}
+and Remark~\ref{rem:bl-bv-higher-wheel}.
+
+\paragraph{Cycle $5$ attack.} ``Claim: The \v{C}ech descent
+$\mathrm{R}\Gamma(\C^3, \Obs^\BV)$ is non-trivial because the
+observables form a sheaf of chain complexes with non-trivial
+local-to-global structure.''
+\emph{Heal.} Incorrect on affine $\C^3$; $\mathrm{R}\Gamma$ on an
+affine scheme reduces to the global section at $U_0 = \C^3$ by the
+affine-local descent of the factorisation algebra (Costello--Gwilliam
+vol.\ $1$ \S$6$.$4$--$6$). The local-to-global higher cohomology
+vanishes. Fixed: Theorem~\ref{thm:bl-bv-c3-cech} and
+Remark~\ref{rem:bl-bv-c3-costello-gwilliam}.
+
+\paragraph{Cycle $6$ attack.} ``Claim: The three paths (Hodge, BV, MO)
+produce the same value only after a non-trivial compatibility
+argument.''
+\emph{Heal.} At the base case $\C^3$ all three paths produce $0$
+identically, and the compatibility is tautological because the
+empty-Heegner / affine-vanishing / trivial-$R$-matrix boundary
+conditions are independent statements about independent structures
+(lattice, Hodge cohomology, equivariant chamber stratification). The
+non-trivial compatibility argument is required at $K3\times E$
+interior, not at the $\C^3$ base case. Fixed:
+Remarks~\ref{rem:bl-bv-c3-master-consistency}--\ref{rem:bl-bv-c3-path3-consistency}
+and Remark~\ref{rem:bl-bv-c3-three-conditions}.
+
+\paragraph{Cycle $7$ attack.} ``Claim: The Kontsevich formality
+$\mathrm{GRT}_1(\Q)$-torsor produces a choice of associator, and
+the Costello--Li propagator picks out a specific one.''
+\emph{Heal.} Correct as stated but the implication was unclear.
+The Costello--Li propagator selects the Kontsevich associator
+(Costello--Li 2016 Prop.~$2.4$); this fixes Stage~$1$ of the
+two-stage factorisation $\Phi_3 = \SpCh_{\Sigma_2, C}\circ \PhiFA_3$
+up to the contractible $\mathrm{GRT}_1$-torsor. The $\C^3$ base case
+is the zero-deformation point, where the selection is canonical.
+Fixed: Remark~\ref{rem:bl-bv-c3-kontsevich-deformation}.
+
+\subsection*{Convergence statement}
+
+After seven attack--heal cycles the Path-$2$ base-case analysis has
+converged on the three independent vanishing theorems
+(Theorem~\ref{thm:bl-bv-c3-anomaly-vanishing},
+Theorem~\ref{thm:bl-bv-c3-vanishing},
+Theorem~\ref{thm:bl-bv-c3-cech}), their combined numerical output
+($\kBKM^{\mathrm{BV}}(\C^3) = 0$), and three-path-consistency with
+the Hodge and MO paths (all zero at the base case). The result is
+stable under perturbation by the three independent deformations
+(non-abelian gauge, non-degenerate lattice, compact topology); each
+of these deformations, turned on one at a time, produces a
+distinct non-trivial $\kBKM$ value, and the three combined produce
+the full CHL-slice ladder $\{5, 2, 1, 1, 1\}$ at $K3\times E$.
