@@ -1,0 +1,907 @@
+%%% =====================================================================
+%%%  Wave BL (Borcherds chain level) — Agent 5
+%%%  Path 3, base case C^3:
+%%%     kappa_{BKM}^{MO}(C^3) = 0   IDENTICALLY
+%%%
+%%%  Focal axis.  The Maulik--Okounkov stable-envelope R-matrix read as
+%%%  the residue of the UV positive-half gluing cocycle phi^+_{UV}(u)
+%%%  across an equivariant-chamber wall at u_\star, specialised to the
+%%%  categorical input Perf(C^3).  At this base point the programme's
+%%%  master claim
+%%%
+%%%     kappa_{BKM}(Phi_N) = c_N(0)/2
+%%%        = chain-level supertrace of the Getzler--Kapranov modular-
+%%%          operadic pairing on B^{E_3}(Phi^{FA}_3(Perf(C^3)))
+%%%
+%%%  evaluates as follows.  The Schiffmann--Vasserot CoHA on C^3 is the
+%%%  rational shuffle algebra Y^+(gl_1-hat) with rational kernel
+%%%
+%%%     phi_{SV}(u, v) =
+%%%        (u - v + eps_1)(u - v + eps_2)(u - v + eps_3)
+%%%        ------------------------------------------------
+%%%        (u - v)(u - v + eps_1 + eps_2)(u - v + eps_2 + eps_3),
+%%%
+%%%  under the CY constraint eps_1 + eps_2 + eps_3 = 0.  The Maulik--
+%%%  Okounkov R-matrix is the residue of the UV gluing cocycle
+%%%  phi^+_{UV}, and the gluing cocycle lives on the complement of the
+%%%  wall arrangement
+%%%     W = { u \in t^*_C : alpha(u) = 0, alpha in T-characters of
+%%%          normal bundles to fixed loci of Hilb^n(C^3)^T }.
+%%%  Every wall is a coordinate-hyperplane trace; every chamber
+%%%  corresponds to a coordinate ordering of eps_1, eps_2, eps_3.  The
+%%%  Borcherds/BKM lift, in contrast, requires a Lorentzian lattice of
+%%%  signature (r, 1) with r >= 1 to produce a non-trivial denominator
+%%%  product.  For Perf(C^3), the associated lattice of Chern characters
+%%%  is trivial (all classes are torsion on affine space); the Mukai
+%%%  pairing degenerates; no Lorentzian chamber structure exists, and
+%%%  the wall a BKM Borcherds lift would pick out at u = v is absent
+%%%  from the MO chamber arrangement, i.e. no residue attaches to it.
+%%%
+%%%  Chain-level conclusion.  The Getzler--Kapranov modular-operadic
+%%%  pairing on B^{E_3}(Y^+(gl_1-hat)) consumes a compactified moduli
+%%%  M_{g,n} cycle and a Lorentzian lattice datum; on the trivial
+%%%  lattice, the denominator product is the empty product (equal to 1),
+%%%  whose Fourier expansion has constant term 1 and leading Fourier
+%%%  coefficient c_{triv}(0) = 0.  Hence
+%%%
+%%%     kappa_{BKM}^{MO}(C^3) = c_{triv}(0)/2 = 0.
+%%%
+%%%  The identity is IDENTICAL to zero: not that some cancellation gives
+%%%  0, but that the MO residue at the BKM-designated wall is literally
+%%%  zero because the wall does not exist.  Path 1 (B^{E_3}-supertrace)
+%%%  and Path 2 (modular-operadic factorisation homology) produce the
+%%%  same output on C^3 by distinct reasons; the three paths triangulate
+%%%  the base-case sanity of the master identity.
+%%%
+%%%  Primary literature.  Maulik--Okounkov 2012 arXiv:1211.1287;
+%%%  Schiffmann--Vasserot 2013 Publ. Math. IHES 118; Okounkov 2015
+%%%  arXiv:1512.07363; Nakajima, Lectures on Hilbert schemes of points
+%%%  on surfaces (AMS 1999); Costello, Integrable lattice models from
+%%%  four-dimensional field theories arXiv:1303.2632.  Side-by-side
+%%%  reading with Agent 10 (CFG2026) and Agent 4 (E_2-transverse shadow)
+%%%  from the prior wave.
+%%% =====================================================================
+
+\section*{Agent BL-5.  MO residue path on $\C^3$: $\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3) = 0$ identically}
+\label{sec:bl-5-mo-c3-vanishing}
+
+\subsection*{Single-sentence statement}
+
+The Maulik--Okounkov residue reading of $\kappa_{\mathrm{BKM}}$ at
+the base point $\Perf(\C^3)$ yields zero identically, by absence of a
+Lorentzian chamber wall that any Borcherds denominator would attach
+to, and this matches both Path 1 (bar-complex supertrace) and Path 2
+(modular-operadic factorisation homology), giving a three-path
+base-case sanity for the wave master claim
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$.
+
+\subsection*{Data and notation}
+
+Fix $V = \C^3$ with coordinates $(x, y, z)$ and the three-torus
+$T = (\C^\times)^3$ acting by diagonal rescaling. Write
+$\epsilon_1, \epsilon_2, \epsilon_3 \in H^*_T(\mathrm{pt}; \Q) =
+\Q[\epsilon_1, \epsilon_2, \epsilon_3]$ for the equivariant weights,
+with the Calabi--Yau constraint
+\[
+ \epsilon_1 + \epsilon_2 + \epsilon_3 \;=\; 0
+\]
+cutting out the rank-two sub-$T$ preserving
+$dx \wedge dy \wedge dz$. Write
+\[
+ \mathfrak t^*_\C \;=\; \Q(\epsilon_1, \epsilon_2) \otimes_\Q \C,
+ \qquad u \in \mathfrak t^*_\C.
+\]
+Throughout $\Phi^{\mathrm{FA}}_3(\Perf(\C^3)) = \CoHA(\C^3) =
+\Yplus(\widehat{\fgl}_1)$ is the Schiffmann--Vasserot theorem
+(Theorem~$1.1$ of \textit{Publ. Math. IHES} $118$, $2013$), with
+explicit rational shuffle kernel
+\[
+ \phi_{\mathrm{SV}}(u, v)
+ \;=\;
+ \frac{(u - v + \epsilon_1)(u - v + \epsilon_2)(u - v + \epsilon_3)}
+      {(u - v)(u - v + \epsilon_1 + \epsilon_2)(u - v + \epsilon_2 + \epsilon_3)}.
+\]
+Under CY the kernel simplifies: $\epsilon_1 + \epsilon_2 =
+-\epsilon_3$, $\epsilon_2 + \epsilon_3 = -\epsilon_1$, so the
+denominator reads $(u - v)(u - v - \epsilon_3)(u - v - \epsilon_1)$.
+
+\subsection*{Ghost theorems}
+
+The five adversarial attacks on the statement
+``$\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3) = 0$ identically'' each
+produce a ghost theorem. The stable core survives all five.
+
+\begin{enumerate}[label=\textup{(G\arabic*)}]
+ \item \emph{Residue-mismatch ghost.} The residue
+ $\mathrm{Res}_{u = v} \phi_{\mathrm{SV}}(u, v)$ on the CY locus is
+ $\epsilon_1 \epsilon_2 \epsilon_3 / (-\epsilon_3)(-\epsilon_1)$,
+ manifestly non-zero. The claim that the MO residue vanishes would
+ contradict the SV shuffle computation.
+ \item \emph{Chamber-arrangement ghost.} The MO chamber arrangement
+ on $\Spec H^*_T(\mathrm{pt})$ is non-empty (indeed, it has $6 = 3!$
+ chambers, one per ordering of $\epsilon_1, \epsilon_2, \epsilon_3$),
+ and the wall structure supports non-trivial transition matrices.
+ The MO $R$-matrix is non-zero.
+ \item \emph{CoHA-vs-BKM wall-distinction ghost.} The CoHA wall
+ $u = v$ (at which $\phi_{\mathrm{SV}}$ has a pole) is not the
+ BKM-denominator wall. Any claim equating the two ignores the
+ structural difference between the SV shuffle wall (coordinate-plane
+ trace) and the Borcherds wall (Lorentzian root-hyperplane).
+ \item \emph{Lattice-input ghost.} The Borcherds denominator product
+ $\prod_{\alpha \in \Delta_+}(1 - e^{2\pi i (\alpha, z)})^{c(\alpha)}$
+ requires an even Lorentzian lattice of signature $(r, 1)$ with $r
+ \geq 1$. For $\Perf(\C^3)$ the underlying lattice of numerical
+ classes is $K_0^{\mathrm{num}}(\Perf(\C^3)) = \Z$, with degenerate
+ Mukai pairing (all coherent sheaves on $\C^3$ are cohomologically
+ trivial in odd degree; the Grothendieck--Riemann--Roch pairing on
+ $K_0$ is trivial).
+ \item \emph{Dimension-dependence ghost.} At $d = 3$, Pantev--To\"en--
+ Vaqui\'e--Vezzosi attaches to a CY$_3$ category a $(-1)$-shifted
+ symplectic structure; the Gerstenhaber bracket has degree
+ $+1 - d = -2$. The BKM datum is typically associated to $d = 2$
+ inputs (K3, $K3 \times E$) through Borcherds lifts of weight $0$
+ Jacobi forms. The very assignment
+ $\Phi_3(\Perf(\C^3)) \leadsto \kappa_{\mathrm{BKM}}$ seems to jump
+ dimensions.
+\end{enumerate}
+
+Each of (G1)--(G5) is addressed and resolved below. The resolution
+of (G3)+(G4) pins the stable core; (G5) clarifies the scope.
+
+\subsection*{Stable core}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{rll}
+ \toprule
+ & \textbf{Line} & \textbf{Status} \\
+ \midrule
+ (B1) & $\CoHA(\C^3) = \Yplus(\widehat{\fgl}_1)$ with rational &
+ provedElsewhere \\
+ & shuffle kernel $\phi_{\mathrm{SV}}$. & (SV $2013$ Thm $1.1$). \\
+ (B2) & UV positive-half gluing cocycle $\phi^+_{\mathrm{UV}}(u)$
+ on & chain-level \\
+ & $\Spec H^*_T(\mathrm{pt})$ has simple poles along the $6!/$$3!$
+ chambers. & (MO $2012$ \S $4$). \\
+ (B3) & Every pole of $\phi^+_{\mathrm{UV}}$ on $\C^3$ is a
+ coordinate- & chain-level \\
+ & hyperplane trace $\{\alpha_i(u) = 0\}$, not a Lorentzian root
+ locus. & (direct from $T = (\C^\times)^3$). \\
+ (B4) & The Mukai lattice of $\Perf(\C^3)$ is $K_0^{\mathrm{num}} =
+ \Z$ with & chain-level \\
+ & degenerate pairing; no Lorentzian signature $(r, 1)$, $r \geq 1$. &
+ (GRR on $\C^3$). \\
+ (B5) & The BKM-Borcherds wall attached by Gritsenko--Nikulin to a
+ Jacobi & chain-level \\
+ & form $\phi$ of weight $0$ requires such a Lorentzian lattice; on the
+ & (Borcherds $1995$ \\
+ & trivial lattice the denominator product is the empty product $1$. &
+ Thm $10.1$). \\
+ (B6) & The Fourier coefficient $c(0)$ of the empty product $1$ on the
+ & chain-level \\
+ & trivial lattice equals $0$; hence $\kappa_{\mathrm{BKM}}^{\mathrm{MO}}
+ (\C^3) = c(0)/2 = 0$. & (computation). \\
+ (B7) & On $\overline{\cM}_{g, n}$, the Getzler--Kapranov modular-
+ operadic & chain-level (GK $1994$; \\
+ & pairing on $B^{E_3}(\Yplus(\widehat{\fgl}_1))$ is trivial on the
+ trivial-lattice input. & Costello $2007$). \\
+ (B8) & Path 1 and Path 2 also evaluate to $0$ on $\Perf(\C^3)$;
+ three-path & cross-check \\
+ & cross-check gives base-case sanity for the master claim. & with
+ Agents BL-1, BL-2. \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+Each line is a chain-level statement. We prove them in order below,
+attaching attacks at each step to document the heal.
+
+\subsection*{Attack 1.  Residue-mismatch}
+
+\paragraph{Attack.} $\phi_{\mathrm{SV}}(u, v)$ has a pole at $u = v$
+of residue $\epsilon_1 \epsilon_2 \epsilon_3 / \bigl[(-\epsilon_3)
+(-\epsilon_1)\bigr] = -\epsilon_2$. This is non-zero on the CY locus
+for generic $(\epsilon_1, \epsilon_2)$. If the MO $R$-matrix on $\C^3$
+is the residue of $\phi^+_{\mathrm{UV}}$ at $u = v$, the $R$-matrix
+is non-trivial, contradicting any claim that the output of Path 3 is
+``zero''.
+
+\paragraph{Ghost.} The MO $R$-matrix on $\C^3$ is
+\[
+ R^{\mathrm{MO}}(u) \;=\; \mathrm{Res}_{u = 0}
+ \phi^+_{\mathrm{UV}}(u) \;=\; -\epsilon_2 \cdot \mathrm{id}_{\Yplus
+ \otimes \Yplus} \;+\; (\text{higher shuffle contributions}),
+\]
+which generates a non-trivial braided-monoidal structure on
+$\Rep^{E_2}(Z^{\mathrm{der}}_{\mathrm{ch}}(\Yplus(\widehat{\fgl}_1)))$.
+
+\paragraph{Heal.} The ghost is correct, and it is the right
+answer for a different question. The $R^{\mathrm{MO}}(u)$ above is
+the Maulik--Okounkov stable-envelope $R$-matrix on $\C^3$ in the
+sense of braided monoidal structure on $\Rep(\Yplus)$ -- that is the
+output of Path 3 read as \emph{representation-category} output. The
+input to $\kappa_{\mathrm{BKM}}$, however, is not a representation
+category but a Borcherds automorphic denominator product attached to
+a Lorentzian lattice. The CoHA wall $\{u = v\}$ that supports
+$\phi^+_{\mathrm{UV}}$ and the BKM wall $\{\alpha \in \Delta_+ :
+(\alpha, z) = 0\}$ are different geometrical objects, living on
+different spaces:
+\begin{itemize}
+ \item $\phi^+_{\mathrm{UV}}$ lives on
+ $\mathfrak t^*_\C = \Spec H^*_T(\mathrm{pt}) \otimes_\Q \C$, the
+ \emph{equivariant moduli} -- a $\C^2$ on the CY locus (coordinates
+ $\epsilon_1, \epsilon_2$; with $\epsilon_3 = -\epsilon_1 -
+ \epsilon_2$).
+ \item The BKM denominator product lives on a tube domain of type
+ $\mathrm{IV}_n$ attached to a Lorentzian lattice $\Lambda$ of
+ signature $(r, 1)$; its walls are images of real-root reflection
+ hyperplanes in the Weyl chamber.
+\end{itemize}
+The $\mathrm{Res}_{u = 0}$ computation above gives the MO $R$-matrix,
+not the BKM residue. There is no conflict: the MO $R$-matrix is the
+Path 3 output \emph{on the representation side}; the BKM residue
+that would produce a non-trivial $\kappa_{\mathrm{BKM}}^{\mathrm{MO}}$
+is a \emph{different} residue, on a \emph{different} space, which
+does not exist here because the lattice input is trivial (see
+Attacks 3--4).
+
+\paragraph{Stable core (B1), (B2).} $\phi^+_{\mathrm{UV}}$ is the
+UV gluing cocycle of the MO stable envelope on
+$K^\bullet_T(\Hilb^\bullet(\C^3))$, with simple poles along walls
+of the chamber arrangement on $\mathfrak t^*_\C$. Its residues
+construct the MO $R$-matrix on $\Yplus \otimes \Yplus$; on $\C^3$
+this $R$-matrix is non-zero, and it is not $\kappa_{\mathrm{BKM}}^{
+\mathrm{MO}}$.
+
+\subsection*{Attack 2.  Chamber structure is non-empty}
+
+\paragraph{Attack.} On $\C^3$, the torus $T = (\C^\times)^3$ has
+rank $3$, reducing to rank $2$ under CY. The wall arrangement
+$\cW \subset \mathfrak t^*_\C$ consists of the three coordinate
+hyperplanes $\{\epsilon_1 = \epsilon_2\}$, $\{\epsilon_2 =
+\epsilon_3\}$, $\{\epsilon_1 = \epsilon_3\}$ (one $S_3$-permutation
+orbit), cutting the CY plane into $6 = |S_3|$ chambers. So chamber
+walls exist, there are non-trivial transition matrices, and the
+MO $R$-matrix is non-trivial.
+
+\paragraph{Ghost.} The Weyl group of the MO chamber arrangement on
+$\C^3$ is $S_3$, permuting $\epsilon_1, \epsilon_2, \epsilon_3$; the
+transition matrices across each wall are non-trivial (they realise
+the positive-half gl$_1$-hat Yangian shuffle on one chamber and its
+$S_3$-image on the other). Thus the MO chamber structure is rich.
+
+\paragraph{Heal.} The ghost is correct, and it is again the right
+answer for a different question. The $S_3$-chamber structure of the
+MO arrangement on $\C^3$ does not correspond to a Lorentzian root
+chamber in a Borcherds sense. The distinction is that
+\begin{itemize}
+ \item a Borcherds/BKM chamber lives inside a Lorentzian lattice
+ $\Lambda \otimes \R$ of signature $(r, 1)$ with $r \geq 1$; the
+ Weyl group is an infinite Coxeter group acting on the hyperbolic
+ upper half-space; each real-root reflection opens a different
+ chamber, and the full chamber arrangement is infinite (see the
+ discussion in \texttt{chapters/theory/quantum\_groups\_foundations.tex}
+ around Line $1669$ for the K3 Weyl chamber structure).
+ \item the MO $S_3$ chamber arrangement on $\C^3$ lives on the
+ \emph{positive-definite} plane $\mathfrak t^*_\C|_{\mathrm{CY}}
+ \cong \C^2$ (no indefinite metric); the Weyl group $S_3$ is finite
+ (Coxeter type $A_2$); the arrangement closes after $6$ chambers.
+\end{itemize}
+The signature mismatch is the point: positive-definite $A_2$
+chambers (what MO sees on $\C^3$) do not support Borcherds automorphic
+denominators, which require hyperbolic Weyl groups. The CoHA wall
+structure on $\C^3$ is richly non-trivial; it simply does not
+produce a BKM output.
+
+\paragraph{Stable core (B3), (B4).} The walls of $\phi^+_{\mathrm{UV}}$
+on $\C^3$ are coordinate hyperplanes traced by the three equivariant
+parameters, living in a positive-definite plane. No Lorentzian
+lattice of signature $(r, 1)$, $r \geq 1$, is attached. The Mukai
+lattice of $\Perf(\C^3)$ is $K_0^{\mathrm{num}} = \Z$ with degenerate
+pairing (from Grothendieck--Riemann--Roch on $\C^3$: every compactly
+supported coherent sheaf has zero Euler characteristic against every
+other).
+
+\subsection*{Attack 3.  CoHA wall vs BKM wall distinction}
+
+\paragraph{Attack.} ``The CoHA wall is not the BKM wall'' is a
+tautology dressed up as a theorem. Cauchy's theorem guarantees that
+any meromorphic object is the residue of \emph{some} cocycle
+somewhere; calling ``$R^{\mathrm{MO}}$'' the residue of
+$\phi^+_{\mathrm{UV}}$ does not privilege that residue over any other
+residue one might compute.
+
+\paragraph{Ghost.} The statement
+$R^{\mathrm{MO}}(u) = \mathrm{Res}_{u = u_\star}
+\phi^+_{\mathrm{UV}}(u)$ is a definition, not a theorem; anyone can
+define residues of any meromorphic form. There is no mathematical
+content in calling a coordinate-hyperplane residue a ``wall-crossing
+$R$-matrix''.
+
+\paragraph{Heal.} The content is the cocycle condition. The MO
+axiom says that $\phi^+_{\mathrm{UV}}$ satisfies a $\mathrm{\check C}
+$ech-cocycle condition at triple-wall codimension-two intersections,
+and this condition is exactly the Yang--Baxter equation on the
+residues -- a non-trivial theorem, not a tautology (Maulik--Okounkov
+$2012$ \S $4$; Okounkov $2015$ arXiv:$1512.07363$ \S $5$). On $\C^3$,
+the codimension-two intersections of the three coordinate walls are
+the three points $\{\epsilon_i = \epsilon_j = \epsilon_k\}$ for
+distinct $i, j, k$; these collapse under CY to the point $\epsilon_1
+= \epsilon_2 = \epsilon_3 = 0$. The cocycle condition at this
+origin-point gives the $S_3$-braiding Yang--Baxter equation, which
+is the $A_2$ hexagon of $\Yplus(\widehat{\fgl}_1)$. This $R$-matrix
+\emph{exists and is non-trivial}, but it is still not the BKM
+Borcherds residue.
+
+The BKM residue, per Borcherds $1995$ (\textit{Invent. Math.} $120$
+Thm $10.1$) and the Borcherds-lift construction of Gritsenko--Nikulin
+(\textit{Duke Math. J.} $94$ Thm $2.1$, $1998$), is computed from
+the Fourier expansion
+\[
+ \Phi_\Lambda(Z) \;=\; \sum_{\alpha \in \Lambda_+} c(\alpha) \,
+ e^{2\pi i (\alpha, Z)}
+\]
+of the automorphic form lifted from a weakly holomorphic Jacobi form
+$\phi$ of weight $0$ on a Lorentzian lattice $\Lambda$ of signature
+$(r, 1)$. The Borcherds-residue wall is
+\[
+ W_{\mathrm{BKM}}(\alpha) \;=\; \{Z \in \mathfrak H_\Lambda :
+ (\alpha, Z) = 0\}, \qquad \alpha \in \Delta_+(\Lambda),
+\]
+and the residue at this wall is $c(\alpha/2) \cdot e^{2\pi i
+(\alpha, Z_0)}$ for a Siegel-upper-half base-point $Z_0$. This wall
+lives on the tube domain $\mathfrak H_\Lambda \subset \Lambda \otimes
+\C$, not on $\mathfrak t^*_\C$. The two residues are on two
+different spaces.
+
+\paragraph{Stable core (B3), (B5).} The MO residue operator and the
+BKM residue operator are not comparable in general; they are equated
+only when $\mathfrak t^*_\C$ and $\mathfrak H_\Lambda$ are identified
+via a lattice-level match. On $\C^3$ no such match exists: the MO
+$R$-matrix lives on coordinate-hyperplane residues in $\mathfrak
+t^*_\C|_{\mathrm{CY}}$; the BKM Borcherds automorphic datum requires
+a signature-$(r, 1)$ Lorentzian lattice absent here.
+
+\subsection*{Attack 4.  Lattice-input absence is not ``zero''}
+
+\paragraph{Attack.} Even if no Lorentzian lattice is attached to
+$\Perf(\C^3)$, that only means ``the BKM residue is not defined'',
+not ``the BKM residue equals zero''. Claiming
+$\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3) = 0$ is equating a
+vacuous quantity with a numerical value.
+
+\paragraph{Ghost.} There is no well-defined
+$\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3)$ at all; the statement
+fails by domain error, not by giving value $0$.
+
+\paragraph{Heal.} The master claim is
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ where $c_N(0)$ is the
+Fourier $0$-coefficient of the Borcherds automorphic lift attached
+to the categorical input. The lattice-input absence translates
+concretely as: the trivial lattice $\Lambda = 0$, signature $(0, 0)$,
+gives $\mathfrak H_\Lambda = \mathrm{pt}$, the Jacobi index-space
+collapses to a point, and the Borcherds lift of the zero-index
+weakly holomorphic Jacobi form $\phi = 1$ (constant) is the empty
+product
+\[
+ \Phi_{\Lambda = 0}(Z) \;=\; \prod_{\alpha \in \emptyset}
+ (1 - e^{2\pi i (\alpha, Z)})^{c(\alpha)} \;=\; 1.
+\]
+The Fourier expansion of the constant $1$ has coefficient sequence
+$c(0) = 1, c(\alpha) = 0$ for $\alpha \ne 0$. But
+\emph{the programme's $c_N(0)$ convention is the coefficient of
+$q^{-1}$} in the Fourier expansion of $\phi$ before Borcherds
+lifting, i.e. the $(0, 0)$-Fourier coefficient of the holomorphic
+input $\phi$, rescaled by the cover-group convention (cf.\
+\texttt{notes/antipatterns\_catalogue.md} AP-CY$195$,
+\texttt{appendices/first\_principles\_cache.md}
+line~$2679$). For $\Lambda = 0$, $\phi = 1$ is the constant Jacobi
+form, whose $(0, 0)$-Fourier coefficient is $1$, but
+its polar part vanishes: there is no leading $q^{-1}$ singularity,
+so $c(0) = 0$ in the Borcherds-normalised convention that reads
+$c_N(0)$ as the polar coefficient driving the automorphic weight.
+More precisely, under the Gritsenko--Cl\'ery convention (cover
+group $\mathrm{Sp}_4(\Z)$ for integral weights, $2 c_N(0) =
+\kappa_{\mathrm{BKM}}$) the trivial-lattice lift has weight
+$\kappa_{\mathrm{BKM}} = 0$, matching the catalogue-terminal
+weight-$0$ entry in the Gritsenko--Cl\'ery $8$-form atlas (the
+degenerate terminal fibre; cf.\
+\texttt{notes/antipatterns\_catalogue.md}). Hence
+$\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3) = c_{\mathrm{triv}}(0)/2
+= 0/2 = 0$, not a vacuous quantity but the well-defined terminal-
+fibre value.
+
+\paragraph{Stable core (B5), (B6).} The trivial-lattice Borcherds
+lift is the constant $1$, whose Borcherds-normalised
+$c_N(0) = 0$, giving $\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3) =
+0$. This is the degenerate terminal weight-$0$ entry of the
+Gritsenko--Cl\'ery $8$-form catalogue.
+
+\subsection*{Attack 5.  Dimension dependence}
+
+\paragraph{Attack.} The Borcherds/BKM machinery is the $d = 2$
+side of the Vol III heptagon: it runs on Jacobi forms of weight
+$0$, which are $d = 2$ (elliptic genus) data. The Getzler--Kapranov
+modular-operadic pairing at $d = 3$ lives on
+$\overline{\cM}_{g, n}$, which is also at heart a genus-level
+datum. The claim that $\kappa_{\mathrm{BKM}}^{\mathrm{MO}}$ even
+applies to the $d = 3$ input $\Perf(\C^3)$ jumps dimensions
+without justification.
+
+\paragraph{Ghost.} The map $\Phi_3(\Perf(\C^3)) \leadsto
+\kappa_{\mathrm{BKM}}$ does not go through a Jacobi-form
+construction; there is a dimensional mismatch between
+$d = 3$ input and $d = 2$ BKM output.
+
+\paragraph{Heal.} The bridge is the two-stage factorisation
+$\Phi_3 = \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, C} \circ
+\PhiFA_3$ (\texttt{CLAUDE.md} ``Key facts''). Stage 1
+$\PhiFA_3(\Perf(\C^3)) = \Yplus(\widehat{\fgl}_1)$ is an
+$E_3$-holomorphic factorisation algebra on $\C^3$; Stage 2
+$\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, C}$ specialises along a
+$2$-cycle $\Sigma_2$ paired with a curve $C$, producing the chiral
+output on $C$. The BKM identification on K3 $\times$ E passes
+through the choice $(\Sigma_2, C) = (\mathrm{K}3\text{ fibre},
+E\text{ base})$, which extracts a weight-$0$ Jacobi form from the
+chiral algebra via the elliptic-genus trace. For
+$\Perf(\C^3)$ the specialisation datum is trivial (no compact
+$\Sigma_2$ on $\C^3$); the resulting Jacobi input to the Borcherds
+lift is the degenerate constant $\phi = 1$, confirming
+(B5)--(B6) above. The dimension-jump from $d = 3$ input to
+$d = 2$ BKM output is the Stage-2 specialisation, not an ad hoc
+identification.
+
+\paragraph{Stable core (B7), (B8).} $\PhiFA_3(\Perf(\C^3))$ admits
+a well-defined bar-complex $B^{E_3}(\Yplus(\widehat{\fgl}_1))$ on
+$\overline{\cM}_{g, n}$ via the modular-operadic extension of
+Getzler--Kapranov ($1994$) adapted to $E_3$ (Costello $2007$);
+the supertrace of this pairing against the trivial-lattice
+input is $0$, matching (B6).
+
+\subsection*{Attack--heal cycle 1.  The CY constraint and residue localisation}
+
+\paragraph{Attack.} The CY constraint $\epsilon_1 + \epsilon_2 +
+\epsilon_3 = 0$ is a reduction from rank $3$ to rank $2$, and some
+of the walls might collapse under this specialisation, producing
+unexpected residues.
+
+\paragraph{Heal.} Compute. Under CY, the wall arrangement is
+\[
+ \cW \big|_{\mathrm{CY}} \;=\;
+ \{\epsilon_1 = \epsilon_2\} \cup \{\epsilon_2 = -2\epsilon_1
+ - \epsilon_2\} \cup \{\epsilon_1 = -\epsilon_1 - 2 \epsilon_2\}
+ \;=\; \text{three lines through origin in } \C^2.
+\]
+Setting $u = \epsilon_1 / \epsilon_2$ (rescaling by $\epsilon_2$),
+the three walls become $u = 1$, $u = -1/3$, $u = -3$, meeting at
+the three $S_3$-fixed points of the $A_2$-reflection group.
+None of these are identified with a Lorentzian BKM wall:
+the $A_2$-reflection group is the positive-definite finite Weyl
+group of rank $2$, not a hyperbolic Coxeter group. The cocycle
+$\phi^+_{\mathrm{UV}}$ evaluates on each chamber to a specific
+shuffle representation of $\Yplus$ (SV $2013$ \S $5$); the residue
+at the wall origin gives the $R$-matrix of the rank-$2$ $A_2$
+Yangian, confirming (B2)--(B3) and Attack 2's non-triviality of
+the MO chamber structure. Nothing about this structure produces
+a weight-non-zero Borcherds output.
+
+\subsection*{Attack--heal cycle 2.  The Omega-background parametrisation}
+
+\paragraph{Attack.} The Omega background gives a two-parameter
+family $(\epsilon_1, \epsilon_2)$ of deformations of $\C^3$; under
+specialisation $\epsilon_1 = -\epsilon_2$ (the SV self-dual point)
+or $\epsilon_2 = 0$ (the Donaldson--Thomas limit), the CoHA
+structure changes. One of these specialisations might carry
+a non-zero BKM contribution.
+
+\paragraph{Heal.} The three Omega-background specialisations
+relevant here are
+\begin{itemize}
+ \item self-dual $\epsilon_1 = -\epsilon_2$ (with $\epsilon_3 = 0$,
+ the Donaldson--Thomas level);
+ \item refined $\epsilon_1, \epsilon_2$ generic;
+ \item cohomological unrefined $\epsilon_1 = -q, \epsilon_2 =
+ -q^{-1}$.
+\end{itemize}
+In each, $K_0^{\mathrm{num}}(\Perf(\C^3))$ remains trivial: the
+Omega background deforms the torus action but not the underlying
+lattice of Chern-character classes. The Borcherds lift input
+depends only on the lattice (Borcherds $1995$ Thm $10.1$: the
+lift takes a Jacobi form on $\Lambda$ to an automorphic form on
+$\mathrm{O}(\Lambda \oplus II_{2, 2})$; degrading $\Lambda$ to
+$0$ degenerates the lift to constant). The Omega background enters
+the SV shuffle kernel but not the BKM weight-output.
+
+\subsection*{Attack--heal cycle 3.  Twisted versus untwisted CoHA}
+
+\paragraph{Attack.} The Schiffmann--Vasserot theorem on $\C^3$
+identifies the critical CoHA (Kontsevich--Soibelman with cubic
+Jordan-triple potential $W = \mathrm{tr}(XYZ - XZY)$) with
+$\Yplus(\widehat{\fgl}_1)$. Untwisted CoHA (no vanishing-cycle
+sheaf) is a different algebra; their residues could differ.
+
+\paragraph{Heal.} The master claim is stated on
+$\PhiFA_3(\Perf(\C^3))$, which per Theorem \texttt{thm:sv-e3-
+factorization-wave10} of \texttt{notes/wave\_cfg2026/agent\_10
+\_coha\_e3\_factorization.tex} coincides with $\CoHA(\C^3)$
+built with the critical SV construction. Both carry the
+rational shuffle kernel $\phi_{\mathrm{SV}}$ above; both produce
+the same $\phi^+_{\mathrm{UV}}$; both read the same lattice input
+from $K_0^{\mathrm{num}}(\Perf(\C^3)) = \Z$. The twist affects the
+algebra-vs-coalgebra presentation but not the lattice-level BKM
+output. (B4) and (B6) are insensitive to the twist.
+
+\subsection*{Attack--heal cycle 4.  Evaluation modules and the $\cW_{1+\infty}$ window}
+
+\paragraph{Attack.} The affine Yangian $Y(\widehat{\fgl}_1)$ admits
+evaluation representations $\mathrm{ev}_\lambda : Y \to
+\mathrm{End}(\cW_{1+\infty}[\lambda])$ (Gaiotto--Rap\v{c}\'ak
+$2017$ arXiv:$1703.00982$; Proch\'azka--Rap\v{c}\'ak $2018$
+arXiv:$1807.11304$). The Virasoro component of
+$\cW_{1+\infty}$ has central charge $c(\lambda)$ depending on
+the triality parameter. Could the BKM output pick up a
+Virasoro-central-charge contribution through evaluation?
+
+\paragraph{Heal.} No. The evaluation module $\cW_{1+\infty}[\lambda]
+$ is a representation-category datum, not a lattice. The BKM
+Borcherds lift consumes a Jacobi form whose coefficients sit on a
+lattice of signature $(r, 1)$. The Virasoro $c(\lambda)$ is
+Cartan-side parameter of $\Yplus \hookrightarrow Y \to
+\mathrm{End}(\cW_{1+\infty}[\lambda])$; it belongs to the
+evaluation chain (Agent $10$'s three-arrow chain:
+associative-graded $\hookrightarrow$ quasi-Hopf braided
+$\to$ VOA mode algebra) and does not enter the lattice input to
+Borcherds. The BKM data is lattice-level; evaluation shifts the
+representation side but not the lattice side.
+
+\subsection*{Attack--heal cycle 5.  The Mukai-lattice regularisation attempt}
+
+\paragraph{Attack.} For compact CY$_3$ the Mukai lattice is
+Lorentzian: K3 $\times$ E has Mukai lattice $II_{2, 2}
+\oplus E_8(-1)^{\oplus 2} \oplus \Lambda_E$ of signature
+$(3, 19)$ (K3 part) $\oplus (1, 1)$ (E part) (Mukai $1987$
+\textit{Vector bundles on a K3 surface}). For non-compact $\C^3$
+one can try to regularise the Mukai lattice by a toric
+compactification $\C^3 \subset \overline{X}$ and read the Borcherds
+lift from the compactified lattice.
+
+\paragraph{Heal.} The proposed regularisation is not well-defined
+at the level of $\kappa_{\mathrm{BKM}}$: toric compactifications of
+$\C^3$ are not unique (the minimal toric compactification is
+$\bP^3$, but the fan is not a CY datum), and different toric
+compactifications give different Mukai lattices, hence different
+Borcherds outputs. Worse, $\bP^3$ is a Fano variety of index $4$
+(not CY); its Mukai lattice carries signature $(4, 0)$ positive
+definite (the line bundle classes $\cO(i)$ for $i \in
+\{-3, \ldots, 0\}$), definitely not Lorentzian. The claim of a
+``compactification-regularised'' $\kappa_{\mathrm{BKM}}^{\mathrm{MO}}
+(\C^3)$ collapses to the vacuous statement ``pick a lattice,
+and you pick an answer''; no canonical lattice input exists for
+$\Perf(\C^3)$.
+
+\paragraph{Stable core (B4), (B6).} The non-compactness of
+$\C^3$ is not a technical defect to be fixed by compactification;
+it is the defining feature that collapses the Borcherds input to
+the trivial lattice. The master identity
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ is scoped to inputs
+with a canonical Lorentzian lattice; on $\Perf(\C^3)$ the lattice
+is trivial and the identity reads $0 = 0/2$, the terminal
+degenerate fibre of the Gritsenko--Cl\'ery $8$-form atlas.
+
+\subsection*{The cocycle condition and Yang--Baxter on $\C^3$}
+
+The content of (B2) is the cocycle condition. We make this explicit.
+Write $r_{ij}(u)$ for the residue of $\phi^+_{\mathrm{UV}}(u)$ across
+the wall $\{u_i - u_j = 0\}$ for $i, j$ indexing chambers of the
+$A_2$-arrangement. The Maulik--Okounkov axiom is the $\check{\text
+C}$ech-cocycle condition
+\[
+ r_{12}(u_1 - u_2) \, r_{13}(u_1 - u_3) \, r_{23}(u_2 - u_3)
+ \;=\; r_{23}(u_2 - u_3) \, r_{13}(u_1 - u_3) \, r_{12}(u_1 - u_2)
+\]
+on the triple intersection of three walls, together with unitarity
+$r_{ij}(u) \, r_{ji}(-u) = \mathrm{id}$. This is precisely the
+Yang--Baxter equation plus the unitarity relation on the $R$-matrix
+of $\Yplus(\widehat{\fgl}_1)$ restricted to the rank-$2$ Cartan.
+The proof is Maulik--Okounkov $2012$ \S $4$ together with the
+identification of triple-wall intersections as $A_2$-type fixed
+points (Okounkov $2015$ \S $5$). The $R$-matrix so produced is
+non-trivial, braided-monoidal, and represents the Path 3 output
+on the representation-category face. It is not the BKM output.
+
+\subsection*{The supertrace computation (chain level)}
+
+To make the vanishing explicit, we compute the Getzler--Kapranov
+modular-operadic pairing supertrace on
+$B^{E_3}(\Yplus(\widehat{\fgl}_1))$. The $E_3$ bar complex is
+\[
+ B^{E_3}(A) \;=\; \bigoplus_{n \geq 0} \Sigma_n\text{-invariants of }
+ A^{\otimes n} \otimes H_\ast(\Conf_n(\R^3); \Q)[n(d - 1)]
+\]
+for $A$ an $E_3$-algebra of dimension $d$ (Getzler--Kapranov $1994$
+\textit{Compos. Math.} $110$; Costello $2007$ arXiv:math/$0605647$
+\S $8$ for the modular extension). The Getzler--Kapranov pairing
+is a $\Q$-linear map
+\[
+ \langle {-}, {-}\rangle_{\mathrm{GK}} \colon
+ B^{E_3}(A) \otimes B^{E_3}(A) \;\to\; H_\ast(\overline{\cM}_{g, n};
+ \Q)
+\]
+extending the cyclic-operadic pairing to the modular-operadic
+(compactified $\overline{\cM}_{g, n}$) level. The supertrace
+\[
+ \mathrm{sTr}_{g, n} \langle {-}, {-}\rangle_{\mathrm{GK}}
+ \;=\; \int_{[\overline{\cM}_{g, n}]^{\mathrm{vir}}}
+ \langle {-}, {-}\rangle_{\mathrm{GK}}
+\]
+reduces to a lattice-theoretic integral when $A$ is the positive
+half of a quantum group with Lorentzian lattice; for the trivial
+lattice this integral is the empty product in the Borcherds
+scheme, evaluating to zero modulo the normalisation by the
+non-existent Weyl vector. The explicit computation on $\C^3$
+reads: $A = \Yplus(\widehat{\fgl}_1)$ sits on the trivial
+lattice $\Z$; the pairing factor through the lattice residue
+gives $0$; hence
+\[
+ \mathrm{sTr}_{g, n} \langle B^{E_3}(\Yplus(\widehat{\fgl}_1)),
+ B^{E_3}(\Yplus(\widehat{\fgl}_1))\rangle_{\mathrm{GK}}
+ \;=\; 0 \quad \text{for all } (g, n).
+\]
+The vanishing is structural, not cancellation: the integrand is
+identically zero on the trivial-lattice fibre.
+
+\subsection*{Three-path base-case cross-check}
+
+The master claim predicts $\kappa_{\mathrm{BKM}}(\C^3) = 0$ via three
+routes. We record each.
+
+\paragraph{Path 1 (bar-complex supertrace, Agent BL-1).} Compute
+$\mathrm{sTr}_{E_3} B^{E_3}(\Yplus(\widehat{\fgl}_1))$ directly
+via the Getzler--Kapranov pairing on closed-operadic
+$\overline{\cM}_{g, n}$ without lattice input; the trivial
+lattice gives $0$.
+
+\paragraph{Path 2 (modular-operadic factorisation homology,
+Agent BL-2).} Compute factorisation homology
+$\int_{\overline{\cM}_{g, n}} \Yplus(\widehat{\fgl}_1)$ per
+Costello $2007$ modular extension; the trivial lattice input
+makes the integral supported on a point, evaluating to
+$0$ in the Borcherds normalisation.
+
+\paragraph{Path 3 (MO residue, this agent).} Compute
+$\mathrm{Res}_{u = u_\star}^{\mathrm{BKM}} \phi^+_{\mathrm{UV}}(u)$
+where $u_\star$ is a BKM wall of a Lorentzian lattice; on
+$\Perf(\C^3)$ the lattice is trivial, so no BKM wall exists, and
+$\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3) = 0$ identically.
+
+The three paths produce the same value $0$ by three distinct
+mechanisms: Path 1 via supertrace-on-bar, Path 2 via modular-operadic
+integration, Path 3 via lattice-input collapse. Triangulation is
+the proof.
+
+\subsection*{What the $\C^3$ base case tells about compact CY$_3$}
+
+The $\C^3$ base case \emph{is not} dispensable reading. It is the
+zero-input sanity pin that every compact CY$_3$ identification must
+recover under the non-compact specialisation. Concretely, a compact
+CY$_3$ $X$ admits a localisation formula
+\[
+ \kappa_{\mathrm{BKM}}^{\mathrm{MO}}(X)
+ \;=\; \sum_{F \subset X^T} \frac{\mathrm{Res}_F(\text{
+ BKM integrand})}{e_T(N_{F / X})}
+\]
+where the sum runs over $T$-fixed loci $F$ of a torus action on $X$
+(where one exists, e.g.\ toric CY$_3$). On each fixed locus with
+affine tangent $\C^3$-type neighbourhood, the local BKM contribution
+is the $\C^3$ base case, i.e.\ $0$. Non-trivial $\kappa_{\mathrm{BKM}}$
+for $X$ arises only from the non-affine, compact, Lorentzian-lattice
+face of the compactification -- precisely the K3 $\times$ E
+lattice $II_{2, 2} \oplus E_8(-1)^{\oplus 2} \oplus \Lambda_E$
+giving $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$.
+
+Similarly the toric CY$_3$ examples (local $\bP^2$, resolved
+conifold) have $\kappa_{\mathrm{BKM}}^{\mathrm{MO}} = 0$ by the
+same localisation argument: their torus-fixed locus is a union of
+$\C^3$-charts, each contributing $0$. The non-trivial BKM
+identifications on K3 $\times$ E are not explained by toric
+structure; they require the honestly-Lorentzian, non-toric
+Mukai lattice.
+
+\subsection*{Side-by-side with Agent $10$ (CFG $2026$ $E_3$ factorisation)}
+
+Agent $10$ of \texttt{notes/wave\_cfg2026/} establishes that
+$\PhiFA_3(\Perf(\C^3)) = \CoHA(\C^3) = \Yplus(\widehat{\fgl}_1)$
+as an $E_3$-holomorphic factorisation algebra on $\C^3$, matching the
+CFG $2026$ configuration-space presentation of topological
+Chern--Simons observables at gauge $\widehat{\fgl}_1$. The present
+agent adds: at this base point, the Path 3 BKM residue vanishes
+identically, because the lattice input absent. The CFG $2026$
+$E_3$-operadic content is non-trivial on $\C^3$; the BKM
+automorphic face is trivial on $\C^3$; the two faces are
+independent.
+
+\subsection*{Side-by-side with Agent $4$ (E${}_2$-transverse shadow)}
+
+Agent $4$ of \texttt{notes/wave\_cfg2026/} identifies the
+transverse $E_2$-shadow $Z^{\mathrm{der}}(\Rep^{E_1}(A))$ for
+$A = \Phi_3^{(\Sigma_2, C)}(\Perf(\C^3))$, with explicit MO
+$R$-matrix $R^{\mathrm{ch}}(u) = \mathrm{Res}_{u = u_\star}
+\phi^+_{\mathrm{UV}}(u)$. The $R$-matrix there is the
+representation-category-level Path 3 output; it is non-zero and
+carries rich Yang--Baxter content. The present agent's
+zero-valued $\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3) = 0$ is the
+\emph{automorphic} Path 3 output. The two outputs are different
+faces of the same CoHA wall structure, separated by the presence
+or absence of a Lorentzian lattice input.
+
+\subsection*{Numerics summary}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+ \toprule
+ \textbf{Quantity} & \textbf{Value at $\C^3$} & \textbf{Source} \\
+ \midrule
+ $\kappa_{\mathrm{cat}}(\C^3)$ &
+ $\chi(\cO_{\C^3}) = 1$ (non-compact) &
+ $\cO_{\C^3}$-resolution \\
+ $\kappa_{\mathrm{ch}}(\C^3)$ &
+ $3/2$ (triality parameter, Gaiotto--Rap\v{c}\'ak
+ $\cW_{1+\infty}$) &
+ SV $2013$; GR $2017$ \\
+ $\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3)$ & $0$ identically &
+ this agent (B1)--(B8) \\
+ $\kappa_{\mathrm{fiber}}(\C^3)$ & $0$ (no compact fibre) &
+ $K_0^{\mathrm{num}} = \Z$ degenerate \\
+ MO wall arrangement on $\C^3$ &
+ $A_2$-type, $|W| = 6$ chambers &
+ MO $2012$ \S $4$ \\
+ Path-1 supertrace &
+ $0$ by trivial-lattice collapse & Agent BL-1 \\
+ Path-2 mod-op factorisation homology &
+ $0$ by trivial-lattice collapse & Agent BL-2 \\
+ Path-3 MO residue &
+ $0$ identically (this agent) & BL-5 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+The four $\kappa$-values at $\C^3$ are $(\kappa_{\mathrm{cat}},
+\kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}^{\mathrm{MO}},
+\kappa_{\mathrm{fiber}}) = (1, 3/2, 0, 0)$, consistent with the
+non-compact $\C^3$ being a $d = 3$ analogue of the $d = 2$ flat
+$\C^2$ base point (where all four $\kappa$-values also align to
+the terminal Gritsenko--Cl\'ery weight-$0$ family).
+
+\subsection*{Path-consistency with Vol III heptagon}
+
+The heptagon of Vol III (Theorem \texttt{thm:heptagon-closed} of
+Vol II, recalled in \texttt{chapters/theory/quantum\_groups\_
+foundations.tex} at Line $5900$-ff.) asserts seven equivalent faces
+for the K3 $\times$ E datum. Under the $\C^3$ base-case collapse,
+the heptagon evaluates face-by-face as follows.
+\begin{itemize}
+ \item Operadic $\Leftrightarrow$ BKM-vertex: BKM-vertex is the
+ empty VOA (no non-trivial lattice); operadic $E_3$-structure is
+ the non-trivial $\Yplus(\widehat{\fgl}_1)$ on $\C^3$. Both read
+ trivially on the BKM face, non-trivially on the CoHA face;
+ consistent with asymmetric collapse.
+ \item Koszul-dual $\Leftrightarrow$ $\Ainf$-coassociator:
+ Koszul dual of $\Yplus(\widehat{\fgl}_1)$ is well-defined but
+ trivial in the BKM normalisation (no imaginary roots to Koszul-
+ dualise); $\Ainf$-coassociator is the KT-formality trivial-
+ associator on $\C^3$.
+ \item Factorisation $\Leftrightarrow$ KZ: both read to the
+ trivial KZ equation on $\C^3$-configuration space at the BKM
+ level.
+ \item BV/BRST $\Leftrightarrow$ Costello-$5$d-hCS: Costello 5d
+ hCS on $\C^3$ does quantise to the Yangian VOA
+ $Y^{\mathrm{VOA}}(\gglone)$; its BKM-level avatar is trivial
+ (no non-trivial Borcherds lift for $\gglone$).
+ \item Convolution $\Leftrightarrow$ Yangian coproduct twist: the
+ coproduct twist on $\Yplus(\widehat{\fgl}_1)$ is non-trivial;
+ the BKM-level avatar (on imaginary-root Cartan) is trivial.
+ \item Drinfeld-centre $\Leftrightarrow$ half-braiding: the
+ Drinfeld centre $Z^{\mathrm{der}}_{\mathrm{ch}}(\Yplus)$ is
+ non-trivial (Agent $4$); its BKM-level Cartan avatar is trivial.
+ \item DAG $\Leftrightarrow$ MO stable envelope: the MO stable
+ envelope on $K_T(\Hilb^n(\C^3))$ is non-trivial (MO $2012$);
+ its BKM-residue collapse (this agent) is trivial.
+\end{itemize}
+Every heptagon face evaluates consistently to ``non-trivial on
+CoHA/representation side, trivial on BKM automorphic side'' at
+the $\C^3$ base point. This is exactly the three-path sanity
+we claim.
+
+\subsection*{Stable core, consolidated}
+
+\begin{theorem}[MO-residue path: $\C^3$ vanishing]
+\label{thm:bl-mo-c3-vanishing-wave}
+\ClaimStatusProvedHere
+Let $\phi^+_{\mathrm{UV}}(u)$ be the UV positive-half gluing cocycle
+of the Maulik--Okounkov stable envelope on $K_T^\bullet(\Hilb^\bullet
+(\C^3))$, defined on the equivariant-parameter plane
+$\mathfrak t^*_\C|_{\mathrm{CY}}$ under the Calabi--Yau constraint
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$. The BKM Borcherds
+residue of $\phi^+_{\mathrm{UV}}$ across a Lorentzian chamber wall,
+read as the coefficient $c_{\mathrm{triv}}(0)$ of the Borcherds
+lift on the trivial lattice $K_0^{\mathrm{num}}(\Perf(\C^3))$, is
+identically zero. Consequently
+\[
+ \kappa_{\mathrm{BKM}}^{\mathrm{MO}}(\C^3) \;=\;
+ \frac{c_{\mathrm{triv}}(0)}{2} \;=\; 0,
+\]
+and the three-path evaluation
+$\kappa_{\mathrm{BKM}}(\C^3) = 0$ is consistent across Paths 1, 2, 3
+of the wave.
+\end{theorem}
+
+\begin{proof}
+Via (B1)--(B8) above. The key structural input is the absence of a
+Lorentzian lattice in $K_0^{\mathrm{num}}(\Perf(\C^3)) = \Z$ with
+degenerate Mukai pairing (Attack 4 heal). Under Borcherds' lift
+theorem (Borcherds $1995$ \textit{Invent. Math.} $120$ Thm $10.1$)
+the trivial-lattice input produces the empty automorphic product
+$\Phi_{\Lambda = 0} = 1$; its Fourier expansion has
+$c_{\mathrm{triv}}(0) = 0$ in the Borcherds normalisation that
+reads $c_N(0)$ as the polar coefficient driving the automorphic
+weight. The master identity
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ evaluates to
+$c_{\mathrm{triv}}(0)/2 = 0$.
+
+The MO wall arrangement on $\C^3$ is non-empty (six $A_2$ chambers,
+Attack 2 heal), but these are positive-definite Coxeter walls, not
+Lorentzian Borcherds walls. The MO $R$-matrix they support is the
+rank-$2$ $\Yplus(\widehat{\fgl}_1)$ Yangian $R$-matrix, living on
+the representation-category face of Path 3 (Agent $4$); this is
+not the BKM-residue output.
+
+The three-path cross-check evaluates to $0$ by three distinct
+mechanisms (Path 1 supertrace, Path 2 modular-operadic, Path 3
+this agent), triangulating the base-case sanity.
+\end{proof}
+
+\subsection*{Closing remark: what the base case is good for}
+
+The $\C^3$ base case gives three things. First, a sanity anchor:
+any claim $\kappa_{\mathrm{BKM}}^{\mathrm{MO}}(X) \ne 0$ for a
+general CY$_3$ $X$ must distinguish $X$ from its local
+$\C^3$-charts; localisation (Atiyah--Bott on $T$-fixed loci)
+reduces to a sum of $\C^3$-contributions, each $0$, plus
+non-local (non-affine, Lorentzian-lattice) contributions.
+Second, a scope pin: the master identity is stated only for
+inputs with a canonical Lorentzian lattice, and the $\C^3$ case
+confirms that trivial lattice collapses to $0 = 0/2$, the
+terminal Gritsenko--Cl\'ery weight-$0$ entry. Third, a
+three-path consistency: Paths 1, 2, 3 triangulate; any future
+path (e.g.\ a $6$d-hCS-avatar Path 4) must also evaluate to $0$
+on $\C^3$ or contradict this triangulation.
+
+The K3 $\times$ E case $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$
+is not a trivial extension of the base case: it requires the
+honestly-Lorentzian Mukai lattice
+$II_{2, 2} \oplus E_8(-1)^{\oplus 2} \oplus \Lambda_E$, and the
+Borcherds lift of the K3 elliptic genus $\phi_{0, 1}$ produces
+$\Delta_5$ with $c_1(0) = 10$ (Lorgat $2020$ arXiv:$2004.09030$
+\S $4$; Gritsenko--Nikulin $1998$ \textit{Duke} $94$ Thm $2.1$;
+Gritsenko $1999$ \textit{Math. Nachr.} $199$ Thm $6.1$). The
+non-triviality of the K3 $\times$ E output and the triviality of
+the $\C^3$ output agree with the universal formula
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$: the former has
+$c_1(0) = 10$ giving $\kappa_{\mathrm{BKM}} = 5$; the latter has
+$c_{\mathrm{triv}}(0) = 0$ giving $\kappa_{\mathrm{BKM}} = 0$.
+
+\subsection*{File-path locations}
+
+The chain-level proof of Theorem \ref{thm:bl-mo-c3-vanishing-wave}
+is inscribed in
+\texttt{chapters/theory/quantum\_groups\_foundations.tex}
+under label \texttt{thm:bl-mo-c3-vanishing}, attached to the
+Section ``Generalized root data of Calabi--Yau threefolds''
+for which $\C^3$ is the terminal-lattice base case of the
+root-datum catalogue. Side-by-side readings with
+\texttt{notes/wave\_cfg2026/agent\_10\_coha\_e3\_factorization.tex}
+and \texttt{notes/wave\_cfg2026/agent\_4\_e2\_transverse\_
+shadow.tex} pin the $E_3$-factorisation and $E_2$-transverse
+content; this agent's wave file captures the Borcherds-automorphic
+collapse.

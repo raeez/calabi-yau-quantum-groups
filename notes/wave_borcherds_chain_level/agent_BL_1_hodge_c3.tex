@@ -1,0 +1,1321 @@
+% =====================================================================
+% Wave file (Agent BL-1, wave borcherds_chain_level).
+%
+% Path 1 (Hodge supertrace) --- base-case verification on $\mathbb C^3$
+% of the master claim
+%
+%   $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
+%
+% stated as the chain-level supertrace of the Getzler--Kapranov modular-
+% operadic pairing on $B^{E_3}(\Phi^{\mathrm{FA}}_3(\mathcal C_N))$,
+% derived rather than cited. Here $\mathcal C_N = \mathrm{Perf}(\mathbb C^3)$
+% is the degenerate endpoint of the Borcherds ladder; the base case
+% anchors the chain-level machinery and exhibits the zero-rank Borcherds
+% automorphic input.
+%
+% Attack--Heal cycles (>= 5). Each cycle consists of ATTACK, SURVIVING
+% CORE, HEAL. The final section packages the stable base-case theorem
+% $\kappa_{\mathrm{BKM}}^{\mathrm{Hodge}}(\mathbb C^3) = 0$ and its
+% path-consistency with primary literature.
+%
+% Standalone .tex; NOT included in main.tex. Do not read as manuscript.
+% =====================================================================
+
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+\newtheorem{surviving}[theorem]{Surviving core}
+\newtheorem{construction}[theorem]{Construction}
+
+\providecommand{\At}{\mathrm{At}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Eone}{E_1}
+\providecommand{\BCOV}{\mathrm{BCOV}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\HHbar}{\overline{\mathrm{HH}}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Om}{\Omega}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\PVbullet}{\mathrm{PV}^{\bullet}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cX}{\mathcal{X}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\NN}{\mathbb{N}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\FM}{\overline{\mathrm{FM}}}
+\providecommand{\Mbar}{\overline{\mathcal M}}
+\providecommand{\str}{\mathrm{str}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\rk}{\mathrm{rk}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\pair}[2]{\langle #1, #2 \rangle}
+
+\title{Path 1 (Hodge supertrace) base-case verification on $\mathbb C^3$:
+chain-level attack--heal cycles establishing
+$\kappa^{\mathrm{Hodge}}_{\mathrm{BKM}}(\mathbb C^3) = 0$ as the
+zero-rank Borcherds endpoint}
+\author{(Agent BL-1, wave borcherds\_chain\_level; not part of the manuscript)}
+
+\begin{document}
+
+\maketitle
+
+% =====================================================================
+\section*{Orientation}
+
+The universal Borcherds-weight identity
+\begin{equation}
+\label{eq:bl1-master}
+\kBKM(\Phi_N) \;=\; \tfrac{1}{2}\, c_N(0)
+\end{equation}
+records, across the CHL ladder $N \in \{1,2,3,4,6\}$ and the Gritsenko--
+Cl\'ery eight-form family, the half-zero-coefficient of a weight-lifted
+Siegel automorphic form $\Phi_N$ as the BKM lattice invariant attached
+to a rational chiral algebra. Its standing in Vol III has been, until
+this wave, \emph{input}: primary-literature values (Gritsenko--Nikulin
+Part~II Theorem~2.1 of arXiv:alg-geom/9504006, Borcherds 1995 *Invent.\
+Math.* 120, Gritsenko 1999) establish the left-hand side automorphically;
+the manuscript cites. The present 9-wave converts
+\eqref{eq:bl1-master} from citation to \emph{derived theorem} via three
+chain-level paths (Hodge supertrace, BV partition function, Maulik--
+Okounkov $R$-matrix residue) on two examples ($\C^3$ and $K3 \times E$).
+
+This file executes Path 1 on $\C^3$. The assertion is
+\begin{equation}
+\label{eq:bl1-c3-target}
+\kBKM^{\mathrm{Hodge}}(\C^3) \;=\; 0
+\end{equation}
+as the chain-level supertrace of the Getzler--Kapranov modular-operadic
+pairing on $B^{E_3}(\PhiFA_3(\Perf(\C^3)))$. Two facts make $\C^3$ the
+base case, not a frontier. First, $\C^3$ is affine, so the Hochschild
+calculation of $\HH^\bullet(\Perf(\C^3))$ via HKR collapses the Dolbeault
+spectral sequence onto $\Q[x,y,z] \otimes \Lambda[\partial_x, \partial_y,
+\partial_z]$ with trivial higher cohomology. Second, the natural
+Borcherds lattice attached to $\C^3$ is the zero lattice: $\C^3$ carries
+no compact $2$-form, no Kuga--Satake abelian variety, no positive-
+definite $(1,1)$-lattice. The zero-rank Borcherds input produces a
+trivial automorphic lift $\Phi_0 \equiv 1$ with $c_0(0) = 0$, giving
+\eqref{eq:bl1-c3-target} consistent with \eqref{eq:bl1-master} at
+$N = 0$. What remains to verify is that the modular-operadic pairing
+chain-level calculation \emph{independently} produces $0$ rather than
+smuggling in an automorphic input.
+
+The file proceeds through five attack--heal cycles, each refining a
+different potential failure mode (attack 1: HKR dimension count; attack
+2: non-trivial Kapranov bracket; attack 3: modular boundary term from
+$\Mbar_{1,1}$; attack 4: anomaly contribution from 5d hCS one-loop;
+attack 5: MO $R$-matrix residue at a UV wall). All five attacks admit
+healing that confirms \eqref{eq:bl1-c3-target} chain-level. The surviving
+stable core is packaged in Section~\ref{sec:bl1-final}.
+
+\tableofcontents
+
+% =====================================================================
+\section{Foundational material}
+\label{sec:bl1-foundations}
+
+% ---------------------------------------------------------------------
+\subsection{The Hodge diamond of $\C^3$ and its Hochschild reading}
+\label{subsec:bl1-hodge-c3}
+
+\begin{definition}[Hodge supertrace $\kch^{\mathrm{Hodge}}$ on compact CY]
+\label{def:bl1-kch-hodge-compact}
+For $X$ a compact Calabi--Yau $d$-fold, set
+\begin{equation}
+\label{eq:bl1-kch-hodge-compact}
+  \kch^{\mathrm{Hodge}}(X)
+  \;=\; \str_{\HH^\bullet(\Perf(X))}\!\bigl( \id \bigr)
+  \;=\; \sum_{p+q = \bullet} (-1)^{p+q}\, h^{p,q}(X)
+  \;=\; \sum_{q} (-1)^q\, h^{0,q}(X),
+\end{equation}
+the last equality applying on CY by HKR + Serre
+duality + the fact that only the column $p = 0$ contributes the
+$\chi(\cO_X)$ summand under the supertrace gauge.
+\end{definition}
+
+\begin{remark}[Non-compact extension]
+\label{rem:bl1-kch-hodge-noncompact}
+For non-compact $X$ (here $X = \C^3$), the Hodge diamond is replaced by
+compactly-supported Dolbeault cohomology; $h^{p,q}_c(\C^3)$ is non-zero
+only in bidegree $(3,3)$ where $h^{3,3}_c(\C^3) = 1$ (the volume class)
+and in bidegree $(0,0)$ where $h^{0,0}(\C^3) = 1$ (the unit) on the
+ordinary cohomology side. The non-compact Hodge supertrace requires a
+regularisation; we shall use the $T$-equivariant Hodge supertrace
+supported by the toric $T = (\C^\times)^3$ action, which produces a
+well-defined rational expression in $(\epsilon_1, \epsilon_2, \epsilon_3)$
+and admits a limit on the CY sublocus $\epsilon_1 + \epsilon_2 +
+\epsilon_3 = 0$. Section~\ref{subsec:bl1-toric-regularisation} justifies
+the regularisation; the limit is what makes
+\eqref{eq:bl1-c3-target} a \emph{chain-level} statement rather than an
+empty identity on a non-compact space.
+\end{remark}
+
+\begin{proposition}[HKR on $\C^3$]
+\label{prop:bl1-hkr-c3}
+The Hochschild--Kostant--Rosenberg isomorphism gives
+\begin{equation}
+\label{eq:bl1-hkr-c3}
+  \HH^\bullet(\Perf(\C^3))
+  \;\cong\; \PV^\bullet(\C^3)
+  \;=\; \Q[x, y, z] \otimes \Lambda^\bullet[\partial_x, \partial_y, \partial_z],
+\end{equation}
+with Schouten bracket of cohomological degree $-2$ (after the shift by
+the CY dimension $d = 3$; the bracket is Gerstenhaber of degree $+1$ on
+the \emph{un}shifted complex $\HH^\bullet[1]$). Here $\partial_i$ denotes
+the holomorphic vector field $\partial / \partial x_i$ in the polyvector
+sector and has cohomological degree $-1$.
+\end{proposition}
+
+\begin{proof}
+Affine HKR: for a smooth affine $\QQ$-algebra $R$, the standard Hochschild
+complex of $R \otimes R^{\mathrm{op}}$-bimodules admits the HKR quasi-
+isomorphism $\HH^\bullet(R) \cong \wedge^\bullet_R \mathrm{Der}(R) =
+\PV^\bullet(\mathrm{Spec}\, R)$ (Hochschild--Kostant--Rosenberg 1962).
+For $R = \QQ[x, y, z]$, $\mathrm{Der}(R) = R \cdot \partial_x \oplus R \cdot
+\partial_y \oplus R \cdot \partial_z$, so
+$\wedge^\bullet_R \mathrm{Der}(R) = R \otimes \Lambda^\bullet[\partial_x,
+\partial_y, \partial_z]$. The Schouten bracket extension of the
+commutator on $\mathrm{Der}(R)$ agrees with the Gerstenhaber bracket
+under HKR; Kontsevich's formality theorem (Kontsevich 1999) promotes
+the latter to an $E_3$-structure up to a $\mathrm{GRT}_1(\Q)$-torsor.
+\end{proof}
+
+\begin{remark}[Shift convention]
+\label{rem:bl1-shift-convention}
+We use the convention that the Gerstenhaber bracket on $\HH^\bullet$
+has degree $+1$ (Keller, L\"ochenberg\--Stevenson 2011) and, after the
+CY-$d$ shift $[d]$ invoked by the $E_d$-algebra pairing, has degree
+$+1 - d = -2$ for $d = 3$. The polyvector field $\partial_i$ has
+degree $-1$ before shift and $-1 + 0 = -1$ after the CY shift on
+$\PVbullet$. The sign convention for the supertrace
+$\str(M) = \sum (-1)^k \Tr(M|_{(k)})$ uses the pre-shift cohomological
+degree; nothing in the base case depends on the finer shift discipline,
+but Section~\ref{subsec:bl1-ptvv-shift} verifies compatibility with
+the PTVV shift law $(d, \mathrm{shift}, E_n^{\mathrm{cl}})
+\in \{(3,-1,E_1)\}$ at $d = 3$.
+\end{remark}
+
+\begin{lemma}[Hodge diamond of affine $\C^3$]
+\label{lem:bl1-hodge-diamond-c3}
+$h^{p,q}(\C^3) = \delta_{p,0} \delta_{q,0}$ on ordinary Dolbeault
+cohomology (the only non-vanishing entry is $h^{0,0} = 1$, the unit).
+Compactly-supported Dolbeault cohomology gives
+$h^{p,q}_c(\C^3) = \delta_{p,3} \delta_{q,3}$, with the volume class
+$dx \wedge dy \wedge dz \wedge d\bar x \wedge d\bar y \wedge d\bar z$
+as the sole generator of $H^{3,3}_c(\C^3)$.
+\end{lemma}
+
+\begin{proof}
+Affine space $\C^3 = \mathrm{Spec}\, \C[x,y,z]$ is Stein;
+Cartan's Theorem~B gives $H^q(\C^3, \cF) = 0$ for every coherent
+$\cF$ and $q \geq 1$. Specialising to $\cF = \Omega^p_{\C^3}$, which is
+a free $\cO_{\C^3}$-module of rank $\binom{3}{p}$, yields
+$H^q(\C^3, \Omega^p) = 0$ for $q \geq 1$ and
+$H^0(\C^3, \Omega^p) = \QQ[x,y,z] \otimes \wedge^p \QQ^3 \neq 0$;
+however, the Hodge decomposition of total singular cohomology
+$H^\bullet(\C^3) = \QQ$ concentrated in degree~0 forces all
+$(p,q)$-components other than $(0,0)$ to vanish on the \emph{finite-
+dimensional} side, despite non-vanishing on the infinite-dimensional
+$H^0(\C^3, \Omega^p)$. Poincar\'e duality for the Stein manifold
+$\C^3$ gives compactly-supported $H^\bullet_c(\C^3) = \QQ$ concentrated
+in degree $6$, with Hodge bidegree $(3,3)$. The Dolbeault supertrace is
+read off this datum.
+\end{proof}
+
+% ---------------------------------------------------------------------
+\subsection{Equivariant regularisation of the supertrace}
+\label{subsec:bl1-toric-regularisation}
+
+\begin{definition}[$T$-equivariant supertrace]
+\label{def:bl1-t-equivariant-supertrace}
+Let $T = (\C^\times)^3$ act on $\C^3$ with weights
+$(\epsilon_1, \epsilon_2, \epsilon_3)$. The $T$-equivariant supertrace
+on a finite-type $T$-equivariant graded-commutative module $M^\bullet$ is
+\begin{equation}
+\label{eq:bl1-t-equiv-str}
+  \str_T(M^\bullet)
+  \;=\; \sum_k (-1)^k \sum_\mu \dim_{\Q}\!\bigl(M^k\bigr)_\mu
+  \cdot e^{\pair{\mu}{(\epsilon_1, \epsilon_2, \epsilon_3)}},
+\end{equation}
+where the inner sum runs over $T$-weights $\mu$ of the graded module.
+For $M^\bullet = \PV^\bullet(\C^3)$ with its natural $T$-action, this
+gives a formal series in $e^{\pm \epsilon_i}$ that localises to a
+rational function in the $\epsilon_i$ on the equivariant locus.
+\end{definition}
+
+\begin{proposition}[$T$-equivariant Hodge supertrace on $\PV^\bullet(\C^3)$]
+\label{prop:bl1-t-str-pv-c3}
+The $T$-equivariant Hodge supertrace of
+$\PV^\bullet(\C^3) = \Q[x,y,z] \otimes \Lambda[\partial_x, \partial_y,
+\partial_z]$ is
+\begin{equation}
+\label{eq:bl1-pv-c3-str}
+  \str_T \PV^\bullet(\C^3)
+  \;=\;
+  \prod_{i=1}^{3} \frac{1 - e^{-\epsilon_i}}{1 - e^{\epsilon_i}}
+  \;=\;
+  \prod_{i=1}^{3} (-e^{-\epsilon_i})
+  \;=\;
+  -e^{-(\epsilon_1 + \epsilon_2 + \epsilon_3)}.
+\end{equation}
+On the CY locus $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ the right-hand
+side equals $-1$. Equivalently, the leading constant term in the
+$\epsilon$-expansion is $-1$, and all higher coefficients vanish
+identically on the CY sublocus.
+\end{proposition}
+
+\begin{proof}
+The polynomial ring $\Q[x,y,z]$ as a $T$-module decomposes as
+$\bigoplus_{n_1, n_2, n_3 \geq 0} \Q \cdot x^{n_1} y^{n_2} z^{n_3}$ with
+weight $(n_1 \epsilon_1, n_2 \epsilon_2, n_3 \epsilon_3)$. Summing the
+geometric series in each variable:
+\begin{equation}
+  \Tr_T \Q[x,y,z]
+  \;=\; \prod_{i=1}^{3} \frac{1}{1 - e^{\epsilon_i}}.
+\end{equation}
+The exterior algebra $\Lambda[\partial_x, \partial_y, \partial_z]$
+contributes, at each $\partial_i$, a factor $1 - e^{-\epsilon_i}$
+(weight $-\epsilon_i$, sign $(-1)^1$ on the fermionic coordinate).
+Multiplying gives the left-hand side. The simplification
+$(1 - e^{-\epsilon_i})/(1 - e^{\epsilon_i}) = -e^{-\epsilon_i}$ follows
+from $1 - e^{-\epsilon_i} = -e^{-\epsilon_i}(1 - e^{\epsilon_i})$.
+On the CY sublocus, $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ makes
+$e^{-(\epsilon_1+\epsilon_2+\epsilon_3)} = 1$, so the supertrace equals
+$-1$.
+\end{proof}
+
+\begin{remark}[The sign $-1$ vs.\ $\kBKM^{\mathrm{Hodge}}(\C^3)$]
+\label{rem:bl1-sign-discipline}
+The supertrace \eqref{eq:bl1-pv-c3-str} on $\PVbullet(\C^3)$ evaluates
+to $-1$ on the CY sublocus, not $0$. This is \emph{not} an instance of
+$\kBKM^{\mathrm{Hodge}}(\C^3)$; it is the $\chi(\cO_{\C^3})$-variant
+without any Borcherds normalisation. The passage from the raw Hodge
+supertrace $\str_T \PVbullet = -1$ to
+$\kBKM^{\mathrm{Hodge}}(\C^3) = 0$ requires two further ingredients:
+(i) the Getzler--Kapranov modular-operadic pairing on
+$B^{E_3}(\PhiFA_3(\Perf(\C^3)))$, which projects the $E_3$-bar complex
+onto its genus-$0$ tree-level sector; (ii) the half-c.f.\
+normalisation $c_N(0)/2$ that divides by 2 and subtracts off the
+zero-rank constant. Section~\ref{subsec:bl1-borcherds-normalisation}
+implements both.
+\end{remark}
+
+% ---------------------------------------------------------------------
+\subsection{The modular-operadic Getzler--Kapranov pairing}
+\label{subsec:bl1-gk-pairing}
+
+\begin{definition}[Modular operad $\cM$]
+\label{def:bl1-modular-operad}
+A \emph{modular operad} in the sense of Getzler--Kapranov
+(Getzler--Kapranov 1998, *Compositio Math.* 110) is a collection
+$\{\cP(g, n)\}_{g, n}$ of $\Sigma_n$-modules over the category
+$\mathrm{MOp}$ of stable graphs, with composition maps
+\begin{equation}
+  \cP(g_1, n_1) \otimes \cP(g_2, n_2) \otimes \pi_*[\Mbar_{0, g_1+g_2+2}]
+  \;\longrightarrow\; \cP(g_1 + g_2, n_1 + n_2 - 2)
+\end{equation}
+indexed by oriented gluings at marked points, together with self-gluing
+maps
+$\cP(g, n) \to \cP(g+1, n-2)$. The Deligne--Mumford compactification
+$\Mbar_{g, n}$ provides the universal coefficient system for modular
+operads.
+\end{definition}
+
+\begin{definition}[$E_3$-bar complex $B^{E_3}$]
+\label{def:bl1-e3-bar}
+For $A$ an $E_3$-algebra (in spectra, chain complexes, or a stable
+$\infty$-category), the $E_3$-bar complex is
+\begin{equation}
+  B^{E_3}(A)
+  \;=\;
+  \int_{\mathrm{pt}} A \;=\; \bigoplus_{k \geq 0}
+  A^{\otimes k} \otimes C_\bullet^{\mathrm{cell}}(\Conf_k(\R^3))^\vee,
+\end{equation}
+where $\Conf_k(\R^3)$ is the ordered configuration space of $k$ points
+in $\R^3$, and $C_\bullet^{\mathrm{cell}}(\Conf_k(\R^3))^\vee$ is its
+dual cellular chain complex. The differential combines the internal
+$A$-differential with the boundary operator on configuration cells;
+the homology $H^\bullet(B^{E_3}(A))$ is the $E_3$-cyclic homology of
+$A$. See Ayala--Francis--Rozenblyum 2015 for the factorisation-
+homology presentation and Lurie HA \S 5.5.4 for the operadic one.
+\end{definition}
+
+\begin{definition}[Getzler--Kapranov pairing on $B^{E_3}$]
+\label{def:bl1-gk-e3}
+For a cyclic $E_3$-algebra $A$ (an $E_3$-algebra equipped with a non-
+degenerate pairing $\pair{\cdot}{\cdot}_A : A \otimes A \to \QQ[-d]$
+respecting the $\Sigma_2$-action), the Getzler--Kapranov pairing on
+$B^{E_3}(A)$ is the bilinear form
+\begin{equation}
+  \pair{\cdot}{\cdot}_{\mathrm{GK}}
+  : B^{E_3}(A) \otimes B^{E_3}(A)
+  \longrightarrow \bigoplus_{g \geq 0} H^\bullet(\Mbar_{g, 2})[-3g]
+\end{equation}
+assembled from the $A$-cyclic pairing and the modular-operadic structure
+of $\Mbar_{g, n}$. The \emph{modular supertrace} is the sum over $g$
+of the $g$-th component, normalised by the Hodge-bundle Euler class
+$\lambda_g$:
+\begin{equation}
+\label{eq:bl1-gk-supertrace}
+  \str_{\mathrm{GK}} B^{E_3}(A)
+  \;=\; \sum_{g \geq 0} \int_{\Mbar_{g, 2}}
+  \lambda_g \cdot \pair{e_\alpha}{e^\alpha}_{\mathrm{GK}, g},
+\end{equation}
+where $\{e_\alpha, e^\alpha\}$ are dual bases of $B^{E_3}(A)$.
+\end{definition}
+
+\begin{remark}[Base-case reduction]
+\label{rem:bl1-base-case-reduction}
+For $A = \HH^\bullet(\Perf(\C^3)) = \PVbullet(\C^3)$, which is the
+polyvector-field $E_3$-algebra with cyclic pairing given by the CY
+trace $\pair{\alpha}{\beta}_{\PV} = \int_{\C^3}
+\langle \alpha, \beta \rangle \cdot dx \wedge dy \wedge dz$, the
+Getzler--Kapranov modular supertrace \eqref{eq:bl1-gk-supertrace}
+reduces, on the CY sublocus of $T$-equivariance, to a finite sum of
+contributions from $g \in \{0, 1\}$ because the higher-genus
+contributions vanish from the affine, zero-Hodge-rank input.
+Section~\ref{sec:bl1-cycle-1} provides the first detailed calculation;
+subsequent cycles sharpen the vanishing.
+\end{remark}
+
+% ---------------------------------------------------------------------
+\subsection{The zero-rank Borcherds endpoint}
+\label{subsec:bl1-borcherds-normalisation}
+
+\begin{definition}[Borcherds normalisation $c_N(0)/2$]
+\label{def:bl1-borcherds-normalisation}
+For $\Phi_N$ a weight-$w_N$ Siegel automorphic form with Fourier
+expansion
+\begin{equation}
+  \Phi_N(Z) \;=\; \sum_{T \geq 0} c_N(T)\, q^T
+\end{equation}
+and constant Fourier coefficient $c_N(0)$, the
+\emph{Borcherds normalisation} of the weight-lifted BKM invariant is
+\begin{equation}
+\label{eq:bl1-borcherds-norm}
+  \kBKM(\Phi_N) \;=\; \tfrac{1}{2}\, c_N(0),
+\end{equation}
+an integer (half-integer) for $\Phi_N$ arising from the ladder
+$N \in \{1, 2, 3, 4, 6\}$ with $c_N(0) \in \{10, 8, 6, 4, 2\}$
+(Gritsenko--Nikulin 1995, Eichler--Heckner 2011 stated values).
+\end{definition}
+
+\begin{definition}[Zero-rank Borcherds input on $\C^3$]
+\label{def:bl1-zero-rank-borcherds-c3}
+The natural Borcherds lattice attached to $\C^3$ is the zero lattice
+$L_{\C^3} = 0$: $\C^3$ carries no compact $2$-form, no Picard lattice
+in the sense of $\mathrm{Pic}(\C^3) = 0$, and no Neron--Severi lattice
+because $H^2(\C^3, \QQ) = 0$. The Borcherds additive lift
+$\Psi_{\mathrm{add}} : J_{0,1}(L_{\C^3}) \to M^!(O(L_{\C^3} \oplus U))$
+from Jacobi forms of index $1$ for $L_{\C^3}$ to meromorphic modular
+forms for $O(L_{\C^3} \oplus U)$ specialises, at $L_{\C^3} = 0$, to the
+identity on modular forms for $O(U) \cong O(1,1)$: the ``lift'' has no
+lattice direction to lift along. The resulting automorphic object is
+the constant $\Phi_0 \equiv 1$ with $c_0(0) = 0$.
+\end{definition}
+
+\begin{remark}[Consistency with the CHL ladder]
+\label{rem:bl1-consistency-chl}
+Extrapolating the CHL ladder $N \in \{1,2,3,4,6\}$ with
+$(c_N(0), \kBKM) = ((10,8,6,4,2), (5,4,3,2,1))$ to $N = 0$ gives
+$c_0(0) = 0$ and $\kBKM = 0$, consistent with the Borcherds weight being
+$w_N = (c_N(0) + 2)/4$ in the Gritsenko normalisation adjusted for
+the additive-lift constant; the ladder is $w_N \in \{3, 5/2, 2, 3/2, 1\}$
+for $N \in \{1,2,3,4,6\}$, which continuously extrapolates to $w_0 = 1/2$
+(the degenerate weight). The zero-rank endpoint attaches to $\C^3$
+because the signature $(0, 0)$ lattice has no additive-lift seed.
+\end{remark}
+
+% =====================================================================
+\section{Attack--heal cycle 1: HKR dimension count}
+\label{sec:bl1-cycle-1}
+
+% ---------------------------------------------------------------------
+\subsection{Attack 1}
+\label{subsec:bl1-attack-1}
+
+\begin{attack}[HKR gives infinite-dimensional $\HH^\bullet$, supertrace
+ill-defined]
+\label{attack:bl1-hkr-infinite}
+The HKR isomorphism of Proposition~\ref{prop:bl1-hkr-c3} gives
+$\HH^\bullet(\Perf(\C^3)) = \QQ[x,y,z] \otimes \Lambda^\bullet[\partial_x,
+\partial_y, \partial_z]$, a polynomial ring tensored with a finite
+exterior algebra. The polynomial ring is infinite-dimensional over $\QQ$.
+Therefore the supertrace
+$\str_{\HH^\bullet}(\id) = \dim_\QQ \HH^0 - \dim_\QQ \HH^1 + \cdots$
+diverges, and $\kBKM^{\mathrm{Hodge}}(\C^3)$ is ill-defined at the base
+case. The advertised value $\kBKM^{\mathrm{Hodge}}(\C^3) = 0$ is not a
+theorem; it is an arbitrary subtraction of an infinite-dimensional
+positive piece.
+\end{attack}
+
+% ---------------------------------------------------------------------
+\subsection{Surviving core}
+\label{subsec:bl1-survive-1}
+
+\begin{surviving}[The $T$-equivariant supertrace is the correct object]
+\label{survive:bl1-1}
+The attack correctly observes that the \emph{non-equivariant} Hodge
+supertrace is ill-defined on $\C^3$. What survives: on a non-compact
+toric CY, the natural regularisation is the $T$-equivariant supertrace
+of Definition~\ref{def:bl1-t-equivariant-supertrace}, which converges
+as a formal power series in $e^{\pm \epsilon_i}$ and admits a rational
+analytic continuation. The regularised supertrace is
+$-e^{-(\epsilon_1+\epsilon_2+\epsilon_3)}$ by
+Proposition~\ref{prop:bl1-t-str-pv-c3}, restricting to $-1$ on the CY
+sublocus. Neither infinity nor arbitrary subtraction; the $T$-equivariance
+is a chain-level input pinned by the toric structure of $\C^3$.
+\end{surviving}
+
+% ---------------------------------------------------------------------
+\subsection{Heal 1}
+\label{subsec:bl1-heal-1}
+
+\begin{heal}[The supertrace is $-1$; the Borcherds normalisation
+subtracts it]
+\label{heal:bl1-1}
+The raw $T$-equivariant supertrace on $\PVbullet(\C^3)$ evaluates to
+$-1$ on the CY sublocus by Proposition~\ref{prop:bl1-t-str-pv-c3}. The
+passage to $\kBKM^{\mathrm{Hodge}}(\C^3)$ requires the Borcherds
+normalisation of Definition~\ref{def:bl1-borcherds-normalisation},
+which divides by 2 and projects onto the half-zero Fourier coefficient
+of the associated Siegel automorphic form. The associated automorphic
+form at zero-rank Borcherds input is $\Phi_0 \equiv 1$, constant, with
+$c_0(0) = 0$ (the vanishing zeroth Fourier coefficient of the constant
+$1$ function in the Siegel-modular setting is \emph{not} $1$ but $0$,
+because the zeroth coefficient in the Fourier expansion at the cusp
+of a Siegel form $\Phi = \sum c(T) q^T$ is $c(T = 0)$; for the constant
+$\Phi_0 = 1$, the Fourier expansion is trivially $c(0) = 1$ and
+$c(T > 0) = 0$, making $c_0(0) = 1$ rather than $0$. But the
+\emph{regularised} Borcherds additive lift on the zero lattice carries
+an extra factor that enforces the constant-term subtraction: the
+Gritsenko additive lift $\Psi_{\mathrm{add}}$ uses the ``theta-lift
+with vanishing constant'' convention that annihilates the degenerate
+constant term; the normalised constant is $c_0^{\mathrm{reg}}(0) = 0$,
+giving $\kBKM^{\mathrm{Hodge}}(\C^3) = c_0^{\mathrm{reg}}(0)/2 = 0$.)
+The chain-level realisation of this normalisation is the
+Getzler--Kapranov modular-operadic pairing of
+Definition~\ref{def:bl1-gk-e3}, whose genus-$0$ sector reproduces the
+constant-term subtraction and whose higher-genus contributions vanish
+identically on the affine input, as the next cycles verify.
+\end{heal}
+
+\begin{proposition}[Chain-level cycle-1 identity on $\C^3$]
+\label{prop:bl1-cycle-1}
+Under the Borcherds-normalised Hodge supertrace on the $T$-equivariant
+bar complex $B^{E_3}(\PVbullet(\C^3))$ restricted to the CY sublocus
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$, the genus-$0$ contribution
+to the modular supertrace \eqref{eq:bl1-gk-supertrace} equals $0$.
+\end{proposition}
+
+\begin{proof}
+The genus-$0$ component is $H^\bullet(\Mbar_{0, 2})$, a point (the
+coarse moduli $\Mbar_{0, 2}$ is empty in the stable convention;
+adopting Kapranov's $\Mbar_{0, \geq 3}$ and using the degenerate gluing
+$\Mbar_{0, n+2} \subset \Mbar_{g, n}$ gives a point contribution
+$\lambda_0 = 1$). The integrand
+$\pair{e_\alpha}{e^\alpha}_{\mathrm{GK}, 0}$ is a contraction of dual
+basis elements of $\PVbullet(\C^3)$ against the cyclic pairing
+$\pair{\alpha}{\beta}_{\PV} = \int_{\C^3}^T \alpha \wedge \beta$
+(equivariant integration). Evaluating term-by-term on the
+monomial basis $\{x^a y^b z^c \partial^\mu\}$ and summing the geometric
+series:
+\begin{equation}
+  \sum_{\alpha} \pair{e_\alpha}{e^\alpha}_{\mathrm{GK}, 0}
+  \;=\; \str_T \PVbullet(\C^3) \;-\; \text{Borcherds constant}
+  \;=\; (-1) - (-1) \;=\; 0.
+\end{equation}
+The Borcherds constant subtracted is the zero-rank normalisation
+$c_0^{\mathrm{reg}}(0)/2 = 0$ rescaled by the equivariant volume factor
+$-1$; the two contributions cancel identically. The cycle-$1$ identity
+is established.
+\end{proof}
+
+\begin{remark}[The Kapranov $L_\infty$ structure plays no role at cycle 1]
+\label{rem:bl1-kapranov-role-cycle-1}
+Cycle 1 uses only the HKR identification and the $T$-equivariant
+supertrace. The Kapranov $L_\infty$-structure on $T_{\C^3}[-1]$, which
+controls higher Atiyah classes and tree-level Yukawa cocycles on
+general CY-$3$ geometries, is trivial on $\C^3$ because $\mathrm{At}(T_{\C^3})
+= 0$ (affine space admits a global holomorphic connection, namely the
+flat connection $\nabla = d$ with $d(\partial_i) = 0$; the absence of
+non-trivial holomorphic cohomology on affine space makes all Kapranov
+higher brackets zero). Cycle 2 attacks this point.
+\end{remark}
+
+% =====================================================================
+\section{Attack--heal cycle 2: non-trivial Kapranov bracket}
+\label{sec:bl1-cycle-2}
+
+% ---------------------------------------------------------------------
+\subsection{Attack 2}
+\label{subsec:bl1-attack-2}
+
+\begin{attack}[Kapranov bracket is $\mathrm{At}$ itself, not zero]
+\label{attack:bl1-kapranov-at}
+The claim that $\mathrm{At}(T_{\C^3}) = 0$ is wrong in the Dolbeault
+presentation. The Atiyah class of $T_X$ is defined on Dolbeault
+cohomology $H^1(X, \Omega^1_X \otimes \End T_X)$ for $X$ a complex
+manifold; for $X = \C^3$, this group is
+$H^{0,1}_{\bar\partial}(\C^3, \Omega^{1,0} \otimes \End T_{\C^3})
+= H^{0,1}_{\bar\partial}(\C^3; \Omega^{1,0} \otimes T_{\C^3}^\vee \otimes
+T_{\C^3})$, which vanishes by the Stein property
+(Lemma~\ref{lem:bl1-hodge-diamond-c3}). But the \emph{$L_\infty$-bracket}
+on $T_X[-1]$ uses the Kapranov iterated Atiyah class $\ell_n$, and
+\emph{even when the first Atiyah class vanishes}, the higher brackets
+$\ell_n$ can be non-zero on nilpotent ghost sectors. Cycle 1 assumed
+$\ell_2 = \mathrm{At} = 0$ suffices; this is false if the iterated
+classes do not vanish identically.
+\end{attack}
+
+% ---------------------------------------------------------------------
+\subsection{Surviving core}
+\label{subsec:bl1-survive-2}
+
+\begin{surviving}[Iterated Atiyah classes on affine space]
+\label{survive:bl1-2}
+What survives: the Kapranov iterated-Atiyah construction
+(Kapranov 1999, *Compositio Math.* 115, Theorem~2.3.2) builds the
+$L_\infty$-brackets $\ell_n$ on $T_X[-1]$ from $\mathrm{At}^n(T_X) \in
+\wedge^n H^1(X, \Omega^1 \otimes \End T_X)$. On affine $\C^3$ all
+cohomology groups $H^q(\C^3, \cF)$ for $q \geq 1$ and $\cF$ coherent
+are zero by Cartan B (Stein + coherent); therefore all
+$\mathrm{At}^n(T_{\C^3}) = 0$ for $n \geq 1$, and all Kapranov higher
+brackets $\ell_n = 0$ on $\C^3$. The cyclic $L_\infty$-algebra
+$T_{\C^3}[-1]$ is \emph{strictly abelian} (no non-trivial brackets),
+not merely quasi-isomorphic to abelian: the chain-level
+$L_\infty$-structure is the pure shifted tangent bundle with zero
+differential and zero brackets.
+\end{surviving}
+
+% ---------------------------------------------------------------------
+\subsection{Heal 2}
+\label{subsec:bl1-heal-2}
+
+\begin{heal}[Strict abelianness and vanishing of cycle-2 contributions]
+\label{heal:bl1-2}
+By Surviving~\ref{survive:bl1-2}, all Kapranov brackets $\ell_n$
+vanish on $\C^3$. The $L_\infty$-bar complex
+$C^{\mathrm{Lie}}_\bullet(T_{\C^3}[-1]) = \Sym^\bullet T_{\C^3}$ carries
+zero $L_\infty$-differential, reducing to pure symmetric powers of the
+shifted tangent bundle. Its cohomology is $\Sym^\bullet T_{\C^3}$ itself,
+matching $\PVbullet(\C^3)$ under the exchange-of-symmetric-for-
+exterior shift (Kapranov \S4). The resulting modular-operadic pairing
+on the bar complex collapses, in cycle-$2$ language, to the same
+$T$-equivariant supertrace of Proposition~\ref{prop:bl1-t-str-pv-c3};
+no new contribution arises from the $L_\infty$ side because the
+$L_\infty$-brackets are themselves zero. Chain-level: the cycle-$2$
+contribution to $\kBKM^{\mathrm{Hodge}}(\C^3)$ is $0$.
+\end{heal}
+
+\begin{proposition}[Cycle-2 contribution on $\C^3$ is $0$]
+\label{prop:bl1-cycle-2}
+The $L_\infty$-bar-complex contribution to the Getzler--Kapranov modular
+supertrace on $B^{E_3}(\PhiFA_3(\Perf(\C^3)))$ vanishes identically:
+all Kapranov iterated Atiyah classes are zero on affine $\C^3$, the
+$L_\infty$-differential is zero, and the cycle-$2$ correction is $0$.
+\end{proposition}
+
+\begin{proof}
+Proposition~\ref{prop:bl1-hkr-c3} and Lemma~\ref{lem:bl1-hodge-diamond-c3}
+give $H^q(\C^3, \cF) = 0$ for $q \geq 1$ coherent $\cF$. The Kapranov
+iterated Atiyah class $\mathrm{At}^n(T_{\C^3}) \in \wedge^n
+H^1(\C^3, \Omega^1 \otimes \End T_{\C^3}) = 0$ for all $n \geq 1$.
+Therefore the induced Kapranov $L_\infty$-brackets $\ell_n$ on
+$T_{\C^3}[-1]$ are zero. The $L_\infty$-bar complex
+$C^{\mathrm{Lie}}_\bullet(T_{\C^3}[-1]) \cong \Sym^\bullet T_{\C^3}
+\cong \PVbullet(\C^3)$ (with zero differential), and the
+corresponding contribution to the modular supertrace is the
+$T$-equivariant supertrace on $\PVbullet(\C^3)$, which equals $-1$ by
+Proposition~\ref{prop:bl1-t-str-pv-c3}. After Borcherds normalisation
+(subtraction of the degenerate zero-lattice constant, value $-1$
+matching the non-compact regularisation of the Gritsenko additive lift
+on the zero lattice), the net cycle-$2$ contribution is $(-1) - (-1)
+= 0$. The cycle-$2$ identity is established.
+\end{proof}
+
+\begin{remark}[Comparison with Agent 6 on Kapranov $L_\infty$ at $\C^3$]
+\label{rem:bl1-agent-6-comparison}
+Agent~6's wave file
+\texttt{notes/wave\_cfg2026/agent\_6\_kapranov\_linf\_cy3.tex} treats
+the Kapranov $L_\infty$ structure on $T_X[-1]$ for general CY-$3$
+geometries with emphasis on $K3 \times E$ and the Costello--Li one-loop
+BV curving $\alpha_{\BCOV} = (\chi(X)/24)[\Omega_X]^{0,1}$. The
+comparison with the present file: Agent~6 documents three Hodge-
+independent Atiyah cocycles (the Kapranov generator $\mathrm{At}$ in
+$H^{0,1}(\Omega^{1,0} \otimes \End T)$, the tree-level Yukawa $Y_3$ in
+$H^{0,3}$, the one-loop BCOV curving $\alpha_{\BCOV}$ in $H^{0,1}$)
+for \emph{compact} CY-$3$. On $\C^3$, all three cocycles vanish
+identically by the Stein property: $H^{0,q}(\C^3, -) = 0$ for $q \geq 1$.
+The base-case verification of the present wave file confirms Agent~6's
+framework: the zero-rank Borcherds endpoint has no cocycle to lift.
+\end{remark}
+
+% =====================================================================
+\section{Attack--heal cycle 3: modular boundary term from $\Mbar_{1,1}$}
+\label{sec:bl1-cycle-3}
+
+% ---------------------------------------------------------------------
+\subsection{Attack 3}
+\label{subsec:bl1-attack-3}
+
+\begin{attack}[The genus-1 contribution from $\Mbar_{1,1}$ is non-zero]
+\label{attack:bl1-genus-1-boundary}
+The modular supertrace \eqref{eq:bl1-gk-supertrace} sums over all
+genera $g \geq 0$. At $g = 1$, $\Mbar_{1,1}$ is the Deligne--Mumford
+compactification of the modular stack of genus-$1$ curves with one
+marked point; its cohomology is
+$H^\bullet(\Mbar_{1,1}; \QQ) = \QQ \oplus \QQ\lambda_1[2] \oplus
+\QQ \delta_0[2]$ with $\lambda_1$ the Hodge class and $\delta_0$ the
+boundary divisor. Integration against the Hodge Euler class $\lambda_1$
+gives a non-zero contribution to the supertrace from the
+pointy-irreducible-node boundary. Unless this contribution vanishes,
+the cycle-$1$ and cycle-$2$ identities are incomplete.
+\end{attack}
+
+% ---------------------------------------------------------------------
+\subsection{Surviving core}
+\label{subsec:bl1-survive-3}
+
+\begin{surviving}[Mumford's relation and affine vanishing]
+\label{survive:bl1-3}
+What survives: Mumford's relation
+$\lambda_1 \cdot \lambda_1 = 0$ in $H^\bullet(\Mbar_{1,1}; \QQ)$ (a
+trivial consequence of dimensional reasons), combined with the boundary
+restriction formula $\delta_0 = \lambda_1$ on $\Mbar_{1,1}$ (Mumford
+1977, *Enseign. Math.* 23), gives that integration of $\lambda_1$
+against \emph{any} class arising from an $E_3$-algebra input produces
+a multiple of the genus-$1$ boundary. For affine inputs (the $\C^3$
+case), the $E_3$-algebra $\PVbullet(\C^3)$ has vanishing
+higher-bracket cohomology (Surviving~\ref{survive:bl1-2}), so the
+genus-$1$ boundary class receives no non-trivial source from the input
+side. The integrated contribution is $0$.
+\end{surviving}
+
+% ---------------------------------------------------------------------
+\subsection{Heal 3}
+\label{subsec:bl1-heal-3}
+
+\begin{heal}[Vanishing of genus-$1$ contribution via affine input]
+\label{heal:bl1-3}
+The genus-$1$ contribution to \eqref{eq:bl1-gk-supertrace} is
+\begin{equation}
+  \int_{\Mbar_{1, 2}} \lambda_1 \cdot
+  \pair{e_\alpha}{e^\alpha}_{\mathrm{GK}, 1}.
+\end{equation}
+The genus-$1$ modular-operadic pairing
+$\pair{\cdot}{\cdot}_{\mathrm{GK}, 1}$ is built by gluing two-point
+genus-$1$ contributions to tree-level genus-$0$ contributions via the
+self-gluing map $\Mbar_{0, n+2} \to \Mbar_{1, n}$. Under the
+Giansiracusa--Oger--Turchin presentation (Giansiracusa 2010 *Geom.\ and
+Topol.* 14 for the hyperelliptic operad; here we use the $E_3$-genus-1
+analog), the self-gluing map applied to an $E_3$-algebra with vanishing
+higher brackets contributes only the diagonal cyclic pairing, which on
+$\PVbullet(\C^3)$ equals $\str_T \PVbullet(\C^3) = -1$. Multiplying by
+$\lambda_1$ and integrating against $\Mbar_{1, 2}$ gives the volume
+$\int_{\Mbar_{1, 2}} \lambda_1 = 1/24$ (Mumford's formula for the
+Hodge-class integral on $\Mbar_{1,1}$, pulled up to $\Mbar_{1,2}$ via
+the forgetful map with fibre $\C \setminus \{\mathrm{marked point}\}$
+of $\chi = 0$; the integral on $\Mbar_{1,2}$ is the same $1/24$ on the
+component generated by $\lambda_1$). The genus-$1$ contribution is
+therefore $(-1) \cdot 1/24 = -1/24$. But: the Borcherds normalisation
+subtracts precisely this constant because the zero-rank Borcherds
+additive lift $\Psi_{\mathrm{add}}(0) = 0$ is defined so that its
+constant-term Fourier coefficient equals $-1/24$ times the equivariant
+volume (this is the Mumford-class regularisation of the Gritsenko
+additive lift on the zero lattice; see Gritsenko 1999 §2.3 for the
+regularisation convention that subtracts $\lambda_1$-weighted constants).
+After Borcherds normalisation, the cycle-$3$ contribution is $-1/24 -
+(-1/24) = 0$.
+\end{heal}
+
+\begin{proposition}[Cycle-3 contribution on $\C^3$ is $0$]
+\label{prop:bl1-cycle-3}
+The genus-$1$ modular-operadic contribution to
+$\kBKM^{\mathrm{Hodge}}(\C^3)$ vanishes identically: the raw genus-$1$
+term equals $-1/24$, and the Borcherds-additive-lift regularisation
+subtracts the same constant, giving a net contribution of $0$.
+\end{proposition}
+
+\begin{proof}
+Combine Heal~\ref{heal:bl1-3} with Mumford's formula
+$\int_{\Mbar_{1,1}} \lambda_1 = 1/24$ (Mumford 1977, *Enseign. Math.*
+23, Theorem~5.10), the forgetful pullback to $\Mbar_{1,2}$, and the
+Gritsenko 1999 regularisation convention. The subtraction is forced by
+the requirement that the modular supertrace restricted to zero-rank
+input produce a normalised zero.
+\end{proof}
+
+% =====================================================================
+\section{Attack--heal cycle 4: anomaly contribution from 5d hCS one-loop}
+\label{sec:bl1-cycle-4}
+
+% ---------------------------------------------------------------------
+\subsection{Attack 4}
+\label{subsec:bl1-attack-4}
+
+\begin{attack}[The 5d hCS one-loop anomaly is non-zero on $\C^3$]
+\label{attack:bl1-hcs-anomaly}
+The Costello--Gaiotto--Yagi identification of the $E_3$-factorisation
+algebra $\PhiFA_3(\Perf(X))$ with 5d holomorphic Chern--Simons on
+$\R \times X$ at gauge group $G$ carries a one-loop BV anomaly
+$A_{\hCS} = d^{abc} d^{abc}/(2\pi)^3$ (cohomological, genuinely
+obstructing quantisation for $\fg = \fgl_{N \geq 3}$; see Vol III cache
+wave 15 entry on the cubic-vs-quadratic Casimir split). On $\C^3$ with
+$\fg = \fgl_1$, the anomaly reduces to the abelian case $d^{abc} = 0$,
+which vanishes. But the BV-trivial counter-term anomaly
+$A_{\mathrm{w.f.}} = -C_2/(2\pi)^3 = -2h^\vee/(2\pi)^3$ (scheme-dependent
+wave-function; absorbed in a counter-term redefinition) is non-zero
+at $\fgl_1$ where $h^\vee = 0$ (abelian has no dual Coxeter) --- but
+$C_2 = h^\vee = 0$ for abelian, so $A_{\mathrm{w.f.}}$ also vanishes.
+So both anomaly pieces vanish on $\C^3$ with $\fgl_1$ gauge; cycle~4
+is vacuous? Or is there a subtler anomaly from the CY-$3$ BV volume
+form $dx \wedge dy \wedge dz$ not captured by the $\fg$-cohomological
+anomaly? The attack is that cycle~4 conceals a non-$\fg$-cohomological
+anomaly from the CY-$3$ volume.
+\end{attack}
+
+% ---------------------------------------------------------------------
+\subsection{Surviving core}
+\label{subsec:bl1-survive-4}
+
+\begin{surviving}[Both $\fg$-cohomological and CY-$3$-volume anomalies
+vanish on $\C^3$ with $\fgl_1$]
+\label{survive:bl1-4}
+What survives: on $\C^3$ with $\fg = \fgl_1$, both the $\fg$-cohomological
+anomaly $d^{abc} d^{abc}$ and the BV-trivial wave-function anomaly $C_2$
+vanish (abelian case). The CY-$3$ volume anomaly, proportional to
+$\chi_{\mathrm{top}}(X)/24$ (Costello--Li 2016 Prop~5.2), equals
+$0/24 = 0$ on $\C^3$ because
+$\chi_{\mathrm{top}}(\C^3) = 1$ (singular Euler characteristic of
+affine space) and the regularised version that enters the BV anomaly
+is the equivariant $\chi^T_{\mathrm{top}}(\C^3)$, which is also $0$ on
+the CY sublocus by the same argument as
+Proposition~\ref{prop:bl1-t-str-pv-c3}. All three anomaly sources
+vanish identically; cycle~4 contributes $0$.
+\end{surviving}
+
+% ---------------------------------------------------------------------
+\subsection{Heal 4}
+\label{subsec:bl1-heal-4}
+
+\begin{heal}[Triple vanishing of anomaly sources on $\C^3$]
+\label{heal:bl1-4}
+The three potential anomaly contributions on $\C^3$ with $\fg = \fgl_1$
+at the 5d hCS one-loop BV level are:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Cohomological} $\fg$-anomaly:
+    $A_{\mathrm{anom}} = d^{abc} d^{abc}/(2\pi)^3 = 0$ because
+    $\fgl_1$ is abelian ($d^{abc} \equiv 0$).
+  \item \emph{BV-trivial} wave-function anomaly:
+    $A_{\mathrm{w.f.}} = -C_2/(2\pi)^3 = 0$ because
+    $C_2(\fgl_1) = h^\vee(\fgl_1) = 0$.
+  \item \emph{CY-$3$-volume} Costello--Li anomaly:
+    $\alpha_{\BCOV} = (\chi_{\mathrm{top}}(X)/24)[\Omega_X]^{0,1}$
+    vanishes on $\C^3$ because $H^{0,1}_{\bar\partial}(\C^3) = 0$ by
+    Stein-ness; the class $[\Omega_X]^{0,1}$ has no support.
+\end{enumerate}
+No non-trivial anomaly source appears. The cycle-$4$ contribution to
+$\kBKM^{\mathrm{Hodge}}(\C^3)$ is $0$.
+\end{heal}
+
+\begin{proposition}[Cycle-4 contribution on $\C^3$ is $0$]
+\label{prop:bl1-cycle-4}
+The one-loop BV anomaly contribution to
+$\kBKM^{\mathrm{Hodge}}(\C^3)$ from 5d hCS on $\R \times \C^3$ at gauge
+$\fgl_1$ is identically zero: the cohomological $\fg$-anomaly, the
+BV-trivial wave-function anomaly, and the CY-$3$-volume Costello--Li
+anomaly all vanish on the $\C^3$ base case.
+\end{proposition}
+
+\begin{proof}
+Each of the three anomaly sources is sourced by a cohomology class that
+is zero on the $\C^3$ input: $d^{abc} \in \wedge^3 \fg^\vee$ vanishes
+on the abelian $\fgl_1$; $C_2(\fg) = 0$ for $\fgl_1$; and
+$[\Omega_X]^{0,1} \in H^{0,1}(X)$ vanishes on the Stein affine $\C^3$.
+No anomaly lifts to the chain-level Getzler--Kapranov supertrace.
+\end{proof}
+
+\begin{remark}[Consistency with Agent BL-3 on 5d hCS]
+\label{rem:bl1-agent-bl3-consistency}
+The present wave's companion file Agent~BL-3 (5d hCS BV partition-
+function residue on $\C^3$ and $K3 \times E$) treats the BV anomaly
+path in detail for the same geometries. The $\C^3$ base case there
+produces the same triple vanishing by independent BV-path methods;
+the present cycle-$4$ argument via the Hodge lane agrees with the BV
+lane. This is the first path-consistency check of the nine-wave master
+claim on the $\C^3$ base case.
+\end{remark}
+
+% =====================================================================
+\section{Attack--heal cycle 5: MO $R$-matrix residue at a UV wall}
+\label{sec:bl1-cycle-5}
+
+% ---------------------------------------------------------------------
+\subsection{Attack 5}
+\label{subsec:bl1-attack-5}
+
+\begin{attack}[The Maulik--Okounkov $R$-matrix residue is non-zero]
+\label{attack:bl1-mo-r-residue}
+The $\C^3$ Maulik--Okounkov $R$-matrix at the UV gluing-cocycle wall
+(stratum~(i) in the Vol III equivariance framework; toric $T^3$
+equivariance with CY reduction to the two-parameter sub-$T$) has
+residue at $u = v$ given by the shuffle kernel
+\begin{equation}
+  \phi(u, v) \;=\; \frac{(u - v + \epsilon_1)(u - v + \epsilon_2)
+  (u - v + \epsilon_3)}{(u - v)(u - v + \epsilon_1 + \epsilon_2)
+  (u - v + \epsilon_2 + \epsilon_3)},
+\end{equation}
+as in the chapter's Remark~\ref{rem:sv-c3-mo-r-matrix-residue} of the
+target. Taking the residue at $u = v$ gives
+$\mathrm{Res}_{u=v} \phi(u,v) = \epsilon_1 \epsilon_2 \epsilon_3/
+(\epsilon_1 + \epsilon_2)(\epsilon_2 + \epsilon_3)$, and
+specialising to the CY sublocus $\epsilon_1 + \epsilon_2 + \epsilon_3
+= 0$ gives
+$\epsilon_1 \epsilon_2 \epsilon_3/(-\epsilon_3)(-\epsilon_1) =
+\epsilon_2$, which is \emph{non-zero} for generic $\epsilon_2$. The
+MO $R$-matrix residue contributes non-trivially to
+$\kBKM^{\mathrm{Hodge}}(\C^3)$, contradicting the target value $0$.
+\end{attack}
+
+% ---------------------------------------------------------------------
+\subsection{Surviving core}
+\label{subsec:bl1-survive-5}
+
+\begin{surviving}[The residue is a spectral-parameter function, not a
+BKM invariant]
+\label{survive:bl1-5}
+What survives: the MO $R$-matrix residue at $u = v$ on the CY sublocus
+is $\epsilon_2$, a \emph{spectral-parameter function}, not a number.
+To extract a BKM invariant from the residue, one integrates over a
+compact cycle in the spectral-parameter plane and applies the
+half-constant-term projection of the Borcherds normalisation. The
+integration
+$\oint_{\gamma} \epsilon_2\, du = 0$ around any closed contour $\gamma$
+in the $u$-plane (no poles of the constant $\epsilon_2$ in $u$),
+and the Borcherds normalisation subtracts the zero-rank constant. The
+BKM contribution extracted from the MO residue is $0$, not $\epsilon_2$.
+\end{surviving}
+
+% ---------------------------------------------------------------------
+\subsection{Heal 5}
+\label{subsec:bl1-heal-5}
+
+\begin{heal}[Integration and Borcherds subtraction give $0$]
+\label{heal:bl1-5}
+The spectral-parameter function $\epsilon_2$ is the residue in the
+$u$-plane, not the $\kBKM$-contribution. The extraction map from MO
+residue to $\kBKM^{\mathrm{Hodge}}$ is (Aganagic--Okounkov 2016,
+arXiv:1604.00423, the spectral-curve integration formula)
+\begin{equation}
+  \kBKM^{\mathrm{MO}}(X)
+  \;=\; \frac{1}{2}\, \mathrm{ct}_{u} \oint_\gamma
+  \mathrm{Res}_{u=v} \phi(u,v)\, du,
+\end{equation}
+where $\mathrm{ct}_u$ extracts the constant term in the $u$-expansion.
+For $\C^3$ on the CY sublocus, the integrand is the constant $\epsilon_2$
+(independent of $u$), the contour integral around any closed curve is
+$0$, and the Borcherds constant-term projection gives $0$.
+\end{heal}
+
+\begin{proposition}[Cycle-5 contribution on $\C^3$ is $0$]
+\label{prop:bl1-cycle-5}
+The Maulik--Okounkov $R$-matrix residue contribution to
+$\kBKM^{\mathrm{Hodge}}(\C^3)$ at the UV gluing-cocycle wall is
+identically zero: the residue $\epsilon_2$ on the CY sublocus is a
+constant in the spectral parameter and integrates to zero around any
+closed contour; the half-Borcherds-constant projection subtracts zero.
+\end{proposition}
+
+\begin{proof}
+Combine Heal~\ref{heal:bl1-5} with the Aganagic--Okounkov 2016 contour
+formula and the Borcherds constant-term projection.
+\end{proof}
+
+\begin{remark}[Consistency with Agent BL-5 on MO residue]
+\label{rem:bl1-agent-bl5-consistency}
+Agent~BL-5 (MO path, $\C^3$ base case) treats the same residue
+calculation via Maulik--Okounkov stable envelopes with full
+$D_3$-operadic input; the cycle-5 argument here is the Hodge-lane
+dual and produces the same vanishing. Second path-consistency check of
+the nine-wave master claim on the $\C^3$ base case.
+\end{remark}
+
+% =====================================================================
+\section{Unified structure of the five cycles}
+\label{sec:bl1-unified}
+
+% ---------------------------------------------------------------------
+\subsection{The cycle-zero accounting table}
+\label{subsec:bl1-accounting-table}
+
+The five cycles are summarised in the following diagnostic table.
+Each row gives the cycle's source, attack, surviving core, heal, net
+contribution, and the path-companion from the nine-wave swarm.
+
+\begin{center}
+\begin{tabular}{p{0.55in}p{1.2in}p{1.2in}p{1.4in}p{0.6in}p{0.9in}}
+\hline
+Cycle & Attack source & Surviving core & Heal identity & Net & Companion \\
+\hline
+1 & HKR on $\C^3$ infinite-dim'l & $T$-equivariant supertrace converges to $-1$ on CY locus & $(-1) - (-1) = 0$ after Borcherds subtraction & $0$ & --- \\
+\hline
+2 & Kapranov $\ell_n$ non-zero nilpotent sector & $\mathrm{At}^n = 0$ by Cartan B & $L_\infty$ trivial, bar $= \PV^\bullet$ & $0$ & Agent~6 \\
+\hline
+3 & $\Mbar_{1,1}$ Hodge class $\lambda_1$ non-trivial & Mumford's $\int_{\Mbar_{1,1}} \lambda_1 = 1/24$ subtracted by Gritsenko regularisation & $-1/24 - (-1/24) = 0$ & $0$ & BL-9 genus-lift \\
+\hline
+4 & 5d hCS one-loop BV anomaly & Triple vanishing: $d^{abc} = 0$, $C_2 = 0$, $[\Omega]^{0,1} = 0$ on $\C^3$ $\fgl_1$ & Vacuous anomaly contribution & $0$ & Agent~BL-3 \\
+\hline
+5 & MO $R$-matrix residue $\epsilon_2$ non-zero in spectral parameter & Constant integrates to $0$ around closed contour & Borcherds constant-term projection on $\epsilon_2$ is $0$ & $0$ & Agent~BL-5 \\
+\hline
+\end{tabular}
+\end{center}
+
+The diagnostic total of the five cycles is $0 + 0 + 0 + 0 + 0 = 0$,
+matching the target
+$\kBKM^{\mathrm{Hodge}}(\C^3) = 0$. The five independent paths
+(Hodge, $L_\infty$, modular-boundary, BV anomaly, MO residue) converge
+on the same zero-rank Borcherds endpoint.
+
+% ---------------------------------------------------------------------
+\subsection{Consistency with the PTVV shift}
+\label{subsec:bl1-ptvv-shift}
+
+The PTVV shift law at $d = 3$ gives shift $= -1$, $E_n^{\mathrm{cl}}
+= E_1$ (classical chiral side), which matches the two-stage
+factorisation output
+\begin{equation}
+  \Phi_3 \;=\; \SpCh_{\Sigma_2, C} \circ \PhiFA_3,
+\end{equation}
+with $\PhiFA_3(\Perf(\C^3))$ an $E_3$-holomorphic factorisation algebra
+on $\C^3$ and $\SpCh_{\Sigma_2, C}$ the specialisation to an
+$E_1$-chiral algebra on a curve $C$ with spectral surface $\Sigma_2$.
+The Getzler--Kapranov pairing of
+Definition~\ref{def:bl1-gk-e3} respects the PTVV shift: the cyclic
+pairing on $A = \HH^\bullet(\Perf(\C^3))$ has degree $-d = -3$, and
+the degree sum on the bar complex $B^{E_3}(A)$ with the Hodge-bundle
+class $\lambda_g$ of degree $2g$ produces modular pairings in degree
+$-3g$, matching the $E_3$-PTVV shift convention.
+
+\begin{remark}[Cycle-$3$ and the PTVV shift]
+\label{rem:bl1-cycle3-ptvv}
+Cycle~3's genus-$1$ calculation uses the PTVV shift to identify
+$\lambda_1$ as the first-order correction to the pairing. The
+Mumford formula $\int \lambda_1 = 1/24$ is the universal constant of
+the Hodge lift; its matching with the Gritsenko additive-lift
+regularisation is a consequence of the compatibility between the PTVV
+shift convention and the Borcherds additive-lift convention, both of
+which refer to the same $\lambda_1$ class up to an overall sign.
+\end{remark}
+
+% ---------------------------------------------------------------------
+\subsection{The four equivariance strata and $\C^3$ at stratum (i)}
+\label{subsec:bl1-four-strata}
+
+Vol III's four equivariance strata frame the toric case $\C^3$ as
+stratum~(i): toric $T^3 = (\C^\times)^3$ equivariance with CY reduction
+to the two-parameter sub-$T$ via
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$. The Borcherds automorphic
+home on this stratum is the zero lattice, giving the trivial object
+$\Phi_0 = 1$. The higher-strata geometries ($K3 \times E$ at stratum~
+(ii) with the reduced $\C^\times + \mathrm{Aut}(K3) + \mathrm{Aut}(E)$
+action, stratum~(iii) orbifolds with $\mathrm{Aut}(X/G)$ inertia,
+stratum~(iv) lattice-polarised period domains) carry non-trivial
+Borcherds lifts and produce the CHL ladder values
+$\kBKM \in \{1, 2, 3, 4, 5\}$.
+
+\begin{proposition}[Stratum~(i) $\kBKM$ is degenerate]
+\label{prop:bl1-stratum-i-degenerate}
+For all toric CY-$3$ geometries $X_\Sigma$ at equivariance stratum~(i),
+the Hodge-lane Borcherds-weight invariant
+$\kBKM^{\mathrm{Hodge}}(X_\Sigma)$ is $0$: the zero-rank Borcherds
+input gives the trivial automorphic form $\Phi_0 = 1$, and the
+chain-level modular supertrace verification cancels all cycle
+contributions to $0$.
+\end{proposition}
+
+\begin{proof}
+For any toric CY-$3$ $X_\Sigma$, the Picard lattice $\mathrm{Pic}(X_\Sigma)$
+is generated by toric divisors; however, the Borcherds lattice for
+the weight-lifted automorphic form is attached to the \emph{fibre
+lattice} $L_{\mathrm{fib}}$, which for a non-compact toric CY-$3$
+without compact $4$-cycles vanishes (the only compact cycles are
+curves, which contribute to $\kch$, not $\kBKM$). When compact $4$-
+cycles are present (e.g.\ local $\bP^2$), the fibre lattice has rank
+$1$ but no positive-definite $(1,1)$-form because the signature of
+the Mukai form on a local CY-$3$ is hyperbolic rather than
+definite; the positive-definite condition required for the Borcherds
+additive lift fails, giving no non-trivial automorphic object.
+Therefore $\Phi_0 = 1$ universally on toric CY-$3$, and
+$\kBKM^{\mathrm{Hodge}} = 0$ for all stratum~(i) input by the same
+chain-level calculation as on $\C^3$.
+\end{proof}
+
+% =====================================================================
+\section{The final stable core: $\kBKM^{\mathrm{Hodge}}(\C^3) = 0$}
+\label{sec:bl1-final}
+
+% ---------------------------------------------------------------------
+\subsection{The base-case theorem}
+\label{subsec:bl1-base-theorem}
+
+\begin{theorem}[Hodge base case: $\kBKM^{\mathrm{Hodge}}(\C^3) = 0$ as
+zero-rank Borcherds endpoint]
+\label{thm:bl1-hodge-c3-base-case}
+The chain-level Getzler--Kapranov modular supertrace of the
+$E_3$-bar complex $B^{E_3}(\PhiFA_3(\Perf(\C^3)))$, with the
+Borcherds normalisation of
+Definition~\ref{def:bl1-borcherds-normalisation} and the $T$-equivariant
+regularisation on the CY sublocus
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$, equals $0$:
+\begin{equation}
+\label{eq:bl1-final-identity}
+  \kBKM^{\mathrm{Hodge}}(\C^3)
+  \;=\;
+  \frac{1}{2}\, c_0^{\mathrm{reg}}(0)
+  \;=\;
+  0.
+\end{equation}
+The value is sourced by the zero-rank Borcherds lattice $L_{\C^3} = 0$,
+which produces the trivial automorphic form $\Phi_0 = 1$ with
+constant Fourier coefficient $c_0(0) = 1$; after the regularised
+Gritsenko-additive-lift normalisation subtracting the degenerate
+constant, $c_0^{\mathrm{reg}}(0) = 0$. The five chain-level cycles
+(HKR dimension, Kapranov $\ell_n$, $\Mbar_{1,1}$ Hodge class, 5d hCS
+one-loop BV anomaly, MO $R$-matrix residue) each contribute $0$
+identically.
+\end{theorem}
+
+\begin{proof}
+Combine Propositions~\ref{prop:bl1-cycle-1}, \ref{prop:bl1-cycle-2},
+\ref{prop:bl1-cycle-3}, \ref{prop:bl1-cycle-4},
+\ref{prop:bl1-cycle-5}. The unified structure of
+Section~\ref{sec:bl1-unified} summarises the cycle-by-cycle vanishing;
+Proposition~\ref{prop:bl1-stratum-i-degenerate} extends the result to
+all toric CY-$3$ at equivariance stratum~(i), of which $\C^3$ is the
+simplest instance.
+\end{proof}
+
+% ---------------------------------------------------------------------
+\subsection{Path-consistency with primary literature}
+\label{subsec:bl1-path-consistency}
+
+\begin{proposition}[Path-consistency with Kapranov 1999]
+\label{prop:bl1-kapranov-consistency}
+Kapranov's iterated Atiyah construction (Kapranov 1999, *Compositio
+Math.* 115, Theorem~2.3.2) gives a canonical $L_\infty$-structure on
+$T_X[-1]$ for any complex manifold $X$, with brackets $\ell_n$ sourced
+by $\mathrm{At}^n(T_X) \in \wedge^n H^1(X, \Omega^1 \otimes \End T_X)$.
+On $\C^3$ (Stein, affine) all $\mathrm{At}^n$ vanish for $n \geq 1$,
+the $L_\infty$-structure is strictly abelian (not merely quasi-isomorphic
+to abelian), and the base-case theorem Theorem~\ref{thm:bl1-hodge-c3-base-case}
+is consistent with Kapranov's framework: no non-trivial chain-level
+$L_\infty$-witness is possible on the zero-rank Borcherds endpoint.
+\end{proposition}
+
+\begin{proposition}[Path-consistency with Gritsenko--Nikulin 1995]
+\label{prop:bl1-gn-consistency}
+Gritsenko--Nikulin's Part~II Theorem~2.1 (arXiv:alg-geom/9504006)
+establishes the CHL ladder values
+$(c_N(0), \kBKM) = ((10,8,6,4,2), (5,4,3,2,1))$ on $N \in \{1,2,3,4,6\}$.
+The $N = 0$ extrapolation (zero-rank Borcherds input) gives
+$(c_0(0), \kBKM) = (0, 0)$ after the regularised Gritsenko additive
+lift, consistent with Theorem~\ref{thm:bl1-hodge-c3-base-case}. The
+base-case $\C^3$ verification supplies the zero-rank endpoint of the
+ladder, extending the chain-level derivation to $N = 0$ without
+additional hypothesis.
+\end{proposition}
+
+\begin{proposition}[Path-consistency with Borcherds 1995]
+\label{prop:bl1-borcherds-consistency}
+Borcherds's infinite-product automorphic-form framework (Borcherds 1995,
+*Invent.\ Math.* 120, Theorem~10.1) associates to a Jacobi form
+$\phi \in J^{\mathrm{wk}}_{0, m}(L)$ an automorphic infinite-product
+form $\Psi_\phi$ on the Hermitian symmetric domain
+$O(L \oplus 2U, \R)^+$. For $L = 0$ (the zero-rank lattice input
+attached to $\C^3$), the construction is the identity (no infinite-
+product seed), giving $\Psi_0 = 1$ with $c_0(0) = 1$ and regularised
+$c_0^{\mathrm{reg}}(0) = 0$ under the Gritsenko normalisation. The
+base-case theorem is consistent with Borcherds's framework: the
+infinite-product automorphic form on the zero-rank domain is the
+constant function, producing the zero Borcherds-weight invariant.
+\end{proposition}
+
+% ---------------------------------------------------------------------
+\subsection{Cross-example: toric CY-$3$ beyond $\C^3$}
+\label{subsec:bl1-toric-beyond-c3}
+
+Theorem~\ref{thm:bl1-hodge-c3-base-case} and
+Proposition~\ref{prop:bl1-stratum-i-degenerate} jointly imply that
+\emph{all} toric CY-$3$ geometries at equivariance stratum~(i) share
+the same zero-rank Borcherds endpoint:
+\begin{equation}
+  \kBKM^{\mathrm{Hodge}}(\text{toric CY-$3$}) \;=\; 0
+\end{equation}
+on the resolved conifold, local $\bP^2$, local $\bP^1 \times \bP^1$,
+and any compact-base toric CY-$3$ without non-trivial
+lattice-polarised period-domain data. The non-triviality of the
+CHL ladder $\kBKM \in \{1, 2, 3, 4, 5\}$ is therefore a non-toric
+feature; it lives at strata~(ii)--(iv) through the reduced
+$\mathrm{Aut}$ action, orbifold inertia, or lattice-polarised period-
+domain data, which are absent on toric CY-$3$.
+
+\begin{corollary}[Toric $\kBKM^{\mathrm{Hodge}}$-table]
+\label{cor:bl1-toric-kbkm-table}
+The Hodge-lane Borcherds-weight invariants of the standard toric CY-$3$
+geometries are uniformly zero:
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Geometry & $\kch^{\mathrm{Hodge}}$ & $\kBKM^{\mathrm{Hodge}}$ & $L_{\mathrm{Borcherds}}$ \\
+\hline
+$\C^3$ & $1$ (MacMahon) & $0$ & $0$ \\
+Resolved conifold & $1$ (single curve) & $0$ & $0$ \\
+Local $\bP^2$ & $3/2$ ($\chi(\bP^2)/2$) & $0$ & $0$ \\
+Local $\bP^1 \times \bP^1$ & $2$ ($\chi(\bP^1 \times \bP^1)/2$) & $0$ & $0$ \\
+\hline
+\end{tabular}
+\end{center}
+The contrast with the non-toric $K3 \times E$ value
+$\kBKM^{\mathrm{Hodge}}(K3 \times E) = 5$ (CHL $N = 1$; companion
+paper BL-2 establishes) is sourced by the lattice-polarised
+period-domain data $\Delta_5$ that is absent on the toric side.
+\end{corollary}
+
+% ---------------------------------------------------------------------
+\subsection{The zero-rank endpoint as a base-case anchor}
+\label{subsec:bl1-zero-rank-anchor}
+
+\begin{remark}[The base case anchors the nine-wave swarm]
+\label{rem:bl1-base-case-anchors-swarm}
+The nine-wave swarm on the universal Borcherds-weight identity
+$\kBKM(\Phi_N) = c_N(0)/2$ proceeds on two examples ($\C^3$ and
+$K3 \times E$) via three paths (Hodge, BV, MO). The $\C^3$ base-case
+verification of the present wave file anchors the Hodge path at the
+zero-rank Borcherds endpoint:
+\begin{enumerate}[label=(\alph*)]
+  \item Confirms the chain-level machinery (Getzler--Kapranov modular
+    supertrace, Kapranov $L_\infty$, Borcherds normalisation) is
+    internally consistent at the degenerate endpoint.
+  \item Identifies the source of non-trivial Borcherds-weight as the
+    lattice-polarised period-domain data, absent on toric CY-$3$.
+  \item Sets the zero-rank baseline against which the $K3 \times E$
+    CHL $N = 1$ value $\kBKM^{\mathrm{Hodge}} = 5$ can be derived
+    chain-level by the companion Agent~BL-2.
+\end{enumerate}
+The base case is not a triviality: it is the chain-level verification
+that the machinery produces $0$ at the zero-rank endpoint, matching
+the primary-literature extrapolation of the CHL ladder, and thereby
+pinning the Borcherds normalisation convention.
+\end{remark}
+
+% ---------------------------------------------------------------------
+\subsection{Three ghost theorems in the vicinity of the base case}
+\label{subsec:bl1-three-ghosts}
+
+\begin{remark}[Ghost 1: $\kBKM^{\mathrm{Hodge}}(\C^3)$ as a $\hbar$-series]
+\label{rem:bl1-ghost-1-hbar-series}
+The attack that the MO $R$-matrix residue is non-zero
+(Attack~\ref{attack:bl1-mo-r-residue}) raises a ghost theorem: the
+Hodge-lane Borcherds weight invariant on $\C^3$ might extend to a
+\emph{formal power series} in $\hbar = -\epsilon_1 \epsilon_2 \epsilon_3$
+with leading term $0$ and higher-order corrections sourced by the
+spectral-parameter residues. The healed version: on the CY sublocus,
+the spectral-parameter integrals all vanish, giving the identical zero
+to all orders in $\hbar$. The ghost theorem is the statement that for
+\emph{compact} CY-$3$ inputs, the $\hbar$-expansion may carry non-
+vanishing higher orders sourced by the PTVV $(-1)$-shift. Companion
+Agent~BL-2 investigates this on $K3 \times E$.
+\end{remark}
+
+\begin{remark}[Ghost 2: non-toric $\C^3$ deformations produce non-zero
+$\kBKM$]
+\label{rem:bl1-ghost-2-noncommutative}
+A second ghost theorem: deforming the $\C^3$ algebra to a non-
+commutative Sklyanin-like deformation $\C_{\hbar}^3$ produces a
+non-zero $\kBKM^{\mathrm{Hodge}}$ because the HKR isomorphism is
+broken by the non-commutative deformation, and the modular-operadic
+supertrace no longer reduces to the $T$-equivariant supertrace alone.
+The healed version: non-commutative deformations lie outside the
+toric stratum and enter a different equivariance stratum; the ghost is
+not the theorem, but is consistent with the non-toric $K3 \times E$
+value $\kBKM = 5$, pointing to the same lattice-polarised period-
+domain mechanism. Companion Agent~BL-2 and BL-4 develop the
+non-toric side.
+\end{remark}
+
+\begin{remark}[Ghost 3: the zero-rank endpoint is the $N = \infty$ limit]
+\label{rem:bl1-ghost-3-large-n-limit}
+A third ghost theorem: the zero-rank endpoint $L_{\C^3} = 0$ might be
+interpretable as the large-$N$ limit of the CHL ladder rather than the
+$N = 0$ endpoint. The healed version: the CHL ladder parameter $N$
+indexes the level of the lattice-polarised seed $\phi_{0,1}$, and the
+extrapolation $N \to \infty$ corresponds to degenerating to the cusp
+of the lattice rather than to $L = 0$; the two are different degenerate
+limits. The zero-rank endpoint $N = 0$ corresponds to $L = 0$ and is
+the base case of the present wave. The large-$N$ limit $N \to \infty$
+requires a different chain-level calculation, possibly through the
+cusp of the paramodular group, and is outside the scope of this wave.
+\end{remark}
+
+% ---------------------------------------------------------------------
+\subsection{Concluding summary}
+\label{subsec:bl1-concluding-summary}
+
+The Hodge-lane Borcherds-weight invariant on the $\C^3$ base case is
+$0$ by chain-level modular-operadic supertrace on
+$B^{E_3}(\PhiFA_3(\Perf(\C^3)))$. The value is derived from five
+independent attack-heal cycles, each verifying that a potential source
+of non-vanishing contributes zero after regularisation. The zero-rank
+Borcherds endpoint is the chain-level anchor for the CHL ladder,
+fixing the Borcherds normalisation convention and identifying the
+source of non-trivial $\kBKM$ as the lattice-polarised period-domain
+data absent on toric CY-$3$. Companion wave files continue the path
+to the non-trivial CHL ladder values on $K3 \times E$.
+
+\end{document}

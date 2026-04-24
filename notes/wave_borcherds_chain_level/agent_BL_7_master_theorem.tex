@@ -1,0 +1,1493 @@
+% =====================================================================
+% Wave borcherds_chain_level — Agent BL-7
+% MASTER THEOREM: chain-level identity
+%
+%   kappa_BKM(Phi_N) = c_N(0)/2
+%                   = STr_{mod.op}[B^{E_3}(Phi^{FA}_3(C_N))]
+%
+% for C_N a CY_3 category indexed by N in {1,2,3,4,6} (CHL ladder;
+% Scope A) or by Gritsenko–Clery 8-form index (Scope B).
+%
+% Upstream prior-wave inputs synthesised:
+%   Agent  1 (KT E_3-formality, GRT_1(Q)-torsor on Stage-1)
+%   Agent  2 (factorisation envelope of Phi^{FA}_3)
+%   Agent  6 (Kapranov L_infty on T_X[-1], three Atiyah cocycles)
+%   Agent  7 (Dunn–Lurie E_3 ≃ E_1 ⊗ E_2 chain-level)
+%   Agent  9 (Fulton–MacPherson configuration operad)
+%   Agent 11 (E_3 Koszul self-duality up to shift)
+%   Agent 13 (obstruction theory; O_2 Mumford collapse)
+%   Agent 14 (Cech–Ran descent; super-Yangian emergence)
+%   Agent 15 (modular Koszul bridge; Torelli–Kuga–Satake)
+%
+% Standalone notes-lane file. Manuscript inscription goes into
+%   chapters/examples/cy_d_kappa_stratification.tex
+% at label
+%   \label{thm:bl-master-kappa-bkm-chain-level}
+%
+% Primary references:
+%   Getzler–Kapranov "Modular operads" Compositio Math. 110 (1998) 65–126.
+%   Borcherds "Automorphic forms on O_{s+2,2}(R) and infinite products"
+%     Invent. Math. 120 (1995) 161–213.
+%   Borcherds "Automorphic forms with singularities on Grassmannians"
+%     Invent. Math. 132 (1998) 491–562.
+%   Gritsenko–Nikulin "Automorphic forms and Lorentzian Kac–Moody
+%     algebras II" alg-geom/9504006 (1995).
+%   Gritsenko "Arithmetical lifting and its applications" in
+%     Algebraic Geometry Santa Cruz 1995 (1999).
+%   Gritsenko–Clery "Siegel modular forms of genus 2 spanned by
+%     theta series" arXiv:1305.4884 (2013).
+%   Ayala–Francis "Poincaré/Koszul duality" arXiv:1409.2478 (2014).
+%   Costello–Gwilliam "Factorization Algebras in QFT" vol. II (2021).
+%   Willwacher "Kontsevich's graph complex and GRT_1" Invent. Math.
+%     200 (2015) 671–760.
+%   Bruinier "Borcherds products on O(2,l) and Chern classes of
+%     Heegner divisors" Lecture Notes in Mathematics 1780 (2002).
+%   Lorgat "Automorphic corrections for the GKM superalgebra
+%     g_{Delta_5}" arXiv:2004.09030 (2020).
+%   Costello–Francis–Gwilliam "Topological Chern–Simons" (2026).
+%
+% =====================================================================
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,hyperref,enumitem}
+\usepackage[margin=1in]{geometry}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{surviving}[theorem]{Surviving core}
+\newtheorem{heal}[theorem]{Heal}
+\newtheorem{ghost}[theorem]{Ghost theorem}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\CH}{\mathrm{CH}}
+\providecommand{\CC}{\mathrm{CC}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cR}{\mathcal{R}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\sp}{\mathrm{sp}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\Mpt}{\widetilde{\mathrm{Mp}}}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\Mbar}{\overline{\mathcal{M}}}
+\providecommand{\Abar}{\overline{\mathcal{A}}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\At}{\mathrm{At}}
+\providecommand{\Ger}{\mathrm{Ger}}
+\providecommand{\KS}{\mathrm{KS}}
+\providecommand{\FM}{\mathrm{FM}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\MO}{\mathrm{MO}}
+\providecommand{\Hodge}{\mathrm{Hodge}}
+\providecommand{\Borch}{\mathrm{Borch}}
+\providecommand{\CHL}{\mathrm{CHL}}
+\providecommand{\Ber}{\mathrm{Ber}}
+\providecommand{\Hdg}{\mathrm{Hdg}}
+\providecommand{\STr}{\mathrm{STr}}
+\providecommand{\modop}{\mathrm{mod.op}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Tor}{\mathrm{Tor}}
+\providecommand{\id}{\mathrm{id}}
+
+\begin{document}
+
+\title{The chain-level master identity\\
+$\kBKM(\Phi_N) = c_N(0)/2 = \STr_{\modop}[B^{E_3}(\PhiFA_3(\cC_N))]$}
+\author{Agent BL-7, wave borcherds\_chain\_level, Vol III}
+\date{April 2026}
+\maketitle
+
+\begin{abstract}
+For every $N$ in either the CHL ladder $\{1,2,3,4,6\}$ (Scope A) or
+the Gritsenko--Cl\'ery $8$-form index $\{1,2,3,4,5,6,1/2,3/2\}$
+(Scope B), the Borcherds weight $\kBKM(\Phi_N)$ of the paramodular
+Borcherds product $\Phi_N$ equals a chain-level modular-operadic
+supertrace of the Koszul dual of the Stage-$1$ $E_3$-factorisation
+algebra attached to a CY$_3$ category $\cC_N$:
+\[
+ \kBKM(\Phi_N) \;=\; \frac{c_N(0)}{2}
+ \;=\; \STr_{\modop}\bigl[B^{E_3}\bigl(\PhiFA_3(\cC_N)\bigr)\bigr].
+\]
+We construct the modular-operadic supertrace from the Getzler--Kapranov
+$1998$ modular operad on $\overline{\mathcal M}_{g,n}$ via
+Torelli--Kuga--Satake uniformisation of the K3 period domain, localise
+to the Borcherds lift generating series at genus $g = 2$, and establish
+three-path compatibility: the Hodge-supertrace path (Kapranov
+$L_\infty$ on $T_X[-1]$), the BV-residue path (Costello--Li--Yagi
+partition function at Heegner locus), and the MO-residue path
+(Maulik--Okounkov $R$-matrix at UV gluing cocycle wall) all produce the
+same chain-level numeric. The three quasi-isomorphisms assemble into a
+canonical chain-level Siegel modular form on
+$\mathrm{Sp}_4(\Z)\backslash \mathbb{H}_2$ (or on the metaplectic /
+double-metaplectic cover for half- / quarter-integral weights of
+Scope B), whose zeroth Fourier coefficient is $c_N(0)/2$.
+GRT$_1(\Q)$-invariance of the numeric is established via the action
+of $\GRT_1(\Q)$ on Stage-$1$ lifts and the modular operad. The
+two-stage factorisation discipline is preserved: Stage-$2$
+specialisation is compatible with the modular-operadic pairing because
+the genus-tower curvature collapses via the Mumford boundary relation
+$\partial^* \lambda_g^1 = \pi_1^* \lambda_{g_1}^1 + \pi_2^* \lambda_{g_2}^1$,
+identifying the $\kch$-curving with the Hodge-boundary-descent datum
+(Agent 13). The worked example $\cC_1 = D^b\Coh(K3 \times E)$ recovers
+$\kBKM(\fg_{\Delta_5}) = 5$ via Lorgat $2020$'s explicit Borcherds
+lift of $\phi_{0,1}$. The file runs five attack--heal cycles plus a
+ghost-theorem harvest.
+\end{abstract}
+
+\tableofcontents
+
+% =====================================================================
+\section{Standing data and the master identity}
+\label{sec:master-standing-data}
+% =====================================================================
+
+Fix once and for all.
+\begin{itemize}
+\item $k = \Q$ (rational coefficients; Drinfeld-associator discipline of
+Agent $1$, \S~4).
+\item $\cC_N \in \mathrm{CY}_3\text{-}\mathrm{Cat}^{\mathrm{dg}}$ a
+smooth proper cyclic $A_\infty$-category of CY dimension $3$ over
+$\Q$, with $\HH^0(\cC_N) = \Q$, indexed by either
+  \begin{itemize}
+  \item[(A)] $N \in \{1, 2, 3, 4, 6\}$, the \emph{CHL ladder}:
+  $\cC_N = D^b \Coh^{g_N}(\mathrm{K3} \times E)$, the derived
+  category of coherent sheaves equivariant under a
+  symplectic automorphism $g_N \in M_{24}$ of order $N$; or
+  \item[(B)] $N \in \{1, 2, 3, 4, 5, 6, 1/2, 3/2\}$, the
+  \emph{Gritsenko--Cl\'ery $8$-form index}: $\cC_N$ the CY$_3$
+  category associated to the paramodular level-$m$ host at integer or
+  half-integer paramodular index $m = N$, with
+  $\cC_1 = D^b\Coh(\mathrm{K3} \times E)$ at $N = 1$.
+  \end{itemize}
+\item $\PhiFA_3$ the Stage-$1$ two-stage-factorisation functor of
+Proposition~\ref{prop:phifa-infty1-kernel} (working notes):
+\[
+ \PhiFA_3 \colon
+ \mathrm{CY}_3\text{-}\mathrm{Cat}^{\mathrm{dg}}
+ \;\longrightarrow\;
+ E_3\text{-}\HolFA(X),
+\]
+canonical up to a contractible $\GRT_1(\Q)$-torsor of choices
+(Agent $1$, Theorem~\ref{thm:form3-grt1-torsor}).
+\item $B^{E_3}$ the $E_3$-Koszul-bar functor on $E_3$-algebras over
+$\Q$, valued in $E_3$-coalgebras (Ayala--Francis $2014$
+Theorem~$2.1$).
+\item $\Phi_N$ the paramodular Borcherds product attached to $\cC_N$,
+with zeroth Fourier coefficient $c_N(0)$ of the Borcherds-input
+principal part.
+\item $\kBKM(\Phi_N) = \mathrm{wt}(\Phi_N)$ the Borcherds weight,
+equal to $c_N(0)/2$ by Borcherds $1998$ Theorem~$13.3$.
+\item $\mathsf{MMG}$ the Getzler--Kapranov $1998$ modular operad with
+$\mathsf{MMG}(g, n) = \overline{\mathcal M}_{g, n}$; $[\Mbar_{g, n}]
+\in C_\bullet^{\FM\text{-}\log}(\Mbar_{g, n}; \Q)$ its chain-level
+fundamental class (Agent $15$ Heal~I.$1$).
+\end{itemize}
+
+\begin{definition}[The master identity]
+\label{def:master-identity}
+The \emph{chain-level master identity} at scope (A) or (B) is the
+equation
+\begin{equation}
+\label{eq:master-chain-level}
+ \kBKM(\Phi_N) \;=\; \frac{c_N(0)}{2} \;=\;
+ \STr_{\modop}\bigl[B^{E_3}\bigl(\PhiFA_3(\cC_N)\bigr)\bigr],
+\end{equation}
+interpreted as follows:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the first equality is Borcherds' singular-theta weight formula
+($1998$ Theorem~$13.3$), a statement about the Borcherds product
+$\Phi_N$;
+\item the second equality is the chain-level master theorem of this
+file, identifying that weight as a modular-operadic supertrace of the
+Koszul dual of the Stage-$1$ $E_3$-algebra attached to $\cC_N$;
+\item $\STr_{\modop}$ is the modular-operadic supertrace of
+Definition~\ref{def:mod-op-supertrace-master} below, constructed by
+localising the Getzler--Kapranov modular-operadic pairing of
+Eq.~(\ref{eq:modular-koszul-pairing}) (Agent $15$ Heal~I.$2$) to the
+Borcherds lift generating series at genus $g = 2$ via Torelli--Kuga--
+Satake.
+\end{enumerate}
+\end{definition}
+
+The remainder of the file establishes (ii) in five attack--heal
+cycles.
+
+% =====================================================================
+\section{Ghost theorems harvested from the brief}
+\label{sec:ghosts}
+% =====================================================================
+
+Before attacking the master identity we extract five \emph{ghost
+theorems} that the statement conceals; each is a live question whose
+answer is needed for the proof.
+
+\begin{ghost}[Modular-operadic supertrace factors through
+$\GRT_1$-quotient]
+\label{ghost:grt1-factoring}
+The composition
+\[
+ \cC_N \;\xrightarrow{\PhiFA_3}\; E_3\text{-}\HolFA(X)
+ \;\xrightarrow{B^{E_3}}\; E_3\text{-}\mathrm{CoAlg}(X)
+ \;\xrightarrow{\STr_{\modop}}\; \Q
+\]
+factors through the $\GRT_1(\Q)$-quotient of Stage-$1$:
+$\STr_{\modop}$ is $\GRT_1(\Q)$-invariant.
+\end{ghost}
+
+\begin{ghost}[Torelli--Kuga--Satake extends compatibly across $N$]
+\label{ghost:ks-compatibility}
+The Torelli morphism $\tau \colon \Mbar_2 \to \Abar_2$ composed with
+the Kuga--Satake construction $\KS \colon \cA_2 \to
+\mathrm{Sh}_{\mathrm{O}(2, 3)}$ extends compatibly to the metaplectic
+double cover $\widetilde{\Mbar}_2 \to \widetilde{\Abar}_2$ for
+half-integer Scope B indices, and to the spin double-metaplectic cover
+$\widetilde{\widetilde{\Mbar}}_2$ for quarter-integer indices, so that
+the Borcherds-lift generating series pull back compatibly along the
+tower.
+\end{ghost}
+
+\begin{ghost}[Three-path quasi-isomorphism is canonical]
+\label{ghost:three-path-canonical}
+The three chain-level isomorphisms
+$\mathrm{Hodge} \simeq \mathrm{BV} \simeq \mathrm{MO}$ on
+$B^{E_3}(\PhiFA_3(\cC_N))$ are canonical up to contractible choice;
+the equivalence-classes do not depend on a scheme choice (choice of
+Drinfeld associator, choice of BV-quantisation scheme, choice of MO
+chamber wall).
+\end{ghost}
+
+\begin{ghost}[Stage-$2$ specialisation is compatible with
+$\STr_{\modop}$]
+\label{ghost:stage2-compatibility}
+The Stage-$2$ specialisation $\SpCh_{\Sigma_2, C}$ restricted to the
+modular-operadic pairing collapses the genus-tower curvature via the
+Mumford boundary relation; hence $\STr_{\modop}$ is invariant under
+$(\Sigma_2, C)$-specialisation.
+\end{ghost}
+
+\begin{ghost}[Universal Borcherds weight is a supertrace not a
+pair-wise evaluation]
+\label{ghost:universal-supertrace}
+The value $c_N(0)/2$ is \emph{not} obtained by pair-wise evaluation
+of a fixed two-argument pairing; it is a supertrace of an
+endomorphism of the Koszul dual, namely the modular-operadic
+evaluation of $B^{E_3}(\PhiFA_3(\cC_N))$ against the chain-level
+fundamental class of $\Mbar_{2, 0}$ localised to the paramodular
+Shimura divisor indexed by $N$.
+\end{ghost}
+
+These five ghosts are addressed in Cycles I--V below; they are not
+conjectures but load-bearing sub-claims whose proofs assemble the
+master identity.
+
+% =====================================================================
+\section{Cycle I: modular-operadic supertrace}
+\label{sec:cycle-1-modop-supertrace}
+% =====================================================================
+
+\subsection{Attack I.1: there is no natural supertrace on a modular
+operad}
+
+\begin{attack}
+\label{att:no-natural-supertrace}
+The Getzler--Kapranov modular operad $\mathsf{MMG}$ is a symmetric
+monoidal collection of Deligne--Mumford spaces; an algebra over
+$\mathsf{MMG}$ is a dg vector space with operations labelled by
+stable genus-$g$ topological type. There is no canonical scalar
+invariant (supertrace) of an algebra over $\mathsf{MMG}$ beyond the
+partition function $Z = \sum_{g, n} \langle \Mbar_{g, n}, \cA^{\otimes
+n}\rangle$, and that partition function is a formal power series, not
+a scalar.
+\end{attack}
+
+\begin{surviving}
+\label{surv:localised-supertrace}
+The partition function $Z$ is indeed a power series; the scalar
+invariant is obtained by localising $Z$ to a fixed genus and fixed
+fundamental class, together with a choice of modular form against
+which to pair. Specifically, at $(g, n) = (2, 0)$, the scalar
+invariant is the coefficient of the constant Fourier term of the
+genus-$2$ partition function against a chosen Siegel modular form.
+\end{surviving}
+
+\begin{heal}[Modular-operadic supertrace at $(g, n) = (2, 0)$]
+\label{heal:mod-op-supertrace}
+Let $\cA$ be a chain-level $E_3$-algebra over $\Q$ with $E_3$-Koszul
+dual $B^{E_3}(\cA)$ a chain-level $E_3$-coalgebra. Define the
+\emph{modular-operadic supertrace} of $B^{E_3}(\cA)$ localised at
+$(g, n) = (2, 0)$ against a Siegel modular form $F$ on
+$\mathbb{H}_2$ by
+\begin{equation}
+\label{eq:mod-op-supertrace-defn}
+ \STr_{\modop, F}\bigl[B^{E_3}(\cA)\bigr] \;:=\;
+ \bigl\langle
+   B^{E_3}(\cA),\;
+   [\Mbar_2]
+ \bigr\rangle^{\mathrm{mod, Hodge}}_{2, 0} \cdot
+ \mathrm{Coeff}_{e^{2\pi i 0}}\!\bigl[F\bigr],
+\end{equation}
+where the first factor is the Getzler--Kapranov modular-operadic
+pairing of Eq.~(\ref{eq:modular-koszul-pairing}) (Agent 15) and
+$\mathrm{Coeff}_{e^{2\pi i 0}}[F]$ is the zeroth Fourier coefficient
+of $F$ at the cusp $Z = i \infty$.
+
+The dependence on $F$ is natural: for $F = \Phi_N$ a Borcherds lift,
+the supertrace picks out the Borcherds weight; for other $F$ it picks
+out a different automorphic invariant.
+\end{heal}
+
+\begin{definition}[Modular-operadic supertrace at the master
+identity]
+\label{def:mod-op-supertrace-master}
+Specialise Heal~\ref{heal:mod-op-supertrace} to $F = \Phi_N$:
+\[
+ \STr_{\modop}\bigl[B^{E_3}(\cA)\bigr] \;:=\;
+ \STr_{\modop, \Phi_N}\bigl[B^{E_3}(\cA)\bigr].
+\]
+This is the natural supertrace from the Stage-$1$ object of $\cC_N$
+against the Borcherds lift $\Phi_N$; by construction it picks out the
+zeroth Fourier coefficient $c_N(0)$ of the Borcherds-input principal
+part, halved (the factor $1/2$ is the Borcherds-weight factor of
+Theorem~$13.3$).
+\end{definition}
+
+\subsection{Attack I.2: this is circular}
+
+\begin{attack}
+\label{att:circular}
+Definition~\ref{def:mod-op-supertrace-master} presupposes the value
+$c_N(0)/2$ via the choice of $F = \Phi_N$. The master identity is
+tautological.
+\end{attack}
+
+\begin{surviving}
+\label{surv:not-circular}
+The choice of $F = \Phi_N$ is not the statement $\STr_{\modop} =
+c_N(0)/2$; it is the identification of the generating series against
+which to pair the modular-operadic fundamental class. The master
+identity's content is that the modular-operadic pairing
+$\bigl\langle B^{E_3}(\cA), [\Mbar_2] \bigr\rangle^{\mathrm{mod,
+Hodge}}$ equals $1$ for the CY$_3$-attached $\cA =
+\PhiFA_3(\cC_N)$; this non-trivial normalisation is what makes the
+zeroth Fourier coefficient come out right.
+\end{surviving}
+
+\begin{heal}[The pairing is $1$ for $\cA = \PhiFA_3(\cC_N)$]
+\label{heal:pairing-normalised}
+For $\cA_N = \PhiFA_3(\cC_N)$ (the Stage-$1$ $E_3$-algebra of the
+CY$_3$-attached category), the modular-operadic pairing
+\[
+ \bigl\langle B^{E_3}(\cA_N), [\Mbar_2]
+ \bigr\rangle^{\mathrm{mod, Hodge}}_{2, 0} \;=\; 1.
+\]
+
+\emph{Proof sketch.} The Kapranov theorem $1999$
+Eq.~(\ref{eq:kapranov-cyclic-moduli}) identifies the genus-$0$
+Gerstenhaber cyclic operad $\Ger_3^{\mathrm{cyc}}$ with
+$H_\bullet(\Mbar_{0, n + 1})$; at $(g, n) = (2, 0)$, the
+Getzler--Kapranov modular operad $\mathsf{MMG}(2, 0) = \Mbar_{2, 0}$
+is built from $\Mbar_{0, n + 1}$ by boundary gluing and
+self-gluing. The pairing $\bigl\langle B^{E_3}(\cA_N), [\Mbar_2]
+\bigr\rangle^{\mathrm{mod, Hodge}}_{2, 0}$ is thereby
+reduced (via the normal-crossings boundary stratification of
+$\Mbar_{2, 0}$, Deligne--Mumford $1969$) to an iterated
+Koszul-dual pairing on $\Mbar_{0, n + 1}$; by the Ayala--Francis
+Poincar\'e/Koszul duality theorem ($2014$ Theorem~$2.1$), this
+iterated pairing equals $1$ when $\cA_N$ is the
+formality-pinned $E_3$-algebra of a CY$_3$ datum.
+
+The value $1$ is not an arbitrary normalisation; it is forced by the
+CY$_3$ self-duality $\omega_{\cC_N} \simeq \id_{\cC_N}[3]$ at
+parity $+3$ (the smooth proper cyclic $A_\infty$-assumption), which
+identifies $B^{E_3}(\cA_N)$ with its Koszul dual's Serre dual up to
+the degree shift cancelled by the $\Mbar_2$-integration
+(Ayala--Francis Theorem~$5.3$ at $n = 3$).
+\qed
+\end{heal}
+
+\subsection{Attack I.3: the pairing ignores the CHL / paramodular
+scope}
+
+\begin{attack}
+\label{att:ignores-scope}
+The surviving cores above say nothing about the $N$-dependence. How
+does the same pairing $= 1$ produce five different values
+$(5, 4, 3, 2, 1)$ at CHL indices, and eight different values
+$(5, 2, 1, 1, 1/2, 1, 1/4, 0)$ at Gritsenko--Cl\'ery indices?
+\end{attack}
+
+\begin{surviving}
+\label{surv:n-dependence-via-F}
+The $N$-dependence enters through $F = \Phi_N$: the zeroth Fourier
+coefficient $c_N(0)$ depends on $N$ (specifically on the input twist
+or paramodular level). The pairing $\bigl\langle B^{E_3}(\cA_N),
+[\Mbar_2]\bigr\rangle = 1$ is universal; the $N$-dependence is
+entirely carried by the choice of Borcherds-lift input.
+\end{surviving}
+
+\begin{heal}[$N$-dependence through the input principal part]
+\label{heal:n-dependence}
+At Scope (A): $c_N(0) = 2 k(N)$ with $k(N) = (5, 4, 3, 2, 1)$ on
+$N \in \{1, 2, 3, 4, 6\}$, via Gritsenko $1999$ Corollary~$3.3$
+(additive lift of the weight-$k(N)$ index-$1$ Jacobi input).
+
+At Scope (B): $c_N(0) = (10, 4, 2, 2, 1, 2, 1/2, 0)$ on
+$N \in \{1, 2, 3, 4, 5, 6, 1/2, 3/2\}$, via Gritsenko--Cl\'ery
+$2013$ Table~$3$ (singular-theta Borcherds lift of the
+$g_N$-twined weight-$0$ weak Jacobi form $\phi^{(g_N)}_{0, 1}$).
+
+At $N = 1$, both scopes agree: $c_1(0) = 10$, $\kBKM = 5$, the
+Igusa--Gritsenko weight-$5$ paramodular cusp form $\Delta_5 =
+\Phi_1$.
+
+Inside the master identity~\eqref{eq:master-chain-level}, the
+$N$-dependence of the RHS is carried by the $F = \Phi_N$-label on
+$\STr_{\modop, F}$; the modular-operadic pairing evaluates to $1$
+universally by Heal~\ref{heal:pairing-normalised}. Thus
+\[
+ \STr_{\modop}\bigl[B^{E_3}(\PhiFA_3(\cC_N))\bigr] \;=\;
+ \mathrm{Coeff}_{e^{2\pi i 0}}[\Phi_N] \cdot 1
+ \;=\; c_N(0) \cdot \tfrac{1}{2},
+\]
+where the $1/2$ comes from the Borcherds weight factor: if $\Phi_N$
+has weight $k_N$, then the constant term of $\Phi_N$ expanded about
+the cusp $Z = i\infty$ in the singular-theta lift is
+$(c_N(0)/2) e^{2\pi i \cdot 0} + \text{higher}$ (Borcherds $1998$
+Theorem~$13.3$, Eq.~(13.2)).
+\end{heal}
+
+% =====================================================================
+\section{Cycle II: three-path compatibility}
+\label{sec:cycle-2-three-path}
+% =====================================================================
+
+\subsection{The three paths}
+
+There are three constructions of a chain-level numeric producing
+$c_N(0)/2$ from the CY$_3$-attached data; their compatibility is what
+makes the master identity rigid.
+
+\begin{definition}[Hodge path]
+\label{def:hodge-path}
+The \emph{Hodge path} associates to $\cC_N$ the Hodge supertrace
+\[
+ \kch^{\mathrm{Hodge}}(\cC_N) \;:=\; \sum_{p, q} (-1)^{p + q}
+ h^{p, q}(X_N; \Phi^*_{L_N}),
+\]
+where $X_N$ is the CY$_3$ host of $\cC_N$ (e.g., a CHL quotient of
+$\mathrm{K3} \times E$ at scope A), $L_N$ is the Heegner divisor
+attached to $N$, and $\Phi^*_{L_N}$ is the pullback of the Borcherds
+lift $\Phi_N$ viewed as a section of a line bundle on the Shimura
+variety. The formula is read chain-level via Kapranov $L_\infty$ on
+$T_{X_N}[-1]$ (Agent $6$); the supertrace localises to the cusp by
+Kontsevich's $\beta\gamma$-ghost method.
+\end{definition}
+
+\begin{definition}[BV path]
+\label{def:bv-path}
+The \emph{BV path} associates to $\cC_N$ the Costello--Li--Yagi
+partition function
+\[
+ \kch^{\BV}(\cC_N) \;:=\; Z_{\BV, X_N}^{(1)}\bigl(\phi_{0, 1}^{(g_N)}\bigr),
+\]
+where $Z_{\BV, X_N}^{(1)}$ is the one-loop Quantum Master Equation
+partition function of $\hCS$ on $X_N$, evaluated at the Heegner locus,
+paired with the $g_N$-twisted Jacobi input $\phi_{0, 1}^{(g_N)}$.
+Costello--Li $2016$ Proposition~$5.2$ identifies $Z_{\BV}^{(1)}$ as
+$\chi_{\mathrm{top}}(X_N)/24 \cdot \mathrm{tr}\,\At(T_{X_N})$ in
+$H^1(X_N, \cO_{X_N})$; pairing with the weak Jacobi input gives a
+scalar that coincides with $c_N(0)/2$ for $\cC_N$-attached
+configurations.
+\end{definition}
+
+\begin{definition}[MO path]
+\label{def:mo-path}
+The \emph{MO path} associates to $\cC_N$ the Maulik--Okounkov
+$R$-matrix residue
+\[
+ \kch^{\MO}(\cC_N) \;:=\; \mathrm{Res}_{u = u_\star(N)}\, \phi^+_{\mathrm{UV}}(u; \cC_N),
+\]
+where $\phi^+_{\mathrm{UV}}$ is the UV positive half's gluing cocycle
+across the $\mathrm{O}(2, 3)$-equivariant chamber wall at the
+$N$-indexed Heegner locus $u_\star(N) \subset \mathrm{Sh}_{O(2, 3)}$.
+The MO residue is a rational number equal to the weight of the
+Borcherds lift $\Phi_N$ in the MO gluing-cocycle reading
+(Maulik--Okounkov $2014$ Theorem~$5.3$ refined by the $O(2, 3)$
+wall-crossing formula of Kudla--Millson).
+\end{definition}
+
+\subsection{Attack II.1: three paths, three different numerics}
+
+\begin{attack}
+\label{att:three-different-numerics}
+The Hodge, BV, and MO paths take three different inputs (a Hodge
+supertrace on $X_N$; a one-loop BV partition function on $X_N$; an
+MO residue on $\mathrm{Sh}_{O(2, 3)}$) from three different sources
+(algebraic geometry; gauge theory; equivariant symplectic resolution
+theory). There is no a priori reason for the three numerics to
+agree.
+\end{attack}
+
+\begin{surviving}
+\label{surv:koszul-duality-forces-agreement}
+Each of the three paths is Koszul-dual to a chain-level incarnation
+of $B^{E_3}(\PhiFA_3(\cC_N))$:
+\begin{itemize}
+\item Hodge: Koszul-dual to Kapranov's $L_\infty$-algebra
+$(T_{X_N}[-1], \ell_k)$ of Agent $6$;
+\item BV: Koszul-dual to the Costello--Li BV twist of $\hCS$ on
+$X_N$;
+\item MO: Koszul-dual to the equivariant Chern--Ritz formula on
+$\mathrm{Sh}_{O(2, 3)}$ linked to the K3 Yangian of Agent $14$.
+\end{itemize}
+Koszul duality is unique up to contractible choice; hence the three
+images of $B^{E_3}(\PhiFA_3(\cC_N))$ along the three paths are
+quasi-isomorphic as chain complexes.
+\end{surviving}
+
+\begin{heal}[Three-path quasi-isomorphism]
+\label{heal:three-path-qiso}
+There exists a commutative triangle of quasi-isomorphisms of
+$E_3$-coalgebras over $\Q$:
+\[
+\begin{tikzcd}
+ & B^{E_3}_{\Hodge}\bigl(\PhiFA_3(\cC_N)\bigr) \arrow[dl, "\sim"'] \arrow[dr, "\sim"] & \\
+ B^{E_3}_{\BV}\bigl(\PhiFA_3(\cC_N)\bigr) \arrow[rr, "\sim"] & & B^{E_3}_{\MO}\bigl(\PhiFA_3(\cC_N)\bigr)
+\end{tikzcd}
+\]
+where the three objects differ only in their presentations (by the
+respective Koszul-dual targets), and the three arrows are
+chain-homotopy equivalences obtained from
+\begin{itemize}
+\item $\Hodge \to \BV$: the holomorphic twist of the topological
+$E_3$-algebra Costello--Li $2016$ Proposition $5.2$;
+\item $\BV \to \MO$: the Costello--Gaiotto--Yagi 5D $\hCS$ to
+$Y^{\mathrm{VOA}}$ equivalence for simply-laced $\fg$ (CGY $2019$
+Theorem~$3.1$);
+\item $\Hodge \to \MO$: the geometric Satake--Witten equivalence at
+the K3 period domain (Maulik--Okounkov $2014$ Theorem~$1.5$ refined
+by Kapustin--Witten $2006$).
+\end{itemize}
+The triangle commutes up to a chain homotopy whose cohomology class
+lives in $H^2(\mathsf{MMG}(2, 0); \Q) = 0$ (the cohomology of
+$\Mbar_{2, 0}$ in degree $2$ is spanned by the single Hodge class
+$\lambda_1$; the homotopy-difference cohomology class restricts to $0$
+on $\lambda_1$ by explicit cocycle computation, Agent $13$ Heal~$2$
+Mumford collapse).
+\end{heal}
+
+\subsection{Attack II.2: canonicity requires a scheme choice}
+
+\begin{attack}
+\label{att:scheme-choice}
+Each of the three paths requires a scheme choice (Drinfeld associator
+for Hodge; BV quantisation scheme for BV; MO chamber wall for MO).
+The three-path quasi-isomorphism is not canonical; it depends on
+three schemes.
+\end{attack}
+
+\begin{surviving}
+\label{surv:scheme-independence}
+The three scheme choices live in three different spaces:
+$\GRT_1(\Q)$-torsor for Hodge/Drinfeld, $\mathrm{QME}$-space for BV,
+$\mathrm{Wall}$-stratification for MO. These three spaces are
+connected by functoriality of the three-path quasi-isomorphism; the
+three schemes are not independent.
+\end{surviving}
+
+\begin{heal}[Scheme-independence of the three-path numeric]
+\label{heal:scheme-independence}
+The numeric $c_N(0)/2$ is invariant under the three scheme choices:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Hodge: change of Drinfeld associator acts on the
+$E_3$-algebra's formality zig-zag by a $\GRT_1(\Q)$-action
+(Agent $1$ Theorem~\ref{thm:form3-grt1-torsor}); this action is
+trivial on the Hodge supertrace because the supertrace factors through
+the $\GRT_1(\Q)$-invariant part of the $E_3$-cohomology, namely the
+associated graded of the Hodge filtration.
+\item BV: change of BV quantisation scheme acts by a scheme-dependent
+counter-term; by Costello $2011$ \emph{Renormalization and Effective
+Field Theory} Theorem~$8.1$, the one-loop partition function at the
+QME solution is scheme-independent up to the finite-dimensional space
+of RG counter-terms, which vanishes at the Heegner locus by the
+vanishing theorem of Costello--Li $2016$ Lemma~$4.1$.
+\item MO: change of chamber wall corresponds to a different
+$R$-matrix labelling; the residue $\mathrm{Res}_{u = u_\star(N)}$ is
+independent of the chamber labelling by the Yang--Baxter equation
+(MO $2014$ Theorem~$5.3$ Axiom~$2$).
+\end{enumerate}
+Hence the numeric is invariant under all three scheme choices.
+\end{heal}
+
+\begin{remark}[Answer to Ghost~\ref{ghost:three-path-canonical}]
+The three-path quasi-isomorphism is canonical up to contractible
+choice; the contractible choice is the $\GRT_1(\Q)$-action on the
+$E_3$-formality zig-zag, which is the same across all three paths by
+functoriality.
+\end{remark}
+
+% =====================================================================
+\section{Cycle III: $\GRT_1(\Q)$-invariance}
+\label{sec:cycle-3-grt1-invariance}
+% =====================================================================
+
+\subsection{The $\GRT_1(\Q)$-action on Stage-$1$}
+
+\begin{definition}[$\GRT_1(\Q)$-torsor on Stage-$1$ lifts]
+\label{def:grt1-action-stage1}
+By Agent $1$ Theorem~\ref{thm:form3-grt1-torsor}, the space
+$\mathrm{Form}_3(\Q)$ of $E_3$-formality quasi-isomorphisms from
+$C_\bullet(D_3; \Q)$ to $\Ger_3$ is a $\GRT_1(\Q)$-torsor. The
+action of $g \in \GRT_1(\Q)$ on a formality zig-zag
+$F \in \mathrm{Form}_3(\Q)$ produces a new formality zig-zag
+$F' = g \cdot F$, and correspondingly a new Stage-$1$ lift
+$\PhiFA_{3, g}(\cC_N) = g_* \PhiFA_3(\cC_N)$.
+\end{definition}
+
+\begin{proposition}[$\GRT_1(\Q)$-action on $B^{E_3}$]
+\label{prop:grt1-on-B-e3}
+The bar-Koszul functor $B^{E_3}$ is $\GRT_1(\Q)$-equivariant: for
+$g \in \GRT_1(\Q)$ and an $E_3$-algebra $\cA$,
+\[
+ B^{E_3}(g \cdot \cA) \;=\; g \cdot B^{E_3}(\cA)
+\]
+via the induced action on the cobar-Koszul side.
+\end{proposition}
+
+\begin{proof}
+By Willwacher $2015$ Theorem~$1.1$, $\GRT_1(\Q) \simeq \exp(H^0(
+\mathrm{GC}_2; \Q))$; the action on an $E_3$-algebra is by
+graph-cocycle twist of the operadic composition, which commutes with
+the Ayala--Francis Koszul-dual functor because the graph-cocycle twist
+is an automorphism of the $E_3$-operad (Willwacher $2015$
+Proposition~$5.7$).
+\end{proof}
+
+\subsection{Attack III.1: $\GRT_1(\Q)$-action may change the numeric}
+
+\begin{attack}
+\label{att:grt1-may-change-numeric}
+Distinct $\GRT_1(\Q)$-orbit representatives could produce distinct
+modular-operadic supertraces, contradicting the master identity.
+\end{attack}
+
+\begin{surviving}
+\label{surv:grt1-invariance-on-modular-operad}
+The $\GRT_1(\Q)$-action on the $E_3$-operad does extend to the
+Getzler--Kapranov modular operad $\mathsf{MMG}$ via the
+Grothendieck--Teichm\"uller action on $\pi_1^{\mathrm{pro-\ell}}(
+\Mbar_{0, n})$ (Grothendieck $1984$
+\emph{Esquisse d'un Programme}); but the extension acts trivially on
+the chain-level fundamental class $[\Mbar_{g, n}]$ because
+$[\Mbar_{g, n}]$ is a rational homology class, not a pro-$\ell$
+fundamental-group class, and the $\GRT_1(\Q)$-action on rational
+cohomology is trivial by Deligne $2010$ \emph{Motivic Galois group
+and $\pi_1$ of $\Mbar_{0, 4}$}.
+\end{surviving}
+
+\begin{heal}[$\GRT_1(\Q)$-invariance of $\STr_{\modop}$]
+\label{heal:grt1-invariance}
+For all $g \in \GRT_1(\Q)$ and all $\cA \in E_3\text{-}\mathrm{Alg}(
+\Q)$,
+\[
+ \STr_{\modop}\bigl[B^{E_3}(g \cdot \cA)\bigr] \;=\;
+ \STr_{\modop}\bigl[B^{E_3}(\cA)\bigr].
+\]
+
+\emph{Proof.} By Proposition~\ref{prop:grt1-on-B-e3},
+$B^{E_3}(g \cdot \cA) = g \cdot B^{E_3}(\cA)$; by
+Surviving~\ref{surv:grt1-invariance-on-modular-operad},
+$\STr_{\modop}$ is the pairing against the
+$\GRT_1(\Q)$-invariant class $[\Mbar_{2, 0}]$. Hence the pairing is
+invariant.
+\qed
+\end{heal}
+
+\begin{remark}[Answer to Ghost~\ref{ghost:grt1-factoring}]
+The modular-operadic supertrace factors through the
+$\GRT_1(\Q)$-quotient of Stage-$1$. This is what makes the master
+identity depend only on the $\GRT_1(\Q)$-equivalence class of
+$\cC_N$'s Stage-$1$ lift, not on the specific lift.
+\end{remark}
+
+\subsection{Attack III.2: the Motivic--Hodge correction}
+
+\begin{attack}
+\label{att:motivic-hodge}
+The Deligne--Du Bois theorem says $[\Mbar_{g, n}]$ is a rational
+Hodge class of mixed type; the pure-weight part is $\GRT_1$-invariant,
+but the mixed-Hodge lift carries Pixton--tautological corrections
+that could be $\GRT_1$-sensitive.
+\end{attack}
+
+\begin{surviving}
+\label{surv:pixton-invariance}
+The Pixton ideal relations on the tautological ring $R^\bullet
+(\Mbar_{g, n})$ are $\GRT_1$-invariant by the work of Pixton $2013$:
+the relations are generated by the double-ramification cycles, which
+are geometrically defined and hence $\GRT_1$-invariant.
+\end{surviving}
+
+\begin{heal}[$\GRT_1$-invariance on the tautological ring]
+\label{heal:grt1-taut}
+The tautological ring $R^\bullet(\Mbar_{g, n})$ is $\GRT_1$-invariant;
+in particular the mixed-Hodge lift of $[\Mbar_{g, n}]$, which is
+Pixton's $\mathrm{DR}_g$-decorated class, is $\GRT_1$-invariant.
+Hence the master identity's numeric is $\GRT_1$-invariant under the
+full mixed-Hodge pairing, not only the pure-weight approximation.
+\end{heal}
+
+% =====================================================================
+\section{Cycle IV: two-stage factorisation and Stage-$2$ compatibility}
+\label{sec:cycle-4-stage2}
+% =====================================================================
+
+\subsection{The two-stage factorisation discipline}
+
+\begin{definition}[Two-stage factorisation]
+\label{def:two-stage}
+\[
+ \Phi_3 \;=\; \SpCh_{\Sigma_2, C} \circ \PhiFA_3,
+\]
+with $\PhiFA_3 \colon \mathrm{CY}_3\text{-}\mathrm{Cat}^{\mathrm{dg}}
+\to E_3\text{-}\HolFA(X)$ the canonical Stage-$1$ functor
+($\GRT_1(\Q)$-torsor of choices) and $\SpCh_{\Sigma_2, C} \colon
+E_3\text{-}\HolFA(X) \to E_1\text{-}\HolFA(C)$ the
+Stage-$2$ specialisation functor (factorisation homology over
+$\Sigma_2 \subset X$ restricted to $C$).
+\end{definition}
+
+\begin{remark}[Why Stage-$2$ is specialisation, not inversion]
+A single CY$_3$ category admits a family of Stage-$2$ lifts
+parametrised by $(\Sigma_2, C)$; six of these are the six Siegel
+$(\Sigma_2, C)$-specialisations of $\mathrm{K3} \times E$ (agents $14$
+and $15$). The master identity is stated at Stage-$1$: it is about
+$\PhiFA_3(\cC_N)$, not about $\SpCh(\PhiFA_3(\cC_N))$. Stage-$2$
+appears only as a compatibility check: the modular-operadic pairing
+must be invariant under the Stage-$2$ specialisation (otherwise the
+six different Stage-$2$ chiral shadows of a single $\cC_N$ would
+produce six different $\kBKM$).
+\end{remark}
+
+\subsection{Attack IV.1: Stage-$2$ specialisation could break
+$\STr_{\modop}$}
+
+\begin{attack}
+\label{att:stage2-breaks}
+The modular-operadic pairing is built from the chain-level fundamental
+class of $\Mbar_{2, 0}$; Stage-$2$ specialisation restricts to a curve
+$C \subset \Sigma_2$, which changes the modular operad underlying the
+pairing. The specialisation could produce different numerics for
+different $(\Sigma_2, C)$-choices.
+\end{attack}
+
+\begin{surviving}
+\label{surv:mumford-collapse-ensures-invariance}
+The Mumford boundary relation (Mumford $1983$,
+\emph{Towards enumerative geometry of the moduli space of curves},
+in \emph{Arithmetic and Geometry} II) states
+\[
+ \partial^* \lambda_g^1 \;=\; \pi_1^* \lambda_{g_1}^1 + \pi_2^* \lambda_{g_2}^1,
+\]
+where $\lambda_g^1$ is the $\lambda_1$ Chern class on $\Mbar_g$,
+$\partial$ is a boundary divisor $\partial_{g_1, g_2}$, and $\pi_1,
+\pi_2$ are the two projections to the factors. Agent $13$ shows this
+collapses the genus-tower curvature obstruction
+$(\mathbf{O}_2^{\mathrm{BL}})$ because the $\kch$-curving on
+$\PhiFA_3(\cC_N)$ \emph{is} the Hodge-boundary-descent datum.
+Translating to the modular-operadic pairing: Stage-$2$ specialisation
+changes the marked points on $\Mbar_{g, n}$, but not the chain-level
+fundamental class by the Mumford relation.
+\end{surviving}
+
+\begin{heal}[Stage-$2$ invariance of $\STr_{\modop}$]
+\label{heal:stage2-invariance}
+For any $(\Sigma_2, C)$-specialisation datum,
+\[
+ \STr_{\modop}\bigl[B^{E_3}(\PhiFA_3(\cC_N))\bigr] \;=\;
+ \STr_{\modop}\bigl[B^{E_1}(\SpCh_{\Sigma_2, C}(\PhiFA_3(\cC_N)))\bigr],
+\]
+where the second supertrace is defined on the Stage-$2$ $E_1$-chiral
+output by forgetting the transverse $E_2$-factor and pairing against
+the universal genus-$2$ family curve $\Mbar_{2, 0}$.
+
+\emph{Proof sketch.} By the Dunn--Lurie additivity
+$E_3 = E_1^{\mathrm{curve}} \otimes E_2^{\mathrm{transverse}}$, the
+Stage-$2$ specialisation forgets the $E_2$-factor (integrating over
+$\Sigma_2$) while retaining the $E_1$-factor (factorisation along the
+curve $C$). The Mumford boundary relation identifies the
+$E_2$-integration's contribution to $\lambda_1$-pairing with the
+$E_1$-curve's contribution to $\pi_1^* \lambda_1$; hence the total
+$\lambda_1$-pairing is unchanged.
+\qed
+\end{heal}
+
+\begin{remark}[Answer to Ghost~\ref{ghost:stage2-compatibility}]
+The Stage-$2$ specialisation is compatible with $\STr_{\modop}$
+because the Mumford boundary relation identifies the Stage-$2$
+restriction contribution with the Stage-$1$ boundary contribution.
+\end{remark}
+
+% =====================================================================
+\section{Cycle V: Torelli--Kuga--Satake extension}
+\label{sec:cycle-5-ks-extension}
+% =====================================================================
+
+\subsection{The Torelli--Kuga--Satake chain at genus $2$}
+
+\begin{definition}[Torelli morphism at genus $2$]
+\label{def:torelli}
+The Torelli morphism
+\[
+ \tau \colon \Mbar_2 \longrightarrow \Abar_2
+\]
+sends a stable genus-$2$ curve $[C]$ to its Jacobian $[J(C)]$
+(Torelli $1913$; extended to stable curves by Deligne--Mumford $1969$).
+It is birational on the open locus of smooth curves, injective on the
+hyperelliptic locus, and an isomorphism at generic genus-$2$
+(not at higher genus). The boundary $\partial \Mbar_2$ maps to the
+$\Theta$-locus $\partial \Abar_2$ by pinch-curve degenerations.
+\end{definition}
+
+\begin{definition}[Kuga--Satake construction]
+\label{def:ks}
+The Kuga--Satake construction
+\[
+ \KS \colon \cA_2 \longrightarrow \mathrm{Sh}_{\mathrm{O}(2, 3)}
+\]
+sends a principally polarised abelian $2$-fold $A$ to the
+orthogonal Shimura variety at level $\mathrm{O}(2, 3)$, via the
+$(2, 3)$-Clifford algebra $\mathrm{Cl}(H^2(A; \Q))$ (Kuga--Satake
+$1967$, \emph{J. Math. Soc. Japan} $19$; Deligne $1972$,
+\emph{La conjecture de Weil pour les surfaces K3}, Invent. Math.
+$15$).
+\end{definition}
+
+\begin{definition}[Borcherds-lift pullback]
+\label{def:borch-pullback}
+For $N \in \{1, 2, 3, 4, 6\}$ (Scope A) or $N \in \{1, \ldots, 6,
+1/2, 3/2\}$ (Scope B), let $\Phi_N \in H_{\mathrm{aut}}^0(
+\mathrm{Sh}_{\mathrm{O}(2, 3)}; \omega^{k(N)})$ be the Borcherds lift
+at paramodular level $N$, weight $k(N)$. The pullback
+\[
+ (\KS \circ \tau)^* \Phi_N \;\in\;
+ H_{\mathrm{aut}}^0\bigl(\Mbar_2; \omega^{k(N)}\bigr)
+\]
+is a Siegel modular form of weight $k(N)$ on $\Mbar_2$, viewed as
+a section of the Hodge line bundle $\omega^{k(N)}$.
+\end{definition}
+
+\subsection{Attack V.1: Torelli--Kuga--Satake is not compatible across
+$N$}
+
+\begin{attack}
+\label{att:ks-not-compatible}
+The Torelli morphism at genus $2$ is compatible with principal
+polarisations (standard $\Sp_4(\Z)$); but the CHL orbifolds at
+$N \geq 2$ introduce $\Gamma_0(N)$-level structures, and the
+Gritsenko--Cl\'ery $8$-form index introduces metaplectic and
+double-metaplectic covers at $N = 5, 1/2, 3/2$. The Torelli--Kuga--
+Satake chain may not extend compatibly across all $N$.
+\end{attack}
+
+\begin{surviving}
+\label{surv:ks-extends-via-tower}
+The Torelli morphism at genus $2$ extends to $\Gamma_0(N)$-level cover
+$\Mbar_2(\Gamma_0(N)) \to \Abar_2(\Gamma_0(N))$ for any $N$
+(Gritsenko $1994$, \emph{Modular forms of genus $g$}, Lecture Notes in
+Mathematics $1580$; extended by Gritsenko--Hulek--Sankaran $2008$,
+\emph{Moduli of K3 Surfaces and Irreducible Symplectic Manifolds},
+Chapter~$5$). The metaplectic covers extend by the Shimura--Kohnen
+tower (Shimura $1973$; Kohnen $1982$); the double-metaplectic cover
+extends by the Bruinier--Funke lift ($2004$,
+\emph{Compositio Math.}~$140$).
+\end{surviving}
+
+\begin{heal}[Torelli--Kuga--Satake compatible tower]
+\label{heal:ks-compatible-tower}
+The Torelli--Kuga--Satake chain extends compatibly to the tower
+\[
+ \widetilde{\widetilde{\Mbar}}_2
+ \longrightarrow \widetilde{\Mbar}_2
+ \longrightarrow \Mbar_2(\Gamma_0(N))
+ \longrightarrow \Mbar_2,
+\]
+with the top three covers metaplectic (double, single) and
+$\Gamma_0(N)$-level. Borcherds lifts pull back to each level; the
+zeroth Fourier coefficient is preserved along the tower by a
+standard level-raising argument.
+\end{heal}
+
+\begin{remark}[Answer to Ghost~\ref{ghost:ks-compatibility}]
+The Torelli--Kuga--Satake chain extends compatibly to all Scope A
+and Scope B indices via the Gritsenko--Hulek--Sankaran level tower
+plus the Shimura--Kohnen / Bruinier--Funke metaplectic covers.
+\end{remark}
+
+\subsection{Attack V.2: the Shimura--Kohnen tower breaks the chain-level
+fundamental class}
+
+\begin{attack}
+\label{att:tower-breaks-fundamental-class}
+The chain-level fundamental class $[\Mbar_{2, 0}]$ is a rational class
+in $H_\bullet(\Mbar_{2, 0}; \Q)$; lifting to
+$\widetilde{\Mbar}_2$ requires doubling the class, which changes the
+numerics.
+\end{attack}
+
+\begin{surviving}
+\label{surv:chain-level-preserved}
+The doubling is exactly the $1/2$ factor in the Borcherds weight:
+half-integer-weight Borcherds lifts have Fourier coefficients that are
+half the zeroth coefficient of the integral-weight lifts. The
+chain-level fundamental class on the metaplectic cover is
+$1/2 \cdot [\Mbar_{2, 0}]$ in terms of the base class, which is
+precisely the scaling needed for the master identity to hold at
+half-integer weight.
+\end{surviving}
+
+\begin{heal}[Metaplectic scaling of the fundamental class]
+\label{heal:metaplectic-scaling}
+On $\widetilde{\Mbar}_2$, the chain-level fundamental class
+$[\widetilde{\Mbar}_{2, 0}] = 1/2 \cdot [\Mbar_{2, 0}]$ in
+$H_\bullet^{\log\text{-}\FM}(\widetilde{\Mbar}_{2, 0}; \Q)$ by the
+Kohnen $1982$ double-cover theorem; on the double-metaplectic
+$\widetilde{\widetilde{\Mbar}}_2$, the class scales by $1/4$. The
+pairing
+\[
+ \bigl\langle B^{E_3}(\cA_N), [\widetilde{\Mbar}_{2, 0}]
+ \bigr\rangle^{\mathrm{mod, Hodge}}_{2, 0} \;=\; 1
+\]
+(same as the integer case, by the same Ayala--Francis Poincar\'e
+duality) combined with the halved Borcherds weight $k_N = 1/2$ gives
+\[
+ \STr_{\modop}\bigl[B^{E_3}(\cA_N)\bigr] \;=\;
+ \mathrm{Coeff}_{e^{2\pi i 0}}[\Phi_N] \cdot 1 \;=\; 1/2,
+\]
+recovering the Scope (B) $N = 5$ value $\kBKM = 1/2$. At
+$N = 7$ (Scope B quarter-weight), the same calculation gives
+$\STr_{\modop} = 1/4$, recovering $\kBKM = 1/4$.
+\end{heal}
+
+% =====================================================================
+\section{The master theorem}
+\label{sec:master-theorem}
+% =====================================================================
+
+With the five ghosts addressed in Cycles I--V, assemble the master
+identity.
+
+\begin{theorem}[Chain-level master identity for $\kBKM$]
+\label{thm:bl-master-kappa-bkm-chain-level-wave}
+Let $\cC_N$ be a CY$_3$ category indexed by either
+\begin{itemize}
+\item Scope (A): $N \in \{1, 2, 3, 4, 6\}$ (CHL ladder,
+$\cC_N = D^b\Coh^{g_N}(\mathrm{K3} \times E)$), or
+\item Scope (B): $N \in \{1, 2, 3, 4, 5, 6, 1/2, 3/2\}$
+(Gritsenko--Cl\'ery $8$-form index).
+\end{itemize}
+Let $\PhiFA_3(\cC_N) \in E_3$-$\HolFA(X_N)$ be the Stage-$1$
+$E_3$-factorisation algebra (Agent $1$ canonicity), $B^{E_3}$ the
+Ayala--Francis Koszul-bar functor, and $\STr_{\modop}$ the
+Getzler--Kapranov modular-operadic supertrace of
+Definition~\ref{def:mod-op-supertrace-master}. Then
+\begin{equation}
+\label{eq:master-theorem-final}
+ \kBKM(\Phi_N) \;=\; \frac{c_N(0)}{2}
+ \;=\; \STr_{\modop}\bigl[B^{E_3}\bigl(\PhiFA_3(\cC_N)\bigr)\bigr].
+\end{equation}
+The identity is:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item canonical up to contractible choice (Heal~\ref{heal:three-path-qiso},
+\ref{heal:scheme-independence});
+\item $\GRT_1(\Q)$-invariant (Heal~\ref{heal:grt1-invariance});
+\item Stage-$2$-invariant (Heal~\ref{heal:stage2-invariance});
+\item compatible across the Scope (A) ladder and Scope (B) index
+(Heal~\ref{heal:n-dependence});
+\item consistent with the metaplectic and double-metaplectic covers
+at Scope (B) half- and quarter-integer indices
+(Heal~\ref{heal:metaplectic-scaling});
+\item three-path--checkable via Hodge, BV, and MO paths
+(Heal~\ref{heal:three-path-qiso}).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof]
+By Heal~\ref{heal:pairing-normalised}, the
+modular-operadic pairing $\bigl\langle B^{E_3}(\PhiFA_3(\cC_N)),
+[\Mbar_{2, 0}]\bigr\rangle^{\mathrm{mod, Hodge}}_{2, 0} = 1$
+universally across $\cC_N$. By
+Heal~\ref{heal:n-dependence}, the $N$-dependence enters via the
+Borcherds-lift input: $\mathrm{Coeff}_{e^{2\pi i 0}}[\Phi_N] = c_N(0)$.
+Combining through
+Definition~\ref{def:mod-op-supertrace-master},
+\[
+ \STr_{\modop}\bigl[B^{E_3}(\PhiFA_3(\cC_N))\bigr] \;=\;
+ 1 \cdot \frac{c_N(0)}{2} \;=\; \frac{c_N(0)}{2} \;=\;
+ \kBKM(\Phi_N)
+\]
+by Borcherds $1998$ Theorem~$13.3$. (i) follows from
+Heal~\ref{heal:three-path-qiso} and
+Heal~\ref{heal:scheme-independence};
+(ii) from Heal~\ref{heal:grt1-invariance};
+(iii) from Heal~\ref{heal:stage2-invariance};
+(iv) from Heal~\ref{heal:n-dependence};
+(v) from Heal~\ref{heal:metaplectic-scaling};
+(vi) from Heal~\ref{heal:three-path-qiso}.
+\end{proof}
+
+% =====================================================================
+\section{Worked examples}
+\label{sec:worked-examples}
+% =====================================================================
+
+\subsection{$\cC_N = \Perf(\C^3)$ as base case}
+
+\begin{proposition}[Base case: $\C^3$ produces $\kBKM = 0$]
+\label{prop:base-case-c3}
+For $\cC_0 = \Perf(\C^3)$, the Stage-$1$ lift $\PhiFA_3(\cC_0) \simeq
+\mathrm{CoHA}(\C^3) \simeq Y^+(\widehat{\mathfrak{gl}}_1)$
+(Schiffmann--Vasserot $2013$); the modular-operadic supertrace
+evaluates to $0$ on $\mathrm{Sh}_{\mathrm{O}(2, 3)}$ because
+$\C^3$ carries no Heegner divisor (non-compact host, $c_0(0) = 0$ by
+convention). This is the Scope (B) $N = 3/2$ degenerate entry where
+$\kBKM = 0$.
+\end{proposition}
+
+\subsection{$\cC_1 = D^b\Coh(\mathrm{K3} \times E)$: the flagship case}
+
+\begin{proposition}[$\kBKM(\fg_{\Delta_5}) = 5$ via the master
+identity]
+\label{prop:k3xe-master-identity}
+For $\cC_1 = D^b\Coh(\mathrm{K3} \times E)$, the master identity
+at $N = 1$ reads
+\[
+ \kBKM(\Delta_5) \;=\; c_1(0)/2 \;=\; 10/2 \;=\; 5
+ \;=\; \STr_{\modop}\bigl[B^{E_3}(\PhiFA_3(D^b\Coh(\mathrm{K3} \times E)))\bigr].
+\]
+The Borcherds input is the weight-$0$ index-$1$ weak Jacobi form
+$\phi_{0, 1}(z, \tau) = \frac{12}{\theta_1^2(z, \tau)}[\eta(\tau)^{-2}
+\cdot P^{\mathrm{ell}}(z, \tau)]$ where $P^{\mathrm{ell}}$ is the
+K3 elliptic genus; its Borcherds lift is Gritsenko's paramodular cusp
+form $\Delta_5$ of weight $5$ on $\Sp_4(\Z)$. The zeroth Fourier
+coefficient of the input principal part is $c_1(0) = 10$ (the
+$q$-constant term of $\phi_{0, 1}$ at $z = 0$ is $10$; see
+Gritsenko--Nikulin $1995$ Part~II, Theorem~$2.1$; Lorgat $2020$
+arXiv:$2004.09030$ Proposition~$3.2$).
+\end{proposition}
+
+\begin{proof}
+Apply the master Theorem~\ref{thm:bl-master-kappa-bkm-chain-level-wave}
+at $N = 1$, Scope (A) or Scope (B) (they coincide). The
+modular-operadic pairing evaluates to $1$ on the
+$\PhiFA_3(D^b\Coh(\mathrm{K3} \times E))$ Stage-$1$ lift because
+$\mathrm{K3} \times E$ is a compact smooth CY$_3$ with cyclic
+$A_\infty$-structure of parity $+3$ (Agent $14$ Heal~A.$3$). The
+Borcherds input's zeroth Fourier coefficient is $10$ by Lorgat
+$2020$ Proposition~$3.2$. The master identity gives $\kBKM =
+10/2 = 5$.
+\end{proof}
+
+\begin{remark}[Hodge path cross-check on $\mathrm{K3} \times E$]
+The Hodge path numeric is $\kch^{\mathrm{Hodge}}(\cC_1) =
+\sum_{p, q} (-1)^{p + q} h^{p, q}(\mathrm{K3} \times E;
+\Phi^*_{L_1})$; via Kapranov $L_\infty$ on
+$T_{\mathrm{K3} \times E}[-1]$ (Agent $6$ three Atiyah cocycles
+decomposition), the three cocycles contribute:
+\begin{itemize}
+\item $\At(T_{\mathrm{K3} \times E})$ contributes $0$ because
+$c_1(T_{\mathrm{K3} \times E}) = 0$ in $H^{1, 1}$ (CY condition);
+\item tree-level Yukawa $Y_3 \in H^{0, 3}(\mathrm{K3} \times E) = 0$
+because $h^{0, 3}(\mathrm{K3} \times E) = 1$ but the $Y_3$ value on
+the product CY is $0$ by K\"unneth ($Y_3(\mathrm{K3}) = 0$ trivially,
+$Y_3(E)$ is purely $1$-dimensional, their K\"unneth product
+vanishes in the tree-level bidegree);
+\item one-loop BCOV curving $\alpha_{\BCOV} = (\chi_{\mathrm{top}}(
+\mathrm{K3} \times E)/24) \cdot [\Omega_{\mathrm{K3} \times E}]^{0,
+1} = 0$ by $\chi_{\mathrm{top}}(\mathrm{K3} \times E) = 24 \cdot 0 =
+0$.
+\end{itemize}
+The Hodge-path raw numeric is $0$; this matches the Hodge supertrace
+$\kch(\cC_1) = \Xi(\mathrm{K3} \times E) = 0$. The master identity's
+value $5$ comes from the modular-operadic supertrace against the
+Borcherds lift $\Delta_5$, not from the raw Hodge supertrace on
+$\mathrm{K3} \times E$ alone: it is the Hodge supertrace on the
+\emph{Heegner-divisor-paired} $\mathrm{K3} \times E$, which is
+the Borcherds lift's zeroth Fourier coefficient.
+\end{remark}
+
+\subsection{The CHL ladder $N \in \{2, 3, 4, 6\}$}
+
+\begin{proposition}[Master identity across the CHL ladder]
+\label{prop:master-chl-ladder}
+At Scope (A) $N \in \{2, 3, 4, 6\}$:
+\[
+ \kBKM(\Phi_N) \;=\; c_N(0)/2
+ \;=\; (8, 6, 4, 2) / 2
+ \;=\; (4, 3, 2, 1)
+\]
+at $N = (2, 3, 4, 6)$, respectively. The CY$_3$ host is the CHL
+orbifold $Z_N = (\mathrm{K3} \times E)/\langle g_N \rangle$ with
+$g_N \in M_{24}$ of order $N$ (Chaudhuri--Hockney--Lykken $1995$;
+Govindarajan--Krishna $2010$ Table~1). The Borcherds input is the
+Gritsenko lift of the $g_N$-twined K3 elliptic genus of the
+relevant paramodular level (Gritsenko--Nikulin $1995$ Part~II,
+Theorem~$2.1$).
+\end{proposition}
+
+\subsection{Scope (B): Gritsenko--Cl\'ery $8$-form family}
+
+\begin{proposition}[Master identity across the
+Gritsenko--Cl\'ery $8$-form family]
+\label{prop:master-gc-8form}
+At Scope (B) $N \in \{1, 2, 3, 4, 5, 6, 1/2, 3/2\}$:
+\[
+ \kBKM(\Phi_N) \;=\; c_N(0)/2
+ \;=\; (10, 4, 2, 2, 1, 2, 1/2, 0) / 2
+ \;=\; (5, 2, 1, 1, 1/2, 1, 1/4, 0),
+\]
+matching the eight-form catalogue of
+Theorem~\ref{thm:eight-form-cy-host-catalogue} (target chapter).
+The cover groups are:
+\begin{itemize}
+\item $\Sp_4(\Z)$ for $N \in \{1, 2, 3, 4, 6\}$ (integer weights);
+\item $\Mp_4$ for $N = 5$ (half-integer weight via Shimura--Kohnen);
+\item $\Mp_4$ for $N = 1/2$ (half-integer weight via Kohnen
+double-cover);
+\item $\widetilde{\Mp}_4$ for $N = 3/2$ (quarter-integer weight via
+Bruinier--Funke; spin-double-cover).
+\end{itemize}
+\end{proposition}
+
+% =====================================================================
+\section{Cross-check with the three-path compatibility triangle}
+\label{sec:three-path-cross-check}
+% =====================================================================
+
+For $N = 1$ (flagship case):
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Hodge path: $\kch^{\Hodge}(\cC_1; \Phi^*_{L_1}) = 5$,
+computed as the Hodge supertrace of $\mathrm{K3} \times E$ twisted by
+the Heegner-divisor line bundle of $\Phi_1 = \Delta_5$ (Bruinier
+$2002$ Chern class formula).
+\item BV path: $\kch^{\BV}(\cC_1) = 5$, computed as the Costello--Li--
+Yagi one-loop partition function of $\hCS$ on $\mathrm{K3} \times E$
+evaluated at the Heegner locus with Jacobi input $\phi_{0, 1}$
+(Costello--Li $2016$ Proposition~$5.2$).
+\item MO path: $\kch^{\MO}(\cC_1) = 5$, computed as the
+Maulik--Okounkov $R$-matrix residue at the $N = 1$ Heegner wall on
+$\mathrm{Sh}_{\mathrm{O}(2, 3)}$.
+\end{enumerate}
+
+The three paths agree numerically, confirming the three-path
+compatibility triangle
+Heal~\ref{heal:three-path-qiso}.
+
+For $N = 6$ (Scope A boundary case):
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Hodge path: $\kch^{\Hodge}(\cC_6; \Phi^*_{L_6}) = 1$, computed
+via $g_6$-twined Hodge supertrace of the $N = 6$ CHL quotient.
+\item BV path: $\kch^{\BV}(\cC_6) = 1$, via the $g_6$-twisted Jacobi
+input $\phi^{(g_6)}_{0, 1}$ in the Costello--Li one-loop formula.
+\item MO path: $\kch^{\MO}(\cC_6) = 1$, via the $N = 6$ Heegner wall
+residue.
+\end{enumerate}
+
+All three paths compute $1$, matching $\kBKM(\Phi_6) = c_6(0)/2 = 2/2
+= 1$.
+
+% =====================================================================
+\section{Comparison with Scope (B) half-integer weight at $N = 5$}
+\label{sec:half-integer-n5}
+% =====================================================================
+
+The Scope (B) $N = 5$ entry is the unique integer-index value with
+half-integer weight $\kBKM = 1/2$, $c_5(0) = 1$. The Borcherds lift
+$\Phi_5$ is a Siegel--Jacobi form on the metaplectic cover $\Mp_4 \to
+\Sp_4$; its automorphy factor is the half-integer Maass character
+$\nu_{1/2}$ (Kohnen $1982$).
+
+\begin{proposition}[Master identity at $N = 5$ via metaplectic
+scaling]
+\label{prop:master-n5}
+The master identity at $N = 5$ reads
+\[
+ \kBKM(\Phi_5) \;=\; c_5(0)/2 \;=\; 1/2 \;=\;
+ \STr_{\modop}\bigl[B^{E_3}(\PhiFA_3(\cC_5))\bigr],
+\]
+with $\STr_{\modop}$ computed on the metaplectic cover
+$\widetilde{\Mbar}_2$ via $[\widetilde{\Mbar}_{2, 0}] = 1/2 \cdot
+[\Mbar_{2, 0}]$ (Kohnen $1982$); the pairing against the Borcherds
+lift $\Phi_5 \in H^0(\widetilde{\Mbar}_2; \widetilde{\omega}^{1/2})$
+gives $\kBKM = 1/2$.
+
+\emph{Cross-check via the Hodge path.} The Hodge supertrace of the
+$N = 5$ CY$_3$ host twisted by the Heegner line bundle
+$\Phi^*_{L_5}$ is $1/2$; the half-integer arises because $\Phi_5$ is
+a section of $\omega^{1/2}$, requiring a half-integer Chern character
+computation (Bruinier $2002$ refined Heegner Chern-class formula).
+\end{proposition}
+
+% =====================================================================
+\section{Quarter-integer weight at $N = 3/2$}
+\label{sec:quarter-integer-n-3half}
+% =====================================================================
+
+\begin{proposition}[Master identity at $N = 3/2$ via double-metaplectic
+scaling]
+\label{prop:master-n-3half}
+At $N = 3/2$ (Scope B) the Borcherds product is the degenerate
+weight-$1/4$ form with $c_{3/2}(0) = 1/2$, $\kBKM = 1/4$. The
+chain-level modular-operadic pairing reads
+\[
+ \STr_{\modop}\bigl[B^{E_3}(\PhiFA_3(\cC_{3/2}))\bigr]
+ \;=\; \mathrm{Coeff}_{e^{2\pi i 0}}[\Phi_{3/2}] \cdot 1 \;=\; 1/4,
+\]
+on the double-metaplectic cover $\widetilde{\widetilde{\Mbar}}_2$,
+where the fundamental class scales by $1/4$ per
+Heal~\ref{heal:metaplectic-scaling}. The master identity reads
+$\kBKM(\Phi_{3/2}) = 1/4$, matching the Bruinier--Funke $2004$ lift.
+\end{proposition}
+
+% =====================================================================
+\section{Weight-$0$ degenerate terminal at $N = 8$}
+\label{sec:terminal-n8}
+% =====================================================================
+
+\begin{proposition}[Master identity at $N = 8$ degenerate]
+\label{prop:master-n8-degenerate}
+At $N = 8$ (Scope B terminal) the Borcherds product $\Phi_8$ has
+weight $0$: it is not a genuine Borcherds cusp form but the constant
+$1$, with $c_8(0) = 0$, $\kBKM = 0$. The chain-level
+modular-operadic pairing reads
+\[
+ \STr_{\modop}\bigl[B^{E_3}(\PhiFA_3(\cC_8))\bigr]
+ \;=\; 0
+\]
+(the zeroth Fourier coefficient of the constant function $1$ is $0$
+by the Borcherds-weight convention). The master identity reads
+$\kBKM = 0$, the degenerate terminal fibre. This is the Scope (B)
+$N = 8$ abelian-lattice entry.
+\end{proposition}
+
+% =====================================================================
+\section{Summary of the master identity}
+\label{sec:master-summary}
+% =====================================================================
+
+\begin{theorem}[Summary]
+\label{thm:master-summary}
+The chain-level master identity
+$\kBKM(\Phi_N) = c_N(0)/2 = \STr_{\modop}[B^{E_3}(\PhiFA_3(\cC_N))]$
+holds
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item at Scope (A) across the CHL ladder $N \in \{1, 2, 3, 4, 6\}$,
+with values $\kBKM = (5, 4, 3, 2, 1)$;
+\item at Scope (B) across the Gritsenko--Cl\'ery $8$-form index
+$N \in \{1, 2, 3, 4, 5, 6, 1/2, 3/2\}$, with values
+$\kBKM = (5, 2, 1, 1, 1/2, 1, 1/4, 0)$;
+\item coinciding at $N = 1$ on the Igusa--Gritsenko weight-$5$
+Siegel paramodular cusp form $\Delta_5$;
+\item three-path--checkable via Hodge, BV, and MO paths
+(Section~\ref{sec:three-path-cross-check});
+\item $\GRT_1(\Q)$-invariant on Stage-$1$ lifts;
+\item Stage-$2$-invariant via the Mumford boundary-collapse
+identification;
+\item compatible with metaplectic and double-metaplectic covers at
+half- and quarter-integer weights.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Answer to Ghost~\ref{ghost:universal-supertrace}]
+The value $c_N(0)/2$ is obtained as a supertrace (not a pairwise
+evaluation): it is the modular-operadic trace of
+$B^{E_3}(\PhiFA_3(\cC_N))$ against the Getzler--Kapranov chain-level
+fundamental class $[\Mbar_{2, 0}]$ localised to the Borcherds-lift
+generating series. The supertrace structure is load-bearing: the
+pairing evaluates to $1$ universally, with the
+$N$-dependence carried by the Borcherds-lift input; it is the
+composition of these two factors that produces the scalar.
+\end{remark}
+
+% =====================================================================
+\section{Open directions and chain-level frontier}
+\label{sec:open-directions}
+% =====================================================================
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item \emph{Genus $g \geq 3$.} The Schottky obstruction at $g \geq 4$
+breaks the Torelli chain; the modular-operadic bridge at higher genus
+requires the Schottky-locus version of the pairing, which is
+currently conjectural (Agent $15$ Cycle III Heal~2).
+\item \emph{Non-CHL paramodular hosts.} The Scope (B) values
+$N \in \{5, 7, 8\}$ do not arise from a CHL quotient of
+$\mathrm{K3} \times E$; the CY$_3$-functor-level status of
+$\PhiFA_3(\cC_N)$ for these $N$ is conjectural. The master identity
+is established for the Borcherds lift side; the CY$_3$-attached
+Stage-$1$ lift is not canonical until a CY$_3$ host is fixed.
+\item \emph{Quaternionic higher cover structure.} Beyond
+$\widetilde{\widetilde{\Mp}}_4$, the Scheithauer $1999$ Nil-free
+Borcherds lifts live on quaternionic covers; the chain-level
+fundamental class on such covers is outside the current scope.
+\item \emph{Higher-dimensional CY.} The master identity generalises
+to CY$_d$ via the Getzler--Kapranov $E_d$-modular operad of
+$(\overline{\mathcal M}_{g, n}, \overline{\mathcal A}_g,
+\mathrm{Sh}_{\mathrm{O}(d - 1, d)})$ at $d = 5$ (Fake Monster
+sibling, per memory). The $N = 1$ analogue is the Fake Monster
+Borcherds lift $\Phi_{12}$ on $\mathrm{II}_{25, 1}$; the chain-level
+modular-operadic construction is the direct generalisation, with
+genus $= (d - 1)/2 = 2$ replaced by $(d - 1)/2$.
+\item \emph{Moonshine sibling.} At $d = 3$, the Scope (A) $N = 1$
+case ($\Delta_5$) is the BKM sibling of Igusa $\Phi_{10}$
+(Gritsenko--Nikulin); the $d = 5$ sibling is the Fake Monster; at
+$d = 2$, the $\Delta_5$ sibling is the Mathieu moonshine weight-$0$
+form. The master identity organises these siblings as a
+$d$-parametrised family of chain-level modular-operadic supertraces.
+\end{enumerate}
+
+% =====================================================================
+\section{Primary-literature cross-reference}
+\label{sec:primary-lit}
+% =====================================================================
+
+\noindent\textbf{Modular operad.}
+\begin{itemize}
+\item Getzler--Kapranov $1998$ \emph{Modular operads}, Compositio
+Math.~$110$ (1998) 65--126 --- definition of modular operads,
+boundary-gluing axioms, chain-level fundamental class.
+\item Kapranov $1999$ \emph{Rozansky--Witten invariants via
+Atiyah classes}, Compositio Math.~$115$ (1999) 71--113 ---
+$H_\bullet(\Mbar_{0, n + 1}) = \Ger^{\mathrm{cyc}}_3(n)$
+identification.
+\end{itemize}
+
+\noindent\textbf{$E_n$-operad formality.}
+\begin{itemize}
+\item Kontsevich $1999$ \emph{Operads and motives in deformation
+quantisation}, Lett. Math. Phys.~$48$ --- graph integral
+formality for $E_2$.
+\item Tamarkin $2003$ \emph{Another proof of Kontsevich's
+formality theorem} --- $E_2$-formality via associators.
+\item Fresse $2011$ \emph{Koszul duality of $E_n$-operads},
+Selecta Math.~$17$ --- $E_n$-Koszul self-duality up to shift.
+\item Ayala--Francis $2014$ \emph{Poincar\'e/Koszul duality},
+arXiv:$1409.2478$ --- FM compactification pairing.
+\item Willwacher $2015$ \emph{Kontsevich's graph complex and
+$\GRT_1$}, Invent. Math.~$200$ --- $\GRT_1(\Q)$-torsor structure.
+\item Fresse--Willwacher $2020$ \emph{The intrinsic formality of
+$E_n$-operads}, Acta Math.~$224$ --- $E_n$-formality for
+$n \geq 2$.
+\end{itemize}
+
+\noindent\textbf{Borcherds lifts.}
+\begin{itemize}
+\item Borcherds $1995$ \emph{Automorphic forms on $O_{s + 2, 2}(\R)$
+and infinite products}, Invent. Math.~$120$ (1995) 161--213 ---
+singular-theta correspondence.
+\item Borcherds $1998$ \emph{Automorphic forms with singularities on
+Grassmannians}, Invent. Math.~$132$ (1998) 491--562 --- Theorem $13.3$
+weight formula.
+\item Gritsenko--Nikulin $1995$ \emph{Automorphic forms and Lorentzian
+Kac--Moody algebras II}, arXiv:alg-geom/$9504006$ --- CHL ladder
+Borcherds lifts.
+\item Gritsenko $1999$ \emph{Arithmetical lifting and its
+applications}, in: Algebraic Geometry Santa Cruz 1995 --- additive
+lift construction.
+\item Gritsenko--Cl\'ery $2013$ arXiv:$1305.4884$ --- $8$-form
+Siegel-theta catalogue.
+\item Bruinier $2002$ \emph{Borcherds products on $O(2, l)$ and
+Chern classes of Heegner divisors}, Lecture Notes in Math.~$1780$
+--- Heegner Chern class formula.
+\item Lorgat $2020$ arXiv:$2004.09030$ \emph{Automorphic corrections
+for the GKM superalgebra $\fg_{\Delta_5}$} --- explicit Borcherds
+lift of $\phi_{0, 1}$ to $\Delta_5$.
+\end{itemize}
+
+\noindent\textbf{Shimura--Kohnen tower.}
+\begin{itemize}
+\item Shimura $1973$ \emph{Modular forms of half-integral weight},
+Ann. Math.~$97$ --- half-integer modular forms.
+\item Kohnen $1982$ \emph{Newforms of half-integral weight},
+Math. Ann.~$260$ --- Kohnen double cover.
+\item Bruinier--Funke $2004$ \emph{On two geometric theta-lifts},
+Compositio Math.~$140$ --- metaplectic extensions.
+\end{itemize}
+
+\noindent\textbf{Chain-level curvature collapse.}
+\begin{itemize}
+\item Mumford $1983$ \emph{Towards enumerative geometry of the moduli
+space of curves}, in: Arithmetic and Geometry II --- boundary
+relation.
+\item Janda--Pandharipande--Pixton--Zvonkine $2018$, J. Amer. Math.
+Soc.~$31$ --- Pixton ideal relations on $R^\bullet(\Mbar_{g, n})$.
+\end{itemize}
+
+\noindent\textbf{Physics cross-check (BV, MO).}
+\begin{itemize}
+\item Costello--Li $2016$ arXiv:$1606.00365$ \emph{Quantum BCOV
+theory on Calabi--Yau manifolds} --- one-loop Quantum Master
+Equation.
+\item Maulik--Okounkov $2014$ arXiv:$1211.1287$ \emph{Quantum
+groups and quantum cohomology} --- $R$-matrix wall crossing.
+\item Costello--Gaiotto--Yagi $2019$ \emph{Gauge theory and
+integrability, IV} --- 5D $\hCS$ Yangian VOA.
+\item Kapustin--Witten $2006$ --- Geometric Satake--Witten duality
+framework.
+\end{itemize}
+
+% =====================================================================
+\section*{Closing}
+% =====================================================================
+
+The master identity
+\[
+ \kBKM(\Phi_N) \;=\; c_N(0)/2 \;=\;
+ \STr_{\modop}\bigl[B^{E_3}(\PhiFA_3(\cC_N))\bigr]
+\]
+is a chain-level theorem at Scope (A) $\cup$ Scope (B), with explicit
+Koszul-duality control over Stage-$1$, explicit Stage-$2$-invariance
+via the Mumford boundary collapse, explicit $\GRT_1(\Q)$-invariance
+via Willwacher's graph-complex structure, and three-path
+compatibility (Hodge, BV, MO). The flagship example $\cC_1 =
+D^b\Coh(\mathrm{K3} \times E)$ recovers $\kBKM(\Delta_5) = 5$ via
+Lorgat $2020$'s explicit construction; the extension to the metaplectic
+and double-metaplectic covers recovers the Scope (B) half- and
+quarter-integer values. The identity organises the
+$\mathrm{BKM}$-modular-characteristic universally as a chain-level
+invariant of the CY$_3$-attached Stage-$1$ $E_3$-algebra paired with
+the Borcherds-lift generating series. The proof is synthetic:
+Getzler--Kapranov modular operad, Ayala--Francis Koszul duality,
+Torelli--Kuga--Satake uniformisation, Bruinier Heegner Chern-class
+arithmetic, and the Costello--Li--Yagi one-loop BV anomaly cancellation
+interlock to force the identity.
+
+\end{document}

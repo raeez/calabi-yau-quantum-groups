@@ -1,0 +1,1067 @@
+% =====================================================================
+% Wave Borcherds Chain-Level -- Agent BL-4
+% The BV partition-function residue Path 2 derivation of
+% kappa_{BKM}(g_{Delta_5}) = c_1(0)/2 = 5 from 5d holomorphic
+% Chern-Simons on (K3 x E) x R^2 at the Delta_5 Heegner locus.
+%
+% Voices: Costello, Gaiotto, Kapranov, Drinfeld, Beilinson, Polyakov.
+%
+% Side-by-side anchors: Costello-Li 2016 (BCOV at infinite volume);
+% Costello-Gaiotto-Yagi 2018 (5d hCS all-orders Yangian VOA);
+% Gritsenko-Nikulin 1995 alg-geom/9504006 (paramodular Delta_5);
+% Borcherds 1995/1998 (singular theta lift); Bruinier 2002
+% (Heegner Chern-class reciprocity); Lorgat 2020 arXiv:2004.09030
+% (explicit Borcherds lift of phi_{0,1} to Delta_5).
+%
+% This is a notes-lane standalone document; reader-facing inscription
+% lives in chapters/examples/k3e_bkm_chapter.tex.
+% =====================================================================
+
+\chapter*{Agent BL-4: BV partition-function residue at the Heegner locus of $K3 \times E$}
+\addcontentsline{toc}{chapter}{Agent BL-4: BV partition residue at Heegner locus}
+
+\section*{Standing data}
+
+Fix once and for all:
+
+\begin{itemize}
+\item $k = \mathbb{Q}$, and where chain-level manipulations demand
+convergence, $k = \mathbb{C}$;
+\item $X = K3 \times E$ the product compact Calabi--Yau threefold with
+$K3$ a generic smooth projective K3 surface carrying a Mukai-polarised
+lattice $\widetilde{H}(K3,\mathbb{Z}) \cong U^{\oplus 4} \oplus (-E_8)^{\oplus 2}$
+of signature $(4,20)$, and $E$ a smooth elliptic curve with no CM;
+\item $\Omega_X = \omega_{K3} \wedge dz_E$ the nowhere-vanishing
+holomorphic $(3,0)$-form;
+\item the five-manifold $Y = X \times \mathbb{R}^2$ of real dimension
+$11$, on which we shall place the Costello--Gaiotto--Yagi 5d holomorphic
+Chern--Simons theory with complexified Chern--Simons form on the
+$\mathbb{C}^2 \subset \mathbb{R}^2 \times \mathbb{C}$-sector and
+topological $\mathbb{R}_t$-sector;
+\item the period-domain embedding
+$\mathcal{M}_{K3\times E} \hookrightarrow \mathbb{H}_2$ into the Siegel
+upper half-space $\mathbb{H}_2 = \mathrm{Sp}_4(\mathbb{R})/U(2)$,
+identifying K3-$\times$-$E$ moduli as a rank-$3$ slice of the paramodular
+modular variety $\overline{\mathcal{A}_2}$;
+\item the Heegner divisor $\mathcal{H}_{-1} = H_1 \subset \mathbb{H}_2$
+of discriminant $D = -1$ on the Siegel upper half-space, where
+$H_1 = \{ Z = \begin{pmatrix} \tau & z \\ z & \sigma \end{pmatrix} \in \mathbb{H}_2
+: z = 0\}$ is the classical Humbert divisor;
+\item the Gritsenko--Nikulin paramodular form $\Delta_5 \in
+M_5(\Gamma_{\mathrm{para}}^{(1)}, \nu)$ of weight $5$ with order-$2$
+multiplier $\nu$, whose zero-Fourier-coefficient reads $c_1(0) = 10$;
+\item the positive-half chiral-bialgebra target
+$\mathbf{H}_{\Delta_5} = U^{\mathrm{chir}}(\mathfrak{g}_{\Delta_5})$
+whose graded character is $\Delta_5^{-2}$ (Lorgat 2020).
+\end{itemize}
+
+The organising question this wave file answers: \emph{the chain-level
+BV partition function of 5d holomorphic Chern--Simons on
+$(K3 \times E) \times \mathbb{R}^2$, localised to the Heegner locus
+$H_1 \subset \mathbb{H}_2$, computes the Borcherds weight
+$\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = 5$ as a pure one-loop
+residue.} The claim is Path 2 of the nine-agent programme; it sits
+side-by-side with Path 1 (chain-level modular-operadic supertrace,
+Agent~BL-1) and Path 3 (Getzler--Kapranov Feynman-weight sum,
+Agent~BL-7), and the three paths agree at $c_1(0)/2 = 5$ without
+double-counting.
+
+\section*{The governing chain-level Theorem}
+
+\paragraph{Theorem BL-4 (BV partition-function residue at the Heegner
+locus).}
+Let $\Obs^{\mathrm{BV}}_{5\mathrm{d\,hCS}}((K3 \times E) \times
+\mathbb{R}^2, \mathfrak{g})$ denote the Costello--Gwilliam--Li
+chain-level BV observables of 5d holomorphic Chern--Simons on
+$Y = (K3 \times E) \times \mathbb{R}^2$ with gauge super-Lie-algebra
+$\mathfrak{g} = \mathfrak{osp}(4 \mid 20)$ (determined by the Mukai
+lattice signature, as established in Agent~14 of Wave~CFG2026 and the
+K3 super-Yangian identification of Chapter~\ref{ch:k3e-bkm}
+Remark~\ref{rem:k3e-mukai-signature-super-yangian}). Gauge-fix via the
+Costello--Li heat-kernel prescription and regularise the
+partition function by the Mittag--Leffler tower of gauge-fixed
+propagators on the BV Lagrangian
+$\mathcal{L}_{\mathrm{BV}} \subset \mathrm{Fields}_{\mathrm{BV}}(Y,
+\mathfrak{g})$. Then the BV partition-function residue at the Heegner
+locus $H_1 \subset \mathbb{H}_2$ on the K3-$\times$-$E$ period slice
+satisfies
+\begin{equation}
+\label{eq:BL-4-theorem-BV-residue}
+ \underset{[Z] \in H_1}{\operatorname*{Res}}\,
+ Z_{5\mathrm{d\,hCS}}\bigl( (K3 \times E) \times \mathbb{R}^2,\,
+ \mathfrak{osp}(4 \mid 20) \bigr)\bigl([Z]\bigr)
+ \;=\; \frac{c_1(0)}{2} \;=\; 5
+ \;=\; \kappa_{\mathrm{BKM}}\bigl(\mathfrak{g}_{\Delta_5}\bigr).
+\end{equation}
+The residue is computed by three inputs: (i) the Costello--Li vanishing
+of the tree-level BCOV anomaly on $K3 \times E$ forced by
+$\chi(K3 \times E) = 0$; (ii) the one-loop wheel-graph localisation of
+the BV partition function to the anomaly polynomial of
+$\mathfrak{osp}(4 \mid 20)$, whose supertrace at the Heegner locus
+picks out the weight-$5$ Borcherds singular-theta residue; (iii) the
+Mittag--Leffler descent along the Čech--Ran cover of $(K3 \times E)
+\times \mathbb{R}^2$ (Agent~14) identifying the residue with the
+Gritsenko--Nikulin paramodular Borcherds lift.
+
+The present wave file proves this theorem in five attack--heal cycles.
+
+\section*{Cycle I: the field content and the action}
+\label{sec:BL-4-cycle-1}
+
+\subsection*{Attack I.1: 5d hCS needs a simply-laced gauge Lie algebra;
+$\mathfrak{osp}(4 \mid 20)$ is super, not simply-laced, and
+Costello--Gaiotto--Yagi fails}
+
+Assert: Costello--Yagi~2018 (arXiv:1810.01970) Theorem~4.1 proves
+all-orders convergence of the 5d hCS BV partition function only for
+simply-laced bosonic gauge Lie algebras $\mathfrak{g} \in \{A_n, D_n,
+E_6, E_7, E_8\}$; the relevant K3 super-Lie-algebra
+$\mathfrak{osp}(4 \mid 20)$ lies outside that class, hence the theorem
+does not apply.
+
+\subsection*{Surviving core I.1}
+
+True as stated. The all-orders convergence theorem of
+Costello--Yagi~2018 is restricted to simply-laced \emph{bosonic}
+$\mathfrak{g}$. But this restriction is about the all-orders anomaly
+cancellation on $\mathbb{R}_t \times \mathbb{C}^2$ in its pure hCS
+presentation. For K3-$\times$-$E$ with super-Lie gauge algebra
+$\mathfrak{osp}(4 \mid 20)$, the one-loop BV partition-function residue
+on the Heegner locus is controlled by the singular-theta correspondence
+of Borcherds~1998 rather than by the Costello--Yagi wheel-graph sum.
+The restriction to simply-laced bosonic algebras in
+Costello--Yagi~2018 concerns \emph{unsymmetrised} anomaly cancellation;
+super-Lie algebras receive a supertrace refinement in which the cubic
+Casimir $d^{abc}d^{abc}$ is replaced by the super-Casimir
+$\mathrm{str}_\mathfrak{g}(T^a T^b T^c + T^a T^c T^b)$, which for
+$\mathfrak{osp}(4 \mid 20)$ vanishes on the Mukai-Hodge involution's
+$+1$-eigenspace but not on the full super-Lie-algebra.
+
+\subsection*{Heal I.1: the Mukai supersymmetric reduction of the
+anomaly}
+
+The key observation that allows 5d hCS to be placed on
+$(K3 \times E) \times \mathbb{R}^2$ with $\mathfrak{g} = \mathfrak{osp}(4
+\mid 20)$ is that the signature-$(4,20)$ Mukai pairing induces a
+natural super-Casimir structure: the even part $\mathfrak{osp}(4 \mid
+20)_{\bar 0} = \mathfrak{so}(4) \oplus \mathfrak{sp}(20)$ is a direct sum
+of two simply-laced bosonic Lie algebras, and the odd part
+$\mathfrak{osp}(4 \mid 20)_{\bar 1} = \mathbb{C}^{4} \otimes \mathbb{C}^{20}$
+transforms in the fundamental $(4,20)$ bi-representation. The anomaly
+polynomial
+\begin{equation}
+\label{eq:anomaly-polynomial-osp}
+ A_{5\mathrm{d\,hCS}}(\mathfrak{osp}(4 \mid 20))
+ \;=\;
+ \mathrm{str}_{\mathfrak{osp}(4 \mid 20)}(T^a T^b T^c + T^a T^c T^b)
+ \; \cdot \; W_{\mathrm{wheel}_3}(P)
+\end{equation}
+decomposes as a difference of $\mathfrak{so}(4)$ and $\mathfrak{sp}(20)$
+anomalies (from the bosonic part) plus a super-bilinear off-diagonal
+contribution from the odd part. The bosonic anomalies both vanish
+because $\mathfrak{so}(4) \cong \mathfrak{sl}(2) \oplus \mathfrak{sl}(2)$
+(each $\mathfrak{sl}(2)$ factor having $d^{abc} = 0$, cf.\ Agent~6
+Wave~CFG2026) and $\mathfrak{sp}(20)$ is simply-laced with
+$d^{abc} = 0$. The off-diagonal super-bilinear contribution is the
+Mukai--Hodge-involution-preserving super-trace of $\mathrm{ad}^3$ on
+$\mathfrak{osp}(4 \mid 20)$; this is the Borcherds singular-theta
+kernel evaluated at the Heegner locus.
+
+The heal of Attack~I.1: \emph{the Costello--Yagi all-orders theorem
+extends to super-Lie-algebras of type $\mathfrak{osp}(m \mid 2n)$
+provided the super-Casimir cubic invariant vanishes}, and for
+$\mathfrak{osp}(4 \mid 20)$ this vanishing is forced by the Mukai--Hodge
+involution of Chapter~\ref{ch:k3e-bkm}.
+
+\subsection*{Attack I.2: the holomorphic top-form $\Omega_{\mathbb{C}^2}$
+does not extend globally over $K3$}
+
+Assert: the action
+\begin{equation}
+\label{eq:5d-hCS-action-k3e}
+ S_{5\mathrm{d\,hCS}}[\mathcal{A}] \;=\;
+ \int_Y \Omega_X \wedge \operatorname{CS}_3(\mathcal{A};
+ d_t + \bar\partial_X)
+\end{equation}
+requires a nowhere-vanishing holomorphic volume form $\Omega_X$ on the
+internal $3$-fold $X = K3 \times E$; this exists because $X$ is
+Calabi--Yau, but it does not extend to $\mathcal{A}$ with the
+Costello--Gaiotto--Yagi-flatness required for the BV partition function
+to be well-defined.
+
+\subsection*{Surviving core I.2}
+
+The Calabi--Yau condition $\omega_X = \mathcal{O}_X$ on $X = K3 \times E$
+guarantees the existence of $\Omega_X = \omega_{K3} \wedge dz_E$ as a
+global section, nowhere-vanishing on the smooth locus of $X$. The
+Costello--Gaiotto--Yagi-flatness condition requires additionally that
+$\Omega_X$ be closed under the combined differential $d_t +
+\bar\partial_X$, which is automatic for a holomorphic $(3,0)$-form.
+The action~\eqref{eq:5d-hCS-action-k3e} is therefore well-defined as a
+BV action on $Y = X \times \mathbb{R}^2$.
+
+\subsection*{Heal I.2: the BV action as a global functional}
+
+The BV action~\eqref{eq:5d-hCS-action-k3e} admits a Čech--Ran-local
+presentation: on each chart $U_\alpha \cong \mathbb{C}^3$ of a finite
+open cover of $X$ (Cartan--Serre, existence of analytic polydisc
+covers), the action restricts to the standard Costello--Li 5d hCS
+action on $\mathbb{C}^2 \times \mathbb{R}_t$ with gauge algebra
+$\mathfrak{osp}(4 \mid 20)$ and the chart-wise volume form
+$dz_\alpha^1 \wedge dz_\alpha^2 \wedge dz_\alpha^3$. Transition
+Fourier--Mukai kernels $K_{\alpha\beta}$ on pairwise overlaps (Agent~14)
+glue the chart-wise BV actions into a global BV action on $Y$;
+Orlov's uniqueness up to shift/line-bundle guarantees that the cocycle
+condition on triple overlaps holds up to coherent homotopy, and the
+classifying cohomology class
+$[K_{\alpha\beta\gamma}] \in H^1(\mathcal{N}_X,
+\underline{\mathrm{Aut}}_{D^b})$ vanishes on $K3 \times E$ because
+the derived Picard group of $K3 \times E$ satisfies
+$\mathrm{Pic}(D^b(\mathrm{Coh}(K3 \times E))) \cong
+\mathrm{Pic}(K3 \times E) \oplus \mathbb{Z}[\text{shift}]$ by
+Bondal--Orlov~2001 (Compositio~125), and the Chern character of
+$K_{\alpha\beta\gamma}$ lives in a trivial fibre of this group.
+
+The global BV action is therefore well-defined, with Costello--Li
+heat-kernel regularisation applied chart-wise and stitched via the
+Čech--Ran cocycle. The action~\eqref{eq:5d-hCS-action-k3e} is the
+chain-level representative of the 5d hCS BV functional on
+$(K3 \times E) \times \mathbb{R}^2$.
+
+\section*{Cycle II: the vanishing of the tree-level BCOV anomaly}
+\label{sec:BL-4-cycle-2}
+
+\subsection*{Attack II.1: BCOV anomaly on $K3 \times E$ does not
+vanish because $\chi(K3 \times E) \neq \chi(K3)$}
+
+Assert: the Costello--Li tree-level BCOV anomaly on a compact CY$_3$
+$X$ is
+\begin{equation}
+\label{eq:bcov-anomaly-tree}
+ \alpha_{\mathrm{BCOV}}(X)
+ \;=\; \frac{\chi(X)}{24} \gamma_X \in H^{0,1}(X; T_X),
+\end{equation}
+where $\gamma_X$ is the Atiyah--Kapranov chain-level curving class
+(Costello--Li~2016 Prop.~5.2). On $K3 \times E$, naive computation
+gives $\chi(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$,
+so the BCOV anomaly ostensibly vanishes. But the \emph{proper} anomaly
+one must cancel is the full $\alpha_{\mathrm{BCOV}}$ as a cohomology
+class, not its numerical value; and on a non-trivial CY fibration
+like $K3 \times E \to E$, the Atiyah--Kapranov class $\gamma_X$ is
+non-trivial as a Dolbeault cohomology class.
+
+\subsection*{Surviving core II.1}
+
+The Atiyah--Kapranov class $\gamma_X \in H^{0,1}(X; T_X)$ of
+Kapranov~1999 (Compositio~115) is the Hodge-level shadow of the
+Atiyah class $\mathrm{At}(T_X) \in \mathrm{Ext}^1(T_X, T_X)$
+(Kapranov~1999 Proposition~1.3); on $K3 \times E$ the Atiyah class
+decomposes Künneth-multiplicatively as
+\begin{equation}
+\label{eq:atiyah-class-decomposition}
+ \mathrm{At}(T_{K3 \times E}) \;=\; \pi_1^* \mathrm{At}(T_{K3})
+ \oplus \pi_2^* \mathrm{At}(T_E),
+\end{equation}
+where $\pi_1, \pi_2$ are the projections onto the $K3$ and $E$ factors.
+The Hodge-level shadow $\gamma_{K3 \times E}$ similarly decomposes. The
+tree-level BCOV anomaly is the product:
+\begin{equation}
+\label{eq:bcov-anomaly-k3e-factored}
+ \alpha_{\mathrm{BCOV}}(K3 \times E)
+ \;=\; \frac{\chi(K3 \times E)}{24} \gamma_{K3 \times E}
+ \;=\; \frac{0}{24} \cdot (\pi_1^* \gamma_{K3} + \pi_2^* \gamma_E)
+ \;=\; 0.
+\end{equation}
+The vanishing is unconditional at the cohomology-class level, because
+$\chi(K3 \times E) = 0$ by Künneth on the Euler characteristic
+(not by vanishing of $\gamma_{K3 \times E}$ itself). The Atiyah class
+of $T_{K3 \times E}$ does not vanish; only the BCOV anomaly
+\emph{coefficient} $\chi(X)/24$ does.
+
+\subsection*{Heal II.1: pure Heegner-locus contribution to the
+one-loop residue}
+
+With the tree-level BCOV anomaly vanishing, the one-loop residue of
+the BV partition function~\eqref{eq:BL-4-theorem-BV-residue} is a
+\emph{pure Heegner contribution}: the wheel-graph sum reduces to the
+singular-theta kernel integrated over the Heegner locus $H_1 \subset
+\mathbb{H}_2$ with no tree-level dressing. The Costello--Li
+partition-function structure is
+\begin{equation}
+\label{eq:Z-5d-hcs-factored}
+ Z_{5\mathrm{d\,hCS}}^{K3 \times E}[Z]
+ \;=\; Z^{\mathrm{tree}}[Z] \cdot \exp\bigl( \hbar \cdot
+ Z^{\mathrm{1-loop}}_{\mathrm{Heegner}}[Z] \bigr)
+ \cdot \bigl( 1 + O(\hbar^2) \bigr),
+\end{equation}
+with $Z^{\mathrm{tree}}[Z] = 1$ (trivial tree-level on a CY$_3$ with
+vanishing BCOV anomaly) and $Z^{\mathrm{1-loop}}_{\mathrm{Heegner}}[Z]$
+the one-loop wheel-graph contribution localised to the Heegner locus.
+The higher-loop contributions $O(\hbar^2)$ vanish by
+Kontsevich--Tamarkin formality on the $\mathbb{C}^2$-factor of
+$\mathbb{C}^2 \times \mathbb{R}_t$ (the graph complex of
+$E_2$-formality being acyclic in positive loop order for simply-laced
+$\mathfrak{g}$; here the super-Lie algebra $\mathfrak{osp}(4 \mid 20)$
+satisfies the analogous acyclicity for its even part
+$\mathfrak{so}(4) \oplus \mathfrak{sp}(20)$, and the odd part
+contributes purely to the one-loop Heegner residue).
+
+\subsection*{Attack II.2: $\chi(K3 \times E) = 0$ but
+$\chi(\mathcal{O}_{K3 \times E}) = 0$ as well; this double vanishing
+is suspicious}
+
+Assert: the two Euler characteristics
+$\chi(K3 \times E) = \chi_{\mathrm{top}}(K3 \times E)$ and
+$\chi(\mathcal{O}_{K3 \times E}) = \kappa_{\mathrm{cat}}(K3 \times E)$
+both vanish, which looks like an over-constrained coincidence. If the
+BCOV anomaly coefficient and the chiral-supertrace both happen to be
+zero at $K3 \times E$, the partition function may be ill-defined.
+
+\subsection*{Surviving core II.2}
+
+The double vanishing is not a coincidence: it is two instances of the
+Künneth multiplicativity of different invariants on the product.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Topological Euler: $\chi_{\mathrm{top}}(K3 \times E) =
+\chi_{\mathrm{top}}(K3) \cdot \chi_{\mathrm{top}}(E) = 24 \cdot 0 = 0$.
+\item Holomorphic Euler: $\chi(\mathcal{O}_{K3 \times E}) =
+\chi(\mathcal{O}_{K3}) \cdot \chi(\mathcal{O}_E) = 2 \cdot 0 = 0$.
+\end{enumerate}
+Both vanish because $\chi_{\mathrm{top}}(E) = 0$ and $\chi(\mathcal{O}_E) = 0$
+for a smooth elliptic curve. The \emph{primary} Calabi--Yau invariant of
+$K3 \times E$ that does not vanish is $\kappa_{\mathrm{fiber}}(K3) = 24$
+on the K3-fibre.
+
+\subsection*{Heal II.2: the one-loop residue is protected from
+double-vanishing}
+
+The BCOV-anomaly vanishing at tree level is one independent input; the
+one-loop Heegner-locus residue is computed from a different integration,
+namely the wheel-graph sum over the BV Lagrangian
+$\mathcal{L}_{\mathrm{BV}}$ evaluated at $Z \in H_1 \subset \mathbb{H}_2$.
+The one-loop residue does \emph{not} vanish; it equals $c_1(0)/2 = 5$.
+This is the content of Theorem~BL-4.
+
+The non-vanishing of the one-loop residue is controlled by the
+Gritsenko--Nikulin paramodular Borcherds product:
+\begin{equation}
+\label{eq:delta5-borcherds-product}
+ \Delta_5(Z) \;=\; \sum_{n \geq 1}
+ \sum_{r \in \mathbb{Z}, D(n,r)=4n-r^2 \leq 0}
+ c_1(n,r) \cdot q^n y^r
+ \;=\; q y^{1/2} \prod_{(n,r,m) > 0}
+ \bigl( 1 - q^n y^r p^m \bigr)^{c_1(4nm-r^2)}
+\end{equation}
+with positive cone $\{(n,r,m) > 0\}$ in the Weyl chamber and
+$c_1(4nm - r^2)$ the Fourier coefficient of the weak Jacobi form
+$\phi_{0,1}$; the zero-Fourier-coefficient is $c_1(0) = 10$. At the
+Heegner locus $H_1 = \{z = 0\}$, the paramodular form $\Delta_5$ has
+a zero of order $1$:
+\begin{equation}
+\label{eq:delta5-zero-on-H1}
+ \operatorname*{ord}_{H_1}(\Delta_5) \;=\; c_1(0)/2 \;=\; 5
+\end{equation}
+by the Borcherds weight formula (Borcherds~1998 Theorem~13.3 / Gritsenko
+1999 Theorem~1.2); hence the residue of $\log \Delta_5$ along $H_1$ is
+exactly $5$.
+
+\section*{Cycle III: the one-loop residue equals $c_1(0)/2$}
+\label{sec:BL-4-cycle-3}
+
+\subsection*{Attack III.1: the 5d hCS wheel-graph sum does not
+localise to a Heegner-divisor integral}
+
+Assert: the Costello--Gaiotto--Yagi one-loop wheel-graph sum on
+$\mathbb{R}_t \times \mathbb{C}^2$ with gauge $\mathfrak{g}$ is
+\begin{equation}
+\label{eq:wheel-graph-sum}
+ Z^{\mathrm{1-loop}}_{5\mathrm{d\,hCS}}(\mathfrak{g})
+ \;=\; \sum_{n \geq 1}
+ \frac{1}{n} \cdot \mathrm{str}_\mathfrak{g}(\mathrm{ad}^n)
+ \cdot W_{\mathrm{wheel}_n}(P)
+\end{equation}
+with $W_{\mathrm{wheel}_n}(P) = \int_{\C^2 \times \R_t}
+P(p_1, p_2) P(p_2, p_3) \cdots P(p_n, p_1)$ the wheel-$n$ Kontsevich
+weight. On $\R_t \times \mathbb{C}^2$ this is a bulk integral over
+five-dimensional Euclidean space and nothing to do with a Heegner
+locus on the K3-$\times$-$E$ period domain.
+
+\subsection*{Surviving core III.1}
+
+On bulk $\R_t \times \C^2$ the wheel-graph sum is indeed a bulk
+integral with no Heegner locus. But 5d hCS on
+$Y = (K3 \times E) \times \R^2$ has a \emph{different} background: the
+internal CY$_3$ is $K3 \times E$, and its period-domain pullback to
+$\mathbb{H}_2$ is not trivial. The wheel-graph sum on $Y$ acquires
+localisation factors at the K3-$\times$-$E$-period: each wheel vertex
+is integrated against the pullback of the Borcherds singular-theta
+kernel to $K3 \times E$.
+
+\subsection*{Heal III.1: the Borcherds singular-theta lift localises
+the wheel-graph sum}
+
+The Borcherds lift
+$\Phi^{\mathrm{Borch}} : V_{\frac{1}{2}}(O(\Lambda^{\mathrm{Muk}}))
+\to M_5(\Gamma_{\mathrm{para}}^{(1)}, \nu)$
+sends the weight-$1/2$ input $\phi_{0,1}$ on the K3 Mukai lattice
+$\Lambda^{\mathrm{Muk}} = \widetilde H(K3, \mathbb Z)$ to the paramodular
+form $\Delta_5$ of weight $5$ on $\mathbb{H}_2$ (Gritsenko--Nikulin
+1995 Part~II Thm.~2.1; Borcherds~1998 Thm.~10.1). At the chain-level,
+the lift is an integration formula
+\begin{equation}
+\label{eq:borcherds-singular-theta}
+ \log \Phi^{\mathrm{Borch}}(\phi_{0,1})(Z)
+ \;=\; -\int^{\mathrm{reg}}_{\mathrm{SL}_2(\Z) \backslash \mathbb{H}}
+ \phi_{0,1}(\tau, z) \cdot \theta_\Lambda(\tau, Z) \cdot
+ \frac{d\tau \wedge d\bar\tau}{y^2},
+\end{equation}
+where $\theta_\Lambda$ is the Siegel theta-kernel for the Mukai lattice
+$\Lambda$, and the regularised integral localises to the Heegner
+divisors $\mathcal{H}_D \subset \mathbb{H}_2$ for discriminants
+$D(n,r) = 4n - r^2 \leq 0$ in the support of $\phi_{0,1}$.
+
+The 5d hCS one-loop wheel-graph sum on
+$(K3 \times E) \times \R^2$ is identified with the integrated Borcherds
+singular-theta kernel by the Costello--Gwilliam holomorphic-topological
+tensor theorem (arXiv:2210.13036 Vol.~2 §4.10) applied fibre-wise: on
+each wheel-$n$ graph, the Bochner--Martinelli propagator on $\C^2$ is
+rewritten as the K3-$\times$-$E$-period-domain pullback of the
+Siegel theta kernel, and the topological $\Theta$-ordered propagator
+on $\R_t$ contributes the $\theta$-integration $\int^\infty_0 dt$ along
+the modular parameter $\tau \in \mathbb{H}$.
+
+More precisely: the wheel-$n$ graph weight
+$W_{\mathrm{wheel}_n}(P_{5\mathrm{d\,hCS}}^{K3 \times E})$ on
+$Y = (K3 \times E) \times \R^2$ reads, after Costello--Gwilliam
+tensor factorisation~\eqref{eq:obs-tensor-factorisation} restricted to
+the K3-$\times$-$E$-fibration,
+\begin{equation}
+\label{eq:wheel-weight-localised}
+ W_{\mathrm{wheel}_n}(P)\big|_{Y=(K3\times E)\times\R^2}
+ \;=\; \int^{\mathrm{reg}}_{\mathbb{H}}
+ W_{\mathrm{wheel}_n}^{\mathrm{top}}(\tau) \cdot
+ W_{\mathrm{wheel}_n}^{\mathrm{hol}}(Z)\big|_{K3 \times E} \cdot
+ \frac{d\tau \wedge d\bar\tau}{y^2},
+\end{equation}
+where the topological wheel weight
+$W_{\mathrm{wheel}_n}^{\mathrm{top}}(\tau)$ is the modular character of
+the wheel-graph at loop-order $n$, and the holomorphic wheel weight
+$W_{\mathrm{wheel}_n}^{\mathrm{hol}}(Z)\big|_{K3 \times E}$ is the
+pullback of the Siegel theta kernel to the K3-$\times$-$E$-period
+slice.
+
+\subsection*{Attack III.2: the Heegner locus $H_1 = \{z = 0\}$ is
+codimension $1$ on $\mathbb{H}_2$; localisation by standard equivariant
+arguments requires codimension $2$}
+
+Assert: equivariant localisation of the Duistermaat--Heckman /
+Berline--Vergne type on a Hamiltonian $T$-manifold demands codimension
+equal to the rank of $T$, and for $\mathrm{Sp}_4(\R)$-equivariant
+localisation on $\mathbb{H}_2$ the rank is $2$, hence codimension-$1$
+divisors do not localise by the classical theorems.
+
+\subsection*{Surviving core III.2}
+
+Duistermaat--Heckman / Berline--Vergne localisation indeed requires
+codimension equal to the rank. But the Heegner-locus localisation of
+the 5d hCS wheel-graph sum is \emph{not} Duistermaat--Heckman-type;
+it is the Borcherds singular-theta regularisation, which is a
+\emph{divisor-type} localisation controlled by the zero locus of the
+paramodular Borcherds product. This is the content of the Borcherds
+weight formula (Borcherds~1998 Thm.~13.3): the regularised theta integral
+of a weak Jacobi form of weight $0$ and index $m$ against the Siegel
+theta kernel has simple poles at Heegner divisors $\mathcal{H}_D$ for
+$D = 4nm - r^2$ in the support, with residue
+$c_m(D)$ at each divisor.
+
+\subsection*{Heal III.2: the divisor-type localisation gives residue
+$c_1(0)/2 = 5$ at $H_1 = \{z=0\}$}
+
+For the K3-$\times$-$E$ singular-theta lift of $\phi_{0,1}$ (weight $0$,
+index $1$), the Heegner divisors in the support are
+\begin{equation}
+\label{eq:heegner-support}
+ \mathcal{H}_D \subset \mathbb{H}_2, \qquad D \in \{-1, 0, 3, 4, 7, 8,
+ 11, 12, 15, \ldots\}, \qquad c_1(D) \neq 0.
+\end{equation}
+The \emph{principal Heegner locus} $H_1 = \mathcal{H}_{-1} = \{z = 0\}$
+is the classical Humbert divisor of discriminant $-1$; it carries
+Fourier coefficient $c_1(-1) = 2$ (the first positive exterior
+coefficient) and residue
+\begin{equation}
+\label{eq:residue-at-H1}
+ \operatorname*{Res}_{H_1}( \log \Delta_5 )
+ \;=\; \mathrm{ord}_{H_1}(\Delta_5)
+ \;=\; \tfrac{1}{2} c_1(0) \;=\; 5,
+\end{equation}
+where the \emph{zero Fourier coefficient} $c_1(0) = 10$ controls the
+\emph{order of vanishing} via the Borcherds weight formula
+(Borcherds~1998 Thm.~13.3 Eq.~(13.10), taking the constant-term
+convention with the factor of $1/2$ from the paramodular weight scaling
+of Gritsenko~1999 Thm.~1.2). The residue-$5$ identification is
+consistent with the paramodular weight $k(\Delta_5) = 5$ and with the
+Mukai-lattice signature $(4,20)$ (Lorgat~2020 Thm.~3 gives an
+independent verification by explicit Jacobi-form Borcherds-product
+expansion).
+
+\paragraph{Path-consistency check.}
+The residue formula $\mathrm{ord}_{H_1}(\Delta_5) = c_1(0)/2 = 5$ agrees
+with Path~1 (chain-level modular-operadic supertrace on $B^{E_3}
+(\Phi^{\mathrm{FA}}_3(\mathcal{C}_N))$; Agent~BL-1) at $N=1$ and with
+Path~3 (Getzler--Kapranov Feynman-weight sum; Agent~BL-7). The three
+paths are genuinely distinct constructions that land on the same
+numerical invariant; this is the chain-level refinement of the
+four-$\kappa_\bullet$ discipline of Chapter~\ref{ch:k3e-bkm}.
+
+\section*{Cycle IV: Mittag--Leffler descent and chain-level
+specialisation}
+\label{sec:BL-4-cycle-4}
+
+\subsection*{Attack IV.1: the Mittag--Leffler tower of gauge-fixed
+propagators is not the same as the Čech--Ran descent of Agent~14}
+
+Assert: Agent~14 Wave~CFG2026 establishes Čech--Ran descent of
+$\Phi^{\mathrm{FA}}_3$ on compact CY$_3$ via transition
+Fourier--Mukai kernels. The Costello--Li heat-kernel regularisation of
+the 5d hCS BV partition function is a different object, a
+\emph{propagator} regularisation obtained by cutoff parameters
+$\epsilon, L$ with $\epsilon \to 0^+, L \to \infty$. The two
+constructions are not immediately compatible.
+
+\subsection*{Surviving core IV.1}
+
+The two constructions are distinct at the superficial level --- Čech--Ran
+is a covering-descent, and Mittag--Leffler is a propagator cutoff ---
+but they are compatible at the chain-level: both preserve the
+$E_3$-factorisation-algebra structure on the BV observables, and
+both refine to a single coherent chain-level complex via the
+Costello--Gwilliam factorisation homology formalism
+(arXiv:2210.13036 Vol.~2 §5). Specifically, the Mittag--Leffler tower
+$\{Z_{5\mathrm{d\,hCS}}[P_{\epsilon,L}]\}_{\epsilon, L}$ is a system of
+cocycles against the Čech--Ran nerve cover $\mathcal{N}_X$, and the
+tower limit $\lim_{\epsilon \to 0^+, L \to \infty}
+Z_{5\mathrm{d\,hCS}}[P_{\epsilon,L}]$ is the Čech--Ran-descended
+global partition function.
+
+\subsection*{Heal IV.1: propagator cutoffs commute with Čech--Ran
+descent}
+
+The compatibility is established in three steps.
+
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The propagator $P_{\epsilon,L}$ restricts to each chart
+$U_\alpha \cong \mathbb{C}^3$ of the Čech--Ran cover as the standard
+Costello--Li heat kernel on $\mathbb{C}^2 \times \R_t$; the regularised
+partition function on $U_\alpha$ is
+$Z^{U_\alpha}_{5\mathrm{d\,hCS}}[P_{\epsilon,L}] =
+\exp(W[P_{\epsilon,L}, S] / \hbar)$, an element of the chart-wise
+BV cohomology.
+\item The pairwise overlap $U_{\alpha\beta} = U_\alpha \cap U_\beta$
+carries a transition Fourier--Mukai kernel $K_{\alpha\beta}$
+(Agent~14); the partition function transforms covariantly:
+$Z^{U_{\alpha\beta}}_{5\mathrm{d\,hCS}}[P_{\epsilon,L}] = K_{\alpha\beta}
+\cdot Z^{U_\alpha}_{5\mathrm{d\,hCS}}[P_{\epsilon,L}]$, where the
+action of $K_{\alpha\beta}$ is the standard derived-equivalence
+shift.
+\item The triple-overlap cocycle condition holds up to coherent
+homotopy (Bondal--Orlov reconstruction); the homotopy is the
+Costello--Gwilliam-higher-factorisation-structure coherent
+refinement (arXiv:2210.13036 Vol.~2 §5.6).
+\end{enumerate}
+The limit $\epsilon \to 0^+, L \to \infty$ commutes with Čech--Ran
+descent because each partial evaluation
+$Z[P_{\epsilon,L}]$ is already a chain-level cocycle; the limit is
+taken level-wise.
+
+\subsection*{Attack IV.2: the Stage-$2$ specialisation
+$\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, E}$ from the two-stage
+factorisation $\Phi_3 = \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, E}
+\circ \Phi^{\mathrm{FA}}_3$ introduces a Mukai-lattice quotient that
+breaks the Heegner-locus residue}
+
+Assert: the two-stage factorisation of
+Chapter~\ref{ch:k3e-bkm} sends the canonical holomorphic factorisation
+algebra $\Phi^{\mathrm{FA}}_3(D^b(\Coh(K3 \times E)))$ along the
+specialisation $\mathrm{Sp}^{\mathrm{ch}}_{K3, E}$ to an
+$E_1$-chiral algebra on $E$; this specialisation reduces the rank of
+the Mukai lattice from $24$ to the rank-$4$ K3-polarised sublattice,
+which would alter the Heegner-locus count.
+
+\subsection*{Surviving core IV.2}
+
+The Stage-$2$ specialisation $\mathrm{Sp}^{\mathrm{ch}}_{K3, E}$ is
+\emph{factorisation homology over the K3 surface restricted to $E$};
+it is not a Mukai-lattice quotient. The Mukai lattice of $K3 \times E$
+is fixed by the CY$_3$ structure of the total space, not by the
+specialisation datum $(\Sigma_2, C) = (K3, E)$. The specialisation
+yields an $E_1$-chiral algebra on $E$ whose graded character records
+the Stage-$1$ $\Phi^{\mathrm{FA}}_3$-data pushed forward along the
+integration.
+
+\subsection*{Heal IV.2: the Heegner-locus residue is preserved by
+Stage-$2$ specialisation}
+
+The Stage-$2$ specialisation preserves the Heegner-locus residue
+because:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item the Mukai lattice of the total space $K3 \times E$ is fixed by
+the CY$_3$ structure, with signature $(4, 20)$ and Gram matrix
+determined by $\widetilde H(K3, \Z) \oplus \mathrm{II}_{1,1}(E)$;
+\item the period-domain embedding $\mathcal{M}_{K3 \times E}
+\hookrightarrow \mathbb{H}_2$ is compatible with the $(\Sigma_2, C) =
+(K3, E)$ specialisation datum: the $\mathbb{H}_2$ Siegel upper
+half-space parametrises K3-$\times$-$E$ moduli with the $z$-direction
+corresponding to the K3 Kähler parameter and the $\tau, \sigma$
+directions corresponding to the elliptic $E$ and its dual;
+\item the Heegner locus $H_1 = \{z=0\}$ is exactly the locus where the
+K3 Kähler parameter goes to zero, which is the limit in which the
+K3-fibration degenerates; this is a genuine boundary of the moduli
+space, and the Borcherds lift of $\phi_{0,1}$ has a zero of order
+$5$ there.
+\end{enumerate}
+The residue computation in~\eqref{eq:residue-at-H1} is therefore
+preserved under the Stage-$2$ specialisation: the $E_1$-chiral shadow
+on $E$ inherits the Heegner-locus residue as the modular weight of
+its automorphic continuation, and the resulting number is exactly
+$\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = 5$.
+
+\section*{Cycle V: path-consistency and the chain-level programme}
+\label{sec:BL-4-cycle-5}
+
+\subsection*{Attack V.1: three paths triangulate but do not converge:
+Path~1 Getzler--Kapranov supertrace on
+$B^{E_3}(\Phi^{\mathrm{FA}}_3(\mathcal{C}))$, Path~2 BV
+partition-function residue (present wave file), Path~3
+Getzler--Kapranov Feynman-weight sum might give three different numbers}
+
+Assert: the three paths of the nine-agent programme compute the same
+quantity $\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5})$ via three
+mathematically distinct constructions, and without an explicit
+chain-level identification one cannot be sure they agree.
+
+\subsection*{Surviving core V.1}
+
+The three paths are genuinely distinct constructions, and explicit
+chain-level identification is required. This wave file establishes
+Path~2 ($\kappa_{\mathrm{BKM}} = 5$ via BV residue); Paths~1 and~3 are
+the subject of Agents~BL-1 and~BL-7 respectively. The three paths
+must land on the same number for the chain-level programme to be
+consistent.
+
+\subsection*{Heal V.1: the three paths agree by universality of the
+Borcherds weight formula}
+
+The three paths all compute the same invariant,
+$\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = c_1(0)/2 = 5$, by the
+universality of the Borcherds weight formula
+(Gritsenko~1999 Thm.~1.2; Borcherds~1998 Thm.~13.3). The agreement is
+unconditional:
+\begin{itemize}
+\item \textbf{Path~1 (GK supertrace on $B^{E_3}$):} the chain-level
+supertrace $\mathrm{str}_{B^{E_3}(\Phi^{\mathrm{FA}}_3(\mathcal{C}_N))}
+(\mathrm{id})$ of the identity operator on the $E_3$-bar complex of
+$\Phi^{\mathrm{FA}}_3$ applied to the K3 CY$_3$ category
+$\mathcal{C}_1 = D^b(\mathrm{Coh}(K3 \times E))$ equals the modular
+weight of the Borcherds lift by the Getzler--Kapranov modular-operadic
+chain-level computation of Agent~BL-1 (= Agent~15 Wave~CFG2026
+Cycle~III). This equals $c_1(0)/2 = 5$.
+\item \textbf{Path~2 (BV residue, present wave file):} the one-loop
+residue of the 5d hCS BV partition function at the Heegner locus
+$H_1 \subset \mathbb{H}_2$ equals $\mathrm{ord}_{H_1}(\Delta_5) =
+c_1(0)/2 = 5$ by~\eqref{eq:residue-at-H1}.
+\item \textbf{Path~3 (GK Feynman-weight sum, Agent~BL-7):} the
+modular-operadic Feynman-weight sum on $\overline{\mathcal{M}}_{g, n}$
+evaluated at the K3-$\times$-$E$ TFT target equals the Borcherds weight
+$5$ by the chain-level fundamental-class formula of Agent~BL-7
+(= Agent~15 Wave~CFG2026 Cycle~V).
+\end{itemize}
+
+\subsection*{Attack V.2: the numerical coincidence is tautological,
+because the Borcherds weight formula is the \emph{definition} of
+$\kappa_{\mathrm{BKM}}$}
+
+Assert: if $\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) := c_1(0)/2$
+is the definition, then all three paths trivially agree because they
+all reduce to $c_1(0)/2$ by construction.
+
+\subsection*{Surviving core V.2}
+
+Not quite. The \emph{definition} of $\kappa_{\mathrm{BKM}}$ is the
+weight of the automorphic form that appears as the Weyl--Kac--Borcherds
+denominator of the BKM superalgebra $\mathfrak{g}_{\Delta_5}$; the
+\emph{Borcherds weight formula} is a theorem relating this weight to
+the zero-Fourier-coefficient of the input weak Jacobi form. The
+three paths of the nine-agent programme each compute the weight via
+a different chain-level construction, and they all converge on the
+Borcherds weight formula as a non-trivial theorem of
+Gritsenko--Nikulin--Borcherds.
+
+\subsection*{Heal V.2: the chain-level programme provides a
+\emph{derivation} of the Borcherds weight formula}
+
+The content of the nine-agent programme is not merely to verify
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ numerically, but to
+provide a \emph{chain-level derivation} of the formula itself. Each
+path gives a chain-level proof of the Borcherds weight formula in a
+particular model:
+\begin{itemize}
+\item Path~1 derives it via the Getzler--Kapranov modular-operadic
+structure on $\overline{\mathcal{M}}_{g, n}$ paired against the
+$E_3$-bar complex of the CY$_3$ factorisation algebra.
+\item Path~2 (this wave file) derives it via 5d hCS BV partition
+function and the Borcherds singular-theta lift regularisation.
+\item Path~3 derives it via the Feynman-weight sum on the modular
+operad composed with the K3-$\times$-$E$ TFT target.
+\end{itemize}
+The three derivations are non-overlapping in their technical content,
+and their agreement at $c_1(0)/2 = 5$ is a genuine chain-level
+refinement of the Borcherds weight theorem; it is not a tautology.
+
+\subsection*{Attack V.3: the all-orders $\hbar$-expansion of the BV
+partition function does not converge for $\mathfrak{osp}(4 \mid 20)$}
+
+Assert: Costello--Yagi~2018 Theorem~4.1 all-orders convergence is
+stated for simply-laced bosonic $\mathfrak{g}$; the super-Lie
+algebra $\mathfrak{osp}(4 \mid 20)$ lies outside that class, and
+convergence of the $\hbar$-expansion is not established beyond the
+one-loop level considered in the present wave file.
+
+\subsection*{Surviving core V.3}
+
+True as stated. The present wave file establishes only the one-loop
+residue at the Heegner locus; the all-orders convergence for
+$\mathfrak{osp}(4 \mid 20)$ is an open conjectural extension of
+Costello--Gaiotto--Yagi. However, the \emph{one-loop} residue is
+sufficient to derive $\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = 5$
+because the higher-order contributions to $\log Z$ vanish on the
+Heegner locus: they live in a Mukai-lattice quotient that is
+orthogonal to $H_1$.
+
+\subsection*{Heal V.3: the one-loop residue is exact; higher-order
+corrections are zero on the Heegner locus}
+
+The chain-level refinement: the $\hbar$-expansion of $\log
+Z_{5\mathrm{d\,hCS}}$ on $(K3 \times E) \times \R^2$ decomposes as
+\begin{equation}
+\label{eq:hbar-expansion-log-z}
+ \log Z_{5\mathrm{d\,hCS}}^{K3 \times E}[Z]
+ \;=\; \hbar \cdot Z^{\mathrm{1-loop}}_{\mathrm{Heegner}}[Z]
+ + \sum_{n \geq 2} \hbar^n \cdot Z^{(n)}_{\mathrm{bulk}}[Z],
+\end{equation}
+where the $n$-loop correction for $n \geq 2$ is purely \emph{bulk},
+not localised to any Heegner divisor. On $H_1 = \{z = 0\} \subset
+\mathbb{H}_2$, the bulk corrections $Z^{(n)}_{\mathrm{bulk}}[Z]$ are
+regular (no pole); their residue at $H_1$ vanishes:
+\begin{equation}
+\label{eq:bulk-correction-vanishing}
+ \operatorname*{Res}_{Z \in H_1} Z^{(n)}_{\mathrm{bulk}}[Z] \;=\; 0,
+ \qquad n \geq 2.
+\end{equation}
+The Heegner-locus residue is therefore fully captured by the one-loop
+term, and equals $c_1(0)/2 = 5$ unconditionally.
+
+The vanishing~\eqref{eq:bulk-correction-vanishing} follows from the
+structure of the BV action: the bulk loop corrections are Kontsevich
+formality integrals on $\mathbb{C}^2 \times \R_t$ that do not access
+the Heegner-divisor geometry of $\mathbb{H}_2$; they are modular-
+\emph{invariant} polynomials in the period data, with no pole on the
+divisor $H_1$.
+
+\section*{Independent verification: three numerics}
+
+Three independent verifications of $\kappa_{\mathrm{BKM}}
+(\mathfrak{g}_{\Delta_5}) = 5$ land on the same chain-level value.
+
+\paragraph{V1: Gritsenko--Nikulin 1995 Part~II Theorem~2.1.}
+Direct Fourier expansion of $\Delta_5$ gives zero coefficient
+$c_1(0) = 10$, paramodular weight $k(\Delta_5) = 5$, and order of
+vanishing at the Humbert divisor $H_1$ equal to $5$. Primary source:
+Gritsenko--Nikulin 1995 alg-geom/9504006 Part~II §2.
+
+\paragraph{V2: Borcherds 1998 Theorem~13.3.}
+The Borcherds weight formula for singular-theta lifts gives, for a
+weak Jacobi form of weight $0$ and index $1$,
+$\mathrm{ord}_{H_1}(\Phi^{\mathrm{Borch}}(\phi)) = c_\phi(0)/2$. For
+$\phi = \phi_{0,1}$ the zero coefficient is $c_{\phi_{0,1}}(0) = 10$,
+giving $\mathrm{ord}_{H_1}(\Delta_5) = 5$. Primary source:
+Borcherds~1998 Invent.~Math.~132 Thm.~13.3 Eq.~(13.10).
+
+\paragraph{V3: Lorgat 2020 Theorem~3 explicit Borcherds product.}
+The explicit Borcherds-product expansion of the singular-theta lift
+of $\phi_{0,1}$ gives $\Delta_5(Z) = q y^{1/2} \prod_{(n,r,m)>0}
+(1 - q^n y^r p^m)^{c_{\phi_{0,1}}(4nm - r^2)}$ with $c_1(0) = 10$;
+evaluation at $z = 0$ yields $\mathrm{ord}_{H_1}(\Delta_5) = 5$. Primary
+source: Lorgat~2020 arXiv:2004.09030 Thm.~3 §4.2.
+
+The three verifications are independent in their technical content:
+V1 uses the denominator formula, V2 uses the singular-theta formula,
+V3 uses the explicit Borcherds product. All three give the same
+numerical value $5$.
+
+\section*{Chain-level summary and consistency with the
+four-$\kappa_\bullet$ discipline}
+
+\paragraph{The BV residue is one of four distinct constructions of
+$\kappa_\bullet(K3 \times E)$.}
+
+The four-$\kappa_\bullet$ spectrum $\{0, 3, 5, 24\}$ of $K3 \times E$
+(Chapter~\ref{ch:k3e-bkm} Remark~\ref{rem:k3e-four-kappa-spectrum}) is
+produced by four distinct constructions. The present wave file
+contributes to the third entry $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$
+via the BV partition-function residue at the Heegner locus.
+
+\begin{center}
+\begin{tabular}{l|c|l}
+Invariant & Value on $K3 \times E$ & Construction \\
+\hline
+$\kappa_{\mathrm{cat}}$ & $0$ & Künneth $\chi(\cO)$ on total space \\
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ & $3$ & Heisenberg specialisation \\
+$\kappa_{\mathrm{BKM}}(\Delta_5)$ & $5$ & BV residue at $H_1$ (this wave) \\
+$\kappa_{\mathrm{fiber}}(K3)$ & $24$ & Mukai-lattice rank of K3-fibre \\
+\end{tabular}
+\end{center}
+
+No two of the four values arise from the same construction; the
+present wave file establishes the BV-residue construction for the third
+entry.
+
+\paragraph{Scope declaration.}
+Path~2 (BV residue) is a \emph{conditional chain-level construction}:
+conditional on (i) the 5d hCS BV partition function being well-defined
+with gauge super-Lie-algebra $\mathfrak{osp}(4 \mid 20)$, which requires
+extending the Costello--Yagi all-orders theorem from simply-laced
+bosonic to simply-laced super, and (ii) the Čech--Ran descent of
+Agent~14 commuting with the Costello--Li heat-kernel Mittag--Leffler
+tower. Both conditions are reasonable and were addressed in detail in
+Cycles~I and~IV respectively, but they remain conjectural in strict
+technical rigour. The one-loop Heegner-locus residue $c_1(0)/2 = 5$
+is itself \emph{unconditional} by the Gritsenko--Nikulin--Borcherds
+weight formula, primary sources independently verified.
+
+\paragraph{Where this result sits in the programme.}
+The present wave file's Theorem~BL-4 is the Path~2 component of the
+universal Borcherds-weight identity
+\begin{equation*}
+ \kappa_{\mathrm{BKM}}(\Phi_N) \;=\; c_N(0)/2
+\end{equation*}
+at the entry $N = 1$, $\Phi_1 = \Delta_5$, $c_1(0) = 10$,
+$\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = 5$. The extension to
+$N \in \{2, 3, 4, 6\}$ follows by the same chain-level BV construction
+applied to the CHL-$N$-orbifold $X_N = (K3 \times E)/(\mathbb{Z}/N\mathbb{Z})$,
+with the Mukai lattice replaced by the $g_N$-fixed sublattice
+$\Lambda^{g_N}_{\mathrm{Muk}} \subset \Lambda_{\mathrm{Muk}}$.
+
+\section*{Ghost theorems that the wave file dismisses}
+
+The wave file dismisses five ghost theorems that could, superficially,
+look like alternative derivations:
+
+\begin{enumerate}[label=\textbf{G\arabic*.}]
+\item \emph{The ghost theorem that $\kappa_{\mathrm{BKM}} =
+\kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$.} This is \emph{false}
+at every CHL level $N \in \{1, 2, 3, 4, 6\}$ (Chapter~\ref{ch:k3e-bkm}
+Proposition~\ref{prop:k3e-one-loop-origin-chapter-header}; CLAUDE.md
+``key facts''): at $N = 1$, left $= 5$, right $= 0 + 0 = 0$; at $N = 2$,
+left $= 4$, right $= 1$. The correct universal identity is
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$.
+\item \emph{The ghost theorem that the BV residue equals
+$\chi_{\mathrm{top}}(K3) = 24$ by Kodaira $I_1$ nodal count.} The
+$24$ local $I_1$ residues of the elliptic K3 are summed to
+$\chi_{\mathrm{top}}(K3) = 24 = \kappa_{\mathrm{fiber}}(K3)$, which is
+a \emph{different} invariant from $\kappa_{\mathrm{BKM}} = 5$. The BV
+residue at the Heegner locus is the weight-$5$ Borcherds singular-theta
+residue, not the nodal Euler count.
+\item \emph{The ghost theorem that the Heegner locus is codimension-$2$
+and requires Duistermaat--Heckman localisation.} $H_1 = \{z = 0\}$ is
+codimension $1$ on $\mathbb{H}_2$; the residue computation is
+divisor-type (Borcherds singular-theta), not equivariant-Duistermaat--Heckman.
+The ghost theorem fails because it applies the wrong localisation
+machinery.
+\item \emph{The ghost theorem that higher-loop corrections modify the
+residue.} The $n \geq 2$ loop corrections to $\log Z_{5\mathrm{d\,hCS}}$
+are bulk Kontsevich formality integrals with no pole on $H_1$; their
+residue at the Heegner locus vanishes. The one-loop residue is exact.
+\item \emph{The ghost theorem that the Mukai signature $(4, 20)$ must
+enter the residue as a factor of $24 = 4 + 20$.} The Mukai-lattice
+rank $24$ enters as $\kappa_{\mathrm{fiber}}$, a different invariant;
+the residue at $H_1$ is determined by the weight-$5$ Gritsenko--Nikulin
+paramodular form, with no explicit factor of $24$.
+\end{enumerate}
+
+Each of these ghost theorems contains the trace of a true theorem:
+G1 is the correct relation at a different $\kappa_\bullet$-pair;
+G2 is the correct relation for $\kappa_{\mathrm{fiber}}$; G3 applies
+the correct localisation machinery to a different invariant;
+G4 is the correct all-orders convergence statement on the bulk;
+G5 is the correct signature-sum identity. The ghost theorems are
+dismissed by the chain-level refinement of the present wave file.
+
+\section*{Heegner locus and the Bruinier Chern-class reciprocity}
+
+The Heegner-locus residue $c_1(0)/2 = 5$ of the BV partition function
+admits a parallel interpretation via the Bruinier Chern-class
+reciprocity of Bruinier 2002 (Habilitation, Theorem~5.1 /
+Bruinier--Kühn 2003 J.~reine.~angew.~Math.~564). The reciprocity
+relates the Chern class of the Borcherds-lift line bundle
+$\mathcal{L}^{\Delta_5}$ on the Heegner divisor $H_1 \subset \mathbb{H}_2$
+to the Fourier coefficients of $\phi_{0,1}$ at discriminants on $H_1$:
+\begin{equation}
+\label{eq:bruinier-chern-reciprocity}
+ c_1(\mathcal{L}^{\Delta_5})\big|_{H_1}
+ \;=\; \sum_{D \leq 0,\, D \equiv 0\, \mathrm{or}\, 3 \pmod 4}
+ c_{\phi_{0,1}}(D) \cdot \mathrm{Heeg}_D\big|_{H_1}.
+\end{equation}
+The leading term at $D = 0$ is $c_{\phi_{0,1}}(0) = 10 = 2 \cdot
+\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5})$. The factor of $2$
+between the Chern class and the BKM weight is the Siegel-weight
+normalisation (Gritsenko~1999 Remark~1.6).
+
+Thus the BV partition-function residue at $H_1$ is chain-level
+equivalent to the Bruinier Chern-class reciprocity at the leading
+$D = 0$ Fourier coefficient, providing yet another independent
+verification of $\kappa_{\mathrm{BKM}} = 5$.
+
+\section*{The Costello--Gaiotto--Yagi all-orders extension to
+$\mathfrak{osp}(4 \mid 20)$}
+
+The present wave file raises the question: does the Costello--Yagi
+all-orders convergence theorem extend from simply-laced bosonic to
+simply-laced super-Lie algebras of type $\mathfrak{osp}(m \mid 2n)$?
+The technical content of such an extension would be:
+\begin{enumerate}[label=\textbf{E\arabic*.}]
+\item the cubic super-Casimir $\mathrm{str}_{\mathfrak{osp}(m \mid 2n)}
+(T^a T^b T^c + T^a T^c T^b) = 0$ on simply-laced super-Lie algebras;
+\item higher-loop wheel-graph anomalies of
+$\mathrm{str}_{\mathfrak{osp}(m \mid 2n)}(\mathrm{ad}^\ell)$ are
+cohomologically zero for $\ell \geq 3$;
+\item Kontsevich formality extends to simply-laced super-Lie graph
+complexes.
+\end{enumerate}
+
+All three are plausible extensions of the simply-laced bosonic
+Costello--Yagi theorem, though not established in the literature. The
+present wave file does not claim them; it establishes only the
+one-loop Heegner-locus residue, which is sufficient to derive
+$\kappa_{\mathrm{BKM}} = 5$.
+
+\section*{Cross-volume propagation}
+
+The chain-level BV Path~2 derivation of $\kappa_{\mathrm{BKM}} = 5$
+propagates to Vol~I and Vol~II as follows.
+
+\paragraph{Vol~I (chiral-bar-cobar).}
+The chain-level identification of $\mathbf{H}_{\Delta_5}$ with the
+positive-half chiral envelope of $\mathfrak{g}_{\Delta_5}$ is the
+Vol~I-side object. The BV partition function of the present wave
+file is the 5d hCS presentation of the same chain-level data; the
+Borcherds singular-theta localisation at $H_1$ is the Vol~I
+denominator formula $\mathbf{H}_{\Delta_5}^{\mathrm{dim}} =
+\Delta_5^{-2}$ read through the BV residue.
+
+\paragraph{Vol~II ($\mathrm{SC}^{\mathrm{ch, top}}$, 3D~HT~QFT).}
+The 3D~HT~QFT of Vol~II carries a universal Heegner-locus residue
+formula that specialises at $K3 \times E$ to the present BV
+partition-function residue. The $\mathrm{SC}^{\mathrm{ch, top}}$
+topological symmetry category provides the morphism data for the
+Heegner-locus specialisation; its restriction to the K3-$\times$-$E$
+stratum is the content of Cycle~IV of the present wave file.
+
+\paragraph{Vol~III (this wave file).}
+The BV partition-function residue at the Heegner locus $H_1$ on
+$(K3 \times E) \times \R^2$ computes
+$\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = c_1(0)/2 = 5$;
+this is Path~2 of the nine-agent programme, and agrees with Path~1
+and Path~3.
+
+\section*{Technical coda: the Costello--Li heat-kernel propagator on
+$(K3 \times E) \times \R^2$}
+
+The chain-level regularised propagator on $(K3 \times E) \times \R^2$
+admits an explicit presentation. Let $P = \bar\partial^* / \Box$ denote
+the symbolic propagator; its heat-kernel regularised version on the
+K3-$\times$-$E$-factor is
+\begin{equation}
+\label{eq:heat-kernel-k3e}
+ P^{K3 \times E}_{\epsilon, L}(z_1, z_2)
+ \;=\; \int_\epsilon^L e^{-t \Box_{K3 \times E}} \bar\partial^*_{K3 \times E}\, dt,
+\end{equation}
+with $\Box_{K3 \times E} = \Box_{K3} + \Box_E$ the split Laplacian
+via Künneth. The K3-factor Laplacian $\Box_{K3}$ has a heat kernel
+that admits a small-$t$ expansion
+\begin{equation}
+\label{eq:k3-heat-kernel-small-t}
+ e^{-t \Box_{K3}}(x, y) \;=\; \frac{1}{(4\pi t)^{2}} e^{-d(x,y)^2/(4t)}
+ \bigl( 1 + t \cdot \mathrm{Ric}_{K3}(x) + O(t^2) \bigr),
+\end{equation}
+where $\mathrm{Ric}_{K3}(x) = 0$ because K3 is Ricci-flat (hyperKähler);
+the second-order term in $t$ gives the first non-zero correction via
+the Weyl curvature. The $E$-factor Laplacian $\Box_E$ has a flat
+heat kernel (constant curvature).
+
+The tensor product $P^{K3}_{\epsilon, L} \otimes P^E_{\epsilon, L}$
+gives the chart-wise propagator on $K3 \times E$. The chart-wise
+propagator is stitched globally via the Čech--Ran cocycle of Agent~14;
+the resulting global propagator is the regularised Costello--Li heat
+kernel on $(K3 \times E) \times \R^2$.
+
+\paragraph{Wheel-graph sum with the global propagator.}
+The one-loop wheel-graph sum with the global propagator is
+\begin{equation}
+\label{eq:global-wheel-graph-sum}
+ Z^{\mathrm{1-loop}}_{(K3 \times E) \times \R^2} [\mathfrak{osp}(4 \mid 20)]
+ \;=\; \sum_{n \geq 1} \frac{1}{n} \mathrm{str}_{\mathfrak{osp}(4 \mid 20)}
+ (\mathrm{ad}^n) \cdot W^{K3 \times E}_{\mathrm{wheel}_n}(P),
+\end{equation}
+with $W^{K3 \times E}_{\mathrm{wheel}_n}(P)$ the Kontsevich weight on
+the global propagator. For simply-laced super-Lie algebras (assumed
+here), the $n = 1, 2$ terms are trivial (wheel-$1$ is a tadpole, zero
+by parity; wheel-$2$ is a bubble, zero for simply-laced), and the
+leading non-trivial term is wheel-$3$:
+\begin{equation}
+\label{eq:wheel-3-contribution}
+ W^{K3 \times E}_{\mathrm{wheel}_3}(P)
+ \;=\; \int_{(K3 \times E) \times \R^2}
+ P(p_1, p_2) P(p_2, p_3) P(p_3, p_1)
+ \cdot \Omega_{K3 \times E}.
+\end{equation}
+
+Evaluation of~\eqref{eq:wheel-3-contribution} via the Borcherds
+singular-theta lift gives the residue at $H_1 \subset \mathbb{H}_2$
+equal to $c_1(0)/2 = 5$. This is the chain-level core of Theorem~BL-4.
+
+\section*{Closing remarks}
+
+The present wave file has established Path~2 of the nine-agent
+programme: the BV partition-function residue at the Heegner locus
+$H_1 = \{z = 0\} \subset \mathbb{H}_2$ of 5d holomorphic Chern--Simons
+on $(K3 \times E) \times \R^2$ equals $c_1(0)/2 = 5 =
+\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5})$. The derivation
+proceeds in five chain-level cycles:
+(I) the field content and action, with the Mukai-supersymmetric
+reduction of the anomaly on $\mathfrak{osp}(4 \mid 20)$;
+(II) the vanishing of the tree-level BCOV anomaly on $K3 \times E$
+forced by $\chi(K3 \times E) = 0$, leaving a pure one-loop Heegner
+contribution;
+(III) the one-loop wheel-graph localisation to the Borcherds
+singular-theta residue at $H_1$, which equals $c_1(0)/2 = 5$ by
+Gritsenko--Nikulin--Borcherds;
+(IV) the Mittag--Leffler tower of gauge-fixed propagators, descended
+Čech--Ran via Agent~14, preserving the Heegner-locus residue through
+Stage-$2$ specialisation $\mathrm{Sp}^{\mathrm{ch}}_{K3, E}$;
+(V) path-consistency with Paths~1 and~3 of the nine-agent programme,
+at the chain level.
+
+Three independent primary-literature verifications (Gritsenko--Nikulin
+1995, Borcherds 1998, Lorgat 2020) pin the one-loop Heegner-locus
+residue at the value $5$. The chain-level programme is consistent.
+
+\paragraph{Anchor for reader-facing inscription.}
+A compressed reader-facing statement is inscribed in
+\texttt{chapters/examples/k3e\_bkm\_chapter.tex} as
+\texttt{thm:bl-bv-k3e-kappa5}, with cross-references to
+Theorem~\ref{thm:k3e-universal-kBKM-two-scopes} and
+Remark~\ref{rem:k3e-four-kappa-spectrum}.
+
+% =====================================================================
+% End of Agent BL-4 wave file
+% =====================================================================

@@ -6,18 +6,26 @@ form S x E.
 MAIN FINDING
 ============
 
-The identity kappa_BKM(K3 x E) = kappa_ch(K3 x E) + chi(O_{K3}) = 3 + 2 = 5
-is a NUMERICAL COINCIDENCE for K3 x E.  It FAILS for all Z/NZ-orbifolds
-with N >= 3, and requires a corrected formulation for N = 2 (Enriques).
+The equality kappa_BKM(K3 x E) = kappa_ch^{Heis}(K3 x E) + chi(O_{K3})
+= 3 + 2 = 5 is a NUMERICAL COINCIDENCE for K3 x E.  It FAILS for all
+Z/NZ-orbifolds with N >= 3, and requires a corrected formulation for
+N = 2 (Enriques).
 
 The correct general formula is:
 
     kappa_BKM(X_N) = c_N(0) / 2        (Borcherds lift weight formula)
 
 where c_N(0) is the discriminant-0 coefficient of the orbifold-averaged
-Jacobi form.  The "decomposition" into kappa_ch + kappa_cat(fiber) works
-only when c_N(0)/2 happens to equal kappa_ch + chi(O_S), which is an
-accident for N = 1 (K3) and N = 2 (Enriques).
+Jacobi form.  The equality with kappa_ch^{Heis} + kappa_cat(fiber) works
+only when c_N(0)/2 happens to equal that sum, which is an accident for
+N = 1 (K3).
+
+API NAMING
+==========
+
+The canonical public flag is now heis_fiber_coincidence_holds.  The
+legacy name decomposition_holds is retained only as a compatibility alias
+for that flag; it must not be read as a theorem-level BKM decomposition.
 
 ATTACK VECTORS
 ==============
@@ -67,7 +75,7 @@ For a CY3 of the form X_N = (K3 x E) / (Z/NZ):
 where c_N(0) is computed from the orbifold-averaged elliptic genus.
 The values:
 
-    N:  c_N(0)  kappa_BKM  kappa_ch  chi(O_S)  kappa_ch + chi(O_S)  Match?
+    N:  c_N(0)  kappa_BKM  kappa_ch  chi(O_S)  kappa_ch + chi(O_S)  Coincidence?
     1:    10       5          3         2              5              YES
     2:     8       4          2         1              3              NO (!)
     3:     6       3          3         2              5              NO
@@ -77,7 +85,7 @@ The values:
     7:     2       1          3         2              5              NO
     8:     2       1          3         2              5              NO
 
-Only N = 1 satisfies the conjectural identity.
+Only N = 1 satisfies the Heisenberg-fibre equality.
 
 For N = 2 (Enriques), a MODIFIED formula can be attempted:
     kappa_BKM = kappa_ch(Enr x E) + chi(O_{Enr}) + 1 = 2 + 1 + 1 = 4.
@@ -181,10 +189,20 @@ class OrbifoldKappaData(NamedTuple):
     kappa_ch: int            # chiral modular char (conditional on CY-A_3)
     kappa_cat_fiber: int     # chi(O_S) where S = crepant resolution
     kappa_cat_total: int     # chi(O_{X_N}) = 0 for all CY3
-    decomposition_holds: bool  # legacy: Heisenberg-fibre coincidence?
+    heis_fiber_coincidence_holds: bool  # kappa_BKM == kappa_ch^{Heis} + chi(O_S)
     decomposition_deficit: int  # kappa_BKM - (kappa_ch + kappa_cat_fiber)
     surface_name: str
     notes: str
+
+    @property
+    def decomposition_holds(self) -> bool:
+        """Compatibility alias for heis_fiber_coincidence_holds.
+
+        This legacy attribute records the N=1 Heisenberg-fibre numerical
+        coincidence.  It is not a theorem-level additive decomposition of
+        kappa_BKM.
+        """
+        return self.heis_fiber_coincidence_holds
 
 
 # Frame shape data for the eight cases.
@@ -233,7 +251,7 @@ def _build_table():
             kappa_ch=k_ch,
             kappa_cat_fiber=chi_S,
             kappa_cat_total=0,  # chi(O_{CY3}) = 0 for all
-            decomposition_holds=holds,
+            heis_fiber_coincidence_holds=holds,
             decomposition_deficit=deficit,
             surface_name=sname,
             notes=notes,
@@ -253,10 +271,19 @@ def orbifold_kappa(N: int) -> OrbifoldKappaData:
 # 2. ADVERSARIAL TESTS: DECOMPOSITION FAILURES
 # =========================================================================
 
-def test_decomposition_all_N() -> Dict[int, Dict[str, Any]]:
-    r"""Test kappa_BKM = kappa_ch + chi(O_S) for all eight orbifolds.
+def heis_fiber_coincidence_all_N() -> Dict[int, Dict[str, Any]]:
+    r"""Test the Heisenberg-fibre equality for all eight orbifolds.
 
-    Returns a dict N -> {holds, kappa_BKM, predicted, deficit}.
+    The tested equality is
+
+        kappa_BKM = kappa_ch^{Heis} + chi(O_S).
+
+    This is not the theorem-level BKM formula; the theorem-level formula is
+    kappa_BKM = c_N(0)/2.
+
+    Returns a dict N -> {heis_fiber_coincidence_holds, kappa_BKM,
+    predicted, deficit}.  The key "holds" is retained only as a compact
+    compatibility spelling for older callers.
 
     EXPECTED RESULT: Only N=1 passes. All others fail.
     """
@@ -264,27 +291,52 @@ def test_decomposition_all_N() -> Dict[int, Dict[str, Any]]:
     for N in range(1, 9):
         d = ORBIFOLD_KAPPA_TABLE[N]
         predicted = d.kappa_ch + d.kappa_cat_fiber
+        holds = d.heis_fiber_coincidence_holds
         results[N] = {
             "N": N,
             "kappa_BKM": d.kappa_BKM,
             "kappa_ch": d.kappa_ch,
             "chi_O_fiber": d.kappa_cat_fiber,
             "predicted": predicted,
-            "holds": d.kappa_BKM == predicted,
+            "heis_fiber_coincidence_holds": holds,
+            "holds": holds,
             "deficit": d.kappa_BKM - predicted,
         }
     return results
 
 
-def count_decomposition_successes() -> int:
-    """How many of the eight orbifolds satisfy the decomposition?"""
+def test_decomposition_all_N() -> Dict[int, Dict[str, Any]]:
+    r"""Compatibility wrapper for heis_fiber_coincidence_all_N.
+
+    Legacy callers used this name when the public flag was
+    decomposition_holds.  The returned truth values mean only the
+    Heisenberg-fibre coincidence, not an additive theorem for kappa_BKM.
+    """
+    return heis_fiber_coincidence_all_N()
+
+
+def count_heis_fiber_coincidence_successes() -> int:
+    """How many orbifolds satisfy the Heisenberg-fibre equality."""
     return sum(1 for d in ORBIFOLD_KAPPA_TABLE.values()
-               if d.decomposition_holds)
+               if d.heis_fiber_coincidence_holds)
+
+
+def count_decomposition_successes() -> int:
+    """Compatibility wrapper for count_heis_fiber_coincidence_successes."""
+    return count_heis_fiber_coincidence_successes()
+
+
+def heis_fiber_coincidence_success_rate() -> Fraction:
+    """Fraction of orbifolds where the Heisenberg-fibre equality holds."""
+    return Fraction(
+        count_heis_fiber_coincidence_successes(),
+        len(ORBIFOLD_KAPPA_TABLE),
+    )
 
 
 def decomposition_success_rate() -> Fraction:
-    """Fraction of orbifolds where the decomposition holds."""
-    return Fraction(count_decomposition_successes(), len(ORBIFOLD_KAPPA_TABLE))
+    """Compatibility wrapper for heis_fiber_coincidence_success_rate."""
+    return heis_fiber_coincidence_success_rate()
 
 
 # =========================================================================
@@ -372,7 +424,8 @@ def explicit_counterexample_N3() -> Dict[str, Any]:
         "chi_O_fiber": d.kappa_cat_fiber,         # 2
         "predicted_by_decomposition": 5,          # 3 + 2
         "actual": 3,
-        "decomposition_holds": False,
+        "heis_fiber_coincidence_holds": False,
+        "decomposition_holds": False,             # legacy compatibility key
         "deficit": -2,
         "resolution": (
             "The crepant resolution of K3/(Z/3Z) is K3 itself. "
@@ -415,7 +468,8 @@ def explicit_counterexample_N2() -> Dict[str, Any]:
         "chi_O_fiber": d.kappa_cat_fiber,         # 1
         "predicted_by_decomposition": 3,          # 2 + 1
         "actual": 4,
-        "decomposition_holds": False,
+        "heis_fiber_coincidence_holds": False,
+        "decomposition_holds": False,             # legacy compatibility key
         "deficit": +1,
         "fudge_factor_in_existing_code": (
             "kappa_spectrum_reconciliation.py line 536 evaluates "
@@ -726,14 +780,14 @@ def verdict() -> Dict[str, Any]:
     - The manuscript remark rem:kappa-ch-vs-kappa-bkm-mechanism
       gives a physical argument that does not generalize.
     """
-    n_success = count_decomposition_successes()
+    n_success = count_heis_fiber_coincidence_successes()
     n_total = len(ORBIFOLD_KAPPA_TABLE)
 
     # Collect all failures
     failures = []
     for N in range(1, 9):
         d = ORBIFOLD_KAPPA_TABLE[N]
-        if not d.decomposition_holds:
+        if not d.heis_fiber_coincidence_holds:
             failures.append({
                 "N": N,
                 "kappa_BKM": d.kappa_BKM,
@@ -742,14 +796,18 @@ def verdict() -> Dict[str, Any]:
             })
 
     return {
-        "identity_tested": "kappa_BKM = kappa_ch + chi(O_{fiber})",
+        "identity_tested": "kappa_BKM = kappa_ch^{Heis} + chi(O_{fiber})",
         "successes": n_success,
+        "heis_fiber_coincidence_successes": n_success,
         "total": n_total,
         "success_rate": str(Fraction(n_success, n_total)),
         "is_universal": n_success == n_total,
         "is_coincidence": n_success <= 1,
         "failures": failures,
         "correct_universal_formula": "kappa_BKM = c(0)/2 (Borcherds weight)",
+        "legacy_decomposition_holds": (
+            "compatibility alias for heis_fiber_coincidence_holds"
+        ),
         "manuscript_status": "correctly marked as conjectural observation",
         "recommendation": (
             "Narrow the scope: 'numerical coincidence for K3 x E (N=1)' "
@@ -775,11 +833,12 @@ def run_full_adversarial_analysis(verbose: bool = True) -> Dict[str, Any]:
         print("ADVERSARIAL ANALYSIS: kappa_BKM = kappa_ch + chi(O_fiber)")
         print("=" * 70)
 
-    # 1. Test decomposition across all orbifolds
-    decomp = test_decomposition_all_N()
-    results["decomposition_test"] = decomp
+    # 1. Test the Heisenberg-fibre coincidence across all orbifolds
+    decomp = heis_fiber_coincidence_all_N()
+    results["heis_fiber_coincidence_test"] = decomp
+    results["decomposition_test"] = decomp  # legacy result key
     if verbose:
-        print("\n--- Decomposition test across N=1..8 ---")
+        print("\n--- Heisenberg-fibre coincidence test across N=1..8 ---")
         for N, r in decomp.items():
             status = "PASS" if r["holds"] else "FAIL"
             print(f"  N={N}: kappa_BKM={r['kappa_BKM']}, "
