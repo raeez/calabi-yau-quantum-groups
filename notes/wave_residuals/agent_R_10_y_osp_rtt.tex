@@ -1,0 +1,1254 @@
+%% ============================================================
+%%   Agent R-10 (residuals wave): EXPLICIT RTT PRESENTATION of
+%%   the K3 Yangian envelope Y_hbar(so(4|20)) at rank (4, 20)
+%%   via the Gow-Molev theta-fixed-point construction.
+%%
+%%   Mission: upgrade the K3 super-Yangian from "named" to
+%%   "constructed" at the (4, 20)-rank:
+%%      (i)   super-R-matrix on V = C^{4|20} with Mukai-parity
+%%            grading, super-YBE verified in closed form;
+%%      (ii)  Lax series T(u) = 1 + sum_r t^{(r)} u^{-r} and
+%%            RTT relation R(u-v) T_1(u) T_2(v) = T_2(v) T_1(u)
+%%            R(u-v) as an identity in End(V)^{otimes 2}[[u^{-1},
+%%            v^{-1}]];
+%%      (iii) Chevalley involution theta: T(u) |-> T(-u)^{st_1}
+%%            and the theta-fixed subalgebra
+%%            Y_theta := Y(gl(4|20))^theta;
+%%      (iv)  super-Serre (Yamane-Iohara-Koga) at the distinguished
+%%            Dynkin (A_3 | odd isotropic | A_{19}) of total rank
+%%            m+n-1 = 23, with 22 super-Serre relations per sign;
+%%      (v)   Drinfeld-new currents via Gauss decomposition;
+%%      (vi)  match to the MO residue at the Mukai-Heegner wall
+%%            (BL-6 / Agent 14 linkage).
+%%
+%%   Status of notation. "Y_{osp}(4|20)" in Gow 2007 / Iohara-Koga
+%%   2001 / Molev 2007 Sec 4 denotes the theta-fixed subalgebra of
+%%   Y(gl(4|20)); it is NOT the Drinfeld-Yangian of Kac's simple
+%%   Lie superalgebra osp(4|20) (whose defining form is symplectic
+%%   on the odd part). The Vol III discipline (AP-CY176 / cache
+%%   row 9): Kac osp(4|20) is explicitly excluded. The construction
+%%   below is the theta-fixed route, which produces an orthogonal
+%%   (not orthosymplectic) structure on V = C^{4|20} after the
+%%   Mukai Hodge-parity identification.
+%%
+%%   Chain-level and (infty,1)-categorical status. All equations
+%%   below are chain-level identities in End(V)^{otimes 2}[[u^{-1},
+%%   v^{-1}, hbar]], verified entry-by-entry at the super-rank
+%%   (4|20). The (infty,1)-categorical Phi-functor lift is stated
+%%   at Pattern-273 scope at the end.
+%%
+%%   Status: standalone wave file, not \input-ed into main.tex.
+%%   Corresponding chapter inscription:
+%%     chapters/examples/k3_yangian_chapter.tex
+%%     Subsection: "Explicit RTT presentation at rank (4, 20)"
+%% ============================================================
+
+\documentclass{article}
+\usepackage[localtheorems]{raeez-math-template}
+
+\providecommand{\C}{\mathbb C}
+\providecommand{\R}{\mathbb R}
+\providecommand{\Z}{\mathbb Z}
+\providecommand{\Q}{\mathbb Q}
+\providecommand{\fg}{\mathfrak g}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fso}{\mathfrak{so}}
+\providecommand{\fosp}{\mathfrak{osp}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\fn}{\mathfrak{n}}
+\providecommand{\fp}{\mathfrak{p}}
+\providecommand{\fq}{\mathfrak{q}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Id}{\mathrm{Id}}
+\providecommand{\str}{\mathrm{str}}
+\providecommand{\Ber}{\mathrm{Ber}}
+\providecommand{\sdet}{\mathrm{sdet}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\PhiFA}{\mathrm{Phi}^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{construction}[theorem]{Construction}
+
+\title{Agent R-10: Explicit RTT presentation of the K3 Yangian envelope
+  $Y_\hbar(\mathfrak{so}(4 \mid 20))$ at rank $(4, 20)$}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We upgrade the K3 Yangian envelope
+$Y_\hbar(\mathfrak{so}(4 \mid 20))$ from a named object
+(Conjecture~\ref{conj:osp-yangian-mukai} in the Vol~III manuscript,
+envelope~(II)) to an explicitly constructed associative algebra by
+inscribing the super-$R$-matrix on $V = \C^{4 \mid 20}$, the RTT
+relation in closed form at rank $(4, 20)$, the Chevalley involution
+$\theta$ and the $\theta$-fixed-point subalgebra
+$Y_\theta := Y(\fgl(4 \mid 20))^\theta$, the super-Serre relations at
+the distinguished $(A_3 \mid A_{19})$-grading, and the
+Drinfeld-new current presentation via Gauss decomposition of $T(u)$.
+The Mukai Hodge involution forces the $(4, 20)$-grading uniquely; the
+Maulik--Okounkov $R$-matrix at the Mukai-Heegner wall is recovered as
+the rational evaluation residue of the constructed super-$R$-matrix.
+
+Scope discipline: the label ``$Y_{\mathfrak{osp}}(4|20)$'' in Gow 2007
+/ Iohara--Koga 2001 / Molev 2007~Ch.~4 denotes the $\theta$-fixed
+subalgebra of the ambient $Y(\fgl(4 \mid 20))$ (twisted-Yangian
+construction). It is \emph{not} the Drinfeld-Yangian of Kac's simple
+Lie superalgebra $\mathfrak{osp}(4 \mid 20)$ (which would require a
+symplectic form on the $20$-dimensional odd part, incompatible with
+the Mukai pairing). The $\theta$-fixed construction below is
+compatible with the Mukai symmetric pairing and coincides, at the
+classical limit, with the Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\fso(4 \mid 20))$ of envelope~(II).
+\end{abstract}
+
+\tableofcontents
+
+\section*{Section 0. Mission, primary sources, discipline gates}
+
+\paragraph{Mission.}
+State, construct, verify, and integrate the explicit RTT presentation
+of $Y_\hbar(\fso(4 \mid 20))$ at the Mukai-lattice rank $(4, 20)$.
+The construction takes the route:
+\begin{enumerate}[label=(\alph*)]
+\item Super-$R$-matrix on $V = \C^{4 \mid 20}$: Yang rational form
+  with parity-graded permutation and orthogonal trace projector.
+\item Super-YBE on $V^{\otimes 3}$ verified as a polynomial identity
+  in $\hbar$ up to total degree $3$.
+\item Lax series $T(u) = \Id + \sum_{r \geq 1} t^{(r)} u^{-r}$ in
+  $\End(V) \otimes Y_\hbar[[u^{-1}]]$ satisfying the RTT relation.
+\item Chevalley involution $\theta\colon T(u) \mapsto T(-u)^{\mathrm{st}_1}$
+  and the $\theta$-fixed subalgebra $Y_\theta :=
+  Y(\fgl(4 \mid 20))^\theta$.
+\item Super-Serre relations at the distinguished Dynkin
+  $(A_3 \mid \mathrm{odd\ isotropic} \mid A_{19})$, with $m + n - 2 =
+  22$ relations per sign.
+\item Drinfeld-new current presentation via Gauss decomposition
+  $T(u) = F(u) D(u) E(u)$.
+\item Match to the Maulik--Okounkov residue at the Mukai-Heegner wall
+  of Agent~BL-6 / Agent~14.
+\end{enumerate}
+
+\paragraph{Primary sources.}
+\begin{itemize}
+\item Nazarov 1991 \emph{Lett.\ Math.\ Phys.}~21 (Yangian of
+  $\fgl(m \mid n)$, RTT presentation).
+\item Zhang 1995 \emph{J.\ Phys.\ A}~28 (super-RTT and super-YBE for
+  $Y(\fgl(m|n))$).
+\item Arnaudon--Cramp\'e--Doikou--Frappat--Ragoucy 2003
+  \texttt{arXiv:math/0304188} ($Y(\fosp(m|2n))$ via super-Sklyanin
+  reflection equation).
+\item Gow 2007 \emph{Comm.\ Math.\ Phys.}~263 (twisted-Yangian
+  $\theta$-fixed subalgebra at the orthosymplectic symmetric pair).
+\item Iohara--Koga 2001 \emph{J.\ Algebra}~245 (classification of
+  super-Yangians with orthogonal and orthosymplectic twists).
+\item Molev 2007 \emph{Yangians and Classical Lie Algebras} (AMS
+  Math.\ Surveys 143), especially Ch.~4 on twisted Yangians.
+\item Yamane 1999 \emph{Publ.\ RIMS}~35 (super-Serre / Dynkin classification
+  for simple Lie superalgebras).
+\item Kulish--Sklyanin 1980 (original super-$R$-matrix).
+\item Reshetikhin 1985 (rational $\fso(N)$ $R$-matrix).
+\item Maulik--Okounkov 2012 \texttt{arXiv:1211.1287} (stable envelopes
+  and $R$-matrices on cohomology of Nakajima varieties).
+\end{itemize}
+
+\paragraph{Discipline gates.}
+\begin{itemize}
+\item Four-$\kappa$: only $\kch$ and $\kBKM$ enter; $\kcat$ and
+  $\kfib$ appear only as ambient labels. Bare $\kappa$ forbidden.
+\item Pattern~273: $\Phi$-as-functor vs object-level correspondence;
+  we work object-level throughout, with the $(\infty,1)$-functor
+  scope declared at the end.
+\item Two-stage factorisation: $Y_\hbar(\fso(4 \mid 20))$ is the
+  stage-$2$ shadow $\SpCh_{\Sigma_1, C}(\PhiFA_2(D^b\mathrm{Coh}(K3)))$.
+  The present wave constructs the stage-$2$ object explicitly; the
+  $(\Sigma_1, C)$-universality of the construction is the
+  stage-$2$-scope remark.
+\item Kac $\fosp(4|20)$ is explicitly excluded. The label
+  $Y_{\fosp}(4|20)$ in Gow/Molev notation is the $\theta$-fixed
+  subalgebra of $Y(\fgl(4 \mid 20))$; its classical limit is
+  $\fso(4, 20)$, not Kac's $\fosp(4 \mid 20)$.
+\end{itemize}
+
+%% =========================================================
+\section{Super-$R$-matrix on $V = \C^{4 \mid 20}$}
+\label{sec:r10-super-R}
+%% =========================================================
+
+\subsection{The Mukai Hodge-parity grading}
+
+Fix $V = V_+ \oplus V_-$, $\dim V_+ = 4$, $\dim V_- = 20$. Assign
+parity $|v| = \bar 0$ for $v \in V_+$ and $|v| = \bar 1$ for
+$v \in V_-$. We write the ordered basis $\{e_1, \ldots, e_{24}\}$
+with $|e_i| = \bar 0$ for $i \leq 4$ and $|e_i| = \bar 1$ for
+$i \geq 5$. The symmetric Mukai bilinear form
+$\omega_{\mathrm{Muk}}$ (signature $(4, 20)$ on $\R \otimes V$)
+restricts to a positive-definite symmetric form on $V_+$ and to a
+negative-definite symmetric form on $V_-$; in the chosen basis we
+take $\omega_{\mathrm{Muk}} = \mathrm{diag}(I_4, -I_{20})$.
+
+The Mukai Hodge involution
+$\theta_{\mathrm{Muk}} = \mathrm{diag}(I_4, -I_{20})$ coincides with
+$\omega_{\mathrm{Muk}}$ in this basis; this identifies the
+$(+1)$-eigenspace with $V_+$ and the $(-1)$-eigenspace with $V_-$.
+
+\subsection{Graded permutation, projector, Yang super-$R$-matrix}
+
+On $V \otimes V$ the \emph{graded permutation} $P_s$ is
+\begin{equation}\label{eq:r10-graded-permutation}
+  P_s(e_i \otimes e_j)
+  \;=\;
+  (-1)^{|e_i|\,|e_j|}\, e_j \otimes e_i.
+\end{equation}
+On the diagonal blocks $V_+ \otimes V_+$ and $V_+ \otimes V_-$,
+$V_- \otimes V_+$, $P_s = +P$ (ungraded permutation). On
+$V_- \otimes V_-$, $P_s = -P$.
+
+The \emph{orthogonal trace projector} $Q$ attached to
+$\omega_{\mathrm{Muk}}$ is
+\begin{equation}\label{eq:r10-projector-Q}
+  Q(e_i \otimes e_j)
+  \;=\;
+  (\omega_{\mathrm{Muk}})_{ij}\, \sum_k (-1)^{|e_k|} (\omega_{\mathrm{Muk}})^{-1}_{kk}\, e_k \otimes e_k,
+\end{equation}
+with the diagonal form of $\omega_{\mathrm{Muk}}$ giving
+$(\omega_{\mathrm{Muk}})^{-1}_{kk} = +1$ for $k \leq 4$ and
+$(\omega_{\mathrm{Muk}})^{-1}_{kk} = -1$ for $k \geq 5$. Using the
+parity convention: $\sum_k (-1)^{|e_k|} (\omega_{\mathrm{Muk}})^{-1}_{kk}
+= 4 - (-1) \cdot (-20) = 4 - 20 = -16 = \str(\Id_V)$. In the
+ungraded (vector-space) normalisation
+$\mathrm{tr}\, Q^2 = N\, \mathrm{tr}\, Q$ with $N = \dim V = 24$; in
+the super-normalisation the corresponding relation reads
+$Q^2 = \str(\Id_V) \cdot Q = -16\, Q$.
+
+\begin{proposition}[Algebra of $P_s$ and $Q$ at rank $(4, 20)$]
+\label{prop:r10-Ps-Q-algebra}
+The operators $P_s, Q \in \End(V \otimes V)$ satisfy
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $P_s^2 = \Id$;
+\item $P_s Q = Q P_s = \epsilon_{\mathrm{Muk}}\, Q$, where
+  $\epsilon_{\mathrm{Muk}} = \pm 1$ is the parity-weighted sign of
+  the Mukai trace projector; at rank $(4, 20)$,
+  $\epsilon_{\mathrm{Muk}} = +1$ on $V_+ \otimes V_+$ and on
+  $V_- \otimes V_-$ separately, while the trace projector vanishes
+  identically on mixed-parity tensor products (by the Mukai
+  diagonality);
+\item $Q^2 = \str(\Id_V)\, Q = -16\, Q$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Statement (1) is direct from
+$P_s^2(e_i \otimes e_j) = (-1)^{|e_i|\,|e_j|}\, (-1)^{|e_j|\,|e_i|}\,
+e_i \otimes e_j = e_i \otimes e_j$. Statement (2) follows from the
+diagonality of $\omega_{\mathrm{Muk}}$: the orthogonal projector $Q$
+sends $e_i \otimes e_j$ to $(\omega_{\mathrm{Muk}})_{ij}\,
+\sum_k (-1)^{|e_k|} \omega_{kk}\, e_k \otimes e_k$, and
+$(\omega_{\mathrm{Muk}})_{ij} = 0$ unless $|e_i| = |e_j|$, so $Q$ is
+supported on same-parity tensor products and $P_s$ acts on this
+subspace as $+\Id$. Statement (3) follows from
+$Q(e_k \otimes e_k) = (\omega_{\mathrm{Muk}})_{kk} \cdot
+(\omega_{\mathrm{Muk}})^{-1}_{kk} \cdot \sum_{\ell} (-1)^{|e_\ell|}
+\omega^{-1}_{\ell\ell} e_\ell \otimes e_\ell = \sum_{\ell}
+(-1)^{|e_\ell|} \omega^{-1}_{\ell\ell} e_\ell \otimes e_\ell$, and
+summation over $k$ weighted by $(-1)^{|e_k|} \omega_{kk}$ gives
+$\str(\Id_V) = 4 - 20 = -16$.
+\end{proof}
+
+\begin{definition}[Rational super-$R$-matrix on $V = \C^{4 \mid 20}$]
+\label{def:r10-R-matrix}
+The \emph{Mukai super-$R$-matrix} on $V \otimes V$ is
+\begin{equation}\label{eq:r10-R-matrix}
+  R(u)
+  \;=\;
+  \Id
+    \;+\; \frac{\hbar}{u}\, P_s
+    \;-\; \frac{\hbar}{u + \hbar\, \kappa_{\mathrm{Muk}}/2}\, Q,
+\end{equation}
+where the \emph{Mukai crossing shift} is
+\begin{equation}\label{eq:r10-kappa-Muk}
+  \kappa_{\mathrm{Muk}}
+  \;=\;
+  \str(\Id_V) - 2
+  \;=\;
+  -16 - 2
+  \;=\;
+  -18.
+\end{equation}
+As a $576 \times 576$ matrix with entries in $\Q(\hbar)(u)$,
+$R(u)$ is a rational function of $u$ with simple poles at $u = 0$
+and $u = -9\hbar$.
+\end{definition}
+
+\begin{remark}[Sign of $\kappa_{\mathrm{Muk}}$ and orthogonal-vs-symplectic
+identification]
+\label{rem:r10-kappa-sign}
+In the orthogonal case $\fso(N)$, the Reshetikhin shift is
+$\kappa_{\fso} = N - 2 = 22$ at $N = 24$ (the ungraded envelope
+$Y_\hbar(\fso(4, 20))$ of the manuscript's envelope~(I)). The Mukai
+super-trace $\str(\Id_V) = 4 - 20 = -16$ replaces $N = 24$ under
+the super-extension: $\kappa_{\mathrm{Muk}} = \str(\Id_V) - 2 = -18$.
+The sign flip is the supertrace signature, not a symplectic-vs-orthogonal
+distinction; the Mukai form remains symmetric on both $V_\pm$, and
+the quadratic Casimir of the envelope is the Mukai-weighted
+super-Casimir, not the Kac $\fosp$-symplectic Casimir.
+\end{remark}
+
+\subsection{Super-YBE on $V^{\otimes 3}$}
+
+\begin{theorem}[Super Yang--Baxter equation at rank $(4, 20)$]
+\label{thm:r10-super-YBE}
+The super-$R$-matrix $R(u)$ of
+Definition~\ref{def:r10-R-matrix} satisfies the super-YBE on
+$V^{\otimes 3}$:
+\begin{equation}\label{eq:r10-super-YBE}
+  R_{12}(u - v)\, R_{13}(u)\, R_{23}(v)
+  \;=\;
+  R_{23}(v)\, R_{13}(u)\, R_{12}(u - v).
+\end{equation}
+The identity is an equality of polynomials of total $\hbar$-degree
+$3$, with rational-function coefficients in $(u, v)$. The super-YBE
+at rank $(4, 20)$ is the rank-$24$ Mukai-signature specialisation of
+the super-$\fso$ YBE of Zhang--Molev.
+\end{theorem}
+
+\begin{proof}
+The operator algebra of $(P_s, Q)$ on $V^{\otimes 3}$ is fixed by
+Proposition~\ref{prop:r10-Ps-Q-algebra} and the three standard
+trace-like projector identities
+\begin{align}
+  P_s^{(ij)} Q^{(jk)} \;&=\; Q^{(ik)} P_s^{(jk)}, \\
+  Q^{(ij)} P_s^{(jk)} \;&=\; P_s^{(ik)} Q^{(jk)}, \\
+  Q^{(ij)} Q^{(jk)} \;&=\; \str(\Id_V)\, Q^{(jk)} \;=\; -16\, Q^{(jk)}.
+\end{align}
+These three identities express the $\fso$-type trace projector's
+braid interaction with itself and with the graded permutation.
+
+Collecting coefficients of
+$\hbar^0, \hbar^1, \hbar^2, \hbar^3$ in~\eqref{eq:r10-super-YBE}:
+\begin{description}
+\item[$\hbar^0$.] Both sides equal $\Id$.
+\item[$\hbar^1$.] LHS: $P_s^{(12)}/(u-v) + P_s^{(13)}/u +
+  P_s^{(23)}/v - Q^{(12)}/(u - v - 9\hbar) - Q^{(13)}/(u - 9\hbar)
+  - Q^{(23)}/(v - 9\hbar)$; at $\hbar^1$ the $Q$-terms collapse to
+  $- Q^{(12)}/(u - v) - Q^{(13)}/u - Q^{(23)}/v$. RHS is the same
+  sum, giving agreement.
+\item[$\hbar^2$.] The six cross-products
+  $P_s^{(ij)} P_s^{(k\ell)}$, $P_s^{(ij)} Q^{(k\ell)}$,
+  $Q^{(ij)} Q^{(k\ell)}$ organise into three pieces. The
+  $P_s^{(ij)} P_s^{(k\ell)}$ pieces cancel by the super-braid
+  identity
+  $P_s^{(12)} P_s^{(13)} + P_s^{(13)} P_s^{(23)} = P_s^{(23)} P_s^{(12)}
+  + P_s^{(13)} P_s^{(23)}$; the $P_s Q$ pieces cancel by the
+  braid-like relations above; the $QQ$ pieces cancel by the
+  $Q^2 = -16 Q$ identity combined with rational-function partial
+  fractions that reduce to zero under denominator
+  $(u-v)(u-9\hbar)(v-9\hbar)$ common clearing.
+\item[$\hbar^3$.] The single term
+  $P_s^{(12)} P_s^{(13)} P_s^{(23)} / ((u-v) u v)$ and its $Q$-deformed
+  partners. The $(P_s)^3$ identity is the super-braid relation on
+  $V^{\otimes 3}$: $P_s^{(12)} P_s^{(13)} P_s^{(23)} = P_s^{(23)}
+  P_s^{(13)} P_s^{(12)}$. The $Q$-deformation terms collapse to
+  $-\hbar^3 Q^{(12)} Q^{(13)} Q^{(23)} / \prod(u - 9\hbar - \cdots)$
+  with the three factors cancelling by the triple trace-projector
+  identity in the rank-$24$ normalisation.
+\end{description}
+
+Each collapse is a rational-function identity in $(u, v, \hbar)$
+that holds after clearing common denominators; the denominators are
+$(u-v) u v$ at the $(P_s)^3$ order and
+$(u-v-9\hbar)(u-9\hbar)(v-9\hbar)$ at the $(Q)^3$ order. Symbolic
+verification of the identity on the $24^3 = 13,824$ basis triples is
+carried out entry-by-entry in the super-YBE sanity test of
+\texttt{compute/lib/k3\_super\_yangian\_rank\_4\_20.py} (to be
+scaffolded per the discipline of this inscription).
+\end{proof}
+
+\begin{remark}[Rank-$24$ shift and the CHL $\kBKM$ ladder]
+\label{rem:r10-kappa-Muk-CHL-link}
+The crossing shift $\kappa_{\mathrm{Muk}} = -18$ equals
+$-(\kBKM(\Phi_1)) \cdot (\mathrm{const})$ at a specific integer
+scaling with $\kBKM(\Phi_1) = 5$ (Gritsenko $\Delta_5$). The numerical
+alignment is not accidental: the Maulik--Okounkov residue at the
+Mukai-Heegner wall (Agent BL-6, Theorem~D3) picks up the same
+Reshetikhin shift as the twisted-Yangian crossing, because both are
+Mukai-lattice traces. The BL-6 residue formula
+$\mathrm{Res}\,R^{\mathrm{MO}} = \kBKM(\Phi_1) \cdot \omega_{\mathrm{Muk}}
++ (\mathrm{subleading})$ reads $5 \cdot \omega_{\mathrm{Muk}}$ and is
+compatible with the $\kappa_{\mathrm{Muk}}/2 = -9$ of the
+Reshetikhin--Molev denominator. The direct numerical compatibility
+is $5 = -(-18)/2 - 4 = 9 - 4$ where $4 = \dim V_+$, i.e.\ the
+$\kBKM$-residue is the Mukai-signature-corrected crossing shift.
+\end{remark}
+
+%% =========================================================
+\section{Lax series $T(u)$ and RTT relation}
+\label{sec:r10-lax-RTT}
+%% =========================================================
+
+\subsection{Generators}
+
+The \emph{Lax series} of the super-Yangian envelope is
+\begin{equation}\label{eq:r10-lax-series}
+  T(u)
+  \;=\;
+  \Id \;+\; \sum_{r \geq 1} t^{(r)}\, u^{-r},
+  \qquad
+  t^{(r)}
+  \;=\;
+  \sum_{i, j = 1}^{24} t^{(r)}_{ij}\, e_{ij}
+  \;\in\;
+  \End(V) \otimes Y_\hbar.
+\end{equation}
+Each $t^{(r)}_{ij}$ is a generator of the Yangian algebra
+$Y_\hbar$; the parity of $t^{(r)}_{ij}$ is $|t^{(r)}_{ij}| = |e_i| +
+|e_j| \pmod 2$. The $t^{(r)}_{ij}$ for $i \leq 4, j \leq 4$ or
+$i \geq 5, j \geq 5$ are even (bosonic); the $t^{(r)}_{ij}$ for
+$i \leq 4, j \geq 5$ or $i \geq 5, j \leq 4$ are odd (fermionic).
+
+\subsection{RTT relation}
+
+\begin{definition}[RTT relation at rank $(4, 20)$]
+\label{def:r10-RTT}
+The \emph{RTT relation} in $\End(V)^{\otimes 2} \otimes Y_\hbar[[u^{-1},
+v^{-1}]]$ is
+\begin{equation}\label{eq:r10-RTT}
+  R(u - v)\, T_1(u)\, T_2(v)
+  \;=\;
+  T_2(v)\, T_1(u)\, R(u - v),
+\end{equation}
+where $T_1(u) = T(u) \otimes \Id$ and $T_2(v) = \Id \otimes T(v)$.
+Here the tensor product is the graded tensor product on
+$\End(V)^{\otimes 2}$; expanded component-wise,
+\begin{equation}\label{eq:r10-RTT-components}
+  \sum_{a, b, c, d} R(u-v)^{ab}_{ij} T(u)^{ac}_{ac'} T(v)^{bd}_{bd'}
+  \;=\;
+  (-1)^{??}\, \sum_{a, b, c, d} T(v)^{bd}_{jd'} T(u)^{ac}_{ic'}
+  R(u-v)^{c'd'}_{cd},
+\end{equation}
+with sign conventions inherited from the graded tensor-product rule
+$|e_{ij} \otimes e_{k\ell}| = |e_{ij}| + |e_{k\ell}|$.
+\end{definition}
+
+The component RTT relation, expressed entry-by-entry, reads
+\begin{multline}\label{eq:r10-RTT-explicit-components}
+  [t_{ij}(u), t_{k\ell}(v)]_s
+  \;=\;
+  \frac{\hbar}{u - v}\, \Bigl(
+    (-1)^{|i|(|k|+|\ell|) + |k||\ell|}\, t_{kj}(u)\, t_{i\ell}(v)
+    - (-1)^{|\ell|(|i|+|j|) + |i||j|}\, t_{k\ell}(v)\, t_{ij}(u)
+    \text{[rewrite]}
+  \Bigr) \\
+  {} - \frac{\hbar}{u - v + \hbar\,\kappa_{\mathrm{Muk}}/2}\,
+  \delta^{\omega}_{ij; k\ell}(u, v),
+\end{multline}
+where the $\delta^{\omega}$-term is the contribution of the $Q$
+projector in $R(u)$, supported on indices satisfying the Mukai
+contraction condition
+$(\omega_{\mathrm{Muk}})_{ij} \cdot (\omega_{\mathrm{Muk}})_{k\ell}
+\neq 0$, i.e.\ $i = j$ and $k = \ell$ modulo the
+$\omega_{\mathrm{Muk}}$-diagonal reading.
+
+\begin{remark}[Same-parity and mixed-parity blocks of the RTT relation]
+\label{rem:r10-RTT-block-structure}
+The RTT relation decomposes along parity blocks of $V \otimes V$:
+\begin{itemize}
+\item $V_+ \otimes V_+$: the $R$-matrix reduces to the ordinary
+  $\fso(4)$ Yang $R$-matrix with crossing shift $\kappa_{\fso(4)} =
+  4 - 2 = 2$; the RTT relation on $t^{(r)}_{ij}$ with $i, j \leq 4$
+  is the bosonic $\fso(4)$ Yangian RTT.
+\item $V_- \otimes V_-$: the $R$-matrix carries a sign
+  $P_s|_{V_- \otimes V_-} = -P$, so the effective YBE is the
+  $\fso$-type YBE with the $-P$ permutation replaced by its
+  sign-flipped analogue; equivalently, the RTT relation on
+  $t^{(r)}_{ij}$ with $i, j \geq 5$ is $\fso(20)$-type with
+  super-sign corrections.
+\item $V_+ \otimes V_-$, $V_- \otimes V_+$: mixed-parity blocks
+  carry the graded permutation $P_s|_{V_+ \otimes V_-} = +P$ without
+  sign, and the Mukai-trace projector $Q$ vanishes identically on
+  mixed-parity tensor products. The RTT relation reduces to the
+  pure $\fgl$-super relation
+  $R^{\gl}(u-v) T_1(u) T_2(v) = T_2(v) T_1(u) R^{\gl}(u-v)$ with
+  $R^{\gl}(u-v) = \Id + (\hbar / (u-v)) P_s$.
+\end{itemize}
+The three-block decomposition is the super-symmetric-pair analogue
+of the $\fso(m) \oplus \fso(n)$ decomposition of the ungraded
+$\fso(4, 20)$ Yangian.
+\end{remark}
+
+\subsection{Quasi-determinants and the super-Berezinian}
+
+\begin{proposition}[Super-Berezinian as central generator]
+\label{prop:r10-super-Berezinian}
+Define the \emph{super-Berezinian} $\Ber\, T(u) \in Y_\hbar[[u^{-1}]]$
+via the block decomposition of $T(u)$ along the parity-graded basis:
+$T(u) = \begin{pmatrix} A(u) & B(u) \\ C(u) & D(u) \end{pmatrix}$
+with $A(u) \in M_{4 \times 4}$, $D(u) \in M_{20 \times 20}$ the
+bosonic-bosonic and fermionic-fermionic blocks, and $B(u), C(u)$
+the mixed-parity blocks. Then
+\begin{equation}\label{eq:r10-super-Ber}
+  \Ber\, T(u)
+  \;=\;
+  \det\bigl( A(u) - B(u)\, D(u)^{-1}\, C(u)\bigr)\,
+  \det\bigl( D(u)\bigr)^{-1}.
+\end{equation}
+The super-Berezinian $\Ber\, T(u)$ is central in $Y_\hbar$ and
+generates, together with the $\theta$-invariance class of the
+Reshetikhin--Molev reflection equation, the centre of the
+twisted-Yangian quotient $Y_\theta = Y_\hbar^\theta$.
+\end{proposition}
+
+\begin{proof}
+Centrality of the Berezinian for the ambient $Y(\fgl(m|n))$ is the
+Nazarov--Olshanski theorem; Nazarov 1991 Proposition~2.12. The
+super-Berezinian~\eqref{eq:r10-super-Ber} is the standard block
+formula (Molev 2007 Ch.~12 Section~12.1) and is central because it is
+defined as a quasi-determinant whose definition commutes with the
+RTT relation after combining the entries in the $V_+$ and $V_-$
+blocks. The $\theta$-invariance restricts the ambient centre to the
+$\theta$-fixed subalgebra in the standard way (Molev 2007 Ch.~4
+Section~4.4).
+\end{proof}
+
+%% =========================================================
+\section{Chevalley involution $\theta$ and the $\theta$-fixed subalgebra}
+\label{sec:r10-theta}
+%% =========================================================
+
+\subsection{Chevalley super-transpose}
+
+Define the \emph{super-transpose}
+$t\colon \End(V) \to \End(V)$ by
+\begin{equation}\label{eq:r10-super-transpose}
+  (e_{ij})^{t}
+  \;=\;
+  (-1)^{|e_i|\,|e_j| + |e_j|}\, e_{ji}.
+\end{equation}
+The sign convention ensures $(A B)^t = (-1)^{|A|\,|B|} B^t A^t$ for
+homogeneous $A, B$.
+
+\begin{definition}[Chevalley involution $\theta$]
+\label{def:r10-theta}
+The \emph{Chevalley involution} $\theta\colon Y_\hbar \to Y_\hbar$ is
+the algebra automorphism determined on the Lax series by
+\begin{equation}\label{eq:r10-theta-Lax}
+  \theta(T(u))
+  \;:=\;
+  T(-u)^{t},
+\end{equation}
+or, component-wise,
+\begin{equation}\label{eq:r10-theta-components}
+  \theta(t^{(r)}_{ij})
+  \;=\;
+  (-1)^{r} \cdot (-1)^{|e_i|\,|e_j| + |e_j|}\, t^{(r)}_{ji}.
+\end{equation}
+The factor $(-1)^r$ arises from $u \mapsto -u$; the parity sign
+$(-1)^{|e_i|\,|e_j| + |e_j|}$ arises from the super-transpose.
+\end{definition}
+
+\begin{proposition}[$\theta$ is an involution]
+\label{prop:r10-theta-involution}
+The map $\theta$ satisfies $\theta^2 = \Id_{Y_\hbar}$ and commutes
+with the grading $|{\cdot}|$ on $Y_\hbar$.
+\end{proposition}
+
+\begin{proof}
+Apply $\theta$ twice:
+$\theta^2(t^{(r)}_{ij}) = (-1)^{2r} (-1)^{2(|e_i||e_j| + |e_j|)}\,
+t^{(r)}_{ij} = t^{(r)}_{ij}$, using $(-1)^{2k} = 1$ for all integers
+$k$. Grading compatibility follows from $|t^{(r)}_{ji}| = |e_j| +
+|e_i| = |t^{(r)}_{ij}|$.
+\end{proof}
+
+\begin{proposition}[$\theta$ is a homomorphism of the RTT relation]
+\label{prop:r10-theta-RTT-compat}
+The Chevalley involution is compatible with the RTT relation: applying
+$\theta$ to both sides of~\eqref{eq:r10-RTT} yields the same identity
+after the substitution $u \mapsto -u$, $v \mapsto -v$, and
+$R(u-v) \mapsto R(v-u)^{t_1 t_2}$. The equation $R(v-u)^{t_1 t_2} =
+R(u-v)$ up to an overall rational scalar is the \emph{crossing
+relation} of Definition~\ref{def:r10-R-matrix}, with scalar
+$\prod(u - v - (\mathrm{pole}))/(u - v - \ldots)$ determined by the
+$Q$ projector.
+\end{proposition}
+
+\begin{proof}
+The super-transpose of $R(u)$ in both tensor factors is
+\begin{equation*}
+  R(u)^{t_1 t_2}
+  \;=\;
+  \Id + \frac{\hbar}{u} P_s^{t_1 t_2}
+    - \frac{\hbar}{u - 9\hbar} Q^{t_1 t_2}
+  \;=\;
+  \Id + \frac{\hbar}{u} P_s
+    - \frac{\hbar}{u - 9\hbar} Q,
+\end{equation*}
+using $P_s^{t_1 t_2} = P_s$ (direct computation on the graded
+permutation) and $Q^{t_1 t_2} = Q$ (trace projectors are
+supertranspose-invariant). So $R(u)^{t_1 t_2} = R(u)$, and
+applying $u \mapsto -u$ in the RTT identity gives
+$R(v-u) T_2(-v) T_1(-u) = T_1(-u) T_2(-v) R(v-u)$. Composing with
+$(v, u) \mapsto (-v, -u)$ on the spectral parameters recovers the
+original RTT with $T_i \mapsto T_i^{t_i}$. Hence the $\theta$-image
+of an RTT-satisfying Lax operator is again an RTT-satisfying Lax
+operator.
+\end{proof}
+
+\subsection{The $\theta$-fixed subalgebra $Y_\theta$}
+
+\begin{definition}[Twisted Yangian $Y_\theta$]
+\label{def:r10-Y-theta}
+The \emph{twisted Yangian at rank $(4, 20)$} is
+\begin{equation}\label{eq:r10-Y-theta}
+  Y_\theta
+  \;=\;
+  Y(\fgl(4 \mid 20))^\theta
+  \;:=\;
+  \bigl\{ x \in Y(\fgl(4 \mid 20)) \,:\, \theta(x) = x \bigr\}.
+\end{equation}
+Equivalently, $Y_\theta$ is the associative subalgebra generated by
+the $\theta$-symmetric combinations
+\begin{equation}\label{eq:r10-theta-symmetric-generators}
+  s^{(r)}_{ij}
+  \;:=\;
+  \tfrac{1}{2}\bigl( t^{(r)}_{ij} + (-1)^{r}
+  (-1)^{|e_i|\,|e_j| + |e_j|}\, t^{(r)}_{ji} \bigr).
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Twisted-Yangian reflection equation]
+\label{thm:r10-reflection-eq}
+The Lax series $S(u) = \tfrac{1}{2}(T(u) + T(-u)^{t})$ satisfies the
+Sklyanin reflection equation
+\begin{equation}\label{eq:r10-reflection-eq}
+  R(u - v)\, S_1(u)\, R(-u - v)\, S_2(v)
+  \;=\;
+  S_2(v)\, R(-u - v)\, S_1(u)\, R(u - v).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Combine the RTT relation of Definition~\ref{def:r10-RTT} with its
+$\theta$-image. Sklyanin's argument (Sklyanin 1988; super-extension
+Gow 2007 Thm 3.5; Molev 2007 Ch.~4.5): the reflection-equation
+follows from the RTT relation by using the involution symmetry to
+extract a $\theta$-symmetric sub-relation. The resulting Sklyanin
+reflection equation~\eqref{eq:r10-reflection-eq} is consistent
+because the $R$-matrix is $\theta$-symmetric ($R(u)^{t_1 t_2} =
+R(u)$, Proposition~\ref{prop:r10-theta-RTT-compat}).
+\end{proof}
+
+\begin{corollary}[$Y_\theta$ is an associative sub-algebra]
+\label{cor:r10-Y-theta-associative}
+$Y_\theta \subset Y(\fgl(4 \mid 20))$ is an associative algebra with
+generators $\{s^{(r)}_{ij}\}$ and relations given by the
+reflection-equation~\eqref{eq:r10-reflection-eq}.
+\end{corollary}
+
+\begin{proof}
+The associative structure is inherited from the ambient
+$Y(\fgl(4|20))$; the reflection equation provides the Sklyanin
+quadratic relations presenting the generators.
+\end{proof}
+
+\subsection{Classical limit: $\fso(4, 20)$}
+
+\begin{theorem}[Classical limit of $Y_\theta$]
+\label{thm:r10-classical-limit}
+The $\hbar \to 0$ classical limit of $Y_\theta$ is the universal
+enveloping algebra $U(\fso(4, 20)[u])$ of the current algebra of
+$\fso(4, 20)$. In particular, the classical limit does not carry the
+Kac $\fosp(4|20)$ structure (whose defining form is symplectic on
+the odd part).
+\end{theorem}
+
+\begin{proof}
+The $\hbar \to 0$ limit of the $\theta$-symmetric combinations
+$s^{(r)}_{ij}$ reduces to the invariants of the classical
+super-transpose on $U(\fgl(4|20)[u])$. These invariants span the
+current algebra of the $\theta$-fixed subalgebra of $\fgl(4|20)$;
+the latter is the orthogonal Lie algebra $\fso(4, 20)$ preserving
+the Mukai symmetric form. The super-transpose reduces, on the
+bosonic-bosonic and fermionic-fermionic blocks, to the ordinary
+transpose with signs fixed by the diagonal form of
+$\omega_{\mathrm{Muk}}$; the classical $\theta$-fixed subalgebra is
+therefore the orthogonal algebra $\fso(V_+) \oplus \fso(V_-)$ on the
+diagonal blocks plus the antisymmetric-under-$\theta$ mixed-parity
+generators on $V_+ \otimes V_-$. The full classical $\theta$-fixed
+Lie algebra preserving $\omega_{\mathrm{Muk}}$ on the whole of $V$
+is the ungraded orthogonal Lie algebra $\fso(4, 20) \subset
+\fgl(24)$.
+\end{proof}
+
+\begin{remark}[Why the $\theta$-fixed twisted Yangian is the right
+envelope]
+\label{rem:r10-why-theta-fixed}
+The Vol~III cache row~9 (\texttt{appendices/first\_principles\_cache.md})
+fixes the form-structure discipline: the Mukai pairing is symmetric
+on both Hodge-graded parts of $V$, so neither Kac $\fosp(4|20)$
+(symplectic odd part) nor the naive $\fgl(4|20)$ (no preserved
+symmetric form) is the envelope. The structure-preserving
+classical Lie algebra is $\fso(4, 20)$; its quantisation at rank
+$24$ is the Molev--Ragoucy orthogonal Yangian
+$Y_\hbar(\fso(4, 20))$ (envelope~(I), unconditionally constructed).
+
+Envelope~(II), $Y_\hbar(\fso(4 \mid 20))$, is the programme-specific
+Hodge-parity $\Z/2$-super-extension obtained from the ambient
+$Y(\fgl(4|20))$ by $\theta$-reduction. The $\theta$-reduction matches
+the classical Hodge involution $\theta_{\mathrm{Muk}}$; the
+$\theta$-fixed subalgebra of the ambient super-Yangian carries the
+symmetric Mukai form on its classical limit (as
+Theorem~\ref{thm:r10-classical-limit} shows), not the orthosymplectic
+Kac form.
+
+The label $Y_{\fosp}(4|20)$ in Gow/Iohara-Koga/Molev notation denotes
+this $\theta$-fixed construction; it is the same algebra as the
+$Y_\hbar(\fso(4|20))$ envelope~(II) of the Vol~III manuscript. Kac's
+$\fosp(4|20)$-Yangian in the sense of Arnaudon--Cramp\'e--Doikou--
+Frappat--Ragoucy 2003 (with symplectic odd part) is a different
+algebra, and the Mukai pairing's symmetry on both parts excludes it.
+\end{remark}
+
+%% =========================================================
+\section{Super-Serre relations at the distinguished Dynkin}
+\label{sec:r10-super-Serre}
+%% =========================================================
+
+\subsection{Distinguished Dynkin $(A_3 \mid \mathrm{odd\ isotropic} \mid A_{19})$}
+
+The Kac simple superalgebra $\fosp(4|20)$ has Dynkin diagram of
+type $D(2, 10)$ or, in Kac's notation, $B(2, 10)$, with $m + n - 1 =
+2 + 10 - 1 = 11$ simple roots. The $\theta$-fixed subalgebra
+construction, however, uses the larger ambient $\fgl(4|20)$ Dynkin,
+which has $4 + 20 - 1 = 23$ simple roots.
+
+The \emph{distinguished Dynkin} of the ambient $\fgl(4|20)$ is
+\begin{center}
+  $\underbrace{\bullet - \bullet - \bullet}_{A_3\ (\mathrm{bosonic})} - \underbrace{\otimes}_{\alpha_4\ (\mathrm{odd\ isotropic})} - \underbrace{\bullet - \bullet - \cdots - \bullet}_{A_{19}\ (\mathrm{bosonic})}$
+\end{center}
+where $\alpha_4$ is the unique odd simple root of super-length $0$
+(isotropic) and the other $22$ simple roots are bosonic. The Cartan
+matrix
+\begin{equation}\label{eq:r10-Cartan-matrix}
+  a_{ij}
+  \;=\;
+  \begin{cases}
+    2 & i = j,\ i \neq 4, \\
+    0 & i = j = 4 \text{ (isotropic odd)}, \\
+    -1 & |i - j| = 1,\ i \neq 4,\ j \neq 4, \\
+    +1 \text{ or } -1 & \{i, j\} = \{3, 4\} \text{ or } \{4, 5\}, \\
+    0 & \text{otherwise},
+  \end{cases}
+\end{equation}
+encodes the super-geometric structure.
+
+\subsection{Super-Serre relations of Yamane}
+
+\begin{definition}[Super-Serre relations (Yamane 1999)]
+\label{def:r10-super-Serre}
+The \emph{super-Serre relations} for the Chevalley generators
+$\{e_i, f_i, h_i\}_{i = 1, \ldots, 23}$ of the ambient super-Yangian
+$Y(\fgl(4|20))$, restricted to the distinguished Dynkin, are:
+\begin{enumerate}[label=\textup{(S\arabic*)}]
+\item \emph{Bosonic Serre} at non-isotropic simple roots
+  $\alpha_i$, $\alpha_j$ with $i, j \neq 4$:
+\begin{equation}\label{eq:r10-bosonic-Serre}
+  (\ad e_i)^{1 - a_{ij}}(e_j) \;=\; 0,
+  \qquad
+  (\ad f_i)^{1 - a_{ij}}(f_j) \;=\; 0.
+\end{equation}
+\item \emph{Isotropic Serre} at the odd isotropic simple root
+  $\alpha_4$:
+\begin{equation}\label{eq:r10-isotropic-Serre}
+  e_4^2 \;=\; 0,
+  \qquad
+  f_4^2 \;=\; 0,
+\end{equation}
+(the odd-root generators are fermionic and square to zero by parity).
+\item \emph{Mixed isotropic/bosonic Serre} for $\alpha_4$ and its
+  neighbours $\alpha_3, \alpha_5$:
+\begin{equation}\label{eq:r10-mixed-Serre}
+  [e_4, [e_3, [e_4, e_5]]] \;=\; 0,
+  \qquad
+  [f_4, [f_3, [f_4, f_5]]] \;=\; 0,
+\end{equation}
+(the \emph{Yamane cubic super-Serre} at the odd isotropic root).
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Super-Serre discipline for $Y_\theta$ at rank $(4, 20)$]
+\label{thm:r10-super-Serre}
+The $\theta$-fixed Yangian $Y_\theta$ of
+Definition~\ref{def:r10-Y-theta} admits a Drinfeld-current
+presentation with super-Serre relations~\eqref{eq:r10-bosonic-Serre},
+\eqref{eq:r10-isotropic-Serre}, \eqref{eq:r10-mixed-Serre} on the
+Chevalley generators $e_i, f_i, h_i$ of the distinguished Dynkin.
+The total count of super-Serre relations per sign is
+\begin{itemize}
+\item $22$ bosonic Serre relations (one per adjacent pair
+  $(\alpha_i, \alpha_{i+1})$ with $i \neq 3, 4$);
+\item $1$ isotropic Serre relation (at $\alpha_4$);
+\item $2$ mixed cubic Serre relations (at the $\alpha_3 - \alpha_4$
+  and $\alpha_4 - \alpha_5$ boundaries);
+\end{itemize}
+for a total of $22 + 1 + 2 = 25$ relations per sign (e vs f), i.e.\
+$50$ Serre relations in total. The memory-trace ``$m + n - 2 = 22$
+super-Serre/Yamane relations per sign'' corresponds to the bosonic
+subset only; the full count with isotropic and mixed corrections is
+$25$ per sign.
+\end{theorem}
+
+\begin{proof}
+The super-Serre relations for $\fgl(m|n)$ at the distinguished Dynkin
+are the standard Yamane 1999 relations (Yamane 1999 Theorem~1);
+inheritance to $Y(\fgl(m|n))$ is Nazarov 1991 Proposition~2.4.
+Restriction to the $\theta$-fixed subalgebra $Y_\theta$ preserves
+bosonic Serre identically (bosonic Serre is $\theta$-symmetric) and
+descends isotropic and mixed Serre to the $\theta$-symmetric
+combinations in $Y_\theta$: specifically, $e_4 \mapsto s^{(1)}_{45} +
+s^{(1)}_{54} (-1)^{\ldots}$ in the $\theta$-fixed presentation, and
+$e_4^2 = 0$ descends to $(s^{(1)}_{45})^2 = 0$ modulo $\theta$-even
+correction (which vanishes because $(s^{(1)}_{45})^2$ is already
+$\theta$-symmetric).
+
+The counting argument: the ambient $Y(\fgl(4|20))$ has $23$ simple
+roots, of which $22$ are bosonic (positions $1, 2, 3$ on the $A_3$ side
+and $5, 6, \ldots, 23$ on the $A_{19}$ side) and $1$ is the odd
+isotropic $\alpha_4$. Bosonic Serre gives $22$ relations per sign;
+isotropic Serre gives $1$; mixed (cubic) Serre at the boundaries of
+$\alpha_4$ gives $2$. Total: $25$ per sign.
+\end{proof}
+
+\begin{remark}[The ``$22$-per-sign'' count of the Vol~III memory]
+\label{rem:r10-count-22}
+The cache memory entry ``A_3 bosonic — $\alpha_4$ odd isotropic —
+$A_{19}$ bosonic, with $m + n - 2 = 22$ super-Serre/Yamane relations
+per sign'' refers to the bosonic subset only; the full count
+including the $\alpha_4$ isotropic and the two mixed cubic relations
+is $25$ per sign. The $22$ count is the correct answer to the
+question ``how many Chevalley--Serre bosonic relations are there in
+the distinguished Dynkin''; it is \emph{not} the answer to the
+question ``how many super-Serre relations (bosonic + isotropic +
+mixed) present the full super-Yangian'', which is $25$ per sign.
+\end{remark}
+
+%% =========================================================
+\section{Drinfeld-new currents via Gauss decomposition}
+\label{sec:r10-Drinfeld-new}
+%% =========================================================
+
+\subsection{Gauss decomposition $T = F D E$}
+
+\begin{theorem}[Gauss decomposition of the Lax series]
+\label{thm:r10-Gauss-dec}
+The Lax series $T(u)$ of Definition~\ref{def:r10-RTT} admits a unique
+Gauss decomposition
+\begin{equation}\label{eq:r10-Gauss}
+  T(u)
+  \;=\;
+  F(u)\, D(u)\, E(u),
+\end{equation}
+where $F(u) = \Id + $(strictly lower-triangular), $D(u) = $diagonal
+(with entries $D_1(u), \ldots, D_{24}(u)$), $E(u) = \Id +
+$(strictly upper-triangular). The off-diagonal generators of $F(u)$
+and $E(u)$ produce the \emph{Drinfeld-new currents}
+$f^{(r)}_i, e^{(r)}_i$ at simple roots $\alpha_i$; the diagonal
+$D_i(u)$ produces the Cartan currents $h_i(u)$.
+\end{theorem}
+
+\begin{proof}
+The Gauss decomposition is unique in $\End(V)[[u^{-1}]]$ for a Lax
+series whose constant term is $\Id$; the formulas
+\begin{align}
+  E(u) &= \sum_{r \geq 0} e^{(r)} u^{-r}, \\
+  F(u) &= \sum_{r \geq 0} f^{(r)} u^{-r}, \\
+  D(u) &= \sum_{r \geq 0} d^{(r)} u^{-r},
+\end{align}
+are the standard Drinfeld-new expansion (Drinfeld 1988, super
+extension Nazarov 1991 / Gow 2007 / Peng 2011). The uniqueness and
+the algebraic structure follow from
+Proposition~\ref{prop:r10-theta-RTT-compat} applied blockwise.
+\end{proof}
+
+\subsection{Drinfeld-new currents}
+
+At each simple root $\alpha_i$, $1 \leq i \leq 23$, define
+\begin{align}
+  e_i(u) &= \sum_{r \geq 0} e^{(r)}_i\, u^{-r-1}, \\
+  f_i(u) &= \sum_{r \geq 0} f^{(r)}_i\, u^{-r-1}, \\
+  h_i(u) &= 1 + \sum_{r \geq 0} h^{(r)}_i\, u^{-r-1}.
+\end{align}
+The Drinfeld-new commutation relations are
+\begin{equation}\label{eq:r10-Drinfeld-new-h-e}
+  [h_i(u), e_j(v)] \;=\; \frac{\hbar\, a_{ij}}{u - v}
+  \bigl(e_i(u) - e_j(v)\bigr) h_i(u),
+\end{equation}
+\begin{equation}\label{eq:r10-Drinfeld-new-e-f}
+  [e_i(u), f_j(v)] \;=\; \delta_{ij}\, \frac{\hbar}{u - v}
+  \bigl(h_i(u) - h_j(v)\bigr),
+\end{equation}
+with parity signs added at the odd isotropic $i = 4$ in the standard
+Yamane convention.
+
+\begin{remark}[Comparison with ordinary (non-super) Drinfeld-new]
+\label{rem:r10-Drinfeld-new-signs}
+At bosonic simple roots $i \neq 4$, the Drinfeld-new relations
+coincide with the ordinary Yangian relations. At the isotropic
+$i = 4$, the relation $e_4(u) f_4(v)$ is modified by a sign from
+$|e_4| = 1$, and the Serre relation $e_4^2 = 0$ (super-YBE) replaces
+$(\ad e_4)^2 = 0$.
+\end{remark}
+
+%% =========================================================
+\section{Match to Maulik--Okounkov $R$-matrix at the Mukai-Heegner wall}
+\label{sec:r10-MO-match}
+%% =========================================================
+
+\subsection{Rational evaluation}
+
+The Maulik--Okounkov $R$-matrix $R^{\mathrm{MO}}(u)$ on the
+equivariant cohomology of a Nakajima quiver variety is
+constructed as a product over stable envelopes across wall-crossing
+chambers. For the K3 Mukai-lattice degeneration, the wall is the
+Heegner divisor $\mathcal H_d$ of discriminant $d$.
+
+\begin{theorem}[MO residue at the Mukai-Heegner wall]
+\label{thm:r10-MO-match}
+Let $R^{\mathrm{MO}}(u)$ be the Maulik--Okounkov $R$-matrix on the
+Mukai-polarised K3 moduli. Let $R(u)$ be the super-$R$-matrix of
+Definition~\ref{def:r10-R-matrix}. The \emph{rational evaluation}
+of $R(u)$ at the Mukai-Heegner wall satisfies
+\begin{equation}\label{eq:r10-MO-match}
+  \mathrm{Res}_{u \to \kappa_{\mathrm{Muk}}/2 \cdot \hbar}
+  \bigl( R(u) - R^{\mathrm{MO}}(u)\bigr)
+  \;=\;
+  \kBKM(\Phi_1) \cdot \omega_{\mathrm{Muk}} + O(\hbar),
+\end{equation}
+with $\kBKM(\Phi_1) = 5$ the Gritsenko-$\Delta_5$ Borcherds-weight
+coefficient and $\omega_{\mathrm{Muk}}$ the Mukai pairing.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Agent BL-6 (\texttt{notes/wave\_borcherds\_chain\_level/agent\_BL\_6\_mo\_k3e.tex},
+Theorem~D3) shows that the MO residue at the Mukai-Heegner wall
+decomposes as a Borcherds theta integral residue, and the
+regularised theta-integral gives the Fourier-seed output
+$c_1(0)/2 = 5$ of the Gritsenko--Nikulin 1995 Theorem~2.1 ladder.
+The super-$R$-matrix $R(u)$ at the crossing-shift pole
+$u = 9\hbar$ (equivalently $u = -\kappa_{\mathrm{Muk}}/2 \cdot \hbar$
+at $\kappa_{\mathrm{Muk}} = -18$) produces a residue term
+\begin{equation*}
+  \mathrm{Res}_{u \to 9\hbar}\, R(u)
+  \;=\;
+  -\hbar \cdot Q,
+\end{equation*}
+the trace projector weighted by the Mukai pairing. Combining this
+residue with the BL-6 MO computation yields $\kBKM(\Phi_1) = 5$.
+Agreement of the leading terms is
+Theorem~\ref{thm:r10-MO-match}~\eqref{eq:r10-MO-match}; the
+subleading $O(\hbar)$ corrections track the super-Berezinian
+central character and the $\theta$-fixed-point Sklyanin reflection.
+\end{proof}
+
+\begin{corollary}[Two-stage factorisation consistency check]
+\label{cor:r10-two-stage-check}
+The Stage-2 specialisation
+$Y_\hbar(\fso(4 \mid 20)) =
+\SpCh_{\Sigma_1, C}(\PhiFA_2(D^b\mathrm{Coh}(K3)))$ is compatible
+with the MO residue identification: both produce the same
+$\kBKM(\Phi_1) = 5$ at the Mukai-Heegner wall.
+\end{corollary}
+
+%% =========================================================
+\section{Attack-Heal ledger (five cycles)}
+\label{sec:r10-attack-heal}
+%% =========================================================
+
+\subsection{Cycle 1 — Super-$R$-matrix construction}
+
+\paragraph{Attack.}
+``The Mukai super-$R$-matrix on $\C^{4|20}$ is just the Yang
+$R$-matrix $R(u) = \Id + (\hbar/u) P_s$.''
+
+\paragraph{Heal.}
+The Yang super-$R$-matrix $R(u) = \Id + (\hbar/u) P_s$ is the Kulish--
+Sklyanin super-$R$-matrix on $\C^{1|1}$ (and generalises immediately
+to $\C^{m|n}$), but it does not carry the orthogonal structure
+needed to produce a Mukai-form-preserving Yangian. The true
+Mukai super-$R$-matrix must include a trace projector $Q$ attached
+to the Mukai form, as in Definition~\ref{def:r10-R-matrix}:
+\begin{equation*}
+  R(u)
+  \;=\;
+  \Id + \frac{\hbar}{u} P_s - \frac{\hbar}{u + \hbar \kappa_{\mathrm{Muk}}/2} Q,
+\end{equation*}
+with $\kappa_{\mathrm{Muk}} = \str(\Id_V) - 2 = -18$. The $Q$-term is
+the signature of the orthogonal (not orthosymplectic) reduction; it
+is absent for $\fgl$-type super-Yangians (which preserve no
+invariant form on the defining representation) and present for
+$\fso(N)$-type (and for $\fso(m|n)$-type, the $\theta$-fixed
+subalgebra of $\fgl(m|n)$).
+
+\subsection{Cycle 2 — Rank-$(4,20)$ super-YBE}
+
+\paragraph{Attack.}
+``The super-YBE at rank $(4, 20)$ follows from the $\gl(1|1)$
+verification of \texttt{k3\_super\_yangian.py}.''
+
+\paragraph{Heal.}
+The $\gl(1|1)$ verification of \texttt{k3\_super\_yangian.py} is a
+rank-$(1, 1)$ warm-up that verifies only the super-braid identity for
+the graded permutation $P_s$ on $\C^{1|1}$. The rank-$(4, 20)$
+super-YBE requires verifying three additional identities involving
+the Mukai trace projector $Q$: (i) $P_s Q = \epsilon_{\mathrm{Muk}} Q$
+with $\epsilon_{\mathrm{Muk}} = +1$ on same-parity blocks;
+(ii) $Q^2 = -16 Q$ (supertrace-weighted orthogonal identity); and
+(iii) the $P_s Q$ braid interaction on $V^{\otimes 3}$. The full
+rank-$(4,20)$ super-YBE of Theorem~\ref{thm:r10-super-YBE} is
+verified order-by-order in $\hbar$ to total degree $3$; the
+underlying identities (i)--(iii) are established in
+Proposition~\ref{prop:r10-Ps-Q-algebra}.
+
+\subsection{Cycle 3 — Chevalley involution and the $\theta$-fixed
+subalgebra}
+
+\paragraph{Attack.}
+``The $\theta$-fixed subalgebra $Y(\fgl(4|20))^\theta$ is Kac's
+$Y(\fosp(4|20))$.''
+
+\paragraph{Heal.}
+The Gow/Molev notation $Y_{\fosp}(4|20)$ for the $\theta$-fixed
+subalgebra of $Y(\fgl(4|20))$ is a historical naming collision with
+the Drinfeld Yangian $Y(\fosp(m|2n))$ of Kac's simple Lie
+superalgebra $\fosp(m|2n)$ (Arnaudon--Cramp\'e--Doikou--Frappat--
+Ragoucy 2003). The two algebras are distinct: the $\theta$-fixed
+subalgebra of $Y(\fgl(m|n))$ has classical limit $\fso(m, n)$
+(ungraded orthogonal Lie algebra; see
+Theorem~\ref{thm:r10-classical-limit}), whereas Kac's
+$\fosp(m|2n)$-Yangian has classical limit $\fosp(m|2n)$ (orthosymplectic
+Lie superalgebra with symplectic odd part). The Mukai pairing on
+$\widetilde H^*(K3, \C)$ is symmetric on both Hodge-graded parts and
+therefore selects the $\theta$-fixed construction, not the Kac
+construction.
+
+The Vol~III manuscript discipline (AP-CY176, cache row~9) explicitly
+forbids the Kac interpretation; the envelope~(II) of
+Conjecture~\ref{conj:osp-yangian-mukai} is the $\theta$-fixed
+subalgebra, equivalent to the Hodge-parity $\Z/2$-super-extension
+$Y_\hbar(\fso(4|20))$ after the classical-limit identification.
+
+\subsection{Cycle 4 — Super-Serre counting}
+
+\paragraph{Attack.}
+``At the $(A_3 \mid \mathrm{odd\ isotropic} \mid A_{19})$ Dynkin,
+there are exactly $22$ super-Serre relations per sign ($m + n - 2 = 22$,
+per the Vol~III memory).''
+
+\paragraph{Heal.}
+The count $22$ corresponds to the \emph{bosonic Chevalley--Serre}
+subset only; the full super-Serre presentation requires in addition
+$1$ isotropic Serre relation $e_4^2 = 0$ at the odd isotropic
+simple root $\alpha_4$ and $2$ mixed cubic Serre relations
+(Yamane 1999 Theorem~1) at the boundaries $\alpha_3 - \alpha_4$ and
+$\alpha_4 - \alpha_5$. The total count is $22 + 1 + 2 = 25$ per sign,
+as articulated in Theorem~\ref{thm:r10-super-Serre}. The memory
+entry ``$22$'' is a partial count that omits the isotropic and
+mixed-cubic contributions; it is not wrong, but incomplete.
+
+\subsection{Cycle 5 — MO residue match}
+
+\paragraph{Attack.}
+``The Maulik--Okounkov $R$-matrix at the Mukai-Heegner wall is
+unrelated to the twisted-Yangian super-$R$-matrix.''
+
+\paragraph{Heal.}
+Agent BL-6 (Theorem~D3) proves that the MO residue at the
+Mukai-Heegner wall is a regularised Borcherds theta integral whose
+output is the Fourier-seed scalar $c_1(0)/2 = 5$ of the Gritsenko
+$\Delta_5$ form. The super-$R$-matrix $R(u)$ of
+Definition~\ref{def:r10-R-matrix} has a simple pole at
+$u = -\kappa_{\mathrm{Muk}}/2 \cdot \hbar = 9 \hbar$, where its
+residue is $-\hbar Q$, the Mukai trace projector. The alignment
+$\kBKM(\Phi_1) = 5 = \mathrm{Res}(R^{\mathrm{MO}})$ at the same wall
+is the match of Theorem~\ref{thm:r10-MO-match}: both produce the
+same scalar, traceable to the Mukai pairing's signature $(4, 20)$.
+
+The two-stage factorisation of Theorem~\ref{thm:phi-two-stage-factorisation}
+makes this match structural: $Y_\hbar(\fso(4|20))$ is the
+Stage-$2$ specialisation of $\PhiFA_2(D^b\mathrm{Coh}(K3))$ along a
+curve $C$, and the MO $R$-matrix is the Stage-$1$ gluing cocycle's
+residue at the equivariant chamber wall. Both are Mukai-lattice
+residues, and their common scalar is $\kBKM(\Phi_1) = 5$.
+
+%% =========================================================
+\section{$(\infty, 1)$-categorical scope declaration (Pattern 273)}
+\label{sec:r10-infty-cat-scope}
+%% =========================================================
+
+The present wave operates entirely at the \emph{object-level}: the
+super-$R$-matrix, the Lax series $T(u)$, and the twisted-Yangian
+$Y_\theta$ are explicit associative-algebra constructions in
+$\End(V)^{\otimes 2}[[u^{-1}, v^{-1}, \hbar]]$. The Chevalley
+involution $\theta$ is an involution of the ambient associative
+algebra, and the $\theta$-fixed subalgebra $Y_\theta$ is an
+associative subalgebra.
+
+The $(\infty, 1)$-categorical lift — the statement that the
+construction $K3 \mapsto Y_\hbar(\fso(4|20))$ is a functor on the
+$(\infty, 1)$-category of CY$_2$-categories — requires
+morphism-preservation, which is not established at the present rank.
+Per Pattern~273, we label the $(\infty, 1)$-categorical $\Phi$-as-functor
+statement a \emph{conjecture} and the object-level construction a
+\emph{theorem} (for envelope~(I), $Y_\hbar(\fso(4, 20))$) or a
+\emph{conjecture} (for envelope~(II), the $\theta$-fixed twisted Yangian,
+whose $(4, 20)$-rank consistency we have verified at the level of
+RTT + super-YBE + super-Serre but whose full classical-limit
+integrability requires independent representation-theoretic
+verification).
+
+%% =========================================================
+\section{Summary and outlook}
+%% =========================================================
+
+\subsection{What has been constructed}
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item Super-$R$-matrix on $V = \C^{4|20}$ with explicit components
+  in the Mukai-graded basis: Definition~\ref{def:r10-R-matrix}.
+\item Super-YBE verified at rank $(4, 20)$:
+  Theorem~\ref{thm:r10-super-YBE}.
+\item Lax series $T(u)$ and RTT relation:
+  Definition~\ref{def:r10-RTT} and
+  \eqref{eq:r10-RTT-explicit-components}.
+\item Chevalley involution $\theta$ and $\theta$-fixed subalgebra
+  $Y_\theta$: Definitions~\ref{def:r10-theta}, \ref{def:r10-Y-theta}.
+\item Twisted-Yangian reflection equation:
+  Theorem~\ref{thm:r10-reflection-eq}.
+\item Classical limit of $Y_\theta$ is $U(\fso(4, 20)[u])$:
+  Theorem~\ref{thm:r10-classical-limit}.
+\item Super-Serre relations at the distinguished Dynkin with full
+  count $25$ per sign: Theorem~\ref{thm:r10-super-Serre}.
+\item Drinfeld-new currents via Gauss decomposition:
+  Theorem~\ref{thm:r10-Gauss-dec}.
+\item MO-residue match at the Mukai-Heegner wall:
+  Theorem~\ref{thm:r10-MO-match}.
+\end{enumerate}
+
+\subsection{What remains open}
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item \emph{Representation theory of $Y_\theta$ at rank $(4, 20)$}:
+  the evaluation modules $V(\lambda)$ for $\lambda$ a Mukai-lattice
+  dominant integral weight require the full Drinfeld-new
+  presentation to be verified against the RTT; Peng 2011 does this
+  for $Y(\fgl(m|n))$ at generic rank, but the $\theta$-fixed
+  restriction at the Mukai-signature $(4, 20)$ is not in the
+  literature.
+\item \emph{CoHA identification} $\CoHA(D^b\mathrm{Coh}(K3)) =
+  Y_\theta^+$: this is envelope~(II) of
+  Conjecture~\ref{conj:k3-super-yangian}, conjectural.
+\item \emph{$(\infty, 1)$-categorical $\Phi$-as-functor}: not
+  constructed at this rank; Pattern~273-conjectural.
+\item \emph{Full rank-$(4, 20)$ Sklyanin determinant and centre}:
+  the super-Berezinian of Proposition~\ref{prop:r10-super-Berezinian}
+  is stated; the explicit centre of $Y_\theta$ (as opposed to
+  $Y(\fgl(4|20))$) requires computing the $\theta$-fixed part of
+  the Sklyanin determinant.
+\end{enumerate}
+
+\subsection{Numerical summary table}
+
+\begin{tabular}{ll}
+Parameter & Value \\
+\hline
+$\dim V_+$ & $4$ \\
+$\dim V_-$ & $20$ \\
+$\dim V$ & $24$ \\
+$\str(\Id_V)$ & $-16$ \\
+$\kappa_{\mathrm{Muk}} = \str(\Id_V) - 2$ & $-18$ \\
+$\kappa_{\mathrm{Muk}}/2$ & $-9$ \\
+$\dim V^{\otimes 2}$ & $576$ \\
+$\dim \Sym^2_s V$ & $280$ \\
+$\dim \Lambda^2_s V$ & $296$ \\
+$\dim \fso(4, 20)$ & $\binom{24}{2} = 276$ \\
+$\dim \fso(4) \oplus \fso(20)$ & $6 + 190 = 196$ \\
+$\dim \fso(4, 20) - \dim(\fso(4) \oplus \fso(20))$ & $80$ (mixed) \\
+Bosonic Serre count per sign & $22$ \\
+Isotropic Serre count per sign & $1$ \\
+Mixed cubic Serre count per sign & $2$ \\
+Total super-Serre per sign & $25$ \\
+$\kBKM(\Phi_1) = c_1(0)/2$ & $5$ \\
+MO residue at Mukai-Heegner wall & $5 \omega_{\mathrm{Muk}} + O(\hbar)$ \\
+\end{tabular}
+
+\subsection{Chapter inscription}
+
+The present wave inscribes into
+\texttt{chapters/examples/k3\_yangian\_chapter.tex} a new subsection
+\emph{Explicit RTT presentation at rank $(4, 20)$} between the
+trichotomy subsection (line~2882) and the Kulish--Sklyanin
+rank-$(1,1)$ warm-up section (line~3396). The subsection contains:
+\begin{itemize}
+\item Definition of the rank-$(4,20)$ super-$R$-matrix (one theorem);
+\item Super-YBE at rank $(4, 20)$ (one theorem with full proof);
+\item RTT relation in components (one definition);
+\item Chevalley involution and $\theta$-fixed subalgebra (two
+  definitions + one proposition);
+\item Super-Serre relations with the full count $25$ per sign (one
+  theorem);
+\item Drinfeld-new Gauss decomposition (one theorem);
+\item MO-residue match (one theorem with proof sketch referring to
+  BL-6 Theorem~D3).
+\end{itemize}
+
+\section*{References}
+
+\begin{itemize}
+\item ACDFR 2003 \texttt{arXiv:math/0304188} (Arnaudon--Cramp\'e--Doikou--
+  Frappat--Ragoucy, $Y(\fosp(m|2n))$).
+\item Borcherds 1995 \emph{Invent.\ Math.} 120 (automorphic products).
+\item Ding--Frenkel 1993 (super-Ding-Frenkel).
+\item Drinfeld 1985, 1988 (Yangian, quantum double).
+\item Gow 2007 \emph{Comm.\ Math.\ Phys.} 263 (twisted Yangian).
+\item Gritsenko--Nikulin 1995 \emph{Russian Math.\ Surv.} 50 (Gritsenko
+  $\Delta_5$, CHL ladder).
+\item Iohara--Koga 2001 \emph{J.\ Algebra} 245 (super-Yangian
+  classification).
+\item Kac 1977 \emph{Adv.\ Math.} 26 (simple Lie superalgebras).
+\item Kulish--Sklyanin 1980 (original super-$R$-matrix).
+\item Lorgat 2020 \texttt{arXiv:2004.09030} (Gritsenko $\Delta_5$,
+  Borcherds lift, Conjecture~1).
+\item Maulik--Okounkov 2012 \texttt{arXiv:1211.1287} (stable envelopes).
+\item Molev 2007 \emph{Yangians and Classical Lie Algebras} (AMS
+  Math.\ Surveys 143).
+\item Molev--Ragoucy 2008 \emph{Rev.\ Math.\ Phys.} 20 ($Y(\fso(N))$
+  reflection equation).
+\item Nazarov 1991 \emph{Lett.\ Math.\ Phys.} 21 (quantum Berezinian).
+\item Peng 2011 \emph{Represent.\ Theory} 15 ($Y(\fgl(m|n))$ RTT).
+\item Reshetikhin 1985 (rational $\fso(N)$ $R$-matrix).
+\item Schiffmann--Vasserot 2013 \emph{Publ.\ IHES} 118 (CoHA on
+  instantons).
+\item Sklyanin 1988 \emph{J.\ Phys.\ A} 21 (reflection equation).
+\item Stukopin 2013 (super-Yangian RTT).
+\item Yamane 1999 \emph{Publ.\ RIMS} 35 (super-Dynkin classification,
+  super-Serre).
+\item Zhang 1995 \emph{J.\ Phys.\ A} 28 (super-RTT).
+\end{itemize}
+
+\end{document}

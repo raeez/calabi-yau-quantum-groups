@@ -42,7 +42,7 @@ The Maulik-Okounkov $R$-matrix reads as a gluing cocycle residue across chamber 
 
 ### Pillar $\beta'$: 8-row Gritsenko-Cl\'ery catalogue (computation)
 
-Universal identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across the eight Gritsenko-Cl\'ery forms. Weights $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$; Fourier constants $c_N(0) \in \{10, 4, 2, 2, 1, 2, 1/2, 0\}$; so $\kappa_{\mathrm{BKM}} \in \{5, 2, 1, 1, 1/2, 1, 1/4, 0\}$ row-by-row. Cover-group stratification by weight integrality: $\mathrm{Sp}_4(\mathbb{Z})$ for integral weights, $\mathrm{Mp}_4$ for half-integral, $\widetilde{\mathrm{Mp}}_4$ for quarter-integral. The weight-0 form is the degenerate terminal fibre of the catalogue. The universal identity subsumes the K3 $\times$ E crystallisation $\{2, 3, 5, 24\}$ as four distinct constructions (Mukai, Igusa-via-Gritsenko, BKM Borcherds, K3 fibre-rank), each landing at its own subscripted $\kappa_\bullet$.
+Universal identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across the eight Gritsenko-Cl\'ery forms. Weights $(5, 2, 3, 1, 2, 1/2, 3/2, 1)$; Fourier constants $c_N(0) \in \{10, 4, 6, 2, 4, 1, 3, 2\}$; so $\kappa_{\mathrm{BKM}} \in \{5, 2, 3, 1, 2, 1/2, 3/2, 1\}$ row-by-row. Cover-group stratification is by weight integrality: integral rows live on paramodular subgroups and their normal extensions, while the half-integral rows carry multiplier systems. The catalogue contains no weight-$0$ or quarter-weight row. The universal identity subsumes the K3 $\times$ E crystallisation $\{0, 3, 5, 24\}$ as four distinct constructions (compact total-space Hodge/categorical trace, Heisenberg shadow, BKM Borcherds weight, K3 fibre-rank), each landing at its own subscripted $\kappa_\bullet$; $\chi(\mathcal O_{K3})=2$ is a separate fibre witness, not the total-space entry.
 
 ### Pillar $\gamma$: 6D hCS at Level 3 and the non-abelian 5D all-orders theorem (theorem)
 
@@ -60,7 +60,7 @@ Monster $\mathbb{M}$ from $V^\natural$ and Igusa $\Phi_{10}$ via Gritsenko-Nikul
 
 \[ \mathrm{tr}_{\mathrm{ghost}}(Q_{\mathrm{BRST}}^2) \;=\; \mathrm{tr}_{\mathrm{Pentagon}} \;=\; \omega_{\mathrm{Borcherds}} \;=\; c_N(0)/2. \]
 
-Verified at $N \in \{1, 2, 3, 4, 6\}$, the three traces yield $\{5, 4, 3, 2, 2\}$ row-by-row. The Vol~I ghost-trace reading (BRST ghost $Q^2$ in the Koszul reflection) sits on the left; the Vol~II Pentagon-trace reading (single-colour coherence of the $E_3$-algebra underlying 3D HT QFT at $d=3$) sits in the middle; the Vol~III Borcherds weight sits on the right. Two-factor forms of the identity (ghost $=$ Borcherds, Pentagon $=$ Borcherds) are corollaries.
+On the CHL scope $N \in \{1, 2, 3, 4, 6\}$, the three traces yield $\{5, 4, 3, 2, 1\}$ row-by-row. This is distinct from the Gritsenko--Cl\'ery eight-form catalogue, whose triple-indexed weights are $\{5,2,3,1,2,1/2,3/2,1\}$ and overlap the CHL scope only at $\Delta_5$. The Vol~I ghost-trace reading (BRST ghost $Q^2$ in the Koszul reflection) sits on the left; the Vol~II Pentagon-trace reading (single-colour coherence of the $E_3$-algebra underlying 3D HT QFT at $d=3$) sits in the middle; the Vol~III Borcherds weight sits on the right. Two-factor forms of the identity (ghost $=$ Borcherds, Pentagon $=$ Borcherds) are corollaries only after the scope has been named.
 
 ### Nine retractions with true hidden structure (retractions, labelled)
 
@@ -156,7 +156,13 @@ The load-bearing architectural source is `chapters/examples/k3_chiral_bialgebra_
 
 - **Kummer-irregular primes retracted (cross-volume).** {1423, 3067, 23, 43, 419} retracted from the Kummer-irregular label; they remain Riccati-arithmetic characteristic primes in S_r numerators. Tier-3 emergence: {37, 691, 811}. Bernoulli-leading first Kummer-irregular is 691 (B_12); size-leading is 37 (B_32). Always qualify.
 
-- **Super-Yangian Y_{osp(4|20)} — RENAMED + COMPLEMENTARITY CORRECTED.** Earlier `Y(gl(4|20))` label was a misnomer: the Mukai form is orthogonal (symmetric indefinite), not Z/2-super-graded, so the correct super-Yangian candidate is `Y_{osp(4|20)}` (Arnaudon–Crampé–Doikou–Frappat–Ragoucy 2003 reflection equation) with even part `so(4) ⊕ sp(20)` (dim 216) and odd part `V_+ ⊗ V_-` (dim 80). All manuscript occurrences renamed 2026-04-17 (chapters/examples/k3_yangian_chapter.tex, chapters/theory/en_factorization.tex, chapters/theory/introduction.tex, chapters/examples/cy_c_six_routes_convergence.tex, main.tex, compute/lib/k3_super_yangian.py docstring). New `conj:osp-yangian-mukai` + `rem:gl-to-osp-correction` + `rem:so-4-20-alternative`. Complementarity κ(Y(sl(m|n))) + κ(Y(sl(n|m))^!) = max(m, n) verified symbolically at small rank (gl(1|1), gl(2|1)); rank-(4,20) osp reflection equation remains OPEN.
+- **K3 Yangian target discipline.** The Mukai form is symmetric
+  indefinite, so the ungraded target is `Y_hbar(so(4,20))`.
+  A Hodge-parity refinement is the programme-specific non-Kac
+  `Y_hbar(so(4|20))`, symmetric on both graded parts. `gl(4|20)` is
+  only a comparison family after forgetting the Mukai form; Kac
+  `osp(4|20)` is excluded because it imposes a symplectic odd form.
+  The rank-`(4,20)` reflection-equation Shapovalov datum remains open.
 
 ### 3. Genuine Open Vol III Frontiers (after Wave 1)
 
@@ -170,7 +176,14 @@ The load-bearing architectural source is `chapters/examples/k3_chiral_bialgebra_
 **V3-F15. Universal coproduct at all spins — DOWNGRADED TO ENGINE-COMPLETION HOUSEKEEPING (2026-04-17 Wave-2 batch-2..6).** `thm:miura-cross-universality` (Vol I) proves (Ψ−1)/Ψ universal on J⊗W_{s-1} + W_{s-1}⊗J at all s ≥ 2. No frontier-level mathematics remains. Residues:
 - **(F15a) DONE.** Universal coproduct engine for s ≤ 6 with Fock-space verification already implemented in `chiral_coproduct_allspin_engine.py` (s = 1..6). Closed.
 - **(F15b) Narrow compute extension.** Entry-wise Y(sl_N) RTT verification at ℏ²-order via classical Molev — tractable compute extension of the existing engine, not a frontier theorem. Inscribe `compute/lib/y_sln_rtt_hbar2_engine.py` when needed.
-- **(F15c) RENAMED + MERGED INTO V3-F19.** The BKM-to-Yangian lift beyond the abelian sector is the `Y_{osp(4|20)}` reflection-equation construction (NOT `Y(gl(4|20))`; heal 2026-04-17). The Mukai form is symmetric indefinite (orthogonal), not Z/2-super-graded, so `osp`, not `gl`, is the structure-preserving super-Lie algebra. The remaining mathematical content — verification of the rank-(4,20) orthosymplectic reflection equation and the Borcherds/BKM denominator identity with the Molev–Ragoucy reflection Berezinian — is the V3-F19/F26 open frontier. Small-rank gl(m|n) computations in `compute/lib/k3_super_yangian.py` are retained as warm-up scaffolding.
+- **(F15c) MERGED INTO V3-F19.** The BKM-to-Yangian lift beyond the
+  abelian sector belongs to the orthogonal K3 Yangian problem:
+  `Y_hbar(so(4,20))`, with possible non-Kac Hodge-parity refinement
+  `Y_hbar(so(4|20))`. The remaining mathematical content is the
+  rank-`(4,20)` reflection-equation Shapovalov datum and its comparison
+  with the Borcherds/BKM denominator. Small-rank `gl(m|n)` computations
+  in `compute/lib/k3_super_yangian.py` are retained only as sign and
+  RTT scaffolding.
 
 **V3-F16. Kummer step 5c — Mukai-pairing chain-level collar transport.** Mayer-Vietoris E_∞-pushout must transport commutator pairing to Mukai form signature (4,20). 24-dim + character ∏(1-q^n)^{-24} verified through q^{10}; missing quadratic-form identification via (i) explicit collar-pairing computation, (ii) lattice-VOA transport, or (iii) κ_ch = 2 trace constraint. Stronger "FH McKay correspondence" (`fh_mckay_correspondence.py`, EXPECTED not PROVED) would subsume it.
 
@@ -184,7 +197,12 @@ The load-bearing architectural source is `chapters/examples/k3_chiral_bialgebra_
 **V3-F19. Hall–Drinfeld double / historical "K3 Yangian" split — three sub-items (refined 2026-04-19 by Wave 13).**
 - **(F19a) General BKM-side object: GENUINE OPEN.** Plain "non-abelian K3 Yangian" as the BKM-side object is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.5. The object pinned by Wave 13 is the Hall–Drinfeld double $\mathbf{H}_{\Delta_5}$ with the bi-based architecture, CY-2 $[2]$ shift, class-$\mathcal{S}$ parent, and 1-loop $\Delta_5$ output already fixed. What remains open is the real-root completion and comparison data beyond the abelian 24-Miki / Heisenberg presentation; super-bracket claims cannot be reduced to the BKM Serre polynomial.
 - **(F19b) Mukai Yangian branch versus BKM branch.** The platonic chapter's three-branch parallel keeps the Mukai self-mirror Yangian branch separate from the BKM branch. The frontier is therefore a split frontier, not one object under two labels: the Mukai/Yangian lane and the Hall–Drinfeld / BKM lane meet on the rank-24 Mukai data, but the BKM lane is not renamed into a Yangian.
-- **(F19c) Orthosymplectic completion and reverse reconstruction.** The reflection-equation candidate remains $Y_{osp}(4|20)$ rather than $Y(gl(4|20))$, and the reverse Tannakian reconstruction `Rep^{E_2}(A_S)^{ss} \to Rep(C(C,q))` for $D^b(\mathrm{Coh}(K3))$ is still open. Wave 13 fixes the classification invariant and the Humbert / $\mathcal{B}$-family conductor data; it does not close the orthosymplectic or reconstruction frontier.
+- **(F19c) Orthogonal completion and reverse reconstruction.** The
+  reflection-equation candidate is `Y_hbar(so(4,20))`, with possible
+  non-Kac Hodge-parity refinement `Y_hbar(so(4|20))`; it is neither
+  `Y(gl(4|20))` nor Kac `Y_osp(4|20)`. The reverse Tannakian
+  reconstruction `Rep^{E_2}(A_S)^{ss} -> Rep(C(C,q))` for
+  `D^b(Coh(K3))` remains open.
 
 **V3-F20. Mode-level Drinfeld centre conj:v3-drinfeld-center-equals-bulk.** Categorified form PROVED (§1). Mode-level Z(U_A) vs Z^{der}_ch(A) with three obstructions at `drinfeld_center.tex:926-961`: pointwise reduction for class M; A^! factorization Ran for classes C/M; RHom compatibility only proved class G. Heisenberg-only with naive-vs-derived dim witness (1 vs 3, 72 tests). Reformulated: **2nd-order de-categorification refinement**, not "deepest conjecture after Grand Completion".
 
@@ -626,7 +644,7 @@ The largest single research session in the programme's history. Established the 
 
 **Session update (53-agent, April 2026)**: The K3 specialization is now concrete. The K3 abelian Yangian Y(g_{K3}) is explicitly presented (thm:k3-abelian-yangian-presentation, 47 tests) with the degree-(24,24) structure function g_{K3}(z) = ∏_{i=1}^{24}(z-h_i)/(z+h_i) where h_i are the Mukai lattice eigenvalues. The K3 quantum determinant engine (76 tests) computes q-det(T(u)). The K3 non-abelian coproduct engine (50 tests) extends the matrix Miura to rank > 1.
 
-**What remains**: (a) Implement the universal coproduct engine for s≤6 with Fock space verification. This requires psi_s on single Fock space for s≥3 (see F13). (b) The non-abelian generalization for sl_N. (c) The K3 super-Yangian Y(gl(4|20)): requires BKM-to-Yangian lift beyond the abelian sector.
+**What remains**: (a) Implement the universal coproduct engine for s≤6 with Fock space verification. This requires psi_s on single Fock space for s≥3 (see F13). (b) The non-abelian generalization for sl_N. (c) The K3 super-Yangian $Y_{osp}(4|20)$: requires a completed Hall-Drinfeld/BKM lift beyond the abelian sector.
 
 **Next step**: Extend K3 Yangian to the non-abelian sector using BKM real root generators.
 
@@ -658,18 +676,18 @@ The largest single research session in the programme's history. Established the 
 
 ---
 
-## F18. CY-A₃: RESOLVED (Inf-Categorical)
+## F18. CY-A₃: Witnessed Object-Level Locus
 
-**Status: RESOLVED.** The single most important problem in the three-volume programme is now resolved in the infinity-categorical framework (thm:derived-framing-obstruction). The chain-level [m_3,B^{(2)}]!=0 is NOT an obstruction: HH^{-2}_{E_1}=0 by unit-connectedness, all Goodwillie layers vanish, space of E_3-liftings is contractible. CY-A at d=3 requires a chain-level S³-framing on HC⁻_3(C) that is A_∞-compatible.
+**Status: CONDITIONAL / WITNESSED.** The infinity-categorical obstruction analysis (thm:derived-framing-obstruction) removes the residual obstruction after the data are fixed; it does not by itself construct the full CY-A₃ package for every smooth proper CY₃. The chain-level [m_3,B^{(2)}]!=0 is not the final obstruction on the connective/unit-connected strictified locus, but the theorem now requires a fixed E₃-formality point, a chain-level S³-framing homotopy on HC⁻_3(C), anomaly-cancellation and analytic-completion witnesses, and a witnessed admissible Stage-2 specialization. CY-A₃ remains open as a general functorial construction outside those witnessed loci.
 
-**What is known**: (a) The topological obstruction vanishes (π₃(BU)=0, π₃(BSp)=0). (b) The BV compatibility is solved perturbatively (Čech contracting homotopy for the quintic, Evidence E10). (c) The A_∞ compatibility (Hypothesis H4) is the gap. **(d) NEW: Coefficient convergence PROVED (prop:cech-htt-coefficient-convergence, 64 tests).** The HTT multilinear maps mu_k define a convergent power series in z for ALL smooth CY₃ with finite Leray covers, with radius >= 1/(4||s.delta||). **(e) NEW: S³ framing non-decomposable (prop:hopf-fibration-decomposition, 67 tests).** The Hopf fibration is topologically nontrivial; the S³ framing cannot be reduced to (S² framing) x (S¹ framing).
+**What is known**: (a) The topological obstruction vanishes on the symplectic-reduction locus (π₃(BSp)=0). (b) BV compatibility is perturbatively controlled on tested loci, but the compact all-orders comparison is a witness, not an automatic consequence of c₁=0. (c) The A_∞ / S³-framing compatibility is the primitive chain-level gap outside the witnessed loci. **(d) Coefficient convergence** (prop:cech-htt-coefficient-convergence, 64 tests) supplies a finite-cover analytic estimate; it does not replace the framing/anomaly witnesses. **(e) S³ framing non-decomposable** (prop:hopf-fibration-decomposition, 67 tests): the Hopf fibration is topologically nontrivial, so the S³ framing cannot be reduced to (S² framing) x (S¹ framing).
 
 **Three approaches investigated**:
 1. **Kontsevich-Soibelman formal geometry**: strongest infrastructure, blocked at non-perturbative convergence. Coefficient convergence (new) removes one layer of the obstruction.
 2. **Costello holomorphic CS**: physically natural, requires analytic completion (MC5). The Costello 5d verification engine (87 tests) confirms the 5d pipeline through charge 4.
 3. **CFG factorization homology bypass**: builds chain-level data into BV quantization. Does NOT bypass CY-A₃ — it reorganizes the obstruction, reducing it to non-perturbative convergence of BV effective action.
 
-**The Kummer bypass**: For K3×E specifically, the K3 integration uses only CY-A₂ (proved). The S³ framing is NOT needed for the K3 factor (it's CY₂). The E factor is 1-dimensional (trivial framing). This sidesteps CY-A₃ for K3×E but does not resolve it in general.
+**The K3×E reduction**: For K3×E, the K3 integration uses the CY₂ input and the elliptic factor is one-dimensional. This gives a K3-fibre/Heisenberg-to-Borcherds route on the principal locus; it is not a construction of the compact hCS-to-Hall comparison, the Hall-Drinfeld double, or general CY-A₃ functoriality.
 
 **The quintic at the Fermat point**: Z₅⁵ symmetry reduces factorial growth to polynomial growth via selection rules. Equivariant HTT converges on the 204-dim invariant sector. 4 non-invariant dimensions need separate analysis.
 
@@ -689,7 +707,10 @@ The largest single research session in the programme's history. Established the 
 - **K3 Serre relations** (61 tests): null vectors from BKM imaginary roots.
 - **K3 RTT-OPE dictionary** (52 tests): translation between presentations.
 - **K3 structure function explicit** (57 tests): g_{K3}(z) evaluated at specific Mukai eigenvalues.
-- **Super-Yangian Y(gl(4|20))** (59 tests): conjectural BKM-to-Yangian lift. Mukai signature → superalgebra.
+- **Form-preserving K3 Yangian target** (59 small-rank scaffolding
+  tests): conjectural BKM-to-Yangian lift. The Mukai signature fixes
+  the orthogonal target `Y_hbar(so(4,20))`; the completed
+  Hall-Drinfeld/BKM object remains open.
 - **K3 quantum toroidal** (conj:k3-quantum-toroidal, 51 tests): double loop U_{q,t}(gl_hat_hat_1)^{K3}.
 - **MO R-matrix charge 2** (prop:mo-rmatrix-charge2, 60 tests): Maulik-Okounkov stable envelope MATCHES K3 Yangian. Global braiding bypasses center-hocolim.
 - **Borcherds vertex Yangian** (75 tests): spectral flow automorphisms from vertex operators.
@@ -700,7 +721,7 @@ The largest single research session in the programme's history. Established the 
 
 Total new K3 tests: ~756 across 13 engines. Problem partially resolved for abelian sector.
 
-**What remains**: (a) The non-abelian K3 Yangian for g ≠ gl_1 (BKM real root generators). (b) The Tannakian reconstruction: Rep^{E_2}(A_S)^{ss} → Rep(C(C,q)) for D^b(Coh(K3)). (c) The super-Yangian Y(gl(4|20)) is CONJECTURAL — grading compatibility verified, Lie bracket verification missing.
+**What remains**: (a) The non-abelian K3 Yangian for g ≠ gl_1 (BKM real root generators). (b) The Tannakian reconstruction: Rep^{E_2}(A_S)^{ss} → Rep(C(C,q)) for D^b(Coh(K3)). (c) The super-Yangian $Y_{osp}(4|20)$ is CONJECTURAL as a completed Hall-Drinfeld/BKM object; the checked current algebra does not yet supply the quasi-Hopf coproduct, associator, or universal $R$-matrix.
 
 **The K3 Koszul conductor**: equals 0 (free-field/KM branch). κ_ch + κ_ch' = 2 + (-2) = 0.
 
@@ -789,26 +810,46 @@ Key Vol I results affecting Vol III:
 
 ---
 
-## F26. The Orthosymplectic Super-Yangian Y_{osp(4|20)} and BKM-to-Yangian Lift
+## F26. The Orthogonal K3 Yangian and Hodge-Parity Non-Kac Refinement
 
-**Originally F26 (53-agent session), RENAMED 2026-04-17 per F19 verdict / AP239 heal.**
+**Corrected target.** The K3 Mukai form has signature `(4,20)` and is
+symmetric on the whole Mukai lattice. The ungraded Yangian target is
+`Y_hbar(so(4,20))`. A Hodge-parity refinement, when a `4|20` split is
+kept, is the programme-specific non-Kac ortho-orthogonal
+`Y_hbar(so(4|20))`.
 
-**The physics**: The Mukai lattice of K3 has signature (4, 20) — a symmetric indefinite (ORTHOGONAL) form, not a Z₂-super-grading. The super-Lie algebra preserving a symmetric indefinite bilinear form is the orthosymplectic super-Lie algebra osp(m|n), not gl(m|n). The correct super-Yangian candidate is therefore Y_{osp(4|20)} (Arnaudon–Crampé–Doikou–Frappat–Ragoucy 2003 reflection-equation presentation). The BKM superalgebra structure of the denominator of Δ₅ should lift to this orthosymplectic super-Yangian.
+**The physics**: the Mukai lattice is symmetric indefinite, not a
+Z₂-super-grading and not an orthosymplectic datum. Kac `osp(4|20)` is
+excluded because its odd part is symplectic; `gl(4|20)` is only the
+comparison family obtained after forgetting the Mukai form. The
+Borcherds/BKM denominator problem should lift to the orthogonal
+Yangian target, or conditionally to the non-Kac Hodge-parity
+refinement after the reflection-equation Shapovalov datum is
+constructed.
 
 **Algebraic structure**:
-- osp(4|20)_{even} = so(4) ⊕ sp(20), dim 6 + 210 = 216
-- osp(4|20)_{odd} = V_+ ⊗ V_-, dim 4·20 = 80
-- dim osp(4|20) = 216 + 2·80 = 376 (NOT 576 = 24² of gl(4|20))
-- Crossing shift κ_osp = (m−n−2)ℏ/2 = −9ℏ at (m,n) = (4,20)
-- Centre via Molev–Ragoucy reflection Berezinian (symmetrised under crossing)
+- `so(4,20)` has complexification `so(24,C)` and dimension `24*23/2 = 276`.
+- The Hodge-parity ortho-orthogonal split has even part `so(4) ⊕ so(20)` of dimension `6 + 190 = 196` and odd mixed block `C^4 ⊗ C^20` of dimension `80`, total `276`.
+- `gl(4|20)` has total dimension `24^2 = 576` and does not preserve the Mukai form.
+- Kac `osp(4|20)` has even part `so(4) ⊕ sp(20)` and is the wrong form type for K3.
 
-**Alternative candidate**: Y(so(4,20)), the Yangian of the real form of so(24,C) preserving the Mukai form directly. Non-super, with the (4,20)-signature data in the split Cartan. Distinct from Y_{osp(4|20)} in coproduct and reflection structure.
+**Open problem**: construct the rank-`(4,20)` orthogonal
+reflection-equation presentation, compare its centre with the
+Borcherds/BKM denominator, and decide whether the non-Kac
+Hodge-parity refinement is needed or the ungraded `Y_hbar(so(4,20))`
+already carries the full K3 envelope.
 
-**What is established**: The k3_super_yangian engine (59 tests) implements the gl(m|n) small-rank super-Yangian framework at gl(1|1) and gl(2|1) — retained as orthosymplectic warm-up. Standard super-unitarity P_s² = Id, graded Yang-Baxter, super-crossing, and graded tensor product conventions are verified there and inherited by the osp construction. The bkm_yangian_generators engine (65 tests) constructs the BKM-to-Yangian generator map for real and imaginary roots.
+**What is established**: The k3_super_yangian engine (59 tests) implements the gl(m|n) small-rank super-Yangian framework at gl(1|1) and gl(2|1) as sign and RTT scaffolding. Standard super-unitarity P_s² = Id, graded Yang-Baxter, super-crossing, and graded tensor product conventions are verified there; they do not verify the rank-`(4,20)` form-preserving K3 envelope. The bkm_yangian_generators engine (65 tests) constructs the BKM-to-Yangian generator map for real and imaginary roots.
 
-**What remains**: (a) Verify the orthosymplectic reflection equation at rank (4, 20) with the correct osp R-matrix (Kulish–Reshetikhin, with the trace-projector Q onto the invariant line). (b) The Borcherds denominator of Δ₅ should equal the Molev–Ragoucy reflection Berezinian of T(u). (c) The spectral flow from Borcherds vertex operators should be an automorphism of Y_{osp(4|20)} (not Y(g_{K3}), not Y(gl(4|20))). (d) Decide between Y_{osp(4|20)} and the non-super Y(so(4,20)) via the N=(2,2) worldsheet boundary algebra of K3 at ADE enhancement points.
+**What remains**: (a) Construct the orthogonal reflection-equation
+Shapovalov datum at rank `(4,20)`. (b) Compare the Borcherds
+denominator of `Delta_5` with the resulting form-preserving centre.
+(c) Decide whether the non-Kac Hodge-parity refinement
+`Y_hbar(so(4|20))` is necessary, or whether the ungraded
+`Y_hbar(so(4,20))` already carries the full K3 envelope.
 
-**Inscriptions in manuscript (2026-04-17)**: `conj:osp-yangian-mukai` (canonical definition of Y_{osp(4|20)}); `rem:gl-to-osp-correction` (naming heal); `rem:so-4-20-alternative` (non-super candidate); `rem:super-yangian-mukai` updated in `en_factorization.tex`.
+**Manuscript anchor**: `chapters/examples/k3_yangian_chapter.tex`
+records the `so(4,20)` / non-Kac `so(4|20)` trichotomy.
 
 ---
 
@@ -838,23 +879,23 @@ Key Vol I results affecting Vol III:
 7. conj:k3-quantum-toroidal -- K3 quantum toroidal algebra (51 tests)
 
 **New conjectures formulated:**
-- Super-Yangian Y(gl(4|20)) from BKM-to-Yangian lift
+- Super-Yangian $Y_{osp}(4|20)$ from a completed Hall-Drinfeld/BKM lift
 - K3 quantum toroidal from 6d hCS
 - Shadow class moduli variation (G at large volume, M at conifold)
 - Borcherds vertex = spectral flow of Y(g_{K3})
 
 **Key adversarial results:**
 - kappa_BKM = c_N(0)/2 is the ONLY correct universal formula (62 tests)
-- Naive decomposition kappa_BKM = kappa_ch + chi(O_fiber) is a numerical coincidence
+- Naive decomposition kappa_BKM = kappa_ch + chi(O_fiber) is false; the N=1 Heisenberg-plus-fibre equality is accidental and non-structural
 - S^3 framing is non-decomposable (Hopf fibration nontrivial)
 
 **New compute engines (~65 total, ~3,600 tests):**
 k3_super_yangian, k3_abelian_yangian_presentation, k3_quantum_toroidal, k3_quantum_determinant, k3_serre_relations, k3_rtt_ope_dictionary, k3_nonabelian_coproduct, k3_structure_function_explicit, k3_yangian_adversarial, k3_factorization_homology, k3_mirror_koszul, k3_elliptic_genus_bkm_bar, k3e_relative_chiral_algebra, k3e_wall_crossing_shadow, k3e_topological_string_shadow, k3e_e2_promotion_analysis, mukai_indefinite_yangian, mo_rmatrix_k3_charge2, borcherds_vertex_yangian, bkm_yangian_generators, bkm_chiral_algebra, ade_yangian_level1, zte_correction_engine, cech_htt_convergence, hopf_fibration_s3_framing, kappa_bkm_adversarial, phi_k3_explicit_evaluation, w2_triplet_mock_modular, mock_modular_mechanism, costello_5d_verification, sp4_modularity_pipeline, higher_deligne_cascade, wilson_line_coproduct_engine, sl2_matrix_lax_engine, genus2_chiral_partition, shadow_class_moduli_variation, fh_mckay_correspondence, conifold_shadow_transition, chiral_ce_complex, k3_yangian_quantization, bps_entropy_shadow, motivic_shadow_zeta, diagonal_siegel_cy_orbifolds, kummer_excision_verification, fermat_quartic_k3_chiral, niemeier_shadow_landscape, kappa_spectrum_reconciliation, k3e_e1_chiral_yangian, swiss_cheese_cy3_e1, quintic_shadow_tower, m3_coproduct_correction_engine, chiral_coproduct_universal_engine, shadow_resummation_borcherds, and others.
 
 **Load-bearing open problems (DEFINITIVE status, April 2026, ~230-agent session):**
-1. CY-A_3: **RESOLVED** (inf-categorical, thm:derived-framing-obstruction). Chain-level explicit construction open for non-formal.
+1. CY-A_3: **WITNESSED / CONDITIONAL** (thm:derived-framing-obstruction removes residual obstruction after the formality, framing, anomaly, completion, and specialization witnesses are fixed). General chain-level and functorial construction remains open.
 2. ZTE correction: **COMPUTED** (exact rational T matrix, 35 tests). Previously constructive (rank 35/36); now explicit.
-3. K3 Yangian: abelian sector **RESOLVED** (thm:k3-abelian-yangian-presentation). Non-abelian and super-Yangian Y(gl(4|20)) open. E_8 x E_8 structure function computed.
+3. K3 Yangian: abelian sector **RESOLVED** (thm:k3-abelian-yangian-presentation). Non-abelian and completed super-Yangian $Y_{osp}(4|20)$ open. E_8 x E_8 structure function computed.
 4. Non-abelian: ADE Yangian level 1 for all types. Matrix Lax coassociativity via trace. Serre verified. BKM Serre P_2=0 EXACT.
 5. Sp_4(Z): pipeline engine operational. Fourier-Jacobi = E_2->E_3 proved. Mathieu: frame shape = twined bar Euler for all 25 M_24 classes.
 6. Shadow tower: through m_8 (160 tests, S_8=4144720/19683). m_5 independently verified (G_5^{conn}=775/5184).
@@ -965,13 +1006,13 @@ The final documentation pass inscribed 10 new results into the metacognitive arc
 
 9. **kappa_ch deep mechanism**: Hodge-filtered supertrace str_{F^0}(q^{L_0}) kills non-F^0 contributions. At d=2: coincides with chi(O_X)/2 via Serre duality S_C=[2]. At d=3: diverges.
 
-10. **CY-D at d=3 deep issue**: chi(O_{K3xE}) = 0 != 3 = kappa_ch. The CY-D formula kappa = chi(O_X) FAILS at d=3. The formula must use str_{F^0}(q^{L_0}), not chi(O_X). Target-space anomaly (chi) != worldsheet anomaly (kappa_ch).
+10. **CY-D at d=3 deep issue**: chi(O_{K3xE}) = 0 differs from the Heisenberg-level value kappa_ch^{Heis}=3. The compact total-space formula uses the Hodge-filtered supertrace str_{F^0}(q^{L_0}), not a bare kappa or the Heisenberg rank. Target-space anomaly, compact Hodge supertrace, and worldsheet Heisenberg rank are distinct.
 
 ### Updated Load-Bearing Open Problems (DEFINITIVE, April 2026, ~230-agent session)
 
-1. CY-A_3: **RESOLVED** (inf-cat). Chain-level explicit open. BKM Serre EXACT (P_2=0).
+1. CY-A_3: **WITNESSED / CONDITIONAL**. The inf-categorical obstruction analysis is installed, but the chain-level framing/anomaly/completion witnesses and functorial construction remain open outside verified loci.
 2. ZTE correction: **COMPUTED** (exact rational T matrix, 35 tests). Previously constructive (rank 35/36); now explicit.
-3. K3 Yangian: abelian **RESOLVED**. Non-abelian and super-Yangian open. E_8 x E_8 structure function computed.
+3. K3 Yangian: abelian **RESOLVED**. Non-abelian and completed $Y_{osp}(4|20)$ super-Yangian open. E_8 x E_8 structure function computed.
 4. CY-B at d=3: **ACTIVE** (131 tests). Conditional on chain-level CY-A_3 data.
 5. CY-D at d=3: **DEEP ISSUE**. chi(O_X) != kappa_ch at odd d. Dimension-stratified formula needed: str_{F^0}(q^{L_0}).
 6. Sp_4(Z): pipeline operational. Fourier-Jacobi = E_2->E_3. Mathieu: all 25 M_24 classes verified.

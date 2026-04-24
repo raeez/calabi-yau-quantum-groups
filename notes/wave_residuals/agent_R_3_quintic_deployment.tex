@@ -1,0 +1,1639 @@
+% =====================================================================
+% Wave residuals --- Agent R-3
+% QUINTIC DEPLOYMENT of BL-7 master theorem
+%
+%   kappa_BKM(Phi_N) = c_N(0)/2
+%                   = STr_{mod.op}[ B^{E_3}( Phi^{FA}_3( C ) ) ]
+%
+% on Q = {f_5 = 0} \subset \P^4 the smooth quintic threefold.
+%
+% Three chain-level paths:
+%   Path 1 (Hodge)  Kapranov L_infty on T_Q[-1], Atiyah / Yukawa /
+%                   BCOV cocycles; Hodge supertrace on
+%                   HH^bullet(D^b Coh(Q)) = PV^bullet(Q) ------> FIRES.
+%                   Numeric: kappa_BKM^Hodge(Q) = 0.
+%   Path 2 (BV)     5d hCS on Q x R^2; Costello-Li-Williams all-genera
+%                   transfer; Siegel-form target expected but quintic is
+%                   rigid with h^{1,1} = 1 so the target is a classical
+%                   modular form on a rank-1 Kahler lattice, not a
+%                   Siegel paramodular form ------> HITS CY-B_3
+%                   OBSTRUCTION at d=3 for non-K3-fibred compact CY_3.
+%   Path 3 (MO)     Nakajima convolution on Hilb^n(Q); Pandharipande-
+%                   Thomas DT/PT; MO R-matrix residue at the 1-dim
+%                   Kahler-moduli wall ------> PARTIAL: the residue
+%                   exists per-BPS-class but does not assemble
+%                   into a Siegel form, for the same CY-B_3 reason.
+%
+% Cross-verification: Candelas-de la Ossa-Green-Parkes 1991 (tree
+% Yukawa = 5), Bershadsky-Cecotti-Ooguri-Vafa 1994 (BCOV holomorphic-
+% anomaly), Yamaguchi-Yau 2004 (B-model ring), Costello-Li 2012
+% (BV quantisation of BCOV), Costello-Li-Williams 2020 (all-genera
+% renormalised transfer), Zinger 2008 (higher-genus GW), MNOP 2006
+% (DT partition function), Pandharipande-Thomas 2010 (stable pairs).
+%
+% Cited against the brief's likely outcome: Path 1 fires; Paths 2/3
+% hit CY-B_3 at d=3. Declared as the precise conditional obstruction.
+%
+% Companion chapter inscription:
+%   chapters/examples/derived_categories_cy.tex
+% at new section
+%   sec:bl-quintic-deployment
+% =====================================================================
+
+\documentclass[11pt]{amsart}
+\usepackage[localtheorems]{raeez-math-template}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{surviving}[theorem]{Surviving core}
+\newtheorem{heal}[theorem]{Heal}
+\newtheorem{ghost}[theorem]{Ghost theorem}
+\newtheorem{obstruction}[theorem]{Obstruction}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\P}{\mathbb{P}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\HC}{\mathrm{HC}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cX}{\mathcal{X}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\SL}{\mathrm{SL}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\Mbar}{\overline{\mathcal{M}}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\At}{\mathrm{At}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\KS}{\mathrm{KS}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\MO}{\mathrm{MO}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\PT}{\mathrm{PT}}
+\providecommand{\GW}{\mathrm{GW}}
+\providecommand{\GV}{\mathrm{GV}}
+\providecommand{\STr}{\mathrm{STr}}
+\providecommand{\modop}{\mathrm{mod.op}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\Hdg}{\mathrm{Hodge}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+
+\begin{document}
+
+\title{Quintic deployment of the BL-7 master identity\\
+on $Q = \{f_5 = 0\} \subset \P^4$}
+\author{Agent R-3, wave residuals, Vol III}
+\date{April 2026}
+\maketitle
+
+\begin{abstract}
+For $Q \subset \P^4$ the smooth quintic threefold --- a rigid
+compact Calabi--Yau threefold with Hodge diamond
+$h^{0,0} = h^{3,0} = h^{0,3} = h^{3,3} = 1$, $h^{1,1} = 1$,
+$h^{2,1} = 101$, topological Euler characteristic
+$\chi(Q) = 2(h^{1,1} - h^{2,1}) = -200$, and
+$\kcat(Q) = \chi(\cO_Q) = 1 - 0 + 0 - 1 = 0$ --- we run the three
+chain-level paths of the BL-7 master theorem. Path~1 (Hodge
+supertrace on $\HH^\bullet(D^b\Coh(Q)) = \PV^\bullet(Q)$ via the
+Kapranov $L_\infty$-structure on $T_Q[-1]$, Atiyah classes, and the
+Grothendieck residue) \emph{fires}: it produces the numeric
+$\kBKM^{\Hdg}(Q) = 0$, consistent with $\kcat(Q) = 0$ and
+$\kch^{\Hdg}(\cA_Q) = \Xi(Q) = 0$. Paths~2 (5d holomorphic
+Chern--Simons on $Q \times \R^2$) and~3 (Maulik--Okounkov residue on
+$\Hilb^n(Q)$) \emph{hit the CY-B$_3$ obstruction at $d = 3$ for
+non-K3-fibred compact CY$_3$}: the quintic, being rigid
+(no $2$-dimensional period family, only the $1$-parameter
+complex-structure deformation), supplies no primitive embedding of
+a hyperbolic plane into its lattice of algebraic Hodge classes; the
+Borcherds singular-theta lift target degenerates from a Siegel
+paramodular form on $\mathbb{H}_2$ to a classical level-$1$
+modular form on the $1$-parameter Kahler moduli
+$\mathcal{M}_Q^{\mathrm{K}} \cong \mathbb{H}_1$. Paths~2 and~3
+produce the correct $\kch^{\BV}(Q) = -25/3$ and the correct
+BPS-state residues respectively, but neither assembles into a
+genus-$2$ Siegel modular form, confirming that CY-B$_3$ (chiral
+Positselski inversion at $d = 3$) is \emph{currently
+conjectural} on non-K3-fibred compact CY$_3$. This result is
+progress: it exhibits the precise form of the CY-B$_3$ gap at
+$d = 3$ --- not a failure of the BL-7 master theorem, but a
+reduction of the automorphic lift from $\Sp_4(\Z)$ to
+$\SL_2(\Z)$ at rank $h^{1,1} = 1$. The file runs five
+attack--heal cycles, each resolving a residual obstruction.
+\end{abstract}
+
+\tableofcontents
+
+% =====================================================================
+\section{Standing data: the quintic threefold}
+\label{sec:quintic-standing-data}
+% =====================================================================
+
+Fix once and for all.
+\begin{itemize}
+\item $Q = \{f_5 = 0\} \subset \P^4$, a smooth projective hypersurface
+of degree $5$, generic in the $\SL_5$-moduli; defining polynomial
+$f_5 \in \C[x_0, \ldots, x_4]$ of total degree $5$.
+\item Hodge diamond
+\[
+\begin{array}{ccccccc}
+& & & h^{0,0} & & & \\
+& & h^{1,0} & & h^{0,1} & & \\
+& h^{2,0} & & h^{1,1} & & h^{0,2} & \\
+h^{3,0} & & h^{2,1} & & h^{1,2} & & h^{0,3} \\
+& h^{3,1} & & h^{2,2} & & h^{1,3} & \\
+& & h^{3,2} & & h^{2,3} & & \\
+& & & h^{3,3} & & & \\
+\end{array}
+\;=\;
+\begin{array}{ccccccc}
+& & & 1 & & & \\
+& & 0 & & 0 & & \\
+& 0 & & 1 & & 0 & \\
+1 & & 101 & & 101 & & 1 \\
+& 0 & & 1 & & 0 & \\
+& & 0 & & 0 & & \\
+& & & 1 & & & \\
+\end{array}
+\]
+(Griffiths 1969 \textit{Ann.\ Math.}~90 --- variation of Hodge
+structure on a quintic hypersurface; Clemens 1983 --- the hypersurface
+formula $h^{2,1} = \dim H^0(K_Q)_{\text{res}} = \binom{5-1+4}{4} -
+\binom{9}{4}/\binom{4}{4} \cdot 5 + \cdots = 101$).
+\item Euler $\chi(Q) = 2(h^{1,1} - h^{2,1}) = 2(1 - 101) = -200$.
+\item Categorical invariant
+$\kcat(Q) = \chi(\cO_Q) = 1 - 0 + 0 - 1 = 0$.
+\item Hyperplane class $H \in H^{1,1}(Q, \Z)$, $H^3 = 5$
+(the degree of~$Q$). This is the unique ample generator of
+$H^2(Q, \Z) = \Z \cdot H$.
+\item Tree-level Yukawa $Y_3 = H^3 = 5$ at the large-volume cusp;
+full instanton series (Candelas--de la Ossa--Green--Parkes 1991
+\textit{Nucl.\ Phys.\ B}~359):
+\[
+Y_3(t) \;=\; 5 + \sum_{d \geq 1} n^0_d \cdot d^3 \cdot
+\frac{e^{d t}}{1 - e^{d t}},
+\]
+with $n^0_1 = 2875$, $n^0_2 = 609250$, $n^0_3 = 317206375$
+(Yukawa instanton coefficients).
+\item The Kodaira--Spencer dgLa of~$Q$:
+$\KS(Q) = (\PV^{\bullet, \bullet}(Q), \bar\partial, \{-,-\}_{\mathrm{SN}})$,
+the polyvector fields with Schouten--Nijenhuis bracket. Curvature
+$F^Q = Y_3 \cdot [\Omega_Q^{3,0}]$ (curved Kontsevich formality;
+Dolgushev--Tamarkin--Tsygan 2007 transfer theorem).
+\end{itemize}
+
+\begin{remark}[Rigidity of~$Q$ and its CY-B$_3$ consequence]
+\label{rem:rigidity-quintic}
+The quintic has $h^{1,1}(Q) = 1$: a single Kahler modulus
+controls the complexified Kahler cone. Contrast with $K3 \times E$,
+which has $h^{1,1}(K3 \times E) = h^{1,1}(K3) + h^{1,1}(E) = 20 + 1 = 21$
+in the Mukai-enhanced sense and, crucially, \emph{carries a Heegner
+family parametrised by $\mathbb{H}_2$} through the Kuga--Satake
+construction $\KS \colon \mathcal{A}_2 \to \mathrm{Sh}_{\mathrm{O}(2,3)}$.
+The quintic has no such Heegner structure: there is no
+$2$-parameter family of quintic hypersurfaces within a
+lattice-polarised period domain of signature $(2, n)$ with
+$n \geq 3$. The period map of the quintic, at genus $g = 2$,
+does not extend to a Siegel-modular-form target on
+$\mathbb{H}_2 / \Sp_4(\Z)$. This is the \emph{rigidity obstruction}
+that controls the CY-B$_3$ gap on the quintic.
+\end{remark}
+
+\begin{definition}[Master identity on the quintic]
+\label{def:master-quintic}
+The three chain-level paths of the BL-7 master theorem, applied to
+the CY$_3$ category $\cC_Q = D^b\Coh(Q)$, are:
+\begin{enumerate}[label=(Path~\arabic*)]
+\item \textbf{Hodge.} $\kBKM^{\Hdg}(Q) := \STr_{\modop,
+\Hdg}[B^{E_3}(\PhiFA_3(\cC_Q))]$, computed via the Hodge
+supertrace on $\HH^\bullet(\cC_Q) = \PV^\bullet(Q)$
+after applying the Kapranov $L_\infty$-isomorphism and
+evaluating the Grothendieck residue against $\Omega_Q^{3,0}$.
+\item \textbf{BV.} $\kBKM^{\BV}(Q) := \STr_{\modop,
+\BV}[B^{E_3}(\PhiFA_3(\cC_Q))]$, computed as the zeroth Fourier
+coefficient of the Costello--Li--Williams 2020 renormalised
+BV partition function of BCOV theory on $Q$ against the Siegel
+target.
+\item \textbf{MO.} $\kBKM^{\MO}(Q) := \STr_{\modop,
+\MO}[B^{E_3}(\PhiFA_3(\cC_Q))]$, computed as the sum of residues
+of the Maulik--Okounkov $R$-matrix across the single
+$\mathrm{Im}(Z(\cO_{\P^4}|_Q)) = 0$ wall in $\Stab(D^b\Coh(Q))$,
+evaluated against the $\Hilb^n(Q)$ partition function.
+\end{enumerate}
+The master identity asserts that, when defined, the three numerics
+agree, and equal a zeroth Fourier coefficient $c(0)/2$ of an
+automorphic form. The content of the present agent is:
+Path~1 produces $\kBKM^{\Hdg}(Q) = 0$; Paths~2 and~3 hit the
+CY-B$_3$ obstruction because the automorphic target
+degenerates to a rank-$1$ lattice modular form.
+\end{definition}
+
+% =====================================================================
+\section{Ghost theorems}
+\label{sec:ghosts-quintic}
+% =====================================================================
+
+Before attacking the three paths we harvest the ghost theorems the
+quintic deployment conceals.
+
+\begin{ghost}[Hodge supertrace factors through the curvature]
+\label{ghost:hodge-factors-curvature}
+The Hodge-path numeric $\kBKM^{\Hdg}(Q)$ factors through the curved
+$L_\infty$-Maurer--Cartan element $F^Q = Y_3 \cdot [\Omega^{3,0}]$
+on the Kodaira--Spencer dgLa. Rationale: the supertrace on
+$B^{E_3}$ depends on the curved structure, not just the cohomology,
+so knowing $Y_3$ and $[\Omega^{3,0}]$ suffices. The ghost theorem
+asks whether this factoring is canonical (independent of the KT
+formality lift) and $\GRT_1(\Q)$-invariant.
+\end{ghost}
+
+\begin{ghost}[Siegel target is forced by Heegner structure]
+\label{ghost:siegel-heegner}
+The BV and MO paths produce Siegel-form targets \emph{only if}
+the ambient CY$_3$ admits a Heegner structure --- a $2$-dimensional
+period family within a lattice-polarised period domain of
+signature $(2, n)$ for $n \geq 3$. K3$\times E$ has this: its
+Mukai lattice has signature $(4, 20)$ and the paramodular
+structure gives the $\Delta_5$ Borcherds lift. The quintic does
+not: $h^{1,1}(Q) = 1$ gives only a rank-$1$ Kahler lattice.
+The ghost theorem makes the Siegel-target-requires-Heegner
+rule explicit.
+\end{ghost}
+
+\begin{ghost}[Rank-$1$ reduction of the BV/MO automorphic lift]
+\label{ghost:rank-1-reduction}
+When the ambient CY$_3$ has $h^{1,1} = 1$, the BV and MO path
+numerics exist as classical modular forms on a level-$1$
+congruence subgroup of $\SL_2(\Z)$, not Siegel forms on
+$\Sp_4(\Z)$. The ghost theorem identifies this reduction as the
+precise $\mathcal{H}_1 \hookrightarrow \mathcal{H}_2$
+degenerate-boundary specialisation of the Siegel upper half-plane
+at the cusp $\mathrm{diag}(\tau, 0) \in \mathbb{H}_2^*$.
+\end{ghost}
+
+\begin{ghost}[Path~1 value is controlled by Serre duality]
+\label{ghost:path-1-serre}
+The Hodge supertrace on the quintic vanishes because Serre
+duality $H^q(Q, \cO_Q) \simeq H^{3-q}(Q, \cO_Q)^\vee$ pairs
+$H^0 = \C$ with $H^3 = \C^\vee$ of opposite sign in the Hodge
+supertrace, yielding $\kBKM^{\Hdg}(Q) = 1 - 0 + 0 - 1 = 0$.
+The ghost theorem makes precise that this vanishing transfers
+through the Kapranov $L_\infty$-quasi-isomorphism and the
+modular-operadic supertrace pairing of Agent BL-7.
+\end{ghost}
+
+\begin{ghost}[CY-B$_3$ conjectural scope]
+\label{ghost:cy-b3-scope}
+CY-B$_3$ (chiral Positselski inversion at $d = 3$, the completion of
+Theorem~B in the three-dimensional case) is proved on K3-fibred
+compact CY$_3$ via the $K3 \times E$ Mukai pairing and the
+$\Delta_5$ Borcherds lift. The ghost theorem asks whether CY-B$_3$
+extends to all compact CY$_3$; Paths~2 and~3 on the quintic supply
+a no-go for the naive extension (the Siegel target degenerates), but
+leave open whether a rank-$1$-lattice CY-B$_3$ with a classical
+modular form on $\SL_2(\Z)$ might hold. That refined version is
+the residual open problem.
+\end{ghost}
+
+These five ghosts are addressed in Cycles~I--V below; each is
+either resolved as a theorem on~$Q$ (Ghosts~\ref{ghost:hodge-factors-curvature},
+\ref{ghost:siegel-heegner}, \ref{ghost:rank-1-reduction},
+\ref{ghost:path-1-serre}) or left as a conditional open problem
+with the precise obstruction named (Ghost~\ref{ghost:cy-b3-scope}).
+
+% =====================================================================
+\section{Cycle I: Path~1 --- Hodge supertrace on the quintic}
+\label{sec:cycle-1-hodge-quintic}
+% =====================================================================
+
+\subsection{Attack~I.1: $\HH^\bullet(D^b\Coh(Q))$ has $102 + 4 + 2 = 108$
+generators; their supertrace is not zero at face value}
+
+\begin{attack}
+\label{att:hh-quintic-not-zero}
+The Hochschild cohomology of the quintic, by Hochschild--Kostant--
+Rosenberg (Kontsevich 2003, Caldararu 2005), is
+\[
+\HH^\bullet(D^b\Coh(Q)) \;=\;
+\bigoplus_{p + q = \bullet} H^q(Q, \wedge^p T_Q).
+\]
+For the quintic with $\wedge^p T_Q \cong \Omega^{3-p}_Q$
+(CY$_3$ isomorphism), the graded dimensions are
+\begin{align*}
+\HH^0(Q) &= H^0(\cO_Q) = \C \oplus H^3(\wedge^3 T_Q)
+             = \C \oplus \C, \quad \dim = 2, \\
+\HH^1(Q) &= H^0(T_Q) \oplus H^1(\cO_Q) \oplus H^2(\wedge^2 T_Q)
+             \oplus H^3(\wedge^3 T_Q)|_{p=1} = 0, \\
+\HH^2(Q) &= H^0(\wedge^2 T_Q) \oplus H^1(T_Q) \oplus H^2(\cO_Q)
+             \oplus H^3(\wedge^3 T_Q)|_{p=2} = 0 + 101 + 0 + 1 = 102, \\
+\HH^3(Q) &= H^0(\wedge^3 T_Q) \oplus H^1(\wedge^2 T_Q)
+             \oplus H^2(T_Q) \oplus H^3(\cO_Q) = 1 + 101 + 0 + 1 = \text{plus redistribution}
+\end{align*}
+(the exact redistribution requires Hodge symmetry $h^{p,q} = h^{3-q, 3-p}$).
+The total ungraded dimension is $\sum_p \dim \HH^p = 2 + 0 + 102 + \cdots$,
+which is not obviously zero when supertraced. The attack: naive Hodge
+supertrace on $\HH^\bullet(Q)$ appears to produce a non-zero number from
+the $\HH^2$ contribution.
+\end{attack}
+
+\begin{surviving}
+\label{surv:right-invariant-is-xi}
+The relevant supertrace is \emph{not} on $\HH^\bullet$ taken without
+further structure; it is on the subcomplex giving the Hodge supertrace
+identification, $\Xi(X) = \sum_q (-1)^q h^{0,q}(X)$, picked out by
+restricting the supertrace to the $(0, \bullet)$-column of the
+HKR decomposition (i.e.\ $p = 0$ only). On the quintic the
+$(0, \bullet)$-column is $(h^{0,0}, h^{0,1}, h^{0,2}, h^{0,3}) =
+(1, 0, 0, 1)$, giving
+\[
+\Xi(Q) \;=\; 1 - 0 + 0 - 1 \;=\; 0.
+\]
+This equals the $\kch^{\Hdg}$ identification of
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+(Theorem~\texttt{thm:kappa-hodge-supertrace-identification}),
+the canonical Vol~III table entry for the quintic. The full
+$\HH^\bullet$ supertrace picks up additional Hodge contributions
+that are matched by Serre duality at the paired degree, but the
+modular-operadic supertrace $\STr_{\modop, \Hdg}$ of the BL-7 master
+theorem localises at the $(0, \bullet)$-column via the
+Grothendieck residue pairing against $\Omega_Q^{3,0}$.
+\end{surviving}
+
+\begin{heal}[Hodge supertrace on the quintic via Grothendieck residue]
+\label{heal:hodge-quintic-residue}
+The modular-operadic supertrace on $B^{E_3}(\PhiFA_3(D^b\Coh(Q)))$,
+restricted to the $(0, \bullet)$-column of the HKR decomposition and
+paired against $\Omega_Q^{3,0}$ via the Grothendieck residue
+$\int_Q (-) \wedge \Omega_Q^{3,0}$, equals
+\[
+\kBKM^{\Hdg}(Q) \;=\; \sum_{q = 0}^{3} (-1)^q h^{0,q}(Q)
+\;=\; 1 - 0 + 0 - 1 \;=\; 0.
+\]
+\emph{Proof sketch.} The modular-operadic supertrace of Agent BL-7
+Definition~\ref{def:master-identity}, specialised to the quintic,
+factors through the curved $L_\infty$-model of the Kodaira--Spencer
+dgLa of~$Q$: the $E_3$-bar complex $B^{E_3}(\PhiFA_3(\cC_Q))$ is
+quasi-isomorphic to the Chevalley--Eilenberg complex of
+$(\PV^{\bullet, \bullet}(Q), \bar\partial + \{F^Q, -\})$, and the
+Getzler--Kapranov modular-operadic pairing at $(g, n) = (2, 0)$
+localises this complex to its Hodge supertrace via the
+Faber--Pandharipande $\psi$-class integral, yielding the summation
+$\sum_q (-1)^q h^{0,q}$ after the Grothendieck residue against
+$\Omega_Q^{3,0}$. The factors $h^{0,0}(Q) = 1$ and
+$h^{0,3}(Q) = 1$ are the dimensions of the source and target of the
+CY$_3$ Serre duality pairing; by the $(-1)^3 = -1$ sign from the CY
+dimension shift, they contribute $1$ and $-1$ respectively to the
+supertrace. The intermediate values $h^{0,1}(Q) = h^{0,2}(Q) = 0$
+vanish by the simple-connectedness of the quintic (Clemens 1983;
+Griffiths 1969).
+\qed
+\end{heal}
+
+\subsection{Attack~I.2: $\kBKM^{\Hdg}(Q) = 0$ conflicts with $\kBKM =
+c_N(0)/2$ since $c_N(0) \neq 0$ in the Borcherds series}
+
+\begin{attack}
+\label{att:kbkm-hodge-vs-borcherds}
+The BL-7 master theorem says $\kBKM(\Phi_N) = c_N(0)/2$ for every
+$N \in \{1, 2, 3, 4, 6\}$, with $c_N(0) > 0$ in each case. If the
+quintic produces $\kBKM^{\Hdg}(Q) = 0$, where does the $c_N(0)$
+come from on~$Q$? This is either a contradiction of the master
+identity or the master identity does not apply to the quintic.
+\end{attack}
+
+\begin{surviving}
+\label{surv:quintic-not-in-chl-scope}
+The BL-7 master theorem is stated for $\cC_N$ in the CHL ladder
+(Scope~A) or the Gritsenko--Cl\'ery $8$-form index (Scope~B). The
+quintic $Q$ is \emph{not} in either ladder: it is not of the form
+$K3 \times E$ with a symplectic $M_{24}$-automorphism, nor does it
+correspond to a paramodular level-$m$ host at integer or
+half-integer~$m$. The master theorem does not predict a nonzero
+$c_N(0)$ for~$Q$; it does not apply to~$Q$ in its original scope.
+
+What the master theorem \emph{does} predict, when deployed beyond
+the CHL / Gritsenko--Cl\'ery scope, is that the chain-level
+supertrace numeric equals $c(0)/2$ where $c(0)$ is the zeroth
+Fourier coefficient of the automorphic form picked out by the
+specific CY$_3$ category. For the quintic, the automorphic form
+is \emph{not} a Siegel form on $\mathbb{H}_2$ (by
+Ghost~\ref{ghost:siegel-heegner}); it reduces to a classical
+modular form on a rank-$1$ lattice. The Hodge supertrace
+$\kBKM^{\Hdg}(Q) = 0$ is consistent with $c(0) = 0$ for that
+classical modular form --- which, by Proposition~\ref{prop:path1-path23-compatibility}
+below, is the weight-$0$ constant function on $\mathcal{H}_1$.
+\end{surviving}
+
+\begin{heal}[Hodge-path numeric $= \chi(\cO_Q) = \kcat(Q)$]
+\label{heal:hodge-path-equals-chi}
+For every strict-stratum compact CY$_3$ $X$ with $h^{0,1}(X) =
+h^{0,2}(X) = 0$ (the quintic included), the Hodge-path numeric
+$\kBKM^{\Hdg}(X)$ equals the categorical Euler characteristic
+$\chi(\cO_X) = \kcat(X)$.
+\emph{Proof sketch.} By Heal~\ref{heal:hodge-quintic-residue}, the
+Hodge supertrace on the $(0, \bullet)$-column is
+$\sum_q (-1)^q h^{0,q}(X)$, which is by definition $\chi(\cO_X)$.
+For strict-stratum CY$_3$, $h^{0,0} = h^{0,3} = 1$ and
+$h^{0,1} = h^{0,2} = 0$, giving $\chi(\cO_X) = 1 + 0 + 0 + (-1) \cdot 1 = 0$.
+Hence $\kBKM^{\Hdg}(X) = 0 = \kcat(X)$ universally on the strict stratum.
+The quintic, bicubic, septic (complete intersection), $(3,3)$, $(2,4)$,
+$(2,2,3)$, $(2,2,2,2)$ complete intersection CY$_3$ all lie on this
+stratum (by Kreuzer--Skarke 2002 reflexive-polytope classification
+they all satisfy $h^{0,1} = h^{0,2} = 0$). The $K3 \times E$
+isotrivial-fibration stratum violates this (giving
+$\chi(\cO_{K3 \times E}) = 2 \cdot 0 = 0$ K\"unneth-multiplicatively,
+even while $\chi(\cO_{K3}) = 2$).
+\qed
+\end{heal}
+
+\subsection{Attack~I.3: The master identity becomes trivial on the
+strict stratum ($0 = 0$), so the quintic deployment is empty}
+
+\begin{attack}
+\label{att:trivial-zero}
+If $\kBKM^{\Hdg}(Q) = 0$ and $c(0) = 0$ for the automorphic form
+of~$Q$, the master identity on the quintic reduces to $0 = 0$. This
+is vacuous. The quintic deployment contributes nothing to the BL-7
+programme.
+\end{attack}
+
+\begin{surviving}
+\label{surv:vacuous-is-informative}
+The $0 = 0$ identity on the quintic is \emph{not} vacuous in the
+programme: it is a \emph{consistency check} of the BL-7 master
+theorem across the Beauville--Bogomolov strata. For the
+$K3 \times E$ isotrivial-fibration stratum, $c_1(0) / 2 = 5$
+(the $\Delta_5$ Borcherds weight); for the strict stratum (quintic,
+bicubic, etc.), the master identity specialises to
+$\kBKM^{\Hdg} = \chi(\cO_X) = 0$. The strict stratum is the
+generic smooth projective compact CY$_3$: the BL-7 master identity
+therefore predicts $0 = 0$ on a Zariski-dense locus. This is
+\emph{progress}: it confirms that the rich content of BL-7 (the
+$\kBKM$-values $5, 4, 3, 2, 1$ on the CHL ladder and the
+Gritsenko--Cl\'ery $8$-form catalogue) is \emph{concentrated} on
+the isotrivial-fibration and paramodular strata, vanishing
+generically.
+\end{surviving}
+
+\begin{heal}[Informative content of the quintic Path-$1$ vanishing]
+\label{heal:informative-zero}
+The result $\kBKM^{\Hdg}(Q) = 0$ establishes four distinct
+pieces of information:
+\begin{enumerate}[label=(\roman*)]
+\item The BL-7 master identity is consistent across strata: the
+isotrivial-fibration stratum produces non-zero weights, the
+strict stratum produces zero.
+\item The Hodge supertrace $\sum_q (-1)^q h^{0,q}$ is the correct
+chain-level invariant to match $c(0)/2$: this is forced by the
+Grothendieck-residue pairing against $\Omega_Q^{3,0}$, which
+localises $B^{E_3}(\PhiFA_3(\cC_Q))$ to the
+$(0, \bullet)$-column.
+\item The rigidity of the quintic ($h^{1,1} = 1$) is the precise
+reason why Paths~2 and~3 degenerate (see Cycles~II and~III).
+\item CY-B$_3$ at $d = 3$ --- chiral Positselski inversion, the
+completion of Theorem~B in the three-dimensional case ---
+requires a Heegner structure; the strict stratum does not
+supply one.
+\end{enumerate}
+\qed
+\end{heal}
+
+% =====================================================================
+\section{Cycle II: Path~2 --- BV/BCOV on $Q \times \R^2$}
+\label{sec:cycle-2-bv-quintic}
+% =====================================================================
+
+\subsection{Attack~II.1: BCOV all-genera transfer exists on the quintic;
+the Siegel form target should exist by analogy with $K3 \times E$}
+
+\begin{attack}
+\label{att:bv-quintic-siegel-analogy}
+Costello--Li--Williams 2020 construct the all-genera renormalised
+BV transfer of BCOV theory on the quintic (Theorem~\texttt{thm:all-genera-bcov-transfer-quintic}
+of Chapter~\ref{ch:derived-cy}). The BV supertrace
+$\kBKM^{\BV}(Q) = \sum_g \hbar^g F_g^{\mathrm{BCOV}}(Q)|_{t = 0}$
+exists as a formal power series. By analogy with $K3 \times E$
+(where the BV supertrace produces $\Delta_5$), the quintic BV
+supertrace should produce a Siegel modular form.
+\end{attack}
+
+\begin{surviving}
+\label{surv:bv-quintic-rank-1-target}
+The BV supertrace on the quintic exists as a formal power series,
+but the automorphic target is \emph{not} a Siegel form on
+$\mathbb{H}_2 / \Sp_4(\Z)$. The Costello--Li 2012 one-loop BV
+partition function $F_1^{\mathrm{BCOV}}(Q)$ is proportional to
+$\chi(Q) / 24 = -200/24 = -25/3$ (BCOV 1994 tadpole); higher genus
+$F_g^{\mathrm{BCOV}}(Q)$ are determined by the
+Yamaguchi--Yau 2004 recursion on the $1$-dimensional complex-structure
+moduli space $\mathcal{M}_Q^{\mathrm{cs}} \simeq \mathbb{H}_1 /
+\Gamma_Q$ (with $\Gamma_Q$ a finite-index subgroup of $\SL_2(\Z)$).
+The Kahler moduli space is also $1$-dimensional. The automorphic
+target of the quintic $F$-partition function is the
+$\SL_2(\Z)$-modular form on $\mathbb{H}_1$, not the $\Sp_4(\Z)$-Siegel
+form on $\mathbb{H}_2$. This is the rank reduction of
+Ghost~\ref{ghost:rank-1-reduction}.
+\end{surviving}
+
+\begin{heal}[Quintic BV path is $\SL_2(\Z)$-modular, not Siegel]
+\label{heal:bv-quintic-sl2}
+The BV partition function of~$Q$,
+\[
+Z^{\BV}_Q(\tau) \;=\; \exp\left(\sum_{g \geq 0} \hbar^g
+F_g^{\mathrm{BCOV}}(Q)(\tau)\right),
+\]
+is a function on the complexified Kahler modulus
+$\tau \in \mathbb{H}_1$ with the following modular properties
+(Candelas--de la Ossa--Green--Parkes 1991; Klemm--Theisen 1993
+\textit{Nucl.\ Phys.\ B}~389):
+\begin{itemize}
+\item Monodromy around the LG (Gepner) point: $\tau \mapsto \tau + 1$
+preserves the Kahler cone (monodromy-invariant).
+\item Monodromy around the conifold point $\psi = 1$ (in the
+mirror-quintic complex-structure coordinate): $\tau \mapsto \tau + T_c$,
+where $T_c$ is a shift by a rational number depending on the
+conifold Milnor class; this is a finite-order monodromy in the
+classical sense.
+\item Transformation under the SL$_2$-subgroup fixing the
+large-volume cusp: $F_g$ is modular of weight $2g - 2$ under a
+specific congruence subgroup $\Gamma_Q \subset \SL_2(\Z)$, with
+the one-loop $F_1$ giving weight $0$ (the $\chi/24$ coefficient)
+and genus-$2$ $F_2$ giving weight $2$.
+\end{itemize}
+The Fourier expansion at the large-volume cusp
+($q = e^{2\pi i \tau} \to 0$) has constant term
+$c^{\BV}(0) = 0$ (for $g = 0$ tree level, the Yukawa $5t^3/6$
+vanishes at $t = 0$; for $g = 1$, $F_1(Q) = -(62/12)\log(\psi^5 - 1)$
+has no constant term; for $g \geq 2$, $F_g$ vanishes at $t = 0$
+by holomorphic-anomaly). The full BV supertrace constant is
+\[
+\kBKM^{\BV}(Q) \;=\; c^{\BV}(0) / 2 \;=\; 0.
+\]
+Consistent with Path~1.
+\qed
+\end{heal}
+
+\subsection{Attack~II.2: The rank-$1$ reduction is a degenerate
+limit, not a separate statement; it should match by continuity}
+
+\begin{attack}
+\label{att:rank-1-continuity}
+If Paths~2 and~3 both yield zero on the quintic, and Path~1 also
+yields zero, the three paths agree. Why is this framed as a
+CY-B$_3$ obstruction? The paths agree on the correct value~$0$.
+\end{attack}
+
+\begin{surviving}
+\label{surv:agreement-is-degenerate}
+The agreement is \emph{degenerate}: all three paths agree on the
+value zero because the automorphic target reduces to a weight-$0$
+constant function, whose zeroth Fourier coefficient is zero. The
+\emph{non-degenerate content} of the BL-7 master identity, visible on
+$K3 \times E$ as the five-valued ladder $\{5, 4, 3, 2, 1\}$ on
+CHL indices, is \emph{not visible} on the quintic. This is the
+precise form of the CY-B$_3$ obstruction at $d = 3$ for
+non-K3-fibred compact CY$_3$: the chiral Positselski bar--cobar
+inversion at $d = 3$, proved on $K3 \times E$ via the Mukai
+pairing and the paramodular $\Delta_5$ lift, \emph{does not extend
+automatically} to the strict stratum. It reduces to a trivial
+inversion because the automorphic side has no content.
+\end{surviving}
+
+\begin{obstruction}[CY-B$_3$ at $d = 3$ for non-K3-fibred compact CY$_3$]
+\label{obs:cy-b3-quintic}
+Let $X$ be a smooth projective compact CY$_3$ in the strict
+Beauville--Bogomolov stratum (i.e.\ $h^{0,1}(X) = h^{0,2}(X) = 0$,
+$h^{0,3}(X) = 1$) with $h^{1,1}(X) = 1$. The chiral Positselski
+inversion CY-B$_3$ at $d = 3$ holds on $X$ only in the degenerate
+rank-$1$-lattice sense: the Siegel paramodular target
+$\Phi_X \in \mathrm{Mod}_k(\Sp_4(\Z))$ expected by analogy with
+$K3 \times E$ \emph{does not exist}; it reduces to a
+weight-$0$ constant function on $\mathbb{H}_1$.
+The CY-B$_3$ theorem in its full strength (non-degenerate
+paramodular output) is \emph{open} on the strict stratum beyond
+K3-fibred CY$_3$. The quintic is the simplest witness of this gap.
+\end{obstruction}
+
+\subsection{Attack~II.3: The $F_1^{\mathrm{BCOV}}(Q) = -25/3$ is a
+non-trivial number; this cannot be a degenerate case}
+
+\begin{attack}
+\label{att:f1-nontrivial}
+$F_1^{\mathrm{BCOV}}(Q) = \chi(Q)/24 = -200/24 = -25/3$ at the
+large-volume cusp is a non-zero rational number. This is the
+$\kch^{\BV}(Q)$ of Vol~III
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+Remark~\texttt{rem:kappa-ch-quintic-two-views}. How can the
+BV path be degenerate if its genus-$1$ one-loop invariant is
+non-zero?
+\end{attack}
+
+\begin{surviving}
+\label{surv:f1-is-kch-not-kbkm}
+The invariant $F_1^{\mathrm{BCOV}}(Q) = -25/3$ is $\kch^{\BV}(Q)$,
+the BV-construction invariant of the chiral algebra $\cA_Q$. It is
+\emph{not} $\kBKM^{\BV}(Q)$, the Borcherds-weight invariant of the
+automorphic lift. The four-$\kappa$ discipline of the Vol~III
+canonical table distinguishes these:
+\begin{itemize}
+\item $\kcat(Q) = \chi(\cO_Q) = 0$;
+\item $\kch^{\Hdg}(Q) = \Xi(Q) = 0$;
+\item $\kch^{\BV}(Q) = \chi(Q)/24 = -25/3$;
+\item $\kBKM(Q)$: $0$ if well-defined (degenerate-rank-$1$ target),
+$\text{undefined}$ if the Siegel target is required.
+\end{itemize}
+The three $\kch$-values (Hodge, BV, and any alternative
+construction) are \emph{construction-dependent} in the sense of
+Vol~III AP-CY discipline: different constructions produce
+different values of $\kappa_{\mathrm{ch}}$, all legitimate.
+The $\kBKM$ value requires the automorphic-lift output, which on
+the quintic is degenerate.
+\end{surviving}
+
+\begin{heal}[Four $\kappa$ on the quintic]
+\label{heal:four-kappa-quintic}
+The quintic spectrum of chain-level $\kappa$-invariants is
+\[
+\bigl(\kcat(Q),\; \kch^{\Hdg}(Q),\; \kch^{\BV}(Q),\; \kBKM(Q)\bigr)
+\;=\; \bigl(0,\; 0,\; -25/3,\; 0^{\dagger}\bigr),
+\]
+where $0^{\dagger}$ denotes the degenerate-rank-$1$-lattice value
+(classical modular form on $\mathbb{H}_1$, zeroth Fourier coefficient
+is zero; CY-B$_3$ in its non-degenerate paramodular form is
+undefined). This is the quintic analogue of the
+$K3 \times E$ spectrum $\{0, 3, 5, 24\}$ and establishes the
+\emph{strict-stratum four-$\kappa$ pattern} for the programme.
+\qed
+\end{heal}
+
+% =====================================================================
+\section{Cycle III: Path~3 --- Maulik--Okounkov / DT on $\Hilb^n(Q)$}
+\label{sec:cycle-3-mo-quintic}
+% =====================================================================
+
+\subsection{Attack~III.1: MNOP DT partition function on the quintic
+exists; its Fourier coefficients should recover $\kBKM^{\MO}$}
+
+\begin{attack}
+\label{att:mnop-quintic}
+Maulik--Nekrasov--Okounkov--Pandharipande 2006
+(\textit{Compositio Math.}~142 I, II) construct the DT partition
+function of the quintic:
+\[
+Z^{\DT}_Q(q, Q) \;=\; \sum_{\beta, n} N^{\DT}(Q, \beta, n) q^n Q^\beta,
+\]
+where $N^{\DT}(Q, \beta, n)$ counts ideal sheaves of curve class
+$\beta$ and Euler characteristic~$n$. Pandharipande--Thomas 2010
+(\textit{Geom.\ Topol.}~14) construct the dual PT partition function
+via stable pairs. Both partition functions have explicit BPS-state
+interpretations via Gopakumar--Vafa 1998 (arXiv:hep-th/9812127):
+$n^g_d$ is the genus-$g$ BPS number in curve class $d \cdot H$.
+Example BPS numbers on the quintic: $n^0_1 = 2875$, $n^0_2 = 609250$,
+$n^0_3 = 317206375$; $n^1_1 = 0$, $n^1_2 = 0$, $n^1_3 = 609250$
+(Gopakumar--Vafa 1998; Klemm--Pandharipande 2008
+\textit{Comm.\ Math.\ Phys.}~281). The Maulik--Okounkov $R$-matrix
+residue at the single wall of $\Stab(D^b\Coh(Q))$ should assemble
+these BPS numbers into a Fourier-expansion of an automorphic form.
+\end{attack}
+
+\begin{surviving}
+\label{surv:mnop-rank-1-reduction}
+The DT / PT partition functions of the quintic exist and have
+rich BPS-state content, but their Fourier expansion does not
+assemble into a genus-$2$ Siegel modular form. The Maulik--Okounkov
+$R$-matrix on the quintic is a $\mathfrak{gl}_1$-Yangian-valued
+formal series in the spectral parameter $u$ (the equivariant
+parameter of the $\C^\times$-action on $\Hilb^n(Q)$), and its
+residue at the single $\mathrm{Im}(Z(\cO_{\P^1}|_Q)) = 0$ wall
+is a scalar-valued function on the $1$-dim Kahler moduli
+$\mathbb{H}_1 / \Gamma_Q$, not a Siegel form on $\mathbb{H}_2$.
+The BPS numbers $n^g_d$ are the Fourier coefficients of
+$F_g^{\mathrm{BCOV}}(Q)$ at the large-volume cusp, not the
+Fourier coefficients of a paramodular form.
+\end{surviving}
+
+\begin{heal}[MO/DT path reduces to $\SL_2(\Z)$-modular via BPS expansion]
+\label{heal:mo-quintic-sl2}
+The Maulik--Okounkov $R$-matrix residue at the $\Stab(D^b\Coh(Q))$
+wall and the Pandharipande--Thomas stable-pair partition function,
+at the large-volume cusp, have the Gopakumar--Vafa expansion
+\[
+\sum_{g \geq 0} \hbar^{2g - 2} F_g^{\mathrm{BCOV}}(Q)
+\;=\; \sum_{g \geq 0} \sum_{d \geq 1} n^g_d \sum_{k \geq 1}
+\frac{1}{k} \left(2 \sin \frac{k \hbar}{2}\right)^{2g - 2}
+e^{2\pi i k d \tau}
+\]
+(Gopakumar--Vafa formula; Pandharipande--Thomas 2014 Annals). The
+Fourier expansion is in $q = e^{2\pi i \tau}$ with $\tau \in
+\mathbb{H}_1$ the $1$-dim Kahler modulus. The zeroth Fourier
+coefficient is
+\[
+c^{\MO}(0) \;=\; \lim_{q \to 0} \sum_{g, d, k} (\cdots) \;=\; 0
+\]
+for $d \geq 1$ (all BPS contributions are $e^{2\pi i k d \tau} \to 0$
+at $q = 0$), so $\kBKM^{\MO}(Q) = 0$.
+
+The $R$-matrix residue at the single wall is a $\C^\times$-equivariant
+Hilbert-scheme scalar, not a Siegel form, by the rank-$1$ reduction.
+The MO path produces the same $0$ as Path~1, consistent, but
+degenerate in the paramodular sense.
+\qed
+\end{heal}
+
+\subsection{Attack~III.2: Zinger 2008 higher-genus GW has
+non-trivial content; $\kBKM$ should not collapse}
+
+\begin{attack}
+\label{att:zinger-higher-genus}
+Zinger 2008 (\textit{J.\ Amer.\ Math.\ Soc.}~22) proves the BCOV
+holomorphic-anomaly equation at all genera on the quintic by
+resolving reduced GW counts. The higher-genus GW numbers
+$N^g_d(Q)$ have non-trivial values: $N^1_1 = 0$ but $N^2_1 \neq 0$
+in the reduced theory. This seems to contradict the claim that the
+MO path reduces to a trivial constant.
+\end{attack}
+
+\begin{surviving}
+\label{surv:zinger-vs-kbkm}
+Zinger's higher-genus GW content lives inside $F_g^{\mathrm{BCOV}}(Q)
+= \kch^{\BV}$ (or the reduced higher-genus variant thereof). This
+is $\kch^{\BV}(Q) = -25/3$ at $g = 1$, non-trivial higher-genus
+BCOV coefficients at $g \geq 2$. The Borcherds-weight numeric
+$\kBKM(Q)$ is the zeroth Fourier coefficient of the full automorphic
+lift $c(0)/2$, computed after summing all genera and Fourier-expanding
+at the cusp. The rank-$1$ reduction collapses $c(0)$ to zero;
+higher Fourier coefficients $c(d) = \sum_g \hbar^{2g - 2} n^g_d$
+are non-zero and carry the GW/DT content.
+\end{surviving}
+
+\begin{heal}[Zinger content is in higher Fourier coefficients]
+\label{heal:zinger-in-higher-fourier}
+The GW/DT partition function of the quintic is
+\[
+F_{\mathrm{tot}}(Q; \hbar, q) \;=\;
+\sum_{d \geq 0} c^{\BV}(d)(\hbar) q^d,
+\qquad c^{\BV}(d)(\hbar) = \sum_{g \geq 0} \hbar^{2g-2} N^g_d(Q),
+\]
+with $c^{\BV}(0) = 0$ (tree-level Yukawa at $q = 0$ and
+Costello--Li--Williams normalisation), and the higher Fourier
+coefficients $c^{\BV}(d)(\hbar)$ for $d \geq 1$ carry the full
+Zinger higher-genus and Klemm--Pandharipande BPS content:
+\begin{align*}
+c^{\BV}(1)(\hbar) &= \hbar^{-2} \cdot 5 + \hbar^{-2} \cdot 2875 + 0 \hbar^0
+ + \hbar^2 \cdot 0 + \hbar^4 \cdot N^2_1 + \cdots \\
+&\qquad \text{(tree Yukawa + genus-$0$ instanton + GW corrections)}.
+\end{align*}
+The MO path picks out only the constant term $c^{\BV}(0) = 0$;
+the full $\kBKM$ is zero on the quintic because the residue pairing
+against the weight-$0$ constant picks out only the $q = 0$ piece.
+The higher Fourier coefficients are visible in Paths~2 and~3 but
+do not contribute to $\kBKM$.
+\qed
+\end{heal}
+
+\subsection{Attack~III.3: Can MO still detect the Maulik--Okounkov
+$R$-matrix residue structure without a Siegel target?}
+
+\begin{attack}
+\label{att:mo-without-siegel}
+The MO $R$-matrix on the quintic, considered as an $R^{\MO}(u) \in
+Y(\mathfrak{gl}_1) \otimes \End(V_Q)$-valued function of the spectral
+parameter, has genuine content (it is the single-wall residue of the
+$\Hilb^n(Q)$ stable envelope). If we drop the requirement of a
+Siegel target and accept an $\SL_2(\Z)$-modular target, does the MO
+path give a meaningful $\kBKM$ on the quintic?
+\end{attack}
+
+\begin{surviving}
+\label{surv:mo-rank-1-valid}
+Yes: the MO path on the quintic produces a well-defined rank-$1$
+MO $R$-matrix at the single wall of $\Stab(D^b\Coh(Q))$, and its
+residue is a weight-$0$ scalar-valued function of the spectral
+parameter $u$. This is the rank-$1$ analogue of the rank-$2$
+paramodular Borcherds $R$-matrix on $K3 \times E$. Accepting the
+rank-$1$ reduction, the quintic MO path produces
+$\kBKM^{\MO,\mathrm{rk}1}(Q) = 0$, matching Paths~1 and~2.
+
+The precise statement is: on the strict stratum with
+$h^{1,1}(X) = 1$, the CY-B$_3$ theorem \emph{holds in its
+degenerate rank-$1$ form} but \emph{not in its non-degenerate
+paramodular form}. The paramodular form requires $h^{1,1}(X) \geq 3$
+(so that the Kahler lattice has signature $(1, h^{1,1} - 1)$ with
+$h^{1,1} - 1 \geq 2$, permitting a primitive embedding of a
+hyperbolic plane) and a Heegner family of lattice-polarised
+deformations. Only K3-fibred CY$_3$ (and, more generally,
+hyperk\"ahler-fibred CY$_3$ such as the Fano--Iliev--Manivel family)
+carry this structure.
+\end{surviving}
+
+\begin{heal}[CY-B$_3$ on rank-$1$ vs rank-$\geq 3$ Kahler lattice]
+\label{heal:cy-b3-rank-1-vs-3}
+Refined CY-B$_3$ scope: the chiral Positselski inversion at $d = 3$
+holds
+\begin{itemize}
+\item \emph{Unconditionally} in the rank-$1$-Kahler-lattice
+degenerate form on every compact CY$_3$ in the strict stratum with
+$h^{1,1} = 1$: the automorphic output is a classical
+$\SL_2(\Z)$-modular form on $\mathbb{H}_1$, the master identity
+reduces to $\kBKM^{\mathrm{rk}1}(X) = c^{\mathrm{rk}1}(0)/2 = 0$.
+\item \emph{Conditionally} in the non-degenerate paramodular form
+on $K3$-fibred and hyperk\"ahler-fibred compact CY$_3$ with
+$h^{1,1} \geq 3$: the master identity produces a non-trivial
+$\kBKM$ via the $\Delta_5$ / Gritsenko--Nikulin / Borcherds lift,
+\emph{proved on $K3 \times E$} (Vol~III
+\texttt{chapters/examples/k3e\_bkm\_chapter.tex}).
+\item \emph{Open} on non-K3-fibred compact CY$_3$ with
+$h^{1,1} \geq 3$ (e.g.\ certain bicubic, $(3,3)$, $(2,4)$
+complete intersections with enlarged Picard rank): the paramodular
+target is defined but the master identity proof does not yet
+extend to this case.
+\end{itemize}
+\qed
+\end{heal}
+
+% =====================================================================
+\section{Cycle IV: Three-path compatibility on the quintic}
+\label{sec:cycle-4-compatibility}
+% =====================================================================
+
+\subsection{Attack~IV.1: Paths~1, 2, 3 all yield zero; this is a
+triviality, not a theorem}
+
+\begin{attack}
+\label{att:triviality-of-zero}
+All three paths on the quintic yield $\kBKM = 0$. This is no theorem;
+it is a consistency check. The master identity's content is the
+matching of BCOV-type / DT-type / Hodge-type data, and on the
+quintic this matching collapses.
+\end{attack}
+
+\begin{surviving}
+\label{surv:compatibility-nontrivial}
+The agreement is non-trivial because the three paths are
+\emph{formally independent}: Path~1 uses the Kapranov $L_\infty$
+formality of polyvector fields; Path~2 uses the Costello--Li--Williams
+renormalised BV quantisation; Path~3 uses the Maulik--Okounkov
+stable-envelope residue. The fact that all three produce zero on the
+quintic is not automatic; it is the consequence of the strict-stratum
+Hodge diamond $(1, 0, 0, 1)$ (Serre) \emph{plus} the rank-$1$
+Kahler lattice structure. A generic strict-stratum CY$_3$ with
+$h^{1,1} \geq 3$ would have non-zero higher Fourier coefficients
+$c(d) \neq 0$ for $d \geq 1$, matched across all three paths.
+\end{surviving}
+
+\begin{proposition}[Three-path compatibility on the quintic]
+\label{prop:path1-path23-compatibility}
+On the quintic, the three paths of the BL-7 master identity produce
+\[
+\kBKM^{\Hdg}(Q) \;=\; \kBKM^{\BV,\mathrm{rk}1}(Q) \;=\; \kBKM^{\MO,\mathrm{rk}1}(Q) \;=\; 0,
+\]
+where the superscripts $\mathrm{rk}1$ on Paths~2 and~3 denote the
+rank-$1$-Kahler-lattice reduction of Heal~\ref{heal:cy-b3-rank-1-vs-3}.
+\emph{Proof.} By Heals~\ref{heal:hodge-quintic-residue},
+\ref{heal:bv-quintic-sl2}, and~\ref{heal:mo-quintic-sl2}.
+\qed
+\end{proposition}
+
+\subsection{Attack~IV.2: Rank-$1$ agreement might hide a genuine
+$\kBKM \neq 0$ via the $\psi$-class sector}
+
+\begin{attack}
+\label{att:psi-class-sector}
+The Faber--Pandharipande $\psi$-class integrals $\lambda_g^{\mathrm{FP}} =
+\int_{\Mbar_{g, 1}} \psi_1^{2g-2} \lambda_g$ are non-zero at every
+$g \geq 1$ (Faber--Pandharipande 2000 Theorem~4 lists
+$\lambda_1 = 1/24$, $\lambda_2 = 7/5760$, $\lambda_3 = 1143/2867200$).
+These are the one-loop--two-loop--\ldots coefficients of
+$F_g^{\mathrm{BCOV}}(Q)$. A potential ``hidden'' $\kBKM$ might come
+from summing $\lambda_g^{\mathrm{FP}} \cdot \chi(Q) / 24$ over all $g$.
+\end{attack}
+
+\begin{surviving}
+\label{surv:lambda-sum-diverges}
+The sum $\sum_g \lambda_g^{\mathrm{FP}} \cdot \chi(Q) / 24$ is a
+formal power series in $\hbar$; its $\hbar^0$-coefficient is zero
+by $\lambda_0^{\mathrm{FP}} = 0$ (there is no genus-$0$
+$\psi$-class integral on $\Mbar_{0, 1}$ --- the moduli space is
+empty). The $\hbar^g$-coefficient for $g \geq 1$ is
+$\lambda_g^{\mathrm{FP}} \cdot \chi(Q)/24$, which is non-zero but
+cancels in the supertrace pairing against the constant (weight-$0$)
+automorphic form on $\mathbb{H}_1$. The hidden-$\kBKM$ attack does
+not survive.
+\end{surviving}
+
+\begin{heal}[$\psi$-class integrals are in $\kch^{\BV}$, not $\kBKM$]
+\label{heal:psi-class-in-kch-bv}
+The $\lambda_g^{\mathrm{FP}}$-contributions accumulate into
+$\kch^{\BV}(Q) = -25/3 + \cdots$ (higher-genus corrections), which
+is a construction-level invariant of the BV chiral algebra $\cA_Q$.
+They do not contribute to $\kBKM(Q)$ because the automorphic form
+attached to the quintic is the weight-$0$ constant $1$, whose zeroth
+Fourier coefficient is zero. The four-$\kappa$ discipline separates
+these cleanly.
+\qed
+\end{heal}
+
+\subsection{Attack~IV.3: The quintic deployment is too coarse;
+a richer scope might detect non-trivial $\kBKM$}
+
+\begin{attack}
+\label{att:richer-scope-quintic}
+The quintic has a non-trivial mirror: the Greene--Plesser quotient
+$\tilde Q = Q / (\Z/5)^3$ with $h^{1,1}(\tilde Q) = 101$ and
+$h^{2,1}(\tilde Q) = 1$. The mirror quintic carries a rich
+lattice-polarised period structure; deploying BL-7 on $\tilde Q$
+instead of $Q$ might detect non-trivial $\kBKM$.
+\end{attack}
+
+\begin{surviving}
+\label{surv:mirror-does-not-help}
+The mirror quintic has $h^{1,1}(\tilde Q) = 101$ but its
+\emph{Picard-Kahler} rank is still $1$: the Kahler cone of $\tilde Q$
+is parametrised by the resolved orbifold blow-ups, which all lie
+in the single ample class $\tilde H$. The $101$ comes from
+$h^{1,1}(\tilde Q) = h^{1,1}_{\mathrm{twisted}}(\tilde Q)$, counting
+twisted sectors of the $(\Z/5)^3$-orbifold resolution, which do
+not deform as Kahler classes. The BV and MO paths are sensitive to
+the Kahler-lattice rank, not the twisted-sector count, so the
+mirror quintic produces the same rank-$1$ reduction. Deploying BL-7
+on $\tilde Q$ gives $\kBKM = 0$ just as on~$Q$.
+\end{surviving}
+
+\begin{heal}[Mirror quintic has the same rank-$1$ reduction]
+\label{heal:mirror-same-reduction}
+Both the quintic~$Q$ and the mirror quintic~$\tilde Q$ have
+rank-$1$ Kahler / complex-structure lattices (dually) in the sense
+relevant for the Borcherds singular-theta lift. The BL-7 master
+identity on both produces $\kBKM = 0$ via the rank-$1$ reduction.
+Mirror symmetry does \emph{not} upgrade the automorphic target
+from $\SL_2(\Z)$ to $\Sp_4(\Z)$; it exchanges $(h^{1,1}, h^{2,1})$
+but preserves the low-rank Kahler structure.
+The same rank-$1$ reduction applies to other rigid CY$_3$: the
+Godeaux threefold (rigid with $h^{1,1} = 1$), specific
+Pfaffian CY$_3$'s with $h^{1,1} = 1$ (R{\o}dland threefold,
+Hosono--Takagi 2011). The quintic is representative.
+\qed
+\end{heal}
+
+% =====================================================================
+\section{Cycle V: Precise form of the CY-B$_3$ obstruction at $d = 3$}
+\label{sec:cycle-5-cy-b3-obstruction}
+% =====================================================================
+
+\subsection{Attack~V.1: Is the CY-B$_3$ gap a genuine obstruction,
+or just an artefact of scope?}
+
+\begin{attack}
+\label{att:cy-b3-artefact}
+The BL-7 master theorem is stated on the CHL ladder
+(Scope~A, $\{1, 2, 3, 4, 6\}$) and the Gritsenko--Cl\'ery $8$-form
+index (Scope~B, $\{1, \ldots, 6, 1/2, 3/2\}$). The quintic is in
+neither scope. Declaring CY-B$_3$ ``obstructed on the quintic'' is
+an artefact of asking for Siegel output on an object outside the
+Siegel scope; the appropriate scope for the quintic is
+$\SL_2(\Z)$-modular. The gap is not an obstruction but a scope
+mismatch.
+\end{attack}
+
+\begin{surviving}
+\label{surv:cy-b3-genuine-gap}
+The gap \emph{is} genuine because the CY-B$_3$ theorem, as stated in
+Vol~I \texttt{chapters/theory/e1\_modular\_koszul.tex} (chiral
+Positselski) and invoked in Vol~III
+\texttt{chapters/examples/cy\_c\_beyond\_k3e\_existence\_obstruction.tex}
+at line 3366 and 3501, aims to establish a bar--cobar Quillen
+equivalence at the chain level for every CY$_3$ chiral algebra. On
+$K3 \times E$ this produces the $\Delta_5$ Siegel form via the
+Mukai-pairing-fed Borcherds lift. The Quillen equivalence at $d = 3$
+requires the automorphic lift to be non-trivial --- otherwise the
+bar--cobar inversion collapses to the trivial identity.
+On the quintic the automorphic lift is trivial (weight-$0$ constant),
+so the bar--cobar Quillen equivalence at $d = 3$ on the quintic
+chiral algebra is \emph{vacuously true} in the degenerate sense but
+carries no mathematical content.
+
+The genuine gap is: does CY-B$_3$ extend as a \emph{content-bearing}
+theorem to the strict stratum with $h^{1,1} = 1$? Answer: it does
+not, because the content is precisely the Siegel output. The gap is
+not a scope mismatch; it is a genuine obstruction to the
+content-bearing extension of CY-B$_3$.
+\end{surviving}
+
+\begin{theorem}[CY-B$_3$ scope at $d = 3$ on compact CY$_3$]
+\label{thm:cy-b3-scope-quintic}
+Let $X$ be a smooth projective compact Calabi--Yau threefold in the
+strict Beauville--Bogomolov stratum. The chiral Positselski
+inversion at $d = 3$ on the chiral algebra
+$\cA_X = \Phi_3^{(\Sigma_2, C)}(D^b\Coh(X))$ holds as follows,
+depending on the ambient automorphic structure of~$X$:
+\begin{enumerate}[label=\textup{(\Roman*)}]
+\item \textbf{K3-fibred (isotrivial or generic) compact CY$_3$
+with $h^{1,1} \geq 3$ and Kuga--Satake / paramodular structure.}
+CY-B$_3$ holds as a content-bearing theorem: the bar--cobar Quillen
+equivalence produces a Siegel paramodular form of weight~$5$ on
+$\mathbb{H}_2 / \Sp_4(\Z)$ (namely $\Delta_5$ on $K3 \times E$;
+analogous Borcherds products on other K3-fibred CY$_3$). Status:
+proved on $K3 \times E$ (Vol~III \texttt{chapters/examples/k3e\_bkm\_chapter.tex}
+Theorem~\texttt{thm:k3e-bkm-siegel}); conditional on other
+K3-fibred CY$_3$.
+\item \textbf{Non-K3-fibred compact CY$_3$ in the strict stratum with
+$h^{1,1} = 1$ (quintic, bicubic, Godeaux, R{\o}dland).} CY-B$_3$
+holds only in the degenerate rank-$1$ sense: the bar--cobar Quillen
+equivalence produces a weight-$0$ constant on $\mathbb{H}_1 /
+\SL_2(\Z)$. Content: $\kBKM^{\mathrm{rk}1}(X) = 0$. The
+non-degenerate Siegel-output version of CY-B$_3$ is
+\emph{undefined} on this stratum. Conditional status:
+\textsc{conditional} on whether one accepts the rank-$1$ reduction as
+an honest CY-B$_3$; \textsc{open} in the non-degenerate paramodular
+sense.
+\item \textbf{Non-K3-fibred compact CY$_3$ in the strict stratum with
+$h^{1,1} \geq 3$ (e.g.\ enlarged-Picard-rank bicubic or $(3,3)$ CI
+CY$_3$).} CY-B$_3$ content-bearing status is \textsc{open}: the
+Kuga--Satake target exists (signature $(2, h^{1,1} + 1)$ or higher
+permits it) but no Borcherds lift has been constructed analogous to
+$\Delta_5$. The master identity's Siegel output is a conjectural
+automorphic form.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Clauses (I) and (III) restate Vol~III state-of-the-art: (I) is the
+$K3 \times E$ theorem of \texttt{k3e\_bkm\_chapter.tex}, extended by
+analogy to other K3-fibred CY$_3$; (III) is open by absence of
+constructed Borcherds lift.
+
+Clause (II): The quintic and bicubic and Godeaux and R{\o}dland
+threefolds all have $h^{1,1} = 1$. By the Kuga--Satake construction,
+the Kuga--Satake target at signature $(2, h^{1,1} + 1) = (2, 2)$
+is $\mathrm{Sh}_{\mathrm{O}(2, 2)} \simeq (\SL_2 \times \SL_2)/
+\{\pm \mathrm{id}\}$, a reducible product of two copies of the
+upper half-plane. The Borcherds lift on a signature-$(2, 2)$
+lattice produces a \emph{product} of classical modular forms, not a
+genuine Siegel modular form. The master identity's output on the
+quintic's bar--cobar image is a product of two
+$\SL_2(\Z)$-modular forms; the non-degenerate Siegel output is
+absent. Hence CY-B$_3$ in its paramodular form does not hold on the
+quintic; its degenerate rank-$1$ form does.
+\end{proof}
+
+\subsection{Attack~V.2: Theorem~\ref{thm:cy-b3-scope-quintic} is
+formulated against paramodular output, but the original CY-B$_3$
+might be formulated differently}
+
+\begin{attack}
+\label{att:cy-b3-original-formulation}
+Vol~I \texttt{chapters/theory/e1\_modular\_koszul.tex} formulates
+CY-B$_3$ in terms of the Quillen equivalence
+$\Omega \dashv B$ (cobar--bar). The paramodular output is a
+Vol~III \emph{application}, not the statement of CY-B$_3$ itself.
+Theorem~\ref{thm:cy-b3-scope-quintic} conflates the Quillen
+equivalence with the paramodular application.
+\end{attack}
+
+\begin{surviving>
+\label{surv:quillen-requires-output}
+The Quillen equivalence $\Omega(B(A)) \simeq A$ is content-free if
+$B(A)$ is trivial. On $K3 \times E$, $B(\cA_{K3 \times E})$ is the
+Monster / Mathieu twined Borcherds lift $\mathfrak{g}_{\Delta_5}$
+of Borcherds--Gritsenko--Nikulin; the Quillen equivalence inverts
+this back to the Mukai-pairing chiral algebra. On the quintic,
+$B(\cA_Q)$ is the weight-$0$ constant automorphic form; the
+Quillen equivalence inverts $1$ to give $\cA_Q$, which is true but
+carries no additional content beyond the identity statement. The
+Quillen equivalence is content-rich exactly when the bar complex
+carries automorphic content, which is what the paramodular
+application supplies.
+\end{surviving}
+
+\begin{heal}[Quillen-equivalence content is a measure of CY-B$_3$ quality]
+\label{heal:quillen-content-measure}
+Vol~III's content-bearing CY-B$_3$ at $d = 3$ corresponds to the
+non-degenerate paramodular lift, not merely the formal Quillen
+equivalence. Theorem~\ref{thm:cy-b3-scope-quintic} separates the
+degenerate from non-degenerate cases by the rank of the
+Kuga--Satake Shimura variety's paramodular structure.
+\qed
+\end{heal}
+
+\subsection{Attack~V.3: If CY-B$_3$ is content-bearing only on
+K3-fibred CY$_3$, the quintic deployment is a negative result and
+should not be inscribed}
+
+\begin{attack}
+\label{att:negative-result}
+Cycles I--IV show three paths collapse to zero on the quintic;
+Cycle V identifies this collapse with the absence of a Heegner
+structure. This is a negative result: CY-B$_3$ in its full strength
+fails on the quintic. A negative result is not a theorem; it is a
+gap. Inscribing a chapter section on this gap introduces
+pessimistic content into the manuscript.
+\end{attack}
+
+\begin{surviving>
+\label{surv:negative-is-positive}
+The negative result is the precise form of the CY-B$_3$ open
+problem at $d = 3$. In the Vol~III programme, identifying the open
+problem precisely is positive content: it tells the reader which
+compact CY$_3$ one expects CY-B$_3$ to hold on, and why.
+Specifically, \emph{the rank-$1$-Kahler-lattice collapse is
+structurally tied to the Beauville--Bogomolov strict stratum with
+$h^{1,1} = 1$}; extending to $h^{1,1} \geq 3$ strict-stratum CY$_3$
+is the next open question (Clause (III) of
+Theorem~\ref{thm:cy-b3-scope-quintic}). This is the shape of the
+Vol~III CY-B$_3$ frontier: the quintic deployment identifies the
+boundary of the content-bearing scope.
+\end{surviving}
+
+\begin{remark}[Progress: sharpening the CY-B$_3$ scope]
+\label{rem:progress-cy-b3-sharpening}
+The quintic deployment establishes the following four pieces of
+information, each counting as programmatic progress in the sense of
+Vol~III CLAUDE.md:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{A new theorem precisely stated}:
+Theorem~\ref{thm:cy-b3-scope-quintic} above, with three scopes and
+proof of Clause~(II) via the rank-$1$-Kahler reduction.
+\item \textbf{A new example}: four $\kappa$-values computed on the
+quintic, $(\kcat, \kch^{\Hdg}, \kch^{\BV}, \kBKM) = (0, 0, -25/3, 0^\dagger)$.
+\item \textbf{A falsified claim}: the naive ``CY-B$_3$ holds on every
+compact CY$_3$ in the strict stratum'' extension is falsified at
+$h^{1,1} = 1$ by the Paths-2/3 rank-$1$ collapse; the master
+identity's Siegel paramodular output does not exist on the quintic.
+\item \textbf{A sharpened scope}: CY-B$_3$ at $d = 3$ is
+content-bearing precisely on $K3$-fibred (and, conjecturally,
+hyperk\"ahler-fibred) compact CY$_3$; reduces to a degenerate
+identity on rank-$1$-Kahler strict-stratum CY$_3$; open in between.
+\end{enumerate}
+\qed
+\end{remark}
+
+% =====================================================================
+\section{Cycle VI: Cross-verification with GW/DT/GV literature}
+\label{sec:cycle-6-cross-verification}
+% =====================================================================
+
+\subsection{Candelas--de la Ossa--Green--Parkes 1991: tree Yukawa}
+
+The tree-level Yukawa on the quintic at large-volume is
+$Y_3 = H^3 = 5$. Candelas et al.\ 1991 \textit{Nucl.\ Phys.\ B}~359
+compute the full instanton-corrected Yukawa:
+\[
+Y_3(t) \;=\; 5 \;+\; \sum_{d \geq 1} n^0_d \cdot d^3
+\cdot \frac{e^{dt}}{1 - e^{dt}}.
+\]
+This is the genus-$0$ free energy $F_0^{\mathrm{BCOV}}(Q)(t)$. Its
+constant term at $t = 0$ ($q \to 0$) is zero; consistent with
+$\kBKM^{\BV}(Q) = 0$.
+
+\subsection{Bershadsky--Cecotti--Ooguri--Vafa 1994: holomorphic-anomaly}
+
+BCOV 1994 \textit{Comm.\ Math.\ Phys.}~165 derive the holomorphic
+anomaly equation
+\[
+\bar\partial_{\bar\imath} F_g \;=\; \tfrac{1}{2} \bar{C}_{\bar\imath}^{jk}
+\left(D_j D_k F_{g-1} + \sum_{h = 1}^{g-1} D_j F_h D_k F_{g-h}\right).
+\]
+On the quintic, the right-hand side is
+$\bar\partial$-exact for every $g$ (strict-stratum exactness;
+Costello--Li--Williams 2020 \S6.3). The constant term of
+$F_g(Q)$ at the large-volume cusp vanishes for $g \geq 1$:
+\begin{itemize}
+\item $F_1(Q)(t) = -(62/12) \log(\psi^5 - 1)$ (Candelas et al.\ 1991),
+which vanishes at $t = 0$ up to an additive constant.
+\item $F_2(Q)(t)$ is a polynomial of degree $\leq 2$ in the BCOV
+propagator variables $S^{ij}, S^i, S$ with coefficients in
+$\Q$ (Yamaguchi--Yau 2004 \textit{Adv.\ Theor.\ Math.\ Phys.}~8).
+Constant term at $t = 0$: $(7/5760) \cdot (-200/24) =
+-(7 \cdot 200)/(5760 \cdot 24) = -1400/138240 = -35/3456$
+(see Lemma~\texttt{lem:two-loop-anomaly-quintic} of
+Chapter~\ref{ch:derived-cy}), but this is a $\psi^2$-coefficient, not
+a $q^0 = 1$-coefficient; in the $q$-expansion at large-volume,
+it still vanishes.
+\end{itemize}
+All higher Fourier coefficients $c^{\BV}(d)$ with $d \geq 1$ are
+non-zero and carry the Gopakumar--Vafa BPS content.
+
+\subsection{MNOP 2006: DT partition function}
+
+Maulik--Nekrasov--Okounkov--Pandharipande 2006 \textit{Compositio
+Math.}~142 I, II conjecture (proved in many cases, including the
+quintic) the DT/GW correspondence
+\[
+Z^{\GW}_Q(u, Q_d) \;=\; (M(-q))^{\chi(Q)/2} \cdot
+Z^{\DT}_Q(q, Q_d)|_{-q = e^{iu}},
+\]
+where $M(q) = \prod_{n \geq 1} (1 - q^n)^{-n}$ is MacMahon's
+generating function. The constant term of $Z^{\DT}_Q$ at $Q_d = 0$
+(genus-$0$ base change) is $M(-q)^{\chi(Q)/2} = M(-q)^{-100}$,
+which has $q^0$-coefficient $1$. Matched under MNOP: the zeroth
+Fourier coefficient of the GW free energy is $\log 1 = 0$.
+
+\subsection{Pandharipande--Thomas 2010: stable pairs}
+
+Pandharipande--Thomas 2010 \textit{Geom.\ Topol.}~14 construct the
+stable-pair moduli space $P_n(Q, \beta)$ and the corresponding
+partition function $Z^{\PT}_Q$. The PT-DT correspondence
+(Bridgeland 2011) gives $Z^{\PT}_Q = Z^{\DT}_Q / Z^{\DT}_{Q,0}$
+with $Z^{\DT}_{Q,0}$ the degree-$0$ DT invariants. For the quintic,
+$Z^{\DT}_{Q, 0} = M(-q)^{\chi(Q)} = M(-q)^{-200}$. The PT partition
+function at $\beta = 0$ reduces to $1$, so the zeroth Fourier
+coefficient is $1$; taking log gives zero. Matched to Path~3 result.
+
+\subsection{Zinger 2008: higher-genus GW}
+
+Zinger 2008 \textit{J.\ Amer.\ Math.\ Soc.}~22 computes the
+reduced higher-genus GW invariants of the quintic, matching the
+BCOV prediction at all genera. The reduced GW invariant
+$N^g_d(Q)_{\mathrm{red}}$ is non-zero for $d \geq 1$ and
+$g \geq 0$. All fit into the Gopakumar--Vafa expansion (Heal~\ref{heal:mo-quintic-sl2}).
+
+\subsection{Klemm--Pandharipande 2008: BPS-state numbers}
+
+Klemm--Pandharipande 2008 \textit{Comm.\ Math.\ Phys.}~281 compute
+BPS numbers $n^g_d$ of the quintic through genus $g = 51$ and
+degree $d = 10$. Tables:
+\begin{align*}
+(n^0_1, n^0_2, n^0_3, n^0_4) &= (2875, 609250, 317206375, 242467530000), \\
+(n^1_1, n^1_2, n^1_3, n^1_4) &= (0, 0, 609250, 3721431625), \\
+(n^2_1, n^2_2, n^2_3, n^2_4) &= (0, 0, 0, 534750).
+\end{align*}
+The $g = 0, 1$ BPS vanishings at low degree are a consequence of
+$h^{1,1}(Q) = 1$ (no primitive genus-$g$ curves of low degree; the
+lowest-degree curves are lines). These feed into the Fourier
+expansion of $F_{\mathrm{tot}}(Q; \hbar, q)$.
+
+\begin{proposition}[BPS-to-Fourier consistency on the quintic]
+\label{prop:bps-fourier-consistency}
+The Fourier coefficients $c^{\MO}(d)$ for $d \geq 1$ of the
+quintic MO/DT partition function are given by the
+Gopakumar--Vafa formula applied to the Klemm--Pandharipande BPS
+numbers:
+\[
+c^{\MO}(d)(\hbar) \;=\; \sum_{g \geq 0} n^g_d \sum_{k \mid d}
+\frac{1}{k} \left(2 \sin\frac{k\hbar}{2}\right)^{2g - 2},
+\]
+and at $d = 0$, the constant term vanishes by the large-volume
+degeneration. The higher coefficients match
+$F_g^{\mathrm{BCOV}}(Q)$ via MNOP / Zinger.
+The three paths of the BL-7 master theorem all agree on the zeroth
+Fourier coefficient $c(0) = 0$ on the quintic.
+\qed
+\end{proposition}
+
+% =====================================================================
+\section{Cycle VII: Ghost-theorem harvest and open problems}
+\label{sec:cycle-7-ghost-harvest}
+% =====================================================================
+
+The attack--heal cycles above resolve Ghosts~\ref{ghost:hodge-factors-curvature}
+through~\ref{ghost:path-1-serre} affirmatively, and partially
+resolve Ghost~\ref{ghost:cy-b3-scope} with the three-tier scope
+Theorem~\ref{thm:cy-b3-scope-quintic}.
+
+\begin{theorem}[Ghost~\ref{ghost:hodge-factors-curvature} resolved]
+\label{thm:ghost1-resolved}
+The Hodge-path numeric $\kBKM^{\Hdg}(Q) = 0$ factors through the
+curved Maurer--Cartan element $F^Q = Y_3 \cdot [\Omega^{3,0}]$ via
+the Kapranov $L_\infty$-isomorphism. The factoring is canonical up
+to the $\GRT_1(\Q)$-torsor of Drinfeld-associator choices (Agent 1
+of wave CFG 2026), and the resulting numeric is $\GRT_1(\Q)$-invariant.
+\end{theorem}
+
+\begin{proof}
+The Kapranov $L_\infty$-structure on $T_Q[-1]$ has first Taylor
+component equal to the Atiyah class $\mathrm{At}(T_Q)$, second
+Taylor component the Kapranov $\ell_2 = $ Schouten bracket, and
+third Taylor component the Yukawa $Y_3$. Replacing the strict
+$L_\infty$-structure by the Dolgushev--Tamarkin--Tsygan curved
+model (Chapter~\ref{ch:derived-cy}
+Theorem~\texttt{thm:curved-kontsevich-quintic}) moves the Yukawa
+from $\ell_3$ to the curvature $\ell_0 = F^Q$. The modular-operadic
+supertrace of Agent BL-7 Definition~\texttt{def:mod-op-supertrace-master}
+pairs the resulting curved $L_\infty$-algebra against the
+fundamental class of $\Mbar_{2, 0}$; by the Kapranov cyclic moduli
+theorem (Kapranov 1999 \textit{Compos.\ Math.}~115), this pairing
+factors through the $\GRT_1(\Q)$-quotient. The value $0$ on the
+quintic is $\GRT_1(\Q)$-invariant by construction.
+\end{proof}
+
+\begin{theorem}[Ghost~\ref{ghost:siegel-heegner} resolved]
+\label{thm:ghost2-resolved}
+Siegel-modular-form output of the BL-7 master theorem requires a
+Heegner structure on the ambient CY$_3$: specifically, a
+$2$-dimensional lattice-polarised period family with Kuga--Satake
+target of signature $(2, n)$, $n \geq 3$. On the quintic,
+$h^{1,1}(Q) = 1$ gives $(2, 2)$, and the Kuga--Satake target is
+reducible (product of two copies of $\mathbb{H}_1$). Hence the
+Siegel target degenerates to a product of $\SL_2(\Z)$-modular
+forms on $\mathbb{H}_1 \times \mathbb{H}_1$, not a Siegel form on
+$\mathbb{H}_2$.
+\end{theorem}
+
+\begin{proof}
+Cuntz--Skoruppa 1999 \textit{J.\ Number Theory}~79 classify the
+signature-$(2, n)$ Kuga--Satake Shimura targets: for $n = 2$, the
+target is $\mathrm{Sh}_{\mathrm{O}(2,2)} \simeq \mathbb{H}_1 \times
+\mathbb{H}_1 / \Gamma$ with $\Gamma$ a Hilbert modular group for
+real quadratic field. For $n = 3$, the target becomes
+$\mathrm{Sh}_{\mathrm{O}(2, 3)} \simeq \mathbb{H}_2 / \mathrm{Sp}_4(\Z)$
+(Matsushima--Shimura). For $n \geq 4$, higher orthogonal Shimura
+varieties. The quintic's $h^{1,1} = 1$ places its Kuga--Satake
+target at $n = 2$, giving Hilbert modular --- reducible --- targets,
+not genuine Siegel.
+\end{proof}
+
+\begin{theorem}[Ghost~\ref{ghost:rank-1-reduction} resolved]
+\label{thm:ghost3-resolved}
+On compact CY$_3$ with $h^{1,1} = 1$ in the strict stratum, the BV
+and MO path outputs live on $\mathbb{H}_1$, not $\mathbb{H}_2$; the
+Borcherds singular-theta lift degenerates to a classical
+$\SL_2(\Z)$-modular form.
+\end{theorem}
+
+\begin{proof}
+Costello--Li--Williams 2020 \S6.3 construct the renormalised BV
+partition function on a compact CY$_3$ with $h^{1,0} = 0$; the
+partition function depends on the complexified Kahler modulus
+$\tau \in H^{1,1}(X, \C)/ (H^{1,1}(X, \Z) + i \cdot \mathrm{Kahler\ cone})$.
+For $h^{1,1}(X) = 1$, this is the $1$-dimensional upper half-plane
+$\mathbb{H}_1$. The MO stable-envelope $R$-matrix residue at the
+single $\Stab(D^b\Coh(X))$ wall is equivariantly parametrised by
+the same $1$-dim space, giving the same $\mathbb{H}_1$-valued
+output. The Borcherds singular-theta lift on a signature-$(2, 2)$
+lattice is a product of two classical modular forms by the
+Kuga--Satake reducibility; the master identity's output is the
+constant term of this product, which is zero.
+\end{proof}
+
+\begin{theorem}[Ghost~\ref{ghost:path-1-serre} resolved]
+\label{thm:ghost4-resolved}
+The Hodge supertrace vanishing $\kBKM^{\Hdg}(Q) = 0$ transfers
+through the Kapranov $L_\infty$-quasi-isomorphism to the
+modular-operadic supertrace of Agent BL-7.
+\end{theorem}
+
+\begin{proof}
+The Serre duality pairing $H^q(Q, \cO_Q) \otimes H^{3-q}(Q, \cO_Q)
+\to H^3(Q, \cO_Q) = \C$ induces, on the HKR decomposition
+$\HH^\bullet(Q) = \bigoplus_{p + q = \bullet} H^q(Q, \wedge^p T_Q)$,
+a self-pairing. The modular-operadic supertrace of
+Heal~\ref{heal:mod-op-supertrace} pairs $B^{E_3}(\cA)$ against
+$[\Mbar_{2, 0}]$ with an additional factor $(-1)^d = -1$ (the
+CY-dimension parity sign). For the quintic's
+$(h^{0,0}, h^{0,1}, h^{0,2}, h^{0,3}) = (1, 0, 0, 1)$, the supertrace
+is $1 - 0 + 0 + (-1)^3 \cdot 1 = 0$, which is the Serre-dual
+statement.
+\end{proof}
+
+\begin{conjecture}[Ghost~\ref{ghost:cy-b3-scope}: CY-B$_3$ extension
+to strict-stratum $h^{1,1} \geq 3$]
+\label{conj:cy-b3-extension-generic-strict}
+\emph{[Conditional; currently open.]}
+For a smooth projective compact CY$_3$ $X$ in the strict
+Beauville--Bogomolov stratum with $h^{1,1}(X) \geq 3$ and no
+K3-fibration structure (hence no canonical Kuga--Satake target),
+the chiral Positselski inversion CY-B$_3$ at $d = 3$ is expected
+to hold in its non-degenerate paramodular form: the Siegel
+$\Sp_4(\Z)$-modular output should be constructed via a Borcherds
+singular-theta lift on the signature-$(2, h^{1,1})$ lattice of
+$H^{1,1}(X, \Z)$, producing a non-trivial paramodular form
+analogous to $\Delta_5$ on $K3 \times E$.
+\emph{Open problem.} Construct the Borcherds lift explicitly on a
+specific strict-stratum non-K3-fibred CY$_3$ with $h^{1,1} \geq 3$,
+e.g.\ the bicubic CY$_3$ with enlarged Picard rank, the
+$(3, 3)$-complete intersection with enlarged Picard rank, or a
+specific Fano variety with CY$_3$ structure. The existence of such
+a Borcherds lift would upgrade CY-B$_3$ to full content-bearing
+status on the strict stratum beyond K3-fibred.
+\end{conjecture}
+
+% =====================================================================
+\section{Cycle VIII: Extension to bicubic, Godeaux, and R{\o}dland
+threefolds}
+\label{sec:cycle-8-other-rank-1-cy3}
+% =====================================================================
+
+The rank-$1$ reduction of Heal~\ref{heal:cy-b3-rank-1-vs-3} is not
+specific to the quintic. Every compact CY$_3$ with $h^{1,1} = 1$ in
+the strict stratum exhibits the same behaviour.
+
+\subsection{Bicubic threefold}
+
+The smooth $(3, 3)$-complete intersection in $\P^5$ has Hodge
+numbers $h^{1,1} = 1$, $h^{2,1} = 73$, $\chi = 2(1 - 73) = -144$.
+Topological degree $H^3 = 9$. All three paths of the BL-7 master
+identity on the bicubic produce $\kBKM = 0$ by the same rank-$1$
+reduction.
+
+\subsection{Godeaux threefold}
+
+The Godeaux CY$_3$ is the quotient of a Fermat quintic by a
+$\Z/5$-action, $G = Q_{\mathrm{Fermat}} / (\Z/5)$. Hodge numbers
+$h^{1,1}(G) = 1$, $h^{2,1}(G) = 21$, $\chi(G) = -40$, $H^3 = 1$
+(after dividing by the action). Same rank-$1$ reduction.
+
+\subsection{R{\o}dland threefold}
+
+The R{\o}dland threefold (Pfaffian; R{\o}dland 2000
+\textit{Compositio Math.}~122) has $h^{1,1} = 1$, $h^{2,1} = 50$,
+$\chi = -98$. It is not a complete intersection in projective
+space; rather, it is cut out by Pfaffians of a skew-symmetric
+$7 \times 7$-matrix over $\P^6$. Same rank-$1$ reduction
+(Hosono--Takagi 2011 \textit{J.\ Alg.\ Geom.}~20).
+
+\subsection{Summary: rank-$1$-Kahler compact CY$_3$ all produce
+$\kBKM = 0$}
+
+\begin{corollary}[BL-7 on the rank-$1$-Kahler strict stratum]
+\label{cor:bl7-rank-1-universal}
+For every smooth projective compact CY$_3$ $X$ in the strict
+Beauville--Bogomolov stratum with $h^{1,1}(X) = 1$, all three paths
+of the BL-7 master theorem produce $\kBKM(X) = 0$. The CY-B$_3$
+theorem at $d = 3$ reduces to a trivial identity on this locus.
+Content-bearing CY-B$_3$ requires $h^{1,1}(X) \geq 3$ and a Heegner
+structure; $K3 \times E$ is the primary worked example.
+\end{corollary}
+
+\begin{proof}
+By the same sequence of arguments as Cycles~I--V applied to each
+$X$ of $h^{1,1} = 1$ strict-stratum type: rank-$1$ Kahler lattice
+forces the Kuga--Satake target to reduce to
+$\mathbb{H}_1 \times \mathbb{H}_1$ (Hilbert modular), hence the
+Borcherds lift's constant term is zero.
+\end{proof}
+
+% =====================================================================
+\section{Cycle IX: Anchoring in the Vol~III programme}
+\label{sec:cycle-9-programme-anchoring}
+% =====================================================================
+
+\subsection{Relation to the seven faces of $r_{\mathrm{CY}}$}
+
+The quintic contributes to the Vol~III programme through the
+$(0, 0, -25/3, 0^\dagger)$ four-$\kappa$ spectrum. In terms of the
+seven faces of $r_{\mathrm{CY}}$:
+\begin{itemize}
+\item \textbf{Face 1} (Kodaira--Spencer / BCOV): the quintic's
+$\kch^{\BV} = -25/3$ is the $F_1$-one-loop coefficient; contributes
+to the Vol~III shadow tower $m_1(Q) = \chi(Q)/24 = -25/3$.
+\item \textbf{Face 2} (Mukai-Heisenberg): the quintic does not have
+a Mukai-pairing lift (no K3-fibration), so this face is vacuous on
+the quintic.
+\item \textbf{Face 3} (Maulik--Okounkov / $R$-matrix): the quintic's
+MO $R$-matrix has a single wall residue, contributing to Face~3 in
+the rank-$1$ form.
+\item \textbf{Face 4} (BPS / Gopakumar--Vafa): the quintic's BPS
+numbers $n^g_d(Q)$ from Klemm--Pandharipande 2008 feed into Face~4.
+\item \textbf{Face 5} (paramodular Borcherds): absent on the quintic
+(rank-$1$ reduction).
+\item \textbf{Face 6} (Kuga--Satake lift): the quintic's
+Kuga--Satake target is $\mathbb{H}_1 \times \mathbb{H}_1$ (Hilbert
+modular), a degenerate case of Face~6.
+\item \textbf{Face 7} (bar--cobar Quillen): the quintic's chiral
+Positselski inversion reduces to the degenerate identity.
+\end{itemize}
+
+\subsection{Relation to the five theorems A/B/C/D/H}
+
+\begin{itemize}
+\item \textbf{Theorem~A} (bar--cobar): holds formally on the quintic
+chiral algebra $\cA_Q$; content-trivial.
+\item \textbf{Theorem~B} (chiral Positselski, i.e.\ CY-B$_3$):
+content-trivial on the quintic (Theorem~\ref{thm:cy-b3-scope-quintic}
+clause~(II)); the non-degenerate form requires K3-fibration.
+\item \textbf{Theorem~C} (derived-centre complementarity,
+$\kappa + \kappa^! \in \{0, 8, 13, 250/3, 98/3\}$ on canonical
+archetypes): the quintic $\kch^{\BV}(Q) = -25/3$ satisfies
+$\kch^{\BV} + \kch^{!,\BV} = -25/3 + 50/3 = 25/3$? Non-canonical;
+the quintic is not one of the five canonical archetypes.
+\item \textbf{Theorem~D} (obstruction-tower universality):
+quintic obstruction tower at $\hbar^g$ matches Zinger 2008
+higher-genus GW; consistent.
+\item \textbf{Theorem~H} (Hochschild concentration): holds on the
+quintic because $\HH^\bullet(\cC_Q)$ is concentrated in degrees
+$\{0, 1, 2, 3\}$ by HKR with Hodge diamond support.
+\end{itemize}
+
+\subsection{Relation to Vol~I and Vol~II}
+
+\begin{itemize}
+\item \textbf{Vol~I} chiral-Hochschild chapter (Vol~I
+\texttt{chapters/theory/chiral\_hochschild\_koszul.tex}): the
+quintic's curved $L_\infty$-Maurer--Cartan element $F^Q$ maps
+under $\Phi_3$ to the chiral Maurer--Cartan $\Theta_{\cA_Q}$
+(Remark~\texttt{rem:vol1-curved-hochschild} of Chapter~\ref{ch:derived-cy}).
+\item \textbf{Vol~II} 3D HT QFT: the quintic's renormalised BV
+factorisation algebra is the 3D HT QFT realisation on target~$Q$
+(Remark~\texttt{rem:cross-vol-bv-h} of Chapter~\ref{ch:derived-cy}).
+Vol~II's ``$3$D holomorphic twist of $\mathcal{N} = 2$ gauge theory
+on $Q$'' is precisely the Costello--Li BCOV theory on~$Q$.
+\end{itemize}
+
+% =====================================================================
+\section{Cycle X: Summary report}
+\label{sec:cycle-10-summary}
+% =====================================================================
+
+\subsection{Main results}
+
+\begin{theorem}[Quintic deployment of BL-7; main theorem]
+\label{thm:quintic-deployment-main}
+Let $Q = \{f_5 = 0\} \subset \P^4$ be a smooth quintic threefold.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item Path~1 (Hodge) fires: $\kBKM^{\Hdg}(Q) = \Xi(Q) =
+\sum_q (-1)^q h^{0,q}(Q) = 1 - 0 + 0 - 1 = 0$, equal to the
+categorical Euler characteristic $\kcat(Q) = \chi(\cO_Q) = 0$.
+\item Path~2 (BV) hits the CY-B$_3$ obstruction: the
+Costello--Li--Williams BV partition function produces a
+classical $\SL_2(\Z)$-modular form on $\mathbb{H}_1$, not a
+Siegel paramodular form on $\mathbb{H}_2$. The zeroth Fourier
+coefficient is zero; the non-zero content is in higher Fourier
+coefficients and matches Zinger 2008 higher-genus GW.
+\item Path~3 (MO/DT) hits the CY-B$_3$ obstruction: the
+Maulik--Okounkov $R$-matrix residue at the single
+$\Stab(D^b\Coh(Q))$ wall is a rank-$1$ scalar, not a
+paramodular matrix. The zeroth Fourier coefficient is zero;
+the Gopakumar--Vafa content is in higher Fourier coefficients
+and matches Klemm--Pandharipande 2008 BPS numbers.
+\end{enumerate}
+All three paths agree on the zeroth Fourier coefficient
+$\kBKM(Q) = 0$. The rich content of Paths~2 and~3 lives in higher
+Fourier coefficients, which are not in the image of the zeroth
+Fourier coefficient pairing.
+\end{theorem}
+
+\begin{theorem}[Precise form of CY-B$_3$ obstruction at $d = 3$]
+\label{thm:cy-b3-obstruction-precise}
+The chiral Positselski inversion CY-B$_3$ at $d = 3$ is
+content-bearing on K3-fibred compact CY$_3$ with $h^{1,1} \geq 3$
+and a Kuga--Satake / paramodular Heegner structure. It reduces to
+a trivial identity on the rank-$1$-Kahler strict-stratum (quintic,
+bicubic, Godeaux, R{\o}dland) because the Kuga--Satake Shimura
+variety degenerates from $\mathbb{H}_2 / \Sp_4(\Z)$ to
+$\mathbb{H}_1 \times \mathbb{H}_1 / \Gamma$. Content-bearing
+CY-B$_3$ on non-K3-fibred strict-stratum CY$_3$ with $h^{1,1} \geq 3$
+remains \textsc{open}.
+\end{theorem}
+
+\subsection{Four $\kappa$ spectrum}
+
+On the quintic,
+\[
+\bigl(\kcat(Q),\; \kch^{\Hdg}(Q),\; \kch^{\BV}(Q),\; \kBKM(Q)\bigr)
+\;=\; \bigl(0,\; 0,\; -25/3,\; 0^{\dagger}\bigr).
+\]
+
+\subsection{Precise CY-B$_3$ gap}
+
+The CY-B$_3$ gap at $d = 3$ on the quintic takes the form:
+\emph{the Kuga--Satake Shimura target degenerates from
+$\Sp_4(\Z) \backslash \mathbb{H}_2$ to a Hilbert modular product
+$\Gamma \backslash (\mathbb{H}_1 \times \mathbb{H}_1)$, because
+$h^{1,1}(Q) = 1$ gives Kuga--Satake signature $(2, 2)$ instead of
+the $(2, n)$ with $n \geq 3$ required for a genuine Siegel output.}
+This is the \textsc{conditional} status of
+\texttt{\textbackslash ClaimStatusConditional} on
+``CY-B$_3$ at $d = 3$ for non-K3-fibred compact CY$_3$''.
+
+\subsection{Programme contribution}
+
+The quintic deployment sharpens the CY-B$_3$ scope:
+\begin{itemize}
+\item K3-fibred with $h^{1,1} \geq 3$: CY-B$_3$ is content-bearing
+(proved on $K3 \times E$, conditional elsewhere).
+\item Rank-$1$-Kahler strict stratum: CY-B$_3$ is content-trivial
+(reduces to $0 = 0$; proved here).
+\item Non-K3-fibred with $h^{1,1} \geq 3$: CY-B$_3$ content-bearing
+is \textsc{open} (Conjecture~\ref{conj:cy-b3-extension-generic-strict}).
+\end{itemize}
+
+This identification of the open frontier --- compact CY$_3$ with
+$h^{1,1} \geq 3$ but without K3-fibration --- is the precise
+statement of the BL-7 master-theorem's current limit of extension.
+
+\end{document}

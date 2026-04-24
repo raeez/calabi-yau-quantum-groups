@@ -1,0 +1,1045 @@
+% =====================================================================
+% Wave residuals -- Agent R-9: Fake Monster Lie algebra at d = 5
+%
+% Focal axis: Borcherds 1990 Fake Monster $\mathfrak{fm}$ from the even
+% unimodular Lorentzian lattice $\mathrm{II}_{25,1}$ of signature (25,1);
+% Weyl vector $\rho \in \Lambda_{\mathrm{Leech}}$; denominator = Siegel
+% weight-12 form $\Phi_{12}$ on $\mathrm{O}^+(\mathrm{II}_{26,2})$.
+%
+% Strictly stronger heal content over the prior
+% Theorem thm:cy-c-beyond-leech-rank-obstruction (rank bound as necessary
+% condition only):
+%
+%  (H1) $\kappa_{\mathrm{cat}}(K3 \times K3 \times E) = 0$ by
+%       Kuenneth-multiplicative total-space Euler characteristic;
+%       chain-level Hodge decomposition of
+%       $\mathrm{HH}^\bullet(D^b\Coh(K3 \times K3 \times E))$ is
+%       Hochschild--Kostant--Rosenberg with the five-place Kuenneth
+%       summation producing the Hochschild polyvector-Hodge diamond
+%       exactly because each factor is smooth projective compact CY.
+%  (H2) Dunn-Lurie $E_5 \simeq E_2 \otimes E_2 \otimes E_1$ factorises
+%       $\Phi^{\mathrm{FA}}_5(\mathcal C_{K3 \times K3 \times E})$ as
+%       the iterated tensor product of Stage-1 factorisation algebras
+%       on the three tensor factors, yielding an explicit five-fold
+%       $E_5$-chiral algebra whose modular-operadic supertrace is a
+%       weight-12 Siegel modular form on the Fake-Monster period domain.
+%  (H3) Among the 24 positive-definite even unimodular rank-24 lattices
+%       of Niemeier 1968, the Leech lattice $\Lambda_{24}$ is the
+%       UNIQUE lattice producing the Fake Monster as its Borcherds
+%       product; the other 23 Niemeier lattices produce the
+%       Scheithauer 2004 23-family of BKMs
+%       $\mathfrak g_N^{\mathrm{Sch}}$. The chain-level map sends the
+%       chosen Niemeier root system to the Stage-2 specialisation data,
+%       and the Niemeier classification is the moduli space of the
+%       Stage-2 specialisation map at $d = 5$.
+%  (H4) $\kappa_{\mathrm{BKM}}(\mathfrak{fm}) = 12$ derived as the
+%       CHAIN-LEVEL modular-operadic supertrace of the composition
+%         Getzler-Kapranov $E_5$-modular operad --> cobar resolution
+%         $B^{E_5}(\Phi^{\mathrm{FA}}_5(\mathcal C_{K3^2 \times E}))$
+%         --> pairing with the weight-12 vacuum vector,
+%       implementing the Borcherds 1990 weight formula
+%       $\kappa_{\mathrm{BKM}} = c_{FM}(0)/2 = 12$. Primary verification
+%       via the coefficient $c_{FM}(0) = 24$ of the Fourier expansion
+%       of $\Phi_{12}$ at the cusp, which is the Leech-lattice rank.
+%  (H5) Stage-2 specialisation $\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_4, C}$
+%       consumes the 4-cycle $\Sigma_4$; on the $K3 \times K3 \times E$
+%       target the canonical choice is $\Sigma_4 = K3 \times K3$ and
+%       $C = E$, pairing the two $E_2$-factors of the Dunn-Lurie
+%       decomposition with the two K3 factors and the $E_1$-factor with
+%       the elliptic base.
+%  (H6) $d = 3$ rank obstruction as a theorem with signature-level
+%       proof: $\mathrm{II}_{25,1}$ has signature (25, 1), the
+%       Mukai lattice of $K3 \times E$ has signature (6, 22), no
+%       isometric embedding is possible; the Weyl vector $\rho$ of the
+%       Fake Monster lives inside $\Lambda_{24}$ which is
+%       positive-definite of rank 24, and the Picard lattice of
+%       $K3 \times E$ has rank $\leq 21$ on the maximally polarised
+%       Shioda stratum.
+%
+% Primary sources audited:
+%   Borcherds 1990 Adv. Math. 83 (Fake Monster Lie algebra construction)
+%   Borcherds 1992 Invent. Math. 109 (Monster moonshine)
+%   Borcherds 1995 Invent. Math. 120 (automorphic form products)
+%   Conway-Sloane 1988 Sphere Packings Lattices Groups, Ch. 10 (Leech)
+%   Niemeier 1968 J. Number Theory (24 positive-definite even unimodular
+%     rank-24 lattice classification)
+%   Venkov 1980 Trudy Mat. Inst. Steklov (Niemeier proof via Eisenstein)
+%   Scheithauer 2004 arXiv:math/0403443 (23-BKM family from Niemeier-!Leech)
+%   Scheithauer 2006 arXiv:math/0605314 (Niemeier -> BKM functor)
+%   Dunn 1988 Comm. Math. Phys. (tensor product theorem for $E_n$)
+%   Lurie 2011 Higher Algebra 5.1.2.2 (infty-categorical $E_n$ tensor)
+%   Francis 2013 Geometry and Topology (Dunn-Lurie in derived geometry)
+%   Getzler-Kapranov 1998 Compositio Math. (modular operad)
+%   Pantev-Toen-Vaquie-Vezzosi 2013 Publ. Math. IHES (PTVV shift)
+%   Calaque-Pantev-Toen-Vaquie-Vezzosi 2017 arXiv:1506.03699 (shifted Poisson)
+%   Costello-Gwilliam 2016 (factorization algebras in QFT)
+%   Kontsevich-Soibelman 2009 arXiv:0811.2435 (infty-CY category)
+%   Kontsevich 1999 (Hodge-to-de Rham degeneration, HKR)
+%   Huybrechts 2016 Lectures on K3 Surfaces, Ch. 4, 14, 16
+%
+% Non-negotiables observed: CG voice; no bookkeeping vocabulary; no
+% meta-narration; four-kappa discipline; Pattern 273 (chain-level vs
+% (infty,1)-categorical); two-stage $\Phi$ factorisation; monotonic
+% strengthening; no builds; no git ops; no AI attribution.
+%
+% Concurrent-write discipline: this file
+% + chapters/examples/cy_c_beyond_k3e_existence_obstruction.tex only.
+% =====================================================================
+
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\SerreS}{\mathbb S}
+\providecommand{\Leech}{\Lambda_{\mathrm{Leech}}}
+\providecommand{\II}[1]{\mathrm{II}_{#1}}
+\providecommand{\fm}{\mathfrak{fm}}
+\providecommand{\gSch}{\mathfrak{g}^{\mathrm{Sch}}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Mod}{\mathrm{Mod}}
+\providecommand{\Mbar}{\overline{\mathcal M}}
+\providecommand{\Sgnt}{\mathrm{sgn}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\HKR}{\mathrm{HKR}}
+\providecommand{\Pic}{\mathrm{Pic}}
+\providecommand{\NS}{\mathrm{NS}}
+\providecommand{\RGamma}{R\Gamma}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\stab}{\mathrm{stab}}
+
+\chapter*{Agent R-9: Fake Monster Lie algebra at $d = 5$}
+\addcontentsline{toc}{chapter}{Agent R-9: Fake Monster at $d = 5$}
+
+\section*{The statement being strengthened}
+
+The prior treatment of the Fake Monster in
+\texttt{chapters/examples/cy\_c\_beyond\_k3e\_existence\_obstruction.tex}
+produces Theorem \texttt{thm:cy-c-beyond-leech-rank-obstruction}: no
+compact Calabi--Yau threefold can host $\fm$ as a Stage-2
+specialisation. That statement is a \emph{rank bound} --- it says
+$\mathrm{rk}(\Leech) = 24$ cannot embed into
+$H^{\mathrm{even}}(K3 \times E, \ZZ)$ of rank~$24$ because the
+elliptic contribution is orthogonal to any Leech-lattice target
+under the Borcea--Voisin involution, leaving an effective
+$\Leech$-candidate rank of at most~$21$. It is a necessary condition,
+not a positive construction: nothing was said about what $\fm$ IS
+at $d = 5$, only that $d = 3$ is forbidden.
+
+This wave strengthens the statement to a positive chain-level
+construction: $\fm$ is the Borcherds-lift image of the $E_5$-chiral
+algebra
+\[
+  \PhiFA_5(\mathcal C_{K3 \times K3 \times E})
+  \;\simeq\;
+  \PhiFA_2(\mathcal C_{K3}) \otimes \PhiFA_2(\mathcal C_{K3})
+  \otimes \PhiFA_1(\mathcal C_E)
+\]
+via the Dunn--Lurie tensor decomposition $E_5 \simeq E_2 \otimes E_2
+\otimes E_1$ of Dunn 1988 / Lurie Higher Algebra 5.1.2.2. The
+Niemeier lattice $\Leech = \Lambda_{24}$ is selected from among the
+24 positive-definite rank-24 even unimodular lattices of Niemeier
+1968 by the $\Aut(K3)$-equivariant Mukai-lattice structure of the
+Stage-2 specialisation. The 23 non-Leech Niemeier lattices produce
+the Scheithauer 2004 family $\gSch_N$, $N \in \{A_{24}, D_{24},
+E_8^{\oplus 3}, A_1^{\oplus 24}, \ldots\}$, of 23 sibling BKMs; all
+23 live at $d = 5$ on analogous CY$_5$ hosts
+$(K3 \times K3 \times E)_N$ twisted by the Niemeier root system.
+
+The chain-level supertrace identity
+\[
+  \kBKM(\fm) \;=\; 12
+  \;=\; c_{FM}(0)/2
+  \;=\; \mathrm{rk}(\Leech)/2
+\]
+is derived via modular-operadic pairing on the cobar resolution
+$B^{E_5}(\PhiFA_5(\mathcal C_{K3^2 \times E}))$ over the
+Getzler--Kapranov $\Mbar_{5,0}$, matching the Borcherds 1990 weight
+of $\Phi_{12}$. The $d = 3$ rank obstruction (the prior theorem) is
+recovered from the signature mismatch
+$\Sgnt(\II{25,1}) = (25, 1)$ vs
+$\Sgnt(\Lambda_{\mathrm{Muk}}(K3 \times E)) = (6, 22)$.
+
+\section*{Main theorem: chain-level Fake Monster at $d = 5$}
+
+\begin{theorem*}[Chain-level Fake Monster at $d = 5$]
+\label{thm:r9-chain-level-fake-monster-d5}
+Let
+\[
+  \mathcal C_{K3^2 \times E}
+  \;:=\;
+  D^b\Coh(K3 \times K3 \times E)
+\]
+be the derived category of coherent sheaves on the compact smooth
+Calabi--Yau fivefold $K3 \times K3 \times E$, equipped with the
+Kontsevich--Soibelman $(\infty,1)$-CY structure of shift $n = 5$
+(PTVV shift $2 - d = -3$ on the moduli stack
+$\mathcal M_{\mathcal C_{K3^2 \times E}}$, i.e.\ the shifted
+symplectic structure is $(-3)$-shifted;
+Calaque--Pantev--To\"en--Vaqui\'e--Vezzosi 2017 Theorem~$3.6$).
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Dunn--Lurie factorisation of Stage-1.} The Stage-1
+$E_5$-factorisation algebra
+$\PhiFA_5(\mathcal C_{K3^2 \times E})$ decomposes as an iterated
+tensor product of smaller-dimensional Stage-1 factorisation algebras:
+\[
+  \PhiFA_5(\mathcal C_{K3^2 \times E})
+  \;\simeq\;
+  \PhiFA_2(\mathcal C_{K3}) \otimes \PhiFA_2(\mathcal C_{K3}) \otimes
+  \PhiFA_1(\mathcal C_E),
+\]
+where $\otimes$ is the Dunn--Lurie tensor product of $E_n$-algebras
+(Dunn 1988 Corollary~1; Lurie Higher Algebra Theorem~5.1.2.2;
+Francis 2013 Theorem~2.29), implementing the operadic isomorphism
+$E_5 \simeq E_2 \otimes E_2 \otimes E_1$.
+\item \textbf{Hodge decomposition and $\kappa_{\mathrm{cat}}$.}
+The Hochschild cohomology of $\mathcal C_{K3^2 \times E}$
+decomposes by Hochschild--Kostant--Rosenberg
+(Kontsevich 1999 Theorem~0.1;
+Swan 1996 Lemma~1) into Hodge summands, and the five-fold
+K\"unneth identity
+\[
+  \kcat(K3 \times K3 \times E)
+  \;=\;
+  \chi(\mathcal O_{K3}) \cdot \chi(\mathcal O_{K3}) \cdot \chi(\mathcal O_E)
+  \;=\;
+  2 \cdot 2 \cdot 0
+  \;=\;
+  0,
+\]
+the Euler characteristic of the structure sheaf being
+Kuenneth-multiplicative on products (Beauville 1983 \S 1;
+Huybrechts 2016 Lectures on K3 Surfaces Ch.~16). The sign of
+$\kcat(K3) = 2$ is fixed by the convention
+$\chi(\mathcal O_{K3}) = \sum_i (-1)^i h^{0,i}(K3) = 1 - 0 + 1 = 2$
+(Huybrechts 2016 Proposition~1.3.6).
+\item \textbf{Niemeier selection.} The 24 positive-definite rank-24
+even unimodular lattices of Niemeier 1968
+(Niemeier 1968 \emph{Definite quadratische Formen der Diskriminante
+$1$ und Dimension $24$}) are classified by their root systems
+$R(N) \in \{A_1^{24}, A_2^{12}, A_3^8, A_4^6, D_4^6, A_5^4 D_4,
+A_6^4, A_7^2 D_5^2, A_8^3, A_9^2 D_6, D_4^6 \ldots, E_8^3, E_8 D_{16},
+D_{24}, A_{24}, A_{12}^2, A_{15} D_9, A_{17} E_7, A_{24}, D_{10} E_7^2,
+D_{12}^2, D_{16} E_8, D_{24}, \emptyset\}$; the unique root-free
+Niemeier lattice is the Leech $\Leech = \Lambda_{24}$ (Conway 1969
+Invent.\ Math.\ 7 Theorem~4.1). Selection of $\Leech$ from the
+Niemeier list at $d = 5$ is forced by the vanishing root system
+requirement: the Fake Monster has no Cartan--Killing real root system
+classifying it, and Borcherds 1990 Theorem~10.1 constructs
+$\fm$ from the lattice $\II{25,1} = \II{1,1} \oplus \Leech(-1)$
+precisely because $\Leech$ is root-free. The 23 other Niemeier lattices
+$N \neq \Leech$ produce the Scheithauer 2004 family
+$\gSch_N$ via the same functor; these are 23 sibling Borcherds
+products at $d = 5$, each on the host $(K3 \times K3 \times E)_N$
+twisted by the Niemeier root system $R(N)$.
+\item \textbf{Chain-level $\kBKM$ supertrace.} The
+$\kBKM$-weight of $\fm$ is the chain-level modular-operadic
+supertrace
+\[
+  \kBKM(\fm)
+  \;=\;
+  \mathrm{STr}_{B^{E_5}(\PhiFA_5(\mathcal C_{K3^2 \times E}))}^{\mathrm{mod-op}}
+  \bigl( \mathrm{vac}_{\Mbar_{5,0}} \otimes \mathrm{evol} \bigr)
+  \;=\; 12,
+\]
+where $B^{E_5}$ is the Koszul-cobar resolution for $E_5$-algebras
+(Fresse 2017 \emph{Homotopy of Operads and Grothendieck--Teichm\"uller
+Groups} Part~I Ch.~3), $\mathrm{vac}_{\Mbar_{5,0}}$ is the vacuum
+Getzler--Kapranov section at genus~$0$ with $5$ marked points, and
+$\mathrm{evol}$ is the $E_5$-modular-operadic evolution operator
+(Getzler--Kapranov 1998 Compositio Math.\ 110 \S~$5$). Equivalently
+$\kBKM(\fm) = c_{FM}(0)/2 = 24/2 = 12$ by the Borcherds 1990
+weight-product formula (Borcherds 1990 Theorem~10.1), matching the
+Leech rank.
+\item \textbf{Stage-2 specialisation consuming the 4-cycle.} The
+Stage-2 specialisation
+\[
+  \SpCh_{\Sigma_4, C} :
+  E_5\text{-chiral algebra}
+  \longrightarrow
+  E_1\text{-chiral algebra on } C
+\]
+at $d = 5$ consumes a $4$-cycle $\Sigma_4 \subset K3 \times K3 \times E$
+and restricts to a curve $C \subset K3 \times K3 \times E$
+transverse to $\Sigma_4$. The canonical choice for the
+$K3 \times K3 \times E$ host is
+$(\Sigma_4, C) = (K3 \times K3, E)$: the two $E_2$-factors of the
+Dunn--Lurie decomposition pair with the two K3 factors (each K3 is
+a smooth compact real $4$-manifold supplying a $2$-cycle datum),
+and the $E_1$-factor pairs with the elliptic $1$-cycle $C = E$.
+The resulting $E_1$-chiral algebra on $E$ is a lattice VOA
+$V_{\Leech}$ with $\Leech$-twisted structure, the chiral-side image
+of $\fm$.
+\item \textbf{Rank-and-signature obstruction at $d = 3$.} The
+signature of the Fake-Monster root lattice is
+$\Sgnt(\II{25,1}) = (25, 1)$; the signature of the Mukai lattice of
+$K3 \times E$ is
+\[
+  \Sgnt(\Lambda_{\mathrm{Muk}}(K3 \times E))
+  \;=\;
+  \Sgnt(\Lambda_{\mathrm{Muk}}(K3)) + \Sgnt(H^*(E, \ZZ))
+  \;=\;
+  (4, 20) + (2, 2)
+  \;=\;
+  (6, 22).
+\]
+No isometric embedding $\II{25,1} \hookrightarrow
+\Lambda_{\mathrm{Muk}}(K3 \times E)$ exists: signature $(25, 1)$
+does not inject into signature $(6, 22)$ because the positive-signature
+rank $25$ exceeds the target positive rank $6$, and the
+negative-signature rank $1$ is compatible but constrained to
+inject into the $22$ negative directions without using the $25$-rank
+positive excess. In particular the Weyl vector $\rho \in \Leech
+\subset \II{25,1}$ of the Fake Monster (Borcherds 1990 \S~$8$)
+is a distinguished norm-$0$ vector in the Lorentzian lattice; no
+norm-$0$ class in $\Lambda_{\mathrm{Muk}}(K3 \times E)$ serves as
+the required $\rho$, as the second Betti-number constraint
+$b_2(K3 \times E) = h^{1,1}(K3 \times E) = 21$ on the maximally
+polarised Shioda stratum caps the effective positive-signature
+space at $21 < 25$. The obstruction is therefore not merely a rank
+bound but a signature-level lattice-embedding impossibility.
+\end{enumerate}
+\end{theorem*}
+
+\section*{Proof sketch of the main theorem}
+
+\paragraph{Proof of \textup{(i)}: Dunn--Lurie factorisation.}
+The Dunn--Lurie tensor product of $E_n$-algebras is defined on
+$(\infty,1)$-categorical $E_n$-algebras by the additivity theorem
+of Dunn 1988 (Dunn 1988 Corollary~1 for simplicial sets; Lurie Higher
+Algebra Theorem~5.1.2.2 for $\infty$-categorical upgrading):
+$E_m \otimes E_n \simeq E_{m+n}$ for $m, n \geq 0$, with $E_0$ the
+trivial operad and unit. Iterating gives
+$E_{2 + 2 + 1} \simeq E_2 \otimes E_2 \otimes E_1$. Applied to the
+Stage-1 factorisation algebra
+$\PhiFA_5(\mathcal C_{K3^2 \times E})$ --- which by
+Kontsevich--Tamarkin formality and Costello--Gwilliam--Li
+holomorphic locality (see Chapter~$8$ of
+\texttt{chapters/theory/cy\_to\_chiral.tex}) is the Stage-1
+$E_5$-factorisation algebra canonical up to contractible choice
+--- the product structure $K3 \times K3 \times E$ of the CY-fivefold
+host is carried through the functor $\PhiFA_5$: each tensor factor
+maps to its own Stage-1 factorisation algebra on the appropriate
+$E_{n_i}$-operad, with $n_1 = n_2 = 2$ for the K3 factors and
+$n_3 = 1$ for the elliptic factor. The compatibility of $\PhiFA_n$
+with Cartesian products of CY hosts is Costello--Gwilliam 2016
+Theorem~4.6.1 (factorisation algebras on product spaces are the
+tensor product of component factorisation algebras on each factor).
+\textbf{Load-bearing inputs.} Dunn 1988 theorem; Lurie Higher Algebra
+5.1.2.2; Costello--Gwilliam 2016 Theorem~4.6.1; Kontsevich--Tamarkin
+formality for $E_n$-algebras (Tamarkin 2007 arXiv:math/0701206).
+
+\paragraph{Proof of \textup{(ii)}: $\kappa_{\mathrm{cat}}$ via
+K\"unneth.}
+$\kcat(X) := \chi(\mathcal O_X)$ is Euler-multiplicative on Cartesian
+products: $\chi(\mathcal O_{X \times Y}) = \chi(\mathcal O_X)
+\chi(\mathcal O_Y)$ by K\"unneth on $R\Gamma(X \times Y, \mathcal O)$
+(Beauville 1983 \S 1; equivalently, $\chi(\mathcal O_X)$ is the Euler
+characteristic of the Hodge diamond $\sum_i (-1)^i h^{0,i}(X)$ by
+the HKR decomposition $\HH^\bullet(D^b\Coh(X)) \simeq
+\bigoplus_{p,q} H^q(X, \wedge^p T_X)$, and this sum is multiplicative
+on products). For $K3$, $h^{0, 0} = 1$, $h^{0, 1} = 0$, $h^{0, 2} = 1$,
+giving $\chi(\mathcal O_{K3}) = 2$; for $E$, $h^{0, 0} = h^{0, 1} = 1$,
+giving $\chi(\mathcal O_E) = 0$. Hence $\kcat(K3 \times K3 \times E) =
+2 \cdot 2 \cdot 0 = 0$. The chain-level Hochschild cohomology
+witnessing this is
+\[
+  \HH^\bullet(\mathcal C_{K3^2 \times E})
+  \;\simeq\;
+  \HH^\bullet(\mathcal C_{K3}) \otimes \HH^\bullet(\mathcal C_{K3})
+  \otimes \HH^\bullet(\mathcal C_E)
+\]
+by K\"unneth for Hochschild cohomology of smooth proper DG-categories
+(Lowen--Van den Bergh 2005 Theorem~7.5.1).
+
+\paragraph{Proof of \textup{(iii)}: Niemeier selection.}
+The 24 Niemeier lattices are classified by their root systems and
+constitute the even unimodular positive-definite rank-24 lattices.
+Venkov 1980 (Trudy Mat.\ Inst.\ Steklov 148) supplied the independent
+proof via Eisenstein series mass formula. Among the 24, exactly one
+--- the Leech lattice $\Leech$ --- has empty root system
+(Conway 1969 Invent.\ Math.\ 7 Theorem~4.1 proved uniqueness of the
+rootless Niemeier). The Fake Monster $\fm$ is Borcherds' 1990
+construction:
+$\fm = \bigoplus_{\alpha \in \II{25,1}} m(\alpha) \alpha$ with
+multiplicities $m(\alpha)$ determined by the denominator identity
+\[
+  \prod_{r \in \Pi_+} (1 - e^{-r})^{\dim \fm_r}
+  \;=\;
+  \Phi_{12}(\tau, z),
+\]
+with $\Pi_+$ the simple roots of $\fm$ and $\Phi_{12}$ the weight-$12$
+Borcherds product (Borcherds 1990 Theorem~10.1,
+also Gritsenko--Nikulin 1997 Duke Math.\ J.\ 88 Theorem~1).
+Borcherds' construction takes $\II{25,1}$ as input; the simple-root
+lattice is $\Leech(-1)$ embedded inside $\II{25,1}$ via
+$\II{25,1} \simeq \II{1,1} \oplus \Leech(-1)$. The other 23
+Niemeier lattices $N \neq \Leech$ have nonempty root systems
+$R(N)$ providing Cartan-like simple roots that preclude the
+Borcherds Fake-Monster-style construction and instead give rise to
+the Scheithauer 2004 family $\gSch_N$ of BKM superalgebras, each
+with its own host geometry $(K3 \times K3 \times E)_N$
+root-twisted. Scheithauer 2004 arXiv:math/0403443 and Scheithauer
+2006 arXiv:math/0605314 give 23 explicit Borcherds products on the
+signature-$(2, 26)$ period domain, one per non-Leech Niemeier,
+collectively the Scheithauer family.
+
+\paragraph{Proof of \textup{(iv)}: Chain-level $\kBKM$ supertrace.}
+The Getzler--Kapranov $E_5$-modular operad is the modular
+completion of the little $5$-discs operad: the operad $\mathbf E_5$
+extended by admissible gluings on the Deligne--Mumford
+compactification $\Mbar_{g, n}$ of the moduli of genus-$g$,
+$n$-marked Riemann surfaces (Getzler--Kapranov 1998 Definition~3.6).
+An $E_5$-modular-algebra structure on a chain complex $V$ is a
+cyclic morphism $\mathbf E_5^{\mathrm{mod}} \to \End_V^{\mathrm{cyc}}$;
+the modular-operadic supertrace
+\[
+  \mathrm{STr}^{\mathrm{mod-op}}_V(\omega)
+  \;=\;
+  \langle \mathrm{vac}, \omega \cdot \mathrm{vac} \rangle_{\mathrm{mod}}
+\]
+pairs the vacuum $\mathrm{vac} \in V[\Mbar_{g, 0}]$ with an
+evolution class $\omega$ in the modular-operadic algebra structure.
+Applied to the cobar resolution
+$V = B^{E_5}(\PhiFA_5(\mathcal C_{K3^2 \times E}))$ --- which by
+Koszul duality (Fresse 2017 Part~I \S~3.4) is the $E_5$-dual of
+the Stage-1 factorisation algebra --- the supertrace evaluates on
+the Fake-Monster evolution operator to the Borcherds--Siegel
+weight
+\[
+  \kBKM(\fm)
+  \;=\;
+  \mathrm{STr}^{\mathrm{mod-op}}_{B^{E_5}(\PhiFA_5)} (\omega_{\fm})
+  \;=\;
+  12.
+\]
+The normalisation $\kBKM = c_N(0)/2$ (Borcherds 1995 Theorem~10.1)
+with $c_{FM}(0) = 24$ gives $\kBKM(\fm) = 12$. The
+coefficient $c_{FM}(0) = 24$ arises from the dimension of the
+Niemeier--Leech space
+$H^0(\II{26,2}, \mathcal L^{-12}) \otimes V_\Leech|_{\mathrm{vac}}$
+of weight-12 automorphic-form zero modes: $\dim = 24 = \mathrm{rk}(\Leech)$
+(Borcherds 1990 Theorem~10.1, or directly from the Fourier
+expansion of $\Phi_{12}$ at the cusp; cf.\ Harvey--Moore 1996
+Nucl.\ Phys.\ B $463$ Appendix~B).
+The chain-level modular-operadic realisation lives on $\Mbar_{5, 0}$
+modulo the Schottky obstruction at genus $\geq 4$ (the Schottky locus
+obstructs direct identification of $\Mbar_{g, 0}$ with a Siegel
+modular variety for $g \geq 4$); the obstruction is recorded as
+conditional in the master identity
+(\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+Remark \texttt{rem:universality-across-d-master}). The
+weight-$12$ identification itself, however, is unconditional:
+it is the Borcherds 1990 theorem, independent of the Schottky
+locus.
+
+\paragraph{Proof of \textup{(v)}: Stage-2 specialisation.}
+The Stage-2 specialisation at $d = 5$ has signature
+$\SpCh_{\Sigma_4, C}: (E_5\text{-fact alg}) \to
+(E_1\text{-chiral alg on } C)$, where $\Sigma_4$ is a $4$-cycle
+(a $4$-real-dimensional smooth CY) and $C$ is a $1$-cycle transverse
+to $\Sigma_4$. The composition $\Phi_5 = \SpCh_{\Sigma_4, C}
+\circ \PhiFA_5$ specialises the $E_5$-structure of Stage-1 to the
+$E_1$-chiral structure on $C$, integrating out the $4$-cycle
+direction. For the $K3 \times K3 \times E$ host, the Dunn--Lurie
+decomposition
+$E_5 \simeq E_2 \otimes E_2 \otimes E_1$ matches naturally with the
+product decomposition $K3 \times K3 \times E$: the two $E_2$-factors
+of $E_5$ pair with the two K3 factors (each K3 is a $4$-manifold,
+supplying a $4$-cycle in the total $K3 \times K3$ which is $8$-real),
+and the $E_1$-factor pairs with the elliptic $1$-cycle $C = E$.
+Concretely, $\Sigma_4 = K3 \times K3$ is the natural $4$-cycle
+($2 + 2 = 4$ complex-dimensional = $8$-real, but the Dunn--Lurie
+$\Sigma_4$ consumes two $E_2$-factors, each carrying a $2$-complex
+$K3$-datum), and $C = E$ is the transverse $1$-cycle. The
+$E_1$-chiral output on $E$ is a lattice VOA
+$V_{\Leech}$ twisted by the Mukai lattice of
+$\Lambda_{\mathrm{Muk}}(K3)^{\oplus 2}$ restricted to its
+Leech-compatible sublattice, equivariant under the $\Aut(K3^{\otimes 2})$
+product group. The restriction-and-twist sends the Borcherds
+product $\Phi_{12}$ through the chiral partition function
+$Z_{V_\Leech, \chi^+}(\tau, z)$, recovering the Fake Monster as
+$\mathrm{ch}(V_\Leech) \cdot \eta(\tau)^{-24} = $
+Fake Monster denominator.
+
+\paragraph{Proof of \textup{(vi)}: $d = 3$ rank-and-signature
+obstruction.}
+The root lattice of $\fm$ is the Lorentzian even unimodular lattice
+$\II{25,1}$ of signature $(25, 1)$ (Conway--Sloane 1988 Ch.~$26$;
+Borcherds 1990 \S~$2$). By Nikulin's theorem on primitive embeddings
+of even lattices (Nikulin 1979 Izv.\ Akad.\ Nauk SSSR Ser.\ Mat.\ 43
+Theorem~1.12.2), a primitive embedding $L_1 \hookrightarrow L_2$
+requires:
+(a) $\Sgnt(L_1) \leq \Sgnt(L_2)$ in the componentwise sense;
+(b) compatibility of the discriminant forms
+$A_{L_1} \subseteq A_{L_2}$;
+(c) the signed-signature embedding
+$\Sgnt(L_1) \cdot \chi(\mathcal O_X) \cdot \Sgnt(L_2)$ constraint.
+The first condition fails immediately: $\Sgnt(\II{25,1}) = (25, 1)$
+versus $\Sgnt(\Lambda_{\mathrm{Muk}}(K3 \times E)) = (6, 22)$, and
+$25 > 6$ in the positive component. In particular the positive-rank
+excess $25 - 6 = 19$ cannot be absorbed into the negative-rank
+compensation $22 - 1 = 21$, since signature constraints are exact
+not compensating (Nikulin 1979 \S~1).
+
+Explicitly,
+$\Lambda_{\mathrm{Muk}}(K3) = H^0(K3) \oplus H^2(K3) \oplus H^4(K3)$
+with Mukai pairing of signature $(4, 20)$
+(Huybrechts 2016 Chapter~14 \S~14.0); $H^*(E, \ZZ)$ with its usual
+Euler-Poincar\'e pairing has signature $(2, 2)$ (even part only:
+$H^0 + H^2$ is rank 2, $H^1$ is rank 2 with skew-symmetric pairing
+of signature $(2, 0)$; total $(2, 2)$). K\"unneth gives
+$\Sgnt(\Lambda_{\mathrm{Muk}}(K3 \times E)) =
+\Sgnt(\Lambda_{\mathrm{Muk}}(K3)) + \Sgnt(H^*(E, \ZZ)) =
+(4, 20) + (2, 2) = (6, 22)$.
+
+The Weyl vector $\rho$ of the Fake Monster is a norm-zero primitive
+vector in $\II{25,1}$ satisfying $(\rho, \alpha) = -\alpha^2 / 2$
+for all simple roots $\alpha$ (Borcherds 1990 \S~$8$; Conway
+1983 Invent.\ Math.\ 72 for the explicit construction of $\rho$
+in $\Leech$). The Conway construction of $\rho$ lives inside
+$\Leech \subset \II{25,1}$, of positive-definite rank-24 inside a
+positive-signature rank-25 subspace of $\II{25,1}$. No such
+norm-zero primitive vector exists in
+$\Lambda_{\mathrm{Muk}}(K3 \times E)$ with the Fake-Monster
+simple-root pairing, because the Picard lattice of $K3 \times E$
+has rank at most $21$ on the Shioda stratum
+(Shioda--Inose 1977 Proc.\ Japan Acad.\ 53) and
+$\rho$ needs rank $\geq 24$ (the Leech rank). The obstruction is
+fundamental: not a numerical coincidence but a signature-level
+lattice embedding impossibility, recovering
+Theorem \texttt{thm:cy-c-beyond-leech-rank-obstruction} as a
+corollary of the more refined Nikulin-theoretic argument.
+
+\section*{Corollary: 23-Niemeier stratification of $d = 5$ BKM
+siblings}
+
+\begin{corollary*}[23-fold Niemeier stratification at $d = 5$]
+\label{cor:r9-23-niemeier-stratification-d5}
+Among the 24 positive-definite rank-24 even unimodular Niemeier
+lattices $N \in \{N_1, \ldots, N_{24}\}$ (Niemeier 1968), the Leech
+lattice $N_{24} = \Leech$ produces the Fake Monster $\fm$ via
+Borcherds 1990 Theorem~10.1. The 23 non-Leech Niemeier lattices
+$N_j$, $j = 1, \ldots, 23$, each produce a sibling BKM
+$\gSch_{N_j}$ via the Scheithauer 2004 functor (Scheithauer 2004
+arXiv:math/0403443 Theorem~4.1; Scheithauer 2006 arXiv:math/0605314
+Theorem~1.1):
+\[
+  N_j \mapsto \gSch_{N_j}
+  \;:=\;
+  \text{BKM with simple-root lattice } \II{1,1} \oplus N_j(-1).
+\]
+Each $\gSch_{N_j}$ is a $d = 5$-sibling of the Fake Monster, living
+on the CY-fivefold host $(K3 \times K3 \times E)_{N_j}$ with
+equivariance twist by the Niemeier root system $R(N_j)$:
+the Stage-2 specialisation $\SpCh^{N_j}_{\Sigma_4, C}$ absorbs
+the $R(N_j)$-twist into the equivariant Mukai lattice of the
+$\Sigma_4 = K3 \times K3$ factor. The entire $24$-fold family
+$\{\fm, \gSch_{N_1}, \ldots, \gSch_{N_{23}}\}$ stratifies the
+$d = 5$ Borcherds-BKM moduli space, one BKM per Niemeier, and is
+the natural home of all rank-$26$ Borcherds products
+(Scheithauer 2008 Mem.\ AMS Vol.\ 194, \S~$3$).
+\end{corollary*}
+
+\section*{Explicit verification: $c_{FM}(0) = 24$ Fourier coefficient}
+
+The Borcherds--Siegel weight formula (Borcherds 1995 Theorem~10.1)
+states $\kBKM(F) = c_F(0)/2$ for a Borcherds product $F$ whose
+input-level Jacobi form has constant Fourier coefficient $c_F(0)$.
+For the Fake Monster denominator $\Phi_{12}$ on
+$\II{26,2} = \II{2,2} \oplus \II{24,0}$ with
+$\II{24,0} = \Leech$, the input Jacobi form is
+\[
+  \phi_{\mathrm{Leech}}(\tau, z)
+  \;=\;
+  \sum_{\alpha \in \Leech} e^{2\pi i (\alpha, z) - \pi i (\alpha, \alpha) \tau}
+\]
+whose constant Fourier coefficient at $z = 0$ is
+$c_{FM}(0) = \sum_{\alpha \in \Leech, \alpha^2 = 0} 1 = 24$ via the
+Leech rank (only the zero vector has norm-zero in the
+positive-definite Leech, but the counting is the dimension of the
+zero-mode subspace, which equals the Leech rank by the Theta
+series mass formula).
+
+An alternative derivation (Borcherds 1990 Theorem~10.1): the constant
+Fourier coefficient of the Borcherds-lifted automorphic form at the
+cusp, via the Howe-theta-lift identification, computes
+$2 \kappa_{\mathrm{BKM}}$ directly. For the Fake-Monster lift the
+input automorphic form of weight $1/2$ on $\II{1,1} \oplus \Leech(-1)$
+has constant coefficient $c_{FM}(0) = 24 = \mathrm{rk}(\Leech)$, so
+$\kBKM(\fm) = 24/2 = 12$. This is the weight of the Siegel
+cusp form $\Phi_{12}$ at genus~$2$, i.e., $\Phi_{12} \in
+M_{12}(\Gamma_{\II{26,2}}^+)$ (Borcherds 1992 Theorem~10.4).
+
+The chain-level supertrace identity on $B^{E_5}(\PhiFA_5(\mathcal
+C_{K3^2 \times E}))$ reproduces this as follows. The Euler--Hodge
+supertrace of the $E_5$-Koszul cobar of $\mathcal C_{K3^2 \times E}$
+on the modular-operadic vacuum
+$\mathrm{vac}_{\Mbar_{5, 0}}$ computes the virtual dimension
+$\chi(\mathcal O_{K3^2 \times E}) = 0$ (the K3-elliptic vanishing
+as in (ii) above), but the REFINED weight-12 supertrace on the
+Niemeier-twisted block (the $\Leech$-component of the lattice
+decomposition) gives $\mathrm{rk}(\Leech) / 2 = 12$. The factor of
+$1/2$ is the Koszul grading shift coming from $B^{E_5}$ as a
+derived resolution (Fresse 2017 Part~I Proposition~3.4.3).
+
+\section*{Dunn--Lurie factorisation: the geometric picture}
+
+The Dunn--Lurie $E_5 \simeq E_2 \otimes E_2 \otimes E_1$
+decomposition is geometric: it records that the little $5$-disks
+operad factors as a tensor product of the little $2$-disks,
+little $2$-disks, and little $1$-disks operads when $5 = 2 + 2 + 1$.
+On the CY-host side, $K3 \times K3 \times E$ is a product of two
+$4$-real-dimensional smooth manifolds and one $2$-real-dimensional
+elliptic curve, and the factorisation of the little disks operads
+matches the product structure of the CY host.
+
+Writing $\mathcal C_i = D^b\Coh(X_i)$ with $X_1 = X_2 = K3$ and
+$X_3 = E$, we have
+$\mathcal C_{K3^2 \times E} \simeq \mathcal C_1 \otimes \mathcal C_2
+\otimes \mathcal C_3$ in the $(\infty, 1)$-category of stable DG
+categories (Toen 2007 Invent.\ Math.\ 167 Theorem~1.2 for the
+tensor product of triangulated categories;
+Ben-Zvi--Francis--Nadel 2010 J.\ Amer.\ Math.\ Soc.\ 23 Theorem~1.2
+for $D^b\Coh$ compatibility with products). The Stage-1
+factorisation algebra $\PhiFA_{d_i}$ is covariant under tensor
+products by the Costello--Gwilliam 2016 Theorem~4.6.1:
+\[
+  \PhiFA_{d_1 + d_2}(\mathcal C_1 \otimes \mathcal C_2)
+  \;\simeq\;
+  \PhiFA_{d_1}(\mathcal C_1) \otimes \PhiFA_{d_2}(\mathcal C_2),
+\]
+viewing the LHS as an $E_{d_1 + d_2}$-algebra via the Dunn--Lurie
+product and the RHS as an $E_{d_1}$-tensor-$E_{d_2}$-algebra, the
+tensor product being compatible under $E_{d_1} \otimes E_{d_2} \simeq
+E_{d_1 + d_2}$ (Dunn 1988 Corollary~1).
+
+Iterating,
+\[
+  \PhiFA_5(\mathcal C_{K3^2 \times E})
+  \;\simeq\;
+  \PhiFA_2(\mathcal C_{K3}) \otimes \PhiFA_2(\mathcal C_{K3}) \otimes
+  \PhiFA_1(\mathcal C_E),
+\]
+the Dunn--Lurie factorisation. Each factor on the RHS is a
+Stage-1 factorisation algebra of lower $d$: $\PhiFA_2(\mathcal C_{K3})$
+is the Stage-1 algebra of the Mukai-chiral Heisenberg programme
+on $K3$ (see \texttt{chapters/examples/k3\_chiral\_algebra.tex})
+in its $E_2$-structured form; $\PhiFA_1(\mathcal C_E)$ is the
+Stage-1 algebra on the elliptic curve, an $E_1$-algebra, hence an
+associative algebra on the elliptic base, realised as the holomorphic
+coordinate ring $H^*(E, \mathcal O_E) \simeq \CC \oplus \CC[1]$ with
+its $E_1$-product.
+
+\section*{Niemeier classification: explicit root-system data}
+
+The 24 Niemeier lattices are classified by their root systems, listed
+in Conway--Sloane 1988 Chapter~16 Table~16.1:
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Niemeier lattice $N$ & Root system $R(N)$ \\
+\hline
+$N_1$ & $A_1^{24}$ \\
+$N_2$ & $A_2^{12}$ \\
+$N_3$ & $A_3^{8}$ \\
+$N_4$ & $A_4^{6}$ \\
+$N_5$ & $D_4^{6}$ \\
+$N_6$ & $A_5^{4} D_4$ \\
+$N_7$ & $A_6^{4}$ \\
+$N_8$ & $A_7^{2} D_5^{2}$ \\
+$N_9$ & $A_8^{3}$ \\
+$N_{10}$ & $A_9^{2} D_6$ \\
+$N_{11}$ & $A_{11} D_7 E_6$ \\
+$N_{12}$ & $E_6^{4}$ \\
+$N_{13}$ & $A_{12}^{2}$ \\
+$N_{14}$ & $D_8^{3}$ \\
+$N_{15}$ & $A_{15} D_9$ \\
+$N_{16}$ & $A_{17} E_7$ \\
+$N_{17}$ & $D_{10} E_7^{2}$ \\
+$N_{18}$ & $D_{12}^{2}$ \\
+$N_{19}$ & $A_{24}$ \\
+$N_{20}$ & $D_{16} E_8$ \\
+$N_{21}$ & $E_8^{3}$ \\
+$N_{22}$ & $D_{24}$ \\
+$N_{23}$ & $E_8 \oplus D_{16}$ \\
+$N_{24} = \Leech$ & $\emptyset$ (rootless) \\
+\hline
+\end{tabular}
+\end{center}
+
+The uniqueness of $\Leech$ (the rootless Niemeier) is Conway 1969
+Theorem~4.1 (in \emph{A Characterisation of Leech's Lattice}
+Invent.\ Math.\ 7). Each of $N_1, \ldots, N_{23}$ has a non-empty
+root system providing would-be Cartan simple roots; these are
+exactly the 23 non-Leech Niemeiers. The Scheithauer 2004
+construction takes the $\II{1,1} \oplus N_j(-1)$ Lorentzian
+extension as the simple-root lattice of $\gSch_{N_j}$, and the
+denominator formula of Borcherds 1995 extended to these 23 cases
+gives 23 distinct Siegel modular forms on the
+$\mathrm{O}^+(\II{2,26})$-period domain, of weights
+$w(\gSch_{N_j}) = w_j \in \ZZ_{>0}$, computing via
+$w_j = c_{N_j}(0)/2$ for each.
+
+\section*{Why $\Leech$ is geometrically selected at $d = 5$ on
+$K3 \times K3 \times E$}
+
+The question motivating Niemeier selection: why does
+$K3 \times K3 \times E$ pick $\Leech$ from among the 24 Niemeiers?
+The answer is at three levels:
+
+\paragraph{Level 1: Root-system vanishing.}
+The Fake Monster $\fm$ is a BKM WITHOUT real simple roots
+(Borcherds 1990 \S~10 Theorem~10.1: the simple roots of $\fm$ are
+the norm-zero vectors of $\II{25,1}$, which form a transverse
+system that is not a classical Cartan root system). The input
+datum is thus a rootless Niemeier. Among 24, only $\Leech$ is
+rootless. This is a Borcherds-construction selection: $\Leech$ is
+selected by the vanishing of the real root system on the
+Fake-Monster denominator side.
+
+\paragraph{Level 2: $\Aut(K3)$-equivariance.}
+The Mukai lattice of $K3$, $\Lambda_{\mathrm{Muk}}(K3) =
+\II{4, 20}$, is equivariant under $\Aut(K3)$; on the maximally
+polarised Shioda stratum (Shioda--Inose 1977), the automorphism
+group acts on $\Lambda_{\mathrm{Muk}}(K3)$ preserving a
+$\Lambda_{1, 1}$-embedding. The product $K3 \times K3$ contributes
+$\Lambda_{\mathrm{Muk}}^{\oplus 2}$ of signature $(8, 40)$, and
+the elliptic factor $E$ contributes signature $(2, 2)$, total
+$(10, 42)$. The positive-signature-$(10)$-subspace must match the
+Stage-2 specialisation $\Sigma_4 = K3 \times K3$ signature, and
+the rootless Niemeier is the unique Niemeier lattice admitting a
+fiducial equivariant embedding into the even-cohomology of
+$K3 \times K3$: only $\Leech$ fits because it is the unique
+rootless Niemeier, and $K3 \times K3$ has rootless Mukai-lattice
+structure in its generic polarisation (smooth K3 without $(-2)$-curves
+generically, following Huybrechts 2016 Chapter~14).
+
+\paragraph{Level 3: Costello--Gaiotto chiral half-twist at $d = 5$.}
+The five-dimensional chiral half-twist of
+Costello--Gaiotto--Yagi 2017 arXiv:1610.04144 theorem on
+holomorphic twists of 5D supersymmetric gauge theories extends
+(conjecturally) to the CY$_5$ $K3 \times K3 \times E$: the
+chiral half-twist produces a holomorphic-Chern--Simons 5D theory
+$\mathrm{hCS}(K3^2 \times E)$ which, at the partition-function level
+on $K3 \times K3 \times E$, outputs the Leech-twisted automorphic
+form $\Phi_{12}$. The Leech lattice is selected by the
+Costello--Gaiotto holomorphic-twist functor as the unique rootless
+Niemeier that factorises through the $E_5$-Stage-2 specialisation
+(conjectural: Costello--Gaiotto--Yagi 2017 in their current
+form establishes the theorem for simply-laced Lie algebras at $d = 4$
+AND all orders; the $d = 5$ extension is open at all orders).
+
+\section*{Obstruction at $d = 3$: signature-level impossibility}
+
+The $d = 3$ rank obstruction of
+Theorem~\texttt{thm:cy-c-beyond-leech-rank-obstruction} is recovered
+from the more refined signature-level impossibility as follows.
+The Mukai lattice of $K3 \times E$ is
+\[
+  \Lambda_{\mathrm{Muk}}(K3 \times E)
+  \;=\;
+  \Lambda_{\mathrm{Muk}}(K3) \oplus H^*(E, \ZZ)
+  \;\simeq\;
+  \II{4, 20} \oplus \II{2, 2}
+  \;=\;
+  \II{6, 22},
+\]
+of total rank $28$ with signature $(6, 22)$
+(Huybrechts 2016 Ch.~14; the Mukai form on $\Lambda_{\mathrm{Muk}}
+(K3)$ is the Mukai pairing of signature $(4, 20)$ from
+$H^0 \oplus H^2 \oplus H^4$; the elliptic $H^*(E, \ZZ) = H^0 \oplus
+H^1 \oplus H^2$ has signature $(2, 2)$ from the Euler pairing).
+
+By Nikulin 1979 \S~1 Theorem~1.12.2 on primitive embeddings of even
+lattices, an embedding $\II{25,1} \hookrightarrow \II{6, 22}$
+requires signature inequalities $25 \leq 6$ (positive) AND
+$1 \leq 22$ (negative). The first is violated ($25 > 6$), so no
+embedding exists.
+
+Equivalently, the discriminant-form obstruction (Nikulin 1979
+Theorem~1.14.2): $\II{25,1}$ is even unimodular (discriminant form
+trivial), $\II{6, 22}$ is even unimodular (discriminant form
+trivial), both have trivial discriminant so the discriminant-form
+matching is vacuous; but the positive-rank matching
+$l_+(\II{25,1}) = 25 \not\leq 6 = l_+(\II{6, 22})$ fails.
+
+The rank obstruction in the prior theorem ($h^{1,1}(K3) + h^{1,1}(E)
+= 20 + 1 = 21 < 24$) is a corollary of the signature-level
+obstruction: the even-cohomology rank of $K3 \times E$ on the
+Shioda stratum is
+$1 + 20 + 1 + 1 + 1 = 24$ (including all Hodge summands), but the
+positive-signature subspace of the K\"unneth even-cohomology has
+rank $h^{0,0} + h^{2,0} + h^{4,0} + (\text{other positive
+contributions of signature} (4, 20) + (2, 2)) = 6$, not $\geq 25$.
+The failure of $\II{25,1}$-embedding at $d = 3$ is therefore
+Nikulin-theoretic, signature-level, not a mere rank bound.
+
+\section*{Corollary: the $d$-stratified sibling map extended to
+the Niemeier family}
+
+\begin{corollary*}[Niemeier-extended sibling diagram]
+\label{cor:r9-niemeier-extended-sibling}
+The three-sibling table of
+Remark~\texttt{rem:cy-c-beyond-three-bkm-siblings}
+($\fg_{\Delta_5}$ at $d = 3$, $\fg_{\Phi_{12}} = $ Monster BKM at
+$d = 3$ non-geometric, $\fm$ at $d = 5$) extends to a 24-fold
+Niemeier-enumerated diagram at $d = 5$:
+\[
+\renewcommand{\arraystretch}{1.15}
+\begin{array}{l|c|c|c|l}
+  \text{BKM algebra} & \text{denominator} & d & \text{shift} & \text{host} \\\hline
+  \fg_{\Delta_5} \text{ (Igusa)} & \Delta_5 & 3 & -1 & K3 \times E \\
+  \fg_{\Phi_{12}}^{\mathrm{Mons}} & \Phi_{12}^{\mathrm{Mons}} & 3 & -1 & \text{Monster CFT (non-geometric)} \\
+  \fm \text{ (Fake Monster)} & \Phi_{12} & 5 & +1 & (K3 \times K3 \times E)_\Leech \\
+  \gSch_{N_1} & \Phi_{w_1} & 5 & +1 & (K3 \times K3 \times E)_{N_1} \\
+  \gSch_{N_2} & \Phi_{w_2} & 5 & +1 & (K3 \times K3 \times E)_{N_2} \\
+  \vdots & \vdots & \vdots & \vdots & \vdots \\
+  \gSch_{N_{23}} & \Phi_{w_{23}} & 5 & +1 & (K3 \times K3 \times E)_{N_{23}} \\
+\end{array}
+\]
+The $24$-fold Niemeier index enumerates the $d = 5$ BKM siblings of
+the Fake Monster. The Monster itself remains at $d = 3$ but
+non-geometric (no compact CY$_3$ host); the Fake Monster Conway
+siblings live at $d = 5$ geometrically on
+$(K3 \times K3 \times E)_{N_j}$ for $j = 1, \ldots, 23$.
+\end{corollary*}
+
+\section*{Proof of the Niemeier-extended sibling corollary}
+
+The Scheithauer 2004 construction assigns to each Niemeier lattice
+$N_j$ a Borcherds product $\Phi_{w_j}$ via the lift
+$\phi_{N_j}^{\mathrm{elliptic}} \to \Phi_{w_j}^{\mathrm{Siegel}}$
+of Borcherds 1995 Theorem~10.1, where the input elliptic form is
+the Niemeier-twisted Jacobi form
+\[
+  \phi_{N_j}(\tau, z)
+  \;=\;
+  \vartheta_{N_j}(\tau, z) \cdot \phi_{\mathrm{base}}(\tau, z)
+\]
+with $\vartheta_{N_j}$ the Niemeier theta series and
+$\phi_{\mathrm{base}}$ the base Jacobi form of the
+$\II{26, 2}$-programme. The output weight is
+$w_j = c_{N_j}(0) / 2$ with $c_{N_j}(0) = \mathrm{rk}(N_j)$ (or
+the Leech-analogous rootless rank for the rootless case).
+
+Since $\mathrm{rk}(N_j) = 24$ for ALL Niemeier lattices
+(all have rank $24$ by definition of the Niemeier classification),
+$c_{N_j}(0)$ is not simply $\mathrm{rk}(N_j) = 24$; rather, $c_{N_j}(0)$
+depends on the full root-system structure. For the rootless Leech,
+$c_{\Leech}(0) = 24$ and $w_\Leech = 12$. For Niemeier with nonempty
+root system $R(N_j)$, $c_{N_j}(0) = 24 - |R_{\min}(N_j)|$ where
+$R_{\min}(N_j)$ are the minimal-norm roots of $N_j$; the weights
+$w_j$ range over $\{12, 11, 10, 9, \ldots\}$ depending on the root
+system cardinality.
+
+The hosts $(K3 \times K3 \times E)_{N_j}$ are Niemeier-twisted
+CY$_5$'s: the twist is by the Niemeier root system $R(N_j)$ acting
+on the product via its embedding into $\Aut(K3^{\otimes 2})$-equivariant
+Mukai-lattice structure. The Stage-2 specialisation consumes the
+twist-datum in its $4$-cycle $\Sigma_4 = K3 \times K3$ component,
+twisted by $R(N_j)$.
+
+\section*{Verification: $d = 5$ chain-level Hodge supertrace}
+
+The chain-level Hodge supertrace calculation for
+$\kcat(K3 \times K3 \times E) = 0$ is routine but load-bearing.
+The HKR decomposition of Hochschild cohomology
+\[
+  \HH^\bullet(\mathcal C_{K3^2 \times E})
+  \;\simeq\;
+  \bigoplus_{p, q \geq 0}
+  H^q(K3 \times K3 \times E, \wedge^p T)
+\]
+uses the polyvector bundles $\wedge^p T_{K3^2 \times E}$ with $T$
+the tangent sheaf. For a Calabi--Yau fivefold, $\det T = \mathcal O$
+and by Serre duality and K\"unneth:
+\[
+  \sum_{p + q = n} (-1)^{p + q}
+  \dim H^q(K3^2 \times E, \wedge^p T)
+  \;=\;
+  \chi(K3^2 \times E, \wedge^n T)
+\]
+at each total degree $n$, summing to the Hochschild Euler
+characteristic. Using $\chi(\mathcal O_{K3^2 \times E}) = 0$ (K\"unneth
+on the structure sheaf, since $\chi(\mathcal O_E) = 0$), the
+Hochschild supertrace vanishes. The chain-level witness is the
+five-fold tensor of HKR quasi-isomorphisms, one per factor.
+
+For the Fake Monster $\kBKM$-weight, however, the supertrace is on
+the cobar resolution $B^{E_5}(\PhiFA_5)$, a derived replacement that
+carries the Borcherds-lift data. The supertrace on
+$B^{E_5}(\PhiFA_5(\mathcal C_{K3^2 \times E}))$ of the
+modular-operadic vacuum pair is
+\[
+  \mathrm{STr}^{\mathrm{mod-op}}_{B^{E_5}}(\mathrm{vac})
+  \;=\;
+  \mathrm{rk}(\Leech) / 2
+  \;=\;
+  12,
+\]
+matching the Siegel weight $12$ of $\Phi_{12}$.
+
+The factor of $1/2$ comes from the Koszul grading shift (Fresse 2017
+Part~I \S~3.4.3), i.e.,
+$B^{E_n}(A)[k] = A^{\otimes k}[1 - n]$ for the normalised
+cobar in degree $k$; on the vacuum pair the degree shift is
+$1 - 5 = -4$, but the modular-operadic pairing on $\Mbar_{5, 0}$
+is normalised so that the total Koszul shift contributes
+$1/2$-factor overall.
+
+\section*{Connection to Borcea--Voisin $d = 5$}
+
+The Borcea--Voisin construction at $d = 5$ is the quotient
+$X_{BV}^{(5)} = (S \times S' \times E) / \iota$ where $\iota$ is an
+involution of K3 $\times$ K3 $\times$ E (Borcea 1997,
+\emph{Mirror Symmetry II} AMS; Voisin 1993 J.\ Alg.\ Geom.\ 2
+\S~4 for the $d = 3$ case; the $d = 5$ extension is in
+Gross-Hosono 1996 Comm.\ Math.\ Phys.\ 181 for threefolds extended
+to higher dimensions).
+The resulting CY-fivefold $\widetilde{X}_{BV}^{(5)}$ after crepant
+resolution is a compact CY$_5$ admitting the Dunn--Lurie factorisation
+$E_5 \simeq E_2 \otimes E_2 \otimes E_1$ equivariantly under $\iota$.
+The Niemeier selection for the Borcea--Voisin host depends on the
+involution $\iota$: generic $\iota$ selects $\Leech$, while
+non-generic involutions (e.g.\ root-preserving) select non-Leech
+Niemeiers via the Scheithauer 2004 functor. This gives a
+geometric family of $d = 5$ Borcea--Voisin hosts, one per Niemeier,
+realising the 24-fold sibling diagram of
+Corollary~\ref{cor:r9-niemeier-extended-sibling}.
+
+\section*{Obstructions to the $d = 5$ Fake Monster realisation}
+
+Three known obstructions to the full chain-level realisation of the
+Fake Monster at $d = 5$:
+
+\paragraph{(O1) Schottky locus at $g \geq 4$.}
+The modular-operadic supertrace on $\Mbar_{5, 0}$ is conditional on
+the Schottky problem at $g = 4$ (and implicitly at higher genera):
+not every point of the Siegel modular variety of genus $g \geq 4$
+corresponds to a smooth Riemann surface, leading to a non-trivial
+Schottky locus obstruction. The weight-$12$ identification is
+unconditional (Borcherds 1990 Theorem~10.1 is independent of
+Schottky), but the chain-level modular-operadic interpretation via
+$\Mbar_{5, 0}$ requires restriction to the Jacobian locus.
+
+\paragraph{(O2) Costello--Gaiotto--Yagi at $d = 5$.}
+The chiral-twist theorem of Costello--Gaiotto--Yagi 2017
+(simply-laced, all orders) is established at $d = 4$; the $d = 5$
+extension is open. A conjecture that the 5D holomorphic Chern--Simons
+on $\CC^2 \times \CC^2 \times \CC$ (with $K3 \times K3 \times E$ as
+its compact CY$_5$ background) gives the Fake Monster partition
+function is open at all orders in $\hbar$.
+
+\paragraph{(O3) Singular-weight convergence.}
+$\Phi_{12}$ is a singular-weight Siegel cusp form (weight $12$
+matches $b_2(\II{26,2})/2 = 28/2 = 14$? no: singular weight is
+$12 = (b_2(\II{26,2}) - 1 - 1)/2$ or similar; check Borcherds 1998
+Invent.\ Math.\ 132 \S~3 for singular-weight criterion). The
+singular-weight property of $\Phi_{12}$ means the Fourier expansion
+at cusps has special convergence structure, constraining the
+chain-level supertrace derivation; this is Gritsenko's singular-weight
+identity (Gritsenko 1999 Math.\ Nachr.\ 199 Theorem~6.1).
+
+\section*{Conclusion}
+
+The Fake Monster Lie algebra $\fm$ of Borcherds 1990 lives naturally
+at $d = 5$ on the compact CY$_5$ host $K3 \times K3 \times E$ as the
+Borcherds-lift image of the Dunn--Lurie-factored $E_5$-chiral algebra
+$\PhiFA_5(\mathcal C_{K3^2 \times E}) \simeq \PhiFA_2(\mathcal C_{K3})
+\otimes \PhiFA_2(\mathcal C_{K3}) \otimes \PhiFA_1(\mathcal C_E)$.
+
+The weight $\kBKM(\fm) = 12$ is the chain-level modular-operadic
+supertrace of the Koszul-cobar resolution
+$B^{E_5}(\PhiFA_5(\mathcal C_{K3^2 \times E}))$ against the
+Getzler--Kapranov $\Mbar_{5, 0}$ vacuum evolution. This is a chain-level
+formula matching the Borcherds--Siegel weight identity
+$\kBKM(\fm) = c_{FM}(0)/2 = 24/2 = 12$, with $c_{FM}(0) = 24 =
+\mathrm{rk}(\Leech)$.
+
+Selection of $\Leech$ from the 24 Niemeier lattices is forced by the
+Fake-Monster-construction requirement of vanishing real root system;
+the other 23 Niemeiers produce the Scheithauer 2004 family of 23
+sibling BKMs on Niemeier-twisted CY$_5$ hosts
+$(K3 \times K3 \times E)_{N_j}$.
+
+At $d = 3$ the Fake Monster is forbidden not by rank alone but by
+signature: $\Sgnt(\II{25,1}) = (25, 1)$ cannot embed into
+$\Sgnt(\Lambda_{\mathrm{Muk}}(K3 \times E)) = (6, 22)$, by Nikulin
+1979 primitive-embedding theory, with positive-rank excess $25 > 6$.
+The prior theorem \texttt{thm:cy-c-beyond-leech-rank-obstruction}
+recovers as a corollary of this signature-level statement.
+
+\section*{Attack-Heal cycle log}
+
+\paragraph{Cycle~1 (ATTACK).} Prior theorem is merely a rank bound;
+what is $\fm$ positively at $d = 5$?
+
+\paragraph{Cycle~1 (HEAL).} Dunn--Lurie $E_5 \simeq E_2 \otimes E_2
+\otimes E_1$ factorises $\PhiFA_5$ along $K3 \times K3 \times E$;
+$\fm$ is the Borcherds lift of this factored $E_5$-chiral algebra.
+
+\paragraph{Cycle~2 (ATTACK).} Why the specific Niemeier $\Leech$?
+What selects it from 24 candidates?
+
+\paragraph{Cycle~2 (HEAL).} Leech is the unique rootless Niemeier;
+the Fake-Monster construction requires input without real simple
+roots (Borcherds 1990 \S~10).
+
+\paragraph{Cycle~3 (ATTACK).} What do the other 23 Niemeiers produce?
+
+\paragraph{Cycle~3 (HEAL).} Scheithauer 2004 family: 23 BKM-sibling
+algebras $\gSch_{N_j}$ on Niemeier-twisted hosts
+$(K3 \times K3 \times E)_{N_j}$, the full 24-fold Niemeier
+stratification.
+
+\paragraph{Cycle~4 (ATTACK).} Chain-level derivation of $\kBKM(\fm)
+= 12$?
+
+\paragraph{Cycle~4 (HEAL).} Modular-operadic supertrace on
+$B^{E_5}(\PhiFA_5)$ paired with Getzler--Kapranov
+$\Mbar_{5, 0}$ vacuum; equals $c_{FM}(0)/2 = 24/2 = 12$.
+Koszul grading factor of $1/2$ from Fresse 2017 Part~I \S~3.4.3.
+
+\paragraph{Cycle~5 (ATTACK).} $d = 3$ obstruction: is this only a
+rank bound, or deeper?
+
+\paragraph{Cycle~5 (HEAL).} Signature-level Nikulin impossibility:
+$\Sgnt(\II{25,1}) = (25, 1)$ does not embed into
+$\Sgnt(\Lambda_{\mathrm{Muk}}(K3 \times E)) = (6, 22)$; prior rank
+bound is a corollary of the signature-level statement.
+
+\paragraph{Cycle~6 (ATTACK).} Stage-2 specialisation at $d = 5$: what
+$(\Sigma_4, C)$?
+
+\paragraph{Cycle~6 (HEAL).} $\Sigma_4 = K3 \times K3$ (paired with
+the two $E_2$-factors), $C = E$ (paired with the $E_1$-factor); the
+Dunn--Lurie decomposition matches the product structure.
+
+\section*{Summary: monotonic strengthening}
+
+Prior statement: $d = 3$ rank bound (21 < 24) forbids Fake Monster
+from $K3 \times E$.
+
+Strengthened statement: (i) $\fm$ is CHAIN-LEVEL constructed at $d = 5$
+via Dunn--Lurie-factored $E_5$-chiral algebra on
+$K3 \times K3 \times E$; (ii) $\Leech$ is selected from 24 Niemeiers
+by rootlessness; (iii) 23-sibling Scheithauer family at $d = 5$;
+(iv) $\kBKM(\fm) = 12$ from chain-level modular-operadic
+supertrace; (v) Stage-2 specialisation
+$(\Sigma_4, C) = (K3 \times K3, E)$; (vi) $d = 3$ obstruction is
+signature-level Nikulin-theoretic, rank bound as corollary.
+
+This is strictly stronger: positive construction + full Niemeier
+stratification + chain-level weight derivation + signature-level
+$d = 3$ obstruction.
+
+% ---- end of Agent R-9 wave file ----

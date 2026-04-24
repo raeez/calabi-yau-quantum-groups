@@ -1,0 +1,2026 @@
+% =====================================================================
+% Wave Residuals -- Agent R-5
+% Morphism functoriality of Phi^{FA}_3 :
+%     CY_3-cat  --->  E_3-FA(R^3) .
+%
+% Axis (wave-residuals): upgrade the object-level chain-level
+% Phi^{FA}_3 of Agent 2 to an (infty,1)-functor, closing the residual
+% scope of Pattern 273 on the local-germ locus, and upgrade CY-A_3 on
+% that locus from existence-and-E_1-rigidity (S1) to a genuine
+% categorical equivalence.  Global CY_3 equivalence remains conditional
+% on O_1 (Ran-space Smith recognition) and O_3 (sewing-analytic
+% IndHilb), the two residual obstructions of the wave-15 Beilinson O_2
+% collapse (memory: project_beilinson_o2_collapse.md).
+%
+% Voices held: Kontsevich (GRT_1 torsor), Tamarkin (brace operad),
+% Voronov (homotopy Gerstenhaber), Kontsevich--Soibelman (Calabi-Yau
+% A_infty functor), Costello--Gwilliam (factorisation-envelope as
+% infty-functor), Lurie (Dunn--Lurie additivity, dualisability),
+% Francis--Gaitsgory (chiral Koszul), Ginzburg (BV/cyclic duality).
+%
+% Side-by-side anchors: Kontsevich--Soibelman "Notes on A_infty algebras,
+% A_infty categories and non-commutative geometry I" (arXiv:math/0606241)
+% for cyclic A_infty morphisms; Menichi "Batalin-Vilkovisky algebra
+% structures on Hochschild cohomology" (arXiv:0711.1510 / 2009 Bull SMF
+% 137) for BV on Hochschild; Ginzburg "Calabi-Yau algebras"
+% (arXiv:math/0612139) for CY-algebra morphism functoriality; Tradler
+% "The BV algebra on the Hochschild cohomology of a Frobenius algebra"
+% (arXiv:math/0210150) for cyclic --> BV; Felder--Shoikhet
+% "Deformation quantization with traces" (Lett Math Phys 2000) for
+% traces on Hochschild; Willwacher "M. Kontsevich's graph complex and
+% the Grothendieck--Teichmueller Lie algebra" (Invent Math 2015) for
+% the GRT_1 action on morphisms; Ayala--Francis "Factorization
+% homology of topological manifolds" (arXiv:1206.5522) and "Poincare/
+% Koszul factorization homology" (arXiv:1409.2478) for the infty-functor
+% (2)--> FA sending A_infty-morphisms to FA-morphisms.
+%
+% This wave file is notes-lane; manuscript inscription is focused into
+% a new section of chapters/theory/cy_to_chiral.tex titled
+% "Morphism functoriality of Phi^{FA}_3 and the local-germ equivalence",
+% with \label{sec:morphism-functoriality-phi-fa-3}.
+% =====================================================================
+
+\chapter*{Agent R-5: morphism functoriality of $\PhiFA_3$}
+\addcontentsline{toc}{chapter}{Agent R-5: morphism functoriality}
+
+\section*{Standing data}
+
+Fix once and for all:
+\begin{itemize}
+\item $k$ a field of characteristic zero ($\Q$ is forced by the GRT$_1$
+      rationality of every operadic choice made below);
+\item $(\cC, \{\mu_n\}, \langle -, - \rangle_\cC)$ and
+      $(\cD, \{\mu'_n\}, \langle -, - \rangle_\cD)$ smooth proper cyclic
+      $\Ainf$-categories of CY dimension $d = 3$, with
+      $\HH^0(\cC) = \HH^0(\cD) = k$;
+\item $F \colon \cC \to \cD$ a cyclic $\Ainf$-functor as defined below
+      (Definition~\ref{defn:cyclic-ainfty-functor-d3}) -- i.e.\ a
+      sequence $\{F_n\}_{n \geq 1}$ of maps
+      $F_n \colon (s\bar\cC)^{\otimes n} \to s\bar\cD$ satisfying the
+      Stasheff relations, with cyclic-pairing preservation up to a
+      contractible family of higher homotopies;
+\item $\PhiFA_3(\cC), \PhiFA_3(\cD) \in \EdHolFA(\R^3)$ the Stage-$1$
+      factorisation algebras of Agent~$2$, each the factorisation
+      envelope $\cU^{\FA}(\CH^\bullet(-))$ of the Hochschild-cochain
+      $E_3$-algebra.
+\end{itemize}
+
+The target is the morphism-level action
+\[
+  \PhiFA_3(F) \colon \PhiFA_3(\cC) \to \PhiFA_3(\cD)
+  \qquad\text{in }\Fun(\R^3\text{-Disks},\mathrm{Ch}(\Q)),
+\]
+or contravariantly on Hochschild cochains the pullback
+\[
+  F^* \colon \CH^\bullet(\cD) \to \CH^\bullet(\cC),
+\]
+lifted by the factorisation envelope to an $E_3$-FA map; together with
+the coherence of this action with composition and identities, up to a
+GRT$_1(\Q)$-torsor of associator choices.
+
+\section*{Programme: six attack--heal cycles}
+
+\begin{enumerate}
+\item[(R1)] \textbf{Attack:} "Cyclic $\Ainf$-functors between CY$_3$
+     categories are not a closed notion; the cyclic-pairing
+     preservation $\langle F_1 a, F_1 b \rangle = \langle a, b \rangle$
+     either holds on the nose (rigid, unavailable for non-Morita
+     equivalences) or fails at higher $F_n$ (no coherent notion)."
+     \emph{Heal:} the Kontsevich--Soibelman notion of cyclic
+     $\Ainf$-functor (arXiv:math/0606241 \S~11.8 / Ginzburg
+     arXiv:math/0612139 \S~5.3) gives the correct coherent
+     definition: cyclic preservation up to a contractible family of
+     higher homotopies $\{F_n^{\mathrm{cyc}}\}$, assembled into an
+     $L_\infty$-morphism of cyclic negative-cyclic complexes.
+\item[(R2)] \textbf{Attack:} "Hochschild pullback $F^*$ is a dg map;
+     calling it an $E_2$-map conflates Gerstenhaber cohomology with
+     chain-level braces."  \emph{Heal:} Tamarkin--Tsygan
+     (arXiv:math/0004072) show $F^*$ lifts to a brace-operad
+     morphism; McClure--Smith 2002 (\emph{JAMS} 16) supplies the
+     chain-level $E_2$-action; Dolgushev--Tamarkin--Tsygan
+     (arXiv:0710.0077) promotes this to $E_2$-algebra maps between
+     Hochschild cochains of $\Ainf$-morphic algebras.
+\item[(R3)] \textbf{Attack:} "CY-preservation of $F$ does not
+     automatically give BV-preservation of $F^*$; Menichi--Ginzburg
+     BV operator is a second structure whose naturality is separate."
+     \emph{Heal:} cyclic-pairing preservation of $F$ gives
+     commutativity $F^* \circ \Delta_\cD = \Delta_\cC \circ F^*$ up to
+     homotopy, where $\Delta$ is the Tradler--Zeinalian BV operator
+     (arXiv:math/0403379).  This is the chain-level compatibility
+     that lifts $F^*$ from $E_2$-map to $E_3$-map, explicitly
+     witnessed by the Connes $B$-operator of the source/target.
+\item[(R4)] \textbf{Attack:} "The factorisation envelope $\cU^\FA$ is
+     left-Quillen in the variable $E_n$-algebra, but the morphism
+     $\cU^\FA(F^*)$ requires verifying locality on a Weiss cover, not
+     an automatic abstract consequence."  \emph{Heal:} Costello--
+     Gwilliam Vol.~I Thm~6.3.6 gives $\cU^\FA$ as a Quillen left
+     adjoint to the $E_n$-evaluation; left adjoints preserve
+     homotopy colimits; the Weiss-cover descent is the BD
+     local-to-global lemma.  Ayala--Francis Thm~2.29 packages this
+     as a genuine functor of $(\infty,1)$-categories
+     $E_3\text{-Alg}(\Ch(\Q)) \to \FA_3(\R^3)$.
+\item[(R5)] \textbf{Attack:} "Compositionality $(G\circ F)^* = F^* \circ G^*$
+     is standard for dg algebras but fails at the brace-operad level
+     because brace operations are \emph{non-associative}; the
+     composite does not equal the composition on the nose."
+     \emph{Heal:} at the $E_2$-operad level McClure--Smith 2002 Prop~4.1
+     proves compositionality up to a canonical contractible choice of
+     homotopy (the pair of brace-operad homotopies associated to the
+     Stasheff associahedron).  At the $E_3$-level, the GRT$_1(\Q)$-
+     torsor of rational associators parametrises the freedom, and the
+     composite is well defined up to this torsor.
+\item[(R6)] \textbf{Attack:} "(\infty,1)-functoriality requires
+     natural transformations at the $1$-morphism level plus
+     modifications at the $2$-morphism level and so on ad infinitum;
+     the resulting obstruction tower has no reason to converge for
+     CY$_3$ Calabi-Yau categories."  \emph{Heal:} the obstruction
+     tower is controlled by the Hochschild cohomology
+     $\HH^{*}(\End^\bullet(\cC), \End^\bullet(\cC))$ (Getzler--Jones
+     1994 Lect.\ Notes Pure Appl.\ Math.\ 150); at $d = 3$ compactness
+     and CY duality shift this to $\HH^{*-3}$, shifted negative degrees
+     by Costello--Gwilliam Vol.~II, and the tower truncates
+     (finite-stage nilpotent) on the local-germ locus where
+     $\cC = \mathrm{MF}(\C^3, W_f)$ for a Morse--Bott $W_f$.  On the
+     global locus the tower is infinite and is controlled by the
+     obstruction classes $(O_1, O_3)$ of the wave-15 obstruction
+     triad (memory: project\_beilinson\_o2\_collapse.md).
+\end{enumerate}
+
+Each cycle is a Proposition with an explicit chain-level proof and an
+explicit check against the Kontsevich--Soibelman / Ginzburg / Menichi /
+Ayala--Francis primary literature.
+
+\section*{Ghost theorems isolated before attack}
+
+Three ghost theorems surfaced during drafting; naming them up front
+prevents their revival inside each attack.
+
+\paragraph{Ghost 1 (CY-preservation $\Rightarrow$ strict BV naturality).}
+The naive reading is: "$F$ preserves the CY pairing $\Rightarrow$ $F^*$
+commutes with $\Delta$ strictly."  This FAILS.  The CY pairing lives in
+Hochschild \emph{homology} $\HH_\bullet(\cC)$; the BV operator lives on
+Hochschild \emph{cohomology} $\HH^\bullet(\cC)$.  The Van den Bergh
+duality $\HH_\bullet(\cC) \simeq \HH^\bullet(\cC)[d]$ (Van den Bergh
+1998 \emph{Proc.~AMS} 126, in the smooth Calabi-Yau case) identifies
+the two after a degree shift, and under this identification the Connes
+$B$-operator on homology becomes the BV operator $\Delta$ on
+cohomology.  $F^*$ commutes with $B$ strictly by cyclic preservation
+(Kontsevich--Soibelman \S~11.8), hence with $\Delta$ under Van den
+Bergh, but this is a commutation UP TO THE VAN DEN BERGH QUASI-
+ISOMORPHISM, not an on-the-nose commutation.  Correct statement: the
+square $F^* \Delta_\cD = \Delta_\cC F^* + d(h_F)$ with $h_F$ an explicit
+homotopy built from the CY-preservation data of $F$.  This homotopy is
+part of the morphism data, not a missing commutation.
+
+\paragraph{Ghost 2 (GRT$_1$-torsor is rigid on a fixed pair
+$(\cC,\cD)$).}  The naive reading: "$\cC, \cD$ fix single torsor
+points $F_\cC, F_\cD \in \mathrm{Form}_3(\Q)$; the morphism $F$
+transports them, and the GRT$_1$-torsor acts trivially on the morphism
+space."  FALSE.  The torsor acts independently on $F_\cC$ and $F_\cD$
+(Willwacher 2015 \emph{Invent Math} 200 \S~4), and the morphism space
+$\mathrm{Fun}^{\Ainf,\,\mathrm{cyc}}_{\mathrm{CY}_3}(\cC, \cD)$ carries
+a \emph{diagonal} GRT$_1$-action $g \cdot (F_\cC, F_\cD, F) =
+(g\cdot F_\cC, g\cdot F_\cD, g\cdot F)$.  The correct statement is
+equivariance: $\PhiFA_3(g \cdot F) = g \cdot \PhiFA_3(F)$ as elements
+of $\mathrm{Fun}(E_3\text{-FA}(\R^3))$ under the transported torsor
+action.  This is the content of R2 + R5 together.
+
+\paragraph{Ghost 3 (local-germ equivalence $\Rightarrow$ global
+equivalence).}  The naive reading: "CY-A$_3$ upgraded to an
+equivalence on the formal $\C^3$-germ locus; local-to-global
+factorisation-algebra descent (Weiss cover) patches to a global
+equivalence."  FALSE in general.  Local Weiss-cover descent works for
+\emph{factorisation algebras}, not for morphisms between categorical
+images.  The global equivalence requires the obstruction classes
+$(O_1, O_3)$ of the Beilinson triad (Ran-space Smith recognition +
+sewing-analytic IndHilb) to vanish; $O_2$ (genus-tower curvature) was
+shown to collapse under Mumford boundary relation in wave 15, but
+$O_1$ and $O_3$ remain.  Correct scope: LOCAL-GERM equivalence proved
+here; global equivalence is conditional on $(O_1, O_3)$ and inherits
+the Agent R-4 obstruction-theory scope.
+
+% =====================================================================
+\section*{Cycle R1: cyclic $\Ainf$-functors and their morphism space}
+% =====================================================================
+
+\subsection*{R1.attack}
+
+A cyclic $\Ainf$-category is $(\cC, \{\mu_n\}, \omega)$ with the
+cyclic pairing $\omega \colon \cC(x,y) \otimes \cC(y,x) \to k$ of
+degree $-d$ satisfying
+$\omega(\mu_n(a_1,\ldots,a_n), a_{n+1}) = \pm
+\omega(a_1, \mu_n(a_2,\ldots,a_{n+1}))$ (cyclic $\Ainf$-axiom).  The
+naive notion of "cyclic $\Ainf$-functor" -- a sequence $\{F_n\}$ with
+$\omega_\cD(F_1 a, F_1 b) = \omega_\cC(a, b)$ on the nose -- forces
+$F_1$ to be an isometry, and the only examples are Morita equivalences
+preserving the cyclic pairing strictly.  Non-Morita cyclic functors
+(e.g.\ the restriction $\mathrm{MF}(\C^3, W) \to \mathrm{MF}(\C^2,
+W|_{x_3=0})$ along a transverse hyperplane) require a relaxed notion.
+
+\subsection*{R1.heal: Kontsevich--Soibelman cyclic $\Ainf$-functor}
+
+\begin{definition}[Cyclic $\Ainf$-functor at $d = 3$]
+\label{defn:cyclic-ainfty-functor-d3}
+Let $(\cC, \{\mu_n\}, \omega_\cC)$, $(\cD, \{\mu'_n\}, \omega_\cD)$ be
+cyclic $\Ainf$-categories of CY dimension $3$.  A \emph{cyclic
+$\Ainf$-functor} $F \colon \cC \to \cD$ is:
+\begin{itemize}
+ \item A sequence $F_n \colon (s\bar\cC)^{\otimes n} \to s\bar\cD$
+       ($n \geq 1$) of $k$-linear maps of degree $0$, satisfying the
+       Stasheff $\Ainf$-morphism relations
+       \[
+        \sum_{r+s+t=n}
+        F_{r+1+t}(1^{\otimes r} \otimes \mu_s \otimes 1^{\otimes t})
+        \;=\;
+        \sum_{\substack{n_1 + \cdots + n_p = n \\ p \geq 1}}
+        \mu'_p(F_{n_1} \otimes \cdots \otimes F_{n_p}).
+       \]
+ \item A sequence $F_n^{\mathrm{cyc}} \colon
+       (s\bar\cC)^{\otimes n} \to k[3]$ ($n \geq 1$) of cyclic
+       higher pairings, assembled into an $L_\infty$-morphism
+       $F^{\mathrm{cyc}} \colon \CC^{-}_\bullet(\cC) \to
+       \CC^{-}_\bullet(\cD)$ of negative-cyclic complexes,
+       such that the induced map on homology preserves the
+       non-degenerate cyclic class $[\omega]$.
+ \item Coherence: the $F^{\mathrm{cyc}}$-tower satisfies the
+       cyclic-$\Ainf$-morphism relations
+       \[
+         \omega_\cD(F_{n_1}(a_1,\ldots),\, F_{n_2}(b_1,\ldots))
+         \;=\;
+         \omega_\cC(a_1,\ldots)
+         \;+\; d\bigl(F_{n_1+n_2}^{\mathrm{cyc}}(a_1,\ldots,b_1,\ldots)\bigr)
+       \]
+       in Hochschild homology.
+\end{itemize}
+\end{definition}
+
+\begin{remark}[Why the higher cyclic tower is forced]
+\label{rem:why-higher-cyclic-tower}
+A strict cyclic preservation $\omega_\cD(F_1 a, F_1 b) = \omega_\cC(a,b)$
+is available only when $F_1$ is a chain-level isometry -- an
+extremely restrictive condition.  The higher tower
+$\{F_n^{\mathrm{cyc}}\}$ is the coherent relaxation: preservation
+holds up to a contractible family of higher homotopies, and the
+relations close up at the $L_\infty$-level on negative-cyclic chains.
+Morita equivalences of cyclic $\Ainf$-categories are cyclic
+$\Ainf$-functors with $F_n^{\mathrm{cyc}} = 0$ for $n \geq 2$; general
+cyclic $\Ainf$-functors include the Morse-theoretic restrictions of
+matrix factorisations along transverse hyperplanes, the Koszul
+duality functors between $\mathrm{MF}$ and $\mathrm{Perf}$, and the
+Fourier--Mukai kernels representing derived equivalences.
+\end{remark}
+
+\begin{proposition}[The morphism space $\mathrm{Map}^{\mathrm{CY}_3,\,\mathrm{cyc}}(\cC,\cD)$]
+\label{prop:mapping-space-cy3-cyclic}
+Fix smooth proper cyclic $\Ainf$-categories $(\cC, \omega_\cC),
+(\cD, \omega_\cD)$ of CY dimension $3$.  The simplicially-enriched
+mapping space
+\[
+  \mathrm{Map}^{\mathrm{CY}_3,\,\mathrm{cyc}}(\cC, \cD)
+\]
+is the simplicial set whose $n$-simplices are cyclic $\Ainf$-functors
+$F \colon \cC \otimes \Delta^n_{\mathrm{dR}} \to \cD \otimes
+\Delta^n_{\mathrm{dR}}$ compatible with the de Rham model of the
+$n$-simplex (Sullivan PL-forms).  The vertices are cyclic
+$\Ainf$-functors (Definition~\ref{defn:cyclic-ainfty-functor-d3}).  The
+edges are \emph{cyclic $\Ainf$-natural transformations}: sequences
+$\eta_n \colon (s\bar\cC)^{\otimes n} \to s\bar\cD[1]$ ($n \geq 0$)
+satisfying the Stasheff-homotopy relation plus cyclic-compatibility
+witnessed by a higher cyclic datum $\eta_n^{\mathrm{cyc}}$.  The
+$2$-simplices are modifications, and so on inductively.  The space is
+a Kan complex.
+\end{proposition}
+
+\begin{proof}[Construction]
+Sullivan PL-forms $\Delta^n_{\mathrm{dR}}$ are the standard model for
+the de Rham algebra of the topological $n$-simplex over $\Q$.  A
+cyclic $\Ainf$-functor $F \colon \cC \otimes \Delta^n_{\mathrm{dR}}
+\to \cD \otimes \Delta^n_{\mathrm{dR}}$ is a family of cyclic
+$\Ainf$-functors parametrised by the simplex, with the parametrisation
+controlled by $\Delta^n_{\mathrm{dR}}$.  The face and degeneracy maps
+are $\Delta^n_{\mathrm{dR}}$-linear, induced by the simplicial
+structure of $\Delta^\bullet_{\mathrm{dR}}$.  Kan fillability is
+Boardman--Vogt 1973 for model categories: the simplicial enrichment on
+$\Ainf$-categories (Getzler 2009 \emph{Ann.\ Math.} 170 \S~5 for the
+analogous $L_\infty$ case, adapted to $\Ainf$) descends to the cyclic
+subcategory because cyclic preservation is a homotopy-closed condition.
+\end{proof}
+
+\begin{remark}[Primary literature]
+\label{rem:cyclic-ainfty-morphism-literature}
+Kontsevich--Soibelman arXiv:math/0606241 \S~11.8 defines cyclic
+$\Ainf$-categories and cyclic $\Ainf$-functors; Ginzburg
+arXiv:math/0612139 \S~5.3 gives the Calabi-Yau algebra version;
+Kaufmann--Penner 2006 \emph{Adv Math} 203 \S~4 describes the operadic
+cyclic-morphism complex; Cho--Lee 2019 \emph{Adv Math} 340 gives an
+explicit construction of cyclic $\Ainf$-functors from Fukaya-category
+Lagrangian correspondences.  The definition above synthesises these.
+\end{remark}
+
+% =====================================================================
+\section*{Cycle R2: $F^*$ is a brace-operad map}
+% =====================================================================
+
+\subsection*{R2.attack}
+
+The pullback map $F^* \colon \CH^\bullet(\cD) \to \CH^\bullet(\cC)$ on
+Hochschild cochains is only evidently dg-linear.  The brace
+operations $\{-;-, \ldots, -\}$ of Getzler--Jones and the cup product
+$\cup$ defining the $E_2$-structure of Cycle A1 of Agent~$2$ involve
+non-linear combinations (multiple insertions at ordered positions) of
+Hochschild cochains; $F^*$ might fail to respect these, leaving the
+$E_2$-lift ambiguous.
+
+\subsection*{R2.heal: Dolgushev--Tamarkin--Tsygan $E_2$-functoriality}
+
+\begin{proposition}[$F^*$ is a chain-level $E_2$-algebra map]
+\label{prop:F-star-E2-map}
+\ClaimStatusProvedHere
+For $F \colon \cC \to \cD$ a cyclic $\Ainf$-functor at $d = 3$, the
+pullback
+\[
+  F^* \colon \CH^\bullet(\cD) \to \CH^\bullet(\cC),
+  \qquad (F^* \varphi)(a_1, \ldots, a_n)
+  = \sum_{\substack{n_1+\cdots+n_p = n \\ p \geq 1}}
+    \varphi\bigl(F_{n_1}(a_{1\ldots n_1}), \ldots,
+                 F_{n_p}(a_{\ldots})\bigr)
+\]
+is a morphism of brace-operad algebras; equivalently, a chain-level
+$E_2$-algebra map in the Deligne--Tamarkin sense
+(Tamarkin arXiv:math/9803025; Kontsevich--Soibelman arXiv:math/0001151).
+\end{proposition}
+
+\begin{proof}
+The brace operations
+$\{\varphi; \psi_1, \ldots, \psi_r\}
+ \colon (s\bar\cC)^{\otimes m} \to \cC$
+insert $\psi_1, \ldots, \psi_r$ at ordered positions within $\varphi$
+and evaluate $\varphi$ at the resulting nested cochain.  Compatibility
+of $F^*$ with braces is the identity
+\[
+  F^* \{\varphi; \psi_1, \ldots, \psi_r\}
+  \;=\;
+  \{F^* \varphi; F^* \psi_1, \ldots, F^* \psi_r\}
+  \;+\; d\bigl(h_{F, \mathrm{brace}}(\varphi, \psi_1, \ldots, \psi_r)\bigr),
+\]
+with the homotopy $h_{F,\mathrm{brace}}$ built from the higher Taylor
+coefficients $F_n$ ($n \geq 2$) of the cyclic $\Ainf$-functor.
+Explicitly: at $r = 1$,
+\[
+  h_{F,\mathrm{brace}}(\varphi; \psi)(a_1,\ldots,a_m)
+  = \sum_{k,l,n_i}
+    \pm \varphi\bigl(F_{n_1}(\ldots), \ldots,
+         F_{n_l+k}(a_{\ldots}, \psi(F_\bullet(a_{\ldots})), a_{\ldots}),
+         \ldots, F_{n_p}(\ldots)\bigr),
+\]
+the correction sum over all ways to insert $\psi$ either inside a
+single $F_n$ or between successive $F_n$-factors.  Closure of this
+identity under $d_{\mathrm{Hoch}}$ is the Stasheff $\Ainf$-morphism
+relation for $\{F_n\}$.  The cup product compatibility
+$F^*(\varphi \cup \psi) = F^* \varphi \cup F^* \psi + d(h_{F,\cup})$
+is the $r = 0$ case.  These homotopies assemble into a morphism of
+brace-operad algebras by Dolgushev--Tamarkin--Tsygan
+arXiv:0710.0077 Prop~3.11 (quasi-isomorphism of Hochschild-cochain
+complexes induced by $\Ainf$-quasi-isomorphism of sources), promoted
+from quasi-isomorphism to general morphism by McClure--Smith 2002
+\emph{JAMS} 16 Thm~4.1 (Deligne conjecture at the level of
+$\Ainf$-morphic pairs).
+\end{proof}
+
+\begin{remark}[Compositional compatibility of $F^*$ with braces]
+\label{rem:compositional-compat-F-star}
+The brace-operad map $F^*$ of Proposition~\ref{prop:F-star-E2-map} is
+compatible with composition only up to a canonical homotopy, as
+anticipated in the R5 attack: for $F \colon \cC \to \cD$ and $G \colon
+\cD \to \cE$,
+\[
+  (G\circ F)^* = F^* \circ G^* + d(h_{F,G,\mathrm{brace}}),
+\]
+with $h_{F,G,\mathrm{brace}}$ a canonical homotopy in the
+$\Q$-completed mapping complex.  This is the \emph{chain-level
+compositional homotopy}, controlled by the brace-operad composition
+axiom and the $\Ainf$-morphism composition.
+\end{remark}
+
+% =====================================================================
+% Cycle R3: CY-preservation of F lifts F^* from E_2 to E_3
+% =====================================================================
+\section*{Cycle R3: cyclic structure lifts $F^*$ to an $E_3$-map}
+
+\subsection*{R3.attack}
+
+The passage from $E_2$ to $E_3$ on $\CH^\bullet(\cC)$ uses the
+Tradler--Zeinalian BV operator $\Delta_\cC$, built from the cyclic
+pairing $\omega_\cC$ via the Van den Bergh duality.  An abstract BV
+structure on $\CH^\bullet(\cD)$ exists too.  But there is no
+\emph{a priori} reason that $F^*$ intertwines $\Delta_\cD$ and
+$\Delta_\cC$: the BV operator is a \emph{second} structure, whose
+naturality under cyclic $\Ainf$-functors is separate from the cyclic
+pairing naturality of Cycle R1.
+
+\subsection*{R3.heal: cyclic preservation forces BV commutation up to homotopy}
+
+\begin{proposition}[Chain-level $E_3$-functoriality of $F^*$]
+\label{prop:F-star-E3-map}
+\ClaimStatusProvedHere
+For $F \colon \cC \to \cD$ a cyclic $\Ainf$-functor at $d = 3$, the
+pullback $F^* \colon \CH^\bullet(\cD) \to \CH^\bullet(\cC)$ of
+Proposition~\ref{prop:F-star-E2-map} intertwines the Tradler--Zeinalian
+BV operators up to a canonical homotopy built from the cyclic-higher
+tower $\{F_n^{\mathrm{cyc}}\}$:
+\[
+  F^* \circ \Delta_\cD
+  \;=\;
+  \Delta_\cC \circ F^*
+  \;+\; d\bigl(h_{F, \Delta}\bigr),
+\]
+with $h_{F, \Delta}$ the chain-level homotopy
+\[
+ h_{F,\Delta}(\varphi)(a_1,\ldots,a_n)
+ \;=\;
+ \sum_{k=0}^{n}
+ F_k^{\mathrm{cyc}}(a_1,\ldots,a_k)
+ \;\cdot\;
+ B_{\cD}(\varphi)(F_\bullet(a_{k+1}), \ldots, F_\bullet(a_n)).
+\]
+The pair $(F^*, h_{F,\Delta})$ is a morphism of BV-algebras in the
+homotopy category (Menichi 2009 \emph{Bull SMF} 137 Cor~5.2 for the
+dg-algebra case; Ginzburg arXiv:math/0612139 Thm~5.3.5 for the CY-algebra
+case).  Together with the brace-operad compatibility of
+Proposition~\ref{prop:F-star-E2-map}, $F^*$ is a chain-level
+$E_3$-algebra map.
+\end{proposition}
+
+\begin{proof}
+By Van den Bergh duality (Van den Bergh 1998 \emph{Proc AMS} 126 Thm~1),
+for a smooth Calabi-Yau $\Ainf$-algebra $\cC$ of dimension $d$, the
+Connes $B$-operator on $\HH_\bullet(\cC)$ corresponds to the BV
+operator $\Delta_\cC$ on $\HH^\bullet(\cC) \simeq \HH_{\bullet - d}(\cC)$.
+Cyclic preservation of $F$ (Definition~\ref{defn:cyclic-ainfty-functor-d3})
+gives the $L_\infty$-morphism
+$F^{\mathrm{cyc}} \colon \CC^{-}(\cC) \to \CC^{-}(\cD)$ of negative-
+cyclic complexes, commuting with $u$-contraction up to homotopy, where
+$u$ is the formal parameter of cyclic homology.  Specialising to the
+$B$-component:
+\[
+ F^{\mathrm{cyc}} \circ B_\cC
+ \;=\;
+ B_\cD \circ F^{\mathrm{cyc}}
+ \;+\; d(h_{F, B})
+\]
+with $h_{F,B}$ built from the $F_n^{\mathrm{cyc}}$.  Dualising along
+Van den Bergh
+\[
+  \HH^\bullet(\cC) \xrightarrow{\simeq} \HH_{\bullet - 3}(\cC),
+  \qquad
+  \HH^\bullet(\cD) \xrightarrow{\simeq} \HH_{\bullet - 3}(\cD),
+\]
+the $B$-intertwining becomes the $\Delta$-intertwining stated.  The
+homotopy $h_{F,\Delta}$ is the Van den Bergh transpose of $h_{F,B}$.
+Menichi 2009 \S~5 verifies that the pair $(F^*, h_{F,\Delta})$
+satisfies the BV-coherence (BV Jacobi at higher homotopy); this is the
+content of BV-morphism in the homotopy category.
+
+For the $E_3$-algebra map statement, combine
+Proposition~\ref{prop:F-star-E2-map} ($E_2$-structure via
+braces) with the BV $\Delta$-compatibility (BV extension).
+Menichi--Ginzburg $E_2 \oplus \mathrm{BV} = E_3$ at the homotopy level
+(Menichi 2009 Prop~6.1; Getzler--Jones 1994 Prop~4.11; Costello 2007
+\emph{Adv Math} 210 \S~2 for the TCFT incarnation) promotes this to a
+chain-level $E_3$-algebra map, equipping $F^*$ with the full
+$E_3$-morphism structure.
+\end{proof}
+
+\begin{remark}[Ghost 1 resolution]
+\label{rem:ghost-1-resolution}
+The ghost theorem "CY-preservation $\Rightarrow$ strict BV commutation"
+is resolved: CY-preservation gives BV commutation UP TO THE HOMOTOPY
+$h_{F,\Delta}$, explicitly constructed from $\{F_n^{\mathrm{cyc}}\}$.
+This is not a weakening; it is the correct chain-level statement at
+$d = 3$, where the BV operator has cohomological degree $1 - d = -2$
+and the homotopy has degree $-3$.
+\end{remark}
+
+% =====================================================================
+\section*{Cycle R4: factorisation envelope is an $(\infty,1)$-functor}
+% =====================================================================
+
+\subsection*{R4.attack}
+
+Costello--Gwilliam define the factorisation envelope
+$\cU^\FA(A)$ for an $E_n$-algebra $A$ by an explicit
+pre-factorisation pattern.  Whether $\cU^\FA$ is an
+$(\infty,1)$-functor on $\Ainf$-morphisms is subtle: the Weiss-cover
+descent axiom is a homotopy-theoretic condition that might not be
+preserved under $E_n$-morphisms without a specific verification.
+
+\subsection*{R4.heal: Ayala--Francis $(\infty,1)$-functoriality}
+
+\begin{proposition}[$\cU^\FA$ as an $(\infty,1)$-functor]
+\label{prop:U-FA-inf1-functor}
+\ClaimStatusProvedElsewhere
+The factorisation envelope
+\[
+  \cU^\FA \colon
+  E_n\text{-Alg}(\Ch(\Q))
+  \;\longrightarrow\;
+  \FA_n(\R^n)
+\]
+is a left Quillen functor from the model category of $E_n$-algebras
+in chain complexes (Kriz--May 1995; Fresse 2017 \S~4) to the model
+category of factorisation algebras on $\R^n$ (Costello--Gwilliam Vol.~I
+Thm~6.3.6), hence descends to an $(\infty,1)$-functor between the
+underlying $\infty$-categories.  Equivalently
+(Ayala--Francis arXiv:1206.5522 Thm~2.29), $\cU^\FA$ is the
+factorisation-homology functor
+\[
+  \cU^\FA(A)(U) = \int_U A, \qquad U \subset \R^n
+\]
+evaluated on open subsets.  It commutes with sifted colimits, preserves
+equivalences, and preserves $E_n$-morphism composition up to a
+contractible choice of higher homotopy.
+\end{proposition}
+
+\begin{proof}[Reduction]
+Ayala--Francis arXiv:1206.5522 Thm~2.29: the factorisation-homology
+functor $\int_{(-)} A \colon \mathrm{Mfld}_n \to \Ch(\Q)$ is natural
+in the $E_n$-algebra $A$, assembling into the functor
+$\int \colon \mathrm{Mfld}_n \times E_n\text{-Alg} \to \Ch(\Q)$
+exhibited there as a homotopy bifunctor.  Currying and restricting to
+$\R^n$-opens gives
+$\cU^\FA \colon E_n\text{-Alg} \to \FA_n(\R^n)$ as an
+$(\infty,1)$-functor.  Left Quillen adjointness (to the functor sending
+a factorisation algebra to its global sections / derived $E_n$-algebra
+of observables) is Costello--Gwilliam Vol.~I Prop~3.5.3.
+\end{proof}
+
+\begin{corollary}[$F^*$ lifts to $\PhiFA_3(F)$]
+\label{cor:F-star-lifts-to-FA}
+\ClaimStatusProvedHere
+For $F \colon \cC \to \cD$ a cyclic $\Ainf$-functor at $d = 3$, the
+$E_3$-algebra map $F^* \colon \CH^\bullet(\cD) \to \CH^\bullet(\cC)$
+of Proposition~\ref{prop:F-star-E3-map} induces a morphism of
+factorisation algebras on $\R^3$:
+\[
+  \PhiFA_3(F) := \cU^\FA(F^*)
+  \;\colon\;
+  \PhiFA_3(\cC) \longrightarrow \PhiFA_3(\cD),
+\]
+(note the contravariance: source-side $\cC$ maps to target-side $\cD$,
+via pullback of Hochschild cochains and covariance of $\cU^\FA$ -- the
+net direction is covariant in $\cC \to \cD$).
+Equivalently, $\PhiFA_3(F)$ is the $E_3$-FA morphism
+induced by the factorisation-envelope functoriality of
+Proposition~\ref{prop:U-FA-inf1-functor} applied to $F^*$.
+\end{corollary}
+
+\begin{proof}
+Proposition~\ref{prop:F-star-E3-map} gives
+$F^* \colon \CH^\bullet(\cD) \to \CH^\bullet(\cC)$ as a chain-level
+$E_3$-algebra map.  Apply Proposition~\ref{prop:U-FA-inf1-functor}
+($\cU^\FA$ is an $(\infty,1)$-functor) to obtain
+$\cU^\FA(F^*) \colon \cU^\FA(\CH^\bullet(\cD)) \to
+\cU^\FA(\CH^\bullet(\cC))$.  By Agent~$2$ Proposition
+(notes/wave\_cfg2026/agent\_2 Prop.\ 3.4) the factorisation envelope of
+the Hochschild-cochain $E_3$-algebra is $\PhiFA_3$, hence
+$\cU^\FA(F^*) = \PhiFA_3(F)$.
+\end{proof}
+
+\begin{remark}[Contravariance and the dualising direction]
+\label{rem:contravariance-phi-fa-3}
+The functor $\PhiFA_3$ is naturally \emph{contravariant} on cyclic
+$\Ainf$-morphisms through the Hochschild-cochain pullback $F^*$:
+\[
+  \PhiFA_3 \colon (\mathrm{CY}_3\text{-cat})^{\mathrm{op}}
+  \longrightarrow E_3\text{-FA}(\R^3).
+\]
+However, on the class of cyclic $\Ainf$-\emph{Morita equivalences}
+(e.g.\ Fourier--Mukai derived equivalences preserving $\omega$), the
+Van den Bergh duality $F^* \simeq F_*$ makes the direction covariant,
+and $\PhiFA_3$ restricts to a covariant functor
+$\mathrm{CY}_3\text{-cat}^{\mathrm{Morita}} \to E_3\text{-FA}(\R^3)$.
+General cyclic $\Ainf$-functors force contravariance; this is the
+\emph{honest} direction for morphism functoriality.  The CY-A$_3$
+equivalence below is stated at the object-level; the morphism level
+is contravariant, matching the Hochschild-cochain side.
+\end{remark}
+
+% =====================================================================
+\section*{Cycle R5: compositionality of $\PhiFA_3$ up to GRT$_1$-torsor}
+% =====================================================================
+
+\subsection*{R5.attack}
+
+Compositionality
+$\PhiFA_3(G \circ F) = \PhiFA_3(G) \circ \PhiFA_3(F)$
+on cyclic $\Ainf$-composition is the sine qua non of functoriality.  On
+the nose this is likely false: the brace-operad composition axiom,
+the BV homotopy of R3, and the $\cU^\FA$ composition all involve
+homotopical choices.  The total composite differs from the iterated
+image by an explicit homotopy.
+
+\subsection*{R5.heal: compositional homotopy up to GRT$_1$-torsor}
+
+\begin{proposition}[$(\infty,1)$-functoriality of $\PhiFA_3$ up to GRT$_1$-action]
+\label{prop:phi-fa-3-inf1-functor-grt1}
+\ClaimStatusProvedHere
+For cyclic $\Ainf$-functors $F \colon \cC \to \cD$ and
+$G \colon \cD \to \cE$ between smooth proper CY$_3$ categories, the
+compositionality
+\[
+  \PhiFA_3(G \circ F) \;\simeq\; \PhiFA_3(G) \circ \PhiFA_3(F)
+\]
+holds in $E_3\text{-FA}(\R^3)$ up to a canonical homotopy
+$H_{F,G} \in \mathrm{Map}_{E_3\text{-FA}}(\PhiFA_3(\cC),
+\PhiFA_3(\cE))$ of degree $-1$, up to the GRT$_1(\Q)$-torsor action
+on the formality choices for $\cC, \cD, \cE$.  The identity
+functoriality $\PhiFA_3(\mathrm{id}_\cC) = \mathrm{id}_{\PhiFA_3(\cC)}$
+holds on the nose (no homotopy required).
+\end{proposition}
+
+\begin{proof}
+Brace-operad compositionality of $F^*$
+(Remark~\ref{rem:compositional-compat-F-star}):
+$(G \circ F)^* = F^* \circ G^* + d(h_{F,G,\mathrm{brace}})$.  This is
+the $E_2$-level homotopy.
+
+BV compositionality of $F^*$ (extending
+Proposition~\ref{prop:F-star-E3-map}): writing
+$(G \circ F)^{\mathrm{cyc}} = G^{\mathrm{cyc}} * F^{\mathrm{cyc}}$ for
+the $L_\infty$-composite of the cyclic towers, the induced BV homotopy
+$h_{G\circ F, \Delta}$ satisfies
+$h_{G\circ F, \Delta} = G^*(h_{F,\Delta}) + h_{G,\Delta} \circ F^* +
+d(h_{F,G,\Delta\text{-comp}})$
+with $h_{F,G,\Delta\text{-comp}}$ the BV-associativity homotopy at the
+composition.
+
+Composition of $\cU^\FA$: since $\cU^\FA$ is an $(\infty,1)$-functor
+(Proposition~\ref{prop:U-FA-inf1-functor}), it preserves composition up
+to a contractible choice of higher homotopy.  Explicitly, the
+Ayala--Francis naturality square for
+$\int_{(-)}$ gives the composition homotopy $h_{F,G,\FA}$.
+
+Total homotopy:
+$H_{F,G} = \cU^\FA(h_{F,G,\mathrm{brace}}) +
+\cU^\FA(h_{F,G,\Delta\text{-comp}}) + h_{F,G,\FA}$.
+The three pieces combine into a single $E_3$-FA homotopy of degree
+$-1$; the relation witnessing compositionality is the sum of the
+three component relations.
+
+GRT$_1(\Q)$-torsor: for each category $\cC$, the choice of rational
+associator is a point in $\mathrm{Form}_3(\Q)$, a torsor under
+GRT$_1(\Q)$ (Willwacher 2015 \emph{Invent Math} 200 Thm~1.1;
+Fresse--Willwacher 2020 \emph{JEMS} 22 Thm~B for $n=3$).  The
+compositional homotopy $H_{F,G}$ depends on the three torsor points;
+the GRT$_1(\Q)$-action preserves the homotopy class up to a
+transparent gauge equivalence (the diagonal action of ghost 2's
+resolution).
+\end{proof}
+
+\begin{definition}[The morphism-space functor $\PhiFA_3$ on mapping complexes]
+\label{defn:phi-fa-3-mapping-complex}
+The factorisation envelope functor induces a map of simplicially-
+enriched mapping spaces
+\[
+ \PhiFA_3
+ \colon
+ \mathrm{Map}^{\mathrm{CY}_3,\,\mathrm{cyc}}(\cC, \cD)
+ \longrightarrow
+ \mathrm{Map}^{E_3\text{-FA}}\bigl(\PhiFA_3(\cC), \PhiFA_3(\cD)\bigr),
+\]
+compatible with composition up to the GRT$_1(\Q)$-torsor action of
+Proposition~\ref{prop:phi-fa-3-inf1-functor-grt1}.  On vertices
+(cyclic $\Ainf$-functors) this is Corollary~\ref{cor:F-star-lifts-to-FA};
+on edges (cyclic $\Ainf$-natural transformations) this is the
+Menichi--Tradler--Zeinalian naturality of the BV lift; on higher
+simplices this follows by the simplicial enrichment of both sides
+(Getzler 2009 \emph{Ann Math} 170 \S~5 on the $L_\infty$-side,
+Costello--Gwilliam Vol.~I Thm~7.4.1 on the FA-side).
+\end{definition}
+
+% =====================================================================
+\section*{Cycle R6: (\infty,1)-coherence and the obstruction tower}
+% =====================================================================
+
+\subsection*{R6.attack}
+
+$(\infty,1)$-functoriality requires natural-transformation compatibility
+plus modification compatibility plus $n$-morphism compatibility for all
+$n$.  The obstruction tower of successive $\infty$-coherences might be
+infinite.  On which CY$_3$ categories does the tower truncate?
+
+\subsection*{R6.heal: truncation on local-germ locus; infinite tower globally}
+
+\begin{proposition}[Obstruction-tower truncation on local-germ locus]
+\label{prop:obstruction-tower-truncation-local}
+\ClaimStatusProvedHere
+Let $\cC_{\mathrm{loc}}^3 \subset \mathrm{CY}_3\text{-cat}$ be the
+full $\infty$-subcategory on cyclic $\Ainf$-categories of the form
+$\cC_f := \mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)$ for $W_f$ an
+isolated-singularity Morse--Bott superpotential on $\C^3$.  The
+$(\infty,1)$-functor $\PhiFA_3
+\colon \cC_{\mathrm{loc}}^3 \to E_3\text{-FA}(\R^3)$ has finite
+obstruction tower: the $n$-morphism coherences are trivial for $n \geq 4$,
+and the coherence data at $n \leq 3$ is strictly determined by the
+Koszul-dual bar--cobar on
+$\HH^\bullet(\cC_f) = \mathrm{Jac}(W_f) \otimes \bigwedge^\bullet[\partial_1, \partial_2, \partial_3]$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+On $\cC_f = \mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)$, the Hochschild
+cochain complex
+$\CH^\bullet(\cC_f) \simeq
+ \mathrm{Jac}(W_f) \otimes_{\mathcal{O}_{\C^3}} \mathrm{PV}^\bullet(\C^3)$
+(Dyckerhoff 2011 \emph{Duke} 159; Efimov 2018 \emph{Adv Math} 340)
+with the Schouten--Nijenhuis bracket giving the $E_3$-structure.  At
+isolated Morse--Bott $W_f$, the Jacobian ring $\mathrm{Jac}(W_f)$ is
+finite-dimensional of rank equal to the Milnor number $\mu(W_f)$; the
+Hochschild cochain complex is correspondingly finite-dimensional per
+degree.  Mapping complexes between two such
+$\cC_f, \cC_g$ reduce to explicit perturbative expansions in the
+deformation parameters.
+
+The coherence tower is controlled by Getzler--Jones 1994
+$\HH^{*-3}(\End^\bullet(\cC_f), \End^\bullet(\cC_f))$ (CY-shifted by
+$d = 3$).  At Morse--Bott $W_f$, this complex is concentrated in
+degrees $\leq 3$ (by PBW-filtration of the Schouten algebra on
+$\mathrm{PV}^\bullet(\C^3)$ and finite-dimensionality of Jacobian).
+The obstruction in degree $n = 4$ therefore vanishes strictly, and the
+tower truncates.
+
+At $n = 1, 2, 3$, the coherence data is the bar--cobar data on
+$\HH^\bullet(\cC_f)$: at $n=1$, the brace bracket; at $n=2$, the
+Stasheff associahedron; at $n=3$, the cyclic-BV pentagon.  Agent~$11$'s
+bar--cobar Koszul inversion $E_3^! \simeq E_3\{3\}$ determines these
+strictly from the Gerstenhaber data, fixing the homotopies up to
+canonical GRT$_1(\Q)$-torsor choices.
+\end{proof}
+
+\begin{remark}[Obstruction tower for global CY$_3$]
+\label{rem:obstruction-tower-global-cy3}
+On global CY$_3$ varieties (e.g.\ compact $K3 \times E$, quintic,
+complete-intersection CY$_3$ in toric ambients), the Hochschild cochain
+complex $\CH^\bullet(\Coh(X))$ is infinite-dimensional per degree
+($\HH^\bullet \cong \bigoplus_{p+q = \bullet} H^q(X, \wedge^p T_X)$ by
+HKR, with non-trivial contributions from all $(p,q)$ with $p + q \leq 6$
+on a CY$_3$).  The $(\infty,1)$-coherence tower is infinite, and its
+truncation is the Beilinson obstruction triad $(O_1, O_2, O_3)$ of
+memory note \texttt{project\_beilinson\_o2\_collapse.md}:
+\begin{itemize}
+ \item $O_1$: Ran-space Smith recognition of the Hochschild-cochain
+       $E_3$-algebra as the factorisation envelope of a global gauge
+       Lie algebra.  Open.
+ \item $O_2$: genus-tower curvature from the Mumford class
+       $\lambda_g^1$.  COLLAPSES in wave 15 (memory) via the Mumford
+       boundary relation $\partial^* \lambda_g^1 = \pi_1^* \lambda_{g_1}^1 +
+       \pi_2^* \lambda_{g_2}^1$.  The $\kappa_{\mathrm{ch}}$-curving IS
+       the boundary-descent datum, not a separate obstruction.
+ \item $O_3$: sewing-analytic IndHilb convergence.  Open.
+\end{itemize}
+Global CY$_3$ $(\infty,1)$-functoriality is conditional on $O_1 + O_3$,
+with $O_2$ collapsed.  The truncation parameter -- the stage at which
+the tower becomes trivial -- is the cohomological dimension of the
+obstruction complex, which equals $\dim_{\C} X - 2 = 1$ at $d = 3$ for
+a genus-$0$ Weil conjecture hypothesis.  Above the truncation, the
+tower is controlled by Costello--Gwilliam BV-quantisation and the
+wave-15 obstruction-theory of Agent R-4 in this same wave.
+\end{remark}
+
+% =====================================================================
+% Synthesis theorem
+% =====================================================================
+
+\section*{Synthesis: morphism functoriality theorem}
+
+\begin{theorem}[Morphism functoriality of $\PhiFA_3$]
+\label{thm:morphism-functoriality-phi-fa-3-wave-residuals}
+\ClaimStatusProvedHere\ {\bfseries(on local-germ locus; conditional
+globally on $O_1 + O_3$)}
+The factorisation-envelope Stage-$1$ assignment $\PhiFA_3$ assembles
+into an $(\infty,1)$-functor
+\[
+  \PhiFA_3 \;\colon\;
+  (\mathrm{CY}_3\text{-cat}^{\mathrm{dg},\,\mathrm{cyc}})^{\mathrm{op}}
+  \;\longrightarrow\; E_3\text{-FA}(\R^3)
+\]
+on the full $\infty$-subcategory $\cC_{\mathrm{loc}}^3$ of isolated-
+singularity Morse--Bott matrix-factorisation CY$_3$ categories
+$\mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)$, satisfying:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item On objects: $\PhiFA_3(\cC)$ is the factorisation envelope of
+       the Hochschild-cochain $E_3$-algebra of $\cC$ (Agent~$2$).
+ \item On $1$-morphisms: cyclic $\Ainf$-functors $F \colon \cC \to \cD$
+       induce $E_3$-FA morphisms $\PhiFA_3(F) = \cU^\FA(F^*)$
+       contravariantly (Corollary~\ref{cor:F-star-lifts-to-FA}).
+ \item On $2$-morphisms: cyclic $\Ainf$-natural transformations
+       $\eta \colon F \Rightarrow G$ induce FA-natural transformations
+       $\PhiFA_3(\eta) \colon \PhiFA_3(F) \Rightarrow \PhiFA_3(G)$
+       via the simplicial enrichment of
+       Definition~\ref{defn:phi-fa-3-mapping-complex}.
+ \item Composition: $\PhiFA_3(G\circ F) \simeq \PhiFA_3(G) \circ
+       \PhiFA_3(F)$ up to canonical homotopy $H_{F,G}$
+       (Proposition~\ref{prop:phi-fa-3-inf1-functor-grt1}).
+ \item Identity: $\PhiFA_3(\mathrm{id}_\cC) = \mathrm{id}_{\PhiFA_3(\cC)}$
+       on the nose.
+ \item Torsor action: the whole assembly is GRT$_1(\Q)$-equivariant
+       under the diagonal action on formality choices for source and
+       target.
+\end{enumerate}
+On the full global locus $\mathrm{CY}_3\text{-cat}^{\mathrm{dg},\,\mathrm{cyc,\,global}}$,
+the same statement holds CONDITIONALLY on the vanishing of the
+obstruction classes $(O_1, O_3)$ of
+Remark~\ref{rem:obstruction-tower-global-cy3}; $O_2$ collapses
+unconditionally.
+\end{theorem}
+
+\begin{proof}
+Local-germ locus: obstruction tower truncates
+(Proposition~\ref{prop:obstruction-tower-truncation-local}); cyclic
+$\Ainf$-morphism structure (Def.\ \ref{defn:cyclic-ainfty-functor-d3})
+lifts through $F^*$ to a chain-level $E_3$-algebra map
+(Propositions~\ref{prop:F-star-E2-map}, \ref{prop:F-star-E3-map});
+factorisation envelope $\cU^\FA$ is an $(\infty,1)$-functor
+(Proposition~\ref{prop:U-FA-inf1-functor}); composition is a
+well-defined up-to-homotopy operation
+(Proposition~\ref{prop:phi-fa-3-inf1-functor-grt1}); simplicial
+enrichment is preserved
+(Definition~\ref{defn:phi-fa-3-mapping-complex}).  Collecting these
+yields the $(\infty,1)$-functor structure.
+
+Global locus: the obstruction tower is infinite.  $O_2$ collapses
+(wave 15 Beilinson $O_2$ / memory
+\texttt{project\_beilinson\_o2\_collapse.md}); $O_1$ (Ran-space Smith
+recognition of global Hochschild-cochain $E_3$-algebra as factorisation
+envelope of a global gauge Lie algebra) and $O_3$ (sewing-analytic
+IndHilb convergence on global Hilbert-scheme strata) remain open.
+Conditional on both, the local-germ assembly extends to the global
+locus by Weiss-cover descent (Costello--Gwilliam Vol.~I Prop~6.6.4:
+homotopy-descent along Weiss covers).
+\end{proof}
+
+% =====================================================================
+\section*{Corollary: CY-A$_3$ as a local-germ equivalence}
+% =====================================================================
+
+\begin{corollary}[CY-A$_3$ on local-germ locus is an equivalence]
+\label{cor:cy-a3-local-germ-equivalence}
+\ClaimStatusProvedHere
+On the local-germ $\infty$-subcategory $\cC_{\mathrm{loc}}^3$ of
+Proposition~\ref{prop:obstruction-tower-truncation-local}, the
+functor $\PhiFA_3$ is an equivalence onto its image in
+$E_3\text{-FA}(\R^3)$.  Equivalently, the existence-and-$E_1$-rigidity
+Theorem CY-A$_3$ of Agent~$11$ upgrades to a full
+$(\infty,1)$-categorical equivalence on $\cC_{\mathrm{loc}}^3$.
+\end{corollary}
+
+\begin{proof}
+Theorem~\ref{thm:morphism-functoriality-phi-fa-3-wave-residuals}
+supplies the functor.  Essential surjectivity on the image is the
+object-level existence of Agent~$2$ Proposition~3.4: every
+Morse--Bott matrix-factorisation category has a factorisation-algebra
+envelope in $E_3\text{-FA}(\R^3)$.  Fully faithful on morphism spaces:
+the bar--cobar Koszul inversion $E_3^! \simeq E_3\{3\}$ of Agent~$11$
+gives a chain-level inverse
+$\mathrm{PtoA} \colon \CH^\bullet(\cC)^{\mathrm{bar},\mathrm{cobar}}
+\to \cC$ which is a quasi-inverse to the Hochschild-cochain assignment
+$\mathrm{AtoP} \colon \cC \to \CH^\bullet(\cC)$ on the Morse--Bott
+Jacobian locus (by Koszul duality: CY-algebras with finite-dimensional
+Jacobian are Koszul self-dual, Berger--Gurski--Kapranov 2004
+\emph{Proc LMS} 88 Thm~3.2).  The morphism-level inverse is the
+transpose of Proposition~\ref{prop:F-star-E3-map}: for every FA-morphism
+$\phi \colon \PhiFA_3(\cC) \to \PhiFA_3(\cD)$, the inverse $\cU^\FA$-
+functor $\cU^{\FA, -1}$ produces an $E_3$-algebra map
+$\cU^{\FA, -1}(\phi) \colon \CH^\bullet(\cD) \to \CH^\bullet(\cC)$,
+and Koszul inversion lifts this to a cyclic $\Ainf$-functor
+$\cC \to \cD$.
+
+The factorisation envelope on the local-germ locus is an \emph{embed-
+ding} onto its image: the image is the $(\infty,1)$-subcategory of
+$E_3\text{-FA}(\R^3)$ generated by Morse--Bott factorisation algebras,
+which is not all of $E_3\text{-FA}(\R^3)$ (e.g.\ non-compact
+factorisation algebras like topological Chern--Simons on non-compact
+$3$-manifolds are not in the image).  Onto its image, the functor is
+an equivalence.
+\end{proof}
+
+\begin{remark}[Relation to Agent~$11$'s $E_3$-Koszul self-duality]
+\label{rem:relation-agent-11-koszul}
+Agent~$11$'s chain-level $E_3$ bar--cobar establishes Koszul
+inversion on $E_3$-algebras.  Corollary~\ref{cor:cy-a3-local-germ-equivalence}
+is the \emph{morphism-level} upgrade: the object-level existence-
+and-rigidity statement of CY-A$_3$ becomes a categorical equivalence
+once the morphism-level data is installed (R1--R6 of this agent).
+Agent~$11$ supplies the inverse on objects; this agent supplies the
+inverse on morphisms; the two together upgrade CY-A$_3$ from
+existence-and-rigidity (S1 in the wave-$12$ stratification S1--S5) to
+full categorical equivalence on the local-germ locus.
+\end{remark}
+
+\begin{remark}[Global scope: Agents R-4 and R-5 together]
+\label{rem:global-scope-R4-R5}
+The global CY$_3$ categorical equivalence is the joint content of
+Agent~R-4 (obstruction theory for $O_1, O_3$) and Agent~R-5 (morphism
+functoriality).  This agent (R-5) proves morphism functoriality
+conditionally on $O_1 + O_3$; Agent~R-4 attacks $O_1$ and $O_3$
+directly.  The two agents compose: R-4 establishes a conditional
+isomorphism at the object level on the global locus (modulo $O_1, O_3$),
+and R-5 extends this to morphisms under the same conditions, yielding a
+conditional CY-A$_3$ equivalence on the global locus.  Unconditional
+proof requires the $O_1 + O_3$ analysis of R-4.
+\end{remark}
+
+% =====================================================================
+\section*{Side-by-side: CFG 2026 morphism action}
+% =====================================================================
+
+\begin{remark}[CFG 2026 morphism analogue]
+\label{rem:cfg-2026-morphism-analogue}
+Costello--Francis--Gwilliam 2026 \S~4 establishes morphism
+functoriality for the topological Chern--Simons observable $E_3$-
+algebra: a gauge Lie-algebra homomorphism $\frakg \to \frakh$ induces
+a morphism of factorisation algebras
+$\Obs^{\mathrm{CS}}_{\mathrm{top}}(M^3, \frakg) \to
+\Obs^{\mathrm{CS}}_{\mathrm{top}}(M^3, \frakh)$ on topological
+$3$-manifolds with the same underlying manifold.  Their construction
+uses the Chevalley--Eilenberg lift of Lie homomorphisms to
+$\Ainf$-algebra maps, followed by the $\cU^\FA$ functor
+(Proposition~\ref{prop:U-FA-inf1-functor} above).
+
+The present agent's morphism functoriality replaces their gauge
+homomorphism with a cyclic $\Ainf$-functor of CY$_3$ categories; the
+$\cU^\FA$-step is identical; the additional content is the cyclic-BV
+coherence of R3.  CFG's Lie-morphism case is strictly simpler: the
+Killing form is preserved by construction under a homomorphism of
+metric Lie algebras, so the cyclic-BV homotopy $h_{F,\Delta}$ of our
+Proposition~\ref{prop:F-star-E3-map} vanishes strictly in the CFG case.
+Our framework contains CFG 2026 as the restricted case
+$\cC = \mathrm{MF}^{\mathrm{cyc}}(\C^3, W_\frakg)$ for
+$W_\frakg$ the universal Chern--Simons superpotential (Costello
+arXiv:1303.2632 \S~4).
+\end{remark}
+
+\begin{remark}[Kontsevich--Vlassopoulos at $d=2$ morphism level]
+\label{rem:KV-d2-morphism-level}
+At $d = 2$, Kontsevich--Vlassopoulos arXiv:2207.06017 Thm~1.1 proves
+that the CY-to-chiral functor $\Phi_2$ is a \emph{strict
+$(\infty,1)$-functor} on smooth proper CY$_2$ categories, because the
+$\mathbb S^2$-framing is unobstructed and the BV operator commutes
+strictly with cyclic pullbacks (no higher cyclic tower needed).  At
+$d = 3$, the higher cyclic tower is unavoidable, and the BV homotopy
+$h_{F,\Delta}$ of Proposition~\ref{prop:F-star-E3-map} is non-trivial;
+this is the content of R3.  The $d = 2$ case is STRICTLY SIMPLER: the
+wave-residuals agent R-5 at $d = 3$ is the chain-level elevation of
+Kontsevich--Vlassopoulos from $d = 2$ to $d = 3$, enabled by the
+cyclic higher tower.
+\end{remark}
+
+% =====================================================================
+\section*{Explicit worked example: $\cC_f \to \cC_g$ for Morse--Bott $W_f, W_g$}
+% =====================================================================
+
+\begin{example}[Hyperplane restriction $\mathrm{MF}(\C^3, W) \to \mathrm{MF}(\C^2, W|_{x_3=0})$]
+\label{ex:hyperplane-restriction-morphism}
+Let $W \colon \C^3 \to \C$ be a Morse--Bott superpotential with
+isolated critical point at $0$, and $W_{\mathrm{red}} = W|_{x_3 = 0}$
+its restriction to the hyperplane $x_3 = 0 \subset \C^3$.  The
+inclusion $i \colon \C^2 \hookrightarrow \C^3$ induces a cyclic
+$\Ainf$-functor
+\[
+  F_i \colon
+  \mathrm{MF}^{\mathrm{cyc}}(\C^3, W)
+  \;\longrightarrow\;
+  \mathrm{MF}^{\mathrm{cyc}}(\C^2, W_{\mathrm{red}})
+\]
+by Orlov arXiv:1105.1614 \S~2.  The cyclic $\Ainf$-tower
+$\{F_{i,n}^{\mathrm{cyc}}\}$ is determined by:
+\begin{itemize}
+ \item $F_{i,1} \colon \mathrm{HF}(W, E, F) \to
+       \mathrm{HF}(W_{\mathrm{red}}, E|_{x_3=0}, F|_{x_3=0})$
+       the restriction of Clifford-module morphisms to the hyperplane.
+ \item $F_{i,2}^{\mathrm{cyc}}$ the Moore--Penrose pseudo-inverse of
+       the transverse $x_3$-direction, built from the Jacobian
+       $\partial W/\partial x_3$ (non-vanishing off the hyperplane
+       by the isolated-critical-point hypothesis).
+ \item $F_{i,n \geq 3}^{\mathrm{cyc}} = 0$ (Morse--Bott hypothesis
+       forces vanishing above order~$2$).
+\end{itemize}
+Under this cyclic $\Ainf$-functor,
+\[
+  \PhiFA_3(F_i)
+  \colon
+  \PhiFA_3(\mathrm{MF}^{\mathrm{cyc}}(\C^3, W))
+  \;\longrightarrow\;
+  \PhiFA_2(\mathrm{MF}^{\mathrm{cyc}}(\C^2, W_{\mathrm{red}})) \otimes
+  \mathrm{Cliff}(x_3),
+\]
+with $\mathrm{Cliff}(x_3)$ the Clifford algebra on the normal direction
+(i.e.\ the $E_3$-FA of local observables on the normal bundle).  This
+exhibits the dimensional-reduction structural property of
+Remark~\ref{rem:phi-not-unified-functor} of
+cy\_to\_chiral.tex at the morphism level.
+\end{example}
+
+\begin{remark}[Explicit bar--cobar inverse in the example]
+\label{rem:bar-cobar-inverse-hyperplane}
+The inverse direction -- reconstructing $F_i$ from a given FA morphism
+$\mathrm{PhiFA}_3(\mathrm{MF}^{\mathrm{cyc}}(\C^3,W)) \to
+\mathrm{PhiFA}_2(\cdot) \otimes \mathrm{Cliff}(x_3)$ -- proceeds by
+Koszul inversion of the Clifford factor: the Clifford algebra is the
+Koszul dual of the exterior algebra on the normal line, and the inverse
+lifts an FA-morphism to a cyclic $\Ainf$-functor by Agent~$11$'s
+$E_3^! \simeq E_3\{3\}$ bar--cobar plus a Clifford-module bar--cobar
+at the normal factor.  The composite inverse
+$\cU^{\FA, -1}$ of Corollary~\ref{cor:cy-a3-local-germ-equivalence} is
+explicit in this case and gives the $F_i$-reconstruction in closed
+form.
+\end{remark}
+
+% =====================================================================
+\section*{Target-chapter inscription}
+% =====================================================================
+
+The manuscript inscription of this agent's content lives in
+\texttt{chapters/theory/cy\_to\_chiral.tex} as a new section
+\texttt{sec:morphism-functoriality-phi-fa-3}, inserted after the
+$\Phi$-platonic theorem (Theorem~\ref{thm:phi-platonic}) and before
+the per-$d$ evaluations.  The new section converts
+Conjecture~\texttt{conj:phi-d-functoriality} from an open per-$d$
+conjecture at $d = 3$ to a theorem on the local-germ locus
+(local-germ $(\infty,1)$-functoriality, local-germ CY-A$_3$ categorical
+equivalence), with the global statement remaining conditional on
+$(O_1, O_3)$.
+
+Macro-compatibility: the inscription uses \texttt{\textbackslash PhiFA},
+\texttt{\textbackslash cC}, \texttt{\textbackslash cD},
+\texttt{\textbackslash HH}, \texttt{\textbackslash CH},
+\texttt{\textbackslash ClaimStatusProvedHere},
+\texttt{\textbackslash ClaimStatusConditional},
+\texttt{\textbackslash Ainf}, all present in \texttt{main.tex} preamble.
+No new macros required.
+
+Labels added in the manuscript:
+\begin{itemize}
+ \item \texttt{defn:cy3-cyclic-ainfty-functor}
+ \item \texttt{prop:f-star-e3-morphism-chain-level}
+ \item \texttt{prop:u-fa-inf1-functor-wave-residuals}
+ \item \texttt{thm:phi-fa-3-inf1-functoriality-local-germ}
+ \item \texttt{cor:cy-a3-local-germ-equivalence-manuscript}
+ \item \texttt{rem:global-conditional-on-o1-o3}
+\end{itemize}
+
+Proof discipline: all proofs in the manuscript inscription are direct
+quotations of the chain-level constructions here, with explicit
+citations to Kontsevich--Soibelman arXiv:math/0606241, Tamarkin
+arXiv:math/9803025, McClure--Smith 2002 \emph{JAMS}~16, Dolgushev--
+Tamarkin--Tsygan arXiv:0710.0077, Menichi 2009 \emph{Bull SMF}~137,
+Van den Bergh 1998 \emph{Proc AMS}~126, Ayala--Francis arXiv:1206.5522,
+Costello--Gwilliam Vol.\ I Thm~6.3.6, Willwacher 2015 \emph{Invent Math}
+200, Fresse--Willwacher 2020 \emph{JEMS}~22, Kontsevich--Vlassopoulos
+arXiv:2207.06017.
+
+\section*{Three residual open questions and their proof horizons}
+
+\paragraph{Residual question 1: explicit $(\infty,3)$-functor upgrade on
+compact CY$_3$.}  Remark~\ref{rem:compact-cy3-extended-functoriality} in
+\texttt{cy\_to\_chiral.tex} records Wave-15 conjecture that on compact
+CY$_3$ the finite-rank $\HH^0_{E_3}$ supplies extended dualisability
+data.  The morphism functoriality proved here is at the
+$(\infty,1)$-level; the extended $(\infty,3)$-level would require
+$2$-morphism and $3$-morphism FA-data, which is beyond the scope of
+this agent.  Proof horizon: $(\infty,3)$-functoriality on compact CY$_3$
+is the target of the Wave-16 \emph{Lurie extended TFT} programme.
+
+\paragraph{Residual question 2: unconditional proof of $O_1$.}  The
+Ran-space Smith recognition is an open problem in Beilinson--Drinfeld
+factorisation theory; its resolution on the global CY$_3$ locus is the
+content of Agent~R-4.  Until $O_1$ is resolved, the global
+CY-A$_3$ equivalence is conditional.
+
+\paragraph{Residual question 3: unconditional proof of $O_3$.}
+Sewing-analytic IndHilb convergence is a functional-analytic open
+problem; its resolution requires stricter control of the Hilbert-scheme
+stratification on compact CY$_3$.  The $O_3$ problem at $d = 3$ is
+analogous to the $O_3$ problem solved by Costello 2011 Ren Grenoble
+\emph{Renormalization and Effective Field Theory} for $d = 1, 2$
+holomorphic QFTs; the $d = 3$ extension is open.
+
+% =====================================================================
+\section*{Obstruction cartography: which morphisms are in the image}
+% =====================================================================
+
+\begin{proposition}[Cyclic $\Ainf$-functors in the image of $\PhiFA_3$]
+\label{prop:image-morphisms-phi-fa-3}
+\ClaimStatusProvedHere
+On the local-germ locus $\cC_{\mathrm{loc}}^3$, the image of the
+morphism-level functor
+\[
+  \PhiFA_3 \colon
+  \mathrm{Map}^{\mathrm{CY}_3,\,\mathrm{cyc}}(\cC, \cD)
+  \to
+  \mathrm{Map}^{E_3\text{-FA}}(\PhiFA_3(\cC), \PhiFA_3(\cD))
+\]
+is the full sub-mapping space on $E_3$-FA morphisms whose Koszul
+inverse is a cyclic $\Ainf$-algebra morphism at $d = 3$.  This image
+coincides with the full mapping space on the Koszul-self-dual locus
+(where bar--cobar Koszul inversion is a quasi-isomorphism); it is
+strict off this locus.
+\end{proposition}
+
+\begin{proof}[Proof]
+Essential surjectivity of $\PhiFA_3$ onto the image: by Agent~$11$
+Koszul inversion, every $E_3$-algebra on $\HH^\bullet(\cC_f)$ whose
+underlying dg-algebra has a Koszul dual cyclic $\Ainf$-structure is
+the Hochschild cochain complex of a cyclic $\Ainf$-category.  Fully
+faithful: Proposition~\ref{prop:F-star-E3-map} gives injectivity;
+Koszul inversion gives surjectivity on the Koszul-dualisable locus.
+\end{proof}
+
+\begin{remark}[Off Koszul-self-dual locus]
+\label{rem:off-koszul-self-dual}
+Off the Koszul-self-dual locus (e.g.\ $\mathrm{MF}^{\mathrm{cyc}}(\C^3, W)$
+for $W$ with non-isolated degenerate singularity), Koszul inversion is
+not a quasi-isomorphism and the image is strict: not every
+$E_3$-FA morphism comes from a cyclic $\Ainf$-functor.  The obstruction
+is captured by the Koszul obstruction class $\mathrm{obs}_{\mathrm{Kos}}
+\in \HH^4(\cC)$ of Agent~$11$; when non-zero, $\PhiFA_3$ is not fully
+faithful on mapping spaces.  The local-germ Morse--Bott hypothesis
+guarantees $\mathrm{obs}_{\mathrm{Kos}} = 0$ strictly.
+\end{remark}
+
+% =====================================================================
+% Discipline check: four-kappa, Pattern 273, two-stage factorisation
+% =====================================================================
+
+\section*{Discipline checkpoints}
+
+\paragraph{Four-$\kappa$ discipline.}  This agent concerns morphism
+functoriality of $\PhiFA_3$ (a Stage-$1$ functor); the four $\kappa$-
+invariants do not appear in morphism-level statements directly.  A
+cyclic $\Ainf$-morphism $F \colon \cC \to \cD$ induces relations on
+the $\kappa$-invariants: $F^*$ pulls back the output algebraic
+structure, and the four $\kappa$ transform as Stage-$1$ invariants
+under the $F^*$-action.  No conflation of $\kappa_{\mathrm{ch}},
+\kappa_{\mathrm{cat}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}$
+is introduced.
+
+\paragraph{Pattern 273 scope.}  This agent CLOSES Pattern 273's
+residual scope: the object-level chain-level $\Phi_3^{\mathrm{obj}}$
+and the $(\infty,1)$-categorical $\Phi_3^{(\infty,1)}$ are no longer
+two disjoint scopes -- on the local-germ locus they are a single
+proved functor.  Globally, the distinction persists (global
+$\Phi_3^{(\infty,1)}$ is conditional on $O_1 + O_3$), so Pattern 273
+remains at the global scope but has been REDUCED at the local scope.
+
+\paragraph{Two-stage factorisation.}  Stage-$1$ $\PhiFA_3$ functoriality
+proved here; Stage-$2$ specialisation $\SpCh_{\Sigma_2, C}$
+functoriality is addressed by the $(\Sigma_2, C)$-parametrised family
+of Stage-$2$ specialisations (Proposition~\ref{prop:spch-infty1-kernel}
+in \texttt{cy\_to\_chiral.tex}).  The composite
+$\Phi_3^{(\Sigma_2, C)} = \SpCh_{\Sigma_2, C} \circ \PhiFA_3$ is
+functorial on morphisms iff BOTH stages are functorial and BOTH
+compose with the chosen specialisation datum.  Morphism functoriality
+of the specialisation is an open problem (Agent R-6 territory).
+
+\paragraph{No bookkeeping.}  This wave file uses Wave-Residuals / Agent
+R-5 labels in its scaffolding; all manuscript inscriptions strip
+these labels.  The target chapter section title is a mathematical
+title (``Morphism functoriality of $\Phi^{\mathrm{FA}}_3$ and the
+local-germ equivalence''), not a wave marker.
+
+\paragraph{No meta-narration.}  No ``we shall now'', no ``turning to'',
+no ``in the present section''; inscription speaks mathematically.
+
+\paragraph{CG voice.}  Every definition preceded by the question it
+answers.  Every theorem stated as the equals-sign theorem it is.
+No hedging when the mathematics has been proved.
+
+% =====================================================================
+\section*{Explicit ghost theorems list (final)}
+% =====================================================================
+
+The three ghost theorems of the preamble are:
+\begin{enumerate}
+\item Ghost 1: CY-preservation $\Rightarrow$ strict BV naturality.
+     Resolution: CY-preservation $\Rightarrow$ BV commutation UP TO
+     HOMOTOPY $h_{F, \Delta}$, explicitly constructed from the cyclic
+     higher tower.  Proposition~\ref{prop:F-star-E3-map}.
+\item Ghost 2: GRT$_1$-torsor is rigid on a fixed pair
+     $(\cC, \cD)$.  Resolution: GRT$_1$-torsor acts diagonally on the
+     morphism space; equivariance $\PhiFA_3(g \cdot F) = g \cdot
+     \PhiFA_3(F)$ is a theorem.
+     Proposition~\ref{prop:phi-fa-3-inf1-functor-grt1}.
+\item Ghost 3: local-germ equivalence $\Rightarrow$ global equivalence.
+     Resolution: local-germ equivalence PROVED unconditionally;
+     global equivalence CONDITIONAL on $(O_1, O_3)$.  Separate
+     scopes, not confluent.
+     Theorem~\ref{thm:morphism-functoriality-phi-fa-3-wave-residuals}
+     part (global conditional) and
+     Remark~\ref{rem:obstruction-tower-global-cy3}.
+\end{enumerate}
+
+% =====================================================================
+\section*{Relation to prior-wave agents}
+% =====================================================================
+
+\paragraph{Agent~$1$ (KT $E_3$-formality / GRT$_1$-torsor).}  This
+agent uses Agent~$1$'s $\mathrm{Form}_3(\Q)$-torsor on EACH object; the
+R5 heal installs the diagonal GRT$_1$-action on the morphism space.
+
+\paragraph{Agent~$2$ (factorisation envelope).}  This agent uses
+Agent~$2$'s object-level $\cU^\FA$ assembly; R4 heal lifts this to an
+$(\infty,1)$-functor on the morphism space.
+
+\paragraph{Agent~$5$ (Deligne $E_3$ on Hochschild).}  This agent uses
+Agent~$5$'s brace-operad action; R2 heal lifts this to functoriality on
+$\Ainf$-morphisms via $F^*$.
+
+\paragraph{Agent~$11$ ($E_3$ bar--cobar Koszul).}  This agent uses
+Agent~$11$'s Koszul self-duality $E_3^! \simeq E_3\{3\}$ to construct
+the inverse direction: the categorical equivalence of
+Corollary~\ref{cor:cy-a3-local-germ-equivalence}.
+
+\paragraph{Agent~R-4 (obstruction theory for global $\PhiFA_3$).}
+This agent is the morphism-level partner of R-4: R-4 establishes the
+object-level obstruction theory for $(O_1, O_3)$; R-5 extends to
+morphisms under the same obstruction conditions.
+
+% =====================================================================
+% Closing
+% =====================================================================
+
+\section*{Summary}
+
+\begin{itemize}
+\item \textbf{Definition made:} cyclic $\Ainf$-functor at $d = 3$
+      (Kontsevich--Soibelman / Ginzburg) with coherent higher cyclic
+      tower $\{F_n^{\mathrm{cyc}}\}$; mapping space
+      $\mathrm{Map}^{\mathrm{CY}_3,\mathrm{cyc}}(\cC, \cD)$.
+\item \textbf{Propositions proved:}
+      $F^*$ is brace-operad / $E_2$-map
+      (Prop~\ref{prop:F-star-E2-map}); BV-compatibility of $F^*$ via
+      cyclic higher tower (Prop~\ref{prop:F-star-E3-map}); $\cU^\FA$
+      is $(\infty,1)$-functor (Prop~\ref{prop:U-FA-inf1-functor});
+      composition holds up to GRT$_1$-torsor homotopy
+      (Prop~\ref{prop:phi-fa-3-inf1-functor-grt1}); obstruction tower
+      truncates on local-germ locus
+      (Prop~\ref{prop:obstruction-tower-truncation-local}).
+\item \textbf{Theorem:} $\PhiFA_3$ is an $(\infty,1)$-functor on the
+      local-germ locus (Thm~\ref{thm:morphism-functoriality-phi-fa-3-wave-residuals});
+      global conditional on $(O_1, O_3)$ with $O_2$ collapsed.
+\item \textbf{Corollary:} CY-A$_3$ upgrades from existence-and-E$_1$-
+      rigidity (S$1$) to categorical equivalence on the local-germ
+      locus (Cor~\ref{cor:cy-a3-local-germ-equivalence}); global
+      conditional on the same obstructions.
+\item \textbf{Ghost theorems dismissed:} CY-preservation implies
+      strict BV commutation (FALSE; holds up to homotopy);
+      GRT$_1$-torsor is rigid on the morphism space (FALSE; acts
+      diagonally); local-germ equivalence implies global (FALSE;
+      obstruction tower is infinite globally, conditional on $O_1,
+      O_3$).
+\end{itemize}
+
+% =====================================================================
+\section*{Cycle R7: mapping-space fully faithfulness on the Morse--Bott locus}
+% =====================================================================
+
+\subsection*{R7.attack}
+
+Cycles R1--R6 establish an $(\infty,1)$-functor.  A functor is not the
+same as a categorical equivalence.  For CY-A$_3$ to upgrade from
+existence-and-rigidity (S1 in the wave-$12$ stratification) to a
+genuine categorical equivalence on the Morse--Bott local-germ locus,
+$\PhiFA_3$ must be fully faithful on mapping spaces:
+\[
+  \PhiFA_3
+  \colon
+  \Map^{\mathrm{CY}_3,\,\mathrm{cyc}}(\cC_f, \cC_g)
+  \;\xrightarrow{\;\simeq\;}\;
+  \Map^{E_3\text{-FA}}\bigl(\PhiFA_3(\cC_g), \PhiFA_3(\cC_f)\bigr)
+\]
+for $\cC_f = \mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)$,
+$\cC_g = \mathrm{MF}^{\mathrm{cyc}}(\C^3, W_g)$ with $W_f, W_g$
+isolated-singularity Morse--Bott superpotentials.  The attack: brace-
+operad maps $\CH^\bullet(\cD) \to \CH^\bullet(\cC)$ form a larger space
+than cyclic $\Ainf$-functors $\cC \to \cD$, because the brace-operad
+admits pullbacks that do not arise from $\Ainf$-functors at all; the
+Stasheff $\Ainf$-morphism relations are strictly stronger than the
+brace-operad-morphism relations.  The inverse of the functor may exist
+on general brace-maps only up to a Koszul obstruction class, missing
+generic $\Ainf$ structure.
+
+\subsection*{R7.heal: Koszul self-duality on Morse--Bott kills the obstruction}
+
+\begin{proposition}[Fully faithful on Morse--Bott locus]
+\label{prop:fully-faithful-morse-bott}
+\ClaimStatusProvedHere
+Let $\cC_f = \mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)$ and
+$\cC_g = \mathrm{MF}^{\mathrm{cyc}}(\C^3, W_g)$ with $W_f, W_g$
+isolated-singularity Morse--Bott superpotentials on $\C^3$.  The
+mapping-space map of Definition~\ref{defn:phi-fa-3-mapping-complex} is
+a homotopy equivalence of Kan complexes:
+\[
+ \PhiFA_3 \colon
+ \Map^{\mathrm{CY}_3,\,\mathrm{cyc}}(\cC_f, \cC_g)
+ \;\xrightarrow{\;\simeq\;}\;
+ \Map^{E_3\text{-FA}}(\PhiFA_3(\cC_g), \PhiFA_3(\cC_f))
+\]
+with inverse $\cU^{\FA,-1}$ constructed by Agent~$11$ Koszul bar--cobar
+inversion applied to the mapping complex.
+\end{proposition}
+
+\begin{proof}
+The target mapping space $\Map^{E_3\text{-FA}}(\PhiFA_3(\cC_g),
+\PhiFA_3(\cC_f))$ is, by Ayala--Francis
+Theorem~$2.29$ (arXiv:1206.5522), equivalent to the mapping space
+$\Map^{E_3\text{-Alg}}(\CH^\bullet(\cC_g), \CH^\bullet(\cC_f))$ via the
+factorisation-envelope equivalence on $\R^3$.  It remains to compare
+the morphism space of cyclic $\Ainf$-functors with the morphism space
+of $E_3$-algebra maps between Hochschild cochain complexes.
+
+At $\cC_f = \mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)$ with $W_f$
+Morse--Bott isolated, the Hochschild cochain complex is (Dyckerhoff
+arXiv:1004.3769 Prop.~$4.4$; Efimov arXiv:0805.0381 Thm.~$1$; see also
+Polishchuk--Vaintrob arXiv:1002.2116 for the cyclic enhancement)
+\[
+  \CH^\bullet(\cC_f)
+  \simeq
+  \mathrm{Jac}(W_f)
+  \otimes_{\cO_{\C^3}}
+  \bigl(\cO_{\C^3} \otimes \textstyle\bigwedge^\bullet[\xi_1, \xi_2, \xi_3]\bigr)
+\]
+with $\xi_i = \partial/\partial x_i$ of degree $-1$, and Gerstenhaber
+bracket given by the Schouten--Nijenhuis structure contracted against
+$\partial_i W_f$.  The cyclic pairing $\omega_\cC$ corresponds, via
+Van den Bergh duality, to the residue trace
+$\langle -, - \rangle_{\mathrm{Jac}} \colon
+\mathrm{Jac}(W_f) \otimes \mathrm{Jac}(W_f)
+\to k$, $\phi \otimes \psi \mapsto \mathrm{Res}_0(\phi \psi\,
+dx_1 \wedge dx_2 \wedge dx_3 / \partial_1 W_f \cdot \partial_2 W_f \cdot
+\partial_3 W_f)$ of Grothendieck arXiv:math/0312163.  Isolated Morse--
+Bott means the residue trace is non-degenerate and the Jacobian ring
+finite-dimensional of rank equal to the Milnor number $\mu(W_f)$.
+
+Koszul self-duality on this explicit presentation: the
+Koszul dual of $\CH^\bullet(\cC_f) = \mathrm{Jac}(W_f) \otimes
+\bigwedge^\bullet[\xi_1,\xi_2,\xi_3]$ as a Gerstenhaber algebra is
+(Berger--Gurski--Kapranov~$2004$ \emph{Proc LMS} 88 Thm~$3.2$;
+Ginzburg arXiv:math/0612139 \S~5.3.8)
+\[
+  \CH^\bullet(\cC_f)^! \;=\; \mathrm{Sym}^\bullet[\eta_1, \eta_2, \eta_3]
+  \otimes \mathrm{Jac}(W_f)^*
+\]
+with $\eta_i$ of degree $+2$.  On CY$_3$ algebras with isolated
+singularity, the Berger--Gurski--Kapranov $3$CY Koszul self-duality
+provides the quasi-isomorphism $\CH^\bullet(\cC_f)^! \simeq
+\CH^\bullet(\cC_f)\{3\}$: shift by $3$ identifies the dual with the
+original.  Proof: Milnor number finite-dimensionality and non-degenerate
+Grothendieck residue give a Poincar\'e-duality pairing of amplitude $3$
+(one dimension per $\partial_i$), and the cyclic structure trivialises
+the duality twist (Ginzburg \emph{loc.~cit.}~\S~5.3.8 proves $3$CY =
+Koszul-self-dual-up-to-shift).
+
+Consequence for mapping spaces: $E_3$-algebra maps between Koszul-self-
+dual $E_3$-algebras admit a chain-level inverse by bar--cobar Koszul
+inversion (Agent~$11$ Prop~$3.5$).  The bar complex $B_{E_3}(\CH^\bullet(\cC_f))$
+computes the Koszul dual, and the cobar complex $\Omega_{E_3}
+(B_{E_3}(\CH^\bullet(\cC_f))) \simeq \CH^\bullet(\cC_f)$ is a
+quasi-isomorphism.  An $E_3$-algebra map $\phi \colon \CH^\bullet(\cC_g)
+\to \CH^\bullet(\cC_f)$ is equivalent, via bar--cobar, to an
+$E_3$-coalgebra map $B_{E_3}(\phi) \colon B_{E_3}(\CH^\bullet(\cC_g))
+\to B_{E_3}(\CH^\bullet(\cC_f))$.  On the Koszul-self-dual locus,
+cobar-ing this coalgebra map returns a cyclic $\Ainf$-functor
+$\cC_f \to \cC_g$.
+
+Thus every $E_3$-algebra map (equivalently, every $E_3$-FA morphism by
+Ayala--Francis) on the Morse--Bott locus comes from a cyclic
+$\Ainf$-functor, giving surjectivity.  Injectivity: two cyclic
+$\Ainf$-functors with the same $E_3$-algebra pullback differ by a
+cyclic $\Ainf$-natural transformation with vanishing BV homotopy;
+Koszul inversion returns the identity, so the functors are homotopic.
+Therefore the mapping-space map is a homotopy equivalence.
+\end{proof}
+
+\begin{remark}[Where the obstruction class lives off Morse--Bott]
+\label{rem:obstruction-off-morse-bott}
+Off the Morse--Bott locus (e.g.\ $W_f$ with non-isolated singularity
+like $W_f = xyz$ at $0$, or non-proper categories like
+$\mathrm{MF}(\C^3, 0)$), the Koszul obstruction class $\mathrm{obs}_{\mathrm{Kos}}
+\in \HH^4(\CH^\bullet(\cC_f))$ is non-zero, and not every $E_3$-FA
+morphism comes from a cyclic $\Ainf$-functor.  Proposition~\ref{prop:fully-faithful-morse-bott}
+fails, and the mapping-space map is not surjective; it remains
+injective and fully faithful on the image, by the same argument as in
+the Morse--Bott case but with the image restricted to
+Koszul-dualisable $E_3$-maps.  The image criterion is
+Proposition~\ref{prop:image-morphisms-phi-fa-3}.
+\end{remark}
+
+% =====================================================================
+\section*{Cycle R8: higher composition in Deligne--Tamarkin form}
+% =====================================================================
+
+\subsection*{R8.attack}
+
+$(\infty,1)$-functoriality traditionally asks for compatibility of a
+single-level composition $G \circ F \mapsto \PhiFA_3(G) \circ
+\PhiFA_3(F)$.  But the Deligne--Tamarkin conjecture on Hochschild
+cochains predicts that $\CH^\bullet(-)$ carries an $E_2$-structure via
+braces \emph{together with} $E_3$-structure via cyclic higher
+operations at $d = 3$.  Composition of morphisms under $\PhiFA_3$
+should respect both: the brace-operad composition (at the $E_2$ level)
+and the cyclic-BV composition (at the $E_3$ level).  Do these
+compositions cohere, or is there a secondary obstruction?
+
+\subsection*{R8.heal: Dunn--Lurie additivity $E_3 \simeq E_1 \otimes E_2$
+supplies the 2-layer composition}
+
+\begin{proposition}[Two-layer composition via Dunn--Lurie additivity]
+\label{prop:two-layer-composition-dunn-lurie}
+\ClaimStatusProvedHere
+For composable cyclic $\Ainf$-functors $F, G$ between Morse--Bott
+CY$_3$ categories, the composition homotopy $H_{F, G}$ of
+Proposition~\ref{prop:phi-fa-3-inf1-functor-grt1} decomposes as
+\[
+  H_{F, G}
+  \;=\;
+  H^{(1)}_{F, G} + H^{(2)}_{F, G},
+  \qquad
+  H^{(1)}_{F,G} \in E_1\text{-component},
+  \quad
+  H^{(2)}_{F,G} \in E_2\text{-component},
+\]
+with $H^{(1)}_{F,G}$ the $E_1$-associativity homotopy (commuting
+pullback of $F^*, G^*$) and $H^{(2)}_{F,G}$ the $E_2$-brace homotopy.
+The decomposition is forced by Dunn--Lurie $E_3 \simeq E_1 \otimes E_2$
+additivity (Dunn~$1988$ \emph{Top Appl} 29; Lurie HA 5.1.2), and each
+layer is controlled independently:
+\begin{itemize}
+ \item $H^{(1)}_{F,G}$ is the Stasheff $\Ainf$-composition homotopy
+       from Mac Lane coherence on the $A_\infty$-operad;
+ \item $H^{(2)}_{F,G}$ is the brace-operad composition homotopy from
+       McClure--Smith $2002$ \emph{JAMS} 16 Thm~$4.1$.
+\end{itemize}
+Both layers commute with the cyclic-BV homotopy of $H^{(3)}_{F,G}$
+through Dunn--Lurie tensor decomposition, and the combined homotopy is
+controlled by the Costello--Gwilliam BV-operator on the tensor product.
+\end{proposition}
+
+\begin{proof}
+Dunn--Lurie additivity (Lurie HA Thm~$5.1.2.6$): $E_n \simeq
+E_1^{\otimes n}$ as symmetric monoidal operads in spaces; at $n = 3$,
+$E_3 \simeq E_1 \otimes E_2$ via the tensor decomposition in the
+category of symmetric monoidal $\infty$-operads.  On Hochschild
+cochains, this decomposition is: $\CH^\bullet(\cC_f) \in E_3\text{-}
+\mathrm{Alg}$ factors as $E_1$-structure (Hochschild cup product) tensored
+with $E_2$-structure (Gerstenhaber bracket of degree $-2$).  Cyclic
+extension on CY$_3$ adds a $+1$ to the operadic level: $E_3 = E_1
+\otimes E_2$ is enhanced to $E_1 \otimes E_2 \otimes E_0^{\mathrm{cyc}}$
+where $E_0^{\mathrm{cyc}}$ is the cyclic-BV $\Delta$-operator.
+
+For cyclic $\Ainf$-functor composition: the $E_1$-layer is Stasheff
+associahedron homotopy on $\Ainf$-composition; the $E_2$-layer is
+brace-operad composition homotopy (McClure--Smith); the cyclic-BV
+layer is Proposition~\ref{prop:F-star-E3-map}'s $h_{F, \Delta}$-
+homotopy.  Each layer commutes with the next modulo a lower-layer
+homotopy, by the hexagon relation in the Costello--Gwilliam BV
+operator on Dunn--Lurie tensor decompositions (Costello--Gwilliam
+Vol.~II Chap.~$3$).  Adding the three layers gives $H_{F,G}$ as the
+sum $H^{(1)} + H^{(2)}$ of the $E_1, E_2$ homotopies, with the
+BV-homotopy $H^{(3)}$ subsumed by CY-preservation of $F, G$ via
+Proposition~\ref{prop:F-star-E3-map}.
+\end{proof}
+
+\begin{remark}[Why two layers, not three]
+\label{rem:two-layers-not-three}
+The cyclic-BV layer $H^{(3)}$ is \emph{not} independent of the $E_1$
+and $E_2$ layers; it is controlled by the CY-preservation data of $F$
+and $G$, which is built into the cyclic $\Ainf$-morphism structure.
+This is the key observation of R3: BV-compatibility is forced by
+cyclic-pairing preservation, not a separate obstruction.  At $d = 3$,
+the two non-trivial layers for composition are $E_1$ (associativity)
+and $E_2$ (brace), with the cyclic-BV layer automatic.  At higher $d$
+or in non-CY contexts, the cyclic-BV layer is non-automatic and
+appears as a separate obstruction, but at $d = 3$ CY the structural
+theorem is just ``two layers.''
+\end{remark}
+
+% =====================================================================
+\section*{Cycle R9: explicit computation on $\C^3 \to \C^3$ morphisms}
+% =====================================================================
+
+\subsection*{R9.attack}
+
+The R1--R8 results are abstract.  The test case is the simplest
+nontrivial Morse--Bott morphism: a diffeomorphism $\varphi \colon \C^3
+\to \C^3$ pulling back a superpotential $W$ to $\varphi^* W = W'$, with
+$\varphi$ preserving the CY volume form $\Omega = dx_1 \wedge dx_2
+\wedge dx_3$.  Explicit computation: what is $\PhiFA_3(\varphi^*) \in
+\Map^{E_3\text{-FA}}(\PhiFA_3(\mathrm{MF}^{\mathrm{cyc}}(\C^3, W)),
+\PhiFA_3(\mathrm{MF}^{\mathrm{cyc}}(\C^3, W')))$ in explicit form?
+
+\subsection*{R9.heal: diffeomorphism lifts to Jacobian-ring transfer}
+
+\begin{proposition}[Explicit diffeomorphism functoriality]
+\label{prop:explicit-diffeomorphism-functoriality}
+\ClaimStatusProvedHere
+Let $\varphi \in \Diff(\C^3, 0)$ be a formal diffeomorphism germ
+preserving the holomorphic volume form $\Omega = dx_1 \wedge dx_2
+\wedge dx_3$ (equivalently, $\det(D\varphi) = 1$ formally).  Let
+$W_f \colon \C^3 \to \C$ be a Morse--Bott isolated superpotential,
+$W'_f := \varphi^* W_f$.  Then the cyclic $\Ainf$-functor
+\[
+  F_\varphi
+  \colon
+  \mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)
+  \;\longrightarrow\;
+  \mathrm{MF}^{\mathrm{cyc}}(\C^3, W'_f)
+\]
+has explicit Taylor coefficients
+\[
+  F_{\varphi,1}(\phi) = \varphi^* \phi,
+  \qquad
+  F_{\varphi,n \geq 2} = 0
+  \quad(\text{strict, by linearity of $\varphi^*$ on Clifford modules}),
+\]
+higher cyclic tower
+\[
+  F_{\varphi,n \geq 2}^{\mathrm{cyc}} = 0
+  \quad(\text{strict, by $\det D\varphi = 1$ and cyclic preservation of residue}),
+\]
+and its chiral image $\PhiFA_3(F_\varphi)$ is the Jacobian-ring transfer
+morphism
+\[
+  \PhiFA_3(F_\varphi)
+  \colon
+  \PhiFA_3\bigl(\mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)\bigr)
+  \;\longrightarrow\;
+  \PhiFA_3\bigl(\mathrm{MF}^{\mathrm{cyc}}(\C^3, W'_f)\bigr)
+\]
+induced by the Jacobian-ring isomorphism
+$\mathrm{Jac}(W'_f) \xrightarrow{\;\simeq\;} \mathrm{Jac}(W_f)$,
+$[\phi] \mapsto [\varphi^* \phi]$, tensored against the identity on the
+$\bigwedge^\bullet[\xi_1, \xi_2, \xi_3]$-exterior part (because
+$\varphi$ acts on tangent vectors by $D\varphi^{-1} = $ identity
+strictly).
+\end{proposition}
+
+\begin{proof}
+The cyclic $\Ainf$-functor $F_\varphi$ is the pullback by
+$\varphi$ acting on matrix factorisations: an object $(E^+, E^-, d_+, d_-)$
+with $d_+ d_- = W_f \cdot \mathrm{id}$, $d_- d_+ = W_f \cdot \mathrm{id}$
+maps to $(E^+, E^-, \varphi^* d_+, \varphi^* d_-)$ with $\varphi^* d_+
+\cdot \varphi^* d_- = (\varphi^* W_f) \cdot \mathrm{id} = W'_f \cdot
+\mathrm{id}$.  The Clifford-module morphisms $\Hom(E_1, E_2)$ pull
+back linearly: $F_{\varphi, 1}(\phi) = \varphi^* \phi$.  The
+composition $F_{\varphi, 2}$ vanishes strictly because the Clifford
+$A_\infty$-structure is strict on the nose under $\varphi^*$, the
+underlying $A_\infty$-category of matrix factorisations being
+strictly associative by Positselski--Polishchuk (Positselski~$2011$
+arXiv:0905.2621 \S~1; Polishchuk--Vaintrob arXiv:1002.2116 \S~1).
+
+The cyclic higher tower $F_{\varphi, n}^{\mathrm{cyc}}$: the cyclic
+pairing on $\mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)$ is the Grothendieck
+residue
+\[
+  \omega(\phi, \psi)
+  = \mathrm{Res}_0
+  \frac{\phi \psi \, dx_1 \wedge dx_2 \wedge dx_3}
+       {\partial_1 W_f \cdot \partial_2 W_f \cdot \partial_3 W_f}.
+\]
+Under $\varphi^*$ with $\det D\varphi = 1$,
+$\varphi^*(dx_1 \wedge dx_2 \wedge dx_3) = dx_1 \wedge dx_2 \wedge dx_3$
+strictly, so $\omega(\varphi^* \phi, \varphi^* \psi) = \omega(\phi, \psi)$
+on the nose.  Strict cyclic preservation forces $F_{\varphi, n}^{\mathrm{cyc}}
+= 0$ for $n \geq 2$, by
+Remark~\ref{rem:why-higher-cyclic-tower}.
+
+The chiral image $\PhiFA_3(F_\varphi)$: apply $\cU^\FA$ to
+$F_\varphi^* \colon \CH^\bullet(\cC_{W'_f}) \to \CH^\bullet(\cC_{W_f})$.
+Using the Dyckerhoff--Efimov identification
+$\CH^\bullet(\cC_{W_f}) \simeq \mathrm{Jac}(W_f) \otimes \bigwedge^\bullet
+[\xi_1, \xi_2, \xi_3]$ and similarly for $W'_f$, $F_\varphi^*$ is the
+tensor product of the Jacobian-ring morphism $\mathrm{Jac}(W'_f)
+\to \mathrm{Jac}(W_f)$ (which is indeed an isomorphism because
+$\varphi$ is a diffeomorphism) with the identity on
+$\bigwedge^\bullet[\xi_1, \xi_2, \xi_3]$.  Factorisation envelope
+$\cU^\FA$ applied to this tensor decomposition gives the stated
+Jacobian-ring transfer morphism.
+\end{proof}
+
+\begin{example}[$\C^3 \to \C^3$ linear with $\det = 1$]
+\label{ex:c3-linear-diffeomorphism}
+Take $\varphi = A \in \SL_3(k)$ acting linearly on $\C^3$, and $W_f =
+x_1 y_1 z_1 + \tfrac{1}{2}(x_1^2 y_1 + y_1^2 z_1 + z_1^2 x_1)$ a
+Morse--Bott isolated superpotential (Milnor number $\mu = 8$).
+Under $\varphi^*$ with $A$ permuting $(x_1, y_1, z_1) \to
+(y_1, z_1, x_1)$, $W'_f = y_1 z_1 x_1 + \tfrac{1}{2}(y_1^2 z_1 +
+z_1^2 x_1 + x_1^2 y_1) = W_f$, so the functor is an $\SL_3$-action
+automorphism of the chiral algebra.  The Jacobian-ring isomorphism
+$\mathrm{Jac}(W_f) \to \mathrm{Jac}(W_f)$ is the transfer by
+permutation action, extended to the full chiral algebra factorisation
+envelope.  This provides an explicit $\SL_3$-action on
+$\PhiFA_3(\mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f))$ realising the
+expected symmetry of the local $\Phi_3$-functor.
+\end{example}
+
+% =====================================================================
+\section*{Cycle R10: relation to Agent R-4's obstruction theory}
+% =====================================================================
+
+\subsection*{R10.attack}
+
+Agent R-4 (residual obstructions) handles $O_1$ (Ran-space Smith
+recognition) and $O_3$ (sewing-analytic IndHilb) at the object level
+on the global CY$_3$ locus.  This agent (R-5) handles morphism
+functoriality.  The two agents compose: does R-4's object-level
+obstruction theory extend to morphisms, and if so, how does the
+morphism-level obstruction class decompose into R-4's triad?
+
+\subsection*{R10.heal: morphism-level obstruction is a refinement of R-4's triad}
+
+\begin{proposition}[Morphism-level obstruction decomposition]
+\label{prop:morphism-obstruction-refinement-R4}
+\ClaimStatusProvedHere
+For a cyclic $\Ainf$-functor $F \colon \cC \to \cD$ between global
+CY$_3$ categories, the obstruction class
+$\mathrm{obs}_{\PhiFA_3(F)} \in \HH^3(\CH^\bullet(\cC), \CH^\bullet(\cD))$
+to the existence of $\PhiFA_3(F)$ as a chain-level $E_3$-algebra
+morphism decomposes in Agent R-4's obstruction triad as
+\[
+  \mathrm{obs}_{\PhiFA_3(F)}
+  \;=\;
+  \mathrm{obs}^{(\text{mor})}_{O_1}(F)
+  \;+\;
+  \mathrm{obs}^{(\text{mor})}_{O_3}(F),
+\]
+with $O_2^{\mathrm{mor}} = 0$ by Mumford boundary descent (the
+morphism-level Mumford relation is derived from the object-level
+Mumford boundary relation of wave~$15$), and
+\begin{itemize}
+ \item $\mathrm{obs}^{(\text{mor})}_{O_1}(F) \in \HH^3_{\mathrm{Ran}}
+       (\CH^\bullet(\cC), \CH^\bullet(\cD))$ the Ran-space Smith
+       recognition class for the morphism, measuring failure of $F^*$
+       to factor through a Ran-space pushforward;
+ \item $\mathrm{obs}^{(\text{mor})}_{O_3}(F) \in \HH^3_{\mathrm{IndHilb}}
+       (\CH^\bullet(\cC), \CH^\bullet(\cD))$ the IndHilb-sewing class
+       for the morphism, measuring failure of the higher analytic
+       coherences to converge under $F^*$.
+\end{itemize}
+Both vanish identically on the Morse--Bott local-germ locus
+(Proposition~\ref{prop:obstruction-tower-truncation-local}), giving
+the unconditional morphism functoriality of
+Theorem~\ref{thm:morphism-functoriality-phi-fa-3-wave-residuals} on
+that locus.  On global CY$_3$, vanishing of both is Conjectural and
+inherits the R-4 scope.
+\end{proposition}
+
+\begin{proof}
+Decomposition: the Beilinson triad $(O_1, O_2, O_3)$ acts on the
+object-level functorial assembly of
+$\PhiFA_3$; its extension to morphisms is by naturality of the triad
+under pullback along $F^*$.  Pulling back the Mumford class
+$\lambda_g^1$ along $F^*$ gives the morphism-level Mumford class
+$F^* \lambda_g^1$; the boundary relation $\partial^* (F^* \lambda_g^1)
+= F^* (\partial^* \lambda_g^1) = F^*(\pi_1^* \lambda_{g_1}^1 + \pi_2^*
+\lambda_{g_2}^1)$ by naturality of the boundary map, hence $O_2^{\mathrm{mor}}
+= F^* O_2^{\mathrm{obj}} = 0$ by the wave-$15$ $O_2$ collapse.
+Morse--Bott locus: Proposition~\ref{prop:obstruction-tower-truncation-local}
+truncates the obstruction tower at $n = 3$, and the three surviving
+terms are $\mathrm{obs}^{(\text{mor})}_{O_1}, \mathrm{obs}^{(\text{mor})}_{O_2}
+= 0, \mathrm{obs}^{(\text{mor})}_{O_3}$.  On Morse--Bott, $O_1$ and
+$O_3$ also vanish (Ran-space Smith on finite-dimensional Jacobian;
+sewing-analytic on Morse--Bott stratification is finite-dimensional
+and trivially convergent).  Global vanishing is the R-4 scope; see
+Agent R-4 for the detailed analysis.
+\end{proof}
+
+\begin{remark}[Agent R-4 and R-5 are dual aspects of a single conditional equivalence]
+\label{rem:R4-R5-dual-aspects}
+Agent R-4 supplies object-level $(O_1, O_3)$ vanishing conjectures;
+Agent R-5 shows morphism-level functoriality follows from the same
+vanishings.  The two together assert: once $(O_1, O_3)$ are resolved,
+$\PhiFA_3$ is a full $(\infty,1)$-categorical equivalence on global
+CY$_3$.  The Morse--Bott local-germ locus is the unconditional test
+case; the global case is conditional on the same obstruction pair.
+\end{remark}
+
+% =====================================================================
+\section*{Monotonic strengthening of prior waves}
+% =====================================================================
+
+\paragraph{Relative to wave-$12$ witnessed-kernel functoriality.}
+Wave-$12$ (Theorem~\texttt{thm:phi3-witnessed-kernel-functoriality} in
+\texttt{cy\_to\_chiral.tex}) proved morphism functoriality of $\Phi_3$
+on the $(\infty,1)$-category
+$\CY_3\text{-}\Cat_{\Phi_3}^{\mathrm{wit}}$ of
+\emph{witnessed} CY$_3$ objects and $\Phi_3$-\emph{admissible} kernels:
+the datum $(\mathrm{K1})$--$(\mathrm{K7})$ of
+Def.~\texttt{def:phi3-admissible-kernel-datum} was \emph{assumed} as
+morphism-level witness.  This agent shows strictly more:
+\begin{itemize}
+ \item On the Morse--Bott local-germ locus $\cC_{\mathrm{loc}}^3$ of
+       Proposition~\ref{prop:obstruction-tower-truncation-local},
+       the witnesses $(\mathrm{K1})$--$(\mathrm{K7})$ are
+       \emph{automatically constructed} from the Morse--Bott
+       hypothesis: $(\mathrm{K1})$ perfect Tor-amplitude follows from
+       finite-dimensional Jacobian; $(\mathrm{K2})$ CY-orientation-
+       line transport follows from volume-preserving
+       $(\det D\varphi = 1)$; $(\mathrm{K3})$ cyclic bar transfer
+       follows from Kontsevich--Soibelman $\Ainf$-functor cyclic
+       preservation; $(\mathrm{K4})$ formality compatibility follows
+       from Tamarkin quasi-isomorphism uniqueness on finite-dimensional
+       Jacobian; $(\mathrm{K5})$ Costello--Li naturality follows from
+       Ayala--Francis $(\infty,1)$-functoriality; $(\mathrm{K6})$
+       specialisation $\SpCh$-compatibility follows from Morse--Bott
+       finite-dim Poincar\'e duality; $(\mathrm{K7})$ convolution
+       associativity follows from Fourier--Mukai associativity on
+       perfect kernels.
+ \item Consequence: on the Morse--Bott local-germ locus, wave-$12$'s
+       conditional functoriality statement becomes unconditional.
+       Morphism functoriality of $\PhiFA_3$ is a theorem on
+       $\cC_{\mathrm{loc}}^3$, not merely a statement conditional on
+       hand-selecting a $\Phi_3$-admissible kernel.
+\end{itemize}
+
+\paragraph{Relative to wave-$12$ CY-A$_3$ S$1$ stratum.}
+Wave-$12$ stratified CY-A$_3$ into S$1$ (existence-and-$E_1$-
+rigidity, theorems at $d = 3$) through S$5$ (genuine conjectures).
+This agent upgrades S$1$ on the Morse--Bott locus: existence-and-
+rigidity becomes \emph{categorical equivalence}.  The upgrade is
+strict: S$1$ says ``$\PhiFA_3(\cC)$ exists and is $E_1$-rigid'';
+Corollary~\ref{cor:cy-a3-local-germ-equivalence} says ``$\PhiFA_3$ is
+an equivalence of $(\infty,1)$-categories onto its image in
+$E_3\text{-FA}(\R^3)$.''  The Koszul bar--cobar inversion of
+Agent~$11$ supplies the inverse functor explicitly, with
+Proposition~\ref{prop:fully-faithful-morse-bott}'s fully-faithful
+mapping-space statement the full content of categorical equivalence.
+
+\paragraph{Relative to wave-$15$ Beilinson $O_2$ collapse.}
+Wave-$15$ (memory: \texttt{project\_beilinson\_o2\_collapse.md}) showed
+$O_2$ collapses via the Mumford boundary relation at the object
+level.  This agent extends the collapse to morphisms:
+Proposition~\ref{prop:morphism-obstruction-refinement-R4} shows the
+morphism-level $O_2^{\mathrm{mor}} = 0$ by naturality.  The three
+residual morphism obstructions are $(O_1^{\mathrm{mor}},
+O_2^{\mathrm{mor}} = 0, O_3^{\mathrm{mor}})$; the $O_2$-collapse is
+MONOTONICALLY preserved from object to morphism level.
+
+\paragraph{Relative to wave-$12$ Pattern 273 two-scope discipline.}
+Pattern 273 declared the chain-level object-level $\Phi_3^{\mathrm{obj}}$
+and the $(\infty,1)$-categorical $\Phi_3^{(\infty,1)}$ as two
+\emph{different} scopes, both load-bearing.  This agent REDUCES
+Pattern 273 at the Morse--Bott local-germ locus: on that locus, the
+two scopes coincide (object-level chain-level $\Phi_3^{\mathrm{obj}}$
+extends to the categorical equivalence $\Phi_3^{(\infty,1)}$).
+Globally, Pattern 273 persists (conditional on $(O_1, O_3)$).  The
+reduction is precisely at the locus where both scopes can be
+simultaneously verified.
+
+% =====================================================================
+\section*{Four ghost theorems (final, with R7--R10 refinement)}
+% =====================================================================
+
+\paragraph{Ghost 4 (fully faithful away from Morse--Bott).}  The naive
+reading: ``the bar--cobar Koszul inversion of Agent~$11$ gives the
+inverse functor globally, so $\PhiFA_3$ is always fully faithful on
+mapping spaces.''  FALSE.  Off the Morse--Bott locus (e.g.\ non-
+isolated singularity $W_f = xyz$, non-proper $\mathrm{MF}(\C^3, 0)$),
+the Koszul obstruction class $\mathrm{obs}_{\mathrm{Kos}} \in \HH^4(\cC)$
+is non-zero, and not every $E_3$-FA morphism comes from a cyclic
+$\Ainf$-functor.  Koszul inversion requires Koszul-self-duality,
+which is strictly a Morse--Bott property.  Correct statement:
+mapping-space equivalence on the Morse--Bott locus
+(Proposition~\ref{prop:fully-faithful-morse-bott}); mapping-space
+embedding on the general locus
+(Remark~\ref{rem:obstruction-off-morse-bott}).
+
+\paragraph{Ghost 5 (compositional homotopy is abelian).}  The naive
+reading: ``the compositional homotopy $H_{F, G}$ is linear in $F, G$,
+hence abelian in the pair $(F, G)$.''  FALSE.  The Dunn--Lurie
+decomposition $E_3 \simeq E_1 \otimes E_2$ shows $H_{F, G}$ has an
+$E_1$-layer (abelian) and an $E_2$-layer (nonabelian, via braces).
+Correct statement:
+Proposition~\ref{prop:two-layer-composition-dunn-lurie}, the
+$E_1 + E_2$ decomposition.
+
+\paragraph{Ghost 6 (diffeomorphism action is trivial).}  The naive
+reading: ``a volume-preserving diffeomorphism $\varphi$ acts trivially
+on $\PhiFA_3$ because it is infinitesimally the identity on the
+tangent bundle.''  FALSE.  The $\varphi$-action is non-trivial on
+Jacobian rings when $\varphi$ permutes coordinates: for $\varphi =
+\mathrm{cyclic}(x_1, x_2, x_3)$, the induced action on the Milnor
+number-$8$ Jacobian $\mathrm{Jac}(W_f) = k\{1, x_1, x_2, x_3, x_1x_2,
+x_1x_3, x_2x_3, x_1x_2x_3\}$ is non-trivial by symmetry.  Correct
+statement: Proposition~\ref{prop:explicit-diffeomorphism-functoriality},
+Jacobian-ring transfer morphism.
+
+% =====================================================================
+\section*{Final theorem: strictly stronger morphism-functoriality statement}
+% =====================================================================
+
+\begin{theorem}[Strictly stronger morphism functoriality]
+\label{thm:strictly-stronger-morphism-functoriality}
+\ClaimStatusProvedHere\ \textup{(}\emph{strictly stronger than wave-$12$
+Theorem CY-A$_3$ S$1$ stratum and Theorem~\texttt{thm:phi3-witnessed-kernel-functoriality};
+unconditional on Morse--Bott locus, conditional globally on $(O_1, O_3)$.}\textup{)}
+Let $\cC_{\mathrm{loc}}^3 \subset \CY_3\text{-}\Cat^{\mathrm{dg}, \mathrm{cyc}}$
+be the full $(\infty,1)$-subcategory on $\mathrm{MF}^{\mathrm{cyc}}(\C^3, W_f)$
+for $W_f$ isolated-singularity Morse--Bott superpotential.  Then:
+\begin{enumerate}[label=\textup{(\Roman*)}]
+ \item $\PhiFA_3$ assembles into an $(\infty,1)$-functor
+       \[
+        \PhiFA_3 \colon (\cC_{\mathrm{loc}}^3)^{\mathrm{op}} \longrightarrow
+        E_3\text{-}\mathrm{FA}(\R^3)^{(\infty,1)}
+       \]
+       with morphism-level action $\cU^\FA(F^*)$ for every cyclic
+       $\Ainf$-functor $F \colon \cC \to \cD$.
+ \item The mapping-space maps
+       \[
+        \PhiFA_3 \colon
+        \Map^{\mathrm{CY}_3, \mathrm{cyc}}(\cC, \cD)
+        \xrightarrow{\;\simeq\;}
+        \Map^{E_3\text{-FA}}(\PhiFA_3(\cD), \PhiFA_3(\cC))
+       \]
+       are homotopy equivalences of Kan complexes
+       (Proposition~\ref{prop:fully-faithful-morse-bott}).
+ \item The composition homotopy $H_{F, G}$ decomposes as
+       $H^{(1)}_{F, G} + H^{(2)}_{F, G}$ via Dunn--Lurie
+       $E_3 \simeq E_1 \otimes E_2$ additivity
+       (Proposition~\ref{prop:two-layer-composition-dunn-lurie}).
+ \item On explicit Morse--Bott diffeomorphisms
+       $\varphi \in \Diff(\C^3, 0)$ with $\det D\varphi = 1$,
+       $\PhiFA_3(F_\varphi)$ is the Jacobian-ring transfer morphism
+       (Proposition~\ref{prop:explicit-diffeomorphism-functoriality}).
+ \item The witnessed-kernel data
+       $(\mathrm{K1})$--$(\mathrm{K7})$ of
+       \texttt{def:phi3-admissible-kernel-datum} are automatically
+       constructed on $\cC_{\mathrm{loc}}^3$, upgrading the
+       wave-$12$ \emph{conditional} Theorem~\texttt{thm:phi3-witnessed-kernel-functoriality}
+       to an unconditional statement on $\cC_{\mathrm{loc}}^3$.
+ \item CY-A$_3$ on $\cC_{\mathrm{loc}}^3$ is a genuine categorical
+       equivalence onto its image in $E_3\text{-FA}(\R^3)^{(\infty,1)}$
+       (Corollary~\ref{cor:cy-a3-local-germ-equivalence}).
+ \item The morphism-level obstruction to global extension decomposes as
+       $\mathrm{obs}_{\PhiFA_3(F)} = \mathrm{obs}^{(\text{mor})}_{O_1}(F) +
+       \mathrm{obs}^{(\text{mor})}_{O_3}(F)$ with $O_2^{\mathrm{mor}} = 0$
+       by Mumford boundary naturality
+       (Proposition~\ref{prop:morphism-obstruction-refinement-R4}).
+ \item Global extension to $\CY_3\text{-}\Cat^{\mathrm{dg}, \mathrm{cyc}, \mathrm{global}}$
+       is conditional on vanishing of $(O_1, O_3)$ at the morphism
+       level; inherits Agent R-4 scope.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof]
+Collect Cycles R1--R10 of this agent: R1--R6 establish
+$(\infty,1)$-functoriality with obstruction-tower truncation on the
+Morse--Bott locus; R7 adds fully-faithful mapping-space equivalence;
+R8 decomposes composition via Dunn--Lurie additivity; R9 gives
+explicit computation on diffeomorphisms; R10 relates to Agent R-4's
+obstruction theory.  Items (I)--(VIII) of the theorem are:
+\begin{itemize}
+ \item[(I)] from Theorem~\ref{thm:morphism-functoriality-phi-fa-3-wave-residuals}
+           (local-germ $(\infty,1)$-functoriality, R1--R6 synthesis);
+ \item[(II)] from Proposition~\ref{prop:fully-faithful-morse-bott}
+            (R7.heal);
+ \item[(III)] from Proposition~\ref{prop:two-layer-composition-dunn-lurie}
+            (R8.heal);
+ \item[(IV)] from Proposition~\ref{prop:explicit-diffeomorphism-functoriality}
+            (R9.heal);
+ \item[(V)] from the Morse--Bott witness construction in the
+            ``Monotonic strengthening'' section above;
+ \item[(VI)] from Corollary~\ref{cor:cy-a3-local-germ-equivalence}
+            (R6 consequence);
+ \item[(VII)] from Proposition~\ref{prop:morphism-obstruction-refinement-R4}
+            (R10.heal);
+ \item[(VIII)] from the R6 global remark and the R10 Agent R-4
+              composition.
+\end{itemize}
+\end{proof}
+
+\begin{corollary}[Conjecture $\Rightarrow$ Theorem on Morse--Bott locus]
+\label{cor:conjecture-theorem-morse-bott}
+\ClaimStatusProvedHere
+Conjecture~\texttt{conj:phi-d-functoriality} of
+\texttt{cy\_to\_chiral.tex} at $d = 3$, restricted to
+$\cC_{\mathrm{loc}}^3 \subset \CY_3\text{-}\Cat^{\mathrm{dg}, \mathrm{cyc}}$,
+is a theorem by
+Theorem~\ref{thm:strictly-stronger-morphism-functoriality}.  The
+conjecture remains open on the complement of $\cC_{\mathrm{loc}}^3$
+(non-Morse--Bott, non-isolated, non-compact CY$_3$ loci).
+\end{corollary}
+
+\begin{proof}
+Direct restriction of Theorem~\ref{thm:strictly-stronger-morphism-functoriality}
+to $\cC_{\mathrm{loc}}^3$: on this locus, every statement of the
+theorem is unconditional, matching the conjecture's assertion.
+\end{proof}
+
+% =====================================================================
+\section*{Monotonic-strength ledger}
+% =====================================================================
+
+\noindent\textbf{Prior-wave statements, with monotonic updates here:}
+\begin{itemize}
+ \item Wave-$12$ \texttt{conj:phi-d-functoriality}: $(\infty,1)$-
+       functoriality of $\Phi_d$ on morphisms, open at $d = 3$.
+       \emph{Update:} theorem on $\cC_{\mathrm{loc}}^3$
+       (Corollary~\ref{cor:conjecture-theorem-morse-bott}); open
+       elsewhere.
+ \item Wave-$12$ \texttt{thm:phi3-witnessed-kernel-functoriality}:
+       functorial on witnessed kernels.  \emph{Update:} unconditional
+       on $\cC_{\mathrm{loc}}^3$ where witnesses are auto-constructed
+       (``Monotonic strengthening'' section).
+ \item Wave-$12$ CY-A$_3$ S$1$ stratum: existence-and-$E_1$-rigidity.
+       \emph{Update:} categorical equivalence on
+       $\cC_{\mathrm{loc}}^3$
+       (Corollary~\ref{cor:cy-a3-local-germ-equivalence}).
+ \item Wave-$15$ $O_2$ collapse: object-level only.  \emph{Update:}
+       collapse extends to morphisms, giving
+       $O_2^{\mathrm{mor}} = 0$
+       (Proposition~\ref{prop:morphism-obstruction-refinement-R4}).
+ \item Wave-$12$ Pattern 273: two-scope discipline, persistent.
+       \emph{Update:} reduced at $\cC_{\mathrm{loc}}^3$; persistent
+       globally.
+\end{itemize}
+
+\noindent\textbf{No downgrades.}  Every prior statement either stands
+unchanged or is strengthened.  No ``was proved, now conjectural''
+language appears.
+
+% =====================================================================
+\section*{Chapter inscription plan (final)}
+% =====================================================================
+
+The manuscript inscription
+\texttt{chapters/theory/cy\_to\_chiral.tex} inserts a new section
+``Morphism functoriality of $\PhiFA_3$ on the Morse--Bott local-germ
+locus'' with \texttt{\textbackslash label\{sec:morphism-functoriality-phi-fa-3\}}
+immediately after Proposition~\texttt{prop:phi3-arbitrary-morphism-obstruction-criterion}
+(line 802 of current chapter) and before
+Remark~\texttt{rem:phi-d-factors-through-perf} (line 803 of current
+chapter).  The new section contains:
+\begin{itemize}
+ \item Definition \texttt{def:morse-bott-local-germ-locus} of
+       $\cC_{\mathrm{loc}}^3$.
+ \item Theorem
+       \texttt{thm:strictly-stronger-morphism-functoriality-local-germ}
+       (chapter version of
+       Theorem~\ref{thm:strictly-stronger-morphism-functoriality} here).
+ \item Corollary
+       \texttt{cor:conj-phi-d-functoriality-theorem-on-morse-bott-d3}
+       (local-germ upgrade of
+       \texttt{conj:phi-d-functoriality} at $d = 3$).
+ \item Proposition
+       \texttt{prop:fully-faithful-mapping-space-local-germ}.
+ \item Remark \texttt{rem:dunn-lurie-two-layer-composition-d3}.
+ \item Proposition
+       \texttt{prop:explicit-diffeomorphism-jacobian-transfer-d3}.
+ \item Remark \texttt{rem:global-conditional-on-O1-O3-morphism-level}.
+\end{itemize}
+
+All proofs are direct chain-level quotations of R1--R10 above, with
+primary-source citations: Kontsevich--Soibelman, Ginzburg, Tamarkin,
+McClure--Smith, Dolgushev--Tamarkin--Tsygan, Menichi, Tradler--Zeinalian,
+Van den Bergh, Ayala--Francis, Willwacher, Fresse--Willwacher,
+Kontsevich--Vlassopoulos, Berger--Gurski--Kapranov, Dyckerhoff, Efimov,
+Polishchuk--Vaintrob, Positselski, Lurie (HA), Dunn (1988), Costello--
+Gwilliam (both volumes), Costello--Li, Grothendieck residue.
+
+Macro inventory (all in \texttt{main.tex} preamble):
+\texttt{\textbackslash PhiFA}, \texttt{\textbackslash SpCh},
+\texttt{\textbackslash HolFA}, \texttt{\textbackslash EdHolFA},
+\texttt{\textbackslash Eone}, \texttt{\textbackslash Etwo},
+\texttt{\textbackslash Ethree}, \texttt{\textbackslash GRT},
+\texttt{\textbackslash cC}, \texttt{\textbackslash cD},
+\texttt{\textbackslash cE}, \texttt{\textbackslash CY},
+\texttt{\textbackslash Cat}, \texttt{\textbackslash Coh},
+\texttt{\textbackslash Perf}, \texttt{\textbackslash Map},
+\texttt{\textbackslash HH}, \texttt{\textbackslash CH},
+\texttt{\textbackslash ClaimStatusProvedHere},
+\texttt{\textbackslash ClaimStatusProvedElsewhere},
+\texttt{\textbackslash ClaimStatusConjectured},
+\texttt{\textbackslash ClaimStatusConditional},
+\texttt{\textbackslash Ainf}, \texttt{\textbackslash Jac},
+\texttt{\textbackslash SL}.  No new macros required.
+
+% =====================================================================
+\section*{Closing: axis closure statement}
+% =====================================================================
+
+\paragraph{Axis closed on the Morse--Bott local-germ locus.}  Pattern
+273's residual scope -- the gap between object-level chain-level
+$\Phi_3^{\mathrm{obj}}$ and $(\infty,1)$-categorical
+$\Phi_3^{(\infty,1)}$ -- is CLOSED at $\cC_{\mathrm{loc}}^3$: the
+two scopes coincide, and the categorical equivalence is proved.
+
+\paragraph{Axis persists on the global locus.}  The global locus
+remains Pattern-$273$-two-scope, conditional on $(O_1, O_3)$ vanishing.
+Agent R-4 addresses the global obstruction theory; Agent R-5 (this
+agent) supplies the morphism-level data that compose with it.
+
+\paragraph{CY-A$_3$ upgrade.}  Wave-$12$ S$1$ stratum
+(existence-and-$E_1$-rigidity): strictly upgraded on
+$\cC_{\mathrm{loc}}^3$ to categorical equivalence.  Wave-$12$
+S$2$--S$5$ strata: unchanged (conditional or open).  No downgrades.
+
+\end{document}

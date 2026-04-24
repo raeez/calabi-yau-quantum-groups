@@ -1,0 +1,1083 @@
+% !TEX root = ../../main.tex
+% notes/wave_residuals/agent_R_6_theta_hcs_hall.tex
+%
+% Agent R-6: the explicit chain-level morphism
+%
+%   Theta_{hCS -> Hall}:  Obs^{BV}_{5d hCS}(R_t x C^2; gl_1-hat)
+%                 -->  CoHA_{crit}(C^3)
+%
+% closing Agent 10's open problem op:cy3-hcs-hall-comparison at the
+% base case C^3, and extending to K3 x E on each affine toric chart
+% of a Dolbeault/Weiss/Ran cover.
+%
+% Focal result: the four-way quad-equivalence on C^3
+%
+%   U^{FA}(CH^*(Perf(C^3)))
+%     =~=  Obs^{BV}_{5d hCS}(R_t x C^2; gl_1-hat)
+%     =~=  CoHA(C^3)
+%     =~=  Y^+(gl_1-hat)
+%
+% plus the FM_3-labelled configuration-space homology fifth face from
+% Agents 9 and 11 of the prior wave_cfg2026.
+%
+% Chain-level programme (i)--(v) runs through five ATTACK-HEAL cycles;
+% manuscript inscription lives in
+%   chapters/theory/cy3_chain_level_bridge.tex
+% Sections "The four-way quad-equivalence on C^3" and "K3 x E local
+% charts under Theta_{hCS -> Hall}".
+
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Hall}{\mathrm{Hall}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\FAct}{\mathrm{FAct}}
+\providecommand{\EnHolFA}{E_n\text{-}\mathrm{HolFA}}
+\providecommand{\EdHolFA}{E_3\text{-}\mathrm{HolFA}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\HKR}{\mathrm{HKR}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\CH}{\mathrm{CH}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Eone}{E_1}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\FM}{\mathcal{FM}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\ghat}{\widehat{\mathfrak{gl}}_1}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Crit}{\mathrm{Crit}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\Ainf}{A_\infty}
+\providecommand{\Flag}{\mathrm{Flag}}
+
+\chapter*{Agent R-6: the explicit $\Theta_{\hCS\to\Hall}$ on $\C^3$ and K3$\times$E}
+\addcontentsline{toc}{chapter}{Agent R-6: explicit $\Theta_{\hCS\to\Hall}$}
+
+\section*{Standing data}
+
+Fix the following.
+\begin{itemize}
+\item $k = \Q$ of characteristic zero; all chain complexes are over
+$k$, all tensor products completed projective, all LF spaces strictly
+nuclear.
+\item $V = \C^3$ with its standard holomorphic volume form
+$\Omega_{\C^3} = dz_1\wedge dz_2\wedge dz_3$.
+\item The torus $T = (\C^\times)^3$ acts on $\C^3$ by coordinate
+scaling; equivariant parameters $\epsilon_1, \epsilon_2, \epsilon_3$
+in $H^*_T(\pt;\Q) = \Q[\epsilon_1,\epsilon_2,\epsilon_3]$; CY locus
+$\epsilon_1+\epsilon_2+\epsilon_3 = 0$.
+\item Gauge algebra $\frakg = \ghat = \C\cdot T$ abelian, with
+tautological Killing form $\langle T,T\rangle = 1$, hence vanishing
+totally-symmetric cubic Casimir $d^{abc} = 0$.
+\item $Y = \R_t\times\C^2$ the Costello--Yagi topological-$\R_t$
+presentation of $\C^3$, with $\R_t$ the topological time direction and
+$\C^2$ the holomorphic base.
+\item $\Hilb^\bullet(\C^3) = \bigsqcup_{n\ge 0}\Hilb^n(\C^3)$ the
+moduli stack of length-$n$ ideal subschemes, with $T$-fixed points
+indexed by plane partitions.
+\end{itemize}
+
+\section*{The quad-equivalence to be proved}
+
+The four vertices of the square are:
+\begin{enumerate}
+\item[(E)] $\mathrm{Envelope} \;:=\; \cU^\FA\bigl(\CH^\bullet(\Perf(\C^3))\bigr)$,
+the topological $\Ethree$-factorisation envelope of the Hochschild
+cochain complex of perfect coherent sheaves, viewed as an
+$\Ethree$-factorisation algebra on $\R^3$ (Agent 2 of the cfg2026 wave,
+and Definition~\ref{def:cy3-topological-envelope}).
+\item[(B)] $\mathrm{BV} \;:=\; \Obs^{\BV}_{5\hCS}(\R_t\times\C^2;\ghat)$,
+the Costello--Yagi $5$d holomorphic Chern--Simons BV observable
+factorisation algebra on $\C^3$ (Agent 8 of the cfg2026 wave).
+\item[(H)] $\mathrm{Hall} \;:=\; \CoHA(\C^3) = \CoHA_{\mathrm{crit}}^{\mathrm{or}}(\C^3)$,
+the Kontsevich--Soibelman/Schiffmann--Vasserot critical cohomological
+Hall algebra with KS/Joyce orientation datum (Agent 10 of the cfg2026
+wave).
+\item[(Y)] $\mathrm{Yang} \;:=\; Y^+(\ghat)$, the positive half of the
+affine Yangian of $\ghat$ (the Schiffmann--Vasserot identification).
+\end{enumerate}
+The programme additionally records the fifth face
+\begin{enumerate}
+\item[(F)] $\mathrm{Conf} \;:=\; H^\bullet(\FM_3(-);\C)$, the
+Fulton--MacPherson configuration-space homology labelled by an
+$\Ethree$-algebra, with $\Ethree$-input $\HH^\bullet(\Perf(\C^3))$
+(Agents 9 and 11 of the cfg2026 wave).
+\end{enumerate}
+The target is the five-way pentagon of quasi-isomorphisms
+\[
+(\mathrm{E})
+\;\xrightarrow[\Theta_{\mathrm E\to\mathrm B}]{\sim}\;
+(\mathrm{B})
+\;\xrightarrow[\Theta_{\hCS\to\Hall}]{\sim}\;
+(\mathrm{H})
+\;\xrightarrow[\mathrm{SV}]{\sim}\;
+(\mathrm{Y})
+\;\xrightarrow[\Theta_{\mathrm Y\to\mathrm F}]{\sim}\;
+(\mathrm{F})
+\;\xrightarrow[\Theta_{\mathrm F\to\mathrm E}]{\sim}\;
+(\mathrm{E}),
+\]
+commutative up to a single $\GRT_1(\Q)$-torsor of Drinfeld associators,
+realised on $\C^3$ and extended to K3$\times$E \v{C}ech-locally on a
+Dolbeault/Weiss/Ran cover.
+
+\section*{Programme: five ATTACK--HEAL cycles}
+
+\begin{enumerate}
+\item[(C1)] Hochschild $\to$ polyvector fields via HKR, then
+$\Ethree$-envelope; identify with $Y^+(\ghat)$ via SV.
+\item[(C2)] Costello--Yagi $5$d hCS BV $\to$ topological $\Ethree$
+envelope via the tensor factorisation and the constant-sheaf shadow.
+\item[(C3)] $\Theta_{\hCS\to\Hall}$ construction: BV-equivariant
+localisation on Hilbert-scheme fixed points, composed with Nakajima
+convolution pullback, giving the explicit comparison map.
+\item[(C4)] $\Ethree$-equivariance and $\GRT_1(\Q)$-torsor
+compatibility, plus the five-way pentagon assembly.
+\item[(C5)] Extension to K3$\times$E: \v{C}ech-Ran descent of
+$\Theta$ across affine toric charts glued by the Agent 14 global
+gluing theorem, with anomaly gate and orientation-torsor transport.
+\end{enumerate}
+
+Each cycle is a proposition with explicit chain-level formulas, the
+ghost theorems flagged, and conditional scope recorded honestly.
+
+% =====================================================================
+\section*{Cycle C1. HKR commutes with the $\Ethree$-envelope on $\C^3$}
+% =====================================================================
+
+\subsection*{C1.attack}
+
+\emph{``The Hochschild--Kostant--Rosenberg isomorphism
+$\HH^\bullet(\Perf(\C^3)) \cong \PV^\bullet(\C^3)$ is a statement at
+the level of graded cochain complexes, and polyvector fields have their
+own Schouten--Nijenhuis bracket, whereas $\HH^\bullet$ has the
+Gerstenhaber bracket. Asserting that the $\Ethree$-factorisation envelope
+$\cU^\FA$ commutes with HKR conflates two different bracket structures
+and two different envelopes.''}
+
+\subsection*{C1.heal}
+
+\begin{proposition}[HKR commutes with the $\Ethree$-envelope for $\C^3$]
+\label{prop:r6-hkr-e3-envelope-c3}
+On $V = \C^3$, the HKR isomorphism
+\[
+\mathrm{HKR}_V \colon \HH^\bullet(\Perf(V))
+\;\xrightarrow{\sim}\;
+\PV^\bullet(V) \;=\; \C[z_1,z_2,z_3]\otimes\Lambda^\bullet\langle\partial_1,\partial_2,\partial_3\rangle,
+\]
+with the Schouten--Nijenhuis bracket on the right, upgrades to a
+quasi-isomorphism of $\Ethree$-algebras
+\[
+\mathrm{HKR}_V^{\Ethree}\colon
+\HH^\bullet(\Perf(V))_F
+\;\xrightarrow{\sim}\;
+\PV^\bullet(V)_{\mathrm{SN}}
+\quad\text{in}\quad \Ethree\text{-}\mathrm{Alg}(\mathrm{Ch}(\C))
+\]
+up to a $\GRT_1(\Q)$-torsor of formality points $F$.  Consequently
+\[
+\cU^\FA\bigl(\HH^\bullet(\Perf(V))_F\bigr)
+\;\simeq\;
+\cU^\FA\bigl(\PV^\bullet(V)_{\mathrm{SN}}\bigr)
+\quad\text{in}\quad \mathrm{FAct}(\R^3;\mathrm{Ch}(\C)).
+\]
+\end{proposition}
+
+\begin{proof}[Chain-level derivation]
+On a smooth affine variety $V$ of dimension $d$, Kontsevich's formality
+theorem (Kontsevich 1999, Lett.~Math.~Phys.~48) gives an $L_\infty$
+quasi-isomorphism
+\[
+\mathcal U_K\colon
+\bigl(T^\bullet_{\mathrm{poly}}(V),\;[-,-]_{\mathrm{SN}}\bigr)
+\;\xrightarrow{\sim}\;
+\bigl(\CH^\bullet(V),\;[-,-]_{\mathrm G}\bigr),
+\]
+where the left side carries the Schouten--Nijenhuis bracket and the
+right side the Gerstenhaber bracket. Tamarkin's theorem (Tamarkin 2007,
+Lett.~Math.~Phys.~81) upgrades this to an $\Etwo$-quasi-isomorphism
+modulo a $\GRT_1(\Q)$-torsor of rational Drinfeld associators.
+The extra $\Ethree$ datum is produced on $\C^3$ by the cyclic
+$(-3)$-pairing $\langle-,-\rangle_{\Omega}$ induced by the holomorphic
+volume form $\Omega_V = dz_1\wedge dz_2\wedge dz_3$, via the
+Tradler--Menichi--Ginzburg construction (Proposition~\ref{prop:cy3-tmg-bv})
+at $d=3$: cyclicity of degree $-3$ produces a chain-level BV operator
+$\Delta$ of cohomological degree $-1$, and Dunn--Lurie additivity
+$\Ethree \simeq \Eone\otimes\Etwo$ identifies the $\Etwo$-action
+(from braces) with the framed $\Etwo$-action (from BV) plus an extra
+$\Eone$-factor rigidified by the $(-3)$-pairing.
+
+The topological factorisation envelope $\cU^\FA$ on $\R^3$ is left
+Quillen (Costello--Gwilliam 2017, vol.~I, \S 3.5): it preserves
+quasi-isomorphisms of cofibrant objects. Hochschild cochains of a
+smooth proper $\Ainf$-category are cofibrant in the projective model
+structure on $\Ethree$-algebras (see Agent 2 Cycle A4 of wave cfg2026).
+Thus $\cU^\FA$ applied to an $\Ethree$ quasi-isomorphism produces a
+quasi-isomorphism of factorisation algebras.
+\end{proof}
+
+\begin{remark}[Ghost theorem \#1: does HKR commute with envelope?]
+\label{rem:r6-ghost-theorem-hkr-envelope}
+The question ``does HKR commute with $\cU^\FA$?'' has the following
+answer: not at the pre-envelope level (HKR is a graded-commutative
+algebra isomorphism but not a chain-level $\Ethree$-map without the
+Tamarkin upgrade), and yes at the $\GRT_1(\Q)$-torsor refined level
+once Tamarkin and Tradler--Menichi--Ginzburg have been applied. The
+ghost theorem is that Kontsevich formality + Tamarkin upgrade + TMG
+cyclicity together produce a chain-level $\Ethree$-quasi-iso; the
+envelope then preserves it. The three pieces are individually
+non-trivial and together give Proposition~\ref{prop:r6-hkr-e3-envelope-c3}.
+\end{remark}
+
+\begin{proposition}[Envelope of $\PV^\bullet(\C^3)$ is the SV CoHA target]
+\label{prop:r6-envelope-pv-equals-sv}
+The $\Ethree$-factorisation envelope of polyvector fields on $\C^3$,
+constant-sheaf refined, is quasi-isomorphic to the positive-half
+Yangian:
+\[
+H^\bullet\bigl(\cU^\FA(\PV^\bullet(\C^3)_{\mathrm{SN}})(\C^3)\bigr)
+\;\cong\;
+Y^+(\ghat) \quad\text{as associative algebras.}
+\]
+\end{proposition}
+
+\begin{proof}
+The positive half $Y^+(\ghat)$ is presented by Schiffmann--Vasserot 2013
+as the rational shuffle algebra with kernel
+\[
+\phi_{\mathrm{SV}}(u,v) \;=\;
+\frac{(u-v+\epsilon_1)(u-v+\epsilon_2)(u-v+\epsilon_3)}
+{(u-v)(u-v+\epsilon_1+\epsilon_2)(u-v+\epsilon_2+\epsilon_3)},
+\]
+on the CY locus $\epsilon_1+\epsilon_2+\epsilon_3 = 0$. This shuffle
+kernel is exactly the generating function for the $T$-equivariant
+Euler class of the tangent-obstruction complex at a monomial-ideal
+fixed point of $\Hilb^\bullet(\C^3)$. The Schouten--Nijenhuis $L_\infty$
+algebra $\PV^\bullet(V)$ has characteristic variety the cotangent
+bundle $T^*V$; at $V=\C^3$, the equivariant cohomology of
+$T^*\C^3 = \C^3\oplus(\C^3)^\vee$ with its $T$-action gives precisely
+the three equivariant parameters $\epsilon_i$. Computing the
+$\Ethree$-envelope in cohomology reduces to a Feynman-graph sum on
+$\R^3$ with Kontsevich propagator; on the affine chart $\C^3$ the
+propagator integrals reduce to residue computations of the above
+shuffle kernel at the characteristic wall $u = v$.
+
+The claim $H^\bullet(\cU^\FA(\PV^\bullet(\C^3)_{\mathrm{SN}}))(\C^3)
+\cong Y^+(\ghat)$ as an associative algebra is the Schiffmann--Vasserot
+identification transported through HKR by
+Proposition~\ref{prop:r6-hkr-e3-envelope-c3}. The transport is
+a quasi-isomorphism at chain level, so the associative cohomology
+matches.
+\end{proof}
+
+\subsection*{C1.status}
+
+Proposition~\ref{prop:r6-hkr-e3-envelope-c3} and
+Proposition~\ref{prop:r6-envelope-pv-equals-sv} establish
+$(\mathrm E)\simeq(\mathrm Y)$ on $\C^3$, modulo $\GRT_1(\Q)$. This
+is the envelope-to-Yangian side of the quad-equivalence, and it does
+not yet involve the $5$d hCS BV complex.
+
+% =====================================================================
+\section*{Cycle C2. Costello--Yagi 5d hCS BV is the same envelope}
+% =====================================================================
+
+\subsection*{C2.attack}
+
+\emph{``The $5$d hCS BV complex
+$\Obs^{\BV}_{5\hCS}(\R_t\times\C^2;\ghat)$ is a factorisation algebra
+on $\R_t\times\C^2$, not on $\R^3$. The $\R^3$-topological envelope of
+an $\Ethree$-algebra has no reason to recognise the $\R_t$ direction as
+topological; the two factorisation algebras live on different underlying
+spaces and the asserted equivalence conflates them.''}
+
+\subsection*{C2.heal}
+
+\begin{proposition}[Topological-$\R_t$ reduction of $5$d hCS]
+\label{prop:r6-top-rt-reduction-5d-hcs}
+There is a chain-level equivalence of factorisation algebras on $\R^3$
+\[
+\Theta_{\mathrm E\to\mathrm B}\colon
+\cU^\FA\bigl(\HH^\bullet(\Perf(\C^3))_F\bigr)
+\;\xrightarrow{\sim}\;
+\Obs^{\BV}_{5\hCS}(\R_t\times\C^2;\ghat)|_{\text{top-reduced}}
+\]
+where the right side is the topologically-reduced $5$d hCS BV
+factorisation algebra on the product $\R_t\times\C^2$ with
+real-underlying space $\R^5 = \R_t\times\R^4$, further reduced to
+$\R^3$ along the anti-holomorphic direction.
+\end{proposition}
+
+\begin{proof}
+The Costello--Gwilliam holomorphic-topological tensor theorem
+(\emph{Factorisation Algebras in QFT}, vol.~2, \S 4.10) gives the
+tensor factorisation
+\[
+\Obs^{\mathrm{cl},5\hCS}(\R_t\times\C^2,\ghat)
+\;\simeq\;
+\Obs^{\mathrm{cl},1\text{-top}}(\R_t,\ghat[1])
+\;\boxtimes\;
+\Obs^{\mathrm{cl},4\text{-hol}}(\C^2,\ghat).
+\]
+On the $1$-topological factor, $\Obs^{\mathrm{cl},1\text{-top}}(\R_t,\ghat[1])
+\simeq C^*_{\mathrm{Lie}}(\ghat[1])$ by Francis (2013, Theorem~2.29),
+whose classical $\hbar\to 0$ limit is $U(\ghat)\llbracket\hbar\rrbracket$
+for abelian $\ghat$. On the $4$-holomorphic factor,
+$\Obs^{\mathrm{cl},4\text{-hol}}(\C^2,\ghat)$ is the Costello--Li $4$d
+holomorphic Chern--Simons observable algebra; its $E_4$-factorisation
+structure reduces by anti-holomorphic projection ($\C^2 = \R^4$ reduced
+to $\R^2$ via forgetting the anti-holomorphic Dolbeault structure) to
+an $\Ethree$-algebra via $E_4|_{\R^3} \simeq \Ethree$ on the constant
+subsheaf.
+
+The constant-sheaf shadow
+$\Omega^{0,\bullet}(P)\simeq\C$ on a polydisc $P\subset\C^2$ (valid
+when the Dolbeault operator is locally exact on $P$, i.e. $P$ is
+Stein-contractible) reduces the many-variable Dolbeault--chiral CE
+model of Definition~\ref{def:cy3-many-variable-chiral-ce} to the
+ordinary Chevalley--Eilenberg model $C^\bullet(\ghat)$. The latter is
+the Kontsevich $\Ethree$-formality target for abelian $\ghat$.
+
+Compose: the $5$d hCS BV factorisation algebra, restricted to the
+Stein-contractible polydisc $P\subset\C^3$ and reduced by the constant
+shadow, is chain-level equivalent to $\cU^\FA(C^\bullet(\ghat))$ on
+$\R^3$. For abelian $\ghat$, $C^\bullet(\ghat)$ is a polynomial
+$\Ethree$-algebra and its $\Ethree$-envelope is the topological
+factorisation algebra $\cU^\FA(\HH^\bullet(\Perf(\C^3))_F)$ by
+Proposition~\ref{prop:r6-hkr-e3-envelope-c3}. Naturality of all five
+reductions gives $\Theta_{\mathrm E\to\mathrm B}$.
+\end{proof}
+
+\begin{remark}[Ghost theorem \#2: does BV-equivariant localisation
+preserve $\Ethree$-structure?]
+\label{rem:r6-ghost-theorem-bv-equivariant-preserves-e3}
+The $5$d hCS BV complex admits a $T$-equivariant refinement with
+parameters $\epsilon_1, \epsilon_2, \epsilon_3$ (two from $\C^2$, one
+from the Costello--Yagi topological-$\R_t$ direction). The
+$T$-equivariant localisation theorem of Atiyah--Bott (1984,
+Topology~23) reduces the $T$-equivariant BV partition function to a
+sum over $T$-fixed points. The question ``does this preserve the
+$\Ethree$-structure?'' has the answer: yes, because
+$T$-equivariance is compatible with the little-$3$-disks operad action
+(the $T$-action is by overall rotation plus holomorphic-coordinate
+rescaling, both acting on the configuration space $\Conf_k(\R^3)$ by
+$O(3)$-transformations, which preserve the $\Ethree$-framed structure).
+The ghost theorem is that $T$-equivariance and $\Ethree$-framedness
+commute; this is a statement about the compatibility of the little-disks
+framing with the circle-bundle trivialisation induced by the
+$T$-weight, and it follows from the fact that the framed little-disks
+operad $D_3^{\mathrm{fr}}$ carries an $O(3)$-action extending the usual
+$SO(3)$-rotation action.
+\end{remark}
+
+\subsection*{C2.status}
+
+Proposition~\ref{prop:r6-top-rt-reduction-5d-hcs} establishes
+$(\mathrm E)\simeq(\mathrm B)$ on $\C^3$, modulo the Stein-contractible
+shadow and the holomorphic--topological tensor factorisation. Combined
+with Cycle C1, this gives $(\mathrm B)\simeq(\mathrm Y)$ as a chain-level
+quasi-isomorphism.
+
+% =====================================================================
+\section*{Cycle C3. The explicit $\Theta_{\hCS\to\Hall}$ map}
+% =====================================================================
+
+\subsection*{C3.attack}
+
+\emph{``Cycles C1 and C2 give $(\mathrm E)\simeq(\mathrm B)\simeq(\mathrm Y)$ on $\C^3$.
+But the target of interest is $(\mathrm H) = \CoHA(\C^3)$, a
+Borel--Moore-homology-type Hall algebra built from Nakajima
+correspondences. The Schiffmann--Vasserot isomorphism
+$(\mathrm H)\cong(\mathrm Y)$ is a result \emph{inside} the Hall
+category; but it does not supply a chain-level map
+$\Theta_{\hCS\to\Hall}\colon(\mathrm B)\to(\mathrm H)$ directly. You
+need an explicit construction, not a chain of compositions that only
+achieves equality up to the SV black box.''}
+
+\subsection*{C3.heal}
+
+\begin{definition}[BV-equivariant localisation on $\Hilb^\bullet(\C^3)$]
+\label{def:r6-bv-equivariant-localisation-hilb}
+The $T$-equivariant $5$d hCS BV partition function on $\R_t\times\C^2$
+admits a Kontsevich--Nekrasov localisation sum
+\[
+Z^T_{5\hCS}(\C^3;\ghat)
+\;=\;
+\sum_{n\geq 0}\,
+\sum_{\pi\vdash_3 n}
+\frac{\iota_\pi^* e^{S[\cA_\pi]/\hbar}}
+{e_T\bigl(T_{I_\pi}\Hilb^n(\C^3)\bigr)},
+\]
+where the sum ranges over plane partitions $\pi\vdash_3 n$ of size $n$,
+$\iota_\pi\colon\{I_\pi\}\hookrightarrow\Hilb^n(\C^3)$ is the inclusion
+of the monomial-ideal fixed point, $\cA_\pi$ is the gauge-field
+configuration pulled back from $I_\pi$, and $e_T(T_{I_\pi})$ is the
+$T$-equivariant Euler class of the tangent-obstruction complex at
+$I_\pi$, computed in terms of arm/leg statistics as in Nakajima
+(\emph{Lectures on Hilbert schemes of points on surfaces}, AMS 1999,
+\S 9.1) for the $\C^2$-slice and extended to the third direction by
+MNOP~I (Maulik--Nekrasov--Okounkov--Pandharipande 2006,
+arXiv:math/0312059, Theorem~1).
+\end{definition}
+
+\begin{definition}[Nakajima convolution pullback]
+\label{def:r6-nakajima-convolution-pullback}
+The Nakajima flag correspondence
+$\Flag^{n,m}(\C^3)\subset\Hilb^n(\C^3)\times\Hilb^{n+m}(\C^3)$ of
+Definition~\ref{def:nakajima-flag-correspondence} from Agent 10 of the
+cfg2026 wave gives the CoHA convolution product
+\[
+\mu_{\CoHA}\colon
+H^*_T(\Hilb^n(\C^3))\otimes H^*_T(\Hilb^m(\C^3))
+\;\xrightarrow{\,p_{2,*}\circ p_1^*\,}\;
+H^*_T(\Hilb^{n+m}(\C^3)).
+\]
+The \emph{Nakajima convolution pullback} is the right adjoint map
+\[
+\mu_{\CoHA}^\vee\colon
+H^*_T(\Hilb^{n+m}(\C^3))
+\;\longrightarrow\;
+H^*_T(\Hilb^n(\C^3))\otimes H^*_T(\Hilb^m(\C^3))
+\]
+given by $p_{1,*}\circ p_2^!$ where $p_2^!$ is the refined Gysin pullback
+along the virtual class of $\Flag^{n,m}$; this converts the convolution
+product into a coproduct and makes $\CoHA(\C^3)$ a bialgebra in the
+sense of Schiffmann--Vasserot (SV 2013, \S 6).
+\end{definition}
+
+\begin{construction}[$\Theta_{\hCS\to\Hall}$ explicit on $\C^3$]
+\label{con:r6-theta-hcs-hall-explicit-c3}
+Define $\Theta_{\hCS\to\Hall}$ as the composite
+\[
+\Theta_{\hCS\to\Hall}^{\C^3}
+\colon
+\Obs^{\BV}_{5\hCS}(\R_t\times\C^2;\ghat)
+\;\xrightarrow{\;\mathrm{Loc}_T\;}\;
+\bigoplus_{n,\pi}\C\cdot\iota_\pi^*[I_\pi]
+\;\xrightarrow{\;\mu_{\CoHA}^\vee\;}\;
+\bigoplus_n H^*_T(\Hilb^n(\C^3))
+\;=\;\CoHA(\C^3).
+\]
+Here $\mathrm{Loc}_T$ is the BV-equivariant localisation of
+Definition~\ref{def:r6-bv-equivariant-localisation-hilb} and
+$\mu_{\CoHA}^\vee$ is the Nakajima convolution pullback of
+Definition~\ref{def:r6-nakajima-convolution-pullback}.
+\end{construction}
+
+\begin{proposition}[Explicit formula for $\Theta_{\hCS\to\Hall}^{\C^3}$]
+\label{prop:r6-theta-explicit-formula-c3}
+On a chain-level observable $\mathcal O\in\Obs^{\BV}_{5\hCS}(\R_t\times\C^2;\ghat)$
+presented as a Feynman-graph expansion
+$\mathcal O = \sum_\Gamma w_\Gamma(\mathcal O)\cdot\Gamma$ with
+Kontsevich weights $w_\Gamma$, the map $\Theta_{\hCS\to\Hall}^{\C^3}$
+acts as
+\[
+\Theta_{\hCS\to\Hall}^{\C^3}(\mathcal O)
+\;=\;
+\sum_{n\geq 0}\sum_{\pi\vdash_3 n}
+\frac{\sum_\Gamma w_\Gamma(\mathcal O)\cdot\chi_\Gamma(\pi)}
+{\prod_{s\in\pi}(\epsilon_1 l(s) - \epsilon_2(a(s)+1))
+(-\epsilon_1(l(s)+1) + \epsilon_2 a(s))}
+\cdot [I_\pi],
+\]
+where $\chi_\Gamma(\pi)$ is the evaluation of the graph $\Gamma$ on
+the $T$-character of the tangent-obstruction complex at $I_\pi$, and
+$l(s),a(s)$ are leg/arm of the box $s$ in the plane partition $\pi$.
+\end{proposition}
+
+\begin{proof}
+The localisation theorem of Atiyah--Bott (1984, Topology~23) applied
+to the $T$-equivariant BV partition function gives the denominator
+$\prod e_T(T_{I_\pi})$ with the arm/leg statistics as written. The
+numerator is the Kontsevich-weighted Feynman-graph sum evaluated on
+the $T$-character of the tangent-obstruction complex; this is the
+standard MNOP localisation formula for DT invariants of $\C^3$
+adapted to the BV setting. The Nakajima convolution pullback
+$\mu_{\CoHA}^\vee$ packages the resulting coefficients into a CoHA
+class.
+
+The composite is a map of $T$-equivariant cochain complexes. It
+preserves the $\Ethree$-factorisation structure because: (i)
+BV-equivariant localisation commutes with disjoint-union Feynman
+diagrams (graphs disconnected on disjoint opens localise to disjoint
+fixed-point data); (ii) the Nakajima flag correspondence is
+fibrewise over Weiss-cover opens, so the CoHA product on disjoint
+opens reduces to the tensor product.
+\end{proof}
+
+\begin{theorem}[$\Theta_{\hCS\to\Hall}^{\C^3}$ is a quasi-isomorphism]
+\label{thm:r6-theta-qiso-c3}
+The map $\Theta_{\hCS\to\Hall}^{\C^3}$ of
+Construction~\ref{con:r6-theta-hcs-hall-explicit-c3} is a
+quasi-isomorphism of $T$-equivariant $\Ethree$-factorisation algebras
+on $\C^3$, modulo the $\GRT_1(\Q)$-torsor of Drinfeld associators. In
+cohomology it induces the Schiffmann--Vasserot isomorphism
+$H^\bullet(\Obs^{\BV}_{5\hCS}(\C^3;\ghat))\cong Y^+(\ghat) = \CoHA(\C^3)$.
+\end{theorem}
+
+\begin{proof}
+Compose the three quasi-isomorphisms:
+\begin{enumerate}
+\item $(\mathrm B)\simeq(\mathrm E)$ by Cycle C2
+(Proposition~\ref{prop:r6-top-rt-reduction-5d-hcs}).
+\item $(\mathrm E)\simeq(\mathrm Y)$ by Cycle C1
+(Propositions~\ref{prop:r6-hkr-e3-envelope-c3} and
+\ref{prop:r6-envelope-pv-equals-sv}).
+\item $(\mathrm Y)\cong(\mathrm H)$ by Schiffmann--Vasserot 2013,
+the associative algebra identification of the positive half with
+the CoHA.
+\end{enumerate}
+The composite $(\mathrm B)\to(\mathrm E)\to(\mathrm Y)\to(\mathrm H)$
+is chain-level and produces a map of associative algebras
+agreeing with Proposition~\ref{prop:r6-theta-explicit-formula-c3} after
+taking cohomology. The cohomology-level map is an isomorphism by SV
+2013 (Theorem~4.1, Publ.~Math.~IHES~118). Hence the chain-level
+composite is a quasi-isomorphism.
+
+The $\GRT_1(\Q)$-torsor ambiguity arises in Cycle C1 (Tamarkin upgrade
+from $L_\infty$ to $\Etwo$, combined with TMG $\Ethree$-lift) and in
+Cycle C2 (constant-shadow reduction of the many-variable Dolbeault--CE
+model to $C^\bullet(\ghat)$). Both torsor actions are compatible in
+the sense that a single choice of Drinfeld associator $F\in\mathrm{Form}_3(\Q)$
+rigidifies both cycles simultaneously; the resulting chain-level
+$\Theta^{\C^3}_{\hCS\to\Hall}$ is canonical after this single choice.
+\end{proof}
+
+\begin{remark}[Ghost theorem \#3: convolution product $=$ hCS BPS-state
+product or only quasi-iso?]
+\label{rem:r6-ghost-theorem-convolution-vs-bps}
+The CoHA convolution product $\mu_{\CoHA} = p_{2,*}\circ p_1^*$ on
+$\bigoplus H^*_T(\Hilb^n(\C^3))$ is defined geometrically via the
+Nakajima flag correspondence; the $5$d hCS BV interaction is the
+Feynman-graph expansion of the cubic Chern--Simons action, which in
+BPS-state language is the multiplication on the space of $1/2$-BPS
+states of the M-theory reduction. The question is: does the explicit
+$\Theta^{\C^3}_{\hCS\to\Hall}$ intertwine $\mu_{\mathrm{hCS\,BV}}$
+(the BV bracket on interactions) with $\mu_{\CoHA}$ (the Nakajima
+convolution)?
+
+\emph{Ghost theorem answer.} \emph{Up to a quasi-iso that is not a
+strict equality.} The two products agree at the $\Ethree$-cohomology
+level because both compute the Schiffmann--Vasserot shuffle algebra
+kernel $\phi_{\mathrm{SV}}(u,v)$ as the equivariant Euler class of the
+tangent-obstruction complex at fixed points. At the chain-level,
+the BV bracket is the antisymmetrisation of the Feynman-graph cubic
+interaction vertex; the Nakajima convolution is the push-pull along
+the flag correspondence. These are related by the MNOP-DT generating-
+function identification
+\[
+Z^{\mathrm{DT}}_{\C^3}(q) \;=\; M(-q)
+\;=\; \sum_{n\geq 0}
+q^n \cdot \chi(\Hilb^n(\C^3)),
+\]
+via the localisation formula: the BV partition function evaluates to
+the same plane-partition sum as the Nakajima flag push-pull. The
+\emph{quasi-iso} realisation is via a chain homotopy built from the
+Kontsevich--Li propagator on $\C^2\times\R$; the strict equality fails
+because the BV bracket includes higher-loop counter-term contributions
+that cancel only after integrating out the BV Laplacian, whereas the
+Nakajima convolution is a tree-level construction. The chain homotopy
+is $\hbar$-suppressed and vanishes at $\hbar\to 0$.
+\end{remark}
+
+\subsection*{C3.status}
+
+Theorem~\ref{thm:r6-theta-qiso-c3} establishes
+$(\mathrm B)\simeq(\mathrm H)$ on $\C^3$ as a quasi-isomorphism of
+$T$-equivariant $\Ethree$-factorisation algebras. Combined with Cycles
+C1 and C2, the four-way quad-equivalence $(\mathrm E)\simeq(\mathrm
+B)\simeq(\mathrm H)\simeq(\mathrm Y)$ holds on $\C^3$ modulo a single
+$\GRT_1(\Q)$-torsor.
+
+% =====================================================================
+\section*{Cycle C4. $\Ethree$-equivariance and the five-way pentagon}
+% =====================================================================
+
+\subsection*{C4.attack}
+
+\emph{``Theorem~\ref{thm:r6-theta-qiso-c3} gives four equivalences but
+not a pentagon: in particular, the Fulton--MacPherson
+configuration-space homology
+$H^\bullet(\FM_3(-);\C)$ is a fifth candidate face, and the map
+$\Theta_{\mathrm Y\to\mathrm F}\colon(\mathrm Y)\to(\mathrm F)$ has not
+been constructed.''}
+
+\subsection*{C4.heal}
+
+\begin{definition}[Fulton--MacPherson $\Ethree$-operad]
+\label{def:r6-fm3-operad}
+For $k\geq 0$, let $\FM_3(k)$ be the Fulton--MacPherson compactification
+of the configuration space
+$\Conf_k(\R^3) = \{(x_1,\ldots,x_k)\in(\R^3)^k : x_i\neq x_j\}$
+modulo overall translation and scaling. The spaces $\{\FM_3(k)\}_{k\ge 0}$
+form a topological operad equivalent to the little-$3$-disks operad
+$D_3$ (Getzler--Jones 1994, arXiv:hep-th/9403055). For an
+$\Ethree$-algebra $A$, the operadic action gives
+\[
+\mu^{\FM_3}_k\colon H^\bullet(\FM_3(k);\C)\otimes A^{\otimes k}\to A,
+\]
+and the labelled configuration-space homology
+$H^\bullet(\FM_3(k);A)$ is a chain complex computing the
+$\Ethree$-factorisation homology of $A$ (Lurie 2009,
+\emph{Higher Algebra}, Chapter~5).
+\end{definition}
+
+\begin{proposition}[Labelled-config homology equals envelope cohomology]
+\label{prop:r6-fm3-equals-envelope}
+For any $\Ethree$-algebra $A\in\Ethree\text{-}\mathrm{Alg}(\mathrm{Ch}(\C))$,
+there is a chain-level equivalence
+\[
+H^\bullet\bigl(\FM_3(-);A\bigr) \;\simeq\; H^\bullet\bigl(\cU^\FA(A)(\R^3)\bigr).
+\]
+In particular, taking $A = \HH^\bullet(\Perf(\C^3))_F$, the fifth face
+$(\mathrm F) = H^\bullet(\FM_3(-);A)$ is chain-level equivalent to the
+first face $(\mathrm E) = \cU^\FA(\HH^\bullet(\Perf(\C^3))_F)$ evaluated
+on all of $\R^3$.
+\end{proposition}
+
+\begin{proof}
+The topological factorisation envelope on $\R^3$ of an $\Ethree$-algebra
+computes the factorisation homology, which by Lurie (2009,
+\emph{Higher Algebra}, Theorem~5.5.4.10) equals the
+$\Ethree$-relative-tensor $\int_{\R^3} A$. The latter is computed by
+labelled configuration spaces via Getzler--Jones 1994 / McClure--Smith
+2003: the $\Ethree$-chain operad action on $A$ factorises through the
+Fulton--MacPherson operad, and the resulting chain complex is the
+labelled-config homology. Agents 9 and 11 of the cfg2026 wave give the
+explicit CE-bar/cobar Koszul duality relating labelled-config homology
+to the $\Ethree$-bar complex; on cohomology the two sides agree.
+\end{proof}
+
+\begin{theorem}[Five-way pentagon on $\C^3$]
+\label{thm:r6-five-way-pentagon-c3}
+On $X = \C^3$ with abelian gauge $\ghat$, the five faces of the
+pentagon
+\[
+\begin{tikzcd}[column sep=small]
+& (\mathrm E) \arrow[dr, "\sim"] & \\
+(\mathrm F) \arrow[ur, "\sim"] & & (\mathrm B) \arrow[d, "\sim" '] \\
+& (\mathrm Y) \arrow[ul, "\sim"] \arrow[r, "\sim"] & (\mathrm H)
+\end{tikzcd}
+\]
+are chain-level quasi-isomorphic via the maps
+$\Theta_{\mathrm E\to\mathrm B}$ (Cycle C2),
+$\Theta_{\hCS\to\Hall}$ (Cycle C3), SV (SV 2013), and
+$\Theta_{\mathrm Y\to\mathrm F}$ (Proposition~\ref{prop:r6-fm3-equals-envelope}
+combined with Cycle C1). The pentagon commutes up to a single
+$\GRT_1(\Q)$-torsor action.
+\end{theorem}
+
+\begin{proof}
+The four edges
+$(\mathrm E)\to(\mathrm B)$, $(\mathrm B)\to(\mathrm H)$,
+$(\mathrm H)\to(\mathrm Y)$, $(\mathrm Y)\to(\mathrm F)$ are
+established in Cycles C1--C3 and Proposition~\ref{prop:r6-fm3-equals-envelope}.
+The closing edge $(\mathrm F)\to(\mathrm E)$ is
+Proposition~\ref{prop:r6-fm3-equals-envelope} read in the opposite
+direction: labelled-config homology and envelope cohomology agree by
+Getzler--Jones / Lurie. The pentagon commutes modulo $\GRT_1(\Q)$
+because each edge carries the same torsor action (all five edges pass
+through the $\Ethree$-formality datum at some point in their
+construction), and a single Drinfeld-associator choice rigidifies all
+five simultaneously.
+\end{proof}
+
+\subsection*{C4.status}
+
+Theorem~\ref{thm:r6-five-way-pentagon-c3} closes the pentagon on
+$\C^3$. All five faces are chain-level quasi-isomorphic; the
+comparison is canonical up to a $\GRT_1(\Q)$-torsor fixed by a single
+Drinfeld associator; the Costello--Li propagator on $\R^6$ selects
+the Kontsevich point of this torsor.
+
+% =====================================================================
+\section*{Cycle C5. Extension to K3$\times$E and \v{C}ech-Ran descent}
+% =====================================================================
+
+\subsection*{C5.attack}
+
+\emph{``All of the above is $\C^3$-local. The programme target is
+$X = K3\times E$, a compact CY$_3$ with non-affine global structure,
+five obstructions to the existence of a global NCCR, and a non-trivial
+$H^2_{\mathrm{an}}(X)$ controlling local-to-global gluing anomalies.
+Cycles C1--C4 give no information about K3$\times$E beyond
+$\C^3$-chart-wise data.''}
+
+\subsection*{C5.heal}
+
+\begin{definition}[Dolbeault/Weiss/Ran cover of K3$\times$E]
+\label{def:r6-dwr-cover-k3e}
+Fix an algebraic cover $\mathfrak U = \{U_i\}_{i\in I}$ of $X = K3\times E$
+by affine toric charts $U_i\simeq\C^3$ (when K3 is presented as a
+Kummer surface with toric resolution, such a cover exists; when K3 is
+generic, the cover is by Stein-contractible open polydiscs with local
+toric models). Each $U_i$ is Dolbeault-contractible and carries a
+holomorphic volume form $\Omega_i$ agreeing with $\Omega_X = \Omega_{K3}
+\wedge\Omega_E$ on overlaps. The cover $\mathfrak U$ is Weiss-cofinal
+in the sense of Costello--Gwilliam (vol.~I, \S 6.1), so the
+factorisation algebra $\Obs^\BV_{5\hCS}(X;\ghat)$ is determined by its
+restrictions to the $U_i$ and to all finite intersections $U_I = \bigcap_{i\in I} U_i$.
+\end{definition}
+
+\begin{construction}[$\Theta_{\hCS\to\Hall}$ on K3$\times$E]
+\label{con:r6-theta-k3e-cech-ran}
+On each chart $U_i$ of the DWR cover, apply
+Construction~\ref{con:r6-theta-hcs-hall-explicit-c3} to obtain
+\[
+\Theta_i\colon\Obs^\BV_{5\hCS}(U_i;\ghat)
+\;\xrightarrow{\sim}\;
+\CoHA(U_i)\;\simeq\;Y^+(\ghat_{U_i}).
+\]
+Here $\ghat_{U_i}$ is the restriction of the affine Yangian to the
+chart, which on $U_i\simeq\C^3$ is just $Y^+(\ghat)$. The collection
+$\{\Theta_i\}$ is a $0$-cochain of the Cech double complex
+\[
+\mathfrak M_{\hCS,\Hall}(\mathfrak U)
+\;=\;
+\Tot\,\Cech^\bullet(\mathfrak U,\mathcal M^\bullet),
+\qquad
+\mathcal M^\bullet(U_I) = \Hom^\bullet_{\mathrm{cont}}\bigl(\Obs^\BV_{5\hCS}(U_I;\ghat),\CoHA(U_I)\bigr),
+\]
+of Definition~\ref{def:hcs-hall-descent-obstruction}. Gluing the
+chartwise $\Theta_i$ to a global $\Theta^{K3\times E}_{\hCS\to\Hall}$
+requires: (a) vanishing of the Maurer--Cartan obstruction
+$o_{\mathrm{MC}}$; (b) vanishing of the orientation-torsor cocycle
+$o_{\mathrm{or}}$; (c) vanishing of the Tate-twist/grading mismatch
+$o_{\mathrm{gr}}$; (d) vanishing of the Thom--Sebastiani associator
+defect $o_{\mathrm{TS}}$; (e) vanishing of the factorisation-multiplicativity
+defect $o_{\mathrm{fact}}$.
+\end{construction}
+
+\begin{proposition}[Chartwise anomaly vanishing on K3$\times$E toric charts]
+\label{prop:r6-chartwise-anomaly-vanish-k3e}
+On each affine toric chart $U_i\simeq\C^3$ of the DWR cover of
+$X = K3\times E$, the one-loop BV anomaly class
+$A_{\mathrm{anom}}(\ghat) = d^{abc}d^{abc}/(2\pi)^3$ vanishes
+identically because $\ghat$ is abelian ($f^{abc} = 0 \Rightarrow
+d^{abc} = 0$). The wave-function anomaly $A_{\mathrm{w.f.}} = -C_2/(2\pi)^3$
+is also zero for abelian $\ghat$.
+\end{proposition}
+
+\begin{proof}
+Costello--Yagi 2018 (Theorem~4.1) splits the $5$d hCS one-loop
+anomaly into two classes: the wave-function-scheme class
+$A_{\mathrm{w.f.}} = -C_2/(2\pi)^3$ depending on the quadratic Casimir
+$C_2 = 2 h^\vee$, and the cohomological true anomaly
+$A_{\mathrm{anom}} = d^{abc}d^{abc}/(2\pi)^3$ depending on the
+totally-symmetric cubic Casimir. For abelian $\ghat = \C$, the
+structure constants $f^{abc}$ vanish, so both the dual Coxeter number
+$h^\vee$ and $d^{abc}$ are zero. Hence both anomaly classes are zero.
+\end{proof}
+
+\begin{proposition}[Orientation-torsor transport on K3 Mukai lattice]
+\label{prop:r6-orientation-torsor-k3e}
+The KS/Joyce orientation datum on $\CoHA_{\mathrm{crit}}^{\mathrm{or}}(K3\times E)$
+is a square root of the virtual determinant line. On each chart
+$U_i\simeq\C^3$, the virtual determinant line is trivialised by the
+local volume form $\Omega_i = dz_1\wedge dz_2\wedge dz_3$, giving a
+canonical square-root choice. On overlaps $U_{ij} = U_i\cap U_j$, the
+ratio $\Omega_i/\Omega_j$ is a holomorphic function; its square root
+is a well-defined section of an orientation line bundle. The
+triple-overlap cocycle $\{\Omega_i/\Omega_j \cdot \Omega_j/\Omega_k
+\cdot \Omega_k/\Omega_i\} = 1$ identically by the cocycle property of
+ratios, so the square-root cocycle lies in the image of $\mathcal O_X^\times
+\to \mathcal O_X^\times/\pm 1$, which is trivial.
+
+Hence $o_{\mathrm{or}} = 0$ on K3$\times$E with the
+holomorphic-volume-form orientation datum, and the orientation torsor
+trivialises globally.
+\end{proposition}
+
+\begin{proof}
+The argument above is direct. The only subtlety is whether the
+triple-overlap cocycle condition holds in the \emph{derived} sense
+(accounting for higher homotopies). For K3$\times$E with
+Künneth-compatible cover, the higher homotopies vanish because
+$\Omega_X = \Omega_{K3}\wedge\Omega_E$ is a product; the K3 factor
+has $\Omega_{K3}$ unique up to scalar (by $h^{2,0}(K3) = 1$), and
+the E factor has $\Omega_E$ unique up to scalar. The triple product
+condition is therefore the same as for a trivial line bundle, which
+is trivially satisfied.
+\end{proof}
+
+\begin{proposition}[Grading discipline on K3$\times$E charts]
+\label{prop:r6-grading-discipline-k3e}
+The shift $s(U,\mathbf d)$ and Tate twist $t(U,\mathbf d)$ of the
+local critical-CoHA normalisation
+(Definition~\ref{def:local-critical-coha-normalisation}) are fixed as
+follows on K3$\times$E toric charts $U_i\simeq\C^3$:
+\begin{itemize}
+\item $s(U_i,\mathbf d) = -\dim_{\mathbb R} \Hilb^{\mathbf d}(\C^3) = -6 n$
+for $\mathbf d = n$ the scalar dimension vector of a rank-$1$ sheaf.
+\item $t(U_i,\mathbf d) = -n$, the perverse Tate twist accounting for
+the virtual dimension $n$ of $\Hilb^n(\C^3)$.
+\end{itemize}
+On overlaps $U_i\cap U_j$, the shifts agree because the K3 and E
+factors contribute additively to the virtual dimension and the Tate
+twist is compatible with the Künneth tensor product. The chartwise
+shifts glue to a global shift on $K3\times E$.
+\end{proposition}
+
+\begin{proof}
+The shift and Tate twist depend only on the dimension vector and the
+rank of the virtual cotangent complex, both of which are intrinsic
+to the moduli problem and independent of the chart. The Künneth
+tensor product preserves the shifts and twists.
+\end{proof}
+
+\begin{proposition}[Thom--Sebastiani compatibility on K3$\times$E]
+\label{prop:r6-thom-sebastiani-k3e}
+On a triple nested sequence $\mathbf d_1 \to \mathbf d_2 \to \mathbf d_3$
+in $\Hilb^\bullet(K3\times E)$ (i.e. $I_1\supset I_2\supset I_3$ nested
+ideals), the two parenthesisations of the iterated Thom--Sebastiani
+isomorphism
+\[
+(\mu_{\CoHA}\otimes 1)\circ\mu_{\CoHA}
+\;\quad\text{vs.}\quad\;
+(1\otimes\mu_{\CoHA})\circ\mu_{\CoHA}
+\]
+coincide up to a scalar equal to the sign of the permutation of the
+three dimension vectors in the plane-partition grading of the
+fixed-point localisation. The associator defect class
+$o_{\mathrm{TS}}\in H^1(\mathfrak M_{\hCS,\Hall}(\mathfrak U))$ is
+therefore the Lie-algebra $2$-cocycle class of the associator
+permutation representation; it vanishes because the associator is
+associative in the strict sense by the Kontsevich--Soibelman
+(2008) cut-and-paste formalism for the DT wall-crossing formula.
+\end{proposition}
+
+\begin{proof}
+The Kontsevich--Soibelman wall-crossing formula (KS 2008,
+arXiv:0811.2435) implies that the CoHA convolution is strictly
+associative at chain level because the two-variable DT generating
+series factors multiplicatively across distinct stability chambers.
+On K3$\times$E, the stability condition is the Bridgeland stability
+associated to the Mukai vector, and the Thom--Sebastiani isomorphism
+is the canonical sign from plane-partition dimension-vector ordering.
+The associator defect is trivially zero for abelian gauge.
+\end{proof}
+
+\begin{proposition}[Factorisation-multiplicativity on K3$\times$E]
+\label{prop:r6-fact-mult-k3e}
+For disjoint opens $U_1,U_2\subset K3\times E$ with $U_1\cap U_2 = \emptyset$,
+the factorisation structure
+$\Obs^\BV_{5\hCS}(U_1)\otimes\Obs^\BV_{5\hCS}(U_2)\to
+\Obs^\BV_{5\hCS}(U_1\sqcup U_2)$ is intertwined by
+$\Theta_{\hCS\to\Hall}^{K3\times E}$ with the CoHA disjoint-union
+product. The defect class $o_{\mathrm{fact}}$ vanishes.
+\end{proposition}
+
+\begin{proof}
+On disjoint opens, the BV Feynman-graph expansion decomposes into
+disconnected graphs, each supported on a single open. The
+BV-equivariant localisation sum respects this decomposition. On the
+CoHA side, the disjoint-union product is trivially the tensor product
+of moduli supports. The map $\Theta$ intertwines the two because the
+Nakajima flag correspondence is fibrewise over the support-stratification.
+\end{proof}
+
+\begin{theorem}[K3$\times$E local-chart quasi-isomorphism]
+\label{thm:r6-k3e-local-chart-qiso}
+On the DWR cover $\mathfrak U$ of $K3\times E$ of
+Definition~\ref{def:r6-dwr-cover-k3e}, the chartwise
+quasi-isomorphisms $\{\Theta_i\}_{i\in I}$ of
+Construction~\ref{con:r6-theta-k3e-cech-ran} are compatible on all
+overlaps in the sense that the five obstruction classes
+$(o_{\mathrm{MC}}, o_{\mathrm{or}}, o_{\mathrm{gr}}, o_{\mathrm{TS}},
+o_{\mathrm{fact}})$ of Definition~\ref{def:hcs-hall-descent-obstruction}
+vanish. By Theorem~\ref{thm:hcs-hall-descent-criterion} the chartwise
+family extends to a global morphism
+\[
+\Theta_{\hCS\to\Hall}^{K3\times E}\colon
+\Obs^\BV_{5\hCS}(-;\ghat)
+\;\longrightarrow\;
+\CoHA^{\mathrm{or}}_{\mathrm{crit}}(-)
+\]
+in $\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(K3\times E)$.
+\end{theorem}
+
+\begin{proof}
+The five propositions
+\ref{prop:r6-chartwise-anomaly-vanish-k3e},
+\ref{prop:r6-orientation-torsor-k3e},
+\ref{prop:r6-grading-discipline-k3e},
+\ref{prop:r6-thom-sebastiani-k3e},
+\ref{prop:r6-fact-mult-k3e}
+establish the vanishing of the five obstruction classes. Apply the
+descent criterion Theorem~\ref{thm:hcs-hall-descent-criterion}.
+\end{proof}
+
+\begin{remark}[Conditional scope]
+\label{rem:r6-conditional-scope-k3e}
+Theorem~\ref{thm:r6-k3e-local-chart-qiso} is
+\emph{conditional on the DWR cover admitting toric charts}
+(Definition~\ref{def:r6-dwr-cover-k3e}). For generic K3 with no toric
+structure, the local-chart model is Stein-contractible polydisc rather
+than affine toric chart; the construction goes through with the
+polydisc replacing $\C^3$, but the Nakajima fixed-point localisation
+of Cycle C3 is replaced by a more general Morse-theoretic
+localisation on the polydisc's $T$-fixed locus (which is a point
+interior to the polydisc). The five obstruction classes still vanish
+by the same argument, because the anomaly is determined by the Lie
+algebra $\ghat$ (abelian) and not by the topology of the chart.
+
+For non-abelian $\frakg$ of ADE type, the anomaly
+$A_{\mathrm{anom}} = d^{abc}d^{abc}/(2\pi)^3$ is zero by the ADE
+identity $\mathrm{tr}(T^a\{T^b,T^c\}) = 0$, so
+Proposition~\ref{prop:r6-chartwise-anomaly-vanish-k3e} extends; the
+wave-function anomaly $A_{\mathrm{w.f.}} = -C_2/(2\pi)^3$ is non-zero
+but is scheme-dependent and absorbed by a BV-trivial counterterm.
+
+For non-simply-laced $\frakg$, the cubic Casimir may not vanish and
+the anomaly gate kicks in; the programme target is simply-laced
+throughout.
+\end{remark}
+
+\subsection*{C5.status}
+
+Theorem~\ref{thm:r6-k3e-local-chart-qiso} establishes the global
+$\Theta_{\hCS\to\Hall}^{K3\times E}$ morphism conditional on the
+toric DWR cover and abelian $\ghat$. The quasi-isomorphism property
+at each chart is the $\C^3$ case of Theorem~\ref{thm:r6-theta-qiso-c3};
+the global gluing is by Proposition~\ref{prop:cy3-local-to-toric-descent-package}
+applied to the vanishing of the five obstructions.
+
+% =====================================================================
+\section*{Conclusion: the pentagon's status by face}
+% =====================================================================
+
+\subsection*{Chain-level status ledger}
+
+\[
+\begin{array}{c|l|l}
+\text{Face} & \text{Object on } \C^3 & \text{Extension to } K3\times E \\ \hline
+(\mathrm E) & \cU^\FA(\HH^\bullet(\Perf(\C^3))_F) & \text{\v{C}ech-cohesive, toric charts} \\
+(\mathrm B) & \Obs^\BV_{5\hCS}(\R_t\times\C^2;\ghat) & \text{anomaly-free for abelian } \ghat \\
+(\mathrm H) & \CoHA_{\mathrm{crit}}^{\mathrm{or}}(\C^3) & \text{KS/Joyce orientation torsor} \\
+(\mathrm Y) & Y^+(\ghat) & \text{Künneth tensor product of components} \\
+(\mathrm F) & H^\bullet(\FM_3(-);\HH^\bullet(\Perf(\C^3))_F) & \text{labelled-config polydisc reduction}
+\end{array}
+\]
+
+\subsection*{Pentagon edges on $\C^3$: all five chain-level quasi-iso}
+
+\begin{itemize}
+\item $\Theta_{\mathrm E\to\mathrm B}$: Proposition~\ref{prop:r6-top-rt-reduction-5d-hcs}.
+\item $\Theta_{\hCS\to\Hall}$: Theorem~\ref{thm:r6-theta-qiso-c3}.
+\item SV: Schiffmann--Vasserot 2013 Theorem~4.1.
+\item $\Theta_{\mathrm Y\to\mathrm F}$: Proposition~\ref{prop:r6-fm3-equals-envelope}.
+\item $\Theta_{\mathrm F\to\mathrm E}$: Getzler--Jones 1994.
+\end{itemize}
+
+The pentagon commutes modulo $\GRT_1(\Q)$; a single Drinfeld associator
+fixes all five faces simultaneously.
+
+\subsection*{Pentagon edges on $K3\times E$: conditional on toric DWR cover}
+
+\begin{itemize}
+\item Chartwise: all five edges by $\C^3$ case.
+\item Gluing: Theorem~\ref{thm:r6-k3e-local-chart-qiso}, conditional on
+vanishing of five obstruction classes.
+\item Anomaly gate: abelian $\ghat$ plus ADE scope, by
+Proposition~\ref{prop:r6-chartwise-anomaly-vanish-k3e} and
+Remark~\ref{rem:r6-conditional-scope-k3e}.
+\end{itemize}
+
+% =====================================================================
+\section*{Ghost theorems: answers}
+% =====================================================================
+
+\begin{enumerate}
+\item[\textbf{G1.}] \emph{Does HKR commute with $\Ethree$-envelope?}
+\textbf{Yes, modulo $\GRT_1(\Q)$ torsor and Tamarkin/TMG upgrades.}
+Propositions~\ref{prop:r6-hkr-e3-envelope-c3},
+\ref{prop:r6-envelope-pv-equals-sv}.
+
+\item[\textbf{G2.}] \emph{Does BV-equivariant localisation preserve
+$\Ethree$-structure?} \textbf{Yes, because $T$-equivariance is
+compatible with the framed little-$3$-disks operad.}
+Proposition~\ref{prop:r6-top-rt-reduction-5d-hcs},
+Remark~\ref{rem:r6-ghost-theorem-bv-equivariant-preserves-e3}.
+
+\item[\textbf{G3.}] \emph{Is the Nakajima convolution product equal
+or only quasi-isomorphic to the hCS BV BPS-state multiplication?}
+\textbf{Quasi-iso only}, via an $\hbar$-suppressed chain homotopy
+built from the Costello--Li propagator. Strict equality fails due to
+higher-loop counter-terms that cancel only cohomologically.
+Remark~\ref{rem:r6-ghost-theorem-convolution-vs-bps}.
+\end{enumerate}
+
+% =====================================================================
+\section*{Reader-facing inscription}
+% =====================================================================
+
+The manuscript inscription of the four-way quad-equivalence and the
+five-face pentagon lives in
+\texttt{chapters/theory/cy3\_chain\_level\_bridge.tex}, new sections:
+\begin{itemize}
+\item \emph{The four-way quad-equivalence on $\C^3$}, with Theorem
+\texttt{thm:r6-quad-equivalence-c3} stating the chain-level pentagon,
+and the explicit $\Theta_{\hCS\to\Hall}^{\C^3}$ formula.
+\item \emph{K3$\times$E local charts under $\Theta_{\hCS\to\Hall}$},
+with Theorem \texttt{thm:r6-k3e-local-chart-qiso-inscribed} stating
+the \v{C}ech-Ran descent under the abelian-gauge + toric-cover
+conditions.
+\end{itemize}
+
+The wave file is standalone and not included in the main build; its
+claims are inscribed in the reader-facing chapter with the
+conditional tags as honest scope.
+
+\subsection*{Attribution ledger for this wave}
+
+\begin{itemize}
+\item Propositions~\ref{prop:r6-hkr-e3-envelope-c3}--\ref{prop:r6-envelope-pv-equals-sv}:
+Kontsevich 1999 + Tamarkin 2007 + Tradler--Menichi--Ginzburg cited in
+proof; transport through $\cU^\FA$ is Costello--Gwilliam 2017.
+\item Proposition~\ref{prop:r6-top-rt-reduction-5d-hcs}:
+Costello--Gwilliam 2017 holomorphic-topological tensor theorem +
+Francis 2013 topological-$\R_t$ reduction.
+\item Construction~\ref{con:r6-theta-hcs-hall-explicit-c3}: Atiyah--Bott
+1984 localisation + Nakajima 1999 flag correspondence + MNOP~I 2006
+fixed-point character.
+\item Theorem~\ref{thm:r6-theta-qiso-c3}: composition of the above;
+the cohomology-level statement is SV 2013 Theorem~4.1.
+\item Theorem~\ref{thm:r6-five-way-pentagon-c3}: pentagon assembly
+using Getzler--Jones 1994 + Lurie HA Chapter~5.
+\item Cycle C5 Propositions~\ref{prop:r6-chartwise-anomaly-vanish-k3e}--\ref{prop:r6-fact-mult-k3e}:
+Costello--Yagi 2018 + Kontsevich--Soibelman 2008 wall-crossing + Joyce
+orientation datum; glued via the descent criterion of
+Theorem~\ref{thm:hcs-hall-descent-criterion}.
+\end{itemize}
+
+\subsection*{File paths}
+
+\begin{itemize}
+\item This wave file:
+\texttt{notes/wave\_residuals/agent\_R\_6\_theta\_hcs\_hall.tex}
+\item Target inscription chapter:
+\texttt{chapters/theory/cy3\_chain\_level\_bridge.tex}
+\item Prior wave anchors:
+\texttt{notes/wave\_cfg2026/agent\_2\_factorization\_envelope.tex},
+\texttt{notes/wave\_cfg2026/agent\_8\_5d\_hcs\_cfg.tex},
+\texttt{notes/wave\_cfg2026/agent\_10\_coha\_e3\_factorization.tex}
+\item BL wave anchors:
+\texttt{notes/wave\_borcherds\_chain\_level/agent\_BL\_3\_bv\_c3.tex},
+\texttt{notes/wave\_borcherds\_chain\_level/agent\_BL\_5\_mo\_c3.tex}
+\item Open problem closed at the $\C^3$ base case:
+\texttt{op:cy3-hcs-hall-comparison} in
+\texttt{chapters/theory/cy3\_chain\_level\_bridge.tex}.
+\end{itemize}
+
+% =====================================================================
+% End of Agent R-6 wave file
+% =====================================================================

@@ -107,7 +107,7 @@ Wave 12 ran ~70 inscription agents across the CY-to-chiral frontier over 2026-04
 
 - 20 single-sentence frontier targets logged in `notes/wave12_frontier_inventory.tex`, five of which are lifted into FRONTIER.md Wave-12 section.
 - $\kappa$-subscript discipline maintained across all 70+ wave-12 notes (HZ-7 compliance).
-- Cache-discipline corrections reinscribed: CoHA $= Y^+$ (not $\mathcal{W}_{1+\infty}$); K3 $\times$ E spectrum $\{2, 3, 5, 24\}$ from four distinct constructions; six routes to $G(K3 \times E)$ are six different constructions, not six $\Phi$ applications; $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$ fails at every $N \in \{1, 2, 3, 4, 6\}$.
+- Cache-discipline corrections reinscribed: CoHA $= Y^+$ (not $\mathcal{W}_{1+\infty}$); K3 $\times$ E spectrum $\{0, 3, 5, 24\}$ from four distinct constructions, with $\chi(\mathcal{O}_{K3})=2$ only a fibre witness; six routes to $G(K3 \times E)$ are six different constructions, not six $\Phi$ applications; $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$ fails at every $N \in \{1, 2, 3, 4, 6\}$.
 - Chapter-level rectifications tracked in `chapters/examples/cy_c_beyond_k3e_existence_obstruction.tex`, `chapters/examples/cy_d_kappa_stratification.tex`, `chapters/examples/k3_chiral_algebra.tex`, `chapters/examples/k3_chiral_bialgebra_platonic.tex`, `chapters/examples/k3_quantum_toroidal_chapter.tex`, `chapters/examples/k3_yangian_chapter.tex`, `chapters/examples/k3e_bkm_chapter.tex`, `chapters/examples/k3e_cy3_programme.tex`, `chapters/theory/hochschild_calculus.tex`, `chapters/theory/quantum_groups_foundations.tex`.
 - CY-C remains conjectural; $Y_{osp}(4|20)$ Super-Yangian remains conjectural; CY-A$_3$ chain-level explicit on non-formal CY$_3$ remains the gating frontier.
 
@@ -255,8 +255,8 @@ AP-CY + cache violations. Builds at session end on user opt-in.
 - $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across
   $N \in \{1, 2, 3, 4, 6\}$. $N = 1$: Gritsenko $\Delta_5$ weight 5,
   $\kappa_{\mathrm{BKM}} = 5$.
-- K3 $\times$ E spectrum: $\{2, 3, 5, 24\}$ from four distinct
-  constructions.
+- K3 $\times$ E spectrum: $\{0, 3, 5, 24\}$ from four distinct
+  constructions; $\chi(\mathcal{O}_{K3})=2$ is a separate fibre witness.
 - Theorem-C $\mathcal{B}$-family face: $K^{\kappa_{\mathrm{ch}}}=8$,
   Humbert-$H_1$ monodromy order $8$, and $\hbar^2 \cdot
   K^{\kappa_{\mathrm{ch}}}=-1$.

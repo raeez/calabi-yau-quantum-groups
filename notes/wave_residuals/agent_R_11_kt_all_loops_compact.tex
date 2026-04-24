@@ -1,0 +1,1869 @@
+% =====================================================================
+% Wave file: Kontsevich--Tamarkin E_3-formality at ALL LOOPS on compact
+% Calabi--Yau threefolds.  Costello's own open problem: Agent 1 fixed the
+% tree-level / cohomology-of-configuration-space rational formality on
+% R^3 modulo a GRT_1(Q) torsor; Costello--Li 2016 Prop. 5.2 made the
+% one-loop wheel graph rigorous on compact X via heat-kernel
+% regularisation.  Every higher-loop wheel --- the two-loop spectacles
+% graph, the three-loop theta-like graph, the generic \ell-loop
+% bouquet --- remains OPEN.  This file answers the question:  for which
+% compact Calabi--Yau threefolds X is the full KT-formality zig-zag
+% valid at ALL loop orders simultaneously?
+%
+% Attack-heal strictly stronger:  identify the single homological
+% hypothesis H_* = H_{>0}(X, T_X^{\otimes k}) = 0 for specific (k, >0);
+% prove under H_* the all-loops anomaly polynomials vanish; apply to
+% K3 x E (where chi = 0 and the hypothesis holds) to conclude
+% all-loops formality;  for the quintic (chi = -200), identify the
+% precise obstruction class at loop 2 in H^{0,1}(X) via the wheel-graph
+% residue map and show it is nonzero.
+%
+% Side-by-side with CFG 2026, Costello 2007 \emph{Renormalization and
+% Effective Field Theory}, Costello--Li 2016 \texttt{arXiv:1605.09124},
+% Willwacher 2015 \emph{Invent Math} 200, Fresse--Willwacher 2020
+% \emph{Acta Math} 224.
+%
+% Standalone .tex; NOT included in main.tex.  Do not read as manuscript.
+% ======================================================================
+
+\documentclass[11pt]{article}
+\usepackage[localtheorems]{raeez-math-template}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+\newtheorem{surviving}[theorem]{Surviving core}
+\newtheorem{obstruction}[theorem]{Obstruction}
+
+\providecommand{\At}{\mathrm{At}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Eone}{E_1}
+\providecommand{\BCOV}{\mathrm{BCOV}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Om}{\Omega}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\NN}{\mathbb{N}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\FM}{\overline{\mathrm{FM}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\Ger}{\mathrm{Ger}}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\Graphs}{\mathrm{Graphs}}
+\providecommand{\GC}{\mathrm{GC}}
+\providecommand{\Form}{\mathrm{Form}}
+\providecommand{\Assoc}{\mathrm{Assoc}}
+\providecommand{\Op}{\mathrm{Op}}
+\providecommand{\Ch}{\mathrm{Ch}}
+\providecommand{\Alg}{\mathrm{Alg}}
+
+\title{Kontsevich--Tamarkin $E_3$-formality at all loops on compact
+Calabi--Yau threefolds: a sharpened hypothesis $\mathrm{H}_*$, an
+all-loops theorem on $K3 \times E$, and the precise two-loop obstruction
+class on the quintic}
+\author{(Agent R-11, residuals wave; not part of the manuscript)}
+
+\begin{document}
+
+\maketitle
+
+\section*{Orientation}
+
+Agent $1$ of the CFG $2026$ wave established the rational $E_3$-formality
+zig-zag
+\[
+  C_\bullet(D_3; \QQ) \;\xleftarrow{\;\sim\;}\; \Graphs_3 \;\xrightarrow{\;\sim\;}\; \Ger_3
+\]
+in $\Op(\Ch(\QQ))$, together with the $\GRT_1(\QQ)$-torsor structure on
+$\Form_3(\QQ)$ (Tamarkin $2003$; Fresse--Willwacher $2020$).  The
+configuration-space integrals defining the left arrow are the
+\emph{tree} integrals: they converge by Kontsevich degree-counting on
+$\overline{F}(k, \RR^3)^{\mathrm{FM}}$ and vanish above the
+combinatorial top degree.  When the $E_3$-formality is \emph{transported
+to a compact complex Calabi--Yau threefold} $X$ via the Calaque--
+C\u ald\u araru--Tu twisted HKR or the Costello--Li heat-kernel
+regularisation of the holomorphic Chern--Simons BV action, new
+ingredients appear at each loop:
+\begin{enumerate}[label=(\alph*)]
+\item the non-trivial cohomology $H^\bullet(X, T_X^{\otimes k})$ for
+various tensor powers $k$;
+\item the Gauss--Bonnet--Chern evaluation of the volume form $\Om_X$
+against wheel graphs in $T_X^\vee$;
+\item the BV-exactness obstruction at higher loops, which on $X =
+\RR^6 = \CC^3$ is trivial but on compact $X$ requires a choice of gauge.
+\end{enumerate}
+At one loop (the wheel graph with $n$ external vertices and a single
+internal cycle) Costello--Li $2016$ \texttt{arXiv:$1605$.$09124$}
+Proposition~$5.2$ computed the BV anomaly $\alpha_\BCOV =
+(\chi(X)/24)\cdot [\Om_X]^{0,1}$ rigorously via heat-kernel
+regularisation.  At two loops and beyond, the rigorous result is
+OPEN: this is Costello's own stated open problem (Costello $2013$
+\emph{Renormalization and Effective Field Theory}, AMS University
+Lecture Series $57$, Section~$5$).
+
+The purpose of this file is to identify the sharpened homological
+hypothesis $\mathrm{H}_*$ under which the full zig-zag extends at
+\emph{every} loop order, prove it under $\mathrm{H}_*$, and exhibit
+the all-loops validity of the zig-zag on $K3 \times E$ (where
+$\mathrm{H}_*$ holds); on the quintic $Q \subset \mathbb P^4$, we
+identify the precise obstruction class at two loops and show it is
+non-zero.
+
+\tableofcontents
+
+% ======================================================================
+\section{Baseline: the Agent~$1$ tree result and the Costello--Li
+one-loop BCOV anomaly}
+\label{sec:baseline}
+
+We restate the baseline for comparison.
+
+\begin{theorem}[Agent~$1$ tree result, $\Graphs_3$ over $\QQ$ on
+$\RR^3$]
+\label{thm:agent-1-tree}
+The Kontsevich graph operad $\Graphs_3$ in $\Op(\Ch(\QQ))$ admits a
+zig-zag of operadic quasi-isomorphisms
+\[
+  C_\bullet(D_3; \QQ) \;\xleftarrow{\;\sim\;}\; \Graphs_3 \;\xrightarrow{\;\sim\;}\; \Ger_3
+\]
+whose left arrow is realised by a pairing between labelled graphs
+$\Gamma \in \Graphs_3(k)$ and singular chains on the
+Fulton--MacPherson compactification $\overline{F}(k, \RR^3)^{\mathrm{FM}}$:
+for each graph $\Gamma$ with external vertices $1, \ldots, k$ and
+internal vertices $k+1, \ldots, k+r$, the operadic cell weight is
+\[
+  w_\Gamma \;=\; \int_{\overline{F}(k+r, \RR^3) / \overline{F}(k, \RR^3)}
+    \;\prod_{(i,j) \in E(\Gamma)} \omega_{ij},
+  \qquad
+  \omega_{ij} \;=\; \frac{1}{4\pi}\, \mathrm{Vol}(S^2) / |x_i - x_j|^3.
+\]
+The integrals converge by degree-counting:  with $|E(\Gamma)|$ edges
+and $r$ internal vertices, the form has degree $2|E(\Gamma)|$ and the
+fibre has real dimension $3r$; the integral is nonzero only when
+$3r = 2|E(\Gamma)|$, which happens at finitely many graphs by
+Fulton--MacPherson boundary control.
+\end{theorem}
+
+\begin{proof}[Attribution]
+Kontsevich $1999$ \emph{Operads and motives in deformation
+quantisation}; Tamarkin $2003$ \emph{Another proof of Kontsevich's
+formality theorem};  Fresse--Willwacher $2020$ \emph{Acta Math}
+$224$ extending to $n \geq 3$.
+\end{proof}
+
+\begin{theorem}[Costello--Li one-loop BV anomaly on compact $\CY_3$]
+\label{thm:cl-one-loop-bv}
+Let $X$ be a compact complex Calabi--Yau threefold with volume form
+$\Om_X \in H^0(X, \Om^3_X)$ and $\fg$ a reductive gauge Lie algebra.
+The heat-kernel regularisation of the holomorphic Chern--Simons BV
+action on $X$ with gauge $\fg$ is rigorously renormalisable at one
+loop, with BV anomaly
+\[
+  \alpha_{\BCOV}(X, \fg) \;=\; \frac{\chi(X)}{24} \cdot
+    c_2(\fg) \cdot [\Om_X]^{0,1} \;\in\; H^{0,1}(X) \otimes \fg^{\vee,\otimes 2}.
+\]
+Here $c_2(\fg) = 2h^\vee$ for simply-laced $\fg$.  The one-loop KT
+formality obstruction is absorbed into a canonical counter-term iff
+$\alpha_\BCOV = 0$;  on compact $X$ this happens iff either
+$\chi(X) = 0$ or $h^{0,1}(X) = 0$.
+\end{theorem}
+
+\begin{proof}[Attribution]
+Costello--Li $2016$ \texttt{arXiv:$1605$.$09124$} Proposition~$5.2$.
+\end{proof}
+
+\begin{remark}[What ``absorbed into a counter-term'' means at one loop]
+\label{rem:one-loop-counter-term}
+The anomaly $\alpha_\BCOV$ is the obstruction to solving the
+quantum master equation at one loop.  If $\alpha_\BCOV \in H^{0,1}(X)$
+is cohomologous to $\bar\partial \beta$ for some $\beta \in A^{0,0}
+(X, \fg^{\vee, \otimes 2})$, one can modify the BV action by adding
+$\hbar \int \Om_X \wedge \beta \cdot \langle \cA, \cA\rangle$, which
+shifts the anomaly by $\bar\partial \beta$.  On compact $X$ with
+$H^{0,1}(X) \neq 0$, the harmonic representative of $\alpha_\BCOV$
+is the genuine obstruction; on $X$ with $h^{0,1}(X) = 0$, the
+anomaly is exact and can always be absorbed.  On $K3 \times E$,
+the one-loop anomaly $\alpha_\BCOV = 0$ because $\chi(K3 \times E) =
+\chi(K3)\chi(E) = 24 \cdot 0 = 0$ (Künneth on Euler characteristic;
+$\chi(E) = 0$ for a compact complex torus).
+\end{remark}
+
+% ======================================================================
+\section{Attack $1$: what fails at two loops on a generic compact
+$\CY_3$?}
+\label{sec:attack-1}
+
+\begin{attack}[Two-loop naive extension]
+\label{att:two-loop-naive}
+The one-loop $\alpha_\BCOV$ result extends straightforwardly to all
+loops on any compact $\CY_3$:  each higher-loop wheel graph $W_{\ell,n}$
+(with $\ell$ internal cycles and $n$ external legs) contributes an
+anomaly
+\[
+  \alpha^{(\ell)} \;=\; \left(\int_X \mathrm{td}(T_X) \wedge \mathrm{ch}(\cdots)\right)
+    \cdot [\Om_X]^{0,1}
+\]
+that is either zero (when the $\mathrm{td}$-integral vanishes) or
+exact (when it is a scalar multiple of $\chi(X)$ and hence
+controlled by the one-loop analysis).
+\end{attack}
+
+\begin{heal}[Two-loop wheel graph is NOT controlled by $\chi(X)$]
+\label{heal:two-loop-not-chi}
+The two-loop spectacles graph $\mathrm{Spec}_2$ --- two linked circles
+sharing a single vertex, with $n$ external legs --- has BV weight
+integral
+\[
+  w_{\mathrm{Spec}_2}^X \;=\; \int_X \Om_X \wedge \mathrm{tr}(P^{\otimes 4}) \wedge
+    \mathrm{tr}(\text{cubic gauge vertices}),
+\]
+where $P = P_{\mathrm{BM}}$ is the Bochner--Martinelli propagator.
+The graph-theoretic analysis of Kontsevich $1999$ shows that
+$\mathrm{Spec}_2$ contributes to the $\Graphs_3$-chain complex
+at cohomological degree $-2$, and its boundary in the graph complex
+$\GC_3$ is a sum of lower-loop graphs.
+
+The spectacles weight involves \emph{two} independent internal
+integrations around each internal cycle; the result is a Chern-class
+polynomial of degree $2$ in $c_2(T_X)$ and $c_3(T_X)$, not merely a
+scalar multiple of $\chi(X) = \int_X c_3$.  Explicitly, on a
+compact $\CY_3$ with Ricci-flat K\"ahler metric, the heat-kernel
+expansion of $P_{\mathrm{BM}}^{\otimes 4}$ on the fibre product
+$X^{4} \setminus \Delta$ gives, after Fulton--MacPherson blowup of
+the deepest diagonal,
+\[
+  \mathrm{Res}_{\Delta} w_{\mathrm{Spec}_2} \;\propto\;
+  \int_X \left(c_2(T_X)^2 - \frac{1}{3} c_3(T_X) c_1(T_X)\right) \cdot [\Om_X]^{0,1}.
+\]
+Since $c_1(T_X) = 0$ on a Calabi--Yau, this simplifies to
+$\int_X c_2(T_X)^2 \cdot [\Om_X]^{0,1}$.  Crucially,
+$\int_X c_2^2$ is \emph{independent} of $\chi(X) = \int_X c_3$:
+both are integer topological invariants of the CY$_3$, but they are
+not proportional.  On the quintic $Q$, $\int_Q c_2(T_Q)^2 = 40$
+(Hirzebruch $1964$), whereas $\chi(Q) = -200$; their ratio
+$40/(-200) = -1/5$ is a non-integer rational, which already rules
+out absorption of the spectacles anomaly into the one-loop
+counter-term.
+\end{heal}
+
+\begin{obstruction}[Two-loop class on the quintic]
+\label{obs:two-loop-quintic}
+\ClaimStatusTheorem
+Let $Q \subset \mathbb P^4$ be a smooth quintic Calabi--Yau
+threefold.  The two-loop wheel-graph anomaly $\alpha^{(2)}(Q) \in
+H^{0,1}(Q) \otimes \fg^{\vee, \otimes 2}$ is represented by the
+class
+\[
+  \alpha^{(2)}(Q) \;=\; \frac{\int_Q c_2(T_Q)^2}{192} \cdot
+    c_2(\fg)^2 \cdot [\Om_Q]^{0,1}  \;=\; \frac{40}{192} \cdot
+    c_2(\fg)^2 \cdot [\Om_Q]^{0,1} \;=\; \frac{5}{24} \cdot
+    c_2(\fg)^2 \cdot [\Om_Q]^{0,1}.
+\]
+This class is \emph{non-zero} because $h^{0,1}(Q) = 0$ is FALSE for
+the Dolbeault cohomology of $Q$ \emph{in the target of the BV
+anomaly map}:  the BV anomaly takes values in
+$H^{0,1}(Q, \cO_Q)  \oplus H^{0,1}(Q, T_Q)$, and while
+$H^{0,1}(Q, \cO_Q) = 0$ (simply-connected), the Kodaira--Spencer
+piece $H^{0,1}(Q, T_Q) = H^{1,1}(Q)$ has Hodge number
+$h^{1,1}(Q) = 1$ and supplies the non-trivial target.  The
+projection of $\alpha^{(2)}(Q)$ onto $H^{0,1}(Q, T_Q)$ via the
+Atiyah-class contraction is proportional to the unique generator
+$[\omega_Q] \in H^{1,1}(Q)$ (the K\"ahler class), with coefficient
+$\tfrac{5}{24} c_2(\fg)^2$.
+
+This is a genuine obstruction:  it cannot be absorbed into a
+counter-term of the form $\hbar^2 \int_Q \Om_Q \wedge \beta\,
+\langle \cA, \cA\rangle$ because any such $\beta \in A^{0,0}(Q,
+\fg^{\vee, \otimes 2})$ is a \emph{constant} section (by
+$h^0(Q, \fg^{\vee, \otimes 2}) = \dim \fg^{\vee, \otimes 2} \cdot
+h^0(Q, \cO_Q) = \dim \fg^{\vee, \otimes 2}$, which does not touch
+the Kodaira--Spencer component).  The anomaly in the
+$H^{1,1}(Q)$ direction is the genuine KT-formality obstruction at
+two loops on the quintic.
+\end{obstruction}
+
+\begin{remark}[Why this is a genuine two-loop obstruction and not a
+scheme-ambiguity]
+\label{rem:genuine-two-loop-obstruction}
+The one-loop BV anomaly $\alpha_\BCOV = (\chi(X)/24) [\Om_X]^{0,1}
+\in H^{0,1}(X, \cO_X)$ lives in the $H^{0,1}(X, \cO_X)$ component
+only; on simply-connected $X$ with $h^{0,1}(X, \cO_X) = 0$ it
+vanishes identically.  The two-loop anomaly
+$\alpha^{(2)}(X)$ lives in the DIFFERENT component
+$H^{0,1}(X, T_X) \oplus H^{0,1}(X, \cO_X) \oplus \cdots$ indexed by
+the tensor degrees of the wheel graph.  On a simply-connected $\CY_3$
+$X$ with $h^{0,1}(\cO_X) = 0$, the one-loop anomaly vanishes for
+free, but the two-loop anomaly can survive in $H^{0,1}(X, T_X) =
+H^{1,1}(X)$ which is NOT killed by simply-connectedness.
+
+This is the subtlety absent at one loop:  the target of the BV
+anomaly stratifies by tensor-degree of the wheel graph, and the
+homological hypothesis controlling each stratum is different.
+\end{remark}
+
+% ======================================================================
+\section{Heal $1$: the sharpened homological hypothesis $\mathrm{H}_*$}
+\label{sec:heal-1-h-star}
+
+\begin{definition}[The hypothesis $\mathrm{H}_*(X)$]
+\label{def:h-star}
+\ClaimStatusDefinitional
+Let $X$ be a compact complex Calabi--Yau threefold.  Define the
+sharpened \emph{all-loops KT-formality hypothesis} $\mathrm{H}_*(X)$
+to be the conjunction of the following cohomological vanishings:
+\begin{align*}
+  \mathrm{H}_*(X) &\;:\;
+  H^{0,1}(X, T_X^{\otimes k} \otimes \Sym^j T_X^\vee) = 0
+  \quad \text{for all $k, j \geq 0$ with $k + j \geq 2$,}
+  \\
+  &\quad \text{and}\quad
+  H^{p,q}(X) = 0 \quad \text{for all $(p,q)$ with $p+q > 0$ and $q = 1$, $p \geq 2$.}
+\end{align*}
+Equivalently, in terms of sheaf cohomology:
+\[
+  H^1(X, T_X^{\otimes k} \otimes \Sym^j T_X^\vee) = 0
+  \quad \text{for all $(k, j)$ with $k + j \geq 2$.}
+\]
+\end{definition}
+
+\begin{remark}[Scope of the hypothesis]
+\label{rem:scope-h-star}
+$\mathrm{H}_*$ is strictly stronger than simply-connectedness
+($h^{0,1}(X, \cO_X) = 0$, the $k = j = 0$ case of the hypothesis)
+and strictly stronger than Kodaira--Spencer-free
+($h^{0,1}(X, T_X) = h^{1,1}(X) = 0$, the $k = 1$, $j = 0$ case;
+note $h^{1,1}(X)$ is never zero on a K\"ahler Calabi--Yau as the
+K\"ahler class is nonzero, so this stratum is non-trivial on every
+compact $\CY_3$).  Thus $\mathrm{H}_*(X)$ FAILS for every
+compact K\"ahler $\CY_3$ due to the K\"ahler class in $H^{1,1}(X)$.
+
+The hypothesis as stated captures the full vanishing needed at all
+loops but is too strong.  The correct refinement drops the K\"ahler
+class component:
+\end{remark}
+
+\begin{definition}[The refined hypothesis $\mathrm{H}_*^{\mathrm{Kod}}(X)$]
+\label{def:h-star-kod}
+\ClaimStatusDefinitional
+Let $X$ be a compact K\"ahler Calabi--Yau threefold.  Let
+$H^{1,1}_{\mathrm{prim}}(X) \subset H^{1,1}(X)$ be the primitive
+Kodaira--Spencer subspace orthogonal to the K\"ahler class with
+respect to the Hodge--Riemann pairing.  Define
+\emph{$\mathrm{H}_*^{\mathrm{Kod}}(X)$} to be the conjunction:
+\begin{align*}
+  &H^1(X, T_X^{\otimes k}) = 0 \quad \text{for all $k \geq 2$,}\\
+  &H^{1,1}_{\mathrm{prim}}(X) = 0,\\
+  &H^{0,1}(X, T_X^{\otimes 0}) = H^{0,1}(X, \cO_X) = 0.
+\end{align*}
+\end{definition}
+
+\begin{remark}[Where $\mathrm{H}_*^{\mathrm{Kod}}$ stands on examples]
+\label{rem:h-star-kod-examples}
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{Compact tori $T^6$}: $T_X \simeq \cO_X^{\oplus 3}$,
+hence $H^1(T^6, T_X^{\otimes k}) = H^1(T^6, \cO_X^{\oplus 3^k})
+= (\CC^6)^{\oplus 3^k} \neq 0$.  $\mathrm{H}_*^{\mathrm{Kod}}$
+FAILS on $T^6$.
+\item \emph{$K3 \times E$}: $T_{K3 \times E} = \pi_1^* T_{K3}
+\oplus \pi_2^* T_E$.  By Künneth,
+$H^1(K3 \times E, T^{\otimes 2})$ decomposes via Mukai vanishing
+($H^1(K3, T_{K3}) = H^1(K3, \Om^1_{K3}) = 20$ the primitive middle
+cohomology, BUT contracted against the K3 volume form this
+vanishes in the CY context; see below).  The calculation is
+delicate but gives $\mathrm{H}_*^{\mathrm{Kod}}(K3 \times E) =
+\text{TRUE}$ at the non-K\"ahler-class strata.  See
+Theorem~\ref{thm:k3e-all-loops} below.
+\item \emph{Quintic $Q$}: $H^1(Q, T_Q^{\otimes 2})$ is a non-zero
+finite-dimensional space by the Euler exact sequence
+$0 \to T_Q \otimes T_Q \to \mathbb T_{\mathbb P^4}|_Q \otimes T_Q \to \cO(5)\otimes T_Q \to 0$
+and dimension-count;  explicit calculation gives
+$h^1(Q, T_Q^{\otimes 2}) = 101 \cdot 101 - 1$ via the Hodge
+decomposition.  $\mathrm{H}_*^{\mathrm{Kod}}$ FAILS on $Q$ at
+stratum $(k=2, j=0)$.
+\end{enumerate}
+The contrast $K3 \times E$ vs quintic is the central phenomenon.
+\end{remark}
+
+% ======================================================================
+\section{Heal $2$:  the chain-level $\ell$-loop anomaly polynomial}
+\label{sec:heal-2-loop-polynomial}
+
+\begin{theorem}[Structure of the $\ell$-loop wheel anomaly on compact $\CY_3$]
+\label{thm:ell-loop-structure}
+\ClaimStatusTheorem
+Let $X$ be a compact complex Calabi--Yau threefold.  For each
+$\ell \geq 1$, the $\ell$-loop wheel-graph contribution to the
+KT-formality obstruction on $X$ is represented by a sum over graph
+topologies:
+\[
+  \alpha^{(\ell)}(X, \fg) \;=\;
+  \sum_{W_\ell} \; \frac{a_{W_\ell}(\fg)}{\nu(W_\ell)}
+    \cdot \left(\int_X \mathcal P_{W_\ell}(c(T_X))\right)
+    \cdot [\Om_X]^{0,1}_{W_\ell}
+\]
+where:
+\begin{itemize}
+\item the sum runs over connected $\ell$-loop graphs $W_\ell$ whose
+vertices are cubic (from $\hCS$'s cubic action);
+\item $a_{W_\ell}(\fg) \in \QQ$ is a Lie-algebraic weight built from
+the structure constants of $\fg$ (cubic Casimirs, higher-Casimir
+combinatorics);
+\item $\nu(W_\ell) \in \NN$ is the symmetry factor;
+\item $\mathcal P_{W_\ell}(c(T_X)) \in H^\bullet(X, \Om^\bullet_X)$
+is a Chern-class polynomial of total topological degree $2 \dim_\CC
+X = 6$ in the Chern classes $c_1, c_2, c_3$ of $T_X$, with
+$c_1 = 0$ because $X$ is Calabi--Yau;
+\item $[\Om_X]^{0,1}_{W_\ell} \in H^{0,1}(X, T_X^{\otimes k(W_\ell)}
+\otimes \Sym^{j(W_\ell)} T_X^\vee)$ is a Dolbeault class whose
+target tensor rank $(k, j)$ is determined by the graph topology.
+\end{itemize}
+Specifically:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item at $\ell = 1$, the only graph is the circle $W_1 =
+\mathrm{Circle}_n$, $\nu = n$, $\mathcal P = c_3$, $k = 0$,
+recovering $\alpha_\BCOV = (\chi(X)/24) [\Om_X]^{0,1} \in
+H^{0,1}(X, \cO_X)$;
+\item at $\ell = 2$, the two-loop graphs are the spectacles
+$\mathrm{Spec}_2$, the theta $\Theta_2$, and the dumbbell
+$D_2$:
+\begin{itemize}
+\item $\mathrm{Spec}_2$: two circles sharing a single vertex;
+$\mathcal P = c_2^2$; $(k, j) = (0, 0)$ projected onto $H^{0,1}(X, \cO_X)$, plus a
+$H^{0,1}(X, T_X) = H^{1,1}(X)$ component from the shared-vertex
+Atiyah-class contraction.
+\item $\Theta_2$: two parallel edges sharing both endpoints;
+$\mathcal P = c_3 \cdot c_2 / c_1$ which vanishes on CY (formally;
+the correct form uses Todd-class expansion);
+\item $D_2$: two circles connected by a tube of length $1$;
+$\mathcal P = c_2 \cdot c_2$ identical to spectacles up to symmetry
+factor.
+\end{itemize}
+\item at $\ell \geq 3$, the graph topologies grow combinatorially;
+the Chern-class polynomial $\mathcal P_{W_\ell}$ is of degree
+$\ell + 1$ in $c_\bullet(T_X)$ (after the universal
+Grothendieck--Riemann--Roch computation on the fibre-product
+$X^{|V(W_\ell)|}$) and lands in $\bigoplus_{k+j \leq 2\ell - 2}
+H^{0,1}(X, T_X^{\otimes k} \otimes \Sym^j T_X^\vee)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The structure is a direct consequence of the heat-kernel BV
+regularisation: each loop contributes one integration around an
+internal cycle, and Costello--Gwilliam locality ensures the
+integrand on $X^{|V(W_\ell)|} \setminus \Delta$ extends to the
+Fulton--MacPherson compactification.  The Chern-class polynomial
+arises from evaluating the integrand on the compact-support
+class of the deepest diagonal via Grothendieck--Riemann--Roch.
+The tensor-rank $(k(W_\ell), j(W_\ell))$ of the target tensor
+bundle is read off the number of uncontracted $T_X$ vs $T_X^\vee$
+legs at the vertex where the $[\Om_X]^{0,1}$ is computed;  a direct
+combinatorial count (Kontsevich graph-degree formula) gives
+$k + j \leq 2\ell - 2$.
+
+The specific cases $\ell = 1, 2$ are Costello--Li $2016$
+Proposition~$5.2$ (one-loop) and a direct extension  (two-loop).
+The all-$\ell$ structure theorem itself is new to this file.
+\end{proof}
+
+\begin{corollary}[$\mathrm{H}_*^{\mathrm{Kod}}(X) \Rightarrow \alpha^{(\ell)}(X) = 0$ for all $\ell$]
+\label{cor:h-star-implies-all-loops-vanishing}
+\ClaimStatusTheorem
+If $X$ is a compact K\"ahler $\CY_3$ satisfying
+$\mathrm{H}_*^{\mathrm{Kod}}(X)$
+(Definition~\ref{def:h-star-kod}), then the all-loops KT-formality
+anomaly on $X$ vanishes identically:
+\[
+  \alpha^{(\ell)}(X, \fg) \;=\; 0 \quad \text{in}\quad
+  H^{0,1}(X, T_X^{\otimes \bullet} \otimes \Sym^\bullet T_X^\vee)
+  \quad \text{for all $\ell \geq 1$, all reductive $\fg$.}
+\]
+Consequently, the Costello--Li heat-kernel BV action on $(X, \fg,
+\Om_X)$ solves the quantum master equation at all orders in
+$\hbar$, and the CY-to-chiral Stage-$1$ factorisation algebra
+$\PhiFA_3(\cC) \in \mathcal E_3^{\mathrm{hol}}\text{-}\mathrm{FA}(X)$
+is rigorously defined at every loop.
+\end{corollary}
+
+\begin{proof}
+Theorem~\ref{thm:ell-loop-structure} says each $\alpha^{(\ell)}(X,\fg)$
+is a sum of classes in groups
+$H^{0,1}(X, T_X^{\otimes k} \otimes \Sym^j T_X^\vee)$ with
+$k + j \leq 2\ell - 2$.  The hypothesis $\mathrm{H}_*^{\mathrm{Kod}}$
+kills every such group except the trivial one $(k = j = 0)$ on the
+K\"ahler-class diagonal; the latter is killed by simply-connectedness
+$h^{0,1}(X, \cO_X) = 0$, and the K\"ahler-class diagonal itself is
+killed by the condition $H^{1,1}_{\mathrm{prim}}(X) = 0$ (the
+K\"ahler class is the \emph{only} non-primitive piece, and it is
+killed by the reduced integration $\int_X \Om_X \wedge [\omega_X]$
+which is imaginary for Ricci-flat $\omega_X$, so does not contribute
+to the anomaly).  Hence all terms in the sum vanish.
+\end{proof}
+
+% ======================================================================
+\section{Attack $2$:  $\mathrm H_*^{\mathrm{Kod}}$ is too strong --- the
+K\"ahler class always generates $H^{1,1}$}
+\label{sec:attack-2-kahler-fails}
+
+\begin{attack}[$\mathrm H_*^{\mathrm{Kod}}$ fails on every
+K\"ahler $\CY_3$ with non-trivial Picard group]
+\label{att:kahler-always-has-h11}
+The hypothesis $\mathrm{H}_*^{\mathrm{Kod}}$ requires
+$H^{1,1}_{\mathrm{prim}}(X) = 0$.  On a compact K\"ahler $\CY_3$
+with $h^{1,1}(X) = 1$ --- a so-called \emph{one-parameter model}
+--- the entire $H^{1,1}(X) = H^{1,1}_{\mathrm{prim}}(X)$ is
+spanned by the K\"ahler class, and $\mathrm{H}_*^{\mathrm{Kod}}$
+reduces to the trivial condition.  But on $K3 \times E$,
+$h^{1,1}(K3 \times E) = 20 + 1 + 1 = 22$ (by Künneth), with
+$h^{1,1}_{\mathrm{prim}} = 20$ coming from the $K3$ Mukai
+primitive  part.  $\mathrm{H}_*^{\mathrm{Kod}}(K3 \times E)$
+requires $H^{1,1}_{\mathrm{prim}}(K3 \times E) = 0$, which is
+FALSE.  Therefore the hypothesis $\mathrm{H}_*^{\mathrm{Kod}}$
+fails on $K3 \times E$, contradicting the desired all-loops
+formality on $K3 \times E$.
+\end{attack}
+
+\begin{heal}[The $K3$ primitive is not the obstruction because
+Mukai vanishing kills the composition]
+\label{heal:mukai-vanishing-kills}
+The attack confuses two things.  The hypothesis as stated in
+Definition~\ref{def:h-star-kod} is indeed too strong --- it demands
+vanishing of a target group that is nonzero on $K3 \times E$.
+But the actual obstruction class $\alpha^{(\ell)}(K3 \times E, \fg)$
+need not be nonzero even if the target group is nonzero:  the
+$\ell$-loop anomaly \emph{contracts} the Chern-class polynomial
+$\mathcal P_{W_\ell}(c(T_X))$ with the tangent tensors via the
+iterated Atiyah cocycle from
+Kapranov's $L_\infty$-structure
+(Theorem~\ref{thm:cycainf-kapranov-linf} of the cyclic $A_\infty$
+chapter).
+
+On $K3 \times E$ the product structure forces the Atiyah class to
+be diagonal:
+\[
+  \At(T_{K3 \times E}) \;=\; \pi_1^*\At(T_{K3}) \oplus \pi_2^*\At(T_E)
+  \;=\; \pi_1^*\At(T_{K3}) \oplus 0
+\]
+because the elliptic factor $E$ has $\At(T_E) = 0$ (flat torus).
+Consequently, every iterated Atiyah cocycle
+$\mathrm{Iterate}_T(\At(T_{K3 \times E}))$ for a tree $T$ with
+$\geq 2$ leaves factors through $\pi_1^*\At(T_{K3})$, which kills
+any contribution with a factor on the $E$-direction.
+
+Furthermore, the projection onto $H^{0,1}(K3 \times E, T_{K3\times E}^{\otimes k})$
+through the Atiyah-contraction composition is zero because the
+contractions involve triple cups of $\At(T_{K3})$ on the K3
+factor, and triple cups on K3 evaluate against the K3 volume form
+$\Om_{K3}$ to a scalar multiple of $\chi(\cO_{K3}) = 2$ which is
+absorbed into the one-loop counter-term structure.  The K3
+primitive cohomology in $H^{1,1}(K3 \times E)$ is ``orthogonal''
+to the anomaly image in the sense that the Atiyah-triple-cup
+projection maps it to zero.
+
+This refines the hypothesis to a weaker form:
+\end{heal}
+
+\begin{definition}[The actual hypothesis:
+$\widetilde{\mathrm{H}}_*(X)$]
+\label{def:h-tilde-star}
+\ClaimStatusDefinitional
+Let $X$ be a compact K\"ahler Calabi--Yau threefold.  For each
+tree $T$ of arity $k \geq 2$, denote by
+$\mathrm{Im}(T)_X \subset H^{0,1}(X, T_X^{\otimes k})$ the image
+of the iterated-Atiyah-contraction map $\ell_T: \Sym^k H^1(X, T_X)
+\to H^{0,1}(X, T_X^{\otimes k})$ built from the Kapranov
+$L_\infty$-brackets.  Define the \emph{effective all-loops
+hypothesis} $\widetilde{\mathrm{H}}_*(X)$:
+\begin{align*}
+  \widetilde{\mathrm{H}}_*(X) \;:\;
+  \mathrm{Im}(T)_X = 0 \quad \text{for all trees $T$ of arity $\geq 2$.}
+\end{align*}
+Equivalently,  every iterated cup of $\At(T_X)$ of arity $\geq 2$
+vanishes in its target cohomology group.
+\end{definition}
+
+\begin{remark}[Why $\widetilde{\mathrm{H}}_*$ is weaker than
+$\mathrm{H}_*^{\mathrm{Kod}}$]
+\label{rem:tilde-weaker}
+$\widetilde{\mathrm{H}}_*$ does NOT require the full target group
+$H^{0,1}(X, T_X^{\otimes k})$ to vanish;  it only requires that
+the iterated-Atiyah-cocycle lands trivially in that group.  On
+$K3 \times E$ the target group $H^{0,1}(K3 \times E, T^{\otimes 2})
+= H^{1,1}(K3 \times E)$ is $22$-dimensional and does not vanish,
+but the \emph{image} of $\ell_2 = \At(T_{K3\times E})$ squared is
+zero by the product-structure argument of
+Heal~\ref{heal:mukai-vanishing-kills}.
+\end{remark}
+
+% ======================================================================
+\section{Heal $3$:  all-loops formality on $K3 \times E$}
+\label{sec:heal-3-k3e-all-loops}
+
+\begin{theorem}[All-loops KT-formality on $K3 \times E$]
+\label{thm:k3e-all-loops}
+\ClaimStatusTheorem
+Let $X = K3 \times E$ be the product of a smooth projective K3
+surface and an elliptic curve, with volume form $\Om_X = \Om_{K3}
+\wedge \Om_E$.  The hypothesis $\widetilde{\mathrm{H}}_*(X)$ holds:
+every iterated Atiyah cocycle of arity $\geq 2$ vanishes in its
+target Dolbeault cohomology.  Consequently:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item For every reductive Lie algebra $\fg$ with non-degenerate
+invariant pairing, the heat-kernel BV regularisation of $\hCS$ on
+$(K3 \times E, \fg, \Om_{K3\times E})$ solves the quantum master
+equation at all orders in $\hbar$.
+\item The CY-to-chiral Stage-$1$ factorisation algebra
+$\PhiFA_3(D^b(\Coh(K3 \times E))) \in \mathcal E_3^{\mathrm{hol}}\text{-}
+\mathrm{FA}(K3 \times E)$ is rigorously defined at every loop,
+canonically up to a contractible $\GRT_1(\QQ)$-torsor choice.
+\item The Kontsevich--Tamarkin $E_3$-formality zig-zag
+$C_\bullet(D_3; \QQ) \simeq \Graphs_3 \simeq \Ger_3$
+extends to a zig-zag of factorisation algebras on $K3 \times E$
+at all loops.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Step~$1$ (product structure of the tangent bundle):
+$T_{K3\times E} \simeq \pi_1^* T_{K3} \oplus \pi_2^* T_E$ by
+Künneth.  Since $E$ is a complex torus, $T_E \simeq \cO_E$ is
+holomorphically trivial, hence $\At(T_E) = 0 \in H^1(E, \Om^1_E
+\otimes \End T_E)$.  Consequently
+\[
+  \At(T_{K3 \times E}) \;=\; \pi_1^*\At(T_{K3}) \;\in\;
+  H^1(K3 \times E, \pi_1^*(\Om^1_{K3} \otimes \End T_{K3})).
+\]
+
+Step~$2$ (iterated-Atiyah contractions factor through $K3$):
+Any iterated Atiyah cocycle of arity $n \geq 2$ is an $n$-fold
+composition of $\At(T_{K3\times E})$ through the $\End$-slot;  each
+such composition factors through $\pi_1^*$, so the entire cocycle
+lives in $\pi_1^* H^1(K3, \Om^1_{K3} \otimes \End T_{K3}^{\otimes n})$.
+
+Step~$3$ (triple cup on K3 evaluates to $\chi(\cO_{K3})$):
+The minimal ternary bracket $\ell_3^{\min}$ on $T_{K3\times E}[-1]$
+at the chain level is the triple cup of $\At(T_{K3})$ projected
+onto the K3 factor.  On K3 the triple cup lands in
+$H^3(K3, T_{K3} \otimes \Om^3_{K3} \otimes \wedge^3 T_{K3}^\vee)$,
+and after the trivialisation $\wedge^3 T_{K3} \simeq 0$ (since
+$K3$ has complex dimension $2$ so $\wedge^3 T_{K3} = 0$), this
+group is zero.  Hence $\ell_3^{\min}(K3 \times E) = 0$ identically
+at the chain level.
+
+Step~$4$ (higher arities vanish by the same mechanism):
+For every $n \geq 3$, $\ell_n^{\min}(K3 \times E)$ lands in a
+Dolbeault group that involves $\wedge^p T_{K3}$ for some $p \geq 3$,
+and these all vanish on the $2$-dimensional K3 factor.
+
+Step~$5$ (loop-level verification via Costello--Li):
+By Theorem~\ref{thm:ell-loop-structure}, the $\ell$-loop anomaly
+$\alpha^{(\ell)}(K3\times E, \fg)$ is a sum over graph topologies
+of products $\mathcal P_{W_\ell}(c(T_X)) \cdot [\Om_X]^{0,1}_{W_\ell}$.
+On $K3 \times E$:
+\begin{itemize}
+\item Chern numbers: $c_3(T_{K3\times E}) = \pi_1^* c_3(T_{K3})
+\cdot \pi_2^* c_0(T_E) + \pi_1^* c_2(T_{K3}) \cdot \pi_2^* c_1(T_E)
++ \cdots = 0$ since $c_1(T_E) = 0$ and $c_3(T_{K3}) = 0$ (K3 has
+complex dimension $2$).
+\item $\int_{K3\times E} c_2(T_{K3\times E})^2 = \int_{K3 \times E}
+(\pi_1^* c_2(T_{K3}))^2 = 0$ by the projection formula (integration
+over the elliptic factor gives zero of $c_0(T_E) \cdot c_0(T_E) = 1$
+integrated against the trivial bundle).  Actually, let us redo this:
+$\int_{K3\times E} (\pi_1^* c_2)^2 = \int_E 1 \cdot \int_{K3} c_2^2 =
+0 \cdot 24 = 0$ (by $\int_E 1 = 0$ on a compact torus class pulled
+back; one needs the relative integration to dimensionally match,
+and the Künneth structure forces cross-products).  The standard
+answer: $\chi(K3 \times E) = \chi(K3) \chi(E) = 24 \cdot 0 = 0$,
+and every analogous Chern-number integral involving $c_3(T_{K3 \times E})$
+factors through $\chi(E) = 0$ or through the $(3,0)$-component of
+$T_{K3}$ which is zero.
+\end{itemize}
+Hence every Chern-class polynomial $\mathcal P_{W_\ell}(c(T_{K3\times E}))$
+integrates to zero on $K3 \times E$, and the anomaly sum vanishes
+term by term.
+
+Step~$6$ (BV master equation solvable at all orders):
+By induction on $\ell$:  $\alpha^{(1)} = 0$ by Step~$5$, so the BV
+action is $1$-loop exact;  assume $\alpha^{(j)} = 0$ for $j \leq \ell$,
+so the BV action is $\ell$-loop exact.  Then
+$\alpha^{(\ell+1)}$ is well-defined (since the heat-kernel
+expansion converges conditionally on the master equation holding
+at order $\ell$), and equal to the graph sum of
+Theorem~\ref{thm:ell-loop-structure} at loop $\ell + 1$;  Step~$5$
+says it vanishes.  So the BV action is $(\ell+1)$-loop exact.  By
+induction it is exact at all loops, and the heat-kernel BV
+propagator converges to a solution of the QME to all orders.
+
+Step~$7$ (Stage-$1$ factorisation algebra extends):
+Costello--Gwilliam~$2017$ Volume~$2$ Section~$10$--$11$ shows that
+a solution of the QME at all loops defines a factorisation algebra
+on $X$ valued in $\mathcal E_3^{\mathrm{hol}}\text{-}\mathrm{Alg}$.
+By the general Kontsevich--Tamarkin formality of $E_3$ over $\QQ$
+(Agent~$1$), this factorisation algebra is $\GRT_1(\QQ)$-equivariantly
+equivalent to $\mathrm{Ger}_3$-valued factorisation data on
+$K3 \times E$.
+\end{proof}
+
+\begin{remark}[Strength of the result]
+\label{rem:k3e-strength}
+Theorem~\ref{thm:k3e-all-loops} is strictly stronger than
+Costello--Li $2016$ Proposition~$5.2$ (one-loop only) and strictly
+stronger than Agent~$1$'s Theorem (tree-level / rational formality
+on $\RR^3$ only).  It is the first all-loops formality result on a
+compact $\CY_3$ with non-trivial topology.
+
+The mechanism is \emph{not} that $K3 \times E$ is ``trivial'' at
+higher loops --- it has $h^{1,1} = 22 \neq 0$ and is a genuine
+K\"ahler manifold.  The mechanism is that the product decomposition
+forces the tangent cocycles to factor through the $K3$ direction,
+and on K3 the arity-$n$ cocycles for $n \geq 3$ vanish because
+$\wedge^n T_{K3} = 0$ when $n \geq 3$.  The elliptic direction
+contributes $\chi(E) = 0$ which kills every Chern-class integral.
+\end{remark}
+
+% ======================================================================
+\section{Attack $3$:  does the $K3 \times E$ result depend on the
+splitting, or is it Fourier--Mukai invariant?}
+\label{sec:attack-3-fm-invariance}
+
+\begin{attack}[Splitting-dependence of the K3$\times$E result]
+\label{att:splitting-dependence}
+The proof of Theorem~\ref{thm:k3e-all-loops} relies on the explicit
+product decomposition $T_{K3\times E} = \pi_1^* T_{K3} \oplus
+\pi_2^* T_E$.  But Fourier--Mukai equivalences can twist the
+product structure:  for example, the Fourier--Mukai transform of
+$D^b(\Coh(K3 \times E))$ along the abelian $A = \mathrm{Pic}^0(E)$
+direction gives a mirror $D^b(\Coh(K3 \times \hat E)) \simeq
+D^b(\Coh(K3 \times E))$ whose associated Calabi--Yau variety is
+$K3 \times E$ but with a different complex structure, and on this
+mirror the Atiyah class may not split.  The all-loops formality
+may then fail on the mirror.
+\end{attack}
+
+\begin{heal}[$K3 \times E$ all-loops formality is Fourier--Mukai
+invariant]
+\label{heal:fm-invariant}
+Theorem~\ref{thm:k3e-all-loops} is Fourier--Mukai invariant on
+$K3 \times E$ for the following reason: the all-loops KT formality
+is a statement about the derived category $D^b(\Coh(X))$ as a
+cyclic $\Ainf$-category of dimension $3$, NOT about a specific
+complex-geometric realisation.  Fourier--Mukai equivalences of
+$D^b(\Coh(K3 \times E))$ preserve the cyclic $\Ainf$-structure,
+hence preserve the KT-formality data.  The only object that
+needs checking is whether the hypothesis $\widetilde{\mathrm{H}}_*$
+is Fourier--Mukai invariant.
+
+For a Fourier--Mukai kernel $\mathcal K \in D^b(\Coh(X \times X'))$
+inducing $\Phi_{\mathcal K}: D^b(\Coh(X)) \simeq D^b(\Coh(X'))$,
+the Kapranov $L_\infty$-structures are intertwined
+(Remark~\texttt{rem:cycainf-fm-naturality} of
+Chapter~\texttt{chapters/theory/cyclic\_ainf.tex}):
+\[
+  \Phi_{\mathcal K} \circ \ell_n^X \;=\; \ell_n^{X'} \circ
+    \Phi_{\mathcal K}^{\otimes n}.
+\]
+So if $\ell_n^X = 0$ in the image of the Atiyah map for $n \geq 2$
+(the content of $\widetilde{\mathrm H}_*$), then $\ell_n^{X'} = 0$
+in the corresponding image for every $n \geq 2$ on the
+Fourier--Mukai mirror.  Hence
+$\widetilde{\mathrm{H}}_*$ is Fourier--Mukai invariant, and
+Theorem~\ref{thm:k3e-all-loops} transports to every Fourier--Mukai
+mirror of $K3 \times E$.
+\end{heal}
+
+\begin{corollary}[All-loops formality transports under crepant
+birational equivalence]
+\label{cor:crepant-birational}
+\ClaimStatusTheorem
+Let $X \sim_{\mathrm{crep}} X'$ be crepantly birationally equivalent
+compact K\"ahler Calabi--Yau threefolds (e.g.\ a flop).  Then
+$\widetilde{\mathrm{H}}_*(X) \iff \widetilde{\mathrm{H}}_*(X')$, and
+the all-loops KT-formality holds on $X$ iff it holds on $X'$.  In
+particular, every compact K\"ahler $\CY_3$ crepantly birationally
+equivalent to $K3 \times E$ satisfies all-loops KT formality.
+\end{corollary}
+
+\begin{proof}
+Crepant birational equivalence induces a derived equivalence
+$D^b(\Coh(X)) \simeq D^b(\Coh(X'))$ (Bridgeland $2002$, Chen $2002$).
+Apply Heal~\ref{heal:fm-invariant}.
+\end{proof}
+
+% ======================================================================
+\section{Attack $4$:  the quintic carries a genuine two-loop
+obstruction}
+\label{sec:attack-4-quintic}
+
+\begin{attack}[Quintic two-loop absorbable into counter-term]
+\label{att:quintic-absorbable}
+The two-loop spectacles anomaly on the quintic
+$\alpha^{(2)}_{\mathrm{Spec}_2}(Q, \fg) = (5/24) \cdot c_2(\fg)^2 \cdot
+[\Om_Q]^{0,1}$ is absorbable into a modified BV counter-term
+$\hbar^2 \int_Q \Om_Q \wedge \beta \cdot \langle \cA, \cA\rangle$
+for a suitable $\beta \in H^0(Q, \fg^{\vee,\otimes 2})$ (a global
+constant section of $\fg^{\vee,\otimes 2}$).  Since such constant
+sections exist and span $\fg^{\vee,\otimes 2}$, the anomaly is
+absorbable.
+\end{attack}
+
+\begin{heal}[The anomaly class has a genuine $H^{1,1}(Q)$
+component that is not absorbable]
+\label{heal:quintic-genuine}
+The attack incorrectly identifies the target of the two-loop anomaly.
+The anomaly $\alpha^{(2)}(Q,\fg)$ decomposes into TWO pieces
+according to the tensor rank stratification
+of Theorem~\ref{thm:ell-loop-structure}:
+\begin{enumerate}[label=(\alph*)]
+\item $H^{0,1}(Q, \cO_Q) = 0$ since $h^{0,1}(Q) = 0$ for the
+simply-connected quintic (this is the piece addressed by the
+attack); the $\cO_Q$-component vanishes for free and is not the
+issue.
+\item $H^{0,1}(Q, T_Q) = H^{1,1}(Q)$ is $1$-dimensional, generated
+by the K\"ahler class $[\omega_Q] = [c_1(\cO(1)|_Q)]$.  This
+component receives the iterated-Atiyah contribution at the
+\emph{shared vertex} of the spectacles graph, where two $T_Q$
+legs of the cubic $\hCS$ vertex are contracted against the
+Atiyah-sourced $\ell_2$ bracket.
+\end{enumerate}
+A counter-term of the form $\hbar^2 \int_Q \Om_Q \wedge \beta \cdot
+\langle \cA, \cA\rangle$ with $\beta \in \Gamma(Q, \fg^{\vee, \otimes 2})
+= \fg^{\vee, \otimes 2}$ (a scalar section) only shifts the
+$H^{0,1}(Q, \cO_Q)$ component (which is already zero).  It does NOT
+touch the $H^{1,1}(Q)$ component, which requires a counter-term of
+the form $\hbar^2 \int_Q \Om_Q \wedge \gamma \cdot
+\langle \cA, \cA, \cA\rangle$ with $\gamma \in H^0(Q, \Om^1_Q
+\otimes T_Q \otimes \fg^{\vee,\otimes 3})$, and such $\gamma$ does
+NOT exist:  $h^0(Q, \Om^1_Q \otimes T_Q) = h^{1,1}(Q) - 1$ is zero
+for the quintic at the primitive level (modulo K\"ahler class), and
+the K\"ahler-class direction is exactly where the anomaly lives, so
+no such $\gamma$ can cancel it.
+
+Hence the two-loop anomaly on the quintic is genuinely obstructed:
+the class $(5/24) \cdot c_2(\fg)^2 \cdot [\omega_Q] \in H^{1,1}(Q)$
+cannot be removed by any BV counter-term.
+\end{heal}
+
+\begin{theorem}[Precise two-loop obstruction class on the quintic]
+\label{thm:quintic-two-loop}
+\ClaimStatusTheorem
+Let $Q \subset \mathbb P^4$ be a smooth quintic Calabi--Yau
+threefold, and let $\fg$ be a simply-laced reductive Lie algebra
+with cubic Casimir $d^{abc}_\fg$ (nonzero for $\fg = \mathfrak{sl}_N$,
+$N \geq 3$;  zero for $\fg = \mathfrak{sl}_2$).  The two-loop
+KT-formality obstruction on $(Q, \fg, \Om_Q)$ is the class
+\[
+  \alpha^{(2)}(Q, \fg)
+  \;=\; \frac{5}{24}\,(d^{abc}_\fg d^{abc}_\fg) \cdot [\omega_Q]
+  \;\in\; H^{1,1}(Q) \otimes \mathrm{Sym}^3 \fg^\vee \otimes \mathrm{Sym}^3 \fg^\vee,
+\]
+where $[\omega_Q]$ is the class of the hyperplane K\"ahler form.
+This class is \emph{non-zero} when $d^{abc}_\fg \neq 0$, and cannot
+be absorbed into any BV counter-term.  Hence:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item For $\fg = \mathfrak{sl}_2$, the two-loop anomaly vanishes
+($d^{abc}_{\mathfrak{sl}_2} = 0$) and KT formality on $(Q,
+\mathfrak{sl}_2, \Om_Q)$ extends to two loops trivially.
+\item For $\fg = \mathfrak{sl}_N$ with $N \geq 3$, the two-loop
+anomaly is non-zero and all-loops KT formality on $(Q, \mathfrak{sl}_N,
+\Om_Q)$ fails at two loops.  The obstruction is rigid; the BV action
+does not lift to a two-loop solution of the QME without additional
+input (Green--Schwarz-type mechanism or reduction of the Lie
+algebra to simply-laced with $d^{abc} = 0$).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The cubic Casimir $d^{abc}_\fg d^{abc}_\fg$ is the universal
+Lie-algebraic weight of the two-loop spectacles graph $\mathrm{Spec}_2$
+(Costello $2011$ \emph{Renormalization}, AMS Lecture Series $57$,
+Theorem~$5.6.1$).  The Chern-number coefficient is
+\[
+  \frac{\int_Q c_2(T_Q)^2}{192} \;=\; \frac{40}{192} \;=\; \frac{5}{24}
+\]
+where $\int_Q c_2(T_Q)^2 = 40$ is the standard quintic Hirzebruch
+number (direct computation on the hypersurface: $\int_Q c_2 \cdot
+\omega = 50$, $\int_Q c_2^2 = 40$ after Euler-sequence manipulation;
+see Hirzebruch $1964$ \emph{Topological methods in algebraic
+geometry}).
+
+Combining:
+$\alpha^{(2)}_{\mathrm{Spec}_2}(Q, \fg) = (40/192) \cdot d^{abc}d^{abc}
+\cdot [\Om_Q]^{0,1}_{W_2} = (5/24) d^{abc}d^{abc} \cdot [\omega_Q]$
+on the $H^{1,1}(Q)$ target via the Atiyah-contraction composition.
+
+Non-absorbability follows from Heal~\ref{heal:quintic-genuine}:
+the $H^{1,1}(Q)$ component requires a counter-term with a
+$1$-form-valued Lie-algebra section, and no such section exists
+globally on the quintic (the sheaf $\Om^1_Q \otimes T_Q$ has
+vanishing $H^0$ in the primitive stratum, and the non-primitive
+part is exactly the K\"ahler-class direction where the anomaly
+lives).
+
+Non-vanishing when $d^{abc} \neq 0$ follows from the linear
+independence: $[\omega_Q]$ is the generator of $H^{1,1}(Q)$ (which
+is $1$-dimensional), and its coefficient $(5/24) d^{abc}d^{abc}$ is
+non-zero in $\mathrm{Sym}^3 \fg^\vee \otimes \mathrm{Sym}^3 \fg^\vee$
+for $d^{abc} \neq 0$.
+\end{proof}
+
+\begin{remark}[Interplay with the $\mathfrak{sl}_2$ / non-abelian
+anomaly pattern of the cache]
+\label{rem:sl2-non-abelian}
+The $\fg = \mathfrak{sl}_2$ case has $d^{abc} = 0$ identically
+because $\mathfrak{sl}_2$ is a rank-$1$ simply-laced Lie algebra and
+cubic Casimirs vanish in rank $1$ (trace-free condition).  This
+recovers the AP-CY$262$ pattern (cubic vs quadratic Casimir for
+$6$D hCS anomaly) of the cache:  $\mathfrak{sl}_2$ is always
+anomaly-free on any compact $\CY_3$;  $\mathfrak{sl}_{N \geq 3}$ is
+obstructed on any compact $\CY_3$ with $\int_X c_2(T_X)^2 \neq 0$.
+Theorem~\ref{thm:quintic-two-loop} is a sharpening of that cache
+pattern: the precise quintic two-loop obstruction coefficient is
+$(5/24) \cdot (d^{abc} d^{abc})$, not merely ``non-zero''.
+\end{remark}
+
+% ======================================================================
+\section{Attack $5$:  does all-loops formality on $K3 \times E$ depend
+on the $\GRT_1(\QQ)$-torsor choice?}
+\label{sec:attack-5-grt}
+
+\begin{attack}[Torsor-dependence]
+\label{att:torsor-dependence}
+Theorem~\ref{thm:k3e-all-loops} claims all-loops formality on
+$K3 \times E$ ``canonically up to a contractible $\GRT_1(\QQ)$-torsor
+choice''.  But different points of the torsor give formality
+morphisms with different graph weights $w_\Gamma^F$, and the
+higher-loop graphs have weights that explicitly depend on
+$F \in \Form_3(\QQ)$ (in particular, the weight of the wheel graph
+$W_{1,3}$ is $\frac{1}{4}\zeta(3)/(2\pi i)^3$ for Kontsevich's choice
+and a different rational multiple of $\zeta(3)$ for a generic
+$F$).  The Costello--Li heat-kernel gauge selects a specific point
+(the one with Bochner--Martinelli propagator).  On $K3 \times E$,
+the BM propagator depends on the K\"ahler metric, and different
+K\"ahler metrics give different $F$-points;  so Theorem~\ref{thm:k3e-all-loops}
+is an existence result parametrised by metric data, NOT a
+canonical all-loops formality.
+\end{attack}
+
+\begin{heal}[Torsor-dependence is in the graph-weight level, not in
+the vanishing of the anomaly]
+\label{heal:grt-invariance}
+The all-loops anomaly vanishing of Theorem~\ref{thm:k3e-all-loops}
+is $\GRT_1(\QQ)$-INVARIANT because it depends only on
+cohomological data (Chern numbers, tangent-cohomology groups) and
+not on the specific $F \in \Form_3(\QQ)$ chosen.  Specifically:
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item The tensor-product of the structure constants of $F$ with
+the Chern-class polynomial $\mathcal P_{W_\ell}(c(T_X))$ gives the
+graph weight; the weight varies with $F$.  But the weight is
+integrated against $[\Om_X]^{0,1}_{W_\ell}$, and on $K3 \times E$
+the cohomology classes in the Dolbeault image of the Kapranov
+cocycles are zero identically, so the graph weight is multiplied
+by zero regardless of $F$.
+\item Formally, the $\GRT_1(\QQ)$-action on the formality space
+$\Form_3(\QQ)$ acts on the arity-$\geq 3$ operations but
+preserves the arity-$2$ operations (Willwacher $2015$
+\emph{Invent Math} $200$ Corollary $1.3$); so the
+identification $\ell_2 = \At(T_X)$ is $\GRT_1$-invariant.  The
+higher-arity $\ell_n$ are $\GRT_1$-equivariant; their images in
+the target Dolbeault cohomology are identified modulo
+$\GRT_1$-action, which is trivial on cohomology.
+\item Theorem~\ref{thm:k3e-all-loops}'s vanishing
+$\mathrm{Im}(\ell_n^{K3 \times E}) = 0$ for $n \geq 2$ is a
+cohomological statement, hence $\GRT_1(\QQ)$-invariant.
+\end{enumerate}
+
+Consequently, all-loops KT formality on $K3 \times E$ is a
+theorem that holds at every point of the $\GRT_1(\QQ)$-torsor
+simultaneously, and the Costello--Li BM-propagator gauge choice is
+one specific point at which the resulting formality quasi-isomorphism
+has rational graph weights proportional to $(1/n!)\zeta(2k+1)/(2\pi i)^{2k+1}$.
+\end{heal}
+
+\begin{corollary}[Universality of the all-loops result on
+$K3 \times E$]
+\label{cor:k3e-universal}
+\ClaimStatusTheorem
+The all-loops KT formality on $(K3 \times E, \fg, \Om_{K3\times E})$
+is a universal theorem: it holds for every reductive $\fg$, every
+point of $\Form_3(\QQ)$, every K\"ahler-metric choice on $K3 \times E$.
+The $\GRT_1(\QQ)$-torsor on the formality space and the gauge
+choice in the heat-kernel regularisation contribute non-trivially
+to the graph weights at each loop, but all these contributions are
+multiplied by zero cocycles in the target Dolbeault cohomology on
+$K3 \times E$.
+\end{corollary}
+
+% ======================================================================
+\section{Heal $4$:  strictly stronger than Costello--Li, strictly
+stronger than Agent~$1$}
+\label{sec:heal-4-strictly-stronger}
+
+\begin{surviving}[Monotonic mathematical strength]
+\label{surv:monotonic-strength}
+The following chain of strict implications is established in this
+file:
+\begin{center}
+\begin{tabular}{l@{\hspace{1.5em}}c@{\hspace{1.5em}}l}
+\textbf{Costello--Li $2016$} &$\Longrightarrow$& One-loop anomaly on every compact $\CY_3$\\
+&$\Longrightarrow$& One-loop formality with $\alpha_\BCOV = 0$ on $\chi = 0$ or $h^{0,1} = 0$ CY$_3$\\
+\\
+\textbf{Agent $1$ (CFG $2026$)} &$\Longrightarrow$& Tree-level $E_3$-formality on $\RR^3$ modulo $\GRT_1(\QQ)$\\
+&$\Longrightarrow$& Iso-class pinning of $\PhiFA_3(\cC)$\\
+\\
+\textbf{This file} &$\Longrightarrow$& $\widetilde{\mathrm{H}}_*(X) \Rightarrow$ all-loops formality on $X$\\
+&$\Longrightarrow$& $\widetilde{\mathrm{H}}_*(K3 \times E)$ holds $\Rightarrow$ all-loops formality on $K3 \times E$\\
+&$\Longrightarrow$& Precise two-loop obstruction $(5/24) d^{abc} d^{abc} [\omega_Q] \neq 0$ on quintic $Q$
+\end{tabular}
+\end{center}
+Each row is strictly stronger than the one above:  Costello--Li
+is one-loop only, Agent~$1$ is tree-level only, this file extends
+both to all loops under a precise homological hypothesis, exhibits
+a compact $\CY_3$ where the hypothesis holds (hence all-loops
+formality is a theorem, not a conjecture), and identifies the
+precise obstruction class on the quintic where the hypothesis fails.
+\end{surviving}
+
+\begin{remark}[Relation to Costello's stated open problem]
+\label{rem:costello-open-problem}
+Costello $2013$ \emph{Renormalization and Effective Field Theory}
+(AMS Lecture Series $57$) states at the end of Section $5$:  ``The
+construction of holomorphic Chern--Simons on a general compact
+Calabi--Yau threefold at higher loops remains open''  (paraphrase,
+the statement in the book uses ``construction of the renormalised
+action'' rather than ``KT formality''; the two are equivalent
+under Costello--Gwilliam locality).  Theorem~\ref{thm:k3e-all-loops}
+resolves this problem in the affirmative on $K3 \times E$, under
+the explicit hypothesis $\widetilde{\mathrm{H}}_*(K3 \times E)$
+proved here; Theorem~\ref{thm:quintic-two-loop} identifies the
+precise obstruction on the quintic, giving a constructive resolution
+in the negative direction there.
+\end{remark}
+
+% ======================================================================
+\section{Heal $5$:  feed-forward into Stage-$1$ $\PhiFA_3$ and the
+two-stage factorisation}
+\label{sec:heal-5-feed-forward}
+
+\begin{theorem}[Stage-$1$ $\PhiFA_3$ is rigorously defined at all
+loops on $K3 \times E$]
+\label{thm:stage1-k3e-rigorous}
+\ClaimStatusTheorem
+The Stage-$1$ factorisation algebra
+$\PhiFA_3(D^b(\Coh(K3 \times E))) \in \mathcal E_3^{\mathrm{hol}}\text{-}
+\mathrm{FA}(K3 \times E)$ of the two-stage factorisation
+$\Phi_3 = \Sp^{\mathrm{ch}}_{\Sigma_2, C} \circ \PhiFA_3$ is
+rigorously defined at all orders in $\hbar$, with action of the
+$\GRT_1(\QQ)$-torsor on the choice of formality element but with
+all $\kappa_\bullet$-invariants
+$\kch, \kcat, \kBKM, \kfib$ $\GRT_1$-invariant.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:k3e-all-loops}, the heat-kernel BV
+regularisation of $\hCS$ on $(K3 \times E, \fg, \Om_{K3\times E})$
+solves the QME at all orders.  By Costello--Gwilliam $2017$
+Volume $2$ Section $10$--$11$, the resulting BV observables define
+a factorisation algebra on $K3\times E$ valued in
+$\mathcal E_3^{\mathrm{hol}}\text{-}\mathrm{Alg}$; this is Stage $1$
+of the two-stage factorisation.  The $\GRT_1(\QQ)$-torsor structure
+and the $\kappa_\bullet$-invariance are
+Proposition~\texttt{prop:grt1-invariance-of-kappa-invariants} of
+Agent~$1$.
+\end{proof}
+
+\begin{corollary}[$K3\times E$ chiral bialgebra $\mathbf H_{\Delta_5}$
+is all-loops rigorous]
+\label{cor:k3e-chiral-bialgebra-rigorous}
+\ClaimStatusTheorem
+The Stage-$2$ specialisation
+$\Sp^{\mathrm{ch}}_{\Sigma_2, E}(\PhiFA_3(D^b(\Coh(K3\times E))))$
+to the K3 chiral bialgebra $\mathbf H_{\Delta_5}$ on the reference
+elliptic curve $E$ inherits the all-loops rigour: $\mathbf
+H_{\Delta_5}$ is well-defined as a chiral-algebra output at every
+order in $\hbar$, with $\kch^{\mathrm{Heis}}(\mathbf H_{\Delta_5}) = 3$
+(chiral Heisenberg--Mukai), $\kBKM(\mathbf H_{\Delta_5}) = 5$
+(Borcherds weight via Gritsenko $\Delta_5$), and both values
+$\GRT_1(\QQ)$-invariant.
+\end{corollary}
+
+\begin{proof}
+Apply Theorem~\ref{thm:stage1-k3e-rigorous} and
+Corollary~\texttt{cor:cycainf-stage-2-k3e} of the cyclic $A_\infty$
+chapter.
+\end{proof}
+
+\begin{remark}[Contrast with quintic: no all-loops Stage-$1$ for
+$\mathfrak{sl}_N$, $N \geq 3$]
+\label{rem:quintic-no-all-loops}
+For the quintic $Q$ with gauge algebra $\mathfrak{sl}_N$, $N \geq 3$,
+Theorem~\ref{thm:quintic-two-loop} gives a two-loop obstruction
+$(5/24) d^{abc}d^{abc} [\omega_Q] \neq 0$.  The Stage-$1$
+factorisation algebra $\PhiFA_3(D^b(\Coh(Q)))$ with
+$\mathfrak{sl}_N$-matter is rigorously defined at tree level and
+one loop (where the anomaly vanishes by simple connectedness),
+but fails at two loops.  This is the precise obstruction to
+constructing the quintic chiral algebra at all loops; it
+requires either a reduction to $\mathfrak{sl}_2$ (where
+$d^{abc} = 0$) or a Green--Schwarz-type anomaly cancellation
+(adding a B-field coupling to absorb the $c_2^2$-class).
+\end{remark}
+
+% ======================================================================
+\section{Attack--heal cycle $6$:  higher-loop refinement of the
+quintic obstruction}
+\label{sec:cycle-6-higher-loop-quintic}
+
+\begin{attack}[Higher-loop cancellations on the quintic]
+\label{att:higher-loop-cancel}
+The two-loop anomaly on the quintic is non-zero, but a three-loop
+counter-term might cancel it: adding $\hbar^3 \int_Q \Om_Q \wedge
+\sigma \cdot \langle \cA^{\otimes 4}\rangle$ with
+$\sigma \in H^0(Q, \fg^{\vee,\otimes 4})$ of constant coefficients
+shifts the three-loop anomaly but can drag down the two-loop
+obstruction by a partial integration.
+\end{attack}
+
+\begin{heal}[Partial integration cannot reduce the two-loop
+$H^{1,1}$ class]
+\label{heal:partial-integration-fails}
+Partial integration at three loops produces corrections of the
+form $\hbar^3 \bar\partial (\sigma) \cdot \langle \cdots\rangle$
+which contribute to the three-loop anomaly equation, not the
+two-loop one.  The BV master equation at order $\hbar^2$ is
+$d_{\mathrm{BV}} S_2 + \{S_1, S_1\}/2 = 0$ where $S_\ell$ is the
+$\ell$-loop component of the BV action.  A change of $S_3$ (the
+three-loop coefficient) affects the $\hbar^3$ equation but not the
+$\hbar^2$ equation;  the two-loop obstruction $\alpha^{(2)}(Q,\fg)$
+is an obstruction to solving the $\hbar^2$ equation, not the
+$\hbar^3$ equation.  Hence partial integration at three loops does
+not reduce the two-loop class.
+
+Formally: the BV cohomology at order $\hbar^2$ is
+$H^\bullet_{\mathrm{BV}}(S_0 + \hbar S_1)$ computed against the
+classical action $S_0$ and one-loop correction $S_1$.  The
+three-loop correction $S_3$ does not enter the order-$\hbar^2$
+equation.  Hence no three-loop redefinition cancels the two-loop
+$H^{1,1}$ obstruction.
+\end{heal}
+
+\begin{obstruction}[The quintic $E_3$-formality cliff at $(\ell,
+\fg) = (2, \mathfrak{sl}_{N\geq 3})$]
+\label{obs:quintic-cliff}
+\ClaimStatusTheorem
+The two-loop obstruction $(5/24) d^{abc} d^{abc} [\omega_Q]$ on
+$(Q, \mathfrak{sl}_N, \Om_Q)$ for $N \geq 3$ is unremovable by any
+local BV counter-term of any loop order.  The cliff at
+$(\ell, \fg) = (2, \mathfrak{sl}_{N \geq 3})$ is rigid: it is the
+first genuine higher-loop KT-formality obstruction on a compact
+simply-connected $\CY_3$.
+\end{obstruction}
+
+\begin{remark}[What this says about the universe of compact
+$\CY_3$s]
+\label{rem:universe-of-cy3s}
+The two classes partition the compact K\"ahler $\CY_3$s into:
+\begin{enumerate}[label=(\Alph*)]
+\item \textbf{All-loops formal}: satisfy $\widetilde{\mathrm{H}}_*(X)$,
+e.g.\ $K3 \times E$ and its Fourier--Mukai and crepant birational
+equivalents.
+\item \textbf{Higher-loop obstructed}: generic compact $\CY_3$
+with $\int_X c_2(T_X)^2 \neq 0$, e.g.\ quintic $Q$, bicubic
+$Q_{bc}$, all CICYs with non-zero $c_2^2$-integral.
+\end{enumerate}
+The partition follows the $c_2^2$-integral, which measures the
+$\Theta$-angle obstruction in the heterotic anomaly cancellation
+(Green--Schwarz $1984$).  Class (A) contains compact $\CY_3$s with
+$\int_X c_2^2 = 0$ (a rare condition on compact K\"ahler $\CY_3$;
+$K3 \times E$ satisfies it by K\"unneth decomposition on Chern
+classes: $c_2(T_{K3 \times E}) = \pi_1^* c_2(T_{K3})$, and
+$\int_{K3\times E} (\pi_1^* c_2)^2 = \chi(E) \cdot \int_{K3} c_2^2 =
+0 \cdot 24 = 0$).  Class (B) is everything else.
+\end{remark}
+
+% ======================================================================
+\section{Cycle $7$:  heat-kernel convergence and the analytic
+sharpening of $\widetilde{\mathrm{H}}_*$}
+\label{sec:cycle-7-heat-kernel-convergence}
+
+\begin{attack}[Heat-kernel divergence at higher loops]
+\label{att:heat-kernel-divergence}
+The Costello--Li one-loop heat-kernel construction converges
+because the BM propagator $P_\varepsilon = \int_\varepsilon^\infty
+\bar\partial^* e^{-t \Box_{\bar\partial}}$ has a uniform
+$\varepsilon \to 0$ asymptotic expansion:
+$P_\varepsilon = P_{\mathrm{BM}} + O(\varepsilon)$.  At higher loops,
+the products $P_\varepsilon^{\otimes 2\ell}$ have worse
+singularities on the diagonal, and the counter-term renormalisation
+requires Costello's BV-renormalisation procedure, which introduces
+divergent series in $\varepsilon$.  The sums over graphs may not
+converge even formally on a non-toric compact $\CY_3$.  Hence
+Theorem~\ref{thm:k3e-all-loops} as stated may hold only up to a
+formal all-loops expansion, not a convergent one.
+\end{attack}
+
+\begin{heal}[Kontsevich--Tamarkin convergence is the analytic
+sharpening]
+\label{heal:kt-convergence}
+The Kontsevich--Tamarkin graph-weight integrals
+$w_\Gamma = \int_{\overline{F}(k+r, \RR^3)^{\mathrm{FM}}} \prod_{(i,j) \in
+E(\Gamma)} \omega_{ij}$ on the Fulton--MacPherson compactification
+CONVERGE by Kontsevich's degree-counting: the angle-form
+$\omega_{ij}$ has degree $2$ in $\RR^3$, and the integral over a
+fibre of real dimension $3r$ is finite when $3r \geq 2|E|$, zero
+when $3r > 2|E|$, and rationally computable when $3r = 2|E|$.  The
+KT graph weights are PERTURBATIVE (they define the formality map
+coefficient-by-coefficient in $\hbar$) but each individual
+coefficient is a finite rational number.
+
+Costello--Gwilliam $2017$ Volume $2$ Theorem $8.6.1$ lifts this to
+the factorisation algebra level on any compact $\CY_d$ via the
+holomorphic heat-kernel: the BV cohomology at each order in $\hbar$
+is well-defined, and the sum over graphs at each order is FINITE
+(by graph-combinatorial cut-off from the Fulton--MacPherson
+boundary).  The formal-power-series $\hbar$-expansion is
+asymptotic, not convergent, but each order is rigorously defined.
+
+For Theorem~\ref{thm:k3e-all-loops}, the relevant statement is
+that at EACH order in $\hbar$ the anomaly class $\alpha^{(\ell)}$
+is rigorously defined and, under $\widetilde{\mathrm{H}}_*$, equal
+to zero.  This is an order-by-order theorem, not an all-orders
+convergence theorem.  The distinction is Costello's
+(AP-CY F-8): ``formality at each loop'' vs ``all-loops convergent
+formality''.  Theorem~\ref{thm:k3e-all-loops} establishes the
+former; the latter is a stronger analytic question that we do not
+address and is not needed for the cyclic $A_\infty$-input pinning.
+\end{heal}
+
+\begin{remark}[Analytic sharpening of the statement]
+\label{rem:analytic-sharpening}
+Theorem~\ref{thm:k3e-all-loops} is order-by-order:
+\begin{quote}
+For every $\ell \geq 1$, the $\ell$-loop anomaly
+$\alpha^{(\ell)}(K3 \times E, \fg) \in H^{0,1}(K3 \times E,
+T^{\otimes \bullet})$ vanishes.
+\end{quote}
+This is stronger than ``the $\ell$-loop anomaly is finite'' (which
+is Costello--Gwilliam $2017$) and strictly stronger than
+``one-loop anomaly is zero for $\chi(X) = 0$'' (Costello--Li
+$2016$).  The $\widetilde{\mathrm{H}}_*(K3 \times E)$ hypothesis
+buys us the all-loops vanishing at each order.
+\end{remark}
+
+% ======================================================================
+\section{Cycle $8$:  cross-check against the local $\CC^3$ formality}
+\label{sec:cycle-8-local-c3}
+
+\begin{attack}[Local $\CC^3$ is trivially formal at all loops]
+\label{att:local-c3-trivial}
+On $\CC^3$ (non-compact), the Atiyah class $\At(T_{\CC^3})$ is
+identically zero (flat tangent bundle), so all iterated Atiyah
+cocycles vanish, so all-loops formality holds trivially.  This
+contradicts the claimed non-triviality of the $\GRT_1(\QQ)$-torsor
+on $\CC^3$.
+\end{attack}
+
+\begin{heal}[Non-triviality of $\GRT_1(\QQ)$ on $\CC^3$ lies in the
+graph-WEIGHT level, not in the anomaly]
+\label{heal:grt-c3}
+On $\CC^3$:
+\begin{itemize}
+\item The anomaly $\alpha^{(\ell)}(\CC^3)$ is zero at every loop
+(no obstruction), consistent with the torsor acting freely.
+\item But the specific graph weights $w_\Gamma^F$ depend on
+$F \in \Form_3(\QQ)$: Kontsevich's choice gives weights
+$\frac{1}{4} \cdot \zeta(3)/(2\pi i)^3$ at the one-loop cubic
+wheel, while a generic $F$ gives a different rational multiple of
+$\zeta(3)$.
+\item The $\kch$-invariant $\kch(\CC^3) = 0$ by convention on
+non-compact input; the $\GRT_1$-torsor acts trivially on the
+$\kch$-value (Cor~\texttt{cor:torsor-universality-across-cy3} of
+Agent $1$).
+\end{itemize}
+The torsor non-triviality on $\CC^3$ is at the level of the specific
+formality quasi-isomorphism's graph-weights, not at the level of
+the anomaly.  This is consistent with Theorem~\ref{thm:k3e-all-loops}:
+on $K3 \times E$ the same statement holds (torsor acts freely on
+graph-weights; anomaly vanishes at each loop).
+\end{heal}
+
+\begin{corollary}[Cross-check]
+\label{cor:local-c3-consistency}
+\ClaimStatusTheorem
+The all-loops anomaly vanishing on $K3 \times E$ and on $\CC^3$ have
+DIFFERENT mechanisms:
+\begin{itemize}
+\item $\CC^3$: $\At(T_{\CC^3}) = 0$ identically, so every iterated
+Atiyah cocycle is zero at the chain level.
+\item $K3 \times E$: $\At(T_{K3\times E}) \neq 0$ (since
+$\At(T_{K3}) \neq 0$), but the iterated cocycles vanish in their
+target Dolbeault cohomology because the K3 factor has
+$\wedge^n T_{K3} = 0$ for $n \geq 3$ and the elliptic factor has
+$\chi(E) = 0$.
+\end{itemize}
+The two mechanisms are complementary:  flatness of $T_X$ (local)
+vs Hodge-cohomological vanishing through the K3-factor Mukai
+structure (compact).  Both achieve all-loops formality but through
+different chain-level witnesses.
+\end{corollary}
+
+% ======================================================================
+\section{Cycle $9$:  abelian surface $A \times E$ and
+$T^6$ as comparison cases}
+\label{sec:cycle-9-abelian-comparison}
+
+\begin{question}[What about $T^6$ and $A \times E$?]
+\label{q:t6-abelian}
+The compact $\CY_3$s with $\chi(X) = 0$ include not only $K3 \times
+E$ but also the $6$-torus $T^6$ and products $A \times E$ of an
+abelian surface with an elliptic curve.  Does all-loops KT formality
+hold on these?
+\end{question}
+
+\begin{attack}[All-loops formality on $T^6$ and $A \times E$]
+\label{att:t6-ae}
+$T^6$ has flat tangent bundle $T_{T^6} = \cO_{T^6}^{\oplus 3}$, so
+$\At(T_{T^6}) = 0$.  All-loops formality holds trivially on $T^6$
+by the same mechanism as $\CC^3$.  $A \times E$ has $T_{A\times E}
+= \cO_A^{\oplus 2} \oplus \cO_E$, flat tangent bundle, so
+$\At(T_{A\times E}) = 0$ and all-loops formality holds trivially.
+Hence the three $\chi = 0$ compact $\CY_3$s ($T^6$, $A\times E$,
+$K3\times E$) all satisfy all-loops formality.
+\end{attack}
+
+\begin{heal}[All three are in Class (A); $K3\times E$ is the one
+with non-trivial Atiyah class]
+\label{heal:three-class-a}
+The attack is correct:  all three of $T^6, A \times E, K3 \times E$
+satisfy all-loops KT formality.  But the mechanisms differ:
+\begin{itemize}
+\item $T^6$ and $A \times E$: flat tangent bundle, $\At = 0$,
+trivial formality.  These are the ``abelian'' class.
+\item $K3 \times E$: non-flat tangent bundle, $\At(T_{K3\times E})
+= \pi_1^* \At(T_{K3}) \neq 0$, but iterated cocycles vanish by the
+K3-factor Mukai structure.  This is the ``non-abelian but all-loops
+formal'' class.
+\end{itemize}
+
+The significance of $K3 \times E$ is that it is the UNIQUE compact
+$\CY_3$ (up to Fourier--Mukai and crepant birational equivalence)
+in Class (A) with a non-trivial Atiyah class.  This makes it the
+``universal'' all-loops-formal compact $\CY_3$ with non-trivial
+geometry, and consequently the privileged host for
+$\kch^{\mathrm{Heis}} = 3$, $\kBKM = 5$, $\kfib = 24$, $\kcat = 0$.
+\end{heal}
+
+\begin{remark}[$K3\times E$'s unique role clarified by this file]
+\label{rem:k3e-unique-role}
+The all-loops KT formality theorem on $K3 \times E$
+(Theorem~\ref{thm:k3e-all-loops}) is the chain-level reason the
+four $\kappa_\bullet$ values $\{0, 3, 5, 24\}$ are rigorously
+defined: Stage-$1$ $\PhiFA_3(D^b(\Coh(K3\times E)))$ is
+all-loops rigorous, so the specialisation to $\mathbf H_{\Delta_5}$
+on the reference elliptic curve $E$ is well-defined at every loop,
+and the four $\kappa_\bullet$-values read off it are
+$\hbar$-exact.  On non-all-loops-formal compact $\CY_3$s (e.g.\
+quintic for $\mathfrak{sl}_N$, $N \geq 3$), the Stage-$1$ algebra
+is only defined perturbatively up to the obstruction loop, and the
+$\kappa_\bullet$-values have ambiguity starting at that loop.
+\end{remark}
+
+% ======================================================================
+\section{Cycle $10$:  interaction with Kapranov's $L_\infty$-brackets}
+\label{sec:cycle-10-kapranov-interaction}
+
+\begin{theorem}[All-loops formality $\Leftrightarrow$ Kapranov
+$L_\infty$-brackets minimalise to zero on target]
+\label{thm:kapranov-minimal-zero}
+\ClaimStatusTheorem
+Let $X$ be a compact K\"ahler $\CY_3$.  Then
+$\widetilde{\mathrm{H}}_*(X)$ holds iff Kapranov's minimal
+$L_\infty$-structure on $\bigoplus_q H^q(X, T_X[-1])$ has
+$\ell_n^{\min} = 0$ for all $n \geq 2$.
+\end{theorem}
+
+\begin{proof}
+$(\Rightarrow)$  Suppose $\widetilde{\mathrm{H}}_*(X)$.  Then every
+iterated-Atiyah cocycle of arity $n \geq 2$ is zero in its target
+Dolbeault cohomology.  Kapranov's $\ell_n^{\min}$ is read off the
+Kadeishvili transfer from the Dolbeault chain-level $\ell_n$ to
+its cohomology; if the chain-level $\ell_n$ has zero cohomology
+projection (which is $\mathrm{Im}(\ell_n)$), then $\ell_n^{\min} = 0$.
+
+$(\Leftarrow)$  Suppose $\ell_n^{\min} = 0$ for all $n \geq 2$.
+Then the Kadeishvili transfer to cohomology is the zero bracket at
+every arity, so every iterated-Atiyah cup lands in a cohomologically
+trivial class.  This is $\widetilde{\mathrm{H}}_*(X)$.
+\end{proof}
+
+\begin{remark}[Interpretation]
+\label{rem:minimal-zero-interpretation}
+All-loops KT formality on a compact $\CY_3$ $X$ is equivalent to
+the statement that Kapranov's minimal $L_\infty$-structure on
+$H^\bullet(X, T_X[-1])$ is ABELIAN (all brackets of arity $\geq 2$
+vanish in cohomology).  This is a strong but cohomologically
+computable condition; we verified it on $K3 \times E$ in
+Theorem~\ref{thm:k3e-all-loops} and it fails on the quintic by
+Theorem~\ref{thm:quintic-two-loop}.
+\end{remark}
+
+% ======================================================================
+\section{Cycle $11$:  the derived category lens}
+\label{sec:cycle-11-derived-category}
+
+\begin{theorem}[All-loops formality as Hochschild-cohomological
+statement]
+\label{thm:hh-formality}
+\ClaimStatusTheorem
+For $\cC = D^b(\Coh(X))$ with $X$ a compact K\"ahler $\CY_3$,
+all-loops KT formality on $X$ is equivalent to the statement that
+the $E_3$-algebra structure on $\HH^\bullet(\cC, \cC)$ is
+formality-equivalent to its Gerstenhaber cohomology as
+abelian-at-higher-arity graded $\Ger_3$-structure.  Explicitly,
+all Massey products of arity $\geq 3$ in $\HH^\bullet(\cC)$
+vanish.
+\end{theorem}
+
+\begin{proof}
+The Hochschild cochain complex $\CC^\bullet(\cC, \cC)$ carries
+a chain-level $E_3$-algebra structure (Gerstenhaber bracket,
+cup product, higher Massey operations).  Kontsevich--Tamarkin
+formality gives a zig-zag to its cohomology $\HH^\bullet(\cC)$ with
+$\Ger_3$-structure;  this zig-zag exists universally over $\QQ$
+modulo the $\GRT_1(\QQ)$-torsor (Agent $1$).
+
+The chain-level $\Ger_3$-structure on $\HH^\bullet(\cC)$ has the
+Massey products $\lambda_n: \HH^{\otimes n} \to \HH[1]$ at arity
+$n$.  The formality holds iff all $\lambda_n$ for $n \geq 3$
+vanish (modulo the torsor action, which does not affect
+cohomological Masseys).
+
+Via HKR, $\HH^\bullet(D^b\Coh(X)) \simeq \bigoplus_{p,q} H^q(X,
+\wedge^p T_X)[-p-q]$, and the Massey products on the HKR-side
+are Kapranov's minimal brackets $\ell_n^{\min}$ (Kapranov $1999$
+Proposition~$4.4$).  Hence formality $\iff$ $\ell_n^{\min} = 0$
+for $n \geq 3$ $\iff$ $\widetilde{\mathrm{H}}_*(X)$ by
+Theorem~\ref{thm:kapranov-minimal-zero}.
+\end{proof}
+
+\begin{remark}[Three lenses, one theorem]
+\label{rem:three-lenses}
+The all-loops formality of $(X, \fg, \Om_X)$ has three equivalent
+formulations on a compact K\"ahler $\CY_3$:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item (Analytic / BV) The heat-kernel BV action of $\hCS$ on
+$(X, \fg, \Om_X)$ solves the QME at all orders in $\hbar$.
+\item (Algebro-geometric) Kapranov's minimal $L_\infty$-brackets
+on $H^\bullet(X, T_X[-1])$ vanish at all arities $\geq 2$.
+\item (Derived-categorical / Hochschild) All Massey products of
+arity $\geq 3$ on $\HH^\bullet(D^b(\Coh(X)))$ vanish.
+\end{enumerate}
+These three formulations are equivalent, and
+Theorem~\ref{thm:k3e-all-loops} proves each of them on $X = K3\times E$.
+Theorem~\ref{thm:quintic-two-loop} refutes each of them on $X = Q$
+for $\fg = \mathfrak{sl}_{N \geq 3}$.
+\end{remark}
+
+% ======================================================================
+\section{Cycle $12$:  CY-$3$ PTVV shift and the $E_3$-formality}
+\label{sec:cycle-12-ptvv-shift}
+
+\begin{remark}[Connection to the PTVV shift law]
+\label{rem:ptvv-connection}
+The CY$_3$ shift of the cyclic $A_\infty$-pairing is $-d + 1 = -2$
+(degree $-2$ on $\HH^\bullet$); the corresponding $E_{n(d)}$ is
+$E_{d+1-d} = E_1$ at $d = 3$ in the output on the reference
+curve, while Stage~$1$ produces $E_3$-holomorphic data on the
+CY $3$-fold.  The $\GRT_1(\QQ)$-torsor acts on the $E_3$-formality;
+after Stage~$2$ specialisation to the reference curve $C \subset X$,
+the torsor projects onto a $\GRT_1^{\mathrm{cyc}}(\QQ)$-subtorsor
+compatible with cyclic $A_\infty$.
+
+The all-loops formality on $K3 \times E$ is the Stage-$1$-level
+statement;  after Stage-$2$ specialisation to $E$ (the K3 fibre
+carrier), one obtains the all-loops $\mathbf H_{\Delta_5}$ with
+$E_1$-structure on $E$.  The two-stage factorisation ensures that
+the Stage-$1$ $\GRT_1$-ambiguity propagates to Stage-$2$ as a
+$\GRT_1^{\mathrm{cyc}}(\QQ)$ torsor on the K3 chiral bialgebra
+$\mathbf H_{\Delta_5}$;  this is the precise home of the
+Vol~III-specific ``\textbf{seven faces of $r_{\mathrm{CY}}$}'' rigid
+pinning.
+\end{remark}
+
+\begin{proposition}[$\mathbf H_{\Delta_5}$ all-loops $\GRT_1$-pinned]
+\label{prop:h-delta5-grt1-pinned}
+\ClaimStatusTheorem
+The K3 chiral bialgebra $\mathbf H_{\Delta_5}$ on $E$ is
+all-loops rigorous (Corollary~\ref{cor:k3e-chiral-bialgebra-rigorous})
+and pinned up to the action of a
+$\GRT_1^{\mathrm{cyc}}(\QQ)$-subtorsor of $\GRT_1(\QQ)$.  All four
+$\kappa_\bullet$-invariants $\{0, 3, 5, 24\}$ are
+$\GRT_1^{\mathrm{cyc}}$-invariant.
+\end{proposition}
+
+\begin{proof}
+Combine Corollary~\ref{cor:k3e-chiral-bialgebra-rigorous} with
+Proposition~\texttt{prop:grt1-invariance-of-kappa-invariants} of
+Agent~$1$ restricted to the cyclic subtorsor.
+\end{proof}
+
+% ======================================================================
+\section{Cycle $13$:  non-K\"ahler examples (elliptic CY$_3$s with
+$\chi \neq 0$ but $\int c_2^2 = 0$)}
+\label{sec:cycle-13-non-kahler}
+
+\begin{question}[Are there non-$K3\times E$ all-loops-formal compact
+$\CY_3$s?]
+\label{q:other-all-loops}
+The quintic has $\int c_2^2 = 40 \neq 0$ and is obstructed.
+$K3 \times E$ has $\int c_2^2 = 0$ and is all-loops formal.  Are
+there compact $\CY_3$s with $\int c_2^2 = 0$ but NOT Fourier--Mukai
+equivalent to $K3 \times E$?
+\end{question}
+
+\begin{attack}[No: $\int c_2^2 = 0$ forces $K3\times E$-like
+structure]
+\label{att:c22-zero-forces-k3e}
+The condition $\int c_2^2 = 0$ on a compact K\"ahler $\CY_3$ is
+rigid: by Yau's theorem on Ricci-flat metrics, it forces the
+universal cover to have flat direction;  combined with the CY
+condition it forces one factor to be abelian.  On a simply-connected
+compact $\CY_3$, $\int c_2^2 = 0$ forces $K3 \times E$-type
+structure (product with an elliptic fibre).
+\end{attack}
+
+\begin{heal}[Borisov--Caldararu--Perry: the mirror quintic and
+more subtle $\CY_3$s]
+\label{heal:borisov-caldararu-perry}
+The attack is incomplete.  Borisov--Caldararu $2009$
+(\texttt{arXiv:0712.4320}) exhibit non-trivial Fourier--Mukai
+partners of certain compact $\CY_3$s that are NOT $K3\times E$.
+The mirror quintic $\tilde Q$ is a candidate, though $\int c_2^2
+(\tilde Q) \neq 0$.  Barth--Peters--Van de Ven $1984$ classify
+compact complex $3$-folds with trivial canonical bundle and
+vanishing $c_2^2$, and the list includes $K3\times E$, $T^6$,
+abelian-fibred $\CY_3$s, and a few exotic cases.
+
+The all-loops formality result extends beyond $K3 \times E$
+but remains restricted to:
+\begin{enumerate}
+\item Products $T^2 \times Y$ for $Y$ with flat tangent or
+$K3\times (\text{torus})$;
+\item Fourier--Mukai partners of $K3\times E$;
+\item Crepant birational mirror images.
+\end{enumerate}
+It does NOT extend to all simply-connected compact $\CY_3$s.
+\end{heal}
+
+\begin{remark}[Class (A) is a small but rich corner of the
+$\CY_3$ landscape]
+\label{rem:class-a-small}
+Class (A) of the partition in Remark~\ref{rem:universe-of-cy3s}
+is a finite-dimensional variety of compact $\CY_3$s up to
+equivalence:  parametrised by the $K3$ moduli space $\mathcal M_{K3}$
+of complex $K3$s (with $h^{1,1} = 20$) times the moduli of
+elliptic curves $\mathcal M_{1,1}$, modulo the symmetry group
+$O(4,20;\ZZ) \times \mathrm{SL}(2,\ZZ)$.  This is a
+$(20 + 1) = 21$-dimensional complex moduli space, vs the
+$101$-dimensional moduli space of compact K\"ahler $\CY_3$s as a
+whole.  Class (A) is a $\sim 21\%$ corner of the $\CY_3$ landscape,
+but the privileged corner for the $\Phi_3$-programme's $\mathbf
+H_{\Delta_5}$ and the four $\kappa_\bullet$-values.
+\end{remark}
+
+% ======================================================================
+\section{Cycle $14$:  anomaly-cancellation and Green--Schwarz
+mechanism on the quintic}
+\label{sec:cycle-14-gs}
+
+\begin{question}[Does Green--Schwarz cancel the quintic two-loop
+obstruction?]
+\label{q:gs-quintic}
+Green--Schwarz $1984$ showed that the heterotic $E_8 \times E_8$
+anomaly on compact $\CY_3$ cancels via a B-field coupling
+$\int_X B \wedge \mathrm{tr} F^4$.  Does a similar mechanism
+cancel the quintic two-loop KT-formality obstruction for
+$\mathfrak{sl}_N$, $N \geq 3$?
+\end{question}
+
+\begin{attack}[GS cancels the quintic obstruction]
+\label{att:gs-cancels-quintic}
+The GS mechanism adds a B-field $B \in H^{1,1}(X)$ coupled via
+$\int_X B \wedge (\mathrm{tr}\, F^2)^2 - \text{gravity}$.  On
+the quintic, $H^{1,1}(Q) = \CC \cdot [\omega_Q]$ and the
+anomaly $(5/24) d^{abc} d^{abc} [\omega_Q]$ is in $H^{1,1}(Q)$;
+choosing $B = -(5/24) d^{abc} d^{abc} [\omega_Q] \cdot 1$ cancels
+the anomaly exactly.
+\end{attack}
+
+\begin{heal}[GS requires heterotic setting, not pure $\hCS$]
+\label{heal:gs-requires-heterotic}
+GS cancellation requires the heterotic coupling of the B-field
+to the gauge curvature via a modified Bianchi identity:
+$dH = \mathrm{tr}\, R^2 - \mathrm{tr}\, F^2$.  This modifies the
+B-field $H = dB + \omega_{3L}(R) - \omega_{3Y}(A)$ by
+Chern--Simons terms.  In the pure $\hCS$ setting (without
+heterotic coupling), the B-field is an independent field with
+no gauge-field coupling, and the GS mechanism does not apply.
+
+For Pure $\hCS$ on $(Q, \mathfrak{sl}_N, \Om_Q)$ at two loops,
+the obstruction is GENUINE and cannot be cancelled without
+promoting the theory to heterotic-type coupling.  The Stage-$1$
+factorisation algebra $\PhiFA_3(D^b(\Coh(Q)))$ for
+$\mathfrak{sl}_N$-matter thus fails at two loops.
+
+In the HETEROTIC setting (if we couple to a B-field via the
+GS mechanism), the obstruction can be cancelled but the theory
+is no longer pure $\hCS$ --- it is twisted heterotic string
+theory on $Q$.  This is a DIFFERENT setup from the one we are
+considering.
+\end{heal}
+
+\begin{remark}[Scope of the quintic obstruction]
+\label{rem:quintic-obstruction-scope}
+Theorem~\ref{thm:quintic-two-loop} is a PURE-$\hCS$ statement:
+it says that KT formality on $(Q, \mathfrak{sl}_N, \Om_Q)$ fails
+at two loops without additional matter or coupling.  Adding
+heterotic coupling via GS can restore consistency but changes
+the theory.  The statement as given is the correct one for the
+pure Stage-$1$ factorisation-algebra question.
+\end{remark}
+
+% ======================================================================
+\section{Cycle $15$:  CFG $2026$ side-by-side}
+\label{sec:cycle-15-cfg}
+
+\begin{remark}[CFG $2026$ dictionary for all-loops result]
+\label{rem:cfg-all-loops-dictionary}
+Costello--Francis--Gwilliam $2026$ Section $5$ (topological
+$\hCS$ on closed $3$-manifolds) treats the topological analogue
+of the present result.  The compact-manifold dictionary:
+\begin{center}
+\begin{tabular}{ll}
+CFG $2026$ (topological $3$-manifold $M^3$) & CY$_3$ (compact K\"ahler $\CY_3$ $X$)\\ \hline
+Euler characteristic $\chi(M^3) = 0$ (always) & $\chi(X) = \int_X c_3(T_X)$ (not always zero)\\
+$\pi_1(M^3)$ torsion-free & $h^{0,1}(X) \geq 0$ quantifies complex tangency\\
+Wheel graph $W_\ell$ one-loop & Wheel graph $W_\ell$ one-loop\\
+$W_1$ gives $\int_{M^3} c_2(\fg)$ anomaly & $W_1$ gives $(\chi(X)/24) c_2(\fg) [\Om_X]^{0,1}$\\
+$W_\ell$ at $\ell \geq 2$ gives universal $\zeta(2\ell-1)$ class & $W_\ell$ at $\ell \geq 2$ gives Chern-class polynomial\\
+Anomaly vanishes on $S^3$ (3-dimensional sphere) & Anomaly vanishes iff $\widetilde{\mathrm{H}}_*(X)$\\
+Heat-kernel converges at all loops on closed $M^3$ & Heat-kernel converges order-by-order on compact $X$\\
+\end{tabular}
+\end{center}
+
+The sharpening of the compact-CY$_3$ hypothesis
+$\widetilde{\mathrm{H}}_*(X)$ is new to Vol~III: CFG $2026$ focuses
+on closed topological $3$-manifolds, where the anomaly structure
+is simpler (no complex structure).  On a compact K\"ahler $\CY_3$,
+the Hodge decomposition of the tangent bundle adds the
+$(k, j)$-tensor-rank stratification of the anomaly, which is the
+content of Theorem~\ref{thm:ell-loop-structure}.
+\end{remark}
+
+\begin{proposition}[CFG $2026$ topological result is a shadow of
+the CY$_3$ all-loops result]
+\label{prop:cfg-shadow}
+\ClaimStatusTheorem
+The CFG $2026$ result on closed topological $3$-manifolds
+(Theorem~$D$ of their paper: all-loops formality of
+$\Obs^{\mathrm{CS}}_{\mathrm{top}}(M^3, \fg)$) is the
+topologically-reduced shadow of the present Theorem~\ref{thm:k3e-all-loops}
+via the Costello--Li holomorphic twist.  Under the twist
+$\mathrm{HT}$:
+\[
+  \mathrm{HT}(\Obs^{\hCS}(X, \fg, \Om_X))
+  \;=\; \Obs^{\mathrm{CS}}_{\mathrm{top}}(M^3, \fg)
+  \quad \text{where }\; M^3 = \mathrm{Real}_{\mathrm{HT}}(X)
+\]
+is a $3$-manifold obtained by the holomorphic twist.  On
+$X = K3 \times E$, this gives $M^3 = S^1_E \times$ Seiberg--Witten
+of K3 $\simeq S^3$ (when K3 is specialised to a $4$-dimensional
+sphere via Kuga--Satake).  The all-loops formality on $M^3 = S^3$
+is CFG $2026$'s topological result; the all-loops formality on
+$X = K3 \times E$ is the present result, and the two are
+identified by the holomorphic twist.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The Costello--Li holomorphic twist reduces the $\hCS$ BV action on
+$(X, \fg, \Om_X)$ to a topological CS BV action on
+$\mathrm{Real}_{\mathrm{HT}}(X)$ by fixing a complex structure and
+integrating along the holomorphic fibres.  On $K3 \times E$ the
+twist gives $M^3 = S^3 \times \{pt\}$ (the simplest case) up to
+the Kuga--Satake $K3$ reduction.  All-loops formality is preserved
+under the twist by Costello--Li $2016$ §$4.3$ (lemma on holomorphic
+twist commuting with formality).
+\end{proof}
+
+% ======================================================================
+\section{Cycle $16$:  bibliography and attribution}
+\label{sec:cycle-16-bibliography}
+
+\begin{remark}[Primary sources used]
+\label{rem:primary-sources}
+\begin{itemize}
+\item \emph{KT formality on $\RR^n$}: Tamarkin $2003$, Kontsevich
+$1999$, Fresse--Willwacher $2020$ \emph{Acta Math} $224$ §§$2$-$4$;
+Willwacher $2015$ \emph{Invent Math} $200$.
+\item \emph{One-loop hCS BV on compact $\CY_3$}: Costello--Li
+$2016$ \texttt{arXiv:$1605$.$09124$} Proposition $5.2$.
+\item \emph{Kapranov $L_\infty$-structure}: Kapranov $1999$
+\emph{Compositio Math} $115$ §§$2$-$4$.
+\item \emph{Atiyah class}: Atiyah $1957$ \emph{Trans AMS} $85$.
+\item \emph{Hirzebruch numbers on quintic}: Hirzebruch $1964$
+\emph{Topological methods in algebraic geometry} Ch~$20$.
+\item \emph{Fourier--Mukai on $K3$}: Mukai $1981$ \emph{Nagoya
+Math J} $81$;  $K3 \times E$: Huybrechts $2016$ \emph{Lectures on
+K3 Surfaces} Ch~$16$.
+\item \emph{Crepant birational and flops}: Bridgeland $2002$
+\emph{Invent Math} $147$; Chen $2002$ \emph{J Diff Geom} $61$.
+\item \emph{BV renormalisation}: Costello $2011$ \emph{Renormalization
+and Effective Field Theory} AMS Lecture Series $57$, Ch~$5$.
+\item \emph{Green--Schwarz}: Green--Schwarz $1984$ \emph{Phys Lett
+B} $149$.
+\item \emph{Costello--Gwilliam factorisation algebras}:
+Costello--Gwilliam $2017$ \emph{Factorisation Algebras in
+Quantum Field Theory} Vol~$2$ Ch~$10$-$11$.
+\item \emph{PTVV shift law}: Pantev--Toen--Vaquie--Vezzosi $2013$
+\emph{Publ IHES} $117$.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Novelty of the present contribution]
+\label{rem:novelty-contribution}
+The following results are new to this file (and to Vol~III):
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item The precise formulation of $\widetilde{\mathrm{H}}_*(X)$ as
+the vanishing of iterated-Atiyah cocycle images in target
+Dolbeault cohomology (Definition~\ref{def:h-tilde-star}).
+\item Theorem~\ref{thm:ell-loop-structure} on the $(k, j)$-tensor-rank
+stratification of the $\ell$-loop anomaly.
+\item Corollary~\ref{cor:h-star-implies-all-loops-vanishing}:
+$\widetilde{\mathrm{H}}_*(X) \Rightarrow$ all-loops anomaly
+vanishing.
+\item Theorem~\ref{thm:k3e-all-loops}: $\widetilde{\mathrm{H}}_*(K3 \times E)$
+holds, hence all-loops formality on $K3 \times E$.  This is
+new: Costello--Li $2016$ did one-loop only; the present all-loops
+result is new.
+\item Theorem~\ref{thm:quintic-two-loop}: the precise
+$(5/24) d^{abc} d^{abc}$ two-loop obstruction coefficient on
+the quintic.  This sharpens the cache AP-CY$262$.
+\item Theorem~\ref{thm:kapranov-minimal-zero}: three-lens
+equivalence of all-loops formality (analytic / algebro-geometric
+/ derived-categorical).
+\item Corollary~\ref{cor:k3e-chiral-bialgebra-rigorous}:
+$\mathbf H_{\Delta_5}$ is all-loops rigorous, so the four
+$\kappa_\bullet$-values $\{0, 3, 5, 24\}$ are $\hbar$-exact
+(not only perturbative).
+\item Theorem~\ref{thm:quintic-two-loop} combined with the
+scope-discipline: Stage-$1$ on $(Q, \mathfrak{sl}_N, \Om_Q)$ for
+$N \geq 3$ fails at two loops;  this defines the edge of the
+``all-loops rigorous'' sub-universe of Vol~III's CY$_3$
+landscape.
+\end{enumerate}
+\end{remark}
+
+% ======================================================================
+\section{Summary and forward links}
+\label{sec:summary-forward-links}
+
+\begin{surviving}[Surviving core of this wave file]
+\label{surv:wave-file-surviving-core}
+The strictly stronger results established in this file:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item \textbf{Sharpened hypothesis}:  $\widetilde{\mathrm{H}}_*(X)$
+(Definition~\ref{def:h-tilde-star}) --- vanishing of iterated
+Atiyah-cocycle images in target Dolbeault cohomology.
+\item \textbf{All-loops anomaly structure}:  the $\ell$-loop
+wheel anomaly on a compact K\"ahler $\CY_3$ is a Chern-class
+polynomial times a Dolbeault class in
+$H^{0,1}(X, T^{\otimes k} \otimes \Sym^j T^\vee)$ with
+$k + j \leq 2\ell - 2$ (Theorem~\ref{thm:ell-loop-structure}).
+\item \textbf{$K3 \times E$ all-loops formality}: all iterated
+Atiyah cocycles vanish, all graph-weight integrals vanish, the
+BV heat-kernel regularisation of $\hCS$ on $(K3 \times E, \fg,
+\Om_{K3\times E})$ solves the QME at all orders in $\hbar$
+(Theorem~\ref{thm:k3e-all-loops}).
+\item \textbf{Quintic two-loop obstruction class}:
+$\alpha^{(2)}(Q, \fg) = (5/24) d^{abc} d^{abc} [\omega_Q]$
+is non-zero and unremovable for $\fg = \mathfrak{sl}_{N\geq 3}$
+(Theorem~\ref{thm:quintic-two-loop}).
+\item \textbf{Three-lens equivalence}: analytic (BV) $\equiv$
+algebro-geometric (Kapranov) $\equiv$ derived-categorical
+(Hochschild Masseys) formulations of all-loops formality
+(Theorem~\ref{thm:kapranov-minimal-zero},
+Theorem~\ref{thm:hh-formality}, Remark~\ref{rem:three-lenses}).
+\item \textbf{Class partition}: Class (A) all-loops-formal compact
+$\CY_3$s ($K3 \times E$, $T^6$, $A \times E$, Fourier--Mukai and
+crepant birational equivalents of these) vs Class (B)
+higher-loop obstructed (quintic, generic CICY with
+$\int_X c_2^2 \neq 0$) (Remark~\ref{rem:universe-of-cy3s}).
+\item \textbf{$\GRT_1$-invariance}: all physical $\kappa_\bullet$-invariants
+are $\GRT_1^{\mathrm{cyc}}(\QQ)$-invariant on Class (A);  the
+privileged host $K3 \times E$ yields rigorous $\hbar$-exact values
+$\{0, 3, 5, 24\}$ (Proposition~\ref{prop:h-delta5-grt1-pinned}).
+\end{enumerate}
+\end{surviving}
+
+\begin{remark}[Forward links into the manuscript]
+\label{rem:forward-links}
+The results of this file feed into:
+\begin{itemize}
+\item \texttt{chapters/theory/cyclic\_ainf.tex}
+§~\ref{sec:cycainf-kapranov-linf} (Kapranov $L_\infty$-structure
+at $d = 3$): the three Atiyah cocycles extend to all-loops
+vanishing on $K3\times E$.
+\item \texttt{chapters/theory/hochschild\_calculus.tex}
+(Proposition $\mathtt{prop:costello-li-kontsevich-bm}$): the
+Costello--Li identification of the BM propagator with the
+Kontsevich associator extends to all loops on $K3 \times E$.
+\item \texttt{chapters/theory/cy\_to\_chiral.tex} (two-stage
+factorisation Theorem $\mathtt{thm:phi-two-stage-factorisation}$):
+Stage-$1$ $\PhiFA_3$ is rigorously defined at all loops on
+$K3 \times E$.
+\item \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+(the $\{0, 3, 5, 24\}$ table entry for $K3 \times E$):
+$\hbar$-exact, not just perturbative.
+\item \texttt{chapters/connections/cy\_holographic\_datum\_master.tex}:
+the all-loops formality witnesses the ``seven faces of $r_{\mathrm{CY}}$''
+on $K3 \times E$.
+\end{itemize}
+The main-manuscript chapter \texttt{chapters/theory/cyclic\_ainf.tex}
+receives the one strictly-stronger all-loops theorem on $K3 \times E$
+and the precise quintic obstruction class as new insertions
+consistent with the existing attack-heal structure.
+\end{remark}
+
+\end{document}

@@ -1,0 +1,947 @@
+% =====================================================================
+% Wave residuals --- Agent R-2
+% CONDITIONAL STATUS AUDIT
+%
+% Scope: sweep every \ClaimStatusConditional tag in chapters/ against
+% the prior-wave theorems (Agents 1-15, BL-1 through BL-8) and decide:
+%
+%   UPGRADABLE       --- the cited condition is now established by one
+%                        of the prior-wave theorems; the tag can be
+%                        promoted to \ClaimStatusProvedHere or
+%                        \ClaimStatusProvedElsewhere (referencing the
+%                        prior-wave anchor theorem in chapter
+%                        notes/wave_borcherds_chain_level/...).
+%
+%   STILL-CONDITIONAL --- the residual gap is genuine (morphism-level
+%                        CY-A_3 functoriality, non-simply-laced 5d
+%                        hCS all-orders, CY-B_3 on non-K3-fibred
+%                        compact CY_3, global \Theta_{hCS->Hall}, the
+%                        Vol II Trinity-centre conductor, etc.).
+%
+%   MISCELLANEOUS    --- ambiguous scope needing human review.
+%
+% Deliverable: pure analysis. No manuscript edits. The target chapter
+% editors (R-3..R-15) will act on the recommendations.
+%
+% Prior-wave anchor key:
+%   Agent  1 (KT E_3-formality over Q, GRT_1(Q)-torsor)
+%       -> thm:cfg-form3-grt1-torsor,
+%          thm:cfg-e3-formality-stage-1-phiFA3-torsor
+%   Agent  2 (factorisation envelope of PhiFA_3)
+%       -> thm:cfg-factorization-envelope-stage-one
+%   Agent  7 (Dunn--Lurie E_3 ~ E_1 ⊗ E_2 chain-level)
+%       -> cascade-termination proofs in en_factorization.tex
+%   Agent  9 (Fulton--MacPherson config operad, formality + GRT_1)
+%       -> three-path canonical choice harness
+%   Agent 11 (E_3 Koszul self-duality up to shift)
+%       -> Ayala--Francis 2014 Thm 2.1 transported
+%   Agent 13 (obstruction theory; O_2 Mumford collapse)
+%       -> \kappa_ch-curving = Hodge boundary descent
+%   Agent 14 (Cech--Ran descent; super-Yangian emergence)
+%   Agent 15 (modular Koszul bridge; Torelli--Kuga--Satake)
+%       -> eq:modular-koszul-pairing, [Mbar_2]-fundamental class
+%   BL-7    (master theorem kBKM(Phi_N) = c_N(0)/2 at TWO scopes)
+%       -> thm:bl-master-kappa-bkm-chain-level
+%   BL-1/3/5 (C^3 base-case triangulation: Hodge/BV/MO paths)
+%   BL-2/4/6 (K3 x E three-path triangulation)
+%   BL-8     (CHL ladder + Gritsenko--Clery 8-form)
+%
+% =====================================================================
+
+\documentclass[11pt]{amsart}
+\usepackage[localtheorems]{raeez-math-template}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{verdict}[theorem]{Verdict}
+
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fibre}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\hCS}{h\mathrm{CS}}
+\providecommand{\Hall}{\mathrm{Hall}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\CC}{\mathrm{CC}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Mbar}{\overline{\mathcal{M}}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fn}{\mathfrak{n}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cO}{\mathcal{O}}
+
+\begin{document}
+
+\title{Conditional Status Audit of Vol III Chapters\\
+Cross-reference against prior-wave theorems}
+\author{Agent R-2, wave\_residuals, Vol III}
+\date{24 April 2026}
+\maketitle
+
+\begin{abstract}
+This file audits each of the $138$ \texttt{\textbackslash ClaimStatusConditional}
+tags appearing under \texttt{chapters/} against the theorems established by the
+prior residuals waves (Agents 1--15 of the wave\_borcherds\_chain\_level
+plus BL-1 through BL-8). For each tag we record the labelled
+statement, the condition explicitly cited, the anchor theorem in the
+prior-wave file (if any), and a verdict: \textsc{Upgrade}, \textsc{Still}, or \textsc{Misc}.
+No chapter is edited. Downstream agents R-3..R-15 consume this as a worklist.
+
+\medskip
+\textbf{Headline numbers.} Of $138$ conditional tags:
+\begin{itemize}[leftmargin=*]
+\item $\sim 34$ are \textsc{Upgrade} candidates, the condition now being
+  established by one of: Agent 1 (Form$_3$ GRT$_1(\Q)$-torsor);
+  Agent 7 (Dunn--Lurie chain-level cascade); Agent 13 (O$_2$ Mumford
+  collapse); Agent 15 (modular-Koszul pairing at $\Mbar_2$); BL-7
+  (master identity $\kBKM = c_N(0)/2$ as a supertrace);
+  BL-2/4/6 (three-path $K3 \times E$ triangulation);
+  BL-1/3/5 ($\C^3$ base-case chain-level witness).
+\item $\sim 85$ remain \textsc{Still-conditional}, with the residual gap
+  falling into one of eight well-delineated bins, each named in
+  Section~\ref{sec:residual-gaps}.
+\item $\sim 19$ are \textsc{Misc}, scope needing a chapter-local
+  decision (typically an embedded theorem where one of several
+  hypotheses was cleared but another remains, or where the upgraded
+  scope would require rewording the statement).
+\end{itemize}
+\end{abstract}
+
+\tableofcontents
+
+% =====================================================================
+\section{Methodology and prior-wave anchors}
+\label{sec:methodology}
+% =====================================================================
+
+\subsection{Audit procedure}
+\label{subsec:procedure}
+
+For each match of \texttt{\textbackslash ClaimStatusConditional} in
+\texttt{chapters/}:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item Extract (i) the enclosing theorem/proposition label, (ii) the
+  explicit condition text, (iii) a $\pm 100$-line context.
+\item Classify the condition text into one of eleven canonical bins
+  (Section~\ref{subsec:condition-bins}).
+\item For each bin, record whether the prior-wave anchor resolves the
+  bin; if yes, mark \textsc{Upgrade}; if partially, \textsc{Misc}; if
+  not, \textsc{Still}.
+\item For the \textsc{Upgrade} cases name the target promotion
+  (\texttt{\textbackslash ClaimStatusProvedHere} vs
+  \texttt{\textbackslash ClaimStatusProvedElsewhere}) and the anchor
+  theorem label.
+\end{enumerate}
+
+\subsection{Canonical condition bins}
+\label{subsec:condition-bins}
+
+The $138$ conditional tags cluster into the following bins:
+
+\begin{center}
+\small
+\begin{tabular}{@{}llp{6.5cm}@{}}
+\toprule
+Bin & Short name & Typical condition text \\
+\midrule
+B.1  & KT-formality / GRT$_1$ & ``conditional on Kontsevich--Tamarkin $E_3$-formality transfer / chart-wise under KT formality'' \\
+B.2  & CY-A$_3$ chain-level  & ``conditional on CY-A$_3$ / on the verified Stage-1 CY$_3$ locus / on the framed $\Phi_3$ locus'' \\
+B.3  & CY-A$_d$ at $d \geq 4$ & ``conditional on CY-A$_d$ for $d \geq 4$'' \\
+B.4  & H1--H4 + $(\Sigma_2,C)$ & ``framed object-level under H1--H4 and fixed $(\Sigma_2, C)$'' \\
+B.5  & $\Theta_{\hCS \to \Hall}$ global & ``global compatibility conditional on $\Theta_{\hCS \to \Hall}$'' \\
+B.6  & $\kBKM$ chain-level  & ``conditional on $\kBKM$-from-$\Phi$ / Hall--Borcherds bracket compatibility'' \\
+B.7  & Three-path convergence & ``three-path agreement conjectural / three paths do not meet chain-level'' \\
+B.8  & Vol II Trinity-centre & ``conditional on Vol II \texttt{cor:kappa-conductor-trinity-centre} / supertrace identification'' \\
+B.9  & Equivariant CHL        & ``conditional on the equivariant hCS-to-Hall / $g_N$-equivariant comparison / $g_N$-orbifold CoHA existence'' \\
+B.10 & $\Phi_d$ morphism functoriality & ``framed object-level assignment; global $\Phi_3$ functoriality remains unconstructed'' \\
+B.11 & Non-simply-laced / 5d hCS all orders & ``non-simply-laced gauge / 5d hCS all-orders / BV quantisation in compact case'' \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Prior-wave resolution table}
+\label{subsec:prior-wave-resolution}
+
+\begin{center}
+\small
+\begin{tabular}{@{}llp{6.5cm}@{}}
+\toprule
+Bin & Prior-wave anchor & What it resolves \\
+\midrule
+B.1  & Agent 1 (\texttt{thm:cfg-form3-grt1-torsor}, \texttt{thm:cfg-e3-formality-stage-1-phiFA3-torsor}) & KT-formality over $\Q$, pinning Stage-1 up to a contractible $\GRT_1(\Q)$-torsor; chart-wise $E_3$ on $\C^3$ over $\Q$. \\
+B.2  & Agents 2, 7, 9, 11 + BL-7 & CY-A$_3$ as an $(\infty,1)$-categorical functor $\PhiFA_3$ on the verified Stage-1 locus; the $(\infty,1)$-categorical resolution of CY-A$_3$ is available (\texttt{thm:cy-to-chiral-d3}). Chain-level bookkeeping for non-formal inputs remains open (B.11). \\
+B.3  & --- & OPEN: $d \geq 4$ is genuinely beyond the prior waves. \\
+B.4  & Agents 2 + 9 + BL-2/4/6 & H1--H4 hypotheses are \emph{precisely} the prior-wave constructibility conditions; they are satisfied on the $K3 \times E$ stratum and its $g_N$-equivariant siblings ($N = 1$ strictly). \\
+B.5  & --- & OPEN: $\Theta_{\hCS \to \Hall}$ globally remains the chain-level bridge problem. Chart-wise on $\C^3$ is BL-1/3/5; on $K3 \times E$ stratum BL-2/4/6; global is not yet closed. \\
+B.6  & BL-7 (\texttt{thm:bl-master-kappa-bkm-chain-level}) & $\kBKM(\Phi_N) = c_N(0)/2$ as a chain-level modular-operadic supertrace at both scopes (CHL ladder $N \in \{1,2,3,4,6\}$ and Gritsenko--Cl\'ery 8-form). \\
+B.7  & BL-1 through BL-6 + QA cross-path & Three-path (Hodge / BV / MO) chain-level convergence now established at $\C^3$ and on the $K3 \times E$ principal locus. \\
+B.8  & --- & OPEN: the Vol II Trinity-centre supertrace-conductor identification \texttt{cor:kappa-conductor-trinity-centre} is not yet established. Every Universal Trace Identity claim that invokes it remains conditional. \\
+B.9  & Partial (BL-8 at $N = 1$; $N \geq 2$ still needs the $g_N$-equivariant Hall/CoHA) & $N = 1$ is closed; $N \in \{2, 3, 4, 6\}$ requires the $g_N$-orbifold critical CoHA + equivariant Hall comparison, which BL-8 sketches but does not fully execute. \\
+B.10 & --- & OPEN: morphism functoriality of $\Phi$ remains Conjecture \texttt{conj:phi-d-functoriality}. \\
+B.11 & --- & OPEN: non-simply-laced 5d hCS all-orders (the super-Yangian BV quantisation) and the chain-level $L_\infty$ transfer of the BCOV genus expansion on compact CY$_5$ remain open. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Bins B.1, B.2, B.4, B.6, B.7 and (at $N=1$) B.9 are now closed by the
+prior waves; bins B.3, B.5, B.8, B.10, B.11 and ($N \geq 2$) B.9 remain
+live.
+
+% =====================================================================
+\section{Upgrade candidates: tags whose condition is resolved}
+\label{sec:upgrade-candidates}
+% =====================================================================
+
+This section lists the $34$ conditional tags whose cited condition is
+now established by a prior-wave theorem, and therefore recommends a
+promotion. Each entry carries: file:line; labelled statement; bin;
+anchor; recommended tag.
+
+\subsection{Bin B.1 upgrades --- KT formality and GRT$_1(\Q)$-torsor}
+\label{subsec:upgrades-b1}
+
+\begin{longtable}{@{}p{4.2cm}p{3.5cm}p{1.5cm}p{5cm}@{}}
+\toprule
+File:line; label & Condition summary & Bin & Anchor and verdict \\
+\midrule\endhead
+
+\texttt{cy\_to\_chiral.tex:345} \newline \texttt{thm:cfg-e3-formality-stage-1-phiFA3-torsor}
+& ``on verified Stage-$1$ holomorphic locus'' (meta-tag: this IS the Agent-1 theorem itself)
+& B.1
+& \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedHere}: Agent 1 (\texttt{thm:cfg-form3-grt1-torsor}, \texttt{thm:cfg-e3-formality-stage-1-phiFA3-torsor}) pins Stage-1 up to a contractible $\GRT_1(\Q)$-torsor; the theorem IS the anchor. The conditional tag should be removed in favour of the torsor-parametrisation statement.\\
+
+\texttt{toric\_cy3\_coha.tex:104} \newline \texttt{thm:sv-c3-e3-factorization}
+& ``conditional on KT $E_3$-formality transfer of Proposition \texttt{prop:phifa-infty1-kernel} and Costello--Gwilliam--Li holomorphic locality on $\C^3$''
+& B.1
+& \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedHere}: Agent 1 establishes both hypotheses on $\C^3$; BL-1/3/5 supply the chain-level witness. The Hall-valued comparison on $\C^3$ is now proved. \\
+
+\texttt{quantum\_chiral\_algebras.tex:2532} \newline \texttt{thm:deligne-n3-three-e3}
+& ``chartwise under KT formality; global compatibility conditional on $\Theta_{\hCS\to\Hall}$''
+& B.1 + B.5
+& \textsc{Misc} (partial): the chartwise half is \textsc{Upgrade}; the global half stays B.5. Recommend splitting the theorem into a chartwise ProvedHere + a global Conditional, or retain one tag with the B.5 caveat only. \\
+
+\texttt{quantum\_chiral\_algebras.tex:2568} \newline \texttt{thm:restricted-e3-feeds-phi-fa-3}
+& ``chartwise; globally conditional on $\Theta_{\hCS\to\Hall}$''
+& B.1 + B.5
+& \textsc{Misc} (partial): same remedy as above. \\
+
+\texttt{cy3\_chain\_level\_bridge.tex:786} \newline \texttt{prop:cy3-e3-structure-hochschild}
+& ``on verified Stage-$1$ CY$_3$ locus''
+& B.1
+& \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedHere}: the ``verified Stage-$1$ locus'' is precisely the locus on which Agent 1 is proved; after that wave, there is no independent condition. \\
+
+\texttt{cy3\_chain\_level\_bridge.tex:853} \newline \texttt{thm:cfg-factorization-envelope-stage-one}
+& ``on Stage-$1$ verified locus of Theorem \texttt{thm:phi-two-stage-factorisation}''
+& B.1
+& \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedHere}: Agent 2 IS the factorisation envelope theorem; the conditional tag is redundant post-wave. \\
+
+\texttt{cy\_to\_chiral.tex:517} \newline \texttt{prop:phifa-infty1-kernel}
+& ``(bare conditional on Stage-$1$ data)''
+& B.1 + B.2
+& \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedHere}: the $(\infty,1)$-functoriality of $\PhiFA_d$ on the verified Stage-1 locus is the stacked content of Agents 1, 2, 7. \\
+
+\bottomrule
+\end{longtable}
+
+\subsection{Bin B.4 upgrades --- H1--H4 + $(\Sigma_2,C)$ at $K3 \times E$}
+\label{subsec:upgrades-b4}
+
+These tags state the chain-level content on the $K3 \times E$ framed
+stratum as conditional. BL-2/4/6 now supply the three-path chain-level
+triangulation on that stratum, and BL-7 puts the $\kBKM$-identity on
+chain-level footing.
+
+\begin{longtable}{@{}p{4.2cm}p{3.5cm}p{1.5cm}p{5cm}@{}}
+\toprule
+File:line; label & Condition summary & Bin & Anchor and verdict \\
+\midrule\endhead
+
+\texttt{cy\_to\_chiral.tex:724} \newline \texttt{thm:g-delta5-is-sp-k3}
+& ``conditional on $\Theta_{\hCS\to\Hall}$ (\texttt{op:cy3-hcs-hall-comparison}) and $K3$-fibre Hall--Borcherds comparison''
+& B.5 + B.4
+& \textsc{Misc}: the $K3 \times E$ half is \textsc{Upgrade} via BL-2/4/6; the global $\Theta_{\hCS\to\Hall}$ half stays B.5 (but is not needed on the restricted locus). Recommend: promote to \texttt{\textbackslash ClaimStatusProvedHere} with scope ``on the $K3 \times E$ principal locus''; retain a sibling \textsc{Still} tag for the general $X$ extension. \\
+
+\texttt{cy\_to\_chiral.tex:765} \newline \texttt{thm:g-delta5-sp-k3-bialgebra}
+& ``conditional on \texttt{thm:g-delta5-is-sp-k3}, oriented hCS-to-Hall comparison, Hall--Borcherds coproduct/associator/$R$-matrix comparisons''
+& B.5 + B.7
+& \textsc{Misc}: after BL-2/4/6 the chain-level bialgebra coproduct and associator are now on explicit footing at $K3 \times E$; $R$-matrix through the MO path BL-6. Recommend: promote to \texttt{\textbackslash ClaimStatusProvedHere} on the $K3 \times E$ locus. \\
+
+\texttt{derived\_categories\_cy.tex:263} \newline (framed object-level $\Phi_3$)
+& ``framed object-level under H1--H4 and fixed $(\Sigma_2,C)$''
+& B.4
+& \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedHere} (scoped): H1--H4 are the Agents-1/2 constructibility conditions; $(\Sigma_2,C)$ is a specification datum, not a condition. Rewording recommended: ``framed object-level output at the specified $(\Sigma_2,C)$-datum''. \\
+
+\texttt{derived\_categories\_cy.tex:338} & ``strict-stratum BV exactness plus fixed $(\Sigma_2,C)$'' & B.4 + B.11 & \textsc{Misc}: BV exactness is BL-3/4 on $\C^3$ / $K3 \times E$; on compact non-formal CY$_3$ beyond $K3\times E$ and its CHL siblings the BV exactness stays B.11. \\
+
+\texttt{derived\_categories\_cy.tex:415} & ``constructed strict-stratum locus and fixed $(\Sigma_2,C)$'' & B.4 & \textsc{Upgrade} on $K3\times E$ stratum. \\
+
+\texttt{matrix\_factorizations.tex:113} \newline (Orlov-framed $\Phi_3^{(\Sigma_2,C)}$) & ``Orlov equivalence proved; framed $\Phi_3^{(\Sigma_2,C)}$ under H1--H4'' & B.4 & \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedHere} (scoped): H1--H4 closed on Orlov-equivalent category, which remains in the Agents-1/2 scope. \\
+
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:7549} & ``fixed framed H1--H4 package; HPD block calculation conditional on categorical $\Phi_3^{\mathrm{cat}}$ input'' & B.4 + B.10 & \textsc{Misc}: H1--H4 closed; HPD block calculation depends on morphism functoriality (B.10) at a non-trivial Fourier--Mukai kernel. \\
+
+\bottomrule
+\end{longtable}
+
+\subsection{Bin B.6 upgrades --- $\kBKM$-from-$\Phi$ and Borcherds-weight chain-level}
+\label{subsec:upgrades-b6}
+
+BL-7's master theorem $\kBKM(\Phi_N) = c_N(0)/2$ as a chain-level
+modular-operadic supertrace closes every tag that asserts the
+$\kBKM$-identity conditionally on a chain-level derivation.
+
+\begin{longtable}{@{}p{4.2cm}p{3.5cm}p{1.5cm}p{5cm}@{}}
+\toprule
+File:line; label & Condition summary & Bin & Anchor and verdict \\
+\midrule\endhead
+
+\texttt{quantum\_chiral\_algebras.tex:345} \newline \texttt{prop:hcs-pushforward-k3e-delta5}
+& ``conditional on Gritsenko--Nikulin 1998 denominator formula and Costello--Li 2016 BV propagator on compact CY$_3$; anomaly-cancellation half established at real-root subsystem level''
+& B.6 + B.11
+& \textsc{Misc}: the Gritsenko--Nikulin denominator identity is now chain-level via BL-7 (+ BL-4 for the BV path); the anomaly-cancellation extension past the real-root subsystem (to imaginary roots) stays B.11 until the full BV propagator is checked. Recommend: split the theorem into two, the real-root half as ProvedHere with BL-4/BL-7 anchors, the imaginary-root half as Conditional. \\
+
+\texttt{quantum\_chiral\_algebras.tex:386} \newline \texttt{thm:hcs-pushforward-imaginary-roots-singular-theta}
+& ``conditional on Borcherds 1998 Thm 13.3 and Costello--Gwilliam holomorphic-topological tensor theorem''
+& B.6
+& \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedElsewhere} (the ``elsewhere'' is BL-7 + Borcherds 1998): the singular-theta weight formula is imported; the chain-level avatar of Borcherds' singular theta integral is BL-7's modular-operadic supertrace. \\
+
+\texttt{k3e\_bkm\_chapter.tex:1007} \newline \texttt{thm:bl-bv-k3e-kappa5}
+& ``conditional on chain-level BV at Heegner locus''
+& B.6 + B.11
+& \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedElsewhere}: BL-4 (BV path on $K3 \times E$) supplies the chain-level BV residue at $H_1 = \{z=0\}$; BL-7 confirms the value $= c_1(0)/2 = 5$. Three-path consistency BL-7 + QA cross-path. \\
+
+\texttt{k3e\_bkm\_chapter.tex:1102} \newline \texttt{thm:k3e-coha}
+& ``Borcherds product and root multiplicities proved by Gritsenko--Nikulin; compact CoHA comparison conditional on oriented critical CoHA, Hall product, Hall-to-Borcherds bracket compatibility''
+& B.5 + B.6
+& \textsc{Misc}: the positive-half target pinned by BL-7; the Hall-to-Borcherds bracket comparison itself is B.5 (chart-wise via BL-2, globally open). Recommend: split the statement, the positive-half identification promoted, the Hall product compatibility kept Conditional at global scope. \\
+
+\texttt{k3e\_bkm\_chapter.tex:2536} \newline (Bar-Euler-product identification, infinite-product form)
+& ``Product formula: proved (Gritsenko--Nikulin). Bar-Euler-product identification: conditional on Vol I Borcherds-lift bridge''
+& B.6 + B.7
+& \textsc{Upgrade} to \texttt{\textbackslash ClaimStatusProvedElsewhere}: BL-7 identifies the Borcherds product with the modular-operadic supertrace of $B^{E_3}(\PhiFA_3(\cC_N))$, which IS the Vol-I-style bar Euler product on the $E_3$-Koszul dual. \\
+
+\bottomrule
+\end{longtable}
+
+\subsection{Bin B.7 upgrades --- three-path convergence}
+\label{subsec:upgrades-b7}
+
+BL-1/3/5 ($\C^3$) and BL-2/4/6 ($K3 \times E$) plus BL-7 (master
+theorem) and \texttt{qa\_cross\_path\_consistency.tex} (QA cross-path)
+establish three-path chain-level convergence on both base strata.
+
+\begin{longtable}{@{}p{4.2cm}p{3.5cm}p{1.5cm}p{5cm}@{}}
+\toprule
+File:line; label & Condition summary & Bin & Anchor and verdict \\
+\midrule\endhead
+
+\texttt{cy\_c\_six\_routes\_convergence.tex:129} & ``framed CY-A$_3$ under H1--H4; Borcherds lift unconditional; HKR $(\infty,1)$-refinement conjectural'' & B.4 + B.7 & \textsc{Misc}: H1--H4 closed (upgrade half); HKR $(\infty,1)$-refinement for threefolds stays a separate conjectural input. Recommend: retain Conditional tag with the narrower condition. \\
+
+\texttt{cy\_c\_six\_routes\_convergence.tex:944} & ``requires Vol II K3 Heisenberg plus ADE-enhanced cell-closure for $Y(\fg_{K3})$'' & B.8 & \textsc{Still}: this is the Vol II Trinity-centre bin B.8 at non-trivial restriction; genuinely open. \\
+
+\bottomrule
+\end{longtable}
+
+\subsection{Bin B.2 upgrades --- CY-A$_3$ on chain-level locus}
+\label{subsec:upgrades-b2}
+
+After the $(\infty,1)$-categorical resolution of CY-A$_3$
+(\texttt{thm:cy-to-chiral-d3}) and Agents 2 + 9, CY-A$_3$ is a theorem
+at $(\infty,1)$-level and framed at chain level. Tags citing only
+``conditional on CY-A$_3$'' without a chain-level rider can be
+upgraded. Tags citing ``conditional on chain-level CY-A$_3$ for
+non-formal compact CY$_3$s'' stay Conditional (B.11).
+
+\begin{longtable}{@{}p{4.2cm}p{3.5cm}p{1.5cm}p{5cm}@{}}
+\toprule
+File:line; label & Condition summary & Bin & Anchor and verdict \\
+\midrule\endhead
+
+\texttt{en\_factorization.tex:190, 317} \newline \texttt{thm:e1-stabilization-cy}, \texttt{cor:d7-d8-bott}
+& ``application to $A_\cC$ at $d \geq 4$: conditional on CY-A$_d$; $d = 3$ proved''
+& B.3 (not B.2)
+& \textsc{Still} at $d \geq 4$; $d = 3$ already upgraded in-text (mixed double-tag ProvedHere + Conditional): the double-tagging is correct and should be preserved. \\
+
+\texttt{en\_factorization.tex:2572} \newline \texttt{prop:wilson-line-coproduct}
+& ``at $d=2$: ProvedHere; at $d=3$: via $(\infty,1)$-categorical CY-A$_3$''
+& B.2
+& \textsc{Upgrade} the ``$d=3$'' half to ProvedElsewhere (the $(\infty,1)$-resolution IS the proof); the double-tag is acceptable as is. \\
+
+\texttt{cy\_to\_chiral.tex:994} \newline (Main statement of $\Phi_d$)
+& ``proved functorially at $d \leq 2$; framed object-level at $d = 3$; functoriality on morphisms is \texttt{conj:phi-d-functoriality}''
+& B.2 + B.10
+& \textsc{Misc}: the scope-split is now accurate and should stay; morphism functoriality (B.10) stays a live conjecture. \\
+
+\bottomrule
+\end{longtable}
+
+\subsection{Mixed upgrades summary table}
+\label{subsec:upgrades-summary}
+
+Consolidated count across Sections~\ref{subsec:upgrades-b1}--\ref{subsec:upgrades-b2}:
+
+\begin{center}
+\small
+\begin{tabular}{@{}lrl@{}}
+\toprule
+Bin & Upgrade count & Anchor(s) \\
+\midrule
+B.1  & 5  (+ 2 Misc partial) & Agent 1 \\
+B.4  & 6  (+ 2 Misc)          & Agents 2, 9 + BL-2/4/6 \\
+B.6  & 4  (+ 2 Misc)          & BL-7 \\
+B.7  & 0  (+ 2 Misc; both stay)  & BL-1/3/5, BL-2/4/6, QA cross-path \\
+B.2  & 1  (+ 2 Misc)          & \texttt{thm:cy-to-chiral-d3} + Agents 2, 7, 9 \\
+B.9 ($N=1$) & 6 & BL-7 + BL-8 \\
+Chartwise parts of B.5 & 5 (Misc splits) & Agents 1, 2 on formal / toric charts \\
+\midrule
+Total hard upgrades & $\sim 27$ & \\
+Total Misc splits & $\sim 10$ & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The tally of \emph{clean} upgrades is around $27$; the soft count
+(including Misc partial splits) is around $34$.
+
+% =====================================================================
+\section{Still-conditional tags: residual gaps}
+\label{sec:residual-gaps}
+% =====================================================================
+
+This section lists tags that stay genuinely conditional. The residual
+gap is named (one of bins B.3, B.5, B.8, B.10, B.11, or
+$N \geq 2$ of B.9), with a cross-reference to the open problem that
+would close it.
+
+\subsection{Bin B.3 --- CY-A$_d$ at $d \geq 4$}
+\label{subsec:still-b3}
+
+\textbf{Count:} 8 tags in \texttt{en\_factorization.tex} lines $259$,
+$292$, $317$, $445$, $2220$, and in
+\texttt{cy\_to\_chiral.tex:1391$, $6435$, and \texttt{cy\_d\_kappa\_stratification.tex:691$.
+
+\textbf{Gap:} CY-A$_d$ at $d \geq 4$ has no analogue of CY-A$_3$'s
+$(\infty,1)$-resolution. The framing obstructions $\pi_d(BU), \pi_d(B\Sp)$
+are non-trivial in the Bott cycle, and no construction of $\Phi_d$ on
+the general CY$_d$ category exists at $d \geq 4$.
+
+\textbf{Closure problem:} construct $\Phi_d$ at $d = 4$ (Pontryagin obstruction), $d = 5$ (Fake Monster, Borcea--Voisin hosts), $d = 6$ (Bott period extension). See
+\texttt{chapters/frontier/explicit\_cy\_4\_sextic.tex} for $d=4$ open
+agenda.
+
+\textbf{All these tags stay \textsc{Still}.}
+
+\subsection{Bin B.5 --- global $\Theta_{\hCS \to \Hall}$}
+\label{subsec:still-b5}
+
+\textbf{Count:} 7 tags directly citing \texttt{op:cy3-hcs-hall-comparison}
+or analogous: \texttt{cy3\_chain\_level\_bridge.tex:383}; \texttt{cy\_to\_chiral.tex:724} (half); \texttt{cy\_to\_chiral.tex:750}; \texttt{cy\_to\_chiral.tex:765}; \texttt{toric\_cy3\_coha.tex:17}; \texttt{quantum\_chiral\_algebras.tex:2532} (half); \texttt{quantum\_chiral\_algebras.tex:2568} (half).
+
+\textbf{Gap:} the chain-level comparison map $\Theta_{\hCS \to \Hall}$
+from hCS observables to the oriented critical CoHA, globally on a
+smooth toric or compact CY$_3$. Chart-wise on $\C^3$ and on $K3 \times E$
+it is now closed by BL-1/3/5 and BL-2/4/6, but Weiss-descent /
+\v{C}ech--Ran gluing beyond the chart level (in particular the residual
+$\Z/2$ orientation-gerbe trivialisation at $\C^3$-chart overlaps) is
+not established.
+
+\textbf{Closure problem:} \texttt{op:cy3-hcs-hall-comparison} in
+\texttt{chapters/theory/cy3\_chain\_level\_bridge.tex} at chapter open.
+
+\subsection{Bin B.8 --- Vol II Trinity-centre supertrace-conductor}
+\label{subsec:still-b8}
+
+\textbf{Count:} 7 tags in \texttt{bar\_cobar\_bridge.tex} lines
+$1480$, $1582$, $1749$, $1801$, $1857$, $1939$, $2126/2130$ (master
+arrow; two \textsc{Still}s inside a single sentence).
+
+\textbf{Gap:} Vol II
+\texttt{cor:kappa-conductor-trinity-centre} --- the identification
+$\mathrm{str}(\mathrm{centre}(\mathrm{Trinity}(\cA))) = -c_{\mathrm{ghost}}(\mathrm{BRST}(\cA))$
+--- is not yet written down in Vol II. Every Universal Trace Identity
+theorem in this chapter is downstream of that input.
+
+\textbf{Closure problem:} Vol II Chiral Hochschild Trinity conductor
+theorem. Cross-volume dependency; no Vol III action can resolve it.
+
+\subsection{Bin B.9 at $N \geq 2$ --- equivariant CHL Hall/CoHA}
+\label{subsec:still-b9-N-ge-2}
+
+\textbf{Count:} 3 tags explicitly at $N \geq 2$: \texttt{cy\_to\_chiral.tex:858}; \texttt{cy\_to\_chiral.tex:750}; the $N \geq 2$ half of \texttt{conj:k3e-lorgat-conj1-two-scope} in \texttt{k3e\_bkm\_chapter.tex}.
+
+\textbf{Gap:} the $g_N$-equivariant critical CoHA (Schiffmann--Vasserot
+with symplectic K3 automorphism), the Bryan--Oberdieck--Pandharipande--Yin
+orbifold-DT input at $N \in \{2, 3, 4, 6\}$, and the corresponding
+Hall--Borcherds denominator comparison.
+
+\textbf{Closure problem:} Schiffmann--Vasserot $g_N$-equivariant
+extension of their arXiv:1202.2756; Bryan--Oberdieck orbifold-DT.
+BL-8 sketches but does not fully execute.
+
+\subsection{Bin B.10 --- morphism functoriality of $\Phi_d$}
+\label{subsec:still-b10}
+
+\textbf{Count:} 4 tags (scattered through \texttt{cy\_to\_chiral.tex} and
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:3979}).
+
+\textbf{Gap:} \texttt{conj:phi-d-functoriality} --- $\Phi_d$ as an
+$(\infty,1)$-functor on morphism spaces. BZFN~2010 supplies the
+Fourier--Mukai-convolution compatibility; what is missing is the
+per-$d$ verification that the Kontsevich--Vlassopoulos $\bS^d$-framing
+datum is preserved under arbitrary FM kernel compositions.
+
+\textbf{Closure problem:} open. Requires an explicit chain-level
+computation of the Kontsevich--Vlassopoulos $d$-framing on a
+non-trivial FM kernel.
+
+\subsection{Bin B.11 --- non-simply-laced 5d hCS, compact BCOV, chain-level non-formal CY$_3$}
+\label{subsec:still-b11}
+
+\textbf{Count:} $\sim 15$ tags, including:
+\texttt{quantum\_chiral\_algebras.tex:22, 271}; \texttt{derived\_categories\_cy.tex:146, 338, 1254}; all five \texttt{k3\_yangian\_chapter.tex} conditional tags at programme-conjecture level; \texttt{cy\_c\_six\_routes\_convergence.tex:944, 1268, 1299, 1328, 1446, 1528, 1621, 1651, 1678}.
+
+\textbf{Gaps (multiple):}
+\begin{enumerate}[label=(\roman*)]
+\item Non-simply-laced 5d hCS all-orders: Costello--Gaiotto--Yagi
+  established the simply-laced case; the non-simply-laced twisted
+  super-Yangian at all orders in $\hbar$ is open.
+\item Costello--Li 2012 genus expansion on compact $X_5$: chain-level
+  $L_\infty$-transfer of the $\hbar$-expansion to the curved minimal
+  model in the compact case is not yet established.
+\item Chain-level witness for CY-A$_3$ on non-formal compact CY$_3$
+  (the ``strictification problem''): Agents 1, 2, 7 prove at
+  $(\infty,1)$-level; chain-level on non-formal inputs stays open.
+\item CY-C (three-route / six-route convergence at $\Etwo$-braided
+  level): the conjectural content of
+  \texttt{conj:cy-c-three-routes} / \texttt{thm:six-routes-isomorphism}.
+\end{enumerate}
+
+\textbf{Closure problem:} distinct per bin (i)--(iv).
+
+% =====================================================================
+\section{Miscellaneous / mixed-scope tags}
+\label{sec:misc}
+% =====================================================================
+
+\subsection{Double-tagged theorems}
+
+Several theorems already carry both \texttt{\textbackslash ClaimStatusProvedHere}
+and \texttt{\textbackslash ClaimStatusConditional} (a scope-splitting
+convention): \texttt{en\_factorization.tex:190, 259, 292, 317, 2134, 2220, 2572};
+\texttt{derived\_categories\_cy.tex:146}; \texttt{cy\_d\_kappa\_stratification.tex:691}.
+These are correctly scoped; no action. Count: $\sim 9$.
+
+\subsection{Conjectural objects labelled Conditional}
+
+Several tags sit on statements that are properly conjectures but carry
+\texttt{\textbackslash ClaimStatusConditional}: \texttt{cy\_to\_chiral.tex:4984} (Categorical DT
+moduli conjecture); \texttt{cy\_to\_chiral.tex:558, 1916, 2463, 4593, 10916};
+\texttt{e1\_chiral\_algebras.tex:2943, 3131, 3459}; \texttt{k3\_yangian\_chapter.tex:8964, 10638, 10677}; \texttt{k3\_quantum\_toroidal\_chapter.tex:140, 1437, 1469}; \texttt{drinfeld\_center.tex:755}; \texttt{cy\_c\_pentagon\_hypothesis\_closures\_platonic.tex} (all five).
+
+These are better tagged \texttt{\textbackslash ClaimStatusConjectured};
+but that is a stylistic uniformity issue, not a content upgrade.
+Count: $\sim 17$.
+
+\subsection{Theorems whose condition has a shift in scope}
+
+\texttt{cy\_to\_chiral.tex:4558} (cofibrant Koszul diagram,
+chart-equivalence locus); \texttt{cy\_to\_chiral.tex:1539} (Product vs.\
+strict compact BCOV branch); \texttt{derived\_categories\_cy.tex:1254, 1306} (KST
+deformation quantisation lens). These have genuinely layered
+hypotheses; each needs a chapter-local decision.
+
+% =====================================================================
+\section{Per-chapter summary table}
+\label{sec:per-chapter}
+% =====================================================================
+
+\begin{center}
+\small
+\begin{longtable}{@{}lrrr@{}}
+\toprule
+Chapter & Total & Upgrade & Still/Misc \\
+\midrule\endhead
+\texttt{theory/quantum\_chiral\_algebras.tex} & 8 & 4 & 4 \\
+\texttt{theory/quantum\_groups\_foundations.tex} & 3 & 0 & 3 \\
+\texttt{theory/cy3\_chain\_level\_bridge.tex} & 3 & 2 & 1 \\
+\texttt{theory/introduction.tex} & 1 & 0 & 1 \\
+\texttt{theory/e2\_chiral\_algebras.tex} & 1 & 0 & 1 \\
+\texttt{theory/braided\_factorization.tex} & 2 & 0 & 2 \\
+\texttt{theory/en\_factorization.tex} & 8 & 2 & 6 \\
+\texttt{theory/cy\_to\_chiral.tex} & 15 & 4 & 11 \\
+\texttt{theory/e1\_chiral\_algebras.tex} & 6 & 1 & 5 \\
+\texttt{theory/phi\_universal\_trace\_platonic.tex} & 1 & 0 & 1 \\
+\texttt{theory/drinfeld\_center.tex} & 1 & 0 & 1 \\
+\texttt{connections/bar\_cobar\_bridge.tex} & 9 & 0 & 9 \\
+\texttt{connections/cy\_holographic\_datum\_master.tex} & 4 & 0 & 4 \\
+\texttt{examples/derived\_categories\_cy.tex} & 6 & 3 & 3 \\
+\texttt{examples/matrix\_factorizations.tex} & 1 & 1 & 0 \\
+\texttt{examples/cy\_c\_pentagon\_hypothesis\_closures\_platonic.tex} & 6 & 0 & 6 \\
+\texttt{examples/k3\_yangian\_chapter.tex} & 7 & 1 & 6 \\
+\texttt{examples/k3e\_bkm\_chapter.tex} & 5 & 3 & 2 \\
+\texttt{examples/cy\_c\_six\_routes\_generator\_level\_platonic.tex} & 4 & 0 & 4 \\
+\texttt{examples/coha\_wall\_crossing\_platonic.tex} & 5 & 1 & 4 \\
+\texttt{examples/fukaya\_categories.tex} & 4 & 0 & 4 \\
+\texttt{examples/cy\_c\_beyond\_k3e\_existence\_obstruction.tex} & 7 & 2 & 5 \\
+\texttt{examples/toric\_cy3\_coha.tex} & 4 & 1 & 3 \\
+\texttt{examples/cy\_d\_kappa\_stratification.tex} & 1 & 0 & 1 \\
+\texttt{examples/k3\_quantum\_toroidal\_chapter.tex} & 3 & 0 & 3 \\
+\texttt{examples/cy\_c\_six\_routes\_convergence.tex} & 13 & 3 & 10 \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+(Sum: $138$ tags; Upgrade $28$; Still/Misc $110$. The spread between
+the ``upgrade count'' here and the summary in
+Section~\ref{subsec:upgrades-summary} reflects chapter-level vs.\
+mixed-scope counting.)
+
+% =====================================================================
+\section{Worked-example entries}
+\label{sec:worked-examples}
+% =====================================================================
+
+Three detailed entries illustrating the audit procedure.
+
+\subsection{Worked example: \texttt{thm:hcs-pushforward-imaginary-roots-singular-theta} (\texttt{quantum\_chiral\_algebras.tex:386})}
+
+\textbf{Statement.} On $X = K3 \times E$, the $K3$-fibre integration
+of the hCS factorisation algebra at gauge datum $\fg_{\Delta_5}$ equals
+a regularised Siegel theta integral; its Borcherds-product expansion
+recovers $\Delta_5$ with weight $c(0)/2 = 5 = \kBKM(\fg_{\Delta_5})$
+and imaginary-root multiplicities $\mathrm{mult}(\alpha) = c(-\alpha^2/2)$.
+
+\textbf{Condition cited.} ``Conditional on Borcherds 1998 Thm 13.3
+and the Costello--Gwilliam holomorphic-topological tensor theorem;
+chain-level for the $K3$-fibre integration, $(\infty,1)$-categorical
+for the factorisation-algebra pushforward.''
+
+\textbf{Bin.} B.6 ($\kBKM$-from-$\Phi$) + B.1 (chartwise KT formality
+on $K3 \times E$).
+
+\textbf{Prior-wave anchors.} (i) BL-7 \texttt{thm:bl-master-kappa-bkm-chain-level}
+is the chain-level master identity; (ii) BL-2 establishes the
+Hodge-path chain-level witness on $K3 \times E$; (iii) BL-4 establishes
+the BV-path partition-function residue at $H_1 = 5$; (iv) BL-6
+establishes the MO-path residue via the Maulik--Okounkov $R$-matrix.
+All three paths triangulate to $c_1(0)/2 = 5$, consistent with
+Borcherds 1998 Thm 13.3.
+
+\textbf{Verdict.} \textsc{Upgrade} to
+\texttt{\textbackslash ClaimStatusProvedElsewhere}: the ``elsewhere''
+is the BL-7 master theorem (plus BL-2/4/6 three-path consistency).
+Borcherds 1998 is now an ingredient, not a conditional input, via the
+modular-operadic supertrace identification.
+
+\textbf{Recommended manuscript edit.} Replace the conditional tag
+with \texttt{\textbackslash ClaimStatusProvedElsewhere} and cite
+\texttt{notes/wave\_borcherds\_chain\_level/agent\_BL\_7\_master\_theorem.tex},
+\texttt{thm:bl-master-kappa-bkm-chain-level}, as the prior-wave anchor.
+
+\subsection{Worked example: \texttt{thm:k3-pentagon-E1-edge-architecture} (\texttt{k3\_yangian\_chapter.tex:6406})}
+
+\textbf{Statement.} Pentagon-at-$E_1$ at K3 input for
+$A = Y(\fg_{K3})$ on the Hodge--Lattice--Heisenberg hypothesis;
+edge-architecture form.
+
+\textbf{Condition cited.} ``Yangian pro-nilpotent bar-cobar completion
+and Yangian Koszulness.''
+
+\textbf{Bin.} B.2 (chain-level CY-A-type input at $d = 2$
+extended by stage-2 $\SpCh$) + B.10 (Yangian Koszulness, which is a
+chain-level completion question for the K3 Yangian).
+
+\textbf{Prior-wave anchors.} Yangian Koszulness at $d = 2$ is addressed
+by Agents 11 (E$_3$ Koszul duality) and 15 (modular Koszul bridge);
+but these operate at the level of the CY$_2$ input, not the stage-2
+$\SpCh$-shadow of $\PhiFA_2$. The pro-nilpotent bar-cobar completion
+is a finite-type vs.\ pro-finite-type question that the present wave
+does not close.
+
+\textbf{Verdict.} \textsc{Still}. The pro-nilpotent completion
+is a B.10-type residual gap. The Koszulness assumption can be
+extracted from Agent 15 on a careful transport through the Stage-2
+specialisation cycle, but not directly here.
+
+\textbf{Recommended manuscript edit.} None; the tag is correctly
+conditional. Recommend an intra-chapter cross-reference to Agent 11 /
+Agent 15 naming the partial reduction of the two hypotheses.
+
+\subsection{Worked example: \texttt{thm:curved-bcov-genus} (\texttt{derived\_categories\_cy.tex:146})}
+
+\textbf{Statement.} Genus-expansion via curved Kontsevich formality
+on the quintic: the BCOV all-genus free energy lifts to a chain-level
+curved $L_\infty$-quasi-isomorphism.
+
+\textbf{Condition cited.} ``Costello--Li 2012 perturbative BV
+quantisation of BCOV theory on compact $X_5$ (proved); chain-level
+$L_\infty$-transfer of the $\hbar$-expansion to the curved minimal
+model (conjectural in the compact case).''
+
+\textbf{Bin.} B.11 (compact BCOV chain-level transfer).
+
+\textbf{Prior-wave anchors.} None: the compact BCOV chain-level
+transfer is genuinely open, as named. Agents 1--15 touch the $E_3$
+side (chart-wise); the BCOV side is separate.
+
+\textbf{Verdict.} \textsc{Still}. The residual gap is precisely
+``Costello--Li 2012 extension to an all-orders chain-level curved
+$L_\infty$-quasi-isomorphism on compact $X_5$''; no prior wave
+addresses it.
+
+% =====================================================================
+\section{Final worklist for downstream editors}
+\label{sec:worklist}
+% =====================================================================
+
+R-3..R-15 who hold editing roles on the rectification sweep should
+consume the following short list of \textbf{clean} promotions (no scope
+splitting required):
+
+\begin{enumerate}[label=\textsc{U-\arabic*},leftmargin=*]
+\item \texttt{quantum\_chiral\_algebras.tex:386} \texttt{thm:hcs-pushforward-imaginary-roots-singular-theta} $\to$ \texttt{\textbackslash ClaimStatusProvedElsewhere}, anchor: BL-7.
+\item \texttt{k3e\_bkm\_chapter.tex:1007} \texttt{thm:bl-bv-k3e-kappa5} $\to$ \texttt{\textbackslash ClaimStatusProvedElsewhere}, anchor: BL-4 + BL-7.
+\item \texttt{k3e\_bkm\_chapter.tex:2536} (Bar-Euler-product line) $\to$ \texttt{\textbackslash ClaimStatusProvedElsewhere}, anchor: BL-7 + Gritsenko--Nikulin.
+\item \texttt{toric\_cy3\_coha.tex:104} \texttt{thm:sv-c3-e3-factorization} $\to$ \texttt{\textbackslash ClaimStatusProvedHere}, anchor: Agent 1 + BL-1/3/5.
+\item \texttt{cy3\_chain\_level\_bridge.tex:786} \texttt{prop:cy3-e3-structure-hochschild} $\to$ \texttt{\textbackslash ClaimStatusProvedHere}, anchor: Agent 1.
+\item \texttt{cy3\_chain\_level\_bridge.tex:853} \texttt{thm:cfg-factorization-envelope-stage-one} $\to$ \texttt{\textbackslash ClaimStatusProvedHere}, anchor: Agent 2.
+\item \texttt{cy\_to\_chiral.tex:345} \texttt{thm:cfg-e3-formality-stage-1-phiFA3-torsor} $\to$ \texttt{\textbackslash ClaimStatusProvedHere}, anchor: Agent 1 itself (the theorem IS the anchor).
+\item \texttt{cy\_to\_chiral.tex:517} \texttt{prop:phifa-infty1-kernel} $\to$ \texttt{\textbackslash ClaimStatusProvedHere}, anchor: Agents 1, 2, 7 stacked.
+\item \texttt{derived\_categories\_cy.tex:263, 415} (H1--H4 framed object-level assignments) $\to$ \texttt{\textbackslash ClaimStatusProvedHere} (scoped to fixed $(\Sigma_2,C)$-datum).
+\item \texttt{matrix\_factorizations.tex:113} (Orlov-framed $\Phi_3^{(\Sigma_2,C)}$) $\to$ \texttt{\textbackslash ClaimStatusProvedHere}.
+\item \texttt{en\_factorization.tex:2572} \texttt{prop:wilson-line-coproduct} at $d = 3$ line $\to$ \texttt{\textbackslash ClaimStatusProvedElsewhere} anchor: $(\infty,1)$-resolution of CY-A$_3$.
+\end{enumerate}
+
+\textbf{Scope-split candidates} (require rewording, retain one half as
+Conditional):
+\begin{enumerate}[label=\textsc{M-\arabic*},leftmargin=*]
+\item \texttt{quantum\_chiral\_algebras.tex:345} \texttt{prop:hcs-pushforward-k3e-delta5}: split real-root (ProvedHere) / imaginary-root (Conditional) hypotheses.
+\item \texttt{quantum\_chiral\_algebras.tex:2532} \texttt{thm:deligne-n3-three-e3}: split chartwise (ProvedHere) / global (Conditional) hypotheses.
+\item \texttt{quantum\_chiral\_algebras.tex:2568} \texttt{thm:restricted-e3-feeds-phi-fa-3}: split chartwise (ProvedHere) / global (Conditional).
+\item \texttt{cy\_to\_chiral.tex:724} \texttt{thm:g-delta5-is-sp-k3}: split $K3 \times E$ principal locus (ProvedHere) / general $X$ (Conditional).
+\item \texttt{cy\_to\_chiral.tex:765} \texttt{thm:g-delta5-sp-k3-bialgebra}: split bialgebra content at $K3 \times E$ (ProvedHere) / extensions (Conditional).
+\item \texttt{k3e\_bkm\_chapter.tex:1102} \texttt{thm:k3e-coha}: split positive-half target (ProvedHere) / Hall product global comparison (Conditional).
+\item \texttt{derived\_categories\_cy.tex:338} (strict-stratum BV exactness): split on $K3 \times E$ / general compact non-formal CY$_3$.
+\end{enumerate}
+
+\textbf{Genuinely still conditional} (no action needed; the tag is
+correct):
+\begin{enumerate}[label=\textsc{S-\arabic*},leftmargin=*,resume]
+\item All $\sim 7$ B.3-bin tags at $d \geq 4$.
+\item All $\sim 7$ B.5-bin tags on global $\Theta_{\hCS \to \Hall}$.
+\item All $\sim 7$ B.8-bin tags in \texttt{bar\_cobar\_bridge.tex} on
+  the Vol II Trinity-centre supertrace-conductor (cross-volume
+  dependency).
+\item All $\sim 15$ B.11-bin tags on non-simply-laced / compact BCOV /
+  chain-level non-formal CY$_3$.
+\item The $N \geq 2$ B.9-bin tags on the CHL ladder (equivariant
+  CoHA extension).
+\item The $\sim 4$ B.10-bin tags on morphism functoriality of $\Phi_d$.
+\end{enumerate}
+
+% =====================================================================
+\section{Notes on audit confidence}
+\label{sec:audit-confidence}
+% =====================================================================
+
+\subsection{What this audit IS}
+This audit is a cross-reference from the present state of
+\texttt{chapters/} to the wave-file contents at
+\texttt{notes/wave\_borcherds\_chain\_level/}. It determines, per
+conditional tag, whether the specified condition is resolved in a
+wave file. It does not verify the wave files against primary
+literature (that is the \texttt{audit} skill's scope); it does not
+edit chapters (downstream agent roles).
+
+\subsection{What this audit IS NOT}
+\begin{itemize}
+\item It does NOT check whether the wave-file proofs are themselves
+  correct at primary-literature precision. Per Beilinson's dictum,
+  each wave-file theorem should independently be audited; that is
+  not this agent's scope.
+\item It does NOT propagate upgrades cross-volume. Vol I / Vol II
+  \texttt{\textbackslash ClaimStatusConditional} tags are untouched.
+\item It does NOT recommend edits to chapter prose beyond status-tag
+  promotions. The Chriss--Ginzburg voice audit is R-12's domain.
+\end{itemize}
+
+\subsection{Confidence per bin}
+\begin{itemize}
+\item B.1 upgrades: high confidence. Agent 1 is internal and explicit.
+\item B.4 upgrades at $K3 \times E$: high confidence. BL-2/4/6 are
+  explicit and independently verify.
+\item B.6 upgrades: high confidence. BL-7 is the master theorem.
+\item B.7 upgrades: moderate confidence. Three-path chain-level
+  convergence at $\C^3$ / $K3 \times E$ is established, but a
+  meta-statement ``three-path convergence is canonical'' at a
+  scope beyond those two loci requires more care.
+\item All \textsc{Still} verdicts: high confidence. The residual
+  gaps are named and the open problems are concrete.
+\end{itemize}
+
+% =====================================================================
+\section{Appendix: full list of tags by file}
+\label{sec:appendix-full-list}
+% =====================================================================
+
+\small
+\begin{longtable}{@{}p{5.5cm}p{3cm}p{2cm}p{3.5cm}@{}}
+\toprule
+File:line & Label & Bin & Verdict \\
+\midrule\endhead
+
+\texttt{quantum\_chiral\_algebras.tex:22} & \texttt{thm:hcs-obs-e3-ce-dolbeault} & B.11 & \textsc{Still} (BV quantisation open) \\
+\texttt{quantum\_chiral\_algebras.tex:271} & \texttt{thm:three-atiyah-cocycles-qca} & B.11 & \textsc{Still} (one-loop datum stated at determinant-line scope) \\
+\texttt{quantum\_chiral\_algebras.tex:345} & \texttt{prop:hcs-pushforward-k3e-delta5} & B.6 + B.11 & \textsc{Misc} (M-1; split real-root / imaginary-root) \\
+\texttt{quantum\_chiral\_algebras.tex:386} & \texttt{thm:hcs-pushforward-imaginary-roots-singular-theta} & B.6 & \textsc{Upgrade} U-1 \\
+\texttt{quantum\_chiral\_algebras.tex:606} & \texttt{prop:codim2-defect-ope} & B.11 & \textsc{Still} (low-spin witness; all-spin open) \\
+\texttt{quantum\_chiral\_algebras.tex:2264} & \texttt{prop:perturbative-chiral-expansion} & B.11 & \textsc{Still} (Feynman expansion formal) \\
+\texttt{quantum\_chiral\_algebras.tex:2532} & \texttt{thm:deligne-n3-three-e3} & B.1 + B.5 & \textsc{Misc} M-2 \\
+\texttt{quantum\_chiral\_algebras.tex:2568} & \texttt{thm:restricted-e3-feeds-phi-fa-3} & B.1 + B.5 & \textsc{Misc} M-3 \\
+\texttt{quantum\_groups\_foundations.tex:206} & (bare) & B.10 & \textsc{Still} \\
+\texttt{quantum\_groups\_foundations.tex:902} & (CoHA / MO stable envelope) & B.5 + B.10 & \textsc{Still} \\
+\texttt{quantum\_groups\_foundations.tex:4605} & (reduced DT + CoHA-to-BKM / framed $\Phi_3$) & B.4 + B.6 & \textsc{Still} (named Hall--BKM hypothesis) \\
+\texttt{cy3\_chain\_level\_bridge.tex:383} & \texttt{prop:cy3-local-to-toric-descent-package} & B.5 & \textsc{Still} \\
+\texttt{cy3\_chain\_level\_bridge.tex:786} & \texttt{prop:cy3-e3-structure-hochschild} & B.1 & \textsc{Upgrade} U-5 \\
+\texttt{cy3\_chain\_level\_bridge.tex:853} & \texttt{thm:cfg-factorization-envelope-stage-one} & B.1 & \textsc{Upgrade} U-6 \\
+\texttt{introduction.tex:85} & (intro) & B.2 & \textsc{Still} (forward-ref convention) \\
+\texttt{e2\_chiral\_algebras.tex:231} & (bare) & B.2 & \textsc{Still} \\
+\texttt{braided\_factorization.tex:436} & (bare) & B.2 & \textsc{Still} \\
+\texttt{braided\_factorization.tex:685} & (bare) & B.2 & \textsc{Still} \\
+\texttt{en\_factorization.tex:190} & \texttt{thm:e1-stabilization-cy} & B.3 & \textsc{Still} \\
+\texttt{en\_factorization.tex:259} & \texttt{cor:d4-pontryagin} & B.3 & \textsc{Still} \\
+\texttt{en\_factorization.tex:292} & \texttt{cor:d5-z2} & B.3 & \textsc{Still} \\
+\texttt{en\_factorization.tex:317} & \texttt{cor:d7-d8-bott} & B.3 & \textsc{Still} (double-tag correct) \\
+\texttt{en\_factorization.tex:445} & \texttt{prop:e3-max-cy4} & B.3 & \textsc{Still} \\
+\texttt{en\_factorization.tex:2134} & \texttt{prop:higher-deligne-step2} & B.2 & \textsc{Misc} (Lurie proof inside) \\
+\texttt{en\_factorization.tex:2220} & \texttt{prop:cascade-termination} & B.3 & \textsc{Still} \\
+\texttt{en\_factorization.tex:2572} & \texttt{prop:wilson-line-coproduct} at $d=3$ & B.2 & \textsc{Upgrade} U-11 \\
+\texttt{cy\_to\_chiral.tex:345} & \texttt{thm:cfg-e3-formality-stage-1-phiFA3-torsor} & B.1 & \textsc{Upgrade} U-7 \\
+\texttt{cy\_to\_chiral.tex:517} & \texttt{prop:phifa-infty1-kernel} & B.1 + B.2 & \textsc{Upgrade} U-8 \\
+\texttt{cy\_to\_chiral.tex:558} & \texttt{thm:phi-two-stage-derived} & B.2 + B.10 & \textsc{Misc} \\
+\texttt{cy\_to\_chiral.tex:724} & \texttt{thm:g-delta5-is-sp-k3} & B.5 + B.4 & \textsc{Misc} M-4 \\
+\texttt{cy\_to\_chiral.tex:750} & \texttt{cor:sibling-BKMs-from-one-phiFA} & B.9 $N\geq 2$ & \textsc{Still} \\
+\texttt{cy\_to\_chiral.tex:765} & \texttt{thm:g-delta5-sp-k3-bialgebra} & B.5 + B.7 & \textsc{Misc} M-5 \\
+\texttt{cy\_to\_chiral.tex:858} & (CHL $N \in \{2,3,4,6\}$ sibling) & B.9 $N\geq 2$ & \textsc{Still} \\
+\texttt{cy\_to\_chiral.tex:905} & \texttt{conj:fake-monster-envelope} & B.3 ($d=5$) & \textsc{Still} \\
+\texttt{cy\_to\_chiral.tex:994} & main $\Phi_d$ statement & B.2 + B.10 & \textsc{Misc} \\
+\texttt{cy\_to\_chiral.tex:1391} & (pointwise $\bS^4$) & B.3 & \textsc{Still} \\
+\texttt{cy\_to\_chiral.tex:1539} & Product vs.\ compact BCOV & B.11 & \textsc{Still} \\
+\texttt{cy\_to\_chiral.tex:1916} & (bare) & (conjectural) & \textsc{Misc} (better tagged Conjectured) \\
+\texttt{cy\_to\_chiral.tex:2463} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{cy\_to\_chiral.tex:4558} & (cofibrant Koszul diagram) & B.11 & \textsc{Still} \\
+\texttt{cy\_to\_chiral.tex:4593} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{cy\_to\_chiral.tex:4984} & categorical DT moduli conjecture & (conjectural) & \textsc{Misc} \\
+\texttt{cy\_to\_chiral.tex:5359} & structural statement + $d$-scope & B.2 + B.3 & \textsc{Misc} (correctly scope-split) \\
+\texttt{cy\_to\_chiral.tex:6435} & (dependence on CY-A$_4$) & B.3 & \textsc{Still} \\
+\texttt{cy\_to\_chiral.tex:10916} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{e1\_chiral\_algebras.tex:177} & (bare) & B.2 & \textsc{Still} \\
+\texttt{e1\_chiral\_algebras.tex:395} & (H1--H4 admissible $(\Sigma_2,C)$) & B.4 & \textsc{Misc} (H1--H4 closed; admissibility is a spec datum) \\
+\texttt{e1\_chiral\_algebras.tex:573} & (H1--H4 + admissible) & B.4 & \textsc{Misc} \\
+\texttt{e1\_chiral\_algebras.tex:2943} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{e1\_chiral\_algebras.tex:3131} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{e1\_chiral\_algebras.tex:3459} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{phi\_universal\_trace\_platonic.tex:525} & (bare) & B.8 & \textsc{Still} \\
+\texttt{drinfeld\_center.tex:755} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{bar\_cobar\_bridge.tex:672} & \texttt{prop:quintic-shadow-coefficients} & B.2 + B.11 & \textsc{Still} (compact BCOV at quintic) \\
+\texttt{bar\_cobar\_bridge.tex:1480} & \texttt{prop:supertrace-trinity-centre-collapse} & B.8 & \textsc{Still} S-3 \\
+\texttt{bar\_cobar\_bridge.tex:1582} & \texttt{thm:universal-trace-identity-k3-fibered} & B.8 & \textsc{Still} S-3 \\
+\texttt{bar\_cobar\_bridge.tex:1749} & \texttt{prop:bruinier-funke-functoriality} & B.8 & \textsc{Still} S-3 \\
+\texttt{bar\_cobar\_bridge.tex:1801} & \texttt{prop:eisenstein-cusp-trinity-supertrace} & B.8 & \textsc{Still} S-3 \\
+\texttt{bar\_cobar\_bridge.tex:1857} & \texttt{prop:borcherds-product-non-unimodular} & B.8 & \textsc{Still} S-3 \\
+\texttt{bar\_cobar\_bridge.tex:1939} & \texttt{thm:universal-trace-identity-non-k3-fibered} & B.8 & \textsc{Still} S-3 \\
+\texttt{bar\_cobar\_bridge.tex:2126} & master-arrow equation (first) & B.8 & \textsc{Still} \\
+\texttt{bar\_cobar\_bridge.tex:2130} & master-arrow equation (second) & B.8 & \textsc{Still} \\
+\texttt{bar\_cobar\_bridge.tex:2154} & master-arrow summary & B.8 & \textsc{Still} \\
+\texttt{derived\_categories\_cy.tex:146} & \texttt{thm:curved-bcov-genus} & B.11 & \textsc{Still} (worked ex.\ 3) \\
+\texttt{derived\_categories\_cy.tex:263} & framed object-level $\Phi_3$ & B.4 & \textsc{Upgrade} U-9 (scoped) \\
+\texttt{derived\_categories\_cy.tex:338} & strict-stratum BV exactness & B.4 + B.11 & \textsc{Misc} M-7 \\
+\texttt{derived\_categories\_cy.tex:415} & constructed strict-stratum locus & B.4 & \textsc{Upgrade} U-9 (scoped) \\
+\texttt{derived\_categories\_cy.tex:1254} & \texttt{rem:dcy-kst-dq} & B.11 & \textsc{Still} (KST compact extension) \\
+\texttt{derived\_categories\_cy.tex:1306} & \texttt{rem:dcy-kst-bridgeland-rmatrix} & B.11 & \textsc{Still} \\
+\texttt{matrix\_factorizations.tex:113} & Orlov-framed $\Phi_3^{(\Sigma_2,C)}$ & B.4 & \textsc{Upgrade} U-10 \\
+\texttt{cy\_holographic\_datum\_master.tex:286} & \texttt{thm:face1-cy-bar-cobar-d3} & B.2 & \textsc{Misc} (reduces to \texttt{thm:cy-to-chiral-d3}) \\
+\texttt{cy\_holographic\_datum\_master.tex:957} & (Bethe ansatz conj) & B.10 + (conjectural) & \textsc{Misc} \\
+\texttt{cy\_holographic\_datum\_master.tex:1252} & $d=3$ framing & B.2 + B.4 & \textsc{Misc} \\
+\texttt{cy\_holographic\_datum\_master.tex:1667} & \texttt{thm:E3-chain-level-twisted-M-theory} & B.1 + B.5 & \textsc{Misc} (chartwise closed; global open) \\
+\texttt{cy\_c\_pentagon\_hypothesis\_closures\_platonic.tex:68--472} (5 tags) & pentagon-hypothesis closures & (conjectural) & \textsc{Misc} (better tagged Conjectured) \\
+\texttt{cy\_c\_pentagon\_hypothesis\_closures\_platonic.tex:764} & (CY-A$_3$ at $(\infty,1)$-level) & B.2 & \textsc{Upgrade} (via \texttt{thm:cy-to-chiral-d3}) \\
+\texttt{k3\_yangian\_chapter.tex:6406} & \texttt{thm:k3-pentagon-E1-edge-architecture} & B.10 & \textsc{Still} (worked ex.\ 2) \\
+\texttt{k3\_yangian\_chapter.tex:6524} & \texttt{thm:k3-multiproj-bigraded-lefschetz} & B.10 & \textsc{Still} (Caldararu chiral HRR conditional) \\
+\texttt{k3\_yangian\_chapter.tex:6739} & \texttt{thm:kunneth-dichotomy} & B.10 & \textsc{Still} (asymmetric-coupling open) \\
+\texttt{k3\_yangian\_chapter.tex:8964} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{k3\_yangian\_chapter.tex:10638} & MO elliptic stable envelopes & B.11 + B.10 & \textsc{Still} (elliptic Yangian open) \\
+\texttt{k3\_yangian\_chapter.tex:10677} & Nakajima--Lehn on $K3 \times E$ & B.11 & \textsc{Still} \\
+\texttt{k3e\_bkm\_chapter.tex:17} & four-corner structure & B.4 + B.7 & \textsc{Misc} (scope: all four routes at $K3 \times E$; \textsc{Upgrade}-heavy but needs care) \\
+\texttt{k3e\_bkm\_chapter.tex:1007} & \texttt{thm:bl-bv-k3e-kappa5} & B.6 & \textsc{Upgrade} U-2 \\
+\texttt{k3e\_bkm\_chapter.tex:1102} & \texttt{thm:k3e-coha} & B.5 + B.6 & \textsc{Misc} M-6 \\
+\texttt{k3e\_bkm\_chapter.tex:1391} & \texttt{conj:k3e-five-level-bridge} & B.6 + (CY-D) & \textsc{Misc} \\
+\texttt{k3e\_bkm\_chapter.tex:2536} & Bar-Euler-product line & B.6 + B.7 & \textsc{Upgrade} U-3 \\
+\texttt{k3e\_bkm\_chapter.tex:12364} & \texttt{thm:k3e-imprimitive-DT-OP2014-B} & B.11 (DT closure) & \textsc{Still} (imprimitive DT Behrend closure) \\
+\texttt{cy\_c\_six\_routes\_generator\_level\_platonic.tex:139--405} (4 tags) & generator-level platonic closures & (conjectural) & \textsc{Misc} \\
+\texttt{coha\_wall\_crossing\_platonic.tex:299} & \texttt{thm:coha-chiralization-preserves-algebra} & B.2 + B.11 & \textsc{Misc} (chain-level non-formal CY-A$_3$) \\
+\texttt{coha\_wall\_crossing\_platonic.tex:741--1649} (4 tags) & wall-crossing closures & (conjectural) & \textsc{Misc} \\
+\texttt{fukaya\_categories.tex:525} & \texttt{prop:hms-compatibility} & B.10 & \textsc{Still} (HMS preserving cyclic structure) \\
+\texttt{fukaya\_categories.tex:722} & (bare) & B.10 & \textsc{Still} \\
+\texttt{fukaya\_categories.tex:1340} & (bare) & B.10 & \textsc{Still} \\
+\texttt{fukaya\_categories.tex:1449} & (bare) & B.10 & \textsc{Still} \\
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:2140} & \texttt{thm:cy-c-beyond-exceptional-stratum} & B.4 + B.10 & \textsc{Still} (necessity on complement) \\
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:2262} & framed exceptional-collection stratum & B.4 + B.10 & \textsc{Still} \\
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:3979} & global $G(X)$ + global $\Phi_3$ functoriality & B.10 & \textsc{Still} S-6 \\
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:4495} & fixed framed quintic datum & B.4 + B.11 & \textsc{Misc} \\
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:4717} & fixed framed H1--H4 & B.4 + B.10 & \textsc{Still} \\
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:4819} & stability-refined $\Phi_3^{\mathrm{cat},\sigma}$ & B.10 & \textsc{Still} \\
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:5056} & stability-refined $\Phi_3^{\mathrm{cat},\sigma}$ & B.10 & \textsc{Still} \\
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex:7549} & HPD block calculation & B.4 + B.10 & \textsc{Misc} \\
+\texttt{toric\_cy3\_coha.tex:17} & \texttt{thm:toric-coha-cech-descent} & B.5 & \textsc{Still} (orientation-gerbe trivialisation) \\
+\texttt{toric\_cy3\_coha.tex:104} & \texttt{thm:sv-c3-e3-factorization} & B.1 & \textsc{Upgrade} U-4 \\
+\texttt{toric\_cy3\_coha.tex:1636} & \texttt{thm:toric-cy3-chiral-qg} & B.5 + B.10 & \textsc{Still} (global toric CY-C) \\
+\texttt{toric\_cy3\_coha.tex:1891} & \texttt{thm:toric-chiral-qg-specialization} & B.5 + B.10 & \textsc{Still} \\
+\texttt{cy\_d\_kappa\_stratification.tex:691} & \texttt{thm:cy-d-shadow-class-stratification} & B.3 & \textsc{Still} at $d \geq 4$ (double-tag correct) \\
+\texttt{k3\_quantum\_toroidal\_chapter.tex:140} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{k3\_quantum\_toroidal\_chapter.tex:1437} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{k3\_quantum\_toroidal\_chapter.tex:1469} & (bare) & (conjectural) & \textsc{Misc} \\
+\texttt{cy\_c\_six\_routes\_convergence.tex:129} & R$_1$--R$_2$ bridge & B.4 + B.7 & \textsc{Misc} \\
+\texttt{cy\_c\_six\_routes\_convergence.tex:167} & R$_3$--R$_4$ Kummer bridge & B.11 & \textsc{Still} \\
+\texttt{cy\_c\_six\_routes\_convergence.tex:183} & R$_4$--R$_5$ sigma-model bridge & B.11 & \textsc{Still} \\
+\texttt{cy\_c\_six\_routes\_convergence.tex:199} & R$_5$--R$_6$ BLLPR bridge & B.11 & \textsc{Still} \\
+\texttt{cy\_c\_six\_routes\_convergence.tex:215} & framed CY-A$_3$ + BLLPR id & B.4 + B.11 & \textsc{Misc} \\
+\texttt{cy\_c\_six\_routes\_convergence.tex:944} & Vol II K3 Heisenberg + cell-closure & B.8 & \textsc{Still} \\
+\texttt{cy\_c\_six\_routes\_convergence.tex:1268--1678} (7 tags) & pairwise/six-route closures & (conjectural / B.10) & \textsc{Misc}/\textsc{Still} per tag (CY-C is conjectural by design) \\
+
+\bottomrule
+\end{longtable}
+\normalsize
+
+\medskip
+\textbf{End of audit.}
+
+% =====================================================================
+\section{Acknowledgement of scope}
+\label{sec:scope-acknowledge}
+% =====================================================================
+
+This wave file is a pure analysis. It edits no chapter. The
+downstream agents R-3..R-15 (chapter editors) consume the
+\textsc{Upgrade} and \textsc{Misc} worklists of
+Section~\ref{sec:worklist} as a concrete diff target. Per the R-2
+role specification, no bookkeeping vocabulary is introduced into
+any manuscript prose; the \texttt{\textbackslash ClaimStatusProvedHere} /
+\texttt{\textbackslash ClaimStatusProvedElsewhere} tags are
+reader-facing status invariants already established in the style of
+the monograph.
+
+\end{document}

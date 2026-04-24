@@ -141,7 +141,7 @@ The quantum vertex chiral group G(K3 x E) has:
 - Root multiplicities: f(nm, l), the Fourier coefficients of phi_{0,1}
 - Denominator identity: (1/64) * Delta_5(2Z) = Phi(z)
 - Weyl group: W^{(2)}(Lambda^{2,1}_{II})
-- Modular characteristic: kappa = 5 (the weight of Delta_5)
+- Borcherds denominator weight: kappa_BKM = 5 (the weight of Delta_5)
 
 **Claim (VW -> QVCG)**: The BKM superalgebra g_{Delta_5} arises from VW theory
 on K3 in the following precise sense:

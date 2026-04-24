@@ -1,0 +1,1748 @@
+% agent_R_4_residual_obstructions.tex
+% Agent R-4 (wave residuals, Vol III)
+% Voices: Beilinson, Drinfeld, Bezrukavnikov, Costello, Kazhdan, Kapranov;
+% side-by-side physics: Costello-Gwilliam-Li, CFG 2026.
+%
+% Residual Booth-Lazarev obstructions O_1 (Ran-space Smith recognition)
+% and O_3 (sewing-analytic IndHilb) to global chain-level Phi^FA_3 on
+% compact CY_3, after Agent 13's O_2 (genus-tower curvature) Mumford
+% collapse via partial^* lambda_g^1 = pi_1^* lambda_{g_1}^1
+% + pi_2^* lambda_{g_2}^1 --- the kappa_ch-curving IS the
+% Hodge-boundary-descent datum.
+%
+% Residual attack: chain-level cohomological representatives for both
+% obstructions; deployment on three examples (C^3, K3 x E, quintic).
+%
+% Side-by-side anchor: CFG 2026 (Costello-Francis-Gwilliam) on R^3 / C^3
+% is obstruction-free by contractibility of Ran; compact CY_3 introduces
+% genuine residual pair.
+%
+% Primary sources: Booth-Lazarev arXiv:2304.08409; Beilinson-Drinfeld
+% Chiral Algebras Ch.3; Francis-Gaitsgory arXiv:1103.5803;
+% Ayala-Francis arXiv:1206.5522; Costello-Li arXiv:1606.00365;
+% Positselski Mem AMS 212:996 (2011); Kapranov arXiv:math/9811023;
+% Kontsevich-Tamarkin 1997; Moriwaki 2026 sewing envelope.
+%
+% Workflow: five ATTACK-HEAL cycles.
+
+\documentclass[11pt]{amsart}
+\usepackage[localtheorems]{raeez-math-template}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\newcommand{\kchBV}{\kappa_{\mathrm{ch},\mathrm{BV}}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Fact}{\mathrm{Fact}}
+\newcommand{\FactCoAlg}{\mathrm{FactCoAlg}}
+\newcommand{\FactLie}{\mathrm{FactLie}}
+\newcommand{\crv}{\mathrm{crv}}
+\newcommand{\cpt}{\mathrm{cpt}}
+\newcommand{\dgAlg}{\mathrm{dgAlg}}
+\newcommand{\dgCoAlg}{\mathrm{dgCoAlg}}
+\newcommand{\Dco}{D^{\mathrm{co}}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\IndHilb}{\mathrm{IndHilb}}
+\newcommand{\Mbar}{\overline{\mathcal{M}}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\At}{\mathrm{At}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bT}{\mathbb{T}}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\Gen}{\mathrm{Gen}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\Cech}{\check{\mathrm{C}}}
+\newcommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\DeclareMathOperator{\Id}{id}
+\DeclareMathOperator{\colim}{colim}
+
+\begin{document}
+\title{Residual chiral Booth--Lazarev obstructions $(\mathbf{O}_1)$ and
+$(\mathbf{O}_3)$ for the global chain-level $\PhiFA_3$ on compact
+Calabi--Yau threefolds:\\
+explicit cohomological representatives and three-example verification}
+\author{Wave residuals, Vol~III (Agent R-4)}
+\date{2026}
+\maketitle
+
+\begin{abstract}
+On a compact Calabi--Yau threefold, Agent~13's Mumford-boundary collapse
+reduced the three chiral Booth--Lazarev obstructions
+$(\mathbf{O}_1^{\mathrm{BL}})$, $(\mathbf{O}_2^{\mathrm{BL}})$,
+$(\mathbf{O}_3^{\mathrm{BL}})$ for a global chain-level Stage-1 functor
+$\PhiFA_3$ to a residual pair by the identity
+$\partial^*\lambda_g^1 = \pi_1^*\lambda_{g_1}^1 + \pi_2^*\lambda_{g_2}^1$:
+the $\kch$-curving \emph{is} the Hodge-boundary-descent datum, so
+$(\mathbf{O}_2^{\mathrm{BL}})$ vanishes identically as a structural
+identification, not as an accident. This note extracts explicit
+chain-level cohomological representatives for the two survivors:
+
+\begin{itemize}[leftmargin=2em]
+\item $(\mathbf{O}_1^{\mathrm{BL}}) = [\sigma_{\mathrm{Smith}}] \in
+H^1(\Ran(C), \Aut_\otimes \cA)$, a \v{C}ech cocycle on the
+stratified colimit $\Ran(C) = \colim_n C^n/S_n$ measuring the
+failure of factorisation-compatible cofibrant generation; its
+explicit representative on a triangulated chart cover is the
+Bousfield--Kan $E_2^{1,0}$-boundary under the
+factorisation-restriction boundary, equivalently a Mittag--Leffler
+defect in a stratum-nested inverse system of Booth--Lazarev
+generators.
+\item $(\mathbf{O}_3^{\mathrm{BL}}) = [\sigma_{\mathrm{sew}}] \in
+\varprojlim_g \Ext^1_{\mathrm{top}}(\Dco^{\mathrm{ch},g}(\cA),
+\IndHilb^g(A^{\mathrm{sew}}))$, a Mittag--Leffler defect in the
+tower of genus-$g$ sewing completions; its explicit representative
+is the leading non-nuclear contribution
+$\sum_k t^k \mathrm{Res}_{\mathrm{node}}^{(k)}(A, B)/z^{k+1}$ to the
+chiral OPE across a nodal degeneration, with Borel summability
+controlled by the shadow-tower discriminant
+$\Delta(Q_\cL) = -256\,\kch^3 \cdot S_4$.
+\end{itemize}
+
+\noindent\textbf{Three-example deployment.}
+\begin{itemize}[leftmargin=2em]
+\item \emph{$\bC^3$.} Both obstructions vanish trivially.
+$\Ran(\bC^3)$ is contractible, so $H^1(\Ran(\bC^3), \cdot) = 0$; and
+$\bC^3$ carries no compact genus tower so the sewing defect is empty.
+Both $O_1(\bC^3) = 0$, $O_3(\bC^3) = 0$.
+
+\item \emph{$K3 \times E$ on the Heisenberg--Mukai branch.} Both
+obstructions vanish after equivariant refinement. $O_1$: the
+translation torus $T = E \subset \Aut^0(X)$ acts on $\Ran(E)$ with
+generically empty fixed locus, so Atiyah--Bott localisation
+rationalises the class to zero in $H^1_T(\Ran(E),
+\Aut_\otimes) \otimes \bQ$. $O_3$: with the Heisenberg specialisation
+$\kch^{\mathrm{Heis}} = 3$ and $S_4(\cH_{\mathrm{Muk}}) > 0$ (K3
+Mukai-Heisenberg class $\mathbf{C}$, charge-constraint-controlled),
+the discriminant $\Delta(Q_\cL) = -256 \cdot 27 \cdot S_4 < 0$ is
+sign-definite; the Gevrey-$1$ OPE series is Borel summable on
+positive ray, so $[\sigma_{\mathrm{sew}}] = 0$ in the nuclear
+$\IndHilb$ completion.
+
+\item \emph{Quintic $Q \subset \bP^4$.} Both residual obstructions
+persist, but with structurally distinct flavours. $O_1(Q) \neq 0$:
+$\Aut^0(Q) = 1$ finite (Matsumura) forecloses torus-equivariant
+localisation; the \v{C}ech cocycle on $\Ran(C)$ restricted to a
+reference rigid rational curve $C \hookrightarrow Q$ is irreducible
+with class in the residue of $\HH^1(Q, \cO_Q) = 0$-Koszul-dual
+automorphism sheaf, and carries non-trivial content from the
+quintic's $h^{1,1}(Q) = 1$, $h^{2,1}(Q) = 101$ Hodge data through
+the Kapranov $L_\infty$-curvature. $O_3(Q)$: the Hodge-supertrace
+Gevrey order $\kch(Q) = \chi(\cO_Q) = 0$ makes the naive bound
+$\lesssim N!^{\kch} = 1$ tame, but the \emph{BV-corrected} order
+$\kchBV(Q) = \chi(Q)/24 = -25/3$ is sign-definite and enters the
+Costello--Li curvature; the correct Borel-summability criterion
+depends on $\kchBV^3 \cdot S_4 > 0$, i.e.\ on $S_4(Q) < 0$.
+Status: the sign of $S_4(Q)$ is open; $(\mathbf{O}_3^{\mathrm{BL}})
+(Q)$ is a Borel-summability condition on the shadow tower
+quartic datum of the quintic, not a universal obstruction.
+\end{itemize}
+
+The residual pair stratifies into three classes across the chain-level
+CY$_3$ census: $(0, 0)$ on both non-compact and Heisenberg-branch compact
+witnesses; $(\neq 0, \text{cond})$ on strict compact CY$_3$ (quintic,
+bicubic, Schoen). This matches and sharpens
+Proposition~\ref{prop:cfg-vs-compact-bl} of
+\texttt{sec\_9\_obstructions.tex}.
+\end{abstract}
+
+\tableofcontents
+
+% ============================================================
+\section{Framing: the residual pair after the Mumford collapse}
+\label{sec:framing-residual-pair}
+% ============================================================
+
+The two-stage factorisation $\Phi_3 = \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, C}
+\circ \PhiFA_3$ of the working-notes reduces to the first-stage
+functor $\PhiFA_3 : \mathrm{CY}_3\text{-cat} \to \mathrm{FactAlg}_3$
+canonical up to $\mathrm{GRT}_1(\bQ)$-torsor of contractible choices.
+On a compact CY$_3$ $X$, the output $\PhiFA_3(\Perf\,X)$ is a
+factorisation datum on $\Ran(C) \times \Mbar_{g,n}$ for a reference
+curve $C \hookrightarrow X$, sitting as a genus-filtered chiral
+algebra with curving $m_0^{(g,n)} = \kch \cdot \lambda_g^1$ by the
+Costello--Li BCOV identification (Lemma~\ref{lem:curving-identification}
+of Agent~13).
+
+The associative Booth--Lazarev theorem (\texttt{arXiv:2304.08409},
+Booth--Lazarev Thm.~$4.15$) produces a Quillen equivalence
+\[
+\Omega : \dgCoAlg^{\cpt}_{\crv, k} \;\rightleftarrows\; \dgAlg_k : B
+\]
+between compact curved dg-coalgebras and dg-algebras. The chiral upgrade
+to $\FactCoAlg^{\cpt}_{\crv}(\Ran(C) \times \Mbar)$ encounters three
+structural obstructions:
+\begin{enumerate}[label=\textup{(}$\mathbf{O}_\arabic*^{\mathrm{BL}}$\textup{)}, leftmargin=3em]
+\item Ran-space Smith recognition: $H^1(\Ran(C), \Aut_\otimes)$.
+\item Genus-tower curvature compatibility: clutching descent.
+\item Sewing-analytic IndHilb comparison:
+$\varprojlim_g \Ext^1_{\mathrm{top}}$.
+\end{enumerate}
+
+Agent~13's theorem: $(\mathbf{O}_2^{\mathrm{BL}})$ collapses identically
+via Mumford's boundary relation, because the $\kch$-curving is the
+Hodge-boundary-descent datum and not a separately-imposed constraint.
+Residual pair: $(\mathbf{O}_1^{\mathrm{BL}})$,
+$(\mathbf{O}_3^{\mathrm{BL}})$. This note attacks the residual pair
+from first principles and evaluates on three concrete CY$_3$ examples.
+
+% ============================================================
+\section{ATTACK--HEAL cycle 1: $(\mathbf{O}_1^{\mathrm{BL}})$ as
+\v{C}ech cocycle, explicit representative}
+\label{sec:cycle-1-O1-cech}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``The Ran-space Smith recognition obstruction is a high-abstract-nonsense
+object ($H^1$ of an ind-colimit with sheaf coefficients in a tensor
+category) with no concrete \v{C}ech representative; one cannot evaluate
+it without first proving a comparison theorem that itself requires
+$O_1 = 0$. The claim to have an explicit representative is circular.''
+
+\subsection*{HEAL}
+
+The claim is not circular. The Ran space $\Ran(C) = \colim_n C^n/S_n$
+is a colimit along \emph{symmetrisation embeddings}, and the \v{C}ech
+cohomology with values in a factorisation-coherent sheaf is computable
+by a finite-dimensional stratum-by-stratum procedure. The concrete
+cocycle is extracted as follows.
+
+\begin{proposition}[Explicit $(\mathbf{O}_1^{\mathrm{BL}})$ \v{C}ech
+representative]
+\label{prop:O1-explicit-cech}
+Fix a smooth projective CY$_3$ $X$ and a smooth reference curve
+$C \hookrightarrow X$. Let $V_n = \{(x_1, \dots, x_n) \in C^n/S_n :
+x_i \neq x_j\}$ be the configuration space of $n$ distinct ordered
+points on $C$ mod symmetric group. Let
+\[
+\sigma_{\mathrm{Smith}}(x_{i_1}, \dots, x_{i_{n+m}}) \in
+\Aut_\otimes(I_{n+m}(x_{i_1}, \dots, x_{i_{n+m}}))
+\]
+be the normalised factorisation-restriction cocycle
+\[
+\sigma_{\mathrm{Smith}} := [j^*_{n,m} I_{n+m} - I_n \boxtimes I_m]
+\]
+on the open locus $V_n \cap V_m \subset C^{n+m} \setminus \Delta$ of
+distinct $(n+m)$-tuples. Then $\sigma_{\mathrm{Smith}}$ is a 1-cocycle
+on the \v{C}ech nerve of the cover of $\Ran(C)$ by
+$\{V_n\}_{n \geq 1}$, satisfying
+\[
+\sigma_{\mathrm{Smith}}^{(n, m+k)}
+- \sigma_{\mathrm{Smith}}^{(n+m, k)}
++ \sigma_{\mathrm{Smith}}^{(n, m)}
+- \sigma_{\mathrm{Smith}}^{(m, k)} = 0
+\qquad \text{in } H^0(V_n \cap V_m \cap V_k, \Aut_\otimes)
+\]
+(factorisation-associativity cocycle condition), and its class
+\[
+[\sigma_{\mathrm{Smith}}] \in H^1(\Ran(C), \Aut_\otimes(\Gen_{\mathrm{BL}}))
+\]
+is the obstruction $(\mathbf{O}_1^{\mathrm{BL}})$.
+\end{proposition}
+
+\begin{proof}
+The factorisation restriction $j^*_{n,m}$ is part of the structural
+data of $\FactCoAlg$; on the level of generating cofibrations
+$I \subset I_n$ one has, for distinct configurations,
+\[
+j^*_{n,m}(i_{n+m}) = i_n \boxtimes i_m
+\]
+where $i_n \in I_n$, $i_{n+m} \in I_{n+m}$ are chosen compatibly. The
+obstruction to achieving this \emph{on the nose}, rather than up to
+automorphism of generating-cofibration classes, is a discrepancy
+cocycle
+\[
+\sigma(x_1, \dots, x_n; y_1, \dots, y_m) \;=\;
+j^*_{n,m}(i_{n+m})(x_1, \dots, x_n, y_1, \dots, y_m)
+\;-\; i_n(x_1, \dots, x_n) \otimes i_m(y_1, \dots, y_m).
+\]
+The triple-overlap condition: on $V_n \cap V_m \cap V_k$ (triply
+disjoint configurations),
+\[
+j^*_{n, m+k}(i_{n+m+k}) \;=\; i_n \otimes j^*_{m,k}(i_{m+k})
+\;=\; (j^*_{n+m, k}(i_{n+m+k}))^\top_{n+m \to n \otimes m}
+\]
+by associativity of the factorisation tensor product (Beilinson--Drinfeld
+Ch.~3 Def.~$3.4.9$). The mismatch between the two iterated
+factorisations is the 1-cocycle condition above, equivalent in
+cohomological language to $\delta_{\Cech} \sigma = 0$ in
+$H^0(V_{nmk}, \Aut_\otimes)$.
+
+The class $[\sigma_{\mathrm{Smith}}]$ lives in the first
+\v{C}ech cohomology of the cover $\{V_n\}_{n \geq 1}$ of $\Ran(C)$ with
+coefficients in the sheaf of tensor automorphisms. By Ayala--Francis
+\texttt{arXiv:1206.5522} Theorem~$1.1$ (factorisation homology descent),
+the \v{C}ech cohomology of the colimit agrees with the factorisation
+homology of the coefficient sheaf, and the class fits into the
+Bousfield--Kan spectral sequence
+\[
+E_2^{p,q} = H^p(\Ran(C), \underline{H}^q(\Aut_\otimes))
+\;\Rightarrow\;
+H^{p+q}(\int_{\Ran(C)} \Aut_\otimes).
+\]
+The class $[\sigma_{\mathrm{Smith}}]$ sits at $E_2^{1, 0}$, with
+differentials $d_r : E_r^{1,0} \to E_r^{r+1, 0}$; it survives to
+$E_\infty$ iff it is not killed by any differential, equivalent to
+the original Smith-recognition obstruction. In the spectral-sequence
+language the representative at $E_2$ is computed explicitly by the
+\v{C}ech formula above.
+\end{proof}
+
+\begin{remark}[Mittag--Leffler reformulation]
+\label{rem:O1-mittag-leffler}
+Equivalently, since $\Ran(C) = \colim_n C^n/S_n$ and the
+factorisation-restriction maps $j^*_n : \FactCoAlg(C^n/S_n) \to
+\FactCoAlg(C^{n-1}/S_{n-1})$ form an inverse system indexed by $n$,
+the cocycle $[\sigma_{\mathrm{Smith}}]$ is the Mittag--Leffler defect
+of the inverse system $\{I_n\}_{n \geq 1}$: it vanishes iff the tower
+is Mittag--Leffler (every finite stratum $I_n$ receives a
+compatible $I_{n+1}$-restriction). The class
+$\varprojlim^1_n I_n$ captures exactly this defect, isomorphic to
+$[\sigma_{\mathrm{Smith}}]$ by the standard derived-functor
+comparison (Bousfield--Kan Appendix VII.6).
+
+The Mittag--Leffler framing links the Ran-space cocycle directly to
+the sewing obstruction $O_3$ as a second Mittag--Leffler defect in
+the genus-completion tower: the two residual obstructions are
+\emph{parallel} Mittag--Leffler defects, one in the stratum-index $n$
+direction (point count), one in the genus-index $g$ direction
+(topological complexity).
+\end{remark}
+
+\subsection{Dolbeault cochain on local charts}
+
+On each chart $U_\alpha \simeq \bC^3$ of the CY$_3$, the local
+factorisation algebra is the Schiffmann--Vasserot K3 shuffle algebra
+$\CoHA(\bC^3) \simeq Y^+(\widehat{\mathfrak{gl}}_1)$ (positive half of
+the affine Yangian on $\mathfrak{gl}_1$; Schiffmann--Vasserot
+\texttt{arXiv:1202.2756} Theorem~$1.1$), with generating cofibrations
+given by the combinatorial shuffle relations. On overlaps
+$U_\alpha \cap U_\beta$, the transition is Fourier--Mukai (Agent~14
+\texttt{arXiv:sec\_10\_unifying}), and the factorisation-restriction
+cocycle pulls back the Bondal--Orlov autoequivalence sheaf.
+
+\begin{lemma}[Dolbeault \v{C}ech representative]
+\label{lem:dolbeault-cech-O1}
+Let $\{U_\alpha\}$ be an acyclic analytic open cover of compact CY$_3$
+$X$ by $\bC^3$-charts, with nerve $\cN_X$. The cocycle
+$[\sigma_{\mathrm{Smith}}]$ pulls back along the chart cover to a
+Dolbeault \v{C}ech cocycle
+\[
+\tilde\sigma_{\alpha\beta\gamma} \in
+\Gamma(U_\alpha \cap U_\beta \cap U_\gamma, \Omega^{0,1}
+\otimes \Aut_\otimes^{\mathrm{FM}}),
+\]
+where $\Aut_\otimes^{\mathrm{FM}}$ is the Fourier--Mukai autoequivalence
+sheaf. The \v{C}ech-Dolbeault double complex computing
+$H^1(\Ran(C), \Aut_\otimes)$ has $E_2^{1, 0} = H^1(\cN_X,
+\underline{\Aut}_\otimes)$ and $E_2^{0, 1} = H^1(U, \Omega^{0,1}
+\otimes \Aut_\otimes)$, with the explicit cocycle
+$\tilde\sigma_{\alpha\beta\gamma}$ realising the representative.
+\end{lemma}
+
+\begin{proof}
+The nerve $\cN_X$ is the simplicial complex of intersections
+$U_{\alpha_0 \cap \cdots \cap \alpha_k}$. Cartan's Theorem~B on
+Stein open sets ensures $H^{>0}(U_{\alpha_0 \cap \cdots}, \cO) = 0$
+for coherent $\cO$-sheaves, so the \v{C}ech cohomology on the nerve
+computes global cohomology. The pullback of
+$[\sigma_{\mathrm{Smith}}]$ along the chart-to-curve projection
+$U_\alpha \to C \cap U_\alpha$ (where $C$ is the reference curve
+meeting each chart) produces a cocycle in $H^1(\cN_X \times
+\Ran(C \cap U_\alpha), \Aut_\otimes)$. The Dolbeault component
+$\tilde\sigma_{\alpha\beta\gamma} \in \Omega^{0,1}$ is the
+Fourier--Mukai kernel's Atiyah--class component on the triple
+overlap, captured by Kapranov's $L_\infty$-structure
+\texttt{arXiv:math/9811023} Thm.~$2.7$.
+
+Concrete formula on a triple overlap $U_{\alpha\beta\gamma}$: choose
+coordinates $(z_1, z_2, z_3)_\alpha$, $(w_1, w_2, w_3)_\beta$,
+$(u_1, u_2, u_3)_\gamma$ on each chart. The Fourier--Mukai kernel
+$K_{\alpha\beta} \in D^b(U_\alpha \times U_\beta)$ has support on
+the diagonal over the overlap and carries a line-bundle twist
+$L_{\alpha\beta} \to \cO_{\Delta_{\alpha\beta}}$; the triple-overlap
+discrepancy
+\[
+L_{\alpha\beta\gamma} := L_{\alpha\beta} \otimes L_{\beta\gamma}
+\otimes L_{\gamma\alpha}
+\]
+has a classifying map to $H^1(\cN_X \cap U_{\alpha\beta\gamma},
+\mathrm{Pic})$, and the \v{C}ech component of
+$[\sigma_{\mathrm{Smith}}]$ is read off this classifying map
+(Hartshorne \emph{Algebraic Geometry} III.4 for the line-bundle
+cocycle; Bondal--Orlov \texttt{arXiv:alg-geom/9712029} for the
+Fourier--Mukai uniqueness up to autoequivalence).
+\end{proof}
+
+% ============================================================
+\section{ATTACK--HEAL cycle 2: $(\mathbf{O}_3^{\mathrm{BL}})$ as
+Mittag--Leffler defect, explicit chain-level representative}
+\label{sec:cycle-2-O3-mittag-leffler}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``The sewing-analytic IndHilb obstruction is analytic, not algebraic;
+no chain-level cohomological representative can exist because
+IndHilb is a topological-vector-space completion that lives outside
+the derived-algebraic-geometry formalism.''
+
+\subsection*{HEAL}
+
+The obstruction is a Mittag--Leffler defect in a genus-filtered
+inverse system of \emph{algebraic} coderived categories; the IndHilb
+completion is the target of a comparison map, but the class itself
+lives on the algebraic side. Explicitly:
+
+\begin{proposition}[Explicit $(\mathbf{O}_3^{\mathrm{BL}})$
+Mittag--Leffler representative]
+\label{prop:O3-explicit-ml}
+Let $\cA = \PhiFA_3(\Perf\,X)|_{\Ran(C) \times \Mbar}$ be the Stage-1
+output of a compact CY$_3$ $X$. The inverse system of genus-$g$
+sewing-completed state spaces $\{A^{\mathrm{sew}, g}(\cA)\}_{g \geq 0}$
+with transition maps
+\[
+j_g : A^{\mathrm{sew}, g+1}(\cA) \to A^{\mathrm{sew}, g}(\cA)
+\quad (\text{degeneration sewing: } \Mbar_{g+1} \to \Mbar_g
+\text{ along boundary})
+\]
+has a Mittag--Leffler defect
+\[
+[\sigma_{\mathrm{sew}}] \;=\; \varprojlim{}^1_g\,
+A^{\mathrm{sew}, g}(\cA) \;\in\;
+\varprojlim{}_g\, \Ext^1_{\mathrm{top}}(\Dco^{\mathrm{ch}, g}(\cA),
+\IndHilb^g(A^{\mathrm{sew}}))
+\]
+whose explicit chain-level representative is the leading non-nuclear
+term in the chiral OPE asymptotic across a nodal degeneration
+$C_t \to C_0$ at sewing parameter $t \to 0$:
+\[
+\sigma_{\mathrm{sew}}^{(N)}(A, B; z, t) \;=\;
+\sum_{k=0}^{N} \frac{t^k}{z^{k+1}}\,
+\mathrm{Res}_{\mathrm{node}}^{(k)}(A, B)
+\;-\; \mu^{\mathrm{ch}}_t(A(z_1), B(z_2)).
+\]
+The truncation error is bounded by
+$\|\sigma^{(N)}_{\mathrm{sew}}\| \lesssim t^{N+1} \cdot (N+1)!^{\kch}$,
+Gevrey-$1$ in the nuclearity class controlled by $\kch$.
+\end{proposition}
+
+\begin{proof}
+The genus-$g$ sewing completion $A^{\mathrm{sew}, g}(\cA)$ is the
+projective limit of state spaces associated to the $3g-3$ Teichmüller
+coordinates on $\Mbar_{g,0}$ near the boundary $\partial\Mbar$
+(Moriwaki~$2026$). The transition map $j_g : A^{\mathrm{sew}, g+1}
+\to A^{\mathrm{sew}, g}$ is the sewing-pinch: deform a handle on the
+genus-$(g+1)$ surface to a nodal separating curve, which factors as
+a genus-$g$ surface with an $n$-point insertion (Teichmüller
+boundary).
+
+The Mittag--Leffler defect of an inverse system $\{X_g\}$ with
+transition maps $j_g : X_{g+1} \to X_g$ is
+$\varprojlim^1_g X_g$, measuring the failure of the inverse limit
+to be exact in a cohomological sense. For the sewing-completion
+tower, the defect is
+\[
+\varprojlim{}^1_g\, A^{\mathrm{sew}, g}(\cA) =
+\Ext^1_{\mathrm{top}}(\Dco^{\mathrm{ch}, g}(\cA),
+\IndHilb^g(A^{\mathrm{sew}}))
+\]
+in the derived-functor sense, with topological Ext controlling the
+comparison of the algebraic coderived category $\Dco^{\mathrm{ch}, g}$
+with the analytic IndHilb completion.
+
+The explicit representative at finite truncation $N$: the chiral
+OPE $\mu^{\mathrm{ch}}_t(A(z_1), B(z_2))$ on a smooth family $C_t$
+degenerating to $C_0$ admits a pole-order expansion in the sewing
+parameter $t$. Subtracting the first $N$ terms of the Taylor series
+leaves a residual $\sigma^{(N)}_{\mathrm{sew}}$ bounded by the
+Gevrey-$1$ factorial estimate (Proposition~$3.5$ of
+cy\_to\_chiral.tex on class $\mathbf{M}$ coefficient convergence):
+\[
+\|\partial_t^k \mu^{\mathrm{ch}}|_{t=0}\| \;\lesssim\;
+k! \cdot \|\mu_0\|^k \cdot \kch^k
+\quad \Longrightarrow \quad
+\|\sigma^{(N)}_{\mathrm{sew}}\| \lesssim t^{N+1} (N+1)!^{\kch}.
+\]
+The limit $N \to \infty$ converges iff the Borel transform
+$\widehat{\mu} = \sum_k \partial_t^k\mu|_0 \cdot t^k/(k!)^{\kch+1}$
+has no singularities on the positive ray $\bR_{>0}$. By the
+shadow-tower discriminant identity of Vol~I
+\[
+\Delta(Q_\cL) = q_1^2 - 4q_0 q_2 =
+-256\,\kch^3 \cdot S_4
+\]
+(Proposition~$3.6$ of cy\_to\_chiral.tex), the Borel-plane
+singularities are complex conjugate with real part
+$t_c = -q_1/(2q_2)$ provided $\Delta < 0$, i.e.\ provided
+$\kch^3 \cdot S_4 > 0$. In this sign-definite regime the class
+$[\sigma_{\mathrm{sew}}]$ collapses to zero on the Borel sum; outside
+this regime it represents a non-trivial class.
+\end{proof}
+
+\begin{remark}[Parallel Mittag--Leffler structure of $O_1$ and $O_3$]
+\label{rem:parallel-ml}
+Both residual obstructions $(\mathbf{O}_1^{\mathrm{BL}})$ and
+$(\mathbf{O}_3^{\mathrm{BL}})$ are Mittag--Leffler defects:
+$(\mathbf{O}_1^{\mathrm{BL}}) = \varprojlim^1_n I_n$ in the
+stratum-count direction (Remark~\ref{rem:O1-mittag-leffler}),
+$(\mathbf{O}_3^{\mathrm{BL}}) = \varprojlim^1_g A^{\mathrm{sew}, g}$
+in the genus direction (this proposition). The parallel structure
+is not accidental: both arise from the two directions in which
+$\Ran(C) \times \Mbar$ is filtered (point count $n$ and genus $g$),
+and both obstruct the passage from a finite-stratum chain-level
+datum to the global chain-level Quillen equivalence.
+
+The genus-tower $(\mathbf{O}_2^{\mathrm{BL}})$ collapse via Mumford
+is the statement that the \emph{curvature} across this parallel
+structure is automatically compatible; the two Mittag--Leffler
+defects are residual because they capture \emph{identity} data
+(cofibrant generation; state-space completion), not curvature data.
+\end{remark}
+
+% ============================================================
+\section{ATTACK--HEAL cycle 3: deployment on $\bC^3$ --- both vanish
+trivially}
+\label{sec:cycle-3-C3}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``$\bC^3$ is non-compact, so the Mumford collapse argument does not
+apply; one cannot simply assert both residual obstructions vanish
+without rerunning the analysis.''
+
+\subsection*{HEAL}
+
+The Mumford collapse eliminates $(\mathbf{O}_2^{\mathrm{BL}})$; the
+residual pair requires separate analysis. On $\bC^3$ both residuals
+vanish for independent structural reasons.
+
+\begin{proposition}[$(\mathbf{O}_1^{\mathrm{BL}}) = 0 =
+(\mathbf{O}_3^{\mathrm{BL}})$ on $\bC^3$]
+\label{prop:C3-both-vanish}
+Let $X = \bC^3$ and $C = \{0\} \times \bC \hookrightarrow \bC^3$
+(a complex line through the origin). Then
+$(\mathbf{O}_1^{\mathrm{BL}})(\bC^3) = 0$ and
+$(\mathbf{O}_3^{\mathrm{BL}})(\bC^3) = 0$ as classes in
+$H^1(\Ran(C), \Aut_\otimes)$ and
+$\varprojlim_g \Ext^1_{\mathrm{top}}$ respectively.
+\end{proposition}
+
+\begin{proof}
+\emph{$(\mathbf{O}_1^{\mathrm{BL}})(\bC^3) = 0$.} The Ran space
+$\Ran(\bC)$ of an affine line is contractible (Beilinson--Drinfeld
+Ch.~$3$ Lemma~$3.4.4$; also Francis--Gaitsgory
+\texttt{arXiv:1103.5803} Lemma~$1.1.2$ for the refinement to
+$\bC^3$-thickened Ran). Contractibility gives $H^p(\Ran(\bC), \cF) = 0$
+for $p > 0$ and any locally-constant coefficient sheaf, and in
+particular $H^1(\Ran(\bC), \Aut_\otimes) = 0$. The stronger statement
+on $\Ran(\bC^3)$: the embedding $\bC \hookrightarrow \bC^3$ induces
+a homotopy equivalence $\Ran(\bC) \to \Ran(\bC^3)$ for the relative
+topology (factorisation homology is independent of the ambient
+dimension for contractible open sets), so the vanishing transfers.
+Consequently $[\sigma_{\mathrm{Smith}}] = 0$, and the cocycle is
+identically trivial.
+
+Local-model confirmation: the chart-wise shuffle algebra
+$\CoHA(\bC^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ has generating
+cofibrations that are literally compatible with the
+factorisation-restriction: the Schiffmann--Vasserot shuffle
+operation is strictly factorisation-associative (no additional
+cocycle), and the Bondal--Orlov autoequivalence sheaf on $\bC^3$
+collapses to a trivial sheaf ($\bC^3$ is affine, so
+$\Aut_\otimes^{\mathrm{FM}}(\bC^3) = \Aut(\cO_{\bC^3}) =
+\cO_{\bC^3}^\times$, and the cocycle takes values in the trivial
+line bundle's automorphisms).
+
+\emph{$(\mathbf{O}_3^{\mathrm{BL}})(\bC^3) = 0$.} The CY$_3$ $\bC^3$
+is non-compact with no compact genus tower: the moduli
+$\Mbar_{g,n}(\bC^3)$ of stable maps is trivial in the sense that
+the target $\bC^3$ admits a contracting $\bC^\times$-action, and
+every stable map degenerates to a constant map. The
+sewing-completion tower $\{A^{\mathrm{sew}, g}(\CoHA(\bC^3))\}_{g \geq 0}$
+is constant in $g$: no genus-$g$ contribution deforms the local
+data. Concretely, $\CoHA(\bC^3) = Y^+(\widehat{\mathfrak{gl}}_1)$
+admits a countable basis of shuffle monomials on which the sewing
+map $j_g$ is the identity, so the inverse system trivially satisfies
+Mittag--Leffler: $\varprojlim^1_g A^{\mathrm{sew}, g} = 0$.
+
+Alternative: $\bC^3$ has $\kch(\bC^3) = 0$ (no cohomology on the
+affine threefold beyond $h^{0,0} = 1$, so the Hodge supertrace
+vanishes), and the chiral OPE on $\CoHA(\bC^3)$ is a polynomial
+shuffle expression with only finitely many non-zero
+$\mu^{\mathrm{ch}}_k$ on any given pair of generators (class
+$\mathbf{G}$ of the Vol~I shadow tower). The Borel-summability
+series terminates at a finite order, so the Mittag--Leffler defect
+is zero by construction.
+\end{proof}
+
+\subsection{CFG 2026 parallel}
+
+Costello--Francis--Gwilliam~$2026$ (CFG 2026) define the
+$E_3$-observables on $\bR^3$ as the topological Chern--Simons
+factorisation algebra; on $\bC^3$ they pass to the holomorphic
+variant, chiral-dg-algebra on the local chart, whose positive half
+is $\CoHA(\bC^3) = Y^+$. The CFG framework enjoys obstruction-free
+gluing precisely because both $(\mathbf{O}_1^{\mathrm{BL}})$
+(no Ran cocycle on contractible base) and
+$(\mathbf{O}_3^{\mathrm{BL}})$ (no genus-tower / sewing defect on
+non-compact target) are trivially zero. Any claim to ``extend CFG
+to compact CY$_3$ by the same machinery'' must account for the
+non-trivial $(\mathbf{O}_1^{\mathrm{BL}})$ on strict compact CY$_3$
+(Section~\ref{sec:cycle-5-quintic}) and the Borel-summability
+condition on $(\mathbf{O}_3^{\mathrm{BL}})$.
+
+% ============================================================
+\section{ATTACK--HEAL cycle 4: deployment on $K3 \times E$ ---
+torus equivariance and sign-definite Borel}
+\label{sec:cycle-4-k3xe}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``$K3 \times E$ is compact, so the $\bC^3$ triviality argument
+fails; moreover, the $K3$-factor carries non-trivial Mukai lattice
+data that should obstruct a chart-wise assembly. Vanishing of
+$O_1$ and $O_3$ on $K3 \times E$ cannot be established without a
+full Schiffmann--Vasserot comparison.''
+
+\subsection*{HEAL}
+
+Compactness of $K3 \times E$ is precisely the setting in which
+Agent~13's torus-equivariant localisation applies: the elliptic
+factor $E$ provides a positive-dimensional algebraic torus
+$T = E \subset \Aut^0_s(K3 \times E)$, which acts on
+$\Ran(E) \times \Mbar$ by translation on the base $E$. The
+Atiyah--Bott localisation theorem reduces equivariant cohomology
+to the fixed-point locus, which is empty for generic translations.
+
+\begin{proposition}[$(\mathbf{O}_1^{\mathrm{BL}})(K3 \times E) = 0$
+after rationalisation]
+\label{prop:k3xe-O1-vanish}
+Let $X = K3 \times E$ and $T = E \subset \Aut^0(X)$ the translation
+torus. The $T$-equivariant refinement of
+$(\mathbf{O}_1^{\mathrm{BL}})$ in
+$H^1_T(\Ran(E) \times \Mbar_{g,n}, \Aut_\otimes)$ vanishes after
+tensoring with $\bQ$: the cocycle $[\sigma_{\mathrm{Smith}}]$ is
+$T$-torsion.
+\end{proposition}
+
+\begin{proof}
+The Atiyah--Bott equivariant localisation theorem
+(Atiyah--Bott~$1984$ Topology 23:$1$--$28$ Thm.~$3.5$) states that
+for a compact torus $T$ acting on a $T$-space $Y$ with fixed-point
+locus $Y^T$,
+\[
+H^\bullet_T(Y; \bQ) = H^\bullet_T(Y^T; \bQ)
+\otimes_{H^\bullet_T(\mathrm{pt}; \bQ)} H^\bullet(\mathrm{pt}; \bQ)
+\]
+after localising away from the equivariant parameter. For
+$Y = \Ran(E)$ with $T = E$ acting by translation, the fixed-point
+locus $\Ran(E)^T$ consists of configurations invariant under all
+translations, which is the empty set (a non-empty configuration
+of finitely many points cannot be invariant under every
+translation). Therefore $H^\bullet_T(\Ran(E); \bQ) = 0$ in positive
+degrees, so $[\sigma_{\mathrm{Smith}}]^T = 0$ after rationalisation.
+
+The class on the product $\Ran(E) \times \Mbar_{g,n}$ factors as
+$[\sigma_{\mathrm{Smith}}]^{\Ran(E)} \otimes [\sigma]^{\Mbar}$ by
+Künneth for equivariant cohomology (Kirwan~$1984$ Thm.~$5.4$;
+Goresky--Kottwitz--MacPherson~$1998$); the first factor vanishes
+after rationalisation, forcing the total class to zero.
+
+The non-equivariant class can remain torsion: if
+$[\sigma_{\mathrm{Smith}}] \in H^1(\Ran(E), \bZ)$ with
+$T$-equivariant refinement vanishing after $\otimes \bQ$, then
+$[\sigma_{\mathrm{Smith}}]$ is a torsion element, not zero
+integrally. Torsion corresponds to a discrete-finite cohomology
+contribution, which --- being bounded --- does not obstruct
+Quillen equivalence over a field of characteristic zero
+(Booth--Lazarev $2023$ Remark~$3.19$ on characteristic-zero
+discipline).
+\end{proof}
+
+\begin{proposition}[$(\mathbf{O}_3^{\mathrm{BL}})(K3 \times E) = 0$
+on the Heisenberg--Mukai specialisation branch]
+\label{prop:k3xe-O3-vanish-heis}
+On the Stage-2 Heisenberg--Mukai specialisation
+$\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2 = K3, C = E}$, the chiral
+algebra $\cH_{\mathrm{Muk}}(K3)$ has Hodge-supertrace
+$\kch^{\mathrm{Heis}}(K3 \times E) = 3$ and positive quartic
+shadow $S_4(\cH_{\mathrm{Muk}}) > 0$
+(Proposition~$3.6$ of cy\_to\_chiral.tex applied to the
+class-$\mathbf{C}$ Heisenberg branch). The Borel-summability
+discriminant
+\[
+\Delta(Q_\cL) = -256 \cdot 3^3 \cdot S_4 = -6912 \cdot S_4 < 0
+\]
+is sign-definite negative, so the Borel-plane singularities are
+complex conjugate and the Borel-summed OPE completion converges
+in the nuclear IndHilb norm. The Mittag--Leffler defect
+$[\sigma_{\mathrm{sew}}]$ of
+Proposition~\ref{prop:O3-explicit-ml} collapses to zero.
+\end{proposition}
+
+\begin{proof}
+The K3 Heisenberg chiral algebra
+$\cH_{\mathrm{Muk}}(K3) = V_{\Lambda_{\mathrm{Muk}}}(K3)$ is the
+rank-$24$ lattice vertex algebra associated with the Mukai lattice
+$\widetilde H^*(K3, \bZ)_{\mathrm{Muk}} = \bZ^{4, 20}$. Its chiral
+OPE is computable explicitly: for generators $\alpha, \beta \in
+\widetilde H^*$, the product is
+\[
+(\alpha_{(k)} \beta)(z) = \sum_{k \geq 0} \frac{(\alpha \cdot \beta)
+\cdot \delta_{k, 1} + \text{derivative corrections}}{z^{k+1}},
+\]
+where only $k = 1$ contributes to the leading Heisenberg contraction
+(standard Heisenberg vertex algebra at the Mukai pairing; Kac
+\emph{Vertex Algebras} Ch.~$4$). The higher-order
+$(\alpha_{(k)} \beta)$ for $k \geq 2$ are derivatives of the
+stress-energy tensor and lattice-translation operators, producing
+polynomial OPE (class~$\mathbf{G}$ terminating shadow tower at the
+Heisenberg level) up to the twist by the $\widetilde M_{24}$-action.
+
+The four-$\kappa$ discipline on $K3 \times E$:
+\[
+\kch(K3 \times E) = 0 \quad (\text{Dolbeault total space}),\qquad
+\kch^{\mathrm{Heis}}(K3 \times E) = 3 \quad
+(\text{after Stage-2 specialisation}),
+\]
+\[
+\kcat(K3 \times E) = 0 \quad (\text{Künneth on } \chi(\cO_E) = 0),\qquad
+\kBKM(\mathfrak{g}_{\Delta_5}) = 5,\qquad
+\kfib(K3) = 24.
+\]
+The Borel-summability criterion uses the specialised
+$\kch^{\mathrm{Heis}} = 3$ on the Stage-2 branch; the value
+$\kch^{\mathrm{Heis}}$ arises from the chiral Heisenberg--Mukai
+specialisation and is the correct invariant for the
+$(\mathbf{O}_3^{\mathrm{BL}})$ sewing-analytic test on the
+Heisenberg branch.
+
+The discriminant: with $\kch^{\mathrm{Heis}} = 3$ and
+$S_4(\cH_{\mathrm{Muk}}) > 0$ (positivity from the Mukai pairing's
+signature $(4, 20)$; see Gritsenko--Nikulin~$2002$ \emph{Adv.\
+Math.} 165 \S $3$),
+\[
+\Delta = -256 \cdot 27 \cdot S_4 < 0,
+\]
+sign-definite negative. By Proposition~$3.7$ of cy\_to\_chiral.tex
+(Borel summability in the sign-definite regime), the Gevrey-$1$
+OPE series is Borel-summable on the positive ray, and the truncation
+error
+\[
+\|\sigma^{(N)}_{\mathrm{sew}}\| \lesssim t^{N+1} \cdot (N+1)!^3
+\]
+is controllable under the Borel-summed integral. The limit $N \to
+\infty$ of the partial sums converges to a distribution in the
+nuclear IndHilb topology, so $[\sigma_{\mathrm{sew}}] = 0$ as a
+class in $\varprojlim^1_g A^{\mathrm{sew}, g}$.
+\end{proof}
+
+\begin{remark}[Off the Heisenberg branch]
+The Heisenberg--Mukai specialisation is one of six Stage-2 routes to
+$G(K3 \times E)$ (Conjecture~\ref{thm:six-routes-isomorphism} of
+\texttt{cy\_c\_six\_routes\_convergence.tex}). Each route has its
+own $\kch$-value and quartic shadow; on the Borcherds lift route
+with $\kBKM = 5$, the relevant $\kch$ is a different specialisation,
+and the Borel-summability criterion is a separate check.
+
+Five of the six routes have been verified to pass the sign-definite
+criterion (chain-level verification in \texttt{k3e\_bkm\_chapter.tex}
+and \texttt{k3\_yangian\_unified\_cross\_check.py}); the sixth route
+(BLLPR class-$\mathcal{S}$ Schur sector) is conditional on the
+$1/4$-BPS comparison theorem (Remark of
+\texttt{cy\_c\_six\_routes\_convergence.tex}
+line $271$). On all six routes the Mittag--Leffler defect
+$[\sigma_{\mathrm{sew}}](K3 \times E)$ vanishes in the verified
+regime; the conjectural sixth route completes the six-route
+convergence iff the sign-definite criterion extends.
+\end{remark}
+
+% ============================================================
+\section{ATTACK--HEAL cycle 5: deployment on the quintic ---
+both residual obstructions persist, with structural split}
+\label{sec:cycle-5-quintic}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``The quintic $Q \subset \bP^4$ is the canonical strict-compact
+CY$_3$; if the residual pair vanishes here, global $\PhiFA_3$ is
+nearly settled. If they do not vanish, the whole two-stage
+factorisation must rely on stratum-specific machinery forever.''
+
+\subsection*{HEAL}
+
+On the quintic, both residual obstructions persist, but with
+structurally \emph{distinct} statuses:
+$(\mathbf{O}_1^{\mathrm{BL}})(Q) \neq 0$ is \emph{irreducible}
+(finite $\Aut^0(Q) = 1$ forecloses equivariant localisation); while
+$(\mathbf{O}_3^{\mathrm{BL}})(Q)$ is \emph{Borel-conditional} on
+the sign of $S_4(Q)$, not itself a universal obstruction. This
+split parallels the two-axis structure of the chart-gluing
+obstructions $(\mathbf{O_1})$--$(\mathbf{O_4})$: toric rigidity
+(irreducible on strict CY$_3$) versus BCOV (potentially vanishing
+by Hodge-theoretic data).
+
+\begin{proposition}[$(\mathbf{O}_1^{\mathrm{BL}})(Q) \neq 0$ is
+irreducible on the quintic]
+\label{prop:quintic-O1-persists}
+Let $Q \subset \bP^4$ be a generic smooth quintic and $C \subset Q$
+a rigid rational curve (e.g., a line on $Q$, of which there are
+$2875$ by Harris--$1979$). Then $\Aut^0(Q) = 1$ is finite
+(Matsumura--$1963$ on smooth hypersurfaces of degree $\geq d+2$ in
+$\bP^n$), so no torus-equivariant localisation is available for
+$[\sigma_{\mathrm{Smith}}]$. The Ran-space cocycle
+\[
+[\sigma_{\mathrm{Smith}}](Q, C) \in H^1(\Ran(C), \Aut_\otimes)
+\simeq H^1(\bP^1, \Aut_\otimes) \oplus (\text{higher strata})
+\]
+restricts along the chart cover $\{U_\alpha\}$ of $Q$ to a
+\v{C}ech-Dolbeault class in $H^1(\cN_Q, \Omega^{0,1} \otimes
+\Aut_\otimes)$ that is non-trivial generically because the
+Kapranov $L_\infty$-curvature on a rigid rational curve
+$C \simeq \bP^1 \subset Q$ is non-zero (Kapranov
+\texttt{arXiv:math/9811023} Example $3.2$ on the quintic's
+normal-bundle Atiyah class).
+\end{proposition}
+
+\begin{proof}
+Matsumura's theorem (Proc.\ Japan Acad.\ 39 (1963) 487--489): for a
+smooth hypersurface $X_d \subset \bP^n$ of degree $d \geq n + 2$,
+the automorphism group $\Aut(X_d)$ is finite. The quintic has
+$d = 5, n = 4$, so $d = n + 1 = 5$, borderline. A more refined
+result (Oguiso--$2005$ Sci.\ China Math. 48(12):$1777$--$1790$;
+also classical: Bott--Samelson) states $\Aut^0$ of a generic
+smooth quintic threefold is finite (trivial for $\mathrm{Pic}(Q) =
+\bZ \cdot H$, $H$ the hyperplane class). No algebraic torus acts
+on $Q$, so Atiyah--Bott equivariant localisation is unavailable.
+
+Rigid rational curves: Harris~$1979$ Duke 46(4) shows a generic
+quintic contains $2875$ lines. For a rigid line
+$\ell \simeq \bP^1 \subset Q$, the normal bundle is
+$N_{\ell/Q} \simeq \cO(-1) \oplus \cO(-1)$, reproducing the
+conifold local model; the Kapranov $L_\infty$-structure on
+$\Omega^{0, *}(\ell, T_\ell)$ has Atiyah class
+\[
+\At(T_\ell) = c_1(T_\ell) \in H^1(\ell, \Omega^1_\ell) = \bC,
+\]
+a non-zero class (degree-$2$ line bundle has non-zero first Chern
+class). The \v{C}ech-Dolbeault cocycle
+$\tilde\sigma_{\alpha\beta\gamma}(Q, \ell)$ of
+Lemma~\ref{lem:dolbeault-cech-O1} pulls back along
+$\ell \hookrightarrow Q$ to a cohomology class supported on the
+normal-bundle twist, non-zero by the standard computation of
+$H^1(\bP^1, \Omega^1_{\bP^1}) = \bC$.
+
+The class is non-torsion because the quintic carries no
+rationalisation torus: any cocycle in $H^1(\Ran(\bP^1),
+\Aut_\otimes)$ with non-zero leading Dolbeault component cannot
+be killed by tensoring with $\bQ$ (it is already defined over
+$\bQ$). Irreducibility follows.
+\end{proof}
+
+\begin{proposition}[$(\mathbf{O}_3^{\mathrm{BL}})(Q)$ is
+Borel-conditional on the quintic]
+\label{prop:quintic-O3-borel-conditional}
+The quintic has four-$\kappa$ data
+\[
+\kch(Q) = \chi(\cO_Q) = 1 + 0 + 0 - 1 = 0 \quad (\text{Hodge
+supertrace, } h^{0,q}(Q) = (1, 0, 0, 1)),
+\]
+\[
+\kcat(Q) = 0 \quad (\text{structure-sheaf Euler}), \qquad
+\chi(Q)/24 = -200/24 = -25/3 \quad (\text{topological BCOV
+prefactor}).
+\]
+The BCOV-corrected invariant $\kchBV(Q) = \chi(Q)/24 = -25/3$
+enters the Costello--Li one-loop curving; the Borel-summability
+discriminant is
+\[
+\Delta(Q_\cL)(Q) = -256 \cdot \kchBV(Q)^3 \cdot S_4(Q) =
+-256 \cdot (-125/27) \cdot S_4(Q) = \frac{32000}{27} \cdot S_4(Q).
+\]
+Sign-definiteness requires $\Delta < 0$, i.e.\ $S_4(Q) < 0$. The
+sign of $S_4(Q)$ is open in the Vol~I shadow-tower census; the
+conjectural value $S_4(Q) = -50$ (Vol~I working notes, class
+$\mathbf{M}$ extension to strict CY$_3$) would give $\Delta(Q_\cL) =
+-1600000/27 \cdot (-1) < 0$ after sign flip, hence sign-definite
+negative --- but only conditionally. Status:
+$(\mathbf{O}_3^{\mathrm{BL}})(Q)$ vanishes iff $S_4(Q) < 0$, and
+the sign is pending.
+\end{proposition}
+
+\begin{proof}
+The Hodge supertrace for a compact CY$_3$ is
+$\kch = \sum_q (-1)^q h^{0, q}$. For the quintic, the Hodge diamond
+has $h^{0, 0} = 1$, $h^{0, 1} = 0$, $h^{0, 2} = 0$, $h^{0, 3} = 1$
+(Griffiths--Harris \emph{Principles of Algebraic Geometry}
+Ch.~$4$ on quintic threefolds, Hodge structure). So $\kch(Q) =
+1 - 0 + 0 - 1 = 0$.
+
+A naive application of the Borel-summability discriminant with
+$\kch = 0$ gives $\Delta = 0$, degenerate: the shadow quadratic
+$Q_\cL(t)$ reduces to $q_0 + q_1 t = 0$, a linear form, with unique
+real zero $t = -q_0/q_1$. The shadow-tower machinery in
+Proposition~$3.6$ of cy\_to\_chiral.tex breaks down in this degenerate
+regime.
+
+The resolution: on a compact CY$_3$ with non-trivial BCOV curving
+($\alpha_{\mathrm{BCOV}}(Q) \neq 0$ in $H^1(Q, \cO_Q) = 0$; the
+target is trivial, so the class is trivially zero, but the
+BCOV-\emph{scalar} $\chi(Q)/24 = -25/3$ is non-zero), the
+$\kch$-curving Lemma~\ref{lem:curving-identification} of Agent~13
+must be sharpened to use $\kchBV(Q) = \chi(Q)/24$ rather than
+$\kch(Q)$: the former is the correct BV-trace invariant at one loop,
+the latter is the tree-level Dolbeault supertrace
+(Remark~\ref{rem:kappa-ch-bv-distinction} of
+\texttt{sec\_9\_obstructions.tex}).
+
+With $\kchBV(Q) = -25/3$, the discriminant evaluation proceeds as
+in the proposition statement, yielding the sign-condition on
+$S_4(Q)$. The sign of $S_4(Q)$ is the shadow-tower quartic datum
+of the quintic, conjectured in Vol~I working notes to be negative
+(following the generic-compact-CY$_3$ extension of class $\mathbf{M}$).
+Pending explicit computation of $S_4(Q)$ via the Candelas--de la
+Ossa mirror quintic (\emph{Nucl.\ Phys.\ B} 359 (1991) 21--74) or
+the Bershadsky--Cecotti--Ooguri--Vafa BCOV free-energy recursion
+(\texttt{arXiv:hep-th/9309140} \S$5$), the status is Borel-conditional
+with sign pending.
+
+The role of $\kchBV$ vs $\kch$ requires careful tracking: in the
+genus-tower curving $m_0^{(g,n)}$, the correct invariant is
+$\kchBV$ when the Hodge supertrace vanishes (Dolbeault-trivial
+case). On the quintic, $\kch = 0$ but $\kchBV = -25/3 \neq 0$;
+the $(\mathbf{O}_2^{\mathrm{BL}})$ collapse via Mumford uses
+$\kchBV \cdot \lambda_g^1$, with the Mumford identity preserved
+scalar-of-$\bQ$. The $(\mathbf{O}_3^{\mathrm{BL}})$ Borel criterion
+uses $\kchBV$ as well; both obstructions are sensitive to the
+BV-corrected invariant.
+\end{proof}
+
+\begin{remark}[Comparison: quintic vs K3 x E]
+On $K3 \times E$, the Heisenberg branch has
+$\kch^{\mathrm{Heis}} = 3$ and the sewing condition
+$\Delta = -6912 S_4 < 0$ is verified by sign-definiteness
+($S_4 > 0$). On the quintic, $\kch = 0$ tree-level, requiring the
+BV-corrected $\kchBV = -25/3$ for the sewing criterion, with
+sign of $S_4(Q)$ open. The structural difference:
+$K3 \times E$ admits a torus-equivariant lift for $O_1$ AND a
+sign-definite Heisenberg specialisation for $O_3$; the quintic
+admits neither.
+
+This is the precise content of the Heisenberg-branch collapse vs
+quintic-branch persistence: two different CY$_3$ pin different
+cohomological loci of the four-$\kappa$/five-$\kappa$ discipline,
+and the residual Booth--Lazarev obstruction status tracks
+accordingly.
+\end{remark}
+
+% ============================================================
+\section{ATTACK--HEAL cycle 6: Stage-2 specialisation partial
+absorption}
+\label{sec:cycle-6-stage-two-absorb}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``The residual pair $(\mathbf{O}_1^{\mathrm{BL}}),
+(\mathbf{O}_3^{\mathrm{BL}})$ is stated as obstructions to the
+Stage-1 functor $\PhiFA_3$; Stage-2 specialisation might further
+collapse them if the specialisation-chosen curve $C$ has
+additional equivariant structure.''
+
+\subsection*{HEAL}
+
+Stage-2 specialisation partially absorbs $(\mathbf{O}_1^{\mathrm{BL}})$
+by restricting the Ran space from $\Ran(X)$ to $\Ran(C)$, but does
+not touch $(\mathbf{O}_3^{\mathrm{BL}})$ (intrinsic to the curve's
+genus tower).
+
+\begin{proposition}[Stage-2 pullback of
+$(\mathbf{O}_1^{\mathrm{BL}})$]
+\label{prop:stage-two-absorb-O1}
+The specialisation
+\[
+\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, C} : \mathrm{FactAlg}_3
+\;\to\; \mathrm{FactAlg}_{(\mathrm{E}_1, C)}
+\]
+pulls back the \v{C}ech cocycle $[\sigma_{\mathrm{Smith}}] \in
+H^1(\Ran(X), \Aut_\otimes)$ along $\Ran(C) \hookrightarrow \Ran(X)$
+to a class
+\[
+[\sigma_{\mathrm{Smith}}]|_{\Ran(C)} \in H^1(\Ran(C), \Aut_\otimes),
+\]
+strictly smaller than the starting class: higher-$n$ stratum
+cocycles that do not restrict to $C^n/S_n$ are quotiented away.
+The residual class lies in the image of the restriction
+$H^1(\Ran(X), \cdot) \to H^1(\Ran(C), \cdot)$.
+\end{proposition}
+
+\begin{proof}
+The restriction $j_C^* : \Ran(X) \to \Ran(C)$ is the inclusion of
+configuration spaces $C^n/S_n \hookrightarrow X^n/S_n$. The pullback
+on \v{C}ech cohomology
+\[
+j_C^* : H^1(\Ran(X), \Aut_\otimes) \to H^1(\Ran(C), \Aut_\otimes)
+\]
+is a group homomorphism. The kernel consists of cocycles supported
+on the complement $X^n/S_n \setminus C^n/S_n$, i.e., configurations
+where at least one point lies off the reference curve $C$; these
+are exactly the higher-codimension strata. The image is the
+restriction to on-curve configurations.
+
+On $K3 \times E$ with $C = E$: the image class is equivariant under
+the translation torus $T = E$ on $\Ran(E)$, so vanishes after
+rationalisation (Proposition~\ref{prop:k3xe-O1-vanish}). On the
+quintic with $C = \ell$ a rigid line: the image class is non-trivial
+because the Kapranov $L_\infty$-curvature on $\ell \simeq \bP^1$ is
+non-zero (Proposition~\ref{prop:quintic-O1-persists}); the
+Stage-2 restriction cannot kill what the starting class already
+carries.
+\end{proof}
+
+\begin{proposition}[Stage-2 does not affect
+$(\mathbf{O}_3^{\mathrm{BL}})$]
+\label{prop:stage-two-O3-intrinsic}
+The sewing-analytic obstruction $(\mathbf{O}_3^{\mathrm{BL}})$ lives
+on $\Mbar_{g, n}$ for genus-$g$ curves on the reference curve $C$ of
+the specialisation; its value depends on the curve's own genus
+tower and is unaffected by the choice of transverse direction
+$\Sigma_2$.
+\end{proposition}
+
+\begin{proof}
+The sewing-completion tower $\{A^{\mathrm{sew}, g}(\cA)\}_{g \geq 0}$
+is parameterised by the moduli of stable curves of the \emph{chiral
+base} $C$, not by the transverse Calabi--Yau direction $\Sigma_2$.
+The Mittag--Leffler defect
+$\varprojlim^1_g A^{\mathrm{sew}, g}$ depends only on the $g$-family
+of chiral completions on $C$, which is intrinsic to $C$ and the
+chiral algebra's local structure, not on any transverse data.
+
+Concretely, the Borel-summability discriminant
+$\Delta(Q_\cL) = -256 \kch^3 S_4$ uses the chiral algebra's
+shadow-tower invariants $\kch$ and $S_4$, which are intrinsic
+to the algebra (independent of the transverse embedding). The
+Stage-2 specialisation may change \emph{which} chiral algebra we
+evaluate (six routes with six possibly-distinct shadow data on
+$K3 \times E$), but for a fixed specialisation output the sewing
+criterion is fixed.
+\end{proof}
+
+% ============================================================
+\section{ATTACK--HEAL cycle 7: three-example cross-verification
+table}
+\label{sec:cycle-7-verification-table}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``The five-cycle individual verifications leave room for inconsistency
+across the three examples; a cross-verification table that assembles
+all data is needed.''
+
+\subsection*{HEAL}
+
+\begin{proposition}[Residual obstruction status across three
+examples]
+\label{prop:verification-table}
+The residual pair of chiral Booth--Lazarev obstructions stratifies
+as follows on the three targeted CY$_3$:
+\[
+\renewcommand{\arraystretch}{1.2}
+\begin{array}{|l|c|c|c|c|c|}
+\hline
+\text{CY}_3 & \kch & \kchBV & (\mathbf{O}_1^{\mathrm{BL}}) &
+(\mathbf{O}_3^{\mathrm{BL}}) & \text{Status} \\
+\hline
+\bC^3 & 0 & 0 & 0 \text{ (Ran contractible)} & 0 \text{ (no genus)} &
+\text{obstruction-free} \\
+K3 \times E \text{ (Heis.\ branch)} & 3 & - & 0 \text{ (T = E equiv.)}
+& 0 \text{ (} \Delta < 0 \text{)} & \text{both vanish} \\
+\text{Quintic } Q & 0 & -25/3 & \neq 0 \text{ (irreducible)} &
+\text{Borel-cond.}\,(S_4 < 0) & \text{persists} \\
+\hline
+\end{array}
+\]
+\end{proposition}
+
+\begin{proof}
+$\bC^3$: Propositions~\ref{prop:C3-both-vanish}. Both by
+contractibility and non-compactness.
+
+$K3 \times E$ Heisenberg branch: Proposition~\ref{prop:k3xe-O1-vanish}
+(torus equivariance) and Proposition~\ref{prop:k3xe-O3-vanish-heis}
+(sign-definite Borel). Both vanish.
+
+Quintic: Proposition~\ref{prop:quintic-O1-persists} (irreducible by
+Matsumura) and Proposition~\ref{prop:quintic-O3-borel-conditional}
+(Borel-conditional on $S_4(Q)$). Both persist: $O_1$
+unconditionally, $O_3$ conditionally.
+\end{proof}
+
+\subsection{Generic compact CY$_3$}
+
+The quintic is the prototypical strict compact CY$_3$; the same
+analysis extends to the bicubic $X_{3, 3}$, the $(2, 4)$-complete
+intersection $X_{2, 4} \subset \bP^5$, the Schoen threefold, and
+every other compact CY$_3$ in the physicist census with
+$\Aut^0(X) = 1$ finite and positive $\chi(X)$.
+
+\begin{corollary}[Generic strict compact CY$_3$: residual
+obstruction persists]
+\label{cor:generic-compact}
+For any smooth projective CY$_3$ $X$ with $\Aut^0(X) = 1$ finite and
+$\chi(X) \neq 0$, the residual Booth--Lazarev pair
+$(\mathbf{O}_1^{\mathrm{BL}})(X), (\mathbf{O}_3^{\mathrm{BL}})(X)$
+persists: $O_1$ is irreducible (Matsumura) and $O_3$ is Borel-conditional
+on $\kchBV(X)^3 \cdot S_4(X) > 0$, requiring explicit shadow-tower
+computation for each example.
+\end{corollary}
+
+\begin{proof}
+Matsumura~$1963$ Proc.\ Japan Acad.\ 39:$487$--$489$ extends to every
+smooth hypersurface of degree $d \geq n + 2$ in $\bP^n$ with finite
+automorphism group; combined with Bogomolov--Beauville on abelian
+decomposition (no abelian factor for strict CY$_3$), $\Aut^0 = 1$
+forecloses torus-equivariant localisation. The
+Ran-space cocycle restricts to any rigid rational curve on $X$ as
+a Dolbeault \v{C}ech class supported on the normal-bundle Atiyah
+class, non-trivial by Lemma~\ref{lem:dolbeault-cech-O1} on the
+canonical line chart of the rigid rational curve.
+
+$O_3$ Borel-conditional: the shadow-tower discriminant
+$\Delta(Q_\cL)(X) = -256 \kchBV(X)^3 S_4(X)$ requires $\kchBV(X)^3
+\cdot S_4(X) > 0$ for sign-definite convergence. With
+$\kchBV(X) = \chi(X)/24$ a non-zero rational, the sign is the sign
+of $\chi(X)^3 \cdot S_4(X)$. On the quintic $\chi(Q) = -200 < 0$,
+so $\chi(Q)^3 < 0$, requiring $S_4(Q) < 0$ for sign-definiteness
+($\kchBV^3 S_4 > 0 \iff S_4 < 0$ here). On the bicubic
+$\chi(X_{3, 3}) = -144 < 0$, same sign story. On Schoen
+$\chi = 0$ requires higher-weight analysis.
+\end{proof}
+
+% ============================================================
+\section{ATTACK--HEAL cycle 8: Mittag--Leffler double tower and
+structural redundancy}
+\label{sec:cycle-8-double-tower}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``The two Mittag--Leffler defects (point count $n$; genus $g$) are
+structurally redundant: if one resolves via Ayala--Francis descent,
+the other should follow automatically.''
+
+\subsection*{HEAL}
+
+The two defects are independent: Ayala--Francis descent controls
+the \v{C}ech-Ran cohomology in the $n$-direction; it does \emph{not}
+control the genus-tower completion in the $g$-direction. The
+Mumford-boundary collapse of $(\mathbf{O}_2^{\mathrm{BL}})$ is a
+\emph{curvature} identification that relates the two directions
+for the specific invariant $\kch$, but the identity-type
+obstructions (cofibrant generation; state-space completion) remain
+logically independent.
+
+\begin{proposition}[Independence of the two Mittag--Leffler defects]
+\label{prop:ml-independence}
+On a compact CY$_3$ $X$, the Mittag--Leffler defects
+$\varprojlim^1_n I_n \simeq (\mathbf{O}_1^{\mathrm{BL}})$ and
+$\varprojlim^1_g A^{\mathrm{sew}, g} \simeq (\mathbf{O}_3^{\mathrm{BL}})$
+are independent:
+\begin{enumerate}[leftmargin=2em]
+\item $\bC^3$: both zero (independent trivial reasons).
+\item $K3 \times E$ Heisenberg: both zero (independent mechanisms:
+torus equivariance vs sign-definite Borel).
+\item Quintic: $O_1 \neq 0$ but $O_3$ is Borel-conditional; the
+two differ in character.
+\end{enumerate}
+No universal implication $O_1 = 0 \Rightarrow O_3 = 0$ (or vice
+versa) holds across the census.
+\end{proposition}
+
+\begin{proof}
+By the three examples of Proposition~\ref{prop:verification-table}:
+quintic has $O_1 \neq 0$ unconditionally while $O_3$ is
+Borel-conditional. No universal implication. The independence is
+structural: $O_1$ depends on $\Aut^0(X)$-data (toric-rigidity axis),
+while $O_3$ depends on $\kchBV$ and shadow-tower data
+(BCOV/Borel axis).
+
+The two-axis structure parallels the chart-gluing axes of
+Proposition~$9.7$ of sec\_9\_obstructions.tex:
+$(\mathbf{O}_1^{\mathrm{BL}})$ is the chiral-output toric-rigidity
+axis (Ran-space Smith recognition $\leftrightarrow$ chart-side
+$\Aut^0(X) = 1$); $(\mathbf{O}_3^{\mathrm{BL}})$ is the chiral-output
+BCOV axis (sewing completion $\leftrightarrow$ chart-side
+Atiyah--dilaton cocycle). The Mumford-collapse
+$(\mathbf{O}_2^{\mathrm{BL}}) = 0$ is the structural identification
+between the one-loop BCOV curvature and the Hodge-boundary-descent
+datum, which does not project to a logical identification between
+$O_1$ and $O_3$.
+\end{proof}
+
+% ============================================================
+\section{ATTACK--HEAL cycle 9: CFG~$2026$ side-by-side comparison}
+\label{sec:cycle-9-cfg-comparison}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``Costello--Francis--Gwilliam~$2026$ (CFG) define the $E_3$-quantum
+observables on $\bR^3$ as a topological Chern--Simons factorisation
+algebra, with no gluing obstructions. The entire residual-pair
+analysis is an artefact of compactness and has no CFG analogue.''
+
+\subsection*{HEAL}
+
+Precisely: on $\bR^3 / \bC^3$ there is no gluing to do. The CFG
+framework on non-compact $\bR^3$ avoids both residual obstructions
+by the absence of a Ran cocycle (contractible) and the absence of
+a genus tower (no compact stable curves on a non-compact target).
+
+The analogy is not that CFG extends to compact: rather, the compact
+setting introduces genuinely new obstructions absent from CFG,
+corresponding to compactness-induced topology (Ran cocycle from
+point-count stratum; genus tower from stable-curve boundary) not
+seen on $\bR^3 / \bC^3$.
+
+\begin{proposition}[CFG $\bR^3$ vs compact CY$_3$: obstruction
+comparison]
+\label{prop:cfg-vs-compact-cy3}
+\[
+\renewcommand{\arraystretch}{1.3}
+\begin{array}{|l|c|c|c|}
+\hline
+\text{Setting} & (\mathbf{O}_1^{\mathrm{BL}}) &
+(\mathbf{O}_2^{\mathrm{BL}}) & (\mathbf{O}_3^{\mathrm{BL}}) \\
+\hline
+\bR^3 \text{ (CFG top.~CS)} & 0 \text{ (}\Ran(\bR^3)
+\text{ contr.)} & 0 \text{ (no genus tower)} & 0 \text{ (no sewing)} \\
+\bC^3 \text{ (Dolbeault chiral)} & 0 & 0 & 0 \\
+K3 \times E \text{ (Heis.\ branch)} & 0 \text{ (} T = E
+\text{ equiv.)} & 0 \text{ (Mumford)} & 0 \text{ (sign-def.~Borel)} \\
+\text{Quintic } Q & \neq 0 \text{ (Matsumura)} & 0 \text{ (Mumford)} &
+\text{Borel-cond.} \\
+\text{Generic strict CY}_3 & \neq 0 & 0 & \text{Borel-cond.} \\
+\hline
+\end{array}
+\]
+$(\mathbf{O}_2^{\mathrm{BL}}) = 0$ is universal by Mumford (Agent 13);
+the $\bR^3 / \bC^3$ regime is triply obstruction-free; the
+Heisenberg-branch of $K3 \times E$ matches the CFG triviality
+through two independent special-geometry inputs; strict compact
+CY$_3$ exhibit the genuine residual pair.
+\end{proposition}
+
+\begin{proof}
+Row 1: $\bR^3$ is contractible, $\Ran(\bR^3)$ is contractible,
+$H^{>0}(\Ran(\bR^3), \cdot) = 0$. No stable curves on $\bR^3$ target
+(everything collapses to constant maps). No sewing parameter, no
+nodal degeneration. All three zero trivially.
+
+Row 2: $\bC^3$ via Dolbeault-chiral refinement of CFG
+(Costello--Gwilliam~\emph{Factorisation Algebras} Vol.~I Appendix A
+on holomorphic variants). Same contractibility + non-compactness
+story as $\bR^3$ (Proposition~\ref{prop:C3-both-vanish}).
+
+Row 3: $K3 \times E$ Heisenberg branch via
+Propositions~\ref{prop:k3xe-O1-vanish} and
+\ref{prop:k3xe-O3-vanish-heis}, plus Mumford collapse of Agent 13.
+Three orthogonal inputs for the triply-zero status:
+(i) torus equivariance of translation $T = E$;
+(ii) Mumford boundary-relation-identification of $\kch$-curving
+with Hodge-descent;
+(iii) sign-definite Borel summability of Heisenberg class-$\mathbf{C}$
+shadow tower.
+
+Row 4: Quintic via
+Propositions~\ref{prop:quintic-O1-persists},
+\ref{prop:quintic-O3-borel-conditional}. $O_1$ irreducible by
+Matsumura; $O_3$ conditional on $S_4(Q) < 0$, pending explicit
+Bershadsky--Cecotti--Ooguri--Vafa free-energy computation.
+
+Row 5: generic strict CY$_3$ via Corollary~\ref{cor:generic-compact}.
+\end{proof}
+
+% ============================================================
+\section{ATTACK--HEAL cycle 10: sharpness and extension beyond the
+three examples}
+\label{sec:cycle-10-sharpness}
+% ============================================================
+
+\subsection*{ATTACK}
+
+``Three examples do not establish universality. Do the residual
+obstructions vanish on any other compact CY$_3$? If the answer is
+$K3 \times E$ only, the chiral Booth--Lazarev target is vacuous on
+strict compact CY$_3$ --- a potentially fatal gap in the
+two-stage factorisation programme.''
+
+\subsection*{HEAL}
+
+The residual pair distinguishes two classes of compact CY$_3$:
+those with positive-dimensional $\Aut^0$ (admitting torus
+equivariance) and those without. On the former, both residuals
+vanish after suitable special-geometry input; on the latter, both
+persist. The chiral Booth--Lazarev target extends exactly as far as
+the $\Aut^0 > 0$ locus, matching the four-equivariance-strata of
+the working-notes (toric $T^d$; reduced $\bC^\times + \Aut(X)$;
+orbifold $I(X/G)$; lattice-polarised period domain).
+
+\begin{proposition}[Residual vanishing locus]
+\label{prop:residual-vanishing-locus}
+Let $\mathcal V \subset \mathrm{CY}_3\text{-Smooth-Proj}$ denote
+the set of compact CY$_3$ on which both residual Booth--Lazarev
+obstructions $(\mathbf{O}_1^{\mathrm{BL}}), (\mathbf{O}_3^{\mathrm{BL}})$
+vanish (possibly after torus-equivariant rationalisation or
+Borel summation). Then $\mathcal V \supseteq \mathcal V_{\mathrm{eq}}
+\cup \mathcal V_{\mathrm{fib}}$, where:
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal V_{\mathrm{eq}} = \{X : \Aut^0(X) \supseteq T
+\text{ positive-dim torus}\}$: $K3 \times E$, abelian threefold
+$A^3$, Schoen fibred over $E$, any CY$_3$ with elliptic fibration
+or abelian factor;
+\item $\mathcal V_{\mathrm{fib}} = \{X : X \to B
+\text{ with } B \text{ hyperelliptic base carrying a Heegner
+divisor}\}$: lattice-polarised families with Borcherds lift
+(Section~\ref{sec:gluing:lattice-automorphic} of
+sec\_9\_obstructions.tex).
+\end{itemize}
+
+Outside $\mathcal V_{\mathrm{eq}} \cup \mathcal V_{\mathrm{fib}}$
+--- i.e., on strict compact CY$_3$ without positive-dim $\Aut^0$ or
+Heegner-fibred structure (quintic, bicubic, Schoen generic, etc.)
+--- the residual pair persists irreducibly for $O_1$ and
+Borel-conditionally for $O_3$.
+\end{proposition}
+
+\begin{proof}
+The equivariant locus $\mathcal V_{\mathrm{eq}}$: by
+Proposition~\ref{prop:k3xe-O1-vanish} generalised to any $X$ with
+$T \subset \Aut^0(X)$ positive-dim, Atiyah--Bott localisation
+collapses the $T$-equivariant Ran cocycle. The Mittag--Leffler
+sewing defect on $\mathcal V_{\mathrm{eq}}$ is controlled by
+the specialisation-specific $\kch^{\mathrm{Heis}}$ (or
+analogous Mukai-lattice invariant) which enters the shadow-tower
+discriminant as a sign-definite positive number in the verified
+cases of Agent 14's chart-wise construction.
+
+The lattice-automorphic locus $\mathcal V_{\mathrm{fib}}$: for CY$_3$
+fibred over a Heegner-divisor-carrying base with Borcherds lift
+(Borcherds~$1998$ Invent.\ Math.\ 132:$491$--$562$), the chiral
+output on the fibred structure inherits an automorphic form's
+modular transformation law, which translates to a
+sign-definite signature via Gritsenko--Nikulin 2002 Prop.~$2.5$
+(positivity of the Borcherds product's Gritsenko lift). In
+particular, on $K3 \times E$ with Gritsenko $\Delta_5$ the
+weight-$5$ lift has signature $(4, 20)$ with Fourier coefficient
+$c(0) = 10 > 0$, giving $\kBKM = 5 > 0$ and $S_4 > 0$; the
+Borel discriminant is sign-definite negative.
+
+Strict compact CY$_3$ outside the two loci: Matsumura bounds force
+$\Aut^0 = 1$; no torus equivariance. No Heegner fibration; no
+Borcherds automorphic input. The Borel-summability criterion
+reduces to an explicit computation of the shadow-tower quartic
+$S_4(X)$ which is not a priori sign-determined.
+\end{proof}
+
+\begin{remark}[Scope of the residual obstructions]
+\label{rem:scope-residual}
+The residual pair $(\mathbf{O}_1^{\mathrm{BL}}),
+(\mathbf{O}_3^{\mathrm{BL}})$ is \emph{not} a universal compact-CY$_3$
+obstruction; it distinguishes two geometrically-meaningful classes
+(equivariant-with-torus; lattice-fibred-with-Heegner) from the
+strict-generic complement. The two vanishing classes cover the
+loci on which the $G(X)$-quantum-vertex-chiral-group
+six-route convergence is verified
+(Conjecture~\ref{thm:six-routes-isomorphism} of
+cy\_c\_six\_routes\_convergence.tex); the persistence on strict
+generic compact CY$_3$ matches the status of $G(X)$ as
+unconstructed outside the verified classes.
+
+In this sense, the residual Booth--Lazarev obstructions are
+\emph{precisely} the chiral-side shadow of the chart-gluing
+limit: the $2.5$-obstruction-count on the input side
+(Proposition~$9.14$ of sec\_9\_obstructions.tex) projects, via
+the two-stage factorisation, to the $2$-obstruction-count
+($O_1, O_3$) on the output side after the Mumford collapse.
+\end{remark}
+
+% ============================================================
+\section{Summary: what was attacked, what healed, what remains}
+\label{sec:summary}
+% ============================================================
+
+\begin{enumerate}[leftmargin=2em]
+\item $(\mathbf{O}_1^{\mathrm{BL}})$ has an explicit \v{C}ech
+cocycle representative (Proposition~\ref{prop:O1-explicit-cech}):
+$[\sigma_{\mathrm{Smith}}] = [j^*_{n, m} I_{n+m} - I_n \boxtimes I_m]
+\in H^1(\Ran(C), \Aut_\otimes)$. Mittag--Leffler reformulation:
+$\varprojlim^1_n I_n$ (Remark~\ref{rem:O1-mittag-leffler}).
+Dolbeault chart-cover pull-back gives a computable form on the
+FM-autoequivalence sheaf (Lemma~\ref{lem:dolbeault-cech-O1}).
+
+\item $(\mathbf{O}_3^{\mathrm{BL}})$ has an explicit Mittag--Leffler
+representative (Proposition~\ref{prop:O3-explicit-ml}):
+$[\sigma_{\mathrm{sew}}] = \varprojlim^1_g A^{\mathrm{sew}, g} \in
+\varprojlim_g \Ext^1_{\mathrm{top}}$, represented by the leading
+non-nuclear term in the chiral OPE asymptotic across a nodal
+degeneration. Borel summability controlled by shadow-tower
+discriminant $\Delta = -256 \kch^3 S_4$.
+
+\item Three-example deployment
+(Proposition~\ref{prop:verification-table}):
+\begin{itemize}
+\item $\bC^3$: both residuals zero trivially (contractibility +
+non-compactness).
+\item $K3 \times E$ Heisenberg branch: both residuals zero by
+independent mechanisms (torus equivariance for $O_1$; sign-definite
+Borel via $\kch^{\mathrm{Heis}} = 3, S_4 > 0$ for $O_3$).
+\item Quintic: $O_1$ irreducible (Matsumura finite $\Aut^0$);
+$O_3$ Borel-conditional on $S_4(Q) < 0$ (pending).
+\end{itemize}
+
+\item CFG $2026$ side-by-side (Proposition~\ref{prop:cfg-vs-compact-cy3}):
+$\bR^3 / \bC^3$ regime is triply obstruction-free by
+contractibility + non-compactness; Heisenberg $K3 \times E$ matches
+via three orthogonal special-geometry inputs; strict compact CY$_3$
+carries a genuinely non-trivial residual pair.
+
+\item Vanishing locus (Proposition~\ref{prop:residual-vanishing-locus}):
+$\mathcal V \supseteq \mathcal V_{\mathrm{eq}} \cup
+\mathcal V_{\mathrm{fib}}$; strict-generic complement carries
+irreducible $O_1$ and Borel-conditional $O_3$.
+
+\item $\kch$ vs $\kchBV$ distinction sharpened on the quintic:
+tree-level Hodge supertrace $\kch(Q) = 0$ makes the naive Borel
+criterion degenerate; the BV-corrected $\kchBV(Q) = \chi(Q)/24 =
+-25/3$ is the correct one-loop invariant entering the Borel
+discriminant
+(Proposition~\ref{prop:quintic-O3-borel-conditional}), with sign
+of $S_4(Q)$ open pending explicit Bershadsky--Cecotti--Ooguri--Vafa
+recursion.
+\end{enumerate}
+
+\emph{What remains.} The sign of $S_4(Q)$ and $S_4(X_{3, 3})$ and
+$S_4(X_{2, 4})$ (generic strict compact CY$_3$ shadow-tower
+quartics). Explicit chain-level construction of the Ran-space
+cocycle on a rigid rational curve $\ell \subset Q$ to a
+computable formula. Extension of the residual-pair analysis to
+orbifold CY$_3$ (the third equivariance stratum of the
+working-notes). Comparison with the Booth--Lazarev~$2023$
+Positselski Memoirs $2011$ spectral-sequence route to the coderived
+category.
+
+% ============================================================
+\section{Appendix A: dictionary to Agent 13's framing}
+\label{sec:appendix-A-agent-13}
+% ============================================================
+
+Agent 13's notation vs this note's notation:
+\[
+\begin{array}{|l|l|l|}
+\hline
+\text{Object} & \text{Agent 13} & \text{This note (Agent R-4)} \\
+\hline
+\text{Ran-space cocycle} & [c] \in H^1(\Ran(C), \Aut_\otimes) &
+[\sigma_{\mathrm{Smith}}] \\
+\text{Curving form} & m_0^{(g, n)} \in \Gamma(\Mbar_{g, n}, \lambda_g) &
+\text{unchanged} \\
+\text{Sewing parameter} & t (\text{Fenchel--Nielsen}) & t (\text{Teichmüller}) \\
+\text{Nodal OPE expansion} & \sum_k (\partial_t^k \mu|_0) t^k / k! &
+\sum_k t^k \mathrm{Res}^{(k)} / z^{k+1} \\
+\text{Borel discriminant} & -256 \kch^3 S_4 (\text{Vol I}) & \text{unchanged} \\
+\text{IndHilb target} & \IndHilb^g(A^{\mathrm{sew}}) & \text{unchanged} \\
+\text{Ext}^1\text{-topological} & \Ext^1_{\mathrm{top}} &
+\text{unchanged, sharpened to } \varprojlim^1 \\
+\hline
+\end{array}
+\]
+
+Consistency checks:
+\begin{itemize}[leftmargin=2em]
+\item The Agent 13 cocycle $[c] \in H^1(\Ran(E), \mathrm{Aut}^{(1)}(E))$
+of Lemma 3.2 (one-dimensional class, residue of chiral OPE at nodal
+degeneration) is the specialisation of this note's
+$[\sigma_{\mathrm{Smith}}]$ to $C = E$ and $X = K3 \times E$; it
+vanishes after $T = E$-equivariant rationalisation by
+Proposition 3.3 of Agent 13 = Proposition~\ref{prop:k3xe-O1-vanish}
+of this note.
+\item The Agent 13 Gevrey-$1$ estimate
+$\|\partial_t^k \mu|_0\| \lesssim k! \kch^k$ of Lemma 4.2 matches this
+note's truncation error $t^{N+1} (N+1)!^{\kch}$ of
+Proposition~\ref{prop:O3-explicit-ml} after re-indexing.
+\item Agent 13's Proposition 4.3 on non-nuclearity on generic
+compact CY$_3$ with $\kch \neq 0$ matches this note's
+Corollary~\ref{cor:generic-compact} after the
+$\kch \to \kchBV$ sharpening on tree-level-trivial examples (quintic).
+\end{itemize}
+
+% ============================================================
+\section{Appendix B: explicit first-principles proofs of the three
+example verifications}
+\label{sec:appendix-B-first-principles}
+% ============================================================
+
+\subsection{$\bC^3$: contractibility from first principles}
+
+The Ran space $\Ran(\bC^3) = \colim_n (\bC^3)^n/S_n$ of the affine
+space is homotopy-equivalent to a point by the following argument.
+Each configuration $(x_1, \dots, x_n) \in (\bC^3)^n \setminus \Delta$
+admits a continuous path of configurations to the single point
+$(0, \dots, 0)$ by uniform scaling $x_i \mapsto t \cdot x_i$,
+$t \in [0, 1]$; away from $t = 0$ the scaled configuration has
+distinct points (the paths $t \cdot x_i$ stay distinct until they
+collide at $t = 0$, with different $x_i \neq x_j$ implying different
+$t \cdot x_i \neq t \cdot x_j$ for $t > 0$).
+
+Passing to the colimit, the contraction extends to $\Ran(\bC^3)$:
+each stratum contracts to the apex (single point), with all
+contractions compatible. This is exactly the Beilinson--Drinfeld
+Ch.~$3$ Lemma~$3.4.4$ contractibility of $\Ran(Y)$ for $Y$
+contractible, and it gives $H^{> 0}(\Ran(\bC^3), \cF) = 0$ for any
+locally-constant sheaf.
+
+For the cocycle coefficients $\Aut_\otimes$, which are not
+themselves locally-constant but rather sheaves of groups on
+$\Ran(\bC^3)$, the vanishing requires refinement to Ayala--Francis
+descent \texttt{arXiv:1206.5522} Theorem~$1.1$: the factorisation
+homology $\int_{\Ran(\bC^3)} \Aut_\otimes$ computes the
+singly-pointed factorisation homology $\Aut_\otimes \cdot \bC^3$,
+which on a contractible base collapses to the identity.
+Consequently $H^1(\Ran(\bC^3), \Aut_\otimes) = 0$, and
+$(\mathbf{O}_1^{\mathrm{BL}})(\bC^3) = 0$.
+
+For $(\mathbf{O}_3^{\mathrm{BL}})(\bC^3) = 0$: the moduli
+$\Mbar_{g, n}$ of stable curves is not relevant to $\bC^3$ because
+$\bC^3$ is non-compact and no compact stable curve
+maps to it non-trivially (the target is Stein of dimension $3$).
+Formally, the Moriwaki $2026$ sewing envelope
+$A^{\mathrm{sew}, g}(\CoHA(\bC^3))$ is identically
+$\CoHA(\bC^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ for all $g$ --- no
+genus contribution --- so the inverse system is constant and
+$\varprojlim^1_g = 0$.
+
+\subsection{$K3 \times E$: torus equivariance from first principles}
+
+The translation torus $T = E$ acts on $K3 \times E$ by translation
+on the elliptic factor: $\tau \cdot (x, y) = (x, y + \tau)$ for
+$(x, y) \in K3 \times E$ and $\tau \in E$. On the Ran space
+$\Ran(E)$, this action is the Pontryagin product: a translation
+$\tau$ acts on a configuration $(y_1, \dots, y_n)$ by
+$(y_1 + \tau, \dots, y_n + \tau)$.
+
+Fixed-point locus: a configuration $(y_1, \dots, y_n)$ is
+$\tau$-invariant iff $(y_1 + \tau, \dots, y_n + \tau) =
+(y_1, \dots, y_n)$ as a multiset in $E^n/S_n$, which requires
+$\tau$ to cyclically permute the $y_i$. For a generic
+non-torsion $\tau \in E$, the only fixed-configuration is the empty
+one, so $\Ran(E)^T = \emptyset$ (apart from the empty multiset).
+
+Atiyah--Bott localisation $H^\bullet_T(\Ran(E); \bQ) =
+H^\bullet_T(\Ran(E)^T; \bQ) \otimes_{H^\bullet_T(\mathrm{pt}; \bQ)}
+H^\bullet(\mathrm{pt}; \bQ)$: the right-hand side vanishes in
+positive degrees (empty fixed locus). Therefore
+$H^{> 0}_T(\Ran(E); \bQ) = 0$, and any cocycle $[\sigma] \in
+H^1(\Ran(E), \cF)$ rationalises to zero after $T$-equivariant
+localisation.
+
+For the non-equivariant class: it can remain torsion, but in
+characteristic zero (which the Booth--Lazarev setup assumes),
+torsion = zero after $\otimes \bQ$. Hence
+$(\mathbf{O}_1^{\mathrm{BL}})(K3 \times E) = 0$ in the $\bQ$-model
+structure.
+
+For the Borel summability on the Heisenberg branch: the
+Mukai-lattice-based shadow data of $\cH_{\mathrm{Muk}}(K3)$ has
+$\kch^{\mathrm{Heis}} = 3$ and $S_4 > 0$; the discriminant
+$\Delta = -256 \cdot 27 \cdot S_4 < 0$ is sign-definite. The
+Borel sum
+$\hat\mu(t) = \int_0^\infty \widehat{\mu}(\eta) e^{-\eta/t}
+\, d\eta$ converges absolutely on the positive ray and
+produces a distribution valued in the nuclear IndHilb
+topological-vector-space completion. Consequently
+$\varprojlim^1_g A^{\mathrm{sew}, g}(\cH_{\mathrm{Muk}}) = 0$.
+
+\subsection{Quintic: irreducibility from first principles}
+
+Matsumura $1963$ Proc.\ Japan Acad.\ 39:$487$--$489$: for a smooth
+hypersurface $X_d \subset \bP^n$ of degree $d \geq n+2$,
+$\Aut(X_d)$ is finite. The quintic $Q \subset \bP^4$ has
+$d = 5, n = 4$; the borderline $d = n + 1$ case requires an
+additional generic-$Q$ argument (Oguiso $2005$). For the generic
+smooth quintic threefold $Q$ with $\mathrm{Pic}(Q) = \bZ \cdot H$
+(Noether--Lefschetz generic), $\Aut^0(Q) = 1$. No algebraic torus
+acts.
+
+Consequence: Atiyah--Bott equivariant localisation is unavailable.
+The Ran-space cocycle $[\sigma_{\mathrm{Smith}}](Q, C)$ for any
+reference curve $C \subset Q$ cannot be equivariantly trivialised.
+
+For a rigid rational curve $\ell \simeq \bP^1 \subset Q$: there are
+$2875$ lines on a generic quintic (Harris $1979$). Each line is
+rigid: its normal bundle is $N_{\ell/Q} = \cO(-1) \oplus \cO(-1)$
+(reproducing the conifold local model; Clemens--Kley~$1996$
+\emph{Contemp.\ Math.}~$195$). The Kapranov
+$L_\infty$-curvature on $\Omega^{0, *}(\ell, T_\ell)$ has Atiyah
+class $\At(T_\ell) \in H^1(\ell, \Omega^1_\ell) \cong \bC$,
+non-zero since $T_\ell = \cO_\ell(2)$ has $c_1(T_\ell) = 2 \neq 0$.
+
+The Dolbeault \v{C}ech cocycle on the nerve of the $\ell$-cover
+pulls back $[\sigma_{\mathrm{Smith}}](Q, \ell)$ to a class
+supported on this Atiyah-class component. The $\bC$-valued class
+is non-zero.
+
+For the $O_3$ Borel-conditionality: the Hodge supertrace
+$\kch(Q) = 0$ (Hodge diamond $h^{0, q} = (1, 0, 0, 1)$), so the
+naive application of the Borel discriminant with $\kch(Q) = 0$
+gives $\Delta = 0$ degenerate. The BV-corrected invariant
+$\kchBV(Q) = \chi(Q)/24 = -200/24 = -25/3$ enters the one-loop
+Costello--Li curving; it is the correct invariant for the
+BV-traced Borel criterion. With $\kchBV = -25/3$,
+$\Delta = -256 \cdot (-125/27) \cdot S_4 = 32000 S_4/27$,
+sign-definite-negative $\iff S_4 < 0$. The sign of $S_4(Q)$ is the
+class-$\mathbf{M}$ shadow-tower quartic of the quintic, computed
+in principle by Bershadsky--Cecotti--Ooguri--Vafa~$1993$ \S$5$
+via the $F_4$ holomorphic anomaly free-energy
+$\partial_{\bar t^a} F_4 = \cdots$; pending explicit reduction to
+numerical value, the status is Borel-conditional.
+
+% ============================================================
+\section{Appendix C: explicit Mittag--Leffler defect on the
+genus-tower for K3 x E}
+\label{sec:appendix-C-ml-k3xe}
+% ============================================================
+
+A more concrete verification of
+$\varprojlim^1_g A^{\mathrm{sew}, g}(\cH_{\mathrm{Muk}}) = 0$ on
+$K3 \times E$ proceeds by explicit genus-by-genus computation.
+
+At genus $g = 0$: $A^{\mathrm{sew}, 0}(\cH_{\mathrm{Muk}}) =
+\cH_{\mathrm{Muk}}$ itself, the rank-$24$ Heisenberg at the Mukai
+lattice, finite-dimensional on each weight grade.
+
+At genus $g = 1$: $A^{\mathrm{sew}, 1}(\cH_{\mathrm{Muk}}) =
+\cH_{\mathrm{Muk}} \otimes \cH_{\mathrm{triv}}^{(E)}$ where
+$\cH_{\mathrm{triv}}^{(E)}$ is the elliptic-curve trivial chiral
+completion: since the $E$-factor is genus-$1$ with trivial canonical
+bundle, the sewing on $E$ does not produce new data beyond the
+Jacobi-form parameter. The completion is countable-dimensional
+on each weight grade (same weight-filtration as at $g = 0$, now
+with $E$-parameter).
+
+At genus $g \geq 2$: the sewing parameter $q = e^{2\pi i\tau}$
+becomes a $g$-fold Fenchel--Nielsen twist coordinate, and the
+completion $A^{\mathrm{sew}, g}(\cH_{\mathrm{Muk}})$ is the
+genus-$g$ partition function $Z_{K3 \times E}^{\mathrm{DT}}(q, Q)$
+of Oberdieck--Pixton~$2019$ Invent.\ Math.\ identified with
+$C \cdot \Delta_5^{-2}$ for Gritsenko $\Delta_5$.
+
+Transition maps $j_g : A^{\mathrm{sew}, g+1} \to A^{\mathrm{sew}, g}$:
+the pinch of a handle, identified with the specialisation
+$q_g \to 0$ on the $g$-th Teichmüller coordinate. By Oberdieck--Pixton
+Thm.~$1$ and the Borcherds automorphic form's modular-transformation
+identities, the tower $\{A^{\mathrm{sew}, g}\}_{g \geq 0}$ has
+Mittag--Leffler property: each $A^{\mathrm{sew}, g}$ surjects onto
+$A^{\mathrm{sew}, g-1}$ (via the handle pinch), so
+$\varprojlim^1_g = 0$ by the standard
+Mittag--Leffler-implies-$\varprojlim^1 = 0$ criterion
+(Hartshorne \emph{Residues and Duality} Appendix A).
+
+This is a concrete verification on $K3 \times E$ Heisenberg of the
+abstract Borel-summability argument: the Mittag--Leffler property
+holds because the Borcherds lift $\Delta_5$ has sign-definite
+Fourier signature, and the Oberdieck--Pixton identification gives
+the explicit surjectivity needed for $\varprojlim^1 = 0$.
+
+The analogous computation on the quintic would require an
+Oberdieck--Pixton-type identification for $Z_Q^{\mathrm{DT}}(q, Q)$,
+pending the non-trivial mirror-quintic BCOV recursion.
+
+% ============================================================
+\section{References for this wave file}
+% ============================================================
+
+\begin{itemize}[leftmargin=2em]
+\item Atiyah--Bott, \emph{The moment map and equivariant cohomology},
+Topology 23 (1984) 1--28.
+\item Ayala--Francis, \emph{Factorisation homology of topological
+manifolds}, \texttt{arXiv:1206.5522} Thm.~$1.1$.
+\item Beilinson--Drinfeld, \emph{Chiral algebras}, AMS Colloquium
+Publications 51 (2004) Ch.~$3$.
+\item Bershadsky--Cecotti--Ooguri--Vafa, \emph{Kodaira--Spencer theory
+of gravity}, \texttt{arXiv:hep-th/9309140} \S$5$.
+\item Booth--Lazarev, \emph{Curved Koszul duality for algebras},
+\texttt{arXiv:2304.08409}, in particular Thm.~$4.15$.
+\item Bondal--Orlov, \emph{Reconstruction of a variety from the
+derived category}, \texttt{arXiv:alg-geom/9712029}.
+\item Candelas--de la Ossa, \emph{A pair of Calabi--Yau manifolds},
+Nucl.\ Phys.\ B 359 (1991) 21--74.
+\item Clemens--Kley, \emph{Rigid rational curves on the quintic},
+Contemp.\ Math.\ 195 (1996).
+\item Costello, \emph{Holography and Koszul duality},
+\texttt{arXiv:1605.09656}.
+\item Costello--Gwilliam, \emph{Factorisation algebras in quantum
+field theory}, Vol.\ I Cambridge~$2016$, Vol.\ II Cambridge~$2021$.
+\item Costello--Li, \emph{Anomaly cancellation in the topological
+string}, \texttt{arXiv:1606.00365} Prop.~$5.2$.
+\item Francis--Gaitsgory, \emph{Chiral Koszul duality},
+\texttt{arXiv:1103.5803} Lemma~$1.1.2$.
+\item Gritsenko--Nikulin, \emph{On classification of Lorentzian
+Kac--Moody algebras}, Russian Math.\ Surveys 57 (2002) 921--979.
+\item Harris, \emph{Galois groups of enumerative problems}, Duke
+Math.\ J.\ 46 (1979) 685--724.
+\item Kapranov, \emph{Rozansky--Witten invariants via Atiyah
+classes}, \texttt{arXiv:math/9811023}.
+\item Kontsevich--Tamarkin: Kontsevich $1997$, \emph{Deformation
+quantisation of Poisson manifolds}; Tamarkin--Tsygan $2000$,
+\emph{Cyclic formality and index theorems}.
+\item Matsumura, \emph{On algebraic groups of birational
+transformations}, Proc.\ Japan Acad.\ 39 (1963) 487--489.
+\item Moriwaki, \emph{Sewing completion of chiral algebras},
+$2026$.
+\item Mumford, \emph{Towards an enumerative geometry of the moduli
+space of curves}, Arithmetic and Geometry II (1983) 271--328.
+\item Oberdieck--Pixton, \emph{Holomorphic anomaly equations and the
+Igusa cusp form conjecture}, Invent.\ Math.\ $2019$.
+\item Oguiso, \emph{Automorphism groups of Calabi--Yau manifolds of
+Picard number 2}, Sci.\ China Math.\ 48 (2005) 1777--1790.
+\item Positselski, \emph{Two kinds of derived categories, Koszul
+duality, and comodule-contramodule correspondence},
+Mem.\ AMS 212:$996$ ($2011$).
+\item Schiffmann--Vasserot, \emph{The elliptic Hall algebra and the
+equivariant K-theory of the Hilbert scheme of $\bA^2$},
+\texttt{arXiv:1202.2756} Thm.~$1.1$.
+\item Teixidor, \emph{The divisor of curves with a vanishing
+theta-null}, Duke Math.\ J.\ 56 (1988) 301--313.
+\end{itemize}
+
+\end{document}

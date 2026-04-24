@@ -30,6 +30,7 @@
 MAIN      := main
 TEX       := pdflatex
 TEXFLAGS  := -interaction=nonstopmode -file-line-error -synctex=0
+PYTEST    ?= pytest
 BUILD_SCRIPT := ./scripts/build.sh
 LOG_DIR   := .build_logs
 
@@ -165,7 +166,7 @@ check:
 test:
 	@if [ -d compute/tests ] && ls compute/tests/test_*.py 1>/dev/null 2>&1; then \
 		echo "  -- Running compute test suite --"; \
-		python3 -m pytest compute/tests/ -q -ra --durations=10; \
+		$(PYTEST) compute/tests/ -q -ra --durations=10; \
 	else \
 		echo "  (no compute tests found -- skipping)"; \
 	fi

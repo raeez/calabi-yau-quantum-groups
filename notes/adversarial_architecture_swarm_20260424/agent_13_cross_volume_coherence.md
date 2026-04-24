@@ -122,7 +122,7 @@ Proposed edit: in `notes/platonic_synthesis_post_adversarial.tex:751-782`, chang
 ## ATTACK_6: Theorem B scope is not a single locus
 
 Anchors:
-- Vol I master: `MASTER...md:18` states Theorem B on \(U^{\mathrm{adm}}=\overline{\mathcal A_2}\setminus\bigcup_{n\equiv 3,5\bmod 8}H_n\).
+- Vol I master: `MASTER...md:18` states Theorem B on \(U^{\mathrm{adm}}=\overline{\mathcal A_2}\setminus\bigcup_{n\ \mathrm{admissible}}H_n\).
 - Vol I body: `theorem_B_scope_platonic.tex:1482-1509` states strict Theorem B on the complement of all admissible Humbert divisors.
 - Vol I body: `theorem_B_scope_platonic.tex:2820-2893` gives the four-lane global theorem: strict on \(U^{\mathrm{adm}}\), weight-completed on formal neighbourhoods, \(A_\infty\)-corrected at walls, Cech-glued globally.
 - Vol III synthesis: `VOL_III...md:187-193` distinguishes \(\mathcal U^{\mathrm{adm}}_{\mathrm{Hum},4}\), \(\mathcal U^{\mathrm{adm}}_{\mathrm{Hum},8}\), and \(\mathcal U^{\mathrm{adm}}_{\mathrm{at}}\subset X\).

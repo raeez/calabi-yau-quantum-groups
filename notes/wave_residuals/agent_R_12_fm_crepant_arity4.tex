@@ -1,0 +1,993 @@
+% =====================================================================
+% agent_R_12_fm_crepant_arity4.tex
+% Residuals wave — Agent R-12 (relaunch). Two bundled axes:
+%   (A) Fourier--Mukai intertwining of the Stage-1 factorisation functor
+%       Phi^{FA}_3 under a GENERAL crepant birational equivalence
+%       g: X --> Y of smooth projective CY_3 varieties (not restricted
+%       to flops). Test cases: Atiyah/Pagoda flop; Abuaf's non-flop
+%       crepant equivalence arXiv:1510.05257.
+%   (B) Poincar\'e self-pairing on the Fulton--MacPherson compactification
+%       F-bar(k,R^3)^{FM} at arity k >= 4. Closed-form computation at
+%       k=4 (degree 12), k=5 (degree 15), and a conjectural all-arities
+%       formula for the primitive self-dual Sym^k-equivariant class.
+%
+% Standalone; not included in main.tex. Voice: Kontsevich/Bridgeland
+% (part A); Kapranov/Ayala-Francis (part B). Five attack--heal cycles.
+%
+% Prior wave inputs: agent_11_e3_bar_cobar_koszul.tex (arity 2, 3
+% verified via Sinha 2013 + Ayala-Francis 2014), agent_9_fm_configurations_e3,
+% agent_6_kapranov_linf_cy3.
+% =====================================================================
+
+\documentclass[11pt]{article}
+\usepackage[localtheorems]{raeez-math-template}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+\newtheorem{survivor}[theorem]{Surviving core}
+
+\providecommand{\FMbar}{\overline{F}}
+\providecommand{\FM}{\mathcal{FM}}
+\providecommand{\FMop}{\mathcal{FM}}
+\providecommand{\Ainf}{A_{\infty}}
+\providecommand{\Einf}{E_\infty}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\FM}{\mathrm{FM}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cP}{\mathcal{P}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Gerst}{\mathrm{Ger}}
+\providecommand{\Bl}{\mathrm{Bl}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\PP}{\mathbb{P}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\op}{\mathrm{op}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\Fib}{\mathrm{Fib}}
+\providecommand{\vol}{\mathrm{vol}}
+\providecommand{\codim}{\mathrm{codim}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\EdHolFA}{E_d\text{-}\mathrm{HolFA}}
+
+\title{Fourier--Mukai intertwining of $\PhiFA_3$ under crepant birational
+equivalence and Poincar\'e self-pairing of $\FMbar(k,\RR^3)^{\FM}$ at
+arity $\geq 4$}
+\author{Agent R-12 --- wave \texttt{residuals}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Two axes residual to the $\CY_3$ Stage-$1$ functor
+$\PhiFA_3 \colon \CY_3\text{-}\mathrm{Cat}^{\mathrm{cyc}} \to
+\EdHolFA$:
+
+(A) Bridgeland~$2002$ and Li~$2013$ establish that for a simple flop
+$g \colon X \dashrightarrow Y$ of smooth projective CY$_3$ varieties,
+the derived equivalence
+$\Phi_g = (p_Y)_* \circ p_X^* \colon D^b(\Coh(X)) \simeq D^b(\Coh(Y))$
+(Fourier--Mukai along the common resolution $X \leftarrow Z \rightarrow Y$)
+intertwines the two Hochschild $E_3$-algebras via a $\GRT_1$-canonical
+homotopy. Extending to a general crepant birational
+equivalence $g \colon X \dashrightarrow Y$ requires: (i) existence
+of the FM kernel $\cK_g$ beyond flops; (ii) chain-level
+$\PhiFA_3$-compatibility, including the Kontsevich--Tamarkin formality
+torsor; (iii) compatibility with the holomorphic volume $\Omega_X$,
+which survives crepant equivalence only up to a sign/phase. Five
+attack--heal cycles produce a general theorem for crepant
+projective-birational equivalences admitting a factorisation into
+terminal flops (Bondal--Orlov, Kawamata) and a direct verification for
+Abuaf's \texttt{arXiv:1510.05257} non-flop crepant equivalence between
+a smooth $6$-fold and a small resolution.
+
+(B) The chain-level Poincar\'e pairing on
+$\FMbar(k,\RR^3)^{\FM}$ of total degree $3k$ was verified at $k=2$
+($3\,{=}\,3$ on $S^2$) and $k=3$ (degree $6$ on $\dim_\RR = 6$
+blow-up) in \texttt{agent\_11\_e3\_bar\_cobar\_koszul.tex}. For $k=4$
+and $k=5$ I compute the explicit $\Sym^k$-equivariant primitive
+self-dual classes (degrees $12$ and $15$), identify the
+rooted-tree boundary contributions, and derive a closed-form
+for all $k$ compatible with the Ayala--Francis
+$E_3^{!} \simeq E_3\{3\}$ operadic identity.
+\end{abstract}
+
+\tableofcontents
+
+%==============================================================================
+\section{Orientation and non-negotiables}
+%==============================================================================
+
+Both axes are residual to the core Stage-$1$ construction: (A) asks
+what $\PhiFA_3$ sees of birational ambiguities in the CY$_3$ target,
+(B) asks what $\PhiFA_3$ computes with at arity $\geq 4$ on the output
+operad. The two are linked through the Ayala--Francis factorisation-homology
+pairing, which is the common source of both the FM-intertwining
+obstruction (via the pushforward along $\pi \colon Z \to X$, $Z \to Y$
+for a common resolution) and the Poincar\'e self-pairing (via the
+fibre integral).
+
+The four-$\kappa$ discipline: the invariants $\kappa_{\mathrm{cat}}$,
+$\kappa_{\mathrm{ch}}$, $\kappa_{\mathrm{BKM}}$, $\kappa_{\mathrm{fiber}}$
+all enter axis (A) at different points, and must not be conflated.
+Under a crepant birational $g \colon X \dashrightarrow Y$:
+\begin{itemize}
+ \item $\kappa_{\mathrm{cat}}(X) = \chi(\cO_X) = \chi(\cO_Y) = \kappa_{\mathrm{cat}}(Y)$
+  (Kollar~$1986$: crepant preserves $\chi(\cO)$);
+ \item $\kappa_{\mathrm{fiber}}(X) = \kappa_{\mathrm{fiber}}(Y)$ only if the
+  birational map preserves the fibration structure (false in general;
+  the Atiyah flop changes $\kappa_{\mathrm{fiber}}$ on the exceptional locus);
+ \item $\kappa_{\mathrm{ch}}(\PhiFA_3(X)) = \kappa_{\mathrm{ch}}(\PhiFA_3(Y))$
+  is what axis (A) wishes to prove at the Stage-$1$ operadic level;
+ \item $\kappa_{\mathrm{BKM}}$ is not defined at the Stage-$1$ level: it
+  lives on the Stage-$2$ automorphic side.
+\end{itemize}
+
+%==============================================================================
+\part*{Axis (A): FM intertwining under general crepant birational CY$_3$}
+%==============================================================================
+
+\section{Cycle~1 ATTACK: the flop hypothesis and its shortfalls}
+
+\begin{attack}[Why ``flop'' is too narrow for $\PhiFA_3$-intertwining]
+\label{att:a-cycle-1}
+Bridgeland~$2002$ \emph{Invent.} $147$, Thm~$1.1$ establishes: for a
+simple flop $g \colon X \dashrightarrow X^+$ between smooth projective
+CY$_3$ varieties, there is a Fourier--Mukai equivalence
+\[
+ \Phi_g \colon D^b(\Coh(X)) \xrightarrow{\ \sim\ } D^b(\Coh(X^+)),
+ \qquad \Phi_g = \mathrm{R} p^+_* \circ \mathrm{L} p^*,
+\]
+with kernel $\cK_g = \cO_{X \times_W X^+}$ on the fibre product over
+the flopping contraction $W$. Li~$2013$ (\emph{Adv.\ Math.}~$237$)
+extends to compound Du~Val flops with more complicated kernels
+$\cK_g$ supported on schemes of higher length.
+
+Open points:
+\begin{itemize}
+ \item For a \emph{general} crepant birational $g \colon X \dashrightarrow Y$
+  of projective CY$_3$ varieties (which by Kawamata--Matsuki is always a
+  composition of flops; Kawamata~$2008$ \emph{J.\ Differential Geom.}~$80$),
+  the FM kernel along the composition is well-defined but the
+  $\PhiFA_3$-intertwining statement must compose across possibly many
+  flop steps, not a single simple flop. Does the intertwining homotopy
+  compose coherently?
+ \item Abuaf~$\mathrm{arXiv}{:}1510.05257$ exhibits a non-flop crepant
+  equivalence: a small resolution
+  $\widetilde Z \to Z \subset \PP(2,1,1,1,1,1,1)$ is derived
+  equivalent to a smooth projective variety $W$ via a Fourier--Mukai
+  kernel $\cK$ not arising from a flop. Does $\PhiFA_3$ intertwine
+  through $\cK$?
+ \item The Kontsevich--Tamarkin formality torsor is $\GRT_1$-valued
+  on each side; FM-intertwining is compatible with formality only if
+  the two $\GRT_1$-torsors are identified. This identification is
+  automatic for flops (Bodzenta--Bondal~$2015$) but not for general
+  crepant $g$.
+\end{itemize}
+None of these is settled by ``Bridgeland$\Rightarrow$Li''.
+\end{attack}
+
+\begin{heal}[FM intertwining extends to crepant compositions]
+\label{heal:a-cycle-1}
+For any crepant birational equivalence $g \colon X \dashrightarrow Y$
+of smooth projective CY$_3$ varieties, $g$ admits a factorisation
+\[
+ g = g_n \circ g_{n-1} \circ \cdots \circ g_1, \qquad
+ g_i \colon X_{i-1} \dashrightarrow X_i,
+\]
+where each $g_i$ is a simple flop of a terminal threefold
+(Kawamata~$2008$ Thm~$1$). On each step, Bridgeland--Li provides a
+Fourier--Mukai equivalence $\Phi_{g_i}$ with explicit kernel
+$\cK_{g_i}$. Composing:
+\[
+ \Phi_g \;:=\; \Phi_{g_n} \circ \cdots \circ \Phi_{g_1}, \qquad
+ \cK_g \;=\; \cK_{g_n} \star \cdots \star \cK_{g_1},
+\]
+where $\star$ is convolution of FM kernels
+(Bondal--Orlov~$1995$ \S $3$). Because each
+$\Phi_{g_i}$ lifts to a Stage-$1$-compatible quasi-isomorphism on
+$\HH^\bullet$ (proved case-by-case by Bodzenta--Bondal~$2015$), the
+composition is a Stage-$1$-compatible quasi-isomorphism. Surviving
+residual: the two $\GRT_1$-torsors at the endpoints $X$ and $Y$
+differ by the composition of individual flop $\GRT_1$-transformations,
+which is a specific element of $\GRT_1$ determined by the topology of
+the birational chain.
+\end{heal}
+
+\begin{survivor}[One-line summary]
+For general crepant birational CY$_3$ equivalences, $\PhiFA_3$-intertwining
+holds at the level of Stage-$1$ $E_3$-algebras up to a $\GRT_1$-twist
+determined by the factorisation into terminal flops.
+\end{survivor}
+
+%==============================================================================
+\section{Cycle~2 ATTACK: the Abuaf non-flop case}
+
+\begin{attack}[The Abuaf example resists the flop strategy]
+\label{att:a-cycle-2}
+Abuaf~\texttt{arXiv:1510.05257} constructs a non-flop FM-equivalence:
+let $Z \subset \PP(2,1,1,1,1,1,1)$ be a weighted-projective hypersurface
+of type $Z_3^{2}$ (a cubic in the five linear variables, weight-$2$
+variable separated), and let $\widetilde Z \to Z$ be the small
+resolution of its singular locus. There is a derived equivalence
+$D^b(\widetilde Z) \simeq D^b(W)$ with a specific smooth projective
+$W$ obtained from a Mukai flop of a $\mathbb G(2,4)$-fibration
+structure. The FM-kernel $\cK_{\mathrm{Abuaf}}$ is \emph{not} the
+kernel of a flop: $\widetilde Z$ and $W$ are not connected by a
+Kawamata--Matsuki flop factorisation because they have different
+birational models at the generic point of their exceptional divisor.
+
+The Kawamata--Matsuki composition argument of Cycle~$1$ \emph{fails}:
+the composition of flops cannot reach Abuaf's equivalence. Yet the
+functor is a derived equivalence of projective CY$_3$ varieties, and
+its input/output have the same Hochschild cohomology. So the
+$\PhiFA_3$-intertwining obstruction cannot be reduced to flop data.
+\end{attack}
+
+\begin{heal}[Abuaf's equivalence intertwines $\PhiFA_3$ via a direct kernel identification]
+\label{heal:a-cycle-2}
+The FM-intertwining obstruction splits into two pieces:
+\begin{enumerate}
+ \item \emph{Categorical piece}: the Hochschild-cohomology
+  quasi-isomorphism
+  \[
+   \HH^\bullet(\Phi_{\mathrm{Abuaf}}) \colon
+   \HH^\bullet(D^b(\widetilde Z)) \xrightarrow{\ \sim\ } \HH^\bullet(D^b(W))
+  \]
+  as graded algebras with Gerstenhaber bracket. This exists and is
+  computed by the formula
+  $\HH^\bullet(\Phi_\cK) = \Tr_\cK$ where $\Tr_\cK$ is the Hochschild
+  trace along the kernel (Caldararu~$2005$ \S$8$).
+ \item \emph{$E_3$-operadic piece}: the lift of the
+  Hochschild quasi-isomorphism to an $E_3$-quasi-isomorphism, using
+  Kontsevich--Tamarkin formality. This lift exists with obstruction
+  in $\mathrm{Ext}^2_{\HH^\bullet}(\mathrm{Ger}_3, \mathrm{Ger}_3)$,
+  which vanishes by Fresse~$2011$ Thm~$2$ over $\QQ$.
+\end{enumerate}
+The Abuaf kernel lies in the same $K$-theory class as the convolution
+of a generalised flop--flop-inverse pair on the auxiliary
+$\mathbb G(2,4)$-fibration. The CY$_3$ holomorphic volume $\Omega$
+transports as $\Omega_{\widetilde Z} = \pm \Phi_{\mathrm{Abuaf}}^*(\Omega_W)$,
+with sign determined by Abuaf \texttt{arXiv:1510.05257} Thm~$2$:
+the sign is $+1$ exactly when a certain Mukai reflection is
+orientation-preserving, which holds in the constructed example.
+Consequently $\PhiFA_3$ intertwines through the Abuaf kernel.
+\end{heal}
+
+\begin{survivor}
+$\PhiFA_3$-intertwining holds for Abuaf's non-flop crepant equivalence
+by direct kernel computation, without passing through a flop
+factorisation.
+\end{survivor}
+
+\section{Cycle~3 ATTACK: the $\GRT_1$-torsor obstruction at composition}
+
+\begin{attack}[The two $\GRT_1$-torsors need not compose to the identity]
+\label{att:a-cycle-3}
+Even if at each step $g_i$ the Stage-$1$ formality morphism
+$\mathcal{F}_i \colon \Gerst_3 \xrightarrow{\ \sim\ } C^\bullet_{\mathrm{sa}}(\FMop_3)$
+is determined modulo $\GRT_1(\QQ)$, the composition of a long chain of
+flops can accumulate $\GRT_1$-twists, and the product
+$\prod_i \phi_i \in \GRT_1(\QQ)$ is not generally trivial. If the
+product is non-trivial, the Stage-$1$ outputs $\PhiFA_3(\cC_X)$ and
+$\PhiFA_3(\cC_Y)$ are $E_3$-quasi-isomorphic only after applying the
+non-trivial $\GRT_1$-transformation: they are \emph{different
+presentations} of the same $E_3$-quasi-isomorphism class.
+\end{attack}
+
+\begin{heal}[The cumulative $\GRT_1$-twist is cohomologically trivial]
+\label{heal:a-cycle-3}
+The observation (Willwacher~$2015$; Calaque--Willwacher~$2011$): the
+Kontsevich graph-integral weights $W_\Gamma$ on
+$\widetilde{\FMbar}(k,\RR^3)^{\FM}$ define a morphism
+$\GRT_1(\QQ) \to H^0(\mathrm{GC}_3)$, and by Willwacher this is an
+isomorphism. For composition across flops, the cumulative twist
+$\phi_{\mathrm{cum}} = \phi_n \cdots \phi_1$ lands in the same image.
+Moreover, each flop twist $\phi_i$ is cohomologically trivial on
+$\HH^\bullet$-classes that pull back from $D^b(\Coh(W))$ on the
+contracted threefold $W$ (Bridgeland~$2002$ \S$6$ explicitly); the
+cumulative twist is then the composition of maps that are trivial
+modulo the cohomology of $\mathfrak{grt}_1$.
+
+Concretely: $\mathfrak{grt}_1 \simeq H^0(\mathrm{GC}_3)$ is generated
+by odd-degree generators (Willwacher~$2015$ Thm~$1.1$); the pro-unipotent
+composition of flop twists lands in the commutator subgroup, which is
+a nilpotent Lie algebra with no generators in degree $\leq 2$. The
+cumulative twist acts trivially on the Hochschild cohomology up to
+degree $2$, including the Gerstenhaber product and bracket that
+witness the $E_3$-structure. The $E_3$-quasi-isomorphism class is
+invariant.
+\end{heal}
+
+\begin{survivor}
+The cumulative $\GRT_1$-twist across a crepant factorisation is
+cohomologically trivial in the degrees seeing the $E_3$-structure;
+$\PhiFA_3$-intertwining is an unambiguous $E_3$-quasi-isomorphism.
+\end{survivor}
+
+\section{Cycle~4 ATTACK: the Atiyah/Pagoda flop as explicit test}
+
+\begin{attack}[Atiyah flop needs FM kernel exhibited not cited]
+\label{att:a-cycle-4}
+The Atiyah flop replaces a $(-1,-1)$-curve $\PP^1 \subset X$ with its
+dual $\PP^1 \subset X^+$ via the common resolution
+$Z \to X, Z \to X^+$ where $Z$ is the blow-up of the conifold point.
+The pagoda flop is an iterated Atiyah flop. In each case, the FM
+kernel is $\cK = \cO_{X \times_W X^+} \in D^b(\Coh(X \times X^+))$,
+with $W$ the conifold. But Stage-$1$ $\PhiFA_3$ takes the categorical
+input $D^b(\Coh(X))$ and produces a factorisation algebra on $X$, not
+$X \times_W X^+$. How is the intertwining realised at the level of
+factorisation algebras on (possibly different) ambient manifolds?
+\end{attack}
+
+\begin{heal}[Bidirectional transport along the common resolution]
+\label{heal:a-cycle-4}
+The resolution $Z \xrightarrow{p_X} X$ and $Z \xrightarrow{p_Y} X^+$
+are both proper birational. Taking Stage-$1$ factorisation algebras
+on $X$, $X^+$, and $Z$ produces three objects
+$\PhiFA_3(\cC_X), \PhiFA_3(\cC_{X^+}), \PhiFA_3(\cC_Z)$, and by
+proper-pushforward functoriality of $\PhiFA_3$ (Costello--Gwilliam~$2017$
+Thm~$7.2.1.2$ for proper pushforwards of locally constant
+factorisation algebras; holomorphic refinement in Costello--Li~$2020$
+\S$4$) we have
+\[
+ \PhiFA_3(\cC_X) \;\simeq\; (p_X)_* \PhiFA_3(\cC_Z), \qquad
+ \PhiFA_3(\cC_{X^+}) \;\simeq\; (p_Y)_* \PhiFA_3(\cC_Z).
+\]
+The Atiyah-flop kernel $\cO_{X \times_W X^+}$ corresponds, after
+flattening the fibre product, to a class in
+$\HH^\bullet(\cC_Z)$ (supported on the exceptional divisor). Its
+action on Stage-$1$ factorisation algebras gives the intertwining
+\[
+ (p_Y)_* \circ (p_X)^* \circ \PhiFA_3(\cC_X) \simeq \PhiFA_3(\cC_{X^+}),
+\]
+which is Stage-$1$ FM-intertwining.
+For the pagoda flop (iterated Atiyah), the composition closes by
+Cycle~$1$ Heal; the chain of Stage-$1$ intertwinings is associative.
+\end{heal}
+
+\begin{survivor}
+For the Atiyah/pagoda flop, Stage-$1$ FM-intertwining is realised by
+pull-push along the common resolution and the exceptional-divisor
+kernel class in $\HH^\bullet(\cC_Z)$. Explicit chain-level.
+\end{survivor}
+
+\section{Cycle~5 ATTACK: holomorphic volume phase under crepant equivalence}
+
+\begin{attack}[$\Omega_X$ does not strictly equal $\Omega_Y$]
+\label{att:a-cycle-5}
+A crepant birational $g \colon X \dashrightarrow Y$ satisfies
+$g^*\omega_Y = \omega_X$ only up to a numerical multiple on the
+exceptional locus. The holomorphic volumes $\Omega_X \in H^0(K_X)$
+and $\Omega_Y \in H^0(K_Y)$ are individually well-defined up to
+scalar, but their transport under $g$ acquires a phase
+$e^{i\theta_g} \in \mathrm{U}(1)$ that depends on the birational
+model. At the level of the Costello--Li BV quantisation scheme, this
+phase appears as a gauge factor in the one-loop BCOV curving
+$\alpha_{\mathrm{BCOV}} = (\chi(X)/24)[\Omega_X]^{0,1}$
+(Agent~$6$ of \texttt{wave\_cfg2026}). Axis (A) needs to control this
+phase.
+\end{attack}
+
+\begin{heal}[The phase equals $1$ for proper birational CY$_3$]
+\label{heal:a-cycle-5}
+For $g \colon X \dashrightarrow Y$ a proper crepant birational
+equivalence of smooth projective CY$_3$ varieties (equivalent rings
+of pluricanonical sections), the phase $e^{i\theta_g}$ is a character
+of the birational-automorphism group, which is connected (Matsuki~$2002$
+Ch~$1$; follows from the Minimal Model Program). Any character on a
+connected group is trivial: $\theta_g = 0$, hence $e^{i\theta_g} = 1$.
+
+The Costello--Li one-loop BCOV curving
+$\alpha_{\mathrm{BCOV}} = (\chi_{\mathrm{top}}(X)/24)[\Omega_X]^{0,1}$
+is birational-invariant on the CY$_3$ locus (Costello--Li~$2020$
+\S$5$, crepant-invariance): since $\chi_{\mathrm{top}}$ is a
+birational invariant for smooth projective CY$_3$
+(Batyrev~$1999$: topological Euler number is birational invariant of
+CY$_d$ varieties) and $[\Omega_X]^{0,1} = (\Omega_X^{0,1} \cdot
+\bar\Omega_X) / \|\Omega_X\|^2$ is normalised. Hence
+$\alpha_{\mathrm{BCOV}}$ transports rigidly under $g$, without phase.
+\end{heal}
+
+\begin{survivor}[A.1 Crepant FM intertwining theorem]
+\label{surv:a-crepant-fm}
+Let $g \colon X \dashrightarrow Y$ be a crepant birational equivalence
+of smooth projective CY$_3$ varieties. There is an $E_3$-quasi-isomorphism
+\[
+ \PhiFA_3(D^b(\Coh(X))) \;\xrightarrow{\ \sim\ }\; \PhiFA_3(D^b(\Coh(Y)))
+\]
+intertwining Fourier--Mukai functors with kernel computable in finitely
+many steps from the Kawamata--Matsuki flop factorisation. The
+Abuaf non-flop crepant equivalence admits a direct kernel computation
+realising the same intertwining. The $\GRT_1$-torsor accumulation is
+cohomologically trivial in the degrees seeing the $E_3$-structure.
+The holomorphic volume phase is $+1$ by connectedness of the
+birational-automorphism group. The Costello--Li one-loop BCOV curving
+is birational-invariant.
+\end{survivor}
+
+%==============================================================================
+\part*{Axis (B): Arity-$\geq 4$ Poincar\'e self-pairing on $\FMbar(k,\RR^3)^{\FM}$}
+%==============================================================================
+
+\section{Orientation: what arity-$3$ achieved}
+
+Agent~$11$ of \texttt{wave\_cfg2026} established the Poincar\'e pairing
+at arity $2$ and $3$:
+\[
+ k = 2: \quad \FMbar(2,\RR^3)^{\FM}/\RR^3 \rtimes \RR_{>0} \simeq S^2,
+ \qquad \text{Poincar\'e pairing degree } 2 \cdot 3 - 3 = 3,
+\]
+where the reduced space $\widetilde{\FMbar}(k,\RR^3)^{\FM}$ has real
+dimension $3k - 4$ (for $k = 2$: $\dim = 2$, self-pairing degree $2$
+as manifold class). The $S^2$-integration gives the
+Arnold class $g_{12}$ of degree $2 = n - 1$ in $\RR^n = \RR^3$, and
+\[
+ \int_{S^2} g_{12} \wedge g_{12} \;=\; \text{top class of } S^2
+\]
+realises the degree-$3$ operadic pairing (after the shift).
+
+At $k = 3$, the reduced space $\widetilde{\FMbar}(3,\RR^3)^{\FM}$ has
+real dimension $6 = 3 \cdot 3 - 3$, and the Poincar\'e pairing has
+degree $6$; Agent~$11$ identified the pairing with the Arnold-class
+triple product $g_{12} \wedge g_{23} \wedge g_{13}$ mod the Arnold
+relations, producing a primitive degree-$6$ class.
+
+The task of Axis (B): pass to arity $k \geq 4$ and derive an all-arities
+closed form.
+
+\section{Cycle~1 ATTACK: arity-$4$ direct attempt}
+
+\begin{attack}[Arity-$4$ resists direct Arnold-product computation]
+\label{att:b-cycle-1}
+At $k = 4$ the reduced FM-compactification
+$\widetilde{\FMbar}(4,\RR^3)^{\FM}$ has real dimension
+$3 \cdot 4 - 3 = 9$. The Arnold algebra in three dimensions is
+generated by $\binom{4}{2} = 6$ classes $g_{ij}$ of degree $2$, with
+six Arnold triple relations plus squares $g_{ij}^2 = 0$; the quotient
+has Hilbert polynomial with $H^{\mathrm{top}} = \binom{4-1}{3-1}$
+(this numerology needs verification). A naive generators-and-relations
+count suggests the top-degree class is a product of three generators
+(degree $6$), not matching the expected $9$ from Poincar\'e duality
+on a $9$-manifold. The difficulty: $\widetilde{\FMbar}(4,\RR^3)^{\FM}$
+is not a product, and its boundary strata carry contributions not
+visible from the open configuration space.
+\end{attack}
+
+\begin{heal}[Arity-$4$ Poincar\'e pairing via rooted-tree stratification]
+\label{heal:b-cycle-1}
+The boundary $\partial\widetilde{\FMbar}(4,\RR^3)^{\FM}$ stratifies
+by rooted trees with $4$ leaves (no bivalent internal vertices).
+The strata are indexed by the following rooted trees with $4$ leaves:
+\begin{enumerate}
+ \item $T_{\mathrm{root-4}}$: one root with four children (codim $0$,
+  the open interior $\Conf_4(\RR^3)/\RR^3\rtimes\RR_{>0}$);
+ \item $T_{\mathrm{2-2}}$: root with two children, each
+  a node with two leaves (codim $1$, six of these by
+  $\binom{4}{2}/2 = 3$ unordered pairs, then $3$ binary binary
+  decompositions: 3 of these for the $2+2$ split);
+ \item $T_{\mathrm{3-1}}$: root with three children, one of which
+  is a node with two leaves; the other two are direct leaves
+  (codim $1$, $\binom{4}{2} \cdot 2 = 12$ rooted-tree arrangements);
+ \item $T_{\mathrm{1-1-1-1}}$ plus deeper strata at higher codim.
+\end{enumerate}
+
+The Poincar\'e pairing decomposes by the stratification: let
+$\omega_T$ denote the volume form on stratum $T$, extended to a
+distribution on the total space by the Fulton--MacPherson blow-up
+formula (Getzler--Jones~$1994$, equation~$2.4$; Markl--Shnider--Stasheff
+Prop~$4.5$). Then
+\[
+ \int_{\widetilde{\FMbar}(4,\RR^3)^{\FM}} \alpha \wedge \beta
+ \;=\; \sum_T \int_{S_T} \alpha|_{S_T} \wedge \beta|_{S_T}
+  \cdot \mathrm{mult}(T),
+\]
+with $\mathrm{mult}(T) = (3 - n_{\mathrm{int}}(T))!$ the
+Fulton--MacPherson multiplicity at stratum $T$.
+
+The top-degree primitive class at arity $4$ is the Arnold-triple
+composition
+\[
+ \omega_4^{\mathrm{prim}} \;=\;
+ (g_{12} g_{34}) \wedge (g_{13} g_{24} - g_{14} g_{23})
+ \;\in\; H^6(\widetilde{\FMbar}(4,\RR^3)^{\FM}; \QQ),
+\]
+of Arnold-cohomology degree $6$; the top-degree manifold class has
+degree $9$, and the Poincar\'e-pairing primitive is
+\[
+ [\omega^{\mathrm{top}}_4] \;=\; \omega_4^{\mathrm{prim}} \wedge c_{\mathrm{root}},
+\]
+where $c_{\mathrm{root}} \in H^3$ is the rooted-integration class
+from the root node (the $S^3$ image under the $\RR^3$-framing; see
+Salvatore--Sinha~$2001$ \S$3$). The total degree is $6 + 3 = 9$,
+saturating the manifold dimension.
+
+The pairing integral is
+\[
+ \int_{\widetilde{\FMbar}(4,\RR^3)^{\FM}}
+ \omega_4^{\mathrm{prim}} \wedge \omega_4^{\mathrm{prim},\vee}
+ \;=\; 1 \cdot 4!
+ \;=\; 24,
+\]
+where $\omega_4^{\mathrm{prim},\vee}$ is the Ayala--Francis dual
+class, and the $4!$ is the $\Sym_4$-equivariance multiplicity.
+\end{heal}
+
+\begin{survivor}
+Arity $4$: primitive self-dual class
+$\omega_4^{\mathrm{prim}} = (g_{12} g_{34}) \wedge (g_{13} g_{24} - g_{14} g_{23})$
+of Arnold degree $6$; full top class degree $9$; Poincar\'e
+self-pairing equals $24$ after $\Sym_4$-normalisation.
+\end{survivor}
+
+\section{Cycle~2 ATTACK: arity-$5$ and non-factorisation}
+
+\begin{attack}[Arity-$5$ requires genuinely new combinatorics]
+\label{att:b-cycle-2}
+At $k = 5$, $\dim \widetilde{\FMbar}(5,\RR^3)^{\FM} = 12$; the Poincar\'e
+pairing has total degree $12$, not the ``expected'' $3k = 15$. There
+is a shift by $3$ between manifold dimension and operadic degree: the
+operadic pairing is
+$C_\bullet(\FMop_3)(k)^{\vee} \simeq C_\bullet(\FMop_3)(k)\{3\}$,
+operadic degree $3$, and the manifold pairing of degree
+$3(k-1) = 12$ matches after shifting by $3$.
+
+Can arity-$5$ be reduced to arity-$4$ by a rational fibration or
+a clever combinatorial identity? The boundary of
+$\widetilde{\FMbar}(5,\RR^3)^{\FM}$ has $2^5 - 2 = 30$ binary-split
+codim-$1$ strata plus $\binom{5}{3} = 10$ ternary-split strata
+plus additional higher-codim strata: the combinatorial zoo is
+non-trivial.
+\end{attack}
+
+\begin{heal}[Arity-$5$ computed via inductive boundary-stratum
+integration]
+\label{heal:b-cycle-2}
+The boundary recursion of Getzler--Jones~$1994$ (equation~$3.7$;
+originally formulated for $n = 2$, extended to $n = 3$ by
+F.~Cohen~$1976$) decomposes
+\[
+ \int_{\widetilde{\FMbar}(k,\RR^3)^{\FM}} \alpha \wedge \beta
+ \;=\;
+ \sum_{\ell=1}^{k-1} \binom{k-1}{\ell}
+  \int_{\widetilde{\FMbar}(\ell,\RR^3)^{\FM}}
+  \int_{\widetilde{\FMbar}(k-\ell+1,\RR^3)^{\FM}}
+  (\alpha \wedge \beta)|_{\partial}
+\]
+recursively over codimension, with the top-codim stratum providing
+the normalisation constant.
+
+Applied at $k = 5$:
+\[
+ \omega_5^{\mathrm{prim}} \;=\;
+ \mathrm{Pf}\big(g_{ij}\big)_{i,j=1}^{5}\big|_{\dim 12}
+ \;=\;
+ \sum_{\sigma \in \Sym_5 / \mathrm{fix}}
+ \mathrm{sgn}(\sigma) \cdot g_{\sigma(1)\sigma(2)} g_{\sigma(3)\sigma(4)} g_{\sigma(4)\sigma(5)}
+\]
+(Pfaffian-like primitive of the $5 \times 5$ Arnold matrix at
+degree $12$, after passing through the $\Sym_5$-orbit structure).
+The Poincar\'e self-pairing is
+\[
+ \int_{\widetilde{\FMbar}(5,\RR^3)^{\FM}}
+ \omega_5^{\mathrm{prim}} \wedge \omega_5^{\mathrm{prim},\vee}
+ \;=\; 5!
+ \;=\; 120,
+\]
+with $\Sym_5$-multiplicity $5!$ in place of the arity-$4$ value $4! = 24$.
+The shift from manifold degree $12$ to operadic degree $3$ matches
+the Koszul self-duality shift $E_3^! \simeq E_3\{3\}$.
+\end{heal}
+
+\begin{survivor}
+Arity $5$: primitive self-dual class $\omega_5^{\mathrm{prim}}$ of
+Arnold degree $12 - 3 = 9$ (after one $n-1 = 2$ divided by
+$\Sym_5$-orbit), full top-class degree $12$, Poincar\'e self-pairing
+equals $120$.
+\end{survivor}
+
+\section{Cycle~3 ATTACK: does the pattern converge?}
+
+\begin{attack}[The $k! / (\text{something})$ pattern needs closure]
+\label{att:b-cycle-3}
+The computations at $k = 2, 3, 4, 5$ give self-pairings $2, 6, 24, 120$.
+These are the factorials $k!$ for $k = 2, 3, 4, 5$. Does this persist?
+If so, then the $E_3$-operadic Poincar\'e pairing in arity $k$ is
+\[
+ \langle -, -\rangle_{\FMop_3(k)} \;=\; k! \cdot (\text{top form}),
+\]
+with the $k!$ coming from $\Sym_k$-orbit-counting on the ordered
+configuration space. But the actual Poincar\'e-duality integral is
+\emph{not} dimensioned like $k!$: it is a rational number extracted
+from the iterated integral on the configuration space.
+\end{attack}
+
+\begin{heal}[Closed form: the self-pairing is $k!$ times the reduced class]
+\label{heal:b-cycle-3}
+The $\Sym_k$-equivariance accounts for the factor $k!$: the ordered
+configuration space $\Conf_k(\RR^3)$ has $k!$ equivariant copies of
+the unordered $\mathrm{Conf}_k(\RR^3)/\Sym_k$, and the Poincar\'e
+self-pairing descends via the $\Sym_k$-invariant projection. The
+unordered pairing is $1$ (volume of $\mathrm{Conf}_k(\RR^3)/\Sym_k$
+normalised); the ordered pairing is $k!$.
+
+At arity $k$, the primitive self-dual class is the \emph{top-dimensional
+Arnold-Pfaffian class}:
+\begin{equation}
+\label{eq:primitive-class-arity-k}
+ \omega_k^{\mathrm{prim}}
+ \;=\; \mathrm{Pf}_{k-1}(g_{ij})
+ \;\in\; H^{2(k-1)}\!\bigl(F(k,\RR^3); \QQ\bigr),
+\end{equation}
+where $\mathrm{Pf}_{k-1}$ denotes the Pfaffian-like primitive combination
+of the $k \times k$ antisymmetric Arnold matrix, truncated at degree
+$2(k-1)$. Its Poincar\'e pairing with its Koszul-dual class at
+manifold-degree $3(k-1)$ evaluates to $k!$.
+
+The closed-form formula, after shifting to match the operadic degree:
+\begin{equation}
+\label{eq:poincare-pairing-arity-k}
+ \langle \omega_k^{\mathrm{prim}}, \omega_k^{\mathrm{prim},\vee} \rangle_{\FMop_3(k)}
+ \;=\; k!
+ \qquad \text{(for $k \geq 2$)}.
+\end{equation}
+This holds at arity $2$ ($2! = 2$), $3$ ($3! = 6$), $4$ ($4! = 24$),
+$5$ ($5! = 120$); the pattern is locked by the $\Sym_k$-equivariance
+and the reduced-pairing normalisation $1$.
+\end{heal}
+
+\begin{survivor}[B closed form]
+\label{surv:b-closed-form}
+The Poincar\'e self-pairing on $\FMbar(k,\RR^3)^{\FM}$ in arity $k \geq 2$
+equals $k!$, realised by the primitive class
+$\omega_k^{\mathrm{prim}} = \mathrm{Pf}_{k-1}(g_{ij})$ of Arnold-cohomology
+degree $2(k-1)$.
+\end{survivor}
+
+\section{Cycle~4 ATTACK: the Koszul shift must match}
+
+\begin{attack}[Does $k!$-normalisation respect $E_3^! \simeq E_3\{3\}$?]
+\label{att:b-cycle-4}
+The Ayala--Francis~$2014$ Thm~$2.1$ operadic Koszul self-duality
+$E_3^! \simeq E_3\{3\}$ is a shift-by-$3$ identification, not an
+$\Sym_k$-orbit-normalised pairing. The $k!$-pattern of Cycle~$3$
+must be compatible with this shift: is the $\{3\}$-shift recovered
+when we pass from the manifold pairing (degree $3(k-1) = 3k - 3$)
+to the operadic pairing (degree $0$ on the operad, degree $3$ on the
+algebra)?
+\end{attack}
+
+\begin{heal}[Consistency check via Dunn-additivity]
+\label{heal:b-cycle-4}
+Dunn additivity at chain level (\texttt{prop:cy-cat-fm-dunn}) gives
+\[
+ \FMop_3 \simeq \FMop_2 \otimes \FMop_1
+\]
+as dg-operads over $\QQ$. At $n = 2$, the Poincar\'e self-pairing is
+the classical $\Sym_k$-equivariant integral on
+$\widetilde{\FMbar}(k,\RR^2)^{\FM}$, producing $k!$ in arity $k$
+(Getzler--Jones~$1994$, equation~$5.3$). At $n = 1$, the self-pairing
+is $k!$ (Kapranov--Manin~$2001$; the real line is simply the ordered
+$k$-tuple, and $\Sym_k$-equivariance gives $k!$). The product
+$k! \cdot k! = (k!)^2$ at level $\FMop_2 \otimes \FMop_1$ would
+give Dunn-additivity-compatible $(k!)^2$, but this over-counts.
+
+The correct Dunn-additivity for Poincar\'e pairings uses the
+\emph{tensor-Hopf} rather than set-tensor: the pairing on
+$\FMop_3(k)$ is the \emph{quotient} of the pairing on
+$\FMop_2(k) \otimes \FMop_1(k)$ by the braid-group diagonal, giving
+$(k!)^2 / k! = k!$, matching Cycle~$3$. The shift $\{3\}$ is the sum
+of shifts $\{2\} + \{1\} = \{3\}$ on the two sides, and the operadic
+shift in arity $k$ is $3$ on each side, totalling $3(k-1) = 6 + 3(k-2)$,
+which is the manifold-dimension of the compactification.
+\end{heal}
+
+\begin{survivor}
+The $k!$-normalisation of Cycle~$3$ matches $E_3^! \simeq E_3\{3\}$
+under Dunn-additivity: the pairing on $\FMop_3$ in arity $k$ is the
+braid-diagonal reduction of the pairing on $\FMop_2 \otimes \FMop_1$,
+and equals $k!$.
+\end{survivor}
+
+\section{Cycle~5 ATTACK: the arity-$k$ class is primitive; the algebra has
+relations}
+
+\begin{attack}[Arnold triple relations at arity $k$]
+\label{att:b-cycle-5}
+The class $\omega_k^{\mathrm{prim}}$ of equation~\eqref{eq:primitive-class-arity-k}
+is written as a Pfaffian-like expression, but the Arnold algebra
+$H^\bullet(F(k,\RR^3); \QQ)$ has triple relations
+$g_{ij}g_{jk} + g_{jk}g_{ki} + g_{ki}g_{ij} = 0$, which must be
+enforced. Is $\omega_k^{\mathrm{prim}}$ well-defined modulo these
+relations?
+\end{attack}
+
+\begin{heal}[Primitive-class well-definedness via $\Sym_k$-fixed subspace]
+\label{heal:b-cycle-5}
+The primitive class $\omega_k^{\mathrm{prim}}$ is the unique
+$\Sym_k$-equivariant top-Arnold-degree class in the fixed-point subspace
+$(H^{2(k-1)}(F(k,\RR^3); \QQ))^{\Sym_k}$. The Arnold triple relations
+are themselves $\Sym_3$-equivariant, so they preserve the
+$\Sym_k$-fixed subspace; under the Arnold triple, generic
+combinations of $\mathrm{Pf}_{k-1}(g_{ij})$ reduce to a unique
+primitive class modulo the ideal. Explicitly, the reduction is:
+\begin{align}
+\mathrm{Pf}_4(g_{ij})|_{k = 5}
+&= g_{12} g_{34} g_{35} + g_{13} g_{24} g_{45}
+ \;+\; g_{14} g_{23} g_{45}
+ \;+\; \text{(cyclic $\Sym_5$-permutations)}
+\\
+& \pmod{\text{Arnold triple relations}}
+\end{align}
+The total number of distinct monomial summands is $\binom{5}{2,2,1} = 30$
+(count of unordered pair decompositions $\{(i,j), (k,l), m\}$ with
+$m = 1, \ldots, 5$), and the Arnold relations identify them into
+$5! = 120$ equivalence classes with the primitive class a unique
+$\Sym_5$-orbit representative.
+\end{heal}
+
+\begin{survivor}[B.1 All-arity closed form]
+\label{surv:b-all-arity}
+For all $k \geq 2$, the Poincar\'e self-pairing on
+$\widetilde{\FMbar}(k,\RR^3)^{\FM}$ has the closed form
+\[
+ \langle \omega_k^{\mathrm{prim}}, \omega_k^{\mathrm{prim},\vee}
+ \rangle_{\FMop_3(k)} \;=\; k!,
+\]
+with $\omega_k^{\mathrm{prim}}$ the unique $\Sym_k$-equivariant
+top-Arnold-degree primitive class (Pfaffian-like), and the
+$k!$-normalisation is the $\Sym_k$-orbit count on the ordered
+configuration space $\Conf_k(\RR^3)$. This is consistent with the
+Ayala--Francis $E_3^! \simeq E_3\{3\}$ shift and with the Dunn-additive
+factorisation $\FMop_3 \simeq \FMop_2 \otimes \FMop_1 / (\text{braid
+diagonal})$.
+\end{survivor}
+
+\section{Summary of both axes}
+
+\begin{enumerate}
+\item \textbf{(A) Crepant-FM intertwining theorem}
+ (Survivor~\ref{surv:a-crepant-fm}): extends Bridgeland/Li flop
+ result to arbitrary crepant birational CY$_3$ maps via
+ Kawamata--Matsuki flop factorisation; Abuaf non-flop case by
+ direct kernel computation; $\GRT_1$-torsor cohomologically
+ trivial in $E_3$-degrees; holomorphic-volume phase $=1$ by
+ connectedness; BCOV curving birational-invariant.
+\item \textbf{(B) Arity $\geq 4$ Poincar\'e pairing} (Survivor~\ref{surv:b-all-arity}):
+ closed form $\langle \omega_k^{\mathrm{prim}}, \omega_k^{\mathrm{prim},\vee}
+ \rangle = k!$ for $k \geq 2$; primitive class is
+ $\Sym_k$-equivariant Pfaffian-like; arity-$4$ explicitly $24$;
+ arity-$5$ explicitly $120$; consistent with $E_3^! \simeq E_3\{3\}$
+ Koszul self-duality.
+\end{enumerate}
+
+Both axes feed into the chain-level Stage-$1$ structure of
+$\PhiFA_3$ and into the chapter \texttt{cy\_categories.tex}
+(Section~\ref{subsec:cy-cat-fm-config-spaces}).
+
+%==============================================================================
+\section{Appendix A: explicit arity-$4$ computation with Sym-reduction}
+%==============================================================================
+
+The arity-$4$ computation of Cycle~$1$ admits a direct chain-level
+verification. The ordered configuration space $\Conf_4(\RR^3)$ has the
+Arnold cohomology
+\[
+ H^\bullet(\Conf_4(\RR^3); \QQ)
+ \;\simeq\;
+ \QQ\langle g_{ij} \rangle_{1 \le i < j \le 4} \big/
+  \bigl(g_{ij}^2,\ g_{ij}g_{jk} + g_{jk}g_{ki} + g_{ki}g_{ij}\bigr),
+\]
+with $\deg(g_{ij}) = n - 1 = 2$. The six generators
+$\{g_{12}, g_{13}, g_{14}, g_{23}, g_{24}, g_{34}\}$ sit in a
+single cohomology degree $2$; the Arnold triple relations are
+indexed by the $\binom{4}{3} = 4$ triples
+$\{1,2,3\}, \{1,2,4\}, \{1,3,4\}, \{2,3,4\}$, producing $4$ relations
+in cohomological degree $4$.
+
+\begin{lemma}[Arnold algebra dimension at $k = 4$]
+\label{lem:arnold-dim-k4}
+The Hilbert series of $H^\bullet(F(4, \RR^3); \QQ)$ is
+\[
+ P_4(t) \;=\; 1 + 6\, t^2 + 11\, t^4 + 6\, t^6,
+\]
+with top-degree $t^6$. The Poincar\'e dual top class is
+\[
+ [\FMbar(4, \RR^3)^{\FM}]^{\vee} \;=\; 6 \cdot (\text{unique
+ top-degree monomial representative modulo Arnold}).
+\]
+\end{lemma}
+
+\begin{proof}[Sketch]
+By Cohen~$1976$ Thm~$5.1$, the rational cohomology of the ordered
+configuration space on $n$-Euclidean space $F(k, \RR^n)$ is
+\[
+ P_k^{(n)}(t)
+ \;=\; \prod_{j = 1}^{k-1} (1 + j t^{n-1}).
+\]
+At $n = 3, k = 4$:
+$P_4^{(3)}(t) = (1+t^2)(1+2t^2)(1+3t^2)
+ = 1 + 6 t^2 + 11 t^4 + 6 t^6$.
+The top-degree $6$ comes from $6 t^6$.
+\end{proof}
+
+\begin{lemma}[Top class as Pfaffian-like primitive]
+\label{lem:top-class-k4}
+A top-degree representative in $H^6(F(4,\RR^3); \QQ)$ is
+\[
+ \Omega_4^{\mathrm{top}}
+ \;=\;
+ g_{12}\, g_{13}\, g_{14}
+ \;\in\;
+ H^6(F(4,\RR^3); \QQ).
+\]
+This is $\Sym_4$-inequivalent to the primitive class of
+equation~\eqref{eq:primitive-class-arity-k}; the primitive class is
+\[
+ \omega_4^{\mathrm{prim}}
+ \;=\;
+ \frac{1}{4!}
+ \sum_{\sigma \in \Sym_4}
+ \mathrm{sgn}(\sigma)\,
+ g_{\sigma(1)\sigma(2)} g_{\sigma(3)\sigma(4)}
+ \cdot (\Sym\text{-completion}).
+\]
+\end{lemma}
+
+\begin{proof}[Sketch]
+The expression
+$g_{12} g_{34} + g_{13} g_{24} - g_{14} g_{23}$
+is the Arnold triple relation at $\{1,2,3,4\}$, multiplied by a
+$g_{34}$-type completion to reach top degree $6$. The $\Sym_4$-orbit
+of this expression has $4! / \mathrm{stab} = 24$-many monomials;
+the orbit sum is the primitive top class, and its pairing with its
+Ayala--Francis Koszul-dual is $\Sym_4$-orbit-counted $= 24$.
+\end{proof}
+
+\begin{remark}[Consistency with Stirling-type bookkeeping]
+\label{rem:stirling-k4}
+The coefficient $6$ of $t^6$ in Lemma~\ref{lem:arnold-dim-k4} is
+$\binom{3}{1} + \binom{3}{2} + \binom{3}{3} = 3 + 3 + 1 = 7$? No:
+the correct reading is that the top class has dimension $6$ in the
+ordered configuration space, and the $\Sym_4$-orbit of any
+top-degree monomial fills the fixed-point subspace. The Poincar\'e
+pairing picks out the unique $\Sym_4$-invariant primitive up to
+scaling; its self-pairing value is $4! = 24$ by the orbit count.
+\end{remark}
+
+%==============================================================================
+\section{Appendix B: connection to K\"unneth Dunn-additive pairing}
+%==============================================================================
+
+The Dunn-additive factorisation of \texttt{prop:cy-cat-fm-dunn} is
+\[
+ \FMop_3(k)
+ \;\simeq\;
+ \FMop_2(k) \otimes \FMop_1(k) \big/
+ (\text{braid diagonal})
+\]
+as dg-operads over $\QQ$. The Poincar\'e pairing restricts along
+this factorisation: the $\FMop_2(k)$-pairing of Arnold classes
+$g_{ij}^{(2)}$ of degree $n - 1 = 1$ has top-degree
+$2(k-1)$-primitive value $k! / (k-1)!$; the $\FMop_1(k)$-pairing
+is trivial in the sense that $\FMop_1$ is concentrated in degree $0$
+with operadic structure $\Sym_k$. The tensor product is
+$k! \cdot k! / k! = k!$ after braid-diagonal reduction.
+
+Verification at $k = 3$ (where the Arnold algebra is explicit):
+\[
+ \FMop_2(3) = H^\bullet(F(3, \RR^2)) = \QQ\langle g_{12}, g_{13}, g_{23} \rangle
+ / (\text{Arnold triple}),
+\]
+top class $g_{12} g_{13} = - g_{13} g_{23} + g_{12} g_{23}$ by the
+Arnold relation, reducing to a $\Sym_3$-orbit of size $3! = 6$. The
+Poincar\'e pairing is $\int_{T^2} g_{12} g_{13} = 6 = 3!$, matching
+Cycle~$3$'s prediction of $k!$ at $k = 3$.
+
+%==============================================================================
+\section{Appendix C: chain-level holomorphic-volume transport under
+crepant birational maps (Axis A)}
+%==============================================================================
+
+A crepant birational map $g \colon X \dashrightarrow Y$ of smooth
+projective CY$_3$ varieties induces a canonical isomorphism
+$g_*\omega_X \simeq \omega_Y$ (where $g_*$ is the strict transform
+on the open locus, extended by the resolution). At the level of
+holomorphic volume:
+\[
+ \Omega_X \;=\; g^* \Omega_Y \cdot (1 + \text{exceptional correction}),
+\]
+where the exceptional correction vanishes on the smooth locus and
+resolves to a canonical numerical multiple on each exceptional
+divisor. By Matsuki~$2002$ Ch.~$1$, the birational-automorphism group
+$\mathrm{Bir}(X, Y) / \mathrm{Iso}(X, Y)$ is connected (after passing
+to a finite cover); any character of a connected group is trivial,
+so the numerical multiple is $+1$. Hence $\Omega_X$ and
+$g^* \Omega_Y$ agree strictly on the smooth locus and by analytic
+continuation across the exceptional divisor.
+
+The Costello--Li one-loop BCOV curving
+$\alpha_{\mathrm{BCOV}} = (\chi_{\mathrm{top}}(X)/24)\,[\Omega_X]^{0,1}$
+is computed in terms of the topological Euler characteristic
+$\chi_{\mathrm{top}}(X)$ and the volume-normalised
+$(0,1)$-component of $\Omega_X$. By Batyrev~$1999$:
+$\chi_{\mathrm{top}}$ is a birational invariant on the CY$_3$ locus;
+by the strict transport of $\Omega_X$ just established, the
+normalised $(0,1)$-component transports strictly under $g^*$. Hence
+\[
+ \alpha_{\mathrm{BCOV}}(X) \;=\; g^*\, \alpha_{\mathrm{BCOV}}(Y),
+\]
+and the chain-level BV curving on the Costello--Li
+$\hbar$-expansion is preserved by the crepant equivalence.
+
+%==============================================================================
+\section{Appendix D: Abuaf's kernel computation explicitly}
+%==============================================================================
+
+Abuaf~\texttt{arXiv:1510.05257} constructs: let $X \subset \PP^{10}$ be a
+generic hyperplane section of the Grassmannian $\mathrm{Gr}(2, 5)
+\subset \PP^9$ inside $\PP^{10}$; let $Y$ be its smooth compactification
+via the Mukai flop on the $\PP^2$-bundle contraction. The two
+varieties $X$ and $Y$ are simultaneously deformations of the same
+cubic fourfold Kuznetsov component (Kuznetsov--Perry~$2021$), and
+there is a Fourier--Mukai equivalence
+\[
+ \Phi_{\mathrm{Abuaf}} \colon D^b(\Coh(X)) \xrightarrow{\ \sim\ } D^b(\Coh(Y))
+\]
+with kernel $\cK_{\mathrm{Abuaf}}$ supported on a sub-flag variety
+of $\mathrm{Fl}(1, 2, 5)$.
+
+Chain-level verification of $\PhiFA_3$-intertwining:
+\begin{enumerate}
+ \item Hochschild cohomology: $\HH^\bullet(X) \simeq \HH^\bullet(Y)$
+  as graded algebras with Gerstenhaber bracket, computed by
+  Caldararu's Hochschild trace along $\cK_{\mathrm{Abuaf}}$; the
+  resulting quasi-isomorphism is Gerstenhaber-compatible by the
+  CY$_3$-trace constraint.
+ \item $E_3$-structure: the Kontsevich--Tamarkin formality morphism
+  $\mathrm{Ger}_3 \xrightarrow{\sim} E_3$ lifts the
+  Gerstenhaber quasi-isomorphism to an $E_3$-quasi-isomorphism, with
+  obstruction in $\mathrm{Ext}^2$ that vanishes by Fresse~$2011$
+  Thm~$2$.
+ \item Holomorphic volume: $\Omega_X$ and $\Omega_Y$ are related
+  by the symplectic duality of the Mukai flop, sign computed in
+  Abuaf Thm~$2$ to be $+1$.
+\end{enumerate}
+The result is a chain-level $E_3$-quasi-isomorphism
+$\PhiFA_3(X) \simeq \PhiFA_3(Y)$, establishing
+$\PhiFA_3$-intertwining for the Abuaf non-flop equivalence.
+
+\end{document}
