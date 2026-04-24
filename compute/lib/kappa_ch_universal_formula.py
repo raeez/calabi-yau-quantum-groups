@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
 r"""
-kappa_ch_universal_formula.py -- The universal formula for kappa_ch at d=3.
+kappa_ch_universal_formula.py -- Branch assessment for d=3 kappa scalars.
 
-MAIN RESULT
-===========
+BRANCH ASSESSMENT
+=================
 
-For a COMPACT CY_3 manifold X:
+For a COMPACT CY_3 manifold X the useful exact scalar is
 
-    kappa_ch(X) = chi_top(X)/24 + [h^{1,0}(X) > 0] * (h^{3,0}(X) + 2)
+    chi_top(X)/24 + [h^{1,0}(X) > 0] * (h^{3,0}(X) + 2)
 
 where [P] is the Iverson bracket (1 if P true, 0 otherwise).
 
-This formula is UNIVERSAL: it covers ALL compact CY_3 manifolds, including:
-  - Strict CY_3 (h^{1,0}=0, SU(3) holonomy): kappa_ch = chi_top/24 (BCOV).
-  - Products S x E (h^{1,0}=1): kappa_ch = h^{3,0} + 2.
-  - Torus T^6 (h^{1,0}=3): kappa_ch = 3.
+This is NOT a universal theorem identifying every branch with constructed
+kappa_ch.  It separates two lanes:
+  - Strict CY_3 (h^{1,0}=0, SU(3) holonomy):
+      kappa_BCOV_shadow_conjectural = chi_top/24.
+      Constructed kappa_ch is open without the missing chain-level proof.
+  - Products S x E and T^6 (h^{1,0}>0):
+      kappa_ch is computed by Beauville/additivity.
 
 For NON-COMPACT CY_3:
   - C^3: kappa_ch = 1 (MacMahon/Heisenberg).
@@ -40,8 +43,9 @@ The formula follows from two ingredients:
 For a compact CY_3, the Beauville decomposition gives exactly four types:
 
   (i)   h^{1,0} = 0: irreducible strict CY_3 (holonomy SU(3)).
-        kappa_ch = chi_top(X)/24.
-        This is the BCOV holomorphic anomaly coefficient (CONJECTURAL).
+        kappa_BCOV_shadow_conjectural = chi_top(X)/24.
+        This is the BCOV holomorphic anomaly coefficient (CONJECTURAL),
+        not constructed kappa_ch.
 
   (ii)  h^{1,0} = 1, h^{3,0} = 1: X = K3 x E.
         kappa_ch = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3 = h^{3,0} + 2.
@@ -115,8 +119,9 @@ Three candidates were tested against 13 CY_3 families:
     relationship kappa_ch = 24*F_1 holds, but F_1 is the genus-1 free energy,
     not a closed formula. It is EQUIVALENT to kappa_ch, not a formula for it.
 
-  The CORRECT formula: kappa_ch = chi_top/24 + [h10>0]*(h30+2).
-    This is the Beauville reduction formula. It works for all 13 families.
+  The corrected assessment:
+    strict branch: kappa_BCOV_shadow_conjectural = chi_top/24;
+    product branch: constructed kappa_ch = h30+2 by additivity.
 
 NON-COMPACT CY_3
 =================
@@ -174,7 +179,7 @@ class CY3Data(NamedTuple):
     h30: Optional[int]           # h^{3,0}
     h11: Optional[int]           # h^{1,1}
     h21: Optional[int]           # h^{2,1}
-    kappa_ch_known: Optional[Fraction]  # known value (None if open)
+    kappa_ch_known: Optional[Fraction]  # constructed value or labelled candidate
     beauville_type: str          # 'strict_CY3', 'K3xE', 'EnrxE', 'T6', 'noncompact', 'other'
     status: str                  # 'PROVED', 'CONJECTURAL', 'OPEN'
 
@@ -348,32 +353,41 @@ def local_f1() -> CY3Data:
 # 4. The universal formula
 # =========================================================================
 
+def bcov_shadow_candidate(X: CY3Data) -> Fraction:
+    r"""The compact strict-CY3 BCOV shadow scalar chi_top(X)/24.
+
+    This is not a constructed kappa_ch value.
+    """
+    if not X.compact:
+        raise ValueError(f"{X.name} is non-compact; BCOV compact branch does not apply.")
+    if X.h10 != 0:
+        raise ValueError(
+            f"{X.name} has h^{{1,0}}={X.h10}; use the product/additivity lane."
+        )
+    if X.chi_top is None:
+        raise ValueError(f"Need chi_top for strict CY3 {X.name}.")
+    return F(X.chi_top, 24)
+
+
 def kappa_ch_compact(X: CY3Data) -> Fraction:
-    r"""The universal formula for kappa_ch of a compact CY_3.
+    r"""Constructed kappa_ch for compact product CY_3 lanes.
 
-    kappa_ch(X) = chi_top(X)/24 + [h^{1,0}(X) > 0] * (h^{3,0}(X) + 2)
+    The strict branch h^{1,0}=0 has only the BCOV-shadow candidate
+    chi_top(X)/24 at this level; use bcov_shadow_candidate() when that
+    conjectural lane is intended.
 
-    This is the SINGLE FORMULA that covers all compact CY_3 manifolds.
-
-    For h^{1,0} = 0 (strict CY_3): reduces to chi_top/24 (BCOV).
     For h^{1,0} > 0 (product by Beauville): reduces to h^{3,0} + 2.
 
     The formula works because chi_top = 0 whenever h^{1,0} > 0
     (the product contains an elliptic curve factor with chi_top(E)=0,
     and chi_top is multiplicative under products).
 
-    >>> kappa_ch_compact(quintic())
-    Fraction(-25, 3)
     >>> kappa_ch_compact(k3_times_e())
     Fraction(3, 1)
     >>> kappa_ch_compact(enriques_times_e())
     Fraction(2, 1)
     >>> kappa_ch_compact(t6_torus())
     Fraction(3, 1)
-    >>> kappa_ch_compact(banana())
-    Fraction(0, 1)
-    >>> kappa_ch_compact(bv_20_2_0())
-    Fraction(5, 1)
     """
     if not X.compact:
         raise ValueError(
@@ -385,7 +399,15 @@ def kappa_ch_compact(X: CY3Data) -> Fraction:
             f"Insufficient Hodge data for {X.name}: need chi_top, h10, h30."
         )
 
-    # The universal formula
+    if X.h10 == 0:
+        candidate = bcov_shadow_candidate(X)
+        raise NotImplementedError(
+            f"constructed kappa_ch for strict compact CY3 {X.name} is OPEN. "
+            f"The BCOV-shadow candidate is {candidate}; use "
+            f"bcov_shadow_candidate() or decompose_formula() for that lane."
+        )
+
+    # Product/additivity branch.
     iverson = 1 if X.h10 > 0 else 0
     return F(X.chi_top, 24) + F(iverson) * F(X.h30 + 2)
 
@@ -413,8 +435,6 @@ def kappa_ch_noncompact(X: CY3Data) -> Fraction:
 def kappa_ch(X: CY3Data) -> Fraction:
     r"""Compute kappa_ch for any CY_3, dispatching to the correct formula.
 
-    >>> kappa_ch(quintic())
-    Fraction(-25, 3)
     >>> kappa_ch(c3_affine())
     Fraction(1, 1)
     """
@@ -514,11 +534,10 @@ def beauville_type(X: CY3Data) -> BeauvilleType:
 # =========================================================================
 
 def verify_formula_vs_beauville(X: CY3Data) -> Dict[str, Any]:
-    r"""Verify that the closed formula agrees with Beauville decomposition.
+    r"""Verify branch arithmetic against the Beauville decomposition.
 
-    This is the key consistency check: the algebraic formula
-    chi_top/24 + [h10>0]*(h30+2) must agree with the Beauville
-    decomposition sum.
+    For strict CY3s this checks only the BCOV-shadow candidate branch.
+    For product CY3s it checks constructed kappa_ch from additivity.
 
     >>> r = verify_formula_vs_beauville(k3_times_e())
     >>> r['consistent']
@@ -534,7 +553,8 @@ def verify_formula_vs_beauville(X: CY3Data) -> Dict[str, Any]:
             'note': 'Non-compact; Beauville does not apply.',
         }
 
-    formula_val = kappa_ch_compact(X)
+    decomposition = decompose_formula(X)
+    formula_val = decomposition.kappa_ch
     bt = beauville_type(X)
     beauville_val = bt.kappa_total
 
@@ -546,6 +566,9 @@ def verify_formula_vs_beauville(X: CY3Data) -> Dict[str, Any]:
         'beauville_type': bt.type_name,
         'consistent': formula_val == beauville_val,
         'known_value': X.kappa_ch_known,
+        'label': decomposition.label,
+        'constructed': decomposition.constructed,
+        'status': decomposition.proof_status,
         'matches_known': (
             formula_val == X.kappa_ch_known
             if X.kappa_ch_known is not None
@@ -670,7 +693,7 @@ def kappa_ch_d2(h10: int, h20: int) -> Fraction:
 # =========================================================================
 
 class FormulaDecomposition(NamedTuple):
-    """Decomposition of the universal formula into its two branches."""
+    """Decomposition of the compact CY3 scalar assessment into branches."""
     name: str
     h10: int
     h30: int
@@ -678,7 +701,9 @@ class FormulaDecomposition(NamedTuple):
     bcov_branch: Fraction      # chi_top/24
     beauville_branch: Fraction # h30 + 2
     active_branch: str          # 'BCOV' or 'Beauville'
-    kappa_ch: Fraction
+    kappa_ch: Fraction          # constructed value or labelled candidate
+    label: str
+    constructed: bool
     proof_status: str           # 'PROVED' or 'CONJECTURAL'
 
 
@@ -714,6 +739,8 @@ def decompose_formula(X: CY3Data) -> FormulaDecomposition:
             beauville_branch=beauville,
             active_branch='BCOV',
             kappa_ch=bcov,
+            label='kappa_BCOV_shadow_conjectural',
+            constructed=False,
             proof_status='CONJECTURAL',
         )
     else:
@@ -726,6 +753,8 @@ def decompose_formula(X: CY3Data) -> FormulaDecomposition:
             beauville_branch=beauville,
             active_branch='Beauville',
             kappa_ch=beauville,
+            label='kappa_ch',
+            constructed=True,
             proof_status='PROVED',
         )
 
@@ -779,20 +808,22 @@ def h10_equals_2_impossible() -> Dict[str, Any]:
 # =========================================================================
 
 class LandscapeEntry(NamedTuple):
-    """Entry in the kappa_ch landscape table."""
+    """Entry in the kappa_ch and d=3 candidate landscape table."""
     name: str
     compact: bool
     chi_top: Optional[int]
     h10: Optional[int]
     h30: Optional[int]
     kappa_ch: Fraction
+    label: str
+    constructed: bool
     beauville_type: str
     formula_branch: str   # 'BCOV', 'Beauville', 'DT/case-by-case'
     status: str
 
 
 def landscape_table() -> List[LandscapeEntry]:
-    """Complete landscape of kappa_ch values for CY_3 manifolds.
+    """Complete landscape of constructed kappa_ch values and candidates.
 
     >>> table = landscape_table()
     >>> len(table) >= 18
@@ -807,7 +838,8 @@ def landscape_table() -> List[LandscapeEntry]:
         entries.append(LandscapeEntry(
             name=X.name, compact=True, chi_top=X.chi_top,
             h10=X.h10, h30=X.h30,
-            kappa_ch=d.kappa_ch, beauville_type=d.active_branch,
+            kappa_ch=d.kappa_ch, label=d.label, constructed=d.constructed,
+            beauville_type=d.active_branch,
             formula_branch=d.active_branch, status=d.proof_status,
         ))
     for X in all_noncompact_cy3():
@@ -815,6 +847,8 @@ def landscape_table() -> List[LandscapeEntry]:
             name=X.name, compact=False, chi_top=X.chi_top,
             h10=X.h10, h30=X.h30,
             kappa_ch=X.kappa_ch_known if X.kappa_ch_known is not None else F(0),
+            label='kappa_ch' if X.status == 'PROVED' else 'kappa_noncompact_conjectural',
+            constructed=(X.status == 'PROVED'),
             beauville_type='noncompact',
             formula_branch='DT/case-by-case', status=X.status,
         ))

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 r"""
-test_kappa_ch_universal_formula.py -- Tests for the universal kappa_ch formula.
+test_kappa_ch_universal_formula.py -- Tests for the d=3 kappa branch assessment.
 
-Tests the main result:
-  kappa_ch(X) = chi_top(X)/24 + [h^{1,0}(X) > 0] * (h^{3,0}(X) + 2)
+Tests the branch assessment:
+  strict compact CY3: kappa_BCOV_shadow_conjectural = chi_top(X)/24;
+  product CY3: constructed kappa_ch = h^{3,0}(X) + 2 by additivity.
 
 for all compact CY_3, plus the abelian surface bug fix and Beauville consistency.
 
@@ -45,6 +46,7 @@ from compute.lib.kappa_ch_universal_formula import (
     cy2_enriques,
     cy2_abelian,
     # Formulas
+    bcov_shadow_candidate,
     kappa_ch_compact,
     kappa_ch_noncompact,
     kappa_ch,
@@ -67,48 +69,50 @@ from compute.lib.kappa_ch_universal_formula import (
 # 1. The universal formula: compact strict CY_3 (h^{1,0}=0)
 # =========================================================================
 
-class TestUniversalFormulaStrictCY3(unittest.TestCase):
-    """Test kappa_ch = chi_top/24 for strict CY_3 (h10=0)."""
+class TestStrictCY3BCOVShadowCandidate(unittest.TestCase):
+    """Test chi_top/24 as a strict-CY3 BCOV shadow candidate."""
 
     def test_quintic(self):
-        """Quintic: kappa = -200/24 = -25/3."""
-        self.assertEqual(kappa_ch(quintic()), F(-25, 3))
+        """Quintic: candidate = -200/24 = -25/3."""
+        self.assertEqual(bcov_shadow_candidate(quintic()), F(-25, 3))
+        with self.assertRaises(NotImplementedError):
+            kappa_ch(quintic())
 
     def test_p5_33(self):
-        """P^5[3,3]: kappa = -144/24 = -6."""
-        self.assertEqual(kappa_ch(p5_33()), F(-6))
+        """P^5[3,3]: candidate = -144/24 = -6."""
+        self.assertEqual(bcov_shadow_candidate(p5_33()), F(-6))
 
     def test_p5_24(self):
-        """P^5[2,4]: kappa = -176/24 = -22/3."""
-        self.assertEqual(kappa_ch(p5_24()), F(-22, 3))
+        """P^5[2,4]: candidate = -176/24 = -22/3."""
+        self.assertEqual(bcov_shadow_candidate(p5_24()), F(-22, 3))
 
     def test_p6_223(self):
-        """P^6[2,2,3]: kappa = -144/24 = -6."""
-        self.assertEqual(kappa_ch(p6_223()), F(-6))
+        """P^6[2,2,3]: candidate = -144/24 = -6."""
+        self.assertEqual(bcov_shadow_candidate(p6_223()), F(-6))
 
     def test_p7_2222(self):
-        """P^7[2,2,2,2]: kappa = -128/24 = -16/3."""
-        self.assertEqual(kappa_ch(p7_2222()), F(-16, 3))
+        """P^7[2,2,2,2]: candidate = -128/24 = -16/3."""
+        self.assertEqual(bcov_shadow_candidate(p7_2222()), F(-16, 3))
 
     def test_bicubic(self):
-        """Bicubic P^2xP^2: kappa = -162/24 = -27/4."""
-        self.assertEqual(kappa_ch(bicubic()), F(-27, 4))
+        """Bicubic P^2xP^2: candidate = -162/24 = -27/4."""
+        self.assertEqual(bcov_shadow_candidate(bicubic()), F(-27, 4))
 
     def test_banana(self):
-        """Banana manifold: kappa = 0/24 = 0."""
-        self.assertEqual(kappa_ch(banana()), F(0))
+        """Banana manifold: candidate = 0/24 = 0."""
+        self.assertEqual(bcov_shadow_candidate(banana()), F(0))
 
     def test_bv_1_1_1(self):
-        """BV(1,1,1): kappa = -108/24 = -9/2."""
-        self.assertEqual(kappa_ch(bv_1_1_1()), F(-9, 2))
+        """BV(1,1,1): candidate = -108/24 = -9/2."""
+        self.assertEqual(bcov_shadow_candidate(bv_1_1_1()), F(-9, 2))
 
     def test_bv_10_0_0(self):
-        """BV(10,0,0): kappa = 0/24 = 0."""
-        self.assertEqual(kappa_ch(bv_10_0_0()), F(0))
+        """BV(10,0,0): candidate = 0/24 = 0."""
+        self.assertEqual(bcov_shadow_candidate(bv_10_0_0()), F(0))
 
     def test_bv_20_2_0(self):
-        """BV(20,2,0): kappa = 120/24 = 5."""
-        self.assertEqual(kappa_ch(bv_20_2_0()), F(5))
+        """BV(20,2,0): candidate = 120/24 = 5."""
+        self.assertEqual(bcov_shadow_candidate(bv_20_2_0()), F(5))
 
 
 # =========================================================================
@@ -219,14 +223,14 @@ class TestFormulaBeauvilleConsistency(unittest.TestCase):
                 f"formula={v['formula_value']}, beauville={v['beauville_value']}",
             )
 
-    def test_all_compact_match_known(self):
-        """For every compact CY_3, formula = known value."""
+    def test_all_compact_match_recorded_scalar(self):
+        """For every compact CY_3, assessment value equals the recorded scalar."""
         for X in all_compact_cy3():
-            formula_val = kappa_ch_compact(X)
+            formula_val = decompose_formula(X).kappa_ch
             self.assertEqual(
                 formula_val, X.kappa_ch_known,
-                f"Formula disagrees with known value for {X.name}: "
-                f"formula={formula_val}, known={X.kappa_ch_known}",
+                f"Assessment disagrees with recorded scalar for {X.name}: "
+                f"assessment={formula_val}, recorded={X.kappa_ch_known}",
             )
 
 
@@ -348,6 +352,8 @@ class TestFormulaDecomposition(unittest.TestCase):
         d = decompose_formula(quintic())
         self.assertEqual(d.active_branch, 'BCOV')
         self.assertEqual(d.proof_status, 'CONJECTURAL')
+        self.assertEqual(d.label, 'kappa_BCOV_shadow_conjectural')
+        self.assertFalse(d.constructed)
         self.assertEqual(d.kappa_ch, F(-25, 3))
 
     def test_product_cy3_uses_beauville(self):
@@ -355,6 +361,8 @@ class TestFormulaDecomposition(unittest.TestCase):
         d = decompose_formula(k3_times_e())
         self.assertEqual(d.active_branch, 'Beauville')
         self.assertEqual(d.proof_status, 'PROVED')
+        self.assertEqual(d.label, 'kappa_ch')
+        self.assertTrue(d.constructed)
         self.assertEqual(d.kappa_ch, F(3))
 
     def test_enrxe_uses_beauville(self):
@@ -377,25 +385,25 @@ class TestManuscriptValues(unittest.TestCase):
     """Check against values in the manuscript tables."""
 
     def test_quintic_rational(self):
-        """kappa_ch(quintic) = -25/3 is rational, not integer."""
-        k = kappa_ch(quintic())
+        """The quintic BCOV-shadow candidate -25/3 is rational, not integer."""
+        k = bcov_shadow_candidate(quintic())
         self.assertEqual(k.numerator, -25)
         self.assertEqual(k.denominator, 3)
 
     def test_bicubic_rational(self):
-        """kappa_ch(bicubic) = -27/4 is rational."""
-        k = kappa_ch(bicubic())
+        """The bicubic BCOV-shadow candidate -27/4 is rational."""
+        k = bcov_shadow_candidate(bicubic())
         self.assertEqual(k.numerator, -27)
         self.assertEqual(k.denominator, 4)
 
     def test_bv_interpolation(self):
         """BV(r,a,delta): kappa = (r-10)/2 for the standard BV family."""
         # BV(1,1,1): (1-10)/2 = -9/2
-        self.assertEqual(kappa_ch(bv_1_1_1()), F(-9, 2))
+        self.assertEqual(bcov_shadow_candidate(bv_1_1_1()), F(-9, 2))
         # BV(10,0,0): (10-10)/2 = 0
-        self.assertEqual(kappa_ch(bv_10_0_0()), F(0))
+        self.assertEqual(bcov_shadow_candidate(bv_10_0_0()), F(0))
         # BV(20,2,0): (20-10)/2 = 5
-        self.assertEqual(kappa_ch(bv_20_2_0()), F(5))
+        self.assertEqual(bcov_shadow_candidate(bv_20_2_0()), F(5))
 
     def test_chi_top_vanishes_for_products(self):
         """chi_top = 0 for all product CY_3 (contains E factor)."""

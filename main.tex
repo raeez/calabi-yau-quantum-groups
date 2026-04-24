@@ -1,149 +1,5 @@
 \documentclass[11pt]{memoir}
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{3}
-
-% ==========================================
-% FONTS: EB Garamond (matching Volumes I–II)
-% ==========================================
-
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\frenchspacing
-
-\usepackage[
- cmintegrals,
- cmbraces,
- noamssymbols
-]{newtxmath}
-\usepackage{ebgaramond}
-
-\usepackage[
- activate={true,nocompatibility},
- final,
- tracking=true,
- kerning=true,
- spacing=true,
- factor=1100,
- stretch=10,
- shrink=10
-]{microtype}
-
-\SetExtraKerning[unit=space]
- {encoding={*}, family={*}, series={*}, size={footnotesize,small,normalsize}}
- {\textemdash={400,400},
- "28={,150},
- "29={150,},
- \textquotedblleft={,150},
- \textquotedblright={150,}}
-
-% ==========================================
-% PACKAGES
-% ==========================================
-
-\usepackage{mleftright}
-\mleftright
-\let\Bbbk\undefined
-\let\openbox\undefined
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{mathtools}
-\usepackage{tikz-cd}
-\usetikzlibrary{positioning,arrows.meta,calc,decorations.markings}
-\makeatletter
-\def\hyper@nopatch@caption{}
-\makeatother
-\usepackage[unicode,pdfencoding=auto,psdextra]{hyperref}
-\usepackage{geometry}
-\geometry{top=1.2in, bottom=1.2in, left=1.25in, right=1.25in, footskip=0.5in}
-\setlength{\headheight}{28pt}
-\setlength{\emergencystretch}{3em}
-\setlength{\hfuzz}{1pt}
-\hbadness=3000
-\raggedbottom
-
-\setlength{\parskip}{0pt plus 0.5pt}
-\setlength{\abovedisplayskip}{8pt plus 2pt minus 4pt}
-\setlength{\belowdisplayskip}{8pt plus 2pt minus 4pt}
-\setlength{\abovedisplayshortskip}{4pt plus 2pt minus 2pt}
-\setlength{\belowdisplayshortskip}{4pt plus 2pt minus 2pt}
-
-\usepackage{tcolorbox}
-\usepackage{longtable}
-\usepackage{booktabs}
-\usepackage{multicol}
-\usepackage{enumitem}
-\usepackage{newunicodechar}
-\usepackage{thmtools}
-
-% Unicode fallbacks
-\newunicodechar{∞}{$\infty$}
-\newunicodechar{≃}{$\simeq$}
-\newunicodechar{≅}{$\cong$}
-\newunicodechar{⊗}{$\otimes$}
-\newunicodechar{⊕}{$\oplus$}
-
-% ==========================================
-% THEOREM ENVIRONMENTS (Garamond style)
-% ==========================================
-
-\declaretheoremstyle[
- spaceabove=\topsep,
- spacebelow=\topsep,
- headfont=\normalfont\scshape,
- notefont=\normalfont\itshape,
- bodyfont=\normalfont,
- postheadspace=0.5em,
- headpunct={.}
-]{garamondthm}
-
-\declaretheoremstyle[
- spaceabove=\topsep,
- spacebelow=\topsep,
- headfont=\normalfont\itshape,
- notefont=\normalfont\itshape,
- bodyfont=\normalfont,
- postheadspace=0.5em,
- headpunct={.}
-]{garamonddef}
-
-\declaretheoremstyle[
- spaceabove=\topsep,
- spacebelow=\topsep,
- headfont=\normalfont\itshape,
- bodyfont=\normalfont\small,
- postheadspace=0.5em,
- headpunct={.}
-]{garamondrem}
-
-\declaretheorem[style=garamondthm, numberwithin=chapter, name=Theorem]{theorem}
-\declaretheorem[style=garamondthm, sibling=theorem, name=Proposition]{proposition}
-\declaretheorem[style=garamondthm, sibling=theorem, name=Lemma]{lemma}
-\declaretheorem[style=garamondthm, sibling=theorem, name=Corollary]{corollary}
-\declaretheorem[style=garamondthm, sibling=theorem, name=Conjecture]{conjecture}
-\declaretheorem[style=garamonddef, sibling=theorem, name=Definition]{definition}
-\declaretheorem[style=garamonddef, sibling=theorem, name=Example]{example}
-\declaretheorem[style=garamonddef, sibling=theorem, name=Construction]{construction}
-\declaretheorem[style=garamondrem, sibling=theorem, name=Remark]{remark}
-\declaretheorem[style=garamondrem, sibling=theorem, name=Warning]{warning}
-\declaretheorem[style=garamonddef, sibling=theorem, name=Computation]{computation}
-\declaretheorem[style=garamonddef, sibling=theorem, name=Open Problem]{openproblem}
-
-% Unnumbered variants
-\declaretheorem[style=garamondthm, numbered=no, name=Theorem]{theorem*}
-\declaretheorem[style=garamondrem, numbered=no, name=Remark]{remark*}
-
-% ==========================================
-% CLAIM STATUS TAGS (matching Volumes I–II)
-% ==========================================
-
-\newcommand{\ClaimStatusProvedHere}{\textsuperscript{\textsc{[ph]}}}
-\newcommand{\ClaimStatusProvedElsewhere}{\textsuperscript{\textsc{[pe]}}}
-\newcommand{\ClaimStatusConjectured}{\textsuperscript{\textsc{[cj]}}}
-\newcommand{\ClaimStatusHeuristic}{\textsuperscript{\textsc{[he]}}}
-\newcommand{\ClaimStatusOpen}{\textsuperscript{\textsc{[op]}}}
-\newcommand{\ClaimStatusConditional}{\textsuperscript{\textsc{[cd]}}}
-\newcommand{\ClaimStatusDefinitional}{\textsuperscript{\textsc{[df]}}}
-\newcommand{\ClaimStatusProvedHereConditional}{\textsuperscript{\textsc{[ph-cd]}}}
+\usepackage{raeez-math-template}
 
 % ==========================================
 % MACROS
@@ -487,6 +343,11 @@
 % DOCUMENT
 % ==========================================
 
+\ifdefined\mainpreambleonly
+% Allow standalone companions to reuse the manuscript preamble without
+% executing the monograph body.
+\expandafter\endinput
+\fi
 \begin{document}
 
 % ------------------------------------------
@@ -546,49 +407,49 @@ via $E_1$/$E_2$ Factorization}
 \providecommand{\Meff}{\mathcal{M}^{+}_{\mathrm{eff}}}
 
 \noindent
-How does Calabi--Yau geometry produce a chiral algebra on a curve?
-
-A Calabi--Yau category $\cA$ of complex dimension $d$ does not produce
-a chiral algebra directly: it produces a canonical holomorphic
-$E_d$-factorisation algebra $\cF_\cA$ on the Calabi--Yau variety $X$
-carrying it. A choice of closed $(d{-}1)$-cycle
-$\Sigma_{d-1} \subset X$ and reference curve $C \subset X$ then
-specialises $\cF_\cA$ to an $E_1$-chiral algebra on $C$. Within $\cF_\cA$ lives a
-positive effective moduli $\Meff(X)$ whose equivariant vanishing-cycle
-cohomology is the positive half $Y^+(X)$; the full quantum group is the
-Drinfeld double $G(X) = D(Y^+(X))$. Different $(\Sigma_{d-1}, C)$ give
-different $E_1$-chiral shadows of the same canonical object.
-Six-dimensional holomorphic Chern--Simons realises the $d=3$ case:
-$\cF_\cA \simeq \mathrm{CE}^\bullet_{\bar\partial,
-\mathrm{ch}}(\cE_{\hCS}, \cO_X)$ as $E_3$-algebra in
-$\mathrm{Ch}(\mathrm{Dolb})$; its specialisation on $K3 \times E$ at
-$(\Sigma_2, C) = (K3, E)$ carries the chiral-bialgebra $\bH_{\Delta_5}$
-whose character is $\Delta_5^{-2}$ at the Humbert divisor. Across all
-eight diagonal-divisor Gritsenko--Cl\'ery paramodular forms
-$\{\Delta_5, \Delta_2^{(2)}, \Delta_1^{(3)}, \Delta_1^{(4)},
-\Delta_{1/2}^{(5)}, \Delta_1^{(6)}, \Delta_{1/4}^{(7)},
-\Delta_0^{(8)}\}$ the universal Borcherds weight identity
+A Calabi--Yau category $\cA$ of dimension $d$ produces first a native
+holomorphic $E_d$-factorisation algebra $\PhiFA_d(\cA)$ on the
+Calabi--Yau target $X$.  A closed $(d{-}1)$-cycle
+$\Sigma_{d-1}\subset X$ and a reference curve $C\subset X$ then produce
+the chiral shadow
 \[
-\kBKM(\Phi_N) \;=\; c_N(0)/2
+ \Phi_d^{(\Sigma_{d-1},C)}(\cA)
+ =
+ \SpCh_{\Sigma_{d-1},C}\bigl(\PhiFA_d(\cA)\bigr),
 \]
-holds, with cover assignment $\{\Sp_4, \Mp_4, \widetilde{\Mp}_4\}$
-selected by weight integrality. The CHL sub-slice $N \in \{1,2,3,4,6\}$
-realises each form as a BKM denominator on the twisted-reduced
-Donaldson--Thomas moduli of $(K3 \times E)/(\mathbb{Z}/N\mathbb{Z})$;
-the non-CHL forms $N \in \{5, 7, 8\}$ lift through Borcea--Voisin, an
-order-$4$ Cheeger--Simons gerbe, and the Mongardi--Tari--Wandel
-Kummer-$3$ fourfold respectively. The positive-geometry grammar is
-uniform: equivariance stratifies by geometric class (toric $T^d$,
-reduced $\mathbb{C}^\times$ + symplectic automorphism, orbifold
-inertia, lattice-polarised period domain); the Drinfeld double is
-glued from local Van~den Bergh NCCR charts, or its compact
-Serre-equivariant quasi-NCCR substitute on $K3 \times E$. Through this
-grammar, Igusa $\fg_{\Delta_5}$ is the $K3 \times E$ BKM face, while
-the Borcherds Monster and Fake Monster live in separate Borcherds
-lattice lines rather than as sibling compact-CY specialisations of the
-same $d{=}3$ input. The surviving obstruction is the compact-CY rank
-barrier: the Fake-Monster lattice cannot be supplied by a compact CY
-threefold with $h^{1,1}\leq 22$.
+with native curve level $E_\infty,E_2,E_1$ at $d=1,2,d\geq3$.
+The positive effective geometry inside $\PhiFA_d(\cA)$ gives a
+cohomological-Hall positive half $Y^+(X)$; the quantum group is the
+Drinfeld double once the Hall pairing, completion, and descent data are
+installed.  The seed calculation is $X=K3\times E$:
+\[
+ \kappa_{\mathrm{cat}}=0,\qquad
+ \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}=0,\qquad
+ \kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3,\qquad
+ \kappa_{\mathrm{BKM}}(\Delta_5)=5,\qquad
+ \kappa_{\mathrm{fiber}}=24.
+\]
+These five measurements cannot be collapsed to one invariant; the false
+additive formula
+$\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\cO_{\mathrm{fiber}})$
+already fails at $N=1$ in the total-space convention.  Their separation
+forces the three-tier architecture of the volume: CY-intrinsic data,
+Stage--1 native factorisation data, and Stage--2 chiral specialisations.
+At $d=3$ six-dimensional holomorphic Chern--Simons supplies the physical
+realisation of $\PhiFA_3$; the $\mathbb{C}^3$ specialisation recovers
+$\CoHA(\mathbb{C}^3)=Y^+(\widehat{\mathfrak{gl}}_1)$, while the
+$(K3,E)$ specialisation is the Hall--Drinfeld/Borcherds construction
+problem whose theorem-grade value shadow is the Gritsenko--Nikulin
+denominator $\Delta_5$.  Across the Gritsenko--Cl\'ery atlas the
+universal Borcherds weight identity
+\[
+ \kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2
+\]
+holds with the cover group selected by weight integrality.  The
+manuscript constructs the functorial input, the operadic level, the
+K3/K3$\times E$ crown, and the landscape of examples; the remaining
+frontiers are stated as exact comparison maps to prove, not as
+ambiguities in the architecture.
 
 \smallskip
 
@@ -598,6 +459,12 @@ superalgebras, Gritsenko--Cl\'ery paramodular forms,
 Pandharipande--Oberdieck reduced Donaldson--Thomas theory,
 cohomological Hall algebras, Maulik--Okounkov $R$-matrix,
 Francis--Gaitsgory chiral Koszul duality.
+
+\medskip
+
+\begin{center}
+{\scshape Structural Synopsis}
+\end{center}
 
 \medskip
 
@@ -830,10 +697,11 @@ enhancement. At $K3 \times E$ the chiral-Borcherds chain
 produces the Igusa denominator $\Phi_{10} = \Delta_5^2$, and the
 $\kappa_\bullet$-spectrum
 $\{\kappa_{\mathrm{cat}} = 0,\;
+\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 0,\;
 \kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3,\;
 \kappa_{\mathrm{BKM}} = 5,\;
 \kappa_{\mathrm{fiber}} = 24\}$
-records four invariants from four distinct constructions
+records five measurements from distinct construction layers
 ($\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ is Künneth-additive on the
 chiral-Heisenberg specialisation, $= \dim_\C(K3 \times E)$; the
 Hodge-supertrace
@@ -1697,9 +1565,9 @@ structure is nontrivial), affine Yangians, and critical CoHAs.  The
 representation categories $\Rep^{\Etwo}$ are the targets of
 Conjecture~CY-C, which predicts that CY categories produce braided
 monoidal categories equivalent to those of classical quantum groups.
-Chapter~\ref{ch:modular-trace} constructs the modular trace on CY
-chiral algebras and its connection to the genus-$g$ amplitudes of
-Volume~I, completing the bridge from CY geometry to modular forms.
+The modular trace is not another landscape example: it is the first
+operation by which the seven faces of Part~\ref{part:connections}
+become a single modular observable.
 
 \smallskip
 \noindent\textit{Into Part~\ref{part:connections}.}
@@ -1727,7 +1595,6 @@ vanish.  Shadow--Feynman dictionary: $L$-loop $= S_{L+1}$.
 \input{chapters/examples/fukaya_categories}
 \input{chapters/examples/super_riccati_shadow_tower_platonic}
 \input{chapters/examples/quantum_group_reps}
-\input{chapters/theory/modular_trace}
 
 % ==========================================
 % PART VI: The Seven Faces of r_CY(z)
@@ -1826,11 +1693,16 @@ $100\%$, topological structures lift $0\%$, intermediate $24\%$);
 (b)~BKM Serre concentration at discriminant $D = 3$:
 $182 = 2 \cdot 7 \cdot 13$ generators, finitely determined.
 
+Chapter~\ref{ch:modular-trace} constructs the modular trace on CY
+chiral algebras and its connection to the genus-$g$ amplitudes of
+Volume~I; it is the first place where the seven realisations of
+$r_{\CY}(z)$ are read as one modular observable.
 Chapter~\ref{ch:modular-koszul-bridge} proves the Koszul conductor
 formula at $d = 2$ via Serre duality $\mathbb{S}_\cC = [2]$ killing
-the one-loop correction. Chapter~\ref{ch:bar-cobar-bridge} installs
-the shadow--Feynman dictionary and the class~M Borel summability
-result (connecting to Vol~I's $E_3$ bar $= 6^g$). Chapter~\ref{ch:cy-holographic-datum-master}
+the one-loop correction.
+Chapter~\ref{ch:bar-cobar-bridge} installs the shadow--Feynman
+dictionary and the class~M Borel summability result (connecting to
+Vol~I's $E_3$ bar $= 6^g$). Chapter~\ref{ch:cy-holographic-datum-master}
 executes the full synthesis: CY geometry $\to$ chiral algebra $\to$
 bar complex $\to$ modular form as a four-arrow chain closing the
 three-volume architecture.
@@ -1850,6 +1722,7 @@ $S^{\mathrm{corr}} = S^{\mathrm{fact}} + \kappa_{\mathrm{ch}}^2 T$
 $\Phi_{10} \in M_{10}(\Sp_4(\Z))$ as the Siegel controller of the
 $E_3$ $S$-matrix via Fourier--Jacobi expansion.
 
+\input{chapters/theory/modular_trace}
 \input{chapters/connections/modular_koszul_bridge}
 \input{chapters/connections/bar_cobar_bridge}
 \input{chapters/theory/phi_universal_trace_platonic}

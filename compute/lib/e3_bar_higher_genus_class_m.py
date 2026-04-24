@@ -5,13 +5,14 @@ MAIN RESULT (Theorem: Higher-Genus Class M E_3 Bar Cohomology):
   For g independent copies of the Virasoro VOA at c != 0 (class M),
   the E_3 bar spectral sequence gives:
 
-    E_4 = E_inf = (3t(1+t))^g  (Poincare polynomial)
+    E_4 = (3t(1+t))^g  (Poincare polynomial)
 
   Equivalently:
-    E_inf^n = 3^g * C(g, n-g)   for g <= n <= 2g
-    E_inf^n = 0                  otherwise
+    E_4^n = 3^g * C(g, n-g)      for g <= n <= 2g
+    E_4^n = 0                    otherwise
 
-  Total dimension: dim E_inf = 6^g.
+  Total dimension: dim E_4 = 6^g. For g <= 3, degree reasons give
+  E_4 = E_inf. For g >= 4, d_5 may act, so E_inf = E_4 is not proved.
 
   This follows from the Kunneth theorem applied to the d_4 differential,
   which decomposes as a sum of independent per-copy contractions.
@@ -21,7 +22,8 @@ COMPARISON BY SHADOW CLASS (at genus g):
   Class G (Heisenberg): E_inf = P(q)^{3g}  (formal, infinite-dim)
   Class L (Yangian):    E_inf = (1+t)^{3g}  (dim = 2^{3g} = 8^g)
   Class C (betagamma):  E_inf = (1+t)^{3g}  (dim = 2^{3g}, d_4 killed by charge)
-  Class M (Virasoro):   E_inf = (3t(1+t))^g (dim = 6^g)
+  Class M (Virasoro):   E_4 = (3t(1+t))^g (dim = 6^g);
+                        E_inf is proved equal only for g <= 3
 
   Deficit: class L dim - class M dim = 8^g - 6^g (exponentially growing).
 
@@ -450,18 +452,19 @@ class E3BarHigherGenusClassM:
 
 
 def class_m_einf_dimension(g: int) -> int:
-    """Total E_inf dimension for class M at genus g: 6^g.
+    """Total E_4 dimension for class M at genus g: 6^g.
 
-    Proved for g <= 3 (degree reasons kill d_5+).
-    Conjectural for g >= 4 (d_5 may further reduce).
+    This is also the E_inf dimension for g <= 3 (degree reasons kill d_5+).
+    For g >= 4 it is an upper bound unless the higher differentials vanish.
     """
     return 6 ** g
 
 
 def class_m_einf_poincare(g: int) -> List[int]:
-    """E_inf Poincare polynomial for class M at genus g.
+    """E_4 Poincare polynomial for class M at genus g.
 
-    E_inf^n = 3^g * C(g, n-g)  for g <= n <= 2g, else 0.
+    This equals E_inf only for g <= 3 unless higher differentials vanish.
+    E_4^n = 3^g * C(g, n-g) for g <= n <= 2g, else 0.
     """
     N = 3 * g
     result = []

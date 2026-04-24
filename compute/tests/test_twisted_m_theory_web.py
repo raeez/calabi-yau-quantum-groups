@@ -2,13 +2,13 @@ r"""Tests for the twisted M-theory / string theory compactification web.
 
 Verifies:
   (1) Web construction: all 12 nodes built, correct topology
-  (2) Kappa-spectrum consistency: AP113 subscripting, decomposition
+  (2) Kappa-spectrum consistency: AP113 subscripting, Borcherds weight
   (3) Shadow class stability under dimensional reduction
   (4) R-matrix degeneration hierarchy
   (5) E_n level monotonicity
   (6) Euler characteristic multiplicativity
   (7) Hodge number Kuenneth formula
-  (8) kappa_BKM decomposition: 5 = 3 + 2
+  (8) kappa_BKM theorem: c_1(0)/2 = 5, with N=1 coincidence separated
   (9) kappa_cat = chi(O_K3) = 2
   (10) Structure function degeneration chain
   (11) Reduction commutativity
@@ -25,6 +25,8 @@ Ground truth:
     kappa_ch(K3) = 2, kappa_ch(K3 x E) = 3, kappa_BKM(K3 x E) = 5
     kappa_cat(K3) = chi(O_K3) = 2, kappa_cat(K3 x E) = chi(O_{K3xE}) = 0
     kappa_fiber(K3) = 24 (Mukai lattice rank)
+    kappa_BKM(K3 x E) is Borcherds c_1(0)/2; 3 + 2 = 5 is only the
+    N=1 Heisenberg-specialisation/K3-fibre coincidence.
     chi_top(K3) = 24, chi_top(E) = 0, chi_top(K3 x E) = 0
 
 Multi-path verification:
@@ -46,6 +48,8 @@ from compute.lib.twisted_m_theory_web import (
     # Constants
     KAPPA_CH_K3,
     KAPPA_CH_K3E,
+    KAPPA_CH_COMPACT_HODGE_K3E,
+    KAPPA_BKM_C0_K3E_N1,
     KAPPA_BKM_K3E,
     KAPPA_CAT_K3,
     KAPPA_CAT_K3E,
@@ -53,7 +57,7 @@ from compute.lib.twisted_m_theory_web import (
     KAPPA_FIBER_K3E,
     KAPPA_CH_E,
     KAPPA_CAT_E,
-    KAPPA_BKM_DECOMPOSITION,
+    KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE,
     REDUCTION_EDGES,
     MONOTONE_EDGES,
     DUALITY_EDGES,
@@ -67,7 +71,7 @@ from compute.lib.twisted_m_theory_web import (
     count_passing,
     check_euler_char_multiplicativity,
     check_hodge_chi_additivity,
-    check_kappa_bkm_decomposition,
+    check_kappa_bkm_borcherds_weight,
     check_kappa_cat_equals_chi_O,
     check_kappa_ch_preservation,
     check_rmatrix_degeneration,
@@ -152,7 +156,9 @@ class TestKappaSpectrum:
         assert KAPPA_CH_K3E == Rational(3)
 
     def test_kappa_bkm_k3e_equals_5(self):
-        """kappa_BKM(K3 x E) = 5 (Igusa cusp form weight)."""
+        """kappa_BKM(K3 x E) = c_1(0)/2 = 5."""
+        assert KAPPA_BKM_C0_K3E_N1 == Rational(10)
+        assert KAPPA_BKM_C0_K3E_N1 / 2 == Rational(5)
         assert KAPPA_BKM_K3E == Rational(5)
 
     def test_kappa_cat_k3_equals_2(self):
@@ -167,13 +173,18 @@ class TestKappaSpectrum:
         """kappa_fiber(K3) = 24 (Mukai lattice rank)."""
         assert KAPPA_FIBER_K3 == Rational(24)
 
-    def test_kappa_bkm_decomposition(self):
-        """kappa_BKM = kappa_ch + kappa_cat(K3 fiber): 5 = 3 + 2."""
-        assert KAPPA_BKM_K3E == KAPPA_CH_K3E + KAPPA_CAT_K3
+    def test_kappa_bkm_borcherds_weight_not_additive(self):
+        """kappa_BKM is Borcherds c_1(0)/2, not an additive kappa sum."""
+        assert KAPPA_BKM_K3E == KAPPA_BKM_C0_K3E_N1 / 2
+        assert KAPPA_BKM_K3E != KAPPA_CH_K3E + KAPPA_CAT_K3E
+        assert KAPPA_BKM_K3E != KAPPA_CH_COMPACT_HODGE_K3E + KAPPA_CAT_E
+        assert KAPPA_BKM_K3E != KAPPA_CH_COMPACT_HODGE_K3E + KAPPA_CAT_K3
 
-    def test_kappa_bkm_decomposition_constant(self):
-        """The precomputed decomposition constant is correct."""
-        assert KAPPA_BKM_DECOMPOSITION == Rational(5)
+    def test_kappa_bkm_n1_heisenberg_fiber_coincidence(self):
+        """The N=1 Heisenberg-specialisation/K3-fibre coincidence remains."""
+        assert KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE == Rational(5)
+        assert KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE == KAPPA_CH_K3E + KAPPA_CAT_K3
+        assert KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE == KAPPA_BKM_K3E
 
     def test_kappa_ch_e_equals_0(self):
         """kappa_ch(E) = 0 (elliptic curve, trivial)."""
@@ -383,10 +394,11 @@ class TestEulerCharacteristic:
         check = check_kappa_cat_equals_chi_O()
         assert check.passed
 
-    def test_kappa_bkm_decomposition_check(self):
-        """kappa_BKM(K3 x E) = 3 + 2 = 5."""
-        check = check_kappa_bkm_decomposition()
+    def test_kappa_bkm_borcherds_weight_check(self):
+        """kappa_BKM(K3 x E) is checked by c_1(0)/2."""
+        check = check_kappa_bkm_borcherds_weight()
         assert check.passed
+        assert check.check_type == "kappa_bkm_borcherds_weight"
 
 
 # =========================================================================

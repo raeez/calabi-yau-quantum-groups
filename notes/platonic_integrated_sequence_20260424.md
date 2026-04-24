@@ -63,8 +63,8 @@ crystallisation, one universal identity.
    \(d=1,2,\ge 3\).
 3. Positive effective geometry gives \(Y^+(X)\); after pairing and
    completion, the quantum group is \(D(Y^+(X))\).
-4. \(K3\times E\) supplies the seed: the Hodge, Heisenberg, BKM, and
-   fibre invariants separate.
+4. \(K3\times E\) supplies the seed: the categorical, Hodge,
+   Heisenberg, BKM, and fibre measurements separate.
 5. The Gritsenko-Clery atlas satisfies
    \(\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2\) with its cover-group
    assignment.
@@ -203,7 +203,8 @@ nontrivial CY family?
 Order:
 
 1. \(K3\): Mukai lattice, Heisenberg, abelian Yangian.
-2. \(K3\times E\): four invariants, no conflation.
+2. \(K3\times E\): four \(\kappa_\bullet\)-invariants, the
+   Hodge/Heisenberg split of \(\kappa_{\mathrm{ch}}\), no conflation.
 3. \(\Delta_5\), \(\Phi_{10}=\Delta_5^2\), Borcherds denominator.
 4. Hall-Drinfeld/Borcherds branch.
 5. Six routes as measurements/specialisations, not six \(\Phi\)
@@ -299,8 +300,9 @@ The first concrete rebuild should be surgical.
 
 1. Replace the abstract by a short theorem-level abstract.
 2. Rewrite the opening of the preface around \(K3\times E\):
-   the four invariants, the false additive idea, the two-stage
-   construction, hCS, \(\Delta_5\).
+   the four \(\kappa_\bullet\)-invariants, the five seed measurements,
+   the false additive idea, the two-stage construction, hCS,
+   \(\Delta_5\).
 3. Cut duplicate theorem ledgers from the preface.
 4. Rebuild the introduction as the dependency graph of definitions and
    theorems.

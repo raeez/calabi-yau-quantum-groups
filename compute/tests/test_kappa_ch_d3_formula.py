@@ -33,6 +33,8 @@ from compute.lib.kappa_ch_d3_formula import (
     t6_abelian,
     kappa_cat,
     kappa_ch,
+    bcov_shadow_candidate,
+    kappa_ch_assessment,
     quantum_correction,
     verify_cyd_refutation,
     cyd_status_table,
@@ -79,12 +81,17 @@ class TestCYDRefutation(unittest.TestCase):
         self.assertEqual(kappa_cat(k3e), 0)
         self.assertNotEqual(kappa_ch(k3e), Fraction(kappa_cat(k3e)))
 
-    def test_cyd_refuted_at_d3_quintic(self):
-        """kappa_ch(Quintic) = -25/3 != 0 = chi(O_Quintic)."""
+    def test_d3_quintic_bcov_candidate_not_constructed_kappa_ch(self):
+        """Quintic has a BCOV shadow candidate, not constructed kappa_ch."""
         q = quintic_threefold()
-        self.assertEqual(kappa_ch(q), Fraction(-25, 3))
+        with self.assertRaises(NotImplementedError):
+            kappa_ch(q)
+        assessment = kappa_ch_assessment(q)
+        self.assertEqual(assessment.value, Fraction(-25, 3))
+        self.assertEqual(assessment.label, "kappa_BCOV_shadow_conjectural")
+        self.assertFalse(assessment.constructed)
         self.assertEqual(kappa_cat(q), 0)
-        self.assertNotEqual(kappa_ch(q), Fraction(kappa_cat(q)))
+        self.assertNotEqual(assessment.value, Fraction(kappa_cat(q)))
 
     def test_chi_O_vanishes_for_all_strict_CY3(self):
         """For ANY strict CY3 with d odd: chi(O_X) = 0."""
@@ -128,8 +135,12 @@ class TestKappaCHValues(unittest.TestCase):
     def test_enriques_times_e(self):
         self.assertEqual(kappa_ch(enriques_times_e()), Fraction(2))
 
-    def test_quintic(self):
-        self.assertEqual(kappa_ch(quintic_threefold()), Fraction(-25, 3))
+    def test_quintic_bcov_shadow_candidate(self):
+        self.assertEqual(
+            bcov_shadow_candidate(quintic_threefold()),
+            Fraction(-25, 3),
+        )
+        self.assertFalse(kappa_ch_assessment(quintic_threefold()).constructed)
 
     def test_t6(self):
         self.assertEqual(kappa_ch(t6_abelian()), Fraction(3))
@@ -203,11 +214,14 @@ class TestQuantumCorrection(unittest.TestCase):
         self.assertEqual(qc.delta_kappa, Fraction(3))
         self.assertFalse(qc.delta_vanishes)
 
-    def test_delta_nonzero_at_d3_quintic(self):
-        """At d=3: delta_kappa = -25/3 for quintic."""
+    def test_candidate_delta_nonzero_at_d3_quintic(self):
+        """At d=3: the quintic BCOV-shadow candidate has delta = -25/3."""
         qc = quantum_correction(quintic_threefold())
         self.assertEqual(qc.delta_kappa, Fraction(-25, 3))
         self.assertFalse(qc.delta_vanishes)
+        self.assertEqual(qc.label, "kappa_BCOV_shadow_conjectural")
+        self.assertEqual(qc.status, "CONJECTURAL")
+        self.assertFalse(qc.constructed)
 
     def test_delta_for_c3(self):
         """C^3 is non-compact; chi(O) is computed from h^{0,0}=1 only."""
@@ -267,10 +281,12 @@ class TestDimensionStratification(unittest.TestCase):
         for X in [k3_surface(), abelian_surface(), enriques_surface()]:
             self.assertEqual(kappa_ch(X), Fraction(X.chi_O()))
 
-    def test_d3_bcov_formula(self):
-        """d=3 compact h^{1,0}=0: kappa_ch = chi_top/24."""
+    def test_d3_bcov_shadow_candidate(self):
+        """d=3 compact h^{1,0}=0: chi_top/24 is a BCOV shadow candidate."""
         q = quintic_threefold()
-        self.assertEqual(kappa_ch(q), Fraction(q.chi_top, 24))
+        self.assertEqual(bcov_shadow_candidate(q), Fraction(q.chi_top, 24))
+        with self.assertRaises(NotImplementedError):
+            kappa_ch(q)
 
     def test_d3_product_formula(self):
         """d=3 product: kappa_ch = kappa_ch(factor1) + kappa_ch(factor2)."""
@@ -324,12 +340,14 @@ class TestLandscapeTable(unittest.TestCase):
         self.assertEqual(names, expected)
 
     def test_landscape_kappa_values(self):
-        """Spot-check kappa_ch values in the landscape."""
+        """Spot-check constructed kappa_ch values and labelled candidates."""
         table = {e.name: e for e in kappa_ch_landscape()}
         self.assertEqual(table["E"].kappa_ch, Fraction(1))
         self.assertEqual(table["K3"].kappa_ch, Fraction(2))
         self.assertEqual(table["K3xE"].kappa_ch, Fraction(3))
         self.assertEqual(table["Quintic"].kappa_ch, Fraction(-25, 3))
+        self.assertEqual(table["Quintic"].label, "kappa_BCOV_shadow_conjectural")
+        self.assertFalse(table["Quintic"].constructed)
         self.assertEqual(table["C^3"].kappa_ch, Fraction(1))
         self.assertEqual(table["LocalP2"].kappa_ch, Fraction(3, 2))
 
@@ -344,7 +362,7 @@ class TestLandscapeTable(unittest.TestCase):
                 )
 
     def test_landscape_delta_at_d3_nonzero(self):
-        """Most d=3 entries have delta != 0."""
+        """Most d=3 entries have nonzero constructed or candidate delta."""
         table = {e.name: e for e in kappa_ch_landscape()}
         self.assertNotEqual(table["K3xE"].delta_kappa, Fraction(0))
         self.assertNotEqual(table["Quintic"].delta_kappa, Fraction(0))
@@ -397,7 +415,8 @@ class TestMasterVerification(unittest.TestCase):
         self.assertTrue(ref["K3_CYD_holds"])
         self.assertTrue(ref["T4_CYD_holds"])
         self.assertTrue(ref["K3xE_refutes_CYD"])
-        self.assertTrue(ref["Quintic_refutes_CYD"])
+        self.assertTrue(ref["Quintic_candidate_differs_from_CYD"])
+        self.assertFalse(ref["Quintic_constructed_kappa_ch"])
         self.assertTrue(ref["additivity_test"])
         self.assertTrue(ref["multiplicativity_test"])
         self.assertTrue(ref["clash"])
@@ -415,17 +434,18 @@ class TestSpecificNumerics(unittest.TestCase):
         self.assertEqual(int(kappa_ch(k3e)), 3)
         # kappa_BKM = 5, kappa_fiber = 24 are tested in kappa_spectrum_reconciliation
 
-    def test_quintic_kappa_ch_rational(self):
-        """kappa_ch(Quintic) = -25/3 is rational, not integer."""
+    def test_quintic_bcov_candidate_rational(self):
+        """The quintic BCOV-shadow candidate -25/3 is rational, not integer."""
         q = quintic_threefold()
-        k = kappa_ch(q)
+        k = bcov_shadow_candidate(q)
         self.assertEqual(k.numerator, -25)
         self.assertEqual(k.denominator, 3)
 
     def test_quintic_chi_top_over_24(self):
-        """kappa_ch(Quintic) = chi_top/24 = -200/24 = -25/3."""
+        """The quintic BCOV-shadow candidate is chi_top/24."""
         q = quintic_threefold()
-        self.assertEqual(kappa_ch(q), Fraction(-200, 24))
+        self.assertEqual(bcov_shadow_candidate(q), Fraction(-200, 24))
+        self.assertFalse(kappa_ch_assessment(q).constructed)
 
     def test_local_p2_chi_top_over_2(self):
         """kappa_ch(LocalP2) = chi_top(P^2)/2 = 3/2."""

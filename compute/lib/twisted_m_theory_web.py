@@ -21,6 +21,8 @@ At EACH level we extract:
   (3) The shadow class (G/L/C/M)
   (4) The R-matrix / braiding structure
   (5) Consistency: does dimensional reduction commute with CY-to-chiral?
+  (6) kappa_BKM is computed by Borcherds c_N(0)/2, not by an
+      additive kappa_ch + kappa_cat decomposition.
 
 CLAIM STATUSES:
   - 11d -> 7d:   PROVED (Witten 1995, M-theory duality).
@@ -164,8 +166,10 @@ KAPPA_CAT_K3 = Rational(2)          # kappa_cat = chi(O_{K3})
 KAPPA_FIBER_K3 = Rational(24)       # kappa_fiber = Mukai lattice rank
 
 # K3 x E
-KAPPA_CH_K3E = Rational(3)          # kappa_ch at d=3 (conjectural)
-KAPPA_BKM_K3E = Rational(5)         # kappa_BKM = weight(Delta_5)
+KAPPA_CH_K3E = Rational(3)          # Heisenberg-specialisation kappa_ch
+KAPPA_CH_COMPACT_HODGE_K3E = Rational(0)  # total-space Hodge/PhiFA supertrace
+KAPPA_BKM_C0_K3E_N1 = Rational(10)  # c_1(0) for Delta_5
+KAPPA_BKM_K3E = KAPPA_BKM_C0_K3E_N1 / 2  # kappa_BKM = c_1(0)/2
 KAPPA_CAT_K3E = Rational(0)         # kappa_cat(K3 x E) = chi(O) = 0
 KAPPA_FIBER_K3E = Rational(24)      # kappa_fiber = Mukai rank
 
@@ -173,8 +177,8 @@ KAPPA_FIBER_K3E = Rational(24)      # kappa_fiber = Mukai rank
 KAPPA_CH_E = Rational(0)            # kappa_ch(E) (trivial)
 KAPPA_CAT_E = Rational(0)           # kappa_cat(E) = chi(O_E) = 0
 
-# Decomposition check: kappa_BKM = kappa_ch + kappa_cat(K3_fiber)
-KAPPA_BKM_DECOMPOSITION = KAPPA_CH_K3E + KAPPA_CAT_K3  # 3 + 2 = 5
+# N=1 coincidence only; the theorem-level proof is Borcherds c_1(0)/2.
+KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE = KAPPA_CH_K3E + KAPPA_CAT_K3
 
 
 # =========================================================================
@@ -1007,27 +1011,41 @@ def check_hodge_chi_additivity() -> ConsistencyCheck:
     )
 
 
-def check_kappa_bkm_decomposition() -> ConsistencyCheck:
-    """Verify kappa_BKM(K3 x E) = kappa_ch(K3 x E) + kappa_cat(K3).
+def check_kappa_bkm_borcherds_weight() -> ConsistencyCheck:
+    """Verify kappa_BKM(K3 x E) by the Borcherds weight formula.
 
-    The BKM weight decomposes as:
-      kappa_BKM = kappa_ch + kappa_cat(fiber)
-      5 = 3 + 2
+    The theorem-level identity is kappa_BKM(Phi_1) = c_1(0)/2.
+    The equality between the Heisenberg-specialisation value and the K3
+    fibre chi(O) is retained only as the N=1 coincidence.
     """
-    passed = (KAPPA_BKM_K3E == KAPPA_CH_K3E + KAPPA_CAT_K3)
+    borcherds_weight = KAPPA_BKM_C0_K3E_N1 / 2
+    additive_total_space = KAPPA_CH_K3E + KAPPA_CAT_K3E
+    additive_elliptic_fiber = KAPPA_CH_COMPACT_HODGE_K3E + KAPPA_CAT_E
+    additive_k3_fiber = KAPPA_CH_COMPACT_HODGE_K3E + KAPPA_CAT_K3
+    heisenberg_fiber_coincidence = KAPPA_BKM_HEISENBERG_FIBER_COINCIDENCE
+
+    passed = (
+        KAPPA_BKM_K3E == borcherds_weight
+        and KAPPA_BKM_K3E != additive_total_space
+        and KAPPA_BKM_K3E != additive_elliptic_fiber
+        and KAPPA_BKM_K3E != additive_k3_fiber
+        and KAPPA_BKM_K3E == heisenberg_fiber_coincidence
+    )
 
     return ConsistencyCheck(
-        name="kappa_BKM decomposition",
-        description="kappa_BKM(K3xE) = kappa_ch(K3xE) + kappa_cat(K3)",
+        name="kappa_BKM Borcherds weight",
+        description="kappa_BKM(Phi_1) = c_1(0)/2 for K3 x E",
         node_a="K3 x E",
-        node_b="decomposition",
-        check_type="kappa_bkm_decomposition",
+        node_b="Borcherds product Delta_5",
+        check_type="kappa_bkm_borcherds_weight",
         passed=passed,
         value_a=f"kappa_BKM = {KAPPA_BKM_K3E}",
-        value_b=f"kappa_ch + kappa_cat(K3) = {KAPPA_CH_K3E} + {KAPPA_CAT_K3} = {KAPPA_CH_K3E + KAPPA_CAT_K3}",
+        value_b=f"c_1(0)/2 = {KAPPA_BKM_C0_K3E_N1}/2 = {borcherds_weight}",
         notes=(
             "AP113: all kappa values subscripted. "
-            "The decomposition is a prediction of the kappa-spectrum theory."
+            "The additive total-space and fibre variants fail; "
+            "the Heisenberg-specialisation plus K3-fibre equality is only "
+            "the N=1 coincidence."
         ),
     )
 
@@ -1145,7 +1163,7 @@ def run_all_consistency_checks(
     # --- Global checks ---
     checks.append(check_euler_char_multiplicativity())
     checks.append(check_hodge_chi_additivity())
-    checks.append(check_kappa_bkm_decomposition())
+    checks.append(check_kappa_bkm_borcherds_weight())
     checks.append(check_kappa_cat_equals_chi_O())
 
     return checks
