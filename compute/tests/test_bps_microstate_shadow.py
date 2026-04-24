@@ -12,10 +12,10 @@ Test organization:
   6.  OSV conjecture via bar complex (7 tests)
   7.  Comprehensive comparison table (6 tests)
   8.  Physical prediction (5 tests)
-  9.  Cross-verifications (8 tests)
+  9.  Cross-verifications (10 tests)
   10. Summary (2 tests)
 
-Total: 70 tests.
+Total: 72 tests.
 """
 
 import math

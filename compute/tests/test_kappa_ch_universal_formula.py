@@ -385,25 +385,25 @@ class TestManuscriptValues(unittest.TestCase):
     """Check against values in the manuscript tables."""
 
     def test_quintic_rational(self):
-        """kappa_ch(quintic) = -25/3 is rational, not integer."""
-        k = kappa_ch(quintic())
+        """The quintic BCOV-shadow candidate -25/3 is rational, not integer."""
+        k = bcov_shadow_candidate(quintic())
         self.assertEqual(k.numerator, -25)
         self.assertEqual(k.denominator, 3)
 
     def test_bicubic_rational(self):
-        """kappa_ch(bicubic) = -27/4 is rational."""
-        k = kappa_ch(bicubic())
+        """The bicubic BCOV-shadow candidate -27/4 is rational."""
+        k = bcov_shadow_candidate(bicubic())
         self.assertEqual(k.numerator, -27)
         self.assertEqual(k.denominator, 4)
 
     def test_bv_interpolation(self):
         """BV(r,a,delta): kappa = (r-10)/2 for the standard BV family."""
         # BV(1,1,1): (1-10)/2 = -9/2
-        self.assertEqual(kappa_ch(bv_1_1_1()), F(-9, 2))
+        self.assertEqual(bcov_shadow_candidate(bv_1_1_1()), F(-9, 2))
         # BV(10,0,0): (10-10)/2 = 0
-        self.assertEqual(kappa_ch(bv_10_0_0()), F(0))
+        self.assertEqual(bcov_shadow_candidate(bv_10_0_0()), F(0))
         # BV(20,2,0): (20-10)/2 = 5
-        self.assertEqual(kappa_ch(bv_20_2_0()), F(5))
+        self.assertEqual(bcov_shadow_candidate(bv_20_2_0()), F(5))
 
     def test_chi_top_vanishes_for_products(self):
         """chi_top = 0 for all product CY_3 (contains E factor)."""
