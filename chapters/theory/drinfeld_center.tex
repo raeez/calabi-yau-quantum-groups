@@ -9,10 +9,10 @@ $U \colon \cZ(\Rep(\Phi_3(\cA))) \to \Rep(\Phi_3(\cA))$, not an
 averaging construction: there is no group or groupoid over which one
 would average, and the half-braiding data is universal rather than
 group-theoretic. The $\Etwo$-braided structure on the centre arises
-as the Stage-2 specialisation of the Stage-1 $\Ethree$-homotopy
-factorisation algebra along an appropriate cycle choice (a
-transverse $S^1$-family inside the Stage-1 disc configuration
-space); it does \emph{not} live natively on $\Phi_3(\cA)$ itself,
+from the Drinfeld-centre right adjoint and its universal half-braiding;
+the Stage-1 $\Ethree\to\Etwo$ restriction supplies symmetric
+factorisation data before specialisation, not the quantum-group
+$R$-matrix. This braided datum does \emph{not} live natively on $\Phi_3(\cA)$ itself,
 which is $\Eone$ per Proposition~\ref{prop:native-en-level}. The
 assignment $\Phi_3(\cA) \mapsto \cZ(\Rep(\Phi_3(\cA)))$ is the
 boundary-to-bulk passage, and the $\Etwo$-braiding is an emergent
@@ -26,13 +26,15 @@ $\Rep^{E_1}(A)$; this category is not braided, because the $\Eone$
 operad sees only one real direction and the fundamental group
 $\pi_1(\mathrm{Conf}_2(\R))= \Z$ produces only a monoidal, not
 braided, structure. The Drinfeld center $\cZ(\Rep^{E_1}(A))$
-universally adjoins a braiding; the resulting braided monoidal
-category is equivalent to $\Rep^{E_2}(\Zder(A))$, where
-$\Zder(A) = C^\bullet_{\mathrm{ch}}(A,A)$ is the chiral derived
-center of Volume~I. This identification is the categorical
-bulk-boundary correspondence, and is the mechanism by which the
-$\Etwo$-braided structure on $\Rep(A)$ arises from natively
-$\Eone$ data on $A$ (Remark~\ref{rem:e2-on-drinfeld-centre}).
+adds a braiding by its universal property. When $\Rep^{E_1}(A)$ is presentable
+and dualizable and the chiral Hochschild complex computes the
+ordinary derived bimodule endomorphisms of $A$ in the chosen
+completion, the Ben-Zvi--Francis--Nadler/Lurie comparison identifies
+this braided category with $\Rep^{E_2}(\Zder(A))$, where
+$\Zder(A)=C^\bullet_{\mathrm{ch}}(A,A)$ is the chiral derived center
+of Volume~I. Off that Koszul/coderived comparison surface the
+Drinfeld center still exists, but it is not automatically computed by
+the naive chiral Hochschild cochain complex.
 
 
 \section{The Drinfeld center of a monoidal category}
@@ -101,9 +103,10 @@ are identified by the Ben-Zvi--Francis--Nadler theorem.
 \begin{theorem}[Ben-Zvi--Francis--Nadler; Lurie]
 \label{thm:bzfn}
 \ClaimStatusProvedElsewhere
-For an $\Eone$-algebra $A$ in a symmetric monoidal stable
-$\infty$-category, there is an equivalence of braided monoidal
-$\infty$-categories
+Let $A$ be an $\Eone$-algebra in a symmetric monoidal presentable
+stable $\infty$-category, and assume the $A$-module category is
+dualizable in the Morita $(\infty,2)$-category. Then there is an
+equivalence of braided monoidal $\infty$-categories
 \[
  \cZ(\Rep^{E_1}(A))
  \;\simeq\;
@@ -113,26 +116,45 @@ where $\Zder(A) = \RHom_{A\text{-}\mathrm{bimod}}(A, A)$ is the
 derived center (Hochschild cochains) of $A$.
 \end{theorem}
 
-\begin{corollary}[Chiral derived center = Drinfeld center]
+\begin{corollary}[Chiral derived center presents the Drinfeld center on the Koszul locus]
 \label{cor:zder-drinfeld}
 \ClaimStatusProvedHere
-For an $\Eone$-chiral algebra $A$, the chiral derived center
-$\Zder(A) = C^\bullet_{\mathrm{ch}}(A, A)$ of Volume~I (Theorem~H)
-satisfies
+Let $A$ be an augmented $\Eone$-chiral algebra on a smooth curve.
+Assume:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item the Vol.~I chiral bar-cobar counit
+ $\Omegach(B(A))\to A$ is a quasi-isomorphism, or a coderived
+ equivalence in the stated completion;
+ \item $\Rep^{\Eone}(A)$ is presentable and dualizable in the Morita
+ $(\infty,2)$-category;
+ \item the chiral Hochschild cochain complex computes
+ $\RHom_{A\text{-}\mathrm{bimod}}(A,A)$ in that same completion.
+\end{enumerate}
+Then the chiral derived center
+$\Zder(A)=C^\bullet_{\mathrm{ch}}(A,A)$ of Volume~I presents the
+Drinfeld center:
 \[
  \cZ(\Rep^{\Eone}(A)) \;\simeq\; \Rep^{\Etwo}(\Zder(A)).
 \]
-The Drinfeld center is the categorical incarnation of the
-universal bulk algebra.
+This is a presentation of the categorical center by modules over
+the derived Hochschild cochain algebra; it is not an equality between
+the category $\cZ(\Rep^{\Eone}(A))$ and the cochain complex
+$C^\bullet_{\mathrm{ch}}(A,A)$.
 \end{corollary}
 
 \begin{proof}
 The chiral derived center is
-$\Zder(A) = \RHom_{\Omegach(B(A)) \otimes \Omegach(B(A))^{\op}}(A, A)$.
-By bar-cobar inversion (Volume~I, Theorem~B), $\Omegach(B(A)) \simeq A$
-on the Koszul locus, so $\Zder(A) \simeq \RHom_{A \otimes A^{\op}}(A, A)
-= \HH^\bullet(A)$. The Ben-Zvi--Francis--Nadler theorem
-(Theorem~\ref{thm:bzfn}) then gives the stated equivalence.
+$\Zder(A)=C^\bullet_{\mathrm{ch}}(A,A)$. Hypothesis~(i) replaces
+the bar-cobar model by $A$ in the same homotopy theory in which
+the cochains are computed, and hypothesis~(iii) gives
+\[
+  C^\bullet_{\mathrm{ch}}(A,A)
+  \simeq \RHom_{A\otimes A^{\op}}(A,A)
+  = \HH^\bullet(A).
+\]
+Hypothesis~(ii) is the Morita-dualizability condition required by
+Theorem~\ref{thm:bzfn}. Applying that theorem gives
+$\cZ(\Rep^{\Eone}(A))\simeq\Rep^{\Etwo}(\Zder(A))$.
 \end{proof}
 
 \begin{remark}[Four operations on \texorpdfstring{$B(A)$}{B(A)}]
@@ -148,8 +170,9 @@ on the bar complex, distinct from the three of Volume~I:
  \item \emph{Koszul dual extraction}:
  $H^*(B(A))^\vee = A^!$ (the strict Koszul dual algebra);
  \item \emph{Derived center}:
- $\Zder(A) = C^\bullet_{\mathrm{ch}}(A,A)
- = \RHom(\Omega(B(A)), A)$
+ $\Zder(A)=C^\bullet_{\mathrm{ch}}(A,A)$, and on the
+ Koszul/coderived comparison surface
+ $\Zder(A)\simeq\RHom_{A\otimes A^{\op}}(A,A)$
  (the universal bulk algebra).
 \end{enumerate}
 The Drinfeld center $\cZ(\Rep^{E_1}(A))$ is
@@ -590,32 +613,32 @@ Schiffmann--Vasserot, Maulik--Okounkov]
 \label{thm:c3-drinfeld-center-restate}
 \ClaimStatusProvedElsewhere
 \[
- \cZ\bigl(\Rep^{\Eone}(Y^+(\widehat{\fgl}_1))\bigr)
+ \cZ\bigl(\Rep^{\Eone}(A^+_{\C^3})\bigr)
  \;\simeq\;
- \Rep^{\Etwo}(Y(\widehat{\fgl}_1))
+ \Rep^{\Etwo}(D(Y^+(\widehat{\fgl}_1)))
  \;\simeq\;
- \Rep^{\Etwo}(\cW_{1+\infty}).
+ \Rep^{\Etwo}(Y(\widehat{\fgl}_1)).
 \]
-The positive half-Yangian $Y^+(\widehat{\fgl}_1)$ is an $\Eone$-chiral
-algebra (the CoHA of $\C^3$ after Schiffmann--Vasserot);
-its representation category is monoidal but not braided.
-The full Yangian $Y(\widehat{\fgl}_1)$ is the chiral derived center
-$\Zder(Y^+(\widehat{\fgl}_1)))$, and the $\Etwo$-braided structure on
-its representation category arises from the Drinfeld center
-construction. The equivalence
-$Y(\widehat{\fgl}_1) \simeq \cW_{1+\infty}$ (at $c = 1$, the CY$_3$
-central charge) identifies the bulk algebra with the
-$\cW_{1+\infty}$-algebra.
+Here $A^+_{\C^3}$ is the framed $\Eone$ boundary chiral algebra whose Hall
+positive-half comparison is $\CoHA(\C^3)\cong Y^+(\widehat{\fgl}_1)$ after
+Schiffmann--Vasserot; the Hall algebra itself is not the bare chiral object.
+Its representation category is monoidal but not braided. The full Yangian
+$Y(\widehat{\fgl}_1)$ is the Drinfeld-double/centre target of the positive
+half, and the $\Etwo$-braided structure on its representation category arises
+from the Drinfeld center construction. The $\cW_{1+\infty}$ vertex algebra
+appears through the standard Fock/vacuum-module evaluation of
+$Y(\widehat{\fgl}_1)$ at $c = 1$, not as a literal identification of the
+Hopf algebra with the VOA.
 \end{theorem}
 
 \begin{remark}[Attribution]
 \label{rem:c3-drinfeld-attribution}
-The $\Eone$-nature of $Y^+(\widehat{\fgl}_1)$ is due to
+The associative $\Eone$ Hall nature of $Y^+(\widehat{\fgl}_1)$ is due to
 Schiffmann--Vasserot (2013) and the identification of the full
 Yangian as the Drinfeld double is due to Maulik--Okounkov (2019).
-The vertex algebra isomorphism $Y(\widehat{\fgl}_1) \simeq
-\cW_{1+\infty}$ at $c = 1$ follows from the work of Proch\'azka--Rap\v{c}\'ak
-(2019) and Litvinov (2020). The formulation as a Drinfeld center
+The vacuum-module action of $Y(\widehat{\fgl}_1)$ on
+$\cW_{1+\infty}$ at $c = 1$ follows from the work of
+Proch\'azka--Rap\v{c}\'ak (2019) and Litvinov (2020). The formulation as a Drinfeld center
 identification, connecting the categorical and algebraic perspectives,
 is the content of Theorem~\ref{thm:c3-drinfeld-center} in
 Chapter~\ref{ch:cy-to-chiral}.
@@ -745,35 +768,56 @@ via $\cZ(\Rep^{\Eone}(A))$, not from the boundary $A$ directly.
 \section{Categorical Theorem H}
 \label{sec:categorical-thm-h}
 
-Volume~I Theorem~H establishes that chiral Hochschild cohomology
-$\ChirHoch^*(A)$ is polynomial (concentrated in cohomological degrees $\{0,1,2\}$ on the curve-ambient reading; the $\Phi_d$-image at $d \ge 2$ enlarges the concentration to $\{0,1,2,d\}$)
-for modular Koszul algebras, with total cohomological dimension $\leq 4$ on the curve-ambient reading. The
-categorical analogue replaces $\ChirHoch^*$ with $\HH^\bullet(\cC)$.
+Volume~I Theorem~H is a chiral Hochschild statement: on the
+ordinary curve-ambient Koszul locus, $\ChirHoch^\bullet(A)$ is
+concentrated in degrees $\{0,1,2\}$, while the Vol.~III
+$\Phi_d$-image may carry an additional CY-degree contribution
+recorded in Chapter~\ref{ch:hochschild-calculus}. It is not a
+categorical Hochschild theorem for an arbitrary CY category.
+The categorical comparison below records the standard finite
+Hochschild amplitude of $\cC$ and the precise extra hypothesis
+needed before applying $\Phi$ to compare brackets.
 
-\begin{theorem}[Categorical Theorem H]
+\begin{theorem}[Categorical Hochschild comparison with Theorem H]
 \label{thm:categorical-thm-h}
-\ClaimStatusConditional
-For a smooth proper CY$_d$ category $\cC$ whose quantum chiral
-algebra $A_\cC = \Phi(\cC)$ is modular Koszul:
+\ClaimStatusConditional{Finite Hochschild amplitude is standard; comparison with Vol.~I chiral Hochschild Theorem~H is conditional on the constructed \(\Phi\)-image.}
+Let $\cC$ be a smooth proper CY$_d$ category, and suppose its
+object-level chiral image $A_\cC=\Phi(\cC)$ has been constructed and
+lies on the modular Koszul locus on which Corollary~\ref{cor:zder-drinfeld}
+applies. Then:
 \begin{enumerate}[label=(\roman*)]
- \item $\HH^k(\cC) = 0$ for $k > d$ (concentration, from
- smoothness and properness);
+ \item $\HH^\bullet(\cC)$ is a perfect finite-dimensional Hochschild
+ complex. For $\cC=\Perf(X)$ with $X$ a smooth projective CY$_d$, HKR
+ identifies
+ \[
+   \HH^n(\cC)\cong \bigoplus_{p+q=n} H^q(X,\wedge^pT_X),
+ \]
+ so the amplitude is the HKR amplitude of \(X\), not the Vol.~I chiral
+ Hochschild concentration statement;
  \item $\HH^0(\cC) \simeq k$ (the identity natural transformation);
  \item $\HH^1(\cC)$ classifies first-order deformations of $\cC$
  as a dg category;
  \item $\HH^2(\cC)$ is the obstruction space for deformations.
 \end{enumerate}
-The Gerstenhaber bracket $[-,-] \colon \HH^p \otimes \HH^q \to
-\HH^{p+q-1}$ on $\HH^\bullet(\cC)$ maps, under $\Phi$, to the
-convolution bracket on $\fg^{\mathrm{mod}}_{A_\cC}$ of Volume~I.
+Where the chain-level functorial comparison for $\Phi$ is constructed
+\textup{(}CY-A$_2$, and the formal/framed-object lane at CY-A$_3$\textup{)},
+the Gerstenhaber bracket $[-,-]\colon \HH^p\otimes\HH^q\to
+\HH^{p+q-1}$ maps to the convolution bracket on
+$\fg^{\mathrm{mod}}_{A_\cC}$ of Volume~I. For a non-formal CY$_3$
+input this bracket comparison is a proof obligation, not a consequence
+of finite Hochschild amplitude.
 \end{theorem}
 
 \begin{remark}[Status]
 \label{rem:categorical-thm-h-status}
-Items (i)--(iv) are standard consequences of smoothness and properness
-(Keller, Kontsevich). The identification
-of the Gerstenhaber bracket with the Volume~I convolution bracket
-under $\Phi$ is established for $d = 2$ (CY-A$_2$) and for $d = 3$ at the infinity-categorical level (CY-A$_3$, proved); the chain-level identification at $d = 3$ for non-formal algebras remains open.
+Items (i)--(iv) are standard Hochschild/deformation-theoretic facts
+(Keller, Kontsevich) with HKR in the geometric case. They are not a
+categorical proof of Vol.~I Theorem~H, which is a chiral Hochschild
+concentration theorem for \(A_\cC\). The identification of the
+Gerstenhaber bracket with the Volume~I convolution bracket under
+$\Phi$ is established for $d = 2$ (CY-A$_2$) and for $d = 3$ at the
+infinity-categorical framed-object level; the chain-level
+identification at $d = 3$ for non-formal algebras remains open.
 %: polynomial Hilbert series does NOT mean polynomial ring.
 \end{remark}
 
@@ -1685,12 +1729,12 @@ Two independent routes produce $\Etwo$-braiding for $K3 \times E$,
 each subject to its own scope qualifier:
 \begin{enumerate}[label=\textup{(\Alph*)}]
  \item \emph{Drinfeld center route} (global on $K3 \times E$;
- uses CY-A$_3$, proved).
- $A_{K3 \times E}$ (the $\Eone$-chiral algebra,
- constructed by Theorem~CY-A$_3$)
- $\to \Rep^{\Eone}(A_{K3 \times E})$
- $\to \cZ(\Rep^{\Eone}(A_{K3 \times E}))$
- $= \Rep^{\Etwo}(\Zder(A_{K3 \times E}))$.
+ conditional on the framed object-level CY-A$_3$ hypotheses).
+ $A_{K3 \times E}^{(\Sigma_2,C)}$ (the framed $\Eone$-chiral algebra
+ on the fixed H1--H4 specialisation locus)
+ $\to \Rep^{\Eone}(A_{K3 \times E}^{(\Sigma_2,C)})$
+ $\to \cZ(\Rep^{\Eone}(A_{K3 \times E}^{(\Sigma_2,C)}))$
+ $= \Rep^{\Etwo}(\Zder(A_{K3 \times E}^{(\Sigma_2,C)}))$.
  This route passes through the center-hocolim obstruction
  ($>92\%$ non-local at the chain level).
  \item \emph{MO stable envelope route, scope-restricted to
@@ -2156,9 +2200,11 @@ and the charge-$2$ computation
 \ClaimStatusConjectured
 Suppose the $K3$ Yangian $Y(\fg_{K3})$ exists as a quantisation of
 the $K3$ double current algebra $\fg_{K3}$
-(Definition~\ref{def:k3-double-current-algebra}).
+(Definition~\ref{def:k3-double-current-algebra}), and suppose
+$A^+_{K3}$ is the corresponding positive-half/framed boundary
+$\Eone$ object.
 Then the braided monoidal category
-$\Rep^{\Etwo}(Y(\fg_{K3})) = \cZ(\Rep^{\Eone}(Y(\fg_{K3})))$
+$\Rep^{\Etwo}(Y(\fg_{K3})) \simeq \cZ(\Rep^{\Eone}(A^+_{K3}))$
 has the following structure.
 \end{conjecture}
 

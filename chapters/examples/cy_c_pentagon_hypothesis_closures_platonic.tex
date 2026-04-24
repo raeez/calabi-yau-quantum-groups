@@ -515,6 +515,221 @@ automorphic source $R_2$ supplies the Borcherds character through
 $\widetilde{\Phi}_N$ at VOA level.
 \end{remark}
 
+\section{Quintic--\texorpdfstring{$E_{100}$}{E100} finite obstruction certificate}
+\label{sec:quintic-E100-finite-obstruction-certificate}
+
+The compact quintic does not enter the K3 pentagon through a Borcherds
+denominator identity.  Its arithmetic shadow enters through the
+Niwa--Shintani lift of a weight-$3/2$ mock-modular receptacle at level
+$500$ and through the unique new-form line of
+$S_2(\Gamma_0(100))$ attached to
+\[
+  E_{100/\mathbb{Q}}\colon y^2 = x^3 - x^2 - 33x + 62 .
+\]
+Thus the pentagon obstruction is not a slogan about mock modularity: it is
+a finite Heegner-discriminant pairing against the Shimura preimage of this
+one elliptic curve.
+
+\begin{proposition}[Finite \texorpdfstring{$E_{100}$}{E100} obstruction certificate]
+\label{prop:quintic-E100-finite-obstruction-certificate}
+\ClaimStatusProvedHere
+At the truncation $|D|\le 50$ of the Kohnen plus-space at level $500$
+with character $\chi_5(n)=(n/5)$, the new-form projection of the
+quintic mock-modular pentagon obstruction is supported exactly on
+\[
+  S_{50}=\{-3,\,-7,\,-23,\,-24,\,-39\}.
+\]
+In the schematic BCOV-normalisation used by the Niwa--Shintani kernel,
+the five products
+\[
+  c_{\xi}(D)c_{h_{E_{100}}}(D)
+  =
+  -120,\;120,\;120,\;-240,\;-240
+\]
+give
+\[
+  \alpha^{\mathrm{schem}}_{\le 50}=-360.
+\]
+In the Yamaguchi--Yau BCOV-natural rational normalisation through
+$g\le 14$ (the finite-genus bound for $|D|\le 50$), the same finite
+projection is
+\[
+  \alpha^{\mathrm{YY}}_{\le 14,\, |D|\le 50}
+  =
+  -\,\frac{57062154203807}{821695021056}.
+\]
+The Shimura lift is Hecke-equivariant at the five falsifier primes
+\[
+  p\in \{3,7,13,29,37\},\qquad
+  (a_3,a_7,a_{13},a_{29},a_{37})(E_{100})
+  =(2,-2,-2,6,-2),
+\]
+so the new-form contribution satisfies
+\[
+  A^{\mathrm{Sh}}_p
+  =
+  a_p(E_{100})\,
+  \alpha^{\mathrm{YY}}_{\le 14,\, |D|\le 50}.
+\]
+Consequently the executable truncation proves a non-zero finite
+obstruction in the BCOV-natural normalisation; the vanishing
+$\alpha=0$ is equivalent, at this truncation, to an additional
+Borcherds/Petersson normalisation identity on the five discriminants in
+$S_{50}$.
+\end{proposition}
+
+\begin{proof}
+The Kohnen plus-space support gives $D<0$ with $D=0,1\pmod 4$, and the
+character $\chi_5$ kills all $D$ divisible by $5$.  The Shimura preimage
+$h_{E_{100}}$ is non-zero in the truncation exactly at
+$D=-3,-7,-23,-24,-39$; this is the Waldspurger--Kohnen support
+criterion implemented independently by the Petersson trace-formula path
+and the BSD twist-sign path.  Multiplying the tabulated coefficients of
+$\xi^{\mathrm{quintic}}$ with the five non-zero
+$h_{E_{100}}$ coefficients gives
+\[
+  -120+120+120-240-240=-360.
+\]
+The Yamaguchi--Yau accumulator computes the BCOV-natural coefficients
+from the scalar-lane recursion through $g\le 14$ and pairs them with the
+same five Shimura coefficients, giving the displayed rational value.
+Hecke equivariance of the Shimura correspondence gives
+$A^{\mathrm{Sh}}_p=a_p(E_{100})\alpha$ for every good prime; the five
+listed primes have non-zero $a_p$, so they are genuine falsifier primes.
+The executable witness is
+\texttt{compute/lib/quintic\_shadow\_tower.py::quintic\_e100\_pentagon\_certificate};
+the checks are
+\texttt{compute/tests/test\_quintic\_shadow\_tower.py::TestQuinticE100PentagonCertificate}.
+\end{proof}
+
+\begin{proposition}[Exact level-\texorpdfstring{$500$}{500} normalisation reduction]
+\label{prop:quintic-E100-borcherds-normalisation-reduction}
+\ClaimStatusProvedHere
+In the same level-$500$ truncation let
+\[
+  q_D =
+  c_{\xi}^{\mathrm{YY}}(D)c_{h_{E_{100}}}(D),
+  \qquad
+  D\in S_{50}.
+\]
+The Yamaguchi--Yau and Shimura engines give
+\[
+\begin{array}{c|ccccc}
+D&-3&-7&-23&-24&-39\\
+\hline
+q_D&
+-\dfrac{625}{9}&
+0&
+-\dfrac{25}{870912}&
+\dfrac{25}{870912}&
+\dfrac{36193}{821695021056}.
+\end{array}
+\]
+Consequently the level-$500$ Borcherds/Petersson normalisation table
+$Z_{\mathrm{Borch}}^{(500)}$ is required, on the visible finite
+obstruction, to satisfy the exact cleared relation
+\[
+  -57062154240000\,Z_{\mathrm{Borch}}^{(500)}(-3)
+  -23587200\,Z_{\mathrm{Borch}}^{(500)}(-23)
+  +23587200\,Z_{\mathrm{Borch}}^{(500)}(-24)
+  +36193\,Z_{\mathrm{Borch}}^{(500)}(-39)=0.
+\]
+The discriminant $D=-7$ is invisible to this relation because
+$c_{\xi}^{\mathrm{YY}}(-7)=0$.  If the singular-theta normalisation is
+unit on $D=-3,-7,-23,-24$, the remaining entry is forced to be
+\[
+  Z_{\mathrm{Borch}}^{(500)}(-39)
+  =
+  \frac{57062154240000}{36193}.
+\]
+This last displayed table is an algebraic reduction under the stated
+unit normalisation, not a substitute for constructing the singular-theta
+lift.
+\end{proposition}
+
+\begin{proof}
+The exact products are computed by
+\texttt{compute/lib/quintic\_shadow\_tower.py::quintic\_e100\_borcherds\_normalisation\_reduction}
+from the same two disjoint sources used in
+Proposition~\ref{prop:quintic-E100-finite-obstruction-certificate}: the
+Yamaguchi--Yau BCOV-natural accumulator and the Shimura preimage
+$h_{E_{100}}$.  Their sum with the unit table is
+\[
+  -\,\frac{57062154203807}{821695021056},
+\]
+so the unit table is exactly the non-zero BCOV-natural obstruction.
+Clearing denominators by $821695021056$ gives the displayed integer
+relation.  The entries at $D=-23$ and $D=-24$ cancel under equal
+normalisation, and solving the remaining one-variable equation with
+$Z_{\mathrm{Borch}}^{(500)}(-3)=1$ gives
+$57062154240000/36193$.  The tests recompute the product vector, the
+cleared relation, the forced pivot, and a one-unit pivot perturbation;
+the perturbation leaves the non-zero residue
+$36193/821695021056$.
+\end{proof}
+
+\begin{theorem}[The first missing lemma for the quintic--\texorpdfstring{$E_{100}$}{E100} pentagon]
+\label{thm:quintic-E100-first-missing-lemma}
+\ClaimStatusProvedHere{finite reduction theorem; construction of the
+actual level-$500$ singular-theta table is the named remaining input}
+Let $Q\subset \mathbb{P}^4$ be the Fermat quintic and let
+$A^{\mathrm{quintic}}$ be the compact curved framed chain model obtained
+from the CY-A$_3$ chain-level witness, Costello--Li open--closed
+factorisation, and the fixed $(\Sigma_2,C)$ specialisation.  The
+quintic--$E_{100}$ implication
+\[
+  \alpha_{\mathrm{quintic}}=0
+  \quad\Longrightarrow\quad
+  [\omega]_{\mathrm{quintic}}=0\in
+  H^2_{\mathrm{Hoch},E_1}
+  (A^{\mathrm{quintic}};A^{\mathrm{quintic}\,\otimes 4})
+\]
+is reduced, on the finite support of
+Proposition~\ref{prop:quintic-E100-finite-obstruction-certificate}, to
+the following single normalisation lemma:
+\[
+  \sum_{D\in S_{50}}
+    c_{\xi}^{\mathrm{YY}}(D)\,
+    c_{h_{E_{100}}}(D)\,
+    Z_{\mathrm{Borch}}^{(500)}(D)
+  =0,
+\]
+where $Z_{\mathrm{Borch}}^{(500)}(D)$ is the singular-theta
+Borcherds/Petersson normalising factor converting the BCOV-natural
+Yamaguchi--Yau coefficient into the Petersson-normalised
+half-integral-weight coefficient at level $500$.  The source theorem is
+Yamaguchi--Yau polynomial finiteness plus the Niwa--Shintani/Kohnen--Zagier
+Shimura kernel; the target theorem is the quintic--$E_{100}$ pentagon
+equivalence.  Proposition~\ref{prop:quintic-E100-borcherds-normalisation-reduction}
+identifies the finite relation exactly; the remaining obstruction is the
+construction of the actual level-$500$ singular-theta table and the proof
+that it lies on that relation.
+\end{theorem}
+
+\begin{proof}
+Proposition~\ref{prop:quintic-E100-finite-obstruction-certificate}
+shows that every term in the $|D|\le 50$ new-form projection outside
+$S_{50}$ vanishes by one of three independent reasons: it is outside the
+Kohnen plus-space, it is killed by $\chi_5$, or its
+$h_{E_{100}}$ coefficient vanishes by Waldspurger--Kohnen.  Hence the
+full obstruction at this truncation is the five-term sum over $S_{50}$.
+The YY recursion supplies $c_{\xi}^{\mathrm{YY}}(D)$, while the
+Niwa--Shintani kernel supplies $c_{h_{E_{100}}}(D)$.  Proposition~\ref{prop:quintic-E100-borcherds-normalisation-reduction}
+clears the resulting rational equation and reduces the missing datum to
+one explicit level-$500$ normalisation hyperplane.  What the two engines
+do not construct is the singular-theta factor
+$Z_{\mathrm{Borch}}^{(500)}(D)$ comparing BCOV-normalised residues with
+the Petersson norm on $M_{3/2}^{!,+}(\Gamma_0(500),\chi_5)$.  Once this
+factor is evaluated on $S_{50}$ and the displayed sum vanishes, Hecke
+equivariance gives $A_p^{\mathrm{Sh}}=0$ at all five falsifier primes.
+The Costello--Li bulk--boundary map then carries the vanishing of the
+new-form projection to the vanishing of the pentagon Hochschild cocycle
+for the constructed compact curved framed model.  No larger black-box
+mock-modular hypothesis remains at the truncation: the missing datum is
+the construction of the singular-theta table and its membership in the
+explicit relation above.
+\end{proof}
+
 \section{Independent-verification protocol for the classical inputs}
 \label{sec:pentagon-closures-hziv}
 
@@ -622,21 +837,25 @@ $P_5 \colon \Delta^{(5)}_{\mathrm{pent}} \to \mathrm{ChirAlg}^{\Eone}_{X,\infty}
 $0$-cell $R_i$ to $A_X^{R_i}$, each $1$-cell to the named bridge, each $2$-cell to the relevant
 pentagon homotopy, and the $3$-cell to the pentagonal associator.
 
-\begin{theorem}[Pentagon \texorpdfstring{$(\infty,1)$}{(infty,1)}-colimit exists unconditionally]
+\begin{theorem}[Pentagon \texorpdfstring{$(\infty,1)$}{(infty,1)}-colimit from the categorical CY-A\texorpdfstring{$_3$}{-3} input]
 \label{thm:pentagon-infty1-colimit-exists}
 \ClaimStatusProvedHere
-Let $X = S \times E$ with $S$ a projective K3 surface and $E$ an elliptic curve.  In the
+Let $X = S \times E$ with $S$ a projective K3 surface and $E$ an elliptic curve.  Suppose the
+categorical CY-A$_3$ input of Theorem~\ref{thm:cy-to-chiral-d3} supplies the five vertices and
+bridges of the pentagon as a diagram in the
 $(\infty,1)$-category $\mathrm{ChirAlg}^{\Eone}_{X,\infty}$ of $\Eone$-chiral algebras on the
-analytic elliptic fibration $X \to E$, the pentagon diagram
+analytic elliptic fibration $X \to E$.  Then the pentagon diagram
 $P_5 \colon \Delta^{(5)}_{\mathrm{pent}} \to \mathrm{ChirAlg}^{\Eone}_{X,\infty}$ admits an
 $(\infty,1)$-colimit
 \[
   |P_5|_\infty \;:=\; \operatorname*{colim}_{\Delta^{(5)}_{\mathrm{pent}}}^{(\infty,1)} \; P_5.
 \]
-The construction of $|P_5|_\infty$ is unconditional on the four chain-level hypotheses
-(H1)--(H4): it uses only CY-A$_3$ at $(\infty,1)$-categorical level
-(Theorem~\ref{thm:cy-to-chiral-d3}), Lurie's symmetric-monoidal colimit theorem
-(HA~4.8.1.13), and presentability of $\mathrm{ChirAlg}^{\Eone}_{X,\infty}$ in the
+The construction of $|P_5|_\infty$ is independent of the four
+chain-level hypotheses (H1)--(H4).  Its proof uses the categorical
+CY-A$_3$ input only to place the diagram in the correct
+$(\infty,1)$-category; existence of the colimit then follows from
+Lurie's symmetric-monoidal colimit theorem (HA~4.8.1.13) and
+presentability of $\mathrm{ChirAlg}^{\Eone}_{X,\infty}$ in the
 Francis--Gaitsgory framework.
 \end{theorem}
 
@@ -746,17 +965,19 @@ denote the $(\infty,1)$-colimit of Theorem~\ref{thm:pentagon-infty1-colimit-exis
 \end{proposition}
 
 \begin{proof}
-Part~(i): the forgetful functor $U \colon \mathrm{ChirAlg}^{\Eone}_{X,\infty} \to
-\mathrm{Ch}(X)_{\Eone}$ is a right adjoint by Step~2 of
-Theorem~\ref{thm:pentagon-infty1-colimit-exists}, so it does not preserve colimits; however, the
-chain-level pushout $|P_5|_{\mathrm{chain}}$ maps canonically to the underlying chain complex of
-$|P_5|_\infty$ by the universal property of the $1$-categorical pushout applied to the $0$-cells
-of the pentagon.  Part~(ii): the fibre of this map records the non-trivial $2$-cells and $3$-cell
-of $\Delta^{(5)}_{\mathrm{pent}}$, which by Proposition~\ref{prop:h1-h4-hochschild-cells} are
-controlled by $V_1 \oplus V_2 \oplus V_3 \oplus W$.  Part~(iii): simultaneous vanishing of the four
-classes is chain-level pentagon coherence (Proposition~\ref{prop:h1-h4-hochschild-cells}), which
-makes $|P_5|_\infty \simeq |P_5|_{\mathrm{chain}}$.  Identification with $G(K3 \times E)$ is the
-conditional content of Theorem~\ref{thm:cy-c-pentagon-convergence-unconditional}(iv).
+Part~(i): the strictification functor from coherent pentagon diagrams to
+$1$-categorical pentagon diagrams imposes the three $2$-cells and the
+pentagonal $3$-cell as equations.  Applying this quotient to the
+universal cocone of $|P_5|_\infty$ gives the canonical comparison
+$|P_5|_\infty \to |P_5|_{\mathrm{chain}}$.  Part~(ii): the fibre of
+this quotient records exactly the higher cells killed by strictification,
+which by Proposition~\ref{prop:h1-h4-hochschild-cells} are controlled by
+$V_1 \oplus V_2 \oplus V_3 \oplus W$.  Part~(iii): simultaneous
+vanishing of the four classes is chain-level pentagon coherence
+(Proposition~\ref{prop:h1-h4-hochschild-cells}), so the quotient map is
+an equivalence and $|P_5|_\infty \simeq |P_5|_{\mathrm{chain}}$.
+Identification with $G(K3 \times E)$ is the conditional content of
+Theorem~\ref{thm:cy-c-pentagon-convergence-unconditional}(iv).
 \end{proof}
 
 \begin{proposition}[Generator-level identification under CY-A\texorpdfstring{$_3$}{-3}]
@@ -787,8 +1008,10 @@ $A_X^{R_i}$ at the pentagon vertices; compatibility with the five bridges is The
 chain-level content at the associated graded level, which holds before passage to the chain
 level by the $(\infty,1)$-categorical CY-A$_3$ of Theorem~\ref{thm:cy-to-chiral-d3}.  The K3
 factor $H^{\mathrm{SV}}_{\mathrm{CoHA}}(K3)$ is Schiffmann--Vasserot 2013 (Publ.~IHES~118,
-Theorem~1.6): the K3 cohomological Hall algebra is the half of the $\mathcal{W}_{1+\infty}^{(r,c_1,c_2)}$
-algebra with Mukai-lattice parameters $(r, c_1, c_2)$.  The elliptic factor
+Theorem~1.6): the K3 cohomological Hall algebra supplies the Hall-positive
+half with Mukai-lattice parameters $(r, c_1, c_2)$.  Any
+$\mathcal{W}$- or VOA-realisation belongs to the separate doubled/evaluated
+representation-theoretic construction, not to the raw CoHA.  The elliptic factor
 $H^{\mathrm{CS}}_{\mathrm{CoHA}}(E)$ is the Chern--Simons-type CoHA on $E$, related to the
 elliptic Hall algebra by Burban--Schiffmann 2012 (Duke~Math.~J.~161).  The relative tensor
 product structure is pinned by the K\"unneth decomposition of the pentagon Hochschild cohomology

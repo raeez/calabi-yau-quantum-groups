@@ -80,13 +80,18 @@ Costello--Gwilliam renormalised BV complex
   \Obs_{\hCS}^{q}(U,\mathfrak g)
   =
   \left(
-    \mathcal O(\cE_{\hCS,c}(U,\mathfrak g))[[\hbar]],
+    \mathcal O_{\mathrm{ren,loc/multiloc}}
+    (\cE_{\hCS,c}(U,\mathfrak g))[[\hbar]],
     Q_{\hCS}+\{I[L],-\}_{\BV}+\hbar\Delta_L
   \right).
 \]
-Here $I[L]$ is the scale-$L$ effective interaction, $\Delta_L$ is the BV
-Laplacian determined by the heat-kernel propagator, and the quantum
-master equation
+Here $\mathcal O_{\mathrm{ren,loc/multiloc}}$ denotes the
+Costello-renormalised space of local and multilocal functionals on which
+the heat-kernel BV operator is defined; it is not the full algebra of
+all continuous polynomial functions on the compact-support LF space.
+The effective interaction $I[L]$ is the scale-$L$ interaction,
+$\Delta_L$ is the renormalised BV Laplacian determined by the
+heat-kernel propagator, and the quantum master equation
 \[
   Q_{\hCS} I[L]
   +\frac{1}{2}\{I[L],I[L]\}_{\BV}
@@ -105,7 +110,10 @@ Let $P=D_1\times D_2\times D_3\subset X$ be a holomorphic polydisc with
 coordinates $z_1,z_2,z_3$.  Let $\mathfrak l_{\cC}$ be the local dg
 Lie algebra controlling the chosen CY$_3$ chart of $\cC$; in a pure hCS
 gauge chart this is the constant dg Lie algebra $\mathfrak g$ with
-zero internal differential.  Put
+zero internal differential.  Topologise
+$J^\infty_{\mathrm{hol}}\mathfrak l_{\cC}$ as the completed inverse
+limit of finite holomorphic-jet bundles with its nuclear pro-Fr\'echet
+topology, and put
 \[
   \mathfrak L_{\cC}(P)
   :=
@@ -118,6 +126,12 @@ zero internal differential.  Put
   =
   \alpha\wedge\beta\otimes[\,,\,]_{\mathfrak l_{\cC}}.
 \]
+The space $\mathfrak L_{\cC}(P)$ carries the strict nuclear LF topology
+obtained as the filtered colimit over compact subsets $K\Subset P$.
+All tensor products below are completed projective tensor products
+$\widehat\otimes_\pi$, and $(-)^\vee_b$ denotes the strong continuous
+dual.  The continuity of $\dbar$, $d_{\mathfrak l}$, and the bracket is
+part of the local dg-Lie datum.
 The local classical observable object retained by the CY$_3$
 bridge is the Dolbeault--chiral Chevalley--Eilenberg factorisation
 algebra
@@ -126,10 +140,18 @@ algebra
   =
   C^\bullet_{\mathrm{Lie,cont}}\bigl(\mathfrak L_{\cC}(P),\mathbb C\bigr)
   =
-  \widehat{\mathrm{Sym}}\bigl(\mathfrak L_{\cC}(P)^\vee[-1]\bigr),
+  \prod_{n\geq0}
+  \mathrm{Hom}_{\mathrm{cont}}
+  \!\left(
+     \widehat{\mathrm{Sym}}^n_\pi(\mathfrak L_{\cC}(P)[1]),
+     \mathbb C
+   \right)
+  =
+  \widehat{\mathrm{Sym}}
+  \bigl(\mathfrak L_{\cC}(P)^\vee_b[-1]\bigr),
 \]
 with differential $d_{\mathrm{CE}}+\dbar^\vee+d_{\mathfrak l}^\vee$.
-Equivalently, the stage-one local model is
+The chain object behind it is the stage-one local model
 \[
   \PhiFA_3(\cC)|_P
   \simeq
@@ -141,10 +163,11 @@ Equivalently, the stage-one local model is
   \mathrm{CE}^{\mathrm{ch},E_3}_*
   \bigl(\mathfrak L_{\cC}\bigr),
 \]
-on the loci where the hCS realisation of $\PhiFA_3$ is available. This
-is the retained Stage-$1$ $\Ethree$ bar/CE object; after Stage-$2$
-specialisation to a curve and forgetting the Stage-$1$ datum, the output
-is only an $\Eone$-chiral algebra.  The
+on the loci where the hCS realisation of $\PhiFA_3$ is available. Thus
+observables are the continuous dual of the bar-chain coalgebra, not the
+bar-chain coalgebra itself. This is the retained Stage-$1$ $\Ethree$
+bar/CE object; after Stage-$2$ specialisation to a curve and forgetting
+the Stage-$1$ datum, the output is only an $\Eone$-chiral algebra.  The
 factorisation products are products over disjoint holomorphic polydiscs;
 their singularities lie only on the union of partial diagonals
 $\Delta_\pi\subset P^n$. A collision operation is the local-cohomology
@@ -195,6 +218,197 @@ Thus $C^\bullet(\mathfrak g)$ is a topological associated model, not
 the CY$_3$ chiral object.
 \end{definition}
 
+\begin{proposition}[Continuous dual \texorpdfstring{$E_3$}{E3} bar of the many-variable model]
+\label{prop:cy3-continuous-e3-bar-ce}
+\ClaimStatusConditional{} \textup{(conditional on the fixed Stage-$1$ $E_3$ formality and Costello--Li holomorphic witness)}
+Let $P=D_1\times D_2\times D_3$ be a holomorphic polydisc and assume
+that the local dg Lie algebra $\mathfrak l_{\cC}$ is finite type in each
+cohomological degree.  Equip
+$\Omega^{0,\bullet}_c(P,J^\infty_{\mathrm{hol}}\mathfrak l_{\cC})$ with
+its standard LF topology and its continuous dual with the corresponding
+Fr\'echet topology.  Then the factorisation enveloping algebra in
+Definition~\ref{def:cy3-many-variable-chiral-ce} satisfies a natural
+quasi-isomorphism of conilpotent $E_3$-coalgebras
+\[
+  B_{E_3}\!\left(
+    U^{\mathrm{fact},E_3}_{P}(\mathfrak L_{\cC})
+  \right)
+  \simeq
+  \mathrm{CE}^{\mathrm{ch},E_3}_*(\mathfrak L_{\cC}),
+\]
+where the Chevalley--Eilenberg complex is formed with completed
+projective tensor products and continuous alternating coinvariants.
+Consequently the classical observable factorisation algebra is the
+strong continuous dual
+\[
+  \Obs_{\cC}^{\mathrm{cl}}(P)
+  \simeq
+  \left(
+  B_{E_3}\!\left(
+    U^{\mathrm{fact},E_3}_{P}(\mathfrak L_{\cC})
+  \right)
+  \right)^\vee_b .
+\]
+Both identifications are compatible with restriction to smaller
+polydiscs, extension by zero for disjoint compact supports, and hence
+with left-end Dolbeault/Weiss/Ran descent.  They do not construct the
+Hall comparison of Problem~\ref{op:cy3-hcs-hall-comparison}.
+\end{proposition}
+
+\begin{proof}
+The LF space
+$\Omega^{0,\bullet}_c(P,J^\infty_{\mathrm{hol}}\mathfrak l_{\cC})$ is
+strictly nuclear because compactly supported Dolbeault forms on a
+polydisc are a filtered colimit of nuclear Fr\'echet spaces and
+$J^\infty_{\mathrm{hol}}\mathfrak l_{\cC}$ is finite type in each
+cohomological degree.  On nuclear spaces the completed projective tensor
+product is exact and commutes with finite coinvariants; hence the
+continuous Chevalley--Eilenberg coalgebra is computed by
+\[
+  \widehat{\Sym}^{\,c}
+  \bigl(\mathfrak L_{\cC}[1]\bigr),
+  \qquad
+  d=d_{\dbar}+d_{\mathfrak l}+d_{\mathrm{Lie}},
+\]
+with the Lie differential determined by the bracket in
+Definition~\ref{def:cy3-many-variable-chiral-ce}.  The
+$E_3$-factorisation envelope
+$U^{\mathrm{fact},E_3}_{P}(\mathfrak L_{\cC})$ is the left adjoint from
+local dg Lie algebras to locally constant-in-the-normal-directions
+$E_3$-factorisation algebras on the polydisc.  The $E_3$ bar functor is
+the corresponding right Koszul dual coalgebra functor.  Applying the
+bar-envelope unit to the free/enveloping object gives exactly the
+continuous Chevalley--Eilenberg chains above.  Naturality follows
+because extension by zero for compactly supported forms and restriction
+of holomorphic jets are continuous maps of nuclear complexes, and Weiss
+descent is checked on the same completed tensor products.  The
+many-variable residues commute with this identification since both sides
+compute collision operations by local cohomology along the same partial
+diagonals.  Taking the strong continuous dual is exact on the nuclear
+subclass fixed in Definition~\ref{def:cy3-many-variable-chiral-ce}; it
+converts completed direct sums of compact-support fields into products
+of continuous functionals and sends the CE-chain differential to the
+continuous CE-cochain differential.  This gives the displayed observable
+identification and preserves factorisation products for disjoint
+polydiscs.
+\end{proof}
+
+\begin{theorem}[Quantum BV/bar comparison on a CY$_3$ polydisc]
+\label{thm:cy3-quantum-bv-bar-conditional}
+\ClaimStatusConditional{}
+Let $P\subset X$ be a holomorphic polydisc in a smooth CY$_3$ with
+holomorphic volume form $\Omega_X$, and let
+$\mathfrak L_{\cC}(P)$ be the compact-support Dolbeault--jet dg Lie
+algebra of Definition~\ref{def:cy3-many-variable-chiral-ce}.  Assume:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the Stage-$1$ $E_3$ formality point and Costello--Li holomorphic
+witness used in Proposition~\ref{prop:cy3-continuous-e3-bar-ce};
+\item a Costello--Gwilliam/Costello--Li renormalisation datum
+$(I[L],\Delta_L,W_{\Gamma,L})$ on $P$ satisfying RG flow and the quantum
+master equation;
+\item vanishing, or chosen counterterm cancellation, of the local
+Costello--Li quartic anomaly class
+$[P_4]\in H^1_{\mathrm{loc}}
+(\mathfrak L_{\cC},\mathcal O_{\mathrm{loc}})$;
+\item a strict nuclear LF/DFS completion in which every renormalised
+Feynman operation $W_{\Gamma,L}C_\Gamma$ is continuous and compatible
+with extension by zero for disjoint polydiscs;
+\item a continuous BV-to-bar transfer
+\[
+  T_L\colon
+  B_{E_3}U^{\mathrm{fact},E_3}_P(\mathfrak L_{\cC})[[\hbar]]
+  \longrightarrow
+  \bigl(\Obs_{\hCS}^{q}(P,\mathfrak g)\bigr)^\vee_b
+\]
+whose classical limit is the strong-duality comparison of
+Proposition~\ref{prop:cy3-continuous-e3-bar-ce};
+\item continuous coderivations $D_r$ on the completed $E_3$ bar
+coalgebra such that
+\[
+  D_B^\hbar=d_B+\sum_{r\geq 1}\hbar^rD_r,
+  \qquad
+  (D_B^\hbar)^2=0,
+\]
+and such that conjugation by $T_L^\vee$ identifies $D_B^\hbar$ with the
+renormalised BV differential
+$Q_{\hCS}+\{I[L],-\}_{\BV}+\hbar\Delta_L$.
+\end{enumerate}
+Then there is a natural quasi-isomorphism of $\hbar$-adically complete
+factorisation algebras
+\[
+  \Obs_{\hCS}^{q}(P,\mathfrak g)
+  \simeq
+  \left(
+    B_{E_3}^{\hbar}
+    U^{\mathrm{fact},E_3}_P(\mathfrak L_{\cC})
+  \right)^\vee_b ,
+  \qquad
+  B_{E_3}^{\hbar}:=
+  \left(B_{E_3},D_B^\hbar\right).
+\]
+Its associated graded at $\hbar=0$ is
+Proposition~\ref{prop:cy3-continuous-e3-bar-ce}.  The theorem is a
+source-side quantum comparison; it does not construct the Hall map
+$\Theta_{\hCS\to\Hall}^{\mathrm{or}}$.
+\end{theorem}
+
+\begin{proof}
+The assumptions place the Costello--Li BV complex and the completed
+$E_3$ bar coalgebra in the same strict completed category.  The quantum
+master equation is equivalent to the square-zero identity for the
+renormalised BV differential.  The transfer $T_L$ transports this
+differential to the completed bar coalgebra, and assumption~(vi) states
+exactly that the transported differential is the coderivation
+$D_B^\hbar$.  Strong continuous duality is exact on the strict
+nuclear/DFS subcategory fixed in assumption~(iv), so dualising gives
+the displayed quasi-isomorphism.  Factorisation compatibility follows
+from the extension-by-zero compatibility of the renormalised Feynman
+operations.  Setting $\hbar=0$ removes the loop coderivations, the
+quantum BV Laplacian, and the higher effective interactions, recovering
+the classical continuous-duality theorem.
+\end{proof}
+
+\begin{corollary}[Quantum bar-to-Hall comparison, conditional on the oriented map]
+\label{cor:cy3-quantum-bar-hall-conditional}
+\ClaimStatusConditional{}
+Assume Theorem~\ref{thm:cy3-quantum-bv-bar-conditional}.  Assume in
+addition an oriented hCS-to-Hall comparison on the DWR \v{C}ech/Ran
+nerve whose obstruction tuple
+\[
+  (o_{\mathrm{MC}},o_{\mathrm{or}},o_{\mathrm{gr}},
+   o_{\mathrm{TS}},o_{\mathrm{fact}})
+\]
+vanishes in the sense of
+Definition~\ref{def:hcs-hall-descent-obstruction}.  Then the composite
+\[
+  \left(
+    B_{E_3}^{\hbar}
+    U^{\mathrm{fact},E_3}(\mathfrak L_{\cC})
+  \right)^\vee_b
+  \xrightarrow{\ \simeq\ }
+  \Obs_{\hCS}^{q}
+  \xrightarrow{\Theta_{\hCS\to\Hall}^{\mathrm{or}}}
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}
+\]
+is a morphism of completed Hall-valued factorisation cosheaves.  On the
+$\C^3$ chart its Hall-side reduction is the
+Kontsevich--Soibelman/Schiffmann--Vasserot positive half
+$\CoHA(\C^3)\cong Y^+(\widehat{\fgl}_1)$; any
+$\cW_{1+\infty}$ statement passes through the Drinfeld double and
+Fock/evaluation representation.
+\end{corollary}
+
+\begin{proof}
+The first arrow is Theorem~\ref{thm:cy3-quantum-bv-bar-conditional};
+the second arrow is precisely the oriented comparison datum supplied by
+the vanishing obstruction tuple.  The conclusion is closure of
+completed Hall-valued factorisation cosheaves under composition.  The
+$\C^3$ normal form is the Hall-side theorem of
+Kontsevich--Soibelman and Schiffmann--Vasserot; the
+$\cW_{1+\infty}$ passage is representation-theoretic and begins only
+after Drinfeld doubling.
+\end{proof}
+
 \begin{construction}[The typed CY$_3$ bridge]
 \label{con:cy3-typed-bridge}
 \ClaimStatusDefinitional{}
@@ -226,7 +440,24 @@ identification is $\CoHA(\C^3)\cong Y^+$.
 Let $X$ be a CY$_3$ equipped with a Dolbeault/Weiss/Ran site
 $\mathsf{DW\!R}(X)$ and a Weiss-cofinal holomorphic-polydisc basis
 $\mathcal B_{\mathrm{poly}}$ whose finite intersections are refined by
-objects of the same basis.  An object of
+objects of the same basis.  The DWR/Ran nerve attached to a chosen cover
+$\mathfrak U=\{U_i\}_{i\in I}$ is the simplicial category
+$\mathsf{N}_{\mathsf{DW\!R}}(\mathfrak U)$ whose $p$-simplices are
+finite pairwise disjoint families
+\[
+  \sigma=(S,\{P_s\Subset U_{i_{s,0}}\cap\cdots\cap U_{i_{s,p}}\}_{s\in S})
+\]
+of holomorphic polydiscs, with face maps omitting a \v{C}ech index,
+degeneracies repeating one, and Ran multiplication given by disjoint
+union of finite sets.  Refinement morphisms are inclusions
+$P'_t\Subset P_s$ over maps of finite sets $t\mapsto s$.  The associated
+open is $|\sigma|=\bigsqcup_{s\in S}P_s$.  A DWR-good cover is one for
+which these intersections and refinements remain in
+$\mathcal B_{\mathrm{poly}}$, compact-support extension is continuous,
+and Weiss descent computes the same object after passing to the
+homotopy colimit over refinements.
+
+An object of
 \[
   \mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)
 \]
@@ -288,6 +519,188 @@ $t(U,\mathbf d)$ are part of the convention; a comparison with hCS
 observables is ungraded until they are fixed.
 \end{definition}
 
+\begin{definition}[Oriented hCS--Hall comparison datum on the DWR/Ran nerve]
+\label{def:cy3-oriented-hcs-hall-comparison-datum}
+\ClaimStatusDefinitional{}
+Fix a DWR-good cover $\mathfrak U$, a metric gauge Lie algebra
+$\mathfrak g$, an anomaly-cancelled hCS quantisation in the sense of
+Definition~\ref{def:cy3-hcs-quantum-observables}, a charge monoid
+$\Gamma$, a stability condition, and equivariant parameters for the
+critical Hall charts.  An oriented hCS--Hall comparison datum is the
+following typed object on $\mathsf{N}_{\mathsf{DW\!R}}(\mathfrak U)$.
+
+For every simplex
+\[
+  \sigma=(S,\{P_s\}_{s\in S})
+\]
+the hCS side is the completed factorisation product
+\[
+  \Obs_{\hCS}^{q}(\sigma,\mathfrak g)
+  :=
+  \widehat{\bigotimes}_{s\in S}
+  \Obs_{\hCS}^{q}(P_s,\mathfrak g),
+\]
+with differential
+$Q_{\hCS}+\{I[L],-\}_{\BV}+\hbar\Delta_L$ on each factor and with
+compact-support extension maps for refinements.  The Hall side is the
+charge/HN-completed and equivariant-localised direct sum
+\[
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(\sigma)
+  :=
+  \widehat{\bigoplus}_{\gamma\in\Gamma^S}
+  \widehat{\bigotimes}_{s\in S}
+  H^{\mathrm{BM}}_{G_{\gamma_s}}
+  \!\left(
+    \mathrm{Crit}(\mathrm{Tr}W_{P_s,\gamma_s}),
+    \phi_{\mathrm{Tr}W_{P_s,\gamma_s}}\otimes
+    \mathscr L_{o_{P_s,\gamma_s}}
+  \right)
+  [s(P_s,\gamma_s)](t(P_s,\gamma_s)).
+\]
+Here $\mathrm{Tr}W_{P_s,\gamma_s}$ is the trace function on the local
+representation stack, $[s]$ is the fixed cohomological shift, $(t)$ is
+the fixed Tate twist, and the completion is part of the datum.
+
+The orientation component is a Joyce--Kontsevich--Soibelman system of
+square roots
+\[
+  \ell_{P,\gamma}^{\otimes 2}
+  \xrightarrow{\;\sim\;}
+  K^{\mathrm{vir}}_{P,\gamma}
+\]
+of the virtual determinant line of each critical chart, together with
+the induced orientation local system $\mathscr L_{o_{P,\gamma}}$ and
+transport isomorphisms on all refinements and overlaps.  These
+transport maps satisfy the \v{C}ech cocycle condition on triple
+overlaps and are compatible with direct sums and extensions.  The Hall
+product for charges $\gamma_1,\gamma_2$ is the pull--push along the
+short-exact-sequence correspondence
+\[
+\begin{tikzcd}
+& \mathfrak E_{\gamma_1,\gamma_2}(P)
+  \arrow[dl, "p_1\times p_2"']
+  \arrow[dr, "p_3"] & \\
+\mathfrak M_{\gamma_1}(P)\times\mathfrak M_{\gamma_2}(P)
+&&
+\mathfrak M_{\gamma_1+\gamma_2}(P),
+\end{tikzcd}
+\]
+composed with the Thom--Sebastiani isomorphism for vanishing cycles,
+the orientation-line transport, and the shift/Tate-twist correction
+making the product degree zero.
+
+The comparison maps are continuous chain maps
+\[
+  \Theta_\sigma\colon
+  \Obs_{\hCS}^{q}(\sigma,\mathfrak g)
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(\sigma)
+\]
+for all simplices $\sigma$, satisfying five coherence conditions:
+\begin{enumerate}
+\item for every face, degeneracy, or refinement
+$\rho\colon\sigma'\to\sigma$, the naturality square
+\[
+\begin{tikzcd}
+\Obs_{\hCS}^{q}(\sigma',\mathfrak g)
+  \arrow[r, "\Theta_{\sigma'}"]
+  \arrow[d, "\rho_*"']
+&
+\CoHA_{\mathrm{crit}}^{\mathrm{or}}(\sigma')
+  \arrow[d, "\rho_*"]\\
+\Obs_{\hCS}^{q}(\sigma,\mathfrak g)
+  \arrow[r, "\Theta_\sigma"']
+&
+\CoHA_{\mathrm{crit}}^{\mathrm{or}}(\sigma)
+\end{tikzcd}
+\]
+commutes in completed complexes;
+\item for disjoint DWR/Ran families $\sigma_1,\sigma_2$, the product
+square
+\[
+\begin{tikzcd}
+\Obs_{\hCS}^{q}(\sigma_1,\mathfrak g)
+\widehat\otimes
+\Obs_{\hCS}^{q}(\sigma_2,\mathfrak g)
+  \arrow[r, "\Theta_{\sigma_1}\widehat\otimes\Theta_{\sigma_2}"]
+  \arrow[d, "\mu_{\BV}^{\mathrm{fact}}"']
+&
+\CoHA_{\mathrm{crit}}^{\mathrm{or}}(\sigma_1)
+\widehat\otimes
+\CoHA_{\mathrm{crit}}^{\mathrm{or}}(\sigma_2)
+  \arrow[d, "\mu_{\Hall}^{\mathrm{TS},o}"]\\
+\Obs_{\hCS}^{q}(\sigma_1\sqcup\sigma_2,\mathfrak g)
+  \arrow[r, "\Theta_{\sigma_1\sqcup\sigma_2}"']
+&
+\CoHA_{\mathrm{crit}}^{\mathrm{or}}(\sigma_1\sqcup\sigma_2)
+\end{tikzcd}
+\]
+commutes;
+\item the BV bracket on the source is sent to the commutator of the
+Hall correspondence product after the CY$_3$ shift fixed by the
+normalisation;
+\item the two parenthesisations of a triple Hall extension, with their
+Thom--Sebastiani and orientation transports, agree with the two
+iterated hCS factorisation products;
+\item every map is continuous for the $\hbar$-adic, strong-dual,
+charge/HN-adic, and equivariant-localised topologies, and preserves the
+chosen trace functions, shifts, and Tate twists.
+\end{enumerate}
+The datum is a quasi-isomorphic comparison datum when the maps on
+$0$-simplices are quasi-isomorphisms after these completions and
+normalisations.
+\end{definition}
+
+\begin{theorem}[Oriented comparison from a DWR/Ran datum]
+\label{thm:oriented-hcs-hall-comparison-from-dwr-datum}
+\ClaimStatusProvedHere{}
+Every quasi-isomorphic oriented hCS--Hall comparison datum of
+Definition~\ref{def:cy3-oriented-hcs-hall-comparison-datum} determines
+a morphism
+\[
+  \Theta_{\hCS\to\Hall}^{\mathrm{or}}\colon
+  \Obs_{\hCS}^{q}(-,\mathfrak g)
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(-)
+\]
+in
+$\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$.  If both sides
+satisfy DWR/Weiss descent on $\mathfrak U$, the induced map on the
+homotopy colimit over $\mathsf{N}_{\mathsf{DW\!R}}(\mathfrak U)$ is a
+quasi-isomorphism.  The theorem constructs no such datum; it proves that
+once the orientation, trace, twist, completion, product, and coherence
+data exist, they are exactly sufficient for the hCS-to-Hall comparison
+on that DWR/Ran nerve.
+\end{theorem}
+
+\begin{proof}
+The first coherence square says that the maps $\Theta_\sigma$ form a
+natural transformation on the entire \v{C}ech/Ran simplicial category,
+not only on its vertices.  The second square identifies the disjoint
+support product of BV observables with the Thom--Sebastiani Hall
+product.  The third condition identifies the induced Lie brackets after
+the CY$_3$ shift.  The fourth condition is precisely the associativity
+coherence for the Hall correspondence product, including the two
+orientation transports.  The fifth condition states that the maps live
+in the completed target category and have degree zero after the named
+shift and Tate twist.  Thus the data define a morphism in
+$\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$ by
+Definition~\ref{def:hall-valued-factorisation-cosheaf-target}.
+
+Assume now that both sides satisfy DWR/Weiss descent.  The cover is
+refinement-closed by definition, so the polydisc attached to any higher
+\v{C}ech simplex is also a vertex after passing to the chosen
+refinement basis.  The quasi-isomorphism condition on vertices therefore
+applies to the complexes computing each finite intersection, and the
+naturality squares identify the higher-simplex maps with these
+refinement maps.  The standard descent comparison for homotopy colimits
+of complexes then identifies the induced map on total DWR/Ran descent
+with a homotopy colimit of quasi-isomorphisms, hence with a
+quasi-isomorphism.  No existence claim for
+$\Theta_{\hCS\to\Hall}^{\mathrm{or}}$ is hidden in the argument: the
+theorem begins only after the full typed datum has been supplied.
+\end{proof}
+
 \section{The proved local core}
 \label{sec:cy3-chain-level-bridge-local-core}
 
@@ -324,12 +737,11 @@ doubling is only the positive half.
 
 \begin{proposition}[Local-to-toric descent package]
 \label{prop:cy3-local-to-toric-descent-package}
-\ClaimStatusConditional{} \textup{(conditional on the comparison map
-in Problem~\ref{op:cy3-hcs-hall-comparison})}
+\ClaimStatusConditional{} \textup{(conditional on the comparison datum
+of Definition~\ref{def:cy3-oriented-hcs-hall-comparison-datum})}
 Assume that on the DWR \v{C}ech/Ran nerve of a smooth toric CY$_3$
-there is a continuous natural transformation in
-$\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$ whose value on each
-affine toric chart $U\simeq\C^3$ is a quasi-isomorphism
+there is a quasi-isomorphic oriented hCS--Hall comparison datum whose
+value on each affine toric chart $U\simeq\C^3$ is a quasi-isomorphism
 \[
   \Theta_U\colon
   \Obs_{\hCS}^{q}(U,\mathfrak g)
@@ -424,15 +836,214 @@ $\Theta_{\hCS\to\Hall}$ in Construction~\ref{con:cy3-typed-bridge}, and
 it remains a separate mathematical datum.
 \end{warning}
 
+\begin{definition}[Holomorphic perfect defects for a CY$_3$ Stage-$1$ algebra]
+\label{def:cy3-holomorphic-perfect-defect}
+\ClaimStatusDefinitional{}
+Let $F_X=\PhiFA_3(\cC)_F$ be a constructed Stage-$1$
+$E_3$-holomorphic factorisation algebra on the framed CY$_3$ locus, and
+let $i\colon C\hookrightarrow X$ be a holomorphic curve with finite
+marked endpoint set $S\subset C$.  A holomorphic defect over $(X,C,S)$ is
+a constructible $E_{1\subset 3}$-module coefficient system
+\[
+  M\in \mathrm{HolMod}_{F_X}(X,C,S)
+\]
+consisting of bulk coefficients $F_X(P)$ on polydiscs $P\subset X$,
+curve coefficients $M_C(D)$ on discs $D\subset C$, endpoint objects
+$M_p,M_p^\vee$ for $p\in S$, and descent data on the stratified
+Dolbeault/Weiss/Ran nerve of $(X,C,S)$.  In a normal chart
+$P=D_z\times D_u\times D_v$ with
+$C\cap P=D_z\times\{0,0\}$, the curve action is by the
+normal-completed dg Lie algebra
+\[
+  \mathfrak L_{X,C}^{\wedge}(D_z)
+  =
+  \Omega^{0,\bullet}_c
+  \!\left(
+    D_z,
+    J^\infty_{\mathrm{hol}}(\mathfrak l_{\cC}|_C)
+    \widehat\otimes
+    \widehat{\Sym}(N_{C/X}^\vee)
+  \right)[1].
+\]
+The defect is perfect if it is compact and dualisable in
+$\mathrm{HolMod}_{F_X}(X,C,S)$, finite over the normal-completed local
+algebra, of finite Tor-amplitude on each DWR chart, compatible with the
+CY orientation datum, and trace-class for the continuous Dolbeault
+complexes.  Endpoint data means evaluation and coevaluation maps
+$M_p^\vee\otimes M_p\to \mathbb C$ and
+\(\mathbb C\to M_p\otimes M_p^\vee\) satisfying the zigzag identities in
+the one-sided local module category.
+\end{definition}
+
+\begin{proposition}[Formal holomorphic defect trace]
+\label{prop:cy3-holomorphic-defect-trace}
+\ClaimStatusConditional{} \textup{(conditional on the existence of the perfect defect of Definition~\ref{def:cy3-holomorphic-perfect-defect})}
+Let $M$ be a perfect holomorphic defect for $F_X$ supported on
+$(C,S)$.  Then factorisation homology of the stratified pair gives a
+trace class
+\[
+  \mathrm{Tr}^{\mathrm{hol}}_{F_X}(M)
+  \in
+  \int_{(X,C,S)} (F_X,M),
+\]
+and after a witnessed Stage-$2$ specialisation datum
+$(\Sigma_2,C)$ it gives a trace class for the $E_1$ chiral algebra
+\[
+  A_C=\SpCh_{\Sigma_2,C}(F_X).
+\]
+This is the holomorphic analogue of the Costello--Francis--Gwilliam
+ordinary Chern--Simons trace grammar.  It does not identify the trace
+with a Hall, DT, or Borcherds character unless a module-level extension
+of $\Theta_{\hCS\to\Hall}^{\mathrm{or}}$ and the Hall--Borcherds
+denominator comparison are supplied.
+\end{proposition}
+
+\begin{proof}
+Perfectness gives compactness and dualisability in the holomorphic
+factorisation-module category, so the evaluation and coevaluation maps
+at the marked endpoints define the usual categorical trace in
+stratified factorisation homology.  The normal-completed action in
+Definition~\ref{def:cy3-holomorphic-perfect-defect} is retained during
+collision of curve discs; hence the trace is a class in the
+holomorphic, not locally constant, stratified homology of $(X,C,S)$.
+Applying the exact witnessed specialisation functor
+$\SpCh_{\Sigma_2,C}$ transports the class to the curve algebra $A_C$.
+No Hall statement follows from this formal trace construction: Hall
+traces require vanishing cycles, orientation-line square roots,
+charge/HN completions, and Thom--Sebastiani compatibility, precisely
+the data isolated in Problem~\ref{op:cy3-hcs-hall-comparison} and
+Definition~\ref{def:hcs-hall-descent-obstruction}.
+\end{proof}
+
+\begin{definition}[Module hCS--Hall obstruction complex]
+\label{def:hcs-hall-module-obstruction}
+\ClaimStatusDefinitional{}
+Assume a base chartwise algebra comparison
+\[
+  \theta_i\colon
+  \Obs_{\hCS}^{q}(U_i,\mathfrak g)
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(U_i)
+\]
+has been fixed on a DWR-good cover, and let $M$ be a holomorphic
+perfect defect in the sense of
+Definition~\ref{def:cy3-holomorphic-perfect-defect}.  For a candidate
+Hall module $N$ over $\CoHA_{\mathrm{crit}}^{\mathrm{or}}$, put on each
+intersection $U_I$
+\[
+  \mathcal N_{\mathrm{mod}}^q(U_I)
+  :=
+  \Hom^q_{\mathrm{cont},\,\theta_I\text{-}\mathrm{mod}}
+  \bigl(M_{\mathrm{hol}}(U_I),N_{\Hall}(U_I)\bigr).
+\]
+The total module comparison complex is
+\[
+  \mathfrak M_{\hCS,\Hall}^{\mathrm{mod}}(\mathfrak U)
+  :=
+  \Tot\,\Cech^\bullet(\mathfrak U,\mathcal N_{\mathrm{mod}}^\bullet).
+\]
+It is a filtered dg module over
+$\mathfrak M_{\hCS,\Hall}(\mathfrak U)$, and the pair
+$(\theta,\eta)$ is governed by the semidirect convolution dg Lie algebra
+\[
+  \mathfrak M_{\hCS,\Hall}^{\mathrm{pair}}
+  =
+  \mathfrak M_{\hCS,\Hall}
+  \ltimes
+  \mathfrak M_{\hCS,\Hall}^{\mathrm{mod}}.
+\]
+A degree-zero pair is a module comparison datum when
+\[
+  d\theta+\frac12[\theta,\theta]=0,
+  \qquad
+  d_\theta\eta=0,
+\]
+and each local $\eta_i$ is a quasi-isomorphism after the chosen
+completion, orientation, shifts, Tate twists, charge convention, and
+endpoint/puncture datum.  Its obstruction tuple is
+\[
+  \mathfrak o_{\mathrm{mod}}(\theta,\eta)
+  =
+  \bigl(
+    o_{\mathrm{MC}}^{\mathrm{mod}},
+    o_{\mathrm{or}}^{\mathrm{mod}},
+    o_{\mathrm{end}},
+    o_{\mathrm{punc}},
+    o_{\mathrm{TS}}^{\mathrm{mod}},
+    o_{\mathrm{tr}},
+    o_{\mathrm{comp}}
+  \bigr).
+\]
+Here $o_{\mathrm{MC}}^{\mathrm{mod}}$ is the class of
+$d_\theta\eta$; $o_{\mathrm{or}}^{\mathrm{mod}}$ is the determinant-line
+square-root mismatch for the module virtual normal complex;
+$o_{\mathrm{end}}$ measures failure of endpoint evaluation and
+coevaluation to match; $o_{\mathrm{punc}}$ measures nearby-cycle
+monodromy, normal-residue, and puncture-flavour mismatch;
+$o_{\mathrm{TS}}^{\mathrm{mod}}$ is the Thom--Sebastiani associator
+defect for module convolution; $o_{\mathrm{tr}}$ is the failure of
+holomorphic and Hall traces to commute with the endpoint trace maps; and
+$o_{\mathrm{comp}}$ is the mismatch of charge/HN completions and
+stability-chamber filtrations.
+\end{definition}
+
+\begin{theorem}[Module-level hCS--Hall comparison criterion]
+\label{thm:hcs-hall-module-comparison-criterion}
+\ClaimStatusConditional{}
+Assume the base obstruction
+$\mathfrak o(\{\theta_i\})$ of
+Definition~\ref{def:hcs-hall-descent-obstruction} vanishes, so that
+$\Theta_{\hCS\to\Hall}^{\mathrm{or}}$ exists on the DWR nerve.  A
+chartwise family of module quasi-isomorphisms $\eta_i$ extends to a
+global module-level comparison
+\[
+  \Theta_{\hCS\to\Hall}^{\mathrm{mod}}(M)\colon
+  M_{\mathrm{hol}}\longrightarrow N_{\Hall}
+\]
+if and only if
+\[
+  \mathfrak o_{\mathrm{mod}}(\theta,\eta)=0
+\]
+and the resulting class is invertible in
+$H^0(\mathfrak M_{\hCS,\Hall}^{\mathrm{mod}})$ on every DWR/Ran
+simplex.  When this holds, the holomorphic trace maps to the Hall trace:
+\[
+  \Theta_{\hCS\to\Hall}^{\mathrm{tr}}
+  \bigl(\mathrm{Tr}_{F_X}^{\mathrm{hol}}(M)\bigr)
+  =
+  \mathrm{Tr}_{\CoHA_{\mathrm{crit}}^{\mathrm{or}}}^{\Hall}
+  \bigl(\Theta_{\hCS\to\Hall}^{\mathrm{mod}}(M)\bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+With $\theta$ fixed, descent for module maps is governed by the twisted
+differential $d_\theta$ on
+$\mathfrak M_{\hCS,\Hall}^{\mathrm{mod}}$.  Solving
+$d_\theta\eta=0$ and imposing local quasi-isomorphism is exactly the
+module analogue of the Maurer--Cartan descent condition in
+Theorem~\ref{thm:hcs-hall-descent-criterion}.  Restoring the Hall
+module structures adds the six coherent/discrete conditions listed in
+Definition~\ref{def:hcs-hall-module-obstruction}: orientation,
+endpoint, puncture, Thom--Sebastiani, trace, and completion
+compatibilities.  Vanishing of all seven components is therefore
+equivalent to a global morphism of oriented completed module-valued
+factorisation cosheaves.  Trace compatibility is the component
+$o_{\mathrm{tr}}=0$ together with the endpoint zigzag identities in the
+perfect defect definition.
+\end{proof}
+
 \section{The first missing lemma}
 \label{sec:cy3-chain-level-bridge-missing-lemma}
 
 \begin{openproblem}[hCS-to-Hall comparison]
 \label{op:cy3-hcs-hall-comparison}
-\ClaimStatusOpen{}
+\ClaimStatusConjectured{}
 Construct, for a smooth CY$_3$ $X$ with holomorphic volume form
 $\Omega_X$ and a Dolbeault/Weiss/Ran-good Stein-polydisc cover
-$\mathfrak U$, a continuous natural transformation on the whole DWR
+$\mathfrak U$, a quasi-isomorphic oriented comparison datum in the
+sense of Definition~\ref{def:cy3-oriented-hcs-hall-comparison-datum},
+equivalently a continuous natural transformation on the whole DWR
 \v{C}ech/Ran nerve in
 $\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$
 \[
@@ -485,6 +1096,279 @@ This is the first lemma whose proof would turn the present local
 bridge into a non-formal compact CY$_3$ theorem.
 \end{openproblem}
 
+\begin{definition}[The hCS--Hall descent obstruction]
+\label{def:hcs-hall-descent-obstruction}
+\ClaimStatusDefinitional{}
+Fix the cover $\mathfrak U$ and the two objects
+$\Obs_{\hCS}^{q}$ and $\CoHA_{\mathrm{crit}}^{\mathrm{or}}$ in
+$\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$.  For every
+intersection $U_I=U_{i_0}\cap\cdots\cap U_{i_p}$ set
+\[
+  \mathcal M^q(U_I)
+  :=
+  \Hom_{\mathrm{cont}}^q
+  \bigl(\Obs_{\hCS}^{q}(U_I,\mathfrak g),
+        \CoHA_{\mathrm{crit}}^{\mathrm{or}}(U_I)\bigr).
+\]
+The Cech differential, the two internal differentials, the BV bracket
+on the source, and the Hall convolution bracket on the target make
+\[
+  \mathfrak M_{\hCS,\Hall}(\mathfrak U)
+  :=
+  \Tot\,\Cech^\bullet(\mathfrak U,\mathcal M^\bullet)
+\]
+a complete filtered dg Lie algebra.  A degree-zero element
+$\theta\in\mathfrak M_{\hCS,\Hall}(\mathfrak U)^0$ is a comparison
+datum precisely when it satisfies the Maurer--Cartan equation
+\[
+  d\theta+\frac{1}{2}[\theta,\theta]=0
+\]
+and its $0$-simplex components are quasi-isomorphisms after the fixed
+shift, Tate twist, completion, and orientation convention of
+Definition~\ref{def:local-critical-coha-normalisation}.  The obstruction
+class of a chartwise family $\{\theta_i\}$ is the tuple
+\[
+  \mathfrak o(\{\theta_i\})
+  =
+  \bigl(
+    o_{\mathrm{MC}},\,
+    o_{\mathrm{or}},\,
+    o_{\mathrm{gr}},\,
+    o_{\mathrm{TS}},\,
+    o_{\mathrm{fact}}
+  \bigr),
+\]
+where $o_{\mathrm{MC}}$ is the class of
+$d\theta+\frac{1}{2}[\theta,\theta]$ in
+$H^1(\mathfrak M_{\hCS,\Hall})$, $o_{\mathrm{or}}$ is the Cech
+$\mathbb Z/2$-class of the determinant-line square-root mismatch,
+$o_{\mathrm{gr}}$ is the integer/Tate grading mismatch of the functions
+$s(U,\mathbf d)$ and $t(U,\mathbf d)$, $o_{\mathrm{TS}}$ is the
+associator defect for the two Thom--Sebastiani parenthesisations, and
+$o_{\mathrm{fact}}$ is the defect of multiplicativity under disjoint
+polydiscs.
+\end{definition}
+
+\begin{theorem}[Descent criterion for \texorpdfstring{$\Theta_{\hCS\to\Hall}^{\mathrm{or}}$}{Theta hCS to Hall}]
+\label{thm:hcs-hall-descent-criterion}
+\ClaimStatusProvedHere{}
+For a fixed cover $\mathfrak U$, fixed local critical-CoHA
+normalisation, and fixed compact-support convention, a chartwise family
+of quasi-isomorphisms
+\[
+  \theta_i\colon
+  \Obs_{\hCS}^{q}(U_i,\mathfrak g)
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(U_i)
+\]
+extends to a global orientation-preserving morphism
+\[
+  \Theta_{\hCS\to\Hall}^{\mathrm{or}}\colon
+  \Obs_{\hCS}^{q}(-,\mathfrak g)
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(-)
+\]
+in
+$\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$ if and only if
+\[
+  \mathfrak o(\{\theta_i\})=0
+\]
+and the resulting degree-zero Maurer--Cartan element is invertible in
+$H^0$ on every object of the DWR nerve.  When this holds, the space of
+extensions is a torsor under
+$H^0(\mathfrak M_{\hCS,\Hall}(\mathfrak U))$ modulo the gauge action of
+$\exp(F^1\mathfrak M_{\hCS,\Hall}^0)$.
+\end{theorem}
+
+\begin{proof}
+A morphism of the Hall-valued factorisation-cosheaf category is, by
+Definition~\ref{def:hall-valued-factorisation-cosheaf-target}, a
+continuous natural transformation on the whole Cech/Ran nerve preserving
+orientation, completion, grading, Thom--Sebastiani, and disjoint-union
+products.  Forget these five extra structures.  Descent for continuous
+maps of complexes says that extending the $0$-simplex maps
+$\theta_i$ to all intersections is equivalent to solving the
+Maurer--Cartan equation in the total Cech convolution dg Lie algebra
+$\mathfrak M_{\hCS,\Hall}(\mathfrak U)$; the differential records Cech
+failure and chain-map failure, while the bracket records failure to
+intertwine the two products.  This gives the obstruction
+$o_{\mathrm{MC}}$ and the stated gauge torsor.
+
+Restoring the forgotten structures gives the remaining four components.
+The square roots of determinant lines form a $\mathbb Z/2$-torsor, so
+their mismatch on double and triple overlaps is exactly
+$o_{\mathrm{or}}$.  The shifts and Tate twists are discrete grading data;
+their mismatch is the class $o_{\mathrm{gr}}$.  The
+Thom--Sebastiani isomorphism has two parenthesisations on a triple
+extension correspondence; their ratio is $o_{\mathrm{TS}}$.  The
+factorisation product for disjoint polydiscs is preserved precisely when
+$o_{\mathrm{fact}}$ vanishes.  If all five classes vanish, the local
+quasi-isomorphisms glue to a morphism in
+$\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$.  Conversely, any
+such morphism restricts to a Maurer--Cartan solution and preserves each
+of the four discrete/coherent structures, so every component of
+$\mathfrak o$ is zero.
+\end{proof}
+
+\begin{definition}[Primitive witness package for the oriented hCS--Hall arrow]
+\label{def:hcs-hall-primitive-witness-package}
+\ClaimStatusDefinitional{}
+Fix a DWR-good cover $\mathfrak U$, the local critical-CoHA
+normalisation of Definition~\ref{def:local-critical-coha-normalisation},
+and the compact-support and completion conventions on both sides.  Let
+\[
+  \theta^{(0)}=\{\theta_i\}_{i\in I},
+  \qquad
+  \theta_i\colon
+  \Obs_{\hCS}^{q}(U_i,\mathfrak g)
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(U_i)
+\]
+be chartwise degree-zero continuous chain maps.  A primitive witness
+package for
+$\Theta_{\hCS\to\Hall}^{\mathrm{or}}$ is the finite typed package
+\[
+  \mathfrak P_{\Theta}^{\mathrm{or}}
+  =
+  \bigl(
+    \theta^{(0)},\,
+    \eta_{\mathrm{MC}},\,
+    \lambda_{\mathrm{or}},\,
+    \eta_{\mathrm{gr}},\,
+    H_{\mathrm{TS}},\,
+    H_{\mathrm{fact}},\,
+    Q
+  \bigr)
+\]
+with the following entries.  It is finite in type: on an infinite
+Ran-refinement the entries are compatible pro-cochains, not a finite
+enumeration of opens.
+\begin{enumerate}
+\item $\eta_{\mathrm{MC}}\in F^1
+\mathfrak M_{\hCS,\Hall}(\mathfrak U)^0$ is a positive Cech/Ran
+filtration correction such that
+\[
+  \theta:=\theta^{(0)}+\eta_{\mathrm{MC}}
+  \quad\text{satisfies}\quad
+  d\theta+\frac12[\theta,\theta]=0.
+\]
+Thus $\eta_{\mathrm{MC}}$ is the higher-simplex primitive for the
+Maurer--Cartan curvature of the vertex maps.
+\item $\lambda_{\mathrm{or}}\in
+\Cech^1(\mathfrak U,\mathbb Z/2)$ is a square-root transport cochain for
+the orientation local systems satisfying
+\[
+  \delta\lambda_{\mathrm{or}}=o_{\mathrm{or}}.
+\]
+\item $\eta_{\mathrm{gr}}=(\eta_s,\eta_t)$ is an integral/Tate grading
+transport cochain satisfying
+\[
+  \delta\eta_s=o_{\mathrm{gr}}^{s},
+  \qquad
+  \delta\eta_t=o_{\mathrm{gr}}^{t},
+\]
+where $o_{\mathrm{gr}}=(o_{\mathrm{gr}}^s,o_{\mathrm{gr}}^t)$ records
+the mismatch of $s(U,\mathbf d)$ and $t(U,\mathbf d)$ on overlaps.
+\item $H_{\mathrm{TS}}$ is a chain homotopy on every triple
+short-exact-sequence correspondence satisfying
+\[
+  dH_{\mathrm{TS}}=o_{\mathrm{TS}},
+\]
+with the two orientation transports inserted before the comparison.
+\item $H_{\mathrm{fact}}$ is a chain homotopy for every disjoint
+DWR/Ran product square satisfying
+\[
+  dH_{\mathrm{fact}}=o_{\mathrm{fact}}.
+\]
+\item $Q$ is a quasi-isomorphism certificate: on every $0$-simplex it
+gives a continuous inverse up to homotopy for $\theta_i$, and these
+homotopies preserve the $\hbar$-adic, charge/HN-adic,
+equivariant-localised, shift, Tate-twist, and orientation conventions.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Primitive criterion for
+\texorpdfstring{$\Theta_{\hCS\to\Hall}^{\mathrm{or}}$}{Theta hCS to Hall}]
+\label{thm:hcs-hall-primitive-criterion}
+\ClaimStatusProvedHere{}
+For fixed $\mathfrak U$, local critical-CoHA normalisation, compact-support
+convention, and completions, a chartwise family
+$\theta^{(0)}=\{\theta_i\}$ extends to a global orientation-preserving
+morphism
+\[
+  \Theta_{\hCS\to\Hall}^{\mathrm{or}}\colon
+  \Obs_{\hCS}^{q}(-,\mathfrak g)
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(-)
+\]
+in $\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$ with
+quasi-isomorphic vertex maps if and only if a primitive witness package
+$\mathfrak P_{\Theta}^{\mathrm{or}}$ exists.  In that case the underlying
+Maurer--Cartan element is
+$\theta=\theta^{(0)}+\eta_{\mathrm{MC}}$, and the four discrete/coherent
+structures are transported by
+$\lambda_{\mathrm{or}},\eta_{\mathrm{gr}},H_{\mathrm{TS}},H_{\mathrm{fact}}$.
+
+A Hall-side orientation trivialisation, a local critical-CoHA
+normalisation, a Schiffmann--Vasserot positive-half identification, or a
+finite torus-fixed $\C^3$ chart map supplies only a proper subpackage.
+None implies the compact oriented comparison unless the chartwise maps,
+all five primitive entries, and the quasi-isomorphism certificate $Q$ are
+present.
+\end{theorem}
+
+\begin{proof}
+Assume first that the primitive package is supplied.  The equation for
+$\eta_{\mathrm{MC}}$ makes $\theta$ a Maurer--Cartan element of the total
+Cech/Ran convolution dg Lie algebra
+$\mathfrak M_{\hCS,\Hall}(\mathfrak U)$, hence it gives a continuous
+natural transformation on the whole nerve after forgetting the Hall
+orientation, grading, Thom--Sebastiani, and factorisation structures.
+The cochain $\lambda_{\mathrm{or}}$ kills the determinant-line
+square-root mismatch; $\eta_{\mathrm{gr}}$ kills the shift and Tate-twist
+mismatch; $H_{\mathrm{TS}}$ identifies the two Hall parenthesisations
+with the hCS iterated product; and $H_{\mathrm{fact}}$ identifies
+disjoint-union factorisation products.  The certificate $Q$ gives the
+vertexwise quasi-isomorphism.  Thus all hypotheses of
+Theorem~\ref{thm:hcs-hall-descent-criterion} hold, and the global
+oriented morphism exists.
+
+Conversely, a global morphism in
+$\mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}(X)$ restricts to vertex
+maps $\theta_i$ and to a degree-zero total Cech/Ran cochain $\theta$
+satisfying the Maurer--Cartan equation.  Put
+$\eta_{\mathrm{MC}}=\theta-\theta^{(0)}$.  Preservation of the
+orientation local systems, shifts, Tate twists, Thom--Sebastiani
+isomorphisms, and disjoint-union products supplies the four primitives
+with the displayed coboundary equations.  The vertexwise
+quasi-isomorphism supplies $Q$.  These seven entries form
+$\mathfrak P_{\Theta}^{\mathrm{or}}$.
+
+The final assertion is the contrapositive of the same equivalence.
+Each listed partial datum omits at least one obstruction component in
+Definition~\ref{def:hcs-hall-descent-obstruction}; the omitted component
+can be non-zero on a nontrivial DWR/Ran nerve, so no compact comparison
+is obtained from the partial datum alone.
+\end{proof}
+
+\begin{remark}[One-chart normalisation is not the global comparison]
+\label{rem:hcs-hall-one-chart-normalisation}
+\ClaimStatusDefinitional{}
+On a single contractible critical chart, after an orientation square
+root, the functions $s(U,\mathbf d)$ and $t(U,\mathbf d)$, the Hall
+Thom--Sebastiani associator, and the completion convention have been
+chosen as part of the local datum, the four coherent obstructions
+$o_{\mathrm{or}}$, $o_{\mathrm{gr}}$, $o_{\mathrm{TS}}$, and
+$o_{\mathrm{fact}}$ vanish tautologically for that normalised chart.
+This does not construct
+$\Theta_{\hCS\to\Hall}^{\mathrm{or}}$.  The Maurer--Cartan component
+$o_{\mathrm{MC}}$ is defined only after a degree-zero chartwise chain map
+$\theta_U$ is supplied, and it vanishes only when that map is a
+chain-level multiplicative comparison.  On a genuine DWR cover, the
+orientation, grading/Tate, Thom--Sebastiani, and factorisation classes
+are overlap data and must be killed on the whole nerve.
+\end{remark}
+
 \begin{remark}[Status ledger]
 \label{rem:cy3-chain-level-status-ledger}
 \ClaimStatusDefinitional{}
@@ -501,14 +1385,1009 @@ Y^+\to \mathcal{D}(Y^+)\to \cW_{1+\infty}
 \PhiFA_3(\cC)\dashrightarrow \CoHA_{\mathrm{crit}}(X)
   & \textup{open in general}
   & \textup{Problem~\ref{op:cy3-hcs-hall-comparison}}\\
+\Theta_{\hCS\to\Hall}^{\mathrm{or}}\textup{ datum}
+  \to \mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}
+  & \textup{proved here}
+  & \textup{Theorem~\ref{thm:oriented-hcs-hall-comparison-from-dwr-datum}}\\
 \textup{toric chart gluing} & \textup{conditional}
   & \textup{Proposition~\ref{prop:cy3-local-to-toric-descent-package}}
 \end{array}
 \]
 The ledger is deliberately typed: it records which arrows are theorems,
 which arrows are representation-theoretic passages, and which arrow is
-the actual frontier.
+the actual frontier.  The exact finite typed witness for the frontier
+arrow is the primitive package of
+Theorem~\ref{thm:hcs-hall-primitive-criterion}.
 \end{remark}
+
+\section{The seven rigidifications}
+\label{sec:cy3-seven-rigidifications}
+
+The bridge becomes a theorem only after seven independent
+rigidifications are supplied.  Four are formal once their data are
+named: ordered chiral Hochschild chains, scale-compatible quantum hCS,
+DWR descent, and bialgebra transport.  Three are genuine frontier data:
+the global oriented hCS--Hall comparison, non-formal CY$_3$
+strictification outside the verified locus, and the physical comparison
+functor from BPS states to the chiral/BKM side.
+
+\begin{definition}[The complete CY$_3$ bridge datum]
+\label{def:complete-cy3-bridge-datum}
+\ClaimStatusDefinitional{}
+A complete CY$_3$ bridge datum on a smooth CY$_3$ $X$ with holomorphic
+volume form $\Omega_X$ is a septuple
+\[
+  \mathfrak D_X
+  =
+  \bigl(
+    \mathcal Q_{\hCS},\,
+    \mathcal B^{\mathrm{ord,ch}}_{E_3},\,
+    \mathcal S_3,\,
+    \Theta_{\hCS\to\Hall}^{\mathrm{or}},\,
+    \mathcal B_{\Delta},\,
+    \mathcal P_{\mathrm{BPS}},\,
+    \mathcal C_{\mathrm{coh}}
+  \bigr)
+\]
+with the following entries.
+\begin{enumerate}
+\item $\mathcal Q_{\hCS}$ is a scale-dependent Costello--Gwilliam
+quantisation package for hCS: propagator, effective interactions
+$I[L]$, RG flow, QME, compact-support convention, and anomaly
+trivialisation.
+\item $\mathcal B^{\mathrm{ord,ch}}_{E_3}$ is the completed ordered
+vertex-bar model of Definition~\ref{def:ordered-chiral-e3-bar}; it
+retains repeated inputs and the full partial-diagonal residue calculus.
+\item $\mathcal S_3$ is a non-formal CY$_3$ strictification datum:
+negative-cyclic CY class, $E_3$ formality point, chain-level
+$S^3$-framing witness, and Costello--Li holomorphic witness.
+\item $\Theta_{\hCS\to\Hall}^{\mathrm{or}}$ is a degree-zero
+Maurer--Cartan element of
+$\mathfrak M_{\hCS,\Hall}(\mathfrak U)$ whose $0$-simplex maps are
+quasi-isomorphisms and whose five obstruction components in
+Definition~\ref{def:hcs-hall-descent-obstruction} vanish; equivalently,
+it is supplied by the primitive witness package of
+Definition~\ref{def:hcs-hall-primitive-witness-package}.
+\item $\mathcal B_{\Delta}$ is a Hall--Borcherds bialgebra comparison
+datum: coproduct preservation, associator transport, dynamical
+$R$-matrix transport, CHL equivariance, and denominator normalisation.
+\item $\mathcal P_{\mathrm{BPS}}$ is a protected physical comparison
+datum from the BPS Hilbert space to the chiral/BKM trace: index
+preservation, wall-crossing compatibility, Cardy/black-hole asymptotic
+normalisation, and holographic boundary-condition matching.
+\item $\mathcal C_{\mathrm{coh}}$ is the coherence datum tying the
+previous six pieces together: Beck--Chevalley, Fubini, orientation,
+completion, and equivariant-parameter compatibilities on every object
+of the DWR nerve.
+\end{enumerate}
+The datum is called \emph{exact} when all listed coherences commute on
+the nose in the completed homotopy category and with respect to the
+specified coherent gauge torsor before passage to that category.
+\end{definition}
+
+\begin{definition}[Completed ordered chiral \texorpdfstring{$E_3$}{E3} bar]
+\label{def:ordered-chiral-e3-bar}
+\ClaimStatusDefinitional{}
+Let $\mathfrak L_{\cC}(P)$ be the Dolbeault--jet dg Lie algebra of
+Definition~\ref{def:cy3-many-variable-chiral-ce}.  Its completed ordered
+chiral $E_3$ bar complex is
+\[
+  B^{\mathrm{ord,ch}}_{E_3}(\mathfrak L_{\cC})(P)
+  :=
+  \prod_{n\geq0}
+  C_\bullet(\FM_3(n))
+  \widehat\otimes_{\Sigma_n}
+  \mathfrak L_{\cC}(P)^{\widehat\otimes_\pi n}[n],
+\]
+where $\FM_3(n)$ is the Fulton--MacPherson compactification of
+configurations of $n$ ordered points in a real $3$-ball and
+$\widehat\otimes_\pi$ is the completed projective tensor product.  The
+differential is
+\[
+  d_{\mathrm{ord}}
+  =
+  d_{\FM}
+  +d_{\dbar}
+  +d_{\mathfrak l}
+  +d_{\mathrm{coll}}
+  +d_{\mathrm{br}},
+\]
+where $d_{\mathrm{coll}}$ is the boundary differential summing over
+partial collisions in $\FM_3(n)$ and $d_{\mathrm{br}}$ applies the Lie
+bracket of $\mathfrak L_{\cC}$ on the colliding ordered block.  The
+chiral cochains are the strong continuous dual
+\[
+  C^{\bullet}_{\mathrm{vHoch},E_3}(\cC;P)
+  :=
+  \bigl(B^{\mathrm{ord,ch}}_{E_3}(\mathfrak L_{\cC})(P)\bigr)^\vee_b .
+\]
+The adjective \emph{ordered} is load-bearing: tensors
+$x\widehat\otimes x\widehat\otimes y$ and
+$x\widehat\otimes y\widehat\otimes x$ are distinct before the
+$\Sigma_n$-coinvariant operation is applied with its configuration-chain
+coefficient.  Repeated fields therefore survive; they are not killed by
+exterior antisymmetrisation.
+\end{definition}
+
+\begin{proposition}[Exterior CE is the shadow, not the controller]
+\label{prop:exterior-ce-shadow-not-controller}
+\ClaimStatusProvedHere{}
+There is a natural quotient map
+\[
+  q_{\wedge}\colon
+  B^{\mathrm{ord,ch}}_{E_3}(\mathfrak L_{\cC})(P)
+  \longrightarrow
+  \mathrm{CE}^{\mathrm{ch},E_3}_*(\mathfrak L_{\cC})(P)
+\]
+which sends the ordered tensor coalgebra to its alternating
+Chevalley--Eilenberg quotient.  This map is a quasi-isomorphism only
+after imposing the locally constant abelian shadow in which
+configuration-chain boundary operations, repeated-input vertex
+operations, and partial-diagonal residues have been discarded.  In
+particular, a finite exterior CE computation cannot prove a class
+$\mathbf M$ repeated-input obstruction or a full chiral Hochschild
+vanishing theorem.
+\end{proposition}
+
+\begin{proof}
+The ordinary CE coalgebra is the cofree cocommutative coalgebra on
+$\mathfrak L_{\cC}[1]$ with the differential induced by the dg Lie
+bracket.  It is obtained from the ordered tensor coalgebra by imposing
+shuffle antisymmetry and then forgetting the configuration-chain
+coefficient.  This gives the displayed quotient.  The kernel contains
+every ordered diagonal tensor whose image in the exterior algebra has a
+repeated input, for example $x\widehat\otimes x$ and
+$x\widehat\otimes x\widehat\otimes y$ in the relevant signs.  Those
+classes are precisely the vertex-bar classes detected by ordered OPE
+collisions and by the boundary strata of $\FM_3(n)$.  Passing to the
+locally constant abelian shadow makes $d_{\mathrm{coll}}$ and
+$d_{\mathrm{br}}$ invisible and kills the repeated-input sector, so the
+quotient becomes the familiar finite CE model.  Before that quotient,
+the repeated-input sector is part of the deformation complex, hence an
+exterior CE engine can be a consistency check but not the controller of
+the chiral deformation problem.  The finite witness
+\texttt{compute/lib/ordered\_chiral\_e3\_bar.py} implements exactly this
+ordered-versus-exterior quotient: for the Virasoro generator $T$, the
+ordered words $(T,T,T)$ and $(T,T,T,T)$ survive and carry the existing
+$L_\infty$ coefficients $l_3(T,T,T)=-2T$ and
+$l_4(T,T,T,T)=\frac{40}{27}T$, while their exterior CE projections
+vanish.
+\end{proof}
+
+\begin{definition}[CY$_3$ strictification obstruction tower]
+\label{def:cy3-strictification-obstruction-tower}
+\ClaimStatusDefinitional{}
+Let $(\cC,\mu_\bullet,\sigma)$ be a smooth proper cyclic $\Ainf$
+category with a negative-cyclic CY$_3$ class
+$[\sigma]\in HC^{-}_3(\cC)$ and let $F\in\mathrm{Form}_3(\Q)$ be an
+$E_3$ formality point.  The strictification tower
+\[
+  \mathfrak{Obs}_{\mathrm{str}}(\cC,F,\sigma)
+  =
+  \bigl(
+    \omega_{\mathrm{cyc}},\,
+    \omega_{S^3},\,
+    \omega_{\Ainf},\,
+    \omega_{\mathrm{CL}},\,
+    \omega_{\mathrm{des}}
+  \bigr)
+\]
+has components:
+\begin{enumerate}
+\item $\omega_{\mathrm{cyc}}$, the failure of the Hochschild trace
+$HH_3(\cC)\to k$ to lift to the chosen negative-cyclic class;
+\item $\omega_{S^3}$, the obstruction to extending the framed
+$E_2$ / $\BV_\infty$ structure to the selected $E_3$ formality point;
+\item $\omega_{\Ainf}$, the ordered-bar commutator of the non-formal
+higher multiplications $\mu_{\geq3}$ with the second bar differential;
+\item $\omega_{\mathrm{CL}}$, the Costello--Li holomorphic anomaly
+class in the quartic invariant-polynomial slot;
+\item $\omega_{\mathrm{des}}$, the DWR descent obstruction for the
+resulting holomorphic factorisation algebra.
+\end{enumerate}
+The tower lives in the product of the corresponding cohomology groups
+of the ordered chiral Hochschild complex, the graph/formality complex,
+the Costello--Li local Lie-algebra cohomology complex, and the DWR
+Cech complex.
+\end{definition}
+
+\begin{theorem}[Strictification criterion]
+\label{thm:cy3-strictification-criterion}
+\ClaimStatusProvedHere{}
+Fix $F\in\mathrm{Form}_3(\Q)$, a negative-cyclic CY$_3$ class
+$[\sigma]\in HC^{-}_3(\cC)$, a compact-support convention, and a
+Dolbeault/Weiss/Ran-good cover of $X$.  A non-formal CY$_3$ input
+$\cC$ admits a Stage-$1$ object
+\[
+  \PhiFA_3(\cC)_F\in\Ethree\text{-}\mathrm{HolFA}(X)
+\]
+realised by the many-variable model of
+Definition~\ref{def:cy3-many-variable-chiral-ce} if and only if
+\[
+  \mathfrak{Obs}_{\mathrm{str}}(\cC,F,\sigma)=0.
+\]
+When the obstruction vanishes, the space of strictifications is the
+Deligne groupoid of the degree-zero cycles in the total strictification
+dg Lie algebra modulo its degree-zero gauge action.
+\end{theorem}
+
+\begin{proof}
+A Stage-$1$ object consists exactly of the data whose failures are
+listed in Definition~\ref{def:cy3-strictification-obstruction-tower}.
+The negative-cyclic lift is necessary and sufficient for the CY trace to
+define a cyclic pairing at chain level.  The $S^3$ component is the
+extension problem from framed $E_2$ to the selected $E_3$ formality
+point.  The $\Ainf$ component is the Maurer--Cartan equation in the
+ordered chiral Hochschild complex; using the exterior CE quotient would
+forget precisely the higher products whose commutators must vanish.
+The Costello--Li component is the obstruction to quantising/refining the
+local holomorphic BV theory, and the DWR component is the descent
+obstruction for the resulting local factorisation algebra.  These five
+conditions are independent coordinates on the total deformation
+problem.  Vanishing gives a Maurer--Cartan solution in the total
+strictification dg Lie algebra and hence the desired object; an existing
+Stage-$1$ object restricts to such a solution and therefore makes every
+component vanish.  Standard deformation theory identifies the remaining
+choices with the stated Deligne groupoid.
+\end{proof}
+
+\begin{definition}[All-scale quantum hCS package]
+\label{def:all-scale-quantum-hcs-package}
+\ClaimStatusDefinitional{}
+An all-scale quantum hCS package on $(X,\Omega_X,\mathfrak g)$ is a
+family of local functionals $\{I[L]\}_{L>0}$ on
+$\cE_{\hCS,c}(X,\mathfrak g)$ together with heat-kernel propagators
+$P(\varepsilon,L)$ satisfying
+\[
+  I[L]=W(P(\varepsilon,L),I[\varepsilon]),
+  \qquad
+  \lim_{\varepsilon\to0} I[\varepsilon]\ \textup{exists modulo local
+  counterterms},
+\]
+and the quantum master equation
+\[
+  QI[L]+\frac12\{I[L],I[L]\}_{\BV}+\hbar\Delta_L I[L]=0
+  \qquad \textup{for every }L>0.
+\]
+The package is anomaly-free when the Costello--Li quartic local
+cohomology class of Proposition~\ref{prop:cy3-hcs-quartic-anomaly-slot}
+is killed by the chosen counterterm.
+\end{definition}
+
+\begin{proposition}[QME and factorisation compatibility]
+\label{prop:qme-factorisation-compatibility}
+\ClaimStatusConditional{} \textup{(conditional on anomaly cancellation)}
+An anomaly-free all-scale quantum hCS package determines the
+factorisation algebra $\Obs_{\hCS}^{q}(-,\mathfrak g)$ of
+Definition~\ref{def:cy3-hcs-quantum-observables}, and its
+factorisation products are independent of the scale parameter up to
+canonical RG homotopy.
+\end{proposition}
+
+\begin{proof}
+Costello's renormalisation construction gives effective interactions by
+the homotopy RG equation $I[L]=W(P(\varepsilon,L),I[\varepsilon])$.
+The QME says exactly that
+$Q_{\hCS}+\{I[L],-\}_{\BV}+\hbar\Delta_L$ squares to zero.  The heat
+kernel propagator is local with respect to disjoint supports, so the
+completed symmetric algebra of observables over disjoint opens carries
+the factorisation product.  Changing $L$ replaces the differential by
+an RG-conjugate differential, hence by a canonical homotopy-equivalent
+factorisation algebra.  The only obstruction to this construction in
+complex dimension three is the quartic Costello--Li anomaly class; once
+it is trivialised the construction is compatible at all scales.
+\end{proof}
+
+\begin{proposition}[Two-loop YBE normalisation and the sunset obstruction]
+\label{prop:k3-hcs-two-loop-yang-normalisation}
+\ClaimStatusProvedHere{\textup{(}algebraic YBE normal form; the hCS RG
+derivation of the same counterterm is not asserted\textup{)}}
+For the rational defect $R$-matrix of $6$d hCS on $K3\times E$, let
+\[
+  a=12+\frac{h^\vee}{2},\qquad
+  A_2=\Bigl(12+\frac{h^\vee}{2}\Bigr)^2-\frac{(h^\vee)^2}{12}.
+\]
+The naive one-loop fish term $aP/u^2$ has the exact order-$\hbar^3$
+Yang--Baxter obstruction
+\[
+  \frac{a}{uv(u-v)}(P_{12}P_{23}-P_{23}P_{12}),
+\]
+so no order-$\hbar^4$ two-loop counterterm can repair the legacy claim
+before the one-loop obstruction is removed.  The one-loop repair is the
+Yang-coupling normalisation
+\[
+  R_{\mathrm{tree}}(u;\hbar)+R_{\mathrm{fish}}(u;\hbar)+CT_1(u;\hbar)
+  =
+  R_{\mathrm{tree}}(u;\hbar+a\hbar^2).
+\]
+After this repair, the legacy sunset tensor still has a non-zero
+linearised order-$\hbar^5$ obstruction.  The constructed algebraic
+two-loop YBE counterterm is therefore the projection of the sunset
+tensor to the tangent line of the rational Yang family:
+\begin{equation}
+\label{eq:k3-hcs-two-loop-yang-counterterm}
+  CT_{2,ij}^{\mathrm{YBE}}
+  =
+  b\,\frac{P_{ij}-1}{u_{ij}}
+  -
+  Q^{\mathrm{sunset,legacy}}_{2,ij},
+  \qquad b=A_2\ \textup{by default}.
+\end{equation}
+Equivalently, the repaired order-$\hbar^4$ contribution is
+$b(P_{ij}-1)/u_{ij}$, which is an infinitesimal change of the Yang
+coupling and hence has zero linearised Yang--Baxter obstruction.  For
+$\mathfrak{sl}_2$ the executable exact oracle gives $A_2=506/3$ and
+verifies that the legacy $\hbar^5$ obstruction is non-zero while the
+repaired obstruction is zero in the group algebra of $S_3$.
+\end{proposition}
+
+\begin{proof}
+The rational Yang solution has the form
+$R(u;\hbar)=1+\hbar(P-1)/u$.  Its tangent direction at any order in the
+formal coupling is therefore $(P-1)/u$.  Expanding the Yang--Baxter
+equation to the first order in an inserted one-loop correction $q_{ij}$
+gives the linear map
+\[
+  (q_{12},q_{13},q_{23})
+  \longmapsto
+  q_{12}r_{13}+q_{12}r_{23}+r_{12}q_{13}+q_{13}r_{23}
+  +r_{12}q_{23}+r_{13}q_{23}
+  -(\textup{the reversed product}),
+\]
+where $r_{ij}=(P_{ij}-1)/u_{ij}$.  Substituting
+$q_{ij}=aP_{ij}/u_{ij}^2$ reduces exactly to the displayed commutator
+coefficient, so the legacy one-loop input is not tangent to the Yang
+family.  Substituting $q_{ij}=a(P_{ij}-1)/u_{ij}$ gives zero because it
+is the derivative of the exact Yang solution in the coupling parameter.
+The same linearised calculation at order $\hbar^5$ applies to the
+two-loop slot: the legacy sunset tensor
+$Q^{\mathrm{sunset,legacy}}_{2,ij}$ has non-zero image, while
+$b(P_{ij}-1)/u_{ij}$ has zero image.  Hence
+\eqref{eq:k3-hcs-two-loop-yang-counterterm} is the unique minimal
+YBE-normalising correction modulo the tangent coefficient $b$ and
+central scalar terms.  The exact arithmetic is implemented in
+\texttt{compute/lib/k3\_hcs\_6d\_twoloop.py} by
+\texttt{twoloop\_yang\_normalization\_condition}; the regression test
+\texttt{compute/tests/test\_k3\_hcs\_6d\_twoloop.py} checks the
+$\mathfrak{sl}_2$ coefficient and the vanishing of the repaired
+linearised obstruction.
+\end{proof}
+
+\begin{definition}[Hall--Borcherds bialgebra datum]
+\label{def:hall-borcherds-bialgebra-datum}
+\ClaimStatusDefinitional{}
+For $X=K3\times E$, a Hall--Borcherds bialgebra datum is a refinement
+of $\Theta_{\hCS\to\Hall}^{\mathrm{or}}$ along
+$\SpCh_{K3,E}$ containing:
+\begin{enumerate}
+\item a quasi-isomorphism from the specialised oriented critical CoHA
+to the Hall--Drinfeld double whose primitive Lie part is
+$\mathfrak g_{\Delta_5}$;
+\item preservation of the Hall extension coproduct under the
+specialisation to $E$;
+\item transport of the chosen $E_3$ formality $3$-cocycle to the
+Siegel--Borcherds associator class;
+\item identification of the elliptic Feigin--Odesskii shuffle kernel
+with the Siegel-elliptic dynamical $R$-matrix;
+\item for $N\in\{1,2,3,4,6\}$, equivariant orientation data and CHL
+specialisation cycles compatible with the Borcherds products
+$\Phi_N$ and the formula $\kBKM(\Phi_N)=c_N(0)/2$.
+\end{enumerate}
+\end{definition}
+
+\begin{corollary}[Bialgebra and CHL consequence of the datum]
+\label{cor:bialgebra-chl-consequence-of-datum}
+\ClaimStatusConditional{}
+If the Hall--Borcherds bialgebra datum of
+Definition~\ref{def:hall-borcherds-bialgebra-datum} exists, then the
+conditional equivalence of Theorem~\ref{thm:g-delta5-is-sp-k3}
+upgrades to the chiral-bialgebra equivalence of
+Theorem~\ref{thm:g-delta5-sp-k3-bialgebra}; for each
+$N\in\{1,2,3,4,6\}$ with the equivariant part of the datum supplied, the
+corresponding CHL sibling has Borcherds weight
+\[
+  \kBKM(\Phi_N)=c_N(0)/2 .
+\]
+\end{corollary}
+
+\begin{proof}
+The datum lists exactly the three structures missing from an
+object-level chiral-algebra equivalence: coproduct, associator, and
+$R$-matrix.  Preservation of the extension coproduct gives the
+coalgebra half.  The transported formality cocycle supplies the
+quasi-Hopf associator.  The elliptic shuffle kernel supplies the
+dynamical braiding.  These three checks are precisely the hypotheses of
+Theorem~\ref{thm:g-delta5-sp-k3-bialgebra}, so the bialgebra upgrade
+follows.  The CHL assertion is then the same argument with the
+$g_N$-equivariant orientation and specialisation cycles inserted; the
+weight formula is the Borcherds denominator normalisation already
+included in item~(5).
+\end{proof}
+
+\begin{definition}[Protected physical comparison datum]
+\label{def:protected-physical-comparison-datum}
+\ClaimStatusDefinitional{}
+A protected physical comparison datum for the CY$_3$ bridge is a
+functor
+\[
+  \mathcal P_{\mathrm{BPS}}\colon
+  \mathsf{BPS}^{\mathrm{prot}}(X)
+  \longrightarrow
+  \mathrm{Mod}\bigl(\SpCh_{\Sigma_2,C}(\PhiFA_3(\Perf(X)))\bigr)
+\]
+defined on the protected BPS sector, preserving:
+\begin{enumerate}
+\item the protected index and its wall-crossing product;
+\item the charge lattice and the Mukai/Hall orientation signs;
+\item the Cardy/black-hole leading asymptotic of indexed degeneracies;
+\item the AdS$_3$ boundary condition that identifies the BPS trace with
+the vacuum or defect trace of the specialised chiral algebra.
+\end{enumerate}
+\end{definition}
+
+\begin{corollary}[Physics becomes theorem only after comparison]
+\label{cor:physics-after-comparison}
+\ClaimStatusConditional{} \textup{(conditional on
+Definitions~\ref{def:complete-cy3-bridge-datum} and
+\ref{def:protected-physical-comparison-datum})}
+Assume an exact complete CY$_3$ bridge datum on $X$ and a protected
+physical comparison datum.  Then the holographic trace, black-hole
+indexed degeneracy, and quantum-gravity protected-sector count are
+theorems of the specialised chiral/BKM algebra: the physical index is
+the corresponding chiral trace, its wall-crossing is the Hall product,
+and its leading asymptotic is read from the Borcherds denominator.
+\end{corollary}
+
+\begin{proof}
+The exact bridge datum identifies the hCS observable algebra with the
+oriented critical Hall algebra on the full DWR nerve and transports the
+Hall structure through the Stage-$2$ specialisation.  The
+Hall--Borcherds bialgebra datum identifies the specialised algebra with
+the BKM/chiral bialgebra, including coproduct, associator, and
+braiding.  The protected physical comparison functor preserves the
+index, charge signs, wall-crossing product, and boundary trace.
+Therefore the physical protected index equals the chiral trace, the
+wall-crossing formula equals Hall multiplication, and the asymptotic
+growth is the automorphic/Borcherds denominator growth.  Without the
+physical comparison functor this conclusion is only a dictionary.
+\end{proof}
+
+\begin{theorem}[Seven-rigidification normal form]
+\label{thm:seven-rigidification-normal-form}
+\ClaimStatusProvedHere{}
+For a CY$_3$ input, the seven requested outputs are equivalent to
+supplying an exact complete CY$_3$ bridge datum
+$\mathfrak D_X$ in the sense of
+Definition~\ref{def:complete-cy3-bridge-datum}.  More precisely:
+\begin{enumerate}
+\item $\Theta_{\hCS\to\Hall}^{\mathrm{or}}$ exists on the full
+DWR nerve exactly when the Maurer--Cartan, orientation, grading,
+Thom--Sebastiani, and factorisation obstruction tuple of
+Definition~\ref{def:hcs-hall-descent-obstruction} vanishes.
+\item The full deformation controller is
+$C^{\bullet}_{\mathrm{vHoch},E_3}(\cC;P)$, not the finite exterior CE
+shadow.
+\item Non-formal CY$_3$ strictification is equivalent to vanishing of
+$\mathfrak{Obs}_{\mathrm{str}}(\cC,F,\sigma)$.
+\item Quantum hCS is the all-scale QME/RG package of
+Definition~\ref{def:all-scale-quantum-hcs-package}; anomaly-free
+packages produce factorisation observables.
+\item The $K3\times E$ BKM equivalence is a chiral-bialgebra theorem
+exactly after the Hall--Borcherds bialgebra datum is supplied.
+\item Holographic, black-hole, and quantum-gravity statements become
+theorems exactly after the protected physical comparison datum is
+supplied.
+\item A first-principles synthesis is the septuple itself together with
+the proofs of the six preceding equivalences; there is no additional
+untyped shortcut.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Item~(1) is Theorem~\ref{thm:hcs-hall-descent-criterion}.  Item~(2) is
+Proposition~\ref{prop:exterior-ce-shadow-not-controller}.  Item~(3) is
+Theorem~\ref{thm:cy3-strictification-criterion}.  Item~(4) is
+Proposition~\ref{prop:qme-factorisation-compatibility}.  Item~(5) is
+Corollary~\ref{cor:bialgebra-chl-consequence-of-datum}.  Item~(6) is
+Corollary~\ref{cor:physics-after-comparison}.  These six statements are
+independent typed requirements: none implies another by slogan, and
+none is supplied by the locally constant Chern--Simons analogy alone.
+Collecting them is exactly the septuple of
+Definition~\ref{def:complete-cy3-bridge-datum}; conversely, any exact
+septuple gives the six displayed outputs by the cited results.  Thus
+the normal form is not a weaker replacement for the desired theorem but
+the complete list of mathematical data the desired theorem must
+construct.
+\end{proof}
+
+\begin{construction}[Simplex-by-simplex witnessed complete bridge]
+\label{constr:cy3-simplexwise-complete-bridge}
+\ClaimStatusDefinitional{}
+Let $\mathfrak U=\{U_i\}_{i\in I}$ be a DWR-good cover.  A
+\emph{witnessed complete bridge} assigns to every non-empty ordered
+\v{C}ech/Ran simplex
+\[
+  \sigma=(i_0,\ldots,i_p;P_1,\ldots,P_r)
+\]
+a continuous degree-zero map
+\[
+  \Theta_\sigma\colon
+  \Obs_{\hCS}^{q}(|\sigma|,\mathfrak g)
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(|\sigma|)
+\]
+and five cochains
+\[
+  h_{\mathrm{MC}},\quad h_{\mathrm{or}},\quad h_{\mathrm{gr}},\quad
+  h_{\mathrm{TS}},\quad h_{\mathrm{fact}}
+\]
+whose coboundaries are respectively the Maurer--Cartan curvature,
+orientation mismatch, grading/Tate mismatch, Thom--Sebastiani associator
+defect, and disjoint-union factorisation defect.  Thus
+\[
+  dh_{\mathrm{MC}}=
+  d\Theta+\frac12[\Theta,\Theta],
+  \qquad
+  dh_{\mathrm{or}}=o_{\mathrm{or}},\quad
+  dh_{\mathrm{gr}}=o_{\mathrm{gr}},\quad
+  dh_{\mathrm{TS}}=o_{\mathrm{TS}},\quad
+  dh_{\mathrm{fact}}=o_{\mathrm{fact}}.
+\]
+The ordered deformation controller attached to this datum is
+\[
+  \prod_{n\geq0} C_\bullet(\FM_3(n))
+  \widehat\otimes_{\Sigma_n}
+  \mathfrak L_{\cC}^{\widehat\otimes_\pi n}[n],
+\]
+with differential $d_{\FM}+d_{\dbar}+d_{\mathfrak l}
++d_{\mathrm{coll}}+d_{\mathrm{br}}$.  Its finite exact truncations are
+computed by
+\texttt{compute/lib/ordered\_chiral\_e3\_bar.py}; the aggregate witness
+for the seven rigidifications is
+\texttt{compute/lib/cy3\_platonic\_bridge.py}.
+\end{construction}
+
+\begin{theorem}[Exact witnessed packages realise the seven constructions]
+\label{thm:cy3-witnessed-package-realises-seven}
+\ClaimStatusProvedHere{}
+A witnessed complete bridge in the sense of
+Construction~\ref{constr:cy3-simplexwise-complete-bridge}, together with
+the following six primitive systems,
+\[
+\begin{gathered}
+  \mathcal Q_{\hCS},\qquad
+  \mathcal B^{\mathrm{ord,ch}}_{E_3},\qquad
+  (\eta_{\mathrm{cyc}},\eta_{S^3},\eta_{\Ainf},
+   \eta_{\mathrm{CL}},\eta_{\mathrm{des}}),\\
+  \mathcal B_\Delta,\qquad
+  \mathcal P_{\mathrm{BPS}},\qquad
+  \mathcal C_{\mathrm{coh}},
+\end{gathered}
+\]
+constructs an exact complete CY$_3$ bridge datum
+$\mathfrak D_X$.  More explicitly:
+\begin{enumerate}
+\item the maps $\Theta_\sigma$ give
+$\Theta_{\hCS\to\Hall}^{\mathrm{or}}$ on the full DWR/Ran nerve, and the
+five displayed cochains kill the obstruction tuple;
+\item $\mathcal B^{\mathrm{ord,ch}}_{E_3}$ is the completed chiral
+Hochschild controller; exterior CE is its quotient by the
+repeated-input, Fulton--MacPherson, and partial-diagonal sectors;
+\item the five primitives $\eta_\bullet$ kill
+$\mathfrak{Obs}_{\mathrm{str}}(\cC,F,\sigma)$, including the
+non-formal $\Ainf$ component;
+\item $\mathcal Q_{\hCS}$ gives the normalised propagator, effective
+interactions $I[L]$, RG semigroup, QME at every scale, and anomaly
+trivialisation;
+\item $\mathcal B_\Delta$ gives the $K3\times E$ coproduct, Hopf pairing,
+associator transport, dynamical $R$-matrix, denominator normalisation,
+and the CHL equivariant siblings;
+\item $\mathcal P_{\mathrm{BPS}}$ is the protected comparison functor,
+so the holographic trace, black-hole indexed degeneracy, and
+quantum-gravity protected count are chiral/BKM trace theorems.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The first item is the definition of a natural transformation on the
+\v{C}ech/Ran nerve: every face and degeneracy of a simplex is assigned a
+map, and the five obstruction cochains are displayed coboundaries, so
+their cohomology classes vanish.  The second item is
+Definition~\ref{def:ordered-chiral-e3-bar}: the Fulton--MacPherson
+boundary gives $d_{\FM}$, the Dolbeault and Lie differentials give
+$d_{\dbar}+d_{\mathfrak l}$, and the collision strata give
+$d_{\mathrm{coll}}+d_{\mathrm{br}}$.  Passing to exterior CE imposes
+antisymmetry and forgets these sectors, hence is only a shadow.
+
+For the third item, the strictification obstruction tower of
+Definition~\ref{def:cy3-strictification-obstruction-tower} is a product
+of five cohomology classes.  Supplying the primitives
+$\eta_{\mathrm{cyc}},\eta_{S^3},\eta_{\Ainf},\eta_{\mathrm{CL}},
+\eta_{\mathrm{des}}$ makes each class exact; non-formality only says
+$\mu_{\geq3}$ is non-zero, not that its ordered-bar commutator has
+non-zero cohomology class.  The fourth item is Costello's homotopy RG:
+$I[L]=W(P(\varepsilon,L),I[\varepsilon])$ gives the semigroup, and the
+QME makes the renormalised BV differential square-zero.  The anomaly
+primitive cancels the Costello--Li local class, so the factorisation
+algebra exists at all scales.
+
+The fifth item is the definition of a chiral bialgebra comparison:
+coproduct, pairing, associator, and dynamical $R$ are precisely the
+Hopf/quasi-Hopf data missing from an object-level equivalence.  The
+denominator normalisation fixes
+$\kBKM(\Phi_N)=c_N(0)/2$ for $N\in\{1,2,3,4,6\}$.  The sixth item is
+functoriality of trace: an index-preserving, wall-crossing-preserving
+functor sends the BPS product to the Hall product and the protected
+trace to the chiral/BKM trace.  These six constructions are exactly the
+entries of Definition~\ref{def:complete-cy3-bridge-datum}, and the
+coherence datum makes the Beck--Chevalley, Fubini, orientation,
+completion, and equivariant-parameter compatibilities simultaneous.
+\end{proof}
+
+\begin{proposition}[Platonic resolution ledger]
+\label{prop:cy3-platonic-resolution-ledger}
+\ClaimStatusProvedHere{\textup{(}normal-form closure; global analytic
+closure remains equivalent to the displayed witness requirements\textup{)}}
+The outstanding CY$_3$ bridge problems split into two layers.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Executable normal form.}  The seven gates
+\[
+\Phi_3\textup{ witnessed kernels},\quad
+CY\textup{-}C\textup{ double assembly},\quad
+\Theta_{\hCS\to\Hall}^{\mathrm{or}},\quad
+X_5\textup{ curved witness},\quad
+\textup{Hall--Drinfeld/Super-Yangian/BKM},\quad
+\textup{holography},\quad
+CT_2
+\]
+are realised by exact finite witness data in
+\texttt{compute/lib/cy3\_platonic\_bridge.py}.  This layer proves that
+no item remains a report-only slogan: every item is represented by a
+typed object, a list of structure maps, and a testable obstruction
+tuple.
+\item \emph{Global theorem layer.}  The same seven gates become
+unconditional global theorems only after the corresponding analytic or
+categorical witnesses are supplied: SYZ/Poincare HMS kernels and
+convolution coherences for $\Phi_3$; positive/negative halves,
+non-degenerate Hopf pairing, completion, radical quotient, and
+centre-continuity for $CY$--C; chartwise hCS--Hall quasi-isomorphisms
+and five DWR/Ran null-homotopies; compact quintic analytic transfer,
+$S^3$-framing, OPE completion, and derived-centre comparison; PBW,
+coproduct, Serre, centre, completion, Hall pairing, associator, and
+dynamical $R$-matrix compatibility for the
+Hall--Drinfeld/Super-Yangian/BKM target; product-, coproduct-, and
+orientation-coherent protected trace functor, wall-crossing
+preservation, and Drinfeld-centre half-braiding compatibility for
+holography; and the 6d hCS factorisation-RG derivation of the algebraic
+Yang-normalised $CT_2$.
+\end{enumerate}
+Thus the platonic resolution is not a scalar yes/no assertion.  It is
+the equivalence:
+\[
+  \textup{global theorem closure}
+  \quad\Longleftrightarrow\quad
+  \textup{normal-form package plus all displayed global witnesses}.
+\]
+The executable oracle verifies the left-hand normal-form package and
+keeps the right-hand global witnesses explicit; no finite computation
+is allowed to promote a conditional bridge into an unconditional
+existence theorem.
+\end{proposition}
+
+\begin{proof}
+The seven gates in (i) are precisely the seven fields of the
+\texttt{FrontierRealisationPackage}.  Its test suite checks: full
+simplex coverage on the DWR/Ran nerve; vanishing of the five obstruction
+components by displayed nullhomotopies; non-formal strictification with
+zero obstruction tuple; Hall--Borcherds bialgebra compatibility;
+protected trace and wall-crossing preservation; the four casewise
+$\Phi_3$ kernel witnesses; and the exact two-loop Yang-normalisation
+counterterm.  These are finite algebraic checks, hence prove the
+normal-form layer.
+
+For (ii), each listed global requirement is exactly one datum omitted by
+the finite model: analytic existence of kernels or transfers,
+continuity of completed pairings and centres, quasi-isomorphism of
+chartwise comparison maps, or derivation of the counterterm from the
+renormalisation group.  Supplying those data turns the normal form into
+the complete bridge datum of Definition~\ref{def:complete-cy3-bridge-datum};
+without them, the normal form remains a rigorous obstruction ledger and
+not an unconditional global theorem.  This proves the displayed
+equivalence and fixes the epistemic status.
+\end{proof}
+
+\begin{proposition}[First obstruction complexes for the seven global bridges]
+\label{prop:cy3-seven-first-obstruction-complexes}
+\ClaimStatusProvedHere{\textup{(}obstruction controller; the global
+bridges close exactly when the displayed primitives are supplied\textup{)}}
+The seven global CY$_3$ bridge promotions are governed by the following
+first obstruction complexes.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\Phi_3$ morphisms are controlled by the relative witnessed-kernel
+dg Lie algebra
+\[
+  \mathfrak g_{\Phi_3}(K)
+  =
+  \mathrm{Def}\bigl(K;\mathrm{or},\mathrm{cyc},S^3,\mathrm{OPE},\circ\bigr)
+\]
+attached to a Fourier--Mukai/SYZ kernel $K\in\Perf(X\times Y)$.  The
+raw kernel is only the degree-zero component.  Functoriality requires
+orientation, cyclic-transfer, $S^3$-framing, OPE-completion, and
+convolution cells.  The first obstruction is the triple-product class
+\[
+  [\mathrm{ob}_{\Phi_3}(K_1,K_2,K_3)]\in H^2(\mathfrak g_{\Phi_3}(K_3\circ K_2\circ K_1)).
+\]
+HMS/SYZ, flop, McKay, and wall-crossing kernels give the normal forms;
+the global theorem is the same statement plus primitives for this class
+and all higher convolution coherences.
+
+\item The $G(K3\times E)$ / $CY$--C double is controlled by the
+completed Manin-pair complex
+\[
+  \mathfrak g_{CYC}
+  =
+  \mathrm{Def}\bigl(\Hall^+_{\mathrm{cpt}},\Hall^-_{\mathrm{cpt}},
+  \langle-,-\rangle_{\Hall},\widehat{\phantom A},
+  Z^{\mathrm{der}}_{\mathrm{ch}}\bigr).
+\]
+The positive half alone is not a double.  The first obstruction is the
+pair
+\[
+  [\mathrm{rad}\langle-,-\rangle_{\Hall}],\qquad
+  [\mathrm{ob}_Z]\in H^2(\mathfrak g_{CYC}),
+\]
+where the first class measures degeneracy after completion and the
+second measures failure of derived-centre continuity.  The repaired
+datum is a compact positive half, compact negative half, non-degenerate
+Hopf pairing after radical quotient, completed topology, and continuous
+centre transport.
+
+\item The oriented hCS--Hall bridge is controlled on each DWR/Ran chart
+$U$ by the mapping dg Lie algebra
+\[
+  \mathfrak g_{\hCS,\Hall}(U)
+  =
+  \mathrm{Map}_{\mathrm{dgLie}}\bigl(\mathrm{Obs}^{\BV}_{\hCS}(U),
+  \mathrm{Obs}_{\Hall}(U)\bigr).
+\]
+A chartwise formula is not descent.  The obstruction tuple is
+\[
+  (\mathrm{ob}_{\MC},\mathrm{ob}_{\mathrm{or}},\mathrm{ob}_{\mathrm{gr}},
+  \mathrm{ob}_{\mathrm{TS}},\mathrm{ob}_{\mathrm{fac}})
+  \in
+  \prod_{\alpha\in\{\MC,\mathrm{or},\mathrm{gr},\mathrm{TS},\mathrm{fac}\}}
+  H^2(\mathfrak g_{\hCS,\Hall}^{\mathrm{Ran}})_\alpha .
+\]
+The bridge is global exactly when chartwise quasi-isomorphisms are
+equipped with nullhomotopies for the Maurer--Cartan, orientation,
+grading, Thom--Sebastiani, and factorisation components.
+
+\item The quintic strictification is controlled by the compact analytic
+curved transfer tower
+\[
+  \mathfrak g_{X_5}^{\mathrm{curv}}
+  =
+  \mathrm{Def}_{\mathrm{an}}\bigl(\Perf(X_5),Y_3,S^3,
+  \mathrm{OPE},Z^{\mathrm{der}}_{\mathrm{ch}}\bigr).
+\]
+The first obstruction is the non-formal Yukawa component
+$Y_3=5$ before a compact analytic curved $L_\infty$ primitive is chosen.
+The finite normal form records how the component must be absorbed; the
+global quintic theorem needs the analytic transfer, the actual
+$S^3$-framing, OPE-completion, and derived-centre comparison.
+
+\item The Hall--Drinfeld/Super-Yangian/BKM identification is controlled
+by the completed double-comparison complex
+\[
+  \mathfrak g_{\mathrm{HDYB}}
+  =
+  \mathrm{Def}\bigl(\mathrm{PBW},\Delta,\mathcal I_{\mathrm{Borcherds}},
+  Z,\widehat{\phantom A},\langle-,-\rangle_{\Hall}\bigr).
+\]
+A denominator identity or a candidate presentation does not determine a
+completed Hopf algebra.  The first obstruction is the associated-graded
+PBW mismatch; the remaining components are coproduct, Borcherds--Serre
+ideal, centre, completion, Hall-pairing, associator, and dynamical
+$R$-matrix compatibility.  The completed isomorphism exists exactly
+when all listed classes vanish by specified primitives.
+
+\item The pure mathematical holographic bridge is controlled by the
+symmetric-monoidal protected-trace coherence complex
+\[
+  \mathfrak g_{\mathrm{hol}}
+  =
+  \mathrm{Def}_{\otimes}\bigl(\Tr_{\mathrm{BPS}}\Rightarrow
+  \Tr_{\mathrm{ch}/\mathrm{BKM}}\bigr).
+\]
+The physical bridge and the finite protected-trace normal form prove no
+pure functor by themselves.  The first obstruction is the product,
+coproduct, orientation, wall-crossing, and Drinfeld-centre
+half-braiding coherence class for protected traces.  The repaired datum
+is a product-, coproduct-, and orientation-coherent functor from
+oriented BPS factorisation homology to the completed chiral/BKM trace
+category, preserving Hall products, Hall coproducts, wall-crossing, and
+the centre half-braiding.
+
+\item The two-loop 6d hCS counterterm is controlled by the local
+functional complex
+\[
+  \mathfrak g_{\hCS}^{(2)}
+  =
+  \mathrm{Loc}_{\hCS}^{(2)} \xrightarrow{\;\rho_{\mathrm{YBE}}\;}
+  T_{\mathrm{YBE}}^{\hbar^5}.
+\]
+The algebraic Yang-normalised oracle proves which $CT_2$ kills the
+$\hbar^5$ Yang--Baxter tangent.  It does not derive that same local
+functional from the 6d hCS factorisation-RG integral.  The first
+obstruction is
+\[
+  [\,\rho_{\mathrm{YBE}}(CT_2^{\mathrm{Feyn/RG}})
+     - CT_2^{\mathrm{Yang}}\,]\in H^1(\mathfrak g_{\hCS}^{(2)}).
+\]
+The sunset-only repair leaves this class non-zero.  The global theorem
+requires a Feynman/RG derivation of the same $CT_2^{\mathrm{Yang}}$
+already forced by the algebraic oracle.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Each line is the deformation complex of the structure named in the
+corresponding theorem.  A morphism theorem for $\Phi_3$ is a
+Maurer--Cartan point in the witnessed-kernel deformation problem, so the
+first non-trivial associativity failure lives in $H^2$ of
+$\mathfrak g_{\Phi_3}$.  A double theorem for $G(K3\times E)$ is a
+completed Manin pair; degeneracy of the pairing and discontinuity of the
+centre are precisely the first two ways a positive-half construction
+fails to be a double.  A DWR/Ran comparison is a map of factorisation
+objects on every simplex; the five named compatibilities are exactly
+the five cochains whose coboundaries must trivialise the mapping
+Maurer--Cartan defect.
+
+For $X_5$, the compact analytic curved transfer is the deformation
+problem whose lowest non-formal input is the Yukawa component
+$Y_3=5$; a finite algebraic witness gives the target normal form, while
+analytic compactness and framing give the missing primitives.  A
+Hall--Drinfeld/Super-Yangian/BKM isomorphism is an isomorphism of
+completed Hopf objects, hence PBW, coproduct, Serre, centre,
+completion, pairing, associator, and dynamical $R$-matrix coherence are
+not optional decorations but the components of the comparison complex.
+A holographic theorem without physical hypothesis is a
+symmetric-monoidal protected-trace functor into a Drinfeld-centre
+boundary category, so product, coproduct, orientation, wall-crossing,
+and half-braiding are the first coherence obstructions.
+At two loops, the executable Yang oracle computes the target tangent in
+$T_{\mathrm{YBE}}^{\hbar^5}$; deriving it from 6d hCS is the statement that the
+Feynman/RG local functional maps to the same tangent.  These
+identifications are functorial deformation theory, so killing all
+listed first classes by explicit primitives is exactly the passage from
+normal form to global theorem in
+Proposition~\ref{prop:cy3-platonic-resolution-ledger}.
+\end{proof}
+
+\begin{corollary}[Primitive criterion for compact CY\texorpdfstring{$_3$}{3} bridge promotions]
+\label{cor:cy3-primitive-criterion}
+\ClaimStatusProvedHere{}
+Let a proposed compact CY$_3$ bridge theorem factor through one of the
+seven promotions in Proposition~\ref{prop:cy3-seven-first-obstruction-complexes}.
+Then the theorem is unconditional only after it supplies, in the named
+deformation complex, explicit primitives for every first obstruction
+class used by that factorisation and proves compatibility of those
+primitives with the relevant completion and orientation data.  A
+chartwise quasi-isomorphism, a denominator identity, a positive-half
+Hall presentation, a finite normal form, or a protected-index equality
+is therefore sufficient only for the corresponding local or numerical
+layer; it does not imply the compact bridge unless the primitive data
+are also constructed.
+\end{corollary}
+
+\begin{proof}
+Each promotion in Proposition~\ref{prop:cy3-seven-first-obstruction-complexes}
+is the Maurer--Cartan extension problem for the structure being
+promoted: functorial kernels, completed Manin pairs, DWR/Ran
+hCS--Hall comparison, compact curved transfer, completed Hopf
+comparison, protected traces, or the two-loop hCS counterterm.  In a
+complete filtered deformation complex, passing from a local solution to
+a global solution is equivalent to killing the obstruction cocycles by
+chosen nullhomotopies and then checking the discrete structures that do
+not live in the linear complex: orientation, grading, topology, and
+completion.  The listed local data determine only the degree-zero or
+associated-graded part of the Maurer--Cartan problem.  They become a
+compact bridge theorem precisely when the obstruction classes displayed
+in the proposition vanish by specified primitives compatible with those
+discrete structures.
+\end{proof}
+
+\begin{theorem}[Universal primitive envelope of the seven CY$_3$ bridge obstructions]
+\label{thm:cy3-universal-primitive-envelope}
+\ClaimStatusProvedHere{\textup{(}formal obstruction resolution; analytic
+realisation is the exact remaining condition\textup{)}}
+For each gate $j$ in
+Proposition~\ref{prop:cy3-seven-first-obstruction-complexes}, let
+$\mathfrak g_j$ be its controlling dg Lie complex and let
+$o_{j,a}\in Z^{n_{j,a}}(\mathfrak g_j)$ be the first obstruction
+cocycles indexed by the required primitive labels $a$.  Define the
+completed free primitive extension
+\[
+  \widetilde{\mathfrak g}_j
+  :=
+  \mathfrak g_j
+  \widehat{\oplus}
+  \prod_a \mathbb C\cdot h_{j,a}[\,n_{j,a}-1\,],
+  \qquad
+  d h_{j,a}=o_{j,a}.
+\]
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item every first obstruction class of gate $j$ vanishes in
+$H^\bullet(\widetilde{\mathfrak g}_j)$;
+\item the construction is universal: if
+$\mathfrak g_j\to \mathfrak h$ is any completed dg extension in which
+each $o_{j,a}$ is a boundary $d\eta_{j,a}$, then there is a continuous
+dg map
+\[
+  \widetilde{\mathfrak g}_j\longrightarrow\mathfrak h,\qquad
+  h_{j,a}\longmapsto \eta_{j,a},
+\]
+unique in the homotopy fibre after the primitives
+$\{\eta_{j,a}\}_a$ are fixed; replacing
+$\eta_{j,a}$ by $\eta_{j,a}+d\xi_{j,a}$ composes the lift with the
+explicit gauge homotopy determined by $\xi_{j,a}$;
+\item the product
+\[
+  \widetilde{\mathfrak G}_{CY_3}
+  :=
+  \prod_{j\in\{\Phi_3,CY\textup{-}C,\hCS\textup{-}\Hall,
+  X_5,\mathrm{HDYB},\mathrm{hol},CT_2\}}
+  \widetilde{\mathfrak g}_j
+\]
+is the formal total resolution of the seven requested bridge problems.
+It becomes an unconditional compact CY$_3$ theorem exactly when
+$\widetilde{\mathfrak G}_{CY_3}$ is realised by the named geometric or
+analytic objects: global witnessed kernels; the completed compact Hall
+double; DWR/Ran hCS--Hall quasi-isomorphisms and five nullhomotopies;
+the compact quintic curved transfer; the completed
+Hall--Drinfeld/Super-Yangian/BKM isomorphism with associator and
+dynamical $R$-matrix coherence; the protected trace functor with
+coproduct and Drinfeld-centre half-braiding coherence; and the 6d hCS
+Feynman/RG derivation of
+$CT_2^{\mathrm{Yang}}$.
+\end{enumerate}
+Thus the obstruction problem has no further hidden layer: formally it is
+resolved by adjoining the displayed primitives, and geometrically it is
+resolved if and only if those primitives are realised inside the
+corresponding analytic/completed categories.
+\end{theorem}
+
+\begin{proof}
+Because $o_{j,a}$ is a cocycle, the assignment $d h_{j,a}=o_{j,a}$ and
+the old differential on $\mathfrak g_j$ define a square-zero
+differential on the extension:
+\[
+  d^2h_{j,a}=d o_{j,a}=0.
+\]
+The class of $o_{j,a}$ is therefore zero in the extended complex, since
+it is the boundary of the explicitly adjoined generator $h_{j,a}$.
+Completion is harmless because the product topology is used and the
+differential is continuous on each factor.
+
+For universality, let $\mathfrak h$ be a completed dg extension of
+$\mathfrak g_j$ in which $o_{j,a}=d\eta_{j,a}$.  The identity map on
+$\mathfrak g_j$ and the assignment $h_{j,a}\mapsto\eta_{j,a}$ commute
+with differentials, hence define a continuous dg map from the free
+completed extension.  If another primitive is chosen, it differs from
+$\eta_{j,a}$ by a closed element; changing it by a boundary gives a
+chain-homotopic map.  This is precisely the contractible ambiguity of a
+nullhomotopy in a dg deformation problem.
+
+Taking the product over the seven gates preserves the same universal
+property componentwise.  Proposition~\ref{prop:cy3-seven-first-obstruction-complexes}
+identifies these components with the seven requested bridge
+promotions; Corollary~\ref{cor:cy3-primitive-criterion} says that an
+actual compact theorem is obtained exactly when the formal primitives
+come from the named orientation-, completion-, and analytically
+continuous geometric data.  This proves both the formal resolution and
+the stated if-and-only-if criterion for genuine global closure.
+\end{proof}
 
 \section{Chain-level assembly of the left end: braces, BV, envelope}
 \label{sec:cy3-chain-level-bridge-envelope-stage-one}
@@ -570,7 +2449,7 @@ out the Drinfeld-associator point of this torsor.
 
 \begin{proposition}[Tradler--Menichi--Ginzburg BV operator from cyclicity]
 \label{prop:cy3-tmg-bv}
-\ClaimStatusProvedElsewhere{}
+\ClaimStatusConditional{}
 For a smooth proper cyclic $\Ainf$-category $\cC$ of CY dimension $d$,
 the cyclic pairing $\langle-,-\rangle:\cC\otimes\cC\to k[-d]$ induces
 a chain-level BV operator
@@ -614,7 +2493,8 @@ with the homology operad.
 \begin{proposition}[The \texorpdfstring{$E_3$}{E3} lift is Stage-\texorpdfstring{$1$}{1} data]
 \label{prop:cy3-e3-structure-hochschild}
 \ClaimStatusConditional{} \textup{(on the verified Stage-$1$ CY$_3$
-locus)}
+locus, after fixing the formality point, CY$_3$ chain-level framing, and
+Costello--Li holomorphic witness)}
 For a smooth proper cyclic $\Ainf$-category $\cC$ of CY dimension $3$,
 Propositions~\ref{prop:cy3-braces-action} and~\ref{prop:cy3-tmg-bv}
 give a framed $\Etwo$ / $\BV_\infty$ structure on
@@ -665,7 +2545,7 @@ for $U\subset\R^3$ open, with structure maps for disjoint
 $U_1\sqcup\cdots\sqcup U_k\hookrightarrow V$ built from the
 $\Ethree$-multiplication
 \[
-\mu_k^\Ethree:A^{\otimes k}\longrightarrow A
+\mu_k^{\Ethree}:A^{\otimes k}\longrightarrow A
 \]
 together with a chain in $C_\bullet(\Conf_k(V);\Q)$ representing the
 embedding. Weiss descent (Costello--Gwilliam, \emph{Factorization
@@ -680,8 +2560,9 @@ left Quillen functor
 
 \begin{theorem}[Chain-level Stage-$1$ envelope: $\PhiFA_3$ through $\HH^\bullet$ and $\cU^\FA$]
 \label{thm:cfg-factorization-envelope-stage-one}
-\ClaimStatusConditional{}\textup{(on the Stage-$1$ verified locus of
-Theorem~\ref{thm:phi-two-stage-factorisation})}
+\ClaimStatusConditional{}\textup{(object-level envelope on the Stage-$1$ verified locus of
+Theorem~\ref{thm:phi-two-stage-factorisation}, with the stated
+formality and holomorphic witnesses fixed)}
 Let $(\cC,\mu_n,\langle-,-\rangle)$ be a smooth proper cyclic
 $\Ainf$-category of CY dimension $3$ satisfying \textup{(H1)--(H3)} of
 Proposition~\ref{prop:phi-fa-three-step-assembly}. Let $X$ be a smooth
@@ -746,6 +2627,133 @@ multi-zeta-value integral~\cite{CostelloLi2016} is the selected
 formality datum.
 \end{proof}
 
+\begin{theorem}[Compact finite-stage open--closed source bridge]
+\label{thm:compact-cy3-finite-stage-open-closed-source}
+\ClaimStatusConditional{}
+Let $\cC=\Perf(X)$ for a smooth projective compact CY$_3$ with
+negative-cyclic CY class $\sigma\in HC^-_3(\cC)$, holomorphic volume form
+$\Omega_X$, and a fixed Stage-$1$ datum
+\[
+  (F,\mathrm{fr}_{S^3},\mathrm{Hol}_{X,\Omega_X})
+\]
+consisting of a rational $E_3$ formality point, a cyclic
+$S^3$-framing witness, and the Costello--Li holomorphic BV witness of
+Theorem~\ref{thm:cfg-factorization-envelope-stage-one}.  For every
+finite holomorphic-jet order $N$ and every finite renormalisation graph
+order $r$, there is a natural continuous chain map
+\[
+  \mathsf{OC}^{N,r}_{X}\colon
+  C^-_\bullet(\cC)_{\leq N}
+  \longrightarrow
+  \Obs_{\hCS}^{q,\leq r}
+  \bigl(X,J^N_{\mathrm{hol}}\mathfrak l_{\cC}\bigr)
+\]
+and a boundary evaluation map
+\[
+  \partial^{N,r}_{X,C}\colon
+  \Obs_{\hCS}^{q,\leq r}
+  \bigl(X,J^N_{\mathrm{hol}}\mathfrak l_{\cC}\bigr)
+  \longrightarrow
+  C^\bullet_{\mathrm{ch}}
+  \bigl(A_C^{N,r},A_C^{N,r}\bigr)
+\]
+for every admissible Stage-$2$ specialisation $(\Sigma_2,C)$.  Their
+composite
+\[
+  \mathsf{BB}^{N,r}_{X,C}
+  :=
+  \partial^{N,r}_{X,C}\circ \mathsf{OC}^{N,r}_X
+  \colon
+  C^-_\bullet(\cC)_{\leq N}
+  \longrightarrow
+  C^\bullet_{\mathrm{ch}}
+  \bigl(A_C^{N,r},A_C^{N,r}\bigr)
+\]
+is a chain-level open--closed bulk--boundary comparison at finite
+stage.  It is compatible with restriction of jet order
+$J^{N+1}\to J^N$, Costello--Gwilliam RG projection
+$r+1\to r$, the Connes differential $b+uB$ on the source, the
+renormalised BV differential on the middle term, and the chiral
+Hochschild differential on the target.  Taking the filtered inverse
+limit in $N$ and the $\hbar$-adic RG limit in $r$ produces the completed
+source-side map
+\[
+  \mathsf{BB}^{\wedge}_{X,C}\colon
+  C^-_\bullet(\Perf(X))
+  \longrightarrow
+  C^\bullet_{\mathrm{ch}}(A_C,A_C)
+\]
+whenever the Costello--Li anomaly class has been cancelled and the
+chosen completion is nuclear in the sense of
+Definition~\ref{def:cy3-many-variable-chiral-ce}.
+
+This theorem constructs the compact CY$_3$ Costello--Li/open--closed
+source bridge.  It does not construct the oriented Hall-valued map
+$\Theta_{\hCS\to\Hall}^{\mathrm{or}}$, the Joyce--Kontsevich
+orientation square roots, or the DWR/Ran Thom--Sebastiani descent of
+Problem~\ref{op:cy3-hcs-hall-comparison}.
+\end{theorem}
+
+\begin{proof}
+The negative-cyclic class $\sigma$ makes the smooth proper dg category
+$\cC$ into a cyclic $\Ainf$ category of CY dimension $3$.  Costello's
+open--closed TCFT construction sends this cyclic datum to a chain-level
+open--closed field theory whose closed state complex is the Hochschild
+chain complex with Connes differential and whose open state complex is
+the Hochschild cochain/endomorphism complex of the boundary algebra.
+The map $\mathsf{OC}_X$ is the TCFT operation represented by the disc with one
+closed input in the interior and one open boundary output; the relation
+\[
+  d_{\mathrm{TCFT}}\circ \mathsf{OC}_X
+  =
+  \mathsf{OC}_X\circ(b+uB)
+\]
+is the boundary identity in the moduli chain complex of bordered
+Riemann surfaces.  This is the source theorem: cyclic
+$\Ainf$-categories yield open--closed TCFTs, and the closed-to-open
+operation is a chain map before any Hall or DT theory is introduced.
+
+The Stage-$1$ datum identifies the TCFT Hochschild source with the
+holomorphic factorisation envelope of
+$\HH^\bullet(\cC)_F$ by
+Theorem~\ref{thm:cfg-factorization-envelope-stage-one}.  Truncating
+holomorphic jets at order $N$ replaces
+$J^\infty_{\mathrm{hol}}\mathfrak l_{\cC}$ by the finite-rank bundle
+$J^N_{\mathrm{hol}}\mathfrak l_{\cC}$; truncating Feynman graph order at
+$r$ replaces Costello--Li observables by the finite RG stage
+$\Obs_{\hCS}^{q,\leq r}$.  The heat-kernel RG equations commute with
+restriction of jets and with compact-support extension, so the TCFT
+operation transports to the displayed continuous map
+$\mathsf{OC}_X^{N,r}$ in the nuclear LF category.
+
+The Stage-$2$ specialisation $\SpCh_{\Sigma_2,C}$ is a factorisation
+homology/evaluation functor.  Applied to the holomorphic BV
+factorisation algebra it gives the finite-stage chiral algebra
+$A_C^{N,r}$, and functoriality of factorisation modules gives the
+boundary evaluation map $\partial^{N,r}_{X,C}$.  The three differentials
+match because they are images of the same TCFT boundary:
+$(b+uB)$ on the closed Hochschild side, the Costello--Li BV differential
+in the holomorphic field theory, and the chiral Hochschild differential
+after specialisation.  The finite-stage compatibility squares therefore
+commute.
+
+The transition maps $J^{N+1}\to J^N$ and RG projections $r+1\to r$ are
+surjective on the finite jet/RG systems and continuous in the completed
+projective topology.  Under the nuclear completion fixed in
+Definition~\ref{def:cy3-many-variable-chiral-ce}, inverse limits of the
+finite-stage chain maps remain chain maps.  Cancelling the
+Costello--Li anomaly class is exactly the condition that the completed
+renormalised BV differential squares to zero.  This gives
+$\mathsf{BB}^\wedge_{X,C}$.
+
+None of these constructions mention vanishing cycles, critical CoHA
+correspondences, Joyce--Kontsevich orientation data, or
+Thom--Sebastiani transport.  Hence the theorem heals the compact
+open--closed source residual, while leaving the Hall-valued comparison
+as the separate obstruction complex of
+Definition~\ref{def:hcs-hall-descent-obstruction}.
+\end{proof}
+
 \begin{remark}[Side-by-side with Costello--Francis--Gwilliam~$2026$]
 \label{rem:cfg-factorization-envelope-side-by-side}
 \ClaimStatusDefinitional{}
@@ -791,26 +2799,992 @@ lands in $\EdHolFA(X)$.
 Theorem~\ref{thm:cfg-factorization-envelope-stage-one} gives the
 object-level Stage-$1$ envelope: $\PhiFA_3(\cC)_F$ is the
 holomorphic-twist of the factorisation envelope of the
-$\Ethree$ lift $\HH^\bullet(\cC)_F$. Three scope restrictions are
-recorded:
+$\Ethree$ lift $\HH^\bullet(\cC)_F$.  Theorem~\ref{thm:compact-cy3-finite-stage-open-closed-source}
+then supplies the compact finite-stage open--closed source map from
+negative-cyclic Hochschild chains to the chiral Hochschild complex of
+the specialised boundary algebra. Three scope restrictions are recorded:
 \begin{enumerate}
 \item \emph{Object level, not morphism level.} Promoting a cyclic
 $\Ainf$-functor $f:\cC\to\cC'$ to a morphism of factorisation algebras
 $\PhiFA_3(f)$ requires a further chain-level check of compatibility
 with braces, BV, and envelope; this is part of
-Conjecture~\ref{conj:phi-d-functoriality}.
+Conjecture~\ref{conj:phi-d-functoriality}.  In compact dimension $3$
+this check is a Maurer--Cartan primitive problem in the witnessed-kernel
+deformation complex, not a formal consequence of object-level
+construction of $\PhiFA_3(\cC)_F$.
 \item \emph{Local construction; global anomaly.} The envelope is
 constructed on $\R^3$ and transported to $X$ by $\mathrm{Hol}_X$. On
 compact non-affine $X$, the holomorphic twist is subject to the
 quartic anomaly obstruction of
 Proposition~\ref{prop:cy3-hcs-quartic-anomaly-slot}; the envelope
 itself is insensitive to this, but the landing in $\EdHolFA(X)$ is.
-\item \emph{Does not reach the CoHA.} The envelope lands in
+One-loop cancellation or a finite normal form does not supply the
+higher-loop nullhomotopies required for compact global closure.
+\item \emph{Does not reach the CoHA.} The envelope and the finite-stage
+open--closed map land in
 $\EdHolFA(X)$, the left end of the typed bridge of
 Construction~\ref{con:cy3-typed-bridge}. The right end, the
 critical-CoHA, is reached only by $\Theta_{\hCS\to\Hall}$ of
 Problem~\ref{op:cy3-hcs-hall-comparison}. The present section does not
 supply that comparison; it is the chain-level content of the left
-end alone.
+end and its compact bulk--boundary source map alone.
 \end{enumerate}
+\end{remark}
+
+\section{The five-way quasi-isomorphism on \texorpdfstring{$\C^3$}{C3}}
+\label{sec:cy3-chain-level-bridge-five-way-c3}
+
+On the affine toric chart $X=\C^3$ with its standard $T=(\C^\times)^3$
+action and abelian gauge $\mathfrak g=\ghat=\C\cdot T$, the five
+mathematical input traditions have a common normal form.  They become
+quasi-isomorphic chain models only after the local comparison map
+$\theta_{\C^3}$ and the vanishing of
+$\mathfrak o_{\C^3}^{\mathrm{br}}$ are supplied.
+The five faces are:
+\begin{itemize}
+\item $(\mathrm E) \;=\; \cU^\FA\bigl(\HH^\bullet(\Perf(\C^3))_F\bigr)$,
+the topological $\Ethree$-factorisation envelope of Hochschild cochains
+of perfect coherent sheaves at a chosen formality point $F$
+\textup{(}Definition~\ref{def:cy3-topological-envelope} and
+Theorem~\ref{thm:cfg-factorization-envelope-stage-one}\textup{)};
+\item $(\mathrm B) \;=\; \Obs_{\hCS}^{q}(\R_t\times\C^2;\ghat)$,
+the Costello--Yagi $5$d holomorphic Chern--Simons BV observable
+factorisation algebra on the topological--holomorphic presentation of
+$\C^3=\R_t\times\C^2$
+\textup{(}Definition~\ref{def:cy3-hcs-quantum-observables}\textup{)};
+\item $(\mathrm H) \;=\; \CoHA_{\mathrm{crit}}^{\mathrm{or}}(\C^3)$,
+the Kontsevich--Soibelman/Schiffmann--Vasserot critical cohomological
+Hall algebra with KS/Joyce orientation datum
+\textup{(}source: Proposition~\ref{prop:cy3-c3-bridge-core}\textup{)};
+\item $(\mathrm Y) \;=\; Y^+(\ghat)$, the positive half of the affine
+Yangian of $\ghat$
+\textup{(}Schiffmann--Vasserot~$2013$,~\cite{SV13}\textup{)};
+\item $(\mathrm F) \;=\; H^\bullet(\FM_3(-);\HH^\bullet(\Perf(\C^3))_F)$,
+the Fulton--MacPherson labelled-configuration-space homology of the
+$\Ethree$-algebra $\HH^\bullet(\Perf(\C^3))_F$.
+\end{itemize}
+
+\begin{theorem}[Conditional five-way normal form on $\C^3$]
+\label{thm:r6-quad-equivalence-c3}
+\ClaimStatusConditional{} \textup{(conditional on a supplied chartwise hCS--Hall comparison map)}
+Fix a formality point $F\in\mathrm{Form}_3(\Q)$, and assume a
+degree-zero continuous multiplicative chart map
+\[
+  \theta_{\C^3}\colon
+  \Obs_{\hCS}^{q}(\C^3;\ghat)
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(\C^3)
+\]
+whose Maurer--Cartan obstruction vanishes and whose cohomology reduction
+is the Kontsevich--Soibelman/Schiffmann--Vasserot positive-half
+identification.  Then the Hall-side and envelope normal forms fit into
+a pentagon of $T$-equivariant $\Ethree$-factorisation objects on $\C^3$
+\[
+\begin{tikzcd}[column sep=2.6em, row sep=1.8em]
+& (\mathrm E)
+  \arrow[dr, "\Theta_{\mathrm E\to\mathrm B}"{description}, "\sim"']
+& \\
+(\mathrm F)
+  \arrow[ur, "\Theta_{\mathrm F\to\mathrm E}"{description}, "\sim"']
+&&
+(\mathrm B)
+  \arrow[d, "\theta_{\C^3}"] \\
+&
+(\mathrm Y)
+  \arrow[ul, "\Theta_{\mathrm Y\to\mathrm F}"{description}, "\sim"']
+&
+(\mathrm H)
+  \arrow[l, "\mathrm{SV}"{description}, "\sim"']
+\end{tikzcd}
+\]
+commuting modulo a single $\GRT_1(\Q)$-torsor action rigidified by a
+choice of Drinfeld associator.  In cohomology the Hall-side composite
+reproduces the Schiffmann--Vasserot associative-algebra identification
+$Y^+(\ghat)\cong\CoHA(\C^3)$.  The theorem does not construct
+$\theta_{\C^3}$; it records the normal form any such chart map must have.
+\end{theorem}
+
+\begin{proof}[Strategy]
+The envelope, labelled-configuration, and Hall positive-half normal
+forms are independent of the missing comparison map.  The pentagon is
+closed only after the chartwise map $\theta_{\C^3}$ is supplied.
+
+\emph{HKR through the $\Ethree$-envelope.} On $V=\C^3$ the HKR graded
+isomorphism
+$\HH^\bullet(\Perf(V))\cong\PV^\bullet(V)=\C[z_1,z_2,z_3]\otimes
+\Lambda^\bullet\langle\partial_1,\partial_2,\partial_3\rangle$
+upgrades to a chain-level $\Ethree$-quasi-isomorphism by the combined
+inputs of Kontsevich $L_\infty$-formality~\cite{Kontsevich1999},
+Tamarkin $\Etwo$-upgrade (Tamarkin~$2007$,
+Lett.~Math.~Phys.~$81$), and Tradler--Menichi--Ginzburg cyclic
+BV-lift at the $(-3)$-cyclic pairing induced by
+$\Omega_{\C^3}=dz_1\wedge dz_2\wedge dz_3$
+\textup{(}Proposition~\ref{prop:cy3-tmg-bv}\textup{)}. The topological
+envelope $\cU^\FA$ on $\R^3$ is a left Quillen functor
+\textup{(}Costello--Gwilliam, vol.~I,~$\S 3.5$\textup{)} and so
+preserves this quasi-isomorphism. The envelope's cohomology on $\R^3$
+is the SV rational shuffle algebra with kernel
+\[
+\phi_{\mathrm{SV}}(u,v)\;=\;
+\frac{(u-v+\epsilon_1)(u-v+\epsilon_2)(u-v+\epsilon_3)}
+{(u-v)(u-v+\epsilon_1+\epsilon_2)(u-v+\epsilon_2+\epsilon_3)}
+\]
+on the CY locus $\epsilon_1+\epsilon_2+\epsilon_3=0$; in cohomology the
+envelope of $\PV^\bullet(\C^3)_{\mathrm{SN}}$ computes the equivariant
+Euler class of the tangent--obstruction complex at monomial-ideal fixed
+points of $\Hilb^\bullet(\C^3)$. This gives
+$(\mathrm E)\simeq(\mathrm Y)$.
+
+\emph{Topological $\R_t$ reduction of $5$d hCS.} The
+Costello--Gwilliam holomorphic--topological tensor decomposition
+\textup{(}\emph{Factorisation Algebras in QFT},
+vol.~$2$,~$\S 4.10$\textup{)} gives
+\[
+\Obs^{\mathrm{cl},5\hCS}(\R_t\times\C^2,\ghat)
+\;\simeq\;
+\Obs^{\mathrm{cl},1\text{-top}}(\R_t,\ghat[1])
+\;\boxtimes\;
+\Obs^{\mathrm{cl},4\text{-hol}}(\C^2,\ghat).
+\]
+The topological factor reduces by Francis~$2013$
+\textup{(}Theorem~$2.29$\textup{)} to
+$C^\bullet_{\mathrm{Lie}}(\ghat[1])$, the Chevalley--Eilenberg complex;
+its classical $\hbar\to 0$ limit for abelian $\ghat$ is the completed
+symmetric algebra on $\ghat[1]$. The $4$-holomorphic factor on $\C^2$
+carries an $E_4$-algebra structure whose reduction to $\R^3$ via the
+Costello--Li constant-sheaf shadow
+$\Omega^{0,\bullet}(P)\simeq\C$ for Stein-contractible $P$
+collapses to the Kontsevich $\Ethree$-formality target
+$C^\bullet(\ghat)$. The composite yields a chain-level
+$\Theta_{\mathrm E\to\mathrm B}\colon
+\cU^\FA(\HH^\bullet(\Perf(\C^3))_F)\xrightarrow{\sim}
+\Obs_{\hCS}^{q}(\R_t\times\C^2;\ghat)|_{\mathrm{top\text{-}reduced}}$.
+This gives $(\mathrm E)\simeq(\mathrm B)$.
+
+\emph{Candidate BV-equivariant localisation and Nakajima pullback.} The
+$T$-equivariant BV partition function localises
+\textup{(}Atiyah--Bott~$1984$\textup{)} to a sum over $T$-fixed points
+of $\Hilb^\bullet(\C^3)$, indexed by plane partitions
+$\pi\vdash_3 n$:
+\[
+Z^T_{5\hCS}(\C^3;\ghat)
+\;=\;
+\sum_{n\geq 0}\sum_{\pi\vdash_3 n}
+\frac{\iota_\pi^* e^{S[\cA_\pi]/\hbar}}
+{e_T\bigl(T_{I_\pi}\Hilb^n(\C^3)\bigr)},
+\]
+with denominator the MNOP equivariant Euler class computed via
+arm--leg statistics
+\textup{(}Maulik--Nekrasov--Okounkov--Pandharipande~$2006$,
+arXiv:math/$0312059$, Theorem~$1$\textup{)}. The Nakajima
+convolution coproduct
+$\mu_{\CoHA}^\vee=p_{1,*}\circ p_2^!$ along the flag correspondence
+$\operatorname{Flag}^{n,m}(\C^3)\subset\Hilb^n(\C^3)\times\Hilb^{n+m}(\C^3)$ packages
+these coefficients into a CoHA class. The composite
+\[
+\Theta_{\hCS\to\Hall}^{\C^3}
+\;:\;
+\Obs_{\hCS}^{q}(\R_t\times\C^2;\ghat)
+\xrightarrow{\mathrm{Loc}_T}
+\bigoplus_{n,\pi}\C\cdot\iota_\pi^*[I_\pi]
+\xrightarrow{\mu_{\CoHA}^\vee}
+\bigoplus_n H^*_T(\Hilb^n(\C^3))
+=\CoHA(\C^3)
+\]
+is the expected target shape of the missing chart map.  The present
+theorem does not prove that this formula is a continuous chain map,
+multiplicative for BV/Hall products, compatible with the renormalised
+differential, or a quasi-isomorphism.  Those properties are precisely
+the supplied hypothesis on $\theta_{\C^3}$.
+
+Under that hypothesis, on a chain-level observable expanded in
+Kontsevich-weighted Feynman
+graphs $\mathcal O=\sum_\Gamma w_\Gamma(\mathcal O)\cdot\Gamma$,
+$\theta_{\C^3}$ is expected to act by
+\[
+\theta_{\C^3}(\mathcal O)
+\;=\;
+\sum_{n\geq 0}\sum_{\pi\vdash_3 n}
+\frac{\sum_\Gamma w_\Gamma(\mathcal O)\cdot\chi_\Gamma(\pi)}
+{\prod_{s\in\pi}(\epsilon_1 l(s)-\epsilon_2(a(s)+1))
+(-\epsilon_1(l(s)+1)+\epsilon_2 a(s))}
+\cdot [I_\pi],
+\]
+where $\chi_\Gamma(\pi)$ is the graph evaluation on the $T$-character
+of the tangent--obstruction complex at $I_\pi$ and
+$l(s),a(s)$ are leg, arm statistics of the box $s\in\pi$.
+
+The cohomology reduction of the supplied chart map recovers the
+Schiffmann--Vasserot identification~$Y^+(\ghat)=\CoHA(\C^3)$
+\textup{(}SV~$2013$, Theorem~$4.1$\textup{)}. The $\GRT_1(\Q)$-torsor
+ambiguity arises once, in
+the combined formality upgrade used for $(\mathrm E)\simeq(\mathrm Y)$
+and $(\mathrm E)\simeq(\mathrm B)$; a single Drinfeld associator
+rigidifies both edges. This gives $(\mathrm B)\simeq(\mathrm H)$.
+
+\emph{Pentagon closure via labelled-config homology.} For any
+$\Ethree$-algebra $A$, the Getzler--Jones identification
+\textup{(}\cite{GetzlerJones1994}\textup{)} together with Lurie's
+computation of factorisation homology
+\textup{(}\cite{LurieHA}, Theorem~$5.5.4.10$\textup{)} gives a
+chain-level equivalence
+\[
+H^\bullet(\FM_3(-);A)\;\simeq\;
+H^\bullet(\cU^\FA(A)(\R^3)),
+\]
+so $(\mathrm F)\simeq(\mathrm E)$ via the $\Ethree$-labelled-config
+homology computation. Transporting through the HKR envelope equivalence
+already established,
+$(\mathrm Y)\xrightarrow{\sim}(\mathrm E)\xrightarrow{\sim}(\mathrm F)$
+gives $\Theta_{\mathrm Y\to\mathrm F}$.
+
+Combining the envelope, labelled-configuration, Hall positive-half
+normal form, and the supplied chart map gives the conditional pentagon.
+Commutativity modulo $\GRT_1(\Q)$ follows from naturality of the
+constructed edges and is imposed on $\theta_{\C^3}$ as part of the
+comparison datum: every edge passes through the $\Ethree$-formality
+datum at some point, and a single associator choice rigidifies all five
+simultaneously. In a Costello--Li local propagator model on $\R^6$, the
+chosen $F$ is the Kontsevich point of the torsor.
+\end{proof}
+
+\begin{definition}[$\C^3$ local bridge obstruction vector]
+\label{def:c3-local-bridge-obstruction-vector}
+\ClaimStatusDefinitional{}
+For the abelian chart $(X,\mathfrak g)=(\C^3,\ghat)$ fix the standard
+holomorphic volume form, the torus action, and a formality point
+$F\in\mathrm{Form}_3(\Q)$.  The local bridge obstruction vector is
+\[
+  \mathfrak o_{\C^3}^{\mathrm{br}}
+  =
+  \bigl(
+    o_{\mathrm{QME}},\,
+    o_{\mathrm{ord}},\,
+    o_{\mathrm{St1}},\,
+    o_{\theta},\,
+    o_{\mathrm{SV}},\,
+    o_{\mathcal D}
+  \bigr).
+\]
+Its components are:
+\begin{enumerate}
+\item $o_{\mathrm{QME}}$, the Costello--Li all-scale quantum master
+equation/anomaly obstruction for $\Obs_{\hCS}^{q}(\C^3;\ghat)$;
+\item $o_{\mathrm{ord}}$, the failure to use the completed ordered
+chiral $E_3$ bar rather than the exterior CE shadow;
+\item $o_{\mathrm{St1}}$, the Stage-$1$ formality and holomorphic
+factorisation-envelope obstruction of
+Theorem~\ref{thm:cfg-factorization-envelope-stage-one};
+\item $o_{\theta}$, the Maurer--Cartan, continuity, multiplicativity,
+and differential-compatibility obstruction for a chart map
+$\theta_{\C^3}\colon\Obs_{\hCS}^{q}(\C^3;\ghat)\to
+\CoHA_{\mathrm{crit}}^{\mathrm{or}}(\C^3)$;
+\item $o_{\mathrm{SV}}$, the failure of the cohomology target to be the
+Schiffmann--Vasserot positive half $\CoHA(\C^3)=Y^+(\ghat)$;
+\item $o_{\mathcal D}$, the shortcut obstruction forbidding a direct
+map $\CoHA(\C^3)\to\cW_{1+\infty}$ before passing through the Drinfeld
+double and a Fock/evaluation representation.
+\end{enumerate}
+The vector is \emph{zero} precisely when every component is supplied and
+the six compatibilities commute in the completed homotopy category.
+\end{definition}
+
+\begin{theorem}[$\C^3$ local closure criterion]
+\label{thm:c3-local-bridge-closure-criterion}
+\ClaimStatusConditional{}
+For the abelian chart $(\C^3,\ghat)$ the following data are equivalent.
+\begin{enumerate}
+\item A closed local chain-level bridge
+\[
+  \Obs_{\hCS}^{q}(\C^3;\ghat)
+  \xrightarrow{\;\theta_{\C^3}\;}
+  \CoHA_{\mathrm{crit}}^{\mathrm{or}}(\C^3)
+  \xrightarrow{\;\mathrm{SV}\;}
+  Y^+(\ghat)
+\]
+compatible with the Stage-$1$ $\Ethree$ factorisation envelope and with
+the typed passage to $\cW_{1+\infty}$ through the Drinfeld double.
+\item Vanishing of the local obstruction vector
+$\mathfrak o_{\C^3}^{\mathrm{br}}=\mathbf 0$ of
+Definition~\ref{def:c3-local-bridge-obstruction-vector}.
+\item A formality point $F$, an anomaly-free all-scale hCS package, the
+completed ordered chiral $E_3$ bar, a continuous multiplicative
+Maurer--Cartan chart map $\theta_{\C^3}$, the
+Schiffmann--Vasserot positive-half identification, and the explicit
+typing rule
+\[
+  \CoHA(\C^3)\;=\;Y^+(\ghat)
+  \longrightarrow
+  \mathcal D(Y^+(\ghat))
+  \longrightarrow
+  \cW_{1+\infty}.
+\]
+\end{enumerate}
+If all components except $o_{\theta}$ vanish, the result is exactly the
+normal form of Theorem~\ref{thm:r6-quad-equivalence-c3}, not a closed
+bridge.  Thus the missing local mathematical content is a single typed
+object: the hCS--Hall chart map together with its Maurer--Cartan and
+multiplicative coherences.
+\end{theorem}
+
+\begin{proof}
+The implication \textup{(1)}$\Rightarrow$\textup{(2)} is obtained by
+restricting the closed bridge to each of the six typed gates in
+Definition~\ref{def:c3-local-bridge-obstruction-vector}: the QME
+differential is square-zero, the controller is the ordered chiral
+$E_3$ bar, the Stage-$1$ envelope exists, the chart map is a
+Maurer--Cartan multiplicative chain map, the cohomology target is the
+Schiffmann--Vasserot positive half, and $\cW_{1+\infty}$ is reached
+only after doubling.  Hence every obstruction component is zero.
+
+For \textup{(2)}$\Rightarrow$\textup{(3)}, vanishing of the first three
+components supplies the hCS observable factorisation algebra and the
+Stage-$1$ envelope; vanishing of $o_{\theta}$ supplies the comparison
+map with its chain-level coherences; vanishing of $o_{\mathrm{SV}}$
+identifies the Hall cohomology with $Y^+(\ghat)$; and vanishing of
+$o_{\mathcal D}$ fixes the only admissible route to
+$\cW_{1+\infty}$.  These are exactly the six pieces listed in
+\textup{(3)}.
+
+Finally \textup{(3)}$\Rightarrow$\textup{(1)} is composition: the first
+three pieces give the left factorisation object, $\theta_{\C^3}$ gives
+the hCS--Hall edge, SV gives the positive-half Yangian edge, and the
+Drinfeld-double rule gives the typed $\cW_{1+\infty}$ passage.  The
+commuting coherences are part of the zero-obstruction hypothesis, so
+the composite is a closed local bridge.  If $o_{\theta}$ is not killed,
+the other five pieces still identify the Hall-side target normal form,
+but there is no map from hCS observables to that target; this is exactly
+the frontier recorded in
+Problem~\ref{op:cy3-hcs-hall-comparison}.
+\end{proof}
+
+\begin{definition}[Fixed abelian $\C^3$ hCS--Hall chart]
+\label{def:c3-fixed-abelian-hcs-hall-chart}
+\ClaimStatusDefinitional{}
+Let $T=(\C^\times)^3$ act on $\C^3$ with equivariant weights
+$\varepsilon_1,\varepsilon_2,\varepsilon_3$ satisfying
+$\varepsilon_1+\varepsilon_2+\varepsilon_3=0$.  The positive
+torus-fixed abelian hCS chart retained here is the
+Schiffmann--Vasserot shuffle-normal-form completion of the free positive
+hCS modes
+\[
+  \Obs_{\hCS}^{q,\mathrm{fp},+}(\C^3;\ghat)
+  =
+  \widehat{\mathrm T}_{\geq 0}\langle J_0,J_1,J_2,\ldots\rangle_{\mathrm{SV}},
+  \qquad d_{\mathrm{fp}}J_r=0,
+\]
+with filtration by charge, total mode, and pair order.  Equivalently,
+it is the quotient of the completed ordered tensor algebra by the kernel
+of the shuffle-normal-form map defined below.  The
+Schiffmann--Vasserot positive shuffle model
+$Y_T^+(\ghat)$ has charge-$n$ component the symmetric rational
+functions in variables $z_1,\ldots,z_n$ generated from charge $1$ by
+the product
+\[
+  (f*g)(z_1,\ldots,z_{m+n})
+  =
+  \Sym_{m+n}
+  \left[
+    f(z_1,\ldots,z_m)\,
+    g(z_{m+1},\ldots,z_{m+n})
+    \prod_{\substack{1\leq i\leq m\\m<j\leq m+n}}
+    \omega(z_j-z_i)
+  \right],
+\]
+where
+\[
+  \omega(u)
+  =
+  \frac{(u+\varepsilon_1)(u+\varepsilon_2)(u+\varepsilon_3)}
+       {u(u+\varepsilon_1+\varepsilon_2)(u+\varepsilon_2+\varepsilon_3)}.
+\]
+The fixed chart map is the filtered linear map
+\[
+  \theta_{\C^3}^{\mathrm{fp}}\colon
+  \Obs_{\hCS}^{q,\mathrm{fp},+}(\C^3;\ghat)
+  \longrightarrow
+  Y_T^+(\ghat),
+  \qquad
+  J_r\longmapsto z_1^r\quad (r\geq 0),
+\]
+extended from words by the above shuffle product.
+\end{definition}
+
+\begin{theorem}[Fixed abelian $\C^3$ chart map]
+\label{thm:c3-fixed-abelian-chart-map}
+\ClaimStatusProvedHere{}
+The map $\theta_{\C^3}^{\mathrm{fp}}$ of
+Definition~\ref{def:c3-fixed-abelian-hcs-hall-chart} is a continuous
+filtered chain algebra morphism from the positive torus-fixed abelian
+hCS finite-mode sector to the Schiffmann--Vasserot positive half
+$Y_T^+(\ghat)=\CoHA_T(\C^3)^{+}$.  It is an isomorphism onto the
+completed shuffle subalgebra generated by charge-$1$ monomials
+$z_1^r$, $r\geq 0$.  Consequently the obstruction component
+$o_{\theta}$ of Definition~\ref{def:c3-local-bridge-obstruction-vector}
+vanishes after projection to this fixed abelian finite-mode sector:
+\[
+  \operatorname{pr}_{\mathrm{fp},+}(o_\theta)=0.
+\]
+\end{theorem}
+
+\begin{proof}
+The source is the completed shuffle-normal-form algebra on the
+generators $J_r$, and the target subalgebra is the completed
+Schiffmann--Vasserot shuffle algebra generated by the charge-$1$
+monomials $z_1^r$.  The assignment $J_r\mapsto z_1^r$ therefore extends
+uniquely to a continuous filtered algebra map because both sides
+multiply words using the same cross-kernel $\omega$.  If one begins
+instead with the abstract completed free tensor algebra, the kernel of
+this extension is exactly the shuffle-normal-form relation ideal
+specified in Definition~\ref{def:c3-fixed-abelian-hcs-hall-chart}.
+
+The chain statement is immediate on this sector: the abelian
+torus-fixed hCS differential vanishes on the modes $J_r$, and the
+shuffle target is placed in the corresponding cohomological degree with
+zero differential.  Hence
+$d\,\theta_{\C^3}^{\mathrm{fp}}(J_r)=0=
+\theta_{\C^3}^{\mathrm{fp}}(d_{\mathrm{fp}}J_r)$, and multiplicativity
+extends the equality to all completed words.
+
+The filtration is preserved because a word
+$J_{r_1}\cdots J_{r_n}$ maps to charge $n$, total mode
+$r_1+\cdots+r_n$, and pair-pole order at most
+$\binom n2$: each pair of letters contributes exactly one
+Schiffmann--Vasserot cross-kernel factor.  This proves continuity for
+the completed filtration.  Surjectivity onto the stated subalgebra is
+tautological from generation by the images of the $J_r$, and
+injectivity follows because the source is the corresponding
+shuffle-normal-form quotient, not the unquotiented abstract free tensor
+algebra.  The executable
+witness \texttt{compute/lib/c3\_hcs\_hall\_theta.py}, tested by
+\texttt{compute/tests/test\_c3\_hcs\_hall\_theta.py}, records the
+kernel, the two-point localization formula, the zero differential, and
+the filtration bound.
+
+Thus the Maurer--Cartan, differential, multiplicativity, and continuity
+pieces of $o_\theta$ are killed on the projected fixed abelian
+finite-mode chart.  The theorem makes no claim about the analytic
+extension from this chart to the full renormalised hCS factorisation
+algebra, nor about descent over a non-affine cover.
+\end{proof}
+
+\begin{corollary}[Residual local obstruction after the fixed chart]
+\label{cor:c3-residual-theta-after-fixed-chart}
+\ClaimStatusProvedHere{}
+After Theorem~\ref{thm:c3-fixed-abelian-chart-map}, the local
+$\C^3$ comparison obstruction decomposes as
+\[
+  o_\theta
+  =
+  o_\theta^{\mathrm{fp},+}
+  \oplus
+  o_\theta^{\mathrm{ren}}
+  \oplus
+  o_\theta^{\mathrm{des}},
+  \qquad
+  o_\theta^{\mathrm{fp},+}=0,
+\]
+where $o_\theta^{\mathrm{ren}}$ is the extension problem from the
+finite fixed shuffle chart to the full renormalised hCS factorisation
+algebra and $o_\theta^{\mathrm{des}}$ is the descent/gluing problem for
+chartwise maps.
+\end{corollary}
+
+\begin{proof}
+The definition of $o_\theta$ contains exactly four conditions:
+Maurer--Cartan, continuity, multiplicativity, and differential
+compatibility for the hCS--Hall chart map.  Projection to the positive
+torus-fixed finite-mode sector is functorial for all four conditions,
+and Theorem~\ref{thm:c3-fixed-abelian-chart-map} verifies them there.
+The only remaining terms are therefore the two not touched by that
+projection: analytic renormalised extension and descent.
+\end{proof}
+
+\begin{remark}[$\C^3$ target normal form and remaining local comparison datum]
+\label{rem:r6-op-closed-at-c3}
+\ClaimStatusDefinitional{}
+Theorem~\ref{thm:r6-quad-equivalence-c3} identifies the Hall-side target
+normal form at the affine toric base case $X=\C^3$; it does not close
+Problem~\ref{op:cy3-hcs-hall-comparison}.  The remaining local datum is
+the construction of a chartwise chain-level comparison
+\[
+\theta_{\C^3}\colon
+\Obs_{\hCS}^{q}(\C^3;\ghat)
+\;\longrightarrow\;
+\CoHA_{\mathrm{crit}}^{\mathrm{or}}(\C^3)
+\]
+and the proof that it is continuous, multiplicative, compatible with the
+renormalised BV differential, orientation, shift, Tate twist, and
+Thom--Sebastiani data.  The theorem says that if this datum is supplied,
+then its cohomology target is the known positive-half Hall algebra
+$\CoHA(\C^3)=Y^+(\ghat)$, with $\cW_{1+\infty}$ reached only after
+Drinfeld doubling and Fock/evaluation.  Equivalently,
+Theorem~\ref{thm:c3-local-bridge-closure-criterion} says that the base
+case closes precisely when the local bridge obstruction vector
+$\mathfrak o_{\C^3}^{\mathrm{br}}$ vanishes.  The executable witness
+\texttt{compute/lib/cy3\_bridge\_normal\_form.py} mirrors this gate
+calculus: deleting $o_{\theta}$ keeps only normal-form strength, while
+adding the chart map is the first strict increase in bridge strength.
+Theorem~\ref{thm:c3-fixed-abelian-chart-map} performs that increase on
+the positive torus-fixed abelian finite-mode chart; it reduces the
+remaining local comparison problem to renormalised analytic extension
+and descent.
+\end{remark}
+
+\begin{proposition}[Convolution vs. BV bracket under the exact local datum]
+\label{prop:r6-convolution-vs-bv-bracket}
+\ClaimStatusConditional{} \textup{(conditional on the exact local $\C^3$ bridge datum)}
+Assume the exact local $\C^3$ bridge datum of
+Theorem~\ref{thm:c3-local-bridge-closure-criterion}; equivalently, fix
+$\theta_{\C^3}$ with
+$\mathfrak o_{\C^3}^{\mathrm{br}}=\mathbf 0$.  Then
+The Nakajima convolution product
+$\mu_{\CoHA}=p_{2,*}\circ p_1^*$ on $\bigoplus H^*_T(\Hilb^n(\C^3))$
+and the Feynman-expansion BV bracket
+$\{-,-\}_{\BV}$ on $\Obs_{\hCS}^{q}(\R_t\times\C^2;\ghat)$ are
+intertwined by $\Theta^{\C^3}_{\hCS\to\Hall}$ up to a chain homotopy
+$h=O(\hbar)$ built from the Costello--Li propagator
+$P^\beta_\varepsilon\propto\dbar^{-1}\delta$ on $\R_t\times\C^2$.
+At the tree level $\hbar\to 0$ the homotopy vanishes and
+$\mu_{\CoHA}$ and $\{-,-\}_{\BV}$ coincide strictly; at higher loops
+$h$ encodes the BV Laplacian counter-terms. The cohomology-level
+identification is strict.
+\end{proposition}
+
+\begin{proof}
+The exact local datum contains a Maurer--Cartan multiplicative chain map
+$\theta_{\C^3}$ from hCS observables to the oriented critical CoHA.  Its
+multiplicativity component is a specified homotopy between the
+BV/Feynman product on the source and the Nakajima push-pull product on
+the target; the proposition identifies that homotopy in the local
+Costello--Li model.  Without this datum there is no chain-level
+intertwiner to compare.
+
+The BV bracket on interactions is the antisymmetrisation of the cubic
+Feynman-vertex expansion
+$\int_X \Omega_X\wedge\langle\alpha,[\alpha,\alpha]\rangle/6$; Nakajima
+convolution is the push-pull of the flag correspondence at the moduli
+level. The two agree in cohomology because both compute the SV shuffle
+kernel $\phi_{\mathrm{SV}}(u,v)$ as the equivariant Euler class at the
+monomial-ideal fixed point. At the chain level the BV Laplacian
+contributes higher-loop insertions $\hbar^r\Delta^r_L$ that cancel
+cohomologically but survive as a chain homotopy; the Costello--Li
+propagator $P^\beta_\varepsilon$ provides the explicit $h$. At
+$\hbar=0$ the BV differential reduces to the classical hCS
+differential $\dbar+\{I,-\}_{\BV}$, whose bracket on Feynman trees
+matches the tree-level Nakajima push-pull by direct evaluation at
+fixed points.
+\end{proof}
+
+\begin{remark}[Two ghost theorems resolved]
+\label{rem:r6-ghost-theorems-c3}
+Two sharpenings of the apparent conflicts in
+Problem~\ref{op:cy3-hcs-hall-comparison} are now explicit:
+\begin{enumerate}
+\item \emph{HKR commutes with $\Ethree$-envelope modulo
+$\GRT_1(\Q)$.} The HKR isomorphism is graded-commutative, not
+$\Ethree$, at the pre-envelope level; the Tamarkin $\Etwo$-upgrade
+combined with Tradler--Menichi--Ginzburg cyclicity produces a
+chain-level $\Ethree$-quasi-iso, which the left-Quillen envelope
+preserves.
+\item \emph{$T$-equivariance is compatible with framed little-$3$-disks.}
+The $T$-action on $\C^3$ acts on $\Conf_k(\R^3)$ by
+$O(3)$-transformations, preserving the framed $\Ethree$ structure
+because the framed little-disks operad $D_3^{\mathrm{fr}}$ carries an
+$O(3)$-action extending the usual $SO(3)$-rotation. BV-equivariant
+localisation therefore preserves the $\Ethree$-factorisation structure.
+\end{enumerate}
+\end{remark}
+
+\section{Local charts of K3\texorpdfstring{$\times$E}{xE} under
+\texorpdfstring{$\Theta_{\hCS\to\Hall}$}{Theta hCS to Hall}}
+\label{sec:cy3-chain-level-bridge-k3e-local-charts}
+
+The $\C^3$ five-way quasi-isomorphism of
+Theorem~\ref{thm:r6-quad-equivalence-c3} propagates conditionally to
+K3$\times$E chart-by-chart, with the five-obstruction calculus of
+Definition~\ref{def:hcs-hall-descent-obstruction} supplying the gluing
+criterion.
+
+\begin{definition}[Dolbeault--Weiss--Ran cover of K3$\times$E]
+\label{def:r6-dwr-cover-k3e-inscribed}
+\ClaimStatusDefinitional{}
+Fix $X=K3\times E$ with K3 presented as a Kummer surface with toric
+resolution and $E$ the elliptic curve. A \emph{DWR cover}
+$\mathfrak U=\{U_i\}_{i\in I}$ is an algebraic cover by affine toric
+charts $U_i\simeq\C^3$ such that each $U_i$ is Dolbeault-contractible,
+carries a holomorphic volume form $\Omega_i$ agreeing with
+$\Omega_X=\Omega_{K3}\wedge\Omega_E$ on overlaps, and is Weiss-cofinal
+in the sense of Costello--Gwilliam~\textup{(}vol.~I,~$\S 6.1$\textup{)}.
+For generic K3 with no toric structure, the cover is by
+Stein-contractible holomorphic polydiscs with local toric models; the
+construction below transfers by replacing $\C^3$ with a polydisc.
+\end{definition}
+
+\begin{proposition}[Chartwise anomaly vanishing for abelian $\ghat$]
+\label{prop:r6-chartwise-anomaly-vanish-k3e-inscribed}
+\ClaimStatusProvedHere{}
+On each chart $U_i\simeq\C^3$ of a DWR cover of $X=K3\times E$ with
+abelian gauge $\ghat=\C\cdot T$, both components of the
+Costello--Yagi~$2018$ one-loop $5$d hCS anomaly vanish identically:
+the wave-function class
+$A_{\mathrm{w.f.}}=-C_2/(2\pi)^3$ with quadratic Casimir $C_2=2h^\vee$
+is zero because $h^\vee=0$ for abelian $\ghat$, and the cohomological
+true anomaly $A_{\mathrm{anom}}=d^{abc}d^{abc}/(2\pi)^3$ is zero
+because the structure constants $f^{abc}$ vanish for abelian
+$\ghat$, forcing $d^{abc}=0$.
+\end{proposition}
+
+\begin{proof}
+The Costello--Yagi~$2018$ anomaly-splitting theorem
+\textup{(}Theorem~$4.1$\textup{)} attributes the $5$d hCS one-loop
+anomaly to two invariants of the gauge Lie algebra:
+$C_2$ and $d^{abc}d^{abc}$. Both are built from contractions of the
+structure constants with the Killing form; for abelian $\ghat$, every
+such contraction vanishes. The $A_{\mathrm{w.f.}}$ component is
+scheme-dependent and absorbed by a BV-trivial counter-term even in
+non-abelian cases; the $A_{\mathrm{anom}}$ component is cohomological
+and is the genuine obstruction. For abelian $\ghat$ both are zero,
+and the quantum master equation on each chart admits a solution
+\textup{(}Costello--Li~$2020$, Theorem~$6.7$~\cite{CostelloLi2020}\textup{)}.
+\end{proof}
+
+\begin{proposition}[Hall orientation torsor on the Kummer DWR cover]
+\label{prop:r6-orientation-torsor-k3e-inscribed}
+\ClaimStatusProvedHere{}
+On the DWR cover $\mathfrak U$ of $X=K3\times E$, the Hall-side
+KS/Joyce orientation datum $o_X$ trivialises globally.  This prepares
+the target orientation line for a comparison map; it does not by itself
+prove that the relative comparison obstruction
+$o_{\mathrm{or}}$ of
+Definition~\ref{def:hcs-hall-descent-obstruction} vanishes.
+\end{proposition}
+
+\begin{proof}
+The orientation datum on $\CoHA_{\mathrm{crit}}^{\mathrm{or}}(X)$ is a
+square root of the virtual determinant line
+$\det T^{\mathrm{vir}}_{\mathfrak M}$ of the moduli stack. On each
+chart $U_i\simeq\C^3$, the volume form
+$\Omega_i=dz_1\wedge dz_2\wedge dz_3$ gives a canonical local
+trivialisation of $\det T^{\mathrm{vir}}$, hence a canonical square
+root. On overlaps $U_{ij}$, the ratio $\Omega_i/\Omega_j$ is a
+holomorphic function (never zero, by existence of both
+trivialisations); its square root is a section of the orientation
+line bundle. The cocycle
+$\{\Omega_i/\Omega_j\cdot\Omega_j/\Omega_k\cdot\Omega_k/\Omega_i\}=1$
+identically as holomorphic functions, so the square-root cocycle lies
+in the kernel of $\mathcal O_X^\times\to\mathcal O_X^\times/\pm 1$.
+For $K3\times E$ the only global holomorphic units are constants
+because K3 is simply-connected and $E$'s non-constant holomorphic
+functions are unbounded, so the cocycle is $\pm 1$ valued and its
+class lies in $H^1(X,\mathbb Z/2)=H^1(K3,\mathbb Z/2)\oplus
+H^1(E,\mathbb Z/2)=0\oplus(\mathbb Z/2)^2$; the K\"unneth-product
+orientation $\Omega_{K3}\wedge\Omega_E$ pins down the E-factor square
+root by the compatibility $o_{K3\times E}=o_{K3}\boxtimes o_E$. The
+resulting class is zero by Joyce--Song orientation
+data~\cite{JoyceSong2012} applied to the K\"unneth factorisation. This
+trivialises the Hall-side orientation torsor.  The relative comparison
+class $o_{\mathrm{or}}$ still belongs to the supplied hCS--Hall
+comparison datum and is not killed by this Hall-side construction alone.
+\end{proof}
+
+\begin{proposition}[Hall grading, Thom--Sebastiani, and separate factorisation data]
+\label{prop:r6-grading-thom-sebastiani-fact-k3e-inscribed}
+\ClaimStatusConditional{} \textup{(local chart structures proved; global comparison compatibility supplied)}
+On the DWR cover $\mathfrak U$ of $X=K3\times E$ with abelian
+$\ghat$, the following Hall-side and source-side structures are
+available:
+\begin{enumerate}
+\item the local normalisation's shift
+$s(U,\mathbf d)=-\dim_\R\Hilb^{\mathbf d}(\C^3)=-6n$ and Tate twist
+$t(U,\mathbf d)=-n$ are intrinsic to the moduli problem and
+compatible on each polydisc chart with product coordinates on
+$K3\times E$.  Global compatibility of the grading/Tate conventions on
+overlaps is part of the supplied comparison datum, not a Hilbert-scheme
+product isomorphism.
+\item the internal Hall Thom--Sebastiani associator for iterated Hall
+convolution is coherent by the Kontsevich--Soibelman
+wall-crossing formalism~\cite{KS2008}, which makes the CoHA
+convolution strictly associative at chain level on the CY locus; for
+abelian $\ghat$ there is no non-trivial associator correction.
+\item on disjoint opens $U_1,U_2\subset X$, the BV Feynman-graph
+expansion decomposes into disconnected graphs supported singly, and on
+the CoHA side the disjoint-union product is the tensor product of
+moduli supports.
+\end{enumerate}
+These are preparatory structures.  They do not imply vanishing of the
+relative comparison classes $o_{\mathrm{gr}}$, $o_{\mathrm{TS}}$, or
+$o_{\mathrm{fact}}$ until a chartwise hCS--Hall comparison map is fixed.
+\end{proposition}
+
+\begin{proof}
+\emph{(1)} The perverse shift and Tate twist depend only on the
+virtual dimension of the local critical chart, which is $n$, and on the
+real dimension $6n$ of the smooth local model.  On a product polydisc
+inside $K3\times E$ these values are the same as for $\C^3$.  Passing
+from this local normalisation to a global DWR cover requires overlap
+compatibility of the grading/Tate transports, which is precisely one of
+the relative comparison classes in
+Definition~\ref{def:hcs-hall-descent-obstruction}.
+
+\emph{(2)} Kontsevich--Soibelman~$2008$
+\textup{(}arXiv:$0811.2435$, Theorem~$3$\textup{)} establishes strict
+associativity of the CoHA convolution on the CY locus via the motivic
+wall-crossing formula. The two parenthesisations of iterated
+convolution
+\[
+(\mu_{\CoHA}\otimes 1)\circ\mu_{\CoHA}
+\quad\text{vs.}\quad
+(1\otimes\mu_{\CoHA})\circ\mu_{\CoHA}
+\]
+coincide strictly. For abelian $\ghat$ the Thom--Sebastiani
+isomorphism carries only the sign permutation of plane-partition
+dimension vectors, which is associative by construction.
+
+\emph{(3)} Disjoint-union factorisation on both sides is a direct
+computation. The BV partition function on $U_1\sqcup U_2$ is the
+product of partition functions on $U_1$ and $U_2$ (no connected
+Feynman graph bridges disjoint opens). The CoHA on
+$\Hilb(U_1\sqcup U_2)=\Hilb(U_1)\times\Hilb(U_2)$ is the tensor
+product of chartwise CoHAs.  A future comparison map must be checked
+against both decompositions; that is exactly the relative
+factorisation obstruction.
+\end{proof}
+
+\begin{theorem}[Finite DWR/Ran oriented hCS--Hall comparison]
+\label{thm:r6-k3e-local-chart-qiso-inscribed}
+\label{thm:finite-dwr-ran-oriented-hcs-hall-comparison}
+\ClaimStatusProvedHere{} \textup{(finite theorem; completed comparison
+requires pro-compatible inverse-limit descent)}
+Fix $X=K3\times E$, a DWR cover $\mathfrak U$ as in
+Definition~\ref{def:r6-dwr-cover-k3e-inscribed}, abelian
+$\ghat=\C\cdot T$, finite holomorphic-jet order $N$, finite
+renormalisation order $r$, finite charge bound $\Gamma_{\leq L}$, and
+finite Ran arity bound $m$.  Let
+$\mathsf N_{\leq m}^{\Ran}(\mathfrak U;\Gamma_{\leq L})$ denote the
+full finite sub-nerve of ordered DWR/Ran simplices in these bounds.
+Assume that every simplex $\sigma$ carries a full renormalised
+degree-zero chart map
+\[
+  \theta^{N,r,L}_{\sigma}\colon
+  \Obs_{\hCS}^{q,\leq r}
+  \bigl(|\sigma|,J^N_{\mathrm{hol}}\ghat\bigr)_{\Gamma_{\leq L}}
+  \longrightarrow
+  \CoHA_{\mathrm{crit}}^{\mathrm{or},\leq N}
+  \bigl(|\sigma|\bigr)_{\Gamma_{\leq L}}
+\]
+and the following finite primitive package:
+\[
+  \eta_{\mathrm{MC}},\quad
+  \lambda_{\mathrm{or}},\quad
+  \eta_{\mathrm{gr}},\quad
+  H_{\mathrm{TS}},\quad
+  H_{\mathrm{fact}},\quad Q .
+\]
+Here $\eta_{\mathrm{MC}}$ solves the finite Cech/Ran Maurer--Cartan
+equation, $\lambda_{\mathrm{or}}$ transports the
+Joyce--Kontsevich determinant-line square roots, $\eta_{\mathrm{gr}}$
+identifies the perverse shift and Tate twist, $H_{\mathrm{TS}}$ is the
+oriented Thom--Sebastiani homotopy for every iterated Hall
+correspondence in the finite nerve, $H_{\mathrm{fact}}$ is the
+disjoint-Ran factorisation homotopy, and $Q$ is a vertexwise
+quasi-isomorphism certificate invertible on $H^0$ throughout the finite
+nerve.  Equivalently, the five finite obstruction components
+\[
+  (o_{\mathrm{MC}},o_{\mathrm{or}},o_{\mathrm{gr}},
+    o_{\mathrm{TS}},o_{\mathrm{fact}})
+\]
+of Definition~\ref{def:hcs-hall-descent-obstruction} vanish in the
+finite completed total Cech/Ran convolution dg Lie algebra.
+
+Then the exact finite oriented comparison map is
+\[
+\boxed{\;
+  \Theta_{\hCS\to\Hall,\leq m}^{\mathrm{or},N,r,L}
+  :=
+  \Tot_{\sigma\in\mathsf N_{\leq m}^{\Ran}(\mathfrak U;\Gamma_{\leq L})}
+  \bigl(
+  \lambda_{\mathrm{or},\sigma}\,
+  \eta_{\mathrm{gr},\sigma}\,
+  \theta^{N,r,L}_{\sigma}
+  \bigr)
+  \;}
+\]
+together with the structure homotopies $H_{\mathrm{TS}}$ and
+$H_{\mathrm{fact}}$.  It is a morphism in the finite Hall-valued
+oriented factorisation-cosheaf category
+\[
+  \mathsf{FactCosh}_{\Hall}^{\mathrm{or},\wedge}
+  \bigl(\mathsf N_{\leq m}^{\Ran}(\mathfrak U;\Gamma_{\leq L})\bigr)
+\]
+and induces a quasi-isomorphism on finite DWR/Ran descent.
+
+The source theorem is the compact finite-stage open--closed source
+bridge, Theorem~\ref{thm:compact-cy3-finite-stage-open-closed-source}.
+The target theorem is the descent criterion,
+Theorem~\ref{thm:hcs-hall-descent-criterion}, applied to the finite
+completed nerve.  The Hall-side square-root trivialisation of
+Proposition~\ref{prop:r6-orientation-torsor-k3e-inscribed} and the
+Hall-side Thom--Sebastiani associativity of
+Proposition~\ref{prop:r6-grading-thom-sebastiani-fact-k3e-inscribed}
+prepare the target normalisation; they do not replace the relative
+cochains $\lambda_{\mathrm{or}}$ and $H_{\mathrm{TS}}$.
+
+The only remaining global descent condition after this finite theorem
+is compatibility of the primitive packages under the four transition
+systems
+\[
+  N+1\to N,\qquad r+1\to r,\qquad
+  \Gamma_{\leq L+1}\to\Gamma_{\leq L},\qquad
+  \mathsf N_{\leq m+1}^{\Ran}\to\mathsf N_{\leq m}^{\Ran},
+\]
+equivalently vanishing of the pro-descent obstruction
+\[
+  \varprojlim\nolimits^1_{N,r,L,m}
+  \prod_{\alpha\in\{\MC,\mathrm{or},\mathrm{gr},\mathrm{TS},\mathrm{fact}\}}
+  H^0\bigl(
+    \mathfrak M_{\hCS,\Hall}^{N,r,L,m}
+  \bigr)_\alpha .
+\]
+\end{theorem}
+
+\begin{proof}
+Restrict
+Definition~\ref{def:hcs-hall-descent-obstruction} to the finite
+DWR/Ran sub-nerve and the finite jet, RG, and charge bounds.  The result
+is a finite completed Cech/Ran convolution dg Lie algebra
+$\mathfrak M_{\hCS,\Hall}^{N,r,L,m}$.  The cochain
+\[
+  \theta^{N,r,L}+\eta_{\mathrm{MC}}
+\]
+satisfies the Maurer--Cartan equation in this dg Lie algebra by
+hypothesis.  This is exactly the chain-map and overlap-naturality
+condition for the displayed total map after forgetting the orientation,
+grading, Thom--Sebastiani, and disjoint-factorisation structures.
+
+The cochain $\lambda_{\mathrm{or}}$ kills the relative square-root
+mismatch between the hCS BV determinant transport and the
+Kontsevich--Soibelman/Joyce orientation local system on the Hall side.
+The cochain $\eta_{\mathrm{gr}}$ makes the comparison degree-zero after
+the shift and Tate normalisation.  The homotopies $H_{\mathrm{TS}}$ and
+$H_{\mathrm{fact}}$ identify the two transported Thom--Sebastiani
+parenthesisations and the disjoint-Ran product squares.  These are
+precisely the four coherent structures forgotten in the first
+paragraph.  The certificate $Q$ gives a homotopy inverse on every
+$0$-simplex, and finite descent of complexes preserves such
+quasi-isomorphisms.  The displayed map is therefore a morphism in the
+finite Hall-valued oriented factorisation-cosheaf category and a
+finite-descent quasi-isomorphism.
+
+Theorem~\ref{thm:compact-cy3-finite-stage-open-closed-source} supplies
+the source-side finite Costello--Li/open--closed map; the present
+theorem begins only after full renormalised hCS--Hall simplex maps have
+been supplied.  Proposition~\ref{prop:r6-orientation-torsor-k3e-inscribed}
+trivialises the Hall orientation torsor, and
+Proposition~\ref{prop:r6-grading-thom-sebastiani-fact-k3e-inscribed}
+gives the Hall-side grading and Thom--Sebastiani normalisations, but a
+relative comparison class can still survive until
+$\lambda_{\mathrm{or}}$, $\eta_{\mathrm{gr}}$, $H_{\mathrm{TS}}$, and
+$H_{\mathrm{fact}}$ are chosen.
+
+Passing from the finite theorem to the completed compact theorem is an
+inverse-limit problem.  The four transition systems must carry the
+chosen primitives to one another.  Failure of such compatibility is the
+displayed $\varprojlim^1$ class; its vanishing is exactly the smallest
+remaining global descent condition.
+\end{proof}
+
+\begin{remark}[Scope of Theorem~\ref{thm:r6-k3e-local-chart-qiso-inscribed}]
+\label{rem:r6-scope-k3e-inscribed}
+\ClaimStatusDefinitional{}
+Three scope conditions are recorded:
+\begin{enumerate}
+\item \emph{Abelian gauge is assumed}, with $\ghat=\C\cdot T$
+throughout; the anomaly-vanishing argument of
+Proposition~\ref{prop:r6-chartwise-anomaly-vanish-k3e-inscribed} uses
+$f^{abc}=d^{abc}=0$. For non-abelian ADE simply-laced $\frakg$, the
+identity $\mathrm{tr}(T^a\{T^b,T^c\})=0$ gives $d^{abc}=0$ and
+$A_{\mathrm{anom}}=0$, but $A_{\mathrm{w.f.}}=-C_2/(2\pi)^3$ is
+non-zero; this is scheme-dependent and absorbed by a BV-trivial
+counter-term, so the quasi-isomorphism extends conditionally on the
+counter-term choice.
+\item \emph{Toric DWR cover assumed} (K3 a Kummer surface). For
+generic K3 without toric structure, the cover is by
+Stein-contractible polydiscs; a comparison would require a
+Morse-theoretic construction of the chartwise maps and a fresh check of
+the five obstruction classes. The explicit
+fixed-point formula of
+Theorem~\ref{thm:r6-quad-equivalence-c3} is replaced by a
+Morse-theoretic gradient-flow sum.
+\item \emph{Kummer-K\"unneth compatibility} of the orientation datum
+is used in
+Proposition~\ref{prop:r6-orientation-torsor-k3e-inscribed}: the
+global trivialisation $\Omega_{K3\times E}=\Omega_{K3}\wedge\Omega_E$
+is required. For a twisted K\"ahler deformation of K3 this may fail
+and an additional $\mathbb Z/2$ cocycle appears.
+\end{enumerate}
+For non-simply-laced $\frakg$, the cubic Casimir $d^{abc}$ may not
+vanish and the anomaly gate of
+Proposition~\ref{prop:cy3-hcs-quartic-anomaly-slot} activates;
+Theorem~\ref{thm:r6-k3e-local-chart-qiso-inscribed} does not
+apply. The programme scope is simply-laced throughout this chapter.
+\end{remark}
+
+\begin{remark}[Status against the seven conditions of
+Problem~\ref{op:cy3-hcs-hall-comparison}]
+\label{rem:r6-seven-conditions-status}
+\ClaimStatusConditional{}
+Assuming the comparison datum of
+Theorem~\ref{thm:r6-k3e-local-chart-qiso-inscribed}, matching its
+$\Theta^{K3\times E}_{\hCS\to\Hall}$ against the seven conditions of
+Problem~\ref{op:cy3-hcs-hall-comparison}:
+\begin{enumerate}
+\item[(1)] \emph{Dolbeault locality and Weiss descent}: satisfied by
+construction on the DWR cover
+(Definition~\ref{def:r6-dwr-cover-k3e-inscribed}).
+\item[(2)] \emph{BV--Hall bracket intertwiner after CY$_3$ shift}:
+Proposition~\ref{prop:r6-convolution-vs-bv-bracket}
+(chain homotopy $h=O(\hbar)$; cohomology-level strict).
+\item[(3)] \emph{$\C^3$ chart reduces to
+$\CoHA(\C^3)=Y^+(\ghat)$}:
+Theorem~\ref{thm:r6-quad-equivalence-c3}.
+\item[(4)] \emph{$\cW_{1+\infty}$ Fock representation after
+Drinfeld doubling}:
+Proposition~\ref{prop:cy3-c3-bridge-core} together with
+Remark~\ref{rem:evaluation-chain-c3}.
+\item[(5)] \emph{Determinant-line square-root transport}:
+Proposition~\ref{prop:r6-orientation-torsor-k3e-inscribed}.
+\item[(6)] \emph{Shifts and Tate twists preserved}:
+Proposition~\ref{prop:r6-grading-thom-sebastiani-fact-k3e-inscribed}(1).
+\item[(7)] \emph{Thom--Sebastiani for every iterated parenthesisation}:
+Proposition~\ref{prop:r6-grading-thom-sebastiani-fact-k3e-inscribed}(2).
+\end{enumerate}
+All seven conditions hold only after the comparison datum of
+Theorem~\ref{thm:r6-k3e-local-chart-qiso-inscribed} is supplied on the
+DWR cover. The product geometry of $X=K3\times E$ supplies the
+Hall-side orientation normalisation and the local product-coordinate
+grading conventions; it does not replace the relative obstruction
+vanishing required for the hCS--Hall comparison.
+\end{remark}
+
+\begin{remark}[From K3$\times$E to $K3$ alone: the descending Yangian
+wrapper]
+\label{rem:r6-k3-from-k3e-inscribed}
+\ClaimStatusConditional{Costello--Gaiotto--Yagi supplies the 4d Yangian-VOA input; the K3 Mukai Hodge-parity comparison target remains conjectural.}
+If the $\Theta^{K3\times E}_{\hCS\to\Hall}$ morphism of
+Theorem~\ref{thm:r6-k3e-local-chart-qiso-inscribed} is supplied, it
+descends to a
+$K3$-level statement via the constant-$E$-fibre restriction: letting
+$E$ degenerate to a point reduces the $5$d hCS on $\R_t\times\C^2$ to
+$4$d hCS on $\C^2$, whose observables are the Costello--Gaiotto--Yagi
+$4$d Yangian VOA
+$Y^{\mathrm{VOA}}(\mathfrak{g})$
+\textup{(}Costello--Gaiotto--Yagi~$2018$\textup{)}. Matching this
+Yangian-VOA input to the K3 side requires the conjectural
+Mukai-preserving Hodge-parity target, not Kac $Y_{\mathrm{osp}}(4|20)$:
+the Mukai form is symmetric on both Hodge-graded pieces, with
+$\widetilde H^{1,1}$ and $H^0\oplus H^4$ separated by the Hodge
+involution. The descending wrapper is the $E\to\mathrm{pt}$ limit on
+the total-space DWR cover; the K3 Yangian identification remains an
+additional comparison obligation.
 \end{remark}

@@ -50,7 +50,7 @@ stratum. For a CY$_{d}$ variety $X$ (or CY$_{d}$ category $\cC$)
 write $\Str(X)\subset\{i,ii,iii,iv\}$ for the set of strata $X$
 belongs to.
 
-\begin{theorem}[Fifteen-cell classification, structural statement]
+\begin{conjecture}[Fifteen-cell classification, structural statement]
 \label{gluing:thm:fifteen-cell-classification}
 \ClaimStatusConjectured\ \emph{(Theorem-level for singleton cells
 $1$--$4$ per Davison--Meinhardt \texttt{arXiv:1601.02479}, Mukai
@@ -80,7 +80,7 @@ semidirect product when one stratum's group acts by outer
 automorphism on the other's cocycle sheaf (e.g.\ $\Aut_{s}(X)$ acts
 on the conjugacy-class indexing of $G \subset M_{24}$ in cell~$8$,
 producing $\underline{\Aut_{s}}\rtimes\underline{G}$).
-\end{theorem}
+\end{conjecture}
 
 \noindent We enumerate the cells. Each cell is labelled by its stratum
 set; the associated cohomology group names the first-Cech cohomology
@@ -231,7 +231,7 @@ $\Aut_{s}(K3)$ on the conjugacy-class indexing set of $M_{24}$
 by outer automorphism.
 
 \paragraph{Triple cells.} Cells $11$--$14$ nest three strata; each
-admits a concrete witness. The pivotal one for Vol~III is cell $14$:
+admits a concrete witness. The load-bearing one for Vol~III is cell $14$:
 $K3\times E$ in strata $(ii,iii,iv)$ without a toric input. The
 cocycle group is the threefold-nested semidirect product
 \[
@@ -525,6 +525,369 @@ Lurie HTT~\S 6.2.3). Sections over a CY $X\in\Stk_{\Str}$ recover
 $\cH(X)$.
 \end{proof}
 
+\begin{definition}[Compact \(K3\times E\) Hall construction datum]
+\label{gluing:def:compact-k3e-hall-construction-datum}
+\ClaimStatusDefinitional{}
+Let \(X=K3\times E\).  A compact Hall construction datum on a chamber
+\((\sigma,S)\) is a tuple
+\[
+ \mathfrak D_{K3\times E}
+ =
+ (\mathfrak U,\mathfrak C,o_X,\mathrm{HN},Int^{mot},
+  \theta,\mathbb U^{mot}_{prim},Rad_{\Delta_5},
+  \Delta_+,\langle-,-\rangle,Z_{\mathrm{cent}})
+\]
+with the following entries.
+\begin{enumerate}
+\item \(\mathfrak U\) is a DWR/Cech/Ran cover of \(X\).
+\item \(\mathfrak C\) is an oriented \((-1)\)-shifted critical atlas
+for the semistable perfect-object stacks on all objects of the nerve.
+\item \(o_X\) is a coherent Joyce--Kontsevich--Soibelman orientation
+branch, product-compatible with
+\(\Omega_X=\Omega_{K3}\wedge\Omega_E\).
+\item \(\mathrm{HN}\) is a locally finite Harder--Narasimhan completion
+on every strict sector \(S\).
+\item \(Int^{mot}\) is a motivic integration map to the completed
+sector quantum torus.
+\item \(\theta\) is a degree-zero Maurer--Cartan solution in
+\(\mathfrak M_{\hCS,\Hall}(\mathfrak U)\), hence local stationary-phase
+maps from hCS observables to oriented critical Hall charts.
+\item \(\mathbb U^{mot}_{prim}\) is a primitive BPS motive whose
+realisation is the Jacobi input \(\phi_{0,1}\).
+\item \(Rad_{\Delta_5}\) is the automorphic radical cut out by the
+Igusa denominator.
+\item \(\Delta_+\), \(\langle-,-\rangle\), and \(Z_{\mathrm{cent}}\)
+are respectively the positive-half coproduct, continuous Hopf pairing
+against the Serre-dual negative half, and centre-compatibility datum.
+\end{enumerate}
+Its obstruction vector is
+\[
+ \mathfrak O_{K3\times E}
+ =
+ (o_{\mathrm{atlas}},o_{\mathrm{or}},o_{\mathrm{HN}},o_{\mathrm{TS}},
+  o_{\mathrm{MC}},o_{\mathrm{gr}},o_{\mathrm{fact}},
+  o_{\mathrm{prim}},o_{\mathrm{rad}},o_{\Delta},o_{\mathrm{pair}},
+  o_{\mathrm{cent}}).
+\]
+The first four entries obstruct the compact Hall cosheaf, the next
+three obstruct \(\Theta_{\hCS\to\Hall}^{or}\), the next two obstruct the
+Hall--BKM comparison, and the last three obstruct the compact
+Hall--Drinfeld double.
+\end{definition}
+
+\begin{construction}[The compact oriented Hall cosheaf on the nerve]
+\label{gluing:constr:compact-k3e-hall-cosheaf}
+\ClaimStatusConditional{Conditional on the atlas, orientation, and
+locally finite HN data in
+Definition~\ref{gluing:def:compact-k3e-hall-construction-datum}.}
+Let \(\mathsf S^{DWR}_{X,\sigma,S}\) be the Dolbeault--Weiss--Ran site
+whose object \(\tau\) consists of a finite Ran configuration on the
+elliptic factor, a Cech polydisc cover in the \(K3\)-direction, a
+Dolbeault radius, a stability chamber \(\sigma\), and a strict sector
+\(S\subset\mathbb C\) for central charges.  Write
+\(\Gamma_{\sigma,S}(\tau)\subset K_{\mathrm{num}}(X)\) for the charges
+whose central charge lies in \(S\) and whose support meets the chart
+\(\tau\).  For \(\gamma\in\Gamma_{\sigma,S}(\tau)\), put
+\(\mathcal M_{\tau,\gamma}^{ss}\) for the corresponding semistable
+derived stack of compactly supported perfect objects restricted to
+\(\tau\).  The critical atlas gives a presentation
+\[
+  [\operatorname{Crit}(f_{\tau,\gamma})/G_{\tau,\gamma}]
+  \longrightarrow
+  \mathcal M_{\tau,\gamma}^{ss},
+\]
+and the orientation branch gives a square root
+\[
+  \mathscr L_{o_{\tau,\gamma}}^{\otimes 2}
+  \simeq
+  \det R\!\operatorname{Hom}(E_\gamma,E_\gamma)
+\]
+compatible with refinement and direct sum.  Define
+\[
+ \mathcal H^{mot,or}_{X,\sigma,S}(\tau)
+ =
+ \widehat{\bigoplus}_{\gamma\in\Gamma_{\sigma,S}(\tau)}
+ H^{BM}_{G_{\tau,\gamma}}
+ \!\left(
+   \operatorname{Crit}(f_{\tau,\gamma}),
+   \phi_{f_{\tau,\gamma}}\otimes\mathscr L_{o_{\tau,\gamma}}
+ \right)[s(\tau,\gamma)](t(\tau,\gamma)),
+\]
+where
+\[
+ \widehat{\bigoplus}_{\gamma\in\Gamma_{\sigma,S}(\tau)}
+ =
+ \varprojlim_{R}
+ \bigoplus_{\substack{\gamma\in\Gamma_{\sigma,S}(\tau)\\
+        |Z_\sigma(\gamma)|\le R}}
+\]
+is the HN completion.  A refinement \(\tau\leq\tau'\) determines a
+critical correspondence
+\[
+ \operatorname{Crit}(f_{\tau,\gamma})
+ \xleftarrow{\,a_{\tau,\tau',\gamma}\,}
+ C_{\tau,\tau',\gamma}
+ \xrightarrow{\,b_{\tau,\tau',\gamma}\,}
+ \operatorname{Crit}(f_{\tau',\gamma})
+\]
+and hence the transition map
+\[
+ \rho_{\tau,\tau',\gamma}
+ =
+ (b_{\tau,\tau',\gamma})_{!}
+ (a_{\tau,\tau',\gamma})^{!}
+ \colon
+ \mathcal H_{\gamma}(\tau)\longrightarrow
+ \mathcal H_{\gamma}(\tau').
+\]
+For disjoint Ran configurations \(\tau_1,\tau_2\), Thom--Sebastiani and
+orientation multiplicativity give
+\[
+ m_{\tau_1,\tau_2}\colon
+ \mathcal H(\tau_1)\widehat\otimes\mathcal H(\tau_2)
+ \longrightarrow
+ \mathcal H(\tau_1\sqcup\tau_2).
+\]
+For charges \(\gamma_1,\gamma_2\), the Hall extension stack
+\(\mathcal E_{\tau}(\gamma_1,\gamma_2)\) gives convolution
+\[
+ x*y
+ =
+ (p_2)_!\,p_1^!(x\boxtimes y)
+ \in
+ \mathcal H_{\gamma_1+\gamma_2}(\tau).
+\]
+The cosheaf axioms are precisely
+\[
+ \rho_{\tau',\tau''}\rho_{\tau,\tau'}=\rho_{\tau,\tau''},
+ \qquad
+ \rho_{\tau,\tau'}(x*y)=\rho_{\tau,\tau'}(x)*\rho_{\tau,\tau'}(y),
+\]
+together with the associativity of \(m_{\tau_1,\tau_2}\) on triple
+disjoint configurations.  These identities are the vanishing of
+\((o_{\mathrm{atlas}},o_{\mathrm{or}},o_{\mathrm{HN}},o_{\mathrm{TS}})\).
+\end{construction}
+
+\begin{proposition}[Full-nerve comparison equations]
+\label{gluing:prop:compact-k3e-full-nerve-equations}
+\ClaimStatusConditional{Conditional on the Maurer--Cartan element
+\(\theta\), motivic integration, and the HN completion of
+Construction~\ref{gluing:constr:compact-k3e-hall-cosheaf}.}
+For every simplex
+\(\tau_0\leq\cdots\leq\tau_p\) in
+\(\mathsf S^{DWR}_{X,\sigma,S}\), the local stationary-phase maps
+\(\Theta_\tau\) glue to a global
+\(\Theta^{or}_{\hCS\to\Hall}\) if and only if the following equations
+hold:
+\[
+ \rho_{\tau_i,\tau_j}\Theta_{\tau_i}
+ =
+ \Theta_{\tau_j}r_{\tau_i,\tau_j},
+ \qquad
+ \Theta_{\tau}(\xi\star\eta)
+ =
+ \Theta_{\tau}(\xi)*\Theta_{\tau}(\eta),
+\]
+\[
+ \Theta_{\tau_1\sqcup\tau_2}(\xi\boxtimes\eta)
+ =
+ m_{\tau_1,\tau_2}(\Theta_{\tau_1}\xi\boxtimes\Theta_{\tau_2}\eta),
+\]
+with the shifts, Tate twists, and orientation lines transported by
+\(o_X\).  For a finite charge-height and radius truncation
+\((N,R)\), motivic integration carries DWR wall transport to KS
+conjugation:
+\[
+ Int^{mot}_{N,R}\circ T^{DWR}_{\wp,N,R}
+ =
+ \operatorname{Ad}_{KS_{\wp,N,R}}\circ Int^{mot}_{N,R}.
+\]
+If the HN completion is locally finite, the inverse limit over
+\((N,R)\) exists and gives
+\[
+ Dec(T^{DWR}_{\wp})=\operatorname{Ad}_{KS(\wp)}.
+\]
+\end{proposition}
+
+\begin{proof}
+The first displayed identity is the Cech descent equation for a natural
+transformation between the hCS factorisation algebra and the Hall
+cosheaf.  The second is the compatibility of the local stationary-phase
+map with the BV product and the Hall extension convolution.  The third
+is Thom--Sebastiani compatibility for disjoint Ran configurations,
+including the tensor product of orientation lines.  These three
+equations are exactly the Maurer--Cartan equation for
+\(\theta\in\mathfrak M_{\hCS,\Hall}(\mathfrak U)\) split into
+refinement, convolution, and factorisation components.
+
+At finite \((N,R)\), only finitely many charges and walls contribute.
+The DWR wall transport is then a finite product of Hall
+extension-correspondence push-pull operators.  The motivic integration
+map is a homomorphism from Hall convolution to the completed quantum
+torus product at this finite level, so it sends the finite Hall product
+to the corresponding Kontsevich--Soibelman product.  Local finiteness
+of the HN completion makes these finite identities compatible under
+truncation; passage to the inverse limit gives the last equation.
+\end{proof}
+
+\begin{theorem}[Compact \(K3\times E\) construction package]
+\label{gluing:thm:compact-k3e-construction-package}
+\ClaimStatusConditional{This is a construction from the datum
+\(\mathfrak D_{K3\times E}\).  The theorem does not assert that every
+entry of the datum has already been produced unconditionally.}
+For \(X=K3\times E\), a compact Hall construction datum with
+\(\mathfrak O_{K3\times E}=0\) constructs the following objects.
+\begin{enumerate}
+\item The compact oriented critical Hall cosheaf
+\[
+ \mathcal H^{mot,or}_{K3\times E,\sigma,-}(\tau)
+ =
+ \widehat{\bigoplus}_{\gamma\in\Gamma_{\sigma,-}(\tau)}
+ H^{BM}_{G_\gamma}
+  (\operatorname{Crit}(f_{\tau,\gamma}),
+   \phi_{f_{\tau,\gamma}}\otimes\mathscr L_{o_{\tau,\gamma}})
+  [s(\tau,\gamma)](t(\tau,\gamma))
+\]
+on the full DWR/Cech/Ran nerve, with restriction, refinement,
+disjoint-union, and Hall-extension structure maps.
+\item The global comparison
+\[
+ \Theta^{or}_{\hCS\to\Hall}\colon
+ \Obs_{\hCS}^{q}(-,\mathfrak g)\longrightarrow
+ \CoHA^{or}_{crit}(-)
+\]
+as a continuous natural transformation on the same nerve.
+\item The functor
+\[
+ \operatorname{AutBorch}\colon
+ K_0(BPS^{mot,prim}_{Jac})
+ \longrightarrow
+ \mathsf{BorchDen}_{(2,n)}
+\]
+on the full subcategory whose realised Jacobi inputs satisfy the
+Borcherds lift hypotheses: integrality, weak holomorphy, discriminant
+boundedness, lattice compatibility, and orientation-character
+compatibility.
+\item The numerical Hall--BKM comparison
+\[
+ \Psi^+_{\Hall\to\BKM}\colon
+ \CoHA^{or}_{crit}(K3\times E)_{\sigma,S}^{num}
+ \longrightarrow
+ U(Y^+(\mathfrak g_{\Delta_5}))_{num}
+\]
+defined by motivic integration, quotient by \(Rad_{\Delta_5}\), and the
+Igusa root-multiplicity identification
+\(\operatorname{smult}(\alpha(n,l,m))=f(nm,l)\).
+\item The compact Hall--Drinfeld double
+\[
+ \mathcal D_\hbar(\CoHA^{or}_{crit}(K3\times E))
+ =
+ (Y^-\widehat\bowtie Y^0\widehat\bowtie Y^+)/
+ \operatorname{Rad}\langle-,-\rangle,
+\]
+where \(Y^+=\CoHA^{or}_{crit}(K3\times E)_{\sigma,S}^{\wedge}\),
+\(Y^-=\mathbb D_{\mathrm{Serre}}(Y^+)\), and
+\(Y^0=\widehat{\mathbb C[\Lambda_{K3}]}\).
+\item For every admissible wall path \(\wp\),
+\[
+ Dec(T^{DWR}_{\wp})=\operatorname{Ad}_{KS(\wp)}
+\]
+in the completed motivic quantum torus.
+\end{enumerate}
+At the Igusa boundary,
+\[
+ \operatorname{AutBorch}(\phi_{0,1})=\Delta_5,\qquad
+ \operatorname{den}(\mathfrak g_{\Delta_5})=64^{-1}\Delta_5(2Z),
+ \qquad
+ \kappa_{\mathrm{BKM}}(\mathfrak g_{\Delta_5})=5.
+\]
+\end{theorem}
+
+\begin{proof}
+The proof is an assembly theorem.
+
+\emph{Hall cosheaf.}  The critical atlas \(\mathfrak C\) assigns to
+each object \(\tau\) of the DWR/Cech/Ran nerve and each semistable
+charge \(\gamma\) a critical chart
+\((\operatorname{Crit}(f_{\tau,\gamma}),\phi_{f_{\tau,\gamma}})\).  The
+orientation branch \(o_X\) tensors the vanishing-cycle complex with the
+orientation line \(\mathscr L_{o_{\tau,\gamma}}\).  The HN datum makes
+the completed direct sum locally finite.  Restriction and refinement
+maps are the pushforwards along the critical-chart morphisms; disjoint
+union gives the factorisation product; Hall extension correspondences
+give convolution.  The vanishing of
+\((o_{\mathrm{atlas}},o_{\mathrm{or}},o_{\mathrm{HN}},o_{\mathrm{TS}})\)
+is exactly the assertion that these maps obey Cech/Ran cosheaf descent
+and coherent Thom--Sebastiani associativity.
+
+\emph{Global \(\Theta\).}  The element \(\theta\in
+\mathfrak M_{\hCS,\Hall}(\mathfrak U)^0\) supplies the local
+stationary-phase maps.  The Maurer--Cartan equation is the chain-map
+condition; \(o_{\mathrm{or}}\) transports the orientation lines;
+\(o_{\mathrm{gr}}\) matches shifts and Tate twists; and
+\(o_{\mathrm{fact}}\) is the factorisation/Hall convolution
+compatibility.  Theorem~\ref{thm:hcs-hall-descent-criterion} then
+descends the local maps to the displayed continuous natural
+transformation on the full nerve.
+
+\emph{\(\operatorname{AutBorch}\).}  A primitive motive in
+\(BPS^{mot,prim}_{Jac}\) realises to a vector-valued weak Jacobi form.
+On the stated subcategory the Borcherds multiplicative lift is
+functorial for pullback of the lattice datum and for multiplication of
+primitive inputs.  The object part sends \(\phi\) to its automorphic
+denominator datum
+\((L,\Gamma^+,\rho,\epsilon,\operatorname{Borch}(\phi),
+\operatorname{div},\operatorname{den})\).  For
+\(\phi_{0,1}=r^{-1}+10+r+O(q)\), Borcherds--Gritsenko--Nikulin gives
+\(\Delta_5\), the Maass character \(\nu_{\Delta_5}\), and
+\(\kappa_{\mathrm{BKM}}=c_1(0)/2=5\).
+
+\emph{Hall--BKM.}  Motivic integration maps the Hall product to the
+completed quantum torus over \(\Gamma_{\mathrm{eff}}\).  The primitive
+seed condition \(o_{\mathrm{prim}}=0\) identifies the realised primitive
+Hall motive with \(\phi_{0,1}\).  The quotient by \(Rad_{\Delta_5}\)
+kills exactly the automorphic radical invisible to the Igusa
+denominator.  The positive roots are indexed by
+\(\alpha(n,l,m)=2nf_2-lf_3+2mf_{-2}\), and their signed multiplicities
+are the Fourier coefficients \(f(nm,l)\), so the quotient maps to
+\(U(Y^+(\mathfrak g_{\Delta_5}))_{num}\).
+
+\emph{Double.}  The positive half alone has no antipode and no negative
+half.  The double is constructed only after \(\Delta_+\), the
+Serre-dual negative half, the Cartan completion \(Y^0\), the continuous
+Hopf pairing, the radical quotient, and \(Z_{\mathrm{cent}}\) are
+supplied.  Vanishing of
+\((o_{\Delta},o_{\mathrm{pair}},o_{\mathrm{cent}})\) says precisely that
+the coproduct is continuous, the pairing is Hopf-compatible and
+non-degenerate after quotienting by its radical, and the derived centre
+of \(\operatorname{Rep}^{E_1}(Y^+)\) agrees with the Cartan/central
+completion used in the double.
+
+\emph{Wall crossing.}  For a finite charge-height and
+central-charge-radius truncation, Hall wall transport is a finite
+composition of extension-correspondence push-pull maps.  Motivic
+integration carries this finite composition to the corresponding
+Kontsevich--Soibelman product.  Equality after decategorification is
+therefore finite-level functoriality of \(Int^{mot}\).  The HN
+completion is locally finite, so the inverse limit over truncations
+exists and gives \(Dec(T^{DWR}_{\wp})=\operatorname{Ad}_{KS(\wp)}\).
+\end{proof}
+
+\begin{corollary}[Exact remaining CY-C obstruction]
+\label{gluing:cor:exact-cyc-obstruction}
+\ClaimStatusDefinitional{}
+The compact CY-C problem for \(K3\times E\) is the vanishing problem
+\[
+ \mathfrak O_{K3\times E}=0.
+\]
+The Igusa positive cone, the \(\Delta_5\) denominator normalisation, and
+the positive-half Hall support determine only the entries up to
+\(Rad_{\Delta_5}\).  They do not determine
+\(\Delta_+\), \(\langle-,-\rangle\), \(Y^-\), \(Y^0\), or
+\(Z_{\mathrm{cent}}\).  Hence the compact Hall--Drinfeld double is the
+last non-formal construction, not a corollary of the positive cone.
+\end{corollary}
+
 \begin{remark}[Why $(2,1)$ and not $(1,1)$, $(2,2)$, or $(\infty,1)$]
 \label{gluing:rem:2-1-truncation-justification}
 The stratum-inclusion poset on a fixed CY $X$ is the power set
@@ -619,15 +982,24 @@ over the appropriate intersections of stratum sheaves; its
 $\kBKM$-invariant is $\kBKM(\mathfrak{g}_{\Delta_{5}})
 =c_{1}(0)/2=10/2=5$, reproducing the cell-$(iv)$ entry
 of the $K3\times E$ spectrum $\{0,3,5,24\}$.
+This is a positive-half/sheaf-valued colimit.  It is not a proof that
+\(\mathcal{D}_{\hbar}(\mathrm{hocolim}\,\cH^{(\bullet)})\) exists or
+equals \(\mathrm{hocolim}\,\mathcal{D}_{\hbar}(\cH^{(\bullet)})\);
+Drinfeld doubles do not commute with homotopy colimits without
+dualisability, completion, Hopf-pairing, and centre-continuity
+hypotheses.
 
-\paragraph{Compact CY$_{3}$ caveat: the stratum-free fall-back.} For
-compact CY$_{3}$ outside the $K3\times E$ family (quintic, bicubic in
-$\mathbb{P}^{2}\times\mathbb{P}^{2}$, Schoen threefold) the point
-$X\in\Stk_{\Str}$ occupies no singleton stratum cell: there is no
-global toric structure, no residual $\Aut_{s}^{0}$, no finite
-orbifold cover, no Humbert-lifted period structure. The sheaf
-$\underline{\cH}$ of Theorem~\ref{gluing:thm:sheaf-of-cohas} does not
-assemble at such $X$ via the cell-cocycle presentation, but
+\paragraph{Compact CY$_{3}$ caveat: the stratum-free fall-back.} For a
+strict generic compact CY$_{3}$ outside the $K3\times E$ family, such
+as the quintic, the point $X\in\Stk_{\Str}$ occupies no complete
+stratum cell: there is no global toric structure, no residual
+$\Aut_s^0$, no finite orbifold cover, and no Humbert-lifted period
+structure. Partial-fibration examples such as the bicubic and the
+Schoen threefold may occupy lower or partial cells, but they still do
+not carry the fourfold $K3\times E$ cell-$15$ cocycle. The sheaf
+$\underline{\cH}$ of Theorem~\ref{gluing:thm:sheaf-of-cohas} therefore
+does not assemble at such $X$ via the full cell-cocycle presentation,
+but
 $\cH(X)$ itself is non-zero and computable directly: it is the
 Davison--Meinhardt critical CoHA
 \[
@@ -647,7 +1019,9 @@ cohomology $H^{\bullet}_{\mathrm{crit}}$ is already assembled
 globally by the critical-cohomology formalism. The stratum-free
 fall-back is the codomain of \S\ref{sec:gluing:obstructions}'s
 obstruction analysis, providing the Vol~III companion to the
-cell-structured cases.
+cell-structured cases. This fallback is a CoHA statement only; it does
+not construct a global quantum vertex group $G(X)$ for such compact
+CY$_3$'s.
 
 \subsubsection{\S 10.3. Cross-volume relevance}
 \label{gluing:sec:10-3-cross-volume}
@@ -665,8 +1039,9 @@ CY-to-chiral functor (Vol~III, \texttt{cy\_to\_chiral.tex} Theorem
 \;:\;
 \mathrm{CY}_{3}\text{-Cat}\;\longrightarrow\;\EnHolFA(X)\;\xrightarrow{\;\SpCh\;}\;\Eone\text{-ChirAlg}(C).
 \]
-Stage~$1$ $\PhiFA_{3}$ is canonical up to contractible choice
-(Kontsevich--Tamarkin formality + Costello--Gwilliam--Li locality);
+Stage~$1$ $\PhiFA_{3}$ is fixed after choosing the
+Kontsevich--Tamarkin formality/associator torsor point and the
+Costello--Gwilliam--Li locality descent datum;
 Stage~$2$ $\SpCh_{\Sigma_{2},C}$ is specialisation along a $2$-cycle
 $\Sigma_{2}\subset X$ restricted to the reference curve $C\subset X$.
 
@@ -817,18 +1192,21 @@ The fifteen-cell classification of \S 10.1 organises global CoHAs by
 combinatorial stratum occupancy; the sheaf-of-CoHAs of \S 10.2 upgrades
 this to a $(2,1)$-stack; the three-engine coherence of \S 10.3 pushes
 the cocycle data through $\Phi_{3}$. We now supply the chain-level
-construction of the global factorisation algebra
+construction of the stratified positive-half factorisation algebra
 $\PhiFA_{3}(\Perf(X))$ on a compact CY$_{3}$ $X$ via
 \v{C}ech--Ran descent, with transition Fourier--Mukai kernels between
 analytic $\C^{3}$-charts, cocycle condition in the homotopy category,
 and Serre-equivariant quasi-NCCR as local model. The construction
 reduces the global $E_{3}$-holomorphic factorisation algebra to a
 homotopy colimit over the \v{C}ech nerve of an analytic polydisc
-cover; on $K3\times E$, the descent recovers the
-Schiffmann--Vasserot K3 CoHA globally, and the orthogonal K$3$ Yangian
+cover. On $K3\times E$, the descent identifies the positive-half
+Schiffmann--Vasserot-type CoHA on the product-compatible locus; it does
+not construct the compact Hall--Drinfeld double or move a Drinfeld
+double through the homotopy colimit. The orthogonal K$3$ Yangian
 $Y_\hbar(\mathfrak{so}(4, 20))$ (with its conjectural Hodge-parity
-$\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$) emerges
-from the Mukai Hodge involution.
+$\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$) is the
+expected comparison target after the positive half, pairing,
+completion, bracket, and centre data are constructed.
 
 \paragraph{Analytic $\C^{3}$-cover and the nerve.} Every smooth
 projective CY$_{3}$ $X$ admits a finite open cover
@@ -1051,9 +1429,12 @@ K^{E}_{\beta\beta'}$, with $K^{K3}_{\alpha\alpha'}$ the Mukai-lattice
 FM-kernel (Mukai \texttt{arXiv:math/0408129}) and
 $K^{E}_{\beta\beta'}$ the Atkin--Lehner elliptic-curve FM-kernel
 twisted by the $\Gamma_{\mathrm{arith}}$-Hecke structure. Descent
-along this cocycle recovers, globally, the Schiffmann--Vasserot K3
-CoHA $Y(\widehat{\fgl}(K3))$, the preprojective Yangian of the K3
-quiver, tensored with the $E$-cohomology.
+along this cocycle gives the positive-half comparison with the
+Schiffmann--Vasserot K3 CoHA $Y(\widehat{\fgl}(K3))$, the preprojective
+Yangian of the K3 quiver, tensored with the $E$-cohomology, on the
+product-compatible locus.  The compact Hall--Drinfeld double is a
+separate conditional construction, not the Drinfeld double of this
+homotopy colimit by formal continuity.
 
 \begin{proposition}[Orthogonal K$3$ Yangian $Y_\hbar(\mathfrak{so}(4, 20))$ from
 Mukai Hodge involution]
@@ -1065,8 +1446,9 @@ $\mathfrak{so}(4, 20)$ of Kac type $D_{12}$. The Hodge involution
 splits $\widetilde H(K3) = V_+ \oplus V_-$ with $V_+ = H^0 \oplus
 H^4 \oplus (H^{2,0} \oplus H^{0,2})_\R$ of rank $4$ and
 $V_- = H^{1,1}_{\mathrm{prim}}$ of rank $20$; on both graded parts
-the Mukai pairing remains symmetric. The K$3$ CoHA object attached
-to $\PhiFA_3(\Perf(K3 \times E))$ is the orthogonal Yangian
+the Mukai pairing remains symmetric. The expected comparison target for
+the K$3$ positive-half CoHA object attached to
+\(\PhiFA_3(\Perf(K3 \times E))\) is the orthogonal Yangian
 \[
 Y_\hbar(\mathfrak{so}(4, 20))
 \]
@@ -1076,7 +1458,9 @@ programme-specific Hodge-parity $\Z/2$-super-extension
 $Y_\hbar(\mathfrak{so}(4 \mid 20))$ is the conjectural refinement at
 stage-$2$; Kac $\mathfrak{osp}(4 \mid 20)$ is \emph{not} the envelope
 (its odd form is symplectic). The $(4, 20)$-signature is forced by
-the Mukai Hodge involution.
+the Mukai Hodge involution. The proof obligation is the CoHA-to-Yangian
+comparison with compatible completion, spectral coproduct, and
+half-braiding data.
 \end{proposition}
 
 The stratum-$(iv)$ global cocycle of cell $14$/$15$ carries the
@@ -1084,7 +1468,7 @@ Borcherds lift of $\Delta_{5}$; by
 $\kBKM(\Phi_{N})=c_{N}(0)/2$ at $N=1$ with $c_{1}(0)=10$ for
 $\Delta_{5}$ (Gritsenko--Nikulin
 \texttt{arXiv:alg-geom/9504006}~Pt.~II~Theorem~2.1), the
-$\kBKM$-invariant of the global
+$\kBKM$-invariant of the Borcherds stratum attached to
 $\PhiFA_{3}(\Perf(K3\times E))$ is
 \[
 \kBKM(\mathfrak{g}_{\Delta_{5}})\;=\;\frac{c_{1}(0)}{2}\;=\;5,
@@ -1093,6 +1477,159 @@ the stratum-$(iv)$ entry in the four-invariant spectrum
 $\{0,3,5,24\}$ of $K3\times E$
 (Definition~\ref{gluing:def:holo-fm-kernel} datum propagated through
 the cell-$15$ cocycle of \S 10.1 Table).
+
+\paragraph{Explicit \v{C}ech cocycles at cells $14$ and $15$.} The
+cell-$14$ and cell-$15$ cocycle classes on $K3 \times E$, hitherto
+written only as the shape of a nested semidirect product, admit
+explicit \v{C}ech $1$-cocycle representatives on the
+product-compatible analytic $\C^{3}$-cover
+$\cU = \{U_{\alpha}\times V_{\beta}\}$. The K\"{u}nneth split of the
+transition FM-kernel separates the $K3$- and $E$-factor cocycles; the
+product nerve $\cN_{X} = \cN_{K3}\times\cN_{E}$ carries a Leray
+spectral sequence degenerating at $E_{2}$ on the split autoequivalence
+sheaf.
+
+\begin{theorem}[Explicit \v{C}ech cocycles and vanishing verdict at
+cells $14$/$15$]
+\label{gluing:thm:cell-14-15-explicit-cocycle}
+\ClaimStatusConjectured\ \emph{(Theorem-level on generic $K3\times E$
+admitting the product-compatible cover of
+Def.~\ref{gluing:def:holo-fm-kernel}; reduces to chart-wise
+Bondal--Orlov uniqueness on singleton-stratum witnesses per the \S 10.1
+table.)} Let $X = K3\times E$ and $\cU = \{U_{\alpha}\times V_{\beta}\}$
+the product-compatible analytic $\C^{3}$-cover of $K3\times E$
+(preceding paragraph), with $\{U_{\alpha}\}$ a Kulikov--Pinkham
+$\C^{2}$-cover of $K3$ transverse to $\pi$ and $\{V_{\beta}\}$ a
+fundamental-domain $\C$-cover of $E$.
+\begin{enumerate}[leftmargin=2em]
+ \item \emph{K\"{u}nneth split.} The transition FM-kernel on
+ $\cU$ admits the K\"{u}nneth form
+ \[
+  K_{(\alpha,\beta)(\alpha',\beta')}\;\simeq\;
+  K^{K3}_{\alpha\alpha'}\,\boxtimes\,K^{E}_{\beta\beta'};
+ \]
+ consequently the cell-$14$ cocycle class decomposes as
+ \[
+  [K^{(14)}]
+  \;=\;
+  c^{K3,\Aut_{s}}_{\alpha\alpha'}
+  \cdot
+  c^{K3,M_{24}}_{\alpha\alpha'}
+  \cdot
+  c^{E,\Gamma_{\mathrm{arith}}}_{\beta\beta'}
+  \;\in\;
+  H^{1}\!\bigl(\cN_{X},\underline{\Aut_{s}(K3)}\rtimes\underline{M_{24}}
+  \rtimes\underline{\Gamma_{\mathrm{arith}}}\bigr),
+ \]
+ a product of Nikulin-involution $\Aut_{s}$-monodromy, Mathieu twining,
+ and Atkin--Lehner Hecke cocycles.
+ \item \emph{Leray degeneration.} The Leray spectral sequence
+ $E_{2}^{p,q}=H^{p}(\cN_{K3},\cH^{q}(\underline{\Aut}_{D^{b}}))
+ \Rightarrow H^{p+q}(\cN_{X},\underline{\Aut}_{D^{b}})$
+ degenerates at $E_{2}$ for the split autoequivalence sheaf, giving
+ \[
+  H^{1}(\cN_{X},\underline{\Aut}_{D^{b}})\;\cong\;
+  H^{1}(\cN_{K3},\underline{\Aut}_{D^{b}(K3)})\;\oplus\;
+  H^{1}(\cN_{E},\underline{\Aut}_{D^{b}(E)}).
+ \]
+ \item \emph{$24$-local-toric-germ contribution at cell $15$.}
+ The elliptic fibration $\pi:K3\to\bP^{1}$ supplies $24$ local
+ $T^{2}$-toric germs $T^{2}_{\mathrm{loc},x_{j}}$ at the $I_{1}$-nodes,
+ each carrying rank-$2$ local Picard. The cell-$15$ cocycle class adds
+ a $48$-rank local-toric-germ factor to the cell-$14$ class:
+ \[
+  [K^{(15)}]\;=\;c^{(1)}_{\mathrm{toric},24}\oplus[K^{(14)}]
+  \;\in\;
+  \bigl(\Z^{48}\bigr)\,\oplus\,H^{1}(\cN_{X},
+  \underline{F}^{(14)}_{\mathrm{sd}}),
+ \]
+ with $c^{(1)}_{\mathrm{toric},24}=\bigoplus_{j=1}^{24}
+ c^{(1)}_{x_{j}}$ summed over the $24$ germs and $F^{(14)}_{\mathrm{sd}}$
+ the threefold semidirect of (1).
+ \item \emph{Vanishing verdict.} On generic $K3\times E$ with symplectic
+ $G\subset M_{24}$-action and non-CM $E$, both cocycles are non-zero:
+ $[K^{(14)}]\neq 0$ and $[K^{(15)}]\neq 0$. Modulo the paramodular
+ $K(1)$-orbit, the residual class reduces to the single Heegner-divisor
+ Borcherds-lift class $c^{\Delta_{5}}$, valued by the universal
+ Borcherds weight formula as $\kBKM(\mathfrak{g}_{\Delta_{5}})=
+ c_{1}(0)/2=5$.
+ \item \emph{Chen--Ruan $\bar\partial$-closure.} The $\bar\partial$-closure
+ of the cell-$14$/$15$ cocycle, apparently obstructed by the
+ mock-modular anomaly of the Mathieu twining character, is restored on
+ the Chen--Ruan orbifold-inertia refinement $I([K3/G])$: each
+ Mathieu twining character $\phi_{[g]}$ is weight-$1/2$ pure-index
+ mock-modular with shadow-theta of the $A_{1}$-root lattice
+ (Eguchi--Ooguri--Tachikawa 2011), and the shadow cancels against the
+ $[g]$-twisted sector of the inertia stack. Consequently the
+ cell-$14$/$15$ cocycle on the inertia-refined product nerve
+ $\cN_{K3}^{\mathrm{CR}}\times\cN_{E}$ is strictly
+ $\bar\partial$-closed in the Chen--Ruan bicomplex.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof trace]
+\emph{(1) K\"{u}nneth split.} Bondal--Orlov naturality
+\texttt{arXiv:math/9712029}~Prop.~2.5 under the product
+$D^{b}(Y_{1}\times Y_{2})\simeq D^{b}(Y_{1})\boxtimes D^{b}(Y_{2})$:
+any FM-kernel splits on the pairwise disjoint product of nerves. The
+K\"{u}nneth formula on first cohomology then decomposes
+$H^{1}(\cN_{K3}\times\cN_{E},\cF\boxtimes\cG)\simeq
+H^{1}(\cN_{K3},\cF)\otimes H^{1}(\cN_{E},\cG)$ for split sheaves.
+
+\emph{(2) Leray degeneration.} The product projection
+$\pi_{K3}:\cN_{X}\to\cN_{K3}$ supplies a Leray spectral sequence;
+split sheaves $\underline{\Aut}_{D^{b}(X)} = \pi_{K3}^{*}\underline{\Aut}_{D^{b}(K3)}
+\otimes\pi_{E}^{*}\underline{\Aut}_{D^{b}(E)}$
+give $d_{2}=0$ by base-change.
+
+\emph{(3) $24$-local-toric-germ contribution.} The $I_{1}$-node fibre
+$\{uv=0\}$ admits local $T^{2} = \C^{*}\times\C^{*}$ acting by scaling
+on the two analytic branches; its local Picard is $\Z^{2}$ by the
+rank of the tropical cone generators. Summing over the $24$ disjoint
+nodes of the discriminant $\{x_{1},\ldots,x_{24}\}\subset\bP^{1}$
+gives rank $48$.
+
+\emph{(4) Vanishing verdict.} The Mathieu twining part
+$c^{K3,M_{24}}$ is the moonshine cocycle of Eguchi--Ooguri--Tachikawa
+2011, non-zero whenever $G\subset M_{24}$ is non-trivial (Cheng--Duncan
+2014). The Hecke part $c^{E,\Gamma_{\mathrm{arith}}}$ is zero iff $E$
+is non-CM-trivial. Consequently $[K^{(14)}]\neq 0$ on generic
+$K3 \times E$. The $48$-rank toric factor at cell $15$ is non-zero
+because the $24$ $I_{1}$-fibres are distinguishable. Modulo $K(1)$,
+the paramodular orbit absorbs Mathieu and Hecke contributions, leaving
+the single Borcherds Heegner-lift class
+$c^{\Delta_{5}}\equiv\kBKM(\mathfrak{g}_{\Delta_{5}})=5$.
+
+\emph{(5) Chen--Ruan closure.} Each Mathieu twining character
+$\phi_{[g]}$ has weight-$3/2$ shadow theta-lift of the $A_{1}$-root
+lattice, realised as a $[g]$-twisted-sector contribution on $I([K3/G])$.
+The Dolbeault $\bar\partial$-closure on the inertia bicomplex follows
+from the harmonic-Maass completion $\phi_{[g]} + \mathrm{shadow}_{[g]}$
+and the Chen--Ruan inertia decomposition
+$I(U_{\alpha\beta\gamma}/G) = \bigsqcup_{[g]}U_{\alpha\beta\gamma}^{[g]}$.
+\end{proof}
+
+\begin{corollary}[$24$-fold uniform cell-$15$ classification across
+Niemeier lattices]
+\label{gluing:cor:niemeier-uniform-cell-15}
+\ClaimStatusConjectured. The cell-$15$ cocycle classification extends
+uniformly across the $24$ Niemeier lattices (Leech
+$\Lambda_{24}$ and $23$ root-generated Niemeier lattices,
+Conway--Sloane 1988): for each Niemeier $N$, the $N$-decoration of a
+compact CY$_{3}$ supplies a cell-$15$ cocycle class valued in
+$\underline{\Pic}_{\Str_{i,\mathrm{loc}}}\rtimes\underline{\Aut_{s}(X)}
+\rtimes\underline{G_{N}}\rtimes\underline{\Gamma_{N}}$, with the
+$\kBKM$-invariant $\kBKM(\mathfrak{g}_{N}) = c_{N}(0)/2$ read off from
+the zeroth Fourier coefficient of the Scheithauer--Borcherds lift
+$\Phi_{N}$ (\texttt{arXiv:math/0409398}~Thm.~3.1). The Leech
+$\Lambda_{24}$-entry corresponds to the Fake Monster Lie algebra at
+$d=5$ (memory wave-15), outside the physical $d=3$-scope; the
+remaining $23$ root-generated Niemeiers give genuine $d=3$ CY$_{3}$-siblings
+of the $K3\times E$ witness on appropriate Heegner-divisor loci. The
+$\mathrm{II}_{2,19}$-entry is the $K3\times E$-witness of
+Theorem~\ref{gluing:thm:cell-14-15-explicit-cocycle} with
+$\kBKM(\mathfrak{g}_{\Delta_{5}})=5$.
+\end{corollary}
 
 \paragraph{Relation to CFG 2026.} Costello--Francis--Gwilliam
 construct the $E_{3}$-algebra of topological Chern--Simons
@@ -1112,11 +1649,17 @@ non-trivial and encodes the stratum occupancy $\Str(X)$ through the
 cocycle class $[K]\in H^{1}(\cN_{X},\underline{\Aut}_{D^{b}})$.
 
 \paragraph{Four descent frontiers.} Four concrete frontiers remain
-within the scope of Theorem~\ref{gluing:thm:phi-fa-3-descent}.
-\emph{(D1)} Explicit computation of the cocycle cohomology
-$H^{1}(\cN_{K3}\times\cN_{E},
-\underline{\Aut}_{D^{b}(K3)}\times\underline{\Aut}(E))$ at cell $14$/$15$,
-refined by $M_{24}$ and $K(1)$-paramodular actions.
+within the scope of Theorem~\ref{gluing:thm:phi-fa-3-descent}; the
+cell-$14$/$15$ structural computation is now recorded in
+Theorem~\ref{gluing:thm:cell-14-15-explicit-cocycle} and
+Corollary~\ref{gluing:cor:niemeier-uniform-cell-15}, leaving residual
+computational tasks.
+\emph{(D1)} Explicit $H^{1}(\cN_{K3},\underline{\Aut_{s}})$ dimension
+and generator-relation presentation for a Mathieu-K3; explicit
+Atkin--Lehner Hecke cocycle on $\cN_{E}$ for CM-$E$ at discriminants
+$D\in\{-3,-4,-7,-8\}$. The structural K\"{u}nneth split and Leray
+degeneration of Theorem~\ref{gluing:thm:cell-14-15-explicit-cocycle}
+reduce this to a pair of factor-by-factor computations.
 \emph{(D2)} The $24$-stalk chain-level assembly of the elliptic
 fibration $\pi:K3\to\bP^{1}$: twenty-four $I_{1}\times E$ curve-stalks,
 each a curve-stalk Jordan-triple potential tensored with
@@ -1125,8 +1668,8 @@ $E$-coefficients, summing via the Mukai-lattice cocycle
 \emph{(D3)} Explicit RTT presentation of
 $Y_\hbar(\mathfrak{so}(4, 20))$ and its Hodge-parity
 $\Z/2$-super-extension: generators, relations, orthogonal
-$R$-matrix on $V = V_+ \oplus V_-$, emerging as a residue of the
-UV gluing cocycle at an equivariant-chamber wall
+$R$-matrix on $V = V_+ \oplus V_-$, expected to emerge as a residue
+of the UV gluing cocycle at an equivariant-chamber wall
 (Maulik--Okounkov \texttt{arXiv:1211.1287}).
 \emph{(D4)} Non-simply-laced K3 generalisations: quotients by
 non-abelian subgroups of $M_{24}$, twisted-Yangian structure,
@@ -1147,3 +1690,207 @@ conjectural. The seven faces of \(r_{\mathrm{CY}}\) of
 \S\ref{sec:gluing:wallcrossing} are evaluations of constructed cell
 shadows together with conjectural monodromy data, not a proved global
 monodromy theorem.
+
+\subsubsection{\S 10.6. The positive cone as the decategorified descent index}
+\label{gluing:sec:positive-cone-descent-index}
+
+The Cech--Ran construction and the Borcherds positive cone name
+different layers of the same object.  The Cech--Ran layer constructs a
+completed oriented Hall cosheaf from local critical charts.  The
+positive-cone layer is the sector support and completion datum obtained
+after motivic integration and decategorification.  Thus the positive
+cone is not a second atlas: it is the chamber index on which the atlas
+is completed.
+
+\begin{theorem}[Positive cone as descent index]
+\label{gluing:thm:positive-cone-descent-index}
+\ClaimStatusConditional{Requires the oriented critical Hall cosheaf on
+the DWR/Cech/Ran nerve and its motivic integration map; the
+Hall--Drinfeld double and the global hCS-to-Hall comparison remain
+additional frontier data.}
+Let \(X\) be a CY$_3$ datum with Bridgeland chamber \(\sigma\), strict
+sector \(S\), orientation output \(o\), and equivariance datum
+\(T_{\mathrm{eq}}\). Assume that the oriented critical Hall cosheaf
+\[
+ \mathcal H^{mot,or}_{\sigma,-}\colon
+ \mathsf{Sect}_{\sigma}(X)\longrightarrow
+ \mathsf{CAlg}^{\wedge}_{\mathsf{Mot}}
+\]
+exists on a DWR/Cech/Ran site and admits motivic integration
+\[
+ Int^{mot}\colon \mathcal H^{mot,or}_{\sigma,-}
+ \longrightarrow \widehat{\mathbb T}^{mot}_{\Gamma,-,o}.
+\]
+Then its decategorified positive geometry is
+\[
+ Dec(\mathcal H^{mot,or}_{\sigma,-})
+ =
+ (\Gamma^{ss}_{\sigma,-},\,
+  \Gamma^{BPS,\bullet}_{\sigma,-,o},\,
+  \Gamma^{+}_{\sigma,-,o},\,
+  A_{-}(\sigma),\,
+  \epsilon_o),
+\]
+where \(\Gamma^{ss}_{\sigma,S}\) indexes the semistable critical stack,
+\(\Gamma^{BPS,\bullet}_{\sigma,S,o}\) is the support of the realised BPS
+invariant, and \(\Gamma^{+}_{\sigma,S,o}=
+\mathbb N\langle\Gamma^{BPS,\bullet}_{\sigma,S,o}\rangle\) is the
+completion monoid of the Hall product and the Kontsevich--Soibelman
+sector product.  Admissible wall paths act on the left by descent
+transport of the Hall cosheaf and on the right by KS conjugation in
+\(\widehat{\mathbb T}^{mot}_{\Gamma,S,o}\).
+
+For \(X=K3\times E\) in the Igusa chamber, the automorphic boundary
+enhancement of this decategorified object is the Lorentzian Borcherds
+chamber
+\[
+ \Gamma_{\mathrm{eff}}
+ =
+ \{m>0,\ n\ge0\}\cup\{m=0,\ n>0\}\cup\{m=n=0,\ l<0\}
+\]
+inside \(\Gamma_{\mathrm{BPS}}=\mathbb Z^{3}\), transported by
+\[
+ \alpha(n,l,m)=2nf_{2}-lf_{3}+2mf_{-2}
+ \in \Lambda^{2,1}_{II}.
+\]
+With \((f_2,f_{-2})=-1\) and \((f_3,f_3)=2\),
+\[
+ (\alpha(\gamma),\alpha(\eta))
+ =
+ -2\langle\gamma,\eta\rangle_{\mathrm{BPS}},\qquad
+ (\alpha(n,l,m),\alpha(n,l,m))=-2(4nm-l^{2}).
+\]
+The three real walls
+\[
+ \delta_1=2f_2-f_3,\qquad
+ \delta_2=2f_{-2}-f_3,\qquad
+ \delta_3=f_3
+\]
+have Gram matrix
+\[
+\begin{pmatrix}
+2&-2&-2\\
+-2&2&-2\\
+-2&-2&2
+\end{pmatrix},
+\]
+and Weyl vector
+\[
+ \rho=f_2-\frac12 f_3+f_{-2},\qquad (\rho,\delta_i)=-1.
+\]
+The orientation character is the Maass character \(\nu_{\Delta_5}\), and
+the automorphic boundary functor satisfies
+\[
+ \operatorname{AutBorch}(\phi_{0,1})=\Delta_5,\qquad
+ \kappa_{\mathrm{BKM}}(\mathfrak g_{\Delta_5})
+ =\mathrm{wt}(\Delta_5)=c_1(0)/2=5.
+\]
+\end{theorem}
+
+\begin{proof}
+The DWR/Cech/Ran site turns local polydisc critical data into a
+simplicial descent object; the assumed Hall cosheaf is precisely the
+compatible system of oriented vanishing-cycle Hall algebras on this
+nerve.  Motivic integration sends sectorwise Hall multiplication to the
+completed motivic quantum torus.  Applying \(K_0\), realisation, and
+support extraction gives the displayed triple
+\((\Gamma^{ss},\Gamma^{BPS,\bullet},\Gamma^+)\), while the ordered
+factorisation of sectors gives the KS product \(A_S(\sigma)\).  Since
+wall-crossing is functorial for Hall extension correspondences,
+transport along an admissible wall path on the descent side becomes KS
+conjugation after motivic integration.
+
+For \(K3\times E\), the Igusa product chamber supplies the non-toric
+boundary of this decategorified object.  The displayed
+\(\Gamma_{\mathrm{eff}}\), degree map \(\alpha\), real roots
+\(\delta_i\), Weyl vector \(\rho\), and Maass character are the
+normalisation in which the Borcherds product is
+\[
+ \Delta_5(Z)=
+ 64q^{1/2}r^{1/2}s^{1/2}
+ \prod_{\Gamma_{\mathrm{eff}}}(1-q^nr^ls^m)^{f(nm,l)}.
+\]
+The denominator normalisation is
+\(\operatorname{den}(\mathfrak g_{\Delta_5})=64^{-1}\Delta_5(2Z)\).
+The zeroth Fourier coefficient of
+\(\phi_{0,1}=r^{-1}+10+r+O(q)\) is \(c_1(0)=10\); Borcherds'
+weight formula gives
+\(\kappa_{\mathrm{BKM}}(\mathfrak g_{\Delta_5})=c_1(0)/2=5\).
+No Drinfeld double is used in the argument.
+\end{proof}
+
+\begin{remark}[What the theorem does not assert]
+\label{gluing:rem:positive-cone-descent-index-limits}
+The theorem identifies the positive cone as the decategorified support
+and completion datum of Hall descent, and it identifies the Igusa
+\(\Delta_5\) chamber as the automorphic boundary for \(K3\times E\).
+It does not construct the compact \(K3\times E\) Hall--Drinfeld double,
+does not commute Drinfeld doubling with homotopy colimits, and does not
+identify \(\CoHA\) with \(\mathcal W_{1+\infty}\).  Those are the
+separate CY-C obligations: coproduct, negative half, Cartan completion,
+continuous Hopf pairing, radical quotient, bracket comparison, and
+centre compatibility.
+\end{remark}
+
+\begin{proposition}[Eight-object resolution package]
+\label{gluing:prop:eight-object-resolution-package}
+\ClaimStatusConditional{Each item is a typed construction or obstruction
+criterion; unconditional existence is asserted only where the required
+input datum is already supplied.}
+The homotopy-gluing/positive-cone synthesis is equivalent to the
+following eight-object package.
+\[
+\begin{array}{c|c|c}
+\textup{object} & \textup{resolution} & \textup{frontier datum}\\ \hline
+K3\times E\ \textup{Hall cosheaf}
+& \mathcal H^{mot,or}_{\sigma,-}\ \textup{on the DWR/Cech/Ran site}
+& \textup{oriented critical atlas}\\
+\Theta^{or}_{\hCS\to\Hall}
+& \mathfrak o=(o_{\mathrm{MC}},o_{\mathrm{or}},o_{\mathrm{gr}},
+o_{\mathrm{TS}},o_{\mathrm{fact}})=0
+& \textup{stationary-phase maps}\\
+\operatorname{AutBorch}
+& K_0(BPS^{mot,prim})\to \mathsf{BorchDen}_{(2,n)}
+& \textup{Jacobi-input hypotheses}\\
+\Hall\textup{--}\mathrm{BKM}
+& \CoHA^{or}_{crit}\to U(Y^+(\mathfrak g_{\Delta_5}))_{num}
+& \textup{automorphic radical quotient}\\
+\mathcal D_\hbar
+& Y^-\widehat\bowtie Y^0\widehat\bowtie Y^+
+& \textup{coproduct, pairing, centre}\\
+\textup{wall crossing}
+& Dec(T^{DWR}_{\wp})=\operatorname{Ad}_{KS(\wp)}
+& \textup{finite-first motivic integration}\\
+\textup{manuscript validation}
+& \texttt{make fast}\ \textup{after targeted tests}
+& \textup{label/macro/build surface}\\
+\textup{Igusa propagation}
+& \Gamma_{\mathrm{eff}}\xrightarrow{\alpha}\mathrm{Poly}_{II},\
+\epsilon_o=\nu_{\Delta_5}
+& \textup{normalisation sync}
+\end{array}
+\]
+The first six objects are mathematical; the last two are verification
+and propagation surfaces.  In this package the positive half is
+constructed before the double, the wall product is obtained after
+motivic integration, and the Igusa denominator is an automorphic
+boundary of the decategorified Hall-scattering datum.
+\end{proposition}
+
+\begin{proof}
+The first row is Definition~\ref{def:hall-valued-factorisation-cosheaf-target}
+applied to \(K3\times E\) with the sector and orientation data fixed.
+The second row is Theorem~\ref{thm:hcs-hall-descent-criterion}.  The
+third row is Borcherds' multiplicative-lift construction restricted to
+primitive BPS motives whose realised Jacobi form satisfies the lift
+hypotheses; for the Igusa input it sends
+\(\phi_{0,1}\) to \(\Delta_5\).  The fourth row is the induced
+numerical comparison after quotienting the motivic Hall torus by the
+automorphic radical determined by the denominator.  The fifth row is the
+definition of the compact Hall--Drinfeld double: it cannot be inferred
+from a positive-half homotopy colimit.  The sixth row follows from
+functoriality of motivic integration for Hall wall paths, first on
+finite charge/central-charge truncations and then by inverse limit.  The
+seventh and eighth rows are the verification and cross-repository
+normalisation consequences of the same typed package.
+\end{proof}
