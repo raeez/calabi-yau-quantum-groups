@@ -93,6 +93,13 @@ One-loop $Z_{\mathrm{hCS}}$ proved here; all-orders conjectural pending T-CL-K3 
 
 ## V. $\Psi$ four-sibling
 
+**Class A rigorous definition.** A compact CY$_3$ $X$ is Class A iff it is K3-fibered $\pi:X\to B$ satisfying:
+- **(A1)** generic fibre $\pi^{-1}(b)$ is a smooth K3 surface (with admissible rank-1 degenerations at a discriminant divisor $\Delta\subset B$);
+- **(A2)** monodromy $\rho_\pi:\pi_1(B\setminus\Delta,b_0)\to O(\mathrm{II}_{3,19})$ factors through the Mathieu group $M_{23}\hookrightarrow\mathrm{Co}_0$ via Mukai 1988 \emph{Invent.} 94 Thm 0.3;
+- **(A3)** the twined K3 elliptic genus $\phi^{(g)}_{0,1}(\tau,z)=\tfrac12 Z^{(g)}_{K3}(\tau,z)$ for $g\in M_{23}$ lifts under Borcherds 1998 \emph{Invent.} 132 Thm 13.3 singular-theta to a non-zero Siegel paramodular form $\Phi_g$ on $O(2,n)^+/\Gamma_g$ with $n\ge 3$.
+
+Class A is exhausted by the **eight Gritsenko-Cléry 2008 simplest-divisor census pairs** $(N,t)$ at $N\in\{1,2,3,4,5,6,7,8\}$ plus the **STU model** (Harvey-Moore 1996 $N=4,D=4$ heterotic $K3\times T^2$ threshold). Class B (quintic, $\C^3$, conifold, local $\P^2$) fails (A1).
+
 $$\boxed{\;\{\Psi,\Psi^{\mathrm{deg}},\Psi^{\mathrm{tor}},\Psi^{\mathrm{metap}}\}:\mathrm{CY}^{\mathrm{Siegel\text{-}aut}}_2\to\mathrm{QHopf}^{\mathrm{BKM}}\;}$$
 
 Jointly surjective onto GN-reflective sig-$(2,n\ge 3)$ on Koszul locus; $24A_1$-Niemeier sig-$(2,24)$ outside. S17+DMS21+S06.
@@ -385,3 +392,14 @@ Classification: exactly $15=2^4-1$ non-empty cells, empty cell excluded by Joyce
 ## XXXV. Structural frontiers
 
 Five eight-form atlas $N=5$ Borcea-Voisin / $N=7$ order-4 gerbe / $N=8$ Kummer$_3$ siblings are load-bearing frontiers (per Lorgat arXiv:2007.14218 Conjecture 1). The $K3\times K3\times E$ $d=5$ Fake-Monster lift via Dunn-Lurie $E_5\simeq E_2\otimes E_2\otimes E_1$ on $\mathrm{II}_{25,1}$ is the natural extension of the $\mathbf H_{\Delta_5}$ framework to the Fake Monster Lie algebra $\mathfrak g_{\Phi_{12}}$. Super-KT formality $E_3$-upgrade is the single obstruction blocking all-orders Costello-Yagi extension to $\mathfrak{gl}(1|1)$-gauge 5D hCS. All-four-climaxes verification on $Q_5$ quintic fails strictly via $\mathrm{at}_{Q_5}\ne 0$ with 101-dim bracket — stratum-free categorical CoHA via MNOP + Davison-Meinhardt integrality is the residual content on compact CY-3 without fibration structure.
+
+
+## Inscription queue (Vol III targets)
+
+| # | Target (file:line) | Correction to inscribe |
+|---|---|---|
+| Q4 | `chapters/examples/cy_d_kappa_stratification.tex:2013-2052` vs programme convention | Pin Family (ii) twined Borcherds weights $\{5,2,1,1,1\}$ with constants $\{10,4,2,2,2\}$ (per Gritsenko–Nikulin 1998 + CHP 2014 Table 4) as canonical Stage-2 $\Phi_3$ convention on $K3\times E$; or explicitly declare Family (i) CHL-averaged weights $\{5,4,3,2,1\}$ with constants $\{10,8,6,4,2\}$ (Gritsenko 1999 Thm 6.1) and provide the elliptic-genus-vs-automorphic-weight bridge |
+| Q11 | `chapters/theory/cy_to_chiral.tex` | Sharpen Stage-1 $\Phi^{\mathrm{FA}}_d$ canonicity scope to the formal locus $\mathcal U^{\mathrm{adm}}_{\mathrm{at}}(X)$ where Atiyah cocycle $\mathrm{at}_X\cup B^{(2)}_{\mathrm{Connes}}$ vanishes; distinguish operad-level $E_d$-formality (Fresse Vol I Thm 14.1.A, unconditional) from category-level formality of $\mathrm{HH}^\bullet(\mathcal C)$ (proved at $d\le 3$ via three-vanishing; open at $d\ge 4$) |
+| Q12 | `notes/platonic_synthesis_waves_11_through_16.tex:wn:thm:plat-anomaly` | Replace cubic Casimir $d^{abc}$ with quartic Casimir degree-$(d+1)=4$ invariant polynomial $\int_X\mathrm{Tr}_{\mathrm{ad}}(A(F_A)^3)$; cubic vanishes by adjoint self-duality. Wave-function renormalisation $S^{(1)}_{\mathrm{c.t.}}\propto C_2(\mathfrak g)\log(L/\varepsilon)$ is DISTINCT from anomaly (AP113) |
+| Q13 | Same doc | Reframe 6D hCS $\leftrightarrow E_3$-algebra correspondence as avatar / conditional comparison; CFG 2026 = Costello–Francis–Gwilliam 2026 = "Chern–Simons factorization algebras and knot polynomials" arXiv:2602.12412 concerns 3D Chern–Simons with knot invariants, NOT 6D holomorphic Chern–Simons on CY$_3$ |
+| Q14 | Same doc | Twelve flagged errors E1–E12: (E1) $g_{24}$ coefficient off by $\sim 10$ orders; (E2) heterotic $K3\times T^2\to\Phi_{10}^{-1}$ NOT $\Phi_{12}^{-1}$; (E3) Cartan signature $(2,1)$; (E4) Weyl-vector $f_i$ non-canonical; (E5) Mukai $(4,20)$ vs Narain $(3,19)$; (E6) Gritsenko $\Delta_5$ vs Borcherds $\Phi_{10}$ conflation; (E7) cubic-Casimir list omits $\mathrm{Sp}(2N)$; (E8) $c_{2d}=-214$ parsing (=$-12 c_{4d}-1$); (E9) Whitehead 2nd lemma retracted; (E10) closed-curve $c_{4d}$ fails at $n=4$; (E11) "Fake Monster at $d=5$ Stage-2" is fiction; (E12) $\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\mathcal O_{\mathrm{fiber}})$ fails at $N=1$ |
