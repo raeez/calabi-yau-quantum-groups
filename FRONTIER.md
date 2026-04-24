@@ -134,7 +134,15 @@ The load-bearing architectural source is `chapters/examples/k3_chiral_bialgebra_
 
 - **F16 Kummer step 5a + 5b. CLOSED.** `cy_to_chiral.tex:634-762` via AFT excision (arXiv:1409.0848 Thm 3.24) + Ayala-Mazel-Gee-Rozenblyum equivariant FH. Only 5c Mukai-pairing chain-level collar-transport remains (see §3).
 
-- **Φ functor universal trace identity (Vol III + cross-volume).** `adversarial_swarm_20260416/wave14_reconstitute_phi_functor_volIII.md` inscribed. Vol III Φ Platonic functor + universal trace identity unifying Vol I K = −c_ghost(BRST) with Vol III κ_BKM = c_N(0)/2.
+- **Φ functor trace bridge (Vol III + cross-volume).** The Wave-14
+  functor-level identity `K\circ\Phi=\kappa_{\mathrm{ch}}` and the
+  scalar ghost formula `K=-c_{\mathrm{ghost}}(\mathrm{BRST})` are
+  retracted in their old form.  The surviving value-level bridge on the
+  K3-fibered CHL Class-A locus is
+  `K(A_{X_N})=c_N(0)=2\kappa_{\mathrm{BKM}}(\Phi_N)` for
+  `N in {1,2,3,4,6}`; it does not pass through
+  `\kappa_{\mathrm{ch}}` at `d=3`, where the compact total-space Hodge
+  supertrace vanishes.
 
 - **Theorem H concentration via E_3-rigidity.** `thm:H-concentration-via-E3-rigidity` (Vol II chiral higher Deligne) makes Theorem H concentration a CONSEQUENCE of E_3-rigidity-at-a-point + PBW collapse. Theorem H step-3 circularity RESOLVED via rerouting through `thm:pbw-koszulness-criterion` (Vol I).
 
@@ -144,7 +152,7 @@ The load-bearing architectural source is `chapters/examples/k3_chiral_bialgebra_
 
 - **V3-NF1. CY-C pentagon invariant (Wave 13 reconstituted; commit `cade61c`).** Pentagon stratification {3, 12, 24} healed from `$\kappa_{\mathrm{ch}}^{R_i}$` to `$\rho^{R_i}$` (generator-lattice rank). `$\kappa_{\mathrm{ch}}$` is route-independent = 0 for $K3\times E$ by Hodge supertrace; the pentagon now sits around the Hall–Drinfeld double $\mathbf{H}_{\Delta_5}$ on the bi-based Ran / $\overline{\mathcal{A}_2}$ datum with CY-2 $[2]$ shift, class-$\mathcal{S}$ parent $\mathcal{T}[A_1,\Sigma_{0,24}]$, and $\Delta_5$ treated as 1-loop output. Prior plain-"K3 Yangian" narration is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.5; prior input-side $\Delta_5$ narration is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.9.
 
-- **V3-NF2. CY-D d=3 deep issue — κ_ch ≠ χ(O_X) at odd d.** PRESERVED: dimension-stratified formula needed. The earlier claim κ_ch = χ(O_X) FAILS at d=3 (K3×E: χ(O) = 0 ≠ 3 = κ_ch). Correct formula via str_{F^0}(q^{L_0}) Hodge-filtered supertrace.
+- **V3-NF2. CY-D d=3 deep issue — total-space κ_ch vanishes at odd d.** PRESERVED: dimension-stratified formula needed. For compact CY$_3$, `\kappa_{\mathrm{ch}}(A_X)=\sum_q(-1)^q h^{0,q}(X)=0` by Serre duality. In particular `K3×E` has total-space `\kappa_{\mathrm{ch}}=0`. The numbers `2`, `3`, and `24` that occur around `K3×E` are fibre, Stage-2/Heisenberg-Cartan, or Mukai-rank data and must not be written as plain total-space `\kappa_{\mathrm{ch}}(K3×E)`.
 
 - **Kummer-irregular primes retracted (cross-volume).** {1423, 3067, 23, 43, 419} retracted from the Kummer-irregular label; they remain Riccati-arithmetic characteristic primes in S_r numerators. Tier-3 emergence: {37, 691, 811}. Bernoulli-leading first Kummer-irregular is 691 (B_12); size-leading is 37 (B_32). Always qualify.
 
@@ -201,8 +209,8 @@ The load-bearing architectural source is `chapters/examples/k3_chiral_bialgebra_
 
 **V3-F26. Super-Yangian $Y_{osp}(4|20)$ Lie bracket verification.** Grading compatibility verified. Supercommutator vs commutator for all generator pairs missing. Borcherds denominator = quantum Berezinian of T(u). Spectral flow from Borcherds vertex operators should be an automorphism of $Y_{osp}(4|20)$ (not just Y(g_{K3})).
 
-**V3-F27. 6d hCS K3 quantum toroidal U_{q,t}(g_hat_hat_{K3}) — SPLIT (refined 2026-04-17 Wave-2 batch-2..6).** Costello 5d pipeline verified through charge 4 (87 tests). Conjectural 6d promotion gives quantum toroidal.
-- **(F27a) 6d hCS construction on C³.** Costello-Francis-Gwilliam 6d hCS construction; tractable via established 5d pipeline + Dunn-additivity promotion. Not gated on K3 data.
+**V3-F27. 6d hCS K3 quantum toroidal U_{q,t}(g_hat_hat_{K3}) — SPLIT (refined 2026-04-24).** Costello 5d pipeline verified through charge 4 (87 tests). Conjectural 6d promotion gives quantum toroidal.
+- **(F27a) 6d hCS construction on C³.** CFG 2026 is a three-dimensional Chern--Simons/knot-invariant source, not a 6d hCS source. The C³ task is therefore a 6d hCS avatar construction from the BV--BRST complex, Costello--Gwilliam factorisation algebras, Dunn-additivity, and explicit Bochner--Martinelli/Feynman coefficients. Not gated on K3 data.
 - **(F27b) K3 quantum toroidal.** Gated on CY-A_3 (V3-F18) chain-level data. Severity inherits from V3-F18 (downgraded to LOW on pro-ambient / J-adic / filtered-completed ambients).
 - **(F27c) ZTE at trigonometric level.** Quantum-toroidal coproduct correction at trigonometric level — compute-extension direction analogous to V3-F14 for toroidal structure functions.
 - **Scope restriction (not a conjecture)**: The "Miki $S_3$ automorphism from CY torus Weyl group" statement CANNOT hold for K3: K3 has no torus action (AP-CY22); only the SL_2(Z) from the elliptic factor of K3×E survives, via the E-factor modular group. This is a scope fact about target geometry, not an open direction.
@@ -758,7 +766,7 @@ Total new K3 tests: ~756 across 13 engines. Problem partially resolved for abeli
 
 Key Vol I results affecting Vol III:
 
-- **E_3 identification PROVED**: the E_n circle closes for simple g. The derived chiral centre = CFG E_3-algebra. Extended to gl_N via two independent bilinear forms.
+- **E_3 identification status**: the old "E_n circle closes" phrasing is replaced by the operadic spiral. The Drinfeld-centre-to-bulk closure is proved only on specified patches and remains conjectural at programme level; CFG 2026 is not the 6d hCS source.
 - **Verlinde polynomial family** (thm:verlinde-polynomial-family): P_g(n) = n^{g-1}(n²-1)·R_{g-2}(n²) through g=6. Leading coefficients = ζ(2g-2)/(2^{g-2}π^{2g-2}). Rational generating function from cosecant power sums.
 - **Shadow = GW(C³)**: shadow tower at kappa = Psi produces perturbative GW free energies. MacMahon on DT side via MNOP.
 - **Critical level** (prop:critical-level-ordered): Koszulness fails, center = Fun(Op). The CY-to-chiral correspondence programme {Phi_d} at critical level produces the Feigin-Frenkel center, which is infinite-dimensional.
