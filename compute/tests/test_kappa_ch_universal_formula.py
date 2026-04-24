@@ -465,7 +465,11 @@ class TestLandscapeTable(unittest.TestCase):
     def test_table_values(self):
         table = {e.name: e for e in landscape_table()}
         self.assertEqual(table['Quintic'].kappa_ch, F(-25, 3))
+        self.assertEqual(table['Quintic'].label, 'kappa_BCOV_shadow_conjectural')
+        self.assertFalse(table['Quintic'].constructed)
         self.assertEqual(table['K3xE'].kappa_ch, F(3))
+        self.assertEqual(table['K3xE'].label, 'kappa_ch')
+        self.assertTrue(table['K3xE'].constructed)
         self.assertEqual(table['EnrxE'].kappa_ch, F(2))
         self.assertEqual(table['T^6'].kappa_ch, F(3))
         self.assertEqual(table['C^3'].kappa_ch, F(1))
@@ -520,7 +524,9 @@ class TestEdgeCases(unittest.TestCase):
 
     def test_kappa_ch_dispatches_correctly(self):
         """kappa_ch dispatches to correct formula based on compactness."""
-        self.assertEqual(kappa_ch(quintic()), kappa_ch_compact(quintic()))
+        with self.assertRaises(NotImplementedError):
+            kappa_ch(quintic())
+        self.assertEqual(kappa_ch(k3_times_e()), kappa_ch_compact(k3_times_e()))
         self.assertEqual(kappa_ch(c3_affine()), kappa_ch_noncompact(c3_affine()))
 
 
