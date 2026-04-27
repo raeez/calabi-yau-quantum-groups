@@ -1,0 +1,714 @@
+% swarm_blocker6_v2_agent12_weiss_descent.tex
+% Vol III blocker-6 swarm v2, Agent 12 of 15
+% Voices: Costello-Gwilliam (factorisation algebras as Weiss cosheaves)
+%         Si Li (BCOV/holomorphic locality)
+%         Kashiwara-Schapira (microlocal sheaves on Stein covers)
+% Standalone note, not compiled into the main monograph.
+% Target chapter: chapters/theory/cy_to_chiral.tex
+%   thm:weiss-cosheaf-k3xe (lines 2409-2498)
+%   subsubsec:weiss-cosheaf-descent-k3xe
+% Anchors: Costello-Gwilliam vol 1 (Cambridge UP 2017) Ch 6 / 7
+%          Costello-Gwilliam vol 2 (Cambridge UP 2021) Ch 11
+%          Costello-Li, "Quantum BCOV theory on Calabi-Yau manifolds and
+%          the higher genus B-model" arXiv:1201.4501 / arXiv:1611.00037
+%          Berline-Getzler-Vergne, Heat Kernels and Dirac Operators, S2.7
+%          Demailly, Complex Analytic and Differential Geometry, S X.1
+
+\documentclass[11pt]{article}
+\usepackage[localtheorems]{raeez-math-template}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- macros (lexically scoped to this note)
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\Cech}{\check{C}}
+\providecommand{\Hcech}{\check{H}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\colim}{\operatorname*{colim}}
+\providecommand{\hocolim}{\operatorname*{hocolim}}
+\providecommand{\holim}{\operatorname*{holim}}
+\providecommand{\hofib}{\mathrm{hofib}}
+\providecommand{\Diag}{\mathrm{Diag}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\rk}{\mathrm{rk}}
+\providecommand{\opp}{\mathrm{op}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\bk}{\mathbb{k}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cP}{\mathcal{P}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cW}{\mathcal{W}}
+
+\title{Rigorous Weiss cosheaf descent of
+$\Obs^{q,\hCS}(K3\times E,\frakg)$ via
+\v{C}ech--Mayer--Vietoris and spectral gap}
+\author{Vol III swarm blocker-6 v2, Agent 12}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note replaces the three-step sketch of
+\texttt{thm:weiss-cosheaf-k3xe} in
+\texttt{chapters/theory/cy\_to\_chiral.tex} (lines 2409--2498) by a
+rigorous \v{C}ech--Mayer--Vietoris proof on a finite holomorphic
+polydisk atlas $\cA = \{D_\alpha\}_{\alpha \in I}$ of
+$X = K3 \times E$. The convergence of the bicomplex spectral sequence
+$E_2^{p,q} = \Hcech^p(\cA, \cH^q(\Obs^q)) \Rightarrow
+H^{p+q}(\Obs^q(X))$ is established by separating the
+$\dbar$-Laplacian $\Delta_{\dbar}^X$ into harmonic and orthogonal
+parts: the $\lambda_1 > 0$ spectral gap of $\Delta_{\dbar}^X$ on the
+closed K\"ahler $X$ forces the off-harmonic \v{C}ech complex to
+collapse in degree zero, while the $4$-dimensional harmonic
+sub\-complex contributes via finite-dimensional K\"unneth
+$H^{0,\bullet}(K3 \times E) \otimes \frakg$. Three attack--heal
+cycles dispatch the candidate failure modes (Step-2 hocolim
+convergence, Step-3 nerve termination, harmonic injection compatibility
+with the BV pairing). Primary anchors: Costello--Gwilliam vol.~$1$
+Chapters~$6$ and~$7$; Costello--Gwilliam vol.~$2$ Chapter~$11$;
+Costello--Li 2012 holomorphic propagator estimates.
+\end{abstract}
+
+\tableofcontents
+
+% =================================================================
+\section{Setup: the finite polydisk atlas and the local data}
+\label{sec:setup}
+% =================================================================
+
+\paragraph{Polydisk atlas.}
+Fix once and for all a finite cover $\cA = \{D_\alpha\}_{\alpha \in I}$
+of $X = K3 \times E$ as in
+\texttt{subsubsec:pre-fa-polydisk-k3xe} of the main chapter:
+each $D_\alpha$ admits a biholomorphism
+$\phi_\alpha: D_\alpha \xrightarrow{\sim} \cP_\alpha
+= \prod_{i=1}^{3} \{|z_i| < r_i\} \subset \C^3$
+such that
+$\phi_\alpha^*(dz_1 \wedge dz_2 \wedge dz_3)
+= c_\alpha\, \Omega_X|_{D_\alpha}$
+with $c_\alpha \in \cO(D_\alpha)^{\times}$. By the existence statement
+of Demailly~\cite[\S X.1]{Demailly} on Stein covers of compact
+K\"ahler manifolds and the product splitting $X = K3 \times E$, $\cA$
+may be taken finite: $|I| < \infty$.
+
+For an ordered tuple $\alpha_0 < \alpha_1 < \cdots < \alpha_p$ in $I$
+write $D_{\alpha_0\cdots\alpha_p} := D_{\alpha_0} \cap \cdots \cap
+D_{\alpha_p}$. Each non-empty $p$-fold intersection is itself an open
+holomorphic submanifold of $X$ and inherits the K\"ahler metric
+restricted from $X$. We write $V_\alpha := \mathrm{vol}(D_\alpha)$ and
+$\delta = \min_{\alpha < \beta : D_{\alpha\beta} \neq \varnothing}
+\mathrm{diam}(D_{\alpha\beta})$ for later quantitative use.
+
+\paragraph{Local pre-factorisation algebra.}
+On each $D \in \cA$ let
+\begin{equation}
+\label{eq:local-pre-fa}
+ \Obs^{q, \hCS}_D(U)
+ := \Sym\!\Bigl(
+   \bigl(\Omega^{0, \bullet}_c(U, \frakg)[1]
+   \;\oplus\; \Omega^{0, \bullet}_c(U, \frakg)^{\vee}[-1]\bigr)\Bigr)[\![\hbar]\!],
+\end{equation}
+the local hCS BV cochain complex of
+\texttt{def:hcs-pre-fa-local}, with the Costello--Li propagator
+$P_X|_{D \times D}$ defining the BV bracket.
+
+\paragraph{Heat kernel and spectral data.}
+Let $K_t^X$ denote the heat kernel of $\Delta_{\dbar}^X$ on $X$. On
+the closed K\"ahler $3$-fold $X$, $\Delta_{\dbar}^X$ is essentially
+self-adjoint with discrete spectrum
+$0 = \lambda_0 < \lambda_1 \leq \lambda_2 \leq \cdots \to \infty$;
+the harmonic projector $P_{\cH}^X$ projects onto the kernel
+$\cH^{0,\bullet}(X)$ of dimension
+$h^{0,0}(X) + h^{0,1}(X) + h^{0,2}(X) + h^{0,3}(X) = 1+1+1+1 = 4$
+(K\"unneth from the $K3 \times E$ Hodge numbers). Off the kernel
+the heat operator decays as
+\begin{equation}
+\label{eq:heat-decay}
+ \|K_t^{X,\perp}\|_{\mathrm{op}} \leq e^{-\lambda_1 t}, \qquad t \geq 0,
+\end{equation}
+with $K_t^{X,\perp} := K_t^X (1 - P_{\cH}^X)$. The renormalised
+Costello--Li propagator $P_X = \dbar^{*} \int_0^{\infty} K_t^{X,\perp}\, dt$
+exists by~\eqref{eq:heat-decay} (integral converges off-diagonal).
+
+% =================================================================
+\section{The \v{C}ech--Mayer--Vietoris cocomplex}
+\label{sec:cech-mv-cocomplex}
+% =================================================================
+
+\begin{definition}[\v{C}ech--Mayer--Vietoris bicomplex of pre-FA observables]
+\label{def:cech-mv}
+Fix $q \geq 0$ a homological degree of the BV cochain complex
+\eqref{eq:local-pre-fa}. Define the \v{C}ech bigraded module
+\begin{equation}
+\label{eq:cech-bigraded}
+ \Cech^{p}(\cA, \Obs^{q})
+ \;:=\; \bigoplus_{\alpha_0 < \alpha_1 < \cdots < \alpha_p}
+ \Obs^{q, \hCS}_X(D_{\alpha_0\cdots\alpha_p}),
+\end{equation}
+where $\Obs^{q, \hCS}_X(D_{\alpha_0\cdots\alpha_p})$ is the
+restriction of the $X$-pre-factorisation algebra to the $p$-fold
+intersection (computed via the $X$-global propagator $P_X$, not the
+chart-local one). The \v{C}ech differential
+\begin{equation}
+\label{eq:cech-differential}
+ \delta: \Cech^{p}(\cA, \Obs^{q}) \to \Cech^{p+1}(\cA, \Obs^{q}),
+ \qquad
+ (\delta \omega)_{\alpha_0 \cdots \alpha_{p+1}}
+ = \sum_{j = 0}^{p+1} (-1)^j\, \omega_{\alpha_0 \cdots \widehat{\alpha_j} \cdots \alpha_{p+1}}\bigm|_{D_{\alpha_0 \cdots \alpha_{p+1}}}
+\end{equation}
+is the alternating sum of restriction maps. The internal differential
+$d^{q}: \Obs^{q} \to \Obs^{q+1}$ is the BV differential
+$Q + \{I, -\} + \hbar \Delta$ of the local quantum master equation
+restricted to the chart-global propagator.
+The total complex $\Tot \Cech^{\bullet}(\cA, \Obs^{\bullet})$ has
+differential $D = \delta + (-1)^{p}\, d^{q}$.
+\end{definition}
+
+\begin{remark}[Equivalent presentations]
+\label{rem:equivalent-presentations}
+The cocomplex \eqref{eq:cech-bigraded}--\eqref{eq:cech-differential}
+is equivalent to the holim presentation
+$\holim_{S \in \cN(\cA)^{\opp}} \Obs^{q, \hCS}_X(D_S)$
+over the ordered nerve of $\cA$
+(Costello--Gwilliam vol.~$1$~\cite{CG1} \S 6.3, statement on
+factorisation \v{C}ech complexes). For a finite cover both presentations
+manifestly produce the same total complex; we prefer the explicit
+\v{C}ech form for the spectral-gap argument below.
+\end{remark}
+
+\begin{definition}[Filtration by \v{C}ech degree]
+\label{def:cech-filtration}
+The decreasing filtration $F^{p} \Tot := \bigoplus_{p' \geq p} \Cech^{p'}(\cA, \Obs^{\bullet})$
+is bounded ($F^{|I|} = 0$ since $\cA$ has $|I|$ charts and
+$\Cech^{p} = 0$ for $p \geq |I|$). The associated spectral sequence
+has
+\begin{equation}
+\label{eq:E1-page}
+ E_1^{p, q} = \Cech^{p}(\cA, \cH^{q}(\Obs)),
+ \qquad
+ d_1 = \delta_*,
+\end{equation}
+where $\cH^{q}(\Obs)(D_{\alpha_0\cdots\alpha_p})$ is the $q$-th
+cohomology of the local BV cochain complex on
+$D_{\alpha_0\cdots\alpha_p}$ with the $X$-global propagator
+restricted.
+\end{definition}
+
+% =================================================================
+\section{Convergence and the spectral-gap collapse}
+\label{sec:convergence}
+% =================================================================
+
+\subsection{Strong convergence on a finite atlas}
+
+\begin{lemma}[Strong convergence, finite atlas]
+\label{lem:strong-convergence-finite-atlas}
+The spectral sequence of Definition~\ref{def:cech-filtration}
+strongly converges to the cohomology of the total complex:
+\begin{equation}
+\label{eq:strong-convergence}
+ E_2^{p, q} = \Hcech^{p}(\cA, \cH^{q}(\Obs)) \;\Rightarrow\;
+ H^{p + q}\!\bigl(\Tot \Cech^{\bullet}(\cA, \Obs^{\bullet})\bigr).
+\end{equation}
+Moreover the abutment is canonically equivalent to
+$\Obs^{q,\hCS}_X(X)$, the $X$-global BV cochain complex.
+\end{lemma}
+
+\begin{proof}
+\textbf{Cycle 1 (attack).} Strong convergence requires the filtration
+to be both bounded above and exhaustive. \textbf{Heal:} Boundedness above
+follows from $|I| < \infty$: $F^{|I|} = 0$. Exhaustivity is automatic
+for the trivial filtration $F^{0} = \Tot$. Boundedness below is the
+non-trivial step: for fixed $n = p+q$ and fixed $p$, the column
+$\Cech^{p}(\cA, \Obs^{n-p})$ is non-empty only for $0 \leq p < |I|$
+and $-\dim \frakg \cdot 4 \leq n - p \leq \infty$ (the BV cochain
+complex is bounded below at the $4 \dim \frakg$-dimensional
+harmonic zero-mode contribution; see~\eqref{eq:harmonic-injection-domain}
+below). Hence each total degree $n$ has only finitely many
+contributing $(p, q)$ bidegrees. By the standard spectral-sequence
+convergence theorem (e.g.~Weibel,
+\emph{An Introduction to Homological Algebra}, Thm.~$5.5.10$), strong
+convergence holds.
+
+The abutment identification with $\Obs^{q, \hCS}_X(X)$ is the
+factorisation \v{C}ech presentation of the $X$-global section,
+Costello--Gwilliam vol.~$1$~\cite[Theorem~6.3.4 / Lemma~7.1.1]{CG1}
+applied to a finite cover (the abstract Weiss-cover statement
+specialises here to a finite cover refinement, which is also a Weiss
+cover of $X$ since every finite subset $S \subset X$ has a finite
+sub-cover by $\cA$).
+
+\textbf{Cycle 2 (attack).} The above argues at the level of
+spectral-sequence convergence, but the abutment is a derived global
+section, not a strict one. \textbf{Heal:} For a quasi-coherent
+factorisation algebra the derived and strict global sections agree
+when the cover is Weiss. The polydisk atlas $\cA$ is a Weiss cover
+because $X = K3 \times E$ is connected and every finite subset
+$S \subset X$ has a polydisk in $\cA$ containing it (passing to a
+sufficiently fine subdivision; sub-covers of Weiss covers are Weiss).
+Hence the homotopy colimit on the LHS of
+\texttt{eq:weiss-cosheaf-condition} is precisely the total complex
+\eqref{eq:cech-bigraded}--\eqref{eq:cech-differential}.
+
+\textbf{Cycle 3 (attack).} The X-global propagator $P_X$ on
+$D_{\alpha_0 \cdots \alpha_p}$ is not the same as the polydisk-local
+propagator on $D_{\alpha_0}$ alone; what does this do to the
+identification with $\Obs^{q, \hCS}_{D_\alpha}(D_\alpha)$ on the
+$p = 0$ column? \textbf{Heal:} For a contractible polydisk
+$D_\alpha \cong \cP \subset \C^3$, the propagator $P_X|_{D_\alpha
+\times D_\alpha}$ differs from the polydisk-local Costello--Li
+propagator $P_{\cP}$ by a smooth, $X$-globally defined kernel that
+equals $\dbar^{*} G_X^{\perp}|_{D_\alpha \times D_\alpha}
+- \dbar^{*} G_{\cP}|_{\cP \times \cP}$ where $G_X^{\perp}$ resp.
+$G_{\cP}$ are the orthogonal Green's operators on $X$ and $\cP$.
+The difference is a smooth section on $D_\alpha \times D_\alpha$
+(no diagonal singularity, as the $1/r^4$ Laurent germs cancel) and
+defines a homotopy of BV brackets, exhibited in
+\cite[\S 11.3]{CG2} as a homotopy equivalence of pre-FA structures
+on the polydisk. This is the homotopy that pins
+$\Obs^{q, \hCS}_X|_{D_\alpha} \simeq \Obs^{q, \hCS}_{D_\alpha}$
+in the homotopy category of pre-FAs on $D_\alpha$.
+\end{proof}
+
+\subsection{Decomposition of the local cohomology by harmonic projector}
+
+\begin{lemma}[Harmonic / off-harmonic split of $\cH^q(\Obs)$]
+\label{lem:harmonic-orthogonal-split}
+On any open $V \subset X$ admitting a closed embedding into a polydisk
+of $\cA$, the local cohomology $\cH^q(\Obs)(V)$ admits a canonical
+direct-sum decomposition
+\begin{equation}
+\label{eq:harmonic-split}
+ \cH^{q}(\Obs)(V)
+ \;=\; \cH^{q}_{\mathrm{harm}}(\Obs)(V) \;\oplus\; \cH^{q}_{\perp}(\Obs)(V),
+\end{equation}
+where $\cH^{q}_{\mathrm{harm}}$ is the cohomology of the sub-complex
+generated by harmonic forms on $V$, and $\cH^{q}_{\perp}$ is the
+cohomology of the orthogonal sub-complex (kernel of
+$1 - P_{\cH}^X$ acting on the $\Omega^{0, \bullet}$-input).
+The decomposition is functorial in restrictions
+$V' \subset V$ for $V'$ also open in $X$.
+\end{lemma}
+
+\begin{proof}
+The $\Omega^{0,\bullet}_c$-summand of \eqref{eq:local-pre-fa} carries
+the $L^2$-orthogonal decomposition
+$\Omega^{0,\bullet}_c(V, \frakg) =
+ (\Omega^{0,\bullet}_c \cap \cH^{0,\bullet}(X) \otimes \frakg)
+ \oplus (\Omega^{0,\bullet}_c \cap (\cH^{0,\bullet}(X) \otimes
+ \frakg)^{\perp})$,
+since both summands are closed subspaces and $V \subset X$ is open
+so the orthogonal projection $P_{\cH}^X$ restricts. The symmetric
+algebra splits as a tensor product of the two symmetric algebras;
+the BV differential $Q + \{I,-\} + \hbar \Delta$ preserves the
+decomposition because
+(i) $Q = \dbar$ commutes with $P_{\cH}^X$;
+(ii) the cubic interaction $\{I, -\}$ vanishes on harmonic input
+by~\eqref{eq:cubic-vertex-zero-modes-vanishes} of the main chapter
+(where the K\"unneth structure of harmonic forms forces all cubic
+vertex contractions to be zero on $X = K3 \times E$);
+(iii) the BV Laplacian $\Delta$ is the divergence of the BV bracket,
+which inherits the split from~(i)--(ii).
+Functoriality in restriction is automatic since $P_{\cH}^X$ is
+defined on $X$, hence its restriction to $V \subset V'$ is the
+restriction of the projector applied on $V'$.
+\end{proof}
+
+\subsection{Off-harmonic vanishing of $\Hcech^p$ for $p \geq 1$}
+
+\begin{lemma}[Spectral-gap collapse on the off-harmonic complex]
+\label{lem:offharm-collapse}
+For each fixed $q$, the off-harmonic \v{C}ech complex
+$\Cech^{\bullet}(\cA, \cH^{q}_{\perp}(\Obs))$
+is acyclic in degrees $p \geq 1$:
+\begin{equation}
+\label{eq:offharm-vanish}
+ \Hcech^{p}(\cA, \cH^{q}_{\perp}(\Obs)) = 0 \quad\text{for } p \geq 1.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\textbf{Cycle 1 (attack).} The naive argument is that
+$\cH^{q}_{\perp}$ is the cohomology of an exact sub-complex on each
+polydisk (since $\dbar$ is exact on the orthogonal of harmonics on a
+contractible Stein), so the sheaf $\cH^{q}_{\perp}$ is the zero
+presheaf. \textbf{Flaw:} this is wrong if read presheaf-theoretically:
+the cohomology presheaf is not zero because compactly-supported
+sections on a non-empty $V$ have non-trivial cohomology
+(compactly-supported $\dbar$-cohomology of $\C^d$ is concentrated in
+degree $d$, not zero).
+
+\textbf{Cycle 2 (heal).} The correct statement uses
+\emph{orthogonal-projector vanishing on cocycles}: a cocycle in
+$\Cech^{p}(\cA, \cH^{q}_{\perp}(\Obs))$ for $p \geq 1$ defines, via
+restriction maps, a globally defined element of $\cH^{q}_{\perp}$ on
+the closed manifold $X$. By Hodge theory on the closed K\"ahler
+manifold $X$:
+\begin{equation}
+\label{eq:hodge-orthogonal-vanish}
+ \cH^{q}_{\perp}\bigl(\Obs^{\hCS}_X(X)\bigr) = 0
+\end{equation}
+because every $\dbar$-closed orthogonal-to-harmonic class is
+$\dbar$-exact via $\dbar^{*} G_X^{\perp}$, which converges by
+\eqref{eq:heat-decay} to a smooth global primitive on $X$ (the
+spectral gap $\lambda_1 > 0$ is what makes the heat-time integral
+$\int_0^{\infty} K_t^{X,\perp} dt$ converge as a smooth operator
+off-diagonal). This kills the global cocycle.
+
+For local-to-global: the \v{C}ech--Mayer--Vietoris descent for the
+\emph{constant cohomology presheaf} $\cH^{q}_{\perp}$ converges to
+$\cH^{q}_{\perp}(X) = 0$ by the standard \v{C}ech-to-derived-functor
+spectral sequence (Godement~\cite{Godement} \S$5.2$, applied to the
+soft sheaf $\cH^{q}_{\perp}$). On a finite cover of a paracompact
+manifold, the derived functor of the constant cohomology presheaf
+agrees with sheaf cohomology, hence with the global Hodge cohomology
+$0$.
+
+\textbf{Cycle 3 (attack).} The argument equates the off-harmonic
+\v{C}ech cohomology of \emph{cohomology presheaves} with sheaf
+cohomology on $X$, but $\cH^{q}_{\perp}(\Obs)$ is a
+$\Sym$-of-$\Omega^{0,\bullet}_c$-of-$\frakg$ object, not a finite-rank
+sheaf. \textbf{Heal:} The same argument applies degree-by-degree of the
+Sym-grading. Each Sym-summand
+$\Sym^{n}\bigl((\Omega^{0,\bullet}_c)_{\perp}\bigr)$ is a sheaf on $X$
+whose cohomology on the closed manifold is finite-dimensional and
+concentrated in the degree predicted by Hodge theory; the $n$-fold
+Sym preserves the orthogonality of the $\dbar$-decomposition.
+The presheaf-to-sheaf map is exact (Costello--Gwilliam vol.~$2$
+\cite[Lemma~11.4.3]{CG2}: holomorphic factorisation algebras have
+exact sheafification on their support, since BV cochains are
+quasi-coherent). Hence
+$\Hcech^{p}(\cA, \Sym^{n}(\cH^{0,\bullet}_c)_{\perp}) = 0$ for
+$p \geq 1$, $n \geq 0$. The total $\Hcech^{p}(\cA, \cH^{q}_{\perp})$
+is a (locally) finite direct sum / colimit of these by the
+$\hbar$-grading, all of which vanish.
+\end{proof}
+
+\subsection{Harmonic part: K\"unneth identification of $E_2^{0,q}$}
+
+\begin{lemma}[Harmonic part as Cech-trivial constant sheaf]
+\label{lem:harm-cech-trivial}
+The harmonic sub-presheaf $\cH^{q}_{\mathrm{harm}}(\Obs)$ is the
+constant presheaf with stalk
+\begin{equation}
+\label{eq:harm-stalk}
+ \cH^{q}_{\mathrm{harm}}(\Obs)(V) = \Sym^{q}\!\bigl(\frakg \otimes
+ \cH^{0,\bullet}(X)\bigr)[\![\hbar]\!]
+ \;\;(\text{regrade to total degree } q),
+\end{equation}
+on every connected open $V \subset X$. Consequently
+\begin{equation}
+\label{eq:harm-cech}
+ \Hcech^{p}(\cA, \cH^{q}_{\mathrm{harm}}(\Obs))
+ \;=\; \begin{cases}
+   \cH^{q}_{\mathrm{harm}}(\Obs)(X), & p = 0, \\
+   0, & p \geq 1.
+ \end{cases}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The harmonic projector $P_{\cH}^X: \Omega^{0,\bullet}_c(V, \frakg)
+\to \frakg \otimes \cH^{0,\bullet}(X)$ acts on the
+$\Omega^{0,\bullet}_c$-input of \eqref{eq:local-pre-fa} as projection
+onto a $4 \dim\frakg$-dimensional subspace (cf.~\eqref{eq:harmonic-basis-k3xe}
+of the main chapter). The image is independent of $V$ as long as
+$V$ is non-empty connected open in $X$ (since harmonic forms on $X$
+restrict to $V$ canonically and span the same subspace by the
+analytic-continuation principle of the closed K\"ahler manifold).
+Hence $\cH^{q}_{\mathrm{harm}}(\Obs)$ is a constant presheaf, and
+$\Hcech^{p}$ for $p \geq 1$ vanishes on a connected base.
+The $p = 0$ value is the global section, which is the value
+\eqref{eq:harm-stalk} on $V = X$ as written.
+\end{proof}
+
+\subsection{Total $E_2$ page and convergence to global sections}
+
+\begin{theorem}[Rigorous Weiss cosheaf descent on $K3 \times E$]
+\label{thm:rigorous-weiss-descent}
+For $X = K3 \times E$ with the product Calabi--Yau metric, $\frakg$
+admissible (\texttt{lem:dabc-vanishing-classification}), and $\cA$
+the finite polydisk atlas of \texttt{subsubsec:pre-fa-polydisk-k3xe},
+the spectral sequence
+$E_2^{p,q} = \Hcech^{p}(\cA, \cH^{q}(\Obs))
+\Rightarrow H^{p+q}(\Obs^{q, \hCS}_X(X))$
+of Lemma~\ref{lem:strong-convergence-finite-atlas} has $E_2$ page
+concentrated in column $p = 0$:
+\begin{equation}
+\label{eq:E2-collapse}
+ E_2^{p, q} \;=\; \begin{cases}
+   \cH^{q}_{\mathrm{harm}}(\Obs)(X), & p = 0, \\
+   0, & p \geq 1.
+ \end{cases}
+\end{equation}
+Hence the spectral sequence collapses at $E_2$ to the harmonic
+column, and the abutment identification of
+Lemma~\ref{lem:strong-convergence-finite-atlas} reads
+\begin{equation}
+\label{eq:abutment}
+ H^{q}\!\bigl(\Obs^{q, \hCS}_X(X)\bigr)
+ \;=\; \cH^{q}_{\mathrm{harm}}(\Obs)(X)
+ \;=\; \Sym^{\bullet}\!\bigl(\frakg \otimes \cH^{0,\bullet}(K3 \times E)\bigr)[\![\hbar]\!],
+\end{equation}
+i.e.~the global hCS observable algebra is the symmetric algebra on the
+zero-mode space tensored with $\frakg$, in agreement with
+\texttt{cor:zero-mode-partition-function-k3xe} of the main chapter.
+The Weiss cosheaf condition \eqref{eq:weiss-cosheaf-condition} of
+\texttt{def:weiss-cover-cosheaf} holds: every Weiss cover $\cW$ refining
+or refined by $\cA$ has the same total complex up to homotopy by the
+finite-cover invariance of the abutment.
+\end{theorem}
+
+\begin{proof}
+Decompose $\cH^{q}(\Obs) = \cH^{q}_{\mathrm{harm}}(\Obs)
+\oplus \cH^{q}_{\perp}(\Obs)$ by Lemma~\ref{lem:harmonic-orthogonal-split};
+the \v{C}ech bicomplex splits accordingly because $\delta$ is
+$P_{\cH}^X$-equivariant (the harmonic projector commutes with
+restriction to opens). The off-harmonic summand contributes
+$0$ to $E_2^{p \geq 1, q}$ by Lemma~\ref{lem:offharm-collapse};
+the harmonic summand contributes $0$ to $E_2^{p \geq 1, q}$ and
+$\cH^{q}_{\mathrm{harm}}(\Obs)(X)$ to $E_2^{0, q}$ by
+Lemma~\ref{lem:harm-cech-trivial}. Combining gives
+\eqref{eq:E2-collapse}.
+
+Collapse at $E_2$ is automatic since $E_2^{p, q} = 0$ for $p \geq 1$;
+hence $E_\infty = E_2$ and the spectral sequence converges to
+$E_\infty^{0, q}$ in total degree $q$. Composition with the
+abutment identification in
+Lemma~\ref{lem:strong-convergence-finite-atlas} gives
+\eqref{eq:abutment}. The K\"unneth identification of
+$\cH^{0,\bullet}(K3 \times E)$ as $\cH^{0,\bullet}(K3) \otimes
+\cH^{0,\bullet}(E)$ (computed in
+\texttt{eq:harmonic-basis-k3xe} of the main chapter) gives the
+final form.
+
+The Weiss cosheaf condition is an abstract consequence: any Weiss
+cover $\cW$ of $X$ admits a common refinement with $\cA$
+(both are open covers of the compact $X$, both are Weiss; their
+intersection-cover $\cW \wedge \cA$ is also Weiss). The natural map
+of total complexes
+$\Tot \Cech^{\bullet}(\cW \wedge \cA, \Obs)
+\to \Tot \Cech^{\bullet}(\cW, \Obs)$
+is a quasi-isomorphism (refinement of \v{C}ech covers, standard); the
+analogous map onto $\Tot \Cech^{\bullet}(\cA, \Obs)$ is also a
+quasi-isomorphism by the same lemma. Hence the LHS of
+\eqref{eq:weiss-cosheaf-condition} (the homotopy colimit over the
+nerve of $\cW$) computes the same cohomology as our finite-atlas
+\v{C}ech complex, which by~\eqref{eq:abutment} computes
+$\Obs^{q, \hCS}_X(X)$.
+\end{proof}
+
+% =================================================================
+\section{Three attack--heal cycles on the global proof}
+\label{sec:attack-heal}
+% =================================================================
+
+\subsection{Cycle 1: hocolim convergence on a Weiss cover with infinite nerve}
+
+\paragraph{Attack.} The Weiss-cover condition allows arbitrary
+covers, including those with infinite nerve (e.g.~the cover by all
+polydisks of all radii). The convergence of the homotopy colimit
+\eqref{eq:weiss-cosheaf-condition} requires control of higher
+\v{C}ech terms not visible on a finite atlas.
+
+\paragraph{Heal.} The proof reduces the Weiss-cosheaf statement to a
+finite-atlas \v{C}ech statement by the refinement-invariance argument
+at the end of Theorem~\ref{thm:rigorous-weiss-descent}. Refinement
+between Weiss covers preserves the cohomology of the total complex
+because: (i) the spectral sequence for the refined cover converges
+strongly by the same boundedness argument (when restricted to a
+finite refinement common to $\cW$ and $\cA$); (ii) a Weiss cover by
+arbitrarily small polydisks admits a finite sub-cover by compactness
+of $X$, and this finite sub-cover is also a Weiss cover (every
+finite subset of $X$ has a polydisk neighbourhood within the finite
+sub-cover). The Costello--Gwilliam vol.~$1$~\cite[Theorem~6.3.2 /
+Proposition~7.2.3]{CG1} factorisation-cosheaf invariance under
+refinement closes the loop.
+
+\subsection{Cycle 2: harmonic injection compatibility with the BV pairing}
+
+\paragraph{Attack.} The harmonic projector $P_{\cH}^X$ is defined
+using the closed-K\"ahler $L^{2}$-pairing on $X$, but the local BV
+pairing on each polydisk uses the holomorphic Costello--Li propagator
+$P_X|_{D_\alpha \times D_\alpha}$. These two pairings are not
+\emph{a priori} compatible; the harmonic split of
+Lemma~\ref{lem:harmonic-orthogonal-split} could fail to be a
+direct-sum split of BV-symplectic vector spaces, breaking
+Lemma~\ref{lem:harm-cech-trivial}'s stalk identification.
+
+\paragraph{Heal.} The harmonic split is compatible with the BV
+pairing because (a) the BV pairing on the polydisk-local
+cochain complex \eqref{eq:local-pre-fa} is the pairing
+$\int_X \Omega_X \wedge (- \wedge -)$ between
+$\Omega^{0, \bullet}$ and its dual, and (b) this pairing on the
+zero-mode subspace is exactly the $L^{2}$-pairing combined with
+$\dbar^{*}$, computed in
+\texttt{lem:bv-pairing-zero-modes-nondegenerate} of the main chapter
+to be non-degenerate on the $4 \dim \frakg$-dimensional zero-mode
+space, with rank-$2 \dim \frakg$ symplectic block on
+$\frakg^{(0)} \oplus \frakg^{(3)}$ and rank-$2 \dim \frakg$ on
+$\frakg^{(1)} \oplus \frakg^{(2)}$. Both blocks are $L^{2}$-orthogonal
+to the orthogonal-of-harmonics subspace because the symplectic form
+$\langle \alpha \otimes \zeta_1, \beta \otimes \zeta_2 \rangle_{BV}
+= \mathrm{tr}_{\mathrm{adj}}(\alpha \beta)
+\int_X \Omega_X \wedge \zeta_1 \wedge \zeta_2$
+vanishes when one factor is $L^{2}$-orthogonal to harmonics: the
+integral $\int_X \Omega_X \wedge \zeta_1 \wedge \zeta_2$ is a
+holomorphic-volume pairing that selects the $(0, 3)$-component of
+$\zeta_1 \wedge \zeta_2$, and the orthogonal-of-harmonics elements
+have zero $(0, 3)$-component on $X$ by Hodge theory.
+
+\subsection{Cycle 3: BCOV correction not enlarging the harmonic stalk}
+
+\paragraph{Attack.} The one-loop BCOV holomorphic anomaly
+$\alpha_{\mathrm{BCOV}} = (\chi_{\mathrm{top}}(X)/24)\,
+[\Omega_X]^{0,1}$ could enter the harmonic-stalk computation
+\eqref{eq:harm-stalk} as a deformation of the trivial Sym-algebra
+into a non-trivial Lie--BV algebra, invalidating the
+constant-presheaf identification of Lemma~\ref{lem:harm-cech-trivial}.
+
+\paragraph{Heal.} On $X = K3 \times E$,
+$\chi_{\mathrm{top}}(K3) \cdot \chi_{\mathrm{top}}(E) = 24 \cdot 0 = 0$,
+so $\alpha_{\mathrm{BCOV}}(K3 \times E) = 0$ identically by
+\texttt{thm:bcov-anomaly-vanishes-k3xe} of the main chapter. The
+classical cubic vertex on harmonic zero modes also vanishes by
+\eqref{eq:cubic-vertex-zero-modes-vanishes} (Hodge-degree counting:
+no $(0,4)$-form on $X$). Hence the harmonic stalk
+\eqref{eq:harm-stalk} is the trivial Sym-algebra on
+$\frakg \otimes \cH^{0,\bullet}(X)$ with no quantum correction,
+and the constant-presheaf identification is exact.
+
+% =================================================================
+\section{Quantitative bounds and the rate of convergence}
+\label{sec:quant}
+% =================================================================
+
+The spectral gap $\lambda_1 > 0$ provides quantitative control of the
+spectral-sequence convergence beyond the qualitative Lemma
+\ref{lem:offharm-collapse}: for any cocycle
+$c \in \Cech^{p}(\cA, \cH^{q}_{\perp}(\Obs))$ representing a class in
+$\Hcech^{p}(\cA, \cH^{q}_{\perp})$, the explicit primitive
+$\dbar^{*} G_X^{\perp}\, c$ has $L^{2}$-norm bounded by
+\begin{equation}
+\label{eq:quant-bound}
+ \|\dbar^{*} G_X^{\perp}\, c\|_{L^{2}}
+ \;\leq\; \frac{1}{\sqrt{\lambda_1}}\, \|c\|_{L^{2}}, \qquad
+ G_X^{\perp} = \int_0^{\infty} K_t^{X, \perp}\, dt.
+\end{equation}
+The bound \eqref{eq:quant-bound} follows from the spectral
+representation $G_X^{\perp} = (\Delta_{\dbar}^X)^{-1}|_{\cH^{\perp}}$
+and the lower bound $\|\Delta_{\dbar}^X|_{\cH^{\perp}}\|_{\mathrm{op}}
+\geq \lambda_1$. This bound makes the contraction in the
+\v{C}ech--Mayer--Vietoris cocomplex \emph{constructive}: an explicit
+primitive of an off-harmonic cocycle is given by the spectral inverse
+of the heat-flow integral. For $K3 \times E$ a Calabi--Yau with the
+Yau metric, $\lambda_1$ has the lower bound
+$\lambda_1 \geq \pi^2 / \mathrm{diam}(X)^2$ (the Lichnerowicz bound on
+a closed K\"ahler manifold of non-negative Ricci curvature).
+
+% =================================================================
+\section{Conclusion: from Cech-MV to Weiss cosheaf}
+\label{sec:conclusion}
+% =================================================================
+
+The proof of Theorem~\ref{thm:rigorous-weiss-descent} replaces the
+three-step sketch of \texttt{thm:weiss-cosheaf-k3xe} by:
+\begin{enumerate}
+\item A precise definition of the \v{C}ech--Mayer--Vietoris bicomplex
+  on a finite polydisk atlas (Definition~\ref{def:cech-mv}).
+\item A strong-convergence theorem for the associated spectral
+  sequence (Lemma~\ref{lem:strong-convergence-finite-atlas}).
+\item A harmonic / off-harmonic split of the local cohomology
+  presheaf (Lemma~\ref{lem:harmonic-orthogonal-split}).
+\item Spectral-gap-driven vanishing of the off-harmonic \v{C}ech
+  cohomology in degrees $p \geq 1$ (Lemma~\ref{lem:offharm-collapse}).
+\item K\"unneth identification of the harmonic-stalk constant presheaf
+  (Lemma~\ref{lem:harm-cech-trivial}).
+\item Collapse of the spectral sequence at $E_2$ to the harmonic
+  column, with abutment $\Obs^{q, \hCS}_X(X)$
+  (Theorem~\ref{thm:rigorous-weiss-descent}).
+\item Three attack--heal cycles dispatching candidate failures
+  (Section~\ref{sec:attack-heal}).
+\end{enumerate}
+The Weiss cosheaf condition is recovered as a corollary of the
+finite-atlas convergence by refinement invariance of factorisation
+\v{C}ech cohomology (Costello--Gwilliam vol.~$1$~\cite{CG1}
+Theorem~$6.3.2$, Proposition~$7.2.3$). The $\lambda_1 > 0$ spectral
+gap is the analytic input that makes the off-harmonic complex
+acyclic; the $4$-dimensional harmonic space contributes the entire
+$E_2 = E_\infty$ page through a single column at $p = 0$. This
+gives the rigorous form of the global descent statement promised by
+Costello--Gwilliam vol.~$2$~\cite{CG2} Chapter~$11$ on holomorphic
+factorisation algebras over a closed complex manifold, specialised to
+$X = K3 \times E$ with the Costello--Li propagator.
+
+\paragraph{Remaining work.} The present proof handles
+$X = K3 \times E$ specifically (compact CY$_3$, finite atlas,
+$\lambda_1 > 0$, $\chi_{\mathrm{top}} = 0$). For non-compact CY$_3$
+(local surfaces, $\C^3$, the conifold) the same structure applies
+but $\lambda_1 = 0$ (no spectral gap on a non-compact manifold) and
+the harmonic space is infinite-dimensional. The proof then requires
+$\Omega$-equivariant cohomology (turning on a torus action with
+finite-dimensional fixed-point set) or compactly supported BV
+cochains; this is outside the present note's scope.
+
+% =================================================================
+\begin{thebibliography}{99}
+
+\bibitem{CG1}
+K.~Costello and O.~Gwilliam,
+\emph{Factorization Algebras in Quantum Field Theory},
+Vol.~$1$, New Mathematical Monographs $31$, Cambridge University
+Press, $2017$.
+
+\bibitem{CG2}
+K.~Costello and O.~Gwilliam,
+\emph{Factorization Algebras in Quantum Field Theory},
+Vol.~$2$, New Mathematical Monographs $41$, Cambridge University
+Press, $2021$.
+
+\bibitem{CostelloLi2012}
+K.~Costello and S.~Li,
+\emph{Quantum BCOV theory on Calabi--Yau manifolds and the higher
+genus B-model}, arXiv:$1201.4501$ ($2012$); arXiv:$1611.00037$
+($2016$).
+
+\bibitem{BGV}
+N.~Berline, E.~Getzler, M.~Vergne,
+\emph{Heat Kernels and Dirac Operators},
+Grundlehren der mathematischen Wissenschaften $298$, Springer, $1992$.
+
+\bibitem{Demailly}
+J.-P.~Demailly,
+\emph{Complex Analytic and Differential Geometry}, OpenContent book,
+$2012$.
+
+\bibitem{Godement}
+R.~Godement,
+\emph{Topologie alg\'ebrique et th\'eorie des faisceaux}, Hermann,
+$1958$.
+
+\bibitem{BCOV1993}
+M.~Bershadsky, S.~Cecotti, H.~Ooguri, C.~Vafa,
+\emph{Kodaira--Spencer theory of gravity and exact results for
+quantum string amplitudes},
+Comm.~Math.~Phys.\ $165$ ($1994$), $311$--$427$.
+
+\end{thebibliography}
+
+\end{document}

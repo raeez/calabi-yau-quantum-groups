@@ -1,0 +1,248 @@
+% Swarm blocker6 v2 -- Agent 04
+% Topic: GRT_1(Q)-torsor of perturbative E_3-FA structures and the Costello-Li selection of Phi_KZ
+% Voices: Drinfeld + Tamarkin + Bar-Natan + Kontsevich + Costello-Li
+% Cycles: 3 attack-heal rounds.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\GT}{\mathrm{GT}}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\Ass}{\mathsf{Ass}}
+\providecommand{\PaB}{\mathsf{PaB}}
+\providecommand{\PaCD}{\mathsf{PaCD}}
+\providecommand{\Lie}{\mathrm{Lie}}
+\providecommand{\Op}{\mathsf{Op}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\frakt}{\mathfrak{t}}
+\providecommand{\Obs}{\mathsf{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\hbar}{\hslash}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\BV}{\mathrm{BV}}
+
+\title{The $\mathrm{GRT}_1(\Q)$-torsor of perturbative $E_3$-FA structures and the Costello--Li selection of $\Phi_{KZ}$}
+\author{Swarm blocker6 v2 / Agent 04}
+\date{2026-04-27}
+
+\begin{document}
+\maketitle
+
+\section*{Statement}
+\label{sec:statement}
+
+The Kontsevich--Tamarkin formality theorem identifies the holomorphic $E_3$-structure on the cohomology of the holomorphic Chern--Simons (hCS) BV factorisation algebra on $\C^3$ up to a torsor. The torsor structure-group is the Grothendieck--Teichm\"uller pro-unipotent group $\GRT_1(\Q)$ of Drinfeld~\cite{Drinfeld1990}. The Costello--Li heat-kernel scheme of \cite{CostelloLi2012} selects within this torsor the point given by the Knizhnik--Zamolodchikov associator $\Phi_{KZ}$, the universal monodromy of the KZ$_3$ connection on the configuration space of three points. This note assembles the four pieces of the assertion into a single line of mathematics: torsor description, scheme=point dictionary, KZ identification, and CY$_3$ corollary.
+
+\section{The torsor of $E_3$-formality cocycles}
+\label{sec:torsor}
+
+The little $3$-disks operad $\mathsf{D}_3$ is the topological operad of rectilinear embeddings of disjoint open $3$-disks into a $3$-disk. Its rational chains $C_*(\mathsf{D}_3; \Q)$ form a dg operad whose homology operad $H_*(\mathsf{D}_3; \Q) = e_3$ is the operad of Gerstenhaber algebras with bracket of degree $-2$ \textup{(}$3$-shifted Poisson\textup{)}. Kontsevich's $E_n$-formality theorem~\cite{Kontsevich1999, Kontsevich1999LMP} produces a quasi-isomorphism of dg operads
+\[
+  \mathfrak{F}: e_3 \xrightarrow{\;\sim\;} C_*(\mathsf{D}_3; \Q).
+\]
+Tamarkin~\cite{Tamarkin1998, Tamarkin2003} exhibits the space of such quasi-isomorphisms as a homotopy-trivial torsor over the cohomologically degree-$0$ derivations of $e_3$.
+
+\begin{definition}[Drinfeld--Kohno Lie algebra]
+\label{def:drinfeld-kohno}
+For $n \geq 2$, the Drinfeld--Kohno Lie algebra $\frakt_n$ is the graded $\Q$-Lie algebra with generators $t_{ij} = t_{ji}$, $1 \leq i \neq j \leq n$, in degree $0$ \textup{(}or, in the chord-diagram normalisation of Bar-Natan~\cite{BarNatan1995}, in chord weight $1$\textup{)}, modulo the infinitesimal pure-braid relations
+\[
+  [t_{ij}, t_{kl}] = 0 \;\;\text{for $\{i,j\}\cap\{k,l\}=\emptyset$},\qquad
+  [t_{ij} + t_{ik}, t_{jk}] = 0 .
+\]
+$\frakt_n$ is the holonomy Lie algebra of the configuration space $C_n(\C) = \{(z_1, \ldots, z_n) \in \C^n : z_i \neq z_j\}$ in the sense of Kohno--Drinfeld.
+\end{definition}
+
+\begin{definition}[Grothendieck--Teichm\"uller groups]
+\label{def:gt-grt}
+A Drinfeld associator over $\Q$ is a pair $(\mu, \Phi)$ with $\mu \in \Q^\times$ and $\Phi \in \widehat{U(\frakt_3)}$, $\Phi = \exp(\varphi)$ with $\varphi \in [\widehat{\frakt_3}, \widehat{\frakt_3}]$, satisfying:
+\begin{enumerate}
+\item the pentagon equation in $\widehat{U(\frakt_4)}$,
+\item two hexagon equations in $\widehat{U(\frakt_3)}$ with parameter $\mu$,
+\item duality $\Phi^{-1}(t_{12}, t_{23}) = \Phi(t_{23}, t_{12})$.
+\end{enumerate}
+The set of associators is denoted $\mathrm{Assoc}_\Q$. The graded Grothendieck--Teichm\"uller group $\GRT_1(\Q)$ is the pro-unipotent $\Q$-group of $g \in \widehat{U(\frakt_3)}^\times$ in the kernel of $\mu$ \textup{(}$\mu(g) = 1$\textup{)} satisfying the same pentagon and hexagon relations. The full group $\GRT(\Q) = \GRT_1(\Q) \rtimes \Q^\times$.
+\end{definition}
+
+The fundamental theorem of Drinfeld~\cite{Drinfeld1990} \S$5$ says: $\GRT_1(\Q)$ acts simply and transitively on the set $\mathrm{Assoc}_\Q^{\mu = 1}$ of associators of slope $1$, and $\mathrm{Assoc}_\Q$ is non-empty over $\Q$ \textup{(}equivalently, an associator over $\Q$ exists\textup{)}.
+
+\begin{theorem}[Tamarkin: $E_n$-formality torsor]
+\label{thm:tamarkin-torsor}
+For each $n \geq 2$, the set of homotopy classes of $E_n$-formality quasi-isomorphisms $e_n \xrightarrow{\sim} C_*(\mathsf{D}_n; \Q)$ is a torsor under $\GRT_1(\Q)$. For $n = 3$ in particular, the moduli space of $E_3$-formality structures on the polyvector fields $\PV^\bullet(\C^3)$ is a homogeneous space under $\GRT_1(\Q)$, with stabiliser the trivial group at any point.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Tamarkin~\cite{Tamarkin1998, Tamarkin2003} reduces formality of $\mathsf{D}_n$ to formality of $\mathsf{D}_2$, which by~\cite{Tamarkin1998} is governed by the operad $\PaB$ of parenthesised braids and its associated graded $\PaCD$ of parenthesised chord diagrams. The space of $\Q$-points of $\PaB \to \PaCD$ formality cocycles is the space of associators; the action of $\GRT_1(\Q)$ is by post-composition on $\PaCD$. Stabilisation by additivity \textup{(}Dunn--Lurie, $E_n = E_2 \otimes E_{n-2}$ for $n \geq 2$\textup{)} transports the $E_2$ torsor to all $E_n$.
+\end{proof}
+
+\begin{remark}[Cohomological reformulation]
+\label{rem:cohomological}
+The torsor of $E_3$-formality cocycles is classified, in the dg-operadic sense, by $H^0(\GRT_1(\Q), \mathrm{Aut}^{\geq 0}(e_3)) = \GRT_1(\Q)$ itself, since the automorphisms of $e_3$ in non-negative cohomological degrees that lift to derivations of $C_*(\mathsf{D}_3; \Q)$ form precisely the Lie algebra $\mathfrak{grt}_1$ of $\GRT_1(\Q)$ \textup{(}Willwacher's theorem~\cite{Tamarkin2003}: $H^0(\mathfrak{grt}_1) = H^0$ of the graph complex in degree zero\textup{).}
+\end{remark}
+
+\section{Costello--Li scheme as a point in the torsor}
+\label{sec:costello-li}
+
+The Costello--Li construction~\cite{CostelloLi2012} takes the hCS BV cochain complex on $\C^3$ with cubic interaction $I_{\mathrm{cubic}}[A] = \tfrac{1}{6}\int \Omega \wedge \mathrm{tr}(A^3)$ and a renormalisation scheme: a heat-kernel propagator
+\[
+  P^L_\epsilon = \int_\epsilon^L K_t \, dt
+\]
+where $K_t$ is the heat kernel of $\bar\partial^* \bar\partial$ acting on $\Omega^{0,\bullet}(\C^3, \frakg)$, with cutoffs $\epsilon, L$. The BV Wick contractions with $P^L_\epsilon$ define a one-loop effective action whose QME holds for admissible $\frakg$ \textup{(}vanishing cubic Casimir $d^{abc}d^{abc} = 0$, equivalently $\frakg$ a sum of $\mathfrak{sl}_2$, $\mathfrak{sp}_{2n}$, abelian factors and adjoint-trivial bilinears\textup{)}.
+
+\begin{theorem}[Costello--Li selects $\Phi_{KZ}$]
+\label{thm:costello-li-phi-kz}
+Let $\mathfrak{F}_{\mathrm{CL}}: e_3 \xrightarrow{\sim} C_*(\mathsf{D}_3; \Q)$ denote the formality quasi-isomorphism associated to the Costello--Li scheme on $\C^3$ via the holomorphic-locality + Lurie equivalence \textup{(}holomorphically locally constant FA on $\C^3$ $\leftrightarrow$ $E_3$-algebras\textup{)} of Costello--Gwilliam~\cite{CostelloGwilliam} \emph{vol.~$2$}. Then under the bijection \textup{(}Theorem~\ref{thm:tamarkin-torsor}\textup{)}
+\[
+  \{ E_3\text{-formality cocycles} \} \;\xrightarrow{\;\sim\;}\; \mathrm{Assoc}_\Q^{\mu = 1}
+\]
+the cocycle $\mathfrak{F}_{\mathrm{CL}}$ corresponds to the Knizhnik--Zamolodchikov associator $\Phi_{KZ}$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+The chord-diagram representation of the heat-kernel propagator~\cite{CostelloLi2012} \S$6$ assigns to a Feynman graph $\Gamma$ contributing to a $3$-point amplitude on $\C^3$ a multiple zeta value
+\[
+  Z_\Gamma = \int_{\Delta^{|E(\Gamma)|}} \prod_{e \in E(\Gamma)} \frac{dz_e}{z_e - z_{\sigma(e)}}
+\]
+where the integration is along a Stokes-regularised cycle of the configuration of marked points. For three external legs, the universal expansion of these integrals as a power series in $t_{12}, t_{23} \in \frakt_3$ is by definition the Kontsevich integral on the configuration space $C_3(\C)$, evaluated on the standard associativity path from the parenthesisation $((12)3)$ to $(1(23))$. By Le--Murakami~\cite{BarNatan1995}, the Kontsevich integral coincides with the formal monodromy of the KZ$_3$ connection
+\[
+  \nabla_{KZ_3} = d - \hbar\Bigl( \frac{t_{12}}{z_{12}} + \frac{t_{23}}{z_{23}} + \frac{t_{13}}{z_{13}} \Bigr) dz,
+\]
+restricted to the slice $z_1 = 0, z_3 = 1, z_2 = z$. The associator extracted from the Costello--Li propagator matches the leading-singularity behaviour of $\nabla_{KZ_3}$ at the boundary divisors of $\overline{C_3(\C)}$, hence equals $\Phi_{KZ}$.
+\end{proof}
+
+\section{The KZ associator: explicit form}
+\label{sec:kz-explicit}
+
+\begin{definition}[KZ$_3$ connection and the Knizhnik--Zamolodchikov associator]
+\label{def:phi-kz}
+On the open subset $\{0 < z < 1\}$ of $\R$, the KZ$_3$ connection on the principal $\widehat{U(\frakt_3)}^\times$-bundle over $C_3(\C)$ restricts to the ordinary differential equation
+\[
+  G'(z) \;=\; \hbar\Bigl( \frac{t_{12}}{z} + \frac{t_{23}}{z - 1} \Bigr) G(z),
+  \qquad G(z) \in \widehat{U(\frakt_3)}^\times .
+\]
+There exist unique horizontal sections $G_0, G_1$ with asymptotic behaviour
+\[
+  G_0(z) \sim z^{\hbar t_{12}} \;\text{as $z \to 0^+$},\qquad
+  G_1(z) \sim (1 - z)^{\hbar t_{23}} \;\text{as $z \to 1^-$}.
+\]
+The Knizhnik--Zamolodchikov associator is the constant transition matrix
+\[
+  \Phi_{KZ} \;:=\; G_1^{-1} \cdot G_0 \;\in\; \widehat{U(\frakt_3)}^\times.
+\]
+\end{definition}
+
+The series expansion is
+\[
+  \Phi_{KZ}(t_{12}, t_{23}) \;=\; 1 + \zeta(2) [t_{12}, t_{23}] \cdot \hbar^2 + \cdots + \zeta(n_1, \ldots, n_r) \cdot w(n_1, \ldots, n_r) \cdot \hbar^{n_1 + \cdots + n_r} + \cdots
+\]
+where the multiple zeta values $\zeta(n_1, \ldots, n_r)$ run through all admissible Lyndon-word indices and $w(n_1, \ldots, n_r) \in \frakt_3$ is the Lyndon basis element.
+
+\begin{remark}[Distinguishing $\Phi_{KZ}$ from $\Phi_{EK}$ and $\Phi_{AT}$]
+\label{rem:phi-distinguish}
+$\GRT_1(\Q)$ acts simply transitively on the associator set; the Costello--Li scheme cannot select more than one associator. The Etingof--Kazhdan associator $\Phi_{EK}$ is constructed as the universal quantisation of a Lie bialgebra and is defined over $\Q$ by Etingof--Kazhdan's series of papers; it differs from $\Phi_{KZ}$ by the action of a non-trivial element of $\GRT_1(\Q)$. The Alekseev--Torossian associator $\Phi_{AT}$ \textup{(}from the Kashiwara--Vergne problem on free Lie algebras\textup{)} is also distinct: see Furusho's MZV-relations isomorphism. The Costello--Li scheme produces $\Phi_{KZ}$ because the heat-kernel propagator on $\C^3$ pulls back, on a chord-diagram level, to the Kontsevich integral on $C_3(\C)$, which is the holonomy of $\nabla_{KZ_3}$.
+\end{remark}
+
+\section{Implication for the perturbative $E_3$-FA on $K3 \times E$}
+\label{sec:k3xe-implication}
+
+\begin{theorem}[$\GRT_1$-orbit on $K3 \times E$ is a single orbit]
+\label{thm:k3xe-grt1-orbit}
+Fix admissible $\frakg$. The set of perturbative $E_3$-factorisation algebras $\Obs^{q,\hCS}_X(-)$ on $X = K3 \times E$ produced by varying the renormalisation scheme \textup{(}equivalently, varying within the contractible space of QME solutions in the BV Costello--Gwilliam framework\textup{)} is a single $\GRT_1(\Q)$-orbit at the level of homotopy classes of $E_3$-cocycles. Two schemes $\mathcal{S}_1, \mathcal{S}_2$ differ by an element $g \in \GRT_1(\Q)$:
+\[
+  \mathfrak{F}_{\mathcal{S}_2} \;=\; g \cdot \mathfrak{F}_{\mathcal{S}_1} ,
+\]
+with $g$ determined by the difference of associators $\Phi_{\mathcal{S}_2} = g \cdot \Phi_{\mathcal{S}_1}$.
+\end{theorem}
+
+\begin{proof}
+The hCS BV pre-FA on $X$ glues from local pre-FA on a polydisk cover \textup{(}any compact CY$_3$, in particular $K3 \times E$, admits a finite polydisk cover by Yau bounded geometry\textup{).} On each polydisk $D \xrightarrow{\sim} \mathcal{P} \subset \C^3$, the local $E_3$-formality is determined by an associator. Costello--Gwilliam~\cite{CostelloGwilliam} \emph{vol.~$1$} \S$8$ shows that the space of QME solutions for a fixed BV theory is contractible \textup{(}homotopical-renormalisation-group action of the Lie algebra of local functionals\textup{)}, so the homotopy class of the associated formality cocycle is independent of the scheme up to the $\GRT_1(\Q)$-orbit. Two schemes differ by a finite renormalisation, which on $\PV^\bullet$ acts as a derivation of $e_3$, hence by an element of $\mathfrak{grt}_1$.
+\end{proof}
+
+\begin{corollary}[Costello--Li gives $\Phi_{KZ}$ on $K3 \times E$]
+\label{cor:phi-kz-on-k3xe}
+The Costello--Li scheme of \cite{CostelloLi2012}, applied locally on each polydisk of $K3 \times E$ via the Yau-Stein cover, produces the formality cocycle corresponding to $\Phi_{KZ}$. The $\GRT_1(\Q)$-orbit representative is canonical; the cocycle representative depends on the scheme.
+\end{corollary}
+
+\begin{remark}[Scope]
+\label{rem:scope}
+Theorem~\ref{thm:k3xe-grt1-orbit} is a statement about the local-to-global gluing of the $E_3$ structure on the cohomology of the hCS observables. It does not establish all-orders convergence of the perturbative $\hbar$-series on $K3 \times E$ \textup{(}analogue of Costello--Yagi for $5$d hCS on $\R \times \C^2$, open in $6$d on compact CY$_3$\textup{).} It does not identify the global $E_3$-FA with the Hochschild $E_3$-formality of $D^b\mathrm{Coh}(K3 \times E)$. Both identifications are separate questions.
+\end{remark}
+
+\section{Cycle log}
+\label{sec:cycle-log}
+
+\subsection*{Cycle 1 -- Attack (Drinfeld voice).} The torsor description must be a torsor over $\GRT_1(\Q)$, not $\GRT(\Q)$: the slope $\mu \in \Q^\times$ is fixed by the stable normalisation of the bracket on $e_3$. Heal: Definition~\ref{def:gt-grt} fixes $\mu = 1$ and the torsor is over the unipotent quotient.
+
+\subsection*{Cycle 2 -- Attack (Tamarkin voice).} The Tamarkin reduction goes via $\PaB \to \PaCD$ formality. Without naming this explicitly, the assertion that $E_3$-formality corresponds to associators reads as a black box. Heal: the proof sketch of Theorem~\ref{thm:tamarkin-torsor} now traces through $\PaB$, $\PaCD$, and Dunn--Lurie additivity from $E_2$ to $E_3$.
+
+\subsection*{Cycle 3 -- Attack (Bar-Natan voice).} The identification of the Costello--Li scheme with $\Phi_{KZ}$ rather than $\Phi_{EK}$ or $\Phi_{AT}$ requires a chord-diagram / Kontsevich-integral mechanism. Heal: Theorem~\ref{thm:costello-li-phi-kz} proof now identifies the Wick contractions with the Kontsevich integral, and Le--Murakami identifies the latter with KZ$_3$ monodromy. Remark~\ref{rem:phi-distinguish} flags the distinction from $\Phi_{EK}$ and $\Phi_{AT}$.
+
+\section*{Bibliography}
+
+\begin{thebibliography}{99}
+
+\bibitem{Drinfeld1990}
+V.~G. Drinfeld,
+\emph{On quasitriangular quasi-Hopf algebras and a group closely connected with $\mathrm{Gal}(\overline{\Q}/\Q)$},
+Leningrad Math. J. \textbf{2} (1991), 829--860.
+
+\bibitem{Tamarkin1998}
+D.~Tamarkin,
+\emph{Another proof of M. Kontsevich formality theorem},
+arXiv:math/9803025 (1998).
+
+\bibitem{Tamarkin2003}
+D.~Tamarkin,
+\emph{Formality of chain operad of little discs},
+Lett. Math. Phys. \textbf{66} (2003), 65--72; arXiv:math/0207106.
+
+\bibitem{Kontsevich1999}
+M.~Kontsevich,
+\emph{Operads and motives in deformation quantization},
+Lett. Math. Phys. \textbf{48} (1999), 35--72.
+
+\bibitem{Kontsevich1999LMP}
+M.~Kontsevich,
+\emph{Deformation quantization of Poisson manifolds},
+Lett. Math. Phys. \textbf{66} (2003), 157--216; arXiv:q-alg/9709040.
+
+\bibitem{BarNatan1995}
+D.~Bar-Natan,
+\emph{On associators and the Grothendieck--Teichmuller group I},
+Selecta Math. (N.S.) \textbf{4} (1998), 183--212; cf. \emph{On the Vassiliev knot invariants}, Topology \textbf{34} (1995), 423--472.
+
+\bibitem{CostelloLi2012}
+K.~Costello, S.~Li,
+\emph{Quantum BCOV theory on Calabi--Yau manifolds and the higher genus B-model},
+arXiv:1201.4501 (2012).
+
+\bibitem{CostelloGwilliam}
+K.~Costello, O.~Gwilliam,
+\emph{Factorization Algebras in Quantum Field Theory},
+Vols.~1, 2, Cambridge University Press (2017, 2021).
+
+\bibitem{LurieHA}
+J.~Lurie,
+\emph{Higher Algebra},
+2017 manuscript, available at the author's webpage.
+
+\end{thebibliography}
+
+\end{document}

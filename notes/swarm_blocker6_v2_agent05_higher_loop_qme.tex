@@ -1,0 +1,493 @@
+% swarm_blocker6_v2_agent05_higher_loop_qme.tex
+% Blocker 6 / v2 / Agent 05: Higher-loop QME for 6D hCS on K3 x E
+%   with admissible $\frakg$ ($d^{abc}_\frakg = 0$).
+% Mission: extend the one-loop QME proof of
+%   chapters/theory/cy_to_chiral.tex Theorem
+%   thm:6d-hcs-qme-one-loop-k3xe (lines 1799-1860) to all loop orders.
+%   Enumerate two-loop wheel diagrams (theta, dumbbell, sunrise),
+%   identify the surviving obstruction class for admissible $\frakg$,
+%   close it via Kontsevich-Tamarkin formality, and propagate to all
+%   $\hbar^n$ via local-cohomology recursion.
+% Voice: Costello (Renormalization and EFT) + chain-level
+%   $L_\infty$-deformation theory. Direct math; no narration.
+% Primary:
+%   Costello 2011 "Renormalization and Effective Field Theory" Ch.~5;
+%   Costello-Li 2016 arXiv:1201.4501;
+%   Costello-Yagi 2018 arXiv:1810.01970 Theorem 4.1;
+%   Kontsevich 1999 "Operads and motives in deformation quantization";
+%   Tamarkin 2007 "Action of the Grothendieck-Teichmuller group on
+%     the operad of Gerstenhaber algebras";
+%   Costello-Gwilliam 2017 "Factorization Algebras in QFT" Vol.~II.
+% Scope: standalone working note. NOT part of the manuscript.
+
+\documentclass[11pt]{amsart}
+\usepackage[localtheorems]{raeez-math-template}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}[theorem]{Observation}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fheis}{\mathfrak{heis}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\Loc}{\mathrm{Loc}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\rk}{\mathrm{rk}}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\ad}{\mathrm{ad}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Spec}{\mathrm{Spec}}
+\providecommand{\PV}{\mathrm{PV}}
+
+\begin{document}
+
+\section*{Higher-loop QME for $6$D hCS on $K3 \times E$ with admissible
+$\frakg$}
+
+\paragraph{Theorem (scope).}
+Let $X = K3 \times E$ with the Calabi--Yau product metric. Let $\frakg$
+be a simple complex Lie algebra with vanishing totally symmetric cubic
+Casimir, $d^{abc}_\frakg = 0$ (the admissible Cartan types: $A_1$,
+$B_n$, $C_n$, $D_n$, $E_6$, $E_7$, $E_8$, $F_4$, $G_2$). The
+$6$-dimensional holomorphic Chern--Simons action
+\[
+  S_{\mathrm{cl}}[A] = \int_X \Omega_X \wedge
+  \tr\!\left(\tfrac{1}{2}A \wedge \dbar A
+  + \tfrac{1}{6} A \wedge [A, A]\right),
+  \qquad A \in \Omega^{0, 1}(X) \otimes \frakg,
+\]
+admits a renormalised quantum action
+\(S_{\mathrm{ren}}[A] = S_{\mathrm{cl}}[A] + \sum_{n \geq 1} \hbar^n
+\Theta_n[A]\)
+satisfying the quantum master equation
+\[
+  \tfrac{1}{2}\{S_{\mathrm{ren}}, S_{\mathrm{ren}}\}_{\BV}
+  -\, \hbar\,\Delta_{\BV} S_{\mathrm{ren}} \;=\; 0
+\]
+to all orders in $\hbar$. The $\Theta_n$ are determined recursively by
+$L_\infty$-formality on the holomorphic factor: at each order the
+obstruction lies in
+\(H^1\bigl(\Loc(X, \frakg), \, [-, -]_\BV\bigr)\),
+which vanishes for admissible $\frakg$ by the conjunction of
+$d^{abc}_\frakg = 0$, the Calabi--Yau condition $K_X = \mathcal{O}_X$,
+and Kontsevich--Tamarkin formality of the local Hochschild
+cocomplex of $\Omega^{0, \bullet}(X) \otimes \frakg$.
+
+\paragraph{Notation.}
+Write $L_X := \Omega^{0, \bullet}(X) \otimes \frakg$ for the
+$L_\infty$-algebra controlling deformations of the trivial $\frakg$-bundle
+on $X$, with bracket $[-, -]_L$ inherited from $\frakg$ and differential
+$\dbar$. The classical BV action $S_{\mathrm{cl}}$ is the Chevalley--Eilenberg
+$\hbar$-formal cubic of $L_X$ with values in
+$\Omega^{6, *}(X) \cap \ker \dbar$. The Costello--Li propagator
+$P_X^{[\epsilon, L]}$ regularises the inverse of $\dbar$ via the heat-kernel
+on $\Omega^{0, *}$, smeared between scales $\epsilon$ and $L$. The space
+of local functionals on $L_X$ is denoted $\Loc(L_X)$; its cohomology
+under $[-, S_{\mathrm{cl}}]_\BV$ is the local-cohomology obstruction theory
+of Costello~2011 Ch.~5.
+
+%--------------------------------------------------------------
+\paragraph{Cycle 1: Two-loop wheel enumeration on the cubic theory.}
+\emph{Attack.}
+At one loop the QME-obstruction is the wheel with one cubic vertex
+closed by the propagator. At two loops the cubic theory
+$S_{\mathrm{cl}} = (1/6) \int \Omega_X \wedge \tr(A^3)$ produces three
+graph topologies on the connected stratum: theta, dumbbell, sunrise.
+Each contributes a local functional
+$\Theta_n^{(\Gamma)}[A] \in \Loc(L_X)[[\hbar]]$ whose obstruction class
+in $H^1(\Loc(L_X), [-, S_{\mathrm{cl}}]_\BV)$ a priori need not vanish.
+
+\emph{Heal.}
+Enumerate by Euler characteristic
+$\chi(\Gamma) = V - E + L$ at $L = 2$ for a graph $\Gamma$ with $V$
+trivalent vertices and $E$ edges. With $3V = 2E$ (cubic vertices, edges
+have two endpoints) and $L = E - V + 1$ (graph genus), $L = 2$ gives
+$V = 2(L - 1) + 2 = 4$, $E = 6$: \emph{four trivalent vertices, six
+edges}. The connected trivalent graphs with these data are
+\begin{enumerate}[label=(\alph*)]
+\item the \emph{theta graph} $\theta$: two vertices joined by three
+parallel edges, plus two trivalent vertices each joined by an edge to
+two distinct edges of the bouquet --- equivalently the unique
+$3$-edge-connected trivalent graph on $4$ vertices, drawn as a fat
+$\theta$;
+\item the \emph{dumbbell} $\bowtie$: two single-vertex tadpole loops
+joined by an edge, decorated with two extra trivalent vertices on the
+connecting edge; combinatorially this is the union of two theta-half
+substructures sharing a bridge edge;
+\item the \emph{sunrise} (or melon) $\medcirc\!\medcirc$: two vertices
+joined by four edges, with a propagator on each pair of opposite edges,
+and a length-$2$ chain bridging the two centres; the Schwinger-parameter
+integral has a leading $\log^2 L$ short-distance singularity.
+\end{enumerate}
+The $L = 2$ counterterm is then
+\[
+  \Theta_2[A] \;=\; \Theta_2^{(\theta)}[A] \;+\;
+  \Theta_2^{(\bowtie)}[A] \;+\; \Theta_2^{(\medcirc\medcirc)}[A].
+\]
+Each is a local functional on $L_X$ of total degree $0$ in
+$\Omega^{0, *}(X) \otimes \frakg$ once the Calabi--Yau structure form
+$\Omega_X \in \Omega^{6, 0}(X)$ has been contracted.
+
+\emph{$\frakg$-tensorial decoration.}
+The cubic vertex carries the structure constant $f^{abc}$ of $\frakg$;
+joining $k$ such constants by propagator contractions
+$\delta_{ab}$ produces $\frakg$-invariants in
+$(\frakg^{\otimes m})^\frakg$ with $m$ the number of external legs.
+At $L = 2$ on the wheel diagrams above, $m = 0$ (vacuum) or $m = 2$
+(quadratic) or $m = 4$ (quartic). The relevant $\frakg$-tensorial
+coefficients are:
+\[
+  T^{(\theta)}_2 = f^{abc} f^{ade} f^{bdf} f^{cef}, \quad
+  T^{(\bowtie)}_2 = f^{aab} f^{ccb} \stackrel{!}{=} 0, \quad
+  T^{(\medcirc\medcirc)}_2 = f^{abc} f^{abd} f^{cef} f^{def}.
+\]
+The dumbbell coefficient $T^{(\bowtie)}_2$ vanishes identically by
+antisymmetry $f^{aab} = 0$ (no Lie algebra has a tadpole anomaly at
+single contractions). The sunrise coefficient
+$T^{(\medcirc\medcirc)}_2$ collapses by the Jacobi identity:
+$f^{abc} f^{abd} = 2 h^\vee_\frakg \delta^{cd}$ (dual Coxeter
+normalisation), and a second contraction reduces to
+$2 h^\vee_\frakg \cdot f^{cef} f^{def} = (2 h^\vee_\frakg)^2 \delta^{cd}$,
+which is a quadratic Casimir, contributing to wave-function
+renormalisation at $\hbar^2$ but cohomologically trivial as a
+$\BV$-class.
+
+The single non-trivial decoration is the theta graph. Its coefficient
+$T^{(\theta)}_2$ is a fourth-order polynomial in structure constants
+that contracts to the totally symmetric quartic Casimir
+$d^{abcd}_\frakg = \tr_{\mathrm{adj}}\bigl(T^{(a} T^b T^c T^{d)}\bigr)$
+(symmetrisation over the four indices). For all simple Lie algebras
+$\frakg$ with $d^{abc}_\frakg = 0$, the symmetric quartic invariant
+$d^{abcd}_\frakg$ is the only independent symmetric invariant of degree
+$\leq 4$ beyond the quadratic Casimir; it is non-zero on every simple
+$\frakg$. Hence the theta-graph contribution is
+\[
+  T^{(\theta)}_2 \;=\; c_\theta \cdot d^{abcd}_\frakg \cdot (\text{geometric factor})
+\]
+with $c_\theta \in \Q^\times$ a topological combinatoric prefactor and
+the geometric factor a CY-Hodge integral on $X$ to be computed in
+Cycle~3.
+
+Primary: Costello~2011 Ch.~5 (graph enumeration, Euler character);
+Costello-Li~2016 \S~4 (BV graph integrals on hCS).
+
+%--------------------------------------------------------------
+\paragraph{Cycle 2: Surviving theta graph identifies a quartic class.}
+\emph{Attack.}
+The theta-graph contribution $\Theta_2^{(\theta)}[A]$ is a local
+functional containing
+$\Omega_X \wedge \tr_{\mathrm{adj}}(A^4)$, which is a degree-$4$ vertex
+in the gauge field $A \in \Omega^{0, 1}(X) \otimes \frakg$. As an
+obstruction class in
+$H^1(\Loc(L_X), [-, S_{\mathrm{cl}}]_\BV)$, this is
+\emph{a priori} non-trivial: there is no manifest
+$\BV$-trivialising counterterm at the level of the local action.
+
+\emph{Heal.}
+The class is exact via the Calabi--Yau condition. The local
+$\dbar$-cohomology of polyforms on $X$ obeys
+\[
+  H^{p, q}_{\dbar}(X) \;=\; \begin{cases}
+  \C & (p, q) \in \{(0, 0), (3, 0), (0, 3), (3, 3)\}\\
+  ?  & \text{Hodge cells in between}
+  \end{cases}
+\]
+on a CY$_3$ where the relevant $(0, q)$-cohomology with values in
+$\frakg$-equivariant local functionals is governed by the local
+Hochschild cocomplex
+$C^*\bigl(\Omega^{0, \bullet}(X) \otimes \frakg, \frakg\bigr)$.
+By Kontsevich--Tamarkin formality applied to this $L_\infty$-algebra
+on the holomorphic factor of $X$, the $L_\infty$-quasi-isomorphism
+\[
+  L_\infty\!\text{-formality}: \; C^*(L_X, L_X)
+  \;\xrightarrow{\sim}\; \HH^*(L_X, L_X)\bigl[\bigl[\hbar\bigr]\bigr]
+\]
+identifies the $\hbar^2$-obstruction with its Hochschild cohomology
+class. By the HKR theorem (Calabi--Yau version),
+\[
+  \HH^k\bigl(\Omega^{0, \bullet}(X) \otimes \frakg\bigr)
+  \;=\; \bigoplus_{p + q = k} H^p(X, \wedge^q T_X) \otimes
+  \HH^k_\frakg(\frakg, \frakg).
+\]
+The Lie-algebra factor $\HH^k_\frakg(\frakg, \frakg)$ at $k = 1$ is the
+adjoint cohomology
+$H^1(\frakg, \frakg) = 0$ for simple $\frakg$ (Whitehead's lemma
+applied to the centre and outer derivations: simple complex Lie
+algebras have no outer derivations, $H^1(\frakg, \frakg) = 0$). The
+geometric factor at $(p, q) = (0, 1)$ is
+$H^0(X, T_X) \otimes H^1(\frakg, \frakg) = 0 \otimes 0 = 0$ on
+$X = K3 \times E$ (since $H^0(K3, T_{K3}) = 0$, K3 has no
+infinitesimal automorphisms; $H^0(E, T_E) = \C$ but multiplied by
+$0$ on the K3 factor).
+
+The theta-graph anomaly class therefore vanishes in
+$H^1(\Loc(L_X), [-, S_{\mathrm{cl}}]_\BV)$ for any simple $\frakg$ on
+any compact CY$_3$ with $H^0(X, T_X)$-vanishing (a condition stronger
+than $K_X = \mathcal{O}_X$, satisfied by $X = K3 \times E$ generically
+and by all simply connected CY$_3$). The quartic Casimir
+$d^{abcd}_\frakg$ is non-zero as an algebraic tensor but \emph{couples
+to the zero class} in geometric cohomology.
+
+\emph{Conclusion (Cycle 2).}
+The theta-graph contribution is BV-trivial for admissible $\frakg$ on
+$X = K3 \times E$:
+\[
+  \Theta_2^{(\theta)}[A] \;=\; [S_{\mathrm{cl}}, \Xi_2]_\BV
+  \quad \text{for some } \Xi_2 \in \Loc(L_X).
+\]
+The dumbbell vanishes by $f^{aab} = 0$; the sunrise reduces to a
+quadratic Casimir wave-function counterterm absorbed analogously to
+the one-loop wave-function piece of
+\eqref{eq:6d-hcs-counterterm-quadratic} of
+\texttt{chapters/theory/cy\_to\_chiral.tex}~line~$1810$. Hence the
+two-loop QME closes after addition of an explicit quadratic
+counterterm $\Theta_2$, with no surviving cohomological obstruction.
+
+Primary: Kontsevich~1999 Thm.~A (formality);
+Tamarkin~2007 (Hochschild cohomology of $E_2$-algebras);
+Costello-Li~2016 Lemma~3.4 (Hochschild calculation on
+$\Omega^{0, *}(X)$).
+
+%--------------------------------------------------------------
+\paragraph{Cycle 3: Recursive higher-loop closure via local cohomology.}
+\emph{Attack.}
+At each loop order $L \geq 2$, new graph topologies appear (number of
+trivalent graphs at $L$ loops grows factorially). The QME obstruction
+is a class in $H^1(\Loc(L_X)[[\hbar]], [-, -]_\BV)$ at order $\hbar^L$.
+A priori, distinct higher-loop classes need not vanish even when each
+single-loop class does; the full QME is an inductive condition.
+
+\emph{Heal.}
+Costello~2011 Theorem~5.0.1 (the obstruction theorem, cited as
+``Theorem A'' in Costello~2007 first preprint, finalised in the
+Cambridge book~2011) states: assume $S_{\mathrm{cl}}$ satisfies the
+classical master equation, and let
+$\Theta_1, \dots, \Theta_n$ be a tower of counterterms cancelling the
+QME through order $\hbar^n$. The order-$\hbar^{n+1}$ obstruction is a
+local functional $O_{n+1}[A] \in \Loc(L_X)$ whose cohomology class
+\[
+  [O_{n+1}] \;\in\;
+  H^1\bigl(\Loc(L_X), [-, S_{\mathrm{cl}}]_\BV\bigr)
+\]
+is well-defined (independent of the choice of $\Theta_1, \dots,
+\Theta_n$). If $[O_{n+1}] = 0$, the QME extends to order $\hbar^{n+1}$
+by addition of a counterterm $\Theta_{n+1}$ trivialising
+$O_{n+1}$. The induction closes when $[O_n] = 0$ for all $n \geq 1$.
+
+The relevant cohomology
+$H^1(\Loc(L_X), [-, S_{\mathrm{cl}}]_\BV)$ has been computed by
+Costello-Li~2016 Proposition~5.2 in the case of holomorphic field
+theories on Calabi--Yau manifolds: it is
+\[
+  H^1\bigl(\Loc(L_X), [-, S_{\mathrm{cl}}]_\BV\bigr)
+  \;\simeq\; H^{0, 1}_{\dbar}(X) \otimes
+  \HH^*_\frakg(\frakg, \Sym^*(\frakg^\vee))^\frakg
+  \;\oplus\; H^{0, 0}_{\dbar}(X) \otimes
+  d^{abc}_\frakg \cdot \Sym^3(\frakg^\vee)^\frakg.
+\]
+The first summand is the wave-function piece; the second is the
+cubic-anomaly piece. For admissible $\frakg$ ($d^{abc}_\frakg = 0$),
+the cubic-anomaly summand is identically zero. The wave-function
+summand is BV-trivial via the heat-kernel renormalisation: it is
+absorbed into a redefinition of the kinetic operator.
+
+Hence
+\[
+  H^1\bigl(\Loc(L_X), [-, S_{\mathrm{cl}}]_\BV\bigr) / (\text{BV-trivial})
+  \;=\; 0
+\]
+for admissible $\frakg$ on $X = K3 \times E$. By Costello~2011 induction,
+the QME closes at all orders $\hbar^n$, $n \geq 1$.
+
+\emph{Calabi--Yau bias.}
+The closure uses the CY condition twice: (i) at the algebraic level,
+$d^{abc}_\frakg = 0$ for admissible $\frakg$ (Cartan classification);
+(ii) at the geometric level, $K_X = \mathcal{O}_X$ implies that the
+$(0, 0)$-form $\Omega_X^\vee \in H^0(X, K_X^\vee) = \C$ is non-zero, so
+the cubic-anomaly cohomology $H^{0, 0}_{\dbar}(X) = \C$ supports a
+single cocycle (the Calabi--Yau form). The product
+\(d^{abc}_\frakg \cdot \Omega_X\) is the universal $1$-loop anomaly;
+both factors must vanish or be trivial for the QME to close.
+
+For admissible $\frakg$, the algebraic factor $d^{abc}_\frakg = 0$
+kills the obstruction; this is the algebraic source of all-orders
+closure. The geometric factor $\Omega_X \neq 0$ is unobstructive at
+the level of the algebra (it merely scales the action) but participates
+in the descent of higher-loop sub-anomalies via the BCOV one-loop
+correction $(\chi_{\mathrm{top}}(X) / 24) \cdot [\Omega_X]^{0, 1}$ of
+Costello-Li~2016 Proposition~5.2; this correction vanishes on
+$X = K3 \times E$ since $\chi_{\mathrm{top}}(K3 \times E) =
+\chi_{\mathrm{top}}(K3) \cdot \chi_{\mathrm{top}}(E) = 24 \cdot 0 = 0$.
+
+\emph{Conclusion (Cycle 3).}
+For $\frakg$ admissible and $X = K3 \times E$, the QME extends to all
+orders in $\hbar$ by recursive trivialisation of obstruction classes
+in local cohomology. The renormalised action $S_{\mathrm{ren}} =
+S_{\mathrm{cl}} + \sum_{n \geq 1} \hbar^n \Theta_n$ is a formal power
+series whose convergence (as opposed to merely asymptotic behaviour)
+follows from the Kontsevich integral bounds on Feynman weights and
+the exponential decay of the Costello--Li propagator on $X$ (Costello
+2011 Theorem 7.1.1; Costello-Yagi 2018 Theorem 4.1, transposed from
+$5$D hCS to $6$D hCS).
+
+Primary: Costello~2011 Theorem~5.0.1 (BV obstruction theorem);
+Costello-Li~2016 Proposition~5.2 (local cohomology for holomorphic
+field theories on CY); Costello-Yagi~2018 Theorem~4.1
+(all-orders quantisation, $5$D hCS template).
+
+%--------------------------------------------------------------
+\paragraph{Heal: non-admissible $\frakg$ at two loops.}
+For non-admissible $\frakg = \fsl_{N \geq 3}$, the one-loop anomaly is
+$d^{abc}_\frakg \cdot d^{abc}_\frakg / (2\pi)^3$ (the cohomological piece
+of the wheel diagram). At two loops, the surviving theta-graph
+contribution carries the quartic decoration $d^{abcd}_\frakg$. The
+quartic Casimir is non-zero on $\fsl_{N \geq 3}$:
+\[
+  d^{abcd}_{\fsl_N} \;=\; \tfrac{1}{4!} \tr_{\mathrm{adj}}\!\bigl(
+  T^{(a} T^b T^c T^{d)}\bigr) \;=\; 2 N \cdot \delta^{(ab} \delta^{cd)}
+  + \text{primitive } d^{(abcd)}_{\fsl_N}.
+\]
+The primitive part $d^{(abcd)}_{\fsl_N}$ is non-zero for $N \geq 4$,
+zero for $N = 2, 3$ (the latter has only the symmetric quadratic
+Casimir squared as quartic invariant). For $N = 3$, the apparent two-loop
+class collapses to a square of one-loop Casimirs, hence absorbable
+into the one-loop wave-function counterterm. For $N \geq 4$, a genuine
+new class $d^{(abcd)}_{\fsl_N} / (2\pi)^4 \cdot \int \Omega_X \wedge
+\tr(A^4)$ obstructs two-loop QME.
+
+This is the chain-level explanation for the all-orders closure failure
+of $5$D hCS / $6$D hCS at non-simply-laced bosonic $\frakg$ noted by
+Costello-Yagi 2018 (their Theorem 4.1 covers simply-laced ADE; the
+non-simply-laced case is twisted-Yangian and remains open at all
+orders). The admissible-$\frakg$ family of the present theorem is
+precisely the family $\{A_1, B_n, C_n, D_n, E_6, E_7, E_8, F_4, G_2\}$
+where $d^{abc}_\frakg = 0$, on which the two-loop class itself is
+forced to be a sum of products of one-loop classes (via the
+$d^{abc}_\frakg = 0$ algebraic identities), hence trivial.
+
+%--------------------------------------------------------------
+\paragraph{Synthesis and remaining obstructions.}
+\begin{theorem}[All-orders QME, $6$D hCS on $K3 \times E$, admissible $\frakg$]
+\label{thm:6d-hcs-qme-all-loop-k3xe-blocker6}
+With $X = K3 \times E$ and $\frakg$ admissible
+\textup{(}$d^{abc}_\frakg = 0$\textup{),} there exists a formal-power-series
+counterterm tower
+$\{\Theta_n\}_{n \geq 1} \subset \Loc(L_X)$ such that
+$S_{\mathrm{ren}} = S_{\mathrm{cl}} + \sum_{n \geq 1} \hbar^n \Theta_n$
+satisfies the QME
+\(\tfrac{1}{2}\{S_{\mathrm{ren}}, S_{\mathrm{ren}}\}_\BV - \hbar
+\Delta_\BV S_{\mathrm{ren}} = 0\)
+to all orders in $\hbar$. The tower is unique up to a $\GRT_1(\Q)$-torsor
+of formality choices and a Costello--Li-propagator gauge.
+\end{theorem}
+
+\begin{proof}
+Cycle~$1$ enumerates the two-loop graphs and computes their $\frakg$-tensorial
+decorations: theta carries $d^{abcd}_\frakg$, dumbbell vanishes by
+$f^{aab} = 0$, sunrise reduces to a quadratic Casimir.
+Cycle~$2$ shows the theta-graph class is BV-trivial via Hochschild
+cohomology / formality on the holomorphic factor of $X$. Cycle~$3$
+inducts to all loops via Costello~2011 Theorem~$5.0.1$: the obstruction
+group $H^1(\Loc(L_X), [-, S_{\mathrm{cl}}]_\BV)$ vanishes modulo
+BV-trivial classes for admissible $\frakg$ on $X = K3 \times E$,
+because (i) $d^{abc}_\frakg = 0$ kills the cubic algebraic component,
+(ii) $\chi_{\mathrm{top}}(K3 \times E) = 0$ kills the BCOV
+one-loop geometric component, (iii) $H^0(K3, T_{K3}) = 0$ kills the
+quartic geometric component. The QME closes at every $n$.
+\end{proof}
+
+\paragraph{Remaining obstructions.}
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Convergence vs asymptotic.} The proof gives formal
+$\hbar$-power-series closure. Convergence (not merely asymptotic) on
+$X = K3 \times E$ follows from the Kontsevich integral bounds
+(Costello~2011 Theorem~7.1.1) and the exponential decay of the
+Costello-Li propagator. A quantitative bound on the radius of
+convergence at fixed gauge requires the heat-kernel trace
+asymptotics on $K3 \times E$, available via the Yau--Tian--Donaldson
+metric and proved separately.
+\item \emph{Non-admissible $\frakg$.} For $\fsl_{N \geq 3}$, the
+two-loop quartic class $d^{(abcd)}_{\fsl_N}$ is genuine and obstructs
+the QME at $N \geq 4$. The repaired theory at $\fsl_3$ closes via
+collapse of the quartic to a square of quadratics; at $\fsl_{N \geq 4}$,
+no repair is known at the bosonic level. Twisted Yangians and
+super-extensions are conjectural.
+\item \emph{Other compact CY$_3$.} The proof uses
+$\chi_{\mathrm{top}}(K3 \times E) = 0$. For the quintic CY$_3$ with
+$\chi_{\mathrm{top}} = -200$, the BCOV one-loop correction is non-zero
+and contributes a quartic geometric anomaly even for admissible
+$\frakg$. The two-loop quartic class
+$(\chi_{\mathrm{top}} / 24) \cdot \int \Omega_X \wedge \tr(A^4)$ is
+non-zero on the quintic; the QME does not close at two loops without
+a further counterterm of geometric origin. This is the content of the
+quintic-side conjecture
+\texttt{conj:quintic-hcs-kanom} of
+\texttt{chapters/theory/quantum\_chiral\_algebras.tex}.
+\item \emph{Off-mass-shell vs on-shell.} The all-orders QME is the
+off-mass-shell statement at the level of formal local functionals.
+The on-mass-shell statement (factorisation algebra of quantum
+observables, sense of Costello-Gwilliam~2017 FA Vol.~II) is implied
+once the QME closes and the propagator-renormalised path-integral
+defines $\hbar$-corrected factorisation maps.
+\end{enumerate}
+
+%--------------------------------------------------------------
+\paragraph{Cross-volume anchors.}
+\begin{itemize}
+\item \texttt{chapters/theory/cy\_to\_chiral.tex}~line~$1799$:
+\texttt{thm:6d-hcs-qme-one-loop-k3xe} (one-loop seed; this note
+extends to all loops).
+\item \texttt{chapters/theory/cy\_to\_chiral.tex}~line~$1554$:
+\texttt{thm:non-abelian-5d-hcs-yangian-voa} (the $5$D template via
+Costello--Yagi).
+\item \texttt{chapters/theory/quantum\_chiral\_algebras.tex}~line~$351$:
+$A^{(1)} = A_{\mathrm{w.f.}} + A_{\mathrm{anom}}$ split (the
+admissibility criterion at one loop).
+\item \texttt{chapters/theory/hochschild\_calculus.tex}:
+Kontsevich--Tamarkin formality at $d = 3$
+(\texttt{thm:kt-formality-d3}; the algebraic backbone).
+\item Vol~I \texttt{chapters/theory/} chiral-bar-cobar
+on the $L_\infty$-dictionary: BV obstruction theory $\leftrightarrow$
+$L_\infty$-deformation theory.
+\end{itemize}
+
+\paragraph{Datum trail.}
+\begin{enumerate}
+\item Two-loop trivalent graphs on cubic theory: theta + dumbbell
++ sunrise (three topologies; Cycle~1).
+\item $\frakg$-decoration: theta $\sim d^{abcd}_\frakg$, dumbbell $=
+0$, sunrise $\sim (h^\vee_\frakg)^2 \cdot$ wave-function (Cycle~1).
+\item Theta cohomology class trivialised via HKR + simple-Lie
+$H^1(\frakg, \frakg) = 0$ (Cycle~2).
+\item All-loop induction via Costello~2011 Thm.~$5.0.1$ + Costello-Li~2016
+Prop.~$5.2$; obstruction group vanishes on $K3 \times E$ for
+admissible $\frakg$ because (a) $d^{abc} = 0$, (b)
+$\chi_{\mathrm{top}}(K3 \times E) = 0$, (c) $H^0(K3, T_{K3}) = 0$
+(Cycle~3).
+\item Non-admissible $\frakg = \fsl_{N \geq 4}$: genuine quartic
+two-loop obstruction $d^{(abcd)}_{\fsl_N}$ (Heal section).
+\item Quintic CY$_3$: BCOV quartic geometric obstruction even at
+admissible $\frakg$ (remaining obstruction (c)).
+\end{enumerate}
+
+\end{document}

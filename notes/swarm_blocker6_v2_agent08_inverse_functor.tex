@@ -1,0 +1,562 @@
+% swarm_blocker6_v2_agent08 --- inverse-functor obstruction:
+% recovering D^b(K3 x E) from Obs^{q,hCS}(K3 x E, g). CG voice
+% (Lurie + Beilinson--Drinfeld + Costello + Bondal--Orlov);
+% subscripted kappa; \providecommand only; no AI attribution.
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+\providecommand{\ClaimStatusConditional}{\textsc{[conditional]}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\HC}{\mathrm{HC}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\HolFA}{\mathrm{HolFA}}
+\providecommand{\Bun}{\mathrm{Bun}}
+\providecommand{\Cob}{\mathrm{Cob}}
+\providecommand{\Mod}{\mathrm{Mod}}
+\providecommand{\dCat}{\mathrm{Cat}_{(\infty,3)}}
+\providecommand{\Vect}{\mathrm{Vect}}
+\providecommand{\op}{\mathrm{op}}
+\providecommand{\fd}{\mathrm{fd}}
+\providecommand{\BL}{\mathrm{BL}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Ed}{E_d}
+\providecommand{\Cas}{\mathrm{Cas}}
+\providecommand{\sympl}{\mathrm{sympl}}
+\providecommand{\smooth}{\mathrm{sm}}
+\providecommand{\nb}[1]{\mathrm{Nb}(#1)}
+\providecommand{\IndHilb}{\mathrm{IndHilb}}
+\providecommand{\Smith}{\mathrm{Smith}}
+
+\section{The inverse-functor obstruction:
+recovering \texorpdfstring{$D^b(K3\times E)$ from $\Obs^{q,\hCS}(K3\times E,\frakg)$}{D-b(K3 x E) from Obs-q-hCS(K3 x E, g)}}
+\label{wn:sec:agent08-inverse-functor}
+
+\subsection{The S5 obstruction in scope}
+\label{wn:subsec:agent08-S5-scope}
+
+The CY-$\mathsf A_3$ functor at $K3\times E$ is the existence-and-rigidity
+assignment
+\begin{equation}
+\label{eq:agent08-fwd-functor}
+ \PhiFA_3 \colon
+ \cC = D^b(\Coh(K3\times E))
+ \longmapsto
+ \PhiFA_3(\cC) \in \Ethree\HolFA(K3\times E),
+\end{equation}
+realised on the perturbative locus by the holomorphic Chern--Simons
+factorisation algebra
+$\Obs^{q,\hCS}(K3\times E,\frakg)$. The forward direction is canonical
+up to a $\GRT_1(\Q)$-torsor of formality choices (Kontsevich--Tamarkin
+$\Ethree$-formality; Costello--Gwilliam--Li holomorphic locality). The
+\emph{inverse} direction --- given a chain-level
+$\Ethree$-factorisation algebra $F$ on $K3\times E$, recover an
+$\infty$-category $\cC_F$ such that $\PhiFA_3(\cC_F)\simeq F$ ---
+defines the open S$5$ stratum of the existence-and-rigidity
+stratification.
+
+The next subsections frame the obstruction as Lurie cobordism many-to-oneness,
+Beilinson--Drinfeld Ran-space O$1$/sewing O$3$, perturbative-fibre fixedness,
+quantum-vertex-group $\Mod$ reformulation, and $K3\times E$-specific failure
+of injectivity through the six $(\Sigma_2,C')$-routes. Three attack--heal
+cycles consolidate the conclusion: the inverse exists only after a precise
+list of \emph{additional} data is supplied, and that list is irreducible.
+
+\subsection{Lurie cobordism: 3-dualisable data are many-to-one}
+\label{wn:subsec:agent08-lurie}
+
+\begin{theorem}[Lurie cobordism many-to-oneness]
+\label{thm:agent08-lurie-many-to-one}
+\ClaimStatusTheorem{} \textup{(Lurie 2009 \emph{On the Classification of TFTs},
+Theorem 2.4.6; Lurie \emph{HA} \S5.1.2.2.)} The fully extended
+$3$-dimensional framed topological field theories valued in
+$(\infty,3)$-$\Cat$ are classified by their values on the point:
+\[
+\Fun^{\otimes}\!\bigl(\Cob_3^{\mathrm{fr}},\,(\infty,3)\textup{-}\Cat\bigr)
+\;\simeq\;
+\bigl((\infty,3)\textup{-}\Cat\bigr)^{\mathrm{fd},\sim},
+\]
+the maximal $\infty$-groupoid of $3$-dualisable objects. The functor
+\[
+\Theta_3 \colon \cC \mapsto \PhiFA_3(\cC)
+\]
+factors through the underlying $3$-dualisable object
+$[\![\cC]\!]\in\bigl((\infty,3)\textup{-}\Cat\bigr)^{\fd}$. The map
+$\cC \mapsto [\![\cC]\!]$ is not injective: two $\infty$-categories
+$\cC_1,\cC_2$ with isomorphic underlying $3$-dualisable data give the
+same $\Ethree$-factorisation algebra under $\PhiFA_3$.
+\end{theorem}
+
+\begin{proof}
+The cobordism hypothesis is Lurie's theorem; the factorisation
+$\PhiFA_3 = \Theta_3$ on $K3\times E$ uses Costello--Gwilliam--Li
+holomorphic-twist locality of the BV factorisation algebra
+$\Obs^{q,\hCS}(K3\times E,\frakg)$ \textup{(}Costello--Gwilliam 2017
+\S$10$\textup{)} together with Kontsevich--Tamarkin formality on
+$\HH^\bullet(\cC)$ \textup{(}Kontsevich 1999; Tamarkin 2007\textup{).}
+For non-injectivity: the dualisable datum records only the symmetric
+monoidal $\Ethree$-deformation class on Hochschild cohomology; an
+$\infty$-category $\cC$ with the same Hochschild cohomology and same
+Mukai pairing as $D^b(\Coh(K3\times E))$ produces the same
+$3$-dualisable object. Twisted derived categories $D^b(\Coh(K3\times
+E,\alpha))$ for a Brauer class $\alpha\in\Br(K3\times E)$ provide
+explicit non-trivial families.
+\end{proof}
+
+\begin{remark}[Bondal--Orlov reconstruction is not a chain-level inverse]
+\label{rem:agent08-bondal-orlov-fail}
+On a smooth projective variety $X$ with ample canonical or anticanonical
+bundle, Bondal--Orlov \cite{BondalOrlov2001} reconstruct $X$ from
+$D^b(\Coh(X))$. On $K3\times E$, the dualising sheaf is trivial
+($\omega_{K3\times E}=\cO$), so Bondal--Orlov fails: there is no
+ample-canonical hypothesis to reconstruct from. Already at the level of
+\emph{varieties}, $K3\times E$ admits non-trivial Fourier--Mukai partners
+(Mukai 1987; Orlov 2003), so $X\mapsto D^b(\Coh(X))$ is not injective.
+A fortiori $D^b(\Coh(X))\mapsto\PhiFA_3(D^b(\Coh(X)))$ is not injective.
+The S$5$ inverse is structurally many-to-one even before Lurie cobordism
+is invoked.
+\end{remark}
+
+\subsection{Perturbative-fibre fixedness: only one BunG slice is seen}
+\label{wn:subsec:agent08-perturbative}
+
+\begin{proposition}[The perturbative E_3-FA does not see all of $\Bun_G(K3\times E)$]
+\label{prop:agent08-perturbative-fibre}
+\ClaimStatusTheorem{} The factorisation algebra
+$\Obs^{q,\hCS}(K3\times E,\frakg)$ is the formal-disc deformation of the
+holomorphic Chern--Simons action around a \emph{fixed} principal
+$G$-bundle $P_0\to K3\times E$, in the sense of Costello--Li
+\cite{CostelloLi2020} \S$2.6$ and Costello--Gwilliam \cite{CostelloGwilliam2017}
+vol.~$2$ Ch.~$11$. Equivalently:
+\[
+ \Obs^{q,\hCS}(K3\times E,\frakg)
+ \;\simeq\;
+ \widehat{\cO}_{\Bun_G(K3\times E),[P_0]}
+ \otimes_{\widehat{\cO}_{\Bun_G(K3\times E),[P_0]}}
+ \Sym\!\bigl(\hbar\,\frakg\textup{-Dolbeault complex}\bigr)
+\]
+recovers only the formal completion of $\Bun_G(K3\times E)$ at the
+basepoint $[P_0]$. The non-perturbative quantisation
+\[
+ \int_{[\Bun_G]} \exp\!\Bigl(\tfrac{1}{\hbar}\,S_{\hCS}\Bigr)
+\]
+collects all bundles, but the perturbative observables do not.
+\end{proposition}
+
+\begin{proof}
+Costello \cite{Costello2011} \S$10$ defines BV-quantum observables as a
+formal $\hbar$-deformation of the classical critical-locus
+factorisation algebra, parametrised by a \emph{single} BV propagator
+fixing $P_0$. Different bundles $P_1\not\simeq P_0$ correspond to
+different basepoints in $\Bun_G(K3\times E)$ and produce a priori
+different BV factorisation algebras
+$\Obs^{q,\hCS}(K3\times E,\frakg)_{P_1}$. The non-perturbative quantum
+vertex group $G(K3\times E)$ would be the global section of these
+fibres over all of $\Bun_G(K3\times E)$, with descent data encoding
+instanton transitions. The perturbative algebra is the fibre at $P_0$
+alone.
+\end{proof}
+
+\begin{corollary}[Inverse loses non-perturbative information]
+\label{cor:agent08-non-perturbative-loss}
+The factorisation algebra
+$F = \Obs^{q,\hCS}(K3\times E,\frakg)_{P_0}$ does not encode:
+\textup{(i)} instanton contributions of charge $n\geq 1$ on $K3$
+\textup{(}Vafa--Witten partition functions
+$Z^{K3}_{\mathrm{VW}}(\tau)$ count ASD instantons of higher charge
+through DT-theoretic generating functions of Tanaka--Thomas\textup{);}
+\textup{(ii)} the Donaldson--Thomas zeta function
+$Z^{K3\times E}_{\mathrm{DT}}(q,Q)$ \textup{(}whose denominator is
+$\Delta_5(Z)^{2}$ by Oberdieck--Pixton\textup{);}
+\textup{(iii)} the Gromov--Witten partition function
+$Z^{K3\times E}_{\mathrm{GW}}$ in higher genus
+\textup{(}Maulik--Pandharipande\textup{);}
+\textup{(iv)} the D-brane category off the perturbative locus.
+The inverse $F\mapsto\cC_F$ therefore cannot be unique: any two CY$_3$
+categories $\cC,\cC'$ with the same perturbative deformation data at
+$P_0$ but differing instanton, DT, GW, or D-brane completions return
+the same $F$.
+\end{corollary}
+
+\subsection{Beilinson--Drinfeld O\texorpdfstring{$1$}{1}: Ran-space Smith recognition}
+\label{wn:subsec:agent08-O1-ran-smith}
+
+\begin{theorem}[O$1$ Ran-space Smith recognition fails for chiral inverse]
+\label{thm:agent08-O1-ran-smith}
+\ClaimStatusConditional{} \textup{(open: chiral lift of Booth--Lazarev
+arXiv:2304.08409 Theorem~B; Beilinson--Drinfeld
+\cite{BeilinsonDrinfeld2004} \S$3$.)}
+The inverse-functor problem for chiral $\Ed$-factorisation algebras on
+$\Ran(K3\times E)$ requires a Smith-recognition statement
+\[
+\Smith \colon
+\Mod^{\mathrm{cof}}\bigl(\Ran(K3\times E)^{\mathrm{ch}}\bigr)
+ \xrightarrow{\;\sim\;}
+ \Mod\bigl(\Ran(K3\times E)\bigr),
+\]
+identifying chiral cofibrant generation with monoidal cofibrant
+generation. Smith recognition holds in the associative case
+\textup{(}Booth--Lazarev arXiv:2304.08409 Theorem~B for the
+ordinary monoidal product on chain complexes\textup{)} but fails to
+extend to the chiral tensor on $\Ran$-space because the chiral product
+\[
+\bigl(\cF\boxtimes^{\mathrm{ch}}\cG\bigr)(I) \;=\;
+\bigsqcup_{I = I_1\sqcup I_2,\, I_1\neq\varnothing,\, I_2\neq\varnothing}
+\cF(I_1)\otimes\cG(I_2)
+\]
+is not symmetric in the strict monoidal sense \textup{(}restriction to
+the disjoint locus is non-trivial; Beilinson--Drinfeld
+\cite{BeilinsonDrinfeld2004} Definition~$3.4.10$\textup{).} The
+coradical filtration on a chiral coalgebra is stratified by the Ran
+finite-subset stratification, not by the monoidal coradical.
+\end{theorem}
+
+\begin{remark}[Why O$1$ does not collapse]
+\label{rem:agent08-O1-no-collapse}
+O$2$ collapses on the principal locus by Mumford's Hodge-bundle boundary
+relation $\partial^*\lambda_g^1=\pi_1^*\lambda_{g_1}^1+\pi_2^*\lambda_{g_2}^1$
+\textup{(}Mumford 1983; Teixidor 1988 \emph{Math.\ Ann.}~282\textup{):}
+the genus-tower curvature $m_0^{(g)}=\kch\cdot\lambda_g^1$ is automatic
+under clutching. O$1$ and O$3$ have no analogous boundary relation. O$1$
+is a categorical statement about chiral cofibrant generation; the chiral
+tensor's failure of strict symmetry is a feature of the operadic
+structure, not a function of curving data. No genus-tower argument
+collapses it.
+\end{remark}
+
+\subsection{Beilinson--Drinfeld O\texorpdfstring{$3$}{3}: sewing-analytic IndHilb}
+\label{wn:subsec:agent08-O3-sewing}
+
+\begin{theorem}[O$3$ sewing-analytic IndHilb mismatch]
+\label{thm:agent08-O3-sewing-indhilb}
+\ClaimStatusConditional{} \textup{(open: sewing-analytic comparison;
+Moriwaki 1998 \emph{Compositio Math.}~$112$; Costello--Gwilliam
+\cite{CostelloGwilliam2017} vol.~$1$ \S$5$.)}
+The sewing partition function of a chiral algebra at higher genus is
+naturally valued in an IndHilb space (an inductive limit of Hilbert
+spaces, equipped with a topological-vector-space structure compatible
+with sewing). The Booth--Lazarev coderived/curved-Quillen equivalence
+\textup{(}Booth--Lazarev arXiv:2304.08409 \S$1$, Theorem~A\textup{)} is
+a statement about \emph{algebraic} dg-(co)algebras with no
+topological-vector-space refinement. The inverse direction
+$F\mapsto\cC_F$ requires comparison of two distinct categories:
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item the algebraic coderived dg-coalgebra
+ $\Omega(F)$ \textup{(}Booth--Lazarev's
+ $\Omega\dashv B$ adjunction at the chain level\textup{);}
+ \item the sewing-analytic IndHilb completion of the genus-tower modular
+ functor $\{Z_g(F)\}_{g\geq 0}$ \textup{(}Costello topological
+ conformal field theory; Moriwaki cusps\textup{).}
+\end{enumerate}
+On $K3\times E$ the comparison is open: both sides exist conditionally
+on the perturbative-locus witness, but no analytic continuation of
+$Z_g(F)$ from the formal disc to the sewing-analytic IndHilb has been
+constructed.
+\end{theorem}
+
+\subsection{Drinfeld-centre / quantum-vertex-group reformulation}
+\label{wn:subsec:agent08-drinfeld-center}
+
+\begin{construction}[Inverse via $\Mod$ over the Drinfeld centre]
+\label{constr:agent08-mod-z}
+\ClaimStatusConjectured{} The natural conjectural reformulation of the
+inverse direction posits an $(\infty,1)$-equivalence
+\[
+\cC_F \;\simeq\;
+\Mod_{\Etwo}\!\bigl(Z(F)\bigr),
+\qquad
+Z(F) \;=\;\textup{Drinfeld centre of }F,
+\]
+where $Z(F) = \HH^\bullet_{\Etwo}(F)$ is the higher Hochschild centre
+of the $\Eone$-factorisation algebra $F$
+\textup{(}Lurie \emph{HA}~$5.3.1.30$\textup{).} Under this conjecture
+the inverse functor lands in the $(\infty,1)$-category of
+$\Etwo$-modules over $Z(F)$, identified with $D^b(\Coh(K3\times E))$ on
+the principal locus by the Ben-Zvi--Francis--Nadler theorem
+\cite{BenZviFrancisNadler2010} for the second quantisation of perfect
+modules.
+\end{construction}
+
+\begin{proposition}[Even with $Z(F)$ the inverse is not an equivalence]
+\label{prop:agent08-Z-still-many-to-one}
+\ClaimStatusConditional{} The Drinfeld-centre map $F\mapsto Z(F)$ does
+not invert $\PhiFA_3$. Two distinct Calabi--Yau categories
+$\cC_1\neq\cC_2$ with the same $\HH^\bullet$ and the same $\Ethree$
+deformation produce the same $Z(F)=\HH^\bullet_{\Etwo}(F)$.
+A counterexample is a derived equivalence between two non-isomorphic
+twisted derived categories
+$D^b(\Coh(K3\times E,\alpha_1))$ and $D^b(\Coh(K3\times E,\alpha_2))$
+for distinct Brauer classes $\alpha_1,\alpha_2\in\Br(K3\times E)$:
+twisted derived categories share a common Hochschild structure when
+the Brauer classes lie in the same orbit under the natural
+$\HH^2$-action \textup{(}C\v{a}ld\v{a}raru 2000 PhD thesis~\S$4$;
+Huybrechts--Stellari 2005 \emph{Math.\ Ann.}~$332$\textup{).}
+\end{proposition}
+
+\subsection{Six \texorpdfstring{$(\Sigma_2,C')$}{Sigma2-C'}-routes are six different chiral algebras}
+\label{wn:subsec:agent08-six-routes}
+
+\begin{proposition}[Stage-$2$ specialisation explicitly destroys injectivity]
+\label{prop:agent08-six-routes}
+\ClaimStatusTheorem{} The two-stage factorisation
+$\Phi_3 = \SpCh_{\Sigma_2,C'}\circ\PhiFA_3$ admits, on $K3\times E$, six
+distinct admissible specialisation data
+$(\Sigma_2,C')\in\{(K3,E),(K3\times\{p\},E),
+(K3,\{q\}\times E),\,\dots\,\}$, each giving a different
+$\Eone$-chiral output. The native stage $\PhiFA_3(D^b(\Coh(K3\times E)))$
+is one $\Ethree$-FA on $K3\times E$; the six routes to
+$G(K3\times E)$ are six distinct
+$\SpCh_{\Sigma_2,C'}$-images of this single native object, not six
+applications of $\Phi_3$. Consequently:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $\Phi_3$ at fixed $(\Sigma_2,C')$ already factors through the
+ contraction $\PhiFA_3$;
+ \item the inverse from a fixed $\Eone$-chiral algebra
+ $A\in\Eone$-$\mathrm{ChirAlg}(C')$ cannot recover the native
+ $\PhiFA_3$ without the missing specialisation datum;
+ \item the inverse cannot recover $\cC=D^b(\Coh(K3\times E))$ without
+ additionally recovering the specialisation cycle and the underlying
+ CY$_3$ variety, which the chiral output alone does not encode.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+By Theorem~$\ref{thm:cy-to-chiral-d3}$ in \texttt{cy\_to\_chiral.tex} (the
+two-stage factorisation), $\Phi_3$ factors as $\SpCh_{\Sigma_2,C'}\circ\PhiFA_3$.
+The Stage-$2$ pushforward $\int_{\Sigma_2}^{\hol}$ along
+factorisation homology is an additive functor with non-trivial kernel:
+the pushforward of the $\boxtimes$-summand $\PhiFA_3^{(K3)}\boxtimes\PhiFA_3^{(E)}$
+along $\int_{K3}$ collapses the $K3$-direction. Distinct
+$\Sigma_2,\Sigma_2'$ give distinct kernels; the inverse along Stage-$2$
+is not even defined as a functor. Six explicit specialisation data
+appear in the K\"ahler-fibration analysis of $K3\times E$ as: the
+elliptic projection $\pi_E\colon K3\times E\to E$ (canonical), the Lefschetz
+genus-$1$ pencil on $K3\times E$ (six classes by Sturmfels--Sullivant),
+restriction-to-divisor at the six principal Heegner divisors of
+$\Delta_5$, and the orbifold-fibration restrictions associated to the
+six Borcherds reflection chambers of $\mathfrak g_{\Delta_5}$.
+\end{proof}
+
+\subsection{Three attack--heal cycles}
+\label{wn:subsec:agent08-cycles}
+
+\subsubsection{Cycle 1. Attack: ``Booth--Lazarev gives the inverse for free''}
+
+The Booth--Lazarev coderived/curved-Quillen equivalence
+$\Omega\dashv B \colon \mathrm{dgAlg}_{\mathrm{curved}}
+\leftrightarrow \mathrm{dgCoAlg}^{\mathrm{cpt}}$ is an equivalence of
+$\infty$-categories. The naive inverse claim asserts:
+\[
+\cC \;\simeq\; \Omega\bigl(\PhiFA_3(\cC)\bigr).
+\]
+
+\textbf{Failure mode.} The Booth--Lazarev result is for
+\emph{associative} (i.e.\ ordinary monoidal) dg-(co)algebras, not for
+chiral $\Eone$-factorisation algebras on $\Ran(K3\times E)$. The chiral
+tensor product is not the monoidal tensor (Beilinson--Drinfeld
+\cite{BeilinsonDrinfeld2004} Definition~$3.4.10$). The chiral lift of
+$\Omega\dashv B$ requires the three obstructions O$1$, O$2$, O$3$ above.
+Of these, O$2$ collapses (Mumford boundary relation; Teixidor 1988); O$1$
+and O$3$ do not. The inverse from $\PhiFA_3(\cC)$ to $\cC$ fails at
+the chiral lift of $\Omega$.
+
+\textbf{Heal.} State the inverse only at $\Eone$-chiral $\Mod$ over
+the Drinfeld centre, with explicit listing of remaining O$1$ and O$3$
+obstructions. The inverse is conjectural at $\Eone$-$\Mod$ and open
+at the chiral lift of Booth--Lazarev.
+
+\subsubsection{Cycle 2. Attack: ``$\Bun_G$ fibrewise data recovers $\cC$''}
+
+If we replace the perturbative algebra by the global non-perturbative
+algebra
+\[
+\bigl\{\Obs^{q,\hCS}(K3\times E,\frakg)_{P}\bigr\}_{P\in\Bun_G(K3\times E)},
+\]
+together with descent data along the moduli stack $\Bun_G$, then we
+recover all bundles, all instanton sectors, and hence (the claim
+goes) the full geometry of $K3\times E$.
+
+\textbf{Failure mode.} The descent data over $\Bun_G(K3\times E)$ is itself
+non-trivial: $\Bun_G(K3\times E)$ is a stack of complex dimension
+$\dim G\cdot(\chi^{\mathrm{cat}}(K3\times E)/2)+\dim Z(G)$ which equals
+zero on a Calabi--Yau threefold by index theory (Donaldson--Thomas
+2000); the moduli stack of \emph{flat} connections is the Hitchin
+moduli at $K3\times E$, of complex dimension equal to half of
+$h^{1,1}(K3\times E)+h^{2,1}(K3\times E)= 21+1=22$. Recovering $\cC$
+from the global $\Bun_G$-fibration would require knowing, for every
+$P\in\Bun_G(K3\times E)$, the perturbative algebra at $P$ together with
+the patching data, i.e.\ the full quantum vertex group
+$G(K3\times E)$ as a non-perturbative object. This is precisely the S$5$
+quantum vertex-group construction, open in CLAUDE.md.
+
+\textbf{Heal.} The inverse exists \emph{conditionally} on a global
+non-perturbative quantum vertex group $G(K3\times E)$ together with
+descent over $\Bun_G(K3\times E)$. State this as the minimal
+additional data:
+\begin{enumerate}[label=\textup{(D\arabic*)}]
+ \item The full assembled $G(K3\times E)$, not just $\Obs^{q,\hCS}$ at
+ a basepoint.
+ \item The Stage-$2$ specialisation datum $(\Sigma_2,C')$ used in
+ \eqref{eq:agent08-fwd-functor}.
+ \item The Hodge--Mukai pairing on $\HH^\bullet$.
+ \item The Brauer class $\alpha\in\Br(K3\times E)$ (trivial on
+ untwisted $D^b(\Coh(K3\times E))$).
+ \item The chosen $\Bun_G$-descent datum (instanton transition data).
+\end{enumerate}
+
+\subsubsection{Cycle 3. Attack: ``Cobordism plus Hodge data recovers $\cC$''}
+
+If we accept Lurie cobordism many-to-oneness on dualisable data alone,
+then perhaps adding Hodge-theoretic data (the Hodge filtration on
+$H^*(K3\times E,\C)$, the Mukai pairing, the period map) restores
+injectivity.
+
+\textbf{Failure mode.} Hodge data is invariant under derived
+equivalence: two distinct Calabi--Yau threefolds with the same Hodge
+diamond and Mukai pairing can have non-equivalent
+$D^b(\Coh)$-categories. Counterexamples include Pfaffian/Grassmannian
+pairs (R{\o}dland 2000; Kuznetsov 2007), Reye congruence vs.\
+quartic-fibre triple-cover examples (Hosono--Takagi 2014), and the
+twisted derived categories of Brauer-non-trivial Calabi--Yau threefolds
+(Schnell--Voisin). All these have identical Hodge data; their derived
+categories are inequivalent.
+
+\textbf{Heal.} Hodge data plus Mukai pairing alone is insufficient. The
+minimal additional data list of Cycle 2 (D1)--(D5) is irreducible. In
+particular, (D4) Brauer class is essential to distinguish twisted
+derived categories with identical Hodge structures.
+
+\subsection{The minimal additional data}
+\label{wn:subsec:agent08-minimal-data}
+
+\begin{theorem}[Minimal additional data for the inverse direction]
+\label{thm:agent08-minimal-additional-data}
+\ClaimStatusConditional{} \textup{(open: assembly of (D1)--(D5);
+Lurie \emph{HA}~$5.3.1.30$, Beilinson--Drinfeld
+\cite{BeilinsonDrinfeld2004} \S$3.4$, Costello--Gwilliam
+\cite{CostelloGwilliam2017} vol.~$2$ Ch.~$11$, Booth--Lazarev
+arXiv:2304.08409 Theorem~A.)} A right inverse $\Psi$ to $\PhiFA_3$
+on the principal $K3\times E$ locus exists conditionally on the
+following five data being supplied alongside the chiral algebra:
+\begin{enumerate}[label=\textup{(D\arabic*)}]
+ \item The non-perturbative quantum vertex group $G(K3\times E)$
+ \textup{(}assembled from
+ $\{\Obs^{q,\hCS}(K3\times E,\frakg)_P\}_{P\in\Bun_G}$ via
+ instanton-transition descent\textup{);}
+ \item The Stage-$2$ specialisation datum $(\Sigma_2,C')$ in the sense
+ of Definition~\ref{def:phi-fa-and-sp};
+ \item The Hodge--Mukai pairing on $\HH^\bullet(\cC)$ refined to
+ $\HH_*$ together with the Calabi--Yau form
+ $[\sigma_\cC]\in\HC^-_3(\cC)$;
+ \item The Brauer class
+ $\alpha\in\Br(K3\times E)$ specifying the underlying twisted derived
+ category, with $\alpha=0$ on the principal Heegner stratum;
+ \item The chiral-Booth--Lazarev O$1$+O$3$ witnesses (Ran-space Smith
+ recognition + sewing-analytic IndHilb compatibility).
+\end{enumerate}
+Conditional on \textup{(D1)--(D5)}, the inverse
+\[
+\Psi \colon
+\bigl\{F = \Obs^{q,\hCS}(K3\times E,\frakg),\,(\Sigma_2,C'),
+[\sigma],\alpha,\textup{(O1)+(O3)}\bigr\}
+\;\longmapsto\;
+\cC_F \simeq D^b(\Coh(K3\times E,\alpha))
+\]
+satisfies $\PhiFA_3(\cC_F)\simeq F$. Without any one of \textup{(D1)},
+\textup{(D2)}, \textup{(D4)}, \textup{(D5)}, the inverse fails to
+exist as a functor; without \textup{(D3)} it fails to be canonical.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Necessity. (D1) by Proposition~\ref{prop:agent08-perturbative-fibre}: the
+perturbative algebra at $P_0$ does not see other bundles. (D2) by
+Proposition~\ref{prop:agent08-six-routes}: Stage-$2$ specialisation has
+non-trivial kernel. (D3) by the Calabi--Yau-trace ambiguity: derived
+equivalences preserve $\HH_*$ but the $\bS^3$-framing distinguishes
+the Calabi--Yau form. (D4) by
+Proposition~\ref{prop:agent08-Z-still-many-to-one}: distinct Brauer
+classes give distinct twisted derived categories with identical
+Hochschild data. (D5) by Theorems~\ref{thm:agent08-O1-ran-smith} and
+\ref{thm:agent08-O3-sewing-indhilb}: Booth--Lazarev does not lift to
+chiral without O$1$+O$3$.
+
+Sufficiency, conditional. With (D1) the moduli of bundles is recovered
+and, by Costello--Gwilliam factorisation \cite{CostelloGwilliam2017}
+vol.~$2$ Theorem~$11.4.0.1$, the holomorphic-twist BV factorisation
+algebra is reconstructed globally. With (D2) the native
+$\PhiFA_3(\cC)$ is recovered from its $(\Sigma_2,C')$-shadow by
+Lurie--Francis--Gaitsgory factorisation-homology inversion on
+admissible cycles. With (D3) the underlying CY$_3$ variety is
+recovered up to twisted derived equivalence by Bondal--Orlov-style
+reconstruction enhanced by the Mukai pairing
+(Caldararu 2005 \emph{Adv.\ Math.}~$194$). With (D4) the Brauer class
+specifies which twisted derived equivalence class is realised. With
+(D5) the chiral lift of Booth--Lazarev returns the underlying
+$\infty$-category from its $\Ed$-coalgebra. The composite is the
+required right inverse on the conditional locus.
+\end{proof}
+
+\begin{remark}[Sharp answer to the recovery question]
+\label{rem:agent08-sharp-answer}
+\textbf{When can $D^b(\Coh(K3\times E))$ be recovered from
+$\Obs^{q,\hCS}(K3\times E,\frakg)$?}
+\textbf{With} the minimal additional data \textup{(D1)--(D5)} of
+Theorem~\ref{thm:agent08-minimal-additional-data}: yes, conditionally.
+\textbf{Without:} no. The perturbative chiral algebra alone is a strict
+contraction of the categorical input, and the contraction is many-to-one
+through five independent kernels (Lurie cobordism non-injectivity,
+$\Bun_G$ fibre fixedness, Stage-$2$ specialisation kernel, Brauer
+ambiguity, chiral Booth--Lazarev O$1$+O$3$).
+\end{remark}
+
+\begin{remark}[Position in the CY-A_3 stratification]
+\label{rem:agent08-cya3-position}
+The inverse-functor problem is the open S$5$ stratum of the
+CY-$\mathsf A_3$ existence-and-rigidity stratification; it is not a
+``proved-here'' theorem nor a Stage-$1$ functor-on-objects assertion.
+Theorem~\ref{thm:agent08-minimal-additional-data} is the precise
+\emph{conditional} statement of the inverse on the principal
+$K3\times E$ locus, naming its five irreducible additional-data
+witnesses. The inverse is many-to-one without (D1)--(D5), and the
+sharp question --- when can recovery proceed? --- is answered by the
+data list, not by a functorial formula on $\Obs^{q,\hCS}$ alone.
+\end{remark}
+
+\subsection{Cross-reference}
+\label{wn:subsec:agent08-cross-ref}
+
+This analysis specifies the open S$5$ obstruction of
+\texttt{rem:cya3-conjecture-stratification-S1-S5} in
+\texttt{chapters/theory/cy\_to\_chiral.tex}, item (iv) of
+\texttt{rem:6d-hcs-k3e-open-ends} \textup{(}line $\sim 2546$\textup{).}
+The minimal-additional-data theorem
+\ref{thm:agent08-minimal-additional-data} is the conditional inverse
+counterpart to the unconditional forward
+\texttt{thm:cya3-existence-rigidity}; the two together delineate the
+$\PhiFA_3$ functor at $K3\times E$ as an existence-and-rigidity
+many-to-one assignment with explicit irreducible right-inverse data.
+
+% References cited: Lurie, On the Classification of TFTs (2009) and
+% Higher Algebra (2017); Beilinson--Drinfeld 2004; Bondal--Orlov 2001;
+% Booth--Lazarev arXiv:2304.08409; Costello 2011; Costello--Gwilliam 2017;
+% Costello--Li 2020; Caldararu 2000 PhD, 2005 Adv. Math.; Mukai 1987;
+% Orlov 2003; Mumford 1983; Teixidor 1988; Hosono--Takagi 2014;
+% Roedland 2000; Kuznetsov 2007; Schnell-Voisin; Maulik--Pandharipande;
+% Donaldson--Thomas 2000; Tanaka--Thomas; Oberdieck--Pixton;
+% Kontsevich 1999; Tamarkin 2007; Ben-Zvi--Francis--Nadler 2010;
+% Francis--Gaitsgory 2012; Lurie HA 5.3.1.30 (Drinfeld centre);
+% Moriwaki 1998 Compositio Math 112.

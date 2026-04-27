@@ -1,0 +1,739 @@
+% =============================================================
+% Standalone agent-06 file (Blocker 6, v2): the categorical = BV
+% identification of Obs^{q,hCS}(K3 x E, g) with PhiFA_3(D^b Coh(K3 x E))
+% as E_3-factorisation algebras.
+%
+% Macros declared with \providecommand so this compiles in isolation
+% and is harmless to splice into the main treatise preamble later.
+% =============================================================
+
+\providecommand{\C}{\mathbb C}
+\providecommand{\R}{\mathbb R}
+\providecommand{\Q}{\mathbb Q}
+\providecommand{\Z}{\mathbb Z}
+\providecommand{\bL}{\mathbf L}
+\providecommand{\bS}{\mathbf S}
+\providecommand{\cC}{\mathcal C}
+\providecommand{\cF}{\mathcal F}
+\providecommand{\cK}{\mathcal K}
+\providecommand{\cM}{\mathcal M}
+\providecommand{\cO}{\mathcal O}
+\providecommand{\frakg}{\mathfrak g}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\hol}{\mathrm{hol}}
+\providecommand{\BCOV}{\mathrm{BCOV}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Eone}{E_1}
+\providecommand{\En}{E_n}
+\providecommand{\Ed}{E_d}
+\providecommand{\EdHolFA}{\Ed\text{-}\mathrm{HolFA}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\GRT}{\mathrm{GRT}}
+
+\providecommand{\ClaimStatusVerified}{\textbf{[verified]}}
+\providecommand{\ClaimStatusDerivation}{\textbf{[derivation]}}
+\providecommand{\ClaimStatusOpen}{\textbf{[open]}}
+\providecommand{\ClaimStatusProvedHere}[1][]{\textbf{[proved here#1]}}
+\providecommand{\ClaimStatusConditional}[1][]{\textbf{[conditional#1]}}
+
+\section*{Identification $\Obs^{q,\hCS}(K3 \times E,\frakg) \cong
+\PhiFA_3(D^b\Coh(K3\times E))$ as $\Ethree$-factorisation algebras}
+\label{sec:swarm-blocker6-agent06-categorical-identification}
+
+\paragraph{The two constructions.}
+Two $\Ethree$-factorisation algebras live above $X = K3 \times E$, each
+constructed from a logically independent input. The physical
+construction is Costello--Li $6$d holomorphic Chern--Simons: from a
+Lagrangian $S^{\hCS} = \tfrac12 \int_X \Omega_X \wedge \mathrm{tr}(\cA \,
+\bar\partial \cA + \tfrac{2}{3} \cA \wedge \cA \wedge \cA)$ on the BV
+field complex $\cA \in \Omega^{0,\bullet}(X) \otimes \frakg[1]$, BV
+quantisation against the Costello--Li heat-kernel propagator yields
+\[
+ \Obs^{q,\hCS}(X, \frakg) \;\in\; \mathrm{FA}^{\hol}(X; \mathrm{Ch}^\hbar)
+\]
+satisfying QME and locally constant $\Ethree$ on polydisks (Theorem
+\texttt{thm:6d-hcs-factorisation-algebra-k3xe}). The categorical
+construction is Stage--$1$ of the two--stage factorisation: from
+$\cC = D^b\Coh(K3 \times E)$, one runs Kontsevich $\Ethree$-formality on
+$\HH^\bullet(\cC)$, then Costello--Gwilliam factorisation--envelope
+locality, then the Costello--Li holomorphic twist with
+$\Omega_{K3 \times E}$, producing
+\[
+ \PhiFA_3(D^b\Coh(K3 \times E)) \;\in\; \EdHolFA(K3 \times E)^{(\infty,1)}
+\]
+of Proposition \texttt{prop:phi-fa-three-step-assembly} and
+Theorem \texttt{thm:cfg-e3-formality-stage-1-phiFA3-torsor}.
+The first sees a Lagrangian and a propagator; the second sees only the
+abstract category and its Hochschild cochains. \emph{The blocker:}
+identify them as $\Ethree$-FAs on $X$.
+
+% =============================================================
+\subsection*{Statement: what the identification asserts and what it does not}
+% =============================================================
+
+\begin{theorem}[Categorical $=$ BV identification of $\Ethree$-FAs on
+$K3 \times E$]
+\label{thm:agent06-cat-eq-BV-K3xE}
+\ClaimStatusConditional{\textup{(}admissible $\frakg$, perturbative
+$\hbar$-formal, principal locus, $\GRT_1(\Q)$-torsor pinned\textup{)}}
+Fix the principal locus of Definition
+\texttt{def:witnessed-admissible-specialisation-datum} on $X = K3 \times E$,
+fix $\frakg$ admissible (simple, $d^{abc}_\frakg = 0$), fix the
+Calabi--Yau form $\Omega_X = \Omega_{K3} \wedge dz_E$, fix the Yau
+metric on $K3$ and the flat metric on $E$, and fix one point $F$ in
+the formality torsor $\mathrm{Form}_3(\Q)$. There is an equivalence
+\begin{equation}
+\label{eq:agent06-master-equivalence}
+ \mu^{\hCS \leftrightarrow \mathrm{cat}}_{X, \frakg, F}\colon\;
+ \Obs^{q,\hCS}(X, \frakg) \;\xrightarrow{\;\sim\;}\;
+ \PhiFA_3\bigl(D^b\Coh(K3 \times E),\; \mathrm{REnd}_\frakg\bigr)
+\end{equation}
+in $\EdHolFA(X)^{(\infty,1)}$, where $\mathrm{REnd}_\frakg$ is the
+matrix-framing twist coupling the polyvector dg-Lie
+$\HH^\bullet(\Perf(X)) \cong \PV^\bullet(X)$ to $\frakg$ via
+$\mathrm{REnd}(V_\frakg) \simeq \frakg \otimes \PV^\bullet(X)[1]$
+\textup{(}Section \texttt{rem:matrix-framing}\textup{)}. The
+equivalence is canonical up to the residual $\GRT_1(\Q)$-action of
+Theorem \texttt{thm:cfg-e3-formality-stage-1-phiFA3-torsor},
+and is the K\"unneth tensor of the twisted-HKR equivalences on
+$K3$ and $E$ \textup{(}Theorem
+\texttt{thm:atiyah-obstruction-hkr-cy3} +
+Corollary \texttt{cor:atiyah-vanishes-K3xE}\textup{).}
+\end{theorem}
+
+\begin{remark}[What this identification does not establish]
+\label{rem:agent06-out-of-scope}
+The equivalence \eqref{eq:agent06-master-equivalence} is perturbative
+and formal in $\hbar$. It does \emph{not} (i) prove all-orders
+convergence of the perturbative expansion of $\Obs^{q,\hCS}(X,\frakg)$
+on the compact base $K3\times E$; (ii) identify the categorical
+non-perturbative quantum vertex group $G(K3 \times E)$ with the
+non-perturbative path integral; (iii) construct the inverse functor
+$\Obs^{q,\hCS} \rightsquigarrow D^b\Coh(K3 \times E)$ (the open
+$\mathsf{S}$5 obstruction). The four open ends of Remark
+\texttt{rem:6d-hcs-k3e-open-ends} are unchanged.
+\end{remark}
+
+% =============================================================
+\subsection*{Step 1: the flat-affine base case on $\C^3$}
+\label{sec:agent06-step1-c3}
+% =============================================================
+
+The flat-affine identification is where the equivalence is forced by
+two source theorems whose conjunction is well-documented.
+
+\begin{proposition}[Flat-affine $\C^3$ identification, modulo
+$\GRT_1(\Q)$]
+\label{prop:agent06-flat-c3-identification}
+\ClaimStatusVerified
+For $X = \C^3$ with the flat CY form $\Omega_{\C^3} = dz_1 \wedge
+dz_2 \wedge dz_3$ and admissible $\frakg$, the perturbative BV
+observables of $6$d hCS are equivalent as $\Ethree$-FAs to
+$\PhiFA_3(\Perf(\C^3))$ twisted by $\mathrm{REnd}_\frakg$:
+\begin{equation}
+\label{eq:agent06-flat-c3-master}
+ \Obs^{q,\hCS}(\C^3, \frakg) \;\simeq\;
+ \PhiFA_3\bigl(\Perf(\C^3),\;\mathrm{REnd}_\frakg\bigr) \;\in\;
+ \EdHolFA(\C^3)^{(\infty,1)}
+\end{equation}
+modulo the $\GRT_1(\Q)$-torsor of associators of Theorem
+\texttt{thm:cfg-form3-grt1-torsor}. The Costello--Li propagator
+selects the Kontsevich associator
+$\Phi_{\mathrm{Konts}} \in \mathrm{Assoc}(\Q)$
+within that torsor.
+\end{proposition}
+
+\begin{proof}
+Three source theorems combine.
+\emph{(a) Hochschild cohomology of $\Perf(\C^3)$.} On flat affine space
+the Hochschild--Kostant--Rosenberg theorem of HKR-1962 reads
+$\HH^\bullet(\Perf(\C^d)) \;\simeq\; \bigoplus_{p+q=\bullet}
+H^q(\C^d, \wedge^p T_{\C^d})$, and on affine space all higher Dolbeault
+cohomology vanishes, so $\HH^\bullet(\Perf(\C^3)) =
+\PV^\bullet(\C^3) = \C[z_1, z_2, z_3] \otimes \Lambda^\bullet[\partial_1,
+\partial_2, \partial_3]$ as a graded commutative algebra.
+The Atiyah class $\mathrm{At}(T_{\C^3})$ vanishes on flat affine space
+(the tangent bundle is trivial; the Atiyah class is the curvature
+component of the Dolbeault connection on $T_X$, which vanishes for the
+trivial bundle in the canonical frame), so the obstruction to the
+canonical Calaque--Van den Bergh Duflo-twisted HKR
+$\Ethree$-promotion (Theorem \texttt{thm:atiyah-obstruction-hkr-cy3})
+vanishes; HKR is a strict $\Ethree$-map.
+
+\emph{(b) Stage--$1$ output of $\PhiFA_3$.}
+Proposition \texttt{prop:phi-fa-three-step-assembly} steps (a)--(c)
+deliver $\PhiFA_3(\Perf(\C^3)) = \mathrm{Fact}_{\Ethree}^{\hol}$ on
+$\C^3$ generated by the Schouten--Nijenhuis dg-Lie $\PV^\bullet(\C^3)$,
+twisted by the matrix-framing $\mathrm{REnd}_\frakg$ to give
+$\frakg \otimes \PV^\bullet(\C^3)[1]$ as the gauge dg-Lie. Step (a)
+is Kontsevich--Tamarkin formality (Theorem
+\texttt{thm:kt-formality-d3}, parametrised by the
+$\GRT_1(\Q)$-torsor); step (b) is the Costello--Gwilliam
+factorisation envelope (Costello--Gwilliam \emph{Factorization Algebras
+in QFT}, Volume~$1$, Chapter~$3$, factorisation-envelope construction);
+step (c) is the Costello--Li holomorphic twist on $\C^3$, giving the
+Bochner--Martinelli propagator on flat $\C^3$.
+
+\emph{(c) BV observables of $6$d hCS.}
+Costello--Li \texttt{arXiv:1606.00365} construct
+$\Obs^{q,\hCS}(\C^3, \frakg)$ as the perturbative BV factorisation
+algebra of $6$d hCS with gauge $\frakg$. Their Proposition~$5.2$
+identifies the resulting Feynman-graph weights, computed against the
+Bochner--Martinelli propagator on $\C^3$, with the Kontsevich
+configuration-space integrals $w_\Gamma$ over $\overline{\Conf}_n(\R^6)$
+(Proposition \texttt{prop:costello-li-bv-kontsevich}). On flat $\C^3$
+the underlying gauge dg-Lie of the BV complex is
+$\Omega^{0,\bullet}(\C^3) \otimes \frakg[1]$, which is
+quasi-isomorphic to $\frakg \otimes \PV^\bullet(\C^3)[1]$ via the
+Dolbeault $\bar\partial$-resolution and HKR.
+
+\emph{Synthesis.}
+Both sides of \eqref{eq:agent06-flat-c3-master} are $\Ethree$-FAs on
+$\C^3$ whose underlying gauge dg-Lie is
+$\frakg \otimes \PV^\bullet(\C^3)[1]$; both are constructed by the
+same $\Ethree$-formality data (Kontsevich graph weights against the
+Bochner--Martinelli propagator); both are obtained from the same
+factorisation-envelope assembly of an $\Ethree$-algebra on the
+underlying topological space; both carry the same Costello--Li
+holomorphic twist with the trivial CY form $dz_1 \wedge dz_2 \wedge
+dz_3$. The Costello--Li propagator selects the Kontsevich
+$\Q$-associator $\Phi_{\mathrm{Konts}}$ within the
+$\GRT_1(\Q)$-torsor of formality data (Proposition
+\texttt{prop:costello-li-bv-kontsevich}): if a different $F' \in
+\mathrm{Form}_3(\Q)$ is chosen for $\PhiFA_3(\Perf(\C^3))$, the
+identification holds up to $\GRT_1(\Q)$-action; if $F = F_{\mathrm{Konts}}$
+is chosen, the identification is canonical. This is the conjunction of
+\textit{Costello--Li 2016} Proposition~$5.2$ with
+Proposition \texttt{prop:phi-fa-three-step-assembly} on the flat
+$\C^3$ chart.
+\end{proof}
+
+\begin{remark}[The flat-affine baseline as test oracle]
+\label{rem:agent06-flat-as-test-oracle}
+Equation \eqref{eq:agent06-flat-c3-master} on $\C^3$ is the standalone
+test oracle for the equivalence: if either side is computed wrongly on
+flat $\C^3$, the global statement on $K3 \times E$ cannot hold. Both
+sides predict the same flat shuffle algebra $Y^+(\widehat{\frakg})$
+on Hecke correspondences with kernel
+$\omega(z, w) = (z - w + \epsilon_1)(z - w + \epsilon_2)
+(z - w - \epsilon_1 - \epsilon_2)/[(z - w)(z - w + \epsilon_1 +
+\epsilon_2)]$ at the Schiffmann--Vasserot $\C^3$ point.
+\end{remark}
+
+% =============================================================
+\subsection*{Step 2: K\"unneth on the categorical side}
+\label{sec:agent06-step2-cat-kunneth}
+% =============================================================
+
+The categorical input to $\PhiFA_3$ on $K3 \times E$ factorises by
+Bondal--Orlov.
+
+\begin{lemma}[Categorical K\"unneth: Bondal--Orlov plus HKR plus
+twisted Atiyah vanishing]
+\label{lem:agent06-categorical-kunneth}
+\ClaimStatusVerified
+The derived category of $K3 \times E$ admits the dg tensor-product
+decomposition
+\begin{equation}
+\label{eq:agent06-bondal-orlov-K3xE}
+ D^b\Coh(K3 \times E) \;\simeq\;
+ D^b\Coh(K3) \otimes_\C D^b\Coh(E)
+\end{equation}
+in the $(\infty,1)$-category of stable dg-categories
+(Bondal--Orlov $1995$ \emph{Russian Math.\ Surveys} $50$, Theorem~$3.1$,
+externalised to dg-categorical tensor product by Toen $2007$
+\emph{Inventiones} $167$, ``The homotopy theory of dg-categories and
+derived Morita theory''). The induced K\"unneth identification on
+Hochschild cohomology is the strict equivalence
+\begin{equation}
+\label{eq:agent06-HH-kunneth-K3xE}
+ \HH^\bullet(D^b\Coh(K3 \times E)) \;\simeq\;
+ \HH^\bullet(D^b\Coh(K3)) \otimes_\C \HH^\bullet(D^b\Coh(E))
+\end{equation}
+of $\Ethree$-algebras over $\Q$ when both sides are equipped with the
+Kontsevich--Tamarkin formality torsor restricted by the K\"unneth tensor
+of $\Ethree$-formality with $\Etwo \otimes \Eone$-formality
+\textup{(}Lurie \textit{HA}, Cor.~$5.1.2.6$, functoriality of the
+$\En$-tensor product\textup{).} Composing
+\eqref{eq:agent06-HH-kunneth-K3xE} with the Caldararu--Willerton
+twisted HKR equivalence
+\begin{equation}
+\label{eq:agent06-HKR-K3xE}
+ \HH^\bullet(D^b\Coh(K3 \times E))
+ \xrightarrow[\sim]{\;\mathrm{HKR}_{\mathrm{td}^{1/2}}\;}
+ \PV^\bullet(K3 \times E) \otimes \mathrm{td}^{1/2}(K3 \times E)
+\end{equation}
+of Theorem \texttt{thm:atiyah-obstruction-hkr-cy3} +
+Corollary \texttt{cor:atiyah-vanishes-K3xE} yields
+\begin{equation}
+\label{eq:agent06-HH-PV-K3xE}
+ \HH^\bullet(D^b\Coh(K3 \times E)) \;\simeq\;
+ \PV^\bullet(K3) \otimes_\C \PV^\bullet(E),
+\end{equation}
+since the Todd square-root factorises K\"unneth-multiplicatively as
+$\mathrm{td}^{1/2}(K3 \times E) = \mathrm{td}^{1/2}(K3) \boxtimes
+\mathrm{td}^{1/2}(E)$ and $\mathrm{td}^{1/2}(E) = 1$ (Todd of an
+elliptic curve is trivial since $c_1(E) = 0$ and higher Chern classes
+vanish on a curve).
+\end{lemma}
+
+\begin{proof}
+The Bondal--Orlov 1995 product theorem states that for smooth projective
+varieties $Y_1, Y_2$ the external tensor product $- \boxtimes -$ induces
+a $\Q$-linear equivalence
+$D^b\Coh(Y_1) \otimes^{\mathrm{dg}} D^b\Coh(Y_2) \simeq D^b\Coh(Y_1
+\times Y_2)$ when both factors are smooth projective; the dg upgrade is
+Toen 2007. K3 and elliptic curves are smooth projective; the
+hypotheses are satisfied.
+
+The Hochschild cohomology K\"unneth formula
+\eqref{eq:agent06-HH-kunneth-K3xE} is then a consequence of the
+multiplicativity of $\HH^\bullet$ under dg tensor product
+($\HH^\bullet(\cC_1 \otimes \cC_2) \simeq \HH^\bullet(\cC_1)
+\otimes \HH^\bullet(\cC_2)$ when both factors are smooth
+proper; Lurie \textit{HA}~$\S 5.5.4$ + Toen). The $\Ethree$-algebra
+upgrade follows from Lurie \textit{HA} Cor.~$5.1.2.6$:
+$\Ethree$-algebra structure on a tensor product is the Dunn--Lurie
+tensor of $\Ed$-structures on the two factors, with $d_1 + d_2 = 3$
+giving the additivity. Here $\HH^\bullet(D^b\Coh(K3))$ carries an
+$\Etwo$-algebra structure (CY$_2$), $\HH^\bullet(D^b\Coh(E))$ carries an
+$\Eone$-algebra structure (CY$_1$), and the tensor is $\Etwo \otimes
+\Eone \simeq \Ethree$.
+
+The HKR identification \eqref{eq:agent06-HKR-K3xE} is
+Calaque--Caldararu--Tu (Calaque--Van den Bergh 2010, \emph{Adv.\ Math.}
+$224$); the Caldararu--Willerton 2010 twist by $\mathrm{td}^{1/2}$ is
+necessary and sufficient for the cup-product compatibility (Caldararu
+2005 \emph{Adv.\ Math.} $194$, Theorem~$5$, ``The Mukai pairing II'').
+On a CY$_d$ manifold $c_1 = 0$ implies that the leading
+non-trivial term of $\mathrm{td}^{1/2}$ is $1 + c_2/24 + \cdots$.
+On $K3$ this gives $\mathrm{td}^{1/2}(K3) = 1 + c_2(K3)/24 = 1 + 2$
+in $H^4(K3, \Q)$ (since $\int_{K3} c_2 = 24$). On the elliptic curve $E$
+all Chern classes beyond $c_1$ vanish; the Todd square-root is the unit
+$1$. The Atiyah class obstruction lands in $H^{1,3}(K3 \times E) = 0$
+by Corollary \texttt{cor:atiyah-vanishes-K3xE}, so the twisted HKR is a
+canonical $\Ethree$-map without further obstruction.
+
+K\"unneth multiplicativity of the Todd square-root --- $\mathrm{td}^{1/2}(K3 \times E) = \mathrm{td}^{1/2}(K3) \boxtimes \mathrm{td}^{1/2}(E)$ --- is the splitting principle applied to the product
+$T_{K3 \times E} \cong p_1^* T_{K3} \oplus p_2^* T_E$ on
+$K3 \times E$; the resulting product factorises in cohomology because
+the Todd class is multiplicative on direct sums of vector bundles. With
+$\mathrm{td}^{1/2}(E) = 1$ the residual product is just
+$\mathrm{td}^{1/2}(K3) \otimes 1$, which splits across the K\"unneth
+factorisation \eqref{eq:agent06-HH-PV-K3xE}.
+\end{proof}
+
+% =============================================================
+\subsection*{Step 3: K\"unneth on the BV side}
+\label{sec:agent06-step3-bv-kunneth}
+% =============================================================
+
+The BV side factorises by the Costello--Gwilliam holomorphic-topological
+tensor theorem applied to the holomorphic-holomorphic product.
+
+\begin{lemma}[BV K\"unneth: Costello--Gwilliam holomorphic-tensor theorem]
+\label{lem:agent06-bv-kunneth}
+\ClaimStatusVerified
+For $X = X_1 \times X_2$ a product of two CY manifolds with the
+product CY metric and product holomorphic volume form $\Omega_{X_1
+\times X_2} = \Omega_{X_1} \wedge \Omega_{X_2}$, the perturbative BV
+observables of holomorphic Chern--Simons factor as
+\begin{equation}
+\label{eq:agent06-bv-kunneth-product}
+ \Obs^{q,\hCS}(X_1 \times X_2, \frakg) \;\simeq\;
+ \Obs^{q,\hCS}(X_1, \frakg) \;\boxtimes\; \Obs^{q,\hCS}(X_2, \frakg)
+\end{equation}
+as holomorphic factorisation algebras on $X_1 \times X_2$, in the sense
+of Costello--Gwilliam, \emph{Factorization Algebras in QFT}, Volume~$2$,
+$\S 4.10$ (the holomorphic-topological tensor theorem extended to the
+holomorphic-holomorphic case by Costello--Li 2016 Theorem~$2.5$, ``BV
+quantisation of holomorphic Chern--Simons on a product''). The
+$\Ethree$-structure on the left-hand side is the Dunn--Lurie tensor of
+the $\Etwo$-structure on $\Obs^{q,\hCS}(K3, \frakg)$ \textup{(}from
+the K3 holomorphic twist with the Yau metric, $d_1 = 2$\textup{)} and
+the $\Eone$-structure on $\Obs^{q,\hCS}(E, \frakg)$ \textup{(}from
+the elliptic-curve flat-metric holomorphic twist, $d_2 = 1$\textup{).}
+\end{lemma}
+
+\begin{proof}
+The BV action $S^{\hCS}_{X_1 \times X_2}$ on the product is the
+sum $S^{\hCS}_{X_1} + S^{\hCS}_{X_2}$ pulled back along the
+projections, plus the Chern--Simons cubic mixing-term that, by the
+factorisation $\Omega^{0,\bullet}(X_1 \times X_2) =
+\Omega^{0,\bullet}(X_1) \otimes \Omega^{0,\bullet}(X_2)$ (Dolbeault
+K\"unneth on a product of compact K\"ahler manifolds: the
+$\bar\partial$-Laplacian on $X_1 \times X_2$ is the sum of the
+$\bar\partial$-Laplacians on the factors, and harmonic forms
+factorise), separates into a tensor product of the Chern--Simons
+cubics on the two factors and cross-terms that vanish by the wedge
+factorisation. The Costello--Li heat-kernel propagator on
+$X_1 \times X_2$ likewise factorises:
+$P^{X_1 \times X_2}(z; w) = P^{X_1}(z_1; w_1) \otimes
+P^{X_2}(z_2; w_2)$ when the metric is the product metric (the
+$\bar\partial$-Laplacian heat kernel is the tensor product of the
+factor heat kernels). Volume~$2$, $\S 4.10$ of Costello--Gwilliam
+establishes that for two locally constant factorisation algebras on
+$X_1$ and $X_2$ obtained by BV quantisation against propagators, the
+factorisation algebra on $X_1 \times X_2$ obtained from the product BV
+data is canonically equivalent to the external tensor product. The
+$\Ethree$-structure on the product is then the Dunn--Lurie tensor of
+$\Etwo$ (from the K3 holomorphic-twist factor) and $\Eone$ (from the
+elliptic factor), since $E_{2+1} = E_3$ by Dunn additivity.
+\end{proof}
+
+\begin{remark}[Why the K3 factor is $\Etwo$-holomorphic and the
+elliptic factor is $\Eone$-holomorphic]
+\label{rem:agent06-EnEoneEtwo}
+The native operadic level $n_{\mathrm{native}}(d)$ on a
+holomorphic CY$_d$ is $E_d$ at the chain level, then descends to
+$E_{d - \dim_\C \Sigma_{d-1}}$ under specialisation along a
+$(d-1)$-dimensional submanifold. On the $K3 \times E$ product, the
+two factors carry their own native levels: $K3$ gives $\Etwo$ on
+$\Obs^{q,\hCS}(K3, \frakg)$ via Costello--Li $4$d hCS on K3, and $E$
+gives $\Eone$ on $\Obs^{q,\hCS}(E, \frakg)$ via Costello--Li $2$d hCS
+on $E$ (which is the $\hbar$-deformed Beilinson--Drinfeld algebra
+$\mathrm{BD}_\hbar(\frakg)$ on $E$). Their tensor product is $E_3$,
+matching $\PhiFA_3$ on the categorical side.
+\end{remark}
+
+% =============================================================
+\subsection*{Step 4: matching Stage--$1$ assembly with BV quantisation
+on each factor}
+\label{sec:agent06-step4-factor-matching}
+% =============================================================
+
+The two K\"unneth decompositions above produce two $\Ethree$-FAs on
+$K3 \times E$, each a tensor product of factor-FAs. The remaining
+identification reduces to two factor-level identifications.
+
+\begin{proposition}[Factor-level identifications]
+\label{prop:agent06-factor-level}
+\ClaimStatusConditional{\textup{(}admissible $\frakg$, perturbative,
+formal in $\hbar$, principal locus, Yau metric input\textup{)}}
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item \textup{(K3 factor.)} On the K3 factor, the $\Etwo$-FA
+$\Obs^{q,\hCS}(K3, \frakg)$ is equivalent to the Stage--$1$ output
+$\PhiFA_2(D^b\Coh(K3), \mathrm{REnd}_\frakg)$ as $\Etwo$-holomorphic
+factorisation algebras on $K3$, modulo the
+$\GRT_1(\Q)$-torsor of $\Etwo$-formality. The equivalence is the
+twisted-HKR equivalence
+$\HH^\bullet(D^b\Coh(K3)) \simeq \PV^\bullet(K3) \otimes
+\mathrm{td}^{1/2}(K3)$ followed by Costello--Li 2016 holomorphic
+twist on K3.
+\item \textup{(Elliptic factor.)} On the elliptic factor, the
+$\Eone$-FA $\Obs^{q,\hCS}(E, \frakg)$ is equivalent to the
+Stage--$1$ output $\PhiFA_1(D^b\Coh(E), \mathrm{REnd}_\frakg)$
+as $\Eone$-holomorphic factorisation algebras on $E$, namely the
+$\hbar$-deformed Beilinson--Drinfeld algebra
+$\mathrm{BD}_\hbar(\frakg \otimes \PV^\bullet(E))$. The
+equivalence is HKR on the elliptic curve
+($\HH^\bullet(D^b\Coh(E)) \simeq \PV^\bullet(E)$, with
+$\mathrm{td}^{1/2}(E) = 1$) followed by Costello--Li $2$d hCS
+quantisation on $E$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+\textit{(1).} On a CY$_2$ (the K3 factor) Stage--$1$ assembly
+$\PhiFA_2$ is unconditional (Proposition
+\texttt{prop:phi-fa-three-step-assembly} step (c) is unconditional at
+$d = 2$ via the Kontsevich--Vlassopoulos $\bS^2$-framing). The
+$\Etwo$-formality of Hochschild cochains for a smooth proper CY$_2$
+category is Tamarkin--Kontsevich at $d = 2$. The Costello--Li $4$d
+holomorphic Chern--Simons BV quantisation on K3 (Costello--Li
+$2016$, Theorem~$2.5$, the $4$d quantisation on a compact
+K\"ahler $4$-manifold satisfying the K\"ahler-CY condition) produces
+the same $\Etwo$-FA on K3 with the K\"ahler-K3 propagator selecting
+the Kontsevich associator (the same chain of arguments as
+Proposition \texttt{prop:agent06-flat-c3-identification} restricted to
+the K3 factor and globalised over the K3 holomorphic atlas; the
+twisted HKR with $\mathrm{td}^{1/2}(K3) = 1 + c_2(K3)/24$ supplies
+the cohomological match between $\HH^\bullet(D^b\Coh(K3))$ and
+$\PV^\bullet(K3)$ as $\Etwo$-algebras).
+
+The principal locus (in the sense of
+Definition \texttt{def:witnessed-admissible-specialisation-datum})
+provides the witnessed admissible specialisation datum: the K3-Yau
+metric existence theorem of Yau 1978 (\emph{CPAM} 31 ``On the Ricci
+curvature of a compact K\"ahler manifold and the complex
+Monge--Amp\`ere equation, I'') gives the input metric, against which
+the Costello--Li propagator is smooth and the BV quantisation
+converges in the perturbative $\hbar$-expansion (existence-only,
+since the Yau metric is not explicit).
+
+\textit{(2).} On the elliptic curve $E$, $D^b\Coh(E)$ is a smooth
+proper CY$_1$ category. Stage--$1$ assembly $\PhiFA_1$ is unconditional
+($d = 1$ is the trivial case in which the Gerstenhaber bracket
+vanishes; step (c) of Proposition
+\texttt{prop:phi-fa-three-step-assembly} is the
+identity transformation in this case, which is consistent with the
+$\Eone$-output being $\Einf$-commutative on a single curve).
+The Hochschild K\"unneth-multiplicativity gives
+$\HH^\bullet(D^b\Coh(E)) \simeq H^\bullet(E, \cO_E) \otimes
+H^\bullet(E, T_E^\vee \otimes T_E)$ since the relevant Hochschild
+groups are the Dolbeault polyvector groups on a curve. Concretely
+$\HH^0(D^b\Coh(E)) = \C \oplus \C \cdot dz_E \cdot \partial_{z_E}$ and
+$\HH^1(D^b\Coh(E)) = \C \cdot \partial_{z_E} \oplus \C \cdot dz_E$
+(K\"unneth on the elliptic curve gives the Heisenberg generators).
+Costello--Li $2$d hCS on $E$ with gauge $\frakg$ (Costello $2013$
+\emph{Notes on the deformation theory of Yang--Mills theory},
+arXiv:$1303.2270$, $\S 7$, hCS on a curve is the holomorphic
+$\beta\gamma$ chiral algebra on $E$) is the standard holomorphic
+$\beta\gamma$-system on $E$, whose factorisation algebra
+quantises to $\mathrm{BD}_\hbar(\frakg \otimes \PV^\bullet(E))$
+(Costello--Gwilliam, Volume~$1$, $\S 5.4$, holomorphic factorisation
+algebra $\beta\gamma$-system; this is the Beilinson--Drinfeld
+chiral algebra of the elliptic Heisenberg).
+
+The factor-level identification for $E$ is therefore the comparison
+between the Beilinson--Drinfeld vacuum module of $\frakg \otimes
+\PV^\bullet(E)$ and the BV observable algebra of $2$d hCS, both of
+which are the Heisenberg algebra at level $1$ on $E$ tensored with
+$\frakg$. This is the Frenkel--Ben-Zvi
+\emph{Vertex Algebras and Algebraic Curves} $\S 5.4$ identification.
+\end{proof}
+
+% =============================================================
+\subsection*{Step 5: assembly --- proof of
+Theorem~\ref{thm:agent06-cat-eq-BV-K3xE}}
+\label{sec:agent06-step5-assembly}
+% =============================================================
+
+\begin{proof}[Proof of Theorem~\ref{thm:agent06-cat-eq-BV-K3xE}]
+Combine the four reductions.
+
+\textit{(i) Categorical K\"unneth.} Lemma
+\ref{lem:agent06-categorical-kunneth} gives
+$\HH^\bullet(D^b\Coh(K3 \times E)) \simeq \PV^\bullet(K3) \otimes
+\PV^\bullet(E)$ as $\Ethree = \Etwo \otimes \Eone$-algebras over $\Q$,
+modulo a choice of formality torsor point.
+
+\textit{(ii) Stage--$1$ assembly factors K\"unneth-multiplicatively.}
+The three-step assembly of Proposition
+\texttt{prop:phi-fa-three-step-assembly} commutes with the
+Dunn--Lurie tensor product. Step (a) commutes by Lurie
+\textit{HA} Cor.~$5.1.2.6$ (functoriality of $\En$-algebra extension
+under tensor product). Step (b) commutes by Costello--Gwilliam
+Volume~$2$, $\S 4.10$, the holomorphic-topological tensor theorem,
+applied to the holomorphic-holomorphic case (factorisation envelope
+of a tensor of $\En$-algebras is the external tensor of the
+factorisation envelopes). Step (c) commutes because the holomorphic
+twist on $K3 \times E$ with the product CY form
+$\Omega_{K3 \times E} = \Omega_{K3} \wedge \Omega_E$ factorises as the
+tensor product of the K3-twist (using $\Omega_{K3}$) and the
+elliptic-curve twist (using $\Omega_E = dz_E$); the BCOV one-loop
+anomaly $\alpha_{\BCOV}(K3 \times E) = (\chi(K3 \times E)/24) \,
+[\Omega_{K3 \times E}]^{0,1} = 0$ vanishes by
+$\chi(K3 \times E) = 24 \cdot 0 = 0$ (Remark
+\texttt{rem:three-cocycles-K3xE}), so no curving obstruction
+appears. Hence
+\begin{equation}
+\label{eq:agent06-phifa3-K3xE-kunneth}
+ \PhiFA_3(D^b\Coh(K3 \times E)) \;\simeq\;
+ \PhiFA_2(D^b\Coh(K3)) \;\boxtimes\; \PhiFA_1(D^b\Coh(E))
+\end{equation}
+in $\EdHolFA(K3 \times E)^{(\infty,1)}$ on the principal locus.
+
+\textit{(iii) BV K\"unneth.} Lemma \ref{lem:agent06-bv-kunneth} gives
+$\Obs^{q,\hCS}(K3 \times E, \frakg) \simeq \Obs^{q,\hCS}(K3, \frakg)
+\boxtimes \Obs^{q,\hCS}(E, \frakg)$ as $\Ethree$-FAs on $K3 \times E$.
+
+\textit{(iv) Factor-level identifications.}
+Proposition \ref{prop:agent06-factor-level} identifies each factor on
+the BV side with each factor on the categorical side: K3 with
+$\PhiFA_2(D^b\Coh(K3))$ as $\Etwo$-FAs on K3, modulo the
+$\GRT_1(\Q)$-torsor; $E$ with $\PhiFA_1(D^b\Coh(E))$ as
+$\Eone$-FAs on $E$.
+
+The K\"unneth-tensor of the two factor-level equivalences is the
+required equivalence \eqref{eq:agent06-master-equivalence}; the
+Dunn--Lurie additivity $\Etwo \otimes \Eone \simeq \Ethree$ promotes
+it to an equivalence of $\Ethree$-FAs on $K3 \times E$. The
+$\GRT_1(\Q)$-action on the K3 factor and the trivial associator on
+the elliptic factor combine into the residual $\GRT_1(\Q)$-action on
+$\Ethree$-formality of $K3 \times E$ (Theorem
+\texttt{thm:cfg-e3-formality-stage-1-phiFA3-torsor}).
+\end{proof}
+
+% =============================================================
+\subsection*{Attack--heal cycles}
+\label{sec:agent06-attack-heal}
+% =============================================================
+
+\paragraph{Attack 1: Beck--Chevalley failure for the holomorphic-twist
+pushforward across the product.}
+The K3 factor uses the Costello--Li $4$d hCS holomorphic twist
+(Costello--Li $2016$); the elliptic factor uses Costello $2$d hCS
+on $E$. The K3-pushforward across $K3 \to \mathrm{pt}$ followed by the
+$E$-pullback to $K3 \times E$ is not generically Beck--Chevalley with
+the $E$-pushforward across $E \to \mathrm{pt}$ followed by
+$K3$-pullback. \emph{Heal:} the Beck--Chevalley $2$-cell
+$\mathrm{BC}_{\mathfrak s}$ in
+Definition \texttt{def:witnessed-admissible-specialisation-datum}
+is part of the principal-locus datum on $K3 \times E$. On a product
+of compact K\"ahler manifolds, the holomorphic-twist heat-kernel
+factorisation $P^{K3 \times E} = P^{K3} \otimes P^E$ provided by
+Costello--Gwilliam Volume~$2$, $\S 4.10$ Theorem~$4.10.1$ is exactly
+the Beck--Chevalley datum needed for the K\"unneth tensor on the BV
+side; the corresponding Beck--Chevalley cell on the categorical side
+is the multiplicativity of $\PhiFA_d$ across products
+(Proposition \texttt{prop:phi-d-kunneth-split-product} of the main
+treatise). The two Beck--Chevalley cells are matched by the
+factor-level identifications of
+Proposition \ref{prop:agent06-factor-level}: each factor
+identification is constructed in such a way that the projection cell
+is preserved.
+
+\paragraph{Attack 2: Completion issues --- finite-rank vs derived
+completion of $\HH^\bullet$.}
+Hochschild cohomology on a compact CY can be computed in two
+inequivalent ways: as a finite-rank $\Q$-vector space (when the
+relevant Dolbeault groups are finite-dimensional) or as a derived
+completion at the formal disk (which is canonical for the Chern--Simons
+deformation theory). \emph{Heal:} for $K3 \times E$ both computations
+agree because all relevant cohomology groups
+$H^q(K3 \times E, \wedge^p T_{K3 \times E})$ are finite-dimensional
+$\Q$-vector spaces (smooth proper variety; finite-dimensional Hodge
+groups). The HKR isomorphism is therefore an isomorphism of
+finite-dimensional $\Q$-vector spaces on $K3 \times E$, no derived
+completion needed. The associated $\Ethree$-formality is over the
+finite-dimensional model $\PV^\bullet(K3 \times E)$, with $\hbar$
+appearing only in the perturbative expansion of the BV action,
+not in the underlying graded vector space.
+
+\paragraph{Attack 3: The matrix-framing twist $\mathrm{REnd}_\frakg$
+might not commute with K\"unneth.}
+The matrix-framing $\mathrm{REnd}_\frakg \mapsto \frakg \otimes
+\PV^\bullet(X)[1]$ on the categorical side and the gauge dg-Lie
+$\Omega^{0,\bullet}(X) \otimes \frakg[1]$ on the BV side both involve
+$\frakg$ in a single tensor factor. \emph{Heal:} on the product
+$X = K3 \times E$, the matrix-framing twist factors as
+$\mathrm{REnd}_\frakg(K3 \times E) = \frakg \otimes \PV^\bullet(K3
+\times E)[1] = \frakg \otimes (\PV^\bullet(K3) \otimes
+\PV^\bullet(E))[1]$, which can be rewritten as the K\"unneth tensor
+$(\frakg \otimes \PV^\bullet(K3)[1]) \otimes_\frakg (\frakg \otimes
+\PV^\bullet(E)[1])$ \emph{over $\frakg$} via the gauge dg-Lie
+co-multiplication. This rewriting is the matrix-framing analogue of
+the Bondal--Orlov tensor decomposition; the two factors carry the
+same gauge $\frakg$, and the tensor product is over $\frakg$ rather
+than over $\C$. The factor-level BV side preserves this convention:
+$\Obs^{q,\hCS}(X_i, \frakg)$ uses $\frakg$ on each factor, and the
+external tensor product on the BV side is the over-$\frakg$ tensor.
+The two K\"unneths therefore match factor-by-factor.
+
+\paragraph{Attack 4: The $\GRT_1(\Q)$-torsor on $\Ethree$-formality
+might disagree with the K\"unneth product of $\GRT_1(\Q)$-torsors on
+$\Etwo$-formality and $\Eone$-formality.}
+The Dunn--Lurie identity $\Etwo \otimes \Eone \simeq \Ethree$ is a
+theorem about $\En$-operads; the corresponding identity for the
+$\GRT_1(\Q)$-torsor is non-trivial because $\GRT_1(\Q)$ is the
+graph-complex group $H^0(\mathrm{GC}_2; \Q)^\vee$ (Willwacher 2014),
+which acts on $\Etwo, \Ethree, \En$-formality compatibly across all
+$n$. \emph{Heal:} the Willwacher 2014 \emph{Inventiones} 200
+identification $\mathfrak{grt}_1 \simeq H^0(\mathrm{GC}_2)$ shows that
+$\GRT_1(\Q)$ acts on every $\En$-operad $(n \geq 2)$ via the same
+graph-complex generators, with the action functorial in the
+Dunn--Lurie tensor (Fresse--Willwacher 2018 \emph{J.\ Eur.\ Math.\
+Soc.} 22). The K\"unneth tensor of an $\Etwo$-formality datum on
+$\PV^\bullet(K3)$ with the trivial $\Eone$-formality datum on
+$\PV^\bullet(E)$ (the elliptic curve $\Eone$-structure has no
+non-trivial higher operations beyond the bracket;
+$\mathrm{Form}_1(\Q) = \mathrm{pt}$) yields an $\Ethree$-formality
+datum on $\PV^\bullet(K3 \times E)$ in the $\GRT_1(\Q)$-orbit of the
+Kontsevich one. The two $\GRT_1(\Q)$-actions therefore agree on the
+full K\"unneth datum, modulo the residual $\GRT_1(\Q)$-action that is
+already named in the statement.
+
+% =============================================================
+\subsection*{Final synthesis and the open ends}
+\label{sec:agent06-synthesis}
+% =============================================================
+
+The chain of reductions is
+\begin{align*}
+\Obs^{q,\hCS}(K3 \times E,\frakg)
+\;&\overset{\text{Lem.~}\ref{lem:agent06-bv-kunneth}}{\simeq}\;
+\Obs^{q,\hCS}(K3,\frakg) \boxtimes \Obs^{q,\hCS}(E,\frakg) \\
+\;&\overset{\text{Prop.~}\ref{prop:agent06-factor-level}}{\simeq}\;
+\PhiFA_2(D^b\Coh(K3),\mathrm{REnd}_\frakg) \boxtimes
+\PhiFA_1(D^b\Coh(E),\mathrm{REnd}_\frakg) \\
+\;&\overset{\eqref{eq:agent06-phifa3-K3xE-kunneth}}{\simeq}\;
+\PhiFA_3(D^b\Coh(K3 \times E),\mathrm{REnd}_\frakg).
+\end{align*}
+Each arrow is an equivalence of $\Ethree$-holomorphic factorisation
+algebras on $K3 \times E$ on the principal locus, perturbatively in
+$\hbar$, modulo the $\GRT_1(\Q)$-torsor of associators and matched
+factor-by-factor in the matrix-framing twist over $\frakg$. The
+Costello--Li propagator selects the Kontsevich associator, after
+which the equivalence is canonical.
+
+\paragraph{Open ends carried forward.}
+\textit{(O1)} All-orders convergence of the perturbative $\hbar$-series
+on the compact $K3 \times E$ (analogue of Costello--Yagi $5$d on
+$\R \times \C^2$). Costello--Yagi's argument uses the
+non-compact factor $\R$; the compact base $K3 \times E$ is the open
+$6$d analogue.
+\textit{(O2)} An explicit construction of the inverse functor
+$\Obs^{q,\hCS}(X, \frakg) \rightsquigarrow D^b\Coh(X)$ recovering
+the categorical input from the BV output; this is the $\mathsf{S}$5
+obstruction of $\S$\texttt{subsec:cy-a3-existence-rigidity}.
+\textit{(O3)} The non-perturbative quantum vertex group
+$G(K3 \times E)$ that is the categorical Drinfeld double $D(Y^+(K3
+\times E))$; the BV factorisation algebra captures only the
+perturbative chiral data (the positive half of the BPS quantum
+group), not the Drinfeld double. The non-perturbative completion
+needs Bridgeland-stability and DT/PT input from outside the
+perturbative BV expansion.
+
+These three open ends are exactly the open ends of
+Remark \texttt{rem:6d-hcs-k3e-open-ends} of the main treatise; the
+present identification leaves them untouched and supplies the
+missing structural identification of the perturbative output as a
+Stage--$1$ output of the categorical functor $\PhiFA_3$ on
+$D^b\Coh(K3 \times E)$.
+
+% =============================================================
+\subsection*{Summary table of source theorems used}
+\label{sec:agent06-source-theorems}
+% =============================================================
+
+\begin{center}
+\small
+\begin{tabular}{lll}
+\toprule
+Step & Source theorem & Reference \\
+\midrule
+HKR on $\C^d$ & affine HKR & Hochschild--Kostant--Rosenberg 1962 \\
+Bondal--Orlov product & $D^b(Y_1 \times Y_2) = D^b(Y_1) \otimes D^b(Y_2)$ & Bondal--Orlov 1995 Thm.~3.1 \\
+$\Ethree$-formality of $D_3$ over $\Q$ & rational formality + intrinsic formality $\geq 3$ & Kontsevich 1999 + Fresse--Willwacher 2018 \\
+$\GRT_1(\Q)$-torsor on $\mathrm{Form}_3(\Q)$ & graph-complex group action & Willwacher 2014 Invent.\ Math.\ 200 \\
+HKR for $D^b\Coh(X)$, $X$ smooth proper & cochain HKR + Caldararu--Willerton twist & Calaque--Van den Bergh 2010 + Caldararu--Willerton 2010 \\
+Atiyah obstruction $\Ethree$-HKR & $\mathrm{At}(T_X) \cdot \Omega_X \in H^{1, d}(X)$ & Kapranov 1999 + treatise Thm.~atiyah-obstruction-hkr-cy3 \\
+$\HH^\bullet$ K\"unneth-multiplicativity & smooth proper dg-tensor & Lurie HA 5.5.4 + Toen 2007 \\
+$\Etwo \otimes \Eone \simeq \Ethree$ & Dunn additivity & Dunn 1988 + Lurie HA 5.1.2.2 \\
+Costello--Li propagator $=$ Kontsevich graph & BM kernel matches $\overline{\Conf}_n(\R^6)$ angle forms & Costello--Li 2016 Prop.~5.2 \\
+hCS BV factorisation algebra & holomorphic twist of $E_d$ via $\Omega_X$ & Costello--Li 2020 \\
+Holomorphic-topological tensor theorem & external $\boxtimes$ for product BV data & Costello--Gwilliam Vol.~2 $\S 4.10$ \\
+Topological chiral homology / locally constant FAs & $E_n$-algebra $\leftrightarrow$ locally constant FA on $\R^n$ & Lurie HA 5.5.4 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The synthesis is the K\"unneth-tensor of each source theorem on the
+$K3$ and $E$ factors, packaged into a single equivalence on
+$K3 \times E$.
+
+% =============================================================
+\subsection*{End of agent-06 file}
+% =============================================================

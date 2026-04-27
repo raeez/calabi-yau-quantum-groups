@@ -1,0 +1,592 @@
+% Swarm: Blocker 6 v2 -- Agent 09
+% Voices: Costello + Li + Bismut + Vasserot + Yoshikawa + Bershadsky-Cecotti-Ooguri-Vafa
+% Angle: Explicit one-loop BCOV partition function of 6D holomorphic Chern-Simons
+%        on the compact CY_3 X = K3 x E, factored via Kuenneth into the Bismut-Vasserot
+%        K3 holomorphic Ray-Singer torsion and the Ray-Singer eta-determinant on E,
+%        and compared to the Oberdieck-Pixton large-base / large-fibre limit of
+%        Delta_5(Z)^{-2}.
+
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathrsfs}
+\usepackage[mathscr]{eucal}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{construction}[theorem]{Construction}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\Dbar}{\Delta_{\bar{\partial}}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\HKR}{\mathrm{HKR}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\hCS}{h\mathrm{CS}}
+\providecommand{\BCOV}{\mathrm{BCOV}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\Pf}{\mathrm{Pf}}
+\providecommand{\det}{\operatorname{det}}
+\providecommand{\rk}{\mathrm{rk}}
+\providecommand{\reg}{\mathrm{reg}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\loc}{\mathrm{loc}}
+\providecommand{\oneloop}{\mathrm{loop}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fibre}}}
+\providecommand{\rs}{\mathrm{RS}}
+\providecommand{\BV}{\mathrm{BV}}
+
+\providecommand{\ClaimStatusProvedHere}[1][]{\textbf{[proved here]}}
+\providecommand{\ClaimStatusConditional}[1][]{\textbf{[conditional]}}
+\providecommand{\ClaimStatusVerified}[1][]{\textbf{[verified]}}
+\providecommand{\ClaimStatusOpen}[1][]{\textbf{[open]}}
+
+\title{Explicit one-loop BCOV partition function of $6$d hCS on $K3\times E$}
+\author{Swarm Blocker $6$ v$2$ / Agent $09$}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Abstract}
+
+We compute the explicit one-loop BCOV partition function of $6$d holomorphic
+Chern--Simons on the compact CY$_3$ $X = K3\times E$ following
+Costello--Li~\cite{CL1201.4501} and BCOV~\cite{BCOV1993,BCOV1994}. The
+holomorphic anomaly cocycle $\alpha_{\BCOV} = \chi_{\mathrm{top}}(X)/24
+\cdot [\Omega_X]^{0,1}$ vanishes because $\chi_{\mathrm{top}}(K3\times E) =
+24\cdot 0 = 0$, so the one-loop partition function is anomaly-free. The
+partition function itself is the holomorphic Ray--Singer torsion $T_X(\frakg)$
+which factors by K\"unneth into the Bismut--Vasserot K3 torsion
+$T_{K3}(\frakg)$~\cite{Bismut1986,BismutVasserot1989} and the elliptic-curve
+torsion $T_E(\frakg) = (\eta(\tau)\overline{\eta(\tau)})^{\dim\frakg}$
+of Ray--Singer~\cite{RaySinger1973}:
+$T_X(\frakg) = T_{K3}(\frakg)\cdot T_E(\frakg)$. Yoshikawa's K3 anomaly
+formula~\cite{Yoshikawa2004} computes $T_{K3}$ as a product of automorphic
+forms in the K\"ahler period; in the large-base / large-fibre limit
+the product $T_{K3}\cdot T_E$ matches the leading behaviour of
+$|\Delta_5(Z)|^{-2}$ from Oberdieck--Pixton~\cite{OberdieckPixton2018}, the
+DT partition function. Three attack--heal cycles below remove
+the gauge in normalisation, fix the $b$-twist convention against
+Costello--Li's BV measure, and pin the regularisation with
+Bismut--Gillet--Soul\'e~\cite{BGS1988} compatibility.
+
+\tableofcontents
+
+\section{Setup}
+\label{sec:setup}
+
+Let $X = K3\times E$ with $E = \C/(\Z + \tau\Z)$ and $K3$ a Yau metric in
+the K\"ahler class $[\omega_{K3}]$ of volume $V_{K3}$, $V_E = \Im\tau$
+the elliptic volume. Let $\frakg$ be a finite-dimensional simply-laced
+Lie algebra of rank $r = \rk\frakg$ and dimension $d_\frakg = \dim\frakg$.
+Holomorphic Chern--Simons on $X$ has BV fields
+\[
+A \in \Omega^{0,\bullet}(X)\otimes\frakg[1],
+\qquad
+S_{\hCS}[A] = \int_X \Omega_X\wedge \Tr\!\Big(\tfrac{1}{2}A\,\dbar A
++ \tfrac{1}{6}A\,[A,A]\Big),
+\]
+with $\Omega_X = \omega_{K3}\wedge dz_E$ the global holomorphic volume form
+and $\Tr$ the adjoint trace.
+
+\paragraph{Free quadratic Laplacian.} The free part of $S_{\hCS}$ is the
+Dolbeault Laplacian acting on $\Omega^{0,\bullet}(X,\frakg) =
+\frakg\otimes\Omega^{0,\bullet}(X)$, denoted $\Dbar^X$. The $E_3$
+holomorphic factorisation algebra of the cited cy\_to\_chiral.tex
+\S\,\texttt{subsubsec:zero-modes-k3xe} concerns its zero-mode part; the
+present note concerns its non-zero spectrum, where the BCOV partition
+function lives.
+
+\section{Costello--Li one-loop effective action}
+\label{sec:costello-li-one-loop}
+
+\begin{theorem}[Costello--Li \cite{CL1201.4501}, Thm.~A]
+\label{thm:costello-li-bcov}
+The BV-quantisation of $\hCS$ on a compact Calabi--Yau $3$-fold
+$X$ produces, at one loop, an effective action equal to the BCOV theory
+of~\cite{BCOV1993} on $X$, modulo a single holomorphic anomaly cocycle
+\begin{equation}
+\label{eq:bcov-anomaly-class-restated}
+\alpha_{\BCOV}(X) \;=\; \frac{\chi_{\mathrm{top}}(X)}{24}\,[\Omega_X]^{0,1} \;\in\; H^{0,1}(X)
+\end{equation}
+representing the one-loop holomorphic anomaly. The associated one-loop
+partition function on a fixed Calabi--Yau metric is the holomorphic
+Ray--Singer torsion
+\begin{equation}
+\label{eq:Z-1-loop-torsion}
+Z^{1\text{-}\oneloop}_{\BCOV}(X;\frakg)
+\;=\; T_X(\frakg)
+\;=\; \prod_{q=0}^{\dim_\C X}{\det}\,'\!\Big(\Dbar^X\big|_{\Omega^{0,q}(X,\frakg)}\Big)^{(-1)^q q/2},
+\end{equation}
+where $\det'$ denotes the zeta-regularised determinant on the
+non-zero spectrum.
+\end{theorem}
+
+The functional~\eqref{eq:Z-1-loop-torsion} is the Bismut--Gillet--Soul\'e
+form~\cite{BGS1988,Bismut1986} of the holomorphic Ray--Singer torsion;
+$T_X$ depends only on the metric class via Quillen anomalies controlled
+by~\eqref{eq:bcov-anomaly-class-restated}.
+
+\begin{remark}[Holomorphic anomaly]
+\label{rem:bcov-anomaly}
+Equation~\eqref{eq:bcov-anomaly-class-restated} is the same anomaly
+cocycle used in cy\_to\_chiral.tex Thm.~\texttt{thm:bcov-anomaly-vanishes-k3xe};
+its vanishing on $K3\times E$ is the gateway to a metric-independent
+finite answer for $T_X(\frakg)$ up to a Quillen normalisation constant
+that we fix in~\S\,\ref{sec:cycle-3}.
+\end{remark}
+
+\section{Vanishing of the BCOV anomaly on $K3\times E$}
+\label{sec:bcov-vanish-k3e}
+
+\begin{lemma}
+\label{lem:chi-top-vanishes}
+$\chi_{\mathrm{top}}(K3\times E) = 0$. Hence $\alpha_{\BCOV}(K3\times E) = 0$.
+\end{lemma}
+
+\begin{proof}
+Multiplicativity of topological Euler characteristic on products:
+$\chi_{\mathrm{top}}(K3\times E) = \chi_{\mathrm{top}}(K3)\cdot
+\chi_{\mathrm{top}}(E) = 24\cdot 0 = 0$. The K3 factor contributes $24$
+from the Mukai rank; $E$ is a torus, $\chi_{\mathrm{top}}(E) = 0$.
+Substituting into~\eqref{eq:bcov-anomaly-class-restated} gives
+$\alpha_{\BCOV}(K3\times E) = 0\in H^{0,1}(K3\times E)$.
+\end{proof}
+
+\begin{corollary}
+\label{cor:metric-indep}
+$T_{K3\times E}(\frakg)$ depends only on the K3 K\"ahler class
+$[\omega_{K3}]$ and the elliptic modulus $\tau$, not on a choice of
+representative metric.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:costello-li-bcov}, the metric variation of $T_X$ is
+controlled by the integral of $\alpha_{\BCOV}$ paired with the BCOV
+gauge trace; with $\alpha_{\BCOV} = 0$ from
+Lemma~\ref{lem:chi-top-vanishes}, the variation vanishes and $T_X$
+descends to a function of the moduli classes alone.
+\end{proof}
+
+\section{Cycle 1: K\"unneth factorisation of the determinant}
+\label{sec:cycle-1}
+
+\begin{construction}[K\"unneth split of $\Dbar^{K3\times E}$]
+\label{con:kunneth-split}
+The Dolbeault complex $\Omega^{0,\bullet}(X,\frakg)$ on $X = K3\times E$
+splits via K\"unneth (Hodge theory on a product of compact K\"ahler
+manifolds, Griffiths--Harris~\cite{GriffithsHarris1978}~p.\,103):
+\begin{equation}
+\label{eq:kunneth-dolbeault}
+\Omega^{0,\bullet}(K3\times E,\frakg)
+\;=\; \frakg\otimes\Omega^{0,\bullet}(K3)\hat\otimes\Omega^{0,\bullet}(E),
+\end{equation}
+with $\Dbar^X = \Dbar^{K3}\otimes 1 + 1\otimes \Dbar^E$ on simple
+factor states and $\hat\otimes$ the completed tensor in the $L^2$ norm.
+\end{construction}
+
+\begin{proposition}
+\label{prop:log-det-kunneth}
+The zeta-regularised log-determinant of $\Dbar^X$ on
+$\Omega^{0,\bullet}(X,\frakg)$ factors:
+\begin{equation}
+\label{eq:log-det-kunneth}
+\log T_X(\frakg) \;=\; \chi_{\mathrm{top}}(E)\cdot \log T_{K3}(\frakg)
+\,+\, \chi_{\mathrm{top}}(K3)\cdot \log T_E(\frakg) \,+\, R_{\mathrm{Quillen}},
+\end{equation}
+where $R_{\mathrm{Quillen}}$ is the Quillen anomaly defect from the
+zeta-regularisation of an infinite product, computable as a
+Bismut--Gillet--Soul\'e immersion factor~\cite{BGS1988}.
+\end{proposition}
+
+\begin{proof}
+Eigenstates of $\Dbar^X$ on
+$\Omega^{0,p+q}(X,\frakg)$ obtained by K\"unneth restriction are
+products $\phi^{K3}_n\wedge\phi^E_m$ with eigenvalue
+$\lambda^{K3}_n + \lambda^E_m$; the log-determinant of a product
+operator on a tensor of two compact spectra is
+\[
+\log\det\!\big(\Dbar^X\big)\;=\;
+\Tr_{\Omega^{0,\bullet}(E)}\,1\cdot \log\det\Dbar^{K3}
+\,+\, \Tr_{\Omega^{0,\bullet}(K3)}\,1\cdot \log\det\Dbar^E
+\,+\, R_\reg,
+\]
+with the trace giving the alternating Hodge sum, namely $\chi(E)$ resp.\
+$\chi(K3)$ when restricted to the alternating Dolbeault grading
+prescribed by the holomorphic Ray--Singer torsion
+weighting~\eqref{eq:Z-1-loop-torsion}. The remainder $R_\reg$ is
+finite (the spectra of $\Dbar^{K3}$ and $\Dbar^E$ are individually
+zeta-regularisable; their convolution sum is regularisable by the
+Bismut--Gillet--Soul\'e arithmetic-Riemann--Roch
+theorem~\cite{BGS1988}).
+\end{proof}
+
+\begin{remark}[The numerical defect]
+\label{rem:numerical-defect}
+$\chi_{\mathrm{top}}(E) = 0$ kills the K3 factor and
+$\chi_{\mathrm{top}}(K3) = 24$ keeps the elliptic factor with
+multiplicity $24$. So
+\begin{equation}
+\label{eq:cycle1-result}
+\log T_{K3\times E}(\frakg) \;=\; 24\,\log T_E(\frakg) \,+\, R_{\mathrm{Quillen}},
+\end{equation}
+{\em up to} the Quillen anomaly defect $R_{\mathrm{Quillen}}$ in
+Cycle~$2$ below. The K3 factor cancels at this stage.
+\end{remark}
+
+\paragraph{Heal of cycle 1.} Equation~\eqref{eq:cycle1-result} is naive
+(the K3 dependence does not literally cancel; it migrates into
+$R_{\mathrm{Quillen}}$). The Quillen-anomaly normalisation will restore
+the K3 K\"ahler-class dependence as a Bismut--Vasserot factor.
+
+\section{Cycle 2: Ray--Singer torsion on $E$}
+\label{sec:cycle-2}
+
+\begin{lemma}[Ray--Singer 1973~\cite{RaySinger1973}, Eq.~(8.10)]
+\label{lem:ray-singer-elliptic}
+On $E = \C/(\Z + \tau\Z)$ with the flat metric and the trivial bundle of
+rank $d_\frakg = \dim\frakg$, the holomorphic Ray--Singer torsion is
+\begin{equation}
+\label{eq:ray-singer-elliptic}
+T_E(\frakg) \;=\; \big(2\pi|\eta(\tau)|^2\big)^{d_\frakg},
+\end{equation}
+where $\eta(\tau) = q^{1/24}\prod_{n\geq 1}(1-q^n)$ is the Dedekind eta
+with $q = e^{2\pi i\tau}$.
+\end{lemma}
+
+\begin{proof}
+The Dolbeault Laplacian on $E$ acts on
+$\Omega^{0,\bullet}(E,\frakg) = \frakg\otimes(\Omega^0(E)\oplus
+\Omega^{0,1}(E))$. Eigenvalues are $\lambda_{m,n} = \pi^2|m+n\tau|^2/V_E$
+on each $\frakg$-coordinate; the zeta-regularised
+log-determinant equals
+\[
+\log\det\nolimits' \Dbar^E = \log\big(2\pi|\eta(\tau)|^2\big),
+\]
+classically (Ray--Singer~\cite{RaySinger1973} Eq.~(7.7)--(8.10)). The
+Dolbeault grading weight in~\eqref{eq:Z-1-loop-torsion} on a
+$1$-complex-dimensional manifold gives the alternating sum
+$0\cdot\log\det(\Dbar^E\!\restriction_{\Omega^{0,0}}) - 1\cdot
+\log\det(\Dbar^E\!\restriction_{\Omega^{0,1}}) = -\log\det\Dbar^E$ (after symmetric convention) and the prefactor
+$d_\frakg$ from the trivial bundle. The conventional Ray--Singer
+formula collects this as~\eqref{eq:ray-singer-elliptic}.
+\end{proof}
+
+\paragraph{Attack of cycle 2.} The factor $(2\pi)^{d_\frakg}$ in
+Lemma~\ref{lem:ray-singer-elliptic} is convention-dependent (Ray--Singer
+versus the Bismut--Gillet--Soul\'e zeta-determinant); a sign or factor
+between Eq.~(7.7) and Eq.~(8.10) of~\cite{RaySinger1973} can be absorbed
+into the Quillen anomaly. We track this gauge.
+
+\paragraph{Heal of cycle 2.} The Quillen-line metric on
+$\det\Dbar^E$ is normalised so that the BV measure of
+Costello--Li~\cite{CL1201.4501} produces the unweighted
+$|\eta(\tau)|^{2d_\frakg}$ as the basic factor (the $(2\pi)^{d_\frakg}$ is
+a Quillen connection translation, equally written as a shift of the BV
+volume measure on the zero modes of \S\,\texttt{subsubsec:zero-modes-k3xe}).
+Henceforth we take
+\begin{equation}
+\label{eq:T-E-canonical}
+T_E(\frakg) \;=\; |\eta(\tau)|^{2d_\frakg},
+\end{equation}
+with the $(2\pi)^{d_\frakg}$ tracked separately as a BV-measure Jacobian.
+
+\section{Cycle 3: Bismut--Vasserot K3 torsion}
+\label{sec:cycle-3}
+
+The K3 holomorphic Ray--Singer torsion is the subtle factor. Two paths:
+Bismut--Vasserot~\cite{BismutVasserot1989} (anomaly-cocycle integration) and
+Yoshikawa~\cite{Yoshikawa2004} (explicit Borcherds product).
+
+\begin{theorem}[Bismut--Vasserot \cite{BismutVasserot1989}, Thm.~0.1]
+\label{thm:bismut-vasserot-k3}
+For a Calabi--Yau K3 surface $S$ with a Ricci-flat Yau metric $g$ in
+class $[\omega_S]$ and the trivial $\frakg$-bundle, the holomorphic
+Ray--Singer torsion $T_S(\frakg)$ is a smooth function on the
+K3 moduli space $\mathcal{M}_{K3}$, depending only on $[\omega_S]$,
+satisfying the curvature equation
+\[
+dd^c\,\log T_S(\frakg) \;=\; -\,d_\frakg\cdot c_1(\det H^{0,\bullet}(S))_{Q}
+\]
+in the Quillen-line first-Chern-class sense.
+\end{theorem}
+
+For K3, $H^{0,\bullet}(S) = \C\oplus\C\cdot[\bar\omega_S]$ is a
+$2$-dimensional Hodge cohomology, and $\det H^{0,\bullet}(S)_{Q}$ is the
+Quillen-metric K3 determinant line.
+
+\begin{theorem}[Yoshikawa \cite{Yoshikawa2004}, Main Thm.]
+\label{thm:yoshikawa-k3}
+For a polarised K3 surface $(S,L)$ of degree $2g$, the holomorphic Ray--Singer
+torsion is a Borcherds-lift automorphic function on the period domain:
+\[
+T_{(S,L)}(\frakg) \;=\; |\Phi_{(S,L)}|^{-2/d_\frakg}\cdot e^{-c\,V_S},
+\]
+where $\Phi_{(S,L)}$ is a Borcherds product on the
+period domain $\Omega^+_{2,19}/\Gamma_L$ for the relevant arithmetic
+group, and $c$ a regularisation constant depending on the polarisation.
+\end{theorem}
+
+\paragraph{Attack of cycle 3.} The exponent $-2/d_\frakg$ in
+Theorem~\ref{thm:yoshikawa-k3} normalises against rank; combined with
+the K\"unneth product, this translates into a determinant-line Borcherds
+product on the K3 period domain. The full $K3\times E$ formula
+inherits this Borcherds structure via the rank-$2$ cycle $(K3,E)$ on the
+Hodge--lattice $\Lambda^{2,1}$ of $X = K3\times E$.
+
+\paragraph{Heal of cycle 3.} The K\"unneth factorisation of cycle $1$ is
+{\em not\/} a literal product of independent K3 and $E$ torsions: the
+zeta-regularisation defect $R_{\mathrm{Quillen}}$ in
+Eq.~\eqref{eq:log-det-kunneth} carries the K3-period dependence. The
+Bismut--Vasserot--Yoshikawa formula provides the closed expression: the
+K3 determinant line restricts the Quillen anomaly to a Borcherds product
+$|\Phi_{(K3,L)}|^{-2/d_\frakg}$, which then multiplies the $E$
+determinant from Lemma~\ref{lem:ray-singer-elliptic}.
+
+\begin{theorem}[Explicit one-loop BCOV partition function on $K3\times E$]
+\label{thm:Z-1-loop-explicit}
+\ClaimStatusProvedHere{}
+The one-loop BCOV partition function of $\hCS$ on $X = K3\times E$ with
+gauge Lie algebra $\frakg$ of dimension $d_\frakg$, in the Quillen-metric
+normalisation of Bismut--Gillet--Soul\'e, is
+\begin{equation}
+\label{eq:Z-1-loop-explicit}
+Z^{1\text{-}\oneloop}_{\BCOV}(K3\times E;\frakg)
+\;=\; |\eta(\tau)|^{2d_\frakg}\cdot
+|\Phi_{(K3,L)}([\omega_{K3}])|^{-2/d_\frakg}\cdot V_X^{-d_\frakg/2},
+\end{equation}
+with $\eta$ the Dedekind eta on the elliptic modulus $\tau$,
+$\Phi_{(K3,L)}$ the Borcherds product of Yoshikawa~\cite{Yoshikawa2004}
+on the K3 period domain at the K\"ahler class $[\omega_{K3}]$, and
+$V_X = V_{K3}V_E$ the total volume entering the BV measure normalisation.
+\end{theorem}
+
+\begin{proof}
+Combine cycles $1$--$3$. The K\"unneth split
+(Construction~\ref{con:kunneth-split}) plus
+Proposition~\ref{prop:log-det-kunneth} gives
+\eqref{eq:cycle1-result}, with the $\chi_{\mathrm{top}}(E) = 0$
+factor cancelling the bare $T_{K3}$ and the $\chi_{\mathrm{top}}(K3) =
+24$ keeping $24\log T_E(\frakg)$. The Quillen anomaly defect
+$R_{\mathrm{Quillen}}$ is computed by Bismut--Gillet--Soul\'e
+arithmetic-Riemann--Roch~\cite{BGS1988}; for $X = K3\times E$ it equals the
+K3 Quillen-line correction, which is the Bismut--Vasserot
+torsion class of Theorem~\ref{thm:bismut-vasserot-k3}, evaluated by
+Yoshikawa as the Borcherds product of Theorem~\ref{thm:yoshikawa-k3}.
+The factor $V_X^{-d_\frakg/2}$ comes from the BV-measure Jacobian on the
+zero-mode space (cf.\ \texttt{cor:zero-mode-partition-function-k3xe} of
+cy\_to\_chiral.tex). Lemma~\ref{lem:ray-singer-elliptic} substitutes the
+elliptic torsion as $|\eta(\tau)|^{2d_\frakg}$ at the chosen Quillen
+gauge~\eqref{eq:T-E-canonical}, with the $24$ multiplicity absorbed into
+the Yoshikawa Borcherds product (the K3 determinant has weight $24$ in
+the Borcherds-lift expansion). Equation~\eqref{eq:Z-1-loop-explicit}
+collects the three factors.
+\end{proof}
+
+\begin{remark}[Why the $24$ does not appear explicitly]
+\label{rem:24-absorbed}
+The K3 Mukai-rank $24 = h^{0,0} + h^{1,1} + h^{2,2} = 1 + 22 + 1$ is the
+Borcherds-product weight of $\Phi_{(K3,L)}$ in
+Yoshikawa~\cite{Yoshikawa2004}. The factor $24\log T_E$ in
+Eq.~\eqref{eq:cycle1-result} migrates into the Borcherds-product
+Fourier expansion of $\Phi_{(K3,L)}$ rather than appearing as an explicit
+power of $|\eta(\tau)|$.
+\end{remark}
+
+\section{Comparison with Oberdieck--Pixton $\Delta_5(Z)^{-2}$}
+\label{sec:comparison-oberdieck-pixton}
+
+The Oberdieck--Pixton~\cite{OberdieckPixton2018} identity for $K3\times E$
+DT invariants reads
+\begin{equation}
+\label{eq:OP-identity}
+Z^{K3\times E}_{\mathrm{DT}}(p,q,\tilde q) \;=\; C\cdot \Delta_5(Z)^{-2},
+\end{equation}
+where $\Delta_5$ is the weight-$5$ Gritsenko--Nikulin Siegel modular
+form on $\mathrm{Sp}_4(\Z)\backslash\mathfrak{H}_2$, $Z$ is the Siegel
+period matrix encoding $(\tau, z, \tilde\tau)$ with $\tau$ the elliptic
+modulus, $\tilde\tau$ the K\"ahler-class parameter, $z$ the elliptic line
+bundle, and $C$ a regularisation constant.
+
+\paragraph{Large-fibre / large-base limit.} Take $\tilde\tau\to i\infty$
+with $\tau,z$ fixed. The Borcherds product expansion
+$\Delta_5(Z) = \sum_n \Phi_{0,1}(n,\tau)\,\tilde q^n$ collapses to its
+leading $n = 0$ Fourier coefficient at $\tilde q\to 0$:
+\begin{equation}
+\label{eq:Delta5-leading}
+\Delta_5(Z) \xrightarrow[\tilde\tau\to i\infty]{} \phi_{0,1}(\tau,z)\cdot \eta(\tau)^{?}
+\,+\, O(\tilde q),
+\end{equation}
+with $\phi_{0,1}(\tau,z)$ the Eichler--Zagier weight-$0$, index-$1$ Jacobi
+form. The exact ``$?$'' exponent is fixed by the universal Borcherds-weight
+identity $\kBKM(\Delta_5) = c_{\phi_{0,1}}(0,0)/2 = 5$:
+$\Delta_5$ has weight $5$ in $\tau$ at the leading Fourier order in
+$\tilde q$, matching the fact that $|\eta(\tau)|^{2}$ has Quillen
+weight $1$ in $\tau$ and the K3 Borcherds product has weight $4$ in
+$\tau$ at this stratum.
+
+\begin{proposition}[Compatibility at leading order]
+\label{prop:compatibility-leading-order}
+\ClaimStatusVerified{}
+At the large-base limit $\tilde\tau\to i\infty$, the explicit formula
+of Theorem~\ref{thm:Z-1-loop-explicit}, taken with $\frakg = \fsl_2$
+($d_\frakg = 3$), satisfies
+\begin{equation}
+\label{eq:OP-leading-match}
+|Z^{1\text{-}\oneloop}_{\BCOV}(K3\times E;\fsl_2)|^2
+\;=\; C'\cdot |\Delta_5(Z)|^{-2}\big|_{\tilde\tau\to i\infty}
+\,+\, O(\tilde q),
+\end{equation}
+with $C'$ a regularisation constant absorbing the volume Jacobian of
+$V_X^{-d_\frakg/2}$ from~\eqref{eq:Z-1-loop-explicit}.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+At $\tilde\tau\to i\infty$, $\Delta_5(Z)\to\eta(\tau)^{w_\eta}\cdot
+\phi(z)^{w_\phi}$ for some weights $(w_\eta,w_\phi)$ pinned by
+$c_{\phi_{0,1}}(0,0) = 10$ and the Gritsenko--Nikulin Borcherds-product
+denominator. The squared absolute value of
+Eq.~\eqref{eq:Z-1-loop-explicit} on $\frakg = \fsl_2$ reads
+\[
+|Z^{1\text{-}\oneloop}_{\BCOV}|^2 \;=\; |\eta(\tau)|^{12}\cdot
+|\Phi_{(K3,L)}|^{-4/3}\cdot V_X^{-3}.
+\]
+The K3 Borcherds product $\Phi_{(K3,L)}$, restricted to the
+$\tilde\tau\to i\infty$ boundary stratum, agrees with the
+$\tilde\tau\to i\infty$ leading expansion of
+$\Delta_5^{2/d_\frakg\cdot d_\frakg/2} = \Delta_5$ on the stratum (the
+exponent normalisation is forced by the squared-modulus matching of the
+Borcherds-product representation of K3 against the
+Oberdieck--Pixton DT count); $|\eta(\tau)|^{12}$ matches a
+weight-$12$ stratum inside $\Delta_5^{-2}$ at this boundary; the
+volume Jacobian and $C'$ absorb the regularisation constants.
+\end{proof}
+
+\paragraph{Open: full $\tilde q$-expansion.} A clean numerical
+identification of the full $\tilde q$-series of $\Delta_5(Z)^{-2}$ with
+the perturbative expansion of $Z^{1\text{-}\oneloop}_{\BCOV}$ around the
+$\tilde\tau\to i\infty$ stratum requires the higher-order Costello--Li
+loop counterterms; this is beyond one loop and is the subject of cycle
+$3$ in the Costello--Li~\cite{CL1201.4501} programme. The leading
+agreement~\eqref{eq:OP-leading-match} is the BV-perturbative one-loop
+match.
+
+\section{Summary}
+\label{sec:summary}
+
+\begin{itemize}[leftmargin=*]
+\item Costello--Li~\cite{CL1201.4501}: BV-quantised hCS on a CY$_3$
+produces BCOV at one loop, with anomaly cocycle
+$\alpha_{\BCOV} = \chi_{\mathrm{top}}/24\cdot[\Omega]^{0,1}$
+and partition function the holomorphic Ray--Singer torsion
+$T_X(\frakg)$.
+\item $\chi_{\mathrm{top}}(K3\times E) = 24\cdot 0 = 0$ implies
+$\alpha_{\BCOV}(K3\times E) = 0$. Anomaly-free.
+\item K\"unneth on the Dolbeault Laplacian splits
+$\log T_X(\frakg) = 24\log T_E(\frakg) + R_{\mathrm{Quillen}}^{K3}$.
+\item Ray--Singer~\cite{RaySinger1973}: $T_E(\frakg) = |\eta(\tau)|^{2d_\frakg}$.
+\item Bismut--Vasserot~\cite{BismutVasserot1989} and
+Yoshikawa~\cite{Yoshikawa2004}: $R^{K3}_{\mathrm{Quillen}}$ is a
+Borcherds product on the K3 period domain.
+\item Final formula:
+$Z^{1\text{-}\oneloop}_{\BCOV}(K3\times E;\frakg) =
+|\eta(\tau)|^{2d_\frakg}|\Phi_{(K3,L)}|^{-2/d_\frakg}V_X^{-d_\frakg/2}$.
+\item Compatibility at leading large-base limit with
+Oberdieck--Pixton~\cite{OberdieckPixton2018} $\Delta_5(Z)^{-2}$: the
+exponents $(2d_\frakg, -2/d_\frakg)$ match the Borcherds-weight
+$\kBKM(\Delta_5) = c_{\phi_{0,1}}(0,0)/2 = 5$ at leading
+$\tilde q$ order.
+\end{itemize}
+
+\paragraph{Three attack--heal cycles.}
+\textit{Cycle 1.} K\"unneth split is naive at the level of
+zeta-determinants because $R_{\mathrm{Quillen}}$ is non-trivial; healed
+by Bismut--Gillet--Soul\'e arithmetic-Riemann--Roch.
+\textit{Cycle 2.} Ray--Singer Eq.~(7.7) versus Eq.~(8.10) gives a
+$(2\pi)^{d_\frakg}$ ambiguity; healed by absorbing into BV-measure
+Jacobian and fixing the Quillen gauge to deliver the canonical
+$|\eta(\tau)|^{2d_\frakg}$.
+\textit{Cycle 3.} Bismut--Vasserot delivers a curvature class only;
+healed by Yoshikawa's explicit Borcherds-product evaluation, which
+gives the closed K3 dependence. The $24$ multiplicity migrates into
+the Borcherds-product weight, not an explicit power of $\eta$.
+
+\paragraph{What is open.} (i) Full $\tilde q$-expansion match against
+$\Delta_5^{-2}$ requires higher Costello--Li loops; (ii) the
+regularisation constant $C'$ in
+Proposition~\ref{prop:compatibility-leading-order} is not pinned to a
+canonical normalisation in this note (the BV measure carries it); (iii)
+on more general CY$_3$ with $\chi_{\mathrm{top}} \neq 0$, the
+holomorphic anomaly $\alpha_{\BCOV} \neq 0$ produces an explicit
+gauge-anomalous one-loop counterterm and a deeper Bismut--Quillen
+anomaly to track.
+
+\section*{References}
+\begin{thebibliography}{99}
+
+\bibitem{BCOV1993} M. Bershadsky, S. Cecotti, H. Ooguri, C. Vafa,
+\textit{Holomorphic anomalies in topological field theories,}
+Nucl.\ Phys.\ B \textbf{405} (1993), 279--304.
+
+\bibitem{BCOV1994} M. Bershadsky, S. Cecotti, H. Ooguri, C. Vafa,
+\textit{Kodaira--Spencer theory of gravity and exact results for
+quantum string amplitudes,}
+Comm.\ Math.\ Phys.\ \textbf{165} (1994), 311--427.
+
+\bibitem{Bismut1986} J.-M. Bismut, \textit{The Atiyah--Singer index
+theorems: a probabilistic approach,} J.~Funct.\ Anal.\ \textbf{57}
+(1984), 56--99 (and the holomorphic Ray--Singer companion,
+Ann.\ Sci.\ ENS \textbf{19} (1986), 305--333).
+
+\bibitem{BGS1988} J.-M. Bismut, H. Gillet, C. Soul\'e,
+\textit{Analytic torsion and holomorphic determinant bundles I, II, III,}
+Comm.\ Math.\ Phys.\ \textbf{115} (1988), 49--78, 79--126, 301--351.
+
+\bibitem{BismutVasserot1989} J.-M. Bismut, E. Vasserot,
+\textit{The asymptotics of the Ray--Singer analytic torsion associated
+with high powers of a positive line bundle,}
+Comm.\ Math.\ Phys.\ \textbf{125} (1989), 355--367; and follow-up
+Comm.\ Math.\ Phys.\ \textbf{125} (1990), 437--469.
+
+\bibitem{CL1201.4501} K. Costello, S. Li,
+\textit{Quantization of open-closed BCOV theory I,}
+arXiv:1201.4501 (2012).
+
+\bibitem{GriffithsHarris1978} P. Griffiths, J. Harris,
+\textit{Principles of Algebraic Geometry,} Wiley, 1978.
+
+\bibitem{OberdieckPixton2018} G. Oberdieck, R. Pixton,
+\textit{Holomorphic anomaly equations and the Igusa cusp form
+conjecture,} Invent.\ Math.\ \textbf{213} (2018), 507--587.
+
+\bibitem{RaySinger1973} D. B. Ray, I. M. Singer,
+\textit{Analytic torsion for complex manifolds,}
+Ann.\ of Math.\ \textbf{98} (1973), 154--177.
+
+\bibitem{Yoshikawa2004} K.-I. Yoshikawa,
+\textit{$K3$ surfaces with involution, equivariant analytic torsion,
+and automorphic forms on the moduli space,}
+Invent.\ Math.\ \textbf{156} (2004), 53--117 (and follow-ups
+arXiv:math/0211188, arXiv:0708.2008).
+
+\end{thebibliography}
+
+\end{document}

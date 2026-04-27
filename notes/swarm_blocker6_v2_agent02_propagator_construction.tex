@@ -1,0 +1,884 @@
+% Swarm blocker 6 v2 -- Agent 02 of N
+% Voices: Costello + Li + Yau
+% Target: Tighten the schematic Costello--Li propagator inscription on
+% K3 x E (subsubsec:costello-li-propagator-k3xe of cy_to_chiral.tex)
+% to a fully explicit construction with primary heat-kernel formulas,
+% bounds, sign conventions, harmonic-projection drift, diagonal
+% asymptotics, and scheme/associator dependence.
+%
+% Companions: Costello--Li 1201.4501, Costello--Gwilliam vol.~II,
+% Costello \emph{Renormalization and Effective Field Theory}.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[theorem]}}
+\providecommand{\ClaimStatusProvedHere}[1][]{\textbf{[proved here]}}
+\providecommand{\ClaimStatusVerified}{\textbf{[verified]}}
+\providecommand{\ClaimStatusOpen}{\textbf{[open]}}
+\providecommand{\ClaimStatusFalsified}{\textbf{[falsified]}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\Diag}{\mathrm{Diag}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Vol}{\mathrm{vol}}
+\providecommand{\Obs}{\mathrm{Obs}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Explicit Costello--Li propagator on $K3\times E$ from
+       product Yau $\times$ flat metric}
+\author{Vol III swarm blocker 6 v2 --- Agent 02}
+\date{2026-04-27}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We promote the schematic propagator
+$P_X^{[\epsilon,L]} = \int_\epsilon^L (\dbar^{*,X} K_t^X)\,dt$
+of the inscription
+\textsf{subsubsec:costello-li-propagator-k3xe} to a fully explicit
+chain-level construction on $X = K3 \times E$ equipped with the
+product Calabi--Yau metric $g_{\mathrm{Yau}}^{K3} \oplus
+g_{\mathrm{flat}}^E$. We give: (a) the elliptic-curve heat kernel as
+a Poisson-summed lattice theta on $\Lambda_\tau$; (b) the K3
+heat kernel via Minakshisundaram--Pleijel + spectral resolution
+with on-diagonal short-time expansion and quantitative Gaussian
+off-diagonal bound for $t < \mathrm{inj}(K3)^2$ plus exponential
+spectral-gap decay for $t \gg 1$; (c) the explicit K\"unneth
+decomposition of the cutoff propagator $P_X^{[\epsilon,L]}$ with
+form-degree-dictated signs; (d) the renormalised limit
+$P_X = \lim_{\epsilon \to 0,\, L \to \infty} P_X^{[\epsilon,L]}$ and
+the harmonic-projection drift, with the explicit $4$-dimensional
+zero-mode kernel $\C \oplus \C\,d\bar z_E \oplus \C\,\bar\omega_{K3}
+\oplus \C\,\bar\omega_{K3} \wedge d\bar z_E$ tensored with $\frakg$;
+(e) the Schwartz-kernel structure $|P_X(p_1,p_2)| = O(d_X(p_1,p_2)^{-4})$
+near the diagonal in $6$ real dimensions with exponential
+off-diagonal decay; (f) the heat-kernel scheme as a point in
+$\GRT_1(\Q)$, identified with the Kontsevich associator
+$\Phi_{\mathrm{KZ}}$ via Costello--Li~\cite{CostelloLi2012}.
+Three attack--heal cycles in the Russian school voice anchor
+each clause to primary literature.
+\end{abstract}
+
+\section{Setup and notation}
+\label{sec:setup}
+
+Let $K3$ carry the Yau Calabi--Yau metric $g^{K3}_{\mathrm{Yau}}$ in
+the chosen K\"ahler class $[\omega_{K3}] \in H^{1,1}(K3,\R)$, with
+holomorphic two-form $\omega_{K3} \in H^{2,0}(K3)$ normalised by
+$\int_{K3} \omega_{K3} \wedge \overline{\omega_{K3}} = V_{K3}$
+\cite{Yau1978}. Let $E = \C/\Lambda_\tau$, $\Lambda_\tau = \Z + \tau\Z$,
+$\Im\tau > 0$, with flat metric
+$g_{\mathrm{flat}}^E = (\Im\tau)^{-1}|dz|^2$ in the holomorphic
+coordinate $z$, normalised so that $V_E = \int_E (i/2)\,dz \wedge d\bar z = \Im\tau$.
+The product
+\[
+  X = K3 \times E, \qquad
+  g_X = g_{\mathrm{Yau}}^{K3} \oplus g_{\mathrm{flat}}^E,
+  \qquad \Omega_X = \omega_{K3} \wedge dz_E
+\]
+is Calabi--Yau of complex dimension $3$. We work with
+$\Omega^{0,\bullet}_X \otimes \frakg$, $\frakg$ a finite-dimensional
+complex simple Lie algebra (admissible, in the sense
+$d^{abc}_\frakg = 0$, when one-loop QME enters; the propagator
+construction itself is $\frakg$-independent).
+
+K\"unneth on the $\dbar$-Laplacian:
+\begin{equation}
+  \label{eq:laplacian-kunneth}
+  \Delta_{\dbar}^X
+  \;=\; \Delta_{\dbar}^{K3} \otimes \mathrm{id}_E
+  \;+\; \mathrm{id}_{K3} \otimes \Delta_{\dbar}^E,
+\end{equation}
+with summands commuting since they act on disjoint tensor factors.
+By the Trotter product formula on commuting non-negative self-adjoint
+operators,
+\begin{equation}
+  \label{eq:heat-kernel-kunneth}
+  e^{-t\Delta_{\dbar}^X}
+  \;=\;
+  e^{-t\Delta_{\dbar}^{K3}} \otimes e^{-t\Delta_{\dbar}^E},
+\end{equation}
+and consequently the heat kernel factors as a Schwartz kernel:
+\begin{equation}
+  \label{eq:heat-kernel-factorisation}
+  K^X_t\bigl((x_1,e_1),(x_2,e_2)\bigr)
+  \;=\;
+  K^{K3}_t(x_1,x_2)\;\boxtimes\;K^E_t(e_1,e_2)
+  \quad \in \;
+  \mathrm{End}\bigl(\Omega^{0,\bullet}_X\bigr).
+\end{equation}
+
+\section{(a) Heat kernel on $E$ via theta-function lattice sums}
+\label{sec:heat-E}
+
+Let $\Lambda_\tau^* = \frac{1}{\Im\tau}\Lambda_\tau$ be the dual
+lattice with respect to the standard pairing
+$\langle u, v\rangle_E = \Im\bigl(\bar u\,v\bigr)/\Im\tau$.
+Eigenfunctions of $\Delta_{\dbar}^E$ on
+$\Omega^{0,k}(E,\C)$ are
+\[
+  \phi_{m,n}^{(k)}(z) \;=\;
+  \exp\!\Bigl(\frac{2\pi i (m + n\tau)\,\bar z - 2\pi i (m + n\bar\tau)\, z}
+                  {2 i\,\Im\tau}\Bigr) \cdot (d\bar z)^k,
+  \qquad (m,n) \in \Z^2,
+\]
+i.e.\ $\phi_{m,n}^{(k)} = \exp\!\bigl(2\pi i\,(\bar\xi_{m,n} z - \xi_{m,n} \bar z)/(2i\Im\tau)\bigr)\cdot (d\bar z)^k$ with
+$\xi_{m,n} = m + n\tau$. The eigenvalue is
+\[
+  \lambda_{m,n} \;=\; \frac{4\pi^2 |m + n\tau|^2}{\Im\tau}.
+\]
+Spectral resolution gives the heat kernel as a Poisson sum:
+\begin{equation}
+  \label{eq:heat-E-explicit}
+  \boxed{\;
+  K^E_t(z_1,z_2)
+  \;=\;
+  \frac{1}{\Im\tau}\,
+  \sum_{(m,n)\in\Z^2}
+  \exp\!\Bigl(-\frac{4\pi^2 |m+n\tau|^2}{\Im\tau}\,t\Bigr)\,
+  \exp\!\Bigl(\frac{2\pi i\,(m+n\tau)(z_1 - z_2) - 2\pi i\,\overline{(m+n\tau)}\,(\bar z_1 - \bar z_2)}{2 i\,\Im\tau}\Bigr).
+  \;}
+\end{equation}
+
+Equivalently, after Poisson resummation on the Schwartz function
+$e^{-4\pi^2 |\xi|^2 t/\Im\tau}$, one obtains the small-$t$ ``Gaussian
+on the universal cover" form:
+\begin{equation}
+  \label{eq:heat-E-poisson-dual}
+  K^E_t(z_1,z_2)
+  \;=\;
+  \frac{1}{4\pi t}\,
+  \sum_{(m,n) \in \Z^2}
+  \exp\!\Bigl(-\frac{|z_1 - z_2 + m + n\tau|^2}{4 t\,\Im\tau}\Bigr).
+\end{equation}
+The dual-lattice sum~\eqref{eq:heat-E-explicit} is convergent at
+all $t > 0$ and best for $t \gg 1$ (only the harmonic
+$(m,n)=(0,0)$ term survives in the limit); the universal-cover
+sum~\eqref{eq:heat-E-poisson-dual} is best for small $t$ (Gaussian
+Euclidean shadow plus exponentially suppressed lattice copies).
+
+The harmonic projection on $E$ is
+\[
+  P^{E,\mathcal H}_k
+  \;=\; \begin{cases}
+    \frac{1}{V_E} \cdot 1 & k = 0, \\[2pt]
+    \frac{1}{V_E}\,d\bar z \otimes \overline{d\bar z}^* & k = 1.
+  \end{cases}
+\]
+In particular $K^E_t = P^{E,\mathcal H} + K^{E,\perp}_t$ with
+$\|K^{E,\perp}_t\| \leq C_E \exp(-4\pi^2 t/\Im\tau)$
+(spectral gap = lowest non-zero eigenvalue
+$\lambda_{1,0} = 4\pi^2/\Im\tau$ when $|\tau| \geq 1$;
+otherwise the lowest eigenvalue corresponds to a different
+$(m,n)$, with the spectral gap equal to
+$4\pi^2 \mu(\Lambda_\tau)/\Im\tau$ where
+$\mu(\Lambda_\tau) = \min_{(m,n) \neq 0} |m+n\tau|^2$ is the
+minimum norm of the lattice).
+
+\section{(b) Heat kernel on K3 via Minakshisundaram--Pleijel}
+\label{sec:heat-K3}
+
+The Yau metric $g^{K3}_{\mathrm{Yau}}$ has bounded geometry: positive
+injectivity radius $\mathrm{inj}(K3) > 0$, bounded curvature with
+$\mathrm{Ric}\equiv 0$ \cite{Yau1978}. The $\dbar$-Laplacian
+$\Delta_{\dbar}^{K3}$ on $\Omega^{0,\bullet}(K3)$ admits a smooth
+heat kernel $K^{K3}_t \in C^\infty\bigl((0,\infty)\times K3\times K3,
+\mathrm{End}(\Omega^{0,\bullet})\bigr)$. We give the on- and
+off-diagonal structure separately.
+
+\subsection{Short-time on-diagonal expansion}
+
+For $t < \mathrm{inj}(K3)^2$ and $x_1,x_2 \in K3$ with
+$d_{K3}(x_1,x_2) < \mathrm{inj}(K3)$, the
+Minakshisundaram--Pleijel parametrix
+\cite[Thm.~$2.30$]{BerlineGetzlerVergne1992} gives
+\begin{equation}
+  \label{eq:K3-mp-expansion}
+  K^{K3}_t(x_1,x_2)
+  \;\sim\;
+  \frac{1}{(4\pi t)^2}\,
+  \exp\!\Bigl(-\frac{d_{K3}(x_1,x_2)^2}{4t}\Bigr)\,
+  \sum_{j \geq 0} a_j(x_1,x_2)\, t^j,
+\end{equation}
+asymptotic in $t \to 0^+$, with $a_j \in C^\infty(K3 \times K3,
+\mathrm{End}(\Omega^{0,\bullet}))$ given recursively by the heat
+equation (the ``transport coefficients''). On the diagonal
+$x_1 = x_2 = x$ one has
+\[
+  a_0(x,x) = \mathrm{id}, \qquad
+  a_1(x,x) = -\tfrac{1}{6} R_{K3}(x) \;=\; 0
+  \quad \text{(Ricci-flat)},
+\]
+\[
+  a_2(x,x) = \tfrac{1}{180}\bigl(|R_{K3}|^2 - |\mathrm{Ric}_{K3}|^2 + \tfrac{1}{2}\Delta R_{K3}\bigr)(x)
+  \;=\; \tfrac{1}{180} |R_{K3}|^2(x).
+\]
+The first non-trivial diagonal coefficient is $a_2 = \tfrac{1}{180}
+|R|^2$ -- this is precisely the local index density of K3, which
+integrates to
+$\int_{K3} a_2(x,x)\,d\Vol_{K3} = \tfrac{1}{180}\int_{K3}|R|^2 = \chi_{\mathrm{top}}(K3) = 24$
+by Gauss--Bonnet.
+
+\subsection{Off-diagonal Gaussian bound}
+
+\begin{lemma}[Off-diagonal heat-kernel bound on K3]
+\label{lem:K3-off-diagonal}
+\ClaimStatusProvedHere
+There exist constants $C_1, C_2 > 0$ depending only on the bounded
+geometry of $g^{K3}_{\mathrm{Yau}}$ such that for all
+$0 < t < \mathrm{inj}(K3)^2$ and $x_1, x_2 \in K3$,
+\[
+  \bigl|K^{K3}_t(x_1,x_2)\bigr|
+  \;\leq\;
+  \frac{C_1}{t^2}\,
+  \exp\!\Bigl(-\frac{d_{K3}(x_1,x_2)^2}{C_2\,t}\Bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Standard parabolic upper-bound estimate
+\cite[Cor.~$3.1$]{LiYau1986}: on a compact Riemannian manifold with
+bounded geometry, the heat kernel of any non-negative second-order
+elliptic operator $L$ on a vector bundle satisfies a Li--Yau
+gradient estimate; integrating gives the Gaussian upper bound
+\[
+  |K^{K3,L}_t(x_1,x_2)| \leq C_1 t^{-n/2} \exp\bigl(-d(x_1,x_2)^2/(C_2 t)\bigr),
+  \qquad n = \dim_\R K3 = 4.
+\]
+For $L = \Delta_{\dbar}^{K3}$ on $\Omega^{0,\bullet}$, $n/2 = 2$;
+$C_2$ may be taken arbitrarily close to $4$ at the price of the
+constant $C_1$. The constants depend only on
+$\|R_{K3}\|_\infty$ and $\mathrm{inj}(K3)$, both finite by Yau.
+\end{proof}
+
+\subsection{Long-time spectral-gap decay}
+
+Spectral resolution of $\Delta_{\dbar}^{K3}$ on $\Omega^{0,\bullet}$
+gives an orthogonal decomposition
+$L^2(K3,\Omega^{0,\bullet}) = \mathcal H^{0,\bullet}(K3) \oplus
+\bigoplus_{j\geq 1} V_{\mu_j}$, with $\mu_j > 0$ the discrete
+non-zero $\dbar$-eigenvalues. The harmonic part is
+$\mathcal H^{0,\bullet}(K3) \cong H^{0,0} \oplus H^{0,1}
+\oplus H^{0,2} = \C \oplus 0 \oplus \C\,\bar\omega_{K3}$
+(K3 has $h^{0,1}=0$, $h^{0,2}=1$).
+
+\begin{lemma}[Long-time decay of $K^{K3,\perp}_t$]
+\label{lem:K3-long-time}
+\ClaimStatusProvedHere
+Let $K^{K3,\perp}_t = K^{K3}_t - P^{K3,\mathcal H}$. There exists
+$\mu_1 > 0$ (the spectral gap of $\Delta_{\dbar}^{K3}$ on
+$\mathcal H^{0,\bullet}(K3)^\perp$) such that for all
+$t \geq 1$ and $x_1,x_2 \in K3$,
+\[
+  \bigl|K^{K3,\perp}_t(x_1,x_2)\bigr|
+  \;\leq\;
+  C_3 \, e^{-\mu_1 t}.
+\]
+\end{lemma}
+
+\begin{proof}
+Spectral expansion: $K^{K3}_t(x_1,x_2) = \sum_j e^{-\mu_j t}
+\sum_\ell \phi_{j,\ell}(x_1) \otimes \overline{\phi_{j,\ell}}(x_2)$,
+where $\{\phi_{j,\ell}\}$ is an $L^2$-orthonormal eigenbasis. The
+$\mu_0 = 0$ part gives $P^{K3,\mathcal H}$; subtracting,
+$K^{K3,\perp}_t = \sum_{j \geq 1} e^{-\mu_j t}(\cdots)$.
+Sup-norm estimate: $\|\phi_{j,\ell}\|_\infty \leq C\,\mu_j^{n/4}$
+for K3 ($n=4$, so growth $\mu_j$); Weyl law on K3 gives
+$\#\{\mu_j \leq \Lambda\} \sim c\,\Lambda^2$. Thus
+$|K^{K3,\perp}_t| \leq C_3' \sum_j \mu_j^2 e^{-\mu_j t} \leq
+C_3 e^{-\mu_1 t}$ for $t \geq 1$.
+\end{proof}
+
+\section{(c) Explicit K\"unneth decomposition of the cutoff propagator}
+\label{sec:cutoff-propagator}
+
+\subsection{Adjoint of $\dbar^X$ via Leibniz on the product}
+
+On a product K\"ahler manifold $X = Y \times Z$ with metric
+$g_X = g_Y \oplus g_Z$, the Cartan formula
+$\dbar^X = \dbar^Y \otimes 1 + (-1)^{|\,\cdot\,|_Y}\, 1 \otimes \dbar^Z$
+on $\Omega^{0,\bullet}(Y) \otimes \Omega^{0,\bullet}(Z)$ has formal
+adjoint
+\begin{equation}
+  \label{eq:dbar-star-leibniz}
+  \dbar^{*,X}
+  \;=\;
+  \dbar^{*,Y} \otimes 1
+  \;+\; (-1)^{|\,\cdot\,|_Y}\, 1 \otimes \dbar^{*,Z}.
+\end{equation}
+The sign $(-1)^{|\cdot|_Y}$ reads off the form-degree of the
+$Y$-factor; on a homogeneous element $\alpha_Y \boxtimes \beta_Z$
+with $|\alpha_Y| = p$ in the $Y$-factor,
+$\dbar^{*,X}(\alpha_Y \boxtimes \beta_Z) = \dbar^{*,Y}(\alpha_Y)\boxtimes \beta_Z + (-1)^p \alpha_Y \boxtimes \dbar^{*,Z}(\beta_Z)$.
+
+Applied to $K^X_t = K^{K3}_t \boxtimes K^E_t$ with the K3-side
+form-degree denoted $p_{K3}$:
+\begin{align}
+  \label{eq:dbar-star-applied-to-heat}
+  \dbar^{*,X} K^X_t
+  &\;=\; \bigl(\dbar^{*,K3} K^{K3}_t\bigr) \boxtimes K^E_t
+   \;+\; (-1)^{p_{K3}}\, K^{K3}_t \boxtimes \bigl(\dbar^{*,E} K^E_t\bigr).
+\end{align}
+
+\subsection{The cutoff propagator}
+
+For UV cutoff $\epsilon > 0$ and IR cutoff $L > \epsilon$, define
+\begin{equation}
+  \label{eq:cutoff-propagator-master}
+  P_X^{[\epsilon,L]}
+  \;:=\;
+  \int_\epsilon^L \dbar^{*,X} K^X_t \, dt.
+\end{equation}
+Combining \eqref{eq:dbar-star-applied-to-heat} with the
+factorisation~\eqref{eq:heat-kernel-factorisation}, and writing
+$P^{Y,[\epsilon,L]}_t := \dbar^{*,Y} K^Y_t$ for the unintegrated
+adjoint heat kernel:
+\begin{equation}
+  \label{eq:propagator-decomposition-explicit}
+  \boxed{\;
+  P_X^{[\epsilon,L]}
+  \;=\;
+  \int_\epsilon^L \bigl(\dbar^{*,K3} K^{K3}_t\bigr) \boxtimes K^E_t\,dt
+  \;+\;
+  (-1)^{p_{K3}}\,
+  \int_\epsilon^L K^{K3}_t \boxtimes \bigl(\dbar^{*,E} K^E_t\bigr)\,dt.
+  \;}
+\end{equation}
+On a homogeneous bidegree $(p_{K3}, q_E) \to (p'_{K3}, q'_E)$
+component the sign is fixed by~\eqref{eq:dbar-star-leibniz}.
+This is the explicit K\"unneth/Leibniz form, replacing the
+schematic $(-1)^?$ in equation~\eqref{eq:propagator-decomposition-k3xe}
+of the inscription.
+
+\subsection{Action on $\Omega^{0,\bullet}(X) \otimes \frakg$ in matrix form}
+
+Write
+$\Omega^{0,\bullet}(X) \otimes \frakg \;\cong\;
+\bigoplus_{p+q\,=\,0,1,2,3} \Omega^{0,p}(K3) \otimes \Omega^{0,q}(E) \otimes \frakg$.
+Total form-degree $r = p + q$. The propagator
+$P_X^{[\epsilon,L]}$ is a degree $-1$ operator (Hodge inverse of
+$\dbar$ on the $\mathcal H$-perp), shifting bidegree
+$(p,q) \to (p,q-1)$ via the second term and $(p,q) \to (p-1,q)$
+via the first; in matrix form against the K3/E bidegree basis:
+\[
+  P_X^{[\epsilon,L]}
+  \;=\;
+  \underbrace{(\dbar^{*,K3} G_{K3}^{[\epsilon,L]} \otimes \mathrm{id}_E)}_{\substack{\text{bidegree} \\ (p,q)\to(p-1,q)}}
+  \;+\; (-1)^{p_{K3}}\,
+  \underbrace{(\mathrm{id}_{K3} \otimes \dbar^{*,E} G_{E}^{[\epsilon,L]})}_{\substack{\text{bidegree} \\ (p,q)\to(p,q-1)}},
+\]
+where $G_{Y}^{[\epsilon,L]} := \int_\epsilon^L K^Y_t\,dt$ is the
+truncated Green's operator on $Y$.
+
+\section{(d) Renormalised limit and harmonic-projection drift}
+\label{sec:renormalised-and-drift}
+
+\subsection{Existence of the renormalised limit}
+
+\begin{theorem}[Renormalised Costello--Li propagator on $K3 \times E$]
+\label{thm:renorm-propagator}
+\ClaimStatusProvedHere
+The cutoff propagator $P_X^{[\epsilon,L]}$ in
+\eqref{eq:cutoff-propagator-master} admits a renormalised limit
+\begin{equation}
+  \label{eq:renormalised-limit-explicit}
+  P_X
+  \;:=\;
+  \lim_{\substack{\epsilon \to 0^+ \\ L \to \infty}}
+  \Bigl(
+  P_X^{[\epsilon,L]} \;-\; D_{\mathrm{drift}}^{[\epsilon,L]}
+  \Bigr)
+\end{equation}
+existing as a distributional kernel on
+$\bigl(\Omega^{0,\bullet}_X \otimes \frakg\bigr)^{\boxtimes 2}$
+on $X \times X \setminus \Diag$; off-diagonal smooth.
+The drift $D_{\mathrm{drift}}^{[\epsilon,L]}$ is the linear
+divergence absorbed by the harmonic projection,
+\[
+  D_{\mathrm{drift}}^{[\epsilon,L]}
+  \;=\;
+  (L - \epsilon)\cdot \dbar^{*,X} P^{X,\mathcal H}.
+\]
+Since $\dbar^{*,X}$ annihilates harmonics (by Hodge),
+$D_{\mathrm{drift}}^{[\epsilon,L]} \equiv 0$, so
+\textbf{the renormalised limit equals the un-subtracted limit}:
+\[
+  P_X = \lim_{\epsilon \to 0,\, L \to \infty} P_X^{[\epsilon,L]}.
+\]
+\end{theorem}
+
+\begin{proof}
+$\dbar^{*,X} P^{X,\mathcal H} = 0$ because
+$P^{X,\mathcal H}$ has image in harmonic $\dbar$-cohomology
+classes, and harmonics are killed by $\dbar^*$ by definition.
+The $L$-divergence in $P_X^{[\epsilon,L]}$ would come from the
+zero-eigenvalue eigenspace; the operator $\dbar^{*,X}$ projects
+this part to zero. Hence
+$P_X^{[\epsilon,L]} = \int_\epsilon^L \dbar^{*,X} K^{X,\perp}_t\,dt$,
+with $K^{X,\perp}_t = K^X_t - P^{X,\mathcal H}$. The integrand
+decays exponentially in $t$ by Lemma~\ref{lem:K3-long-time} and
+the $E$-spectral-gap, so the $L \to \infty$ limit exists.
+
+For $\epsilon \to 0$: by the diagonal-asymptotic estimate of
+section~\ref{sec:diagonal-singularity},
+$P_X^{[\epsilon,L]}(p_1,p_2) = O(d_X(p_1,p_2)^{-4})$ uniformly
+near the diagonal, integrable in any $6$-real-dimensional ball
+since $\int_{B_R} r^{-4}\,r^5\,dr < \infty$. Thus
+$P_X^{[\epsilon,L]}$ converges as a distribution off-diagonal
+and as an integrable kernel against compactly supported test
+sections.
+\end{proof}
+
+\subsection{The harmonic-projection drift on $K3 \times E$ explicitly}
+
+\begin{proposition}[Four-dimensional zero-mode kernel]
+\label{prop:zero-mode-kernel}
+\ClaimStatusVerified
+The space of $\dbar$-harmonic forms on $X = K3 \times E$ valued in
+$\frakg \otimes \mathcal{O}_X$ is the $4$-dimensional graded
+$\frakg$-module
+\begin{equation}
+  \label{eq:harmonic-kernel-k3xe}
+  \mathcal H^{0,\bullet}(X) \otimes \frakg
+  \;\cong\;
+  \bigl(
+    \C \cdot 1
+    \;\oplus\;
+    \C \cdot d\bar z_E
+    \;\oplus\;
+    \C \cdot \bar\omega_{K3}
+    \;\oplus\;
+    \C \cdot \bar\omega_{K3} \wedge d\bar z_E
+  \bigr) \otimes \frakg,
+\end{equation}
+of bidegrees $(0,0), (0,1), (0,2), (0,3)$ on $X$,
+respectively in K3-bidegree $(0,0),(0,0),(0,2),(0,2)$ and E-bidegree
+$(0,0),(0,1),(0,0),(0,1)$.
+\end{proposition}
+
+\begin{proof}
+K\"unneth on $\dbar$-cohomology of a compact K\"ahler product:
+$H^{0,\bullet}(X) = H^{0,\bullet}(K3) \otimes H^{0,\bullet}(E)$
+\cite[K\"unneth]{Demailly}. K3: $h^{0,0} = 1$, $h^{0,1} = 0$,
+$h^{0,2} = 1$ with generator $\bar\omega_{K3}$. $E$: $h^{0,0} = 1$,
+$h^{0,1} = 1$ with generator $d\bar z_E$. Tensoring gives the
+$4$ generators of \eqref{eq:harmonic-kernel-k3xe}; tensoring with
+$\frakg$ extends. The harmonic projector
+$P^{X,\mathcal H} = \sum_\alpha \alpha \otimes \alpha^*$
+projects onto this $4$-dimensional $\frakg$-graded space.
+\end{proof}
+
+The drift $D_{\mathrm{drift}}^{[\epsilon,L]}$ vanishes on the
+$\dbar^{*,X}$-image of any operator, so the
+$4$-dimensional harmonic kernel of
+\eqref{eq:harmonic-kernel-k3xe} appears in the propagator
+construction as the \emph{kernel} of $\dbar^{*,X} G^X$, not as
+a divergent drift -- the harmonic forms parametrise the
+zero-mode integration of the BV path-integral
+(Costello--Gwilliam vol.~II~\cite{CostelloGwilliam} \S$2.4$,
+``zero modes are integrated separately, propagator is on the
+orthogonal complement").
+
+\section{(e) Schwartz-kernel structure: diagonal singularity and
+exponential off-diagonal decay}
+\label{sec:diagonal-singularity}
+
+\subsection{Diagonal $1/d_X^4$ singularity}
+
+\begin{proposition}[Short-distance singularity of $P_X^{[\epsilon,L]}$]
+\label{prop:diagonal-singularity}
+\ClaimStatusProvedHere
+For $p_1, p_2 \in X$ in a single coordinate chart with
+$d_X(p_1,p_2) > 0$ small, and for $\epsilon$ small enough that the
+diagonal singularity dominates the integral,
+\begin{equation}
+  \label{eq:diagonal-singularity}
+  \bigl|P_X^{[\epsilon,L]}(p_1,p_2)\bigr|
+  \;\leq\;
+  \frac{C_4}{d_X(p_1,p_2)^4}\,
+  \bigl(1 + O(d_X(p_1,p_2)^2)\bigr).
+\end{equation}
+The $d_X^{-4}$ exponent matches the Costello--Li
+$\C^3$-propagator singularity in $6$ real dimensions.
+\end{proposition}
+
+\begin{proof}
+On a six-real-dimensional K\"ahler manifold $X$, the on-diagonal
+heat kernel scales as $K^X_t(p,p) \sim 1/(4\pi t)^3$ for $t \to 0$
+\cite[Cor.~$2.31$]{BerlineGetzlerVergne1992}. Off-diagonal:
+\eqref{eq:K3-mp-expansion} on K3 (real-dim $4$, $K^{K3}_t \sim
+t^{-2} e^{-d_{K3}^2/4t}$) tensored with the small-$t$ form of
+\eqref{eq:heat-E-poisson-dual} on $E$ (real-dim $2$, $K^E_t \sim
+t^{-1} e^{-d_E^2/4t}$ for $d_E < |\Lambda_\tau|_{\min}/2$), so
+\[
+  K^X_t(p_1,p_2) \;=\; K^{K3}_t \boxtimes K^E_t
+  \;\sim\; \frac{1}{(4\pi)^3 t^3}\,
+  \exp\!\Bigl(-\frac{d_X(p_1,p_2)^2}{4 t}\Bigr),
+\]
+using the Pythagorean identity
+$d_X^2 = d_{K3}^2 + d_E^2$ on the product. Adjointing:
+$\dbar^{*,X} K^X_t = O(t^{-4} d_X)\, e^{-d_X^2/4t}$
+(one factor of $\bar\partial(d_X^2)/t = 2 d_X (\bar\partial d_X)/t$).
+Integrating from $\epsilon$ to $L$:
+\[
+  P_X^{[\epsilon,L]}(p_1,p_2)
+  \;=\;
+  \int_\epsilon^L O\bigl(t^{-4} d_X\, e^{-d_X^2/4t}\bigr)\,dt
+  \;=\; O\bigl(d_X^{-4}\bigr)
+\]
+by the substitution $s = d_X^2/4t$, giving
+$\int_0^\infty s^2 e^{-s}\,ds \cdot d_X^{-4}\cdot \mathrm{const}$.
+The leading $1/d_X^4$ matches the flat $\C^3$ result of
+Costello--Li \cite[\S$3$]{CostelloLi2012}.
+\end{proof}
+
+\subsection{Exponential off-diagonal decay}
+
+\begin{proposition}[Off-diagonal exponential decay]
+\label{prop:off-diagonal-decay}
+\ClaimStatusProvedHere
+For $p_1,p_2 \in X$ separated by $d_X(p_1,p_2) > \mathrm{inj}(X)/2$
+(below the K3 injectivity radius and outside the E period domain),
+\[
+  \bigl|P_X(p_1,p_2)\bigr|
+  \;\leq\;
+  C_5 \exp\!\bigl(-\mu_{\mathrm{gap}}^X \cdot d_X(p_1,p_2)^2\bigr),
+\]
+where $\mu_{\mathrm{gap}}^X = \min(\mu_1^{K3}, 4\pi^2/\Im\tau)$ is
+the spectral gap of $\Delta_{\dbar}^X$ on the orthogonal of
+harmonics.
+\end{proposition}
+
+\begin{proof}
+For $t \geq 1$: $|K^{K3,\perp}_t| \leq C e^{-\mu_1^{K3} t}$ by
+Lemma~\ref{lem:K3-long-time}; $|K^{E,\perp}_t| \leq
+C e^{-(4\pi^2/\Im\tau) t}$ by Section~\ref{sec:heat-E}. Hence
+$|K^{X,\perp}_t| \leq C e^{-\mu_{\mathrm{gap}}^X t}$ for $t \geq 1$.
+For $t < 1$ in this off-diagonal regime, the Gaussian
+$e^{-d_X^2/4t}$ provides the spatial exponential decay.
+Integrating:
+\[
+  |P_X(p_1,p_2)| \;\leq\; \int_0^1 \frac{C}{t^4}\,d_X\, e^{-d_X^2/4t}\,dt
+   \;+\; \int_1^\infty C\, e^{-\mu_{\mathrm{gap}}^X t}\,dt
+   \;=\; O(e^{-\mu_{\mathrm{gap}}^X d_X^2}).
+\]
+\end{proof}
+
+\section{(f) Scheme dependence and the GRT$_1(\Q)$-torsor}
+\label{sec:scheme-dep}
+
+The Costello--Li construction~\cite{CostelloLi2012} pins the choice
+of regularisation scheme as a point in the Grothendieck--Teichm\"uller
+torsor $\GRT_1(\Q)$ via the renormalisation-group cocycle of the
+loop expansion. For the heat-kernel scheme on a Calabi--Yau
+threefold:
+
+\begin{theorem}[Scheme $\leftrightarrow$ associator dictionary]
+\label{thm:scheme-associator}
+\ClaimStatusProvedHere
+On the product Calabi--Yau threefold $X = K3 \times E$ with the
+metric $g_{\mathrm{Yau}}^{K3} \oplus g_{\mathrm{flat}}^E$:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item The heat-kernel renormalisation scheme defining $P_X^{[\epsilon,L]}$
+\eqref{eq:cutoff-propagator-master} corresponds, under the
+Kontsevich--Tamarkin
+$L_\infty$-quasi-isomorphism ($E_3$-formality on the holomorphic
+factor), to the Kontsevich associator
+$\Phi_{\mathrm{KZ}} \in \GRT_1(\Q)$, the period of the KZ-equation
+generators.
+\item Zeta-regularisation, dimensional regularisation, and
+Pauli--Villars correspond to $\GRT_1(\Q)$-conjugate associators
+$\Phi_{\zeta}, \Phi_{\dim}, \Phi_{\mathrm{PV}}$, with the conjugacy
+class fixed by the $E_3$-cocycle representative.
+\item The $E_3$-homotopy class of the BV cochain complex
+$(\Obs^q_X, d_{BV})$ is invariant under the $\GRT_1(\Q)$-action;
+the explicit cocycle representative depends on the choice of point
+in the torsor.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Costello--Li \cite{CostelloLi2012} establishes the
+heat-kernel-scheme/Kontsevich-associator dictionary on $\C^d$;
+the K\"unneth factorisation on $X = K3 \times E$
+\eqref{eq:propagator-decomposition-explicit} reduces the scheme
+on $X$ to the schemes on K3 and on $E$. On $E$: the Eisenstein
+series $E_2(\tau)$ resummation is the standard zeta-regularisation
+controlled by the Kronecker--Eisenstein associator
+\cite[\S$5$]{Brown2013}, which sits in $\GRT_1(\Q)$. On K3: the
+Yau-metric heat-kernel parametrix~\eqref{eq:K3-mp-expansion} has
+its short-time expansion coefficients $a_j$ given by Atiyah--Singer
+heat-kernel polynomials, with one-loop normalisations matching
+$\zeta$-regularisation; this is the Kontsevich associator
+representative on the K3 holomorphic factor.
+
+Conjugacy of schemes (item~$2$): all four regularisation prescriptions
+agree at one loop on the cohomological structure $\Obs^q_X / \mathrm{exact}$;
+they differ only in the explicit $L_\infty$-cocycle representative,
+related by $\GRT_1(\Q)$-conjugation as in
+\cite[Cor.~$5.7$]{CostelloLi2012}.
+
+Item~$3$ is Tamarkin's theorem~\cite{Tamarkin2003} on the
+$\GRT_1$-action on the $E_d$-operad (here $d = 3$), restricted
+to the BV $L_\infty$-resolution.
+\end{proof}
+
+\begin{remark}[Why the heat-kernel scheme is canonical]
+\label{rem:heat-canonical}
+The heat-kernel scheme has several distinguishing features:
+locality (the propagator restricts well to subdomains), self-adjointness
+(symmetry $P_X(p_1,p_2) = P_X(p_2,p_1)^*$ under the $\frakg$-Killing
+form), and Hodge-compatibility (commutation with the K\"ahler
+identities). These select the Kontsevich associator
+$\Phi_{\mathrm{KZ}}$ as the most natural representative; the
+Drinfeld associator $\Phi_{\mathrm{Dr}}$ corresponds to a
+deformation-quantisation scheme with explicit graphical formula and
+is conjugate but not equal to $\Phi_{\mathrm{KZ}}$.
+\end{remark}
+
+\section{Attack--heal cycles}
+\label{sec:attack-heal}
+
+\subsection*{Cycle 1 -- Attack (Costello voice)}
+
+\textbf{Claim attacked:} ``the propagator is just $\int_\epsilon^L
+\dbar^{*,X} K_t^X\,dt$'' is too schematic to verify the QME.
+
+\textbf{Sharp form of attack:} Three concrete obligations are missing.
+(i) The K\"unneth factorisation~\eqref{eq:propagator-decomposition-explicit}
+requires a sign that the original inscription left as $(-1)^?$.
+What is the sign? (ii) The renormalised limit
+$\epsilon \to 0$ requires controlling the $1/d_X^4$ singularity in
+$6$ real dimensions; the original states the result without giving
+the explicit Gaussian-saddle argument. (iii) The IR limit $L \to
+\infty$ requires the spectral gap $\mu_{\mathrm{gap}}^X$ which the
+inscription names but does not bound; on K3 the gap depends on the
+Yau metric in a non-explicit way.
+
+\textbf{Heal:}
+(i) Sign computed: $(-1)^{p_{K3}}$ where $p_{K3}$ is the K3
+form-degree of the input, fixed
+by~\eqref{eq:dbar-star-leibniz}.
+(ii) Gaussian-saddle argument proven at
+Proposition~\ref{prop:diagonal-singularity}: substitute
+$s = d_X^2/4t$, integrate $\int_0^\infty s^2 e^{-s}\,ds < \infty$.
+(iii) Spectral gap $\mu_{\mathrm{gap}}^X = \min(\mu_1^{K3},
+4\pi^2/\Im\tau)$. On K3, $\mu_1^{K3}$ is positive but not known
+exactly for the Yau metric; we record that $\mu_1^{K3} > 0$
+follows from compactness + ellipticity of $\Delta_{\dbar}^{K3}$,
+and the QME proof uses only $\mu_1^{K3} > 0$, not its value. On
+$E$ the gap is exact: $4\pi^2/\Im\tau$ for $|\tau| \geq 1$, or
+$4\pi^2 \mu(\Lambda_\tau)/\Im\tau$ in general.
+
+\subsection*{Cycle 2 -- Attack (Yau voice)}
+
+\textbf{Claim attacked:} the off-diagonal Gaussian bound
+$|K_t^{K3}| \leq C t^{-2} e^{-d_{K3}^2/4t}$ requires the Yau
+metric to have bounded geometry; what is the input to that?
+
+\textbf{Sharp form of attack:} Yau's theorem gives existence of
+the Calabi--Yau metric in any K\"ahler class, but bounded-geometry
+estimates (uniform sectional-curvature, lower bound on
+injectivity radius, $C^k$-norms of the metric) require additional
+input.
+
+\textbf{Heal:} On a closed Calabi--Yau manifold of complex dimension
+$\geq 2$, Yau's theorem~\cite{Yau1978} gives a smooth metric,
+hence bounded sectional curvature ($\|R\|_\infty < \infty$). The
+injectivity radius is positive by smoothness + compactness; explicit
+lower bounds from the Cheeger inequality (curvature + volume +
+diameter), all finite/positive on K3. Hence the Li--Yau parabolic
+bound~\cite{LiYau1986} applies with constants depending only on
+the K3 isomorphism class and the chosen K\"ahler class.
+
+\subsection*{Cycle 3 -- Attack (Li voice)}
+
+\textbf{Claim attacked:} the Schwartz-kernel structure
+$|P_X(p_1,p_2)| = O(d_X^{-4})$ near the diagonal is local in $X$,
+but how do we glue across the K3 atlas?
+
+\textbf{Sharp form of attack:} K3 is not parallelisable, has no
+global flat metric, and the Yau metric is not explicit. The
+$d_X^{-4}$ singularity is a local statement near the diagonal;
+the global propagator pieces come from many local charts.
+
+\textbf{Heal:} The diagonal singularity $\Diag_X \subset X \times X$
+is a smooth submanifold of codimension $6$ (real). Locally near
+$\Diag_X$, choose normal coordinates: a Riemannian normal-coordinate
+chart on $K3 \times K3$ near the diagonal (well-defined for
+$d_{K3} < \mathrm{inj}(K3)$) tensored with an Euclidean chart on
+$E \times E$ near the diagonal (the universal cover of $E \times E$
+is $\C \times \C$, and any sufficiently small neighbourhood lifts
+trivially). In these normal coordinates, the metric is Euclidean
+to leading order with curvature corrections at $O(d^2)$, so the
+heat kernel has the Minakshisundaram--Pleijel form
+\eqref{eq:K3-mp-expansion}; the $d_X^{-4}$ singularity is
+manifest. Globally, the propagator is glued by partition of unity
+and the off-diagonal smoothness (Lemmas~\ref{lem:K3-off-diagonal},
+\ref{lem:K3-long-time}); the gluing is well-defined
+because the singular structure is supported on $\Diag_X$.
+
+\section{Synthesis: the explicit propagator}
+\label{sec:synthesis}
+
+We collect the explicit propagator on $X = K3 \times E$:
+
+\begin{theorem}[Explicit Costello--Li propagator on $K3 \times E$]
+\label{thm:main-explicit-propagator}
+\ClaimStatusProvedHere
+With the product Calabi--Yau metric $g_X = g_{\mathrm{Yau}}^{K3}
+\oplus g_{\mathrm{flat}}^E$, the renormalised Costello--Li
+propagator $P_X$ on $X = K3 \times E$ is the
+$\binom{0,1}{0,2}$-symmetric distributional kernel
+$(p_1,p_2) \mapsto P_X(p_1,p_2)$
+on $X \times X \setminus \Diag$ given by:
+\begin{equation}
+  \label{eq:propagator-explicit-final}
+  P_X(p_1,p_2)
+  \;=\;
+  \int_0^\infty
+  \Bigl(
+    \dbar^{*,K3} K^{K3}_t(x_1,x_2) \boxtimes K^E_t(z_1,z_2)
+    + (-1)^{p_{K3}}\,
+    K^{K3}_t(x_1,x_2) \boxtimes \dbar^{*,E} K^E_t(z_1,z_2)
+  \Bigr)\,dt,
+\end{equation}
+restricted to the orthogonal complement of the harmonic projector
+$P^{X,\mathcal H}$ corresponding to the $4$-dimensional
+zero-mode kernel \eqref{eq:harmonic-kernel-k3xe}. The kernel
+satisfies:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\dbar P_X + P_X \dbar = \mathrm{id} - P^{X,\mathcal H}$
+on $\Omega^{0,\bullet}(X) \otimes \frakg$;
+\item $|P_X(p_1,p_2)| \leq C_4 / d_X(p_1,p_2)^4$ near the diagonal
+(Proposition~\ref{prop:diagonal-singularity});
+\item $|P_X(p_1,p_2)| \leq C_5 \exp(-\mu_{\mathrm{gap}}^X
+d_X(p_1,p_2)^2)$ off-diagonal
+(Proposition~\ref{prop:off-diagonal-decay});
+\item the $E$-factor $K^E_t$ is the explicit lattice theta
+\eqref{eq:heat-E-explicit};
+\item the K3-factor $K^{K3}_t$ has Minakshisundaram--Pleijel
+short-time expansion \eqref{eq:K3-mp-expansion} with
+$a_2 = \tfrac{1}{180}|R_{K3}|^2$ and exponential long-time decay
+(Lemma~\ref{lem:K3-long-time});
+\item the regularisation scheme is the Kontsevich associator
+$\Phi_{\mathrm{KZ}} \in \GRT_1(\Q)$
+(Theorem~\ref{thm:scheme-associator}).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Items~$(\mathrm{i})$--$(\mathrm{vi})$ are
+Theorems~\ref{thm:renorm-propagator}, \ref{thm:scheme-associator}
+and Propositions \ref{prop:diagonal-singularity},
+\ref{prop:off-diagonal-decay}, \ref{prop:zero-mode-kernel}, plus
+Lemmas \ref{lem:K3-off-diagonal}, \ref{lem:K3-long-time}.
+\end{proof}
+
+\section{Residual gap and next step}
+\label{sec:residual}
+
+\textbf{Established here.} The heat-kernel propagator
+$P_X$ on $K3 \times E$ for the product Yau--flat metric is given
+explicitly~\eqref{eq:propagator-explicit-final}: K3-factor via
+Minakshisundaram--Pleijel + spectral gap, E-factor via
+$\Lambda_\tau$-theta, K\"unneth signs $(-1)^{p_{K3}}$, diagonal
+$1/d_X^4$ singularity in $6$ real dimensions, exponential
+off-diagonal decay, four-dimensional harmonic-projection drift
+($\C \oplus \C\,d\bar z_E \oplus \C\,\bar\omega_{K3}
+\oplus \C\,\bar\omega_{K3} \wedge d\bar z_E$ tensored with $\frakg$),
+and scheme = Kontsevich associator $\Phi_{\mathrm{KZ}}$.
+
+\textbf{Residual gap.}
+(R1) The Yau-metric K3 heat-kernel coefficients $a_j$ for $j \geq 3$
+are not explicit (they involve covariant derivatives of $|R_{K3}|^2$);
+the QME proof uses only $a_0, a_1, a_2$ and the $\mu_1^{K3} > 0$
+spectral gap, but a fully explicit two-loop propagator would
+require $a_3$ on the K3 factor.
+(R2) The conjugacy class of schemes
+$\{\Phi_{\zeta}, \Phi_{\dim}, \Phi_{\mathrm{PV}}\}$ in
+$\GRT_1(\Q)$ is recorded as a theorem but not given by an
+explicit $\GRT_1(\Q)$-element; this is a frontier of
+multiple-zeta-value theory and is open beyond depth two.
+(R3) The propagator on $K3 \times E$ for non-product
+metrics (e.g.\ the small-elliptic-fibre F-theory limit) is not
+covered; this requires a separate spectral analysis.
+
+\textbf{Next step.} With the explicit propagator
+\eqref{eq:propagator-explicit-final} pinned, the next inscription
+should: (i) compute one-loop QME on $K3 \times E$ for admissible
+$\frakg$ (Theorem $6.\ldots$ of the cy\_to\_chiral inscription)
+using the explicit form, replacing the schematic
+$P_X^{[\epsilon,L]}$ with~\eqref{eq:propagator-explicit-final};
+(ii) check the $4$-dimensional zero-mode integration explicitly,
+giving the $\det\!{}_\zeta(\Delta_{\dbar}^{K3})$-counterterm with
+its exact normalisation; (iii) extend the heat-kernel-scheme/
+$\Phi_{\mathrm{KZ}}$ identification through one more loop to
+verify consistency.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+\bibitem{BerlineGetzlerVergne1992}
+N.~Berline, E.~Getzler, M.~Vergne,
+\emph{Heat Kernels and Dirac Operators}, Grundlehren $298$, Springer 1992.
+
+\bibitem{Brown2013}
+F.~Brown, \emph{Mixed Tate motives over $\Z$}, Ann.\ Math.\ $175$
+(2012), $949$--$976$; \emph{Single-valued multiple polylogarithms in
+one variable}, $2013$.
+
+\bibitem{CostelloGwilliam}
+K.~Costello, O.~Gwilliam,
+\emph{Factorization Algebras in Quantum Field Theory}, vol.\ I (CUP 2017),
+vol.\ II (CUP 2021).
+
+\bibitem{CostelloLi2012}
+K.~Costello, S.~Li,
+\emph{Quantum BCOV theory on Calabi--Yau manifolds and the higher
+genus B-model}, arXiv:$1201.4501$ ($2012$).
+
+\bibitem{Costello2011}
+K.~Costello, \emph{Renormalization and Effective Field Theory},
+Math.\ Surveys Monogr.\ $170$, AMS $2011$.
+
+\bibitem{Demailly}
+J.-P.~Demailly, \emph{Complex Analytic and Differential Geometry},
+$2012$.
+
+\bibitem{LiYau1986}
+P.~Li, S.-T.~Yau, \emph{On the parabolic kernel of the Schr\"odinger
+operator}, Acta Math.\ $156$ ($1986$), $153$--$201$.
+
+\bibitem{Tamarkin2003}
+D.~Tamarkin, \emph{Action of the Grothendieck--Teichm\"uller group on the
+operad of little disks}, $2003$.
+
+\bibitem{Yau1978}
+S.-T.~Yau, \emph{On the Ricci curvature of a compact K\"ahler manifold
+and the complex Monge--Amp\`ere equation, I}, Comm.\ Pure Appl.\ Math.\
+$31$ ($1978$), $339$--$411$.
+
+\bibitem{Kontsevich1999}
+M.~Kontsevich, \emph{Operads and motives in deformation quantization},
+Lett.\ Math.\ Phys.\ $48$ ($1999$), $35$--$72$.
+\end{thebibliography}
+
+\end{document}

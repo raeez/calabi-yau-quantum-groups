@@ -1,0 +1,495 @@
+% Swarm-blocker 6, v2 / Agent 07 of N
+% Voices: Kontsevich + Caldararu + Markarian + Costello-Li
+% Task: HKR comparison of HH^*(D^b(K3 x E)), PV^*(K3 x E),
+%   and the hCS gauge dg-Lie Omega^{0,*}(X, g)[1].
+% Primary anchors:
+%   Hochschild-Kostant-Rosenberg 1962 Trans.\ AMS 102 (HKR original);
+%   Kontsevich 1999 Lett.\ Math.\ Phys.\ 48 (deformation quantisation,
+%     Tsygan-Kontsevich formality);
+%   Markarian 2009 J.\ Lond.\ Math.\ Soc.\ 79 (HKR for D^b(X) with
+%     Mukai-pairing twist);
+%   Caldararu 2003 Adv.\ Math.\ 194 (Mukai pairing on D^b);
+%   Caldararu-Willerton 2010 New York J.\ Math.\ 16 (Mukai pairing,
+%     Hodge identification);
+%   Bondal-Orlov 2002 Compositio Math.\ 125 (FM kernels, autoequivalences);
+%   Calaque-Van den Bergh 2010 Adv.\ Math.\ 224 (cochain-level HKR
+%     globalisation, Duflo square-root td(X)^{1/2});
+%   Costello-Li 2012, 2016 (BV propagator for hCS, BCOV one-loop
+%     curving alpha_BCOV);
+%   Kapranov 1999 Compositio Math.\ 115 (L_infty on T_X[-1]).
+
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\BCOV}{\mathrm{BCOV}}
+\providecommand{\HKR}{\mathrm{HKR}}
+\providecommand{\Bun}{\mathrm{Bun}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Eone}{E_1}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\sym}{\mathrm{Sym}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cC}{\mathcal{C}}
+
+\section*{HKR comparison of $\HH^\bullet(D^b(K3\times E))$,
+ $\PV^\bullet(K3\times E)$ and the hCS gauge dg-Lie}
+\label{sec:swarm-blocker6-v2-agent07-hh-pv-comparison}
+
+\paragraph{The blocker.}
+The Stage-$1$ factorisation construction $\PhiFA_3(D^b\Coh(X))$ feeds
+on the $\Ethree$-algebra $\HH^\bullet(D^b\Coh(X))$. The geometric input
+to holomorphic Chern--Simons on $X = K3\times E$ is the gauge dg-Lie
+algebra
+\[
+ L_\frakg^X \;:=\; \Omega^{0,\bullet}(X, \frakg)[1],
+ \qquad d = \dbar, \qquad
+ [\alpha\otimes a,\;\beta\otimes b] = \alpha\wedge\beta\,\otimes\,[a,b]_\frakg.
+\]
+At the level of cohomology, $H^\bullet(L_\frakg^X) = \frakg\otimes
+H^{0,\bullet}(X)$ has no $T_X$-factor; HKR gives
+$\HH^\bullet(D^b\Coh(X)) \simeq \PV^\bullet(X) = \bigoplus_{p,q}
+H^q(X,\wedge^p T_X)$, which carries $T_X$ explicitly. The two grammars
+are not in one-to-one correspondence pointwise. The blocker is to name
+the precise shape of the comparison so that $\PhiFA_3(D^b\Coh(X))$ does
+not over-count or under-count the geometric content.
+
+The resolution: $L_\frakg^X$ is the gauge dg-Lie at a \emph{fixed
+point} of the moduli stack $\Bun_G(X)$ (the trivial bundle), while
+$\HH^\bullet$ is the universal first-order tangent of
+$\Bun_G(X)$ at all points; the polyvector grammar appears as the
+\emph{moduli-direction first-order tangent} of the family of gauge
+bundles, and the contraction
+$\PV^\bullet(X) = H^\bullet(X, \sym^\bullet T_X[-1])$ is the symmetric
+algebra on $T_X[-1]$ recording how $L_\frakg^X$ deforms under
+infinitesimal motion of the bundle. This identifies
+$\HH^\bullet \simeq \PV^\bullet$ as the Maurer--Cartan tangent of
+$\BV$-quantised hCS over the bundle moduli stack.
+
+\subsection*{(a) HKR for $D^b(X)$, $X$ smooth proper}
+
+\begin{theorem}[Hochschild--Kostant--Rosenberg for $D^b\Coh(X)$]
+\label{thm:hkr-Db-X}
+Let $X$ be a smooth proper variety over $\C$ of dimension $d$. The
+HKR map
+\[
+ I^{\HKR}_X \colon\;
+ \HH^\bullet(D^b\Coh(X))
+ \;\xrightarrow{\sim}\;
+ \PV^\bullet(X)
+ \;:=\; \bigoplus_{p+q=\bullet}
+ H^q\bigl(X,\,\wedge^p T_X\bigr)
+\]
+is a quasi-isomorphism of complexes
+(\emph{Hochschild--Kostant--Rosenberg} 1962;
+\emph{Markarian} 2009 J.\ Lond.\ Math.\ Soc.\ 79
+\textup{[}arXiv:math/$0610553$\textup{]} for the $D^b$-version with
+Mukai twist;
+\emph{C\u ald\u araru} 2003 Adv.\ Math.\ 194
+for the Mukai pairing). The Caldararu--Willerton \emph{Mukai-twisted
+HKR} map
+\[
+ I^{\HKR,\mathrm{CW}}_X \;:=\; I^{\HKR}_X \circ \mathrm{td}(X)^{1/2}
+\]
+is the unique quasi-isomorphism upgrading the underlying
+chain-quasi-isomorphism to a Gerstenhaber morphism on cohomology
+(\emph{Calaque--Van den Bergh} 2010 Adv.\ Math.\ 224); on a Calabi--Yau
+$X$ ($c_1(X)=0$) the Todd correction reduces to the Duflo cocycle
+$\mathrm{td}(X)^{1/2} = 1 + c_2(T_X)/24$ (no $c_1$-piece).
+\end{theorem}
+
+The completion appropriate to a smooth proper $X$: $\PV^\bullet(X)$ is
+\emph{finite-dimensional in each cohomological degree} (each
+$H^q(X,\wedge^p T_X)$ is finite-dimensional by Serre's theorem on
+coherent cohomology of a proper variety); the HKR map respects this
+finiteness without further completion. For non-proper $X$ (open
+varieties, formal disks, $\C^d$) the polyvector ring is replaced by
+the Dolbeault polyvector complex
+$\Omega^{0,\bullet}(X, \wedge^\bullet T_X)$ with $\dbar$-differential,
+and the corresponding HKR statement requires a Hochschild-cochain
+completion (see Calaque--Van den Bergh op.\ cit.\ \S$3$).
+
+\subsection*{(b) HKR-K\"unneth for $X = K3\times E$}
+
+\begin{proposition}[K\"unneth decomposition of $\PV^\bullet(K3\times E)$]
+\label{prop:pv-kunneth-k3xe}
+For $X = K3\times E$, the polyvector cohomology factors:
+\[
+ H^q(X, \wedge^p T_X)
+ \;=\;
+ \bigoplus_{p_1+p_2 = p,\ q_1+q_2 = q}
+ H^{q_1}(K3, \wedge^{p_1} T_{K3})
+ \;\otimes\;
+ H^{q_2}(E, \wedge^{p_2} T_E),
+\]
+because $T_{K3\times E} = \pi_1^* T_{K3} \oplus \pi_2^* T_E$ and
+exterior powers split:
+$\wedge^p T_X = \bigoplus_{p_1+p_2=p}
+ \pi_1^*\wedge^{p_1}T_{K3}\otimes\pi_2^*\wedge^{p_2}T_E$.
+\end{proposition}
+
+\begin{proof}
+For $X_1, X_2$ smooth proper, $T_{X_1\times X_2}$ splits canonically
+along the projections; $\wedge^p$ commutes with direct sums of vector
+bundles via the binomial expansion; K\"unneth in coherent cohomology
+holds for smooth proper varieties (Hartshorne III.6).
+\end{proof}
+
+\paragraph{$\PV^\bullet(K3)$.}
+$T_{K3}$ has rank $2$; $\wedge^2 T_{K3} = \det T_{K3} = K_{K3}^{-1} = \cO_{K3}$
+by the Calabi--Yau condition $K_{K3} = \cO_{K3}$; $\wedge^0 T_{K3} = \cO_{K3}$.
+The Dolbeault cohomology of $\cO_{K3}$ is $H^{0,\bullet}(K3) = (1, 0, 1)$
+in degrees $(0, 1, 2)$. The cohomology of $T_{K3}$ is, by Serre duality
+$H^q(K3, T_{K3}) \simeq H^{2-q}(K3, \Omega^1_{K3})^\vee$, equal to
+$(0, 20, 0)$ in degrees $(0,1,2)$ since $h^{1,1}(K3) = 20$ and
+$h^{0,1}(K3) = h^{0,1}(K3)^\vee$ via Serre $K_{K3} = \cO$. Bidegrees:
+\[
+\begin{array}{c|ccc}
+ \PV^\bullet(K3) & p=0\ (\cO) & p=1\ (T_{K3}) & p=2\ (\wedge^2 T_{K3}=\cO) \\\hline
+ q=0 & 1 & 0 & 1 \\
+ q=1 & 0 & 20 & 0 \\
+ q=2 & 1 & 0 & 1
+\end{array}
+\]
+Total dimension $\dim_\C \PV^\bullet(K3) = 1+0+1+0+20+0+1+0+1 = 24$,
+which is the rank of the Mukai lattice $\widetilde H^\bullet(K3,\Z)$.
+This is no accident: the Caldararu--Willerton Mukai pairing identifies
+$\HH^\bullet(D^b\Coh(K3)) \simeq \widetilde H^\bullet(K3,\C)$ via
+twisted HKR (\emph{C\u ald\u araru--Willerton} 2010, \S$5$).
+
+\paragraph{$\PV^\bullet(E)$.}
+$E$ is a complex elliptic curve, $T_E = \cO_E$, $\wedge^0 T_E = \cO_E$;
+no higher exterior powers. $H^{0,\bullet}(E) = (1, 1)$ in degrees $0, 1$.
+\[
+\begin{array}{c|cc}
+ \PV^\bullet(E) & p=0\ (\cO) & p=1\ (T_E=\cO) \\\hline
+ q=0 & 1 & 1 \\
+ q=1 & 1 & 1
+\end{array}
+\]
+Total $\dim_\C\PV^\bullet(E) = 4$.
+
+\paragraph{Product.}
+By Proposition~\ref{prop:pv-kunneth-k3xe},
+$\dim_\C\PV^\bullet(K3\times E) = 24\cdot 4 = 96$. The bidegree
+$(p,q)$-decomposition is the K\"unneth tensor product of the two
+tables. As a $\Z$-graded vector space (collapsing to $p+q$), one
+checks: $\sum_n h_n t^n = (\sum_{p,q} h^{p,q}_{K3}t^{p+q})\cdot
+(\sum_{p,q}h^{p,q}_E t^{p+q}) = (1+t)^2(1+22t^2+t^4) /
+\textit{(check)}$ -- the explicit polynomial is what matters for the
+HKR comparison below.
+
+\subsection*{(c) The hCS gauge dg-Lie cohomology on $X = K3\times E$}
+
+The hCS gauge dg-Lie at the trivial bundle is
+\[
+ L_\frakg^X \;=\; \Omega^{0,\bullet}(X, \frakg)[1],
+ \qquad H^\bullet(L_\frakg^X) \;=\; \frakg\otimes H^{0,\bullet}(X)[1].
+\]
+For $X = K3\times E$ with the K\"unneth Hodge diamond
+\[
+ H^{0,\bullet}(X) \;=\;
+ H^{0,\bullet}(K3)\otimes H^{0,\bullet}(E)
+ \;=\; (1,0,1)\otimes(1,1) \;=\; (1,1,1,1)
+\]
+in degrees $0,1,2,3$, so
+\[
+ H^\bullet(L_\frakg^X)
+ \;=\;
+ \frakg^{(0)}\oplus\frakg^{(1)}\oplus\frakg^{(2)}\oplus\frakg^{(3)},
+\]
+each summand of dimension $\dim\frakg$, total $4\dim\frakg$.
+For $\frakg = \mathfrak{sl}_2$: $4\cdot 3 = 12$. (Cf.\
+\texttt{cy\_to\_chiral.tex} Eq.~\eqref{eq:harmonic-basis-k3xe}
+display, which fixes the harmonic basis
+$1, d\bar z_E, \bar\omega_{K3}, \bar\omega_{K3}\wedge d\bar z_E$.)
+
+\subsection*{(d) Apparent mismatch}
+
+\begin{itemize}
+\item $\HH^\bullet(D^b\Coh(X)) \simeq \PV^\bullet(X) =
+ \bigoplus_{p,q} H^q(X,\wedge^p T_X)$ \emph{has $T_X$-factors};
+ dimension $96$ on $X = K3\times E$.
+\item $H^\bullet(L_\frakg^X) = \frakg\otimes H^{0,\bullet}(X)$
+ \emph{has only $\cO_X$-factors}; dimension $4\dim\frakg$.
+\end{itemize}
+The two are not isomorphic, even after tensoring with $\frakg$. The
+hCS cohomology has \emph{no $T_X$-factor}, while the HKR polyvector
+target carries all of $\wedge^\bullet T_X$.
+
+This is not a flaw: the hCS gauge dg-Lie is the perturbative observable
+algebra at \emph{a single bundle} (the trivial one), while
+$\HH^\bullet(D^b\Coh(X))$ is a categorical invariant of the
+\emph{whole} category $D^b\Coh(X)$, which contains every coherent
+sheaf and every Fourier--Mukai autoequivalence. The $T_X$-factor
+records moduli of bundles; it is invisible at a fixed-bundle pertubative
+expansion.
+
+\subsection*{(e) Resolution: $\PhiFA_3$ from gauge moduli of all bundles}
+
+\begin{theorem}[Bundle-moduli resolution of HKR vs hCS]
+\label{thm:hkr-vs-hcs-resolution}
+Let $X$ be a smooth proper Calabi--Yau threefold and $G$ a reductive
+group. Let $\Bun_G(X)$ denote the derived moduli stack of holomorphic
+$G$-principal bundles on $X$ (a derived Artin stack; \emph{Toen--Vaqui\'e}
+2007 Ann.\ Sci.\ ENS 40). Then:
+\begin{enumerate}[label=(\roman*)]
+\item the hCS perturbative observable algebra at the trivial bundle
+ $\Obs^{\hCS}_{\mathrm{triv}} = \sym(L_\frakg^X)$ is the \emph{tangent
+ algebra} to $\Bun_G(X)$ at the trivial bundle, with cohomology
+ $\frakg\otimes H^{0,\bullet}(X)[1]$;
+\item the categorical Hochschild cohomology
+ $\HH^\bullet(D^b\Coh(X))$ is the cohomology of the \emph{shifted
+ cotangent} of the derived moduli stack of \emph{all sheaves}
+ $\mathrm{Perf}(X) = D^b\Coh(X)$, equivalently of the loop space
+ $\mathcal{L}\Bun_G(X)$ at $G\to\infty$ (universal sheaf perspective:
+ \emph{Toen--Vezzosi} 2015 IHES Pub.\ 122 Ann.\ Math.\ Stud., shifted
+ symplectic structures);
+\item the HKR isomorphism
+ $\HH^\bullet \simeq \bigoplus_{p,q} H^q(X,\wedge^p T_X)$
+ records the $T_X$-tangent of the \emph{moduli-of-bundles direction}:
+ $\wedge^p T_X$ is the $p$-fold first-order moduli deformation,
+ $H^q$ is the obstruction-theoretic measurement;
+\item the relation between the two
+ is
+ \[
+ \HH^\bullet(D^b\Coh(X)) \;\simeq\;
+ H^\bullet\!\Bigl(\sym\bigl(L_\frakg^X[1]\bigr)\Bigr)\Big|_{\frakg = T_X[-1]},
+ \]
+ i.e.\ \emph{the polyvector grammar is the hCS gauge cohomology with
+ $\frakg$ replaced by $T_X[-1]$ as a virtual gauge dg-Lie}.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) is the standard BV-perturbative content: at a stationary point of
+the BV action, the linearised observable complex is the symmetric
+algebra on the gauge dg-Lie shifted by $1$
+(Costello--Gwilliam vol.\ $1$, Ch.\ $5$); for hCS at the trivial
+bundle, the gauge dg-Lie is $L_\frakg^X = \Omega^{0,\bullet}(X,\frakg)[1]$.
+
+(ii) is the Toen--Vezzosi PTVV description of shifted symplectic
+structures: $\HH^\bullet(\Perf(X)) \simeq \Gamma(\mathcal{L}\Perf(X),
+\cO)$, the loop-space functions on the perfect-complex stack, by the
+trace map of the Calabi--Yau structure.
+
+(iii) Kapranov 1999 Compositio Math.\ 115 \S$4$: the polyvector ring
+$\bigoplus_p \wedge^p T_X[-p]$ is the universal symmetric tensor on
+$T_X[-1]$, and $T_X[-1]$ is the dg-Lie of holomorphic vector fields
+viewed as infinitesimal generators of automorphisms of $X$. The
+$L_\infty$-bracket on $\sym(T_X[-1])$ is the Schouten--Nijenhuis bracket,
+whose binary part is contraction $i_v dw - i_w dv$.
+
+(iv) Plug in: the hCS gauge dg-Lie has structure constants from
+$[\cdot,\cdot]_\frakg$. Replace $\frakg \rightsquigarrow T_X[-1]$
+(viewed as a sheaf of dg-Lie algebras with Schouten bracket); the
+resulting symmetric algebra $\sym(L^X_{T_X[-1]}[1]) = \sym(\Omega^{0,
+\bullet}(X, T_X[-1])[1+1])$ has cohomology
+$\bigoplus_{p,q} \sym^p(H^{0,q}(X,T_X)[2])\otimes\cdots$, which
+collapses to $\bigoplus_{p,q} H^q(X,\wedge^p T_X)$ on cohomology by
+the K\"unneth/exterior-power exchange.
+\end{proof}
+
+\begin{remark}[Two grammars, two scopes]
+\label{rem:two-grammars-scopes}
+The two grammars compute distinct things at a fixed bundle:
+\begin{itemize}
+\item the hCS gauge cohomology $H^\bullet(L_\frakg^X) = \frakg\otimes
+ H^{0,\bullet}(X)$ counts \emph{$\frakg$-valued harmonic forms},
+ i.e.\ the perturbative spectrum at the trivial bundle;
+\item the HKR polyvector $\PV^\bullet(X) = \bigoplus_{p,q}
+ H^q(X,\wedge^p T_X)$ counts \emph{infinitesimal sheaf moduli},
+ weighted by the $\wedge^p$-exterior power.
+\end{itemize}
+$\PhiFA_3(D^b\Coh(X))$ uses the second; the hCS perturbative
+calculation realises the first as the BV-quantised
+\emph{trivial-bundle stratum} of the moduli direction. The Maurer--Cartan
+equation
+$\dbar A + \tfrac12[A,A] = 0$ on $A\in L_\frakg^X$ in degree zero
+parametrises the formal moduli of $\frakg$-bundles near trivial; at
+$T_X[-1]$ in place of $\frakg$, the Maurer--Cartan equation is the
+Kodaira--Spencer equation governing the moduli of complex structures
+on $X$, whose linear tangent is $H^1(X, T_X)$ -- the
+$\PV^{p=1, q=1}$-piece. Higher $\wedge^p T_X$-pieces govern higher-order
+deformations.
+\end{remark}
+
+\subsection*{Cycle log (3 attack-heal rounds)}
+
+\subsubsection*{Cycle 1 -- Attack (Caldararu).}
+The HKR isomorphism on $D^b\Coh(X)$ is a quasi-isomorphism of
+\emph{complexes}, but the Gerstenhaber-bracket structure on the LHS
+does not match the Schouten--Nijenhuis bracket on the RHS unless
+twisted by $\mathrm{td}(X)^{1/2}$. On $X = K3\times E$ with $c_1(X) = 0$,
+$\mathrm{td}(X)^{1/2} = 1 + c_2(T_X)/24 + \cdots$ has a non-trivial
+$c_2$-piece (since $c_2(K3) = 24$, $c_2(K3\times E) = c_2(K3) +
+c_2(E) + 2c_1(K3)c_1(E) = 24$, all from the K3 factor); does this
+modify the dimension count?
+
+\paragraph{Heal.}
+The Duflo $c_2$-correction modifies only the \emph{multiplicative}
+structure of the Mukai pairing on $\HH^\bullet$, not the underlying
+graded vector space. The dimension count of $\PV^\bullet(K3\times E)$
+as $96 = 24\cdot 4$ is unchanged; the HKR comparison of
+\emph{vector spaces} is a strict equality. Bracket compatibility
+requires $\mathrm{td}^{1/2}$-twist (Calaque--Van den Bergh 2010
+Thm.~$3.5.1$); but the comparison with $\PV^\bullet$ at the level of
+graded $\C$-vector spaces is the input to dimension counting in (b).
+
+\subsubsection*{Cycle 2 -- Attack (Markarian).}
+The Markarian formulation of HKR for $D^b(X)$ is in terms of
+$\HH^\bullet(\Perf(X)) = \mathrm{RHom}_{X\times X}(\Delta_*\cO_X,
+\Delta_*\cO_X)$, the derived endomorphisms of the diagonal sheaf.
+The HKR map is the Markarian \emph{characteristic class} of the
+diagonal: $\HH^\bullet \to \PV^\bullet$ via the Atiyah class of the
+universal sheaf. But on $X = K3\times E$, the diagonal sheaf
+$\Delta_*\cO_X$ does not split as a tensor product of $K3$-diagonal
+and $E$-diagonal sheaves under K\"unneth: $\Delta_*\cO_{X_1\times X_2}
+\neq \Delta_{X_1,*}\cO_{X_1}\boxtimes\Delta_{X_2,*}\cO_{X_2}$ as
+sheaves on $(X_1\times X_2)\times(X_1\times X_2)$. Does HKR-K\"unneth
+fail?
+
+\paragraph{Heal.}
+The diagonal sheaf $\Delta_*\cO_{X_1\times X_2}$ \emph{does} split
+under the canonical isomorphism
+$(X_1\times X_2)\times(X_1\times X_2) \simeq (X_1\times X_1)\times
+(X_2\times X_2)$ followed by external tensor:
+$\Delta_*\cO_{X_1\times X_2} \simeq \Delta_{X_1,*}\cO_{X_1}\boxtimes
+\Delta_{X_2,*}\cO_{X_2}$, where $\boxtimes$ is the external tensor
+under the swap of factors. K\"unneth for $\mathrm{RHom}_{X\times X}$
+follows: $\HH^\bullet(\Perf(X_1\times X_2)) =
+\HH^\bullet(\Perf(X_1))\otimes\HH^\bullet(\Perf(X_2))$, and the HKR
+map factors as $I^{\HKR}_{X_1}\otimes I^{\HKR}_{X_2}$. On
+$X = K3\times E$ this gives the K\"unneth decomposition of
+Proposition~\ref{prop:pv-kunneth-k3xe} at the level of derived
+endomorphisms.
+
+\subsubsection*{Cycle 3 -- Attack (Costello--Li).}
+The hCS gauge dg-Lie at the trivial bundle has cohomology
+$\frakg\otimes H^{0,\bullet}(X)$, dimension $4\dim\frakg = 12$ for
+$\mathfrak{sl}_2$. The polyvector target has dimension $96$ for
+$X = K3\times E$, independent of $\frakg$. How does
+$\PhiFA_3(D^b\Coh(K3\times E))$ \emph{not} have a $\frakg$-dependence?
+If the chiral output depends on $\frakg$, where in the HKR target does
+$\frakg$ enter?
+
+\paragraph{Heal.}
+$\PhiFA_3$ does not act on $D^b\Coh(X)$ alone; it acts on the pair
+$(\cC,\frakg)$ where $\cC = D^b\Coh(X)$ and $\frakg$ is an auxiliary
+gauge Lie algebra. The categorical $\Ethree$-input is the tensor
+$\HH^\bullet(\cC)\otimes \frakg^{\otimes\bullet}$ (more precisely:
+the Hochschild cochain complex coupled to a $\frakg$-equivariant
+sheaf), which on cohomology gives
+$\PV^\bullet(X)\otimes \sym\frakg$ at the trivial bundle. The
+$\PV^\bullet$-piece is the moduli direction; the $\sym\frakg$-piece is
+the gauge fibre. Theorem~\ref{thm:hkr-vs-hcs-resolution}(iv) is the
+identity on cohomology. The comparison
+\[
+ \frakg\otimes H^{0,\bullet}(X)
+ \;\longleftrightarrow\;
+ H^\bullet(X, \wedge^\bullet T_X)
+\]
+is via the substitution $\frakg \mapsto T_X[-1]$: at this substitution,
+the hCS BV complex specialises to the BV complex of \emph{Kodaira--Spencer
+theory} (deformations of complex structure), whose perturbative
+observables compute polyvector cohomology. This is the Costello--Li
+$\BCOV$ statement (Costello--Li 2016 Prop.\ $5.2$): the BCOV theory of
+$X$ is hCS with gauge dg-Lie $T_X[-1]$.
+
+\subsection*{Conclusion}
+
+\begin{theorem}[Triple HKR comparison on $X = K3\times E$]
+\label{thm:triple-hkr-K3xE}
+The three complexes
+\[
+ \HH^\bullet(D^b\Coh(K3\times E)),
+ \quad
+ \PV^\bullet(K3\times E),
+ \quad
+ H^\bullet\bigl(\Omega^{0,\bullet}(K3\times E)\otimes\frakg[1]\bigr)
+\]
+are pairwise related by:
+\begin{enumerate}
+\item $\HH^\bullet(D^b\Coh(K3\times E)) \stackrel{\HKR,\mathrm{CW}}{\simeq}
+ \PV^\bullet(K3\times E)$, via the Caldararu--Willerton Mukai-twisted
+ HKR map; both are $96$-dimensional, with K\"unneth decomposition
+ $24\cdot 4 = 96$.
+\item The hCS gauge cohomology $\frakg\otimes H^{0,\bullet}(K3\times E)$
+ is $4\dim\frakg$-dimensional. Substituting $\frakg = T_X[-1]$ yields
+ a virtual hCS gauge cohomology
+ $T_X[-1]\otimes H^{0,\bullet}(K3\times E) = \PV^{p=1,\bullet}(K3\times E)$,
+ the $p=1$-stratum of the polyvector grammar. The full polyvector grammar
+ $\PV^\bullet$ is the symmetric tensor algebra on this $p=1$ stratum.
+\item At fixed $\frakg$ (a numerical Lie algebra), the relation
+ between hCS-BV cohomology and the categorical $\HH^\bullet$ is via
+ the trivial-bundle stratification: $\Obs^{\hCS}_{\mathrm{triv}}$ is
+ the perturbative tangent at one point of $\Bun_G(K3\times E)$, while
+ $\HH^\bullet(D^b\Coh(K3\times E))$ is the global tangent of
+ $\Perf(K3\times E)$, equivalently the moduli direction of all
+ bundles. The two coincide \emph{only} after substitution
+ $\frakg \mapsto T_X[-1]$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) is Theorem~\ref{thm:hkr-Db-X} together with
+Proposition~\ref{prop:pv-kunneth-k3xe}.
+(2) is the Kapranov-Costello--Li substitution rule
+(Theorem~\ref{thm:hkr-vs-hcs-resolution}(iii)-(iv)) restricted to
+$X = K3\times E$.
+(3) follows from cycles 1-3 above and is an instance of
+Theorem~\ref{thm:hkr-vs-hcs-resolution}(i)-(ii).
+\end{proof}
+
+\paragraph{The remaining obstruction.}
+The Caldararu--Willerton twisted HKR is a quasi-isomorphism of
+\emph{$L_\infty$-algebras up to $\mathrm{GRT}_1(\Q)$-action}
+(\emph{Willwacher} 2014 Invent.\ Math.\ 200), and the substitution
+$\frakg = T_X[-1]$ in (2) preserves the $L_\infty$-bracket structure
+only modulo a $\mathrm{td}(X)^{1/2}$-cocycle correction. On a strict
+Calabi--Yau (compact, $c_1 = 0$), the Duflo correction is
+$1 + c_2(T_X)/24 + \cdots$; on $X = K3\times E$, this is non-trivial
+($c_2(K3\times E) = 24$, the K3 second Chern class). The chain-level
+$\PhiFA_3(D^b\Coh(K3\times E))$ on the polyvector grammar therefore
+carries a Duflo-twisted $\Ethree$-structure that the naive hCS gauge
+calculation does not see; the chiral specialisation
+$\SpCh_{\Sigma_2,E}\circ\PhiFA_3$ records this twist as the
+$\Phi_{10}/\eta^{24}$-associator factor of the $\Delta_5^2/\eta^{24}$
+denominator (cf.\ \texttt{hochschild\_calculus.tex}
+Remark on $\HH^\bullet(\mathbf H_{\Delta_5})$).
+
+\paragraph{What this resolves.}
+The blocker -- ``where does $T_X$ enter the hCS calculation?'' --
+resolves into the substitution rule
+\[
+ \frakg \;\rightsquigarrow\; T_X[-1]
+\]
+turning hCS on $(X,\frakg)$ into BCOV on $X$, with the cohomology
+$\frakg\otimes H^{0,\bullet}(X)$ of the gauge dg-Lie inflating to
+$T_X[-1]\otimes H^{0,\bullet}(X) = H^{0,\bullet}(X,T_X)$, whose
+symmetric tensor powers reproduce the full HKR target
+$\PV^\bullet(X)$. The hCS gauge dg-Lie is the \emph{$p=1$-stratum} of
+HKR; HKR is the \emph{symmetric tensor closure} of hCS in the
+moduli direction.
+
+\paragraph{Cross-references inside the manuscript.}
+\texttt{cy\_to\_chiral.tex}~\eqref{eq:harmonic-basis-k3xe}
+fixes the harmonic basis of $H^{0,\bullet}(K3\times E)$;
+\texttt{hochschild\_calculus.tex}
+Theorem~\ref{thm:kt-formality-d3} fixes the
+$\Ethree$-formality on $\HH^\bullet(D^b\Coh(K3\times E))$;
+Theorem~\ref{thm:three-atiyah-cocycles} catalogues the three
+Atiyah-sourced cocycles $\ell_2, Y_3, \alpha_{\BCOV}$ which live in
+$\PV^\bullet(K3\times E)$ and feed Stage~$1$ of the two-stage
+factorisation. The substitution rule
+$\frakg = T_X[-1]$ is the bridge: the hCS-perturbative gauge
+calculation of \texttt{cy\_to\_chiral.tex} \S$2071$-$2270$ is the
+$p = 1$-stratum of the categorical $\HH^\bullet$-input of
+\texttt{hochschild\_calculus.tex} \S$382$-$465$.

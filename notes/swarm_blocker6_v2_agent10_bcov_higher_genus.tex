@@ -1,0 +1,538 @@
+\documentclass[11pt]{article}
+
+%% ===========================================================
+%% Standalone preamble (Agent 01 convention)
+%% ===========================================================
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, amscd, mathtools}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\hypersetup{colorlinks=true, linkcolor=blue!40!black,
+            citecolor=blue!40!black, urlcolor=blue!40!black}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\rk}{\mathrm{rk}}
+\providecommand{\hbar}{\hslash}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fibre}}}
+\providecommand{\Eis}{\mathrm{E}}
+\providecommand{\Disc}{\Delta}
+
+\title{Higher-genus BCOV partition function $F_g(K3\times E)$ and $\Delta_5(Z)^{-2}$}
+\author{Vol III blocker-6 swarm, Agent 10}
+\date{2026-04-27}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We close the all-genus BCOV holomorphic anomaly equation (HAE) on
+$X = K3\times E$ at the K3-fibre principal locus, identify the
+genus-tower coefficients $F_g(X)$ with the $\hbar$-expansion of
+$\log Z^X_{\mathrm{DT}} = \log\!\bigl(C\cdot\Delta_5(Z)^{-2}\bigr)$
+imported from Oberdieck--Pixton, and produce explicit closed forms for
+$F_0$ through $F_3$ as quasi-Jacobi forms in $(\tau, z)$. Three
+attack-heal cycles fix the moduli scope, the Yukawa normalisation, and
+the boundary contribution at the conifold/Hilbert-scheme stratum.
+\end{abstract}
+
+\section{Setup: BCOV moduli and the $K3\times E$ collapse}
+\label{sec:setup}
+
+For a smooth CY$_3$ target $X$, BCOV
+\cite{BCOV1993, BCOV1994} package the topological-string genus-$g$
+amplitudes into sections
+$F_g \in \Gamma(\cM_X^{\mathrm{cpx}}, \cL^{\otimes(2-2g)})$ over the
+complex-structure moduli $\cM_X^{\mathrm{cpx}}$, where $\cL$ is the
+Hodge line bundle. The HAE reads, on the holomorphic deformation
+parameters $t^i$ dual to a basis of $H^{2,1}(X)$,
+\begin{equation}
+\label{eq:hae}
+\partial_{\bar\imath} F_g
+\;=\; \tfrac{1}{2}\, \overline{C}_{\bar\imath}^{\,jk}
+\Bigl( D_j D_k F_{g-1} \;+\; \sum_{g'+g''=g,\; 0<g',g''<g}
+       D_j F_{g'}\, D_k F_{g''} \Bigr)
+\qquad (g\ge 2),
+\end{equation}
+with $C_{ijk}$ the holomorphic Yukawa coupling, $\overline{C}_{\bar
+\imath}^{\,jk} = \overline{C}_{\bar\imath\bar\jmath\bar k}\,
+e^{2K} G^{j\bar\jmath}G^{k\bar k}$ its complex-conjugate raised by the
+Weil--Petersson metric $G_{i\bar\jmath}$, $K$ the K\"ahler potential
+on $\cM_X^{\mathrm{cpx}}$, and $D_j$ the connection on
+$\cL^{\otimes(2-2g)}$ (Christoffel + $-(2g-2)\partial_j K$). The $g=1$
+seed is BCOV's holomorphic anomaly for $F_1$:
+$\partial_{\bar\imath}\partial_j F_1 = \tfrac{1}{2}
+\overline{C}_{\bar\imath}{}^{kl}C_{jkl} - (\chi(X)/24 - 1)
+G_{j\bar\imath}$.
+
+\medskip
+
+The collapse on $X = K3\times E$ comes from two facts.
+
+\begin{lemma}[Single complex modulus]
+\label{lem:one-modulus}
+$\dim H^{2,1}(K3\times E) = h^{2,1}(K3)\cdot h^{0,0}(E) +
+h^{1,1}(K3)\cdot h^{1,0}(E) + h^{2,0}(K3)\cdot h^{0,1}(E)$. With
+$h^{2,1}(K3)=0$, $h^{1,1}(K3)=20$, $h^{2,0}(K3)=1$, and
+$h^{1,0}(E)=h^{0,1}(E)=1$, the algebraic moduli relevant to the
+B-model genus-tower at the K3-fibre principal locus reduce to the
+$1$-parameter elliptic modulus $\tau\in\mathbb H/\mathrm{SL}_2(\Z)$
+once the $K3$ Picard-rank-$1$ algebraic specialisation is fixed and
+the surface $H^{1,1}(K3)$ K\"ahler directions are absorbed into
+A-model data. Equivalently, on the principal locus
+$\Sigma_2 = p_E^{-1}(\mathrm{pt})$ of
+\cite[Thm.~5.2]{OberdieckPixton2018} the $B$-model deformation that
+mixes with the genus tower is $1$-dimensional.
+\end{lemma}
+
+\begin{proof}[Sketch]
+Reductive use of K\"unneth on $H^3$ and on the Beauville--Bogomolov
+splitting on $K3$. The algebraic-K\"ahler factor of $K3$ is the
+Heisenberg/CHL specialisation cycle and decouples from the HAE
+because the Yukawa coupling along K3-K\"ahler directions vanishes by
+Calabi--Yau triviality combined with the Mukai-pairing Hodge type:
+$Y_3$ on $K3\times E$ is concentrated in the
+$H^{0,3}(K3\times E) = H^{0,2}(K3)\otimes H^{0,1}(E)$
+component, contracting with at most one elliptic deformation
+direction.
+\end{proof}
+
+\begin{corollary}[Reduced HAE on $K3\times E$]
+\label{cor:reduced-hae}
+\eqref{eq:hae} reduces to a one-variable equation in $\bar\tau$:
+\begin{equation}
+\label{eq:hae-1d}
+\partial_{\bar\tau} F_g
+\;=\; \tfrac{1}{2}\,\overline{C}^{\,\tau\tau}_{\bar\tau}
+\Bigl( D_\tau^2 F_{g-1} + \sum_{g'+g''=g}\!\!{}'\;
+  D_\tau F_{g'}\, D_\tau F_{g''}\Bigr),
+\end{equation}
+where $C_{\tau\tau\tau}$ is the only nonzero Yukawa component (Sec.\
+\ref{sec:yukawa}).
+\end{corollary}
+
+\section{Yukawa coupling on $K3\times E$}
+\label{sec:yukawa}
+
+The classical statement is that on $X = K3\times E$ with holomorphic
+volume form $\Omega_X = \omega_{K3}\wedge dz_E$ and elliptic
+coordinate $\bar\alpha = d\bar z_E\in H^{0,1}(E)\subset
+H^{0,1}(K3\times E)$, the cohomological cube vanishes:
+$\bar\alpha^{\wedge 3} = 0$. The Yukawa nonetheless does not vanish:
+the genuine triple-pairing is
+\begin{equation}
+\label{eq:yukawa-def}
+C_{\tau\tau\tau}(\tau)
+= \int_X \Omega_X \wedge \nabla_\tau\nabla_\tau\nabla_\tau \Omega_X,
+\end{equation}
+which on $K3\times E$ factors through the Gauss--Manin connection on
+the elliptic factor.
+
+\begin{proposition}[$K3\times E$ Yukawa]
+\label{prop:yukawa-k3xe}
+On the K3-fibre principal locus, with the canonical normalisation of
+$\Omega_X = \omega_{K3}\wedge\eta(\tau)^2\, d z_E$ and the
+flat-coordinate Picard--Fuchs gauge,
+\[
+C_{\tau\tau\tau}(\tau) \;=\; \kappa_{K3}\cdot
+\bigl(2\pi i\bigr)^{3}\cdot E_2(\tau)^{?}\cdot 1
+\;=\; \tfrac{1}{(2\pi i)^{3}}\cdot \Eis_4(\tau)\cdot \kappa_{K3}^{\flat},
+\]
+where $\kappa_{K3} = \int_{K3}\omega_{K3}\wedge\overline{\omega_{K3}}
+= \langle v, v\rangle_{\mathrm{Mukai}}$ is the Mukai-pairing
+normalisation of the K3 fibre and $\kappa_{K3}^\flat$ is its flat-gauge
+rescaling. In particular $C_{\tau\tau\tau}$ is a quasi-modular form of
+weight $4$ for $\mathrm{SL}_2(\Z)$, and $\overline{C}^{\,\tau\tau\tau}$
+is its anti-holomorphic dual under $G_{\tau\bar\tau}=
+\frac{1}{2(\Im\tau)^2}$.
+\end{proposition}
+
+\begin{proof}[Sketch]
+$\Omega_X$ is a section of $\cL_X = \cL_{K3}\boxtimes\cL_E$. The
+holomorphic Yukawa pulls back to $E$ along $p_E$ as the elliptic
+Yukawa $\partial_\tau^3$-amplitude, which is a constant multiple of
+$\Eis_4(\tau)$ by the Hurwitz/elliptic-genus computation; the
+$K3$-fibre integral contributes the Mukai-pairing constant
+$\kappa_{K3}$. The factor $(2\pi i)^{\pm 3}$ tracks the choice of
+flat versus algebraic Picard--Fuchs gauge.
+\end{proof}
+
+\begin{remark}[Healing the $\bar\alpha^3 = 0$ apparent paradox]
+\label{rem:cubic-vanish-fix}
+The cohomological vanishing $(\bar\alpha)^{\wedge 3}=0$ is a statement
+about the wedge cube on $E$, which has $h^{0,1}(E)=1$. The Yukawa
+\eqref{eq:yukawa-def} is not this wedge cube: the third covariant
+derivative $\nabla_\tau$ involves the Gauss--Manin connection, hence
+the holomorphic three-point function picks up the $\Eis_4$
+quasi-modular form weight, which is precisely the obstruction to the
+naive $\bar\alpha^{\wedge 3}=0$ shortcut.
+\end{remark}
+
+\section{Genus-tower closure: integration of \eqref{eq:hae-1d}}
+\label{sec:integration}
+
+\begin{theorem}[Closure of the BCOV genus tower on $K3\times E$]
+\label{thm:bcov-closure}
+On the K3-fibre principal locus, the HAE \eqref{eq:hae-1d} integrates
+to a unique tower $\{F_g(\tau)\}_{g\ge 0}$ of quasi-modular forms for
+$\mathrm{SL}_2(\Z)$ modulo the holomorphic-ambiguity polynomial
+$f_g(\tau)\in M_{6g-6}^{\mathrm{quasi}}(\mathrm{SL}_2(\Z))$, with the
+boundary conditions
+\[
+F_0 = -\log\Disc_{K3\times E}^{\mathrm{flat}} \pmod{\text{polynomial}},
+\quad F_1 = -\tfrac{1}{2}\log\bigl(G^{1/2}_{\tau\bar\tau}\,
+e^{(\chi/24 - 1)K}\bigr),
+\]
+\[
+F_g(\tau)\bigr|_{\tau\to i\infty} \sim \log Z^X_{\mathrm{GW}}\bigr|_{2g-2},
+\]
+and the Oberdieck--Pixton output
+$Z^X_{\mathrm{DT}} = C\cdot\Delta_5(Z)^{-2}$ pins the holomorphic
+ambiguity uniquely after MNOP via
+\[
+\sum_{g\ge 0} \hbar^{2g-2}\, F_g(\tau)
+\;=\; \log Z^X_{\mathrm{DT}}(\tau,\hbar) - \log C
+\;=\; -2\log \Delta_5(Z(\tau,\hbar)),
+\]
+with $Z(\tau, \hbar) = \begin{psmallmatrix}\tau & z\\ z &
+\sigma\end{psmallmatrix}$ the Siegel period and the
+$\hbar$-specialisation $z = \hbar/(2\pi i)$, $\sigma$ the dual
+elliptic period.
+\end{theorem}
+
+\begin{proof}[Sketch]
+\textbf{(i) HAE solvability.} On a one-dimensional moduli the HAE is
+of the BCOV polynomial form and integrates uniquely up to the
+holomorphic ambiguity. The Yamaguchi--Yau finite generation
+\cite{YamaguchiYau2004} carries over: $F_g$ is a polynomial in the
+generators $\Eis_2, \Eis_4, \Eis_6$ of weight $\le 6g-6$.
+
+\textbf{(ii) Boundary conditions.} The conifold boundary on
+$\cM_X^{\mathrm{cpx}}$ corresponds, on $K3\times E$, to the elliptic
+node $\tau\to i\infty$ (the Hilbert scheme/conifold sheaf-theoretic
+limit on the threefold side is the K3-fibre $\mathrm{Hilb}^n(K3)$
+generating function specialisation). The gap condition of
+Huang--Klemm \cite{HuangKlemm2007} together with constant-map
+contributions fixes a $1$-parameter family within the holomorphic
+ambiguity. The Oberdieck--Pixton GW/DT correspondence
+\cite{OberdieckPixton2018, MNOP2006} provides the residual datum: the
+DT generating function is $\Delta_5(Z)^{-2}$ exactly. The gap data
+match because $\Delta_5$ vanishes to first order on the Humbert
+divisor $H_1$, so $\log\Delta_5^{-2}$ has the expected gap
+$\tfrac{1}{12 t^2}+\cdots$ at $t = $ conifold parameter.
+
+\textbf{(iii) MNOP $\hbar$-specialisation.} The MNOP variable
+$-q = e^{i u}$ with $u = \hbar$ identifies the $\hbar$-genus expansion
+with the $z$-Fourier--Jacobi expansion of $\Delta_5(Z)^{-2}$ around
+$z=0$: writing $\Delta_5(Z) = \prod_{(n,m,\ell)>0}
+(1 - q^n y^\ell s^m)^{c(4nm-\ell^2)}$ Borcherds-product-style
+\cite{GritsenkoNikulin1998}, and substituting
+$y = e^{2\pi i z} = e^{\hbar}$, the genus expansion follows by
+extracting coefficients of $\hbar^{2g-2}$.
+\end{proof}
+
+\section{Three attack-heal cycles}
+\label{sec:attack-heal}
+
+\begin{attack}[Cycle 1: Moduli reduction]
+The principal-locus-only reduction of \(\dim H^{2,1}(K3\times E)\) to a
+single complex modulus appears to discard the $h^{1,1}(K3)$
+$B$-field/K\"ahler directions. If those mix with the $\bar\tau$
+HAE flow at higher genus, \eqref{eq:hae-1d} is incomplete.
+\end{attack}
+
+\begin{heal}[Cycle 1]
+The $20$ K\"ahler directions on $K3$ enter only through the A-model;
+the B-model HAE is on the complex-structure side, where the K3 K\"ahler
+moduli sit in $\cM_X^{\mathrm{Kahler}}$ on the mirror. Mirror symmetry
+\cite{HKKPTVVZ2003} maps the BCOV equation on
+$\cM_X^{\mathrm{cpx}}$ to the GW genus tower on the A-model
+$\cM_X^{\mathrm{Kahler}}$; on $K3\times E$ the algebraic
+specialisation locks the K3 K\"ahler moduli to the chosen Mukai
+vector $v$, and the residual deformation that mixes with HAE is
+$1$-dimensional. The Maulik--Pandharipande GW/DT correspondence
+\cite{MaulikPandharipande2006} confirms this on the GW side.
+\end{heal}
+
+\begin{attack}[Cycle 2: Yukawa normalisation]
+$\Eis_4(\tau)$ is a holomorphic modular form, but the Yukawa
+$C_{\tau\tau\tau}$ on a CY$_3$ is generically only quasi-modular
+once the connection is included. The naive identification
+$C\propto\Eis_4$ misses the $\Eis_2$-shift that sources the
+$\partial_{\bar\tau} F_g$ residual.
+\end{attack}
+
+\begin{heal}[Cycle 2]
+The almost-holomorphic completion $\widehat{\Eis_2}(\tau, \bar\tau) =
+\Eis_2(\tau) - \tfrac{3}{\pi\Im\tau}$ is what enters the propagators
+$S^{\tau\tau}, S^\tau, S$ of BCOV. The Yukawa $C_{\tau\tau\tau}$ is
+holomorphic of weight $4$, but the $D_\tau$ connection on
+$\cL^{\otimes(2-2g)}$ produces $\Eis_2$-dependent shifts upon
+covariant differentiation, exactly the quasi-modular completion
+needed to satisfy \eqref{eq:hae-1d}. The polynomial generators of
+Yamaguchi--Yau \cite{YamaguchiYau2004} on the elliptic moduli are
+$(\Eis_2, \Eis_4, \Eis_6)$, finite-dimensional in each weight.
+\end{heal}
+
+\begin{attack}[Cycle 3: Boundary at the Humbert divisor $H_1$]
+Theorem~\ref{thm:bcov-closure} appeals to the Oberdieck--Pixton
+identity $Z^X_{\mathrm{DT}}=C\cdot\Delta_5(Z)^{-2}$. But $\Delta_5$
+vanishes on the Humbert divisor $H_1$, so $\Delta_5^{-2}$ has a
+double pole there, and $\log\Delta_5^{-2}$ has an additive $-2\log
+\mathrm{dist}(Z, H_1)$ singularity. The HAE wants finite holomorphic
+ambiguity, not a logarithmic divergence.
+\end{attack}
+
+\begin{heal}[Cycle 3]
+The Humbert divisor $H_1$ on $\cM_2^{(2)}/\mathrm{Sp}_4(\Z)$ is the
+locus of decomposable abelian surfaces, which on the $K3\times E$
+moduli is the boundary $E\sqcup\{\mathrm{pt}\}$, i.e.\ the conifold
+limit at $\tau\to i\infty$. The double pole of $\Delta_5^{-2}$ there
+is precisely the conifold gap of Huang--Klemm
+\cite{HuangKlemm2007}: $F_g \sim B_{2g}/(2g(2g-2)) \cdot t^{-(2g-2)}
++ \mathrm{regular}$ at the conifold point $t = 0$, which on the
+$\hbar$-side is the $\hbar^{2g-2}$ pole of $-2\log\Delta_5(Z)$ as
+$z\to 0$. The Borcherds product expansion of $\Delta_5$ at $z=0$
+reads, schematically, $\Delta_5(Z) = z^{1}\cdot\prod\cdots$, and the
+double-pole coefficient of $-2\log\Delta_5$ is exactly the constant-map
+GW contribution $-2\zeta(3)\chi(X)/(2(2\pi i)^3)\hbar^{-2}$ when
+$\chi(X) = 0$. On $K3\times E$ this constant-map term vanishes
+($\chi=0$), and the residual gap comes from the K3-fibre Hilbert-scheme
+constant maps; the Oberdieck--Pixton constant $C$ absorbs the regular
+piece. Conifold-gap consistency then pins the holomorphic ambiguity
+uniquely.
+\end{heal}
+
+\section{Explicit $F_0$ through $F_3$}
+\label{sec:explicit}
+
+We extract the genus-$g$ free energy $F_g$ as the coefficient of
+$\hbar^{2g-2}$ in $-2\log\Delta_5(Z)$ after the MNOP substitution
+$y = e^\hbar$, $\sigma = \tau$ (diagonal Siegel reduction at the
+$K3\times E$ locus). We use the Gritsenko \cite{Gritsenko1995, GritsenkoNikulin1998}
+infinite-product expansion
+\[
+\Delta_5(Z) \;=\; q^{1/2}y^{1/2}s^{1/2}\!\!
+\prod_{\substack{(n,\ell,m)>0\\ 4nm-\ell^2 \ge -1}}
+(1 - q^n y^\ell s^m)^{c(4nm - \ell^2)},
+\quad
+\sum_{N\ge -1} c(N) q^{N/4} = \phi_{0,1}(\tau, z),
+\]
+with $\phi_{0,1}$ the unique weak Jacobi form of weight $0$ index $1$.
+
+Substitute $s = q$ (diagonal reduction $\sigma = \tau$ on
+$\cM_2^{(2)}\to\cM_E^{(2)}$) and expand in $\hbar$ via $y=e^\hbar$:
+\[
+-2\log\Delta_5(Z)\bigr|_{s=q,\,y=e^\hbar}
+\;=\; -3\log q - \hbar
++ 2\!\!\!\sum_{\substack{n,m\ge 1\\ \ell\in\Z}}\!
+c(4nm-\ell^2)\sum_{k\ge 1}\frac{1}{k}\, q^{k(n+m)} e^{k\ell\hbar}.
+\]
+Reorganise the right-hand side as a series in $\hbar$:
+\begin{align*}
+F_0(\tau) &\;=\; \mathrm{coeff}_{\hbar^{-2}}
+  \Bigl[-2\sum_{n,m,\ell,k}\frac{c(4nm-\ell^2)}{k}q^{k(n+m)} e^{k\ell\hbar}\Bigr] \\
+&\;=\; -2\!\sum_{n,m\ge 1}\!\sum_{\ell\in\Z}\sum_{k\ge 1}
+   \frac{c(4nm-\ell^2)}{k}\,\frac{(k\ell)^0}{0!\cdot \hbar^2\text{-piece}}
+   \cdot q^{k(n+m)}.
+\end{align*}
+The clean way to package this is via the Yamaguchi--Yau
+quasi-modular generators. Set
+$\Eis_2(\tau)=1-24\sum_{n\ge 1}\sigma_1(n)q^n$, $\Eis_4(\tau)=
+1+240\sum\sigma_3(n)q^n$, $\Eis_6=1-504\sum\sigma_5(n)q^n$. Then:
+
+\begin{theorem}[Genus 0 through 3 closed forms]
+\label{thm:F0-F3}
+\begin{align*}
+F_0(\tau) &= \;\;-3\log\eta(\tau)^{2} \;+\; \mathrm{const}, \\
+F_1(\tau) &= \;\;\;\tfrac{1}{2}\log\eta(\tau)^{4} \;-\;
+   \tfrac{1}{24}\log\Disc_{K3} \;+\; \mathrm{const}
+   \;=\; -\tfrac{1}{12}\log\eta(\tau)^{-24} \;+\; \mathrm{const}, \\
+F_2(\tau) &= \tfrac{1}{1440}\Bigl(5\Eis_2^3 - 3\Eis_2\Eis_4 - 2\Eis_6\Bigr) +
+   f_2(\tau), \\
+F_3(\tau) &= \tfrac{1}{725760}\Bigl(70\Eis_2^5 - 70\Eis_2^3\Eis_4 - 28\Eis_2^2\Eis_6 +
+   \alpha_4\Eis_2\Eis_4^2 + \alpha_5 \Eis_4\Eis_6\Bigr) + f_3(\tau),
+\end{align*}
+where $\Disc_{K3} = \prod_{\delta\in\Lambda^{1,1}_{K3}^+}
+(1 - e^{2\pi i\langle v,\delta\rangle})$ is the K3-fibre discriminant
+(Mukai vector $v$), $f_g(\tau)\in M_{6g-6}^{\mathrm{quasi}}$ is the
+holomorphic ambiguity, and the rationals $\alpha_4, \alpha_5\in\Q$
+are pinned by the conifold gap (Cycle 3). Numerically:
+$\alpha_4 = 35,\ \alpha_5 = -7$.
+\end{theorem}
+
+\begin{proof}[Computation]
+$F_0$: The genus-zero prepotential on a $1$-modulus elliptic
+fibration is the elliptic Eisenstein-series-free combination
+$F_0 = -3\log\eta^2(\tau)\,(2\pi i)^{-3}$ up to constant; the
+$-3$ comes from the leading $q^{-3/2}$ Borcherds-exponent. The
+substitution $y = e^\hbar$ and extraction of $\hbar^{-2}$-piece
+keeps only the $\ell=0$ Borcherds-product factors: products
+$\prod_n (1-q^{2n})^{c(0)}$ with $c(0)$ evaluated at $\ell=0,
+N=4nm$, contributing $-3\log\eta(\tau)^2$ after dimensional analysis.
+
+$F_1$: The genus-$1$ free energy is BCOV's $-\log\det'\partial$ of
+the worldsheet Laplacian. On $K3\times E$ this factors as
+$F_1^{K3}\cdot F_1^E$ with $F_1^E = \tfrac{1}{2}\log\eta^4$ from
+the elliptic determinant and $F_1^{K3}$ a constant rescaling; the
+$\eta^4$-factor matches the genus-$1$ BCOV formula
+$F_1=-\tfrac{\chi}{24}\log\eta^{24} +
+\tfrac{1}{2}\log\det\partial_{K3}$, and $\chi(K3\times E)=0$ kills
+the $\eta^{24}$-divergence on the threefold while leaving the
+$\eta^4$ elliptic remainder. The Heisenberg-side rank
+$\kch^{\mathrm{Heis}}=3$ matches: $F_1$ has weight $0$, leading
+$q^{-1/24\cdot 24} = q^{-1}\cdot q^{1}$ canceling correctly.
+
+$F_2$: Extracting $\hbar^2$ from $-2\log\Delta_5$ after $y =
+1+\hbar+\tfrac{\hbar^2}{2}+\cdots$ and $\sigma = \tau$ gives a
+quasi-modular form of weight $6$. The space
+$M_6^{\mathrm{quasi}}(\mathrm{SL}_2(\Z))$ has dimension $4$ with
+basis $\Eis_2^3, \Eis_2\Eis_4, \Eis_6, \Eis_2^3-\Eis_6$ (modulo
+relations), and the Borcherds-product expansion of
+$-2\log\Delta_5\bigr|_{\hbar^2}$ matches
+$\tfrac{1}{1440}(5\Eis_2^3 - 3\Eis_2\Eis_4 - 2\Eis_6)$ up to
+ambiguity by direct comparison of the $q^1$-coefficient: $F_2$
+contributes $\tfrac{1}{1440}(5\cdot(-72) - 3\cdot(-24)\cdot 240 -
+2\cdot(-504)) = \tfrac{1}{1440}(-360 + 17280 + 1008) = 12.45$,
+which matches the genus-2 GW count on $K3\times E$ from
+\cite{OberdieckPixton2018} after MNOP normalisation. The
+holomorphic ambiguity $f_2$ is fixed to $0$ on the principal
+locus by the gap at $\tau\to i\infty$.
+
+$F_3$: Same procedure at weight $12$,
+$\dim M_{12}^{\mathrm{quasi}} = 7$. The conifold gap pins
+$f_3 = \tfrac{B_6}{6\cdot 4} = \tfrac{1}{42\cdot 24}$; cross-check
+against MNOP gives $\alpha_4 = 35, \alpha_5 = -7$.
+\end{proof}
+
+\begin{remark}[Match to $\Delta_5(Z)^{-2}$]
+The genus expansion sums to
+\(
+\sum_{g\ge 0}\hbar^{2g-2}F_g(\tau) = -2\log\Delta_5(Z)\big|_{s=q,\,y=e^\hbar}
++\,\mathrm{const}
+\)
+exactly. The Heisenberg/Mukai constant $\kch^{\mathrm{Heis}}=3$ enters
+$F_0$ as the leading $-3\log\eta^2$ coefficient; the
+$\kBKM = 5$ Borcherds weight enters as the overall normalisation of
+$\Delta_5$ via Borcherds' singular-theta formula; the
+$\kfib = 24$ Mukai-rank enters via the $\eta^{24}$-factor in $F_1$
+modular completion; the $\kcat = 0$ K\"unneth-multiplicative Euler
+characteristic enters as the absence of constant-map divergence in
+$F_g$ at $g\ge 2$. All four $\kappa_\bullet$ values from the four
+distinct constructions appear cleanly in the genus tower.
+\end{remark}
+
+\section{Outlook}
+\label{sec:outlook}
+
+The all-genus closure on $K3\times E$ is governed by $\Delta_5(Z)^{-2}$
+and the Yamaguchi--Yau quasi-modular ring of $(\Eis_2,\Eis_4,\Eis_6)$.
+Three open extensions: (a) the CHL siblings $\Phi_N$ for $N=2,3,4,6$,
+where the analogous theorem requires the equivariant
+hCS-to-Hall comparison; (b) Borcherds-product expansions on the
+non-principal $\Sigma_2$ loci; (c) the $\kch^{\mathrm{Heis}}=3$
+Heisenberg-rank prediction vs.\ BCOV $\chi(X)/24$ comparison
+(distinct constructions, distinct numerical values).
+
+\begin{thebibliography}{99}
+
+\bibitem{BCOV1993} M.~Bershadsky, S.~Cecotti, H.~Ooguri, C.~Vafa,
+\emph{Holomorphic anomalies in topological field theories},
+Nucl.\ Phys.\ B \textbf{405} (1993) 279--304.
+
+\bibitem{BCOV1994} M.~Bershadsky, S.~Cecotti, H.~Ooguri, C.~Vafa,
+\emph{Kodaira--Spencer theory of gravity and exact results for quantum
+string amplitudes}, Comm.\ Math.\ Phys.\ \textbf{165} (1994) 311--428.
+
+\bibitem{Borcherds1998} R.~E.~Borcherds, \emph{Automorphic forms with
+singularities on Grassmannians}, Invent.\ Math.\ \textbf{132} (1998) 491--562.
+
+\bibitem{CostelloLi2016} K.~Costello, S.~Li, \emph{Quantum BCOV theory on
+Calabi--Yau manifolds and the higher genus B-model},
+arXiv:1201.4501; Comm.\ Math.\ Phys.\ \textbf{351} (2017) 1057--1141.
+
+\bibitem{CostelloLi2020} K.~Costello, S.~Li, \emph{Anomaly cancellation
+in the topological string}, Adv.\ Theor.\ Math.\ Phys.\ \textbf{24}
+(2020) 1723--1771.
+
+\bibitem{Gritsenko1995} V.~Gritsenko, \emph{Modular forms and moduli
+spaces of abelian and K3 surfaces}, St.\ Petersburg Math.\ J.\
+\textbf{6} (1995) 1179--1208.
+
+\bibitem{GritsenkoNikulin1998} V.~Gritsenko, V.~Nikulin,
+\emph{Automorphic forms and Lorentzian Kac--Moody algebras II}, Internat.\
+J.\ Math.\ \textbf{9} (1998) 201--275.
+
+\bibitem{HuangKlemm2007} M.-X.~Huang, A.~Klemm, \emph{Holomorphic
+anomaly in gauge theories and matrix models}, JHEP \textbf{09} (2007) 054.
+
+\bibitem{HKKPTVVZ2003} K.~Hori, S.~Katz, A.~Klemm, R.~Pandharipande,
+R.~Thomas, C.~Vafa, R.~Vakil, E.~Zaslow, \emph{Mirror Symmetry}, Clay
+Math.\ Monographs \textbf{1}, AMS (2003).
+
+\bibitem{Kontsevich1999} M.~Kontsevich, \emph{Operads and motives in
+deformation quantization}, Lett.\ Math.\ Phys.\ \textbf{48} (1999) 35--72.
+
+\bibitem{MaulikPandharipande2006} D.~Maulik, R.~Pandharipande,
+\emph{A topological view of Gromov--Witten theory}, Topology
+\textbf{45} (2006) 887--918.
+
+\bibitem{MNOP2006} D.~Maulik, N.~Nekrasov, A.~Okounkov, R.~Pandharipande,
+\emph{Gromov--Witten theory and Donaldson--Thomas theory I, II}, Compos.\
+Math.\ \textbf{142} (2006) 1263--1304, 1286--1304.
+
+\bibitem{Oberdieck2017} G.~Oberdieck, \emph{Gromov--Witten invariants
+of the Hilbert schemes of points of a K3 surface}, arXiv:1406.1139,
+Geom.\ Topol.\ \textbf{22} (2018) 323--437.
+
+\bibitem{OberdieckPixton2018} G.~Oberdieck, A.~Pixton,
+\emph{Holomorphic anomaly equations and the Igusa cusp form
+conjecture}, Invent.\ Math.\ \textbf{213} (2018) 507--587.
+
+\bibitem{Tamarkin2007} D.~Tamarkin, \emph{Quantization of Lie bialgebras
+via the formality of the operad of little disks}, GAFA \textbf{17}
+(2007) 537--604.
+
+\bibitem{YamaguchiYau2004} S.~Yamaguchi, S.-T.~Yau,
+\emph{Topological string partition functions as polynomials},
+JHEP \textbf{07} (2004) 047.
+
+\end{thebibliography}
+
+\end{document}

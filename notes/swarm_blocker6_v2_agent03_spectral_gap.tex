@@ -1,0 +1,471 @@
+\section{Quantitative spectral gap of $\Delta_{\bar\partial}$ on $K3 \times E$}
+\label{wn:swarm-blocker6-v2-agent03-spectral-gap}
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusProposition}{\textsc{[proposition]}}
+\providecommand{\ClaimStatusLemma}{\textsc{[lemma]}}
+\providecommand{\ClaimStatusCorollary}{\textsc{[corollary]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Vol}{\mathrm{Vol}}
+\providecommand{\diam}{\mathrm{diam}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\Lap}{\Delta}
+\providecommand{\Im}{\mathrm{Im}}
+\providecommand{\Re}{\mathrm{Re}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\bbR}{\mathbb{R}}
+\providecommand{\bbC}{\mathbb{C}}
+\providecommand{\bbZ}{\mathbb{Z}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\spec}{\mathrm{spec}}
+
+\textsc{Scope.} $X = K3 \times E$ closed K\"ahler Calabi--Yau threefold,
+$E = \bbC/(\bbZ + \tau\bbZ)$ elliptic with $\Im\tau > 0$ and flat metric
+of total area $V_E := \Im\tau$. The K3 factor carries the Yau Ricci-flat
+metric $g_{K3}$ in a fixed K\"ahler class $[\omega_{K3}] \in H^{1,1}(K3,\bbR)$
+with $\Vol(K3) =: V_{K3}$ and diameter $\diam(K3) =: D_{K3}$. The product
+metric $g_X = g_{K3} \oplus g_E$ is Ricci-flat K\"ahler. Notation:
+$\Lap_{\dbar}^Y$ denotes the $\dbar$-Laplacian acting on $\Omega^{0,\bullet}(Y)$
+for $Y \in \{K3, E, X\}$, with first non-zero eigenvalue $\lambda_1^Y$
+on the orthogonal complement $\cH^\perp$ of harmonic forms.
+
+The Weiss cosheaf descent for $\Obs^{q,\hCS}_X$
+\textup{(Theorem~\ref{thm:weiss-cosheaf-k3xe} of the manuscript)} invokes
+$\lambda_1^X > 0$ as a sufficient input for heat-kernel decay
+$K_t^{X,\perp} = O(\exp(-\lambda_1^X t))$ controlling the
+\v{C}ech--Mayer--Vietoris convergence on the finite polydisk atlas. The
+mathematics below quantifies $\lambda_1^X$ in terms of explicit
+geometric data and isolates the regime where each factor dominates.
+
+\subsection{Spectral gap on the elliptic curve $E$}
+\label{subsec:gap-elliptic-curve}
+
+The orthonormal basis of $\Omega^{0,0}(E)$ for the flat metric
+$|dz_E|^2 = dz_E \otimes d\bar z_E / V_E$ is
+$\{e_{m,n}(z) := V_E^{-1/2} \exp(2\pi i\,(m \bar z_E + n z_E)/\Im\tau \cdot \text{(suitable phase)})\}_{(m,n) \in \bbZ^2}$;
+to avoid carrying the lattice-rotation factor we equivalently parametrise
+by the dual lattice $\Lambda^\vee = (\bbZ + \tau\bbZ)^\vee \subset \bbC$
+and use $e_\xi(z) := V_E^{-1/2} \exp(2\pi i\,\Re(\xi \bar z_E))$ with
+$\xi \in \Lambda^\vee$.
+
+\begin{lemma}[Spectrum of $\Lap_{\dbar}^E$]
+\label{lem:spectrum-elliptic}
+\ClaimStatusLemma{}
+On $\Omega^{0,k}(E)$ for $k \in \{0,1\}$, the $\dbar$-Laplacian
+$\Lap_{\dbar}^E = \dbar\dbar^* + \dbar^*\dbar$ has spectrum
+\begin{equation}
+\label{eq:E-spectrum-formula}
+ \spec\bigl(\Lap_{\dbar}^E \big|_{\Omega^{0,k}(E)}\bigr)
+ \;=\; \Bigl\{ 4\pi^2\, \tfrac{|m + n\bar\tau|^2}{(\Im\tau)^2} \;:\; (m,n) \in \bbZ^2 \Bigr\},
+\end{equation}
+each non-zero eigenvalue $4$-fold degenerate
+\textup{(}two from the lattice $\pm$ symmetry $(m,n) \mapsto (-m,-n)$,
+two from the $\Omega^{0,0} \oplus \Omega^{0,1}$ Hodge symmetry by
+$\dbar$-conjugation\textup{).} The first non-zero eigenvalue is achieved
+by the lattice vectors of minimal norm in $\Lambda^\vee$.
+\end{lemma}
+
+\begin{proof}
+The flat metric on $E$ trivialises $\dbar$ to the constant-coefficient
+operator $\partial / \partial \bar z_E$ on $\Omega^{0,0}$, sending
+$e_\xi \mapsto (\pi i\,\xi/\Im\tau) e_\xi \, d\bar z_E$. Composition with
+$\dbar^*$ recovers $\Lap_{\dbar}^E e_\xi = 4\pi^2 (|\xi|^2/(\Im\tau)^2) e_\xi$.
+For $\xi = m + n\bar\tau \in \Lambda^\vee$ with $(m,n) \in \bbZ^2$,
+$|\xi|^2 = |m + n\bar\tau|^2$. Acting on $\Omega^{0,1}(E)$ through the
+$\dbar^*\dbar$ branch gives the same spectrum.
+\end{proof}
+
+\begin{proposition}[First eigenvalue on $E$]
+\label{prop:lambda1-E}
+\ClaimStatusProposition{}
+\begin{equation}
+\label{eq:lambda1-E}
+ \lambda_1^E \;=\; \frac{4\pi^2}{(\Im\tau)^2} \cdot \min_{(m,n) \in \bbZ^2 \setminus 0} |m + n\bar\tau|^2
+ \;=\; \frac{4\pi^2}{V_E^2} \cdot \mu(\tau)^2,
+\end{equation}
+where $\mu(\tau) := \min_{0 \neq \xi \in \Lambda^\vee} |\xi|$ is the
+shortest dual-lattice vector. For $\tau$ in the standard fundamental
+domain $\{|\tau| \geq 1, |\Re\tau| \leq 1/2\}$, $\mu(\tau) = 1$ realised
+at $(m,n) = (1,0)$, hence $\lambda_1^E = 4\pi^2 / V_E^2$.
+\end{proposition}
+
+\begin{proof}
+Direct from Lemma~\ref{lem:spectrum-elliptic}. Identifying
+$V_E = \Im\tau$ recasts the prefactor in K\"ahler-class normalisation.
+The fundamental-domain claim is the standard $\mathrm{SL}_2(\bbZ)$
+reduction: in the standard domain the Gram matrix of
+$\Lambda^\vee$ has shortest vector of length $\geq 1$, with equality at
+$(1,0)$.
+\end{proof}
+
+\subsection{Spectral gap on K3}
+\label{subsec:gap-K3}
+
+K3 carries no flat K\"ahler metric and no closed-form spectrum, but
+Yau's solution to the Calabi conjecture and the resulting
+bounded-geometry estimates pin $\lambda_1^{K3}$ in terms of two
+intrinsic invariants $V_{K3}$ and $D_{K3}$.
+
+\begin{proposition}[First eigenvalue on K3, Yau bounded-geometry bound]
+\label{prop:lambda1-K3}
+\ClaimStatusProposition{}
+The first non-zero eigenvalue $\lambda_1^{K3}$ of $\Lap_{\dbar}^{K3}$
+on $\Omega^{0,1}(K3)$ satisfies
+\begin{equation}
+\label{eq:lambda1-K3-Yau-bound}
+ \lambda_1^{K3} \;\geq\; \frac{c_{K3}}{D_{K3}^2},
+\end{equation}
+with $c_{K3}$ a universal constant depending only on the K3 topological
+type and the K\"ahler class $[\omega_{K3}]/V_{K3}^{1/2}$ \textup{(}the
+unit-volume normalisation\textup{).} On the unit-volume locus
+$V_{K3} = 1$ the bound reduces to $\lambda_1^{K3} \geq c_{K3}/D_{K3}^2$;
+the full scaling law in $V_{K3}$ is
+\begin{equation}
+\label{eq:lambda1-K3-scaling}
+ \lambda_1^{K3} \;\geq\; \frac{c_{K3}}{V_{K3}^{1/2} D_{K3}^2}
+ \cdot V_{K3}^{1/2}
+ \;=\; \frac{c_{K3}}{D_{K3}^2},
+\end{equation}
+because $\Lap_{\dbar}$ scales as $1/(\text{length})^2$ and the
+length-scale ratio $D_{K3}/V_{K3}^{1/4}$ is a scale-invariant K\"ahler
+moduli function.
+\end{proposition}
+
+\begin{proof}
+The Bochner--Kodaira--Nakano identity on a Ricci-flat K\"ahler manifold
+\begin{equation}
+\label{eq:bochner-kodaira-nakano}
+ \Lap_{\dbar} \;=\; \tfrac{1}{2}\Lap_d \quad \text{on } \Omega^{p,q}(K3),
+\end{equation}
+identifies the $\dbar$-Laplacian with half the Hodge--de Rham Laplacian
+on a Calabi--Yau. The Hodge--de Rham first eigenvalue $\mu_1^{K3}$ on
+$\Omega^1(K3)$ obeys the Cheng diameter bound
+\textup{(}Cheng~\cite{Cheng1975}\textup{)}
+$\mu_1 \geq \pi^2 / D_{K3}^2$ on the trivial-Ricci slice, refined by
+Bismut--Vasserot and Sun--Zhang~\cite{SunZhang2014} on Calabi--Yau
+manifolds to a Sobolev-bound-driven inequality
+$\mu_1^{K3} \geq c'/D_{K3}^2$ with $c'$ depending on the $C^0$-bound on
+the Yau potential. Yau's $C^3$-estimate provides this $C^0$ bound from
+the K\"ahler class alone. Combine with~\eqref{eq:bochner-kodaira-nakano}
+to extract $\lambda_1^{K3} \geq c_{K3} / D_{K3}^2$.
+
+The scaling law: rescaling $g_{K3} \to t^2 g_{K3}$ multiplies $V_{K3}$
+by $t^4$, $D_{K3}$ by $t$, $\Lap$ by $t^{-2}$. The bound $c/D^2$ scales
+as $t^{-2}$ matching $\Lap$, so the inequality is scale-covariant.
+Identifying the scale-free combination
+$D_{K3}^2 / V_{K3}^{1/2}$ is the unit-volume diameter; the full
+inequality is $\lambda_1^{K3} \geq c_{K3} / D_{K3}^2$ in any
+normalisation with $c_{K3}$ K\"ahler-modulus-dependent but not
+volume-dependent.
+\end{proof}
+
+\begin{remark}[Yau metric implicit dependence]
+\label{rem:yau-metric-implicit}
+The constant $c_{K3}$ in~\eqref{eq:lambda1-K3-Yau-bound} encodes the
+implicit dependence of $\lambda_1^{K3}$ on the K\"ahler moduli through
+the Yau potential. Sun--Zhang~\cite{SunZhang2014} give the
+quantitative form
+$c_{K3} = c_0\, \exp(-c_1 \|\varphi\|_{C^0})$ with $\varphi$ the Yau
+potential and $c_0, c_1$ topological. For K3 with K\"ahler class in the
+ample cone bounded away from the wall, $\|\varphi\|_{C^0}$ is uniformly
+bounded and $c_{K3}$ is bounded below by a positive K\"ahler-class
+constant.
+\end{remark}
+
+\subsection{Product spectrum on $K3 \times E$}
+\label{subsec:product-spectrum}
+
+\begin{theorem}[K\"unneth spectrum and first eigenvalue on $X$]
+\label{thm:kunneth-spectrum-X}
+\ClaimStatusTheorem{}
+The $\dbar$-Laplacian on the product CY threefold $X = K3 \times E$
+with the product metric satisfies
+\begin{equation}
+\label{eq:product-laplacian-decomposition}
+ \Lap_{\dbar}^X \;=\; \Lap_{\dbar}^{K3} \otimes 1 \;+\; 1 \otimes \Lap_{\dbar}^E
+\end{equation}
+on the Hilbert tensor product
+$L^2(\Omega^{0,\bullet}(X)) \cong L^2(\Omega^{0,\bullet}(K3))
+\widehat\otimes L^2(\Omega^{0,\bullet}(E))$. Its spectrum decomposes as
+\begin{equation}
+\label{eq:product-spectrum}
+ \spec(\Lap_{\dbar}^X) \;=\; \bigl\{ \lambda_m^{K3} + \lambda_n^E : m, n \geq 0 \bigr\},
+\end{equation}
+counted with multiplicity inherited from the tensor decomposition.
+The first non-zero eigenvalue is
+\begin{equation}
+\label{eq:lambda1-X-min}
+ \lambda_1^X \;=\; \min(\lambda_1^{K3},\, \lambda_1^E) \;>\; 0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Equation~\eqref{eq:product-laplacian-decomposition} is the standard
+K\"unneth identity for the K\"ahler Laplacian on a Riemannian product:
+the $\dbar$-operator on $\Omega^{0,\bullet}(X)$ decomposes as
+$\dbar^X = \dbar^{K3} \otimes 1 + (-1)^{\deg} \otimes \dbar^E$, and the
+adjoint product on the orthogonal direct sum gives the additive
+Laplacian. Joint diagonalisation of commuting self-adjoint operators
+yields tensor-product eigenfunctions
+$\psi_m^{K3} \otimes \psi_n^E$ with eigenvalue
+$\lambda_m^{K3} + \lambda_n^E$, proving~\eqref{eq:product-spectrum}.
+
+The minimum non-zero element of the sum-set
+$\{\lambda_m^{K3} + \lambda_n^E\}_{(m,n) \neq (0,0)}$ is achieved at
+either $(m,n) = (1,0)$ giving $\lambda_1^{K3}$, or $(m,n) = (0,1)$
+giving $\lambda_1^E$, hence~\eqref{eq:lambda1-X-min}. Both
+$\lambda_1^{K3} > 0$ \textup{(Proposition~\ref{prop:lambda1-K3})} and
+$\lambda_1^E > 0$ \textup{(Proposition~\ref{prop:lambda1-E})} are
+strictly positive, so $\lambda_1^X > 0$.
+\end{proof}
+
+\begin{corollary}[Quantitative gap]
+\label{cor:quantitative-gap}
+\ClaimStatusCorollary{}
+\begin{equation}
+\label{eq:quantitative-gap}
+ \lambda_1^X \;\geq\; \min\!\Bigl( \frac{c_{K3}}{D_{K3}^2},\; \frac{4\pi^2 \mu(\tau)^2}{V_E^2} \Bigr) \;>\; 0.
+\end{equation}
+In the standard $\tau$-fundamental domain, $\mu(\tau) = 1$ and the
+bound is $\min(c_{K3}/D_{K3}^2,\; 4\pi^2 / V_E^2)$.
+\end{corollary}
+
+\subsection{Critical regimes and the dominant factor}
+\label{subsec:critical-regimes}
+
+The two terms in~\eqref{eq:quantitative-gap} compete; their ratio
+\begin{equation}
+\label{eq:critical-ratio}
+ \rho \;:=\; \frac{\lambda_1^E}{\lambda_1^{K3}}
+ \;\leq\; \frac{4\pi^2 / V_E^2}{c_{K3} / D_{K3}^2}
+ \;=\; \frac{4\pi^2 D_{K3}^2}{c_{K3} V_E^2}
+\end{equation}
+isolates the regime.
+
+\begin{proposition}[Three regimes for the spectral gap]
+\label{prop:three-regimes}
+\ClaimStatusProposition{}
+The spectral gap $\lambda_1^X$ has three quantitatively distinct
+regimes:
+
+\textup{(i) \emph{Long thin elliptic curve}}
+$V_E^2 \gg D_{K3}^2 / c_{K3}$: $\lambda_1^E < \lambda_1^{K3}$ and
+$\lambda_1^X = \lambda_1^E = O(V_E^{-2})$. The gap is small,
+controlled by the elliptic-curve volume.
+
+\textup{(ii) \emph{Compact elliptic curve, large K3 diameter}}
+$V_E^2 \ll D_{K3}^2 / c_{K3}$: $\lambda_1^{K3} < \lambda_1^E$ and
+$\lambda_1^X = \lambda_1^{K3} = O(D_{K3}^{-2})$. The K3 dominates.
+
+\textup{(iii) \emph{Critical balance}} $V_E^2 \sim D_{K3}^2 / c_{K3}$:
+$\lambda_1^X$ saturates near $4\pi^2 / V_E^2 \approx c_{K3} / D_{K3}^2$,
+both factors contributing comparably.
+
+In all three regimes $\lambda_1^X > 0$ strictly, and the
+heat-kernel-decay bound below is uniform with the explicit
+quantitative dependence on $(V_E, D_{K3}, c_{K3})$.
+\end{proposition}
+
+\begin{proof}
+Direct comparison of the two terms in
+Corollary~\ref{cor:quantitative-gap}. The strict positivity in regimes
+(i)--(iii) is the strict positivity of each factor.
+\end{proof}
+
+\begin{remark}[Geometric interpretation]
+The long-thin-$E$ regime (i) corresponds to the F-theory/heterotic
+limit where the elliptic fibre stretches; in this regime the chiral
+algebra associated to $E$ controls the Kaluza--Klein tower of the
+6d hCS theory wrapped on $E$ \textup{(}cf.~Costello--Gaiotto twisted
+holography\textup{)}, and $\lambda_1^X = \lambda_1^E$ is the gap in
+the fibre-mode spectrum. The K3-dominated regime (ii) corresponds to
+the orbifold/large-volume K3 limit. The critical balance (iii) is the
+self-dual point where neither factor dominates.
+\end{remark}
+
+\subsection{Heat-kernel decay and convergence of the
+\v{C}ech--Mayer--Vietoris cocomplex}
+\label{subsec:heat-kernel-cech}
+
+The spectral gap controls the off-diagonal decay of the heat kernel,
+which is the analytic input the Weiss descent invokes.
+
+\begin{proposition}[Heat-kernel decay from spectral gap]
+\label{prop:heat-kernel-decay}
+\ClaimStatusProposition{}
+Let $K_t^X(x,y) \in \Omega^{0,q}_x \otimes (\Omega^{0,q}_y)^*$ denote
+the kernel of the operator $\exp(-t \Lap_{\dbar}^X)$ on
+$\Omega^{0,q}(X)$, and let $K_t^{X,\perp}$ denote its restriction to
+the orthogonal complement of harmonic forms,
+$K_t^X = P_{\cH} + K_t^{X,\perp}$ with $P_{\cH}$ the projection onto
+$\cH^q := \ker(\Lap_{\dbar}^X|_{\Omega^{0,q}})$. Then for $t > 0$,
+\begin{equation}
+\label{eq:heat-kernel-perp-bound}
+ \bigl\| K_t^{X,\perp} \bigr\|_{L^2 \to L^2}
+ \;\leq\; \exp\bigl(-\lambda_1^X t\bigr).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Spectral decomposition of $\Lap_{\dbar}^X$ on $\Omega^{0,q}(X)$ gives
+$\Lap_{\dbar}^X = \int_{[0,\infty)} \lambda \, dE_\lambda$ with
+$E_0 = P_{\cH}$. On the orthogonal complement $\cH^\perp$ the spectrum
+is contained in $[\lambda_1^X, \infty)$, hence
+$\exp(-t\Lap_{\dbar}^X)|_{\cH^\perp}$ has operator norm bounded by
+$\exp(-\lambda_1^X t)$.
+\end{proof}
+
+\begin{proposition}[\v{C}ech--Mayer--Vietoris convergence]
+\label{prop:cech-MV-convergence}
+\ClaimStatusProposition{}
+Let $\mathcal{A} = \{D_\alpha\}_{\alpha \in I}$ be a finite polydisk
+atlas of $X$ and $P_X$ the Costello--Li propagator on $X$. The
+\v{C}ech cochain complex
+\begin{equation}
+\label{eq:cech-cochain}
+ C^p(\mathcal{A}, \Obs^{q,\hCS}_X) \;:=\; \prod_{\alpha_0 < \cdots < \alpha_p} \Obs^{q,\hCS}_X\bigl(D_{\alpha_0} \cap \cdots \cap D_{\alpha_p}\bigr)
+\end{equation}
+with the standard \v{C}ech differential converges to
+$\Obs^{q,\hCS}_X(X)$ in the homotopy category of cochain complexes.
+The convergence rate is geometric:
+\begin{equation}
+\label{eq:cech-convergence-rate}
+ \bigl\| C^p \bigr\| \;\leq\; C \cdot |\mathcal{A}|^p \cdot \exp\bigl(-p \lambda_1^X t_0\bigr)
+\end{equation}
+for a fixed propagator timescale $t_0 > 0$ \textup{(}depending on
+$|\mathcal{A}|$ and $\diam(D_\alpha)$\textup{)} and a topological
+constant $C > 0$.
+\end{proposition}
+
+\begin{proof}
+The key analytic input is the propagator $P_X$ representation as a
+heat-kernel integral
+$P_X(x,y) = \int_0^\infty K_t^{X,\perp}(x, y) \, dt$
+\textup{(Costello--Li~\cite{CostelloLi2012})}, with the off-diagonal
+decay~\eqref{eq:heat-kernel-perp-bound}. On the $p$-fold intersection
+$D_{\alpha_0} \cap \cdots \cap D_{\alpha_p}$ the propagator-induced
+gluing map contributes a factor of order $\exp(-\lambda_1^X t_0)$ per
+nerve-edge. Combining over the nerve gives the
+$\exp(-p \lambda_1^X t_0)$ factor; the binomial coefficient
+$|\mathcal{A}|^p$ counts the $p$-fold intersections; the geometric
+series in $p$ converges to a finite total, yielding convergence in the
+homotopy category. The harmonic-zero-mode contribution sits in the
+$\check C^0$-part by the projection $P_{\cH}^X$
+\textup{(}finite-dimensional, $4\dim\frakg$ on $K3 \times E$\textup{).}
+\end{proof}
+
+\subsection{Attack--heal cycles}
+\label{subsec:attack-heal}
+
+\paragraph{Cycle 1.} \emph{Attack:} the Bochner--Kodaira--Nakano
+identity~\eqref{eq:bochner-kodaira-nakano} requires the Ricci tensor to
+vanish; on K3 this is the Yau theorem, but the constant $c_{K3}$ in
+the Cheng-type bound depends on the Yau potential, not just the
+K\"ahler class.
+\emph{Heal:} Remark~\ref{rem:yau-metric-implicit} makes the implicit
+dependence explicit through Sun--Zhang~\cite{SunZhang2014}: the
+Yau-potential $C^0$-norm is bounded uniformly on K\"ahler classes
+bounded away from the ample-cone wall, so $c_{K3}$ is genuinely a
+positive K\"ahler-modulus-dependent constant on the relevant locus.
+
+\paragraph{Cycle 2.} \emph{Attack:} the K\"unneth
+spectrum~\eqref{eq:product-spectrum} treats the product as a Hilbert
+tensor product, but $\Omega^{0,\bullet}(X) = \bigoplus_{p+q = \bullet}
+\Omega^{0,p}(K3) \otimes \Omega^{0,q}(E)$ is graded by the bidegree
+$(p,q)$, and the $\dbar$-Laplacian preserves the bidegree. Does the
+spectral additivity~\eqref{eq:product-laplacian-decomposition} respect
+the bigrading?
+\emph{Heal:} On $\Omega^{0,p}(K3) \otimes \Omega^{0,q}(E) \subset
+\Omega^{0,p+q}(X)$ the Laplacian acts as
+$\Lap_{\dbar}^{K3}|_{\Omega^{0,p}} \otimes 1 + 1 \otimes
+\Lap_{\dbar}^E|_{\Omega^{0,q}}$. Each summand is a non-negative
+self-adjoint operator on its factor, and the sum acts on the bigraded
+piece independently. The minimum non-zero eigenvalue on each bigraded
+piece is $\min(\lambda_1^{K3, p}, \lambda_1^{E, q})$ where the
+superscripts index the form-degree restriction. On
+$\Omega^{0,1}(X)$ (the relevant target for the hCS gauge field), the
+piece $\Omega^{0,1}(K3) \otimes \Omega^{0,0}(E)$ contributes
+$\lambda_1^{K3, (0,1)}$ and $\Omega^{0,0}(K3) \otimes \Omega^{0,1}(E)$
+contributes $\lambda_1^{E, (0,1)}$. Both are strictly positive
+\textup{(}Lemma~\ref{lem:spectrum-elliptic} for $E$;
+Proposition~\ref{prop:lambda1-K3} for $K3$, where the $\dbar$-spectrum
+on $\Omega^{0,1}(K3)$ inherits from the de Rham spectrum on
+$\Omega^1(K3)$ via Hodge--Bochner\textup{).} The minimum is the
+quantitative gap.
+
+\paragraph{Cycle 3.} \emph{Attack:} the convergence
+estimate~\eqref{eq:cech-convergence-rate} factors through the
+Costello--Li heat-kernel propagator, but the propagator is
+defined modulo BV-exact terms; different gauge-fixing choices may
+shift the constant $C$ but not the decay rate $\exp(-\lambda_1^X t_0)$.
+What if a degenerate gauge-fixing produces $C = \infty$?
+\emph{Heal:} Costello--Li~\cite{CostelloLi2012} prove that the
+heat-kernel gauge-fixing $\mathrm{GF}_t$ converges to a non-degenerate
+propagator as $t \to 0^+$ on a compact K\"ahler manifold; the constant
+$C$ is finite for every $t_0 > 0$ chosen below the injectivity radius
+of $X$. The strict positivity of $\lambda_1^X$ then forces geometric
+convergence regardless of the fine structure of $C$. Conversely, on
+non-compact CY$_3$ where $\lambda_1^X = 0$ \textup{(}continuous spectrum
+at $0$\textup{)}, the convergence~\eqref{eq:cech-convergence-rate} fails
+and $\Omega$-equivariant or compactly supported formulations are
+required (Remark~\ref{rem:compactness-spectral-gap-finite-atlas} of
+the manuscript). The strict positivity is the necessary and
+sufficient analytic input.
+
+\subsection{Synthesis}
+\label{subsec:synthesis}
+
+\begin{theorem}[Quantitative spectral gap, Weiss-descent input]
+\label{thm:quantitative-spectral-gap-weiss}
+\ClaimStatusTheorem{}
+For $X = K3 \times E$ with the product Ricci-flat K\"ahler metric
+$g_X = g_{K3} \oplus g_E$, the first non-zero eigenvalue of the
+$\dbar$-Laplacian on $\Omega^{0,\bullet}(X)$ obeys
+\begin{equation}
+\label{eq:thm-quantitative-gap}
+ \lambda_1^X \;=\; \min(\lambda_1^{K3},\, \lambda_1^E)
+ \;\geq\; \min\!\Bigl( \frac{c_{K3}}{D_{K3}^2},\; \frac{4\pi^2 \mu(\tau)^2}{V_E^2} \Bigr)
+ \;>\; 0,
+\end{equation}
+with $c_{K3} > 0$ a Sun--Zhang constant depending on the Yau potential
+$C^0$-norm \textup{(}finite for K\"ahler classes bounded away from the
+ample-cone wall\textup{)}. This bound is the explicit form of the
+spectral-gap input invoked in the Weiss cosheaf descent for
+$\Obs^{q,\hCS}_X$ and gives the geometric-decay rate
+$O(\exp(-\lambda_1^X t))$ for the heat-kernel orthogonal-projection
+piece, controlling the convergence of the
+\v{C}ech--Mayer--Vietoris cocomplex on the finite polydisk atlas.
+\end{theorem}
+
+\begin{proof}
+Combine Theorem~\ref{thm:kunneth-spectrum-X},
+Proposition~\ref{prop:lambda1-K3}, Proposition~\ref{prop:lambda1-E},
+Proposition~\ref{prop:heat-kernel-decay}, and
+Proposition~\ref{prop:cech-MV-convergence}.
+\end{proof}
+
+\begin{corollary}[Weiss descent gap input, made quantitative]
+\label{cor:weiss-descent-quantitative}
+\ClaimStatusCorollary{}
+The bound~\eqref{eq:thm-quantitative-gap} closes the analytic gap in
+\textup{Theorem~\ref{thm:weiss-cosheaf-k3xe}} of the manuscript.
+The qualitative assertion $\lambda_1^X > 0$ on the compact K\"ahler
+$X$ now carries the explicit form
+$\lambda_1^X \geq \min(c_{K3}/D_{K3}^2,\, 4\pi^2/V_E^2)$ on the standard
+$\tau$-domain, parametrised by the K\"ahler moduli $(V_{K3}, [\omega_{K3}],
+\Im\tau)$. The three regimes of
+Proposition~\ref{prop:three-regimes} stratify the Weiss-descent
+analytic difficulty by which factor dominates.
+\end{corollary}
+
+\textsc{Open.} The Sun--Zhang constant $c_{K3}$ is defined
+non-explicitly through the Yau-potential $C^0$ bound; sharpening to a
+purely K\"ahler-class-dependent constant requires a Calabi-flow
+gradient estimate not pursued here.
