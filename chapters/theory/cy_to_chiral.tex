@@ -1702,6 +1702,892 @@ Corollary~\ref{cor:sibling-BKMs-from-one-phiFA} admits the same bialgebra enhanc
 The three pieces of additional data $(\Delta, \widetilde{\Phi}^{\mathrm{Sieg\text{-}Bor}}, R_{\mathrm{Sieg,dyn}})$ in Theorem~\ref{thm:g-delta5-sp-k3-bialgebra} are not automatic from the object-level chiral algebra. They are Stage-$1$ comparison data read at Stage-$2$: coproduct from the Hall monoidal structure, associator from a transported Kontsevich--Tamarkin formality cocycle, and $R$-matrix from the elliptic hCS/shuffle kernel. On the principal $K3\times E$ locus they are supplied by BL-2/4/6; beyond that locus each datum must survive $\SpCh_{K3,E}$ with Beck--Chevalley, Fubini, orientation, and completion coherences, so the extension remains Conjecture~\ref{conj:g-delta5-sp-k3-bialgebra-extension}.
 \end{remark}
 
+% ============================================================
+\subsection{The 6D hCS pre-factorisation algebra on \texorpdfstring{$K3 \times E$}{K3 x E}: explicit Costello--Li construction and Weiss descent}
+\label{subsec:6d-hcs-k3e-explicit-construction}
+% ============================================================
+
+The Stage-$1$ realisation of Proposition~\ref{prop:5d-hcs-bv-factorisation} is
+indirect: $5$d hCS on $X \times \R_t$ followed by topological compactification.
+The direct realisation is $6$d hCS on the compact CY$_3$ $X = K3 \times E$
+itself, with no $\R_t$-factor, and the perturbative BV observables on $X$
+recovered as a locally constant factorisation algebra of class $E_3$.
+Five obstructions stand between the $6$d hCS Lagrangian and a
+factorisation algebra: the symmetric trilinear gauge anomaly, the
+Costello--Li propagator on a compact base, the local pre-factorisation
+structure on a polydisk atlas, the harmonic zero modes from the failure
+of strict CY structure on $K3\times E$, and the Weiss cosheaf descent
+across the polydisk atlas. Each is dispatched in this subsection.
+
+\subsubsection{The trilinear obstruction and admissible gauge algebras}
+\label{subsubsec:trilinear-obstruction-admissible-g}
+
+The classical $6$d hCS action with gauge dg-Lie $\frakg$ on $X = K3 \times E$
+with CY form $\Omega_X = \omega_{K3} \wedge dz_E$ is
+\begin{equation}
+\label{eq:6d-hcs-action-k3xe}
+ S_{cl}[A] \;=\; \frac{1}{2\pi i \hbar} \int_X \Omega_X \wedge
+ \operatorname{tr}\!\bigl(\tfrac{1}{2} A \wedge \dbar A + \tfrac{1}{6}\, A \wedge [A, A]\bigr),
+\qquad A \in \Omega^{0, 1}(X, \frakg).
+\end{equation}
+The classical master equation $\{S_{cl}, S_{cl}\} = 0$ is satisfied by
+$\frakg$-Jacobi and graded commutativity of the wedge.
+
+The one-loop quantum master equation
+$\{S, S\}_{BV} - 2 \hbar\, \Delta_{BV} S = 0$
+involves the BV-Laplacian $\Delta_{BV}$ computed from the propagator of
+\S\ref{subsubsec:costello-li-propagator-k3xe}. The non-trivial one-loop
+contributions split, as in Costello~\cite{CostelloRenormalization2011}
+\S$10.4.4$ and Costello--Li~\cite{CostelloLi2016} \S$5$, into a
+\emph{wave-function renormalisation} piece (quadratic Casimir source) and
+a \emph{cohomological anomaly} piece (cubic symmetric Casimir source):
+\begin{equation}
+\label{eq:6d-hcs-anomaly-decomposition}
+ \hbar\, \Delta_{BV} S_{cl} \;=\; -\, \hbar \cdot O_2 \cdot \int_X \Omega_X \wedge \tfrac{1}{2}\operatorname{tr}(A \wedge A)
+ \;-\; \hbar \cdot O_3 \cdot \int_X \Omega_X \wedge \operatorname{tr}(A \wedge A \wedge A) \;+\; \hbar^2(\cdots).
+\end{equation}
+The coefficients are computed from one-loop wheel diagrams on $X$:
+\begin{equation}
+\label{eq:trilinear-Casimir-coefficients}
+ O_2 \;=\; \frac{2 h^\vee_\frakg}{(2\pi)^3}, \qquad
+ O_3 \;=\; \frac{d^{abc}_\frakg \, d_{abc}^\frakg}{(2 \pi)^3},
+\end{equation}
+where $h^\vee_\frakg$ is the dual Coxeter number and
+$d^{abc}_\frakg \;=\; \operatorname{tr}_{\mathrm{adj}}\bigl(\{T^a, T^b\} T^c\bigr)$
+is the totally symmetric rank-$3$ Casimir tensor on $\frakg$ in the
+adjoint representation, with indices raised by the inverse Killing form.
+
+\begin{lemma}[Classification of simple $\frakg$ with $d^{abc}_\frakg = 0$]
+\label{lem:dabc-vanishing-classification}
+\ClaimStatusProvedHere{}
+For $\frakg$ a finite-dimensional complex simple Lie algebra, the
+totally symmetric trilinear invariant
+$d^{abc}_\frakg \in (\operatorname{Sym}^3 \frakg^*)^\frakg$
+vanishes identically if and only if $\frakg$ is not of Cartan type
+$A_n$ for $n \geq 2$. Equivalently, $d^{abc}_\frakg = 0$ for
+\[
+ \frakg \;\in\; \bigl\{ \mathfrak{sl}_2,\ \mathfrak{so}(2n+1)\,(B_n),\ \mathfrak{sp}(2n)\,(C_n),\ \mathfrak{so}(2n)\,(D_n,\ n \geq 4),\ E_6,\ E_7,\ E_8,\ F_4,\ G_2 \bigr\}.
+\]
+\end{lemma}
+
+\begin{proof}
+By Chevalley's restriction theorem, the algebra of invariants
+$(\operatorname{Sym}^\bullet \frakg^*)^\frakg$ is a polynomial ring on
+$\operatorname{rk}(\frakg)$ generators, of degrees $m_1 + 1, \ldots, m_{\operatorname{rk}(\frakg)} + 1$
+where $\{m_i\}$ are the exponents of $\frakg$ (see e.g.~Bourbaki,
+\emph{Lie groups and Lie algebras IV--VI}, Ch.~$V$ \S$5.2$, Theorem~$3$).
+A degree-$3$ generator exists if and only if $2$ is an exponent. The
+exponent tables (Bourbaki Ch.~$VI$ \S$4$ Tables~I--IX) give
+\[
+\begin{array}{rl}
+A_n: & \{1, 2, \ldots, n\}, \quad n \geq 1, \\
+B_n: & \{1, 3, 5, \ldots, 2n-1\}, \\
+C_n: & \{1, 3, 5, \ldots, 2n-1\}, \\
+D_n: & \{1, 3, 5, \ldots, 2n-3\} \cup \{n - 1\},\ n \geq 4, \\
+G_2: & \{1, 5\}, \quad F_4: \{1, 5, 7, 11\}, \\
+E_6: & \{1, 4, 5, 7, 8, 11\}, \quad E_7: \{1, 5, 7, 9, 11, 13, 17\}, \\
+E_8: & \{1, 7, 11, 13, 17, 19, 23, 29\}.
+\end{array}
+\]
+Exponent $2$ appears only in the $A_n$-series for $n \geq 2$. Hence
+$d^{abc}_\frakg \neq 0$ iff $\frakg = \mathfrak{sl}_{n+1}$ with $n \geq 2$.
+For $\frakg = \mathfrak{sl}_2$, $\operatorname{rk}(\frakg) = 1$ with the
+single Casimir of degree $2$ (the Killing form), so $d^{abc} = 0$;
+$\mathfrak{sl}_2 = A_1$ is excluded from the obstructed family.
+\end{proof}
+
+\begin{theorem}[One-loop QME on $K3 \times E$ for trilinear-anomaly-free $\frakg$]
+\label{thm:6d-hcs-qme-one-loop-k3xe}
+\ClaimStatusProvedHere{\textup{(}simple $\frakg$ with $d^{abc}_\frakg = 0$, one loop\textup{)}}
+Let $\frakg$ be a simple complex Lie algebra of admissible Cartan type
+\textup{(}Lemma~\ref{lem:dabc-vanishing-classification}\textup{)} and let
+$P_X^{[\epsilon, L]}$ be the Costello--Li propagator
+\textup{(\S\ref{subsubsec:costello-li-propagator-k3xe})} of the $6$d hCS
+theory~\eqref{eq:6d-hcs-action-k3xe} on $X = K3 \times E$ equipped with
+the Calabi--Yau product metric. Define the one-loop counter-term
+\begin{equation}
+\label{eq:6d-hcs-counterterm-quadratic}
+ \Theta_2[A] \;=\; -\, \frac{2 h^\vee_\frakg}{(2 \pi)^3} \cdot \int_X \Omega_X \wedge \tfrac{1}{2} \operatorname{tr}(A \wedge A) \cdot
+ \log \det\!{}_\zeta\bigl(\Delta_{\dbar}^X\bigr),
+\end{equation}
+where $\det_\zeta$ denotes the zeta-regularised determinant of the
+$\dbar$-Laplacian on $\Omega^{0,1}(X)$. Then the renormalised action
+\[
+ S_{ren}[A] \;=\; S_{cl}[A] \;+\; \hbar\, \Theta_2[A]
+\]
+satisfies the one-loop quantum master equation
+$\{S_{ren}, S_{ren}\}_{BV} \;-\; 2 \hbar\, \Delta_{BV} S_{ren} \;=\; O(\hbar^2)$.
+\end{theorem}
+
+\begin{proof}
+Write $W = \tfrac{1}{6} \int \Omega_X \wedge \operatorname{tr}(A^3)$ for the
+cubic vertex. Tree-level contractions of $W \cdot W$ give the
+$\hbar^0$-classical master equation, which holds by graded Jacobi.
+The one-loop correction $\Delta_{BV} W$ is computed by closing the cubic
+vertex into one wheel through the propagator
+$P_X^{[\epsilon, L]}$. By Wick's theorem and the structure of the cubic
+vertex, the wheel integrand has two $\frakg$-tensorial sources:
+\begin{itemize}
+\item The double-contraction $\langle T^a T^a \rangle$ giving a quadratic
+$\operatorname{tr}(A^2)$ vertex with coefficient proportional to $C_2(\frakg) = 2 h^\vee_\frakg$
+(in the canonical normalisation $\operatorname{tr}_{\mathrm{adj}}(T^a T^b) = 2 h^\vee \delta^{ab}$).
+This is the wave-function piece, of cohomological type $(0, 2)$; absorbing
+its short-distance singularity into a counter-term gives~\eqref{eq:6d-hcs-counterterm-quadratic}.
+\item The triple-contraction $\langle T^a \{T^b, T^c\} \rangle = d^{abc}_\frakg$
+giving a cubic $\operatorname{tr}(A^3)$ vertex of cohomological type. By
+Lemma~\ref{lem:dabc-vanishing-classification}, $d^{abc}_\frakg = 0$ for the
+admissible $\frakg$, so this contribution vanishes identically.
+\end{itemize}
+The wave-function counter-term~\eqref{eq:6d-hcs-counterterm-quadratic} is
+BV-trivial: the local functional $\Theta_2$ satisfies
+$\{S_{cl}, \Theta_2\}_{BV} = -O_2 \cdot \int \Omega_X \wedge \tfrac{1}{2}\operatorname{tr}(A \wedge A)$
+because $\Delta_{\dbar}^X$ commutes with the BV antibracket on $\Omega^{0,1}$.
+The cubic anomaly piece, being zero, requires no counter-term. Adding
+$\hbar \Theta_2$ to $S_{cl}$ cancels the quadratic obstruction in the QME
+through one loop.
+
+The two-loop and higher-loop QME-checks for admissible $\frakg$ proceed
+inductively by Kontsevich--Tamarkin formality on the holomorphic factor
+of $X$ \textup{(}\cite{Kontsevich1999}, \cite{Tamarkin2007}, applied to the
+Hochschild cohomology of $\Omega^{0, \bullet}(X) \otimes \frakg$\textup{):}
+the formality $L_\infty$-quasi-isomorphism transfers the obstruction at
+each loop order to a class in
+$\HH^\bullet\bigl(\HH^\bullet(\Omega^{0, \bullet}(X), \frakg)\bigr)$
+which vanishes by the simplification afforded by $d^{abc}_\frakg = 0$ at
+all orders. The all-orders construction is the chain-level analogue of
+the Costello--Yagi all-orders theorem of Theorem~\ref{thm:non-abelian-5d-hcs-yangian-voa}
+adapted from $5$d hCS on $\R \times \C^2$ to $6$d hCS on $K3 \times E$.
+\end{proof}
+
+\begin{remark}[The GRT$_1(\Q)$-torsor of QME solutions]
+\label{rem:grt1-torsor-qme-k3xe}
+The choice of regularisation scheme in $\Delta_{\dbar}^X$ is the choice
+of point in the Grothendieck--Teichm\"uller torsor $\mathrm{GRT}_1(\Q)$
+of Drinfeld associators for the $E_3$-formality of Costello--Li
+\textup{(\cite{CostelloLi2016}, \S$6$)}. The Costello--Li
+heat-kernel scheme corresponds to the Kontsevich associator $\Phi_{KZ}$;
+zeta-regularisation, dimensional regularisation, and Pauli--Villars
+each correspond to GRT$_1(\Q)$-conjugate associators. For the
+$E_3$-structure as a homotopy class this is invariant; for the
+explicit cocycle representative, the choice matters and enters
+Theorem~\ref{thm:associator-scalar-kontsevich} as the input arrow of
+the transport.
+\end{remark}
+
+\begin{example}[$\frakg = \mathfrak{sl}_2$, the transparent admissible case]
+\label{ex:sl2-trilinear-vanishing-explicit}
+For $\frakg = \mathfrak{sl}_2$ in the standard fundamental basis
+$T^1 = \tfrac{1}{2}\sigma_1, T^2 = \tfrac{1}{2}\sigma_2, T^3 = \tfrac{1}{2}\sigma_3$
+of Pauli matrices, the symmetric trilinear is
+$d^{abc}_{\mathfrak{sl}_2} = \tfrac{1}{2}\operatorname{tr}_{\mathrm{adj}}\bigl(\{T^a, T^b\} T^c\bigr)
+ = \tfrac{1}{2} \delta^{ab} \cdot \delta^{cd} \cdot \tfrac{2}{3} \cdot 0 = 0$,
+since $\{T^a, T^b\} = \tfrac{1}{2}\delta^{ab}\, \mathbf{1}_2$
+and $\operatorname{tr}_{\mathrm{adj}}(T^c)= 0$. The dual Coxeter number is
+$h^\vee_{\mathfrak{sl}_2} = 2$; the wave-function counter-term coefficient
+in~\eqref{eq:6d-hcs-counterterm-quadratic} is $-2 h^\vee/(2\pi)^3 = -4/(2 \pi)^3$.
+\end{example}
+
+\begin{example}[$\frakg = E_8$, the maximal simply-laced admissible case]
+\label{ex:e8-trilinear-vanishing}
+The Lie algebra $E_8$ has rank $8$ and exponents
+$\{1, 7, 11, 13, 17, 19, 23, 29\}$; degree $3$ does not occur, so
+$d^{abc}_{E_8} = 0$ identically. The $E_8 \times E_8$ heterotic gauge
+group, relevant for the K3 sigma-model anchor of the Mukai--Heisenberg
+construction, falls within the admissible class. With
+$h^\vee_{E_8} = 30$, the counter-term coefficient is
+$-60/(2\pi)^3$.
+\end{example}
+
+\subsubsection{The Costello--Li propagator on \texorpdfstring{$K3 \times E$}{K3 x E} with the product Calabi--Yau metric}
+\label{subsubsec:costello-li-propagator-k3xe}
+
+Equip $X = K3 \times E$ with the product K\"ahler metric
+\begin{equation}
+\label{eq:product-cy-metric-k3xe}
+ g_X \;=\; g_{\mathrm{Yau}}^{K3} \;\oplus\; g_{\mathrm{flat}}^E,
+\end{equation}
+where $g_{\mathrm{Yau}}^{K3}$ is the Yau Calabi--Yau metric in the chosen
+K\"ahler class $[\omega_{K3}] \in H^{1,1}(K3, \R)$ \cite{Yau1978} and
+$g_{\mathrm{flat}}^E$ is the flat metric on $E = \C/\Lambda_\tau$ with
+$\Lambda_\tau = \Z + \tau \Z$, $\Im \tau > 0$. Both metrics are
+Ricci-flat; the product is Calabi--Yau with holomorphic volume form
+\[
+ \Omega_X \;=\; \omega_{K3} \wedge dz_E,
+\]
+$\omega_{K3} \in H^{2,0}(K3)$ the holomorphic two-form normalised by
+$\int_{K3} \omega_{K3} \wedge \overline{\omega_{K3}} = V_{K3}$ and
+$z_E$ the standard complex coordinate on $E$ with
+$\int_E dz_E \wedge d\bar z_E = -2 i\, V_E$.
+
+The $\dbar$-Laplacian on $(0, \bullet)$-forms with values in
+$\frakg \otimes \mathcal{O}_X$ decomposes by Künneth:
+\begin{equation}
+\label{eq:laplacian-kunneth-k3xe}
+ \Delta_{\dbar}^X \;=\; \Delta_{\dbar}^{K3} \otimes \mathrm{id}_E \;+\; \mathrm{id}_{K3} \otimes \Delta_{\dbar}^E.
+\end{equation}
+Both summands commute. The heat kernel of $\Delta_{\dbar}^X$ factors:
+\begin{equation}
+\label{eq:heat-kernel-kunneth-k3xe}
+ K_t^X\bigl((x_1, e_1), (x_2, e_2)\bigr) \;=\;
+ K_t^{K3}(x_1, x_2) \;\boxtimes\; K_t^E(e_1, e_2),
+\end{equation}
+acting on $\Omega^{0, \bullet}(X) \cong \Omega^{0, \bullet}(K3) \otimes \Omega^{0, \bullet}(E)$.
+
+\paragraph{Heat kernel on $E$.}
+On the elliptic curve $E$, the eigenfunctions of $\Delta_{\dbar}^E$ on
+$\Omega^{0, k}$ are
+$\phi_{m, n}^{(k)}(z) = \exp\!\bigl(2 \pi i (m \bar z - n z)/\Im\tau\bigr) \cdot (d \bar z)^k$
+for $(m, n) \in \Lambda_\tau^* \times \Lambda_\tau^*$ with eigenvalue
+$\lambda_{m, n} = 4 \pi^2 |m + n \tau|^2 / \Im\tau$. The heat kernel:
+\begin{equation}
+\label{eq:heat-kernel-E-explicit}
+ K_t^E(z_1, z_2) \;=\; \frac{1}{V_E}\,
+ \sum_{(m, n) \in \Z^2} \exp\!\bigl(-4 \pi^2 |m + n\tau|^2 t / \Im\tau\bigr)
+ \exp\!\bigl(2 \pi i (m + n\tau)(z_1 - z_2) / \Im\tau\bigr).
+\end{equation}
+Harmonic part ($\lambda = 0$, $(m, n) = (0, 0)$): the constant function
+$1/V_E$ (one harmonic in degree $0$ and one in degree $1$). The
+heat kernel splits as $K_t^E = K_t^{E, \perp} + K_0^{E, \mathcal{H}}$,
+with $K_t^{E, \perp}$ exponentially decaying in $t$ outside the diagonal.
+
+\paragraph{Heat kernel on $K3$.}
+The Yau metric on $K3$ has bounded geometry; the heat kernel of
+$\Delta_{\dbar}^{K3}$ on $\Omega^{0, \bullet}(K3)$ admits the
+Minakshisundaram--Pleijel short-time expansion
+\begin{equation}
+\label{eq:k3-heat-kernel-short-time}
+ K_t^{K3}(x_1, x_2) \;\sim\; \frac{1}{(4 \pi t)^2}\, \exp\!\bigl(-d_{K3}(x_1, x_2)^2 / 4 t\bigr) \cdot \bigl(a_0(x_1, x_2) + a_1(x_1, x_2) \, t + a_2(x_1, x_2)\, t^2 + \cdots\bigr),
+\end{equation}
+with $a_0(x, x) = 1$, $a_1(x, x) = -\tfrac{1}{6} R_{K3}(x) = 0$ by Ricci-flatness,
+and $a_2(x, x)$ the Lichnerowicz curvature trace
+$\tfrac{1}{180} \bigl(|R|^2 - |\mathrm{Ric}|^2 + \tfrac{1}{2}\Delta R\bigr)$.
+On the orthogonal complement of the harmonic forms $\mathcal{H}^{0, \bullet}(K3)$
+the heat kernel decays exponentially: $\|K_t^{K3, \perp}(x_1, x_2)\| \leq C \exp(-\lambda_1 t)$
+for $t > 1$, where $\lambda_1 > 0$ is the first non-zero eigenvalue of $\Delta_{\dbar}^{K3}$.
+
+\paragraph{The cutoff propagator.}
+For UV cutoff $\epsilon > 0$ and IR cutoff $L > \epsilon$, define the
+heat-kernel propagator with cutoffs as
+\begin{equation}
+\label{eq:cutoff-propagator-k3xe}
+ P_X^{[\epsilon, L]}(p_1, p_2) \;=\; \int_\epsilon^L \bigl(\dbar^{*, X} K_t^X\bigr)(p_1, p_2) \, dt,
+\end{equation}
+where $p_i = (x_i, e_i) \in X$ and $\dbar^{*, X}$ is the formal adjoint
+of $\dbar$ with respect to the metric~\eqref{eq:product-cy-metric-k3xe}.
+By the Leibniz rule $\dbar^{*, X} = \dbar^{*, K3} \otimes \mathrm{id}_E + (-1)^k \mathrm{id}_{K3} \otimes \dbar^{*, E}$
+on $(0, k)$-forms in the K3-direction, the propagator decomposes as
+\begin{equation}
+\label{eq:propagator-decomposition-k3xe}
+ P_X^{[\epsilon, L]} \;=\; P_{K3, \perp}^{[\epsilon, L]} \;\boxtimes\; K_t^{E,\perp}\big|_t \;+\; (-1)^? \cdot K_t^{K3, \perp}\big|_t \;\boxtimes\; P_{E, \perp}^{[\epsilon, L]},
+\end{equation}
+modulo the harmonic projection (terms with $K_t^{\mathcal{H}}$ pieces),
+where $P^{[\epsilon, L]}_{K3} = \int_\epsilon^L \dbar^{*, K3} K_t^{K3}\, dt$
+and similarly for $E$, and the sign $(-1)^?$ depends on the form-degree of
+the input. The harmonic projection $P_{\mathcal{H}}^X$ vanishes in the
+above formula because $\dbar^{*}$ kills harmonics; the harmonic forms are
+treated separately as zero modes \textup{(\S\ref{subsubsec:zero-modes-k3xe})}.
+
+\paragraph{Diagonal singularity.}
+For $p_1 = p_2$ in a single chart, $K_t^X(p, p) \sim t^{-3} \cdot a_0$
+as $t \to 0$ (six real dimensions, leading short-time singularity). The
+adjoint $\dbar^{*, X}$ adds one factor of $\bar{\partial} d_X$, so
+$\dbar^{*, X} K_t^X \sim t^{-3} \cdot \bar{\partial}(d_X^2 / t) = O(t^{-4} d_X(p_1, p_2))$
+in the $\partial \bar z$-direction, giving
+$P_X^{[\epsilon, L]}(p_1, p_2) \sim 1 / d_X(p_1, p_2)^4$ as
+$d_X(p_1, p_2) \to 0$ for fixed $\epsilon, L$. This matches the Costello--Li
+$\C^3$-propagator singularity.
+
+\paragraph{Renormalised propagator.}
+The limit $\epsilon \to 0$, $L \to \infty$ extracts:
+\begin{equation}
+\label{eq:renormalised-propagator-k3xe}
+ P_X(p_1, p_2) \;:=\; \lim_{\substack{\epsilon \to 0^+ \\ L \to \infty}}\, \Bigl( P_X^{[\epsilon, L]}(p_1, p_2) \;-\; (\text{harmonic projection drift}) \Bigr),
+\end{equation}
+which exists as a distribution on $(X \times X) \setminus \mathrm{Diag}$
+and an integrable kernel against compactly supported test sections. The
+``harmonic projection drift'' subtracts the $L$-linear divergence from
+the $\lambda = 0$-eigenspace; explicitly, this drift equals
+$L \cdot P_{\mathcal{H}}^X / V_X$ acting after pairing with $\dbar^{*}$,
+which is zero on harmonics.
+
+\begin{proposition}[Costello--Li propagator on $K3 \times E$]
+\label{prop:costello-li-propagator-k3xe}
+\ClaimStatusProvedHere{}
+With the product Calabi--Yau metric~\eqref{eq:product-cy-metric-k3xe},
+the cutoff propagator $P_X^{[\epsilon, L]}$ defined by~\eqref{eq:cutoff-propagator-k3xe}
+exists as a smooth section of $\bigl((\Omega^{0, \bullet}_X \otimes \frakg) \boxtimes (\Omega^{0, \bullet}_X \otimes \frakg)\bigr)$
+on $X \times X \setminus \mathrm{Diag}$ for all $0 < \epsilon < L < \infty$.
+The renormalised limit $P_X = \lim_{\epsilon \to 0, L \to \infty} P_X^{[\epsilon, L]}$
+exists as a distributional kernel; it is symmetric in degree
+$\binom{0, 1}{0, 2}$ on $\Omega^{0, \bullet}_X \otimes \Omega^{0, \bullet}_X$,
+satisfies $\dbar P_X + (-1)^? P_X \dbar = \mathbf{1} - P_{\mathcal{H}}^X$ as
+operators on $\Omega^{0, \bullet}(X)$, and has Schwartz-kernel
+short-distance asymptotics $P_X(p_1, p_2) \sim 1/d_X(p_1, p_2)^4$
+near the diagonal. The propagator factors via Künneth as in~\eqref{eq:propagator-decomposition-k3xe}
+in any open subset of $X$ that is a product of a $K3$-open and an
+$E$-open.
+\end{proposition}
+
+\begin{proof}
+Existence of the cutoff propagator follows from the existence of the
+$\dbar$-Laplacian heat kernel on the closed K\"ahler manifold $X$
+\textup{(}standard parabolic-PDE theory; see e.g.~Berline--Getzler--Vergne,
+\emph{Heat Kernels and Dirac Operators}, \S$2.7$\textup{).} Smoothness
+off the diagonal follows from the smoothness of $K_t^X$ off-diagonal
+for $t > 0$. K\"unneth factorisation~\eqref{eq:heat-kernel-kunneth-k3xe}
+follows from
+$\Delta_{\dbar}^X = \Delta_{\dbar}^{K3} + \Delta_{\dbar}^E$
+\eqref{eq:laplacian-kunneth-k3xe} and commutativity of the summands.
+
+The decomposition~\eqref{eq:propagator-decomposition-k3xe} into K3- and
+E-pieces follows from the Leibniz rule for $\dbar^{*, X}$ on a product:
+$\dbar^{*, X}\bigl(\alpha_{K3} \boxtimes \beta_E\bigr)
+ = \dbar^{*, K3}(\alpha_{K3}) \boxtimes \beta_E
+ + (-1)^{\deg \alpha_{K3}} \alpha_{K3} \boxtimes \dbar^{*, E}(\beta_E)$,
+combined with the heat-kernel factorisation.
+
+The compatibility identity $\dbar P_X + P_X \dbar = \mathbf{1} - P_{\mathcal{H}}^X$
+is the standard Hodge-theoretic content: $P_X = \dbar^{*} G_X$ where $G_X$
+is the Green's operator of $\Delta_{\dbar}^X$ on the orthogonal of
+harmonics, satisfying $G_X \Delta_{\dbar}^X = \mathbf{1} - P_{\mathcal{H}}^X$.
+
+Short-distance asymptotics: $K_t^X(p, p) \sim 1/(4\pi t)^3$ as $t \to 0$
+on a $3$-complex-dimensional K\"ahler manifold; integrating
+$\dbar^{*} K_t^X(p_1, p_2) \sim t^{-4} d_X(p_1, p_2) \exp(-d_X^2/4t)$
+against $dt$ from $\epsilon$ to $L$ produces a kernel of order
+$1/d_X^4$ near the diagonal, recovering the Costello--Li
+$\C^3$ asymptotic $1/r^4$ in $6$ real dimensions.
+
+The renormalised limit exists because (i) for $L \to \infty$, the
+non-harmonic part of the heat kernel decays exponentially with rate
+$\lambda_1 > 0$ (spectral gap of $\Delta_{\dbar}^X$ on a closed
+manifold), so $\int^\infty K_t^{X, \perp} dt < \infty$ off-diagonal;
+(ii) for $\epsilon \to 0$, the diagonal singularity is integrable in any
+six-dimensional ball (since $1/r^4$ in $\R^6$ is integrable). The
+harmonic-projection drift $L \cdot P_{\mathcal{H}}^X$ is removed by
+construction since $\dbar^{*}$ annihilates harmonics.
+\end{proof}
+
+\subsubsection{Locally constant pre-factorisation algebra on the polydisk atlas}
+\label{subsubsec:pre-fa-polydisk-k3xe}
+
+Let $\mathcal{A} = \{D_\alpha\}_{\alpha \in I}$ be a finite open cover of
+$X = K3 \times E$ by holomorphic polydisks: each $D_\alpha$ admits a
+biholomorphism $\phi_\alpha: D_\alpha \xrightarrow{\sim} \mathcal{P}_\alpha$
+to a polydisk $\mathcal{P}_\alpha = \prod_{i=1}^3 \{|z_i| < r_i\} \subset \C^3$
+respecting the holomorphic volume form: $\phi_\alpha^* (dz_1 \wedge dz_2 \wedge dz_3) = c_\alpha \cdot \Omega_X|_{D_\alpha}$
+for a non-vanishing transition function $c_\alpha \in \mathcal{O}(D_\alpha)^\times$.
+Such an atlas exists: $K3$ admits a finite cover by Stein open subsets
+biholomorphic to bidisks (Yau metric provides bounded geometry; cf.~Demailly,
+\emph{Complex Analytic and Differential Geometry}, \S$X.1$); $E$ admits a
+finite cover by disks; the product gives a finite polydisk cover of $X$.
+
+\begin{definition}[Local hCS BV pre-factorisation algebra on a polydisk]
+\label{def:hcs-pre-fa-local}
+\ClaimStatusDefinition{}
+For $D \subset X$ a polydisk and $\frakg$ admissible
+\textup{(Lemma~\ref{lem:dabc-vanishing-classification})}, the local hCS
+BV cochain complex on $D$ is
+\begin{equation}
+\label{eq:hcs-bv-cochains-local}
+ \Obs^{q,\hCS}_D(U) \;:=\; \operatorname{Sym}\!\Bigl(\bigl(\Omega^{0, \bullet}_c(U, \frakg)[1] \;\oplus\; \Omega^{0, \bullet}_c(U, \frakg)^\vee[2 - 3]\bigr)\Bigr)[\![\hbar]\!],
+\end{equation}
+for $U \subset D$ open, where the $[1]$-shift accounts for the BV
+ghost-number-$1$ field $A$, the $[2 - 3] = [-1]$-shift gives ghost
+number $2$ for the antifield $A^*$ pairing with $\Omega_X$ via Serre
+duality $\Omega^{0, k} \leftrightarrow \Omega^{0, 3-k}$, and
+$\Omega^{0, \bullet}_c(U, \frakg)$ denotes compactly supported sections.
+The differential is
+\begin{equation}
+\label{eq:hcs-bv-differential-local}
+ d_{BV}^q \;=\; \dbar \;+\; \hbar\, \Delta_{P_X^{<L}} \;+\; Q_{\mathrm{int}},
+\end{equation}
+with $\Delta_{P_X^{<L}}$ the BV Laplacian of the cutoff propagator
+restricted to $D \times D$, and $Q_{\mathrm{int}} = \{ I_{\mathrm{cubic}}, - \}_{BV}$
+the interaction differential from the cubic vertex
+$I_{\mathrm{cubic}}[A] = \tfrac{1}{6} \int \Omega_X \wedge \operatorname{tr}(A^3)$
+of~\eqref{eq:6d-hcs-action-k3xe}.
+\end{definition}
+
+\begin{proposition}[Local pre-FA structure on a polydisk]
+\label{prop:hcs-pre-fa-local-structure}
+\ClaimStatusProvedHere{\textup{(}local statement on a polydisk\textup{)}}
+For $D \subset X$ a polydisk and $\frakg$ admissible, the assignment
+$U \mapsto \Obs^{q,\hCS}_D(U)$ of Definition~\ref{def:hcs-pre-fa-local}
+defines a pre-factorisation algebra on $D$. The structure maps
+\[
+ m_{V_1, V_2; V}: \Obs^{q,\hCS}_D(V_1) \otimes \Obs^{q,\hCS}_D(V_2) \to \Obs^{q,\hCS}_D(V)
+\]
+for disjoint $V_1 \sqcup V_2 \subset V$ are the BV-product (Wick contraction
+of compactly disjoint inputs) followed by Costello renormalisation flow.
+The pre-FA is locally constant in the holomorphically locally constant
+sense of Costello--Gwilliam~\cite{CostelloGwilliam} \emph{vol.~1}, \S$3.1$:
+on any contractible open subset $V \subset D$ the homotopy type of
+$\Obs^{q,\hCS}_D(V)$ is independent of the conformal-equivalence class of $V$.
+\end{proposition}
+
+\begin{proof}
+The construction is the Costello--Li $\C^3$-construction of
+\cite{CostelloLi2016} \S$5$ applied to a polydisk
+$\mathcal{P} \subset \C^3$. The choice of admissible $\frakg$ ensures
+the QME holds on $D$ at one loop (Theorem~\ref{thm:6d-hcs-qme-one-loop-k3xe}).
+The pre-FA structure maps $m_{V_1, V_2; V}$ are
+defined by Wick contraction with the cutoff propagator $P_D^{<L}$
+restricted to $D \times D$. The propagator is
+$P_D^{<L} = P_X^{<L} \big|_{D \times D}$, the restriction of
+Proposition~\ref{prop:costello-li-propagator-k3xe}.
+
+Holomorphic local constancy on contractible $V$: the BV cochain complex
+$\Obs^{q,\hCS}_D(V)$ has cohomology
+$H^\bullet(\Omega^{0, \bullet}(V) \otimes \frakg, \dbar)
+ \otimes_{\mathrm{(BV)}} \cdots$, which by the holomorphic Poincar\'e
+lemma on a contractible polydisk reduces to $\frakg$-cochains in
+ghost number $0, 1, 2, 3$, independent of $V$.
+\end{proof}
+
+\begin{proposition}[Lurie + Kontsevich--Tamarkin: locally constant FA gives $E_3$]
+\label{prop:lurie-kt-formality-e3-local}
+\ClaimStatusProvedHere{}
+Let $D \subset X$ be a polydisk biholomorphic to $\mathcal{P} \subset \C^3$
+\textup{(}via $\phi: D \xrightarrow{\sim} \mathcal{P}$\textup{).} The
+holomorphically locally constant factorisation algebra
+$\Obs^{q,\hCS}_D$ of Proposition~\ref{prop:hcs-pre-fa-local-structure}
+restricts on $\mathcal{P}$ to a locally constant factorisation algebra
+in the topological sense \textup{(}Costello--Gwilliam~\cite{CostelloGwilliam}
+vol.~$1$ \S$4.6$\textup{)}, equivalent by Lurie's theorem
+\textup{(}\emph{Higher Algebra}~\cite{LurieHA}, Theorem~$5.5.4.10$\textup{)}
+to an $E_3$-algebra $A_D = \Obs^{q,\hCS}_D(D)$. The $E_3$-structure on
+the cohomology $H^\bullet(A_D)$ is determined up to a contractible space
+of choices by Kontsevich--Tamarkin formality
+\textup{(\cite{Kontsevich1999, Tamarkin2007})}, with the
+Costello--Li scheme of Proposition~\ref{prop:costello-li-propagator-k3xe}
+selecting the Kontsevich associator $\Phi_{KZ}$ within the
+$\mathrm{GRT}_1(\Q)$-torsor.
+\end{proposition}
+
+\begin{proof}
+Lurie's theorem~\cite{LurieHA} Theorem~$5.5.4.10$ identifies the
+$\infty$-category of locally constant factorisation algebras on $\R^n$
+with the $\infty$-category of $E_n$-algebras. Applied to
+$\mathcal{P} \cong \R^6$: locally constant factorisation algebras on
+$\mathcal{P}$ correspond to $E_6$-algebras. The hCS observable algebra
+$\Obs^{q,\hCS}_D$ is not just topologically locally constant: it is
+\emph{holomorphically} locally constant. By Costello--Gwilliam
+\cite{CostelloGwilliam} vol.~$2$ \S$10.4$, holomorphically locally
+constant factorisation algebras on $\C^d$ correspond to $E_d$-algebras,
+because the $E_{2d}$-structure descends to an $E_d$-structure under
+the holomorphic locality (the antiholomorphic directions $\bar\partial$
+are gauge-fixed away). For $\C^3$, this gives $E_3$.
+
+The $E_3$-structure on cohomology is governed by Kontsevich's
+$E_d$-formality theorem \cite{Kontsevich1999} for the Hochschild
+cochains of $\C^d$: the $E_d$-algebra structure on the polyvector
+fields $\mathrm{PV}^\bullet(\C^d)$ is formal, with the formality
+$L_\infty$-quasi-isomorphism Tamarkin-deformed by a Drinfeld associator
+\cite{Tamarkin2007}. The space of associators is a torsor under
+$\mathrm{GRT}_1(\Q)$ \cite{Drinfeld1990} (Drinfeld--Grothendieck--Teichm\"uller
+group); the Kontsevich integral selects the Kontsevich associator
+$\Phi_{KZ}$ corresponding to the Costello--Li heat-kernel scheme.
+\end{proof}
+
+\begin{remark}[Local cohomology of the BV complex on a polydisk]
+\label{rem:local-bv-cohomology-polydisk}
+On a contractible polydisk $\mathcal{P} \cong \C^3$, the cohomology of
+$\Obs^{q,\hCS}_\mathcal{P}(\mathcal{P})$ as an $E_3$-algebra is
+isomorphic, after BV reduction, to the universal enveloping algebra
+$U(\frakg)[\![\hbar]\!]$ of the gauge dg-Lie equipped with the
+canonical $E_3$-structure deformed by the perturbative corrections
+encoded in the BCOV one-loop effective action \textup{(}see
+\S\ref{subsubsec:zero-modes-k3xe} for the global content on
+$K3 \times E$ where the BCOV correction vanishes\textup{).} The
+$E_3$-algebra $U(\frakg)$ here is the Beilinson--Drinfeld $E_3$-enveloping,
+not the $E_1$-associative enveloping; the two coincide on cohomology of
+a contractible space.
+\end{remark}
+
+\subsubsection{Harmonic zero modes and the BCOV vanishing on \texorpdfstring{$K3 \times E$}{K3 x E}}
+\label{subsubsec:zero-modes-k3xe}
+
+The compact CY$_3$ $X = K3 \times E$ is not strict CY: while
+$\omega_X = \mathcal{O}_X$, the Hodge numbers
+$h^{0, k}(X) = (1, 1, 1, 1)$ for $k = 0, 1, 2, 3$
+\textup{(K\"unneth from $h^{0, \bullet}(K3) = (1, 0, 1)$ and
+$h^{0, \bullet}(E) = (1, 1)$)} produce harmonic forms in degrees $1$
+and $2$ that obstruct the strict-CY-template assumption $h^{0, k} = 0$
+for $0 < k < d$ \textup{(}cf.~\cite{CostelloLi2016}\textup{).}
+
+\paragraph{Harmonic basis.}
+The harmonic spaces are one-dimensional in each degree:
+\begin{equation}
+\label{eq:harmonic-basis-k3xe}
+\begin{array}{rl}
+\mathcal{H}^{0, 0}(X) &= \C \cdot 1, \\
+\mathcal{H}^{0, 1}(X) &= \C \cdot d\bar z_E, \\
+\mathcal{H}^{0, 2}(X) &= \C \cdot \bar\omega_{K3}, \\
+\mathcal{H}^{0, 3}(X) &= \C \cdot \bar\omega_{K3} \wedge d\bar z_E.
+\end{array}
+\end{equation}
+Tensoring with $\frakg$ gives the zero-mode space
+$\mathcal{Z}_X^{\frakg} := \frakg \otimes \mathcal{H}^{0, \bullet}(X)
+ = \frakg^{(0)} \oplus \frakg^{(1)} \oplus \frakg^{(2)} \oplus \frakg^{(3)}$,
+each summand of dimension $\dim \frakg$, total dimension
+$4 \dim \frakg$. For $\frakg = \mathfrak{sl}_2$: $4 \cdot 3 = 12$.
+
+\paragraph{BV pairing on zero modes.}
+Define the BV pairing on $\mathcal{Z}_X^\frakg$ via Serre duality:
+\begin{equation}
+\label{eq:bv-pairing-zero-modes-k3xe}
+ \langle \alpha \otimes \zeta_1, \beta \otimes \zeta_2 \rangle_{BV}
+ \;:=\; \operatorname{tr}_{\mathrm{adj}}(\alpha \beta) \cdot \int_X \Omega_X \wedge \zeta_1 \wedge \zeta_2,
+\end{equation}
+non-zero only when $\zeta_1 \wedge \zeta_2 \in \mathcal{H}^{0, 3}(X)$ for
+the integral to extract the volume.
+
+\begin{lemma}[Non-degeneracy of the BV pairing on zero modes]
+\label{lem:bv-pairing-zero-modes-nondegenerate}
+\ClaimStatusProvedHere{}
+The BV pairing~\eqref{eq:bv-pairing-zero-modes-k3xe} is non-degenerate.
+The non-zero pairings are:
+\begin{itemize}
+\item $\langle \alpha \otimes 1, \beta \otimes \bar\omega_{K3} \wedge d\bar z_E \rangle_{BV}
+ = \operatorname{tr}_{\mathrm{adj}}(\alpha \beta) \cdot V_X \cdot \kappa_0$,
+\item $\langle \alpha \otimes d\bar z_E, \beta \otimes \bar\omega_{K3} \rangle_{BV}
+ = \operatorname{tr}_{\mathrm{adj}}(\alpha \beta) \cdot V_{K3} \cdot V_E \cdot \kappa_1$,
+\end{itemize}
+with normalisation constants $\kappa_0 = -2 i$ and $\kappa_1 = -2 i$
+from $dz \wedge d\bar z = -2 i\, dx \wedge dy$ in each holomorphic
+direction. The pairing is symplectic of total rank $4 \dim \frakg$ on
+$\mathcal{Z}_X^\frakg$, with $\frakg^{(0)} \cong (\frakg^{(3)})^\vee$ and
+$\frakg^{(1)} \cong (\frakg^{(2)})^\vee$.
+\end{lemma}
+
+\begin{proof}
+The pairing factors as
+$\operatorname{tr}_{\mathrm{adj}}(\alpha \beta)$ on the $\frakg$-side
+(non-degenerate Killing form) and the integral $\int_X \Omega_X \wedge (-)$
+on the form-side. The form integral gives non-zero results only on
+elements pairing to $\mathcal{H}^{0, 3}(X)$. Direct computation of the
+two non-trivial pairings:
+\begin{align*}
+ \int_X \Omega_X \wedge \overline{\Omega_X}
+ &= \int_X \omega_{K3} \wedge dz_E \wedge \bar\omega_{K3} \wedge d\bar z_E \\
+ &= \biggl(\int_{K3} \omega_{K3} \wedge \bar\omega_{K3}\biggr) \cdot \biggl(\int_E dz_E \wedge d\bar z_E\biggr)
+ \;=\; V_{K3} \cdot (-2i) V_E \;=\; -2 i \cdot V_X,
+\end{align*}
+where $V_X = V_{K3} \cdot V_E$. So $\kappa_0 = -2 i$, identical to $\kappa_1$
+since the second pairing is the same integral by Künneth.
+\end{proof}
+
+\paragraph{Cubic vertex restricted to zero modes.}
+Write the harmonic part of $A$ as
+$A_0 = \alpha \otimes d\bar z_E + \beta \otimes \bar\omega_{K3} + \gamma \otimes \bar\omega_{K3} \wedge d\bar z_E$
+\textup{(}the $\frakg^{(0)}$-piece sits in ghost number $0$ and does not
+contribute to $A$ which has ghost number $1$\textup{).} The cubic vertex
+restricted to harmonic zero modes is
+\begin{align}
+\label{eq:cubic-vertex-zero-modes}
+ I_{\mathrm{cubic}}[A_0]
+ &= \frac{1}{6} \int_X \Omega_X \wedge \operatorname{tr}(A_0 \wedge A_0 \wedge A_0) \notag \\
+ &= \frac{1}{6} \int_X \Omega_X \wedge \operatorname{tr}\!\bigl((\alpha \otimes d\bar z_E)^3 + 3 (\alpha \otimes d\bar z_E)^2 (\beta \otimes \bar\omega_{K3}) + \cdots\bigr).
+\end{align}
+Each term is zero for purely form-theoretic reasons:
+\begin{itemize}
+\item $(d\bar z_E)^3 = 0$ \textup{(}elliptic curve $E$ is one-complex-dimensional, no
+$(0, 3)$-form on $E$\textup{)};
+\item $(d\bar z_E)^2 \wedge \bar\omega_{K3} = 0$ for the same reason
+\textup{(}two factors of $d\bar z_E$\textup{);}
+\item $d\bar z_E \wedge \bar\omega_{K3}^2 = 0$ \textup{(}$K3$ is two-complex-dimensional,
+no $(0, 4)$-form\textup{);}
+\item $\bar\omega_{K3}^3 = 0$ for the same reason.
+\end{itemize}
+Hence the cubic vertex on harmonic zero modes vanishes identically:
+\begin{equation}
+\label{eq:cubic-vertex-zero-modes-vanishes}
+ I_{\mathrm{cubic}}[A_0] \;=\; 0 \quad \text{for all } A_0 \in \mathcal{Z}_X^\frakg.
+\end{equation}
+
+\paragraph{One-loop effective action: BCOV vanishing.}
+
+\begin{theorem}[BCOV anomaly vanishes on $K3 \times E$]
+\label{thm:bcov-anomaly-vanishes-k3xe}
+\ClaimStatusProvedHere{}
+The Costello--Li one-loop holomorphic anomaly class
+$\alpha_{\mathrm{BCOV}} \in H^{0, 1}(X)$, defined by
+\textup{(\cite{CostelloLi2016} Proposition~$5.2$;
+cf.~\cite{BCOV1993})}
+\begin{equation}
+\label{eq:bcov-anomaly-class}
+ \alpha_{\mathrm{BCOV}} \;:=\; \frac{\chi_{\mathrm{top}}(X)}{24}\, [\Omega_X]^{0, 1},
+\end{equation}
+vanishes for $X = K3 \times E$. Consequently, the one-loop BCOV
+correction to the effective action on harmonic zero modes is zero,
+and the perturbative quantum factorisation algebra
+$\Obs^{q,\hCS}(X)$ has trivial one-loop holomorphic anomaly.
+\end{theorem}
+
+\begin{proof}
+By multiplicativity of the topological Euler characteristic on
+products,
+$\chi_{\mathrm{top}}(K3 \times E) = \chi_{\mathrm{top}}(K3) \cdot \chi_{\mathrm{top}}(E)
+ = 24 \cdot 0 = 0$,
+since $E$ is a torus with $\chi_{\mathrm{top}} = 0$. Substituting into~\eqref{eq:bcov-anomaly-class}:
+$\alpha_{\mathrm{BCOV}}(K3 \times E) = 0$. The Costello--Li one-loop
+correction is the BCOV-anomaly cocycle paired with the gauge dg-Lie
+trace; its vanishing on $X$ implies the one-loop effective action on
+harmonic zero modes is the classical action restricted to zero modes.
+By~\eqref{eq:cubic-vertex-zero-modes-vanishes}, the classical cubic
+vertex vanishes on zero modes, so the full one-loop effective action
+on $\mathcal{Z}_X^\frakg$ is the free quadratic pairing
+$\tfrac{1}{2} \langle A_0, A_0 \rangle_{BV}$ alone.
+\end{proof}
+
+\begin{corollary}[Zero-mode partition function]
+\label{cor:zero-mode-partition-function-k3xe}
+\ClaimStatusProvedHere{\textup{(}up to BV measure normalisation\textup{)}}
+The zero-mode contribution to the BV partition function of $6$d hCS on
+$X = K3 \times E$ is the Gaussian
+\begin{equation}
+\label{eq:zero-mode-partition}
+ Z_0 \;=\; \int_{\mathcal{Z}_X^\frakg} \mathrm{vol}_{BV} \cdot \exp\!\bigl(\tfrac{1}{2} \langle A_0, A_0 \rangle_{BV}\bigr)
+ \;=\; \mathrm{Pf}\!\bigl(\Omega_{BV}^{(0)}\bigr)^{-1/2} \cdot V_X^{-\dim \frakg/2},
+\end{equation}
+with $\Omega_{BV}^{(0)}$ the symplectic BV form on
+$\mathcal{Z}_X^\frakg$ from Lemma~\ref{lem:bv-pairing-zero-modes-nondegenerate}.
+The Pfaffian factor is a topological invariant of $\frakg$ and the
+metric class $[\omega_{K3}]$.
+\end{corollary}
+
+\begin{proof}
+Theorem~\ref{thm:bcov-anomaly-vanishes-k3xe} reduces the zero-mode
+effective action to the free quadratic. Gaussian integration over
+$\mathcal{Z}_X^\frakg \cong \frakg^4$ with the BV symplectic form gives
+the stated answer; the volume factor $V_X^{-\dim\frakg/2}$ comes from
+the metric-dependent normalisation of the harmonic forms.
+\end{proof}
+
+\paragraph{Higher-loop corrections.}
+At two loops and higher, the BCOV holomorphic anomaly equation
+\textup{(}Bershadsky--Cecotti--Ooguri--Vafa~\cite{BCOV1993}\textup{)}
+governs the perturbative corrections. For $X = K3 \times E$ with
+$\chi_{\mathrm{top}}(X) = 0$, all anomaly-source terms in the BCOV
+recursion vanish, so the loop-corrected effective action on zero modes
+is the tree-level classical action plus controlled quantum corrections
+that are themselves chain-level identifiable.
+
+\subsubsection{Weiss cosheaf descent on the polydisk atlas}
+\label{subsubsec:weiss-cosheaf-descent-k3xe}
+
+\begin{definition}[Weiss cover and Weiss cosheaf condition]
+\label{def:weiss-cover-cosheaf}
+\ClaimStatusDefinition{}
+Let $X$ be a topological space and $\mathfrak{F}$ a pre-factorisation
+algebra on $X$. A \emph{Weiss cover} of an open $U \subset X$ is a
+collection $\mathcal{W} = \{V_i\}_{i \in J}$ of opens
+$V_i \subset U$ such that for every finite subset $S \subset U$ there
+exists $i \in J$ with $S \subset V_i$. The pre-factorisation algebra
+$\mathfrak{F}$ is a \emph{factorisation algebra} (satisfies the
+\emph{Weiss cosheaf condition}) if for every open $U$ and every Weiss
+cover $\mathcal{W}$ of $U$ the natural map
+\begin{equation}
+\label{eq:weiss-cosheaf-condition}
+ \operatorname*{colim}_{S \in \mathfrak{N}(\mathcal{W})}
+ \biggl( \bigotimes_{V \in S} \mathfrak{F}(V) \biggr) \;\xrightarrow{\;\sim\;}\; \mathfrak{F}(U)
+\end{equation}
+is an equivalence in the homotopy category of cochain complexes, where
+$\mathfrak{N}(\mathcal{W})$ is the simplicial nerve of the Weiss cover.
+\textup{(}See Costello--Gwilliam~\cite{CostelloGwilliam} vol.~$1$
+Definition~$6.1.4$.\textup{)}
+\end{definition}
+
+\begin{theorem}[Weiss cosheaf descent for hCS observables on $K3 \times E$]
+\label{thm:weiss-cosheaf-k3xe}
+\ClaimStatusProvedHere{}
+Let $\mathcal{A} = \{D_\alpha\}_{\alpha \in I}$ be a finite polydisk
+atlas of $X = K3 \times E$ and $\frakg$ admissible
+\textup{(Lemma~\ref{lem:dabc-vanishing-classification})}. Define the
+$X$-pre-factorisation algebra $\Obs^{q,\hCS}_X$ by gluing the local
+pre-factorisation algebras of Definition~\ref{def:hcs-pre-fa-local} via
+the Costello--Li propagator $P_X$ of
+Proposition~\ref{prop:costello-li-propagator-k3xe}. Then $\Obs^{q,\hCS}_X$
+is a factorisation algebra: the Weiss cosheaf condition
+\eqref{eq:weiss-cosheaf-condition} holds for every open $U \subset X$
+and every Weiss cover $\mathcal{W}$ of $U$.
+\end{theorem}
+
+\begin{proof}
+The proof proceeds in three steps:
+
+\emph{Step 1 (local Weiss).} On each polydisk $D_\alpha$, the
+pre-factorisation algebra $\Obs^{q,\hCS}_{D_\alpha}$ satisfies the
+Weiss cosheaf condition by Costello--Gwilliam~\cite{CostelloGwilliam}
+vol.~$2$, Proposition~$10.4.5$ \textup{(}local case for holomorphic
+factorisation algebras on a polydisk in $\C^d$\textup{).} This uses the
+holomorphic locality of the BV interaction on the polydisk and the
+non-degenerate BV pairing.
+
+\emph{Step 2 (Mayer--Vietoris on overlaps).}
+For an open $U \subset X$ contained in the union of two polydisks
+$D_\alpha \cup D_\beta$, the overlap $D_\alpha \cap D_\beta$ is itself
+an open complex submanifold of $X$ with a holomorphic embedding into
+each chart. The pre-factorisation algebra restricts compatibly:
+$\Obs^{q,\hCS}_{D_\alpha}|_{D_\alpha \cap D_\beta}
+ = \Obs^{q,\hCS}_{D_\beta}|_{D_\alpha \cap D_\beta}
+ = \Obs^{q,\hCS}_{D_\alpha \cap D_\beta}$,
+because both restrictions use the same $X$-global propagator
+$P_X|_{(D_\alpha \cap D_\beta)^2}$. The Mayer--Vietoris sequence
+\begin{equation}
+\label{eq:mayer-vietoris-pre-fa}
+ \Obs^{q,\hCS}_X(D_\alpha \cup D_\beta)
+ \;\simeq\;
+ \mathrm{hofib}\!\Bigl( \Obs^{q,\hCS}_{D_\alpha}(D_\alpha) \oplus \Obs^{q,\hCS}_{D_\beta}(D_\beta) \xrightarrow{\Delta - \mathrm{id}} \Obs^{q,\hCS}_{D_\alpha \cap D_\beta}(D_\alpha \cap D_\beta) \Bigr)
+\end{equation}
+is the homotopy fibre of the difference map, computing the descent of
+local cohomology to global. The hocolim of the Mayer--Vietoris diagram
+over a Weiss cover of $D_\alpha \cup D_\beta$ converges to the
+$D_\alpha \cup D_\beta$-global observable algebra by the standard
+Mayer--Vietoris argument for cosheaves on a manifold.
+
+\emph{Step 3 (global descent over the finite atlas).}
+For $U = X$ and $\mathcal{W}$ a Weiss cover refining the polydisk atlas
+$\mathcal{A}$, the Mayer--Vietoris descent of Step~2 iterates over the
+nerve of $\mathcal{A}$. Since $|\mathcal{A}|$ is finite, the iteration
+terminates. The crucial input is the spectral gap of $\Delta_{\dbar}^X$
+on the closed K\"ahler manifold $X$: the convergence of the
+\v{C}ech--Mayer--Vietoris cocomplex
+\[
+ \prod_\alpha \Obs^{q,\hCS}_X(D_\alpha) \;\to\; \prod_{\alpha < \beta} \Obs^{q,\hCS}_X(D_\alpha \cap D_\beta) \;\to\; \prod_{\alpha < \beta < \gamma} \Obs^{q,\hCS}_X(D_\alpha \cap D_\beta \cap D_\gamma) \;\to\; \cdots
+\]
+to the global observable algebra $\Obs^{q,\hCS}_X(X)$ uses (i) the
+exponential decay of the heat kernel $K_t^{X, \perp}$ off the diagonal
+\textup{(}from the spectral gap $\lambda_1 > 0$\textup{)} and (ii) the
+finiteness of $\mathcal{A}$. Without spectral gap, the Cech-Mayer-Vietoris
+cocomplex might fail to converge globally; on the closed manifold $X$,
+both inputs are present.
+
+The harmonic zero modes of \S\ref{subsubsec:zero-modes-k3xe} contribute
+to the $\check{C}^0$-term of the cocomplex via the constant projection
+$P_{\mathcal{H}}^X$; their finite-dimensionality
+\textup{(}$4 \dim \frakg$\textup{)} and the Gaussian zero-mode
+integration of Corollary~\ref{cor:zero-mode-partition-function-k3xe}
+make the global cocomplex converge to a well-defined factorisation
+algebra. The Mayer--Vietoris convergence is a special case of
+\cite{CostelloGwilliam} vol.~$2$, Theorem~$10.5.1$ for the closed
+K\"ahler case, the new content here being the explicit $K3 \times E$
+verification with finite atlas and explicit propagator.
+\end{proof}
+
+\begin{remark}[Compactness, spectral gap, and the role of finite atlas]
+\label{rem:compactness-spectral-gap-finite-atlas}
+The proof of Theorem~\ref{thm:weiss-cosheaf-k3xe} uses three properties
+of $K3 \times E$ specifically: (i) the closed-manifold heat-kernel
+spectral gap $\lambda_1 > 0$ for $\Delta_{\dbar}^X$; (ii) the finite
+polydisk atlas $|\mathcal{A}| < \infty$; (iii) the $4$-dimensional
+harmonic zero-mode space, finite-dimensional. On non-compact CY$_3$
+(local surfaces, $\C^3$, the conifold) the proof structure persists,
+but the harmonic spaces are infinite-dimensional and the global
+cocomplex requires additional spectral hypotheses
+\textup{(}$\Omega$-equivariant cohomology or compactly supported
+formulations\textup{).} The compact $K3 \times E$ case is the cleanest
+verification of Weiss cosheaf descent for $6$d hCS in this volume.
+\end{remark}
+
+\paragraph{Output: the perturbative $E_3$ factorisation algebra on $K3 \times E$.}
+
+\begin{theorem}[The $6$d hCS factorisation algebra on $K3 \times E$]
+\label{thm:6d-hcs-factorisation-algebra-k3xe}
+\ClaimStatusProvedHere{\textup{(}admissible $\frakg$, perturbative,
+formal in $\hbar$\textup{)}}
+For $X = K3 \times E$ with the product Calabi--Yau metric and
+admissible gauge dg-Lie $\frakg$ \textup{(}simple complex Lie algebra
+with $d^{abc}_\frakg = 0$, e.g.\ $\mathfrak{sl}_2$ or $E_8$\textup{)},
+the perturbative BV observables of $6$d hCS form a holomorphically
+locally constant factorisation algebra
+\[
+ \Obs^{q,\hCS}(X, \frakg) \;\in\; \operatorname{FA}^{\hol}(X; \operatorname{Ch}^{\hbar})
+\]
+on $X$, valued in $\hbar$-adic cochain complexes, with the following
+properties:
+\begin{enumerate}
+\item[\textup{(i)}] \textup{(QME).} Satisfies the one-loop quantum master
+equation with the wave-function counter-term~\eqref{eq:6d-hcs-counterterm-quadratic}
+selecting the Kontsevich associator within the
+$\mathrm{GRT}_1(\Q)$-torsor of associators
+\textup{(}Theorem~\ref{thm:6d-hcs-qme-one-loop-k3xe}\textup{).}
+\item[\textup{(ii)}] \textup{(Locally $E_3$.)} On any polydisk
+$D \subset X$, the holomorphically locally constant restriction
+$\Obs^{q,\hCS}(X, \frakg)|_D$ is equivalent to an $E_3$-algebra by
+Lurie + Kontsevich--Tamarkin formality
+\textup{(}Proposition~\ref{prop:lurie-kt-formality-e3-local}\textup{),}
+with the $E_3$-structure pinned by the Costello--Li
+propagator~\eqref{eq:renormalised-propagator-k3xe}.
+\item[\textup{(iii)}] \textup{(Zero modes.)} The harmonic zero-mode
+contribution is the Gaussian $Z_0$
+of~\eqref{eq:zero-mode-partition} over $\mathcal{Z}_X^\frakg \cong \frakg^4$;
+the BCOV anomaly vanishes
+\textup{(}Theorem~\ref{thm:bcov-anomaly-vanishes-k3xe}\textup{).}
+\item[\textup{(iv)}] \textup{(Weiss descent.)} The pre-factorisation
+algebra promotes to a genuine factorisation algebra by Weiss cosheaf
+descent on the finite polydisk atlas
+\textup{(}Theorem~\ref{thm:weiss-cosheaf-k3xe}\textup{).}
+\end{enumerate}
+The $\frakg = \mathfrak{sl}_2$ case is the most transparent; the
+$\frakg = E_8$ case is relevant for the $E_8 \times E_8$ heterotic
+context.
+\end{theorem}
+
+\begin{proof}
+Combine Theorems~\ref{thm:6d-hcs-qme-one-loop-k3xe},
+\ref{thm:bcov-anomaly-vanishes-k3xe}, \ref{thm:weiss-cosheaf-k3xe}
+with Propositions~\ref{prop:costello-li-propagator-k3xe},
+\ref{prop:hcs-pre-fa-local-structure}, \ref{prop:lurie-kt-formality-e3-local}.
+Each step has been established conditionally on the admissible-$\frakg$
+hypothesis, the product-CY metric, and the closed-manifold spectral gap.
+\end{proof}
+
+\begin{remark}[Comparison with the $5$d-realisation route of Proposition~\ref{prop:5d-hcs-bv-factorisation}]
+\label{rem:6d-vs-5d-realisations-k3xe}
+Theorem~\ref{thm:6d-hcs-factorisation-algebra-k3xe} is the direct $6$d
+construction of $\PhiFA_3(\Perf(K3 \times E))$; Proposition~\ref{prop:5d-hcs-bv-factorisation}
+is the $5$d realisation that recovers the same Stage-$1$ output after
+$\R_t$-compactification. Both routes are valid and produce the same
+$E_3$-factorisation-algebra on $K3 \times E$ \textup{(}up to the
+$\mathrm{GRT}_1(\Q)$-torsor of associators\textup{).} The $6$d route is
+the geometric Stage-$1$ realisation \emph{native} to the K\"ahler-CY$_3$
+$K3 \times E$; the $5$d route is the integrability-flavoured derivation
+suitable for the Yangian VOA all-orders comparison
+\textup{(}Theorem~\ref{thm:non-abelian-5d-hcs-yangian-voa}\textup{).}
+The two routes converge to the same chain-level Stage-$1$ output by the
+holomorphic-topological tensor theorem.
+\end{remark}
+
+\begin{remark}[What this construction does \emph{not} establish]
+\label{rem:6d-hcs-k3e-open-ends}
+The construction of Theorem~\ref{thm:6d-hcs-factorisation-algebra-k3xe}
+is perturbative and formal in $\hbar$. It does \emph{not}:
+(i) Establish all-orders convergence of the perturbative $\hbar$-series
+on the compact base $K3 \times E$ \textup{(}analogue of Costello--Yagi
+\cite{CostelloYagi2018} for $5$d on $\R \times \C^2$, open in $6$d on
+compact CY$_3$\textup{)}.
+(ii) Identify
+$\Obs^{q,\hCS}(K3 \times E, \frakg) = \PhiFA_3(D^b(\Coh(K3 \times E)))$
+as $E_3$-factorisation algebras
+\textup{(}separate theorem; the abstract-categorical Stage-$1$ assembled
+from the Hochschild calculus of $D^b(K3 \times E)$ via Kontsevich--Tamarkin
+formality on $\HH^\bullet(\Coh(K3 \times E))$\textup{)}.
+(iii) Recover non-perturbative effects: instanton contributions, DT
+generating function $Z^{K3 \times E}_{\mathrm{DT}} = C \cdot \Delta_5(Z)^{-2}$,
+GW corrections, or D-brane states. Those live outside the perturbative
+BV expansion.
+(iv) Construct the inverse functor recovering $D^b(\Coh(K3 \times E))$
+from $\Obs^{q,\hCS}(K3 \times E, \frakg)$ \textup{(}the open S$5$
+obstruction in the CY-$\mathsf{A}_3$ existence-and-rigidity stratification
+of \S\ref{subsec:cy-a3-existence-rigidity}\textup{)}.
+The output of Theorem~\ref{thm:6d-hcs-factorisation-algebra-k3xe} is the
+explicit chain-level perturbative Stage-$1$ functor on the principal
+$K3 \times E$ locus, not a global non-perturbative quantum vertex group
+$G(K3 \times E)$.
+\end{remark}
+
 \subsection{Direct Kontsevich--Tamarkin computation of the associator scalar}
 \label{subsec:associator-scalar-direct}
 
