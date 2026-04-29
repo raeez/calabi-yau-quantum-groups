@@ -1,10 +1,8 @@
-% Swarm blocker6 v2 -- Agent 13
-% Topic: Six (Sigma_2, C')-specialisations of the perturbative E_3-FA on K3 x E
-% Voices: Beilinson-Drinfeld + Costello-Li + Gritsenko-Nikulin + Borcherds + Maulik-Okounkov
-% Cycles: 3 attack-heal rounds executed in-place.
+% Swarm blocker6 v2 -- Agent 13 / H06
+% Topic: route-coherence obstruction for the six constructions of G(K3 x E)
 
 \documentclass[11pt]{amsart}
-\usepackage{amsmath, amssymb, amsthm, mathrsfs}
+\usepackage{amsmath,amssymb,amsthm,mathrsfs}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \usepackage{enumitem}
@@ -21,321 +19,461 @@
 \newtheorem{remark}[theorem]{Remark}
 
 \providecommand{\C}{\mathbb{C}}
-\providecommand{\Q}{\mathbb{Q}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\R}{\mathbb{R}}
-\providecommand{\bN}{\mathbb{N}}
-\providecommand{\bP}{\mathbb{P}}
-\providecommand{\frakg}{\mathfrak{g}}
-\providecommand{\fraks}{\mathfrak{s}}
-\providecommand{\fraku}{\mathfrak{u}}
-\providecommand{\frakh}{\mathfrak{h}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Coh}{\mathrm{Coh}}
 \providecommand{\HH}{\mathrm{HH}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Obs}{\mathsf{Obs}}
 \providecommand{\hCS}{\mathrm{hCS}}
-\providecommand{\hbarred}{\hslash}
-\providecommand{\Coh}{\mathrm{Coh}}
-\providecommand{\Perf}{\mathrm{Perf}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
-\providecommand{\Sym}{\mathrm{Sym}}
-\providecommand{\End}{\mathrm{End}}
 \providecommand{\Ran}{\mathrm{Ran}}
-\providecommand{\Ass}{\mathsf{Ass}}
-\providecommand{\Heis}{\mathrm{Heis}}
-\providecommand{\Lie}{\mathrm{Lie}}
-\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
-\providecommand{\SpCh}{\mathsf{Sp}^{\mathrm{ch}}}
 \providecommand{\Eone}{E_1}
 \providecommand{\Etwo}{E_2}
 \providecommand{\Ethree}{E_3}
-\providecommand{\EnHolFA}{E_n\text{-}\mathrm{HolFA}}
-\providecommand{\EdHolFA}{E_d\text{-}\mathrm{HolFA}}
-\providecommand{\EthreeHolFA}{\Ethree\text{-}\mathrm{HolFA}}
-\providecommand{\BBKM}{\mathrm{BKM}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathsf{Sp}^{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kfib}{\kappa_{\mathrm{fibre}}}
-\providecommand{\rk}{\mathrm{rk}}
-\providecommand{\Aut}{\mathrm{Aut}}
-\providecommand{\Pic}{\mathrm{Pic}}
-\providecommand{\II}{\mathrm{II}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\rhoR}{\rho}
+\providecommand{\Delt}{\Delta_{5}}
+\providecommand{\Gdelta}{\mathfrak g_{\Delta_{5}}}
+\providecommand{\widehatotimes}{\widehat\otimes}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\id}{\mathrm{id}}
 
-\title{Six $(\Sigma_{2}, C')$-specialisations of the perturbative $E_{3}$-factorisation algebra on $K3\times E$}
-\author{Swarm blocker6 v2 / Agent 13}
+\title{Route-Coherence Obstruction for the Six Constructions of $G(K3\times E)$}
+\author{H06}
 \date{2026-04-27}
 
 \begin{document}
-\maketitle
 
 \begin{abstract}
-The Stage-$1$ output $\PhiFA_{3}(\Perf(K3\times E))\in\Ethree\text{-}\mathrm{HolFA}(K3\times E)$ is a single $E_{3}$-holomorphic factorisation algebra on the compact Calabi--Yau threefold $X=K3\times E$. Six independently constructed pairs $(\Sigma_{2}\subset X,\,C'\subset\Sigma_{2})$ produce six distinct $\Eone$-chiral algebras on $C'$ via the Stage-$2$ specialisation $\SpCh_{\Sigma_{2},C'}$. We enumerate the six routes, give precise specialisation data, identify the resulting chiral algebra, and read off $\kch$ on each output. The chain-level grammar uses the witnessed admissible specialisation datum of Definition~$3.1$ in \cite{CYToChiralCh}; the $5$d-hCS realisation is the Costello--Li--Yagi route of \cite{CostelloYagi2018,CostelloLi2020}; the chiral target is the Beilinson--Drinfeld factorisation cosheaf $E_1$-algebra on $C'$ \cite{BeilinsonDrinfeld2004}.
+For $X=K3\times E$, the six-route problem is not a sixfold Stage-$2$
+enumeration of one Stage-$1$ output.  Only route R1 is the framed
+CY-to-chiral route
+$\Phi_3^{(\Sigma_2,C)}=\SpCh_{\Sigma_2,C}\circ\PhiFA_3$.  Routes
+R2--R6 are independent constructions: Borcherds lift, Mukai-lattice
+VOA, Kummer/orbifold model, sigma-model half-twist, and
+BLLPR/holomorphic-twist construction.  This note records the stable
+core and the exact obstruction to upgrading scalar agreements to
+completed $\Eone$-chiral route coherence.  The missing data are the
+completed bridge maps $\alpha_{ij}$, the cycle homotopy
+$H_{\mathrm{cyc}}$, the completed Hall--Borcherds double, and the
+oriented hCS-to-Hall primitive witness package on the DWR/Ran nerve.
 \end{abstract}
+
+\maketitle
 
 \tableofcontents
 
-\section{Setup: Stage-$1$ output and Stage-$2$ specialisation}
-\label{sec:setup}
+\section{Stable Core}
+\label{sec:stable-core}
 
-Fix once and for all the Calabi--Yau threefold $X=K3\times E$ with projections $p_{K3}:X\to K3$, $p_{E}:X\to E$. Stage-$1$ produces a single object
+Let $S$ be a smooth projective K3 surface, let $E$ be an elliptic curve,
+and set $X=S\times E$.  The two-stage CY-to-chiral construction, on its
+verified $d=3$ locus and after choosing a witnessed admissible
+specialisation datum, is
 \begin{equation}
-\label{eq:stage-1-output}
-\PhiFA_{3}(\Perf(X))\;\in\;\EthreeHolFA(X)^{(\infty,1)},
+\label{eq:two-stage}
+ \Phi_3^{(\Sigma_2,C)}(\Perf X)
+ =
+ \SpCh_{\Sigma_2,C}\bigl(\PhiFA_3(\Perf X)\bigr).
 \end{equation}
-the perturbative $E_{3}$-holomorphic factorisation algebra constructed by Costello--Gwilliam--Li \cite{CostelloLi2020,CostelloGwilliam} from the Gerstenhaber bracket of degree $-2$ on $\HH^{\bullet}(\Perf(X))$, pinned by the Costello--Li propagator on $K3\times E$ (Theorem~$10.4$ in \cite{CYToChiralCh}, label \texttt{thm:6d-hcs-factorisation-algebra-k3xe}). The Stage-$1$ output \emph{does not} depend on a choice of fibration or curve; that data enters only at Stage-$2$.
+Here $\PhiFA_3(\Perf X)$ is the torsor-pointed $\Ethree$-holomorphic
+factorisation algebra and $\SpCh_{\Sigma_2,C}$ is the holomorphic
+Stage-$2$ specialisation along a complex surface $\Sigma_2\subset X$ and
+a smooth complex curve $C\subset \Sigma_2$.  The datum includes the
+tubular normal choice, kernel, Beck--Chevalley cell, Fubini cell, and
+completion hypotheses of the two-stage chapter.  A real boundary circle
+or CR boundary is not such a datum.
 
-A \emph{specialisation datum} is a tuple
-\begin{equation}
-\label{eq:specialisation-datum}
-\mathfrak{s}=(\Sigma_{2},\,C',\,\nu_{\Sigma},\,\cO_{\Sigma_{2}\times C'},\,\mathrm{BC}_{\mathfrak{s}},\,\mathrm{Fub}_{\mathfrak{s}}),
-\end{equation}
-with $\Sigma_{2}\subset X$ a compact (or properly supported) holomorphic surface, $C'\subset\Sigma_{2}$ a smooth curve, $\nu_{\Sigma}$ a tubular normal datum, $\cO_{\Sigma_{2}\times C'}$ a Tor-independent incidence kernel, and $\mathrm{BC}_{\mathfrak{s}}$, $\mathrm{Fub}_{\mathfrak{s}}$ the Beck--Chevalley and Fubini $2$-cells controlling the order of integration (Definition~$3.1$ in \cite{CYToChiralCh}, label \texttt{def:witnessed-admissible-specialisation-datum}). The specialisation functor
-\begin{equation}
-\label{eq:spch-functor}
-\SpCh_{\Sigma_{2},C'}:\EthreeHolFA(X)\longrightarrow\Eone\text{-}\mathrm{HolFA}(C'),\qquad\cF\mapsto\Bigl(\textstyle\int_{\Sigma_{2}}\cF\Bigr)\big|_{C'},
-\end{equation}
-combines factorisation homology along $\Sigma_{2}$ with restriction to $C'$. By Dunn--Lurie additivity \cite[HA~$5.1.2.2$]{LurieHA}, $\int_{\Sigma_{2}}$ drops the operadic degree by $\dim_{\C}\Sigma_{2}=2$, landing at $\Eone$ on $C'$. The $\Eone$-chiral algebra $\SpCh_{\Sigma_{2},C'}\bigl(\PhiFA_{3}(\Perf(X))\bigr)$ on $C'$ is what \cite{BeilinsonDrinfeld2004} call a chiral algebra on $C'$.
+\begin{definition}[The six constructions]
+\label{def:six-constructions}
+The CY-C route comparison on $X=S\times E$ has six vertices:
+\begin{enumerate}[label=\textbf{R\arabic*.},leftmargin=2.3em]
+\item the framed CY-to-chiral assignment
+$A_X^{R_1}:=\Phi_3^{(\Sigma_2,C)}(\Perf X)$ for a fixed witnessed
+datum, with the K3-fibre/Elliptic-base datum as the principal worked
+locus;
+\item the Borcherds multiplicative lift of the K3 elliptic genus
+$2\phi_{0,1}$, producing $\Phi_{10}$ and the square-root denominator
+$\Delt$ for $\Gdelta$;
+\item the Mukai-lattice VOA $V_{\Lambda_{\mathrm{Muk}}(X)}$;
+\item the Kummer/orbifold construction with invariant and twisted
+sectors;
+\item the holomorphic half-twist of the sigma model on $X$;
+\item the BLLPR Schur/holomorphic-twist construction from the
+class-$\mathcal S$ parent.
+\end{enumerate}
+Only R1 is an application of \eqref{eq:two-stage}.  R2--R6 are
+independent constructions whose comparison with R1 is part of CY-C.
+\end{definition}
 
-\medskip
+\begin{remark}[No sixfold functorial tautology]
+\label{rem:no-sixfold-tautology}
+The object $\PhiFA_3(\Perf X)$ is single.  The functor
+$\Phi_3^{(\Sigma_2,C)}$ becomes an object-level assignment only after the
+witnessed specialisation datum is fixed.  Therefore six-route
+convergence cannot be derived from functoriality of $\Phi_3$: it is the
+separate assertion that five independent constructions admit completed
+comparison maps to the R1 output in one route category.
+\end{remark}
 
-\noindent\emph{Forbidden conflation.} The six routes below \emph{are not} six applications of $\Phi_{3}$ to one object. They are six distinct $(\Sigma_{2},C')$-specialisations of the single Stage-$1$ output \eqref{eq:stage-1-output}. The multiplicity of chiral images at $X=K3\times E$ measures the multiplicity of constructed Stage-$2$ data, not the multiplicity of $\Phi_{3}$-applications.
+\section{The Conditional Route Category}
+\label{sec:conditional-route-category}
 
-\section{The six routes}
-\label{sec:six-routes}
+\begin{definition}[Completed route-coherence datum]
+\label{def:route-coherence-datum}
+A completed route-coherence datum for $X=S\times E$ consists of:
+\begin{enumerate}[label=\textup{(C\arabic*)},leftmargin=2.5em]
+\item a completed presentable monoidal category
+$\mathcal C_X^{E_1,\wedge}$ of $\Eone$-chiral algebras, with continuous
+relative tensor products and finite colimits;
+\item six objects $A_X^{R_i}\in\mathcal C_X^{E_1,\wedge}$ realising the
+six constructions of Definition~\ref{def:six-constructions};
+\item completed $\Eone$-chiral maps
+\[
+ \alpha_{12},\alpha_{23},\alpha_{34},\alpha_{45},\alpha_{56},\alpha_{61}
+\]
+between the route complexes;
+\item preservation of OPEs, brackets where present, coproducts where
+present, Mukai gradings, route generator ranks $\rhoR^{R_i}$, and the
+declared subscripted $\kappa_\bullet$ labels;
+\item a cycle homotopy
+\[
+ H_{\mathrm{cyc}}\colon
+ \alpha_{61}\alpha_{56}\alpha_{45}\alpha_{34}\alpha_{23}\alpha_{12}
+ \simeq \id_{A_X^{R_1}}
+\]
+after quotienting only by the declared inner Mukai-grading
+automorphisms.
+\end{enumerate}
+\end{definition}
 
-\subsection*{R1. K3-fibre $\Sigma_{2}=p_{E}^{-1}(\mathrm{pt})$, reference curve $C'=E$}
-\label{sec:r1}
-
-\begin{construction}[K3-fibre Mukai--Heisenberg specialisation]
-\label{cons:R1}
-Take $\Sigma_{2}=p_{E}^{-1}(t_{0})\simeq K3$ for any $t_{0}\in E$; take $C'=E$ embedded as $\{x_{0}\}\times E\subset K3\times E$ for $x_{0}\in K3$. The incidence kernel is $\cO_{\Sigma_{2}\times E}=\Delta_{\{x_{0},t_{0}\}}^{*}\bigl(\cO_{X}\bigr)$ along the diagonal correspondence.
-\end{construction}
-
-\begin{theorem}[R1 chiral output]
-\label{thm:R1-output}
-The R1 specialisation produces, on the principal locus where the Hodge, BV, and Maulik--Okounkov comparison witnesses BL-2/4/6 hold (Theorem~$5.13$ in \cite{CYToChiralCh}, label \texttt{thm:g-delta5-is-sp-k3}),
-\begin{equation}
-\label{eq:R1-output}
-\SpCh_{K3,E}\bigl(\PhiFA_{3}(\Perf(X))\bigr)\;\xrightarrow{\;\sim\;}\;\cH_{\mathrm{Muk}}^{\Heis}\;\xrightarrow{\;\mathrm{Bor}\;}\;U_{\mathrm{ch}}(\frakg_{\Delta_{5}}),
-\end{equation}
-the Mukai--Heisenberg lattice VOA at signature $(2,1)$ on $E$, with Borcherds pushforward to the vertex envelope of the Borcherds--Kac--Moody superalgebra $\frakg_{\Delta_{5}}$ on the Gritsenko--Nikulin polygon $\mathcal{P}_{II}\subset\Lambda^{3,2}$.
+\begin{theorem}[Conditional route colimit]
+\label{thm:conditional-route-colimit}
+If a completed route-coherence datum in the sense of
+Definition~\ref{def:route-coherence-datum} is supplied, then the
+positive route diagram has a colimit
+\[
+ Y^+(X)=\operatorname*{colim}_{R_i} A_X^{R_i}
+\]
+in $\mathcal C_X^{E_1,\wedge}$.  If, in addition, the completed
+Hall--Drinfeld double package of Section~\ref{sec:double-obstruction} is
+supplied, the resulting double is the conditional CY-C candidate
+$G(K3\times E)$.
 \end{theorem}
 
-The $\kch$-readout: the Heisenberg--Cartan rank of the Stage-$2$ shadow on $E$ is the rank of the signature-$(2,1)$ hyperbolic sublattice $\Lambda^{2,1}_{II}\subset\Lambda^{3,2}$,
-\begin{equation}
-\label{eq:R1-kappa}
-\kch^{\Heis,\,R1}=\rk(\Lambda^{2,1}_{II})=3.
-\end{equation}
-This is the \emph{Heisenberg face} of the $K3\times E$ spectrum: $\kch^{\Heis,\,R1}=3\in\{0,3,5,24\}$.
+\begin{proof}
+The assumptions give a homotopy-coherent finite diagram in the completed
+$\Eone$-chiral category.  Finite colimit closure gives $Y^+(X)$.  The
+cycle homotopy is the condition that the spanning-tree presentation of
+the diagram is independent of the chosen path around the six-cycle.  The
+double is not part of the positive colimit; it is formed only after the
+negative half, pairing, completion, radical quotient, and centre
+continuity of Section~\ref{sec:double-obstruction} are present.
+\end{proof}
 
-\subsection*{R2. Section $\Sigma_{2}=s(\bP^{1}\times E)$ over a rational curve $\bP^{1}\subset K3$}
-\label{sec:r2}
+\begin{remark}[What is not supplied here]
+\label{rem:not-supplied}
+This note supplies no maps $\alpha_{ij}$ and no $H_{\mathrm{cyc}}$.  It
+records the typed obstruction.  A scalar character identity, a
+denominator identity, a protected index, or a route-rank agreement is
+not a completed $\Eone$-chiral map.
+\end{remark}
 
-\begin{construction}[Section over a $-2$-curve]
-\label{cons:R2}
-Let $\ell\subset K3$ be a smooth rational $(-2)$-curve (an $A_{1}$-vanishing cycle in the Kummer or Picard locus). Take $\Sigma_{2}=\ell\times E\subset K3\times E$, embedded by the inclusion section $s:\ell\times E\hookrightarrow X$. Take $C'=E$ as in R1; alternatively $C'=\ell$ with $C'$ replaced by the rational curve. The default reference curve is $C'=E$ for comparison with R1.
-\end{construction}
+\section{Scalar Witnesses Do Not Build Chiral Maps}
+\label{sec:scalar-witnesses}
 
-The K3 elliptic fibration $\pi:K3\to\bP^{1}$ over a rational base, restricted to a section curve, contributes to Stage-$2$ the Borcherds--Heegner cycle on $\Lambda_{K3}$ in its rational sublattice. The $\Eone$-chiral output on $E$ is a lattice VOA $V_{L_{\ell}}$ where $L_{\ell}=\langle\ell\rangle^{\perp}\cap\Pic(K3)$ is the rank-$\rho-1$ orthogonal complement of $\ell$ in the Picard lattice ($\rho=\rk\Pic(K3)\leq20$).
+\begin{proposition}[$\Delt$ is a scalar witness]
+\label{prop:delta5-scalar-witness}
+The identity
+\[
+ \kBKM(\Delt)=c_1(0)/2=10/2=5
+\]
+and the associated Borcherds denominator/character identities are scalar
+or graded-character witnesses.  They do not construct any map
+$\alpha_{ij}$ preserving OPEs, brackets, coproducts, Hopf pairings, or
+the completed topology.
+\end{proposition}
 
-\begin{theorem}[R2 chiral output]
-\label{thm:R2-output}
-The R2 specialisation lands on $V_{L_{\ell}}\hookrightarrow\cH_{\mathrm{Muk}}^{\Heis}$ as a sublattice VOA inside the Mukai--Heisenberg target of R1; the inclusion is induced by the embedding $L_{\ell}\hookrightarrow\Lambda^{2,1}_{II}$ of root lattices via the elliptic-fibration discriminant. The Borcherds-side image is the BKM subalgebra $\frakg_{\Delta_{5}}|_{L_{\ell}}\subset\frakg_{\Delta_{5}}$ obtained by restricting roots to $L_{\ell}\otimes\Q$.
-\end{theorem}
+\begin{proof}
+The Borcherds lift identifies a Jacobi-form input and a denominator
+character.  A completed route map is a chain map between the route
+complexes, compatible with the products and brackets defining the
+$\Eone$-chiral structures and, where a double is used, with the Hopf
+pairing and coproduct.  Characters forget these operations.  Thus
+$\Delt$ pins the weight and root-multiplicity shadow; it does not supply
+the chiral-algebra comparison.
+\end{proof}
 
-The $\kch$-readout reads the Cartan rank of the sublattice VOA:
-\begin{equation}
-\label{eq:R2-kappa}
-\kch^{R2}=\rk(L_{\ell})\in\{0,1,\dots,19\}.
-\end{equation}
-For the principal $A_{1}$-vanishing-cycle case $\rk(L_{\ell})=0$ (the $\rho=1$ generic K3), giving $\kch^{R2}=0\in\{0,3,5,24\}$ (the categorical face). For $\rk(L_{\ell})=3$ at the maximal-Picard polarisation, $\kch^{R2}=3$ recovers the R1 face by sublattice saturation.
+\begin{remark}[First bridge]
+\label{rem:first-bridge}
+For $\alpha_{12}$, the Harvey--Moore/Borcherds product and the HKR
+shadow give the positive-root and character input.  The missing lift is
+the positive-half Hall--Borcherds bracket comparison on route complexes,
+with OPE, coproduct, completed Hopf pairing, and framed Mukai grading
+preserved.
+\end{remark}
 
-\subsection*{R3. Zero-locus $\Sigma_{2}=Z(f)$ for $f\in H^{0}(X,L)$}
-\label{sec:r3}
+\section{The Hall--Borcherds Double Obstruction}
+\label{sec:double-obstruction}
 
-\begin{construction}[Zero-locus of a polarisation section]
-\label{cons:R3}
-Let $L=p_{K3}^{*}\cO_{K3}(D)\otimes p_{E}^{*}\cO_{E}(n[0])$ for $D$ an ample divisor on $K3$ and $n\geq 1$ on $E$. By Bertini, the zero locus $\Sigma_{2}=Z(f)$ of a generic section $f\in H^{0}(X,L)$ is a smooth surface with $K_{\Sigma_{2}}=L|_{\Sigma_{2}}$ (adjunction). Choose $C'\subset\Sigma_{2}$ a smooth curve in the linear system $|L|_{\Sigma_{2}}|$.
-\end{construction}
+\begin{definition}[Completed Hall--Borcherds double package]
+\label{def:double-package}
+A completed Hall--Borcherds double package consists of:
+\begin{enumerate}[label=\textup{(D\arabic*)},leftmargin=2.5em]
+\item a completed positive half $Y^+(X)$ with coproduct;
+\item a completed negative half $Y^-(X)$;
+\item a continuous Hopf pairing
+$Y^+(X)\widehatotimes Y^-(X)\to\mathbf 1$;
+\item a radical quotient making that pairing non-degenerate after
+completion;
+\item a bracket comparison with $\Gdelta$ preserving the Borcherds--Serre
+relations and the Mukai grading;
+\item a centre-continuity datum
+\[
+ Z\bigl(\Rep^{E_1}(Y^+(X))\bigr)
+ \simeq
+ \Rep^{E_2}\bigl(D_\hbar(Y^+(X))\bigr).
+\]
+\end{enumerate}
+\end{definition}
 
-The pushforward $\int_{\Sigma_{2}}\PhiFA_{3}(\Perf(X))$ on the polarised surface uses the Donaldson--Thomas/Pandharipande--Thomas reduction along the cosection $\sigma_{f}:\cO_{X}\to L$. Stage-$2$ on $C'\subset\Sigma_{2}$ produces a chiral algebra related to the Gritsenko lift of the K3 line bundle $L|_{K3}$.
+\begin{remark}[Positive half is not the double]
+\label{rem:positive-half-not-double}
+A CoHA positive half or a Borcherds denominator is not a completed
+Hall--Drinfeld double.  The double exists only after the negative half,
+non-degenerate Hopf pairing, completion/radical quotient, bracket
+comparison, and centre-continuity data are supplied.  Until then the
+symbol $G(K3\times E)$ denotes a conditional target, not a constructed
+object.
+\end{remark}
 
-\begin{theorem}[R3 chiral output]
-\label{thm:R3-output}
-The R3 specialisation produces an $\Eone$-chiral algebra on $C'$ whose Borcherds-side image is the lift to $\frakg_{\Delta_{5}}|_{L}$ of the K3 line bundle $L|_{K3}$ along the Gritsenko--Borcherds singular-theta correspondence \cite{Borcherds1998,Gritsenko1999}. Concretely, for $L|_{K3}=\cO_{K3}(D)$ with $D^{2}=2g-2$, the $\Eone$-chiral output is the lattice VOA $V_{\langle D\rangle\oplus L_{n,E}}$ where $L_{n,E}$ is the rank-$2$ elliptic sublattice $\langle[E],n[\mathrm{pt}_{E}]\rangle$.
-\end{theorem}
+\section{Oriented hCS-to-Hall Primitive Package}
+\label{sec:hcs-hall-package}
 
-The $\kch$-readout reads the Cartan rank of $\langle D\rangle\oplus L_{n,E}$:
-\begin{equation}
-\label{eq:R3-kappa}
-\kch^{R3}=1+2=3.
-\end{equation}
-For the canonical choice $D$ a primitive polarisation ($\rk\langle D\rangle=1$) and $n=1$ (the $\rho_{E}=2$ unit elliptic block), the R3 face is $\kch^{R3}=3\in\{0,3,5,24\}$, recovering the Heisenberg face by a different geometric specialisation. For higher Picard rank on K3, $\kch^{R3}$ rises to match the polarisation rank.
+\begin{definition}[Primitive witness package]
+\label{def:primitive-witness-package}
+On a DWR-good cover $\mathfrak U$, an oriented hCS-to-Hall comparison is
+controlled by a finite typed package
+\[
+ \mathfrak P_{\Theta}^{\mathrm{or}}
+ =
+ \bigl(
+ \theta^{(0)},\,
+ \eta_{\mathrm{MC}},\,
+ \lambda_{\mathrm{or}},\,
+ \eta_{\mathrm{gr}},\,
+ H_{\mathrm{TS}},\,
+ H_{\mathrm{fact}},\,
+ Q
+ \bigr).
+\]
+The entries have the following meanings:
+\begin{enumerate}[leftmargin=2.2em]
+\item $\theta^{(0)}$ is the chartwise family of degree-zero continuous
+chain maps
+$\Obs^q_{\hCS}(U_i,\mathfrak g)\to
+\CoHA_{\mathrm{crit}}^{\mathrm{or}}(U_i)$;
+\item $\eta_{\mathrm{MC}}$ is the positive Cech/Ran filtration correction
+making $\theta=\theta^{(0)}+\eta_{\mathrm{MC}}$ solve the
+Maurer--Cartan equation;
+\item $\lambda_{\mathrm{or}}$ transports Joyce--Kontsevich--Soibelman
+orientation square roots on overlaps;
+\item $\eta_{\mathrm{gr}}$ transports cohomological shifts and Tate
+twists;
+\item $H_{\mathrm{TS}}$ trivialises the Thom--Sebastiani associativity
+defect for triple extension correspondences;
+\item $H_{\mathrm{fact}}$ trivialises the disjoint-Ran factorisation
+product defect;
+\item $Q$ certifies vertexwise quasi-isomorphism and gives continuous
+homotopy inverses compatible with all completions and orientation data.
+\end{enumerate}
+\end{definition}
 
-\subsection*{R4. Lagrangian fibration $\Sigma_{2}=$ generic fibre of a hyperk\"ahler structure on $K3$}
-\label{sec:r4}
+\begin{remark}[Subpackages do not globalise]
+\label{rem:subpackages}
+A one-chart map, a finite torus-fixed $\C^3$ calculation, a
+Schiffmann--Vasserot positive-half identification, or an orientation
+trivialisation is a proper subpackage.  The compact oriented comparison
+exists only when all seven entries of
+Definition~\ref{def:primitive-witness-package} are present on the
+DWR/Ran nerve and satisfy descent.
+\end{remark}
 
-\begin{construction}[Hyperk\"ahler Lagrangian fibre]
-\label{cons:R4}
-Choose a hyperk\"ahler twist $J_{\theta}=\cos\theta\cdot J+\sin\theta\cdot K$ of the K3 complex structure ($I,J,K$ a quaternionic triple); the resulting twistor family carries a $\bP^{1}$-family of complex structures on the underlying real $4$-manifold. At a generic angle $\theta$, the K3 admits a Lagrangian elliptic fibration $\lambda_{\theta}:K3\to\bP^{1}$. Take $\Sigma_{2}=\lambda_{\theta}^{-1}(t)\times E$ for $t\in\bP^{1}$ generic, so $\Sigma_{2}$ is the product of an elliptic fibre $T^{2}$ with $E$; topologically $\Sigma_{2}\simeq T^{4}$. Take $C'=$ a generic fibre of the $T^{2}$-factor, so $C'\subset\Sigma_{2}$ is an elliptic curve.
-\end{construction}
+\section{hCS Status Separation}
+\label{sec:hcs-status-separation}
 
-The $T^{4}$-fibration of an abelian surface $A=E_{1}\times E_{2}$ is the analogous structure on $A\times E$ rather than on $K3\times E$. On the $K3\times E$ target with hyperk\"ahler twist, the Lagrangian fibre is a smooth elliptic curve $T^{2}_{\lambda}$ that is \emph{not} algebraic in the original complex structure; the specialisation requires the twistor-deformed Stage-$1$ output, which is identified with the original $\PhiFA_{3}$ via the hyperk\"ahler-rotation invariance proved in \cite{HitchinKarlhedeLindstromRocek1987}.
-
-\begin{theorem}[R4 chiral output]
-\label{thm:R4-output}
-The R4 specialisation produces, on the twistor-deformed locus, an $\Eone$-chiral algebra on $C'\simeq T^{2}_{\lambda}$ identified with the lattice VOA $V_{H}$ on the hyperbolic plane $H=U(1)$ determined by the elliptic fibration period of $\lambda_{\theta}$. The Borcherds-side image is the trivial Mukai sublattice $\langle\delta_{1}\rangle\subset\Lambda^{2,1}_{II}$, that is, the one-real-root facet of $\frakg_{\Delta_{5}}$.
-\end{theorem}
-
-The $\kch$-readout:
-\begin{equation}
-\label{eq:R4-kappa}
-\kch^{R4}=\rk(H)=2.
-\end{equation}
-The R4 face $\kch^{R4}=2\notin\{0,3,5,24\}$ is the \emph{intermediate hyperk\"ahler face}: it is not in the canonical $K3\times E$ spectrum because it requires twistor deformation off the algebraic complex structure. R4 is the witness that the spectrum $\{0,3,5,24\}$ is non-exhaustive among $(\Sigma_{2},C')$-specialisations; only the four canonical algebraic specialisations land on the spectrum.
-
-\subsection*{R5. The $5$d-hCS Stage-$1$-native realisation on $X\times\R_{t}$}
-\label{sec:r5}
-
-\begin{construction}[$5$d hCS BV factorisation realisation]
-\label{cons:R5}
-Following Proposition~$10.1$ in \cite{CYToChiralCh}, label \texttt{prop:5d-hcs-bv-factorisation}, let $Y=X\times\R_{t}$ with $\R_{t}$ the topological direction, and consider the $5$d holomorphic Chern--Simons BV action with admissible gauge dg-Lie $\frakg$ (i.e.\ $d^{abc}_{\frakg}=0$, e.g.\ $\frakg=\fraks\frakl_{2}$ or $E_{8}$). The classical BV observables decompose holomorphic-topologically as
-\begin{equation}
-\label{eq:R5-bv-decomposition}
-\Obs^{5\mathrm{d}\,\hCS}(Y,\frakg)\;\simeq\;\Obs^{1\mathrm{d\,top}}(\R_{t})\;\boxtimes\;\Obs^{4\mathrm{d\,hol}}(X,\frakg)
-\end{equation}
-by Costello--Gwilliam--Li holomorphic-topological tensor (Theorem~$4.10$ in \cite{CostelloGwilliam}~vol.~2). After $\R_{t}$-compactification, $\int_{\R_{t}}\Obs^{1\mathrm{d\,top}}\simeq U(\frakg[\![\hbarred]\!])$, and the residual $4$d holomorphic factor coincides with $\PhiFA_{3}(\Perf(X))$ up to the $\mathrm{GRT}_{1}(\Q)$-torsor of associators.
-\end{construction}
-
-R5 is not a $(\Sigma_{2},C')$-pair specialisation in the same sense as R1--R4: it is a Stage-$1$-native realisation that recovers the same canonical Stage-$1$ output via a different physical model (5d hCS rather than 6d hCS). The Stage-$2$ pair $(\Sigma_{2},C')$ used in R5 is the same R1 pair $(\Sigma_{2}=K3,\,C'=E)$, applied after the topological compactification of \eqref{eq:R5-bv-decomposition}. The output is the same as R1.
-
-\begin{theorem}[R5 chiral output, simply-laced bosonic case]
-\label{thm:R5-output}
-For $\frakg$ simply-laced bosonic on $\C^{2}\times\R_{t}$, by Costello--Yagi \cite{CostelloYagi2018} Theorem~$4.1$, the all-orders quantum BV factorisation algebra of $5$d hCS is
-\begin{equation}
-\label{eq:R5-yangian-output}
-\Obs^{5\mathrm{d}\,\hCS,\,\mathrm{quant}}(\C^{2}\times\R_{t},\frakg)\big|_{\R_{t}\text{-compactified}}\;\simeq\;Y^{\mathrm{VOA}}(\frakg).
-\end{equation}
-For the $K3\times E$ ambient and $\frakg=\fraks\frakl_{2}$, the R5 output on $E$, after K3-fibre Stage-$2$, coincides with the R1 output of \eqref{eq:R1-output} via the holomorphic-topological tensor theorem.
-\end{theorem}
-
-The $\kch$-readout:
-\begin{equation}
-\label{eq:R5-kappa}
-\kch^{R5}=\kch^{R1}=3,
-\end{equation}
-agreeing with R1 on the $K3\times E$-specialisation of the $5$d hCS realisation; the readout is the Cartan rank of the $\frakg=\fraks\frakl_{2}$ Yangian VOA over the K3-fibre, which lifts to the rank-$3$ signature-$(2,1)$ Heisenberg face on $\Lambda^{2,1}_{II}\supset\fraks\frakl_{2}^{\mathrm{Cartan}}$. The R5 face is $\kch^{R5}=3\in\{0,3,5,24\}$.
-
-\subsection*{R6. Holomorphic boundary disc $\Sigma_{2}=\partial D_{\mathrm{hol}}^{3}$}
-\label{sec:r6}
-
-\begin{construction}[Holomorphic boundary disc insertion]
-\label{cons:R6}
-Let $D_{\mathrm{hol}}^{3}\subset X$ be a small closed holomorphic $3$-cycle (a polydisc $\Delta^{3}_{\epsilon}$ in local coordinates around a generic point $x_{0}\in X$). Its boundary $\partial D_{\mathrm{hol}}^{3}\simeq S^{5}\subset X$ is real-codimension-one; the closest holomorphic surface inside is $\Sigma_{2}=\partial D_{\mathrm{hol}}^{3}\cap H$ where $H\subset X$ is a transverse codimension-one holomorphic hypersurface, so $\Sigma_{2}\simeq S^{3}$ topologically (a Hopf-type real $3$-sphere with a CR structure). Take $C'\subset\Sigma_{2}$ a real $1$-cycle (a great circle in the Hopf fibration). The probe-CFT data is the Costello--Gwilliam boundary observable factorisation algebra on $C'$ \cite{CostelloGwilliam}~vol.~$2$ \S$5.5$.
-\end{construction}
-
-R6 is the \emph{probe-CFT face}: it specialises $\PhiFA_{3}(\Perf(X))$ to a small disc and records the boundary CFT on $C'$. The chiral algebra on $C'$ is a probe vertex algebra capturing the local data of $\PhiFA_{3}$ at $x_{0}$; on a smooth point of $X=K3\times E$ with admissible gauge $\frakg=\fraks\frakl_{2}$, the boundary CFT is the Wess--Zumino--Witten model $\widehat{\fraks\frakl}_{2}$ at level $k$ determined by the local Costello--Li propagator.
-
-\begin{theorem}[R6 chiral output]
-\label{thm:R6-output}
-The R6 specialisation produces, on the boundary curve $C'\simeq S^{1}$ of the local Hopf-disc, the affine vertex algebra
-\begin{equation}
-\label{eq:R6-output}
-\SpCh_{\partial D_{\mathrm{hol}}^{3}\cap H,\,C'}\bigl(\PhiFA_{3}(\Perf(X))\bigr)\;\simeq\;V_{k}(\fraks\frakl_{2})
-\end{equation}
-at level $k$ pinned by the Costello--Li propagator scheme on the local disc. The level $k$ depends on the local volume measure $\Omega_{X}|_{x_{0}}$ and the gauge dg-Lie $\frakg$, and is independent of the global Stage-$1$ output away from a small disc.
-\end{theorem}
-
-The $\kch$-readout:
-\begin{equation}
-\label{eq:R6-kappa}
-\kch^{R6}=\rk(\fraks\frakl_{2})=1.
-\end{equation}
-The R6 face is $\kch^{R6}=1\notin\{0,3,5,24\}$: a probe-CFT face outside the spectrum, reading only the local Cartan rank of the gauge dg-Lie. R6 is the witness that local probe specialisations do not see the global lattice rank of $\Lambda^{2,1}_{II}$; only routes that integrate over a globally-defined holomorphic surface $\Sigma_{2}\subset X$ recover the spectrum-locked face.
-
-\section{Summary of the six routes}
-\label{sec:summary}
-
-The six routes are tabulated below; the $\kch$-column is the Heisenberg--Cartan rank of the Stage-$2$ shadow on $C'$, and the spectrum-column tags whether the face is in the canonical $\{0,3,5,24\}$ spectrum at $K3\times E$.
-
+The hCS assertions in the route comparison split into distinct status
+surfaces:
 \begin{center}
-\begin{tabular}{l|l|l|l|l}
-Route & $(\Sigma_{2},\,C')$ data & Chiral output on $C'$ & $\kch$ & Spectrum face? \\\hline
-R1 & $(K3,\,E)$ & $U_{\mathrm{ch}}(\frakg_{\Delta_{5}})$ via Mukai--Heisenberg & $3$ & yes (Heisenberg) \\
-R2 & $(\ell\times E,\,E)$, $\ell\subset K3$ rational & sublattice VOA $V_{L_{\ell}}\subset\cH^{\Heis}_{\mathrm{Muk}}$ & $\rk(L_{\ell})$ & yes if $\rk(L_{\ell})\in\{0,3\}$ \\
-R3 & $(Z(f)\subset|L|,\,C'\subset Z(f))$ & lattice VOA $V_{\langle D\rangle\oplus L_{n,E}}$ & $1+2=3$ & yes (Heisenberg) \\
-R4 & $(\lambda_{\theta}^{-1}(t)\times E,\,T^{2}_{\lambda})$ HK twist & $V_{H}$, hyperbolic plane VOA & $2$ & no (intermediate HK) \\
-R5 & $(K3,\,E)$ via $5$d-hCS realisation & $U_{\mathrm{ch}}(\frakg_{\Delta_{5}})$ (= R1) & $3$ & yes (Heisenberg) \\
-R6 & $(\partial D_{\mathrm{hol}}^{3}\cap H,\,S^{1})$ probe & $V_{k}(\fraks\frakl_{2})$ affine VOA & $1$ & no (probe-CFT) \\
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{p{0.28\linewidth}|p{0.62\linewidth}}
+Surface & Required content \\\hline
+Formal QME & A renormalised BV differential
+$Q_{\hCS}+\{I[L],-\}_{\mathrm{BV}}+\hbar\Delta_L$ with the quantum
+master equation solved order by order under the anomaly-cancellation
+hypotheses. \\
+All-orders formal tower & Compatible higher counterterms and
+coderivations in the completed BV/bar category.  This is formal in
+$\hbar$ and does not imply analytic convergence. \\
+Borel summability & A Gevrey/Borel analytic estimate for the perturbative
+series.  This is analytic data and does not imply a Stage-$2$ chiral
+identity. \\
+Stage-$2$ equality & An $\Eone$-chiral comparison after the K3-fibre
+pushforward, preserving OPEs and route gradings.  It requires the
+oriented hCS-to-Hall package and the Borcherds/Hall bridge. \\
+Nonperturbative completion & The DT/Borcherds product completion,
+including the singular-theta lift and automorphic denominator.  It lies
+outside the perturbative $\hbar$-series. \\
 \end{tabular}
 \end{center}
 
-\medskip
+\begin{remark}[No status collapse]
+\label{rem:no-status-collapse}
+None of these surfaces implies another without the named comparison
+data.  In particular, all-orders formal QME, Borel summability,
+Stage-$2$ equality with $U_{\mathrm{ch}}(\Gdelta)$, and the
+nonperturbative $\Delt^{-2}$ completion are separate obligations.
+\end{remark}
 
-\noindent\emph{Spectrum reading.} The $K3\times E$ spectrum $\{0,3,5,24\}$ is realised by four \emph{distinct constructions}, not by four $(\Sigma_{2},C')$-specialisations of $\PhiFA_{3}$. Among the six routes:
-\begin{itemize}[leftmargin=*]
- \item $\kch^{R1}=\kch^{R3}=\kch^{R5}=3$ recover the Heisenberg face $\kch^{\Heis}=3$.
- \item $\kch^{R2}=0$ at $\rk(L_{\ell})=0$ recovers the categorical face $\kcat=0$ (Künneth-multiplicative).
- \item $\kch^{R4}=2$ and $\kch^{R6}=1$ are off-spectrum: hyperk\"ahler-twisted and local-probe specialisations land outside $\{0,3,5,24\}$.
- \item The Borcherds face $\kBKM=5$ and the fibre face $\kfib=24$ are \emph{not} reached by any $(\Sigma_{2},C')$-specialisation of $\PhiFA_{3}$ alone: $\kBKM$ requires the additional Borcherds-pushforward $\mathrm{Bor}$ of \eqref{eq:R1-output} reading $c_{N}(0)/2=10/2=5$ from $\Delta_{5}$, and $\kfib$ requires the Mukai-lattice rank $\rk(\widetilde{\Lambda}_{K3})=24$ of the K3 fibre, an ambient Stage-$1$ invariant.
-\end{itemize}
+\section{The CR-Boundary Exclusion}
+\label{sec:cr-boundary-exclusion}
 
-This is the precise sense in which the six routes are six \emph{constructions}: R1, R3, R5 recover the Heisenberg face from genuinely different Stage-$2$ data; R2 covers the categorical face on the limit $\rho=1$; R4 and R6 are off-spectrum probes that confirm $\{0,3,5,24\}$ is not exhaustive among Stage-$2$ specialisations. Spectrum exhaustion uses the four-construction identification of \cite[\S$5.4$]{CYToChiralCh}, not the six-route specialisation enumeration.
+\begin{proposition}[Real boundary data are not Stage-$2$ data]
+\label{prop:real-boundary-not-stage2}
+Let $D_{\mathrm{hol}}^3$ be a small holomorphic polydisc in $X$ and let
+$\partial D_{\mathrm{hol}}^3\cap H$ be a real CR boundary.  The pair
+\[
+ \bigl(\partial D_{\mathrm{hol}}^3\cap H,\;S^1\bigr)
+\]
+is not an admissible holomorphic Stage-$2$ specialisation datum for
+\eqref{eq:two-stage}.
+\end{proposition}
 
-\section{Attack-heal cycles}
-\label{sec:attack-heal}
+\begin{proof}
+The Stage-$2$ datum used by $\SpCh_{\Sigma_2,C}$ requires a holomorphic
+surface $\Sigma_2\subset X$ and a smooth complex curve $C\subset
+\Sigma_2$, together with the algebraic/holomorphic kernel and
+Beck--Chevalley/Fubini witnesses.  A CR three-manifold and a real
+circle do not supply that input.  They may define a boundary-observable
+or probe-CFT problem in a different category, but they are not a
+holomorphic specialisation of $\PhiFA_3(\Perf X)$ and are not a CY-C
+route vertex.
+\end{proof}
 
-\subsection*{Cycle 1 (attack: are R1 and R5 the same construction?)}
-\label{sec:cycle-1}
+\section{Subscripted \texorpdfstring{$\kappa_\bullet$}{kappa} Discipline}
+\label{sec:kappa-discipline}
 
-\noindent\emph{Attack.} R5 uses the same $(\Sigma_{2},C')=(K3,E)$ pair as R1, after the $\R_{t}$-compactification of \eqref{eq:R5-bv-decomposition} reduces the $5$d realisation to the $4$d Costello--Li $\PhiFA_{3}$. Are R1 and R5 the same route?
+\begin{proposition}[The four admissible scalar readouts]
+\label{prop:four-kappa-readouts}
+For $X=K3\times E$, the scalar readouts used in this note are:
+\[
+ \kcat(X)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot 0=0,
+\]
+\[
+ \kch^{\mathrm{Heis}}(X)=3,\qquad
+ \kBKM(\Delt)=c_1(0)/2=10/2=5,\qquad
+ \kfib(X)=\operatorname{rk}\widetilde H(K3,\Z)=24.
+\]
+The scalar readouts have different sources, so no route-dependent
+chiral-characteristic table is formed.
+\end{proposition}
 
-\noindent\emph{Heal.} They are the same Stage-$2$ specialisation of two \emph{a priori} distinct Stage-$1$ realisations: R1 uses the canonical Costello--Li $6$d hCS realisation on $X$; R5 uses the Costello--Yagi $5$d hCS realisation on $X\times\R_{t}$. By the holomorphic-topological tensor theorem of \cite{CostelloGwilliam} \S$4.10$, the two Stage-$1$ outputs agree up to the $\mathrm{GRT}_{1}(\Q)$-torsor of associators; the agreement is non-trivial because the $5$d realisation provides the Yangian VOA $Y^{\mathrm{VOA}}(\fraks\frakl_{2})$ all-orders identification of \cite{CostelloYagi2018}. R5 is the route by which the Yangian VOA structure on the chiral output is inherited; R1 is the route by which the Borcherds--$\Delta_{5}$ structure is inherited. The two Stage-$2$ outputs on $E$ coincide as $\Eone$-chiral algebras, but the auxiliary structure carried (Yangian via R5, BKM via R1) differs.
+\begin{proof}
+The categorical value is the Kunneth-multiplicative Euler characteristic
+of the total space.  The Heisenberg value is the rank of the
+Mukai--Heisenberg specialisation, not the compact total-space invariant.
+The BKM value is the Borcherds weight read from the constant coefficient
+of the Jacobi input.  The fibre value is the Mukai-lattice rank of the
+K3 fibre.  These are different constructions, hence distinct
+subscripted invariants.
+\end{proof}
 
-\subsection*{Cycle 2 (attack: does R3 always land on $\kch=3$?)}
-\label{sec:cycle-2}
+\begin{remark}[Route ranks are not \texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch}]
+\label{rem:rho-not-kappa}
+The route-distinguishing numbers $\rhoR^{R_i}$ are generator ranks or
+sector ranks.  For example, the Mukai-lattice route has rank $24$, the
+Kummer/orbifold route has a twisted-sector rank, and the Heisenberg
+route has rank $3$.  These numbers are not per-route values of
+$\kch$.  The note therefore contains no route-by-route chiral
+characteristic table.
+\end{remark}
 
-\noindent\emph{Attack.} R3 was claimed to give $\kch^{R3}=1+2=3$ for the canonical primitive polarisation. For higher polarisations, $\rk\langle D\rangle$ rises beyond $1$.
+\section{Residual Proof Obligations}
+\label{sec:residual-obligations}
 
-\noindent\emph{Heal.} Correct; R3 is parameter-tagged by $L=p_{K3}^{*}\cO_{K3}(D)\otimes p_{E}^{*}\cO_{E}(n[0])$. The general formula is
-\begin{equation}
-\label{eq:R3-general}
-\kch^{R3}(L)=\rk\langle D\rangle+\rk(L_{n,E})\leq\rk\Pic(K3)+2\leq22.
-\end{equation}
-For $D$ primitive ample on a generic K3 with $\rho=1$, $\kch^{R3}=1+2=3$ recovers the Heisenberg face. For $D$ a primitive polarisation on a $\rho=20$ Picard-rank K3 with full polarisation lattice $\langle D\rangle\hookrightarrow\Lambda_{K3}^{(20)}$, $\kch^{R3}=20+2=22$, which is off the spectrum $\{0,3,5,24\}$. R3 is the parameterised face that interpolates between the categorical face ($\rho=0$ degenerate limit) and the fibre face ($\rho=20$ Picard-maximal limit, $\kch^{R3}=22$ approaches but does not reach $\kfib=24$, since the Mukai lattice has rank $24$ including the $\widetilde{H}^{0,2}$ and $\widetilde{H}^{2,0}$ classes that R3 does not see).
-
-\subsection*{Cycle 3 (attack: is R6 a genuine specialisation or a different construction?)}
-\label{sec:cycle-3}
-
-\noindent\emph{Attack.} R6 uses a real boundary $\partial D_{\mathrm{hol}}^{3}$ rather than a holomorphic surface $\Sigma_{2}\subset X$. Is R6 a genuine Stage-$2$ $(\Sigma_{2},C')$-specialisation in the sense of \eqref{eq:specialisation-datum}, or is it a different construction?
-
-\noindent\emph{Heal.} R6 is a genuine Stage-$2$ specialisation of a Costello--Gwilliam boundary observable factorisation algebra, but the Stage-$1$ input is the \emph{restricted} $\PhiFA_{3}(\Perf(X))|_{D_{\mathrm{hol}}^{3}}$ rather than the full Stage-$1$ output. The witnessed admissible specialisation datum $\mathfrak{s}_{R6}$ has $\Sigma_{2}=\partial D_{\mathrm{hol}}^{3}\cap H$ (a real $3$-sphere intersected with a transverse holomorphic hypersurface, hence a $\mathrm{CR}$ $3$-manifold; on a polydisc the intersection is a holomorphic disc boundary, which is a real $3$-cycle); the incidence kernel uses the local conormal bundle. Strict specialisation in the sense of \eqref{eq:spch-functor} requires $\Sigma_{2}$ holomorphic, so R6 is a \emph{relaxed} specialisation: it specialises the local Stage-$1$ data on a small disc to a real probe boundary, recovering local CFT data but \emph{not} the global Borcherds--$\Delta_{5}$ structure of R1. R6 is correctly off-spectrum ($\kch^{R6}=1$) precisely because it is a local probe.
-
-\section{Closing remark: the six routes are six different constructions}
-\label{sec:closing}
-
-The six routes R1--R6 are six different $(\Sigma_{2},C')$-specialisations (R6 in the relaxed sense) of one Stage-$1$ output $\PhiFA_{3}(\Perf(K3\times E))$; they are not six $\Phi_{3}$-applications. The canonical $K3\times E$ spectrum $\{0,3,5,24\}$ has its four faces produced by four different constructions (Künneth-multiplicative $\kcat=0$ on the total space; chiral Heisenberg--Mukai specialisation $\kch^{\Heis}=3$ on $E$, recovered by R1, R3, R5; Borcherds-pushforward weight $\kBKM=5$ from $\Delta_{5}$ via the singular-theta correspondence; Mukai-lattice rank $\kfib=24$ as a Stage-$1$ ambient invariant). The R2--R4 and R6 routes, with their off-spectrum $\kch$-values, are the witnesses that the spectrum is non-exhaustive among general $(\Sigma_{2},C')$-specialisations: the four canonical faces correspond to the four canonical constructions of \cite[\S$5.4$]{CYToChiralCh}, not to four $(\Sigma_{2},C')$-pair choices.
+The six-route comparison is repaired to the following exact obligation
+list.
+\begin{enumerate}[label=\textbf{O\arabic*.},leftmargin=2.5em]
+\item Construct the completed $\Eone$-chiral route category
+$\mathcal C_X^{E_1,\wedge}$ and place all six route outputs inside it.
+\item Construct the six completed chain maps
+$\alpha_{12},\alpha_{23},\alpha_{34},\alpha_{45},\alpha_{56},\alpha_{61}$.
+\item Prove that each $\alpha_{ij}$ preserves OPEs, brackets,
+coproducts where present, Mukai gradings, completions, and declared
+$\kappa_\bullet$ labels.
+\item Construct the cycle homotopy $H_{\mathrm{cyc}}$ in the completed
+route category.
+\item Build the Hall--Borcherds double package:
+positive half, negative half, non-degenerate Hopf pairing after radical
+quotient, completion, bracket comparison with $\Gdelta$, and centre
+continuity.
+\item Supply the oriented hCS-to-Hall primitive witness package
+$(\theta^{(0)},\eta_{\mathrm{MC}},\lambda_{\mathrm{or}},
+\eta_{\mathrm{gr}},H_{\mathrm{TS}},H_{\mathrm{fact}},Q)$ on the DWR/Ran
+nerve.
+\item Keep formal QME, all-orders formal tower, Borel summability,
+Stage-$2$ equality, and nonperturbative completion as separate status
+surfaces until each has its own proof.
+\end{enumerate}
 
 \begin{thebibliography}{99}
-\bibitem{BeilinsonDrinfeld2004} A.~Beilinson and V.~Drinfeld, \emph{Chiral Algebras}, AMS Colloquium Publications $51$, $2004$.
 
-\bibitem{Borcherds1998} R.~E.~Borcherds, \emph{Automorphic forms with singularities on Grassmannians}, Invent.~Math.~$132$ ($1998$), $491$--$562$.
+\bibitem{BeilinsonDrinfeld2004}
+A.~Beilinson and V.~Drinfeld,
+\emph{Chiral Algebras}, AMS Colloquium Publications 51, 2004.
 
-\bibitem{CostelloGwilliam} K.~Costello and O.~Gwilliam, \emph{Factorization Algebras in Quantum Field Theory}, vols.~$1$ and $2$, Cambridge University Press, $2017/2021$; arXiv:$2210.13036$.
+\bibitem{Borcherds1998}
+R.~E.~Borcherds,
+\emph{Automorphic forms with singularities on Grassmannians},
+Invent. Math. 132 (1998), 491--562.
 
-\bibitem{CostelloLi2020} K.~Costello and S.~Li, \emph{Twisted supergravity and its quantization}, arXiv:$1606.00365$.
+\bibitem{CostelloGwilliam}
+K.~Costello and O.~Gwilliam,
+\emph{Factorization Algebras in Quantum Field Theory},
+vols. 1--2, Cambridge University Press, 2017/2021.
 
-\bibitem{CostelloLi2012} K.~Costello and S.~Li, \emph{Quantization of open-closed BCOV theory, I}, arXiv:$1201.4501$.
+\bibitem{CostelloLi2012}
+K.~Costello and S.~Li,
+\emph{Quantization of open-closed BCOV theory, I},
+arXiv:1201.4501.
 
-\bibitem{CostelloYagi2018} K.~Costello and J.~Yagi, \emph{Unification of integrability in supersymmetric gauge theories}, arXiv:$1810.01970$.
+\bibitem{CYToChiralCh}
+\emph{The CY-to-chiral functor $\Phi$},
+\texttt{chapters/theory/cy\_to\_chiral.tex}.
 
-\bibitem{CYToChiralCh} \emph{The CY-to-chiral functor $\Phi$}, Vol.~III chapter, \texttt{chapters/theory/cy\_to\_chiral.tex} (compiled in main repo).
+\bibitem{CY3Bridge}
+\emph{The CY3 chain-level bridge},
+\texttt{chapters/theory/cy3\_chain\_level\_bridge.tex}.
 
-\bibitem{Gritsenko1999} V.~A.~Gritsenko, \emph{Modular forms and moduli spaces of abelian and K3 surfaces}, St.~Petersburg Math.~J.~$6$ ($1995$), $1179$--$1208$; arXiv:alg-geom/$9506014$.
+\bibitem{CYCsixRoutes}
+\emph{CY-C: Six routes to $G(K3\times E)$ and their pairwise comparison},
+\texttt{chapters/examples/cy\_c\_six\_routes\_convergence.tex}.
 
-\bibitem{HitchinKarlhedeLindstromRocek1987} N.~J.~Hitchin, A.~Karlhede, U.~Lindstr\"om and M.~Ro\v{c}ek, \emph{Hyperk\"ahler metrics and supersymmetry}, Comm.~Math.~Phys.~$108$ ($1987$), $535$--$589$.
+\bibitem{DMVV1996}
+R.~Dijkgraaf, G.~Moore, E.~Verlinde and H.~Verlinde,
+\emph{Elliptic genera of symmetric products and second quantized strings},
+Commun. Math. Phys. 185 (1997), 197--209.
 
-\bibitem{LurieHA} J.~Lurie, \emph{Higher Algebra}, available from the author's website.
+\bibitem{GritsenkoNikulin1995}
+V.~Gritsenko and V.~Nikulin,
+\emph{Siegel automorphic form corrections of some Lorentzian Kac--Moody
+Lie algebras}, Amer. J. Math. 119 (1997), 181--224.
+
 \end{thebibliography}
 
 \end{document}

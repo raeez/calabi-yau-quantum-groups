@@ -4,6 +4,7 @@
 \providecommand{\dbar}{\bar{\partial}}
 \providecommand{\hCS}{\mathrm{hCS}}
 \providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\BV}{\mathrm{BV}}
 \providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
 \providecommand{\HH}{\mathrm{HH}}
 \providecommand{\C}{\mathbb{C}}
@@ -25,37 +26,32 @@
 \newtheorem{conjecture}[theorem]{Conjecture}
 \theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}\newtheorem{example}[theorem]{Example}
-\title{All-orders convergence of 6D hCS on $K3\times E$}
+\title{All-orders coefficient bounds for 6D hCS on $K3\times E$}
 \author{}\date{}
 \begin{document}\maketitle
 
 \begin{abstract}
-The Costello--Yagi theorem gives all-orders (not asymptotic) convergence of
-the $\hbar$-expansion for $5$D holomorphic Chern--Simons on $\R\times\C^2$
-with simply-laced $\frakg$, by Kontsevich--Tamarkin formality on the
-holomorphic factor $\C^2$ and Kontsevich integral bounds on the topological
-factor $\R$. The transposition to $6$D hCS on the compact CY$_3$
-$X = K3\times E$ holds at every loop order, with explicit per-loop bounds
-controlled by the spectral gap $\lambda_1(K3) > 0$, the heat-kernel
-fundamental solution on $E$, and a finite-atlas log determinant from the
-admissible-$\frakg$ Casimir. The summation across loop orders is
-the residual obstruction: the Kontsevich graph weight bounds on $\C^2$
-exploit translation invariance of the Bochner--Martinelli propagator,
-and the K3 Yau metric breaks translation invariance globally. The
-combinatorial graph sum $\sum_{|\Gamma| = L} w_\Gamma$ at fixed loop
-order $L$ converges absolutely on $K3\times E$ by the spectral-gap
-exponential decay; the radius of convergence in $\hbar$ is bounded
-below by the inverse of the K3 Sobolev constant times the $L^2$-norm
-of the Costello--Li propagator on the Bergman cover, which is finite
-but explicitly metric-dependent. We obtain a quantitative all-orders
-convergence theorem in a Gevrey-$1$ class (genuine, not Gevrey-$\sigma$
-for $\sigma > 1$) on $K3\times E$ for $\frakg \in \{\mathfrak{sl}_2,
-B_n, C_n, D_n\,(n\ge 4), E_6, E_7, E_8, F_4, G_2\}$. The obstruction
-to upgrading to a positive radius of $\hbar$-convergence reduces to
-a single integral comparison: the diameter-bound
-$\int_X |P_X(p_1,p_2)|^2\, d\mathrm{vol}(p_1)\, d\mathrm{vol}(p_2) < \infty$
-holds, but the per-graph log determinant grows linearly with the number
-of K3-vertices, giving a Gevrey-$1$ radius rather than analytic.
+The Costello--Yagi theorem gives an all-orders perturbative
+quantisation of $5$D holomorphic Chern--Simons on $\R\times\C^2$ in
+the flat holomorphic model. The compact CY$_3$ case
+$X = K3\times E$ has a different analytic status. At fixed scale and
+fixed graph, the Costello--Li heat-kernel propagator gives finite
+renormalised graph weights after the diagonal singularities are removed
+by local counterterms. The spectral gap of $\Delta_{\dbar}^X$ gives
+long-time/off-diagonal heat-kernel decay. These facts support
+order-by-order coefficient estimates for the formal $\hbar$ expansion.
+They do \emph{not} by themselves prove Borel summability, uniqueness of
+a Borel sum, a positive analytic radius in $\hbar$, or the quantum
+master equation after summation. The global propagator is not
+Hilbert--Schmidt: near the diagonal the six-real-dimensional
+Bochner--Martinelli singularity gives a divergent $L^2$ integral.
+The repaired result in this note is therefore a coefficient-bound and
+obstruction statement. The stable core is fixed-scale renormalised
+finiteness and factorial/Gevrey-$1$-type upper bounds under the stated
+renormalisation hypotheses. The residual obligations are analytic
+continuation of the Borel transform, Stokes-ray control, compatibility
+of summation with the BV bracket and $\Delta_{\BV}$, and the quartic
+Costello--Li anomaly gate for CY$_3$ hCS.
 \end{abstract}
 
 %%=====================================================================
@@ -90,8 +86,10 @@ arXiv:math/9803025; Calaque--Felder--Ferrario--Rossi, \emph{Bimodules and
 branes in deformation quantization}, Compos.\ Math.~$147$, $2011$,
 arXiv:0908.2299). Applied to $\C^2$, the formality $L_\infty$-quasi-isomorphism
 identifies the $E_2$-structure on $\PV^\bullet(\C^2)$ with its formal
-classical limit; the Costello--Li heat-kernel propagator on $\C^2$ selects
-the Kontsevich associator $\Phi_{KZ}$ within the $\GRT_1(\Q)$-torsor.
+classical limit after a formality datum is chosen. The Costello--Li
+heat-kernel propagator is analytic BV data; an associator such as
+$\Phi_{KZ}$ is an additional formality choice inside the corresponding
+$\GRT_1(\Q)$-torsor.
 
 \paragraph{(III) Costello--Gwilliam locality and Kontsevich integral bounds.}
 The graph-weight integrals
@@ -136,70 +134,54 @@ projection. The decisive feature on $X$ compact is that the spectral
 gap of $\Delta_{\dbar}^X$ is positive: $\lambda_1(\Delta_{\dbar}^X) =
 \min(\lambda_1^{K3},\lambda_1^E) > 0$.
 
-\subsection{The propagator bound: $L^2$-finiteness}
+\subsection{The propagator bound: cutoff estimates, not $L^2$-finiteness}
 
-\begin{lemma}[Costello--Li propagator $L^2$-estimate on $K3\times E$]
+\begin{lemma}[Costello--Li propagator cutoff estimate on $K3\times E$]
 \label{lem:propagator-L2-bound}
-The renormalised propagator $P_X = \lim_{\epsilon\to 0,L\to\infty} P_X^{[\epsilon,L]}$
-satisfies the integrability bound
+Let $P_X^{[\epsilon,L]}$ be the Costello--Li heat-kernel propagator and
+let
+\[
+ P_X^\delta(p_1,p_2)=P_X(p_1,p_2)\chi_{\{d_X(p_1,p_2)>\delta\}}
+\]
+for $\delta>0$. Then $P_X^\delta$ is a finite off-diagonal kernel and
+satisfies cutoff-dependent $L^p$ and $L^\infty$ bounds on
+$X\times X\setminus N_\delta(\Delta)$. The uncut propagator is a
+distributional kernel and is not globally Hilbert--Schmidt:
 \begin{equation}
 \label{eq:propagator-L2}
-\|P_X\|_{L^2(X\times X\setminus\Delta)}^2 \;:=\;
 \int_{X\times X\setminus\Delta}|P_X(p_1,p_2)|^2\,d\mathrm{vol}_X(p_1)\,d\mathrm{vol}_X(p_2)
+\;=\; \infty.
+\end{equation}
+For every fixed $\delta>0$,
+\begin{equation}
+\label{eq:propagator-cutoff-L2}
+\|P_X^\delta\|_{L^2}^2 \;:=\;
+\int_{X\times X}|P_X^\delta(p_1,p_2)|^2\,d\mathrm{vol}_X(p_1)\,d\mathrm{vol}_X(p_2)
 \;<\; \infty.
 \end{equation}
-Quantitatively,
-\[
-\|P_X\|_{L^2}^2 \;\leq\;
-\sum_{j\geq 1}\frac{1}{\lambda_j(\Delta_{\dbar}^X)^2}\cdot \dim(\ker(\Delta_{\dbar}^X-\lambda_j))\;<\;\infty,
-\]
-the spectral series of the Green operator $G_X = (\Delta_{\dbar}^X)^{-1}|_{\mathcal H^\perp}$,
-which converges by the Weyl asymptotic
-$\#\{j : \lambda_j \leq\Lambda\}\sim C_X\Lambda^3$ as $\Lambda\to\infty$
-(short-time expansion of the heat kernel on a closed K\"ahler $3$-fold,
-Berline--Getzler--Vergne~\cite{BGV}).
 \end{lemma}
 
 \begin{proof}
-The Plancherel identity for $\Delta_{\dbar}^X$ on a closed K\"ahler manifold
-expands $G_X = \sum_{j\geq 1}\lambda_j^{-1}\cdot\Pi_j$ with $\Pi_j$ the
-spectral projector onto the $j$-th eigenspace of dimension
-$d_j = \dim\ker(\Delta_{\dbar}^X-\lambda_j)$. Hence
-$\|P_X\|_{L^2}^2 = \|\dbar^*G_X\|_{L^2}^2 = \sum_{j\geq 1}\lambda_j^{-2}d_j$.
-The Weyl asymptotic on a closed K\"ahler $3$-fold gives
-$d_j\leq C_X\lambda_j^{3/2}$, yielding $\sum_j\lambda_j^{-2}d_j\leq
-C_X\sum_j\lambda_j^{-1/2}$, which converges since
-$\lambda_j\sim j^{1/3}$ (Weyl) gives $\sum_j j^{-1/6}$, divergent.
-The sharper estimate uses the Calder\'on--Vaillancourt
-\emph{ pseudodifferential calculus}: $G_X$ is a pseudodifferential
-operator of order $-2$ on a closed manifold, so its Schwartz kernel
-lies in $L^2$ off-diagonal with $L^2$-norm controlled by
-$\|G_X\|_{HS}^2 = \mathrm{tr}(G_X^*G_X) = \sum_j\lambda_j^{-2}d_j$,
-and the Weyl bound $d_j\leq C\lambda_j^{3/2}$ gives convergence iff
-$\sum_j\lambda_j^{-2+3/2} = \sum_j\lambda_j^{-1/2}$ converges, which
-fails. The correct bound uses the $\dbar^*$-improvement:
-$P_X = \dbar^*G_X$ has order $-1$, so the Hilbert--Schmidt norm of
-$P_X$ is controlled by $\sum_j\lambda_j^{-1}d_j\leq C\sum_j\lambda_j^{1/2}$,
-which also diverges. The true $L^2$-control: $P_X$ is a kernel of
-order $-(2d-1) = -5$ on a closed $d=3$ complex manifold, viewing
-$P_X$ as the integration kernel against six-dimensional volume (real
-dimension $\dim_\R X = 6$). The Schwartz-kernel bound
+Near the diagonal the Costello--Li propagator has the same local
+scaling as the six-real-dimensional Bochner--Martinelli kernel. The
+Schwartz-kernel bound
 $|P_X(p_1,p_2)|\leq C/d_X(p_1,p_2)^4$ near the diagonal gives
 $\int_{|p_1-p_2|<r}|P_X|^2\,d\mathrm{vol}^2\leq C\int_0^r r^{-8}\cdot r^5\,dr
 = C\int_0^r r^{-3}\,dr$, divergent at the diagonal. Hence the strict
-$L^2$-bound \emph{fails}; the correct statement is integrability after
-removal of a small diagonal neighbourhood, with logarithmic divergence
-absorbed into the wave-function counter-term of
-\eqref{eq:6d-hcs-counterterm}.
+$L^2$-bound \emph{fails}. For fixed $\delta>0$, the kernel
+$P_X^\delta$ is smooth on the compact set
+$X\times X\setminus N_\delta(\Delta)$, so its $L^2$ and $L^\infty$
+norms are finite. This cutoff estimate is not itself a renormalised
+finite part; the latter requires the Costello--Li local counterterm
+subtraction.
 \end{proof}
 
 The proof above contains the key chain-level diagnostic: the
 Costello--Li propagator is not $L^2$-finite globally; its short-distance
 singularity matches the Bochner--Martinelli pattern $1/r^4$ in
-$6$ real dimensions, integrable in any single ball but not in
-Hilbert--Schmidt over $X\times X$. Renormalisation absorbs the
-diagonal divergence; the off-diagonal part decays exponentially
-by spectral gap.
+$6$ real dimensions and is not Hilbert--Schmidt over $X\times X$.
+Renormalisation is a counterterm construction, not the act of imposing
+a cutoff. The off-diagonal part decays exponentially by spectral gap.
 
 \begin{theorem}[Off-diagonal exponential decay]
 \label{thm:propagator-off-diagonal-decay}
@@ -245,38 +227,44 @@ internal edges, the weight is
 \begin{equation}
 \label{eq:graph-weight}
 w_\Gamma(\hbar)
-= \hbar^{L(\Gamma)}\int_{X^V}\prod_{e\in E}P_X(p_{e^-},p_{e^+})\cdot\prod_{v}\bigl[d^{abc}\,\Omega_X(p_v)\bigr]\,\prod_{v}d\mathrm{vol}_X(p_v),
+= \hbar^{L(\Gamma)} C_\frakg(\Gamma)\int_{X^V}
+\prod_{e\in E}P_X(p_{e^-},p_{e^+})\cdot
+\prod_{v}\Omega_X(p_v)\,\prod_{v}d\mathrm{vol}_X(p_v),
 \end{equation}
 where $L(\Gamma) = E(\Gamma) - V(\Gamma) + 1$ is the loop number, the
-$\frakg$-tensorial colour factor is the rank-$3$ Casimir
-$d^{abc}_\frakg$ at each cubic vertex, and the integration is over
-internal vertices.
+$\frakg$-tensorial colour factor $C_\frakg(\Gamma)$ is obtained by
+contracting structure constants along the internal edges, and the
+integration is over internal vertices. The cubic symmetric tensor
+$d^{abc}_\frakg$ appears only in the cubic anomaly component; it is not
+the colour factor of every graph.
 
-\begin{theorem}[Per-loop convergence on $K3\times E$]
+\begin{theorem}[Fixed-graph renormalised finiteness on $K3\times E$]
 \label{thm:per-loop-convergence-k3xe}
 For $\frakg$ admissible (Lemma in
-\cite[\S\ref{sec:per-loop-bounds}]{cy_to_chiral}), every Feynman graph
-weight $w_\Gamma(\hbar)$ on $K3\times E$ converges absolutely as a
-function of $\hbar$. Quantitatively,
+\cite[\S\ref{sec:per-loop-bounds}]{cy_to_chiral}), every fixed Feynman
+graph weight $w_\Gamma(\hbar)$ on $K3\times E$ has a finite
+renormalised value after diagonal local counterterms are inserted.
+With cutoff $\delta>0$ one has the schematic estimate
 \begin{equation}
 \label{eq:per-loop-bound}
-|w_\Gamma| \leq |\hbar|^{L(\Gamma)}\cdot V_X^V \cdot
-\biggl(\sup_{p_1,p_2\in X}\frac{|P_X(p_1,p_2)|}{(\mathrm{rank}\,\frakg)^{|d^{abc}|/2}}\biggr)^E
-\cdot |d^{abc}_\frakg|^V \cdot V_X^V,
+|w_\Gamma^\delta| \leq |\hbar|^{L(\Gamma)}\cdot
+|C_\frakg(\Gamma)|\cdot C(\delta)^E\cdot V_X^V,
 \end{equation}
 with $V_X = V_{K3}V_E$ the volume of $X$, and the supremum norm of
-$P_X$ off the diagonal is finite for any UV cutoff $\epsilon > 0$.
-After renormalisation, the renormalised graph weight is finite and
-$d^{abc}_\frakg$-vanishes for admissible $\frakg$.
+$P_X$ off the diagonal finite for any cutoff. The statement is
+fixed-graph and fixed-scale. It is not an absolute convergence theorem
+for the full loop expansion.
 \end{theorem}
 
 \begin{proof}
-The graph weight \eqref{eq:graph-weight} factors into a colour part
-$d^{abc}_\frakg\cdots d^{abc}_\frakg$ and a spacetime part
-$\int\prod P_X$. The colour part is bounded by $|d^{abc}|^V$, where
-$d^{abc}$ is the totally symmetric rank-$3$ Casimir tensor on $\frakg$
-and the symbol $|\cdot|$ denotes any compatible operator norm
-(e.g.\ Frobenius). The spacetime part:
+The graph weight \eqref{eq:graph-weight} is estimated only after a
+choice of scale, cutoff, and counterterm scheme. Its colour factor is
+not a power of the cubic symmetric tensor alone. Internal contractions
+of cubic vertices produce the quadratic Casimir, quartic invariant
+polynomials, and higher invariant tensors. The condition
+$d^{abc}_\frakg=0$ kills the cubic anomaly slot; it does not make every
+cubic-vertex graph vanish. For a fixed renormalisation scheme the
+spacetime part obeys the cutoff bound
 \begin{align}
 \int_{X^V}\prod_e |P_X(p_{e^-},p_{e^+})|\,\prod_v d\mathrm{vol}_X(p_v)
 &\leq \int_{X^V}\prod_e \bigl(C(\delta)e^{-\sqrt{\lambda_1}d_X(p_{e^-},p_{e^+})}\bigr)\,d\mathrm{vol}_X^V\notag\\
@@ -285,10 +273,10 @@ and the symbol $|\cdot|$ denotes any compatible operator norm
 where the second inequality is by Theorem~\ref{thm:propagator-off-diagonal-decay}
 applied edge-by-edge, with the spectral-gap exponential dominating
 distance factors and the $V$-fold volume integration giving $V_X^V$.
-For admissible $\frakg$ with $d^{abc}_\frakg = 0$, the colour
-prefactor of every graph with at least one cubic vertex vanishes
-identically, reducing to the tree-level + bubble corrections handled
-by the wave-function counter-term~\eqref{eq:6d-hcs-counterterm}.
+The diagonal part is not bounded by this estimate; it is exactly the
+local renormalisation problem. The surviving local colour tensors must
+be tested against the Costello--Li anomaly slots, in complex dimension
+three beginning with the quartic invariant polynomial $P_4$.
 \end{proof}
 
 \subsection{Bubble (one-loop wave-function)}
@@ -319,9 +307,10 @@ $\C^2$ kernel to the $K3\times E$ heat-kernel regularised propagator.
 The bubble is the wave-function piece, scheme-dependent and absorbable
 into the counter-term~\eqref{eq:6d-hcs-counterterm}. The cohomological
 anomaly piece, controlled by $d^{abc}_\frakg$, vanishes for admissible
-$\frakg$. Each subsequent wheel diagram (one-loop, three-loop ladder,
-four-loop wheel-with-tail, etc.) factors through one of these two
-sources, and admissible $\frakg$ kills the cohomological factor.
+$\frakg$ in the cubic slot. Higher wheels and multi-vertex graphs must
+still be tested against their actual invariant-polynomial slots; in
+CY$_3$ the Costello--Li anomaly gate begins with the quartic class
+$P_4$, not with another copy of the cubic tensor.
 \end{remark}
 
 %%=====================================================================
@@ -329,25 +318,30 @@ sources, and admissible $\frakg$ kills the cohomological factor.
 \label{sec:sum-graphs-fixed-loop}
 %%=====================================================================
 
-The next question: at fixed loop order $L$, does
-$\sum_{\Gamma : L(\Gamma) = L} w_\Gamma$ converge absolutely?
+The next question: at fixed loop order $L$, what bound is available for
+the renormalised coefficient
+$\sum_{\Gamma : L(\Gamma) = L} w_\Gamma$?
 
-\begin{theorem}[Absolute convergence of the graph sum at fixed loop order]
+\begin{theorem}[Fixed-loop coefficient bound]
 \label{thm:graph-sum-fixed-loop}
-On $X = K3\times E$ with admissible $\frakg$, the sum over $1$PI
-connected Feynman graphs of fixed loop order $L$
+On $X = K3\times E$ with admissible $\frakg$, after a scale choice,
+diagonal cutoff, and local counterterm scheme have been fixed, the
+renormalised contribution of the $1$PI connected Feynman graphs of
+fixed loop order $L$
 \begin{equation}
 \label{eq:graph-sum}
 W_L(\hbar) := \sum_{\substack{\Gamma\text{ 1PI conn.}\\L(\Gamma)=L}}\frac{1}{|\mathrm{Aut}(\Gamma)|}\, w_\Gamma(\hbar)
 \end{equation}
-converges absolutely. Quantitatively,
+is bounded by
 \begin{equation}
 |W_L(\hbar)| \leq |\hbar|^L\cdot C_X^L\cdot L!,
 \end{equation}
-where $C_X = C(\delta)\cdot V_X\cdot |d^{abc}_\frakg|^{1/2}\cdot \sqrt{2h^\vee_\frakg}/(2\pi)^{3/2}$
-is a metric-dependent constant absorbing the propagator $L^\infty$-bound,
-the volume of $X$, and the gauge Casimir, and $L!$ is the combinatorial
-graph count at fixed loop order.
+where $C_X$ is a positive metric-, cutoff-, and scheme-dependent
+constant absorbing the off-diagonal propagator bound, the volume of
+$X$, the quadratic Casimir, and any surviving quartic or higher
+invariant-polynomial counterterm data. The constant is not proportional
+to $|d^{abc}_\frakg|^{1/2}$; $d^{abc}_\frakg=0$ is an anomaly condition,
+not a vanishing statement for all colour factors.
 \end{theorem}
 
 \begin{proof}
@@ -371,10 +365,14 @@ chain of bounds from the spectral-gap exponential decay
 (Theorem~\ref{thm:propagator-off-diagonal-decay}):
 \begin{align*}
 |W_L(\hbar)| &\leq |\hbar|^L\cdot \sum_{\Gamma : L(\Gamma) = L}\frac{1}{|\mathrm{Aut}(\Gamma)|}|w_\Gamma|\\
-&\leq |\hbar|^L\cdot c_1^L L!\cdot (V_X|d^{abc}|^{1/2}\sqrt{2h^\vee}/(2\pi)^{3/2})^L\cdot C(\delta)^L\cdot\bigl(1 + L\cdot\mathrm{trace\;ren.\;cost}\bigr)\\
+&\leq |\hbar|^L\cdot c_1^L L!\cdot (V_X\sqrt{2h^\vee}/(2\pi)^{3/2})^L\cdot C(\delta)^L\cdot C_{\mathrm{inv}}^L
+\cdot\bigl(1 + L\cdot\mathrm{trace\;ren.\;cost}\bigr)\\
 &\leq C_X^L L!\cdot |\hbar|^L,
 \end{align*}
-absorbing the renormalisation cost into $C_X$.
+absorbing the invariant-polynomial and renormalisation costs into
+$C_X$. Here $C_{\mathrm{inv}}$ bounds the nonzero colour tensors that
+survive the cubic-anomaly cancellation, including quadratic Casimir
+wave-function terms and possible quartic $P_4$ terms.
 \end{proof}
 
 \begin{remark}[Comparison with $5$D Costello--Yagi case]
@@ -402,11 +400,13 @@ $\hbar > 0$. The series is Gevrey-$1$, not analytic.
 
 \subsection{The obstruction in clean form}
 
-\begin{theorem}[Gevrey-$1$ all-orders convergence on $K3\times E$]
+\begin{theorem}[Gevrey-$1$ coefficient bound on $K3\times E$]
 \label{thm:gevrey-1-allorders}
 Let $\frakg$ be admissible (Cartan type not $A_n$ for $n\geq 2$). The
-$\hbar$-series of the perturbative quantum BV factorisation algebra
-$\Obs^{q,\hCS}(K3\times E, \frakg)$ has Gevrey class $1$:
+renormalised coefficients of the perturbative quantum BV factorisation
+algebra $\Obs^{q,\hCS}(K3\times E, \frakg)$ satisfy, on the hypotheses
+of a fixed all-scale Costello--Li package and after local counterterms
+have removed diagonal singularities, a Gevrey-$1$ upper bound:
 \begin{equation}
 \label{eq:gevrey-1}
 \sum_{L\geq 0}\hbar^L W_L,\qquad |W_L|\leq C_X^L\cdot L!,
@@ -414,32 +414,33 @@ $\Obs^{q,\hCS}(K3\times E, \frakg)$ has Gevrey class $1$:
 with the constant $C_X$ controlled by the Costello--Li propagator
 $L^\infty$-norm off the diagonal, the volume $V_X = V_{K3}V_E$, the
 gauge Casimir $h^\vee_\frakg$, and the spectral gap
-$\lambda_1(\Delta_{\dbar}^X)$. The series is Borel-summable in any
-direction transverse to $\R_{\geq 0}\cdot\hbar$ avoiding the
-positive-real Stokes ray; the Borel transform $B(W)(t) = \sum_L W_L
-t^L/L!$ has positive radius of convergence
-$\rho_B = 1/C_X$ in the Borel plane.
+$\lambda_1(\Delta_{\dbar}^X)$. Consequently the formal Borel transform
+$B(W)(t)=\sum_L W_Lt^L/L!$ has radius of convergence at least
+$1/C_X$. No Borel summability statement follows from this bound alone.
+One still needs analytic continuation of $B(W)$ to a sector containing
+the chosen summation ray, exponential growth control in that sector,
+and a proof that the summation operation commutes with the BV bracket
+and $\Delta_{\BV}$.
 \end{theorem}
 
 \begin{proof}
 Sketch. Combine Theorem~\ref{thm:graph-sum-fixed-loop}
-($|W_L|\leq C_X^L L!$) with the Borel-summability lemma
-(Sokal, \emph{An improvement of Watson's theorem on Borel summability},
-J.~Math.~Phys.~$21$, $1980$): a Gevrey-$1$ series is Borel-summable iff
-the Borel transform is analytic on a strip around the positive real
-ray. The bound $|W_L|/L!\leq C_X^L$ is exactly the Borel-summability
-condition: $|B(W)(t)| = |\sum_L W_L t^L/L!|\leq \sum_L (C_X|t|)^L = 1/(1-C_X|t|)$
-for $|t| < 1/C_X$, giving Borel radius $\rho_B = 1/C_X$. The Borel sum
-is the analytic continuation of $W(\hbar) = \int_0^\infty e^{-t/\hbar}B(W)(t)\,dt$
-along directions avoiding the Stokes ray, which is the positive real
-axis (since $B(W)$ has its first singularity at $t = 1/C_X > 0$).
+($|W_L|\leq C_X^L L!$) with the elementary Cauchy estimate
+$|W_L|/L!\leq C_X^L$. This proves convergence of
+$B(W)(t)$ for $|t|<1/C_X$. Sokal--Watson type theorems require more:
+analytic continuation of the Borel transform to a sector or strip,
+control of its exponential growth, and non-intersection with Stokes
+singularities along the chosen ray. None of those properties is a
+formal consequence of the coefficient bound.
 \end{proof}
 
-\begin{remark}[Why the Borel sum exists despite zero radius]
+\begin{remark}[What the coefficient bound does and does not prove]
 The $\hbar$-series of $W$ has zero radius of convergence in $\hbar$,
 but the Borel transform $B(W)$ has positive radius
-$\rho_B = 1/C_X$ in the Borel plane. The Borel summation gives
-a function $W^{\mathrm{Borel}}(\hbar)$ that is:
+$\rho_B \geq 1/C_X$ in the Borel plane. A Borel sum
+$W^{\mathrm{Borel}}(\hbar)$ exists only after the residual analytic
+continuation and growth hypotheses are supplied. If such a sum exists,
+one must still prove separately that it is:
 \begin{itemize}\itemsep0pt
 \item analytic on a Stokes sector $|\arg\hbar|<\pi/2$ excluding the
 positive-real ray;
@@ -448,9 +449,7 @@ $\hbar\to 0^+$ in any sub-sector;
 \item the Costello--Li $\hbar$-deformation of the perturbative
 factorisation algebra,
 \end{itemize}
-all properties consistent with the Costello--Yagi convergence theorem
-on $\R\times\C^2$, but with the analytic-radius input replaced by
-Gevrey-$1$ Borel sum on $K3\times E$.
+and that the BV operations extend continuously to the summed object.
 \end{remark}
 
 \subsection{Where does the $L!$ come from?}
@@ -475,10 +474,13 @@ invariance is broken globally and the $L!$ is genuine.
 
 \subsection{The obstruction to upgrading: identification with formality}
 
-\begin{theorem}[The obstruction to analytic radius is non-formality of the graph cocycle]
+\begin{theorem}[A sufficient obstruction package for analytic radius]
 \label{thm:obstruction-formality}
-The Gevrey-$1$ class of the $\hbar$-series on $K3\times E$ upgrades to
-analytic class iff the graph cocycle
+An upgrade from the Gevrey-$1$ coefficient bound on $K3\times E$ to an
+analytic $\hbar$-series would follow from a graph-cocycle cancellation
+mechanism strong enough to replace the factorial graph-count bound by
+an exponential bound. A natural sufficient package is formality of the
+graph cocycle
 $c_L^X = (W_L)_L\in C^\bullet(B^{\mathrm{Feyn}}_{X}, \mathrm{End}(\HH^\bullet(\PV(X))))$
 on the Feynman graph complex of $X$ is formal, i.e., admits a
 filtered $L_\infty$-quasi-isomorphism to its cohomology class. On
@@ -491,7 +493,9 @@ theory of K3 surfaces, Astérisque~$2009$; Ben-Zvi--Francis--Nadler,
 geometry}, JAMS~$23$, $2010$, arXiv:0805.0157).
 The $E_2$-formality at the level of the full graph complex on
 $K3\times E$ requires a global formality of $\HH^\bullet(\Coh(K3\times E))$
-beyond the $A_\infty$-level, which is not known.
+beyond the $A_\infty$-level, which is not known. The converse direction
+is not established: analytic convergence might in principle arise from
+a different cancellation or summability mechanism.
 \end{theorem}
 
 \begin{proof}[Proof of the upgrade direction]
@@ -521,15 +525,17 @@ involves the failure of the K\"unneth product formula to extend to
 the centre at the $E_2$-level.
 \end{proof}
 
-\begin{conjecture}[Analytic upgrade conditional on $E_2$-formality of $\HH^\bullet(K3\times E)$]
+\begin{conjecture}[Analytic upgrade conditional on graph-cocycle formality]
 \label{conj:analytic-upgrade-conditional}
 If $\HH^\bullet(\Coh(K3\times E))$ is $E_2$-formal as a graph cocycle
 on the Feynman graph complex of $K3\times E$, then the $\hbar$-series
 of $\Obs^{q,\hCS}(K3\times E,\frakg)$ for admissible $\frakg$ converges
 analytically with positive radius
 $R(\hbar)\geq 1/C_X^{\mathrm{formality}}$, where the analytic constant
-is the formality input rather than the metric input. This is the
-chain-level transposition of Costello--Yagi to the compact base.
+is the formality input rather than the metric input. This would still
+need to be paired with the quartic Costello--Li anomaly cancellation
+and with continuity of the BV operations on the completed space of
+observables.
 \end{conjecture}
 
 %%=====================================================================
@@ -548,31 +554,32 @@ diverges). The whole bound chain in
 Theorem~\ref{thm:per-loop-convergence-k3xe} then collapses.
 
 \paragraph{Heal.}
-The fix is to use the renormalised propagator with diagonal cut-off
+The estimate-level fix is to use a diagonal cut-off
 $\delta > 0$: define
 $P_X^\delta(p_1,p_2) = P_X(p_1,p_2)\cdot\chi_{d_X(p_1,p_2) > \delta}$.
-The renormalised propagator $P_X^\delta$ has finite $L^\infty$-bound off the
-diagonal, satisfies the spectral-gap exponential decay
+The cutoff propagator $P_X^\delta$ has finite $L^\infty$-bound off the
+diagonal and satisfies the off-diagonal heat-kernel decay estimate
 $|P_X^\delta(p_1,p_2)|\leq C(\delta)e^{-\sqrt{\lambda_1}d_X}$
-(Theorem~\ref{thm:propagator-off-diagonal-decay}), and the diagonal
-divergence is absorbed into the wave-function counter-term
-$\Theta_2[A]$ of \eqref{eq:6d-hcs-counterterm}. The per-graph bound
+(Theorem~\ref{thm:propagator-off-diagonal-decay}). The diagonal
+divergence is absorbed only after a Costello--Li local counterterm
+subtraction; the cutoff estimate is not the renormalised finite part.
+The per-graph bound
 \eqref{eq:per-loop-bound} uses $P_X^\delta$ rather than $P_X$, and
 the per-loop bound $|w_\Gamma|\leq C_X(\delta)^E\cdot V_X^V$ is
 finite for each graph.
 
 This is the chain-level transposition of Costello~\cite{Costello2011}
-\S$2.5$: the bare propagator is a distribution; the renormalised
-propagator is a function off the diagonal, with the diagonal divergence
-absorbed by a sequence of counter-terms.
+\S$2.5$: the bare propagator is a distribution; counterterms subtract
+the diagonal local singularity; the cutoff kernel is only an auxiliary
+estimate.
 
 \paragraph{Resolution.}
 Lemma~\ref{lem:propagator-L2-bound} should be restated as:
-\emph{the renormalised propagator $P_X^\delta$ has finite $L^\infty$-norm
-off the diagonal, with $L^\infty$-bound depending logarithmically on
-$\delta\to 0^+$ via the trace anomaly}. The bound chain in
-Theorem~\ref{thm:per-loop-convergence-k3xe} survives this restatement
-with no loss.
+\emph{the cutoff kernel $P_X^\delta$ has finite $L^\infty$-norm off the
+diagonal, with a cutoff-dependent blow-up as $\delta\to 0^+$}. The
+renormalised finite part is a separate counterterm datum. The bound
+chain in Theorem~\ref{thm:per-loop-convergence-k3xe} survives only as
+a fixed-cutoff/fixed-graph estimate.
 
 \subsection{Cycle 2: Is the graph count $L!$ correct? Could it be $(2L)!$ or worse?}
 
@@ -587,13 +594,15 @@ cubic vertex via the BV antibracket and could in principle lead to
 $(2L)!$ growth (binary tree-like proliferation of bubble corrections).
 
 \paragraph{Heal.}
-The wave-function counter-term is a quadratic vertex absorbed at one
-loop; it does not propagate to higher loops because admissible $\frakg$
-($d^{abc} = 0$) kills the cubic anomaly and the bubble cancellation
-is exact at one loop (Theorem in \cite{cy_to_chiral}, Theorem~$5.4$).
-Higher loops are pure $\hbar$-corrections to the quadratic propagator,
-not cascading bubble proliferations. The graph count remains
-$\leq c_1^L L!$ for $1$PI connected graphs, and the $L!$ is correct.
+The safe statement is a graph-count upper bound after the interaction
+types allowed by the renormalisation scheme have been fixed. Quadratic
+wave-function counterterms do not make the original cubic vacuum graph
+count wrong; they enlarge the list of allowed decorated graphs and are
+absorbed into the scheme-dependent constant $C_X$. The estimate remains
+$\leq c_1^L L!$ for the fixed decorated $1$PI class used here. A proof
+of a sharper cancellation, or of worse $(2L)!$ growth, would require a
+separate combinatorial analysis of the full counterterm-expanded graph
+complex.
 
 A second sub-attack: the BV ladder structure on $\Omega^{0,\bullet}(K3\times E)$
 involves four ghost-number sectors (harmonic $\mathcal H^{0,0}, \mathcal H^{0,1},
@@ -609,8 +618,11 @@ volume factor $Z_0$ (Corollary on zero-mode partition function in
 \cite{cy_to_chiral}), independent of $L$.
 
 \paragraph{Resolution.}
-The $L!$ in $|W_L|\leq C_X^L L!$ is the correct combinatorial bound
-on $K3\times E$. There is no harmonic-sector amplification.
+The $L!$ in $|W_L|\leq C_X^L L!$ is retained as the safe upper bound
+on $K3\times E$. No independent harmonic-sector amplification is
+identified. A stronger cancellation estimate would be a new theorem
+about the graph-cocycle package, not a consequence of the spectral
+gap or of $d^{abc}_\frakg=0$.
 
 \subsection{Cycle 3: Could the radius be analytic via a hidden formality?}
 
@@ -658,10 +670,10 @@ contribute independently to the perturbative bound; the $\tau$-direction
 analyticity does not imply $\hbar$-direction analyticity.
 
 \paragraph{Resolution.}
-The Gevrey-$1$ obstruction is genuine. The hyperK\"ahler structure
-on K3 does not produce $E_2$-formality of the graph cocycle. The
-Borcherds-product analyticity is in the modular parameter, not in
-$\hbar$. The conjectural upgrade
+The Gevrey-$1$ coefficient obstruction is the honest current scope.
+The hyperK\"ahler structure on K3 does not presently supply
+$E_2$-formality of the graph cocycle. The Borcherds-product analyticity
+is in the modular parameter, not in $\hbar$. The conjectural upgrade
 (Conjecture~\ref{conj:analytic-upgrade-conditional}) is open and
 specifically requires the global $E_2$-formality of
 $\HH^\bullet(\Coh(K3\times E))$ at the graph-cocycle level.
@@ -700,9 +712,10 @@ graph-count $L!$.
 
 The $5$D route on $\R\times\C^2$ benefits from the translation-invariance
 on the $\C^2$-factor; on $\R\times X$ for compact $X$, this benefit
-disappears. The Borel constant for the $5$D route on $\R_t\times K3\times E$
-matches that for the $6$D route on $K3\times E$ at every loop order;
-the analytic radius is identically zero.
+disappears. The coefficient constants for the compact $5$D and direct
+$6$D routes may be compared only after the two all-scale packages are
+identified; that comparison is a residual analytic obligation, not an
+established equality here.
 
 \paragraph{Sub-attack: degenerate limits.}
 Could one degenerate $K3\to\C^2/\Gamma$ (orbifold) and inherit $\C^2$
@@ -724,16 +737,17 @@ ALE-region's bounded geometry, which Yau~$1978$ supplies). Therefore
 the Gevrey-$1$ obstruction persists.
 
 \paragraph{Resolution.}
-Neither the $5$D route nor the orbifold-ALE degeneration removes the
-Gevrey-$1$ obstruction. The direct $6$D and the $5$D routes give
-identical Borel constants $C_X^{6D} = C_X^{5D}$ on $K3\times E$;
-the analytic radius is uniformly zero.
+Neither the $5$D route nor the orbifold-ALE degeneration presently
+removes the Gevrey-$1$ coefficient obstruction. The direct $6$D and
+$5$D routes share the same unresolved compact-base analytic issue.
+Equality of Borel constants and vanishing of the analytic radius are
+not proved here.
 
 %%=====================================================================
-\section{Statement of the all-orders convergence theorem on $K3\times E$}
+\section{Statement of the all-orders coefficient theorem on $K3\times E$}
 %%=====================================================================
 
-\begin{theorem}[All-orders convergence of $6$D hCS on $K3\times E$, Gevrey-$1$]
+\begin{theorem}[All-orders coefficient bound for $6$D hCS on $K3\times E$]
 \label{thm:main-allorders-convergence}
 Let $X = K3\times E$ be the compact CY$_3$ with the product Yau$\times$flat
 metric, and let $\frakg$ be a finite-dimensional simple complex Lie algebra
@@ -742,7 +756,9 @@ $D_n$ for $n\geq 4$, $E_6, E_7, E_8$, $F_4$, $G_2$). The perturbative
 quantum BV factorisation algebra
 $\Obs^{q,\hCS}(K3\times E,\frakg)\in\mathrm{FA}^{\hol}(K3\times E;
 \mathrm{Ch}^{\hbar})$ of \cite[Thm.~\ref*{thm:6d-hcs-factorisation-algebra-k3xe}]{cy_to_chiral}
-admits a Gevrey-$1$ all-orders quantisation: the $\hbar$-series
+admits a Gevrey-$1$ coefficient bound, conditional on the all-scale
+Costello--Li package and its quartic anomaly cancellation: the
+$\hbar$-series
 \begin{equation}
 \label{eq:final-allorders-series}
 W^{K3\times E}(\hbar) = \sum_{L\geq 0}\hbar^L W_L^{K3\times E}
@@ -751,62 +767,61 @@ satisfies
 \begin{enumerate}[label=\textup{(\arabic*)}]
 \item \textup{(Per-loop bound.)}
 $|W_L^{K3\times E}|\leq C_X^L\cdot L!$, with
-$C_X = C(\delta)\cdot V_X\cdot |d^{abc}_\frakg|^{1/2}\cdot\sqrt{2h^\vee_\frakg}/(2\pi)^{3/2}$
-absorbing all metric and gauge inputs.
-\item \textup{(Borel summability.)} The Borel transform
+$C_X>0$ absorbing the metric, cutoff, renormalisation-scheme,
+quadratic-Casimir, and surviving invariant-polynomial inputs.
+\item \textup{(Local Borel transform.)} The Borel transform
 $B(W^{K3\times E})(t) = \sum_L W_L^{K3\times E} t^L/L!$ has positive
-radius $1/C_X$ in the Borel plane, and the Borel sum
-$W^{K3\times E,\mathrm{Borel}}(\hbar)$ exists for
-$|\arg\hbar|< \pi/2 - \mathrm{Stokes\;angle}$ as the unique analytic
-continuation.
-\item \textup{(QME at all orders.)} The Borel-summed series satisfies
-the all-orders quantum master equation
-$\{S_{ren},S_{ren}\}_{BV} - 2\hbar\Delta_{BV}S_{ren} = 0$ to all orders
-in the Borel-Watson sense.
-\item \textup{(Identification with the K3-fibre $E_1$-chiral.)} The
-Stage-$2$ specialisation
-$\mathrm{Sp}_{K3,E}(\Obs^{q,\hCS}(K3\times E,\frakg)) = U_{\mathrm{ch}}(\frakg_{\Delta_5})$
-of \cite[Thm.~\ref*{thm:g-delta5-is-sp-k3}]{cy_to_chiral} is
-unaffected by the Gevrey-$1$ vs analytic distinction: both Borel sums
-reduce to the same chiral algebra after Stage-$2$ pushforward.
+radius at least $1/C_X$ in the Borel plane. Borel summability,
+uniqueness of a Borel sum, and absence of Stokes singularities on a
+chosen ray are residual analytic obligations.
+\item \textup{(Formal QME only.)} The coefficient tower is compatible
+with the QME only at the level of the formal all-scale Costello--Li
+package after the quartic anomaly has been cancelled. A Borel-summed
+QME requires a separate continuity theorem for the BV bracket and
+$\Delta_{BV}$ on the completed summation space.
+\item \textup{(Stage-$2$ comparison.)} The K3-fibre $E_1$-chiral
+identification is conditional on the already named Stage-$2$
+specialisation and hCS-to-Hall/Dolbeault-to-bar comparison data; it is
+not a consequence of the coefficient bound.
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-Combine the per-loop bound (Theorem~\ref{thm:graph-sum-fixed-loop})
-with the Borel summability (Theorem~\ref{thm:gevrey-1-allorders}) and
-the QME closure at all orders by Costello--Li~\cite{CostelloLi2012}
-adapted to the $K3\times E$ atlas. The Stage-$2$ pushforward is a
-symmetric-monoidal functor (factorisation homology, Lurie HA~$5.5.3$);
-both Gevrey-$1$ and analytic Borel sums map to the same chiral algebra
-because the K3-fibre cycle is finite and the residual $E_1$-chiral
-structure on $E$ depends only on the $0$-th order Borel sum at
-the elliptic basepoint.
+Combine the fixed-loop bound (Theorem~\ref{thm:graph-sum-fixed-loop})
+with the elementary Borel-radius consequence
+(Theorem~\ref{thm:gevrey-1-allorders}). The formal QME input is not
+proved by summability: it is part of the all-scale Costello--Li package
+and is anomaly-free only after the CY$_3$ quartic local cohomology
+class $P_4$ has been killed. The Stage-$2$ sentence is therefore a
+compatibility obligation, not an output of this analytic estimate.
 \end{proof}
 
 \begin{remark}[The result vs the brief]
 The brief asked for an extension of Costello--Yagi all-orders
 convergence (analytic radius) to $6$D hCS on $K3\times E$. The
 present theorem establishes a strictly weaker result: Gevrey-$1$
-all-orders convergence with Borel summability. The genuine analytic
-upgrade is conjectural (Conjecture~\ref{conj:analytic-upgrade-conditional})
-and reduces to the $E_2$-formality of $\HH^\bullet(\Coh(K3\times E))$
-at the graph-cocycle level, an open problem.
+coefficient control with a positive local Borel radius. It does not
+establish Borel summability or a QME after summation. The genuine
+analytic upgrade is conjectural
+(Conjecture~\ref{conj:analytic-upgrade-conditional}) and requires, at
+minimum, graph-cocycle formality, sectorial Borel continuation, and
+quartic Costello--Li anomaly cancellation.
 \end{remark}
 
 %%=====================================================================
 \section{Identification of the precise obstruction}
 %%=====================================================================
 
-\begin{theorem}[The obstruction is in (b), not in (a) or (c) or (d)]
+\begin{theorem}[What the coefficient estimate localises]
 \label{thm:obstruction-identification}
 The obstruction to upgrading
-Theorem~\ref{thm:main-allorders-convergence}~(Gevrey-$1$) to an analytic
-all-orders theorem (positive $\hbar$-radius, no Borel sum needed) is
-located precisely in obstruction (b) of the brief: the sum over Feynman
-graphs at fixed loop order combinatorially grows like $L!$, not
-$\Theta(1)$. The other three obstructions identified in the brief
-(a, c, d) all close.
+Theorem~\ref{thm:main-allorders-convergence} to an analytic all-orders
+theorem (positive $\hbar$-radius, no Borel sum needed) has a visible
+combinatorial source: the available graph-count estimate grows like
+$L!$, not $\Theta(1)$. This note does not prove that this is the only
+obstruction. The spectral gap addresses only heat-kernel decay; Borel
+summability and full $E_2$ graph-cocycle formality remain separate
+obligations.
 \end{theorem}
 
 \begin{proof}
@@ -826,12 +841,10 @@ identity (which on $\C^2$ reduces $L!$ to $\Theta(1)$ via translation
 invariance). The $L!$ is the obstruction.
 
 \emph{(c) Sum over loop orders.} The $\hbar$-series formally diverges
-($\sum_L (C_X|\hbar|)^L L! = \infty$ for any $\hbar > 0$), but the
-Borel transform converges with positive radius. The series is
-Gevrey-$1$, Borel-summable; this gives the Borel sum
-$W^{K3\times E,\mathrm{Borel}}(\hbar)$ as a non-perturbative object.
-The $\hbar$-direction obstruction is a Borel-Watson obstruction, not
-an obstruction to all-orders existence.
+($\sum_L (C_X|\hbar|)^L L! = \infty$ for any $\hbar > 0$), while the
+Borel transform converges near the origin. Sectorial continuation,
+growth bounds, and Stokes-ray control are not supplied by the
+coefficient estimate.
 
 \emph{(d) Higher-cohomology non-formality of $\HH^\bullet(K3\times E)$.}
 The $A_\infty$-formality of $\HH^\bullet(\Coh(K3\times E))$ is
@@ -844,45 +857,42 @@ removes the $L!$ from the graph count.
 \end{proof}
 
 \begin{remark}[Strength of the result]
-Theorem~\ref{thm:main-allorders-convergence} is strictly stronger than
-``the perturbative series exists order by order''. It establishes:
-(i) the series is Gevrey-$1$, with explicit metric- and gauge-dependent
-constant $C_X$; (ii) the series is Borel-summable in any direction
-transverse to the positive real $\hbar$-axis; (iii) the Borel sum
-satisfies the QME at all orders; (iv) the K3-fibre Stage-$2$
-specialisation reproduces the same $E_1$-chiral algebra
-$U_{\mathrm{ch}}(\frakg_{\Delta_5})$ regardless of whether the radius
-is analytic or Gevrey-$1$. The strict-equality statement
-\textup{(iv)} is the chain-level closure of the Stage-$2$ output.
+Theorem~\ref{thm:main-allorders-convergence} is stronger than a bare
+order-by-order existence statement only in the coefficient-estimate
+sense: it gives a Gevrey-$1$ upper bound with metric-, cutoff-, and
+scheme-dependent constant $C_X$. It does not produce a nonperturbative
+Borel object, a summed QME, or a Stage-$2$ chiral-algebra equality.
+Those are residual comparison and analytic-completion problems.
 \end{remark}
 
 %%=====================================================================
-\section{Open computation: the Borel constant $C_X$ explicitly}
+\section{Open computation: the coefficient constant $C_X$ explicitly}
 %%=====================================================================
 
-\begin{conjecture}[Explicit formula for the Borel constant]
+\begin{conjecture}[Explicit formula for a coefficient constant]
 \label{conj:explicit-borel-constant}
-The constant $C_X$ in Theorem~\ref{thm:main-allorders-convergence} is
-given by
+The constant $C_X$ in Theorem~\ref{thm:main-allorders-convergence}
+should be computable from the heat-kernel cutoff, the determinant
+counterterms, and the surviving invariant-polynomial bounds. A possible
+schematic contribution is
 \begin{equation}
 \label{eq:explicit-CX}
-C_X = (2\pi)^{-3/2}\cdot V_X\cdot\sqrt{2h^\vee_\frakg}\cdot |d^{abc}_\frakg|^{1/2}\cdot \log\det\nolimits_\zeta\Delta_{\dbar}^X,
+C_X \sim (2\pi)^{-3/2}\cdot V_X\cdot\sqrt{2h^\vee_\frakg}\cdot
+C_{\mathrm{inv}}(\frakg)\cdot
+\bigl|\log\det\nolimits_\zeta\Delta_{\dbar}^X\bigr|,
 \end{equation}
 where $\det_\zeta$ is the zeta-regularised determinant of the
 $\dbar$-Laplacian, evaluated as
 $\log\det_\zeta\Delta_{\dbar}^X = -\zeta'(0|\Delta_{\dbar}^X)$ via the
-spectral zeta function. For $\frakg = \mathfrak{sl}_2$,
-$h^\vee = 2$, $|d^{abc}| = 0$, so the Casimir factor vanishes and
-$C_X^{\mathfrak{sl}_2} = 0$ (the analytic radius is $\infty$, the
-series is identically zero beyond the wave-function counter-term).
-For $\frakg = E_8$, $h^\vee = 30$, $|d^{abc}| = 0$, so
-$C_X^{E_8} = \sqrt{60}/(2\pi)^{3/2}\cdot V_X\cdot \log\det_\zeta\Delta_{\dbar}^X$,
-giving an explicit Borel radius
-$\rho_B^{E_8} = (2\pi)^{3/2}/\sqrt{60}\cdot V_X^{-1}\cdot|\log\det_\zeta\Delta_{\dbar}^X|^{-1}$.
+spectral zeta function. The invariant factor
+$C_{\mathrm{inv}}(\frakg)$ cannot be replaced by
+$|d^{abc}_\frakg|^{1/2}$: for admissible algebras
+$d^{abc}_\frakg=0$ while quadratic Casimir and possible quartic
+counterterm bounds remain nonzero.
 \end{conjecture}
 
 The conjecture isolates the chain-level computation needed for an
-explicit Borel radius; the verification reduces to the explicit
+explicit coefficient constant; the verification reduces to the explicit
 zeta-regularised determinant of $\Delta_{\dbar}^X$ on $K3\times E$,
 which is a Bismut--Hodge invariant of the product CY metric (Bismut,
 \emph{The Atiyah-Singer index theorem for families of Dirac operators:
@@ -896,14 +906,16 @@ Annales~Inst.~Fourier~$40$, $1990$).
 %%=====================================================================
 
 The Costello--Yagi all-orders convergence theorem on $\R\times\C^2$
-extends to $6$D hCS on $K3\times E$ with admissible gauge $\frakg$
-\textup{(}$d^{abc}_\frakg = 0$\textup{)} as a Gevrey-$1$ all-orders
-theorem, with explicit per-loop bound $|W_L|\leq C_X^L L!$ and
-Borel-summability with positive Borel radius $1/C_X$. The constant
-$C_X$ is metric-dependent, controlled by the Costello--Li propagator
-$L^\infty$-bound, the spectral gap $\lambda_1(\Delta_{\dbar}^X) > 0$,
-the volume $V_X = V_{K3}V_E$, and the gauge Casimir
-$h^\vee_\frakg$.
+does not automatically extend to compact $6$D hCS on $K3\times E$.
+For admissible gauge $\frakg$ \textup{(}$d^{abc}_\frakg = 0$\textup{)}
+the stable analytic statement is a Gevrey-$1$ coefficient bound
+$|W_L|\leq C_X^L L!$ after renormalisation. The local Borel transform
+has positive radius near the origin, but Borel summability, uniqueness,
+and the QME after summation are unproved here. The constant $C_X$ is
+metric-, cutoff-, and scheme-dependent, controlled by the Costello--Li
+off-diagonal propagator bound, the spectral gap
+$\lambda_1(\Delta_{\dbar}^X) > 0$, the volume $V_X = V_{K3}V_E$, and
+nonzero invariant-polynomial bounds.
 
 The genuine analytic radius (positive $\hbar$-radius without Borel
 summation) is the open conjecture
@@ -916,26 +928,20 @@ $A_\infty$-formality \textup{(}Ben-Zvi--Francis--Nadler\textup{);} the
 graph-cocycle $E_2$-formality is the next research target.
 
 \paragraph{Located precisely.}
-The obstruction lives in the brief's sub-question (b): the
-combinatorial growth of the Feynman graph count at fixed loop order
-is $L!$ on $K3\times E$, where on $\C^2$ Kontsevich's symmetric-graph
-cancellation reduces it to $\Theta(1)$. This $L!$ is the genuine
-mathematical difference between flat and compact CY$_3$ bases.
-Sub-questions (a), (c), (d) all close: heat-kernel decay (a) is
-fast (exponential by spectral gap); loop-order summation (c) is
-controlled by Borel summability; higher-cohomology non-formality
-(d) is the $\infty$-categorical mirror of (b) and is bypassed at
-the $A_\infty$-level by Ben-Zvi--Francis--Nadler.
+The coefficient estimate localises one concrete obstruction: the
+available Feynman graph count grows like $L!$ on $K3\times E$. Heat
+kernel decay is fast off the diagonal by spectral gap, but this does
+not decide loop-order summability, nuclear completion, hCS-to-Hall
+comparison, or $E_2$ graph-cocycle formality.
 
 \paragraph{Next-step computation.}
-The explicit Borel radius
-$\rho_B^{K3\times E,\frakg} = 1/C_X^{\frakg}$
-of \eqref{eq:explicit-CX} reduces to the zeta-regularised determinant
-of $\Delta_{\dbar}^X$ on $X = K3\times E$, a Bismut--Hodge invariant
-of the product CY metric. For $\frakg = E_8$ at the heterotic
-$E_8\times E_8$ point, this gives a closed-form Borel radius in
-terms of $V_X$, $h^\vee_{E_8} = 30$, and
-$\log\det_\zeta\Delta_{\dbar}^{K3\times E}$.
+The explicit coefficient constant
+$C_X^{K3\times E,\frakg}$ of \eqref{eq:explicit-CX} requires the
+zeta-regularised determinant of $\Delta_{\dbar}^X$, the cutoff
+renormalisation constants, and the surviving invariant-polynomial
+norms. Turning $1/C_X$ into a Borel radius for a nonperturbative sum
+requires sectorial continuation and Stokes analysis of the Borel
+transform.
 
 \begin{thebibliography}{99}
 \bibitem{cy_to_chiral} R.~Lorgat. Vol III \emph{Calabi--Yau Quantum

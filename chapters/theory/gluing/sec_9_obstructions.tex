@@ -1536,14 +1536,16 @@ a compact CY$_3$ satisfies the Quillen equivalence.
 \begin{conjecture}[Three chiral-output Booth--Lazarev obstructions]
 \label{thm:chiral-output-bl-obstructions}
 \ClaimStatusConjectured\ Let $X$ be a smooth projective CY$_3$ and
-$\Phi^{FA}_3(\Perf\,X)$ the Stage-1 output on
-$\Ran(C) \times \Mbar_{g, n}$ for any reference curve
-$C \hookrightarrow X$. The existence of a chiral Booth--Lazarev
+$\Phi^{FA}_3(\Perf\,X)$ the Stage-1 output. For a reference curve
+$C \hookrightarrow X$, view the chiral datum as a family over
+$\Mbar_{g,n}$ of factorisation coalgebras on $\Ran(C)$; $\Mbar_{g,n}$
+is a sewing parameter stack, not a second chiral curve. The existence
+of a chiral Booth--Lazarev
 Quillen equivalence
 \[
-\Omega^{\mathrm{ch}} : \FactCoAlg^{\cpt}_{\crv}(\Ran(C) \times \Mbar)
+\Omega^{\mathrm{ch}} : \FactCoAlg^{\cpt}_{\crv}(\Ran(C))_{\Mbar}
 \;\rightleftarrows\;
-\FactLie(\Ran(C) \times \Mbar) :B^{\mathrm{ch}}
+\FactLie(\Ran(C))_{\Mbar} :B^{\mathrm{ch}}
 \]
 is obstructed by three cohomological classes:
 \begin{enumerate}[label=\emph{$(\mathbf{O}_\arabic*^{\mathrm{BL}})$},
@@ -1559,23 +1561,23 @@ the coalgebra model structure;
 \item \emph{Genus-tower curvature compatibility:} a class
 \[
 (\mathbf{O}_2^{\mathrm{BL}}) \;\in\;
-\bigoplus_{g, n}
-\Gamma\bigl(\partial\Mbar_{g, n},\, \lambda_g\bigr)
+\bigoplus_{g, n}H^2\bigl(\partial\Mbar_{g, n},\bQ\bigr)
 \]
 obstructing the clutching-boundary descent
 $\partial^* m_0^{(g, n)} = \pi_1^* m_0^{(g_1, n_1+1)} +
 \pi_2^* m_0^{(g_2, n_2+1)}$ of the genus-$g$ curvature
-$m_0^{(g, n)} \in \Gamma(\Mbar_{g, n}, \lambda_g)$;
+$m_0^{(g, n)} \in H^2(\Mbar_{g,n},\bQ)$;
 \item \emph{Sewing-analytic IndHilb comparison:} a class
 \[
 (\mathbf{O}_3^{\mathrm{BL}}) \;\in\;
-\varprojlim_g\,
+R^1\!\varprojlim_{\Gamma\in\mathsf G^{\mathrm{st}}_{g,n}}\,
 \mathrm{Ext}^1_{\mathrm{top}}\bigl(
-{\Dco}^{\mathrm{ch}, g}(\Phi^{FA}_3(\Perf\,X)),\,
-\IndHilb^g(A^{\mathrm{sew}})\bigr)
+{\Dco}^{\mathrm{ch},\Gamma}(\Phi^{FA}_3(\Perf\,X)),\,
+\IndHilb^\Gamma(A^{\mathrm{sew}})\bigr)
 \]
 obstructing the comparison of the algebraic coderived category
-with the Moriwaki IndHilb analytic completion.
+with the Moriwaki IndHilb analytic completion over the stable-graph
+sewing category.
 \end{enumerate}
 \end{conjecture}
 
@@ -1589,49 +1591,53 @@ output, not on the CY$_3$ input.
 (Costello--Li \texttt{arXiv:1606.00365} Prop.~5.2), pulled back along
 the $\Ran(C) \times \Mbar_{g, n}$ factorisation tower, takes the form
 \[
-m_0^{(g, n)} \;=\; \kch \cdot \lambda_g^1 \;\in\;
-\Gamma(\Mbar_{g, n}, \lambda_g)
+m_0^{(g, n)} \;=\; \kch \cdot \lambda^{\det}_1(g,n) \;\in\;
+H^2(\Mbar_{g,n},\bQ)
 \]
 with $\kch \in \bQ$ the chain-level Hodge-supertrace invariant and
-$\lambda_g^1 = c_1(\lambda_g)$ the first Chern class of the Hodge
-determinant bundle on $\Mbar_{g, n}$. Mumford's boundary relation
+$\lambda^{\det}_1(g,n)=c_1(\det\mathbb E_{g,n})=c_1(\mathbb E_{g,n})$,
+where $\mathbb E_{g,n}=\pi_\ast\omega_\pi$ is the rank-$g$ Hodge
+bundle.  The notation $\lambda_i$ is reserved for
+$c_i(\mathbb E_{g,n})$; in particular $\lambda_g=c_g(\mathbb E_{g,n})$
+is the top Hodge class, not the determinant line. Mumford's boundary
+relation
 (\emph{Arith.\ \& Geom.}\ II, 1983, Ch.\ III \S 4; Teixidor
 \emph{Duke} 56 (1988) Thm.~1.1)
 \[
-\partial^* \lambda_g^1 \;=\; \pi_1^* \lambda_{g_1}^1 + \pi_2^*
-\lambda_{g_2}^1 \quad (\text{separating, } g = g_1 + g_2),
+\partial^* \lambda^{\det}_1(g,n) \;=\; \pi_1^* \lambda^{\det}_1(g_1,n_1+1) + \pi_2^*
+\lambda^{\det}_1(g_2,n_2+1) \quad (\text{separating, } g = g_1 + g_2),
 \qquad
-(\partial')^* \lambda_g^1 \;=\; \lambda_{g-1}^1
+(\partial')^* \lambda^{\det}_1(g,n) \;=\; \lambda^{\det}_1(g-1,n+2)
 \quad (\text{non-separating})
 \]
 forces the clutching-boundary descent identities
 $\partial^* m_0^{(g, n)} = \pi_1^* m_0^{(g_1, n_1+1)} + \pi_2^*
 m_0^{(g_2, n_2+1)}$ and $(\partial')^* m_0^{(g, n)} = m_0^{(g-1, n+2)}$
 to hold identically. Consequently $(\mathbf{O}_2^{\mathrm{BL}}) = 0$
-in $\Gamma(\partial\Mbar_{g, n}, \lambda_g)$: the $\kch$-curving
+in $H^2(\partial\Mbar_{g, n},\bQ)$: the $\kch$-curving
 \emph{is} the Hodge-boundary-descent datum, not a constraint added on
 top of it.
 \end{proposition}
 
 \begin{proof}
-The curving $m_0^{(g, n)} = \kch \cdot \lambda_g^1$ is the pullback
+The curving $m_0^{(g, n)} = \kch \cdot \lambda^{\det}_1(g,n)$ is the pullback
 of a global rational constant against the Mumford class. Pullback
 along the clutching $\partial : \Mbar_{g_1, n_1+1} \times \Mbar_{g_2, n_2+1}
 \to \Mbar_{g, n}$ commutes with the scalar $\kch$:
 \[
-\partial^* m_0^{(g, n)} \;=\; \kch \cdot \partial^* \lambda_g^1
-\;=\; \kch \cdot (\pi_1^* \lambda_{g_1}^1 + \pi_2^* \lambda_{g_2}^1)
+\partial^* m_0^{(g, n)} \;=\; \kch \cdot \partial^* \lambda^{\det}_1(g,n)
+\;=\; \kch \cdot (\pi_1^* \lambda^{\det}_1(g_1,n_1+1) + \pi_2^* \lambda^{\det}_1(g_2,n_2+1))
 \;=\; \pi_1^* m_0^{(g_1, n_1+1)} + \pi_2^* m_0^{(g_2, n_2+1)}.
 \]
 Non-separating: $(\partial')^* m_0^{(g, n)} = \kch \cdot (\partial')^*
-\lambda_g^1 = \kch \cdot \lambda_{g-1}^1 = m_0^{(g-1, n+2)}$. The
+\lambda^{\det}_1(g,n) = \kch \cdot \lambda^{\det}_1(g-1,n+2) = m_0^{(g-1, n+2)}$. The
 identities hold in $\mathrm{Pic}(\partial\Mbar_{g, n})_\bQ$ and in
 integral cohomology modulo $2$-torsion. Computer-algebraic verification
 at $g \leq 5$ is in Grushevsky--Zakharov \texttt{arXiv:1308.1033} \S 6;
 the low-genus sections at $g = 1, 2, 3$ are explicit:
-$\partial|_{\delta_0}^* \lambda_2^1 = \lambda_1^1$,
-$\partial|_{\delta_1}^* \lambda_2^1 = 2 \lambda_1^1$ (the two
-$\pi_i^* \lambda_1^1$ terms, equal by the $\bZ/2$-symmetry of the
+$\partial|_{\delta_0}^* \lambda^{\det}_1(2,0) = \lambda^{\det}_1(1,2)$,
+$\partial|_{\delta_1}^* \lambda^{\det}_1(2,0) = 2 \lambda^{\det}_1(1,1)$ (the two
+$\pi_i^* \lambda^{\det}_1$ terms, equal by the $\bZ/2$-symmetry of the
 $(1, 1)$ split), and similarly at $g = 3$.
 \end{proof}
 
@@ -1735,9 +1741,10 @@ Smith class.
 \end{proof}
 
 \begin{remark}[Four-$\kappa$ discipline in the curving]
-The curving is $m_0^{(g, n)} = \kch \cdot \lambda_g^1$, not
-$\kcat \cdot \lambda_g^1$, nor $\kBKM \cdot \lambda_g^1$, nor
-$\kfib \cdot \lambda_g^1$. The four invariants differ on $K3 \times E$:
+The curving is $m_0^{(g, n)} = \kch \cdot \lambda^{\det}_1(g,n)$, not
+$\kcat \cdot \lambda^{\det}_1(g,n)$, nor
+$\kBKM \cdot \lambda^{\det}_1(g,n)$, nor
+$\kfib \cdot \lambda^{\det}_1(g,n)$. The four invariants differ on $K3 \times E$:
 $\kch = 0$ (Dolbeault Hodge-supertrace on total space) versus
 $\kch^{\mathrm{Heis}} = 3$ (after Stage-2 chiral Heisenberg--Mukai
 specialisation) versus $\kcat = 0$ (Künneth-multiplicative) versus
@@ -1825,10 +1832,11 @@ and its cohomology class realises the obstruction
 \[
 (\mathbf{O}_1^{\mathrm{BL}}) = [\sigma_{\mathrm{Smith}}]
 \in H^1(\Ran(C), \Aut_\otimes(\Gen_{\mathrm{BL}}))
-\simeq \varprojlim{}^1_n\, I_n,
 \]
-the Mittag--Leffler defect of the stratum-count inverse system
-$\{I_n\}_{n \geq 1}$ under factorisation-restriction maps.
+in the finite-set/Ran descent diagram.  It becomes a sequential
+$\varprojlim^1$ only after a cofinal diagonal subsystem and compatible
+transition maps have been chosen; no genus- or point-count tower is
+part of the definition.
 Pulled back along an acyclic analytic chart cover
 $\{U_\alpha\}$ of $X$, the cocycle is represented by a
 Dolbeault--\v{C}ech class
@@ -1849,10 +1857,9 @@ $1$-cochain above. Associativity of the factorisation tensor
 (Beilinson--Drinfeld Ch.~$3$ Def.~$3.4.9$) gives the cocycle
 condition. By Ayala--Francis \texttt{arXiv:1206.5522} Thm.~$1.1$,
 $H^\bullet(\Ran(C), \cF)$ is computed by the
-Bousfield--Kan spectral sequence on the \v{C}ech nerve of
-$\{V_n\}$; the Mittag--Leffler defect interpretation
-$\varprojlim^1_n I_n \simeq H^1(\Ran(C), \Aut_\otimes)$ is standard
-(Bousfield--Kan Appendix VII.$6$). The chart-cover Dolbeault pull-back
+Bousfield--Kan spectral sequence on the \v{C}ech nerve of the finite-set
+diagram; a sequential Mittag--Leffler description is a further
+cofinality theorem, not part of the Ran geometry itself. The chart-cover Dolbeault pull-back
 uses Cartan's Theorem~B acyclicity on $U_{\alpha\beta\gamma}
 \simeq \bC^3$ intersections and the Bondal--Orlov uniqueness of the
 Fourier--Mukai kernel up to shift/line-bundle twist
@@ -1862,20 +1869,21 @@ identifies the Atiyah-class component of the triple-overlap
 discrepancy with the $\Omega^{0, 1}$-Dolbeault cocycle.
 \end{proof}
 
-\begin{proposition}[$(\mathbf{O}_3^{\mathrm{BL}})$ as sewing
-Mittag--Leffler defect]
+\begin{proposition}[$(\mathbf{O}_3^{\mathrm{BL}})$ as stable-graph sewing defect]
 \label{prop:O3-BL-ml-defect}
-\ClaimStatusProposition\ The inverse system
-$\{A^{\mathrm{sew}, g}(\cA)\}_{g \geq 0}$ of genus-$g$ sewing-completed
-chiral states of $\cA = \PhiFA_3(\Perf\,X)|_{\Ran(C) \times \Mbar}$,
-with transition maps $j_g : A^{\mathrm{sew}, g+1} \to A^{\mathrm{sew}, g}$
-given by the handle-pinching nodal degeneration
-$\Mbar_{g+1} \to \Mbar_g$, has Mittag--Leffler defect
+\ClaimStatusConditional{The statement requires a stable-graph sewing
+diagram and residue maps along new half-edges; there is no canonical
+genus-only inverse tower $\Mbar_{g+1}\to\Mbar_g$.}
+Let $\mathsf G^{\mathrm{st}}_{g,n}$ be the stable-graph category of
+boundary strata of $\Mbar_{g,n}$.  The sewing-completed state spaces of
+$\cA = \PhiFA_3(\Perf\,X)|_{\Ran(C)}$, parameterised over $\Mbar$, form
+a diagram
+$\Gamma\mapsto A^{\mathrm{sew}}_\Gamma(\cA)$ under clutching pullback
+and residue along the new half-edges.  Its derived inverse-limit defect is
 \[
 (\mathbf{O}_3^{\mathrm{BL}}) = [\sigma_{\mathrm{sew}}]
-\;=\; \varprojlim{}^1_g\, A^{\mathrm{sew}, g}(\cA)
-\;\in\; \varprojlim{}_g\, \Ext^1_{\mathrm{top}}
-({\Dco}^{\mathrm{ch}, g}(\cA), \IndHilb^g(A^{\mathrm{sew}})).
+\;\in\; R^1\!\varprojlim_{\Gamma\in\mathsf G^{\mathrm{st}}_{g,n}}\,
+A^{\mathrm{sew}}_\Gamma(\cA).
 \]
 The chain-level representative is the leading non-nuclear
 contribution to the chiral OPE asymptotic across a nodal
@@ -1892,14 +1900,17 @@ $\|\sigma_{\mathrm{sew}}^{(N)}\| \lesssim t^{N+1} \cdot
 (N+1)!^{\kch}$ (Gevrey-$1$). The Borel-summability criterion
 $\Delta(Q_\cL) = -256\,\kch^3 S_4 < 0$
 (equivalently $\kch^3 S_4 > 0$) controls whether $N \to \infty$
-converges to zero in the nuclear IndHilb topology.
+converges to zero in the nuclear IndHilb topology after the stable-graph
+sewing diagram has been constructed.
 \end{proposition}
 
 \begin{proof}
-The sewing-completion tower is parameterised by the $3g-3$
-Teichmüller coordinates on $\Mbar_{g, 0}$ near the boundary
-$\partial \Mbar$; transition maps $j_g$ implement the handle
-pinch (nodal-separating degeneration) that decreases genus by one.
+The boundary of $\Mbar_{g,n}$ is indexed by stable graphs, not by a
+linear genus tower.  Separating clutching maps have product source
+$\Mbar_{g_1,n_1+1}\times\Mbar_{g_2,n_2+1}$; non-separating clutching
+has source $\Mbar_{g-1,n+2}/S_2$.  The sewing diagram therefore carries
+both pullback along clutching and residue/trace along the two new
+markings.
 The chiral OPE Taylor-expands in the sewing parameter with
 Gevrey-$1$ coefficient growth (Vol~I $\mathbf{MC5}$ sewing programme;
 cy\_to\_chiral.tex Proposition on class $\mathbf{M}$ Borel
@@ -1911,16 +1922,18 @@ $\alpha^2$-cancellation. Sign-definite negative $\Delta$ gives
 complex-conjugate Borel-plane singularities off the positive ray,
 Borel summability, and hence $\varprojlim^1_g = 0$ by the
 standard surjection-implies-$\varprojlim^1$-vanishing
-(Hartshorne \emph{Residues and Duality} Appendix A).
+(Hartshorne \emph{Residues and Duality} Appendix A) only on a
+separately constructed non-separating residue subsystem.  The full
+Booth--Lazarev obstruction is the stable-graph derived-limit class
+above.
 \end{proof}
 
 \begin{remark}[Parallel Mittag--Leffler structure]
 \label{rem:residual-ml-parallel}
-Both residual obstructions are Mittag--Leffler defects in orthogonal
-filtration directions of $\Ran(C) \times \Mbar$:
-$(\mathbf{O}_1^{\mathrm{BL}}) = \varprojlim^1_n I_n$ in the
-point-count direction; $(\mathbf{O}_3^{\mathrm{BL}}) =
-\varprojlim^1_g A^{\mathrm{sew}, g}$ in the genus direction. The
+Both residual obstructions are descent defects in orthogonal
+filtration directions of $\Ran(C) \times \Mbar$: the Ran-space class
+is indexed by finite sets, surjections, and diagonal restrictions,
+while the sewing class is indexed by stable graphs. The
 Mumford collapse of $(\mathbf{O}_2^{\mathrm{BL}})$ is the
 \emph{curvature}-compatibility identification across this bi-filtration
 (the $\kch$-curving \emph{is} the Hodge-boundary-descent datum).

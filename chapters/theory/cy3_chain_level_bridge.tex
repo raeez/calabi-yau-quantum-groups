@@ -1,6 +1,9 @@
 \chapter{The CY3 Chain-Level Bridge}
 \label{ch:cy3-chain-level-bridge}
 
+\providecommand{\Krit}{\mathrm{Krit}}
+\providecommand{\DR}{\mathrm{DR}}
+
 \section{Normal form}
 \label{sec:cy3-chain-level-bridge-normal-form}
 
@@ -368,6 +371,281 @@ quantum BV Laplacian, and the higher effective interactions, recovering
 the classical continuous-duality theorem.
 \end{proof}
 
+\begin{definition}[Framed Hochschild target on the DWR/Ran nerve]
+\label{def:framed-hcs-hochschild-target}
+\ClaimStatusDefinitional{}
+Let $X$ be a smooth CY$_3$ with holomorphic volume form $\Omega_X$ and
+let $\mathfrak U$ be a DWR-good cover. Fix
+$N\in \mathbb N\cup\{\infty\}$ and write
+$\mathfrak g_N=\mathfrak{gl}_N$ for finite $N$. On a polydisc
+$P\subset X$ let $\mathfrak l_{\Perf(X)}(P)$ denote the local
+Hochschild dg Lie algebra of $\Perf(X)$ in the HKR model, with
+Gerstenhaber bracket of degree $-2$ and CY$_3$ trace induced by
+$\Omega_X$. Its rank-$N$ framed form is
+\[
+ \mathfrak L^{\HH}_{X,N}(P)
+ :=
+ \Omega^{0,\bullet}_c
+ \bigl(P,J^\infty_{\mathrm{hol}}\mathfrak l_{\Perf(X)}\bigr)[1]
+ \widehat\otimes \mathfrak g_N ,
+\]
+with completed projective tensor product and block-sum transition
+$\mathfrak g_N\hookrightarrow\mathfrak g_{N+1}$. For a DWR/Ran simplex
+$\sigma=(S,\{P_s\}_{s\in S})$ set
+\[
+ \PhiFA^{\HH,\mathrm{fr}}_{3,N}(\Perf(X))(\sigma)
+ :=
+ \widehat{\bigotimes}_{s\in S}
+ \left(
+ B^\hbar_{E_3}
+ U^{\mathrm{fact},E_3}_{P_s}
+ (\mathfrak L^{\HH}_{X,N})
+ \right)^\vee_b .
+\]
+The stable framed target is the homotopy colimit
+\[
+ \PhiFA^{\HH,\mathrm{fr}}_{3,\infty}(\Perf(X))
+ :=
+ \operatorname*{hocolim}_{N}
+ \PhiFA^{\HH,\mathrm{fr}}_{3,N}(\Perf(X)),
+\]
+formed only when the formality point, counterterm scheme, and
+completion are compatible with block sum. Thus a comparison with
+$\Obs^q_{\hCS}(X,\mathfrak g)$ is typed only after a framing
+$\mathfrak g\to\mathfrak g_N$ or a stable $\mathfrak{gl}_\infty$
+presentation is fixed. The unframed symbol
+$\PhiFA_3(\Perf(X))$ is the object obtained after forgetting this
+rank/framing coordinate; it is not the direct target of a finite-rank
+hCS comparison.
+\end{definition}
+
+\begin{definition}[Framed hCS--Hochschild obstruction complex]
+\label{def:hcs-hochschild-obstruction-complex}
+\ClaimStatusDefinitional{}
+Fix $X$, $\mathfrak U$, $N$, an anomaly-cancelled hCS quantisation
+$\Obs_{\hCS}^{q}(-,\mathfrak g_N)$ in the sense of
+Definition~\ref{def:cy3-hcs-quantum-observables}, and the framed
+Hochschild target of Definition~\ref{def:framed-hcs-hochschild-target}.
+For every finite intersection $U_I$ in $\mathfrak U$ put
+\[
+ \mathcal M^q_{\hCS,\HH}(U_I)
+ :=
+ \Hom^q_{\mathrm{cont},E_3}
+ \left(
+ \Obs_{\hCS}^{q}(U_I,\mathfrak g_N),
+ \PhiFA^{\HH,\mathrm{fr}}_{3,N}(\Perf(X))(U_I)
+ \right),
+\]
+where the subscript $E_3$ means continuous maps equipped with homotopies
+for the little-$3$-disks operations on every polydisc refinement. The
+\v{C}ech differential, the two internal differentials, the BV bracket on
+hCS observables, and the commutator bracket of the Hochschild
+factorisation envelope make
+\[
+ \mathfrak M_{\hCS,\HH}(\mathfrak U)
+ :=
+ \Tot\,\Cech^\bullet(\mathfrak U,\mathcal M^\bullet_{\hCS,\HH})
+\]
+a complete filtered dg Lie algebra. A chartwise family
+$\theta^{(0)}=\{\theta_i\}$ has obstruction tuple
+\[
+ \mathfrak o_{\hCS,\HH}(\theta^{(0)})
+ =
+ \bigl(
+ o_{\mathrm{MC}},\,
+ o_{\mathrm{fr}},\,
+ o_{\mathrm{Fed}},\,
+ o_{\mathrm{zero}},\,
+ o_{\mathrm{Weiss}},\,
+ o_{\mathrm{comp}},\,
+ o_{E_3}
+ \bigr).
+\]
+Here $o_{\mathrm{MC}}$ is the Maurer--Cartan curvature in
+$H^1(\mathfrak M_{\hCS,\HH})$; $o_{\mathrm{fr}}$ is the failure of the
+gauge framing to agree with the rank-$N$ or stable
+$\mathfrak{gl}_\infty$ Hochschild framing; $o_{\mathrm{Fed}}$ is the
+Fedosov/HKR descent defect for the Atiyah-class transition functions;
+$o_{\mathrm{zero}}$ is the defect of the harmonic zero-mode splitting
+against the Hochschild trace; $o_{\mathrm{Weiss}}$ is the failure of
+the prefactorisation maps to satisfy Weiss descent on the DWR/Ran
+nerve; $o_{\mathrm{comp}}$ is the mismatch between the Costello
+renormalised multilocal topology and the strong-dual Hochschild
+completion; and $o_{E_3}$ is the operadic defect measuring failure to
+preserve the $E_3$ collision operations, not merely cohomology.
+\end{definition}
+
+\begin{definition}[Primitive package for the hCS--Hochschild arrow]
+\label{def:hcs-hochschild-primitive-package}
+\ClaimStatusDefinitional{}
+A primitive package for a framed hCS--Hochschild comparison on
+$(X,\mathfrak U,N)$ is the typed datum
+\[
+ \mathfrak P_{\hCS,\HH}
+ =
+ \bigl(
+ \theta^{(0)},\,
+ \eta_{\mathrm{MC}},\,
+ \rho_{\mathrm{fr}},\,
+ H_{\mathrm{Fed}},\,
+ H_{\mathrm{zero}},\,
+ H_{\mathrm{Weiss}},\,
+ Q_{\mathrm{comp}},\,
+ H_{E_3},\,
+ Q
+ \bigr)
+\]
+with the following entries:
+\begin{enumerate}
+\item chartwise continuous degree-zero maps
+$\theta_i^{(0)}\colon
+\Obs_{\hCS}^{q}(U_i,\mathfrak g_N)\to
+\PhiFA^{\HH,\mathrm{fr}}_{3,N}(\Perf(X))(U_i)$;
+\item a positive \v{C}ech/Ran filtration correction
+$\eta_{\mathrm{MC}}\in F^1\mathfrak M_{\hCS,\HH}(\mathfrak U)^0$
+such that
+\[
+ \theta=\theta^{(0)}+\eta_{\mathrm{MC}},
+ \qquad
+ d\theta+\frac12[\theta,\theta]=0;
+\]
+\item a rank/framing transport $\rho_{\mathrm{fr}}$ identifying the
+hCS gauge framing with the chosen finite-rank or stable
+Hochschild framing;
+\item a Fedosov homotopy $H_{\mathrm{Fed}}$ trivialising the
+HKR transition defect against the Atiyah-class cocycle;
+\item a zero-mode contraction $H_{\mathrm{zero}}$ for the harmonic
+summand of $\Omega^{0,\bullet}(X,\mathfrak g_N)[1]$, compatible with
+the finite-dimensional residual BV integral;
+\item a Weiss descent homotopy $H_{\mathrm{Weiss}}$ on all higher
+DWR/Ran simplices;
+\item a completion certificate $Q_{\mathrm{comp}}$ identifying the
+$\hbar$-adic Costello-renormalised topology with the strong-dual
+Hochschild completion on the image of $\theta$;
+\item operadic homotopies $H_{E_3}$ comparing all binary and higher
+collision operations after the chosen Kontsevich--Tamarkin formality
+point;
+\item a quasi-isomorphism certificate $Q$ giving continuous inverses up
+to homotopy on vertices and on all finite DWR/Ran refinements.
+\end{enumerate}
+Each entry is finite in type; on an infinite refinement system it is a
+compatible pro-cochain, not a finite list of opens.
+\end{definition}
+
+\begin{theorem}[Framed hCS--Hochschild descent criterion]
+\label{thm:framed-hcs-hochschild-descent-criterion}
+\ClaimStatusProvedHere{}
+For fixed $X$, $\mathfrak U$, $N$, anomaly-cancelled hCS source, and
+framed Hochschild target, a chartwise family
+\[
+ \theta_i^{(0)}\colon
+ \Obs_{\hCS}^{q}(U_i,\mathfrak g_N)
+ \longrightarrow
+ \PhiFA^{\HH,\mathrm{fr}}_{3,N}(\Perf(X))(U_i)
+\]
+extends to a quasi-isomorphism of completed $E_3$ holomorphic
+factorisation algebras
+\[
+ \Theta_{\hCS\to\HH}^{\mathrm{fr}}\colon
+ \Obs_{\hCS}^{q}(-,\mathfrak g_N)
+ \xrightarrow{\;\simeq\;}
+ \PhiFA^{\HH,\mathrm{fr}}_{3,N}(\Perf(X))
+\]
+on the DWR/Ran nerve if and only if
+\[
+ \mathfrak o_{\hCS,\HH}(\theta^{(0)})=0
+\]
+and the resulting degree-zero Maurer--Cartan element is vertexwise
+invertible in $H^0$. Equivalently, the comparison exists if and only if
+a primitive package $\mathfrak P_{\hCS,\HH}$ of
+Definition~\ref{def:hcs-hochschild-primitive-package} exists. In the
+stable case $N=\infty$, the statement is read after passing to the
+block-sum homotopy colimit over $N$.
+\end{theorem}
+
+\begin{proof}
+Forgetting the framing, Fedosov, zero-mode, completion, and operadic
+structures, a comparison is a continuous natural transformation of
+complexes on the \v{C}ech/Ran nerve. Descent for such transformations is
+controlled by the total convolution dg Lie algebra
+$\mathfrak M_{\hCS,\HH}(\mathfrak U)$; extending the vertex maps is
+equivalent to solving
+$d\theta+\frac12[\theta,\theta]=0$. This is the class
+$o_{\mathrm{MC}}$ and the gauge action on its solutions.
+
+Restoring the forgotten structures gives the remaining six classes.
+The rank coordinate is discrete and is killed exactly by
+$\rho_{\mathrm{fr}}$. The HKR local maps are glued through a formal
+geometry connection; the obstruction to changing charts is the
+Fedosov/Atiyah \v{C}ech class, killed exactly by $H_{\mathrm{Fed}}$. Compact
+CY$_3$ zero modes are harmonic summands of the Dolbeault BV complex;
+compatibility with the categorical trace is precisely the class
+$o_{\mathrm{zero}}$, killed by $H_{\mathrm{zero}}$. Weiss descent on
+disjoint polydiscs is the class $o_{\mathrm{Weiss}}$. Continuity in the
+renormalised and strong-dual completions is the class
+$o_{\mathrm{comp}}$. Preservation of all $E_3$ collision operations is
+$o_{E_3}$. If these classes vanish, the corrected cochain
+$\theta=\theta^{(0)}+\eta_{\mathrm{MC}}$ is a morphism of completed
+$E_3$ holomorphic factorisation algebras. Conversely, any such morphism
+restricts to vertex maps and supplies the listed transports and
+homotopies; its defining naturality, continuity, and operadic
+compatibility force every component of
+$\mathfrak o_{\hCS,\HH}$ to vanish. The quasi-isomorphism certificate
+$Q$ is exactly vertexwise and refinementwise invertibility in $H^0$.
+\end{proof}
+
+\begin{corollary}[\texorpdfstring{$K3\times E$}{K3xE} Stage-\texorpdfstring{$1$}{1} comparison gate]
+\label{cor:k3e-stage1-hcs-hochschild-gate}
+\ClaimStatusConditional{}
+Let $X=K3\times E$ with $\Omega_X=\Omega_{K3}\wedge dz_E$. The
+comparison
+\[
+ \Obs_{\hCS}^{q}(X,\mathfrak g)
+ \simeq
+ \PhiFA_3(\Perf(X))
+\]
+as $E_3$ holomorphic factorisation algebras is a theorem on the
+rank-stable framed branch precisely under the following typed
+replacement:
+\[
+ \Obs_{\hCS}^{q}(-,\mathfrak g_N)
+ \xrightarrow{\;\Theta_{\hCS\to\HH}^{\mathrm{fr}}\;}
+ \PhiFA^{\HH,\mathrm{fr}}_{3,N}(\Perf(K3\times E)),
+\]
+with $N<\infty$ or $N=\infty$, and with
+$\mathfrak P_{\hCS,\HH}$ supplied on a DWR-good cover. The harmonic
+zero-mode part is the K\"unneth summand
+\[
+ H^{0,\bullet}(K3\times E,\mathfrak g_N)[1]
+ =
+ (H^{0,\bullet}(K3)\otimes H^{0,\bullet}(E)\otimes\mathfrak g_N)[1],
+\]
+so $H^{0,1}$ and $H^{0,2}$ must be retained by
+$H_{\mathrm{zero}}$ or integrated by a specified residual BV measure.
+An anomaly-free exceptional gauge algebra, an oriented hCS--Hall datum,
+or the Gritsenko--Nikulin denominator formula supplies at most a proper
+subpart of this gate; none supplies the rank-stable
+hCS--Hochschild primitive package.
+\end{corollary}
+
+\begin{proof}
+The K\"unneth formula gives
+$H^{0,\bullet}(K3\times E)=H^{0,\bullet}(K3)\otimes H^{0,\bullet}(E)$,
+with nonzero classes in bidegrees $0,1,2,3$. These harmonic classes are
+global BV zero modes and therefore are invisible to a purely local
+polydisc comparison unless a residual finite-dimensional BV treatment
+is fixed. After this zero-mode datum, the CY volume form, the product
+Ricci-flat metric, and the chosen formality point place $X$ in the
+scope of Definition~\ref{def:framed-hcs-hochschild-target}. The
+existence criterion is then exactly
+Theorem~\ref{thm:framed-hcs-hochschild-descent-criterion}. The final
+sentence separates independent data: anomaly cancellation constructs
+the source differential, the hCS--Hall datum constructs a map to a Hall
+target, and the Borcherds denominator fixes a Stage-$2$ automorphic
+trace. None is a Fedosov/HKR, zero-mode, completion, and $E_3$ descent
+package between hCS and categorical Hochschild.
+\end{proof}
+
 \begin{corollary}[Quantum bar-to-Hall comparison, conditional on the oriented map]
 \label{cor:cy3-quantum-bar-hall-conditional}
 \ClaimStatusConditional{}
@@ -519,6 +797,139 @@ $t(U,\mathbf d)$ are part of the convention; a comparison with hCS
 observables is ungraded until they are fixed.
 \end{definition}
 
+\begin{definition}[Rees critical Hall interlayer]
+\label{def:rees-critical-hall-interlayer}
+\ClaimStatusDefinitional{}
+Let $(Q_U,W_U)$ be a quiver-with-potential chart on an admissible
+polydisc $U$, let $\mathbf d$ be a dimension vector, and put
+\[
+ V_{U,\mathbf d}:=\mathrm{Rep}_{\mathbf d}(Q_U),
+ \qquad
+ G_{\mathbf d}:=\prod_{i\in Q_0}\GL_{\mathbf d_i},
+ \qquad
+ f_{U,\mathbf d}:=\mathrm{Tr}(W_U)_{\mathbf d}.
+\]
+Assume a finite cyclic BV polarisation has fixed a
+$G_{\mathbf d}$-equivariant algebraic volume form
+$\omega_{U,\mathbf d}$ on the finite model. The Rees critical complex of
+the chart is
+\[
+ \Krit^{\hbar}_{G_{\mathbf d}}(U,\mathbf d)
+ :=
+ \left(
+ C^\bullet\!\left(
+ \mathfrak g_{\mathbf d},
+ \Gamma(V_{U,\mathbf d},\wedge^\bullet T_{V_{U,\mathbf d}})[[\hbar]]
+ \right),
+ d_{\CE}+\iota_{df_{U,\mathbf d}}+\hbar\Delta_{\omega_{U,\mathbf d}}
+ \right),
+\]
+where $\Delta_{\omega_{U,\mathbf d}}$ is the BV divergence determined by
+the volume form. Equivalently, the Fourier--BV transform
+\[
+ \mathfrak F_{\omega_{U,\mathbf d}}\colon
+ \Gamma(V_{U,\mathbf d},\wedge^kT_{V_{U,\mathbf d}})[[\hbar]]
+ \longrightarrow
+ \Omega^{\dim V_{U,\mathbf d}-k}(V_{U,\mathbf d})[[\hbar]],
+ \qquad
+ \xi\longmapsto
+ (-1)^{k(k-1)/2}\iota_\xi\omega_{U,\mathbf d},
+\]
+identifies this complex with the twisted de Rham Rees model
+\[
+ \DR_{f_{U,\mathbf d},\hbar}(V_{U,\mathbf d})
+ :=
+ \left(
+ \Omega^\bullet(V_{U,\mathbf d})[[\hbar]],
+ \hbar d+df_{U,\mathbf d}\wedge
+ \right)
+\]
+after passing to equivariant cochains. The oriented Rees critical Hall
+summand is
+\[
+ \Hall^{\mathrm{Rees},\mathrm{or}}_{U,\mathbf d}
+ :=
+ \Krit^{\hbar}_{G_{\mathbf d}}(U,\mathbf d)
+ \otimes o_{U,\mathbf d}[s(U,\mathbf d)](t(U,\mathbf d)),
+\]
+with $o_{U,\mathbf d}$ the determinant-line square root induced by the
+finite BV polarisation, and with the same shift and Tate convention as
+Definition~\ref{def:local-critical-coha-normalisation}. The completed
+Rees critical Hall object is
+\[
+ \Hall_{\mathrm{crit}}^{\mathrm{Rees},\mathrm{or}}(U)
+ :=
+ \widehat{\bigoplus}_{\mathbf d}
+ \Hall^{\mathrm{Rees},\mathrm{or}}_{U,\mathbf d}.
+\]
+This is a chain-level algebraic target. It is not the
+vanishing-cycle critical CoHA until a realization functor
+\[
+ \mathsf R_{\mathrm{vc}}\colon
+ \Hall_{\mathrm{crit}}^{\mathrm{Rees},\mathrm{or}}(U)
+ \longrightarrow
+ \CoHA_{\mathrm{crit}}^{\mathrm{or}}(U)
+\]
+has been supplied, compatible with equivariance, compact support,
+orientation local systems, shifts, Tate twists, Thom--Sebastiani, Hall
+proper pushforward, lci pullback, and the chosen completions.
+\end{definition}
+
+\begin{proposition}[The Rees split of the hCS--Hall target]
+\label{prop:rees-split-hcs-hall-target}
+\ClaimStatusConditional{} \textup{(conditional on finite cyclic HPT
+contractions and on monoidal vanishing-cycle realization)}
+The direct arrow
+\[
+ \Obs_{\hCS}^{q}(-,\mathfrak g)
+ \longrightarrow
+ \CoHA_{\mathrm{crit}}^{\mathrm{or}}(-)
+\]
+is theorem-grade only after it has been factored as
+\[
+ \Obs_{\hCS}^{q}(-,\mathfrak g)
+ \xrightarrow{\;\Theta_{\hCS\to\Hall}^{\mathrm{Rees},\mathrm{or}}\;}
+ \Hall_{\mathrm{crit}}^{\mathrm{Rees},\mathrm{or}}(-)
+ \xrightarrow{\;\mathsf R_{\mathrm{vc}}\;}
+ \CoHA_{\mathrm{crit}}^{\mathrm{or}}(-).
+\]
+The first arrow is the finite algebraic comparison produced, on each
+DWR/Ran simplex, by cyclic homological perturbation from the hCS BV
+complex to a finite critical model and then by the Fourier--BV
+identification of Definition~\ref{def:rees-critical-hall-interlayer}.
+The second arrow is a separate microlocal/vanishing-cycle realization
+theorem. Without $\mathsf R_{\mathrm{vc}}$ one has a comparison to
+derived critical Hall chains, not to the usual critical CoHA. Without
+$\Theta_{\hCS\to\Hall}^{\mathrm{Rees},\mathrm{or}}$ one has Hall normal
+forms, not an hCS--Hall comparison.
+\end{proposition}
+
+\begin{proof}
+The finite cyclic contraction transfers the hCS $L_\infty$ operations
+to a cyclic finite model. The transferred Hamiltonian is the function
+$f_{U,\mathbf d}$, and the quantum BV differential becomes
+$\iota_{df_{U,\mathbf d}}+\hbar\Delta_{\omega_{U,\mathbf d}}$ on
+polyvectors. The Fourier--BV transform carries this differential to
+$\hbar d+df_{U,\mathbf d}\wedge$, so the algebraic target of the
+finite comparison is precisely the Rees critical complex of
+Definition~\ref{def:rees-critical-hall-interlayer}. Hall multiplication
+there is the Rees/Koszul form of the extension correspondence; its
+degree, orientation, and Tate normalisation are the same data already
+required in Definition~\ref{def:local-critical-coha-normalisation}.
+
+The passage from the twisted Rees de Rham model to
+Borel--Moore cohomology with vanishing cycles is not formal from the
+cyclic contraction. It is a realization statement: it must commute with
+Thom--Sebastiani, proper pushforward along Hall extension stacks,
+pullback along local complete-intersection maps, the determinant-line
+orientation system, and the completions. Therefore the displayed
+factorisation is exactly the non-circular form of the hCS--Hall target.
+It is not a derived-center theorem, a logarithmic Swiss-cheese action, a
+boundary-category construction, a slab bimodule, or a Hall--Drinfeld
+double. Those are separate center/open--closed/double problems, each with
+its own Morita, operadic, pairing, and completion data.
+\end{proof}
+
 \begin{definition}[Oriented hCS--Hall comparison datum on the DWR/Ran nerve]
 \label{def:cy3-oriented-hcs-hall-comparison-datum}
 \ClaimStatusDefinitional{}
@@ -560,6 +971,16 @@ charge/HN-completed and equivariant-localised direct sum
 Here $\mathrm{Tr}W_{P_s,\gamma_s}$ is the trace function on the local
 representation stack, $[s]$ is the fixed cohomological shift, $(t)$ is
 the fixed Tate twist, and the completion is part of the datum.
+This is the realised Hall target. Equivalently, a comparison datum may be
+given in the Rees-split form of
+Definition~\ref{def:rees-critical-hall-interlayer}: one first maps to
+$\Hall_{\mathrm{crit}}^{\mathrm{Rees},\mathrm{or}}(\sigma)$ and then
+applies a monoidal vanishing-cycle realisation
+$\mathsf R_{\mathrm{vc}}$. In that presentation the displayed target
+below is shorthand for
+$\mathsf R_{\mathrm{vc}}\circ
+\Theta_{\sigma}^{\mathrm{Rees},\mathrm{or}}$; the five coherence
+conditions are required both before realisation and after realisation.
 
 The orientation component is a Joyce--Kontsevich--Soibelman system of
 square roots

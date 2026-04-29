@@ -1294,15 +1294,17 @@ class TestGoldStandardDisjointPaths:
             "Borcherds 1998 weight theorem + orbifold averaging argument",
         ],
         verified_against=[
-            "Mukai 1988 fixed-point count sequence {8, 6, 4, 4, 2, 3, 2} "
-            "for symplectic orders {2, 3, 4, 5, 6, 7, 8} on K3",
+            "twined K3 Jacobi-form constant terms "
+            "{10, 8, 6, 4, 4, 2, 2, 2} for order labels "
+            "{1, 2, 3, 4, 5, 6, 7, 8}",
             "Gritsenko-Nikulin 1998 paramodular-weight sequence "
             "{5, 4, 3, 2, 2, 1, 1, 1} primary literature",
         ],
         disjoint_rationale=(
-            "Path A: K3 algebraic-geometric fixed-point counts from "
-            "Mukai 1988 Table 1.3 (classification theorem for symplectic "
-            "subgroups of M_23 acting on K3 lattices). "
+            "Path A: twined K3 elliptic-genus constant terms from the "
+            "Eguchi-Ooguri-Tachikawa / Eguchi-Hikami Mathieu-moonshine "
+            "normalisation, read as Jacobi-form data rather than fixed "
+            "loci. "
             "Path B: weight sequence read from Gritsenko-Nikulin 1998 + "
             "Clery-Gritsenko 2013 + Clery-Gritsenko-Hulek 2015 paramodular "
             "literature directly. "
@@ -1313,45 +1315,32 @@ class TestGoldStandardDisjointPaths:
     def test_kappa_bkm_monotonicity_disjoint_sources(self):
         """Monotonicity sequence via two disjoint primary-source paths.
 
-        SCOPE NOTE: naive halving c_N(0) = fixed_pts / 2 holds for the
-        K3-lattice-regular orbifold indices N in {1, 2, 3, 4, 5, 6, 8}.
-        At N = 7 the naive halving FAILS: Mukai 1988 gives 3 fixed points
-        for symplectic order-7, but the orbifold-averaged Jacobi form has
-        c_7(0) = 2 (not 3) due to nontrivial twisted-sector contributions
-        from the 7A/7B conjugate class pair in M_24.  See
-        diagonal_siegel_cy_orbifolds.py:108-112 for the explicit
-        twisted-sector eta-product formula.  The monotonicity test here
-        covers N in {1, 2, 3, 4, 5, 6, 8}; the N = 7 anomaly is itself a
-        primary-source literature fact (Eguchi-Hikami 2011 + Cheng-Duncan
-        2012 twined-elliptic-genus formulas for M_24 class 7AB), and is
-        verified by Path B's direct literature lookup but deliberately
-        NOT derived from Mukai fixed-point halving.
+        SCOPE NOTE: the Borcherds weight is c_N(0)/2, where c_N(0) is
+        the constant term of the relevant twined/averaged weak Jacobi
+        form.  It is not derived by halving the number of fixed points of
+        a K3 automorphism.  Fixed-locus counts are useful geometric
+        witnesses in some orders, but the order-7 case already shows why
+        they cannot be the formula: Mukai 1988 gives 3 fixed points for
+        symplectic order 7, while the orbifold-averaged Jacobi form has
+        c_7(0) = 2 due to the 7A/7B Mathieu-moonshine correction.
         """
-        # --- Path A: Mukai 1988 fixed-point counts ---
-        # Note: Mukai's classification gives fixed points for symplectic
-        # automorphisms of K3.  Only orders 1-8 arise (Nikulin/Mukai theorem).
-        # Naive halving c_N(0) = fixed_pts/2 is CORRECT at orders where the
-        # twisted-sector correction vanishes (the "lattice-regular" orders
-        # {1, 2, 3, 4, 5, 6, 8}).  Order 7 is the exceptional case where
-        # the 7A + 7B twinning sum from M_24 character theory introduces a
-        # -1 correction; this is documented in the diagonal_siegel_cy_orbifolds
-        # module docstring and is a separate primary-source fact.
-        mukai_fixed_points = {
-            1: 24,  # identity: chi(K3) = 24
-            2: 8,   # Nikulin involution
-            3: 6,   # Mukai 1988 Table 1.3 order-3
+        # --- Path A: twined Jacobi-form constant terms ---
+        # These are the Borcherds-lift inputs c_N(0), not fixed-point
+        # counts.  The distinction matters at order 7 and prevents the
+        # fixed-locus arithmetic anti-pattern from entering the oracle.
+        jacobi_constant_terms = {
+            1: 10,
+            2: 8,
+            3: 6,
             4: 4,
             5: 4,
             6: 2,
+            7: 2,
             8: 2,
         }
-        # Orbifold-averaged c_N(0) via Eguchi-Hikami projection coincides
-        # with Mukai fixed-point count at orders {2,3,4,5,6,8}; and at N=1
-        # the index-1 Jacobi form normalization gives c(0) = 10 (not 24).
-        kappa_path_A = {}
-        for N in [2, 3, 4, 5, 6, 8]:
-            kappa_path_A[N] = Fraction(mukai_fixed_points[N], 2)
-        kappa_path_A[1] = Fraction(5)  # index-1 normalization
+        kappa_path_A = {
+            N: Fraction(c0, 2) for N, c0 in jacobi_constant_terms.items()
+        }
 
         # --- Path B: Gritsenko-Nikulin + Clery-Gritsenko primary literature ---
         gn_weights = {  # primary-source paramodular weights
@@ -1366,10 +1355,10 @@ class TestGoldStandardDisjointPaths:
         }
         kappa_path_B = {N: Fraction(w) for N, w in gn_weights.items()}
 
-        # --- Output-level agreement at lattice-regular orders ---
-        for N in [1, 2, 3, 4, 5, 6, 8]:
+        # --- Output-level agreement of Jacobi and paramodular routes ---
+        for N in range(1, 9):
             assert kappa_path_A[N] == kappa_path_B[N], (
-                f"N={N}: Mukai path = {kappa_path_A[N]}, "
+                f"N={N}: Jacobi constant-term path = {kappa_path_A[N]}, "
                 f"GN-CG literature path = {kappa_path_B[N]}. "
                 f"Gold-standard disjoint-path disagreement would refute "
                 f"the Borcherds weight theorem or the Mukai classification."

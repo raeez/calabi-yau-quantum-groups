@@ -36,13 +36,15 @@ $\Lap_{\dbar}^Y$ denotes the $\dbar$-Laplacian acting on $\Omega^{0,\bullet}(Y)$
 for $Y \in \{K3, E, X\}$, with first non-zero eigenvalue $\lambda_1^Y$
 on the orthogonal complement $\cH^\perp$ of harmonic forms.
 
-The Weiss cosheaf descent for $\Obs^{q,\hCS}_X$
-\textup{(Theorem~\ref{thm:weiss-cosheaf-k3xe} of the manuscript)} invokes
-$\lambda_1^X > 0$ as a sufficient input for heat-kernel decay
-$K_t^{X,\perp} = O(\exp(-\lambda_1^X t))$ controlling the
-\v{C}ech--Mayer--Vietoris convergence on the finite polydisk atlas. The
-mathematics below quantifies $\lambda_1^X$ in terms of explicit
-geometric data and isolates the regime where each factor dominates.
+The Weiss cosheaf descent for $\Obs^{q,\hCS}_X$ uses heat-kernel decay
+as one auxiliary analytic input. The estimate
+$\lambda_1^X > 0$ gives
+$K_t^{X,\perp}=O(\exp(-\lambda_1^X t))$ on the orthogonal complement of
+harmonics. It does not by itself prove Weiss/\v{C}ech/Ran descent,
+nuclear completion, $\lim^1$ vanishing, Borel convergence, or the
+hCS-to-Hall comparison. The mathematics below quantifies
+$\lambda_1^X$ in terms of explicit geometric data and isolates the
+regime where each factor dominates.
 
 \subsection{Spectral gap on the elliptic curve $E$}
 \label{subsec:gap-elliptic-curve}
@@ -290,12 +292,12 @@ the orbifold/large-volume K3 limit. The critical balance (iii) is the
 self-dual point where neither factor dominates.
 \end{remark}
 
-\subsection{Heat-kernel decay and convergence of the
-\v{C}ech--Mayer--Vietoris cocomplex}
+\subsection{Heat-kernel decay as an auxiliary finite-atlas input}
 \label{subsec:heat-kernel-cech}
 
-The spectral gap controls the off-diagonal decay of the heat kernel,
-which is the analytic input the Weiss descent invokes.
+The spectral gap controls the long-time operator norm of the heat
+kernel. A descent theorem needs additional cosheaf, continuity,
+completion, and comparison data.
 
 \begin{proposition}[Heat-kernel decay from spectral gap]
 \label{prop:heat-kernel-decay}
@@ -322,26 +324,29 @@ $\exp(-t\Lap_{\dbar}^X)|_{\cH^\perp}$ has operator norm bounded by
 $\exp(-\lambda_1^X t)$.
 \end{proof}
 
-\begin{proposition}[\v{C}ech--Mayer--Vietoris convergence]
+\begin{proposition}[Finite-atlas heat-kernel estimate]
 \label{prop:cech-MV-convergence}
 \ClaimStatusProposition{}
 Let $\mathcal{A} = \{D_\alpha\}_{\alpha \in I}$ be a finite polydisk
-atlas of $X$ and $P_X$ the Costello--Li propagator on $X$. The
+atlas of $X$ and $P_X$ the Costello--Li propagator on $X$. For any
+chosen finite nerve degree $p$ and any fixed positive propagator
+timescale $t_0$, the heat-kernel part of the gluing operator on the
 \v{C}ech cochain complex
 \begin{equation}
 \label{eq:cech-cochain}
  C^p(\mathcal{A}, \Obs^{q,\hCS}_X) \;:=\; \prod_{\alpha_0 < \cdots < \alpha_p} \Obs^{q,\hCS}_X\bigl(D_{\alpha_0} \cap \cdots \cap D_{\alpha_p}\bigr)
 \end{equation}
-with the standard \v{C}ech differential converges to
-$\Obs^{q,\hCS}_X(X)$ in the homotopy category of cochain complexes.
-The convergence rate is geometric:
+is bounded by
 \begin{equation}
 \label{eq:cech-convergence-rate}
  \bigl\| C^p \bigr\| \;\leq\; C \cdot |\mathcal{A}|^p \cdot \exp\bigl(-p \lambda_1^X t_0\bigr)
 \end{equation}
 for a fixed propagator timescale $t_0 > 0$ \textup{(}depending on
 $|\mathcal{A}|$ and $\diam(D_\alpha)$\textup{)} and a topological
-constant $C > 0$.
+constant $C > 0$, provided the gluing maps have already been defined
+as continuous maps on the chosen completed spaces. This is a
+heat-kernel estimate, not a proof that the \v{C}ech totalisation
+computes $\Obs^{q,\hCS}_X(X)$.
 \end{proposition}
 
 \begin{proof}
@@ -354,9 +359,11 @@ $D_{\alpha_0} \cap \cdots \cap D_{\alpha_p}$ the propagator-induced
 gluing map contributes a factor of order $\exp(-\lambda_1^X t_0)$ per
 nerve-edge. Combining over the nerve gives the
 $\exp(-p \lambda_1^X t_0)$ factor; the binomial coefficient
-$|\mathcal{A}|^p$ counts the $p$-fold intersections; the geometric
-series in $p$ converges to a finite total, yielding convergence in the
-homotopy category. The harmonic-zero-mode contribution sits in the
+$|\mathcal{A}|^p$ counts the $p$-fold intersections. Whether the
+resulting totalisation converges in the homotopy category depends on
+the completed cosheaf structure, nuclear continuity, and
+Mittag--Leffler/$\lim^1$ control; those data are not consequences of
+the spectral gap. The harmonic-zero-mode contribution sits in the
 $\check C^0$-part by the projection $P_{\cH}^X$
 \textup{(}finite-dimensional, $4\dim\frakg$ on $K3 \times E$\textup{).}
 \end{proof}
@@ -406,23 +413,20 @@ Costello--Li heat-kernel propagator, but the propagator is
 defined modulo BV-exact terms; different gauge-fixing choices may
 shift the constant $C$ but not the decay rate $\exp(-\lambda_1^X t_0)$.
 What if a degenerate gauge-fixing produces $C = \infty$?
-\emph{Heal:} Costello--Li~\cite{CostelloLi2012} prove that the
+\emph{Heal:} For the heat-kernel gauge used here, Costello--Li~\cite{CostelloLi2012} prove that the
 heat-kernel gauge-fixing $\mathrm{GF}_t$ converges to a non-degenerate
 propagator as $t \to 0^+$ on a compact K\"ahler manifold; the constant
 $C$ is finite for every $t_0 > 0$ chosen below the injectivity radius
-of $X$. The strict positivity of $\lambda_1^X$ then forces geometric
-convergence regardless of the fine structure of $C$. Conversely, on
-non-compact CY$_3$ where $\lambda_1^X = 0$ \textup{(}continuous spectrum
-at $0$\textup{)}, the convergence~\eqref{eq:cech-convergence-rate} fails
-and $\Omega$-equivariant or compactly supported formulations are
-required (Remark~\ref{rem:compactness-spectral-gap-finite-atlas} of
-the manuscript). The strict positivity is the necessary and
-sufficient analytic input.
+of $X$. The strict positivity of $\lambda_1^X$ then supplies a finite
+long-time decay rate for this chosen gauge. It is not sufficient for
+descent: non-compactness, non-nuclear completions, failure of
+Mittag--Leffler towers, or missing Ran compatibility can still break
+the comparison even when a local heat-kernel estimate exists.
 
 \subsection{Synthesis}
 \label{subsec:synthesis}
 
-\begin{theorem}[Quantitative spectral gap, Weiss-descent input]
+\begin{theorem}[Quantitative spectral gap, auxiliary heat-kernel input]
 \label{thm:quantitative-spectral-gap-weiss}
 \ClaimStatusTheorem{}
 For $X = K3 \times E$ with the product Ricci-flat K\"ahler metric
@@ -437,32 +441,37 @@ $\dbar$-Laplacian on $\Omega^{0,\bullet}(X)$ obeys
 with $c_{K3} > 0$ a Sun--Zhang constant depending on the Yau potential
 $C^0$-norm \textup{(}finite for K\"ahler classes bounded away from the
 ample-cone wall\textup{)}. This bound is the explicit form of the
-spectral-gap input invoked in the Weiss cosheaf descent for
+spectral-gap input used in heat-kernel estimates for
 $\Obs^{q,\hCS}_X$ and gives the geometric-decay rate
 $O(\exp(-\lambda_1^X t))$ for the heat-kernel orthogonal-projection
-piece, controlling the convergence of the
-\v{C}ech--Mayer--Vietoris cocomplex on the finite polydisk atlas.
+piece. It does not by itself establish Weiss/\v{C}ech/Ran descent,
+nuclear completion, $\lim^1$ vanishing, Borel convergence, or an
+hCS-to-Hall comparison.
 \end{theorem}
 
 \begin{proof}
 Combine Theorem~\ref{thm:kunneth-spectrum-X},
 Proposition~\ref{prop:lambda1-K3}, Proposition~\ref{prop:lambda1-E},
-Proposition~\ref{prop:heat-kernel-decay}, and
-Proposition~\ref{prop:cech-MV-convergence}.
+and Proposition~\ref{prop:heat-kernel-decay}. Proposition~\ref{prop:cech-MV-convergence}
+records how this decay enters a fixed finite-atlas estimate once the
+descent and completion data have already been supplied.
 \end{proof}
 
-\begin{corollary}[Weiss descent gap input, made quantitative]
+\begin{corollary}[Weiss descent gap input, made quantitative but auxiliary]
 \label{cor:weiss-descent-quantitative}
 \ClaimStatusCorollary{}
-The bound~\eqref{eq:thm-quantitative-gap} closes the analytic gap in
-\textup{Theorem~\ref{thm:weiss-cosheaf-k3xe}} of the manuscript.
-The qualitative assertion $\lambda_1^X > 0$ on the compact K\"ahler
+The bound~\eqref{eq:thm-quantitative-gap} quantifies one analytic input
+for any finite-atlas Weiss descent argument. The qualitative assertion
+$\lambda_1^X > 0$ on the compact K\"ahler
 $X$ now carries the explicit form
 $\lambda_1^X \geq \min(c_{K3}/D_{K3}^2,\, 4\pi^2/V_E^2)$ on the standard
 $\tau$-domain, parametrised by the K\"ahler moduli $(V_{K3}, [\omega_{K3}],
 \Im\tau)$. The three regimes of
 Proposition~\ref{prop:three-regimes} stratify the Weiss-descent
-analytic difficulty by which factor dominates.
+heat-kernel estimate by which factor dominates. The remaining descent
+obligations are the finite DWR/Ran nerve maps, continuous nuclear
+completion, Mittag--Leffler/$\lim^1$ control, and compatibility with
+factorisation products.
 \end{corollary}
 
 \textsc{Open.} The Sun--Zhang constant $c_{K3}$ is defined
