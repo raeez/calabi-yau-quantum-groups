@@ -252,12 +252,14 @@ source Borcherds 1995 / Gritsenko series.
   (iv) lattice-polarised period domain (Borcherds lifts, Gritsenko
   $\Delta_5$, Igusa $\Phi_{10}$). The stratum fixes the precise
   equivariant cohomology in $Y^+(X)$.
-- 8-form Gritsenko–Clery catalogue: weights $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$
-  with Fourier coefficients $c_N(0) \in \{10, 4, 2, 2, 1, 2, 1/2, 0\}$
-  so that $\kappa_{\mathrm{BKM}} = c_N(0)/2$. Cover group stratification:
-  $\mathrm{Sp}_4(\Z)$ for integral weights, $\mathrm{Mp}_4$ for
-  half-integral, $\widetilde{\mathrm{Mp}}_4$ for quarter-integral. The
-  weight-0 form is the degenerate terminal fibre.
+- 8-form Gritsenko–Clery catalogue: weights $(5, 2, 3, 1, 2, 1/2, 3/2, 1)$
+  with Fourier coefficients $c_N(0) \in \{10, 4, 6, 2, 4, 1, 3, 2\}$
+  so that $\kappa_{\mathrm{BKM}} = c_N(0)/2$ row-by-row. Cover group
+  stratification is by the actual multiplier systems of the eight
+  diagonal-divisor rows; the catalogue contains no weight-$0$ row and no
+  quarter-weight row. The comparison tuple
+  $(5,2,1,1,1/2,1,1/4,0)$ is not the Gritsenko--Clery catalogue and cannot
+  be identified with it without an explicit row-map datum.
 - Maulik–Okounkov $R$-matrix is a gluing-cocycle residue:
   $R^{MO}(u) = \mathrm{Res}_{u = u_\star} \phi^+_{\mathrm{UV}}(u)$
   where $\phi^+_{\mathrm{UV}}$ is the UV positive half's gluing cocycle
