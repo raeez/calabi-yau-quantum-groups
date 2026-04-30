@@ -176,7 +176,7 @@ Exceptional BCFG types are obstructed by the absence of the relevant CY$_3$ orbi
 
 **V3-F26. Orthogonal K3 Yangian.** The Mukai form fixes the ungraded target $Y_\hbar(\mathfrak{so}(4,20))$. The possible $4|20$ Hodge-parity refinement is non-Kac because both pieces inherit symmetric forms. The open construction is the rank-$(4,20)$ reflection-equation Shapovalov datum and its comparison with the Borcherds denominator.
 
-**V3-F27. 6d hCS and K3 quantum toroidal.** The 5d Costello pipeline is verified through low charge. The 6d $\mathbb C^3$ avatar must be constructed from the BV--BRST complex, Costello--Gwilliam factorisation algebras, Dunn additivity, and Bochner--Martinelli/Feynman coefficients. The K3 quantum-toroidal case is gated on CY-A$_3$ chain-level data. The Miki $S_3$ torus-Weyl statement has no K3 torus-action input; only the elliptic-factor $\mathrm{SL}_2(\mathbb Z)$ survives.
+**V3-F27. 6d hCS and K3 quantum toroidal.** The 5d Costello pipeline is verified through low charge. The $\mathbb C^3$ BV--BRST hCS avatar and the resolved-conifold two-chart descent are now constructed at classical/finite-Rees level, with an anomaly-free perturbative quantum lift on the resolved conifold. The compact $K3\times E$ Hall double and the K3 quantum-toroidal case remain gated on reduced compact Hall data, negative-half/pairing/radical recognition, and CY-A$_3$ chain-level input. The Miki $S_3$ torus-Weyl statement has no K3 torus-action input; only the elliptic-factor $\mathrm{SL}_2(\mathbb Z)$ survives.
 
 ### Secondary frontiers and cross-volume residues
 
