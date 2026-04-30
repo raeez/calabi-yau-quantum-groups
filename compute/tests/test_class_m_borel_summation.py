@@ -6,8 +6,8 @@ Verifies:
   (3) Borel summability criterion: kappa^3 * S_4 > 0
   (4) Shadow tower cross-check with c3_shadow_tower.py
   (5) Q_L positivity on R for the CY regime
-  (6) Landscape analysis: all CY3 examples are Borel summable
-  (7) Severity table upgrade: M from MODERATE to LOW
+  (6) Landscape analysis: enumerated examples are Borel summable
+  (7) Obstruction fence: Borel diagnostics do not close raw Obs_Ainf
   (8) Borel transform convergence: |S_k/k!| -> 0 super-exponentially
   (9) General criterion case analysis
   (10) Numerical Borel sum convergence
@@ -49,6 +49,8 @@ from compute.lib.class_m_borel_summation import (
     # Main theorem
     BorelSummabilityResult,
     borel_summability_analysis,
+    obstruction_separation_boundary,
+    borel_diagnostic_status_table,
     # Standard examples
     virasoro_c1,
     virasoro_general,
@@ -65,6 +67,11 @@ from compute.lib.class_m_borel_summation import (
     general_borel_criterion,
     # Entry point
     compute_class_m_borel_summation,
+)
+from compute.lib.connes_b_obs_ainf import (
+    corrected_tcft_identity,
+    hh_minus_two_filtration_vanishes,
+    strict_cy3_witness,
 )
 
 F = Fraction
@@ -367,7 +374,7 @@ class TestBorelSummability:
 # ================================================================
 
 class TestLandscape:
-    """Landscape analysis: all CY3 examples are Borel summable."""
+    """Landscape analysis: enumerated analytic examples are Borel summable."""
 
     def test_all_landscape_summable(self):
         """Every example in the landscape is Borel summable."""
@@ -393,24 +400,69 @@ class TestLandscape:
 
 
 # ================================================================
-#  SECTION 7: SEVERITY TABLE UPGRADE
+#  SECTION 7: OBSTRUCTION FENCE
 # ================================================================
 
-class TestSeverityUpgrade:
-    """Obs_BV severity upgrade: M from MODERATE to LOW."""
+class TestObstructionFence:
+    """Borel diagnostics are separated from raw Obs_Ainf closure."""
 
-    def test_all_classes_low(self):
-        """All shadow classes have severity LOW after the theorem."""
-        # VERIFIED [DC] severity assessment [LT] cy_to_chiral.tex O1
-        table = obs_bv_severity_table()
-        for cls in ["G", "L", "C", "M"]:
-            assert "LOW" in table[cls]
+    def test_strict_witness_matches_corrected_oracle(self):
+        """The corrected oracle has coefficient 2*alpha on [b]."""
+        # VERIFIED [DC] class_m boundary [LC] connes_b_obs_ainf oracle
+        boundary = obstruction_separation_boundary(F(1))
+        oracle = strict_cy3_witness(F(1))
+        assert boundary.strict_witness_word == ("a", "a", "a", "a", "b")
+        assert boundary.commutator_coeff_of_b == F(2)
+        assert boundary.commutator_coeff_of_b == oracle.commutator_coeff
+        assert boundary.strict_witness_nonzero
 
-    def test_class_m_upgraded(self):
-        """Class M severity explicitly contains 'Borel summable'."""
-        # VERIFIED [DC] mechanism description [DA] keyword check
+    def test_borel_result_does_not_prove_raw_obs_ainf(self):
+        """Even a summable class M result does not kill the raw m3-B_term witness."""
+        # VERIFIED [DC] result flags [LC] strict witness nonzero
+        result = virasoro_c1()
+        boundary = obstruction_separation_boundary(F(1))
+        assert result.borel_summable
+        assert not result.proves_raw_ainf_obstruction_vanishing
+        assert not result.proves_compact_s3_closure
+        assert not boundary.raw_obs_ainf_vanishes_universally
+        assert boundary.strict_witness_nonzero
+
+    def test_b_term_is_not_b_tcft(self):
+        """Costello's corrected carrier is not the raw termwise operator."""
+        # VERIFIED [DC] carrier flag [LC] corrected TCFT oracle
+        boundary = obstruction_separation_boundary(F(1))
+        without_datum = corrected_tcft_identity(False)
+        with_datum = corrected_tcft_identity(True)
+        assert not boundary.b_term_equals_b_tcft
+        assert not without_datum["raw_operator_identified"]
+        assert not with_datum["raw_operator_identified"]
+
+    def test_compact_closure_requires_tcft_or_hh_minus_two(self):
+        """Compact CY3 closure requires extra hypotheses beyond Borel summability."""
+        # VERIFIED [DC] obligation flags [LC] HH^{-2} criterion oracle
+        boundary = obstruction_separation_boundary(F(1))
+        missing_hh = hh_minus_two_filtration_vanishes(
+            complete=True,
+            exhaustive=True,
+            separated=True,
+            strongly_convergent=False,
+            empty_total_degree_minus_two_line=True,
+        )
+        assert not boundary.borel_diagnostic_proves_compact_s3_closure
+        assert any("TCFT" in item for item in boundary.compact_closure_requires)
+        assert any("HH^{-2}" in item for item in boundary.compact_closure_requires)
+        assert missing_hh["status"] == "not_established"
+        assert "strongly_convergent" in missing_hh["missing_hypotheses"]
+
+    def test_diagnostic_table_is_not_severity_downgrade(self):
+        """The legacy table no longer claims a LOW severity downgrade."""
+        # VERIFIED [DC] table text [DA] forbidden implication absent
         table = obs_bv_severity_table()
-        assert "Borel summable" in table["M"]
+        diagnostic = borel_diagnostic_status_table()
+        assert table == diagnostic
+        assert "LOW" not in table["M"]
+        assert "does not prove raw Obs_Ainf=0" in table["M"]
+        assert "compact S^3-framing closure" in table["M"]
 
 
 # ================================================================
@@ -564,7 +616,9 @@ class TestEntryPoint:
             "heisenberg_k1",
             "landscape",
             "all_landscape_summable",
+            "diagnostic_status_table",
             "severity_table",
+            "obstruction_separation",
             "cross_check_tower",
             "cross_check_entire",
             "general_criterion",
@@ -590,3 +644,16 @@ class TestEntryPoint:
         # VERIFIED [DC] cross-module [LC] match
         result = compute_class_m_borel_summation()
         assert result["cross_check_tower"]["all_match"]
+
+    def test_theorem_statement_fenced_from_closure(self):
+        """Entry-point theorem text states the remaining proof obligations."""
+        # VERIFIED [DC] public API text [DA] no closure implication
+        result = compute_class_m_borel_summation()
+        statement = result["theorem_statement"]
+        boundary = result["obstruction_separation"]
+        assert "does not prove raw Obs_Ainf=0" in statement
+        assert "B_term^(2)" in statement
+        assert "B_TCFT^(2)" in statement
+        assert "HH^{-2} filtration theorem" in statement
+        assert not boundary.borel_diagnostic_proves_raw_obs_ainf
+        assert not boundary.borel_diagnostic_proves_compact_s3_closure

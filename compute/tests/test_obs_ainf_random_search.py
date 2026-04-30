@@ -1,4 +1,4 @@
-r"""Tests for the [m_3, B^{(2)}] = 0 random search engine.
+r"""Tests for the raw [m_3, B^{(2)}_term] falsification engine.
 
 Tests the engine at three levels:
 
@@ -8,11 +8,13 @@ Tests the engine at three levels:
 2. INTEGRATION TESTS: verify the full pipeline on small examples
    (d=3,4) with known structure.
 
-3. STATISTICAL TESTS: run the full 1000-trial experiment and verify
-   the vanishing claim.
+3. FINITE SEARCH TESTS: run small deterministic searches and verify
+   that they are never treated as proofs of universal vanishing.
 """
 
 from __future__ import annotations
+
+from fractions import Fraction
 
 import numpy as np
 import pytest
@@ -39,6 +41,7 @@ from compute.lib.obs_ainf_random_search import (
     run_cy3_experiment,
     run_dimension_sweep,
     run_experiment,
+    strict_cyclic_cy3_witness,
 )
 
 
@@ -59,7 +62,35 @@ def small_alg(rng):
 
 
 # =========================================================================
-#  1.  Unit tests: associative product
+#  1.  Exact strict CY3 witness
+# =========================================================================
+
+class TestStrictCyclicCY3Witness:
+    """Exact tests for the strict nonzero raw B^{(2)}_term witness."""
+
+    def test_witness_has_two_alpha_b(self):
+        """[m_3, B^{(2)}_term][a|a|a|a|b] = 2 alpha [b]."""
+        witness = strict_cyclic_cy3_witness(Fraction(3, 2))
+        assert witness.input_word == ("a", "a", "a", "a", "b")
+        assert witness.b2_term_of_input == {("a", "a", "a"): Fraction(4)}
+        assert witness.m3_after_b2_term == {("b",): Fraction(6)}
+        assert witness.b2_term_after_m3 == {("b",): Fraction(3)}
+        assert witness.commutator == {("b",): Fraction(3)}
+        assert witness.coefficient_on_b == 2 * witness.alpha
+        assert witness.nonzero
+
+    def test_witness_vanishes_only_when_alpha_zero(self):
+        """The strict witness is nonzero exactly for alpha != 0."""
+        zero = strict_cyclic_cy3_witness(Fraction(0))
+        one = strict_cyclic_cy3_witness(Fraction(1))
+        assert zero.commutator == {}
+        assert not zero.nonzero
+        assert one.commutator == {("b",): Fraction(2)}
+        assert one.nonzero
+
+
+# =========================================================================
+#  2.  Unit tests: associative product
 # =========================================================================
 
 class TestAssociativeProduct:
@@ -201,31 +232,31 @@ class TestM3CyclicProjection:
 # =========================================================================
 
 class TestB2Operator:
-    """Tests for the B^{(2)} matrix construction."""
+    """Tests for the raw terminal-slot B^{(2)}_term matrix construction."""
 
     def test_shape(self, rng):
-        """B^{(2)} has correct shape."""
+        """B^{(2)}_term: CC_3 -> CC_1 after removing two slots."""
         eta = np.eye(4)
         B2 = build_b2_matrix(4, 3, eta)
-        # CC_3 = 4^4 = 256, CC_2 = 4^3 = 64
-        assert B2.shape == (64, 256), f"Wrong shape: {B2.shape}"
+        # CC_3 = 4^4 = 256, CC_1 = 4^2 = 16
+        assert B2.shape == (16, 256), f"Wrong shape: {B2.shape}"
 
     def test_identity_pairing(self):
-        """With identity pairing, B^{(2)} is a known contraction."""
+        """With identity pairing, B^{(2)}_term is a known contraction."""
         d = 2
         eta = np.eye(d)
         B2 = build_b2_matrix(d, 2, eta)
-        # CC_2 = 2^3 = 8, CC_1 = 2^2 = 4
-        assert B2.shape == (4, 8)
+        # CC_2 = 2^3 = 8, CC_0 = 2
+        assert B2.shape == (2, 8)
         # B^{(2)} should be nonzero
         assert np.linalg.norm(B2) > 0
 
     def test_antisymmetric_pairing(self):
-        """B^{(2)} works with antisymmetric pairing."""
+        """B^{(2)}_term works with antisymmetric pairing."""
         d = 2
         eta = np.array([[0.0, 1.0], [-1.0, 0.0]])
         B2 = build_b2_matrix(d, 2, eta)
-        assert B2.shape == (4, 8)
+        assert B2.shape == (2, 8)
 
 
 # =========================================================================
@@ -256,18 +287,18 @@ class TestM3CC:
 
 
 # =========================================================================
-#  7.  Unit tests: commutator [m_3, B^{(2)}]
+#  7.  Unit tests: commutator [m_3, B^{(2)}_term]
 # =========================================================================
 
 class TestCommutator:
-    """Tests for the commutator [m_3^{CC}, B^{(2)}]."""
+    """Tests for the raw commutator [m_3^{CC}, B^{(2)}_term]."""
 
     def test_zero_m3_gives_zero_commutator(self):
-        """If m_3 = 0, then [m_3, B^{(2)}] = 0."""
+        """If m_3 = 0, then the raw commutator is zero."""
         d = 3
         m3 = np.zeros((d, d, d, d))
         eta = np.eye(d)
-        comm = compute_commutator_m3_b2(d, 3, m3, eta)
+        comm = compute_commutator_m3_b2(d, 4, m3, eta)
         assert np.allclose(comm, 0, atol=1e-14), \
             f"Commutator should be zero for m_3=0, got norm {np.max(np.abs(comm)):.2e}"
 
@@ -276,9 +307,25 @@ class TestCommutator:
         d = 3
         m3 = rng.standard_normal((d, d, d, d))
         eta = np.eye(d)
-        comm = compute_commutator_m3_b2(d, 3, m3, eta)
-        # CC_3 = 3^4 = 81, CC_0 = 3^1 = 3
-        assert comm.shape == (3, 81), f"Wrong shape: {comm.shape}"
+        comm = compute_commutator_m3_b2(d, 4, m3, eta)
+        # CC_4 = 3^5 = 243, CC_0 = 3
+        assert comm.shape == (3, 243), f"Wrong shape: {comm.shape}"
+
+    def test_matrix_model_finds_strict_witness_pattern(self):
+        """The terminal-slot matrix model finds the strict witness coefficient."""
+        d = 2
+        # basis: a=0, b=1
+        m3 = np.zeros((d, d, d, d))
+        m3[0, 0, 0, 1] = 1.0
+        eta = np.zeros((d, d))
+        eta[0, 1] = 1.0
+
+        comm = compute_commutator_m3_b2(d, 4, m3, eta)
+        input_idx = 1  # flat index for [a|a|a|a|b] in base d=2
+        output_idx_b = 1
+        assert comm.shape == (2, 32)
+        assert comm[output_idx_b, input_idx] == 2.0
+        assert np.max(np.abs(comm)) == 2.0
 
     def test_random_m3_generic_pairing_nonzero(self, rng):
         """For random (non-cyclic) m_3, the commutator is generically nonzero."""
@@ -286,7 +333,7 @@ class TestCommutator:
         m3 = rng.standard_normal((d, d, d, d))
         eta = np.eye(d) + 0.1 * rng.standard_normal((d, d))
         eta = (eta + eta.T) / 2  # symmetrize
-        comm = compute_commutator_m3_b2(d, 3, m3, eta)
+        comm = compute_commutator_m3_b2(d, 4, m3, eta)
         # Generic m_3 (not cyclic) should give nonzero commutator
         # (but this is not guaranteed -- it's a statistical assertion)
         # We just check the computation runs and gives a finite result
@@ -307,25 +354,20 @@ class TestFullPipeline:
         assert alg.m2_cyclic_error < 1e-6, f"m_2 cyclic error {alg.m2_cyclic_error:.2e}"
 
     def test_commutator_on_cyclic_d4(self, rng):
-        """[m_3, B^{(2)}] on a random cyclic A_inf algebra of dimension 4."""
+        """Raw [m_3, B^{(2)}_term] on a random cyclic A_inf sample is finite."""
         alg = generate_random_cyclic_ainf(4, rng)
-        if alg.m3_norm < 1e-8:
-            pytest.skip("Trivial m_3")
-        comm = compute_commutator_m3_b2(4, 3, alg.m3, alg.eta)
+        comm = compute_commutator_m3_b2(4, 4, alg.m3, alg.eta)
         comm_norm = float(np.max(np.abs(comm)))
-        # The claim is this should vanish
-        assert comm_norm < 1e-6, \
-            f"[m_3, B^(2)] nonzero: norm = {comm_norm:.2e} (m_3 norm = {alg.m3_norm:.2e})"
+        assert np.isfinite(comm_norm)
+        assert comm.shape == (4, 4 ** 5)
 
     def test_commutator_on_cyclic_d3(self, rng):
-        """[m_3, B^{(2)}] on a random cyclic A_inf algebra of dimension 3."""
+        """Raw [m_3, B^{(2)}_term] on a d=3 sample is finite."""
         alg = generate_random_cyclic_ainf(3, rng, m3_scale=0.5)
-        if alg.m3_norm < 1e-8:
-            pytest.skip("Trivial m_3")
-        comm = compute_commutator_m3_b2(3, 3, alg.m3, alg.eta)
+        comm = compute_commutator_m3_b2(3, 4, alg.m3, alg.eta)
         comm_norm = float(np.max(np.abs(comm)))
-        assert comm_norm < 1e-6, \
-            f"[m_3, B^(2)] nonzero: norm = {comm_norm:.2e}"
+        assert np.isfinite(comm_norm)
+        assert comm.shape == (3, 3 ** 5)
 
 
 # =========================================================================
@@ -347,110 +389,78 @@ class TestCY3:
             generate_random_cy3_algebra(3, rng)
 
     def test_commutator_cy3_d4(self, rng):
-        """[m_3, B^{(2)}] on a random CY_3 algebra of dimension 4."""
+        """Raw [m_3, B^{(2)}_term] on a random CY_3 d=4 sample is finite."""
         alg = generate_random_cy3_algebra(4, rng)
-        if alg.m3_norm < 1e-8:
-            pytest.skip("Trivial m_3")
-        comm = compute_commutator_m3_b2(4, 3, alg.m3, alg.eta)
+        comm = compute_commutator_m3_b2(4, 4, alg.m3, alg.eta)
         comm_norm = float(np.max(np.abs(comm)))
-        assert comm_norm < 1e-6, \
-            f"CY_3 [m_3, B^(2)] nonzero: norm = {comm_norm:.2e}"
+        assert np.isfinite(comm_norm)
+        assert comm.shape == (4, 4 ** 5)
 
     def test_commutator_cy3_d6(self, rng):
-        """[m_3, B^{(2)}] on a random CY_3 algebra of dimension 6."""
+        """Raw [m_3, B^{(2)}_term] on a random CY_3 d=6 sample is finite."""
         alg = generate_random_cy3_algebra(6, rng)
-        if alg.m3_norm < 1e-8:
-            pytest.skip("Trivial m_3")
-        comm = compute_commutator_m3_b2(6, 3, alg.m3, alg.eta)
+        comm = compute_commutator_m3_b2(6, 4, alg.m3, alg.eta)
         comm_norm = float(np.max(np.abs(comm)))
-        assert comm_norm < 1e-6, \
-            f"CY_3 [m_3, B^(2)] nonzero: norm = {comm_norm:.2e}"
+        assert np.isfinite(comm_norm)
+        assert comm.shape == (6, 6 ** 5)
 
 
 # =========================================================================
-#  10. Statistical experiment tests (main claim)
+#  10. Finite falsification-search tests
 # =========================================================================
 
 class TestStatisticalExperiment:
-    """The main 1000-trial experiment testing [m_3, B^{(2)}] = 0."""
+    """Finite random searches are diagnostics, not vanishing proofs."""
 
-    @pytest.mark.slow
-    def test_1000_trials_general(self):
-        """1000 random cyclic A_inf algebras: [m_3, B^{(2)}] = 0 for all.
-
-        This is the KEY statistical test.  Over 1000 random cyclic A_infinity
-        algebras of dimensions 4 and 6, compute [m_3, B^{(2)}] on CC_3 and
-        verify vanishing.
-
-        If ANY counterexample is found, the test fails and we have disproved
-        the claim of prop:cyclic-ainf-framing-compat.
-        """
+    def test_finite_search_is_not_a_proof(self):
+        """A finite run never proves universal raw termwise vanishing."""
         result = run_experiment(
-            n_trials=1000,
-            dimensions=(4, 6),
-            cc_degree=3,
+            n_trials=8,
+            dimensions=(3,),
+            cc_degree=4,
             seed=42,
         )
 
-        # Verify all structure constants are valid
         assert result.max_assoc_error < 1e-8, \
             f"Associativity violated: max error {result.max_assoc_error:.2e}"
+        assert result.proves_universal_vanishing is False
+        assert "does not prove universal vanishing" in result.conclusion
+        assert "STRONG EVIDENCE" not in result.conclusion
+        assert "supports prop:cyclic-ainf-framing-compat" not in result.conclusion
 
-        # Main claim
-        assert result.n_nonvanishing == 0, (
-            f"COUNTEREXAMPLE: [m_3, B^(2)] != 0 for "
-            f"{result.n_nonvanishing}/{result.n_nontrivial} algebras. "
-            f"Max commutator norm: {result.max_commutator_norm:.2e}. "
-            f"prop:cyclic-ainf-framing-compat is FALSE."
-        )
-
-        # Verify we had enough nontrivial examples
-        assert result.n_nontrivial >= 10, (
-            f"Too few nontrivial m_3: {result.n_nontrivial}. "
-            f"Need at least 10 for statistical significance."
-        )
-
-    @pytest.mark.slow
-    def test_200_trials_cy3(self):
-        """200 random CY_3 algebras: [m_3, B^{(2)}] = 0 for all.
-
-        CY_3-specific variant with antisymmetric pairing.
-        """
+    def test_finite_cy3_search_is_not_a_proof(self):
+        """CY_3 finite searches also remain diagnostic only."""
         result = run_cy3_experiment(
-            n_trials=200,
-            dimensions=(4, 6),
-            cc_degree=3,
+            n_trials=4,
+            dimensions=(4,),
+            cc_degree=4,
             seed=137,
         )
 
-        assert result.n_nonvanishing == 0, (
-            f"CY_3 COUNTEREXAMPLE: [m_3, B^(2)] != 0 for "
-            f"{result.n_nonvanishing}/{result.n_nontrivial} algebras."
-        )
+        assert result.proves_universal_vanishing is False
+        assert "STRONG EVIDENCE" not in result.conclusion
 
     def test_quick_50_trials(self):
-        """Quick 50-trial sanity check (not marked slow)."""
+        """Quick sanity check records counts without asserting vanishing."""
         result = run_experiment(
-            n_trials=50,
-            dimensions=(4,),
-            cc_degree=3,
+            n_trials=10,
+            dimensions=(3,),
+            cc_degree=4,
             seed=314,
         )
-        assert result.n_nonvanishing == 0, (
-            f"Quick test failed: {result.n_nonvanishing} nonvanishing"
-        )
+        assert result.n_vanishing + result.n_nonvanishing == result.n_nontrivial
+        assert result.proves_universal_vanishing is False
 
     def test_quick_cy3_20_trials(self):
-        """Quick 20-trial CY_3 sanity check."""
+        """Quick CY_3 sanity check records counts without asserting vanishing."""
         result = run_cy3_experiment(
-            n_trials=20,
+            n_trials=3,
             dimensions=(4,),
-            cc_degree=3,
+            cc_degree=4,
             seed=271,
         )
-        assert result.n_nonvanishing == 0, (
-            f"Quick CY_3 test failed: {result.n_nonvanishing} nonvanishing"
-        )
+        assert result.n_vanishing + result.n_nonvanishing == result.n_nontrivial
+        assert result.proves_universal_vanishing is False
 
 
 # =========================================================================
@@ -461,18 +471,16 @@ class TestDimensionSweep:
     """Tests for dimension-by-dimension analysis."""
 
     def test_sweep_small_dims(self):
-        """Sweep over d=3,4 with 20 trials each."""
+        """Sweep over d=3,4 and record witness counts without a proof claim."""
         results = run_dimension_sweep(
             dimensions=(3, 4),
-            trials_per_dim=20,
-            cc_degree=3,
+            trials_per_dim=4,
+            cc_degree=4,
             seed=271,
         )
         for d, data in results.items():
-            assert data["n_nonvanishing"] == 0, (
-                f"d={d}: {data['n_nonvanishing']} nonvanishing "
-                f"(max norm {data['max_commutator_norm']:.2e})"
-            )
+            assert data["n_vanishing"] + data["n_nonvanishing"] == data["n_nontrivial"]
+            assert "STRONG EVIDENCE" not in data["conclusion"]
 
 
 # =========================================================================
@@ -483,7 +491,7 @@ class TestConsistency:
     """Cross-checks and consistency tests."""
 
     def test_commutator_changes_with_broken_cyclicity(self, rng):
-        """Breaking cyclic invariance of m_3 should (generically) break [m_3, B^{(2)}] = 0.
+        """Breaking cyclic invariance of m_3 should change the raw commutator.
 
         This is the CONTROL experiment: if we perturb m_3 to violate cyclic
         invariance, the commutator should generically become nonzero.
@@ -502,11 +510,11 @@ class TestConsistency:
         assert cyc_err > 1e-4, "Perturbation didn't break cyclicity"
 
         # Compute commutator with broken m_3
-        comm_broken = compute_commutator_m3_b2(d, 3, m3_broken, alg.eta)
+        comm_broken = compute_commutator_m3_b2(d, 4, m3_broken, alg.eta)
         norm_broken = float(np.max(np.abs(comm_broken)))
 
         # Compute commutator with original (cyclic) m_3
-        comm_orig = compute_commutator_m3_b2(d, 3, alg.m3, alg.eta)
+        comm_orig = compute_commutator_m3_b2(d, 4, alg.m3, alg.eta)
         norm_orig = float(np.max(np.abs(comm_orig)))
 
         # The broken version should be significantly larger
@@ -517,23 +525,19 @@ class TestConsistency:
         assert np.isfinite(norm_orig)
 
     def test_cc_degree_variation(self, rng):
-        """Test [m_3, B^{(2)}] at different CC degrees."""
+        """Test raw [m_3, B^{(2)}_term] at different CC degrees."""
         d = 4
         alg = generate_random_cyclic_ainf(d, rng)
-        if alg.m3_norm < 1e-8:
-            pytest.skip("Trivial m_3")
 
         for n in [3, 4, 5]:
             comm = compute_commutator_m3_b2(d, n, alg.m3, alg.eta)
             norm = float(np.max(np.abs(comm)))
-            assert norm < 1e-6, (
-                f"[m_3, B^(2)] nonzero at CC_{n}: norm = {norm:.2e}"
-            )
+            assert np.isfinite(norm), f"non-finite raw commutator norm at CC_{n}"
 
     def test_reproducibility(self):
         """Same seed gives same results."""
-        r1 = run_experiment(n_trials=10, dimensions=(4,), cc_degree=3, seed=999)
-        r2 = run_experiment(n_trials=10, dimensions=(4,), cc_degree=3, seed=999)
+        r1 = run_experiment(n_trials=10, dimensions=(4,), cc_degree=4, seed=999)
+        r2 = run_experiment(n_trials=10, dimensions=(4,), cc_degree=4, seed=999)
         assert r1.n_nontrivial == r2.n_nontrivial
         assert r1.n_vanishing == r2.n_vanishing
         assert abs(r1.max_commutator_norm - r2.max_commutator_norm) < 1e-12
@@ -551,100 +555,56 @@ class TestChainNonvanishingGenericIV:
     r"""Independent verification of generic chain-level nonvanishing.
 
     The proposition states: for cyclic A_inf CY_3 with mu_3 != 0,
-    mu_1 = 0, the strict chain-level commutator [m_3, B^(2)] is
+    mu_1 = 0, the strict chain-level commutator [m_3, B^(2)_term] is
     NONZERO on C_4(A). Specifically, if mu_3(a, a, a) = alpha b
     for a in A^1, b in A^2, alpha != 0, then
-        [m_3, B^(2)]([a|a|a|a|b]) = 2 alpha [b]
+        [m_3, B^(2)_term]([a|a|a|a|b]) = 2 alpha [b]
 
     Disjoint sources:
-    - DERIVATION: explicit symbolic expansion of m_3 o B^(2) and
-      B^(2) o m_3 on the degree-5 bar element.
-    - VERIFICATION: random adversarial search (this engine, with
-      seed-controlled experiments showing nonvanishing across
-      thousands of trials); explicit minimal cyclic CY_3 case
-      (obs_ainf_local_p2 engine, 54 tests); counterexample search
-      independent computation (obs_ainf_counterexample_search);
-      Stasheff A_infinity arity-3 relation symbolic check.
+    - DERIVATION: explicit symbolic expansion of m_3 o B^(2)_term and
+      B^(2)_term o m_3 on the degree-5 bar element.
+    - VERIFICATION: exact strict witness encoded in this engine; finite
+      random searches are diagnostic only and are not used as proof of
+      universal vanishing or nonvanishing.
     """
 
     @independent_verification(
         claim="prop:chain-nonvanishing-generic",
         derived_from=[
-            "Explicit symbolic expansion of [m_3, B^(2)] on bar "
+            "Explicit symbolic expansion of [m_3, B^(2)_term] on bar "
             "element [a|a|a|a|b]",
             "Cyclic A_inf with mu_1 = 0, mu_3 != 0",
-            "B^(2) pairwise contraction at degree -2",
+            "B^(2)_term terminal-slot contraction at degree -2",
         ],
         verified_against=[
-            "Random adversarial search (this engine, run_experiment): "
-            "across n_trials random cyclic A_inf algebras, the "
-            "strict commutator [m_3, B^(2)] is nonzero on C_4(A) "
-            "with high frequency (sample finding 117/1280 in the "
-            "manuscript text); INDEPENDENT statistical check",
-            "Explicit minimal cyclic CY_3 (obs_ainf_local_p2 engine, "
-            "54 tests in compute/tests/test_obs_ainf_local_p2.py): "
-            "[m_3, B^(2)]([a|a|a|a|b]) = 2 alpha [b] for alpha != 0 "
-            "via direct symbolic computation; INDEPENDENT explicit "
-            "check",
-            "Counterexample search (obs_ainf_counterexample_search "
-            "engine): exhaustive search across small-dimensional "
-            "cyclic A_inf algebras confirms nonvanishing pattern",
-            "Stasheff A_infinity relation arity-3 symbolic check: "
-            "the relation does not provide cancellation at the "
-            "single-mu_3 contribution level when mu_2 = 0",
+            "strict_cyclic_cy3_witness(alpha): exact arithmetic gives "
+            "m_3 B^(2)_term x = 4 alpha [b], B^(2)_term m_3 x = "
+            "2 alpha [b], and commutator 2 alpha [b]",
+            "Matrix terminal-slot model in this engine reproduces the "
+            "alpha=1 coefficient on the two-generator witness surface",
+            "Stasheff A_infinity arity-3 symbolic check: the relation "
+            "does not provide cancellation at the single-mu_3 "
+            "contribution level when mu_1 = mu_2 = 0",
         ],
         disjoint_rationale=(
             "The DERIVATION uses explicit symbolic expansion. The "
-            "VERIFICATION uses (i) random adversarial search across "
-            "thousands of A_inf algebras (statistical confirmation), "
-            "(ii) explicit minimal cyclic CY_3 case via "
-            "obs_ainf_local_p2 (54 tests, INDEPENDENT explicit "
-            "computation), (iii) exhaustive counterexample search via "
-            "obs_ainf_counterexample_search engine, and (iv) "
-            "Stasheff A_infinity relation arity-3 symbolic check. "
-            "Four disjoint verification routes: statistical, "
-            "explicit at canonical case, exhaustive search, and "
-            "Stasheff symbolic."),
+            "VERIFICATION uses exact arithmetic in this engine, a "
+            "separate terminal-slot matrix check, and Stasheff symbolic "
+            "bookkeeping. Finite random search is diagnostic only."),
     )
     def test_chain_nonvanishing_at_degree_5_bar(self):
-        """The KEY THEOREM: [m_3, B^(2)]([a|a|a|a|b]) = 2 alpha [b],
-        verified via random search + explicit local P^2 + counter-
-        example search + Stasheff.
-        """
-        # (i) Direct value: [m_3, B^(2)]([a|a|a|a|b]) = 2 alpha [b].
-        # The 2 comes from the two contributions:
-        # - B^(2) o m_3 contributes alpha [b] from m_3 acting at
-        #   positions (1,2,3) producing [alpha b | a | b], then
-        #   B^(2) reducing to alpha [b].
-        # - m_3 o B^(2) contributes alpha [b] from B^(2) reducing
-        #   [a|a|a|a|b] then m_3 acting on the result.
-        # Total: 2 alpha [b].
-        alpha = 1   # generic nonzero
-        commutator_value = 2 * alpha
-        assert commutator_value == 2
+        """The exact witness gives [m_3, B^(2)_term]x = 2 alpha [b]."""
+        witness = strict_cyclic_cy3_witness(Fraction(1))
+        assert witness.m3_after_b2_term == {("b",): Fraction(4)}
+        assert witness.b2_term_after_m3 == {("b",): Fraction(2)}
+        assert witness.commutator == {("b",): Fraction(2)}
+        assert witness.nonzero
 
-        # (ii) Random adversarial search: nonvanishing observed in
-        # ~117/1280 trials at small dimensions (statistical check
-        # showing genericity, not a definitive proof but consistent
-        # with the explicit computation).
-        nontrivial_fraction = 117 / 1280
-        assert nontrivial_fraction > 0   # nonvanishing observed
-
-        # (iii) Explicit minimal cyclic CY_3: 54 tests in
-        # obs_ainf_local_p2 confirm [m_3, B^(2)] != 0 by direct
-        # symbolic verification.
-        explicit_local_p2_confirms = True
-        assert explicit_local_p2_confirms
-
-        # (iv) Counterexample search exhaustive verification.
-        counterexample_search_confirms = True
-        assert counterexample_search_confirms
-
-        # (v) Stasheff A_inf relation at arity 3:
+        # Stasheff A_inf relation at arity 3:
         # mu_3 mu_1 + mu_2 mu_2 + mu_1 mu_3 = 0
         # When mu_1 = 0 and mu_2 = 0 (the cyclic CY_3 case with
         # mu_3 != 0), this reduces to 0 + 0 + 0 = 0 trivially.
         # No cancellation between mu_3 contributions and mu_2/mu_1.
-        # So [m_3, B^(2)] not cancelled by Stasheff structure.
+        # So [m_3, B^(2)_term] is not cancelled by Stasheff structure.
         stasheff_no_cancellation = True
         assert stasheff_no_cancellation

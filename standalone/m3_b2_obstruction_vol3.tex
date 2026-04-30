@@ -1,77 +1,375 @@
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
 
-
-\providecommand{\ClaimStatusProvedHere}{\textsf{[Proved here]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textsf{[Proved elsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textsf{[Conjectured]}}
+\providecommand{\Ainf}{A_\infty}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\TCFT}{\mathrm{TCFT}}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{conjecture}[theorem]{Conjecture}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title[$m_3$ and $B^{(2)}$ obstruction]{The $m_3$--$B^{(2)}$
-obstruction class: CY-A$_3$ via Costello TCFT}
+\title[\texorpdfstring{$m_3$}{m3} and \texorpdfstring{$B^{(2)}$}{B2}]
+{The \texorpdfstring{$m_3$--$B^{(2)}$}{m3-B2} obstruction and the
+Costello TCFT identity}
 \author{Raeez Lorgat}
-\date{2026-04-17}
+\date{2026-04-30}
 
 \begin{document}
-\maketitle
 
 \begin{abstract}
-The CY-A$_3$ obstruction class vanishes on the $\infty$-categorical
-derived centre. The chain-level anticommutators
-$\{b_k,B^{(2)}\}$ have nonzero individual terms. Costello's TCFT
-cyclic invariance gives the total identity
+The \(CY_3\) obstruction has three different carriers: the termwise
+bar-complex operator, the Costello open--closed TCFT operator, and the
+derived \(E_1\)-Hochschild obstruction class.  On a strictified cyclic
+\(\Ainf\) model the termwise pair-contraction operator
+\(B^{(2)}_{\mathrm{term}}\) need not commute with \(m_3\).  The corrected
+TCFT operator \(B^{(2)}_{\TCFT}\) satisfies
 \[
-\sum_k \{b_k,B^{(2)}\}=0.
+        \{b,B^{(2)}_{\TCFT}\}=0,\qquad b=\sum_{k\geq 1} b_k,
 \]
-After formality transport, the chain obstruction represents a
-$Q$-exact class in the rational $E_3$ target. The resulting theorem
-is an obstruction-class statement, not a termwise chain identity.
+only after a specific Costello moduli-chain correction datum has been
+chosen.  The derived obstruction vanishes under an explicit spectral
+sequence hypothesis: the reduced Hochschild cochain filtration is complete,
+exhaustive, separated, strongly convergent, and has empty total degree
+\(-2\) line on its first page.  Connectivity and unit-connectedness do not
+replace this degree check.  The theorem is an algebraic obstruction
+statement for the witnessed strictified model; it constructs neither global
+\(\Phi_3\)-functoriality, nor \(G(X)\), nor compact Hall/CoHA data.
 \end{abstract}
+\maketitle
 
-\section*{Primary theorems}
-\begin{itemize}
-\item CY-A$_3$: $\mathrm{Obs}_{A_\infty} = 0$ on the inf-cat derived centre:
-  \ClaimStatusProvedHere.
-\item Individual $\{b_k, B^{(2)}\} \ne 0$ (chain-level):
-  \ClaimStatusProvedHere (excludes the per-$k$ identification).
-\item $\sum_k \{b_k, B^{(2)}\} = 0$ (total sum) via Costello TCFT
-  cyclic invariance: \ClaimStatusProvedHere.
-\item Chain-level $m_3$ need not be a derivation after formality:
-  \ClaimStatusProvedHere (chain-level vs rational scope).
-\end{itemize}
+\section{Strictified data}
 
-\section*{Chapter inputs (pointers)}
-\begin{verbatim}
-\input{../chapters/theory/m3_b2_obstruction.tex}
-\input{../chapters/theory/cyclic_ainf.tex}
-\input{../chapters/theory/hochschild_calculus.tex}
-\input{../chapters/theory/drinfeld_center.tex}
-\end{verbatim}
+\begin{definition}[Strictified Hochschild \(E_1\)-model]
+Fix a field of characteristic \(0\).  A strictified Hochschild
+\(E_1\)-model for a smooth proper \(CY_3\) category \(\cC\) is a strictly
+unital \(E_1\)-algebra \(A\) in cochain complexes, together with an
+\(E_1\)-quasi-isomorphism from the Hochschild chain object of \(\cC\) to
+\(A\).  It is connective and unit-connected when
+\[
+        A^i=0\quad(i<0),\qquad H^0(A)=k,
+\]
+and the unit splitting \(A=k\oplus \overline A\) is fixed.  This
+strictification is part of the input.  It is not a consequence of smoothness
+and properness alone.
+\end{definition}
 
-\section*{Cross-volume dependencies}
-\begin{itemize}
-\item Vol I Theorem $A^{\infty,2}$ properad (\texttt{thm:A-infinity-2}) --
-  provides the Francis--Gaitsgory ambient in which inf-categorical CY-A$_3$
-  is stated.
-\item Vol II \texttt{thm:chiral-higher-deligne} -- the $E_3$ target operad
-  into which CY-A$_3$ maps.
-\end{itemize}
+\begin{definition}[The framed \(CY_3\) locus]
+The witnessed framed locus consists of a smooth proper category \(\cC\)
+equipped with a negative-cyclic \(CY_3\) trace class and a chain-level
+\(S^3\)-framing homotopy on the cyclic bar complex, compatible with the BV
+operator and the Costello TCFT correction datum below.
+The specialisation datum \((\Sigma_2,C)\) used in
+\(\Phi_3^{(\Sigma_2,C)}\) is additional data.
+\end{definition}
 
-\section*{Structural distinctions}
-The proof separates three objects: the chain-level anticommutators,
-the cyclic total sum, and the rational $E_3$ obstruction class after
-formality transport. Each arrow in the comparison is verified
-separately.
+\begin{definition}[Termwise and TCFT second operators]
+Let \(A\) be a cyclic \(\Ainf\)-algebra with Hochschild differential
+\[
+        b=\sum_{k\geq 1} b_k .
+\]
+The operator \(B^{(2)}_{\mathrm{term}}\) is the bar-desuspended pair
+contraction built directly from the chosen cyclic pairing on \(A\).  It
+contains no moduli-space correction term.
+For the strict witness below the normalized terminal-slot convention is
+used: on a word \([u_1|\cdots|u_r|v]\), \(B^{(2)}_{\mathrm{term}}\)
+contracts the terminal input \(v\) with one earlier input \(u_i\), sums over
+all such \(i\), and carries the Koszul sign obtained after desuspending the
+bar variables.  This fixes the displayed signs; reversing the global
+orientation of this operator multiplies both sides of the witness by the
+same sign and does not affect nonvanishing.
+For the witness terms below the shifted \(CY_3\) pairing on \(s^{-1}A\) has
+odd degree, and the terminal contraction of \(\bar v=s^{-1}v\) with
+\(\bar u_i=s^{-1}u_i\) is normalized with sign
+\[
+        (-1)^{(|\bar v|+1)(|\bar u_{i+1}|+\cdots+|\bar u_r|)} .
+\]
 
-\bibliographystyle{alpha}
-\bibliography{../bibliography/references}
+The operator \(B^{(2)}_{\TCFT}\) is the image, under a chosen open--closed
+TCFT chain map, of the Costello genus-change chain together with its
+boundary corrections.  A TCFT correction datum consists of oriented
+compactified moduli chains with the Costello signs, a chain-level
+open--closed TCFT functor to \(\mathrm{End}(C_\bullet(A))\), and a
+representative whose non-principal boundary faces have been absorbed into
+\(B^{(2)}_{\TCFT}\).
+No equality \(B^{(2)}_{\mathrm{term}}=B^{(2)}_{\TCFT}\) is included in this
+datum.  Such an equality requires a separate strictifying homotopy.
+\end{definition}
+
+\section{Termwise failure}
+
+\begin{proposition}[A strict nonzero witness]
+There is a cyclic \(CY_3\) \(\Ainf\)-model with nonzero \(m_3\) for which the
+termwise graded commutator
+\[
+        [m_3,B^{(2)}_{\mathrm{term}}]_{\mathrm{gr}}
+        =
+        m_3B^{(2)}_{\mathrm{term}}-B^{(2)}_{\mathrm{term}}m_3
+\]
+is nonzero.  Take the graded vector space
+\[
+        A=\langle e,a,b,w\rangle,\qquad |e|=0,\ |a|=1,\ |b|=2,\ |w|=3,
+\]
+with cyclic \(CY_3\) pairing
+\[
+        \langle e,w\rangle=1,\qquad \langle a,b\rangle=1
+\]
+up to the usual Koszul symmetry, and minimal strictly unital
+\(\Ainf\)-structure whose only nonzero higher product on the augmentation
+ideal is
+\[
+        m_3(a,a,a)=\alpha b,\qquad \alpha\neq0 .
+\]
+For the bar word \(x=[a|a|a|a|b]\), the bar-desuspended convention gives
+\[
+        B^{(2)}_{\mathrm{term}}x=4[a|a|a],\qquad
+        m_3B^{(2)}_{\mathrm{term}}x=4\alpha[b],
+\]
+and
+\[
+        m_3x=\alpha([b|a|b]+[a|b|b]),\qquad
+        B^{(2)}_{\mathrm{term}}m_3x=2\alpha[b].
+\]
+Hence
+\[
+        [m_3,B^{(2)}_{\mathrm{term}}]_{\mathrm{gr}}x
+        =
+        2\alpha[b]\neq0 .
+\]
+\end{proposition}
+
+\begin{proof}
+The only Stasheff identities to check are those containing nested
+\(m_3\)-terms, since \(m_1=0\) and \(m_2\) vanishes on the augmentation
+ideal.  Every nested \(m_3\)-term has a \(b\)-input after the first
+application, and \(m_3\) is zero on such inputs.  Strict unitality kills
+all terms containing \(e\).  Thus the displayed operations define a
+minimal cyclic \(\Ainf\)-model.
+
+The trace displayed in the statement is the direct pair-contraction
+calculation.  Write \(\bar a=s^{-1}a\), \(\bar b=s^{-1}b\).  Then
+\(|\bar a|=0\) and \(|\bar b|=1\), so moving the terminal \(\bar b\) past any
+string of \(\bar a\)'s contributes no Koszul sign.  The four terminal-slot
+pairings of \(b\) with one of the four \(a\)'s therefore give
+\(4[a|a|a]\).  The two \(m_3\)-insertions not containing the terminal \(b\)
+give \([b|a|b]\) and \([a|b|b]\).  In each of these two words the terminal
+\(b\) contracts with the unique earlier \(a\).  The first has no intervening
+factor between \(a\) and the terminal \(b\).  In the second, the sign
+exponent is
+\[
+        (|\bar b|+1)|\bar b|=(1+1)\cdot 1,
+\]
+hence it is even.  Therefore both contractions are positive, and
+\(B^{(2)}_{\mathrm{term}}m_3x=2\alpha[b]\).  Since the field has
+characteristic \(0\), \(2\alpha[b]\) is nonzero.
+\end{proof}
+
+\begin{proposition}[Local \(\mathbb P^2\) is only a noncompact guide]
+The calculation above is an algebraic strict-model witness for a non-formal
+\(m_3\)--\(B^{(2)}_{\mathrm{term}}\) failure.  The toric threefold
+\(\operatorname{Tot}(\mathcal O_{\mathbb P^2}(-3))\) exhibits the same
+non-formal mechanism in a noncompact \(CY_3\) geometry, but the displayed
+four-generator witness is not by itself a compact \(CY_3\) construction.
+\end{proposition}
+
+\begin{proof}
+Local \(\mathbb P^2\) is noncompact and toric.  Its role in this calculation
+is diagnostic: a nonzero \(m_3\) can make the termwise
+\(B^{(2)}_{\mathrm{term}}\) fail on a strict bar model.  The compact
+smooth-proper hypotheses, the specialisation datum \((\Sigma_2,C)\), a global
+\(\Phi_3\) construction, and compact Hall correspondences are not present in
+that diagnostic.
+\end{proof}
+
+\begin{proposition}[Toric positive-half comparison is orthogonal]
+On \(\mathbb C^3\), and on finite toric CY$_3$ atlases equipped with
+simplex-compatible DWR/Ran Rees hCS--Hall data, the Hall comparison exists
+at finite Rees positive-half level:
+\[
+        \CoHA^{\mathrm{sph}}_{\mathrm{crit},T}(\mathbb C^3)
+        \cong
+        Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+This positive half is not \(\mathcal W_{1+\infty}\), and it does not
+remove the \(m_3\)--\(B^{(2)}_{\mathrm{term}}\) failure above. Compact
+critical CoHA, quasi-NCCR, Hall--Drinfeld double, and global
+\(\Phi_3\)-functoriality statements remain conditional on their own
+orientation, compact-support, pairing, completion, and PBW data.
+\end{proposition}
+
+\begin{proof}
+The finite toric comparison is a Hall statement about critical
+correspondences and finite Rees hCS observables. The obstruction above is a
+bar-complex statement about a chosen strictified Hochschild \(E_1\)-model.
+The two live in different complexes. The Schiffmann--Vasserot
+identification supplies the \(\mathbb C^3\) positive half, and finite
+toric gluing assembles such positive halves when the cyclic atlas and face
+maps are supplied. None of those data changes the explicit bar word
+\([a|a|a|a|b]\) or the nonzero commutator
+\([m_3,B^{(2)}_{\mathrm{term}}]_{\mathrm{gr}}x=2\alpha[b]\).
+\end{proof}
+
+\section{TCFT cancellation}
+
+\begin{theorem}[Costello TCFT identity]
+Let \(A\) be a cyclic \(\Ainf\)-algebra equipped with a Costello
+open--closed TCFT correction datum as above.  For the corrected operator
+\(B^{(2)}_{\TCFT}\),
+\[
+        \{b,B^{(2)}_{\TCFT}\}
+        =
+        b\circ B^{(2)}_{\TCFT}+B^{(2)}_{\TCFT}\circ b
+        =
+        0 .
+\]
+\end{theorem}
+
+\begin{proof}
+Costello's TCFT theorem identifies cyclic Calabi--Yau \(\Ainf\)-data with
+open TCFT data and supplies the universal open--closed extension whose
+closed sector is Hochschild homology.  Under the chosen correction datum,
+the oriented boundary relation in the relevant compactified moduli-chain
+complex has two principal faces, mapping to
+\[
+        b\circ B^{(2)}_{\TCFT}
+        \quad\text{and}\quad
+        B^{(2)}_{\TCFT}\circ b .
+\]
+The non-principal faces are exactly the terms absorbed into the corrected
+representative \(B^{(2)}_{\TCFT}\).  Applying the TCFT chain map to that
+boundary relation gives the displayed total anticommutator.  The Costello
+orientation convention is part of the datum: the two principal boundary
+orientations are the Koszul-signed summands of the graded anticommutator,
+which in the present cohomological convention is
+\(bB^{(2)}_{\TCFT}+B^{(2)}_{\TCFT}b\).  The proof uses the total
+Hochschild differential \(b=\sum_k b_k\); it does not assert
+\(\{b_k,B^{(2)}_{\TCFT}\}=0\) for each \(k\).
+\end{proof}
+
+\section{Filtered obstruction}
+
+\begin{theorem}[Derived \(E_1\)-Hochschild vanishing]
+Let \(\cC\) lie in the witnessed framed locus and let \(A\) be a
+connective unit-connected strictified Hochschild \(E_1\)-model for \(\cC\).
+Assume the reduced Hochschild cochain complex
+\[
+        C^\bullet_{E_1}(A,A)
+\]
+with its bar-length filtration is complete, exhaustive, separated, and
+strongly convergent to \(\HH^\bullet_{E_1}(A,A)\).  Assume its first page is
+\[
+        E_1^{p,q}
+        =
+        \operatorname{Hom}\bigl((s\overline A)^{\otimes p},A\bigr)^q
+\]
+and satisfies
+\[
+        E_1^{p,q}=0\qquad\text{whenever }p+q=-2 .
+\]
+Fix a chain-level comparison map from the \(S^3\)-framing obstruction
+complex to \(C^\bullet_{E_1}(A,A)[2]\), and assume the resulting obstruction
+cocycle has target total degree \(-2\).
+Then
+\[
+        \HH^{-2}_{E_1}(A,A)=0 .
+\]
+Consequently that derived \(m_3\)--\(B^{(2)}\) framing obstruction vanishes
+as a class in \(\HH^{-2}_{E_1}(A,A)\).
+\end{theorem}
+
+\begin{proof}
+The total degree \(-2\) line on the first page is empty by hypothesis.
+Every later page is a subquotient of the previous page on the same total
+line, so
+\[
+        E_\infty^{p,q}=0\qquad(p+q=-2).
+\]
+Strong convergence identifies \(E_\infty^{p,-2-p}\) with the associated
+graded pieces of the induced filtration on \(\HH^{-2}_{E_1}(A,A)\).  Since
+all associated graded pieces are zero and the filtration is separated and
+complete, the filtered group itself is zero.  Thus any obstruction class
+whose comparison target is \(\HH^{-2}_{E_1}(A,A)\) vanishes.
+\end{proof}
+
+\begin{remark}
+The hypotheses above are the theorem.  Connectivity and \(H^0(A)=k\) are
+not by themselves a proof of the empty total degree \(-2\) line.  A compact
+non-formal model outside this filtration locus requires an independent
+strictification theorem, a formality theorem transporting it to such a
+model, or a Goodwillie convergence theorem with the relevant derived limit
+terms killed.
+\end{remark}
+
+\section{No global construction}
+
+\begin{definition}
+For a fixed strictified model \(A\), the TCFT obstruction datum is
+\[
+        \mathfrak{o}_{\TCFT}(A)
+        =
+        \left(
+        \{b,B^{(2)}_{\TCFT}\},
+        [\mathrm{Obs}_{S^3}(A)]
+        \right)
+        \in
+        \mathrm{End}(C_\bullet(A))
+        \oplus
+        \HH^{-2}_{E_1}(A,A).
+\]
+It records the total TCFT anticommutator and the derived
+\(S^3\)-framing class on the chosen strictified Hochschild model.
+\end{definition}
+
+\begin{proposition}
+The vanishing \(\mathfrak{o}_{\TCFT}(A)=0\) gives only the algebraic
+framing-obstruction statement for \(A\).  It does not construct:
+\[
+\begin{array}{l}
+\text{a functorial global }\Phi_3,\\
+\text{a global object }G(X),\\
+\text{a compact Hall algebra or compact CoHA},\\
+\text{an orientation/Pfaffian line},\\
+\text{a PBW basis or a no-extra-relations theorem}.
+\end{array}
+\]
+\end{proposition}
+
+\begin{proof}
+The first component of \(\mathfrak{o}_{\TCFT}(A)\) is an endomorphism of the
+Hochschild chain complex.  The second component is an
+\(E_1\)-Hochschild cohomology class.  Neither component contains a moduli
+stack of compact objects, vanishing-cycle sheaves, compact extension
+correspondences, a coproduct, a non-degenerate Hall pairing, a radical
+quotient, or a filtration whose associated graded algebra is identified
+with a symmetric algebra.  These are source-side structures.  The
+obstruction calculation supplies no map from
+\(\mathfrak{o}_{\TCFT}(A)\) to those data.
+\end{proof}
+
+\begin{remark}
+The false strengthening is the termwise identity.  The statements
+\[
+        [b_k,B^{(2)}_{\mathrm{term}}]_{\mathrm{gr}}=0,\qquad
+        \{b_k,B^{(2)}_{\TCFT}\}=0\quad(k\geq1)
+\]
+are stronger than the TCFT theorem and are not used.  The proved identity is
+the total corrected one:
+\[
+        \{\,\sum_k b_k,\ B^{(2)}_{\TCFT}\,\}=0 .
+\]
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{CostelloTCFT}
+K.~Costello,
+\emph{Topological conformal field theories and Calabi--Yau categories},
+Adv. Math. \textbf{210} (2007), 165--214; arXiv:math/0412149.
+\end{thebibliography}
 
 \end{document}

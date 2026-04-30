@@ -32,7 +32,7 @@ AP-CY31: Spectral parameter u is Yangian spectral, NOT worldsheet.
 AP-CY24: All numerical values in docstrings verified against function output.
 
 Manuscript references:
-    k3_times_e.tex sec:k3e-bkm-chiral-status
+    k3_times_e.tex sec:k3e-bkm-chiral-obstruction
     k3_times_e.tex subsec:k3e-bkm-q1 (BRST construction)
     k3_times_e.tex subsec:k3e-bkm-q2 (Borcherds realization)
     k3_times_e.tex thm:k3e-yangian (MO R-matrix)

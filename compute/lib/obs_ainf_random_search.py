@@ -1,17 +1,23 @@
-r"""Random search for [m_3, B^{(2)}] = 0 on cyclic A_infinity algebras.
+r"""Falsification search for raw ``[m_3, B^{(2)}_term]`` obstructions.
 
 MATHEMATICAL CONTENT
 ====================
 
-This engine numerically tests the vanishing of the graded commutator
+This engine is not a proof engine for universal vanishing.  It is a
+falsification and witness-search tool for the raw bar-desuspended
+pair-contraction operator
 
-    [m_3, B^{(2)}] = 0
+    B^{(2)}_term.
 
-on 1000+ random cyclic A_infinity algebras.  The claim (from
-hopf_fibration_s3_framing.py, Proposition prop:cyclic-ainf-framing-compat)
-is that for ANY cyclic A_infinity algebra, the A_infinity operation m_3
-commutes with the second Connes operator B^{(2)} on the Hochschild chain
-complex.
+The corrected fact is that termwise raw vanishing is false: the strict
+cyclic CY3 witness with ``m_3(a,a,a)=alpha b`` satisfies
+
+    [m_3, B^{(2)}_term][a|a|a|a|b] = 2 alpha [b] != 0
+
+in characteristic zero.  A finite random search can find candidate
+nonvanishing behaviour, but a run with no candidate witness proves
+nothing universal.  Corrected TCFT cancellation requires additional
+Costello/open-closed comparison data and is not asserted here.
 
 SETUP
 =====
@@ -60,34 +66,18 @@ subject to:
 THE CONNES OPERATOR B^{(2)}
 ============================
 
-The Hochschild chain complex CC_n(A) = A^{otimes(n+1)} carries the Connes
-operator B: CC_n -> CC_{n+1} defined by cyclic rotation:
+The raw terminal-slot operator used by the standalone witness is:
 
-    B(a_0 | a_1 | ... | a_n) = sum_{i=0}^{n} (-1)^{n*i} (1 | a_i | ... | a_n | a_0 | ... | a_{i-1})
+    B^{(2)}_term[u_1|...|u_r|v]
+      = sum_i <u_i, v> [u_1|...|hat{u_i}|...|u_r].
 
-For a CY_d algebra, the Connes hierarchy refines this:
+The exact graded signs of a genuine CY3 model are recorded by the strict
+witness helper below.  The numerical matrix model is an ungraded
+terminal-slot contraction, useful for falsification and regression tests,
+not a replacement for the graded proof.
 
-    B^{(0)} = B                (degree +1)
-    B^{(1)}                    (degree 0)
-    B^{(2)}                    (degree -1, the S^2-framing map)
-    ...
-    B^{(d)} = F                (degree 1-d, the full S^d-framing)
-
-The operator B^{(2)}: CC_n -> CC_{n-1} is defined via contraction with
-the cyclic pairing:
-
-    B^{(2)}(a_0 | a_1 | ... | a_n)
-      = sum_{i<j} (-1)^{eps(i,j)} <a_i, a_j> (a_0 | ... | a_{i-1} | a_{i+1} | ... | a_{j-1} | a_{j+1} | ... | a_n)
-
-where eps(i,j) is a Koszul sign.  For degree-0 elements, the sign
-simplifies.
-
-For CY_3, B^{(2)} is the KEY operator: it is the S^2-framing map whose
-commutation with m_3 determines the A-infinity obstruction Obs_Ainf
-in the Hopf fibration decomposition of the S^3-framing.
-
-THE COMMUTATOR [m_3, B^{(2)}]
-==============================
+THE COMMUTATOR [m_3, B^{(2)}_term]
+====================================
 
 The induced m_3 on Hochschild chains acts as:
 
@@ -97,10 +87,11 @@ The induced m_3 on Hochschild chains acts as:
 
 with appropriate signs.  The commutator
 
-    [m_3^{CC}, B^{(2)}] = m_3^{CC} circ B^{(2)} - (-1)^{deg} B^{(2)} circ m_3^{CC}
+    [m_3^{CC}, B^{(2)}_term]
+      = m_3^{CC} circ B^{(2)}_term - B^{(2)}_term circ m_3^{CC}
 
-should vanish on ALL cyclic A_infinity algebras.  This is the claim
-we test numerically.
+is the raw termwise object tested here.  Nonzero output is a witness.
+Zero output in a finite sample is only absence of a witness in that sample.
 
 IMPLEMENTATION STRATEGY
 ========================
@@ -111,15 +102,17 @@ IMPLEMENTATION STRATEGY
    kernel of the Hochschild coboundary.
 3. Generate random cyclic pairing: random nondegenerate symmetric form,
    then enforce cyclic invariance with m_2 and m_3.
-4. Construct B^{(2)} on CC_3 using the pairing.
-5. Compute [m_3^{CC}, B^{(2)}] and check norm.
+4. Construct the raw terminal-slot B^{(2)}_term matrix using the pairing.
+5. Compute [m_3^{CC}, B^{(2)}_term] and record candidate witnesses.
 
 For efficiency, we work with structure constants stored as numpy arrays.
 
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1).
-  - Degree-0 vector space throughout (simplifies signs to trivial).
+  - Numerical search: degree-0 vector space throughout.
+  - Strict witness: graded CY3 convention from
+    standalone/m3_b2_obstruction_vol3.tex.
   - m_1 = 0, m_k = 0 for k >= 4 (minimal A_infinity).
   - kappa_ch subscript: always from the chiral algebra (AP113).
   - CY_3 pairing in degree 3: the inner product pairs total degree to d.
@@ -136,12 +129,134 @@ REFERENCES
 
 from __future__ import annotations
 
-import itertools
-from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple
+from collections import Counter
+from dataclasses import dataclass
+from fractions import Fraction
+from typing import Any, Dict, List, Tuple
 
 import numpy as np
 from numpy.typing import NDArray
+
+Word = Tuple[str, ...]
+
+
+# =========================================================================
+#  Exact strict CY3 witness
+# =========================================================================
+
+_STRICT_PAIRING: Dict[Tuple[str, str], Fraction] = {
+    ("a", "b"): Fraction(1),
+}
+
+
+def _clean_counter(counter: Counter[Word]) -> Dict[Word, Fraction]:
+    """Return a plain dict with zero coefficients removed."""
+    return {word: coeff for word, coeff in counter.items() if coeff != 0}
+
+
+def _terminal_slot_b2_term_exact(word: Word) -> Dict[Word, Fraction]:
+    r"""Terminal-slot raw ``B^{(2)}_term`` for the strict witness.
+
+    The terminal input is contracted with each earlier input.  The signs
+    are the normalized signs of the standalone strict CY3 witness on
+    ``[a|a|a|a|b]``.
+    """
+    terminal = word[-1]
+    out: Counter[Word] = Counter()
+    for idx, entry in enumerate(word[:-1]):
+        coeff = _STRICT_PAIRING.get((entry, terminal), Fraction(0))
+        if coeff:
+            reduced = word[:idx] + word[idx + 1:-1]
+            out[reduced] += coeff
+    return _clean_counter(out)
+
+
+def _m3_bar_exact(word: Word, alpha: Fraction) -> Dict[Word, Fraction]:
+    """Minimal strict witness operation ``m_3(a,a,a)=alpha b``."""
+    out: Counter[Word] = Counter()
+    for start in range(len(word) - 2):
+        if word[start:start + 3] == ("a", "a", "a"):
+            reduced = word[:start] + ("b",) + word[start + 3:]
+            out[reduced] += alpha
+    return _clean_counter(out)
+
+
+def _compose_exact(first, second, word: Word) -> Dict[Word, Fraction]:
+    """Apply ``first`` and then ``second`` to a word."""
+    total: Counter[Word] = Counter()
+    for mid, coeff_mid in first(word).items():
+        for out, coeff_out in second(mid).items():
+            total[out] += coeff_mid * coeff_out
+    return _clean_counter(total)
+
+
+def _subtract_exact(
+    left: Dict[Word, Fraction], right: Dict[Word, Fraction]
+) -> Dict[Word, Fraction]:
+    total: Counter[Word] = Counter(left)
+    for word, coeff in right.items():
+        total[word] -= coeff
+    return _clean_counter(total)
+
+
+@dataclass(frozen=True)
+class StrictCyclicCY3Witness:
+    """Exact strict witness for raw ``[m_3, B^{(2)}_term]`` nonvanishing."""
+
+    alpha: Fraction
+    input_word: Word
+    b2_term_of_input: Dict[Word, Fraction]
+    m3_after_b2_term: Dict[Word, Fraction]
+    m3_of_input: Dict[Word, Fraction]
+    b2_term_after_m3: Dict[Word, Fraction]
+    commutator: Dict[Word, Fraction]
+    convention: str
+
+    @property
+    def coefficient_on_b(self) -> Fraction:
+        return self.commutator.get(("b",), Fraction(0))
+
+    @property
+    def nonzero(self) -> bool:
+        return any(coeff != 0 for coeff in self.commutator.values())
+
+
+def strict_cyclic_cy3_witness(alpha: Fraction = Fraction(1)) -> StrictCyclicCY3Witness:
+    r"""Return the exact strict cyclic CY3 witness.
+
+    With the terminal-slot normalization,
+
+    * ``B^{(2)}_term [a|a|a|a|b] = 4 [a|a|a]``;
+    * ``m_3 B^{(2)}_term`` gives ``4 alpha [b]``;
+    * ``m_3`` first gives ``alpha([b|a|b] + [a|b|b])``;
+    * ``B^{(2)}_term m_3`` gives ``2 alpha [b]``.
+    """
+    alpha = Fraction(alpha)
+    input_word = ("a", "a", "a", "a", "b")
+    b2_term_of_input = _terminal_slot_b2_term_exact(input_word)
+    m3_after_b2_term = _compose_exact(
+        _terminal_slot_b2_term_exact,
+        lambda word: _m3_bar_exact(word, alpha),
+        input_word,
+    )
+    m3_of_input = _m3_bar_exact(input_word, alpha)
+    b2_term_after_m3 = _compose_exact(
+        lambda word: _m3_bar_exact(word, alpha),
+        _terminal_slot_b2_term_exact,
+        input_word,
+    )
+    commutator = _subtract_exact(m3_after_b2_term, b2_term_after_m3)
+
+    return StrictCyclicCY3Witness(
+        alpha=alpha,
+        input_word=input_word,
+        b2_term_of_input=b2_term_of_input,
+        m3_after_b2_term=m3_after_b2_term,
+        m3_of_input=m3_of_input,
+        b2_term_after_m3=b2_term_after_m3,
+        commutator=commutator,
+        convention="terminal-slot B^(2)_term, strict graded CY3 witness",
+    )
 
 
 # =========================================================================
@@ -652,84 +767,55 @@ def _cc_indices(flat_idx: int, d: int, n: int) -> Tuple[int, ...]:
 
 
 def build_b2_matrix(d: int, n: int, eta: NDArray) -> NDArray:
-    r"""Build the matrix of B^{(2)}: CC_n -> CC_{n-1}.
+    r"""Build the matrix of raw terminal-slot ``B^{(2)}_term``.
 
-    B^{(2)} acts by contracting consecutive pairs using the cyclic pairing.
-    For degree-0 elements (all generators in degree 0), B^{(2)} on
-    CC_n = A^{otimes(n+1)} is:
+    On a Hochschild word with terminal input,
 
-        B^{(2)}(a_0 | a_1 | ... | a_n)
-          = sum_{0 <= i < j <= n} (-1)^{...} <a_i, a_j>
-              (a_0 | ... | hat{a_i} | ... | hat{a_j} | ... | a_n)
+        B^{(2)}_term[u_1|...|u_r|v]
+          = sum_i <u_i, v> [u_1|...|hat{u_i}|...|u_r].
 
-    For the S^2-framing on a CY_3, we use the contraction with the
-    CY pairing. In the degree-0 (ungraded) case, the signs simplify.
-
-    For the purpose of this numerical test, we use the STANDARD
-    convention for B^{(2)} as the contraction map:
-
-        B^{(2)}(a_0 | a_1 | ... | a_n)
-          = sum_{i=0}^{n-1} (-1)^i <a_i, a_{i+1}>
-              (a_0 | ... | hat{a_i} | hat{a_{i+1}} | ... | a_n)
-
-    (contraction of consecutive pairs -- the cyclic B operator formulation
-    uses cyclic wrapping; we also include the wrap-around term).
-
-    Actually, for the CY_3 S^2-framing, B^{(2)} uses ALL pairs (i,j),
-    not just consecutive.  The precise formula:
-
-        B^{(2)}(a_0 | ... | a_n) = sum_{0<=i<j<=n} (-1)^{(n-1)(j-i-1)}
-          <a_i, a_j> (a_0 | ... | a_{i-1} | a_{i+1} | ... | a_{j-1} | a_{j+1} | ... | a_n)
-
-    For ungraded (degree 0), all signs are +1 if we use the convention
-    that B^{(2)} is the pure contraction.
+    Thus ``B^{(2)}_term`` removes two slots and maps ``CC_n`` to
+    ``CC_{n-2}``.  The strict graded CY3 signs are encoded by
+    ``strict_cyclic_cy3_witness``; this matrix uses the ungraded
+    terminal-slot convention for numerical falsification searches.
 
     Parameters
     ----------
     d : int
         Dimension of A.
     n : int
-        Hochschild chain degree (B^{(2)}: CC_n -> CC_{n-1}).
+        Hochschild chain degree (B^{(2)}_term: CC_n -> CC_{n-2}).
     eta : ndarray of shape (d, d)
         The cyclic pairing.
 
     Returns
     -------
-    B2 : ndarray of shape (dim(CC_{n-1}), dim(CC_n))
-        Matrix of B^{(2)}.
+    B2 : ndarray of shape (dim(CC_{n-2}), dim(CC_n))
+        Matrix of raw ``B^{(2)}_term``.
     """
     if n < 1:
-        # B^{(2)}: CC_0 -> CC_{-1} is zero
+        # There is no earlier slot to pair with the terminal input.
         return np.zeros((1, d))
 
     dim_in = d ** (n + 1)  # CC_n
-    dim_out = d ** n        # CC_{n-1}
+    dim_out = d ** max(n - 1, 0)  # CC_{n-2}
 
     B2 = np.zeros((dim_out, dim_in))
 
     # Iterate over all basis elements of CC_n
     for flat_in in range(dim_in):
         indices = _cc_indices(flat_in, d, n)
+        terminal = indices[-1]
 
-        # Contract all pairs (i, j) with i < j
-        for i in range(n + 1):
-            for j in range(i + 1, n + 1):
-                pairing_val = eta[indices[i], indices[j]]
-                if abs(pairing_val) < 1e-15:
-                    continue
+        # Contract the terminal slot with each earlier slot.
+        for i in range(n):
+            pairing_val = eta[indices[i], terminal]
+            if abs(pairing_val) < 1e-15:
+                continue
 
-                # Sign: for ungraded elements, use (-1)^{j-i-1}
-                # This is the standard Koszul sign for removing elements
-                # at positions i and j from a tensor product.
-                sign = (-1) ** (j - i - 1)
-
-                # Build the output indices: remove positions i and j
-                out_indices = tuple(
-                    indices[k] for k in range(n + 1) if k != i and k != j
-                )
-
-                flat_out = _cc_index(out_indices, d)
-                B2[flat_out, flat_in] += sign * pairing_val
+            out_indices = indices[:i] + indices[i + 1:-1]
+            flat_out = _cc_index(out_indices, d) if out_indices else 0
+            B2[flat_out, flat_in] += pairing_val
 
     return B2
 
@@ -744,8 +830,8 @@ def build_m3_cc_matrix(d: int, n: int, m3: NDArray) -> NDArray:
           = sum_{i=0}^{n-2} (-1)^{...}
               (a_0 | ... | a_{i-1} | m_3(a_i, a_{i+1}, a_{i+2}) | a_{i+3} | ... | a_n)
 
-    For ungraded elements, the sign is (-1)^i (from the Koszul convention
-    on the bar complex).
+    The matrix uses the same ungraded signless convention as the
+    terminal-slot witness-search surface.
 
     Parameters
     ----------
@@ -765,7 +851,7 @@ def build_m3_cc_matrix(d: int, n: int, m3: NDArray) -> NDArray:
         # m_3 needs at least 3 consecutive elements; CC_n has n+1 slots
         # m_3^{CC}: CC_n -> CC_{n-2} needs n+1 >= 3, i.e. n >= 2
         dim_in = d ** (n + 1)
-        dim_out = d ** max(n - 1, 1)
+        dim_out = d ** max(n - 1, 0)
         return np.zeros((dim_out, dim_in))
 
     dim_in = d ** (n + 1)   # CC_n
@@ -778,9 +864,6 @@ def build_m3_cc_matrix(d: int, n: int, m3: NDArray) -> NDArray:
 
         # Apply m_3 to each consecutive triple (i, i+1, i+2)
         for i in range(n - 1):  # i ranges from 0 to n-2
-            # Sign: (-1)^i for ungraded
-            sign = (-1) ** i
-
             a_i, a_ip1, a_ip2 = indices[i], indices[i + 1], indices[i + 2]
 
             # m_3(a_i, a_{i+1}, a_{i+2}) = sum_p m3[a_i, a_ip1, a_ip2, p] * e_p
@@ -792,35 +875,29 @@ def build_m3_cc_matrix(d: int, n: int, m3: NDArray) -> NDArray:
                 # Output: (a_0, ..., a_{i-1}, p, a_{i+3}, ..., a_n)
                 out_indices = indices[:i] + (p,) + indices[i + 3:]
                 flat_out = _cc_index(out_indices, d)
-                M3[flat_out, flat_in] += sign * coeff
+                M3[flat_out, flat_in] += coeff
 
     return M3
 
 
 # =========================================================================
-#  2.  The commutator [m_3, B^{(2)}]
+#  2.  The commutator [m_3, B^{(2)}_term]
 # =========================================================================
 
 def compute_commutator_m3_b2(
     d: int, n: int, m3: NDArray, eta: NDArray
 ) -> NDArray:
-    r"""Compute [m_3^{CC}, B^{(2)}] on CC_n.
+    r"""Compute raw ``[m_3^{CC}, B^{(2)}_term]`` on ``CC_n``.
 
     The graded commutator is:
 
-        [m_3^{CC}, B^{(2)}] = m_3^{CC} circ B^{(2)} - (-1)^{deg} B^{(2)} circ m_3^{CC}
+        [m_3^{CC}, B^{(2)}_term]
+          = m_3^{CC} circ B^{(2)}_term
+            - B^{(2)}_term circ m_3^{CC}.
 
-    where deg(m_3^{CC}) = -2 (maps CC_n -> CC_{n-2}) and
-    deg(B^{(2)}) = -1 (maps CC_n -> CC_{n-1}).
-
-    For the graded commutator: [A, B] = AB - (-1)^{|A||B|} BA
-    with |m_3^{CC}| = -2, |B^{(2)}| = -1:
-        (-1)^{|A||B|} = (-1)^{(-2)(-1)} = (-1)^2 = 1
-
-    So [m_3, B^{(2)}] = m_3 circ B^{(2)} - B^{(2)} circ m_3.
-
-    The composition m_3^{CC} circ B^{(2)}: CC_n -> CC_{n-1} -> CC_{n-3}
-    The composition B^{(2)} circ m_3^{CC}: CC_n -> CC_{n-2} -> CC_{n-3}
+    Both ``m_3`` and this raw terminal-slot ``B^{(2)}_term`` lower bar
+    length by two, so both compositions land in ``CC_{n-4}``.  For the
+    strict witness this is the map from ``[a|a|a|a|b]`` to ``[b]``.
 
     Parameters
     ----------
@@ -835,19 +912,19 @@ def compute_commutator_m3_b2(
 
     Returns
     -------
-    comm : ndarray of shape (dim(CC_{n-3}), dim(CC_n))
-        Matrix of [m_3^{CC}, B^{(2)}].
+    comm : ndarray of shape (dim(CC_{n-4}), dim(CC_n))
+        Matrix of raw ``[m_3^{CC}, B^{(2)}_term]``.
     """
-    # m_3 o B^{(2)}: CC_n --B^{(2)}--> CC_{n-1} --m_3--> CC_{n-3}
-    B2_n = build_b2_matrix(d, n, eta)        # CC_n -> CC_{n-1}
-    M3_nm1 = build_m3_cc_matrix(d, n - 1, m3)  # CC_{n-1} -> CC_{n-3}
+    # m_3 o B^{(2)}_term: CC_n -> CC_{n-2} -> CC_{n-4}
+    B2_n = build_b2_matrix(d, n, eta)
+    M3_nm2 = build_m3_cc_matrix(d, n - 2, m3)
 
-    # B^{(2)} o m_3: CC_n --m_3--> CC_{n-2} --B^{(2)}--> CC_{n-3}
-    M3_n = build_m3_cc_matrix(d, n, m3)         # CC_n -> CC_{n-2}
-    B2_nm2 = build_b2_matrix(d, n - 2, eta)      # CC_{n-2} -> CC_{n-3}
+    # B^{(2)}_term o m_3: CC_n -> CC_{n-2} -> CC_{n-4}
+    M3_n = build_m3_cc_matrix(d, n, m3)
+    B2_nm2 = build_b2_matrix(d, n - 2, eta)
 
-    term1 = M3_nm1 @ B2_n      # m_3 o B^{(2)}
-    term2 = B2_nm2 @ M3_n      # B^{(2)} o m_3
+    term1 = M3_nm2 @ B2_n
+    term2 = B2_nm2 @ M3_n
 
     return term1 - term2
 
@@ -1022,12 +1099,12 @@ def _joint_project_cocycle_cyclic(
 
 
 # =========================================================================
-#  4.  Main experiment: [m_3, B^{(2)}] on random cyclic A_inf algebras
+#  4.  Main experiment: [m_3, B^{(2)}_term] on random cyclic A_inf algebras
 # =========================================================================
 
 @dataclass
 class TrialResult:
-    r"""Result of a single [m_3, B^{(2)}] trial."""
+    r"""Result of a single raw [m_3, B^{(2)}_term] trial."""
     trial_idx: int
     d: int
     m3_norm: float
@@ -1037,7 +1114,7 @@ class TrialResult:
     m2_cyclic_error: float
     m3_cyclic_error: float
     is_nontrivial: bool    # m_3 != 0 (above threshold)
-    commutator_vanishes: bool  # |[m_3, B^{(2)}]| < tolerance
+    commutator_vanishes: bool  # |[m_3, B^{(2)}_term]| < tolerance
 
 
 @dataclass
@@ -1046,8 +1123,8 @@ class ExperimentResult:
     n_trials: int
     n_dimensions: Dict[int, int]   # d -> count
     n_nontrivial: int              # trials with m_3 != 0
-    n_vanishing: int               # trials with [m_3, B^{(2)}] = 0
-    n_nonvanishing: int            # trials with [m_3, B^{(2)}] != 0
+    n_vanishing: int               # trials with raw [m_3, B^{(2)}_term] = 0
+    n_nonvanishing: int            # trials with raw [m_3, B^{(2)}_term] != 0
     max_commutator_norm: float
     mean_commutator_norm: float
     max_assoc_error: float
@@ -1057,39 +1134,50 @@ class ExperimentResult:
     trials: List[TrialResult]
     conclusion: str
 
+    @property
+    def found_candidate_witness(self) -> bool:
+        """Whether the finite search found a nonzero numerical commutator."""
+        return self.n_nonvanishing > 0
+
+    @property
+    def proves_universal_vanishing(self) -> bool:
+        """Finite random search never proves universal vanishing."""
+        return False
+
 
 def run_experiment(
-    n_trials: int = 1000,
-    dimensions: Tuple[int, ...] = (4, 6, 8),
-    cc_degree: int = 3,
+    n_trials: int = 100,
+    dimensions: Tuple[int, ...] = (3, 4),
+    cc_degree: int = 4,
     m3_scale: float = 1.0,
     nontrivial_threshold: float = 1e-8,
     vanishing_tolerance: float = 1e-7,
     seed: int = 42,
     verbose: bool = False,
 ) -> ExperimentResult:
-    r"""Run the random search experiment.
+    r"""Run the finite falsification search.
 
     For each trial:
     1. Pick a random dimension d from the list.
     2. Generate a random cyclic A_infinity algebra.
-    3. Compute [m_3^{CC}, B^{(2)}] on CC_{cc_degree}.
+    3. Compute raw [m_3^{CC}, B^{(2)}_term] on CC_{cc_degree}.
     4. Record whether the commutator vanishes.
 
     Parameters
     ----------
     n_trials : int
-        Number of random algebras to test (default 1000).
+        Number of random algebras to test (default 100).
     dimensions : tuple of int
-        Dimensions to sample from (default (4, 6, 8)).
+        Dimensions to sample from (default (3, 4)).
     cc_degree : int
-        Hochschild chain degree to test on (default 3).
+        Hochschild chain degree to test on (default 4, the degree of the
+        strict witness word ``[a|a|a|a|b]``).
     m3_scale : float
         Scale of random m_3 (default 1.0).
     nontrivial_threshold : float
         m_3 is nontrivial if ||m_3|| > this threshold.
     vanishing_tolerance : float
-        [m_3, B^{(2)}] vanishes if norm < this tolerance.
+        Raw [m_3, B^{(2)}_term] vanishes if norm < this tolerance.
     seed : int
         Random seed for reproducibility.
     verbose : bool
@@ -1112,15 +1200,12 @@ def run_experiment(
         # Generate random cyclic A_infinity algebra
         alg = generate_random_cyclic_ainf(d, rng, m3_scale=m3_scale)
 
-        # Compute [m_3, B^{(2)}] on CC_{cc_degree}
-        try:
-            comm = compute_commutator_m3_b2(d, cc_degree, alg.m3, alg.eta)
-            comm_norm = float(np.max(np.abs(comm)))
-        except Exception:
-            comm_norm = float("nan")
+        # Compute raw [m_3, B^{(2)}_term] on CC_{cc_degree}.
+        comm = compute_commutator_m3_b2(d, cc_degree, alg.m3, alg.eta)
+        comm_norm = float(np.max(np.abs(comm)))
 
         is_nontrivial = alg.m3_norm > nontrivial_threshold
-        comm_vanishes = comm_norm < vanishing_tolerance
+        comm_vanishes = bool(np.isfinite(comm_norm) and comm_norm < vanishing_tolerance)
 
         result = TrialResult(
             trial_idx=trial_idx,
@@ -1142,7 +1227,8 @@ def run_experiment(
             print(
                 f"Trial {trial_idx + 1}/{n_trials}: "
                 f"{n_nt} nontrivial, {n_van} vanishing "
-                f"(max |[m_3,B^(2)]| = {max(t.commutator_norm for t in trials if t.is_nontrivial):.2e})"
+                f"(max |[m_3,B_term^(2)]| = "
+                f"{max(t.commutator_norm for t in trials if t.is_nontrivial):.2e})"
                 if n_nt > 0
                 else f"Trial {trial_idx + 1}/{n_trials}: {n_nt} nontrivial"
             )
@@ -1157,29 +1243,30 @@ def run_experiment(
     max_comm = max(comm_norms) if comm_norms else 0.0
     mean_comm = float(np.mean(comm_norms)) if comm_norms else 0.0
 
-    max_assoc = max(t.assoc_error for t in trials)
-    max_cocycle = max(t.cocycle_error for t in trials)
-    max_m2_cyc = max(t.m2_cyclic_error for t in trials)
-    max_m3_cyc = max(t.m3_cyclic_error for t in trials)
+    max_assoc = max((t.assoc_error for t in trials), default=0.0)
+    max_cocycle = max((t.cocycle_error for t in trials), default=0.0)
+    max_m2_cyc = max((t.m2_cyclic_error for t in trials), default=0.0)
+    max_m3_cyc = max((t.m3_cyclic_error for t in trials), default=0.0)
 
     if n_nonvanishing == 0 and n_nontrivial > 0:
         conclusion = (
-            f"STRONG EVIDENCE: [m_3, B^(2)] = 0 on ALL {n_nontrivial} nontrivial "
-            f"random cyclic A_infinity algebras (out of {n_trials} total trials). "
+            f"NO CANDIDATE WITNESS FOUND in {n_nontrivial} nontrivial "
+            f"random cyclic A_infinity samples (out of {n_trials} total trials). "
             f"Maximum commutator norm: {max_comm:.2e}. "
-            f"This supports prop:cyclic-ainf-framing-compat."
+            f"This finite search does not prove universal vanishing."
         )
     elif n_nonvanishing > 0:
         conclusion = (
-            f"COUNTEREXAMPLE FOUND: [m_3, B^(2)] != 0 for {n_nonvanishing} / "
-            f"{n_nontrivial} nontrivial algebras. "
+            f"CANDIDATE WITNESS FOUND: raw [m_3, B_term^(2)] != 0 for "
+            f"{n_nonvanishing} / {n_nontrivial} nontrivial samples. "
             f"Maximum commutator norm: {max_comm:.2e}. "
-            f"prop:cyclic-ainf-framing-compat is FALSE."
+            f"Validate any numerical witness against exact graded signs before use. "
+            f"This finite search does not prove universal vanishing."
         )
     else:
         conclusion = (
-            f"INCONCLUSIVE: no nontrivial m_3 found in {n_trials} trials. "
-            f"The Hochschild cocycle space may be trivial for these dimensions."
+            f"NO NONTRIVIAL SAMPLE: no nontrivial m_3 found in {n_trials} trials. "
+            f"This finite search does not prove universal vanishing."
         )
 
     return ExperimentResult(
@@ -1407,16 +1494,16 @@ def _verify_m3_cyclic_antisym(m3: NDArray, eta: NDArray, tol: float = 1e-8) -> f
 # =========================================================================
 
 def run_cy3_experiment(
-    n_trials: int = 200,
-    dimensions: Tuple[int, ...] = (4, 6),
-    cc_degree: int = 3,
+    n_trials: int = 50,
+    dimensions: Tuple[int, ...] = (4,),
+    cc_degree: int = 4,
     m3_scale: float = 1.0,
     nontrivial_threshold: float = 1e-8,
     vanishing_tolerance: float = 1e-7,
     seed: int = 137,
     verbose: bool = False,
 ) -> ExperimentResult:
-    r"""Run the CY_3-specific variant of the experiment.
+    r"""Run the CY_3-specific falsification search.
 
     Parameters are the same as run_experiment, but uses CY_3 algebras
     with antisymmetric pairing.
@@ -1429,19 +1516,12 @@ def run_cy3_experiment(
         d = int(rng.choice(dimensions))
         dim_counts[d] = dim_counts.get(d, 0) + 1
 
-        try:
-            alg = generate_random_cy3_algebra(d, rng, m3_scale=m3_scale)
-        except Exception:
-            continue
-
-        try:
-            comm = compute_commutator_m3_b2(d, cc_degree, alg.m3, alg.eta)
-            comm_norm = float(np.max(np.abs(comm)))
-        except Exception:
-            comm_norm = float("nan")
+        alg = generate_random_cy3_algebra(d, rng, m3_scale=m3_scale)
+        comm = compute_commutator_m3_b2(d, cc_degree, alg.m3, alg.eta)
+        comm_norm = float(np.max(np.abs(comm)))
 
         is_nontrivial = alg.m3_norm > nontrivial_threshold
-        comm_vanishes = comm_norm < vanishing_tolerance
+        comm_vanishes = bool(np.isfinite(comm_norm) and comm_norm < vanishing_tolerance)
 
         result = TrialResult(
             trial_idx=trial_idx,
@@ -1478,19 +1558,22 @@ def run_cy3_experiment(
 
     if n_nonvanishing == 0 and n_nontrivial > 0:
         conclusion = (
-            f"CY_3 STRONG EVIDENCE: [m_3, B^(2)] = 0 on ALL {n_nontrivial} nontrivial "
-            f"random CY_3 cyclic A_infinity algebras. "
-            f"Maximum commutator norm: {max_comm:.2e}."
+            f"CY_3 NO CANDIDATE WITNESS FOUND in {n_nontrivial} nontrivial "
+            f"random cyclic A_infinity samples. "
+            f"Maximum commutator norm: {max_comm:.2e}. "
+            f"This finite search does not prove universal vanishing."
         )
     elif n_nonvanishing > 0:
         conclusion = (
-            f"CY_3 COUNTEREXAMPLE: [m_3, B^(2)] != 0 for {n_nonvanishing} / "
-            f"{n_nontrivial} nontrivial CY_3 algebras. "
-            f"Maximum commutator norm: {max_comm:.2e}."
+            f"CY_3 CANDIDATE WITNESS: raw [m_3, B_term^(2)] != 0 for "
+            f"{n_nonvanishing} / {n_nontrivial} nontrivial samples. "
+            f"Maximum commutator norm: {max_comm:.2e}. "
+            f"This finite search does not prove universal vanishing."
         )
     else:
         conclusion = (
-            f"CY_3 INCONCLUSIVE: no nontrivial m_3 found in {len(trials)} trials."
+            f"CY_3 NO NONTRIVIAL SAMPLE: no nontrivial m_3 found in {len(trials)} trials. "
+            f"This finite search does not prove universal vanishing."
         )
 
     return ExperimentResult(
@@ -1515,9 +1598,9 @@ def run_cy3_experiment(
 # =========================================================================
 
 def run_dimension_sweep(
-    dimensions: Tuple[int, ...] = (3, 4, 5, 6, 7, 8),
-    trials_per_dim: int = 100,
-    cc_degree: int = 3,
+    dimensions: Tuple[int, ...] = (3, 4, 5, 6),
+    trials_per_dim: int = 50,
+    cc_degree: int = 4,
     seed: int = 271,
 ) -> Dict[int, Dict[str, Any]]:
     r"""Run the experiment separately for each dimension.

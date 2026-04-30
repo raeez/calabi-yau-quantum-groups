@@ -1,16 +1,21 @@
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
 
-
-% Minimal macro shims for standalone compilation (AP-CY portability).
-\providecommand{\cW}{\mathcal{W}}
+\providecommand{\bC}{\mathbb{C}}
 \providecommand{\cA}{\mathcal{A}}
-\providecommand{\Ran}{\mathrm{Ran}}
-\providecommand{\FM}{\mathrm{FM}}
-\providecommand{\ChirHoch}{\mathrm{ChirHoch}}
-\providecommand{\ClaimStatusProvedHere}{\textsf{[Proved here]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textsf{[Proved elsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textsf{[Conjectured]}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\HC}{\mathrm{HC}}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -21,61 +26,388 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title[CY $\to$ chiral $\Phi$]{The Calabi--Yau-to-chiral functor $\Phi$ \\
-and the universal trace identity}
+\title[CY to chiral correspondence]{The Calabi--Yau-to-chiral
+correspondence and its trace invariant}
 \author{Raeez Lorgat}
-\date{2026-04-17}
+\date{2026-04-30}
 
 \begin{document}
-\maketitle
 
 \begin{abstract}
-The Calabi--Yau-to-chiral functor
-$\Phi\colon \mathrm{CY}_d \to \mathrm{Chiral\text{-}Alg}$
-assigns to a compact Calabi--Yau $d$-fold $X$ a chiral factorisation algebra
-$\cA_X$ on an auxiliary curve. Its principal invariant is
-$\kappa_{\mathrm{ch}}(\cA_X) = \sum_q (-1)^q h^{0,q}(X)$ (Hodge supertrace,
-proved with separate algebraic and geometric models). The output
-$E_n$-scope stratifies by dimension:
-$\Phi(X) \in E_2\text{-chiral}$ for $d \le 2$ and $\Phi(X) \in E_1\text{-chiral}$
-for $d \ge 3$. The universal trace identity unifying Vol I
-$K = -c_{\mathrm{ghost}}(\mathrm{BRST})$ with
-$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ connects Vol I's universal
-conductor with Vol III's Borcherds weight.
+The first compact test is $K3$: the constructed chiral algebra has
+$\kappa_{\mathrm{ch}}=2$. The product $K3\times E$ already separates the
+invariants: the compact Hodge supertrace is $0$, while the Heisenberg,
+Borcherds, and fibre readings give $3$, $5$, and $24$. This separation fixes
+the correct form of the Calabi--Yau-to-chiral construction. The construction is a
+dimension-indexed, parameter-tagged assignment
+\[
+        \Phi_d^{(\Sigma_{d-1},C)}
+        =\SpCh_{\Sigma_{d-1},C}\circ \PhiFA_d,
+\]
+where \(\PhiFA_d\) is the native holomorphic factorisation-algebra stage and
+\(\SpCh_{\Sigma_{d-1},C}\) is the witnessed chiral specialisation. At $d=2$ it
+is constructed on the smooth proper locus. At $d=3$ a chain-level framed input
+produces an \(E_1\)-chiral algebra under the stated hypotheses, with the
+braided \(E_2\) structure living on the Drinfeld centre of its representation
+category. At $d\geq 4$ the same display is a construction problem until the
+\(E_d\)-formality, holomorphic twist, framing, and completion witnesses are
+constructed.
 \end{abstract}
+\maketitle
 
-\section*{Scope and status}
-Primary theorems:
-\begin{itemize}
-\item $\Phi$ preserves Koszul duality on the Koszul locus: \ClaimStatusProvedHere.
-\item $\kappa_{\mathrm{ch}} = \chi_{\mathrm{Hodge}}$ (Hodge supertrace):
-  \ClaimStatusProvedHere (\texttt{thm:kappa-hodge-supertrace-identification}).
-\item $E_n$-output scope $n=2$ for $d \le 2$, $n=1$ for $d \ge 3$:
-  \ClaimStatusProvedHere (FM43 scope guard).
-\item Universal trace identity $K_{\mathrm{univ}} = -c_{\mathrm{ghost}}$:
-  \ClaimStatusProvedElsewhere (Vol I \texttt{chap:universal-conductor}).
-\end{itemize}
+\section{Specialisation datum}
 
-\section*{Chapter inputs}
-The standalone records the following chapter sources:
-\begin{verbatim}
-\input{../chapters/theory/cy_to_chiral.tex}
-\input{../chapters/theory/quantum_chiral_algebras.tex}
-\input{../chapters/theory/en_factorization.tex}
-\input{../chapters/examples/cy_d_kappa_stratification.tex}
-\end{verbatim}
+The symbol \(\Phi_d^{(\Sigma_{d-1},C)}\) has two different levels of
+meaning. On objects it is a construction from a Calabi--Yau category and a
+witnessed specialisation datum. On morphisms it is a functor only after the
+kernel, base-change, trace, and completion homotopies have been supplied.
 
-\section*{Cross-volume dependencies}
-\begin{itemize}
-\item Vol I \texttt{chap:universal-conductor} (universal trace identity
-  $K_{\mathrm{univ}} = -c_{\mathrm{ghost}}$).
-\item Vol I \texttt{thm:A-infinity-2} (properad bar-cobar; Vol III $\Phi$ is
-  a corollary of Francis--Gaitsgory (\texttt{cor:chiral-KK-formal-smoothness}).
-\item Vol II \texttt{thm:chiral-higher-deligne} (target category for
-  $\Phi(X)$'s derived centre at $d = 3$).
-\end{itemize}
+\begin{definition}[Calabi--Yau category and specialisation datum]
+Fix a field \(k\) of characteristic zero. A \emph{Calabi--Yau \(d\)-category}
+is a small idempotent-complete smooth proper \(k\)-linear dg,
+\(A_\infty\), or stable \((\infty,1)\)-category \(\cC\), with
+\(\HH^0(\cC)=k\), equipped with an \(S^1\)-invariant Calabi--Yau class
+\[
+        [\sigma_\cC]\in \HC^-_d(\cC).
+\]
+Its image under \(\HC^-_d(\cC)\to \HH_d(\cC)\) is required to be
+non-degenerate in the bimodule sense: the induced map from the inverse
+dualising bimodule to the shifted diagonal is a quasi-isomorphism. Hence
+cap product identifies \(\HH^\bullet(\cC)\) with
+\(\HH_{d-\bullet}(\cC)\), and the Serre functor of \(\cC\) is the
+\(d\)-fold shift. The resulting trace pairing has degree \(-d\). A
+\emph{witnessed specialisation datum} for
+\(\cC\) consists of a smooth Calabi--Yau \(d\)-fold \(X\) or local
+Calabi--Yau target with volume form, a reference curve \(C\subset X\), an
+admissible framed \((d-1)\)-cycle \(\Sigma_{d-1}\subset X\), a point of the
+relevant formality or associator torsor, a holomorphic-twist witness, a
+proper-support incidence kernel, a propagator or Green-kernel
+normalisation, and a complete separated target in which the specialised
+observables converge. In dimension three the datum includes
+Tor-independent base-change cells, Beck--Chevalley and Fubini/envelope
+homotopies, compact-support conventions, and coherence data for every
+morphism on which specialisation is evaluated.
+\end{definition}
 
-\bibliographystyle{alpha}
-\bibliography{../bibliography/references}
+\begin{definition}[The two stages]
+For a Calabi--Yau \(d\)-category \(\cC\) with witnessed datum
+\((X,\Sigma_{d-1},C)\), the symbol \(\PhiFA_d(\cC)\) denotes the
+\(E_d\)-holomorphic factorisation algebra on \(X\) assembled from
+\((\cC,X,\Omega_X)\): the Hochschild cochains of \(\cC\), the chosen
+Kontsevich--Tamarkin formality point, Costello--Gwilliam locality, and the
+Costello--Li holomorphic twist with volume form \(\Omega_X\). The symbol
+\[
+        \SpCh_{\Sigma_{d-1},C}(\cF)
+        =
+        \left(\int_{\Sigma_{d-1}}\cF\right)\bigg|_C
+\]
+denotes factorisation-homology integration over the witnessed cycle,
+followed by restriction to the reference curve. A \emph{constructed locus}
+is a data-bearing subcategory on which these two operations and their
+composite are defined. A morphism in such a locus is a cyclic dg,
+\(A_\infty\), or \((\infty,1)\)-functor, represented geometrically when
+needed by a proper Tor-independent Fourier--Mukai kernel, together with
+specified homotopies preserving the negative-cyclic class, target
+Calabi--Yau form, formality point, holomorphic twist, incidence kernel,
+propagator, base-change cells, compact-support convention, and completion.
+\end{definition}
+
+\begin{definition}[Three-dimensional input datum]
+A three-dimensional input datum is a smooth proper Calabi--Yau
+\(3\)-category \(\cC\) over a field of characteristic zero with
+\(\HH^0(\cC)=k\), a class \([\sigma_\cC]\in\HC^-_3(\cC)\) whose
+Hochschild shadow is non-degenerate in the preceding sense, a chain-level
+\(S^3\)-framing, a smooth Calabi--Yau threefold target with holomorphic
+volume form, a chosen formality or associator point, a holomorphic-twist
+witness, and a complete separated target for the resulting observables. A
+morphism of such data is a cyclic dg or \(A_\infty\) functor, represented
+on geometric inputs by a proper Tor-independent Fourier--Mukai kernel, that
+preserves the negative-cyclic class by a Connes-closed homotopy and also
+preserves the framing homotopy, formality point, holomorphic twist,
+proper-support incidence kernel, propagator normalisation,
+Beck--Chevalley and Fubini/envelope cells, compact-support convention, and
+completion. The witnessed specialisation datum for \((\Sigma_2,C)\) is an
+additional chosen datum, not a consequence of the category alone.
+\end{definition}
+
+\begin{theorem}[Two-stage form]
+On every constructed locus the Calabi--Yau-to-chiral object
+has the factorised form
+\[
+        \Phi_d^{(\Sigma_{d-1},C)}(\cC)
+        =
+        \SpCh_{\Sigma_{d-1},C}\bigl(\PhiFA_d(\cC)\bigr).
+\]
+For \(d=2\) this gives the smooth proper Calabi--Yau \(2\)-category
+construction on trace-preserving cyclic morphisms with compatible
+specialisation data.
+For \(d=3\) it gives the constructed object after fixing the witnessed
+datum \((\Sigma_2,C)\), the three-dimensional input datum, the propagator,
+and the completion. It is functorial only on the data-bearing
+three-dimensional morphisms of the preceding definition. Functoriality on
+arbitrary Calabi--Yau morphisms is not asserted: cyclic kernels would first
+have to transport the negative-cyclic class, \(S^3\)-framing homotopy,
+holomorphic-twist data, proper support, Tor-independence,
+Beck--Chevalley cell, Fubini/envelope cell, and completion so that the two
+stages compose on morphisms. For \(d\geq4\) the same display names the
+construction problem, not a completed functor.
+\end{theorem}
+
+\begin{proof}
+The first stage is assembled from the Gerstenhaber deformation complex, the
+chosen Kontsevich--Tamarkin formality point, Costello--Gwilliam locality,
+and the Costello--Li holomorphic twist in the target Calabi--Yau
+background. The second stage is the chiral
+specialisation along the chosen curve, using the specified incidence
+kernel, propagator, and completion. The three-dimensional input datum
+supplies smoothness, properness, the negative-cyclic class, and the
+chain-level framing. Smooth proper Calabi--Yau \(2\)-categories need no
+extra three-dimensional framing datum, which is why the K3 case is the
+basic compact example on the constructed \(d=2\) locus. The displayed
+factorisation is an object-level construction unless the morphism lies in
+the data-bearing locus where the
+trace, kernel, base-change, Fubini/envelope, and completion homotopies are
+part of the input. On that locus the functoriality is the ordinary
+composition law for cyclic functors and proper Fourier--Mukai kernels,
+together with the Beck--Chevalley and Fubini/envelope homotopies that
+identify the two orders of pushforward and specialisation.
+\end{proof}
+
+\section{Operadic level}
+
+\begin{proposition}[Native operadic level]
+The constructed native algebra is \(E_\infty\)-chiral at \(d=1\) and
+\(E_2\)-chiral at \(d=2\). In every constructed \(d\geq3\)
+specialisation, in particular on the witnessed three-dimensional locus
+above, the specialised algebra
+\(A=\Phi_d^{(\Sigma_{d-1},C)}(\cC)\) is \(E_1\)-chiral. For \(d=3\) this
+means \(A=\Phi_3^{(\Sigma_2,C)}(\cC)\). Its braided \(E_2\) enhancement is
+carried by
+\[
+        \cZ\bigl(\Rep^{E_1}(A)\bigr),
+\]
+the Drinfeld centre of the \(E_1\)-representation category, under the
+dualisability and presentability hypotheses of the BZFN centre theorem.
+The derived bulk object \(Z^{\mathrm{der}}_{\mathrm{ch}}(A)\), the Verdier
+dual \(A^!\), the ordered bar coalgebra \(B^{\mathrm{ch}}_{E_1}(A)\), and
+the algebra \(A\) are distinct objects. The existence of the \(d\geq4\)
+output depends on the chosen higher specialisation datum and is not asserted
+here.
+\end{proposition}
+
+\begin{proof}
+The Gerstenhaber bracket on \(\HH^\bullet(\cC)\) has degree \(1-d\).
+After the chosen formality datum, Kontsevich--Tamarkin formality,
+Costello--Gwilliam locality, and the Costello--Li holomorphic twist give
+the native \(E_d\)-holomorphic factorisation stage on the constructed
+locus. Chiral specialisation is factorisation homology over
+\(\Sigma_{d-1}\), followed by restriction to \(C\). At \(d=1\) the
+Calabi--Yau target is already a curve and the commutative lattice cases
+refine to \(E_\infty\). At \(d=2\) the \(S^2\)-framed surface input and
+holomorphic curve restriction preserve the \(E_2\)-chiral structure. At
+constructed \(d\geq3\), Dunn--Lurie additivity and framed
+factorisation-homology integration over the \((d-1)\)-cycle leave only the
+ordered \(E_1\) direction on the reference curve. The higher Deligne
+theorem supplies the Hochschild and derived-centre brace structures under
+its stated Koszul and associator hypotheses. On constructed loci satisfying
+the BZFN dualisability and presentability hypotheses, the braided \(E_2\)
+structure is the Drinfeld-centre structure on \(\Rep^{E_1}(A)\). For
+\(d\geq4\), this is only an operadic target calculation: the chosen
+\(\Sigma_{d-1}\), completion, and holomorphic-twist witness still have to
+be constructed. Global centre recovery for arbitrary Calabi--Yau
+\(3\)-category objects is a separate problem.
+\end{proof}
+
+\section{Hall positive half}
+
+\begin{proposition}[\(\bC^3\) and the finite toric layer]
+The affine toric chart \(\bC^3\) has the spherical equivariant critical
+Hall positive half
+\[
+        \CoHA^{\mathrm{sph}}_{\mathrm{crit},T}(\bC^3)
+        \cong
+        Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+It is not \(\mathcal W_{1+\infty}\). The latter belongs to the completed
+double and its Fock/mode realisation after the opposite half, Cartan data,
+Hopf pairing, radical quotient, and completion have been fixed.
+
+For a finite toric CY$_3$ atlas with simplex-compatible cyclic critical
+DWR/Ran Rees hCS--Hall data, the local positive halves glue to the finite
+Rees object
+\[
+        H^+_{X_\Sigma}
+        =
+        \operatorname{hocolim}_{\alpha\in\Sigma(3)}
+        \CoHA^{\mathrm{sph}}_{\mathrm{crit},T}(U_\alpha).
+\]
+This is a constructed positive-half comparison at finite Rees level. It
+is not a compact critical CoHA, a quasi-NCCR realisation, a
+Hall--Drinfeld double, or a new \(\Phi_d\)-output.
+\end{proposition}
+
+\begin{proof}
+The one-chart \(\bC^3\) statement is the Schiffmann--Vasserot
+identification of the critical Hall algebra of the three-loop Jordan
+quiver with potential \(\operatorname{tr}(XYZ-XZY)\) with the affine
+Yangian positive half. The finite toric statement applies the
+DWR/Ran Rees hCS--Hall map on each chart and uses the face-compatible
+cyclic contractions and Hall wall-crossing quasi-isomorphisms on
+overlaps; the universal property of the finite homotopy colimit gives
+the displayed object. Compact Hall and doubled objects require operations
+not present in the positive-half colimit: monoidal vanishing-cycle
+realisation with compact support, continuous dualisation, non-degenerate
+pairing after radical quotient, Cartan data, and PBW/no-extra-relations
+control.
+\end{proof}
+
+\section{Trace}
+
+\begin{definition}
+For a compact Calabi--Yau \(d\)-fold \(X\), meaning a smooth proper complex
+Calabi--Yau variety of dimension \(d\), set
+\[
+        \Xi(X)=\sum_q(-1)^q h^{0,q}(X).
+\]
+This is the Hodge supertrace. The symbol
+\(\kappa_{\mathrm{ch}}\) denotes the chiral-side invariant of a constructed
+algebra, and is only identified with \(\Xi(X)\) on the constructed
+\(\Phi_d\)-locus.
+\end{definition}
+
+\begin{proposition}[Hodge trace on constructed loci]
+The scalar \(\Xi(X)\) is an unconditional Hodge-theoretic invariant. If
+\(A_X=\Phi_d^{(\Sigma_{d-1},C)}(\Perf(X))\) has been constructed in the
+compact Calabi--Yau locus together with the trace-comparison map
+identifying the chiral trace with the \(F^0\)-graded HKR summand, then
+\[
+        \kappa_{\mathrm{ch}}(A_X)=\Xi(X).
+\]
+Thus \(\kappa_{\mathrm{ch}}(A_{K3})=\Xi(K3)=2\), and for the compact
+total-space output \(\kappa_{\mathrm{ch}}(A_{K3\times E})=\Xi(K3\times
+E)=0\). The categorical Euler invariant of the total space is likewise
+\(\kappa_{\mathrm{cat}}(K3\times E)=\chi(\cO_{K3\times E})=0\); the value
+\(\chi(\cO_{K3})=2\) is a fibre value, not the product value. The other
+values attached to \(K3\times E\) are separate invariants:
+\[
+        \kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3,\qquad
+        \kappa_{\mathrm{BKM}}=5,\qquad
+        \kappa_{\mathrm{fiber}}=24 .
+\]
+\end{proposition}
+
+\begin{proof}
+HKR decomposes Hochschild homology into the summands
+\(\bigoplus_{p,q} H^q(X,\Omega_X^p)\). The negative-cyclic Calabi--Yau
+class is the \(S^1\)-equivariant lift of the Serre--Mukai trace. The
+only extra input in the displayed equality is the trace-comparison
+witness
+\[
+        \operatorname{tr}^{\mathrm{ch}}_{A_X}\circ\mathrm{HKR}
+        =
+        \sum_q(-1)^q\,\operatorname{pr}_{H^q(X,\cO_X)} .
+\]
+Thus the chiral trace functional defining \(\kappa_{\mathrm{ch}}\) is
+literally the structure-sheaf column \(\bigoplus_q H^q(X,\cO_X)\) on the
+constructed compact trace locus. The equality with
+\(\kappa_{\mathrm{ch}}\) is asserted only on loci where both the algebra
+\(A_X\) and this trace comparison have been built.
+For \(K3\times E\), K\"unneth gives
+\[
+        h^{0,\bullet}(K3\times E)=(1,1,1,1),
+        \qquad \Xi(K3\times E)=1-1+1-1=0 .
+\]
+The Heisenberg and Borcherds numbers above, and BCOV coefficients when
+present, come from their own constructions and are not HKR consequences of
+this projection.
+\end{proof}
+
+\section{Bar--cobar reconstruction and duality}
+
+\begin{definition}[Bar--cobar ambient category]
+Fix a reference curve \(C\) and a complete filtered model category
+\(\mathsf{M}_C\) of \(E_1\)-chiral algebras on \(C\), with a compatible
+subcategory of conilpotent \(E_1\)-chiral coalgebras. For an augmented
+cofibrant algebra \(A\in\mathsf{M}_C\), \(B^{\mathrm{ch}}_{E_1}(A)\) denotes
+the reduced ordered \(E_1\)-bar coalgebra and
+\(\Omega^{\mathrm{ch}}_{E_1}\) denotes its left adjoint cobar construction,
+both formed inside \(\mathsf{M}_C\) or its stated coderived/pro-completed
+enlargement. The notation \(A^!\) denotes Verdier duality on the curve
+\(C\). The notation \(\cC^\vee\) denotes a Calabi--Yau/Koszul dual category
+only on loci where such a dual category and its trace data have been
+constructed.
+\end{definition}
+
+\begin{proposition}
+Let \(A\) be an augmented cofibrant \(E_1\)-chiral algebra in the fixed
+ambient category \(\mathsf{M}_C\). Assume either that the reduced ordered
+bar coalgebra \(B^{\mathrm{ch}}_{E_1}(A)\) lies in the conilpotent
+coalgebra subcategory where the \(E_1\) bar--cobar adjunction is Quillen,
+or that the ordered bar construction is complete and separated for a weight
+filtration whose associated Koszul spectral sequence converges and whose
+associated-graded counit is a quasi-isomorphism. Then the
+chiral \(E_1\) bar--cobar counit is a quasi-isomorphism in that ambient
+category or in the named coderived/pro-completed enlargement:
+\[
+        \Omega^{\mathrm{ch}}_{E_1}B^{\mathrm{ch}}_{E_1}(A)\longrightarrow A .
+\]
+When \(\cC^\vee\) exists and the specialisation datum has been transported
+to the dual side, the stronger
+compatibility
+\[
+        \Phi_d^{(\Sigma_{d-1},C)}(\cC^\vee)
+        \simeq
+        \Phi_d^{(\Sigma_{d-1},C)}(\cC)^!
+\]
+requires a duality-compatible kernel theorem: the Calabi--Yau/Koszul dual
+must
+transport the negative-cyclic class, formality point, framing homotopy,
+holomorphic-twist witness, specialisation kernel, and completion, and the
+transported chiral object must identify with Verdier duality. Outside loci
+where those data have been constructed, this is a mirror/Koszul
+compatibility conjecture.
+\end{proposition}
+
+\begin{proof}
+On the conilpotent coalgebra locus inside \(\mathsf{M}_C\), the reduced bar
+filtration is
+exhaustive and complete, so the standard chiral \(E_1\) bar--cobar
+comparison is a filtered quasi-isomorphism. On the ordered-bar locus the
+same conclusion follows from the complete separated weight filtration and
+the convergence of the Koszul spectral sequence; equivalently, the
+comparison is taken in the coderived or pro-completed ambient category
+where the infinite ordered bar sums converge. The displayed
+\(\Phi_d\)-compatibility is stronger: it identifies the Calabi--Yau dual
+before specialisation with Verdier duality after the tagged
+specialisation. The bar--cobar counit alone does not supply the transported
+formality point, framing homotopy, holomorphic-twist witness, or
+specialisation kernel, so the compatibility is a conjecture until those
+data are constructed.
+\end{proof}
+
+\begin{remark}[Borcherds and Igusa normalisations]
+The bar--cobar reconstruction above uses only the conilpotent or
+weight-completed ambient category stated in the proposition. It does not use
+an ordered-to-symmetric averaging conductor. Borcherds' weight theorem, in
+the Gritsenko--Nikulin denominator normalisation where \(c_N(0)\) is the
+constant term of the Borcherds input, supplies the proved identity
+\[
+        \kappa_{\mathrm{BKM}}(\Phi_N)=\frac{c_N(0)}{2},
+        \qquad N\in\{1,2,3,4,6\}.
+\]
+For these five levels \(c_N(0)=(10,8,6,4,2)\), hence
+\(\kappa_{\mathrm{BKM}}=(5,4,3,2,1)\). No equality with the compact Hodge
+supertrace is asserted here. When the square of the Igusa root enters, the
+monic Borcherds product and the OP scalar convention are kept separate:
+\[
+        D_5=64^{-1}\Delta_5,\qquad
+        \Phi_{10}^{\mathrm{un}}=\Delta_5^2,\qquad
+        \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2,\qquad
+        Z_{\mathrm{OP/DT}}=-4096\,\Delta_5^{-2}.
+\]
+The weight-five Borcherds invariant is attached to \(\Delta_5\), not to the
+weight-ten square; the scalar \(-4096\) is a normalisation conversion, not a
+compact Hall construction.
+\end{remark}
 
 \end{document}

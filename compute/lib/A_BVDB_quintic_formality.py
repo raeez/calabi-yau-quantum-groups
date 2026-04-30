@@ -1,126 +1,117 @@
-r"""A_BVDB_quintic_formality.py -- Formality of the Bondal-Van den Bergh
-DG endomorphism algebra A_BVDB on the compact quintic X_5 as a (-3)-CY DG algebra.
+r"""Carrier-separated quintic/BVDB formality diagnostics.
 
-PURPOSE
-=======
+This engine records exact data for the smooth Fermat quintic
+``X_5 \subset P^4`` and the Bondal--Van den Bergh compact generator
 
-Implements the wave `notes/wave_A_BVDB_formality_quintic.md` artifacts.
+    E_BVDB = O_X + O_X(1) + O_X(2) + O_X(3) + O_X(4).
 
-ATTACK PLAN (from brief)
-========================
+It is deliberately not a proof that compact Calabi--Yau threefold
+``Obs_Ainf`` vanishes, that ``HH^{-2}`` vanishes, that an ``S^3`` framing is
+contractible, that compact ``Phi_3`` is constructed, or that Hall/CoHA,
+PBW, or no-extra-relations data follow.
 
-1. Compute A_BVDB explicitly via Bondal-Van den Bergh's compact generator.
-   E_BVDB = O + O(1) + O(2) + O(3) + O(4) on X_5 (Beilinson collection
-   restricted to the quintic).
-   A_BVDB = End^*(E_BVDB).
+AP-CY34 firewall
+================
 
-2. (-3)-CY structure: Serre duality pairing in degree 3 (the trace map
-   is the (-3)-shift of the diagonal class).
+The raw terminal-slot pair contraction ``B_term^(2)`` is not Costello's
+corrected TCFT operator ``B_TCFT^(2)``.  The strict cyclic CY3 witness is
 
-3. Higher A_inf structure m_n on A_BVDB for n = 3, 4, ...
+    [m_3,B_term^(2)][a|a|a|a|b] = 2 alpha [b] != 0
 
-4. Test formality: m_3 = 0?
+in characteristic zero.  A positive compact CY3 closure therefore requires
+one of two supplied mechanisms:
 
-5. Calaque-Halbout-Felder formality criterion: torus action.
+* explicit ``B_TCFT^(2)`` correction/comparison data; or
+* an ``HH^{-2}`` filtration theorem with comparison map, complete,
+  exhaustive, separated strong convergence, and an empty total-degree
+  ``-2`` line.
 
-6. Direct m_3 computation via Yukawa coupling.
+The quintic constants below are useful diagnostics:
 
-THE RESULT
-==========
+* ``H^3 = 5`` for the hyperplane class on ``X_5``;
+* ``n_1^(0) = 2875`` lines on the quintic;
+* ``n_2^(0) = 609250`` conics, giving the Yukawa coefficient
+  ``2875 + 8 * 609250 = 4876875`` at ``q^2``.
 
-This engine establishes:
-
-  THM: A_BVDB is NOT formal as a (-3)-CY DG algebra.
-
-  MECHANISM: m_3 != 0 on the Kodaira-Spencer subquotient
-             L_KS(X_5) subset A_BVDB, supplied by the Yukawa coupling
-             Y_3(t) = H^3 + sum_{d>=1} n_d^{(0)} d^3 q^d/(1-q^d)
-             with H^3 = 5 (classical) and n_1^{(0)} = 2875 (BPS lines on quintic).
-
-  CALAQUE-HALBOUT-FELDER ROUTE FAILS: the (C^*)^4 torus action on P^4
-  does NOT preserve the Fermat quintic. Only the finite Heisenberg
-  group (Z/5)^4 rtimes (Z/5) acts. Continuous torus action required
-  for the formality criterion.
-
-  HEALED PLATONIC STATEMENT: The Kapranov 3-shifted Koszul duality
-  on the compact quintic reduces NOT to strict formality of A_BVDB
-  but to CURVED formality with the Yukawa coupling as curving datum.
-  This is the Costello-Li BCOV BV-quantization framework
-  (arXiv:1112.0816).
-
-CONVENTIONS
-===========
-- X_5 = smooth Fermat quintic threefold in P^4. CY_3.
-- E_BVDB = O + O(1) + O(2) + O(3) + O(4).
-- A_BVDB = End^*(E_BVDB) = bigoplus_{i,j=0..4} R Gamma(O_{X_5}(j-i)).
-- Total dim A_BVDB = 420 (210 in degree 0, 210 in degree 3, 0 elsewhere).
-- (-3)-CY structure: Serre duality pairing dim_q = dim_{3-q}.
-- m_3 on Kodaira-Spencer dgla = Yukawa coupling Y_3 (Barannikov-Kontsevich).
-- Y_3(t) = 5 + 2875 q + 4876875 q^2/2 + ... (Candelas-de la Ossa-Green-Parkes).
-
-REFERENCES
-==========
-- Bondal-Van den Bergh 2003 (Moscow Math J): compact generators of
-  D^b(Coh(X)) for smooth proper X.
-- Caldararu 2003 (arXiv:math/0308080): HKR isomorphism on D^b(Coh(X)).
-- Barannikov-Kontsevich 1998 (alg-geom/9710029): Frobenius manifolds and
-  formality of Lie algebras of polyvector fields.
-- Manin 1999: Three constructions of Frobenius manifolds.
-- Calaque-Halbout 2011 (arXiv:0708.2725): Cyclic formality and BV quantization.
-- Felder-Calaque-Pichereau extensions: formality on toric varieties.
-- Sheridan 2015 (arXiv:1507.03085): Homological mirror symmetry for the
-  quintic threefold.
-- Solomon 2017 (arXiv:1602.07071): BPS positivity of holomorphic disks.
-- Costello-Li 2012 (arXiv:1112.0816): Quantum BCOV theory on Calabi-Yau
-  manifolds and the higher genus B-model.
-- Candelas-de la Ossa-Green-Parkes 1991 (Nuclear Physics B 359): A pair of
-  Calabi-Yau manifolds as an exactly soluble superconformal theory
-  (the original mirror symmetry computation, with H^3 = 5 and n_1^{(0)} = 2875).
-- Klemm-Theisen 1993: Considerations of one-modulus Calabi-Yau
-  compactifications, n_2^{(0)} = 609250.
-- PTVV 2013 (arXiv:1111.3209): Shifted symplectic on Perf(X) for CY_d.
-- Voisin 2003: Hodge theory and complex algebraic geometry II.
-
-Manuscript references:
-    chapters/theory/e2_chiral_algebras.tex:
-      thm:a-bvdb-not-formal-quintic (NEW, this wave)
-      rem:platonic-kapranov-quintic-curved (UPGRADED from rem:platonic-kapranov-quintic)
-      rem:calaque-halbout-felder-fails-quintic (NEW, this wave)
-      cor:yukawa-curving-bcov (NEW, this wave)
-    notes/wave_A_BVDB_formality_quintic.md (this wave)
-    notes/wave_compact_CY_B_quintic_tilting_bridgeland.md (prior wave)
-
-AP citations:
-    AP-CY61 (first-principles investigation): the ghost theorem extracted
-        from the brief is curved formality, not strict formality.
-    AP-CY55 (manifold vs algebraization): Yukawa coupling Y_3 is a
-        manifold invariant; m_3 is an algebraization-dependent quantity
-        determined by Y_3.
-    AP-CY60 (six routes != six applications of Phi): the Bondal-Van den
-        Bergh compact generator and the Kapranov polyvector algebra are
-        DIFFERENT constructions; their identification is the conjecture.
-    AP-CY11 (conditional propagation): the curved-formality refinement is
-        conditional on the Costello-Li BV quantization.
+Those constants prove that the formal Yukawa series is not identically zero
+at the large-radius expansion.  They do not by themselves prove global
+non-vanishing on moduli or transfer a nonzero ``m_3`` from the
+Kodaira--Spencer/polyvector carrier to this particular BVDB minimal model.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from fractions import Fraction
 from math import comb
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
 F = Fraction
 
 
 # ===========================================================================
-# 1. Hodge data of the quintic + cohomology of O(d) (re-imported pattern)
+# 0. Anti-implication firewall
+# ===========================================================================
+
+AUTOMATIC_SOURCE_MECHANISMS: Tuple[str, ...] = (
+    "DGMS",
+    "BTT",
+    "Kaledin",
+    "BVDB_compact_generator",
+    "strict_or_curved_formality_label",
+    "Yukawa_diagnostic",
+    "quintic_numerics",
+)
+
+FORBIDDEN_AUTOMATIC_TARGETS: Tuple[str, ...] = (
+    "universal_compact_cy3_Obs_Ainf_zero",
+    "HH_minus_2_zero",
+    "contractible_S3_framing",
+    "compact_Phi_3_constructed",
+    "Hall_or_CoHA_constructed",
+    "PBW_flatness",
+    "no_extra_relations",
+)
+
+
+def automatic_implication_firewall() -> Dict[str, object]:
+    """Return the AP-CY34 firewall matrix.
+
+    Every entry is intentionally ``False``: none of the listed mechanisms is
+    allowed to imply any of the listed compact CY3 closure targets without
+    the explicit comparison data checked elsewhere in this file.
+    """
+
+    matrix = {
+        source: {target: False for target in FORBIDDEN_AUTOMATIC_TARGETS}
+        for source in AUTOMATIC_SOURCE_MECHANISMS
+    }
+    return {
+        "all_forbidden_implications_rejected": True,
+        "sources": AUTOMATIC_SOURCE_MECHANISMS,
+        "targets": FORBIDDEN_AUTOMATIC_TARGETS,
+        "matrix": matrix,
+        "normalization": (
+            "DGMS/BTT/Kaledin/BVDB/formality/Yukawa/quintic diagnostics are "
+            "evidence or input data only; they are not compact CY3 closure "
+            "theorems."
+        ),
+    }
+
+
+# ===========================================================================
+# 1. Hodge data of the quintic and cohomology of O(d)
 # ===========================================================================
 
 QUINTIC_HODGE: Dict[Tuple[int, int], int] = {
-    (0, 0): 1, (3, 3): 1, (0, 3): 1, (3, 0): 1,
-    (1, 1): 1, (2, 2): 1,
-    (2, 1): 101, (1, 2): 101,
+    (0, 0): 1,
+    (3, 3): 1,
+    (0, 3): 1,
+    (3, 0): 1,
+    (1, 1): 1,
+    (2, 2): 1,
+    (2, 1): 101,
+    (1, 2): 101,
 }
 for _p in range(4):
     for _q in range(4):
@@ -128,129 +119,101 @@ for _p in range(4):
 
 
 def hq_o_d_quintic(d: int) -> List[int]:
-    """[H^0, H^1, H^2, H^3] of O_{X_5}(d) via Koszul resolution.
+    """Return ``[h^0, h^1, h^2, h^3]`` of ``O_{X_5}(d)``.
 
-    Cf. quintic_bridgeland_tilting.py for the derivation; reproduced here
-    for self-containment of the formality engine.
+    The calculation uses the hypersurface Koszul sequence
+    ``0 -> O_{P^4}(d-5) -> O_{P^4}(d) -> O_X(d) -> 0`` and Serre duality on
+    the Calabi--Yau threefold.
     """
+
     if d >= 0:
-        h0_p_d = comb(d + 4, 4) if d >= 0 else 0
-        h0_p_d5 = comb(d - 5 + 4, 4) if d - 5 >= 0 else 0
+        h0_p_d = comb(d + 4, 4)
+        h0_p_d5 = comb(d - 1, 4) if d >= 5 else 0
         h0 = h0_p_d - h0_p_d5
         h3 = 1 if d == 0 else 0
         return [h0, 0, 0, h3]
-    else:
-        if d == 0:
-            h3 = 1
-        else:
-            md = -d
-            h3 = comb(md + 4, 4) - (comb(md - 5 + 4, 4) if md - 5 >= 0 else 0)
-        return [0, 0, 0, h3]
+
+    md = -d
+    h3 = comb(md + 4, 4) - (comb(md - 1, 4) if md >= 5 else 0)
+    return [0, 0, 0, h3]
 
 
 # ===========================================================================
 # 2. A_BVDB structure: dimension, degree distribution, (-3)-CY pairing
 # ===========================================================================
 
+
 def a_bvdb_total_dimension() -> int:
-    """Total cohomological dim of A_BVDB = sum_{i,j=0..4} sum_q dim H^q(O(j-i))."""
-    total = 0
-    for i in range(5):
-        for j in range(5):
-            d = j - i
-            cohom = hq_o_d_quintic(d)
-            total += sum(cohom)
-    return total
+    """Total cohomological dimension of ``End^*(E_BVDB)``."""
+
+    return sum(
+        sum(hq_o_d_quintic(j - i))
+        for i in range(5)
+        for j in range(5)
+    )
 
 
 def a_bvdb_dim_by_degree() -> Dict[int, int]:
-    """A_BVDB graded by cohomological degree q in {0, 1, 2, 3}."""
+    """Dimensions of ``A_BVDB`` in cohomological degrees ``0,1,2,3``."""
+
     by_deg: Dict[int, int] = {0: 0, 1: 0, 2: 0, 3: 0}
     for i in range(5):
         for j in range(5):
-            d = j - i
-            cohom = hq_o_d_quintic(d)
-            for q, dim in enumerate(cohom):
+            for q, dim in enumerate(hq_o_d_quintic(j - i)):
                 by_deg[q] += dim
     return by_deg
 
 
 def a_bvdb_is_minus_3_cy() -> Dict[str, object]:
-    """Verify the (-3)-CY structure: dim_q = dim_{3-q} (Serre symmetry).
+    """Record the Serre-duality dimension check for the ``(-3)`` pairing."""
 
-    The PTVV (-3)-shifted symplectic structure on Perf(X_5) restricts
-    at the point E_BVDB to a non-degenerate pairing
-        End^q(E) x End^{3-q}(E) -> H^3(O_X) ~= k
-    of degree -3. On A_BVDB this manifests as Serre symmetry of
-    dimension by degree.
-
-    Returns
-    -------
-    Dict
-        Witness data: dim_0, dim_3, equality, total dim.
-    """
     by_deg = a_bvdb_dim_by_degree()
     return {
         "dim_0": by_deg[0],
-        "dim_3": by_deg[3],
         "dim_1": by_deg[1],
         "dim_2": by_deg[2],
+        "dim_3": by_deg[3],
         "serre_symmetry_0_3": by_deg[0] == by_deg[3],
         "serre_symmetry_1_2": by_deg[1] == by_deg[2],
         "total_dim": sum(by_deg.values()),
         "cy_degree": -3,
         "pairing_target": "H^3(O_{X_5}) = k",
+        "scope": (
+            "Serre duality gives the pairing datum. It is not an "
+            "Obs_Ainf or HH^{-2} vanishing theorem."
+        ),
     }
 
 
 # ===========================================================================
-# 3. The Yukawa coupling: classical + GW corrections
+# 3. The Yukawa coupling: exact large-radius coefficients
 # ===========================================================================
 
-# Classical triple intersection on the quintic
-QUINTIC_TRIPLE_INTERSECTION: int = 5  # H^3 = 5 (degree of quintic in P^4)
+QUINTIC_TRIPLE_INTERSECTION: int = 5
 
-# Genus-zero BPS counts (Candelas-de la Ossa-Green-Parkes, Klemm-Theisen, ...)
-# n_d^{(0)} = number of holomorphic rational curves of degree d on quintic
 QUINTIC_BPS_GENUS_0: Dict[int, int] = {
-    1: 2875,        # lines
-    2: 609250,      # conics
-    3: 317206375,   # twisted cubics
+    1: 2875,
+    2: 609250,
+    3: 317206375,
     4: 242467530000,
     5: 229305888887625,
 }
 
 
 def yukawa_classical() -> int:
-    """Classical Yukawa coupling Y_3(0) = H^3 = 5 on the quintic.
+    """Classical Yukawa coupling ``Y_3(0) = H^3 = 5``."""
 
-    The triple intersection H * H * H of the hyperplane class on X_5,
-    computed by adjunction:
-        H^3|_{X_5} = deg(X_5) = 5,
-    where H is the restriction of the hyperplane class on P^4.
-    """
     return QUINTIC_TRIPLE_INTERSECTION
 
 
 def yukawa_q_expansion(d_max: int) -> Dict[int, Fraction]:
-    """Yukawa coupling Y_3(q) = 5 + sum_{d>=1} n_d^{(0)} d^3 q^d / (1-q^d)
-    expanded as a power series in q up to degree d_max.
+    r"""Expand ``Y_3(q)`` through ``q^d_max``.
 
-    The expansion is
-        Y_3 = 5 + sum_{d>=1} n_d^{(0)} d^3 sum_{k>=1} q^{d*k}
-            = 5 + sum_{m>=1} (sum_{d | m} n_d^{(0)} d^3) q^m
-    by exchanging sums.
+    The convention is
 
-    Parameters
-    ----------
-    d_max : int
-        Maximum power of q to compute.
-
-    Returns
-    -------
-    Dict[int, Fraction]
-        Coefficients of Y_3(q) as {power: coefficient}.
+    ``Y_3 = 5 + sum_{d>=1} n_d^(0) d^3 q^d/(1-q^d)``.
     """
+
     coeffs: Dict[int, Fraction] = {0: F(QUINTIC_TRIPLE_INTERSECTION)}
     for m in range(1, d_max + 1):
         coeffs[m] = F(0)
@@ -261,275 +224,415 @@ def yukawa_q_expansion(d_max: int) -> Dict[int, Fraction]:
 
 
 def yukawa_is_nonvanishing() -> Dict[str, object]:
-    """Verify Y_3 is nowhere zero on the moduli space.
+    """Safe nonzero diagnostic for the large-radius formal series.
 
-    Returns the report: leading term (5) and first GW correction (2875).
+    The old engine treated a nonzero formal expansion as a theorem that the
+    Yukawa coupling is nowhere zero on moduli.  This function now records the
+    weaker statement actually checked here: the formal series is not
+    identically zero because its constant term is ``5``.
     """
+
     coeffs = yukawa_q_expansion(2)
     return {
         "constant_term": int(coeffs[0]),
         "q_coefficient": int(coeffs[1]),
+        "q2_coefficient": int(coeffs[2]),
         "constant_term_is_classical_intersection": coeffs[0] == QUINTIC_TRIPLE_INTERSECTION,
-        "leading_term_nonzero": coeffs[0] != 0,
-        "vanishing_locus_in_moduli": "EMPTY (Y_3 is a non-zero analytic function)",
-        "sheridan_hms_implies": "Y_3 corresponds to genus-0 open string amplitude on mirror W_5",
-        "solomon_bps_positivity": "Holomorphic disk count is signed-positive (Solomon 2017)",
+        "formal_series_not_identically_zero": coeffs[0] != 0,
+        "global_zero_locus_known_empty": False,
+        "vanishing_locus_in_moduli": "not_computed_by_this_engine",
+        "scope": (
+            "Large-radius formal Yukawa diagnostic only; no universal compact "
+            "CY3 obstruction closure follows."
+        ),
     }
 
 
 # ===========================================================================
-# 4. m_3 on the Kodaira-Spencer subquotient = Yukawa coupling
+# 4. Kodaira-Spencer carrier and BVDB transfer boundary
 # ===========================================================================
 
+
 def kodaira_spencer_dim_h1() -> int:
-    """dim H^1(T_{X_5}) = h^{2,1}(X_5) = 101 (CY_3 with K_X = O implies T = Omega^2)."""
+    """``dim H^1(T_{X_5}) = h^{2,1}(X_5) = 101``."""
+
     return QUINTIC_HODGE[(2, 1)]
 
 
 def kodaira_spencer_dim_h2() -> int:
-    """dim H^2(T_{X_5}) = h^{2,2}(X_5) = 1."""
+    """``dim H^2(T_{X_5}) = h^{2,2}(X_5) = 1``."""
+
     return QUINTIC_HODGE[(2, 2)]
 
 
-def m3_kodaira_spencer_dimension() -> Dict[str, int]:
-    """Dimension data for m_3: H^1(T)^{otimes 3} -> H^2(T) ~= H^3(O) = k.
+def m3_kodaira_spencer_dimension() -> Dict[str, object]:
+    """Dimension data for the Kodaira--Spencer Yukawa carrier."""
 
-    By Barannikov-Kontsevich, the m_3 on the Kodaira-Spencer dgla restricted
-    to H^1(T_{X_5}) is the Yukawa coupling, a symmetric trilinear form
-    valued in H^2(T_{X_5}) = C, then projected to H^3(O_X) = C via
-    contraction with the inverse holomorphic 3-form.
-
-    Returns
-    -------
-    Dict
-        Source dim, target dim, total dim of Sym^3 H^1(T).
-    """
     h1 = kodaira_spencer_dim_h1()
     h2 = kodaira_spencer_dim_h2()
-    # Symmetric cube of H^1(T) has dimension binomial(h1 + 2, 3)
     sym3_dim = comb(h1 + 2, 3)
     return {
-        "h1_T_dim": h1,                         # 101
-        "h2_T_dim": h2,                         # 1
-        "sym3_h1_dim": sym3_dim,                # 101*102*103/6 = 176851
+        "h1_T_dim": h1,
+        "h2_T_dim": h2,
+        "sym3_h1_dim": sym3_dim,
         "m3_source_dim": sym3_dim,
         "m3_target_dim": h2,
-        "m3_is_zero_morphism": False,           # Y_3 is non-zero
-        "m3_is_yukawa_coupling": True,
+        "m3_is_zero_morphism_on_ks_carrier": False,
+        "m3_is_yukawa_coupling_on_ks_carrier": True,
+        "a_bvdb_transfer_map_supplied": False,
     }
 
 
 def m3_obstruction_via_yukawa() -> Dict[str, object]:
-    """The m_3 obstruction class is supplied by the Yukawa coupling Y_3.
+    """Carrier-separated status of the Yukawa ``m_3`` diagnostic."""
 
-    Theorem (Barannikov-Kontsevich 1998): The minimal model of L_KS(X)
-    obtained via Kadeishvili transfer carries A_inf operations m_k on
-        H^*(L_KS(X)) = bigoplus_{p,q} H^q(Lambda^p T_X)
-    with m_3 on H^1(T)^{otimes 3} equal to the Yukawa coupling Y_3.
-
-    Y_3 is non-zero (constant term H^3 = 5), so m_3 != 0 on L_KS(X_5),
-    hence m_3 != 0 on A_BVDB.
-
-    Returns
-    -------
-    Dict
-        Full obstruction analysis.
-    """
     yukawa = yukawa_is_nonvanishing()
     m3_dim = m3_kodaira_spencer_dimension()
     return {
-        "m3_obstruction_class": "Yukawa coupling Y_3 = H^3 + sum n_d^{(0)} d^3 q^d/(1-q^d)",
+        "carrier": "Kodaira-Spencer/polyvector Frobenius-manifold carrier",
+        "m3_obstruction_class": (
+            "Yukawa series Y_3 = H^3 + sum n_d^(0) d^3 q^d/(1-q^d)"
+        ),
         "classical_value": yukawa["constant_term"],
         "first_gw_correction": yukawa["q_coefficient"],
-        "barannikov_kontsevich_identification": True,
-        "obstruction_is_non_vanishing": True,
+        "barannikov_kontsevich_identification_scope": "KS/polyvector carrier",
+        "ks_yukawa_nonzero": yukawa["formal_series_not_identically_zero"],
+        "a_bvdb_obstruction_nonzero_proved": False,
+        "requires_bvdb_ks_comparison_map": True,
         "obstruction_dim_data": m3_dim,
-        "vanishing_in_moduli": "NEVER (Y_3 nowhere zero)",
-        "consequence_for_formality": "A_BVDB is NOT formal as (-3)-CY DG algebra",
+        "vanishing_in_moduli": yukawa["vanishing_locus_in_moduli"],
+        "consequence_for_formality": (
+            "No strict A_BVDB formality verdict follows without an explicit "
+            "comparison map from the KS/Yukawa carrier to the chosen BVDB "
+            "minimal model."
+        ),
     }
 
 
 # ===========================================================================
-# 5. Calaque-Halbout-Felder route: torus action on quintic FAILS
+# 5. Calaque--Halbout--Felder route: ambient torus does not restrict
 # ===========================================================================
 
+
 def torus_action_p4_dimension() -> int:
-    """Dimension of the maximal torus T = (C^*)^4 acting on P^4."""
+    """Dimension of the maximal torus ``(C^*)^4`` acting on ``P^4``."""
+
     return 4
 
 
 def torus_action_preserves_quintic() -> bool:
-    """Does (C^*)^4 acting on P^4 preserve the Fermat quintic X_5?
+    """The ambient ``(C^*)^4`` action does not preserve the Fermat quintic."""
 
-    Action: (t_1, t_2, t_3, t_4) . (x_0:x_1:x_2:x_3:x_4) =
-            (x_0 : t_1 x_1 : t_2 x_2 : t_3 x_3 : t_4 x_4).
-
-    The Fermat polynomial sum_{i=0..4} x_i^5 transforms to
-        x_0^5 + sum_{i=1..4} t_i^5 x_i^5
-    which equals sum x_i^5 (i.e., preserves X_5) iff
-        t_1^5 = t_2^5 = t_3^5 = t_4^5 = 1.
-
-    This is a finite group (Z/5)^4, NOT a continuous torus.
-    """
     return False
 
 
 def quintic_continuous_symmetry_group() -> Dict[str, object]:
-    """The connected component of Aut(X_5) is trivial.
+    """Connected automorphism group data for the Fermat quintic.
 
-    For a strict CY_3 (h^{1,0} = h^{2,0} = 0), the Beauville-Bogomolov
-    decomposition + Bogomolov-Tian-Todorov implies that the connected
-    component of the automorphism group is trivial: no continuous
-    C^*-actions exist.
-
-    Discrete automorphism group of the Fermat quintic:
-        Aut(X_5)^Fermat = ((Z/5)^4 / diagonal) rtimes S_5
-                        = (Z/5)^3 rtimes S_5
-        |Aut| = 5^3 * 120 = 15000.
+    The vanishing of continuous vector fields follows from
+    ``H^0(T_X) = H^{2,0}(X) = 0`` for a strict CY3.  This is not a BTT
+    unobstructedness argument.
     """
+
     return {
         "connected_component": "trivial",
-        "discrete_aut_fermat": "(Z/5)^3 rtimes S_5",
-        "discrete_aut_order": 5**3 * 120,
         "continuous_torus_exists": False,
         "max_torus_dim_acting": 0,
+        "discrete_aut_fermat": "(Z/5)^3 rtimes S_5",
+        "discrete_aut_order": 5**3 * 120,
+        "reason": "H^0(T_X)=H^{2,0}(X)=0; BTT is not used.",
     }
 
 
 def calaque_halbout_felder_applicability() -> Dict[str, object]:
-    """Does the Calaque-Halbout-Felder formality criterion apply to X_5?
+    """The torus-equivariant formality criterion is unavailable for ``X_5``."""
 
-    The criterion requires:
-      (a) X is a smooth toric variety, OR
-      (b) X carries a continuous algebraic torus action with isolated
-          fixed points and the appropriate equivariance structure.
-
-    For the Fermat quintic X_5:
-      - X_5 is NOT toric (codim-1 hypersurface in P^4 with non-toric defining
-        equation x_0^5 + ... + x_4^5).
-      - The (C^*)^4 torus action on P^4 does NOT preserve X_5 (only the finite
-        Heisenberg group acts, see torus_action_preserves_quintic).
-      - The connected automorphism group of X_5 is trivial.
-
-    Conclusion: Calaque-Halbout-Felder does NOT apply.
-    """
     return {
         "x5_is_toric": False,
         "p4_torus_preserves_x5": torus_action_preserves_quintic(),
         "x5_connected_automorphism_group": "trivial",
         "calaque_halbout_felder_applies": False,
         "reason": (
-            "Quintic is not toric; the (C^*)^4-action on P^4 restricts to the "
-            "finite group (Z/5)^4 on X_5, not a continuous torus. The "
-            "Calaque-Halbout-Felder formality criterion requires a continuous "
-            "torus action, which is absent on strict compact CY_3."
+            "The Fermat equation is preserved by fifth-root scalars and "
+            "permutations, not by the continuous ambient torus."
         ),
-        "alternative_routes": [
-            "Curved formality (Costello-Li BCOV, this wave)",
-            "Tsygan formality at the chain level (universal but indirect)",
-            "Sheridan HMS + B-model interpretation (mirror to A-model)",
-        ],
+        "does_not_imply": FORBIDDEN_AUTOMATIC_TARGETS,
+        "actual_next_steps": (
+            "Supply a BVDB-KS comparison map, corrected B_TCFT^(2) data, "
+            "or the HH^{-2} filtration theorem."
+        ),
     }
 
 
 # ===========================================================================
-# 6. The unified formality theorem
+# 6. Raw B_term^(2), corrected B_TCFT^(2), and HH^{-2} gates
 # ===========================================================================
 
+
+@dataclass(frozen=True)
+class RawBTerm2Witness:
+    """Strict cyclic CY3 witness for the raw pair-contraction operator."""
+
+    alpha: Fraction
+    input_word: Tuple[str, ...] = ("a", "a", "a", "a", "b")
+    b_term2_output_coeff: Fraction = F(4)
+    m3_after_b_term2_coeff: Fraction = F(4)
+    b_term2_after_m3_coeff: Fraction = F(2)
+    commutator_coeff: Fraction = F(2)
+
+    @property
+    def nonzero(self) -> bool:
+        return self.commutator_coeff != 0
+
+    @property
+    def formula(self) -> str:
+        return "[m_3,B_term^(2)][a|a|a|a|b] = 2 alpha [b] != 0"
+
+
+def raw_b_term2_witness(alpha: Fraction | int = F(1)) -> Dict[str, object]:
+    """Return the normalized raw ``B_term^(2)`` witness."""
+
+    a = F(alpha)
+    witness = RawBTerm2Witness(
+        alpha=a,
+        b_term2_output_coeff=4,
+        m3_after_b_term2_coeff=4 * a,
+        b_term2_after_m3_coeff=2 * a,
+        commutator_coeff=2 * a,
+    )
+    return {
+        "raw_operator": "B_term^(2)",
+        "corrected_operator": "B_TCFT^(2)",
+        "raw_is_corrected_tcft": False,
+        "alpha": witness.alpha,
+        "input_word": witness.input_word,
+        "B_term_then_m3_coeff": witness.m3_after_b_term2_coeff,
+        "m3_then_B_term_coeff": witness.b_term2_after_m3_coeff,
+        "commutator_coeff": witness.commutator_coeff,
+        "nonzero": witness.nonzero,
+        "formula": witness.formula,
+    }
+
+
+BTCFT2_REQUIREMENTS: Tuple[str, ...] = (
+    "corrected_operator_chosen",
+    "costello_moduli_chain_correction_terms",
+    "open_closed_tcft_chain_map",
+    "orientation_signs_fixed",
+    "comparison_map_from_raw_B_term_to_B_TCFT",
+)
+
+HH_MINUS_TWO_REQUIREMENTS: Tuple[str, ...] = (
+    "comparison_map_to_obstruction_complex",
+    "filtration_complete",
+    "filtration_exhaustive",
+    "filtration_separated",
+    "strong_convergence",
+    "empty_total_degree_minus_two_line",
+)
+
+
+def b_tcft2_comparison_check(
+    *,
+    corrected_operator_chosen: bool = False,
+    costello_moduli_chain_correction_terms: bool = False,
+    open_closed_tcft_chain_map: bool = False,
+    orientation_signs_fixed: bool = False,
+    comparison_map_from_raw_B_term_to_B_TCFT: bool = False,
+) -> Dict[str, object]:
+    """Check whether the corrected ``B_TCFT^(2)`` route has been supplied."""
+
+    supplied = {
+        "corrected_operator_chosen": corrected_operator_chosen,
+        "costello_moduli_chain_correction_terms": costello_moduli_chain_correction_terms,
+        "open_closed_tcft_chain_map": open_closed_tcft_chain_map,
+        "orientation_signs_fixed": orientation_signs_fixed,
+        "comparison_map_from_raw_B_term_to_B_TCFT": comparison_map_from_raw_B_term_to_B_TCFT,
+    }
+    missing = [name for name, ok in supplied.items() if not ok]
+    return {
+        "route": "corrected_B_TCFT^(2)",
+        "established": not missing,
+        "total_identity": "{sum_k b_k, B_TCFT^(2)} = 0" if not missing else None,
+        "raw_operator_identified_with_tcft": False,
+        "per_k_identity_claimed": False,
+        "missing_hypotheses": missing,
+    }
+
+
+def hh_minus_two_filtration_check(
+    *,
+    comparison_map_to_obstruction_complex: bool = False,
+    filtration_complete: bool = False,
+    filtration_exhaustive: bool = False,
+    filtration_separated: bool = False,
+    strong_convergence: bool = False,
+    empty_total_degree_minus_two_line: bool = False,
+) -> Dict[str, object]:
+    """Check the explicit hypotheses for ``HH^{-2}_{E_1}`` vanishing."""
+
+    supplied = {
+        "comparison_map_to_obstruction_complex": comparison_map_to_obstruction_complex,
+        "filtration_complete": filtration_complete,
+        "filtration_exhaustive": filtration_exhaustive,
+        "filtration_separated": filtration_separated,
+        "strong_convergence": strong_convergence,
+        "empty_total_degree_minus_two_line": empty_total_degree_minus_two_line,
+    }
+    missing = [name for name, ok in supplied.items() if not ok]
+    return {
+        "route": "HH^{-2}_filtration",
+        "vanishes": not missing,
+        "missing_hypotheses": missing,
+        "proof_summary": (
+            "The total degree -2 line is empty on E_1; complete, exhaustive, "
+            "separated strong convergence transfers the vanishing to the "
+            "target obstruction group."
+            if not missing
+            else (
+                "Connectivity, H^0(O_X)=k, DGMS, BTT, Kaledin, BVDB, "
+                "and Yukawa data do not replace these checks."
+            )
+        ),
+    }
+
+
+def positive_closure_gate(
+    *,
+    corrected_operator_chosen: bool = False,
+    costello_moduli_chain_correction_terms: bool = False,
+    open_closed_tcft_chain_map: bool = False,
+    orientation_signs_fixed: bool = False,
+    comparison_map_from_raw_B_term_to_B_TCFT: bool = False,
+    comparison_map_to_obstruction_complex: bool = False,
+    filtration_complete: bool = False,
+    filtration_exhaustive: bool = False,
+    filtration_separated: bool = False,
+    strong_convergence: bool = False,
+    empty_total_degree_minus_two_line: bool = False,
+) -> Dict[str, object]:
+    """Return the compact CY3 closure verdict under supplied hypotheses."""
+
+    witness = raw_b_term2_witness()
+    tcft = b_tcft2_comparison_check(
+        corrected_operator_chosen=corrected_operator_chosen,
+        costello_moduli_chain_correction_terms=costello_moduli_chain_correction_terms,
+        open_closed_tcft_chain_map=open_closed_tcft_chain_map,
+        orientation_signs_fixed=orientation_signs_fixed,
+        comparison_map_from_raw_B_term_to_B_TCFT=comparison_map_from_raw_B_term_to_B_TCFT,
+    )
+    hh = hh_minus_two_filtration_check(
+        comparison_map_to_obstruction_complex=comparison_map_to_obstruction_complex,
+        filtration_complete=filtration_complete,
+        filtration_exhaustive=filtration_exhaustive,
+        filtration_separated=filtration_separated,
+        strong_convergence=strong_convergence,
+        empty_total_degree_minus_two_line=empty_total_degree_minus_two_line,
+    )
+    closes = bool(tcft["established"] or hh["vanishes"])
+    return {
+        "raw_B_term_closes": False,
+        "raw_witness": witness,
+        "corrected_B_TCFT_route": tcft,
+        "HH_minus_two_route": hh,
+        "positive_closure_established": closes,
+        "status": (
+            "closed_under_supplied_corrected_TCFT_or_HH_minus_two_data"
+            if closes
+            else "open"
+        ),
+        "remaining_obligations": (
+            []
+            if closes
+            else list(tcft["missing_hypotheses"]) + list(hh["missing_hypotheses"])
+        ),
+    }
+
+
+# ===========================================================================
+# 7. Formality status reports
+# ===========================================================================
+
+
 def a_bvdb_strict_formality_status() -> Dict[str, object]:
-    """A_BVDB is NOT formal as a (-3)-CY DG algebra.
+    """Safe status report for strict BVDB formality/non-formality."""
 
-    Three independent witnesses:
-      (i)  Yukawa nonvanishing: Y_3 = 5 + 2875 q + ... is nowhere zero.
-      (ii) Sheridan HMS: Y_3 corresponds to non-zero open string amplitude.
-      (iii) Solomon BPS positivity: signed disk count is non-zero.
-
-    Plus the failure of the toric criterion:
-      (iv) Calaque-Halbout-Felder does NOT apply (no continuous torus on X_5).
-    """
     yukawa = yukawa_is_nonvanishing()
     m3_obs = m3_obstruction_via_yukawa()
     chf = calaque_halbout_felder_applicability()
     return {
-        "is_formal_strict": False,
-        "obstruction_class": "Yukawa coupling Y_3",
+        "is_formal_strict": "not_established",
+        "strict_formality_proved": False,
+        "strict_nonformality_proved": False,
+        "obstruction_class": "Yukawa diagnostic on KS/polyvector carrier",
         "obstruction_classical_value": yukawa["constant_term"],
         "obstruction_first_correction": yukawa["q_coefficient"],
         "calaque_halbout_felder_applicable": chf["calaque_halbout_felder_applies"],
-        "barannikov_kontsevich_yukawa_is_m3": m3_obs["barannikov_kontsevich_identification"],
-        "sheridan_hms_corroborates": True,
-        "solomon_bps_positivity_corroborates": True,
-        "vanishing_in_moduli": "NEVER (universal nonvanishing)",
+        "barannikov_kontsevich_yukawa_is_m3_on_ks": True,
+        "bvdb_ks_comparison_map_supplied": False,
+        "a_bvdb_obstruction_nonzero_proved": m3_obs["a_bvdb_obstruction_nonzero_proved"],
+        "automatic_implication_firewall": automatic_implication_firewall(),
+        "compact_cy3_closure_gate": positive_closure_gate(),
         "mechanism": (
-            "m_3 on Kodaira-Spencer subquotient L_KS(X_5) of A_BVDB equals "
-            "the Yukawa coupling (Barannikov-Kontsevich 1998), which has "
-            "constant term H^3 = 5 (classical triple intersection on quintic) "
-            "+ GW corrections, nowhere zero by Sheridan HMS + Solomon BPS."
+            "The engine verifies exact quintic Yukawa coefficients and the "
+            "failure of the torus criterion. It does not transfer the KS "
+            "m_3 to A_BVDB or prove a compact CY3 closure theorem."
         ),
     }
 
 
 def a_bvdb_curved_formality_conjecture() -> Dict[str, object]:
-    """The CORRECTED Platonic statement: curved formality with Yukawa curving.
+    """Conditional curved-formality target, not a theorem from this engine."""
 
-    The Kapranov 3-shifted Koszul duality on the compact quintic does NOT
-    reduce to strict formality; it requires CURVED formality with the
-    Yukawa coupling as curving datum. This is the Costello-Li BCOV
-    BV-quantization framework.
-    """
     return {
-        "conjecture_statement": (
-            "There exists a compact generator E of D^b(Coh(X_5)) and a "
-            "curved (-3)-CY A_inf algebra structure on End^*(E) with curving "
-            "m_0 supplied by the Yukawa coupling Y_3 (BCOV potential), such "
-            "that End^*(E) is quasi-isomorphic AS A CURVED A_inf ALGEBRA to "
-            "Sym^*(T_{X_5}[-1]) equipped with Y_3 as curving."
+        "candidate_statement": (
+            "A curved (-3)-CY A_inf model related to the quintic BVDB "
+            "generator should compare with the BCOV cubic/Yukawa carrier "
+            "after an explicit chain-level comparison is constructed."
         ),
-        "curving_datum": "BCOV potential = Yukawa coupling Y_3",
-        "underlying_framework": "Costello-Li BCOV BV-quantization (arXiv:1112.0816)",
-        "status": "CONJECTURAL (next-order Platonic refinement)",
-        "evidence": [
-            "Costello-Li proved BCOV admits perturbative quantization with Y_3 cubic vertex.",
-            "Barannikov-Kontsevich identified Y_3 as m_3 on Kodaira-Spencer dgla.",
-            "Kontsevich formality conjecture extends to curved setting.",
+        "curving_datum_candidate": "BCOV/Yukawa cubic vertex",
+        "underlying_framework": "Costello-Li BCOV BV-quantization",
+        "status": "OPEN_CONDITIONAL",
+        "curved_formality_proved": False,
+        "requires": [
+            "explicit curved A_inf quasi-isomorphism",
+            "comparison from BCOV cubic vertex to the BVDB minimal model",
+            "separation of B_term^(2) from B_TCFT^(2)",
+            "compact CY3 closure via corrected TCFT data or HH^{-2} theorem",
         ],
-        "next_open_problem": (
-            "Prove the curved formality of A_BVDB on compact CY_3 with explicit "
-            "BCOV curving. The Costello-Li programme provides the framework; "
-            "the chain-level quasi-isomorphism is the residual technical question."
-        ),
+        "does_not_imply": FORBIDDEN_AUTOMATIC_TARGETS,
     }
 
 
 def healed_platonic_statement() -> Dict[str, object]:
-    """The healed Platonic statement after this wave.
+    """Attack-healed status summary for the quintic/BVDB lane."""
 
-    REFUTED: strict formality of A_BVDB.
-    CONJECTURAL (refined): curved formality with Yukawa curving.
-    """
     return {
-        "previous_status_strict": "Conjectural (rem:platonic-kapranov-quintic)",
-        "current_status_strict": "REFUTED (this wave, thm:a-bvdb-not-formal-quintic)",
-        "previous_status_curved": "Not formulated",
-        "current_status_curved": "CONJECTURAL (rem:platonic-kapranov-quintic-curved)",
-        "ingredient_a_bvdb_compact_generator": "PROVED (Bondal-Van den Bergh 2003)",
-        "ingredient_b_ptvv_neg_3_shifted_symplectic": "PROVED (PTVV 2013)",
-        "ingredient_c_strict_formality": "REFUTED (this wave)",
-        "ingredient_c_prime_curved_formality": "CONJECTURAL (Costello-Li framework)",
+        "current_status_strict": (
+            "OPEN: this engine proves neither strict formality nor strict "
+            "non-formality of the chosen A_BVDB minimal model."
+        ),
+        "current_status_curved": "OPEN_CONDITIONAL",
+        "ingredient_a_bvdb_compact_generator": "PROVED (Bondal-Van den Bergh compact generation)",
+        "ingredient_b_ptvv_neg_3_shifted_symplectic": "PROVED (PTVV shifted symplectic input)",
+        "ingredient_c_ks_yukawa_diagnostic": "COMPUTED (H^3=5, n_1=2875, q^2=4876875)",
+        "ingredient_d_bvdb_ks_transfer": "OPEN",
+        "ingredient_e_compact_s3_closure": "OPEN unless corrected TCFT or HH^{-2} data are supplied",
         "next_open_problem": (
-            "Establish curved formality of A_BVDB with explicit BCOV curving "
-            "via Costello-Li BV-quantization extension to chain-level "
-            "A_inf quasi-isomorphism."
+            "Construct the BVDB-KS comparison and either B_TCFT^(2) "
+            "comparison/correction data or the HH^{-2} filtration theorem."
         ),
     }
 
 
 # ===========================================================================
-# 7. Verify_all entry point
+# 8. Verify_all entry point
 # ===========================================================================
 
+
 def verify_all() -> Dict[str, object]:
-    """Run all checks and return summary report."""
+    """Run all diagnostics and return the carrier-separated report."""
+
     return {
         "a_bvdb_total_dim": a_bvdb_total_dimension(),
         "a_bvdb_dim_by_degree": a_bvdb_dim_by_degree(),
@@ -544,6 +647,9 @@ def verify_all() -> Dict[str, object]:
         "torus_p4_preserves_x5": torus_action_preserves_quintic(),
         "quintic_continuous_symmetry": quintic_continuous_symmetry_group(),
         "calaque_halbout_felder_applies": calaque_halbout_felder_applicability(),
+        "raw_b_term2_witness": raw_b_term2_witness(),
+        "positive_closure_gate": positive_closure_gate(),
+        "automatic_implication_firewall": automatic_implication_firewall(),
         "strict_formality_status": a_bvdb_strict_formality_status(),
         "curved_formality_conjecture": a_bvdb_curved_formality_conjecture(),
         "healed_platonic": healed_platonic_statement(),

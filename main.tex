@@ -218,7 +218,7 @@
 \providecommand{\FA}{\mathrm{FA}} % factorisation algebra
 \providecommand{\Id}{\mathrm{Id}}
 \providecommand{\ChirEnh}{\mathrm{ChirEnh}} % chiral enhancement complex
-\providecommand{\ClaimStatusProved}{\textsuperscript{\textsc{[pv]}}}
+\providecommand{\ClaimStatusProved}{}
 \providecommand{\RW}{\mathrm{RW}}
 \providecommand{\StabOp}{\mathrm{Stab}}
 \providecommand{\mcurv}{\mathrm{curv}}
@@ -349,15 +349,40 @@
 \providecommand{\defeq}{\coloneqq}
 \providecommand{\Serre}{\SerreS}
 \providecommand{\ghat}{\widehat{\mathfrak{gl}}_{1}}
-% Claim-status tags used by gluing-chapter Parts (textsc-style).
-\providecommand{\ClaimStatusTheorem}{\textsuperscript{\textsc{[thm]}}}
-\providecommand{\ClaimStatusProposition}{\textsuperscript{\textsc{[prop]}}}
-\providecommand{\ClaimStatusDefinition}{\textsuperscript{\textsc{[def]}}}
-\providecommand{\ClaimStatusDerivation}{\textsuperscript{\textsc{[der]}}}
-\providecommand{\ClaimStatusProved}{\textsuperscript{\textsc{[prv]}}}
-\providecommand{\ClaimStatusPrincipleLevel}{\textsuperscript{\textsc{[prin]}}}
-\providecommand{\ClaimStatusPartialPrimaryLit}{\textsuperscript{\textsc{[plp]}}}
-\providecommand{\ClaimStatusConventionDependent}{\textsuperscript{\textsc{[cv]}}}
+% Legacy claim-scope tags used by gluing-chapter Parts.
+\providecommand{\ClaimStatusTheorem}{}
+\providecommand{\ClaimStatusProposition}{}
+\providecommand{\ClaimStatusDefinition}{}
+\providecommand{\ClaimStatusDerivation}{}
+\providecommand{\ClaimStatusProved}{}
+\providecommand{\ClaimStatusPrincipleLevel}{}
+\providecommand{\ClaimStatusPartialPrimaryLit}{}
+\providecommand{\ClaimStatusConventionDependent}{}
+
+% Legacy claim-scope macro names are source annotations. They do not print badges;
+% any following braced hypothesis remains ordinary theorem prose.
+\providecommand{\ClaimStatusProvedHere}{}
+\providecommand{\ClaimStatusProvedElsewhere}{}
+\providecommand{\ClaimStatusConjectured}{}
+\providecommand{\ClaimStatusConditional}{}
+\providecommand{\ClaimStatusHeuristic}{}
+\providecommand{\ClaimStatusOpen}{}
+\providecommand{\ClaimStatusDefinitional}{}
+\renewcommand{\ClaimStatusTheorem}{}
+\renewcommand{\ClaimStatusProposition}{}
+\renewcommand{\ClaimStatusDefinition}{}
+\renewcommand{\ClaimStatusDefinitional}{}
+\renewcommand{\ClaimStatusDerivation}{}
+\renewcommand{\ClaimStatusProved}{}
+\renewcommand{\ClaimStatusProvedHere}{}
+\renewcommand{\ClaimStatusProvedElsewhere}{}
+\renewcommand{\ClaimStatusConjectured}{}
+\renewcommand{\ClaimStatusConditional}{}
+\renewcommand{\ClaimStatusHeuristic}{}
+\renewcommand{\ClaimStatusOpen}{}
+\renewcommand{\ClaimStatusPrincipleLevel}{}
+\renewcommand{\ClaimStatusPartialPrimaryLit}{}
+\renewcommand{\ClaimStatusConventionDependent}{}
 
 % ==========================================
 % DOCUMENT
@@ -441,7 +466,13 @@ with native curve level $E_\infty,E_2,E_1$ at $d=1,2,d\geq3$.
 The positive effective geometry inside $\PhiFA_d(\cA)$ gives a
 cohomological-Hall positive half $Y^+(X)$; the quantum group is the
 Drinfeld double once the Hall pairing, completion, and descent data are
-installed. The seed calculation is $X=K3\times E$:
+installed. On $\mathbb{C}^3$ and standard toric CY$_3$ charts this is
+a constructed hCS/Hall positive-half object, and the local chart
+transition maps glue the positive halves. On compact non-toric CY$_3$
+targets the critical CoHA, Serre-compatible quasi-NCCR charts, and Hall
+double remain conditional on named data: compact critical atlas,
+PBW/Hall pairing, integral form, stable-envelope transport, and
+Drinfeld-double descent. The seed calculation is $X=K3\times E$:
 \[
  \kappa_{\mathrm{cat}}=0,\qquad
  \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}=0,\qquad
@@ -461,18 +492,24 @@ the one-loop obstruction is the quartic
 $\int_X\mathrm{Tr}_{\mathrm{ad}}(A(F_A)^3)$, not a cubic Casimir, and
 ordinary three-dimensional Chern--Simons knot theory is not the source
 of this six-dimensional avatar. The $\mathbb{C}^3$ specialisation recovers
-$\CoHA(\mathbb{C}^3)=Y^+(\widehat{\mathfrak{gl}}_1)$, while the
+$\CoHA(\mathbb{C}^3)=Y^+(\widehat{\mathfrak{gl}}_1)$, the positive
+half and not $\mathcal{W}_{1+\infty}$; $\mathcal{W}_{1+\infty}$
+appears only after Drinfeld double/centre and vacuum evaluation. The
 $(K3,E)$ specialisation is the Hall--Drinfeld/Borcherds construction
-problem whose theorem-grade value shadow is the Gritsenko--Nikulin
-denominator $\Delta_5$. Across the Gritsenko--Cl\'ery atlas the
+problem whose Borcherds-product value is the Gritsenko--Nikulin
+denominator $\Delta_5$. The reduced-DT scalar uses
+\(\Phi_{10}^{\mathrm{OP}}=D_5^2\) with \(D_5=64^{-1}\Delta_5\),
+whereas the unnormalised Igusa square is
+\(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\). Across the
+Gritsenko--Cl\'ery atlas the
 universal Borcherds weight identity
 \[
  \kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2
 \]
 holds with the cover group selected by weight integrality. The
 manuscript constructs the functorial input, the operadic level, the
-K3/K3$\times E$ crown, and the landscape of examples; the remaining
-frontiers are stated as exact comparison maps to prove, not as
+K3/K3$\times E$ crown, and the landscape of examples; the unconstructed
+compact extensions are stated as exact comparison maps, not as
 ambiguities in the architecture.
 
 The compact CY$_3$ lane has the same separation of proved object and
@@ -621,8 +658,8 @@ $G(X)$ is assembled from the positive half, Drinfeld double, and
 centre data. The abelian level
 $C(\frakg, q) = D(Y^+(\frakg_{K3}))$ is explicit. On $K3 \times E$
 the six routes to $G(K3 \times E)$ are six distinct
-constructions producing the same $\Phi_3$-output, not six
-$\Phi_3$-applications: at the generator level they stratify
+constructions converging on the same target quantum vertex chiral group,
+not six $\Phi_3$-applications: at the generator level they stratify
 by lattice rank $\rho^{R_i} \in \{3, 12, 24\}$
 (Theorem~\ref{thm:cy-c-six-routes-generator-level-convergence}),
 while $\kappa_{\mathrm{ch}}$ is route-independent as
@@ -703,8 +740,8 @@ K3 Borcherds--Kac--Moody; this is not a Hopf quotient dimension:
 the full imaginary-cone $\mathfrak u_{\zeta_8}$ is
 infinite-dimensional by Hardy--Ramanujan $\exp(4\pi\sqrt n)$.
 
-\textbf{K3 Yangian (the crown).} The K3 Yangian stratifies by
-proof status (Part~\ref{part:k3-yangian}). \emph{Proved}: the rank-$24$ abelian
+\textbf{K3 Yangian (the crown).} The constructed K3 Yangian layers are
+the rank-$24$ abelian
 Heisenberg Yangian $Y_\hbar^{\mathrm{Heis}}(\Lambda_{K3})$ with
 Mukai-diagonal R-matrix $R(u) = (u + \hbar P)/(u + \hbar)$ on
 $V \otimes V$, $V = \Lambda_{K3} \otimes \C$ of rank~$24$,
@@ -716,7 +753,7 @@ $Y_\hbar^{\mu}(\widehat{\mathfrak{g}})_{k=1}$ at resolved ADE
 surface singularities
 (Theorem~\ref{thm:bfn-phi-ade-identification},
 Kronheimer $+$ McKay $+$ BFN $+$ Nakajima--Takayama).
-\emph{Conjectural envelope}: a non-abelian K3 Yangian
+The proposed non-abelian envelope is a K3 Yangian
 $Y_\hbar(\mathfrak{g}_{K3})$ whose classical limit is the
 orthogonal Lie algebra $\mathfrak{so}(4, 20)$ preserving the
 Mukai form (symmetric indefinite, signature $(4, 20)$ on the
@@ -724,29 +761,33 @@ rank-$24$ lattice), with a Hodge-parity $\Z/2$-super-extension
 available at the K3$\,\times\,$E locus. Kac's $\osp(4 \mid 20)$
 is not the envelope: $\osp$ requires a symplectic form on the
 odd part and the Mukai form is symmetric throughout.
-\emph{Open}: a Jacobi-closing Lie bracket for the full rank-$24$
+The missing inputs are a Jacobi-closing Lie bracket for the full rank-$24$
 non-abelian generator set (the central-term symmetrisation in
 Definition~\ref{def:k3-double-current-algebra} forces an
 antisymmetry obstruction on non-abelian internal tensors
-$(a,i)\leftrightarrow(b,j)$, flagged as structural-conjecture),
+$(a,i)\leftrightarrow(b,j)$),
 a Drinfeld-$J$-presentation for
 imaginary root sectors (no such presentation is known in the
 literature for BKM Yangians with imaginary simple roots), and
 the degree-$(24, 24)$ RTT structure function away from ADE
 enhancement. At $K3 \times E$ the chiral-Borcherds chain
-produces the Igusa denominator $\Phi_{10} = \Delta_5^2$, and the
-$\kappa_\bullet$-spectrum
-$\{\kappa_{\mathrm{cat}} = 0,\;
-\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 0,\;
-\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3,\;
-\kappa_{\mathrm{BKM}} = 5,\;
-\kappa_{\mathrm{fiber}} = 24\}$
-records five measurements from distinct construction layers
-($\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ is Künneth-additive on the
+produces the unnormalised Igusa square
+$\Phi_{10}^{\mathrm{un}} = \Delta_5^2$, and the
+construction tuple
+$\{\kappa_{\mathrm{cat}}(K3\times E)=0,\;
+\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(K3\times E)=0,\;
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)=3,\;
+\kappa_{\mathrm{BKM}}(\Delta_5)=5,\;
+\kappa_{\mathrm{fiber}}(K3)=24\}$
+records distinct construction layers. The K3 surface value
+$\kappa_{\mathrm{cat}}(K3)=2$ is a fibre/input witness, not a
+total-space entry; the total-space four-construction spectrum remains
+$\{0,3,5,24\}$, with the two zero lanes sharing a value but not a
+construction. Here $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ is Künneth-additive on the
 chiral-Heisenberg specialisation, $= \dim_\C(K3 \times E)$; the
 Hodge-supertrace
 $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = \chi(\cO_{K3 \times E}) = 0$
-by Serre pairing at odd-$d$ strict CY).
+by Serre pairing at odd-$d$ strict CY.
 
 \textbf{Borcherds-weight universal} for K3-fibered Class~A.
 $\kappa_{\mathrm{BKM}} = c_N(0)/2$ universal across the eight
@@ -879,7 +920,7 @@ $O(26,2)^+/(O(26)\times O(2))$ with Weyl vector $\rho = e$
 lightlike and $196{,}560$ norm-$2$ Leech roots (Conway $1983$,
 SPLAG Ch.~$27$, Borcherds $1992$); restricts on primitive
 $\mathrm{II}_{2,2}\hookrightarrow\mathrm{II}_{25,1}$ to
-$\Phi_{10} = \Delta_5^2$. The chiral-Hochschild generators
+$\Phi_{10}^{\mathrm{un}} = \Delta_5^2$. The chiral-Hochschild generators
 align explicitly with Pope--Romans--Shen $1990$ $\cW_\infty[c]$
 primaries at $c = -214$: $e_5 = W_5$ by Wang $1998$ three-leg
 uniqueness, $e_4 = W_4 - (107/11)\Lambda_Z$ with Zamolodchikov
@@ -889,8 +930,8 @@ tail $\Lambda_Z$.
 $X = K3 \times K3 \times E$ via K\"unneth on the Hodge diamond
 $h^{0,q}(X) = (1, 1, 2, 2, 1, 1)$; the $\Z/2$-gerbe obstruction
 vanishes by Whitney $+$ Wu
-(Construction~\ref{constr:phi-5-family}). This is not a theorem-grade
-Fake-Monster host construction.
+(Construction~\ref{constr:phi-5-family}). It does not construct a
+Fake-Monster host.
 
 \textbf{Compact quintic (refutation).}
 Strict formality of $A_{\mathrm{BVDB}}
@@ -904,7 +945,7 @@ The volume is organised in seven parts: foundations (Calabi--Yau
 categories and cyclic $\Ainf$), the functor $\Phi$, the
 $E_n$-hierarchy by dimension, the K3 Yangian, the Calabi--Yau
 landscape, the seven faces of $r_{\CY}$, and the frontiers.
-The terminal comparison target of the programme is
+The terminal comparison target is
 $\bH_{\Delta_5}$, the non-abelian K3 chiral bialgebra expected from
 the framed $\Phi_3(D^b\mathrm{Coh}(K3 \times E))$ object after the
 oriented hCS--Hall and Hall--Borcherds bridge data are supplied. Its construction, universal
@@ -974,8 +1015,8 @@ precisely this data through Kontsevich--Tamarkin formality and
 Costello--Gwilliam--Li locality on $X$.
 
 Chapter~\ref{ch:introduction} states CY-A through CY-D as the four
-answers forced by the CY input datum, separating proved loci, completed
-comparison packages, and frontier closures.
+answers forced by the CY input datum, separating constructed loci,
+completed comparison packages, and remaining comparison maps.
 Chapter~\ref{ch:cy-categories} develops CY categories: smooth proper
 dg categories with Serre functors, the CY pairing, and the four
 standard families (derived categories, Fukaya categories, matrix
@@ -1422,7 +1463,8 @@ from distinct arrows.
 \begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2em,itemsep=1pt]
 \item BKM: Borcherds lift of $\phi_{0,1}$ produces
 $\mathfrak{g}_{\Delta_5}$ with primitive denominator $\Delta_5$; the
-dyonic square is $\Phi_{10}=\Delta_5^2$.
+dyonic square is the unnormalised Igusa form
+$\Phi_{10}^{\mathrm{un}}=\Delta_5^2$.
 \item Lattice VOA: Frenkel--Kac on $\mathrm{II}_{2,2} \oplus (-E_8 \oplus -E_8)$.
 \item Kummer: $(T^4/\Z_2)$-orbifold resolution + quantisation
 (Steps 1--4 proved, Proposition~\ref{prop:kummer-orbifold}).
@@ -1439,7 +1481,7 @@ via factorisation homology $\int_{K3}(-)|_E$, recovering the vertex
 envelope of $\mathfrak{g}_{\Delta_5}$ with
 $\kappa_{\mathrm{BKM}}(\mathfrak g_{\Delta_5})
 =\kappa_{\mathrm{BKM}}(\Delta_5)=c_1(0)/2=5$; the squared Igusa form
-$\Phi_{10}=\Delta_5^2$ has weight~$10$.
+$\Phi_{10}^{\mathrm{un}}=\Delta_5^2$ has weight~$10$.
 \item Sigma model: $\cN = (2, 2)$ BRST cohomology on $K3 \times E$.
 \item BLLPR: 4d $\cN = 2$ Schur sector at K3 instanton moduli.
 \end{enumerate}
@@ -1461,7 +1503,7 @@ $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
 \noindent\textbf{Shadow--Siegel gap
 (Theorem~\ref{thm:shadow-siegel-gap}).}
 Four structural obstructions between $\Theta_A$ (Vol~I shadow tower)
-and $\Phi_{10}$ (Igusa cusp form, weight $10$): Siegel weight
+and $\Phi_{10}^{\mathrm{un}}$ (Igusa cusp form, weight $10$): Siegel weight
 integrality, Fourier--Jacobi depth, theta-multiplier sign, and the
 Zamolodchikov tetrahedron correction $S^{\mathrm{corr}} = S + \kappa_{\mathrm{ch}}^2 T$.
 
@@ -1818,7 +1860,7 @@ the Zamolodchikov tetrahedron
 $\{R_{ijk}\}_{i < j < k}$ at full closure via
 $S^{\mathrm{corr}} = S^{\mathrm{fact}} + \kappa_{\mathrm{ch}}^2 T$
 (with $T$ explicit, rank~$35/36$);
-$\Phi_{10} \in M_{10}(\Sp_4(\Z))$ as the Siegel controller of the
+\(\Phi_{10}^{\mathrm{un}} \in M_{10}(\Sp_4(\Z))\) as the Siegel controller of the
 $E_3$ $S$-matrix via Fourier--Jacobi expansion.
 
 \input{chapters/theory/modular_trace}
@@ -1838,24 +1880,24 @@ $E_3$ $S$-matrix via Fourier--Jacobi expansion.
 \input{chapters/theory/bps_positive_geometry_closure}
 
 \noindent
-The frontier table concerns stage-two and classification refinements
-after the chambered BPS positive geometry source object has been
-constructed; the quintic, Schoen, raw \(K3\times E\), theta, and hCS
-problems are named closed substacks of \(\Sol^{\BPS}\), not missing
+The comparison table below concerns stage-two and classification
+refinements after the chambered BPS positive-geometry source object has
+been constructed; the quintic, Schoen, raw \(K3\times E\), theta, and
+hCS problems are named closed substacks of \(\Sol^{\BPS}\), not missing
 foundations.
 
 \noindent\textbf{Question.}
-Which constructions complete the frontier after the CY input, the
+Which constructions complete the classification after the CY input, the
 chiral construction, the operadic level, the K3/$K3 \times E$ crown,
 the landscape, and the modular trace have been fixed?
 
 \smallskip
-\noindent\textbf{Frontier obligations.}
+\noindent\textbf{Comparison maps.}
 \begin{center}
 \renewcommand{\arraystretch}{1.15}
 \begin{tabular}{llll}
 \toprule
-Front & Stage & Status & Proof obligation \\
+Direction & Stage & Constructed datum & Missing map \\
 \midrule
 Nonabelian $Y(\mathfrak{g}_{K3})$ & stage two & explicit leading term & reflection/BKM Serre closure \\
 Geometric Langlands & centre & correspondence programme & bulk-boundary kernel comparison \\
@@ -1877,13 +1919,13 @@ layer is structure: the Langlands
 kernel attached to $\Phi$, the closure of the Zamolodchikov
 tetrahedron at $O(\kappa_{\mathrm{ch}}^2)$, the $\Sp_4(\Z)$
 covariance of the $E_3$ $S$-matrix, and the non-abelian K3 Yangian
-extending the abelian case. These four problems are the minimal
-proof obligations whose resolution would promote CY-A from an
-existence theorem to a classification.
+extending the abelian case. These four maps are the minimal
+constructions that turn CY-A from an existence theorem into a
+classification.
 
 \smallskip
-\noindent\textbf{Stage-distinguished frontier.}
-The frontier constructions below distribute across the two stages of the
+\noindent\textbf{Stage-distinguished comparison.}
+The remaining constructions below distribute across the two stages of the
 factorisation $\Phi_d = \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d$:
 the non-abelian $Y(\mathfrak{g}_{K3})$ lives on the stage-two output
 $A_\cC = \SpCh_{\Sigma_1^{\mathrm{Nakajima}}, C}(\PhiFA_2(D^b\Coh(K3)))$
@@ -1891,7 +1933,7 @@ as a matrix refinement of the abelian Mukai Heisenberg; the ZTE
 tetrahedron correction $S^{\mathrm{corr}} = S^{\mathrm{fact}} + \kappa_{\mathrm{ch}}^2 T$
 closes at the derived chiral centre of $\Rep^{\Eone}(A_\cC)$, a
 stage-two $\Etwo$-braided locus; the $\Sp_4(\Z)$-covariance of
-$\Phi_{10}$ controls the Fourier--Jacobi decomposition of the
+$\Phi_{10}^{\mathrm{un}}$ controls the Fourier--Jacobi decomposition of the
 stage-two specialisation $\SpCh_{K3, E}(\PhiFA_3(D^b\Coh(K3 \times E)))$;
 geometric Langlands reformulated as a CY correspondence attaches the
 bulk leg to the derived centre of $A_\cC$ and the boundary leg to
@@ -1904,7 +1946,7 @@ modular tensor-category refinement.
 
 \smallskip
 \noindent\textbf{Front~1: nonabelian $Y(\mathfrak{g}_{K3})$.}
-Abelian: $24$ Heisenberg generators, Mukai-signature Serre (PROVED).
+Abelian: $24$ Heisenberg generators, Mukai-signature Serre constructed.
 Nonabelian extension: matrix Miura transform on
 $V_k(\widehat{\fsl}_2)$; $\fsl_2$ Serre constraint
 \[
@@ -1973,10 +2015,10 @@ entry-by-entry). Full operadic closure outstanding.
 \smallskip
 \noindent\textbf{Front~4: $\Sp_4(\Z)$ modularity of the $E_3$
 $S$-matrix.}
-Igusa cusp form $\Phi_{10} \in M_{10}(\Sp_4(\Z))$ conjecturally
+Igusa cusp form $\Phi_{10}^{\mathrm{un}} \in M_{10}(\Sp_4(\Z))$ conjecturally
 controls the $E_3$ $S$-matrix via Fourier--Jacobi expansion:
 \[
- \Phi_{10}(\tau_1, z, \tau_2)^{-1}
+ \Phi_{10}^{\mathrm{un}}(\tau_1, z, \tau_2)^{-1}
  \;=\;
  \sum_{m \ge -1} \psi_m(\tau_1, z) \, p^m,
  \qquad
@@ -2007,16 +2049,15 @@ $\mathfrak{z}(\widehat{\frakg}_{-h^\vee})$, and the conjectural
 ``Langlands $=$ Koszul duality''.
 
 \smallskip
-\noindent\textbf{Detailed inventory.}
-The four fronts above are the structural hubs; the working
-catalogue of auxiliary frontier items -- non-abelian K3 Yangian
+\noindent\textbf{Named questions.}
+The four fronts above are the structural hubs; the auxiliary items --
+non-abelian K3 Yangian
 sub-items, ZTE charge-$3$ verification, A$_\infty$ coproduct
 $\delta^{(k)}$ bridge, Kummer-step collar transport, class~M Borel
 summability, mock-modular per-family identities, BFN Coulomb for
 generic K3, derived Satake for C$^3$, Sp$_4(\Z)$ modularity
 residue, p-adic Langlands at d=2, Mathieu moonshine residue --
-is maintained as a cross-volume concordance outside the typeset
-monograph.
+is the surrounding comparison problem.
 
 \input{chapters/connections/geometric_langlands}
 \input{chapters/connections/padic_langlands_cy}
@@ -2028,8 +2069,7 @@ monograph.
 \appendix
 
 \input{appendices/notation_conventions}
-% Anti-pattern catalogue relocated to notes/anti_pattern_catalogue.tex.archive
-% (2026-04-17, three-volume metacognitive/manuscript separation). Never compiled.
+% The compiled appendix contains notation and convention material only.
 \input{appendices/conventions}
 \input{appendices/engine_catalogue}
 \input{appendices/test_suite}

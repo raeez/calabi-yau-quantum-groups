@@ -4,7 +4,8 @@ Verifies:
   (1) Hopf fibration topological data: Euler class, homotopy groups
   (2) Connes hierarchy for CY_3: nilpotence relation, [B,F] decomposition
   (3) Three-component obstruction decomposition for all standard geometries
-  (4) Cyclic A-infinity compatibility: Obs_Ainf = 0 universally
+  (4) Cyclic A-infinity compatibility: strict formal vanishing only;
+      non-formal B^{(2)}_term has a strict witness
   (5) BV obstruction analysis: toric vs compact
   (6) K3 x E product decomposition
   (7) Convergence analysis for compact CY3
@@ -18,7 +19,7 @@ Mathematical references:
   Hopf, Math. Ann. 104 (1931) (Hopf fibration)
   Dunn, J. Pure Appl. Alg. 50 (1988) (Dunn additivity)
   Costello, arXiv:math/0412149 (TCFTs and CY categories)
-  Lorgat Vol III: cy_to_chiral.tex, s3_framing_chain_level.py
+  Lorgat Vol III: standalone/m3_b2_obstruction_vol3.tex
 """
 
 from fractions import Fraction
@@ -51,6 +52,7 @@ from compute.lib.hopf_fibration_s3_framing import (
     identify_obstruction_class,
     master_hopf_decomposition,
     full_programme_status,
+    strict_m3_b2_term_witness,
 )
 
 F = Fraction
@@ -190,6 +192,30 @@ class TestConnesHierarchy:
 
 
 # ================================================================
+# SECTION 2B: CORRECTED M3--B2 TERM WITNESS
+# ================================================================
+
+class TestCorrectedM3B2Witness:
+    """Tests for the corrected non-formal A-infinity obstruction theorem."""
+
+    def test_strict_termwise_witness_is_nonzero(self):
+        """[m_3,B^{(2)}_term][a|a|a|a|b] = 2 alpha [b]."""
+        witness = strict_m3_b2_term_witness(alpha=F(1))
+        assert witness["word"] == ("a", "a", "a", "a", "b")
+        assert witness["b2_then_m3"] == {("b",): F(4)}
+        assert witness["m3_then_b2"] == {("b",): F(2)}
+        assert witness["commutator"] == {("b",): F(2)}
+        assert witness["coefficient_of_b"] == F(2)
+        assert witness["nonzero"]
+
+    def test_witness_separates_tcft_and_hh_minus_two_claims(self):
+        witness = strict_m3_b2_term_witness()
+        assert witness["carrier"] == "B^{(2)}_term"
+        assert not witness["corrected_tcft_operator_equal_to_termwise"]
+        assert witness["hh_minus_two_requires_hypotheses"]
+
+
+# ================================================================
 # SECTION 3: OBSTRUCTION DECOMPOSITION -- C^3
 # ================================================================
 
@@ -259,18 +285,21 @@ class TestObstructionConifold:
 class TestObstructionLocalP2:
     """Tests for the obstruction decomposition of local P^2."""
 
-    def test_all_three_vanish(self):
-        """All three vanish, even though m_3 != 0.
+    def test_raw_ainf_witness_nonzero(self):
+        """Raw B^{(2)}_term obstruction is nonzero for the witness model.
 
         Path 1: Obs_top = 0 (universal).
-        Path 2: Obs_Ainf = 0 (cyclic compatibility despite m_3 != 0).
+        Path 2: Obs_Ainf(B^{(2)}_term) has strict coefficient 2.
         Path 3: Obs_BV = 0 (toric).
         """
         decomp = hopf_decomposition_local_p2()
         assert decomp.obs_top.vanishes
-        assert decomp.obs_ainf.vanishes
+        assert not decomp.obs_ainf.vanishes
+        assert decomp.obs_ainf.value == F(2)
+        assert decomp.obs_ainf.status == "computed"
+        assert decomp.obs_ainf.carrier == "B^{(2)}_term"
         assert decomp.obs_bv.vanishes
-        assert decomp.total_vanishes()
+        assert not decomp.total_vanishes()
 
     def test_nonformality_acknowledged(self):
         """The mechanism explicitly notes non-formality."""
@@ -279,10 +308,11 @@ class TestObstructionLocalP2:
                "m_3 != 0" in decomp.obs_ainf.mechanism
 
     def test_chain_level_obstruction_documented(self):
-        """Chain-level [m_3, B^{(2)}] != 0 documented in mechanism."""
+        """Chain-level [m_3, B^{(2)}_term] != 0 documented."""
         decomp = hopf_decomposition_local_p2()
-        assert "chain-level" in decomp.obs_ainf.mechanism.lower() or \
-               "obs_ainf_local_p2" in decomp.obs_ainf.mechanism.lower()
+        assert "B^{(2)}_term" in decomp.obs_ainf.mechanism
+        assert "2*alpha" in decomp.obs_ainf.mechanism
+        assert "TCFT" in decomp.obs_ainf.mechanism
 
 
 # ================================================================
@@ -292,10 +322,13 @@ class TestObstructionLocalP2:
 class TestObstructionQuintic:
     """Tests for the obstruction decomposition of the quintic."""
 
-    def test_obs_top_and_ainf_vanish(self):
+    def test_obs_top_vanishes_and_raw_ainf_open(self):
         decomp = hopf_decomposition_quintic()
         assert decomp.obs_top.vanishes
-        assert decomp.obs_ainf.vanishes
+        assert not decomp.obs_ainf.vanishes
+        assert decomp.obs_ainf.value is None
+        assert decomp.obs_ainf.status == "open"
+        assert "HH^{-2}" in decomp.obs_ainf.mechanism
 
     def test_obs_bv_conditional(self):
         """Obs_BV(quintic) vanishes but is conditional (non-perturbative)."""
@@ -303,10 +336,11 @@ class TestObstructionQuintic:
         assert decomp.obs_bv.vanishes
         assert decomp.obs_bv.status == "conditional"
 
-    def test_total_vanishes_conditionally(self):
-        """Total obstruction vanishes (conditionally)."""
+    def test_total_not_closed_by_tcft_slogan(self):
+        """Total obstruction is not closed by Tsygan/Costello slogans."""
         decomp = hopf_decomposition_quintic()
-        assert decomp.total_vanishes()
+        assert not decomp.total_vanishes()
+        assert "Costello" in decomp.obs_ainf.mechanism
 
 
 # ================================================================
@@ -320,11 +354,14 @@ class TestObstructionK3E:
         decomp = hopf_decomposition_k3e()
         assert decomp.obs_top.vanishes
 
-    def test_obs_ainf_vanishes(self):
-        """K3 x E is formal (DGMS 1975)."""
+    def test_obs_ainf_waits_for_categorical_comparison(self):
+        """DGMS de Rham formality does not prove categorical vanishing."""
         decomp = hopf_decomposition_k3e()
-        assert decomp.obs_ainf.vanishes
+        assert not decomp.obs_ainf.vanishes
+        assert decomp.obs_ainf.status == "open"
+        assert decomp.obs_ainf.carrier == "B^{(2)}_term"
         assert "DGMS" in decomp.obs_ainf.mechanism
+        assert "HH^{-2}" in decomp.obs_ainf.mechanism
 
     def test_obs_bv_conditional(self):
         """Obs_BV(K3 x E) conditional on Kummer Step 5."""
@@ -344,12 +381,12 @@ class TestObstructionK3E:
 # ================================================================
 
 class TestCyclicAinfCompatibility:
-    """Tests for the cyclic A-infinity framing compatibility theorem."""
+    """Tests for the corrected A-infinity compatibility scope."""
 
     def test_formal_compatibility(self):
         """Formal CY3: Obs_Ainf = 0 trivially.
 
-        Path 1: m_k = 0 for k >= 3, so [m_k, F^{(2)}] = 0.
+        Path 1: m_k = 0 for k >= 3, so [m_k, B^{(2)}_term] = 0.
         Path 2: No Massey products.
         Path 3: BTT / Kaledin formality.
         """
@@ -358,12 +395,12 @@ class TestCyclicAinfCompatibility:
         assert not result.m3_nonzero
         assert result.obs_ainf_vanishes
 
-    def test_nonformal_compatibility(self):
-        """Non-formal CY3 (local P^2): Obs_Ainf = 0 by cyclic structure.
+    def test_nonformal_cyclicity_does_not_kill_termwise_witness(self):
+        """Non-formal cyclicity does not prove B^{(2)}_term vanishing.
 
-        Path 1: Cyclic A-infinity identity.
-        Path 2: CY3 pairing compatibility.
-        Path 3: Euler class contribution is topological.
+        Path 1: Cyclic A-infinity identity gives pairing diagnostics.
+        Path 2: Strict witness gives coefficient 2.
+        Path 3: HH^{-2} vanishing requires hypotheses.
         """
         result = verify_cyclic_ainf_compatibility_nonformal(
             "local P^2",
@@ -378,24 +415,26 @@ class TestCyclicAinfCompatibility:
         )
         assert not result.is_formal
         assert result.m3_nonzero
-        assert result.m3_compatible_with_f2
-        assert result.obs_ainf_vanishes
+        assert not result.m3_compatible_with_f2
+        assert not result.obs_ainf_vanishes
+        assert result.hh_minus_two_hypothesis_required
 
-    def test_nonformal_has_proof_steps(self):
-        """Non-formal case has explicit proof steps."""
+    def test_nonformal_has_rejection_steps(self):
+        """Non-formal case records the exact rejected strengthening."""
         result = verify_cyclic_ainf_compatibility_nonformal(
             "local P^2",
             m3_data={("x_01", "y_12", "z_20"): [("e0", F(1))]},
             cy_pairing={("e0", "e0*"): F(1), ("e0*", "e0"): F(1)},
         )
         assert len(result.proof_steps) >= 5
+        assert any("B^{(2)}_term" in step for step in result.proof_steps)
 
     def test_all_standard_geometries(self):
-        """Obs_Ainf = 0 for all standard geometries.
+        """Strict vanishing is formal; TCFT/HH input is separate.
 
         Path 1: Formal geometries (C^3, conifold): trivially, m_k = 0.
-        Path 2: Non-formal geometries (quintic, K3 x E): via TCFT.
-        Path 3: All return obs_ainf_vanishes = True.
+        Path 2: Non-formal quintic: corrected TCFT does not prove termwise.
+        Path 3: K3 x E needs the same categorical comparison input.
         """
         from compute.lib.hopf_fibration_s3_framing import (
             verify_cyclic_ainf_compatibility_tcft,
@@ -404,10 +443,12 @@ class TestCyclicAinfCompatibility:
             result = verify_cyclic_ainf_compatibility_formal(geom)
             assert result.obs_ainf_vanishes, f"Failed for {geom}"
             assert result.is_formal is True, f"{geom} should be formal"
-        for geom in ["quintic", "K3 x E"]:
-            result = verify_cyclic_ainf_compatibility_tcft(geom)
-            assert result.obs_ainf_vanishes, f"Failed for {geom}"
-            assert result.is_formal is False, f"{geom} should NOT be formal"
+        result = verify_cyclic_ainf_compatibility_tcft("quintic")
+        assert not result.obs_ainf_vanishes
+        assert result.hh_minus_two_hypothesis_required
+        k3e = verify_cyclic_ainf_compatibility_tcft("K3 x E")
+        assert not k3e.obs_ainf_vanishes
+        assert k3e.hh_minus_two_hypothesis_required
 
 
 # ================================================================
@@ -545,19 +586,19 @@ class TestObstructionClassIdentification:
         assert obs.is_zero()
         assert obs.toric
 
-    def test_compact_formal_class(self):
-        """Compact formal CY3: class is zero (perturbatively)."""
+    def test_quintic_class_waits_for_comparison(self):
+        """Quintic is not closed by a formality slogan."""
         obs = identify_obstruction_class("quintic")
-        assert "0" in obs.value
-        assert obs.formal
-        assert "proved" in obs.convergence
+        assert "open" in obs.value
+        assert not obs.formal
+        assert "HH^{-2}" in obs.convergence
 
     def test_compact_nonformal_gevrey(self):
-        """Compact non-formal CY3: Gevrey-1 series."""
+        """Compact non-formal CY3: comparison remains open."""
         obs = identify_obstruction_class("general_nonformal")
         assert not obs.is_zero()
         assert obs.growth_type if hasattr(obs, 'growth_type') else True
-        assert "Gevrey" in obs.value or "open" in obs.convergence
+        assert "open" in obs.value or "open" in obs.convergence
 
     def test_class_in_hh3(self):
         """Obstruction class lives in HH^3 restricted to E_1."""
@@ -599,34 +640,37 @@ class TestMasterDecomposition:
         for geom, data in landscape.items():
             assert "0" in data["Obs_top"], f"Obs_top nonzero for {geom}"
 
-    def test_landscape_all_obs_ainf_zero(self):
-        """Obs_Ainf = 0 for all geometries (cyclic compatibility).
+    def test_landscape_records_corrected_obs_ainf_scope(self):
+        """Landscape rejects universal termwise Obs_Ainf vanishing.
 
         Path 1: Formal geometries: m_k = 0 trivially.
-        Path 2: Non-formal: cyclic A-infinity compatibility.
-        Path 3: Euler class correction is topological.
+        Path 2: local P^2: strict termwise coefficient 2.
+        Path 3: quintic: open HH^{-2}/TCFT comparison.
         """
         result = master_hopf_decomposition()
         landscape = result.obstruction_landscape()
-        for geom, data in landscape.items():
-            assert "0" in data["Obs_Ainf"], f"Obs_Ainf nonzero for {geom}"
+        assert "0" in landscape["C^3"]["Obs_Ainf"]
+        assert "0" in landscape["conifold"]["Obs_Ainf"]
+        assert "2" in landscape["local_P^2"]["Obs_Ainf"]
+        assert "open" in landscape["quintic"]["Obs_Ainf"]
+        assert "open" in landscape["K3_x_E"]["Obs_Ainf"]
 
     def test_toric_fully_resolved(self):
-        """All toric geometries are fully resolved."""
+        """Formal toric geometries are fully resolved; local P^2 keeps witness."""
         result = master_hopf_decomposition()
         residual = result.residual_obstruction()
-        for geom in ["C^3", "conifold", "local_P^2"]:
+        for geom in ["C^3", "conifold"]:
             assert "Fully resolved" in residual[geom], \
                 f"{geom} not fully resolved: {residual[geom]}"
+        assert "B^{(2)}_term" in residual["local_P^2"]
+        assert "2*alpha" in residual["local_P^2"]
 
     def test_compact_perturbatively_resolved(self):
-        """Compact geometries are perturbatively resolved."""
+        """Compact entries do not hide the A-infinity comparison question."""
         result = master_hopf_decomposition()
         residual = result.residual_obstruction()
-        for geom in ["quintic", "K3_x_E"]:
-            assert "Perturbatively" in residual[geom] or \
-                   "Fully" in residual[geom], \
-                f"{geom} not resolved: {residual[geom]}"
+        assert "HH^{-2}" in residual["quintic"]
+        assert "HH^{-2}" in residual["K3_x_E"]
 
     def test_hopf_data_consistent(self):
         """Hopf fibration data is consistent."""
@@ -653,20 +697,23 @@ class TestFullProgrammeStatus:
         status = full_programme_status()
         assert "0" in status["obs_top"] or "universal" in status["obs_top"]
 
-    def test_obs_ainf_universal(self):
-        """Obs_Ainf = 0 universally."""
+    def test_obs_ainf_not_universal(self):
+        """Obs_Ainf is not universally zero for B^{(2)}_term."""
         status = full_programme_status()
-        assert "0" in status["obs_ainf"] or "universal" in status["obs_ainf"]
+        assert "not universally zero" in status["obs_ainf"]
+        assert "2 alpha [b]" in status["obs_ainf"]
 
-    def test_single_remaining_question(self):
-        """Single remaining question is convergence."""
+    def test_remaining_questions_include_hh_minus_two(self):
+        """Remaining questions include TCFT/HH^{-2} comparison."""
         status = full_programme_status()
+        assert "HH^{-2}" in status["single_remaining_question"]
         assert "convergence" in status["single_remaining_question"].lower()
 
     def test_new_results_present(self):
         """New results are listed."""
         status = full_programme_status()
         assert len(status["new_results"]) >= 3
+        assert any("termwise" in item for item in status["new_results"])
 
     def test_landscape_complete(self):
         """Landscape covers all 5 geometries."""
@@ -701,10 +748,11 @@ class TestCrossChecks:
         """Local P^2 non-formality: consistent with cy3_chain_framing.py.
 
         In cy3_chain_framing.py, local_p2_ext_algebra().is_formal() = False.
-        Here, Obs_Ainf(local P^2) = 0 despite non-formality.
+        Here, raw Obs_Ainf(local P^2) records the strict nonzero witness.
         """
         decomp = hopf_decomposition_local_p2()
-        assert decomp.obs_ainf.vanishes
+        assert not decomp.obs_ainf.vanishes
+        assert decomp.obs_ainf.value == F(2)
         assert "non-formal" in decomp.obs_ainf.mechanism.lower() or \
                "m_3" in decomp.obs_ainf.mechanism
 

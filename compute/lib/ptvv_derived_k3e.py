@@ -1,4 +1,4 @@
-r"""PTVV shifted symplectic structures: independent E_3 confirmation for K3 x E.
+r"""PTVV shifted symplectic structures: derived K3 x E comparison engine.
 
 MATHEMATICAL CONTENT
 ====================
@@ -89,25 +89,34 @@ calculus.  The PTVV route uses instead:
   - Dunn additivity (operadic input)
   - HKR/Kunneth (identification of loop space observables with HH)
 
-COMPARISON WITH THE THREE EXISTING APPROACHES
-================================================
+COMPARISON WITH THE CORRECTED DERIVED-FRAMING THEOREM
+=======================================================
 
 Approach 1 (derived_framing_obstruction.py):
-  Francis-Gaitsgory obstruction theory + Goodwillie calculus.
-  Obstruction lives in HH^{-2}_{E_1}(A, A) = 0 by unit-connectedness.
-  Conclusion: space of E_3-structures is contractible.
+  Francis-Gaitsgory obstruction theory + Goodwillie calculus.  The
+  primary obstruction lands in HH^{-2}_{E_1}(A, A) only after a comparison
+  map to the S^3 obstruction complex has been supplied.  Vanishing is not
+  automatic from unit-connectedness; it requires complete, exhaustive,
+  separated, strongly convergent filtration data and an empty total-degree
+  -2 first-page line.  Contractibility of the E_3-structure space is a
+  further Goodwillie convergence assertion, not a corollary recorded here.
 
 Approach 2 (Costello TCFT):
-  {b, B^{(2)}} = 0 as total commutator via d^2 = 0 on moduli complex.
-  Explicit homotopy from Stasheff cancellation.
+  Costello supplies a corrected total identity
+  {b, B^{(2)}_TCFT} = 0 after a TCFT correction datum has been chosen.
+  This does not assert {b, B^{(2)}_term} = 0 for the raw bar
+  pair-contraction.  In fact
+  [m_3, B^{(2)}_term][a|a|a|a|b] = 2 alpha [b] can be nonzero.
 
 Approach 3 (this engine, PTVV):
-  (-1)-shifted symplectic => E_2 (CPTVV) => E_3 (S^1-equivariance).
-  Completely geometric, no obstruction theory needed.
+  (-1)-shifted symplectic => E_2 (CPTVV).  The CY S^1/Dunn upgrade is
+  recorded as a structural E_3 candidate; it is not by itself compact CY3
+  closure for a raw A-infinity/TCFT carrier.
 
 Approach 4 (Costello TCFT, different angle):
-  CY_3 cyclic A-infinity structure => TCFT on Sigma_{g,n}.
-  The E_3 arises from the framed little 3-disks action on TCFT.
+  CY_3 cyclic A-infinity structure => TCFT on Sigma_{g,n}.  The framed
+  little 3-disks comparison requires the corrected operator and comparison
+  data above.
 
 KAPPA COMPUTATION VIA PTVV
 ============================
@@ -192,6 +201,14 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from fractions import Fraction
 from typing import Any, Dict, List, Optional, Tuple
+
+from compute.lib.derived_framing_obstruction import (
+    HHMinusTwoFiltrationHypotheses,
+    TCFTCorrectionDatum,
+    complete_hh_minus_two_hypotheses,
+    complete_tcft_correction_datum,
+    strict_m3_b2_term_witness,
+)
 
 F = Fraction
 
@@ -476,15 +493,16 @@ def compute_cptvv_quantization(
             "Dunn additivity E_2 = E_1 tensor E_1."
         )
     elif d == 3:
-        final_level = 3  # E_3 from CPTVV + CY upgrade
+        final_level = 3  # structural E_3 candidate from CPTVV + CY upgrade
         upgrade_mech = (
             "d=3: CPTVV gives E_2 from (-1)-shifted symplectic on RPerf(CY3). "
-            "CY_3 S^1-equivariance (cyclic structure on HH_*) upgrades to E_3 "
-            "via Dunn additivity E_3 = E_2 tensor E_1. The extra E_1 factor "
-            "is the Connes operator B (the S^1-action on cyclic homology). "
-            "This is an INDEPENDENT confirmation of the E_3-structure, "
-            "parallel to the Francis-Gaitsgory obstruction theory in "
-            "derived_framing_obstruction.py."
+            "CY_3 S^1-equivariance (cyclic structure on HH_*) gives the "
+            "Dunn structural candidate E_3 = E_2 tensor E_1. The extra E_1 "
+            "factor is the Connes operator B (the S^1-action on cyclic "
+            "homology). This is a structural diagnostic parallel to the "
+            "Francis-Gaitsgory obstruction theory; it is not the raw "
+            "A-infinity/TCFT carrier statement and does not by itself prove "
+            "HH^{-2} vanishing or compact CY3 closure."
         )
     else:
         # d >= 4: E_1-stabilization prevents full E_d realization
@@ -651,13 +669,13 @@ class PTVVLandscapeEntry:
     hodge_h_p0: List[int]
     ptvv_shift: int  # always -1 for CY3
     cptvv_level: int  # always E_2 from CPTVV
-    final_en_level: int  # always E_3 after CY upgrade
+    final_en_level: int  # structural E_3 candidate after CY upgrade
     kappa_ch: Fraction  # AP113: subscripted
     kappa_ch_Heis: Fraction  # relative shadow scalar when present
     kappa_cat: Fraction  # AP113: subscripted
     is_formal: bool
     shadow_class: str
-    obstruction_from_ptvv: str  # "none" or description
+    obstruction_from_ptvv: str  # PTVV obstruction status, not raw carrier closure
 
 
 def compute_ptvv_landscape() -> List[PTVVLandscapeEntry]:
@@ -666,12 +684,13 @@ def compute_ptvv_landscape() -> List[PTVVLandscapeEntry]:
     For EVERY CY3:
     - PTVV gives (-1)-shifted symplectic on RPerf.
     - CPTVV gives E_2 on loop space observables.
-    - CY upgrade gives E_3.
+    - CY upgrade gives a structural E_3 candidate.
     - compact kappa_ch is computed from the Hodge/PhiFA supertrace.
     - relative Heisenberg/Yangian scalars are stored separately.
 
     The landscape confirms:
-    - E_3 is universal for CY3 (independent of formality/shadow class).
+    - the shifted-symplectic input is universal for CY3;
+    - E_3 closure is conditional on the corrected framing comparison data;
     - compact kappa_ch and relative shadows are not conflated.
     """
     geometries = [
@@ -704,7 +723,10 @@ def compute_ptvv_landscape() -> List[PTVVLandscapeEntry]:
             kappa_cat=kappa.kappa_cat,
             is_formal=is_formal,
             shadow_class=shadow_class,
-            obstruction_from_ptvv="none",
+            obstruction_from_ptvv=(
+                "no shifted-symplectic obstruction; raw A-infinity/TCFT "
+                "E_3 closure remains conditional on corrected comparison data"
+            ),
         ))
 
     return entries
@@ -718,38 +740,41 @@ def compute_ptvv_landscape() -> List[PTVVLandscapeEntry]:
 class CrossCheckWithDerivedFraming:
     r"""Cross-check between PTVV route and the derived framing obstruction.
 
-    Four independent approaches to CY3 E_3-structure:
+    Four corrected carriers around the CY3 E_3 comparison:
 
     Approach 1 (derived_framing_obstruction.py):
-      Francis-Gaitsgory + Goodwillie.  Obstruction in HH^{-2}_{E_1} = 0.
-      Result: space of E_3-structures is contractible.
+      Francis-Gaitsgory + Goodwillie.  The primary obstruction is tested in
+      HH^{-2}_{E_1} only after a comparison map and the full filtration
+      hypotheses are supplied.  Unit-connectedness is recorded but does not
+      prove vanishing.
 
-    Approach 2 (Costello TCFT, operadic_tcft_mk_b2_engine.py):
-      {b, B^{(2)}} = 0 via d^2 = 0 on moduli chain complex.
-      Result: homotopy-coherent S^3-framing exists.
+    Approach 2 (Costello TCFT):
+      The corrected operator B^{(2)}_TCFT satisfies the total identity only
+      after the Costello correction datum.  The raw B^{(2)}_term has a
+      strict nonzero m_3 witness.
 
     Approach 3 (this engine, PTVV):
       (-1)-shifted symplectic => E_2 (CPTVV) => E_3 (CY S^1-equivariance).
-      Result: E_3 from shifted symplectic geometry.
+      This is a structural diagnostic, not compact CY3 carrier closure.
 
     Approach 4 (Costello TCFT, framing):
-      CY_3 cyclic A-infinity => TCFT => framed E_3 from little 3-disks.
-      Result: E_3 from framed TCFT.
-
-    All four approaches give the SAME conclusion: E_3 for CY3.
-    The PTVV route is the most geometric, the derived framing route the most
-    homotopy-theoretic.
+      CY_3 cyclic A-infinity => TCFT => framed little 3-disks, conditional
+      on the corrected operator and comparison data.
     """
     # Approach 1: derived framing
-    derived_framing_obstruction_vanishes: bool  # from derived_framing_obstruction.py
+    derived_framing_obstruction_vanishes: bool  # conditional HH^{-2} result
     derived_space_contractible: bool
 
     # Approach 2: Costello TCFT (total commutator)
-    costello_total_commutator_vanishes: bool  # {b, B^{(2)}} = 0
+    costello_total_commutator_vanishes: bool  # {b, B^{(2)}_TCFT} = 0
+    raw_termwise_commutator_vanishes: bool
+    raw_witness_coefficient_on_b: Fraction
+    corrected_tcft_operator: str
 
     # Approach 3: PTVV (this engine)
     ptvv_gives_e2: bool  # CPTVV
-    cy_upgrade_gives_e3: bool  # S^1-equivariance
+    cy_upgrade_gives_e3: bool  # established E_3 after corrected hypotheses
+    ptvv_structural_e3_candidate: bool
     ptvv_final_level: int
 
     # Approach 4: framed TCFT
@@ -759,32 +784,44 @@ class CrossCheckWithDerivedFraming:
     all_agree: bool
     kappa_ch_all_match: bool  # compact kappa_ch = 0 and shadow scalar = 3 for K3 x E
     independence: str  # explanation of why the approaches are independent
+    hh_minus_two_status: str
+    compact_cy3_closure_established: bool
+    required_hypotheses: List[str] = field(default_factory=list)
+    remaining_proof_obligations: List[str] = field(default_factory=list)
 
 
 def cross_check_four_approaches(
     geometry_name: str = "K3 x E",
+    tcft_hypotheses: Optional[TCFTCorrectionDatum] = None,
+    hh_hypotheses: Optional[HHMinusTwoFiltrationHypotheses] = None,
+    goodwillie_contractibility_hypothesis: bool = False,
 ) -> CrossCheckWithDerivedFraming:
     r"""Cross-check all four approaches for a given CY3 geometry.
 
-    All four approaches are INDEPENDENT:
+    The approaches are independent but not interchangeable:
     - Derived framing: uses obstruction theory (Francis-Gaitsgory, Goodwillie)
-    - Costello TCFT: uses d^2 = 0 on the moduli chain complex
+    - Costello TCFT: uses d^2 = 0 on the corrected moduli chain complex
     - PTVV: uses shifted symplectic geometry (PTVV + CPTVV + Dunn)
     - Framed TCFT: uses framed little 3-disks operadic action
 
-    They use different mathematical inputs:
-    - Derived framing: E_n-Hochschild cohomology, unit-connectedness
-    - Costello: cyclic A-infinity structure, moduli of disks
-    - PTVV: Serre duality, derived algebraic geometry, deformation quantization
-    - Framed TCFT: topology of moduli spaces of Riemann surfaces with framings
+    Default hypotheses intentionally certify only the PTVV/CPTVV structural
+    data and unit-connectedness.  HH^{-2} vanishing, corrected Costello
+    cancellation, and contractibility must be supplied as separate data.
     """
     # Approach 1: derived framing obstruction
-    # (computed by derived_framing_obstruction.py)
-    derived_vanishes = True  # HH^{-2}_{E_1} = 0 by unit-connectedness
-    derived_contractible = True  # all Goodwillie layers are acyclic
+    hh_hyp = hh_hypotheses or HHMinusTwoFiltrationHypotheses(
+        connective_unit_connected_model=True
+    )
+    derived_vanishes = hh_hyp.vanishing_established
+    derived_contractible = (
+        derived_vanishes and goodwillie_contractibility_hypothesis
+    )
 
     # Approach 2: Costello TCFT
-    costello_vanishes = True  # {b, B^{(2)}} = 0 (Costello's theorem)
+    tcft = tcft_hypotheses or TCFTCorrectionDatum()
+    costello_vanishes = tcft.total_tcft_identity_available
+    witness = strict_m3_b2_term_witness()
+    raw_termwise_vanishes = not witness.nonzero
 
     # Approach 3: PTVV (this engine)
     if geometry_name == "K3 x E":
@@ -800,14 +837,20 @@ def cross_check_four_approaches(
     ptvv = compute_ptvv_shifted_symplectic(hodge)
     cptvv = compute_cptvv_quantization(ptvv)
     ptvv_e2 = (cptvv.cptvv_en_level == 2)
-    cy_e3 = (cptvv.final_en_level == 3)
+    ptvv_structural_e3 = (cptvv.final_en_level == 3)
+    cy_e3 = ptvv_structural_e3 and derived_vanishes and costello_vanishes
 
     # Approach 4: framed TCFT
-    tcft_e3 = True  # Costello's framing gives E_3 for CY3
+    tcft_e3 = costello_vanishes and derived_vanishes
 
     # Consistency
-    all_agree = (derived_vanishes and derived_contractible and
-                 costello_vanishes and ptvv_e2 and cy_e3 and tcft_e3)
+    all_agree = (
+        derived_vanishes
+        and costello_vanishes
+        and ptvv_e2
+        and cy_e3
+        and tcft_e3
+    )
 
     # kappa_ch consistency
     kappa_result = compute_kappa_ch(hodge)
@@ -819,31 +862,62 @@ def cross_check_four_approaches(
     else:
         kappa_match = True  # not specifically verified for other geometries
 
+    required = tcft.missing_hypotheses + hh_hyp.missing_hypotheses
+    if not goodwillie_contractibility_hypothesis:
+        required.append("Goodwillie convergence and derived-limit control for contractibility")
+    remaining = [
+        "Construct the corrected Costello TCFT datum for the chosen model.",
+        "Fix the chain-level comparison map to the S^3 obstruction complex.",
+        "Prove complete/exhaustive/separated/strongly convergent HH filtration with empty total degree -2 line.",
+        "Prove Goodwillie convergence and derived-limit control before claiming contractibility.",
+        "Construct compact CY3 global Phi_3/Hall/CoHA/PBW data separately.",
+    ]
+    if costello_vanishes:
+        remaining.remove("Construct the corrected Costello TCFT datum for the chosen model.")
+    if derived_vanishes:
+        remaining.remove("Fix the chain-level comparison map to the S^3 obstruction complex.")
+        remaining.remove("Prove complete/exhaustive/separated/strongly convergent HH filtration with empty total degree -2 line.")
+    if goodwillie_contractibility_hypothesis:
+        remaining.remove("Prove Goodwillie convergence and derived-limit control before claiming contractibility.")
+
     independence = (
-        "The four approaches are mathematically independent: "
-        "(1) Derived framing uses HH^{-2}_{E_1} vanishing from unit-connectedness "
-        "(Francis-Gaitsgory obstruction theory + Goodwillie calculus); "
-        "(2) Costello TCFT uses d^2 = 0 on the moduli chain complex of "
-        "punctured disks (operadic, no DAG input); "
-        "(3) PTVV uses Serre duality on RPerf(X) to construct a shifted "
-        "symplectic form, then CPTVV deformation quantization + Dunn additivity; "
-        "(4) Framed TCFT uses the topology of framed configuration spaces "
-        "(framed little 3-disks operad action on the TCFT). "
-        "The mathematical inputs (obstruction theory / chain complex d^2 / "
-        "Serre duality on DAG / framing topology) are disjoint."
+        "The four approaches are mathematically independent but only conditionally "
+        "comparable.  Derived framing uses a comparison map into "
+        "HH^{-2}_{E_1} plus filtration and Goodwillie data; unit-connectedness "
+        "alone records a connectivity diagnostic.  Costello TCFT uses the "
+        "corrected operator B^(2)_TCFT and a moduli-chain correction datum; "
+        "it does not identify B^(2)_TCFT with the raw B^(2)_term.  PTVV uses "
+        "Serre duality on RPerf(X), CPTVV deformation quantization, and Dunn "
+        "additivity to produce structural E_2/E_3 data.  The framed TCFT "
+        "comparison uses topology of framed configuration spaces.  Agreement "
+        "is a theorem only after the carrier and comparison hypotheses are present."
+    )
+
+    hh_status = (
+        "HH^{-2}_{E_1}(A,A)=0 under supplied filtration/comparison hypotheses"
+        if derived_vanishes
+        else "unit-connectedness recorded; HH^{-2}_{E_1}(A,A) not established"
     )
 
     return CrossCheckWithDerivedFraming(
         derived_framing_obstruction_vanishes=derived_vanishes,
         derived_space_contractible=derived_contractible,
         costello_total_commutator_vanishes=costello_vanishes,
+        raw_termwise_commutator_vanishes=raw_termwise_vanishes,
+        raw_witness_coefficient_on_b=witness.coefficient_on_b,
+        corrected_tcft_operator="B^(2)_TCFT",
         ptvv_gives_e2=ptvv_e2,
         cy_upgrade_gives_e3=cy_e3,
+        ptvv_structural_e3_candidate=ptvv_structural_e3,
         ptvv_final_level=cptvv.final_en_level,
         tcft_framing_gives_e3=tcft_e3,
         all_agree=all_agree,
         kappa_ch_all_match=kappa_match,
         independence=independence,
+        hh_minus_two_status=hh_status,
+        compact_cy3_closure_established=False,
+        required_hypotheses=required,
+        remaining_proof_obligations=remaining,
     )
 
 
@@ -860,8 +934,8 @@ class CostelloTCFTComparison:
       => TCFT: S_{g,n} -> C_{all}
       => The chiral operations mu_n^{ch}(a_1,...,a_n; z_1,...,z_n) are
          defined via the TCFT on the punctured disk D^2 \ {z_1,...,z_n}.
-      => The S^d-framing on HH_*(C) comes from the TCFT on S^d.
-      => For d=3: the E_3-structure comes from the framed little 3-disks.
+      => The S^d-framing on HH_*(C) comes from the corrected TCFT on S^d.
+      => For d=3: the E_3 comparison requires the corrected carrier data.
 
     PTVV approach (this engine):
       CY_d structure on X
@@ -884,11 +958,24 @@ class CostelloTCFTComparison:
     ptvv_output_en: int  # E_d from CPTVV + CY upgrade
     outputs_match: bool
     bridge: str  # how the two are connected
+    raw_operator: str
+    corrected_operator: str
+    raw_termwise_commutator_vanishes: bool
+    raw_witness_coefficient_on_b: Fraction
+    costello_identity_available: bool
+    requires_tcft_correction_datum: bool
+    required_hypotheses: List[str]
+    status: str
 
 
-def compare_costello_ptvv(cy_dim: int = 3) -> CostelloTCFTComparison:
+def compare_costello_ptvv(
+    cy_dim: int = 3,
+    tcft_hypotheses: Optional[TCFTCorrectionDatum] = None,
+) -> CostelloTCFTComparison:
     r"""Compare Costello TCFT and PTVV for a given CY dimension."""
     d = cy_dim
+    tcft = tcft_hypotheses or TCFTCorrectionDatum()
+    witness = strict_m3_b2_term_witness()
 
     costello_en = min(d, 3)  # E_d for d <= 3, E_1 (stabilized) for d >= 4
     # Adjust: for d=1, Costello gives E_inf (commutative)
@@ -903,20 +990,40 @@ def compare_costello_ptvv(cy_dim: int = 3) -> CostelloTCFTComparison:
     else:
         ptvv_en = 1  # E_1 stabilization
 
+    corrected_identity = True if d != 3 else tcft.total_tcft_identity_available
+    outputs_match = (costello_en == ptvv_en) and corrected_identity
+    status = (
+        "outputs match under supplied Costello correction datum"
+        if outputs_match
+        else "d=3 comparison is conditional: Costello correction datum not supplied"
+        if d == 3
+        else "outputs do not match at this dimension"
+    )
+
     return CostelloTCFTComparison(
         costello_input=f"cyclic A-infinity CY_{d} structure on Perf(X)",
         ptvv_input=f"({2-d})-shifted symplectic on RPerf(X)",
         costello_output_en=costello_en,
         ptvv_output_en=ptvv_en,
-        outputs_match=(costello_en == ptvv_en),
+        outputs_match=outputs_match,
         bridge=(
             f"The cyclic A-infinity structure on Perf(X) is the derived "
             f"algebraic shadow of the ({2-d})-shifted symplectic form on "
             f"RPerf(X).  Toen-Vezzosi identify the cyclic pairing "
             f"<a, mu_2(b,c)> with the evaluation of the shifted symplectic "
             f"form omega_{{2-d}} on tangent vectors (deformations of the "
-            f"perfect complex).  Both encode the same CY data: Serre duality."
+            f"perfect complex).  Both encode the same CY data: Serre duality. "
+            f"For d=3 this bridge compares corrected carriers only: "
+            f"B^(2)_term and B^(2)_TCFT are distinct."
         ),
+        raw_operator="B^(2)_term",
+        corrected_operator="B^(2)_TCFT",
+        raw_termwise_commutator_vanishes=not witness.nonzero,
+        raw_witness_coefficient_on_b=witness.coefficient_on_b,
+        costello_identity_available=corrected_identity,
+        requires_tcft_correction_datum=(d == 3),
+        required_hypotheses=tcft.missing_hypotheses if d == 3 else [],
+        status=status,
     )
 
 
@@ -1087,14 +1194,14 @@ class MasterPTVVResult:
     r"""The complete PTVV analysis for CY3 E_3-structure.
 
     Main result: the PTVV shifted symplectic framework provides an
-    INDEPENDENT confirmation of the E_3-structure on HH_*(CY3),
-    agreeing with the infinity-categorical approach (thm:derived-framing-
-    obstruction) and the Costello TCFT approach.
+    independent structural E_2/E_3 diagnostic for HH_*(CY3).  It agrees
+    with the corrected derived-framing and Costello TCFT carriers only when
+    their explicit hypotheses are supplied.
 
     For K3 x E specifically:
     - PTVV: RPerf(K3 x E) has (-1)-shifted symplectic.
     - CPTVV: Obs(L(RPerf)) has E_2-algebra structure.
-    - CY upgrade: S^1-equivariance gives E_3 via Dunn.
+    - CY upgrade: S^1-equivariance gives a structural E_3 candidate via Dunn.
     - compact kappa_ch = 0 and relative kappa_ch^Heis = 3.
     """
     # PTVV data
@@ -1116,23 +1223,34 @@ class MasterPTVVResult:
     costello_comparison: CostelloTCFTComparison
 
     # Verdicts
-    e3_confirmed: bool  # True
+    e3_confirmed: bool  # conditional, not automatic
+    ptvv_structural_e3_candidate: bool
+    conditional_e3_established: bool
+    hh_minus_two_vanishing_established: bool
+    costello_tcft_identity_established: bool
+    raw_witness_nonzero: bool
+    strict_compact_cy3_closed: bool
     kappa_ch_equals_0: bool  # True for compact K3 x E
     kappa_ch_Heis_equals_3: bool  # True for the relative K3 x E shadow
     kappa_ch_equals_3: bool  # Deprecated false proposition retained as a guard
-    all_approaches_agree: bool  # True
+    all_approaches_agree: bool  # conditional, not automatic
     theorem_statement: str
+    remaining_proof_obligations: List[str] = field(default_factory=list)
 
 
-def master_ptvv_analysis() -> MasterPTVVResult:
+def master_ptvv_analysis(
+    tcft_hypotheses: Optional[TCFTCorrectionDatum] = None,
+    hh_hypotheses: Optional[HHMinusTwoFiltrationHypotheses] = None,
+    goodwillie_contractibility_hypothesis: bool = False,
+) -> MasterPTVVResult:
     r"""The COMPLETE PTVV analysis for CY3 E_3-structure.
 
     Entry point for the engine.  Computes:
     1. PTVV shifted symplectic form on RPerf(K3 x E)
-    2. CPTVV quantization => E_2 => E_3
+    2. CPTVV quantization => E_2 and a structural CY/Dunn E_3 candidate
     3. compact kappa_ch = 0 and relative kappa_ch^Heis = 3
     4. Landscape for all CY3 geometries
-    5. Cross-checks with all four approaches
+    5. Cross-checks with corrected carrier hypotheses
     """
     # 1. PTVV for K3 x E
     k3xe = k3xe_hodge()
@@ -1150,29 +1268,39 @@ def master_ptvv_analysis() -> MasterPTVVResult:
     landscape = compute_ptvv_landscape()
 
     # 5. Cross-checks
-    four = cross_check_four_approaches("K3 x E")
-    costello = compare_costello_ptvv(3)
+    four = cross_check_four_approaches(
+        "K3 x E",
+        tcft_hypotheses=tcft_hypotheses,
+        hh_hypotheses=hh_hypotheses,
+        goodwillie_contractibility_hypothesis=goodwillie_contractibility_hypothesis,
+    )
+    costello = compare_costello_ptvv(3, tcft_hypotheses=tcft_hypotheses)
 
     # Verdicts
-    e3_ok = (cptvv.final_en_level == 3)
+    structural_e3 = (cptvv.final_en_level == 3)
+    e3_ok = four.cy_upgrade_gives_e3
     kappa_ok = (kappa.kappa_ch == F(0))
     kappa_heis_ok = (kappa.kappa_ch_Heis == F(3))
     all_agree = four.all_agree and costello.outputs_match
+    witness = strict_m3_b2_term_witness()
 
     theorem = (
-        "THEOREM (PTVV independent confirmation of CY3 E_3-structure). "
+        "CONDITIONAL THEOREM (PTVV derived comparison for CY3 E_3 data). "
         "For X a smooth CY_3, the derived moduli stack RPerf(X) carries a "
         "(-1)-shifted symplectic structure (PTVV). By CPTVV quantization, "
         "the observables on the derived loop space L(RPerf(X)) carry an "
         "E_2-algebra structure. The CY volume form provides S^1-equivariance "
-        "(the Connes operator B on cyclic homology), which upgrades E_2 to "
-        "E_3 via Dunn additivity (E_3 = E_2 tensor E_1). This confirms the "
-        "E_3-structure independently of the Francis-Gaitsgory obstruction "
-        "theory (thm:derived-framing-obstruction) and the Costello TCFT "
-        "approach. For K3 x E: compact kappa_ch = 0 by the Kunneth "
-        "Hodge/PhiFA supertrace, while the relative Heisenberg/Yangian "
-        "shadow scalar is kappa_ch^Heis = 3 from the K3 contribution 2 "
-        "and the elliptic boundary contribution 1."
+        "(the Connes operator B on cyclic homology), giving the structural "
+        "Dunn candidate E_3 = E_2 tensor E_1. This is not the raw "
+        "A-infinity/TCFT carrier theorem. The raw witness is "
+        "[m_3,B^(2)_term][a|a|a|a|b]=2 alpha [b] != 0. Costello's theorem "
+        "concerns the corrected operator B^(2)_TCFT after a correction datum. "
+        "The derived obstruction vanishes only after a comparison map to the "
+        "S^3 obstruction complex and complete, exhaustive, separated, strongly "
+        "convergent HH filtration with empty total degree -2 line. For K3 x E: "
+        "compact kappa_ch = 0 by the Kunneth Hodge/PhiFA supertrace, while "
+        "the relative Heisenberg/Yangian shadow scalar is kappa_ch^Heis = 3 "
+        "from the K3 contribution 2 and the elliptic boundary contribution 1."
     )
 
     return MasterPTVVResult(
@@ -1185,11 +1313,18 @@ def master_ptvv_analysis() -> MasterPTVVResult:
         four_approaches=four,
         costello_comparison=costello,
         e3_confirmed=e3_ok,
+        ptvv_structural_e3_candidate=structural_e3,
+        conditional_e3_established=e3_ok,
+        hh_minus_two_vanishing_established=four.derived_framing_obstruction_vanishes,
+        costello_tcft_identity_established=four.costello_total_commutator_vanishes,
+        raw_witness_nonzero=witness.nonzero,
+        strict_compact_cy3_closed=False,
         kappa_ch_equals_0=kappa_ok,
         kappa_ch_Heis_equals_3=kappa_heis_ok,
         kappa_ch_equals_3=False,
         all_approaches_agree=all_agree,
         theorem_statement=theorem,
+        remaining_proof_obligations=four.remaining_proof_obligations,
     )
 
 
@@ -1202,9 +1337,15 @@ def master_verification() -> MasterPTVVResult:
     return master_ptvv_analysis()
 
 
-def ptvv_confirms_e3() -> bool:
-    """Quick check: does PTVV confirm E_3 for CY3?"""
-    result = master_ptvv_analysis()
+def ptvv_confirms_e3(
+    tcft_hypotheses: Optional[TCFTCorrectionDatum] = None,
+    hh_hypotheses: Optional[HHMinusTwoFiltrationHypotheses] = None,
+) -> bool:
+    """Quick check: is the conditional E_3 comparison established?"""
+    result = master_ptvv_analysis(
+        tcft_hypotheses=tcft_hypotheses,
+        hh_hypotheses=hh_hypotheses,
+    )
     return result.e3_confirmed
 
 
@@ -1226,9 +1367,15 @@ def kappa_ch_heis_k3xe_is_3() -> bool:
     return result.kappa_ch_Heis == F(3)
 
 
-def all_four_approaches_agree() -> bool:
-    """Quick check: do all four approaches agree for K3 x E?"""
-    result = master_ptvv_analysis()
+def all_four_approaches_agree(
+    tcft_hypotheses: Optional[TCFTCorrectionDatum] = None,
+    hh_hypotheses: Optional[HHMinusTwoFiltrationHypotheses] = None,
+) -> bool:
+    """Quick check: do the corrected approaches agree for K3 x E?"""
+    result = master_ptvv_analysis(
+        tcft_hypotheses=tcft_hypotheses,
+        hh_hypotheses=hh_hypotheses,
+    )
     return result.all_approaches_agree
 
 

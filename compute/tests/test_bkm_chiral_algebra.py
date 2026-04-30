@@ -20,7 +20,7 @@ AP-CY6/AP-CY14: A_{K3xE} does NOT exist at d=3.
 AP-CY11: Conditionality propagates through all results depending on CY-A_3.
 
 Manuscript references:
-    k3_times_e.tex sec:k3e-bkm-chiral-status
+    k3_times_e.tex sec:k3e-bkm-chiral-obstruction
 """
 
 import pytest

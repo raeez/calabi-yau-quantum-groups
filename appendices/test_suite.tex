@@ -8,10 +8,10 @@ mathematical claims of Volume~III.
 \label{sec:test-overview}
 
 The test suite comprises 30,613 tests organized across 369 test files in
-\texttt{compute/tests/}. Every formal claim tagged
-\ClaimStatusProvedHere{} or \ClaimStatusConditional{} that admits
-numerical verification has at least one corresponding test. Tests are
-run via \texttt{make test} (equivalently
+\texttt{compute/tests/}. Every asserted or conditional formal statement
+with numerical content has at least one corresponding test whenever the
+claim admits finite verification. Tests are run via \texttt{make test}
+(equivalently
 \texttt{python3 -m pytest compute/tests/ -q}).
 
 \section{Organization}
@@ -35,7 +35,8 @@ run via \texttt{make test} (equivalently
  \texttt{verify\_shadow\_tower\_clean.py}.
 
 \item \textbf{Audit reports} (\texttt{compute/audit/}): Seven audit
- reports documenting cross-consistency checks and status sweeps.
+ reports documenting convention checks, normalisation witnesses, and
+ finite-gate audits.
 \end{itemize}
 
 \section{Structural discipline tests}
@@ -49,7 +50,7 @@ computationally:
 \toprule
 \textbf{Check} & \textbf{Test mechanism} & \textbf{Engine(s)} \\
 \midrule
-$\kappa$-spectrum & Verify all four $\kappa_\bullet$ values &
+$\kappa_\bullet$-spectrum & Verify all four $\kappa_\bullet$ values &
  \texttt{kappa\_spectrum\_reconciliation} \\
  CY dimension & $d \neq$ complex dim &
  \texttt{cy\_euler} \\
@@ -71,6 +72,12 @@ $\kappa$-spectrum & Verify all four $\kappa_\bullet$ values &
  \texttt{k3\_structure\_function\_explicit} \\
  ZTE failure & $O(\kappa_{\mathrm{ch}}^2)$ obstruction &
  \texttt{zamolodchikov\_tetrahedron\_engine} \\
+ $\mathbb C^3$ positive half & $Y^+$ before double/evaluation &
+ \texttt{c3\_shadow\_tower}, \texttt{c3\_hcs\_hall\_theta} \\
+ OP/Igusa normalisation & $D_5=64^{-1}\Delta_5$ OP normalisation &
+ \texttt{igusa\_product\_formula}, \texttt{borcherds\_lift} \\
+ compact Hall gates & finite Rees versus realised compact CoHA &
+ \texttt{compact\_hall\_construction\_package} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -81,10 +88,12 @@ $\kappa$-spectrum & Verify all four $\kappa_\bullet$ values &
 Key results are verified through multiple independent computational paths:
 
 \begin{itemize}[nosep]
-\item \textbf{$\C^3$ / $\cW_{1+\infty}$}: Five independent constructions
- (cyclic $\Ainf$, Lie conformal, factorization envelope, CoHA,
- $\hCS$ stage-1 shadow)
- verified to agree: \texttt{c3\_grand\_verification} (104 tests).
+\item \textbf{$\C^3$ positive half and doubled $\cW_{1+\infty}$}: Five
+ independent constructions (cyclic $\Ainf$, Lie conformal,
+ factorization envelope, CoHA, $\hCS$ stage-1 shadow) keep
+ $\CoHA(\mathbb C^3)=Y^+(\widehat{\mathfrak{gl}}_1)$ at the positive-half
+ layer; $\cW_{1+\infty}$ enters only after Drinfeld doubling and
+ Fock/evaluation: \texttt{c3\_grand\_verification} (104 tests).
 
 \item \textbf{K3 Yangian}: Three routes (Mukai lattice, BFN Coulomb
  branch, Bridgeland stability) cross-checked:
@@ -101,6 +110,11 @@ Key results are verified through multiple independent computational paths:
 \item \textbf{Borcherds denominator}: Direct Fourier expansion vs
  bar Euler product identification:
  \texttt{borcherds\_denominator\_phi10\_engine} (62 tests).
+
+\item \textbf{Finite hCS--Hall Rees gluing}: The local $\mathbb C^3$
+ chart map is checked by \texttt{c3\_hcs\_hall\_theta}; compact
+ critical-CoHA and Hall-double overclaims are blocked by
+ \texttt{compact\_hall\_construction\_package}.
 \end{itemize}
 
 \section{Running the tests}

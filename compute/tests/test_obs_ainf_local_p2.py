@@ -1,29 +1,13 @@
-r"""Tests for the [m_3, B^{(2)}] commutator computation.
+r"""Tests for the raw \(m_3\)--\(B^{(2)}_{\mathrm{term}}\) witness.
 
-Resolves AP-CY34: the logical gap in prop:cyclic-ainf-framing-compat.
+The owned engine verifies the strict termwise calculation
 
-THE RESULT: [m_3, B^{(2)}] != 0 for non-formal cyclic A_infinity CY_3 algebras.
-The gap is REAL.  Obs_Ainf is a genuine obstruction proportional to alpha
-(the mu_3 coefficient).
+    [m_3,B^{(2)}_{\mathrm{term}}][a|a|a|a|b]=2\alpha[b].
 
-Verified:
-  (1) Algebra consistency: cyclic invariance and A_infinity relations
-  (2) Formal case: [m_3, B^{(2)}] = 0 when alpha = 0 (trivial)
-  (3) Non-formal case: [m_3, B^{(2)}] != 0 when alpha != 0
-  (4) Alpha-scaling: obstruction is LINEAR in alpha
-  (5) Exhaustive CC_4: 10 nonzero elements out of 243
-  (6) Exhaustive CC_5: 57 nonzero elements out of 729
-  (7) Key elements: detailed step-by-step verification
-  (8) Pairing properties: non-degeneracy, graded symmetry
-  (9) Sign convention: bar-desuspended (AP45)
-  (10) Cross-check: route 1 vs route 2 independently
-
-Every test uses AT LEAST 3 independent verification paths (AP10).
-
-Mathematical references:
-  cy_to_chiral.tex: Prop cyclic-ainf-framing-compat, Rem adversarial-audit-cyclic-ainf
-  hopf_fibration_s3_framing.py: Obs_Ainf component
-  Costello (2005): TCFTs and CY categories
+It also asserts the corrected scope: local \(\mathbb P^2\) is a
+noncompact diagnostic; \(B^{(2)}_{\mathrm{term}}\) is not Costello's
+corrected \(B^{(2)}_{\mathrm{TCFT}}\); compact \(CY_3\) vanishing needs
+a corrected TCFT comparison datum or an \(HH^{-2}\) filtration theorem.
 """
 
 from fractions import Fraction
@@ -46,6 +30,7 @@ from compute.lib.obs_ainf_local_p2 import (
     compute_key_element_aabaa,
     master_obs_ainf_computation,
     full_obs_ainf_analysis,
+    raw_witness_scope,
     serre_pairing,
     verify_pairing_nondegeneracy,
     verify_pairing_symmetry,
@@ -193,22 +178,19 @@ class TestFormalCase:
         assert comm.is_zero
 
     def test_formal_master_computation(self):
-        """Master computation gives gap CLOSED for formal algebra."""
+        """Master computation records trivial raw vanishing for alpha=0."""
         result = master_obs_ainf_computation(alpha=F(0))
-        assert result["obs_ainf_vanishes"]
-        assert result["gap_status"] == "CLOSED"
+        assert result["raw_termwise_commutator_vanishes"]
+        assert result["termwise_status"] == "zero_formal"
+        assert result["compact_cy3_vanishing_proved"] is False
 
 
 # ================================================================
-# SECTION 3: NON-FORMAL CASE -- THE GAP IS REAL
+# SECTION 3: RAW TERMWISE STRICT WITNESS
 # ================================================================
 
-class TestNonFormalGapReal:
-    """The central result: [m_3, B^{(2)}] != 0 for non-formal CY_3.
-
-    This proves that Obs_Ainf is a genuine obstruction, and the gap
-    in prop:cyclic-ainf-framing-compat is REAL.
-    """
+class TestRawTermwiseWitness:
+    """The central result: the raw termwise strict witness is nonzero."""
 
     def test_commutator_nonzero_on_aaaab(self):
         """[m_3, B^{(2)}]([a|a|a|a|b]) = 2*[b] != 0."""
@@ -250,11 +232,20 @@ class TestNonFormalGapReal:
         assert not cc5["commutator_vanishes"]
         assert cc5["num_nonzero"] == 57
 
-    def test_gap_status_is_REAL(self):
-        """Master computation returns gap_status = REAL."""
+    def test_raw_termwise_status_is_nonzero_witness(self):
+        """Master computation reports a nonzero raw termwise witness."""
         result = master_obs_ainf_computation(alpha=F(1))
-        assert not result["obs_ainf_vanishes"]
-        assert result["gap_status"] == "REAL"
+        assert result["operator"] == "B^{(2)}_term"
+        assert result["raw_witness_nonzero"]
+        assert not result["raw_termwise_commutator_vanishes"]
+        assert result["termwise_status"] == "nonzero_witness"
+        assert result["compact_cy3_vanishing_proved"] is False
+
+    def test_cyclicity_does_not_kill_raw_witness(self):
+        """Cyclic invariance holds while the raw termwise witness is nonzero."""
+        result = master_obs_ainf_computation(alpha=F(1))
+        assert result["cyclic_invariance_ok"]
+        assert result["raw_witness_nonzero"]
 
 
 # ================================================================
@@ -262,7 +253,7 @@ class TestNonFormalGapReal:
 # ================================================================
 
 class TestAlphaScaling:
-    """The obstruction scales linearly in alpha."""
+    """The raw termwise witness scales linearly in alpha."""
 
     def test_aaaab_linear_in_alpha(self):
         """[m_3, B^{(2)}]([a|a|a|a|b]) = 2*alpha*[b]."""
@@ -561,31 +552,46 @@ class TestFullAnalysis:
         result = full_obs_ainf_analysis()
         assert "verdict" in result
 
-    def test_formal_case_closed(self):
-        """Formal case reports gap CLOSED."""
+    def test_formal_case_raw_vanishing(self):
+        """Formal alpha=0 case reports trivial raw vanishing."""
         result = full_obs_ainf_analysis()
-        assert result["formal_case"]["obs_vanishes"]
-        assert result["formal_case"]["gap_status"] == "CLOSED"
+        assert result["formal_case"]["raw_termwise_commutator_vanishes"]
+        assert result["formal_case"]["termwise_status"] == "zero_formal"
 
-    def test_nonformal_case_real(self):
-        """Non-formal case reports gap REAL."""
+    def test_alpha1_strict_witness_nonzero(self):
+        """Alpha=1 reports the strict nonzero raw witness."""
         result = full_obs_ainf_analysis()
-        assert not result["nonformal_alpha1"]["obs_vanishes"]
-        assert result["nonformal_alpha1"]["gap_status"] == "REAL"
+        assert result["strict_witness_alpha1"]["raw_witness_nonzero"]
+        assert not result["strict_witness_alpha1"]["raw_termwise_commutator_vanishes"]
+        assert result["strict_witness_alpha1"]["termwise_status"] == "nonzero_witness"
 
-    def test_nonformal_alpha2_also_real(self):
-        """Gap is also REAL for alpha=2."""
+    def test_alpha2_strict_witness_nonzero(self):
+        """Alpha=2 also reports the strict nonzero raw witness."""
         result = full_obs_ainf_analysis()
-        assert not result["nonformal_alpha2"]["obs_vanishes"]
-        assert result["nonformal_alpha2"]["gap_status"] == "REAL"
+        assert result["strict_witness_alpha2"]["raw_witness_nonzero"]
+        assert not result["strict_witness_alpha2"]["raw_termwise_commutator_vanishes"]
+        assert result["strict_witness_alpha2"]["termwise_status"] == "nonzero_witness"
 
     def test_verdict_consistency(self):
         """The verdict matches the individual results."""
         result = full_obs_ainf_analysis()
         v = result["verdict"]
-        assert v["obs_ainf_vanishes_formal"] is True
-        assert v["obs_ainf_vanishes_nonformal"] is False
-        assert v["gap_status"] == "REAL"
+        assert v["carrier"] == "B^{(2)}_term"
+        assert v["raw_termwise_witness_nonzero"] is True
+        assert v["compact_cy3_vanishing_proved"] is False
+        assert v["identifies_b_term_with_b_tcft"] is False
+
+    def test_corrected_scope_contract(self):
+        """The scope record forbids compact-vanishing and TCFT conflation."""
+        scope = raw_witness_scope()
+        assert scope["carrier"] == "B^{(2)}_term"
+        assert scope["not_carrier"] == "B^{(2)}_TCFT"
+        assert scope["local_p2_scope"] == "noncompact diagnostic"
+        assert scope["compact_cy3_vanishing_theorem"] is False
+        assert scope["identifies_b_term_with_b_tcft"] is False
+        assert scope["cyclicity_implies_termwise_vanishing"] is False
+        assert scope["toric_bv_implies_raw_ainf_vanishing"] is False
+        assert "HH^{-2}" in scope["compact_vanishing_requires"]
 
 
 # ================================================================
@@ -640,125 +646,57 @@ class TestCrossChecks:
 
 
 # =========================================================================
-# INDEPENDENT VERIFICATION (HZ3-11) -- cor:no-naive-cross-degree
+# INDEPENDENT VERIFICATION (HZ3-11) -- raw termwise witness scope
 # =========================================================================
 
 
 from compute.lib.independent_verification import independent_verification
 
 
-class TestNoNaiveCrossDegreeIV:
-    r"""Independent verification: naive cross-degree cancellation impossible.
+class TestRawTermwiseWitnessIV:
+    r"""Independent verification: raw nonzero termwise witness, exact scope.
 
-    The corollary states for cyclic A_inf CY_3 with mu_1 = 0,
-    mu_3 != 0, and B^(2)_naive the pairwise contraction:
-      (i) {b_2, B^(2)_naive} = 0 trivially (b_2 = 0 since mu_2 = 0)
-      (ii) {b_3, B^(2)_naive} != 0 generically
-      (iii) Different output degrees: {b_k, B^(2)} maps
-            CC_n -> CC_{n-k-1}, so k = 2 vs k = 3 hit DIFFERENT
-            graded components
-      (iv) Therefore {b, B^(2)_naive} = 0 FAILS for non-formal
-           algebras (no cancellation possible)
-
-    Disjoint sources:
-    - DERIVATION: bidegree counting on the Hochschild chain complex +
-      explicit nonvanishing computation at minimal cyclic CY_3.
-    - VERIFICATION: classical bidegree decomposition for graded
-      complexes (Koszul-Tate / Cartan-Eilenberg); explicit Stasheff
-      A_infinity relation for n = 4; obs_ainf_local_p2 engine
-      explicit counterexample at local P^2 with 54 tests; cyclic
-      cohomology / Tsygan double complex bidegree structure.
+    The strict witness proves a statement about \(B^{(2)}_{\mathrm{term}}\):
+    the pair-contraction commutator is nonzero on \([a|a|a|a|b]\) when
+    \(\alpha\neq0\).  It does not prove a compact \(CY_3\) theorem and does
+    not identify \(B^{(2)}_{\mathrm{term}}\) with \(B^{(2)}_{\mathrm{TCFT}}\).
     """
 
     @independent_verification(
-        claim="cor:no-naive-cross-degree",
+        claim="raw-termwise-m3-b2-witness",
         derived_from=[
-            "Bidegree counting: {b_k, B^(2)} maps CC_n -> CC_{n-k-1} "
-            "(Hochschild homology grading)",
-            "prop:chain-nonvanishing-generic: {b_3, B^(2)_naive} != "
-            "0 generically",
-            "Hypothesis mu_1 = 0, mu_2 = 0 (from incompatibility "
-            "theorem), mu_3 != 0",
+            "Direct route computation: m_3(B_term^(2)([a|a|a|a|b])) "
+            "= 4 alpha [b]",
+            "Direct route computation: B_term^(2)(m_3([a|a|a|a|b])) "
+            "= 2 alpha [b]",
+            "Scope record: local P^2 is noncompact diagnostic data; "
+            "compact CY3 vanishing requires TCFT comparison or HH^{-2}.",
         ],
         verified_against=[
-            "Classical bidegree decomposition: CC_*(A) graded by "
-            "tensor length n, with b_k of degree -k - 1; different "
-            "k give different output degrees, so cross-arity "
-            "cancellation requires same n - k - 1; impossible for "
-            "k = 2 vs k = 3 since 2 != 3 implies different output "
-            "components (Koszul-Tate / Cartan-Eilenberg classical)",
-            "Stasheff 1963 A_infinity relations for n = 4: explicit "
-            "form sum over subdivisions of m_4 + (m_2 m_3 + ...) = "
-            "0 reveals which arities cancel which; mu_3 != 0 "
-            "forces mu_2 = 0 on augmentation ideal (incompatibility "
-            "theorem proved separately)",
-            "obs_ainf_local_p2 explicit computation at local P^2 "
-            "(54 tests in this same file): "
-            "{b_3, B^(2)_naive}([a|a|a|a|b]) = 2 alpha [b] != 0 "
-            "for alpha != 0; INDEPENDENT counterexample confirming "
-            "(ii)",
-            "Tsygan double complex bidegree structure: CC_*(A) "
-            "viewed as bicomplex with vertical b and horizontal B "
-            "differentials, each of bidegree (-1, 0) and (0, +1); "
-            "naive pairwise B^(2) is bidegree (-1, +1), and the "
-            "same-bidegree cancellation requires k = 2 component to "
-            "match k = 3 component, which is impossible by output-"
-            "degree separation",
+            "standalone/m3_b2_obstruction_vol3.tex strict witness: "
+            "[m_3,B_term^(2)][a|a|a|a|b] = 2 alpha [b] != 0",
+            "bidegree_decomposition_bB.py corrected theorem: bidegree "
+            "bookkeeping is diagnostic, not a per-k vanishing proof",
+            "spectral_seq_obs_ainf.py corrected theorem: termwise exactness "
+            "requires corrected TCFT or HH^{-2} filtration input",
+            "hopf_fibration_s3_framing.py scope record: toric BV "
+            "triviality does not erase the raw A-infinity witness",
         ],
         disjoint_rationale=(
-            "The DERIVATION uses bidegree counting + explicit "
-            "nonvanishing. The VERIFICATION uses (i) classical "
-            "bidegree decomposition from Koszul-Tate / Cartan-"
-            "Eilenberg, (ii) Stasheff 1963 A_infinity relations, "
-            "(iii) explicit obs_ainf_local_p2 counterexample (54 "
-            "tests confirming nonvanishing), and (iv) Tsygan double "
-            "complex bidegree structure. Four disjoint verification "
-            "routes confirming the impossibility."),
+            "The route computation gives the coefficient. The scope record "
+            "separates the raw carrier from Costello's corrected TCFT "
+            "operator and from compact CY3 derived obstruction theorems."),
     )
-    def test_no_naive_cross_degree_at_local_p2(self):
-        """The KEY THEOREM: naive {b, B^(2)} != 0 for non-formal,
-        verified via bidegree separation + explicit local P^2 +
-        Stasheff relations + Tsygan double complex.
-        """
-        # (i) Bidegree of {b_k, B^(2)}: CC_n -> CC_{n-k-1}.
-        # k = 2: CC_n -> CC_{n-3}
-        # k = 3: CC_n -> CC_{n-4}
-        # Different output degrees, so cancellation requires
-        # same target component, which is impossible.
-        for n in [4, 5, 6, 7]:
-            target_k2 = n - 2 - 1
-            target_k3 = n - 3 - 1
-            assert target_k2 != target_k3   # different output degrees
+    def test_raw_termwise_witness_scope(self):
+        """Direct route computation plus corrected scope contract."""
+        result = compute_key_element_aaaab(MinimalCyclicCY3(alpha=F(1)))
+        assert result["step2_m3_of_b2"] == "4*[b]"
+        assert result["step4_b2_of_m3"] == "2*[b]"
+        assert result["commutator"] == "2*[b]"
 
-        # (ii) {b_2, B^(2)_naive} = 0 trivially since b_2 = 0
-        # (mu_2 = 0 by incompatibility theorem at mu_3 != 0).
-        b2_zero_at_mu3_nonzero = True
-        assert b2_zero_at_mu3_nonzero
-
-        # (iii) {b_3, B^(2)_naive} != 0 generically.
-        # Explicit: at minimal cyclic CY_3 with alpha != 0,
-        # {b_3, B^(2)_naive}([a|a|a|a|b]) = 2 alpha [b] != 0.
-        alpha = 1   # nonzero
-        b3_B2_value = 2 * alpha   # generic nonzero
-        assert b3_B2_value != 0
-
-        # (iv) Therefore {b, B^(2)_naive} = b_2 contribution +
-        # b_3 contribution + ... has b_3 contribution != 0 with
-        # NO matching cancellation from b_2 (which is 0) or higher
-        # b_k (different output degree).
-        # Hence {b, B^(2)_naive} != 0.
-        b_total_B2_naive_nonzero = True
-        assert b_total_B2_naive_nonzero
-
-        # (v) Stasheff A_infinity relation at n = 4:
-        # mu_2 mu_3 + mu_3 mu_2 + (other terms) = 0
-        # When mu_2 = 0 and mu_3 != 0, the relation becomes
-        # 0 + 0 + (other terms) = 0, so other terms = 0.
-        # No cancellation between mu_2 and mu_3 actions.
-        stasheff_n4_at_mu_2_zero = True
-        assert stasheff_n4_at_mu_2_zero
-
-        # (vi) Tsygan double complex: bidegree structure forces
-        # different arities to map to different components.
-        tsygan_bicomplex_bidegree_separation = True
-        assert tsygan_bicomplex_bidegree_separation
+        scope = raw_witness_scope()
+        assert scope["witness_formula"] == (
+            "[m_3,B^{(2)}_term][a|a|a|a|b] = 2*alpha*[b]"
+        )
+        assert scope["compact_cy3_vanishing_theorem"] is False
+        assert scope["identifies_b_term_with_b_tcft"] is False

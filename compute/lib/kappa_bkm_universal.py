@@ -467,7 +467,7 @@ def classify_cy3_bkm_applicability() -> Dict[str, BKMClassification]:
         kappa_BKM=None,
         c_0=None,
         weight_formula_applies=False,
-        replacement_invariant="kappa_ch = 2 (two Heisenberg copies)",
+        replacement_invariant="kappa_ch = 1 (direct McKay; single conifold BPS state)",
         proof_status="inapplicable",
         notes=(
             "Non-compact, one P^1. DT from single BPS state n^0_1=1. "

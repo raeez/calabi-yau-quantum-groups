@@ -9,8 +9,9 @@ The S^3-framing required for CY-A_3 decomposes via the Hopf fibration
 
 into an S^2-framing (which IS CY-A_2, proved) plus an S^1-action (the
 Connes B-operator), with a correction controlled by the Euler class of
-the Hopf bundle.  This module computes the obstruction to this
-decomposition at the chain level.
+the Hopf bundle.  This module records diagnostics for that chain-level
+decomposition.  The raw termwise operator and the corrected TCFT operator
+are different carriers; the module must not identify them.
 
 THE HOPF FIBRATION DECOMPOSITION
 =================================
@@ -29,8 +30,8 @@ where:
   - B^{(1)}: CC_n -> CC_{n+1} is the Connes B-operator (S^1-action)
   - Obs: the obstruction to the decomposition
 
-THE OBSTRUCTION CLASS
-======================
+THE CORRECTED OBSTRUCTION STATEMENT
+===================================
 
 The obstruction Obs lives in
 
@@ -51,26 +52,34 @@ and is controlled by three pieces of data:
     holomorphic CS is compatible with the BV differential Delta.
     This is the ANALYTIC content, requiring Dolbeault resolution.
 
-The main result of this module:
-
-THEOREM (Hopf decomposition of the chain-level obstruction):
-
 For a CY3 category C with cyclic A-infinity structure (A, mu_n, <-,->),
-the chain-level S^3-framing obstruction decomposes as:
+the Hopf diagnostic decomposes as:
 
     Obs(C) = Obs_top(C) + Obs_Ainf(C) + Obs_BV(C)
 
 where:
-  (a) Obs_top = 0 universally (pi_3(BSp) = 0, Thm s3-framing-vanishes)
-  (b) Obs_Ainf = [m_3, F^{(2)}] - the commutator of the A-infinity
-      cubic operation with the S^2-framing map.  This is ZERO for
-      formal categories and COMPUTABLE for non-formal ones.
+  (a) Obs_top = 0 universally (pi_3(BSp) = 0, Thm s3-framing-vanishes).
+  (b) Obs_Ainf for the raw termwise pair-contraction operator is not
+      universally zero.  The strict cyclic CY3 witness gives
+
+          [m_3,B^{(2)}_term][a|a|a|a|b] = 2 alpha [b] != 0.
+
+      Costello supplies a corrected TCFT operator after choosing
+      moduli-chain correction data:
+
+          {sum_k b_k, B^{(2)}_TCFT} = 0.
+
+      This is a total corrected identity, not the equality
+      B^{(2)}_term = B^{(2)}_TCFT and not the per-k identity
+      {b_k,B^{(2)}_TCFT}=0.  A derived vanishing statement requires
+      explicit HH^{-2} degree-line and comparison hypotheses.
   (c) Obs_BV = obstruction to extending the Cech/Dolbeault homotopy
       to commute with the BV operator.  This is the HARD part.
 
 For toric CY3: Obs_BV = 0 (torus equivariance provides the homotopy).
 For compact CY3 with Cech homotopy: Obs_BV is a FORMAL POWER SERIES
-in the OPE variable z whose convergence is the remaining open question.
+in the OPE variable z.  Its convergence is a separate analytic question;
+it does not erase a raw termwise A-infinity witness.
 
 AP-CY6 WARNING: All results here are CONDITIONAL on CY-A_3 for d=3.
 The decomposition itself is unconditional (it is a statement about
@@ -94,19 +103,124 @@ REFERENCES
   Costello-Li, arXiv:1604.00839 (holomorphic CS)
   Kontsevich-Vlassopoulos (S^d-framing)
   Lurie, Higher Algebra ch. 5 (E_n operads)
-  Lorgat Vol III: cy_to_chiral.tex, s3_framing_chain_level.py
+  Lorgat Vol III: standalone/m3_b2_obstruction_vol3.tex
+  Lorgat Vol III: spectral_seq_obs_ainf.py, bidegree_decomposition_bB.py
 """
 
 from __future__ import annotations
 
-from collections import defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from fractions import Fraction
 from typing import (
     Any, Dict, List, Optional, Sequence, Tuple,
 )
 
 F = Fraction
+
+
+def _add_linear(
+    target: Dict[Tuple[str, ...], Fraction],
+    source: Dict[Tuple[str, ...], Fraction],
+    scale: Fraction = F(1),
+) -> Dict[Tuple[str, ...], Fraction]:
+    """Add a finite bar-word linear combination with exact coefficients."""
+    for word, coeff in source.items():
+        target[word] = target.get(word, F(0)) + scale * coeff
+        if target[word] == 0:
+            del target[word]
+    return target
+
+
+def terminal_slot_b2_term(
+    word: Sequence[str],
+    pairing: Optional[Dict[Tuple[str, str], Fraction]] = None,
+) -> Dict[Tuple[str, ...], Fraction]:
+    r"""Terminal-slot model of the raw \(B^{(2)}_{\mathrm{term}}\) witness.
+
+    This is not Costello's corrected TCFT operator.  It is the strict
+    termwise pair-contraction convention used by
+    ``standalone/m3_b2_obstruction_vol3.tex``.
+    """
+    if pairing is None:
+        pairing = {
+            ("a", "b"): F(1),
+            ("b", "a"): F(1),
+            ("e", "w"): F(1),
+            ("w", "e"): F(1),
+        }
+
+    word_tuple = tuple(word)
+    if len(word_tuple) < 2:
+        return {}
+
+    terminal = word_tuple[-1]
+    out: Dict[Tuple[str, ...], Fraction] = {}
+    for index, entry in enumerate(word_tuple[:-1]):
+        coeff = pairing.get((entry, terminal), F(0))
+        if coeff:
+            reduced = word_tuple[:index] + word_tuple[index + 1:-1]
+            out[reduced] = out.get(reduced, F(0)) + coeff
+    return out
+
+
+def m3_strict_witness_action(
+    word: Sequence[str],
+    alpha: Fraction = F(1),
+) -> Dict[Tuple[str, ...], Fraction]:
+    r"""Minimal cyclic CY3 witness operation \(m_3(a,a,a)=\alpha b\)."""
+    word_tuple = tuple(word)
+    out: Dict[Tuple[str, ...], Fraction] = {}
+    for start in range(len(word_tuple) - 2):
+        if word_tuple[start:start + 3] == ("a", "a", "a"):
+            reduced = word_tuple[:start] + ("b",) + word_tuple[start + 3:]
+            out[reduced] = out.get(reduced, F(0)) + alpha
+    return out
+
+
+def compose_bar_operators(
+    first,
+    second,
+    word: Sequence[str],
+) -> Dict[Tuple[str, ...], Fraction]:
+    """Apply ``first`` and then ``second`` to a finite bar-word sum."""
+    total: Dict[Tuple[str, ...], Fraction] = {}
+    for mid_word, mid_coeff in first(word).items():
+        for out_word, out_coeff in second(mid_word).items():
+            total[out_word] = total.get(out_word, F(0)) + mid_coeff * out_coeff
+    return total
+
+
+def strict_m3_b2_term_witness(alpha: Fraction = F(1)) -> Dict[str, Any]:
+    r"""Compute the strict nonzero witness for the raw termwise operator.
+
+    With \(x=[a|a|a|a|b]\) and terminal-slot \(B^{(2)}_{\mathrm{term}}\),
+
+        [m_3,B^{(2)}_{\mathrm{term}}]x = 2 alpha [b].
+
+    The corrected TCFT operator is a different carrier and is not computed
+    here.
+    """
+    x = ("a", "a", "a", "a", "b")
+    m3 = lambda w: m3_strict_witness_action(w, alpha=alpha)
+    b2 = terminal_slot_b2_term
+
+    m3_after_b2 = compose_bar_operators(b2, m3, x)
+    b2_after_m3 = compose_bar_operators(m3, b2, x)
+    commutator: Dict[Tuple[str, ...], Fraction] = dict(m3_after_b2)
+    _add_linear(commutator, b2_after_m3, scale=F(-1))
+
+    coefficient = commutator.get(("b",), F(0))
+    return {
+        "word": x,
+        "b2_then_m3": m3_after_b2,
+        "m3_then_b2": b2_after_m3,
+        "commutator": commutator,
+        "coefficient_of_b": coefficient,
+        "nonzero": coefficient != 0,
+        "carrier": "B^{(2)}_term",
+        "corrected_tcft_operator_equal_to_termwise": False,
+        "hh_minus_two_requires_hypotheses": True,
+    }
 
 
 # =========================================================================
@@ -270,14 +384,20 @@ class ConnesHierarchy:
 class ObstructionComponent:
     """A single component of the three-fold obstruction decomposition."""
     name: str
-    value: Fraction
+    value: Optional[Fraction]
     vanishes: bool
     mechanism: str
     status: str  # "proved", "conditional", "open"
+    carrier: str = "chain"
 
     def __repr__(self) -> str:
-        v = "0" if self.vanishes else str(self.value)
-        return f"{self.name} = {v} [{self.status}]"
+        if self.vanishes:
+            v = "0"
+        elif self.value is None:
+            v = "open"
+        else:
+            v = str(self.value)
+        return f"{self.name} = {v} [{self.status}; {self.carrier}]"
 
 
 @dataclass
@@ -347,7 +467,7 @@ def hopf_decomposition_c3() -> HopfObstructionDecomposition:
             vanishes=True,
             mechanism=(
                 "C^3 is formal (m_k = 0 for k >= 3). "
-                "The commutator [m_3, F^{(2)}] = 0 trivially."
+                "The commutator [m_3, B^{(2)}_term] = 0 trivially."
             ),
             status="proved",
         ),
@@ -388,7 +508,7 @@ def hopf_decomposition_conifold() -> HopfObstructionDecomposition:
             mechanism=(
                 "Conifold is formal (Kaledin: Ext algebra of smooth CY3 "
                 "with unobstructed deformations is formal). "
-                "[m_3, F^{(2)}] = 0 because m_3 = 0."
+                "[m_3, B^{(2)}_term] = 0 because m_3 = 0."
             ),
             status="proved",
         ),
@@ -410,27 +530,18 @@ def hopf_decomposition_local_p2() -> HopfObstructionDecomposition:
 
     Local P^2 = O(-3) -> P^2, the McKay quiver of Z_3.
       - Obs_top = 0 (universal)
-      - Obs_Ainf != 0 at chain level (local P^2 is NON-FORMAL: m_3 != 0).
-        The explicit computation in obs_ainf_local_p2.py shows that
-        [m_3, B^{(2)}] != 0 on CC_4: the commutator equals 2*alpha*[b]
+      - Obs_Ainf != 0 for the raw termwise operator
+        B^{(2)}_term.  The corrected standalone computation shows that
+        [m_3, B^{(2)}_term] != 0: the commutator equals 2*alpha*[b]
         on the element [a|a|a|a|b].  The earlier claim that cyclic
-        invariance forces the commutator to vanish was WRONG (the
-        bidegree proof conflated the mixed complex axiom [b, B^{(0)}]=0
-        with the Connes hierarchy claim [b, B^{(2)}]=0).
+        invariance forces the commutator to vanish is false.
       - Obs_BV = 0 (toric: T^3-equivariant BV trivialization)
 
-    For toric CY3 like local P^2, the torus equivariance that resolves
-    Obs_BV may also resolve Obs_Ainf via equivariant averaging or by
-    absorbing the chain-level obstruction into the BV trivialization.
-    This interaction is an open question.
-
-    NOTE: the value=F(0) and vanishes=True below are RETAINED for
-    backward compatibility with test_hopf_fibration_s3_framing.py
-    (which tests the COMBINED toric resolution where Obs_BV=0 makes
-    Obs_Ainf moot).  The chain-level nonvanishing is documented in
-    obs_ainf_local_p2.py and the manuscript remark
-    rem:adversarial-audit-cyclic-ainf.
+    Costello's corrected TCFT operator may cancel the total boundary after
+    moduli-chain correction data.  That is not equality with the raw
+    termwise operator and is not recorded here as termwise vanishing.
     """
+    witness = strict_m3_b2_term_witness()
     return HopfObstructionDecomposition(
         geometry="local P^2",
         obs_top=ObstructionComponent(
@@ -442,19 +553,17 @@ def hopf_decomposition_local_p2() -> HopfObstructionDecomposition:
         ),
         obs_ainf=ObstructionComponent(
             name="Obs_Ainf(local P^2)",
-            value=F(0),
-            vanishes=True,
+            value=witness["coefficient_of_b"],
+            vanishes=False,
             mechanism=(
-                "m_3 != 0 (non-formal). Chain-level computation "
-                "(obs_ainf_local_p2.py, 54 tests) shows "
-                "[m_3, B^{(2)}] = 2*alpha*[b] != 0 on CC_4. "
-                "However, for TORIC CY3 the BV trivialization "
-                "(Obs_BV = 0) resolves the full obstruction, making "
-                "Obs_Ainf moot at the level of the total S^3-framing. "
-                "The chain-level nonvanishing is a genuine result "
-                "that affects compact non-formal CY3 (quintic)."
+                "local P^2 is non-formal (m_3 != 0). Raw termwise carrier: "
+                "[m_3, B^{(2)}_term][a|a|a|a|b] = 2*alpha*[b] != 0. "
+                "Costello's corrected B^{(2)}_TCFT is a separate operator "
+                "after moduli-chain correction data; toric BV vanishing "
+                "does not prove termwise A-infinity vanishing."
             ),
-            status="proved",
+            status="computed",
+            carrier="B^{(2)}_term",
         ),
         obs_bv=ObstructionComponent(
             name="Obs_BV(local P^2)",
@@ -474,8 +583,10 @@ def hopf_decomposition_quintic() -> HopfObstructionDecomposition:
 
     Q = {f_5 = 0} in P^4, a smooth CY3.
       - Obs_top = 0 (universal)
-      - Obs_Ainf: the cyclic A-infinity argument applies (CY condition),
-        so the formal A-infinity obstruction vanishes.
+      - Obs_Ainf: not resolved by cyclic invariance alone.  The termwise
+        strict witness shows that nonzero m_3 can obstruct raw
+        B^{(2)}_term compatibility.  A corrected TCFT or HH^{-2}
+        comparison theorem is separate input.
       - Obs_BV: the Cech contracting homotopy provides a PERTURBATIVE
         BV trivialization (Thm cech-contracting-homotopy).
         The non-perturbative convergence is OPEN.
@@ -493,19 +604,18 @@ def hopf_decomposition_quintic() -> HopfObstructionDecomposition:
         ),
         obs_ainf=ObstructionComponent(
             name="Obs_Ainf(quintic)",
-            value=F(0),
-            vanishes=True,
+            value=None,
+            vanishes=False,
             mechanism=(
                 "The quintic is non-formal (m_3 != 0 from the "
-                "superpotential). Chain-level [m_3, B^{(2)}] != 0 "
-                "(obs_ainf_local_p2.py). For the quintic, unlike "
-                "toric CY3, there is no T^3-equivariance to absorb "
-                "the obstruction. The value=0/vanishes=True here is "
-                "RETAINED for backward compatibility with the test "
-                "landscape; the actual status is OPEN. See "
-                "rem:adversarial-audit-cyclic-ainf."
+                "superpotential). Cyclicity, Tsygan formality, and "
+                "Costello's TCFT theorem do not imply "
+                "[m_3, B^{(2)}_term] = 0. A derived vanishing claim "
+                "requires explicit HH^{-2} filtration/comparison "
+                "hypotheses."
             ),
-            status="conditional",
+            status="open",
+            carrier="B^{(2)}_term",
         ),
         obs_bv=ObstructionComponent(
             name="Obs_BV(quintic)",
@@ -526,14 +636,18 @@ def hopf_decomposition_k3e() -> HopfObstructionDecomposition:
 
     K3 x E is a product CY3 = CY2 x CY1.
       - Obs_top = 0 (universal)
-      - Obs_Ainf = 0 (K3 x E is formal by DGMS 1975)
+      - Obs_Ainf is open for the CY category.  DGMS formality applies to
+        the de Rham cdga of the compact Kahler manifold; it is not a proof
+        that the coherent CY category has no higher A-infinity operations
+        on the chain model used by the S^3-framing obstruction.
       - Obs_BV: the Kummer route (Steps 1-4 proved) provides the BV
         trivialization for the orbifold resolution T^4/Z_2 x E.
         Step 5 (excision to the resolution) is conjectural.
 
-    The formality of K3 x E (Deligne-Griffiths-Morgan-Sullivan 1975)
-    means that ALL higher operations m_k = 0 for k >= 3 on cohomology.
-    The S^3-framing obstruction is therefore entirely in Obs_BV.
+    The de Rham cohomology model has trivial higher operations.  That
+    statement is a diagnostic for one commutative dg algebra model, not a
+    categorical vanishing theorem for D^b Coh(K3 x E), the Hall category,
+    or the chain-level CY3 carrier used in this programme.
 
     CRITICAL INSIGHT: the Hopf fibration decomposition reveals that
     for K3 x E, the obstruction is NOT about the S^3-framing per se,
@@ -551,14 +665,18 @@ def hopf_decomposition_k3e() -> HopfObstructionDecomposition:
         ),
         obs_ainf=ObstructionComponent(
             name="Obs_Ainf(K3 x E)",
-            value=F(0),
-            vanishes=True,
+            value=None,
+            vanishes=False,
             mechanism=(
-                "K3 x E is formal (DGMS 1975: compact Kahler manifolds "
-                "are formal). All m_k = 0 for k >= 3 on cohomology. "
-                "[m_3, F^{(2)}] = 0 trivially."
+                "DGMS proves formality of the de Rham cdga of a compact "
+                "Kahler manifold. That does not prove A-infinity formality "
+                "of the coherent CY category or identify B^{(2)}_term with "
+                "B^{(2)}_TCFT. K3 x E therefore needs the same corrected "
+                "TCFT comparison datum or HH^{-2} filtration theorem before "
+                "raw termwise Obs_Ainf can be set to zero."
             ),
-            status="proved",
+            status="open",
+            carrier="B^{(2)}_term",
         ),
         obs_bv=ObstructionComponent(
             name="Obs_BV(K3 x E)",
@@ -584,46 +702,17 @@ def hopf_decomposition_k3e() -> HopfObstructionDecomposition:
 
 @dataclass
 class CyclicAinfCompatibility:
-    r"""Verification that cyclic A-infinity structure kills Obs_Ainf.
+    r"""Scope record for the A-infinity part of the Hopf diagnostic.
 
-    THEOREM (Cyclic A-infinity framing compatibility):
-    For a cyclic A-infinity algebra (A, mu_n, <-,->) of CY dimension 3,
-    the A-infinity obstruction to the S^3-framing decomposition vanishes:
+    Formal models have strict vanishing because \(m_k=0\) for \(k\ge 3\).
+    Non-formal cyclicity alone does not kill the raw termwise commutator:
+    the strict witness gives
 
-        [m_k, F^{(2)}] = 0  for all k >= 3
+        [m_3,B^{(2)}_term][a|a|a|a|b]=2 alpha [b].
 
-    PROOF SKETCH:
-    The cyclic invariance identity
-
-        <mu_n(a_1, ..., a_n), a_{n+1}> = (-1)^eps <a_1, mu_n(a_2, ..., a_{n+1})>
-
-    ensures that mu_n is compatible with the CY3 pairing <-,->. The
-    S^2-framing F^{(2)} is constructed FROM the CY2-part of the pairing
-    (the restriction of <-,-> to degrees summing to 2). Therefore:
-
-        [m_k, F^{(2)}] measures the failure of m_k to preserve
-        the degree-2 truncation of the pairing.
-
-    But cyclic invariance holds for ALL degrees simultaneously, so
-    the degree-2 truncation is automatic. Formally:
-
-    Step 1: F^{(2)} is determined by the CY2 trace Tr_2: HH_2 -> k.
-    Step 2: The CY3 trace Tr_3: HH_3 -> k determines F^{(3)}.
-    Step 3: The Gysin sequence of the Hopf fibration gives an exact
-            sequence relating Tr_2 and Tr_3:
-                Tr_3 = Tr_2 circ B^{(1)} + (Euler class correction)
-    Step 4: The Euler class correction is UNIVERSALLY determined by
-            the Hopf bundle (it does not depend on the CY3 category).
-    Step 5: Cyclic invariance of mu_n with respect to Tr_3 implies
-            cyclic invariance with respect to Tr_2 circ B^{(1)}.
-    Step 6: Therefore [m_k, F^{(2)}] = 0.
-
-    The key mathematical content: the UNIVERSAL Euler class correction
-    (Step 4) does not interact with the A-infinity operations because
-    it is a topological invariant of the Hopf bundle, independent of
-    the algebra structure. The A-infinity operations m_k see only the
-    algebraic part of the framing, which is fully controlled by cyclic
-    invariance.
+    Costello's theorem concerns a corrected \(B^{(2)}_{\TCFT}\) and the
+    total differential \(b=\sum_k b_k\).  A derived \(HH^{-2}\) vanishing
+    statement is a separate filtered comparison theorem.
     """
     geometry: str
     is_formal: bool
@@ -632,6 +721,8 @@ class CyclicAinfCompatibility:
     cyclic_invariance_verified: bool
     obs_ainf_vanishes: bool
     proof_steps: List[str]
+    carrier: str = "B^{(2)}_term"
+    hh_minus_two_hypothesis_required: bool = False
 
     def verification_summary(self) -> Dict[str, Any]:
         return {
@@ -641,20 +732,22 @@ class CyclicAinfCompatibility:
             "m3_compatible_with_F2": self.m3_compatible_with_f2,
             "cyclic_invariance": self.cyclic_invariance_verified,
             "Obs_Ainf_vanishes": self.obs_ainf_vanishes,
+            "carrier": self.carrier,
+            "HH_minus_two_hypothesis_required": (
+                self.hh_minus_two_hypothesis_required
+            ),
         }
 
 
 def verify_cyclic_ainf_compatibility_formal(
     geometry: str,
 ) -> CyclicAinfCompatibility:
-    """Verify Obs_Ainf = 0 for a formal CY3 category.
+    """Verify raw termwise Obs_Ainf = 0 for a strictly formal model.
 
     For formal categories (m_k = 0 for k >= 3), the result is trivial:
-    [m_k, F^{(2)}] = 0 because m_k = 0.
+    [m_k, B^{(2)}_term] = 0 because m_k = 0.
 
-    Applies to: C^3, resolved conifold (intrinsically formal).
-    Does NOT apply to: quintic, K3 x E (not A_inf formal; use
-    verify_cyclic_ainf_compatibility_tcft instead).
+    Applies only after a formal model has actually been chosen.
     """
     return CyclicAinfCompatibility(
         geometry=geometry,
@@ -665,8 +758,8 @@ def verify_cyclic_ainf_compatibility_formal(
         obs_ainf_vanishes=True,
         proof_steps=[
             f"{geometry} is formal: m_k = 0 for k >= 3.",
-            "[m_k, F^{(2)}] = 0 trivially (both sides zero).",
-            "Obs_Ainf = 0.",
+            "[m_k, B^{(2)}_term] = 0 trivially (both sides zero).",
+            "Raw termwise Obs_Ainf = 0 on this formal model.",
         ],
     )
 
@@ -674,35 +767,33 @@ def verify_cyclic_ainf_compatibility_formal(
 def verify_cyclic_ainf_compatibility_tcft(
     geometry: str,
 ) -> CyclicAinfCompatibility:
-    r"""Verify Obs_Ainf = 0 for a non-formal CY3 category via Tsygan-Costello.
+    r"""Record the corrected TCFT scope for a non-formal CY3 category.
 
-    For non-formal categories where explicit m_3 data is not available
-    (compact CY3: quintic, K3 x E, etc.), the TCFT resolution applies:
+    For non-formal categories where explicit \(m_3\) data is not available,
+    Costello's theorem supplies a corrected TCFT operator after moduli-chain
+    correction data.  It does not prove raw termwise vanishing:
 
-    1. Tsygan formality: CC_*(A) is formal as a mixed complex.
-    2. Costello extension: the full Connes hierarchy B^{(k)} is formal.
-    3. On cohomology: [m_k^formal, B^{(2),formal}] = 0 (cyclic invariance
-       controls all contractions on the formal model).
-    4. Therefore [m_k, B^{(2)}] is EXACT: it equals d(h_k) for some homotopy.
-    5. The obstruction CLASS [Obs_Ainf] = 0 in cohomology.
+        {sum_k b_k, B^{(2)}_TCFT} = 0.
 
-    See tsygan_formality_obs_ainf.py for the full proof.
-    See formality_ainf_dcoh.py for why these geometries are non-formal.
+    A derived \(E_1\)-Hochschild vanishing statement additionally requires
+    explicit \(HH^{-2}\) degree-line and comparison hypotheses.
     """
     return CyclicAinfCompatibility(
         geometry=geometry,
         is_formal=False,
         m3_nonzero=True,
-        m3_compatible_with_f2=True,  # via TCFT, not pointwise
-        cyclic_invariance_verified=True,
-        obs_ainf_vanishes=True,
+        m3_compatible_with_f2=False,
+        cyclic_invariance_verified=False,
+        obs_ainf_vanishes=False,
         proof_steps=[
             f"{geometry} is NOT A_inf formal: m_3 != 0 (Yukawa/theta-function).",
-            "Tsygan-Costello TCFT formality applies (smooth proper, char 0).",
-            "On cohomology: [m_k^formal, B^{(2),formal}] = 0.",
-            "[m_k, B^{(2)}] is EXACT (cohomology class vanishes).",
-            "Obs_Ainf = 0 (cohomological vanishing suffices for S^3-framing).",
+            "Cyclicity does not imply [m_k, B^{(2)}_term] = 0.",
+            "Costello gives {sum_k b_k, B^{(2)}_TCFT} = 0 after corrections.",
+            "No equality B^{(2)}_term = B^{(2)}_TCFT is part of the theorem.",
+            "HH^{-2} vanishing requires explicit filtered comparison hypotheses.",
         ],
+        carrier="B^{(2)}_term",
+        hh_minus_two_hypothesis_required=True,
     )
 
 
@@ -711,29 +802,23 @@ def verify_cyclic_ainf_compatibility_nonformal(
     m3_data: Dict[Tuple[str, str, str], List[Tuple[str, Fraction]]],
     cy_pairing: Dict[Tuple[str, str], Fraction],
 ) -> CyclicAinfCompatibility:
-    """Verify Obs_Ainf = 0 for a non-formal CY3 category.
+    """Reject raw termwise Obs_Ainf vanishing from cyclicity alone.
 
-    For non-formal categories (m_3 != 0), the proof uses the cyclic
-    A-infinity relation to show [m_3, F^{(2)}] = 0.
+    For non-formal categories (m_3 != 0), the cyclic A-infinity identity
+    controls cyclic pairing of an operation with one additional input.
+    It does not control every non-adjacent pair contraction in
+    [m_3, B^{(2)}_term].  The strict witness demonstrates nonvanishing.
 
-    The cyclic invariance identity:
-        <m_3(a,b,c), d> + <m_3(d,a,b), c> + ... = 0  (cyclic sum)
-
-    This ensures that m_3 is compatible with the CY3 pairing.
-    Since F^{(2)} is constructed from the CY pairing, the compatibility
-    [m_3, F^{(2)}] = 0 follows.
-
-    Explicit verification: for each triple (a,b,c) with m_3(a,b,c) != 0,
-    check that <m_3(a,b,c), d> satisfies the cyclic sum identity for
-    all d in the appropriate Ext degree.
+    The pairing checks below are retained as diagnostics; they do not
+    certify termwise vanishing.
     """
     m3_nonzero = any(
         any(coeff != 0 for _, coeff in terms)
         for terms in m3_data.values()
     )
 
-    # Verify cyclic invariance: <m_3(a,b,c), d> + cyclic = 0
-    # For a CY3 algebra, this is the n=3 case of the cyclic A-infinity identity.
+    # Count available cyclic pairing checks.  This is diagnostic only.
+    # For a CY3 algebra, cyclicity is the n=3 A-infinity identity.
     # The pairing <m_3(a,b,c), d> requires |m_3(a,b,c)| + |d| = 3.
     # Since m_3 has degree 2-3 = -1, |m_3(a,b,c)| = |a|+|b|+|c|-1.
     # So we need |a|+|b|+|c|-1 + |d| = 3, i.e. |a|+|b|+|c|+|d| = 4.
@@ -757,36 +842,34 @@ def verify_cyclic_ainf_compatibility_nonformal(
                     # For the CY3 quiver algebras we verify, this holds
                     # by construction from the potential W.
 
-    # The cyclic invariance is a THEOREM for cyclic A-infinity algebras
-    # (it is part of the definition). We verify it holds for the specific data.
     cyclic_verified = cyclic_checks_passed and check_count > 0
+    witness = strict_m3_b2_term_witness()
 
     proof_steps = [
         f"{geometry} is non-formal: m_3 != 0.",
         "Cyclic A-infinity identity: "
         "<m_3(a,b,c), d> + <m_3(d,a,b), c> + cyclic = 0.",
-        "This is guaranteed by the CY3 structure (cyclic invariance "
-        "is part of the definition of a cyclic A-infinity algebra).",
-        "F^{(2)} is constructed from the CY pairing <-,->.",
-        "Cyclic invariance of m_3 w.r.t. <-,-> implies "
-        "[m_3, F^{(2)}] = 0.",
-        "The Euler class correction from the Hopf fibration is "
-        "topological (independent of m_3), so it commutes with m_3.",
-        "Therefore Obs_Ainf = 0.",
+        "Those pairing checks do not control all non-adjacent "
+        "B^{(2)}_term contractions.",
+        "Strict witness: [m_3, B^{(2)}_term][a|a|a|a|b] = "
+        f"{witness['coefficient_of_b']}*alpha*[b] for alpha=1.",
+        "Costello/TCFT and HH^{-2} derived vanishing are separate inputs.",
     ]
     if check_count > 0:
         proof_steps.append(
-            f"Verified on {check_count} explicit pairing checks."
+            f"Recorded {check_count} explicit cyclic pairing diagnostics."
         )
 
     return CyclicAinfCompatibility(
         geometry=geometry,
         is_formal=False,
         m3_nonzero=m3_nonzero,
-        m3_compatible_with_f2=cyclic_verified,
+        m3_compatible_with_f2=False,
         cyclic_invariance_verified=cyclic_verified,
-        obs_ainf_vanishes=True,
+        obs_ainf_vanishes=False,
         proof_steps=proof_steps,
+        carrier="B^{(2)}_term",
+        hh_minus_two_hypothesis_required=True,
     )
 
 
@@ -830,9 +913,10 @@ class BVObstructionAnalysis:
     OPE coefficients produced by the HTT converge to holomorphic
     functions?
 
-    REDUCTION TO CONVERGENCE: the Hopf decomposition reduces
-    CY-A_3 to a SINGLE analytic question: convergence of the
-    Cech-HTT series.  All other obstructions vanish.
+    The BV diagnostic is independent of the raw termwise A-infinity
+    witness.  Convergence of the Cech-HTT series can close the analytic
+    BV question only after the A-infinity carrier has been handled by
+    strict formality, corrected TCFT data, or an HH^{-2} comparison.
     """
     geometry: str
     toric: bool
@@ -916,17 +1000,22 @@ class HopfDecompositionResult:
     cyclic_ainf_results: Dict[str, CyclicAinfCompatibility]
     bv_results: Dict[str, BVObstructionAnalysis]
 
+    @staticmethod
+    def _component_status(component: ObstructionComponent) -> str:
+        if component.vanishes:
+            return f"0 [{component.status}; {component.carrier}]"
+        if component.value is None:
+            return f"open [{component.status}; {component.carrier}]"
+        return f"{component.value} [{component.status}; {component.carrier}]"
+
     def obstruction_landscape(self) -> Dict[str, Dict[str, str]]:
         """Summary of the obstruction landscape across all geometries."""
         landscape = {}
         for geom, decomp in self.decompositions.items():
             landscape[geom] = {
-                "Obs_top": "0 [proved]" if decomp.obs_top.vanishes
-                    else f"{decomp.obs_top.value} [{decomp.obs_top.status}]",
-                "Obs_Ainf": "0 [proved]" if decomp.obs_ainf.vanishes
-                    else f"{decomp.obs_ainf.value} [{decomp.obs_ainf.status}]",
-                "Obs_BV": "0 [proved]" if decomp.obs_bv.vanishes
-                    else f"open [{decomp.obs_bv.status}]",
+                "Obs_top": self._component_status(decomp.obs_top),
+                "Obs_Ainf": self._component_status(decomp.obs_ainf),
+                "Obs_BV": self._component_status(decomp.obs_bv),
                 "total": "0 [proved]" if decomp.total_vanishes()
                     else "open [conditional]",
             }
@@ -945,6 +1034,8 @@ class HopfDecompositionResult:
                     )
                 else:
                     residual[geom] = "Fully resolved."
+            elif not decomp.obs_ainf.vanishes:
+                residual[geom] = decomp.obs_ainf.mechanism
             else:
                 residual[geom] = "Open: see decomposition."
         return residual
@@ -1048,12 +1139,9 @@ class CechHTTConvergenceAnalysis:
         |mu_k^{ch}(a_1, ..., a_k; z)| <= C^k * k! * |z|^{-k}
 
     This is GEVREY-1 growth (matching the shadow class M prediction
-    for non-formal CY3). For formal CY3 (quintic), the growth is
-    actually polynomial (mu_k = 0 for k >= 3, so only mu_2 contributes).
-
-    CONCLUSION: For the quintic (formal), the Cech-HTT series CONVERGES
-    (only finitely many terms). For non-formal compact CY3, the series
-    is Gevrey-1 and requires Borel resummation.
+    for non-formal CY3).  The quintic entry below records the separate
+    finite-cover Cech-HTT convergence diagnostic; it is not a proof of
+    raw termwise A-infinity vanishing.
     """
     geometry: str
     is_formal: bool
@@ -1196,23 +1284,23 @@ class ProductDecompositionK3E:
 class ObstructionClassIdentification:
     r"""Identification of the chain-level obstruction class.
 
-    MAIN RESULT: The chain-level S^3-framing obstruction for CY3
-    categories is classified by a single invariant:
+    The BV part of the chain-level S^3-framing obstruction is recorded by:
 
         alpha(C) in HH^3_{cyc}(C, C) / (topological + A-infinity)
 
     where:
       - HH^3_{cyc} is the cyclic Hochschild 3-cochains
       - The topological quotient removes Obs_top (which vanishes)
-      - The A-infinity quotient removes Obs_Ainf (which vanishes
-        by cyclic compatibility)
+      - The A-infinity quotient is allowed only after either strict
+        formality, a corrected TCFT comparison, or the explicit HH^{-2}
+        filtration theorem has been supplied.
 
     The residual class alpha(C) is the BV obstruction Obs_BV, which
     lives in the ANALYTIC part of the Hochschild cohomology.
 
     For toric CY3: alpha(C) = 0 (torus equivariance kills it).
-    For compact formal CY3 (quintic): alpha(C) is a formal power series
-      that converges (finitely many terms from the Cech-HTT).
+    For compact CY3 with the required A-infinity comparison supplied:
+      alpha(C) is a formal power series governed by Cech-HTT data.
     For compact non-formal CY3: alpha(C) is a Gevrey-1 series
       requiring Borel resummation.
 
@@ -1240,7 +1328,7 @@ class ObstructionClassIdentification:
 def identify_obstruction_class(geometry: str) -> ObstructionClassIdentification:
     """Identify the chain-level obstruction class for a given geometry."""
     toric_geometries = {"C^3", "conifold", "local_P^2"}
-    formal_geometries = {"C^3", "conifold", "K3_x_E", "quintic"}
+    formal_geometries = {"C^3", "conifold", "K3_x_E"}
 
     is_toric = geometry in toric_geometries
     is_formal = geometry in formal_geometries
@@ -1267,10 +1355,10 @@ def identify_obstruction_class(geometry: str) -> ObstructionClassIdentification:
         return ObstructionClassIdentification(
             geometry=geometry,
             class_in_hh3="[CS, Delta_BV]|_{E_1}",
-            value="Gevrey-1 series",
+            value="open until TCFT/HH^{-2} comparison and BV convergence",
             toric=False,
             formal=False,
-            convergence="open (Borel resummation required)",
+            convergence="open (requires corrected TCFT/HH^{-2} input)",
         )
 
 
@@ -1284,21 +1372,26 @@ def full_programme_status() -> Dict[str, Any]:
     The Hopf fibration decomposition reduces CY-A_3 to:
 
     1. Obs_top = 0: PROVED (universally, by two independent paths).
-    2. Obs_Ainf = 0: PROVED (by cyclic A-infinity compatibility,
-       for ALL CY3 categories, formal or not).
+    2. Obs_Ainf: STRICTLY ZERO only on formal models.  The raw termwise
+       non-formal claim is false: [m_3,B^{(2)}_term] has a strict
+       nonzero witness.  Costello's corrected TCFT identity and HH^{-2}
+       derived vanishing require separate hypotheses.
     3. Obs_BV: PROVED for toric CY3. PROVED perturbatively for
        compact CY3 with Cech homotopy. OPEN non-perturbatively
        for compact non-formal CY3.
 
-    The SINGLE remaining open question: convergence of the Cech-HTT
-    series for compact non-formal CY3 categories.
+    Remaining open questions: corrected TCFT/HH^{-2} comparison data for
+    non-formal termwise witnesses, and convergence of the Cech-HTT series
+    for compact non-formal CY3 categories.
 
     For the landscape of geometries relevant to Vol III:
       - C^3: FULLY RESOLVED
       - Conifold: FULLY RESOLVED
-      - Local P^2: FULLY RESOLVED (toric)
-      - Quintic: FULLY RESOLVED (formal, Cech-HTT terminates)
-      - K3 x E: CONDITIONALLY RESOLVED (Kummer Step 5)
+      - Local P^2: raw termwise A-infinity witness nonzero; BV toric
+        part resolved
+      - Quintic: A-infinity comparison open; Cech-HTT convergence is a
+        separate diagnostic
+      - K3 x E: product/BV route conditional; A-infinity comparison open
       - General compact CY3: PERTURBATIVELY RESOLVED
     """
     result = master_hopf_decomposition()
@@ -1310,24 +1403,27 @@ def full_programme_status() -> Dict[str, Any]:
         ),
         "obs_top": "0 universally (pi_3(BSp) = pi_3(BU) = 0)",
         "obs_ainf": (
-            "0 universally (cyclic A-infinity compatibility: the CY3 "
-            "pairing ensures [m_k, F^{(2)}] = 0 for all k >= 3)"
+            "not universally zero for B^{(2)}_term; strict witness "
+            "[m_3,B^{(2)}_term][a|a|a|a|b] = 2 alpha [b] != 0. "
+            "Corrected TCFT and HH^{-2} derived vanishing require "
+            "separate hypotheses."
         ),
         "obs_bv": {
             "toric": "0 (torus equivariance)",
-            "compact_formal": "0 (Cech-HTT terminates, finite series)",
-            "compact_nonformal": "open (Gevrey-1 convergence)",
+            "compact": "perturbative Cech/Dolbeault diagnostic",
+            "compact_nonformal": "open without TCFT/HH^{-2} comparison",
         },
         "landscape": result.obstruction_landscape(),
         "residual": result.residual_obstruction(),
         "single_remaining_question": (
-            "Convergence of the Cech-HTT series for compact non-formal "
-            "CY3 categories. All other obstructions are proved to vanish."
+            "Corrected TCFT/HH^{-2} comparison for non-formal raw "
+            "termwise witnesses, plus Cech-HTT convergence for compact "
+            "non-formal CY3 categories."
         ),
         "new_results": [
-            "Obs_Ainf = 0 universally (cyclic compatibility theorem)",
-            "Hopf decomposition reduces S^3-framing to convergence",
+            "Raw termwise Obs_Ainf is not universally zero",
+            "Strict witness: [m_3,B^{(2)}_term][a|a|a|a|b] = 2 alpha [b]",
+            "Costello corrected TCFT identity is not B^{(2)}_term equality",
             "K3 x E product decomposition: no S^3 obstruction per se",
-            "Quintic: Obs_BV = 0 (Cech-HTT terminates for formal CY3)",
         ],
     }

@@ -1,7 +1,7 @@
-r"""Tests for the PTVV shifted symplectic E_3 confirmation engine.
+r"""Tests for the PTVV shifted symplectic derived comparison engine.
 
-Verifies the PTVV independent route to E_3-structure on HH_*(CY3):
-  (-1)-shifted symplectic => E_2 (CPTVV) => E_3 (CY S^1-equivariance).
+Verifies the PTVV structural route:
+  (-1)-shifted symplectic => E_2 (CPTVV) => conditional E_3 comparison.
 
 Test structure:
   Section 1: Hodge data and Kunneth product
@@ -43,6 +43,8 @@ from compute.lib.ptvv_derived_k3e import (
     all_four_approaches_agree,
     c3_hodge,
     compare_costello_ptvv,
+    complete_hh_minus_two_hypotheses,
+    complete_tcft_correction_datum,
     compute_cptvv_quantization,
     compute_derived_loop_space,
     compute_kappa_ch,
@@ -64,6 +66,7 @@ from compute.lib.ptvv_derived_k3e import (
     master_verification,
     ptvv_confirms_e3,
     quintic_hodge,
+    strict_m3_b2_term_witness,
     the_theorem,
 )
 
@@ -442,11 +445,11 @@ class TestPTVVLandscape:
     """Tests for the PTVV landscape across all standard CY3 geometries."""
 
     def test_all_cy3_get_e3(self):
-        """ALL CY3 geometries get E_3 from PTVV + CPTVV + CY upgrade.
+        """ALL CY3 geometries get the structural PTVV/CPTVV E_3 candidate.
 
         Path 1: PTVV: (-1)-shifted for all CY3.
         Path 2: CPTVV: E_2 for all.
-        Path 3: CY upgrade: E_3 for all.
+        Path 3: CY upgrade: structural E_3 candidate, not carrier closure.
         """
         landscape = compute_ptvv_landscape()
         for entry in landscape:
@@ -495,15 +498,16 @@ class TestPTVVLandscape:
             assert e.final_en_level == 3
 
     def test_no_ptvv_obstruction(self):
-        """No PTVV obstruction for any CY3 geometry.
+        """No shifted-symplectic obstruction is not raw carrier closure.
 
-        Path 1: obstruction_from_ptvv is "none" for all entries.
-        Path 2: PTVV is universal for smooth CY.
-        Path 3: Non-degeneracy from Serre duality.
+        Path 1: PTVV is universal for smooth CY.
+        Path 2: Non-degeneracy from Serre duality.
+        Path 3: E_3 closure remains conditional on corrected comparison data.
         """
         landscape = compute_ptvv_landscape()
         for e in landscape:
-            assert e.obstruction_from_ptvv == "none"
+            assert "no shifted-symplectic obstruction" in e.obstruction_from_ptvv
+            assert "conditional" in e.obstruction_from_ptvv
 
 
 # ================================================================
@@ -514,38 +518,79 @@ class TestCrossChecks:
     """Tests for cross-checks between PTVV and other approaches."""
 
     def test_four_approaches_agree_k3xe(self):
-        """All four approaches agree for K3 x E: E_3.
+        """Default K3 x E comparison is structural, not automatic E_3 closure.
 
-        Path 1: PTVV gives E_3.
-        Path 2: Derived framing gives E_3 (obstruction vanishes).
-        Path 3: Costello TCFT gives E_3.
+        Path 1: PTVV gives E_2 and a structural E_3 candidate.
+        Path 2: Derived framing is not closed without HH^{-2} hypotheses.
+        Path 3: Costello TCFT is not closed without correction datum.
         """
         result = cross_check_four_approaches("K3 x E")
-        assert result.all_agree
+        assert not result.all_agree
         assert result.ptvv_gives_e2
-        assert result.cy_upgrade_gives_e3
+        assert result.ptvv_structural_e3_candidate
+        assert not result.cy_upgrade_gives_e3
         assert result.ptvv_final_level == 3
+        assert not result.compact_cy3_closure_established
 
     def test_derived_framing_consistent(self):
-        """Derived framing obstruction vanishes (consistent with PTVV).
+        """Derived framing does not vanish by unit-connectedness alone.
 
-        Path 1: HH^{-2}_{E_1} = 0 (unit-connectedness).
-        Path 2: Space of E_3-structures is contractible.
-        Path 3: Independent of the PTVV geometric argument.
+        Path 1: Unit-connectedness is only one hypothesis.
+        Path 2: HH^{-2}_{E_1} remains open by default.
+        Path 3: Contractibility requires separate Goodwillie convergence.
         """
         result = cross_check_four_approaches("K3 x E")
+        assert not result.derived_framing_obstruction_vanishes
+        assert not result.derived_space_contractible
+        assert "not established" in result.hh_minus_two_status
+        assert "empty total degree -2" in " ".join(result.required_hypotheses)
+
+    def test_conditional_hh_minus_two_vanishing_is_not_contractibility(self):
+        """The HH^{-2} theorem is conditional and weaker than contractibility.
+
+        Path 1: Complete filtration/comparison hypotheses give HH^{-2}=0.
+        Path 2: Goodwillie contractibility is not supplied.
+        Path 3: PTVV structural E_3 remains distinguished from full closure.
+        """
+        result = cross_check_four_approaches(
+            "K3 x E",
+            hh_hypotheses=complete_hh_minus_two_hypotheses(),
+        )
         assert result.derived_framing_obstruction_vanishes
-        assert result.derived_space_contractible
+        assert not result.derived_space_contractible
+        assert result.ptvv_structural_e3_candidate
 
     def test_costello_tcft_consistent(self):
-        """Costello TCFT gives {b, B^{(2)}} = 0 (consistent with PTVV).
+        """Costello TCFT is corrected and conditional, not raw termwise.
 
-        Path 1: Total commutator vanishes.
-        Path 2: Independent of PTVV (uses d^2 = 0 on moduli).
-        Path 3: Explicit homotopy from Stasheff cancellation.
+        Path 1: The raw witness is nonzero.
+        Path 2: Default TCFT correction datum is absent.
+        Path 3: Complete TCFT datum proves only the corrected total identity.
         """
         result = cross_check_four_approaches("K3 x E")
-        assert result.costello_total_commutator_vanishes
+        assert not result.raw_termwise_commutator_vanishes
+        assert result.raw_witness_coefficient_on_b == F(2)
+        assert result.corrected_tcft_operator == "B^(2)_TCFT"
+        assert not result.costello_total_commutator_vanishes
+
+        corrected = cross_check_four_approaches(
+            "K3 x E",
+            tcft_hypotheses=complete_tcft_correction_datum(),
+        )
+        assert corrected.costello_total_commutator_vanishes
+        assert not corrected.raw_termwise_commutator_vanishes
+
+    def test_raw_m3_b2_term_witness_nonzero(self):
+        """The strict witness has coefficient 2 alpha on [b].
+
+        Path 1: Terminal-slot B_term^(2) gives 4[a|a|a].
+        Path 2: The reverse order gives 2 alpha[b].
+        Path 3: The commutator coefficient is 2 alpha.
+        """
+        witness = strict_m3_b2_term_witness(F(1))
+        assert witness.input_word == ("a", "a", "a", "a", "b")
+        assert witness.coefficient_on_b == F(2)
+        assert witness.nonzero
 
     def test_kappa_ch_matches_across_approaches(self):
         """Compact and Heisenberg kappa lanes match across approaches.
@@ -562,13 +607,15 @@ class TestCrossChecks:
 
         Path 1: Independence string is nonempty.
         Path 2: Mentions all four methods.
-        Path 3: Explains disjoint mathematical inputs.
+        Path 3: Explains conditional carrier hypotheses.
         """
         result = cross_check_four_approaches("K3 x E")
         assert len(result.independence) > 100
         assert "PTVV" in result.independence
         assert "Francis-Gaitsgory" in result.independence or "Derived" in result.independence
         assert "TCFT" in result.independence or "Costello" in result.independence
+        assert "B^(2)_term" in result.independence
+        assert "B^(2)_TCFT" in result.independence
 
 
 # ================================================================
@@ -579,16 +626,26 @@ class TestCostelloComparison:
     """Tests for Costello TCFT vs PTVV comparison."""
 
     def test_costello_ptvv_agree_d3(self):
-        """Costello and PTVV agree at d=3: both give E_3.
+        """Costello and PTVV agree at d=3 only for corrected carriers.
 
-        Path 1: Costello TCFT: CY_3 framing => E_3.
+        Path 1: Raw B_term^(2) does not commute with m_3.
         Path 2: PTVV: (-1)-shifted symplectic => E_2 => E_3.
-        Path 3: outputs_match flag.
+        Path 3: Costello output match requires a correction datum.
         """
         comp = compare_costello_ptvv(3)
-        assert comp.outputs_match
+        assert not comp.outputs_match
         assert comp.costello_output_en == 3
         assert comp.ptvv_output_en == 3
+        assert not comp.raw_termwise_commutator_vanishes
+        assert comp.raw_witness_coefficient_on_b == F(2)
+        assert comp.required_hypotheses
+
+        corrected = compare_costello_ptvv(
+            3,
+            tcft_hypotheses=complete_tcft_correction_datum(),
+        )
+        assert corrected.outputs_match
+        assert corrected.costello_identity_available
 
     def test_costello_ptvv_agree_d2(self):
         """Costello and PTVV agree at d=2: both give E_2.
@@ -617,10 +674,12 @@ class TestCostelloComparison:
 
         Path 1: Bridge string mentions Serre duality.
         Path 2: Both approaches encode the same CY data.
-        Path 3: Cyclic pairing = symplectic form evaluation.
+        Path 3: It also separates corrected and raw carriers at d=3.
         """
         comp = compare_costello_ptvv(3)
         assert "Serre duality" in comp.bridge
+        assert "B^(2)_term" in comp.bridge
+        assert "B^(2)_TCFT" in comp.bridge
 
 
 # ================================================================
@@ -734,14 +793,26 @@ class TestMasterVerification:
     """Tests for the master PTVV analysis."""
 
     def test_e3_confirmed(self):
-        """Master analysis confirms E_3 for K3 x E.
+        """Master analysis separates structural E_3 data from closure.
 
-        Path 1: ptvv_confirms_e3() returns True.
-        Path 2: Master result e3_confirmed flag.
-        Path 3: CPTVV final_en_level == 3.
+        Path 1: Default ptvv_confirms_e3() is False.
+        Path 2: Master result records structural E_3 candidate.
+        Path 3: Complete local hypotheses establish the conditional comparison.
         """
         result = master_ptvv_analysis()
-        assert result.e3_confirmed
+        assert not result.e3_confirmed
+        assert result.ptvv_structural_e3_candidate
+        assert not result.hh_minus_two_vanishing_established
+        assert not result.costello_tcft_identity_established
+        assert result.raw_witness_nonzero
+
+        conditional = master_ptvv_analysis(
+            tcft_hypotheses=complete_tcft_correction_datum(),
+            hh_hypotheses=complete_hh_minus_two_hypotheses(),
+        )
+        assert conditional.e3_confirmed
+        assert conditional.conditional_e3_established
+        assert not conditional.strict_compact_cy3_closed
 
     def test_kappa_ch_compact_zero_and_heis_three(self):
         """Master analysis separates compact kappa_ch = 0 from kappa_ch^Heis = 3.
@@ -756,14 +827,21 @@ class TestMasterVerification:
         assert not result.kappa_ch_equals_3
 
     def test_all_approaches_agree(self):
-        """Master analysis confirms all four approaches agree.
+        """All approaches agree only under corrected local hypotheses.
 
-        Path 1: all_four_approaches_agree() returns True.
-        Path 2: Master result all_approaches_agree flag.
-        Path 3: Cross-check and Costello comparison both pass.
+        Path 1: Default all_four_approaches_agree() returns False.
+        Path 2: Missing Costello and HH hypotheses are reported.
+        Path 3: Complete hypotheses make the local comparison agree.
         """
         result = master_ptvv_analysis()
-        assert result.all_approaches_agree
+        assert not result.all_approaches_agree
+        assert result.remaining_proof_obligations
+
+        conditional = master_ptvv_analysis(
+            tcft_hypotheses=complete_tcft_correction_datum(),
+            hh_hypotheses=complete_hh_minus_two_hypotheses(),
+        )
+        assert conditional.all_approaches_agree
 
     def test_theorem_statement_present(self):
         """Master analysis produces a theorem statement.
@@ -776,6 +854,8 @@ class TestMasterVerification:
         assert len(result.theorem_statement) > 100
         assert "PTVV" in result.theorem_statement
         assert "E_3" in result.theorem_statement
+        assert "B^(2)_term" in result.theorem_statement
+        assert "B^(2)_TCFT" in result.theorem_statement
         assert "kappa_ch = 0" in result.theorem_statement
         assert "kappa_ch^Heis = 3" in result.theorem_statement
 
@@ -794,26 +874,32 @@ class TestMasterVerification:
     def test_convenience_aliases(self):
         """Convenience aliases work correctly.
 
-        Path 1: ptvv_confirms_e3().
+        Path 1: ptvv_confirms_e3() is conditional.
         Path 2: kappa_ch_k3xe_is_0() and kappa_ch_heis_k3xe_is_3().
-        Path 3: all_four_approaches_agree().
+        Path 3: all_four_approaches_agree() is conditional.
         """
-        assert ptvv_confirms_e3()
+        assert not ptvv_confirms_e3()
         assert kappa_ch_k3xe_is_0()
         assert kappa_ch_heis_k3xe_is_3()
         assert not kappa_ch_k3xe_is_3()
-        assert all_four_approaches_agree()
+        assert not all_four_approaches_agree()
+
+        tcft = complete_tcft_correction_datum()
+        hh = complete_hh_minus_two_hypotheses()
+        assert ptvv_confirms_e3(tcft_hypotheses=tcft, hh_hypotheses=hh)
+        assert all_four_approaches_agree(tcft_hypotheses=tcft, hh_hypotheses=hh)
 
     def test_master_verification_alias(self):
         """master_verification() is an alias for master_ptvv_analysis().
 
         Path 1: Returns MasterPTVVResult.
-        Path 2: e3_confirmed is True.
-        Path 3: All approaches agree.
+        Path 2: e3_confirmed is not automatic.
+        Path 3: Structural E_3 candidate remains present.
         """
         result = master_verification()
         assert isinstance(result, MasterPTVVResult)
-        assert result.e3_confirmed
+        assert not result.e3_confirmed
+        assert result.ptvv_structural_e3_candidate
 
 
 # ================================================================

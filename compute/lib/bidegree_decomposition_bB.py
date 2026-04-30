@@ -1,51 +1,39 @@
-r"""Bidegree decomposition of the Connes identity [b, B^{(j)}] = 0.
+r"""Bar-length diagnostics for the failed bidegree proof.
 
 MATHEMATICAL CONTENT:
 
 On the Hochschild chain complex CC_n(A) of a cyclic A_infinity algebra A,
-the bar differential b = sum_{k >= 1} b_k and the Connes hierarchy operators
-B^{(j)} carry a natural BAR-LENGTH GRADING.  This module proves that the
-mixed-complex identity [b, B^{(j)}] = 0 DECOMPOSES by bar-length degree
-into [b_k, B^{(j)}] = 0 for each k individually.
+the bar differential b = sum_{k >= 1} b_k and the formal Connes hierarchy
+operators B^{(j)} carry bar-length shifts.  The older version of this
+module claimed that the mixed-complex identity [b, B^{(j)}] = 0 separates
+by bar length and gives per-k vanishing.  That proof is
+false.
 
-THE KEY OBSERVATION (resolving AP-CY34):
+THE DIAGNOSTIC OBSERVATION:
 
   b_k has bar-length degree -(k-1):  CC_n -> CC_{n-k+1}
   B^{(j)} has bar-length degree 1-2j: CC_n -> CC_{n+1-2j}
 
   Therefore [b_k, B^{(j)}] has bar-length degree -(k-1) + (1-2j) = 2-k-2j.
 
-  For fixed j, different values of k produce DISTINCT bar-length degrees.
-  Since [b, B^{(j)}] = sum_k [b_k, B^{(j)}] = 0 and each term lives in
-  a different bar-length component, each term must vanish individually:
+  For fixed j, different values of k produce distinct bar-length shifts.
+  This remains a useful diagnostic.  It is not a proof that the termwise
+  commutators vanish.  The strict cyclic CY_3 witness in
+  spectral_seq_obs_ainf.py gives
 
-      [b_k, B^{(j)}] = 0   for all k >= 1, all j.
+      [m_3, B^{(2)}_term][a|a|a|a|b] = 2 alpha [b] != 0.
 
-  In particular, [b_3, B^{(2)}] = 0, which is [m_3, B^{(2)}] = 0,
-  the Obs_Ainf vanishing claimed in prop:cyclic-ainf-framing-compat.
+  Thus the per-k conclusion is rejected.  Costello's theorem gives the
+  total corrected TCFT identity for B^{(2)}_TCFT, after the moduli-chain
+  correction datum is included; it does not identify the corrected TCFT
+  operator with the termwise pair contraction.
 
 THE TWO-STEP PROOF:
 
-  Step 1. [b, B^{(j)}] = 0 for each j in the Connes hierarchy.
-          This follows from Costello's theorem: the cyclic A_infinity
-          structure of CY dimension d defines a chain map from C_*(S^d)
-          to End(CC_bullet(A)) commuting with b.  The operators B^{(j)}
-          are images of fundamental classes of cells of S^d under this
-          chain map, hence they commute with b.
-
-          For j=0 this is the classical mixed complex relation bB + Bb = 0.
-          For j=2 this is the CY pairing compatibility: the degree-2
-          Connes hierarchy operator, constructed from the CY pairing,
-          is a chain map of (CC_bullet(A), b).
-
-  Step 2. Bar-length decomposition.
-          b_k: CC_n -> CC_{n-k+1}, bar-length degree -(k-1).
-          B^{(j)}: CC_n -> CC_{n+1-2j}, bar-length degree 1-2j.
-          [b_k, B^{(j)}]: CC_n -> CC_{n+2-k-2j}, bar-length degree 2-k-2j.
-
-          Since 2-k-2j != 2-k'-2j for k != k' (when j is fixed),
-          the terms in sum_k [b_k, B^{(j)}] = 0 live in distinct
-          bar-length components and must each vanish.
+  The rejected proof had two steps.  Step 1 used Costello's total TCFT
+  identity as if it were an identity for the termwise operator.  Step 2
+  projected by bar length as if the corrected TCFT representative had no
+  higher correction faces.  The strict witness disproves the conclusion.
 
 RELATION TO THE ADVERSARIAL AUDIT (rem:adversarial-audit-cyclic-ainf):
 
@@ -53,17 +41,12 @@ The audit correctly identified that cyclic invariance of mu_n (a statement
 about the pairing of mu_n-output with ONE additional element) does not
 directly control "non-adjacent" contractions in [m_k, B^{(2)}].
 
-The resolution: the bidegree decomposition does NOT require analyzing
-adjacent vs non-adjacent terms separately.  The argument is:
+The resolution is not bidegree separation.  The valid statements are:
 
-  (a) [b, B^{(2)}] = 0 as a WHOLE (Costello's theorem, using the FULL
-      tower of cyclic A_infinity axioms at all arities simultaneously).
-  (b) Bar-length grading forces [b_k, B^{(2)}] = 0 for each k.
-
-The "non-adjacent" terms are contained within [b_k, B^{(2)}] for specific k
-values.  The bar-length decomposition forces the entire k-th component
-(adjacent AND non-adjacent terms together) to vanish, without needing to
-analyze them term by term.
+  (a) the termwise operator has strict nonzero witnesses;
+  (b) the corrected TCFT operator satisfies a total boundary identity;
+  (c) the derived obstruction vanishes only under an explicit HH^{-2}
+      filtration theorem or an equivalent corrected TCFT comparison.
 
 CONVENTIONS:
   - CC_n has bar length n (n+1 tensor factors: a_0, a_1, ..., a_n).
@@ -250,14 +233,16 @@ def bidegree_table(k_max: int = 6, j_max: int = 3
 
 def check_decomposition_at_fixed_j(j: int, k_max: int = 10
                                    ) -> Dict[str, Any]:
-    r"""Verify that [b, B^{(j)}] = 0 decomposes by bar-length degree.
+    r"""Report fixed-j bar-length distinctness.
 
     For fixed j, the commutator [b, B^{(j)}] = sum_{k>=1} [b_k, B^{(j)}].
     Each term [b_k, B^{(j)}] has bar-length degree 2 - k - 2j.
     Since this is a strictly decreasing function of k (for fixed j),
     all terms have DISTINCT bar-length degrees.
 
-    Therefore [b, B^{(j)}] = 0 implies [b_k, B^{(j)}] = 0 for each k.
+    This degree separation is only a diagnostic.  It does not prove
+    [b_k, B^{(j)}_term] = 0, because Costello's chain-map theorem applies
+    to the corrected TCFT operator rather than the raw termwise contraction.
 
     Parameters
     ----------
@@ -286,7 +271,7 @@ def check_decomposition_at_fixed_j(j: int, k_max: int = 10
         degrees[i] > degrees[i + 1] for i in range(len(degrees) - 1)
     )
 
-    # The decomposition holds iff all degrees are distinct
+    # Backward-compatible key: this records degree distinctness only.
     decomposition_holds = all_distinct
 
     return {
@@ -296,10 +281,12 @@ def check_decomposition_at_fixed_j(j: int, k_max: int = 10
         "all_distinct": all_distinct,
         "strictly_decreasing": strictly_decreasing,
         "decomposition_holds": decomposition_holds,
+        "termwise_vanishing_established": False,
         "entries": entries,
         "conclusion": (
-            f"[b, B^({j})] = 0 decomposes into [b_k, B^({j})] = 0 "
-            f"for each k = 1, ..., {k_max}"
+            f"Fixed-j bar-length shifts for B^({j}) are distinct for "
+            f"k = 1, ..., {k_max}; this does not establish termwise "
+            f"vanishing for B_term^({j})."
             if decomposition_holds
             else f"FAILED: bidegrees collide at j = {j}"
         ),
@@ -308,11 +295,11 @@ def check_decomposition_at_fixed_j(j: int, k_max: int = 10
 
 def check_full_bidegree_decomposition(k_max: int = 6, j_max: int = 3
                                       ) -> Dict[str, Any]:
-    r"""Full verification of the bidegree decomposition for all j.
+    r"""Full fixed-j bar-length diagnostic for all j.
 
     For each j in {0, 1, ..., j_max}, verify that the bidegrees of
-    [b_k, B^{(j)}] are distinct across k, so the identity
-    [b, B^{(j)}] = 0 decomposes into [b_k, B^{(j)}] = 0 for each k.
+    [b_k, B^{(j)}] are distinct across k.  The result is not a proof of
+    the old per-k vanishing claim.
 
     Parameters
     ----------
@@ -359,10 +346,9 @@ def collision_analysis(k_max: int = 6, j_max: int = 3
 
     This CAN happen: e.g., (k=3, j=0) and (k=1, j=1) both have degree -1.
 
-    However, this does NOT affect the decomposition argument, because
-    the decomposition is at FIXED j.  The identity [b, B^{(j)}] = 0
-    holds for EACH j individually (Costello's theorem).  The cross-j
-    collisions are irrelevant because we never sum over j.
+    These collisions do not affect the fixed-j arity diagnostic.  They also
+    do not repair the old proof: Costello's theorem supplies a corrected
+    TCFT chain-map identity, not a raw termwise vanishing statement.
 
     Parameters
     ----------
@@ -407,10 +393,9 @@ def collision_analysis(k_max: int = 6, j_max: int = 3
         "num_cross_j_collisions": len(collisions),
         "within_j_all_distinct": within_j_distinct,
         "conclusion": (
-            "Cross-j collisions exist but are irrelevant: "
-            "the identity [b, B^{(j)}] = 0 holds for EACH j individually. "
-            "Within each fixed j, all bidegrees are distinct, so the "
-            "decomposition [b_k, B^{(j)}] = 0 for each k holds."
+            "Cross-j collisions exist. Within each fixed j, all bidegrees "
+            "are distinct; this is a degree diagnostic, not a termwise "
+            "vanishing proof."
             if within_j_distinct
             else "FAILURE: within-j collision detected."
         ),
@@ -418,38 +403,18 @@ def collision_analysis(k_max: int = 6, j_max: int = 3
 
 
 # =========================================================================
-#  3. The target result: [m_3, B^{(2)}] = 0
+#  3. The rejected target result: [m_3, B^{(2)}] = 0
 # =========================================================================
 
 @dataclass
 class ObsAinfResolution:
-    r"""Resolution of the AP-CY34 gap: Obs_Ainf = [m_3, B^{(2)}] = 0.
+    r"""Verdict for the failed bidegree proof of Obs_Ainf.
 
-    The proof has two steps:
-
-    Step 1 (Costello's theorem):
-        For a cyclic A_infinity algebra of CY dimension d >= 2,
-        the Connes hierarchy operator B^{(j)} commutes with the
-        total Hochschild differential b:
-            [b, B^{(j)}] = 0  for all 0 <= j <= d.
-
-        This is because B^{(j)} is a chain map of (CC_bullet(A), b),
-        constructed from the CY pairing via the action of C_*(S^d)
-        on the cyclic complex.
-
-    Step 2 (bar-length decomposition):
-        b = sum_{k >= 1} b_k where b_k has bar-length degree -(k-1).
-        B^{(j)} has bar-length degree 1 - 2j.
-        [b_k, B^{(j)}] has bar-length degree 2 - k - 2j.
-
-        For fixed j, this is strictly decreasing in k, so all terms
-        in sum_k [b_k, B^{(j)}] = 0 have distinct bar-length degrees
-        and must each vanish:
-            [b_k, B^{(j)}] = 0  for each k.
-
-    Conclusion:
-        [b_3, B^{(2)}] = [m_3, B^{(2)}] = 0.
-        This is Obs_Ainf = 0.
+    The bar-length computations below remain correct as arity diagnostics.
+    They do not prove [b_3, B^{(2)}_term]=0.  The strict cyclic CY_3
+    witness gives a nonzero commutator, so this engine now records the
+    bidegree proof as rejected.  A valid obstruction theorem must use the
+    corrected TCFT operator or an explicit HH^{-2} filtration argument.
 
     Attributes
     ----------
@@ -482,7 +447,7 @@ class ObsAinfResolution:
 
 def resolve_obs_ainf(cy_dim: int = 3, k_max: int = 10
                      ) -> ObsAinfResolution:
-    r"""Resolve the AP-CY34 gap: prove Obs_Ainf = [m_3, B^{(2)}] = 0.
+    r"""Reject the bidegree proof for the termwise Obs_Ainf target.
 
     Parameters
     ----------
@@ -500,23 +465,24 @@ def resolve_obs_ainf(cy_dim: int = 3, k_max: int = 10
     target_j = 2
     proof_chain = []
 
-    # Step 1: Costello's theorem
-    # For CY_d with d >= 2, [b, B^{(j)}] = 0 for 0 <= j <= d.
-    step1_holds = cy_dim >= 2 and target_j <= cy_dim
+    # Step 1: Costello's theorem gives a total corrected TCFT identity.
+    # It does not identify the corrected operator with B_term^{(2)}.
+    step1_holds = False
     proof_chain.append(
-        f"Step 1: Costello's theorem applies (CY dim d={cy_dim} >= 2, "
-        f"j={target_j} <= d={cy_dim}). "
-        f"Therefore [b, B^({target_j})] = 0."
+        f"Step 1 rejected for the termwise target: Costello's theorem "
+        f"applies to the corrected TCFT operator when d={cy_dim}, but "
+        f"does not prove [b, B_term^({target_j})] = 0."
     )
 
-    # Step 2: bar-length decomposition
+    # Step 2: the degree table is true, but the proof inference is false.
     decomp = check_decomposition_at_fixed_j(target_j, k_max)
-    step2_holds = decomp["decomposition_holds"]
+    step2_holds = False
     proof_chain.append(
-        f"Step 2: Bar-length decomposition at j={target_j}. "
+        f"Step 2 diagnostic at j={target_j}. "
         f"Degrees for k=1..{k_max}: {decomp['degrees'][:k_max]}. "
         f"All distinct: {decomp['all_distinct']}. "
-        f"Strictly decreasing: {decomp['strictly_decreasing']}."
+        f"Strictly decreasing: {decomp['strictly_decreasing']}. "
+        f"Distinct shifts do not imply termwise vanishing."
     )
 
     # Target bidegree
@@ -539,18 +505,12 @@ def resolve_obs_ainf(cy_dim: int = 3, k_max: int = 10
     )
 
     # Conclusion
-    obs_ainf_vanishes = step1_holds and step2_holds
-    if obs_ainf_vanishes:
-        proof_chain.append(
-            f"Conclusion: [b_{target_k}, B^({target_j})] = "
-            f"[m_{target_k}, B^({target_j})] = 0. "
-            f"Obs_Ainf = 0. The AP-CY34 gap is resolved."
-        )
-    else:
-        proof_chain.append(
-            f"FAILURE: Step 1 holds: {step1_holds}, "
-            f"Step 2 holds: {step2_holds}."
-        )
+    obs_ainf_vanishes = False
+    proof_chain.append(
+        f"Conclusion: the bidegree proof is rejected. "
+        f"The strict witness has [m_{target_k}, B_term^({target_j})] != 0; "
+        f"the corrected TCFT or HH^(-2) theorem is a separate input."
+    )
 
     return ObsAinfResolution(
         target_k=target_k,
@@ -794,7 +754,8 @@ class CostelloChainMapVerification:
 
     Costello's theorem (2005, 2007): For a cyclic A-infinity algebra of
     CY dimension d, the S^d-framing of the cyclic bar complex produces
-    operators B^{(0)}, ..., B^{(d)} that are chain maps of (CC_bullet, b).
+    corrected TCFT operators B^{(0)}_TCFT, ..., B^{(d)}_TCFT that are
+    chain maps of (CC_bullet, b).
 
     The theorem applies when:
     (1) A is a cyclic A-infinity algebra (cyclically invariant pairing).
@@ -808,7 +769,7 @@ class CostelloChainMapVerification:
     j_values : List[int]
         Valid hierarchy indices 0, ..., d.
     chain_map_identity : str
-        The identity [b, B^{(j)}] = 0 for each j.
+        The corrected identity [b, B^{(j)}_TCFT] = 0 for each j.
     """
     cy_dim: int
     j_values: List[int] = field(default_factory=list)
@@ -826,7 +787,7 @@ class CostelloChainMapVerification:
             j_values=j_values,
             applies=applies,
             chain_map_identity=(
-                f"[b, B^(j)] = 0 for j = 0, 1, ..., {d}"
+                f"[b, B_TCFT^(j)] = 0 for j = 0, 1, ..., {d}"
                 if applies else "Does not apply"
             ),
             conditions=[
@@ -844,7 +805,7 @@ class CostelloChainMapVerification:
 
 def master_verification(cy_dim: int = 3, k_max: int = 6
                         ) -> Dict[str, Any]:
-    r"""Complete verification of the bidegree decomposition resolving AP-CY34.
+    r"""Complete diagnostic rejecting the old AP-CY34 bidegree proof.
 
     Parameters
     ----------
@@ -861,7 +822,7 @@ def master_verification(cy_dim: int = 3, k_max: int = 6
     # Step 1: Costello's theorem
     costello = CostelloChainMapVerification.for_cy_dim(cy_dim)
 
-    # Step 2: Full bidegree decomposition
+    # Step 2: Full fixed-j degree distinctness diagnostic
     full_decomp = check_full_bidegree_decomposition(k_max, cy_dim)
 
     # Step 3: Collision analysis
@@ -915,13 +876,11 @@ def master_verification(cy_dim: int = 3, k_max: int = 6
             "expected_output_length": bar_verify["expected_output_length"],
         },
         "final_conclusion": (
-            "RESOLVED. Obs_Ainf = [m_3, B^{(2)}] = 0 follows from "
-            "(1) Costello's theorem: [b, B^{(2)}] = 0 for cyclic A-infinity "
-            "algebras of CY dimension d >= 2, and "
-            "(2) bar-length decomposition: different k-values contribute to "
-            "different bar-length degrees, so [b_k, B^{(2)}] = 0 for each k. "
-            "In particular, [b_3, B^{(2)}] = [m_3, B^{(2)}] = 0."
+            "REJECTED. The bidegree proof does not establish "
+            "vanishing of the termwise Obs_Ainf commutator. Costello's theorem gives "
+            "a total corrected TCFT identity, and the strict witness gives "
+            "[m_3, B^{(2)}_term] != 0."
             if resolution.obs_ainf_vanishes
-            else "UNRESOLVED. See proof chain for details."
+            else "REJECTED. The bidegree proof is false; see proof chain."
         ),
     }

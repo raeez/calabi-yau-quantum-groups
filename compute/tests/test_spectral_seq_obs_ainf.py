@@ -1,31 +1,22 @@
-r"""Tests for the spectral sequence analysis of [m_k, B^{(2)}] non-adjacent terms.
+r"""Regression tests for the m_3--B^{(2)} obstruction theorem.
 
-MAIN RESULT UNDER TEST:
+The theorem separates three carriers:
 
-For a cyclic A_inf-algebra of CY dimension 3, the non-adjacent terms
-in the commutator [m_k, B^{(2)}] are exact in the bar spectral sequence
-(in im(d_{k-1})), killed on the E_{k-1} page.  This is sufficient for
-Obs_Ainf = 0 (the A_inf compatibility obstruction in the Hopf
-fibration decomposition of CY-A_3).
+* the terminal-slot termwise operator B^{(2)}_term, which has a strict
+  nonzero witness;
+* the Costello corrected TCFT operator B^{(2)}_TCFT, which satisfies only
+  the total boundary identity with b = sum_k b_k;
+* the derived E_1-Hochschild obstruction class, whose vanishing requires an
+  explicit HH^{-2} filtration hypothesis.
 
-Every test uses AT LEAST 2 independent verification paths (AP10).
-
-Manuscript references:
-    Vol III: cy_to_chiral.tex, Prop ref:prop:cyclic-ainf-framing-compat
-    Vol III: cy_to_chiral.tex, Remark ref:rem:adversarial-audit-cyclic-ainf
-    Vol III: en_factorization.tex, Prop ref:prop:virasoro-d4
-    Vol III: a_infinity_bar_w1inf.py (A_inf bar complex of W_{1+inf})
-    Vol III: hopf_fibration_s3_framing.py (Hopf decomposition)
-
-Mathematical references:
-    Stasheff, TAMS 108 (1963): homotopy associativity, A_inf
-    Keller (2006): A-infinity transfer theorem
-    Costello (2005): TCFTs and CY categories
+The spectral-sequence helper module still has useful combinatorics.  Its
+universal exactness verdict is not a theorem for B^{(2)}_term, so tests below
+do not certify that forbidden strengthening.
 """
 
+from collections import Counter
 from fractions import Fraction
-
-import pytest
+from pathlib import Path
 
 from compute.lib.spectral_seq_obs_ainf import (
     ArityFiltration,
@@ -50,6 +41,104 @@ from compute.lib.spectral_seq_obs_ainf import (
 )
 
 F = Fraction
+
+DEGREES = {"e": 0, "a": 1, "b": 2, "w": 3}
+DESUSPENDED_DEGREES = {name: degree - 1 for name, degree in DEGREES.items()}
+PAIRING = {
+    ("e", "w"): F(1),
+    ("w", "e"): F(1),
+    ("a", "b"): F(1),
+    ("b", "a"): F(1),
+}
+ROOT = Path(__file__).resolve().parents[2]
+STANDALONE = ROOT / "standalone" / "m3_b2_obstruction_vol3.tex"
+
+
+def terminal_slot_b2(word):
+    """Terminal-slot B_term convention used by the standalone witness."""
+    word = tuple(word)
+    terminal = word[-1]
+    out = Counter()
+    for i, entry in enumerate(word[:-1]):
+        coeff = PAIRING.get((entry, terminal), F(0))
+        if coeff:
+            reduced = word[:i] + word[i + 1:-1]
+            out[reduced] += coeff
+    return out
+
+
+def m3_bar(word, alpha=F(1)):
+    """Minimal witness operation m_3(a,a,a)=alpha b on consecutive triples."""
+    word = tuple(word)
+    out = Counter()
+    for start in range(len(word) - 2):
+        if word[start:start + 3] == ("a", "a", "a"):
+            reduced = word[:start] + ("b",) + word[start + 3:]
+            out[reduced] += alpha
+    return out
+
+
+def compose(first, second, word):
+    """Apply first, then second, to a linear combination of bar words."""
+    total = Counter()
+    for mid, coeff_mid in first(word).items():
+        for out, coeff_out in second(mid).items():
+            total[out] += coeff_mid * coeff_out
+    return total
+
+
+def witness_commutator(word, alpha=F(1)):
+    m3 = lambda w: m3_bar(w, alpha=alpha)
+    m3_after_b2 = compose(terminal_slot_b2, m3, word)
+    b2_after_m3 = compose(m3, terminal_slot_b2, word)
+    return m3_after_b2 - b2_after_m3
+
+
+class TestM3B2ObstructionTheorem:
+    """Direct oracle for the standalone obstruction theorem."""
+
+    def test_cy3_degrees_and_pairing(self):
+        assert DEGREES["a"] + DEGREES["b"] == 3
+        assert DEGREES["e"] + DEGREES["w"] == 3
+        assert PAIRING[("a", "b")] == F(1)
+        assert PAIRING[("b", "a")] == F(1)
+
+    def test_desuspended_terminal_slot_signs_are_positive(self):
+        assert DESUSPENDED_DEGREES["a"] == 0
+        assert DESUSPENDED_DEGREES["b"] == 1
+        signs = [
+            (-1) ** (DESUSPENDED_DEGREES["b"] * i * DESUSPENDED_DEGREES["a"])
+            for i in range(4)
+        ]
+        assert signs == [1, 1, 1, 1]
+
+    def test_strict_witness_arithmetic(self):
+        x = ("a", "a", "a", "a", "b")
+        assert terminal_slot_b2(x) == Counter({("a", "a", "a"): F(4)})
+        assert len(next(iter(terminal_slot_b2(x)))) - len(x) == -2
+        assert compose(terminal_slot_b2, m3_bar, x) == Counter({("b",): F(4)})
+        assert m3_bar(x) == Counter({
+            ("b", "a", "b"): F(1),
+            ("a", "b", "b"): F(1),
+        })
+        assert compose(m3_bar, terminal_slot_b2, x) == Counter({("b",): F(2)})
+        assert witness_commutator(x) == Counter({("b",): F(2)})
+
+    def test_connectivity_does_not_imply_empty_hh_minus_two_line(self):
+        p = 2
+        input_degree = (DEGREES["a"] + 1) + (DEGREES["a"] + 1)
+        output_degree = DEGREES["e"]
+        q = output_degree - input_degree
+        assert p + q == -2
+
+    def test_standalone_separates_termwise_tcft_and_filtered_claims(self):
+        text = STANDALONE.read_text()
+        assert r"B^{(2)}_{\mathrm{term}}" in text
+        assert r"B^{(2)}_{\TCFT}" in text
+        assert r"No equality \(B^{(2)}_{\mathrm{term}}=B^{(2)}_{\TCFT}\)" in text
+        assert r"E_1^{p,q}=0\qquad\text{whenever }p+q=-2" in text
+        assert r"\{b_k,B^{(2)}_{\TCFT}\}=0" in text
+        assert "stronger than the TCFT theorem" in text
 
 
 # =========================================================================
@@ -155,17 +244,22 @@ class TestCommutatorTerms:
         assert enumerate_commutator_terms(n=2, k=3) == []
         assert enumerate_commutator_terms(n=1, k=3) == []
 
-    def test_nonadj_fraction_increases_with_n(self):
-        """Fraction of non-adjacent terms increases with arity n."""
-        # VERIFIED [DC] monotonicity [DA] more outside factors => more non-adj
+    def test_nonadj_fraction_low_arity_values(self):
+        """Fraction of non-adjacent terms has the exact low-arity profile."""
         fracs = []
         for n in range(4, 9):
             terms = enumerate_commutator_terms(n=n, k=3)
             nonadj = [t for t in terms if not t.is_adjacent]
-            fracs.append(len(nonadj) / len(terms))
-        # Non-adjacent fraction should be non-decreasing
-        for i in range(len(fracs) - 1):
-            assert fracs[i] <= fracs[i + 1] + 1e-10
+            fracs.append(F(len(nonadj), len(terms)))
+
+        assert fracs == [
+            F(1, 2),
+            F(3, 5),
+            F(3, 5),
+            F(4, 7),
+            F(15, 28),
+        ]
+        assert any(fracs[i] > fracs[i + 1] for i in range(len(fracs) - 1))
 
 
 # =========================================================================
@@ -189,27 +283,26 @@ class TestFiltrationAnalysis:
         assert fa.num_nonadjacent == 0
 
     def test_nonadj_spectral_page_is_k_minus_1(self):
-        """Non-adjacent terms live at d_{k-1} (killed on E_{k-1} page)."""
+        """Non-adjacent terms retain the legacy d_{k-1} page diagnostic."""
         for k in range(3, 6):
             fa = compute_filtration_analysis(n=k + 2, k=k)
-            # VERIFIED [DC] spectral page [DA] d_{k-1} from Stasheff arity k+1
             assert fa.nonadjacent_spectral_page == k - 1
 
-    def test_nonadj_always_exact(self):
-        """Non-adjacent terms are always exact (page >= 1)."""
+    def test_nonadj_not_proved_exact_when_present(self):
+        """The termwise helper does not prove exactness for non-adjacent terms."""
         for k in range(3, 6):
             for n in range(k + 1, k + 4):
                 fa = compute_filtration_analysis(n, k)
-                # VERIFIED [DC] exactness [DA] Stasheff identity argument
-                assert fa.nonadjacent_exact
+                assert fa.num_nonadjacent > 0
+                assert not fa.nonadjacent_exact
 
-    def test_commutator_vanishes_in_abutment(self):
-        """[m_k, B^{(2)}] = 0 in the spectral sequence abutment."""
+    def test_termwise_commutator_not_proved_in_abutment_when_nonadjacent(self):
+        """The diagnostic helper does not prove termwise abutment vanishing."""
         for k in range(3, 6):
-            for n in range(k, k + 3):
+            for n in range(k + 1, k + 3):
                 fa = compute_filtration_analysis(n, k)
-                # VERIFIED [DC] abutment vanishing [DA] adj + non-adj both vanish
-                assert fa.commutator_vanishes_in_abutment
+                assert fa.num_nonadjacent > 0
+                assert not fa.commutator_vanishes_in_abutment
 
     def test_adjacent_cancel_by_cyclic(self):
         """Adjacent terms always cancel by cyclic invariance."""
@@ -339,18 +432,17 @@ class TestLocalP2NonadjacentAnalysis:
         assert self.analysis["num_nonzero_triples"] == 6
 
     def test_all_nonadj_exact(self):
-        """All non-adjacent terms are exact (the main claim)."""
-        # VERIFIED [DC] exactness [DA] Stasheff identity argument
-        assert self.analysis["all_nonadj_exact"]
+        """The local P^2 enumeration no longer certifies termwise exactness."""
+        assert not self.analysis["all_nonadj_exact"]
 
     def test_spectral_page_is_1(self):
-        """Non-adjacent terms are d_1-exact (E_1 page)."""
-        # VERIFIED [DC] spectral page [DA] k=3, Stasheff at arity 4
-        assert self.analysis["spectral_page_of_exactness"] == 1
+        """No exactness page is assigned without a correction homotopy."""
+        assert self.analysis["spectral_page_of_exactness"] is None
 
-    def test_mechanism_is_stasheff(self):
-        """The mechanism is the Stasheff identity."""
-        assert "Stasheff" in self.analysis["mechanism"]
+    def test_mechanism_names_repaired_inputs(self):
+        """The mechanism points to the corrected theorem, not a Stasheff shortcut."""
+        assert "TCFT" in self.analysis["mechanism"]
+        assert "HH^{-2}" in self.analysis["mechanism"]
 
 
 # =========================================================================
@@ -370,10 +462,9 @@ class TestSpectralComparisonByClass:
         assert self.comp["G"].vanishes_in_abutment
 
     def test_class_l_e1(self):
-        """Class L: non-adjacent terms killed on E_1 by cofreeness."""
-        # VERIFIED [DC] class L [LT] shuffle coalgebra cofreeness
+        """Class L has a legacy page count, not a termwise proof."""
         assert self.comp["L"].nonadj_page == 1
-        assert self.comp["L"].vanishes_in_abutment
+        assert not self.comp["L"].vanishes_in_abutment
 
     def test_class_c_charge(self):
         """Class C: charge conservation blocks non-adjacent pairings."""
@@ -382,16 +473,14 @@ class TestSpectralComparisonByClass:
         assert self.comp["C"].vanishes_in_abutment
 
     def test_class_m_e2(self):
-        """Class M: non-adjacent terms killed on E_2 (d_2-exact)."""
-        # VERIFIED [DC] class M [DA] k=3, d_{k-1} = d_2
+        """Class M keeps the page diagnostic and fails termwise vanishing."""
         assert self.comp["M"].nonadj_page == 2
-        assert self.comp["M"].vanishes_in_abutment
+        assert not self.comp["M"].vanishes_in_abutment
 
-    def test_all_classes_vanish(self):
-        """All shadow classes have vanishing non-adjacent terms in abutment."""
-        for cls in ["G", "L", "C", "M"]:
-            # VERIFIED [DC] universal vanishing [DA] Stasheff identity
-            assert self.comp[cls].vanishes_in_abutment
+    def test_no_universal_termwise_vanishing(self):
+        """The class comparison rejects universal termwise vanishing."""
+        assert {cls for cls, data in self.comp.items()
+                if data.vanishes_in_abutment} == {"G", "C"}
 
     def test_class_g_chain_level(self):
         """Class G has chain-level vanishing (strongest form)."""
@@ -403,16 +492,16 @@ class TestSpectralComparisonByClass:
 
 
 class TestSpectralComparisonHigherK:
-    """Test spectral comparison for k > 3."""
+    """Test the legacy page diagnostic for k > 3."""
 
     def test_m4_class_m_page(self):
-        """[m_4, B^{(2)}]_non-adj killed on E_3 for class M."""
+        """The class M m_4 page diagnostic is E_3."""
         comp = spectral_comparison_by_class(k=4)
         # VERIFIED [DC] spectral page [DA] k=4, d_{k-1} = d_3
         assert comp["M"].nonadj_page == 3
 
     def test_m5_class_m_page(self):
-        """[m_5, B^{(2)}]_non-adj killed on E_4 for class M."""
+        """The class M m_5 page diagnostic is E_4."""
         comp = spectral_comparison_by_class(k=5)
         # VERIFIED [DC] spectral page [DA] k=5, d_{k-1} = d_4
         assert comp["M"].nonadj_page == 4
@@ -483,7 +572,7 @@ class TestStasheffIdentity:
 # =========================================================================
 
 class TestSufficiencyAnalysis:
-    """Test whether cohomological vanishing suffices for Obs_Ainf."""
+    """Test whether the termwise helper suffices for the obstruction."""
 
     def test_class_g_sufficient(self):
         """Class G: chain-level vanishing, trivially sufficient."""
@@ -494,12 +583,11 @@ class TestSufficiencyAnalysis:
         assert s.sufficient_for_framing
 
     def test_class_l_sufficient(self):
-        """Class L: cohomological vanishing, sufficient."""
+        """Class L needs a correction homotopy or HH^{-2} theorem."""
         s = analyze_sufficiency("L")
-        # VERIFIED [DC] class L [DA] cofreeness spectral argument
-        assert not s.chain_level  # NOT chain-level
-        assert s.cohomological
-        assert s.sufficient_for_framing
+        assert not s.chain_level
+        assert not s.cohomological
+        assert not s.sufficient_for_framing
 
     def test_class_c_sufficient(self):
         """Class C: chain-level vanishing from charge conservation."""
@@ -509,26 +597,27 @@ class TestSufficiencyAnalysis:
         assert s.sufficient_for_framing
 
     def test_class_m_sufficient(self):
-        """Class M: cohomological vanishing only, but sufficient."""
+        """Class M is blocked by the strict termwise witness."""
         s = analyze_sufficiency("M")
-        # VERIFIED [DC] class M [DA] spectral sequence exactness
         assert not s.chain_level
-        assert s.cohomological
-        assert s.sufficient_for_framing
+        assert not s.cohomological
+        assert not s.sufficient_for_framing
 
     def test_all_classes_sufficient(self):
-        """All shadow classes give sufficient vanishing for Obs_Ainf."""
-        for cls in ["G", "L", "C", "M"]:
-            s = analyze_sufficiency(cls)
-            # VERIFIED [DC] universal sufficiency [DA] framing in cohomology
-            assert s.sufficient_for_framing
+        """Only classes with direct chain-level vanishing suffice here."""
+        sufficient = {
+            cls for cls in ["G", "L", "C", "M"]
+            if analyze_sufficiency(cls).sufficient_for_framing
+        }
+        assert sufficient == {"G", "C"}
 
     def test_all_classes_upgrade_prop(self):
-        """All classes support upgrading prop:cyclic-ainf-framing-compat."""
-        for cls in ["G", "L", "C", "M"]:
-            s = analyze_sufficiency(cls)
-            # VERIFIED [DC] upgrade [DA] cohomological + sufficient => upgrade
-            assert s.upgrades_prop_status
+        """The termwise helper does not provide a universal upgrade."""
+        upgrades = {
+            cls for cls in ["G", "L", "C", "M"]
+            if analyze_sufficiency(cls).upgrades_prop_status
+        }
+        assert upgrades == {"G", "C"}
 
 
 # =========================================================================
@@ -549,14 +638,16 @@ class TestVirasoroD4Connection:
         assert "m_4" in self.conn["d_r_from_mk"]["d_3"]
 
     def test_nonadj_m3_at_e2(self):
-        """[m_3, B^{(2)}]_non-adj killed at E_2."""
-        # VERIFIED [DC] spectral page [DA] d_2-exact
-        assert "E_2" in self.conn["nonadj_mk_page"]["[m_3, B^{(2)}]_non-adj"]
+        """The m_3 page entry is explicitly diagnostic."""
+        entry = self.conn["nonadj_mk_page"]["[m_3, B^{(2)}]_non-adj"]
+        assert "diagnostic" in entry
+        assert "not a termwise exactness proof" in entry
 
     def test_nonadj_m4_at_e3(self):
-        """[m_4, B^{(2)}]_non-adj killed at E_3."""
-        # VERIFIED [DC] spectral page [DA] d_3-exact
-        assert "E_3" in self.conn["nonadj_mk_page"]["[m_4, B^{(2)}]_non-adj"]
+        """The m_4 page entry is explicitly diagnostic."""
+        entry = self.conn["nonadj_mk_page"]["[m_4, B^{(2)}]_non-adj"]
+        assert "diagnostic" in entry
+        assert "not a termwise exactness proof" in entry
 
     def test_d4_coefficient(self):
         """The d_4 coefficient is 40/27 at c=1."""
@@ -569,9 +660,9 @@ class TestVirasoroD4Connection:
         assert "independent" in self.conn["independence"].lower()
 
     def test_nonadj_killed_before_d4(self):
-        """Non-adjacent terms are killed (E_2) before d_4 acts (E_3->E_4)."""
-        # VERIFIED [DC] ordering [DA] E_2 page < E_3 page
-        assert "BEFORE" in self.conn["independence"]
+        """Independence requires the corrected TCFT or HH^{-2} input."""
+        assert "TCFT" in self.conn["independence"]
+        assert "HH^{-2}" in self.conn["independence"]
 
 
 # =========================================================================
@@ -579,36 +670,36 @@ class TestVirasoroD4Connection:
 # =========================================================================
 
 class TestFullComputation:
-    """Test the complete spectral sequence analysis."""
+    """Test the complete diagnostic analysis."""
 
     def setup_method(self):
         self.results = compute_spectral_seq_obs_ainf(n_max=7, k_max=5)
 
     def test_main_result_statement(self):
-        """Main result statement is present."""
-        assert "[m_k, B^{(2)}] = 0" in self.results["main_result"]["statement"]
+        """Main result rejects termwise universal exactness."""
+        assert "nonzero strict witnesses" in self.results["main_result"]["statement"]
 
     def test_all_filtrations_consistent(self):
-        """All filtration analyses are consistent."""
-        # VERIFIED [DC] consistency [DA] all (n,k) pairs
-        assert self.results["main_result"]["all_filtrations_consistent"]
+        """The termwise vanishing check fails once non-adjacent terms exist."""
+        assert not self.results["main_result"]["all_filtrations_consistent"]
 
     def test_all_classes_sufficient(self):
-        """All shadow classes give sufficient vanishing."""
-        assert self.results["main_result"]["all_classes_sufficient"]
+        """The termwise helper is not sufficient for all classes."""
+        assert not self.results["main_result"]["all_classes_sufficient"]
 
     def test_upgrades_proposition(self):
-        """The analysis upgrades prop:cyclic-ainf-framing-compat."""
-        assert self.results["main_result"]["upgrades_proposition"]
+        """The diagnostic analysis does not upgrade the proposition."""
+        assert not self.results["main_result"]["upgrades_proposition"]
 
-    def test_chain_level_open(self):
-        """Chain-level vanishing remains open for class M."""
-        assert "open" in self.results["main_result"]["chain_level_open"].lower()
+    def test_chain_level_false_in_class_m(self):
+        """Termwise chain-level vanishing is false in class M."""
+        verdict = self.results["main_result"]["chain_level_open"].lower()
+        assert "false in class m" in verdict
+        assert "strict m3-b2 witness" in verdict
 
     def test_local_p2_all_exact(self):
-        """Local P^2 non-adjacent terms are all exact."""
-        # VERIFIED [DC] local P^2 [LT] non-formal CY_3 example
-        assert self.results["local_p2"]["all_nonadj_exact"]
+        """Local P^2 enumeration is not a proof of termwise exactness."""
+        assert not self.results["local_p2"]["all_nonadj_exact"]
 
     def test_filtration_data_nonempty(self):
         """Filtration data computed for multiple (n,k) pairs."""

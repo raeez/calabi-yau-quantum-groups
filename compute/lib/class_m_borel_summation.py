@@ -1,19 +1,23 @@
-r"""Borel summability of the OPE completion for class M chiral algebras.
+r"""Borel/Gevrey diagnostics for class M chiral-algebra completions.
 
 MATHEMATICAL CONTENT
 ====================
 
-The LAST remaining analytic question for CY-A_3: does the OPE completion
-converge for class M (Gevrey-1 divergent) chiral algebras?
+This module analyzes the shadow quadratic and the associated Gevrey-1
+Borel diagnostic for a class M completion.  It deliberately does NOT claim:
 
-FROM PRIOR RESULTS:
-  - prop:hopf-fibration-decomposition: Obs_top = Obs_Ainf = 0 universally
-  - prop:cech-htt-coefficient-convergence: Cech-HTT coefficient series converges
-    for ALL compact CY3 (Gevrey-0 for coefficients)
-  - The OPE completion promotes mu_k^{HTT} to chiral operations mu_k^{ch}
-    with poles of order ~k!, making the series Gevrey-1
-  - For classes G, L, C: Borel summability was already proved
-  - For class M: Borel summability was CONJECTURAL (this module resolves it)
+  - raw ``Obs_Ainf = 0`` for compact CY3 categories;
+  - equality ``B_term^(2) = B_TCFT^(2)``;
+  - compact ``S^3``-framing closure from Borel summability alone.
+
+The corrected obstruction oracle is:
+
+    [m_3, B_term^(2)][a|a|a|a|b] = 2 alpha [b] != 0
+
+for alpha != 0.  Thus the analytic Borel computation below is fenced as a
+diagnostic for the Cech-HTT/BV asymptotic channel.  Compact non-formal CY3
+closure still requires either corrected TCFT comparison data or an
+``HH^{-2}`` filtration theorem.
 
 THE KEY INSIGHT
 ===============
@@ -33,7 +37,7 @@ DISCRIMINANT FORMULA:
 
     disc(Q_L) = q_1^2 - 4*q_0*q_2 = -256 * kappa^3 * S_4
 
-THEOREM (Borel summability of class M OPE completion):
+DIAGNOSTIC THEOREM (Borel summability of the class M analytic channel):
 
 For a class M chiral algebra with kappa_ch > 0 and S_4 > 0:
 
@@ -67,21 +71,21 @@ PROOF ARCHITECTURE:
 
 SCOPE:
 
-This resolves Obs_BV for class M, completing the analytic programme for
-CY-A_3.  The severity of O1 (chain-level S^3-framing obstruction) is
-downgraded from MODERATE to LOW for ALL shadow classes including M.
+This proves only the Borel-side analytic statement under the displayed
+hypotheses.  It does not prove raw A-infinity carrier compatibility, does
+not replace ``B_term^(2)`` by Costello's corrected ``B_TCFT^(2)``, and does
+not close the compact CY3 ``S^3``-framing obstruction.
 
 Condition kappa > 0, S_4 > 0:
-  - kappa_ch > 0: holds for all compact CY3 with chi^CY > 0 (d=2 proved,
-    d=3 conditional on CY-A_3)
-  - S_4 > 0: holds for the Virasoro sector at c > 0, and for all known
-    CY3 chiral algebras
+  - kappa_ch > 0: an input hypothesis for the chiral algebra being analyzed
+  - S_4 > 0: holds for the Virasoro sector at c > 0 and for the standard
+    examples enumerated by this diagnostic engine
   - The condition kappa^3 * S_4 > 0 is equivalent to disc < 0, and also
     holds when kappa < 0 and S_4 < 0 (non-unitary regime)
 
 AP-CY11 COMPLIANCE: The Borel summability result is conditional on CY-A_3
 for compact CY3 (the existence of the chiral algebra A_C is part of the
-d=3 programme).  For d=2 (proved) and toric CY3, the result is unconditional.
+d=3 programme).  It is not a CY-A_3 closure theorem.
 
 CONVENTIONS
 ===========
@@ -95,7 +99,10 @@ CONVENTIONS
 
 References:
     Vol I: higher_genus_modular_koszul.tex (shadow quadratic Q_L)
-    Vol III: cy_to_chiral.tex (CY-A_3 programme, Obs_BV)
+    Vol III: standalone/m3_b2_obstruction_vol3.tex (strict m_3-B_term witness)
+    Vol III: connes_b_obs_ainf.py (corrected carrier distinction)
+    Vol III: hopf_fibration_s3_framing.py (Obs_top/Obs_Ainf/Obs_BV split)
+    Vol III: cy_to_chiral.tex (CY-A_3 programme, analytic BV channel)
     Vol III: cech_htt_convergence.py (coefficient convergence)
     Vol III: a_infinity_bar_w1inf.py (shadow tower for W_{1+inf})
     Vol III: c3_shadow_tower.py (per-channel shadow data)
@@ -447,8 +454,66 @@ def ql_positive_on_reals(
 
 
 # ============================================================================
-# 3.  MAIN THEOREM: BOREL SUMMABILITY CRITERION
+# 3.  ANALYTIC CRITERION AND OBSTRUCTION FENCE
 # ============================================================================
+
+COMPACT_CY3_CLOSURE_REQUIREMENTS: Tuple[str, str] = (
+    "corrected TCFT comparison datum identifying the relevant total carrier",
+    "HH^{-2} filtration/comparison theorem for the strictified E_1 model",
+)
+
+
+@dataclass(frozen=True)
+class ObstructionSeparationResult:
+    r"""Boundary between Borel diagnostics and the S^3-framing obstruction.
+
+    The strict witness is normalized as in ``standalone/m3_b2_obstruction_vol3``
+    and ``connes_b_obs_ainf``:
+
+        [m_3,B_term^(2)][a|a|a|a|b] = 2 alpha [b].
+
+    For alpha != 0 this rejects universal raw ``Obs_Ainf`` vanishing.  The
+    Borel discriminant computation is independent of this carrier question.
+    """
+
+    alpha: Fraction
+    strict_witness_word: Tuple[str, str, str, str, str]
+    strict_witness_formula: str
+    commutator_coeff_of_b: Fraction
+    strict_witness_nonzero: bool
+    raw_obs_ainf_vanishes_universally: bool
+    b_term_equals_b_tcft: bool
+    borel_diagnostic_proves_raw_obs_ainf: bool
+    borel_diagnostic_proves_compact_s3_closure: bool
+    compact_closure_requires: Tuple[str, str]
+    scope: str
+
+
+def obstruction_separation_boundary(alpha: Fraction = F(1)) -> ObstructionSeparationResult:
+    r"""Return the corrected AP-CY34 boundary for this analytic engine."""
+
+    alpha = F(alpha)
+    coeff = 2 * alpha
+    return ObstructionSeparationResult(
+        alpha=alpha,
+        strict_witness_word=("a", "a", "a", "a", "b"),
+        strict_witness_formula=(
+            "[m_3,B_term^(2)][a|a|a|a|b] = 2 alpha [b]"
+        ),
+        commutator_coeff_of_b=coeff,
+        strict_witness_nonzero=coeff != 0,
+        raw_obs_ainf_vanishes_universally=False,
+        b_term_equals_b_tcft=False,
+        borel_diagnostic_proves_raw_obs_ainf=False,
+        borel_diagnostic_proves_compact_s3_closure=False,
+        compact_closure_requires=COMPACT_CY3_CLOSURE_REQUIREMENTS,
+        scope=(
+            "Borel/Gevrey analysis controls the analytic shadow channel only; "
+            "raw A-infinity carrier compatibility and compact S^3 closure "
+            "require separate TCFT or HH^{-2} data."
+        ),
+    )
+
 
 @dataclass(frozen=True)
 class BorelSummabilityResult:
@@ -469,6 +534,10 @@ class BorelSummabilityResult:
         borel_radius: radius of convergence of Borel transform
         growth_rate: shadow tower growth rate rho
         mechanism: human-readable explanation
+        analytic_scope: boundary separating this result from Obs_Ainf closure
+        proves_raw_ainf_obstruction_vanishing: always False for this diagnostic
+        proves_compact_s3_closure: always False for this diagnostic
+        required_compact_closure_data: TCFT/HH^{-2} obligations
     """
     kappa: Fraction
     alpha: Fraction
@@ -484,6 +553,10 @@ class BorelSummabilityResult:
     borel_radius: float
     growth_rate: float
     mechanism: str
+    analytic_scope: str
+    proves_raw_ainf_obstruction_vanishing: bool
+    proves_compact_s3_closure: bool
+    required_compact_closure_data: Tuple[str, str]
 
 
 def borel_summability_analysis(
@@ -492,7 +565,8 @@ def borel_summability_analysis(
 ) -> BorelSummabilityResult:
     r"""Complete Borel summability analysis for a class M chiral algebra.
 
-    This is the MAIN FUNCTION implementing the theorem.
+    This is the main analytic diagnostic.  It proves no raw termwise
+    A-infinity obstruction vanishing.
 
     For kappa > 0 and S_4 > 0:
       disc(Q_L) = -256 * kappa^3 * S_4 < 0
@@ -581,6 +655,13 @@ def borel_summability_analysis(
         borel_radius=1.0 / bp.convergence_radius if bp.convergence_radius > 0 else float('inf'),
         growth_rate=bp.convergence_radius,
         mechanism=mechanism,
+        analytic_scope=(
+            "Borel summability of the shadow/OPE analytic channel; not a "
+            "raw Obs_Ainf, B_term^(2)=B_TCFT^(2), or compact S^3-closure proof."
+        ),
+        proves_raw_ainf_obstruction_vanishing=False,
+        proves_compact_s3_closure=False,
+        required_compact_closure_data=COMPACT_CY3_CLOSURE_REQUIREMENTS,
     )
 
 
@@ -709,29 +790,30 @@ def borel_landscape() -> Dict[str, BorelSummabilityResult]:
     return results
 
 
-def obs_bv_severity_table() -> Dict[str, str]:
-    r"""Updated Obs_BV severity by shadow class.
+def borel_diagnostic_status_table() -> Dict[str, str]:
+    r"""Borel diagnostic status by shadow class.
 
-    Before this result:
-      G: LOW
-      L: LOW
-      C: LOW
-      M: MODERATE (OPE completion conjectural)
-
-    After this result (Borel summability theorem):
-      G: LOW
-      L: LOW
-      C: LOW
-      M: LOW (Borel sum converges, no Stokes)
-
-    # VERIFIED [DC] severity assessment [LT] cy_to_chiral.tex O1
+    This is not an ``Obs_Ainf`` severity table.  Classes G/L/C/M describe
+    the analytic shadow channel; compact CY3 framing closure still needs
+    the corrected TCFT or ``HH^{-2}`` comparison data recorded in
+    ``obstruction_separation_boundary``.
     """
     return {
-        "G": "LOW (shadow terminates, trivial)",
-        "L": "LOW (shadow terminates, finite depth)",
-        "C": "LOW (charge conservation, no R_+ poles)",
-        "M": "LOW (Borel summable: disc < 0 => complex branch points in LHP)",
+        "G": "ANALYTIC CLOSED (shadow terminates; no Borel issue)",
+        "L": "ANALYTIC CLOSED (finite-depth shadow; no Borel issue)",
+        "C": "ANALYTIC CLOSED (charge conservation; no R_+ poles)",
+        "M": (
+            "ANALYTIC DIAGNOSTIC: Borel summable under "
+            "kappa_ch^3*S_4 > 0; does not prove raw Obs_Ainf=0 or "
+            "compact S^3-framing closure"
+        ),
     }
+
+
+def obs_bv_severity_table() -> Dict[str, str]:
+    r"""Compatibility alias for the corrected diagnostic table."""
+
+    return borel_diagnostic_status_table()
 
 
 # ============================================================================
@@ -872,8 +954,8 @@ def general_borel_criterion(
     Case 3: kappa > 0 and S_4 < 0 => NOT Borel summable (disc > 0, real zeros)
     Case 4: kappa < 0 and S_4 > 0 => NOT Borel summable (disc > 0, real zeros)
 
-    For CY3 chiral algebras: kappa_ch > 0 and S_4 > 0 in the Virasoro
-    sector at c > 0, so Case 1 applies universally.
+    In the Virasoro sector at c > 0, kappa_ch > 0 and S_4 > 0, so Case 1
+    applies to that analytic channel.
 
     # VERIFIED [DC] case analysis [DA] sign enumeration
     """
@@ -912,13 +994,14 @@ def general_borel_criterion(
 # ============================================================================
 
 def compute_class_m_borel_summation() -> Dict[str, Any]:
-    r"""Full computation: Borel summability of class M OPE completion.
+    r"""Full computation: Borel diagnostic for class M OPE completion.
 
     Returns a dictionary with:
       - discriminant identity verification
       - branch point analysis for standard examples
       - landscape analysis
-      - severity upgrade table
+      - diagnostic status table
+      - obstruction separation boundary
       - cross-checks
 
     This is the entry point for test_class_m_borel_summation.py.
@@ -935,8 +1018,9 @@ def compute_class_m_borel_summation() -> Dict[str, Any]:
     landscape = borel_landscape()
     all_summable = all(r.borel_summable for r in landscape.values())
 
-    # 4. Severity table
-    severity = obs_bv_severity_table()
+    # 4. Diagnostic table and obstruction fence
+    diagnostic_status = borel_diagnostic_status_table()
+    obstruction_boundary = obstruction_separation_boundary()
 
     # 5. Cross-checks
     xcheck_tower = cross_check_c3_shadow_tower()
@@ -952,16 +1036,21 @@ def compute_class_m_borel_summation() -> Dict[str, Any]:
         "heisenberg_k1": heis,
         "landscape": {k: v.borel_summable for k, v in landscape.items()},
         "all_landscape_summable": all_summable,
-        "severity_table": severity,
+        "diagnostic_status_table": diagnostic_status,
+        "severity_table": diagnostic_status,  # compatibility alias
+        "obstruction_separation": obstruction_boundary,
         "cross_check_tower": xcheck_tower,
         "cross_check_entire": xcheck_entire,
         "general_criterion": criterion,
         "theorem_statement": (
             "For a class M chiral algebra with kappa_ch > 0 and S_4 > 0, "
-            "the OPE completion series is Borel summable. "
+            "the analytic OPE completion channel is Borel summable. "
             "The discriminant disc(Q_L) = -256*kappa^3*S_4 < 0 implies "
             "Q_L has complex conjugate zeros in the left half-plane, "
-            "so the Borel contour [0,+inf) avoids all branch cuts. "
-            "This resolves Obs_BV for class M."
+            "so the Borel contour [0,+inf) avoids all branch cuts. This "
+            "does not prove raw Obs_Ainf=0, does not identify "
+            "B_term^(2) with B_TCFT^(2), and does not close compact "
+            "S^3-framing without corrected TCFT comparison data or an "
+            "HH^{-2} filtration theorem."
         ),
     }

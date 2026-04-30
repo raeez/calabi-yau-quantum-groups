@@ -1,13 +1,13 @@
-r"""Tests for bidegree decomposition of [b, B^{(j)}] = 0.
+r"""Tests for the fixed-j bar-length diagnostic.
 
-Verifies that the Connes identity decomposes by bar-length degree,
-resolving the AP-CY34 gap (Obs_Ainf = [m_3, B^{(2)}] = 0).
+Verifies the degree arithmetic used by the rejected bidegree proof and
+checks that the engine does not certify termwise Obs_Ainf vanishing.
 
 Structure:
   - Section 1: Bar-length degree computations (unit tests)
-  - Section 2: Bidegree table and decomposition (the core argument)
+  - Section 2: Bidegree table and fixed-j degree distinctness
   - Section 3: Collision analysis (cross-j vs within-j)
-  - Section 4: Obs_Ainf resolution (the target result)
+  - Section 4: Obs_Ainf bidegree-proof rejection
   - Section 5: Symbolic bar-length verification
   - Section 6: Integration with existing A-infinity infrastructure
   - Section 7: Consistency with Costello's theorem
@@ -175,38 +175,42 @@ class TestBidegreeTable:
 
 
 class TestDecompositionAtFixedJ:
-    """Tests for the decomposition at fixed j."""
+    """Tests for fixed-j degree distinctness."""
 
     def test_j0_decomposition(self):
-        """[b, B] = 0 decomposes (j=0)."""
+        """The j=0 bar-length shifts are distinct."""
         result = check_decomposition_at_fixed_j(0, k_max=10)
         assert result["decomposition_holds"]
+        assert not result["termwise_vanishing_established"]
         assert result["all_distinct"]
         assert result["strictly_decreasing"]
 
     def test_j1_decomposition(self):
-        """[b, B^{(1)}] = 0 decomposes (j=1)."""
+        """The j=1 bar-length shifts are distinct."""
         result = check_decomposition_at_fixed_j(1, k_max=10)
         assert result["decomposition_holds"]
+        assert not result["termwise_vanishing_established"]
 
     def test_j2_decomposition(self):
-        """[b, B^{(2)}] = 0 decomposes (j=2): the KEY result."""
+        """The j=2 bar-length shifts are distinct but not decisive."""
         result = check_decomposition_at_fixed_j(2, k_max=10)
         assert result["decomposition_holds"]
+        assert not result["termwise_vanishing_established"]
         assert result["all_distinct"]
         assert result["strictly_decreasing"]
 
     def test_j3_decomposition(self):
-        """[b, B^{(3)}] = 0 decomposes (j=3)."""
+        """The j=3 bar-length shifts are distinct."""
         result = check_decomposition_at_fixed_j(3, k_max=10)
         assert result["decomposition_holds"]
+        assert not result["termwise_vanishing_established"]
 
     def test_all_j_decompose(self):
-        """Decomposition holds for all j in {0, 1, 2, 3}."""
+        """Distinctness holds for all j in {0, 1, 2, 3}."""
         for j in range(4):
             result = check_decomposition_at_fixed_j(j, k_max=10)
             assert result["decomposition_holds"], (
-                f"Decomposition fails at j={j}"
+                f"Degree distinctness fails at j={j}"
             )
 
     def test_degrees_are_arithmetic_sequence(self):
@@ -225,10 +229,10 @@ class TestDecompositionAtFixedJ:
 
 
 class TestFullDecomposition:
-    """Tests for the full bidegree decomposition across all j."""
+    """Tests for fixed-j degree distinctness across all j."""
 
     def test_all_decompositions_hold(self):
-        """All decompositions hold for CY_3."""
+        """All fixed-j degree lines are distinct for CY_3."""
         result = check_full_bidegree_decomposition(k_max=6, j_max=3)
         assert result["all_decompositions_hold"]
 
@@ -238,7 +242,7 @@ class TestFullDecomposition:
         assert result["total_entries"] == 24
 
     def test_cy2_decomposition(self):
-        """Decomposition also holds for CY_2 (j_max=2)."""
+        """Degree distinctness also holds for CY_2 (j_max=2)."""
         result = check_full_bidegree_decomposition(k_max=6, j_max=2)
         assert result["all_decompositions_hold"]
 
@@ -266,36 +270,34 @@ class TestCollisionAnalysis:
         d2 = bar_length_degree_commutator(1, 1)
         assert d1 == d2 == -1
 
-    def test_cross_collisions_irrelevant(self):
-        """Cross-j collisions are irrelevant (identity holds per-j)."""
+    def test_cross_collisions_do_not_repair_failed_proof(self):
+        """Cross-j collisions do not repair the failed termwise proof."""
         result = collision_analysis(k_max=6, j_max=3)
-        # The key: within_j_all_distinct is True
         assert result["within_j_all_distinct"]
-        # Cross-j collisions exist but don't affect the argument
-        assert "irrelevant" in result["conclusion"].lower()
+        assert result["num_cross_j_collisions"] > 0
 
 
 # =========================================================================
-#  Section 4: Obs_Ainf resolution (the target result)
+#  Section 4: Obs_Ainf bidegree-proof rejection
 # =========================================================================
 
 class TestObsAinfResolution:
-    """Tests for the resolution of AP-CY34."""
+    """Tests for rejection of the bidegree proof."""
 
     def test_obs_ainf_vanishes(self):
-        """Obs_Ainf = [m_3, B^{(2)}] = 0 is established."""
+        """The bidegree engine no longer certifies Obs_Ainf = 0."""
         resolution = resolve_obs_ainf(cy_dim=3)
-        assert resolution.obs_ainf_vanishes
+        assert not resolution.obs_ainf_vanishes
 
     def test_step1_holds(self):
-        """Step 1 (Costello's theorem) applies for CY_3."""
+        """Costello's theorem is not a termwise B_term proof."""
         resolution = resolve_obs_ainf(cy_dim=3)
-        assert resolution.step1_holds
+        assert not resolution.step1_holds
 
     def test_step2_holds(self):
-        """Step 2 (bar-length decomposition) succeeds."""
+        """The bar-length inference is rejected."""
         resolution = resolve_obs_ainf(cy_dim=3)
-        assert resolution.step2_holds
+        assert not resolution.step2_holds
 
     def test_target_bidegree(self):
         """[m_3, B^{(2)}] has bidegree -5."""
@@ -319,15 +321,16 @@ class TestObsAinfResolution:
         assert len(resolution.proof_chain) >= 4
 
     def test_proof_chain_mentions_costello(self):
-        """Proof chain references Costello's theorem."""
+        """Proof chain scopes Costello's theorem correctly."""
         resolution = resolve_obs_ainf(cy_dim=3)
         chain_text = " ".join(resolution.proof_chain)
         assert "Costello" in chain_text
+        assert "corrected TCFT" in chain_text
 
     def test_cy2_also_works(self):
-        """Resolution also works for CY_2 (j=2 <= d=2)."""
+        """The failed bidegree proof is rejected in CY_2 as well."""
         resolution = resolve_obs_ainf(cy_dim=2)
-        assert resolution.obs_ainf_vanishes
+        assert not resolution.obs_ainf_vanishes
 
     def test_cy1_fails_for_j2(self):
         """For CY_1, j=2 > d=1, so Costello's theorem does not apply."""
@@ -452,9 +455,8 @@ class TestIntegrationWithAInfBar:
 
     def test_m3_B2_bidegree_matches_obs_ainf(self):
         """The bidegree of [m_3, B^{(2)}] matches the Obs_Ainf structure."""
-        # Obs_Ainf is claimed to be [m_k, B^{(2)}] for k >= 3.
-        # The bidegree argument shows each [m_k, B^{(2)}] vanishes
-        # independently.
+        # The degree diagnostic distinguishes k=3 from k=4.  It does not
+        # prove the raw termwise commutator vanishes.
         deg_m3_B2 = bar_length_degree_commutator(3, 2)
         deg_m4_B2 = bar_length_degree_commutator(4, 2)
         # These are different, so they cannot cancel
@@ -465,26 +467,20 @@ class TestIntegrationWithAInfBar:
     def test_heisenberg_trivial(self):
         """For the Heisenberg (class G), m_k = 0 for k >= 3.
 
-        The bidegree argument is vacuously true: [0, B^{(2)}] = 0.
+        The vanishing is structural, not a consequence of the bidegree proof.
         """
         # Class G: all m_k = 0 for k >= 3.
-        # The bidegree decomposition gives [0, B^{(2)}] = 0 trivially.
         for k in range(3, 7):
             deg = bar_length_degree_commutator(k, 2)
-            # Each degree is distinct, so the decomposition holds
-            # (even though each term is individually zero for class G)
+            # Each degree is distinct; the actual term vanishes because
+            # m_k is zero in this class.
             assert deg == 2 - k - 4
 
     def test_virasoro_nontrivial(self):
-        """For the Virasoro (class M), m_3 != 0 but [m_3, B^{(2)}] = 0.
-
-        This is the nontrivial case: m_3(T,T,T) = -2T, yet the
-        commutator [m_3, B^{(2)}] vanishes by the bidegree argument.
-        """
+        """For the Virasoro line, the test records only the target degree."""
         # m_3(T,T,T) = -2T (from a_infinity_bar_w1inf.py)
-        # Yet [m_3, B^{(2)}] = 0 because of bar-length decomposition.
-        # The bar-length degree -5 of [m_3, B^{(2)}] is distinct from
-        # all other [m_k, B^{(2)}] degrees.
+        # The bar-length degree -5 is distinct from the other k-degrees.
+        # No vanishing conclusion is drawn here.
         deg = bar_length_degree_commutator(3, 2)
         other_degs = [bar_length_degree_commutator(k, 2)
                       for k in range(1, 10) if k != 3]
@@ -550,19 +546,19 @@ class TestMasterVerification:
         assert result["costello_theorem"]["applies"]
 
     def test_master_all_decompositions_hold(self):
-        """Master: all bidegree decompositions hold."""
+        """Master: all fixed-j degree lines are distinct."""
         result = master_verification(cy_dim=3, k_max=6)
         assert result["full_decomposition"]["all_hold"]
 
     def test_master_obs_ainf_vanishes(self):
-        """Master: Obs_Ainf = 0 is established."""
+        """Master: Obs_Ainf is not established by this engine."""
         result = master_verification(cy_dim=3, k_max=6)
-        assert result["obs_ainf_resolution"]["vanishes"]
+        assert not result["obs_ainf_resolution"]["vanishes"]
 
     def test_master_final_conclusion(self):
-        """Master: final conclusion states RESOLVED."""
+        """Master: final conclusion states REJECTED."""
         result = master_verification(cy_dim=3, k_max=6)
-        assert "RESOLVED" in result["final_conclusion"]
+        assert "REJECTED" in result["final_conclusion"]
 
     def test_master_j2_table(self):
         """Master: j=2 bidegree table has correct entries."""
@@ -631,12 +627,12 @@ class TestEdgeCases:
             assert bar_length_degree_commutator(k, 2) != 0
 
     def test_cy4_decomposition(self):
-        """Decomposition holds for CY_4 as well (j up to 4)."""
+        """Degree distinctness holds for CY_4 as well (j up to 4)."""
         result = check_full_bidegree_decomposition(k_max=6, j_max=4)
         assert result["all_decompositions_hold"]
 
     def test_large_k_decomposition(self):
-        """Decomposition holds for k up to 100 at j=2."""
+        """Degree distinctness holds for k up to 100 at j=2."""
         result = check_decomposition_at_fixed_j(2, k_max=100)
         assert result["decomposition_holds"]
 
@@ -685,19 +681,20 @@ class TestMultiPathCrossChecks:
             assert degrees[k - 1] == -2 - k
 
     def test_obs_ainf_via_resolution_vs_raw_decomposition(self):
-        """Obs_Ainf vanishing: resolution object vs raw decomposition check.
+        """Obs_Ainf bidegree proof rejection versus raw degree data.
 
-        Path 1: resolve_obs_ainf() reports vanishes.
-        Path 2: check_decomposition_at_fixed_j(2) reports all distinct.
-        Path 3: master_verification() confirms RESOLVED.
+        Path 1: resolve_obs_ainf() rejects the proof.
+        Path 2: check_decomposition_at_fixed_j(2) still reports distinct degrees.
+        Path 3: master_verification() confirms REJECTED.
         """
         path1 = resolve_obs_ainf(cy_dim=3)
         path2 = check_decomposition_at_fixed_j(2, k_max=10)
         path3 = master_verification(cy_dim=3, k_max=6)
 
-        assert path1.obs_ainf_vanishes is True
+        assert path1.obs_ainf_vanishes is False
         assert path2["decomposition_holds"] is True
-        assert "RESOLVED" in path3["final_conclusion"]
+        assert path2["termwise_vanishing_established"] is False
+        assert "REJECTED" in path3["final_conclusion"]
 
     def test_bar_length_b_k_via_formula_vs_symbolic(self):
         """b_k bar-length change: formula vs symbolic action.

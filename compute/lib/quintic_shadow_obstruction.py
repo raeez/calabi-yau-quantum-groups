@@ -111,6 +111,30 @@ Given that the quintic has infinitely many nonzero GV invariants n^0_d,
 the EXPECTED class is M (mixed, infinite depth), since the GV generating
 function is transcendental and the shadow tower should encode this complexity.
 
+COMPACT CY3 CLOSURE BOUNDARY
+============================
+
+None of the scalar diagnostics in this module proves compact CY3
+S^3-framing closure.  The following implications are deliberately rejected:
+
+    chi/24, DGMS, BTT, Kaledin K1, or GV/shadow growth
+        ==> Obs_Ainf = 0,
+        ==> HH^{-2}_{E_1}(A,A) = 0,
+        ==> contractible S^3-framing space,
+        ==> compact Phi_3 closure.
+
+The raw AP-CY34 witness is retained:
+
+    m_3 B_term^{(2)}[a|a|a|a|b] = 4 alpha [b],
+    B_term^{(2)} m_3[a|a|a|a|b] = 2 alpha [b],
+    [m_3,B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0
+        for alpha != 0.
+
+Therefore B_term^{(2)} is not B_TCFT^{(2)}.  A positive compact CY3
+closure claim is conditional on either explicit Costello
+B_TCFT^{(2)} correction/comparison data for the chosen chain model or a
+precise HH^{-2}_{E_1} filtration theorem.
+
 MATHEMATICAL CONTENT
 ====================
 
@@ -122,6 +146,8 @@ This module computes:
     5. BCOV anomaly coefficient and comparison
     6. GV invariant growth rates as shadow data
     7. Obstruction analysis: what fails when chi/24 is not integer
+    8. Closure diagnostics: what is not implied by chi/24, DGMS, BTT,
+       Kaledin, or raw shadow data
 
 Conventions:
     - Cohomological grading (|d| = +1), bar uses desuspension
@@ -625,9 +651,11 @@ def gv_growth_analysis(max_d: int = 10) -> Dict[str, Any]:
         "avg_exponential_slope": avg_exp_slope,
         "growth_type": "exponential" if avg_exp_slope > 1 else "subexponential",
         "implication": (
-            "Exponential GV growth => infinite shadow depth (class M)"
+            "Exponential GV growth is evidence for infinite shadow depth "
+            "(class M); it does not construct compact Phi_3 closure"
             if avg_exp_slope > 1 else
-            "Subexponential growth consistent with class M"
+            "Subexponential growth is consistent with class M but does not "
+            "construct compact Phi_3 closure"
         ),
     }
 
@@ -691,6 +719,177 @@ class ObstructionAnalysis(NamedTuple):
     shadow_status: str           # status of the shadow tower
     kappa_candidate: Fraction
     shadow_class: str
+
+
+class RawBTermWitness(NamedTuple):
+    """Exact AP-CY34 witness for the raw bar pair-contraction."""
+    word: Tuple[str, ...]
+    alpha: Fraction
+    m3_after_b_term_coeff: Fraction
+    b_term_after_m3_coeff: Fraction
+    commutator_coeff: Fraction
+    output_basis: str
+    raw_operator: str
+    corrected_operator: str
+    raw_closure_holds: bool
+    blocks_raw_closure: bool
+    costello_comparison_required: bool
+    statement: str
+
+
+class CompactCY3ClosureDiagnostics(NamedTuple):
+    """Verdict separating scalar/formality diagnostics from compact closure."""
+    name: str
+    chi_over_24: Fraction
+    dgms_derham_formal: bool
+    btt_unobstructed_deformations: bool
+    kaledin_hdr_degeneration: bool
+    raw_witness: RawBTermWitness
+    costello_correction_comparison_data: bool
+    hh_minus_two_filtration_theorem: bool
+    obs_ainf_zero: Optional[bool]
+    hh_minus_two_zero: Optional[bool]
+    s3_framing_contractible: Optional[bool]
+    compact_phi3_closure: Optional[bool]
+    positive_claim_allowed: bool
+    positive_claim_status: str
+    forbidden_implications: List[str]
+    remaining_proof_obligations: List[str]
+
+
+def ap_cy34_raw_b_term_witness(alpha: Fraction = Fraction(1)) -> RawBTermWitness:
+    r"""Return the exact raw ``B_term^{(2)}`` commutator witness.
+
+    The word is ``[a|a|a|a|b]``.  With the CY3 toy pairing used in the
+    AP-CY34 counterexample, applying the raw pair-contraction first and
+    then ``m_3`` gives ``4 alpha [b]``; applying ``m_3`` first and then
+    the raw pair-contraction gives ``2 alpha [b]``.  Hence
+
+        [m_3, B_term^{(2)}][a|a|a|a|b] = 2 alpha [b].
+
+    This is a diagnostic for the raw operator only.  It is not a theorem
+    about Costello's corrected ``B_TCFT^{(2)}`` operator.
+    """
+    alpha = Fraction(alpha)
+    commutator = 2 * alpha
+    return RawBTermWitness(
+        word=("a", "a", "a", "a", "b"),
+        alpha=alpha,
+        m3_after_b_term_coeff=4 * alpha,
+        b_term_after_m3_coeff=2 * alpha,
+        commutator_coeff=commutator,
+        output_basis="[b]",
+        raw_operator="B_term^{(2)}",
+        corrected_operator="B_TCFT^{(2)}",
+        raw_closure_holds=(commutator == 0),
+        blocks_raw_closure=(commutator != 0),
+        costello_comparison_required=True,
+        statement=(
+            "[m_3,B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] "
+            f"= {commutator} [b] != 0"
+            if alpha != 0 else
+            "[m_3,B_term^{(2)}][a|a|a|a|b] = 0 for alpha = 0"
+        ),
+    )
+
+
+def compact_cy3_positive_claim_allowed(
+    *,
+    costello_correction_comparison_data: bool = False,
+    hh_minus_two_filtration_theorem: bool = False,
+) -> bool:
+    """Whether a positive compact CY3 obstruction claim has named hypotheses."""
+    return bool(
+        costello_correction_comparison_data or hh_minus_two_filtration_theorem
+    )
+
+
+def quintic_closure_diagnostics(
+    *,
+    costello_correction_comparison_data: bool = False,
+    hh_minus_two_filtration_theorem: bool = False,
+    alpha: Fraction = Fraction(1),
+) -> CompactCY3ClosureDiagnostics:
+    """Attack-heal verdict for quintic compact CY3 closure implications.
+
+    Positive scalar data for the quintic are kept separate from compact
+    ``Phi_3`` closure.  DGMS proves de Rham formality of the compact
+    Kahler manifold; BTT proves unobstructed complex-structure
+    deformations; Kaledin K1 gives noncommutative Hodge-to-de Rham
+    degeneration for smooth proper dg categories.  None of these proves
+    the derived ``S^3``-framing obstruction vanishes.
+    """
+    witness = ap_cy34_raw_b_term_witness(alpha)
+    allowed = compact_cy3_positive_claim_allowed(
+        costello_correction_comparison_data=costello_correction_comparison_data,
+        hh_minus_two_filtration_theorem=hh_minus_two_filtration_theorem,
+    )
+
+    if allowed:
+        status = (
+            "conditional positive obstruction claim allowed: Obs_Ainf "
+            "vanishing may be asserted only relative to the supplied "
+            "Costello B_TCFT^{(2)} comparison datum or HH^{-2}_{E_1} "
+            "filtration theorem; compact Phi_3 closure still requires "
+            "analytic/OPE completion data"
+        )
+        obs_ainf_zero: Optional[bool] = True
+    else:
+        status = (
+            "not established: chi/24, DGMS, BTT, Kaledin K1, and raw shadow "
+            "diagnostics do not prove compact CY3 Obs_Ainf=0, HH^{-2}=0, "
+            "contractible S^3 framing, or Phi_3 closure"
+        )
+        obs_ainf_zero = None
+    compact_phi3_closure: Optional[bool] = None
+
+    hh_minus_two_zero: Optional[bool] = (
+        True if hh_minus_two_filtration_theorem else None
+    )
+    s3_framing_contractible: Optional[bool] = (
+        True if hh_minus_two_filtration_theorem else None
+    )
+
+    obligations: List[str] = []
+    if not costello_correction_comparison_data:
+        obligations.append(
+            "Construct Costello B_TCFT^{(2)} correction/comparison data for "
+            "the chosen compact quintic chain model."
+        )
+    if not hh_minus_two_filtration_theorem:
+        obligations.append(
+            "Or prove a precise HH^{-2}_{E_1} filtration theorem for that "
+            "model, including target complex and comparison map."
+        )
+    obligations.append(
+        "Verify analytic/OPE completion needed for compact Phi_3 closure; "
+        "scalar shadow arithmetic and obstruction flags alone are not enough."
+    )
+
+    return CompactCY3ClosureDiagnostics(
+        name="quintic P4[5]",
+        chi_over_24=Fraction(-25, 3),
+        dgms_derham_formal=True,
+        btt_unobstructed_deformations=True,
+        kaledin_hdr_degeneration=True,
+        raw_witness=witness,
+        costello_correction_comparison_data=costello_correction_comparison_data,
+        hh_minus_two_filtration_theorem=hh_minus_two_filtration_theorem,
+        obs_ainf_zero=obs_ainf_zero,
+        hh_minus_two_zero=hh_minus_two_zero,
+        s3_framing_contractible=s3_framing_contractible,
+        compact_phi3_closure=compact_phi3_closure,
+        positive_claim_allowed=allowed,
+        positive_claim_status=status,
+        forbidden_implications=[
+            "chi/24 => kappa_ch(A_Q) or compact Phi_3 closure",
+            "DGMS de Rham formality => Obs_Ainf = 0",
+            "BTT unobstructed deformations => HH^{-2}_{E_1}(A,A) = 0",
+            "Kaledin K1 degeneration => contractible S^3-framing space",
+            "raw B_term^{(2)} commutator data => B_TCFT^{(2)} closure",
+        ],
+        remaining_proof_obligations=obligations,
+    )
 
 
 def quintic_obstruction_analysis() -> ObstructionAnalysis:
@@ -890,6 +1089,13 @@ def correct_interpretation() -> Dict[str, str]:
             "Path 4: Accept a fractional candidate as a feature of rigid CY3s, "
             "   requiring an orbifold/fractional BKM structure."
         ),
+        "closure boundary": (
+            "None of chi/24, DGMS, BTT, Kaledin K1, or raw shadow diagnostics "
+            "proves compact CY3 Obs_Ainf=0, HH^{-2}=0, a contractible "
+            "S^3-framing space, or Phi_3 closure.  Positive closure claims "
+            "require Costello B_TCFT^{(2)} comparison data or a precise "
+            "HH^{-2}_{E_1} filtration theorem."
+        ),
     }
 
 
@@ -949,6 +1155,7 @@ def quintic_shadow_summary() -> Dict[str, Any]:
     complement = quintic_complementarity()
     bcov = bcov_quintic()
     growth = gv_growth_analysis()
+    closure = quintic_closure_diagnostics()
 
     return {
         "kappa_conjectural": kappa,
@@ -967,4 +1174,6 @@ def quintic_shadow_summary() -> Dict[str, Any]:
         "complementarity_sum": str(complement["complementarity_sum"]),
         "gv_growth_type": growth["growth_type"],
         "key_conclusion": comparison["conclusion"],
+        "closure_status": closure.positive_claim_status,
+        "raw_B_term_commutator": str(closure.raw_witness.commutator_coeff),
     }

@@ -17,17 +17,20 @@ $[m_k, B^{(2)}]$ between the $\Ainf$-operations
 $m_k = b_k$ and the degree-$2$ component $B^{(2)}$ of the
 Connes hierarchy.
 
-At the strict chain level, the commutator $[m_3, B^{(2)}]$ is
-nonzero for every non-formal CY$_3$ algebra; at the level of the
-total $\Ainf$-Hochschild differential $b = \sum_{k \geq 1} b_k$,
-the anticommutator $\{b, B^{(2)}\}$ vanishes. Two independent frameworks explain
-the cancellation: Costello's open-closed TCFT, which exhibits the
-total identity as a moduli-space $\partial^2 = 0$; and the
-$\infty$-categorical obstruction theory of Francis--Gaitsgory,
-which shows that the obstruction group
-$\HH^{-2}_{E_1}(A, A)$ vanishes by unit-connectedness. Strict,
-homotopy, and derived are three levels of a single question, and
-a non-formal algebra separates them.
+At the strict chain level, the termwise pair-contraction operator
+$B^{(2)}_{\mathrm{term}}$ satisfies
+$[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ for every non-formal
+CY$_3$ algebra in the witnessed model below.  Costello's
+open-closed TCFT gives a different operator,
+$B^{(2)}_{\mathrm{TCFT}}$, corrected by moduli-chain boundary
+data, and the total identity
+$\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$ holds for that corrected
+operator.  The derived obstruction class is killed only after a
+named comparison map to the $S^3$-framing obstruction complex and
+a complete, exhaustive, separated, strongly convergent
+bar-filtration whose first page has empty total degree~$-2$.
+Strict, homotopy, and derived are three levels of a single
+question, and a non-formal algebra separates them.
 
 The chapter depends on Chapter~\ref{ch:cyclic-ainf} (cyclic
 $\Ainf$-algebras, Connes hierarchy) and on the four-step
@@ -86,11 +89,14 @@ pair of factors via the CY$_3$ pairing, removing both. Does
 \end{equation}
 \end{openproblem}
 
-The answer to this question, as stated, is \emph{no}: the strict
-chain-level commutator $[m_k, B^{(2)}]$ is generically nonzero for
-non-formal algebras. But $\mathrm{Obs}_{\Ainf}$ is nonetheless zero,
-because the correct formulation involves the \emph{total} differential
-$b = \sum_k b_k$, not the individual components.
+The answer to this question, as stated, is \emph{no}: for the
+termwise operator $B^{(2)}_{\mathrm{term}}$ the strict chain-level
+commutator $[m_k, B^{(2)}_{\mathrm{term}}]$ is generically nonzero
+for non-formal algebras.  The obstruction can vanish only after the
+operator and the target complex have been specified: at Level~2 one
+uses Costello's corrected $B^{(2)}_{\mathrm{TCFT}}$ and the total
+differential $b=\sum_k b_k$; at Level~3 one uses a filtered
+$E_1$-Hochschild comparison complex.
 
 
 \subsection{Why the question matters}
@@ -169,8 +175,8 @@ of $\mu_3$ cannot reach, because cyclic invariance rotates
 $(a_1, a_2, a_3, a_4)$ but $a_5$ is outside the cyclic orbit
 of $\mu_3$.
 
-\textbf{Verdict.} The argument controls adjacent terms but
-leaves non-adjacent terms unaccounted for.
+The argument controls adjacent terms but leaves non-adjacent terms
+unaccounted for.
 \end{remark}
 
 
@@ -232,9 +238,9 @@ Hochschild index $k$. Without such a separation, the transposition
 from the total identity to component-wise identities is formally
 invalid.
 
-\textbf{Verdict.} The mixed complex axiom governs $B_{\mathrm{total}}$,
-not individual hierarchy operators; the three failure modes are
-independent and each alone blocks the argument.
+The mixed complex axiom governs $B_{\mathrm{total}}$, not individual
+hierarchy operators. The three failure modes are independent, and each
+alone blocks the argument.
 
 \noindent\textit{Verification}: \texttt{connes\_b\_obs\_ainf.py}
 (bidegree structure); \texttt{stasheff\_cancellation\_obs\_ainf.py},
@@ -272,9 +278,11 @@ TCFT formality (arXiv:math/0412149, Theorem~A). But Costello's
 theorem does \emph{not} assert formality of
 $(\mathrm{CC}_\bullet(A),\, b,\, B^{(2)})$ as a mixed complex;
 it asserts that the \emph{open-closed TCFT} structure is formal.
-The TCFT formality gives $\{b, B^{(2)}\} = 0$ for the
-\emph{total} differential, but this is the resolution itself,
-not an ingredient of the Tsygan approach.
+The TCFT theorem gives
+$\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$ for the \emph{total}
+differential after the Costello correction datum is chosen, but
+this is the resolution itself, not an ingredient of the Tsygan
+approach.
 
 The category error: Tsygan formality applies to
 $(b, B^{(0)})$, not to $(b, B^{(2)})$. The operators
@@ -282,10 +290,9 @@ $B^{(j)}$ for $j \geq 1$ are not part of the standard mixed
 complex structure; they are part of the operadic
 $\bS^d$-framing data.
 
-\textbf{Verdict.} Wrong framework. The correct framework is
-Costello's TCFT, which gives the answer directly but through a
-fundamentally different mechanism (moduli space boundary
-analysis, not quasi-isomorphism of mixed complexes).
+This is the wrong framework. Costello's TCFT gives the answer directly
+through moduli-space boundary analysis, not through quasi-isomorphism of
+mixed complexes.
 
 \noindent\textit{Verification}: \texttt{tsygan\_formality\_obs\_ainf.py}
 (Tsygan theorem scope, applicability to CY$_3$ hierarchy,
@@ -306,12 +313,11 @@ $B^{(j)}$, $j \geq 1$. An abstract argument at the level of
 individual $k$ cannot succeed: no such structure is available.
 The question admits only computational access.
 
-Four independent computations establish the ground truth:
-$[m_3, B^{(2)}] \neq 0$ at the strict chain level for every
-non-formal CY$_3$ algebra, while $\{b, B^{(2)}\} = 0$
-identically on the cyclic bar complex, with cross-degree
-cancellation between $\{b_2, B^{(2)}\}$ and $\{b_3, B^{(2)}\}$
-on every test element.
+Four independent computations establish the strict ground truth:
+$[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ at the strict chain
+level for every non-formal CY$_3$ algebra in the tested class.
+The corrected TCFT operator gives the separate total identity
+$\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$.
 
 
 \subsection{Computation 1: Local \texorpdfstring{$\bP^2$}{P-2} explicit}
@@ -344,16 +350,17 @@ On the bar element $[x_1 \mid x_1 \mid x_1 \mid x_1 \mid y_1]
 \in C_4(A)$ \textup{(}degree $5$\textup{)}, the explicit
 computation gives:
 \[
- [m_3, B^{(2)}]([x_1 \mid x_1 \mid x_1 \mid x_1 \mid y_1])
+ [m_3, B^{(2)}_{\mathrm{term}}]([x_1 \mid x_1 \mid x_1 \mid x_1 \mid y_1])
  \;=\; 2\alpha \cdot [y_1] \;\neq\; 0.
 \]
 The nonvanishing arises from the non-adjacent contraction:
-$B^{(2)}$ contracts $x_1$ (inside the $\mu_3$-block) with $y_1$
+$B^{(2)}_{\mathrm{term}}$ contracts $x_1$ (inside the $\mu_3$-block) with $y_1$
 (outside), producing a term that $\mu_3$ cannot cancel.
 
 \noindent\textit{Verification}: $54$~tests in
 \texttt{obs\_ainf\_local\_p2.py} (algebra structure, CY pairing,
-Stasheff identities, cyclic invariance, explicit $[m_3, B^{(2)}]$
+Stasheff identities, cyclic invariance, explicit
+$[m_3, B^{(2)}_{\mathrm{term}}]$
 on a representative set of degree-$5$ bar elements, cross-check
 with the $b_2$ cancellation).
 \end{computation}
@@ -362,9 +369,11 @@ with the $b_2$ cancellation).
 \label{rem:b2-cancellation}
 For the TCFT-derived operator $B^{(2)}_{\mathrm{TCFT}}$, the
 same bar element satisfies
-$[m_2, B^{(2)}]([x_1 \mid x_1 \mid x_1 \mid x_1 \mid y_1])
+$[m_2, B^{(2)}_{\mathrm{TCFT}}]([x_1 \mid x_1 \mid x_1 \mid x_1 \mid y_1])
 = -2\alpha \cdot [y_1]$, so that
-$\{b, B^{(2)}\} = \{b_2, B^{(2)}\} + \{b_3, B^{(2)}\} = 0$
+$\{b, B^{(2)}_{\mathrm{TCFT}}\}
+= \{b_2, B^{(2)}_{\mathrm{TCFT}}\}
+ + \{b_3, B^{(2)}_{\mathrm{TCFT}}\} = 0$
 on this element. The cancellation is not accidental: it is
 enforced by $\partial^2 = 0$ in Costello's TCFT, which couples
 $\mu_2$ and $\mu_3$ via the Stasheff relation at arity~$4$.
@@ -397,46 +406,47 @@ cyclic $\Ainf$-algebras (engine:
 yields:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item For formal algebras ($\mu_3 = 0$):
- $[m_3, B^{(2)}] = 0$ trivially on all bar elements
+ $[m_3, B^{(2)}_{\mathrm{term}}] = 0$ trivially on all bar elements
  (the operator $m_3$ is zero).
  \item For non-formal algebras ($\mu_3 \neq 0$):
- $[m_3, B^{(2)}] \neq 0$ on $> 50\%$ of test bar elements
+ $[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ on $> 50\%$ of test bar elements
  at degree $\geq 5$.
- \item In \emph{all} cases, the total $\{b, B^{(2)}\} = 0$
- on every test element, confirming that the nonvanishing of
- individual $[m_k, B^{(2)}]$ is cancelled cross-degree.
+ \item In the TCFT-normalised comparison, the corrected total
+ identity $\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$ holds on every test
+ element.  This does not identify
+ $B^{(2)}_{\mathrm{TCFT}}$ with the termwise contraction.
 \end{enumerate}
 
 \noindent\textit{Verification}: $67$~tests in
 \texttt{obs\_ainf\_random\_search.py} (random algebra generation,
 Stasheff verification, cyclic invariance verification,
-chain-level $[m_3, B^{(2)}]$ computation, total $\{b, B^{(2)}\}$
-verification).
+chain-level $[m_3, B^{(2)}_{\mathrm{term}}]$ computation,
+corrected total TCFT identity).
 \end{computation}
 
 
 \subsection{Computation 3: Adversarial counterexample search}
 \label{subsec:comp-counterexample}
 
-\begin{computation}[{Counterexample search for \texorpdfstring{$[m_3, B^{(2)}] = 0$}{[m-3, B-(2)] = 0}}]
+\begin{computation}[{Counterexample search for \texorpdfstring{$[m_3, B^{(2)}_{\mathrm{term}}] = 0$}{[m-3, B-term-(2)] = 0}}]
 \label{comp:counterexample}
 An adversarial search (engine:
 \texttt{obs\_ainf\_counterexample\_search.py}) attempted to find
-a cyclic $\Ainf$-algebra where $[m_3, B^{(2)}] = 0$
+a cyclic $\Ainf$-algebra where $[m_3, B^{(2)}_{\mathrm{term}}] = 0$
 \emph{despite} $\mu_3 \neq 0$. The search space:
 \begin{itemize}
  \item $49$ distinct algebra structures with $\dim A \in \{4, 6, 8\}$,
  $d = 3$, varying cup product and Massey product types.
- \item For each algebra: test $[m_3, B^{(2)}]$ on all bar
+ \item For each algebra: test $[m_3, B^{(2)}_{\mathrm{term}}]$ on all bar
  elements of degrees $4$ through $7$.
 \end{itemize}
 
 \textbf{Result}: $0$ out of $49$ non-formal algebras have
-$[m_3, B^{(2)}] = 0$ on all bar elements. The nonvanishing is
+$[m_3, B^{(2)}_{\mathrm{term}}] = 0$ on all bar elements. The nonvanishing is
 \emph{generic}: for ungraded cyclic $\Ainf$-algebras with
 $\mu_3 \neq 0$, the strict chain-level commutator is generically
 nonzero. The formal case ($\mu_3 = 0$) is the only
-algebraic mechanism that makes $[m_3, B^{(2)}]$ vanish
+algebraic mechanism that makes $[m_3, B^{(2)}_{\mathrm{term}}]$ vanish
 identically.
 
 \noindent\textit{Verification}: $49$~tests in
@@ -461,17 +471,17 @@ $4$-generator model:
 This is the minimal non-formal CY$_3$ algebra: one generator
 in each degree, one nonzero Massey product.
 
-\textbf{Result}: $[m_3, B^{(2)}](a, a, b, e) = -2 \neq 0$.
+\textbf{Result}: $[m_3, B^{(2)}_{\mathrm{term}}](a, a, b, e) = -2 \neq 0$.
 Of the $4^5 = 1024$ degree-$5$ bar elements (allowing
 repetition from the $4$-element basis) and $4^4 = 256$
 degree-$4$ bar elements, a total of $117$ out of $1280$ bar
-elements have nonzero $[m_3, B^{(2)}]$.
+elements have nonzero $[m_3, B^{(2)}_{\mathrm{term}}]$.
 
 The same computation verifies cyclic invariance of the
 multilinear form $w_4(a_0, a_1, a_2, a_3) =
 \langle a_0, \mu_3(a_1, a_2, a_3) \rangle$ with full Koszul
 signs. Cyclic invariance holds, confirming that it is
-\emph{insufficient} to force $[m_3, B^{(2)}] = 0$.
+\emph{insufficient} to force $[m_3, B^{(2)}_{\mathrm{term}}] = 0$.
 
 \noindent\textit{Verification}: \texttt{ks\_cyclic\_minimal\_obs\_ainf.py}
 (simplified model data, cyclic invariance, exhaustive bar scan,
@@ -481,48 +491,50 @@ nonvanishing count $117/1280$, cross-check with
 
 \begin{proposition}[Chain-level nonvanishing is generic]
 \label{prop:chain-nonvanishing-generic}
-\ClaimStatusProvedHere{}
 For a cyclic $\Ainf$-algebra $(A, \{\mu_n\}, \langle -,- \rangle)$
 of CY dimension $d = 3$ with $\mu_3 \neq 0$ and $\mu_1 = 0$,
-the strict chain-level commutator $[m_3, B^{(2)}]$ is nonzero
-on $C_4(A)$. Specifically, if $\mu_3(a, a, a) = \alpha b$ for
-some $a \in A^1$, $b \in A^2$, $\alpha \neq 0$, then
+the strict chain-level commutator
+$[m_3, B^{(2)}_{\mathrm{term}}]$ is nonzero on $C_4(A)$.
+Specifically, if $\mu_3(a, a, a) = \alpha b$ for some
+$a \in A^1$, $b \in A^2$, $\alpha \neq 0$, then
 \[
- [m_3, B^{(2)}]([a \mid a \mid a \mid a \mid b])
+ [m_3, B^{(2)}_{\mathrm{term}}]([a \mid a \mid a \mid a \mid b])
  \;=\; 2\alpha \cdot [b].
 \]
 \end{proposition}
 
 \begin{proof}
-The computation expands $m_3 \circ B^{(2)}$ and $B^{(2)} \circ m_3$
-on the degree-$5$ bar element $[a \mid a \mid a \mid a \mid b]$.
+The computation expands $m_3 \circ B^{(2)}_{\mathrm{term}}$ and
+$B^{(2)}_{\mathrm{term}} \circ m_3$ on the degree-$5$ bar element
+$[a \mid a \mid a \mid a \mid b]$.
 
-\smallskip\noindent\emph{$B^{(2)} \circ m_3$ terms.}
+\smallskip\noindent\emph{$B^{(2)}_{\mathrm{term}} \circ m_3$ terms.}
 The operator $m_3$ acts on three consecutive factors, reducing
 degree by $2$. There are three positions: $m_3$ on factors
 $(1,2,3)$, $(2,3,4)$, or $(3,4,5)$ (indexing from $1$).
 \begin{itemize}
  \item $m_3$ on $(a, a, a)$ at positions $(1,2,3)$:
  produces $[\mu_3(a,a,a) \mid a \mid b] = [\alpha b \mid a \mid b]$.
- Now $B^{(2)}$ acts on this degree-$3$ element; the only
+ Now $B^{(2)}_{\mathrm{term}}$ acts on this degree-$3$ element; the only
  nonzero contraction is $\langle b, a \rangle_2 = 0$
  (wrong degrees) or $\langle a, b \rangle_2 = 1$. This
  contributes.
  \item Similarly for other positions.
 \end{itemize}
 
-\smallskip\noindent\emph{$m_3 \circ B^{(2)}$ terms.}
-The operator $B^{(2)}$ first contracts a pair, reducing degree
+\smallskip\noindent\emph{$m_3 \circ B^{(2)}_{\mathrm{term}}$ terms.}
+The operator $B^{(2)}_{\mathrm{term}}$ first contracts a pair, reducing degree
 from $5$ to $4$. Then $m_3$ acts on three consecutive factors
 of the degree-$4$ element. The non-adjacent contraction, where
-$B^{(2)}$ pairs a factor inside the eventual $m_3$-block with
+$B^{(2)}_{\mathrm{term}}$ pairs a factor inside the eventual
+$m_3$-block with
 one outside, produces terms that do not cancel against the
-$B^{(2)} \circ m_3$ terms.
+$B^{(2)}_{\mathrm{term}} \circ m_3$ terms.
 
 The detailed sign computation (verified in
 \texttt{obs\_ainf\_local\_p2.py} with $54$ tests and
 independently in \texttt{ks\_cyclic\_minimal\_obs\_ainf.py})
-gives $[m_3, B^{(2)}] = 2\alpha \cdot [b]$ after all
+gives $[m_3, B^{(2)}_{\mathrm{term}}] = 2\alpha \cdot [b]$ after all
 cancellations.
 \end{proof}
 
@@ -532,9 +544,12 @@ cancellations.
 \label{sec:m3b2-resolution}
 % ============================================================
 
-The four computations established the ground truth:
-$[m_3, B^{(2)}] \neq 0$ strictly, yet $\mathrm{Obs}_{\Ainf} = 0$.
-Two independent frameworks explain why.
+The four computations establish the strict ground truth:
+$[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$.  The obstruction
+nevertheless vanishes in two controlled settings: Costello's
+corrected TCFT operator gives a total identity, and the filtered
+derived comparison theorem annihilates the obstruction class in
+its $E_1$-Hochschild target.
 
 
 \subsection{The TCFT resolution: moduli space geometry}
@@ -542,25 +557,26 @@ Two independent frameworks explain why.
 
 \begin{theorem}[Total \texorpdfstring{$\Ainf$}{A-inf}-framing compatibility via Costello's TCFT]
 \label{thm:total-ainf-compat}
-\ClaimStatusProvedHere{}
 Let $(A, \{\mu_n\}, \langle -,- \rangle)$ be a cyclic
 $\Ainf$-algebra of CY dimension $d$, let
 $b = \sum_{k \geq 1} b_k$ be the total $\Ainf$-Hochschild
-differential on $C_\bullet(A)$, and let
-$B^{(2)} = B^{(2)}_{\mathrm{TCFT}}$ be the degree-$2$ Connes
-operator defined via Costello's open-closed TCFT
-identification with the genus-change operation on the moduli
-operad. Then
+differential on $C_\bullet(A)$, and choose a Costello
+open-closed TCFT correction datum.  Let
+$B^{(2)}_{\mathrm{TCFT}}$ be the image of the genus-change chain
+together with the boundary corrections absorbed into that datum.
+Then
 \[
- \{b, B^{(2)}\} \;=\; b \circ B^{(2)} + B^{(2)} \circ b
+ \{b, B^{(2)}_{\mathrm{TCFT}}\}
+ \;=\; b \circ B^{(2)}_{\mathrm{TCFT}}
+ + B^{(2)}_{\mathrm{TCFT}} \circ b
  \;=\; 0.
 \]
-Individual $\{b_k, B^{(2)}\}$ need \emph{not} vanish for
-$k \geq 3$; only their sum does. The chain-level
-identification of $B^{(2)}_{\mathrm{TCFT}}$ with the naive
-pairwise-contraction operator $B^{(2)}_{\mathrm{naive}}$ on
-the bar complex is conjectural for non-formal $\Ainf$-algebras
-(Remark~\ref{rem:tcft-vs-naive-b2}).
+Individual $\{b_k, B^{(2)}_{\mathrm{TCFT}}\}$ need \emph{not}
+vanish for $k \geq 3$; only the total anticommutator does.
+No equality
+$B^{(2)}_{\mathrm{term}}=B^{(2)}_{\mathrm{TCFT}}$ is part of
+the theorem.  Such an equality requires a separate strictifying
+homotopy (Remark~\ref{rem:tcft-vs-naive-b2}).
 \end{theorem}
 
 \begin{proof}
@@ -574,28 +590,25 @@ this equivalence:
  \item $b = \sum_k b_k$ corresponds to the codimension-$1$
  boundary strata of the moduli of bordered surfaces
  (strip-like degenerations);
- \item $B^{(2)}$ corresponds to the genus-change operation
+ \item $B^{(2)}_{\mathrm{TCFT}}$ corresponds to the genus-change operation
  (identifying two boundary marked points via the CY pairing
- to create a node).
+ to create a node), after the non-principal boundary faces have
+ been absorbed by the chosen correction datum.
 \end{enumerate}
-Both $b$ and $B^{(2)}$ are images of the boundary operator
+Both $b$ and $B^{(2)}_{\mathrm{TCFT}}$ are images of the boundary operator
 $\partial$ in the chain complex $C_\bullet(\cM)$ of the moduli
-operad~$\cM$. The operators $b$ and $B^{(2)}$ correspond to
-\emph{geometrically distinct} boundary strata that parametrise a
-specific compact $1$-dimensional moduli space
-$\overline{\cM}_{b, B^{(2)}}$ whose only boundary components are
-$b \circ B^{(2)}$ and $B^{(2)} \circ b$. No other
-Connes-hierarchy operations ($B^{(0)}$, $B^{(1)}$, $B^{(3)}$)
-appear as boundary types: the surface types producing $B^{(i)}$
-for $i \neq 2$ involve different topological operations (rotation,
-interior contraction, cap product) that cannot arise as
-degenerations of the strip-plus-node family. The signed boundary
-count of the compact $1$-manifold $\overline{\cM}_{b, B^{(2)}}$
-is zero, giving $\{b, B^{(2)}\} = 0$.
+operad~$\cM$. The relevant compactified moduli chain has two
+principal boundary faces, which map to
+$b \circ B^{(2)}_{\mathrm{TCFT}}$ and
+$B^{(2)}_{\mathrm{TCFT}} \circ b$.  The other boundary faces
+are exactly the correction terms included in
+$B^{(2)}_{\mathrm{TCFT}}$.  Applying the TCFT chain map to the
+oriented boundary relation gives
+$\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$.
 
 \smallskip\noindent\emph{Non-adjacent contractions resolved.}
 The moduli space treats all boundary marked points democratically.
-When $B^{(2)}$ contracts points $p_i$ and $p_j$, their positions
+When $B^{(2)}_{\mathrm{TCFT}}$ contracts points $p_i$ and $p_j$, their positions
 relative to the $b_k$-insertion are geometric data encoded by
 the full moduli, not merely by the cyclic ordering. The
 $\partial^2 = 0$ argument applies uniformly to all pairs
@@ -616,28 +629,33 @@ cancellation, formal algebra axiom checks).
 \label{rem:tcft-vs-mixed}
 The mixed complex axiom $[b, B_{\mathrm{total}}] = 0$ where
 $B_{\mathrm{total}} = \sum_{i=0}^{d} B^{(i)}$ is a
-\emph{weaker} statement: it implies
-$\{b, B^{(2)}\} = -\{b, B^{(0)}\} - \{b, B^{(1)}\} - \{b, B^{(3)}\}$
-but does \emph{not} by itself imply $\{b, B^{(2)}\} = 0$. The
-vanishing is a \emph{stronger} consequence of the operadic
-structure, using the specific moduli-space factorisation. This
-is the key mathematical content that Wrong Proof~2
-(Section~\ref{subsec:wrong-bidegree}) missed.
+\emph{weaker} statement: it gives only the sum over hierarchy
+components and does not isolate the corrected degree-two TCFT
+identity.  The vanishing of
+$\{b, B^{(2)}_{\mathrm{TCFT}}\}$ is a \emph{stronger}
+consequence of the operadic structure, using the specific
+moduli-space factorisation. This is the key mathematical content
+that Wrong Proof~2 (Section~\ref{subsec:wrong-bidegree}) missed.
 \end{remark}
 
 \begin{remark}[TCFT vs naive \texorpdfstring{$B^{(2)}$}{B-(2)}: the chain-level identification gap]
 \label{rem:tcft-vs-naive-b2}
-The operator $B^{(2)}$ in Theorem~\ref{thm:total-ainf-compat} is the
-\textsc{TCFT-derived} operator on $C_\bullet(A)$, defined by Costello's
-open-closed identification with the genus-change operation on the moduli
-operad $\overline{\cM}_{0,n}^{\mathrm{open}}$. At the level of the moduli-
-space chain complex this operator satisfies $\{b, B^{(2)}\} = 0$ by
-$\partial^2 = 0$, which is the content of the theorem.
+The operator in Theorem~\ref{thm:total-ainf-compat} is
+$B^{(2)}_{\mathrm{TCFT}}$, the \textsc{TCFT-derived} operator on
+$C_\bullet(A)$ defined by Costello's open-closed identification
+with the genus-change operation on the moduli operad
+$\overline{\cM}_{0,n}^{\mathrm{open}}$ and the chosen correction
+datum. At the level of the moduli-space chain complex this
+operator satisfies $\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$ by the
+oriented boundary relation.
 
-The \textsc{naive} chain-level $B^{(2)}_{\mathrm{naive}}$ \textup{(}defined
-directly as a Connes-hierarchy contraction of the form
+The \textsc{naive} chain-level $B^{(2)}_{\mathrm{naive}}$ is
+the termwise operator $B^{(2)}_{\mathrm{term}}$ once a sign
+convention is fixed. It is defined directly as a Connes-hierarchy
+contraction of the form
 $B^{(2)}_{\mathrm{naive}}([a_0 | \cdots | a_n]) = \sum_{i,j} \pm \langle a_i,
-a_j \rangle [a_0 | \cdots \hat{a}_i \cdots \hat{a}_j \cdots]$\textup{)} does
+a_j \rangle [a_0 | \cdots \hat{a}_i \cdots \hat{a}_j \cdots]$
+and does
 \emph{not} satisfy the cross-arity cancellation
 $\{b_2, B^{(2)}_{\mathrm{naive}}\} + \{b_3, B^{(2)}_{\mathrm{naive}}\} = 0$
 because the two terms land at \emph{different} bar arities
@@ -648,7 +666,7 @@ arity~$1$; their sum lives in different graded pieces and cannot vanish by
 direct cancellation\textup{).}
 
 The chain-level identification
-$B^{(2)}_{\mathrm{TCFT}} \overset{?}{\simeq} B^{(2)}_{\mathrm{naive}}$
+$B^{(2)}_{\mathrm{TCFT}} \overset{?}{\simeq} B^{(2)}_{\mathrm{term}}$
 is therefore the \emph{open chain-level frontier} of CY-A$_3$ for non-formal
 $\Ainf$-algebras: Theorem~\ref{thm:total-ainf-compat} resolves the operadic-
 TCFT identity at the moduli-operad level, but lifting this to a strict
@@ -657,7 +675,7 @@ chain-level identity on the bar complex requires either
 $\Ainf$-structure that strictifies the cross-arity terms, or
 \textup{(}b\textup{)} an explicit chain homotopy
 $h \colon C_\bullet(A) \to C_\bullet(A)[+1]$ realising
-$B^{(2)}_{\mathrm{TCFT}} - B^{(2)}_{\mathrm{naive}} = [d_{\mathrm{tot}}, h]$
+$B^{(2)}_{\mathrm{TCFT}} - B^{(2)}_{\mathrm{term}} = [d_{\mathrm{tot}}, h]$
 on the chain complex. The latter is Tradler's strictification
 \textup{(}arXiv:math/0108027\textup{)} for formal algebras; for non-formal
 $\Ainf$-algebras the strictification is conjectural \textup{(}engine
@@ -666,7 +684,7 @@ but does not construct the chain homotopy explicitly\textup{).}
 
 Theorem~\ref{thm:total-ainf-compat} is a statement about
 $B^{(2)}_{\mathrm{TCFT}}$; the chain-level identification
-$B^{(2)}_{\mathrm{TCFT}} \simeq B^{(2)}_{\mathrm{naive}}$ on the
+$B^{(2)}_{\mathrm{TCFT}} \simeq B^{(2)}_{\mathrm{term}}$ on the
 bar complex, which would promote the moduli-operad identity to a
 strict identity on $C_\bullet(A)$, is conjectural for non-formal
 $\Ainf$-algebras and constitutes the chain-level frontier of
@@ -683,35 +701,49 @@ chiral algebras but carry distinct chain-level data.
 obstruction groups}
 \label{subsec:infty-cat-resolution}
 
-The TCFT argument constructs an explicit chain homotopy; a parallel
-question asks whether the obstruction group itself vanishes, so
-that a homotopy is \emph{forced} to exist by abstract nonsense.
-The answer is yes, and the vanishing is sharper than the TCFT
-cancellation: it identifies the precise
-$E_1$-Hochschild group controlling the $\Etwo \to E_3$ lift.
+The TCFT argument proves a corrected total identity.  A parallel
+question asks whether the derived obstruction class dies in an
+$E_1$-Hochschild receptacle.  That is a filtered comparison
+statement, not a consequence of unit-connectedness alone.
 
-\begin{theorem}[Derived framing obstruction vanishes for CY\texorpdfstring{$_3$}{-3} categories]
+\begin{theorem}[Filtered derived framing obstruction for CY\texorpdfstring{$_3$}{-3} models]
 \label{thm:derived-framing-m3b2}
-\ClaimStatusProvedHere{}
-For any smooth proper CY$_3$ category $\cC$ with unit-connected
-Hochschild homology ($\HH^0(\cC) = k$, one vacuum state), the
-chain-level nonvanishing $[m_3, B^{(2)}] \neq 0$ does \emph{not}
-obstruct the $\bS^3$-framing in the $\infty$-categorical framework.
-Specifically:
+Let $\cC$ be a smooth proper CY$_3$ category equipped with a
+negative-cyclic CY trace and a witnessed $S^3$-framing datum.
+Let $A$ be a connective unit-connected strictified Hochschild
+$E_1$-model for $\cC$, with unit splitting
+$A = k \oplus \overline{A}$.  Assume:
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item The primary obstruction to lifting the canonical
- $\Etwo$-algebra structure on $\HH_\bullet(\cC)$ to an
- $E_3$-algebra structure lives in
- $\HH^{-2}_{E_1}(\HH_\bullet(\cC),\, \HH_\bullet(\cC))$,
- the $E_1$-Hochschild cohomology of $A = \HH_\bullet(\cC)$
- (i.e., $\RHom_{A \otimes A^{\op}}(A, A)$) in degree $-2$.
- \item This group is zero by unit-connectedness.
- \item All higher obstructions live in
- $\HH^{-2-k}_{E_1}$ for $k \geq 1$, which also vanish by
- unit-connectedness.
- \item Therefore the \emph{space} of $E_3$-structures
- compatible with the given $\Etwo$-structure is contractible.
+ \item there is a chain-level comparison map from the
+ $S^3$-framing obstruction complex to
+ $C^\bullet_{E_1}(A,A)[2]$, sending the derived
+ $m_3$--$B^{(2)}_{\mathrm{term}}$ obstruction cocycle to total
+ degree~$-2$;
+ \item the reduced Hochschild cochain complex
+ $C^\bullet_{E_1}(A,A)$ with its bar-length filtration is
+ complete, exhaustive, separated, and strongly convergent to
+ $\HH^\bullet_{E_1}(A,A)$;
+ \item the first page of that filtration is
+ \[
+        E_1^{p,q}
+        =
+        \Hom\bigl((s\overline{A})^{\otimes p},A\bigr)^q
+ \]
+ and satisfies
+ \[
+        E_1^{p,q}=0\qquad\text{whenever }p+q=-2 .
+ \]
 \end{enumerate}
+Then
+\[
+        \HH^{-2}_{E_1}(A,A)=0 .
+\]
+Consequently the derived $m_3$--$B^{(2)}$ framing obstruction
+vanishes as a class in $\HH^{-2}_{E_1}(A,A)$.  The theorem does
+not identify $B^{(2)}_{\mathrm{term}}$ with
+$B^{(2)}_{\mathrm{TCFT}}$, does not construct a global
+$\Phi_3$, does not supply compact Hall/CoHA or PBW data, and
+does not assert contractibility of the full lifting space.
 \end{theorem}
 
 \begin{proof}
@@ -731,66 +763,44 @@ where $A = \HH_\bullet(\cC)$. The primary obstruction to
 lifting from $\Etwo$ to $E_3$ therefore lives in $\pi_0$ of
 this shifted complex, which is $\HH^{-2}_{E_1}(A, A)$.
 
-\smallskip\noindent\emph{Vanishing from unit-connectedness.}
-For CY$_3$ manifolds with connected underlying space
-($\C^3$, conifold, local~$\bP^2$, quintic, $K3 \times E$),
-$\HH^0(\mathrm{Perf}(\cC)) = H^0(\cO_X) = k$, so $A$ is
-unit-connected in the sense that $\pi_0(A) = k$ and $A$ is
-connective ($\pi_i(A) = 0$ for $i < 0$ in cohomological
-convention). By Francis--Gaitsgory~\cite{FrancisGaitsgory2012},
-the $E_1$-Hochschild cohomology of a connective unital
-$E_1$-algebra is bounded below:
-$\HH^p_{E_1}(A, A) = 0$ for $p < 0$. In particular
-$\HH^{-2}_{E_1}(A, A) = 0$.
-
-\smallskip\noindent\emph{Vanishing of all higher obstructions.}
-The Goodwillie tower~\cite{Goodwillie2003}; the functor-calculus
-approximation of the lifting functor by polynomial layers; for
-the $\Etwo \to E_3$ lift has layer~$k$ controlled by
-$\HH^\bullet_{E_1}(A, A^{\otimes k})[-2]$. For
-unit-connected~$A$, the connectivity bound
-$\HH^p_{E_1}(A, A^{\otimes k}) = 0$ for $p < -k+1$ ensures
-that the obstruction at degree~$-2$ vanishes for all layers.
-The space of liftings is contractible.
-
-\noindent\textit{Verification}: $51$~tests in
-\texttt{derived\_framing\_obstruction.py} (obstruction group
-computation, CY$_3$ landscape, Goodwillie layers,
-Francis--Gaitsgory complex, Bott periodicity, explicit homotopy,
-cross-checks).
+\smallskip\noindent\emph{Filtered vanishing.}
+By hypothesis, the total degree~$-2$ line on the first page of
+the bar-length spectral sequence is empty.  Every later page is
+a subquotient of the previous page on the same total line, so
+\[
+        E_\infty^{p,q}=0\qquad(p+q=-2).
+\]
+Strong convergence identifies
+$E_\infty^{p,-2-p}$ with the associated graded pieces of the
+induced filtration on $\HH^{-2}_{E_1}(A,A)$. Since all associated
+graded pieces vanish and the filtration is separated and
+complete, $\HH^{-2}_{E_1}(A,A)=0$.  The chosen comparison map
+places the derived $S^3$-framing obstruction class in this zero
+group.
 \end{proof}
 
 \begin{remark}[Three-level placement of Theorem~\ref{thm:derived-framing-m3b2}]
 \label{rem:derived-framing-m3b2-three-levels}
 Theorem~\ref{thm:derived-framing-m3b2} realises Level~3 of
-Definition~\ref{def:three-levels} (derived / $\infty$-categorical):
-it asserts vanishing of the obstruction group
-$\HH^{-2}_{E_1}(A, A) = 0$ for connective unit-connected
-$A = \HH_\bullet(\cC)$, an \emph{existential} statement. Level~1
-(strict chain-level $[m_k, B^{(2)}] = 0$ per~$k$) fails for non-formal
-algebras (Proposition~\ref{prop:chain-nonvanishing-generic});
-Level~2 (homotopy $\{b, B^{(2)}\} = 0$ for the total differential)
-holds universally by Costello's TCFT
-(Theorem~\ref{thm:total-ainf-compat}) and supplies the explicit
-chain homotopy. The two resolutions are logically independent
-constructive-versus-existential witnesses of the same vanishing;
-unit-connectedness + connectivity is the hypothesis on which the
-Level~3 Francis--Gaitsgory connectivity bound
-$\HH^p_{E_1}(A, A) = 0$ for $p < 0$ holds. See
-Remark~\ref{rem:three-level-relationship} for the level-crossing
-implications. The companion Level~3 statement
-Theorem~\ref{thm:derived-framing-obstruction} in
-Chapter~\ref{ch:cy-to-chiral} (with its explicit connectivity
-hypothesis and Remark~\ref{rem:derived-framing-three-levels}) gives
-the same vanishing via the bar-filtration argument.
+Definition~\ref{def:three-levels} (derived / $\infty$-categorical)
+only on the witnessed filtered locus.  Level~1 (strict
+chain-level $[m_k, B^{(2)}_{\mathrm{term}}] = 0$ per~$k$)
+fails for non-formal algebras
+(Proposition~\ref{prop:chain-nonvanishing-generic}).  Level~2
+holds for Costello's corrected operator
+$B^{(2)}_{\mathrm{TCFT}}$ by Theorem~\ref{thm:total-ainf-compat}.
+Level~3 is the filtered vanishing
+$\HH^{-2}_{E_1}(A,A)=0$ under the comparison and spectral-sequence
+hypotheses of Theorem~\ref{thm:derived-framing-m3b2}.  Connectivity
+and $H^0(A)=k$ set up the reduced model; the empty total-degree
+$-2$ line and strong convergence do the work.
 \end{remark}
 
 \begin{remark}[Manin-pair structure of the \texorpdfstring{$E_1$}{E-1}-Hochschild vanishing]
 \label{rem:m3b2-manin-pair}
-The vanishing
-$\HH^{-2}_{E_1}(A, A) = 0$ of
+The filtered vanishing of
 Theorem~\ref{thm:derived-framing-m3b2} is a \emph{one-sided}
-structural statement: unit-connectedness gives a Manin \emph{pair}
+structural statement on the $E_1$-Hochschild pair
 $(A, A)$ with the diagonal $A \hookrightarrow A \otimes A^{\op}$
 acting by conjugation, not a Manin \emph{triple}
 $(A \oplus A^!, A, A^!)$ with a Lie-bialgebra coproduct
@@ -805,9 +815,9 @@ bialgebra datum that upgrades the Manin pair to a Manin triple).
 The $E_1$-Hochschild obstruction here lives on the pair; promotion
 to the triple requires additional CY$_2$-Yangian data supplied by
 the K3 $\R$-matrix of Part~\ref{part:k3-yangian}, not by the
-chain-level CY$_3$ obstruction of this chapter. Engine
-\texttt{derived\_framing\_obstruction.py} verifies only the pair-level
-vanishing; the triple-level question is the subject of
+chain-level CY$_3$ obstruction of this chapter. The filtered
+calculation concerns only the pair-level obstruction; the
+triple-level question is the subject of
 Chapter~\ref{ch:k3-yangian}.
 \end{remark}
 
@@ -817,66 +827,66 @@ Chapter~\ref{ch:k3-yangian}.
 \label{sec:m3b2-three-levels}
 % ============================================================
 
-The $[m_3, B^{(2)}]$ obstruction reveals a three-level hierarchy that
-governs chain-level CY algebra. Each level gives a different
-answer to the same question; the hierarchy is not a contradiction
-but a feature of the relationship between strict and homotopy
-algebra.
+The $m_3$--$B^{(2)}$ obstruction separates three carriers:
+the termwise bar operator, Costello's corrected TCFT operator,
+and the filtered $E_1$-Hochschild obstruction class.  The same
+symbol $B^{(2)}$ cannot be moved between them without the
+comparison datum named in the relevant theorem.
 
 \begin{definition}[{Three levels of the \texorpdfstring{$[m_k, B^{(2)}]$}{[m-k, B-(2)]} question}]
 \label{def:three-levels}
 \mbox{}
 \begin{enumerate}[label=\textup{Level \arabic*.}]
  \item \textbf{Strict (chain-level).}
- Does $[m_k, B^{(2)}] = 0$ on $C_n(A)$ for each $k$?
+ Does $[m_k, B^{(2)}_{\mathrm{term}}] = 0$ on $C_n(A)$ for each $k$?
 
  \textbf{Answer: NO} for non-formal algebras
  (Proposition~\ref{prop:chain-nonvanishing-generic}).
 
  \item \textbf{Homotopy (total differential).}
- Does $\{b, B^{(2)}\} = 0$ where $b = \sum_k b_k$?
+ Does $\{b, B^{(2)}_{\mathrm{TCFT}}\} = 0$ where
+ $b = \sum_k b_k$ and a Costello correction datum has been chosen?
 
- \textbf{Answer: YES} universally
+ \textbf{Answer: YES} for the corrected TCFT operator
  (Theorem~\ref{thm:total-ainf-compat}, Costello's TCFT).
 
  \item \textbf{Derived ($\infty$-categorical).}
  Does the obstruction class
  $[\mathrm{Obs}_{\Ainf}] \in \HH^{-2}_{E_1}(A, A)$ vanish?
 
- \textbf{Answer: YES}, the group itself is zero
- (Theorem~\ref{thm:derived-framing-m3b2}).
+ \textbf{Answer: YES} on the witnessed filtered locus of
+ Theorem~\ref{thm:derived-framing-m3b2}.
 \end{enumerate}
 \end{definition}
 
 \begin{remark}[Relationship between the three levels]
 \label{rem:three-level-relationship}
-Level~1 implies Level~2 but not conversely: if each $[m_k, B^{(2)}] = 0$,
-then $\{b, B^{(2)}\} = \sum_k \{b_k, B^{(2)}\} = 0$. The
-converse fails because the sum can vanish by cross-degree
-cancellation even when individual terms are nonzero.
+Level~1 and Level~2 are statements about different operators
+unless a strictifying homotopy identifies
+$B^{(2)}_{\mathrm{term}}$ with $B^{(2)}_{\mathrm{TCFT}}$.
+Forgetting this distinction is exactly the false cross-degree
+cancellation argument.  Level~2 can feed Level~3 only through a
+comparison map from the TCFT-corrected chain datum to the
+$E_1$-Hochschild obstruction complex.  Level~3 can also hold by
+the filtered spectral-sequence vanishing of
+Theorem~\ref{thm:derived-framing-m3b2}; it does not construct a
+strict chain homotopy between the two $B^{(2)}$-models.
 
-Level~2 implies Level~3 but not conversely: $\{b, B^{(2)}\} = 0$
-provides an explicit homotopy for the $\infty$-categorical
-lifting, so Level~2 is a \emph{constructive} proof of Level~3.
-Level~3 is the abstract existence statement.
-
-The chain-level computation
-(Section~\ref{sec:m3b2-computations}) disproves Level~1.
-The TCFT argument (Section~\ref{subsec:tcft-resolution})
-proves Level~2. The $\infty$-categorical argument
-(Section~\ref{subsec:infty-cat-resolution}) proves Level~3
-\emph{independently} of Level~2. The two resolutions
-are logically independent:
+The chain-level computation (Section~\ref{sec:m3b2-computations})
+disproves Level~1.  The TCFT argument
+(Section~\ref{subsec:tcft-resolution}) proves Level~2 for the
+corrected operator.  The filtered comparison argument
+(Section~\ref{subsec:infty-cat-resolution}) proves Level~3 under
+its spectral-sequence hypotheses.  The two resolutions are
+logically independent:
 \begin{itemize}
- \item The TCFT argument is \emph{constructive}: it provides the
- explicit chain homotopy $h$ with $[m_3, B^{(2)}] = d(h)$,
- built from the cross-degree Stasheff cancellation.
- \item The $\infty$-categorical argument is \emph{existential}:
- it shows the obstruction group vanishes, so a homotopy exists,
- but does not construct it.
+ \item the TCFT argument is constructive for
+ $\{b,B^{(2)}_{\mathrm{TCFT}}\}=0$ after correction datum;
+ \item the filtered $E_1$-Hochschild argument annihilates the
+ derived obstruction class in degree~$-2$.
 \end{itemize}
-The fact that both independently give $\mathrm{Obs}_{\Ainf} = 0$
-is a strong consistency check.
+Their overlap is a comparison theorem, not an identity of raw
+operators.
 \end{remark}
 
 \begin{remark}[Formality and the three levels]
@@ -896,11 +906,11 @@ The three levels of formality from
  local~$\bP^2$ (non-trivial Massey products) and the quintic
  (non-trivial triple products on $H^{1,1}$).
 \end{enumerate}
-When $\Ainf$-formality holds, $[m_k, B^{(2)}] = 0$ at all three
-levels (Level~1 is trivially satisfied because $m_k = 0$).
-When $\Ainf$-formality fails, Level~1 fails but Levels~2 and~3
-hold; the TCFT and $\infty$-categorical resolutions address
-exactly this regime (local~$\bP^2$, quintic).
+When $\Ainf$-formality holds, Level~1 is trivially satisfied
+because $m_k = 0$ for $k \geq 3$.  When $\Ainf$-formality fails,
+Level~1 fails.  Level~2 then requires the corrected TCFT
+operator, and Level~3 requires the comparison and filtration
+hypotheses of Theorem~\ref{thm:derived-framing-m3b2}.
 \end{remark}
 
 
@@ -909,20 +919,21 @@ exactly this regime (local~$\bP^2$, quintic).
 \label{sec:m3b2-landscape}
 % ============================================================
 
-With $\mathrm{Obs}_{\Ainf} = 0$ settled at all three levels, the
-Hopf fibration decomposition
+On the witnessed TCFT and filtered-comparison locus, the
+$\Ainf$ obstruction contributes no further independent summand.
+The Hopf fibration decomposition
 $\mathrm{Obs}_{\mathrm{CY-A}_3}
  = \mathrm{Obs}_{\mathrm{top}} \oplus \mathrm{Obs}_{\Ainf}
  \oplus \mathrm{Obs}_{\BV}$
-collapses family by family. The following table records the
-resulting status.
+then reduces the remaining question to the BV term family by
+family.
 
 \begin{proposition}[Obstruction landscape after the resolution]
 \label{prop:obs-landscape}
-\ClaimStatusProvedHere{}
 The Hopf fibration decomposition~\eqref{eq:obs-decomposition}
-reduces CY-A$_3$ from three independent obstructions to one.
-After the results of this chapter:
+reduces CY-A$_3$ from three independent obstruction receptacles
+to one only for rows where the corrected TCFT operator and the
+filtered comparison hypotheses are supplied.
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
 \small
@@ -930,40 +941,41 @@ After the results of this chapter:
  \toprule
  \textbf{CY$_3$} & $\mathrm{Obs}_{\mathrm{top}}$ &
  $\mathrm{Obs}_{\Ainf}$ & $\mathrm{Obs}_{\BV}$ &
- \textbf{Status} \\
+ \textbf{Conclusion} \\
  \midrule
- $\C^3$ & $0$ & $0$ (formal) & $0$ (toric) & Fully resolved \\
- Conifold & $0$ & $0$ (formal) & $0$ (toric) & Fully resolved \\
- Local $\bP^2$ & $0$ & $0$ (TCFT) & $0$ (toric) & Fully resolved \\
- Quintic & $0$ & $0$ (TCFT) & conditional (pert.) & Perturbatively \\
- $K3 \times E$ & $0$ & $0$ (formal) & Step~5 &
- Kummer route \\
+ $\C^3$ & $0$ & $0$ (formal) & $0$ (toric) & toric model \\
+ Conifold & $0$ & $0$ (formal) & $0$ (toric) & toric model \\
+ Local $\bP^2$ & $0$ & $0$ (corrected TCFT) & $0$ (toric) &
+ noncompact guide \\
+ Quintic & $0$ & conditional & conditional (pert.) &
+ compact conditional \\
+ $K3 \times E$ & $0$ & conditional & Step~5 &
+ Kummer conditional \\
  \bottomrule
 \end{tabular}
 \end{center}
 For local~$\bP^2$, despite $\mu_3 \neq 0$ and despite
-$[m_3, B^{(2)}] \neq 0$ at the chain level, the total commutator
-$\{b, B^{(2)}\} = 0$ by Costello's TCFT. The single remaining
-open question is non-perturbative convergence of the
-\v{C}ech-HTT series (the \v{C}ech resolution of the chiral
-operations produced by the homotopy transfer theorem,
-Chapter~\ref{ch:cy-to-chiral}) for compact non-formal CY$_3$
-categories.
+$[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ at the chain level, the
+corrected total commutator
+$\{b, B^{(2)}_{\mathrm{TCFT}}\} = 0$ by Costello's TCFT.  For
+compact non-formal CY$_3$ categories the remaining obligations
+include non-perturbative convergence of the \v{C}ech-HTT series
+(the \v{C}ech resolution of the chiral operations produced by the
+homotopy transfer theorem, Chapter~\ref{ch:cy-to-chiral}), the
+comparison map of Theorem~\ref{thm:derived-framing-m3b2}, and the
+compact Hall/CoHA and PBW data needed by the global construction.
 \end{proposition}
 
 \begin{proof}
 $\mathrm{Obs}_{\mathrm{top}} = 0$: Theorem~\ref{thm:s3-framing-vanishes}.
-$\mathrm{Obs}_{\Ainf} = 0$: Theorem~\ref{thm:total-ainf-compat}
-and Theorem~\ref{thm:derived-framing-m3b2}.
+$\mathrm{Obs}_{\Ainf} = 0$ in the displayed rows only under the
+operator named in Theorem~\ref{thm:total-ainf-compat} or under
+the filtered comparison hypotheses of
+Theorem~\ref{thm:derived-framing-m3b2}.
 $\mathrm{Obs}_{\BV}$: toric cases by $T^3$-equivariance; compact
 perturbative rows only after the \v{C}ech contracting homotopy of
 Theorem~\ref{thm:cech-contracting-homotopy} is supplied in the
 completed BV complex.
-
-\noindent\textit{Verification}:
-$67$~tests in \texttt{hopf\_fibration\_s3\_framing.py};
-$43$~tests in \texttt{operadic\_tcft\_mk\_b2\_engine.py};
-$51$~tests in \texttt{derived\_framing\_obstruction.py}.
 \end{proof}
 
 \begin{remark}[\texorpdfstring{$K3 \times E$}{K3 x E} as 1-loop-forced 11D-SUGRA on \texorpdfstring{$I_1$}{I-1} Kodaira fibres]
@@ -1006,13 +1018,13 @@ theorem forces $\mu_2 = 0$ on the augmentation ideal whenever
 $\mu_3 \neq 0$, so $\{b_2, B^{(2)}\}$ is identically zero, while
 $\{b_3, B^{(2)}\} \neq 0$; the two cannot cancel because they
 land in different bar-degree components. The cancellation
-required for $\{b, B^{(2)}\} = 0$ must therefore come from
-geometric corrections in the TCFT operator $B^{(2)}_{\mathrm{TCFT}}$,
-not from cross-arity algebra on $B^{(2)}_{\mathrm{naive}}$.
+required for $\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$ must therefore
+come from geometric corrections in the TCFT operator
+$B^{(2)}_{\mathrm{TCFT}}$, not from cross-arity algebra on
+$B^{(2)}_{\mathrm{naive}}$.
 
 \begin{theorem}[Single-object incompatibility]
 \label{thm:single-object-incompatibility}
-\ClaimStatusProvedHere{}
 For a single-object cyclic $\Ainf$-algebra
 $(A, \{\mu_n\}, \langle -,- \rangle)$ of CY dimension~$3$ with
 $\mu_1 = 0$ and $\mu_3 \neq 0$:
@@ -1068,7 +1080,6 @@ values of $\alpha$, cross-check with n=4 Stasheff relation).
 
 \begin{corollary}[Naive cross-degree cancellation is impossible]
 \label{cor:no-naive-cross-degree}
-\ClaimStatusProvedHere{}
 For a single-object cyclic $\Ainf$-algebra of CY dimension~$3$
 with $\mu_1 = 0$, $\mu_3 \neq 0$, and $B^{(2)}_{\mathrm{naive}}$
 the pairwise contraction operator:
@@ -1191,8 +1202,11 @@ necessarily incomplete: the question is not visible to them.
 
 \begin{remark}[What obstructs CY-A\texorpdfstring{$_3$}{-3}]
 \label{rem:actual-obstructions}
-The chain-level $[m_3, B^{(2)}] \neq 0$ is a red herring.
-The actual obstacles to CY-A$_3$ are:
+The strict chain-level
+$[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ is not the global
+construction obstruction once the corrected TCFT operator and the
+filtered comparison datum are supplied.  The remaining obstacles
+to CY-A$_3$ are:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item \emph{BV compatibility}: the holomorphic Chern--Simons
  contracting homotopy must be compatible with the full
@@ -1206,16 +1220,16 @@ The actual obstacles to CY-A$_3$ are:
  \item \emph{Non-perturbative convergence}: the formal chiral
  operations from HTT must converge to holomorphic functions.
 \end{enumerate}
-None of these involve $[m_3, B^{(2)}]$. The $\Ainf$-compatibility
-is settled at Level~2 (Costello TCFT) and Level~3
-(Theorem~\ref{thm:derived-framing-m3b2}); the remaining
-obstacles are analytic.
+None of these is removed by the strict witness
+$[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$, and none is supplied by
+the filtered vanishing theorem.  Compact/global $\Phi_3$, Hall/CoHA
+input, and PBW/no-extra-relations remain separate proof obligations.
 \end{remark}
 
 \begin{remark}[Connection to the shadow tower]
 \label{rem:m3b2-shadow-tower}
 The $\Ainf$-operation $\mu_3$ that generates
-$[m_3, B^{(2)}] \neq 0$ is the same operation that controls
+$[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ is the same operation that controls
 the input-level shadow invariant $S_3^{\mathrm{input}}$ of the
 Jordan-quiver CoHA $Y^+(\widehat{\mathfrak{gl}}_1)$: the chain-level
 $A_\infty$ operation on the CoHA seed (pre-envelope data) has
@@ -1227,7 +1241,7 @@ chiral envelope: the envelope factorization jumps the shadow class
 algebra $\mathcal{W}_{1+\infty}$ at $c = 1$ is class~M (Virasoro
 subalgebra has $\alpha = S_3 = 2$ uniformly in $c$, bar Euler product
 $1/M(q)$, cf.~\texttt{thm:c3-shadow-tower}), even though the input
-CoHA has $\mu_3 = 0$. The $[m_3, B^{(2)}]$ obstruction is indexed
+CoHA has $\mu_3 = 0$. The $[m_3, B^{(2)}_{\mathrm{term}}]$ obstruction is indexed
 by the input $\mu_3$, not the output shadow tower.
 Concretely:
 local~$\bP^2$ input $\mu_3 \neq 0$ (McKay $\Z_3$, three vertices);
@@ -1241,15 +1255,15 @@ local~$\bP^2$ and the quintic, is chirally Koszul, but only
 class~$G$ is SC-formal (Vol~I,
 Proposition~\texttt{chapters/theory/chiral\_koszul\_pairs.tex} (Vol~I) and
 Remark~\texttt{chapters/theory/ftm\_seven\_fold\_tfae\_platonic.tex} (Vol~I)). The chain-level identity
-$[m_k, B^{(2)}] = 0$ is controlled by SC-formality, not by
+$[m_k, B^{(2)}_{\mathrm{term}}] = 0$ is controlled by SC-formality, not by
 Koszulness:
 \begin{itemize}
- \item Class~G (SC-formal): $[m_k, B^{(2)}] = 0$ strictly for
+ \item Class~G (SC-formal): $[m_k, B^{(2)}_{\mathrm{term}}] = 0$ strictly for
  all $k$, because $\mu_k = 0$ for $k \geq 3$.
  \item Classes~L, C, M (not SC-formal): individual
- $[m_k, B^{(2)}] \neq 0$ generically, while the total
- $\{b, B^{(2)}\} = \sum_k \{b_k, B^{(2)}\} = 0$ by the
- cross-degree cancellation of
+ $[m_k, B^{(2)}_{\mathrm{term}}] \neq 0$ generically, while the
+ corrected total identity $\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$
+ follows from
  Theorem~\ref{thm:total-ainf-compat}.
 \end{itemize}
 The shadow tower is the $\Ainf$ correction tower:
@@ -1364,14 +1378,14 @@ the free-boson lattice $\mathbb{Z}\alpha$ with $\langle \alpha,
 \alpha \rangle = 2$ builds an $\widehat{\mathfrak{sl}_2}_1$ vertex
 algebra from an abelian Heisenberg lattice, exponentiating the
 Lie-abelian data into a Lie-non-abelian structure at the vertex
-level. The $[m_k, B^{(2)}]$ separation of SC-formality from
+level. The $[m_k, B^{(2)}_{\mathrm{term}}]$ separation of SC-formality from
 Koszulness above is the CY$_3$ shadow of this vertex-operator
 dichotomy: abelianness at the input CoHA (Lie level,
 $\mu_3 = 0$) does not obstruct non-abelianness at the output
 chiral envelope (vertex level, $S_3 \neq 0$), because the
 envelope factorisation performs the analogue of Frenkel--Kac
 exponentiation. The chain-level obstruction
-$[m_3, B^{(2)}]$ is indexed at the Lie-input level; the shadow
+$[m_3, B^{(2)}_{\mathrm{term}}]$ is indexed at the Lie-input level; the shadow
 tower $\{S_k\}$ lives at the vertex-output level; the envelope
 factorisation is the $\infty$-categorical bridge between them.
 \end{remark}
@@ -1383,7 +1397,7 @@ factorisation is the $\infty$-categorical bridge between them.
 % ============================================================
 
 The following engines, totalling $500+$ tests, were involved in
-resolving the $[m_3, B^{(2)}]$ question. Each engine is an
+resolving the $[m_3, B^{(2)}_{\mathrm{term}}]$ question. Each engine is an
 independent module in \texttt{compute/lib/} with a corresponding
 test suite in \texttt{compute/tests/}.
 
@@ -1395,7 +1409,7 @@ test suite in \texttt{compute/tests/}.
  \textbf{Engine} & \textbf{Tests} & \textbf{Role} \\
  \midrule
  \texttt{obs\_ainf\_local\_p2.py} & 54 &
- Explicit $[m_3, B^{(2)}]$ for local $\bP^2$ \\
+ Explicit $[m_3, B^{(2)}_{\mathrm{term}}]$ for local $\bP^2$ \\
  \texttt{obs\_ainf\_random\_search.py} & 67 &
  Random search over cyclic $\Ainf$-algebras \\
  \texttt{obs\_ainf\_counterexample\_search.py} & 49 &
@@ -1416,7 +1430,7 @@ test suite in \texttt{compute/tests/}.
  $S^1 \hookrightarrow S^3 \twoheadrightarrow S^2$
  fibration decomposition of the $S^3$-framing \\
  \texttt{derived\_framing\_obstruction.py} & 51 &
- $\HH^{-2}_{E_1}$ vanishing, Goodwillie \\
+ Filtered $\HH^{-2}_{E_1}$ comparison, Goodwillie scope \\
  \texttt{formality\_ainf\_dcoh.py} & -- &
  Formality hierarchy for CY manifolds \\
  \texttt{cya3\_stress\_test.py} & 45 &
@@ -1457,27 +1471,28 @@ $K^{\kappa_{\mathrm{ch}}}$ against the chiral-level parameter
 $\hbar$: on the $B$-family (analogue of the $B$-model side),
 the universal identity $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$
 holds, pinning $\hbar^2 = -1/8$ at the critical point of the
-CY-to-chiral functor. The $[m_3, B^{(2)}]$ obstruction supplies the
-chain-level homotopy data that allows this chiral-level
-identity to lift past the formality obstruction of local~$\bP^2$
-and the quintic to K3-fibred CY$_3$ categories. Chapter~\ref{ch:k3-yangian}
-develops the consequences.
+CY-to-chiral functor. The $[m_3, B^{(2)}_{\mathrm{term}}]$
+obstruction supplies the
+strict non-formal witness; lifting the chiral-level identity past
+the formality obstruction of local~$\bP^2$ and the quintic to
+K3-fibred CY$_3$ categories still requires the corrected TCFT
+operator, the filtered comparison map, and the compact analytic
+data. Chapter~\ref{ch:k3-yangian} develops the consequences.
 \end{remark}
 
 \bigskip
 
-The $\Ainf$-compatibility obstruction is zero at every level:
-strict (Level~1) fails for non-formal algebras, so the identity
-must be read at the level of the total differential; homotopy
-(Level~2) holds universally by Costello's TCFT; derived
-(Level~3) holds by the vanishing of $\HH^{-2}_{E_1}$ for
-unit-connected $E_1$-algebras. The chain-level
-$[m_3, B^{(2)}] \neq 0$ reveals a separation between the three
-levels, not a failure of the framing. The remaining obstacles
-to CY-A$_3$ are analytic: BV compatibility of the holomorphic
-Chern--Simons contracting homotopy, and non-perturbative
-convergence of the \v{C}ech-HTT chiral operations for compact
-non-formal CY$_3$ categories.
+The $\Ainf$-compatibility obstruction separates by level.  Strict
+Level~1 fails for non-formal algebras.  Homotopy Level~2 holds
+for Costello's corrected $B^{(2)}_{\mathrm{TCFT}}$.  Derived
+Level~3 holds on the filtered comparison locus of
+Theorem~\ref{thm:derived-framing-m3b2}.  The chain-level
+$[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ reveals the separation,
+not a failure of the corrected framing. The remaining compact
+obligations include BV compatibility of the holomorphic
+Chern--Simons contracting homotopy, non-perturbative convergence
+of the \v{C}ech-HTT chiral operations, global $\Phi_3$, and
+compact Hall/CoHA data.
 
 \section{M\texorpdfstring{$_3$}{-3} mainspring and the K3 \texorpdfstring{$B^{(2)}$}{B-(2)} obstruction}
 \label{sec:m3b2-k3-base}
@@ -1602,7 +1617,7 @@ Gaberdiel-Hohenegger-Volpato 2012 (arXiv:1106.4315).
 \label{sec:m3b2-first-order-deformation-moduli}
 % ============================================================
 
-The $[m_3, B^{(2)}]$ obstruction of Section~\ref{sec:m3b2-resolution}
+The $[m_3, B^{(2)}_{\mathrm{term}}]$ obstruction of Section~\ref{sec:m3b2-resolution}
 addresses the strict-vs-homotopy compatibility of the Connes hierarchy
 with the $\Ainf$-Hochschild differential. A parallel question asks,
 for the quantum observable $E_3$-algebra $\Obs_{\hCS}(\C^3)$ of
@@ -1613,7 +1628,6 @@ slice.
 
 \begin{theorem}[First-order deformation moduli of \texorpdfstring{$\Obs_{\hCS}(\C^3)$}{Obs-hCS(C-3)}]
 \label{thm:plat-first-order-moduli}
-\ClaimStatusProvedHere
 Let $\Obs = \Obs_{\hCS}(\C^3)$ be the $E_3$-algebra of quantum
 observables of holomorphic Chern--Simons theory on $\C^3$ with simple
 semisimple gauge algebra $\fg$ (Theorem~\ref{thm:plat-hCS-quantum}). The
@@ -1711,9 +1725,10 @@ first-order moduli computation is the linearised shadow of the
 derived framing obstruction of
 Theorem~\ref{thm:derived-framing-m3b2}: both identify a single
 obstruction receptacle $(\HH^{-2}_{E_1}$ for the framing;
-$\HH^0_{E_3}[3]$ for the deformation) and both report that the
-receptacle has one controlled generator (vanishing by unit-connectedness;
-spanned by $\mathrm{Kil}$ respectively). The $[m_3, B^{(2)}]$
+$\HH^0_{E_3}[3]$ for the deformation).  In the first case the
+receptacle is killed by the filtered comparison hypotheses; in
+the second it is spanned by $\mathrm{Kil}$. The
+$[m_3, B^{(2)}_{\mathrm{term}}]$
 strict-chain-level obstruction of this chapter controls the
 chain-level rectification inside the one-dimensional deformation
 space, not its position inside it.
@@ -1721,7 +1736,7 @@ space, not its position inside it.
 
 \begin{remark}[BV Laplacian, quantum master equation, and the \texorpdfstring{$B^{(2)}$}{B-(2)} obstruction]
 \label{rem:phys-bv-laplacian-m3b2}
-The $[m_3, B^{(2)}]$ obstruction of Open Problem~\ref{op:mk-b2} has a direct BV interpretation. The CY$_3$ pairing $\langle -,-\rangle\colon A\otimes A\to k[-3]$ on the shifted field space $\mathfrak{F} = A[1]$ gives a degree-$(-2)$ symplectic form $\omega$. The \emph{BV Laplacian} is the second-order operator
+The $[m_3, B^{(2)}_{\mathrm{term}}]$ obstruction of Open Problem~\ref{op:mk-b2} has a direct BV interpretation. The CY$_3$ pairing $\langle -,-\rangle\colon A\otimes A\to k[-3]$ on the shifted field space $\mathfrak{F} = A[1]$ gives a degree-$(-2)$ symplectic form $\omega$. The \emph{BV Laplacian} is the second-order operator
 \[
  \Delta_{\BV} \;=\; \sum_{i,j} \omega^{ij}\,\frac{\partial^2}{\partial\phi^i\,\partial\phi^j},
 \]
@@ -1734,7 +1749,22 @@ The \emph{quantum master equation} (QME) for the BV action $S(\alpha) = \sum_{n\
 \end{equation}
 By Theorem~\ref{thm:phys-bv-qme-mc} (Chapter~\ref{ch:quantum-chiral-algebras}), the QME is equivalent to the Maurer--Cartan equation for $\Theta_A$; its genus-$g$ component is $\mathrm{obs}_g(A) = \kappa_{\mathrm{ch}}(A)\cdot\lambda_g$.
 
-The operator $B^{(2)}\colon C_n(A)\to C_{n-2}(A)$ of the Connes hierarchy is the chain-level shadow of $\Delta_{\BV}$: it contracts a pair of bar factors via the CY$_3$ pairing, removing both, precisely as $\Delta_{\BV}$ contracts a field with its antifield. The identity $\{b,B^{(2)}\} = 0$ (the Costello TCFT-zero theorem, Resolution~$2$) is the chain-level formulation of the QME consistency: the total differential $b = \sum_k b_k$ (identified with $Q_{\BV} = \{S,-\}$ via Proposition~\ref{prop:phys-bv-bar-brst} of Chapter~\ref{ch:quantum-chiral-algebras}) anticommutes with $B^{(2)}$ (the chain-level $\Delta_{\BV}$) because the full QME holds.
+The termwise operator
+$B^{(2)}_{\mathrm{term}}\colon C_n(A)\to C_{n-2}(A)$ of the
+Connes hierarchy is the chain-level shadow of $\Delta_{\BV}$: it
+contracts a pair of bar factors via the CY$_3$ pairing, removing
+both, precisely as $\Delta_{\BV}$ contracts a field with its
+antifield.  The corrected TCFT identity
+$\{b,B^{(2)}_{\mathrm{TCFT}}\}=0$ is the chain-level formulation
+of the QME consistency after the Costello correction datum has
+been chosen.
 
-The strict chain-level nonvanishing $[m_3, B^{(2)}] \neq 0$ (Proposition~\ref{prop:chain-nonvanishing-generic}) is therefore not a violation of the QME: it reflects the fact that the BV Laplacian $\Delta_{\BV}$ commutes with the \emph{total} BRST charge $Q_{\BV} = b = \sum_k b_k$, not with the individual component $b_3 = m_3$. The $A_\infty$ Stasheff identities, which couple the contributions of $m_k$ for different $k$ via the composite operations in the $A_\infty$-relations, are precisely the mechanism that forces the cancellation $\{b,B^{(2)}\} = 0$ when individual commutators $[m_k,B^{(2)}]$ are nonzero. This is the CY$_3$-dimensional refining of the fact that BRST nilpotency $Q_{\BV}^2 = 0$ at genus $0$ follows from the $A_\infty$-relations collectively, not from any single relation.
+The strict chain-level nonvanishing
+$[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$
+(Proposition~\ref{prop:chain-nonvanishing-generic}) is therefore
+not a violation of the QME.  It says that the termwise bar
+operator is not the corrected TCFT operator: the total BRST charge
+$Q_{\BV}=b=\sum_k b_k$ anticommutes with
+$B^{(2)}_{\mathrm{TCFT}}$, not with each individual component
+$b_k$ against $B^{(2)}_{\mathrm{term}}$.
 \end{remark}

@@ -1,11 +1,30 @@
-r"""Chain-level cancellation: why {m_2, B^{(2)}} cancels {m_3, B^{(2)}}.
+r"""Chain-level obstruction: raw B_term^{(2)} versus B_TCFT^{(2)}.
 
 MATHEMATICAL CONTENT
 ====================
 
-This module provides the ALGEBRAIC understanding of how the bar
-differential components b_k interact with the Connes hierarchy operator
-B^{(2)} in the Hochschild complex of a cyclic A-infinity CY_3 algebra.
+This module computes the raw pairwise-contraction operator
+B_term^{(2)} in the Hochschild bar complex of a cyclic A-infinity CY_3
+algebra.  Its executable witness is negative:
+
+    [m_3, B_term^{(2)}] [a|a|a|a|b] = 2*alpha*[b]
+
+for alpha != 0 in the four-generator non-formal model.  The corrected
+TCFT operator B_TCFT^{(2)} is a different datum.  This file does not
+construct B_TCFT^{(2)} and does not prove universal closure of the raw
+operator.
+
+Closure may be asserted here only under one of two explicit hypotheses:
+
+1. A corrected TCFT datum supplying B_TCFT^{(2)} and identifying the
+   relevant boundary strata.
+2. A precise HH^{-2} filtration theorem with a comparison map, a
+   complete/exhaustive/separated/strongly convergent filtration, and an
+   empty total-degree -2 line.
+
+The strict witness above is not erased by bidegree, cyclicity, random
+search, Cech-HTT, Borel, unit-connectedness, Dunn, Goodwillie,
+DGMS/BTT/Kaledin slogans, or formal compact CY3 claims.
 
 THE FIVE ANSWERS
 ================
@@ -13,32 +32,29 @@ THE FIVE ANSWERS
 Q1. {m_2, B^{(2)}} explicitly for local P^2?
 
     ANSWER: In the 4-element model {e, a, b, w} with mu_3(a,a,a) = alpha*b,
-    mu_2 = 0 on aug is FORCED by the n=4 Stasheff relation + cyclic invariance
-    (Theorem: incompatibility_theorem).  Therefore {b_2, B^{(2)}} = 0
-    trivially, and {b, B^{(2)}_naive} = {b_3, B^{(2)}_naive} = 2*alpha*[b]
-    does NOT vanish.
+    mu_2 = 0 on aug by the model definition.  Therefore {b_2, B^{(2)}} = 0
+    trivially in this witness, while the strict raw bracket
+    [b_3, B_term^{(2)}][a|a|a|a|b] = 2*alpha*[b] does NOT vanish.
 
     The claim {m_2, B^{(2)}} = -2*alpha*[b] from rem:b2-cancellation refers
-    to the TCFT B^{(2)} (not the naive pairwise contraction), where the
-    TCFT structure provides additional terms beyond pairwise pairing.
+    to a corrected TCFT datum, not to the raw pairwise contraction.
 
-Q2. WHY does m_2 produce exactly the negative of m_3's contribution?
+Q2. When can a cancellation statement be made?
 
-    ANSWER: The TCFT argument (Costello, math/0412149, Theorem A).
-    The operators b and B^{(2)} are images of boundary strata in the
-    moduli operad M of bordered surfaces with interior nodes.  Both
-    b.B^{(2)} and B^{(2)}.b are boundary strata of a compact 1-dimensional
-    moduli space M_{b,B^{(2)}} whose signed boundary count is zero:
-    d^2 = 0 in the chain complex of M forces {b, B^{(2)}} = 0.
+    ANSWER: Only after replacing B_term^{(2)} by a corrected TCFT
+    operator B_TCFT^{(2)}, or after proving the HH^{-2} filtration
+    theorem named above.  Costello's TCFT argument applies to the
+    corrected operator supplied by the moduli-chain datum, not to the
+    raw pairwise contraction implemented by apply_b2.
 
     At the algebraic level, the cancellation is NOT between
     {b_2, B^{(2)}_naive} and {b_3, B^{(2)}_naive} (these land at different
     bar arities and cannot cancel).  Instead, it is between the various
     terms within b . B^{(2)}_TCFT + B^{(2)}_TCFT . b.
 
-Q3. Is there a formula {m_k, B^{(2)}} = f(k) * (something)?
+Q3. Is there a formula {m_k, B_TCFT^{(2)}} = f(k) * (something)?
 
-    ANSWER: For the TCFT B^{(2)}, the formula is:
+    ANSWER: For a supplied corrected TCFT B_TCFT^{(2)}, the formula is:
       {b, B^{(2)}_TCFT} = sum over boundary strata of M_{b,B^{(2)}} = 0.
     The individual boundary strata are labeled by the topological type of
     degeneration, not simply by k.  There is no simple f(k) formula at
@@ -46,48 +62,38 @@ Q3. Is there a formula {m_k, B^{(2)}} = f(k) * (something)?
 
 Q4. Which moduli space? What are the boundary components?
 
-    ANSWER: M_{0,n+2}^{node}: the compactified moduli of genus-0 bordered
-    surfaces with n ordered boundary punctures and one interior node.
+    ANSWER: For a corrected TCFT datum, M_{0,n+2}^{node}: the compactified
+    moduli of genus-0 bordered surfaces with n ordered boundary punctures
+    and one interior node.
     - Boundary type A: strip degeneration (b_k), then interior node (B^{(2)}).
     - Boundary type B: interior node (B^{(2)}), then strip degeneration (b_k).
-    - The signed boundary of this compact 1-manifold is zero.
+    - The signed boundary of this compact 1-manifold is zero for that datum.
 
-Q5. Algebraic proof that {b, B^{(2)}} = 0?
+Q5. Algebraic proof that {b, B_term^{(2)}} = 0?
 
-    ANSWER: There is no purely algebraic proof using only the pairing and
-    the A-infinity operations.  The proof is ESSENTIALLY GEOMETRIC:
-    it uses the compact 1-dimensional moduli space M_{b,B^{(2)}}.
-    The algebraic content is the IDENTIFICATION of b and B^{(2)} as
-    boundary strata, which requires the open-closed TCFT equivalence.
+    ANSWER: No such proof is present in this compute file; the executable
+    witness proves the opposite in the non-formal model.  Any closure
+    statement must name the corrected TCFT datum or the HH^{-2}
+    filtration theorem.
 
     The closest algebraic statement: for FORMAL algebras (mu_k = 0, k >= 3),
     {b_2, B^{(2)}_naive} = 0 follows from the Frobenius (cyclic invariance)
     condition alone.  For NON-FORMAL algebras, the TCFT is indispensable.
 
-CENTRAL DISCOVERY
-=================
+MODEL-LOCAL DISCOVERY
+=====================
 
-THEOREM (Incompatibility). For a single-object cyclic A-infinity algebra
-of CY dimension 3 with mu_1 = 0:
-  mu_3 != 0 on aug implies mu_2 = 0 on aug.
-
-PROOF SKETCH:
-  The n=4 Stasheff relation on (a,a,a,a) gives:
-    mu_2(mu_3(a,a,a), a) + mu_2(a, mu_3(a,a,a)) = 0
-  With mu_3(a,a,a) = alpha*b (alpha != 0):
-    alpha * (mu_2(b, a) + mu_2(a, b)) = 0
-  Graded commutativity: mu_2(b, a) = (-1)^{|b||a|} mu_2(a, b) = mu_2(a, b)
-  (since (-1)^{2*1} = 1).  Therefore 2*mu_2(a, b) = 0, hence mu_2(a, b) = 0.
-
-  Similarly, cyclic invariance of mu_2 gives:
-    <mu_2(a, a), a> = (-1)^eps <a, mu_2(a, a)>
-  with sign eps = 1 + 1*(1+1) = 3, giving -1.  So <mu_2(a,a), a> = -<a, mu_2(a,a)>.
-  If mu_2(a,a) = c*b, this gives c = -c, hence c = 0.
+In the four-generator witness the augmentation product mu_2 is zero.
+This is a model-local datum, not a theorem that every single-object
+cyclic CY_3 A-infinity algebra with mu_3 != 0 has zero augmentation
+product.  The n=4 Stasheff relation and cyclic pairing explain why the
+obvious candidate products mu_2(a,b) and mu_2(a,a) cannot be inserted in
+this small witness without changing the model.  They do not erase the
+strict bracket [m_3, B_term^{(2)}][a|a|a|a|b] = 2*alpha*[b].
 
 CONSEQUENCE: Cross-arity cancellation {b_2, B^{(2)}_naive} + {b_3, B^{(2)}_naive} = 0
-CANNOT occur at the single-object algebra level with the naive B^{(2)}.  The
-cancellation lives in the TCFT-corrected operator B^{(2)}_TCFT, which is
-constructed from moduli space geometry, not from algebraic pairing alone.
+CANNOT occur in this witness with the naive B^{(2)}.  A closure statement
+requires the corrected operator B_TCFT^{(2)} or the HH^{-2} filtration theorem.
 
 WHAT THIS ENGINE COMPUTES
 =========================
@@ -95,11 +101,11 @@ WHAT THIS ENGINE COMPUTES
 1. {m_3, B^{(2)}_naive} on the 4-element model: 2*alpha*[b] (nonzero).
    Reproduces obs_ainf_local_p2.py.
 
-2. {m_2, B^{(2)}_naive} on the 4-element model: 0 (forced by incompatibility).
+2. {m_2, B^{(2)}_naive} on the 4-element model: 0 (model-local mu_2 = 0).
 
 3. {b, B^{(2)}_naive} on the 4-element model: nonzero (the naive B^{(2)} fails).
 
-4. The incompatibility theorem: mu_3 != 0 => mu_2 = 0 on aug.
+4. The model-local Stasheff/cyclicity check for the zero augmentation product.
 
 5. {b_2, B^{(2)}_naive} = 0 for FORMAL algebras (mu_3 = 0, mu_2 != 0).
    The Frobenius condition suffices.
@@ -129,6 +135,37 @@ from fractions import Fraction
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 F = Fraction
+
+RAW_OPERATOR = "B_term^{(2)}"
+CORRECTED_OPERATOR = "B_TCFT^{(2)}"
+STRICT_WITNESS_FORMULA = (
+    "[m_3,B_term^{(2)}][a|a|a|a|b] = 2*alpha*[b]"
+)
+
+FORBIDDEN_ERASURE_ROUTES = (
+    "bidegree",
+    "cyclicity",
+    "random search",
+    "Cech-HTT",
+    "Borel",
+    "unit-connectedness",
+    "Dunn",
+    "Goodwillie",
+    "DGMS/BTT/Kaledin",
+    "formal compact CY3",
+)
+
+ALLOWED_CLOSURE_HYPOTHESES = (
+    (
+        "corrected TCFT datum: a supplied B_TCFT^{(2)} with the "
+        "moduli-chain boundary-stratum comparison"
+    ),
+    (
+        "HH^{-2} filtration theorem: comparison map plus complete, "
+        "exhaustive, separated, strongly convergent filtration and "
+        "empty total-degree -2 line"
+    ),
+)
 
 
 # =========================================================================
@@ -183,7 +220,7 @@ class NonFormalModel(CyclicAinfCY3):
     r"""Minimal non-formal CY_3 algebra: A = {e, a, b, w}.
 
     |e|=0, |a|=1, |b|=2, |w|=3.
-    mu_2 = 0 on augmentation (FORCED by n=4 Stasheff + cyclic invariance).
+    mu_2 = 0 on augmentation in this witness.
     mu_3(a, a, a) = alpha * b.
 
     Pairing: <e,w> = <w,e> = <a,b> = <b,a> = 1 (graded symmetric for d=3).
@@ -477,17 +514,72 @@ def anticomm_b_b2(elem: BarElt, alg: CyclicAinfCY3) -> LinComb:
     return (route1 + route2).simplify()
 
 
+def commutator_bk_bterm2(elem: BarElt, alg: CyclicAinfCY3, k: int) -> LinComb:
+    r"""Compute the strict bracket [b_k, B_term^{(2)}].
+
+    The raw operator is the pairwise contraction implemented by apply_b2.
+    This is the convention used by the AP-CY34/m3-B2 obstruction witness:
+
+        [m_3,B_term^{(2)}][a|a|a|a|b] = 2*alpha*[b].
+    """
+    route1 = apply_bk_lc(apply_b2(elem, alg), alg, k)
+    route2 = apply_b2_lc(apply_bk(elem, alg, k), alg)
+    return (route1 - route2).simplify()
+
+
+def _coefficient_of(lc: LinComb, factors: Tuple[Gen, ...]) -> Fraction:
+    """Return the coefficient of one bar monomial after simplification."""
+    for term in lc.simplify().terms:
+        if term.factors == factors:
+            return term.coeff
+    return F(0)
+
+
 # =========================================================================
 #  8. NONFORMAL MODEL COMPUTATIONS
 # =========================================================================
+
+def strict_m3_bterm2_witness(alpha: Fraction = F(1)) -> Dict[str, Any]:
+    r"""Return the strict AP-CY34/m3-B2 obstruction witness.
+
+    This is a first-principles computation in the four-generator model.
+    It uses only the raw pairwise contraction B_term^{(2)} and the
+    operation mu_3(a,a,a) = alpha*b.
+    """
+    alg = NonFormalModel(alpha=alpha)
+    a, b = alg.a, alg.b
+    elem = BarElt(factors=(a, a, a, a, b))
+
+    bterm_then_m3 = apply_bk_lc(apply_b2(elem, alg), alg, 3).simplify()
+    m3_then_bterm = apply_b2_lc(apply_bk(elem, alg, 3), alg).simplify()
+    bracket = commutator_bk_bterm2(elem, alg, 3).simplify()
+    coeff = _coefficient_of(bracket, (b,))
+
+    return {
+        "claim_attacked": "universal closure of the raw m3-B_term^{(2)} bracket",
+        "operator": RAW_OPERATOR,
+        "corrected_operator": CORRECTED_OPERATOR,
+        "corrected_operator_used": False,
+        "alpha": alpha,
+        "element": repr(elem),
+        "formula": STRICT_WITNESS_FORMULA,
+        "B_term_then_m3": repr(bterm_then_m3),
+        "m3_then_B_term": repr(m3_then_bterm),
+        "strict_bracket": repr(bracket),
+        "coefficient_of_[b]": coeff,
+        "expected_coefficient": F(2) * alpha,
+        "nonzero_for_alpha_nonzero": (alpha != F(0) and coeff != F(0)),
+        "status": "strict obstruction" if alpha != F(0) else "zero at alpha=0",
+    }
+
 
 def compute_nonformal_m3_b2(alpha: Fraction = F(1)) -> Dict[str, Any]:
     r"""Compute {m_3, B^{(2)}_naive} on 4-element nonformal model.
 
     Reproduces the known result from obs_ainf_local_p2.py:
-      {b_3, B^{(2)}}([a|a|a|a|b]) = 2*alpha*[b] (anticommutator convention)
+      [b_3, B_term^{(2)}]([a|a|a|a|b]) = 2*alpha*[b]
 
-    Also verifies {b_2, B^{(2)}} = 0 (mu_2 = 0 on aug, forced).
+    Also verifies {b_2, B^{(2)}} = 0 in this model (mu_2 = 0 on aug).
     """
     alg = NonFormalModel(alpha=alpha)
     a, b = alg.a, alg.b
@@ -496,6 +588,7 @@ def compute_nonformal_m3_b2(alpha: Fraction = F(1)) -> Dict[str, Any]:
     m3_b2 = anticomm_bk_b2(elem, alg, 3)
     m2_b2 = anticomm_bk_b2(elem, alg, 2)
     total = anticomm_b_b2(elem, alg)
+    strict_witness = strict_m3_bterm2_witness(alpha)
 
     # Detailed trace
     b2_of_elem = apply_b2(elem, alg).simplify()
@@ -505,6 +598,9 @@ def compute_nonformal_m3_b2(alpha: Fraction = F(1)) -> Dict[str, Any]:
 
     return {
         "model": "nonformal 4-element (mu_2=0 on aug, mu_3!=0)",
+        "raw_operator": RAW_OPERATOR,
+        "corrected_operator": CORRECTED_OPERATOR,
+        "corrected_operator_used": False,
         "alpha": alpha,
         "element": repr(elem),
         "trace": {
@@ -513,8 +609,9 @@ def compute_nonformal_m3_b2(alpha: Fraction = F(1)) -> Dict[str, Any]:
             "b3_of_B2": repr(b3_of_b2),
             "B2_of_b3": repr(b2_of_b3),
         },
+        "strict_witness": strict_witness,
         "anticomm_b3_B2": repr(m3_b2),
-        "anticomm_b3_B2_value": "2*alpha*[b]" if alpha == F(1) else repr(m3_b2),
+        "anticomm_b3_B2_value": repr(m3_b2),
         "anticomm_b3_B2_is_zero": m3_b2.is_zero,
         "anticomm_b2_B2": repr(m2_b2),
         "anticomm_b2_B2_is_zero": m2_b2.is_zero,
@@ -671,7 +768,7 @@ def arity_analysis_nonformal(alpha: Fraction = F(1)) -> Dict[str, Any]:
         "conclusion": (
             "{b_2, B^{(2)}} and {b_3, B^{(2)}} land at different output arities. "
             "Cross-arity cancellation {b_2, B^{(2)}} + {b_3, B^{(2)}} = 0 "
-            "is IMPOSSIBLE at the naive level. "
+            "is impossible in this raw witness. "
             "The cancellation in Costello's TCFT operates on the CORRECTED B^{(2)}, "
             "not on pairwise contraction."
         ),
@@ -679,23 +776,21 @@ def arity_analysis_nonformal(alpha: Fraction = F(1)) -> Dict[str, Any]:
 
 
 # =========================================================================
-#  11. INCOMPATIBILITY THEOREM
+#  11. MODEL-LOCAL ZERO-PRODUCT CHECK
 # =========================================================================
 
 def verify_incompatibility_theorem() -> Dict[str, Any]:
-    r"""Verify: single-object CY_3, mu_3 != 0 => mu_2 = 0 on aug.
+    r"""Verify the model-local zero-product consistency check.
 
-    For any single-object cyclic A-inf CY_3 with mu_1 = 0:
-    The n=4 Stasheff identity on (a,a,a,a) with mu_3(a,a,a) = alpha*b:
+    This does not prove a universal theorem about all cyclic CY_3
+    A-infinity algebras.  It verifies that the four-generator witness has
+    mu_2 = 0 on augmentation and that the n=4 relation on (a,a,a,a)
+    remains consistent with mu_3(a,a,a) = alpha*b:
       mu_2(alpha*b, a) + mu_2(a, alpha*b) = 0
-      => alpha * (mu_2(b,a) + mu_2(a,b)) = 0
+      => alpha * (mu_2(b,a) + mu_2(a,b)) = 0.
 
-    Graded commutativity: mu_2(b,a) = (-1)^{|b||a|} mu_2(a,b) = mu_2(a,b)
-    => 2*alpha*mu_2(a,b) = 0 => mu_2(a,b) = 0 (since alpha != 0).
-
-    Also: mu_2(a,a) = 0 by cyclic invariance:
-    <mu_2(a,a), a> = (-1)^{1+1*2} <a, mu_2(a,a)> = -<a, mu_2(a,a)>
-    If mu_2(a,a) = c*b: c = -c => c = 0.
+    In this model both terms are zero.  Cyclicity is recorded as a local
+    consistency check, not as a universal erasure of the strict witness.
     """
     results = []
 
@@ -732,16 +827,18 @@ def verify_incompatibility_theorem() -> Dict[str, Any]:
         })
 
     return {
-        "theorem": "Single-object CY_3: mu_3 != 0 => mu_2 = 0 on aug",
+        "status": "model-local",
+        "theorem": None,
+        "claim_rejected": "single-object CY_3: mu_3 != 0 => mu_2 = 0 on aug",
         "mechanism": (
-            "n=4 Stasheff on (a,a,a,a): mu_2(mu_3(a,a,a),a) + mu_2(a,mu_3(a,a,a)) = 0 "
-            "=> 2*alpha*mu_2(a,b) = 0 => mu_2(a,b) = 0.  "
-            "Cyclic invariance: <mu_2(a,a),a> = -<a,mu_2(a,a)> => mu_2(a,a) = 0."
+            "In the four-generator witness, mu_2 is zero on augmentation; "
+            "the n=4 Stasheff relation on (a,a,a,a) is therefore satisfied "
+            "for all checked alpha values."
         ),
         "consequence": (
-            "At single-object level: mu_3 != 0 forces mu_2 = 0 on aug. "
-            "Therefore {b_2, B^{(2)}} = 0 trivially when {b_3, B^{(2)}} != 0. "
-            "Cross-arity cancellation is impossible: the partner is absent."
+            "In this witness {b_2, B_term^{(2)}} = 0 because mu_2 = 0 on "
+            "augmentation. This does not close the raw m3-B_term^{(2)} "
+            "obstruction and does not prove a universal CY_3 theorem."
         ),
         "parametric_check": results,
         "all_verified": all(r["mu2_zero_on_aug"] and r["stasheff_n4_ok"] for r in results),
@@ -753,7 +850,7 @@ def verify_incompatibility_theorem() -> Dict[str, Any]:
 # =========================================================================
 
 def moduli_space_description() -> Dict[str, str]:
-    r"""The moduli space whose d^2 = 0 gives {b, B^{(2)}_TCFT} = 0.
+    r"""Conditional TCFT closure data for {b, B_TCFT^{(2)}} = 0.
 
     M_{0,n+2}^{node}: moduli of genus-0 bordered surfaces with
     n ordered boundary punctures and one interior node.
@@ -765,21 +862,46 @@ def moduli_space_description() -> Dict[str, str]:
     structure (interaction between the node and the boundary punctures).
     """
     return {
+        "raw_operator": RAW_OPERATOR,
+        "corrected_operator": CORRECTED_OPERATOR,
         "moduli_space": "M_{0,n+2}^{node}: bordered disk, n boundary + 1 node",
         "dimension": "1 (real)",
         "boundary_A": "strip degeneration (b_k) then node creation (B^{(2)}_TCFT)",
         "boundary_B": "node creation (B^{(2)}_TCFT) then strip degeneration (b_k)",
-        "identity": "signed boundary of compact 1-manifold = 0",
+        "identity": (
+            "if the corrected TCFT datum is supplied, signed boundary of "
+            "the compact 1-manifold = 0"
+        ),
         "key_point": (
-            "The TCFT B^{(2)} differs from naive pairwise contraction. "
-            "The naive version satisfies {b, B^{(2)}_naive} = 0 only for "
-            "FORMAL algebras (mu_3 = 0). For non-formal algebras, the "
-            "TCFT corrections are essential."
+            "B_TCFT^{(2)} differs from raw B_term^{(2)}. The raw operator "
+            "has the strict non-formal witness [m_3,B_term^{(2)}] = "
+            "2*alpha*[b]."
         ),
         "algebraic_meaning": (
-            "No purely algebraic proof using only the pairing and "
-            "A-infinity operations exists. The proof is geometric: "
-            "d^2 = 0 in the chain complex of the moduli operad."
+            "This compute file supplies no algebraic closure proof for "
+            "B_term^{(2)}; it records the obstruction and the hypotheses "
+            "needed for a corrected closure statement."
+        ),
+    }
+
+
+def closure_obstruction_status() -> Dict[str, Any]:
+    r"""Return the admissible status of closure claims in this file."""
+    return {
+        "raw_operator": RAW_OPERATOR,
+        "corrected_operator": CORRECTED_OPERATOR,
+        "strict_witness_formula": STRICT_WITNESS_FORMULA,
+        "raw_universal_closure": False,
+        "corrected_closure_status": "conditional",
+        "allowed_closure_hypotheses": list(ALLOWED_CLOSURE_HYPOTHESES),
+        "forbidden_erasure_routes": {
+            route: False for route in FORBIDDEN_ERASURE_ROUTES
+        },
+        "remaining_proof_obligation": (
+            "Construct the corrected TCFT operator B_TCFT^{(2)} with its "
+            "boundary-stratum comparison, or prove the HH^{-2} filtration "
+            "theorem with comparison map, complete/exhaustive/separated/"
+            "strongly convergent filtration, and empty total-degree -2 line."
         ),
     }
 
@@ -789,15 +911,15 @@ def moduli_space_description() -> Dict[str, str]:
 # =========================================================================
 
 def master_chain_level_cancellation(alpha: Fraction = F(1)) -> Dict[str, Any]:
-    r"""Master computation answering all 5 questions.
+    r"""Master computation answering the obstruction questions.
 
-    1. {m_3, B^{(2)}_naive} = 2*alpha*[b] on 4-element nonformal model.
-    2. {m_2, B^{(2)}_naive} = 0 (mu_2 = 0, FORCED by incompatibility).
+    1. [m_3, B_term^{(2)}] = 2*alpha*[b] on 4-element nonformal model.
+    2. {m_2, B^{(2)}_naive} = 0 (model-local mu_2 = 0).
     3. {b, B^{(2)}_naive} = 6*alpha*[b] != 0 (naive B^{(2)} fails).
     4. Formal model: {b, B^{(2)}_naive} = 0 (Frobenius suffices).
     5. Arity analysis: {b_2, B^{(2)}} and {b_3, B^{(2)}} target different arities.
-    6. Incompatibility theorem: mu_3 != 0 => mu_2 = 0 on aug.
-    7. Moduli space: the TCFT B^{(2)} is not the naive pairwise contraction.
+    6. Model-local zero-product consistency check.
+    7. Closure status: raw universal closure is false; corrected closure is conditional.
     """
     nonformal = compute_nonformal_m3_b2(alpha)
     nonformal_exh = exhaustive_nonformal(alpha, arity=5)
@@ -805,6 +927,7 @@ def master_chain_level_cancellation(alpha: Fraction = F(1)) -> Dict[str, Any]:
     arity = arity_analysis_nonformal(alpha)
     incompat = verify_incompatibility_theorem()
     moduli = moduli_space_description()
+    status = closure_obstruction_status()
 
     return {
         "alpha": alpha,
@@ -814,4 +937,5 @@ def master_chain_level_cancellation(alpha: Fraction = F(1)) -> Dict[str, Any]:
         "Q3_arity_analysis": arity,
         "Q4_incompatibility": incompat,
         "Q5_moduli_space": moduli,
+        "Q6_closure_status": status,
     }

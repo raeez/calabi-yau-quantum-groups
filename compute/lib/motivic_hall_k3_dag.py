@@ -162,7 +162,7 @@ References
 Manuscript references:
     Chapter: toroidal_elliptic.tex (ch:toroidal-elliptic)
     Section: sec:k3e-coha-structure (CoHA identification)
-    Section: sec:k3e-bkm-chiral-status (BKM chiral status)
+    Section: sec:k3e-bkm-chiral-obstruction (BKM chiral obstruction)
     Upstream: conj:k3e-two-mc (two MC elements), conj:bkm-bar-dictionary
     Compute cross-refs: k3_elliptic_genus_bkm_bar.py, bkm_chiral_algebra.py,
                         drinfeld_center_k3_heisenberg.py, k3_yangian.py,

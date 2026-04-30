@@ -144,7 +144,7 @@ The load-bearing architectural source is `chapters/examples/k3_chiral_bialgebra_
   `\kappa_{\mathrm{ch}}` at `d=3`, where the compact total-space Hodge
   supertrace vanishes.
 
-- **Theorem H concentration via E_3-rigidity.** `thm:H-concentration-via-E3-rigidity` (Vol II chiral higher Deligne) makes Theorem H concentration a CONSEQUENCE of E_3-rigidity-at-a-point + PBW collapse. Theorem H step-3 circularity RESOLVED via rerouting through `thm:pbw-koszulness-criterion` (Vol I).
+- **Theorem H concentration and the conditional E_3 route.** Theorem H is proved in Vol I by `thm:hochschild-concentration-E1`: ordered bar, chiral PBW, and Shelton-Yuzvinsky Orlik-Solomon Koszulity. Vol II `conj:H-concentration-via-E3-rigidity` (compatibility label `thm:H-concentration-via-E3-rigidity`) is conditional: it requires a chiral-E_3-PBW theorem presenting `Z_ch^der(A|D_x)` as an E_3 envelope of polynomial-growth generators. The mixed chiral-topological input lies on `(Z_ch^der(A), A)` or on the derived centre where stated, not on `A` alone.
 
 - **Drinfeld-centre categorified form. PROVED.** `thm:drinfeld-centre-sc-face` (Vol II `sc_chtop_heptagon.tex:364-447`, ProvedHere): Z(Rep_fact(A)) ≃ Rep_fact(Z^{der}_ch(A))^{E_2} via 4-step proof. Combined with chiral higher Deligne + E_3 identification, the categorified form is PROVED for the entire standard Lie landscape including all CY-relevant chiral algebras (Heisenberg, affine KM, lattice, Virasoro, W_N, βγ). Only Vol III mode-level `conj:v3-drinfeld-center-equals-bulk` remains (see §3).
 

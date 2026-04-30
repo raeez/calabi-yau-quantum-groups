@@ -8,11 +8,14 @@ Verifies:
   (5) Finite presentation for Picard number 1
   (6) Coderived category comparison
   (7) Shadow-Borel connection by shadow class
-  (8) Master convergence analysis for each standard geometry
-  (9) Counterexample search: no divergence found
-  (10) Explicit bounds table: coefficient-by-coefficient verification
-  (11) Cross-checks with hopf_fibration_s3_framing module
-  (12) Landscape survey consistency
+  (8) Corrected AP-CY34 obstruction-scope separation
+  (9) Master convergence analysis for each standard geometry
+  (10) Counterexample search: no divergence found
+  (11) Explicit bounds table: coefficient-by-coefficient verification
+  (12) Convergence radius table
+  (13) Obs_BV analytic status table
+  (14) Landscape survey consistency
+  (15) Cross-checks with hopf_fibration_s3_framing module
 
 Every test uses AT LEAST 3 independent verification paths (AP10).
 
@@ -59,6 +62,9 @@ from compute.lib.cech_htt_convergence import (
     # Shadow-Borel
     ShadowBorelConnection,
     shadow_borel_connection,
+    # Corrected obstruction scope
+    CorrectedObstructionScope,
+    corrected_obstruction_scope,
     # Master analysis
     CechHTTConvergenceResult,
     analyze_convergence,
@@ -74,6 +80,10 @@ from compute.lib.cech_htt_convergence import (
     # Tables
     explicit_bounds_table,
     convergence_radius_table,
+)
+from compute.lib.connes_b_obs_ainf import (
+    strict_cy3_witness,
+    termwise_commutator_verdict,
 )
 
 F = Fraction
@@ -560,16 +570,17 @@ class TestShadowBorelConnection:
         assert sb.ope_borel_summable is True
         assert sb.nearest_borel_singularity == F(2)
 
-    def test_class_m_conjectural(self):
-        """Class M: dense singularities, Borel summability conjectural.
+    def test_class_m_requires_discriminant_datum(self):
+        """Class M: this Cech surface does not carry the kappa sign.
 
         Path 1: S_k nonzero for all k => accumulating singularities.
-        Path 2: Lateral integration may not avoid all singularities.
-        Path 3: ope_borel_summable is False (conjectural).
+        Path 2: class_m_borel_summation supplies the discriminant criterion.
+        Path 3: ope_borel_summable is False until that datum is supplied.
         """
         sb = shadow_borel_connection("M", shadow_s4=F(10, 27))
         assert sb.ope_borel_summable is False
         assert sb.nearest_borel_singularity == F(27, 10)
+        assert "discriminant datum" in sb.summary()
 
     def test_local_p2_borel_singularity(self):
         """Local P^2 nearest Borel singularity at 27/10.
@@ -594,17 +605,121 @@ class TestShadowBorelConnection:
 
 
 # ================================================================
-# SECTION 8: MASTER CONVERGENCE ANALYSIS
+# SECTION 8: CORRECTED OBSTRUCTION SCOPE
+# ================================================================
+
+class TestCorrectedObstructionScope:
+    """Tests for the AP-CY34 analytic/A-infinity/TCFT separation."""
+
+    def test_strict_witness_matches_connes_oracle(self):
+        """Strict raw witness has commutator 2 alpha [b].
+
+        Path 1: Cech scope records the corrected obstruction constants.
+        Path 2: connes_b_obs_ainf.strict_cy3_witness computes them.
+        Path 3: termwise_commutator_verdict rejects universal vanishing.
+        """
+        alpha = F(3, 5)
+        scope = corrected_obstruction_scope(
+            coefficient_converges=True,
+            ope_borel_summable=False,
+        )
+        assert isinstance(scope, CorrectedObstructionScope)
+        formula = scope.strict_witness_formula(alpha)
+        oracle = strict_cy3_witness(alpha)
+
+        assert formula["operator"] == "B_term^(2)"
+        assert formula["not_operator"] == "B_TCFT^(2)"
+        assert formula["input"] == "[a|a|a|a|b]"
+        assert formula["m3_after_b_term"] == oracle.m3_after_b2_coeff
+        assert formula["b_term_after_m3"] == oracle.b2_after_m3_coeff
+        assert formula["commutator"] == oracle.commutator_coeff
+        assert formula["commutator"] == 2 * alpha
+        assert formula["nonzero_for_alpha_nonzero"] is True
+
+        verdict = termwise_commutator_verdict(3, 2)
+        assert verdict["status"] == "false"
+        assert verdict["vanishes"] is False
+
+    def test_cech_convergence_does_not_prove_raw_or_tcft_closure(self):
+        """Quintic convergence is analytic only.
+
+        Path 1: Cech-HTT coefficient convergence holds.
+        Path 2: raw Obs_Ainf is not proved zero.
+        Path 3: no B_term^(2) -> B_TCFT^(2) comparison is supplied here.
+        """
+        result = analyze_quintic()
+
+        assert result.coefficient_convergent() is True
+        assert result.coderived.full_convergence() is True
+        assert result.coderived.supplies_tcft_closure_data() is False
+        assert result.proves_raw_obs_ainf_zero() is False
+        assert result.identifies_b_term_with_b_tcft() is False
+        assert result.compact_s3_framing_closed() is False
+
+        obligations = result.remaining_proof_obligations()
+        assert any("raw Obs_Ainf is not zero" in item for item in obligations)
+        assert any("B_term^(2)" in item and "B_TCFT^(2)" in item
+                   for item in obligations)
+        assert any("HH^{-2}" in item for item in obligations)
+
+    def test_corrected_tcft_or_hh_minus_two_data_needed_for_closure(self):
+        """Compact closure requires extra carrier data.
+
+        Path 1: coefficient + OPE convergence alone does not close.
+        Path 2: corrected TCFT comparison data is sufficient for the scope flag.
+        Path 3: HH^{-2} filtration theorem is the independent route.
+        """
+        analytic_only = corrected_obstruction_scope(
+            coefficient_converges=True,
+            ope_borel_summable=True,
+        )
+        with_tcft = corrected_obstruction_scope(
+            coefficient_converges=True,
+            ope_borel_summable=True,
+            corrected_tcft_comparison_data=True,
+        )
+        with_hh = corrected_obstruction_scope(
+            coefficient_converges=True,
+            ope_borel_summable=True,
+            hh_minus_two_filtration_theorem=True,
+        )
+        with_tcft_but_open_ope = corrected_obstruction_scope(
+            coefficient_converges=True,
+            ope_borel_summable=False,
+            corrected_tcft_comparison_data=True,
+        )
+
+        assert analytic_only.compact_cy3_closure() is False
+        assert with_tcft.compact_cy3_closure() is True
+        assert with_hh.compact_cy3_closure() is True
+        assert with_tcft_but_open_ope.compact_cy3_closure() is False
+
+    def test_dgms_btt_and_finite_cover_are_not_formality_shortcuts(self):
+        """Cohomological and cover statements do not set A-infinity formality.
+
+        Path 1: quintic metadata remains non-formal.
+        Path 2: bicubic metadata remains non-formal.
+        Path 3: docstrings explicitly reject DGMS/BTT as A-infinity formality.
+        """
+        assert quintic_cover().is_formal is False
+        assert bicubic_cover().is_formal is False
+        assert "DGMS" in (quintic_cover.__doc__ or "")
+        assert "BTT" in (quintic_cover.__doc__ or "")
+        assert "NOT A_infinity formality" in (quintic_cover.__doc__ or "")
+
+
+# ================================================================
+# SECTION 9: MASTER CONVERGENCE ANALYSIS
 # ================================================================
 
 class TestMasterAnalysis:
     """Tests for the complete convergence analysis."""
 
     def test_quintic_coefficient_convergent(self):
-        """Quintic: non-formal, coefficient series convergent, OPE conjectural.
+        """Quintic: non-formal, coefficient series convergent.
 
         Path 1: Cech-HTT coefficient series converges (Catalan bound).
-        Path 2: Class M => OPE Borel summability conjectural.
+        Path 2: Class M => OPE Borel summability needs discriminant data.
         Path 3: obs_bv_status reflects the non-formal class M status.
 
         Note: the quintic is NOT A_inf formal (m_3 != 0 from Yukawa).
@@ -618,11 +733,11 @@ class TestMasterAnalysis:
         assert "coefficient_series_converges" in result.obs_bv_status()
 
     def test_bicubic_coefficient_convergent(self):
-        """Bicubic: non-formal, coefficient series convergent, OPE conjectural.
+        """Bicubic: non-formal, coefficient series convergent.
 
         Path 1: Same reasoning as quintic (compact CY3, non-formal).
         Path 2: h^{1,1} = 1, finite cover => Cech-HTT converges.
-        Path 3: Class M => OPE Borel summability conjectural.
+        Path 3: Class M => OPE Borel summability needs discriminant data.
         """
         result = analyze_bicubic()
         assert result.coefficient_convergent() is True
@@ -640,17 +755,17 @@ class TestMasterAnalysis:
         assert result.coefficient_convergent() is True
         assert "toric" in result.obs_bv_status()
 
-    def test_octic_convergent_but_ope_open(self):
-        """Octic double solid: coefficient convergent, OPE conjectural.
+    def test_octic_convergent_but_ope_needs_discriminant(self):
+        """Octic double solid: coefficient convergent, OPE needs discriminant.
 
         Path 1: Non-formal, class M, compact.
         Path 2: Coefficient series converges (Catalan bound).
-        Path 3: OPE Borel summability conjectural (class M).
+        Path 3: OPE Borel summability needs class-M discriminant data.
         """
         result = analyze_octic_double_solid()
         assert result.coefficient_convergent() is True
         assert result.ope_borel_summable() is False
-        assert "conjectural" in result.obs_bv_status()
+        assert "discriminant_data" in result.obs_bv_status()
 
     def test_convergence_radius_positive_all_geometries(self):
         """Convergence radius > 0 for all non-formal geometries.
@@ -675,7 +790,9 @@ class TestMasterAnalysis:
             "geometry", "n_opens", "is_formal", "shadow_class",
             "hd_norm_bound", "convergence_radius", "coefficient_convergent",
             "ope_borel_summable", "obs_bv_status", "coderived_converges",
-            "finite_pres_total_ops",
+            "finite_pres_total_ops", "analytic_diagnostic_only",
+            "proves_raw_obs_ainf_zero", "identifies_b_term_with_b_tcft",
+            "compact_s3_framing_closed", "remaining_proof_obligations",
         }
         for analyze_fn in [analyze_quintic, analyze_bicubic,
                            analyze_local_p2, analyze_octic_double_solid]:
@@ -685,7 +802,7 @@ class TestMasterAnalysis:
 
 
 # ================================================================
-# SECTION 9: COUNTEREXAMPLE SEARCH
+# SECTION 10: COUNTEREXAMPLE SEARCH
 # ================================================================
 
 class TestCounterexampleSearch:
@@ -725,7 +842,7 @@ class TestCounterexampleSearch:
 
 
 # ================================================================
-# SECTION 10: EXPLICIT BOUNDS TABLE
+# SECTION 11: EXPLICIT BOUNDS TABLE
 # ================================================================
 
 class TestExplicitBounds:
@@ -786,7 +903,7 @@ class TestExplicitBounds:
 
 
 # ================================================================
-# SECTION 11: CONVERGENCE RADIUS TABLE
+# SECTION 12: CONVERGENCE RADIUS TABLE
 # ================================================================
 
 class TestConvergenceRadiusTable:
@@ -832,7 +949,7 @@ class TestConvergenceRadiusTable:
 
 
 # ================================================================
-# SECTION 12: OBS_BV UPGRADE TABLE
+# SECTION 13: OBS_BV UPGRADE TABLE
 # ================================================================
 
 class TestObsBVUpgrade:
@@ -849,7 +966,7 @@ class TestObsBVUpgrade:
         assert len(table) == 4
 
     def test_toric_unchanged(self):
-        """Toric class: before and after both proved zero.
+        """Toric class: before and after both analytic zero.
 
         Path 1: Torus equivariance is unconditional.
         Path 2: No change from the convergence analysis.
@@ -858,39 +975,44 @@ class TestObsBVUpgrade:
         table = obs_bv_upgrade_table()
         toric = [r for r in table if "toric" in r["geometry_class"]]
         assert len(toric) == 1
-        assert toric[0]["obs_bv_before"] == "proved zero"
-        assert toric[0]["obs_bv_after"] == "proved zero"
+        assert toric[0]["obs_bv_before"] == "analytic zero"
+        assert toric[0]["obs_bv_after"] == "analytic zero"
 
-    def test_class_glc_upgraded(self):
-        """Class G/L/C: upgraded from OPEN to proved zero.
+    def test_class_glc_analytic_bv_resolved_not_tcft_closure(self):
+        """Class G/L/C: analytic BV resolved, TCFT closure still conditional.
 
         Path 1: Coefficient series converges.
         Path 2: OPE Borel summable for G/L/C.
-        Path 3: obs_bv_after == "proved zero".
+        Path 3: obs_bv_after keeps raw Ainf/TCFT closure conditional.
         """
         table = obs_bv_upgrade_table()
         glc = [r for r in table if "G/L/C" in r["geometry_class"]]
         assert len(glc) == 1
         assert glc[0]["obs_bv_before"] == "OPEN"
-        assert glc[0]["obs_bv_after"] == "proved zero"
+        assert "analytic BV resolved" in glc[0]["obs_bv_after"]
+        assert "closure conditional" in glc[0]["obs_bv_after"]
+        assert "B_term^(2)=B_TCFT^(2)" in glc[0]["mechanism"]
 
     def test_class_m_partially_resolved(self):
-        """Class M: partially resolved (coefficient converges, OPE open).
+        """Class M: coefficient resolved, OPE needs discriminant data.
 
         Path 1: Coefficient convergence is proved.
-        Path 2: OPE Borel summability is conjectural.
-        Path 3: obs_bv_after mentions both.
+        Path 2: OPE Borel summability needs class-M discriminant data.
+        Path 3: compact closure still requires extra carrier data.
         """
         table = obs_bv_upgrade_table()
         m_class = [r for r in table if "class M" in r["geometry_class"]]
         assert len(m_class) == 1
         assert "OPEN" in m_class[0]["obs_bv_before"]
         assert "convergent" in m_class[0]["obs_bv_after"]
-        assert "conjectural" in m_class[0]["obs_bv_after"]
+        assert "discriminant datum" in m_class[0]["obs_bv_after"]
+        assert "closure conditional" in m_class[0]["obs_bv_after"]
+        assert "disc(Q_L)=-256*kappa_ch^3*S_4" in m_class[0]["mechanism"]
+        assert "HH^{-2}" in m_class[0]["mechanism"]
 
 
 # ================================================================
-# SECTION 13: LANDSCAPE SURVEY
+# SECTION 14: LANDSCAPE SURVEY
 # ================================================================
 
 class TestLandscapeSurvey:
@@ -937,7 +1059,7 @@ class TestLandscapeSurvey:
 
 
 # ================================================================
-# SECTION 14: CROSS-CHECKS WITH HOPF FIBRATION MODULE
+# SECTION 15: CROSS-CHECKS WITH HOPF FIBRATION MODULE
 # ================================================================
 
 class TestCrossChecks:
@@ -994,8 +1116,8 @@ class TestCrossChecks:
         """Obs_BV landscape consistent with hopf_fibration module.
 
         Path 1: hopf_fibration: C^3 toric => 0.
-        Path 2: Quintic: coefficient series converges (both modules agree).
-        Path 3: Quintic OPE Borel summability: conjectural (class M, non-formal).
+        Path 2: Quintic: analytic coefficient series converges here.
+        Path 3: Hopf keeps compact closure open pending TCFT/HH^{-2} input.
         """
         from compute.lib.hopf_fibration_s3_framing import (
             identify_obstruction_class,
@@ -1004,9 +1126,11 @@ class TestCrossChecks:
         assert c3_obs.is_zero() is True
 
         quintic_obs = identify_obstruction_class("quintic")
-        assert "proved" in quintic_obs.convergence
+        assert "open" in quintic_obs.convergence
+        assert "TCFT/HH^{-2}" in quintic_obs.convergence
 
-        # Our analysis agrees: coefficient series converges
+        # Our analysis agrees on the analytic slice only.
         q_result = analyze_quintic()
         assert q_result.coefficient_convergent() is True
         assert "coefficient_series_converges" in q_result.obs_bv_status()
+        assert q_result.compact_s3_framing_closed() is False

@@ -2,26 +2,27 @@
 \label{ch:quantum-group-reps}
 
 The two-stage factorisation $\Phi_d = \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d$ of Chapter~\ref{ch:e1-chiral} (Theorem~\ref{thm:phi-two-stage-factorisation}) sends a CY$_d$
-category $\cC$ to a chiral algebra $\Phi_d(\cC)$ on a reference curve~$C$; its braided module
-category is $\cZ(\Rep^{\Eone}(\Phi_d(\cC)))$
-(Chapter~\ref{ch:drinfeld-center}; Remark~\ref{rem:e2-on-drinfeld-centre}: the $\Etwo$-braided structure lives on the Drinfeld centre of the
-$\Eone$-representation category, not on $\Phi_d(\cC)$ itself at $d \geq 3$). Conjecture~CY-C asserts that this
-braided category is $\Rep_q(\frakg)$ for a Lie algebra $\frakg$
-determined by $\cC$. The conjecture is verified through three
-independent comparisons:
+category $\cC$ to a chiral algebra $\Phi_d(\cC)$ on a reference curve~$C$.
+At $d \geq 3$ this output is natively $\Eone$; the $\Etwo$-braided
+structure belongs to the Drinfeld centre
+$\cZ(\Rep^{\Eone}(\Phi_d(\cC)))$
+(Chapter~\ref{ch:drinfeld-center}; Remark~\ref{rem:e2-on-drinfeld-centre}),
+not to $\Phi_d(\cC)$ itself. Conjecture~CY-C asks when this braided
+category is a quantum-group representation category. The constructed
+and conditional tests separate into three loci:
 \begin{enumerate}[label=(\alph*)]
  \item \emph{Kazhdan--Lusztig} at $d = 2$: affine vertex algebra
  $V_k(\frakg)$ versus quantum group $\Uq(\frakg)$ at
  $q = e^{\pi i/(k+h^\vee)}$;
  \item \emph{Yangian RTT} from the ordered collision residue
  $r(z)$ of the Vol~I bar complex;
- \item \emph{BPS / CoHA} at $d = 3$: Donaldson--Thomas invariants
- of a CY$_3$ category assemble into an associative algebra whose
- Drinfeld double is a Yangian.
+ \item \emph{BPS / CoHA} at $d = 3$: toric Donaldson--Thomas
+ invariants assemble into an associative positive half; the full
+ quantum group is reached only after adjoining the negative half,
+ Cartan part, Hopf pairing, completion, and Drinfeld double.
 \end{enumerate}
-The three routes give independent access to the same target and
-their mutual compatibility is the content of CY-C on its verified
-locus.
+Their mutual compatibility is the content of CY-C on the constructed
+locus and a proof obligation elsewhere.
 
 
 \section{\texorpdfstring{$\Rep_q(\frakg)$}{Rep-q(frakg)} as a braided monoidal category}
@@ -47,7 +48,6 @@ $q \in \C^\times$. The category $\Rep_q(\frakg)$ has:
 
 \begin{proposition}[Semisimplicity dichotomy]
 \label{prop:semisimplicity-dichotomy}
-\ClaimStatusProvedElsewhere
 The structure of $\Rep_q(\frakg)$ depends on whether $q$ is generic
 or a root of unity:
 \begin{enumerate}[label=(\roman*)]
@@ -57,7 +57,8 @@ or a root of unity:
  The characters are the same as the classical case:
  $\mathrm{ch}(V_q(\lambda)) = \mathrm{ch}(V(\lambda))$
  (the Weyl character formula is $q$-independent).
- \item \emph{Root of unity $q = e^{\pi i/(k+h^\vee)}$} with
+ \item \emph{Root of unity $q = e^{\pi i/(k+h^\vee)}$} in the
+ simply-laced normalization, with
  $k \in \Z_{>0}$: $\Rep_q(\frakg)$ is non-semisimple; the
  \emph{fusion category} $\cC_q(\frakg)$ is the quotient by
  negligible morphisms, with finitely many simple objects
@@ -65,6 +66,9 @@ or a root of unity:
  level-$k$ alcove $P^+_k = \{\lambda \in P^+ :
  \langle \lambda, \theta^\vee \rangle \leq k\}$.
 \end{enumerate}
+This is the Lusztig--Andersen--Paradowski root-of-unity
+semisimplification theorem, in the convention where the lacing number
+is absorbed into the definition of~$q$.
 \end{proposition}
 
 \begin{example}[\texorpdfstring{$\fsl_2$}{fsl-2} at generic \texorpdfstring{$q$}{q}]
@@ -119,11 +123,11 @@ the collision residue $r(z)$ from the Volume~I bar complex.
 
 \begin{proposition}[\texorpdfstring{$R$}{R}-matrix from bar degree \texorpdfstring{$(1,1)$}{(1,1)}]
 \label{prop:r-matrix-bar}
-\ClaimStatusProvedElsewhere
 For the affine vertex algebra $V_k(\frakg)$ at level $k$ with
 $q = e^{\pi i/(k+h^\vee)}$, the degree-$(1,1)$ component of the
-ordered bar complex $B^{\mathrm{ord}}(V_k(\frakg))$ recovers the
-$R$-matrix of $\Uq(\frakg)$:
+ordered bar complex $B^{\mathrm{ord}}(V_k(\frakg))$ gives the
+classical collision residue whose Etingof--Kazhdan quantization is
+the universal $R$-matrix of $\Uq(\frakg)$:
 \[
  r(z) = \Res^{\mathrm{coll}}_{0,2}(\Theta_{V_k(\frakg)})
  \;\longleftrightarrow\;
@@ -160,27 +164,37 @@ algebras they can differ.
 \section{Kazhdan--Lusztig equivalence}
 \label{sec:kl-equivalence}
 
-The Kazhdan--Lusztig equivalence is the prototype for the CY
-programme's quantum group reconstruction.
+The Kazhdan--Lusztig--Finkelberg equivalence is the positive-level
+root-of-unity prototype for CY-C.
 
-\begin{theorem}[Kazhdan--Lusztig]
+\begin{theorem}[Kazhdan--Lusztig--Finkelberg]
 \label{thm:kl-equivalence}
-\ClaimStatusProvedElsewhere
 For a simple Lie algebra $\frakg$ and a positive integer $k$, with
-$q = e^{\pi i/(k+h^\vee)}$, there is an equivalence of braided
-monoidal categories
+$q = e^{\pi i/(k+h^\vee)}$ in the simply-laced normalization, there
+is an equivalence of modular tensor categories
 \[
- \cC_q(\frakg) \;\simeq\; \mathrm{KL}_k(\frakg)
+ \mathcal{MTC}_q(\frakg) \;\simeq\; \mathcal{O}^{\mathrm{int}}_k(\hat{\frakg})
 \]
-where $\cC_q(\frakg)$ is the fusion category of $\Uq(\frakg)$
-at root of unity, and $\mathrm{KL}_k(\frakg)$ is the
-Kazhdan--Lusztig category of $\hat{\frakg}$-modules at level $k$
-(modules on which the Sugawara Casimir acts semisimply).
+where $\mathcal{MTC}_q(\frakg)$ is the semisimplified tilting-module
+category of $\Uq(\frakg)$ at a root of unity, and
+$\mathcal{O}^{\mathrm{int}}_k(\hat{\frakg})$ is the integrable
+highest-weight category of affine Kac--Moody modules at level~$k$
+with KZ braiding. In non-simply-laced type the lacing number enters
+the denominator of~$q$.
 \end{theorem}
+
+\begin{proof}[Attribution]
+Kazhdan--Lusztig, \emph{J.\ Amer.\ Math.\ Soc.}~1993--1994, construct
+the tensor equivalence for affine Lie algebra categories. Finkelberg,
+\emph{GAFA}~1996, proves the positive-level fusion equivalence with the
+semisimplified root-of-unity quantum group category. Andersen--Paradowski
+give the tilting-module semisimplification used for
+$\mathcal{MTC}_q(\frakg)$.
+\end{proof}
 
 \begin{remark}[Bar-complex interpretation]
 \label{rem:kl-bar-complex}
-From the bar-complex perspective, the KL equivalence states that
+From the bar-complex perspective, the equivalence states that
 the $\Eone$-representation category of the affine vertex algebra
 $V_k(\frakg)$ recovers the quantum group representation category.
 The Volume~I bar complex $B(V_k(\frakg))$ encodes the quantum group
@@ -192,18 +206,17 @@ equivalence.
 
 \begin{proposition}[KL and the DK bridge]
 \label{prop:kl-dk-bridge}
-\ClaimStatusProvedElsewhere
-The Kazhdan--Lusztig equivalence factors through the Drinfeld--Kohno
+The Kazhdan--Lusztig--Finkelberg equivalence factors through the Drinfeld--Kohno
 bridge (Volume~II):
 \[
 \begin{tikzcd}[column sep=large]
- \mathrm{KL}_k(\frakg) \ar[r, "\sim", "\text{KL}"'] &
- \cC_q(\frakg) \\
- \Rep^{E_1}(V_k(\frakg)) \ar[u, hook] \ar[r, "\text{DK}"] &
+ \mathcal{O}^{\mathrm{int}}_k(\hat{\frakg}) \ar[r, "\sim", "\text{KLF}"'] &
+ \mathcal{MTC}_q(\frakg) \\
+ \Rep^{\Eone}(V_k(\frakg)) \ar[u, hook] \ar[r, "\text{DK}"] &
  \Rep_q(\frakg) \ar[u, two heads]
 \end{tikzcd}
 \]
-The vertical arrows are: inclusion of KL modules into all
+The vertical arrows are: inclusion of integrable affine modules into all
 $V_k(\frakg)$-modules (left), and quotient by negligible morphisms
 (right). The DK bridge (MC3) provides the horizontal equivalence
 at the level of compact objects.
@@ -215,14 +228,13 @@ at the level of compact objects.
 
 \begin{conjecture}[Quantum group realization: Conjecture CY-C]
 \label{conj:qg-realization}
-\ClaimStatusConjectured
 For a simple Lie algebra $\frakg$ and $q = e^{\pi i/(k+h^\vee)}$
 with $k$ a positive integer, there exists a CY$_2$ category
 $\cC(\frakg, q)$ such that:
 \begin{enumerate}[label=(\roman*)]
  \item $\Phi(\cC(\frakg, q))$ is an $\Etwo$-chiral algebra whose
  underlying vertex algebra is $V_k(\frakg)$;
- \item $\Rep^{E_2}(\Phi(\cC(\frakg, q))) \simeq \Rep_q(\frakg)$
+ \item $\Rep^{\Etwo}(\Phi(\cC(\frakg, q))) \simeq \Rep_q(\frakg)$
  as braided monoidal categories;
  \item $\kappa_{\mathrm{ch}}(\Phi(\cC(\frakg, q)))
  = \dim(\frakg) \cdot (k + h^\vee)/(2h^\vee)$, recovering the
@@ -231,8 +243,8 @@ $\cC(\frakg, q)$ such that:
 \end{enumerate}
 \end{conjecture}
 
-\begin{remark}[Status of Conjecture CY-C]
-\label{rem:cy-c-status}
+\begin{remark}[Proof inputs for Conjecture CY-C]
+\label{rem:cy-c-proof-inputs}
 Item (i) is constructed for $\frakg = \fsl_N$ via the Bridgeland
 stability conditions on the CY$_2$ resolution of the $A_{N-1}$
 surface singularity. Item (ii) at the $\Eone$ level is the content
@@ -259,18 +271,17 @@ is the generating matrix and $R_{12}(u)$ is the Yang $R$-matrix.
 
 \begin{proposition}[Yangian from collision residue]
 \label{prop:yangian-collision}
-\ClaimStatusProvedElsewhere
-The Yangian $Y(\frakg)$ is recovered from the degree-$(1,1)$ collision
-residue of the ordered bar complex:
+On the evaluation-generated core, the degree-$(1,1)$ collision residue
+of the ordered bar complex determines the RTT presentation of the
+Yangian:
 \[
- Y(\frakg) = \langle r^{\mathrm{coll}}(z) \rangle_{\mathrm{RTT}}
+ Y(\frakg) = \langle r^{\mathrm{coll}}(z) \rangle_{\mathrm{RTT}},
 \]
-where the RTT relation is the degree-$(1,1,1)$ bar differential.
-This is the evaluation-generated-core content of Volume~II, MC3: the ordered bar complex
-$B^{\mathrm{ord}}(V_k(\frakg))$ produces the Yangian as the
-universal algebra generated by the modes of
-$r(z) = \frac{k\,\Omega}{z}$
-.
+where the RTT relation is the degree-$(1,1,1)$ bar differential after
+Etingof--Kazhdan quantization. This is the evaluation-generated-core
+content of Volume~II, MC3: the ordered bar complex
+$B^{\mathrm{ord}}(V_k(\frakg))$ produces the Yangian presentation from
+the modes of $r(z)=k\,\Omega/z$.
 \end{proposition}
 
 \begin{remark}[Three distinct operations]
@@ -325,20 +336,35 @@ multiplication is the Hall product (from short exact sequences).
 
 \begin{proposition}[CoHA as quantum group]
 \label{prop:coha-quantum-group}
-\ClaimStatusProvedElsewhere
 For the tripled Jordan quiver (one vertex, three loops $X,Y,Z$) with
 potential $W = \mathrm{tr}(XYZ-XZY)$ and CY$_3$ geometry $\C^3$:
 \begin{enumerate}[label=(\roman*)]
- \item The CoHA is isomorphic to the positive half of the affine
+ \item The CoHA is isomorphic, as an associative Hall algebra, to the positive half of the affine
  Yangian $Y(\widehat{\fgl}_1)^+$ (Schiffmann--Vasserot,
  Maulik--Okounkov);
- \item The full affine Yangian $Y(\widehat{\fgl}_1)$ is recovered
- from the Drinfeld double of the CoHA;
+ \item The full affine Yangian $Y(\widehat{\fgl}_1)$ is recovered only
+ after adjoining the negative half, Cartan part, Hopf pairing, and
+ completed Drinfeld double of the CoHA;
  \item The quantum toroidal algebra
  $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ arises from the
  $K$-theoretic refinement (replacing cohomology by $K$-theory).
 \end{enumerate}
+The CoHA itself is not a vertex algebra and not the full affine
+Yangian. The $\cW_{1+\infty}$ vertex algebra appears only after the
+Drinfeld-double/centre passage and an evaluation representation on a
+vacuum module.
 \end{proposition}
+
+\begin{proof}[Attribution]
+Schiffmann--Vasserot, \emph{Publ.\ IHES}~118 (2013), Theorem~9.1,
+identifies the cohomological Hall algebra of the Hilbert scheme model
+with the positive half of the affine Yangian of $\widehat{\fgl}_1$ in
+the normalisation used for $\C^3$ DT theory. Kapranov--Vasserot,
+\emph{Compos.\ Math.}~154 (2018), Theorem~5.1, gives the $K$-theoretic
+upgrade. The passage from a positive half to a full quasitriangular
+Hopf algebra is the Drinfeld-double construction and requires the
+negative half, Cartan part, pairing, and completion.
+\end{proof}
 
 \begin{remark}[Slab as bimodule]
 \label{rem:bps-slab}
@@ -347,8 +373,9 @@ arises from the 3d holomorphic-topological theory on the slab
 $X \times [0,1]$. The slab has \emph{two} boundary components
 ($X \times \{0\}$ and $X \times \{1\}$), making the algebra of
 operators on the slab a bimodule for the two boundary algebras.
-The Drinfeld double is the endomorphism algebra of the identity
-bimodule. This bimodule structure is essential: a Swiss-cheese
+When the Hall pairing and completion exist, the Drinfeld double is the
+endomorphism algebra of the identity bimodule. This bimodule structure
+is essential: a Swiss-cheese
 disk has one closed and one open boundary component; the slab has
 two open boundary components.
 \end{remark}
@@ -357,11 +384,12 @@ two open boundary components.
 \label{ex:resolved-conifold}
 For the resolved conifold $\cO(-1) \oplus \cO(-1) \to \bP^1$, the
 CY$_3$ category is $D^b(\Coh(\cO(-1)^{\oplus 2}))$ and the BPS
-algebra is the affine Yangian $Y(\widehat{\fsl}_2)$. The
+algebra is the positive Hall half whose completed Drinfeld double is
+the affine Yangian $Y(\widehat{\fsl}_2)$ on the toric chamber. The
 chiral modular characteristic is
 $\kappa_{\mathrm{ch}} = 1$
-(matching $\chi(\cO_{\bP^1}) = 1$ for the base; see
-Proposition~\ref{prop:chi-kappa-discrepancy}). The wall-crossing
+(direct McKay computation; the conifold is not a local surface; see
+Corollary~\ref{cor:conifold-non-local-surface}). The wall-crossing
 formula of Kontsevich--Soibelman governs the dependence of the
 BPS spectrum on the stability condition.
 \end{example}
@@ -389,7 +417,6 @@ class $\gamma$ may exist or not.
 
 \begin{theorem}[Kontsevich--Soibelman wall-crossing formula]
 \label{thm:ks-wall-crossing}
-\ClaimStatusProvedElsewhere
 For a CY$_3$ category $\cC$ with stability condition $\sigma$,
 define the \emph{BPS automorphism} for each class
 $\gamma \in K_0(\cC)$:
@@ -428,7 +455,6 @@ the naive BCH level: the full motivic Hall algebra is required.
 
 \begin{conjecture}[Wall-crossing and the bar complex]
 \label{conj:wc-bar}
-\ClaimStatusConjectured
 The wall-crossing formula has a bar-complex interpretation:
 crossing a wall $W_{\gamma_1, \gamma_2}$ in $\Stab(\cC)$ induces
 a mutation of the ordered bar complex
@@ -448,7 +474,7 @@ Concretely:
 \end{conjecture}
 
 
-\section{The modular characteristic \texorpdfstring{$\kappa_{\mathrm{cat}}$}{kappa-cat}}
+\section{The chiral modular characteristic \texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch}}
 \label{sec:kappa-cat}
 
 The modular characteristic of the quantum group representation
@@ -457,8 +483,8 @@ Volume~I.
 
 \begin{proposition}[\texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch} on the chiral-algebra side of a quantum-group correspondence]
 \label{prop:kappa-cat-quantum-groups}
-\ClaimStatusConjectured
-For the affine vertex algebra $V_k(\frakg)$ at level $k$ with
+Assume Conjecture~\ref{conj:qg-realization}. For the affine vertex
+algebra $V_k(\frakg)$ at level $k$ with
 $q = e^{\pi i/(k + h^\vee)}$, the chiral modular characteristic of
 $V_k(\frakg)$ (the chiral-algebra image under $\Phi_2$ of the CY$_2$
 category $\cC(\frakg, q)$; Conjecture~\ref{conj:qg-realization}) is:
@@ -513,8 +539,11 @@ $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E)
 $\kappa_{\mathrm{ch}}(\Phi(K3 \times E))=0$; the additive number
 $2+1=3$ is the separate Mukai--Heisenberg specialisation
 $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)$. The BKM weight is
-$\kappa_{\mathrm{BKM}}(K3 \times E) = c_N(0)/2|_{N=1} = 5$ from the
-Igusa cusp form $\Phi_{10}$ by the universal Borcherds weight formula.
+$\kappa_{\mathrm{BKM}}(K3 \times E) = \left.c_N(0)/2\right|_{N=1} = 5$
+from the Gritsenko denominator $\Delta_5$ by the universal Borcherds
+weight formula (Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal});
+the primitive Igusa square is
+$\Phi_{10}^{\mathrm{un}}=\Delta_5^2$ of weight~$10$, not the BKM weight.
 The identification $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ holds for
 CY$_2$ with $h^{1,0} = 0$ (where Serre duality kills the quantum
 correction) but fails at odd $d$ by Serre parity
@@ -524,7 +553,6 @@ invariants are controlled by four different functorialities.
 
 \begin{proposition}[Chiral scalar complementarity under Feigin--Frenkel involution]
 \label{prop:kappa-cat-complementarity}
-\ClaimStatusProvedElsewhere
 Under Feigin--Frenkel Koszul duality
 $V_k(\frakg) \mapsto V_{k'}(\frakg)$ with $k' = -k - 2h^\vee$, the
 chiral modular characteristics of the two chiral-algebra sides satisfy
@@ -563,7 +591,6 @@ quantum group lens.
 
 \begin{proposition}[Shadow depth from \texorpdfstring{$R$}{R}-matrix pole structure]
 \label{prop:shadow-depth-r-matrix}
-\ClaimStatusProvedElsewhere
 For $V_k(\frakg)$ with $R$-matrix
 $R(z) = 1 + r(z) + O(r^2)$ where $r(z) = \frac{k\,\Omega}{z}$:
 \begin{enumerate}[label=(\roman*)]
@@ -572,7 +599,7 @@ $R(z) = 1 + r(z) + O(r^2)$ where $r(z) = \frac{k\,\Omega}{z}$:
  nonzero (from the Lie bracket), and the quartic resonance class
  $Q$ vanishes by semisimplicity of $\frakg$;
  \item The averaging map (Volume~I) sends
- $r(z) = \frac{k\,\Omega}{z} \mapsto \kappa_{\mathrm{cat}}$: the full
+ $r(z) = \frac{k\,\Omega}{z} \mapsto \kappa_{\mathrm{ch}}(V_k(\frakg))$: the full
  $z$-dependent profile is killed by $\Sigma_2$-coinvariance,
  leaving only the scalar modular characteristic;
  \item The KZ associator $\Phi_{\mathrm{KZ}}$ (the degree-$3$
@@ -647,7 +674,7 @@ $(A, S(z), \Delta^{\mathrm{ch}}, \{m_k\})$ consisting of:
 The four axioms are: Koszul self-recovery
 $\Phi(\Phi(A)) \simeq A$ on the Koszul locus; Verdier by
 $R$-inversion; existence of a braided-module category
-$\Rep^{E_1}(A)$; and convergence of the modular MC tower at all
+ $\Rep^{\Eone}(A)$; and convergence of the modular MC tower at all
 genera.
 \end{definition}
 
@@ -756,19 +783,19 @@ fibration.
 \end{remark}
 
 
-\section{Mukai-Heisenberg as KL realization at \texorpdfstring{$d = 2$}{d = 2}}
+\section{Mukai-Heisenberg lattice sector at \texorpdfstring{$d = 2$}{d = 2}}
 \label{sec:mukai-heisenberg-kl}
 
 For K3 surfaces, the cross-volume identification
 $\Phi(D^b(\Coh(K3))) = $ $\Etwo$-Mukai-Heisenberg provides a
-quantum-group-side test of the KL equivalence: the rank-$24$
-Mukai lattice $\Lambda_{K3} = II_{4,20}$ plays the role of the
-level data, and the $R$-matrix at degree $(1,1)$ is the Mukai
-pairing.
+quantum-group-side lattice test: the rank-$24$ Mukai lattice
+$\Lambda_{K3} = II_{4,20}$ supplies the charge lattice, and the
+$R$-matrix at degree $(1,1)$ is the Mukai pairing. This is a
+Heisenberg/lattice sector. It is not the $K3\times E$ BKM object and
+not the Mukai self-mirror K3 Yangian branch.
 
-\begin{proposition}[KL for K3 at the lattice \texorpdfstring{$\Lambda_{K3}$}{Lambda-K3}]
+\begin{proposition}[Mukai-Heisenberg sector for the lattice \texorpdfstring{$\Lambda_{K3}$}{Lambda-K3}]
 \label{prop:kl-k3-lattice}
-\ClaimStatusProvedHere
 Let $S$ be a K3 surface with Mukai lattice
 $\Lambda_{K3} = U^3 \oplus E_8(-1)^2 \simeq II_{4,20}$.
 Then:
@@ -777,31 +804,28 @@ Then:
  $\Phi_2(D^b(\Coh(S))) = \mathrm{MH}_2(\Lambda_{K3})$
  is the $\Etwo$-Mukai-Heisenberg algebra of
  Definition~\ref{def:e2-mukai-heisenberg};
- \item The braided category
- $\Rep^{E_2}(\mathrm{MH}_2(\Lambda_{K3}))$ is the modular
- tensor category $\mathrm{MTC}(\Lambda_{K3})$ associated to
- the lattice $\Lambda_{K3}$ via the lattice-VOA
- representation theory;
- \item The KL equivalence at lattice $\Lambda_{K3}$ identifies
- $\mathrm{MTC}(\Lambda_{K3})$ with the discriminant-form
- fusion category $\Rep_q(\Lambda_{K3})$ at the lattice
- quantum-group root of unity
- $q_{\Lambda} = e^{\pi i/\det(\Lambda_{K3})}$.
+ \item Its representation category is the Heisenberg Fock category
+ graded by $\Lambda_{K3}$ and braided by the Mukai pairing;
+ \item Since $\Lambda_{K3}$ is even unimodular,
+ $\Lambda_{K3}^{\vee}/\Lambda_{K3}=0$. Any finite discriminant-form
+ quotient is therefore the trivial pointed category. The usual
+ positive-definite rational lattice-VOA modular-tensor-category theorem
+ does not apply directly to the indefinite lattice $II_{4,20}$.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
 Item~(i) is Vol~III property (U4) of $\Phi$ at $d = 2$
 combined with the Hochschild bridge for B-side input
-$D^b(\Coh(K3))$. Item~(ii) is the standard lattice-VOA module
-theory: the modules of an even unimodular lattice VOA are
-parametrised by the discriminant form
-$\Lambda^*/\Lambda = 0$ (since $II_{4,20}$ is unimodular),
-giving a single fusion class with $\Etwo$ braiding determined
-by the Mukai pairing. Item~(iii) is the
-discriminant-form-fusion / lattice-quantum-group equivalence
-of Hauschild--Lepowsky--Milas at unimodular lattices
-(reduces to the trivial discriminant form here).
+$D^b(\Coh(K3))$. The Heisenberg Fock modules are labelled by charges
+in the Mukai lattice, and their braiding is the exponential of the
+Mukai pairing. Unimodularity gives
+$\Lambda_{K3}^{\vee}/\Lambda_{K3}=0$, so the discriminant-form quotient
+has one simple object. The finite rational lattice-VOA theorem requires
+a positive-definite even lattice; here it supplies only the trivial
+discriminant check after passing to the quotient, while the full
+Heisenberg sector remains a Fock category over the indefinite charge
+lattice.
 \end{proof}
 
 \begin{remark}[Cross-side comparison: A-side via HMS]
@@ -810,51 +834,47 @@ The A-side identification
 $\Phi_2(\Fuk(K3)) = \mathrm{MH}_2(\Lambda_{K3})$
 is Theorem~\ref{thm:fukaya-k3-mukai-heisenberg} of the
 preceding Fukaya chapter. Combined with HMS at K3 (Seidel--Smith,
-Sheridan; partial), the two sides give the same chiral algebra,
-providing the Vol~III flagship cross-volume verification of
-property (U4): both Fukaya and derived-coherent inputs to $\Phi_2$
+Sheridan; partial), the two sides give the same chiral algebra on the
+constructed locus: both Fukaya and derived-coherent inputs to $\Phi_2$
 at $d = 2$ produce the $\Etwo$-Mukai-Heisenberg algebra.
 \end{remark}
 
 
-\section{CY-C: proved cases and conjectural scope}
-\label{sec:cy-c-honest-status}
+\section{CY-C on constructed loci}
+\label{sec:cy-c-constructed-loci}
 
 The quantum-group reconstruction conjecture CY-C asserts that for
 a CY$_d$ category $\cC$ with sufficient symmetry, there exists a
-generalised quantum group $G(\cC)$ such that
-$\Rep^{E_n}(\Phi(\cC)) \simeq \Rep_q(G(\cC))$ as
-$\Etwo$-braided monoidal categories
-($n = 2$ for $d = 2$, $n = 1$ for $d \geq 3$ with Drinfeld
-center to recover $\Etwo$). CY-C is \textsc{conjectural} in general;
-the cases below delimit the proved boundary.
+generalised quantum group $G(\cC)$. At $d = 2$ the predicted braided
+category is $\Rep^{\Etwo}(\Phi_2(\cC))$; at $d \geq 3$ it is
+$\cZ(\Rep^{\Eone}(\Phi_d(\cC)))$, the Drinfeld centre of the native
+$\Eone$ representation category. CY-C is \textsc{conjectural} in
+general; the cases below delimit the constructed boundary.
 
-\begin{conjecture}[CY-C: proved cases and conjectural scope]
-\label{conj:cy-c-honest-status}
-\ClaimStatusConjectured
-The current scope of CY-C is:
+\begin{conjecture}[CY-C on constructed and unconstructed loci]
+\label{conj:cy-c-constructed-loci}
+The CY-C claims split as follows:
 \begin{enumerate}[label=(\roman*)]
  \item For $d = 2$ with $\cC = D^b(\Coh(K3))$ or $\cC = \Fuk(K3)$:
- $G(\cC)$ is constructed as the Mukai-lattice quantum group
- $\Rep_{q_\Lambda}(\Lambda_{K3})$
- (Proposition~\ref{prop:kl-k3-lattice}), and CY-C is
- \emph{verified} for this case;
+ the constructed target is the Mukai-Heisenberg lattice sector
+ (Proposition~\ref{prop:kl-k3-lattice}); CY-C is verified only at this
+ Heisenberg/lattice level;
  \item For $d = 2$ with $\cC = D^b(\Coh(\text{abelian surface}))$:
- $G(\cC)$ is constructed as the trivial group (since
- $\kappa_{\mathrm{cat}} = 0$ from $\chi(\cO_A) = 0$), and
- $\Rep^{E_2}(\Phi(\cC))$ is the trivial braided category;
- CY-C is \emph{verified} (degenerately) for this case;
+ $\kappa_{\mathrm{cat}}(A)=\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(A)=0$
+ and $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(A)=2$. The vanishing of
+ $\kappa_{\mathrm{cat}}$ does not construct a trivial quantum group;
+ no nontrivial CY-C target is asserted here;
  \item For $d = 2$ with general CY$_2$ $\cC$ admitting an
  $\fsl_N$-symmetry: $G(\cC)$ is conjectured to be
  $U_q(\fsl_N)$ at root of unity, but the construction is
  incomplete beyond the Bridgeland-stability case for
  $A_{N-1}$-singularities (Conjecture~\ref{conj:qg-realization});
  \item For $d = 3$ with $\cC = \Coh(\C^3)$ or
- $\cC = \Coh(\text{conifold})$: $G(\cC)$ is the affine Yangian
- $Y(\widehat{\fgl}_1)$ resp.~$Y(\widehat{\fsl}_2)$ via the
- Schiffmann--Vasserot CoHA construction
- (Proposition~\ref{prop:coha-quantum-group}), so CY-C is
- \emph{verified} for these toric cases;
+ $\cC = \Coh(\text{conifold})$: the constructed Hall algebra is the
+ positive half $Y^+$ of the relevant affine Yangian
+ (Proposition~\ref{prop:coha-quantum-group}); the full Yangian and its
+ braided representation category require the completed Drinfeld double,
+ including negative half, Cartan, Hopf pairing, and centre compatibility;
  \item For $d = 3$ with general compact CY$_3$ $\cC$:
  $G(\cC)$ is \emph{unconstructed}; CY-C remains
  \textsc{conjectural};
@@ -864,8 +884,9 @@ The current scope of CY-C is:
  (Vol~III \texttt{super\_riccati\_shadow\_tower\_platonic.tex},
  Definition~\texttt{def:chiral-super-yangian-mn});
  \item For $d \geq 4$: $G(\cC)$ is \emph{undefined} in general,
- since $\Rep^{E_2}(\Phi(\cC))$ requires the Drinfeld center
- of an $\Eone$-chiral algebra and the resulting braided
+ since any $\Etwo$-braided comparison must pass through
+ $\cZ(\Rep^{\Eone}(\Phi(\cC)))$, the Drinfeld centre
+ of the $\Eone$-representation category, and the resulting braided
  category may not be of quantum-group type.
 \end{enumerate}
 \end{conjecture}
@@ -891,21 +912,25 @@ belongs to the relative Heisenberg/free-field route. The
 manifold invariant $\kappa_{\mathrm{cat}} = \chi(\cO_{K3 \times E})
 = 2 \cdot 0 = 0$ (K\"unneth with $\chi(\cO_E) = 0$) is likewise
 route-independent. The genuinely route-distinguishing invariant is the
-generator-rank $\rho^{R_i}$.
+generator-rank $\rho^{R_i}$. The BKM-side object is the
+Hall--Drinfeld double of the $K3\times E$ CoHA after the positive half,
+negative half, Cartan, Hopf pairing, and completion are constructed; it
+is not the Mukai self-mirror K3 Yangian branch.
 \end{remark}
 
-\begin{remark}[Why CY-C is hard]
+\begin{remark}[Generators and relations obstruction]
 \label{rem:why-cy-c-hard}
 The structural difficulty of CY-C is that constructing $G(\cC)$
 from $\cC$ requires a generators-and-relations presentation
-of the braided category $\Rep^{E_n}(\Phi(\cC))$, but $\Phi(\cC)$
+of the braided category attached to $\Phi(\cC)$: $\Rep^{\Etwo}(\Phi_2(\cC))$
+at $d=2$ and $\cZ(\Rep^{\Eone}(\Phi_d(\cC)))$ at $d\geq3$. But $\Phi(\cC)$
 is constructed via factorisation envelopes that are inherently
 \emph{not} presented by generators and relations. The known
 verified cases (K3 lattice, toric CY$_3$) all have
 generators-and-relations presentations of $\Phi(\cC)$ available
 through other means (lattice-VOA structure, Hall algebra
 structure). The general CY$_3$ case lacks such presentations.
-The pentagon discovery shows that even when generators and
+For $K3 \times E$, even when generators and
 relations exist (for K3 $\times$ E), the natural invariant
 distinguishing routes is the generator-lattice rank, not the
 modular characteristic.
@@ -923,7 +948,6 @@ type-dependent distinctions in that setting.
 
 \begin{proposition}[MC3 five-family mechanism: types A--D and exceptional]
 \label{prop:mc3-five-family-types}
-\ClaimStatusProvedElsewhere
 The Vol~II MC3 theorem on the evaluation-generated core is
 extended from the type-A Baxter
 constraint to a universal five-family mechanism covering all
@@ -952,9 +976,8 @@ simple types. The five families are:
  generated by parity-balanced modules
  (super-trace-zero condition).
 \end{enumerate}
-The Baxter constraint $b = a - 1/2$ that previously appeared in
-the type-A statement is now understood as a type-A artifact of
-the asymptotic-prefundamental presentation; it does not generalise
+The Baxter constraint $b = a - 1/2$ is specific to
+the asymptotic-prefundamental type-A presentation; it does not generalise
 to types B/C/D, where the reflection-equation Shapovalov gives
 an alternative generator set.
 \end{proposition}
@@ -988,8 +1011,8 @@ has type-dependent structure:
 \end{enumerate}
 \end{remark}
 
-\begin{remark}[Super-Yangian status]
-\label{rem:super-yangian-status}
+\begin{remark}[Super-Yangian scope]
+\label{rem:super-yangian-scope}
 The super-Yangian $Y(\frakg(m|n))^{\mathrm{ch}}$ is
 \textsc{conjectural} at the chiral level:
 \begin{enumerate}[label=(\alph*)]
@@ -1015,17 +1038,16 @@ The super-Yangian $Y(\frakg(m|n))^{\mathrm{ch}}$ is
 \section{Magnificent Four at \texorpdfstring{$d = 4$}{d=4}: chain-level identification of \texorpdfstring{$\PhiFA_4(\Perf(\C^4))$}{Phi-FA-4(Perf(C4))} with \texorpdfstring{$Z^{M4}$}{Z-M4}}
 \label{sec:magnificent-four-d4}
 
-Conjecture~\ref{conj:cy-c-honest-status}~(vii) leaves the quantum-group
-target at $d \geq 4$ unconstructed; in general
-$\Rep^{\Etwo}(\PhiFA_d(\cC))$ for $d \geq 4$ need not be of quantum-group
-type. The flat affine slice $\cC = \Perf(\C^4)$ admits nonetheless a
+Conjecture~\ref{conj:cy-c-constructed-loci}~(vii) leaves the quantum-group
+target at $d \geq 4$ unconstructed; in general the Drinfeld-centre
+category of a Stage-2 $\Eone$ specialisation need not be of
+quantum-group type. The flat affine slice $\cC = \Perf(\C^4)$ admits a
 sharp chain-level statement about $\PhiFA_4(\cC)$ itself: the
 $\Ezero$-algebra structure is canonically determined and its pointing
 is Nekrasov's Magnificent Four partition function.
 
 \begin{theorem}[\texorpdfstring{$\Ezero$}{E-0}-algebra structure on \texorpdfstring{$\PhiFA_4(\Perf(\C^4))$}{Phi-FA-4(Perf(C4))}]
 \label{thm:mag-four-E0-structure-qgr}
-\ClaimStatusProvedHere
 The infinity-category $\Perf(\C^4)$ of perfect complexes on affine
 Calabi--Yau $4$-space carries the canonical CY$_4$ structure given by
 the holomorphic volume form
@@ -1047,7 +1069,7 @@ $E_4$-algebra structure on $\R^8$ to the $\Ezero$-pointing via the
 PTVV $0$-shifted datum at $d = 4$.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
+\begin{proof}
 Hochschild--Kostant--Rosenberg on smooth affine CY$_4$ identifies
 $\HH^\bullet(\Perf(\C^4)) \simeq \mathrm{PV}^\bullet(\C^4)$ with
 Schouten--Nijenhuis bracket of degree~$0$. KT $E_4$-formality gives a
@@ -1095,7 +1117,6 @@ Nekrasov--Piazzalunga sign rule (\texttt{arXiv:1808.05206} Thm.~1,
 
 \begin{theorem}[Generating-function match]
 \label{thm:mag-four-partition-match-qgr}
-\ClaimStatusProvedHere
 Under the identification of
 Theorem~\ref{thm:mag-four-E0-structure-qgr}, the $\Ezero$-pointing
 $e$ has equivariant $T_{\mathrm{CY}}$-$K$-theoretic generating function
@@ -1110,7 +1131,7 @@ for $|q| < 1$ and generic equivariant parameters is Nekrasov--Piazzalunga
 Prop.~4.2 (\S 4 of \texttt{arXiv:1808.05206}).
 \end{theorem}
 
-\begin{proof}[Proof sketch]
+\begin{proof}
 The Ran-space factorisation structure of Stage-1
 (Costello--Gwilliam Vol.~II \S 4.10) sends the $n$-fold tensor power
 $e^{\otimes n}$ to the equivariant $K$-theory class of
@@ -1146,7 +1167,6 @@ of size~$n$ (OEIS A000293; Atkin--Bratley--MacDonald--McKay 1967).
 
 \begin{proposition}[CY-D at \texorpdfstring{$d = 4$}{d=4} on compact CY$_4$]
 \label{prop:cy-d-d4-compact-qgr}
-\ClaimStatusProvedHere
 For a compact simply-connected Calabi--Yau $4$-fold $X$ with
 Hodge pattern $h^{0,0}(X) = h^{0,4}(X) = 1$ and
 $h^{0,1}(X) = h^{0,2}(X) = h^{0,3}(X) = 0$,
@@ -1161,12 +1181,13 @@ theorem; it is not conjectural in this case.
 Theorem~\ref{thm:mag-four-E0-structure-qgr} applied fibrewise: for
 compact $X$, the $\Ezero$-pointing of $\PhiFA_4(\Perf X)$ has Hodge
 supertrace equal to $\chi(\cO_X)$, by the compact-CY supertrace
-identification (AP-CY263). Hirzebruch--Riemann--Roch gives
+identification of Theorem~\ref{thm:cy-modular-characteristic}.
+Hirzebruch--Riemann--Roch gives
 $\chi(\cO_X) = (3 c_2^2 - c_4)/720 = 2$ for simply-connected
 CY$_4$.
 \end{proof}
 
-\begin{remark}[Four-\texorpdfstring{$\kappa$}{kappa} values on the flat slice and the sextic]
+\begin{remark}[Four-\texorpdfstring{$\kappa_\bullet$}{kappa-.} values on the flat slice and the sextic]
 \label{rem:four-kappa-d4-split}
 On the affine slice $\cC = \Perf(\C^4)$ the four invariants split as
 \[
@@ -1181,13 +1202,12 @@ the volume normalisation. On the compact sextic $X_6 \subset \mathbb{P}^5$
 (simply-connected CY$_4$),
 $\kappa_{\mathrm{cat}}(X_6) = \kappa_{\mathrm{ch}}(\PhiFA_4(\Perf X_6)) = 2$
 by Proposition~\ref{prop:cy-d-d4-compact-qgr} with
-$\kappa_{\mathrm{BKM}}$ open (no $d = 4$ BKM constructed, residual
-obstruction) and $\kappa_{\mathrm{fiber}} = b_4(X_6) = 1752$.
+$\kappa_{\mathrm{BKM}}$ open because no $d = 4$ BKM has been
+constructed, and $\kappa_{\mathrm{fiber}} = b_4(X_6) = 1752$.
 \end{remark}
 
 \begin{proposition}[$S_4$-symmetry at \texorpdfstring{$d = 4$}{d=4}]
 \label{prop:s4-symmetry-d4-qgr}
-\ClaimStatusProvedHere
 $Z^{M4}$ is symmetric under $S_4$-permutation of
 $(\epsilon_1, \epsilon_2, \epsilon_3, \epsilon_4)$ subject to
 $\sum \epsilon_i = 0$, and the $S_4$-action lifts to a groupoid action
@@ -1213,7 +1233,6 @@ equivariant $K$-theory, is $S_4$-invariant.
 
 \begin{conjecture}[Maulik--Okounkov envelope at \texorpdfstring{$d = 4$}{d=4}]
 \label{conj:mo-envelope-d4-qgr}
-\ClaimStatusConjectured
 There exists a $d = 4$ analogue of the Maulik--Okounkov stable envelope
 (\texttt{arXiv:1211.1287}) on the CY$_4$ Hilbert schemes
 $\{\Hilb^n(\C^4)\}_{n \geq 0}$, constructed from the
@@ -1243,28 +1262,27 @@ three-cycle $\Sigma_3$ and a curve $C$. The natural specialisations are
 (T1)~torus $\Sigma_3 = T^3$ with $C = S^1$, (T2)~sphere $\Sigma_3 = S^3$
 with $C$ a great circle, and (T3)~Hopf fibration
 $\Sigma_3 = S^3 \to S^2$ with $C$ a Hopf fibre. The three produce
-distinct chiral algebras on $C$ from a common Stage-1 source. Pattern 273
-applies: $\PhiFA_4$ is one functor; the Stage-2 stratum produces a
+distinct chiral algebras on $C$ from a common Stage-1 source.
+$\PhiFA_4$ is one functor; the Stage-2 stratum produces a
 family of specialisations, not a family of $\Phi_4$-applications.
 Mutual compatibility of the three specialisations is open (the
 $d = 4$ analogue of the pentagon at $d = 3$).
 \end{remark}
 
-\begin{remark}[Monotonic strengthening relative to Conjecture~\ref{conj:cy-c-honest-status}~(vii)]
+\begin{remark}[No quantum-group target at \texorpdfstring{$d = 4$}{d=4}]
 \label{rem:upgrade-relative-cy-c-vii}
-Conjecture~\ref{conj:cy-c-honest-status}~(vii) states only that at
-$d \geq 4$ a quantum-group target $G(\cC)$ is undefined in general.
+At $d \geq 4$ a quantum-group target $G(\cC)$ is undefined in general.
 Theorem~\ref{thm:mag-four-E0-structure-qgr} does \emph{not} construct
 $G(\cC)$ at $d = 4$; it constructs the Stage-1 factorisation envelope
 $\PhiFA_4(\cC)$ at $\cC = \Perf(\C^4)$ directly as an $\Ezero$-algebra
 with explicit pointing. The quantum-group target $G(\Perf(\C^4))$
-remains unconstructed, consistent with
-Conjecture~\ref{conj:cy-c-honest-status}~(vii); what has been
-constructed is the \emph{chiral algebra} $\PhiFA_4(\Perf(\C^4))$ and
+remains unconstructed. The constructed object is the \emph{factorisation algebra}
+$\PhiFA_4(\Perf(\C^4))$ and
 its pointing. The Drinfeld centre
-$\cZ(\Rep^{\Eone}(\PhiFA_4(\Perf(\C^4))))$, which would carry the
+$\cZ(\Rep^{\Eone}(\SpCh_{\Sigma_3,C}(\PhiFA_4(\Perf(\C^4)))))$, after
+a Stage-2 specialisation $(\Sigma_3,C)$, would carry the
 $\Etwo$-braided structure eligible for quantum-group identification
-(Pattern 273), remains conjectural.
+at the representation-category level; it remains conjectural.
 \end{remark}
 
 
@@ -1274,42 +1292,45 @@ $\Etwo$-braided structure eligible for quantum-group identification
 The $\kappa_\bullet$-stratification by CY dimension (Vol~III
 \texttt{cy\_d\_kappa\_stratification.tex}) restricts to the
 quantum-group inputs of this chapter as follows. The chiral
-invariant $\kappa_{\mathrm{ch}}(\Phi(\cC))$ is additive under
-products, vanishes on trivially-braided targets, and coincides
-with $\chi(\cO_X)$ only for $d = 2$ with $h^{1,0}(X) = 0$; at odd
-$d$ one has $\chi(\cO_X) = 0$ by Serre parity regardless of
-$\kappa_{\mathrm{ch}}$.
+Hodge-supertrace invariant $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$
+is K\"unneth-multiplicative on compact products and coincides with
+$\chi(\cO_X)$ only for $d = 2$ with $h^{1,0}(X) = 0$; the
+Heisenberg specialisation $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ is
+a separate generator-rank scalar. At odd $d$ one has
+$\chi(\cO_X)=0$ by Serre parity.
 
 \begin{proposition}[\texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch} on QG inputs]
 \label{prop:kappa-strat-qg-inputs}
-\ClaimStatusProvedElsewhere
 For the standard quantum-group inputs to $\Phi$:
 \begin{enumerate}[label=(\roman*)]
- \item $d = 1$, elliptic curve $E$: $\kappa_{\mathrm{ch}}(\Phi(E)) = 1$
- ($h^{1,0}(E) = 1$ contributes); the QG output is a rank-$2$
- lattice VOA;
+ \item $d = 1$, elliptic curve $E$: the compact Hodge supertrace is
+ $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(\Phi(E))=\chi(\cO_E)=0$,
+ while the Heisenberg specialisation has
+ $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E)=1$; the QG output is a rank-$2$
+ lattice VOA on the Heisenberg route;
  \item $d = 2$, K3: $\kappa_{\mathrm{ch}} = \chi(\cO_{K3}) = 2$
  (since $h^{1,0} = 0$); the QG output is the Mukai-lattice
- quantum group at root of unity $q_{\Lambda}$;
+ Heisenberg sector of Proposition~\ref{prop:kl-k3-lattice};
  \item $d = 2$, abelian surface $A$:
- $\kappa_{\mathrm{ch}}(\Phi(A)) = 2$ (additive over the two
- elliptic factors of its universal cover); note
- $\chi(\cO_A) = 0$, so the $d = 2$ identification
- $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ requires $h^{1,0} = 0$
- and fails here;
+ $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(\Phi(A))=\chi(\cO_A)=0$,
+ while $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(A)=2$ on the
+ Heisenberg route; the $d = 2$ identification
+ $\kappa_{\mathrm{ch}}=\chi(\cO_X)$ requires $h^{1,0}=0$ and
+ therefore does not apply to abelian surfaces;
  \item $d = 3$, $\C^3$: the Schiffmann--Vasserot cohomological
  Hall algebra $\mathrm{CoHA}(\C^3)$ is an associative algebra,
  isomorphic to the positive half $Y^+(\widehat{\fgl}_1)$ of the
  affine Yangian; $\mathrm{CoHA}$ is not itself a chiral algebra,
- and an $\Eone$-chiral algebra $\Phi(\C^3)$ with
- $\Rep^{E_2}(Z(\Phi(\C^3))) \simeq \Rep_q(\widehat{\fgl}_1)$
+ and an $\Eone$-chiral algebra $\Phi(\C^3)$ whose Drinfeld centre
+ satisfies
+ $\cZ(\Rep^{\Eone}(\Phi(\C^3))) \simeq \Rep_q(\widehat{\fgl}_1)$
  would give $\kappa_{\mathrm{ch}} = c = 1$ for a Heisenberg
  realization, conditional on CY-C at noncompact CY$_3$;
- \item $d = 3$, conifold: the same conditional status applies;
- a putative $\Phi(\text{conifold})$ compatible with the
- Schiffmann--Vasserot $Y^+(\widehat{\fsl}_2)$ would carry the
- central charge of the rank-$3$ Heisenberg sector, again
- conditional on CY-C;
+ \item $d = 3$, conifold: the resolved conifold is not a local
+ surface; direct McKay computation gives
+ $\kappa_{\mathrm{ch}}(\cA_{\mathrm{conifold}})=1$. Its CoHA is a
+ positive Hall half in the toric chamber; the full
+ $Y(\widehat{\fsl}_2)$ requires the completed Drinfeld double;
  \item $d = 3$, compact quintic: $\chi(\cO_{\text{quintic}}) = 0$
  by Serre parity, so the $d = 2$ identification
  $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ cannot survive; the QG
@@ -1323,23 +1344,30 @@ For the standard quantum-group inputs to $\Phi$:
  + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 2 + 1 = 3$;
  the Hall--Drinfeld/Borcherds branch attached to
  $\mathfrak g_{\Delta_5}$ has
- $\kappa_{\mathrm{BKM}} = 5$ (universal Borcherds weight).
+ $\kappa_{\mathrm{BKM}} = \left.c_N(0)/2\right|_{N=1}=5$ by
+ Gritsenko's denominator theorem
+ (Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}).
 \end{enumerate}
 \end{proposition}
 
 \begin{remark}[\texorpdfstring{$\kappa_\bullet$}{kappa-.}-values for \texorpdfstring{$K3 \times E$}{K3 x E}]
 \label{rem:three-kappa-k3xe}
-The three invariants separate cleanly. The manifold invariant is
+The four invariants separate cleanly. The manifold invariant is
 $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3 \times E})
 = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ by K\"unneth,
 vanishing because $\chi(\cO_E) = 0$ at odd $d = 1$. The
 algebraization invariants come from two different constructions on
 the same manifold: the Heisenberg-level chiral algebra gives
-$\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$ by additivity across the product, while
-the BKM algebra associated to the Mukai lattice gives
-$\kappa_{\mathrm{BKM}} = c_N(0)/2|_{N=1} = 10/2 = 5$ from the primitive
-Gritsenko form $\Delta_5$ (whose square is $\Phi_{10}$; universal Borcherds weight $c_N(0)/2$ for
-K3-fibered Class A). The tempting additive decomposition
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$ by additivity across the
+product, while the Hall--Drinfeld/Borcherds branch gives
+$\kappa_{\mathrm{BKM}} = \left.c_N(0)/2\right|_{N=1} = 10/2 = 5$ from
+the primitive Gritsenko form $\Delta_5$ (whose primitive Igusa square
+is $\Phi_{10}^{\mathrm{un}}=\Delta_5^2$), by
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}. The fibre invariant is the
+Mukai-lattice rank $\kappa_{\mathrm{fiber}}=24$. The BKM-side object is
+the Hall--Drinfeld double of $\mathrm{CoHA}(K3\times E)$, not the K3
+Yangian; the K3 Yangian is the separate Mukai self-mirror branch. The
+tempting additive decomposition
 $\kappa_{\mathrm{BKM}} \stackrel{?}{=} \kappa_{\mathrm{ch}} + \chi(\cO_{\text{fiber}})
 = 3 + 2 = 5$ is convention-mixing: the $3$ is the Heisenberg
 specialisation, not the compact total-space supertrace
@@ -1348,19 +1376,18 @@ the additive formula already fails at $N=1$, since
 $5 \neq 0 + \chi(\cO_E) = 0$; across the CHL $\Z/N\Z$ orbifolds it
 continues to fail because the Borcherds constant changes to
 $c_N(0)/2$. The universal formula is
-$\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$. The three invariants are
-controlled by three different functorialities; shadow tower,
-manifold Euler characteristic, BKM denominator; and the arithmetic
+$\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$. The invariants are
+controlled by four different functorialities: compact Hodge supertrace,
+manifold Euler characteristic, BKM denominator, and fibre lattice. The arithmetic
 identity $5 = 3 + 2$ at $N = 1$ is not a structural decomposition.
 \end{remark}
 
 
-\section{Outlook: chiral QG equivalence on the Koszul locus}
+\section{Chiral QG equivalence on the Koszul locus}
 \label{sec:outlook-chiral-qg-koszul}
 
 \begin{theorem}[Chiral QG equivalence on the ordered Koszul locus]
 \label{thm:chiral-qg-equiv-vol3}
-\ClaimStatusProvedElsewhere
 On the ordered Koszul locus
 $\mathrm{Kosz}^{\mathrm{ord}}(X) \subset \Eone\text{-}\mathrm{ChirAlg}(X)$,
 the three structures
@@ -1400,18 +1427,18 @@ The chiral QG equivalence has three concrete Vol~III instances:
 \end{enumerate}
 \end{remark}
 
-\begin{remark}[Vol I cross-references and the climax]
-\label{rem:vol3-cross-refs-climax}
+\begin{remark}[Vol I comparison theorems]
+\label{rem:vol3-comparison-theorems}
 The chapter cross-refers to:
 \begin{enumerate}[label=(\alph*)]
  \item Vol~I \texttt{thm:chiral-qg-equiv-ordered} (chiral QG
  equivalence on the ordered Koszul locus, including
  $\Eone$-chiral Yangian input);
  \item Vol~I \texttt{thm:e3-identification} (formal deformation
- families identification, PROVED only for simple $\frakg$) together
+ families identification for simple $\frakg$) together
  with Vol~I
  \texttt{thm:e3-identification-chain-level-associator-fixed}
- (chain-level identification at fixed KZ associator, PROVED for
+ (chain-level identification at fixed KZ associator for
  simple / reductive / solvable $\frakg$; covers $\fgl_N$,
  semisimple, nilpotent Heisenberg as subcases);
  \item Vol~I \texttt{thm:gl-N-drinfeld-double-internal}
@@ -1427,15 +1454,29 @@ The chapter cross-refers to:
 \end{enumerate}
 The Vol~III incarnation of the chiral QG equivalence is the
 chapter's own
-Conjecture~\ref{conj:cy-c-honest-status} restricted to verified
-cases (i)--(iv), with the open conjectural cases (v)--(vii)
-constituting the residual research programme.
+Conjecture~\ref{conj:cy-c-constructed-loci} restricted to verified
+cases (i)--(iv). Cases (v)--(vii) remain open proof obligations.
 \end{remark}
 
-\section{K3 chiral Hall--Drinfeld double representation theory}
+\section{\texorpdfstring{$K3 \times E$}{K3 x E} Hall--Drinfeld double representation theory}
 \label{sec:qgreps-supplement}
 
-\begin{remark}[K3 chiral Hall--Drinfeld double representation theory]
+\begin{conjecture}[\texorpdfstring{$K3 \times E$}{K3 x E} Hall--Drinfeld double representation theory]
 \label{rem:qgreps-hall-drinfeld-reps}
-The Vol~III K3 chiral Hall--Drinfeld double $\mathcal{D}_\hbar(\mathcal{Y}^{\mathrm{Hall}}_\hbar(\mathrm{CoHA}_{K3 \times E}))$ admits evaluation modules $V_u$ on which the Siegel-elliptic dynamical $R$-matrix $R_{\mathrm{Sieg,dyn}}(u - v; \tau, \rho, z)$ acts as the half-braiding $\sigma_{V_u}(V_v)$ in $\mathcal{Z}(\mathrm{Rep}^{E_1}(\mathbf{H}_{\Delta_5}))$. At Lie/Hopf level the representation category is abelian ($24$ Miki $U_{q_1,q_2}(\widehat{\widehat{\mathfrak{gl}}}_1)$ modules); BKM non-abelianity emerges via Frenkel--Kac $1980$ vertex closure on $\mathcal{F}_{K3}$.
-\end{remark}
+Assume the oriented critical CoHA positive half
+$Y^+_{\mathrm{Hall}}(K3\times E)$ is constructed with its negative
+half, Cartan part, nondegenerate Hall--Serre Hopf pairing, completion,
+and compatibility with the Drinfeld-centre half-braiding of
+$\mathbf{H}_{\Delta_5}$. Then the completed Hall--Drinfeld double
+\[
+ \mathcal{D}_\hbar\bigl(Y^+_{\mathrm{Hall}}(K3\times E)\bigr)
+\]
+admits evaluation modules $V_u$ on which the Siegel-elliptic dynamical
+$R$-matrix $R_{\mathrm{Sieg,dyn}}(u-v;\tau,\rho,z)$ acts as the
+half-braiding $\sigma_{V_u}(V_v)$ in
+$\mathcal{Z}(\mathrm{Rep}^{\Eone}(\mathbf{H}_{\Delta_5}))$. At the
+abelian Lie/Hopf level one sees the $24$ Mukai-lattice Heisenberg
+directions. The non-abelian BKM structure belongs to the vertex closure
+of the Borcherds denominator package, not to the Mukai self-mirror K3
+Yangian branch.
+\end{conjecture}

@@ -1,741 +1,554 @@
-r"""Tsygan formality and the resolution of Obs_{A_\infty}.
+r"""Tsygan, Costello, and the m_3--B^{(2)} obstruction.
 
-MATHEMATICAL CONTENT
-====================
+This engine records the repaired obstruction logic.
 
-The gap AP-CY34 (rem:adversarial-audit-cyclic-ainf in cy_to_chiral.tex):
+There are three distinct carriers:
 
-    Proposition prop:cyclic-ainf-framing-compat claims [m_k, B^{(2)}] = 0
-    for all k >= 3 in cyclic A_infinity algebras.  The proof conflates:
-      (G1) Cyclic invariance: <m_n(a_1,...,a_n), a_{n+1}> = +/- <a_1, m_n(a_2,...,a_{n+1})>
-      (G2) Bar-level compatibility: [m_k, B^{(2)}] = 0 on CC_n(C)
+* ``B^{(2)}_term``: the raw bar-desuspended pair-contraction operator.
+  It has a strict nonzero cyclic CY3 witness:
 
-    The non-adjacent contractions in (G2) are NOT controlled by (G1) alone.
+      [m_3, B^{(2)}_term][a|a|a|a|b] = 2 alpha [b] != 0.
 
-TSYGAN'S FORMALITY THEOREM
-============================
+* ``B^{(2)}_TCFT``: Costello's corrected open--closed TCFT operator.
+  The theorem is the total identity
 
-Tsygan (arXiv:math/9904132, 1999; building on Kontsevich 1997) proved:
+      {sum_k b_k, B^{(2)}_TCFT} = 0,
 
-    THEOREM (Tsygan formality for cyclic chains):
-    Let A be a smooth algebra over a field of characteristic zero.  There
-    exists a quasi-isomorphism of mixed complexes
+  after the moduli-chain correction datum has been chosen.  It is not a
+  termwise identity for ``B^{(2)}_term``.
 
-        Phi_T: (CC_*(A), b, B) --~--> (HC_*(A), 0, B^formal)
+* the derived E_1-Hochschild obstruction class.  Vanishing at this level
+  is meaningful only after the target complex, comparison map, and
+  hypotheses are named.
 
-    where:
-      - CC_*(A) is the cyclic chain complex with Hochschild differential b
-        and Connes operator B
-      - HC_*(A) is the cyclic homology (= cohomology of (CC_*(A), b))
-      - B^formal is the induced Connes operator on homology
-      - The quasi-isomorphism intertwines the FULL mixed complex structure,
-        not just the differential
-
-    In the A_infinity setting (Kontsevich-Soibelman, Costello):
-    For a cyclic A_infinity algebra (A, {m_k}, <-,->), the formality map
-    extends to a quasi-isomorphism of the FULL A_infinity cyclic complex:
-
-        Phi_T: (CC_*(A), m_1, m_2, m_3, ..., B^{(0)}, B^{(1)}, B^{(2)}, ...)
-           --> (H_*(CC(A)), 0, m_2^formal, m_3^formal, ..., B^{(0),f}, B^{(1),f}, B^{(2),f}, ...)
-
-    The key point: on the FORMAL (cohomological) side:
-      - m_k^formal are the transferred A_infinity operations (Kadeishvili)
-      - B^{(2),formal} is determined ENTIRELY by the induced pairing on H_*
-      - The cyclic invariance of m_k^formal with respect to the pairing
-        on H_* is TRIVIALLY satisfied (it is a formal consequence of the
-        pairing structure on a finite-dimensional graded vector space)
-      - Therefore [m_k^formal, B^{(2),formal}] = 0 on H_*(CC(A))
-
-APPLICABILITY TO CY3 ALGEBRAS
-================================
-
-Tsygan's theorem requires:
-  (T1) Smooth algebra over characteristic zero: YES for CY3 categories.
-       Smooth proper A_infinity categories over C satisfy this.
-  (T2) The formality is as MIXED COMPLEXES (b, B): the Connes hierarchy
-       B^{(k)} for k >= 1 is not directly part of Tsygan's statement, but
-       follows from the operadic extension by Costello (TCFT formality).
-
-For CY3: the cyclic A_infinity structure with CY dimension d=3 produces
-the Connes hierarchy B^{(0)}, B^{(1)}, B^{(2)}, B^{(3)}.  Tsygan formality
-applies to B = B^{(0)}.  The extension to B^{(2)} requires:
-
-  LEMMA (B^{(2)} formality): B^{(2)} is a component of the mixed complex
-  structure on CC_*(A) for a CY_d algebra with d >= 2.  The Connes hierarchy
-  {B^{(k)}}_{k=0}^d is part of the operadic data of the framed E_d algebra
-  structure on HH_*(A).  Tsygan formality for the mixed complex (b, B)
-  extends to the full hierarchy (b, B^{(0)}, ..., B^{(d)}) by Costello's
-  TCFT formality (arXiv:math/0412149, Thm A) for smooth proper CY categories.
-
-THE RESOLUTION
-===============
-
-THEOREM (Obs_Ainf = 0 at the quasi-isomorphism level):
-
-Let (A, {m_k}, <-,->) be a smooth proper cyclic A_infinity algebra of
-CY dimension 3.  Then:
-
-  (1) [m_k, B^{(2)}] is EXACT in the Hochschild complex of CC_*(A).
-
-      Proof: Tsygan-Costello formality gives Phi_T with
-      Phi_T([m_k, B^{(2)}]) = [m_k^formal, B^{(2),formal}] = 0.
-      Since Phi_T is a quasi-isomorphism, [m_k, B^{(2)}] is in ker(Phi_T)
-      on the chain level, hence is a coboundary (exact element).
-
-  (2) The obstruction class [Obs_Ainf] in H^*(HH(CC_*(A))) is ZERO.
-
-      Proof: Obs_Ainf = [m_k, B^{(2)}] is exact by (1), so its
-      cohomology class vanishes.
-
-  (3) CHAIN-LEVEL STATUS: [m_k, B^{(2)}] = d(h_k) for some explicit
-      homotopy h_k.  The homotopy is NOT canonical: it depends on the
-      choice of Tsygan formality map.  But its EXISTENCE is guaranteed.
-
-WHAT TSYGAN DOES AND DOES NOT GIVE
-====================================
-
-  GIVES: Obs_Ainf = 0 as a COHOMOLOGY CLASS.  This is sufficient for:
-    - The obstruction in the Hopf decomposition (Prop prop:hopf-fibration-decomposition)
-      because Obs_Ainf lives in a cohomology group, and vanishing of the
-      CLASS is the relevant condition.
-    - The S^3-framing programme: the framing is an object in a derived
-      category, so quasi-isomorphic trivializations are as good as strict ones.
-
-  DOES NOT GIVE: [m_k, B^{(2)}] = 0 as a CHAIN-LEVEL IDENTITY.
-    The commutator is generically nonzero on the nose.  It equals d(h_k)
-    for some homotopy h_k, but h_k depends on the formality map and is
-    not explicitly computable in general.
-
-  THE SUBTLETY: Is cohomological vanishing sufficient?
-    YES.  The S^3-framing obstruction Obs(C) = Obs_top + Obs_Ainf + Obs_BV
-    lives in H^3(HH(CC_*(C), CC_*(C))).  The Hopf decomposition is a
-    decomposition of COHOMOLOGY CLASSES, not chain-level operations.
-    When we say "Obs_Ainf = 0", we mean the cohomology class vanishes.
-    This is exactly what Tsygan formality gives.
-
-    The chain-level non-vanishing [m_k, B^{(2)}] != 0 does NOT obstruct
-    the programme: it means the S^3-framing is not STRICTLY compatible
-    with the A_infinity structure, but it is compatible UP TO HOMOTOPY,
-    which is the correct notion in the homotopical/derived setting.
-
-THE PROOF IN DETAIL
-====================
-
-Step 1: Tsygan formality (Phi_T exists).
-Step 2: On cohomology, m_k^formal satisfies cyclic invariance w.r.t.
-        the induced pairing.
-Step 3: B^{(2),formal} on cohomology is the contraction operator
-        determined by the induced pairing.
-Step 4: Cyclic invariance of m_k^formal implies [m_k^f, B^{(2),f}] = 0
-        on cohomology.  (This is the step where the non-adjacent
-        contractions ARE controlled: on cohomology, cyclic invariance
-        plus the Stasheff relations give full control.)
-Step 5: Phi_T intertwines [m_k, B^{(2)}] with [m_k^f, B^{(2),f}] = 0.
-Step 6: Therefore [m_k, B^{(2)}] is exact.
-Step 7: The obstruction class [Obs_Ainf] = 0.
-
-COMPARISON WITH THE THREE APPROACHES IN THE AUDIT REMARK
-==========================================================
-
-The adversarial audit (rem:adversarial-audit-cyclic-ainf) listed three
-possible resolutions:
-
-  (a) Chain-level cancellation via full Stasheff tower: NOT what we prove.
-      The chain-level commutator is generically nonzero.
-
-  (b) Operadic argument via Costello's framed open TCFT: THIS IS
-      essentially what we prove, upgraded via Tsygan formality.  The
-      operadic formality of the TCFT structure implies formality of
-      the mixed complex, which gives cohomological vanishing.
-
-  (c) Explicit chain-level computation for local P^2: UNNECESSARY.
-      The cohomological argument is universal and does not require
-      case-by-case computation.
-
-REFERENCES
-==========
-  Tsygan, "Formality conjectures for chains", arXiv:math/9904132 (1999)
-  Kontsevich, "Deformation quantization of Poisson manifolds", q-alg/9709040 (1997)
-  Costello, "TCFTs and CY categories", arXiv:math/0412149 (2004)
-  Costello, "Topological conformal field theories and CY categories",
-      Advances in Mathematics 210 (2007), 165--214
-  Kontsevich-Soibelman, "Notes on A-infinity algebras, A-infinity categories
-      and non-commutative geometry", arXiv:math/0606241 (2006)
-  Keller, "A-infinity algebras, modules and functor categories", in
-      Trends in Representation Theory (2006)
-  Kadeishvili, "The algebraic structure in the homology of an A(infinity)-algebra",
-      Soobshch. Akad. Nauk Gruzin. SSR 108 (1982)
-  Loday, "Cyclic Homology", Grundlehren 301, Springer (1998)
-  Lorgat Vol III: cy_to_chiral.tex, cyclic_ainf.tex
+Consequently this module rejects the old assertion that
+Tsygan-Costello formality universally proves termwise chain vanishing,
+termwise exactness, or closure of the compact S^3-framing programme.
 
 CONVENTIONS
 ===========
-  - Cohomological grading: |d| = +1
-  - CY dimension d = 3: Serre functor S = [3]
-  - Bar uses desuspension: |s^{-1}v| = |v| - 1
-  - Exact arithmetic via fractions.Fraction
-  - AP-CY2: CY trace is HC^-_d(C), not just HH_d -> k
-  - AP-CY11: conditional propagation checked (Tsygan is unconditional)
+  - Characteristic zero.
+  - Cohomological grading.
+  - Bar variables are desuspended.
+  - Strict witness: |e|=0, |a|=1, |b|=2, |w|=3,
+    <e,w>=1, <a,b>=1, and m_3(a,a,a)=alpha b.
 """
 
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass, field
 from fractions import Fraction
-from typing import Any, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Tuple
 
 F = Fraction
+
+
+OBSTRUCTION_COMPLEX = (
+    "C^bullet_End(CC_*(A)) = End(CC_*(A)) with differential "
+    "d_End(T) = [b,T], b = sum_k b_k"
+)
+
+DERIVED_E1_COMPLEX = (
+    "C^bullet_{E_1}(A,A) with the reduced bar-length filtration, "
+    "targeting HH^{-2}_{E_1}(A,A)"
+)
+
+COMPARISON_MAP = (
+    "theta_TCFT: B_term^{(2)} -> B_TCFT^{(2)}, witnessed by a homotopy "
+    "H_TCFT with B_TCFT^{(2)} - B_term^{(2)} = d_End(H_TCFT)"
+)
+
+FILTERED_HYPOTHESIS = (
+    "the reduced Hochschild cochain filtration is complete, exhaustive, "
+    "separated, strongly convergent, and has empty E_1 total-degree -2 line"
+)
 
 
 # =========================================================================
 # 0. TSYGAN FORMALITY THEOREM
 # =========================================================================
 
+
 @dataclass(frozen=True)
 class TsyganFormalityData:
-    r"""Tsygan's formality theorem for cyclic chains.
+    r"""Tsygan's mixed-complex formality theorem.
 
-    The theorem (arXiv:math/9904132): for a smooth algebra A over char 0,
-    the cyclic chain complex CC_*(A) is formal as a mixed complex.
-
-    That is, there exists a quasi-isomorphism of mixed complexes:
-        Phi_T: (CC_*(A), b, B) --~--> (HC_*(A), 0, B^formal)
-
-    The formality map intertwines:
-      - The Hochschild differential b with 0 (on cohomology)
-      - The Connes operator B with B^formal (the induced operator)
-      - The A_infinity operations m_k with m_k^formal (Kadeishvili transfer)
+    Tsygan formality applies to the cyclic mixed complex ``(CC_*(A), b, B)``.
+    Here ``B`` is the ordinary Connes operator.  This theorem by itself does
+    not identify the raw pair-contraction ``B^{(2)}_term`` with Costello's
+    corrected TCFT operator and does not produce a homotopy killing
+    ``[m_k, B^{(2)}_term]``.
     """
-    # Requirements for Tsygan formality
+
     requires_smooth: bool = True
     requires_char_zero: bool = True
-    requires_proper: bool = False  # Tsygan needs smooth, not necessarily proper
+    requires_proper: bool = False
 
-    # What it gives
-    formality_level: str = "quasi-isomorphism"
+    formality_level: str = "mixed-complex quasi-isomorphism"
     preserves_mixed_complex: bool = True
     preserves_connes_operator: bool = True
-    chain_level_identity: bool = False  # NOT chain-level: only up to homotopy
+    chain_level_identity: bool = False
 
-    # Extensions
-    costello_extension: bool = True  # Costello extends to TCFT/CY setting
-    connes_hierarchy_extension: bool = True  # Extends to full B^{(k)} hierarchy
+    costello_extension: bool = False
+    connes_hierarchy_extension: bool = False
+    raw_b2_termwise_covered: bool = False
 
     def applies_to_cy3(self) -> bool:
-        """Does Tsygan formality apply to CY3 algebras?
-
-        CY3 algebras are smooth proper A_infinity categories over C.
-        Smooth: YES (required).  Char 0: YES (over C).  Proper: not required
-        by Tsygan, but the Costello extension needs it for the TCFT structure.
-        """
+        """Tsygan's mixed-complex theorem applies over characteristic zero."""
         return True
 
     def applies_to_cy_d(self, d: int) -> bool:
-        """Does Tsygan formality apply to CY_d algebras?
-
-        YES for all d >= 1, since CY_d algebras are smooth over char 0.
-        """
+        """The mixed-complex theorem is not dimension-specific."""
         return d >= 1
 
     def gives_chain_level_vanishing(self) -> bool:
-        """Does Tsygan formality give [m_k, B^{(2)}] = 0 on chains?
-
-        NO.  It gives [m_k, B^{(2)}] = d(h_k) (exact), not zero.
-        The commutator is generically nonzero on chains.
-        """
+        """It does not prove ``[m_k, B^{(2)}_term] = 0`` on chains."""
         return False
 
     def gives_cohomological_vanishing(self) -> bool:
-        """Does Tsygan formality give [Obs_Ainf] = 0 in cohomology?
+        """It does not by itself prove the raw termwise obstruction class zero.
 
-        YES.  The obstruction CLASS vanishes because the commutator
-        is exact (a coboundary).
+        A cohomological statement requires a named obstruction complex and
+        either comparison data from ``B^{(2)}_term`` to ``B^{(2)}_TCFT`` or a
+        separate ``HH^{-2}`` filtration theorem.
         """
+        return False
+
+    def requires_b2_comparison_data(self) -> bool:
+        """The raw ``B^{(2)}_term`` target needs extra comparison data."""
         return True
 
 
 # =========================================================================
-# 1. THE COSTELLO EXTENSION TO CY CATEGORIES
+# 1. COSTELLO'S CORRECTED TCFT OPERATOR
 # =========================================================================
+
 
 @dataclass(frozen=True)
 class CostelloTCFTFormality:
-    r"""Costello's extension of Tsygan formality to CY categories.
+    r"""Costello's corrected open--closed TCFT operator.
 
-    Costello (arXiv:math/0412149, Thm A) proves:
-    A smooth proper cyclic A_infinity algebra of dimension d is equivalent
-    to an algebra over the operad of chains on the moduli of disks with
-    boundary marked points, with d-shifted framing.
-
-    The formality in this setting means the FULL operadic structure
-    (not just the mixed complex (b, B)) is formal.  This includes:
-      - All A_infinity operations m_k
-      - The Connes hierarchy B^{(0)}, B^{(1)}, ..., B^{(d)}
-      - The cyclic pairing <-,->
-
-    The extension from Tsygan's mixed-complex formality to full operadic
-    formality is the content of Costello's Thm A.
+    Costello supplies a corrected TCFT representative after the relevant
+    moduli-chain correction datum is chosen.  The identity is total in the
+    Hochschild differential ``b = sum_k b_k``.  It is not a proof of
+    ``[b_k, B^{(2)}_term] = 0`` and not a proof that the raw termwise
+    operator equals the corrected TCFT representative.
     """
+
     cy_dimension: int
     smooth: bool = True
     proper: bool = True
+    correction_datum_chosen: bool = True
 
     def connes_hierarchy_levels(self) -> int:
-        """Number of levels in the Connes hierarchy: d+1."""
+        """Number of hierarchy indices available in CY dimension ``d``."""
         return self.cy_dimension + 1
 
     def b2_is_formal(self) -> bool:
-        """Is B^{(2)} covered by the formality?
-
-        YES for d >= 2: B^{(2)} is part of the Connes hierarchy.
-        For d = 1: only B^{(0)} = B and B^{(1)} exist.
-        """
-        return self.cy_dimension >= 2
+        """Whether a corrected ``B^{(2)}_TCFT`` datum is available."""
+        return self.cy_dimension >= 2 and self.correction_datum_chosen
 
     def full_hierarchy_formal(self) -> bool:
-        """Is the FULL Connes hierarchy formal?
+        """The corrected TCFT hierarchy is available, not the raw hierarchy."""
+        return self.correction_datum_chosen
 
-        YES: Costello's TCFT formality covers the complete operadic
-        structure, which includes all B^{(k)} for k = 0, ..., d.
-        """
-        return True
+    def total_tcft_identity_holds(self) -> bool:
+        """Costello's theorem gives ``{sum_k b_k, B_TCFT^{(2)}} = 0``."""
+        return self.b2_is_formal() and self.smooth and self.proper
+
+    def termwise_identity_holds(self) -> bool:
+        """No per-k identity is supplied by the TCFT theorem."""
+        return False
+
+    def raw_term_operator_identified(self) -> bool:
+        """No equality ``B_term^{(2)} = B_TCFT^{(2)}`` is part of the theorem."""
+        return False
 
     def formality_map_explicit(self) -> bool:
-        """Is the formality map explicitly computable?
-
-        In principle YES (via homological perturbation theory / HTT),
-        but in practice the map depends on choices (SDR data) and is
-        not canonical.  The EXISTENCE is guaranteed; the explicit form
-        requires additional input (e.g., a Hodge-to-de-Rham spectral
-        sequence degeneration for smooth proper categories).
-        """
-        return False  # existence guaranteed, explicit form not canonical
+        """The corrected representative depends on explicit TCFT choices."""
+        return False
 
 
 # =========================================================================
-# 2. THE GAP ANALYSIS: (G1) vs (G2)
+# 2. GAP ANALYSIS
 # =========================================================================
+
 
 @dataclass(frozen=True)
 class GapAnalysis:
-    r"""Analysis of the logical gap in prop:cyclic-ainf-framing-compat.
+    r"""The gap between cyclic invariance and bar-level compatibility."""
 
-    The gap: cyclic invariance (G1) does not directly control bar-level
-    compatibility (G2) for non-adjacent contractions.
-
-    On the CHAIN level:
-      [m_k, B^{(2)}] has terms where B^{(2)} contracts one factor inside
-      the m_k-block with one outside.  These "non-adjacent" terms are
-      NOT controlled by cyclic invariance alone.
-
-    On the COHOMOLOGY level:
-      Tsygan formality transfers the question to cohomology, where
-      m_k^formal and B^{(2),formal} act on a finite-dimensional space.
-      There, cyclic invariance DOES control all contractions because
-      the Kadeishvili transfer preserves the cyclic A_infinity structure
-      completely (Kontsevich-Soibelman, Costello).
-    """
-    # The two claims being conflated
     g1_cyclic_invariance: str = (
         "<m_n(a_1,...,a_n), a_{n+1}> = +/- <a_1, m_n(a_2,...,a_{n+1})>"
     )
-    g2_bar_compatibility: str = "[m_k, B^{(2)}] = 0 on CC_n(C)"
+    g2_bar_compatibility: str = "[m_k, B^{(2)}_term] = 0 on CC_*(A)"
 
-    # The resolution
-    chain_level_gap: bool = True  # Gap exists at chain level
-    cohomology_level_gap: bool = False  # Gap closed at cohomology level
-    resolution_mechanism: str = "Tsygan-Costello formality"
+    chain_level_gap: bool = True
+    cohomology_level_gap: bool = True
+    resolution_mechanism: str = (
+        "corrected TCFT comparison datum or HH^{-2} filtration theorem"
+    )
 
     def gap_exists_chain_level(self) -> bool:
-        """Is there a gap between (G1) and (G2) at the chain level?
-
-        YES: non-adjacent contractions are not controlled by cyclic
-        invariance on the nose.  [m_k, B^{(2)}] != 0 generically.
-        """
+        """The strict witness shows the raw termwise gap is real."""
         return True
 
     def gap_closed_cohomology(self) -> bool:
-        """Is the gap closed at the cohomology level?
-
-        YES: on cohomology, the transferred operations m_k^formal
-        satisfy the FULL cyclic A_infinity identities, which DO
-        control all contractions (adjacent and non-adjacent).
-        """
-        return True
+        """No default cohomological closure is proved for the raw target."""
+        return False
 
     def why_cohomology_suffices(self) -> str:
-        """Why is cohomological vanishing sufficient for Obs_Ainf?
-
-        The obstruction Obs_Ainf lives in a COHOMOLOGY GROUP:
-          H^*(HH(CC_*(C), CC_*(C)))
-
-        The Hopf decomposition (Prop prop:hopf-fibration-decomposition)
-        is a decomposition of cohomology classes:
-          [Obs(C)] = [Obs_top] + [Obs_Ainf] + [Obs_BV]
-
-        Each component is a CLASS, not a chain-level operation.
-        Vanishing of the class [Obs_Ainf] = 0 is the relevant condition.
-
-        Moreover, the S^3-framing is a structure in a derived/homotopical
-        setting: quasi-isomorphic framings are equivalent.  A framing
-        that is compatible with m_k up to homotopy IS an S^3-framing.
-        """
+        """State the missing data for any cohomological claim."""
         return (
-            "Obs_Ainf is an element of H^*(HH(CC_*(C), CC_*(C))). "
-            "The Hopf decomposition is a decomposition of CLASSES. "
-            "Vanishing of the class [Obs_Ainf] = 0 is the correct "
-            "condition. The S^3-framing lives in a derived category; "
-            "quasi-isomorphic framings are equivalent. Homotopy "
-            "compatibility with m_k IS the correct notion."
+            "Cohomology suffices only after the obstruction is formulated as "
+            f"a class in {OBSTRUCTION_COMPLEX} or {DERIVED_E1_COMPLEX}, and "
+            f"after the comparison map {COMPARISON_MAP} or the filtration "
+            f"hypothesis ({FILTERED_HYPOTHESIS}) is supplied."
         )
 
 
 # =========================================================================
-# 3. THE NON-ADJACENT CONTRACTION ANALYSIS
+# 3. NON-ADJACENT CONTRACTIONS
 # =========================================================================
+
 
 @dataclass
 class NonAdjacentContractionTerm:
-    """A single non-adjacent contraction term in [m_k, B^{(2)}].
+    """A single term in the raw ``[m_k, B^{(2)}_term]`` commutator."""
 
-    On CC_n(C), a non-adjacent contraction has the form:
-        <a_i, m_k(..., a_j, ...)>_2 * (remaining factors)
-    where a_i is NOT adjacent to the m_k-block containing a_j.
-
-    On CHAINS: this is NOT controlled by cyclic invariance (G1).
-    On COHOMOLOGY: this IS controlled by Tsygan formality.
-    """
-    bar_length: int  # n in CC_n
-    mk_arity: int    # k in m_k
-    mk_start: int    # position of first factor in m_k block
-    contraction_inside: int   # position of factor inside m_k block
-    contraction_outside: int  # position of factor outside m_k block
+    bar_length: int
+    mk_arity: int
+    mk_start: int
+    contraction_inside: int
+    contraction_outside: int
 
     def is_adjacent(self) -> bool:
-        """Is the outside factor adjacent to the m_k block?
-
-        Adjacent: the outside factor is at position mk_start - 1 or
-        mk_start + mk_arity.
-        """
+        """Whether the outside factor is adjacent to the ``m_k`` block."""
         return (
             self.contraction_outside == self.mk_start - 1
             or self.contraction_outside == self.mk_start + self.mk_arity
         )
 
     def controlled_by_cyclic_invariance(self) -> bool:
-        """Is this term controlled by cyclic invariance (G1)?
-
-        Adjacent terms: YES (by cyclic rotation).
-        Non-adjacent terms: NO (not a cyclic rotation).
-        """
+        """Adjacent contractions are the part controlled by cyclicity."""
         return self.is_adjacent()
 
     def controlled_by_tsygan_formality(self) -> bool:
-        """Is this term controlled by Tsygan formality?
+        """Tsygan formality does not control raw non-adjacent terms."""
+        return False
 
-        ALL terms (adjacent and non-adjacent): YES.
-        On cohomology, the transferred operations satisfy the full
-        A_infinity cyclic identities plus Stasheff relations, which
-        control all contractions.
-        """
-        return True
+    def requires_tcft_comparison(self) -> bool:
+        """Non-adjacent raw terms require corrected TCFT comparison data."""
+        return not self.is_adjacent()
 
 
 def enumerate_non_adjacent_terms(
     bar_length: int,
     mk_arity: int,
 ) -> List[NonAdjacentContractionTerm]:
-    """Enumerate all non-adjacent contraction terms in [m_k, B^{(2)}].
-
-    For CC_n with m_k (arity k), B^{(2)} contracts pairs (i,j).
-    Non-adjacent: i outside m_k block, j inside (or vice versa),
-    and i is NOT adjacent to the block.
-
-    Returns:
-        List of non-adjacent terms.
-    """
+    """Enumerate raw terms with one contraction inside and one outside."""
     if bar_length < mk_arity + 2:
-        # Need at least k factors for m_k plus 2 for B^{(2)} contraction
-        # with one outside non-adjacent
         return []
 
-    terms = []
-    # m_k block starts at position s, occupies positions s, s+1, ..., s+k-1
-    for s in range(bar_length - mk_arity + 1):
-        mk_end = s + mk_arity - 1  # inclusive
-        # B^{(2)} contracts one inside (j in [s, mk_end]) with one outside
-        for j in range(s, mk_end + 1):
-            for i in range(bar_length):
-                if s <= i <= mk_end:
-                    continue  # i inside the block
-                # Check non-adjacency
-                if i == s - 1 or i == mk_end + 1:
-                    continue  # adjacent to block
-                terms.append(NonAdjacentContractionTerm(
-                    bar_length=bar_length,
-                    mk_arity=mk_arity,
-                    mk_start=s,
-                    contraction_inside=j,
-                    contraction_outside=i,
-                ))
+    terms: List[NonAdjacentContractionTerm] = []
+    for start in range(bar_length - mk_arity + 1):
+        mk_end = start + mk_arity - 1
+        for inside in range(start, mk_end + 1):
+            for outside in range(bar_length):
+                if start <= outside <= mk_end:
+                    continue
+                if outside == start - 1 or outside == mk_end + 1:
+                    continue
+                terms.append(
+                    NonAdjacentContractionTerm(
+                        bar_length=bar_length,
+                        mk_arity=mk_arity,
+                        mk_start=start,
+                        contraction_inside=inside,
+                        contraction_outside=outside,
+                    )
+                )
     return terms
 
 
 def count_non_adjacent_terms(bar_length: int, mk_arity: int) -> int:
-    """Count non-adjacent contraction terms.
-
-    For bar_length = n and mk_arity = k:
-    Number of (block position, inside, outside non-adjacent) triples.
-    """
+    """Count raw non-adjacent contraction configurations."""
     return len(enumerate_non_adjacent_terms(bar_length, mk_arity))
 
 
 # =========================================================================
-# 4. THE PROOF STRUCTURE
+# 4. PROOF-OBLIGATION STRUCTURE
 # =========================================================================
+
 
 @dataclass
 class TsyganProofStep:
-    """A single step in the Tsygan resolution of Obs_Ainf."""
+    """A single checked step in the repaired attack-heal chain."""
+
     number: int
     statement: str
     justification: str
-    status: str  # "proved", "classical", "Tsygan", "Costello"
+    status: str
 
     def __repr__(self) -> str:
         return f"Step {self.number}: {self.statement} [{self.status}]"
 
 
 def construct_proof() -> List[TsyganProofStep]:
-    """Construct the full proof that [Obs_Ainf] = 0 in cohomology.
+    """Construct the repaired proof-obligation chain.
 
-    The proof has 7 steps, corresponding to the 7-step argument
-    in the docstring.
+    This is not a proof of universal vanishing.  It is the verified chain
+    rejecting the false strengthening and naming the conditional route.
     """
     return [
         TsyganProofStep(
             number=1,
             statement=(
-                "Tsygan formality: there exists a quasi-isomorphism "
-                "Phi_T: (CC_*(A), b, B) -> (HC_*(A), 0, B^formal) "
-                "of mixed complexes."
+                "Tsygan formality applies to the mixed complex "
+                "(CC_*(A), b, B), with B the ordinary Connes operator."
             ),
             justification=(
-                "Tsygan, arXiv:math/9904132 (1999).  Applies to "
-                "smooth algebras over char 0.  CY3 categories are "
-                "smooth over C."
+                "Tsygan, arXiv:math/9904132.  The statement does not include "
+                "the raw pair-contraction B_term^{(2)}."
             ),
             status="Tsygan",
         ),
         TsyganProofStep(
             number=2,
             statement=(
-                "Costello extension: Phi_T extends to the full Connes "
-                "hierarchy B^{(0)}, B^{(1)}, B^{(2)} and the A_infinity "
-                "operations m_k for smooth proper CY categories."
+                "The raw termwise commutator [m_3, B_term^{(2)}] has a "
+                "strict nonzero cyclic CY3 witness."
             ),
             justification=(
-                "Costello, arXiv:math/0412149, Thm A.  The TCFT "
-                "formality covers the complete operadic structure of "
-                "the cyclic A_infinity algebra."
+                "Direct exact arithmetic gives 4 alpha [b] - 2 alpha [b] = "
+                "2 alpha [b] on [a|a|a|a|b]."
             ),
-            status="Costello",
+            status="computed",
         ),
         TsyganProofStep(
             number=3,
             statement=(
-                "On cohomology HC_*(A), the transferred operations "
-                "m_k^formal satisfy the cyclic A_infinity identities "
-                "with respect to the induced pairing."
+                "Costello's theorem concerns B_TCFT^{(2)}, the corrected "
+                "open--closed TCFT representative."
             ),
             justification=(
-                "Kadeishvili transfer theorem: the transferred A_infinity "
-                "structure on cohomology inherits cyclic invariance.  "
-                "Kontsevich-Soibelman (2006), Costello (2007)."
+                "The TCFT boundary relation gives the total identity "
+                "{sum_k b_k, B_TCFT^{(2)}} = 0 after correction data."
             ),
-            status="classical",
+            status="Costello",
         ),
         TsyganProofStep(
             number=4,
             statement=(
-                "B^{(2),formal} on HC_*(A) is the contraction operator "
-                "determined by the induced pairing on the finite-dimensional "
-                "graded vector space H_*(CC(A))."
+                "A cohomological obstruction statement must name its complex "
+                "and comparison map."
             ),
             justification=(
-                "The Connes hierarchy B^{(k)} on cohomology is completely "
-                "determined by the CY pairing.  On a finite-dimensional "
-                "space with non-degenerate pairing, there is a unique "
-                "contraction operator of each degree."
+                f"Use {OBSTRUCTION_COMPLEX} with {COMPARISON_MAP}, or use "
+                f"{DERIVED_E1_COMPLEX} under the HH^(-2) filtration theorem."
             ),
-            status="classical",
+            status="conditional",
         ),
         TsyganProofStep(
             number=5,
             statement=(
-                "[m_k^formal, B^{(2),formal}] = 0 on HC_*(A).  The "
-                "non-adjacent contractions ARE controlled on cohomology "
-                "because the Stasheff relations plus cyclic invariance "
-                "give full control on the transferred A_infinity structure."
+                "Tsygan-Costello formality does not close the compact "
+                "S^3-framing programme without these hypotheses."
             ),
             justification=(
-                "On the finite-dimensional cohomology, m_k^formal satisfies "
-                "ALL Stasheff relations simultaneously.  Combined with cyclic "
-                "invariance, this controls all contractions (adjacent and "
-                "non-adjacent).  The key: the Stasheff relation at arity n "
-                "relates m_k composed with m_j to other compositions.  "
-                "When B^{(2)} contracts a non-adjacent pair, the relevant "
-                "term can be rewritten using Stasheff + cyclic invariance "
-                "as a sum of adjacent terms, which cancel.  This step is "
-                "SPECIFIC to the formal (cohomological) side; it fails on "
-                "chains because the Stasheff relations hold only up to homotopy."
+                "The strict witness is algebraic and does not construct a "
+                "global Phi_3, compact Hall/CoHA data, or G(X)."
             ),
-            status="proved",
+            status="rejected",
         ),
         TsyganProofStep(
             number=6,
             statement=(
-                "Phi_T intertwines [m_k, B^{(2)}] on CC_*(A) with "
-                "[m_k^formal, B^{(2),formal}] = 0 on HC_*(A).  "
-                "Therefore [m_k, B^{(2)}] is in ker(H_*(Phi_T)) = 0, "
-                "i.e., [m_k, B^{(2)}] is exact: [m_k, B^{(2)}] = d(h_k) "
-                "for some homotopy h_k."
+                "The repaired verdict is rejection for the raw termwise "
+                "target and conditionality for the derived class target."
             ),
             justification=(
-                "Phi_T is a quasi-isomorphism, so it induces an isomorphism "
-                "on cohomology.  An element mapping to 0 under a "
-                "quasi-isomorphism is exact."
+                "Raw nonzero witness plus corrected-operator distinction."
             ),
-            status="proved",
-        ),
-        TsyganProofStep(
-            number=7,
-            statement=(
-                "The obstruction class [Obs_Ainf] = [[m_k, B^{(2)}]] = 0 "
-                "in H^*(HH(CC_*(A), CC_*(A))).  Obs_Ainf is resolved."
-            ),
-            justification=(
-                "An exact element has zero cohomology class.  "
-                "The obstruction is a class, not a chain-level identity.  "
-                "Cohomological vanishing is the correct condition for "
-                "the S^3-framing programme."
-            ),
-            status="proved",
+            status="repaired",
         ),
     ]
 
 
 # =========================================================================
-# 5. THE COMPARISON: WHAT TSYGAN GIVES VS WHAT WE NEED
+# 5. COMPARISON DATA
 # =========================================================================
+
 
 @dataclass(frozen=True)
 class TsyganComparison:
-    r"""Comparison of Tsygan formality with the needed result.
+    r"""Comparison between raw, corrected, and derived targets."""
 
-    TSYGAN GIVES:
-      [m_k, B^{(2)}] is exact (a coboundary).
-      Equivalently: [Obs_Ainf] = 0 in cohomology.
+    obstruction_complex: str = OBSTRUCTION_COMPLEX
+    comparison_map: str = COMPARISON_MAP
+    filtered_complex: str = DERIVED_E1_COMPLEX
+    filtered_hypothesis: str = FILTERED_HYPOTHESIS
 
-    WE NEED (for Obs_Ainf = 0 in the Hopf decomposition):
-      [Obs_Ainf] = 0 in H^*(HH(CC_*(C), CC_*(C))).
-
-    COMPARISON: Tsygan gives EXACTLY what we need.
-    The chain-level non-vanishing is irrelevant.
-    """
     tsygan_gives_chain_level: bool = False
-    tsygan_gives_cohomological: bool = True
+    tsygan_gives_cohomological: bool = False
     programme_needs_chain_level: bool = False
     programme_needs_cohomological: bool = True
-    gap_resolved: bool = True
+    gap_resolved: bool = False
+
+    obstruction_class_formulated: bool = False
+    comparison_map_named: bool = False
+    corrected_tcft_operator: bool = False
+    hh_minus_two_filtration: bool = False
+
+    @classmethod
+    def with_corrected_tcft_comparison(cls) -> "TsyganComparison":
+        """Comparison data sufficient for a conditional class statement."""
+        return cls(
+            obstruction_class_formulated=True,
+            comparison_map_named=True,
+            corrected_tcft_operator=True,
+            gap_resolved=True,
+        )
+
+    @classmethod
+    def with_hh_minus_two_filtration(cls) -> "TsyganComparison":
+        """Filtration data sufficient for a conditional derived class result."""
+        return cls(
+            obstruction_class_formulated=True,
+            hh_minus_two_filtration=True,
+            gap_resolved=True,
+        )
 
     def sufficient_for_programme(self) -> bool:
-        """Is Tsygan formality sufficient for the S^3-framing programme?
-
-        YES: the programme needs cohomological vanishing, and Tsygan
-        gives cohomological vanishing.
-        """
-        return self.tsygan_gives_cohomological and self.programme_needs_cohomological
+        """Whether the comparison data are enough for a class-level theorem."""
+        corrected_route = self.comparison_map_named and self.corrected_tcft_operator
+        filtered_route = self.hh_minus_two_filtration
+        return self.obstruction_class_formulated and (corrected_route or filtered_route)
 
     def chain_level_status(self) -> str:
-        """What is the chain-level status?
-
-        [m_k, B^{(2)}] is generically NONZERO on chains, but EXACT.
-        It equals d(h_k) for an explicit (but non-canonical) homotopy h_k.
-
-        This is STRONGER than what the programme needs:
-        - Programme needs: [Obs_Ainf] = 0 in cohomology.
-        - Tsygan gives: [m_k, B^{(2)}] = d(h_k), which implies the above.
-        """
+        """Raw chain-level status."""
         return (
-            "[m_k, B^{(2)}] is exact (= d(h_k)) on chains. "
-            "Generically nonzero, but a coboundary. "
-            "The obstruction CLASS vanishes."
+            "[m_3, B_term^{(2)}] is strictly nonzero on the cyclic CY3 "
+            "witness; no universal d(h_k) exactness is proved for the raw "
+            "operator."
         )
 
     def difference_from_strict_vanishing(self) -> str:
-        """What is the difference between Tsygan and strict vanishing?
-
-        Strict: [m_k, B^{(2)}] = 0 on chains.
-        Tsygan: [m_k, B^{(2)}] = d(h_k) on chains.
-
-        The difference is a coboundary d(h_k).  In the derived/homotopical
-        setting, these are equivalent: a structure that is zero versus
-        one that is homotopic to zero are the same object in the
-        homotopy category.
-
-        Physical analogy: gauge equivalence.  The commutator [m_k, B^{(2)}]
-        is a "pure gauge" term: it can be removed by a homotopy (gauge
-        transformation) h_k.  The gauge-invariant content (the cohomology
-        class) is zero.
-        """
+        """Distinguish corrected TCFT cancellation from raw vanishing."""
         return (
-            "Strict: [m_k, B^{(2)}] = 0. "
-            "Tsygan: [m_k, B^{(2)}] = d(h_k). "
-            "Difference: the coboundary d(h_k). "
-            "In homotopical algebra, these are equivalent: "
-            "a homotopy-zero commutator IS zero in the homotopy category. "
-            "The gauge-invariant content (cohomology class) is zero."
+            "Strict raw vanishing would assert [m_k, B_term^{(2)}] = 0. "
+            "Costello gives the total corrected identity for B_TCFT^{(2)}. "
+            "To compare them one must supply theta_TCFT or the HH^{-2} "
+            "filtration theorem."
         )
 
 
 # =========================================================================
-# 6. EXPLICIT COMPUTATION FOR LOCAL P^2
+# 6. EXPLICIT STRICT CY3 WITNESS AND LOCAL P2 GUIDE
 # =========================================================================
+
+
+DEGREES = {"e": 0, "a": 1, "b": 2, "w": 3}
+PAIRING = {
+    ("e", "w"): F(1),
+    ("w", "e"): F(1),
+    ("a", "b"): F(1),
+    ("b", "a"): F(1),
+}
+
+
+def _clean(counter: Counter) -> Counter:
+    return Counter({key: value for key, value in counter.items() if value})
+
+
+def _terminal_slot_b2_term(word: Tuple[str, ...]) -> Counter:
+    """Terminal-slot raw ``B^{(2)}_term`` from the standalone witness."""
+    terminal = word[-1]
+    out: Counter = Counter()
+    for idx, entry in enumerate(word[:-1]):
+        coeff = PAIRING.get((entry, terminal), F(0))
+        if coeff:
+            reduced = word[:idx] + word[idx + 1:-1]
+            out[reduced] += coeff
+    return _clean(out)
+
+
+def _m3_bar(word: Tuple[str, ...], alpha: Fraction) -> Counter:
+    """Minimal witness operation ``m_3(a,a,a)=alpha b``."""
+    out: Counter = Counter()
+    for start in range(len(word) - 2):
+        if word[start:start + 3] == ("a", "a", "a"):
+            reduced = word[:start] + ("b",) + word[start + 3:]
+            out[reduced] += alpha
+    return _clean(out)
+
+
+def _compose(first, second, word: Tuple[str, ...]) -> Counter:
+    """Apply ``first`` and then ``second`` to a linear combination."""
+    total: Counter = Counter()
+    for mid, coeff_mid in first(word).items():
+        for out, coeff_out in second(mid).items():
+            total[out] += coeff_mid * coeff_out
+    return _clean(total)
+
+
+def _subtract(left: Counter, right: Counter) -> Counter:
+    total: Counter = Counter(left)
+    for key, value in right.items():
+        total[key] -= value
+    return _clean(total)
+
+
+def strict_cyclic_cy3_witness(alpha: Fraction = F(1)) -> Dict[str, Any]:
+    """Compute the strict nonzero witness exactly.
+
+    The word is ``[a|a|a|a|b]``.  The two routes are
+    ``m_3 B_term^{(2)}`` and ``B_term^{(2)} m_3``.
+    """
+    alpha = F(alpha)
+    word = ("a", "a", "a", "a", "b")
+    b2_then_m3 = _compose(
+        _terminal_slot_b2_term,
+        lambda w: _m3_bar(w, alpha),
+        word,
+    )
+    m3_then_b2 = _compose(
+        lambda w: _m3_bar(w, alpha),
+        _terminal_slot_b2_term,
+        word,
+    )
+    commutator = _subtract(b2_then_m3, m3_then_b2)
+
+    return {
+        "word": word,
+        "alpha": alpha,
+        "B_term_then_m3": b2_then_m3,
+        "m3_then_B_term": m3_then_b2,
+        "commutator": commutator,
+        "expected": Counter({("b",): 2 * alpha}),
+        "chain_level_vanishing": not bool(commutator),
+        "cohomological_vanishing_established": False,
+        "comparison_data_required": True,
+        "statement": (
+            "[m_3, B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0 "
+            "in characteristic zero."
+        ),
+    }
+
 
 @dataclass
 class LocalP2Data:
-    r"""Explicit cyclic A_infinity data for local P^2.
+    r"""Noncompact local P2 guide for non-formal ``m_3`` behaviour."""
 
-    Local P^2 = Tot(O(-3) -> P^2): the canonical bundle of P^2.
-    This is a non-compact CY3.
-
-    The derived category D^b(Coh(local P^2)) has a full strong exceptional
-    collection {O, O(1), O(2)} with:
-      Ext^0(O(i), O(j)) = C  for i <= j
-      Ext^1(O(i), O(j)) = C^3  for j - i = 1  (from H^0(P^2, O(1)) = C^3)
-      Ext^2(O(i), O(j)) = C^3  for j - i = 2  (from H^0(P^2, O(2))^* via Serre)
-      Ext^3(O(i), O(i)) = C  (Serre duality, CY3)
-
-    The quiver with potential: Q = 3-Kronecker, W = det(3x3 matrix of arrows).
-    The A_infinity algebra is Koszul dual to C[x,y,z]/(xyz-relations).
-
-    m_3 != 0: the cubic potential generates a nontrivial m_3.
-    """
-
-    # Generators by Ext degree
     generators: Dict[str, int] = field(default_factory=lambda: {
-        "e_0": 0, "e_1": 0, "e_2": 0,      # Ext^0 (3 objects)
-        "x_01": 1, "y_01": 1, "z_01": 1,    # Ext^1(O, O(1))
-        "x_12": 1, "y_12": 1, "z_12": 1,    # Ext^1(O(1), O(2))
-        "u_02": 2, "v_02": 2, "w_02": 2,    # Ext^2(O, O(2))
-        # Also Ext^1(O(2), O) by wrapping (CY3 Serre)
-        "x_20": 2, "y_20": 2, "z_20": 2,    # Ext^2(O(2), O) (Serre dual)
-        # Ext^3(O(i), O(i))
+        "e_0": 0, "e_1": 0, "e_2": 0,
+        "x_01": 1, "y_01": 1, "z_01": 1,
+        "x_12": 1, "y_12": 1, "z_12": 1,
+        "u_02": 2, "v_02": 2, "w_02": 2,
+        "x_20": 2, "y_20": 2, "z_20": 2,
         "omega_0": 3, "omega_1": 3, "omega_2": 3,
     })
-
-    # CY pairing: <a, b> nonzero only when |a| + |b| = 3
     cy_pairing: Dict[Tuple[str, str], Fraction] = field(default_factory=lambda: {
         ("e_0", "omega_0"): F(1),
         ("e_1", "omega_1"): F(1),
@@ -746,190 +559,103 @@ class LocalP2Data:
         ("x_12", "u_02"): F(1),
         ("y_12", "v_02"): F(1),
         ("z_12", "w_02"): F(1),
-        # Symmetry: <a, b> = (-1)^{|a||b|} <b, a>
-        ("omega_0", "e_0"): F(1),
-        ("omega_1", "e_1"): F(1),
-        ("omega_2", "e_2"): F(1),
-        ("x_20", "x_01"): F(-1),  # degree 2*1 = 2, sign (-1)^2 = 1... but CY3 shift
-        ("y_20", "y_01"): F(-1),
-        ("z_20", "z_01"): F(-1),
-        ("u_02", "x_12"): F(-1),
-        ("v_02", "y_12"): F(-1),
-        ("w_02", "z_12"): F(-1),
     })
-
-    # m_3 data: the nontrivial cubic operation from the potential W = det
-    # m_3(x_01, y_12, z_20) = e_0 (and cyclic permutations)
     m3_data: Dict[Tuple[str, str, str], List[Tuple[str, Fraction]]] = field(
         default_factory=lambda: {
             ("x_01", "y_12", "z_20"): [("e_0", F(1))],
             ("y_01", "z_12", "x_20"): [("e_0", F(1))],
             ("z_01", "x_12", "y_20"): [("e_0", F(1))],
-            ("x_12", "y_20", "z_01"): [("e_1", F(1))],
-            ("y_12", "z_20", "x_01"): [("e_1", F(1))],
-            ("z_12", "x_20", "y_01"): [("e_1", F(1))],
-            ("x_20", "y_01", "z_12"): [("e_2", F(1))],
-            ("y_20", "z_01", "x_12"): [("e_2", F(1))],
-            ("z_20", "x_01", "y_12"): [("e_2", F(1))],
-            # Antisymmetric terms (from the determinant)
             ("x_01", "z_12", "y_20"): [("e_0", F(-1))],
-            ("y_01", "x_12", "z_20"): [("e_0", F(-1))],
-            ("z_01", "y_12", "x_20"): [("e_0", F(-1))],
         }
     )
 
     def is_formal(self) -> bool:
-        """Local P^2 is NON-FORMAL: m_3 != 0."""
+        """Local P2 is non-formal in this diagnostic model."""
         return False
 
     def has_nontrivial_m3(self) -> bool:
-        """m_3 != 0 from the cubic potential."""
+        """The cubic potential supplies nonzero ``m_3`` terms."""
         return True
 
     def generator_count(self) -> int:
-        """Total number of generators."""
         return len(self.generators)
 
     def ext_dimensions(self) -> Dict[int, int]:
-        """Dimensions of Ext^i."""
         dims: Dict[int, int] = {}
-        for _, deg in self.generators.items():
-            dims[deg] = dims.get(deg, 0) + 1
+        for degree in self.generators.values():
+            dims[degree] = dims.get(degree, 0) + 1
         return dims
 
 
-def compute_non_adjacent_terms_local_p2(
-    bar_length: int = 5,
-) -> Dict[str, Any]:
-    """Compute non-adjacent contractions in [m_3, B^{(2)}] for local P^2.
-
-    For CC_5 (bar length 5) with m_3 (arity 3), B^{(2)} contracts pairs.
-    Non-adjacent: one factor inside the m_3 block, one outside and not
-    adjacent to the block.
-
-    On CC_5 = a_0 | a_1 | a_2 | a_3 | a_4:
-      m_3 block at positions {0,1,2}: adjacent positions are {-1 (wrap), 3}
-        Non-adjacent: {4} (one position)
-      m_3 block at positions {1,2,3}: adjacent positions are {0, 4}
-        Non-adjacent: none (all remaining positions are adjacent)
-      m_3 block at positions {2,3,4}: adjacent positions are {1, 5 (wrap)}
-        Non-adjacent: {0} (one position)
-
-    Total non-adjacent terms for CC_5, m_3: terms from blocks at {0,1,2}
-    and {2,3,4}, each contributing contractions between inside and position 4
-    (resp. 0).
-    """
+def compute_non_adjacent_terms_local_p2(bar_length: int = 5) -> Dict[str, Any]:
+    """Compute raw non-adjacent configurations for the local P2 guide."""
     terms = enumerate_non_adjacent_terms(bar_length, mk_arity=3)
-
-    adjacent_count = 0
-    non_adjacent_count = 0
-    for t in terms:
-        if t.is_adjacent():
-            adjacent_count += 1
-        else:
-            non_adjacent_count += 1
+    non_adjacent_count = len([term for term in terms if not term.is_adjacent()])
 
     return {
         "bar_length": bar_length,
         "mk_arity": 3,
         "total_terms": len(terms),
         "non_adjacent_count": non_adjacent_count,
-        "adjacent_count": adjacent_count,
+        "adjacent_count": 0,
         "chain_level_vanishing": False,
-        "cohomological_vanishing": True,
+        "cohomological_vanishing": False,
+        "cohomological_vanishing_established": False,
+        "comparison_data_required": True,
         "resolution": (
-            "The non-adjacent terms do NOT cancel on chains. "
-            "They ARE zero in cohomology by Tsygan-Costello formality. "
-            "The chain-level commutator [m_3, B^{(2)}] = d(h_3) is exact."
+            "The local P2 guide shows non-adjacent raw terms.  It is not a "
+            "compact CY3 construction and does not prove cohomological "
+            "vanishing without TCFT comparison data or an HH^{-2} theorem."
         ),
     }
 
 
 # =========================================================================
-# 7. CHAIN-LEVEL vs COHOMOLOGICAL: THE PRECISE DISTINCTION
+# 7. CHAIN LEVEL VS COHOMOLOGY
 # =========================================================================
+
 
 @dataclass(frozen=True)
 class ChainVsCohomologyDistinction:
-    """The precise distinction between chain-level and cohomological vanishing.
-
-    This is the key mathematical content: understanding WHY cohomological
-    vanishing suffices and WHY strict chain-level vanishing is too strong.
-    """
+    """Precise status of raw chain and conditional class statements."""
 
     def chain_level_identity_holds(self) -> bool:
-        """Does [m_k, B^{(2)}] = 0 hold strictly on chains?
-
-        NO (generically).  For non-formal CY3 (local P^2, quintic at
-        non-Gepner points), the commutator is nonzero on the nose.
-        """
+        """Raw termwise chain vanishing is false."""
         return False
 
     def cohomological_vanishing_holds(self) -> bool:
-        """Does [[m_k, B^{(2)}]] = 0 hold in cohomology?
-
-        YES (universally).  Tsygan-Costello formality guarantees this.
-        """
-        return True
+        """No unconditional class vanishing is proved for the raw target."""
+        return False
 
     def homotopy_coherent_vanishing_holds(self) -> bool:
-        """Does [m_k, B^{(2)}] = d(h_k) hold for some homotopy h_k?
-
-        YES (universally).  This is equivalent to cohomological vanishing.
-        The homotopy h_k exists but is not canonical.
-        """
-        return True
+        """No universal raw homotopy ``d(h_k)`` is supplied."""
+        return False
 
     def which_is_needed_for_programme(self) -> str:
-        """Which level of vanishing does the S^3-framing programme need?
-
-        COHOMOLOGICAL.  The obstruction Obs_Ainf is a class in
-        H^*(HH(CC_*(C), CC_*(C))).  The S^3-framing is a structure
-        in a derived/homotopical setting: it is defined up to
-        quasi-isomorphism.
-
-        The chain-level identity [m_k, B^{(2)}] = 0 would give a
-        STRICT S^3-framing (compatible on the nose with all m_k).
-        This is stronger than needed.  The programme only requires
-        a framing up to homotopy equivalence.
-        """
-        return "cohomological"
+        """Name the actual proof obligation."""
+        return (
+            "a class in C^bullet_End(CC_*(A)) or HH^{-2}_{E_1}(A,A), "
+            "with theta_TCFT or the HH^{-2} filtration theorem"
+        )
 
     def formal_algebras_are_strict(self) -> bool:
-        """For formal CY3 algebras, does chain-level vanishing hold?
-
-        YES.  For formal algebras (m_k = 0 for k >= 3), the commutator
-        [m_k, B^{(2)}] = 0 trivially (both sides are zero).
-
-        This is why the formal case (C^3, conifold, K3 x E) was never
-        problematic.  The gap is specific to non-formal algebras.
-        """
+        """If all ``m_k`` for ``k>=3`` vanish, the target commutator is zero."""
         return True
 
     def non_formal_gap_resolved(self) -> bool:
-        """Is the gap for non-formal algebras resolved?
-
-        YES, at the cohomological level.  Tsygan-Costello formality
-        resolves it universally.
-
-        The chain-level commutator [m_k, B^{(2)}] is nonzero for
-        local P^2 (where m_3 != 0), but it is exact (a coboundary).
-        The obstruction CLASS vanishes.
-        """
-        return True
+        """Non-formal raw termwise failure is not resolved by formality alone."""
+        return False
 
 
 # =========================================================================
-# 8. UPGRADED PROPOSITION STATUS
+# 8. RESOLUTION OBJECT
 # =========================================================================
+
 
 @dataclass
 class ObsAinfResolution:
-    """The resolution of Obs_Ainf via Tsygan formality.
+    """Repaired status object for the ``Obs_Ainf`` target."""
 
-    This is the main result of this module: Obs_Ainf = 0 as a cohomology
-    class, universally for smooth proper cyclic A_infinity algebras.
-    """
     tsygan_data: TsyganFormalityData
     costello_data: CostelloTCFTFormality
     gap_analysis: GapAnalysis
@@ -938,191 +664,130 @@ class ObsAinfResolution:
     proof_steps: List[TsyganProofStep]
 
     def obs_ainf_vanishes_cohomologically(self) -> bool:
-        """Does [Obs_Ainf] = 0 in cohomology?
-
-        YES.  This is the main theorem.
-        """
-        return (
-            self.tsygan_data.gives_cohomological_vanishing()
-            and self.costello_data.b2_is_formal()
-            and self.gap_analysis.gap_closed_cohomology()
-            and self.comparison.sufficient_for_programme()
-        )
+        """Default raw target: not established."""
+        return self.comparison.sufficient_for_programme()
 
     def proposition_status(self) -> str:
-        """What should the status of prop:cyclic-ainf-framing-compat be?
-
-        The proposition claims [m_k, B^{(2)}] = 0.  This is:
-          - FALSE at the chain level (for non-formal algebras).
-          - TRUE at the cohomological level (by Tsygan formality).
-
-        The proposition should be REFORMULATED to state:
-          "The obstruction class [Obs_Ainf] = [[m_k, B^{(2)}]] vanishes
-           in H^*(HH(CC_*(C), CC_*(C)))."
-
-        This is a weaker statement than the original [m_k, B^{(2)}] = 0,
-        but it is the CORRECT statement and it IS proved (by Tsygan).
-
-        Recommended status: ProvedHere (with Tsygan attribution).
-        The status upgrade from Conditional to ProvedHere is justified
-        because the cohomological vanishing IS the relevant condition.
-        """
+        """Status of the old proposition after repair."""
         if self.obs_ainf_vanishes_cohomologically():
-            return "ProvedHere (cohomological, via Tsygan-Costello formality)"
-        return "Conditional"
+            return "Conditional class statement with named comparison data"
+        return (
+            "Rejected for raw B_term^{(2)}; conditional only after theta_TCFT "
+            "or the HH^{-2} filtration theorem"
+        )
 
     def impact_on_obstruction_landscape(self) -> Dict[str, str]:
-        """Impact on the obstruction landscape (rem:hopf-reduction).
-
-        All entries with Obs_Ainf = "0 (cyclic)" should be updated to
-        Obs_Ainf = "0 (Tsygan formality, cohomological)".
-
-        The upgrade: the proof is now CORRECT and COMPLETE, not relying
-        on the flawed cyclic-invariance argument.
-        """
+        """Corrected landscape entries for the A_infinity obstruction."""
         return {
             "C^3": "0 [formal, chain-level]",
             "conifold": "0 [formal, chain-level]",
-            "local_P^2": "0 [Tsygan, cohomological]",
-            "quintic": "0 [Tsygan, cohomological]",
-            "K3_x_E": "0 [formal, chain-level]",
+            "local_P^2": "nonzero for B_term^{(2)} [noncompact guide]",
+            "quintic": "conditional [needs compact comparison or HH^{-2} theorem]",
+            "K3_x_E": "not closed by Tsygan alone [compact TCFT/BV data required]",
         }
 
     def summary(self) -> Dict[str, Any]:
-        """Full summary of the resolution."""
+        """Full repaired summary."""
         return {
             "main_result": (
-                "[Obs_Ainf] = 0 in H^*(HH(CC_*(C), CC_*(C))) "
-                "for all smooth proper cyclic A_infinity algebras. "
-                "Proof: Tsygan-Costello formality."
+                "Universal raw termwise vanishing/exactness is rejected. "
+                "The strict cyclic CY3 witness has "
+                "[m_3, B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0."
             ),
-            "chain_level": (
-                "[m_k, B^{(2)}] is exact (= d(h_k)), not zero. "
-                "Nonzero for non-formal algebras (local P^2, quintic). "
-                "Zero for formal algebras (C^3, conifold, K3 x E)."
+            "costello": (
+                "Costello gives the corrected total identity "
+                "{sum_k b_k, B_TCFT^{(2)}} = 0 after correction data."
             ),
-            "sufficiency": (
-                "Cohomological vanishing is sufficient for the S^3-framing "
-                "programme because the obstruction is a class in a derived "
-                "category."
+            "cohomological_statement": (
+                f"Conditional: formulate the class in {OBSTRUCTION_COMPLEX} "
+                f"with {COMPARISON_MAP}, or in {DERIVED_E1_COMPLEX} under "
+                f"{FILTERED_HYPOTHESIS}."
             ),
             "proposition_status": self.proposition_status(),
             "landscape": self.impact_on_obstruction_landscape(),
             "proof_step_count": len(self.proof_steps),
             "dependencies": [
-                "Tsygan (1999), arXiv:math/9904132",
-                "Costello (2004), arXiv:math/0412149",
-                "Kadeishvili transfer (1982)",
-                "Kontsevich-Soibelman (2006)",
+                "Tsygan (1999): mixed-complex formality for (CC,b,B)",
+                "Costello (2007): corrected open--closed TCFT identity",
+                "standalone/m3_b2_obstruction_vol3.tex: strict witness",
             ],
-            "does_NOT_depend_on": [
-                "CY-A_3 (the resolution is unconditional)",
-                "explicit local P^2 computation (universal argument)",
-                "BV compatibility (orthogonal obstruction)",
+            "does_NOT_prove": [
+                "termwise [m_k, B_term^{(2)}] = 0",
+                "universal raw exactness [m_k, B_term^{(2)}] = d(h_k)",
+                "compact S^3-framing programme closure without hypotheses",
             ],
         }
 
 
-def resolve_obs_ainf() -> ObsAinfResolution:
-    """Construct the full resolution of Obs_Ainf.
-
-    This is the main entry point for the module.
-    """
+def resolve_obs_ainf(
+    comparison: TsyganComparison | None = None,
+) -> ObsAinfResolution:
+    """Construct the repaired status object."""
     return ObsAinfResolution(
         tsygan_data=TsyganFormalityData(),
         costello_data=CostelloTCFTFormality(cy_dimension=3),
         gap_analysis=GapAnalysis(),
-        comparison=TsyganComparison(),
+        comparison=comparison or TsyganComparison(),
         chain_vs_cohomology=ChainVsCohomologyDistinction(),
         proof_steps=construct_proof(),
     )
 
 
 # =========================================================================
-# 9. EXPLICIT CHAIN-LEVEL COMPUTATION: [m_3, B^{(2)}] for local P^2
+# 9. SCHEMATIC COMMUTATOR OUTPUT
 # =========================================================================
+
 
 @dataclass
 class CommutatorTerm:
-    """A single term in the commutator [m_3, B^{(2)}] on CC_n."""
-    sign: int  # +1 or -1
+    """A schematic term in the raw commutator."""
+
+    sign: int
     description: str
     is_adjacent: bool
     contributes_to_chain_level: bool
     vanishes_in_cohomology: bool
 
 
-def compute_commutator_m3_b2_local_p2(
-    bar_length: int = 5,
-) -> Dict[str, Any]:
-    """Compute [m_3, B^{(2)}] on CC_5 for local P^2.
+def compute_commutator_m3_b2_local_p2(bar_length: int = 5) -> Dict[str, Any]:
+    """Return the raw nonzero status plus the strict witness.
 
-    This is the EXPLICIT chain-level computation requested in the
-    adversarial audit remark.
-
-    On CC_5 = a_0 | a_1 | a_2 | a_3 | a_4:
-
-    m_3 . B^{(2)}: first apply B^{(2)} (contract a pair), then m_3
-    B^{(2)} . m_3: first apply m_3 (to a triple), then B^{(2)} (contract a pair)
-
-    The commutator counts the DIFFERENCE.
-
-    Result: the non-adjacent terms do NOT cancel on chains, but they
-    ARE exact (Tsygan).
+    The function name is retained for compatibility.  The decisive oracle is
+    the strict cyclic CY3 witness, not a compact local P2 theorem.
     """
     non_adj = enumerate_non_adjacent_terms(bar_length, mk_arity=3)
-    non_adj_count = len([t for t in non_adj if not t.is_adjacent()])
-
-    # For CC_5 with m_3 on local P^2:
-    # The non-adjacent terms involve contracting a_0 with an element
-    # inside m_3(a_2, a_3, a_4), or a_4 with an element inside m_3(a_0, a_1, a_2).
-    # These DO NOT cancel by cyclic invariance alone.
-
-    terms_m3_then_b2 = []
-    terms_b2_then_m3 = []
-
-    # m_3 at positions {0,1,2}, then B^{(2)} contracts result with a_3 or a_4
-    terms_m3_then_b2.append(CommutatorTerm(
-        sign=1,
-        description="m_3(a_0,a_1,a_2) then B^{(2)} with a_3: ADJACENT",
-        is_adjacent=True,
-        contributes_to_chain_level=True,
-        vanishes_in_cohomology=True,
-    ))
-    terms_m3_then_b2.append(CommutatorTerm(
-        sign=1,
-        description="m_3(a_0,a_1,a_2) then B^{(2)} with a_4: NON-ADJACENT",
-        is_adjacent=False,
-        contributes_to_chain_level=True,
-        vanishes_in_cohomology=True,
-    ))
-
-    # B^{(2)} first contracts (a_0, a_4), then m_3 on remaining
-    terms_b2_then_m3.append(CommutatorTerm(
-        sign=-1,
-        description="B^{(2)}(a_0,a_4) then m_3(a_1,a_2,a_3): non-adjacent origin",
-        is_adjacent=False,
-        contributes_to_chain_level=True,
-        vanishes_in_cohomology=True,
-    ))
-
-    all_terms = terms_m3_then_b2 + terms_b2_then_m3
-    chain_level_zero = all(not t.contributes_to_chain_level for t in all_terms)
-    cohomology_level_zero = all(t.vanishes_in_cohomology for t in all_terms)
+    witness = strict_cyclic_cy3_witness()
+    all_terms = [
+        CommutatorTerm(
+            sign=1,
+            description="m_3 after B_term^{(2)}: contributes to strict witness",
+            is_adjacent=False,
+            contributes_to_chain_level=True,
+            vanishes_in_cohomology=False,
+        ),
+        CommutatorTerm(
+            sign=-1,
+            description="B_term^{(2)} after m_3: contributes to strict witness",
+            is_adjacent=False,
+            contributes_to_chain_level=True,
+            vanishes_in_cohomology=False,
+        ),
+    ]
 
     return {
         "bar_length": bar_length,
         "total_terms_schematic": len(all_terms),
-        "non_adjacent_terms": len([t for t in all_terms if not t.is_adjacent]),
-        "chain_level_vanishing": chain_level_zero,
-        "cohomological_vanishing": cohomology_level_zero,
-        "non_adjacent_count_enumerated": non_adj_count,
+        "non_adjacent_terms": len([term for term in all_terms if not term.is_adjacent]),
+        "chain_level_vanishing": False,
+        "cohomological_vanishing": False,
+        "cohomological_vanishing_established": False,
+        "comparison_data_required": True,
+        "non_adjacent_count_enumerated": len(non_adj),
+        "strict_witness": witness,
         "explanation": (
-            "The non-adjacent terms in [m_3, B^{(2)}] do NOT cancel on "
-            "chains for local P^2. The commutator is nonzero on chains. "
-            "However, [m_3, B^{(2)}] = d(h_3) is exact by Tsygan-Costello "
-            "formality: the obstruction CLASS vanishes in cohomology. "
-            "This resolves the gap identified in AP-CY34."
+            "The raw termwise commutator is strictly nonzero on the cyclic "
+            "CY3 witness.  Costello's corrected TCFT operator or the "
+            "HH^{-2} theorem is a separate input."
         ),
     }
 
@@ -1131,46 +796,31 @@ def compute_commutator_m3_b2_local_p2(
 # 10. MASTER VERIFICATION
 # =========================================================================
 
+
 def verify_tsygan_resolution() -> Dict[str, Any]:
-    """Run the complete Tsygan resolution verification.
-
-    Checks:
-      (1) Tsygan formality applies to CY3
-      (2) Costello extension covers B^{(2)}
-      (3) Gap analysis: chain-level gap exists, cohomology gap closed
-      (4) Non-adjacent term count for local P^2
-      (5) Proof is complete (7 steps)
-      (6) Comparison: Tsygan gives what we need
-      (7) Proposition status upgrade is justified
-    """
+    """Run the repaired verification."""
     resolution = resolve_obs_ainf()
+    witness = strict_cyclic_cy3_witness()
 
-    # (1) Tsygan applies to CY3
     assert resolution.tsygan_data.applies_to_cy3()
+    assert not resolution.tsygan_data.gives_chain_level_vanishing()
+    assert not resolution.tsygan_data.gives_cohomological_vanishing()
 
-    # (2) Costello covers B^{(2)}
     assert resolution.costello_data.b2_is_formal()
-    assert resolution.costello_data.full_hierarchy_formal()
+    assert resolution.costello_data.total_tcft_identity_holds()
+    assert not resolution.costello_data.termwise_identity_holds()
+    assert not resolution.costello_data.raw_term_operator_identified()
 
-    # (3) Gap analysis
     assert resolution.gap_analysis.gap_exists_chain_level()
-    assert resolution.gap_analysis.gap_closed_cohomology()
+    assert not resolution.gap_analysis.gap_closed_cohomology()
 
-    # (4) Non-adjacent terms exist for local P^2
-    non_adj_5 = compute_non_adjacent_terms_local_p2(bar_length=5)
-    assert non_adj_5["non_adjacent_count"] > 0
-    assert not non_adj_5["chain_level_vanishing"]
-    assert non_adj_5["cohomological_vanishing"]
+    assert witness["commutator"] == witness["expected"]
+    assert not witness["chain_level_vanishing"]
+    assert not witness["cohomological_vanishing_established"]
 
-    # (5) Proof has 7 steps
-    assert len(resolution.proof_steps) == 7
-
-    # (6) Tsygan gives what we need
-    assert resolution.comparison.sufficient_for_programme()
-
-    # (7) Status upgrade
-    assert resolution.obs_ainf_vanishes_cohomologically()
-    assert "ProvedHere" in resolution.proposition_status()
+    assert not resolution.comparison.sufficient_for_programme()
+    assert not resolution.obs_ainf_vanishes_cohomologically()
+    assert "Rejected" in resolution.proposition_status()
 
     return resolution.summary()
 
@@ -1179,74 +829,60 @@ def verify_tsygan_resolution() -> Dict[str, Any]:
 # 11. NON-ADJACENT TERM COUNTS BY BAR LENGTH
 # =========================================================================
 
+
 def non_adjacent_term_table(
     max_bar_length: int = 10,
     mk_arity: int = 3,
 ) -> List[Dict[str, int]]:
-    """Table of non-adjacent term counts by bar length.
-
-    For m_k with arity k, on CC_n with bar length n:
-      - Non-adjacent terms exist when n >= k + 2
-      - The count grows polynomially with n
-
-    The polynomial growth confirms that the non-adjacent terms are a
-    GENUINE phenomenon, not an edge case.
-    """
+    """Table of raw non-adjacent term counts by bar length."""
     table = []
     for n in range(mk_arity, max_bar_length + 1):
         terms = enumerate_non_adjacent_terms(n, mk_arity)
-        non_adj = [t for t in terms if not t.is_adjacent()]
         table.append({
             "bar_length": n,
             "mk_arity": mk_arity,
             "total_terms": len(terms),
-            "non_adjacent": len(non_adj),
+            "non_adjacent": len([term for term in terms if not term.is_adjacent()]),
         })
     return table
 
 
 # =========================================================================
-# 12. UPGRADED HOPF DECOMPOSITION STATUS
+# 12. OBSTRUCTION LANDSCAPE
 # =========================================================================
 
-def upgraded_obstruction_landscape() -> Dict[str, Dict[str, str]]:
-    """The obstruction landscape after the Tsygan resolution.
 
-    Compared to rem:hopf-reduction in cy_to_chiral.tex:
-    - Obs_Ainf entries for non-formal geometries are upgraded from
-      "0 (cyclic)" to "0 (Tsygan formality, cohomological)".
-    - The proof mechanism is now CORRECT (Tsygan, not cyclic invariance).
-    - The status is now ProvedHere, not Conditional.
-    """
+def upgraded_obstruction_landscape() -> Dict[str, Dict[str, str]]:
+    """Landscape after rejecting the false Tsygan/formality strengthening."""
     return {
         "C^3": {
             "Obs_top": "0 [proved: pi_3(BSp) = 0]",
-            "Obs_Ainf": "0 [proved: formal, chain-level]",
+            "Obs_Ainf": "0 [formal, chain-level]",
             "Obs_BV": "0 [proved: toric equivariance]",
-            "total": "0 [fully resolved]",
+            "total": "resolved on formal toric data",
         },
         "conifold": {
             "Obs_top": "0 [proved: pi_3(BSp) = 0]",
-            "Obs_Ainf": "0 [proved: formal, chain-level]",
+            "Obs_Ainf": "0 [formal, chain-level]",
             "Obs_BV": "0 [proved: toric equivariance]",
-            "total": "0 [fully resolved]",
+            "total": "resolved on formal toric data",
         },
         "local_P^2": {
             "Obs_top": "0 [proved: pi_3(BSp) = 0]",
-            "Obs_Ainf": "0 [proved: Tsygan-Costello, cohomological]",
-            "Obs_BV": "0 [proved: toric equivariance]",
-            "total": "0 [fully resolved]",
+            "Obs_Ainf": "nonzero for raw B_term^{(2)} [noncompact guide]",
+            "Obs_BV": "0 [toric equivariance guide]",
+            "total": "diagnostic only, not compact S^3 closure",
         },
         "quintic": {
             "Obs_top": "0 [proved: pi_3(BSp) = 0]",
-            "Obs_Ainf": "0 [proved: Tsygan-Costello, cohomological]",
-            "Obs_BV": "0 [perturbative: Cech-HTT convergence]",
-            "total": "perturbatively resolved [single open: Obs_BV convergence]",
+            "Obs_Ainf": "conditional on theta_TCFT or HH^{-2} theorem",
+            "Obs_BV": "perturbative: Cech-HTT convergence",
+            "total": "open beyond stated hypotheses",
         },
         "K3_x_E": {
             "Obs_top": "0 [proved: pi_3(BSp) = 0]",
-            "Obs_Ainf": "0 [proved: formal, chain-level]",
-            "Obs_BV": "conditional on Kummer Step 5",
-            "total": "conditional [Kummer route]",
+            "Obs_Ainf": "not closed by Tsygan alone",
+            "Obs_BV": "conditional on compact correction data",
+            "total": "conditional",
         },
     }

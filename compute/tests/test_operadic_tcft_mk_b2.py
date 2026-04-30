@@ -1,14 +1,14 @@
-r"""Tests for the operadic TCFT proof resolving AP-CY34.
+r"""Tests for the operadic TCFT m_k--B^{(2)} attack-heal pass.
 
 Verifies:
   (1) Local P^2 algebra data: generators, degrees, pairing, mu_3
-  (2) Operadic proof structure: Costello Theorem A + d^2 = 0
-  (3) Corrected claim: {b, B^{(2)}} = 0 (total), NOT [m_k, B^{(2)}] = 0
+  (2) Conditional proof structure: Costello Theorem A + corrected TCFT datum
+  (3) Corrected claim: {b, B_TCFT^{(2)}} = 0 conditionally
   (4) Non-formality of local P^2: mu_3 != 0 (Massey product)
   (5) Algebra verification: cyclic invariance, non-degeneracy
-  (6) Gap closure: AP-CY34 resolved by operadic argument
-  (7) Obstruction landscape: Obs_Ainf = 0 for all standard geometries
-  (8) Cross-checks with hopf_fibration_s3_framing.py
+  (6) Strict witness: [m_3, B_term^{(2)}] is nonzero
+  (7) Obstruction landscape: no compact CY3 Obs_Ainf = 0 claim
+  (8) Cross-checks with the corrected diagnostic engines
 
 Every test uses AT LEAST 3 independent verification paths (AP10).
 
@@ -30,9 +30,11 @@ from compute.lib.operadic_tcft_mk_b2_engine import (
     verify_algebra,
     close_gap_ap_cy34,
     master_mk_b2_verification,
+    strict_m3_b2_term_witness,
     OperadicTCFTProof,
     AlgebraVerification,
     GapClosureResult,
+    TermwiseWitness,
 )
 
 F = Fraction
@@ -186,21 +188,70 @@ class TestFrobeniusBaseline:
 
 
 # ================================================================
-# SECTION 3: OPERADIC PROOF STRUCTURE
+# SECTION 3: STRICT TERMWISE WITNESS
+# ================================================================
+
+class TestTermwiseWitness:
+    """Tests for the strict [m_3, B_term^{(2)}] witness."""
+
+    def test_witness_type_and_word(self):
+        """The witness records the terminal-slot bar word.
+
+        Path 1: input word is [a|a|a|a|b].
+        Path 2: output word is [b].
+        Path 3: the operator is B_term^{(2)}, not B_TCFT^{(2)}.
+        """
+        witness = strict_m3_b2_term_witness()
+        assert isinstance(witness, TermwiseWitness)
+        assert witness.input_word == ("a", "a", "a", "a", "b")
+        assert witness.output_word == ("b",)
+        assert witness.operator == "B^{(2)}_term"
+
+    def test_witness_coefficients(self):
+        """The strict witness has commutator coefficient 2 alpha.
+
+        Path 1: m_3 after B_term^{(2)} gives 4 alpha.
+        Path 2: B_term^{(2)} after m_3 gives 2 alpha.
+        Path 3: the difference is 2 alpha, nonzero at alpha=1.
+        """
+        witness = strict_m3_b2_term_witness()
+        assert witness.m3_after_b2_coeff == F(4)
+        assert witness.b2_after_m3_coeff == F(2)
+        assert witness.commutator_coeff == F(2)
+        assert witness.is_nonzero
+
+    def test_witness_scales_with_alpha(self):
+        """Changing alpha scales the nonzero commutator."""
+        witness = strict_m3_b2_term_witness(F(3, 2))
+        assert witness.m3_after_b2_coeff == F(6)
+        assert witness.b2_after_m3_coeff == F(3)
+        assert witness.commutator_coeff == F(3)
+        assert witness.is_nonzero
+
+    def test_zero_alpha_rejected(self):
+        """The strict witness is only the nonzero alpha case."""
+        with pytest.raises(ValueError, match="alpha != 0"):
+            strict_m3_b2_term_witness(F(0))
+
+
+# ================================================================
+# SECTION 4: OPERADIC PROOF STRUCTURE
 # ================================================================
 
 class TestOperadicProof:
-    """Tests for the operadic TCFT proof structure."""
+    """Tests for the conditional operadic TCFT proof structure."""
 
     def test_proof_completeness(self):
-        """The operadic proof has all five components.
+        """The conditional TCFT proof has all components.
 
         Path 1: Costello Theorem A present.
         Path 2: Open-closed extension present.
-        Path 3: d^2 = 0 argument present.
+        Path 3: corrected operator and comparison datum present.
         """
         proof = construct_operadic_proof()
         assert proof.is_complete()
+        assert proof.corrected_operator == "B_TCFT^{(2)}"
+        assert proof.requires_comparison_datum
 
     def test_costello_theorem_cited(self):
         """Costello's Theorem A is correctly cited.
@@ -218,46 +269,50 @@ class TestOperadicProof:
 
         Path 1: Cyclic pairing -> closed sector.
         Path 2: Hochschild chain complex identified.
-        Path 3: B^{(2)} from genus-change operation.
+        Path 3: B_TCFT^{(2)} includes boundary corrections.
         """
         proof = construct_operadic_proof()
         assert "Hochschild" in proof.step2_open_closed
         assert "genus-change" in proof.step2_open_closed
+        assert "B_TCFT^{(2)}" in proof.step2_open_closed
+        assert "B_term^{(2)}" in proof.step2_open_closed
 
     def test_d_squared_zero(self):
-        """d^2 = 0 argument is present and correct.
+        """d^2 = 0 argument is conditional on the corrected operator.
 
         Path 1: d^2 = 0 explicitly stated.
-        Path 2: Compact 1-dimensional moduli mentioned.
-        Path 3: Graded commutator {b, B^{(2)}} = 0 stated.
+        Path 2: B_TCFT^{(2)} named.
+        Path 3: B_term^{(2)} explicitly excluded.
         """
         proof = construct_operadic_proof()
         assert "d^2 = 0" in proof.step3_d_squared
-        assert "{b, B^{(2)}}" in proof.step3_d_squared
+        assert "{b, B_TCFT^{(2)}}" in proof.step3_d_squared
+        assert "B_term^{(2)}" in proof.step3_d_squared
 
     def test_non_adjacent_resolution(self):
-        """Non-adjacent gap explicitly resolved.
+        """Non-adjacent gap is not closed by the raw termwise operator.
 
         Path 1: "non-adjacent" mentioned.
-        Path 2: Cross-arity cancellation described.
-        Path 3: Stasheff relations invoked.
+        Path 2: strict witness described.
+        Path 3: correction datum invoked.
         """
         proof = construct_operadic_proof()
         assert "non-adjacent" in proof.non_adjacent_resolution.lower()
-        assert "Stasheff" in proof.non_adjacent_resolution
+        assert "[m_3, B_term^{(2)}] != 0" in proof.non_adjacent_resolution
+        assert "correction datum" in proof.non_adjacent_resolution
 
     def test_individual_vs_total_correction(self):
-        """The correction from individual to total is stated.
+        """The correction separates raw termwise and corrected TCFT operators.
 
         Path 1: Original claim identified as wrong.
-        Path 2: Corrected claim stated.
-        Path 3: Cross-arity cancellation mechanism explained.
+        Path 2: raw total identity rejected.
+        Path 3: corrected conditional identity stated.
         """
         proof = construct_operadic_proof()
-        assert "WRONG" in proof.individual_vs_total or \
-               "incorrect" in proof.individual_vs_total
-        assert "{b, B^{(2)}}" in proof.individual_vs_total or \
-               "total" in proof.individual_vs_total.lower()
+        assert "false" in proof.individual_vs_total.lower()
+        assert "{sum_k b_k, B_term^{(2)}}" in proof.individual_vs_total
+        assert "{sum_k b_k, B_TCFT^{(2)}}" in proof.individual_vs_total
+        assert "Obs_Ainf = 0" in proof.individual_vs_total
 
     def test_references_present(self):
         """All key references cited."""
@@ -342,59 +397,64 @@ class TestAlgebraVerification:
 
 
 # ================================================================
-# SECTION 5: GAP CLOSURE -- THE MAIN RESULT
+# SECTION 5: ATTACK-HEAL VERDICT -- THE MAIN RESULT
 # ================================================================
 
 class TestGapClosure:
-    """Tests that AP-CY34 is closed by the operadic argument."""
+    """Tests that the old AP-CY34 closure claim is rejected."""
 
     def test_gap_closed(self):
-        """The AP-CY34 gap is closed.
+        """The raw termwise AP-CY34 gap is not closed.
 
-        Path 1: Operadic proof is complete.
-        Path 2: Local P^2 has nonzero mu_3 (non-trivial content).
-        Path 3: The corrected claim is stated.
+        Path 1: strict termwise witness is nonzero.
+        Path 2: conditional TCFT identity is available.
+        Path 3: raw gap_closed verdict remains False.
         """
         result = close_gap_ap_cy34()
-        assert result.gap_closed
+        assert not result.gap_closed
+        assert result.termwise_witness.is_nonzero
+        assert result.conditional_tcft_identity_available
 
     def test_operadic_proof_complete(self):
-        """The operadic proof has all components."""
+        """The conditional operadic proof has all components."""
         result = close_gap_ap_cy34()
         assert result.operadic_proof.is_complete()
 
     def test_corrected_claim_stated(self):
-        """The corrected claim {b, B^{(2)}} = 0 is stated.
+        """The corrected claim names B_TCFT^{(2)} and comparison data.
 
-        Path 1: 'total' appears in corrected_claim.
-        Path 2: 'b = sum_k b_k' appears.
-        Path 3: Costello is cited.
+        Path 1: B_TCFT^{(2)} appears.
+        Path 2: B_term^{(2)} raw identity is excluded.
+        Path 3: comparison datum appears.
         """
         result = close_gap_ap_cy34()
-        assert "total" in result.corrected_claim.lower() or \
-               "sum" in result.corrected_claim
-        assert "Costello" in result.corrected_claim
+        assert "B_TCFT^{(2)}" in result.corrected_claim
+        assert "B_term^{(2)}" in result.corrected_claim
+        assert "comparison datum" in result.corrected_claim
 
     def test_original_claim_identified_as_incorrect(self):
-        """The original per-k claim is identified as incorrect.
+        """The raw termwise claims are identified as false.
 
-        Path 1: 'incorrect' or 'WRONG' appears.
-        Path 2: '[m_k, B^{(2)}] = 0' referenced.
-        Path 3: 'individual' mentioned.
+        Path 1: 'false' appears.
+        Path 2: raw total identity is named.
+        Path 3: strict witness coefficient appears.
         """
         result = close_gap_ap_cy34()
         text = result.original_claim_incorrect
-        assert "incorrect" in text.lower() or "wrong" in text.lower()
+        assert "false" in text.lower()
+        assert "{sum_k b_k, B_term^{(2)}} = 0" in text
+        assert "2[b] != 0" in text
 
     def test_formal_case_trivial(self):
-        """Formal case is trivially resolved."""
+        """Formal Frobenius models remain a separate trivial case."""
         result = close_gap_ap_cy34()
         assert result.formal_case_trivial
 
     def test_non_formal_requires_operadic(self):
-        """Non-formal case requires the operadic argument."""
+        """Non-formal cases require corrected TCFT input."""
         result = close_gap_ap_cy34()
         assert result.non_formal_requires_operadic
+        assert result.comparison_datum_required
 
     def test_non_formal_algebra_verified(self):
         """The non-formal algebra (local P^2) data is verified.
@@ -409,63 +469,72 @@ class TestGapClosure:
         assert v.has_mu3
         assert v.pairing_nondegenerate
 
+    def test_no_compact_obs_ainf_zero_theorem(self):
+        """The engine does not prove Obs_Ainf = 0 for compact CY3s."""
+        result = close_gap_ap_cy34()
+        assert not result.proves_compact_obs_ainf_zero
+        assert len(result.remaining_proof_obligations) == 3
+
 
 # ================================================================
 # SECTION 6: OBSTRUCTION LANDSCAPE
 # ================================================================
 
 class TestObstructionLandscape:
-    """Tests for the updated obstruction landscape."""
+    """Tests for the repaired obstruction landscape."""
 
     def test_all_five_geometries(self):
         """All 5 standard geometries present.
 
         Path 1: Count = 5.
         Path 2: C^3, conifold, local P^2, quintic, K3 x E.
-        Path 3: All entries contain 'Obs_Ainf = 0'.
+        Path 3: No entry claims the old universal Obs_Ainf = 0 theorem.
         """
         result = close_gap_ap_cy34()
         landscape = result.obstruction_landscape
         assert len(landscape) == 5
         for geom in ["C^3", "conifold", "local_P^2", "quintic", "K3_x_E"]:
             assert geom in landscape
-            assert "Obs_Ainf = 0" in landscape[geom]
+            assert "Obs_Ainf = 0" not in landscape[geom]
 
     def test_local_p2_mentions_operadic(self):
-        """Local P^2 entry mentions the operadic TCFT argument.
+        """Local P^2 entry is diagnostic, not a compact theorem.
 
-        Path 1: 'operadic' or 'TCFT' in the entry.
-        Path 2: 'non-formal' mentioned.
-        Path 3: Cross-arity cancellation described.
+        Path 1: 'noncompact diagnostic' appears.
+        Path 2: B_term^{(2)} nonzero witness appears.
+        Path 3: B_TCFT^{(2)} comparison input appears.
         """
         result = close_gap_ap_cy34()
         entry = result.obstruction_landscape["local_P^2"]
-        assert "operadic" in entry.lower() or "TCFT" in entry
-        assert "non-formal" in entry.lower()
+        assert "noncompact diagnostic" in entry
+        assert "B_term^{(2)}" in entry
+        assert "B_TCFT^{(2)}" in entry
 
     def test_formal_geometries_use_frobenius(self):
-        """Formal geometries use the Frobenius condition.
+        """Formal geometries are labelled as model diagnostics.
 
-        Path 1: C^3 mentions 'Frobenius' or 'formal'.
-        Path 2: Quintic mentions 'formal'.
-        Path 3: K3 x E mentions 'DGMS'.
+        Path 1: C^3 mentions formal model.
+        Path 2: Conifold mentions formal-model input.
+        Path 3: Compact entries are marked not proved.
         """
         result = close_gap_ap_cy34()
         L = result.obstruction_landscape
-        assert "formal" in L["C^3"].lower() or "Frobenius" in L["C^3"]
-        assert "formal" in L["quintic"].lower()
-        assert "DGMS" in L["K3_x_E"]
+        assert "formal model diagnostic" in L["C^3"]
+        assert "formal-model diagnostic" in L["conifold"]
+        assert "not proved" in L["quintic"]
+        assert "not proved" in L["K3_x_E"]
 
-    def test_toric_still_resolved(self):
-        """Toric geometries remain fully resolved (unchanged).
+    def test_toric_entries_are_diagnostic(self):
+        """Toric entries do not advertise compact obstruction vanishing.
 
-        Path 1: C^3 has Obs_Ainf = 0.
-        Path 2: Conifold has Obs_Ainf = 0.
-        Path 3: Local P^2 has Obs_Ainf = 0.
+        Path 1: C^3 is a formal diagnostic.
+        Path 2: Conifold is a formal-model diagnostic.
+        Path 3: Local P^2 is noncompact diagnostic.
         """
         result = close_gap_ap_cy34()
-        for geom in ["C^3", "conifold", "local_P^2"]:
-            assert "0" in result.obstruction_landscape[geom]
+        assert "diagnostic" in result.obstruction_landscape["C^3"]
+        assert "diagnostic" in result.obstruction_landscape["conifold"]
+        assert "noncompact diagnostic" in result.obstruction_landscape["local_P^2"]
 
 
 # ================================================================
@@ -480,10 +549,11 @@ class TestMasterVerification:
         result = master_mk_b2_verification()
         assert isinstance(result, GapClosureResult)
 
-    def test_master_gap_closed(self):
-        """Master verification confirms gap closure."""
+    def test_master_gap_not_closed_for_raw_operator(self):
+        """Master verification rejects raw termwise gap closure."""
         result = master_mk_b2_verification()
-        assert result.gap_closed
+        assert not result.gap_closed
+        assert result.conditional_tcft_identity_available
 
     def test_master_has_landscape(self):
         """Master result includes obstruction landscape."""
@@ -502,22 +572,25 @@ class TestCrossChecks:
         """Local P^2 non-formality consistent with existing data.
 
         Path 1: This module: mu_3 != 0.
-        Path 2: hopf_fibration_s3_framing: mechanism mentions non-formal.
-        Path 3: cy3_chain_framing: local_p2 is_formal = False.
+        Path 2: is_formal() returns False.
+        Path 3: verify_algebra records has_mu3.
         """
         alg = local_p2_algebra()
         assert alg.has_nonzero_mu3()
+        assert not alg.is_formal()
+        assert verify_algebra(alg).has_mu3
 
-    def test_obs_ainf_vanishes_consistent(self):
-        """Obs_Ainf = 0 consistent across modules.
+    def test_obs_ainf_not_proved_consistent(self):
+        """Obs_Ainf = 0 is not proved by this engine.
 
-        Path 1: This module: gap closed by operadic proof.
-        Path 2: hopf_fibration_s3_framing: obs_ainf_vanishes = True.
-        Path 3: The operadic proof applies to ALL cyclic A-inf algebras.
+        Path 1: This module: raw gap not closed.
+        Path 2: corrected TCFT identity remains conditional.
+        Path 3: compact CY3 vanishing flag is false.
         """
         result = close_gap_ap_cy34()
-        assert result.gap_closed
-        assert "Obs_Ainf = 0" in result.obstruction_landscape["local_P^2"]
+        assert not result.gap_closed
+        assert result.conditional_tcft_identity_available
+        assert not result.proves_compact_obs_ainf_zero
 
     def test_costello_reference_consistent(self):
         """Costello reference consistent with cyclic_ainf.tex.

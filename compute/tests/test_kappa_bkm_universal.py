@@ -292,6 +292,13 @@ class TestCY3Classification:
         """Conifold is Class B."""
         assert classification["Conifold"].bkm_class == "B"
 
+    def test_conifold_replacement_kappa_ch_is_one(self, classification):
+        """Conifold replacement invariant is kappa_ch = 1, not a local-surface value."""
+        conifold = classification["Conifold"]
+        assert conifold.replacement_invariant is not None
+        assert "kappa_ch = 1" in conifold.replacement_invariant
+        assert "kappa_ch = 2" not in conifold.replacement_invariant
+
     def test_stu_is_class_a(self, classification):
         """STU model is Class A (K3-fibered)."""
         assert classification["STU model"].bkm_class == "A"
@@ -821,7 +828,7 @@ class TestIndependentVerificationN1:
 
         Step 1: Compute c(0) of phi_{0,1} via exact theta-ratio in phi01_fourier.py.
         Step 2: Compare with FRAME_SHAPE_DATA[1].c_disc_0 (from GHV 2010).
-        Step 3: Bridge via Borcherds 1998 weight theorem: wt(Phi_10) = c(0)/2.
+        Step 3: Bridge via Borcherds 1998 weight theorem: wt(Delta_5) = c(0)/2.
         """
         # Step 1: independent computation via theta-ratio
         from phi01_fourier import phi01_by_discriminant

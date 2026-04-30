@@ -3,10 +3,16 @@
 \medskip
 
 Stratum~i is the toric regime: every top-dimensional cone of the fan
-contributes a $\C^3$-chart carrying the Schiffmann--Vasserot positive
-half $Y^+(\widehat{\fgl}_1)$, and the global CoHA is the
-\v{C}ech--$E_3$-factorisation-algebra homotopy colimit of the chart
-data along the face lattice of the fan. The simplest non-trivial
+contributes a $\C^3$-chart whose local critical Hall algebra is the
+Schiffmann--Vasserot positive half $Y^+(\widehat{\fgl}_1)$. The gluing
+object in this section is finite: after a DWR/Ran refinement of the
+toric atlas and finite bounds $(N,r,L,m)$, the chart data form an
+oriented Rees Hall coefficient system on the finite \v{C}ech/Ran nerve.
+The output is the Maurer--Cartan element in the total convolution dg Lie
+algebra; completion, vanishing-cycle realisation, Drinfeld doubling, and
+vertex-algebra evaluation are separate operations. Thus a $\C^3$ chart
+contributes $Y^+(\widehat{\fgl}_1)$, not $\cW_{1+\infty}$, and the
+finite assembly below is not a compact CoHA. The simplest non-trivial
 instance is the resolved conifold
 \(
  \bY = \mathrm{Tot}(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1))
@@ -14,8 +20,8 @@ instance is the resolved conifold
 with its two-chart atlas $\bY = U_+ \cup U_-$. The multi-chart
 generalisation indexes over a toric fan; the compact-$4$-cycle
 obstruction separates zero-interior-point diagrams from diagrams
-requiring McKay resolution; the local-to-global theorem closes the
-toric programme at the zero-interior-point boundary.
+requiring McKay resolution; the zero-interior case isolates the finite
+Rees layer available before realisation.
 
 % ============================================================================
 \subsection{\v{C}ech gluing of two charts: the conifold paradigm}
@@ -28,7 +34,7 @@ bundle over $\bP^1$, not an affine variety. Any chart-wise
 Schiffmann--Vasserot construction must name the transition datum that turns
 two copies of $\C^3$ into $\bY$, then transport that datum through every
 intermediate step; the $(3,0)$-form, the polyvector fields, the Hall
-product, the super structure.
+product, and the orientation line.
 
 \subsubsection{The two-chart atlas}
 
@@ -223,71 +229,149 @@ the Hall product to the fibre sector $\alpha = 0$ on which the base
 orientation enters only through the global sign
 of~\eqref{eq:jacobian-calculation}.
 
-\subsubsection{Homotopy colimit and super-Yangian output}
+\subsubsection{Finite \v{C}ech/Ran Rees gluing}
 
-The pair $(U_+, U_-)$ with overlap $U_+ \cap U_-$ forms a two-object diagram
-in the category of $\C^3$-charts. The chart-wise factorisation algebras
-$\cF_\pm = \Phi^{FA}_3(\Gamma_\pm)$ (Ginzburg dgas of the Jordan-triple
-quiver with potential, \S\ref{sec:gluing-p2-conifold}; Kontsevich--Tamarkin
-$E_3$-formality + Costello--Li holomorphic locality) glue by the homotopy
-colimit
-\begin{equation}\label{eq:homotopy-colimit}
- \cF_{\bY} \;=\; \mathrm{hocolim}\Bigl(
- \cF_+\big|_{U_+ \cap U_-}
- \;\xrightarrow{\;T_{+-}\;}\;
- \cF_-\big|_{U_+ \cap U_-}
- \Bigr),
-\end{equation}
-a \v{C}ech assembly whose underlying coefficient system computes
-$H^\bullet(\cF_{\bY}) = \mathrm{PV}^\bullet(\bY)$. The two-chart atlas
-$\{U_+, U_-\}$ is not a Weiss cover in the sense of
-Costello--Gwilliam vol.~I Definition~$6.1.0.5$ (the pair does not
-separate triple points $\{x_1, x_2, x_3\} \subset \bY$ into finite
-subsets each contained in some $U_\pm$); the promotion of the \v{C}ech
-assembly~\eqref{eq:homotopy-colimit} to a genuine $E_3$-factorisation
-algebra on $\bY$ requires the Weiss refinement of
-\S\ref{sec:gluing:factorisation} (disjoint-union closure of
-$\{U_+, U_-\}$), after which the homotopy colimit extends to the Weiss
-site and computes the $E_3$-factorisation algebra structure. Under the CoHA assignment
-the homotopy colimit produces a new associative algebra whose generators
-split into two families indexed by the two charts and whose structure
-constants are determined by the multiplier~\eqref{eq:FM-multiplier}.
-
-\paragraph{The super structure as a Koszul sign.}
-The base-orientation flip in $\Omega_{\bY}|_{U_-} = -d\tilde z \wedge du_-
-\wedge dv_-$ (equation~\eqref{eq:jacobian-calculation}) contributes a
-Koszul sign $\sigma = -1$ on cross-chart Hall products: the orientation of
-the measure against which the critical CoHA integrates polyvectors
-reverses between charts, so bilinear pairings $\langle \cdot, \cdot
-\rangle_\pm$ that glue across the overlap pick up a factor of $-1$. In
-the chart-wise shuffle presentation this is the parity assignment of
-the Schiffmann--Vasserot generators across the two charts, producing
-super-Yangian-type anticommutators on the combinations
+The pair $(U_+, U_-)$ with overlap $U_+ \cap U_-$ is an ordinary
+\v{C}ech spine, not a Weiss cover. Factorisation locality enters only
+after a DWR/Ran refinement. Fix finite bounds
 \[
- E^{(0)} \;=\; e_0^{(+)} + e_0^{(-)},
+ N\quad\text{(holomorphic jets)},\qquad
+ r\quad\text{(renormalisation order)},\qquad
+ L\quad\text{(charge)},\qquad
+ m\quad\text{(Ran arity)}.
+\]
+Let $\mathfrak U_{\bY}$ be a DWR-good refinement of the two toric charts
+by polydiscs subordinate to $U_+$, $U_-$, and $U_+\cap U_-$. A
+$p$-simplex of the finite Ran nerve has the form
+\[
+ \sigma=(S,\{P_s\Subset U_{\epsilon_{s,0}}\cap\cdots\cap
+ U_{\epsilon_{s,p}}\}_{s\in S}),
  \qquad
- E^{(1)} \;=\; e_0^{(+)} - e_0^{(-)},
+ \epsilon_{s,j}\in\{+,-\},
 \]
-where the even combination $E^{(0)}$ generates a bosonic subalgebra and the
-odd combination $E^{(1)}$ generates a fermionic sector with
-\[
- \bigl\{E^{(1)}, E^{(0)}\bigr\}_+ \;=\; K^{(0)},
-\]
-the central element extracted from the residue at $z_1 = z_2$ of the
-chart-wise Jordan shuffle difference~\eqref{eq:structure-constant-1-1}.
-The two-chart assembly therefore yields
-\begin{equation}\label{eq:conifold-master}
- \CoHA(\bY) \;\cong\; Y^+\bigl(\widehat{\fgl}(1|1)\bigr)^{\mathrm{con}},
-\end{equation}
-the positive half of the conifold affine super-Yangian. The super
-structure on $\widehat{\fgl}(1|1)$ arises from the Koszul sign
-$\sigma = -1$ of the base-orientation flip~\eqref{eq:jacobian-calculation}
-combined with the isotropy $(\alpha_0, \alpha_0) = (\alpha_1, \alpha_1) = 0$
-(Kac 1977 Thm.~2.4 on odd simple roots).
+with $|S|\leq m$ and charge bounded by $\Gamma_{\leq L}$. On a vertex
+lying in $U_\pm$ the finite cyclic critical model is the Jordan triple
+$(Q_{\mathrm{Jor}},W_\pm)$ truncated at $(N,r,L)$; on an edge lying in
+$U_+\cap U_-$ it is transported by the Fourier--Mukai kernel
+$K_{+-}$ and the multiplier~\eqref{eq:FM-multiplier}.
 
-\paragraph{Three-route verification of the $(1,1)$ structure constant.}
-The $(1,1)$ structure constant of $\CoHA(\bY)$ equals $(\varepsilon_1
-\varepsilon_2)^{-1}$ through three independent routes:
+\begin{lemma}[Conifold \v{C}ech/Ran cyclic atlas]
+\label{lem:conifold-cech-ran-cyclic-atlas}
+For every finite bound $(N,r,L,m)$ the data above form a multiplicative
+finite DWR/Ran cyclic critical atlas on $\mathfrak U_{\bY}$. Its
+$0$-simplex Hall cohomology is the local positive half
+\[
+ H^0\!\left(\Hall^{\mathrm{Rees},\mathrm{or}}_{U_\pm}\!/\hbar\right)
+ \;\cong\;
+ Y^+(\widehat{\fgl}_1),
+\]
+and the edge restriction is the same positive half transported by
+$K_{+-}$; no vertex of the atlas is a $\cW_{1+\infty}$-module.
+\end{lemma}
+
+\begin{proof}
+The Jacobian calculation~\eqref{eq:jacobian-calculation} gives a
+constant transition for the holomorphic volume form, hence transports
+the cyclic pairing without a residual Laurent monomial. The chain rule
+and the $\cO(-1)$ kernel give exactly the fibre multiplier
+of~\eqref{eq:FM-multiplier}; face restriction of a polydisc in
+$U_+\cap U_-$ is therefore the pullback of the vertex cyclic model by
+the same Fourier--Mukai transition. On the triple faces of the refined
+nerve the two possible restrictions are equal because the line-bundle
+transition cocycle of $\cO(-1)$ is multiplicative and the diagonal
+kernels compose by convolution.
+
+For a disjoint Ran family
+$\sigma_1\sqcup\sigma_2$ the finite potential is
+$W_{\sigma_1}\boxplus W_{\sigma_2}$ and the cyclic form is the external
+orthogonal sum. Thom--Sebastiani identifies the corresponding Rees Hall
+complex with the completed tensor product of the two Rees Hall
+complexes. The vertex computation is the Schiffmann--Vasserot
+$\C^3$ theorem applied to the Jordan triple, so the local cohomology is
+$Y^+(\widehat{\fgl}_1)$. The construction has used only critical Hall
+polyvectors and Rees deformation; no vertex-algebra representation or
+Drinfeld double has been supplied.
+\end{proof}
+
+Let
+\[
+ \mathfrak M_{\hCS,\Hall}^{N,r,L,m}(\mathfrak U_{\bY})
+ =
+ \Tot_{\sigma\in\mathsf N^{\Ran}_{\le m}(\mathfrak U_{\bY};
+ \Gamma_{\le L})}
+ \Hom_{\mathrm{cont}}\!\left(
+ B\Obs_{\hCS}^{q,\le r,\le N}(\sigma)_{\le L},
+ \Hall_{\sigma}^{\mathrm{Rees},\mathrm{or}}
+ \right)
+\]
+with differential $D_{\mathrm{tot}}=d_{\Hall}\circ(-)
+-(-1)^{|-|}(-)\circ d_{B\Obs}+\delta_{\Cech/\Ran}$ and convolution
+bracket induced by the bar coproduct and the Rees Hall product.
+
+\begin{proposition}[Conifold \v{C}ech/Ran Maurer--Cartan equation]
+\label{prop:conifold-cech-ran-rees-mc}
+The relative chart maps of
+Lemma~\ref{lem:conifold-cech-ran-cyclic-atlas} assemble to
+\[
+ \Theta_{\bY}^{\mathrm{Rees},N,r,L,m}
+ :=
+ \sum_{0\leq p\leq m}
+ \sum_{\sigma\in\mathsf N^{\Ran}_{p,\leq m}
+ (\mathfrak U_{\bY};\Gamma_{\leq L})}
+ \int_{\Delta^p}\theta_{\sigma}^{\mathrm{rel}}
+ \in
+ \mathfrak M_{\hCS,\Hall}^{N,r,L,m}(\mathfrak U_{\bY}),
+\]
+and this element satisfies
+\[
+ D_{\mathrm{tot}}\Theta_{\bY}^{\mathrm{Rees},N,r,L,m}
+ +\frac{1}{2}
+ [\Theta_{\bY}^{\mathrm{Rees},N,r,L,m},
+  \Theta_{\bY}^{\mathrm{Rees},N,r,L,m}]
+ =0.
+\]
+Thus the conifold atlas gives a finite oriented hCS-to-Rees-Hall
+comparison on the \v{C}ech/Ran nerve. It does not identify the conifold
+with $\cW_{1+\infty}$, with a compact CoHA, or with a Hall--Drinfeld
+double.
+\end{proposition}
+
+\begin{proof}
+On every simplex the cyclic homological perturbation transfer gives a
+relative Hamiltonian $W_\sigma$ over $\Omega^\bullet(\Delta^p)$
+satisfying the BV master equation. The relative Fourier--BV
+identification rewrites this equation as
+\[
+ (d_{\Hall}+d_{\Delta^p})\theta_\sigma^{\mathrm{rel}}
+ -\theta_\sigma^{\mathrm{rel}}d_{B\Obs}
+ +\frac{1}{2}
+ [\theta_\sigma^{\mathrm{rel}},\theta_\sigma^{\mathrm{rel}}]_{\mathrm{conv}}
+ =0 .
+\]
+Integration over $\Delta^p$ converts the $d_{\Delta^p}$ term into the
+alternating sum over faces by Stokes' formula. Face compatibility in
+Lemma~\ref{lem:conifold-cech-ran-cyclic-atlas} identifies that boundary
+sum with $\delta_{\Cech/\Ran}$ in $D_{\mathrm{tot}}$. Summing over the
+finite nerve gives the displayed Maurer--Cartan equation. The last
+non-identification follows because the finite Rees Hall complex precedes
+vanishing-cycle realisation, Hopf pairing, completion, and vertex-algebra
+evaluation.
+\end{proof}
+
+\paragraph{Orientation sign in the finite Rees product.}
+The base-orientation flip in
+$\Omega_{\bY}|_{U_-}=-d\tilde z\wedge du_-\wedge dv_-$ enters the
+orientation line $o_\sigma$ of the edge Rees Hall complex. On cross-chart
+Hall products the sign is the Koszul sign in the Thom--Sebastiani
+transport, hence a coefficient of the Maurer--Cartan element above. A
+super-Yangian presentation may be recovered only after the separate
+realised quiver-Hall identification with the Klebanov--Witten conifold
+quiver; it is not the output of the finite \v{C}ech/Ran equation.
+
+\paragraph{Coefficient check for the $(1,1)$ term.}
+The $(1,1)$ structure constant in the finite Rees Hall product equals
+$(\varepsilon_1 \varepsilon_2)^{-1}$ through three independent
+computations:
 \begin{enumerate}[label=\emph{(\roman*)}, leftmargin=2em]
 \item \emph{\v{C}ech two-chart gluing}: the limit $u_2 \to u_1$ of the
  chart-wise Jordan shuffle~\eqref{eq:structure-constant-1-1}.
@@ -297,20 +381,20 @@ The $(1,1)$ structure constant of $\CoHA(\bY)$ equals $(\varepsilon_1
 \item \emph{Klebanov--Witten super-shuffle}: the Jordan kernel residue at
  $z_1 = z_2$ of the direct super-shuffle algebra.
 \end{enumerate}
-Agreement across the three routes pins $(\varepsilon_1 \varepsilon_2)^{-1}$
-as a lane-independent invariant, confirming~\eqref{eq:conifold-master} at
-the coefficient level.
+Agreement across these computations pins $(\varepsilon_1 \varepsilon_2)^{-1}$
+as the local coefficient carried by the finite Rees Hall comparison.
 
 % ============================================================================
 \subsection{Multi-chart toric fan generalisation}
 \label{sec:gluing-p2-multi-chart}
 % ============================================================================
 
-The two-chart assembly generalises to any local toric CY$_3$. The obstruction
-resolved is the absence of a global affine chart: a toric variety is covered
-by affine opens $U_\sigma$ indexed by the maximal cones $\sigma$ of the fan,
-and the global CoHA is assembled by running the \v{C}ech machinery along the
-face lattice of the fan.
+The two-chart finite Rees assembly generalises to any local toric CY$_3$. The
+obstruction resolved is the absence of a global affine chart: a toric
+variety is covered by affine opens $U_\sigma$ indexed by the maximal
+cones $\sigma$ of the fan, and the finite Rees Hall coefficient system is
+assembled by running the \v{C}ech/Ran machinery along the face lattice of
+the fan.
 
 \subsubsection{Toric fan and chart decomposition}
 
@@ -356,6 +440,119 @@ the two fixed points of the compact $\bP^1$-base on that edge would carry
 opposite weights, obstructing global regularity of sections. This is the
 mechanism that set $\varepsilon_3 = 0$ for the conifold base in
 \S\ref{sec:gluing-p2-conifold}.
+
+\begin{proposition}[Affine hCS BV chart and CY transition law]
+\label{prop:toric-affine-hcs-bv-transition}
+Let \(U_\sigma\simeq\C^3\) be a maximal-cone chart of a smooth toric
+CY$_3\), with coordinates \(x_1^\sigma,x_2^\sigma,x_3^\sigma\), and
+write
+\[
+ \Omega_X|_{U_\sigma}
+ =
+ \lambda_\sigma\,
+ dx_1^\sigma\wedge dx_2^\sigma\wedge dx_3^\sigma,
+ \qquad
+ \lambda_\sigma\in\mathcal O(U_\sigma)^\times .
+\]
+For a metric Lie algebra \(\mathfrak g\), the affine-chart hCS BV
+complex is
+\[
+ \cE_{\hCS,c}(U_\sigma,\mathfrak g)
+ =
+ \Omega_c^{0,\bullet}(U_\sigma,\mathfrak g)[1],
+ \qquad
+ Q_{\hCS}=\dbar ,
+\]
+with pairing and classical action
+\[
+ (\alpha,\beta)_\sigma
+ =
+ \int_{U_\sigma}\Omega_X\wedge\langle\alpha,\beta\rangle ,
+ \qquad
+ I_\sigma(\alpha)
+ =
+ \int_{U_\sigma}\Omega_X\wedge
+ \left(
+ \frac12\langle\alpha,\dbar\alpha\rangle
+ +\frac16\langle\alpha,[\alpha,\alpha]\rangle
+ \right).
+\]
+An element of Dolbeault degree \(q\) has BV cohomological degree
+\(q-1\). The pairing is non-zero only on components with
+\(q_1+q_2=3\), hence has degree \(-1\) on
+\(\Omega_c^{0,\bullet}[1]\); the displayed superfield action means
+taking the \((0,3)\)-component before integrating. On non-compact
+charts the compact-support convention is understood after restriction
+to the overlap on which the transition map is applied.
+If \(U_\sigma\cap U_{\sigma'}\neq\varnothing\) and
+\(\phi_{\sigma\sigma'}\) is the holomorphic transition map from
+\(\sigma\)-coordinates to \(\sigma'\)-coordinates, then
+\[
+ \lambda_\sigma
+ =
+ (\lambda_{\sigma'}\circ\phi_{\sigma\sigma'})
+ \det\!\left(
+ \frac{\partial x^{\sigma'}_a}{\partial x^\sigma_b}
+ \right)_{a,b=1}^3 .
+\]
+The transition map
+\[
+ T_{\sigma\sigma'}^{\BV}\colon
+ \cE_{\hCS,c}(U_{\sigma'},\mathfrak g)|_{U_{\sigma}\cap U_{\sigma'}}
+ \longrightarrow
+ \cE_{\hCS,c}(U_{\sigma},\mathfrak g)|_{U_{\sigma}\cap U_{\sigma'}},
+ \qquad
+ \alpha\longmapsto\phi_{\sigma\sigma'}^*\alpha ,
+\]
+commutes with \(\dbar\), preserves the BV pairing and action, and
+satisfies the \v{C}ech cocycle identity on triple overlaps. The same
+Jacobian identity transports the finite Rees Hall divergence by
+conjugacy:
+\[
+ T_{\sigma\sigma'}^{\PV}\Delta_{\omega_{\sigma'}}
+ =
+ \Delta_{\omega_\sigma}T_{\sigma\sigma'}^{\PV},
+ \qquad
+ T_{\sigma\sigma'}^{\PV}\iota_{dW_{\sigma'}}
+ =
+ \iota_{dW_\sigma}T_{\sigma\sigma'}^{\PV},
+\]
+whenever \(W_\sigma=\phi_{\sigma\sigma'}^*W_{\sigma'}\). Equivalently
+\(T_{\sigma\sigma'}^{\PV}\) conjugates the finite Rees differential
+\(\iota_{dW}+\hbar\Delta_{\omega}\). Here
+\(\omega_\sigma=\Omega_X|_{U_\sigma}\) is the finite cyclic volume form.
+\end{proposition}
+
+\begin{proof}
+The formula for \(\lambda_\sigma\) is the equality
+\(\Omega_X|_{U_\sigma}=\phi_{\sigma\sigma'}^*(\Omega_X|_{U_{\sigma'}})\)
+written in coordinates. Since \(\phi_{\sigma\sigma'}\) is holomorphic,
+\(\phi_{\sigma\sigma'}^*\dbar=\dbar\phi_{\sigma\sigma'}^*\). The change
+of variables formula and the displayed Jacobian identity give
+\[
+ \int_{U_{\sigma'}}\Omega_X\wedge\langle\alpha,\beta\rangle
+ =
+ \int_{U_\sigma}\Omega_X\wedge
+ \langle\phi_{\sigma\sigma'}^*\alpha,
+        \phi_{\sigma\sigma'}^*\beta\rangle ,
+\]
+and the same calculation applies to the quadratic and cubic terms of
+\(I_\sigma\), using invariance of \(\langle-,-\rangle\). Thus the
+degree-\((-1)\) BV pairing, bracket, and master equation are
+transported without an extra density. On triple overlaps the coordinate
+transitions compose, and the determinants multiply; hence the
+transition maps form a \v{C}ech cocycle. The divergence operator
+\(\Delta_{\omega}\) is characterised on polyvectors by
+\(\mathfrak F_\omega(\Delta_\omega\xi)=d\,\mathfrak F_\omega(\xi)\),
+equivalently by \(L_\xi\omega=(\Delta_\omega\xi)\omega\) for vector
+fields. Since
+\(\mathfrak F_{\omega_\sigma}T_{\sigma\sigma'}^{\PV}
+=\phi_{\sigma\sigma'}^*\mathfrak F_{\omega_{\sigma'}}\), the same
+Jacobian conjugates \(\Delta_\omega\); the equality
+\(W_\sigma=\phi_{\sigma\sigma'}^*W_{\sigma'}\) gives the contraction
+term. This is precisely the finite Rees compatibility used by
+Lemma~\ref{lem:relative-fourier-bv-rees-identification}.
+\end{proof}
 
 \subsubsection{Gluing cocycle on the face lattice}
 
@@ -497,27 +694,28 @@ pinch point, by the pinch-point bond structure.
 The fan has $n$ maximal cones arrayed along the toric diagram edge, each
 $\C^3$; the face lattice is a linear chain with $n - 1$ codimension-one
 faces; the gluing cocycle is a chain of $n - 1$ FM kernels, each a
-$\cO(-1)$-twist. The multi-chart \v{C}ech assembly produces the
-$A_{n-1}$-type McKay CoHA, matching the Beasley--Plesser antisymmetric
-quiver on $\C^3/\Z_n$.
+$\cO(-1)$-twist. The finite Rees atlas carries the $A_{n-1}$-type
+McKay quiver-Hall coefficient system, matching the Beasley--Plesser
+antisymmetric quiver on $\C^3/\Z_n$ after the orbifold realisation.
 
 \paragraph{Banana threefold.}
 Three ray clusters meeting at a common vertex produce a fan with three
-maximal cones and three codimension-one faces. The \v{C}ech assembly
-requires three FM kernels on a triangular face lattice; the resulting
-CoHA is a triangular gluing of three Schiffmann--Vasserot
-$Y^+(\widehat{\fgl}_1)$ copies, governed by the three-arrow banana quiver
-with cubic potential.
+maximal cones and three codimension-one faces. The finite \v{C}ech/Ran atlas
+requires three FM kernels on a triangular face lattice; the finite Rees
+coefficient system is a triangular gluing of three
+Schiffmann--Vasserot $Y^+(\widehat{\fgl}_1)$ copies, governed by the
+three-arrow banana quiver with cubic potential after quiver-Hall
+realisation.
 
 \paragraph{Suspended pinch point.}
 The SPP singularity $\{xy = zw^2\} \subset \C^4$ has toric diagram the
 trapezoid $\{(0,0), (2,0), (1,1), (0,1)\}$ with minimal triangulation
 into three triangles sharing a common internal edge (the "pinch"). The
 fan has three maximal cones and three codimension-one faces; the
-\v{C}ech cocycle is defined on this triangulated trapezoid; the CoHA
-assembly reproduces the SPP quiver of Uranga (1999
+\v{C}ech/Ran cocycle is defined on this triangulated trapezoid; the
+finite Rees coefficient system carries the SPP quiver of Uranga (1999
 \texttt{hep-th/9811004}) and Aganagic--Karch--L\"ust--Miemiec (1999
-\texttt{hep-th/9903093}).
+\texttt{hep-th/9903093}) after the realised quiver-Hall step.
 
 % ============================================================================
 \subsection{The compact $4$-cycle obstruction}
@@ -527,9 +725,9 @@ assembly reproduces the SPP quiver of Uranga (1999
 The obstruction resolved here is subtle: a local toric CY$_3$ with a
 compact divisor; a maximal cone whose dual vertex lies in the
 \emph{interior} of the toric diagram; admits a chart-wise $\C^3$ cover,
-but the direct \v{C}ech--$E_3$-factorisation assembly of
-\S\ref{sec:gluing-p2-multi-chart} misses the cohomology class of the
-compact divisor.
+but the boundary \v{C}ech/Ran Rees atlas of
+\S\ref{sec:gluing-p2-multi-chart} misses the wheel term of the compact
+divisor.
 
 \subsubsection{Interior lattice points and compact divisors}
 
@@ -561,7 +759,7 @@ a compact $4$-cycle.
 
 \subsubsection{Why chart-wise gluing misses the compact divisor}
 
-The chart-wise \v{C}ech assembly of \S\ref{sec:gluing-p2-multi-chart} has
+The boundary \v{C}ech/Ran Rees atlas of \S\ref{sec:gluing-p2-multi-chart} has
 three ingredients on each chart: the Schiffmann--Vasserot
 $Y^+(\widehat{\fgl}_1)$, the equivariant torus action, and the FM kernel
 on codimension-one overlaps. None of these detect the cohomology of a
@@ -582,13 +780,13 @@ compact divisor:
 \end{itemize}
 The Neguț wheel-condition corrections; the shuffle-algebra
 relations forced by the presence of an interior lattice point; are
-missed by the direct \v{C}ech assembly. For local $\bP^2$ with single
+missed by the boundary \v{C}ech/Ran Rees atlas. For local $\bP^2$ with single
 interior point at the origin of the triangulation, the correct shuffle
 algebra is the $\Z_3$-McKay variant of $Y^+(\widehat{\fgl}_1)$ whose
 kernel carries an additional wheel-condition multiplier tracking the
 $\Z_3$-orbit of the interior lattice point (Neguț 2015
 \texttt{arXiv:1512.06473}; Rapcak--Soibelman--Yang--Zhao 2020
-\texttt{arXiv:2001.10549}). The direct multi-chart \v{C}ech assembly of
+\texttt{arXiv:2001.10549}). The direct multi-chart \v{C}ech/Ran Rees atlas of
 \S\ref{sec:gluing-p2-multi-chart} picks up only the boundary contributions
 to $\varphi_{a \Rightarrow b}$ and misses this wheel-condition
 multiplier.
@@ -604,7 +802,7 @@ equivalence
 \]
 (Bridgeland--King--Reid 2001 \texttt{arXiv:math/9908027} Thm.~1.2). The
 right-hand category is a single $\C^3$-chart with $\Z_3$-equivariance;
-the CoHA of this orbifold chart carries the Neguț wheel-condition
+the finite Hall model of this orbifold chart carries the Neguț wheel-condition
 multipliers automatically, since the $\Z_3$-action on $\C^3$ produces
 exactly the interior-point shifts at each orbit element. The compact
 $4$-cycle cohomology is recovered as the $\Z_3$-fixed part of the
@@ -625,9 +823,11 @@ presentations.
 \label{prop:compact-cycle-obstruction}
 Let $X_\Sigma$ be a local toric CY$_3$ with toric diagram $\Delta_\Sigma$
 carrying $r \geq 1$ interior lattice points. The direct multi-chart
-\v{C}ech assembly of \S\ref{sec:gluing-p2-multi-chart} reproduces
-$\CoHA_{\mathrm{DM}}(X_\Sigma)$ only after replacing the chart-wise
-single-vertex Jordan-triple data by either:
+\v{C}ech/Ran Rees atlas of \S\ref{sec:gluing-p2-multi-chart}, built only
+from chart-wise single-vertex Jordan triples, presents the boundary
+positive halves and misses the interior-lattice wheel terms. A finite
+Rees atlas for the full toric quiver Hall layer must replace the local
+chart data by either:
 \begin{enumerate}[label=\emph{(\alph*)}, leftmargin=2em]
 \item the $G$-equivariant Schiffmann--Vasserot data on $[\C^3 / G]$,
  where $G \subset \mathrm{SU}(3)$ is the McKay group whose crepant
@@ -640,111 +840,122 @@ single-vertex Jordan-triple data by either:
  wheel-condition multipliers tracking the interior-point positions
  (higher-rank shuffle route).
 \end{enumerate}
-Direct multi-chart assembly with only the chart-wise $Y^+(\widehat{\fgl}_1)$
-data misses the interior-point contributions to the Hall product.
+The boundary multi-chart Rees atlas with only the chart-wise
+$Y^+(\widehat{\fgl}_1)$ data therefore stops at the boundary Rees Hall
+coefficient system.
 \end{proposition}
 
-\begin{proof}[Sketch]
+\begin{proof}
 The chart-wise single-vertex polyvectors generate only the
 boundary-vertex portion of the full toric quiver shuffle algebra; the
 interior-vertex portion is generated by compositions extending into the
 $G$-McKay inertia (Bridgeland--King--Reid 2001 \texttt{arXiv:math/9908027}
-Thm.~1.2). The Rapcak--Soibelman--Yang--Zhao toric theorem (2020
-\texttt{arXiv:2001.10549} Thm.~B) identifies the full quiver shuffle
-data with $\CoHA_{\mathrm{DM}}(X_\Sigma)$ when the interior vertices are
-included; the McKay/orbifold route recovers the interior through the
-$[\C^3/G]$-orbifold chart and the BKR equivalence, and the higher-rank
-shuffle route recovers it by enlarging the single-vertex chart shuffle
-to the full $(Q_X, W_X)$-shuffle with interior-vertex weights inserted.
+Thm.~1.2). In the McKay route the finite critical chart is
+$[\C^3/G]$, so the twisted sectors of the inertia stack supply exactly
+the missing interior weights. In the higher-rank shuffle route the
+finite critical chart is the full toric quiver $(Q_X,W_X)$; the
+Neguț wheel factors are relations in the Rees Hall product and are
+visible before any completion. Rapcak--Soibelman--Yang--Zhao (2020
+\texttt{arXiv:2001.10549} Thm.~B) identifies these two presentations of
+the same toric quiver shuffle data. The single-vertex atlas lacks both
+the twisted sectors and the wheel relations, hence cannot produce the
+interior-lattice terms.
 \end{proof}
 
 % ============================================================================
-\subsection{Local-to-global theorem for zero-interior-lattice-point diagrams}
+\subsection{Finite zero-interior Rees assembly}
 \label{sec:gluing-p2-local-to-global}
 % ============================================================================
 
 The combination of \S\S\ref{sec:gluing-p2-conifold}--\ref{sec:gluing-p2-compact-cycle}
-yields the closure theorem of Stratum~i: for a local toric CY$_3$ whose
-toric diagram has no interior lattice points, the chart-wise \v{C}ech
-assembly is exact and reproduces the Davison--Meinhardt critical CoHA.
+has a sharp zero-interior consequence. Boundary cones and codimension-one
+faces supply all Rees Hall coefficients; no compact-divisor wheel term
+remains to be added.
 
-\begin{theorem}[Local-to-global for zero-interior-point toric CY$_3$]
-\label{thm:local-to-global-zero-interior}
+\begin{proposition}[Finite zero-interior toric Rees assembly]
+\label{prop:finite-zero-interior-toric-rees-assembly}
 Let $X_\Sigma$ be a smooth local toric Calabi--Yau threefold whose toric
-diagram $\Delta_\Sigma$ has zero interior lattice points. Then:
+diagram $\Delta_\Sigma$ has zero interior lattice points. Choose a
+DWR-good refinement $\mathfrak U_\Sigma$ of its finite toric
+$\C^3$-atlas and finite bounds $(N,r,L,m)$. Then:
 \begin{enumerate}[label=\emph{(\arabic*)}, leftmargin=2em]
-\item The multi-chart \v{C}ech factorisation-algebra assembly
+\item the chart Jordan triples $(Q_{\mathrm{Jor}},W_\sigma)$ on maximal
+ cones, together with the Fourier--Mukai transitions on common faces,
+ form a multiplicative finite DWR/Ran cyclic critical atlas on
+ $\mathfrak U_\Sigma$;
+\item the Stokes sum
 \[
- \cF_X \;=\; \mathrm{hocolim}_{\sigma \in \Sigma(3)}\,
- \cF_\sigma
- \;\big|\;
- \bigl\{T_{\sigma \sigma'} : \cF_\sigma \leftrightarrow \cF_{\sigma'}\bigr\},
+ \Theta_{X_\Sigma}^{\mathrm{Rees},N,r,L,m}
+ =
+ \sum_{0\leq p\leq m}
+ \sum_{\sigma\in
+ \mathsf N^{\Ran}_{p,\leq m}(\mathfrak U_\Sigma;\Gamma_{\leq L})}
+ \int_{\Delta^p}\theta_\sigma^{\mathrm{rel}}
 \]
-with $\cF_\sigma = \Phi^{FA}_3(\Gamma_\sigma)$ the Ginzburg dga of the
-chart Jordan-triple $(Q_{\mathrm{Jor}}, W_\sigma)$ and $T_{\sigma \sigma'}$
-the Fourier--Mukai transition with kernel $K_{\sigma \sigma'} = \cO_\Delta
-\otimes \pi_1^*\cO_{\bP^1_\tau}(-1)$, is a well-defined $E_3$-factorisation
-algebra on $X$.
-\item The associated critical CoHA
-\[
- \CoHA_{\mathrm{\check Cech}}(X)
- \;=\;
- \mathrm{hocolim}_{\sigma \in \Sigma(3)}\,
- Y^+(\widehat{\fgl}_1)_\sigma
- \;\big|\;
- \bigl\{K_{\sigma \sigma'}\bigr\}
-\]
-is isomorphic to the Davison--Meinhardt critical cohomological Hall
-algebra
-\(
- \CoHA_{\mathrm{DM}}(X) = \CoHA(Q_X, W_X)
-\)
-of the toric quiver with potential $(Q_X, W_X)$ attached to $\Sigma$.
-\item The resulting algebra is the Drinfeld positive half of an affine
-super-Yangian of the root system determined by $(Q_X, W_X)$, with rank
-equal to the number of vertices of $Q_X$ and super structure controlled
-by the parity of the base-orientation sign on each codimension-one face
-of the fan.
+ satisfies the \v{C}ech/Ran Maurer--Cartan equation in the finite
+ convolution dg Lie algebra
+ $\mathfrak M_{\hCS,\Hall}^{N,r,L,m}(\mathfrak U_\Sigma)$;
+\item every $0$-simplex lying in a toric chart has local Hall cohomology
+ $Y^+(\widehat{\fgl}_1)$, and the positive-half quiver presentation
+ attached to the toric diagram is obtained only after the separate
+ realised quiver-Hall identification.
 \end{enumerate}
-This is a positive-half Hall/Ginzburg-chart assembly theorem. It does not
-construct the hCS--Hall comparison map, the Rees-to-vanishing-cycle
-realisation, or the Drinfeld double; those require the additional
-orientation, Thom--Sebastiani, pairing, completion, and centre data
-isolated in Chapter~\ref{ch:cy3-chain-level-bridge}.
-\end{theorem}
+This constructs the finite oriented Rees Hall comparison on the
+\v{C}ech/Ran nerve. It does not construct $\cW_{1+\infty}$, a compact
+CoHA, a completed critical CoHA, or a Hall--Drinfeld double.
+\end{proposition}
 
-\begin{proof}[Sketch]
-The $\v{C}ech$ homotopy colimit is computed face by face: each
-codimension-one face contributes an FM kernel~\eqref{eq:FM-kernel-conifold}
-scaled by the multiplier of equation~\eqref{eq:FM-multiplier}; each
-codimension-two face contributes a cocycle compatibility checked by
-the Jacobian calculation of equation~\eqref{eq:jacobian-calculation}.
-Zero interior lattice points means no codimension-three (interior)
-corrections from the Neguț wheel condition, so each face contribution is
-the direct Schiffmann--Vasserot shuffle kernel without higher-rank
-adjustment. The identification with $\CoHA_{\mathrm{DM}}(X)$ is the
-Rapcak--Soibelman--Yang--Zhao toric theorem (2020
-\texttt{arXiv:2001.10549} Thm.~A), which matches the chart-wise
-Schiffmann--Vasserot data to the toric quiver BPS algebra. The
-super-structure on the output is the base-orientation cocycle of the
-fan as computed in equation~\eqref{eq:jacobian-calculation}: for fans
-with no internal edges (no compact $\bP^1$-bases), the cocycle is
-trivial and the output is an even affine Yangian; for fans with one
-internal edge (e.g.\ the conifold), the cocycle produces the super
-structure $\widehat{\fgl}(1|1)$ of equation~\eqref{eq:conifold-master};
-for fans with several internal edges, the cocycle produces the product
-super structure of the corresponding super-Yangian.
+\begin{proof}
+The fan has finitely many maximal cones and codimension-one faces. On
+each maximal cone the local model is the Jordan triple on $\C^3$, whose
+critical Hall cohomology is $Y^+(\widehat{\fgl}_1)$ by
+Schiffmann--Vasserot. On a shared face the transition is the toric
+lattice change of basis; its Fourier--Mukai kernel is the same
+line-bundle transport as in~\eqref{eq:FM-kernel-conifold}, with
+multiplier computed by~\eqref{eq:FM-multiplier} after replacing the
+conifold exponents by the face exponents $(k_2,k_3)$. The Calabi--Yau
+condition makes the holomorphic-volume Jacobian constant on the face,
+so the cyclic pairing restricts compatibly.
+
+On codimension-two intersections the toric line-bundle cocycle
+condition makes the two composites of Fourier--Mukai kernels canonically
+isomorphic. On disjoint Ran configurations the potentials add by
+$W_{\sigma_1\sqcup\sigma_2}=W_{\sigma_1}\boxplus W_{\sigma_2}$, and
+Thom--Sebastiani gives the Rees Hall product. These two compatibilities
+are precisely the face and multiplicative axioms of a finite DWR/Ran
+cyclic critical atlas.
+
+The relative BV master equation on every simplex becomes, after the
+relative Fourier--BV Rees identification,
+\[
+ (d_{\Hall}+d_{\Delta^p})\theta_\sigma^{\mathrm{rel}}
+ -\theta_\sigma^{\mathrm{rel}}d_{B\Obs}
+ +\frac12[\theta_\sigma^{\mathrm{rel}},\theta_\sigma^{\mathrm{rel}}]_{\mathrm{conv}}
+ =0 .
+\]
+Integrating over $\Delta^p$ and summing over the finite nerve converts
+the simplex boundary term to $\delta_{\Cech/\Ran}$, hence gives the
+Maurer--Cartan equation for
+$\Theta_{X_\Sigma}^{\mathrm{Rees},N,r,L,m}$. Zero interior lattice
+points remove the Neguț wheel corrections described in
+Proposition~\ref{prop:compact-cycle-obstruction}; the atlas therefore
+contains exactly the boundary face coefficients and no compact-divisor
+term. Rapcak--Soibelman--Yang--Zhao identify the realised toric quiver
+shuffle algebra after the quiver-Hall realisation is supplied; that
+identification is not part of the finite Rees construction proved here.
 \end{proof}
 
 The class of local toric CY$_3$ covered by
-Theorem~\ref{thm:local-to-global-zero-interior} (zero interior lattice
+Proposition~\ref{prop:finite-zero-interior-toric-rees-assembly} (zero interior lattice
 points in $\Delta_\Sigma$) includes:
 \begin{itemize}
-\item $\C^3$ (one chart, no overlaps, $\CoHA = Y^+(\widehat{\fgl}_1)$);
- toric diagram = triangle $\{(0,0), (1,0), (0,1)\}$, $0$ interior points;
+\item $\C^3$ (one chart, no overlaps, local positive half
+ $Y^+(\widehat{\fgl}_1)$); toric diagram =
+ triangle $\{(0,0), (1,0), (0,1)\}$, $0$ interior points;
 \item the resolved conifold (two charts, one overlap,
- $\CoHA = Y^+(\widehat{\fgl}(1|1))^{\mathrm{con}}$); toric diagram =
- unit square $\{(0,0), (1,0), (0,1), (1,1)\}$, $0$ interior points;
+ finite Rees comparison with Klebanov--Witten quiver-Hall realisation
+ available after the separate realisation step); toric diagram = unit
+ square $\{(0,0), (1,0), (0,1), (1,1)\}$, $0$ interior points;
 \item the banana threefold (local model: three $\bP^1$'s meeting at two
  common nodes; three maximal cones, three overlaps, three-loop fan);
  local toric diagram with no interior lattice points;
@@ -757,7 +968,7 @@ points in $\Delta_\Sigma$) includes:
  quadrilateral with no interior lattice points.
 \end{itemize}
 
-The class \emph{not} covered by the theorem comprises exactly those local
+The class outside the proposition comprises exactly those local
 toric CY$_3$ with one or more interior lattice points. Among toric
 smooth surfaces giving local CY$_3$, these are: local $\bP^2 = K_{\bP^2}$
 (one interior point $(0,0)$), local $\bP^1 \times \bP^1 = K_{\bP^1
@@ -769,20 +980,19 @@ diagram). Non-toric del Pezzos $dP_k$ for $k \geq 4$ fall outside the
 toric framework entirely. These all carry compact $4$-cycles and must
 pass through Proposition~\ref{prop:compact-cycle-obstruction}'s
 McKay/orbifold or higher-rank shuffle resolutions. \S\ref{sec:gluing:mckay} takes up
-this resolution, replacing the direct chart-wise \v{C}ech assembly by the
+this resolution, replacing the boundary chart-wise \v{C}ech/Ran atlas by the
 BKR equivalence and the inertia-stack decomposition of the orbifold
-route; the resulting picture extends to the full toric Stratum~i up to
-$\Z_n$-orbifolds and recovers, in particular, the nine-arrow Beilinson
-CoHA of local $\bP^2$ as the \v{C}ech assembly of the $[\C^3/\Z_3]$-chart
-across its $\Z_3$-skew-group algebra.
+route; in particular, the nine-arrow Beilinson quiver of local $\bP^2$
+enters through the $[\C^3/\Z_3]$ chart and its $\Z_3$ skew-group algebra,
+not through the boundary $\C^3$-chart atlas alone.
 
 \bigskip
 
-The chart-wise assembly of Stratum~i is now closed. Three invariants have
-been extracted: the face-lattice cocycle with values in
+The finite Rees assembly of Stratum~i is determined by three data: the
+face-lattice cocycle with values in
 $H^1(\Sigma, \underline{\mathrm{Pic}})$; the bond-factor presentation of
 Galakhov--Li--Yamazaki on the toric diagram edges; the zero-interior-point
-criterion that separates the direct-\v{C}ech-assembly diagrams from those
+criterion that separates the boundary-chart diagrams from those
 requiring McKay resolution. \S\ref{sec:gluing:mckay} addresses the McKay route for
 diagrams with one or more interior points, and \S\ref{sec:gluing:vdb} takes up derived
 Morita gluing for the Van den Bergh tilting presentation common to

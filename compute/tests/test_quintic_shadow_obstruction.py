@@ -54,7 +54,12 @@ from compute.lib.quintic_shadow_obstruction import (
     gv_to_shadow_s4_estimate,
     # Obstruction analysis
     ObstructionAnalysis,
+    RawBTermWitness,
+    CompactCY3ClosureDiagnostics,
+    ap_cy34_raw_b_term_witness,
+    compact_cy3_positive_claim_allowed,
     quintic_obstruction_analysis,
+    quintic_closure_diagnostics,
     compact_cy3_obstruction_survey,
     # Cross-verification
     kappa_formula_comparison,
@@ -593,6 +598,108 @@ class TestObstruction:
         assert n_int >= 1, "No CY3s with integral chi/24"
         # VERIFIED [DC] Euler characteristic [LT] Candelas+91
         assert n_not >= 1, "No CY3s with non-integral chi/24"
+
+
+# ======================================================================
+# 9b. COMPACT CY3 CLOSURE BOUNDARY
+# ======================================================================
+
+class TestCompactCY3ClosureBoundary:
+    """Tests rejecting false closure implications for the quintic."""
+
+    def test_ap_cy34_raw_witness_exact(self):
+        """Raw B_term^(2) has the AP-CY34 nonzero witness."""
+        witness = ap_cy34_raw_b_term_witness(Fraction(1))
+        assert isinstance(witness, RawBTermWitness)
+        assert witness.word == ("a", "a", "a", "a", "b")
+        assert witness.m3_after_b_term_coeff == Fraction(4)
+        assert witness.b_term_after_m3_coeff == Fraction(2)
+        assert witness.commutator_coeff == Fraction(2)
+        assert witness.blocks_raw_closure
+        assert not witness.raw_closure_holds
+        assert witness.raw_operator == "B_term^{(2)}"
+        assert witness.corrected_operator == "B_TCFT^{(2)}"
+
+    def test_alpha_zero_is_only_trivial_raw_zero(self):
+        """The raw witness vanishes only after setting alpha to zero."""
+        witness = ap_cy34_raw_b_term_witness(Fraction(0))
+        assert witness.commutator_coeff == 0
+        assert witness.raw_closure_holds
+        assert not witness.blocks_raw_closure
+        assert witness.costello_comparison_required
+
+    def test_quintic_diagnostics_do_not_close_by_default(self):
+        """DGMS, BTT, Kaledin, and chi/24 do not imply compact closure."""
+        diag = quintic_closure_diagnostics()
+        assert isinstance(diag, CompactCY3ClosureDiagnostics)
+        assert diag.chi_over_24 == Fraction(-25, 3)
+        assert diag.dgms_derham_formal is True
+        assert diag.btt_unobstructed_deformations is True
+        assert diag.kaledin_hdr_degeneration is True
+        assert diag.raw_witness.blocks_raw_closure is True
+        assert diag.positive_claim_allowed is False
+        assert diag.obs_ainf_zero is None
+        assert diag.hh_minus_two_zero is None
+        assert diag.s3_framing_contractible is None
+        assert diag.compact_phi3_closure is None
+        assert "not established" in diag.positive_claim_status
+
+    def test_forbidden_implications_are_named(self):
+        """The engine names each prohibited shortcut."""
+        diag = quintic_closure_diagnostics()
+        text = "\n".join(diag.forbidden_implications)
+        assert "chi/24" in text
+        assert "DGMS" in text
+        assert "BTT" in text
+        assert "Kaledin" in text
+        assert "B_term^{(2)}" in text
+        assert "B_TCFT^{(2)}" in text
+
+    def test_positive_claim_requires_named_data(self):
+        """Compact closure claims require Costello data or HH^{-2} theorem."""
+        assert not compact_cy3_positive_claim_allowed()
+        assert compact_cy3_positive_claim_allowed(
+            costello_correction_comparison_data=True
+        )
+        assert compact_cy3_positive_claim_allowed(
+            hh_minus_two_filtration_theorem=True
+        )
+
+    def test_costello_data_allows_only_conditional_positive_claim(self):
+        """Costello comparison data makes the claim conditional, not universal."""
+        diag = quintic_closure_diagnostics(
+            costello_correction_comparison_data=True
+        )
+        assert diag.positive_claim_allowed
+        assert diag.obs_ainf_zero is True
+        assert diag.compact_phi3_closure is None
+        assert diag.hh_minus_two_zero is None
+        assert diag.s3_framing_contractible is None
+        assert (
+            "conditional positive obstruction claim allowed"
+            in diag.positive_claim_status
+        )
+        assert all(
+            "Construct Costello" not in x
+            for x in diag.remaining_proof_obligations
+        )
+        assert any("Phi_3 closure" in x for x in diag.remaining_proof_obligations)
+
+    def test_hh_minus_two_theorem_controls_framing_claim(self):
+        """HH^{-2} filtration theorem is the precise framing route."""
+        diag = quintic_closure_diagnostics(
+            hh_minus_two_filtration_theorem=True
+        )
+        assert diag.positive_claim_allowed
+        assert diag.obs_ainf_zero is True
+        assert diag.hh_minus_two_zero is True
+        assert diag.s3_framing_contractible is True
+        assert diag.compact_phi3_closure is None
+        assert all(
+            "HH^{-2}_{E_1} filtration theorem" not in x
+            for x in diag.remaining_proof_obligations
+        )
+        assert any("Phi_3 closure" in x for x in diag.remaining_proof_obligations)
 
 
 # ======================================================================

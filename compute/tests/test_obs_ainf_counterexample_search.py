@@ -1,16 +1,16 @@
-r"""Tests for the adversarial search for [m_3, B^{(2)}] counterexamples.
+r"""Tests for raw [m_3, B_term^{(2)}] obstruction diagnostics.
 
 Verifies all components of the Obs_{A_inf} counterexample search engine:
   1. Graded vector space and CY_3 pairing construction
   2. A_inf operations and degree compatibility
   3. Stasheff identities (n=1, n=2, n=3)
   4. Cyclic invariance for m_2 and m_3
-  5. B^{(2)} operator on bar elements
+  5. Raw B_term^{(2)} diagnostic on bar elements
   6. m_3 on bar elements
-  7. The commutator [m_3, B^{(2)}]
+  7. The raw commutator [m_3, B_term^{(2)}]
   8. Control experiment: non-cyclic m_3 gives nonzero commutator
-  9. Main search: cyclic m_3 gives zero commutator
-  10. The adversarial conclusion
+  9. Exact strict witness for raw B_term^{(2)} failure
+  10. Rejection of stale raw-vanishing and compact-proof claims
 
 Every test uses AT LEAST 2 independent verification paths (AP10).
 
@@ -23,6 +23,8 @@ Mathematical references:
     Keller (2006): A-infinity algebras, modules and transfer
     Costello (2005): TCFT and CY categories
 """
+
+from fractions import Fraction
 
 import numpy as np
 import pytest
@@ -49,6 +51,7 @@ from compute.lib.obs_ainf_counterexample_search import (
     max_commutator_on_arity,
     run_counterexample_search,
     run_single_trial,
+    strict_m3_b2_term_witness,
     _random_degree_compatible_m3,
     _make_m3_cyclic,
 )
@@ -238,14 +241,14 @@ class TestCyclicInvariance:
 
 
 # ================================================================
-# SECTION 5: B^{(2)} OPERATOR
+# SECTION 5: RAW B_term^{(2)} DIAGNOSTIC
 # ================================================================
 
 class TestB2Operator:
-    """Test the B^{(2)} operator on bar elements."""
+    """Test the raw B_term^{(2)} diagnostic on bar elements."""
 
     def test_b2_reduces_arity_by_2(self):
-        """B^{(2)} maps bar elements of arity n to arity n-2."""
+        """B_term^{(2)} maps bar elements of arity n to arity n-2."""
         # VERIFIED [DC] arity reduction [LT] contraction operator degree
         gvs = GradedVectorSpace(dims=(1, 2, 2, 1))
         rng = np.random.default_rng(42)
@@ -259,7 +262,7 @@ class TestB2Operator:
             assert len(remaining) == 2, f"Expected arity 2, got {len(remaining)}"
 
     def test_b2_zero_on_incompatible_degrees(self):
-        """B^{(2)} gives zero when no pair has degrees summing to 3."""
+        """B_term^{(2)} gives zero when no pair has degrees summing to 3."""
         # VERIFIED [DC] selection rule [LT] CY pairing degree constraint
         gvs = GradedVectorSpace(dims=(1, 2, 2, 1))
         rng = np.random.default_rng(42)
@@ -271,7 +274,7 @@ class TestB2Operator:
 
         # Should get zero (no pairs with degree sum = 3)
         assert all(abs(c) < 1e-15 for _, c in result), (
-            "B^{(2)} should be zero on all-degree-1 elements"
+            "B_term^{(2)} should be zero on all-degree-1 elements"
         )
 
 
@@ -312,14 +315,14 @@ class TestM3OnBar:
 
 
 # ================================================================
-# SECTION 7: THE COMMUTATOR [m_3, B^{(2)}]
+# SECTION 7: THE RAW COMMUTATOR [m_3, B_term^{(2)}]
 # ================================================================
 
 class TestCommutator:
-    """Test the commutator [m_3, B^{(2)}] computation."""
+    """Test the raw commutator [m_3, B_term^{(2)}] computation."""
 
     def test_commutator_zero_when_m3_zero(self):
-        """[m_3, B^{(2)}] = 0 when m_3 = 0 (trivially)."""
+        """[m_3, B_term^{(2)}] = 0 when m_3 = 0 (trivially)."""
         # VERIFIED [DC] zero check [LT] trivial commutator
         gvs = GradedVectorSpace(dims=(1, 2, 2, 1))
         rng = np.random.default_rng(42)
@@ -357,7 +360,7 @@ class TestControlExperiment:
     """Test that non-cyclic m_3 gives nonzero commutator."""
 
     def test_noncyclic_m3_has_nonzero_commutator(self):
-        """Without cyclic invariance, [m_3, B^{(2)}] is generically nonzero.
+        """Without cyclic invariance, raw [m_3, B_term^{(2)}] is generically nonzero.
 
         This is the CONTROL: if the commutator were ALWAYS zero
         regardless of cyclic invariance, the claim would be trivial
@@ -370,36 +373,63 @@ class TestControlExperiment:
             "Non-cyclic m_3 should violate cyclic invariance"
         )
         assert result["is_noncyclic_counterexample"], (
-            "Non-cyclic m_3 should give nonzero [m_3, B^{(2)}]"
+            "Non-cyclic m_3 should give nonzero [m_3, B_term^{(2)}]"
         )
 
 
 # ================================================================
-# SECTION 9: MAIN SEARCH -- CYCLIC m_3
+# SECTION 9: STRICT RAW TERMWISE WITNESS
+# ================================================================
+
+class TestStrictTermwiseWitness:
+    """Exact witness for the raw AP-CY34 termwise failure."""
+
+    def test_exact_witness_coefficients(self):
+        """[m_3, B_term^{(2)}][a|a|a|a|b] = 2 alpha [b]."""
+        # VERIFIED [DC] exact arithmetic [LT] standalone witness proposition
+        witness = strict_m3_b2_term_witness(Fraction(3, 2))
+
+        assert witness.input_word == ("a", "a", "a", "a", "b")
+        assert witness.output_word == ("b",)
+        assert witness.m3_after_b_term_coeff == Fraction(6, 1)
+        assert witness.b_term_after_m3_coeff == Fraction(3, 1)
+        assert witness.commutator_coeff == Fraction(3, 1)
+        assert witness.is_nonzero
+        assert "B_term" in witness.statement
+
+    def test_zero_alpha_rejected(self):
+        """The strict witness is only a nonzero witness when alpha != 0."""
+        with pytest.raises(ValueError):
+            strict_m3_b2_term_witness(Fraction(0, 1))
+
+
+# ================================================================
+# SECTION 10: MAIN SEARCH -- CYCLIC m_3
 # ================================================================
 
 class TestCyclicSearch:
-    """Test the commutator [m_3, B^{(2)}] for cyclic A_inf algebras.
+    """Test raw [m_3, B_term^{(2)}] diagnostics for cyclic A_inf algebras.
 
     KEY FINDING: with m_2 = 0 (degenerate case), the commutator is:
-      - ZERO at arity 4 (universally, by degree counting)
-      - NONZERO at arity 5 (generically, 43% of bar elements)
+      - often zero at arity 4 by degree/arity collapse in the diagnostic
+      - NONZERO at arity 5 in strict raw termwise tests
 
     This constitutes a COUNTEREXAMPLE to the claim that cyclic
-    invariance alone implies [m_3, B^{(2)}] = 0.
+    invariance alone implies [m_3, B_term^{(2)}] = 0.  It is not a proof
+    of compact Obs_Ainf vanishing.
     """
 
     def test_arity4_zero_with_cyclic_m3(self):
-        """At arity 4, [m_3, B^{(2)}] = 0 for cyclic m_3 with m_2 = 0.
+        """At arity 4, the sampled raw diagnostic vanishes but proves nothing.
 
         This is expected: at arity 4, the commutator maps to arity 0
-        (scalars). B^{(2)} contracts the 2 remaining factors after m_3,
-        so the non-adjacent issue does not arise.
+        (scalars). B_term^{(2)} contracts the 2 remaining factors after
+        m_3, so this arity cannot prove the corrected obstruction theorem.
         """
         # VERIFIED [DC] arity-4 computation [LT] degree counting forces collapse
         # PATH 2 [DA] independent verification: arity 4 -> arity 0 has no room
         # for non-adjacent terms (m_3 replaces 3 of 4 factors, leaving 2;
-        # B^{(2)} contracts both remaining factors -- all contractions are forced)
+        # B_term^{(2)} contracts both remaining factors).
         results = run_counterexample_search(
             n_trials=30,
             gvs_dims=(1, 2, 2, 1),
@@ -410,9 +440,14 @@ class TestCyclicSearch:
         )
         max_comm = results["mode1_m2_zero"]["max_commutator_arity4"]
         assert max_comm < 1e-10, f"Arity-4 commutator nonzero: {max_comm}"
+        assert not results["mode1_m2_zero"]["proves_termwise_vanishing"]
+        assert not results["mode1_m2_zero"]["proves_compact_obs_ainf_zero"]
+        assert "No counterexample: [m_3, B^{(2)}] = 0" not in (
+            results["mode1_m2_zero"]["conclusion"]
+        )
 
     def test_arity5_counterexample_found(self):
-        """At arity 5, [m_3, B^{(2)}] != 0 for cyclic m_3 with m_2 = 0.
+        """At arity 5, raw [m_3, B_term^{(2)}] can be nonzero.
 
         THIS IS THE KEY ADVERSARIAL FINDING: cyclic invariance does
         NOT force the commutator to zero at arity >= 5.
@@ -422,7 +457,7 @@ class TestCyclicSearch:
         commutator is generically nonzero.
         """
         # VERIFIED [DC] arity-5 nonzero [LT] non-adjacent contractions survive
-        # PATH 2 [DA] confirmed by term-by-term trace: B^{(2)} contracts
+        # PATH 2 [DA] confirmed by term-by-term trace: B_term^{(2)} contracts
         # one factor inside and one outside the m_3 block, producing terms
         # not related by cyclic invariance
         gvs = GradedVectorSpace(dims=(1, 2, 2, 1))
@@ -480,9 +515,9 @@ class TestCyclicSearch:
         )
 
     def test_arity4_zero_1331(self):
-        """At arity 4, [m_3, B^{(2)}] = 0 for larger dims (1,3,3,1)."""
-        # VERIFIED [DC] larger dimension [LT] arity-4 zero is universal
-        # PATH 2 [DA] same degree-counting argument applies at any total_dim
+        """Arity-4 diagnostic vanishing in dims (1,3,3,1) is not a proof."""
+        # VERIFIED [DC] larger dimension [LT] arity-4 diagnostic behavior
+        # PATH 2 [DA] conclusion flags reject raw vanishing as a proof
         results = run_counterexample_search(
             n_trials=15,
             gvs_dims=(1, 3, 3, 1),
@@ -494,11 +529,14 @@ class TestCyclicSearch:
         assert results["mode1_m2_zero"]["n_counterexamples"] == 0, (
             f"Found arity-4 counterexample at dim (1,3,3,1)!"
         )
+        assert results["raw_vanishing_is_proof"] is False
+        assert results["proves_corrected_tcft_identity"] is False
+        assert results["proves_compact_obs_ainf_zero"] is False
 
     def test_cyclic_invariance_provides_partial_cancellation(self):
         """Cyclic projection reduces commutator norm vs non-cyclic case.
 
-        While cyclic invariance does NOT force [m_3, B^{(2)}] = 0 at
+        While cyclic invariance does NOT force [m_3, B_term^{(2)}] = 0 at
         arity 5, it DOES provide partial cancellation compared to
         the non-cyclic case.
         """
@@ -530,7 +568,7 @@ class TestCyclicSearch:
 
 
 # ================================================================
-# SECTION 10: STRUCTURAL TESTS
+# SECTION 11: STRUCTURAL TESTS
 # ================================================================
 
 class TestStructural:
@@ -563,7 +601,7 @@ class TestStructural:
 
 
 # ================================================================
-# SECTION 11: STASHEFF IDENTITIES
+# SECTION 12: STASHEFF IDENTITIES
 # ================================================================
 
 class TestStasheffIdentities:
@@ -581,7 +619,7 @@ class TestStasheffIdentities:
 
 
 # ================================================================
-# SECTION 12: MASTER COMPUTATION
+# SECTION 13: MASTER COMPUTATION
 # ================================================================
 
 class TestMasterComputation:
@@ -598,8 +636,14 @@ class TestMasterComputation:
         # PATH 2 [DA] each sub-result verified independently in earlier tests
         result = compute_obs_ainf_counterexample_search()
 
-        # Control confirms necessity of cyclic invariance
-        assert result["control_confirms_necessity"], (
+        witness = result["termwise_witness"]
+        assert witness["m3_after_b_term_coeff"] == Fraction(4, 1)
+        assert witness["b_term_after_m3_coeff"] == Fraction(2, 1)
+        assert witness["commutator_coeff"] == Fraction(2, 1)
+        assert witness["is_nonzero"]
+
+        # Control confirms raw diagnostic sensitivity.
+        assert result["control_confirms_raw_sensitivity"], (
             "Control experiment should show non-cyclic m_3 has nonzero commutator"
         )
 
@@ -608,14 +652,20 @@ class TestMasterComputation:
             f"Expected counterexamples at arity 5 but found none."
         )
 
-        assert "WRONG" in result["ap_cy34_status"], (
+        assert result["raw_vanishing_closes_ap_cy34"] is False
+        assert result["proves_corrected_tcft_identity"] is False
+        assert result["proves_compact_obs_ainf_zero"] is False
+        assert "HH^{-2}" in " ".join(result["remaining_proof_obligations"])
+        assert "noncompact diagnostic" in result["local_p2_scope"]
+
+        assert "RAW TERMWISE PROOF IS WRONG" in result["ap_cy34_status"], (
             f"Expected status reflecting proof is wrong, got: "
             f"{result['ap_cy34_status']}"
         )
 
 
 # ================================================================
-# SECTION 13: EDGE CASES AND REGRESSION
+# SECTION 14: EDGE CASES AND REGRESSION
 # ================================================================
 
 class TestEdgeCases:
@@ -638,7 +688,7 @@ class TestEdgeCases:
     def test_large_scale_m3_arity4_still_zero(self):
         """Large m_3 entries still give zero arity-4 commutator when cyclic."""
         # VERIFIED [DC] scale invariance [LT] linearity of commutator
-        # PATH 2 [DA] commutator is bilinear in m_3 and B^{(2)}, hence
+        # PATH 2 [DA] commutator is bilinear in m_3 and B_term^{(2)}, hence
         # scaling m_3 by lambda scales the commutator by lambda (not zero/nonzero)
         results = run_counterexample_search(
             n_trials=15,
@@ -667,7 +717,8 @@ class TestEdgeCases:
         produces a nonzero commutator of 0.464.
         """
         # VERIFIED [DC] specific element [LT] term-by-term trace
-        # PATH 2 [DA] Path A (m_3.B^{(2)}) and Path B (B^{(2)}.m_3) computed
+        # PATH 2 [DA] Path A (m_3.B_term^{(2)}) and Path B
+        # (B_term^{(2)}.m_3) computed
         # independently; the difference = commutator is checked against
         # the direct commutator_m3_b2 function
         gvs = GradedVectorSpace(dims=(1, 2, 2, 1))
@@ -686,12 +737,12 @@ class TestEdgeCases:
 
         # Independent verification: compute Path A and Path B separately
         bar = (0, 1, 3, 2, 5)
-        # Path A: B^{(2)} then m_3
+        # Path A: B_term^{(2)} then m_3
         path_a: dict = {}
         for b2_idx, b2_c in b2_on_bar_element(bar, pairing, gvs):
             for m3_idx, m3_c in m3_on_bar_element(b2_idx, ainf):
                 path_a[m3_idx] = path_a.get(m3_idx, 0.0) + b2_c * m3_c
-        # Path B: m_3 then B^{(2)}
+        # Path B: m_3 then B_term^{(2)}
         path_b: dict = {}
         for m3_idx, m3_c in m3_on_bar_element(bar, ainf):
             for b2_idx, b2_c in b2_on_bar_element(m3_idx, pairing, gvs):

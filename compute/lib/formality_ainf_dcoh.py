@@ -3,12 +3,21 @@ r"""A_infinity formality of D^b(Coh(X)) for Calabi-Yau manifolds.
 MATHEMATICAL CONTENT
 ====================
 
-CENTRAL QUESTION: Is D^b(Coh(X)) A_infinity-formal for compact CY3 X?
+CENTRAL QUESTION: which formality and obstruction claims are certified for
+D^b(Coh(X)) or D^coh(X), and which are only de Rham, spectral-sequence, or
+model-dependent evidence?
 
-That is, does the minimal A_infinity model (Kadeishvili transfer) on the
-Ext algebra Ext^*(E, E) have m_k = 0 for all k >= 3?  If YES, the
-non-formality issue in [m_3, B^{(2)}] is moot.  If NO, the TCFT
-argument (Tsygan-Costello) handles it anyway.
+The corrected obstruction theorem separates four assertions:
+
+  (1) DGMS de Rham formality of the commutative cdga of X;
+  (2) Hodge-to-de Rham degeneration for a smooth proper dg category;
+  (3) A_infinity formality of a specified dg/A_infinity category;
+  (4) vanishing of a derived S^3-framing obstruction through a named
+      complex, degree, filtration, and comparison map.
+
+Only (3) makes m_k = 0 for k >= 3.  Only (4), or a formal input with
+m_3 = 0, can close the m_3--B^{(2)} obstruction.  Raw
+[m_3, B^{(2)}_term] can be nonzero.
 
 THE ANSWER: It depends on the geometry.  There are THREE notions of
 formality that must be carefully distinguished:
@@ -79,8 +88,8 @@ CONCLUSION FOR COMPACT CY3:
 THE QUINTIC: FORMAL OR NOT?
 ==========================================================================
 
-CLAIM: D^b(Coh(Q)) for the smooth quintic Q in P^4 is A_infinity-formal
-at GENERIC complex structure, despite not having a tilting generator.
+STATUS: This engine does not prove A_infinity formality or non-formality
+of D^b(Coh(Q)) for the smooth quintic Q in P^4.
 
 EVIDENCE:
 
@@ -130,7 +139,7 @@ EVIDENCE:
      algebra is NOT constant over the moduli space (it depends on the
      complex structure through the choice of harmonic representatives).
 
-(E7) THE RESOLUTION: For the quintic at GENERIC complex structure:
+(E7) THE SAFE RESOLUTION: For the quintic at a fixed complex structure:
      - The de Rham algebra H^*(Q, C) is formal (DGMS).
      - The Ext algebra Ext^*(O_Q, O_Q) is trivially formal: it is C in
        degree 0 only (since Q is smooth projective with Pic(Q) = Z*H,
@@ -148,25 +157,19 @@ EVIDENCE:
          These involve Ext^*(O(a), O(b)) for different a, b, and the
          transferred m_k on the total complex.
 
-THEOREM (this engine):
+STATUS RECORD (this engine):
   For a smooth projective CY_d manifold X:
   (i)   d = 1 (elliptic curve): Polishchuk showed the A_infinity category
         is NOT formal (m_3 != 0 for products of line bundles, determined
         by theta functions).
-  (ii)  d = 2 (K3): The A_infinity category IS formal.  Proof: K3 is compact
-        Kahler, so H^*(K3) is formal (DGMS).  The key step: for K3, the
-        cup product H^2 x H^2 -> H^4 (the intersection form) is the ONLY
-        nontrivial product, and there are no Massey products because DGMS
-        formality propagates through the Ext algebra via HKR + the fact
-        that the Lie algebra of polyvector fields is abelian
-        (H^0(T_{K3}) = 0).
-  (iii) d = 3 (quintic, generic point): The A_infinity CATEGORY has
-        NONTRIVIAL m_3.  This comes from the Yukawa coupling (genus-0
-        three-point function of the B-model), which is the Massey product
-        of the extended Ext algebra.  The cubic term in the prepotential
-        F_0 = (5/6)t^3 + instantons corresponds to m_3 on the Kodaira-
-        Spencer dgla.  At the Gepner point this is the LG potential;
-        at large volume it is the intersection number + GW corrections.
+  (ii)  d = 2 (K3): DGMS proves de Rham formality of the K3 surface, and
+        Kaledin proves non-commutative HdR degeneration for the smooth
+        proper dg category.  This engine does not promote either statement
+        to A_infinity formality of D^b(Coh(K3)).
+  (iii) d = 3 (quintic, bicubic, K3 x E): no universal compact CY3 closure
+        is certified here.  Yukawa couplings and Landau--Ginzburg models are
+        evidence for specific comparison problems, not a replacement for an
+        explicit A_infinity model and comparison map.
 
         CRITICAL DISTINCTION: The m_3 lives on the KODAIRA-SPENCER dgla
         HH^*(D^b(Coh(Q)))[1], NOT on the Ext algebra of a single sheaf.
@@ -182,46 +185,39 @@ IMPLICATION FOR THE PROGRAMME:
     - The [m_3, B^{(2)}] issue is MOOT.
     - The shadow tower has depth 0 (class G), the simplest case.
 
-  Since D^b(Coh(Q)) is NOT A_infinity-formal for compact CY3:
-    - The TCFT argument (Tsygan-Costello) is NECESSARY to handle the
-      nonzero m_3.
-    - The shadow tower has positive depth, encoding the GW corrections.
-    - The CY-A_3 programme requires the S^3-framing to be compatible
-      with the FULL A_infinity structure, not just m_2.
-    - But the TCFT resolution applies: [m_3, B^{(2)}] is EXACT, so the
-      obstruction class vanishes, and the S^3-framing exists up to homotopy.
+  When a nonzero m_3 is present in a witnessed model:
+    - raw [m_3, B^{(2)}_term] may be nonzero;
+    - the corrected Costello TCFT identity concerns B^{(2)}_TCFT with its
+      correction datum and the total differential b = sum_k b_k;
+    - derived vanishing requires the reduced Hochschild E_1-cochain
+      HH^{-2} filtration theorem plus a comparison map into that complex.
 
 ==========================================================================
 K3 x E: PRODUCT FORMALITY
 ==========================================================================
 
-K3: formal (DGMS + abelian polyvector fields).
+K3: de Rham formal by DGMS; A_infinity categorical formality is not
+   certified by this engine.
 E: formal as a MANIFOLD (DGMS + abelian variety), but the A_infinity
    CATEGORY D^b(Coh(E)) is NOT formal (Polishchuk).
 
-K3 x E AS A CY3: The product D^b(Coh(K3 x E)) is NOT the tensor product
-  D^b(Coh(K3)) x D^b(Coh(E)) in the A_infinity sense (it is, at the
-  level of triangulated categories, but the A_infinity structure
-  involves the Kunneth homotopy for the bar complex).
+K3 x E AS A CY3: the product category requires an explicit A_infinity
+  product model.  Kunneth formality for de Rham cdgas is not such a model.
 
-HOWEVER: For the chiral algebra construction, K3 x E is treated as a
-RELATIVE construction (K3 fiber over E base).  The K3 fiber IS formal
-(DGMS, K3 is CY2), so the fiber chiral algebra has m_k = 0 for all
-k >= 3.  The non-formality of the total space comes from the E-direction
-and does not affect the K3 fiber analysis.
+For the relative K3-fiber construction, formal fiber statements are valid
+only after a formal A_infinity model or an equivalent strictifying datum is
+supplied.  DGMS for the K3 manifold is not that datum.
 
 For K3 x E as a CY3: the Kodaira-Spencer dgla has HH^1 = H^1(T_{K3xE})
   = H^1(T_{K3}) + H^0(T_{K3}) x H^1(O_E) + H^0(O_{K3}) x H^1(T_E)
   = 0 + 20*1 + 1*1 = 21.
 The Yukawa coupling (m_3 on HH^1) is determined by the triple intersection
-on H^2(K3) x H^1(E), which is nonzero.  So K3 x E IS non-formal as a
-CY3 category.
+on H^2(K3) x H^1(E), which is nonzero in the B-model deformation problem.
+This does not by itself prove non-formality of D^b(Coh(K3 x E)).
 
-But: the RELATIVE construction (fiber = K3, formal; base = E) means
-the character-level data is entirely captured by the formal K3 fiber.
-The E-direction contributes only through the Kunneth structure, which
-is controlled by the Mukai lattice of K3.  This is why the relative
-and absolute constructions agree for K3 x E (rem:k3xe-well-behaved).
+No equality between relative and absolute character-level constructions is
+recorded here without that strictifying datum and the relevant comparison
+map.
 
 CONVENTIONS
 ===========
@@ -243,7 +239,6 @@ REFERENCES
   Kontsevich, ICM 1994: HMS conjecture
   Sheridan, arXiv:1507.03085 (2015): HMS for the quintic
   Costello, arXiv:math/0412149 (2004): TCFT and CY categories
-  Tsygan, arXiv:math/9904132 (1999): formality for chains
   Bogomolov-Tian-Todorov: unobstructedness of CY deformations
   Orlov, arXiv:math/0302304 (2003): D^b(Coh) vs MF equivalences
   Lorgat Vol III: cy_to_chiral.tex, cyclic_ainf.tex, k3_times_e.tex
@@ -528,16 +523,18 @@ class FormalityVerdict:
     # Level 2: HdR degeneration
     hdr_degeneration: bool
     hdr_reason: str
-    # Level 3: A_infinity formality of D^b
-    ainf_formal: bool
+    # Level 3: A_infinity formality of D^b.  None means not certified here.
+    ainf_formal: Optional[bool]
     ainf_reason: str
+    ainf_status: str
     # Massey product status
     has_nonzero_massey_derham: bool  # Massey products on H^*(X, C)
-    has_nonzero_m3_category: bool    # m_3 on the A_inf category
+    has_nonzero_m3_category: Optional[bool]  # None means not certified here
     # Shadow class consequence
-    shadow_class: str  # G, L, C, or M
+    shadow_class: str  # G, L, C, M, or unclassified
     # Whether TCFT resolution is needed
-    tcft_needed: bool
+    tcft_needed: Optional[bool]
+    obstruction_status: str
     # References
     references: List[str] = field(default_factory=list)
 
@@ -563,10 +560,12 @@ def analyze_formality(X: CYHodgeData) -> FormalityVerdict:
                 "line bundles. The elliptic curve is de Rham formal "
                 "but the A_infinity CATEGORY is not formal."
             ),
+            ainf_status="proved_nonformal",
             has_nonzero_massey_derham=False,
             has_nonzero_m3_category=True,
             shadow_class="L",
             tcft_needed=False,  # d=1, no S^3-framing issue
+            obstruction_status="not_applicable_to_S3_framing",
             references=[
                 "Polishchuk arXiv:math/0205149",
                 "DGMS Inventiones 29 (1975)",
@@ -581,24 +580,24 @@ def analyze_formality(X: CYHodgeData) -> FormalityVerdict:
             de_rham_reason="Compact Kahler (DGMS 1975)",
             hdr_degeneration=True,
             hdr_reason="Smooth proper dg cat (Kaledin 2008)",
-            ainf_formal=True,
+            ainf_formal=None,
             ainf_reason=(
-                "K3 is compact Kahler (DGMS formal). The polyvector "
-                "field algebra has H^0(T_{K3}) = 0 (no infinitesimal "
-                "automorphisms), so the Lie algebra structure on "
-                "HH^*(K3) is abelian. The Kadeishvili-transferred "
-                "A_infinity structure has m_k = 0 for all k >= 3 "
-                "because the only nontrivial product (H^2 x H^2 -> H^4) "
-                "is the cup product, and there are no Massey products "
-                "by DGMS formality."
+                "K3 is compact Kahler, so DGMS proves de Rham formality "
+                "of H^*(K3). Kaledin gives HH-to-HC degeneration for the "
+                "smooth proper dg category. Neither statement is an "
+                "A_infinity formality theorem for D^b(Coh(K3)); this "
+                "engine therefore records the categorical status as not "
+                "certified."
             ),
+            ainf_status="not_certified_by_DGMS_or_Kaledin",
             has_nonzero_massey_derham=False,
-            has_nonzero_m3_category=False,
-            shadow_class="G",
-            tcft_needed=False,  # d=2, formal, moot
+            has_nonzero_m3_category=None,
+            shadow_class="unclassified",
+            tcft_needed=None,
+            obstruction_status="not_certified",
             references=[
                 "DGMS Inventiones 29 (1975)",
-                "Caldararu (2005)",
+                "Kaledin arXiv:0708.1444",
             ],
         )
 
@@ -610,17 +609,20 @@ def analyze_formality(X: CYHodgeData) -> FormalityVerdict:
             de_rham_reason="Abelian variety: formal (Kahler + group structure)",
             hdr_degeneration=True,
             hdr_reason="Smooth proper dg cat (Kaledin 2008)",
-            ainf_formal=False,
+            ainf_formal=None,
             ainf_reason=(
-                "Abelian surface is a product of elliptic curves. "
-                "Each factor has Polishchuk m_3 != 0 from theta functions. "
-                "The product category inherits non-formality from "
-                "the factors via the Kunneth A_infinity structure."
+                "Abelian surface is de Rham formal as a compact Kahler "
+                "abelian variety. Polishchuk proves non-formality for "
+                "elliptic curve categories, but this engine does not use "
+                "that result as an automatic product-formality theorem for "
+                "D^b(Coh(A))."
             ),
+            ainf_status="not_certified_by_product_DGMS",
             has_nonzero_massey_derham=False,
-            has_nonzero_m3_category=True,
-            shadow_class="L",
-            tcft_needed=False,  # d=2
+            has_nonzero_m3_category=None,
+            shadow_class="unclassified",
+            tcft_needed=None,
+            obstruction_status="not_certified",
             references=[
                 "Polishchuk arXiv:math/0205149",
                 "DGMS Inventiones 29 (1975)",
@@ -635,29 +637,26 @@ def analyze_formality(X: CYHodgeData) -> FormalityVerdict:
             de_rham_reason="Compact Kahler (DGMS 1975): all Massey products on H^*(Q, C) vanish",
             hdr_degeneration=True,
             hdr_reason="Smooth proper dg cat (Kaledin 2008): HH-to-HC spectral seq degenerates",
-            ainf_formal=False,
+            ainf_formal=None,
             ainf_reason=(
-                "D^b(Coh(Q)) is NOT A_infinity formal. The Kodaira-Spencer "
-                "dgla has nontrivial m_3 from the Yukawa coupling: the "
-                "genus-0 three-point function C(q) = 5 + sum n^0_d d^3 q^d/(1-q^d) "
-                "gives a nonzero cubic term in the A_infinity structure "
-                "of the FULL category (multi-object Ext algebra). "
-                "At the Gepner point this is the LG potential m_3; at "
-                "large volume it is the classical intersection number "
-                "H^3 = 5 plus Gromov-Witten corrections. "
-                "Note: Ext^*(O_Q, O_Q) alone IS trivially formal "
-                "(concentrated in degrees 0 and 3), but the FULL "
-                "A_infinity category involving Ext^*(O(a), O(b)) is not."
+                "D^b(Coh(Q)) is not certified here as A_infinity formal or "
+                "non-formal. DGMS, BTT, Kaledin K1, and the Yukawa coupling "
+                "do not by themselves supply a strict A_infinity model and "
+                "comparison map for the full category. Ext^*(O_Q,O_Q) alone "
+                "is trivially formal, but this does not decide the full "
+                "multi-object category."
             ),
+            ainf_status="not_certified_for_full_category",
             has_nonzero_massey_derham=False,
-            has_nonzero_m3_category=True,
-            shadow_class="M",
-            tcft_needed=True,
+            has_nonzero_m3_category=None,
+            shadow_class="unclassified",
+            tcft_needed=None,
+            obstruction_status="requires_corrected_TCFT_or_HH_minus_2_hypothesis",
             references=[
                 "DGMS Inventiones 29 (1975)",
                 "Kaledin arXiv:0708.1444",
                 "Sheridan arXiv:1507.03085 (HMS for quintic)",
-                "Costello arXiv:math/0412149 (TCFT formality)",
+                "Costello arXiv:math/0412149 (TCFT)",
                 "Candelas-de la Ossa-Green-Parkes (1991)",
             ],
         )
@@ -674,23 +673,23 @@ def analyze_formality(X: CYHodgeData) -> FormalityVerdict:
             ),
             hdr_degeneration=True,
             hdr_reason="Smooth proper dg cat (Kaledin 2008)",
-            ainf_formal=False,
+            ainf_formal=None,
             ainf_reason=(
-                "D^b(Coh(K3 x E)) is NOT A_infinity formal as a CY3 "
-                "category. The E factor contributes Polishchuk m_3 from "
-                "theta functions. However, the K3 FIBER is formal "
-                "(K3 is CY2 with vanishing Massey products), so the "
-                "RELATIVE construction (fiber K3 chiral algebra over "
-                "base E) has m_k = 0 in the fiber direction. The non-"
-                "formality enters only through the base E direction. "
-                "This is why the relative and absolute constructions "
-                "agree on character-level data: the K3 formality ensures "
-                "the cup product ring H^*(K3) captures all fiber data."
+                "D^b(Coh(K3 x E)) is not certified here as A_infinity "
+                "formal or non-formal. The E factor supplies a proven "
+                "non-formal elliptic curve category, and the B-model "
+                "Yukawa expression is nonzero, but turning these facts into "
+                "an absolute product-category verdict requires an explicit "
+                "A_infinity model and comparison map. The K3 fiber may be "
+                "used as a formal input only after a separate formal model "
+                "or strictifying datum is supplied."
             ),
+            ainf_status="not_certified_for_product_category",
             has_nonzero_massey_derham=False,
-            has_nonzero_m3_category=True,
-            shadow_class="M",
-            tcft_needed=True,
+            has_nonzero_m3_category=None,
+            shadow_class="unclassified",
+            tcft_needed=None,
+            obstruction_status="requires_corrected_TCFT_or_HH_minus_2_hypothesis",
             references=[
                 "DGMS Inventiones 29 (1975)",
                 "Polishchuk arXiv:math/0205149",
@@ -706,16 +705,19 @@ def analyze_formality(X: CYHodgeData) -> FormalityVerdict:
             de_rham_reason="Compact Kahler (DGMS 1975)",
             hdr_degeneration=True,
             hdr_reason="Smooth proper dg cat (Kaledin 2008)",
-            ainf_formal=False,
+            ainf_formal=None,
             ainf_reason=(
-                "Complete intersection CY3: same structure as quintic. "
-                "Nontrivial Yukawa coupling from the intersection numbers "
-                "and GW corrections gives m_3 != 0 on the full category."
+                "Complete-intersection CY3. DGMS and Kaledin K1 apply, "
+                "and Yukawa data are relevant to the deformation problem, "
+                "but this engine does not certify A_infinity formality or "
+                "non-formality of the full category."
             ),
+            ainf_status="not_certified_for_full_category",
             has_nonzero_massey_derham=False,
-            has_nonzero_m3_category=True,
-            shadow_class="M",
-            tcft_needed=True,
+            has_nonzero_m3_category=None,
+            shadow_class="unclassified",
+            tcft_needed=None,
+            obstruction_status="requires_corrected_TCFT_or_HH_minus_2_hypothesis",
             references=[
                 "DGMS Inventiones 29 (1975)",
                 "Kaledin arXiv:0708.1444",
@@ -739,10 +741,12 @@ def analyze_formality(X: CYHodgeData) -> FormalityVerdict:
                 "Equivalently: the conifold is a toric CY3 with "
                 "unobstructed deformations AND concentrated Ext."
             ),
+            ainf_status="certified_formal_tilting_quadratic",
             has_nonzero_massey_derham=False,
             has_nonzero_m3_category=False,
             shadow_class="G",
             tcft_needed=False,
+            obstruction_status="formal_input_m3_zero",
             references=[
                 "Kaledin arXiv:math/0308135",
                 "Bridgeland (2002) flop equivalences",
@@ -809,8 +813,8 @@ def kaledin_analysis(X: CYHodgeData) -> KaledinAnalysis:
         k2_reason = (
             "K3 has no tilting generator: Serre duality gives "
             "Ext^2(E,E) = Ext^0(E,E)^* != 0 for any generator E. "
-            "But K3 IS formal by DGMS (Level 1 => Level 3 in this case, "
-            "because the polyvector field algebra is abelian)."
+            "DGMS gives de Rham formality of the manifold, not an "
+            "A_infinity formality theorem for D^b(Coh(K3))."
         )
     elif X.cy_dim == 3 and X.is_compact:
         has_tilting = False
@@ -862,10 +866,10 @@ class MasseyAnalysis:
     derham_massey_vanish: bool
     derham_reason: str
     # Level 3 categorical Massey products (m_3 on Ext)
-    category_m3_zero: bool
+    category_m3_zero: Optional[bool]
     category_reason: str
     # The critical distinction
-    levels_agree: bool
+    levels_agree: Optional[bool]
     disagreement_explanation: str
 
 
@@ -874,11 +878,21 @@ def massey_analysis(X: CYHodgeData) -> MasseyAnalysis:
     v = analyze_formality(X)
 
     derham_vanish = not v.has_nonzero_massey_derham
-    cat_m3_zero = not v.has_nonzero_m3_category
-    agree = derham_vanish == cat_m3_zero
+    cat_m3_zero = (
+        None if v.has_nonzero_m3_category is None
+        else not v.has_nonzero_m3_category
+    )
+    agree = None if cat_m3_zero is None else derham_vanish == cat_m3_zero
 
-    if agree:
+    if agree is True:
         explanation = "Both levels agree for this geometry."
+    elif agree is None:
+        explanation = (
+            f"{X.name}: de Rham Massey products vanish at the manifold level, "
+            "but the categorical m_3 status is not certified by this engine. "
+            "DGMS, BTT, Kaledin K1, and Hodge data do not control the "
+            "A_infinity structure of D^b(Coh(X))."
+        )
     else:
         explanation = (
             f"{X.name}: de Rham Massey products vanish (compact Kahler, DGMS), "
@@ -925,14 +939,14 @@ class QuinticExtAnalysis:
     ext_OO_formal: bool
     ext_OO_reason: str
     # Full generator analysis
-    full_generator_formal: bool
+    full_generator_formal: Optional[bool]
     full_generator_reason: str
     # Yukawa coupling (the source of m_3)
     yukawa_classical: int  # Classical triple intersection H^3
     yukawa_has_gw_corrections: bool
     # Consequence for m_3
     m3_on_ext_OO: bool    # m_3 on Ext^*(O,O)
-    m3_on_full_cat: bool  # m_3 on the full category
+    m3_on_full_cat: Optional[bool]  # None means not certified here
 
 
 def quintic_ext_analysis() -> QuinticExtAnalysis:
@@ -950,18 +964,18 @@ def quintic_ext_analysis() -> QuinticExtAnalysis:
             "Ext^0 x Ext^3 -> C. All higher m_k = 0 trivially "
             "(no room for Massey products in a 2-term algebra)."
         ),
-        full_generator_formal=False,
+        full_generator_formal=None,
         full_generator_reason=(
             "The full category D^b(Coh(Q)) has Ext^*(O(a), O(b)) != 0 "
-            "for many (a,b). The A_infinity structure on this multi-object "
-            "Ext algebra has m_3 != 0 from the Yukawa coupling. "
-            "At large volume: m_3 = H^3 = 5 (classical) + GW corrections. "
-            "At the Gepner point: m_3 from the LG potential W = sum x_i^5."
+            "for many (a,b). Yukawa and LG data are evidence for specific "
+            "models, but this engine does not certify that the full "
+            "multi-object A_infinity category has nonzero m_3 without an "
+            "explicit model and comparison map."
         ),
         yukawa_classical=5,
         yukawa_has_gw_corrections=True,
         m3_on_ext_OO=False,
-        m3_on_full_cat=True,
+        m3_on_full_cat=None,
     )
 
 
@@ -976,46 +990,36 @@ class ProductFormalityAnalysis:
     De Rham level: H^*(K3 x E) = H^*(K3) x H^*(E) by Kunneth.
     Product of formal cdgas is formal.  So Level 1: FORMAL.
 
-    Category level: D^b(Coh(K3 x E)) != D^b(Coh(K3)) x D^b(Coh(E))
-    (as A_infinity categories).  The Kunneth A_infinity tensor product
-    introduces homotopy data.  But the key point: the K3 FIBER IS formal
-    (K3 is CY2 with DGMS), and the E base contributes only through
-    the Kunneth structure, not through higher A_infinity operations
-    in the fiber direction.
-
-    This explains why the RELATIVE construction for K3 x E captures
-    all character-level data despite the total space being non-formal.
+    Category level: D^b(Coh(K3 x E)) requires an explicit A_infinity product
+    model and comparison map.  DGMS formality of the factors as manifolds does
+    not prove A_infinity formality of the product category.  Relative K3-fiber
+    formal statements are valid only after a formal fiber model is supplied.
     """
     # Factor formality
-    k3_formal: bool  # K3 is A_inf formal
-    e_formal: bool   # E is NOT A_inf formal
+    k3_formal: Optional[bool]  # None means not certified here
+    e_formal: bool   # E is NOT A_inf formal by Polishchuk
     # Product formality
     derham_product_formal: bool   # H^*(K3 x E) is formal
-    ainf_product_formal: bool     # D^b(Coh(K3 x E)) is NOT A_inf formal
+    ainf_product_formal: Optional[bool]
     # The critical observation
-    relative_construction_works: bool
+    relative_construction_works: Optional[bool]
     relative_reason: str
 
 
 def product_formality_k3xe() -> ProductFormalityAnalysis:
     """Formality analysis for K3 x E."""
     return ProductFormalityAnalysis(
-        k3_formal=True,
+        k3_formal=None,
         e_formal=False,
         derham_product_formal=True,
-        ainf_product_formal=False,
-        relative_construction_works=True,
+        ainf_product_formal=None,
+        relative_construction_works=None,
         relative_reason=(
-            "The relative construction (fiber = K3, base = E) works because "
-            "the K3 fiber is A_infinity formal (DGMS + abelian polyvector "
-            "fields). The fiber chiral algebra has m_k = 0 for all k >= 3, "
-            "so the character is entirely controlled by the cup product "
-            "ring H^*(K3). The E-direction non-formality (Polishchuk m_3) "
-            "enters only through the Kunneth structure, which the relative "
-            "construction handles via the Mukai lattice of K3. This is "
-            "why all character-level data (partition function, root "
-            "multiplicities, kappa-spectrum) agree between relative and "
-            "absolute constructions (rem:k3xe-well-behaved)."
+            "The relative construction may use a formal K3 fiber only after "
+            "a formal A_infinity model or strictifying datum is supplied. "
+            "DGMS formality of H^*(K3) and Kunneth formality of de Rham cdgas "
+            "do not by themselves certify the product A_infinity category or "
+            "character-level agreement between relative and absolute models."
         ),
     )
 
@@ -1034,32 +1038,31 @@ class FormalityImplication:
       - Shadow tower has depth 0 (class G)
       - The chiral algebra is determined by the cup product structure
 
-    If D^b(Coh(X)) is NOT A_infinity formal:
-      - The TCFT argument (Tsygan-Costello) handles [m_3, B^{(2)}]
-      - [m_3, B^{(2)}] is EXACT (not zero), giving [Obs_Ainf] = 0
-      - Shadow tower has positive depth (class L, C, or M)
-      - GW corrections enter the chiral algebra
-      - CY-A_3 requires full S^3-framing compatibility
+    If a non-formal model has nonzero m_3:
+      - raw [m_3, B^{(2)}_term] can be nonzero
+      - corrected TCFT closure requires B^{(2)}_TCFT plus correction datum
+      - derived closure requires the HH^{-2} filtration/comparison theorem
     """
     geometry: str
-    ainf_formal: bool
+    ainf_formal: Optional[bool]
     # If formal: trivial consequences
-    cya_trivial: bool
-    m3_b2_moot: bool
-    shadow_depth_zero: bool
-    # If non-formal: TCFT resolution
-    tcft_applies: bool
-    obs_ainf_class_zero: bool
+    cya_trivial: Optional[bool]
+    m3_b2_moot: Optional[bool]
+    shadow_depth_zero: Optional[bool]
+    # If non-formal: corrected TCFT/filtration resolution
+    tcft_applies: Optional[bool]
+    obs_ainf_class_zero: Optional[bool]
     shadow_class: str
     # For the programme
     cy_a_status: str  # ProvedHere, Programme, Conditional
+    obstruction_status: str
 
 
 def programme_implication(X: CYHodgeData) -> FormalityImplication:
     """Compute implications of formality status for the programme."""
     v = analyze_formality(X)
 
-    if v.ainf_formal:
+    if v.ainf_formal is True:
         return FormalityImplication(
             geometry=X.name,
             ainf_formal=True,
@@ -1073,26 +1076,94 @@ def programme_implication(X: CYHodgeData) -> FormalityImplication:
                 "ProvedHere" if X.cy_dim <= 2
                 else "Programme (formal case simplifies but S^d-framing still needed)"
             ),
+            obstruction_status="formal_input_m3_zero",
         )
-    else:
+    elif v.has_nonzero_m3_category is True:
         return FormalityImplication(
             geometry=X.name,
             ainf_formal=False,
             cya_trivial=False,
             m3_b2_moot=False,
             shadow_depth_zero=False,
-            tcft_applies=True,
-            obs_ainf_class_zero=True,  # via Tsygan-Costello
+            tcft_applies=(X.cy_dim == 3),
+            obs_ainf_class_zero=False,
             shadow_class=v.shadow_class,
             cy_a_status=(
-                "ProvedHere" if X.cy_dim <= 2
-                else "Programme (TCFT handles m_3; S^3-framing is the bottleneck)"
+                "Not an S^3-framing obstruction" if X.cy_dim != 3
+                else "Open: requires corrected TCFT datum or HH^{-2} filtration theorem"
             ),
+            obstruction_status=(
+                "not_applicable_to_S3_framing" if X.cy_dim != 3
+                else "requires_corrected_TCFT_or_HH_minus_2_hypothesis"
+            ),
+        )
+    else:
+        return FormalityImplication(
+            geometry=X.name,
+            ainf_formal=None,
+            cya_trivial=None,
+            m3_b2_moot=None,
+            shadow_depth_zero=None,
+            tcft_applies=None,
+            obs_ainf_class_zero=None,
+            shadow_class=v.shadow_class,
+            cy_a_status=(
+                "Open: A_infinity status and obstruction comparison not certified"
+            ),
+            obstruction_status=v.obstruction_status,
         )
 
 
 # =========================================================================
-# 9. CORRECTION TO CECH_HTT_CONVERGENCE.PY CLAIM
+# 9. CORRECTED HH^{-2} OBSTRUCTION CRITERION
+# =========================================================================
+
+@dataclass(frozen=True)
+class ObstructionVanishingCriterion:
+    r"""Exact hypothesis package for derived S^3-framing obstruction vanishing."""
+    complex_name: str
+    filtration: str
+    first_page: str
+    target_total_degree: int
+    comparison_map: str
+    hypotheses: List[str]
+    conclusion: str
+    proves_universal_compact_cy3_closure: bool
+    proves_raw_termwise_commutator_vanishing: bool
+
+
+def hh_minus_two_obstruction_criterion() -> ObstructionVanishingCriterion:
+    r"""Return the corrected derived obstruction theorem's hypothesis package.
+
+    This is the only cohomological vanishing criterion recorded by this
+    engine.  It is not DGMS, Kaledin HdR degeneration, BTT, or a
+    chain-formality shortcut.
+    """
+    return ObstructionVanishingCriterion(
+        complex_name="reduced Hochschild E_1-cochain complex C^bullet_{E_1}(A,A)",
+        filtration="bar-length filtration on a connective unit-connected strictified Hochschild E_1-model A",
+        first_page="E_1^{p,q}=Hom((s overline A)^{tensor p}, A)^q",
+        target_total_degree=-2,
+        comparison_map=(
+            "chain-level map from the S^3-framing obstruction complex to "
+            "C^bullet_{E_1}(A,A)[2]"
+        ),
+        hypotheses=[
+            "the filtration is complete",
+            "the filtration is exhaustive",
+            "the filtration is separated",
+            "the spectral sequence is strongly convergent",
+            "E_1^{p,q}=0 whenever p+q=-2",
+            "the obstruction cocycle lands in total degree -2 under the comparison map",
+        ],
+        conclusion="HH^{-2}_{E_1}(A,A)=0 for that strictified model, so the compared derived obstruction class vanishes",
+        proves_universal_compact_cy3_closure=False,
+        proves_raw_termwise_commutator_vanishing=False,
+    )
+
+
+# =========================================================================
+# 10. CORRECTION TO CECH_HTT_CONVERGENCE.PY CLAIM
 # =========================================================================
 
 @dataclass(frozen=True)
@@ -1113,8 +1184,8 @@ class FormalityCorrectionRecord:
     Neither (a) nor (b) implies A_infinity formality.
 
     The correct statement: the quintic is de Rham formal (DGMS, Level 1)
-    and has HdR degeneration (Kaledin, Level 2), but the full A_infinity
-    category is NOT formal (Level 3 fails: m_3 != 0 from Yukawa coupling).
+    and has HdR degeneration (Kaledin, Level 2), but this does not decide
+    A_infinity formality of the full category.
 
     HOWEVER: this subtlety does not affect the Cech-HTT computation itself.
     The Cech contracting homotopy construction works regardless of formality:
@@ -1139,15 +1210,14 @@ def formality_correction() -> FormalityCorrectionRecord:
         ),
         correct_claim=(
             "The quintic is de Rham formal (DGMS, compact Kahler) and "
-            "has HdR degeneration (Kaledin K1), but the full A_infinity "
-            "category D^b(Coh(Q)) is NOT formal: m_3 != 0 from the "
-            "Yukawa coupling. BTT gives unobstructed deformations, not "
-            "A_infinity formality. Kaledin K2 (tilting formality) does "
-            "not apply because compact CY3 has no tilting generator "
-            "(Ext^3 != 0 by Serre duality). The correct shadow class "
-            "depends on the degeneration type (AP157): class M at the "
-            "Gepner point, with specific shadow depth determined by the "
-            "full GW tower computation."
+            "has HdR degeneration (Kaledin K1), but neither statement "
+            "certifies A_infinity formality of D^b(Coh(Q)). BTT gives "
+            "unobstructed deformations, not A_infinity formality. "
+            "Kaledin K2 (tilting formality) does not apply because "
+            "compact CY3 has no tilting generator (Ext^3 != 0 by Serre "
+            "duality). Yukawa and LG data require an explicit "
+            "A_infinity model and comparison map before they decide the "
+            "full category or its shadow class."
         ),
         impact_on_computation=(
             "The Cech-HTT convergence computation is UNAFFECTED by this "
@@ -1159,7 +1229,7 @@ def formality_correction() -> FormalityCorrectionRecord:
 
 
 # =========================================================================
-# 10. COMPREHENSIVE FORMALITY TABLE
+    # 11. COMPREHENSIVE FORMALITY TABLE
 # =========================================================================
 
 def formality_table() -> List[Dict[str, Any]]:
@@ -1207,13 +1277,15 @@ def formality_table() -> List[Dict[str, Any]]:
             "shadow_class": v.shadow_class,
             "tcft_needed": v.tcft_needed,
             "obs_ainf_zero": p.obs_ainf_class_zero,
+            "ainf_status": v.ainf_status,
+            "obstruction_status": p.obstruction_status,
         })
 
     return table
 
 
 # =========================================================================
-# 11. MASTER VERIFICATION
+# 12. MASTER VERIFICATION
 # =========================================================================
 
 def verify_formality_hierarchy() -> Dict[str, Any]:
@@ -1252,25 +1324,29 @@ def verify_formality_hierarchy() -> Dict[str, Any]:
         if row["L3_ainf_formal"]:
             assert row["category_m3_zero"], f"A_inf formal => m3 = 0 for {geo}"
 
-        # Obs_Ainf = 0 always (either trivially or via TCFT)
-        assert row["obs_ainf_zero"], f"Obs_Ainf should vanish for {geo}"
+        # Obs_Ainf is closed here only for certified formal input cases.
+        if row["obs_ainf_zero"] is True:
+            assert row["L3_ainf_formal"] is True, (
+                f"Obs_Ainf closure for {geo} requires formal input or the "
+                "explicit HH^{-2} criterion"
+            )
 
     results["all_geometries_consistent"] = True
 
     # 3. Check the critical cases
-    # Quintic: L1 formal, L3 NOT formal
+    # Quintic: L1 formal; L3 full-category status not certified here
     quintic_row = [r for r in table if r["geometry"] == "quintic threefold"][0]
     assert quintic_row["L1_derham_formal"] is True
-    assert quintic_row["L3_ainf_formal"] is False
-    assert quintic_row["levels_agree"] is False  # L1 != L3
-    results["quintic_l1_ne_l3"] = True
+    assert quintic_row["L3_ainf_formal"] is None
+    assert quintic_row["levels_agree"] is None
+    results["quintic_l3_not_certified"] = True
 
-    # K3: L1 formal AND L3 formal
+    # K3: L1 formal; L3 is not certified by DGMS/Kaledin here
     k3_row = [r for r in table if r["geometry"] == "K3 surface"][0]
     assert k3_row["L1_derham_formal"] is True
-    assert k3_row["L3_ainf_formal"] is True
-    assert k3_row["levels_agree"] is True
-    results["k3_all_formal"] = True
+    assert k3_row["L3_ainf_formal"] is None
+    assert k3_row["levels_agree"] is None
+    results["k3_not_certified_by_dgms"] = True
 
     # Elliptic curve: L1 formal, L3 NOT formal
     e_row = [r for r in table if r["geometry"] == "elliptic curve"][0]
@@ -1278,11 +1354,11 @@ def verify_formality_hierarchy() -> Dict[str, Any]:
     assert e_row["L3_ainf_formal"] is False
     results["elliptic_l1_ne_l3"] = True
 
-    # K3 x E: L1 formal, L3 NOT formal
+    # K3 x E: L1 formal; L3 product-category status not certified here
     k3e_row = [r for r in table if r["geometry"] == "K3 x E"][0]
     assert k3e_row["L1_derham_formal"] is True
-    assert k3e_row["L3_ainf_formal"] is False
-    results["k3xe_not_formal"] = True
+    assert k3e_row["L3_ainf_formal"] is None
+    results["k3xe_not_certified"] = True
 
     # Conifold: L3 formal
     con_row = [r for r in table if r["geometry"] == "resolved conifold"][0]
@@ -1304,17 +1380,17 @@ def verify_formality_hierarchy() -> Dict[str, Any]:
     assert qea.ext_OO_dims == [1, 0, 0, 1], "Quintic Ext^*(O,O) dims wrong"
     assert qea.ext_OO_formal is True, "Ext^*(O,O) should be trivially formal"
     assert qea.m3_on_ext_OO is False, "m3 on Ext^*(O,O) should be zero"
-    assert qea.m3_on_full_cat is True, "m3 on full category should be nonzero"
+    assert qea.m3_on_full_cat is None, "full-category m3 is not certified here"
     assert qea.yukawa_classical == 5, "Classical Yukawa = H^3 = 5"
     results["quintic_ext_analysis_correct"] = True
 
     # 6. Product formality check
     pf = product_formality_k3xe()
-    assert pf.k3_formal is True
+    assert pf.k3_formal is None
     assert pf.e_formal is False
     assert pf.derham_product_formal is True
-    assert pf.ainf_product_formal is False
-    assert pf.relative_construction_works is True
+    assert pf.ainf_product_formal is None
+    assert pf.relative_construction_works is None
     results["product_formality_correct"] = True
 
     # 7. Hodge data consistency
@@ -1336,6 +1412,13 @@ def verify_formality_hierarchy() -> Dict[str, Any]:
     assert E.chi_O() == 0, "chi(O_E) = 0"
 
     results["hodge_data_consistent"] = True
+
+    criterion = hh_minus_two_obstruction_criterion()
+    assert criterion.complex_name.startswith("reduced Hochschild E_1-cochain")
+    assert criterion.target_total_degree == -2
+    assert criterion.proves_universal_compact_cy3_closure is False
+    assert criterion.proves_raw_termwise_commutator_vanishing is False
+    results["hh_minus_two_criterion_precise"] = True
 
     results["all_passed"] = True
     return results

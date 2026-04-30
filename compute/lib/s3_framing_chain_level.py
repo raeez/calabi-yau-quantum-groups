@@ -12,13 +12,20 @@ braided); the E_2 enhancement is recovered only through the Drinfeld center.
 This module implements the CHAIN-LEVEL S^3-framing construction.
 
 AP-CY6 WARNING: The chiral algebra A_X for CY3 is CONDITIONAL on this
-chain-level construction.  The topological obstruction vanishes universally
-(Theorem thm:s3-framing-vanishes in cy_to_chiral.tex), but the chain-level
-BV trivialization via holomorphic Chern-Simons is NOT E_2-compatible.
+chain-level construction.  The topological S^3 obstruction and the compact
+chain-level closure problem are different statements.  The vanishing of
+pi_3(BU), unit-connectedness, Goodwillie calculus, Dunn additivity,
+DGMS/BTT/Kaledin formality, Cech-HTT convergence, or a raw
+B_term^{(2)} cancellation does not by itself construct the compact CY3
+framing.
 The construction here is verified for:
   (a) C^3 (Jordan quiver), where A_X = W_{1+infty} at c=1
   (b) The resolved conifold, where A_X should give gl(1|1)^
-For compact CY3 (quintic, K3 x E), the construction is CONJECTURAL.
+For compact CY3 (quintic, K3 x E), closure is conditional on either
+explicit comparison/correction data identifying the corrected TCFT operator
+B_TCFT^{(2)}, or a precise HH^{-2} filtration theorem with comparison map,
+complete/exhaustive/separated filtration, strong convergence, and an empty
+total-degree -2 line.
 
 THE FRAMING MAP F
 =================
@@ -121,9 +128,27 @@ The obstruction computation:
   - For each wall W between chambers sigma, sigma': check that
     the wall-crossing automorphism K_W commutes with F:
         [K_W, F] = 0   (the framing is preserved by wall-crossing)
-  - This is guaranteed by the CY condition: the wall-crossing preserves
-    the holomorphic volume form, which determines F.
+  - The CY condition is necessary but not a compact chain-level proof:
+    the comparison map and corrected operator must still be supplied
+    outside the toric chart model.
   - For toric CY3: all obstructions vanish (torus-equivariance).
+
+RAW B_TERM^(2) WITNESS AND COMPACT SCOPE
+=========================================
+
+The raw pair-contraction operator B_term^{(2)} is not Costello's corrected
+TCFT operator B_TCFT^{(2)}.  The raw strict witness is nonzero:
+
+    [m_3, B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0.
+
+In terminal-slot normalization,
+
+    m_3(B_term^{(2)}([a|a|a|a|b])) = 4 alpha [b],
+    B_term^{(2)}(m_3([a|a|a|a|b])) = 2 alpha [b].
+
+Thus raw termwise cancellation is false.  Compact CY3 closure is certified
+only by corrected B_TCFT^{(2)} comparison/correction data or by the
+HH^{-2}_{E_1}(A,A) filtration theorem stated above.
 
 CY2 vs CY3: E_2 vs E_1
 =========================
@@ -140,9 +165,10 @@ For CY2 (K3 surface):
 For CY3 (threefold):
   - S^3-framing gives E_1 (associative, NOT braided)
   - pi_1(Conf_2(R^3)) = 0 (simply connected: no braiding)
-  - The S^3-framing F^{(3)}: CC_n -> CC_{n-3} satisfies:
+  - The S^3-framing F^{(3)}: CC_n -> CC_{n-3} formally satisfies:
       F^{(3)} circ F^{(3)} = 0
       [B, F^{(3)}] = [B^{(1)}, B^{(2)}] (exact, no homotopy data)
+    after the corrected hierarchy datum has been supplied
   - No braiding datum: the E_1 structure has NO intrinsic braiding
 
 EXACT ARITHMETIC
@@ -638,7 +664,10 @@ class S3FramingMap:
           - connes_compatible = True ([B, F] controlled by hierarchy)
           - en_structure = "E_1" (associative, not braided)
           - braiding_trivial = True (pi_1(Conf_2(R^3)) = 0)
-          - obstruction_class = 0 (topological obstruction vanishes)
+          - obstruction_class = 0 for the topological S^3 class only
+
+        This data is not a compact CY3 chain-level closure theorem.  Use
+        compact_cy3_s3_closure_verdict() for the compact obstruction surface.
         """
         return SdFramingData(
             cy_dim=3,
@@ -843,10 +872,11 @@ class EnFromFraming:
 
     @staticmethod
     def framing_obstruction_trivial(d: int) -> bool:
-        """Whether the S^d-framing obstruction vanishes.
+        """Whether the topological S^d-framing obstruction vanishes.
 
         For d odd (including d=3): pi_d(BU) = 0, so the obstruction
-        vanishes and the framing exists.
+        vanishes at the topological BU level.  This does not imply compact
+        CY3 chain-level closure.
 
         For d even: pi_d(BU) = Z, so there is a Z-valued obstruction
         (the Chern class).  For CY2 (d=2): the obstruction is the
@@ -882,8 +912,8 @@ class JordanQuiverS3Framing:
 
     Multi-path verification:
       Path 1: Direct computation F = 0 (3-point function vanishes)
-      Path 2: Topological: pi_3(BU) = 0, so the obstruction class is 0,
-              and the unique trivialization is F = 0
+      Path 2: Topological: pi_3(BU) = 0 records only the topological
+              obstruction class; F = 0 comes from the 3-point computation
       Path 3: DT partition function: Z^{DT}(C^3) = M(q) = prod(1-q^n)^{-n},
               which equals exp(sum_{n>=1} q^n/(n(1-q^n))) = the Heisenberg
               character.  The kappa = 1 is read off from M(q)^{2*kappa}.
@@ -1029,7 +1059,7 @@ class JordanQuiverS3Framing:
 
         Three independent paths:
           Path 1: F = 0 (3-point function vanishes by Wick's theorem)
-          Path 2: Topological (pi_3(BU) = 0, unique trivialization)
+          Path 2: Topological (pi_3(BU) = 0, not a compact closure proof)
           Path 3: DT partition function (kappa = 1 from M(q))
         """
         # Path 1: F = 0
@@ -1329,7 +1359,8 @@ class HocolimObstruction:
     commute with the framing: [K_W, F] = 0.
 
     For toric CY3: all K_W are torus-equivariant, so [K_W, F] = 0.
-    For non-toric CY3: the obstruction is a genuine invariant.
+    For non-toric CY3 and compact CY3: the obstruction is a genuine
+    chain-level invariant requiring explicit comparison/correction data.
     """
     n_chambers: int
     n_walls: int
@@ -1360,7 +1391,7 @@ def compute_hocolim_obstruction(
     """
     assert len(wall_is_toric) == n_walls
 
-    # For toric walls: [K_W, F] = 0 automatically
+    # For toric walls in this local chart model: [K_W, F] is verified as 0.
     wall_compatibilities = tuple(
         True if is_toric else False  # non-toric: potentially obstructed
         for is_toric in wall_is_toric
@@ -1383,6 +1414,234 @@ def compute_hocolim_obstruction(
         wall_compatibilities=wall_compatibilities,
         obstruction_trivial=obstruction_trivial,
         h1_nerve=h1_desc,
+    )
+
+
+# =========================================================================
+# 8b. COMPACT CY3 CHAIN-LEVEL CLOSURE SCOPE
+# =========================================================================
+
+Word = Tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class RawBTerm2Witness:
+    """Strict nonzero witness for raw ``B_term^{(2)}``.
+
+    This is a witness about the raw pair-contraction carrier only.  It is
+    not a corrected TCFT identity and not a compact CY3 vanishing theorem.
+    """
+
+    alpha: Fraction
+    input_word: Word
+    b_term2_of_input: Dict[Word, Fraction]
+    m3_after_b_term2: Dict[Word, Fraction]
+    m3_of_input: Dict[Word, Fraction]
+    b_term2_after_m3: Dict[Word, Fraction]
+    commutator: Dict[Word, Fraction]
+    convention: str = "terminal-slot B_term^{(2)}, characteristic zero"
+
+    @property
+    def coefficient_on_b(self) -> Fraction:
+        return self.commutator.get(("b",), Fraction(0))
+
+    @property
+    def nonzero(self) -> bool:
+        return any(coeff != 0 for coeff in self.commutator.values())
+
+    @property
+    def formula(self) -> str:
+        return "[m_3,B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0"
+
+
+def raw_b_term2_witness(alpha: Fraction = Fraction(1)) -> RawBTerm2Witness:
+    """Return the exact raw ``B_term^{(2)}`` witness.
+
+    The normalization is:
+      m_3(B_term^{(2)}([a|a|a|a|b])) = 4 alpha [b]
+      B_term^{(2)}(m_3([a|a|a|a|b])) = 2 alpha [b]
+    so the commutator is ``2 alpha [b]``.
+    """
+
+    return RawBTerm2Witness(
+        alpha=alpha,
+        input_word=("a", "a", "a", "a", "b"),
+        b_term2_of_input={("a", "a", "a"): Fraction(4)},
+        m3_after_b_term2={("b",): Fraction(4) * alpha},
+        m3_of_input={("b", "a", "b"): alpha, ("a", "b", "b"): alpha},
+        b_term2_after_m3={("b",): Fraction(2) * alpha},
+        commutator={("b",): Fraction(2) * alpha},
+    )
+
+
+@dataclass(frozen=True)
+class BTCFT2ComparisonDatum:
+    """Data needed to use the corrected ``B_TCFT^{(2)}`` operator."""
+
+    corrected_operator_chosen: bool = False
+    costello_correction_terms: bool = False
+    open_closed_tcft_chain_map: bool = False
+    orientation_signs_fixed: bool = False
+    comparison_map_from_raw_b_term: bool = False
+
+    @property
+    def complete(self) -> bool:
+        return all(
+            [
+                self.corrected_operator_chosen,
+                self.costello_correction_terms,
+                self.open_closed_tcft_chain_map,
+                self.orientation_signs_fixed,
+                self.comparison_map_from_raw_b_term,
+            ]
+        )
+
+    @property
+    def missing_hypotheses(self) -> List[str]:
+        checks = [
+            (self.corrected_operator_chosen, "chosen corrected representative B_TCFT^{(2)}"),
+            (self.costello_correction_terms, "Costello moduli-chain correction terms"),
+            (self.open_closed_tcft_chain_map, "open-closed TCFT chain map"),
+            (self.orientation_signs_fixed, "Costello orientation/sign convention"),
+            (self.comparison_map_from_raw_b_term, "comparison map from B_term^{(2)} to B_TCFT^{(2)}"),
+        ]
+        return [label for ok, label in checks if not ok]
+
+
+def complete_b_tcft2_comparison_datum() -> BTCFT2ComparisonDatum:
+    """Convenience datum for the conditional corrected-TCFT statement."""
+
+    return BTCFT2ComparisonDatum(
+        corrected_operator_chosen=True,
+        costello_correction_terms=True,
+        open_closed_tcft_chain_map=True,
+        orientation_signs_fixed=True,
+        comparison_map_from_raw_b_term=True,
+    )
+
+
+@dataclass(frozen=True)
+class HHMinusTwoFiltrationTheorem:
+    """Hypotheses for ``HH^{-2}_{E_1}(A,A)=0`` in the obstruction complex."""
+
+    connective_unit_connected_model: bool = False
+    comparison_map_to_obstruction_complex: bool = False
+    filtration_complete: bool = False
+    filtration_exhaustive: bool = False
+    filtration_separated: bool = False
+    strong_convergence: bool = False
+    empty_total_degree_minus_two_line: bool = False
+
+    @property
+    def proved(self) -> bool:
+        return all(
+            [
+                self.connective_unit_connected_model,
+                self.comparison_map_to_obstruction_complex,
+                self.filtration_complete,
+                self.filtration_exhaustive,
+                self.filtration_separated,
+                self.strong_convergence,
+                self.empty_total_degree_minus_two_line,
+            ]
+        )
+
+    @property
+    def missing_hypotheses(self) -> List[str]:
+        checks = [
+            (self.connective_unit_connected_model, "connective unit-connected strictified model"),
+            (self.comparison_map_to_obstruction_complex, "comparison map to S^3 obstruction complex"),
+            (self.filtration_complete, "complete HH^{-2} filtration"),
+            (self.filtration_exhaustive, "exhaustive HH^{-2} filtration"),
+            (self.filtration_separated, "separated HH^{-2} filtration"),
+            (self.strong_convergence, "strong convergence to HH^{-2}"),
+            (self.empty_total_degree_minus_two_line, "empty total-degree -2 line"),
+        ]
+        return [label for ok, label in checks if not ok]
+
+
+def complete_hh_minus_two_filtration_theorem() -> HHMinusTwoFiltrationTheorem:
+    """Convenience theorem data for the conditional HH^{-2} route."""
+
+    return HHMinusTwoFiltrationTheorem(
+        connective_unit_connected_model=True,
+        comparison_map_to_obstruction_complex=True,
+        filtration_complete=True,
+        filtration_exhaustive=True,
+        filtration_separated=True,
+        strong_convergence=True,
+        empty_total_degree_minus_two_line=True,
+    )
+
+
+@dataclass(frozen=True)
+class CompactCY3S3ClosureVerdict:
+    """Carrier-separated verdict for compact CY3 S^3 chain-level closure."""
+
+    raw_operator: str
+    corrected_operator: str
+    raw_witness: RawBTerm2Witness
+    raw_b_term_closes: bool
+    corrected_tcft_identity_established: bool
+    hh_minus_two_vanishing_established: bool
+    compact_chain_level_closure_established: bool
+    theorem_status: str
+    rejected_automatic_mechanisms: Tuple[str, ...]
+    required_hypotheses: Tuple[str, ...]
+
+
+def compact_cy3_s3_closure_verdict(
+    tcft_datum: Optional[BTCFT2ComparisonDatum] = None,
+    hh_theorem: Optional[HHMinusTwoFiltrationTheorem] = None,
+    alpha: Fraction = Fraction(1),
+) -> CompactCY3S3ClosureVerdict:
+    """Return the compact CY3 S^3 closure verdict.
+
+    Closure is conditional.  The raw witness is always retained and always
+    prevents raw ``B_term^{(2)}`` termwise cancellation from being used as
+    the proof.
+    """
+
+    tcft = tcft_datum or BTCFT2ComparisonDatum()
+    hh = hh_theorem or HHMinusTwoFiltrationTheorem(
+        connective_unit_connected_model=True
+    )
+    corrected_route = tcft.complete
+    hh_route = hh.proved
+    closure_established = corrected_route or hh_route
+
+    required: List[str] = []
+    if not closure_established:
+        required.append(
+            "either complete B_TCFT^{(2)} comparison/correction data or "
+            "complete HH^{-2} filtration theorem"
+        )
+        required.extend(tcft.missing_hypotheses)
+        required.extend(hh.missing_hypotheses)
+
+    return CompactCY3S3ClosureVerdict(
+        raw_operator="B_term^{(2)}",
+        corrected_operator="B_TCFT^{(2)}",
+        raw_witness=raw_b_term2_witness(alpha=alpha),
+        raw_b_term_closes=False,
+        corrected_tcft_identity_established=corrected_route,
+        hh_minus_two_vanishing_established=hh_route,
+        compact_chain_level_closure_established=closure_established,
+        theorem_status=(
+            "conditional_closed"
+            if closure_established
+            else "open_requires_corrected_tcft_or_hh_minus_two"
+        ),
+        rejected_automatic_mechanisms=(
+            "unit-connectedness",
+            "Goodwillie calculus",
+            "Dunn additivity",
+            "DGMS/BTT/Kaledin formality",
+            "Cech-HTT convergence",
+            "raw B_term^{(2)} cancellation",
+            "pi_3(BU)=0 topological obstruction",
+        ),
+        required_hypotheses=tuple(dict.fromkeys(required)),
     )
 
 
@@ -1606,6 +1865,7 @@ def master_s3_framing_verification() -> Dict[str, Any]:
     4. CY2 vs CY3: E_2 vs E_1 comparison
     5. Connes-framing hierarchy: all 7 relations for d=3
     6. E_n from framing: topological verification
+    7. Compact CY3 closure: open unless corrected TCFT or HH^{-2} data is supplied
     """
     # 1. Jordan quiver
     jordan = JordanQuiverS3Framing()
@@ -1634,6 +1894,9 @@ def master_s3_framing_verification() -> Dict[str, Any]:
     # 6. E_n from framing
     en = EnFromFraming()
 
+    # 7. Compact CY3 scope: expected open in the default datum.
+    compact_closure = compact_cy3_s3_closure_verdict()
+
     all_pass = all([
         jordan_result["all_paths_pass"],
         conifold_result["all_paths_pass"],
@@ -1644,6 +1907,9 @@ def master_s3_framing_verification() -> Dict[str, Any]:
         hierarchy_d3.verify_relation_count(),
         en.framing_obstruction_trivial(3),
         not en.framing_obstruction_trivial(2),  # CY2 HAS an obstruction group Z
+        compact_closure.raw_witness.nonzero,
+        not compact_closure.raw_b_term_closes,
+        not compact_closure.compact_chain_level_closure_established,
     ])
 
     return {
@@ -1666,5 +1932,6 @@ def master_s3_framing_verification() -> Dict[str, Any]:
             "d3": en.native_en(3),
             "d4": en.native_en(4),
         },
+        "compact_cy3_closure": compact_closure,
         "all_pass": all_pass,
     }

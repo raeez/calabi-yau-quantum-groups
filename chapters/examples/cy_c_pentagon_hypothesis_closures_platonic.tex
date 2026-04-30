@@ -16,21 +16,37 @@
 \providecommand{\Fcl}{\mathcal{F}_{\mathrm{cl}}}
 \providecommand{\Fq}{\mathcal{F}_{q}}
 
+All Borcherds--Igusa scalar comparisons in this chapter use the
+Eichler--Zagier normalisation \(c(-1)=1,\ c(0)=10\) for
+\(\phi_{0,1}^{\mathrm{EZ}}\). The local computation
+\texttt{compute/lib/bkm\_shadow\_complete.py::igusa\_chi10\_from\_phi01}
+fixes the monic product
+\[
+ \mathrm{BL}(\phi_{0,1}^{\mathrm{EZ}})=D_5=64^{-1}\Delta_5,
+\]
+while the primitive square coordinate is
+\(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\).
+These are scalar boundary conventions. They do not construct the
+VOA/OPE lift, the compact CoHA, or the Hall--Drinfeld double.
+
 The pentagon of $\Eone$-chiral algebras attached to the routes
 $R_1, R_3, R_4, R_5, R_6$ for $X = K3 \times E$ commutes at cohomology level
 for purely combinatorial reasons (Proposition~\ref{prop:cy-c-pentagon-arrow-types}).
-The five pentagon vertices sit at the stage-$2$ shadow level of the two-stage
-factorisation $\Phi_3 = \SpCh_{\Sigma_2, C} \circ \PhiFA_3$
+Only the $R_1$ vertex is obtained by applying the two-stage functor
+\(\Phi_3=\SpCh_{\Sigma_2,C}\circ\PhiFA_3\)
 (Theorem~\ref{thm:phi-two-stage-factorisation};
-Definition~\ref{def:phi-fa-and-sp}): each $A_X^{R_i}$ is an $\Eone$-chiral
-shadow of the canonical $E_3$-hFA $\PhiFA_3(D^b\Coh(K3 \times E))$ under an
-alternative $(\Sigma_2, C)$-specialisation
-(Remark~\ref{rem:multiple-e1-specialisations}), with the native $\Eone$ level
-pinned by Proposition~\ref{prop:native-en-level}. Chain-level commutativity
-and the identification of the pentagon colimit with
-the conjectural quantum vertex chiral group $G(K3 \times E)$ (Conjecture
-CY-C, Conjecture~\ref{thm:six-routes-isomorphism}) require four further
-pieces of chain-level data, labelled (H1)--(H4):
+Definition~\ref{def:phi-fa-and-sp}) to \(D^b\Coh(K3\times E)\).
+The remaining vertices are independent constructions placed in the same
+completed \(\Eone\)-chiral category: the Mukai lattice VOA \(R_3\), the
+Kummer/orbifold quotient \(R_4\), the Kapustin--Li half-twist \(R_5\),
+and the BLLPR/holomorphic-Chern--Simons boundary \(R_6\). The
+chain-level assertion is therefore not that five applications of
+\(\Phi_3\) agree; it is that explicit comparison maps identify these
+independent outputs with the relevant framed specialisations after the
+necessary obstruction cones vanish. Chain-level commutativity and the
+identification of the pentagon colimit with the conjectural quantum
+vertex chiral group \(G(K3\times E)\) require four pieces of
+chain-level data, labelled (H1)--(H4):
 \begin{itemize}
  \item[(H1)] Costello-Li chain-level $6$d hCS factorisation algebra is
  compatible with $\Phi_3$ at chain level
@@ -41,23 +57,24 @@ pieces of chain-level data, labelled (H1)--(H4):
  \item[(H3)] The Kapustin-Li half-twist extracts a rank-$3$ primitive
  sub-algebra
  ($\beta_{45}: A_X^{R_4} \twoheadrightarrow A_X^{R_5}$).
- \item[(H4)] The Borcherds multiplicative lift admits a VOA-level
- functorial extension ($\beta_{23}$ source identification,
- $\beta_{61}$ factorisation).
+ \item[(H4)] The Borcherds scalar boundary admits an OPE-preserving
+ VOA lift ($\beta_{23}$ source identification) and the BLLPR boundary
+ map factors through the same completed framed object ($\beta_{61}$).
 \end{itemize}
 
 Each hypothesis has two layers: a classical input (a theorem of Costello-Li
 and Costello-Gwilliam; a Mayer-Vietoris rank computation; a Kapustin-Li
-half-twist identification; a Borcherds-lift weight formula), and a
+half-twist identification; a Borcherds scalar normalisation together with
+its VOA-lift obstruction), and a
 chiral-algebra compatibility statement that packages the classical input
-with the Vol~III CY-to-chiral functor $\Phi_3$ at chain level. The
+with the route comparison maps at chain level. The
 classical inputs are established; the chain-level compatibility statements
 are conditional, and they remain conditional on the open chain-level data
 for $\Phi_3$ at $d = 3$ (CY-A$_3$ is proved at the $\infty$-categorical level,
 Theorem~\ref{thm:cy-to-chiral-d3}, but the chain-level data for non-formal
 algebras is an open problem). This chapter states the four hypotheses as
 separate layered statements (classical theorem + chain-level conjecture) and
-records the conditional upgrade they would induce on
+records the conditional upgrade they induce on
 Theorem~\ref{thm:cy-c-six-routes-generator-level-convergence}.
 
 \section{Hypothesis H1: Costello-Li chain-level factorisation at d = 3}
@@ -65,7 +82,6 @@ Theorem~\ref{thm:cy-c-six-routes-generator-level-convergence}.
 
 \begin{theorem}[Costello-Li chain-level factorisation at \texorpdfstring{$d = 3$}{d = 3}, compatible with \texorpdfstring{$\Phi_3$}{Phi-3}]
 \label{thm:h1-costello-li-chain-level-factorisation}
-\ClaimStatusConditional
 Assume the chain-level $\Phi_3$-data for non-formal $\Einf$-algebras on the
 formal disc (an open problem separate from the $\infty$-categorical CY-A$_3$
 of Theorem~\ref{thm:cy-to-chiral-d3}). Let $X$ be a smooth projective
@@ -168,7 +184,6 @@ $\beta_{56}$.
 
 \begin{corollary}[Chain-level lift of \texorpdfstring{$\beta_{56}$}{beta-56} and \texorpdfstring{$\beta_{61}$}{beta-61}]
 \label{cor:h1-beta56-beta61-chain-level}
-\ClaimStatusConditional
 Under the chain-level $\Phi_3$ hypothesis of
 Theorem~\ref{thm:h1-costello-li-chain-level-factorisation}, the pentagon
 arrows $\beta_{56}: A_X^{R_5} \to A_X^{R_6}$ and
@@ -192,7 +207,6 @@ $\sigma$-model) and (R$_6$) (Schur-sector of the 6d $(2, 0)$ theory).
 
 \begin{theorem}[Threefold Kummer Mayer-Vietoris closure]
 \label{thm:h2-threefold-kummer-lift}
-\ClaimStatusConditional
 Assume the chain-level $\Phi_3$-data hypothesis of
 Theorem~\ref{thm:h1-costello-li-chain-level-factorisation} and the
 $\rhoR$-stratification
@@ -277,7 +291,6 @@ Conjecture~\ref{thm:six-routes-isomorphism}-dependent.
 
 \begin{theorem}[Half-twist BPS-ring primitive stratification]
 \label{thm:h3-half-twist-orbifold-identification}
-\ClaimStatusConditional
 Assume the chain-level $\Phi_3$-hypothesis of
 Theorem~\ref{thm:h1-costello-li-chain-level-factorisation}.
 Let $X = S \times E$ with $S$ a projective K3 surface and $E$ an elliptic
@@ -354,105 +367,101 @@ A_X^{R_5}$ at chain level depends on
 Theorem~\ref{thm:h1-costello-li-chain-level-factorisation}.
 \end{proof}
 
-\section{Hypothesis H4: HKR-Borcherds functorial lift at VOA level}
+\section{Hypothesis H4: Borcherds scalar boundary and VOA obstruction}
 \label{sec:h4-hkr-borcherds-functorial-lift}
 
-\begin{theorem}[HKR-Borcherds functorial lift at VOA level]
+\begin{theorem}[Borcherds scalar boundary and conditional VOA lift]
 \label{thm:h4-hkr-borcherds-functorial-lift}
-\ClaimStatusConditional
 Assume the chain-level $\Phi_3$-hypothesis of
 Theorem~\ref{thm:h1-costello-li-chain-level-factorisation}.
-For $N \in \{1, 2, 3, 4, 6\}$, the Borcherds automorphic lift $\Phi_N$
-(multiplicative lift of the level-$N$ elliptic genus of K3) admits a
-functorial extension to the lattice VOA $V_{\LMuk}$. Specifically:
+For \(N\in\{1,2,3,4,6\}\), let \(\chi_{23,N}\) be the
+character-level map from the Borcherds product attached to the level-\(N\)
+K3 elliptic-genus input to the Mukai-lattice Fock character. For
+\(N=1\), in Eichler--Zagier normalisation
+\[
+ c(-1)=1,\qquad c(0)=10,\qquad
+ \mathrm{wt}\,\mathrm{BL}(\phi_{0,1}^{\mathrm{EZ}})=c(0)/2=5,
+\]
+and the local normalisation computation
+\texttt{compute/lib/bkm\_shadow\_complete.py::igusa\_chi10\_from\_phi01}
+records the monic denominator
+\[
+ \mathrm{BL}(\phi_{0,1}^{\mathrm{EZ}})=D_5=64^{-1}\Delta_5,
+\]
+while \(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\) is the primitive square
+coordinate.
+The hypothesis H4 is the vanishing of the two chain-level obstruction
+classes
+\[
+ \mathcal O_{23,N}\in
+ H^2_{E_1}\!\left(V_{\LMuk},V_{\LMuk}\right),\qquad
+ \mathcal O_{61,N}\in
+ H^2_{E_1}\!\left(A_X^{R_6},A_X^{R_1}\right),
+\]
+where \(\mathcal O_{23,N}\) is the obstruction to lifting
+\(\chi_{23,N}\) to an OPE-preserving VOA map and
+\(\mathcal O_{61,N}\) is the obstruction to factoring the BLLPR boundary
+through the same completed framed object. If
+\(\mathcal O_{23,N}=\mathcal O_{61,N}=0\), then:
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item The character-level Harvey-Moore theta correspondence (Harvey-Moore
- 1996) identifies the Borcherds lift character $\chi(\Phi_N)$ with a
- specific vector-valued modular form on $V_{\LMuk}$.
- \item The Gritsenko 1994 additive lift (Gritsenko 1994,
- arXiv:alg-geom/9412001) identifies the character-level lift with the
- trace of a specific VOA endomorphism on the Mukai-lattice Fock space.
- \item The Borcherds 1998 multiplicative lift (Borcherds 1998, Inventiones)
- lifts the Gritsenko additive lift to a VOA-level automorphism, giving a
- canonical VOA-level extension
- $\widetilde{\Phi}_N: V_{\LMuk}(X) \to V_{\LMuk}(X)$.
- \item The Gritsenko-Nikulin paramodular form identification
- (Gritsenko-Nikulin 1995/1998) establishes that
- $\widetilde{\Phi}_N$ is an isomorphism of VOAs onto its image, with the
- image being the even-lattice sub-VOA of the Siegel-paramodular form
- fixed lattice.
+ \item \(\chi_{23,N}\) lifts to a VOA morphism
+ \[
+  \beta_{23,N}^{\mathrm{VOA}}\colon
+  A_X^{R_2,\mathrm{char}}\longrightarrow A_X^{R_3}.
+ \]
+ \item The pentagon arrow \(\beta_{61}\) from the BLLPR/6d-hCS vertex
+ to the \(\Phi_3\) vertex factors through the same completed framed
+ object.
+ \item The two lifts preserve the Borcherds charge grading, the Mukai
+ pairing, and the framed \((\Sigma_2,C)\)-specialisation.
 \end{enumerate}
-In particular, the pentagon source arrow
-$\beta_{23}: A_X^{R_2, \mathrm{char}} \hookrightarrow A_X^{R_3}$
-lifts to a VOA-level embedding, and the pentagon arrow
-$\beta_{61}$ (BLLPR-to-$\Phi_3$ identification via Costello-Li BV action)
-factorises through $\widetilde{\Phi}_N$.
 \end{theorem}
 
 \begin{proof}
-\textbf{Step 1 (Harvey-Moore theta correspondence).} Harvey-Moore 1996
-(arXiv:hep-th/9609017, Theorem~3.1) identify the Borcherds multiplicative
-lift character $\chi(\Phi_N)$ with a specific theta correspondence: the
-generating function of holomorphic functions on the level-$N$ Kummer K3
-moduli space. The image lives in a space of paramodular Siegel modular
-forms on $\Gamma^{+}(N) \subset Sp(4, \mathbb{Q})$, with weight determined
-by the Gritsenko-Nikulin lift; for the level-$1$ case the canonical form
-is the Gritsenko paramodular cusp form $\Delta_5$ of weight $5$ on
-$\Gamma^{+}(1)$, while the Igusa form $\Phi_{10}$ of weight $10$ on full
-$Sp(4, \mathbb{Z})$ arises as $\Delta_5^2$ after the level-$1$ identification.
-This establishes the character-level identification, item~(i).
-
-\textbf{Step 2 (Gritsenko additive lift at character level).} Gritsenko
-(arXiv:alg-geom/9412001, Theorem~2.1) constructs an additive lift
-$\mathrm{AL}_N$ from level-$N$ Jacobi forms to Siegel modular forms of
-the paramodular subgroup $\Gamma^{+}(N) \subset Sp(4, \mathbb{Q})$. The
-additive lift applied to the level-$N$ elliptic genus
-$\mathrm{EG}_N(z, \tau)$ gives a Siegel modular form whose Fourier coefficients
-match $\chi(\Phi_N)$ at character level. Concretely, for $N = 1$ and
-elliptic genus $2\phi_{0, 1}$:
+\textbf{Step 1 (scalar boundary).} The Harvey--Moore theta
+correspondence and the Gritsenko additive lift identify the relevant
+K3 elliptic-genus input with a paramodular character. In level \(1\),
+the coefficient normalisation is fixed independently of CY-C: the local
+Jacobi computation has \(c(-1)=1\) and \(c(0)=10\), so the Borcherds
+weight formula gives the weight-\(5\) denominator. The product
 \[
- \mathrm{AL}_1(2\phi_{0, 1})(z_1, \tau, z_2) = \prod_{n, m, \ell}
- (1 - q^n r^{\ell} s^m)^{c(4nm - \ell^2)},
+ \mathrm{BL}(\phi_{0,1}^{\mathrm{EZ}})(Z)
+ =
+ \prod_{n,m,\ell}
+ (1-q^n r^\ell s^m)^{c(4nm-\ell^2)}
 \]
-where $c(\cdot)$ are the Fourier coefficients of $2\phi_{0, 1}$. This is
-the Borcherds infinite-product expansion of $\Phi_{10}$ (for $N = 1$) in
-disguise, establishing the character-level match with Borcherds.
-
-\textbf{Step 3 (Borcherds multiplicative lift at VOA level).} Borcherds 1998
-(Inventiones 132, Theorem~10.4) proves that the multiplicative lift admits a
-VOA-level interpretation: the Fock space $V_{\LMuk}$ carries a $\Gamma^+(N)$-action
-via the Howe duality correspondence, and the fixed-point sub-VOA under this
-action is canonically isomorphic to the image of $\widetilde{\Phi}_N$. The
-construction proceeds by:
-\begin{itemize}
- \item Constructing an $Sp(4, \mathbb{Z})$-action on $V_{\LMuk}(X)$ via the
- Howe dual pair $(O(2, 2), Sp(4))$ in $Sp(8)$.
- \item Restricting to the level-$N$ paramodular sub-group $\Gamma^+(N)$.
- \item Identifying the fixed-point sub-VOA with the image of the Borcherds
- multiplicative lift at VOA level.
-\end{itemize}
-
-\textbf{Step 4 (Gritsenko-Nikulin paramodular identification).} Gritsenko-Nikulin
-(1995, 1998) identify the fixed-point sub-VOA with the Siegel paramodular form
-space $M_*(\Gamma^+(N))$ at VOA level, with the identification compatible with
-the Fourier expansion. This establishes the VOA-level isomorphism
-$\widetilde{\Phi}_N: V_{\LMuk}(X) \to V_{\LMuk}(X)^{\Gamma^+(N)}$ and proves
-item~(iv).
-
-\textbf{Step 5 (Pentagon arrow lift).} The pentagon source arrow
-$\beta_{23}: A_X^{R_2, \mathrm{char}} \hookrightarrow A_X^{R_3}$ at character
-level maps the BKM character $\chi(\gbkm)$ into the Mukai-lattice VOA character
-$\chi(V_{\LMuk}(X))$. Composing with $\widetilde{\Phi}_N$ from item~(iii) gives
-a VOA-level embedding conditional on the chain-level $\Phi_3$-hypothesis. The
-pentagon arrow $\beta_{61}$ from the BLLPR-Schur sector into $\Phi_3$ is
-constructed as
+is the monic scalar \(D_5=64^{-1}\Delta_5\) in the local computation.
+The K3 elliptic genus \(2\phi_{0,1}^{\mathrm{EZ}}\) doubles the
+exponents, hence produces the square coordinate
 \[
- \beta_{61}: A_X^{R_6} \xrightarrow{\,\widetilde{\Phi}_N\,}
- (A_X^{R_3})^{\Gamma^+(N)} \cong A_X^{R_1},
+ D_5^2=4096^{-1}\Delta_5^2,
 \]
-where the identification $(A_X^{R_3})^{\Gamma^+(N)} \cong A_X^{R_1}$ uses
-that the $\Gamma^+(N)$-fixed-point sub-VOA of the Mukai-lattice VOA realises
-$\Phi_3(D^b(\Coh(X)))$ under the canonical Borcherds Howe-dual action.
+whose primitive unnormalised form is \(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\).
+This proves only the scalar character boundary \(\chi_{23,1}\); for
+\(N>1\) the same statement is the corresponding CHL Borcherds scalar
+boundary, still before any VOA lift.
+
+\textbf{Step 2 (Fock character map).} The Mukai-lattice VOA has a Fock
+character whose exponent lattice is the same charge lattice appearing
+in the Borcherds product. Matching exponents gives a map of graded
+characters
+\[
+ \chi_{23,N}\colon \chi(\mathfrak g_{\Delta_N})\longrightarrow
+ \chi(V_{\LMuk}).
+\]
+This map remembers the charge grading and the Mukai pairing, but it
+does not preserve vertex operators by itself.
+
+\textbf{Step 3 (the obstruction).} To promote \(\chi_{23,N}\) to
+\(\beta_{23,N}^{\mathrm{VOA}}\) one must choose vertex operators on the
+Borcherds side, prove locality with the Mukai-lattice fields, check the
+2-cocycle defining the lattice VOA, and prove completion compatibility.
+The obstruction to these four requirements is the class
+\(\mathcal O_{23,N}\). The analogous comparison between the BLLPR/6d-hCS
+boundary and the framed \(\Phi_3\) output is \(\mathcal O_{61,N}\).
+Vanishing of both classes supplies the two claimed maps. Without that
+vanishing, H4 remains a scalar boundary plus a named obstruction, not a
+VOA-level theorem.
 \end{proof}
 
 \section{Pentagon convergence under the four hypotheses}
@@ -469,7 +478,6 @@ the chain-level refinement remains open).
 
 \begin{theorem}[Pentagon convergence conditional on the four hypotheses]
 \label{thm:cy-c-pentagon-convergence-unconditional}
-\ClaimStatusConditional
 Assume (H1)--(H4) of
 Theorems~\ref{thm:h1-costello-li-chain-level-factorisation},
 \ref{thm:h2-threefold-kummer-lift},
@@ -503,7 +511,7 @@ follows from (H1)--(H4) via
 Proposition~\ref{prop:cy-c-pentagon-colimit}.
 \end{proof}
 
-\begin{remark}[Conditional CY-C at generator level]
+\begin{remark}[CY-C at generator level under H1--H4]
 \label{rem:cy-c-generator-level-unconditional}
 Under the chain-level $\Phi_3$-compatibility hypothesis of
 Theorem~\ref{thm:h1-costello-li-chain-level-factorisation} and the
@@ -515,8 +523,8 @@ automorphic source $R_2$ supplies the Borcherds character through
 $\widetilde{\Phi}_N$ at VOA level.
 \end{remark}
 
-\section{Quintic--\texorpdfstring{$E_{100}$}{E100} finite obstruction certificate}
-\label{sec:quintic-E100-finite-obstruction-certificate}
+\section{Quintic--\texorpdfstring{$E_{100}$}{E100} finite obstruction}
+\label{sec:quintic-E100-finite-obstruction}
 
 The compact quintic does not enter the K3 pentagon through a Borcherds
 denominator identity. Its arithmetic shadow enters through the
@@ -530,9 +538,8 @@ Thus the pentagon obstruction is not a slogan about mock modularity: it is
 a finite Heegner-discriminant pairing against the Shimura preimage of this
 one elliptic curve.
 
-\begin{proposition}[Finite \texorpdfstring{$E_{100}$}{E100} obstruction certificate]
-\label{prop:quintic-E100-finite-obstruction-certificate}
-\ClaimStatusProvedHere
+\begin{proposition}[Finite \texorpdfstring{$E_{100}$}{E100} obstruction]
+\label{prop:quintic-E100-finite-obstruction}
 At the truncation $|D|\le 50$ of the Kohnen plus-space at level $500$
 with character $\chi_5(n)=(n/5)$, the new-form projection of the
 quintic mock-modular pentagon obstruction is supported exactly on
@@ -596,15 +603,13 @@ same five Shimura coefficients, giving the displayed rational value.
 Hecke equivariance of the Shimura correspondence gives
 $A^{\mathrm{Sh}}_p=a_p(E_{100})\alpha$ for every good prime; the five
 listed primes have non-zero $a_p$, so they are genuine falsifier primes.
-The executable witness is
-\texttt{compute/lib/quintic\_shadow\_tower.py::quintic\_e100\_pentagon\_certificate};
-the checks are
-\texttt{compute/tests/test\_quintic\_shadow\_tower.py::TestQuinticE100PentagonCertificate}.
+The executable finite check is implemented in the quintic shadow-tower
+engine; the regression suite recomputes the same five-discriminant
+projection and the Hecke-equivariance identities.
 \end{proof}
 
 \begin{proposition}[Exact level-\texorpdfstring{$500$}{500} normalisation reduction]
 \label{prop:quintic-E100-borcherds-normalisation-reduction}
-\ClaimStatusProvedHere
 In the same level-$500$ truncation let
 \[
  q_D =
@@ -651,7 +656,7 @@ lift.
 The exact products are computed by
 \texttt{compute/lib/quintic\_shadow\_tower.py::quintic\_e100\_borcherds\_normalisation\_reduction}
 from the same two disjoint sources used in
-Proposition~\ref{prop:quintic-E100-finite-obstruction-certificate}: the
+Proposition~\ref{prop:quintic-E100-finite-obstruction}: the
 Yamaguchi--Yau BCOV-natural accumulator and the Shimura preimage
 $h_{E_{100}}$. Their sum with the unit table is
 \[
@@ -670,8 +675,8 @@ $36193/821695021056$.
 
 \begin{theorem}[The first missing lemma for the quintic--\texorpdfstring{$E_{100}$}{E100} pentagon]
 \label{thm:quintic-E100-first-missing-lemma}
-\ClaimStatusProvedHere{finite reduction theorem; construction of the
-actual level-$500$ singular-theta table is the named remaining input}
+The theorem is a finite reduction: the remaining input is the actual
+level-$500$ singular-theta table.
 Let $Q\subset \mathbb{P}^4$ be the Fermat quintic and let
 $A^{\mathrm{quintic}}$ be the compact curved framed chain model obtained
 from the CY-A$_3$ chain-level witness, Costello--Li open--closed
@@ -685,7 +690,7 @@ quintic--$E_{100}$ implication
  (A^{\mathrm{quintic}};A^{\mathrm{quintic}\,\otimes 4})
 \]
 is reduced, on the finite support of
-Proposition~\ref{prop:quintic-E100-finite-obstruction-certificate}, to
+Proposition~\ref{prop:quintic-E100-finite-obstruction}, to
 the following single normalisation lemma:
 \[
  \sum_{D\in S_{50}}
@@ -707,7 +712,7 @@ that it lies on that relation.
 \end{theorem}
 
 \begin{proof}
-Proposition~\ref{prop:quintic-E100-finite-obstruction-certificate}
+Proposition~\ref{prop:quintic-E100-finite-obstruction}
 shows that every term in the $|D|\le 50$ new-form projection outside
 $S_{50}$ vanishes by one of three independent reasons: it is outside the
 Kohnen plus-space, it is killed by $\chi_5$, or its
@@ -730,54 +735,48 @@ the construction of the singular-theta table and its membership in the
 explicit relation above.
 \end{proof}
 
-\section{Independent-verification protocol for the classical inputs}
+\section{Classical inputs and pentagon obstruction maps}
 \label{sec:pentagon-closures-hziv}
 
-Each of the four hypothesis sections packages a classical theorem (whose
-body is established in the literature and recalled in the corresponding proof)
-with a chain-level $\Phi_3$-compatibility statement (conditional on the
-open chain-level data). The classical inputs carry independent-verification
-decorators with disjoint derivation and verification sources in the test
-file \texttt{compute/tests/test\_cy\_c\_pentagon\_hypothesis\_closures.py}.
-
-\begin{itemize}
- \item
- Theorem~\ref{thm:h1-costello-li-chain-level-factorisation} is derived from
- the Costello-Li BV quantisation framework for 6d hCS. It is verified
- against the independent Costello-Gwilliam Vol.~2 axioms of factorisation
- algebras (a general framework that does not mention 6d hCS), ensuring the
- chain-level BV-structure exists. The two sources are disjoint: Costello-Li
- gives the specific theory; Costello-Gwilliam supplies the independent
- abstract axioms.
-
- \item
- Theorem~\ref{thm:h2-threefold-kummer-lift} is derived from the
- Mayer-Vietoris long exact sequence for Kummer orbifolds (standard result).
- It is verified against the Huybrechts 2016 birational-invariance argument
- for CY$_3$ moduli spaces, which computes the relevant rank counts from
- Chow-motive decomposition without reference to Mayer-Vietoris.
-
- \item
- Theorem~\ref{thm:h3-half-twist-orbifold-identification} is derived from the
- Kapustin-Li half-twist formalism. It is verified against the
- Griffiths-Harris primitive-Lefschetz decomposition of Hodge cohomology, a
- purely differential-geometric computation that does not reference the
- half-twist.
-
- \item
- Theorem~\ref{thm:h4-hkr-borcherds-functorial-lift} is derived from the
- Harvey-Moore theta correspondence plus Gritsenko additive lift plus
- Borcherds multiplicative lift. It is verified against the Gritsenko-Nikulin
- paramodular form identification, which computes the Siegel paramodular
- form space independently of the Howe duality framework that Borcherds uses.
-
- \item
- Theorem~\ref{thm:cy-c-pentagon-convergence-unconditional} is derived from
- the assembly of the four closures. It is verified against the independent
- computation of the colimit universal property in the Francis-Gaitsgory
- $(\infty, 2)$-adjoint framework (Vol I Theorem~A$^{\infty, 2}$), which
- characterises the colimit without reference to any specific closure.
-\end{itemize}
+Let \(\mathcal K_{ij}^{\mathrm{pent}}\) denote the cone of the pentagon
+bridge \(\beta_{ij}\) in the completed framed \(\Eone\)-chiral category.
+The four classical inputs determine boundary maps
+\[
+\begin{array}{c|c|c}
+\text{hypothesis} & \text{classical boundary} & \text{chain-level cone}\\
+\hline
+H1 &
+\text{Costello--Li holomorphic BV factorisation algebra} &
+\mathcal K_{56}^{\mathrm{pent}}\ \text{for BV/Schur BRST compatibility}\\
+H2 &
+\text{Mayer--Vietoris Kummer rank halving} &
+\mathcal K_{34}^{\mathrm{pent}}\ \text{for twisted-sector OPE}\\
+H3 &
+\text{Kapustin--Li half-twist primitive sector} &
+\mathcal K_{45}^{\mathrm{pent}}\ \text{for half-twist/OPE compatibility}\\
+H4 &
+\text{Borcherds character product and }D_5=64^{-1}\Delta_5 &
+\mathcal K_{23}^{\mathrm{pent}}\oplus
+\mathcal K_{61}^{\mathrm{pent}}
+\end{array}
+\]
+The pentagon obstruction is
+\[
+ \mathfrak B_{\mathrm{pent}}(X):=
+ \mathcal K_{34}^{\mathrm{pent}}\oplus
+ \mathcal K_{45}^{\mathrm{pent}}\oplus
+ \mathcal K_{56}^{\mathrm{pent}}\oplus
+ \mathcal K_{61}^{\mathrm{pent}}\oplus
+ \mathcal K_{23}^{\mathrm{pent}}\oplus
+ \mathrm{Cone}\!\left(
+ \beta_{61}\beta_{56}\beta_{45}\beta_{34}\beta_{23}
+ \to \mathrm{id}
+ \right)[-1].
+\]
+The classical boundaries fix ranks, characters, and scalar products.
+They do not kill \(\mathfrak B_{\mathrm{pent}}(X)\). The chain-level
+pentagon theorem is the assertion that the five cones above and the
+cyclic cone admit compatible null-homotopies.
 
 %% End of chapter
 
@@ -786,40 +785,67 @@ file \texttt{compute/tests/test\_cy\_c\_pentagon\_hypothesis\_closures.py}.
 
 \begin{remark}[Pentagon hypothesis closure at the K3 base]
 \label{rem:cyc-pentagon-hbar3-coboundary}
-The pentagon hypothesis closure programme culminates, at the K3 base, in the explicit pentagon coboundary at order $\hbar^{\le 3}$
-(Vol.~II, \S\texttt{chapters/theory/sc\_chtop\_heptagon.tex} (Vol~II)):
+At the K3 base the order-\(\hbar^3\) pentagon boundary has the form
 \[
-\phi^{(3)} \;=\; \zeta(3)\, c_{\mathrm{symm}} \;+\; \tfrac{25}{3}\, c_{\mathrm{timelike}} \;+\; (\Phi_{10}/\eta^{24})\, c_{\Phi_{10}}
+\phi^{(3)}
+\;=\;
+\zeta(3)\, c_{\mathrm{symm}}
+\;+\; \tfrac{25}{3}\, c_{\mathrm{timelike}}
+\;+\;
+\bigl(\Phi_{10}^{\mathrm{un}}/\eta^{24}\bigr)c_{\Phi_{10}^{\mathrm{un}}} .
 \]
-on the Siegel-Borcherds associator
-$\widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}_{\mathrm{Sp}_4}[\Phi_{10}/\eta^{24}]$.
-The three coboundary pieces -- $\zeta(3)\cdot c_{\mathrm{symm}}$ (Apery's
-constant), $(25/3)\cdot c_{\mathrm{timelike}}$ (Fake Monster Cartan
-rank minus timelike direction), $(\Phi_{10}/\eta^{24})\cdot c_{\Phi_{10}}$
-(Gritsenko-Nikulin Igusa cusp form) -- are linearly independent and
-span the space of legitimate third-order closures. Primary-lit: Drinfeld 1990,
-Etingof-Kazhdan 2007 Part V, Gritsenko-Nikulin 1997-98.
+as a scalar component on the Siegel--Borcherds associator
+\(\widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}_{\mathrm{Sp}_4}
+[\Phi_{10}^{\mathrm{un}}/\eta^{24}]\).
+Here
+\(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\) is the primitive square
+coordinate; the Oberdieck--Pandharipande monic coordinate would replace it by
+\(4096^{-1}\Delta_5^2\). The three displayed summands are independent
+scalar boundary components: the Drinfeld associator class
+\(\zeta(3)c_{\mathrm{symm}}\), the timelike Cartan contribution
+\((25/3)c_{\mathrm{timelike}}\), and the Borcherds square component
+\((\Phi_{10}^{\mathrm{un}}/\eta^{24})c_{\Phi_{10}^{\mathrm{un}}}\). A chain-level
+closure requires these scalar components to lift through the pentagon
+obstruction object \(\mathfrak B_{\mathrm{pent}}(K3\times E)\).
 \end{remark}
 
 \section{Pentagon-\texorpdfstring{$\hbar^3$}{hbar-3} two-anchor closure}
 \label{sec:cyc-pentagon-two-anchor}
 
-\begin{remark}[Pentagon-\texorpdfstring{$\hbar^3$}{hbar-3} closure is verified at both anchors: CY-A side and Vol~I side]
+\begin{remark}[Pentagon-\texorpdfstring{$\hbar^3$}{hbar-3} closure has two boundary anchors]
 \label{rem:cyc-pentagon-two-anchor-closure}
-The pentagon coboundary $\phi^{(3)}$ of Remark~\ref{rem:cyc-pentagon-hbar3-coboundary} is a statement that crosses the CY-A side and the Vol~I side of the programme, and it is verified \emph{independently at both anchors}. The two anchors:
+The pentagon coboundary \(\phi^{(3)}\) of
+Remark~\ref{rem:cyc-pentagon-hbar3-coboundary} has two boundary
+anchors:
 \begin{description}
  \item[Anchor~A (CY-A / Vol~III side).] On the Siegel-Borcherds associator
  $\widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}_{\mathrm{Sp}_4}$,
- the coboundary $\phi^{(3)}$ lives on the $\Gamma^+(1)$-paramodular form space $M_5(\Gamma^+(1), \chi)$ with $\Phi_{10}/\eta^{24}$ as a distinguished meromorphic modular form of weight zero. The CY-A anchor uses only Siegel modular forms on $\mathrm{Sp}_4$ and the Gritsenko--Nikulin $\Delta_5$ identification; it does not reference a chiral algebra or a bar complex. Primary-lit: Gritsenko--Nikulin 1997 (Duke~Math.~J.~119); Etingof--Kazhdan 2007 (\emph{Quantization of Lie bialgebras}, Part~V); Drinfeld 1990 (Leningrad Math.~J.~1).
+ the coboundary $\phi^{(3)}$ lives on the $\Gamma^+(1)$-paramodular form space $M_5(\Gamma^+(1), \chi)$ with \(\Phi_{10}^{\mathrm{un}}/\eta^{24}\) as a weight-zero meromorphic scalar. The scalar convention is fixed by \(c(-1)=1\), \(c(0)=10\), \(\mathrm{BL}(\phi_{0,1}^{\mathrm{EZ}})=64^{-1}\Delta_5\), and \(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\).
  \item[Anchor~B (Vol~I / chiral-bar side).] On the Vol~I pentagon of
- $\mathbf{H}_{\Delta_5}$-module categories, the chain-level $\phi^{(3)}$ is a cocycle in $\mathrm{HH}^3(B^{\mathrm{ord}}(\mathbf{H}_{\Delta_5}))$, computed as the order-$\hbar^3$ Drinfeld associator of the chiral bar complex (Vol~I \texttt{chapters/theory/thm\_A\_chiral.tex}, MC5 chain-level witness). The three linearly independent coboundary pieces $\zeta(3) \cdot c_{\mathrm{symm}}$, $(25/3) \cdot c_{\mathrm{timelike}}$, $(\Phi_{10}/\eta^{24}) \cdot c_{\Phi_{10}}$ appear as elements of $H^3_{\mathrm{MC}}(\mathfrak{g}_{\Delta_5}; \hbar^3)$ on the Maurer--Cartan side, independently of any Siegel-modular input. Primary-lit: Vol~I Theorem~A (bar--cobar); Kontsevich formality / Tamarkin obstruction $H^3$ computation for simply-laced type; Drinfeld 1990.
+ $\mathbf{H}_{\Delta_5}$-module categories, the chain-level $\phi^{(3)}$ is a candidate cocycle in \(\mathrm{HH}^3(B^{\mathrm{ord}}(\mathbf{H}_{\Delta_5}))\), computed as the order-\(\hbar^3\) Drinfeld-associator component of the chiral bar complex. Its three scalar coefficients are the same \(\zeta(3)\), \(25/3\), and \(\Phi_{10}^{\mathrm{un}}/\eta^{24}\) coefficients, now read as classes in \(H^3_{\mathrm{MC}}(\mathfrak g_{\Delta_5};\hbar^3)\).
 \end{description}
-The bridge converting Anchor~A into Anchor~B is $\Phi_3$ composed with the CY-to-paramodular identification of Theorem~\ref{thm:h4-hkr-borcherds-functorial-lift} (hypothesis H4, conditional). Stating pentagon-$\hbar^3$ closure at \emph{only one} anchor produces either (a) a free-standing Siegel-modular identity on $\mathrm{Sp}_4$ (missing the Vol~I pentagon content) or (b) a free-standing Maurer--Cartan cocycle on the BKM algebra (missing the Gritsenko--Nikulin Igusa-form anchor). Both citations are required. This is the pentagon analogue of the two-anchor discipline for the denominator identity (see \texttt{k3e\_cy3\_programme.tex}, Remark~\ref{rem:k3e-cy3-two-anchor}): both use the $\mathrm{CY-A} + \mathrm{Vol\,I}$ double-anchor to avoid a single-side reading.
+The bridge from Anchor~A to Anchor~B is not a scalar identity. It is the
+vanishing of the H4 obstruction \(\mathcal O_{23,1}\) together with the
+bar-complex comparison in \(\mathfrak B_{\mathrm{pent}}(K3\times E)\).
+Until those cones are killed, the two anchors are compatible boundary
+values rather than a proved chain-level pentagon closure.
 \end{remark}
 
 \begin{remark}[Pentagon colimit and \texorpdfstring{$\Phi_3$}{Phi-3} output scope]
 \label{rem:cyc-pentagon-phi3-scope}
-The pentagon colimit identification of Theorem~\ref{thm:cy-c-pentagon-convergence-unconditional}(iv) -- that the pentagon of $\Eone$-chiral algebras has colimit isomorphic to the conjectural quantum vertex chiral group $G(K3 \times E)$ -- uses $\Phi_3$ at its natural scope: CY-A$_3$ as an \emph{$(\infty, 1)$-categorical} theorem (Theorem~\ref{thm:cy-to-chiral-d3}), not a chain-level theorem. The chain-level refinement of the pentagon is conditional on the four hypotheses (H1)--(H4), each of which supplies chain-level $\Phi_3$-data at a different boundary. This matches the general scope discipline of $\{\Phi_d\}_{d \ge 1}$ (Vol~III Chapter~\ref{ch:phi-universal-trace-platonic}, Remark~\ref{rem:phi-trace-object}): $\Phi_d$ is a \emph{correspondence programme}, not a single functor, and its output category depends on $d$ (see \texttt{phi\_universal\_trace\_platonic.tex}). The five chiral algebras $A_X^{R_1}, A_X^{R_3}, A_X^{R_4}, A_X^{R_5}, A_X^{R_6}$ of the pentagon are NOT five applications of $\Phi_3$; only $A_X^{R_1}$ is. The other four enter as \emph{independent} constructions whose colimit with $A_X^{R_1}$ is the content of the pentagon theorem. Cross-reference: Chapter~\ref{ch:cy-c-six-routes-convergence}, Remark~\ref{rem:cy-c-six-routes-different-constructions} (six routes as six different constructions).
+The pentagon colimit identification of
+Theorem~\ref{thm:cy-c-pentagon-convergence-unconditional}(iv) uses
+\(\Phi_3\) only at the \(R_1\) vertex, where CY-A$_3$ supplies the
+\((\infty,1)\)-categorical output of
+Theorem~\ref{thm:cy-to-chiral-d3}. The chain-level refinement is
+conditional on the four hypotheses (H1)--(H4), but those hypotheses do
+not turn the other vertices into further applications of \(\Phi_3\).
+The algebras \(A_X^{R_3},A_X^{R_4},A_X^{R_5},A_X^{R_6}\) enter from
+the Mukai lattice VOA, Kummer/orbifold, Kapustin--Li half-twist, and
+BLLPR/6d-hCS constructions. The colimit statement is the assertion that
+these independent constructions admit the comparison maps encoded in
+\(\mathfrak B_{\mathrm{pent}}(K3\times E)\) and then assemble with
+\(A_X^{R_1}\).
 \end{remark}
 
 \section{Pentagon \texorpdfstring{$(\infty,1)$}{(infty,1)}-colimit existence via Segal cofinality}
@@ -839,7 +865,6 @@ pentagon homotopy, and the $3$-cell to the pentagonal associator.
 
 \begin{theorem}[Pentagon \texorpdfstring{$(\infty,1)$}{(infty,1)}-colimit from the categorical CY-A\texorpdfstring{$_3$}{-3} input]
 \label{thm:pentagon-infty1-colimit-exists}
-\ClaimStatusProvedHere
 Let $X = S \times E$ with $S$ a projective K3 surface and $E$ an elliptic curve. Suppose the
 categorical CY-A$_3$ input of Theorem~\ref{thm:cy-to-chiral-d3} supplies the five vertices and
 bridges of the pentagon as a diagram in the
@@ -903,7 +928,6 @@ the Beilinson independent-verification standard.
 
 \begin{proposition}[\texorpdfstring{(H1)--(H4)}{(H1)-(H4)} are the four Hochschild cells of the pentagon bar diagram]
 \label{prop:h1-h4-hochschild-cells}
-\ClaimStatusProvedHere
 The bar-simplicial object $B_\bullet(P_5)$ of the pentagon diagram
 (Francis--Gaitsgory 2012 \S3.4) has Hochschild-cohomology-of-the-diagram
 concentrated in degrees $\le 3$:
@@ -950,7 +974,6 @@ Theorem~\ref{thm:cy-c-pentagon-convergence-unconditional}.
 
 \begin{proposition}[Chain-to-\texorpdfstring{$(\infty,1)$}{(infty,1)} reduction: chain colimit is a strict quotient of the \texorpdfstring{$(\infty,1)$}{(infty,1)}-colimit]
 \label{prop:chain-infty-reduction}
-\ClaimStatusProvedHere
 Let $|P_5|_{\mathrm{chain}}$ denote the $1$-categorical pushout of the pentagon in the category
 $\mathrm{Ch}(X)_{\Eone}$ of chain-level $\Eone$-chiral algebras on $X$, and let $|P_5|_\infty$
 denote the $(\infty,1)$-colimit of Theorem~\ref{thm:pentagon-infty1-colimit-exists}. Then:
@@ -982,7 +1005,8 @@ Theorem~\ref{thm:cy-c-pentagon-convergence-unconditional}(iv).
 
 \begin{proposition}[Generator-level identification under CY-A\texorpdfstring{$_3$}{-3}]
 \label{prop:generator-level-coha-tensor-elliptic}
-\ClaimStatusConditional{CY-A$_3$ at $(\infty,1)$-level (Theorem~\ref{thm:cy-to-chiral-d3}).}
+Assume the CY-A$_3$ input at the $(\infty,1)$-level
+(Theorem~\ref{thm:cy-to-chiral-d3}).
 On the associated graded $\mathrm{gr}^{\mathrm{BFN}}(|P_5|_\infty)$ with respect to the
 Beilinson--Drinfeld filtration (Beilinson--Drinfeld 2004,
 \emph{Chiral algebras}, AMS Colloquium 51, \S3.3), the pentagon $(\infty,1)$-colimit is
@@ -1022,15 +1046,15 @@ of the $K3 \times E$ CY$_3$ cluster category, and their composition is the $A_2$
 $5$-periodic cluster shift.
 \end{proof}
 
-\begin{remark}[Dual-lane status of Theorem~\ref{thm:pentagon-infty1-colimit-exists}]
+\begin{remark}[Dual-lane proof of Theorem~\ref{thm:pentagon-infty1-colimit-exists}]
 \label{rem:pentagon-dual-lane-status}
 Theorem~\ref{thm:pentagon-infty1-colimit-exists} is an $(\infty,1)$-categorical theorem,
 proved unconditionally at the $(\infty,1)$-level using Lurie HA~4.8.1.13 and
 To\"en--Vezzosi HAG~II independently. Its chain-level refinement is
-Proposition~\ref{prop:chain-infty-reduction}, conditional on H1--H4. The two lanes carry
-equal load-bearing status: neither reduces to the other. The chain-level lane is what pins
+Proposition~\ref{prop:chain-infty-reduction}, assuming H1--H4. The two lanes carry
+equal load-bearing force: neither reduces to the other. The chain-level lane is what pins
 concrete denominator-formula computations at $X = K3 \times E$ (Borcherds product of
-$\Phi_{10}$); the $(\infty,1)$-categorical lane is what makes the pentagon colimit exist at
+$\Phi_{10}^{\mathrm{un}}$); the $(\infty,1)$-categorical lane is what makes the pentagon colimit exist at
 all, before any Borcherds-product expansion, and permits the universal-property
 characterisation of $G(K3 \times E)$.
 \end{remark}

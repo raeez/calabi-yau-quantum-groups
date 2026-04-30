@@ -1,15 +1,16 @@
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
 
-
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bZ}{\mathbb{Z}}
 \providecommand{\cA}{\mathcal{A}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\bP}{\mathbb{P}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Tot}{\operatorname{Tot}}
-\providecommand{\ChirHoch}{\mathrm{ChirHoch}}
-\providecommand{\ClaimStatusProvedHere}{\textsf{[Proved here]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textsf{[Proved elsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textsf{[Conjectured]}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\CY}{\mathrm{CY}}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -21,63 +22,369 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title[CY-D $\kappa_{\mathrm{ch}}$ stratification]{Dimension stratification of
-$\kappa_{\mathrm{ch}}$ on the Calabi--Yau landscape}
+\title[Compact Hodge trace stratification]{Compact Hodge trace
+stratification in the Calabi--Yau examples}
 \author{Raeez Lorgat}
-\date{2026-04-17}
+\date{2026-04-30}
 
 \begin{document}
-\maketitle
 
 \begin{abstract}
-For compact Calabi--Yau $d$-folds, the chiral-shadow invariant
-$\kappa_{\mathrm{ch}}(\cA_X)$ equals the Hodge supertrace
-$\sum_q (-1)^q h^{0,q}(X)$ (\texttt{thm:kappa-hodge-supertrace-identification})
-unconditionally via HKR plus the Mukai pairing plus an $HC^-_d$ trace. The
-dimension stratification $d \in \{1,2,3,4,5\}$ then reads off explicitly
-(\texttt{thm:kappa-stratification-by-d}): elliptic curves contribute $0$;
-K3 contributes $2$; abelian and bielliptic contribute $0$; quintic, $K3 \times E$,
-$E^{\times 3}$ contribute $0$; local $\mathbb{P}^2$ contributes $3/2$
-(\texttt{thm:local-p2-shadow}); CY$_4$ sextic contributes $2$; CY$_5$ generic $0$.
-The conifold has resolved form $\Tot(\cO(-1)^2 \to \bP^1)$, so it lies
-outside the local-surface family $\Tot(K_S \to S)$. The direct McKay route
-gives $\kappa_{\mathrm{ch}}(\text{conifold}) = 1$.
+The compact Hodge supertrace
+\[
+        \Xi(X)=\sum_q(-1)^q h^{0,q}(X)
+\]
+is the compact numerical invariant of the Calabi--Yau examples. Its
+interpretation as \(\kappa_{\mathrm{ch}}\) is a theorem on the constructed
+\(\Phi_d\)-loci and a construction problem beyond them. The table through
+dimension five separates this compact invariant from the noncompact local
+surface value, the conifold NCCR value, the Borcherds weight, and the fibre
+Euler characteristic. These numbers come from different constructions and
+must carry their subscripts.
 \end{abstract}
+\maketitle
 
-\section*{Primary theorems}
-\begin{itemize}
-\item \texttt{thm:kappa-hodge-supertrace-identification}
-  \ClaimStatusProvedHere (unconditional, compact CY, via HKR + Mukai + $HC^-_d$).
-\item \texttt{thm:kappa-stratification-by-d}
-  \ClaimStatusProvedHere (explicit tabulation $d = 1..5$).
-\item \texttt{thm:local-p2-shadow} $\kappa_{\mathrm{ch}} = 3/2$
-  \ClaimStatusProvedHere.
-\item \texttt{cor:conifold-non-local-surface}
-  \ClaimStatusProvedHere (resolves the conifold-vs-local-surface
-  classification).
-\item \texttt{thm:borcherds-weight-kappa-BKM-universal}
-  \ClaimStatusProvedHere
-  ($\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ universal across $N \in \{1,2,3,4,6\}$;
-  $N = 1$ coincidence with $\kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$
-  fails for $N \ge 2$, resolving the naive $N = 1$ identification).
-\end{itemize}
+\section{Four invariants}
 
-\section*{Chapter inputs}
-\begin{verbatim}
-\input{../chapters/examples/cy_d_kappa_stratification.tex}
-\input{../chapters/examples/derived_categories_cy.tex}
-\input{../chapters/examples/matrix_factorizations.tex}
-\input{../chapters/examples/k3e_cy3_programme.tex}
-\end{verbatim}
+\begin{definition}
+For a compact Calabi--Yau \(X\) define
+\[
+        \Xi(X)=\sum_q(-1)^q h^{0,q}(X).
+\]
+On the compact loci where the trace comparison for
+\(A_X=\Phi_d(\Perf(X))\) has been constructed, this gives
+\(\kappa_{\mathrm{ch}}(A_X)=\Xi(X)\). The \(d\geq4\) interpretation remains
+conditional. Heisenberg, BKM, fibre, BCOV, and noncompact toric
+specialisations are separate invariants. The
+categorical invariant is
+\[
+        \kappa_{\mathrm{cat}}(X)=\chi(\cO_X),
+\]
+with K\"unneth-multiplicative behaviour on products. The Borcherds invariant
+is
+\[
+        \kappa_{\mathrm{BKM}}(\Phi_N)=\frac{c_N(0)}{2},
+\]
+on the CHL/Gritsenko--Nikulin Borcherds-product levels
+\(N\in\{1,2,3,4,6\}\) with the chosen weak Jacobi input. The
+Cl\'ery--Gritsenko diagonal-divisor catalogue is a different
+Borcherds-product catalogue. In its triple order the weights are
+\[
+        \left(5,2,3,1,2,\frac12,\frac32,1\right),
+\]
+with integer-weight paramodular rows and two half-integer multiplier-system
+rows. These weights are not the CHL sequence \((5,4,3,2,1)\). The fibre
+invariant \(\kappa_{\mathrm{fiber}}\) is the topological Euler/Mukai-lattice
+rank of the chosen fibre; for a K3 fibre it is \(24\), not
+\(\chi(\cO_{K3})=2\).
+\end{definition}
 
-\section*{Cross-volume dependencies}
-\begin{itemize}
-\item Vol I landscape\_census.tex (canonical $\kappa_{\mathrm{ch}}$ formulas).
-\item Vol II \texttt{\textbackslash ref\{part:ht-landscape\}} (HT landscape;
-  compare $\kappa_{\mathrm{ch}}$ on HT-gauge side).
-\end{itemize}
+\section{Compact dimension table}
 
-\bibliographystyle{alpha}
-\bibliography{../bibliography/references}
+\begin{theorem}
+The Hodge supertrace gives the following unconditional compact table:
+\[
+\begin{array}{c|c|c|c}
+d & X & (h^{0,0},\ldots,h^{0,d}) & \Xi(X)\\
+\hline
+1 & E & (1,1) & 0\\
+2 & K3 & (1,0,1) & 2\\
+2 & \text{abelian surface} & (1,2,1) & 0\\
+3 & \text{quintic threefold} & (1,0,0,1) & 0\\
+3 & K3\times E & (1,1,1,1) & 0\\
+3 & E^3 & (1,3,3,1) & 0\\
+4 & \text{sextic fourfold} & (1,0,0,0,1) & 2\\
+5 & \text{generic strict }\CY_5 & (1,0,0,0,0,1) & 0
+\end{array}
+\]
+\end{theorem}
+
+\begin{proof}
+For a strict compact Calabi--Yau \(d\)-fold, Serre duality and the standard
+Hodge-column vanishing leave only \(h^{0,0}\) and \(h^{0,d}\), giving
+\(1+(-1)^d\). Product examples follow by K\"unneth on \(h^{0,*}\); this gives
+the \(K3\times E\) and \(E^3\) rows. The abelian-surface row is the exterior
+algebra on \(H^1(\cO)\). The hypersurface rows use Lefschetz and Kodaira
+vanishing. The displayed values are the resulting Hodge supertraces. The
+constructed-locus theorem identifies these numbers with
+\(\kappa_{\mathrm{ch}}\) only where the object \(A_X=\Phi_d(\Perf(X))\) and
+its trace comparison have been built; the \(d\geq4\) rows remain compact
+Hodge data until that construction is supplied.
+\end{proof}
+
+\section{Local and singular examples}
+
+\begin{proposition}[Local \(\bP^2\)]
+For the local surface \(X=\Tot(K_{\bP^2}\to \bP^2)\) the chiral shadow
+normalisation gives
+\[
+        \kappa_{\mathrm{ch}}(X)=\frac32 .
+\]
+\end{proposition}
+
+\begin{proof}
+The local \(\bP^2\) shadow theorem computes the same value by the
+\(\bZ/3\)-McKay quiver datum for \(\bC^3/\bZ_3\), by three affine toric
+charts each contributing \(1/2\), by the MacMahon exponent
+\(M(q)^{\chi_{\mathrm{top}}(\bP^2)}\), and by the compactly supported
+Dolbeault trace on the base. The trace comparison carries the local
+compact-support normalisation, which contributes the factor \(1/2\).
+Thus the local-surface value is
+\(\chi_{\mathrm{top}}(\bP^2)/2=3/2\). This is a noncompact \(\CY_3\)
+local-surface reading, separate from the compact Hodge supertrace table.
+\end{proof}
+
+\begin{proposition}[Conifold]
+The resolved conifold
+\[
+        \Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)
+\]
+is outside the local surface family \(\Tot(K_S\to S)\). The conifold NCCR
+calculation gives
+\[
+        \kappa_{\mathrm{ch}}(\mathrm{conifold})=1 .
+\]
+\end{proposition}
+
+\begin{proof}
+The resolved conifold is the small resolution over \(\bP^1\), outside the
+canonical-bundle-over-a-surface family. The finite-quotient BKR McKay route
+for \(\bC^3/G\) is inapplicable: the conifold is the affine hypersurface
+\(xy-zw=0\), and its crepant resolution is governed by the
+Szendroi/Klebanov--Witten noncommutative crepant resolution, equivalently
+the two-vertex conifold quiver with potential. The value \(1\) is the
+direct conifold NCCR/Hochschild shadow calculation: the level-one
+DT/CoHA coefficient on the compact class \([\bP^1]\) is \(1\). The
+half-Euler value of the exceptional curve is only a numerical coincidence
+here.
+\end{proof}
+
+\begin{proposition}[Affine positive half and toric gluing]
+For the affine chart \(\bC^3\), with the three-loop Jordan quiver and
+potential \(W=\operatorname{tr}(XYZ-XZY)\),
+\[
+        \CoHA^{\mathrm{sph}}_{\mathrm{crit},T}(\bC^3,W)
+        \cong
+        Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The target is the positive half. It is not
+\(\mathcal W_{1+\infty}\). A finite toric CY$_3$ atlas with
+simplex-compatible DWR/Ran Rees hCS--Hall data glues these local positive
+halves to
+\[
+        H^+_{X_\Sigma}
+        =
+        \operatorname{hocolim}_{\alpha\in\Sigma(3)}
+        \CoHA^{\mathrm{sph}}_{\mathrm{crit},T}(U_\alpha).
+\]
+Compact critical CoHA, quasi-NCCR, and Hall--Drinfeld double outputs are
+separate compact realisation problems: they require monoidal
+vanishing-cycle realisation, compact support, a non-degenerate pairing
+after radical quotient, completion, opposite and Cartan halves, and
+PBW/no-extra-relations compatibility.
+\end{proposition}
+
+\begin{proof}
+Schiffmann--Vasserot identify the spherical equivariant critical Hall
+algebra of the tripled Jordan quiver with the shuffle presentation of
+\(Y^+(\widehat{\mathfrak{gl}}_1)\). The DWR/Ran Rees comparison is formed
+chartwise from finite cyclic critical atlases; Stokes' formula on the
+simplex variables gives the face compatibility, and Hall wall-crossing
+quasi-isomorphisms identify the overlaps. Taking the finite homotopy
+colimit therefore gives the displayed positive half. None of these
+operations constructs the continuous dual, Hopf pairing, compact-support
+vanishing-cycle functor, or completed double needed for the compact
+objects.
+\end{proof}
+
+\section{Borcherds calculation}
+
+\begin{theorem}[Borcherds weight]
+For the CHL/Gritsenko--Nikulin Borcherds-product levels
+\(N\in\{1,2,3,4,6\}\) with weak Jacobi input \(\phi_N\),
+\[
+        \kappa_{\mathrm{BKM}}(\Phi_N)=\frac{c_N(0)}{2}.
+\]
+The constants are
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\
+\hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kappa_{\mathrm{BKM}}(\Phi_N) & 5 & 4 & 3 & 2 & 1
+\end{array}
+\]
+\end{theorem}
+
+\begin{proof}
+In Borcherds' singular theta-lift normalisation, the automorphic product
+attached to a weight-zero weak Jacobi input has weight equal to one half of
+the constant coefficient of that input. In the CHL/Gritsenko--Nikulin
+levels this coefficient is \(c_N(0)\), giving the displayed table. At
+\(N=1\) the input \(\phi_{0,1}\) has \(c_1(0)=10\), so the theta-normalised
+Igusa square root has weight \(5\). The denominator identity reads that
+weight as \(\kappa_{\mathrm{BKM}}\). This calculation belongs to the
+automorphic Borcherds construction and is independent of the compact Hodge
+supertrace. Cl\'ery--Gritsenko diagonal-divisor rows use a separate catalogue;
+the comparison tuple \((5,2,1,1,\frac12,1,\frac14,0)\) is not that
+catalogue, and no Cl\'ery--Gritsenko row has weight \(\frac14\) or \(0\).
+\end{proof}
+
+\begin{proposition}[Cl\'ery--Gritsenko diagonal-divisor rows]
+The Cl\'ery--Gritsenko classification gives exactly eight diagonal-divisor
+genus-two Borcherds products:
+\[
+\begin{array}{c|c|c|c}
+(t,N) & F_{t,N} & \mathrm{wt}(F_{t,N}) & 2\,\mathrm{wt}(F_{t,N})\\
+\hline
+(1,1) & \Delta_5 & 5 & 10\\
+(2,1) & \Delta_2 & 2 & 4\\
+(1,2) & \nabla_3 & 3 & 6\\
+(3,1) & \Delta_1 & 1 & 2\\
+(1,3) & \nabla_2 & 2 & 4\\
+(4,1) & \Delta_{1/2} & \frac12 & 1\\
+(1,4) & \nabla_{3/2} & \frac32 & 3\\
+(2,2) & Q_1 & 1 & 2
+\end{array}
+\]
+For each row, the Borcherds invariant of the product is its weight:
+\(\kappa_{\mathrm{BKM}}(F_{t,N})=\mathrm{wt}(F_{t,N})\). The last column is
+the corresponding twice-weight tuple \((10,4,6,2,4,1,3,2)\), not the CHL
+constant table \((10,8,6,4,2)\).
+\end{proposition}
+
+\begin{proof}
+Cl\'ery--Gritsenko classify the reflective genus-two modular forms with
+diagonal divisor and obtain exactly these eight holomorphic products. The
+candidate \((2,4;\frac12)\) is not holomorphic, so it is not a ninth row.
+Their Borcherds product theorem gives the product weight as one half of the
+cusp-weighted sum of the row's zeroth Jacobi coefficients; only the
+single-cusp cases reduce to a single coefficient \(c(0,0)/2\). The CHL
+ladder instead uses the five weak Jacobi inputs \(\phi_N\),
+\(N\in\{1,2,3,4,6\}\), producing Borcherds products \(\Phi_N\) with
+constants \((10,8,6,4,2)\) and weights \((5,4,3,2,1)\). The two lists share
+only the \((1,1)\) product \(\Delta_5=\Phi_1\). The scalar-square identities
+that occur in the CHL/dyon literature are row-specific:
+\[
+        \nabla_3^2=\Phi_6^{(1,2)},\qquad
+        \nabla_2^2=\Phi_4^{(1,3)},\qquad
+        \nabla_{3/2}^2=\Phi_3,\qquad
+        Q_1^2=\Phi_2^{(2,4)}.
+\]
+They use their own levels, covers, branches, and denominator data. They do
+not identify the five-entry CHL table with the Cl\'ery--Gritsenko catalogue,
+and they do not turn the twice-weight tuple
+\((10,4,6,2,4,1,3,2)\) into \((10,8,6,4,2)\).
+\end{proof}
+
+\begin{proposition}[\(K3\times E\) spectrum]
+The four labelled \(K3\times E\) values are
+\[
+\begin{aligned}
+\kappa_{\mathrm{cat}}(K3\times E)&=0,\\
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)&=3,\\
+\kappa_{\mathrm{BKM}}(\Phi_1)&=5,\\
+\kappa_{\mathrm{fiber}}(K3)&=24.
+\end{aligned}
+\]
+Thus the labelled spectrum is \(\{0,3,5,24\}\). The labels are part of the
+assertion.
+\end{proposition}
+
+\begin{proof}
+K\"unneth gives
+\[
+        \Xi(K3\times E)=(1-0+1)(1-1)=0
+\]
+and
+\[
+        \kappa_{\mathrm{cat}}(K3\times E)
+        =\chi(\cO_{K3})\chi(\cO_E)=2\cdot 0=0.
+\]
+The Heisenberg--Mukai specialisation is additive on the K3 and elliptic
+branches, giving
+\[
+        \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)
+        =\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3)
+        +\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E)
+        =2+1=3.
+\]
+The \(N=1\) Borcherds row gives
+\(\kappa_{\mathrm{BKM}}(\Phi_1)=c_1(0)/2=10/2=5\). The fibre invariant is
+\[
+        \kappa_{\mathrm{fiber}}(K3)=\operatorname{rk}H^*(K3,\bZ)=24.
+\]
+The number \(2\) is the fibre categorical value \(\chi(\cO_{K3})\), not the
+total-space value \(\kappa_{\mathrm{cat}}(K3\times E)\). The equality
+\(3+2=5\) is a coincidence in this row, not a formula for
+\(\kappa_{\mathrm{BKM}}\).
+\end{proof}
+
+\begin{proposition}[Igusa square normalisations]
+Let \(\Delta_5\) denote the theta-constant normalisation of the Igusa
+square root, so that
+\[
+        [q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64 .
+\]
+Let \(D_5\) be the monic Borcherds product attached to the
+\(\phi_{0,1}\) input. Then
+\[
+        D_5=64^{-1}\Delta_5 .
+\]
+Oberdieck--Pixton's primitive scalar product squares this monic product:
+\[
+        \Phi_{10}^{\mathrm{OP}}
+        =D_5^2
+        =4096^{-1}\Delta_5^2.
+\]
+In the quotient-by-\(E\), Behrend-weighted \(K3\times E\) reduced
+DT/PT normalisation,
+\[
+        Z^X_{\mathrm{OP}}
+        =Z^X_{\mathrm{DT}}
+        =-\bigl(\Phi_{10}^{\mathrm{OP}}\bigr)^{-1}
+        =-4096\,\Delta_5^{-2}.
+\]
+The DVV/DMVV physics normalisation uses the unscaled Igusa square up to
+scalar; in the theta-normalised convention this is
+\[
+        \Phi_{10}^{\mathrm{un}}=\Delta_5^2 .
+\]
+\end{proposition}
+
+\begin{proof}
+The Borcherds--Gritsenko--Nikulin product supplies the monic product
+\[
+        D_5
+        =
+        q^{1/2}r^{1/2}s^{1/2}
+        \prod(1-q^nr^ls^m)^{f(nm,l)}
+\]
+with vacuum coefficient \(1\), before expanding the real-root factor. The
+theta-constant normalisation of the same product has coefficient \(64\) at
+\(q^{1/2}r^{1/2}s^{1/2}\). Hence \(D_5=64^{-1}\Delta_5\). Squaring gives
+\[
+        D_5^2=(64^{-1}\Delta_5)^2=4096^{-1}\Delta_5^2 .
+\]
+Oberdieck--Pixton's primitive scalar theorem gives the negative inverse of
+this monic square. The reduced DT equality uses the quotient-by-\(E\),
+Behrend-weighted \(K3\times E\) comparison through reduced DT/PT and
+stable-pairs/Gromov--Witten correspondence. In that normalisation,
+\[
+        Z^X_{\mathrm{OP}}=Z^X_{\mathrm{DT}}
+        =-(D_5^2)^{-1}=-4096\,\Delta_5^{-2}.
+\]
+DVV/DMVV use the genus-two Igusa form up to scalar; the unscaled
+theta-normalised automorphic square is
+\(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\).
+The scalar \(4096=64^2\) is a normalisation conversion, not a new
+Borcherds weight and not a Hall-orientation character.
+\end{proof}
+
+\begin{remark}
+The compact Hodge trace, the Heisenberg--Mukai specialisation, the
+Borcherds weight, and the fibre rank are four constructions. The notation
+records this separation; erasing the subscripts erases the theorem.
+\end{remark}
 
 \end{document}

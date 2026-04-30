@@ -23,12 +23,11 @@ stratum datum has a non-empty stratum-set
 and belongs to one of the fifteen non-empty cells. Compact examples with
 no such datum, such as the generic quintic branch, enter through the
 stratum-free critical-CoHA fallback rather than through the fifteen-cell
-cocycle theorem.
+cocycle classification.
 
-The single object that conjecturally binds the four strata is the
-$(2,1)$-stack $\mathrm{Stk}_{\Str}$ of equivariance strata, whose stalks
-on constructed non-empty cells carry stable $\infty$-categorical CoHA
-positive halves. The
+The $(2,1)$-stack $\mathrm{Stk}_{\Str}$ of equivariance strata
+organises the four strata; on constructed non-empty cells its stalks
+carry stable $\infty$-categorical CoHA positive halves. The
 $K3 \times E$ master example sits at cell fifteen, where all four
 strata meet; the four gluing cocycles on $K3 \times E$ produce the
 Heisenberg, Mukai-lattice-rank, Mathieu-twining, and Borcherds-$\Delta_5$
@@ -51,6 +50,145 @@ gluing (\S\ref{sec:gluing:lattice}); the $K3 \times E$ master example
 (\S\ref{sec:gluing:k3e}); obstructions on compact $\CY_3$
 (\S\ref{sec:gluing:obstructions}); and the unifying sheaf of CoHAs on
 the $(2,1)$-stack of equivariance strata (\S\ref{sec:gluing:unifying}).
+
+\begin{proposition}[Finite Dolbeault--Weiss--Ran Rees gluing]
+\label{prop:gluing-finite-dwr-ran-rees}
+Let $X$ be a smooth Calabi--Yau threefold with a DWR-good cover
+$\mathfrak U$ and finite bounds $(N,r,L,m)$ for holomorphic jets,
+renormalisation order, charge, and Ran arity. Suppose that a
+multiplicative finite DWR/Ran cyclic critical atlas is fixed, in the
+sense of Definition~\ref{def:finite-dwr-ran-cyclic-critical-atlas}. Put
+\[
+ \mathfrak M_{\hCS,\Hall}^{N,r,L,m}(\mathfrak U)
+ :=
+ \Tot_{\sigma\in\mathsf N^{\Ran}_{\leq m}(\mathfrak U;\Gamma_{\leq L})}
+ \Hom_{\mathrm{cont}}
+ \left(
+ B\Obs_{\hCS}^{q,\leq r,\leq N}(\sigma)_{\leq L},
+ \Hall_{\sigma}^{\mathrm{Rees},\mathrm{or}}
+ \right),
+\]
+with differential
+\[
+ D_{\mathrm{tot}}
+ =
+ d_{\Hall}\circ(-)
+ -(-1)^{|-|}(-)\circ d_{B\Obs}
+ +\delta_{\Cech/\Ran}
+\]
+and convolution bracket induced by the bar coproduct on hCS
+observables and the Rees Hall product. For a $p$-simplex $\sigma$, let
+\[
+ \theta_\sigma^{\mathrm{rel}}\colon
+ B\Obs_{\hCS}^{q,\leq r,\leq N}(\sigma)_{\leq L}
+ \longrightarrow
+ \Hall_{\sigma}^{\mathrm{Rees},\mathrm{or}}(\Delta^p)
+\]
+be the relative map produced by the face-compatible cyclic contraction
+over $\Omega^\bullet(\Delta^p)$. Then the Stokes sum
+\[
+ \Theta_{\hCS\to\Hall}^{\mathrm{Rees},\mathrm{or};N,r,L,m}
+ :=
+ \sum_{0\leq p\leq m}
+ \sum_{\sigma\in
+ \mathsf N^{\Ran}_{p,\leq m}(\mathfrak U;\Gamma_{\leq L})}
+ \int_{\Delta^p}\theta_\sigma^{\mathrm{rel}}
+\]
+is a Maurer--Cartan element of
+$\mathfrak M_{\hCS,\Hall}^{N,r,L,m}(\mathfrak U)$:
+\[
+ D_{\mathrm{tot}}
+ \Theta_{\hCS\to\Hall}^{\mathrm{Rees},\mathrm{or};N,r,L,m}
+ +\frac{1}{2}
+ \left[
+ \Theta_{\hCS\to\Hall}^{\mathrm{Rees},\mathrm{or};N,r,L,m},
+ \Theta_{\hCS\to\Hall}^{\mathrm{Rees},\mathrm{or};N,r,L,m}
+ \right]
+ =0.
+\]
+It is therefore a multiplicative natural transformation from finite
+hCS observables to the finite oriented Rees Hall complex on the
+DWR/Ran nerve. If the vertex maps are quasi-isomorphisms, the induced
+map on finite DWR/Ran descent is a quasi-isomorphism.
+
+The cyclic contraction in the statement is the corrected TCFT/BV
+contraction. It is not the raw termwise pair-contraction on a strict
+cyclic $\Ainf$ bar model. In a strict non-formal model the raw operator
+$B_{\mathrm{term}}^{(2)}$ can satisfy
+\[
+ [m_3,B_{\mathrm{term}}^{(2)}][a|a|a|a|b]=2\alpha[b]\neq0,
+\]
+so raw cancellation does not produce the displayed Maurer--Cartan
+equation. The corrected Costello operator
+$B_{\mathrm{TCFT}}^{(2)}$ and its total identity
+\(\{b,B_{\mathrm{TCFT}}^{(2)}\}=0\) are part of the comparison datum.
+
+The finite construction stops at the Rees Hall layer. A completed Rees
+comparison requires pro-compatibility in $(N,r,L,m)$ and the
+Mittag--Leffler vanishing of the resulting inverse system. A realized
+critical CoHA requires a monoidal vanishing-cycle realization
+compatible with Thom--Sebastiani, compact-support pushforward,
+lci pullback, equivariance, orientations, shifts, Tate twists, and the
+chosen completions. A Hall--Drinfeld double requires, in addition, the
+realized positive half, a completed negative half, a Cartan factor, a
+non-degenerate Hopf pairing, cross-relations, and centre
+compatibility.
+\end{proposition}
+
+\begin{proof}
+The cyclic homological perturbation theorem applied to the corrected
+TCFT/BV contraction over $\Omega^\bullet(\Delta^p)$ transfers the
+finite hCS structure on each simplex to a cyclic $L_\infty$ structure
+with Hamiltonian
+$W_\sigma$ satisfying the relative BV master equation. The
+Fourier--BV Rees identification of
+Lemma~\ref{lem:relative-fourier-bv-rees-identification} rewrites this
+identity as
+\[
+ (d_{\Hall}+d_{\Delta^p})\theta_\sigma^{\mathrm{rel}}
+ -\theta_\sigma^{\mathrm{rel}}d_{B\Obs}
+ +\frac{1}{2}
+ [\theta_\sigma^{\mathrm{rel}},\theta_\sigma^{\mathrm{rel}}]_{\mathrm{conv}}
+ =0
+\]
+in the relative convolution dg Lie algebra over
+$\Omega^\bullet(\Delta^p)$.
+
+Integration over $\Delta^p$ is a chain map of degree $-p$ up to the
+boundary term measured by Stokes' formula:
+\[
+ \int_{\Delta^p} d_{\Delta^p}\eta
+ =
+ \sum_{j=0}^{p}(-1)^j
+ \int_{\Delta^{p-1}}\partial_j^*\eta .
+\]
+Face compatibility of the contractions gives
+$\partial_j^*\theta_\sigma^{\mathrm{rel}}
+=\theta_{\partial_j\sigma}^{\mathrm{rel}}$; hence these boundary
+terms are exactly the $\delta_{\Cech/\Ran}$ component of
+$D_{\mathrm{tot}}$. The remaining summands are the Hall differential,
+the bar differential, and the convolution bracket. Summing the
+integrated identity over all finite simplices gives the displayed
+Maurer--Cartan equation.
+
+Multiplicativity follows from the atlas condition
+$W_{\sigma_1\sqcup\sigma_2}=W_{\sigma_1}\boxplus W_{\sigma_2}$ and
+from the Rees Thom--Sebastiani identification, which carries external
+tensor product to Hall convolution. The finite DWR/Ran nerve is a
+finite diagram of complexes in the stated bounds; objectwise
+quasi-isomorphisms on vertices extend over faces by the same
+face-compatible contractions and induce a quasi-isomorphism on the
+finite totalisation.
+
+The separation of the three subsequent operations is formal. The
+inverse limit in the four bounds is an exactness question for a
+pro-system. Vanishing-cycle realization is a monoidal functoriality
+question for critical sheaves. The Hall--Drinfeld double is a
+topological Hopf-pairing construction after realization. The raw
+$B_{\mathrm{term}}^{(2)}$ commutator above shows that none is forced by
+termwise cyclic cancellation or by the Stokes assembly of the finite
+Rees element.
+\end{proof}
 
 % ============================================================================
 % Ten sections, each supplied by a separate file under chapters/theory/gluing/.
@@ -78,28 +216,22 @@ the $(2,1)$-stack of equivariance strata (\S\ref{sec:gluing:unifying}).
 \section{Closing synthesis}
 \label{sec:gluing:closing}
 
-The ten sections reduce the positive-half assembly question for $\cH(X)$ to a single
-invariant: the stratum-set $\Str(X) \subseteq \{\mathrm{i},
-\mathrm{ii}, \mathrm{iii}, \mathrm{iv}\}$, each occupied stratum
-supplying a cocycle theory whose cohomology class determines the
-global sheaf-valued CoHA shadow up to $(2,1)$-coherent equivalence. The
-reduction is not uniformly theorem-grade:
-\S\S\ref{sec:gluing:toric-cech}--\ref{sec:gluing:vdb} establish full
-theorems on their respective strata; \S\S\ref{sec:gluing:factorisation}--\ref{sec:gluing:lattice}
-establish the $\Phi_3$, Kontsevich--Soibelman, and Borcherds cocycles
-up to primary-literature-cited conjectures (two-stage factorisation for
-non-simply-laced super, the $c_{11} = -1$ Hopf-pairing correction, the
-universal $\kBKM(\Phi_N) = c_N(0)/2$ identity across both
-Gritsenko--Nikulin CHL and Gritsenko--Cl\'ery 8-form scopes);
-\S\ref{sec:gluing:k3e} verifies the master example's positive-half and
-cocycle inputs while leaving the compact Hall--Drinfeld double
-conditional on pairing, completion, bracket, and centre data;
-\S\ref{sec:gluing:obstructions} sharpens the failure boundary on
-compact CY$_3$ without K3-fibration and proves that stratum-free CoHA
-data do not construct a global $G(X)$; \S\ref{sec:gluing:unifying} names
-the conjectural sheaf of CoHA positive halves on $\mathrm{Stk}_{\Str}$
-with the fifteen-cell stalk classification and the stratum-free
-fallback. Part~\ref{part:connections} applies the
-gluing framework to the seven faces of $r_{\CY}$, extracting from each
-stratum-cell the positive-half or conditional chiral-algebra shadow of
-the classical $r$-matrix.
+The ten sections reduce the positive-half assembly question for
+$\cH(X)$ to the stratum-set
+$\Str(X) \subseteq \{\mathrm{i}, \mathrm{ii}, \mathrm{iii},
+\mathrm{iv}\}$, each occupied stratum supplying a cocycle theory whose
+cohomology class controls the global sheaf-valued CoHA shadow up to
+$(2,1)$-coherent equivalence. Proposition~\ref{prop:gluing-finite-dwr-ran-rees}
+is the finite analytic core of the chapter: the local hCS--Hall maps
+live in the total \v{C}ech/Ran convolution dg Lie algebra, the
+face-compatible cyclic contractions over $\Omega^\bullet(\Delta^p)$
+turn Stokes' formula into the Maurer--Cartan equation, and the output
+is an ordered Rees Hall comparison on the finite nerve. The
+stratum-cell cocycles, the $K3\times E$ curve-stalk positive half, and
+the stratum-free compact-CY$_3$ fallback all feed into this finite
+construction; completion, vanishing-cycle realization, the Hall--Drinfeld
+double, and the quantum vertex chiral group require the separate
+inverse-limit, realization, pairing, bracket, and centre data named
+above. Part~\ref{part:connections} applies this gluing framework to
+the seven faces of $r_{\CY}$, extracting from each stratum-cell the
+positive-half or chiral-algebra shadow of the classical $r$-matrix.

@@ -19,14 +19,17 @@ exposes the piece of the data the other modes silence, namely the
 
 Four sections. Section~\ref{sec:fa-weiss-covers} defines a Weiss cover,
 derives why a two-chart open cover is never a Weiss cover, and records
-the refinement procedure that turns any open cover into a Weiss cover
-of the form appropriate to factorisation-algebra locality.
+the subordinate polydisc refinement that turns any open cover into a
+Weiss cover of the form appropriate to factorisation-algebra locality.
 Section~\ref{sec:fa-ran-bd} constructs the Ran space $\Ran(C)$ of a
 smooth complex curve $C$ as a colimit of symmetric products and names
 the Beilinson--Drinfeld chiral algebra as a factorisation cosheaf on
 $\Ran(C)$, together with the Francis--Gaitsgory
 \cite{FrancisGaitsgory2012} chiral Koszul duality and its
-higher-dimensional $E_n$-analogue \cite{Francis2013}.
+higher-dimensional $E_n$-analogue \cite{Francis2013}; it also isolates
+finite DWR/Ran Rees comparison as an ordered $E_1$ Hall descent, with
+the $E_2$ centre or double left to the separate Drinfeld-centre
+operation.
 Section~\ref{sec:fa-two-stage} derives the two-stage factorisation
 $\Phi_3 = \SpCh_{\Sigma_2, C} \circ \PhiFA_3$ from first principles,
 reading Stage~$1$ as a factorisation-algebra assembly on the CY$_3$
@@ -44,10 +47,9 @@ $\Ch(\sVect)$ is $1$-categorical symmetric monoidal, with associator and
 symmetry equalities of functors rather than higher coherences. The
 $\Z/2$-grading on the super-Yangian arising from the conifold two-chart
 gluing is therefore read off an equality of factorisation sections, not
-a homotopy datum. The two-level bookkeeping separating this
-$1$-categorical super-interchange from the $(\infty, 1)$-categorical
-Ran-local refinement of factorisation locality is Pattern~$273$ of the
-first-principles cache.
+a homotopy datum. This $1$-categorical super-interchange and the
+$(\infty, 1)$-categorical Ran-local refinement of factorisation locality
+belong to different layers of the construction.
 
 \subsection{Weiss covers}
 \label{sec:fa-weiss-covers}
@@ -150,50 +152,64 @@ configurations which the Čech nerve of the two-chart atlas cannot see.
 \label{subsec:weiss-refinement}
 
 The refinement procedure is explicit. Given an open cover $\fU_0 =
-\{U_\alpha\}$ of $M$, form the \emph{disjoint-union closure}
+\{U_\alpha\}$ of $M$, choose the subordinate polydisc basis
+\[
+ \mathfrak B(\fU_0)
+ :=
+ \{\,D\subset M \mid D \text{ is a sufficiently small coordinate
+ polydisc and } \overline D\subset U_\alpha
+ \text{ for some } \alpha\,\}.
+\]
+Form the \emph{disjoint-union closure}
 \begin{equation}
 \label{eq:weiss-refinement}
- \fU_0^{\sqcup} \;:=\; \bigl\{\, U_{\alpha_1} \sqcup \cdots \sqcup U_{\alpha_n}
- \;\bigm|\; n \ge 1, \; U_{\alpha_i} \in \fU_0, \;
- U_{\alpha_i} \cap U_{\alpha_j} = \varnothing \text{ for } i \ne j \,\bigr\}.
+ \mathfrak B(\fU_0)^{\sqcup} \;:=\;
+ \bigl\{\,
+ D_1 \sqcup \cdots \sqcup D_n
+ \;\bigm|\; n \ge 1,\; D_i \in \mathfrak B(\fU_0),\;
+ D_i \cap D_j = \varnothing \text{ for } i \ne j
+ \,\bigr\}.
 \end{equation}
 Every finite subset $S = \{p_1, \dots, p_m\} \subset M$ admits, by
-shrinking each $U_{\alpha_i}$ if necessary and by the ordinary
-open-cover property of $\fU_0$, a choice of indices $\alpha_1, \dots,
-\alpha_m$ with $p_i \in U_{\alpha_i}$ and $U_{\alpha_i} \cap
-U_{\alpha_j} = \varnothing$ for $i \ne j$. The disjoint union
-$U_{\alpha_1} \sqcup \cdots \sqcup U_{\alpha_m} \in \fU_0^{\sqcup}$
-contains $S$; hence $\fU_0^{\sqcup}$ is a Weiss cover.
+first choosing $U_{\alpha_i}\ni p_i$ and then shrinking inside
+coordinate charts, pairwise-disjoint polydiscs
+$D_i\in\mathfrak B(\fU_0)$ with $p_i\in D_i$. The disjoint union
+$D_1\sqcup\cdots\sqcup D_m\in\mathfrak B(\fU_0)^{\sqcup}$ contains
+$S$; hence $\mathfrak B(\fU_0)^{\sqcup}$ is a Weiss cover. The
+subordinate-polydisc step is essential: the disjoint-union closure of
+the original members of $\fU_0$ need not add any open set.
 
 \begin{remark}[Weiss refinement of the conifold two-chart atlas]
 \label{rem:weiss-refinement-conifold}
-For the conifold $Y = U_+ \cup U_-$, the disjoint-union closure
-$\fU_0^{\sqcup}$ of $\fU_0 = \{U_+, U_-\}$ reduces to $\fU_0$ itself:
+For the conifold $Y = U_+ \cup U_-$, the disjoint-union closure of the
+original two chart opens reduces to $\fU_0$ itself:
 the only disjoint families of members of $\fU_0$ are the two singletons
 $\{U_+\}$ and $\{U_-\}$ (the pair $U_+, U_-$ is not disjoint since
 $U_+ \cap U_- \cong \G_m \times \C^2 \ne \varnothing$), and the
 disjoint-union of a singleton equals its single member. The
 disjoint-union closure produces no new opens, and
 Proposition~\ref{prop:two-chart-not-weiss} continues to apply to
-$\fU_0^{\sqcup} = \fU_0$. The refinement therefore requires enlarging
-$\fU_0$ with opens sharper than the two charts: for each $p \in Y$ choose
+$\fU_0$. The refinement therefore requires enlarging
+$\fU_0$ with subordinate opens sharper than the two charts: for each
+$p \in Y$ choose
 a contractible open neighbourhood $D_p \subset U_\pm$ (whichever chart
 contains $p$), small enough that finitely many such $D_p$ can be made
 pairwise disjoint by shrinkage. The family $\fD = \{D_p : p \in Y\}$
 is an ordinary open cover of $Y$; its disjoint-union closure $\fD^{\sqcup}$
 is a Weiss cover of $Y$ by the argument following
 equation~\eqref{eq:weiss-refinement}. The original two-chart cocycle
-descends from the \v{C}ech nerve of $\fD^{\sqcup}$, which keeps track of
-all finite multi-point configurations, not only pairs in
+is pulled back to the \v{C}ech nerve of $\fD^{\sqcup}$, which keeps
+track of all finite multi-point configurations, including the pairs in
 $U_+ \cap U_-$.
 \end{remark}
 
 The refinement produces, in particular, Weiss-cover cells indexed by
-ordered tuples of points rather than pairs of charts. The Čech nerve
-of $\fD^{\sqcup}$ is, up to equivalence, the Čech nerve of the
-configuration-space cover $\{\Conf_n(Y) : n \ge 1\}$; this is the
+finite point-configurations rather than pairs of charts. Its ordered
+lift is indexed by $\Conf_n(Y)$, $n \geq 1$, while its unordered
+quotient maps to the Ran stratification; this is the
 factorisation-algebra analogue of the Ran-space decomposition of
-Section~\ref{sec:fa-ran-bd}.
+Section~\ref{sec:fa-ran-bd}. The ordered lift is the layer on which
+Hall multiplication remembers the direction of short exact sequences.
 
 \subsection{Ran space and Beilinson--Drinfeld chiral algebras}
 \label{sec:fa-ran-bd}
@@ -228,6 +244,164 @@ $C^n/S_n$; equivalently, by Francis--Gaitsgory
 \cite{FrancisGaitsgory2012} Theorem~$5.2.1$, the cosheaf is supported on
 the diagonal stratification of $\Ran(C)$, with factorisation data
 determined by restriction to each multi-point stratum.
+
+\subsubsection{Finite DWR/Ran Rees comparison}
+\label{subsec:finite-dwr-ran-rees-comparison}
+
+The Weiss condition is infinite in arity, but every perturbative
+hCS--Hall comparison is tested at finite height before any completed
+limit is taken. Fix a subordinate DWR polydisc refinement
+$\mathfrak U$, a charge monoid $\Gamma$, and finite bounds
+\[
+ N \quad\text{(holomorphic jets)},\qquad
+ r \quad\text{(renormalisation order)},\qquad
+ L \quad\text{(charge)},\qquad
+ m \quad\text{(Ran arity)}.
+\]
+Let
+\[
+ \mathsf N^{\Ran,\ord}_{\le m}(\mathfrak U;\Gamma_{\le L})
+\]
+be a chosen finite full, refinement-closed sub-nerve whose $p$-simplices
+are ordered finite families
+\[
+ \sigma=(s_1<\cdots<s_q;\,P_{s_i}\Subset
+ U_{i,0}\cap\cdots\cap U_{i,p},\,\gamma_{s_i}\in\Gamma_{\le L}),
+ \qquad q\le m,
+\]
+with the $P_{s_i}$ pairwise disjoint subordinate polydiscs. Faces and
+refinements are generated by deleting an overlap, shrinking a
+polydisc, and passing to a subordinate intersection; refinement-closed
+means that every higher simplex has a vertex refinement inside the same
+finite sub-nerve. This is the ordered lift of the finite Ran stratum;
+the order is not a time parameter, but the Hall order on short exact
+sequences.
+
+\begin{proposition}[Finite DWR/Ran Rees descent and the ordered Hall layer]
+\label{prop:finite-dwr-ran-rees-ordered-hall-layer}
+For every simplex $\sigma\in
+\mathsf N^{\Ran,\ord}_{\le m}(\mathfrak U;\Gamma_{\le L})$, assume
+the following data.
+\begin{enumerate}
+\item A finite hCS complex
+$\Obs_{\mathrm{hCS}}^{q,\le r,\le N}(\sigma)_{\le L}$ with its
+compact-support refinement maps.
+\item A finite cyclic critical model
+$(V_\sigma,W_\sigma,\omega_\sigma)$ over
+$\Omega^\bullet(\Delta^p)$ and the Rees Hall complex
+\[
+ \Hall_{\sigma}^{\mathrm{Rees},\mathrm{or}}
+ =
+ \left(
+ C^\bullet\!\left(
+ \mathfrak g_\sigma,
+ \Gamma(V_\sigma,\wedge^\bullet T_{V_\sigma})[[\hbar]]
+ \otimes\Omega^\bullet(\Delta^p)
+ \right)^{G_\sigma},
+ d_{\CE}+\iota_{d_VW_\sigma}
+ +\hbar\Delta_{\omega_\sigma}+d_{\Delta^p}
+ \right)
+ \otimes o_\sigma[s_\sigma](t_\sigma).
+\]
+\item A continuous degree-zero relative map
+\[
+ \theta_\sigma^{\mathrm{rel}}\colon
+ B\Obs_{\mathrm{hCS}}^{q,\le r,\le N}(\sigma)_{\le L}
+ \longrightarrow
+ \Hall_{\sigma}^{\mathrm{Rees},\mathrm{or}}
+\]
+compatible with faces, refinements, orientations, shifts, and Tate
+twists.
+\end{enumerate}
+Assume also multiplicativity on disjoint ordered families:
+\[
+ \Obs(\sigma\sqcup\tau)\simeq
+ \Obs(\sigma)\widehat\otimes\Obs(\tau),\qquad
+ W_{\sigma\sqcup\tau}=W_\sigma\boxplus W_\tau,\qquad
+ \omega_{\sigma\sqcup\tau}=\omega_\sigma\oplus\omega_\tau,
+\]
+with $o_{\sigma\sqcup\tau}\simeq o_\sigma\otimes o_\tau$ and
+$[s_{\sigma\sqcup\tau}](t_{\sigma\sqcup\tau})=
+[s_\sigma+s_\tau](t_\sigma+t_\tau)$. Then
+\[
+ \Theta_{\mathrm{hCS}\to\Hall}^{\mathrm{Rees},\mathrm{or};N,r,L,m}
+ :=
+ \sum_{\sigma\in\mathsf N^{\Ran,\ord}_{\le m}(\mathfrak U;\Gamma_{\le L})}
+ \int_{\Delta^{|\sigma|}}\theta_\sigma^{\mathrm{rel}}
+\]
+is a multiplicative natural transformation on the finite DWR/Ran nerve.
+If the vertex maps are quasi-isomorphisms, it induces a
+quasi-isomorphism on finite DWR/Ran descent.
+
+For disjoint $\sigma$ and $\tau$, the Hall product appearing in this
+statement is the Rees Thom--Sebastiani product
+\[
+ \mathrm{DR}_{W_\sigma,\hbar}\widehat\otimes
+ \mathrm{DR}_{W_\tau,\hbar}
+ \xrightarrow{\ \mathrm{TS}\ }
+ \mathrm{DR}_{W_\sigma\boxplus W_\tau,\hbar},
+ \qquad
+ \mathrm{DR}_{W,\hbar}:=
+ \bigl(\Gamma(V,\wedge^\bullet T_V)[[\hbar]],
+ \iota_{dW}+\hbar\Delta_\omega).
+\]
+Thus the descended object is an ordered $E_1$ Hall factorisation
+cosheaf. An $E_2$ object is obtained only after applying the Drinfeld
+centre to $\Rep^{E_1}$ of this ordered layer, or after constructing a
+completed Drinfeld double from a non-degenerate Hall pairing and
+compatible completion. Neither operation is part of the finite
+DWR/Ran descent map.
+\end{proposition}
+
+\begin{proof}
+The relative map $\theta_\sigma^{\mathrm{rel}}$ is a chain map over
+$\Omega^\bullet(\Delta^p)$ precisely when it solves the relative
+Maurer--Cartan equation in the bar--Rees convolution Lie algebra:
+\[
+ (d_{\Hall}+d_{\Delta^p})\theta_\sigma^{\mathrm{rel}}
+ -\theta_\sigma^{\mathrm{rel}}d_{B\Obs}
+ +\frac{1}{2}
+ [\theta_\sigma^{\mathrm{rel}},\theta_\sigma^{\mathrm{rel}}]_{\mathrm{conv}}
+ =0.
+\]
+Integrating this identity over $\Delta^p$ and applying Stokes' formula
+turns the $d_{\Delta^p}$ term into the alternating sum over faces.
+Because the maps are compatible with faces and refinements, these
+boundary terms are exactly the \v{C}ech/Ran differential of the finite
+sub-nerve. Summing over all simplices gives a Maurer--Cartan element in
+the finite total convolution complex, equivalently a natural
+transformation on
+$\mathsf N^{\Ran,\ord}_{\le m}(\mathfrak U;\Gamma_{\le L})$.
+
+The finite sub-nerve is a finite diagram of complexes. Objectwise
+quasi-isomorphisms on vertices extend to objectwise quasi-isomorphisms
+on all simplices by the refinement compatibility built into the datum.
+Finite totalisations, or equivalently finite homotopy colimits of
+complexes, preserve quasi-isomorphisms; the induced descent map is
+therefore a quasi-isomorphism.
+
+For multiplicativity, disjointness gives the tensor-product
+decomposition of hCS observables: no Feynman graph has an edge joining
+two disjoint supports. On the Hall side, the sum potential
+$W_\sigma\boxplus W_\tau$ has differential
+$\iota_{dW_\sigma}+\hbar\Delta_{\omega_\sigma}$ on the first factor
+plus $\iota_{dW_\tau}+\hbar\Delta_{\omega_\tau}$ on the second. Hence
+the Rees twisted de Rham complex of the sum is the completed tensor
+product of the two Rees twisted de Rham complexes. This is the
+Thom--Sebastiani isomorphism for vanishing cycles in Rees form,
+compatible with the orientation and Tate factors by the hypotheses
+and with the Hall correspondence product by the
+Kontsevich--Soibelman construction of critical CoHA
+\cite{KS2008}. The product square for $\Theta$ commutes.
+
+The ordered set $\{s_1<\cdots<s_q\}$ records the order of extensions in
+the Hall correspondence, so the algebra produced by the proposition is
+associative $E_1$ data. No half-braiding, universal $R$-matrix, or
+positive--negative Hopf pairing occurs in the hypotheses. Those are
+exactly the extra structures supplied by the Drinfeld centre or by a
+completed Drinfeld double; hence they cannot be consequences of the
+finite DWR/Ran descent alone.
+\end{proof}
 
 \subsubsection{Beilinson--Drinfeld chiral algebras as factorisation cosheaves}
 
@@ -298,7 +472,7 @@ with the right-hand side the chiral chain complex of
 \cite{BeilinsonDrinfeld}~\S4.2.
 \end{theorem}
 
-The theorem repackages the chiral-algebra calculus of
+This equivalence repackages the chiral-algebra calculus of
 \cite{BeilinsonDrinfeld} as the factorisation-algebra calculus of
 \cite{CostelloGwilliam,CostelloGwilliam2017} on a curve. The two
 frameworks are equivalent; each makes different operations convenient.
@@ -370,9 +544,9 @@ left; is a \emph{strict equality} of chain maps in the
 $1$-categorical sense, not a coherence datum parameterised by an
 $(\infty, 1)$-mapping space.
 
-The two-level bookkeeping separating this $1$-categorical super-braiding
-from the $(\infty, 1)$-categorical Ran-locality refinement is
-Pattern~$273$ of the first-principles cache. The Francis--Gaitsgory
+The strict super-braiding and the $(\infty, 1)$-categorical
+Ran-locality refinement live on different pieces of the construction.
+The Francis--Gaitsgory
 equivalence of Theorem~\ref{thm:fg-chiral-koszul} and the Francis
 $E_n$-equivalence of Theorem~\ref{thm:francis-en-koszul} are
 $(\infty, 1)$-categorical in source and target (Lie-algebra and
@@ -383,7 +557,7 @@ structure and do not collide. The $\Z/2$-grading on the super-Yangian
 arising from the conifold gluing (\S\ref{sec:gluing:toric-cech},
 \S$2.1$) is read off a strict equality of factorisation sections under
 Koszul super-braiding, and does not require higher-categorical
-coherence bookkeeping.
+coherence data.
 \end{remark}
 
 \subsection{The two-stage factorisation \texorpdfstring{$\Phi_3 = \SpCh_{\Sigma_2, C} \circ \PhiFA_3$}{Phi3 = SpCh o PhiFA3}}
@@ -593,11 +767,9 @@ $E_1$-chiral shadows $\SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$,
 $\SpCh_{\Sigma_2', C'}(\PhiFA_3(\cC))$, $\dots$; the multiplicity of
 chiral images attached to $\cC$ is the multiplicity of Stage-2
 specialisation cycles on $X$, not the multiplicity of $\Phi_3$-
-applications to $\cC$. The six routes to $G(K3 \times E)$
-documented in \S\ref{sec:gluing:factorisation} (CY Landscape) of Vol~III are six different
-$(\Sigma_2, C)$-specialisations of the single Stage-1 output
-$\PhiFA_3(D^b(\Coh(K3 \times E)))$; this is Pattern~$273$ of the
-first-principles cache.
+applications to $\cC$. The six routes to $G(K3 \times E)$ are six
+different $(\Sigma_2, C)$-specialisations of the single Stage-1 output
+$\PhiFA_3(D^b(\Coh(K3 \times E)))$.
 \end{remark}
 
 \subsection{Holomorphic vs topological factors}
@@ -821,7 +993,7 @@ with $d^{abc} = \tr(T^a \{T^b, T^c\})$ the totally symmetric rank-$3$
 invariant tensor and $C_2(\fg) = 2 h^\vee$ the quadratic Casimir of
 the adjoint (dual Coxeter number $h^\vee$). The cohomological
 component $A^{(1)}_{\mathrm{cohom}}$ is scheme-independent and carries
-the obstruction; the wave-function component $A^{(1)}_{\mathrm{w.f.}}$
+the obstruction; the field-renormalisation component $A^{(1)}_{\mathrm{ren}}$
 is scheme-dependent and absorbed into a BV-trivial counter-term. For
 $\fg$ simply-laced of type $A_n, D_n, E_6, E_7, E_8$ the totally
 symmetric invariant $3$-tensor vanishes on the adjoint (equivalently:
@@ -1039,7 +1211,7 @@ $\Z/2$-grading on the global chiral algebra is that each of the two
 strata is itself a factorisation algebra in $\Ch(\sVect)$ with the
 strict interchange, and the gluing along the stratum boundary uses
 only the strict $1$-categorical symmetry of $\Ch(\sVect)$; no
-$(\infty, 1)$-categorical homotopy bookkeeping is required at this
+$(\infty, 1)$-categorical homotopy datum is required at this
 step. The same strict extension applies to the local $\bP^2$ toric
 stratification of Example~\ref{ex:local-p2-stratified-weiss} with
 the three fixed-point $\C^3$-CoHAs carrying strict $\Z/2$-gradings
@@ -1054,12 +1226,17 @@ The Weiss-cover criterion (Definition~\ref{gl:def:weiss-cover}) replaces
 ordinary open covers with finite-point-configuration covers; a
 two-chart atlas is not a Weiss cover
 (Proposition~\ref{prop:two-chart-not-weiss}), and the disjoint-union
-closure of an open cover is the canonical Weiss refinement
+closure of a subordinate polydisc basis is the Weiss refinement
 \eqref{eq:weiss-refinement}. The Ran space of a curve indexes chiral
 observables as a factorisation cosheaf, and the Francis--Gaitsgory
 chiral Koszul duality (Theorem~\ref{thm:fg-chiral-koszul}) identifies
 chiral algebras on a curve with factorisation cosheaves on the Ran
-space; the higher-dimensional Francis $E_n$-analogue
+space. Proposition~\ref{prop:finite-dwr-ran-rees-ordered-hall-layer}
+states the finite DWR/Ran hCS--Rees-Hall comparison on this same
+finite-configuration site: finite descent is over an ordered $E_1$ Hall
+layer, the Hall product is the Rees Thom--Sebastiani product, and the
+$E_2$ centre or Drinfeld double requires its own pairing/completion
+operation. The higher-dimensional Francis $E_n$-analogue
 (Theorem~\ref{thm:francis-en-koszul}) underlies the CY$_3$ construction.
 The two-stage factorisation $\Phi_3 = \SpCh_{\Sigma_2, C} \circ
 \PhiFA_3$ (equations~\eqref{eq:stage-one-output}--\eqref{eq:phi3-two-stage})
@@ -1110,5 +1287,5 @@ $\Z/2$-grading on the super-Yangian arising from the conifold two-chart
 gluing (\S\ref{sec:gluing:toric-cech}, \S$2.1$), on the global chiral algebra of
 K3 $\times$ E, and on the three fixed-point CoHAs of local $\bP^2$ is
 a strict equality, not a coherence datum. \S\ref{sec:gluing:wallcrossing} turns to
-wall-crossing gluing, Stratum-independent and complementary to the
-Weiss-cover locality of the present Part.
+wall-crossing gluing, stratum-independent and complementary to
+Weiss-cover locality.

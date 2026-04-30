@@ -31,7 +31,7 @@ AP-CY7 (CoHA != chiral), AP-CY8 (Borcherds != bar Euler), AP-CY9 (discriminant c
 
 Manuscript references:
     k3_times_e.tex: sec:k3e-coha-structure, sec:k3e-dt-gw, sec:k3e-motivic-hall-dag
-    toroidal_elliptic.tex: sec:k3e-bkm-chiral-status
+    toroidal_elliptic.tex: sec:k3e-bkm-chiral-obstruction
     Upstream: bar_euler_borcherds.py, borcherds_lift.py, k3_elliptic_genus_bkm_bar.py
 """
 

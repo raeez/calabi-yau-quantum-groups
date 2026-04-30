@@ -40,15 +40,19 @@ This module makes the infinity-categorical relationship precise across six axes:
    operad E_2.
 
 4. THE TCFT ARGUMENT.
-   The TCFT (topological conformal field theory) structure gives
-   {b, B^{(2)}} = 0 on the moduli complex, where:
-   - b is the Hochschild differential (from HH^*(A, A))
-   - B^{(2)} is the secondary B-operator (from the S^1-action on LX)
-   This vanishing is the chain-level content of the BZFN theorem:
-   the loop space LX = Map(S^1, X) has S^1-action whose infinitesimal
-   generator B commutes with the Hochschild differential up to
-   a SECONDARY operation B^{(2)}, and {b, B^{(2)}} = 0 is the first
-   of an infinite tower of coherences (the E_2 structure).
+   The raw termwise pair-contraction operator B^{(2)}_term and the
+   Costello-corrected TCFT operator B^{(2)}_TCFT are different inputs.
+   The strict cyclic CY_3 witness has
+
+       [m_3, B^{(2)}_term][a|a|a|a|b] = 2 alpha [b] != 0.
+
+   The valid TCFT identity is the corrected total one:
+
+       {b, B^{(2)}_TCFT} = 0,    b = sum_{k >= 1} b_k,
+
+   after a Costello moduli-chain correction datum has been chosen.  It
+   does not assert [b_k, B^{(2)}_term] = 0, nor
+   {b_k, B^{(2)}_TCFT} = 0 for each k.
 
 5. THE THREE CENTERS (rem:three-centers-sharp).
    (a) Drinfeld center Z(C): categorical, E_1 -> E_2. One-step.
@@ -105,7 +109,11 @@ References:
   drinfeld_center.tex: thm:bzfn, cor:zder-drinfeld, rem:three-centers-sharp,
       rem:three-centers, prop:derived-center-h-muk, rem:drinfeld-vs-derived-k3e
   en_factorization.tex: warn:higher-deligne-three-centers
+  standalone/m3_b2_obstruction_vol3.tex: termwise/TCFT distinction and
+      HH^{-2} filtration hypothesis for the derived S^3-framing obstruction
   higher_deligne_cascade.py: compare_centers_step1/step2
+  bidegree_decomposition_bB.py: repaired bidegree diagnostic, not vanishing
+  spectral_seq_obs_ainf.py: strict m_3--B^{(2)}_term witness
   drinfeld_center_k3_heisenberg.py: Drin(H_Muk), dim 49
   k3e_e2_promotion_analysis.py: derived_center_h_muk, dim 325
   drinfeld_center_heisenberg_bulk.py: rank-1 Heisenberg verification
@@ -395,66 +403,173 @@ def shadow_class_infty_data(shadow_class: str) -> ShadowClassInftyData:
 
 
 # =========================================================================
-# 4. TCFT argument: {b, B^{(2)}} = 0
+# 4. TCFT argument: corrected {b, B^{(2)}_TCFT} = 0
 # =========================================================================
 
 class TCFTData(NamedTuple):
     """The TCFT (topological conformal field theory) argument.
 
-    The chain-level content of the BZFN theorem:
-    on the Hochschild complex C^*(A, A), two operators act:
+    The corrected chain-level content:
+    on the Hochschild complex C^*(A, A), the following data appear:
     - b: the Hochschild differential (degree +1)
     - B: the Connes boundary operator (degree -1), from S^1-action on LX
-    - B^{(2)}: the SECONDARY B-operator (degree -1)
+    - B^{(2)}_term: the raw pair-contraction operator
+    - B^{(2)}_TCFT: the Costello-corrected secondary B-operator
 
-    The E_2 structure is encoded by the vanishing {b, B^{(2)}} = 0,
-    which is the first of an infinite tower of coherences.
+    The E_2 structure is compatible with the Hochschild differential through
+    the corrected total identity {b, B^{(2)}_TCFT} = 0.  The raw termwise
+    identity is false in general.
     """
     differential: str               # b (Hochschild)
     connes_operator: str            # B (Connes boundary)
     secondary_operator: str         # B^{(2)} (secondary)
-    vanishing_relation: str         # {b, B^{(2)}} = 0
+    vanishing_relation: str         # {b, B^{(2)}_TCFT} = 0
     interpretation: str             # What this means
     tower: List[str]                # The full coherence tower
+    raw_operator: str               # B^{(2)}_term
+    corrected_operator: str         # B^{(2)}_TCFT
+    raw_termwise_relation: str      # False raw relation
+    raw_witness: str                # Nonzero strict witness
+    proof_boundary: str             # What is and is not proved
+
+
+class TermwiseB2Witness(NamedTuple):
+    """A strict witness that the raw B^{(2)}_term commutator need not vanish."""
+    model: str
+    word: str
+    m3_relation: str
+    b2_term_on_word: str
+    m3_after_b2_term: str
+    b2_term_after_m3: str
+    commutator_value: str
+    commutator_coefficient_in_alpha: Fraction
+    nonzero: bool
+    proves_compact_cy3_case: bool
+    conclusion: str
+
+
+def termwise_b2_counterexample() -> TermwiseB2Witness:
+    r"""Explicit raw-term witness for [m_3, B^{(2)}_term] != 0.
+
+    This is the strict four-generator cyclic CY_3 A_infinity model used in
+    standalone/m3_b2_obstruction_vol3.tex.  It is an algebraic strict-model
+    witness.  It is not, by itself, a compact smooth-proper CY_3 construction.
+    """
+    return TermwiseB2Witness(
+        model=(
+            "strict cyclic CY_3 A_infinity model on <e,a,b,w>, "
+            "|e|=0, |a|=1, |b|=2, |w|=3"
+        ),
+        word="[a|a|a|a|b]",
+        m3_relation="m_3(a,a,a) = alpha b, alpha != 0; m_1=0 and m_2=0 on the augmentation ideal",
+        b2_term_on_word="B^{(2)}_term x = 4[a|a|a]",
+        m3_after_b2_term="m_3 B^{(2)}_term x = 4 alpha [b]",
+        b2_term_after_m3="B^{(2)}_term m_3 x = 2 alpha [b]",
+        commutator_value="[m_3, B^{(2)}_term] x = 2 alpha [b]",
+        commutator_coefficient_in_alpha=F(2),
+        nonzero=True,
+        proves_compact_cy3_case=False,
+        conclusion=(
+            "Raw termwise vanishing is false.  Compact CY_3 framing "
+            "vanishing needs a corrected TCFT datum or an HH^{-2} filtration theorem."
+        ),
+    )
+
+
+class FramingObstructionBoundary(NamedTuple):
+    """Boundary between BZFN center statements and concrete S^3-framing claims."""
+    bzfn_preserved_claims: List[str]
+    bzfn_does_not_prove: List[str]
+    raw_termwise_vanishing: bool
+    corrected_tcft_total_vanishing: bool
+    derived_obstruction_vanishes_under_hh_minus_2: bool
+    compact_cy3_global_construction_proved: bool
+    required_hypotheses: List[str]
+    remaining_obligations: List[str]
+
+
+def framing_obstruction_boundary() -> FramingObstructionBoundary:
+    r"""State the exact proof boundary for derived-vs-Drinfeld use.
+
+    BZFN preserves the E_2-monoidal center equivalence under its ambient
+    hypotheses.  It does not, by itself, compute a raw bar-complex
+    commutator or construct a compact CY_3 S^3-framing.
+    """
+    return FramingObstructionBoundary(
+        bzfn_preserved_claims=[
+            "Z(LMod_A(S)) ~= LMod_{HH^*(A,A)}(S) as E_2-monoidal infinity-categories",
+            "Z(ChMod^{E_1}(A)) ~= ChMod^{E_2}(C^*_{ch}(A,A)) under the chiral BZFN hypotheses",
+            "Drinfeld and derived centers agree at the E_1 -> E_2 representation-category level",
+        ],
+        bzfn_does_not_prove=[
+            "[b_k, B^{(2)}_term] = 0 for each k",
+            "{b, B^{(2)}_term} = 0 for the raw pair-contraction operator",
+            "a concrete compact CY_3 S^3-framing obstruction vanishes without a TCFT correction datum",
+            "global Phi_3 functoriality, G(X), compact Hall/CoHA data, PBW, or no-extra-relations",
+        ],
+        raw_termwise_vanishing=False,
+        corrected_tcft_total_vanishing=True,
+        derived_obstruction_vanishes_under_hh_minus_2=True,
+        compact_cy3_global_construction_proved=False,
+        required_hypotheses=[
+            "presentably symmetric monoidal stable ambient infinity-category",
+            "E_1 input algebra and module category satisfying BZFN hypotheses",
+            "for the chiral refinement: IndCoh(Ran(C x R)) and the Koszul/bar-cobar comparison locus",
+            "for {b,B^{(2)}_TCFT}=0: a chosen Costello open-closed TCFT correction datum",
+            "for derived obstruction vanishing: complete, exhaustive, separated, strongly convergent HH filtration with empty total degree -2 line",
+        ],
+        remaining_obligations=[
+            "construct or cite the strictification/comparison map for the compact CY_3 model under discussion",
+            "exhibit the Costello correction datum or an equivalent chain homotopy",
+            "verify the HH^{-2} filtration hypotheses for the concrete compact CY_3 model",
+            "separately construct global Phi_3 or Hall/CoHA structures when those are claimed",
+        ],
+    )
 
 
 def tcft_argument() -> TCFTData:
-    r"""The TCFT argument for the E_2 structure on HH^*(A, A).
+    r"""The corrected TCFT argument for the E_2 structure on HH^*(A, A).
 
     The loop space LX = Map(S^1, X) has an S^1-action by rotation.
     On the Hochschild complex:
     - b is the internal differential (HH differential)
     - B is the infinitesimal generator of S^1-rotation (Connes operator)
-    - B^{(2)} is the secondary operation from the S^1-equivariant structure
+    - B^{(2)}_term is the raw pair-contraction operator
+    - B^{(2)}_TCFT is the Costello-corrected secondary operation
 
-    The TCFT axiom d^2 = 0 on the moduli complex decomposes into:
+    The raw identity {b, B^{(2)}_term} = 0 is false in general: the strict
+    witness has [m_3, B^{(2)}_term]x = 2 alpha [b].  The TCFT axiom d^2 = 0
+    on the corrected moduli-chain complex decomposes into:
     - b^2 = 0 (b is a differential)
     - {b, B} = 0 (B is a chain map: Connes-Tsygan)
     - B^2 = 0 (B is a differential on cyclic homology)
-    - {b, B^{(2)}} = 0 (the SECONDARY vanishing)
+    - {b, B^{(2)}_TCFT} = 0 (the corrected SECONDARY vanishing)
 
-    The relation {b, B^{(2)}} = 0 is the chain-level statement that
+    The relation {b, B^{(2)}_TCFT} = 0 is the chain-level statement that
     the E_2 structure on HH^*(A, A) is compatible with the Hochschild
     differential.  It ensures that the braiding (coming from the E_2
     operad action) commutes with the differential up to controlled
     homotopies.
 
     The full tower of vanishing relations:
-    {b, B^{(n)}} + {B, B^{(n-1)}} + ... = 0  for each n >= 0
-    encodes the COMPLETE E_2 structure (all coherences).
+    {b, B^{(n)}_TCFT} + {B, B^{(n-1)}_TCFT} + ... = 0  for each n >= 0
+    encodes the COMPLETE E_2 structure (all coherences), after the
+    correction datum has been chosen.
     """
+    witness = termwise_b2_counterexample()
     return TCFTData(
         differential='b: Hochschild differential, degree +1',
         connes_operator='B: Connes boundary operator, degree -1, from S^1-action on LX',
-        secondary_operator='B^{(2)}: secondary Connes operator, degree -1',
-        vanishing_relation='{b, B^{(2)}} = 0',
+        secondary_operator='B^{(2)}_TCFT: corrected secondary Connes operator, degree -1',
+        vanishing_relation='{b, B^{(2)}_TCFT} = 0',
         interpretation=(
-            'The vanishing {b, B^{(2)}} = 0 is the chain-level content of BZFN. '
+            'The corrected vanishing {b, B^{(2)}_TCFT} = 0 is the TCFT '
+            'chain-level compatibility behind the E_2 structure. '
             'It states that the E_2 structure on HH^*(A, A) is compatible with '
-            'the differential b. The S^1-action on LX = Map(S^1, X) generates '
-            'B (first-order) and B^{(2)} (second-order), and {b, B^{(2)}} = 0 '
-            'ensures the braiding data (from E_2) is coherent with the '
-            'Hochschild resolution (from bimodules). '
+            'the differential b after Costello moduli-chain correction. '
+            'The raw termwise pair contraction B^{(2)}_term has explicit '
+            'nonzero commutator witnesses and is not identified with '
+            'B^{(2)}_TCFT without a separate strictifying homotopy. '
             'In the CHIRAL setting: this translates to the compatibility of '
             'the half-braiding intertwiner with the chiral differential on '
             'the Ran space factorization algebra.'
@@ -463,10 +578,20 @@ def tcft_argument() -> TCFTData:
             'n=0: b^2 = 0 (b is a differential)',
             'n=0: {b, B} = 0 (B is a chain map, Connes-Tsygan)',
             'n=0: B^2 = 0 (B is a differential on HC)',
-            'n=1: {b, B^{(2)}} = 0 (E_2 coherence, BZFN chain-level)',
+            'n=1: {b, B^{(2)}_TCFT} = 0 (corrected E_2 coherence)',
             'n=2: {b, B^{(3)}} + {B, B^{(2)}} = 0 (higher coherence)',
             'n=k: full tower encodes the complete E_2 operad action',
         ],
+        raw_operator='B^{(2)}_term: bar-desuspended raw pair contraction',
+        corrected_operator='B^{(2)}_TCFT: Costello-corrected moduli-chain representative',
+        raw_termwise_relation='{b, B^{(2)}_term} = 0 is false in general',
+        raw_witness=witness.commutator_value,
+        proof_boundary=(
+            'BZFN gives the E_2-monoidal center equivalence.  The compact '
+            'CY_3 S^3-framing obstruction requires a TCFT correction datum '
+            'or the HH^{-2} filtration theorem; it is not a formal '
+            'consequence of the derived-center equivalence.'
+        ),
     )
 
 
@@ -891,16 +1016,45 @@ def verify_e2_matching_all_classes() -> Dict[str, Any]:
 def verify_tcft_structure() -> Dict[str, Any]:
     """Verify the TCFT argument structure."""
     t = tcft_argument()
+    w = termwise_b2_counterexample()
     return {
         'has_differential': 'b' in t.differential.lower() or 'Hochschild' in t.differential,
         'has_connes': 'B' in t.connes_operator or 'Connes' in t.connes_operator,
-        'has_secondary': 'B^{(2)}' in t.secondary_operator,
-        'vanishing_correct': '{b, B^{(2)}} = 0' in t.vanishing_relation,
+        'has_secondary': 'B^{(2)}_TCFT' in t.secondary_operator,
+        'vanishing_corrected_tcft': '{b, B^{(2)}_TCFT} = 0' in t.vanishing_relation,
+        'raw_termwise_rejected': 'false' in t.raw_termwise_relation.lower() and w.nonzero,
+        'raw_witness_nonzero': w.commutator_coefficient_in_alpha == F(2) and w.nonzero,
+        'no_compact_cy3_overclaim': not w.proves_compact_cy3_case,
         'tower_length': len(t.tower),
         'tower_starts_with_b2': 'b^2 = 0' in t.tower[0],
         'all_pass': (
-            '{b, B^{(2)}} = 0' in t.vanishing_relation
+            '{b, B^{(2)}_TCFT} = 0' in t.vanishing_relation
             and len(t.tower) >= 5
+            and w.nonzero
+            and not w.proves_compact_cy3_case
+        ),
+    }
+
+
+def verify_framing_obstruction_boundary() -> Dict[str, Any]:
+    """Verify the proof boundary between BZFN and S^3-framing claims."""
+    boundary = framing_obstruction_boundary()
+    return {
+        'preserves_e2_center_statement': any('E_2-monoidal' in claim for claim in boundary.bzfn_preserved_claims),
+        'rejects_raw_termwise': not boundary.raw_termwise_vanishing,
+        'keeps_corrected_tcft': boundary.corrected_tcft_total_vanishing,
+        'hh_minus_2_is_hypothesis_bound': boundary.derived_obstruction_vanishes_under_hh_minus_2,
+        'does_not_prove_global_compact_cy3': not boundary.compact_cy3_global_construction_proved,
+        'requires_costello_datum': any('Costello' in hyp for hyp in boundary.required_hypotheses),
+        'requires_hh_minus_2_filtration': any('HH^{-2}' in hyp or '-2' in hyp for hyp in boundary.required_hypotheses),
+        'remaining_obligations_named': len(boundary.remaining_obligations) >= 3,
+        'all_pass': (
+            any('E_2-monoidal' in claim for claim in boundary.bzfn_preserved_claims)
+            and not boundary.raw_termwise_vanishing
+            and boundary.corrected_tcft_total_vanishing
+            and not boundary.compact_cy3_global_construction_proved
+            and any('Costello' in hyp for hyp in boundary.required_hypotheses)
+            and any('HH^{-2}' in hyp or '-2' in hyp for hyp in boundary.required_hypotheses)
         ),
     }
 
@@ -984,4 +1138,5 @@ def full_verification() -> Dict[str, Any]:
         'path6_shadow_hierarchy': verify_shadow_class_hierarchy(),
         'path7_rank1': verify_rank1_consistency(),
         'path8_poincare': verify_poincare_series(),
+        'path9_framing_boundary': verify_framing_obstruction_boundary(),
     }

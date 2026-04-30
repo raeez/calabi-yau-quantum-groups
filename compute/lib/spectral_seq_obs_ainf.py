@@ -1,240 +1,29 @@
-r"""Spectral sequence analysis of [m_k, B^{(2)}] non-adjacent terms.
-
-MAIN RESULT (Proposition: Non-adjacent terms are exact in the bar
-spectral sequence):
-
-For a cyclic A_inf-algebra (A, {mu_n}, <-,->) of CY dimension 3,
-the commutator [m_k, B^{(2)}] on the cyclic bar complex CC_n(C)
-decomposes into ADJACENT and NON-ADJACENT terms.  The adjacent terms
-cancel by cyclic invariance (statement G1 in cy_to_chiral.tex).  The
-non-adjacent terms live in HIGHER FILTRATION with respect to the arity
-filtration on the bar complex, and are therefore:
-
-  (1) exact at the E_1 page of the bar spectral sequence, AND
-  (2) zero in the abutment H*(B(A), d).
-
-This resolves the logical gap identified in Remark
-ref:rem:adversarial-audit-cyclic-ainf of cy_to_chiral.tex.
-
-FILTRATION ANALYSIS
-===================
-
-The bar complex B^{ord}(A) has an ARITY filtration:
-
-    F_p B = {elements with <= p tensor factors}
-
-The bar differential d = m_1 + m_2 + m_3 + ... respects this filtration
-with shifts: m_k maps F_p to F_{p-k+1} (it consumes k factors and
-produces 1, net change -(k-1)).  Equivalently, m_k lowers arity by k-1.
-
-The spectral sequence associated to this filtration has:
-
-    d_r: E_r^{p,q} -> E_r^{p-r, q+r-1}
-
-where:
-    d_1 = m_2 part (lowers arity by 1)
-    d_2 = m_3 part (lowers arity by 2)
-    d_3 = m_4 part (lowers arity by 3)
-    ...
-    d_r = m_{r+1} part
-
-The B^{(2)} operator contracts a pair using the CY pairing:
-
-    B^{(2)}: CC_n -> CC_{n-1}    (arity -1 from contracting 2 factors)
-
-But B^{(2)} is NOT part of the bar differential; it is the S^2-framing
-map.  Its filtration shift depends on WHICH pair it contracts.
-
-ADJACENT vs NON-ADJACENT TERMS IN [m_k, B^{(2)}]
-==================================================
-
-Consider [m_3, B^{(2)}] acting on [a_0 | a_1 | ... | a_n] in CC_n.
-
-The commutator [m_3, B^{(2)}] = m_3 circ B^{(2)} - B^{(2)} circ m_3.
-
-Case 1 (ADJACENT): B^{(2)} contracts a pair (a_i, a_j) where BOTH
-factors are either inside or outside the m_3 block.
-
-    - Both inside the m_3 block: B^{(2)} contracts two of the three
-      inputs to m_3, then m_3 acts on the contracted pair + remaining.
-      NET ARITY CHANGE from n: -1 (from B^{(2)}) - 2 (from m_3) = -3.
-    - Both outside: m_3 reduces arity by 2 on its block, B^{(2)} reduces
-      by 1 on the remaining.  NET: -3.
-
-    For the commutator m_3 B^{(2)} - B^{(2)} m_3: both terms have the
-    same arity, so the commutator has NET ARITY CHANGE = -3 from the
-    input.  In the filtration: starts at F_n, lands in F_{n-3}.
-
-    Filtration degree of this contribution: -(k-1) - 1 = -k.
-    For k=3: filtration shift = -3.
-
-    This contribution is at the SAME filtration level as d_2 (from m_3)
-    composed with a degree-1 map.  It appears on the E_1 page.
-
-Case 2 (NON-ADJACENT): B^{(2)} contracts a pair (a_i, a_j) where ONE
-factor a_i is INSIDE the m_k block and ONE factor a_j is OUTSIDE.
-
-    Consider the term m_3(a_1, a_2, a_3) with B^{(2)} contracting
-    a_2 (inside) with a_5 (outside).  The result:
-
-    m_3 circ B^{(2)}: first contract (a_2, a_5), reducing CC_n to
-      CC_{n-1}, then apply m_3 to a block of 3 that now includes the
-      contracted result.  But the contracted result <a_2, a_5>_2 is a
-      SCALAR, so m_3 acts on (a_1, <a_2,a_5>_2, a_3) = <a_2,a_5>_2 *
-      m_3(a_1, 1, a_3).  Since m_3 is A_inf (strictly unital implies
-      m_3(a,1,b) = 0 for unital algebras), this can simplify.
-
-    B^{(2)} circ m_3: first apply m_3 to (a_1,a_2,a_3) producing output
-      in arity n-2, then contract m_3(a_1,a_2,a_3) with a_5.  This is
-      <m_3(a_1,a_2,a_3), a_5>_2 * (remaining at arity n-3).
-
-    The non-adjacent contribution has a different structure:
-      m_3 circ B^{(2)} term: the contraction removes a_j from outside
-        the block, effectively lowering the arity by 1 BEFORE m_3 acts.
-        m_3 then acts on a 3-element block (with one element now being
-        scalar-modified).  Net arity: n - 1 (from B^{(2)}) - 2 (from m_3)
-        = n - 3.
-      B^{(2)} circ m_3 term: m_3 lowers arity by 2, then B^{(2)} lowers
-        by 1 (contracting output of m_3 with a_j).  Net: n - 3.
-
-    BOTH terms land in F_{n-3}.  But THE KEY DIFFERENCE is the filtration
-    GRADING.  In the arity spectral sequence with p = arity:
-
-    The commutator [m_3, B^{(2)}] as a whole maps F_p -> F_{p-3}.
-
-    But the ADJACENT terms come from m_3 acting on a block of 3 adjacent
-    elements and B^{(2)} acting on 2 adjacent elements, all within or
-    outside the block.  These terms have a clean factorization: they are
-    controlled by cyclic invariance (G1).
-
-    The NON-ADJACENT terms involve B^{(2)} "reaching across" the m_3
-    boundary.  For the bar spectral sequence, we refine the arity
-    filtration to a BIGRADING:
-
-      F_{p,q} = {elements with p factors INSIDE an m_k-block
-                 and q factors OUTSIDE}
-
-    Adjacent terms preserve this bigrading (up to the expected shift).
-    Non-adjacent terms MIX the bigrading: they transfer one factor
-    from "outside" to "inside" (or vice versa) via the pairing.
-
-    THIS MIXING IS EXACTLY THE d_1 DIFFERENTIAL of the refined spectral
-    sequence.  The non-adjacent terms are in im(d_1) and hence
-    EXACT at the E_1 page.
-
-THE STASHEFF IDENTITY ARGUMENT
-===============================
-
-More precisely: the non-adjacent terms of [m_k, B^{(2)}] cancel
-pairwise via the Stasheff identities (the A_inf relations).
-
-The A_inf relation at arity n+1 is:
-
-    sum_{i+j=n+2} sum_r m_i(..., m_j(a_r, ..., a_{r+j-1}), ...) = 0
-
-This identity relates m_k applied to a block containing m_j outputs
-with m_{k'} applied to a different block.  When B^{(2)} contracts
-a factor from inside one m-block with a factor outside, the Stasheff
-identity at the appropriate arity provides EXACTLY the cancellation
-between the two terms in the commutator [m_k, B^{(2)}].
-
-The mechanism: for each non-adjacent pair (a_i inside, a_j outside),
-the Stasheff identity at arity k+1 (relating m_k and m_1 composed
-with B^{(2)}) provides:
-
-    <a_i, a_j>_2 * m_k(... without a_i ...) =
-    sum of terms from the Stasheff identity evaluated on cyclic pairing
-
-These terms are EXACT in the bar complex (they are boundaries of the
-bar differential at arity k+1).
-
-EXPLICIT VERIFICATION FOR LOCAL P^2
-=====================================
-
-For local P^2 (m_3 != 0, 24 generators, 54 composable triples):
-
-The m_3 operation is m_3(x_{01}, y_{12}, z_{20}) = e_0 (from the
-Ginzburg potential W = xyz - xzy).
-
-B^{(2)} contracts using the CY_3 pairing <-,->_2 which pairs
-Ext^1 with Ext^2 (and Ext^0 with Ext^3).
-
-Non-adjacent terms in [m_3, B^{(2)}]:
-  B^{(2)} contracts one m_3-input (say x_{01}) with an element a_j
-  outside the block.  But <x_{01}, a_j>_2 = 0 unless a_j is in
-  Ext^2(E_0, E_1)^* = Ext^1(E_1, E_0) (by Serre duality at d=3).
-  In that case, <x_{01}, a_j>_2 is a scalar, and the commutator
-  term involves m_3(scalar, y_{12}, z_{20}) = scalar * e_0 (by
-  linearity) vs <m_3(x_{01}, y_{12}, z_{20}), a_j>_2 = <e_0, a_j>_2.
-
-  The Stasheff identity at arity 4 relates these two terms.  The
-  identity m_2(m_3(x,y,z), a) + m_3(m_2(x,a), y, z) + ... = 0
-  ensures that the pairing of m_3-output with a equals the sum of
-  m_3 applied to pairings of inputs with a (up to m_2-exact terms).
-
-  The m_2-exact terms are in im(d_1) of the spectral sequence.
-  Therefore: [m_3, B^{(2)}]_{non-adj} is in im(d_1).
-
-SUFFICIENCY OF COHOMOLOGICAL VANISHING
-========================================
-
-For the S^3-framing obstruction Obs_Ainf, what matters is whether
-[m_k, B^{(2)}] = 0 in the COHOMOLOGY of the bar complex (the
-abutment of the spectral sequence), not at the chain level.
-
-The spectral sequence converges:
-
-    E_1^{p,q} => H^{p+q}(B(A), d)
-
-If [m_k, B^{(2)}]_{non-adj} is exact at E_1 (in im(d_1)), then it
-is zero in the abutment.  Combined with the adjacent terms cancelling
-by cyclic invariance (which is a chain-level identity, hence a fortiori
-zero in cohomology), we get:
-
-    [m_k, B^{(2)}] = 0 in H^*(B(A), d)
-
-This is SUFFICIENT for the S^3-framing obstruction:
-
-Obs_Ainf lives in HH^3(C, C) = H^3(B(A), d).  The statement
-"Obs_Ainf = 0" means the commutator [m_k, B^{(2)}] maps to zero
-in this cohomology.  Chain-level vanishing (stronger) implies
-cohomological vanishing, but cohomological vanishing suffices for
-the framing obstruction.
-
-The Obs_Ainf = 0 conclusion upgrades from "chain-level identity
-required" to "spectral sequence exactness suffices".
-
-CONNECTION TO PROP:VIRASORO-D4
-===============================
-
-The d_4 differential on the E_3 page of the E_3 bar spectral sequence
-comes from m_4.  The non-adjacent contraction in [m_3, B^{(2)}] is
-a d_2-type operation (it shifts arity by 2 in the refined bigrading).
-
-For the E_3 bar spectral sequence:
-  d_1 = m_2 (binary OPE bracket)
-  d_2 = m_3 (associator / Massey product)
-  d_3 = m_4 (quartic shadow)
-
-The non-adjacent terms of [m_3, B^{(2)}] live at the d_2 level:
-they involve m_3 combined with a pairing contraction.  On the E_1
-page (after taking d_1-cohomology), these terms are:
-
-  - For class G: zero (m_3 = 0).
-  - For class L: zero (m_3 is exact, killed by cofreeness at E_1).
-  - For class C: zero (charge conservation prevents non-adj pairing).
-  - For class M: potentially nonzero on E_1, but killed on E_2.
-
-At the E_2 page (after d_2-cohomology), the non-adjacent terms are
-ALWAYS zero regardless of shadow class.  This is because d_2 = m_3
-and the non-adjacent terms are precisely in im(d_2).
-
-Therefore: d_2 kills the non-adjacent terms, and [m_3, B^{(2)}] = 0
-on the E_2 page and hence in the abutment.
-
-For [m_4, B^{(2)}]: the non-adjacent terms are a d_3-type operation,
-killed on the E_3 page.  In general, [m_k, B^{(2)}]_{non-adj} is a
-d_{k-1}-type operation, killed on the E_{k-1} page.
+r"""Combinatorics for the m_k--B^{(2)} obstruction.
+
+The earlier version of this module stated a universal spectral-sequence
+exactness theorem for the termwise pair-contraction operator.  That theorem
+is false.  The repaired theorem separates three carriers:
+
+  (1) B^{(2)}_term, a termwise bar operator with strict nonzero witnesses;
+  (2) B^{(2)}_TCFT, Costello's corrected operator satisfying the total
+      TCFT boundary identity with b = sum_k b_k;
+  (3) the derived E_1-Hochschild obstruction class, which vanishes only
+      under an explicit HH^{-2} filtration hypothesis.
+
+This module still enumerates adjacent and non-adjacent configurations and
+records the old filtration-page heuristic.  Those integers are diagnostic
+data.  They do not prove that B^{(2)}_term is exact, zero in the abutment,
+or sufficient for a framing theorem.
+
+The strict witness used by the standalone is the cyclic CY_3 model with
+m_3(a,a,a)=alpha b, |a|=1, |b|=2, and terminal-slot pair contractions:
+
+    [m_3,B^{(2)}_term][a|a|a|a|b] = 2 alpha [b] != 0.
+
+Consequently, any result returned by this module with a name containing
+"exact", "vanishes", or "sufficient" is a legacy compatibility field unless
+it is explicitly tied to the corrected TCFT operator or to the HH^{-2}
+filtration theorem.
 
 CONVENTIONS
 ===========
@@ -548,8 +337,8 @@ class FiltrationAnalysis:
 
     @property
     def nonadjacent_exact(self) -> bool:
-        """Non-adjacent terms are exact in the bar spectral sequence."""
-        return self.nonadjacent_spectral_page >= 1
+        """Whether termwise non-adjacent terms are proved exact here."""
+        return self.num_nonadjacent == 0
 
     @property
     def total_terms(self) -> int:
@@ -562,7 +351,7 @@ class FiltrationAnalysis:
 
     @property
     def commutator_vanishes_in_abutment(self) -> bool:
-        """[m_k, B^{(2)}] = 0 in the spectral sequence abutment."""
+        """Whether this helper proves the termwise commutator vanishes."""
         return self.adjacent_cancel_by_cyclic and self.nonadjacent_exact
 
 
@@ -601,7 +390,7 @@ def compute_filtration_analysis(n: int, k: int) -> FiltrationAnalysis:
 
     # Filtration data
     adjacent_filt = -(k + 1)  # net shift from m_k and B^{(2)}
-    nonadj_page = k - 1       # killed on E_{k-1} page
+    nonadj_page = k - 1       # legacy diagnostic page
 
     return FiltrationAnalysis(
         n=n, k=k,
@@ -731,8 +520,8 @@ def local_p2_nonadjacent_analysis() -> Dict[str, Any]:
     generator g4 outside the block, compute the non-adjacent terms
     where B^{(2)} pairs one of (g1, g2, g3) with g4.
 
-    Verify that all such terms are in im(d_1) of the bar spectral
-    sequence (i.e., they are d_1-exact).
+    This finite enumeration is retained as diagnostic data.  It does not
+    prove that all termwise non-adjacent contributions are d_1-exact.
 
     Returns:
         dict with counts, examples, and verification status.
@@ -781,19 +570,10 @@ def local_p2_nonadjacent_analysis() -> Dict[str, Any]:
                 # Term 2: m_3 circ B^{(2)}
                 # Replace g_inside by scalar <g_inside, g4>_2 in the m_3 input
                 # m_3(..., <g_inside, g4>_2, ...) = <g_inside, g4>_2 * m_3(...)
-                # But m_3 with a scalar insertion needs the Stasheff identity.
-                # The Stasheff identity at arity 4:
-                #   m_2(m_3(g1,g2,g3), g4) + m_3(m_2(g1,g4), g2, g3) + ... = 0
-                # This relates the pairing of m_3-output with g4 to
-                # m_3 applied to pairings of inputs with g4.
-                # The remaining terms are m_2-exact (in im(d_1)).
-
-                # The non-adjacent term is:
-                #   <g_inside, g4>_2 * m_3(remaining) - <m3_out, g4>_2 * 1
-                # By the Stasheff identity, this difference is m_2-exact.
-
-                is_exact = True  # by the Stasheff identity argument
-                nonadj_exact_count += 1
+                # The old oracle marked this exact by a Stasheff heuristic.
+                # The strict m3-B2 witness shows that this is not a theorem
+                # for the termwise operator without a correction homotopy.
+                is_exact = False
 
                 nonadj_terms.append({
                     "triple": (g1.name, g2.name, g3.name),
@@ -810,8 +590,11 @@ def local_p2_nonadjacent_analysis() -> Dict[str, Any]:
         "num_nonadj_nonzero_pairings": nonadj_total,
         "num_nonadj_exact": nonadj_exact_count,
         "all_nonadj_exact": nonadj_exact_count == nonadj_total,
-        "spectral_page_of_exactness": 1,  # d_1-exact (E_1 page)
-        "mechanism": "Stasheff identity at arity k+1",
+        "spectral_page_of_exactness": None,
+        "mechanism": (
+            "finite term enumeration only; termwise exactness requires a "
+            "TCFT correction homotopy or the HH^{-2} obstruction theorem"
+        ),
         "terms": nonadj_terms,
     }
 
@@ -864,8 +647,8 @@ class SpectralPageComparison:
 
     @property
     def vanishes_in_abutment(self) -> bool:
-        """Non-adjacent terms vanish in the spectral sequence abutment."""
-        return True  # ALWAYS true: exact at some finite page
+        """Whether this class proves termwise abutment vanishing."""
+        return self.shadow_class in ("G", "C")
 
     @property
     def chain_level_vanishing(self) -> bool:
@@ -874,12 +657,8 @@ class SpectralPageComparison:
 
     @property
     def sufficient_for_obs_ainf(self) -> bool:
-        """Whether the vanishing is sufficient for Obs_Ainf = 0.
-
-        Yes: Obs_Ainf lives in cohomology, and spectral sequence
-        exactness implies cohomological vanishing.
-        """
-        return True
+        """Whether the termwise analysis suffices for a framing theorem."""
+        return self.vanishes_in_abutment
 
 
 def spectral_comparison_by_class(k: int = 3) -> Dict[str, SpectralPageComparison]:
@@ -901,10 +680,10 @@ def spectral_comparison_by_class(k: int = 3) -> Dict[str, SpectralPageComparison
         "L": SpectralPageComparison(
             shadow_class="L",
             mk_arity=k,
-            nonadj_page=1,  # d_{k-1} on E_1, cofreeness kills at E_1
+            nonadj_page=1,  # legacy diagnostic page
             mechanism=(
-                f"d_{k-1} on E_1 page; cofreeness of shuffle coalgebra "
-                f"makes E_1 bar acyclic at arity >= 2"
+                f"legacy d_{k-1} diagnostic page; termwise exactness "
+                f"requires a correction homotopy or a separate HH theorem"
             ),
         ),
         "C": SpectralPageComparison(
@@ -919,11 +698,10 @@ def spectral_comparison_by_class(k: int = 3) -> Dict[str, SpectralPageComparison
         "M": SpectralPageComparison(
             shadow_class="M",
             mk_arity=k,
-            nonadj_page=k - 1,  # killed on E_{k-1}
+            nonadj_page=k - 1,  # legacy diagnostic page
             mechanism=(
-                f"d_{k-1} on E_{k-1} page: non-adjacent terms are in "
-                f"im(d_{k-1}) from the Stasheff identity at arity {k+1}. "
-                f"Killed on E_{k-1} page (E_{k-1} cohomology)."
+                f"legacy d_{k-1} diagnostic page from arity {k+1}; "
+                f"the strict witness blocks universal termwise exactness"
             ),
         ),
     }
@@ -998,50 +776,11 @@ def stasheff_identity_at_arity(n: int) -> Dict[str, Any]:
 
 @dataclass
 class SufficiencyAnalysis:
-    r"""Analysis of whether cohomological vanishing suffices for Obs_Ainf.
+    r"""Analysis of whether a termwise calculation suffices.
 
-    The chain-level question: [m_k, B^{(2)}] = 0 on CC_n(C)?
-    The cohomological question: [m_k, B^{(2)}] = 0 in H^*(B(A), d)?
-
-    Chain-level vanishing => cohomological vanishing (trivially).
-    Cohomological vanishing does NOT imply chain-level vanishing.
-
-    For the S^3-framing obstruction:
-
-    Obs_Ainf in HH^3(C, C) = H^3(C^*(C, C))
-
-    The framing map F: CC_n -> CC_{n-2} must be a chain map (commute
-    with the bar differential d).  The commutator [d, F] = 0 is the
-    chain-level condition.  But:
-
-    F = B^{(2)} circ B^{(1)} + correction
-
-    The correction is topological (Euler class), and [d, correction] = 0
-    automatically (topological constant commutes with d).  So
-    [d, F] = 0 iff [d, B^{(2)} circ B^{(1)}] = 0.
-
-    Now d = m_2 + m_3 + ..., so:
-    [d, B^{(2)} circ B^{(1)}] = [m_2, B^{(2)} circ B^{(1)}]
-                                + [m_3, B^{(2)} circ B^{(1)}] + ...
-
-    The [m_2, B^{(2)}] part is zero by the DEFINITION of B^{(2)} as a
-    chain map for the binary bar differential (this is the d=2 case,
-    CY-A_2, proved).  The [m_k, B^{(2)}] parts for k >= 3 are the
-    A_inf corrections.
-
-    SUFFICIENCY: if [m_k, B^{(2)}] = 0 in H^*(B(A), d) for all k >= 3,
-    then [d, F] represents the zero class in HH^*(C, C), which means
-    the framing map F is a chain map UP TO HOMOTOPY.  A chain map up to
-    homotopy suffices for the framing obstruction because:
-
-    (1) The obstruction class lives in cohomology, not at chain level.
-    (2) A homotopy equivalence of chain maps induces the same map on
-        cohomology.
-    (3) Therefore F induces the correct map on Hochschild cohomology,
-        which is what the framing needs.
-
-    The chain-level statement would give a STRICT chain map (not just
-    up to homotopy).  This is stronger but not necessary.
+    The repaired theorem says the termwise calculation is not sufficient in
+    class M.  A framing statement requires either the corrected TCFT
+    operator or an explicit HH^{-2} obstruction calculation.
 
     Attributes:
         chain_level: whether [m_k, B^{(2)}] = 0 at chain level
@@ -1058,16 +797,13 @@ class SufficiencyAnalysis:
     def upgrades_prop_status(self) -> bool:
         """Whether this analysis upgrades the proposition status.
 
-        Prop:cyclic-ainf-framing-compat is currently ClaimStatusConditional
-        because the non-adjacent terms were not controlled.  If cohomological
-        vanishing is sufficient AND the spectral sequence argument gives
-        cohomological vanishing, then the proposition can be upgraded.
+        A termwise spectral-page heuristic alone does not upgrade a theorem.
         """
         return self.sufficient_for_framing and self.cohomological
 
 
 def analyze_sufficiency(shadow_class: str = "M") -> SufficiencyAnalysis:
-    r"""Analyze whether spectral sequence exactness suffices.
+    r"""Analyze whether this termwise helper proves a framing statement.
 
     Parameters:
         shadow_class: G, L, C, or M
@@ -1084,12 +820,12 @@ def analyze_sufficiency(shadow_class: str = "M") -> SufficiencyAnalysis:
         )
     elif shadow_class == "L":
         return SufficiencyAnalysis(
-            chain_level=False,  # non-adj terms nonzero at chain level
-            cohomological=True,
-            sufficient_for_framing=True,
+            chain_level=False,
+            cohomological=False,
+            sufficient_for_framing=False,
             mechanism=(
-                "Cofreeness kills non-adj terms on E_1 page. "
-                "Cohomological vanishing via spectral sequence."
+                "The old cofreeness page count is only a diagnostic. "
+                "A correction homotopy or HH^{-2} theorem is required."
             ),
         )
     elif shadow_class == "C":
@@ -1104,15 +840,12 @@ def analyze_sufficiency(shadow_class: str = "M") -> SufficiencyAnalysis:
         )
     elif shadow_class == "M":
         return SufficiencyAnalysis(
-            chain_level=False,  # non-adj terms nonzero at chain level
-            cohomological=True,
-            sufficient_for_framing=True,
+            chain_level=False,
+            cohomological=False,
+            sufficient_for_framing=False,
             mechanism=(
-                "Non-adjacent terms are in im(d_{k-1}) by the Stasheff "
-                "identity at arity k+1. Exact on the E_{k-1} page. "
-                "Cohomological vanishing suffices for the framing "
-                "obstruction because Obs_Ainf lives in HH^3(C,C) "
-                "(cohomology, not chain level)."
+                "The strict m3-B2 witness has a nonzero termwise "
+                "commutator. Use B_TCFT or the HH^{-2} filtration theorem."
             ),
         )
     else:
@@ -1127,7 +860,7 @@ def compute_spectral_seq_obs_ainf(
     n_max: int = 8,
     k_max: int = 5,
 ) -> Dict[str, Any]:
-    r"""Full spectral sequence analysis of [m_k, B^{(2)}] non-adjacent terms.
+    r"""Full diagnostic analysis of [m_k, B^{(2)}_term] configurations.
 
     Computes:
     (1) Filtration analysis for [m_k, B^{(2)}] at various arities
@@ -1213,20 +946,18 @@ def compute_spectral_seq_obs_ainf(
         "stasheff_identities": stasheff_data,
         "main_result": {
             "statement": (
-                "[m_k, B^{(2)}] = 0 in H^*(B(A), d) for all k >= 3 "
-                "and all cyclic A_inf-algebras. The non-adjacent terms "
-                "are exact in the bar spectral sequence (in im(d_{k-1})), "
-                "killed on the E_{k-1} page. This is sufficient for "
-                "Obs_Ainf = 0."
+                "The termwise operator B^{(2)}_term has nonzero strict "
+                "witnesses. Filtration-page data are diagnostic only. "
+                "The corrected TCFT identity and the HH^{-2} obstruction "
+                "theorem are separate inputs."
             ),
             "all_filtrations_consistent": all_vanish,
             "all_classes_sufficient": all_classes_ok,
-            "upgrades_proposition": True,
-            "new_claim_status": "ClaimStatusProvedHere (cohomological)",
+            "upgrades_proposition": False,
+            "new_claim_status": "termwise universal exactness rejected",
             "chain_level_open": (
-                "Chain-level vanishing [m_k, B^{(2)}] = 0 on CC_n "
-                "remains open for class M. The spectral sequence gives "
-                "vanishing in COHOMOLOGY, not at chain level."
+                "Termwise chain-level vanishing is false in class M by "
+                "the strict m3-B2 witness."
             ),
         },
     }
@@ -1237,7 +968,7 @@ def compute_spectral_seq_obs_ainf(
 # =========================================================================
 
 def virasoro_d4_connection() -> Dict[str, Any]:
-    r"""Connection between non-adjacent [m_3, B^{(2)}] and the d_4 differential.
+    r"""Diagnostic relation between page bookkeeping and the d_4 differential.
 
     The d_4 differential on the E_3 page of the E_3 bar spectral sequence
     (prop:virasoro-d4) comes from m_4.  The non-adjacent terms of
@@ -1249,31 +980,26 @@ def virasoro_d4_connection() -> Dict[str, Any]:
       d_3 = m_4  (quartic shadow, Delta = 40/27 at c=1)
       d_4 = m_5  (quintic shadow)
 
-    Non-adjacent [m_k, B^{(2)}] terms are at d_{k-1}:
-      [m_3, B^{(2)}]_non-adj: d_2 type => killed on E_2 page
-      [m_4, B^{(2)}]_non-adj: d_3 type => killed on E_3 page
-      [m_5, B^{(2)}]_non-adj: d_4 type => killed on E_4 page
+    The old diagnostic places non-adjacent [m_k, B^{(2)}_term] terms at the
+    same arity shift as d_{k-1}.  That page bookkeeping is not a proof that
+    the termwise operator is killed there.
 
     Comparison with prop:virasoro-d4:
       The d_4 differential kills Lambda^0 and Lambda^3 (the volume
       class and the scalar class) on the E_3 page, giving E_4 = [0,3,3,0].
       This d_4 comes from S_4 = 10/27 (quartic shadow).
 
-      The non-adjacent [m_3, B^{(2)}] terms are killed EARLIER (at E_2),
-      so they do NOT interfere with the d_4 computation.  The d_4
-      differential acts on the E_3 page AFTER the non-adjacent terms
-      have already been killed.
+      The corrected TCFT or HH^{-2} obstruction theorem must be supplied
+      before claiming that the non-adjacent terms do not interfere with a
+      later d_4 computation.
 
     This means:
-      (a) The Obs_Ainf = 0 argument (non-adjacent exactness) and the
-          prop:virasoro-d4 result (d_4 from quartic shadow) are
-          INDEPENDENT: they live at different spectral sequence pages.
-      (b) The non-adjacent terms do not modify the d_4 coefficient
-          Delta = 40/27.  The class M spectral sequence analysis of
-          en_factorization.tex is unaffected.
-      (c) The hierarchy is consistent: lower-order A_inf corrections
-          are killed at lower pages, higher-order corrections survive
-          to higher pages.
+      (a) The old non-adjacent-exactness argument is not an input to
+          prop:virasoro-d4.
+      (b) The d_4 coefficient Delta = 40/27 is a separate quartic-shadow
+          computation.
+      (c) The page hierarchy is bookkeeping for arity shifts until the
+          corrected TCFT or HH^{-2} theorem is supplied.
 
     Returns:
         dict with the connection analysis.
@@ -1286,9 +1012,9 @@ def virasoro_d4_connection() -> Dict[str, Any]:
             "d_4": "m_5 (quintic shadow, S_5 = -16/9 at c=1)",
         },
         "nonadj_mk_page": {
-            "[m_3, B^{(2)}]_non-adj": "killed at E_2 (d_2-exact)",
-            "[m_4, B^{(2)}]_non-adj": "killed at E_3 (d_3-exact)",
-            "[m_5, B^{(2)}]_non-adj": "killed at E_4 (d_4-exact)",
+            "[m_3, B^{(2)}]_non-adj": "legacy d_2 diagnostic page; not a termwise exactness proof",
+            "[m_4, B^{(2)}]_non-adj": "legacy d_3 diagnostic page; not a termwise exactness proof",
+            "[m_5, B^{(2)}]_non-adj": "legacy d_4 diagnostic page; not a termwise exactness proof",
         },
         "virasoro_d4": {
             "page": "E_3 -> E_4",
@@ -1297,15 +1023,12 @@ def virasoro_d4_connection() -> Dict[str, Any]:
             "from_shadow": "S_4 = 10/(c(5c+22)) = 10/27 at c=1",
         },
         "independence": (
-            "The non-adjacent [m_3, B^{(2)}] terms are killed at E_2, "
-            "which is BEFORE the d_4 differential acts (at E_3 -> E_4). "
-            "Therefore the Obs_Ainf analysis and the d_4 analysis "
-            "are independent."
+            "A later d_4 computation is independent only after the "
+            "corrected TCFT identity or the HH^{-2} obstruction theorem "
+            "has removed the termwise obstruction."
         ),
         "consistency": (
-            "The spectral sequence page hierarchy is consistent: "
-            "d_{k-1} kills non-adjacent [m_k, B^{(2)}] terms, and "
-            "d_r (for r >= k) acts on the E_{r-1} page which no longer "
-            "contains the non-adjacent contributions."
+            "The page hierarchy is useful bookkeeping, not a vanishing "
+            "theorem for B^{(2)}_term."
         ),
     }

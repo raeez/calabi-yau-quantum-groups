@@ -4,7 +4,8 @@ CENTRAL RESULTS TESTED:
     (1) BZFN in chiral setting: Z(ChMod^{E_1}(A)) ~= ChMod^{E_2}(C^*_{ch}(A,A)).
     (2) Three centers: agreement at E_1->E_2, divergence at E_2->E_3.
     (3) K3 comparison: dim 325 (derived) vs dim 49 (Drinfeld), same E_2 braiding.
-    (4) TCFT argument: {b, B^{(2)}} = 0 as chain-level BZFN.
+    (4) TCFT argument: {b, B^{(2)}_TCFT} = 0, while raw B^{(2)}_term has
+        explicit nonzero witnesses.
     (5) Shadow class hierarchy: G discrete, L finite, C convergent, M divergent.
     (6) E_2 matching: R-matrix = Gerstenhaber bracket for all shadow classes.
     (7) Rank-1 Heisenberg at multiple levels.
@@ -50,7 +51,11 @@ from compute.lib.derived_vs_drinfeld_infty import (
     shadow_class_infty_data,
     # TCFT
     TCFTData,
+    TermwiseB2Witness,
     tcft_argument,
+    termwise_b2_counterexample,
+    FramingObstructionBoundary,
+    framing_obstruction_boundary,
     # Three centers
     ThreeCentersInfty,
     three_centers_infty,
@@ -70,6 +75,7 @@ from compute.lib.derived_vs_drinfeld_infty import (
     verify_k3_dimensions,
     verify_e2_matching_all_classes,
     verify_tcft_structure,
+    verify_framing_obstruction_boundary,
     verify_shadow_class_hierarchy,
     verify_rank1_consistency,
     verify_poincare_series,
@@ -248,12 +254,12 @@ class TestShadowClassHierarchy:
 # =========================================================================
 
 class TestTCFT:
-    """Tests for the TCFT argument {b, B^{(2)}} = 0."""
+    """Tests for the corrected TCFT argument and raw-term failure."""
 
     def test_vanishing_relation(self):
-        """{b, B^{(2)}} = 0 is the main relation."""
+        """{b, B^{(2)}_TCFT} = 0 is the corrected main relation."""
         t = tcft_argument()
-        assert '{b, B^{(2)}} = 0' in t.vanishing_relation
+        assert '{b, B^{(2)}_TCFT} = 0' in t.vanishing_relation
 
     def test_has_hochschild_differential(self):
         """The differential b is the Hochschild differential."""
@@ -265,6 +271,13 @@ class TestTCFT:
         t = tcft_argument()
         assert 'Connes' in t.connes_operator or 'S^1' in t.connes_operator
 
+    def test_secondary_operator_is_corrected(self):
+        """The vanishing relation uses the Costello-corrected operator."""
+        t = tcft_argument()
+        assert 'B^{(2)}_TCFT' in t.secondary_operator
+        assert 'B^{(2)}_term' in t.raw_operator
+        assert 'Costello' in t.corrected_operator
+
     def test_tower_has_b_squared(self):
         """The tower starts with b^2 = 0."""
         t = tcft_argument()
@@ -274,6 +287,11 @@ class TestTCFT:
         """The tower includes {b, B} = 0 (Connes-Tsygan)."""
         t = tcft_argument()
         assert any('{b, B}' in entry for entry in t.tower)
+
+    def test_tower_uses_corrected_b2(self):
+        """The secondary tower entry uses B^{(2)}_TCFT."""
+        t = tcft_argument()
+        assert any('B^{(2)}_TCFT' in entry for entry in t.tower)
 
     def test_tower_has_full_e2(self):
         """The full tower encodes the complete E_2 action."""
@@ -290,10 +308,89 @@ class TestTCFT:
         t = tcft_argument()
         assert 'chiral' in t.interpretation.lower() or 'CHIRAL' in t.interpretation
 
+    def test_raw_termwise_vanishing_rejected(self):
+        """The raw B^{(2)}_term identity is explicitly rejected."""
+        t = tcft_argument()
+        assert 'false' in t.raw_termwise_relation.lower()
+        assert '2 alpha [b]' in t.raw_witness
+
+    def test_termwise_counterexample_data(self):
+        """The strict witness records the nonzero raw commutator."""
+        w = termwise_b2_counterexample()
+        assert isinstance(w, TermwiseB2Witness)
+        assert w.nonzero
+        assert w.commutator_coefficient_in_alpha == F(2)
+        assert w.b2_term_on_word == 'B^{(2)}_term x = 4[a|a|a]'
+        assert w.m3_after_b2_term == 'm_3 B^{(2)}_term x = 4 alpha [b]'
+        assert w.b2_term_after_m3 == 'B^{(2)}_term m_3 x = 2 alpha [b]'
+
+    def test_counterexample_not_compact_cy3_construction(self):
+        """The strict raw witness is not overclaimed as a compact CY3 proof."""
+        w = termwise_b2_counterexample()
+        assert not w.proves_compact_cy3_case
+        assert 'Compact CY_3' in w.conclusion
+
     def test_tcft_verification(self):
         """Verification path: TCFT structure."""
         v = verify_tcft_structure()
         assert v['all_pass']
+
+    def test_tcft_verification_rejects_raw_termwise(self):
+        """The verifier distinguishes raw and corrected operators."""
+        v = verify_tcft_structure()
+        assert v['vanishing_corrected_tcft']
+        assert v['raw_termwise_rejected']
+        assert v['raw_witness_nonzero']
+        assert v['no_compact_cy3_overclaim']
+
+
+# =========================================================================
+# 4b. Framing obstruction boundary tests
+# =========================================================================
+
+class TestFramingObstructionBoundary:
+    """Tests for the BZFN/derived-center proof boundary."""
+
+    def test_bzfn_preserves_e2_center_claims(self):
+        """The valid E_2 center equivalence is preserved."""
+        b = framing_obstruction_boundary()
+        assert isinstance(b, FramingObstructionBoundary)
+        assert any('E_2-monoidal' in claim for claim in b.bzfn_preserved_claims)
+        assert any('ChMod^{E_2}' in claim for claim in b.bzfn_preserved_claims)
+
+    def test_bzfn_does_not_prove_raw_b2_term(self):
+        """BZFN does not prove raw termwise B^{(2)}_term vanishing."""
+        b = framing_obstruction_boundary()
+        assert not b.raw_termwise_vanishing
+        assert any('B^{(2)}_term' in claim for claim in b.bzfn_does_not_prove)
+
+    def test_bzfn_does_not_prove_compact_cy3_global_data(self):
+        """The boundary rejects compact CY3/global Hall overclaims."""
+        b = framing_obstruction_boundary()
+        assert not b.compact_cy3_global_construction_proved
+        assert any('compact Hall' in claim or 'CoHA' in claim for claim in b.bzfn_does_not_prove)
+
+    def test_corrected_tcft_and_hh_minus_2_are_conditional(self):
+        """The heal names the Costello and HH^{-2} hypotheses."""
+        b = framing_obstruction_boundary()
+        assert b.corrected_tcft_total_vanishing
+        assert b.derived_obstruction_vanishes_under_hh_minus_2
+        assert any('Costello' in hyp for hyp in b.required_hypotheses)
+        assert any('HH^{-2}' in hyp or '-2' in hyp for hyp in b.required_hypotheses)
+
+    def test_remaining_obligations_are_named(self):
+        """Concrete compact CY3 work remains a proof obligation."""
+        b = framing_obstruction_boundary()
+        assert any('compact CY_3' in item for item in b.remaining_obligations)
+        assert any('Phi_3' in item or 'Hall' in item for item in b.remaining_obligations)
+
+    def test_boundary_verification(self):
+        """Verification path: BZFN/S^3-framing boundary."""
+        v = verify_framing_obstruction_boundary()
+        assert v['all_pass']
+        assert v['preserves_e2_center_statement']
+        assert v['rejects_raw_termwise']
+        assert v['does_not_prove_global_compact_cy3']
 
 
 # =========================================================================
@@ -690,15 +787,15 @@ class TestFullVerification:
     """Run the complete verification suite."""
 
     def test_full_verification_all_pass(self):
-        """All 8 verification paths pass."""
+        """All verification paths pass."""
         results = full_verification()
         for path_name, path_result in results.items():
             assert path_result.get('all_pass', True), f"Path {path_name} failed"
 
-    def test_full_verification_8_paths(self):
-        """There are exactly 8 verification paths."""
+    def test_full_verification_9_paths(self):
+        """There are exactly 9 verification paths."""
         results = full_verification()
-        assert len(results) == 8
+        assert len(results) == 9
 
 
 # =========================================================================

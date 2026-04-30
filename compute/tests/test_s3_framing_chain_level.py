@@ -8,6 +8,7 @@ Verifies all components of the S^3-framing:
   (5) CY2 -> E_2 (braided), CY3 -> E_1 (associative)
   (6) Connes-framing hierarchy: all relations for d=3
   (7) Multi-path verification: >= 3 independent checks per claim
+  (8) Compact CY3 closure is conditional, not automatic
 
 Every test uses AT LEAST 3 independent verification paths (AP10).
 
@@ -28,20 +29,28 @@ from fractions import Fraction
 import pytest
 
 from compute.lib.s3_framing_chain_level import (
+    BTCFT2ComparisonDatum,
     CY2vsCY3Comparison,
+    CompactCY3S3ClosureVerdict,
     ConifoldS3Framing,
     ConnesFramingHierarchy,
     ConnesOperator,
     CyclicBarElement,
     CyclicGenerator,
     EnFromFraming,
+    HHMinusTwoFiltrationTheorem,
     HocolimObstruction,
     JordanQuiverS3Framing,
+    RawBTerm2Witness,
     S2FramingMap,
     S3FramingMap,
     SdFramingData,
+    compact_cy3_s3_closure_verdict,
+    complete_b_tcft2_comparison_datum,
+    complete_hh_minus_two_filtration_theorem,
     compute_hocolim_obstruction,
     master_s3_framing_verification,
+    raw_b_term2_witness,
     _euler_function,
     _fps_inv,
     _fps_mul,
@@ -672,6 +681,101 @@ class TestHocolimObstruction:
 
 
 # ================================================================
+# SECTION 8b: COMPACT CY3 CLOSURE SCOPE
+# ================================================================
+
+class TestCompactCY3ClosureScope:
+    """Compact CY3 S^3 closure is conditional, not automatic."""
+
+    def test_raw_b_term2_witness_exact_formula(self):
+        """The raw B_term^{(2)} witness is exactly nonzero."""
+        witness = raw_b_term2_witness(alpha=Fraction(1))
+        assert isinstance(witness, RawBTerm2Witness)
+        assert witness.input_word == ("a", "a", "a", "a", "b")
+        assert witness.b_term2_of_input == {("a", "a", "a"): Fraction(4)}
+        assert witness.m3_after_b_term2 == {("b",): Fraction(4)}
+        assert witness.b_term2_after_m3 == {("b",): Fraction(2)}
+        assert witness.commutator == {("b",): Fraction(2)}
+        assert witness.coefficient_on_b == Fraction(2)
+        assert witness.nonzero
+        assert witness.formula == (
+            "[m_3,B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0"
+        )
+
+    def test_raw_b_term2_witness_scales_with_alpha(self):
+        """The witness coefficient is 2 alpha."""
+        witness = raw_b_term2_witness(alpha=Fraction(3, 7))
+        assert witness.coefficient_on_b == Fraction(6, 7)
+        assert witness.nonzero
+
+    def test_default_compact_closure_rejects_automatic_mechanisms(self):
+        """No automatic route closes the compact CY3 chain-level problem."""
+        verdict = compact_cy3_s3_closure_verdict()
+        assert isinstance(verdict, CompactCY3S3ClosureVerdict)
+        assert verdict.raw_operator == "B_term^{(2)}"
+        assert verdict.corrected_operator == "B_TCFT^{(2)}"
+        assert verdict.raw_witness.nonzero
+        assert not verdict.raw_b_term_closes
+        assert not verdict.corrected_tcft_identity_established
+        assert not verdict.hh_minus_two_vanishing_established
+        assert not verdict.compact_chain_level_closure_established
+        assert verdict.theorem_status == "open_requires_corrected_tcft_or_hh_minus_two"
+
+        rejected = verdict.rejected_automatic_mechanisms
+        assert "unit-connectedness" in rejected
+        assert "Goodwillie calculus" in rejected
+        assert "Dunn additivity" in rejected
+        assert "DGMS/BTT/Kaledin formality" in rejected
+        assert "Cech-HTT convergence" in rejected
+        assert "raw B_term^{(2)} cancellation" in rejected
+
+        required = " ".join(verdict.required_hypotheses)
+        assert "comparison map" in required
+        assert "complete" in required
+        assert "exhaustive" in required
+        assert "separated" in required
+        assert "strong convergence" in required
+        assert "empty total-degree -2 line" in required
+
+    def test_unit_connectedness_only_is_not_hh_minus_two_theorem(self):
+        """Unit-connectedness alone leaves HH^{-2} open."""
+        theorem = HHMinusTwoFiltrationTheorem(
+            connective_unit_connected_model=True
+        )
+        assert not theorem.proved
+        assert "comparison map to S^3 obstruction complex" in theorem.missing_hypotheses
+        assert "complete HH^{-2} filtration" in theorem.missing_hypotheses
+        assert "exhaustive HH^{-2} filtration" in theorem.missing_hypotheses
+        assert "separated HH^{-2} filtration" in theorem.missing_hypotheses
+        assert "strong convergence to HH^{-2}" in theorem.missing_hypotheses
+        assert "empty total-degree -2 line" in theorem.missing_hypotheses
+
+    def test_corrected_tcft_datum_conditionally_closes_corrected_route(self):
+        """Complete corrected TCFT data closes only the corrected route."""
+        datum = complete_b_tcft2_comparison_datum()
+        assert isinstance(datum, BTCFT2ComparisonDatum)
+        assert datum.complete
+        verdict = compact_cy3_s3_closure_verdict(tcft_datum=datum)
+        assert verdict.corrected_tcft_identity_established
+        assert verdict.compact_chain_level_closure_established
+        assert verdict.raw_witness.nonzero
+        assert not verdict.raw_b_term_closes
+        assert verdict.required_hypotheses == ()
+
+    def test_hh_minus_two_theorem_conditionally_closes_primary_route(self):
+        """The HH^{-2} route closes only with the full filtration theorem."""
+        theorem = complete_hh_minus_two_filtration_theorem()
+        assert isinstance(theorem, HHMinusTwoFiltrationTheorem)
+        assert theorem.proved
+        verdict = compact_cy3_s3_closure_verdict(hh_theorem=theorem)
+        assert verdict.hh_minus_two_vanishing_established
+        assert verdict.compact_chain_level_closure_established
+        assert verdict.raw_witness.nonzero
+        assert not verdict.raw_b_term_closes
+        assert verdict.required_hypotheses == ()
+
+
+# ================================================================
 # SECTION 9: CY2 vs CY3 COMPARISON
 # ================================================================
 
@@ -979,6 +1083,16 @@ class TestMasterVerification:
         # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(bf["terms"]) == 4
 
+    def test_master_compact_cy3_closure_scope(self):
+        """Master verification records compact CY3 closure as open."""
+        result = master_s3_framing_verification()
+        closure = result["compact_cy3_closure"]
+        assert closure.raw_witness.nonzero
+        assert closure.raw_witness.coefficient_on_b == Fraction(2)
+        assert not closure.raw_b_term_closes
+        assert not closure.compact_chain_level_closure_established
+        assert closure.theorem_status == "open_requires_corrected_tcft_or_hh_minus_two"
+
 
 # ================================================================
 # SECTION 13: CROSS-CONSISTENCY WITH EXISTING MODULES
@@ -1052,20 +1166,24 @@ class TestCrossConsistency:
                 f"B^2 != 0 at bar degree {n}"
 
     def test_framing_obstruction_consistent(self):
-        """S^3 obstruction vanishes, consistent with e1_universality_cy3.
+        """Topological S^3 vanishing does not close compact CY3 chains.
 
         Three independent paths:
           Path 1: pi_3(BU) = 0 (Bott periodicity, this module)
-          Path 2: pi_3(BSp(2m)) = 0 (symplectic path, e1_universality)
-          Path 3: Holomorphic CS trivialization (cy_to_chiral.tex)
+          Path 2: raw B_term^{(2)} witness is nonzero
+          Path 3: compact closure requires corrected TCFT or HH^{-2} data
         """
         en = EnFromFraming()
         # Path 1 (this module)
         assert en.framing_obstruction_trivial(3)
         # VERIFIED [DC] consistency check [LC] boundary/limiting case
         assert en.framing_obstruction_group(3) == "0"
-        # Path 2: pi_3(BSp) = pi_2(Sp) = 0 for all compact simply connected
-        # simple Lie groups
-        # (verified in e1_universality_cy3.py:verify_pi3_bsp_vanishes)
-        # Path 3: holomorphic CS provides chain-level trivialization
-        # (stated in cy_to_chiral.tex:thm:s3-framing-vanishes)
+        # Path 2 and 3: the compact chain-level surface remains conditional.
+        verdict = compact_cy3_s3_closure_verdict()
+        assert verdict.raw_witness.formula == (
+            "[m_3,B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0"
+        )
+        assert verdict.raw_witness.nonzero
+        assert not verdict.raw_b_term_closes
+        assert not verdict.compact_chain_level_closure_established
+        assert "unit-connectedness" in verdict.rejected_automatic_mechanisms

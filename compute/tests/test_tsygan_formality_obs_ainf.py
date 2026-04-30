@@ -1,840 +1,349 @@
-r"""Tests for the Tsygan formality resolution of Obs_{A_\infty}.
+r"""Tests for the repaired Tsygan/Costello obstruction engine.
 
-Verifies:
-  (1) Tsygan formality theorem: applicability to CY3 algebras
-  (2) Costello extension: B^{(2)} coverage, full hierarchy
-  (3) Gap analysis: chain-level gap exists, cohomology gap closed
-  (4) Non-adjacent contraction enumeration and counting
-  (5) Proof structure: 7 steps, each justified
-  (6) Chain-level vs cohomological distinction
-  (7) Local P^2 explicit computation
-  (8) Comparison: Tsygan gives what the programme needs
-  (9) Upgraded obstruction landscape
-  (10) Master verification
+The regression target is the false strengthening:
 
-Every test uses AT LEAST 3 independent verification paths (AP10).
+    Tsygan-Costello formality proves [m_k, B^{(2)}_term] = 0, or at least
+    exact, and therefore closes the compact S^3-framing programme.
 
-Mathematical references:
-  Tsygan, arXiv:math/9904132 (1999)
-  Costello, arXiv:math/0412149 (2004)
-  Kontsevich-Soibelman, arXiv:math/0606241 (2006)
-  Lorgat Vol III: cy_to_chiral.tex, cyclic_ainf.tex
+The corrected facts are:
+
+* the raw termwise operator has a strict nonzero cyclic CY3 witness;
+* Costello concerns a corrected TCFT operator with correction data;
+* a cohomological statement is conditional on a named complex, comparison
+  map, and hypotheses.
 """
 
+from collections import Counter
 from fractions import Fraction
-
-import pytest
+from pathlib import Path
 
 from compute.lib.tsygan_formality_obs_ainf import (
-    TsyganFormalityData,
+    COMPARISON_MAP,
+    DERIVED_E1_COMPLEX,
+    FILTERED_HYPOTHESIS,
+    OBSTRUCTION_COMPLEX,
+    ChainVsCohomologyDistinction,
     CostelloTCFTFormality,
     GapAnalysis,
-    NonAdjacentContractionTerm,
-    TsyganProofStep,
-    TsyganComparison,
-    ChainVsCohomologyDistinction,
     LocalP2Data,
-    ObsAinfResolution,
-    CommutatorTerm,
-    enumerate_non_adjacent_terms,
-    count_non_adjacent_terms,
-    construct_proof,
-    compute_non_adjacent_terms_local_p2,
+    NonAdjacentContractionTerm,
+    TsyganComparison,
+    TsyganFormalityData,
     compute_commutator_m3_b2_local_p2,
-    resolve_obs_ainf,
-    verify_tsygan_resolution,
+    compute_non_adjacent_terms_local_p2,
+    construct_proof,
+    count_non_adjacent_terms,
+    enumerate_non_adjacent_terms,
     non_adjacent_term_table,
+    resolve_obs_ainf,
+    strict_cyclic_cy3_witness,
     upgraded_obstruction_landscape,
+    verify_tsygan_resolution,
 )
 
 F = Fraction
 
+ROOT = Path(__file__).resolve().parents[2]
+STANDALONE = ROOT / "standalone" / "m3_b2_obstruction_vol3.tex"
 
-# ================================================================
-# SECTION 1: TSYGAN FORMALITY THEOREM
-# ================================================================
+PAIRING = {
+    ("e", "w"): F(1),
+    ("w", "e"): F(1),
+    ("a", "b"): F(1),
+    ("b", "a"): F(1),
+}
 
-class TestTsyganFormality:
-    """Tests for Tsygan's formality theorem and its applicability."""
 
-    def test_applies_to_cy3(self):
-        """Tsygan formality applies to CY3 algebras.
+def terminal_slot_b2(word):
+    """Independent terminal-slot B_term convention from the standalone."""
+    word = tuple(word)
+    terminal = word[-1]
+    out = Counter()
+    for idx, entry in enumerate(word[:-1]):
+        coeff = PAIRING.get((entry, terminal), F(0))
+        if coeff:
+            reduced = word[:idx] + word[idx + 1:-1]
+            out[reduced] += coeff
+    return Counter({key: value for key, value in out.items() if value})
 
-        Path 1: CY3 algebras are smooth over C (char 0).
-        Path 2: Tsygan requires smooth + char 0, both satisfied.
-        Path 3: Costello's extension covers CY categories specifically.
-        """
+
+def m3_bar(word, alpha=F(1)):
+    """Independent strict witness operation m_3(a,a,a)=alpha b."""
+    word = tuple(word)
+    out = Counter()
+    for start in range(len(word) - 2):
+        if word[start:start + 3] == ("a", "a", "a"):
+            reduced = word[:start] + ("b",) + word[start + 3:]
+            out[reduced] += alpha
+    return Counter({key: value for key, value in out.items() if value})
+
+
+def compose(first, second, word):
+    total = Counter()
+    for mid, coeff_mid in first(word).items():
+        for out, coeff_out in second(mid).items():
+            total[out] += coeff_mid * coeff_out
+    return Counter({key: value for key, value in total.items() if value})
+
+
+def subtract(left, right):
+    total = Counter(left)
+    for key, value in right.items():
+        total[key] -= value
+    return Counter({key: value for key, value in total.items() if value})
+
+
+class TestTsyganMixedComplexScope:
+    """Tsygan formality is not a raw B^{(2)}_term theorem."""
+
+    def test_mixed_complex_applies_but_raw_b2_not_covered(self):
         data = TsyganFormalityData()
-        # VERIFIED [DC] mathematical theorem [LT] Tsygan 1999
         assert data.applies_to_cy3()
-
-    def test_applies_to_all_cy_dimensions(self):
-        """Tsygan formality applies to CY_d for all d >= 1.
-
-        Path 1: CY_d algebras are smooth for all d.
-        Path 2: The char 0 condition is always satisfied (working over C).
-        Path 3: Direct check for d = 1, 2, 3.
-        """
-        data = TsyganFormalityData()
-        for d in [1, 2, 3, 4, 5]:
-            assert data.applies_to_cy_d(d)
-
-    def test_not_chain_level(self):
-        """Tsygan formality does NOT give chain-level [m_k, B^{(2)}] = 0.
-
-        Path 1: The formality is at the quasi-isomorphism level.
-        Path 2: Chain-level identity would be strictly stronger.
-        Path 3: For non-formal algebras, the chain-level commutator
-                 is generically nonzero.
-        """
-        data = TsyganFormalityData()
-        # VERIFIED [DC] mathematical distinction [LT] Tsygan's statement
-        assert not data.gives_chain_level_vanishing()
-        assert data.gives_cohomological_vanishing()
-
-    def test_formality_is_quasi_isomorphism(self):
-        """The formality map is a quasi-isomorphism of mixed complexes.
-
-        Path 1: Tsygan's theorem statement.
-        Path 2: Preserves (b, B) mixed complex structure.
-        Path 3: The map intertwines Connes operator B.
-        """
-        data = TsyganFormalityData()
-        assert data.formality_level == "quasi-isomorphism"
+        assert data.applies_to_cy_d(5)
         assert data.preserves_mixed_complex
         assert data.preserves_connes_operator
+        assert not data.raw_b2_termwise_covered
 
-    def test_requirements(self):
-        """Tsygan requires smooth algebra over char 0.
-
-        Path 1: Smooth is required (excludes singular algebras).
-        Path 2: Char 0 is required (excludes char p).
-        Path 3: Proper is NOT required by Tsygan (but IS by Costello).
-        """
+    def test_no_chain_or_class_vanishing_from_tsygan_alone(self):
         data = TsyganFormalityData()
-        assert data.requires_smooth
-        assert data.requires_char_zero
-        assert not data.requires_proper  # Tsygan doesn't need proper
+        assert not data.gives_chain_level_vanishing()
+        assert not data.gives_cohomological_vanishing()
+        assert data.requires_b2_comparison_data()
+        assert data.formality_level == "mixed-complex quasi-isomorphism"
 
 
-# ================================================================
-# SECTION 2: COSTELLO EXTENSION
-# ================================================================
+class TestCostelloCorrectedOperator:
+    """Costello's theorem is a corrected total TCFT identity."""
 
-class TestCostelloExtension:
-    """Tests for Costello's extension to CY categories."""
-
-    def test_b2_is_formal_for_cy3(self):
-        """B^{(2)} is covered by formality for CY3 (d >= 2).
-
-        Path 1: The Connes hierarchy has d+1 levels for CY_d.
-        Path 2: B^{(2)} exists for d >= 2.
-        Path 3: Costello's TCFT formality covers the full hierarchy.
-        """
+    def test_corrected_b2_available_in_cy3(self):
         data = CostelloTCFTFormality(cy_dimension=3)
-        # VERIFIED [DC] Costello Thm A [LT] arXiv:math/0412149
+        assert data.connes_hierarchy_levels() == 4
         assert data.b2_is_formal()
-
-    def test_b2_not_available_for_cy1(self):
-        """B^{(2)} does not exist for CY1 (only B^{(0)} and B^{(1)}).
-
-        Path 1: CY_1 Connes hierarchy has 2 levels: B^{(0)}, B^{(1)}.
-        Path 2: B^{(2)} requires d >= 2.
-        Path 3: For d=1, the S^1-framing is classical (no B^{(2)} needed).
-        """
-        data = CostelloTCFTFormality(cy_dimension=1)
-        assert not data.b2_is_formal()
-        assert data.connes_hierarchy_levels() == 2
-
-    def test_connes_hierarchy_levels(self):
-        """CY_d has d+1 levels in the Connes hierarchy.
-
-        Path 1: B^{(0)}, B^{(1)}, ..., B^{(d)}: total d+1.
-        Path 2: For d=3: B^{(0)}=B, B^{(1)}, B^{(2)}, B^{(3)}=F: 4 levels.
-        Path 3: For d=2: B^{(0)}=B, B^{(1)}, B^{(2)}=F: 3 levels.
-        """
-        for d in [1, 2, 3, 4]:
-            data = CostelloTCFTFormality(cy_dimension=d)
-            # VERIFIED [DC] counting formula [LT] d+1 levels
-            assert data.connes_hierarchy_levels() == d + 1
-
-    def test_full_hierarchy_formal(self):
-        """The full Connes hierarchy is formal.
-
-        Path 1: Costello's TCFT formality is operadic.
-        Path 2: The Connes hierarchy is part of the operadic structure.
-        Path 3: Full hierarchy formality follows from operadic formality.
-        """
-        data = CostelloTCFTFormality(cy_dimension=3)
         assert data.full_hierarchy_formal()
+        assert data.total_tcft_identity_holds()
 
-    def test_formality_map_not_canonical(self):
-        """The formality map exists but is not canonical.
-
-        Path 1: Depends on SDR (strong deformation retract) data.
-        Path 2: Different choices give different (but homotopic) maps.
-        Path 3: Existence is guaranteed; explicit form requires choices.
-        """
+    def test_no_raw_or_per_k_identity(self):
         data = CostelloTCFTFormality(cy_dimension=3)
+        assert not data.termwise_identity_holds()
+        assert not data.raw_term_operator_identified()
         assert not data.formality_map_explicit()
 
-
-# ================================================================
-# SECTION 3: GAP ANALYSIS
-# ================================================================
-
-class TestGapAnalysis:
-    """Tests for the gap analysis between (G1) and (G2)."""
-
-    def test_chain_level_gap_exists(self):
-        """There IS a gap between cyclic invariance and bar compatibility
-        at the chain level.
-
-        Path 1: Non-adjacent contractions are not controlled by (G1).
-        Path 2: The audit remark identifies this explicitly.
-        Path 3: The chain-level commutator is nonzero for local P^2.
-        """
-        gap = GapAnalysis()
-        # VERIFIED [DC] logical analysis [LT] rem:adversarial-audit-cyclic-ainf
-        assert gap.gap_exists_chain_level()
-
-    def test_cohomology_gap_closed(self):
-        """The gap is CLOSED at the cohomology level.
-
-        Path 1: Tsygan formality transfers to cohomology.
-        Path 2: On cohomology, Stasheff + cyclic invariance control all terms.
-        Path 3: The resolution mechanism is Tsygan-Costello formality.
-        """
-        gap = GapAnalysis()
-        assert gap.gap_closed_cohomology()
-        assert gap.resolution_mechanism == "Tsygan-Costello formality"
-
-    def test_gap_statements(self):
-        """The two conflated statements are correctly identified.
-
-        Path 1: (G1) is cyclic invariance (definition).
-        Path 2: (G2) is bar-level compatibility (the claim).
-        Path 3: (G1) != (G2) at the chain level.
-        """
-        gap = GapAnalysis()
-        assert "m_n" in gap.g1_cyclic_invariance
-        assert "m_k" in gap.g2_bar_compatibility
-        assert gap.chain_level_gap  # (G1) does not imply (G2) on chains
-        assert not gap.cohomology_level_gap  # (G1) implies (G2) in cohomology
-
-
-# ================================================================
-# SECTION 4: NON-ADJACENT CONTRACTION ENUMERATION
-# ================================================================
-
-class TestNonAdjacentContractions:
-    """Tests for non-adjacent contraction term enumeration."""
-
-    def test_no_non_adjacent_for_small_bar(self):
-        """No non-adjacent terms for bar length < k + 2.
-
-        Path 1: m_3 on CC_3: all positions adjacent (only 3 positions).
-        Path 2: m_3 on CC_4: only 1 position outside block, always adjacent.
-        Path 3: By enumeration.
-        """
-        terms_3 = enumerate_non_adjacent_terms(3, 3)
-        terms_4 = enumerate_non_adjacent_terms(4, 3)
-        # VERIFIED [DC] enumeration [LT] direct counting
-        assert len(terms_3) == 0  # no room for outside factor
-        assert all(t.is_adjacent() or t.controlled_by_cyclic_invariance()
-                    for t in terms_4)
-
-    def test_non_adjacent_exist_at_bar_5(self):
-        """Non-adjacent terms exist for CC_5 with m_3.
-
-        Path 1: m_3 at {0,1,2}, outside at {4}: non-adjacent.
-        Path 2: m_3 at {2,3,4}, outside at {0}: non-adjacent.
-        Path 3: count_non_adjacent_terms(5, 3) > 0.
-        """
-        count = count_non_adjacent_terms(5, 3)
-        # VERIFIED [DC] enumeration [LT] direct counting
-        assert count > 0
-
-    def test_all_terms_controlled_by_tsygan(self):
-        """All non-adjacent terms ARE controlled by Tsygan formality.
-
-        Path 1: Tsygan formality is universal (applies to all terms).
-        Path 2: Each NonAdjacentContractionTerm has controlled_by_tsygan = True.
-        Path 3: The cohomological vanishing is unconditional.
-        """
-        terms = enumerate_non_adjacent_terms(6, 3)
-        for t in terms:
-            assert t.controlled_by_tsygan_formality()
-
-    def test_non_adjacent_grows_with_bar_length(self):
-        """Non-adjacent term count grows with bar length.
-
-        Path 1: More positions = more non-adjacent pairs.
-        Path 2: Polynomial growth (not constant).
-        Path 3: Monotone for n >= k + 2.
-        """
-        counts = [count_non_adjacent_terms(n, 3) for n in range(5, 11)]
-        # VERIFIED [DC] monotonicity [LT] polynomial growth
-        for i in range(1, len(counts)):
-            assert counts[i] >= counts[i - 1]
-
-    def test_adjacency_classification(self):
-        """Terms are correctly classified as adjacent/non-adjacent.
-
-        Path 1: Adjacent means outside position = mk_start - 1 or mk_start + k.
-        Path 2: Non-adjacent means strictly further from the block.
-        Path 3: Explicit check for small examples.
-        """
-        t_adj = NonAdjacentContractionTerm(
-            bar_length=6, mk_arity=3, mk_start=1,
-            contraction_inside=2, contraction_outside=0,
-        )
-        assert t_adj.is_adjacent()  # position 0 = mk_start - 1 = 0
-
-        t_non = NonAdjacentContractionTerm(
-            bar_length=6, mk_arity=3, mk_start=1,
-            contraction_inside=2, contraction_outside=5,
-        )
-        assert not t_non.is_adjacent()  # position 5 != 0 and != 4
-
-    def test_term_table(self):
-        """Non-adjacent term table is consistent.
-
-        Path 1: Table entries match individual computations.
-        Path 2: Table has correct number of rows.
-        Path 3: mk_arity is consistent across rows.
-        """
-        table = non_adjacent_term_table(max_bar_length=8, mk_arity=3)
-        assert len(table) == 8 - 3 + 1  # bar lengths 3 through 8
-        for row in table:
-            assert row["mk_arity"] == 3
-            assert row["non_adjacent"] == count_non_adjacent_terms(
-                row["bar_length"], 3
-            )
-
-
-# ================================================================
-# SECTION 5: PROOF STRUCTURE
-# ================================================================
-
-class TestProofStructure:
-    """Tests for the 7-step proof of [Obs_Ainf] = 0."""
-
-    def test_proof_has_seven_steps(self):
-        """The proof has exactly 7 steps.
-
-        Path 1: Steps 1-7 as enumerated in the docstring.
-        Path 2: construct_proof() returns 7 elements.
-        Path 3: Steps are numbered 1 through 7.
-        """
-        steps = construct_proof()
-        # VERIFIED [DC] step count [LT] 7-step argument
-        assert len(steps) == 7
-        assert [s.number for s in steps] == list(range(1, 8))
-
-    def test_step_1_tsygan(self):
-        """Step 1: Tsygan formality (Phi_T exists).
-
-        Path 1: Status is "Tsygan" (external theorem).
-        Path 2: Statement mentions quasi-isomorphism.
-        Path 3: Justification cites arXiv:math/9904132.
-        """
-        steps = construct_proof()
-        s1 = steps[0]
-        assert s1.status == "Tsygan"
-        assert "quasi-isomorphism" in s1.statement
-        assert "9904132" in s1.justification
-
-    def test_step_2_costello(self):
-        """Step 2: Costello extension to full hierarchy.
-
-        Path 1: Status is "Costello" (external theorem).
-        Path 2: Statement mentions B^{(2)} and A_infinity.
-        Path 3: Justification cites arXiv:math/0412149.
-        """
-        steps = construct_proof()
-        s2 = steps[1]
-        assert s2.status == "Costello"
-        assert "B^{(2)}" in s2.statement or "hierarchy" in s2.statement
-        assert "0412149" in s2.justification
-
-    def test_step_5_key_step(self):
-        """Step 5: [m_k^formal, B^{(2),formal}] = 0 (the key step).
-
-        Path 1: This is where cyclic invariance + Stasheff JOINTLY work.
-        Path 2: Status is "proved" (not external).
-        Path 3: Justification mentions Stasheff relations.
-        """
-        steps = construct_proof()
-        s5 = steps[4]
-        assert s5.status == "proved"
-        assert "Stasheff" in s5.justification
-
-    def test_step_7_conclusion(self):
-        """Step 7: [Obs_Ainf] = 0 in cohomology.
-
-        Path 1: The final conclusion.
-        Path 2: Mentions "zero" or "vanishes".
-        Path 3: Status is "proved".
-        """
-        steps = construct_proof()
-        s7 = steps[6]
-        assert s7.status == "proved"
-        assert "0" in s7.statement or "vanish" in s7.statement.lower()
-
-    def test_all_steps_have_justification(self):
-        """Every step has a non-empty justification.
-
-        Path 1: No step has empty justification.
-        Path 2: Each justification cites a reference or argument.
-        Path 3: No step is unjustified.
-        """
-        steps = construct_proof()
-        for step in steps:
-            assert len(step.justification) > 0
-            assert len(step.statement) > 0
-
-
-# ================================================================
-# SECTION 6: CHAIN-LEVEL vs COHOMOLOGICAL DISTINCTION
-# ================================================================
-
-class TestChainVsCohomology:
-    """Tests for the chain-level vs cohomological distinction."""
-
-    def test_chain_level_fails(self):
-        """Chain-level [m_k, B^{(2)}] = 0 does NOT hold generically.
-
-        Path 1: Non-formal algebras have nonzero commutator.
-        Path 2: Local P^2 is a concrete counterexample.
-        Path 3: The distinction object reports this correctly.
-        """
-        d = ChainVsCohomologyDistinction()
-        # VERIFIED [DC] mathematical fact [LT] non-formal counterexample
-        assert not d.chain_level_identity_holds()
-
-    def test_cohomological_vanishing_holds(self):
-        """Cohomological vanishing DOES hold universally.
-
-        Path 1: Tsygan formality gives this.
-        Path 2: The obstruction CLASS is zero.
-        Path 3: This is unconditional (no dependence on CY-A_3).
-        """
-        d = ChainVsCohomologyDistinction()
-        assert d.cohomological_vanishing_holds()
-
-    def test_homotopy_coherent_vanishing(self):
-        """Homotopy-coherent vanishing holds: [m_k, B^{(2)}] = d(h_k).
-
-        Path 1: Equivalent to cohomological vanishing.
-        Path 2: The homotopy h_k exists (non-canonically).
-        Path 3: Existence guaranteed by Tsygan.
-        """
-        d = ChainVsCohomologyDistinction()
-        assert d.homotopy_coherent_vanishing_holds()
-
-    def test_programme_needs_cohomological(self):
-        """The S^3-framing programme needs cohomological vanishing.
-
-        Path 1: The obstruction is a class in a cohomology group.
-        Path 2: The Hopf decomposition is of classes.
-        Path 3: The S^3-framing is defined up to quasi-isomorphism.
-        """
-        d = ChainVsCohomologyDistinction()
-        assert d.which_is_needed_for_programme() == "cohomological"
-
-    def test_formal_algebras_are_strict(self):
-        """Formal algebras have strict chain-level vanishing.
-
-        Path 1: m_k = 0 for k >= 3 implies [m_k, B^{(2)}] = 0 trivially.
-        Path 2: C^3, conifold, K3 x E are formal.
-        Path 3: The gap is specific to non-formal algebras.
-        """
-        d = ChainVsCohomologyDistinction()
-        # VERIFIED [DC] formal case [LT] trivial
-        assert d.formal_algebras_are_strict()
-
-    def test_non_formal_gap_resolved(self):
-        """The non-formal gap IS resolved (at cohomological level).
-
-        Path 1: Tsygan-Costello formality.
-        Path 2: Universal argument (no case-by-case).
-        Path 3: Local P^2 and quintic are covered.
-        """
-        d = ChainVsCohomologyDistinction()
-        assert d.non_formal_gap_resolved()
-
-
-# ================================================================
-# SECTION 7: LOCAL P^2 EXPLICIT COMPUTATION
-# ================================================================
-
-class TestLocalP2:
-    """Tests for the explicit local P^2 data and computation."""
-
-    def test_local_p2_is_non_formal(self):
-        """Local P^2 is non-formal: m_3 != 0.
-
-        Path 1: The cubic potential W = det generates m_3.
-        Path 2: is_formal() returns False.
-        Path 3: has_nontrivial_m3() returns True.
-        """
-        data = LocalP2Data()
-        # VERIFIED [DC] A_infinity structure [LT] quiver with potential
-        assert not data.is_formal()
-        assert data.has_nontrivial_m3()
-
-    def test_generator_count(self):
-        """Local P^2 has the correct number of generators.
-
-        Path 1: 3 objects + 6 degree-1 + 6 degree-2 + 3 degree-3 = 18.
-        Path 2: Direct count from generators dict.
-        Path 3: Ext dimensions: 3 + 6 + 6 + 3 = 18.
-        """
-        data = LocalP2Data()
-        dims = data.ext_dimensions()
-        total = sum(dims.values())
-        # VERIFIED [DC] Ext computation [LT] 3-Kronecker quiver
-        assert total == 18
-        assert dims[0] == 3
-        assert dims[1] == 6
-        assert dims[2] == 6
-        assert dims[3] == 3
-
-    def test_m3_data_has_entries(self):
-        """m_3 data is non-empty with correct signs.
-
-        Path 1: At least one m_3 triple is nonzero.
-        Path 2: The determinant potential produces +/- signs.
-        Path 3: Cyclic permutations have the same sign.
-        """
-        data = LocalP2Data()
-        nonzero_triples = [
-            (triple, terms)
-            for triple, terms in data.m3_data.items()
-            if any(c != 0 for _, c in terms)
-        ]
-        assert len(nonzero_triples) > 0
-
-    def test_cy_pairing_is_nondegenerate(self):
-        """The CY pairing is non-degenerate.
-
-        Path 1: Every generator has at least one nonzero pairing partner.
-        Path 2: The pairing respects degree: <a,b> != 0 only if |a|+|b| = 3.
-        Path 3: The pairing is non-degenerate on each Ext^i x Ext^{3-i}.
-        """
-        data = LocalP2Data()
-        # Check that every degree-0 generator pairs nontrivially with a degree-3
-        paired_0 = set()
-        paired_3 = set()
-        for (g1, g2), val in data.cy_pairing.items():
-            if val != 0:
-                if data.generators.get(g1, -1) == 0:
-                    paired_0.add(g1)
-                if data.generators.get(g2, -1) == 3:
-                    paired_3.add(g2)
-        assert len(paired_0) == 3  # e_0, e_1, e_2
-        assert len(paired_3) == 3  # omega_0, omega_1, omega_2
-
-    def test_commutator_m3_b2_explicit(self):
-        """Explicit computation of [m_3, B^{(2)}] for local P^2.
-
-        Path 1: Non-adjacent terms exist.
-        Path 2: Chain-level vanishing is FALSE.
-        Path 3: Cohomological vanishing is TRUE (Tsygan).
-        """
-        result = compute_commutator_m3_b2_local_p2(bar_length=5)
-        # VERIFIED [DC] explicit computation [LT] enumeration
-        assert result["non_adjacent_terms"] > 0
+    def test_b2_not_available_in_cy1(self):
+        data = CostelloTCFTFormality(cy_dimension=1)
+        assert data.connes_hierarchy_levels() == 2
+        assert not data.b2_is_formal()
+        assert not data.total_tcft_identity_holds()
+
+
+class TestStrictCyclicCY3Witness:
+    """Exact arithmetic for the strict nonzero witness."""
+
+    def test_engine_witness_is_nonzero(self):
+        result = strict_cyclic_cy3_witness()
+        assert result["B_term_then_m3"] == Counter({("b",): F(4)})
+        assert result["m3_then_B_term"] == Counter({("b",): F(2)})
+        assert result["commutator"] == Counter({("b",): F(2)})
+        assert result["commutator"] == result["expected"]
         assert not result["chain_level_vanishing"]
-        assert result["cohomological_vanishing"]
+        assert not result["cohomological_vanishing_established"]
+        assert result["comparison_data_required"]
 
-    def test_non_adjacent_terms_local_p2(self):
-        """Non-adjacent terms exist for local P^2 at bar length 5.
+    def test_independent_recomputation_matches_engine(self):
+        word = ("a", "a", "a", "a", "b")
+        b2_then_m3 = compose(terminal_slot_b2, m3_bar, word)
+        m3_then_b2 = compose(m3_bar, terminal_slot_b2, word)
+        commutator = subtract(b2_then_m3, m3_then_b2)
+        assert terminal_slot_b2(word) == Counter({("a", "a", "a"): F(4)})
+        assert b2_then_m3 == Counter({("b",): F(4)})
+        assert m3_then_b2 == Counter({("b",): F(2)})
+        assert commutator == strict_cyclic_cy3_witness()["commutator"]
 
-        Path 1: compute_non_adjacent_terms_local_p2 returns positive count.
-        Path 2: The non-adjacent count matches enumerate_non_adjacent_terms.
-        Path 3: These terms are the source of the gap in the original proof.
-        """
-        result = compute_non_adjacent_terms_local_p2(bar_length=5)
-        assert result["non_adjacent_count"] > 0
-        assert result["cohomological_vanishing"]
+    def test_alpha_scaling(self):
+        result = strict_cyclic_cy3_witness(alpha=F(3, 2))
+        assert result["commutator"] == Counter({("b",): F(3)})
+        assert result["expected"] == Counter({("b",): F(3)})
 
 
-# ================================================================
-# SECTION 8: COMPARISON AND SUFFICIENCY
-# ================================================================
+class TestGapAndNonAdjacentTerms:
+    """Raw non-adjacent contractions are not killed by cyclicity or Tsygan."""
 
-class TestComparison:
-    """Tests for the comparison between Tsygan and programme needs."""
+    def test_gap_remains_for_raw_target(self):
+        gap = GapAnalysis()
+        assert gap.gap_exists_chain_level()
+        assert not gap.gap_closed_cohomology()
+        assert gap.chain_level_gap
+        assert gap.cohomology_level_gap
+        assert "HH^{-2}" in gap.why_cohomology_suffices()
+        assert "theta_TCFT" in gap.why_cohomology_suffices()
 
-    def test_tsygan_sufficient(self):
-        """Tsygan formality IS sufficient for the programme.
+    def test_non_adjacent_terms_start_at_bar_length_five(self):
+        assert count_non_adjacent_terms(3, 3) == 0
+        assert count_non_adjacent_terms(4, 3) == 0
+        assert count_non_adjacent_terms(5, 3) > 0
 
-        Path 1: Programme needs cohomological vanishing.
-        Path 2: Tsygan gives cohomological vanishing.
-        Path 3: sufficient_for_programme() returns True.
-        """
+    def test_non_adjacent_term_requires_comparison(self):
+        term = NonAdjacentContractionTerm(
+            bar_length=6,
+            mk_arity=3,
+            mk_start=1,
+            contraction_inside=2,
+            contraction_outside=5,
+        )
+        assert not term.is_adjacent()
+        assert not term.controlled_by_cyclic_invariance()
+        assert not term.controlled_by_tsygan_formality()
+        assert term.requires_tcft_comparison()
+
+    def test_table_matches_enumeration(self):
+        table = non_adjacent_term_table(max_bar_length=8, mk_arity=3)
+        assert len(table) == 6
+        for row in table:
+            terms = enumerate_non_adjacent_terms(row["bar_length"], 3)
+            assert row["non_adjacent"] == len(terms)
+
+
+class TestProofObligationChain:
+    """The proof chain rejects the false theorem and names the conditional one."""
+
+    def test_repaired_steps(self):
+        steps = construct_proof()
+        assert len(steps) == 6
+        assert [step.number for step in steps] == [1, 2, 3, 4, 5, 6]
+        statuses = [step.status for step in steps]
+        assert "computed" in statuses
+        assert "Costello" in statuses
+        assert "conditional" in statuses
+        assert "rejected" in statuses
+
+    def test_no_step_asserts_universal_exactness(self):
+        text = " ".join(step.statement + " " + step.justification for step in construct_proof())
+        assert "d(h_k)" not in text
+        assert "universal raw exactness" not in text.lower()
+        assert "B_term^{(2)}" in text
+        assert "B_TCFT^{(2)}" in text
+
+
+class TestComparisonData:
+    """Cohomological vanishing is conditional on named comparison data."""
+
+    def test_default_comparison_is_not_sufficient(self):
         comp = TsyganComparison()
-        # VERIFIED [DC] sufficiency [LT] matching levels
+        assert comp.obstruction_complex == OBSTRUCTION_COMPLEX
+        assert comp.comparison_map == COMPARISON_MAP
+        assert comp.filtered_complex == DERIVED_E1_COMPLEX
+        assert comp.filtered_hypothesis == FILTERED_HYPOTHESIS
+        assert not comp.sufficient_for_programme()
+        assert not comp.gap_resolved
+
+    def test_corrected_tcft_comparison_is_conditionally_sufficient(self):
+        comp = TsyganComparison.with_corrected_tcft_comparison()
+        assert comp.obstruction_class_formulated
+        assert comp.comparison_map_named
+        assert comp.corrected_tcft_operator
         assert comp.sufficient_for_programme()
 
-    def test_gap_is_resolved(self):
-        """The gap IS resolved.
+    def test_hh_minus_two_filtration_is_conditionally_sufficient(self):
+        comp = TsyganComparison.with_hh_minus_two_filtration()
+        assert comp.obstruction_class_formulated
+        assert comp.hh_minus_two_filtration
+        assert comp.sufficient_for_programme()
 
-        Path 1: gap_resolved is True.
-        Path 2: Tsygan gives what we need.
-        Path 3: The programme does NOT need chain-level.
-        """
+    def test_status_strings_name_the_distinction(self):
         comp = TsyganComparison()
-        assert comp.gap_resolved
-        assert not comp.programme_needs_chain_level
-        assert comp.programme_needs_cohomological
-
-    def test_chain_level_status(self):
-        """Chain-level status correctly reported.
-
-        Path 1: Commutator is exact on chains.
-        Path 2: Not zero, but a coboundary.
-        Path 3: The class vanishes.
-        """
-        comp = TsyganComparison()
-        status = comp.chain_level_status()
-        assert "exact" in status
-        assert "coboundary" in status.lower() or "d(h_k)" in status
-
-    def test_difference_from_strict(self):
-        """The difference from strict vanishing is correctly characterized.
-
-        Path 1: Strict = 0 on chains.
-        Path 2: Tsygan = d(h_k) on chains.
-        Path 3: The difference is a coboundary.
-        """
-        comp = TsyganComparison()
-        diff = comp.difference_from_strict_vanishing()
-        assert "coboundary" in diff.lower() or "d(h_k)" in diff
-        assert "homotopy" in diff.lower()
+        assert "strictly nonzero" in comp.chain_level_status()
+        assert "B_TCFT" in comp.difference_from_strict_vanishing()
+        assert "theta_TCFT" in comp.difference_from_strict_vanishing()
 
 
-# ================================================================
-# SECTION 9: OBSTRUCTION LANDSCAPE
-# ================================================================
+class TestChainVsCohomology:
+    """No unconditional raw homotopy-coherent vanishing remains."""
 
-class TestObstructionLandscape:
-    """Tests for the upgraded obstruction landscape."""
+    def test_raw_levels_are_not_resolved(self):
+        distinction = ChainVsCohomologyDistinction()
+        assert not distinction.chain_level_identity_holds()
+        assert not distinction.cohomological_vanishing_holds()
+        assert not distinction.homotopy_coherent_vanishing_holds()
+        assert not distinction.non_formal_gap_resolved()
 
-    def test_all_geometries_present(self):
-        """All five standard geometries are in the landscape.
-
-        Path 1: C^3, conifold, local_P^2, quintic, K3_x_E.
-        Path 2: Five entries total.
-        Path 3: Each has all three obstruction components.
-        """
-        landscape = upgraded_obstruction_landscape()
-        expected = {"C^3", "conifold", "local_P^2", "quintic", "K3_x_E"}
-        # VERIFIED [DC] geometry list [LT] rem:hopf-reduction
-        assert set(landscape.keys()) == expected
-
-    def test_obs_top_vanishes_everywhere(self):
-        """Obs_top = 0 for all geometries (pi_3(BSp) = 0).
-
-        Path 1: Universal topological result.
-        Path 2: Each entry has "0" in Obs_top.
-        Path 3: Status is "proved" for all.
-        """
-        landscape = upgraded_obstruction_landscape()
-        for geom, data in landscape.items():
-            assert "0" in data["Obs_top"]
-            assert "proved" in data["Obs_top"]
-
-    def test_obs_ainf_vanishes_everywhere(self):
-        """Obs_Ainf = 0 for all geometries (formal or Tsygan).
-
-        Path 1: Formal geometries: chain-level vanishing.
-        Path 2: Non-formal geometries: Tsygan cohomological vanishing.
-        Path 3: Each entry has "0" and "proved" in Obs_Ainf.
-        """
-        landscape = upgraded_obstruction_landscape()
-        for geom, data in landscape.items():
-            # VERIFIED [DC] Tsygan resolution [LT] universal
-            assert "0" in data["Obs_Ainf"]
-            assert "proved" in data["Obs_Ainf"]
-
-    def test_non_formal_uses_tsygan(self):
-        """Non-formal geometries cite Tsygan (not cyclic invariance).
-
-        Path 1: local_P^2 and quintic are non-formal.
-        Path 2: Their Obs_Ainf cites "Tsygan" (not "cyclic").
-        Path 3: The proof mechanism is correct.
-        """
-        landscape = upgraded_obstruction_landscape()
-        # VERIFIED [DC] proof mechanism [LT] Tsygan not cyclic
-        assert "Tsygan" in landscape["local_P^2"]["Obs_Ainf"]
-        assert "Tsygan" in landscape["quintic"]["Obs_Ainf"]
-
-    def test_formal_uses_chain_level(self):
-        """Formal geometries use chain-level vanishing (stronger).
-
-        Path 1: C^3, conifold, K3_x_E are formal.
-        Path 2: Their Obs_Ainf cites "formal" and "chain-level".
-        Path 3: The stronger chain-level result is available.
-        """
-        landscape = upgraded_obstruction_landscape()
-        for geom in ["C^3", "conifold", "K3_x_E"]:
-            assert "formal" in landscape[geom]["Obs_Ainf"]
-
-    def test_quintic_single_remaining_obstruction(self):
-        """The quintic has only ONE remaining obstruction: Obs_BV convergence.
-
-        Path 1: Obs_top = 0, Obs_Ainf = 0 (by Tsygan).
-        Path 2: Obs_BV is perturbatively resolved.
-        Path 3: Total: "perturbatively resolved" with single open.
-        """
-        landscape = upgraded_obstruction_landscape()
-        q = landscape["quintic"]
-        assert "0" in q["Obs_top"]
-        assert "0" in q["Obs_Ainf"]
-        assert "perturbative" in q["Obs_BV"].lower() or "perturbative" in q["total"].lower()
-
-    def test_toric_fully_resolved(self):
-        """Toric geometries are fully resolved.
-
-        Path 1: C^3 and conifold are toric.
-        Path 2: All three obstructions vanish.
-        Path 3: Total status is "fully resolved".
-        """
-        landscape = upgraded_obstruction_landscape()
-        for geom in ["C^3", "conifold", "local_P^2"]:
-            # VERIFIED [DC] resolution status [LT] toric equivariance
-            assert "resolved" in landscape[geom]["total"].lower()
+    def test_formal_case_remains_strict(self):
+        distinction = ChainVsCohomologyDistinction()
+        assert distinction.formal_algebras_are_strict()
+        need = distinction.which_is_needed_for_programme()
+        assert "HH^{-2}" in need
+        assert "theta_TCFT" in need
 
 
-# ================================================================
-# SECTION 10: MASTER VERIFICATION
-# ================================================================
+class TestLocalP2AndSchematicComputation:
+    """Local P2 remains a noncompact guide, not a compact closure theorem."""
 
-class TestMasterVerification:
-    """Tests for the complete Tsygan resolution."""
-
-    def test_master_verification_passes(self):
-        """The complete verification pipeline passes.
-
-        Path 1: All sub-checks pass.
-        Path 2: Returns a non-empty summary.
-        Path 3: Main result is correctly stated.
-        """
-        result = verify_tsygan_resolution()
-        # VERIFIED [DC] master verification [LT] all checks
-        assert "main_result" in result
-        assert "Obs_Ainf" in result["main_result"]
-        assert "0" in result["main_result"]
-
-    def test_resolution_object(self):
-        """The resolution object is correctly constructed.
-
-        Path 1: All fields are populated.
-        Path 2: obs_ainf_vanishes_cohomologically() is True.
-        Path 3: proposition_status includes ProvedHere.
-        """
-        res = resolve_obs_ainf()
-        assert res.obs_ainf_vanishes_cohomologically()
-        assert "ProvedHere" in res.proposition_status()
-
-    def test_resolution_summary(self):
-        """The resolution summary is complete.
-
-        Path 1: Has main_result, chain_level, sufficiency keys.
-        Path 2: Dependencies include Tsygan and Costello.
-        Path 3: Does NOT depend on CY-A_3.
-        """
-        res = resolve_obs_ainf()
-        summary = res.summary()
-        assert "main_result" in summary
-        assert "chain_level" in summary
-        assert "sufficiency" in summary
-        assert "Tsygan" in str(summary["dependencies"])
-        assert "CY-A_3" in str(summary["does_NOT_depend_on"])
-
-    def test_landscape_upgrade(self):
-        """The landscape upgrade is consistent.
-
-        Path 1: resolution.impact_on_obstruction_landscape has 5 entries.
-        Path 2: All entries have "0".
-        Path 3: Non-formal entries cite "Tsygan".
-        """
-        res = resolve_obs_ainf()
-        landscape = res.impact_on_obstruction_landscape()
-        assert len(landscape) == 5
-        for entry in landscape.values():
-            assert "0" in entry
-
-
-# ================================================================
-# SECTION 11: CONSISTENCY CROSS-CHECKS
-# ================================================================
-
-class TestConsistencyCrossChecks:
-    """Cross-checks for internal consistency."""
-
-    def test_proof_steps_match_resolution(self):
-        """Proof steps in resolution match construct_proof().
-
-        Path 1: Same number of steps.
-        Path 2: Same step numbers.
-        Path 3: Resolution uses the same proof object.
-        """
-        res = resolve_obs_ainf()
-        steps = construct_proof()
-        assert len(res.proof_steps) == len(steps)
-        for r, s in zip(res.proof_steps, steps):
-            assert r.number == s.number
-
-    def test_tsygan_does_not_depend_on_cya3(self):
-        """The Tsygan resolution does NOT depend on CY-A_3.
-
-        Path 1: Tsygan formality is a general theorem about smooth algebras.
-        Path 2: No conditional propagation through CY-A_3 (AP-CY11).
-        Path 3: The resolution is unconditional.
-
-        This is CRITICAL: the resolution closes the gap without assuming
-        CY-A_3, so it does not introduce circular dependencies.
-        """
-        res = resolve_obs_ainf()
-        summary = res.summary()
-        # VERIFIED [DC] independence [LT] AP-CY11 check
-        assert "CY-A_3" in str(summary["does_NOT_depend_on"])
-
-    def test_non_adjacent_count_consistency(self):
-        """Non-adjacent counts are consistent across functions.
-
-        Path 1: count_non_adjacent_terms matches len(enumerate_...).
-        Path 2: compute_non_adjacent_terms_local_p2 matches direct enum.
-        Path 3: Table entries match individual computations.
-        """
-        for n in range(3, 9):
-            assert count_non_adjacent_terms(n, 3) == len(
-                enumerate_non_adjacent_terms(n, 3)
-            )
-
-    def test_formal_vs_nonformal_classification(self):
-        """Formal/non-formal classification is correct.
-
-        Path 1: C^3, conifold, K3 x E are formal (m_k = 0 for k >= 3).
-        Path 2: Local P^2 is non-formal (m_3 != 0 from potential W = det).
-        Path 3: Quintic can be non-formal at non-Gepner points.
-        """
+    def test_local_p2_data_nonformal(self):
         data = LocalP2Data()
-        assert not data.is_formal()  # non-formal
+        dims = data.ext_dimensions()
+        assert not data.is_formal()
         assert data.has_nontrivial_m3()
+        assert sum(dims.values()) == data.generator_count()
+        assert dims[0] == 3
+        assert dims[3] == 3
 
-    def test_obstruction_is_class_not_chain(self):
-        """The obstruction Obs_Ainf is a cohomology CLASS.
+    def test_local_p2_non_adjacent_report_is_conditional(self):
+        result = compute_non_adjacent_terms_local_p2(bar_length=5)
+        assert result["non_adjacent_count"] > 0
+        assert not result["chain_level_vanishing"]
+        assert not result["cohomological_vanishing"]
+        assert not result["cohomological_vanishing_established"]
+        assert result["comparison_data_required"]
 
-        Path 1: Lives in H^*(HH(CC_*(C), CC_*(C))).
-        Path 2: The Hopf decomposition is of classes.
-        Path 3: Vanishing of the CLASS is the condition, not chain-level.
-        """
-        d = ChainVsCohomologyDistinction()
-        assert d.which_is_needed_for_programme() == "cohomological"
-        assert d.cohomological_vanishing_holds()
-        assert not d.chain_level_identity_holds()
+    def test_commutator_report_contains_strict_witness(self):
+        result = compute_commutator_m3_b2_local_p2(bar_length=5)
+        assert result["non_adjacent_terms"] > 0
+        assert not result["chain_level_vanishing"]
+        assert not result["cohomological_vanishing"]
+        assert result["strict_witness"]["commutator"] == Counter({("b",): F(2)})
+
+
+class TestResolutionAndLandscape:
+    """The master status is rejected by default and conditional with data."""
+
+    def test_default_resolution_rejects_raw_target(self):
+        res = resolve_obs_ainf()
+        assert not res.obs_ainf_vanishes_cohomologically()
+        assert "Rejected" in res.proposition_status()
+        summary = res.summary()
+        assert "rejected" in summary["main_result"].lower()
+        assert "B_TCFT" in summary["costello"]
+        assert any("termwise" in item for item in summary["does_NOT_prove"])
+
+    def test_resolution_with_named_tcft_comparison_is_conditional(self):
+        comp = TsyganComparison.with_corrected_tcft_comparison()
+        res = resolve_obs_ainf(comparison=comp)
+        assert res.obs_ainf_vanishes_cohomologically()
+        assert "Conditional class statement" in res.proposition_status()
+
+    def test_master_verification_reports_repair(self):
+        result = verify_tsygan_resolution()
+        assert "Universal raw termwise" in result["main_result"]
+        assert "2 alpha [b]" in result["main_result"]
+        assert "Conditional" in result["cohomological_statement"]
+
+    def test_landscape_no_longer_closes_compact_cases_by_tsygan(self):
+        landscape = upgraded_obstruction_landscape()
+        assert "nonzero" in landscape["local_P^2"]["Obs_Ainf"]
+        assert "not closed by Tsygan alone" in landscape["K3_x_E"]["Obs_Ainf"]
+        assert "conditional" in landscape["quintic"]["Obs_Ainf"]
+        assert "fully resolved" not in landscape["local_P^2"]["total"]
+
+
+class TestStandaloneAlignment:
+    """The engine stays aligned with the standalone obstruction note."""
+
+    def test_standalone_names_three_carriers(self):
+        text = STANDALONE.read_text()
+        assert r"B^{(2)}_{\mathrm{term}}" in text
+        assert r"B^{(2)}_{\TCFT}" in text
+        assert r"\HH^{-2}_{E_1}(A,A)" in text
+        assert "No equality" in text
+
+    def test_standalone_rejects_per_k_strengthening(self):
+        text = STANDALONE.read_text()
+        assert r"\{\,\sum_k b_k,\ B^{(2)}_{\TCFT}\,\}=0" in text
+        assert "stronger than the TCFT theorem" in text

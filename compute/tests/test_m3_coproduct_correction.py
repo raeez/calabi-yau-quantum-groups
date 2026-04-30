@@ -1,356 +1,222 @@
-r"""Tests for the m_3 coproduct correction delta^{(3)}(T_n).
+r"""Tests for the AP-CY34 m3/coproduct correction boundary.
 
-Verifies the A_infinity correction to the Yangian coproduct from the
-Virasoro cubic self-coupling m_3(T,T,T) = -2T at c=1.
+The corrected oracle enforces:
 
-The main result:
-  delta^{(3)}(T_n) = -2*(Psi-1)/Psi * sum_k J_k^L J_{n-k}^R
-
-Tests cover:
-  1. Morphism defect equation (the DEFINING equation for delta^{(3)})
-  2. Vacuum matrix element = 0
-  3. Psi=1 vanishing (free boson, class G)
-  4. Weight conservation
-  5. Cross-term ratio = -2
-  6. Psi-dependence across multiple levels
-  7. Multi-mode consistency (n=0, +/-1, +/-2)
-  8. Eigenvalue spectrum structure
-  9. Corrected coproduct consistency
-  10. Intertwining with Delta_0(J)
+* raw ``B_term^{(2)}`` / raw bar-coproduct cancellation fails by the
+  strict witness ``[m_3,B_term^{(2)}][a|a|a|a|b] = 2 alpha [b]``;
+* Costello's corrected carrier is ``B_TCFT^{(2)}``, not the raw term;
+* closure is conditional on explicit TCFT comparison data or the precise
+  ``HH^{-2}`` filtration theorem;
+* diagnostic slogans do not imply universal compact CY3 conclusions.
 """
 
-import numpy as np
+from fractions import Fraction
+
 import pytest
 
+from compute.lib.chain_level_m2_b2_cancellation import (
+    strict_m3_bterm2_witness as chain_level_witness,
+)
 from compute.lib.m3_coproduct_correction_engine import (
+    CORRECTED_OPERATOR,
+    FORBIDDEN_DIAGNOSTICS,
+    FORBIDDEN_UNIVERSAL_CONCLUSIONS,
+    RAW_COPRODUCT,
+    RAW_OPERATOR,
+    STRICT_WITNESS_FORMULA,
+    CorrectionDataRequired,
+    HHMinusTwoFiltrationTheorem,
     M3CoproductCorrection,
+    RawM3CoproductWitness,
+    TCFTCorrectionDatum,
+    complete_hh_minus_two_filtration_theorem,
+    complete_tcft_correction_datum,
     compute_delta3_T0,
+    compute_raw_witness,
+    diagnostic_attempt,
+    m3_coproduct_correction_verdict,
+    strict_m3_coproduct_witness,
     verify_all,
 )
-from compute.lib.chiral_coproduct_spin2_engine import TensorHeisenberg
-
-
-# -----------------------------------------------------------------------
-# Test 1: Morphism defect equation
-# -----------------------------------------------------------------------
-
-class TestMorphismCondition:
-    """The defining equation for delta^{(3)}."""
-
-    def test_morphism_mode_0(self):
-        """Delta_0(m_3(T_0^3)) = m_3^{diag}(Delta_0(T_0)^3) + delta^{(3)}(T_0)."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.verify_morphism_condition(0)
-        assert result["ok"], f"Morphism error = {result['max_error']:.2e}"
-
-    def test_morphism_mode_1(self):
-        """Morphism condition at mode n=1."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.verify_morphism_condition(1)
-        assert result["ok"], f"Morphism error = {result['max_error']:.2e}"
-
-    def test_morphism_mode_minus1(self):
-        """Morphism condition at mode n=-1."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.verify_morphism_condition(-1)
-        assert result["ok"], f"Morphism error = {result['max_error']:.2e}"
-
-    def test_morphism_mode_minus2(self):
-        """Morphism condition at mode n=-2."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.verify_morphism_condition(-2)
-        assert result["ok"], f"Morphism error = {result['max_error']:.2e}"
-
-    @pytest.mark.parametrize("Psi", [1.0, 1.5, 2.0, 3.0, 5.0])
-    def test_morphism_all_psi(self, Psi):
-        """Morphism condition holds for all Psi values."""
-        eng = M3CoproductCorrection(Psi=Psi, N_max=4)
-        result = eng.verify_morphism_condition(0)
-        assert result["ok"], f"Psi={Psi}: error = {result['max_error']:.2e}"
-
-
-# -----------------------------------------------------------------------
-# Test 2: Vacuum matrix element
-# -----------------------------------------------------------------------
-
-class TestVacuumExpectation:
-    """<vac,vac| delta^{(3)}(T_n) |vac,vac> = 0."""
-
-    def test_vev_mode_0(self):
-        """Vacuum expectation value at mode 0 is zero."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.vacuum_matrix_element(0)
-        assert result["is_zero"], f"VEV = {result['vev']}"
-
-    def test_vev_mode_1(self):
-        """Vacuum expectation value at mode 1 is zero."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.vacuum_matrix_element(1)
-        assert result["is_zero"], f"VEV = {result['vev']}"
-
-    def test_vev_mode_minus1(self):
-        """Vacuum expectation value at mode -1 is zero."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.vacuum_matrix_element(-1)
-        assert result["is_zero"], f"VEV = {result['vev']}"
-
-    def test_vev_explicit_computation(self):
-        """VEV is zero because J_k annihilates the vacuum for k > 0."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        vac = np.zeros(eng.dim)
-        vac[eng.H.idx[()] * eng.d + eng.H.idx[()]] = 1.0
-        d3 = eng.delta3_T(0)
-        vev = float(vac @ d3 @ vac)
-        assert abs(vev) < 1e-14
-
-
-# -----------------------------------------------------------------------
-# Test 3: Psi=1 vanishing
-# -----------------------------------------------------------------------
-
-class TestPsi1Vanishing:
-    """At Psi=1, delta^{(3)} = 0 (free boson is class G)."""
-
-    def test_psi1_zero(self):
-        """delta^{(3)}(T_0) vanishes identically at Psi=1."""
-        eng = M3CoproductCorrection(Psi=1.0, N_max=4)
-        result = eng.verify_psi1_vanishing()
-        assert result["ok"], f"Norm = {result['max_norm']:.2e}"
-
-    def test_psi1_alpha_zero(self):
-        """alpha = 0 at Psi = 1."""
-        eng = M3CoproductCorrection(Psi=1.0, N_max=4)
-        assert abs(eng.alpha) < 1e-14
-
-    def test_psi1_all_modes_zero(self):
-        """delta^{(3)}(T_n) = 0 for all modes at Psi=1."""
-        eng = M3CoproductCorrection(Psi=1.0, N_max=4)
-        P = eng.safe_proj(2)
-        for n in range(-2, 3):
-            d3 = eng.delta3_T(n)
-            norm = float(np.max(np.abs(P @ d3 @ P)))
-            assert norm < 1e-14, f"n={n}: norm = {norm:.2e}"
-
-
-# -----------------------------------------------------------------------
-# Test 4: Weight conservation
-# -----------------------------------------------------------------------
-
-class TestWeightConservation:
-    """[L_0^tot, delta^{(3)}(T_n)] = -n * delta^{(3)}(T_n)."""
-
-    def test_weight_mode_0(self):
-        """[L_0^tot, delta^{(3)}(T_0)] = 0 (weight-preserving)."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.verify_weight_conservation(0)
-        assert result["ok"], f"Error = {result['max_error']:.2e}"
-
-    def test_weight_mode_1(self):
-        """[L_0^tot, delta^{(3)}(T_1)] = -1 * delta^{(3)}(T_1)."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.verify_weight_conservation(1)
-        assert result["ok"], f"Error = {result['max_error']:.2e}"
-
-    def test_weight_mode_minus1(self):
-        """[L_0^tot, delta^{(3)}(T_{-1})] = +1 * delta^{(3)}(T_{-1})."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.verify_weight_conservation(-1)
-        assert result["ok"], f"Error = {result['max_error']:.2e}"
-
-
-# -----------------------------------------------------------------------
-# Test 5: Cross-term ratio
-# -----------------------------------------------------------------------
-
-class TestCrossTermRatio:
-    """delta^{(3)} = -2 * cross_term(Delta_0)."""
-
-    def test_ratio_mode_0(self):
-        """delta^{(3)}(T_0) = -2 * alpha * sum J_k^L J_{-k}^R."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.cross_term_ratio(0)
-        assert result["ok"], f"Error = {result['max_error']:.2e}"
-
-    def test_ratio_mode_1(self):
-        """Cross-term ratio = -2 at mode 1."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.cross_term_ratio(1)
-        assert result["ok"], f"Error = {result['max_error']:.2e}"
-
-    @pytest.mark.parametrize("Psi", [1.5, 2.0, 3.0])
-    def test_ratio_psi_independent(self, Psi):
-        """The ratio delta^{(3)}/cross = -2 is independent of Psi."""
-        eng = M3CoproductCorrection(Psi=Psi, N_max=4)
-        result = eng.cross_term_ratio(0)
-        assert result["ok"], f"Psi={Psi}: error = {result['max_error']:.2e}"
-
-
-# -----------------------------------------------------------------------
-# Test 6: Psi-dependence
-# -----------------------------------------------------------------------
-
-class TestPsiDependence:
-    """The coefficient -2*(Psi-1)/Psi varies correctly with Psi."""
-
-    def test_coefficient_psi2(self):
-        """At Psi=2: coefficient = -2*(1/2) = -1."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        assert abs(eng.alpha - 0.5) < 1e-14
-        assert abs(-2.0 * eng.alpha - (-1.0)) < 1e-14
-
-    def test_coefficient_psi3(self):
-        """At Psi=3: coefficient = -2*(2/3) = -4/3."""
-        eng = M3CoproductCorrection(Psi=3.0, N_max=4)
-        assert abs(-2.0 * eng.alpha - (-4.0 / 3.0)) < 1e-14
-
-    def test_all_psi_morphism(self):
-        """Morphism condition holds across all Psi values."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        results = eng.psi_dependence(0)
-        for Psi_test, data in results.items():
-            assert data["morphism_ok"], f"Psi={Psi_test}: morphism failed"
-
-
-# -----------------------------------------------------------------------
-# Test 7: Multi-mode consistency
-# -----------------------------------------------------------------------
-
-class TestMultiMode:
-    """Consistency across multiple modes."""
-
-    @pytest.mark.parametrize("n", [-2, -1, 0, 1, 2])
-    def test_morphism_multimode(self, n):
-        """Morphism condition at various modes."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        result = eng.verify_morphism_condition(n)
-        assert result["ok"], f"n={n}: error = {result['max_error']:.2e}"
-
-    def test_mode_0_trace(self):
-        """Trace of delta^{(3)}(T_0) on safe subspace."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        spec = eng.eigenvalue_spectrum(0)
-        # Trace is sum of eigenvalues; the JJ cross-term has zero trace
-        # on the truncated space (up to boundary effects)
-        assert abs(spec["trace"]) < 1e-8, f"Trace = {spec['trace']}"
-
-
-# -----------------------------------------------------------------------
-# Test 8: Eigenvalue spectrum
-# -----------------------------------------------------------------------
-
-class TestEigenvalueSpectrum:
-    """Eigenvalue structure of delta^{(3)}(T_0)."""
-
-    def test_nonzero_eigenvalues_exist(self):
-        """delta^{(3)}(T_0) has nonzero eigenvalues for Psi != 1."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        spec = eng.eigenvalue_spectrum(0)
-        assert spec["n_nonzero"] > 0, "No nonzero eigenvalues"
-
-    def test_spectrum_symmetric(self):
-        """Eigenvalue spectrum is symmetric about 0 (from JJ structure)."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        spec = eng.eigenvalue_spectrum(0)
-        evals = spec["eigenvalues_nonzero"]
-        # Check positive/negative pairing
-        pos = sorted([e for e in evals if e > 0])
-        neg = sorted([-e for e in evals if e < 0])
-        # Not necessarily exactly paired due to truncation, but
-        # check the total is approximately zero (trace condition)
-        assert abs(sum(evals)) < 1e-8
-
-
-# -----------------------------------------------------------------------
-# Test 9: Corrected coproduct
-# -----------------------------------------------------------------------
-
-class TestCorrectedCoproduct:
-    """Properties of Delta_0(T_0) + delta^{(3)}(T_0)."""
-
-    def test_corrected_cross_coefficient(self):
-        """Corrected cross-term has coefficient -alpha (sign-flipped).
-
-        Original: alpha * sum J^L J^R
-        Correction: -2*alpha * sum J^L J^R
-        Net: -alpha * sum J^L J^R
-        """
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        P = eng.safe_proj(2)
-        M = eng.N_max + 2
-
-        corrected = eng.corrected_coproduct_T(0, 0.0)
-
-        # The corrected coproduct should be:
-        # T_0^L + T_0^R + (alpha - 2*alpha) * sum J^L J^R
-        # = T_0^L + T_0^R - alpha * sum J^L J^R
-        expected = eng.T_L(0).astype(float) + eng.T_R(0).astype(float)
-        cross = np.zeros((eng.dim, eng.dim))
-        for k in range(-M, M + 1):
-            cross += eng.J_L(k) @ eng.J_R(-k)
-        expected -= eng.alpha * cross
-
-        err = float(np.max(np.abs(P @ (corrected - expected) @ P)))
-        assert err < 1e-10, f"Error = {err:.2e}"
-
-    def test_corrected_vacuum_eigenvalue(self):
-        """Corrected T_0 has zero vacuum eigenvalue (same as uncorrected)."""
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        vac = np.zeros(eng.dim)
-        vac[eng.H.idx[()] * eng.d + eng.H.idx[()]] = 1.0
-        corrected = eng.corrected_coproduct_T(0, 0.0)
-        eigenval = complex(vac @ corrected @ vac).real
-        assert abs(eigenval) < 1e-14
-
-
-# -----------------------------------------------------------------------
-# Test 10: J-intertwining
-# -----------------------------------------------------------------------
-
-class TestJIntertwining:
-    """Intertwining of delta^{(3)}(T_0) with the Heisenberg current."""
-
-    def test_commutator_with_delta_J(self):
-        """[delta^{(3)}(T_0), Delta_0(J_m)] = 2*alpha*Psi*m * Delta_0(J_m).
-
-        Since delta^{(3)}(T_0) = -2*alpha * sum_k J_k^L J_{-k}^R, and
-        [J_k^L J_{-k}^R, J_m^L] = Psi*k*delta_{k+m,0} * J_{-k}^R
-                                 = -Psi*m * J_m^R (at k=-m)
-        [J_k^L J_{-k}^R, J_m^R] = Psi*(-k)*delta_{-k+m,0} * J_k^L
-                                 = -Psi*m * J_m^L (at k=m)
-
-        So [sum J_k^L J_{-k}^R, Delta_0(J_m)] = -Psi*m * Delta_0(J_m)
-        And [delta^{(3)}(T_0), Delta_0(J_m)] = -2*alpha*(-Psi*m)*Delta_0(J_m)
-                                              = 2*alpha*Psi*m * Delta_0(J_m)
-        """
-        eng = M3CoproductCorrection(Psi=2.0, N_max=4)
-        P = eng.safe_proj(2)
-        d3 = eng.delta3_T(0)
-
-        for m in [-1, 1, 2]:
-            DJ_m = eng.Delta_J(m, 0.0)
-            comm = d3 @ DJ_m - DJ_m @ d3
-            expected = 2.0 * eng.alpha * eng.Psi * m * DJ_m
-            err = float(np.max(np.abs(P @ (comm - expected) @ P)))
-            assert err < 1e-8, f"m={m}: error = {err:.2e}"
-
-
-# -----------------------------------------------------------------------
-# Test 11: Master computation function
-# -----------------------------------------------------------------------
-
-class TestMasterComputation:
-    """The compute_delta3_T0 convenience function."""
-
-    def test_compute_delta3_T0(self):
-        """Master computation returns consistent results."""
-        result = compute_delta3_T0(Psi=2.0, N_max=4)
-        assert result["vev_is_zero"]
-        assert result["morphism_ok"]
-        assert result["weight_conservation_ok"]
-        assert result["cross_term_ratio_ok"]
-        assert abs(result["coefficient"] - (-1.0)) < 1e-14
+
+F = Fraction
+
+
+class TestStrictRawWitness:
+    """The raw term has the exact nonzero AP-CY34 witness."""
+
+    def test_exact_arithmetic_default_alpha(self):
+        witness = strict_m3_coproduct_witness(F(1))
+        assert isinstance(witness, RawM3CoproductWitness)
+        assert witness.input_word == ("a", "a", "a", "a", "b")
+        assert witness.raw_operator == RAW_OPERATOR
+        assert witness.raw_coproduct == RAW_COPRODUCT
+        assert witness.corrected_operator == CORRECTED_OPERATOR
+        assert witness.raw_b_term_of_input == {("a", "a", "a"): F(4)}
+        assert witness.m3_after_raw_b_term == {("b",): F(4)}
+        assert witness.raw_b_term_after_m3 == {("b",): F(2)}
+        assert witness.commutator == {("b",): F(2)}
+        assert witness.coefficient_on_b == F(2)
+        assert witness.nonzero_for_alpha_nonzero
+        assert witness.raw_cancellation_blocked
+        assert not witness.raw_equals_corrected
+        assert witness.formula == STRICT_WITNESS_FORMULA
+
+    @pytest.mark.parametrize("alpha", [F(1, 2), F(3, 5), F(-2), F(0)])
+    def test_alpha_scaling(self, alpha):
+        witness = strict_m3_coproduct_witness(alpha)
+        assert witness.coefficient_on_b == F(2) * alpha
+        assert witness.nonzero_for_alpha_nonzero is (alpha != 0)
+        assert witness.raw_cancellation_blocked is (alpha != 0)
+
+    def test_cross_check_against_chain_level_engine(self):
+        alpha = F(7, 3)
+        ours = strict_m3_coproduct_witness(alpha).summary()
+        theirs = chain_level_witness(alpha)
+        assert ours["formula"] == theirs["formula"]
+        assert ours["coefficient_on_b"] == theirs["coefficient_of_[b]"]
+        assert ours["expected_coefficient_on_b"] == theirs["expected_coefficient"]
+        assert ours["nonzero_for_alpha_nonzero"] == theirs["nonzero_for_alpha_nonzero"]
+        assert theirs["corrected_operator_used"] is False
+
+    def test_compute_raw_witness_entry_point(self):
+        report = compute_raw_witness(F(5, 4))
+        assert report["coefficient_on_b"] == F(5, 2)
+        assert report["raw_equals_corrected"] is False
+        assert report["raw_cancellation_blocked"] is True
+
+
+class TestConditionalClosureData:
+    """Closure requires explicit corrected data."""
+
+    def test_default_tcft_datum_is_incomplete(self):
+        datum = TCFTCorrectionDatum()
+        assert not datum.complete
+        assert "supply B_TCFT^{(2)}" in datum.missing_hypotheses
+        assert "comparison map from B_term^{(2)} to B_TCFT^{(2)}" in (
+            datum.missing_hypotheses
+        )
+
+    def test_complete_tcft_datum_is_sufficient_for_conditional_identity(self):
+        datum = complete_tcft_correction_datum()
+        verdict = m3_coproduct_correction_verdict(F(1), tcft_datum=datum)
+        assert datum.complete
+        assert verdict.tcft_identity_established
+        assert verdict.obs_ainf_zero_established
+        assert verdict.status == "conditional closure by corrected B_TCFT^{(2)} route"
+        assert not verdict.hh_minus_two_zero_established
+        assert not verdict.compact_phi3_established
+        assert not verdict.hall_coha_established
+        assert not verdict.pbw_established
+        assert not verdict.no_extra_relations_established
+
+    def test_default_hh_theorem_is_incomplete(self):
+        theorem = HHMinusTwoFiltrationTheorem(comparison_map=True)
+        assert not theorem.complete
+        assert "complete HH^{-2} filtration" in theorem.missing_hypotheses
+        assert "exhaustive HH^{-2} filtration" in theorem.missing_hypotheses
+        assert "separated HH^{-2} filtration" in theorem.missing_hypotheses
+        assert "strong convergence to HH^{-2}" in theorem.missing_hypotheses
+        assert "empty total-degree -2 line" in theorem.missing_hypotheses
+
+    def test_complete_hh_theorem_is_sufficient_for_conditional_vanishing(self):
+        theorem = complete_hh_minus_two_filtration_theorem()
+        verdict = m3_coproduct_correction_verdict(F(1), hh_theorem=theorem)
+        assert theorem.complete
+        assert verdict.hh_minus_two_zero_established
+        assert verdict.obs_ainf_zero_established
+        assert verdict.status == "conditional closure by HH^{-2} filtration route"
+        assert not verdict.tcft_identity_established
+        assert not verdict.contractible_lifting_space_established
+        assert not verdict.compact_phi3_established
+        assert not verdict.hall_coha_established
+        assert not verdict.pbw_established
+
+    def test_default_verdict_keeps_closure_open(self):
+        verdict = m3_coproduct_correction_verdict(F(1))
+        assert not verdict.raw_cancellation_valid
+        assert not verdict.raw_equals_corrected
+        assert not verdict.tcft_identity_established
+        assert not verdict.hh_minus_two_zero_established
+        assert not verdict.obs_ainf_zero_established
+        assert verdict.status == "open: raw witness blocks cancellation"
+        assert "supply B_TCFT^{(2)}" in verdict.remaining_obligations
+        assert "HH^{-2} comparison map" in verdict.remaining_obligations
+
+
+class TestForbiddenDiagnostics:
+    """Diagnostic slogans do not imply compact CY3 closure."""
+
+    @pytest.mark.parametrize("diagnostic", FORBIDDEN_DIAGNOSTICS)
+    @pytest.mark.parametrize("conclusion", FORBIDDEN_UNIVERSAL_CONCLUSIONS)
+    def test_forbidden_diagnostic_conclusion_pairs_are_rejected(
+        self,
+        diagnostic,
+        conclusion,
+    ):
+        attempt = diagnostic_attempt(diagnostic, conclusion)
+        assert attempt["rejected"] is True
+        assert attempt["allowed"] is False
+        assert diagnostic in attempt["reason"]
+        assert conclusion in attempt["reason"]
+
+    def test_unknown_pairs_are_not_marked_as_ap_cy34_pairs(self):
+        attempt = diagnostic_attempt("explicit B_TCFT datum", "Obs_Ainf=0")
+        assert attempt["rejected"] is False
+        assert attempt["allowed"] is True
+
+
+class TestCompatibilityWrapper:
+    """The legacy class now exposes the AP-CY34 boundary."""
+
+    def test_psi_parameter_maps_to_alpha(self):
+        engine = M3CoproductCorrection(Psi=F(2), N_max=4)
+        witness = engine.strict_witness()
+        assert engine.alpha == F(1, 2)
+        assert witness.coefficient_on_b == F(1)
+        assert witness.raw_cancellation_blocked
+
+    def test_legacy_raw_delta3_matrix_is_rejected(self):
+        engine = M3CoproductCorrection(alpha=F(1))
+        with pytest.raises(CorrectionDataRequired, match="No raw matrix"):
+            engine.delta3_T(0)
+
+    def test_corrected_coproduct_requires_data(self):
+        engine = M3CoproductCorrection(alpha=F(1))
+        with pytest.raises(CorrectionDataRequired, match="requires B_TCFT"):
+            engine.corrected_coproduct_T(0)
+
+    def test_corrected_coproduct_records_conditional_route(self):
+        engine = M3CoproductCorrection(alpha=F(1))
+        record = engine.corrected_coproduct_T(
+            0,
+            tcft_datum=complete_tcft_correction_datum(),
+        )
+        assert record["operator"] == CORRECTED_OPERATOR
+        assert record["conditional"] is True
+        assert record["raw_matrix_supplied"] is False
+        assert record["compact_phi3_established"] is False
+        assert record["hall_coha_established"] is False
+        assert record["pbw_established"] is False
+        assert record["no_extra_relations_established"] is False
+
+    def test_legacy_compute_delta3_T0_entry_point_is_boundary_report(self):
+        report = compute_delta3_T0(Psi=F(2), N_max=4)
+        assert report["legacy_entry_point"] == "compute_delta3_T0"
+        assert report["raw_delta3_matrix_supplied"] is False
+        assert report["witness"]["coefficient_on_b"] == F(1)
+        assert report["raw_cancellation_valid"] is False
+        assert report["obs_ainf_zero_established"] is False
+
+
+class TestMasterVerification:
+    """Top-level verification aggregates the AP-CY34 checks."""
 
     def test_verify_all(self):
-        """Full verification suite passes."""
-        result = verify_all(Psi=2.0, N_max=4)
-        assert result["all_ok"], f"Failures in verify_all: {result}"
+        report = verify_all(F(1))
+        assert report["all_ok"] is True
+        assert report["strict_witness"]["coefficient_on_b"] == F(2)
+        assert report["default_verdict"]["raw_cancellation_valid"] is False
+        assert report["tcft_conditional_verdict"]["obs_ainf_zero_established"] is True
+        assert report["hh_conditional_verdict"]["hh_minus_two_zero_established"] is True
+        assert all(item["rejected"] for item in report["diagnostic_checks"])

@@ -1,13 +1,13 @@
-r"""Tests for the chain-level {m_2, B^{(2)}} + {m_3, B^{(2)}} cancellation engine.
+r"""Tests for the chain-level AP-CY34/m3-B2 obstruction engine.
 
 Verifies:
-  (1) Nonformal model: {b_3, B^{(2)}_naive} != 0 (chain-level nonvanishing)
-  (2) Nonformal model: {b_2, B^{(2)}_naive} = 0 (forced by incompatibility)
-  (3) Incompatibility theorem: mu_3 != 0 => mu_2 = 0 on aug (single-object)
+  (1) Nonformal model: [b_3, B_term^{(2)}] = 2*alpha*[b]
+  (2) Nonformal model: {b_2, B^{(2)}_naive} = 0 because mu_2 = 0 there
+  (3) The zero-product check is model-local, not a universal CY_3 theorem
   (4) Arity analysis: {b_2, B^{(2)}} and {b_3, B^{(2)}} target different arities
   (5) Formal model: mu_2 associative and cyclically invariant
   (6) Total {b, B^{(2)}_naive} != 0 for nonformal (naive B^{(2)} fails)
-  (7) TCFT B^{(2)} differs from naive: moduli space resolution
+  (7) Closure is conditional on B_TCFT^{(2)} or an HH^{-2} filtration theorem
   (8) Bar differential b^2 = 0 on both models
   (9) Pairing properties: non-degeneracy, graded symmetry
   (10) Cross-checks with obs_ainf_local_p2.py
@@ -44,13 +44,18 @@ from compute.lib.chain_level_m2_b2_cancellation import (
     apply_b_total_lc,
     anticomm_bk_b2,
     anticomm_b_b2,
+    commutator_bk_bterm2,
     compute_nonformal_m3_b2,
     exhaustive_nonformal,
     compute_formal_b2_b2,
     arity_analysis_nonformal,
     verify_incompatibility_theorem,
     moduli_space_description,
+    strict_m3_bterm2_witness,
+    closure_obstruction_status,
     master_chain_level_cancellation,
+    STRICT_WITNESS_FORMULA,
+    FORBIDDEN_ERASURE_ROUTES,
 )
 
 F = Fraction
@@ -146,26 +151,26 @@ class TestNonFormalModelStructure:
 
 
 # ================================================================
-# SECTION 2: KEY COMPUTATION: {b_3, B^{(2)}_naive} != 0
+# SECTION 2: KEY COMPUTATION: [b_3, B_term^{(2)}] = 2*alpha*[b]
 # ================================================================
 
 class TestNonFormalChainLevelNonvanishing:
-    """Tests for chain-level nonvanishing of {b_3, B^{(2)}} on nonformal model."""
+    """Tests for the strict raw m3-B_term^{(2)} witness."""
 
     def test_m3_b2_nonzero_on_key_element(self):
-        r"""{b_3, B^{(2)}}([a|a|a|a|b]) != 0.
+        r"""[b_3, B_term^{(2)}]([a|a|a|a|b]) = 2*alpha*[b].
 
         This is the central result of obs_ainf_local_p2.py.
 
         Path 1: direct computation in this engine.
-        Path 2: cross-check value 2*alpha*[b] (anticommutator).
-        Path 3: trace through B^{(2)} then b_3, and b_3 then B^{(2)}.
+        Path 2: cross-check exact value 2*alpha*[b].
+        Path 3: trace through B_term^{(2)} then b_3, and b_3 then B_term^{(2)}.
         """
         alg = NonFormalModel(alpha=F(1))
         a, b = alg.a, alg.b
         elem = BarElt(factors=(a, a, a, a, b))
 
-        result = anticomm_bk_b2(elem, alg, 3)
+        result = commutator_bk_bterm2(elem, alg, 3)
         # VERIFIED [DC] computation [LT] obs_ainf_local_p2 value
         assert not result.is_zero
 
@@ -173,58 +178,69 @@ class TestNonFormalChainLevelNonvanishing:
         simplified = result.simplify()
         assert len(simplified.terms) == 1
         assert simplified.terms[0].factors == (b,)
+        assert simplified.terms[0].coeff == F(2)
 
     def test_m3_b2_value_is_2alpha(self):
-        """{b_3, B^{(2)}}([a|a|a|a|b]) has coefficient proportional to alpha.
+        """[b_3, B_term^{(2)}]([a|a|a|a|b]) has coefficient 2*alpha.
 
-        Path 1: compute for alpha=1: coefficient should be a positive integer.
-        Path 2: compute for alpha=2: coefficient should double.
+        Path 1: compute for alpha=1.
+        Path 2: compute for alpha=2.
         """
-        for alpha_val, expected_ratio in [(F(1), None), (F(2), F(2))]:
+        for alpha_val in [F(1), F(2), F(-1), F(1, 3)]:
             alg = NonFormalModel(alpha=alpha_val)
             a, b = alg.a, alg.b
             elem = BarElt(factors=(a, a, a, a, b))
-            result = anticomm_bk_b2(elem, alg, 3).simplify()
+            result = commutator_bk_bterm2(elem, alg, 3).simplify()
 
-            # VERIFIED [DC] proportionality to alpha
+            # VERIFIED [DC] exact 2*alpha coefficient
             assert len(result.terms) == 1
-            coeff_at_alpha = result.terms[0].coeff
-
-            if expected_ratio is not None:
-                alg1 = NonFormalModel(alpha=F(1))
-                r1 = anticomm_bk_b2(BarElt(factors=(alg1.a, alg1.a, alg1.a, alg1.a, alg1.b)),
-                                     alg1, 3).simplify()
-                assert coeff_at_alpha == r1.terms[0].coeff * expected_ratio
+            assert result.terms[0].factors == (b,)
+            assert result.terms[0].coeff == F(2) * alpha_val
 
     def test_m3_b2_trace(self):
-        """Trace computation: B^{(2)} then b_3, and b_3 then B^{(2)}.
+        """Trace computation for the strict raw bracket.
 
-        Path 1: B^{(2)}([a|a|a|a|b]) = 4*[a|a|a], then b_3 -> 4*[b].
-        Path 2: b_3([a|a|a|a|b]) = [b|a|b] + [a|b|b] (with signs), then B^{(2)}.
+        Path 1: B_term^{(2)}([a|a|a|a|b]) = 4*[a|a|a], then b_3 -> 4*[b].
+        Path 2: b_3([a|a|a|a|b]) = [b|a|b] + [a|b|b], then B_term^{(2)} -> 2*[b].
+        Path 3: the difference is 2*[b].
         """
         r = compute_nonformal_m3_b2(F(1))
         # VERIFIED [DC] trace
         assert r["trace"]["B2_of_elem"] == "4*[a|a|a]"
-        assert not r["anticomm_b3_B2_is_zero"]
+        assert r["trace"]["b3_of_B2"] == "4*[b]"
+        assert r["trace"]["B2_of_b3"] == "2*[b]"
+        assert r["strict_witness"]["strict_bracket"] == "2*[b]"
+        assert r["strict_witness"]["formula"] == STRICT_WITNESS_FORMULA
+
+    def test_strict_witness_api(self):
+        """The public witness object records raw, not corrected, data."""
+        witness = strict_m3_bterm2_witness(F(3))
+        # VERIFIED [DC] exact witness API
+        assert witness["operator"] == "B_term^{(2)}"
+        assert witness["corrected_operator"] == "B_TCFT^{(2)}"
+        assert witness["corrected_operator_used"] is False
+        assert witness["coefficient_of_[b]"] == F(6)
+        assert witness["expected_coefficient"] == F(6)
+        assert witness["nonzero_for_alpha_nonzero"] is True
 
 
 # ================================================================
-# SECTION 3: INCOMPATIBILITY THEOREM
+# SECTION 3: MODEL-LOCAL ZERO-PRODUCT CHECK
 # ================================================================
 
 class TestIncompatibilityTheorem:
-    """Tests for: mu_3 != 0 => mu_2 = 0 on aug (single-object CY_3)."""
+    """Tests for the four-generator model's zero augmentation product."""
 
     def test_mu2_zero_on_aug(self):
         """In the nonformal model, mu_2 = 0 on augmentation ideal.
 
         Path 1: explicit check all pairs.
-        Path 2: consequence of n=4 Stasheff + cyclic invariance.
+        Path 2: this is the defining model-local datum.
         """
         alg = NonFormalModel(alpha=F(1))
         for x in alg.aug_basis():
             for y in alg.aug_basis():
-                # VERIFIED [DC] mu_2 = 0 on aug [LT] incompatibility
+                # VERIFIED [DC] mu_2 = 0 on aug [LT] model-local datum
                 assert alg.mu2(x, y) == []
 
     def test_m2_b2_is_zero(self):
@@ -243,20 +259,23 @@ class TestIncompatibilityTheorem:
             assert result.is_zero
 
     def test_incompatibility_verified(self):
-        """Parametric verification of incompatibility theorem.
+        """Parametric verification of the model-local Stasheff check.
 
         Path 1: direct check for alpha = 1, 2, -1, 1/3.
-        Path 2: algebraic proof (n=4 Stasheff + graded commutativity).
+        Path 2: n=4 Stasheff relation is satisfied in the witness.
         """
         result = verify_incompatibility_theorem()
-        # VERIFIED [DC] parametric check [LT] algebraic proof
+        # VERIFIED [DC] parametric check [LT] model-local relation
+        assert result["status"] == "model-local"
+        assert result["theorem"] is None
+        assert "mu_3 != 0 => mu_2 = 0" in result["claim_rejected"]
         assert result["all_verified"]
 
     def test_incompatibility_consequence(self):
-        """Cross-arity cancellation is impossible at single-object level.
+        """Raw cancellation is absent in the four-generator witness.
 
-        When mu_3 != 0, mu_2 = 0 on aug, so {b_2, B^{(2)}} = 0.
-        Therefore {b_3, B^{(2)}} != 0 cannot be cancelled by {b_2, B^{(2)}}.
+        Here mu_2 = 0 on aug, so {b_2, B^{(2)}} = 0. Therefore
+        {b_3, B^{(2)}} != 0 is not cancelled by {b_2, B^{(2)}} in this model.
         """
         r = exhaustive_nonformal(F(1), arity=5)
         # VERIFIED [DC] {b_2, B^{(2)}} = 0 exhaustive
@@ -449,32 +468,58 @@ class TestNaiveB2Fails:
 # ================================================================
 
 class TestTCFTResolution:
-    """Tests for the TCFT B^{(2)} != naive B^{(2)} claim."""
+    """Tests for conditional closure: B_TCFT^{(2)} is not B_term^{(2)}."""
 
     def test_moduli_space_description(self):
-        """Moduli space M_{0,n+2}^{node} is correctly described.
+        """Moduli space data is conditional on the corrected TCFT operator.
 
         Path 1: dictionary keys are present.
-        Path 2: content matches TCFT literature.
+        Path 2: raw/corrected operators are distinguished.
         """
         desc = moduli_space_description()
         # VERIFIED [DC] description [LT] Costello TCFT
+        assert desc["raw_operator"] == "B_term^{(2)}"
+        assert desc["corrected_operator"] == "B_TCFT^{(2)}"
         assert "M_{0,n+2}^{node}" in desc["moduli_space"]
-        assert "compact 1-manifold" in desc["identity"]
+        assert "if the corrected TCFT datum is supplied" in desc["identity"]
 
     def test_tcft_b2_differs(self):
-        """The TCFT B^{(2)} differs from naive pairwise contraction.
+        """The corrected TCFT operator cannot be identified with raw contraction.
 
         Path 1: naive fails on nonformal (computed above).
-        Path 2: TCFT theorem says {b, B^{(2)}_TCFT} = 0 (Costello).
-        Path 3: therefore B^{(2)}_TCFT != B^{(2)}_naive.
+        Path 2: closure status is conditional, not universal.
+        Path 3: therefore B_TCFT^{(2)} != B_term^{(2)} in this witness.
         """
         alg = NonFormalModel(alpha=F(1))
         elem = BarElt(factors=(alg.a, alg.a, alg.a, alg.a, alg.b))
         naive_total = anticomm_b_b2(elem, alg)
-        # Naive fails => TCFT must differ
-        # VERIFIED [DC] naive fails [LT] TCFT theorem
+        status = closure_obstruction_status()
+        # VERIFIED [DC] naive fails [LT] conditional status
         assert not naive_total.is_zero
+        assert status["raw_universal_closure"] is False
+        assert status["corrected_closure_status"] == "conditional"
+
+    def test_forbidden_erasure_routes_do_not_close_witness(self):
+        """No named slogan is allowed to erase the strict raw witness."""
+        status = closure_obstruction_status()
+        erasures = status["forbidden_erasure_routes"]
+        # VERIFIED [DC] stale universal-claim rejection
+        assert set(erasures) == set(FORBIDDEN_ERASURE_ROUTES)
+        assert all(value is False for value in erasures.values())
+        assert "HH^{-2} filtration theorem" in status["remaining_proof_obligation"]
+        assert "empty total-degree -2 line" in status["remaining_proof_obligation"]
+
+    def test_allowed_closure_hypotheses_are_explicit(self):
+        """Closure requires B_TCFT^{(2)} or the precise HH^{-2} theorem."""
+        status = closure_obstruction_status()
+        hypotheses = status["allowed_closure_hypotheses"]
+        # VERIFIED [DC] conditional closure hypotheses
+        assert len(hypotheses) == 2
+        assert "corrected TCFT datum" in hypotheses[0]
+        assert "B_TCFT^{(2)}" in hypotheses[0]
+        assert "comparison map" in hypotheses[1]
+        assert "complete, exhaustive, separated, strongly convergent" in hypotheses[1]
+        assert "empty total-degree -2 line" in hypotheses[1]
 
 
 # ================================================================
@@ -491,12 +536,15 @@ class TestMasterComputation:
         assert "Q1_nonformal_computation" in result
         assert "Q4_incompatibility" in result
         assert "Q5_moduli_space" in result
+        assert "Q6_closure_status" in result
+        assert result["Q6_closure_status"]["raw_universal_closure"] is False
 
     def test_master_alpha_2(self):
         """Master computation at alpha=2: scaling check."""
         result = master_chain_level_cancellation(F(2))
         # VERIFIED [DC] alpha=2 scaling
         assert result["Q4_incompatibility"]["all_verified"]
+        assert result["Q1_nonformal_computation"]["strict_witness"]["coefficient_of_[b]"] == F(4)
 
 
 # ================================================================
@@ -507,42 +555,42 @@ class TestCrossChecks:
     """Cross-checks with obs_ainf_local_p2.py and m3_b2_saga.tex."""
 
     def test_cross_check_obs_ainf(self):
-        """Our {b_3, B^{(2)}} matches obs_ainf_local_p2.py.
+        """Our strict bracket matches obs_ainf_local_p2.py.
 
         The obs_ainf engine computes [m_3, B^{(2)}] = m_3.B^{(2)} - B^{(2)}.m_3.
-        Our engine computes {b_3, B^{(2)}} = b_3.B^{(2)} + B^{(2)}.b_3.
+        Our raw strict bracket computes b_3.B_term^{(2)} - B_term^{(2)}.b_3.
 
-        These differ by sign convention: [,] vs {,}.
         The obs_ainf engine reports 2*[b] for the commutator.
-        Our anticommutator should also be nonzero (both routes have same sign
-        for degree-even operators).
         """
         alg = NonFormalModel(alpha=F(1))
         elem = BarElt(factors=(alg.a, alg.a, alg.a, alg.a, alg.b))
-        result = anticomm_bk_b2(elem, alg, 3).simplify()
+        result = commutator_bk_bterm2(elem, alg, 3).simplify()
 
         # VERIFIED [DC] cross-check [LT] obs_ainf_local_p2
         assert not result.is_zero
         assert len(result.terms) == 1
         assert result.terms[0].factors == (alg.b,)
-        # The coefficient should be positive and proportional to alpha
-        assert result.terms[0].coeff > 0
+        assert result.terms[0].coeff == F(2)
 
     def test_three_levels_hierarchy(self):
-        """The three-level hierarchy from m3_b2_saga.tex, def:three-levels.
+        """The strict level is proved; higher closure levels are conditional.
 
         Level 1 (strict): [m_k, B^{(2)}] != 0 for nonformal. CHECK.
-        Level 2 (homotopy): {b, B^{(2)}_TCFT} = 0. ASSERTED (Costello).
-        Level 3 (derived): obstruction group = 0. ASSERTED (Francis-Gaitsgory).
+        Level 2 (homotopy): {b, B_TCFT^{(2)}} = 0 only with corrected TCFT datum.
+        Level 3 (derived): requires the precise HH^{-2} filtration theorem.
         """
         # Level 1: strict nonvanishing
         alg = NonFormalModel(alpha=F(1))
         elem = BarElt(factors=(alg.a, alg.a, alg.a, alg.a, alg.b))
-        strict = anticomm_bk_b2(elem, alg, 3)
+        strict = commutator_bk_bterm2(elem, alg, 3)
         # VERIFIED [DC] Level 1 nonvanishing [LT] prop:chain-nonvanishing-generic
         assert not strict.is_zero
+        assert strict.simplify().terms[0].coeff == F(2)
 
         # Level 2: naive total fails, confirming TCFT needed
         naive_total = anticomm_b_b2(elem, alg)
-        # VERIFIED [DC] naive total fails [LT] thm:total-ainf-compat
+        status = closure_obstruction_status()
+        # VERIFIED [DC] naive total fails [LT] conditional closure status
         assert not naive_total.is_zero  # naive fails, TCFT needed
+        assert status["corrected_closure_status"] == "conditional"
+        assert status["raw_universal_closure"] is False

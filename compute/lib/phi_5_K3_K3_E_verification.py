@@ -10,8 +10,8 @@ are independently known:
   - Phi_2(K3) = H_{Muk(K3)}  (Theorem thm:phi-k3-explicit, Vol III, 93 tests)
   - Phi_1(E) = H_1 (rank-1 free-boson Heisenberg)
 
-The Phi_5 functor at this product input must be COMPATIBLE with the
-factor-level Phi-images via the Kunneth-multiplicativity programme.
+The Phi_5 functor at this product input is checked directly from the
+Kunneth Hodge column and odd-dimensional Serre cancellation.
 This compatibility is the content of the Phi_5 Theorem promotion at
 this explicit example.
 
@@ -69,7 +69,8 @@ PHI_5 THEOREM PROMOTION TARGET:
     (a) the Z/2-gerbe twist trivialises (w_5 = 0),
     (b) the BCOV moduli is explicit (3-dim before absorption,
         1-dim P^1 after),
-    (c) kappa_ch = 0 verified independently via Kunneth additivity,
+    (c) kappa_ch = 0 verified independently via Kunneth on h^{0,*}
+        and Serre cancellation,
     (d) the chiral algebra A^{(sigma_3, sigma_4)}_{K3xK3xE} is
         well-defined fibrewise as an E_1-chiral algebra.
 
@@ -87,8 +88,8 @@ INDEPENDENT VERIFICATION SOURCES:
     (purely topological, independent of chiral construction)
   - Wu formula: w_{odd} = 0 on complex manifolds
     (purely topological, independent of CY condition)
-  - kappa_ch additivity: kappa_ch(K3) + kappa_ch(K3) + kappa_ch(E)
-    via supertrace on Hodge column h^{0,*}
+  - direct Kunneth computation of the Hodge column h^{0,*}, followed
+    by odd-dimensional Serre cancellation
     (Vol III Theorem thm:kappa-stratification-by-d)
   - chi(O_{K3 x K3 x E}) = chi(O_K3) * chi(O_K3) * chi(O_E)
     = 2 * 2 * 0 = 0 (Kunneth multiplicativity of chi(O))
@@ -275,15 +276,10 @@ def K3_K3_E_kappa_ch() -> int:
     kappa_ch = Hodge supertrace at compact CY_d.  At odd d, Serre
     cancellation forces Xi = 0 unconditionally.
 
-    Cross-check via additivity (informal at d=5 since kappa_ch is
-    the supertrace, multiplicative under products at d=2 only):
-      At d=2: kappa_ch(K3) = 2 (Mukai vector rank).
-      At d=1: kappa_ch(E) = 1.
-      The Vol III additivity formula kappa_ch(X x Y) = kappa_ch(X) + kappa_ch(Y)
-      holds when supertrace cancellation is *direct sum* on the
-      Hodge column. At K3 x K3 x E, the supertrace is computed
-      DIRECTLY from the column and yields 0 (Serre cancellation
-      across the odd dimension).
+    The value is not obtained by adding factor-level kappa_ch values.
+    At K3 x K3 x E, the supertrace is computed directly from the
+    Kunneth Hodge column and yields 0 by Serre cancellation across
+    the odd dimension.
 
     Independent verification source: Kunneth + Serre (no chiral input).
     """

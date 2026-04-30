@@ -22,7 +22,7 @@ self-containedness and cite the canonical source.
 \end{itemize}
 
 %% =====================================================================
-\section{The \texorpdfstring{$\kappa$}{kappa}-spectrum}
+\section{The \texorpdfstring{$\kappa_\bullet$}{kappa-bullet}-spectrum}
 \label{sec:nc-kappa}
 
 A single CY manifold $X$ admits \emph{multiple} chiral algebras, each
@@ -484,9 +484,12 @@ $\hCS$ & Holomorphic Chern--Simons theory: the geometric
 \midrule
 $\Lambda_{\mathrm{Muk}}$ & Mukai lattice of K3, signature $(4,20)$ \\
 $\omega^{ij}$ & Mukai pairing: $\mathrm{diag}(+1,\ldots,-1,\ldots)$ \\
-$\Phi_{10}$ & Igusa cusp form of weight 10
- (Siegel modular form on $\Sp_4(\Z)$) \\
-$\Delta_5$ & BKM automorphic form of weight 5 \\
+$\Phi_{10}^{\mathrm{un}}$ & Unnormalised Igusa square
+ $\Delta_5^2$, a weight-$10$ Siegel modular form on $\Sp_4(\Z)$ \\
+$D_5$ & Monic Borcherds product $64^{-1}\Delta_5$ \\
+$\Phi_{10}^{\mathrm{OP}}$ & Oberdieck--Pandharipande reduced-DT scalar
+ convention $D_5^2=4096^{-1}\Delta_5^2$ \\
+$\Delta_5$ & Primitive BKM automorphic form of weight 5 \\
 $\phi_{k,m}$ & Jacobi form of weight $k$, index $m$;
  discriminant constraint $D \equiv 0$ or $3 \pmod{4}$ at $m = 1$ \\
 $\eta(\tau)$ & Dedekind eta function: $q^{1/24}\prod_{n \ge 1}(1 - q^n)$ \\
@@ -505,41 +508,30 @@ $\frakg_{K3}$ & K3 double current algebra
 \begin{center}
 \begin{tabular}{@{}llll@{}}
 \toprule
-\textbf{Dimension} & \textbf{Theory} & \textbf{Output} & \textbf{Status} \\
+\textbf{Dimension} & \textbf{Theory} & \textbf{Output} & \textbf{Construction} \\
 \midrule
-3d hol.\ CS & Costello--Gwilliam & Kac--Moody & Proved \\
-5d hol.\ CS & Costello 2013 & Affine Yangian & Proved \\
-6d hol.\ theory & Costello--Francis--Gwilliam & Quantum toroidal & Conjectural \\
+3d hol.\ CS & Costello--Gwilliam & Kac--Moody & theorem \\
+5d hol.\ CS & Costello 2013 & Affine Yangian & theorem \\
+6d hCS on $\C^3$ & Costello--Gwilliam / Hall comparison &
+ $\CoHA(\C^3)=Y^+(\widehat{\fgl}_1)$ & local toric chart gluing \\
+compact 6d hCS/Hall & critical atlas + quasi-NCCR + Hall double &
+ compact Hall--Borcherds envelope & conditional on named data \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 %% =====================================================================
-\section{Claim status tags}
-\label{sec:nc-claim-status}
+\section{Proof scope}
+\label{sec:nc-proof-regimes}
 
-\begin{center}
-\begin{tabular}{@{}lll@{}}
-\toprule
-\textbf{Tag} & \textbf{Macro} & \textbf{Meaning} \\
-\midrule
-\ClaimStatusProvedHere & \verb|\ClaimStatusProvedHere| & Proved in this volume \\
-\ClaimStatusProvedElsewhere & \verb|\ClaimStatusProvedElsewhere| & Proved in Vol~I or II \\
-\ClaimStatusConjectured & \verb|\ClaimStatusConjectured| & Conjectured \\
-\ClaimStatusConditional & \verb|\ClaimStatusConditional| & Conditional on named dependency \\
-\ClaimStatusHeuristic & \verb|\ClaimStatusHeuristic| & Heuristic / physical argument \\
-\ClaimStatusOpen & \verb|\ClaimStatusOpen| & Open problem \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\noindent
-\textbf{Default rule}: new Vol~III formal statements use
-\verb|\begin{conjecture}| unless the proof is complete and unconditional.
-Any proof chain passing through an unconstructed object, in particular
-$A_X$ at $d = 3$, must remain conjectural, and conditional statuses
-propagate: if Result $B$ depends on Result $A$ which is conditional on
-an unconstructed object, then $B$ inherits that conditionality.
+A theorem in this volume is a proved statement only when its proof is
+complete in the present text or imported from Volumes~I--II or a named
+primary source. A construction passing through an unconstructed object,
+in particular a compact non-toric \(A_X\) at \(d=3\), is stated as a
+conjecture or as a conditional implication whose hypotheses name the
+missing object. Conditionality is transitive: if \(B\) uses \(A\) and
+\(A\) requires a compact orientation, a critical CoHA atlas, or a
+chain-level \(\Phi_3\) witness, then \(B\) carries the same hypothesis.
 
 %% =====================================================================
 \section{Main theorems and conjectures}
@@ -548,15 +540,16 @@ an unconstructed object, then $B$ inherits that conditionality.
 \begin{center}
 \begin{tabular}{@{}llll@{}}
 \toprule
-\textbf{Label} & \textbf{Name} & \textbf{Status} & \textbf{Statement} \\
+\textbf{Label} & \textbf{Name} & \textbf{Scope} & \textbf{Statement} \\
 \midrule
-CY-A & CY-to-chiral functor & $d=2,3$ proved; $d \geq 4$ open &
+CY-A & CY-to-chiral functor & $d=2,3$ constructed; $d \geq 4$ needs compact-formality data &
  $\Phi \colon \CY_d\text{-}\Cat \to \En\text{-}\mathrm{ChirAlg}$ \\
-CY-B & $\Etwo$-chiral Koszul duality & Programme & Depends on CY-A (resolved) \\
-CY-C & Quantum group realization & Conjectural &
- $C(\frakg,q)$ not constructed; $A_\cC$ exists; always \verb|\begin{conjecture}| \\
-CY-D & Modular CY characteristic & Programme &
- $A_\cC$ exists by CY-A; $\kappa_\bullet$ formula conjectural at $d = 3$ \\
+CY-B & $\Etwo$-chiral Koszul duality & constructed on CY-A loci &
+ centre comparison over the constructed shadows \\
+CY-C & Quantum group realization & toric positive half constructed; compact double conditional &
+ $C(\frakg,q)$ requires critical CoHA, quasi-NCCR, Hall pairing, and double descent \\
+CY-D & Modular CY characteristic & branchwise Hodge-supertrace theorem &
+ $\kappa_\bullet$ formulas carry their stated construction layer \\
 \bottomrule
 \end{tabular}
 \end{center}

@@ -1,16 +1,28 @@
-r"""Cech-HTT convergence analysis for compact non-formal CY3 categories.
+r"""Cech-HTT convergence analysis for compact CY3 categories.
 
 MATHEMATICAL CONTENT
 ====================
 
-The single remaining analytic question blocking CY-A_3: convergence of the
-Cech-HTT (homotopy transfer theorem) series for compact non-formal CY3
-categories.
+This engine records the analytic Cech-HTT (homotopy transfer theorem)
+diagnostic for compact CY3 categories.  It proves convergence statements
+for transferred coefficient series under finite-cover hypotheses.  It does
+not prove raw A-infinity obstruction vanishing and it does not identify the
+raw pair-contraction operator with Costello's corrected TCFT operator.
 
-From prop:hopf-fibration-decomposition (cy_to_chiral.tex): Obs_top = 0,
-Obs_Ainf = 0 universally.  Obs_BV = 0 for toric and formal compact CY3.
-The remaining case: compact non-formal CY3 (e.g., the quintic at non-Gepner
-points where A_infinity deformations activate).
+Corrected AP-CY34 obstruction theorem:
+
+  * Cech-HTT/BV convergence is a separate analytic diagnostic.
+  * B_term^(2) is the strict bar pair-contraction operator; it is not
+    B_TCFT^(2).
+  * The strict cyclic CY3 witness satisfies
+
+        [m_3, B_term^(2)][a|a|a|a|b] = 2 alpha [b] != 0
+
+    for alpha != 0 in characteristic zero.
+  * Compact CY3 obstruction closure requires corrected TCFT comparison data
+    B_term^(2) -> B_TCFT^(2), or an HH^{-2} filtration theorem.
+  * DGMS, BTT, Leray acyclicity, and finite Cech covers are not shortcuts
+    to A-infinity categorical formality.
 
 THE CECH-HTT SERIES
 ====================
@@ -48,16 +60,17 @@ FIVE ATTACK VECTORS
    Since Cat(k) ~ 4^k / k^{3/2}, the series sum_k ||mu_k|| z^k has
    radius of convergence >= 1/(4 * ||h d||) = 1/20 for the quintic.
 
-2. COUNTEREXAMPLE SEARCH: We look for compact non-formal CY3 where the
-   Cech-HTT series DIVERGES.  Candidate: a CY3 with very large Picard
-   number (many overlaps).  Result: no counterexample found.  The
-   Gevrey-1 bound prevents divergence faster than k!.
+2. COUNTEREXAMPLE SEARCH: We look for finite Leray covers where the
+   Cech-HTT coefficient series diverges.  Candidate: a cover with many
+   overlaps.  Result: the finite-cover Catalan bound gives positive
+   coefficient radius.  This says nothing by itself about raw
+   A-infinity/TCFT carrier vanishing.
 
-3. BOREL SUMMATION: Even if the formal series diverges, the Borel
-   transform B[f](t) = sum_k mu_k / k! * t^k converges (since
-   ||mu_k|| <= C^k * k! gives ||mu_k/k!|| <= C^k).  The Borel
-   sum integral_0^infty B[f](t) e^{-t/z} dt converges when the
-   Borel transform has no singularities on R_+.
+3. BOREL SUMMATION: The coefficient series in this engine is
+   Gevrey-0 under the finite-cover bound.  The Gevrey-1 question belongs
+   to the OPE-completed chiral series.  Borel summability of that OPE
+   completion is a separate analytic statement and does not replace the
+   TCFT comparison datum.
 
    KEY RESULT: For class M algebras, the Borel singularities are
    controlled by the shadow invariants S_k, which are the A_infinity
@@ -69,22 +82,24 @@ FIVE ATTACK VECTORS
    the Cech complex has 5 opens, binom(5,k+1) simplices at degree k.
    The total number of Cech cochains is bounded: at each order k,
    the HTT involves at most binom(5,2)^{k-2} = 10^{k-2} terms.
-   This is a polynomial bound (not factorial), so the series converges.
+   This bounds the coefficient series.  It is not an A-infinity formality
+   theorem.
 
 5. CODERIVED COMPARISON: The BV/BRST complex converges in D^{co}
    (coderived category).  The Cech-to-BV comparison map is a filtered
    quasi-isomorphism.  The filtration is by Cech degree, and the
    associated graded converges.  By completeness of D^{co}, the
-   unfiltered map also converges.
+   unfiltered analytic comparison converges.  This does not formulate or
+   kill the raw termwise class [m_3, B_term^(2)].
 
 MAIN RESULTS
 ============
 
 THEOREM (Cech-HTT convergence for Picard number 1):
     For a smooth CY3 hypersurface X_d in P^4 with the standard affine
-    cover {U_i = {x_i != 0}}, the Cech-HTT series converges absolutely
-    in the formal (adic) topology.  The convergence radius in the
-    OPE variable z is at least 1/(4 * ||h d||) = 1/(4d).
+    cover {U_i = {x_i != 0}}, the Cech-HTT coefficient series converges
+    absolutely.  The coefficient radius in the bookkeeping variable z is
+    at least 1/(4 * ||h d||) = 1/(4d).
 
     PROOF: The Cech cover has 5 opens.  The operator h d has norm bounded
     by d (the degree of the hypersurface equation, controlling the
@@ -92,30 +107,34 @@ THEOREM (Cech-HTT convergence for Picard number 1):
     Cat(k-1) trees.  The series sum_k Cat(k-1) d^{k-2} z^{k-2} converges
     for |z| < 1/(4d).
 
-PROPOSITION (Gevrey-1 bound for general compact CY3):
+PROPOSITION (Finite-cover coefficient bound for general compact CY3):
     For a smooth compact CY3 X with a finite affine cover of N opens,
     the Cech-HTT transferred operations satisfy:
         ||mu_k^{HTT}|| <= A * B^k * Cat(k-1)
     where A, B depend on the geometry (cover size, intersection norms).
-    The formal series is Gevrey-1: the Borel transform converges.
+    The coefficient series has positive radius.  The OPE-completed
+    chiral series is a separate analytic object.
 
 PROPOSITION (Borel summability for class L and C):
-    For CY3 categories of shadow class L or C, the Cech-HTT Borel
-    transform has no singularities on R_+ (the shadow tower terminates
-    or is periodic).  The Borel sum defines the non-perturbative
-    transferred operations.
+    For CY3 categories of shadow class L or C, the OPE-completed Borel
+    transform has no obstructing positive-real singularity under the
+    shadow-tower model (the tower terminates or is periodic).  This is an
+    analytic summability statement, not a raw B_term^(2) identity.
 
-CONJECTURE (Borel summability for class M):
-    For CY3 categories of shadow class M (e.g., local P^2), the
-    Borel transform has singularities at t_n = 1/S_{n+3} for
-    n = 1, 2, ....  Lateral Borel summation (avoiding the singularities
-    by deforming the contour) is expected to converge.  The ambiguity
-    (Stokes phenomenon) is controlled by the non-perturbative data
-    from the shadow tower.
+DISCRIMINANT CRITERION (class M analytic channel):
+    For class M, Borel summability is decided by the shadow quadratic
+    discriminant in ``class_m_borel_summation.py``.  Under
+    ``kappa_ch^3*S_4 > 0`` the discriminant
+    ``disc(Q_L) = -256*kappa_ch^3*S_4`` is negative, so the positive
+    Borel contour avoids the branch cuts.  This Cech engine does not carry
+    the kappa_ch sign, so it records class M OPE summability as requiring
+    that separate discriminant datum, not as a compact-framing closure
+    proof.
 
-AP-CY6 COMPLIANCE: All results for compact CY3 are CONDITIONAL on CY-A_3
-(the Cech-HTT convergence is necessary but not sufficient for the full
-functor Phi_3).  Results for toric CY3 are unconditional.
+SCOPE:
+    All compact-CY3 conclusions here are analytic convergence diagnostics.
+    They are necessary input for CY-A_3 but not sufficient for the full
+    functor Phi_3, raw Obs_Ainf = 0, or compact S^3-framing closure.
 
 CONVENTIONS
 ===========
@@ -224,7 +243,9 @@ class CechCoverData:
         degree: degree of the defining hypersurface(s)
         is_affine_cover: whether all opens and intersections are affine
         picard_number: Picard number rho(X) = h^{1,1}(X)
-        is_formal: whether the derived category is formal (m_k = 0, k >= 3)
+        is_formal: whether a chosen A-infinity model is formal
+            (m_k = 0, k >= 3).  DGMS/BTT/Cech finite-cover hypotheses do
+            not set this flag.
         shadow_class: G, L, C, or M from the shadow tower
     """
     geometry: str
@@ -695,10 +716,10 @@ def finite_presentation(cover: CechCoverData,
 class CoderivedComparison:
     r"""Comparison of Cech-HTT and BV/BRST in the coderived category.
 
-    The BV/BRST complex converges in D^{co}(A-mod) (the coderived
-    category of A-modules).  The coderived category allows infinite
-    direct products, which is necessary for the Cech complex of
-    a non-affine variety.
+    This is an analytic comparison datum.  The BV/BRST complex converges
+    in D^{co}(A-mod) (the coderived category of A-modules).  The coderived
+    category allows infinite direct products, which is necessary for the
+    Cech complex of a non-affine variety.
 
     The comparison:
     1. The Cech resolution C^*(X, E) is a complex of sheaves on X.
@@ -707,10 +728,10 @@ class CoderivedComparison:
            Phi: C^*(X, E) -> BV^*(X, E)
        where the filtration is by Cech degree.
 
-    The key property: Phi respects the A_infinity structure transferred
-    by the HTT.  This means the Cech-HTT transferred operations
-    mu_k^{HTT} agree with the BV-transferred operations mu_k^{BV}
-    in D^{co}.
+    The key property recorded here is convergence of the filtered analytic
+    comparison.  It is not a statement that raw B_term^(2) equals
+    B_TCFT^(2), and it is not a proof that the strict termwise
+    A-infinity obstruction vanishes.
 
     For toric CY3: the comparison is a quasi-isomorphism of strict
     A_infinity algebras (no higher homotopies needed).
@@ -725,17 +746,35 @@ class CoderivedComparison:
         associated_graded_converges: whether gr^*(Phi) converges
         coderived_converges: whether Phi converges in D^{co}
         comparison_type: "strict" or "filtered"
+        analytic_diagnostic_only: true because this comparison is not a
+            TCFT carrier theorem
+        proves_raw_obs_ainf_zero: false for this engine
+        identifies_b_term_with_b_tcft: false for this engine
+        closes_compact_s3_framing: false unless separate TCFT comparison
+            data or an HH^{-2} filtration theorem is supplied elsewhere
     """
     cover: CechCoverData
     filtration_bounded: bool
     associated_graded_converges: bool
     coderived_converges: bool
     comparison_type: str
+    analytic_diagnostic_only: bool = True
+    proves_raw_obs_ainf_zero: bool = False
+    identifies_b_term_with_b_tcft: bool = False
+    closes_compact_s3_framing: bool = False
 
     def full_convergence(self) -> bool:
         """Whether the comparison gives full convergence."""
         return (self.associated_graded_converges
                 and self.coderived_converges)
+
+    def supplies_tcft_closure_data(self) -> bool:
+        """Whether this comparison supplies the missing TCFT carrier datum."""
+        return (
+            self.proves_raw_obs_ainf_zero
+            or self.identifies_b_term_with_b_tcft
+            or self.closes_compact_s3_framing
+        )
 
 
 def coderived_comparison(cover: CechCoverData) -> CoderivedComparison:
@@ -802,8 +841,9 @@ class ShadowBorelConnection:
       Borel singularities, summable by lateral integration.
     - For class C: periodic S_k, infinitely many Borel singularities
       on a lattice, summable by Ecalle's resurgent methods.
-    - For class M: S_k nonzero for all k, dense Borel singularities.
-      Summability is conjectural.
+    - For class M: S_k nonzero for all k.  Summability is decided by the
+      class-M discriminant condition kappa_ch^3*S_4 > 0; this engine
+      records it as requiring that external analytic datum.
 
     The KEY DISTINCTION for CY-A_3:
         The Cech-HTT convergence question is about the COEFFICIENT
@@ -814,7 +854,8 @@ class ShadowBorelConnection:
         shadow_class: G, L, C, or M
         coefficient_convergent: always True (Gevrey-0 for finite cover)
         ope_gevrey_index: 0 for class G, 1 for classes L/C/M
-        ope_borel_summable: True for G/L/C, conjectural for M
+        ope_borel_summable: True for G/L/C; for M, true only after the
+            discriminant datum is supplied outside this Cech engine
         nearest_borel_singularity: location of nearest singularity in
             the Borel plane (None for class G, 1/S_4 for others)
     """
@@ -831,7 +872,7 @@ class ShadowBorelConnection:
         if self.ope_borel_summable:
             parts.append("  OPE Borel summable: yes")
         else:
-            parts.append("  OPE Borel summable: conjectural")
+            parts.append("  OPE Borel summable: requires discriminant datum")
         if self.nearest_borel_singularity is not None:
             parts.append(f"  Nearest Borel singularity: {self.nearest_borel_singularity}")
         return "\n".join(parts)
@@ -876,19 +917,109 @@ def shadow_borel_connection(shadow_class: str,
             nearest_borel_singularity=nearest,
         )
     else:
-        # Class M
+        # Class M.  The separate class_m_borel_summation engine proves the
+        # analytic channel under kappa_ch^3*S_4 > 0.  This Cech surface does
+        # not carry kappa_ch, so it cannot decide that hypothesis.
         nearest = F(1) / shadow_s4 if shadow_s4 and shadow_s4 != 0 else None
         return ShadowBorelConnection(
             shadow_class="M",
             coefficient_convergent=True,
             ope_gevrey_index=1,
-            ope_borel_summable=False,  # conjectural for class M
+            ope_borel_summable=False,
             nearest_borel_singularity=nearest,
         )
 
 
 # ============================================================================
-# 8.  MASTER CONVERGENCE ANALYSIS
+# 8.  CORRECTED OBSTRUCTION SCOPE
+# ============================================================================
+
+@dataclass(frozen=True)
+class CorrectedObstructionScope:
+    r"""Scope of Cech-HTT relative to the corrected AP-CY34 obstruction.
+
+    The object deliberately separates the analytic convergence result from
+    the raw A-infinity and TCFT carrier claims.
+    """
+
+    coefficient_converges: bool
+    ope_borel_summable: bool
+    raw_obs_ainf_proved_zero: bool = False
+    b_term_equals_b_tcft: bool = False
+    corrected_tcft_comparison_data: bool = False
+    hh_minus_two_filtration_theorem: bool = False
+    strict_witness_input: str = "[a|a|a|a|b]"
+    strict_witness_commutator_coeff: Fraction = F(2)
+
+    def analytic_diagnostic_resolved(self) -> bool:
+        """Whether the Cech-HTT analytic coefficient diagnostic is resolved."""
+        return self.coefficient_converges
+
+    def compact_cy3_closure(self) -> bool:
+        """Whether the data here close compact CY3 S^3-framing."""
+        return (
+            self.coefficient_converges
+            and self.ope_borel_summable
+            and (self.corrected_tcft_comparison_data
+                 or self.hh_minus_two_filtration_theorem)
+        )
+
+    def strict_witness_formula(self, alpha: Fraction | int = F(1)) -> Dict[str, Any]:
+        """Exact strict witness coefficients for the raw termwise failure."""
+        alpha = F(alpha)
+        return {
+            "operator": "B_term^(2)",
+            "not_operator": "B_TCFT^(2)",
+            "input": self.strict_witness_input,
+            "m3_after_b_term": 4 * alpha,
+            "b_term_after_m3": 2 * alpha,
+            "commutator": self.strict_witness_commutator_coeff * alpha,
+            "nonzero_for_alpha_nonzero": alpha != 0,
+            "statement": (
+                "[m_3,B_term^(2)][a|a|a|a|b] = "
+                f"{self.strict_witness_commutator_coeff} alpha [b] != 0"
+            ),
+        }
+
+    def remaining_proof_obligations(self) -> List[str]:
+        """Proof obligations not discharged by Cech-HTT convergence."""
+        obligations: List[str] = []
+        if not self.raw_obs_ainf_proved_zero:
+            obligations.append(
+                "raw Obs_Ainf is not zero: strict witness gives "
+                "[m_3,B_term^(2)][a|a|a|a|b] = 2 alpha [b]"
+            )
+        if not self.b_term_equals_b_tcft:
+            obligations.append(
+                "B_term^(2) is not identified with B_TCFT^(2)"
+            )
+        if not (self.corrected_tcft_comparison_data
+                or self.hh_minus_two_filtration_theorem):
+            obligations.append(
+                "compact CY3 closure needs corrected TCFT comparison data "
+                "or an HH^{-2} filtration theorem"
+            )
+        return obligations
+
+
+def corrected_obstruction_scope(
+    coefficient_converges: bool,
+    ope_borel_summable: bool,
+    *,
+    corrected_tcft_comparison_data: bool = False,
+    hh_minus_two_filtration_theorem: bool = False,
+) -> CorrectedObstructionScope:
+    """Build the corrected obstruction-scope record for a convergence result."""
+    return CorrectedObstructionScope(
+        coefficient_converges=coefficient_converges,
+        ope_borel_summable=ope_borel_summable,
+        corrected_tcft_comparison_data=corrected_tcft_comparison_data,
+        hh_minus_two_filtration_theorem=hh_minus_two_filtration_theorem,
+    )
+
+
+# ============================================================================
+# 9.  MASTER CONVERGENCE ANALYSIS
 # ============================================================================
 
 @dataclass
@@ -909,21 +1040,17 @@ class CechHTTConvergenceResult:
 
     STATUS: This resolves the Cech-HTT convergence question for the
     coefficient series.  The OPE completion (Gevrey-1 for non-formal
-    CY3) is a separate question.
+    CY3) is a separate analytic question.
 
-    The status of Obs_BV from prop:hopf-fibration-decomposition is
-    therefore upgraded:
-    - Toric CY3: Obs_BV = 0 (torus equivariance).  PROVED.
-    - Compact formal CY3: Obs_BV = 0 (HTT truncates).  PROVED.
-    - Compact non-formal CY3: Obs_BV has CONVERGENT Cech-HTT series.
-      The non-perturbative completion (OPE poles) is Gevrey-1.
-      For shadow class G/L/C: Borel summable.  PROVED.
-      For shadow class M: Borel summability CONJECTURAL.
+    The status of the BV/HTT analytic diagnostic is therefore upgraded,
+    but the raw A-infinity and TCFT carrier claims are not.  In
+    particular, the strict witness
+        [m_3,B_term^(2)][a|a|a|a|b] = 2 alpha [b] != 0
+    remains a counterexample to universal raw termwise vanishing.
 
-    AP-CY6: All claims about the functor Phi_3 remain CONDITIONAL
-    on CY-A_3.  This result resolves the ANALYTIC component of
-    the obstruction; the ALGEBRAIC component (constructing A_X as
-    an E_1-chiral algebra) is the content of CY-A_3 itself.
+    Compact CY3 obstruction closure still requires either corrected TCFT
+    comparison data B_term^(2) -> B_TCFT^(2) or an HH^{-2} filtration
+    theorem.
     """
     cover: CechCoverData
     bounds: CechOperatorBounds
@@ -931,6 +1058,7 @@ class CechHTTConvergenceResult:
     finite_pres: FinitePresentationData
     coderived: CoderivedComparison
     shadow_borel: ShadowBorelConnection
+    obstruction_scope: CorrectedObstructionScope
 
     def coefficient_convergent(self) -> bool:
         """Whether the Cech-HTT coefficient series converges."""
@@ -944,18 +1072,38 @@ class CechHTTConvergenceResult:
         """Whether the OPE-completed series is Borel summable."""
         return self.shadow_borel.ope_borel_summable
 
+    def proves_raw_obs_ainf_zero(self) -> bool:
+        """Cech-HTT convergence does not prove raw Obs_Ainf = 0."""
+        return self.obstruction_scope.raw_obs_ainf_proved_zero
+
+    def identifies_b_term_with_b_tcft(self) -> bool:
+        """Whether this engine identifies B_term^(2) and B_TCFT^(2)."""
+        return self.obstruction_scope.b_term_equals_b_tcft
+
+    def compact_s3_framing_closed(self) -> bool:
+        """Whether compact CY3 S^3-framing is closed by this result."""
+        return self.obstruction_scope.compact_cy3_closure()
+
+    def remaining_proof_obligations(self) -> List[str]:
+        """Proof obligations outside the Cech-HTT analytic diagnostic."""
+        return self.obstruction_scope.remaining_proof_obligations()
+
     def obs_bv_status(self) -> str:
         """Status of Obs_BV from the Hopf decomposition."""
         if self.cover.geometry in {"C^3", "conifold", "local P^2"}:
-            return "proved_zero (toric equivariance)"
+            return "analytic_bv_zero (toric equivariance)"
         if self.cover.is_formal:
-            return "proved_zero (HTT truncates, formal)"
+            return "analytic_bv_truncates (chosen formal model)"
         if self.gevrey.convergent and self.shadow_borel.ope_borel_summable:
-            return "proved_zero (Cech-HTT converges, OPE Borel summable)"
+            return (
+                "analytic_bv_resolved; "
+                "raw_Obs_Ainf_and_TCFT_closure_require_extra_data"
+            )
         if self.gevrey.convergent and not self.shadow_borel.ope_borel_summable:
             return (
                 "coefficient_series_converges; "
-                "OPE_Borel_summability_conjectural (class M)"
+                "OPE_Borel_summability_requires_discriminant_data (class M); "
+                "raw_Obs_Ainf_and_TCFT_closure_require_extra_data"
             )
         return "open"
 
@@ -972,6 +1120,11 @@ class CechHTTConvergenceResult:
             "obs_bv_status": self.obs_bv_status(),
             "coderived_converges": self.coderived.full_convergence(),
             "finite_pres_total_ops": self.finite_pres.total_ops,
+            "analytic_diagnostic_only": True,
+            "proves_raw_obs_ainf_zero": self.proves_raw_obs_ainf_zero(),
+            "identifies_b_term_with_b_tcft": self.identifies_b_term_with_b_tcft(),
+            "compact_s3_framing_closed": self.compact_s3_framing_closed(),
+            "remaining_proof_obligations": self.remaining_proof_obligations(),
         }
 
 
@@ -985,6 +1138,10 @@ def analyze_convergence(cover: CechCoverData,
     fin_pres = finite_presentation(cover, max_htt_order)
     coderived = coderived_comparison(cover)
     shadow = shadow_borel_connection(cover.shadow_class, shadow_s4)
+    obstruction_scope = corrected_obstruction_scope(
+        coefficient_converges=gevrey.convergent,
+        ope_borel_summable=shadow.ope_borel_summable,
+    )
 
     return CechHTTConvergenceResult(
         cover=cover,
@@ -993,6 +1150,7 @@ def analyze_convergence(cover: CechCoverData,
         finite_pres=fin_pres,
         coderived=coderived,
         shadow_borel=shadow,
+        obstruction_scope=obstruction_scope,
     )
 
 
@@ -1003,9 +1161,9 @@ def analyze_convergence(cover: CechCoverData,
 def analyze_quintic() -> CechHTTConvergenceResult:
     """Complete analysis for the quintic X_5 in P^4.
 
-    RESULT: The quintic is formal, so the HTT truncates at k=2.
-    The Cech-HTT series is trivially convergent (one term).
-    Obs_BV = 0 (proved).
+    RESULT: The quintic is not A-infinity formal in this diagnostic
+    metadata.  The Cech-HTT coefficient series converges by the finite
+    cover Catalan bound.  The result does not prove raw Obs_Ainf = 0.
     """
     return analyze_convergence(quintic_cover())
 
@@ -1013,8 +1171,9 @@ def analyze_quintic() -> CechHTTConvergenceResult:
 def analyze_bicubic() -> CechHTTConvergenceResult:
     """Complete analysis for the bicubic P^5[3,3].
 
-    RESULT: The bicubic is formal, HTT truncates at k=2.
-    Convergent, Obs_BV = 0.
+    RESULT: The bicubic is not A-infinity formal in this diagnostic
+    metadata.  The Cech-HTT coefficient series converges by the finite
+    cover Catalan bound.  The result does not prove compact TCFT closure.
     """
     return analyze_convergence(bicubic_cover())
 
@@ -1024,8 +1183,9 @@ def analyze_local_p2() -> CechHTTConvergenceResult:
 
     RESULT: Local P^2 is non-formal (m_3 != 0), shadow class M.
     The Cech-HTT coefficient series converges (radius = 1/12).
-    The OPE-completed series is Gevrey-1; Borel summability is
-    conjectural (class M has dense Borel singularities).
+    The OPE-completed series is Gevrey-1; its class-M Borel summability
+    is decided by the separate discriminant criterion
+    kappa_ch^3*S_4 > 0.
 
     However: local P^2 is TORIC, so Obs_BV = 0 by torus equivariance
     regardless of the convergence analysis.  The convergence result
@@ -1046,8 +1206,8 @@ def analyze_octic_double_solid() -> CechHTTConvergenceResult:
     RESULT: The octic double solid is a compact non-formal CY3
     (conjectural non-formality at generic complex structure).
     The Cech-HTT coefficient series converges (radius = 1/32).
-    The OPE-completed series is Gevrey-1; Borel summability
-    conjectural (class M expected).
+    The OPE-completed series is Gevrey-1; Borel summability requires the
+    class-M discriminant datum kappa_ch^3*S_4 > 0.
 
     This is the KEY TEST CASE: a compact, non-toric, non-formal CY3
     where all three attack vectors are needed.
@@ -1075,48 +1235,62 @@ def convergence_landscape() -> Dict[str, Dict[str, Any]]:
 
 
 def obs_bv_upgrade_table() -> List[Dict[str, str]]:
-    r"""The upgraded Obs_BV status table.
+    r"""Corrected BV/HTT analytic status table.
 
     Before this analysis:
-        Toric: proved zero
-        Compact formal: proved zero (HTT truncates)
-        Compact non-formal: OPEN
+        Toric analytic BV: zero by equivariance.
+        Compact chosen-formal model: analytic truncation.
+        Compact non-formal finite-cover coefficient convergence: open.
 
     After this analysis:
-        Toric: proved zero
-        Compact formal: proved zero (HTT truncates)
-        Compact non-formal, class G/L/C: proved zero (convergent + Borel)
+        Toric analytic BV: zero by equivariance.
+        Compact chosen-formal model: analytic truncation.
+        Compact non-formal, class G/L/C: analytic BV resolved under OPE
+            Borel summability.
         Compact non-formal, class M: coefficient series convergent;
-            OPE Borel summability conjectural
+            OPE Borel summability requires the discriminant datum
 
-    The severity of O1 (chain-level S^3-framing) is further downgraded
-    from MODERATE to LOW for class G/L/C, and remains MODERATE for
-    class M (only the OPE completion is unresolved).
+    In every compact non-formal row, raw Obs_Ainf and compact TCFT closure
+    remain conditional on corrected TCFT comparison data or an HH^{-2}
+    filtration theorem.
     """
     return [
         {
             "geometry_class": "toric CY3",
-            "obs_bv_before": "proved zero",
-            "obs_bv_after": "proved zero",
+            "obs_bv_before": "analytic zero",
+            "obs_bv_after": "analytic zero",
             "mechanism": "torus equivariance",
         },
         {
             "geometry_class": "compact formal CY3",
-            "obs_bv_before": "proved zero (perturbative)",
-            "obs_bv_after": "proved zero",
-            "mechanism": "HTT truncates (only mu_2)",
+            "obs_bv_before": "analytic truncation (chosen formal model)",
+            "obs_bv_after": "analytic truncation",
+            "mechanism": "HTT truncates only for a chosen formal model",
         },
         {
             "geometry_class": "compact non-formal, class G/L/C",
             "obs_bv_before": "OPEN",
-            "obs_bv_after": "proved zero",
-            "mechanism": "Cech-HTT converges + OPE Borel summable",
+            "obs_bv_after": (
+                "analytic BV resolved; raw Ainf/TCFT closure conditional"
+            ),
+            "mechanism": (
+                "Cech-HTT coefficient convergence plus OPE Borel "
+                "summability; no B_term^(2)=B_TCFT^(2) identification"
+            ),
         },
         {
             "geometry_class": "compact non-formal, class M",
             "obs_bv_before": "OPEN",
-            "obs_bv_after": "coefficient convergent; OPE conjectural",
-            "mechanism": "Cech-HTT coefficient bound Cat(k) * ||hd||^k",
+            "obs_bv_after": (
+                "coefficient convergent; OPE needs discriminant datum; "
+                "closure conditional"
+            ),
+            "mechanism": (
+                "Cech-HTT coefficient bound Cat(k) * ||hd||^k; "
+                "class-M Borel summability is decided by "
+                "disc(Q_L)=-256*kappa_ch^3*S_4; corrected TCFT or "
+                "HH^{-2} data still required"
+            ),
         },
     ]
 

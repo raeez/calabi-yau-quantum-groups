@@ -1,12 +1,13 @@
-r"""Chain-level S^3-framing: explicit chiral structure maps for CY3 categories.
+r"""Chain-level S^3-framing diagnostics for CY3 categories.
 
 MATHEMATICAL CONTENT
 ====================
 
-This module constructs the EXPLICIT chain-level maps giving the chiral
-algebra structure from the S^3-framing of CY3 categories.  It goes beyond
-the abstract framing map F: CC_n -> CC_{n-3} (in s3_framing_chain_level.py)
-to construct the actual A-infinity and chiral operations.
+This module records explicit local chain models for CY3 categories and the
+proof boundary for promoting them to compact chain-framing theorems.  It does
+not identify the raw pair-contraction operator B_term^{(2)} with Costello's
+corrected TCFT operator B_TCFT^{(2)}, and it does not close compact Phi_3,
+Hall, CoHA, or PBW claims without named comparison data.
 
 THE CONSTRUCTION
 ================
@@ -30,7 +31,20 @@ The obstruction theory has three levels:
     - Needs the S^3-framing to be compatible with the BV structure
     - The chiral operations mu_n^{ch} extend the A-infinity operations
       to include the singular OPE data (the lambda-bracket)
-    - The holomorphic Chern-Simons functional provides the trivialization
+    - The holomorphic Chern-Simons functional provides a local/perturbative
+      trivialization only after its propagator and cyclic comparison data are
+      supplied
+
+AP-CY34 boundary:
+  The raw strict witness
+
+      [m_3, B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0
+
+  survives in this module.  Costello's theorem applies to the corrected
+  total TCFT carrier B_TCFT^{(2)} after a correction/comparison datum is
+  supplied.  No automatic Obs_Ainf = 0, HH^{-2} = 0, contractible lifting
+  space, compact Phi_3 closure, Hall/CoHA closure, or PBW flatness is inferred
+  from the local calculations below.
 
 THE CONIFOLD (simplest CY3 with nontrivial topology)
 =====================================================
@@ -1095,6 +1109,247 @@ def local_p2_hcs_trivialization() -> HCSTrivialization:
 # 7. OBSTRUCTION ANALYSIS
 # =========================================================================
 
+Word = Tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class RawBTermWitness:
+    r"""Exact AP-CY34 witness for the uncorrected pair-contraction operator.
+
+    The normalization is the terminal-slot convention used by the local
+    obstruction engines:
+
+      B_term^{(2)}[a|a|a|a|b] = 4[a|a|a],
+      m_3(a,a,a) = alpha b,
+      [m_3,B_term^{(2)}][a|a|a|a|b] = 2 alpha [b].
+
+    This is a strict algebraic witness.  It is not a compact smooth-proper
+    CY3 construction and it does not contradict Costello's corrected TCFT
+    identity for B_TCFT^{(2)}.
+    """
+
+    alpha: Fraction
+    input_word: Word
+    output_word: Word
+    b_term_of_input_coeff: Fraction
+    m3_after_b_term_coeff: Fraction
+    b_term_after_m3_coeff: Fraction
+    commutator_coeff: Fraction
+    raw_operator: str = "B_term^(2)"
+    corrected_operator: str = "B_TCFT^(2)"
+
+    @property
+    def is_nonzero(self) -> bool:
+        return self.commutator_coeff != 0
+
+    @property
+    def raw_equals_corrected(self) -> bool:
+        return False
+
+    @property
+    def statement(self) -> str:
+        return (
+            "[m_3,B_term^(2)][a|a|a|a|b] = "
+            f"{self.commutator_coeff / self.alpha} alpha [b] != 0"
+        )
+
+    def as_dict(self) -> Dict[str, Any]:
+        return {
+            "input_word": self.input_word,
+            "output_word": self.output_word,
+            "B_term_of_input_coeff": self.b_term_of_input_coeff,
+            "m3_after_B_term_coeff": self.m3_after_b_term_coeff,
+            "B_term_after_m3_coeff": self.b_term_after_m3_coeff,
+            "commutator_coeff": self.commutator_coeff,
+            "raw_operator": self.raw_operator,
+            "corrected_operator": self.corrected_operator,
+            "raw_equals_corrected": self.raw_equals_corrected,
+            "is_nonzero": self.is_nonzero,
+            "statement": self.statement,
+        }
+
+
+def strict_raw_b_term_witness(alpha: Fraction = F(1)) -> RawBTermWitness:
+    r"""Return the exact raw ``B_term^{(2)}`` failure witness.
+
+    ``alpha`` is required to be nonzero because the witness is used as a
+    failure mode for the uncorrected operator.
+    """
+
+    alpha = F(alpha)
+    if alpha == 0:
+        raise ValueError("alpha must be nonzero for the strict B_term witness")
+    return RawBTermWitness(
+        alpha=alpha,
+        input_word=("a", "a", "a", "a", "b"),
+        output_word=("b",),
+        b_term_of_input_coeff=F(4),
+        m3_after_b_term_coeff=F(4) * alpha,
+        b_term_after_m3_coeff=F(2) * alpha,
+        commutator_coeff=F(2) * alpha,
+    )
+
+
+@dataclass(frozen=True)
+class CompactChainFramingData:
+    r"""Named data required before compact CY3 chain-framing closure.
+
+    The defaults are deliberately negative.  A compact claim must explicitly
+    supply either the corrected Costello comparison package or a genuine
+    HH^{-2} filtration theorem, and Hall/CoHA/PBW closure needs its own
+    comparison theorem.
+    """
+
+    costello_correction_datum: bool = False
+    obstruction_complex_comparison: bool = False
+    hh_minus_two_filtration_theorem: bool = False
+    compact_phi3_chain_witness: bool = False
+    compact_hall_coha_comparison: bool = False
+    compact_pbw_filtration_theorem: bool = False
+
+    @property
+    def corrected_tcft_identity_available(self) -> bool:
+        return self.costello_correction_datum and self.obstruction_complex_comparison
+
+    @property
+    def hh_filtration_closes_obstruction(self) -> bool:
+        return self.hh_minus_two_filtration_theorem and self.obstruction_complex_comparison
+
+    @property
+    def obs_ainf_zero_established(self) -> bool:
+        return self.corrected_tcft_identity_available or self.hh_filtration_closes_obstruction
+
+    @property
+    def compact_phi3_closed(self) -> bool:
+        return self.obs_ainf_zero_established and self.compact_phi3_chain_witness
+
+    @property
+    def compact_hall_coha_pbw_closed(self) -> bool:
+        return (
+            self.compact_phi3_closed
+            and self.compact_hall_coha_comparison
+            and self.compact_pbw_filtration_theorem
+        )
+
+    def missing_obligations(self) -> List[str]:
+        obligations: List[str] = []
+        if not self.costello_correction_datum:
+            obligations.append("supply Costello correction datum for B_TCFT^(2)")
+        if not self.obstruction_complex_comparison:
+            obligations.append("compare B_TCFT^(2) or HH filtration to the obstruction complex")
+        if not self.hh_minus_two_filtration_theorem:
+            obligations.append("prove the HH^{-2} filtration theorem if using the cohomological route")
+        if not self.compact_phi3_chain_witness:
+            obligations.append("construct the compact Phi_3 chain witness")
+        if not self.compact_hall_coha_comparison:
+            obligations.append("supply compact Hall/CoHA comparison data")
+        if not self.compact_pbw_filtration_theorem:
+            obligations.append("prove PBW flatness/filtration for the compact Hall object")
+        return obligations
+
+
+@dataclass(frozen=True)
+class CompactChainFramingBoundary:
+    """Executable proof boundary for compact CY3 chain-framing claims."""
+
+    witness: RawBTermWitness
+    data: CompactChainFramingData
+
+    @property
+    def raw_b_term_vanishes(self) -> bool:
+        return False
+
+    @property
+    def raw_obs_ainf_zero(self) -> bool:
+        return False
+
+    @property
+    def b_term_equals_b_tcft(self) -> bool:
+        return False
+
+    @property
+    def corrected_obs_ainf_zero(self) -> bool:
+        return self.data.obs_ainf_zero_established
+
+    @property
+    def compact_closure_established(self) -> bool:
+        return self.data.compact_phi3_closed
+
+    @property
+    def hall_coha_pbw_closure_established(self) -> bool:
+        return self.data.compact_hall_coha_pbw_closed
+
+    def summary(self) -> Dict[str, Any]:
+        return {
+            "raw_witness": self.witness.as_dict(),
+            "raw_b_term_vanishes": self.raw_b_term_vanishes,
+            "raw_obs_ainf_zero": self.raw_obs_ainf_zero,
+            "B_term_equals_B_TCFT": self.b_term_equals_b_tcft,
+            "corrected_obs_ainf_zero": self.corrected_obs_ainf_zero,
+            "compact_phi3_closed": self.compact_closure_established,
+            "hall_coha_pbw_closed": self.hall_coha_pbw_closure_established,
+            "missing_obligations": self.data.missing_obligations(),
+        }
+
+
+def compact_chain_framing_boundary(
+    data: Optional[CompactChainFramingData] = None,
+    *,
+    alpha: Fraction = F(1),
+) -> CompactChainFramingBoundary:
+    """Return the default AP-CY34 boundary for compact CY3 chain-framing."""
+
+    return CompactChainFramingBoundary(
+        witness=strict_raw_b_term_witness(alpha),
+        data=data or CompactChainFramingData(),
+    )
+
+
+def slogan_proof_violations(proof_text: str) -> List[str]:
+    r"""Detect proof slogans forbidden by the AP-CY34 boundary.
+
+    This is a lightweight guard for compute tests, not a parser.  It rejects
+    proof text that asserts compact closure without naming Costello correction
+    data, a comparison to the obstruction complex, or an HH^{-2} filtration
+    theorem.
+    """
+
+    text = " ".join(proof_text.lower().replace("_", " ").split())
+    has_named_data = any(
+        marker in text
+        for marker in [
+            "b tcft",
+            "costello correction",
+            "correction datum",
+            "comparison datum",
+            "obstruction complex",
+            "hh^{-2} filtration",
+            "hh -2 filtration",
+            "filtration theorem",
+        ]
+    )
+    checks = [
+        ("Obs_Ainf = 0", ["obs ainf = 0", "obs ainf vanishes", "obstruction vanishes"]),
+        ("HH^{-2} = 0", ["hh^{-2} = 0", "hh -2 = 0", "hh^{-2} vanishes"]),
+        ("contractible lifting space", [
+            "contractible lifting space",
+            "lifting space is contractible",
+            "liftings are contractible",
+        ]),
+        ("compact Phi_3 closure", ["compact phi 3 closes", "compact phi 3 closure", "phi 3 closes"]),
+        ("Hall/CoHA closure", ["hall closure", "coha closure", "compact hall", "compact coha"]),
+        ("PBW closure", ["pbw closure", "pbw flatness follows", "pbw is automatic"]),
+    ]
+
+    violations: List[str] = []
+    if has_named_data:
+        return violations
+    for label, patterns in checks:
+        if any(pattern in text for pattern in patterns):
+            violations.append(label)
+    return violations
+
+
 @dataclass
 class ObstructionAnalysis:
     """Analysis of obstructions to the chain-level S^3-framing.
@@ -1112,55 +1367,77 @@ class ObstructionAnalysis:
     level_2_chiral: bool       # Chiral structure constructed
     level_2_obstruction: str   # Description of remaining obstruction
     generalizes: bool          # Whether the construction generalizes
+    compact_status: str = "not evaluated"
+    raw_operator: str = "B_term^(2)"
+    corrected_operator: str = "B_TCFT^(2)"
+    raw_b_term_witness_nonzero: bool = False
+    compact_phi3_closed: bool = False
+    compact_hall_coha_pbw_closed: bool = False
 
 
 def analyze_conifold_obstruction() -> ObstructionAnalysis:
-    """Analyze obstructions for the conifold."""
+    """Analyze obstructions for the conifold.
+
+    This is a formal noncompact model.  The absence of higher ``m_k`` terms
+    proves the raw obstruction is absent in this model only; it is not a
+    compact CY3 Phi_3/Hall/CoHA/PBW closure theorem.
+    """
     return ObstructionAnalysis(
         geometry="resolved conifold",
         level_0_e1=True,
         level_1_ainf=True,
         level_1_formal=True,       # Ext algebra is formal
-        level_2_chiral=True,       # Chiral structure from hCS
-        level_2_obstruction="none",
-        generalizes=True,          # Conifold construction generalizes
+        level_2_chiral=True,       # Chiral structure from hCS in this model
+        level_2_obstruction=(
+            "none for the formal noncompact conifold model; no compact "
+            "Phi_3/Hall/CoHA/PBW closure follows"
+        ),
+        generalizes=False,         # Does not generalize as a compact theorem
+        compact_status=(
+            "formal noncompact chart computation only; compact closure needs "
+            "separate Phi_3 chain data and Hall/CoHA/PBW comparison theorems"
+        ),
     )
 
 
 def analyze_local_p2_obstruction() -> ObstructionAnalysis:
     """Analyze obstructions for local P^2.
 
-    The key finding: the m_3 Massey products DO extend to chiral
-    operations, but the extension requires:
+    The key finding: the m_3 Massey products can be represented in the local
+    toric toy model, but compact closure requires named comparison data:
       (a) The CY3 cyclic A-inf relation for m_3
-      (b) The vanishing of the obstruction to lifting m_3 to a
-          chiral operation (which uses the CY pairing compatibility)
+      (b) The Costello correction datum identifying the corrected carrier
+          B_TCFT^{(2)} with the obstruction complex, or a genuine HH^{-2}
+          filtration theorem
 
-    For local P^2, both (a) and (b) hold:
+    For local P^2, the local cyclic data support the toy chiral operations:
       (a) The cyclic relation sum <m_3(a,b,c), d> = ... follows from
           the CY potential W (which defines both m_3 and the pairing)
-      (b) The lift exists because the potential is cubic, so the
-          obstruction (which lives in Ext^2) is killed by the
-          Jacobian relations
 
     The remaining obstruction for GENERAL non-toric CY3:
-      The construction uses the torus-equivariant structure to define
-      the propagator P.  For non-toric CY3, P must come from the
-      Dolbeault resolution, which requires analytic (not algebraic) input.
+      The raw B_term^{(2)} witness remains nonzero in non-formal settings.
+      The construction uses torus-equivariant local data to define the
+      propagator P.  For non-toric compact CY3, P and the B_TCFT/comparison
+      datum must be supplied; analytic input alone is not the missing theorem.
     """
     return ObstructionAnalysis(
         geometry="local P^2",
         level_0_e1=True,
         level_1_ainf=True,
         level_1_formal=False,     # NOT formal (m_3 != 0)
-        level_2_chiral=True,      # Chiral structure exists despite non-formality
+        level_2_chiral=True,      # Local toy chiral operations are represented
         level_2_obstruction=(
-            "m_3 extends to chiral mu_3^{ch} for toric CY3. "
-            "For non-toric compact CY3: the extension requires analytic input "
-            "(Dolbeault propagator) not available algebraically. "
-            "The obstruction to generalization is ANALYTIC, not algebraic."
+            "raw B_term^(2) has a strict nonzero AP-CY34 witness in the "
+            "non-formal case.  A compact statement requires B_TCFT^(2) "
+            "correction/comparison data or a genuine HH^{-2} filtration theorem; "
+            "the toric propagator computation is not a compact closure theorem."
         ),
         generalizes=False,  # Does not generalize to non-toric without analytic input
+        compact_status=(
+            "conditional: no automatic Obs_Ainf=0, HH^{-2}=0, contractible "
+            "lifting space, compact Phi_3, Hall/CoHA, or PBW closure"
+        ),
+        raw_b_term_witness_nonzero=True,
     )
 
 
@@ -1191,6 +1468,7 @@ def master_chain_framing_verification() -> Dict[str, Any]:
     hcs_lp2 = local_p2_hcs_trivialization()
     jacobi_lp2 = verify_chiral_jacobi_local_p2(A_lp2, max_degree=6)
     obs_lp2 = analyze_local_p2_obstruction()
+    compact_boundary = compact_chain_framing_boundary()
 
     jacobi_lp2_pass = all(j.total_jacobi for j in jacobi_lp2)
     jacobi_lp2_count = len(jacobi_lp2)
@@ -1219,8 +1497,22 @@ def master_chain_framing_verification() -> Dict[str, Any]:
         "generalization": {
             "conifold_generalizes": obs_con.generalizes,
             "local_p2_generalizes": obs_lp2.generalizes,
-            "obstruction_type": "analytic (Dolbeault propagator for non-toric CY3)",
-            "toric_cy3_complete": True,
-            "compact_cy3_status": "conditional on analytic input",
+            "obstruction_type": (
+                "AP-CY34 proof boundary: raw B_term^(2) fails; compact closure "
+                "requires B_TCFT^(2) correction/comparison data or an HH^{-2} "
+                "filtration theorem"
+            ),
+            "toric_cy3_complete": False,
+            "toric_chart_model_status": "local/noncompact diagnostic, not compact closure",
+            "compact_cy3_status": (
+                "conditional on named Costello correction/comparison data or a "
+                "genuine HH^{-2} filtration theorem; no Phi_3/Hall/CoHA/PBW "
+                "closure is asserted"
+            ),
+            "compact_phi3_closed": compact_boundary.compact_closure_established,
+            "hall_coha_pbw_closed": compact_boundary.hall_coha_pbw_closure_established,
+        },
+        "ap_cy34_boundary": {
+            **compact_boundary.summary(),
         },
     }

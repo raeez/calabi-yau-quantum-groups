@@ -78,14 +78,14 @@ AP-CY8: Borcherds denominator != bar Euler product. The identification requires
          the CY-to-chiral functor. Without Phi, the comparison is observational.
 
 AP-CY6/AP-CY14: A_{K3xE} does NOT exist at d=3. All results through A_{K3xE}
-                  MUST carry ClaimStatusConditional.
+                  must state the CY-A_3 construction hypothesis explicitly.
 
 AP-CY11: Conditionality propagates. If Result B depends on A_{K3xE}, it is
           conditional on CY-A_3.
 
 Manuscript references:
     Chapter: k3_times_e.tex (ch:k3-times-e)
-    Section: sec:k3e-bkm-chiral-status
+    Section: sec:k3e-bkm-chiral-obstruction
     BKM algebra: sec:k3e-bkm, constr:k3e-roots
     Denominator identity: thm:k3e-denominator, thm:k3e-product
     CoHA: thm:k3e-coha, sec:k3e-coha-structure

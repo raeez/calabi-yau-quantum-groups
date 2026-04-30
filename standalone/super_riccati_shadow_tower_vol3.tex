@@ -1,10 +1,11 @@
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
 
-
-\providecommand{\ClaimStatusProvedHere}{\textsf{[Proved here]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textsf{[Proved elsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textsf{[Conjectured]}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\Ber}{\mathrm{Ber}}
+\providecommand{\str}{\mathrm{str}}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -15,67 +16,443 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title[Super-Riccati shadow tower]{The super-Yangian shadow tower: Riccati
-expansion and the $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = \max(m,n)$
-complementarity}
+\title[Super-Riccati shadow tower]{The super-Riccati shadow tower and the
+Verdier complementarity problem}
 \author{Raeez Lorgat}
-\date{2026-04-17}
+\date{2026-04-30}
 
 \begin{document}
-\maketitle
 
 \begin{abstract}
-For super-Yangian inputs $Y(\mathfrak{sl}(m|n))$, the Sugawara-shifted
-Verdier dual satisfies
-\[
-\kappa_{\mathrm{ch}}(Y(\mathfrak{sl}(m|n))) +
-\kappa_{\mathrm{ch}}(Y(\mathfrak{sl}(n|m))^!) = \max(m, n).
-\]
-The zero-sum analogy is false for this normalization. The super-Riccati
-expansion gives closed shadow coefficients $S_r$ whose characteristic
-arithmetic primes differ from the bosonic Virasoro tower. The
-super-trace and Berezinian pairings give two normalizations of the
-same complementarity datum. The canonical Verdier pairing remains an
-explicit open construction.
+The super-Riccati tower gives a theorem for shadow coefficients attached
+to a homogeneous primary line after the line-restricted Maurer--Cartan
+equation is put in the Riccati normalisation fixed below. The seed data
+\(S_3,S_4\) are external OPE data; the recurrence starts at \(r=5\).
+The parity of the line first changes the diagonal \((4,4)\)-term in
+\(S_6\). The Verdier complementarity statement for \(Y(\fsl(m|n))\) is
+separate from the recurrence. The rank-two calculation in the stated
+super-trace normalisation gives \(3=\dim\fsl(2)\). Its conjectural family
+extension has constant \(\dim\fsl(M)=M^2-1\), where \(M=\max(m,n)\).
+The uniform scalar convention with numerator \(M\) instead has constant
+\(M\). The Berezinian normalisation has the distinct conjectural
+constant \(|m-n|\) only after the Berezinian--Verdier datum is fixed.
+Shadow coefficients and Igusa denominator scalars are coefficient data;
+they do not construct compact Hall objects, quasi-NCCR realisations,
+Hall--Drinfeld doubles, orientation systems, PBW bases, or compact CoHA.
 \end{abstract}
+\maketitle
 
-\section*{Primary theorems}
-\begin{itemize}
-\item $\kappa_{\mathrm{ch}}(Y(\mathfrak{sl}(m|n))) +
-  \kappa_{\mathrm{ch}}(Y(\mathfrak{sl}(n|m))^!) = \max(m, n)$:
-  \ClaimStatusProvedHere (symbolically verified at small rank;
-  replaces naive $= 0$ analogy).
-\item Super-Riccati closed forms for $S_r$ through $r = 8$:
-  \ClaimStatusProvedHere.
-\item Canonical Verdier pairing (super-trace vs Berezinian canonicalisation):
-  \ClaimStatusConjectured (open construction; the Verdier pairing is not
-  yet inscribed).
-\end{itemize}
+\section{Riccati recurrence}
 
-\section*{Chapter inputs (pointers)}
-\begin{verbatim}
-\input{../chapters/examples/super_riccati_shadow_tower_platonic.tex}
-\input{../chapters/theory/quantum_groups_foundations.tex}
-\input{../chapters/theory/quantum_chiral_algebras.tex}
-\end{verbatim}
+\begin{definition}[Riccati-normalised primary line]
+Fix a homogeneous primary line \(\ell\) with parity \(|\ell|\) and
+nonzero coefficient \(\kappa_\ell\). Let \(S_r\) be the shadow coefficient
+of degree \(r\), and choose line descendants \(\theta_r\) with
+\[
+        |\theta_r|=(r-1)|\ell|\pmod 2 .
+\]
+Set
+\[
+        f(j,k)=
+        \begin{cases}
+        1, & j<k,\\
+        \frac12, & j=k.
+        \end{cases}
+\]
+The line is Riccati-normalised if the degree-\(r\) component
+\((r\geq5)\) of the line-restricted Maurer--Cartan equation is
+\[
+        2r\kappa_\ell S_r
+        +
+        \sum_{\substack{j+k=r+2\\3\leq j\leq k<r}}
+        (-1)^{(j-1)(k-1)|\ell|}
+        f(j,k)\,j\,k\,S_jS_k
+        =
+        0 .
+\]
+Here \(f(j,k)\) is the unordered Wick-pair factor obtained after the
+ordered quadratic term \(\frac12[\Theta_\ell,\Theta_\ell]\) is quotiented
+to \(j\leq k\): off-diagonal pairs occur once, while diagonal pairs carry
+the residual \(\frac12\) symmetry factor in this normalisation.
+\end{definition}
 
-\section*{Cross-volume dependencies}
-\begin{itemize}
-\item Vol I \texttt{riccati.tex} standalone (bosonic Riccati algebraicity
-  and depth classification).
-\item Vol I shadow-tower higher-coefficients theorem
-  (\texttt{thm:shadow-series-closed-form-Virasoro}).
-\item Vol II tempering bound $\beta_N$.
-\end{itemize}
+\begin{definition}[Admissible seed]
+An admissible seed for a Riccati-normalised line \(\ell\) is a pair
+\((S_3,S_4)\) obtained from the line-restricted OPE data, satisfying
+locality, parity, and non-degeneracy of the Zamolodchikov pairing
+\(\kappa_\ell\neq0\). These two scalars are not produced by the
+recurrence. If \(\ell\) is a pure single-mode odd line in a
+parity-preserving theory, the scalar cubic coefficient satisfies
+\(S_3=0\). The quartic seed \(S_4\) vanishes only when the chosen line has
+no genuine weight-four even composite channel; otherwise it is independent
+input.
+\end{definition}
 
-\section*{Corrections}
-The super-Yangian complementarity identity has right-hand side
-$\max(m,n)$ in the Sugawara-shifted dual normalization. The
-Virasoro-style constant belongs to a distinct family. The tempered
-stratum has $\limsup \kappa_{\mathrm{ch}}^{(\infty)}_{\mathrm{orig}} = 0$
-at generic $c$; the value $1/e$ comes from a Stirling cancellation error.
+\begin{theorem}[Super-Riccati recurrence]
+For a Riccati-normalised primary line with admissible seed pair
+\((S_3,S_4)\), the coefficients for \(r\geq 5\) satisfy
+\[
+S_r
+=-\frac{1}{2r\kappa_\ell}
+  \sum_{\substack{j+k=r+2\\ 3\leq j\leq k<r}}
+  (-1)^{(j-1)(k-1)|\ell|}
+  f(j,k)\,j\,k\,S_jS_k .
+\]
+\end{theorem}
 
-\bibliographystyle{alpha}
-\bibliography{../bibliography/references}
+\begin{proof}
+The Riccati normalisation says precisely that the degree-\(r\) component
+of the line-restricted Maurer--Cartan equation is
+\[
+        2r\kappa_\ell S_r
+        +\sum_{\substack{j+k=r+2\\3\leq j\leq k<r}}
+          (-1)^{(j-1)(k-1)|\ell|} f(j,k)\,j\,k\,S_jS_k=0
+\]
+with the Koszul sign computed from
+\(|\theta_j||\theta_k|=(j-1)(k-1)|\ell|\). The coefficient
+\(2r\kappa_\ell\) is nonzero because \(\kappa_\ell\neq0\) and the base
+field has characteristic zero. Solving the displayed equation for \(S_r\)
+gives the recurrence.
+\end{proof}
+
+\begin{remark}
+On a pure odd line the cubic seed satisfies \(S_3=0\). The quartic seed
+\(S_4\) is non-recursive OPE data and may vanish depending on the chosen
+line.
+\end{remark}
+
+\begin{proposition}[First recursive coefficients]
+For every Riccati-normalised line,
+\[
+        S_5=-\frac{6}{5\kappa_\ell}S_3S_4
+\]
+and
+\[
+        S_6
+        =
+        -\frac{1}{12\kappa_\ell}
+        \left(15S_3S_5+8(-1)^{|\ell|}S_4^2\right).
+\]
+Equivalently, in seed-only form,
+\[
+        S_6
+        =
+        \frac{S_4}{6\kappa_\ell^2}
+        \left(9S_3^2-4(-1)^{|\ell|}\kappa_\ell S_4\right).
+\]
+Thus the even-line recurrence is the bosonic Riccati recurrence, while
+the first parity-dependent recursive sign occurs in the diagonal
+\((4,4)\) contribution to \(S_6\). The values through \(S_6\) are
+normalisation fingerprints for the chosen line; they do not determine a
+full shadow class, a compact source, or a Verdier datum without the seed
+and line normalisation.
+\end{proposition}
+
+\begin{proof}
+For \(r=5\), the only pair is \((j,k)=(3,4)\), and
+\((-1)^{(2)(3)|\ell|}=1\), so
+\[
+        S_5=-\frac{1}{10\kappa_\ell}\,12S_3S_4
+        =-\frac{6}{5\kappa_\ell}S_3S_4 .
+\]
+For \(r=6\), the pairs are \((3,5)\) and \((4,4)\). The first has sign
+\((-1)^{(2)(4)|\ell|}=1\) and coefficient \(15\). The second has
+coefficient \(f(4,4)\cdot16=8\) and sign
+\((-1)^{(3)(3)|\ell|}=(-1)^{|\ell|}\). Substitution into the recurrence
+gives the displayed formula.
+
+Equivalently, the two recursive levels are the following term-by-term
+expansions:
+\[
+\begin{array}{c|c|c|c}
+r & (j,k) & (-1)^{(j-1)(k-1)|\ell|}f(j,k)jk & \text{contribution}\\
+\hline
+5 & (3,4) & 12 & 12S_3S_4\\
+6 & (3,5) & 15 & 15S_3S_5\\
+6 & (4,4) & 8(-1)^{|\ell|} & 8(-1)^{|\ell|}S_4^2 .
+\end{array}
+\]
+Substituting the displayed value of \(S_5\) gives the seed-only formula.
+\end{proof}
+
+\section{Shadow data and Hall obstructions}
+
+\begin{definition}
+The shadow datum of the primary line is the scalar sequence
+\[
+        \mathrm{Sh}_\ell(A)
+        =
+        (S_2,S_3,S_4,S_5,\ldots),
+        \qquad S_2:=\kappa_\ell,
+        \in k^{\mathbb N_{\geq2}} .
+\]
+The obstruction tuple for a compact Hall source is
+\[
+        \mathfrak{o}_{\mathrm{Hall}}
+        =
+        (\mathfrak{o}_{\mathrm{or}},
+         \mathfrak{o}_{\mathrm{corr}},
+         \mathfrak{o}_{\mathrm{coprod}},
+         \mathfrak{o}_{\mathrm{pair}},
+         \mathfrak{o}_{\mathrm{rad}},
+         \mathfrak{o}_{\mathrm{PBW}},
+         \mathfrak{o}_{\mathrm{comp}}),
+\]
+where the entries ask for an orientation/Pfaffian line, compact Hall
+correspondences, a coproduct, a non-degenerate Hopf pairing, radical
+descent, PBW/no-extra-relations compatibility, and compact support.
+\end{definition}
+
+\begin{proposition}
+The recurrence for \(\mathrm{Sh}_\ell(A)\) constructs no compact Hall
+object, orientation datum, PBW theorem, or compact CoHA:
+\[
+        \mathrm{Sh}_\ell(A)
+        \;\not\Longrightarrow\;
+        \mathfrak{o}_{\mathrm{Hall}}=0 .
+\]
+\end{proposition}
+
+\begin{proof}
+The map \(A\mapsto\mathrm{Sh}_\ell(A)\) lands in a sequence of scalars
+computed from one primary line. Compact Hall data live on a moduli problem
+with extension correspondences and vanishing-cycle sheaves. PBW requires a
+filtered algebra and an associated-graded comparison. Orientation requires
+a square root of the determinant/Pfaffian line. None of these structures is
+present in the codomain \(k^{\mathbb N_{\geq2}}\), and no map from the
+displayed scalar sequence to the obstruction tuple is constructed by the
+Riccati recurrence. A scalar match can be a necessary compatibility check;
+it is not a construction of the Hall source and not a vanishing proof for
+\(\mathfrak{o}_{\mathrm{Hall}}\).
+\end{proof}
+
+\begin{proposition}[Igusa scalar normalisation]
+When the \(K3\times E\) denominator is compared with a shadow tower, the
+physical unnormalised genus-two scalar, the OP square, and the OP/DT
+reciprocal scalar are
+\[
+        \Phi_{10}^{\mathrm{un}}=\Delta_5^2,
+        \qquad
+        D_5=64^{-1}\Delta_5,
+        \qquad
+        \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2,
+\]
+\[
+        Z_{\mathrm{OP/DT}}
+        =
+        -\bigl(\Phi_{10}^{\mathrm{OP}}\bigr)^{-1}
+        =
+        -D_5^{-2}
+        =
+        -4096\,\Delta_5^{-2}.
+\]
+The equality \(D_5=64^{-1}\Delta_5\) is the monic-versus-theta
+normalisation of the Gritsenko--Nikulin product; its square gives
+\(\Delta_5^2/4096\). The minus sign belongs to the reciprocal OP/DT
+generating function, not to the Borcherds product. These scalar identities
+do not construct a compact critical CoHA, a quasi-NCCR realisation, a
+Hall--Drinfeld double, or a vanishing proof for
+\(\mathfrak{o}_{\mathrm{Hall}}\).
+\end{proposition}
+
+\begin{proof}
+Let \(D_5\) be the monic Borcherds product attached to the
+\(\phi_{0,1}\)-lift in the standard Gritsenko--Nikulin sign convention.
+The theta-normalised form has leading coefficient
+\([q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64\), while \(D_5\) is monic. Hence
+\(D_5=64^{-1}\Delta_5\), and
+\[
+        D_5^2=(64^{-1}\Delta_5)^2=4096^{-1}\Delta_5^2 .
+\]
+The physical unnormalised convention keeps the unscaled theta-constant
+normalisation and therefore writes \(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\).
+The Oberdieck--Pandharipande scalar convention uses the monic product, hence
+\(\Phi_{10}^{\mathrm{OP}}=D_5^2\), and the reduced OP/DT generating
+function is the reciprocal with its separate sign convention:
+\(-(\Phi_{10}^{\mathrm{OP}})^{-1}=-4096\Delta_5^{-2}\). This computation
+changes only the scalar normalisation. It supplies no orientation line, no
+compact extension correspondence, no monoidal vanishing-cycle realisation,
+no Hopf pairing, no radical quotient, no PBW filtration comparison, no
+quasi-NCCR realisation, no Hall--Drinfeld double, and no compact-CoHA
+construction.
+\end{proof}
+
+\section{Complementarity}
+
+\begin{definition}[Principal-line scalar conventions]
+Let \(m,n\geq1\), \(m\neq n\), \(M=\max(m,n)\), and \(h=|m-n|\). The
+dimension-normalised principal even line is the scalar convention
+\[
+        c_{\dim}(k)=\frac{(M^2-1)k}{k+h},
+        \qquad
+        \kappa_{\mathrm{ch}}^{\dim}(k)=\frac12c_{\dim}(k).
+\]
+The uniform principal-line convention is
+\[
+        c_{\mathrm{unif}}(k)=\frac{Mk}{k+h},
+        \qquad
+        \kappa_{\mathrm{ch}}^{\mathrm{unif}}(k)
+        =\frac12c_{\mathrm{unif}}(k).
+\]
+Both use the Sugawara-shift inversion \(k^\vee=-k-2h\). They are equal
+only in the accidental ranks solving \(M=M^2-1\), and no such rank has
+\(M\geq2\).
+\end{definition}
+
+\begin{proposition}[Complementarity constants]
+For the two scalar conventions above,
+\[
+\kappa_{\mathrm{ch}}^{\dim}(k)
++
+\kappa_{\mathrm{ch}}^{\dim}(k^\vee)
+=M^2-1,
+\qquad
+\kappa_{\mathrm{ch}}^{\mathrm{unif}}(k)
++
+\kappa_{\mathrm{ch}}^{\mathrm{unif}}(k^\vee)
+=M .
+\]
+\end{proposition}
+
+\begin{proof}
+For any constant \(C\) and \(h\neq0\),
+\[
+        \frac12\frac{Ck}{k+h}
+        +
+        \frac12\frac{C(-k-2h)}{-k-h}
+        =
+        \frac{Ck+C(k+2h)}{2(k+h)}
+        =
+        C .
+\]
+Taking \(C=M^2-1\) gives the dimension-normalised constant. Taking
+\(C=M\) gives the uniform constant.
+\end{proof}
+
+\begin{remark}
+The preceding proposition is an algebraic identity for two scalar
+conventions. It does not identify either scalar convention with the
+principal even line of \(Y(\fsl(m|n))\). The rank-two computation below is
+proved in the stated normalisation; the family statement with constant
+\(M^2-1\) is conjectural until the dimension-normalised sub-Sugawara
+central-charge formula and Verdier level-duality involution are
+constructed.
+\end{remark}
+
+\begin{conjecture}[Dimension-normalised super-trace complementarity]
+The principal even sub-Sugawara line of \(Y(\fsl(m|n))\) carries a
+Verdier-compatible dimension normalisation. In that normalisation,
+\[
+\kappa_{\mathrm{ch}}^{\str}\bigl(Y(\fsl(m|n))\bigr)
++
+\kappa_{\mathrm{ch}}^{\str}\bigl(Y(\fsl(n|m))^!\bigr)
+=M^2-1 .
+\]
+For \(M\geq3\) this requires a rank-uniform sub-Sugawara central-charge
+formula with numerator \(M^2-1\) and a compatible Verdier level-duality
+involution. The uniform convention with numerator \(M\) proves the
+different constant \(M\).
+\end{conjecture}
+
+\begin{proposition}[Rank-two super-trace check]
+Assume the \(Y(\fsl(2|1))\) principal even sub-Sugawara line has
+\[
+        c_T(k)=\frac{3k}{k+1},
+        \qquad
+        \kappa_{\mathrm{ch}}^{\str}(k)=\frac{c_T(k)}{2},
+\]
+and Verdier level inversion \(k^\vee=-k-2\). Then
+\[
+        \kappa_{\mathrm{ch}}^{\str}(k)
+        +
+        \kappa_{\mathrm{ch}}^{\str}(k^\vee)
+        =
+        3
+        =
+        \dim\fsl(2).
+\]
+\end{proposition}
+
+\begin{proof}
+The inverted central charge is
+\[
+        c_T(-k-2)
+        =
+        \frac{3(-k-2)}{-k-1}
+        =
+        \frac{3(k+2)}{k+1}.
+\]
+Hence
+\[
+        \frac12c_T(k)+\frac12c_T(-k-2)
+        =
+        \frac{3k+3(k+2)}{2(k+1)}
+        =
+        3 .
+\]
+The parity-swapped \(Y(\fsl(1|2))\) line has the same scalar
+normalisation.
+\end{proof}
+
+\begin{definition}[Berezinian--Verdier datum]
+A Berezinian--Verdier datum for \(Y(\fsl(m|n))\) is the tuple
+\[
+        \mathcal V_{m|n}
+        =
+        (\mathfrak X_{m|n},
+         \Ber_{\mathfrak X_{m|n}},
+         \delta_{m|n},
+         \mathbb D_{\mathrm{super}},
+         \langle-,-\rangle_{\Ber},
+         \iota_{m|n},
+         \lambda_{\Ber}) .
+\]
+Here \(\mathfrak X_{m|n}\) is a chosen super moduli object carrying the
+Yangian-side \(\mathcal D\)-modules, \(\Ber_{\mathfrak X_{m|n}}\) is its
+Berezinian dualising line, \(\delta_{m|n}\in\mathbb Z\) is the
+cohomological shift included in the datum, and
+\[
+        \mathbb D_{\mathrm{super}}(\mathcal M)
+        =
+        \operatorname{RHom}(\mathcal M,\Ber_{\mathfrak X_{m|n}})
+        [\delta_{m|n}]
+\]
+is the Verdier functor. The pairing
+\(\langle-,-\rangle_{\Ber}\) is non-degenerate on the principal line,
+\(\iota_{m|n}\) is the level-duality involution, and
+\(\lambda_{\Ber}\) is the scalar extraction rule defining
+\(\kappa_{\mathrm{ch}}^{\Ber}=\lambda_{\Ber}
+(\langle-,-\rangle_{\Ber})\). Without this whole datum the symbol
+\(\kappa_{\mathrm{ch}}^{\Ber}\) is undefined.
+\end{definition}
+
+\begin{conjecture}[Berezinian normalisation]
+Given a Berezinian--Verdier datum \(\mathcal V_{m|n}\), the Berezinian
+complementarity conjecture is
+\[
+        \kappa_{\mathrm{ch}}^{\Ber}(Y(\fsl(m|n)))
+        +
+        \kappa_{\mathrm{ch}}^{\Ber}(Y(\fsl(n|m))^!)
+        =
+        |m-n|
+\]
+after the duality involution \(\iota_{m|n}\), the pairing
+\(\langle-,-\rangle_{\Ber}\), the shift \(\delta_{m|n}\), and the scalar
+map \(\lambda_{\Ber}\) are fixed. This is a conjecture about the
+Berezinian--Verdier datum. It is not a consequence of the super-Riccati
+recurrence and is independent of the super-trace constant \(M^2-1\).
+A numerical value \(|m-n|\) is therefore not defined until the datum
+\(\mathcal V_{m|n}\) and the scalar extraction rule \(\lambda_{\Ber}\)
+are part of the statement.
+\end{conjecture}
+
+\begin{remark}
+The Verdier datum is the super-\(\mathcal D\)-module category or formal
+moduli object, the duality functor \(\mathbb D_{\mathrm{super}}\), the
+Berezinian dualising line, the Berezinian pairing, the level-duality
+convention, and the scalar extraction rule. Any rank-wise compatibility
+with the super-Riccati coefficients is an additional comparison
+condition, not part of the recurrence.
+\end{remark}
 
 \end{document}

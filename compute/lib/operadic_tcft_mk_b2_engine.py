@@ -1,4 +1,4 @@
-r"""Operadic TCFT proof that {b, B^{(2)}} = 0 (AP-CY34 resolution).
+r"""Operadic TCFT comparison for the m_k--B^{(2)} obstruction.
 
 MATHEMATICAL CONTENT
 ====================
@@ -7,13 +7,25 @@ AP-CY34 identified a logical gap: the proof of Prop cyclic-ainf-framing-compat
 claimed [m_k, B^{(2)}] = 0 for individual k, conflating cyclic invariance (G1)
 with bar-level compatibility (G2).
 
-RESOLUTION: Costello's open-closed TCFT framework (arXiv:math/0412149).
+The repaired engine separates three carriers.
 
-CORRECTED CLAIM: {b, B^{(2)}} = 0 where b = sum_k b_k is the TOTAL
-A-infinity Hochschild differential.  Individual {b_k, B^{(2)}} NEED NOT
-vanish; only their sum does.  The cross-arity cancellation (between b_2
-and b_3 contributions) is precisely the content that goes beyond cyclic
-invariance and requires the full A-infinity/Stasheff structure.
+1. B^{(2)}_term is the raw termwise bar pair-contraction.  It is not
+   Costello's TCFT operator.  On the strict witness
+
+       [a|a|a|a|b],   m_3(a,a,a) = alpha b,   <a,b> = 1,
+
+   the raw commutator is
+
+       [m_3, B^{(2)}_term][a|a|a|a|b] = 2 alpha [b] != 0.
+
+2. B^{(2)}_TCFT is the corrected Costello open-closed TCFT operation.  It
+   includes moduli-chain correction data and is not identified with the
+   raw termwise contraction without a separate comparison homotopy.
+
+3. Obs_Ainf is a derived E_1-Hochschild obstruction class.  This engine
+   does not prove Obs_Ainf = 0 for compact CY3s.  Such a statement needs
+   either a corrected TCFT comparison datum transporting the obstruction
+   to B^{(2)}_TCFT, or an explicit HH^{-2} filtration theorem.
 
 THE OPERADIC PROOF
 ==================
@@ -28,44 +40,32 @@ Step 2 (Open-closed extension, ibid. Section 5; arXiv:0706.1959):
   open-closed TCFT.  The closed sector is the Hochschild chain
   complex C_*(A) with:
   - b (the Hochschild differential) from codimension-1 boundary strata
-  - B^{(2)} (the CY contraction) from genus-change operations
+  - B^{(2)}_TCFT from the genus-change operation plus boundary corrections
 
 Step 3 (d^2 = 0):
-  Both b and B^{(2)} are images of the boundary operator d in the
-  chain complex C_*(M) of the moduli operad.  Since d^2 = 0:
-    {b, B^{(2)}} = b . B^{(2)} + B^{(2)} . b = 0.
+  After choosing the TCFT correction datum, the boundary identity gives:
+    {b, B^{(2)}_TCFT} = b . B^{(2)}_TCFT + B^{(2)}_TCFT . b = 0.
 
-  The moduli space treats ALL marked points democratically.  Adjacent
-  and non-adjacent contractions both correspond to valid surface
-  operations.  The boundary of a compact 1-manifold has zero total
-  signed count -- this gives the cancellation at EVERY position.
+  This is a conditional TCFT identity.  It is not a statement about
+  B^{(2)}_term unless a comparison datum proves the two representatives
+  agree up to the required homotopy.
 
 WHY INDIVIDUAL {b_k, B^{(2)}} CAN BE NONZERO
 =============================================
 
-The operadic d^2 = 0 identity, when expanded by arity, gives:
-  0 = d^2 = sum_{k,l} {b_k, B^{(l)}} + (other terms)
-
-The vanishing of {b, B^{(2)}} = sum_k {b_k, B^{(2)}} follows from
-this sum, but individual summands need not vanish.  The cross-arity
-cancellation is:
-
-  {b_2, B^{(2)}} + {b_3, B^{(2)}} + ... = 0
-
-For a formal algebra (m_k = 0, k >= 3), only {b_2, B^{(2)}} survives,
-and it vanishes by the Frobenius/cyclic condition (classical).
-For non-formal algebras, {b_3, B^{(2)}} != 0 but is cancelled by
-the change in {b_2, B^{(2)}} induced by the A-infinity relations.
+For B^{(2)}_term, individual summands can be nonzero and the raw total
+identity is not supplied by Costello.  For B^{(2)}_TCFT, Costello's
+boundary identity applies only after the correction data are included.
 
 VERIFICATION STRATEGY
 =====================
 
-(A) Operadic proof: complete, handles all cases.
+(A) Strict witness: direct nonzero calculation for B^{(2)}_term.
 (B) Formal case check: for associative algebras (b = b_2 only),
     {b_2, B^{(2)}} = 0 is equivalent to the Frobenius/cyclic condition,
     verified explicitly on examples.
-(C) Non-formal structure: we verify that the LOCAL P^2 algebra has
-    nonzero m_3, confirming the non-trivial content of the theorem.
+(C) Conditional TCFT theorem: if a Costello correction datum and comparison
+    datum are supplied, {b, B^{(2)}_TCFT} = 0.
 
 REFERENCES
 ==========
@@ -78,11 +78,64 @@ REFERENCES
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from fractions import Fraction
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
 F = Fraction
+
+
+# =========================================================================
+# 0. STRICT TERMWISE WITNESS
+# =========================================================================
+
+@dataclass(frozen=True)
+class TermwiseWitness:
+    r"""Strict witness for nonvanishing of [m_3, B^{(2)}_term].
+
+    The normalized terminal-slot computation is the one used in
+    standalone/m3_b2_obstruction_vol3.tex:
+
+        B_term^{(2)}[a|a|a|a|b] = 4[a|a|a],
+        m_3 B_term^{(2)}[a|a|a|a|b] = 4 alpha [b],
+        B_term^{(2)} m_3[a|a|a|a|b] = 2 alpha [b].
+
+    Hence the graded commutator is 2 alpha [b], strictly nonzero in
+    characteristic zero when alpha != 0.
+    """
+    input_word: Tuple[str, ...]
+    output_word: Tuple[str, ...]
+    alpha: Fraction
+    m3_after_b2_coeff: Fraction
+    b2_after_m3_coeff: Fraction
+    commutator_coeff: Fraction
+    operator: str = "B^{(2)}_term"
+
+    @property
+    def is_nonzero(self) -> bool:
+        """Whether the witness rejects termwise vanishing."""
+        return self.commutator_coeff != F(0)
+
+    @property
+    def statement(self) -> str:
+        """Human-readable witness statement."""
+        lhs = "[m_3, B^{(2)}_term][a|a|a|a|b]"
+        rhs = f"{self.commutator_coeff} [b]"
+        return f"{lhs} = {rhs} != 0"
+
+
+def strict_m3_b2_term_witness(alpha: Fraction = F(1)) -> TermwiseWitness:
+    """Return the strict nonzero witness for the raw termwise operator."""
+    if alpha == F(0):
+        raise ValueError("The strict m3-B2 witness requires alpha != 0")
+    return TermwiseWitness(
+        input_word=("a", "a", "a", "a", "b"),
+        output_word=("b",),
+        alpha=alpha,
+        m3_after_b2_coeff=F(4) * alpha,
+        b2_after_m3_coeff=F(2) * alpha,
+        commutator_coeff=F(2) * alpha,
+    )
 
 
 # =========================================================================
@@ -246,17 +299,19 @@ def frobenius_algebra_dim2() -> CyclicAinfAlgebra:
 
 @dataclass
 class OperadicTCFTProof:
-    r"""The operadic proof that {b, B^{(2)}} = 0 via Costello's TCFT.
+    r"""Conditional proof of the corrected Costello TCFT identity.
 
-    This is the COMPLETE proof resolving AP-CY34.  No chain-level
-    computation is needed: the operadic structure guarantees the
-    result for ALL cyclic A-infinity algebras.
+    The proof applies to B^{(2)}_TCFT after a moduli-chain correction
+    datum is chosen.  It does not prove that the raw termwise operator
+    B^{(2)}_term is a chain map.
     """
     step1_costello_theorem: str
     step2_open_closed: str
     step3_d_squared: str
     non_adjacent_resolution: str
     individual_vs_total: str
+    corrected_operator: str
+    requires_comparison_datum: bool
     references: List[str]
 
     def is_complete(self) -> bool:
@@ -266,6 +321,8 @@ class OperadicTCFTProof:
             self.step3_d_squared,
             self.non_adjacent_resolution,
             self.individual_vs_total,
+            self.corrected_operator,
+            self.requires_comparison_datum,
         ])
 
     def proof_steps(self) -> List[str]:
@@ -279,7 +336,7 @@ class OperadicTCFTProof:
 
 
 def construct_operadic_proof() -> OperadicTCFTProof:
-    """Construct the complete operadic proof of {b, B^{(2)}} = 0."""
+    """Construct the conditional proof of {b, B_TCFT^{(2)}} = 0."""
     return OperadicTCFTProof(
         step1_costello_theorem=(
             "Costello Theorem A (arXiv:math/0412149, Adv. Math. 210 (2007)): "
@@ -296,53 +353,42 @@ def construct_operadic_proof() -> OperadicTCFTProof:
             "the Hochschild chain complex C_*(A).  Under this identification: "
             "(i) the Hochschild differential b = sum_k b_k corresponds to "
             "codimension-1 boundary strata of the moduli of bordered surfaces "
-            "(strip-like degenerations); (ii) the contraction operator B^{(2)} "
-            "corresponds to the genus-change operation (contracting two boundary "
-            "marked points via the CY pairing, identifying them to create a "
-            "node that changes the surface topology)."
+            "(strip-like degenerations); (ii) the corrected operator "
+            "B_TCFT^{(2)} is represented by the genus-change chain together "
+            "with its boundary correction faces.  This is not the raw "
+            "termwise pair-contraction B_term^{(2)} unless a comparison "
+            "datum supplies the required homotopy."
         ),
         step3_d_squared=(
-            "Both b and B^{(2)} are images of the boundary operator d in the "
-            "chain complex C_*(M) of the moduli operad.  The fundamental "
-            "relation d^2 = 0 in C_*(M) implies that the graded commutator "
-            "{b, B^{(2)}} = b . B^{(2)} + B^{(2)} . b = 0.  This is a "
-            "consequence of the geometric fact that the boundary of a compact "
-            "1-dimensional moduli space is a finite set of points whose "
-            "total signed count is zero.  The two boundary components of "
-            "each interval correspond to the two orderings 'b then B^{(2)}' "
-            "and 'B^{(2)} then b', giving the anticommutator."
+            "With the Costello correction datum fixed, b and B_TCFT^{(2)} "
+            "are the two principal images of a boundary relation in the "
+            "moduli-chain complex C_*(M).  The fundamental relation d^2 = 0 "
+            "therefore gives the corrected total identity "
+            "{b, B_TCFT^{(2)}} = b . B_TCFT^{(2)} + B_TCFT^{(2)} . b = 0.  "
+            "The non-principal boundary faces are part of B_TCFT^{(2)}.  "
+            "Dropping them gives B_term^{(2)}, where the strict m_3 witness "
+            "has nonzero commutator."
         ),
         non_adjacent_resolution=(
-            "The non-adjacent contraction gap (AP-CY34) is resolved: the "
-            "moduli space of bordered surfaces with marked points treats "
-            "ALL marked points on equal footing.  When B^{(2)} contracts "
-            "marked points p_i and p_j via the CY pairing, the positions "
-            "of p_i and p_j relative to the b_k-insertion (which involves "
-            "k other marked points) are geometric data encoded by the "
-            "full moduli space, not merely by the cyclic ordering of "
-            "boundary points.  The d^2 = 0 argument applies uniformly to "
-            "ALL pairs (i,j): adjacent contractions (where p_i, p_j are "
-            "in the same boundary component as the b_k-insertion) cancel "
-            "by the Frobenius/cyclic condition; non-adjacent contractions "
-            "(where p_i is inside and p_j is outside the b_k-block) cancel "
-            "via the CROSS-ARITY mechanism: the residue of {b_k, B^{(2)}} "
-            "at a non-adjacent position is cancelled by {b_l, B^{(2)}} for "
-            "l != k, with the cancellation enforced by the Stasheff "
-            "A-infinity relations (which ARE the d^2 = 0 identity expanded "
-            "by arity)."
+            "The non-adjacent contraction gap is not closed by the raw "
+            "termwise operator.  The strict witness shows "
+            "[m_3, B_term^{(2)}] != 0.  The conditional TCFT repair says "
+            "that, after the Costello moduli-chain correction datum is "
+            "included, the non-principal faces are absorbed into "
+            "B_TCFT^{(2)} and the total corrected boundary identity holds.  "
+            "A separate comparison datum is required before this can be "
+            "transported to a chosen chain-level bar representative."
         ),
         individual_vs_total=(
-            "CORRECTION to the original claim: 'for all k >= 3, [m_k, B^{(2)}] = 0' "
-            "is WRONG for non-formal algebras.  The correct claim is "
-            "{b, B^{(2)}} = 0 where b = sum_k b_k is the TOTAL Hochschild "
-            "differential.  For formal algebras (m_k = 0 for k >= 3), only "
-            "b_2 survives and {b_2, B^{(2)}} = 0 by the Frobenius condition.  "
-            "For non-formal algebras, {b_3, B^{(2)}} is generically nonzero "
-            "but is cancelled by the CHANGE in {b_2, B^{(2)}} induced by the "
-            "A-infinity relations.  The cancellation requires the full "
-            "Stasheff tower, not merely cyclic invariance.  Costello's "
-            "operadic framework packages this cancellation as d^2 = 0."
+            "CORRECTION: '[m_k, B_term^{(2)}] = 0 for all k >= 3' is false, "
+            "and the raw total identity {sum_k b_k, B_term^{(2)}} = 0 is "
+            "not supplied by Costello.  The retained theorem is conditional: "
+            "given the corrected TCFT operator B_TCFT^{(2)} and the chosen "
+            "comparison datum, {sum_k b_k, B_TCFT^{(2)}} = 0.  This theorem "
+            "does not by itself prove Obs_Ainf = 0 for compact CY3s."
         ),
+        corrected_operator="B_TCFT^{(2)}",
+        requires_comparison_datum=True,
         references=[
             "Costello, arXiv:math/0412149, Adv. Math. 210 (2007) 165--214, "
             "Theorem A (open TCFT equivalence), Section 5 (closed sector)",
@@ -430,82 +476,96 @@ def verify_algebra(alg: CyclicAinfAlgebra) -> AlgebraVerification:
 
 @dataclass
 class GapClosureResult:
-    r"""Complete result for the AP-CY34 gap closure.
+    r"""Verdict for the AP-CY34 attack-heal pass.
 
-    The gap is closed by the operadic proof (Costello's TCFT).
-    The chain-level computation is NOT needed for the proof but
-    provides structural understanding:
-
-    - For formal algebras: {b_2, B^{(2)}} = 0 (Frobenius, classical).
-    - For non-formal: {b_3, B^{(2)}} != 0 individually, but the TOTAL
-      {b, B^{(2)}} = 0 by cross-arity cancellation (operadic).
-
-    The corrected proposition: Obs_Ainf = 0 universally, but the
-    mechanism is the operadic TCFT identity {b, B^{(2)}} = 0, NOT
-    the individual [m_k, B^{(2)}] = 0.
+    The legacy field ``gap_closed`` is deliberately false for the raw
+    termwise operator.  What remains is a conditional TCFT identity for
+    B_TCFT^{(2)} after correction and comparison data are supplied.
     """
     operadic_proof: OperadicTCFTProof
     algebra_verification: AlgebraVerification
+    termwise_witness: TermwiseWitness
     gap_closed: bool
+    conditional_tcft_identity_available: bool
+    proves_compact_obs_ainf_zero: bool
+    comparison_datum_required: bool
     corrected_claim: str
     original_claim_incorrect: str
     obstruction_landscape: Dict[str, str]
     formal_case_trivial: bool
     non_formal_requires_operadic: bool
+    remaining_proof_obligations: List[str]
 
 
 def close_gap_ap_cy34() -> GapClosureResult:
-    """Close the AP-CY34 gap via the operadic TCFT proof."""
+    """Return the repaired AP-CY34 verdict.
+
+    The function name is retained for compatibility.  Its verdict is no
+    longer "closed by raw total vanishing"; it records the strict termwise
+    failure and the conditional corrected TCFT theorem.
+    """
     proof = construct_operadic_proof()
     alg = local_p2_algebra()
     alg_check = verify_algebra(alg)
+    witness = strict_m3_b2_term_witness()
 
     landscape = {
         "C^3": (
-            "Obs_Ainf = 0 (formal: b = b_2 only, "
-            "{b_2, B^{(2)}} = 0 by Frobenius condition)"
+            "formal model diagnostic: no higher m_k contribution in the "
+            "chosen Frobenius model; this is not a compact CY3 theorem"
         ),
         "conifold": (
-            "Obs_Ainf = 0 (formal: Kaledin formality, "
-            "{b_2, B^{(2)}} = 0 by Frobenius condition)"
+            "formal-model diagnostic under the selected formality input; "
+            "not a proof of a compact CY3 obstruction theorem"
         ),
         "local_P^2": (
-            "Obs_Ainf = 0 (non-formal: m_3 != 0 from McKay quiver; "
-            "{b, B^{(2)}} = 0 by Costello operadic TCFT, Theorem A + d^2=0; "
-            "individual {b_3, B^{(2)}} != 0, cancelled cross-arity by "
-            "{b_2, B^{(2)}} via Stasheff relations)"
+            "noncompact diagnostic: m_3 is nonzero; the raw "
+            "B_term^{(2)} commutator has strict nonzero witnesses; "
+            "corrected TCFT cancellation requires B_TCFT^{(2)} plus "
+            "comparison data"
         ),
         "quintic": (
-            "Obs_Ainf = 0 (non-formal: m_3 != 0 from Yukawa coupling; "
-            "{b, B^{(2)}} = 0 by Costello operadic TCFT, Theorem A + d^2=0; "
-            "DGMS gives de Rham formality but NOT A_inf formality of D^b)"
+            "not proved by this engine: a compact CY3 claim requires a "
+            "Costello correction/comparison datum or an HH^{-2} "
+            "filtration theorem"
         ),
         "K3_x_E": (
-            "Obs_Ainf = 0 (non-formal as CY3: E factor has Polishchuk m_3; "
-            "{b, B^{(2)}} = 0 by Costello operadic TCFT; "
-            "K3 fiber is DGMS formal, relative construction captures characters)"
+            "not proved by this engine: compact K3 x E needs the same "
+            "corrected TCFT comparison or HH^{-2} filtration input"
         ),
     }
 
     return GapClosureResult(
         operadic_proof=proof,
         algebra_verification=alg_check,
-        gap_closed=proof.is_complete() and alg_check.has_mu3,
+        termwise_witness=witness,
+        gap_closed=False,
+        conditional_tcft_identity_available=proof.is_complete(),
+        proves_compact_obs_ainf_zero=False,
+        comparison_datum_required=True,
         corrected_claim=(
-            "{b, B^{(2)}} = 0 where b = sum_k b_k is the total "
-            "A-infinity Hochschild differential.  This follows from "
-            "Costello's Theorem A (cyclic A-infinity = open TCFT) "
-            "and the d^2 = 0 identity in the moduli chain complex."
+            "Given a Costello open-closed TCFT correction datum and a "
+            "comparison datum for the chosen chain model, "
+            "{sum_k b_k, B_TCFT^{(2)}} = 0.  No raw identity "
+            "{sum_k b_k, B_term^{(2)}} = 0 is asserted."
         ),
         original_claim_incorrect=(
-            "The original claim '[m_k, B^{(2)}] = 0 for all k >= 3' "
-            "is incorrect for non-formal algebras.  Individual "
-            "{b_k, B^{(2)}} can be nonzero.  The correct statement "
-            "is {b, B^{(2)}} = 0 (total differential)."
+            "The claims '[m_k, B_term^{(2)}] = 0 for all k >= 3' and "
+            "'{sum_k b_k, B_term^{(2)}} = 0 closes AP-CY34' are false "
+            "as stated.  The strict witness gives "
+            "[m_3, B_term^{(2)}][a|a|a|a|b] = 2[b] != 0."
         ),
         obstruction_landscape=landscape,
         formal_case_trivial=True,
         non_formal_requires_operadic=True,
+        remaining_proof_obligations=[
+            "Construct the Costello moduli-chain correction datum for the "
+            "chosen compact CY3 chain model.",
+            "Prove a comparison homotopy from B_term^{(2)} to "
+            "B_TCFT^{(2)}, or avoid B_term^{(2)} entirely.",
+            "For compact CY3 vanishing, prove the HH^{-2} filtration "
+            "hypothesis or an equivalent obstruction comparison theorem.",
+        ],
     )
 
 

@@ -1,4 +1,4 @@
-r"""Tests for the chain-level S^3-framing construction for CY3 categories.
+r"""Tests for the chain-level S^3-framing diagnostics for CY3 categories.
 
 Verifies:
   (1) Conifold Ext algebra: dimensions, formality, CY pairing
@@ -8,8 +8,9 @@ Verifies:
   (5) Local P^2 chiral operations: mu_2^{ch} + mu_3^{ch} from Massey products
   (6) Local P^2 chiral Jacobi with m_3 corrections through degree 6
   (7) hCS trivialization properties for both geometries
-  (8) Obstruction analysis: what generalizes, what does not
-  (9) Multi-path verification: >= 3 independent checks per claim
+  (8) Obstruction analysis: local models versus compact closure
+  (9) AP-CY34 boundary: raw B_term^{(2)} failure survives
+  (10) Slogan-proof rejection for compact CY3 claims
 
 Every test uses AT LEAST 3 independent verification paths (AP10).
 
@@ -42,7 +43,11 @@ from compute.lib.cy3_chain_framing import (
     verify_chiral_jacobi_local_p2,
     analyze_conifold_obstruction,
     analyze_local_p2_obstruction,
+    CompactChainFramingData,
+    compact_chain_framing_boundary,
     master_chain_framing_verification,
+    slogan_proof_violations,
+    strict_raw_b_term_witness,
 )
 
 F = Fraction
@@ -559,20 +564,23 @@ class TestHCSTrivialization:
 class TestObstructionAnalysis:
     """Tests for the obstruction analysis."""
 
-    def test_conifold_all_levels_clear(self):
-        """Conifold has no obstructions at any level."""
+    def test_conifold_clear_only_as_formal_noncompact_model(self):
+        """Conifold has no raw higher obstruction only in the formal toy model."""
         obs = analyze_conifold_obstruction()
         assert obs.level_0_e1
         assert obs.level_1_ainf
         assert obs.level_1_formal
         assert obs.level_2_chiral
-        # VERIFIED [DC] level formula [LT] standard CY tables
-        assert obs.level_2_obstruction == "none"
+        assert "formal noncompact" in obs.level_2_obstruction
+        assert not obs.compact_phi3_closed
+        assert not obs.compact_hall_coha_pbw_closed
 
-    def test_conifold_generalizes(self):
-        """Conifold construction generalizes to other toric CY3."""
+    def test_conifold_does_not_generalize_to_compact_closure(self):
+        """Conifold formality is not a compact Phi_3/Hall/CoHA/PBW theorem."""
         obs = analyze_conifold_obstruction()
-        assert obs.generalizes
+        assert not obs.generalizes
+        assert "compact closure needs" in obs.compact_status
+        assert "Hall/CoHA/PBW" in obs.compact_status
 
     def test_local_p2_levels_0_1_clear(self):
         """Local P^2 has no E_1 or A-infinity obstruction."""
@@ -586,32 +594,132 @@ class TestObstructionAnalysis:
         assert not obs.level_1_formal
 
     def test_local_p2_chiral_exists(self):
-        """Chiral structure exists despite non-formality."""
+        """The local toy chiral operation exists despite non-formality."""
         obs = analyze_local_p2_obstruction()
         assert obs.level_2_chiral
+        assert obs.raw_b_term_witness_nonzero
+        assert not obs.compact_phi3_closed
 
     def test_local_p2_does_not_generalize_to_nontoric(self):
         """Local P^2 construction does NOT generalize to non-toric CY3.
 
-        The obstruction is analytic: the Dolbeault propagator requires
-        analytic input not available from the algebraic category alone.
+        The local toric model lacks the compact Costello correction/comparison
+        datum and does not prove compact Phi_3/Hall/CoHA/PBW closure.
         """
         obs = analyze_local_p2_obstruction()
         assert not obs.generalizes
 
-    def test_obstruction_is_analytic(self):
-        """The remaining obstruction is analytic, not algebraic.
-
-        For toric CY3: the torus-equivariant structure provides P.
-        For non-toric: P requires the Dolbeault resolution (analytic).
-        This is the precise content of the gap in the d=3 programme.
-        """
+    def test_obstruction_names_ap_cy34_data(self):
+        """The remaining compact obstruction names B_TCFT and HH^{-2} data."""
         obs = analyze_local_p2_obstruction()
-        assert "analytic" in obs.level_2_obstruction.lower()
+        assert "B_TCFT" in obs.level_2_obstruction
+        assert "HH^{-2}" in obs.level_2_obstruction
+        assert "not a compact closure theorem" in obs.level_2_obstruction
 
 
 # ================================================================
-# SECTION 9: MASTER VERIFICATION
+# SECTION 9: AP-CY34 RAW-vs-CORRECTED BOUNDARY
+# ================================================================
+
+class TestAPCY34Boundary:
+    """Tests for the raw B_term^{(2)} failure and conditional repair."""
+
+    def test_raw_strict_witness_survives(self):
+        """[m_3,B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0."""
+        witness = strict_raw_b_term_witness(F(3, 2))
+        assert witness.input_word == ("a", "a", "a", "a", "b")
+        assert witness.output_word == ("b",)
+        assert witness.b_term_of_input_coeff == F(4)
+        assert witness.m3_after_b_term_coeff == F(6)
+        assert witness.b_term_after_m3_coeff == F(3)
+        assert witness.commutator_coeff == F(3)
+        assert witness.is_nonzero
+        assert "2 alpha [b]" in witness.statement
+
+    def test_zero_alpha_is_not_a_witness(self):
+        """The strict failure mode requires alpha != 0."""
+        with pytest.raises(ValueError):
+            strict_raw_b_term_witness(F(0))
+
+    def test_b_term_is_not_b_tcft(self):
+        """The raw pair contraction is not Costello's corrected carrier."""
+        boundary = compact_chain_framing_boundary()
+        assert not boundary.b_term_equals_b_tcft
+        assert boundary.witness.raw_operator == "B_term^(2)"
+        assert boundary.witness.corrected_operator == "B_TCFT^(2)"
+        assert not boundary.raw_b_term_vanishes
+        assert not boundary.raw_obs_ainf_zero
+
+    def test_default_compact_boundary_is_open(self):
+        """No compact closure is inferred without named data."""
+        boundary = compact_chain_framing_boundary()
+        summary = boundary.summary()
+        assert not summary["corrected_obs_ainf_zero"]
+        assert not summary["compact_phi3_closed"]
+        assert not summary["hall_coha_pbw_closed"]
+        assert any("Costello correction datum" in item for item in summary["missing_obligations"])
+        assert any("HH^{-2} filtration theorem" in item for item in summary["missing_obligations"])
+
+    def test_costello_data_gives_only_conditional_obstruction_closure(self):
+        """B_TCFT data can close Obs_Ainf but does not erase the raw witness."""
+        data = CompactChainFramingData(
+            costello_correction_datum=True,
+            obstruction_complex_comparison=True,
+        )
+        boundary = compact_chain_framing_boundary(data)
+        assert boundary.corrected_obs_ainf_zero
+        assert not boundary.raw_obs_ainf_zero
+        assert boundary.witness.is_nonzero
+        assert not boundary.compact_closure_established
+        assert not boundary.hall_coha_pbw_closure_established
+
+    def test_full_compact_flags_require_separate_hall_pbw_data(self):
+        """Phi_3 closure and Hall/CoHA/PBW closure are separate obligations."""
+        data = CompactChainFramingData(
+            costello_correction_datum=True,
+            obstruction_complex_comparison=True,
+            compact_phi3_chain_witness=True,
+            compact_hall_coha_comparison=True,
+            compact_pbw_filtration_theorem=True,
+        )
+        boundary = compact_chain_framing_boundary(data)
+        assert boundary.corrected_obs_ainf_zero
+        assert boundary.compact_closure_established
+        assert boundary.hall_coha_pbw_closure_established
+
+
+class TestSloganProofRejection:
+    """Tests that stale compact CY3 slogans are rejected by default."""
+
+    def test_rejects_obs_ainf_slogan(self):
+        violations = slogan_proof_violations("Cyclic invariance proves Obs_Ainf = 0.")
+        assert "Obs_Ainf = 0" in violations
+
+    def test_rejects_hh_minus_two_slogan(self):
+        violations = slogan_proof_violations("Unit-connectedness gives HH^{-2} = 0.")
+        assert "HH^{-2} = 0" in violations
+
+    def test_rejects_contractible_lifting_slogan(self):
+        violations = slogan_proof_violations("Therefore the lifting space is contractible.")
+        assert "contractible lifting space" in violations
+
+    def test_rejects_compact_phi_hall_pbw_slogans(self):
+        text = "The compact Phi_3 closes, Hall closure follows, and PBW is automatic."
+        violations = slogan_proof_violations(text)
+        assert "compact Phi_3 closure" in violations
+        assert "Hall/CoHA closure" in violations
+        assert "PBW closure" in violations
+
+    def test_allows_named_corrected_data_claim(self):
+        text = (
+            "Obs_Ainf vanishes after the B_TCFT correction datum and comparison "
+            "to the obstruction complex are supplied."
+        )
+        assert slogan_proof_violations(text) == []
+
+
+# ================================================================
+# SECTION 10: MASTER VERIFICATION
 # ================================================================
 
 class TestMasterVerification:
@@ -622,6 +730,7 @@ class TestMasterVerification:
         assert "conifold" in result
         assert "local_p2" in result
         assert "generalization" in result
+        assert "ap_cy34_boundary" in result
 
     def test_conifold_summary(self):
         result = master_chain_framing_verification()
@@ -642,13 +751,27 @@ class TestMasterVerification:
     def test_generalization_summary(self):
         result = master_chain_framing_verification()
         gen = result["generalization"]
-        assert gen["toric_cy3_complete"] is True
-        # VERIFIED [DC] structural property [LT] standard CY tables
-        assert gen["compact_cy3_status"] == "conditional on analytic input"
+        assert gen["toric_cy3_complete"] is False
+        assert gen["compact_phi3_closed"] is False
+        assert gen["hall_coha_pbw_closed"] is False
+        assert "B_TCFT" in gen["obstruction_type"]
+        assert "HH^{-2}" in gen["compact_cy3_status"]
+
+    def test_ap_cy34_summary(self):
+        result = master_chain_framing_verification()
+        boundary = result["ap_cy34_boundary"]
+        assert boundary["raw_witness"]["is_nonzero"]
+        assert boundary["raw_witness"]["statement"] == (
+            "[m_3,B_term^(2)][a|a|a|a|b] = 2 alpha [b] != 0"
+        )
+        assert not boundary["raw_b_term_vanishes"]
+        assert not boundary["B_term_equals_B_TCFT"]
+        assert not boundary["corrected_obs_ainf_zero"]
+        assert not boundary["compact_phi3_closed"]
 
 
 # ================================================================
-# SECTION 10: CROSS-CHECKS WITH EXISTING MODULES
+# SECTION 11: CROSS-CHECKS WITH EXISTING MODULES
 # ================================================================
 
 class TestCrossChecks:

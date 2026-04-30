@@ -1,22 +1,36 @@
-r"""Adversarial search for counterexamples to [m_3, B^{(2)}] = 0.
+r"""Adversarial diagnostics for raw m_3--B_term^{(2)} failures.
 
 MATHEMATICAL CONTENT
 ====================
 
-The claim (prop:cyclic-ainf-framing-compat, AP-CY34) states:
+AP-CY34 separated three different carriers:
 
-    For a cyclic A_inf algebra (A, {mu_n}, <-,->) of CY dimension 3,
-    the commutator [m_3, B^{(2)}] = 0 on the cyclic bar complex CC_*(A).
+    (1) B_term^{(2)}: the raw termwise pair-contraction on a chosen bar model.
+    (2) B_TCFT^{(2)}: Costello's corrected open-closed TCFT operator.
+    (3) Obs_Ainf: a derived E_1-Hochschild obstruction class.
 
-The proof in the manuscript has a logical gap (rem:adversarial-audit-cyclic-ainf):
-cyclic invariance controls "adjacent" contractions (where B^{(2)} contracts
-two factors both inside or both adjacent to the m_3 block), but "non-adjacent"
-contractions (one factor inside the m_3 block, one outside) are not directly
-controlled by cyclic invariance.
+This module only attacks the raw termwise carrier.  It does not construct
+Costello's corrected B_TCFT^{(2)}, and it does not prove Obs_Ainf = 0 for
+compact CY3 categories.
 
-This module performs an EXHAUSTIVE RANDOM SEARCH for counterexamples:
-a cyclic A_inf algebra satisfying all Stasheff identities and cyclic
-invariance, but where [m_3, B^{(2)}] != 0.
+The strict characteristic-zero witness, normalized as in
+standalone/m3_b2_obstruction_vol3.tex, is:
+
+    B_term^{(2)}[a|a|a|a|b] = 4[a|a|a],
+    m_3 B_term^{(2)}[a|a|a|a|b] = 4 alpha [b],
+    B_term^{(2)} m_3[a|a|a|a|b] = 2 alpha [b],
+
+hence
+
+    [m_3, B_term^{(2)}][a|a|a|a|b] = 2 alpha [b] != 0
+
+for alpha != 0 over characteristic zero.
+
+The random search below is retained as useful diagnostic data: it explores
+raw pair-contraction failures on small strict bar models.  A random nonzero
+commutator exposes a B_term^{(2)} failure.  A random zero result is not a
+proof of raw vanishing, not a proof of the corrected TCFT identity, and not a
+compact CY3 Obs_Ainf theorem.
 
 THE SETUP
 =========
@@ -35,14 +49,16 @@ Cyclic invariance (for m_n):
     <m_n(a_1,...,a_n), a_{n+1}> = (-1)^{eps_n} <a_1, m_n(a_2,...,a_{n+1})>
     where eps_n accounts for Koszul signs.
 
-B^{(2)} OPERATOR
-================
+B_term^{(2)} DIAGNOSTIC OPERATOR
+================================
 
-B^{(2)}: CC_n -> CC_{n-1} contracts a pair of factors using the
-degree-2 component of the CY_3 pairing.
+The search implementation uses a raw pair-contraction diagnostic:
+CC_n -> CC_{n-2}, contracting two factors using the CY_3 pairing.
+This is a bar-model representative of the termwise idea, not Costello's
+corrected B_TCFT^{(2)}.
 
 On bar elements [a_0 | a_1 | ... | a_n]:
-    B^{(2)}([a_0|...|a_n]) = sum_{0 <= i < j <= n}
+    B_term^{(2)}([a_0|...|a_n]) = sum_{0 <= i < j <= n}
         <a_i, a_j>_2 * [a_0|...|hat{a_i}|...|hat{a_j}|...|a_n]
 
 where <-,->_2 is the restriction to the (degree 1, degree 2) component
@@ -50,22 +66,23 @@ of the CY pairing (|a_i| + |a_j| = 3, restricted to |a_i|=1, |a_j|=2
 or vice versa; more precisely, the S^2-framing uses the degree-2 part
 of the shifted pairing).
 
-THE COMMUTATOR [m_3, B^{(2)}]
-==============================
+THE COMMUTATOR [m_3, B_term^{(2)}]
+==================================
 
-[m_3, B^{(2)}](x) = m_3(B^{(2)}(x)) - B^{(2)}(m_3(x))
+[m_3, B_term^{(2)}](x) =
+    m_3(B_term^{(2)}(x)) - B_term^{(2)}(m_3(x))
 
 where m_3 acts on the bar complex by applying mu_3 to three consecutive
-factors, and B^{(2)} contracts pairs.
+factors, and B_term^{(2)} contracts pairs.
 
 On CC_n, the commutator has terms:
-- m_3 after B^{(2)}: apply B^{(2)} to get CC_{n-1}, then m_3 to get CC_{n-4}
-- B^{(2)} after m_3: apply m_3 to get CC_{n-2}, then B^{(2)} to get CC_{n-4}
+- m_3 after B_term^{(2)}
+- B_term^{(2)} after m_3
 
 The "non-adjacent" terms are those where:
-- B^{(2)} contracts (a_i, a_j) where i is inside {k, k+1, k+2} (the m_3
+- B_term^{(2)} contracts (a_i, a_j) where i is inside {k, k+1, k+2} (the m_3
   block) and j is outside, or vice versa.
-- These terms appear in B^{(2)} . m_3 but NOT in m_3 . B^{(2)}, or with
+- These terms appear in B_term^{(2)} . m_3 but not in m_3 . B_term^{(2)}, or with
   different signs/positions.
 
 STRATEGY
@@ -77,16 +94,19 @@ STRATEGY
    - m_1: constrained by m_1^2 = 0
    - m_2: constrained by m_1 . m_2 + m_2 . (m_1 x 1 + 1 x m_1) = 0
    - m_3: constrained by the n=3 Stasheff identity + cyclic invariance
-4. Compute [m_3, B^{(2)}] on all bar elements of a fixed arity.
-5. Check if the commutator is zero.
+4. Compute [m_3, B_term^{(2)}] on all bar elements of a fixed arity.
+5. Record whether the raw diagnostic commutator is zero on the tested sample.
 
-If we find a cyclic A_inf algebra with [m_3, B^{(2)}] != 0: counterexample.
-If all random samples give [m_3, B^{(2)}] = 0: evidence for the claim.
+If we find a cyclic A_inf algebra with [m_3, B_term^{(2)}] != 0: raw
+termwise counterexample.  If all random samples vanish: no random witness was
+found; no theorem follows.
 
 RESULT
 ======
 
-COUNTEREXAMPLE FOUND at arity 5 in the (m_1=0, m_2=0) degenerate case.
+The exact strict witness above already rejects termwise vanishing.
+Random trials also find arity-5 failures for small models with m_1=0 and
+m_2=0.
 
 With m_1 = m_2 = 0, all Stasheff identities are TRIVIALLY satisfied
 (every term involves m_1 or m_2 multiplicatively), so (A, 0, 0, m_3)
@@ -97,32 +117,24 @@ for finite-dimensional A.
 
 For such algebras, cyclic invariance of m_3 is the ONLY constraint.
 
-Findings:
-  - Arity 4: [m_3, B^{(2)}] = 0 universally (even for non-cyclic m_3,
-    this is forced by degree counting: the output is arity 0 = scalar,
-    and both compositions collapse to the same contraction).
-  - Arity 5: [m_3, B^{(2)}] != 0 generically (43% of bar elements
-    have nonzero commutator, with norms up to ~23).
-  - Control: non-cyclic m_3 gives even larger commutator, confirming
-    cyclic invariance provides PARTIAL but not COMPLETE cancellation.
+Findings from the random diagnostic:
+  - Arity 4: the tested raw diagnostic can vanish by degree/arity collapse.
+    This is not a proof of termwise vanishing in all models.
+  - Arity 5: [m_3, B_term^{(2)}] != 0 appears generically in the random
+    search.
+  - Control: non-cyclic m_3 gives raw nonzero commutators, confirming that
+    the operator is detecting genuine termwise sensitivity.
 
 INTERPRETATION:
 
-The m_2 = 0 counterexample is valid as an A_inf algebra but does NOT
-arise from a geometric CY3 category (which always has a nontrivial
-Ext product). For geometric CY3 categories:
-  - m_2 is the Yoneda product (nontrivial),
-  - Stasheff n=4 constrains m_3 via m_2,
-  - The additional constraints MAY force [m_3, B^{(2)}] = 0.
+The raw termwise proof is wrong.  The corrected theorem, if used for compact
+CY3s, must supply either:
+  - a Costello correction/comparison datum identifying the relevant chain
+    model with B_TCFT^{(2)}, or
+  - an HH^{-2} filtration theorem killing the derived obstruction class.
 
-The counterexample therefore confirms:
-  1. The proof in the manuscript (from cyclic invariance alone) is WRONG.
-  2. The claim MIGHT still be true for geometric CY3 (with m_2 != 0).
-  3. The proof must invoke the Stasheff identities, not just cyclicity.
-
-AP-CY34 STATUS: proof is WRONG (not merely incomplete). The claim's
-truth for geometric CY3 requires a fundamentally different argument
-involving the Stasheff/m_2 constraints.
+Local P^2 and the small random models are noncompact or algebraic diagnostic
+data; they are not compact CY3 theorems.
 
 CONVENTIONS
 ===========
@@ -150,6 +162,86 @@ from fractions import Fraction
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
+
+F = Fraction
+
+RAW_OPERATOR = "B_term^{(2)}"
+CORRECTED_OPERATOR = "B_TCFT^{(2)}"
+REMAINING_PROOF_OBLIGATIONS: Tuple[str, ...] = (
+    "Construct the Costello moduli-chain correction datum for the chosen "
+    "compact CY3 chain model.",
+    "Prove a comparison homotopy from B_term^{(2)} to B_TCFT^{(2)}, or avoid "
+    "B_term^{(2)} entirely.",
+    "For compact CY3 vanishing, prove the HH^{-2} filtration hypothesis or "
+    "an equivalent obstruction comparison theorem.",
+)
+
+
+@dataclass(frozen=True)
+class TermwiseWitness:
+    r"""Exact strict witness for nonvanishing of [m_3, B_term^{(2)}].
+
+    The terminal-slot normalization is the one used in
+    standalone/m3_b2_obstruction_vol3.tex and in
+    compute/lib/operadic_tcft_mk_b2_engine.py.
+    """
+
+    input_word: Tuple[str, ...]
+    output_word: Tuple[str, ...]
+    alpha: Fraction
+    m3_after_b_term_coeff: Fraction
+    b_term_after_m3_coeff: Fraction
+    commutator_coeff: Fraction
+    operator: str = RAW_OPERATOR
+    corrected_operator: str = CORRECTED_OPERATOR
+
+    @property
+    def is_nonzero(self) -> bool:
+        """Whether the witness rejects raw termwise vanishing."""
+        return self.commutator_coeff != F(0)
+
+    @property
+    def statement(self) -> str:
+        """Human-readable exact formula."""
+        return (
+            "[m_3, B_term^{(2)}][a|a|a|a|b] = "
+            f"{self.commutator_coeff} [b] != 0"
+        )
+
+    def as_dict(self) -> Dict[str, Any]:
+        """Dictionary payload for the master diagnostic result."""
+        return {
+            "input_word": self.input_word,
+            "output_word": self.output_word,
+            "alpha": self.alpha,
+            "m3_after_b_term_coeff": self.m3_after_b_term_coeff,
+            "b_term_after_m3_coeff": self.b_term_after_m3_coeff,
+            "commutator_coeff": self.commutator_coeff,
+            "operator": self.operator,
+            "corrected_operator": self.corrected_operator,
+            "is_nonzero": self.is_nonzero,
+            "statement": self.statement,
+        }
+
+
+def strict_m3_b2_term_witness(alpha: Fraction = F(1)) -> TermwiseWitness:
+    r"""Return the exact raw B_term^{(2)} nonzero witness.
+
+    Over characteristic zero and alpha != 0:
+
+        [m_3, B_term^{(2)}][a|a|a|a|b] = 2 alpha [b].
+    """
+    alpha = F(alpha)
+    if alpha == F(0):
+        raise ValueError("The strict m3-B_term witness requires alpha != 0")
+    return TermwiseWitness(
+        input_word=("a", "a", "a", "a", "b"),
+        output_word=("b",),
+        alpha=alpha,
+        m3_after_b_term_coeff=F(4) * alpha,
+        b_term_after_m3_coeff=F(2) * alpha,
+        commutator_coeff=F(2) * alpha,
+    )
 
 
 # =========================================================================
@@ -515,17 +607,17 @@ def check_cyclic_m3(ainf: AInfinityStructure, pairing: CYPairing) -> float:
 
 
 # =========================================================================
-# 5. B^{(2)} OPERATOR ON THE CYCLIC BAR COMPLEX
+# 5. RAW B_term^{(2)} DIAGNOSTIC OPERATOR ON THE BAR COMPLEX
 # =========================================================================
 
 def b2_on_bar_element(bar_indices: Tuple[int, ...],
                       pairing: CYPairing,
                       gvs: GradedVectorSpace) -> List[Tuple[Tuple[int, ...], float]]:
-    r"""Apply B^{(2)} to a bar element [a_0 | a_1 | ... | a_n].
+    r"""Apply the raw B_term^{(2)} diagnostic to a bar element.
 
-    B^{(2)} contracts a pair of factors using the CY pairing:
+    B_term^{(2)} contracts a pair of factors using the CY pairing:
 
-    B^{(2)}([a_0|...|a_n]) = sum_{0 <= i < j <= n}
+    B_term^{(2)}([a_0|...|a_n]) = sum_{0 <= i < j <= n}
         (-1)^{sign(i,j)} <a_i, a_j> * [a_0|...|hat{a_i}|...|hat{a_j}|...|a_n]
 
     where the Koszul sign accounts for moving a_i past the intervening
@@ -610,27 +702,28 @@ def m3_on_bar_element(bar_indices: Tuple[int, ...],
 
 
 # =========================================================================
-# 7. THE COMMUTATOR [m_3, B^{(2)}]
+# 7. THE RAW COMMUTATOR [m_3, B_term^{(2)}]
 # =========================================================================
 
 def commutator_m3_b2(bar_indices: Tuple[int, ...],
                      ainf: AInfinityStructure,
                      pairing: CYPairing) -> Dict[Tuple[int, ...], float]:
-    r"""Compute [m_3, B^{(2)}] on a bar element.
+    r"""Compute raw [m_3, B_term^{(2)}] on a bar element.
 
-    [m_3, B^{(2)}](x) = m_3(B^{(2)}(x)) - B^{(2)}(m_3(x))
+    [m_3, B_term^{(2)}](x) =
+        m_3(B_term^{(2)}(x)) - B_term^{(2)}(m_3(x))
 
     NOTE on sign convention: the bar differential d = ... + m_3 + ...
-    and B^{(2)} is a degree-(-1) map. For graded commutator:
-        [d, B^{(2)}] = d . B^{(2)} - (-1)^{|d||B^{(2)}|} B^{(2)} . d
-                      = d . B^{(2)} + B^{(2)} . d   (since |d|=1, |B^{(2)}|=-1)
+    and the raw B_term^{(2)} diagnostic is a degree-(-1) map. For graded
+    commutator:
+        [d, B_term^{(2)}] =
+            d . B_term^{(2)} - (-1)^{|d||B_term^{(2)}|} B_term^{(2)} . d
 
     But we want the m_3 component of d, which has bar degree -2 and
     internal degree -1, so |m_3| = -2 + (-1) = -3 as a bar differential
     component... Actually, let's use the UNSIGNED commutator here and
-    compute m_3.B^{(2)} - B^{(2)}.m_3. The sign depends on the grading
-    convention, and what matters for the counterexample search is whether
-    the result is ZERO.
+    compute m_3.B_term^{(2)} - B_term^{(2)}.m_3. The sign depends on the
+    grading convention, and the diagnostic only records raw nonvanishing.
 
     Returns dict mapping remaining bar indices to coefficient.
     """
@@ -645,16 +738,16 @@ def commutator_m3_b2(bar_indices: Tuple[int, ...],
         else:
             result[indices] = coeff
 
-    # Term 1: m_3(B^{(2)}(x))
-    # First apply B^{(2)}, then m_3 to each resulting bar element
+    # Term 1: m_3(B_term^{(2)}(x))
+    # First apply B_term^{(2)}, then m_3 to each resulting bar element
     b2_terms = b2_on_bar_element(bar_indices, pairing, gvs)
     for b2_indices, b2_coeff in b2_terms:
         m3_terms = m3_on_bar_element(b2_indices, ainf)
         for m3_indices, m3_coeff in m3_terms:
             add_term(m3_indices, b2_coeff * m3_coeff)
 
-    # Term 2: -B^{(2)}(m_3(x))
-    # First apply m_3, then B^{(2)} to each resulting bar element
+    # Term 2: -B_term^{(2)}(m_3(x))
+    # First apply m_3, then B_term^{(2)} to each resulting bar element
     m3_terms = m3_on_bar_element(bar_indices, ainf)
     for m3_indices, m3_coeff in m3_terms:
         b2_terms2 = b2_on_bar_element(m3_indices, pairing, gvs)
@@ -670,7 +763,7 @@ def commutator_m3_b2(bar_indices: Tuple[int, ...],
 def commutator_m3_b2_norm(bar_indices: Tuple[int, ...],
                           ainf: AInfinityStructure,
                           pairing: CYPairing) -> float:
-    """L^inf norm of [m_3, B^{(2)}] on a single bar element."""
+    """L^inf norm of raw [m_3, B_term^{(2)}] on a single bar element."""
     comm = commutator_m3_b2(bar_indices, ainf, pairing)
     if not comm:
         return 0.0
@@ -680,7 +773,7 @@ def commutator_m3_b2_norm(bar_indices: Tuple[int, ...],
 def max_commutator_on_arity(arity: int,
                             ainf: AInfinityStructure,
                             pairing: CYPairing) -> float:
-    """Max |[m_3, B^{(2)}]| over all bar elements of given arity.
+    """Max |[m_3, B_term^{(2)}]| over all bar elements of given arity.
 
     Iterates over all basis bar elements [e_{i_1}|...|e_{i_n}] and
     computes the commutator on each.
@@ -878,21 +971,21 @@ def _solve_m3_from_stasheff_and_cyclic(
     For the Stasheff n=4 identity to hold (which involves m_3), we need:
         m_2(m_3(a,b,c), d) + ... = m_3(m_2(a,b), c, d) + ... + m_4(...)
 
-    Since we're only looking at [m_3, B^{(2)}] and not worrying about m_4,
+    Since we're only looking at raw [m_3, B_term^{(2)}] and not worrying about m_4,
     we can let m_3 be free (subject to cyclic invariance) and check
-    whether the Stasheff n=4 identity constrains [m_3, B^{(2)}].
+    whether further A_inf identities constrain the raw diagnostic.
 
     REVISED STRATEGY:
     1. m_1 = 0
     2. m_2 = ASSOCIATIVE (satisfying Stasheff n=2 and n=3 with m_1=0)
     3. m_3 = random, satisfying ONLY cyclic invariance
-    4. Check [m_3, B^{(2)}] = 0?
+    4. Check the raw [m_3, B_term^{(2)}] diagnostic.
 
-    If [m_3, B^{(2)}] != 0 for some such m_3: the result is FALSE
-    without the Stasheff n=4 constraint.
+    If [m_3, B_term^{(2)}] != 0 for some such m_3: the raw termwise
+    identity is false without additional correction data.
 
-    If [m_3, B^{(2)}] = 0 for ALL such m_3: the result follows from
-    cyclic invariance alone (no need for Stasheff n=4).
+    If the tested commutators vanish, this only means that this diagnostic
+    found no witness in the tested family.
     """
     n = gvs.total_dim
 
@@ -1062,6 +1155,9 @@ class SearchResult:
     commutator_norm_arity5: float
     is_counterexample: bool
     seed: int
+    operator_under_test: str = RAW_OPERATOR
+    proves_corrected_tcft_identity: bool = False
+    proves_compact_obs_ainf_zero: bool = False
 
 
 def run_single_trial(
@@ -1075,7 +1171,9 @@ def run_single_trial(
 ) -> SearchResult:
     """Run a single counterexample search trial.
 
-    Generates a random cyclic A_inf algebra and checks [m_3, B^{(2)}].
+    Generates a random cyclic A_inf algebra and checks the raw
+    [m_3, B_term^{(2)}] diagnostic.  A nonzero result rejects the raw
+    termwise identity; a zero result is not a compact CY3 theorem.
     """
     rng = np.random.default_rng(seed)
 
@@ -1099,9 +1197,9 @@ def run_single_trial(
     # Verify Stasheff n=3 (should be automatic with m_1=0, m_2 assoc)
     stasheff_viol = check_stasheff_n3(ainf) if not associative_m2 else 0.0
 
-    # Compute [m_3, B^{(2)}] on bar elements of arity 4 and 5
-    # Arity 4: [a|b|c|d] -> B^{(2)} gives arity 2, m_3 gives arity 2
-    # Arity 5: [a|b|c|d|e] -> B^{(2)} gives arity 3, m_3 gives arity 3
+    # Compute raw [m_3, B_term^{(2)}] on bar elements of arity 4 and 5.
+    # Arity 4: [a|b|c|d] -> B_term gives arity 2, m_3 gives arity 2.
+    # Arity 5: [a|b|c|d|e] -> B_term gives arity 3, m_3 gives arity 3.
     if cyclic_converged:
         comm_norm_4 = max_commutator_on_arity(4, ainf, pairing)
         comm_norm_5 = 0.0
@@ -1139,14 +1237,12 @@ def run_counterexample_search(
     r"""Run the full counterexample search.
 
     Generates n_trials random cyclic A_inf algebras and checks
-    [m_3, B^{(2)}] on each.
+    [m_3, B_term^{(2)}] on each.
 
-    Two search modes:
-    1. m_2 = 0 (trivially associative): m_3 is free subject to cyclic inv.
-       This tests whether cyclic invariance ALONE forces [m_3, B^{(2)}] = 0.
-
-    2. m_2 random associative + cyclic: m_3 constrained by Stasheff n=4.
-       This tests the full A_inf + cyclic package.
+    The retained search mode uses m_2 = 0 (trivially associative), with
+    m_3 free subject to cyclic invariance.  It tests whether cyclicity alone
+    can force raw termwise cancellation in the sampled strict model.  It does
+    not test Costello's corrected B_TCFT^{(2)} operator.
 
     Parameters
     ----------
@@ -1211,16 +1307,32 @@ def run_counterexample_search(
         "n_trials": n_trials,
         "test_arity": test_arity,
         "tolerance": tol,
+        "operator_under_test": RAW_OPERATOR,
+        "corrected_operator": CORRECTED_OPERATOR,
+        "raw_vanishing_is_proof": False,
+        "proves_corrected_tcft_identity": False,
+        "proves_compact_obs_ainf_zero": False,
         # Mode 1: m_2 = 0
         "mode1_m2_zero": {
             "n_counterexamples": n_counter_m2_zero,
+            "raw_counterexample_found": n_counter_m2_zero > 0,
             "max_commutator_arity4": max_comm_4_m2_zero,
             "max_commutator_arity5": max_comm_5_m2_zero,
             "max_cyclic_m3_violation": max_cyclic_viol_m2_zero,
+            "proves_termwise_vanishing": False,
+            "proves_corrected_tcft_identity": False,
+            "proves_compact_obs_ainf_zero": False,
             "conclusion": (
-                "COUNTEREXAMPLE FOUND" if n_counter_m2_zero > 0
-                else "No counterexample: [m_3, B^{(2)}] = 0 for all trials"
+                "RAW B_term^{(2)} COUNTEREXAMPLE FOUND in the sampled "
+                "strict model. This rejects raw termwise vanishing only."
+                if n_counter_m2_zero > 0
+                else (
+                    "No random B_term^{(2)} counterexample found in this "
+                    "sample. This is diagnostic only and proves neither raw "
+                    "termwise vanishing nor compact Obs_Ainf = 0."
+                )
             ),
+            "remaining_proof_obligations": list(REMAINING_PROOF_OBLIGATIONS),
         },
     }
 
@@ -1234,17 +1346,17 @@ def decompose_commutator_terms(
     ainf: AInfinityStructure,
     pairing: CYPairing,
 ) -> Dict[str, Dict[Tuple[int, ...], float]]:
-    r"""Decompose [m_3, B^{(2)}] into "adjacent" and "non-adjacent" terms.
+    r"""Decompose raw [m_3, B_term^{(2)}] into diagnostic terms.
 
-    The "adjacent" terms are those where B^{(2)} contracts two factors
+    The "adjacent" terms are those where B_term^{(2)} contracts two factors
     that are BOTH inside or BOTH outside the m_3 block.
 
-    The "non-adjacent" terms are those where B^{(2)} contracts one factor
+    The "non-adjacent" terms are those where B_term^{(2)} contracts one factor
     inside and one outside the m_3 block.
 
     This decomposition is the heart of the AP-CY34 gap: cyclic invariance
-    controls the adjacent terms, but the non-adjacent terms require
-    additional structure (Stasheff identities).
+    does not identify the raw termwise operator with Costello's corrected
+    B_TCFT^{(2)} operator.
 
     Returns dict with keys "adjacent" and "non_adjacent", each mapping
     to a dict of (bar_indices -> coefficient).
@@ -1265,16 +1377,16 @@ def decompose_commutator_terms(
         else:
             target[indices] = coeff
 
-    # TERM 1: m_3(B^{(2)}(x))
-    # Apply B^{(2)} first, then m_3.
-    # B^{(2)} contracts (i, j). Then m_3 applies to a triple in the result.
+    # TERM 1: m_3(B_term^{(2)}(x))
+    # Apply B_term^{(2)} first, then m_3.
+    # B_term^{(2)} contracts (i, j). Then m_3 applies to a triple in the result.
     # The contraction (i, j) is "non-adjacent" to the m_3 application
     # if either i or j falls inside the FUTURE m_3 block.
-    # But since B^{(2)} acts first, we can't classify based on the m_3 block.
+    # But since B_term^{(2)} acts first, we can't classify based on the m_3 block.
     #
-    # Instead, classify in TERM 2: B^{(2)}(m_3(x)).
+    # Instead, classify in TERM 2: B_term^{(2)}(m_3(x)).
     # m_3 replaces positions (k, k+1, k+2) with a single output.
-    # Then B^{(2)} contracts pairs in the result.
+    # Then B_term^{(2)} contracts pairs in the result.
     # The contraction is "adjacent" if both contracted factors are
     # either: (a) both in the m_3 output, or (b) both outside.
     # The contraction is "non-adjacent" if one is the m_3 output and
@@ -1283,7 +1395,7 @@ def decompose_commutator_terms(
     # For the decomposition, we compute the full commutator and
     # classify each contribution.
 
-    # B^{(2)} . m_3 terms (with minus sign):
+    # B_term^{(2)} . m_3 terms (with minus sign):
     for k in range(n_factors - 2):
         eps_k = sum(gvs.degree_of(bar_indices[l]) - 1 for l in range(k))
         sign_k = (-1) ** eps_k
@@ -1301,12 +1413,12 @@ def decompose_commutator_terms(
             # Position of m_3 output in new_bar: index k
             m3_output_pos = k
 
-            # Now apply B^{(2)} to new_bar
+            # Now apply B_term^{(2)} to new_bar
             b2_terms = b2_on_bar_element(new_bar, pairing, gvs)
             for b2_idx, b2_coeff in b2_terms:
                 total_coeff = -sign_k * coeff_m3 * b2_coeff
 
-                # Classify: which pair did B^{(2)} contract?
+                # Classify: which pair did B_term^{(2)} contract?
                 # We need to find which positions in new_bar were contracted.
                 # b2_on_bar_element iterates over pairs (i, j) in new_bar.
                 # We need to check if m3_output_pos is one of i or j.
@@ -1323,10 +1435,10 @@ def decompose_commutator_terms(
         "full_commutator": full_comm,
         "note": (
             "The adjacent/non-adjacent decomposition requires tracking "
-            "which specific pairs B^{(2)} contracts relative to the m_3 "
-            "block. The key mathematical question is whether the "
-            "'non-adjacent' terms (one factor inside m_3 block, one "
-            "outside) cancel independently of the 'adjacent' terms."
+            "which specific pairs B_term^{(2)} contracts relative to the m_3 "
+            "block. Surviving non-adjacent raw terms are diagnostic failures; "
+            "a theorem needs B_TCFT^{(2)} comparison data or the HH^{-2} "
+            "filtration argument."
         ),
     }
 
@@ -1348,7 +1460,7 @@ def example_dim_1221() -> Dict[str, Any]:
     (0,1,1) -> 1, (1,0,1) -> 1, (1,1,0) -> 1, (1,1,1) -> 2, etc.
 
     This is the SMALLEST example where m_3 can be nontrivial
-    and the commutator [m_3, B^{(2)}] can potentially be nonzero.
+    and the raw commutator [m_3, B_term^{(2)}] can potentially be nonzero.
     """
     gvs = GradedVectorSpace(dims=(1, 2, 2, 1))
 
@@ -1368,8 +1480,9 @@ def example_dim_1221() -> Dict[str, Any]:
 def example_dim_1331() -> Dict[str, Any]:
     """Larger CY_3 example: dims = (1, 3, 3, 1).
 
-    Total dim = 8. This is closer to local P^2 (which has dim 8 = 1+3+3+1
-    for the Ext algebra of the exceptional collection).
+    Total dim = 8. This resembles the size of the local P^2 diagnostic
+    Ext model, but local P^2 is noncompact and no compact theorem follows
+    from this search.
     """
     gvs = GradedVectorSpace(dims=(1, 3, 3, 1))
 
@@ -1387,12 +1500,12 @@ def example_dim_1331() -> Dict[str, Any]:
 
 
 def example_noncyclic_has_counterexample() -> Dict[str, Any]:
-    r"""Verify that WITHOUT cyclic invariance, [m_3, B^{(2)}] != 0.
+    r"""Verify that without cyclic invariance, raw [m_3, B_term^{(2)}] can be nonzero.
 
     This is the CONTROL EXPERIMENT: generate m_3 without cyclic
     invariance and show that the commutator is generically nonzero.
-    This proves that cyclic invariance IS doing something -- the
-    question is whether it does ENOUGH.
+    This checks raw operator sensitivity; it does not prove that cyclicity
+    alone is sufficient for termwise cancellation.
     """
     gvs = GradedVectorSpace(dims=(1, 2, 2, 1))
     rng = np.random.default_rng(42)
@@ -1421,9 +1534,9 @@ def example_noncyclic_has_counterexample() -> Dict[str, Any]:
         "commutator_arity5": comm_norm_5,
         "is_noncyclic_counterexample": (comm_norm_4 > 1e-8 or comm_norm_5 > 1e-8),
         "interpretation": (
-            "If the commutator is nonzero for non-cyclic m_3, this confirms "
-            "that cyclic invariance is a NECESSARY condition for [m_3, B^{(2)}] = 0. "
-            "The question remains whether it is SUFFICIENT."
+            "The non-cyclic control confirms that the raw termwise diagnostic "
+            "detects unconstrained m_3 failures. Cyclicity alone is not a "
+            "compact CY3 obstruction theorem."
         ),
     }
 
@@ -1436,19 +1549,24 @@ def compute_obs_ainf_counterexample_search() -> Dict[str, Any]:
     r"""Master function: adversarial search for Obs_{A_inf} counterexample.
 
     Runs the full search pipeline:
-    1. Control experiment: non-cyclic m_3 gives [m_3, B^{(2)}] != 0.
-    2. Cyclic search (1,2,2,1): 200 trials, m_2=0, cyclic m_3.
-    3. Cyclic search (1,3,3,1): 100 trials, m_2=0, cyclic m_3.
+    1. Exact strict witness for [m_3, B_term^{(2)}] != 0.
+    2. Control experiment: non-cyclic m_3 gives raw nonzero commutators.
+    3. Cyclic search (1,2,2,1): 200 trials, m_2=0, cyclic m_3.
+    4. Cyclic search (1,3,3,1): 100 trials, m_2=0, cyclic m_3.
 
-    Returns comprehensive results with interpretation.
+    Returns comprehensive diagnostic results.  It deliberately does not
+    prove compact CY3 Obs_Ainf = 0.
     """
-    # 1. Control experiment
+    # 1. Exact strict raw termwise witness.
+    witness = strict_m3_b2_term_witness()
+
+    # 2. Control experiment
     control = example_noncyclic_has_counterexample()
 
-    # 2. Main search: dims (1,2,2,1)
+    # 3. Main search: dims (1,2,2,1)
     search_1221 = example_dim_1221()
 
-    # 3. Larger search: dims (1,3,3,1)
+    # 4. Larger search: dims (1,3,3,1)
     search_1331 = example_dim_1331()
 
     # Summary: counterexamples found at arity 5 (not at arity 4)
@@ -1458,32 +1576,45 @@ def compute_obs_ainf_counterexample_search() -> Dict[str, Any]:
     )
 
     return {
+        "termwise_witness": witness.as_dict(),
         "control_noncyclic": control,
         "search_1221": search_1221,
         "search_1331": search_1331,
         "any_counterexample_found": any_counterexample,
+        "control_confirms_raw_sensitivity": control["is_noncyclic_counterexample"],
         "control_confirms_necessity": control["is_noncyclic_counterexample"],
+        "operator_under_test": RAW_OPERATOR,
+        "corrected_operator": CORRECTED_OPERATOR,
+        "raw_vanishing_closes_ap_cy34": False,
+        "proves_corrected_tcft_identity": False,
+        "proves_compact_obs_ainf_zero": False,
+        "local_p2_scope": (
+            "Local P^2 is noncompact diagnostic data; it is not a compact "
+            "CY3 Obs_Ainf theorem."
+        ),
+        "remaining_proof_obligations": list(REMAINING_PROOF_OBLIGATIONS),
         "conclusion": (
-            "COUNTEREXAMPLE FOUND at arity 5 in the (m_1=0, m_2=0) "
-            "degenerate case. Cyclic invariance alone does NOT force "
-            "[m_3, B^{(2)}] = 0. The proof in prop:cyclic-ainf-framing-compat "
-            "is WRONG (not merely incomplete). At arity 4, the commutator "
-            "IS zero by degree counting. At arity 5, non-adjacent "
-            "B^{(2)}-contractions produce terms not controlled by cyclic "
-            "invariance. The claim may still hold for geometric CY3 "
-            "(with nontrivial m_2), but the proof must invoke Stasheff "
-            "identities, not just cyclicity."
+            "RAW B_term^{(2)} FAILURE: "
+            f"{witness.statement}. Random search also found arity-5 raw "
+            "diagnostic failures in the (m_1=0, m_2=0) strict models. "
+            "This does not prove or disprove the corrected Costello "
+            "B_TCFT^{(2)} identity and does not prove compact Obs_Ainf = 0."
             if any_counterexample
             else (
-                "NO COUNTEREXAMPLE found. [m_3, B^{(2)}] = 0 for all "
-                "tested cyclic A_inf algebras at this arity."
+                "The exact strict witness rejects raw B_term^{(2)} "
+                "vanishing even though this random sample found no further "
+                "counterexample. No compact Obs_Ainf theorem follows."
             )
         ),
         "ap_cy34_status": (
-            "PROOF IS WRONG: cyclic invariance insufficient. "
-            "Counterexample at arity 5 with m_2=0. "
-            "Claim may hold for geometric CY3 (m_2 != 0) via Stasheff."
+            "RAW TERMWISE PROOF IS WRONG: cyclic invariance and raw "
+            "bidegree bookkeeping do not close AP-CY34. Corrected closure "
+            "requires B_TCFT^{(2)} with comparison data or an HH^{-2} "
+            "filtration theorem."
             if any_counterexample
-            else "No counterexample found at tested arities"
+            else (
+                "RAW TERMWISE PROOF IS WRONG by the exact strict witness. "
+                "No compact Obs_Ainf proof is supplied by this diagnostic."
+            )
         ),
     }

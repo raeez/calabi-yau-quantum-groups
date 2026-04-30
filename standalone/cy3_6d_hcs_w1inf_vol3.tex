@@ -1,14 +1,15 @@
-% standalone/cy3_6d_hcs_w1inf_vol3.tex
-% SCAFFOLD (2026-04-17) — title + abstract stub + \input pointers + bibliography only.
-% Author: Raeez Lorgat.
-
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
 
-
-\providecommand{\ClaimStatusProvedHere}{\textsf{[Proved here]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textsf{[Proved elsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textsf{[Conjectured]}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\End}{\operatorname{End}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Spec}{\operatorname{Spec}}
+\providecommand{\cH}{\mathcal{H}}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -19,63 +20,346 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title[6d hCS $\to W_{1+\infty}$]{6d holomorphic Chern--Simons on $\mathbb{C}^3$
-boundary: $W_{1+\infty}$, $Y_{1,1,1}$, and toroidal DIM}
+\title[6d hCS and affine Yangian positive half]{The 6d holomorphic Chern--Simons defect and
+the positive half of the affine Yangian}
 \author{Raeez Lorgat}
-\date{2026-04-17}
+\date{2026-04-30}
 
 \begin{document}
-\maketitle
 
 \begin{abstract}
-SCAFFOLD STUB. A codim-2 defect $C \subset \mathbb{C}^3$ in 6d holomorphic
-Chern--Simons theory induces a boundary chiral algebra isomorphic to
-$W_{1+\infty}$ at $\Psi = -\sigma_2$, central charge $c = 1$ (Sugawara).
-The normal bundle $N_{C/Y} = \mathbb{C}^2$ supplies the two spectral
-parameters. The toroidal chiral quantum group arises on the formal disc via
-Ding--Iohara--Miki (DIM) plus Schiffmann--Vasserot CoHA; the global $\mathbb{P}^1
-\times \mathbb{P}^1$ lift is conditional on class-M chain-level holography
-(see \texttt{conj:uch-gravity-chain-level} in Vol II). Miki's $S_3$ symmetry
-is the Weyl group of the $\Omega$-background.
+The local abelian \(6d\) holomorphic Chern--Simons defect on \(\bC^3\)
+has a precise low-spin chiral content: a spin-one Heisenberg current with
+level \(\Psi_{\mathrm{lev}}=-\sigma_2\), \(\Psi_{\mathrm{lev}}\neq0\),
+and its Sugawara spin-two field with central charge \(c=1\). It does not
+prove the all-spin \(\cW_{1+\infty}[\lambda]\) vertex algebra, and it does
+not identify the critical Hall theory of \(\bC^3\) with a vertex algebra.
+The spherical critical Hall algebra is the positive half
+\(Y^+(\widehat{\mathfrak{gl}}_1)\); the \(\cW_{1+\infty}\) object belongs
+to the completed Drinfeld double and its generic Fock/mode realisation.
+Finite toric DWR/Ran Rees gluing assembles the chartwise positive halves.
+Compact critical CoHA, quasi-NCCR, and Hall--Drinfeld double statements
+require the extra realisation, compact-support, pairing, and completion
+data named below.
 \end{abstract}
+\maketitle
 
-\section*{Primary theorems}
-\begin{itemize}
-\item 6d hCS codim-2 defect on $C \subset \mathbb{C}^3$ yields
-  $W_{1+\infty}$ boundary algebra at $\Psi = -\sigma_2$:
-  \ClaimStatusProvedHere (48 engine tests + 1 HZ-IV-decorated
-  independent-verification test; PR $S_3$ triality + ASV Newton-
-  identity paths upgraded to genuinely numerical 2026-04-18).
-\item Toroidal chiral QG on formal disc: \ClaimStatusProvedHere
-  (via DIM + SV CoHA).
-\item Toroidal chiral QG on $\mathbb{P}^1 \times \mathbb{P}^1$:
-  \ClaimStatusConjectured (conditional on class-M chain-level holography).
-\item $Y_{1,1,1}$ central charge $c = 0$, $\kappa_{\mathrm{ch}} = \Psi$:
-  \ClaimStatusProvedHere (correcting an earlier $c = 3$ assertion).
-\item Miura coefficient universality $(\Psi - 1)/\Psi$ at all spins
-  $s \ge 2$: \ClaimStatusProvedHere (Vol I
-  \texttt{thm:miura-cross-universality}).
-\end{itemize}
+\section{Defect OPE}
 
-\section*{Chapter inputs (pointers)}
-\begin{verbatim}
-\input{../chapters/examples/toric_cy3_coha.tex}
-\input{../chapters/examples/toroidal_elliptic.tex}
-\input{../chapters/examples/k3_quantum_toroidal_chapter.tex}
-\input{../chapters/theory/braided_factorization.tex}
-\end{verbatim}
+The symbol \(\Psi_{\mathrm{lev}}\) denotes the Heisenberg level of the
+defect current. It is not the Gaiotto--Rap\v{c}\'ak corner coupling
+\(\psi_{\mathrm{GR}}=-h_2/h_1\), which is dimensionless and controls the
+triality of the \(Y_{L,M,N}[\psi_{\mathrm{GR}}]\) family. The parameter
+\(\lambda\) appearing in the Fock realisation below is a representation
+parameter for the completed double; no equality
+\(\Psi_{\mathrm{lev}}=\psi_{\mathrm{GR}}\) or
+\(\Psi_{\mathrm{lev}}=\lambda\) is used.
 
-\section*{Cross-volume dependencies}
-\begin{itemize}
-\item Vol I standalone \texttt{cy\_quantum\_groups\_6d\_hcs.tex} (programme
-  viewpoint; Vol III extends with CoHA implementation).
-\item Vol I \texttt{thm:miura-cross-universality} (Miura coefficient
-  universality).
-\item Vol II \texttt{\textbackslash ref\{part:ht-landscape\}}
-  (6d hCS as 5d HT shadow).
-\end{itemize}
+\begin{theorem}[Low-spin abelian codimension-two witness]
+Let \(C=\{z_2=z_3=0\}\subset\bC^3\) be a straight complex
+codimension-two defect in the local abelian \(\mathfrak{gl}_1\) model of
+\(6d\) holomorphic Chern--Simons theory. Let \(h_i\) be the
+\(\Omega\)-background weights of the three coordinate directions, with
+\(h_1+h_2+h_3=0\); only \(h_2,h_3\) are normal weights to \(C\). Work in a
+flat formal \(\bC^3\) chart, fix the framed defect and the current
+normalisation, choose the \(\Omega\)-background regularisation and normal
+ordering, and use the five-dimensional-to-six-dimensional restriction
+convention over \(\bC[\Psi_{\mathrm{lev}},\Psi_{\mathrm{lev}}^{-1}]\). Set
+\[
+        \sigma_2=h_1h_2+h_1h_3+h_2h_3,\qquad
+        \Psi_{\mathrm{lev}}=-\sigma_2,
+\]
+and assume \(\Psi_{\mathrm{lev}}\neq0\). The defect current \(J(z)\) satisfies
+\[
+        J(z)J(w)\sim \frac{\Psi_{\mathrm{lev}}}{(z-w)^2},
+        \qquad \Psi_{\mathrm{lev}}=-\sigma_2 .
+\]
+The Sugawara field
+\[
+        T(z)=\frac{1}{2\Psi_{\mathrm{lev}}}:J(z)^2:
+\]
+has central charge \(c=1\).
+\end{theorem}
 
-\bibliographystyle{alpha}
-\bibliography{../bibliography/references}
+\begin{proof}
+The BV fields of abelian hCS are the Dolbeault complex
+\(\Omega^{0,*}(\bC^3)[1]\) with the free differential \(\bar\partial\) and
+the BV pairing induced by \(dz_1\wedge dz_2\wedge dz_3\). The cubic hCS
+vertex is multiplied by the \(\mathfrak{gl}_1\) bracket and vanishes. Hence
+the flat formal abelian model is Gaussian: its BRST cohomology on the
+straight defect contains the zero normal mode \(A^{(0,0)}|_C\), and the
+only singular OPE of the corresponding current is the single Wick
+contraction of the BV propagator. No cubic Feynman graph is present, so
+the local calculation supplies no non-linear all-spin
+\(\cW_{1+\infty}\) relations.
+
+The free calculation determines a Heisenberg OPE once the trace form on
+the defect zero mode is fixed. The five-dimensional restriction
+normalisation, matched to the affine-Yangian classical \(r\)-matrix
+residue, fixes that trace form to be
+\[
+        k_{\mathrm{eff}}
+        =-\sigma_2
+        =-(h_1h_2+h_1h_3+h_2h_3)
+        =\frac{1}{2}(h_1^2+h_2^2+h_3^2),
+\]
+where the last equality uses \(h_1+h_2+h_3=0\). Thus the Heisenberg
+lambda-bracket is \(\{J_\lambda J\}=\Psi_{\mathrm{lev}}\lambda\), equivalently the
+displayed double pole. Rescaling \(J\) would rescale the displayed
+parameter; the framed defect convention fixes \(J\). At
+\(\Psi_{\mathrm{lev}}=0\) the
+singular part is zero and the Sugawara denominator is absent. For
+\(\Psi_{\mathrm{lev}}\neq0\), Wick contraction in the single Heisenberg algebra gives
+\[
+        T(z)T(w)\sim
+        \frac{1/2}{(z-w)^4}
+        +\frac{2T(w)}{(z-w)^2}
+        +\frac{\partial T(w)}{z-w},
+\]
+so \(c=1\). No higher-spin OPE is asserted.
+\end{proof}
+
+\section{Hall algebra and completion}
+
+\begin{theorem}[Toric critical Hall algebra]
+Let \(Q_3\) be the one-vertex three-loop Jordan quiver with potential
+\[
+        W=\operatorname{tr}(XYZ-XZY),
+\]
+and let \(\CoHA^{\mathrm{sph}}_{\mathrm{crit},T}(Q_3,W)\) be the
+degree-one-generated spherical equivariant critical cohomological Hall
+algebra with vanishing cycles, the standard orientation choice, shifts,
+Tate twists, and equivariant parameters matched to \((h_1,h_2,h_3)\).
+Then
+\[
+        \CoHA^{\mathrm{sph}}_{\mathrm{crit},T}(Q_3,W)
+        \cong Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+This is a spherical positive-half statement: it does not present the
+full non-spherical Hall algebra, the opposite half, the Cartan sector, or
+vertex-algebra locality.
+In the shuffle realisation, the \(n\)-particle summand is represented over
+\(\bC[h_1,h_2,h_3]/(h_1+h_2+h_3)\) by symmetric functions, and the product
+uses the positive Jordan kernel, with \(u=x_j-x_i\),
+\[
+        \omega_+(u)=
+        \frac{(u+h_1)(u+h_2)(u+h_3)}{u^3}
+        =
+        1+\frac{\sigma_2}{u^2}+\frac{\sigma_3}{u^3},
+        \qquad \sigma_3=h_1h_2h_3 .
+\]
+The opposite extension convention replaces \(h_i\) by \(-h_i\) and gives
+\[
+        \omega_-(u)=
+        \frac{(u-h_1)(u-h_2)(u-h_3)}{u^3}
+        =
+        1+\frac{\sigma_2}{u^2}-\frac{\sigma_3}{u^3}.
+\]
+After localisation, a Hopf pairing, quotient by its radical when nonzero,
+Cartan data, the opposite half, root-degree completion, and a generic
+non-resonant Fock parameter have been fixed, the completed Drinfeld
+double has a representation on the corresponding
+\(\cW_{1+\infty}[\lambda]\) vacuum module,
+\[
+        Y^+(\widehat{\mathfrak{gl}}_1)
+        \hookrightarrow
+        D^\wedge_{\mathrm{Hopf}}\bigl(Y^+(\widehat{\mathfrak{gl}}_1)\bigr)
+        \xrightarrow{\mathrm{ev}_\lambda}
+        \End(\mathcal{F}_\lambda).
+\]
+The map \(\mathrm{ev}_\lambda\) is the completed mode/enveloping action on
+\(\mathcal{F}_\lambda\); it is not asserted to be onto
+\(\End(\mathcal{F}_\lambda)\), nor to identify \(Y^+\) or its double with
+the vertex algebra.
+\end{theorem}
+
+\begin{proof}
+For a vector space \(V\) of dimension \(n\), the critical stack is
+\[
+        [\End(V)^3/\operatorname{GL}(V)],
+        \qquad
+        W_n(X,Y,Z)=\operatorname{tr}(X[Y,Z]).
+\]
+The vanishing-cycle sheaf \(\varphi_{W_n}\), the orientation square root,
+and the conventional shifts and Tate twists are the data that make the
+extension-correspondence product homogeneous and associative. The
+Thom--Sebastiani isomorphism identifies the vanishing cycles on the
+extension correspondence with the external product of the two smaller
+vanishing-cycle sheaves. This gives an \(E_1\) spherical critical CoHA; the
+ordered extension correspondence supplies no braiding.
+
+Schiffmann--Vasserot and the Rap\v{c}\'ak--Soibelman--Yang--Zhao
+comparison identify this spherical equivariant critical Hall algebra, in
+the above orientation and normalisation, with the shuffle presentation of
+the positive half \(Y^+(\widehat{\mathfrak{gl}}_1)\). The displayed kernel
+is the first-principles remnant of the three loops and the three Jacobi
+relations of \(W=\operatorname{tr}(X[Y,Z])\): numerator factors record the
+three loop weights, while the cubic denominator records the three
+zero-weight diagonal/Jacobi factors in the Jordan self-correspondence. For
+the positive convention,
+\[
+        (u+h_1)(u+h_2)(u+h_3)
+        =u^3+\sigma_2u+\sigma_3 .
+\]
+Since \(h_1+h_2+h_3=0\), the \(u^{-1}\) term vanishes and the expansion is
+\(1+\sigma_2u^{-2}+\sigma_3u^{-3}\). Reversing the extension order changes
+\(\sigma_3\) to \(-\sigma_3\), not \(\sigma_2\); equivalently
+\(\omega_-(u)=\omega_+(-u)\). The shifts and Tate twists alter grading and
+mixed-Hodge normalisation; they do not create the negative half, the
+Cartan current, or vertex-algebra locality.
+
+The representation-theoretic passage therefore has extra hypotheses. A
+localised Hopf pairing gives the continuous dual negative half and the
+Cartan cross-relations; completing in the root grading gives the Drinfeld
+double. At generic parameters its Fock evaluation gives the completed
+mode action on the \(\cW_{1+\infty}[\lambda]\) vacuum representation.
+Thus
+\(\CoHA^{\mathrm{sph}}_{\mathrm{crit},T}(Q_3,W)=Y^+\), not
+\(\cW_{1+\infty}\).
+\end{proof}
+
+\begin{definition}[Finite toric hCS--Hall comparison datum]
+Let \(X_\Sigma\) be covered by finitely many toric CY$_3$ charts
+\(U_\alpha\simeq\bC^3/G_\alpha\). A finite local hCS--Hall comparison
+datum is a simplex-compatible cyclic critical atlas and a finite diagram
+of filtered \(E_1\)-algebras
+\[
+        \operatorname{Rees}_F
+        \Obs^{\mathrm{Ran}}_{\hCS}(U_\alpha)
+        \xrightarrow{\rho_\alpha}
+        \operatorname{Rees}_F\mathcal{H}_\alpha ,
+        \qquad
+        \mathcal{H}_\alpha:=\CoHA^{\mathrm{sph}}_{\mathrm{crit},T}(U_\alpha),
+\]
+whose transition squares commute with the Hall wall-crossing
+quasi-isomorphisms and with the DWR/Ran face maps. Its assembled Hall
+output is the positive half
+\[
+        H^+_{X_\Sigma}:=
+        \operatorname{hocolim}_{\alpha\in\Sigma(3)}\mathcal{H}_\alpha .
+\]
+\end{definition}
+
+\begin{proposition}[Finite toric gluing stops at the positive half]
+The maps \(\rho_\alpha\) assemble to a filtered \(E_1\)-map
+\[
+        \rho^+_{X_\Sigma}\colon
+        \operatorname{hocolim}_{\alpha}
+        \operatorname{Rees}_F\Obs^{\mathrm{Ran}}_{\hCS}(U_\alpha)
+        \longrightarrow
+        \operatorname{Rees}_F H^+_{X_\Sigma}.
+\]
+Thus the toric local hCS--Hall gluing exists at finite Rees level whenever
+the simplex-compatible cyclic atlas and orientation transports in the
+definition have been supplied.
+If the local completed doubles and pairing-preserving transition maps have
+also been constructed, they give a comparison morphism, where
+\(D^\wedge\) denotes the completed Hopf double,
+\[
+        \mathfrak{o}_{\mathrm{dbl}}\colon
+        \operatorname{hocolim}_{\alpha}D^\wedge(\mathcal{H}_\alpha)
+        \longrightarrow
+        D^\wedge\!\left(\operatorname{hocolim}_{\alpha}\mathcal{H}_\alpha\right),
+\]
+whose failure to be an equivalence contains the failure of continuous
+dualisation
+\[
+        \operatorname{hocolim}_{\alpha}\mathcal{H}_\alpha^\vee
+        \longrightarrow
+        \left(\operatorname{hocolim}_{\alpha}\mathcal{H}_\alpha\right)^\vee
+\]
+together with the failure of the local Hopf pairings to glue without
+radical. Hence finite local hCS--Hall comparison data do not construct a
+compact critical CoHA, a quasi-NCCR, a Hall--Drinfeld double, a
+PBW/no-extra-relations theorem, or \(\cW_{1+\infty}\).
+\end{proposition}
+
+\begin{proof}
+The first map is the universal property of the finite homotopy colimit
+applied to the compatible filtered \(E_1\)-diagram. Drinfeld doubling is
+not a construction on a bare positive \(E_1\)-algebra: it uses a completed
+opposite half, continuous dualisation, Cartan data, and cross-relations
+from a Hopf pairing. Applying the double chartwise uses the chartwise
+continuous duals \(\mathcal{H}_\alpha^\vee\); applying it after assembly
+uses \((\operatorname{hocolim}_\alpha\mathcal{H}_\alpha)^\vee\). These
+dual objects agree only under an exactness and pairing-gluing hypothesis.
+A compact CY$_3$ critical CoHA further requires oriented compact critical
+stacks, vanishing cycles with compact support, a coproduct compatible with
+compact support, a non-degenerate Hopf pairing after radical quotient,
+PBW/no-extra-relations compatibility for the completed double, and
+centre/Fock evaluation data. None of these is supplied by the finite
+spherical positive-half comparison map.
+\end{proof}
+
+\section{Formal toroidal sector}
+
+\begin{proposition}[Formal-disc toroidal algebra]
+At the rank-one formal-disc shuffle level, with parameters
+\[
+        q_i=\exp(h_i),\qquad q_1q_2q_3=1,
+\]
+the Ding--Iohara--Miki presentation contains a compatible positive shuffle
+sector. With \(z=\exp(\varepsilon u)\) and
+\(q_i=\exp(\varepsilon h_i)\), the positive multiplicative shuffle factor
+\[
+        \prod_{i=1}^3\frac{1-q_i z}{1-z}
+\]
+has rational limit \(\omega_+(u)\) as \(\varepsilon\to0\). The doubled DIM
+exchange function is the quotient of this positive factor by the opposite
+factor; it is not the positive Hall product itself. Miki's automorphism is
+an automorphism of the completed quantum toroidal algebra. The symmetry of
+the positive kernel gives external base-change isomorphisms under the
+cyclic relabelling
+\[
+        (q_1,q_2,q_3)\longmapsto(q_2,q_3,q_1)
+\]
+among positive shuffle algebras. This does not produce a fixed-parameter
+Miki automorphism, an \(\mathfrak{S}_3\)-action, or triality on the
+positive affine-Yangian half. The internal Miki/triality symmetry of the
+\(\cW_{1+\infty}\) or corner-VOA side requires the doubled toroidal
+algebra, the opposite half, the Cartan sector, and the reflection
+involutions.
+\end{proposition}
+
+\begin{proposition}[Global surface lift obstruction]
+For the local surface
+\[
+        X=\operatorname{Tot}(K_{\bP^1\times\bP^1})
+\]
+or for the surface Hall algebra of \(\bP^1\times\bP^1\), a compact
+Hall--Drinfeld or \(\cW_{1+\infty}\) statement requires a comparison
+\[
+        \Theta_{\hCS\to\mathrm{Hall}}
+\]
+from global hCS/Ran observables to the oriented critical Hall theory,
+together with the compact double data: orientation, compact support,
+compact-support-compatible coproduct, non-degenerate pairing after radical
+quotient, completion, negative half, Cartan, PBW/no-extra-relations
+compatibility, and centre/Fock hypotheses. Equivalently, the
+obstruction
+\[
+        \mathfrak{o}_{\mathrm{surf}}
+        =(\mathfrak{o}_{\mathrm{orient}},
+          \mathfrak{o}_{\mathrm{supp}},
+          \mathfrak{o}_{\mathrm{coprod}},
+          \mathfrak{o}_{\mathrm{pair}},
+          \mathfrak{o}_{\mathrm{PBW}},
+          \mathfrak{o}_{\mathrm{rad}},
+          \mathfrak{o}_{\mathrm{Cartan}},
+          \mathfrak{o}_{\mathrm{cent}})
+\]
+must vanish. A toric chartwise Ding--Iohara--Miki action supplies none of
+these global compact data by itself.
+\end{proposition}
+
+\begin{remark}[Surface and local-threefold scopes]
+\(\operatorname{Tot}(K_{\bP^1\times\bP^1})\) is a non-compact toric
+CY$_3\); the surface Hall algebra of \(\bP^1\times\bP^1\) is a different
+two-dimensional Hall theory. Toric charts give local positive shuffle
+sectors in both pictures, but neither chart calculation supplies compact
+support, a global orientation datum, a non-degenerate Hopf pairing, or a
+PBW/no-extra-relations theorem for the completed double. The global lift
+obstruction is the simultaneous failure of these data to glue.
+\end{remark}
 
 \end{document}

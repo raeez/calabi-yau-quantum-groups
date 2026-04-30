@@ -1,341 +1,26 @@
-r"""Explicit computation of [m_3, B^{(2)}] for local P^2.
-
-MATHEMATICAL CONTENT
-====================
-
-This module resolves AP-CY34: the logical gap in Proposition
-prop:cyclic-ainf-framing-compat.  The gap is between:
-  (G1) Cyclic invariance: <mu_n(a_1,...,a_n), a_{n+1}> = +/- <a_1, mu_n(a_2,...,a_{n+1})>
-  (G2) Bar-level compatibility: [m_k, B^{(2)}] = 0 on CC_n(C)
-
-The proof claimed (G1) => (G2), but the "non-adjacent" contractions
-(where B^{(2)} contracts one factor inside the m_k-block with one outside)
-are not controlled by cyclic invariance alone.
-
-THE MODEL: LOCAL P^2 = Tot(O(-3) -> P^2)
-==========================================
-
-Local P^2 is the simplest non-formal CY_3 with m_3 != 0.  Its derived
-category D^b(Coh(P^2)) has an exceptional collection <O, O(1), O(2)>,
-and the endomorphism algebra has a minimal A_infinity model on cohomology.
-
-The Ext algebra of the structure sheaf O_{P^2} (as a one-object model):
-  A = C[x,y,z]/(x^2, y^2, z^2, xy+yz+zx)
-
-with |x| = |y| = |z| = 1.  This is the cohomology ring H^*(P^2; C)
-viewed through the Koszul dual lens: the relations xy+yz+zx = 0 come
-from the quadric relation in H^*(P^2).
-
-Actually, for the CY_3 = Tot(O(-3) -> P^2) computation, we use the
-SELF-EXT algebra of a generating object.  The relevant algebra is the
-Ginzburg DG algebra of the McKay quiver of Z_3, whose cohomology
-(= the minimal A_infinity model) has:
-
-  Degree 0: e_0 (unit, rank 1)
-  Degree 1: x_1, x_2, x_3 (3 generators)
-  Degree 2: y_1, y_2, y_3 (3 generators)
-  Degree 3: w (top class, rank 1)
-
-Total dimension: 1 + 3 + 3 + 1 = 8.
-
-The cup product m_2 and the CY_3 Serre pairing <-,-> are:
-  m_2(x_i, x_j) = epsilon_{ijk} y_k  (for i != j)
-  m_2(x_i, y_j) = delta_{ij} w
-  m_2(y_i, x_j) = -delta_{ij} w  (graded commutativity: |x||y| = 1*2 = 2, even)
-
-Wait -- let us be more careful.  The algebra is GRADED COMMUTATIVE
-(it is the cohomology of a DGA), so:
-  m_2(a, b) = (-1)^{|a||b|} m_2(b, a)
-
-For the CY_3 pairing (degree -3):
-  <e_0, w> = 1,  <w, e_0> = 1  (symmetric at top)
-  <x_i, y_j> = delta_{ij},  <y_i, x_j> = delta_{ij}  (Serre duality)
-
-The MASSEY PRODUCT m_3:
-  The non-formality of local P^2 comes from the cubic superpotential
-  W = x_1 x_2 x_3 of the McKay quiver.  The minimal A_infinity model
-  on cohomology has:
-    m_3(x_i, x_j, x_k) = epsilon_{ijk} * w  (the "triple Massey product")
-
-This is the UNIQUE (up to gauge) non-trivial m_3 on this algebra that
-  (a) has the correct degree: deg(m_3) = 2-3 = -1, so
-      |m_3(x_i,x_j,x_k)| = 3*1 + (-1) = 2... no.
-
-Let me be precise about degrees.
-
-DEGREE CONVENTIONS (cohomological, |d| = +1):
-  mu_n: A^{otimes n} -> A has degree 2 - n.
-  mu_1: degree 1 (differential, zero on minimal model)
-  mu_2: degree 0 (cup product)
-  mu_3: degree -1
-
-So mu_3: A^{otimes 3} -> A shifts degree by -1.
-  mu_3(x_i, x_j, x_k): degree 3*1 + (-1) = 2.
-  So mu_3(x_i, x_j, x_k) lives in A^2 = span{y_1, y_2, y_3}.
-
-This is consistent: the triple Massey product of three degree-1 classes
-gives a degree-2 class, which is the classical fact about Massey products
-in the cohomology of P^2 (or rather, the total space O(-3) -> P^2).
-
-For local P^2, the Massey product is:
-  mu_3(x_i, x_j, x_k) = alpha * epsilon_{ijk} * (y_1 + y_2 + y_3) / 3
-
-No -- for the McKay quiver, the precise m_3 from the homotopy transfer
-theorem (Kadeishvili) applied to the Ginzburg algebra with potential
-W = x_1 x_2 x_3 is:
-
-  mu_3(x_i, x_j, x_k) = coefficient * (some expression in y's)
-
-The simplest choice compatible with the Z_3 symmetry of the quiver
-and cyclic invariance of the CY_3 pairing is:
-
-  mu_3(x_1, x_2, x_3) = alpha * w    (goes from A^1 otimes A^1 otimes A^1 to A^2)
-
-Wait, degree check again:
-  |mu_3(x_1,x_2,x_3)| = |x_1|+|x_2|+|x_3| + (2-3) = 1+1+1-1 = 2. Good.
-
-So mu_3(x_1,x_2,x_3) is in A^2.
-
-For the Z_3-symmetric model:
-  mu_3(x_1, x_2, x_3) = alpha * (y_1 + y_2 + y_3)  [Z_3-symmetric output]
-
-But the Serre relation requires cyclic invariance:
-  <mu_3(x_1,x_2,x_3), x_k> = (-1)^eps <x_1, mu_3(x_2,x_3,x_k)>
-
-This constrains alpha.  Let us just set alpha = 1 (it can be rescaled
-by A_infinity gauge equivalence) and work with the simplest model.
-
-SIMPLIFICATION: For the commutator computation, we use the most
-explicit model possible.  The algebra:
-
-  A = span{e_0, x_1, x_2, x_3, y_1, y_2, y_3, w}
-  |e_0| = 0, |x_i| = 1, |y_i| = 2, |w| = 3
-
-  mu_2(x_i, x_j) = epsilon_{ijk} * y_k  (cup product, graded comm)
-  mu_2(x_i, y_j) = delta_{ij} * w
-  mu_2(e_0, a) = a, mu_2(a, e_0) = a  (unit)
-  mu_2(y_i, x_j) = -delta_{ij} * w  (sign from graded comm: (-1)^{1*2} = 1... )
-
-Hmm, graded commutativity with the KOSZUL sign:
-  mu_2(b, a) = (-1)^{|a||b|} mu_2(a, b)
-  mu_2(y_i, x_j) = (-1)^{1*2} mu_2(x_j, y_i) = mu_2(x_j, y_i) = delta_{ji} * w
-
-So mu_2(y_i, x_j) = delta_{ij} * w (same sign, since (-1)^2 = 1).
-
-CY_3 PAIRING (degree -3, symmetric):
-  <a, b> != 0 only if |a| + |b| = 3
-  <e_0, w> = 1
-  <w, e_0> = 1
-  <x_i, y_j> = delta_{ij}
-  <y_i, x_j> = (-1)^{|x||y|} <x_j, y_i> = (-1)^2 delta_{ij} = delta_{ij}
-
-The mu_3 from the McKay quiver with potential W = x_1 x_2 x_3:
-  mu_3(x_i, x_j, x_k) = epsilon_{ijk} * w  ... NO, degree 2, not 3.
-
-Let me think again. mu_3 has degree -1, so:
-  mu_3: A^1 x A^1 x A^1 -> A^2  (1+1+1-1=2)
-  mu_3: A^1 x A^1 x A^2 -> A^3  (1+1+2-1=3)
-  mu_3: A^1 x A^2 x A^1 -> A^3  (same)
-  mu_3: A^2 x A^1 x A^1 -> A^3  (same)
-
-For the non-formality from the superpotential, the key triple product is:
-  mu_3(x_i, x_j, x_k) in A^2
-
-The simplest Z_3-symmetric, cyclically invariant choice:
-  mu_3(x_1, x_2, x_3) = y_1  (or some linear combination)
-
-By the A_infinity relations and Z_3 symmetry, the complete m_3 is
-determined.  We compute [m_3, B^{(2)}] for ALL inputs.
-
-THE B^{(2)} MAP
-================
-
-B^{(2)}: CC_n -> CC_{n-1} is the "S^2-contraction" that contracts
-a pair of factors using the degree-2 part of the CY_3 pairing.
-
-On bar elements [a_0 | a_1 | ... | a_n] in CC_n = A^{otimes(n+1)} / cyclic:
-
-  B^{(2)}([a_0 | ... | a_n]) = sum_{0 <= i < j <= n}
-      (-1)^{sign} * <a_i, a_j>_2 * [a_0|...|hat{a_i}|...|hat{a_j}|...|a_n]
-
-where <a_i, a_j>_2 means the pairing restricted to the pieces that
-sum to degree 2 (the S^2-base contribution in the Connes hierarchy for d=3).
-
-Wait -- B^{(2)}: CC_n -> CC_{n-1} means it goes from (n+1) factors to n factors.
-That means it contracts ONE pair, removing one factor (the contraction
-replaces two factors a_i, a_j by their pairing value <a_i,a_j>).
-
-More precisely, on the cyclic bar complex CC_n(A) = A^{otimes(n+1)} / cyclic:
-
-  B^{(2)}([a_0 | a_1 | ... | a_n]) = sum_{0 <= i < j <= n}
-      (-1)^{sgn(i,j)} * <a_i, a_j> * [a_0|...|hat_i|...|hat_j|...|a_n]
-
-where <a_i, a_j> is nonzero only when |a_i|+|a_j|=3 (the CY_3 pairing
-is degree -3, but for B^{(2)} we want the piece that corresponds to
-the S^2-base).
-
-Actually, for the Connes hierarchy, B^{(2)} should contract using
-the degree (-2) piece of the pairing (the S^2 part), meaning
-<a_i,a_j>_{(2)} is nonzero only when |a_i|+|a_j| = 2.  But wait,
-the CY_3 pairing has degree -3 and the full pairing pairs |a|+|b|=3.
-
-The Connes hierarchy decomposes the CY_d pairing into pieces:
-  <-,->_{(k)}: pairs classes with |a|+|b| = k, for k = 0,...,d
-
-For CY_3:
-  <-,->_{(0)}: pairs degree 0 with degree 0 (degenerate)
-  <-,->_{(1)}: pairs degree 0 with degree 1 and v.v.
-  <-,->_{(2)}: pairs degree 1 with degree 1
-  <-,->_{(3)}: pairs degree 0 with degree 3, degree 1 with degree 2, etc.
-
-For B^{(2)}, we use <-,->_{(2)}: this pairs degree 1 with degree 1.
-
-But in our algebra, <x_i, x_j> = 0 (since the CY pairing requires
-|a|+|b|=3, not 2).  So <-,->_{(2)} = 0 identically!
-
-This means B^{(2)} = 0 on our algebra if we define it via <-,->_{(2)}.
-
-Hmm, that seems wrong.  Let me reconsider the definition of B^{(2)}.
-
-RECONSIDERING B^{(2)}
-======================
-
-From cy_to_chiral.tex L1611:
-  "B^{(2)}(a_0, a_1, ..., a_n) = sum_{i<j} <a_i, a_j>_2 * (remaining)"
-  where <-,->_2 is "the restriction of the CY_3 pairing to the degree-2
-  component."
-
-The manuscript says "degree-2 component" -- this is ambiguous.  But from
-the Connes hierarchy structure (L166-200 of hopf_fibration_s3_framing.py):
-
-  B^{(k)}: CC_n -> CC_{n+1-k}
-
-So B^{(2)}: CC_n -> CC_{n-1}.  This removes one factor (contracts a pair).
-
-The pairing used is the FULL CY_3 pairing <-,-> (degree -3), not a
-truncation.  The superscript (2) refers to the level in the Connes
-hierarchy, not the degree of the pairing.
-
-B^{(2)} is the second-level Connes map, which for CY_3 is the map
-that uses the inner product to contract adjacent pairs in the cyclic
-bar complex.  Specifically:
-
-  B^{(2)}([a_0|a_1|...|a_n]) = sum_{i} (-1)^{sgn_i} <a_i, a_{i+1}> [a_0|...|hat_i,hat_{i+1}|...|a_n]
-
-where the sum is cyclic (indices mod n+1), and <a_i,a_{i+1}> uses the
-FULL CY_3 pairing (nonzero when |a_i|+|a_{i+1}|=3).
-
-No wait -- that contracts ADJACENT pairs only, giving n+1 terms.
-But the gap remark specifically discusses NON-ADJACENT contractions.
-So B^{(2)} must also contract non-adjacent pairs.
-
-Let me re-read the manuscript definition more carefully.
-
-From cy_to_chiral.tex L1611:
-  B^{(2)}(a_0, a_1, ..., a_n) = sum_{i<j} <a_i, a_j>_2 * (remaining factors)
-
-This IS summing over ALL pairs (i,j) with i<j, not just adjacent ones.
-The subscript _2 in <-,->_2 refers to using the CY pairing restricted
-to the degree-sum-equals-some-value component.
-
-For CY_3, the Connes hierarchy level (2) corresponds to the contraction
-that reduces bar degree by 1.  The pairing used is the FULL Serre pairing
-<a,b> (nonzero when |a|+|b|=3), applied to all pairs of factors.
-
-CONCRETE DEFINITION:
-
-B^{(2)}: CC_n(A) -> CC_{n-2}(A) contracts a pair of factors using <-,->.
-
-On A^{otimes(n+1)} (before cyclic quotient):
-
-  B^{(2)}(a_0 otimes ... otimes a_n) = sum_{0<=i<j<=n} sgn(i,j,a)
-      * <a_i, a_j> * (a_0 otimes ... hat{a_i} ... hat{a_j} ... otimes a_n)
-
-The output has n-1 factors, so B^{(2)}: CC_n -> CC_{n-2}.
-
-DEGREE CHECK: B^{(2)} should have degree 1-2 = -1 (from the Connes
-hierarchy: B^{(k)} has degree shift 1-k).  The pairing <a_i,a_j>
-contributes degree -(|a_i|+|a_j|) + 3 ... no.
-
-Actually, B^{(2)}: CC_n -> CC_{n-1} (reduces cyclic complex degree by 1).
-The cyclic complex CC_n(A) has elements in A^{otimes(n+1)} / cyclic.
-B^{(2)} maps CC_n to CC_{n-2} by removing two factors and replacing
-them with their pairing value.
-
-For the computation [m_3, B^{(2)}] on CC_3:
-  CC_3 has elements a_0 otimes a_1 otimes a_2 otimes a_3 (4 factors)
-  m_3 on CC_3: applies m_3 to 3 consecutive factors, giving CC_1
-  B^{(2)} on CC_3: contracts a pair, giving CC_1
-
-So [m_3, B^{(2)}] maps CC_3 -> CC_0 = A (via two different routes).
-
-Route 1: m_3 . B^{(2)}: CC_3 -B^{(2)}-> CC_1 -m_3-> impossible
-  (m_3 needs 3 inputs, CC_1 has 2 factors)
-
-Hmm, let me reconsider.  m_3 acts on the bar complex as part of the
-bar differential.  On B(A) = T^c(sA), the operation m_3 applies to
-3 consecutive factors and replaces them with one.
-
-So m_3: CC_n -> CC_{n-2} (replaces 3 factors with 1).
-And B^{(2)}: CC_n -> CC_{n-2} (removes 2 factors via pairing).
-
-The commutator [m_3, B^{(2)}]: CC_n -> CC_{n-4}.
-
-For CC_4 (5 factors): [m_3, B^{(2)}]: CC_4 -> CC_0 = A.
-
-For CC_3 (4 factors):
-  m_3: CC_3 -> CC_1 (3->1, so 4 factors -> 2 factors)
-  B^{(2)}: CC_3 -> CC_1 (4 factors -> 2 factors)
-
-  m_3 . B^{(2)}: CC_3 -> CC_1 -> CC_{-1} = 0  (can't apply m_3 to 2 factors and get fewer than 0)
-
-Actually wait: m_3 on CC_1 (which has 2 factors) cannot apply because
-m_3 needs at least 3 inputs.  So m_3 . B^{(2)} = 0 on CC_3.
-
-And B^{(2)} . m_3: CC_3 -> CC_1 -> CC_{-1} = 0.  B^{(2)} on CC_1
-(2 factors) contracts both, giving CC_{-1} which is... a scalar.
-Actually CC_{-1} doesn't exist (negative cyclic degree).
-
-So [m_3, B^{(2)}] = 0 on CC_3 trivially for degree reasons.
-
-The first nontrivial case is CC_4 (5 factors):
-  m_3: CC_4 -> CC_2 (5 -> 3 factors)
-  B^{(2)}: CC_4 -> CC_2 (5 -> 3 factors)
-
-  [m_3, B^{(2)}] = m_3 . B^{(2)} - B^{(2)} . m_3: CC_4 -> CC_0 = A
-
-  m_3 . B^{(2)}: CC_4 -B^{(2)}-> CC_2 -m_3-> CC_0
-  B^{(2)} . m_3: CC_4 -m_3-> CC_2 -B^{(2)}-> CC_0
-
-This IS the nontrivial computation.
-
-ACTUAL IMPLEMENTATION
-======================
-
-We work with the graded vector space A = span{e_0, x_1, x_2, x_3, y_1, y_2, y_3, w}
-and compute [m_3, B^{(2)}] on CC_4(A) = A^{otimes 5} explicitly.
-
-The algebra operations:
-  mu_2: the cup product (see above)
-  mu_3: the Massey product, nonzero only on certain triples of degree-1 elements
-
-The CY_3 pairing:
-  <e_0, w> = <w, e_0> = 1
-  <x_i, y_j> = <y_j, x_i> = delta_{ij}
-
-B^{(2)} contracts a pair using this pairing.
-m_3 applies the ternary operation to 3 consecutive factors.
-
-We compute both compositions and check if they agree.
-
-REFERENCES
-==========
-  cy_to_chiral.tex: Prop cyclic-ainf-framing-compat, Rem adversarial-audit-cyclic-ainf
-  hopf_fibration_s3_framing.py: Obs_Ainf component
-  Bridgeland (2005): derived categories of coherent sheaves on CY manifolds
-  Aspinwall-Katz (2006): local P^2 and McKay quivers
-  Kadeishvili (1980): homotopy transfer theorem
-  Costello (2005): TCFTs and CY categories
+r"""Raw \(m_3\)--\(B^{(2)}_{\mathrm{term}}\) obstruction witness.
+
+This engine computes a strict cyclic \(CY_3\) algebraic witness for the
+termwise pair-contraction operator \(B^{(2)}_{\mathrm{term}}\).  It does
+not compute Costello's corrected \(B^{(2)}_{\mathrm{TCFT}}\), does not
+identify the two operators, and does not prove compact \(CY_3\) vanishing.
+
+The normalized witness is
+
+    m_3(a,a,a)=\alpha b,\qquad |a|=1,\ |b|=2,
+    [m_3,B^{(2)}_{\mathrm{term}}][a|a|a|a|b]=2\alpha[b].
+
+For \(\alpha\neq0\), this is a nonzero raw termwise commutator.  Cyclicity
+and bidegree bookkeeping are therefore diagnostic only: they do not imply
+universal \(Obs_{\Ainf}=0\).  Compact \(CY_3\) vanishing requires either a
+corrected TCFT comparison datum for \(B^{(2)}_{\mathrm{TCFT}}\) or an
+explicit \(HH^{-2}\) filtration theorem.
+
+Local \(\mathbb P^2=\operatorname{Tot}(\mathcal O_{\mathbb P^2}(-3))\)
+enters only as noncompact diagnostic motivation for non-formal behavior.
+The four-generator model below is the algebraic strict witness from
+``standalone/m3_b2_obstruction_vol3.tex``; it is not by itself a compact
+\(CY_3\) theorem or a global \(\Phi_3\) construction.
 """
 
 from __future__ import annotations
@@ -344,20 +29,47 @@ import itertools
 from collections import defaultdict
 from dataclasses import dataclass, field
 from fractions import Fraction
-from typing import Dict, FrozenSet, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 F = Fraction
 
+B_TERM = "B^{(2)}_term"
+B_TCFT = "B^{(2)}_TCFT"
+STRICT_WITNESS_FORMULA = (
+    "[m_3,B^{(2)}_term][a|a|a|a|b] = 2*alpha*[b]"
+)
+
+
+def raw_witness_scope() -> Dict[str, Any]:
+    r"""Scope of this executable oracle.
+
+    The function is intentionally data-only so tests can assert the contract
+    independently of the route computation.
+    """
+    return {
+        "carrier": B_TERM,
+        "not_carrier": B_TCFT,
+        "witness_formula": STRICT_WITNESS_FORMULA,
+        "local_p2_scope": "noncompact diagnostic",
+        "compact_cy3_vanishing_theorem": False,
+        "identifies_b_term_with_b_tcft": False,
+        "cyclicity_implies_termwise_vanishing": False,
+        "toric_bv_implies_raw_ainf_vanishing": False,
+        "compact_vanishing_requires": (
+            "corrected TCFT comparison datum or HH^{-2} filtration theorem"
+        ),
+    }
+
 
 # =========================================================================
-#  0. GRADED VECTOR SPACE OF LOCAL P^2
+#  0. LEGACY 8-GENERATOR DIAGNOSTIC BASIS
 # =========================================================================
 
 @dataclass(frozen=True)
 class ExtGenerator:
-    """A basis element of the Ext algebra of local P^2.
+    """A basis element used by the legacy 8-generator diagnostic.
 
-    The minimal A_infinity model on cohomology has:
+    The diagnostic basis has:
       Degree 0: e (unit)
       Degree 1: x_1, x_2, x_3
       Degree 2: y_1, y_2, y_3
@@ -564,559 +276,14 @@ def _levi_civita(i: int, j: int) -> int:
 
 def mu_3(a: ExtGenerator, b: ExtGenerator, c: ExtGenerator
          ) -> List[Tuple[Fraction, ExtGenerator]]:
-    r"""The ternary A_infinity operation mu_3(a, b, c).
-
-    mu_3 has degree 2-3 = -1, so |mu_3(a,b,c)| = |a|+|b|+|c|-1.
-
-    For local P^2, the nonzero mu_3 comes from the superpotential
-    W = x_1 x_2 x_3 of the McKay quiver, via the homotopy transfer
-    theorem (Kadeishvili).
-
-    The only nontrivial mu_3's (up to the A_infinity gauge) are on
-    triples of degree-1 elements:
-
-      mu_3(x_i, x_j, x_k): degree 3*1 - 1 = 2, lives in A^2
-
-    Specifically, from the superpotential W = x_1 x_2 x_3:
-      mu_3(x_1, x_2, x_3) = y_1   [from partial_1 W = x_2 x_3]
-      mu_3(x_2, x_3, x_1) = y_2   [from partial_2 W = x_1 x_3]
-      mu_3(x_3, x_1, x_2) = y_3   [from partial_3 W = x_1 x_2]
-
-    The A_infinity sign conventions give:
-      mu_3(x_{sigma(1)}, x_{sigma(2)}, x_{sigma(3)}) = sign(sigma) * y_{sigma(1)}
-
-    for even permutations, and antisymmetric for odd permutations.
-
-    Wait -- let me be precise.  The homotopy transfer from the Ginzburg
-    DG algebra gives a specific answer.  For the CY_3 quiver with
-    potential W, the m_3 on the cohomology algebra is:
-
-      mu_3(x_i, x_j, x_k) = delta_{ijk ~ cyclic perm of 123} * y_i
-
-    More precisely: mu_3 is nonzero only on inputs that form a cyclic
-    permutation of (x_1, x_2, x_3), and the output is determined by
-    the first input.
-
-    CORRECTED FORMULA (from cyclic invariance + Z_3 symmetry):
-
-    The most general Z_3-symmetric, cyclically invariant m_3 on
-    degree-1 triples is:
-      mu_3(x_i, x_j, x_k) = alpha * epsilon_{ijk} * y_m  for some y_m
-
-    Cyclic invariance of the CY_3 pairing requires:
-      <mu_3(a, b, c), d> = -<a, mu_3(b, c, d)>  (with appropriate sign)
-
-    The simplest model (alpha=1): for each EVEN permutation (i,j,k) of (1,2,3),
-      mu_3(x_i, x_j, x_k) = y_i  (indexed by the FIRST entry)
-
-    And for ODD permutations:
-      mu_3(x_i, x_j, x_k) = -y_i
-
-    This is equivalent to:
-      mu_3(x_i, x_j, x_k) = epsilon_{ijk} * y_i
-
-    But this is NOT graded symmetric in the inputs -- it shouldn't be,
-    because mu_3 is NOT (graded) symmetric.
-
-    Let me verify the A_infinity relation at n=3:
-      mu_2(mu_2(a,b), c) - mu_2(a, mu_2(b,c)) = mu_1(mu_3(a,b,c)) + ...
-    Since mu_1 = 0 on the minimal model:
-      mu_2(mu_2(a,b), c) - mu_2(a, mu_2(b,c)) = mu_3(mu_1(a),b,c) + mu_3(a,mu_1(b),c) + ...
-    All terms with mu_1 vanish.  So:
-      ASSOCIATOR(a,b,c) := mu_2(mu_2(a,b), c) - mu_2(a, mu_2(b,c)) should equal
-      d(mu_3(a,b,c)) = 0 on the minimal model.
-
-    Wait, the n=3 A_infinity relation is:
-      sum over decompositions: mu_2(mu_2(a,b),c) + mu_2(a,mu_2(b,c))
-        + mu_1(mu_3(a,b,c)) + mu_3(mu_1(a),b,c) + mu_3(a,mu_1(b),c)
-        + mu_3(a,b,mu_1(c)) = 0
-
-    With mu_1 = 0:
-      mu_2(mu_2(a,b),c) + mu_2(a,mu_2(b,c)) = 0
-
-    Hmm, this says mu_2 IS strictly associative on the cohomology.
-    But that's the UNDEFORMED A_infinity relation.  Let me reconsider.
-
-    The A_infinity relation at n=3 (with correct signs, following
-    Keller's conventions):
-
-      mu_2(mu_2(a,b), c) - mu_2(a, mu_2(b,c)) + mu_1(mu_3(a,b,c))
-        + mu_3(mu_1(a), b, c) - mu_3(a, mu_1(b), c) + mu_3(a, b, mu_1(c)) = 0
-
-    With mu_1 = 0 on the minimal model:
-      mu_2(mu_2(a,b), c) - mu_2(a, mu_2(b,c)) = 0
-
-    So mu_2 is STRICTLY ASSOCIATIVE on the minimal model, and mu_3 is
-    a DEFORMATION, not an associator correction!
-
-    The role of mu_3 is as a HIGHER OPERATION that encodes the homotopy
-    type of the original DGA.  The associator of mu_2 on cohomology
-    vanishes, but mu_3 records the chain-level homotopy.
-
-    The n=4 relation then involves:
-      mu_2(mu_3(...), ...) + mu_3(mu_2(...), ..., ...) + mu_4(...) = 0
-
-    So mu_3 appears in the n=4 A_infinity relation as a genuine
-    correction.  The point is that for NON-FORMAL algebras, mu_3 != 0
-    even though the ASSOCIATOR of mu_2 vanishes on cohomology.
-
-    For local P^2, the explicit mu_3 from the HTT applied to the
-    Ginzburg DG algebra (with potential W = x_1 x_2 x_3) gives:
-
-      mu_3(x_1, x_2, x_3) = w  (the top class)
-
-    Degree check: |mu_3(x_1,x_2,x_3)| = 1+1+1-1 = 2.  But |w| = 3.
-    CONTRADICTION.  So mu_3(x_1,x_2,x_3) != w.
-
-    CORRECTED: mu_3(x_1,x_2,x_3) must have degree 2.  The degree-2
-    generators are y_1, y_2, y_3.
-
-    The HTT formula: Starting from the Ginzburg DG algebra with:
-      - generators a_1, a_2, a_3 (degree 1) for arrows
-      - generators a_1*, a_2*, a_3* (degree 2) for dual arrows
-      - generator phi (degree 3) for the potential loop
-      - differential: d(a_i*) = partial_i W = sum of monomials
-
-    The homotopy transfer to cohomology gives mu_3 from the failure
-    of the obvious projection to be a DGA map.  For W = a_1 a_2 a_3:
-
-    d(a_1*) = a_2 a_3
-    d(a_2*) = a_1 a_3  (with sign: actually a_3 a_1 or -a_1 a_3)
-    d(a_3*) = a_1 a_2
-
-    The transferred mu_3 is (schematically):
-      mu_3(x_i, x_j, x_k) = p . h . m_2(m_2(i(x_i), i(x_j)), i(x_k))
-
-    where p = projection, h = contracting homotopy, i = inclusion.
-
-    For the specific case of the exterior algebra (which IS the Ext
-    algebra of local P^2), the mu_3 is:
-
-      mu_3(x_i, x_j, x_k) = 0  when any two indices agree
-      mu_3(x_1, x_2, x_3) = c * y  for some specific y in A^2 and c != 0
-
-    The Z_3 symmetry of the quiver (cyclic permutation of vertices)
-    gives:
-      mu_3(x_1, x_2, x_3) = alpha * (y_1 + y_2 + y_3)  [Z_3-invariant]
-
-    Or, breaking the Z_3 to the specific HTT choice of homotopy:
-      mu_3(x_1, x_2, x_3) = alpha * y_1
-
-    For our computation, the SPECIFIC CHOICE does not matter for the
-    question of whether [m_3, B^{(2)}] = 0 -- we need it to be nonzero,
-    and we compute the commutator for a GENERAL mu_3.
-
-    We use the simplest nontrivial model:
-      mu_3(x_i, x_j, x_k) = epsilon_{ijk} * y_1  (breaks Z_3 but simplest)
-
-    or the Z_3-symmetric version:
-      mu_3(x_1, x_2, x_3) = y_1
-      mu_3(x_2, x_3, x_1) = y_2
-      mu_3(x_3, x_1, x_2) = y_3
-      (odd permutations get a minus sign)
-
-    i.e. mu_3(x_i, x_j, x_k) = sgn(i,j,k) * y_i  for (i,j,k) a perm of (1,2,3).
-
-    Let us verify CYCLIC INVARIANCE of this mu_3:
-      <mu_3(x_1, x_2, x_3), a_4> = <y_1, a_4>
-    This is nonzero only if a_4 = x_1 (pairing degree 2 with degree 1).
-      <y_1, x_1> = 1.  So <mu_3(x_1,x_2,x_3), x_1> = 1.
-
-    Cyclic invariance requires (with sign epsilon_3):
-      <mu_3(x_1,x_2,x_3), x_1> = (-1)^{epsilon_3} <x_1, mu_3(x_2,x_3,x_1)>
-      = (-1)^{epsilon_3} <x_1, y_2>
-      = (-1)^{epsilon_3} * delta_{12} = 0.
-
-    But the LHS is 1 and the RHS is 0.  CONTRADICTION.
-
-    So the formula mu_3(x_i, x_j, x_k) = sgn * y_i does NOT satisfy
-    cyclic invariance!
-
-    Let me reconsider.  Cyclic invariance says:
-      <mu_3(a_1,a_2,a_3), a_4> = (-1)^{eps} <a_1, mu_3(a_2,a_3,a_4)>
-
-    For this to work with <y_i, x_j> = delta_{ij}, we need:
-      LHS: <mu_3(x_1,x_2,x_3), x_k> = <output, x_k>
-      RHS: (-1)^eps <x_1, mu_3(x_2,x_3,x_k)>
-
-    For k=1: LHS = <output, x_1>, RHS = (-1)^eps <x_1, mu_3(x_2,x_3,x_1)>
-    For k=2: LHS = <output, x_2>, RHS = (-1)^eps <x_1, mu_3(x_2,x_3,x_2)>
-    For k=3: LHS = <output, x_3>, RHS = (-1)^eps <x_1, mu_3(x_2,x_3,x_3)>
-
-    k=2: RHS has mu_3(x_2,x_3,x_2) which has two equal indices -> 0
-    k=3: RHS has mu_3(x_2,x_3,x_3) which has two equal indices -> 0
-
-    So only k=1 can be nonzero on the RHS:
-      RHS = (-1)^eps <x_1, mu_3(x_2,x_3,x_1)>
-
-    mu_3(x_2,x_3,x_1) should be the cyclic permutation of (2,3,1).
-    This is an EVEN permutation of (1,2,3), so sign = +1.
-    mu_3(x_2,x_3,x_1) = y_2  (in our formula above).
-    <x_1, y_2> = delta_{12} = 0.
-
-    So RHS = 0 for all k, meaning LHS must also be 0 for all k.
-    But if mu_3(x_1,x_2,x_3) != 0, then <output, x_k> != 0 for some k.
-
-    This means: mu_3(x_1,x_2,x_3) must pair to zero with ALL x_k.
-    So mu_3(x_1,x_2,x_3) must be orthogonal to all of A^1 = {x_1,x_2,x_3}.
-
-    But the degree-2 space A^2 = {y_1,y_2,y_3} pairs ONLY with A^1
-    via <y_i, x_j> = delta_{ij}.  So being orthogonal to all x_k means
-    mu_3(x_1,x_2,x_3) = 0.
-
-    WAIT.  This would mean mu_3 = 0 on degree-1 triples.  But local P^2
-    is NON-FORMAL, so mu_3 != 0.  What's going on?
-
-    The resolution: mu_3 is nonzero on MIXED-DEGREE inputs.
-
-    mu_3 has degree -1, so:
-      mu_3(A^1, A^1, A^1) -> A^2: as we just showed, must be 0 by cyclic inv.
-      mu_3(A^0, A^1, A^1) -> A^1: degree 0+1+1-1 = 1. Possible!
-      mu_3(A^1, A^0, A^1) -> A^1: possible.
-      mu_3(A^1, A^1, A^0) -> A^1: possible.
-      mu_3(A^0, A^0, A^1) -> A^0: degree 0+0+1-1 = 0. Possible.
-      etc.
-
-    But e is the UNIT, and A_infinity units satisfy:
-      mu_n(a_1,...,e,...,a_n) = 0 for n >= 3
-
-    (strict unitality of the minimal model).  So any mu_3 with e as
-    an input vanishes.
-
-    Then we're left with: mu_3 on pure degree-1 triples must be zero.
-
-    The non-formality of local P^2 must come from mu_3 on triples
-    involving HIGHER-DEGREE inputs (degree 1 and 2 mixed), or from mu_4.
-
-    Let me reconsider the degree analysis:
-      mu_3(A^1, A^1, A^2): degree 1+1+2-1 = 3, output in A^3 = span{w}.
-      mu_3(A^1, A^2, A^1): degree 1+2+1-1 = 3, output in A^3 = span{w}.
-      mu_3(A^2, A^1, A^1): degree 2+1+1-1 = 3, output in A^3 = span{w}.
-
-    These are possible! And the cyclic invariance test:
-      <mu_3(x_i, x_j, y_k), e_0> = ... (pairing with the unit)
-    Since <w, e> = 1, mu_3(x_i, x_j, y_k) = alpha * w gives
-      <alpha * w, e> = alpha.
-
-    Cyclic invariance:
-      <mu_3(x_i, x_j, y_k), e> = (-1)^eps <x_i, mu_3(x_j, y_k, e)>
-    But mu_3(..., e, ...) = 0 (strict unitality for n>=3).
-
-    Hmm, that gives RHS = 0 but LHS = alpha.  So alpha = 0 again?
-
-    No -- the cyclic invariance identity uses (n+1) elements cyclically:
-      <mu_3(a_1, a_2, a_3), a_4>
-
-    For a_1=x_i, a_2=x_j, a_3=y_k, a_4 must have degree 0 (to pair with
-    degree 3 output w).  So a_4 = e.  Then:
-
-    RHS = (-1)^eps <x_i, mu_3(x_j, y_k, e)> = 0 (unitality).
-
-    So LHS = 0, meaning mu_3(x_i, x_j, y_k) = 0.
-
-    Similarly, mu_3(x_i, y_j, x_k) = 0 and mu_3(y_i, x_j, x_k) = 0.
-
-    What about mu_3(y_i, y_j, x_k)? Degree: 2+2+1-1 = 4 > 3. Zero.
-
-    So ALL mu_3 on the augmentation ideal vanish, because:
-      - Pure degree-1 triples: forced to 0 by cyclic invariance
-      - Mixed degree (1,1,2), (1,2,1), (2,1,1): forced to 0 by cyclic + unitality
-      - Higher degree: zero for degree reasons
-
-    This seems to say mu_3 = 0 on the MINIMAL model of local P^2!
-
-    But local P^2 IS non-formal. The resolution:
-
-    The non-formality appears at the level of mu_4 (or higher), not mu_3.
-    Or: the non-formality is visible in the DGA model but not in the
-    cohomology algebra with the transferred structure.
-
-    Actually, let me reconsider.  The Ext algebra of local P^2 is
-    NOT the exterior algebra (1+t)^3.  The exterior algebra is the
-    Ext algebra of P^2 itself (the compact surface).  For LOCAL P^2
-    = Tot(O(-3) -> P^2), the relevant algebra is different.
-
-    For the derived category of local P^2, we should consider the
-    Ext algebra of the EXCEPTIONAL COLLECTION, not just a single sheaf.
-    The exceptional collection is {O, O(1), O(2)}, and the total Ext
-    algebra is a 3x3 matrix of Ext groups.
-
-    For the ONE-OBJECT model (Ext*(O, O)):
-      Ext^0(O, O) = C (identity)
-      Ext^1(O, O) = H^1(O) = 0 (for P^2, H^1 = 0!)
-      Ext^2(O, O) = H^2(O) = C (by Serre duality... wait)
-
-    For P^2: H^0(P^2, O) = C, H^1(P^2, O) = 0, H^2(P^2, O) = 0.
-    So Ext^*(O, O) = C in degree 0 only!  This is formal.
-
-    The non-formality comes from the FULL exceptional collection.
-    The relevant A_infinity CATEGORY has objects {O, O(1), O(2)} and
-    the mu_3 maps are between DIFFERENT Hom-spaces.
-
-    For the commutator computation, we should work with the
-    A_infinity CATEGORY, not a single algebra.  But for the bar complex
-    and cyclic complex, we can use the TOTAL Ext algebra
-      A = End(O ⊕ O(1) ⊕ O(2))
-    which is a 3-object A_infinity category collapsed to a single algebra
-    (with idempotents).
-
-    Actually, for a CY category the relevant invariant is the
-    Hochschild complex, which is Morita-invariant.  So we can use
-    any generator.
-
-    Let me reconsider the model.  For the GINZBURG DG ALGEBRA of the
-    McKay quiver of Z_3 (which is the model for local P^2):
-
-    Quiver Q: 3 vertices {0, 1, 2}, arrows:
-      a_{ij}: i -> j for each pair (corresponding to the 3 coordinate directions)
-    With potential W = a_{01} a_{12} a_{20} + cyclic.
-
-    The Ginzburg algebra has:
-      Degree 0: paths in Q (including idempotents e_0, e_1, e_2)
-      Degree 1: arrows a_{ij}  (9 of them: 3 loops + 6 between vertices)
-      Degree 2: dual arrows a_{ij}^*
-      Degree 3: vertex loops phi_i
-
-    The COHOMOLOGY of the Ginzburg algebra (= the Ext algebra of the
-    quiver category) is:
-      H^0 = path algebra / (relations from W) = Jacobi algebra Jac(Q, W)
-
-    For the Z_3 McKay quiver with CY potential:
-      Jac(Q, W) is infinite-dimensional (this is a CY_3 algebra).
-
-    So the cohomology is NOT finite-dimensional, and the "8-dimensional"
-    model I was using is WRONG.
-
-    THE CORRECT MODEL: we should use a COMPACT object in the CY_3 category,
-    whose Ext algebra IS finite-dimensional.
-
-    For local P^2, the compact objects are the coherent sheaves on P^2
-    (supported on the zero section).  The Ext algebra of the structure
-    sheaf O_{P^2} (as a sheaf on the total space of O(-3)):
-
-      Ext^i_{local P^2}(O_{P^2}, O_{P^2}) = H^i(P^2, O_{P^2}) for i <= 2
-      plus contributions from the normal bundle O(-3).
-
-    Actually, by Koszul duality, Ext*(O_{P^2}, O_{P^2}) as a module
-    over the local P^2 is:
-      = Ext*(O_{P^2}, O_{P^2}) computed in D^b(Tot(O(-3) -> P^2))
-
-    Using the Koszul resolution of O_{P^2} as a sheaf on the total space:
-      0 -> O(-3)[-1] -> O -> O_{P^2} -> 0
-
-    gives Ext^*(O_{P^2}, O_{P^2}) = H^*(P^2, O) ⊕ H^*(P^2, O(3))[1]
-    = C ⊕ C^{10}[1] ... this is getting complicated.
-
-    Let me use a SIMPLER MODEL.  The key point is:
-
-    For a CYCLIC A_infinity algebra of dimension 3 with mu_3 != 0,
-    does [m_3, B^{(2)}] = 0?
-
-    We don't need the specific model of local P^2.  We need ANY
-    cyclic A_infinity algebra of CY dimension 3 with nontrivial mu_3.
-
-    The SIMPLEST such algebra is:
-
-    A = span{a, b} with |a| = 1, |b| = 2.
-    CY_3 pairing: <a, b> = 1, <b, a> = 1.
-    mu_1 = 0, mu_2 = 0 (no binary product on the augmentation ideal).
-    mu_3(a, a, a) = c * b for some c.  Degree: 3*1 - 1 = 2 = |b|. OK.
-
-    Cyclic invariance check:
-      <mu_3(a,a,a), a> = c * <b, a> = c
-      (-1)^eps <a, mu_3(a,a,a)> = (-1)^eps * c * <a, b> = (-1)^eps * c
-
-    The sign: eps = 3 + |a|(|a|+|a|+|a|) = 3 + 1*3 = 6.  (-1)^6 = 1.
-    So cyclic invariance gives c = c.  SATISFIED for any c.
-
-    But this algebra has dim(A) = 2 with augmentation bar{A} = A
-    (no unit... we need a unit).
-
-    Let me add the unit and the top:
-    A = span{e, a, b, w} with |e|=0, |a|=1, |b|=2, |w|=3.
-    Pairing: <e, w> = <w, e> = 1, <a, b> = <b, a> = 1.
-    mu_2(e, -) = id, mu_2(-, e) = id (unit).
-    mu_2(a, a) = 0 (degree 2, but only b is there... actually mu_2(a,a) COULD be b).
-
-    Wait, let me think about this differently.  For a 1-dimensional CY_3
-    example (augmentation ideal has generators in degrees 1 and 2 only):
-
-    A = span{e, a, b, w}, |e|=0, |a|=1, |b|=2, |w|=3.
-    mu_2(a, a) = 0 or nonzero?
-
-    If mu_2(a,a) = lambda * b for some lambda:
-      mu_2(a,a) has degree 2. mu_2(a,b) has degree 3, so mu_2(a,b) = mu * w.
-      mu_2(b,a) = (-1)^{1*2} mu_2(a,b) = mu * w.
-      mu_2(b,b) has degree 4 > 3, so = 0.
-      mu_2(a,w) has degree 4 > 3, so = 0.
-
-    Let me take lambda = 0 (no binary product) to isolate the mu_3 effect.
-
-    Then:
-      mu_2 = 0 on augmentation ideal (except unit maps).
-      mu_3(a, a, a) = c * b, c != 0.
-      mu_3(a, a, b) has degree 1+1+2-1 = 3, so mu_3(a,a,b) = d * w.
-
-    Cyclic invariance for mu_3(a,a,b) with fourth input e:
-      <mu_3(a,a,b), e> = d * <w, e> = d
-      (-1)^eps <a, mu_3(a,b,e)> = (-1)^eps <a, 0> = 0  (unitality: mu_3(...,e) = 0)
-
-    So d = 0.  mu_3(a,a,b) = 0.
-
-    Similarly mu_3(a,b,a) = 0 and mu_3(b,a,a) = 0.
-
-    So the only nontrivial mu_3 is mu_3(a,a,a) = c * b.
-
-    Now we have a MINIMAL example: A = {e, a, b, w} with:
-      CY_3 pairing: <e,w>=<w,e>=1, <a,b>=<b,a>=1.
-      mu_2 = 0 on bar(A).
-      mu_3(a,a,a) = c * b (c = 1 WLOG).
-      All other mu_n = 0 for n >= 4 (we can check the A_infinity relations).
-
-    THE A_INFINITY RELATIONS:
-    n=1: mu_1^2 = 0. OK (mu_1 = 0).
-    n=2: mu_1.mu_2 + mu_2.(mu_1 x 1 + 1 x mu_1) = 0. OK.
-    n=3: mu_2(mu_2(a,a),a) - mu_2(a,mu_2(a,a)) + mu_1(mu_3(a,a,a)) = 0
-         = mu_2(0,a) - mu_2(a,0) + 0 = 0. OK.
-    n=4: mu_2(mu_3(a,a,a),a) + mu_3(mu_2(a,a),a,a) - mu_3(a,mu_2(a,a),a)
-         + mu_3(a,a,mu_2(a,a)) + mu_2(a,mu_3(a,a,a)) + mu_4(...) + mu_1.mu_4 = 0
-         = mu_2(b,a) + 0 + 0 + 0 + mu_2(a,b) + 0
-         = mu_2(b,a) + mu_2(a,b)
-
-    mu_2(b,a) = 0 (we said mu_2 = 0 on augmentation ideal, except through unit).
-    Actually wait: I set mu_2 = 0 on the augmentation ideal, which includes
-    mu_2(b,a) = 0 and mu_2(a,b) = 0.  Then the n=4 relation gives 0 = 0. OK.
-
-    But wait: mu_2(a,b) should perhaps be nonzero.  In the CY_3 algebra,
-    the product a * b could be w (degree 1+2=3).  Let me keep mu_2(a,b) = mu * w.
-
-    Then n=4 with inputs (a,a,a,a):
-      mu_2(mu_3(a,a,a),a) + mu_2(a,mu_3(a,a,a)) = mu_2(b,a) + mu_2(a,b)
-      = mu * w + mu * w = 2*mu*w
-
-    For this to vanish (assuming mu_4 = 0), we need mu = 0.
-    So mu_2(a,b) = 0 is FORCED by the A_infinity relations when mu_3(a,a,a) = b.
-
-    Great.  So the model is self-consistent with mu_2 = 0 on bar(A).
-
-    NOW THE COMPUTATION
-    ====================
-
-    We compute [m_3, B^{(2)}] on CC_n for this minimal cyclic A_infinity algebra.
-
-    Augmentation ideal bar(A) = span{a, b, w}.  (Or maybe just {a, b}?  w = ab = 0
-    so w is not generated by products, but it IS in the augmentation ideal.)
-
-    The cyclic bar complex:
-      CC_n(A) has elements [a_0 | a_1 | ... | a_n] with a_i in bar(A),
-      modulo cyclic rotation.
-
-    For the commutator [m_3, B^{(2)}]:
-      m_3 acts on 3 consecutive factors, replacing them with one: CC_n -> CC_{n-2}.
-      B^{(2)} contracts a pair via the pairing: CC_n -> CC_{n-2}.
-
-    Both reduce the cyclic bar degree by 2.  Their commutator:
-      [m_3, B^{(2)}] = m_3 . B^{(2)} - B^{(2)} . m_3: CC_n -> CC_{n-4}
-
-    First nontrivial case: CC_4 -> CC_0 = A (or rather bar(A)).
-
-    CC_4 elements: [a_0|a_1|a_2|a_3|a_4] with a_i in {a, b, w}.
-
-    For the computation to be nontrivial, we need B^{(2)} to be nonzero.
-    B^{(2)} contracts a pair using <-,->:
-      <a, b> = 1 (degrees 1+2=3=d). NONZERO!
-      <b, a> = 1.
-      <a, a> = 0 (degrees 1+1=2 != 3).
-      <b, b> = 0 (degrees 2+2=4 != 3).
-
-    So B^{(2)} only contracts (a,b) or (b,a) pairs.
-
-    Now let's compute on CC_4:
-
-    Take the element [a|a|a|a|b] (cyclic class).  This has 5 factors.
-
-    Route 1: B^{(2)} first, then m_3.
-      B^{(2)}([a|a|a|a|b]): contract all pairs (i,j) with <a_i,a_j> != 0.
-      The only nonzero pairing pairs are where one is a and one is b.
-      Factor 4 is b, all others are a.
-      Nonzero contractions: (i,4) for i=0,1,2,3 where a_i=a and a_4=b.
-      <a, b> = 1 for each.
-
-      Contraction (0,4): remove positions 0 and 4, remaining [a|a|a] = CC_2.
-        Sign: (-1)^{sum of degrees before position 0 * ... } -- need to be careful.
-      Contraction (1,4): remove positions 1 and 4, remaining [a|a|a] = CC_2.
-      Contraction (2,4): remaining [a|a|a] = CC_2.
-      Contraction (3,4): remaining [a|a|a] = CC_2.
-
-      In the CYCLIC bar complex, all of these give the same class [a|a|a].
-      So B^{(2)}([a|a|a|a|b]) = 4 * sgn * [a|a|a]  (up to signs).
-
-      Then m_3([a|a|a]) = m_3 applied to 3 consecutive factors of [a|a|a]:
-      m_3(a,a,a) = b.  In CC_2 -> CC_0:
-      There are 3 cyclic positions to apply m_3 to a 3-factor element:
-        m_3 on positions (0,1,2): m_3(a,a,a) = b, giving [b] in CC_0.
-      Since CC_2 has 3 factors and m_3 takes 3 inputs to 1 output, we get CC_0.
-
-      Result of route 1: some multiple of [b].
-
-    Route 2: m_3 first, then B^{(2)}.
-      m_3 on CC_4 = [a|a|a|a|b] (5 factors):
-      Apply m_3 to each set of 3 consecutive factors (cyclically):
-        (0,1,2): m_3(a,a,a) = b -> [b|a|b] in CC_2.  WAIT: positions 0,1,2 give
-          m_3(a,a,a) = b, remaining factors a_3=a, a_4=b.  So [b|a|b].
-        (1,2,3): m_3(a,a,a) = b -> [a|b|b] which cyclically = [b|b|a].
-        (2,3,4): m_3(a,a,b) = 0 (as we showed above). -> 0.
-        (3,4,0): m_3(a,b,a) = 0. -> 0.
-        (4,0,1): m_3(b,a,a) = 0. -> 0.
-
-      So m_3([a|a|a|a|b]) = sgn_1 [b|a|b] + sgn_2 [b|b|a].
-
-      Now B^{(2)} on [b|a|b]:
-        Pairs: (0,1): <b,a>=1 -> remove, get [b] in CC_0.
-               (0,2): <b,b>=0.
-               (1,2): <a,b>=1 -> remove, get [b] in CC_0.
-        So B^{(2)}([b|a|b]) = sgn * [b] + sgn' * [b] = some_coeff * [b].
-
-      And B^{(2)} on [b|b|a]:
-        Pairs: (0,1): <b,b>=0.
-               (0,2): <b,a>=1 -> remove, get [b] in CC_0.
-               (1,2): <b,a>=1 -> remove, get [b] in CC_0.
-        So B^{(2)}([b|b|a]) = some_coeff * [b].
-
-      Result of route 2: some multiple of [b].
-
-    The COMMUTATOR [m_3, B^{(2)}]([a|a|a|a|b]) = route 1 - route 2 = ? * [b].
-
-    If this is zero, the gap is closed.  If nonzero, the gap is real.
-
-    THE KEY QUESTION IS WHETHER THE COEFFICIENTS MATCH.
-
-    We need to compute ALL the Koszul signs carefully.
-
-    THIS IS WHAT THE ENGINE DOES.
+    r"""Legacy 8-generator diagnostic \(m_3\).
+
+    The corrected engine does not use a local \(\mathbb P^2\) one-object
+    \(m_3\) as a compact theorem.  The strict witness is implemented by
+    :class:`MinimalCyclicCY3`; this helper returns zero so the legacy
+    exterior-algebra diagnostic remains inert.
     """
-    # Strict unitality: mu_3(anything with unit) = 0
-    if a == e or b == e or c == e:
-        return []
-
-    out_degree = a.degree + b.degree + c.degree - 1
-
-    # Output degree must be in {0, 1, 2, 3}
-    if out_degree < 0 or out_degree > 3:
-        return []
-
-    # The only nontrivial mu_3 on the minimal model is:
-    # mu_3(a, a, a) = b (in the 4-element model)
-    # For the 8-element P^2 model: mu_3 is trivially zero by cyclic invariance
-    # (as shown in the docstring analysis above).
-
-    # For the GENERAL model, we parametrize by a constant ALPHA:
-    # mu_3(a, a, a) = ALPHA * b
-    # All other mu_3 = 0 (forced by cyclic invariance + unitality).
-
-    # This function uses the 4-element model {e, a, b, w} only.
-    # See make_mu_3() for the parametrized version.
-    return []  # placeholder; actual computation via the engine below
+    return []
 
 
 # =========================================================================
@@ -1125,7 +292,7 @@ def mu_3(a: ExtGenerator, b: ExtGenerator, c: ExtGenerator
 
 @dataclass
 class MinimalCyclicCY3:
-    """A minimal cyclic A_infinity algebra of CY dimension 3.
+    r"""Strict cyclic \(CY_3\) witness algebra for \(B^{(2)}_{\mathrm{term}}\).
 
     The algebra:
       A = span{e, a, b, w} with |e|=0, |a|=1, |b|=2, |w|=3.
@@ -1141,10 +308,11 @@ class MinimalCyclicCY3:
       mu_n = 0 for n >= 4
 
     alpha = 0 gives the formal (trivial) case.
-    alpha != 0 gives the non-formal case.
+    alpha != 0 gives the nonzero raw termwise witness.
 
     This is the simplest cyclic A_infinity algebra with nontrivial mu_3
-    that satisfies all A_infinity relations AND cyclic invariance.
+    that satisfies all A_infinity relations and cyclic invariance.  It is
+    an algebraic strict model, not a compact \(CY_3\) vanishing theorem.
     """
     alpha: Fraction = F(1)
 
@@ -1376,9 +544,10 @@ class BarLinComb:
 # =========================================================================
 
 def b2_map(elem: BarElement, alg: MinimalCyclicCY3) -> BarLinComb:
-    r"""Apply B^{(2)} to a bar element.
+    r"""Apply \(B^{(2)}_{\mathrm{term}}\) to a bar element.
 
-    B^{(2)} contracts a pair of factors using the CY_3 pairing:
+    \(B^{(2)}_{\mathrm{term}}\) contracts a pair of factors using the
+    chosen \(CY_3\) pairing:
 
       B^{(2)}([a_0|...|a_n]) = sum_{0<=i<j<=n} (-1)^{sgn(i,j)}
           * <a_i, a_j> * [a_0|...|hat_i|...|hat_j|...|a_n]
@@ -1409,7 +578,7 @@ def b2_map(elem: BarElement, alg: MinimalCyclicCY3) -> BarLinComb:
 
     Returns
     -------
-    BarLinComb : the result of applying B^{(2)}.
+    BarLinComb : the result of applying \(B^{(2)}_{\mathrm{term}}\).
     """
     n = elem.arity
     factors = elem.factors
@@ -1446,7 +615,7 @@ def b2_map(elem: BarElement, alg: MinimalCyclicCY3) -> BarLinComb:
 
 
 def b2_on_lincomb(lc: BarLinComb, alg: MinimalCyclicCY3) -> BarLinComb:
-    """Apply B^{(2)} to a linear combination of bar elements."""
+    r"""Apply \(B^{(2)}_{\mathrm{term}}\) to a linear combination."""
     result = BarLinComb()
     for t in lc.terms:
         result = result + b2_map(t, alg)
@@ -1522,10 +691,11 @@ def m3_on_lincomb(lc: BarLinComb, alg: MinimalCyclicCY3) -> BarLinComb:
 # =========================================================================
 
 def commutator_m3_b2(elem: BarElement, alg: MinimalCyclicCY3) -> BarLinComb:
-    r"""Compute [m_3, B^{(2)}](elem) = (m_3 . B^{(2)} - B^{(2)} . m_3)(elem).
+    r"""Compute the raw termwise commutator on a bar element.
 
-    This is the central computation of the module.  It measures the
-    A_infinity obstruction Obs_Ainf for the cyclic A_infinity algebra.
+    The operator is \(B^{(2)}_{\mathrm{term}}\), not Costello's corrected
+    \(B^{(2)}_{\mathrm{TCFT}}\).  Nonvanishing is a strict-model witness,
+    not a compact \(CY_3\) vanishing or nonvanishing theorem.
 
     Parameters
     ----------
@@ -1536,7 +706,7 @@ def commutator_m3_b2(elem: BarElement, alg: MinimalCyclicCY3) -> BarLinComb:
 
     Returns
     -------
-    BarLinComb : the commutator [m_3, B^{(2)}] applied to elem.
+    BarLinComb : \([m_3, B^{(2)}_{\mathrm{term}}]\) applied to elem.
     """
     # Route 1: m_3 . B^{(2)}(elem)
     b2_result = b2_map(elem, alg)
@@ -1554,13 +724,13 @@ def commutator_m3_b2(elem: BarElement, alg: MinimalCyclicCY3) -> BarLinComb:
 # =========================================================================
 
 def compute_commutator_on_cc4(alg: MinimalCyclicCY3) -> Dict[str, Any]:
-    r"""Compute [m_3, B^{(2)}] on ALL elements of CC_4.
+    r"""Compute \([m_3, B^{(2)}_{\mathrm{term}}]\) on all CC_4 words.
 
     CC_4(A) consists of bar elements [a_0|a_1|a_2|a_3|a_4] with
     a_i in aug(A) = {a, b, w}.
 
-    The computation checks whether the commutator vanishes identically
-    on CC_4, which is the first nontrivial bar degree.
+    The computation checks the raw termwise commutator on the first
+    nontrivial bar degree.
 
     Returns a dictionary with:
       - 'all_inputs': list of all tested inputs
@@ -1600,7 +770,7 @@ def compute_commutator_on_cc4(alg: MinimalCyclicCY3) -> Dict[str, Any]:
 
 
 def compute_commutator_on_cc5(alg: MinimalCyclicCY3) -> Dict[str, Any]:
-    r"""Compute [m_3, B^{(2)}] on CC_5 (6-fold tensors).
+    r"""Compute \([m_3, B^{(2)}_{\mathrm{term}}]\) on CC_5 words.
 
     This is a larger computation but provides a stronger test.
     """
@@ -1637,9 +807,10 @@ def compute_commutator_on_cc5(alg: MinimalCyclicCY3) -> Dict[str, Any]:
 # =========================================================================
 
 def compute_key_element_aaaab(alg: MinimalCyclicCY3) -> Dict[str, Any]:
-    r"""Detailed computation of [m_3, B^{(2)}] on [a|a|a|a|b].
+    r"""Detailed computation of the strict witness on [a|a|a|a|b].
 
-    This is the KEY element where m_3 and B^{(2)} both act nontrivially:
+    This is the strict element where \(m_3\) and
+    \(B^{(2)}_{\mathrm{term}}\) both act nontrivially:
       - m_3 can hit (a,a,a) at positions (0,1,2) and (1,2,3)
       - B^{(2)} can contract (a_i, b) at any (i, 4) pair
 
@@ -1707,9 +878,9 @@ def compute_key_element_aabaa(alg: MinimalCyclicCY3) -> Dict[str, Any]:
 # =========================================================================
 
 def master_obs_ainf_computation(alpha: Fraction = F(1)) -> Dict[str, Any]:
-    r"""Master computation of Obs_Ainf for the minimal CY_3 algebra.
+    r"""Master computation for the raw termwise strict witness.
 
-    Computes [m_3, B^{(2)}] exhaustively on CC_4 and CC_5, with
+    Computes \([m_3, B^{(2)}_{\mathrm{term}}]\) on CC_4 and CC_5, with
     detailed breakdowns of key elements.
 
     Parameters
@@ -1717,7 +888,7 @@ def master_obs_ainf_computation(alpha: Fraction = F(1)) -> Dict[str, Any]:
     alpha : Fraction
         The mu_3 coefficient: mu_3(a,a,a) = alpha * b.
         alpha = 0: formal case (commutator trivially zero).
-        alpha != 0: non-formal case (the interesting case).
+        alpha != 0: strict nonzero termwise witness.
 
     Returns
     -------
@@ -1729,8 +900,8 @@ def master_obs_ainf_computation(alpha: Fraction = F(1)) -> Dict[str, Any]:
       - 'cc5_result': exhaustive computation on CC_5
       - 'key_aaaab': detailed breakdown of [a|a|a|a|b]
       - 'key_aabaa': detailed breakdown of [a|a|b|a|a]
-      - 'obs_ainf_vanishes': the VERDICT
-      - 'gap_status': "CLOSED" or "REAL"
+      - 'raw_termwise_commutator_vanishes': termwise verdict
+      - 'scope': exact noncompact/TCFT/compact scope
     """
     alg = MinimalCyclicCY3(alpha=alpha)
 
@@ -1748,11 +919,12 @@ def master_obs_ainf_computation(alpha: Fraction = F(1)) -> Dict[str, Any]:
     # Exhaustive CC_5
     cc5 = compute_commutator_on_cc5(alg)
 
-    # Verdict
-    obs_vanishes = cc4["commutator_vanishes"] and cc5["commutator_vanishes"]
+    raw_vanishes = cc4["commutator_vanishes"] and cc5["commutator_vanishes"]
+    key_nonzero = not key_aaaab["commutator_is_zero"]
 
     return {
         "alpha": alpha,
+        "operator": B_TERM,
         "cyclic_invariance_ok": cyc_ok,
         "cyclic_invariance_detail": cyc_msg,
         "ainf_relations_ok": ainf_ok,
@@ -1771,8 +943,11 @@ def master_obs_ainf_computation(alpha: Fraction = F(1)) -> Dict[str, Any]:
         },
         "key_aaaab": key_aaaab,
         "key_aabaa": key_aabaa,
-        "obs_ainf_vanishes": obs_vanishes,
-        "gap_status": "CLOSED" if obs_vanishes else "REAL",
+        "raw_witness_nonzero": key_nonzero,
+        "raw_termwise_commutator_vanishes": raw_vanishes,
+        "termwise_status": "zero_formal" if raw_vanishes else "nonzero_witness",
+        "compact_cy3_vanishing_proved": False,
+        "scope": raw_witness_scope(),
     }
 
 
@@ -1782,7 +957,7 @@ def master_obs_ainf_computation(alpha: Fraction = F(1)) -> Dict[str, Any]:
 
 @dataclass
 class ExtendedCyclicCY3:
-    """The 8-generator model A = Lambda(V) with dim V = 3.
+    r"""Legacy 8-generator exterior-algebra diagnostic.
 
     A = span{e, x_1, x_2, x_3, y_1, y_2, y_3, w}
     with |e|=0, |x_i|=1, |y_i|=2, |w|=3.
@@ -1790,16 +965,10 @@ class ExtendedCyclicCY3:
     Product: exterior algebra (x_i x_j = -x_j x_i, x_i^2 = 0).
     CY_3 pairing: Serre duality.
 
-    For this algebra, mu_3 = 0 on the cohomology by the cyclic invariance
-    argument (see the analysis in the mu_3 docstring).  The non-formality
-    of local P^2 appears at the CATEGORY level (multiple objects), not
-    at the single-object algebra level.
-
-    However, we can ARTIFICIALLY add a mu_3 that violates cyclic invariance
-    to see what happens (testing tool).
-
-    Or: we work with the 4-generator minimal model where mu_3 IS nonzero
-    and cyclically invariant.
+    This is retained only as diagnostic data.  It is not used to prove
+    local \(\mathbb P^2\) compactness, compact \(CY_3\) vanishing, or a
+    global \(\Phi_3\) construction.  The raw nonzero witness is the
+    four-generator :class:`MinimalCyclicCY3` model.
     """
     alpha: Fraction = F(1)  # mu_3 coefficient (for testing)
 
@@ -1816,24 +985,19 @@ class ExtendedCyclicCY3:
                     ) -> List[Tuple[Fraction, ExtGenerator]]:
         """mu_3 on the exterior algebra model.
 
-        For the true local P^2 model on cohomology (8 generators),
-        cyclic invariance forces mu_3 = 0 on the augmentation ideal.
-        This function returns 0 accordingly.
+        The diagnostic exterior-algebra helper is inert; the strict witness
+        is implemented separately by :class:`MinimalCyclicCY3`.
         """
         return []
 
     def verify_8gen_mu3_forced_zero(self) -> Dict[str, Any]:
-        """Demonstrate that mu_3 = 0 is forced on the 8-generator model.
+        r"""Demonstrate that mu_3 = 0 is forced on the 8-generator model.
 
         For each triple (x_i, x_j, x_k) of degree-1 elements, cyclic
         invariance with the Serre pairing forces the output to be zero.
 
-        This is the key observation: on the cohomology H^*(P^2) = Lambda^*(V),
-        the Serre pairing is too constraining for any nonzero mu_3 to exist.
-
-        The non-formality of local P^2 must therefore be encoded differently:
-        either in the CATEGORY (multi-object) level, or in higher mu_n (n >= 4),
-        or in a DIFFERENT choice of generating object.
+        This is diagnostic bookkeeping.  It does not identify the local
+        \(\mathbb P^2\) category with the four-generator strict witness.
         """
         forced_zero_triples = []
         aug = [x1, x2, x3, y1, y2, y3, w]
@@ -1898,64 +1062,72 @@ class ExtendedCyclicCY3:
 # =========================================================================
 
 def full_obs_ainf_analysis() -> Dict[str, Any]:
-    r"""Complete analysis of the [m_3, B^{(2)}] commutator.
+    r"""Complete analysis of the raw termwise commutator.
 
     Runs the master computation on the minimal CY_3 algebra and
-    provides the verdict on whether Obs_Ainf = 0.
+    records the corrected scope.
 
     Returns the full analysis including:
-    - The minimal model computation (4 generators, alpha=1)
-    - The 8-generator model analysis (forced mu_3 = 0)
+    - The strict witness computation (4 generators, alpha=1)
+    - The 8-generator diagnostic analysis
     - Cross-checks for alpha = 0 (formal, trivial) and alpha = 2
-    - The verdict on AP-CY34
+    - Scope data separating \(B^{(2)}_{\mathrm{term}}\) from
+      \(B^{(2)}_{\mathrm{TCFT}}\)
     """
     # Formal case: alpha = 0 (trivial)
     formal = master_obs_ainf_computation(alpha=F(0))
 
-    # Non-formal case: alpha = 1
-    nonformal_1 = master_obs_ainf_computation(alpha=F(1))
+    # Strict witness: alpha = 1
+    witness_1 = master_obs_ainf_computation(alpha=F(1))
 
-    # Non-formal case: alpha = 2 (check universality)
-    nonformal_2 = master_obs_ainf_computation(alpha=F(2))
+    # Strict witness: alpha = 2 (linearity check)
+    witness_2 = master_obs_ainf_computation(alpha=F(2))
 
     # 8-generator model: mu_3 forced to zero
     ext_model = ExtendedCyclicCY3()
     ext_analysis = ext_model.verify_8gen_mu3_forced_zero()
 
+    scope = raw_witness_scope()
+
     return {
         "formal_case": {
             "alpha": 0,
-            "obs_vanishes": formal["obs_ainf_vanishes"],
-            "gap_status": formal["gap_status"],
+            "raw_termwise_commutator_vanishes": formal["raw_termwise_commutator_vanishes"],
+            "termwise_status": formal["termwise_status"],
         },
-        "nonformal_alpha1": {
+        "strict_witness_alpha1": {
             "alpha": 1,
-            "cyclic_invariance_ok": nonformal_1["cyclic_invariance_ok"],
-            "ainf_relations_ok": nonformal_1["ainf_relations_ok"],
-            "cc4_vanishes": nonformal_1["cc4_result"]["vanishes"],
-            "cc4_nonzero": nonformal_1["cc4_result"]["num_nonzero"],
-            "cc5_vanishes": nonformal_1["cc5_result"]["vanishes"],
-            "cc5_nonzero": nonformal_1["cc5_result"]["num_nonzero"],
-            "obs_vanishes": nonformal_1["obs_ainf_vanishes"],
-            "gap_status": nonformal_1["gap_status"],
-            "key_aaaab": nonformal_1["key_aaaab"],
-            "key_aabaa": nonformal_1["key_aabaa"],
+            "operator": witness_1["operator"],
+            "cyclic_invariance_ok": witness_1["cyclic_invariance_ok"],
+            "ainf_relations_ok": witness_1["ainf_relations_ok"],
+            "cc4_raw_vanishes": witness_1["cc4_result"]["vanishes"],
+            "cc4_nonzero": witness_1["cc4_result"]["num_nonzero"],
+            "cc5_raw_vanishes": witness_1["cc5_result"]["vanishes"],
+            "cc5_nonzero": witness_1["cc5_result"]["num_nonzero"],
+            "raw_witness_nonzero": witness_1["raw_witness_nonzero"],
+            "raw_termwise_commutator_vanishes": witness_1["raw_termwise_commutator_vanishes"],
+            "termwise_status": witness_1["termwise_status"],
+            "key_aaaab": witness_1["key_aaaab"],
+            "key_aabaa": witness_1["key_aabaa"],
         },
-        "nonformal_alpha2": {
+        "strict_witness_alpha2": {
             "alpha": 2,
-            "obs_vanishes": nonformal_2["obs_ainf_vanishes"],
-            "gap_status": nonformal_2["gap_status"],
+            "raw_witness_nonzero": witness_2["raw_witness_nonzero"],
+            "raw_termwise_commutator_vanishes": witness_2["raw_termwise_commutator_vanishes"],
+            "termwise_status": witness_2["termwise_status"],
         },
-        "extended_8gen_model": ext_analysis,
+        "extended_8gen_diagnostic": ext_analysis,
+        "scope": scope,
         "verdict": {
-            "obs_ainf_vanishes_formal": formal["obs_ainf_vanishes"],
-            "obs_ainf_vanishes_nonformal": nonformal_1["obs_ainf_vanishes"],
-            "gap_status": nonformal_1["gap_status"],
+            "carrier": scope["carrier"],
+            "witness_formula": scope["witness_formula"],
+            "raw_termwise_witness_nonzero": witness_1["raw_witness_nonzero"],
+            "compact_cy3_vanishing_proved": False,
+            "identifies_b_term_with_b_tcft": False,
             "explanation": (
-                "The commutator [m_3, B^{(2)}] is computed exhaustively "
-                "on CC_4 and CC_5 for the minimal cyclic A_infinity CY_3 "
-                "algebra with mu_3(a,a,a) = alpha * b.  The result determines "
-                "whether Obs_Ainf = 0 (gap CLOSED) or Obs_Ainf != 0 (gap REAL)."
+                "The engine computes the raw termwise witness for "
+                "B^{(2)}_term. Compact CY3 vanishing requires a corrected "
+                "TCFT comparison datum or an HH^{-2} filtration theorem."
             ),
         },
     }
