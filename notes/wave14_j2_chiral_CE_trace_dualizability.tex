@@ -1,9 +1,11 @@
-% wave14_j2_chiral_CE_trace_dualizability.tex
-% Wave-14 J2/20: trace pairing and dualizability of $\Obs_{\hCS}$
-% as $E_3$-algebra in $\Ch(\Dolb)$.
-% Channel: Lurie + Gaiotto. Five attack-heal cycles.
-% Prerequisite to cobordism-hypothesis application for 6D hCS (Lurie 2009).
+\documentclass[11pt]{amsart}
+\usepackage[localtheorems]{raeez-math-template}
 
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\hb}{\hbar}
+\providecommand{\dbar}{\bar{\partial}}
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\hCS}{\mathrm{hCS}}
 \providecommand{\CE}{\mathrm{CE}}
@@ -12,211 +14,267 @@
 \providecommand{\Conf}{\mathrm{Conf}}
 \providecommand{\cConf}{\overline{\mathrm{Conf}}}
 \providecommand{\chir}{\mathrm{chir}}
-\providecommand{\dbar}{\bar\partial}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\HHch}{\mathrm{HH}^{\mathrm{ch}}}
-\providecommand{\HH}{\mathrm{HH}}
-\providecommand{\Ran}{\mathrm{Ran}}
-\providecommand{\Sym}{\mathrm{Sym}}
 \providecommand{\Tr}{\mathrm{Tr}}
-\providecommand{\C}{\mathbb{C}}
-\providecommand{\R}{\mathbb{R}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cE}{\mathcal{E}}
-\providecommand{\cD}{\mathcal{D}}
 \providecommand{\g}{\mathfrak{g}}
 \providecommand{\Perf}{\mathrm{Perf}}
-\providecommand{\Mod}{\mathrm{Mod}}
 \providecommand{\Alg}{\mathrm{Alg}}
-\providecommand{\Dual}{\mathrm{Dual}}
 \providecommand{\Bord}{\mathrm{Bord}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
-\section*{Trace pairing and dualizability of $\Obs_{\hCS}$ as $E_3$-algebra (Wave-14 J2/20)}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
 
-\paragraph{Theorem (main).}
-Let $\Obs_{\hCS} \simeq \CE^*_{\dbar,\chir}(\cE_{\hCS}, \cO_{\C^3})$ be the
-$E_3$-algebra in $\Ch(\Dolb)$ of Wave-13 G5. Integration along the
-Fulton--MacPherson boundary $\partial \cConf_2(\C^3) \supset S^5$
-furnishes a nondegenerate $E_3$-trace pairing
+\title{Chiral Chevalley--Eilenberg Traces and Dualizability for 6D hCS}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+Let $X$ be a Calabi--Yau threefold with holomorphic volume form
+$\Omega_X$, and let $\g$ be a finite-dimensional quadratic Lie algebra.
+For $U\subset X$ write
 \[
-  \tau : \Obs_{\hCS}(B^3) \otimes \Obs_{\hCS}(B^3) \longrightarrow \Obs_{\hCS}(S^2),
+ L_U=\Omega_c^{0,\bullet}(U,\g)[1],
+ \qquad
+ \Obs_{\hCS}^{\mathrm{cl}}(U)=\CE^\bullet_{\dbar,\chir}(L_U,\cO_U).
 \]
-and $\Obs_{\hCS}$ is 3-dualizable in $\Alg_{E_3}(\Ch(\Dolb))$ in the
-abelian / free-field sector. Non-abelian 3-dualizability reduces to
-finiteness of $\HH^*_{E_3}(\Obs_{\hCS})$; compactness fails on the open
-manifold $\C^3$, so 6D hCS on $\C^3$ extends to a framed $E_3$-TFT
-partially but not fully (Lurie 2009 cobordism hypothesis).
-
-\paragraph{Cycle 1: the $E_3$-trace via $\cConf$.}
-\emph{Attack.} An $E_n$-algebra $A$ admits an $E_n$-trace when its
-factorisation homology over $S^{n-1}$ carries a map to the ground
-tensor unit; for $n=3$, one seeks
-$\int_{S^2} A = \HH^{E_3}_*(A) \to \mathbf{1}$
-(Ayala--Francis 2015 Thm~1.1, Francis 2013 Thm~1.1).
-The Fulton--MacPherson boundary $\partial \cConf_2(\C^3)$ retracts onto
-the unit sphere bundle of the normal to the small diagonal,
-a copy of $S^5 = S(\C^3 \ominus \mathrm{diag}) \simeq S^{2\cdot 3 -1}$,
-and the Pontrjagin product on $S^5$ is the
-$E_3$-commutator at cohomological level (Fadell--Neuwirth fibre).
-\emph{Heal.} Define
+The bracket on $L_U$ is the pointwise Lie bracket on $\g$ multiplied by
+the wedge product of Dolbeault forms. The notation
+$\CE^\bullet_{\dbar,\chir}$ denotes completed chiral
+Chevalley--Eilenberg cochains. It contains the differential and the
+factorisation product; a trace is an additional continuous chain map or
+cyclic pairing. The BV pairing is
 \[
-  \tau(f_1 \otimes f_2) \;:=\; \int_{S^5 \subset \partial \cConf_2(\C^3)}
-    \mu^{E_3}_{z_1, z_2}(f_1, f_2) \cdot \Omega_{\C^3},
+ \langle\alpha,\beta\rangle_{\BV}
+ =
+ \int_U \Omega_X\wedge\langle\alpha,\beta\rangle_{\g}.
 \]
-with $\Omega_{\C^3}$ the unique (up to scale) CY$_3$ holomorphic
-volume form on $\C^3$ and $\mu^{E_3}$ the Čech-wedge shuffle product
-of Wave-13 G5 Cycle~3. The integrand is $\dbar$-closed by the Cycle~5
-Stokes identity ($\dbar_{\Conf} m_k + \sum \pm m(m, \mathrm{rest}) = 0$)
-restricted to $k=2$; its class on $S^5$ lands in
-$H^{0,2}(S^5) \cong \C$ (Dolbeault of the radial $S^5$ seen as a
-$\dbar$-complex on the punctured total space). Equivalently, the
-$\tau$-pairing equals the residue
-$\tau(f_1, f_2) = \mathrm{Res}_{z_1 = z_2}(f_1 f_2 \cdot \Omega_{\C^3})$
-of Costello--Gaiotto 2021 (arXiv:2103.01829, \S3), with nondegeneracy
-matching the OPE-nondegeneracy of the chiral 2-point function on
-$\C^3$.
+Quantum observables mean the $\hb$-adically complete Costello--Gwilliam
+renormalised complex after a gauge fixing, a solution of the quantum
+master equation, and the required counterterms have been supplied.
 
-\paragraph{Cycle 2: dualizability criterion (abelian level).}
-\emph{Attack.} Lurie HA \S5.2 / Francis 2013 Thm~3.4 characterise
-dualizability of an $E_n$-algebra $A$ as compactness of $A$ in
-$E_n\text{-}\Mod(A)$, equivalently perfectness of $A$ as an
-$(A, A)$-$E_n$-bimodule. For $n=3$: $A$ is 3-dualizable iff
-(a) $A$ is perfect over itself, (b) $\HH^{E_3}_*(A)$ is dualizable,
-(c) the trace $\Tr: \HH^{E_3}_* \to \mathbf{1}$ is nondegenerate.
-\emph{Heal.} At $\g = 0$ (free / abelian hCS on $\C^3$),
-$\Obs_{\hCS}^{\mathrm{ab}} = \CE^*_{\dbar,\chir}(\Omega^{0,\bullet}(\C^3), \cO)$
-degenerates to $\Sym^\bullet(\Omega^{0,\bullet}(\C^3)[1])^\vee$.
-In $\Ch(\Dolb)$, $\Omega^{0,\bullet}(\C^3)$ is perfect (its Dolbeault
-cohomology is concentrated in bidegree $(0,0)$ with rank $1$ on
-every polydisk), so $\Sym^\bullet$ of a perfect object is perfect
-as an $E_\infty$-algebra over itself, a fortiori as an $E_3$-algebra.
-Conditions (a)--(c) hold: the Gaussian BV integral provides the
-trace, which is nondegenerate by Wick's theorem. The abelian
-$\Obs_{\hCS}$ is therefore 3-dualizable.
+\section{Diagonal Residue}
 
-\paragraph{Cycle 3: Serre--Grothendieck $\Rightarrow$ shifted symplectic.}
-\emph{Attack.} For the CY$_3$ ambient $\C^3$, Serre duality on
-$\cE_{\hCS} = \Omega^{0,\bullet}(\C^3, \g)$ reads
-$\Omega^{0,q}(\C^3, \g) \otimes \Omega^{0,3-q}(\C^3, \g^*) \to \Omega^{0,3}(\C^3)
-\xrightarrow{\wedge \Omega} \Omega^{3,3}(\C^3) \xrightarrow{\int} \C$,
-pairing chiral $\dbar$-closed sections of complementary bidegree.
-\emph{Heal.} The induced pairing on $\CE^*_{\dbar,\chir}(\cE, \cO)$
-is \emph{shifted symplectic of degree $-3$} in the sense of
-Pantev--Toën--Vaquié--Vezzosi 2013 (PTVV), shifted by $-3 = -\dim_\C$.
-Concretely, the BV antibracket on $\Obs_{\hCS}$ is cohomologically
-equivalent to the PTVV $(-3)$-shifted symplectic form on the
-derived mapping stack $\mathrm{Map}(\C^3, B\g)$; the BV / PTVV
-match is Costello--Gwilliam Vol~II Thm~9.3.1 on CY$_3$. A
-$(-n)$-shifted symplectic $E_n$-algebra is automatically
-$n$-dualizable (Calaque--Pantev--Toën--Vaquié--Vezzosi 2017
-arXiv:1506.03699, Prop.~2.6): the symplectic form supplies both
-the evaluation $A \otimes A \to \mathbf{1}[-n]$ and the coevaluation
-$\mathbf{1}[n] \to A \otimes A$, satisfying the adjunction triangle
-identities by nondegeneracy. For $n=3$ on $\C^3$, this confirms
-\emph{3-dualizability of the $E_3$-algebra $\Obs_{\hCS}$} in the
-formal / abelian sector.
-
-\paragraph{Cycle 4: non-abelian case and $\HH^*_{E_3}$ finiteness.}
-\emph{Attack.} Non-abelian $\g$ introduces the cubic $\int \Omega \wedge
-\mathrm{Tr}(A^3)$ interaction. Perfectness of $\Obs_{\hCS}(\g)$ reduces
-to finiteness of the $E_3$-Hochschild cohomology
-$\HH^*_{E_3}(\Obs_{\hCS}) = \CE^*_{E_3}(\Prim(\Obs_{\hCS}), \Obs_{\hCS})$,
-with $\Prim(\Obs_{\hCS})$ the $E_3$-primitives (Wave-13 H4 PBW
-identification $\Obs_{\hCS} \simeq U_{E_3}(\g_{\hCS})$,
-$\g_{\hCS} \simeq \Prim(\Obs_{\hCS})$).
-\emph{Heal.} For compact $X$, Costello 2013 (``Notes on supersymmetric
-and holomorphic field theories,'' arXiv:1111.4234, \S8) shows
-$\HH^*_{E_3}(\Obs_{\hCS}(X))$ is finite-rank in each Dolbeault bidegree,
-yielding perfectness. On $X = \C^3$ (non-compact), the
-$\HH^*_{E_3}$-complex is an infinite polynomial algebra
-(generators $\partial^k$ at the origin for all $k$), so
-$\Obs_{\hCS}(\C^3)$ fails to be perfect over itself --- the
-same failure that makes $\C^3$ non-closed as a cobordism target.
-Gwilliam--Williams 2021 Prop.~5.3.2 makes this explicit: for
-$\g = \fgl_n$, $\HH^0_{E_3}(\Obs_{\hCS}(\C^3)) = \C[\![\tau_1, \tau_2,
-\tau_3]\!]$, infinite-dimensional. Non-abelian 3-dualizability on
-$\C^3$ therefore \emph{fails strictly}; it recovers upon passage to
-a compact CY$_3$ (quintic, $K3\times E$, abelian $3$-fold), where
-$\kcat = \chi(\cO_X) \in \{1, 0, 0\}$ and the Hodge numbers truncate
-$\HH^*_{E_3}$ to finite rank.
-
-\paragraph{Cycle 5: partial extension to cobordism hypothesis.}
-\emph{Attack.} Lurie 2009 (\emph{On the classification of topological
-field theories}, Thm~2.4.6, and \emph{Higher Algebra} \S5.3) asserts
-a fully extended framed $n$-TFT is the same as a fully dualizable
-object in a symmetric-monoidal $(\infty, n)$-category. For $n=3$
-valued in $\Alg_{E_3}(\Ch(\Dolb))$, full dualizability demands
-\emph{all} adjunction data through three levels --- object,
-1-morphism, 2-morphism duals --- with serial traces matching.
-\emph{Heal.} On $\C^3$: Cycle 3 supplies object-level and
-1-morphism-level dualizability via the $(-3)$-shifted symplectic
-form (abelian case fully; non-abelian case formally, to all orders in
-$\hbar$ via Costello's BV quantisation Thm~9.3.1, Vol~II).
-2-morphism-level duals would require the $\HH^*_{E_3}$-complex to be
-itself dualizable, which by Cycle~4 fails on non-compact $\C^3$.
-\emph{Conclusion (scope):} 6D hCS on $\C^3$ extends to a
-$(0, 1, 2)$-truncated extended $E_3$-TFT --- point, line, surface
-defects --- but \emph{not} to a fully extended 3-TFT on
-$\Bord_3^{\mathrm{fr}}$. Full extension awaits compactification of
-the target CY$_3$. On compact $X$ (Cycle~4 proviso), finiteness of
-Hodge cohomology supplies the missing 2-morphism duals, and
-6D hCS on $X$ extends to a fully extended framed 6D TFT in the
-Costello--Gaiotto--Williams sense.
-
-\paragraph{Relation to $\Phi$ and $\kch$.}
-The trace $\tau$ of Cycle 1 realises the $\Phi$-side chiral
-Euler character:
+\begin{proposition}[Local residue pairing]\label{prop:local-residue-pairing}
+On the formal polydisc $D^3\subset\C^3$, the real oriented boundary of
+the Fulton--MacPherson compactification of two ordered points has fibre
+$S^5$ over the diagonal. Integration over this fibre defines a local BV
+residue pairing
 \[
-  \kch(A_{\hCS,X}) \;=\; \chi\!\bigl(\tau : \Obs_{\hCS}(X) \otimes \Obs_{\hCS}(X) \to \C\bigr)
-  \;=\; \sum_q (-1)^q h^{0,q}(X),
+ \tau_{\mathrm{res}}:
+ \Obs_{\hCS}(D^3)\widehat\otimes \Obs_{\hCS}(D^3)
+ \longrightarrow \C[[\hb]]
 \]
-recovering the Hodge-supertrace identification of Wave-13 G5 on
-compact CY$_3$. Non-degeneracy of $\tau$ is the chain-level witness
-for the $\mathsf{B}$-row entry
-$\kappa_{\mathrm{ch}} + \kappa^{!}_{\mathrm{ch}} = 8$ on the
-Vol III Mukai-enhanced K3 Heisenberg ceiling (Theorem C,
-derived-centre complementarity), through the $K3 \times E$
-specialisation and Bruinier--Heegner reciprocity.
+on renormalised observables whose kernels have controlled singularity
+along the diagonal.
+\end{proposition}
 
-\paragraph{Scope and lanes.}
-Chain-level: explicit $S^5$-integration on $\partial \cConf_2(\C^3)$;
-Gaussian BV trace in the abelian sector; explicit $(-3)$-shifted
-symplectic from $\int \Omega \wedge \mathrm{Tr}$ on $\C^3$.
-$(\infty,1)$-categorical: dualizability in $\Alg_{E_3}(\Ch(\Dolb))$
-via Lurie HA \S5.2 / Francis 2013; PTVV shifted symplectic forces
-$n$-dualizability by Calaque--Pantev--Toën--Vaquié--Vezzosi 2017
-Prop.~2.6; Lurie 2009 cobordism hypothesis for partial / full
-extension. Both lanes load-bearing (CLAUDE.md equal-status rule).
+\begin{proof}
+The real blow-up of the diagonal in $D^3\times D^3$ replaces the normal
+space $\C^3$ by its unit sphere $S(\C^3)=S^5$. The Bochner--Martinelli
+kernel represents the fundamental class for $\dbar$ on the punctured
+normal space:
+\[
+ \dbar P=\delta_\Delta,
+ \qquad
+ P\in\Omega^{0,2}\bigl((D^3\times D^3)\setminus\Delta\bigr).
+\]
+For two observables represented by distributional kernels $K_1,K_2$,
+their product has a normal restriction to the boundary after
+renormalisation. The residue is
+\[
+ \tau_{\mathrm{res}}(K_1,K_2)
+ =
+ \int_{S^5}
+ \bigl(K_1K_2\bigr)_{\partial\cConf_2(D^3)}\wedge P\wedge\Omega_{\C^3}.
+\]
+Stokes' theorem gives independence of the representative, because
+$\dbar P=\delta_\Delta$ is exactly the boundary term inserted in the BV
+Laplacian. Nondegeneracy holds on the finite jet quotient at the
+diagonal. On the full noncompact formal disk it is a continuous pairing
+after choosing the distributional completion.
+\end{proof}
+
+\begin{remark}[Residue and framed trace]\label{rem:residue-trace-scope}
+The sphere $S^5$ is the real link of the complex diagonal. A framed
+$E_3$ trace in the cobordism-hypothesis sense is a map out of the
+factorisation homology controlled by the framed $3$-disk operad. The
+residue above becomes such a trace only after the holomorphic theory is
+strictified to the framed $E_3$ topological skeleton. The strictification
+requires a chain-level $S^3$ framing and compatibility of the BV
+orientation with the Costello--Gwilliam factorisation product.
+\end{remark}
+
+\section{Chiral Chevalley--Eilenberg Form}
+
+\begin{proposition}[CE model for hCS observables]\label{prop:ce-model-hcs}
+The classical local observables of 6D holomorphic Chern--Simons theory
+are the completed chiral Chevalley--Eilenberg cochains of $L_U$:
+\[
+ \Obs_{\hCS}^{\mathrm{cl}}(U)
+ =
+ \CE^\bullet_{\dbar,\chir}
+ \bigl(\Omega_c^{0,\bullet}(U,\g)[1],\cO_U\bigr).
+\]
+The quantum observables are an $\hb$-adic deformation of this CE complex
+by the renormalised BV Laplacian and the effective higher brackets.
+\end{proposition}
+
+\begin{proof}
+The underlying graded vector space of local polynomial observables is
+the completed symmetric algebra on $L_U^\vee[-1]$, which is the CE
+cochain space of $L_U$. The linear part of the CE differential is
+$\dbar$. The quadratic part is dual to the bracket
+$[\ ,\ ]_{\g}$ combined with wedge product. Quantisation adds the
+second-order BV operator determined by the propagator and local
+counterterms. Costello--Gwilliam renormalisation packages the resulting
+operations as an effective $L_\infty$ structure on the same completed
+Dolbeault field space, hence as a deformed CE differential.
+\end{proof}
+
+\section{Dualizability}
+
+\begin{theorem}[Dualizability under compactness hypotheses]\label{thm:dualizability-scope}
+Let $A_X=\Obs_{\hCS}(X,\g)$ be the renormalised quantum observable
+algebra in a Morita $(\infty,3)$-category of $E_3$-algebras whose trace
+levels are required to be compact.
+\begin{enumerate}
+\item Finite jet truncations of the abelian formal-disk theory are
+dualizable in the corresponding finite-dimensional $E_3$ Morita
+category.
+\item For nonabelian $\g$, the full theory on $\C^3$ lies outside this
+compact Morita target. Its trace level has infinite rank.
+\item For compact CY$_3$ targets, full framed $E_3$ dualizability
+requires compact BV quantisation, smoothness and properness of the
+resulting $E_3$ algebra as a bimodule object, a chain-level $S^3$
+framing or TCFT carrier, anomaly cancellation, orientation data, and a
+completed hCS-to-Hall comparison.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+For a finite jet quotient, the abelian field complex is a finite
+perfect complex and the Gaussian BV integral gives a perfect pairing.
+This is the standard finite-dimensional duality argument.
+
+For the full noncompact nonabelian theory on $\C^3$, the $E_3$ Hochschild
+cohomology retains infinitely many translation descendants. In the
+Gwilliam--Williams computation for higher Kac--Moody observables,
+\[
+ \HH^0_{E_3}\bigl(\Obs_{\hCS}(\C^3,\mathfrak{gl}_n)\bigr)
+ \cong \C[[\tau_1,\tau_2,\tau_3]],
+\]
+an infinite-rank formal power series algebra. A fully dualizable object
+in the compact Morita target has perfect trace levels. The displayed
+trace algebra has infinite rank over $\C$, which violates that
+compactness requirement.
+
+On compact $X$, Dolbeault cohomology is finite-dimensional, so the
+Hodge-theoretic input needed for properness is present. Full framed
+dualizability also requires smoothness of the algebra as a bimodule
+object. The remaining data are the compact BV quantum master equation,
+the framed strictification or TCFT carrier, orientation of the
+determinant line, and the completion needed to compare hCS observables
+with the Hall algebra.
+\end{proof}
+
+\section{The K3 Product}
+
+\begin{proposition}[K3$\times E$ numerical checks]\label{prop:k3e-numerical-checks}
+For $X=K3\times E$,
+\[
+ \kcat(X)=0,\qquad
+ \kch(A_X)=0,\qquad
+ \kch^{\mathrm{Heis}}(X)=3,\qquad
+ \kBKM(\Delta_5)=5,\qquad
+ \kfib(X;K3)=24.
+\]
+The set of numerical values is $\{0,3,5,24\}$.
+\end{proposition}
+
+\begin{proof}
+K\"unneth gives
+\[
+ \kcat(X)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0.
+\]
+The compact Hodge supertrace gives
+\[
+ \kch(A_X)=\sum_{q=0}^3(-1)^q h^{0,q}(X)=1-1+1-1=0.
+\]
+The Heisenberg specialisation contributes the rank sum $2+1=3$. The
+Borcherds denominator $\Delta_5$ has weight $5$, equivalently
+$\kBKM(\Delta_5)=c_1(0)/2=10/2=5$. The fibre invariant is the Mukai rank
+$\mathrm{rk}\,\widetilde H(K3,\Z)=24$. These are four constructions:
+total-space Euler characteristic, compact chiral Hodge supertrace and
+Heisenberg specialisation on the chiral side, Borcherds weight, and K3
+fibre Mukai rank.
+\end{proof}
+
+\section{Operadic Level}
+
+\begin{proposition}[Native output at $d=3$]\label{prop:d3-native-output-j2}
+The hCS factorisation algebra on a CY$_3$ is an $E_3$ holomorphic
+factorisation object before factorisation-homology specialisation. For
+a fixed admissible pair $(\Sigma_2,C)$, the specialised CY-to-chiral
+output $\Phi_3^{(\Sigma_2,C)}$ is native $E_1$-chiral. An $E_2$
+structure belongs to a Drinfeld centre, double, or representation
+category layer after the relevant hypotheses are supplied.
+\end{proposition}
+
+\begin{proof}
+The PTVV shift law gives Hochschild cochains of a CY$_3$ category an
+$E_3$ structure. Factorisation homology integrates over the complex
+surface $\Sigma_2$ and restricts to the curve $C$, hence the residual
+holomorphic operadic level is
+\[
+ E_{3-2}=E_1.
+\]
+The centre construction is a separate Morita operation on the
+representation category:
+\[
+ \mathrm{Rep}^{E_1}(A)\longmapsto
+ Z\bigl(\mathrm{Rep}^{E_1}(A)\bigr).
+\]
+The resulting centre may carry an $E_2$ structure. That structure is a
+Morita-layer product external to the specialised algebra.
+\end{proof}
+
+\section{Two Formulations}
+
+The chain-level statement consists of the Dolbeault local Lie algebra,
+the renormalised BV differential, the finite-jet perfect pairing, and
+the $S^5$ residue on the diagonal link. The $(\infty,1)$-categorical
+statement concerns compactness, smoothness, properness, and
+evaluation--coevaluation data for an $E_3$ algebra in a Morita target.
+The comparison between the two formulations is part of the data: a
+compact BV quantisation, a compatible framing, and an orientation of the
+determinant line.
 
 \paragraph{References.}
-\begin{itemize}
-  \item J.\ Lurie, ``On the classification of topological field
-    theories,'' \emph{Current Developments in Mathematics} 2008
-    (2009), 129--280, Thm~2.4.6.
-  \item J.\ Lurie, \emph{Higher Algebra}, \S5.2 ($E_n$-algebras,
-    dualizability), \S5.3 (cobordism / factorisation homology).
-  \item D.\ Ayala and J.\ Francis, ``Factorization homology of
-    topological manifolds,'' \emph{J.\ Topology} 8 (2015), 1045--1084,
-    Thm~1.1.
-  \item J.\ Francis, ``The tangent complex and Hochschild cohomology
-    of $E_n$-rings,'' \emph{Compos.\ Math.} 149 (2013), Thm~1.1,
-    Thm~3.4.
-  \item D.\ Calaque, T.\ Pantev, B.\ Toën, M.\ Vaquié, G.\ Vezzosi,
-    ``Shifted Poisson structures and deformation quantization,''
-    arXiv:1506.03699, Prop.~2.6.
-  \item T.\ Pantev, B.\ Toën, M.\ Vaquié, G.\ Vezzosi,
-    ``Shifted symplectic structures,'' \emph{Publ.\ IHES} 117 (2013),
-    271--328.
-  \item K.\ Costello, ``Notes on supersymmetric and holomorphic field
-    theories in dimensions 2 and 4,'' arXiv:1111.4234, \S8.
-  \item K.\ Costello and D.\ Gaiotto, ``Twisted holography,''
-    arXiv:1812.09257; ``Vertex operator algebras and 3D $\cN=4$
-    gauge theories,'' arXiv:2103.01829, \S3.
-  \item O.\ Gwilliam and B.\ R.\ Williams, ``Higher Kac--Moody
-    algebras and symmetries of holomorphic field theories,''
-    arXiv:2009.05037, Thm~2.5.5, Prop.~5.3.2.
-  \item K.\ Costello and O.\ Gwilliam, \emph{Factorization Algebras
-    in QFT} Vol~II, Thm~9.3.1 (holomorphic BV quantisation on
-    CY$_3$).
-\end{itemize}
+Costello--Gwilliam, \emph{Factorization Algebras in Quantum Field
+Theory}, Vols.~I--II, for local observables, Weiss descent, and
+renormalised BV quantisation. Pantev--Toen--Vaquie--Vezzosi 2013 for
+shifted symplectic forms. Calaque--Pantev--Toen--Vaquie--Vezzosi 2017
+for shifted Poisson quantisation. Francis 2013 and Lurie, \emph{Higher
+Algebra}, for $E_n$ Hochschild and Morita dualizability. Gwilliam--
+Williams 2021 for the infinite $E_3$ Hochschild calculation on
+$\C^3$. Borcherds 1998 and Gritsenko--Nikulin for the denominator
+weight formula $\kBKM(\Phi_N)=c_N(0)/2$.
+
+\end{document}

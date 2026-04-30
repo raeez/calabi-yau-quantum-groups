@@ -1,128 +1,206 @@
 % !TEX root = ../main.tex
-% Wave 9 N4: anomalous-class cohomology computation for Mathieu moonshine.
-% Primary sources: Mason 1994 (Finite groups and modular forms),
-% Persson--Volpato 2012 arXiv:1208.4851, Gaberdiel--Hohenegger--Volpato 2012
-% arXiv:1206.5335, Gaberdiel--Persson--Volpato 2013 arXiv:1211.7074,
-% Conway--Sloane ATLAS (finite simple groups), Dijkgraaf--Pasquier--Roche 1991.
+% Primary sources: ATLAS of Finite Groups for the M_{24} class table;
+% Dijkgraaf, Pasquier and Roche for transgression; Brown for cyclic
+% group cohomology; Gaberdiel, Persson and Volpato and
+% Cheng, Duncan and Harvey for Mathieu multiplier systems.
 
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
 \providecommand{\CM}{C_{M_{24}}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\U}{\mathrm{U}(1)}
-\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\U}{\mathrm{U}\!\left(1\right)}
+\providecommand{\res}{\operatorname{res}}
+\providecommand{\Sym}{\operatorname{Sym}}
 
-\section*{Wave 9 N4: anomalous-class cohomology for
-$H^2(\CM(g),\U)$, $g\in\{7A,7B,11A,23A,23B\}$}
+\section*{Anomalous Mathieu classes and cyclic transgression}
 
-\paragraph{Centraliser data.} From ATLAS (Conway--Sloane) and
-Mason--Conway--Norton 1994:
-\begin{center}
-\begin{tabular}{l|l|l|l}
+\paragraph{The three cohomology groups.}
+For \(g\in M_{24}\) simultaneous twining keeps three cohomology groups
+separate:
+\[
+H^2(\CM(g),\U),\qquad
+H^3(M_{24},\U),\qquad
+H^3(\langle g\rangle,\U).
+\]
+The first records intrinsic projective representations of the
+centraliser.  The second is the Dijkgraaf-Witten class whose slant product
+gives a commuting-pair \(2\)-cocycle.  The third is the cyclic restriction
+detected by the cusp multiplier.  A class in one of these groups supplies
+no class in the other two without an explicit restriction or transgression
+map.
+
+\paragraph{Centraliser and cyclic data.}
+The ATLAS class table gives the centraliser orders
+\[
+|\CM(7A)|=|\CM(7B)|=42,\qquad
+|\CM(11A)|=11,\qquad
+|\CM(23A)|=|\CM(23B)|=23.
+\]
+For the order-seven classes, \(\langle g\rangle\) is central in
+\(\CM(g)\) and has coprime index \(6\).  Schur-Zassenhaus splits the
+extension.  The ATLAS power maps contain the order \(14\) and order \(21\)
+power-up classes and contain no order \(42\) class, so the complement is
+\(S_3\), giving \(\CM(g)\cong C_7\times S_3\).  For the order-eleven and
+order-twenty-three classes the centraliser is cyclic.  Thus:
+\[
+\begin{array}{cccc}
 \toprule
-$g$ & $|\CM(g)|$ & Structure & $H^2(\CM(g),\U)$ \\
+g & \CM(g) & H^2(\CM(g),\U) & H^3(\langle g\rangle,\U) \\
 \midrule
-$7A$, $7B$ & $42$ & $C_7\times C_6\cong C_{42}$ cyclic & $0$ \\
-$11A$     & $22$ & $C_{11}\times C_2\cong C_{22}$ cyclic & $0$ \\
-$23A$, $23B$ & $23$ & $C_{23}$ cyclic & $0$ \\
+7A,7B & C_7\times S_3 & 0 & \Z/7 \\
+11A & C_{11} & 0 & \Z/11 \\
+23A,23B & C_{23} & 0 & \Z/23 \\
+\bottomrule
+\end{array}
+\]
+
+\paragraph{Vanishing of the centraliser Schur multiplier.}
+For a finite group \(G\), the exponential sequence
+\[
+0\longrightarrow \Z \longrightarrow \mathbb{R}\longrightarrow \U
+\longrightarrow 0
+\]
+and \(H^{>0}(G,\mathbb{R})=0\) give
+\[
+H^n(G,\U)\cong H^{n+1}(G,\Z),\qquad n\geq 1.
+\]
+For \(C_N\), integral cohomology is
+\[
+H^{2r}(C_N,\Z)\cong \Z/N,\qquad
+H^{2r+1}(C_N,\Z)=0\qquad (r\geq 1).
+\]
+Thus \(H^2(C_N,\U)=0\) and \(H^3(C_N,\U)\cong \Z/N\).
+For \(C_7\times S_3\), Schur's product formula gives
+\[
+M(C_7\times S_3)
+ \cong M(C_7)\oplus M(S_3)\oplus
+ (C_7^{\mathrm{ab}}\otimes S_3^{\mathrm{ab}}).
+\]
+Here \(M(C_7)=0\), \(M(S_3)=0\), and
+\(\Z/7\otimes S_3^{\mathrm{ab}}=0\) because
+\(S_3^{\mathrm{ab}}\cong\Z/2\).  Hence \(H^2(C_7\times S_3,\U)=0\).
+The intrinsic Schur multiplier of \(\CM(g)\) therefore vanishes for all
+five classes above.
+
+\paragraph{Dijkgraaf, Pasquier and Roche transgression.}
+Let \(\alpha\in Z^3(M_{24},\U)\) be a normalized \(3\)-cocycle.  For
+\(x,y\in\CM(g)\), its DPR transgression is
+\[
+\tau_g(\alpha)(x,y)
+ =
+ \frac{\alpha(g,x,y)\,\alpha(x,y,g)}{\alpha(x,g,y)}.
+\]
+This is a \(2\)-cocycle on \(\CM(g)\).  Since \(H^2(\CM(g),\U)=0\) for the
+five classes, every \(\tau_g(\alpha)\) is cohomologous to zero on the
+centraliser:
+\[
+[\tau_g(\alpha)]=0\in H^2(\CM(g),\U).
+\]
+The anomalous cusp multiplier therefore has its cohomological receptacle
+in the cyclic restriction channel.  The intrinsic centraliser Schur
+multiplier is zero.
+
+\paragraph{Cyclic restriction.}
+The group-cohomological datum that remains available from a chosen
+\(3\)-cocycle is its restriction to the cyclic subgroup:
+\[
+\res^{M_{24}}_{\langle g\rangle}[\alpha]
+ =
+a_g\,\epsilon_N
+\in H^3(C_N,\U)\cong \Z/N,
+\qquad N=\operatorname{ord}(g),
+\]
+where \(\epsilon_N\) is the cyclic generator and \(a_g\in\Z/N\).  When a
+twining multiplier is identified with this cyclic residue, the multiplier
+character at the canonical cusp is
+\[
+\chi_g(T)=\exp(2\pi i\,a_g/N).
+\]
+A non-zero \(a_g\) is then the cyclic group-cohomology witness of the
+anomaly.  The numerical residue \(a_g\) is multiplier-system data from
+the twining genus and is independent of \(H^2(\CM(g),\U)\).  A fraction
+such as \(3/7\), \(2/11\), or \(1/23\) becomes a cohomology statement
+only after the cusp generator, multiplier convention, and Galois
+labelling of \(7A/7B\) and \(23A/23B\) have been fixed.  The calculation
+above proves the centraliser vanishing and the conditional cyclic
+formalism.  A non-zero cyclic residue requires a specified global
+\(M_{24}\) class and multiplier convention.
+
+\paragraph{Geometric scope.}
+Geometric order and anomaly residue are distinct tests.  Order \(7\)
+belongs to the Nikulin-Mukai symplectic list; orders \(11\) and \(23\)
+lie outside it.  The cohomological statement proved here is the
+centraliser Schur-multiplier vanishing together with the cyclic
+\(H^3\)-receptacle for multiplier residues.
+A K3 conformal-field-theory or Mukai-lattice realisation claim requires
+separate class-level geometry.
+
+\paragraph{Separation from the \(K3\times E\) Borcherds constants.}
+The cyclic anomaly is independent of the Borcherds weight normalisation.
+On the CHL ladder
+\[
+\begin{array}{cccccc}
+\toprule
+N & 1 & 2 & 3 & 4 & 6\\
+\midrule
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kappa_{\mathrm{BKM}}(\Phi_N) & 5 & 4 & 3 & 2 & 1
+\bottomrule
+\end{array}
+\]
+and in every column
+\[
+\kappa_{\mathrm{BKM}}(\Phi_N)=\frac{c_N(0)}{2}.
+\]
+For \(N=1\),
+\[
+D_5=64^{-1}\Delta_5,\qquad
+\Phi_1=\Delta_5,\qquad
+c_1(0)=10,\qquad
+\kappa_{\mathrm{BKM}}(\Delta_5)=5.
+\]
+For \(K3\times E\),
+\begin{center}
+\begin{tabular}{ccl}
+\toprule
+invariant & value & source\\
+\midrule
+\(\kappa_{\mathrm{cat}}(K3\times E)\) & \(0\) &
+\(\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot 0\)\\
+\(\kappa_{\mathrm{ch}}(K3\times E)\) & \(0\) &
+\(\sum_q{(-1)}^q h^{0,q}(K3\times E)=1-1+1-1\)\\
+\(\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)\) & \(3\) &
+Heisenberg-Mukai specialisation\\
+\(\kappa_{\mathrm{BKM}}(\mathfrak g_{\Delta_5})\) & \(5\) &
+\(c_{\phi_{0,1}}(0,0)/2=10/2\)\\
+\(\kappa_{\mathrm{fiber}}(K3)\) & \(24\) &
+\(\chi_{\mathrm{top}}(K3)\)\\
 \bottomrule
 \end{tabular}
 \end{center}
+At \(d=3\), the native \(\Phi_3\) output is \(E_1\)-chiral on the chosen
+reference curve.  The available \(E_2\)-level belongs to a constructed
+centre, double, module category, or enhancement datum.  The
+anomalous-class calculation above uses only group cohomology and
+multiplier restrictions.
 
-\paragraph{\ClaimStatusTheorem\ Intrinsic Schur multiplier vanishes.}
-Every centraliser above is cyclic (orders $42,22,23$).  For cyclic
-$C_n$, $H^2(C_n,\U)=0$ (Brown, \emph{Cohomology of Groups}, VI.9.5;
-cyclic groups have trivial Schur multiplier).  Hence
+\paragraph{Compact hCS boundary conditions.}
+A compact or global holomorphic Chern-Simons boundary statement contains
+the following data:
 \[
-H^2(\CM(g),\U)\;=\;0,\qquad
-g\in\{7A,7B,11A,23A,23B\}.
+\begin{array}{l}
+\text{quantum master equation},\\
+\text{anomaly cancellation},\\
+\text{orientation and framing},\\
+\text{descent, sewing and TCFT compatibility},\\
+\text{local counterterms},\\
+\text{analytic or Novikov completion}.
+\end{array}
 \]
-
-\paragraph{The paradox.} Persson--Volpato 2012 \S 3 and
-Gaberdiel--Hohenegger--Volpato (GHV) 2012 arXiv:1206.5335
-declare these five classes \emph{anomalous} with respect to
-simultaneous $(g,h)$-twining.  Yet the intrinsic obstruction
-$[\omega_{g,h}]\in H^2(\CM(g),\U)$ vanishes identically.  The
-anomaly must therefore arise from a \emph{different} cohomological
-input than the Schur multiplier of the centraliser.
-
-\paragraph{\ClaimStatusTheorem\ Resolution: $H^3$-transgression origin
-of the pair cocycle.}  The pair cocycle $\omega_{g,h}$ of the
-Dijkgraaf--Pasquier--Roche (DPR) construction is the transgression
+In complex dimension \(3\), the local BV gauge anomaly is governed by
+the quartic invariant
 \[
-\tau_g\colon H^3(M_{24},\U)\;\longrightarrow\;H^2(\CM(g),\U),\qquad
-\tau_g([\alpha])(h_1,h_2)\;=\;
-\frac{\alpha(g,h_1,h_2)\,\alpha(h_1,h_2,g)}{\alpha(h_1,g,h_2)}.
+I_4^\rho\in {\left(\Sym^4 \mathfrak g^\vee\right)}^{\mathfrak g}.
 \]
-Since $H^2(\CM(g),\U)=0$ for each of the five classes, the
-transgressed class $\tau_g([\alpha])$ vanishes \emph{in the
-centraliser cohomology}.  The obstruction is one layer up: the
-\emph{holomorphic anomaly} lives at the level of $H^3(M_{24},\U)$.
-Gaberdiel--Persson--Volpato 2013 arXiv:1211.7074 \S 4 identify the
-moonshine class $[\alpha_{K3}]\in H^3(M_{24},\U)$ whose character
-$\chi_{[\alpha]}(g)\in\U$ is the \emph{level} of the multiplier
-system $\psi_g$ on $\Gamma^{(g)}$.
-
-\paragraph{\ClaimStatusTheorem\ The true anomaly: fractional level.}
-For $g$ of order $N$ with $\mathrm{ord}(\psi_g)=\lambda_g\cdot N$
-where $\lambda_g\in\{1,2,3,\ldots\}$ is the \emph{multiplier order
-defect}, the genuine obstruction is
-\[
-\lambda_g\;=\;\frac{N_{\mathrm{eff}}}{N}\;\in\;\Q/\Z,\qquad
-N_{\mathrm{eff}}=\mathrm{lcm}(\mathrm{ord}(g),\mathrm{mult\ order}).
-\]
-From Eguchi--Hikami 2010 Table~1:
-\begin{center}
-\begin{tabular}{l|l|l|l}
-\toprule
-$g$ & $N=\mathrm{ord}(g)$ & $\lambda_g$ & Anomaly $\lambda_g-1\in\Q/\Z$ \\
-\midrule
-$7A,7B$    & $7$  & $3/7$ & $-4/7\pmod 1$ \\
-$11A$      & $11$ & $2/11$ & $-9/11\pmod 1$ \\
-$23A,23B$  & $23$ & $1/23$ & $-22/23\pmod 1$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-\emph{These fractional shifts} are the $H^3$-moonshine obstruction
-restricted to $\langle g\rangle\subset M_{24}$: the multiplier
-$\psi_g$ on $\Gamma^{(g)}$ is non-trivial on the canonical cusp,
-whereas for the $21$ non-anomalous classes $\lambda_g\in\Z$
-(trivial on the canonical cusp).
-
-\paragraph{\ClaimStatusTheorem\ Cohomological restatement.}
-The anomaly class
-\[
-[\alpha_{K3}]\in H^3(M_{24},\U)\;\cong\;\Z/12\oplus\Z/2
-\qquad(\text{Gaberdiel--Persson--Volpato 2013})
-\]
-restricts \emph{non-trivially} to $\langle g\rangle\cong C_N$ for
-$g\in\{7A,7B,11A,23A,23B\}$, by the character formula
-\[
-\mathrm{res}^{M_{24}}_{\langle g\rangle}([\alpha_{K3}])\;\neq\;0
-\in H^3(C_N,\U)\cong\Z/N.
-\]
-For the $21$ non-anomalous classes the restriction vanishes.
-
-\paragraph{\ClaimStatusConjectured\ Link to K3 Yangian.} The
-five anomalous classes are precisely those $g\in M_{24}$ for which
-no geometric K3 automorphism realises $g$ (Mukai 1988: geometric
-order divides $4\cdot 6=24$ and fixed-point count bounds exclude
-order $7,11,23$ geometrically).  The anomaly
-$\mathrm{res}^{M_{24}}_{\langle g\rangle}[\alpha_{K3}]$ is therefore
-the cohomological shadow of the \emph{Mukai gap}: K3 Yangian
-representations cannot be $g$-twisted at these five classes in a
-geometric manner.  The Borcherds lift $\Delta_5^{(g,h)}$ of Wave~8
-J2 \S 4 inherits the fractional shift as its multiplier character
-$\chi_{g,h}$ on $\Gamma^{(g,h)}_0$, whence
-$\kappa_{\mathrm{BKM}}(\Delta_5^{(g,h)})=5$ holds with a
-projective multiplier correction of order $\lambda_g N$.
-
-\paragraph{Conclusion.}
-The obstruction at anomalous classes $\{7A,7B,11A,23A,23B\}$ is
-\emph{not} the Schur multiplier $H^2(\CM(g),\U)$ (which vanishes for
-all five) but the transgressed image of the moonshine class
-$[\alpha_{K3}]\in H^3(M_{24},\U)$ restricted to $\langle g\rangle$;
-equivalently the fractional multiplier defect
-$\lambda_g\in\{3/7,2/11,1/23\}$ on $\Gamma^{(g)}$.  The five anomalous
-classes are precisely the non-Mukai orders in $M_{24}$, so the
-anomaly is the cohomological shadow of the Mukai geometric bound.
+Thus a compact \(K3\times E\) hCS realisation of the \(\Delta_5\)
+boundary algebra is an additional quantisation theorem, separate from
+the finite-group cohomology calculation and from the Borcherds product
+identity \(D_5=64^{-1}\Delta_5\).

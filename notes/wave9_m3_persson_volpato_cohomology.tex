@@ -1,185 +1,227 @@
-% !TEX root = ../main.tex
-% Wave-9 M3/20: Persson--Volpato cohomological-anomaly / Mathieu
-% commuting-pairs channel.  Complete obstruction table for
-% [omega_{g_N,h_M}] in H^2(C_{M_{24}}(g_N), U(1)).
-% Primary sources: Persson--Volpato 2012 arXiv:1208.4851;
-% Gaberdiel--Hohenegger--Volpato 2012 arXiv:1106.5218, arXiv:1211.7074;
-% Gaberdiel--Volpato 2012 arXiv:1206.5335;
-% Cheng--Duncan--Harvey 2014 arXiv:1204.2779;
-% Mason 1994 (Schur multiplier of M_{24}, Proc.~London Math.~Soc.);
-% Conway--Norton 1979 (moonshine framework);
-% Conway--Curtis--Norton--Parker--Wilson ATLAS 1985 p.~96
-% (M_{24} conjugacy classes and centraliser orders).
-
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
-\providecommand{\ClaimStatusAxiomatic}{\textbf{[Axiom]}}
 \providecommand{\CMg}{C_{M_{24}}}
-\providecommand{\omgh}{\omega_{g,h}}
-\providecommand{\Schur}{\mathrm{H}^{2}}
+\providecommand{\Uone}{\mathrm{U}(1)}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\ord}{\operatorname{ord}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kchHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
+\providecommand{\PhiN}{\Phi_N}
+\providecommand{\Zgh}{\phi^{K3,(g,h)}_{0,1}}
+\providecommand{\Dfive}{D_5}
 
-\section*{Persson--Volpato cohomological obstruction table
-for commuting pairs $(g_N,h_M)\in M_{24}\times M_{24}$}
+\section*{Persson and Volpato Constraints for Twisted-Twined K3 Genera}
 
-\paragraph{Claim under audit.}
-For commuting $(g,h)\in M_{24}\times M_{24}$ the obstruction to
-lifting the simultaneous twining $\phi^{K3,(g,h)}_{0,1}$ to a weak
-Jacobi form on $\Gamma^{(g,h)}\subset\mathrm{SL}_2(\Z)$ is the class
-$[\omgh]\in\Schur(\CMg(g),\mathrm{U}(1))$ (Persson--Volpato 2012
-\S 3).  The Schur multiplier $\Schur(M_{24},\mathrm{U}(1))=\Z/12$
-(Mason 1994) restricts along inclusions $\CMg(g)\hookrightarrow
-M_{24}$ to a product of cyclic factors whose orders divide $12$.
+\paragraph{Ordinary twining.}
+For a geometric symmetry \(h\) of a K3 sigma model, the twined elliptic
+genus is the Ramond trace
+\[
+  \phi^{K3,(1,h)}_{0,1}(\tau,z)
+  =
+  \Tr_{\mathcal H_{\mathrm{RR}}}
+  \left(h(-1)^{F+\widetilde F}q^{L_0-c/24}
+  \bar q^{\widetilde L_0-\widetilde c/24}y^{J_0}\right).
+\]
+For an arbitrary conjugacy class \([h]\subset M_{24}\), the Mathieu
+moonshine genus is the character of the Gannon \(M_{24}\)-module in the
+K3 elliptic-genus decomposition.  Gaberdiel, Hohenegger, and Volpato
+give the resulting weak Jacobi form of weight \(0\) and index \(1\) for
+every \(M_{24}\)-class, with multiplier fixed by the Frame shape.
+This one-variable datum supplies a twining genus.  A simultaneous
+twisted-twined genus also requires a commuting pair and the projective
+centralizer action on the twisted sector.
 
-\paragraph{Centraliser cohomology: the $26$-class census.}
-ATLAS 1985 p.~96 enumerates $26$ conjugacy classes of $M_{24}$.
-For each class $[g_N]$ the centraliser $\CMg(g_N)$ has order
-$|M_{24}|/|[g_N]|=244823040/|[g_N]|$.  The Schur multiplier
-$\Schur(\CMg(g_N),\mathrm{U}(1))$ is computed from the
-ATLAS-recorded group structure of the centraliser.
+\paragraph{Dijkgraaf-Witten transgression.}
+Let \(g,h\in M_{24}\) commute.  The twisted-twined genus has the form
+\[
+  \Zgh(\tau,z)
+  =
+  \Tr_{\mathcal H_g}
+  \left(\rho_g(h)(-1)^{F+\widetilde F}q^{L_0-c/24}
+  \bar q^{\widetilde L_0-\widetilde c/24}y^{J_0}\right),
+\]
+where \(\rho_g\) is a projective representation of \(\CMg(g)\) on the
+\(g\)-twisted sector.  Generalised Mathieu moonshine fixes a primitive
+class
+\[
+  [\alpha]\in H^3(M_{24},\Uone)\cong \mathbb Z/12
+\]
+from the ordinary twining multiplier, and the projective \(2\)-cocycle
+on \(\CMg(g)\) is the Dijkgraaf-Witten transgression
+\[
+  c_g(x,y)
+  =
+  \frac{\alpha(g,x,y)\,
+        \alpha(x,y,(xy)^{-1}g(xy))}
+       {\alpha(x,x^{-1}gx,y)},
+  \qquad x,y\in \CMg(g).
+\]
+Thus \([c_g]\in H^2(\CMg(g),\Uone)\) is part of the input data.  A table
+indexed only by the two conjugacy classes of \(g\) and \(h\) loses the
+centralizer cocycle.
 
-\begin{center}
-\renewcommand{\arraystretch}{1.15}
-\footnotesize
-\begin{tabular}{c|c|l|c|c}
-\toprule
-Class $[g_N]$ & $|\CMg(g_N)|$ & Centraliser structure
-   & $\Schur(\CMg(g_N),\mathrm{U}(1))$ & Anom.?\\
-\midrule
-$1A$ & $244823040$ & $M_{24}$ itself           & $\Z/12$ & no \\
-$2A$ & $21504$     & $2^{1+3+6}\!\cdot\!L_3(2)$ & $\Z/2\oplus\Z/12$ & no \\
-$2B$ & $7680$      & $2^{1+6}\!\cdot\!\Sigma_3$ & $\Z/2\oplus\Z/2$ & no \\
-$3A$ & $1080$      & $3\!\cdot\!A_6$            & $\Z/6$  & no \\
-$3B$ & $504$       & $L_2(7)\times\Z/3$         & $\Z/2\oplus\Z/3$ & no \\
-$4A$ & $384$       & $2^{1+4}.\Z/6$             & $\Z/2\oplus\Z/4$ & no \\
-$4B$ & $128$       & $2^{1+4}\rtimes\Z/4$       & $\Z/2\oplus\Z/2$ & no \\
-$4C$ & $96$        & $2^{2}\times S_4$          & $\Z/2$ & no \\
-$5A$ & $60$        & $A_5$                      & $\Z/2$ & no \\
-$6A$ & $24$        & $\Z/6\times S_3$           & $\Z/2$ & no \\
-$6B$ & $24$        & $\Z/6\times S_3$           & $\Z/2$ & no \\
-$7A$ & $42$        & $\Z/7\rtimes\Z/6$          & $0$ & \emph{yes}\\
-$7B$ & $42$        & $\Z/7\rtimes\Z/6$          & $0$ & \emph{yes}\\
-$8A$ & $16$        & $\Z/8\times\Z/2$           & $\Z/2$ & no \\
-$10A$& $20$        & $D_{10}\times\Z/2$         & $0$ & no \\
-$11A$& $11$        & $\Z/11$                    & $0$ & \emph{yes}\\
-$12A$& $12$        & $\Z/12$                    & $0$ & no \\
-$12B$& $12$        & $\Z/12$                    & $0$ & no \\
-$14A/B$& $14$      & $\Z/14$                    & $0$ & no \\
-$15A/B$& $15$      & $\Z/15$                    & $0$ & no \\
-$21A/B$& $21$      & $\Z/21$                    & $0$ & no \\
-$23A/B$& $23$      & $\Z/23$                    & $0$ & \emph{yes}\\
-\bottomrule
-\end{tabular}
-\end{center}
+\paragraph{Regularity.}
+If \(g,h,k\) commute, the conjugation law gives
+\[
+  \Zgh=\xi_{g,h}(k)\Zgh,
+  \qquad
+  \xi_{g,h}(k)=c_g(h,k)c_g(k,h)^{-1}.
+\]
+The genus vanishes whenever \(\xi_{g,h}(k)\neq 1\).  Equivalently,
+\(h\) is \(c_g\)-regular in the projective character theory of
+\(\CMg(g)\) precisely when \(c_g(h,k)=c_g(k,h)\) for every commuting
+\(k\in \CMg(g)\).  This is the first obstruction of Gaberdiel,
+Persson, Ronellenfitsch, and Volpato.
 
-Centraliser structures from Conway--Curtis--Norton--Parker--Wilson
-1985 ATLAS p.~96; Schur multipliers computed from Karpilovsky 1987
-(\emph{The Schur Multiplier}, Oxford UP) Cor.~2.1.21 on central
-products and Schur's formula $\Schur(G\times H)=\Schur(G)\oplus
-\Schur(H)\oplus(G^{\mathrm{ab}}\otimes H^{\mathrm{ab}})$; cyclic
-groups have trivial Schur multiplier by Schur 1904.
+\paragraph{Multiplier split.}
+Persson and Volpato split cyclic generators \(g\) by the restriction of
+\([\alpha]\) to \(H^3(\langle g\rangle,\Uone)\).  The trivial-multiplier
+case is exactly the \(M_{23}\)-contained list
+\[
+  2A,\ 3A,\ 4B,\ 5A,\ 6A,\ 7A,\ 7B,\ 8A,\ 11A,\ 14A,\ 14B,\
+  15A,\ 15B,\ 23A,\ 23B.
+\]
+The nontrivial-multiplier case is
+\[
+  2B,\ 3B,\ 4A,\ 4C,\ 6B,\ 10A,\ 12A,\ 12B,\ 21A,\ 21B.
+\]
+The five large-prime classes often isolated in K3 twining tables belong
+to the first list:
+\[
+\begin{array}{c|c|c|c}
+[g] & \text{Frame shape on }24 & \Tr_{24}(g) & \Tr_{24}(g)/\ord(g)\\
+\hline
+7A,7B & 1^3\,7^3 & 3 & 3/7\\
+11A & 1^2\,11^2 & 2 & 2/11\\
+23A,23B & 1\,23 & 1 & 1/23
+\end{array}
+\]
+These fractions are fixed-point trace ratios in the ordinary twining
+table.  The obstruction test is the cocycle regularity condition above.
 
-\paragraph{Anomaly criterion: prime-power centralisers.}
-\ClaimStatusTheorem\ (Persson--Volpato 2012 Prop.~4.1).
-\emph{The class $[g_N]$ is anomalous $\iff$ the restriction
-$\mathrm{res}^{M_{24}}_{\CMg(g_N)}\colon\Z/12=\Schur(M_{24},
-\mathrm{U}(1))\to\Schur(\CMg(g_N),\mathrm{U}(1))$ has non-trivial
-kernel hitting a class realised by the $(g,h)$-sector projective
-representation}.  For $g\in\{7A,7B,11A,23A,23B\}$ the centraliser
-is a prime-power extension ($\Z/7\rtimes\Z/6$, $\Z/11$, $\Z/23$
-respectively) whose Schur multiplier vanishes; the image of the
-$\Z/12$-class in $\CMg(g)$ is therefore \emph{cohomologically
-trivial on the centraliser} yet the $(g,h)$-cocycle picks up a
-projective phase through the \emph{inflation} from $\CMg(g)/Z$ to
-$\CMg(g)$ of the non-split $\Gamma^{(g,h)}\to\mathrm{SL}_2(\Z)$
-multiplier (CDH 2014 \S 5 projective-multiplier obstruction).
-The five anomalous classes are precisely those where the order of
-$g$ exceeds the exponent of the Schur multiplier of $\CMg(g)$,
-forcing the Gritsenko lift $\Delta_5^{(g,h)}$ to a projective
-paramodular form with non-trivial multiplier system.
+\paragraph{Second-quantized product.}
+Persson and Volpato attach to each commuting pair a product
+\[
+  \Phi_{g,h}(\sigma,\tau,z)
+  =
+  p\,q^{1/(N\lambda)}y
+  \prod_{(d,m,\ell)>0}\prod_{t=0}^{M-1}
+  \left(1-e^{2\pi i t/M}q^{m/(N\lambda)}y^\ell p^d\right)^{
+    \widehat c_{g,h}(d,m,\ell,t)},
+\]
+where \(N=\ord(g)\), \(\lambda\) is the shortest-cycle length of \(g\)
+in the \(24\)-point permutation representation, \(M=\ord(h_\alpha)\)
+in the central extension, and the exponents are simultaneous
+eigenspace superdimensions.  This product is a Siegel modular form
+after the stated Hodge prefactor.  A Borcherds-Kac-Moody
+denominator interpretation additionally requires a lattice, Weyl
+chamber, Weyl vector, parity convention, and root-multiplicity
+identification.
 
-\paragraph{Commuting-pair obstruction table ($N,M\leq 8$).}
+\paragraph{\(K3\times E\) normalization.}
+On the compact threefold \(K3\times E\), the invariants used in Vol III
+are construction-distinct:
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kchHeis(K3\times E)=3,\qquad
+  \kBKM(\mathfrak g_{\Delta_5})=5,\qquad
+  \kfiber=24.
+\]
+The equality \(\kcat(K3\times E)=\chi(\mathcal O_{K3})\chi(\mathcal
+O_E)=2\cdot0=0\) is K\"unneth multiplicativity on the total space.  Since
+\(\dim_{\mathbb C}(K3\times E)=3\), the native output of \(\Phi_3\) is
+\(E_1\).  The BKM branch is the Hall-Drinfeld/Borcherds branch; the K3
+self-mirror Yangian is a separate Mukai-lattice branch.
 
-\begin{center}
-\renewcommand{\arraystretch}{1.15}
-\footnotesize
-\begin{tabular}{c|c|c|c|c|c}
-\toprule
-$(g_N,h_M)$ & $[\omgh]$ & Order & Lift status & $\GCform{}$ & Status \\
-\midrule
-$(1A,1A)$   & $0$      & $1$  & $\Delta_5$             & $\GCform{1}$ & \ClaimStatusTheorem\\
-$(1A,2A)$   & $0$      & $1$  & $M_2(\Paramod{2},\nu_4)$ & $\GCform{2}$ & \ClaimStatusTheorem\\
-$(2A,1A)$   & $0$      & $1$  & $M_3(\Heckecong{1}{2},\nu_2)$ & $\GCform{3}$ & \ClaimStatusTheorem\\
-$(2A,2A)$   & $\Z/2$   & $2$  & $M_1(\Heckecong{2}{2},\nu_4)$ & $\GCform{8}$ & \ClaimStatusConjectured\\
-$(2A,2B)$   & $\Z/2$   & $2$  & projective             & --- & \ClaimStatusConjectured\\
-$(2B,2A)$   & $\Z/2$   & $2$  & projective             & --- & \ClaimStatusConjectured\\
-$(1A,3A)$   & $0$      & $1$  & $M_1(\Paramod{3},\nu_6)$ & $\GCform{4}$ & \ClaimStatusTheorem\\
-$(3A,1A)$   & $0$      & $1$  & $M_2(\Heckecong{1}{3},\nu_2)$ & $\GCform{5}$ & \ClaimStatusTheorem\\
-$(2A,3A)$   & $0$      & $1$  & order-$6$ cyclic       & --- & \ClaimStatusTheorem\\
-$(3A,2A)$   & $0$      & $1$  & order-$6$ cyclic       & --- & \ClaimStatusTheorem\\
-$(1A,4A)$   & $0$      & $1$  & $M_{1/2}(\Paramod{4},\nu_8)$ & $\GCform{6}$ & \ClaimStatusConjectured\\
-$(4A,1A)$   & $0$      & $1$  & $M_{3/2}(\Heckecong{1}{4},\nu_4)$ & $\GCform{7}$ & \ClaimStatusConjectured\\
-$(2A,4A)$   & $\Z/2$   & $2$  & projective             & --- & \ClaimStatusConjectured\\
-$(3A,3A)$   & $\Z/3$   & $3$  & projective             & --- & \ClaimStatusConjectured\\
-$(1A,5A)$   & $0$      & $1$  & weak Jacobi            & --- & \ClaimStatusTheorem\\
-$(1A,6A)$   & $0$      & $1$  & weak Jacobi            & --- & \ClaimStatusTheorem\\
-$(1A,7A)$   & $\Z/12$-anom & \emph{obstr.} & --- & --- & \ClaimStatusConjectured\\
-$(1A,7B)$   & $\Z/12$-anom & \emph{obstr.} & --- & --- & \ClaimStatusConjectured\\
-$(1A,8A)$   & $0$      & $1$  & weak Jacobi            & --- & \ClaimStatusTheorem\\
-$(7A,7A)$   & anom & \emph{obstr.} & --- & --- & \ClaimStatusConjectured\\
-\bottomrule
-\end{tabular}
-\end{center}
+\paragraph{CHL denominator slice.}
+For the primitive CHL denominator inputs
+\[
+  N\in\{1,2,3,4,6\},
+\]
+the Borcherds-input constants and weights are
+\[
+\begin{array}{c|c|c}
+N & c_N^{\mathrm{CHL}}(0) & \kBKM(\PhiN^{\mathrm{CHL}})\\
+\hline
+1 & 10 & 5\\
+2 & 8 & 4\\
+3 & 6 & 3\\
+4 & 4 & 2\\
+6 & 2 & 1
+\end{array}
+\]
+Borcherds' weight theorem gives
+\[
+  \kBKM(\PhiN^{\mathrm{CHL}})
+  =
+  \operatorname{wt}(\PhiN^{\mathrm{CHL}})
+  =
+  c_N^{\mathrm{CHL}}(0)/2.
+\]
+At \(N=1\), the monic Gritsenko-Nikulin denominator section is
+\[
+  \Dfive=64^{-1}\Delta_5,
+  \qquad
+  \Phi_{10}^{\mathrm{OP}}=\Dfive^2,\qquad
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2.
+\]
 
-Order column = order of $[\omgh]$ in $\Schur(\CMg(g_N),\mathrm{U}(1))$
-(divides $12$).  Theorem rows proved by: cyclic locus
-$\langle g,h\rangle\cong\Z/k$ (GHV 2012 arXiv:1211.7074 \S 3) --- trivial
-$[\omgh]$ by Dijkgraaf--Vafa--Verlinde--Verlinde 1989 cyclic-orbifold
-cocycle vanishing; low-order abelian locus $NM\leq 4$
-(Persson--Volpato 2012 Thm~4.2); geometric Mukai locus
-$(g,h)\subset\mathrm{Aut}_s(K3)$ (Gaberdiel--Volpato 2012
-arXiv:1206.5335).
+\paragraph{Gritsenko-Clery diagonal-divisor catalogue.}
+The eight Gritsenko-Clery simplest-divisor forms are indexed by
+\[
+\begin{array}{c|c|c}
+\text{row} & (t,N) & \operatorname{wt}\\
+\hline
+1 & (1,1) & 5\\
+2 & (2,1) & 2\\
+3 & (1,2) & 3\\
+4 & (3,1) & 1\\
+5 & (1,3) & 2\\
+6 & (4,1) & 1/2\\
+7 & (1,4) & 3/2\\
+8 & (2,2) & 1
+\end{array}
+\]
+Their twice-weight tuple is
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+The common entry with the CHL table is \(F_{1,1}=\Delta_5\).  Each
+remaining row has its own paramodular group, character or multiplier,
+cover convention, and product normalization.
 
-\paragraph{Programme-core restriction $N,M\in\{1,2,3,4,6\}$.}
-\ClaimStatusTheorem.  The BKM core set $\{1,2,3,4,6\}$ corresponds
-to $\kBKM(\Phi_N)=c_N(0)/2$ at Gritsenko series $\Phi_N$ (Gritsenko
-1999; Borcherds 1995).  For every commuting pair $(g_N,h_M)$ with
-$N,M\in\{1,2,3,4,6\}$ one of three holds: (a) $\langle g,h\rangle$
-cyclic of order $\leq 12$, which kills $[\omgh]$ by cyclic-orbifold
-vanishing; (b) $\langle g,h\rangle$ abelian with $NM\leq 4$, which
-lies in Persson--Volpato 2012 Thm~4.2; (c) both $g,h$ are geometric
-(Mukai) symplectic K3 auto's, which lies in Gaberdiel--Volpato 2012.
-Every pair in $\{1,2,3,4,6\}^2$ with $\mathrm{lcm}(N,M)\leq 12$ falls
-into (a)--(c).  The obstruction $[\omgh]$ vanishes on the
-programme-core slice, aligning with the $\Phi_N$-universal identity
-$\kBKM(\Phi_N)=c_N(0)/2$ across $N\in\{1,2,3,4,6\}$.
-
-\paragraph{Gaberdiel--Volpato geometric locus match.}
-\ClaimStatusTheorem.  Gaberdiel--Volpato 2012 arXiv:1206.5335
-Thm~1.1 classifies symmetry groups of K3 $\sigma$-models: the
-union of all symplectic automorphism groups of K3 surfaces (Mukai
-1988 \emph{Invent.~Math.}~94 Thm~0.1 lists $11$ maximal groups in
-$M_{23}\subset M_{24}$).  The geometric Mukai subset of
-$M_{24}$-classes is $\{1A,2A,3A,3B,4A,4B,4C,5A,6A,6B,7A,7B,8A\}$.
-Intersecting with the programme-core $\{1,2,3,4,6\}$-integer-weight
-slice (classes realising $\Phi_N$, $N\in\{1,2,3,4,6\}$) yields
-$\{1A,2A,3A,3B,4A,4B,4C,6A,6B\}$ --- precisely the nine geometric
-classes at which the Gritsenko--Nikulin Borcherds lift
-$\Phi_N^{(g)}$ produces an automorphic correction form without
-projective multiplier.  The residual four classes
-$\{7A,7B,11A,23A,23B\}$ (the anomalous set) are
-\emph{non-geometric}: they are Mathieu-level symmetries of the
-elliptic genus but not symplectic automorphisms of any geometric
-K3 surface, matching CDH 2014 \S 5.
+\paragraph{Enriques constraint.}
+An Enriques quotient \(S=K3/\iota\) is produced by a fixed-point-free
+anti-symplectic involution: \(\iota^*\omega_{K3}=-\omega_{K3}\), and
+\(K_S\) is nontrivial \(2\)-torsion.  The symplectic Mathieu class
+\(2A\) acts trivially on \(H^{2,0}(K3)\).  The Enriques automorphic
+branch therefore uses the Enriques lattice and its own multiplier data.
+Any comparison with the \(M_{24}\) symplectic-twining table requires an
+explicit lattice and multiplier comparison theorem.
 
 \paragraph{Conclusion.}
-The obstruction table decomposes $M_{24}^{[2]}$ commuting pairs
-into: (i) the $21$-class geometric/programme-core slice with
-$[\omgh]=0$, proved; (ii) the non-cyclic abelian $NM\leq 4$ locus
-with $[\omgh]$ of order $\leq 2$, proved (PV 2012); (iii) the
-five-class anomalous locus $\{7A,7B,11A,23A,23B\}$ with $[\omgh]$
-projective, conjectural.  The programme restriction
-$N,M\in\{1,2,3,4,6\}$ is \emph{exactly} the non-anomalous commuting
-slice; the Gritsenko--Cl\'ery eight-form count is the
-diagonal-divisor refinement of this slice at $tN\leq 4$.
+A twisted-twined K3 genus is specified by
+\[
+  (g,h),\quad \CMg(g),\quad [\alpha],\quad [c_g],\quad
+  \xi_{g,h},\quad \Gamma^{(g,h)},\quad \nu_{g,h}.
+\]
+A BKM denominator row is specified by the lattice, chamber, Weyl vector,
+character or cover, parity convention, and product exponents.  These two
+lists meet only after the Borcherds product data and the projective
+Mathieu data are matched row by row.
+
+\paragraph{Proof anchors.}
+Gannon 2016 proves the \(M_{24}\)-module behind Mathieu moonshine.
+Gaberdiel, Hohenegger, and Volpato 2010, Eq.~(3.8) and Table~1, give
+the ordinary twining genera and multipliers.  Gaberdiel, Persson,
+Ronellenfitsch, and Volpato 2013, \S2.1, Eqs.~(2), (5), (7), (9), (10),
+\S2.2, Eqs.~(14), (15), and Appendix~D.2.1-D.2.2, give the
+twisted-twined cocycle, regularity obstruction, and multiplier split.
+Persson and Volpato 2014, \S3.3.2, Eqs.~(3.44)-(3.54), give the
+second-quantized product.  Borcherds 1998, Theorem~13.3, gives the
+weight \(c(0)/2\).  Gritsenko-Clery 2013, Theorems~1.4 and~3.1, give
+the eight simplest-divisor rows.  The Vol III CY-dimension
+stratification chapter fixes the \(K3\times E\), CHL, and
+Gritsenko-Clery normalizations used here.

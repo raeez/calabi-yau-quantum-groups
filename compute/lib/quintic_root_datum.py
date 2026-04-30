@@ -92,7 +92,7 @@ For K3 x E the BKM root datum has:
     - Lattice Lambda^{2,1} of signature (2,1)
     - Gram matrix with entries determined by the intersection form
     - Root multiplicities = Fourier coefficients of phi_{0,1} (the K3 elliptic genus)
-    - Denominator = Igusa cusp form Delta_5
+    - Denominator = primitive Gritsenko-Nikulin denominator Delta_5
 
 For the quintic, the analogous structure should have:
     - Lattice Lambda of rank >= 2 (at minimum: degree + D0 charge)

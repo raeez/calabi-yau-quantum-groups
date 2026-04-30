@@ -1,28 +1,3 @@
-% Wave-18 G4/20: Maulik--Okounkov R-matrix from the positive-half gluing cocycle.
-% Primary sources (no fabrication):
-%   Maulik, D. and Okounkov, A., "Quantum groups and quantum cohomology",
-%     Asterisque 408 (2019); arXiv:1211.1287.
-%   Okounkov, A., "Lectures on K-theoretic computations in enumerative
-%     geometry", IAS/PCMI 2015; arXiv:1512.07363.
-%   Schiffmann, O. and Vasserot, E., "Cherednik algebras, W-algebras and the
-%     equivariant cohomology of the moduli space of instantons on A^2",
-%     Publ. IHES 118 (2013) 213--342; arXiv:1202.2756.
-%   Kontsevich, M. and Soibelman, Y., "Cohomological Hall algebra...",
-%     CNTP 5 (2011) 231--352; arXiv:1006.2706.
-%   Smirnov, A., "Elliptic stable envelope for Hilbert scheme of points
-%     in the plane", arXiv:1704.08746; also "On the Instanton R-matrix",
-%     CMP 345 (2016) 703--740; arXiv:1302.0799.
-%   Negut, A., "The shuffle algebra revisited", IMRN 2014 (22) 6242--6275;
-%     arXiv:1209.3349.
-%   Feigin, B. and Odesskii, A., "Vector bundles on elliptic curves and
-%     Sklyanin algebras", AMS Transl. Ser. 2, 185 (1998) 65--84.
-%
-% Wave-17 B4 produced the gluing cocycle phi_{UV}: CoHA(A_U) -> CoHA(A_V)
-% for the positive half Y^+ on quiver-affine charts (tilting complex T_{UV},
-% mutation of cluster data, Koszul homotopy on triple overlaps). We now
-% identify the Maulik--Okounkov R-matrix as a distinguished spectral residue
-% of this cocycle.
-
 \providecommand{\Hom}{\mathrm{Hom}}
 \providecommand{\End}{\mathrm{End}}
 \providecommand{\Ext}{\mathrm{Ext}}
@@ -34,6 +9,7 @@
 \providecommand{\Stab}{\mathrm{Stab}}
 \providecommand{\Sym}{\mathrm{Sym}}
 \providecommand{\Res}{\mathrm{Res}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
 \providecommand{\bC}{\mathbb C}
 \providecommand{\bN}{\mathbb N}
 \providecommand{\bP}{\mathbb P}
@@ -44,182 +20,250 @@
 \providecommand{\fa}{\mathfrak a}
 \providecommand{\fg}{\mathfrak g}
 \providecommand{\fgl}{\mathfrak{gl}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
 
-\section*{Wave-18 G4: the Maulik--Okounkov $R$-matrix as a residue of the
-$Y^{+}$-gluing cocycle}
+\section*{Maulik-Okounkov \(R\)-matrices and positive-half gluing}
 
-\subsection*{Cycle 1: the stable-envelope side, intrinsic to a chart.}
+\subsection*{Stable-envelope layer}
 
-Fix a Nakajima quiver variety $\sN_{v,w}$ attached to a framed quiver
-$(Q,v,w)$ whose Jacobi algebra $A=\Jac(Q,W)$ is a Ginzburg CY$_{3}$
-algebra on the chart $U\subset\Stab(X)$. The torus
-$T=A\times\bC^{\times}_{\hbar}$ acts with $A$-fixed locus
-$\sN^{A}_{v,w}=\bigsqcup_{v=\sum v_{i}}\prod_{i}\sN_{v_{i},w_{i}}$. For
-each chamber $C\subset\fa_{\bR}$, Maulik--Okounkov (arXiv:1211.1287,
-\S 4.2; uniqueness: Okounkov 2015, \S 9) produce a unique stable envelope
+Let \(\mathfrak M\) be a smooth Nakajima quiver variety, or the ADHM
+Hilbert-scheme symplectic resolution used by the \(\bC^3\) affine-Yangian
+module. Let \(T=\mathsf A\times\bC_{\hbar}^{\times}\) act with
+\(\mathsf A\) preserving the symplectic form and \(\bC_{\hbar}^{\times}\)
+scaling it with character \(\hbar\). Write
 \[
-  \Stab^{U}_{C}\colon H^{*}_{T}(\sN^{A}_{v,w})\longrightarrow
-  H^{*}_{T}(\sN_{v,w}),
+  \mathfrak M^{\mathsf A}=\bigsqcup_{\alpha}F_{\alpha}
 \]
-cut out by support, diagonal normalisation, and slope degree bound. For
-two chambers $C_{+},C_{-}$ separated by a single wall, the \emph{geometric
-$R$-matrix} intrinsic to the chart is
+for the fixed locus. After choosing a polarization and slope, each
+chamber \(C\subset\fa_{\bR}\) determines the Maulik-Okounkov stable
+envelope
 \[
-  R^{U}_{C_{+}C_{-}}(u)\;=\;\big(\Stab^{U}_{C_{+}}\big)^{-1}\circ
-  \Stab^{U}_{C_{-}},
+  \Stab_C\colon
+  H_T^\bullet(\mathfrak M^{\mathsf A})_{\mathrm{loc}}
+  \longrightarrow
+  H_T^\bullet(\mathfrak M)_{\mathrm{loc}},
 \]
-a rational endomorphism of $H^{*}_{T}(\sN^{A}_{v,w})\otimes\bQ(u)$ that
-satisfies YBE and unitarity on the spectral line (MO, Theorem~4.6.1). On
-eval modules of $Y_{\hbar}(\fg_{Q})$, Theorem~11.2 of MO identifies
-$R^{U}_{C_{+}C_{-}}$ with Drinfeld's algebraic Yangian $R$-matrix; this
-is the isomorphism intrinsic to $U$.
-
-\subsection*{Cycle 2: the $Y^{+}$-gluing cocycle side.}
-
-On the overlap $U\cap V$ the cluster mutation datum $T_{UV}$ of
-Wave-17 B4 produces the derived equivalence
-$\Psi_{UV}=\mathbf R\Hom_{A_{U}}(T_{UV},-)$ and its CoHA incarnation
+characterised by support, diagonal normalisation, and degree bound.
+Localization makes \(\Stab_C\) invertible. The chamber-change operator is
 \[
-  \phi_{UV}\colon\CoHA(A_{U})\xrightarrow{\ \sim\ }\CoHA(A_{V}),\qquad
-  \phi^{+}_{UV}\colon Y^{+}(A_{U})\xrightarrow{\ \sim\ }Y^{+}(A_{V}),
+  R^{\mathrm{MO}}_{C_2\leftarrow C_1}(u)
+  =
+  \bigl(\Stab_{C_2}\bigr)^{-1}\circ\Stab_{C_1}
+  \in
+  \End\bigl(H_T^\bullet(\mathfrak M^{\mathsf A})_{\mathrm{loc}}\bigr)
+  \otimes\bQ(u).
 \]
-lifting to a Koszul-homotopy 2-cocycle
-$(\tilde\phi_{UV},h_{UVW})$ in the \v{C}ech nerve of the cover
-(Wave-17 B4, \S Cycle 4). The mutation carries a \emph{spectral
-parameter}: the tilting cone
-$T_{UV}=\bigoplus_{j\neq k}P_{j}\oplus\mathrm{Cone}(P_{k}\to\bigoplus
-P_{j})[-1]$ acquires a scaling $u\in\bC^{\times}$ through the
-$\bC^{\times}_{\hbar}$-action rescaling the cone map, producing a
-one-parameter family
+Under the tensor-product hypotheses of Maulik and Okounkov, these operators
+satisfy the Yang-Baxter equation. With the standard scalar
+normalisation,
 \[
-  \phi_{UV}(u)\colon\CoHA(A_{U})[u,u^{-1}]\xrightarrow{\ \sim\ }
-  \CoHA(A_{V})[u,u^{-1}]
+  R^{\mathrm{MO}}_{C_1\leftarrow C_2}(-u)\,
+  R^{\mathrm{MO}}_{C_2\leftarrow C_1}(u)=\mathrm{id}.
 \]
-whose $u\to\infty$ limit is the tautological relabelling
-$\mu_{k}^{*}\colon\bN^{Q_{U}^{0}}\to\bN^{Q_{V}^{0}}$ and whose $u\to 0$
-limit is the full mutation image on cohomology. This is the geometric
-realisation of the Schiffmann--Vasserot shuffle spectral parameter
-(arXiv:1202.2756, \S 7) on the chart change side.
+This is a statement about localized fixed-locus modules and their
+Yangian evaluation representations.
 
-\subsection*{Cycle 3: the comparison map on a single CoHA.}
+\subsection*{Positive-half layer}
 
-Both $R^{U}_{C_{+}C_{-}}(u)$ and $\phi_{UV}(u)$ act on the same object:
-the CoHA of $A$. The stable envelope lands in $H^{*}_{T}(\sN_{v,w})$;
-Schiffmann--Vasserot (arXiv:1202.2756, Theorem~7.9) identify
-$\bigoplus_{v}H^{*}_{T}(\sN_{v,w})$ with the image of
-$\CoHA(A)$ under the principal eval functor, and restrict to $Y^{+}(A)$
-on the semistable cone $C_{\sigma}$. On this image:
+Let \(U,V\) be quiver charts with Ginzburg algebras
 \[
-  \begin{tikzcd}[column sep=large]
-    Y^{+}(A_{U}) \arrow[r,"\phi_{UV}(u)"] \arrow[d,"\Stab^{U}_{C_{+}}"']
-      & Y^{+}(A_{V}) \arrow[d,"\Stab^{V}_{C_{-}}"] \\
-    H^{*}_{T}(\sN_{v,w}) \arrow[r,"R_{UV}(u)"']
-      & H^{*}_{T}(\sN_{v,w}).
-  \end{tikzcd}
+  A_U=\Jac(Q_U,W_U),
+  \qquad
+  A_V=\Jac(Q_V,W_V).
 \]
-The lower horizontal $R_{UV}(u)$ is the comparison map: the
-geometric $R$-matrix transported across the chart change by the cocycle.
-On a single chart $U=V$ with $C_{+},C_{-}$ opposite,
-$\phi_{UU}(u)=\mathrm{id}$ and the diagram degenerates to
-$R^{U}_{C_{+}C_{-}}(u)=(\Stab^{U}_{C_{-}})^{-1}\Stab^{U}_{C_{+}}$, the
-MO definition. On a non-trivial overlap with $C_{+}\subset U$ and
-$C_{-}\subset V$ on opposite sides of a \emph{wall of marginal
-stability} (Kontsevich--Soibelman 2011, \S 6):
+Assume a derived wall equivalence, with orientation data and
+localization fixed, induces an \(E_1\)-algebra equivalence of positive
+halves
 \[
-  R_{UV}(u)\;=\;\Stab^{V}_{C_{-}}\circ\phi^{+}_{UV}(u)\circ
-  \big(\Stab^{U}_{C_{+}}\big)^{-1}.
+  \phi^+_{UV}(u)\colon
+  Y^+(A_U)_{\mathrm{loc}}
+  \xrightarrow{\ \sim\ }
+  Y^+(A_V)_{\mathrm{loc}}.
 \]
+The parameter \(u\) is the additive spectral difference after choosing
+equivariant characters. On triple overlaps the maps form a
+\v{C}ech \(E_1\)-cocycle, with the spectral parameters composed by the
+same character law.
 
-\subsection*{Cycle 4: $\bC^{3}$ Jordan quiver, explicit comparison.}
-
-Take $Q$ the Jordan quiver (one vertex, three loops $x,y,z$) with
-$W=x[y,z]$ and framing $w=1$, so $\sN_{v,1}=\mathrm{Hilb}^{v}(\bC^{2})$
-(via the ADHM reduction on the $T$-fixed divisor $z=0$). Then:
-\begin{itemize}
-  \item \emph{Stable-envelope side.} MO \S 13 and Okounkov 2015, \S 14
-    compute the geometric $R$-matrix on
-    $\bigoplus_{v}H^{*}_{T}(\mathrm{Hilb}^{v}(\bC^{2}))$ as the
-    \emph{instanton $R$-matrix}; Smirnov arXiv:1302.0799 (Proposition~2,
-    Theorem~3) gives it in closed form on the two-point bosonic Fock
-    representation of $Y_{\hbar,\varepsilon_{1},\varepsilon_{2}}
-    (\widehat{\fgl}_{1})$.
-  \item \emph{Shuffle side.} Negut arXiv:1209.3349 (Theorem~1.1) and
-    Schiffmann--Vasserot \S 7 realise $Y^{+}(A)$ as the shuffle algebra
-    $\mathrm{Sh}^{+}$ with shuffle product
-    $(f\star g)(x_{1},\dots,x_{m+n})=\mathrm{Sym}\big(f(x_{1},\dots,
-    x_{m})g(x_{m+1},\dots,x_{m+n})\prod_{i\leq m<j}\zeta(x_{i}-x_{j})
-    \big)$, $\zeta(z)=\frac{(z+\hbar)(z-\varepsilon_{1}-\varepsilon_{2}
-    -\hbar)}{z(z-\varepsilon_{1}-\varepsilon_{2})}$. The shuffle
-    $R$-matrix $R^{\mathrm{sh}}(u)$ is conjugation by the shift
-    $x_{i}\mapsto x_{i}+u$ on the half-tensor factor
-    (Feigin--Odesskii, \S 2 on elliptic degeneration; Negut,
-    Corollary~3.4 on shift covariance).
-\end{itemize}
-The gluing cocycle on $\bC^{3}$ with $U=$ Jordan and $V=$ flopped Jordan
-(Wave-17 B4, Cycle 5) is the parity involution
-$(\hbar,\varepsilon_{1},\varepsilon_{2})\mapsto(-\hbar,-\varepsilon_{1},
--\varepsilon_{2})$ with spectral twist $u\mapsto u+\varepsilon_{1}
-+\varepsilon_{2}+\hbar$ from the cone-shift in $T_{UV}$. On the shuffle
-model this acts as $f(x_{1},\dots,x_{m})\mapsto f(x_{1}+\lambda,\dots,
-x_{m}+\lambda)$ with $\lambda=\varepsilon_{1}+\varepsilon_{2}+\hbar$;
-conjugation by this shift on the product $Y^{+}\otimes Y^{+}$ is
-exactly $R^{\mathrm{sh}}(u=\lambda)=R^{\mathrm{sh}}(\hbar+\varepsilon_{1}
-+\varepsilon_{2})$. The instanton $R$-matrix of Smirnov, evaluated at
-the same spectral point, reproduces the Feigin--Odesskii elliptic
-degeneration. Agreement:
+The positive half is the native \(E_1\) object. For \(d\geq3\), the
+output of \(\Phi_d\) is \(E_1\). Braiding enters after passing to a
+centre, double, or module layer, for example
 \[
-  \boxed{\;R^{U}_{C_{+}C_{-}}(u)\Big|_{u=\lambda}\;=\;
-  \phi^{+}_{UV}\;=\;\text{parity shift}\;=\;
-  R^{\mathrm{sh}}(\lambda)\;}
+  \mathcal Z\bigl(\Rep^{E_1}(Y^+(A_U))\bigr)
+  \quad\text{or}\quad
+  \Rep_{\mathrm{br}}\bigl(D_{\hbar}(Y^+(A_U))\bigr),
 \]
-where $\lambda$ is the canonical spectral point of the cluster
-mutation, the sum of equivariant parameters detected by the CY$_{3}$
-cyclic obstruction.
+where the Drinfeld double requires a non-degenerate Hopf pairing and a
+completion. The Maulik-Okounkov \(R\)-matrix belongs to this completed
+module layer.
 
-\subsection*{Cycle 5: the $R$-matrix as a cocycle residue.}
+\subsection*{Comparison operator}
 
-The cocycle $\phi_{UV}(u)$ is rational in $u\in\bC$ with simple poles
-on the spectral hyperplane arrangement dictated by the Jacobi ideal
-$\partial W$ (Kontsevich--Soibelman 2011, \S 6 on motivic wall-crossing
-as residue at walls). At a wall of marginal stability $C_{+}\to C_{-}$
-the cocycle has a simple pole; the MO $R$-matrix is the residue of the
-cocycle at this pole:
+Assume the charts \(U,V\) are Maulik-Okounkov accessible: they carry
+symplectic-resolution modules \(\mathfrak M_U,\mathfrak M_V\), stable
+envelopes for chambers \(C_U,C_V\), and evaluated modules
 \[
-  R^{\mathrm{MO}}_{C_{+}C_{-}}(u)\;=\;\Res_{u=u_{\star}}
-  \big[(u-u_{\star})^{-1}\cdot\phi_{UV}(u)\big]\cdot
-  \big(\Stab^{U}_{C_{+}}\big)^{-1},
+  \rho_U\colon Y^+(A_U)_{\mathrm{loc}}\to\End(E_U),
+  \qquad
+  \rho_V\colon Y^+(A_V)_{\mathrm{loc}}\to\End(E_V).
 \]
-with $u_{\star}=u_{\star}(C_{+},C_{-})$ the spectral value of the wall.
-For the Jordan quiver / $\bC^{3}$ case, $u_{\star}=0$ and the residue
-coincides with the Yang rational $R$-matrix
-$R_{\mathrm{Yang}}(u)=\frac{u}{u+\hbar}\mathrm{id}+\frac{\hbar}{u+\hbar}
-P$ on the two-point Fock eigenspace; for the conifold,
-$u_{\star}=\varepsilon_{1}+\varepsilon_{2}$ and the residue is the
-Klebanov--Witten $\widehat{\fgl}_{2}$ instanton $R$-matrix
-(Smirnov arXiv:1302.0799, \S 4). The universal formula is
+Assume further that \(\phi^+_{UV}(u)\) lifts to a rational module
+transport
 \[
-  R^{\mathrm{MO}}_{C_{+}C_{-}}(u)\;=\;\sum_{\alpha\in\Delta_{\mathrm{wall}}}
-  \frac{\Res_{u=u_{\alpha}}\phi^{+}_{UV}(u)}
-  {u-u_{\alpha}}
+  \tau_{UV}(u)\colon E_U\longrightarrow E_V
 \]
-with $\Delta_{\mathrm{wall}}$ the walls of the $\sigma$-stability cone
-$C_{\sigma}$, $u_{\alpha}$ their spectral footprints. The YBE on
-$R^{\mathrm{MO}}$ follows from the cocycle condition
-$\tilde\phi_{VW}\tilde\phi_{UV}=\tilde\phi_{UW}+\delta h_{UVW}$ on
-triple overlaps, with $h_{UVW}\to 0$ at the residues (cyclic-$A_{\infty}$
-closure; Wave-17 B4, Cycle 4).
+intertwining the two positive-half actions:
+\[
+  \rho_V\bigl(\phi^+_{UV}(u)(a)\bigr)\,\tau_{UV}(u)
+  =
+  \tau_{UV}(u)\,\rho_U(a),
+  \qquad
+  a\in Y^+(A_U)_{\mathrm{loc}}.
+\]
+The induced fixed-locus comparison is
+\[
+  \mathcal R_{UV,C_V\leftarrow C_U}(u)
+  =
+  \bigl(\Stab^V_{C_V}\bigr)^{-1}
+  \circ \tau_{UV}(u)\circ
+  \Stab^U_{C_U}.
+\]
+For \(U=V\) and \(\tau_{UU}(u)=\mathrm{id}\), this is exactly
+\[
+  \mathcal R_{UU,C_2\leftarrow C_1}(u)
+  =
+  R^{\mathrm{MO}}_{C_2\leftarrow C_1}(u).
+\]
+For \(U\neq V\), \(\mathcal R_{UV,C_V\leftarrow C_U}\) is a transported
+module operator. If \(\tau_{UV}\) has a simple pole at a wall
+\(u=u_{\alpha}\), its singular coefficient is
+\[
+  \Res_{u=u_\alpha}\mathcal R_{UV,C_V\leftarrow C_U}(u)\,du
+  =
+  \bigl(\Stab^V_{C_V}\bigr)^{-1}
+  \circ
+  \Bigl(\Res_{u=u_\alpha}\tau_{UV}(u)\,du\Bigr)
+  \circ
+  \Stab^U_{C_U}.
+\]
+Thus wall residues are taken after passage to the evaluated
+stable-envelope module. The scoped equality is an equality of transported
+module operators.
 
-\subsection*{Summary.}
+On a triple overlap \(U,V,W\), the \(\v{C}\)ech cocycle for the
+\(\phi^+\)'s gives the hexagon relation on transported modules once the
+three comparison operators above are defined and the scalar
+normalisations are chosen compatibly. In the one-chart case this is the
+Maulik-Okounkov Yang-Baxter equation.
 
-The MO $R$-matrix is the spectral residue of the Wave-17 B4 gluing
-cocycle $\phi_{UV}(u)$ at walls of $\sigma$-stability:
-$R^{\mathrm{MO}}_{C_{+}C_{-}}=\Res_{u=u_{\star}}\phi^{+}_{UV}(u)$. On
-$\bC^{3}$ Jordan this is the Yang rational $R$-matrix; on the conifold,
-the rank-2 instanton $R$-matrix of Klebanov--Witten via Smirnov. The
-YBE for $R^{\mathrm{MO}}$ descends from the Koszul-homotopy closure of
-$\tilde\phi$ at triple overlaps; the dynamical twist of Etingof--
-Frenkel--Kirillov is the regular part of $\phi^{+}_{UV}(u)$ away from
-walls. The identification is compatible with
-$\kappach(\bC^{3})=3/2$ flop-invariance and with the parity
-$(\hbar,\varepsilon_{i})\mapsto(-\hbar,-\varepsilon_{i})$.
+\subsection*{The \(\bC^3\) model}
+
+For the one-vertex three-loop quiver with potential \(W=x[y,z]\), the
+critical CoHA of \(\bC^3\) is the positive half
+\[
+  \CoHA(\bC^3)\cong Y^+(\widehat{\fgl}_1).
+\]
+This is the Schiffmann-Vasserot positive-half theorem. The full affine
+Yangian and the \(\mathcal W_{1+\infty}\) vertex algebra appear
+after the double, centre, completion, and Fock evaluation steps.
+
+Let \(h_1+h_2+h_3=0\) and set
+\[
+  g(z)=\prod_{a=1}^3\frac{z-h_a}{z+h_a},
+  \qquad
+  \sigma_2=h_1h_2+h_1h_3+h_2h_3,
+  \qquad
+  \sigma_3=h_1h_2h_3 .
+\]
+Then
+\[
+  g(z)g(-z)=1,\qquad
+  g(z)=1-\frac{2\sigma_3}{z^3}
+        +\frac{2\sigma_2\sigma_3}{z^5}
+        +O(z^{-6}).
+\]
+The sign of the leading term follows directly from
+\[
+  \log g(z)
+  =
+  -2\sum_{m\geq0}\frac{h_1^{2m+1}+h_2^{2m+1}+h_3^{2m+1}}
+  {(2m+1)z^{2m+1}} .
+\]
+
+On
+\[
+  \mathcal F=\bigoplus_{n\geq0}H_T^\bullet(\Hilb^n(\bC^2))_{\mathrm{loc}},
+\]
+let \(|\lambda\rangle\) be the partition basis and write
+\[
+  c(s)=h_1 i+h_2 j,\qquad s=(i,j)\in\lambda,
+\]
+with \(i,j\) zero-indexed. The diagonal stable-envelope prefactor is
+\[
+  R^{\mathrm{diag}}_{\lambda,\varnothing}(u)
+  =
+  \prod_{s\in\lambda}g\bigl(u+c(s)\bigr).
+\]
+For two Fock factors the diagonal scalar is
+\[
+  R^{\mathrm{diag}}_{\lambda,\mu}(u)
+  =
+  \prod_{s\in\lambda}\prod_{t\in\mu}
+  g\bigl(u+c(s)-c(t)\bigr).
+\]
+At charge \(2\), the row and column diagonal entries are
+\[
+  R^{\mathrm{diag}}_{(2),\varnothing}(u)
+  =
+  g(u)g(u+h_2),
+  \qquad
+  R^{\mathrm{diag}}_{(1,1),\varnothing}(u)
+  =
+  g(u)g(u+h_1).
+\]
+These formulas give the diagonal part of the evaluated \(R\)-operator.
+The full Maulik-Okounkov \(R\)-matrix in higher charge also contains
+the off-diagonal stable-envelope matrix entries.
+
+\subsection*{The conifold wall factor}
+
+For the framed resolved-conifold quiver in a toric chamber, let the
+charge lattice have primitive wall class \(\gamma\). In the completed
+Hall torus, with orientation chosen so the wall factor is
+\((1-e_{\gamma})^{-m}\), one has
+\[
+  K_{\gamma}(e_{\beta})
+  =
+  e_{\beta}(1-e_{\gamma})^{-m}
+  =
+  \sum_{k\geq0}
+  \binom{m+k-1}{k}\,
+  e_{\beta+k\gamma},
+  \qquad
+  m=\Omega(\gamma)\langle\gamma,\beta\rangle .
+\]
+This is a positive-half wall automorphism. It becomes an instanton
+\(R\)-operator after an evaluated module, stable-envelope transport,
+and an equivariant spectral character have been fixed.
+
+\subsection*{Scope}
+
+The comparison needs all four inputs: a torus-equivariant symplectic
+resolution, localized stable envelopes, a positive-half wall
+equivalence, and evaluated modules on which both sides act. Toric
+\(\bC^3\), ADHM Hilbert schemes, and framed toric conifold chambers meet
+these hypotheses. Generic compact \(K3\), \(K3\times E\), and non-toric
+compact Calabi-Yau threefolds require different replacements for the
+torus-equivariant stable-envelope input.
+
+BKM denominator recognition is a separate construction. The Igusa
+constant \(\kappa_{\mathrm{BKM}}(\Delta_5)=5\) belongs to the Borcherds
+product for \(K3\times E\). Maulik-Okounkov residues, positive-half
+\(Y^+\) constants, and Mukai-Yangian structures carry different data.
+
+Primary sources: Maulik and Okounkov, \emph{Quantum groups and quantum
+cohomology}, Ast\'erisque 408; Schiffmann and Vasserot, \emph{Cherednik
+algebras, W-algebras and the equivariant cohomology of the moduli space
+of instantons on \(\mathbb A^2\)}, Publ. IHES 118; Negut, \emph{The
+shuffle algebra revisited}; Kontsevich and Soibelman, \emph{Cohomological
+Hall algebra, exponential Hodge structures and motivic Donaldson-Thomas
+invariants}; Smirnov, \emph{On the instanton \(R\)-matrix}.

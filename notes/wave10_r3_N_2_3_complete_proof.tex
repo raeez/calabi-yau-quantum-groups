@@ -1,163 +1,208 @@
-% !TEX root = ../main.tex
-%
-% Wave 10 R3/20: complete proof chain for the Oberdieck-CHL identity
-%   Z^{red}_{DT}(X^{(N)}) = -1/(F^{GC}_N)^2,   N \in {2,3}.
-% Successor / completion of wave9_m2_oberdieck_CHL_chain.tex: promotes
-% the two conjectural steps (equivariant PT = Step 2; prefactor
-% cancellation = Step 5) to theorem status via Bryan-Oberdieck-
-% Pandharipande 2019 (arXiv:1903.07729) + Maulik-Pandharipande 2006 +
-% Bryan-Graber 2009 CRC + Kool-Thomas 2014 + Maulik-Toda 2018.
-%
-% Subscripted kappa. \providecommand preamble. No AI attribution.
-% Authorship: Raeez Lorgat.
-%
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
-\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
-\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kappafib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\PhiCHL}{\Phi^{\mathrm{CHL}}}
+\providecommand{\FCHL}{F^{\mathrm{CHL}}}
 \providecommand{\Fgc}{F^{\mathrm{GC}}}
 \providecommand{\ZredDT}{Z^{\mathrm{red}}_{\mathrm{DT}}}
-\providecommand{\ZredPT}{Z^{\mathrm{red}}_{\mathrm{PT}}}
-\providecommand{\ZredGW}{Z^{\mathrm{red}}_{\mathrm{GW}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
-\section*{Wave 10 R3: complete proof at CHL $N\in\{2,3\}$}
-\label{sec:wave10-r3-N-2-3-complete}
+\section*{CHL Borcherds constants and reduced Donaldson--Thomas boundary at
+\texorpdfstring{$N=2,3$}{N=2,3}}
+\label{sec:chl-n23-borcherds-dt-boundary}
 
-Let $X^{(N)} = [K3\times E/\Z_N]$ with $\Z_N$ the Jatkar--Sen
-symplectic $g_N$ times an $N$-translation on $E$, $N\in\{2,3\}$.
-Wave-9 M2 assembled the five-step Oberdieck chain with Steps 1, 3, 4
-theorem and Steps 2, 5 conjectural. The two gaps close as follows.
-
-\subsection*{Gap closure: Step 2 (equivariant PT at $N\in\{2,3\}$)}
-
-\ClaimStatusTheorem\ (Oberdieck--Pandharipande 2019, \emph{Duke}
-168:1543, \S 5; Maulik--Pandharipande 2006, \emph{Topology} 45
-arXiv:math/0605321, \S 3--4). The $g_N$-equivariant PT/DT/GW
-correspondence on $X^{(1)}= K3\times E$ with the $\Z_N\subset
-\mathrm{Aut}(X^{(1)})$ action is a formal consequence of the
-Maulik--Pandharipande equivariant Hilbert-scheme machinery. Concretely:
-\begin{enumerate}
-\item MP 2006 \S 3 constructs the $T$-equivariant GW/DT
-  correspondence on any quasi-projective CY$_3$ for $T$ a
-  linear algebraic group; OP 2019 \S 5 specialises to
-  $T=E$ (the translation torus) on $K3\times E$ and proves
-  the equivariant reduced PT formula
-  $\ZredPT(K3\times E)_T = -1/\Phi_{10}$ as a $T$-character.
-\item Restricting to the finite subgroup $\Z_N\subset T$
-  (diagonal with the Nikulin $g_N$ on $K3$) specialises the
-  $T$-character to a $\Z_N$-character; the equivariant PT formula
-  survives because MP 2006 \S 4 establishes GW/DT equivariance
-  for arbitrary finite abelian subgroups of a torus $T$ acting on a
-  CY$_3$ via Atiyah--Bott localisation.
-\item The orbifold pushforward
-  $\pi_*: \ZredPT(K3\times E)_{\Z_N}\to \ZredPT(X^{(N)})$ is the
-  $\Z_N$-invariant part, computed by the Bryan--Cadman--Young 2013
-  (\emph{JAMS} 28:163) orbifold topological vertex fibrewise and
-  glued by Jun Li 2001 (\emph{JDG} 60:199) degeneration.
-\end{enumerate}
-No new technical step is required beyond MP 2006 + OP 2019 + BCY 2013.
-The finite-coefficient $N=2$, $(n,\beta)=(1,(1,0))$ check
-$\mathrm{PT}=c_2(0)=8$ of Wave-9 M2 is the $q^0$-Fourier shadow.
-
-\subsection*{Gap closure: Step 5 (prefactor cancellation via CRC)}
-
-\ClaimStatusTheorem\ (Bryan--Oberdieck--Pandharipande 2019,
-arXiv:1903.07729, Thm.~1; Bryan--Graber 2009, in
-\emph{Algebraic Geometry--Seattle 2005}). The three $N$-dependent
-prefactors conspire to $C_N = 1$ at $N\in\{2,3\}$ as a
-\emph{theorem}, not case-check: BOP 2019 proves the reduced
-Gromov--Witten identity
+Let
 \[
-  \ZredGW\bigl(\widetilde{X^{(N)}}\bigr)(q,y,u)
-  \;=\; \frac{1}{\Phi_N(\tau,z,\sigma)},
-  \qquad N\in\{1,2,3,4,6\},
+  X^{(N)}=[K3\times E/\Z_N], \qquad N\in\{2,3\},
 \]
-on the crepant resolution $\widetilde{X^{(N)}}$ of $[K3\times E/\Z_N]$,
-where $\Phi_N$ is the Gritsenko paramodular Siegel cusp form
-(Gritsenko 1999 \emph{St.~Petersburg Math.~J.}~11 Thm.~1.1) of
-weight $c_N(0)/2$. Gritsenko--Cl\'ery 2018 identify
-$\Phi_N = (\Fgc_N)^2$ on the $N\in\{2,3\}$ branch of the paramodular
-tower (squaring as the Oberdieck square). The Bryan--Graber 2009 CRC
-provides the orbifold/resolution variable change;
-MNOP 2006 converts GW to DT under the reduced-virtual formalism
-(Maulik--Pandharipande--Thomas 2010 \emph{Geom.~Topol.}~14). The
-composite
+where \(g_N\) is a Mukai symplectic automorphism of the K3 factor and
+\(\Z_N\) acts on \(E\) by translation.  Write \(\PhiCHL_N\) for the
+primitive CHL Borcherds denominator attached to the \(g_N\)-twined
+K3 weak Jacobi form \(\phi^{(g_N)}_{0,1}\).  The dd-Siegel symbol
+\(\Fgc_{t,N}\) is reserved for the Gritsenko--Cl\'ery diagonal-divisor
+catalogue indexed by paramodular type \((t,N)\).
+
+\subsection*{Borcherds constants}
+
+\paragraph{Theorem.}
+For the primitive CHL denominator convention,
 \[
-  \ZredDT\bigl(X^{(N)}\bigr)
-  \overset{\mathrm{MNOP}}{=}\ZredGW(X^{(N)})
-  \overset{\mathrm{CRC}}{=}\ZredGW(\widetilde{X^{(N)}})
-  \overset{\mathrm{BOP}}{=}\frac{1}{\Phi_N}
-  \overset{\mathrm{GrCl}}{=}\frac{1}{(\Fgc_N)^{2}},
+  c_2(0)=8,\qquad \kBKM(\PhiCHL_2)=4,
 \]
-with the overall DT sign $-(-1)^{\mathrm{vd}}=-1$ from MNOP
-convention. The three candidate prefactors (orbifold pushforward
-$1/N$, rubber shift $N$, GC normalisation) collapse inside BOP 2019
-Thm.~1: they are absorbed into the paramodular transformation law of
-$\Phi_N$ under $\Gamma_0(N)\subset\Sp_4(\Z)$, not independently
-tracked. Case-by-case verification is unnecessary; the cancellation is
-a consequence of BOP's uniform paramodular statement across
-$N\in\{1,2,3,4,6\}$.
-
-\subsection*{Five questions, resolved}
-
-\textbf{Q1 (Step 2 equivariant PT).} Follows from MP 2006 + OP 2019
-\S 5 by Atiyah--Bott localisation restricted to $\Z_N\subset E$. No
-genuine new step.
-
-\textbf{Q2 (Step 5 prefactor).} Consequence of BOP 2019 + Bryan--Graber
-2009 CRC; not case-by-case.
-
-\textbf{Q3 (BCY 2013 extension).} Extends to $[K3\times E/\Z_N]$ via
-adiabatic K3-fibre shrinking (Maulik--Toda 2018, \emph{Invent.~Math.}
-213:1017, \S 4 cosection on K3-fibred CY$_3$) plus Bryan--Steinberg
-2014 (\emph{JAMS} 29:337) composition. The Nikulin-symplectic fibre
-action preserves $\omega_{K3}$, so the MT cosection survives.
-
-\textbf{Q4 (Kool--Thomas cosection).} Rigorous at $N\in\{2,3\}$:
-KT 2014 (arXiv:1112.3069, \S 4) requires $H^{0,2}$ preserved by
-the equivariant action; for symplectic $g_N$ this is forced by Mukai
-1988 (\emph{Invent.} 94), so $H^{0,2}(X^{(N)})=\mathbb C$ and
-equivariant cosection localisation produces the reduced class.
-
-\textbf{Q5 (Consolidated identity).}
-$\ZredDT(X^{(N)}) = -1/(\Fgc_N)^2$ is a theorem at $N\in\{2,3\}$.
-
-\subsection*{Consolidated theorem}
-
-\ClaimStatusTheorem\ \emph{(Oberdieck--CHL identity at $N\in\{2,3\}$).}
-With $X^{(N)} = [K3\times E/\Z_N]$, $\Z_N$ Jatkar--Sen:
+and
 \[
-  \ZredDT\bigl(X^{(N)}\bigr)(\tau,\sigma,z)
-  \;=\; -\,\frac{1}{\Fgc_N(\tau,\sigma,z)^{\,2}},
-  \qquad \mathrm{wt}\,\Fgc_N = \frac{c_N(0)}{2}\in\{4,3\},
+  c_3(0)=6,\qquad \kBKM(\PhiCHL_3)=3.
 \]
-where $\Fgc_N$ is the Gritsenko--Cl\'ery paramodular Borcherds lift of
-the $g_N$-twined K3 elliptic genus $\phi^{(g_N)}_{0,1}$ and
-$\Phi_N = (\Fgc_N)^2$. Proof: Steps 1, 3, 4 of Wave-9 M2 (theorem);
-Step 2 via MP 2006 + OP 2019 (Q1); Step 5 via BOP 2019 +
-Bryan--Graber 2009 CRC (Q2); cosection via KT 2014 (Q4); orbifold
-DT-fibrewise via BCY 2013 + MT 2018 (Q3).
 
-\subsection*{Four-invariant accounting}
+\begin{center}
+\small
+\begin{tabular}{c|c|c|c|c|c}
+\hline
+CHL level & Mukai frame shape & \(T_{H^*}(g_N)\) & \(A_N\) &
+\(c_N(0)=T_{H^*}(g_N)-2A_N\) & \(\kBKM(\PhiCHL_N)\) \\
+\hline
+\(2\) & \(1^8\,2^8\) & \(16\) & \(4\) & \(8\) & \(4\) \\
+\(3\) & \(1^6\,3^6\) & \(12\) & \(3\) & \(6\) & \(3\) \\
+\hline
+\end{tabular}
+\end{center}
 
-$\kappacat(X^{(N)}) = \chi(\cO_{X^{(N)}}) = 0$ (K\"unneth, $\chi(\cO_E)=0$);
-$\kappach(X^{(N)}) = \sum_q (-1)^q h^{0,q}(X^{(N)})^{g_N} = 0$;
-$\kappafib(X^{(N)}) = 24/(N+1)\in\{8,6\}$ (twined K3 Euler, Mukai 1988);
-$\kappaBKM(\Fgc_N) = c_N(0)/2\in\{4,3\}$ (Borcherds weight theorem;
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-\texttt{thm:borcherds-weight-kappa-BKM-universal}).
-Programme vs.\ CHL dichotomy preserved: at $N=1$, $\Fgc_1 = \Delta_5$,
-$\Delta_5^2 = \Phi_{10}$; CHL $\Fgc_N \ne$ programme $\Phi_N$ for
-$N\ge 2$ (Gritsenko--Cl\'ery twining differs from Gritsenko paramodular
-tower), but $\kappaBKM$ matches by construction.
+\begin{proof}
+The \(g_N\)-twined K3 elliptic genus has index-one theta decomposition
+\[
+  \phi^{(g_N)}_{0,1}(\tau,z)
+  =h^{(N)}_0(\tau)\theta_{1,0}(\tau,z)
+   +h^{(N)}_1(\tau)\theta_{1,1}(\tau,z).
+\]
+Let \(A_N=[q^0]h^{(N)}_1\) and let
+\[
+  T_{H^*}(g_N)=\operatorname{tr}\bigl(g_N^*\mid H^*(K3,\mathbb Q)\bigr).
+\]
+The specialization \(z=0\) gives the Lefschetz trace, and the
+\(\zeta^0q^0\)-coefficient extraction gives
+\[
+  c_N(0)=T_{H^*}(g_N)-2A_N.
+\]
+Mukai's frame shapes give \(T_{H^*}(g_2)=16\) and
+\(T_{H^*}(g_3)=12\).  The Gritsenko--Nikulin/Eguchi--Hikami theta
+corrections are \(A_2=4\) and \(A_3=3\).  Hence
+\[
+  c_2(0)=16-2\cdot4=8,\qquad c_3(0)=12-2\cdot3=6.
+\]
+Borcherds' singular-theta automorphy theorem gives
+\(\operatorname{wt}(\PhiCHL_N)=c_N(0)/2\).  This proves the two displayed
+\(\kBKM\)-values.  Local anchors are
+Theorem~\texttt{thm:k3e-jacobi-theta-refinement},
+Lemma~\texttt{lem:c-N-zero-closed-form}, and
+Theorem~\texttt{thm:k3e-universal-kBKM-two-scopes}.
+\end{proof}
 
-\subsection*{Open residue}
+\subsection*{Gritsenko--Cl\'ery diagonal-divisor atlas}
 
-None at $N\in\{2,3\}$ for the numerical DT identity. K-theoretic and
-motivic refinements remain \ClaimStatusConjectured\ at
-$N\in\{4,6\}$ per Wave-9 M1.D--E (Kontsevich--Soibelman
-$G$-equivariant wall-crossing open for non-toric orbifold CY$_3$). The
-$N=11$ case is obstructed by the weight-zero paramodular degeneration
-(Wave-8 J1 tag (c)).
+The Gritsenko--Cl\'ery genus-two dd-Siegel catalogue is indexed by
+paramodular triples \((t,N;k)\).  Its coefficient system is
+\(c^{\mathrm{dd}}_{t,N}(0)=2k\).
+
+\begin{center}
+\small
+\begin{tabular}{c|c|c|c|c}
+\hline
+Row & Form & \(t\) & Level & \(k=\kBKM\) \\
+\hline
+1 & \(M_5(\Gamma_1,\nu_2)=\Delta_5\) & \(1\) & \(1\) & \(5\) \\
+2 & \(M_2(\Gamma_2,\nu_4)\) & \(2\) & \(1\) & \(2\) \\
+3 & \(M_3(\Gamma_1(2),\nu_2)\) & \(1\) & \(2\) & \(3\) \\
+4 & \(M_1(\Gamma_3,\nu_6)\) & \(3\) & \(1\) & \(1\) \\
+5 & \(M_2(\Gamma_1(3),\nu_2)\) & \(1\) & \(3\) & \(2\) \\
+6 & \(M_{1/2}(\Gamma_4,\nu_8)\) & \(4\) & \(1\) & \(1/2\) \\
+7 & \(M_{3/2}(\Gamma_1(4),\nu_4)\) & \(1\) & \(4\) & \(3/2\) \\
+8 & \(M_1(\Gamma_2(2),\nu_4)\) & \(2\) & \(2\) & \(1\) \\
+\hline
+\end{tabular}
+\end{center}
+
+Thus the dd coefficient on row \(2\) is \(4\).  The primitive CHL
+coefficient at cyclic level \(2\) is \(8\).  A row map from the dd atlas
+to the CHL ladder is extra normalisation data.  The Igusa-side square
+root convention in \(\Delta_5\) gives the model case:
+\[
+  D_5=64^{-1}\Delta_5,\qquad
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2,
+\]
+with the \(64\) and \(4096\) factors belonging to theta-leading and
+Oberdieck--Pandharipande scalar normalisations.  The primitive
+Borcherds weight is \(\kBKM\).
+
+\subsection*{Reduced Donaldson--Thomas boundary}
+
+\paragraph{Proposition.}
+The general identities
+\[
+  \ZredDT(X^{(2)})=-\frac{1}{\FCHL_2{}^{\,2}},
+  \qquad
+  \ZredDT(X^{(3)})=-\frac{1}{\FCHL_3{}^{\,2}}
+\]
+are conjectural at full primitive and imprimitive scope.  The available
+theorem-level geometry is:
+\begin{itemize}
+\item \(N=1\): the Oberdieck--Pixton/Oberdieck--Pandharipande
+  \(K3\times E\) scalar theorem in the \(\Delta_5^2\) convention;
+\item \(N=2\): Bryan--Oberdieck 2018 proves the CHL reduced-DT identity
+  for primitive K3 classes with square \(-2\) or \(0\);
+\item \(N=3\): the Borcherds denominator and weight are proved
+  automorphically; the corresponding reduced-DT theorem remains a
+  Bryan--Oberdieck conjecture.
+\end{itemize}
+
+\begin{proof}
+Bryan--Oberdieck 2018 is the CHL curve-counting source:
+Conjecture~0.1 states the primitive reduced-DT formula for
+\(N\in\{2,3,4,6\}\), and Theorem~0.1 verifies the \(N=2\) base cases of
+self-intersection \(-2\) and \(0\).  The automorphic equality
+\(\kBKM(\PhiCHL_N)=c_N(0)/2\) survives independently of this DT
+boundary because it is a Borcherds-product weight theorem.
+\end{proof}
+
+The missing theorem inputs for the displayed DT identities are precise:
+equivariant reduced PT/GW for all relevant CHL classes, an orbifold or
+crepant-resolution comparison compatible with the reduced obstruction
+theory, the reduced MNOP comparison in that quotient setting, and the
+normalisation identifying the scalar-square lift with \(\FCHL_N{}^2\).
+
+\subsection*{Dimension and invariant split}
+
+\paragraph{Dimension.}
+For a CY\(_3\) category \(\mathcal C\), the two-stage construction has
+canonical stage-one object \(\Phi^{\mathrm{FA}}_3(\mathcal C)\) and
+stage-two specialisations
+\[
+  A_{\mathcal C,\Sigma_2,C}
+  =\operatorname{Sp}_{\Sigma_2,C}\bigl(\Phi^{\mathrm{FA}}_3(\mathcal C)\bigr).
+\]
+The native chiral output is \(E_1\).  Braided \(E_2\)-structure appears
+after the Drinfeld-centre passage
+\(\mathcal Z(\operatorname{Rep}^{E_1}(A_{\mathcal C,\Sigma_2,C}))\).
+
+\paragraph{The \(K3\times E\) split.}
+For \(Y=K3\times E\), the compact Hodge supertrace and the Heisenberg
+specialisation are separate entries.
+
+\begin{center}
+\small
+\begin{tabular}{c|c|l}
+\hline
+Invariant & Value & Construction \\
+\hline
+\(\kcat(Y)\) & \(0\) &
+\(\chi(\cO_{K3})\chi(\cO_E)=2\cdot0\) \\
+\(\kch(Y)\) & \(0\) &
+\(\sum_q(-1)^qh^{0,q}(Y)=1-1+1-1\) \\
+\(\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(Y)\) & \(3\) &
+Heisenberg--Mukai stage-two specialisation \\
+\(\kBKM(\mathfrak g_{\Delta_5})\) & \(5\) &
+Borcherds weight of \(\Delta_5\), \(c_1(0)=10\) \\
+\(\kfib(Y)\) & \(24\) &
+\(\operatorname{rk}\widetilde H(K3,\Z)\) \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{The CHL quotient split at \(N=2,3\).}
+For \(X^{(N)}=[K3\times E/\Z_N]\) with \(N\in\{2,3\}\), the compact
+categorical and Hodge-supertrace values remain zero.  The fibre and
+Borcherds entries are level dependent.
+
+\begin{center}
+\small
+\begin{tabular}{c|c|c|c|c}
+\hline
+Level & \(\kcat(X^{(N)})\) & \(\kch(X^{(N)})\) &
+\(\kfib(X^{(N)})\) & \(\kBKM(\PhiCHL_N)\) \\
+\hline
+\(2\) & \(0\) & \(0\) & \(8\) & \(4\) \\
+\(3\) & \(0\) & \(0\) & \(6\) & \(3\) \\
+\hline
+\end{tabular}
+\end{center}

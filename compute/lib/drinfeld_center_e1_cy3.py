@@ -858,7 +858,7 @@ class DrinfeldCenterK3E:
     r"""Drinfeld center for K3 x E.
 
     The CoHA of K3 x E is conjectured to be the positive part n_+ of the
-    BKM superalgebra g_{Delta_5} associated to the Igusa cusp form Delta_5.
+    BKM superalgebra g_{Delta_5} associated to the primitive Gritsenko-Nikulin denominator Delta_5.
 
     The Drinfeld double should produce the FULL BKM superalgebra:
         Drin(n_+) = g_{Delta_5}

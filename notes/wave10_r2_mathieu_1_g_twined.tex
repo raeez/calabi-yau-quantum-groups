@@ -1,168 +1,270 @@
-% wave10_r2_mathieu_1_g_twined.tex
-% Wave-10 R2/20. (N,M) = (1, g) twined Conjecture 1 extension across the 26
-% conjugacy classes of M_{24}.
-% Primary sources:
-%   Gaberdiel--Hohenegger--Volpato (GHV) 2012 arXiv:1211.7074
-%     (twined K3 elliptic genus for all 26 M_{24} classes, multipliers nu_g);
-%   Gritsenko 1999 (additive Jacobi--Siegel lifts; wt = c_g(0,0)/2 formula);
-%   Gritsenko--Nikulin 1998 (rank-3 BKM construction, denominator = Phi_{|g|});
-%   Oberdieck 2018 arXiv:1406.1139 (Z^{K3 x E}_{red,DT} = -1/Phi_{10}^2);
-%   Pitale--Schmidt 2014 (paramodular Hecke theory at prime levels);
-%   Lorgat 2020 automorphic corrections (explicit Delta_5 Borcherds lift,
-%     GKM g_{Delta_5}, Conjecture 1 for 8 Gritsenko--Clery forms);
-%   Wave-9 P5 26-class table, Wave-8 I2 rank-3 BKM tower, Wave-9 M2 Oberdieck
-%     chain at N in {2,3}.
-
-\providecommand{\ClaimStatusTheorem}{[Theorem]}
-\providecommand{\ClaimStatusConjectured}{[Conjectured]}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kchHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
 \providecommand{\Zgell}{Z^{(g)}_{\mathrm{ell}}}
 \providecommand{\CM}{C_{M_{24}}}
-\providecommand{\Gg}{\mathfrak{g}_g}
+\providecommand{\Phig}{\Phi_g}
+\providecommand{\PhiCHL}[1]{\Phi_{#1}^{\mathrm{CHL}}}
+\providecommand{\cCHL}{c^{\mathrm{CHL}}}
+\providecommand{\cdd}{c_{\mathrm{dd}}}
+\providecommand{\phiEZ}{\phi_{0,1}^{\mathrm{EZ}}}
 
-\section*{Wave 10 R2: the $(1,g)$-twined Conjecture 1 extension across the 26
-$M_{24}$ conjugacy classes}
+\section*{The \((1,g)\)-twined Mathieu extension}
+\label{sec:mathieu-one-g-twined}
 
-\paragraph{Setup.} Fix $g\in M_{24}$ of order $|g|=N_g$ with centraliser
-$\CM(g)$ and cycle shape $\prod_i m_i^{e_i}$ on the $24$-point Golay
-support. The pair $(N,M)=(1,g)$ parametrises the simply-twined branch:
-no CHL orbifold of the base, single-generator twining on the K3 fibre
-by $g$. This factors the Lorgat 2020 Conjecture 1 construction through
-GHV 2012 $\to$ Gritsenko 1999 $\to$ GN 1998 $\to$ Oberdieck 2018.
-
-\paragraph{Step 1 (GHV twined elliptic genus). \ClaimStatusTheorem}
-For every $g\in M_{24}$,
+\paragraph{Problem.}
+Fix \(g\in M_{24}\), let \(N_g=|g|\), and let \(\CM(g)\) be its
+centraliser.  The pair \((1,g)\) keeps the base unorbifolded and
+inserts the ordinary \(g\)-twining on the K3 fibre.  Three constants
+must be named separately:
 \[
-  \Zgell(K3;\tau,z) \in J^{w,\nu_g}_{0,1}(\Gamma_0(N_g))
+\begin{array}{c|c|c}
+\text{constant} & \text{source} & \text{use}\\ \hline
+c^{(g)}(0,0) & \text{ordinary Mathieu twining} &
+\text{scalar single-twining lift}\\
+\cCHL_N(0) & \text{primitive CHL averaged Jacobi form} &
+\text{CHL Borcherds denominator}\\
+\cdd(0;t,N) & \text{Gritsenko-Clery diagonal-divisor row} &
+\text{dd paramodular catalogue}
+\end{array}
 \]
-is the weak Jacobi form of weight $0$, index $1$, level $\Gamma_0(N_g)$,
-with multiplier system $\nu_g(\gamma)=e^{2\pi i\,\chi_g(\gamma)/N_g\,h}$
-of order $h=N_g\cdot\gcd(N_g,24)/24$ determined by the Frame shape
-(GHV 2012 Thm.~1, Eq.~(2.9)--(2.12); at symplectic $g\in M_{23}$, $h=1$).
-The normalisation is $\Zgell(\tau,0) = \chi_g(V_{24}) = \tr(g|V_{24})$
-with $V_{24}$ the $24$-dim permutation representation. Fourier
-coefficients $c^{(g)}(n,\ell)$ tabulated in Wave-9 P5.
-
-\paragraph{Step 2 (Gritsenko additive lift). \ClaimStatusTheorem}
-The Gritsenko 1999 \emph{additive lift} takes
+Only the second row gives the primitive CHL identity
 \[
-  \mathrm{Lift}_{N_g}\colon J^{w,\nu_g}_{0,1}(\Gamma_0(N_g))
-    \longrightarrow M^{\mathrm{Siegel}}_{k_g}(\Gamma_{N_g}^+,\chi_g)
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\ \hline
+\cCHL_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\PhiCHL{N}) & 5 & 4 & 3 & 2 & 1
+\end{array}
 \]
-with weight
+by \(\kBKM(\PhiCHL{N})=\cCHL_N(0)/2\).
+
+\subsection*{Twined elliptic genus}
+
+\paragraph{Theorem.}
+For every ATLAS conjugacy class \([g]\subset M_{24}\), the
+Mathieu-twining table assigns a K3 elliptic genus
 \[
-  k_g := c^{(g)}(0,0)/2 \in \tfrac12\mathbb Z, \qquad
-  \Phi_{N_g}(g) := \mathrm{Lift}_{N_g}\!\big(\tfrac12\Zgell(K3)\big).
+  \Zgell(K3;\tau,z)
+  =
+  \sum_{n,\ell} c^{(g)}(n,\ell) q^n y^\ell
+  \in J^{w,\nu_g}_{0,1}\!\left(\Gamma_0(N_g)\right).
 \]
-At the ten programme-admissible classes this yields integral weights
-$(k_{1A},k_{2A},k_{2B},k_{3A},k_{3B},k_{4A},k_{4B},k_{4C},k_{6A},k_{6B})
- = (10, 2, -2, 1, -2, 0, 2, -2, 0, 0)$
-from the $c^{(g)}(0,0)$ column of Wave-9 P5; only $k_g\ge 1$
-Gritsenko-lifts to a non-zero holomorphic paramodular form. This
-selects $\{1A, 2A, 3A, 4B\}$ as the \emph{paramodular-lift-alive}
-subfamily (weights $10,2,1,2$), recovering Gritsenko--Cl\'ery 2013
-Theorem 1.1 plus the Lorgat 2020 $\Delta_5$ benchmark at $1A$
-(weight $5$ after the $1/2$ normalisation: $\Phi_1(1A)=\Delta_5^2$,
-weight $10$).
-
-\paragraph{Step 3 (Rank-3 BKM $\Gg$). \ClaimStatusTheorem\ at
-$g\in\{1A,2A,3A,4B\}$;\ \ClaimStatusConjectured\ at
-$\{2B,3B,4A,4C,6A,6B\}$.}
-GN 1998 produces, for $\Phi_{N_g}(g)$ holomorphic of weight $k_g\ge 1$
-with Borcherds product expansion, a rank-$3$ BKM superalgebra $\Gg$
-with Weyl vector $\rho_g$ and Cartan matrix $A_g$ determined by the
-Humbert divisor structure of $\Phi_{N_g}(g)$ on the Siegel upper
-half-space $\mathbb H_2$:
+It has weight \(0\), index \(1\), level \(\Gamma_0(N_g)\), and a
+multiplier \(\nu_g\) determined by the \(24\)-point Frame shape of
+\(g\).  Its Witten-index specialisation is
 \[
-  \Phi_{N_g}(g)(\Omega)
-  = e^{2\pi i\,(\rho_g,\Omega)} \prod_{\alpha\in\Delta_+(\Gg)}
-    \bigl(1-e^{2\pi i\,(\alpha,\Omega)}\bigr)^{\mult_g(\alpha)}.
+  \Zgell(\tau,0)=\operatorname{tr}(g\mid V_{24}),
 \]
-At $1A$: $\Gg=\mathfrak{g}_{\Delta_5}$ (Lorgat 2020), rank $3$,
-Borcherds root multiplicity $\mult_{1A}(\alpha)=c^{(1A)}(-\alpha^2/2)$
-with $c^{(1A)}$ the $\phi_{0,1}$ Fourier coefficients. At $\{2A,3A,4B\}$
-Wave-8 I2 establishes rank-$3$ BKM existence through Cartan Gram
-determinants $\det A_g \in \{-32,-24,-18,-12,-6\}$ for
-$N\in\{1,2,3,4,6\}$, matching $2(c_N(0)-2)$ exactly. At the
-non-paramodular-alive remaining six classes $\{2B,3B,4A,4C,6A,6B\}$
-the Gritsenko lift is identically zero or of non-positive weight, so
-the GN 1998 Borcherds-product machinery does not directly produce
-$\Gg$; Wave-8 I2 GKM-upgrade remains \ClaimStatusConjectured.
+where \(V_{24}=\mathbf{1}\oplus \mathbf{23}\) is the natural
+permutation representation on the Golay-code support.
 
-\paragraph{Step 4 (DT side, twined reduced partition function).
-\ClaimStatusConjectured.} For $(1,g)$ with $g$ in the
-paramodular-alive subfamily, the twined extension of Oberdieck 2018
-(Conjecture C of that paper; Oberdieck--Pandharipande 2019 for the
-$N_g=2,3$ CHL base) reads
+\paragraph{ATLAS frame shapes at levels \(1,2,3,4,6\).}
+In the \(24\)-point action of \(M_{24}\), the ten classes with
+\(N_g\in\{1,2,3,4,6\}\) have the following ordinary single-twining
+weights \(k_g=c^{(g)}(0,0)/2\):
 \[
-  Z^{K3\times E}_{\mathrm{red,DT},\,g}(q,y,p)
-  = -\, C_g / \Phi_{N_g}(g)^2, \qquad
-  C_g \in \mathbb Q[[q,y^{\pm 1},p^{\pm 1}]]\cap M^{Fr}_{0}(\Gamma_0(N_g))
+\begin{array}{c|c|c|c|c}
+[g] & \text{Frame shape on }V_{24} & \operatorname{tr}_{24}(g)
+& c^{(g)}(0,0) & k_g\\ \hline
+1A & 1^{24} & 24 & 20 & 10\\
+2A & 1^8 2^8 & 8 & 4 & 2\\
+2B & 2^{12} & 0 & -4 & -2\\
+3A & 1^6 3^6 & 6 & 2 & 1\\
+3B & 3^8 & 0 & -4 & -2\\
+4A & 2^4 4^4 & 0 & 0 & 0\\
+4B & 1^4 2^2 4^4 & 4 & 4 & 2\\
+4C & 4^6 & 0 & -4 & -2\\
+6A & 1^2 2^2 3^2 6^2 & 2 & 0 & 0\\
+6B & 6^4 & 0 & 0 & 0
+\end{array}
 \]
-with $C_g$ a holomorphic correction of weight $0$ (at $1A$,
-$C_{1A}=1$ recovers $Z^{K3\times E}_{\mathrm{red,DT}}=-1/\Phi_{10}^2$
-directly). Wave-9 M2 verifies the first two Fourier coefficients for
-$N_g\in\{2,3\}$; the full identity across $q^{\le 2},p^{\le 2}$ sectors
-is open.
+The positive scalar single-twining lifts occur at \(1A,2A,3A,4B\).
+The boundary cases are \(4A,6A,6B\); the negative scalar weights occur
+at \(2B,3B,4C\).  These \(k_g\) values are ordinary-twining constants.
+They are separate from the primitive CHL row displayed above.
 
-\paragraph{\ClaimStatusTheorem\ Step 5 (programme-admissible 10-class
-status).} Combining Steps 1--4, the $(1,g)$-twined Conjecture 1 holds
-with the lane table:
-\begin{center}\footnotesize
-\begin{tabular}{l|c|c|c|c|c}
-$[g]$ & Step 1 & Step 2 & Step 3 & Step 4 & overall \\
-\midrule
-$1A$ & \ClaimStatusTheorem & \ClaimStatusTheorem & \ClaimStatusTheorem &
-  \ClaimStatusTheorem & \ClaimStatusTheorem\ (Lorgat 2020) \\
-$2A$ & \ClaimStatusTheorem & \ClaimStatusTheorem & \ClaimStatusTheorem &
-  \ClaimStatusConjectured & partial \\
-$2B$ & \ClaimStatusTheorem & $k_g=-2$ zero & \ClaimStatusConjectured &
-  \ClaimStatusConjectured & Step 2 obstruction \\
-$3A$ & \ClaimStatusTheorem & \ClaimStatusTheorem & \ClaimStatusTheorem &
-  \ClaimStatusConjectured & partial \\
-$3B$ & \ClaimStatusTheorem & $k_g=-2$ zero & \ClaimStatusConjectured &
-  \ClaimStatusConjectured & Step 2 obstruction \\
-$4A$ & \ClaimStatusTheorem & $k_g=0$ boundary & \ClaimStatusConjectured &
-  \ClaimStatusConjectured & Step 2 boundary \\
-$4B$ & \ClaimStatusTheorem & \ClaimStatusTheorem & \ClaimStatusTheorem &
-  \ClaimStatusConjectured & partial \\
-$4C$ & \ClaimStatusTheorem & $k_g=-2$ zero & \ClaimStatusConjectured &
-  \ClaimStatusConjectured & Step 2 obstruction \\
-$6A$ & \ClaimStatusTheorem & $k_g=0$ boundary & \ClaimStatusConjectured &
-  \ClaimStatusConjectured & Step 2 boundary \\
-$6B$ & \ClaimStatusTheorem & $k_g=0$ boundary & \ClaimStatusConjectured &
-  \ClaimStatusConjectured & Step 2 boundary \\
-\end{tabular}
-\end{center}
+\subsection*{Additive lift and primitive square root}
 
-\paragraph{\ClaimStatusConjectured\ Admissible-out-of-range eleven.}
-At $g\in\{5A,7A,7B,8A,10A,12A,12B,14A,14B,15A,15B,21A,21B\}$ (eleven,
-after removing the five anomalous), Step 1 GHV 2012 still holds;
-Steps 2--4 all fail at source because $N_g\notin\{1,2,3,4,6\}$ falls
-outside the Gritsenko--Cl\'ery 2013 Borcherds-lift genus. Obstruction:
-no paramodular form of weight $c^{(g)}(0,0)/2$ exists in the
-GN 1998 rank-$3$ BKM genus lattice at level $N_g$.
+\paragraph{Scalar lift.}
+For a fixed multiplier-compatible normalisation of
+\(\Zgell(K3;\tau,z)\), Gritsenko's additive lift sends the weak Jacobi
+form to a Siegel paramodular form
+\[
+  \operatorname{Lift}_{N_g}\colon
+  J^{w,\nu_g}_{0,1}\!\left(\Gamma_0(N_g)\right)
+  \longrightarrow
+  M^{\mathrm{Siegel}}_{k_g}\!\left(\Gamma^+_{N_g},\chi_g\right),
+  \qquad
+  k_g=c^{(g)}(0,0)/2.
+\]
+At \(g=1A\), the ordinary K3 genus is \(2\phiEZ\), so the scalar lift is
+the Igusa square
+\[
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2,
+  \qquad
+  \operatorname{wt}(\Phi_{10}^{\mathrm{un}})=10.
+\]
+The primitive Borcherds denominator uses \(\phiEZ\):
+\[
+  \phiEZ(\tau,z)=y^{-1}+10+y+O(q),
+  \qquad
+  \kBKM(\Delta_5)=10/2=5.
+\]
 
-\paragraph{\ClaimStatusConjectured\ Anomalous five.}
-At $g\in\{7A,7B,11A,23A,23B\}$ Persson--Volpato 2012 identifies a
-nontrivial $H^3(M_{24},U(1))$-transgression obstruction (order-$h$
-multiplier with $h>1$): $\nu_g$ does not lift to a central extension
-compatible with Gritsenko's additive machinery. Step 1 still gives
-$\Zgell$; Steps 2--4 are obstructed. Overall status:
-\ClaimStatusConjectured\ across all four steps, with a \emph{sharper}
-conjecture that the transgression class $\omega_g\in H^3(M_{24},U(1))$
-is the precise obstruction to the $(1,g)$-twined Conjecture 1 at these
-five classes (Wave-9 N4).
+\subsection*{Rank-three BKM denominator}
 
-\paragraph{Synthesis.} The $(1,g)$-twined extension is a four-step
-waterfall; each step is tight. Only $\{1A\}$ is fully theorem at
-all four steps; $\{2A,3A,4B\}$ reach Step 3 theorem with Step 4
-conjectural; the remaining six programme-admissible classes are
-obstructed at Step 2 by weight-$k_g\le 0$; the eleven
-admissible-out-of-range and five anomalous classes fail at level
-$N_g\notin\{1,2,3,4,6\}$ or multiplier order $h>1$ respectively.
-This sharpens Lorgat 2020 Conjecture 1 from ``eight Gritsenko--Cl\'ery
-forms'' to a four-step class-by-class waterfall with explicit
-obstruction at each step.
+\paragraph{Theorem at \(1A\).}
+The class \(1A\) gives the Gritsenko-Nikulin denominator \(\Delta_5\)
+and the rank-three BKM superalgebra \(\mathfrak g_{\Delta_5}\).  If
+\(\phiEZ=\sum f(n,\ell)q^n y^\ell\), the denominator product is
+\[
+  \Delta_5(\Omega)=
+  e^{2\pi i(\rho,\Omega)}
+  \prod_{\alpha\in\Delta_+}
+  \left(1-e^{2\pi i(\alpha,\Omega)}\right)^{\operatorname{mult}(\alpha)},
+  \qquad
+  \operatorname{mult}(\alpha)=f(-\alpha^2/2).
+\]
+
+\paragraph{Positive scalar candidates.}
+The positive ordinary single-twining classes \(2A,3A,4B\) supply
+automorphic scalar candidates.  A BKM theorem at these classes requires
+the Cartan Gram matrix, Weyl vector, multiplier character, square-root
+line, and root-multiplicity convention in the same normalisation as the
+Fourier coefficients.  The classes \(2B,3B,4A,4C,6A,6B\) fall outside
+the holomorphic positive-weight scalar denominator locus in this
+ordinary single-twining normalisation.
+
+\subsection*{\(K3\times E\) invariant split}
+
+\paragraph{Named constructions.}
+On \(Y=K3\times E\), the invariants are construction-distinct:
+\[
+\begin{array}{c|c|l}
+\text{invariant} & \text{value} & \text{construction}\\ \hline
+\kcat(Y) & 0 & \chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0\\
+\kch(Y) & 0 & \sum_q(-1)^q h^{0,q}(Y)\\
+\kchHeis(Y) & 3 & \text{Heisenberg-Mukai chiral specialisation}\\
+\kBKM(\mathfrak g_{\Delta_5}) & 5 & \text{Borcherds weight of }\Delta_5\\
+\kfiber(K3) & 24 & \text{Mukai-lattice rank of the K3 fibre}
+\end{array}
+\]
+The Borcherds entry belongs to the Hall-Drinfeld/Borcherds branch.  The
+K3 self-mirror Yangian branch uses a separate Mukai-lattice input.
+
+\subsection*{Gritsenko-Clery diagonal-divisor constants}
+
+\paragraph{dd catalogue.}
+The diagonal-divisor catalogue is indexed by \((t,N;k)\), with its own
+cover, character, and Borcherds product:
+\[
+\begin{array}{c|c|c}
+(t,N;k) & \operatorname{wt}(F_{t,N}) & \cdd(0;t,N)\\ \hline
+(1,1;5) & 5 & 10\\
+(2,1;2) & 2 & 4\\
+(1,2;3) & 3 & 6\\
+(3,1;1) & 1 & 2\\
+(1,3;2) & 2 & 4\\
+(4,1;\tfrac12) & \tfrac12 & 1\\
+(1,4;\tfrac32) & \tfrac32 & 3\\
+(2,2;1) & 1 & 2
+\end{array}
+\]
+The shared row with the CHL table is \((t,N;k)=(1,1;5)\), where
+\(F_{1,1}=\Delta_5\).  The remaining rows are diagonal-divisor
+paramodular forms with row-specific constants.
+
+\subsection*{Reduced Donaldson-Thomas side}
+
+\paragraph{Conjectural twined identity.}
+For a positive ordinary single-twining class \(g\), the expected reduced
+Donaldson-Thomas partition function of \(K3\times E\) has the form
+\[
+  Z^{K3\times E}_{\mathrm{red,DT},g}(q,y,p)
+  =
+  -\,\frac{C_g}{\Phig^2},
+  \qquad
+  C_g\in
+  \mathbb Q[[q,y^{\pm1},p^{\pm1}]]\cap
+  M^{\mathrm{Fr}}_0(\Gamma_0(N_g)).
+\]
+At \(1A\), \(C_{1A}=1\) gives the Oberdieck-Pixton identity
+\[
+  Z^{K3\times E}_{\mathrm{red,DT}}=-1/\Phi_{10}^2.
+\]
+For \(N_g=2,3\), the first available Fourier coefficients match the
+CHL quotient computations of Oberdieck-Pandharipande.  The full twined
+DT identity remains part of the theorem data for \(2A,3A,4B\).
+
+\subsection*{Classes beyond the \(1,2,3,4,6\) genus}
+
+\paragraph{Ordinary twining outside the rank-three genus.}
+The classes
+\[
+  5A,8A,10A,12A,12B,14A,14B,15A,15B,21A,21B
+\]
+have ordinary Mathieu twining genera and lie outside the
+\(N_g\in\{1,2,3,4,6\}\) rank-three Gritsenko-Nikulin genus used above.
+A denominator theorem for these rows requires a paramodular group,
+multiplier, Borcherds product, and Cartan datum compatible with the
+twined coefficients.
+
+\[
+\begin{array}{c|c|c}
+[g] & \text{Frame shape on }V_{24} & \operatorname{tr}_{24}(g)\\ \hline
+5A & 1^4 5^4 & 4\\
+8A & 1^2 2\,4\,8^2 & 2\\
+10A & 2^2 10^2 & 0\\
+12A & 2\,4\,6\,12 & 0\\
+12B & 12^2 & 0\\
+14A,14B & 1\,2\,7\,14 & 1\\
+15A,15B & 1\,3\,5\,15 & 1\\
+21A,21B & 3\,21 & 0
+\end{array}
+\]
+
+\paragraph{Anomaly-sensitive classes.}
+For
+\[
+  g\in\{7A,7B,11A,23A,23B\},
+\]
+the ordinary GHV twining genus exists.  The Persson-Volpato and
+Gaberdiel-Persson-Volpato anomaly lies in the twisted-twined
+projective sector: the restriction of the \(K3\) anomaly class to
+\(\langle g\rangle\) gives the cyclic multiplier defects
+\[
+  7A,7B:\ 3/7,\qquad
+  11A:\ 2/11,\qquad
+  23A,23B:\ 1/23.
+\]
+Thus a rank-three Borcherds denominator for any of these rows requires
+a cover and multiplier datum that absorb the projective sector before
+the Cartan and Weyl-vector data can be stated.
+
+\[
+\begin{array}{c|c|c}
+[g] & \text{Frame shape on }V_{24} & \operatorname{tr}_{24}(g)\\ \hline
+7A,7B & 1^3 7^3 & 3\\
+11A & 1^2 11^2 & 2\\
+23A,23B & 1\,23 & 1
+\end{array}
+\]
+
+\paragraph{Result.}
+The \((1,g)\)-twined extension is a class-by-class automorphic problem.
+The proved denominator is \(1A\).  The positive scalar rows \(2A,3A,4B\)
+carry automorphic candidates and still require square-root, Cartan, and
+DT comparison data.  Boundary, negative-weight, out-of-genus, and
+anomaly-sensitive rows carry the explicit obstructions displayed above.
+The primitive CHL identity remains
+\(\kBKM(\PhiCHL{N})=\cCHL_N(0)/2\) for
+\(N\in\{1,2,3,4,6\}\).
+
+\paragraph{Primary sources.}
+ATLAS \(M_{24}\) \(24\)-point permutation representation; Eguchi,
+Ooguri, and Tachikawa 2011; Gaberdiel, Hohenegger, and Volpato 2010;
+Gritsenko 1999; Gritsenko and Nikulin 1998; Clery and Gritsenko 2013;
+Oberdieck and Pixton 2017; Oberdieck and Pandharipande 2019; Persson
+and Volpato 2012; Gaberdiel, Persson, and Volpato 2013; Lorgat 2020.

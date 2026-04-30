@@ -307,7 +307,7 @@ class TestSiegelFormData:
     """Test Siegel modular form data for each X_N."""
 
     def test_n1_is_igusa(self):
-        """N=1: Siegel form is Delta_5 (Igusa cusp form).
+        """N=1: Siegel form is the primitive Delta_5 denominator.
 
         VERIFIED [DC] known identification [LT] Gritsenko-Nikulin
         """

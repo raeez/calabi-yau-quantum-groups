@@ -1,23 +1,23 @@
-% wave14_j4_chiral_bar_cobar_factorization.tex
-% Wave-14 J4/20: explicit chiral bar--cobar $B^{\chir} \dashv \Omega^{\chir}$
-% for 6D hCS factorisation algebras.
-% Channel: Francis--Gaitsgory + Beilinson.
-% Lifts Wave-13 G5 ($\CE^*_{\dbar,\chir} = E_3$-algebra) from \emph{object-
-% level identification} to \emph{adjunction-level Quillen equivalence},
-% closing the bar--cobar loop on the chiral side and bridging Vol~I Thm~A.
+% Chiral bar--cobar adjunction for local 6d hCS factorisation algebras.
 
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\hCS}{\mathrm{hCS}}
 \providecommand{\CE}{\mathrm{CE}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\RHom}{\mathrm{RHom}}
 \providecommand{\Ch}{\mathrm{Ch}}
 \providecommand{\Dolb}{\mathrm{Dolb}}
 \providecommand{\chir}{\mathrm{chir}}
 \providecommand{\dbar}{\bar\partial}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
 \providecommand{\Ran}{\mathrm{Ran}}
 \providecommand{\Sym}{\mathrm{Sym}}
 \providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cE}{\mathcal{E}}
@@ -25,220 +25,265 @@
 \providecommand{\cC}{\mathcal{C}}
 \providecommand{\cL}{\mathcal{L}}
 \providecommand{\g}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
 \providecommand{\Lie}{\mathrm{Lie}}
 \providecommand{\coLie}{\mathrm{coLie}}
 \providecommand{\coCE}{\mathrm{coCE}}
 \providecommand{\Bar}{\mathrm{B}}
 \providecommand{\Cob}{\Omega}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Eone}{E_1}
+\providecommand{\MF}{\mathrm{MF}}
 
-\section*{Chiral bar--cobar $B^{\chir} \dashv \Omega^{\chir}$ for 6D hCS
-  (Wave-14 J4/20)}
+\section*{Chiral bar--cobar for local 6d hCS factorisation algebras}
 
-\paragraph{Theorem (main).}
-On factorisation algebras over $\C^3$ with Dolbeault differential, the
-chiral bar and cobar functors
+\paragraph{Complete local category.}
+Let $\Ch_{\Ran}^{\dbar}(\C^3)$ denote the Dolbeault model of complete
+filtered complexes on $\Ran(\C^3)$ with chiral tensor product along
+disjoint finite subsets.  The arity filtration is
 \[
-  B^{\chir}:\; \Lie^{\chir}(\Ch(\Dolb)) \;\rightleftarrows\;
-                \coLie^{\chir}(\Ch(\Dolb)) \;:\! \Cob^{\chir}
+  F^p M = \prod_{n \geq p} M^{(n)}
 \]
-form a Quillen adjunction whose restriction to connected chiral Lie
-algebras is a Quillen equivalence. Applied to $\cE_{\hCS} = \Omega^{0,
-\bullet}(\C^3, \g)$,
+and completion means
 \[
-  B^{\chir}(\cE_{\hCS}) \;\simeq\; \CE^*_{\dbar,\chir}(\cE_{\hCS},\,\C),
+  M \;\simeq\; \varprojlim_p M/F^pM,
   \qquad
-  \Cob^{\chir}\!\bigl(\CE^*_{\dbar,\chir}(\cE_{\hCS},\,\C)\bigr) \;\simeq\;
-  \cE_{\hCS}
+  \bigcap_p F^pM = 0 .
 \]
-as chiral Lie algebras in $\Ch(\Dolb)$, closing the loop witnessed at
-the enveloping level by Wave-13 G5's
-$U^{\chir}(\cE_{\hCS}) \simeq \Omega_{E_3}(\CE^*_{\dbar,\chir})$.
+Connected means $M^{(0)}=0$.  Complete connected objects are
+conilpotent for the arity coalgebra structure; this is the hypothesis
+which places the bar and cobar constructions in Positselski's
+coderived and contraderived framework.
 
-\paragraph{Cycle 1: bar $B^{\chir}$, explicit.}
-\emph{Attack.} Francis--Gaitsgory 2012 (Selecta Math.\ 18, \S3.1;
-henceforth FG) define, for any chiral Lie algebra $\cF$ on a smooth
-curve $X$, the chiral CE complex $\CE^*_{\chir}(\cF)$ as the
-$\cD_X$-module
+\paragraph{Local hCS Lie object.}
+Let
 \[
-  \CE^*_{\chir}(\cF) \;:=\; \Sym^\bullet_{\chir}\!\bigl(\cF[1]\bigr)^\vee,
-  \qquad d_{\CE} = d_{\cF} + d_{\text{chir}},
+  \cL_{\hCS}=\Omega^{0,\bullet}(\C^3,\g)
 \]
-with $d_{\text{chir}}$ the chiral bracket (BD04 Ch.~3, Def.~3.4.11)
-acting on the shuffle-symmetric tensors supported along diagonals
-in $X^n$.
-\emph{Heal for $\C^3$.} For the Dolbeault-enhanced setting of 6D hCS
-we replace $\cD_X$ by Dolbeault-dressed $\cD^{\dbar}_{\C^3}$: the chiral
-Sym on $\Conf_n(\C^3)$ is built from shuffle-symmetric tensors of
-$(0,\bullet)$-forms along partial diagonals, with differential
-$d_{\CE,\dbar} = \dbar + d_{\cF} + d_{\text{chir}}$. Explicitly for
-$\cF = \cE_{\hCS}$,
-\[
-  B^{\chir}(\cE_{\hCS}) \;=\;
-  \Bigl(\bigoplus_{n \geq 0} j_*j^* \Sym^n_{\chir}(\cE_{\hCS}[1])^\vee,
-        \; \dbar + d_{\text{chir}}\Bigr)
-  \;\simeq\; \CE^*_{\dbar,\chir}(\cE_{\hCS},\,\C),
-\]
-with $j: \Conf_n(\C^3) \hookrightarrow (\C^3)^n$ the open embedding
-of configuration space. The $\Sym^n_{\chir}$ piece lives on the
-Ran space $\Ran(\C^3)$; restricting to $n$-fold configurations gives
-the diagonal-supported shuffle.
+be the local Dolbeault dg Lie algebra of holomorphic Chern--Simons
+theory, with differential $\dbar$ and pointwise bracket.  The bracket
+defines a chiral operation by extension from disjoint configurations
+and distributional restriction along partial diagonals of $\Ran(\C^3)$.
+It preserves the arity filtration and has no arity-zero part.
 
-\paragraph{Cycle 2: cobar $\Cob^{\chir}$, explicit.}
-\emph{Attack.} FG Thm~3.3.1: on $\coLie^{\chir}$, the cobar functor
-$\Cob^{\chir}$ is chiral CE-chains of the free chiral Lie resolution,
-explicitly
+\paragraph{Theorem.}
+In the complete connected subcategory of
+$\Ch_{\Ran}^{\dbar}(\C^3)$ there is an adjunction
 \[
-  \Cob^{\chir}(\cC) \;:=\; \Bigl(\bigoplus_{n \geq 1} j_*j^*
-    \Sym^n_{\chir}\!\bigl(\cC[-1]\bigr), \; \partial_{\cC} + \partial_{\text{chir}}\Bigr)
-\]
-with $\partial_{\text{chir}}$ the chiral cobracket acting as the dual
-of the chiral bracket on $B^{\chir}$. The grading shift $\cC[-1]$
-inverts the shift $\cF[1]$ of Cycle~1, and the differential dualises
-diagonal support to meromorphic poles.
-\emph{Heal.} For connected chiral Lie coalgebras
-$\cC \in \coLie^{\chir}_{\text{conn}}(\Ch(\Dolb))$ --- those with
-$\cC^{(0)} = 0$ so the bar filtration is complete --- the
-Mittag--Leffler condition on the chiral filtration $F^p \cC =
-\bigoplus_{n \geq p} \cC^{(n)}$ forces convergence of the cobar
-spectral sequence (BD04 \S3.4.17). Without connectedness the cobar
-diverges on the chiral completion; FG \S3.3 localises at connected
-coalgebras exactly to avoid this.
-
-\paragraph{Cycle 3: Quillen equivalence on connected parts.}
-\emph{Attack.} FG Thm~6.2.1 (the core theorem of chiral Koszul
-duality) states: the bar--cobar adjunction
-\[
-  B^{\chir}:\; \Lie^{\chir}_{\text{conn}}(\Ch(X))
+  \Bar^{\chir}:\Lie^{\chir}_{\mathrm{conn}}
+       \bigl(\Ch_{\Ran}^{\dbar}(\C^3)\bigr)
   \;\rightleftarrows\;
-  \coLie^{\chir}_{\text{conn}}(\Ch(X)) \;:\! \Cob^{\chir}
+  \coLie^{\chir}_{\mathrm{conn}}
+       \bigl(\Ch_{\Ran}^{\dbar}(\C^3)\bigr):\Cob^{\chir}.
 \]
-is a Quillen equivalence for $X$ a smooth curve, where model
-structures are the chiral-projective structures (FG \S2.4).
-\emph{Heal for $\Ch(\Dolb)$.} On $\C^3$ we replace $X$ by the
-Dolbeault-dressed complex manifold and the curve-chiral operad by
-the holomorphic-factorisation operad of Gwilliam--Williams 2021
-(Thm~2.5.5: holomorphic factorisation algebras on $\C^d
-\leftrightarrow E_d^{\mathrm{hol}}$-algebras). The FG proof extends
-by two inputs: (i) the Dolbeault resolution
-$\Omega^{0,\bullet}(\C^3) \to \cO^{\mathrm{hol}}_{\C^3}$ is a
-cofibrant replacement in $\Ch(\Dolb)$, so chiral-projective
-replacement lifts from the algebraic to the Dolbeault setting;
-(ii) the configuration-space Fadell--Neuwirth fibration
-$\Conf_{n+1}(\C^3) \to \Conf_n(\C^3)$ has fibre $\C^3 \setminus
-\{n \text{ points}\}$ which is $(2 \cdot 3 - 2) = 4$-connected,
-so the higher chiral-Sym pieces contribute no new obstructions
-beyond the algebraic case. The unit $\mathrm{id} \to \Cob^{\chir}
-B^{\chir}$ and counit $B^{\chir} \Cob^{\chir} \to \mathrm{id}$ are
-quasi-isomorphisms on connected objects by direct bar-filtration
-spectral-sequence computation (BD04 Prop.~3.4.19 transcribed to
-Dolbeault differentials).
-
-\paragraph{Cycle 4: bar of hCS is chiral CE with coefficients in $\C$.}
-\emph{Attack.} Apply $B^{\chir}$ to $\cE_{\hCS}$.
-\emph{Construction.} The chiral Lie structure on $\cE_{\hCS} =
-\Omega^{0,\bullet}(\C^3, \g)$ is the pointwise $\g$-bracket
-extended chirally to Ran-space via diagonal support (Costello--
-Gwilliam 2021 Vol~II, \S5.4). Its bar is, by Cycle~1,
+For every fibrant-cofibrant complete connected chiral Lie object whose
+associated graded is pro-nilpotent, the unit and counit are
+quasi-isomorphisms after separated completion.  Applied to
+$\cL_{\hCS}$ this gives
 \[
-  B^{\chir}(\cE_{\hCS}) \;=\; \CE^*_{\dbar,\chir}(\cE_{\hCS},\,\C),
+  \Bar^{\chir}(\cL_{\hCS})
+   \;\simeq\;
+  \CE^*_{\dbar,\chir}(\cL_{\hCS},\C),
+  \qquad
+  \Cob^{\chir}\CE^*_{\dbar,\chir}(\cL_{\hCS},\C)
+   \;\simeq\;
+  \cL_{\hCS}
 \]
-the $\C$-coefficient chiral CE cochain complex (Wave-13 E4
-Def.~\ref{def:dolbeault-chiral-ce}, specialised to the trivial
-$\cE_{\hCS}$-module $\C$). \emph{Heal.} Wave-13 G5 established
-the $E_3$-algebra equivalence
-\[
-  \Obs_{\hCS}(\C^3) \;\simeq\;
-  \CE^*_{\dbar,\chir}(\cE_{\hCS},\,\cO_{\C^3})
-\]
-as observable algebras. Cycle~4 refines this: taking coefficients
-in $\C$ (rather than $\cO_{\C^3}$) identifies the bar of the
-\emph{Lie algebra} $\cE_{\hCS}$, which is the universal cochain
-carrying the chiral-Lie information free of its module structure.
-The relation is
-\[
-  \CE^*_{\dbar,\chir}(\cE_{\hCS},\,\cO_{\C^3}) \;=\;
-   B^{\chir}(\cE_{\hCS}) \otimes_{\C} \cO_{\C^3}
-\]
-(base change along $\C \hookrightarrow \cO_{\C^3}$), consistent with
-FG \S5 on CE-coefficient functoriality.
+inside the completed homotopy category of connected chiral Lie
+objects.
 
-\paragraph{Cycle 5: reconstruction $\Cob^{\chir} B^{\chir}(\cE_{\hCS})
-  \simeq \cE_{\hCS}$.}
-\emph{Attack.} The counit
-$\varepsilon: \Cob^{\chir} B^{\chir}(\cE_{\hCS}) \to \cE_{\hCS}$ is the
-structure map of the Quillen equivalence on connected parts
-(Cycle~3). \emph{Heal.} $\cE_{\hCS}$ is \emph{connected}: as a
-chiral Lie algebra it is concentrated in non-negative Sym-degree
-with $\cE_{\hCS}^{(0)} = 0$ because $\Omega^{0,\bullet}(\C^3, \g)$
-starts at Sym-degree one. Projective-cofibrant replacement is
-provided by the Koszul resolution
-$P^\bullet \twoheadrightarrow \cE_{\hCS}$ where $P^\bullet = \Cob^{\chir}
-\Sigma^{-1} \cE_{\hCS}^{\vee,\chir}$ is the chiral cobar of the
-degree-shifted dual coalgebra (FG Prop.~4.1.7 adapted via
-Gwilliam--Williams 2021). On $P^\bullet$ the counit is a
-quasi-isomorphism by bar--cobar telescoping; transporting along
-$P^\bullet \to \cE_{\hCS}$ gives
+\paragraph{Proof.}
+Francis--Gaitsgory prove chiral Koszul duality on Ran-space
+$\mathcal D$-modules.  The proof input used here is the filtered
+operadic Koszul statement for the Lie operad in a complete symmetric
+monoidal dg category: the bar construction sends a chiral Lie object
+$\cF$ to the completed chiral Chevalley coalgebra
 \[
-  \Cob^{\chir}\!\bigl(\CE^*_{\dbar,\chir}(\cE_{\hCS},\,\C)\bigr) \;\simeq\;
-  \cE_{\hCS} \qquad \text{in } \Lie^{\chir}(\Ch(\Dolb)).
+  \Bar^{\chir}(\cF)
+  =
+  \left(
+    \prod_{n\geq 0}
+    j_{n*}j_n^*
+    \Sym^n_{\chir}(\cF[1])^\vee,\,
+    d_{\cF}+\dbar+d_{\chir}
+  \right),
 \]
-
-\paragraph{Bridge to Volume I Theorem A.}
-Vol~I Thm~A (chiral bar--cobar) states the same adjunction on
-curves; Wave-14 J4 is its $d = 3$ extension. The bridge map: at
-$d = 1$ the enveloping algebra $U^{\chir}(\cF)$ is an $E_2$-chiral
-algebra (vertex algebra after completion); at $d = 3$, by Wave-13 G5,
-$U^{\chir}(\cE_{\hCS}) \simeq \Omega_{E_3}(B^{\chir}(\cE_{\hCS}))$ is
-$E_3$-chiral on $\Ch(\Dolb)$. The two statements agree after chain-
-level localisation: the FG curve-adjunction transports to the
-Dolbeault-dressed $\C^3$-adjunction by holomorphic-operad dimension
-shift ($n \to n + 2$ on $E$-degree, from $E_1$ to $E_3$). This is
-CY-D stratification (CLAUDE.md): $\Phi$ outputs $E_1$ at $d \geq 3$
-for $A = H^0\Obs$ while the bar--cobar on factorisation algebras
-retains the full $E_3$-chiral content before passing to cohomology.
-
-\paragraph{Consequence for $\kch$.} The closed loop gives, for compact
-CY$_3$ $X$ with abelian $\g$,
+where $j_n:\operatorname{Conf}_n(\C^3)\hookrightarrow(\C^3)^n$ is the
+open configuration embedding and $d_{\chir}$ is induced by the chiral
+bracket along partial diagonals.  The cobar construction sends a
+connected chiral coalgebra $\cC$ to the completed free chiral Lie object
+on the desuspension:
 \[
-  \kch(A_X) \;=\; \chi\!\bigl(B^{\chir}(\cE_X)\bigr) \;=\;
-   \sum_{q} (-1)^q h^{0,q}(X),
+  \Cob^{\chir}(\cC)
+  =
+  \left(
+    \prod_{n\geq 1}
+    j_{n*}j_n^*
+    \Sym^n_{\chir}(\cC[-1]),\,
+    \partial_{\cC}+\partial_{\chir}
+  \right),
 \]
-the Hodge-supertrace on Dolbeault cohomology, matching the CLAUDE.md
-essential constant. For the quintic ($h^{0,0} = 1, h^{0,1} = 0,
-h^{0,2} = 0, h^{0,3} = 1$): $\kch = 2$. The computation is on
-$B^{\chir}$ directly, no $\Omega^{\chir}$ required at the Euler-char
-level.
+where $\partial_{\chir}$ is dual to the chiral cobracket.
 
-\paragraph{Scope.}
-\emph{Chain-level}: explicit shuffle sums, Dolbeault dressing of
-chiral Sym, configuration-space connectivity bound, Koszul resolution
-$P^\bullet$. \emph{$(\infty,1)$-categorical}: Quillen equivalence in
-$\Lie^{\chir}_{\text{conn}}(\Ch(\Dolb))$ via FG Thm~6.2.1 lifted by
-Gwilliam--Williams 2021 Thm~2.5.5. Both lanes load-bearing (CLAUDE.md
-equal-status rule). The adjunction is \emph{structural}: Vol~I
-curve-level, Wave-13 G5 object-level $E_3$, Wave-14 J4 functor-level
-$B^{\chir} \dashv \Cob^{\chir}$ on $\C^3$.
+The associated graded of the arity filtration forgets collision
+corrections and reduces the unit and counit to the ordinary Koszul
+resolution for the Lie--coLie pair.  The Lie operad is Koszul, hence
+the associated graded maps are quasi-isomorphisms.  Positselski's
+complete filtered criterion lifts these quasi-isomorphisms from the
+associated graded category to the completed coderived and
+contraderived categories.  For $X=\C^3$, the Dolbeault complex
+$\Omega^{0,\bullet}_{\C^3}$ is a soft resolution of
+$\cO_{\C^3}^{\mathrm{hol}}$, and Gwilliam--Williams identify the
+current algebra $\Omega^{0,\bullet}(\C^3,\g)$ as a holomorphic
+factorisation Lie algebra.  Substituting $\cF=\cL_{\hCS}$ in the bar
+formula gives
+\[
+  \Bar^{\chir}(\cL_{\hCS})
+  =
+  \CE^*_{\dbar,\chir}(\cL_{\hCS},\C),
+\]
+and the completed counit gives the displayed recovery of
+$\cL_{\hCS}$.
+
+\paragraph{Five objects.}
+For a specialised CY-to-chiral output $A$ in the $d=3$ lane the
+following symbols have fixed types:
+\[
+\begin{array}{c|l}
+  A & \Eone\text{-chiral algebra produced by }\Phi_3 \\
+  B(A) & \text{conilpotent bar coalgebra of }A \\
+  A^i=H^\bullet(B(A)) & \text{bar-cohomology coalgebra} \\
+  A^!=\mathbb{D}_{\Ran}(A^i) &
+    \text{Verdier/Koszul dual algebra under finite-type or continuity hypotheses} \\
+  Z^{\mathrm{der}}_{\mathrm{ch}}(A)
+    = C^\bullet_{\mathrm{ch}}(A,A)
+    \simeq \RHom_{A\otimes A^{\mathrm{op}}}(A,A) &
+    \text{Hochschild derived chiral centre}
+\end{array}
+\]
+The equivalence $\Omega B(A)\simeq A$ is the bar--cobar counit.  The
+construction of $A^!$ passes through $A^i$ and Verdier or continuous
+finite duality.  The centre is the Hochschild cochain object controlling
+bulk and centre phenomena.
+
+\paragraph{hCS observables and coefficients.}
+The local quantum observable factorisation algebra is
+\[
+  \Obs_{\hCS}(\C^3)
+  \;\simeq\;
+  \CE^*_{\dbar,\chir}(\cL_{\hCS},\cO_{\C^3})
+\]
+after Costello--Gwilliam BV data, a gauge-fixing parametrix, local
+counterterms, and a solution of the quantum master equation have been
+chosen.  The coefficient-free bar object is related by base change:
+\[
+  \CE^*_{\dbar,\chir}(\cL_{\hCS},\cO_{\C^3})
+  \;\simeq\;
+  \Bar^{\chir}(\cL_{\hCS})\widehat{\otimes}_{\C}\cO_{\C^3}.
+\]
+This is a local equality.  A compact CY$_3$ theorem requires a
+global BV theory satisfying the quantum master equation, anomaly
+cancellation, orientation and framing data, descent and sewing for
+the factorisation algebra, compatible counterterms, and a separated
+completion transition system.
+
+\paragraph{Dimension of the specialised output.}
+The local factorisation algebra $\Obs_{\hCS}(\C^3)$ carries the
+holomorphic $\Ethree$ structure of a three-complex-dimensional local
+field theory.  The specialised CY-to-chiral output at $d=3$ is an
+$\Eone$ algebra $A$.  The first $\Etwo$ layer attached to $A$ is a
+centre or double layer, for example
+\[
+  \Rep^{\Etwo}\!\bigl(Z^{\mathrm{der}}_{\mathrm{ch}}(A)\bigr)
+  \quad\text{or}\quad
+  \mathcal Z(\Rep^{\Eone}(A)),
+\]
+under the hypotheses ensuring these centres exist.
+
+\paragraph{Chain and categorical formulations.}
+The chain model is the displayed arity-completed Dolbeault complex with
+the bracket differential $d_{\chir}$ and the cobracket differential
+$\partial_{\chir}$.  The $(\infty,1)$-categorical model is the same
+adjunction in complete filtered chiral Lie and coLie objects on the Ran
+space.  The chain calculation proves the filtered unit and counit; the
+categorical formulation records invariance under filtered
+quasi-equivalences and supplies functoriality for morphisms preserving
+augmentation, completion, Dolbeault differential, and chiral
+operations.
+
+\paragraph{Toric positive half.}
+For the toric input $\MF(\C^3,0)$ the cohomological Hall computation
+gives
+\[
+  \CoHA(\C^3)\simeq Y^+(\widehat{\fgl}_1).
+\]
+The algebra $\mathcal W_{1+\infty}$ enters after Drinfeld double,
+derived centre, completion, or evaluation.
+
+\paragraph{\texorpdfstring{$\kappa_{\mathrm{ch}}$}{chiral characteristic} scalar.}
+For a compact CY$_3$ object with a constructed $\Phi_3$ output in the
+Hodge-supertrace regime,
+\[
+  \kch^{\mathrm{Hodge}}(A_X)
+  =
+  \sum_q (-1)^q h^{0,q}(X).
+\]
+For a smooth quintic threefold $X_5$ the column is
+$(h^{0,0},h^{0,1},h^{0,2},h^{0,3})=(1,0,0,1)$, hence
+\[
+  \kch^{\mathrm{Hodge}}(A_{X_5})=1-1=0.
+\]
+The BCOV value $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}(A_{X_5})
+=\chi(X_5)/24=-25/3$ is a different invariant attached to the
+worldsheet/BCOV construction.  The Hodge-supertrace scalar above is
+\(\kch^{\mathrm{Hodge}}\).
+
+\paragraph{\texorpdfstring{$K3 \times E$}{K3 x E} invariants.}
+For the compact product $X=K3\times E$ the invariants used in this note
+are
+\[
+  \kcat(X)=0,\qquad
+  \kch^{\mathrm{Hodge}}(A_X)=0,\qquad
+  \kch^{\mathrm{Heis}}(A_X)=3,\qquad
+  \kBKM(\mathfrak g_{\Delta_5})=5,\qquad
+  \kfiber(K3)=24.
+\]
+The scalar $\chi(\cO_{K3})=2$ belongs to the K3 fibre categorical Euler
+characteristic.  The compact total-space value is
+$\chi(\cO_{K3\times E})=0$ by K\"unneth multiplicativity.
+
+\paragraph{Global proof obligations.}
+The local theorem gives the bar--cobar recovery of
+$\Omega^{0,\bullet}(\C^3,\g)$ and the coefficient comparison for local
+observables.  A compact global hCS/factorisation theorem additionally
+requires: a solution of the quantum master equation, cancellation of
+one-loop and higher anomalies, orientation and framing choices,
+sewing-compatible descent maps, renormalisation counterterms compatible
+with overlaps, and completion maps whose inverse limits are separated.
+The $\Etwo$ centre layer requires the existence of the derived chiral
+centre or the Drinfeld centre of the $\Eone$ representation category.
 
 \paragraph{References.}
 \begin{itemize}
-  \item J.\ Francis and D.\ Gaitsgory, ``Chiral Koszul duality,''
-    \emph{Selecta Math.} 18 (2012), 27--87; Thm~3.3.1 (cobar),
-    Thm~6.2.1 (Quillen equivalence), \S2.4 (model structure),
-    Prop.~4.1.7 (Koszul resolution). arXiv:1103.5803.
-  \item A.\ Beilinson and V.\ Drinfeld, \emph{Chiral Algebras},
-    AMS Colloquium Publ.\ 51, 2004, Ch.~3 (chiral Lie algebras and
-    chiral CE), Def.~3.4.11, Prop.~3.4.19.
-  \item J.\ Lurie, \emph{Higher Algebra}, \S5.2 ($E_n$-algebras);
-    \S5.5.3 (locally constant factorisation algebras).
-  \item O.\ Gwilliam and B.\ R.\ Williams, ``Higher Kac--Moody
-    algebras and symmetries of holomorphic field theories,''
-    arXiv:2009.05037, Thm~2.5.5 (holomorphic factorisation on $\C^d
-    \leftrightarrow E_d^{\mathrm{hol}}$).
-  \item K.\ Costello and O.\ Gwilliam, \emph{Factorization Algebras
-    in QFT} Vol~II, \S5.4 (chiral Lie structure on
-    $\Omega^{0,\bullet}(\C^d, \g)$).
-  \item Wave-13 G5: $\CE^*_{\dbar,\chir}(\cE_{\hCS}, \cO) = E_3$-algebra
-    of observables; object-level input to Cycle~4.
-  \item Vol~I Thm~A: chiral bar--cobar on curves; $d = 1$ boundary
-    condition for Wave-14 J4's $d = 3$ lift.
+  \item J.\ Francis and D.\ Gaitsgory, \emph{Chiral Koszul duality},
+    Selecta Math.\ 18 (2012), 27--87; the main chiral Koszul
+    equivalence and the chiral-envelope application.
+  \item A.\ Beilinson and V.\ Drinfeld, \emph{Chiral Algebras}, AMS
+    Colloquium Publ.\ 51 (2004), Ch.~3; chiral Lie algebras and
+    chiral Chevalley complexes.
+  \item L.\ Positselski, \emph{Two kinds of derived categories, Koszul
+    duality, and comodule-contramodule correspondence}, Memoirs AMS
+    212 no.~996 (2011); complete filtered complexes and
+    coderived/contraderived categories.
+  \item B.\ Fresse, \emph{Homotopy of Operads and
+    Grothendieck--Teichmuller Groups}, AMS Surveys 217 (2017);
+    operadic bar--cobar and Koszul replacement criteria.
+  \item O.\ Gwilliam and B.\ R.\ Williams, \emph{Higher Kac--Moody
+    algebras and symmetries of holomorphic field theories},
+    Adv.\ Theor.\ Math.\ Phys.\ 25 (2021); holomorphic current
+    factorisation algebras and local cocycles.
+  \item K.\ Costello and O.\ Gwilliam, \emph{Factorization Algebras in
+    Quantum Field Theory}, Vol.~II; BV quantisation and hCS
+    observables.
 \end{itemize}

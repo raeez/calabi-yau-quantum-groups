@@ -1,10 +1,12 @@
 # Anti-Pattern Catalogue (Vol III)
 
-This note collects all CY-specific anti-patterns through AP-CY394. The
-latest dated block, AP-CY345--AP-CY394, fixes the finite Rees hCS--Hall
-construction layer, the compact critical-CoHA gates, the OP/Igusa
-normalisation split, and the rule that cross-repository concordance is
-not proof.
+This note collects all CY-specific anti-patterns through AP-CY454. The
+latest 2026-04-30 blocks, AP-CY345--AP-CY454, fix the finite Rees
+hCS--Hall construction layer, compact critical-CoHA gates, OP/Igusa
+normalisation split, scalar-to-source recognition gates, Vol II
+recognition scope, H4 divisor-monodromy conditionalisation, finite
+source-matrix faithfulness, and independent verification
+discipline.
 
 ## Canonical values and gates after the 2026-04-30 critique locks
 
@@ -26,6 +28,7 @@ have flipped or that are easily overpromoted.
 | $\zeta(3,3,3,3)$ numerical value | $0.000295999\ldots$ (depth-4, weight 12) | $0.0028565$ (Wave 17 draft, 10× error) | Brown 2012 motivic basis |
 | $c(1, 2, \pm 2)$ heterotic lift coefficient | $-2$ (Wave 22 Witten) | $+1$ (Wave 21 error) | $\eta^{18} \theta_1^2$ direct expansion + DMZ 2012 + holomorphic-anomaly (three-path) |
 | Humbert $H_4$ arithmetic description | $(2, 2)$-isogeny quotient of $E_1 \times E_2$ with $\mathrm{End} \supset \mathbb{Z}[2i]$; monodromy order 2 | $\mathbb{Q}(\sqrt 2)$-RM locus (Wave 15 imprecise; that is $H_8$, not $H_4$) | van der Geer 1988 Ch IX |
+| $H_4$ scalar divisor monodromy | \(\operatorname{div}(\Delta_5)=H_1+2H_4\) and \(\operatorname{div}(\Phi_{10}^{\mathrm{un}})=2H_1+4H_4\); hence \([\Phi_{10}^{\mathrm{un}}/\eta^{24}]^{1/8}\) has \(H_4\)-exponent \(4/8=1/2\), monodromy \(-1\), order \(2\). Primitive \(\mu_{16}\) Kuga--Satake/metaplectic banding is conditional until a primary-source non-split banding lemma is supplied. | \(H_4\) order \(16\) proved from the scalar root; \(\operatorname{div}(\Delta_5)=H_1+\frac12H_4\) as base quotient divisor | AP-CY451 |
 | Theorem B scope (Koszul locus) | $\overline{\mathcal A_2} \setminus \bigcup_{n \,\mathrm{admissible}} H_n$ (all admissible Heegner divisors) | $\overline{\mathcal A_2} \setminus (H_1 \cup H_4)$ (Wave 15 narrow) | Wave 18 Beilinson tightening |
 | K3-BKM Weyl denominator | $\Delta_5 = \mathrm{Grit}(\eta^9 \vartheta_1) \in S_5(K(1))$ (additive) | $\Phi_{12}$ attempted (Fake-Monster, $\mathrm{II}_{25,1}$, multiplicative — different object) | Gritsenko 1999 Thm 6.1 |
 | Umbral $A_{N-1}$ labelling rule | $(N-1) \mid 24$; at $N = 6$ reanchor to Niemeier $6 D_4$ | $N \mid 24$ (Wave 18 error) | Wave 19 Gaiotto |
@@ -64,9 +67,19 @@ have flipped or that are easily overpromoted.
 | $\mathrm{CoHA}(\mathbb C^3)$ identification | $Y^+(\widehat{\mathfrak{gl}}_1)$ -- the **positive half** of the affine Yangian; $\mathcal W_{1+\infty}$ appears only after Drinfeld doubling and Fock/evaluation | Direct $\mathrm{CoHA}(\mathbb C^3)=\mathcal W_{1+\infty}$; full Yangian $Y$ before doubling | Schiffmann--Vasserot; AP-CY347 |
 | $W_{1+\infty}$ vs $W_\infty[c]$ | $W_{1+\infty} = W_\infty[c] \otimes \mathcal H$ (Heisenberg); different objects | Conflating the two | Pope--Romans--Shen 1990 |
 | Finite hCS--Hall Rees gluing | Constructed under finite cyclic-atlas hypotheses by total DWR/Ran convolution, face-compatible cyclic contractions over $\Omega^\bullet(\Delta^p)$, and Stokes descent | "No multi-chart hCS--Hall gluing exists" at the finite Rees layer | AP-CY346 |
-| Compact critical CoHA / quasi-NCCR / Hall double | Compact character or quasi-NCCR formulas are evidence only; compact critical CoHA requires compact-support descent, monoidal vanishing-cycle realization, orientation transport, and a comparison morphism; the Hall double requires the negative half, Cartan completion, continuous Hopf pairing, radical quotient, bracket comparison, and center compatibility | Character equality or finite chart/NCCR data constructs compact CoHA or its Drinfeld double | AP-CY351--AP-CY353 |
+| Compact critical CoHA / quasi-NCCR / Hall double | Compact character or quasi-NCCR formulas are evidence only. For \(K3\times E\), finite reduced compact Hall windows and radical-quotient Hall--Drinfeld doubles are constructed heightwise; Borcherds recognition still requires primitive comparison, radical faithfulness, PBW/no-extra, centre, associator, parity, and transition compatibility | Character equality or finite chart/NCCR data constructs compact CoHA, its Drinfeld double, or its Borcherds recognition | AP-CY351--AP-CY353, AP-CY452--AP-CY453 |
 | OP/Igusa scalar normalisation | $D_5=64^{-1}\Delta_5$, $\Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2$, and $Z_{\mathrm{OP/DT}}=-(\Phi_{10}^{\mathrm{OP}})^{-1}=-4096\Delta_5^{-2}$ | Bare $-\Delta_5^{-2}$ or unqualified $-\Phi_{10}^{-1}$ | AP-CY357 |
 | Cross-repository Igusa/Borcherds/Hall claims | Concordance with \texttt{~/igusa-cusp-form} is a consistency constraint only; proof requires product expansion, executable normalisation, primary theorem with convention conversion, or counterexample | Cross-repo agreement proves the transported claim | AP-CY358 |
+| $\mathfrak g_{\Delta_5}$ versus K3 scalar square exponents | $\mathfrak g_{\Delta_5}$ uses the normalized $\phi_{0,1}$ coefficients \(c_0(D)\); \(Z_{\mathrm{K3}}=2\phi_{0,1}\) and \(\Phi_{10}=\Delta_5^2\) carry doubled scalar exponents | Using \(Z_{\mathrm{K3}}\) coefficients or \(\Phi_{10}\) square exponents as \(\Delta_5\) denominator multiplicities | AP-CY444 |
+| Scalar characteristic data versus source recognition | Schur, Humbert, BV, and HCS characteristics are scalar checks; promotion to \(H^2(\mathfrak g_{\Delta_5})\), BKM root-space recognition, or \(\mathbf H_{\Delta_5}\) requires source algebra, chain map, parity/supertrace, root labels, denominator comparison, and normalization | Scalar match proves cohomology, root-space, or object recognition | AP-CY445 |
+| Three independent verification paths | The paths must use genuinely independent data, reducers, or source arguments; a restatement, copied table, or verifier consuming path 1 is not a third path | \(\mathrm{path}_3=\mathrm{path}_1\) | AP-CY446 |
+| \(\Delta_5\) versus \(\Phi_{10}\) lanes | \(\Delta_5\) is the scalar Borcherds target from normalized \(\phi_{0,1}\); \(\Phi_{10}=\Delta_5^2\) is the doubled DMVV/K3 elliptic-genus lane | Treating \(\Phi_{10}\) as the primitive \(\mathfrak g_{\Delta_5}\) denominator or treating \(\Delta_5\) as already doubled | AP-CY447 |
+| \(\mathbf H_{\Delta_5}\) versus \(\mathfrak g_{\Delta_5}\) roles | \(\mathbf H_{\Delta_5}\) is a source object only after construction gates; \(\mathfrak g_{\Delta_5}\) is the Borcherds target characteristic/comparator | Using the same symbol as both source Hall object and target comparator across Vol I/II/III | AP-CY448 |
+| Direct \(H^2(\mathfrak g_{\Delta_5})\) classifications | Deformation/cohomology classifications are target-side evidence only; compact Hall source claims require finite Hall/CoHA source, pairing, PBW/no-extra-relations, radical, parity, completion, inverse-limit, and Heegner-comparison gates | Direct \(H^2\) classification constructs the compact Hall source | AP-CY449 |
+| Vol II \(\mathbf H_{\Delta_5}\) scope | Vol II may mention \(\mathbf H_{\Delta_5}\) only as a Vol III recognition target or scalar shadow comparator | Vol II constructs or identifies the compact \(\mathbf H_{\Delta_5}\) source | AP-CY450 |
+| Recognition envelope versus unquotiented compact double | The finite recognition envelope is the universal quotient killing \(\mathcal R_H,\mathcal S_H,\mathcal D_H,\mathcal C_H,\mathcal A_H\); the original double is recognized only if \(\mathfrak J_H\cap D_H^X=0\) for all \(H\), compatibly in height | Envelope construction alone proves unquotiented compact Hall--Borcherds recognition | AP-CY452 |
+| Five finite defects | They require finite source proofs: radical isometry, Serre/PBW kernel equality, Green-adjoint coproduct, primitive-centre reduction, and associator cohomology comparison | ML formalism, \(\Delta_5\) coefficients, or OP scalar proves all five vanish | AP-CY453 |
+| Source-matrix faithfulness | Compact-provenance source matrices satisfying all five finite tests force \(\mathfrak J_H\cap D_H^X=0\) by the finite recognition isomorphism and free-product retraction | Treating faithfulness as a sixth independent defect after the five rows are proved | AP-CY454 |
 | Two-$\hbar$ discipline | $\hbar^{\mathrm{Drinfeld}} = 2\pi i / \ell$ (root-of-unity) vs $\hbar^{\mathrm{BV}}$ (loop-counting); semantically distinct but agree numerically at $\hbar^2 = -1/8$ for $\ell = 8$ | Using bare $\hbar$ without subscript | AP151 bridge |
 | Bar cohomology class-$\mathbf M$ at $E_3$-level | $6^g$ (cohomological dim at $g \in \{1, 2, 3\}$; chain level is infinite) | "Infinite at cohomological level" | Wave 12 Vol III |
 | $\kappa_{\mathrm{cat}}(K3 \times E)$ | $0$ (total space, Künneth multiplicative $\chi(\mathcal O_{K3}) \chi(\mathcal O_E) = 2 \cdot 0$) | $2$ (fiber only) | AP-CY68/AP234 discipline |
@@ -608,7 +621,7 @@ automorphic data, and super-Etingof--Kazhdan quantisation.
   Mechanism: Eichler--Zagier 1985 *Prog Math* 55 Thm 9.1 — weak Jacobi
   index-$m$ polar support $\Delta \ge -m^2$ annihilates Heegner
   coefficient at non-admissible $n \ge 7$. First admissible non-vanishing:
-  $\phi^{(5)} = -2 \cdot [\mathrm{gen}]^{\otimes 5}$ with
+  $\phi^{(5)} = 2 \cdot [\mathrm{gen}]^{\otimes 5}$ in the positive generator orientation, with
   $c_{\Phi_{10}/\eta^{24}}(1, 1, 1) = -2$ (Gritsenko--Nikulin 1998
   *Invent Math* 130 Table 2). Coincides with paramodular critical-$L$-value
   congruence (Gritsenko--Nikulin 1998 Thm 1.4; Ibukiyama--Poor--Yuen
@@ -1923,7 +1936,7 @@ mis-statement that the AP-template guards against.
   canonical basis is non-empty AND (iii) $D_n \le 1$ (Eichler--Zagier
   polar cutoff). First non-vanishing: $\phi^{(3)}$ = Drinfeld pentagon
   cocycle ($D_3 = 0$, $C(0) = 20 \ne 0$);
-  $\phi^{(5)} = -2 \cdot [\mathrm{gen}]^{\otimes 5}$ with
+  $\phi^{(5)} = 2 \cdot [\mathrm{gen}]^{\otimes 5}$ in the positive generator orientation, with
   Gritsenko--Nikulin 1998 Table 2 sign on $\Phi_{10}/\eta^{24}$
   ($D_5 = 1$, $C(-1) = 2 \ne 0$). Humbert--Heegner admissible
   $n \in [3, 36]$: $\{3, 5, 11, 13, 19, 21, 27, 29, 35\}$.
@@ -1936,7 +1949,7 @@ mis-statement that the AP-template guards against.
   **Condensed reference table** $(n, d_n, D_n, \mathrm{HH},
   \phi^{(n)}\text{-K3})$:
   $(3, 1, 0, Y, \text{non-zero})$; $(4, 0, 1/2, -, 0)$;
-  $(5, 1, 1, Y, -2[\mathrm{gen}]^{\otimes 5})$;
+  $(5, 1, 1, Y, 2[\mathrm{gen}]^{\otimes 5})$;
   $(6, 1, 3/2, -, 0)$; $(7, 1, 2, N, 0)$; $(8, 2, 5/2, -, 0)$;
   $(9, 2, 3, N, 0)$; $(10, 2, 7/2, -, 0)$;
   $(11, 3, 4, Y, 0\,\text{polar})$; $(12, 4, 9/2, -, 0)$;
@@ -1978,7 +1991,7 @@ mis-statement that the AP-template guards against.
   (iii) Gritsenko--Nikulin 1998 paramodular lift of the K3 elliptic
   genus with explicit $c_{\Phi_{10}/\eta^{24}}$ Fourier table (real
   object) — verify at low $n$: $c(-1) = 2$ at $n = 5$ matches the
-  $\phi^{(5)} = -2 \cdot [\mathrm{gen}]^{\otimes 5}$ coefficient
+  $\phi^{(5)} = 2 \cdot [\mathrm{gen}]^{\otimes 5}$ positive-generator coefficient
   directly.
 
   **Counter**: never assert non-zero $\phi^{(n)}$ on K3--Humbert on
@@ -4780,7 +4793,7 @@ Wrong: stating the master identification "CoHA(conifold) $= Y^+(\widehat{\mathfr
 Wrong: asserting $Y^+(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{con}} \cong Y^+(\widehat{\mathfrak{sl}}_2)^{\mathrm{con}}$ as an algebra isomorphism. Correct: the supertrace projection $\mathfrak{gl}(1|1) \twoheadrightarrow \mathfrak{sl}(1|1) / \langle K \rangle$ induces a SURJECTION (not iso) of bialgebras $Y^+(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{con}} \twoheadrightarrow Y^+(\widehat{\mathfrak{sl}}_2)^{\mathrm{con}}$ whose kernel is the two-sided ideal generated by the central $K$. The super source has a 2-dimensional imaginary-root line spanned by $\{H, K\}$; the shadow has a 1-dimensional imaginary-root line spanned by $\{H\}$ only. Both are theorems at their respective scopes (super = Li-Yamazaki arXiv:2003.08909 §8.3.6 primary; shadow = MMNS + Davison-Meinhardt integrality primary); they are DISTINCT algebras connected by a surjection, not the same algebra seen in two ways. **Counter**: Pattern 273 scope declaration must distinguish "the super source" from "the ungraded shadow" as two separate theorems with a surjection between them; never write them as "isomorphic" or "the same" algebra.
 
 **AP-CY329 — Strict Hopf vs quasi-Hopf discipline stratified by equivariance stratum (Low).**
-Wrong: claiming "$Y^+$ is Hopf" without specifying which equivariance stratum. Correct: 
+Wrong: claiming "$Y^+$ is Hopf" without specifying which equivariance stratum. Correct:
 - Rational ($\mathbb Q$-linear differential Yangian) — strict $\mathbb Z_2$-graded Hopf.
 - Trigonometric (affine / $\hbar$-rational quantum group) — strict Hopf.
 - Toroidal (full affine double quantum toroidal) — strict Hopf.
@@ -4848,14 +4861,14 @@ Wrong: conjecturing $B_3$-braid representation on $\Aut_{\mathrm{bialg}}(\mathrm
 
 ## Latest critique locks: finite Rees hCS--Hall construction and compact CoHA gates (2026-04-30)
 
-**AP-CY345 — Finite Rees hCS--Hall construction is not the ordinary compact critical CoHA comparison (Critical).**
+**AP-CY345 — Finite Rees hCS--Hall construction is not the compact recognition theorem (Critical).**
 Wrong: treating the finite DWR/Ran/Rees hCS--Hall construction as a theorem about the ordinary compact critical CoHA. Correct: the constructed object is the finite Rees natural transformation
 \[
 \Theta_{\hCS\to\Hall}^{\mathrm{Rees},\mathrm{or};N,r,L,m}
 \in
 \MC(\mathfrak M_{\hCS,\Hall}^{N,r,L,m})
 \]
-obtained by integrating relative simplex maps over $\Delta^p$. The completed Rees comparison still requires transition compatibility and the Mittag--Leffler condition; the ordinary critical CoHA comparison still requires a monoidal vanishing-cycle realization functor. **Counter**: every hCS--Hall assertion must name the layer: finite Rees, completed Rees, or realized critical CoHA.
+obtained by integrating relative simplex maps over $\Delta^p$. The completed Rees comparison still requires transition compatibility and the Mittag--Leffler condition. For \(K3\times E\), the finite reduced compact Hall windows and radical-quotient Hall--Drinfeld doubles are constructed heightwise by separate compact-window theorems; their Borcherds recognition still requires primitive comparison, radical faithfulness, PBW/no-extra, centre, associator, parity, and transition checks. **Counter**: every hCS--Hall assertion must name the layer: finite Rees, completed Rees, finite compact Hall window, finite radical-quotient double, recognition envelope, or unquotiented Borcherds recognition.
 
 **AP-CY346 — "No multi-chart gluing construction exists" is obsolete for finite Rees (High).**
 Wrong: repeating the older obstruction that all hCS--Hall gluing homotopies are missing. Correct: the finite construction uses a total DWR/Ran convolution dg Lie algebra, face-compatible cyclic contractions over $\Omega^\bullet(\Delta^p)$, relative Rees critical Hall complexes, and Stokes' formula to produce the Maurer--Cartan element. **Counter**: the remaining open gates are completion and realization, not finite Rees gluing.
@@ -4873,13 +4886,13 @@ Wrong: saying local $\mathbb P^2$ is blocked because the minimal model is non-fo
 Wrong: using "Oberdieck--Pixton" for both broad programme components and specific reduced DT theorem anchors. Correct: use OPi when Pixton's programme component is genuinely present; use Oberdieck--Pandharipande or a year-specific Oberdieck citation for theorem-critical reduced DT statements. **Counter**: classify every occurrence as OPi-programme or OP-theorem before inscription.
 
 **AP-CY351 — Compact quasi-NCCR character identity is not construction of compact critical CoHA (Critical).**
-Wrong: promoting a quasi-NCCR character formula or finite chart model to a constructed compact critical CoHA and comparison map. Correct: finite chart/NCCR models and character identities do not supply compact-support Beck--Chevalley, monoidal realization, orientation transport, or vertexwise quasi-isomorphism. **Counter**: a compact character map is mathematical content only after the compact critical CoHA object and the comparison morphism are constructed.
+Wrong: promoting a quasi-NCCR character formula or finite chart model to a constructed compact critical CoHA and comparison map. Correct: finite chart/NCCR models and character identities do not supply compact-support Beck--Chevalley, monoidal realization, orientation transport, or vertexwise quasi-isomorphism. In the \(K3\times E\) lane, finite reduced compact Hall windows are supplied by the compact-source theorem, not by the quasi-NCCR character. **Counter**: a compact character map is mathematical content only after the compact Hall source and comparison morphism are constructed, and it still does not prove primitive Hall--Borcherds recognition.
 
 **AP-CY352 — Rees Hall, completed Rees Hall, realized critical CoHA, and Drinfeld double are distinct objects (High).**
 Wrong: using one $Y^+(X)$ or $\CoHA(X)$ symbol through all layers. Correct: finite Rees Hall, completed Rees Hall, realized critical CoHA, and $D(Y^+)$ each have different construction maps and hypotheses. **Counter**: notation must expose the layer when a proof crosses from algebraic Rees chains to vanishing cycles or to the double.
 
-**AP-CY353 — Global hCS--Hall answer has four cases (High).**
-Wrong: answering globally "constructed" or "not constructed." Correct: $\mathbb C^3$ positive-half is constructed; finite DWR/Ran multi-chart Rees comparison is constructed under finite cyclic-atlas hypotheses; completed Rees comparison is conditional on ML/pro-compatibility; realized compact critical CoHA is conditional on monoidal vanishing-cycle realization and compact-support functoriality. **Counter**: state the four cases whenever the question is global.
+**AP-CY353 — Global hCS--Hall answer has five cases (High).**
+Wrong: answering globally "constructed" or "not constructed." Correct: $\mathbb C^3$ positive-half is constructed; finite DWR/Ran multi-chart Rees comparison is constructed under finite cyclic-atlas hypotheses; completed Rees comparison is conditional on ML/pro-compatibility; \(K3\times E\) finite reduced compact Hall windows and radical-quotient doubles are constructed heightwise; full Borcherds recognition and the completed unquotiented double are conditional on primitive comparison and finite-defect vanishing. **Counter**: state the five cases whenever the question is global.
 
 **AP-CY354 — CHL and Gritsenko--Clery constant-term ladders are separate families (High).**
 Wrong: merging the CHL ladder with the Gritsenko--Clery eight-form atlas. Correct: both satisfy $\kappa_{\mathrm{BKM}}=c_N(0)/2$ in their own indexing family, with different constant terms and cover groups. **Counter**: tables must declare CHL or Gritsenko--Clery before listing constants.
@@ -5557,3 +5570,270 @@ arithmetic until the finite Hall--Borcherds recognition criterion
 constructs the source-to-target algebra map and proves compatibility
 with completions. **Counter**: a character map can preserve all graded
 Euler characteristics while killing a nonzero primitive bracket.
+
+## A143 cache-propagation additions: AP-CY430 through AP-CY435
+
+**AP-CY430 — Scalar equality is not factorization data (High).**
+Wrong: a scalar identity such as \(Z_{\mathrm{OP/DT}}=-D_5^{-2}\)
+proves a factorization algebra, Hall product, or compact source
+construction. Correct: scalar traces are decategorified shadows.
+Factorization requires local operations, higher arity, units, descent,
+products/coproducts, transition coherences, and source comparison data.
+**Counter**: two chain-level Hall theories can have the same scalar
+partition function and incompatible products.
+
+**AP-CY431 — OP normalization is scalar-branch normalization (Medium).**
+Wrong: \(D_5=64^{-1}\Delta_5\) changes the BKM denominator algebra or
+supplies factorization normalization. Correct: \(D_5\) is the monic OP
+scalar convention. Keep separate the primitive BKM denominator
+\(\Delta_5\), the OP scalar \(D_5\), the unnormalized
+\(\Phi_{10}^{\mathrm{un}}\), and factorization/Hall data. **Counter**:
+the scalar equality \(-4096\Delta_5^{-2}\) supplies no Hall bracket,
+orientation, or compact-source primitive basis.
+
+**AP-CY432 — Levelwise \(|c(D)|\) is not dimension (High).**
+Wrong: \(|c(D)|\) is the vector-space dimension of a source primitive or
+target block. Correct: \(c(D)\) is a signed coefficient or Euler shadow.
+Dimension and parity require \(d_0|d_1\), target presentation reduction,
+or source cohomology. **Counter**: the Igusa row \(29|93\) has signed
+value \(-64\) and total dimension \(122\), so \(|c(D)|=64\) is neither
+the parity split nor the total dimension.
+
+**AP-CY433 — One \(c(D)\) is not BPS, wall, and Stokes count (High).**
+Wrong: the same \(c(D)\) simultaneously counts BPS states, retained wall
+atoms, and Stokes/Pfaffian factors. Correct: automorphic coefficient,
+BPS index, wall-atom count, and Stokes matrix data are separate
+structures. Comparisons require an explicit theorem with chamber,
+orientation, and recognition data. **Counter**: a signed BKM coefficient
+can agree with a BPS index while the source wall atlas or Stokes matrix
+is absent.
+
+**AP-CY434 — Duplicate notes are drift surfaces (Medium).**
+Wrong: duplicate notes with the same theorem are independent
+confirmation, or can be updated one copy at a time. Correct: duplicated
+notes invite silent divergence. Choose a canonical home; other notes
+cite it or are marked archival. Before promotion, grep all duplicate
+theorem labels and claim text. **Counter**: one lattice-automorphic file
+can be fixed to route CoHA constants through recognition while its
+duplicate still asserts Fourier coefficients are CoHA structure
+constants.
+
+**AP-CY435 — Compute tests are theorem carriers, not theorem substitutes (High).**
+Wrong: passing tests prove the theorem, or tests are disposable CI
+unrelated to the proof. Correct: finite compute tests can carry exact
+theorem fixtures, hashes, constants, and matrix checks. The theorem must
+cite the fixture and reduction, while the test must not manufacture
+target truth. **Counter**: a hardcoded coefficient table can make tests
+green while proving neither a target presentation quotient nor a compact
+source recognition map.
+
+## A169 cache-propagation additions: AP-CY436 through AP-CY438
+
+**AP-CY436 — SCHEMA_COMPLETE is not compact-source certification (High).**
+Wrong: treating `SCHEMA_COMPLETE` as proof that a compact Hall source,
+factorization object, or recognition theorem has been constructed.
+Correct: `SCHEMA_COMPLETE` records only schema/status/payload readiness:
+required fields exist, status is populated, and the payload can move
+through the cache. It certifies no compact source, parity fixture, Hall
+product, PBW theorem, or finite Hall--Borcherds recognition. **Counter**:
+a row can be `SCHEMA_COMPLETE` while containing only target
+coefficients and no source representatives or comparison maps.
+
+**AP-CY437 — Signed Borcherds/Jacobi coefficients are protected indices (High).**
+Wrong: reading signed Borcherds or Jacobi coefficients \(c(D)\) and
+\(f(nm,l)\) as ordinary dimensions or generator counts. Correct: they
+are protected indices/superdimensions, hence signed target data.
+Ordinary dimensions, parity splits, and generator counts require a
+parity fixture or a finite Hall--Borcherds recognition theorem.
+**Counter**: the equality \(d_0-d_1=s\) determines a superdimension, not
+the pair \((d_0,d_1)\) nor a generator basis.
+
+**AP-CY438 — Schur-index/celestial/umbral matches are conditional transports (High).**
+Wrong: a Schur-index, celestial, or umbral comparison completes
+cross-volume recognition of the compact Hall--Borcherds object. Correct:
+such comparisons transport protected indices only conditionally. Absent
+the finite recognition theorem, they supply no compact representatives,
+parity fixture, bracket matrices, PBW comparison, or completion
+compatibility. **Counter**: the same protected index can match several
+comparison theories while no source-to-target algebra map exists.
+
+## A198 cache-propagation additions: AP-CY439 through AP-CY443
+
+**AP-CY439 — Humbert/Nekrasov/Schur residues are scalar target checks (High).**
+Wrong: matching Humbert residues, Nekrasov limits, or Schur residues
+recognizes the Beem--Rastelli object as \(\mathbf H_{\Delta_5}\).
+Correct: these are finite scalar target checks. Recognition requires a
+finite Schur--Igusa comparison with source sectors, maps, parity, OPE or
+Hall brackets, and completion compatibility. **Counter**: equal residues
+can hold for two decategorified characters whose Schur sectors have
+different extension or bracket data.
+
+**AP-CY440 — The \(\phi_{-2,1}\) HCS/BV lane is not the \(\phi_{0,1}\) Borcherds input (High).**
+Wrong: the HCS/BV scalar lane governed by \(\phi_{-2,1}\) supplies the
+K3 elliptic-genus Borcherds input. Correct: \(\phi_{-2,1}\) belongs to
+the scalar HCS/BV normalization lane, while \(\phi_{0,1}\) is the K3
+elliptic genus input for the \(\Delta_5\) Borcherds product. **Counter**:
+using the wrong Jacobi form changes the weight, divisor, and root
+character data even if a scalar normalization still matches.
+
+**AP-CY441 — E1 bar-cobar/BD/EK bridges are not \(\mathbf H_{\Delta_5}\) recognition (High).**
+Wrong: \(E_1\) bar-cobar/BD equivalence or Etingof--Kazhdan uniqueness
+identifies \(\mathbf H_{\Delta_5}\) once the target character is known.
+Correct: these bridges control formal equivalence or quantization only
+after the finite Hall--Borcherds recognition data and exact theorem
+sources are supplied. **Counter**: uniqueness can identify
+quantizations of a given bialgebra without proving that the source
+Hall object is that bialgebra.
+
+**AP-CY442 — Enriques elliptic-genus halving is scalar without sector recognition (High).**
+Wrong: halving the K3 elliptic genus automatically constructs the
+Enriques root sectors and parity fixture. Correct: the halved elliptic
+genus is scalar target data unless a source/orbifold recognition theorem
+supplies invariant sectors, twisted sectors, parity, and root
+decomposition. **Counter**: an averaged character can be half of the K3
+character while the orbifold sector algebra and root parities remain
+uncomputed.
+
+**AP-CY443 — \(c_0(D)\) is signed root character, not ordinary multiplicity (High).**
+Wrong: programme prose may read \(c_0(D)\) as an ordinary root-space
+multiplicity. Correct: in this lane \(c_0(D)\) denotes a signed root
+character/superdimension. Ordinary multiplicities require a parity
+fixture, target presentation reduction, or source cohomology theorem.
+**Counter**: a signed value \(d_0-d_1\) does not determine \(d_0+d_1\),
+\((d_0,d_1)\), or a basis of generators.
+
+## A210 cache-propagation additions: AP-CY444 through AP-CY446
+
+**AP-CY444 — \(\Delta_5\) denominator exponents are not doubled K3 elliptic-genus exponents (Critical).**
+Wrong: the denominator algebra \(\mathfrak g_{\Delta_5}\) uses the
+coefficients of \(Z_{\mathrm{K3}}\), or the square
+\(\Phi_{10}=\Delta_5^2\), as its root exponents. Correct:
+\(\mathfrak g_{\Delta_5}\) uses the normalized \(\phi_{0,1}\)
+coefficients \(c_0(D)\). The K3 elliptic genus satisfies
+\(Z_{\mathrm{K3}}=2\phi_{0,1}\), and the scalar Igusa square
+\(\Phi_{10}=\Delta_5^2\) doubles the \(\Delta_5\) product exponents.
+**Counter**: every denominator statement must name the input
+\(\phi_{0,1}\), \(Z_{\mathrm{K3}}\), \(\Delta_5\), or \(\Phi_{10}\)
+before reading \(c_0(D)\) as root-character data.
+
+**AP-CY445 — Scalar characteristic data is not \(H^2(\mathfrak g_{\Delta_5})\) or \(\mathbf H_{\Delta_5}\) recognition (Critical).**
+Wrong: Schur, Humbert, BV, or HCS characteristic data can be promoted
+directly to a class in \(H^2(\mathfrak g_{\Delta_5})\), to BKM
+root-space recognition, or to an identification of
+\(\mathbf H_{\Delta_5}\). Correct: scalar characteristic data are target
+checks. Promotion requires a source algebra, a chain map, parity or
+supertrace convention, root labels, denominator comparison, and
+normalization. **Counter**: a scalar Humbert or Schur residue can match
+the Igusa target while no source chain map, root-space parity fixture,
+or denominator-normalized comparison exists.
+
+**AP-CY446 — Three independent paths cannot include a duplicate path (High).**
+Wrong: an inscription counts three verification paths when the third is
+the first path restated, a copied table, or a verifier that consumes the
+same target fixture. Correct: independence means separate data or
+separate reductions. A direct computation, a primary theorem with
+convention conversion, and a source-algebra chain map can be independent;
+two readings of the same coefficient script are not. **Counter**:
+\(\mathrm{path}_3=\mathrm{path}_1\) is a one-path proof with extra prose,
+not the three-path discipline required for numerical or denominator
+claims.
+
+## A246 CYQG propagation additions: AP-CY447 through AP-CY450
+
+**AP-CY447 — \(\Delta_5\) is the \(\phi_{0,1}\) Borcherds target; \(\Phi_{10}\) is the doubled DMVV lane (Critical).**
+Wrong: the primitive \(\Delta_5\) denominator lane and the
+\(\Phi_{10}\) DMVV/K3 elliptic-genus lane are interchangeable. Correct:
+the scalar Borcherds product of normalized \(\phi_{0,1}\) gives
+\(\Delta_5\). The K3 elliptic genus is \(Z_{\mathrm{K3}}=2\phi_{0,1}\),
+and its DMVV square lane gives \(\Phi_{10}=\Delta_5^2\) with doubled
+exponents. **Counter**: every Igusa statement must name whether it is
+using the primitive \(\Delta_5\) product or the doubled \(\Phi_{10}\)
+scalar lane before importing coefficients or weights.
+
+**AP-CY448 — \(\mathbf H_{\Delta_5}\) and \(\mathfrak g_{\Delta_5}\) are not one source-target object (Critical).**
+Wrong: Vol I, Vol II, or Vol III prose uses \(\mathbf H_{\Delta_5}\)
+and \(\mathfrak g_{\Delta_5}\) as the same constructed object.
+Correct: \(\mathfrak g_{\Delta_5}\) is the Borcherds denominator
+algebra/target characteristic from \(\phi_{0,1}\). \(\mathbf H_{\Delta_5}\)
+is a compact Hall/BPS source only after the source construction and
+recognition gates have been passed. **Counter**: a target
+characteristic, scalar shadow, or BKM comparator does not by itself
+construct the source Hall object.
+
+**AP-CY449 — Direct \(H^2(\mathfrak g_{\Delta_5})\) classification is not compact Hall construction (Critical).**
+Wrong: classifying \(H^2(\mathfrak g_{\Delta_5})\) constructs the compact
+Hall source or identifies \(\mathbf H_{\Delta_5}\). Correct: it supplies
+target-side deformation or obstruction evidence only. A compact source
+claim may appear only behind the finite Hall/CoHA source, pairing,
+PBW/no-extra-relations, radical quotient, parity fixture, completion,
+inverse-limit, and Heegner-comparison gates. **Counter**: the same
+cohomology class can exist while no compact representatives, Hall
+brackets, or completion-compatible source-to-target maps have been
+constructed.
+
+**AP-CY450 — Vol II \(\mathbf H_{\Delta_5}\) mentions are recognition-target or scalar-shadow only (High).**
+Wrong: Vol II presents \(\mathbf H_{\Delta_5}\) as a constructed compact
+source or as a theorem of Vol II. Correct: Vol II may mention
+\(\mathbf H_{\Delta_5}\) only as a Vol III recognition target or as a
+scalar shadow comparator for BV/HCS/DMVV-style checks. **Counter**:
+Vol II scalar agreement must not be phrased as compact Hall source
+construction, BKM-source identification, or a replacement for the Vol
+III finite Hall--Borcherds gates.
+
+## A265 CYQG H4 conditionalisation addition: AP-CY451
+
+**AP-CY451 — \(H_4\) scalar monodromy is order \(2\); primitive \(\mu_{16}\) banding is conditional (Critical).**
+Wrong: the scalar divisor of
+\([\Phi_{10}^{\mathrm{un}}/\eta^{24}]^{1/8}\) proves \(H_4\) monodromy
+order \(16\), or the base quotient divisor is
+\(\operatorname{div}(\Delta_5)=H_1+\frac12H_4\). Correct: current
+adjudication uses \(\operatorname{div}(\Delta_5)=H_1+2H_4\) and
+\(\operatorname{div}(\Phi_{10}^{\mathrm{un}})=2H_1+4H_4\). The
+\(1/8\)-root has \(H_4\)-exponent \(4/8=1/2\), so its divisor monodromy
+is \(-1\) of order \(2\). A primitive \(\mu_{16}\)
+Kuga--Satake/metaplectic banding is a conditional refinement until a
+primary-source non-split banding lemma supplies the missing cover data.
+**Counter**: do not state \(H_4\) order \(16\) as proved from scalar
+divisor data; do not use \(H_1+\frac12H_4\) as the base quotient
+divisor for \(\Delta_5\).
+
+## Finite recognition-envelope additions: AP-CY452 through AP-CY454
+
+**AP-CY452 — The recognition envelope is not unquotiented compact-Hall recognition (Critical).**
+Wrong: after constructing the finite Hall--Borcherds recognition
+envelope, the original compact Hall--Drinfeld double is automatically
+recognized as the \(\Delta_5\) current object. Correct: the envelope is
+the universal quotient that kills the five defects. The original finite
+double is recognized only when the projection is faithful, equivalently
+\(\mathfrak J_H\cap D_H^X=0\) at every height with compatible
+Mittag--Leffler transitions. **Counter**: a quotient can make
+\(\mathcal R_H,\mathcal S_H,\mathcal D_H,\mathcal C_H,\mathcal A_H\)
+vanish without proving that no compact Hall class was killed.
+
+**AP-CY453 — ML or \(\Delta_5\) arithmetic does not prove the five finite defects vanish (Critical).**
+Wrong: denominator coefficients, the OP scalar, or inverse-limit
+formalism proves
+\(\mathcal R_H=\mathcal S_H=\mathcal D_H=\mathcal C_H=\mathcal A_H=0\).
+Correct: \(\Delta_5\) supplies target arithmetic and ML propagates
+already recognized finite maps. The five vanishings require finite
+source proofs: radical isometry \(G,K,Q,A\), Serre/PBW kernel equality,
+Green-adjoint coproduct, zero-charge primitive centre reduction, and
+associator cohomology comparison. **Counter**: a scalar match can hold
+while the finite Hall bracket matrix has an extra kernel or the Hall
+associator class differs from the Siegel--Borcherds class.
+
+**AP-CY454 — Source-matrix faithfulness is not a sixth defect after the five rows (Critical).**
+Wrong: after compact-provenance source matrices prove radical isometry,
+Serre/PBW kernel equality, Green-adjoint coproduct, primitive-centre
+reduction, and associator class equality, one must still prove an
+independent sixth finite defect before the envelope is faithful on the
+source. Correct: the five rows give the finite quasi-Hopf isomorphism
+\(\Psi_H^D:D_H^X\to Y_H^\Delta\). The truncated free product
+\(D_H^X\widehat{*}_{\le H}Y_H^\Delta\) then retracts to \(D_H^X\) by
+the identity on \(D_H^X\) and \((\Psi_H^D)^{-1}\) on \(Y_H^\Delta\).
+All generators of \(\mathfrak J_H\) lie in the retraction kernel, hence
+\(\mathfrak J_H\cap D_H^X=0\). **Counter**: after the canonical compact
+source packet is constructed from the finite compact double,
+faithfulness remains open exactly when one of the five source rows has
+not been proved or the packet has been replaced by target/mock matrices
+without compact provenance.

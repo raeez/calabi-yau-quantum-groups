@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -12,30 +13,18 @@
 \newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \newcommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \newcommand{\Phimap}{\Phi}
-\newcommand{\HH}{\mathrm{HH}}
-\newcommand{\HHH}{\mathrm{HH}}
 \newcommand{\cA}{\mathcal{A}}
-\newcommand{\cC}{\mathcal{C}}
-\newcommand{\cN}{\mathcal{N}}
-\newcommand{\cO}{\mathcal{O}}
 \newcommand{\cH}{\mathcal{H}}
-\newcommand{\cF}{\mathcal{F}}
-\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
 \newcommand{\Coh}{\mathrm{Coh}}
 \newcommand{\Db}{D^b}
 \newcommand{\SL}{\mathrm{SL}}
 \newcommand{\Sp}{\mathrm{Sp}}
 \newcommand{\str}{\operatorname{str}}
-\newcommand{\Hi}[1]{\HH_{#1}}
-\newcommand{\hop}{\HH^\bullet}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\T}{\mathbb{T}}
-\newcommand{\K}{\mathbb{K}}
 \newcommand{\CY}{\mathrm{CY}}
-\newcommand{\Vir}{\mathrm{Vir}}
+\newcommand{\xiop}{\xi_{1/2}}
 
 \title{Mock Modularity of the K3 Elliptic Genus at Dimension Two}
 \author{Raeez Lorgat}
@@ -45,639 +34,351 @@
 \maketitle
 
 \begin{abstract}
-The K3 elliptic genus $Z_{K3}(\tau,z)$ is a weak Jacobi form
-of weight $0$ and index $1$ whose $\cN{=}4$ character decomposition
-carries a mock modular summand $h(\tau)$ of weight $1/2$ and shadow
-$24\,\eta(\tau)^3$. We inscribe the precise statement as a theorem
-at $\dim_\C = 2$: the bar complex of the K3 sigma-model $\cN{=}(4,4)$
-vertex algebra $\cA_\sigma$ carries a canonical mock-modular
-structure whose shadow is $\kch(\cA_\sigma)\cdot\eta^3=2\eta^3$ at
-the level of the $\cN{=}4$ massive multiplet and $24\,\eta^3$ at the
-level of the full $\Phi_2(\Db\Coh(K3))$ output, with the
-enhancement factor $12 = |M_{24}\colon M_{23}|$ absorbed into the
-Mathieu twinings. The proof is a confluence of three pieces:
-the class-$\mathbf{M}$ fingerprint of $\cA_\sigma$, the chiral
-bar-cobar reconstruction from Vol~I applied at $d=2$, and the
-equivalence $\Phi_2\colon\CY_2\text{-}\mathrm{Cat}\to E_2\text{-}\mathrm{ChirAlg}$
-(Theorem~CY-A$_2$). The inscription is unconditional at $d=2$
-and promotes the prior observational status of mock-modularity
-to theorem.
+The K3 elliptic genus is the weak Jacobi form
+\[
+  Z_{K3}(\tau,z)=2\,\phi_{0,1}^{\mathrm{EZ}}(\tau,z),
+  \qquad
+  \phi_{0,1}^{\mathrm{EZ}}=y^{-1}+10+y+O(q).
+\]
+Its small $\mathcal N=4$ character expansion contains a weight
+$1/2$ mock modular form $H(\tau)$ whose harmonic Maass completion
+has shadow $24\,\eta(\tau)^3$ in the standard $\xi_{1/2}$ normalisation.
+The Mathieu statement is the existence of an $M_{24}$-graded module
+whose graded traces give the twined mock modular forms. The
+CY-to-chiral reading is an object-level interpretation of these
+theorems. A functorial theorem consists of the additional bar-complex
+and equivariance comparison stated below.
 \end{abstract}
 
 \tableofcontents
 
-\section{Precise statement}
-\label{sec:statement}
+\section{The K3 elliptic genus}
+\label{sec:k3-elliptic-genus}
 
-Let $S$ be a smooth projective K3 surface and let $\cA_\sigma$
-be the $c=6$ $\cN{=}(4,4)$ superconformal vertex algebra at a
-generic point of the K3 sigma-model moduli space. The small
-$\cN{=}4$ superconformal algebra $\widehat{\mathfrak{sl}}(2)_1\oplus T
-\oplus G^{\pm,a}$ supplies a bigrading by $(L_0, J_0^3)$. The
-$\cN{=}4$ elliptic genus of $S$ is
+Let $S$ be a smooth projective K3 surface and let
+$\mathcal H_{\mathrm{RR}}$ be the Ramond-Ramond state space of the
+$c=6$ $\mathcal N=(4,4)$ K3 sigma-model. Its elliptic genus is
 \[
-   Z_{K3}(\tau,z) \;=\; \str_{\mathcal{H}_{\mathrm{RR}}}
-       (-1)^{F}\,y^{J_0^3}\, q^{L_0-c/24},
-   \qquad y=e^{2\pi i z},\ q=e^{2\pi i \tau}.
+  Z_{K3}(\tau,z)=
+  \str_{\mathcal H_{\mathrm{RR}}}
+  \bigl((-1)^F y^{J_0^3}q^{L_0-c/24}\bigr),
+  \qquad
+  q=e^{2\pi i\tau},\quad y=e^{2\pi iz}.
 \]
-
-\begin{theorem}[Mock modularity of $Z_{K3}$ at $d=2$]
-\label{thm:mock-modular-k3-d2-A9}
-\leavevmode
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item $Z_{K3}(\tau,z)\in J^{\mathrm{weak}}_{0,1}$ is a weak Jacobi
-form of weight $0$ and index $1$ for $\SL_2(\Z)\ltimes\Z^2$, with
-Fourier expansion
+The Eichler-Zagier generator of $J^{\mathrm{weak}}_{0,1}$ is
+normalised by
 \[
-   Z_{K3}(\tau,z)
-   \;=\;
-   24\,\mu(\tau,z)\,\theta_1(\tau,z)^2/\eta(\tau)^3
-   \;+\;
-   h(\tau)\,\theta_1(\tau,z)^2/\eta(\tau)^3,
+  \phi_{0,1}^{\mathrm{EZ}}(\tau,z)
+  =y^{-1}+10+y+q(10y^{-2}-64y^{-1}+108-64y+10y^2)+O(q^2).
 \]
-where $\mu$ is the Appell--Lerch sum of Zwegers and
-$\theta_1$ is the odd Jacobi theta.
-\item The function $h(\tau) = 2q^{-1/8}\bigl(-1+\sum_{n\geq 1}A_n q^n\bigr)$
-with $A_n \in \Z_{\geq 0}$ is a \emph{mock modular form} of weight $1/2$ on
-$\SL_2(\Z)$ with shadow
+The K3 genus is
 \[
-   g(\tau) \;=\; -\frac{1}{4\pi}\, \chi(S)\,\eta(\tau)^3
-             \;=\; -6\,\eta(\tau)^3,
+  Z_{K3}(\tau,z)=2\,\phi_{0,1}^{\mathrm{EZ}}(\tau,z)
+  =2y^{-1}+20+2y+O(q).
 \]
-equivalently: the non-holomorphic completion $\widehat{h}(\tau)
-= h(\tau) + (i/\sqrt{2})\int_{-\bar\tau}^{i\infty}
-(g(-\bar w))/\sqrt{-i(w+\tau)}\,dw$ is modular of weight $1/2$ on
-$\SL_2(\Z)$.
-\item The mock summand $h$ is an $M_{24}$ graded character: the
-coefficients $A_n$ ($n\geq 1$) are dimensions of genuine
-$M_{24}$-representations, and the $25$ $M_{24}$-conjugacy classes
-produce $25$ distinct twined mock modular forms $h_g$ of weight
-$1/2$ on $\Gamma_0(N_g)$ with explicit shadows $-\chi_g(S)\eta^3/4\pi$,
-$\chi_g(S)=\mathrm{tr}_{H^*(S)}(g)$.
-\item The identifications in \textup{(i)}--\textup{(iii)} are
-equivalent to the statement that the bar complex of the
-$E_2$-chiral algebra $\Phi_2(\Db\Coh(S))$ carries a canonical
-mock-modular structure whose shadow $S_3(\cA_\sigma)=2$ propagates
-through the Maurer--Cartan shadow recursion to produce the full
-Fourier tower of $h$.
-\end{enumerate}
-\end{theorem}
+The factor $2$ belongs to the elliptic genus. The primitive
+Borcherds input used for $\Delta_5$ below is
+$\phi_{0,1}^{\mathrm{EZ}}$ with constant coefficient $10$.
 
-Item~(i) is the Eguchi--Ooguri--Tachikawa (2010) decomposition.
-Item~(ii) is Dabholkar--Murthy--Zagier (2012) on the mock-modular
-status of $h$ with shadow $g$ of weight $3/2$. Item~(iii) is
-Gannon (2012) who established the positivity conjecture and
-Cheng--Duncan--Harvey (2014) on umbral moonshine
-$\Lambda=24A_1$. Item~(iv) is the Vol~III contribution: it
-identifies the mock modular structure with the class-$\mathbf{M}$
-shadow tower of $\cA_\sigma$, thereby promoting the prior
-observational statement to a theorem at $d=2$.
-
-\section{Class $\mathbf{M}$: infinite shadow depth at K3}
-\label{sec:step1}
-
-The shadow classification of a chiral algebra $\cA$ is determined
-by its bar complex differential and the critical discriminant
-$\Delta(\cA) = 8\kch(\cA)\,S_4(\cA)$, where $S_r(\cA)$ are the
-Maurer--Cartan shadow coefficients of Vol~I. Four classes:
-$\mathbf{G}$ (abelian, depth $2$), $\mathbf{L}$ (Lie, depth $3$,
-Borel-summable), $\mathbf{C}$ (cyclic, depth $4$), $\mathbf{M}$
-(mixed, depth $\infty$, Gevrey-$1$ divergent).
-
-\begin{proposition}[Shadow data of the K3 sigma-model VOA]
-\label{prop:sigma-shadow-A9}
-The $\cN{=}(4,4)$ sigma-model vertex algebra $\cA_\sigma$
-satisfies:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item $\kch(\cA_\sigma)=2=\dim_\C(S)=\chi(\cO_S)$;
-\item $S_3(\cA_\sigma)=2$ (Virasoro self-coupling on $T$-line
-plus $\mathrm{SU}(2)_R$ Lie bracket at level $1$);
-\item $S_4(\cA_\sigma)=5/156$ (Virasoro contact term at $c=6$:
-$S_4=10/(c(5c+22))=10/(6\cdot 52)=5/156$);
-\item $\Delta(\cA_\sigma)=8\cdot 2\cdot (5/156)=20/39 \neq 0$;
-\item shadow class $\mathbf{M}$; depth $r_{\max}=\infty$ by
-the Vol~I dichotomy: $\Delta\neq 0 \Rightarrow S_r\neq 0$ for all
-$r\geq 5$ via the MC recursion.
-\end{enumerate}
-\end{proposition}
-
-The shadow tower continues:
-$S_5=-1/26$, $S_6=3485/73008$, $S_7=-1145/18928$, and so on with
-alternating signs and bounded magnitudes --- Gevrey-$1$ divergent
-as a formal series in the spectral parameter. These are the
-seeds of the mock-modular shadow at the next step.
-
-\begin{corollary}[Class-$\mathbf{M}$ $E_3$ bar cohomology at genus $g$]
-\label{cor:6g}
-$\dim H^\bullet(B_{E_3}(\cA_\sigma^{\oplus g})) = 6^g$, with
-$E_\infty$-page $[0,3,3,0]^{\otimes g}$ by the K\"unneth
-argument of Corollary~\textup{\ref{cor:class-m-higher-genus}}
-\textup{(}\texttt{chapters/theory/en\_factorization.tex}\textup{)}.
-The $d_4$ differential driven by $S_4\neq 0$ kills $\Lambda^0$
-and $\Lambda^3$ per handle; for $g\leq 3$ all higher $d_r=0$ by
-degree reasons.
-\end{corollary}
-
-This is the class-$\mathbf{M}$ fingerprint: the \emph{finite}
-cohomological invariant $6^g$ of an algebra whose chain-level
-shadow tower is \emph{infinite}. Mock modularity is the
-automorphic image of this dichotomy --- finite $\cN{=}4$
-character counts seated inside a Gevrey-divergent MC series.
-
-\begin{remark}[Discriminant and Mukai rank do not conflict]
-\label{rem:no-conflict}
-The Mukai-lattice free-field pushforward $\cA_{\mathrm{free}}$
-has $\kch=\mathrm{rk}(\Lambda)\in\{22,24\}$ and lives in
-class $\mathbf{G}$ (depth $2$, finite shadow tower). The
-sigma-model $\cA_\sigma$ has $\kch=2$ and lives in class $\mathbf{M}$.
-The two algebras inhabit different points of the Grassmannian of
-$c=6$ $\cN{=}(4,4)$ VOAs: the free-field is a lattice model
-realising the full $24$-dimensional Mukai pairing, while the
-sigma-model is a nonlinear target with the $\cN{=}4$ chiral
-algebra as its current sector. The collapse
-$\mathrm{rk}/\dim_\C\in\{11,12\}$ is the Hodge-supertrace
-mechanism of Proposition~\textup{\ref{prop:cy-kappa-d2}} in
-\texttt{chapters/theory/cy\_to\_chiral.tex}: the $h^{1,1}=20$
-classes are Serre-paired and drop out.
-\end{remark}
-
-\section{Bar--cobar reconstruction: holomorphic anomaly as shadow}
-\label{sec:step2}
-
-Vol~I Theorem~A: the bar--cobar adjunction
-$\Omega^{\mathrm{ch}}\dashv B^{\mathrm{ch}}$ restricts to a
-symmetric monoidal equivalence on Koszul-self-dual CY chiral
-algebras taken in the pro-conilpotent ambient when the
-conformal-weight grading is unbounded. For class-$\mathbf{M}$
-algebras this ambient is mandatory. The content of the
-reconstruction at $d=2$: the bar Euler character
+\begin{theorem}[EOT character decomposition and mock modularity]
+\label{thm:eot-mock-modularity}
+There is a holomorphic $q$-series
 \[
-   \chi_B(\cA_\sigma;\tau) \;:=\;
-   \str_{B(\cA_\sigma)}\bigl(q^{L_0-c/24}\bigr)
+  H(\tau)
+  =2q^{-1/8}\bigl(-1+45q+231q^2+770q^3+2277q^4+\cdots\bigr)
 \]
-assembles the shadow coefficients $(\kch, S_3, S_4, S_5, \ldots)$
-into a $q$-series whose \emph{completion} (by the Bringmann--Ono
-Eichler integral of the shadow) is modular.
-
-\begin{theorem}[Vol~I mock-modular reconstruction at $d=2$]
-\label{thm:voli-reconstruction}
-Let $\cA$ be a $c=6$ $\cN{=}(4,4)$ chiral algebra of class
-$\mathbf{M}$ with $\kch(\cA)=2$ and shadow tower $(S_r)_{r\geq 3}$
-satisfying the Virasoro-sector MC recursion of Vol~I
-\texttt{shadow\_tower\_ope\_recursion.py}. The bar Euler
-character decomposes as
+such that
 \[
-   \chi_B(\cA;\tau)
-   \;=\;
-   \sum_{n\in\Z}\,a_n(\cA)\, q^{n-c/24},
+  Z_{K3}(\tau,z)
+  =
+  24\,\mu(\tau,z)\frac{\theta_1(\tau,z)^2}{\eta(\tau)^3}
+  +
+  H(\tau)\frac{\theta_1(\tau,z)^2}{\eta(\tau)^3},
 \]
-and there exists a unique weight-$1/2$ mock modular form
-$h_\cA(\tau)=\sum_n A_n q^{n-1/8}$ such that:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item the Fourier coefficients $A_n$ are the character multiplicities
-of massive $\cN{=}4$ multiplets in the bar complex;
-\item the shadow of $h_\cA$ is $-(4\pi)^{-1}\kch(\cA)\eta^3
-       = -(4\pi)^{-1}\cdot 2\cdot \eta^3$ at the bar-chain level,
-       enhanced to $-(4\pi)^{-1}\cdot 24\cdot \eta^3$ at the
-       Mukai-bialgebra completion $\mathcal{H}_{\mathrm{Muk}}$;
-\item the holomorphic anomaly $\partial_{\bar\tau}\widehat{h}_\cA(\tau,\bar\tau)
-       = (2\sqrt{y})^{-1}\overline{g(\tau)}$ with
-       $g(\tau) = -(4\pi)^{-1}\kch(\cA)\eta^3$ is the
-       non-holomorphic completion required by the infinite shadow tower.
-\end{enumerate}
-\end{theorem}
-
-Unpacking. The MC recursion produces an infinite sequence
-$S_r(\cA)$ of shadow coefficients; their generating function
+where $\mu$ is Zwegers's Appell-Lerch sum. The function $H$ is the
+holomorphic part of a harmonic Maass form $\widehat H$ of weight
+$1/2$. With
 \[
-   G_\cA(\tau) \;:=\; \sum_{r\geq 2}\,S_r(\cA)\, q^{(r-2)/8}
+  \xiop(F)(\tau):=2iv^{1/2}\,
+  \overline{\frac{\partial F}{\partial \bar\tau}(\tau)},
+  \qquad \tau=u+iv,
 \]
-is the \emph{chain-level} shadow generating series. At class
-$\mathbf{M}$ this series is Gevrey-$1$ divergent: the radius of
-convergence is zero. Borel resummation, controlled by the Stokes
-data of the MC recursion, produces a well-defined analytic
-function on the upper half plane modulo a non-holomorphic
-remainder. The non-holomorphic remainder is precisely the
-shadow $g = -(4\pi)^{-1}\kch\cdot\eta^3$. The holomorphic Borel
-resummation is the mock modular form $h_\cA$.
-
-\begin{proposition}[Shadow identification]
-\label{prop:shadow-id}
-The Zagier--Zwegers shadow of the Eguchi--Ooguri--Tachikawa mock
-form $h_{\mathrm{EOT}}$ equals the Vol~I chain-level shadow
-$g_{\cA_\sigma}= -(4\pi)^{-1}\cdot 2\cdot \eta^3$ at the $\cN{=}4$
-massive multiplet level; the enhancement to the Mukai level
-$-(4\pi)^{-1}\cdot 24\cdot\eta^3$ is the passage from
-$\kch(\cA_\sigma)=2$ to $\kfib(S)=24=\chi_{\mathrm{top}}(S)$
-via the factor $12=|M_{24}\colon M_{23}|$ absorbed in the
-Mukai bialgebra completion $\mathcal{H}_{\mathrm{Muk}}$.
-\end{proposition}
-
-\begin{proof}[Sketch]
-The Bringmann--Ono Eichler integral of an $\eta^3$ shadow is a
-weight-$1/2$ harmonic Maass form with mock part of
-exponential-polynomial growth at the cusp; its holomorphic part
-has Fourier coefficients that match the Hardy--Ramanujan--Cardy
-density for $c=6$ with leading exponent $2\pi\sqrt{2n/3}$, i.e.
-$p_{c=6}(n)\sim e^{2\pi\sqrt{2n/3}}/n^{5/4}$. The $\cN{=}4$
-character-theory input of Eguchi--Taormina (1988) then forces
-the mock form to be the EOT $h$. The factor $12$ arises
-because the $25$ $M_{24}$-twined genera have $\chi_g(S)$-values
-$\{24,8,0,6,4,0,6,0,-3,4,-2,-3,0,0,3,4,0,-2,-1,-1,0,1,1,1,-1\}$ at the
-$25$ classes (Cheng, 2010 Table 2), and the weighted average
-reproduces the factor.
-\end{proof}
-
-\section{CY-A$_2$: promotion to theorem}
-\label{sec:step3}
-
-\begin{theorem}[CY-A$_2$; \texttt{chapters/theory/cy\_to\_chiral.tex}
-Theorem~\textup{\ref{thm:cy-to-chiral}}]
-\label{thm:cya2-recall}
-There is a symmetric-monoidal functor
+the completion satisfies
 \[
-   \Phi_2\colon\CY_2\text{-}\mathrm{Cat}\longrightarrow
-       E_2\text{-}\mathrm{ChirAlg}
+  \xiop(\widehat H)=24\,\eta(\tau)^3 .
 \]
-from smooth proper CY categories of dimension $2$ to
-$E_2$-chiral algebras, such that $\Phi_2(\cC)$ has generating
-fields in bijection with $\HH^{\bullet+1}(\cC)$ and
-$B(\Phi_2(\cC))\simeq \mathrm{CC}_\bullet(\cC)$ as factorization
-coalgebras. On $\cC=\Db\Coh(S)$ for K3 this value is
-$\Phi_2(\Db\Coh(S))=\mathcal{H}_{\mathrm{Muk}}$, the Mukai
-Heisenberg bialgebra at rank $24$.
-\end{theorem}
-
-The content for our purposes is threefold. First, $\Phi_2$
-produces a chiral algebra $A_S=\Phi_2(\Db\Coh(S))$ whose bar
-complex $B(A_S)$ is quasi-isomorphic to the cyclic Hochschild
-complex $\mathrm{CC}_\bullet(\Db\Coh(S))$. Second, the bar
-Euler character $\chi_B(A_S;\tau)$ is the graded Euler
-characteristic of $\mathrm{CC}_\bullet(\Db\Coh(S))$, which by
-HKR equals the $(\eta^{-24})$-character of $S^{[n]}$
-(the Hilbert schemes of $n$ points) summed over $n$; this
-is $1/\eta(\tau)^{24}$. Third, the $E_2$-enhancement uses the
-$S^2$-framing of $\HH_\bullet(\cC)$ (Kontsevich--Vlassopoulos)
-which encodes the $\cN{=}4$ superconformal structure at
-central charge $c=6$ on the current side of $\mathcal{H}_{\mathrm{Muk}}$.
-
-\begin{corollary}[Bar Euler character at K3]
-\label{cor:bar-eta24}
-$\chi_B(A_S;\tau)
-= \sum_{n\geq 0}\chi(S^{[n]})\, q^{n-c/24}
-= \frac{1}{\eta(\tau)^{24}}$ by G\"ottsche's formula and
-DMVV --- the second-quantised K3 elliptic genus at the
-massless reduction.
-\end{corollary}
-
-\begin{theorem}[CY-A$_2$ promotes observation to theorem]
-\label{thm:promotion}
-The EOT decomposition of item \textup{(i)} in
-Theorem~\textup{\ref{thm:mock-modular-k3-d2-A9}} upgrades from
-observation to theorem at $d=2$: the mock modular form
-$h(\tau)$ in the $\cN{=}4$ decomposition of $Z_{K3}$ coincides
-with the Vol~I reconstruction $h_{A_S}(\tau)$ of
-Theorem~\textup{\ref{thm:voli-reconstruction}} applied to
-$A_S=\Phi_2(\Db\Coh(S))$, and the shadow identification of
-Proposition~\textup{\ref{prop:shadow-id}} is a theorem.
 \end{theorem}
 
 \begin{proof}
-Theorem~CY-A$_2$ supplies $A_S$ with a specified bar complex and a
-specified $E_2$-structure. The class-$\mathbf{M}$ fingerprint of
-$\cA_\sigma$ (Proposition~\ref{prop:sigma-shadow-A9}) propagates
-through $\Phi_2$: the $\cN{=}(4,4)$ enhancement at $c=6$ gives
-$\kch=2$ and $S_4=5/156$; the MC recursion generates the full
-tower $S_r$ for $r\geq 5$. The Vol~I reconstruction theorem
-(Theorem~\ref{thm:voli-reconstruction}) produces a unique
-weight-$1/2$ mock modular form $h_{A_S}$ with shadow $2\eta^3$
-(at the bar-chain level) and $24\eta^3$ (at the Mukai
-bialgebra level). The EOT decomposition produces a mock modular
-form $h_{\mathrm{EOT}}$ with shadow $24\eta^3$ and the same
-weight. Uniqueness of the mock modular completion (Dabholkar--Murthy--Zagier
-2012, Theorem~1.2; see also Zagier 1975) forces $h_{A_S}=h_{\mathrm{EOT}}$.
-The identification holds because (a) both are weight $1/2$ on
-$\SL_2(\Z)$; (b) both have the same shadow $24\eta^3$; (c) both
-are polar of order $1/8$ at the cusp; (d) both have leading
-coefficient $-2$ at $q^{-1/8}$; (e) the space of such harmonic
-Maass forms is one-dimensional by Zagier's theta-series
-uniqueness and the weight count on $\Gamma_0(1)$.
+By Eichler-Zagier~\cite{EichlerZagier1985}, the space
+$J^{\mathrm{weak}}_{0,1}$ is one-dimensional over the
+weight-zero scalar modular forms, and the $q^0$ term of the K3
+elliptic genus is fixed by the Hodge numbers of K3:
+$2y^{-1}+20+2y$. Hence $Z_{K3}=2\phi_{0,1}^{\mathrm{EZ}}$.
+Eguchi-Ooguri-Tachikawa~\cite{EguchiOoguriTachikawa2011} decompose
+this weak Jacobi form into
+small $\mathcal N=4$ Ramond characters at central charge $6$; the
+massive-character multiplicities are encoded by the displayed
+series $H$. Zwegers's completion of the Appell-Lerch sum gives the
+non-holomorphic correction, and the resulting harmonic Maass form
+has $\xi_{1/2}$-shadow $24\eta^3$.
 \end{proof}
 
-\section{Mathieu twinings: frame shape $=$ twined bar Euler}
+\section{Mathieu moonshine}
 \label{sec:mathieu}
 
-For each conjugacy class $[g]\in M_{24}/\mathrm{conj}$ there is
-a frame shape $\pi_g$ such that the twined elliptic genus
+\begin{theorem}[Mathieu module and twinings]
+\label{thm:mathieu-module}
+There is a graded $M_{24}$-module
 \[
-   Z_g(\tau,z) \;:=\;
-   \str_{\mathcal{H}_{\mathrm{RR}}}\bigl(g\cdot(-1)^F y^{J_0^3} q^{L_0-c/24}\bigr)
+  K^\natural=\bigoplus_{n\geq 1}K_n^\natural
 \]
-is a weak Jacobi form of weight $0$ and index $1$ on
-$\Gamma_0(N_g)$ with $N_g = \mathrm{ord}(g)$, with
-$\cN{=}4$-character decomposition having mock summand $h_g$.
-The $25$ classes of $M_{24}$ are
+such that
 \[
-   1A, 2A, 2B, 3A, 3B, 4A, 4B, 4C, 5A, 6A, 6B, 7A, 7B, 8A, 10A,
-   11A, 12A, 12B, 14A, 14B, 15A, 15B, 21A, 21B, 23A \sqcup 23B,
+  H(\tau)=-2q^{-1/8}
+  +\sum_{n\geq 1}\dim(K_n^\natural)\,q^{n-1/8}.
 \]
-where the last is an identified Galois pair. Frame shapes:
-$\pi_{1A}=1^{24}$, $\pi_{2A}=1^8 2^8$, $\pi_{2B}=2^{12}$,
-$\pi_{3A}=1^6 3^6$, $\pi_{3B}=3^8$, and so on through the
-complete list in Mason (1985).
-
-\begin{theorem}[Frame shape = twined bar Euler]
-\label{thm:frame-twined-bar-Euler}
-For each $g\in M_{24}$ conjugacy class, the bar complex
-$B(A_{S,g})$ of the $g$-twisted $E_2$-chiral algebra
-$A_{S,g}=\Phi_2(\Db\Coh(S)/g)$ has twined Euler character
+Let $[g]$ range over the $26$ ordinary ATLAS conjugacy classes of
+$M_{24}$:
 \[
-   \chi_B^{(g)}(A_{S,g};\tau) \;=\;
-   \prod_{k\mid N_g}\,\frac{1}{\eta(k\tau)^{a_k(g)}},
+\begin{gathered}
+1A,\ 2A,\ 2B,\ 3A,\ 3B,\ 4A,\ 4B,\ 4C,\ 5A,\ 6A,\ 6B,\ 7A,\ 7B,\\
+8A,\ 10A,\ 11A,\ 12A,\ 12B,\ 14A,\ 14B,\ 15A,\ 15B,\ 21A,\ 21B,\
+23A,\ 23B .
+\end{gathered}
 \]
-where $\pi_g=\prod_k k^{a_k(g)}$ is the Frame shape of $g$, and
-the product is the $\eta$-product reading of $\pi_g$. The
-mock-modular summand $h_g(\tau)$ of $Z_g$ coincides with the
-Vol~I reconstruction applied to $A_{S,g}$.
+For each such class the graded trace
+\[
+  H_g(\tau)=-2q^{-1/8}
+  +\sum_{n\geq 1}\operatorname{tr}(g\mid K_n^\natural)\,q^{n-1/8}
+\]
+is the mock modular summand of the corresponding twined K3 elliptic
+genus
+\[
+  Z_g(\tau,z)=
+  \str_{\mathcal H_{\mathrm{RR}}}
+  \bigl(g(-1)^F y^{J_0^3}q^{L_0-c/24}\bigr).
+\]
+The completion $\widehat H_g$ has shadow
+\[
+  \xiop(\widehat H_g)=\chi_g\,\eta(\tau)^3,
+  \qquad
+  \chi_g=\operatorname{tr}(g\mid \rho_{24}),
+\]
+with the multiplier and congruence subgroup determined by the
+conjugacy class of $g$. Here $\rho_{24}$ is the $24$-dimensional
+Mathieu character governing the twined K3 genus; for geometric
+symplectic automorphisms it agrees with the trace on the Mukai
+cohomology of $S$. The indexing is by ordinary conjugacy class; frame
+shape is auxiliary data and can coincide for paired classes.
 \end{theorem}
 
-This is the ``frame shape $=$ twined bar Euler'' identity,
-equivalent to the identification
-$\chi_{\mathrm{top}}(S^{[n]};g)=\mathrm{tr}_{H^*(S^{[n]})}(g)$ under
-G\"ottsche--Soergel. The $25$ twinings give $25$ explicit
-mock modular forms, each with its own shadow $-\chi_g(S)\eta^3/4\pi$.
-
-\begin{proposition}[Gannon uniqueness]
-\label{prop:gannon-uniqueness}
-The $25$-tuple $(h_g)_{g\in M_{24}/\mathrm{conj}}$ satisfies:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item each $h_g$ is a weight-$1/2$ mock modular form on
-$\Gamma_0(N_g)\cdot\mathrm{ml}(g)$ for a multiplier $\mathrm{ml}(g)$;
-\item all Fourier coefficients of $h_g$ at $q^n$ for $n\geq 1$
-are characters of genuine $M_{24}$-representations (Gannon 2012);
-\item the collection is uniquely determined by the $\eta$-product
-shadows and the first few Fourier coefficients;
-\item under $\Phi_2$, the $25$-tuple $(A_{S,g})$ is the
-$E_2$-chiral image of the $M_{24}$-equivariant derived category
-$\Db_{M_{24}}(\Coh(S))$, and the twined mock-modular structures
-of \textup{(ii)} are the shadow data of these equivariant
-$E_2$-algebras.
-\end{enumerate}
-\end{proposition}
-
-\section{Six-dimensional holomorphic Chern--Simons and the $E_3$
-interweave}
-\label{sec:hcs}
-
-The CFG E_3-package (Costello--Francis--Gaitsgory, plus Costello--Li
-for the 6d hCS side) identifies 6d holomorphic Chern--Simons
-theory with the $E_3$-chiral avatar of the $E_2$-chiral CY$_2$
-data.
-
-\begin{theorem}[Witten index of 6d hCS on $K3\times E$ is the K3
-elliptic genus]
-\label{thm:witten-index-hcs-K3xE}
-Let $Y=K3\times E_\tau$ be the compact CY$_3$ product, and let
-$\mathrm{hCS}_6(Y,\mathfrak{g})$ be the 6d holomorphic Chern--Simons
-theory with structure Lie algebra $\mathfrak{g}$ at gauge level $1$.
-The Witten index on $Y$ computed in the $\cN{=}4$ topological twist
-equals
-\[
-   \mathrm{Ind}_W\bigl(\mathrm{hCS}_6(Y)\bigr)(\tau,z)
-   \;=\;
-   Z_{K3}(\tau,z) \cdot \chi_E(\tau,z)
-   \;+\; O(\text{instanton corrections}),
-\]
-with the leading term the K3 elliptic genus times the elliptic
-curve factor. At the $\mathfrak{g}=\mathfrak{gl}_1$ (abelian) level this
-is exactly the factorization homology of the Mukai bialgebra
-$\mathcal{H}_{\mathrm{Muk}}$ on $E\times S$: the class-$\mathbf{M}$
-$E_3$ bar gives $6^g$ at genus $g$ on the K3 factor, and the
-elliptic curve contributes the $\eta(\tau)^2$ denominator.
-\end{theorem}
-
-\begin{proof}[Sketch]
-6d hCS localises on holomorphic maps $Y\to BG$. For
-$Y=K3\times E$ and abelian $G$, the moduli space of holomorphic
-maps is $\mathrm{Pic}^0(K3)\times \mathrm{Pic}^0(E)=\{0\}\times E^\vee$,
-so the one-loop Witten index factorises as (K3 elliptic genus)
-$\times$ (elliptic curve partition function). The identification
-with the bar Euler of $\mathcal{H}_{\mathrm{Muk}}$ is the
-factorisation-homology statement
-$\int_{K3\times E}\mathcal{H}_{\mathrm{Muk}} = B(A_S)\otimes B(A_E)$
-with $B(A_E)=H^*(E)=\Z[1]\oplus\Z[0]\oplus\Z[-1]$.
+\begin{proof}
+The character decomposition of Theorem~\ref{thm:eot-mock-modularity}
+is the Eguchi-Ooguri-Tachikawa formula. Gaberdiel-Hohenegger-Volpato
+\cite{GaberdielHoheneggerVolpato2010} construct the twined K3
+elliptic genera and identify their $\mathcal N=4$ mock summands.
+Gannon~\cite{Gannon2016} proves that the Fourier coefficients are
+characters of genuine finite-dimensional $M_{24}$-representations.
+Cheng-Duncan-Harvey~\cite{ChengDuncanHarvey2014} place the
+$M_{24}$ case in the umbral family attached to the Niemeier root
+system $24A_1$.
 \end{proof}
 
-\begin{corollary}[Mock modularity as an obstruction to 6d factorization]
-\label{cor:mock-obstruction}
-The mock-modular anomaly of $Z_{K3}$, i.e.\ the non-holomorphic
-completion $\widehat{h}-h = (i/\sqrt{2})\int g$, is the precise
-obstruction to the 6d hCS partition function on $Y=K3\times E$
-being a \emph{holomorphic} modular form under
-$\Sp_4(\Z)\subset \mathrm{Aut}(H^3(Y,\Z))$; it is the shadow of
-the class-$\mathbf{M}$ $E_3$ bar on the K3 factor, whose
-chain-level infinite shadow tower lives at the $E_3$ level.
-Under the Maa{\ss} (Saito--Kurokawa) lift at $d=3$, this shadow
-ascends to the genus-$2$ paramodular form $\Delta_5$ whose
-$\Sp_4(\Z)$-covariance is \emph{genuine} modular; the lift
-converts the mock modular shadow at $d=2$ into a classical
-modular object at $d=3$.
-\end{corollary}
+\section{The \texorpdfstring{$\Delta_5$}{Delta5} normalization}
+\label{sec:delta5}
 
-\section{Putting it together}
-\label{sec:put-together}
+The primitive Siegel modular form attached to the K3 Jacobi form is
+Gritsenko's weight-$5$ cusp form $\Delta_5$. Write
+\[
+  \phi_{0,1}^{\mathrm{EZ}}(\tau,z)
+  =\sum_{n,\ell}c_1(4n-\ell^2)\,q^n y^\ell .
+\]
+The $q^0y^0$ coefficient is
+\[
+  c_1(0)=10.
+\]
+The monic Borcherds product is
+\[
+  D_5(Z)
+  =
+  q^{1/2}r^{1/2}s^{1/2}
+  \prod_{(n,\ell,m)>0}
+  \bigl(1-q^n r^\ell s^m\bigr)^{c_1(4nm-\ell^2)},
+  \qquad Z=\begin{pmatrix}\tau&z\\ z&\sigma\end{pmatrix},
+\]
+and Gritsenko's theta-normalised form satisfies
+\[
+  \Delta_5=64D_5 .
+\]
+The scalar $64$ changes the coefficient of
+$q^{1/2}r^{1/2}s^{1/2}$ from $1$ to $64$ and leaves the Borcherds
+weight unchanged:
+\[
+  \kBKM(\Delta_5)=\frac{c_1(0)}{2}=5.
+\]
 
-\begin{theorem}[Main; precise restatement]
-\label{thm:main-restate}
-For K3 at $\dim_\C=2$:
-\begin{enumerate}[label=\textup{(\arabic*)}]
-\item Class $\mathbf{M}$: $\cA_\sigma$ has $\Delta(\cA_\sigma)=20/39\neq 0$,
-hence infinite-depth shadow tower (Prop.~\ref{prop:sigma-shadow-A9}).
-\item Bar reconstruction: the Vol~I MC-shadow-to-mock-modular map
-sends $(\kch,S_3,S_4,\ldots)$ to a unique mock modular form of
-weight $1/2$ with shadow $\kch\cdot\eta^3/(4\pi)$
-(Theorem~\ref{thm:voli-reconstruction}).
-\item CY-A$_2$: $\Phi_2(\Db\Coh(S))$ is unconditionally defined
-and has the claimed bar complex (Theorem~\ref{thm:cya2-recall}).
-\item Synthesis: the three imply Theorem~\ref{thm:mock-modular-k3-d2-A9}
---- the $\cN{=}4$ mock modular summand of $Z_{K3}$ is the
-Vol~I reconstruction applied to the $E_2$-chiral output of
-$\Phi_2$ at K3.
+\begin{proposition}[Primitive CHL constants]
+\label{prop:primitive-chl-constants}
+For the primitive CHL denominator levels
+$N\in\{1,2,3,4,6\}$, the single-cusp Borcherds inputs have
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\
+\hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\Phi_N) & 5 & 4 & 3 & 2 & 1 .
+\end{array}
+\]
+This is a Borcherds-input table, separate from the ordinary Mathieu
+twining table. Ordinary twined K3 genera carry class constants,
+multipliers, and congruence subgroups; a Borcherds weight is defined
+only after a primitive CHL denominator input has been fixed.
+\end{proposition}
+
+\begin{proof}
+Borcherds's singular theta lift~\cite{Borcherds1998} assigns to a
+weight-zero Jacobi input an automorphic product of weight one half of
+the input's zeroth coefficient. Gritsenko's CHL inputs
+\cite{Gritsenko1999} at the five primitive levels have the displayed
+zeroth coefficients. The identity row is the K3 Eichler-Zagier
+generator, so $c_1(0)=10$ and the resulting primitive form has
+weight $5$.
+\end{proof}
+
+\begin{proposition}[Primitive and square normalisations]
+\label{prop:delta5-square-normalisation}
+The monic denominator product is
+\[
+  D_5=64^{-1}\Delta_5 .
+\]
+The scalar Igusa square data are
+\[
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2,\qquad
+  \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2 .
+\]
+Thus $\Delta_5$ carries the primitive BKM value
+$\kBKM=5$, while each $\Phi_{10}$ convention records a square of the
+primitive denominator and has weight $10$.
+\end{proposition}
+
+\section{The four invariants}
+\label{sec:invariants}
+
+The symbols $\kch$, $\kcat$, $\kBKM$, and $\kfib$ refer to distinct
+constructions. For a compact Calabi-Yau $X$,
+\[
+  \kch^{\mathrm{comp}}(X)=\sum_q(-1)^q h^{0,q}(X),
+  \qquad
+  \kcat(X)=\chi(\cO_X).
+\]
+The BKM invariant is the Borcherds weight
+$\kBKM=c_N(0)/2$ in the primitive CHL single-cusp normalisation. The
+fibre invariant records the K3 Mukai rank.
+
+\begin{center}
+\begin{tabular}{c|c|c|l}
+Object & Invariant & Value & Source of the number \\
+\hline
+$K3$ & $\kch^{\mathrm{comp}}$ & $2$ & $h^{0,0}+h^{0,2}=2$ \\
+$K3$ & $\kcat$ & $2$ & $\chi(\cO_{K3})$ \\
+$K3$ & $\kfib$ & $24$ & $\operatorname{rk}H^*(K3,\Z)$ \\
+$\Delta_5$ & $\kBKM$ & $5$ & $c_1(0)/2=10/2$ \\
+$K3\times E$ & $\kch^{\mathrm{comp}}$ & $0$ & $(1-1)(1+1)=0$ \\
+$K3\times E$ & $\kcat$ & $0$ & $\chi(\cO_{K3})\chi(\cO_E)=2\cdot0$ \\
+$K3\times E$ & $\kch^{\mathrm{Heis}}$ & $3$ & Heisenberg-Mukai specialisation \\
+$\mathfrak g_{\Delta_5}$ & $\kBKM$ & $5$ & $\Delta_5$ Borcherds weight \\
+$K3\times E$ & $\kfib$ & $24$ & K3 fibre Mukai rank
+\end{tabular}
+\end{center}
+
+The $d=2$ object $\Db\Coh(K3)$ has an $E_2$-chiral output in the
+CY-to-chiral framework. The product $K3\times E$ is a compact
+Calabi-Yau threefold; its chiral output belongs to the $d\geq 3$
+$E_1$ scope, while $E_2$-structures occur on derived centres or on
+specialised two-dimensional factors.
+
+\section{CY-to-chiral interpretation}
+\label{sec:cy-to-chiral}
+
+Let
+\[
+  A_S=\Phimap_2(\Db\Coh(S))
+\]
+denote the $E_2$-chiral object assigned to a K3 surface by a
+CY-to-chiral construction. The published theorem is
+Theorem~\ref{thm:eot-mock-modularity} together with
+Theorem~\ref{thm:mathieu-module}. A stronger assertion identifying
+the mock modular form $H$ with a bar-complex reconstruction of
+$A_S$ consists of the following mathematical inputs.
+
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item an explicit $E_2$-chiral model for $A_S$ whose current sector
+recovers the small $\mathcal N=4$ K3 character theory;
+\item an identification of the relevant bar Euler character with the
+small $\mathcal N=4$ massive-character generating function;
+\item a proof that the non-holomorphic completion induced by the bar
+complex has $\xi_{1/2}$-shadow $24\eta^3$;
+\item an $M_{24}$-equivariant lift matching the traces
+$\operatorname{tr}(g\mid K_n^\natural)$ with the twined bar characters.
 \end{enumerate}
-The resulting statement holds unconditionally at $d=2$.
-\end{theorem}
 
-At $d=3$ the analogue for $K3\times E$ fails to be unconditional:
-the identification of the shadow tower with BPS data is
-programmatic (CY-B at $d=3$); the Maa{\ss} lift supplies
-$\Delta_5$-covariance under $\Sp_4(\Z)$ as an \emph{image} of
-the $d=2$ theorem, which is a theorem at the \emph{character}
-level (Gritsenko--Nikulin 1999) but conjectural at the
-OPE level.
+These four inputs upgrade the object-level interpretation to a
+functorial CY-to-chiral theorem. The present CY-to-chiral paragraph is
+a compatibility statement: the $d=2$ target has the
+correct dimension, the K3 elliptic genus supplies the canonical
+weak Jacobi form, the EOT/GHV/Gannon theorem supplies the mock
+modular and Mathieu structures, and the Borcherds lift of the
+primitive Jacobi generator supplies the $\Delta_5$ BKM normalisation.
 
-\begin{remark}[$\kappa_\bullet$-subscript discipline]
-\label{rem:kappa-discipline}
-Four kappa values coexist for K3:
-$\kch=2=\chi(\cO_S)$ (algebraization supertrace),
-$\kcat=\chi(\cO_S)=2$ (Hodge-filtered categorical Euler),
-$\kfib=24=\chi_{\mathrm{top}}(S)$ (fibre/lattice rank),
-$\kBKM(\Delta_5)=c_1(0)/2=5$ (paramodular Borcherds weight at
-$N=1$ via $\Delta_5$ on $K3\times E$).
-At the product $K3\times E$: $\kcat(K3\times E)=0$ (K\"unneth
-multiplicative), not $2$.
-The mock-modular shadow of Theorem~\ref{thm:mock-modular-k3-d2-A9}
-is $\kch\cdot\eta^3/(4\pi)$ at the bar-chain level,
-$\kfib\cdot\eta^3/(4\pi)$ at the Mukai bialgebra level; the
-enhancement factor $12$ is the index $|M_{24}:M_{23}|$.
-\end{remark}
+\begin{thebibliography}{10}
 
-\section{Cross-consistency checks}
-\label{sec:cross-checks}
+\bibitem{EichlerZagier1985}
+M. Eichler and D. Zagier, \emph{The Theory of Jacobi Forms},
+Progress in Mathematics 55, Birkhauser, 1985.
 
-\begin{enumerate}[label=\textup{(\arabic*)}]
-\item \emph{Cardy tail $=$ Hardy--Ramanujan density.} The
-$c=6$ Cardy count $p_{c=6}(n)\sim e^{2\pi\sqrt{2n/3}}/n^{5/4}$
-at level $n$ matches the $A_n$ growth rate of the EOT $h$.
-\item \emph{DMVV/G\"ottsche at Euler level.} $\sum_n
-\chi(S^{[n]})q^n = 1/\eta^{24}\cdot q^{24/24}$, yielding
-$\chi_B(A_S;\tau)=1/\eta^{24}$ at Euler characteristic, consistent
-with $\Phi_2(\Db\Coh(S))=\mathcal{H}_{\mathrm{Muk}}$.
-\item \emph{Class $\mathbf{M}$ $E_3$ bar $=6^g$.} At $g=1$:
-$\dim E_\infty = 6$ with Poincar\'e polynomial $3t+3t^2$, total
-Euler $0$; consistent with the $24$ massless multiplets Serre-paired
-down to $2$ at the Hodge-supertrace reading.
-\item \emph{Twining coefficients.} $\chi_{2A}(S)=8$, $\chi_{3A}(S)=6$,
-$\chi_{2B}(S)=0$: matches the $M_{24}$-character tables at K3
-(Cheng 2010 Table 2) and the Gaberdiel--Hohenegger--Volpato 2010
-twined-genus computation.
-\item \emph{Mukai lattice rank.} The $24$ in $1/\eta^{24}$ is
-$\kfib$, not $\kch$: the two kappa values differ by the
-Hodge-supertrace pairing on $H^{1,1}$.
-\item \emph{6d hCS consistency.} Witten index on $K3\times E$
-reproduces $Z_{K3}$ times $\chi_E$, matching the
-$(\infty,1)$-categorical CY-A$_3$ $E_1$-chiral avatar when
-$\Phi_3$ is defined.
-\end{enumerate}
+\bibitem{EguchiOoguriTachikawa2011}
+T. Eguchi, H. Ooguri, and Y. Tachikawa, \emph{Notes on the K3 surface
+and the Mathieu group $M_{24}$}, Experimental Mathematics \textbf{20}
+(2011), 91-96, arXiv:1004.0956.
 
-\section{Open questions}
-\label{sec:open}
+\bibitem{Zwegers2002}
+S. Zwegers, \emph{Mock theta functions}, PhD thesis, Utrecht
+University, 2002.
 
-\begin{enumerate}[label=\textup{(\arabic*)}]
-\item \emph{$M_{24}$-equivariant $E_2$-chiral algebra lift.}
-Does the $25$-tuple $(A_{S,g})$ descend to an $M_{24}$-equivariant
-$E_2$-chiral algebra on $S/M_{24}$, upgrading
-Proposition~\ref{prop:gannon-uniqueness}(iv) to a theorem at the
-OPE level?
-\item \emph{Cheng--Duncan--Harvey umbral enhancement.} Does the
-construction extend to the $23$ other Niemeier lattices of
-umbral moonshine, producing $23$ analogous mock-modular $E_2$-chiral
-inscriptions at $d=2$?
-\item \emph{$d=3$ mock modularity.} Is the Maa{\ss} lift
-$\phi_{0,1}\mapsto\Delta_5$ a \emph{theorem} on the OPE-level
-chiral algebras at $d=3$, i.e.\ does $\Phi_3(K3\times E)$
-satisfy $\Sp_4(\Z)$-covariance at OPE level?
-\item \emph{$(\infty,1)$-categorical lift.} Identify
-$\Phi_2\colon\CY_2\text{-}\mathrm{Cat}\to E_2\text{-}\mathrm{ChirAlg}$
-explicitly as a functor between $(\infty,1)$-categories, not
-merely at the object level.
-\item \emph{Class $\mathbf{M}$ at $g\geq 4$.} Does $d_5\neq 0$
-on $E_4$-page for genus $4$, controlled by $S_5=-1/26$? This is
-beyond Corollary~\ref{cor:6g}.
-\end{enumerate}
+\bibitem{GaberdielHoheneggerVolpato2010}
+M. R. Gaberdiel, S. Hohenegger, and R. Volpato, \emph{Mathieu
+twining characters for $K3$}, JHEP \textbf{2010}, no. 9, 058,
+arXiv:1008.3778.
 
-\appendix
-\section{Rectification log}
-\label{app:rectification}
+\bibitem{Gannon2016}
+T. Gannon, \emph{Much ado about Mathieu}, Advances in Mathematics
+\textbf{301} (2016), 322-358, arXiv:1211.5531.
 
-Five attack--heal cycles.
+\bibitem{ChengDuncanHarvey2014}
+M. C. N. Cheng, J. F. R. Duncan, and J. A. Harvey, \emph{Umbral
+moonshine}, Communications in Number Theory and Physics \textbf{8}
+(2014), 101-242, arXiv:1204.2779.
 
-\paragraph{Cycle~1 (is ``class $\mathbf{M}$'' well-defined?).}
-\emph{Attack.} The shadow classification $\{G,L,C,M\}$ is
-defined in Vol~I via the critical discriminant
-$\Delta=8\kch S_4$. One could fear circularity: mock-modular
-and class-$\mathbf{M}$ are defined in terms of each other.
-\emph{Heal.} No circularity: class-$\mathbf{M}$ is
-\emph{algebraically} defined by $\Delta\neq 0$ at the level of
-OPE coefficients, and the MC recursion
-$D_\cA\Theta+\tfrac12[\Theta,\Theta]=0$ is a closed recursive
-system on $\Q$-coefficients. Mock modularity is the automorphic
-\emph{image} under the Bringmann--Ono Eichler integral, not
-its definition. Verification: $S_4(\cA_\sigma)=5/156$ computed
-from the Virasoro $4$-point function at $c=6$, independent of
-any mock-modular input.
+\bibitem{Borcherds1998}
+R. E. Borcherds, \emph{Automorphic forms with singularities on
+Grassmannians}, Inventiones Mathematicae \textbf{132} (1998), 491-562,
+arXiv:alg-geom/9609022.
 
-\paragraph{Cycle~2 (does Vol~I reconstruct only the holomorphic
-part?).}
-\emph{Attack.} Bar reconstruction reconstructs $A$ from
-$B(A)$; it might only reconstruct the holomorphic $h$, not the
-shadow. Then ``shadow $=\kch\eta^3$'' would be auxiliary.
-\emph{Heal.} The Vol~I reconstruction produces the entire
-harmonic Maass form $\widehat{h}$, not only its mock part: the
-non-holomorphic completion is read from the Borel resummation of
-the Gevrey-$1$ MC shadow series, whose Stokes data encodes the
-imaginary-part integral $\int g$. Dabholkar--Murthy--Zagier
-(2012) Theorem~1.2 identifies this Borel-Stokes data with the
-Zagier shadow. Verification: the Hardy--Ramanujan--Cardy density
-at $c=6$ matches $A_n$ growth on both sides.
+\bibitem{GritsenkoNikulin1998}
+V. A. Gritsenko and V. V. Nikulin, \emph{Automorphic forms and
+Lorentzian Kac-Moody algebras, I, II}, International Journal of
+Mathematics \textbf{9} (1998), 153-199 and 201-275.
 
-\paragraph{Cycle~3 (does CY-A$_2$ promote the conjecture to
-theorem?).}
-\emph{Attack.} Theorem~CY-A$_2$ gives $\Phi_2$ at the
-object/functor level; the mock-modular identification could
-require functoriality in morphisms (which is conjectural) or
-morphism-level coherence data.
-\emph{Heal.} The identification is at the object level only:
-$\Phi_2(\Db\Coh(S))$ is a single $E_2$-chiral algebra whose bar
-Euler character is $1/\eta^{24}$. The MC-shadow-to-mock-modular
-map depends only on the bar complex up to quasi-isomorphism, which
-is fixed by property~(U1) of $\Phi_2$ at $d=2$. Morphism-level
-$\Phi_2$ is not needed for the unconditional statement of
-Theorem~\ref{thm:mock-modular-k3-d2-A9}; only the Mukai-side
-bijection $\HH^{\bullet+1}(\Db\Coh(S))\cong H^*(S,\Z)$ up to
-HKR, which is Theorem~CY-A$_2$(i).
+\bibitem{Gritsenko1999}
+V. A. Gritsenko, \emph{Elliptic genus of Calabi-Yau manifolds and
+Jacobi and Siegel modular forms}, Algebra i Analiz \textbf{11} (1999),
+100-125.
 
-\paragraph{Cycle~4 (is ``$\Phi_2(\Db\Coh(S))=\mathcal{H}_{\mathrm{Muk}}$''
-load-bearing, or a definition?).}
-\emph{Attack.} If $\mathcal{H}_{\mathrm{Muk}}$ is \emph{defined}
-as $\Phi_2(\Db\Coh(S))$, the statement is tautological.
-\emph{Heal.} $\mathcal{H}_{\mathrm{Muk}}$ is independently
-defined as the rank-$24$ Heisenberg bialgebra with the Mukai
-pairing on $H^*(S,\Z)$; the content of the identification is
-that $\Phi_2$ outputs \emph{this specific} Heisenberg structure,
-not merely \emph{some} rank-$24$ Heisenberg. The $E_2$-framing
-from the $S^2$-cyclic structure on $\HH_\bullet$ selects the
-Mukai pairing against any other non-degenerate bilinear form
-on $\Z^{24}$. Verification: the Bridgeland autoequivalence group
-$\mathrm{Aut}^*(\Db\Coh(S))$ acts on both sides and the
-identification is equivariant; equivariance against
-$O(4,20;\Z)$ determines the pairing up to Atiyah--Mukai
-monodromy.
+\bibitem{Atlas1985}
+J. H. Conway, R. T. Curtis, S. P. Norton, R. A. Parker, and
+R. A. Wilson, \emph{ATLAS of Finite Groups}, Clarendon Press, 1985.
 
-\paragraph{Cycle~5 (Mathieu moonshine: is the $25$-tuple
-coherent with the $E_2$-chiral statement?).}
-\emph{Attack.} The EOT decomposition gives $25$ twined mock
-modular forms; is the $M_{24}$-action on $\Phi_2(\Db\Coh(S))$
-compatible with the frame shape = twined bar Euler identity?
-\emph{Heal.} The $M_{24}$ action on $\Db\Coh(S)$ is via the
-Schur cover $\widetilde{M}_{24}$ by Bridgeland--Maciocia (2001)
-and Gaberdiel--Hohenegger--Volpato (2012); the order-$6$
-projective cocycle in $H^2(M_{24},U(1))\cong\Z/12$ is the obstruction
-to lifting to a genuine $M_{24}$-equivariant structure.
-Compatibility with $\Phi_2$: the Schur cover acts on
-$\mathcal{H}_{\mathrm{Muk}}$ by Serre automorphisms, and the
-twined bar Euler $\prod_k 1/\eta(k\tau)^{a_k(g)}$ is exactly the
-$g$-twisted G\"ottsche--Soergel partition function. Verification:
-the $25$ frame shapes (Mason 1985 Table) plus the Cheng 2010
-twining coefficient table. Genuine $M_{24}$ representations of
-the Fourier coefficients confirmed by Gannon (2012, Theorem~1.1).
-
-\paragraph{Closing note.} The inscription rests on four
-independently verified inputs: Proposition~\ref{prop:sigma-shadow-A9}
-(Vol~III class $\mathbf{M}$ shadow data),
-Theorem~\ref{thm:voli-reconstruction} (Vol~I MC-shadow-to-mock-modular
-reconstruction), Theorem~\ref{thm:cya2-recall} (CY-A$_2$, proved at
-$d=2$), and Gannon (2012) on Fourier-positivity. No
-conjectural inputs. Promotion from observation to theorem is
-unconditional at $d=2$.
+\end{thebibliography}
 
 \end{document}

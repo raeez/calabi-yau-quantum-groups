@@ -141,6 +141,102 @@ def evaluate_gate(witnesses: HallBorcherdsWitnesses) -> GateReport:
     return GateReport(status=status, closed=closed, missing_witnesses=missing, implications=implications)
 
 
+@dataclass(frozen=True)
+class RecognitionEnvelopeWitnesses:
+    """Finite data separating the universal envelope from faithful recognition."""
+
+    finite_compact_double: bool = False
+    finite_borcherds_target: bool = False
+    compact_source_packet: bool = False
+    radical_isometry: bool = False
+    serre_kernel_exact: bool = False
+    green_adjoint_coproduct: bool = False
+    primitive_center_reduction: bool = False
+    associator_class_match: bool = False
+    transition_compatible: bool = False
+
+
+FINITE_DEFECT_WITNESSES: Dict[str, str] = {
+    "R": "radical_isometry",
+    "S": "serre_kernel_exact",
+    "D": "green_adjoint_coproduct",
+    "C": "primitive_center_reduction",
+    "A": "associator_class_match",
+}
+
+
+@dataclass(frozen=True)
+class RecognitionEnvelopeReport:
+    """Status of the finite Hall-Borcherds recognition envelope."""
+
+    envelope_constructed: bool
+    source_packet_constructed: bool
+    source_faithfulness_forced: bool
+    finite_unquotiented_recognized: bool
+    completed_envelope_constructed: bool
+    completed_source_faithfulness: bool
+    completed_unquotiented_recognized: bool
+    vanished_defects: Tuple[str, ...]
+    remaining_defects: Tuple[str, ...]
+    status: str
+
+
+def finite_defect_vanishings(witnesses: RecognitionEnvelopeWitnesses) -> Dict[str, bool]:
+    """Return the five finite defect vanishings R, S, D, C, A."""
+    return {
+        defect: getattr(witnesses, field)
+        for defect, field in FINITE_DEFECT_WITNESSES.items()
+    }
+
+
+def source_matrix_forces_faithfulness(witnesses: RecognitionEnvelopeWitnesses) -> bool:
+    """Return True exactly when finite source matrices force J_H cap D_H^X = 0."""
+    finite_objects = witnesses.finite_compact_double and witnesses.finite_borcherds_target
+    return (
+        finite_objects
+        and witnesses.compact_source_packet
+        and all(finite_defect_vanishings(witnesses).values())
+    )
+
+
+def evaluate_recognition_envelope(
+    witnesses: RecognitionEnvelopeWitnesses,
+) -> RecognitionEnvelopeReport:
+    """Evaluate finite envelope construction versus faithful recognition."""
+    finite_objects = witnesses.finite_compact_double and witnesses.finite_borcherds_target
+    source_packet = witnesses.finite_compact_double and witnesses.compact_source_packet
+    vanishings = finite_defect_vanishings(witnesses)
+    vanished = tuple(defect for defect, ok in vanishings.items() if ok)
+    remaining = tuple(defect for defect, ok in vanishings.items() if not ok)
+    source_faithful = source_matrix_forces_faithfulness(witnesses)
+    finite_recognized = source_faithful
+    completed_envelope = finite_objects and witnesses.transition_compatible
+    completed_source_faithful = source_faithful and witnesses.transition_compatible
+    completed_recognized = completed_source_faithful
+    if completed_recognized:
+        status = "COMPLETED_UNQUOTIENTED_RECOGNITION"
+    elif finite_recognized:
+        status = "FINITE_UNQUOTIENTED_RECOGNITION"
+    elif completed_envelope:
+        status = "COMPLETED_RECOGNITION_ENVELOPE"
+    elif finite_objects:
+        status = "FINITE_RECOGNITION_ENVELOPE"
+    else:
+        status = "MISSING_FINITE_OBJECTS"
+    return RecognitionEnvelopeReport(
+        envelope_constructed=finite_objects,
+        source_packet_constructed=source_packet,
+        source_faithfulness_forced=source_faithful,
+        finite_unquotiented_recognized=finite_recognized,
+        completed_envelope_constructed=completed_envelope,
+        completed_source_faithfulness=completed_source_faithful,
+        completed_unquotiented_recognized=completed_recognized,
+        vanished_defects=vanished,
+        remaining_defects=remaining,
+        status=status,
+    )
+
+
 def primitive_discriminant(n: int, ell: int, m: int) -> int:
     """Return D = 4 n m - ell^2 for a rank-three BKM charge."""
     return 4 * n * m - ell * ell

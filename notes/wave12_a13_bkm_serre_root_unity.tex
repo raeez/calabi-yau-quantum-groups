@@ -1,15 +1,20 @@
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem*{attack}{Attack}
-\newtheorem*{heal}{Heal}
 
-\title{BKM Serre Vanishing at Depth Three and Root-of-Unity Degeneracy}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+
+\title{BKM Serre Deformations and Root-of-Unity Boundary Data}
 \author{Raeez Lorgat}
 \date{2026-04-22}
 
@@ -17,850 +22,254 @@
 \maketitle
 
 \begin{abstract}
-Two claims sit at the frontier of the Calabi--Yau-to-chiral functor
-$\Phi\colon \mathrm{CY}\text{-cat}_d \to \mathrm{ChirAlg}$ at
-$d = 3$. First: the vanishing of the second Serre polynomial
-$P_2(D)$ for the Borcherds--Kac--Moody (BKM) superalgebra
-$\mathfrak{g}_{\Delta_5}$ with Gritsenko denominator $\Delta_5$, at
-depth $D = 3$ in the imaginary-root stratification. Second: the
-count of $324$ finite-dimensional irreducibles of the quantum
-toroidal algebra $U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)$ at
-the second root of unity $q = -1$, and the degeneracy of the
-$S$-matrix on its abelian sector. We subject both to five
-attack--heal cycles and identify, behind each, a precise statement
-about $6$d holomorphic Chern--Simons boundary conditions at
-$\Omega$-background locus $\varepsilon_1 \varepsilon_2 = 0$.
+The Igusa denominator gives a proved Borcherds--Kac--Moody
+superalgebra.  Its \(\Omega\)-deformed Serre presentation and the
+root-of-unity finite tensor category attached to the quantum toroidal
+boundary require additional data.  This note records the proved
+denominator input, the conditional \(P_2=0\) mechanism for a linear
+one-parameter twist, the exact representation-theoretic meaning of a
+``\(324\)-module'' count, and the finite checks still required for a
+theorem.
 \end{abstract}
 
 \tableofcontents
 
-\section{Preliminaries: the BKM superalgebra and its Serre
-presentation}
-\label{sec:prelim-bkm}
+\section{The Proved Denominator}
+\label{sec:proved-denominator}
 
-The Igusa cusp form $\Delta_5$ of weight $5$ on the Siegel upper
-half-plane $\mathbb{H}_2$ arises as the Borcherds lift of the
-weak Jacobi form
+Let
 \[
-\phi_{0, 1}(\tau, z) \;=\; 4\Bigl[\theta_2^2/\theta_2^2(\tau, 0)
- + \theta_3^2/\theta_3^2(\tau, 0) + \theta_4^2/\theta_4^2(\tau, 0)
-\Bigr] \;=\; \tfrac{1}{2}\chi(K3;\tau, z).
+  \phi_{0,1}(\tau,z)
+  =
+  4\left(
+  \frac{\theta_2(\tau,z)^2}{\theta_2(\tau,0)^2}
+  +\frac{\theta_3(\tau,z)^2}{\theta_3(\tau,0)^2}
+  +\frac{\theta_4(\tau,z)^2}{\theta_4(\tau,0)^2}
+  \right)
+  =
+  \frac{1}{2}\chi(K3;\tau,z)
 \]
-Gritsenko--Nikulin exhibit $\Delta_5$ as the denominator function
-of a BKM superalgebra $\mathfrak{g}_{\Delta_5}$ with root lattice
-$\Lambda^{3, 2}$ (signature $(3, 2)$) and simple-root Cartan
-matrix
+be the Eichler-Zagier normalisation.  Its constant term is
 \[
- A_{\mathrm{re}} \;=\;
- \begin{pmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2
- \end{pmatrix},
+  \phi_{0,1}\big|_{q^0}=\zeta^{-1}+10+\zeta,\qquad c(0,0)=10 .
 \]
-controlling the real-root sub-Gram. The imaginary-root sector is
-infinite-dimensional and its multiplicities $c(n, \ell, m)$ are read
-off the Fourier expansion
+The Gritsenko-Nikulin/Borcherds lift gives the weight-five Igusa form
 \[
- \Delta_5(Z) \;=\; \sum_{n, \ell, m} c(n, \ell, m)\,
- q^n y^\ell p^m,
+  \operatorname{Bor}(\phi_{0,1})=\Delta_5,\qquad
+  \kBKM(\mathfrak g_{\Delta_5})=\frac{c(0,0)}{2}=5 .
 \]
-with $Z = \bigl(\begin{smallmatrix} \tau & z \\ z & \sigma
-\end{smallmatrix}\bigr)$, $q = e^{2\pi i \tau}$, $y = e^{2\pi i z}$,
-$p = e^{2\pi i \sigma}$.
-
-The Chevalley--Serre presentation extends to the BKM setting with
-real-root generators $e_i, f_i, h_i$ ($i = 1, 2, 3$) satisfying
-finite Serre relations, and imaginary-root generators $E_\delta$
-for $\delta$ on the light cone $\langle \delta, \delta \rangle = 0$,
-whose relations are controlled by the Fourier coefficients of
-$\phi_{0, 1}$. Write
+The primitive monic denominator convention is
 \[
- P(D, \varepsilon) \;=\; \text{the OPE exponent of the
- $(E_\delta, E_\delta)$ pairing at imaginary-root depth $D$
- under the $\Omega$-background deformation by $\varepsilon$}.
+  D_5=64^{-1}\Delta_5 .
 \]
-We organise $P$ as a series in $\varepsilon$:
+The scalar Oberdieck-Pandharipande convention uses the square
 \[
- P(D, \varepsilon) \;=\; \sum_{k \geq 1} P_k(D)\,\varepsilon^k,
- \qquad P_1(D) = -2D.
+  \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2 .
 \]
-The leading polynomial $P_1(D) = -2D$ is forced by the
-Sugawara $L_0$ action on the imaginary-root Verma. The question is
-whether $P_k(D) = 0$ for $k \geq 2$.
+The BKM denominator is the square-root lane; the scalar DT partition
+function uses the square.
 
-The BKM filtration by imaginary-root depth reads
+\section{Serre Data}
+\label{sec:serre-data}
+
+The real simple roots of \(\mathfrak g_{\Delta_5}\) have Cartan matrix
 \[
- \mathfrak{g}_{\Delta_5} \;=\; \bigoplus_{D \geq 0}
- \mathfrak{g}_{\Delta_5}^{(D)}, \qquad
- \mathfrak{g}_{\Delta_5}^{(D)} \;=\; \{x \mid
- \mathrm{ad}(H_\delta)^{D+1} x = 0,\ \mathrm{ad}(H_\delta)^D x
- \neq 0\},
+  A_{\mathrm{re}}
+  =
+  \begin{pmatrix}
+  2&-2&-2\\
+  -2&2&-2\\
+  -2&-2&2
+  \end{pmatrix}.
 \]
-where $H_\delta$ is the Cartan generator dual to the primitive
-imaginary root. Depth $D$ counts how many imaginary-root adjoint
-actions $x$ survives. The cases $D = 0, 1, 2$ are classical
-(real-root sub-algebra, first imaginary-root level, second
-imaginary-root level with $p$-expansion control); depth $D = 3$ is
-the first level at which the Gritsenko coefficient $c(n, \ell, 3)$
-no longer vanishes for some $(n, \ell)$ with
-$n + \ell^2 / 4 > 0$, i.e.\ where the first genuinely new imaginary
-root contribution enters.
-
-\section{Claim (A): $P_2(D) = 0$ at depth $D = 3$}
-\label{sec:claim-A}
-
-\subsection{Precise statement}
-
-We separate two distinct uses of the symbol $D$ in the literature
-and pin the present scope:
-\begin{itemize}
- \item \emph{Discriminant $D$}: a quadratic form discriminant
- invariant under $\mathrm{Sp}_4(\mathbb{Z})$-equivalence.
- \item \emph{Depth $D$}: the imaginary-root filtration degree
- defined above.
-\end{itemize}
-For $\mathfrak{g}_{\Delta_5}$ the two uses coincide at the first
-three levels $D \in \{1, 2, 3\}$ (the imaginary roots at depth $D$
-are precisely those of discriminant $D$ after Gritsenko's
-rescaling), and we adopt depth as the primary variable.
-
-\begin{theorem}[$P_2$ vanishes at $D = 3$]
-\label{thm:p2-d3}
-For the BKM superalgebra $\mathfrak{g}_{\Delta_5}$, the second Serre
-polynomial evaluates as
+Their real-root Serre relations are the usual Borcherds relations
 \[
- P_2(D = 3) \;=\; 0
+  (\mathrm{ad}\,e_i)^{1-a_{ij}}e_j=0,\qquad i\neq j .
 \]
-exactly. Equivalently, the imaginary-root OPE exponent at depth
-three,
+The imaginary simple roots are read from the polar and light-cone part
+of the Borcherds product.  Their multiplicities are coefficients of
+\(\phi_{0,1}\) in the denominator formula.  A deformation of these
+relations requires an \(\Omega\)-deformed BKM vertex algebra, a
+specified deformed two-point function, and a cohomology class in
 \[
- P(3, \varepsilon) \;=\; -6\,\varepsilon + O(\varepsilon^3),
+  H^2(\mathfrak g_{\Delta_5};\mathfrak g_{\Delta_5})
 \]
-vanishes at order $\varepsilon^2$.
-\end{theorem}
+measuring the second-order source of the deformed imaginary-root
+relations.
 
-We emphasise the scope: Theorem~\ref{thm:p2-d3} asserts vanishing
-\emph{at depth three}; the corresponding statement for all depths,
-$P_2(D) \equiv 0$, remains conjectural (Conjecture~\ref{conj:p2-all-D}
-below).
-
-\begin{proof}
-Three inputs combine.
-
-(i) \emph{Sugawara linearity of $L_0$ on imaginary Vermas.}  The
-imaginary-root Verma at depth $D$ carries an action of $L_0$ with
-spectrum $L_0 = D + 1 - \varepsilon D$ (the $\varepsilon$-term
-is the spectral-flow contribution computed from the Cartan twist
-$L_0 + \varepsilon J_0$, Borcherds 1995 Lemma 3.2). The OPE
-exponent reads
+\begin{definition}[Second-order Serre obstruction]
+\label{def:p2-obstruction}
+Fix an \(\Omega\)-deformed BKM vertex algebra whose deformed
+imaginary-root OPE exponent has expansion
 \[
- P(D, \varepsilon) \;=\; 2 L_0 - 2(D + 1)
- \;=\; -2D\,\varepsilon + 2\,\varepsilon^2 \cdot 0 + \cdots,
+  P_\delta(\varepsilon)
+  =
+  P_{\delta,0}
+  +\varepsilon P_{\delta,1}
+  +\varepsilon^2P_{\delta,2}
+  +O(\varepsilon^3).
 \]
-with the order-$\varepsilon^2$ coefficient controlled by the
-quadratic part of the spectral flow operator.
+The second-order Serre obstruction is the image of
+\(P_{\delta,2}\) in the depth-\(\delta\) summand of
+\(H^2(\mathfrak g_{\Delta_5};\mathfrak g_{\Delta_5})\).
+\end{definition}
 
-(ii) \emph{$\Omega$-background on $E$ forces
-$\varepsilon_1 \varepsilon_2 = 0$.}  The $1$d
-$\Omega$-background on the elliptic fibre $E$ of $K3 \times E$
-has $\varepsilon_1 \cdot \varepsilon_2 = \varepsilon \cdot 0 = 0$
-(only one direction in the fibre is $\Omega$-deformed; the other
-is transverse to $E$ and gets no deformation parameter). This kills
-\emph{all} $\varepsilon^2$ contributions from the fibre geometry.
-By Schiffmann--Vasserot 2013 Proposition 4.7 (adapted to the BKM
-setting), the $\varepsilon^2$ term in the OPE exponent at any fixed
-depth $D$ is proportional to $\varepsilon_1 \varepsilon_2$ plus a
-depth-independent ``universal'' piece controlled by the anomaly.
+This definition is the safe replacement for a scalar statement
+\(P_2(D)=0\).  Depth, discriminant, and \(\Sp_4(\Z)\)-orbit agree in
+small examples only after choosing the root parametrisation.  Beyond the
+first chamber, the obstruction is orbit-indexed.
 
-(iii) \emph{Vanishing of the anomaly piece at $D = 3$.}  At
-depth $D = 3$, the Fourier coefficient $c(n, \ell, 3)$ of $\Delta_5$
-contributes to the anomaly through the Gritsenko--Nikulin
-multiplicity formula
+\begin{proposition}[Linear one-parameter twist]
+\label{prop:linear-twist}
+Assume the \(\Omega\)-deformation acts on every imaginary-root field by
+the exact current twist
 \[
- \mathrm{mult}(n\delta_1 + \ell\delta_0 + 3\delta_2) \;=\;
- \sum_{k \mid (n, \ell, 3)} \mu(k)\, c(n/k, \ell/k) / k,
+  V_\delta(z)\longmapsto \exp(\varepsilon J_0)\,V_\delta(z)\,
+  \exp(-\varepsilon J_0)
 \]
-with $c(n, \ell)$ the Jacobi coefficient of $\phi_{0, 1}$. The
-anomaly contribution at order $\varepsilon^2$ is
+and assume the deformed propagator has no quadratic correction.  Then
 \[
- \mathrm{An}_2(D) \;=\; \sum_{(n, \ell)\colon n + \ell^2/4 = D}
- c(n, \ell) \cdot (n - \ell)(n + \ell).
+  P_{\delta,2}=0
 \]
-For $D = 3$, the relevant $(n, \ell)$ pairs are $(3, 0), (2, 2),
-(2, -2)$, giving coefficients $c(3, 0), c(2, 2), c(2, -2)$.
-Gritsenko's explicit expansion (Gritsenko 1999, Table 2) yields
-$c(3, 0) = -56$, $c(2, 2) = c(2, -2) = 56$ (by the Jacobi form
-parity), and
-\[
- \mathrm{An}_2(3) \;=\; (-56)(3)(3) + 56 \cdot 0 \cdot 4
- + 56 \cdot 0 \cdot (-4)
- \;=\; -504 + 0 + 0.
-\]
-The non-anomaly contribution from (i)--(ii) is
-$6 \cdot 84 = 504$ (six is the depth, $84 = c_2(0)/2$ is the
-BKM weight at $N = 2$), and the two cancel.
-
-Summing (i)--(iii):
-$P_2(3) = 0 + 0 + (-504 + 504) = 0$.
-\end{proof}
-
-\begin{proposition}[Reality of the cancellation]
-\label{prop:p2-reality}
-The cancellation $-504 + 504 = 0$ in Theorem~\ref{thm:p2-d3} is not
-a numerical accident. It is the statement that the depth-three
-imaginary-root OPE is controlled at order $\varepsilon^2$ by the
-\emph{universal Borcherds weight identity}
-\[
- \kappa_{\mathrm{BKM}}(\Phi_N) \;=\; c_N(0)/2,
-\]
-evaluated at $N = 2$: $\kappa_{\mathrm{BKM}}(\Phi_2) = 4$, and
-the anomaly piece at depth $D$ equals
-$-(D-1) D (D+1) \cdot \kappa_{\mathrm{BKM}}$; for
-$D = 3$ this gives $-24 \cdot 4 = -96$, matching the signed
-Fourier sum up to the normalisation factor $504/96 = 21/4$ which
-is the Gritsenko lift Jacobian.
+for every imaginary root \(\delta\).
 \end{proposition}
 
 \begin{proof}
-Direct computation from Borcherds' weight formula
-(Borcherds 1998 Theorem 13.3).
+Under the stated hypotheses the deformation is conjugation by a single
+Lie algebra element \(J_0\).  Eigenvalues vary linearly in
+\(\varepsilon\), and the two-point contraction defining the OPE
+exponent is unchanged at order \(\varepsilon^2\).  The coefficient
+\(P_{\delta,2}\) is therefore zero.
 \end{proof}
 
-\begin{remark}[Consequence for the Serre kernel]
-\label{rem:serre-kernel-D3}
-The $182$-generator Serre kernel of $\mathfrak{g}_{\Delta_5}$
-is generated, up to depth $3$, by the leading-order
-($P_1 = -2D$) relations plus corrections vanishing at depth $3$
-by Theorem~\ref{thm:p2-d3}. Whether the higher-depth
-corrections vanish is the open content of
-Conjecture~\ref{conj:p2-all-D}.
+\begin{remark}[Proof obligation]
+\label{rmk:linear-twist-obligation}
+Proposition~\ref{prop:linear-twist} is conditional.  A theorem for
+\(\mathfrak g_{\Delta_5}\) must construct the \(\Omega\)-deformed BKM
+vertex algebra, identify the current \(J_0\), prove absence of a
+quadratic propagator correction, and show compatibility with imaginary
+simple-root multiplicities in the Borcherds denominator.
 \end{remark}
 
-\subsection{Conjecture: $P_2(D) = 0$ for all $D$}
+\section{Root-of-Unity Boundary Model}
+\label{sec:root-unity}
 
-\begin{definition}[$P_2$ conjecture]
-\label{conj:p2-all-D}
-$P_2(D) = 0$ for every depth $D \geq 1$.
+Let \(U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)\) denote the DIM or
+quantum toroidal algebra.  At a root of unity one must specify:
+\[
+  \text{integral form},\quad
+  \text{central quotient},\quad
+  \text{finite subcategory},\quad
+  \text{Miki action},\quad
+  \text{negligible quotient}.
+\]
+The notation \(U_{q=-1}\) alone determines none of these choices.
+
+\begin{definition}[Finite root-of-unity model]
+\label{def:finite-root-model}
+A finite \(q=-1\) boundary model is a finite tensor category
+\(\mathcal C_{-1}\) equipped with:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item a quotient of an integral form of
+\(U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)\) at \(q=-1\);
+\item a finite list of simple objects closed under tensor product;
+\item a braiding or \(R\)-matrix on the quotient;
+\item a stated negligible ideal \(\mathcal N\);
+\item the induced \(S\)-pairing on \(K_0(\mathcal C_{-1})\).
+\end{enumerate}
 \end{definition}
 
-The evidence: Theorem~\ref{thm:p2-d3} at $D = 3$; the analogous
-(easier) computations at $D = 1, 2$; the Dijkgraaf--Verlinde--Verlinde
-elliptic genus formula implies the anomaly piece is the third-order
-polynomial $-(D-1)D(D+1)\cdot \kappa_{\mathrm{BKM}}$ for all $D$;
-and the $\Omega$-background-on-$E$ argument (step (ii) above) is
-independent of $D$.
+In a particular pointed finite model, the count
+\[
+  324=18^2=2^2\cdot 3^4
+\]
+may occur as the number of simple objects.  This count is a theorem only
+after Definition~\ref{def:finite-root-model} is supplied and the simple
+objects are classified.  The number alone is a numerical target.
 
-The gap: there is no independent verification of the
-non-anomaly piece beyond $D = 3$. Gritsenko's tables extend to
-$D \leq 10$ but the relevant Fourier sum involves six-fold
-partitions whose cancellation has been checked case-by-case only.
-This is why Conjecture~\ref{conj:p2-all-D} remains conjectural in
-the main manuscript.
-
-\subsection{Overlap with $E_8 \times E_8$}
-
-The $E_8 \times E_8$ heterotic Yangian $Y(\mathfrak{g}_{E_8 \times
-E_8})$, viewed inside the K3 Mukai lattice, carries $14$ independent
-Serre relations ($7$ per factor). These are the affine Serre
-relations of $\widehat{E}_8 \times \widehat{E}_8$ at level $1$. They
-are \emph{disjoint} from the $182$ imaginary-root Serre generators
-of $\mathfrak{g}_{\Delta_5}$: the real-root sub-algebra of
-$\mathfrak{g}_{\Delta_5}$ has rank $3$ (Cartan matrix
-$A_{\mathrm{re}}$ above), not $16$. There is no overlap.
-
-The $E_8 \times E_8$ Yangian sits \emph{inside} the K3 Yangian
-$Y(\mathfrak{g}_{K3})$ as the Yangian attached to the heterotic
-sublattice of $\Lambda^{4, 20}$; the BKM $\mathfrak{g}_{\Delta_5}$
-is a different algebra controlling $K3 \times E$ (CY$_3$), not
-just $K3$. The two presentations intersect only through the
-universal Borcherds weight identity (Proposition~\ref{prop:p2-reality}).
-
-\section{Attack--heal cycles on Claim (A)}
-\label{sec:attack-heal-A}
-
-\subsection{Cycle 1}
-\begin{attack}
-\emph{$P_2(D = 3) = 0$ is a coincidence, not structural.}  Gritsenko's
-coefficient $c(3, 0) = -56$ cancels $56$ from $c(2, \pm 2)$, but
-the numerator $504$ equals the denominator $504$ only because of
-the specific normalisation of $\phi_{0, 1}$; choose a different
-normalisation and the cancellation fails.
-\end{attack}
-\begin{heal}
-The normalisation of $\phi_{0, 1}$ is forced by
-$\phi_{0, 1} = \tfrac{1}{2}\chi(K3; \tau, z)$ and the K3 elliptic
-genus is the unique weight-$0$ index-$1$ Jacobi form with
-$\chi(K3; \tau, 0) = 24$.  The cancellation is therefore rigid
-under the $M_{24}$-equivariant structure.  It is the same rigidity
-as Eguchi--Ooguri--Tachikawa's mock-modular identification of the
-$1/4$-BPS twining functions.
-\end{heal}
-
-\subsection{Cycle 2}
-\begin{attack}
-\emph{The $\Omega$-background-on-$E$ argument (step (ii)) is
-circular.}  It assumes $\varepsilon_2 = 0$ on $E$, but the
-$\Omega$-deformation of the Borcherds product is parametrised by
-\emph{two} parameters $(\varepsilon_1, \varepsilon_2)$ on the Kuga--Satake
-variety, and setting one to zero is an \emph{ansatz}, not a derivation.
-\end{attack}
-\begin{heal}
-The Kuga--Satake variety of $\Delta_5$ is $\mathrm{Kum}(E \times E')$,
-of complex dimension $2$, with two deformation parameters
-$(\varepsilon_1, \varepsilon_2)$. The projection
-$\pi\colon \mathrm{Kum}(E \times E') \to E$ used in Costello--Li's
-chain for the BKM chiral algebra has one-dimensional fibre; the
-$\Omega$-deformation of the \emph{fibre} carries one parameter
-$\varepsilon$, and the other ($\varepsilon_2$) is absent because
-the fibre is elliptic.  This is not an ansatz: it is the statement
-that the Costello--Li $5$d holomorphic Chern--Simons reduction
-to the chiral boundary uses one Drinfeld twist, not two.
-\end{heal}
-
-\subsection{Cycle 3}
-\begin{attack}
-\emph{Depth $D = 3$ is singular because it is the first depth where
-$c(n, \ell, 3)$ has non-trivial signed partitions; at depth $D = 4$
-the cancellation may fail.}  Gritsenko 1999 tabulates
-$c(n, \ell, 4)$ with three active $(n, \ell)$-pairs, not two, and
-the anomaly formula
-$-(D-1)D(D+1)\kappa_{\mathrm{BKM}}$ at $D = 4$ gives $-240$, not
-a multiple of $504$.
-\end{attack}
-\begin{heal}
-The anomaly formula at $D = 4$ gives
-$-(3)(4)(5) \cdot 4 = -240$, and the corresponding Fourier sum
-yields $+240$ by direct expansion (Gritsenko 1999, Table 3):
-$c(4, 0) = 132$, $c(3, \pm 2) = -132$, $c(2, \pm 4) = 132$,
-with the anomaly kernel
-$(n - \ell)(n + \ell)$ giving
-$132 \cdot 16 + (-132) \cdot 5 + (-132) \cdot 5
-+ 132 \cdot (-12) + 132 \cdot (-12)$
-$= 2112 - 660 - 660 - 1584 - 1584 = -2376$,
-which equals $-240 \cdot 9.9 = $ \dots does not cancel cleanly.
-This is why the all-$D$ statement is conjectural.
-Theorem~\ref{thm:p2-d3} holds; Conjecture~\ref{conj:p2-all-D} does
-not extend without further input.
-\end{heal}
-
-\subsection{Cycle 4}
-\begin{attack}
-\emph{The identification of depth with discriminant (Section
-\ref{sec:prelim-bkm}) is wrong beyond $D = 3$.}  At depth $D = 4$,
-two distinct imaginary roots share discriminant $4$ but differ in
-$\mathrm{Sp}_4(\mathbb{Z})$-orbit; the $P_2$ polynomial depends on
-the orbit, not the discriminant.
-\end{attack}
-\begin{heal}
-Correct.  Theorem~\ref{thm:p2-d3} holds for depth $D = 3$ where
-the orbit is unique (the imaginary-root cone at depth $3$ contains
-exactly one $\mathrm{Sp}_4(\mathbb{Z})$-orbit).  At depth $D \geq 4$
-the statement bifurcates by orbit, and the $P_2$ polynomial becomes
-orbit-indexed:
-$P_2^{(\mathcal{O})}(D)$.
-The conjectural form of $P_2 \equiv 0$ is therefore
-\emph{orbit-indexed vanishing}, not scalar vanishing.
-\end{heal}
-
-\subsection{Cycle 5}
-\begin{attack}
-\emph{The ``second Serre relation'' and ``$P_2(D)$'' are being
-conflated.  The Serre relations are indexed by pairs of simple
-roots $(i, j)$ and depth $D$; the polynomial $P_2(D)$ is a single
-scalar invariant.  These are different data.}
-\end{attack}
-\begin{heal}
-Precise.  In the Chevalley--Serre presentation of
-$\mathfrak{g}_{\Delta_5}$:
-\begin{itemize}
- \item Real-root Serre relations: $(\mathrm{ad}\,e_i)^{1 - a_{ij}}
- e_j = 0$, indexed by simple-root pairs, $i, j \in \{1, 2, 3\}$.
- With $a_{ij} = -2$ off-diagonal (from $A_{\mathrm{re}}$), each
- relation is cubic.
- \item Imaginary-root Serre relations: for each imaginary simple
- root $\delta$ at depth $D$, the relation
- $[E_\delta, E_\delta] = c(\delta) E_{2\delta}$ (or $= 0$ if
- $2\delta$ not a root), with $c(\delta)$ the Gritsenko coefficient.
- \item $P_2$-Serre relations: $P_2(D) = 0$ is the statement that
- the \emph{second-order $\Omega$-deformation} of the imaginary-root
- Serre relations at depth $D$ has trivial source in the Lie
- algebra cohomology $H^2(\mathfrak{g}_{\Delta_5};
- \mathrm{ad})^{(D)}$.
-\end{itemize}
-The three are genuinely different.  The present work concerns the
-third.  Theorem~\ref{thm:p2-d3} asserts: at depth $D = 3$, the
-obstruction class in $H^2$ is zero.
-\end{heal}
-
-\section{Claim (B): $324$ modules at $N = 2$ and $S$-matrix
-degeneracy}
-\label{sec:claim-B}
-
-\subsection{Precise statement}
-
-Consider the quantum toroidal $\mathfrak{gl}_1$ algebra
-$U_{q, t}(\widehat{\widehat{\mathfrak{gl}}}_1)$ of Feigin--Odesskii--
-Miki, specialised at $q = -1$.  This is the $2N = 2$ specialisation
-(i.e.\ $q$ is a primitive $2$nd root of unity, equivalently
-$q^2 = 1$). We reserve the notation $N = 2$ for the level of the
-root-of-unity specialisation in the convention $q^{2N} = 1$; here
-$N = 1$ in that convention, but the literature (Feigin--Jimbo--Miwa--
-Mukhin 2019) uses the convention $q = \zeta_{2N}$ with $\zeta_{2N}
-= e^{2\pi i / (2N)}$ and writes $N = 2$ for $q = e^{\pi i} = -1$.
-We adopt the latter.
-
-\begin{theorem}[Module count at $N = 2$]
-\label{thm:324-modules}
-Let $U_{q = -1}(\widehat{\widehat{\mathfrak{gl}}}_1) \coloneqq
-U_{q, t}(\widehat{\widehat{\mathfrak{gl}}}_1) \big|_{q = -1}$.
-Its category of finite-dimensional irreducible modules, up to
-isomorphism, has exactly $324$ objects.
-\end{theorem}
+\begin{proposition}[Degeneracy criterion]
+\label{prop:s-degeneracy-criterion}
+For a pointed finite braided category with simple-object group \(G\) and
+bicharacter \(b:G\times G\to\C^\times\), the \(S\)-matrix is degenerate
+exactly when
+\[
+  \operatorname{Rad}(b)=
+  \{g\in G: b(g,h)=1\ \text{for all }h\in G\}
+\]
+is nonzero.
+\end{proposition}
 
 \begin{proof}
-The Miki automorphism $S$ satisfies $S^3 = \mathrm{id}$ on
-$U_{q, t}$ in general; at $q = -1$ the centre further contains
-charge conjugation $C$ with $C^2 = \mathrm{id}$ and $CS = SC$,
-yielding a $\mathbb{Z}_3 \rtimes \mathbb{Z}_2 = S_3$-symmetry on
-the module category; here the specific $\mathbb{Z}_2 \times
-\mathbb{Z}_2$ quotient relevant to $q = -1$ is generated by
-$(C, S^3 = 1)$, acting on the Miki $3$-cycle of $(0, 1)$-, $(1, 0)$-,
-$(1, 1)$-evaluation modules.  At $q = -1$:
-\begin{enumerate}
- \item The Hopf centre of $U_{q = -1}$ is generated by
- $(e_0^2, e_1^2, f_0^2, f_1^2, K_0^2, K_1^2)$, giving a
- $6$-generator central subalgebra.  The quotient $u_{q = -1}$ is
- finite-dimensional of dimension $\dim_\mathbb{C} u_{q = -1} =
- 2^6 \cdot 3^4 = 64 \cdot 81 = 5184$.  (Six Cartan squares,
- four Miki-$3$-cycle generators.)
- \item The irreducible modules are parametrised by characters
- of the centre.  The centre is
- $Z = \mathbb{C}[x_1, \dots, x_6] / (x_i^2 - \alpha_i)$
- with $\alpha_i \in \{0, 1\}$; plus the Miki $\mathbb{Z}_3$-grading
- contributes $3$ sectors, giving $2^6 \cdot 3 / \mathrm{Miki}$-twist
- $= 64 \cdot 3 / 1 = 192$ \dots not $324$.
- \item Refine: the correct count uses the Feigin--Jimbo--Miwa
- isomorphism $U_{q = -1} \cong D(\mathfrak{b}_+) \otimes
- D(\mathfrak{b}_-) / \mathrm{Miki}$, where $D$ is the Drinfeld
- double of the Borel at $q = -1$.  Each Borel double has $18$
- irreducibles (the affine $\mathfrak{sl}_2$ at $k = 0$ with $6$
- highest weights, tensored with the $\mathbb{Z}_3$-graded
- direction), and the quotient by Miki identification gives
- $18^2 / 1 = 324$.
-\end{enumerate}
-The $18 \times 18$ structure comes from $\dim \mathrm{Rep}^{\mathrm{fd}}
-(u_{-1}(\widehat{\mathfrak{sl}}_2)) = 18$ (Lusztig's small quantum
-group at fourth root of unity: $6$ simples times $3$-graded
-completion), squared (two Borels) with identification under the
-$\mathbb{Z}_3$ Miki symmetry that preserves the square.  The
-identification is the identity on the square (since Miki$^3 = 1$
-and $\gcd(3, 324) = 3$, but the Miki action has fixed points
-forming a $\mathbb{Z}_3$-invariant subcategory counted by Burnside:
-$(324 + 2 \cdot F) / 3$ with $F$ the fixed-point count, $F = 0$,
-yielding $324 / 3 = 108$ orbits, but we count \emph{modules}, not
-orbits, so the answer is $324$).
+The \(S\)-matrix is the character table of the homomorphism
+\[
+  G\longrightarrow \widehat G,\qquad
+  g\longmapsto b(g,-).
+\]
+Its rank is the cardinality of the image.  The determinant is nonzero
+exactly when the homomorphism is an isomorphism, equivalently when the
+radical is zero.
 \end{proof}
 
-\begin{remark}[Count reconciliation]
-\label{rem:324-reconciliation}
-$324 = 18^2 = 4 \cdot 81 = 2^2 \cdot 3^4$. The factorisation
-$4 \cdot 81$ reflects the structure: $4 = $ number of
-``vacuum-type'' modules at $q = -1$ (two Cartan signs times two
-Hopf centre signs), $81 = 3^4 = $ number of evaluation modules
-on the Miki $3$-cycle to the fourth power (four Heisenberg
-generators, each with $3$-graded spectrum).  The factorisation
-$18^2$ reflects the two-Borel structure.
-\end{remark}
+Thus an ``abelian sector'' at \(q=-1\) has degenerate \(S\)-matrix
+precisely when its braiding bicharacter has nontrivial radical.  A
+finite abelian character table with a perfect bicharacter is
+nondegenerate.  Degeneracy is a property of the chosen braiding and
+requires a radical computation.
 
-\begin{theorem}[$S$-matrix degeneracy on the abelian sector]
-\label{thm:S-matrix-degenerate}
-Let $\mathrm{Rep}^{\mathrm{fd}}_{\mathrm{ab}}(u_{-1})$ denote the
-\emph{abelian sector}: the full subcategory of finite-dimensional
-irreducibles $M$ with $[x, y] \cdot M = 0$ for all
-$x, y \in u_{-1}$.  Then the restriction of the Reshetikhin--Turaev
-$S$-matrix to this sector,
+\section{Six-Dimensional Boundary Scope}
+\label{sec:hcs-boundary-scope}
+
+The \(d=3\) CY-to-chiral output is native \(E_1\).  The \(E_2\) or
+braided structure belongs to a centre, double, or module category.  A
+six-dimensional holomorphic Chern-Simons interpretation of the BKM or
+quantum-toroidal boundary therefore needs:
 \[
- S\big|_{\mathrm{ab}}\colon K_0(\mathrm{Rep}^{\mathrm{fd}}_{\mathrm{ab}})
- \otimes K_0(\mathrm{Rep}^{\mathrm{fd}}_{\mathrm{ab}}) \to \mathbb{C},
+  \text{QME solution},\quad
+  \text{orientation and determinant framing},\quad
+  \text{anomaly cancellation},\quad
+  \text{completion},\quad
+  \text{descent or sewing}.
 \]
-is degenerate: $\det(S|_{\mathrm{ab}}) = 0$.
-\end{theorem}
+For complex dimension three the local one-loop obstruction is the
+quartic class \(I_4^\rho\).  The vanishing of a formal Serre
+coefficient or the existence of a root-of-unity finite model supplies no
+compact hCS quantisation theorem by itself.
 
-\begin{proof}
-In the abelian sector, all modules are one-dimensional (characters
-of the abelianisation $u_{-1}^{\mathrm{ab}} = u_{-1} /
-[u_{-1}, u_{-1}]$, which is a product of
-$\mathbb{Z}/2$'s at $q = -1$). The $S$-matrix on characters of a
-finite abelian group $G$ is the character table of $G$, which is
-unitary (non-degenerate) for $G$ finite.  \emph{But}: in the
-quantum toroidal setting at $q = -1$, the relevant ``abelian
-sector'' is not the characters of $u_{-1}^{\mathrm{ab}}$; it is
-the subcategory annihilated by all \emph{quantum} commutators
-$[x, y]_q \coloneqq xy - qyx$.  At $q = -1$, this is the
-anticommutator condition $xy + yx = 0$, and the corresponding
-abelianisation is a \emph{super}-abelianisation: the grouplike
-super-characters of $u_{-1}^{\mathrm{s-ab}}$.
+\section{Obligations}
+\label{sec:obligations}
 
-The $S$-matrix on super-characters has the form
+The BKM denominator side is proved at the automorphic-product level:
 \[
- S_{ij} \;=\; \frac{1}{\sqrt{|G|}} \chi_i(g_j) (-1)^{|i| \cdot |j|},
+  \operatorname{Bor}(\phi_{0,1})=\Delta_5,\qquad \kBKM=5 .
 \]
-with $|i| \in \{0, 1\}$ the super-parity.  The
-$(-1)^{|i| \cdot |j|}$ sign makes $S$ equal to the tensor product
-of the abelian character table of the even part with a
-$\sqrt{2}\begin{psmallmatrix} 1 & 1 \\ 1 & -1 \end{psmallmatrix}$-like
-piece.  The determinant vanishes when the super-parity pairing has
-a non-trivial kernel, which happens precisely when the super-abelian
-group has a non-trivial $\mathbb{Z}_2$-graded centre that is not
-self-dual.
-
-At $q = -1$, the super-abelian part of $u_{-1}$ is
-$\mathbb{Z}_2^6 \otimes \mathbb{Z}_2^{\mathrm{super}}$, with the
-extra $\mathbb{Z}_2$ coming from the Miki super-grading. The
-pairing is $\chi(g) = (-1)^{|g|}$ in the super-direction, which has
-a non-trivial kernel (the super-identity is self-dual), forcing
-$\det S|_{\mathrm{ab}} = 0$.
-\end{proof}
-
-\begin{corollary}[Not an MTC on the abelian sector]
-\label{cor:not-MTC-abelian}
-$\mathrm{Rep}^{\mathrm{fd}}_{\mathrm{ab}}(u_{-1})$ is \emph{not}
-a modular tensor category in the Huang--Lepowsky sense: the
-modularity axiom (non-degeneracy of $S$) fails by
-Theorem~\ref{thm:S-matrix-degenerate}.
-\end{corollary}
-
-\begin{remark}[Contrast with Reshetikhin--Turaev]
-\label{rem:RT-contrast}
-Reshetikhin--Turaev's theorem produces MTCs from quantum groups
-at roots of unity via the negligible quotient (the category
-$\mathrm{Til}(u_q) / \mathcal{N}$, where $\mathcal{N}$ is the
-ideal of negligible morphisms).  At $q = -1$, $\mathcal{N}$ for
-the \emph{full} category $\mathrm{Rep}^{\mathrm{fd}}(u_{-1})$ kills
-the super-direction, yielding an MTC on the $324 / 2 = 162$-object
-quotient.  The abelian sector, however, is entirely inside
-$\mathcal{N}$: every abelian morphism is negligible, since the
-quantum trace on a super-abelian module is zero.  Hence the
-abelian sector ``disappears'' in the MTC passage, and its
-$S$-matrix degeneracy is the statement that it was never an MTC
-to begin with.
-\end{remark}
-
-\section{Attack--heal cycles on Claim (B)}
-\label{sec:attack-heal-B}
-
-\subsection{Cycle 1}
-\begin{attack}
-\emph{The count $324 = 18^2$ is wrong: the two Borels share a
-common Cartan, so $18 \times 18 / 6 = 54$, not $324$.}
-\end{attack}
-\begin{heal}
-The Borels of $u_{-1}(\widehat{\widehat{\mathfrak{gl}}}_1)$ share
-the Cartan at the Lie algebra level, but the \emph{representations}
-of the two Borels at $q = -1$ are independent because the Cartan
-element in $u_{-1}$ satisfies $K^2 = 1$, giving two characters per
-Cartan, consumed independently by each Borel.  The quotient
-$18 \times 18 / 6$ double-counts the shared Cartan and is incorrect;
-the correct count uses the Feigin--Jimbo--Miwa--Mukhin formula
-$\mathrm{Rep}^{\mathrm{fd}}(u_{-1}) \cong
-\mathrm{Rep}^{\mathrm{fd}}(u_{-1}(\widehat{\mathfrak{sl}}_2))^{\otimes 2}
-/ \mathrm{Miki}^{-1}$, which preserves the $18 \times 18$
-double-count (the Miki identification acts trivially on the square
-because $\mathrm{Miki}^3 = 1$ and $18$ is not divisible by $3$
-as a \emph{rigid} category dimension).
-\end{heal}
-
-\subsection{Cycle 2}
-\begin{attack}
-\emph{The argument for $\det S|_{\mathrm{ab}} = 0$ uses a super-parity
-pairing that doesn't exist: at $q = -1$, there is no super-structure
-on $u_{-1}(\widehat{\widehat{\mathfrak{gl}}}_1)$.}
-\end{attack}
-\begin{heal}
-The super-structure at $q = -1$ arises from the Miki
-automorphism, not from a ``bare'' super-grading.  The
-$\mathbb{Z}_3$-symmetry of the Miki $3$-cycle becomes a
-$\mathbb{Z}_2$-symmetry under $q \mapsto q^{-1}$ at $q = -1$
-(since $q = -1$ is fixed by this involution), and the
-$\mathbb{Z}_2$-graded pieces are the super-parities.  This
-super-structure is intrinsic to the $q = -1$ locus and is
-absent at generic $q$.
-\end{heal}
-
-\subsection{Cycle 3}
-\begin{attack}
-\emph{At $q = -1$, the abelian sector is trivial (only the
-vacuum module survives), so asking about $\det S|_{\mathrm{ab}}$ is
-asking about a $1 \times 1$ matrix which is trivially invertible.}
-\end{heal}
-\begin{heal}
-False: the abelian sector at $q = -1$ contains all modules whose
-\emph{quantum} commutator vanishes, i.e.\ modules with
-$xy + yx = 0$ (the $q = -1$ version of commutativity).  These are
-the super-grouplike modules, of which there are
-$2^6 = 64$ (one per sign choice of the six Cartan squares).  The
-$S$-matrix on $64$ objects with a non-trivial super-direction has
-determinant zero (the $\mathbb{Z}_2$-graded pairing is not self-dual).
-\end{heal}
-
-\subsection{Cycle 4}
-\begin{attack}
-\emph{The contrast with Reshetikhin--Turaev is misleading: RT
-produces an MTC on the \emph{negligible quotient}, but the abelian
-sector is \emph{exactly} the negligible ideal, so saying ``the
-abelian sector is not an MTC'' is tautological---it was removed.}
-\end{attack}
-\begin{heal}
-Correct and illuminating.  The content of
-Theorem~\ref{thm:S-matrix-degenerate} is therefore:
-\emph{the abelian sector's role in the category is as the negligible
-ideal}.  The $S$-matrix degeneracy is the statement that the ideal
-is maximal for this modular structure.  Equivalently: the MTC
-$\mathrm{Til}(u_{-1}) / \mathcal{N}$ has rank
-$324 - 64 = 260$ objects after removing the abelian sector.
-\end{heal}
-
-\subsection{Cycle 5}
-\begin{attack}
-\emph{The count $324$ is inconsistent with $260$: if the MTC has
-$260$ objects, why is the full category claimed to have $324$?}
-\end{attack}
-\begin{heal}
-The count $324$ is for \emph{all} finite-dimensional irreducibles,
-including the negligible (abelian) ones.  The MTC after
-$\mathcal{N}$-quotient has $260$ irreducibles; before the quotient,
-$324$.  Both counts are correct, at different levels of
-categorical refinement.  The statement
-$\det S|_{\mathrm{ab}} = 0$ is the statement that the passage
-$324 \to 260$ kills the right $64$ objects.
-\end{heal}
-
-\section{Interweave: 6d hCS / CFG $E_3$}
-\label{sec:6dhCS}
-
-Both claims have precise $6$d holomorphic Chern--Simons (Costello--
-Witten--Yamazaki) and Costello--Francis--Gaiotto $E_3$
-interpretations.
-
-\subsection{$P_2(D) = 0$ as boundary gauge condition on $6$d hCS}
-
-Costello--Yamazaki's $6$d hCS on $\mathbb{R}^4 \times \mathbb{C}$,
-with gauge algebra $\mathfrak{g}$ and coupling $\varepsilon$,
-produces the Yangian $Y(\mathfrak{g})$ on the boundary
-$\mathbb{R}^4 \times \{0\}$ with spectral parameter inherited from
-$\mathbb{C}$.
-
-For the BKM case, the gauge algebra is $\mathfrak{g}_{\Delta_5}$.
-The $6$d hCS action
-\[
- S_{\mathrm{hCS}} \;=\; \int_{\mathbb{R}^4 \times \mathbb{C}}
- \mathrm{tr}\Bigl(A \wedge dA
- + \tfrac{\varepsilon}{3} A \wedge A \wedge A\Bigr) \wedge
- dz \wedge d\bar z / \omega
-\]
-has imaginary-root gauge modes at depth $D$ contributing
-$\varepsilon^D$-corrections to the boundary OPE.  The second-order
-correction at depth $D = 3$ is
-\[
- \delta S\Big|_{\varepsilon^2, D = 3} \;=\; \int_\partial
- P_2(3) \cdot E_\delta \wedge \bar E_\delta,
-\]
-vanishing by Theorem~\ref{thm:p2-d3}.  The interpretation:
-\emph{at depth $D = 3$, the $\varepsilon^2$-deformation of the
-boundary gauge condition is trivial}.  This is a precise boundary
-condition: the BKM Serre relations at depth $3$ are protected by
-the bulk $6$d hCS Dirichlet condition $A\big|_{\partial} \in
-\ker(\mathrm{d} + \varepsilon \mathrm{ad})^3$.
-
-\subsection{Root-of-unity specialisation as $\Omega$-background
-deformation}
-
-The specialisation $q \to -1$ in
-$U_{q, t}(\widehat{\widehat{\mathfrak{gl}}}_1)$ corresponds, under
-the Costello--Francis--Gaiotto $5$d CS chain, to
-\[
- \varepsilon_1 \;=\; \pi i, \qquad \varepsilon_2 \;=\; 0,
-\]
-i.e.\ to the $\Omega$-background at the second root of unity in
-the first direction and trivial in the second.  At this locus:
-\begin{itemize}
- \item $\varepsilon_1 \varepsilon_2 = 0$, so the $E_2$-reduction
- to $E_1$ is exact (Dunn additivity kills the second factor);
- \item The $E_1$ boundary algebra acquires a $\mathbb{Z}_2$-graded
- super-structure from $q^2 = 1$ (the super-parity is the
- $\mathbb{Z}_2$ kernel of $q \mapsto -q$);
- \item The modular tensor category on the boundary is
- $\mathrm{Til}(u_{-1}) / \mathcal{N}$, with $260$ simples; the
- abelian sector sits in $\mathcal{N}$ and has degenerate $S$.
-\end{itemize}
-
-The interweave is precise: $P_2(D) = 0$ at $D = 3$ is the BKM
-boundary condition, and $\det S|_{\mathrm{ab}} = 0$ at $N = 2$
-is the quantum toroidal boundary condition, at the same
-$\Omega$-background locus $\varepsilon_1 \varepsilon_2 = 0$.
-
-\subsection{$E_3$-lift via CFG}
-
-Costello--Francis--Gaiotto lift $E_2$ data on $\mathbb{C}$ to $E_3$
-data on $\mathbb{C} \times \mathbb{R}$ (``raviolo'' construction).
-Under this lift, the BKM Serre relations at depth $D$ become $E_3$
-constraints at height $D$ in the raviolo stack.
-Theorem~\ref{thm:p2-d3} asserts: \emph{the $E_3$ raviolo at height
-$3$ is free of $\varepsilon^2$-obstruction}.
-
-Similarly, the root-of-unity quantum toroidal MTC is the $E_2$
-shadow of an $E_3$ raviolo algebra at $q = -1$; the $S$-matrix
-degeneracy on the abelian sector is the statement that the
-$E_3$-to-$E_2$ forgetful descent has $64$-dimensional kernel.
-
-\section{Cross-consistency}
-\label{sec:cross-consistency}
-
-The two claims are consistent with the cache facts and with each
-other through the following chain:
-\begin{enumerate}
- \item $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0) / 2$
- (universal Borcherds weight).  At $N = 2$, $c_2(0) = 8$
- (Gritsenko 1999), so $\kappa_{\mathrm{BKM}}(\Phi_2) = 4$.
- Used in Proposition~\ref{prop:p2-reality}.
- \item $\mathrm{CoHA}(\mathbb{C}^3) = Y^+$ (positive half).  The
- K3 CoHA analogue yields $Y^+(\mathfrak{g}_{K3})$, and at $q = -1$
- its quantum-double is precisely $u_{-1}$, connecting
- Claim (A) (BKM Lie algebra) and Claim (B) (quantum toroidal
- module count) through the K3 Yangian.
- \item $d \geq 3$, $A$ is $E_1$.  The chiral algebra of
- $K3 \times E$ is $E_1$, and its $E_2$-Drinfeld-centre is the
- natural ambient for the BKM depth-$D$ structure.
- The $6$d hCS / CFG $E_3$-lift sits at the $d = 3$ ceiling.
- \item $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (Künneth on total
- space).  Used to check that the depth-$D$ anomaly at $D = 3$
- does not pick up a spurious $\kappa_{\mathrm{cat}}$-contribution
- (it does not: the anomaly is purely imaginary-root, not
- categorical-Euler).
- \item Six routes to $G(K3 \times E)$ are different constructions.
- The BKM $\mathfrak{g}_{\Delta_5}$ is one of the six; the quantum
- toroidal $u_{-1}$ is another (via K3 CoHA at root of unity).
- Theorem~\ref{thm:p2-d3} and Theorem~\ref{thm:324-modules} concern
- different routes and are not competing identifications.
+The following items remain separate mathematical obligations.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item Construct the \(\Omega\)-deformed BKM vertex algebra for
+\(\mathfrak g_{\Delta_5}\).
+\item Prove that the deformation is the exact linear current twist of
+Proposition~\ref{prop:linear-twist}, or compute the quadratic
+propagator correction.
+\item Index the second-order Serre obstruction by actual imaginary-root
+orbits and by the scalar depth parameter.
+\item Specify the integral form and central quotient of the
+\(q=-1\) quantum toroidal boundary algebra.
+\item Classify the finite simple objects in the chosen quotient and
+derive the number \(324\) from that classification.
+\item Compute the braiding bicharacter and its radical on the abelian
+sector.
+\item Relate the root-of-unity finite category to the \(E_1\) chiral
+boundary and to its centre or double.
 \end{enumerate}
 
-\section{Open questions}
-\label{sec:open}
+\section{References}
+\label{sec:references}
 
-\begin{enumerate}
- \item $P_2(D) = 0$ for all $D$?  (Conjecture~\ref{conj:p2-all-D}.)
- Theorem~\ref{thm:p2-d3} proves $D = 3$; $D = 4$ is open
- (Attack~3 of Cycle~3 above exposes a potential obstruction,
- partially healed by the orbit-indexed refinement of Cycle~4).
- \item The Lusztig integral form of $\mathfrak{g}_{\Delta_5}$ at
- $\zeta^\ell = 1$ with $\ell \geq 10$ is conjectural
- (Conjecture~\ref{conj:uzeta-gDelta5-MTC-umbral-S-matrix} in
- \texttt{working\_notes.tex}).  $P_2$ vanishing would provide a
- key input to this construction.
- \item What is the MTC on the $260$-object quotient
- $\mathrm{Til}(u_{-1}) / \mathcal{N}$?  Is it modular?  Its
- $S$-matrix is the restriction of the $324 \times 324$ $S$ to the
- non-negligible block; whether it is non-degenerate is open.
- \item Higher roots of unity $N \geq 3$: the module count at
- $q = \zeta_{2N}$ for $N = 3, 4, 6$ is open.  The Miki-symmetry
- argument generalises but the super-parity structure specific to
- $q = -1$ does not.  Whether an analogue of
- Theorem~\ref{thm:S-matrix-degenerate} holds is unknown.
- \item The $6$d hCS / CFG $E_3$-lift of the BKM boundary condition
- is sketched above but not made precise: the bulk-to-boundary
- passage for $\mathfrak{g}_{\Delta_5}$ requires a $6$d action
- principle that admits imaginary-root gauge modes, which
- Costello--Yamazaki have not written down for BKM-type
- algebras.  This is the most structurally important open direction.
-\end{enumerate}
-
-\appendix
-\section{Rectification log}
-\label{sec:rectification-log}
-
-\subsection{Cycle 1 (A): normalisation rigidity}
-The Gritsenko coefficient $c(3, 0) = -56$ is rigid under
-$M_{24}$-equivariance.  Heal: the cancellation $-504 + 504 = 0$
-in the proof of Theorem~\ref{thm:p2-d3} survives because
-$c(3, 0), c(2, \pm 2)$ are determined by the K3 elliptic genus.
-
-\subsection{Cycle 2 (A): one-parameter $\Omega$-deformation on $E$}
-The $\Omega$-background on $E$ has one parameter, not two, because
-$E$ is one-dimensional (over $\mathbb{C}$).  Heal: the Costello--Li
-chain uses exactly one Drinfeld twist on the fibre, forcing
-$\varepsilon_2 = 0$ geometrically.
-
-\subsection{Cycle 3 (A): depth $D = 4$ open}
-Attack: depth $D = 4$ may not extend.  Heal: correct---the
-all-$D$ statement is conjectural (Conjecture~\ref{conj:p2-all-D}),
-the theorem stands at $D = 3$ only.
-
-\subsection{Cycle 4 (A): orbit-indexed vanishing}
-Attack: depth $\neq$ discriminant beyond $D = 3$.  Heal: the
-conjectural form at $D \geq 4$ is orbit-indexed, not scalar.
-
-\subsection{Cycle 5 (A): $P_2$ as $H^2$ obstruction}
-Attack: ``second Serre relation'' vs ``$P_2(D)$'' confusion.
-Heal: $P_2(D) = 0$ is the vanishing of a cohomology class in
-$H^2(\mathfrak{g}_{\Delta_5}; \mathrm{ad})^{(D)}$, not the
-vanishing of a specific Serre relation.
-
-\subsection{Cycle 1 (B): $18 \times 18$ double-count}
-Attack: Borels share Cartan, so $18^2 / 6 = 54$.  Heal: the Feigin--
-Jimbo--Miwa--Mukhin factorisation preserves the square;
-$K^2 = 1$ at $q = -1$ makes the Cartan doubled, not shared.
-
-\subsection{Cycle 2 (B): super-structure from Miki}
-Attack: no super-structure at $q = -1$.  Heal: the
-super-structure comes from the $\mathbb{Z}_2$-fixed locus of
-$q \mapsto q^{-1}$ on the Miki $3$-cycle, intrinsic to $q = -1$.
-
-\subsection{Cycle 3 (B): abelian sector has $64$ objects}
-Attack: only the vacuum survives.  Heal: the quantum abelian
-condition $xy + yx = 0$ has $2^6 = 64$ super-grouplike solutions.
-
-\subsection{Cycle 4 (B): abelian sector is negligible ideal}
-Attack: ``not an MTC'' is tautological.  Heal: the content is
-that the negligible ideal is maximal for this modular structure;
-$324 - 64 = 260$ is the MTC rank.
-
-\subsection{Cycle 5 (B): $324$ vs $260$}
-Attack: counts inconsistent.  Heal: $324$ counts all irreducibles,
-$260$ counts MTC irreducibles after $\mathcal{N}$-quotient.  Both
-are correct.
-
-\section{Primary literature}
-\label{sec:primary-literature}
-
-\begin{itemize}
- \item Borcherds, R.\ E.\ (1995). Automorphic forms on
- $O_{s+2, 2}(\mathbb{R})$ and infinite products.
- \emph{Invent.\ Math.}\ 120, 161--213.
- \item Borcherds, R.\ E.\ (1998). Automorphic forms with singularities
- on Grassmannians. \emph{Invent.\ Math.}\ 132, 491--562.
- \item Gritsenko, V.\ A., Nikulin, V.\ V.\ (1996). Siegel
- automorphic form corrections of some Lorentzian Kac--Moody Lie
- algebras.  \emph{Amer.\ J.\ Math.}\ 119, 181--224.
- \item Gritsenko, V.\ A.\ (1999). Fourier--Jacobi functions in $n$
- variables.  \emph{J.\ Soviet Math.}\ 53, 243--252.
- \item Feigin, B., Odesskii, A.\ (1997). Vector bundles on
- elliptic curves and Sklyanin algebras.  \emph{AMS Transl.}\ 185,
- 65--84.
- \item Feigin, B., Jimbo, M., Miwa, T., Mukhin, E.\ (2019).
- Finite-type modules and Bethe ansatz for quantum toroidal
- $\mathfrak{gl}_1$.  \emph{Commun.\ Math.\ Phys.}\ 356, 285--327.
- \item Miki, K.\ (2007). A $(q, \gamma)$ analog of the
- $W_{1 + \infty}$ algebra.  \emph{J.\ Math.\ Phys.}\ 48, 123520.
- \item Schiffmann, O., Vasserot, E.\ (2013). Cherednik algebras,
- W-algebras and the equivariant cohomology of the moduli space of
- instantons on $\mathbb{A}^2$.  \emph{Publ.\ IHES}\ 118, 213--342.
- \item Costello, K., Yamazaki, M.\ (2019). Gauge theory and
- integrability, III.  \emph{arXiv:1908.02289}.
- \item Costello, K., Li, S.\ (2016). Twisted supergravity and its
- quantization.  \emph{arXiv:1606.00365}.
- \item Cheng, M., Duncan, J., Harvey, J.\ (2014). Umbral moonshine.
- \emph{Commun.\ Number Theory Phys.}\ 8, 101--242.
- \item Lorgat, R.\ (2020). Automorphic corrections of BKM
- superalgebras from Gritsenko lifts.  \emph{(user's April 2020
- paper, primary source for $N = 1$ $\kappa_{\mathrm{BKM}}$.)}
-\end{itemize}
+Borcherds' automorphic products are the source of the denominator
+formalism.  Gritsenko and Nikulin construct the \(\Delta_5\) correction
+for the relevant Lorentzian Kac-Moody algebra.  Miki, Feigin-Odesskii,
+and Feigin-Jimbo-Miwa-Mukhin supply the quantum toroidal and finite-type
+module background.  Costello-Yamazaki supply the gauge-theoretic
+integrability framework; applying it to \(\mathfrak g_{\Delta_5}\)
+requires the boundary data listed above.
 
 \end{document}

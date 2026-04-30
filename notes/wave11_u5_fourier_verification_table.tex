@@ -1,129 +1,256 @@
-% Wave-11 U5/20: Explicit Fourier verification --- BKM root multiplicity table
-% for $\mathfrak g_{\Delta_5}$ via $\phi_{0,1}$ Eichler--Zagier coefficients.
-% Primary sources: Gritsenko--Nikulin 1998 Duke Math.~94 Lemma~1; Borcherds 1995
-% Invent.~Math.~120 Thm.~10.4 (product formula); Eichler--Zagier 1985 \S3
-% (Jacobi form Fourier coefficients $c(D)$, $D=4n-\ell^2$); Eguchi--Ooguri--
-% Tachikawa 2011 (K3 elliptic genus Table~1 normalisation); Lorgat 2020 \S6
-% Theorem~4 (Borcherds lift and BKM multiplicity identification).
-\providecommand{\ClaimStatusTheorem}{\textsf{[Theorem]}}
 \providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\kappaCh}{\kappa_{\mathrm{ch}}}
+\providecommand{\kappaCat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kappaHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\kappaFiber}{\kappa_{\mathrm{fiber}}}
 \providecommand{\gDeltaFive}{\mathfrak g_{\Delta_5}}
 \providecommand{\phizo}{\phi_{0,1}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\C}{\mathbb{C}}
-\providecommand{\mult}{\mathrm{mult}}
+\providecommand{\smult}{\operatorname{smult}}
 
-\section*{Wave-11 U5: BKM root multiplicity table for $\gDeltaFive$ at the first ten non-trivial roots}
+\section*{Low-discriminant denominator exponents of
+\texorpdfstring{$\gDeltaFive$}{g Delta5}}
 
-\paragraph{Setup. \ClaimStatusTheorem}
-Work on $\Lambda^{2,1}_{II}$ with $\alpha = (n,\ell,m) \in \Z^{3}_{>0 \text{ or admissible}}$, Gram form
+Put \(q=e^{2\pi i\tau}\) and \(r=e^{2\pi iz}\).  The generator of
+\(J^{\mathrm{weak}}_{0,1}\) in the Eichler and Zagier normalization is
 \[
-  (\alpha,\alpha) \;=\; 2(\ell^{2} - 4nm) \;=\; -2D,\qquad D := 4nm - \ell^{2}
+  \phizo(\tau,z)
+  =
+  4\sum_{i=2}^{4}
+  \left(\frac{\theta_i(\tau,z)}{\theta_i(\tau,0)}\right)^2
+  =
+  \sum_{a\geq 0,\ \ell\in\Z} f(a,\ell)q^a r^\ell .
 \]
-(Gritsenko--Nikulin 1998 Duke~94, Lemma~1; Lorentzian signature $(2,1)$). Let
-$\phizo(\tau,z) = \sum_{D\geq -1} c(D)\,q^{n}r^{\ell}$ be the
-Eichler--Zagier 1985 generator of $J_{0,1}^{\mathrm{weak}}$
-(Theorem~9.3). The Borcherds--Gritsenko--Nikulin multiplicity identification
-for $\Delta_{5}$ (Lorgat 2020 \S6 Thm.~4) reads
-\begin{equation}\label{eq:mult-c}
-  \mult_{\gDeltaFive}(\alpha) \;=\; c(4nm-\ell^{2})
-  \qquad(\gcd(n,\ell,m)=1),
-\end{equation}
-and at $\gcd(n,\ell,m)=d>1$ the Borcherds divisor sum (Borcherds 1995
-\emph{Invent.\ Math.}~120, Thm.~10.4, product formula)
-\begin{equation}\label{eq:borcherds-div}
-  \mult_{\gDeltaFive}(\alpha)
-  \;=\; \sum_{d\mid \gcd(n,\ell,m)} \mu(d)\,d^{-1}\,
-  c\!\left(\tfrac{4nm-\ell^{2}}{d^{2}}\right).
-\end{equation}
-Signs of $c(D)$ encode supermultiplicity: $c(D)>0$ on bosonic
-root spaces, $c(D)<0$ on fermionic (Lorgat 2020 \S2,
-$\Z/2$-graded root system of GBKM type).
-
-\paragraph{Input Fourier table for $\phizo$. \ClaimStatusTheorem}
-Theta-ratio identity $\phizo = 4\sum_{i\in\{2,3,4\}}
-(\theta_{i}(\tau,z)/\theta_{i}(\tau,0))^{2}$ (Eichler--Zagier 1985
-Thm.~9.3) gives, by exact lattice-sum evaluation through $q^{3}$:
+Elliptic translation for index \(1\) gives
+\[
+  f(a,\ell)=c(4a-\ell^2),
+  \qquad
+  \operatorname{supp}(c)\subset
+  \{D\in\Z:D\geq -1,\ D\equiv 0,3 \pmod 4\}.
+\]
+Exact expansion of the theta-ratio identity through \(q^4\) gives
+\[
+\begin{aligned}
+\phizo
+={}& r^{-1}+10+r \\
+&+q(10r^{-2}-64r^{-1}+108-64r+10r^2)\\
+&+q^2(r^{-3}+108r^{-2}-513r^{-1}+808-513r+108r^2+r^3)\\
+&+q^3(-64r^{-3}+808r^{-2}-2752r^{-1}+4016-2752r+808r^2-64r^3)\\
+&+q^4(10r^{-4}-513r^{-3}+4016r^{-2}-11775r^{-1}
+      +16524-11775r+4016r^2-513r^3+10r^4)+O(q^5).
+\end{aligned}
+\]
+The required discriminant coefficients are
 \[
   \begin{array}{c|ccccccccc}
     D & -1 & 0 & 3 & 4 & 7 & 8 & 11 & 12 & 15 \\ \hline
-    c(D) & 1 & 10 & -64 & 108 & -513 & 808 & -2752 & 4016 & -11775
+    c(D) & 1 & 10 & -64 & 108 & -513 & 808 & -2752 & 4016 & -11775 .
   \end{array}
 \]
-(cross-verification: Dabholkar--Murthy--Zagier 2012 \S7 Table~1; Eguchi--
-Ooguri--Tachikawa 2011 eq.~(1.12), $\phizo^{K3}=2\phizo^{\mathrm{EZ}}$
-normalisation).
+They are Jacobi input coefficients.  The Gritsenko and Nikulin product
+below reads them as denominator exponents.
 
-\paragraph{Explicit table at the first ten non-trivial roots. \ClaimStatusTheorem}
-Tabulating $\alpha = (n,\ell,m)$ with $(n,\ell,m) \ne 0$, ordered by
-$D = 4nm-\ell^{2}$ ascending and breaking ties by $(n,m,|\ell|)$:
+Let \(Z=(\tau,z,\omega)\), \(s=e^{2\pi i\omega}\), and use the
+Gritsenko and Nikulin positive chamber
+\[
+  (n,\ell,m)>0
+  \quad\Longleftrightarrow\quad
+  m>0,\quad\hbox{or}\quad m=0,\ n>0,\quad\hbox{or}\quad m=n=0,\ \ell<0 .
+\]
+In this chamber the monic Borcherds product is
+\[
+  D_5(Z)
+  =
+  q^{1/2}r^{1/2}s^{1/2}
+  \prod_{(n,\ell,m)>0}
+  (1-q^n r^\ell s^m)^{f(nm,\ell)}
+  =
+  64^{-1}\Delta_5(Z).
+\]
+The Weyl-Kac-Borcherds denominator of the automorphic correction is
+\(D_5(2Z)=64^{-1}\Delta_5(2Z)\).  For the root
+\[
+  \alpha(n,\ell,m)=2nf_2-\ell f_3+2mf_{-2}
+\]
+one has
+\[
+  (\alpha,\alpha)=2(\ell^2-4nm)=-2D,
+  \qquad D=4nm-\ell^2,
+\]
+and the signed root supermultiplicity is the product exponent
+\[
+  \smult_{\gDeltaFive}(\alpha(n,\ell,m))
+  =
+  \dim\gDeltaFive_{\alpha,\bar 0}
+  -
+  \dim\gDeltaFive_{\alpha,\bar 1}
+  =
+  f(nm,\ell)
+  =
+  c(4nm-\ell^2).
+\]
+The greatest common divisor of \((n,\ell,m)\) is part of the charge; the
+already normalized product exponent is read directly from \(f(nm,\ell)\).
+Divisor terms enter the separate problem of recovering exponents from
+ordinary product coefficients or from logarithmic coefficients:
+\[
+  \log\prod_{\beta>0}(1-X^\beta)^{\smult(\beta)}
+  =
+  -\sum_{\beta>0}\sum_{j\geq 1}\frac{\smult(\beta)}{j}X^{j\beta}.
+\]
+Thus the imprimitive charge \((2,2,2)\) has product exponent
+\(c(12)=4016\).  The expression \(4016-\frac12c(3)=4048\) belongs to a
+Mobius recovery calculation for a different coefficient convention.
+
 \[
   \renewcommand{\arraystretch}{1.12}
-  \begin{array}{r|ccc|c|c|l|l}
-   k & n & \ell & m & D=4nm-\ell^{2} & \gcd & \mult_{\gDeltaFive}(\alpha) & \text{character}\\\hline
-   1 & 1 & 1 & 0 & -1 & 1 & c(-1)=1 & \text{real, }\delta_{3}\text{-type}\\
-   2 & 1 & 2 & 1 & 0 & 1 & c(0)=10 & \text{isotropic (null), bosonic}\\
-   3 & 1 & 1 & 1 & 3 & 1 & c(3)=-64 & \text{fermionic imaginary}\\
-   4 & 1 & 0 & 1 & 4 & 1 & c(4)=108 & \text{bosonic imaginary}\\
-   5 & 2 & 1 & 1 & 7 & 1 & c(7)=-513 & \text{fermionic imaginary}\\
-   6 & 2 & 0 & 1 & 8 & 1 & c(8)=808 & \text{bosonic imaginary}\\
-   7 & 3 & 1 & 1 & 11 & 1 & c(11)=-2752 & \text{fermionic imaginary}\\
-   8 & 2 & 2 & 2 & 12 & 2 & c(12)-\tfrac12 c(3)=4016+32=4048 & \text{Borcherds-summed}\\
-   9 & 3 & 0 & 1 & 12 & 1 & c(12)=4016 & \text{bosonic imaginary}\\
-   10 & 4 & 1 & 1 & 15 & 1 & c(15)=-11775 & \text{fermionic imaginary}
+  \begin{array}{r|ccc|c|c|c|l}
+   k & n & \ell & m & D=4nm-\ell^{2} & \gcd(n,\ell,m)
+     & \smult_{\gDeltaFive}(\alpha) & \text{root character}\\ \hline
+   1 & 1 & 1 & 0 & -1 & 1 & c(-1)=1
+     & \text{real}\\
+   2 & 1 & 2 & 1 & 0 & 1 & c(0)=10
+     & \text{isotropic, positive signed superdimension}\\
+   3 & 1 & 1 & 1 & 3 & 1 & c(3)=-64
+     & \text{imaginary, negative signed superdimension}\\
+   4 & 1 & 0 & 1 & 4 & 1 & c(4)=108
+     & \text{imaginary, positive signed superdimension}\\
+   5 & 2 & 1 & 1 & 7 & 1 & c(7)=-513
+     & \text{imaginary, negative signed superdimension}\\
+   6 & 2 & 0 & 1 & 8 & 1 & c(8)=808
+     & \text{imaginary, positive signed superdimension}\\
+   7 & 3 & 1 & 1 & 11 & 1 & c(11)=-2752
+     & \text{imaginary, negative signed superdimension}\\
+   8 & 2 & 2 & 2 & 12 & 2 & c(12)=4016
+     & \text{imprimitive charge, normalized product exponent}\\
+   9 & 3 & 0 & 1 & 12 & 1 & c(12)=4016
+     & \text{imaginary, positive signed superdimension}\\
+   10 & 4 & 1 & 1 & 15 & 1 & c(15)=-11775
+     & \text{imaginary, negative signed superdimension}
   \end{array}
 \]
 
-\paragraph{Five first-principles verification paths.}
-\begin{enumerate}
-\item \emph{Real-root entry $(1,1,0)$, $D=-1$.} $c(-1)=1$ is the
-  weak-Jacobi support edge; corresponds to $\delta_{3}=f_{3}$ real
-  simple root of Wave-10 T3 fundamental polyhedron.
-\item \emph{Null root $(1,2,1)$, $D=0$.} $c(0)=10$ matches the
-  isotropic constant term; consistent with $\tau(a_{0})=9$
-  bosonic-null exponent identity via
-  $\tau(a_{0}) = c(0) - c(-1) = 10-1 = 9$
-  (cf.\ \texttt{cy\_d\_kappa\_stratification.tex} line~2033).
-\item \emph{Fermionic root $(1,1,1)$, $D=3$.} Direct computation:
-  $\phizo|_{q^{1}}$ pentad $(10,-64,108,-64,10)$ in
-  $(r^{-2},r^{-1},r^{0},r^{1},r^{2})$; $c(3)$ sits at $\ell=\pm 1$.
-  Wave-10 T3 $f_{\Delta_{5}}(1,1,1)=64$ reconciles via
-  $\mult = c(3) = -64$ (sign encoding fermionic parity) and
-  $m(a) = -f_{\Delta_5}/64 = -1$ (automorphic correction integer).
-\item \emph{Borcherds divisor check at $(2,2,2)$.} $\gcd=2$,
-  $\mu(1) = 1$, $\mu(2) = -1$:
-  $\mult = c(12) - \tfrac{1}{2}c(3) = 4016 - \tfrac{1}{2}(-64)
-  = 4016 + 32 = 4048 \ne c(12)=4016$, so the Borcherds summation
-  is non-trivial at the first imprimitive lattice point.
-\item \emph{Consistency with $\kappaBKM(\Delta_{5}) = c_{1}(0)/2 = 5$.}
-  The constant term $c(0)=10$ of $\phizo$ governs both the null-root
-  multiplicity and the Borcherds weight
-  $\mathrm{wt}(\Delta_{5}) = c(0)/2 = 5$
-  (Borcherds 1998 Thm.~13.3), matching
-  $\kappaBKM(\Delta_{5})=5$ in the K3$\times E$ spectrum
-  $\{2,3,5,24\}$.
-\end{enumerate}
+The constant \(c(0)=10\) appears in two places.  It is the signed
+supermultiplicity of the isotropic exponent \(f(1,2)=c(0)=10\), and
+Borcherds weight theorem gives
+\[
+  \kappaBKM(\Delta_5)
+  =
+  \operatorname{wt}(\Delta_5)
+  =
+  \frac{c(0)}{2}
+  =
+  5 .
+\]
+The formula \(\kappaBKM(\Phi)=c(0)/2\) is meaningful after fixing the
+Borcherds input and the product normalization.  For the primitive CHL
+denominator ladder \(N\in\{1,2,3,4,6\}\),
+\[
+  c_N(0)=(10,8,6,4,2),
+  \qquad
+  \kappaBKM(\Phi_N)=(5,4,3,2,1).
+\]
 
-\paragraph{Sign convention and supermultiplicity.}
-On $\Lambda^{2,1}_{II}$ with signature $(2,1)$, $(\alpha,\alpha) = -2D$, so
-$(\alpha,\alpha)<0 \iff D>0 \iff \alpha$ imaginary. Among imaginary roots,
-the parity $\mult = c(D)$ with $\mathrm{sign}(c(D)) = (-1)^{\text{fermion}}$
-produces alternating-sign pentad
-$(10,-64,108,-64,10)$ at $q^{1}$: bosonic at $\ell=0,\pm 2$, fermionic at
-$\ell=\pm 1$. The $\Z/2$-graded root system
-$\Delta = \Delta^{\mathrm{re}} \sqcup \Delta^{\mathrm{im}}_{\bar 0}
-\sqcup \Delta^{\mathrm{im}}_{\bar 1}$ of Wave-10 T3 records this as
-$\dim\mathfrak g_{\alpha,\bar 0} - \dim\mathfrak g_{\alpha,\bar 1}
-= |c(D)|$ with sign = parity.
+For \(X=K3\times E\), the compact Hodge column is
+\[
+  (h^{0,0},h^{0,1},h^{0,2},h^{0,3})(X)=(1,1,1,1),
+  \qquad
+  \sum_{q=0}^{3}(-1)^q h^{0,q}(X)=0.
+\]
+The invariant lanes are therefore
+\[
+  \renewcommand{\arraystretch}{1.12}
+  \begin{array}{c|c|l}
+  \text{invariant} & \text{value} & \text{construction}\\ \hline
+  \kappaCat(X) & 0 &
+    \chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot 0\\
+  \kappaCh(X) & 0 &
+    \text{compact Hodge supertrace}\\
+  \kappaHeis(X) & 3 &
+    \kappaCh(K3)+\kappaCh(E)=2+1\\
+  \kappaBKM(\gDeltaFive) & 5 &
+    \operatorname{wt}(\Delta_5)=c_1(0)/2\\
+  \kappaFiber(K3) & 24 &
+    \operatorname{rk}\widetilde H(K3,\Z)=1+22+1 .
+  \end{array}
+\]
+These five entries come from the total-space holomorphic Euler
+characteristic, the compact chiral Hodge supertrace, the Heisenberg
+specialization, the BKM denominator weight, and the K3 Mukai lattice.
 
-\paragraph{References.}
-Gritsenko--Nikulin, \emph{Automorphic forms and Lorentzian Kac-Moody
-algebras I \& II}, Internat.\ J.\ Math.\ 9 (1998) 153--199, 201--275,
-Lemma~1; Borcherds, \emph{Automorphic forms on $O_{s+2,2}(\mathbb R)$
-and infinite products}, Invent.\ Math.\ 120 (1995) 161--213,
-Thm.~10.4; Eichler--Zagier, \emph{The theory of Jacobi forms}, Progr.\
-Math.~55, Birkh\"auser 1985, \S3 Theorem~9.3; Eguchi--Ooguri--
-Tachikawa, \emph{Notes on the $K3$ surface and the Mathieu group $M_{24}$},
-Exp.\ Math.\ 20 (2011) 91--96, eq.~(1.12); Lorgat, \emph{A Borcherds
-lift of the weak Jacobi form $\phi_{0,1}$}, April 2020, \S6 Thm.~4.
+The Cl\'ery and Gritsenko diagonal-divisor catalogue is the eight-row
+\(dd\)-modular system
+\[
+\begin{gathered}
+  (1,1;5),\ (2,1;2),\ (1,2;3),\ (3,1;1),\ (1,3;2),\\
+  (4,1;\tfrac12),\ (1,4;\tfrac32),\ (2,2;1),
+\end{gathered}
+\]
+with row weight equal to the third entry.  It intersects the primitive
+CHL ladder at the \(\Delta_5\) row \((1,1;5)\), and its row
+normalization and indexing are those of the diagonal-divisor theorem.
+
+The ordinary Mathieu table is the ATLAS \(26\)-class table
+\[
+\{1A,2A,2B,3A,3B,4A,4B,4C,5A,6A,6B,7A,7B,
+8A,10A,11A,12A,12B,14A,14B,15A,15B,21A,21B,23A,23B\}.
+\]
+The rows needed for the low-order twining comparison are
+\[
+  \renewcommand{\arraystretch}{1.12}
+  \begin{array}{c|c}
+  [g] & \text{\(24\)-point cycle shape}\\ \hline
+  3B & 3^8\\
+  4A & 2^4 4^4\\
+  4B & 1^4 2^2 4^4\\
+  6B & 6^4\\
+  10A & 2^2 10^2\\
+  12A & 2\,4\,6\,12\\
+  12B & 12^2 .
+  \end{array}
+\]
+A denominator theorem for an ordinary Mathieu row requires, in addition
+to this cycle shape, a Jacobi input, a multiplier, a paramodular group,
+and a Cartan datum.
+
+The scalar square is a third normalization:
+\[
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2,\qquad
+  D_5^2=4096^{-1}\Delta_5^2 .
+\]
+The first equality squares the universal Siegel product and doubles the
+weight from \(5\) to \(10\).  The second is the Oberdieck and Pixton
+scalar product.  The scalar \(4096^{-1}\) changes neither the weight nor
+the exponents of \(D_5\).  The Fake Monster product uses the input
+\(j(\tau)-744\), constant term \(24\), and weight \(12\).
+
+The coefficient table determines exactly the signed product exponents of
+\(\gDeltaFive\).  Parity-refined root-space dimensions, bracket
+constants, Chevalley-Eilenberg differentials, compact Hall products, and
+source-to-target comparison maps require algebraic data beyond these
+Fourier coefficients.
+
+\paragraph{Sources.}
+The theta-ratio formula and discriminant dependence of \(f(a,\ell)\)
+are Eichler and Zagier, \emph{The theory of Jacobi forms} (1985),
+Theorem~9.3.  The exact rational implementation is
+\texttt{compute/lib/phi01\_fourier.py}; its local test oracles are
+\texttt{compute/tests/test\_phi01.py} and
+\texttt{compute/tests/test\_phi01\_fourier.py}.  The product
+\(D_5=64^{-1}\Delta_5\), the \(2Z\) denominator normalization, and the
+root-supermultiplicity exponent \(f(nm,\ell)\) are Gritsenko and
+Nikulin, \emph{Siegel automorphic form corrections of some Lorentzian
+Kac-Moody Lie algebras} (1997), Sections~3 to~4 and Proposition~3.1,
+together with Gritsenko and Nikulin, \emph{Automorphic forms and
+Lorentzian Kac-Moody algebras II} (1998), Theorem~2.1.  The weight
+identity is Borcherds, \emph{Automorphic forms with singularities on
+Grassmannians} (1998), Theorem~13.3.  The CHL constants and the
+\(K3\times E\) invariant table are recorded in
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex} and
+\texttt{compute/lib/kappa\_bkm\_universal.py}.  The compact Hodge
+supertrace and Heisenberg specialization are implemented in
+\texttt{compute/lib/kappa\_spectrum\_reconciliation.py}.  The
+diagonal-divisor rows are Cl\'ery and Gritsenko,
+\emph{The Siegel modular forms of genus~2 with the simplest divisor}
+(2011), Theorem~1.4.  The Mathieu class list and cycle shapes use the
+ATLAS ordering of Conway, Curtis, Norton, Parker and Wilson (1985).

@@ -1,5 +1,5 @@
-% theory_qvcg_koszul.tex — Koszul Duality for Quantum Vertex Chiral Groups
-% Working note, Raeez Lorgat, April 2026
+% theory_qvcg_koszul.tex: Koszul Duality for Quantum Vertex Chiral Groups
+% Raeez Lorgat, April 2026
 
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
@@ -67,56 +67,58 @@
 \maketitle
 
 \begin{abstract}
-For a Calabi--Yau threefold $X$, the quantum vertex chiral group $G(X)$
-carries a natural Koszul dual $G(X)^!$. We develop this duality in four
-settings: toric CY3, where $G(X)^!$ is identified with the Langlands-dual
-affine Yangian via the $\cW$-algebra correspondence; $K3 \times E$, where
-$G(X)^!$ involves the mirror CY3 and the Borcherds involution on imaginary
-roots; the Volume~I chiral framework, where $\kappa_{\mathrm{ch}}(A^!_X)$ is related to
-$\kappa_{\mathrm{ch}}(A_X)$ by the complementarity formula; and the Hitchin system, where
-we conjecture that $G(C, \mathbf{G})^! = G(C, {}^L\mathbf{G})$:
-Langlands duality is Koszul duality of quantum vertex chiral groups.
+Koszul duality for quantum vertex chiral groups is a statement about
+constructed algebraic layers: the native $E_1$ chiral algebra
+$A_X=\Phi_3^{(\Sigma_2,C)}(\cC_X)$, its bar coalgebra $B(A_X)$, the
+Koszul dual $A_X^!$, and the center or Drinfeld double carrying the
+braided $E_2$ structure. General $G(X)$ is not assumed to exist. The
+toric, $K3\times E$, Volume~I, and Hitchin sections below give
+conditional root-data prescriptions and explicit proof obligations.
+For $\mathbb{C}^3$, the constructed object is the positive half
+$Y^+(\widehat{\mathfrak{gl}}_1)$; the full
+$\mathcal{W}_{1+\infty}$ layer is recovered only after the
+center/double passage.
 \end{abstract}
 
 \tableofcontents
 
 % ======================================================================
-\section{Introduction and overview}
+\section{Quantum vertex chiral groups and Koszul data}
 \label{sec:intro}
 % ======================================================================
 
-Let $X$ be a Calabi--Yau threefold. The programme of Volume~III constructs
-a quantum vertex chiral group $G(X)$ whose generalized root datum
+Let $X$ be a Calabi--Yau threefold on a constructed $\Phi_3$ locus. The
+specialized output is an $E_1$ chiral algebra
+$A_X=\Phi_3^{(\Sigma_2,C)}(\cC_X)$ on the reference curve. A quantum
+vertex chiral group $G(X)$ is available only after a positive half,
+Hopf or stable-envelope pairing, completion, and center/double
+identification have been supplied. When these data exist, its
+generalized root datum
 $\cR(X) = (\Lambda(X), \Delta^{\mathrm{re}}, \Delta^{\mathrm{im}}_0,
 \Delta^{\mathrm{im}}_1, W(X), \rho, \mult)$ encodes the BPS spectrum of
-$X$. The associated chiral algebra $A_X = \Phi(\cC)$, where
-$\cC = D^b(\Coh(X))$ or $\cC = \Fuk(X)$, has a bar complex
-$\barB(A_X)$ whose factorization structure encodes the denominator
-identity of $G(X)$.
-
-The purpose of this note is to develop the \emph{Koszul dual}
-$G(X)^!$ in the sense of chiral Koszul duality (Volume~I,
-Chapter~9 of the monograph). The central
-observation is that for CY3 arising from geometric representation
-theory, the Koszul dual $G(X)^!$ has a geometric identification
-that recovers known dualities as special cases.
+$X$. The bar complex $B(A_X)$ belongs to the native boundary algebra;
+the denominator identity belongs to the double or BKM target after the
+recognition data are fixed.
 
 \medskip
-\noindent\textbf{Summary of results.}
+\noindent\textbf{Four conditional identifications.}
 \begin{enumerate}[label=(\arabic*)]
-\item For toric CY3 $X_\Sigma$: $G(X_\Sigma)^!$ is the Langlands-dual
-affine Yangian $Y(\widehat{\fkg^L}_{Q_X})$, realized through the
-$\cW$-algebra duality $Y(\widehat{\fkg}) \leftrightarrow
-\cW(\fkg^L)$ (Section~\ref{sec:toric}).
+\item For toric CY3 $X_\Sigma$: the positive half is
+$Y^+(\widehat{\fkg}_{Q_X})$ on the native $E_1$ side. A Langlands-dual
+Yangian statement concerns the completed double/center and requires a
+specified Yangian/$\cW$ correspondence (Section~\ref{sec:toric}).
 
-\item For $K3 \times E$: $G(X)^!$ involves the mirror CY3 $X^\vee$,
-and the denominator identity of $G(X^\vee)$ is related to $\Delta_5$
-by a modular transformation in $\mathrm{Sp}_4(\bZ)$
+\item For $K3 \times E$: the target BKM denominator is
+$64^{-1}\Delta_5(2Z)$ at the $N=1$ Igusa normalization. Its weight is
+$\kappa_{\mathrm{BKM}}(\Phi_1)=c_1(0)/2=5$, while the compact
+Hodge-supertrace $\kappa_{\mathrm{ch}}(A_{K3\times E})$ is $0$ and the
+Heisenberg specialization has $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3$
 (Section~\ref{sec:k3e}).
 
-\item In the Volume~I language: $\kappa_{\mathrm{ch}}(A^!_X)$ is determined by the
-complementarity formula $\kappa_{\mathrm{ch}}(A_X) + \kappa_{\mathrm{ch}}(A^!_X) = \varrho \cdot K_X$,
-where $K_X$ is the Koszul conductor and $\varrho$ the anomaly ratio
+\item In the Volume~I language: $A_X$, $B(A_X)$, $A_X^i$, $A_X^!$, and
+$Z^{\mathrm{der}}_{\mathrm{ch}}(A_X)$ are separate objects. The
+complementarity formula is available only after a cyclic modular
+Koszul pair and its conductor have been constructed
 (Section~\ref{sec:vol1}).
 
 \item For CY3 arising from the Hitchin system on a curve $C$ with
@@ -127,13 +129,14 @@ chiral groups (Section~\ref{sec:hitchin}).
 
 
 % ======================================================================
-\section{Recollections: quantum vertex chiral groups and their root data}
+\section{Quantum vertex chiral groups and root data}
 \label{sec:recollections}
 % ======================================================================
 
 \subsection{The generalized root datum}
 
-Given a CY3 $X$, the generalized root datum $\cR(X)$ consists of:
+On a constructed quantum-vertex-group locus, the generalized root datum
+$\cR(X)$ consists of:
 \begin{enumerate}[label=(\roman*)]
 \item The \emph{lattice} $\Lambda(X) = K_0(\Coh(X))$ (or $K_0(\Fuk(X))$
 under HMS) with the Euler form $\chi(\alpha, \beta)$.
@@ -152,35 +155,41 @@ simple real roots $\delta_i$.
 
 \subsection{The denominator identity}
 
-The quantum vertex chiral group $G(X)$ is a generalized BKM
-superalgebra $\fkg_X$ whose Weyl--Kac--Borcherds denominator identity
-takes the product form
+When the center/double recognition data identify a BKM target, the
+corresponding generalized BKM superalgebra $\fkg_X$ has a
+Weyl--Kac--Borcherds denominator identity of product form
 \begin{equation}\label{eq:denominator-product}
 \Phi_X = e^{-2\pi i \langle \rho, z \rangle}
 \prod_{\alpha \in \Delta_+}
 \bigl(1 - e^{-2\pi i \langle \alpha, z \rangle}\bigr)^{\mult\,\alpha}.
 \end{equation}
 
-For $K3 \times E$: $\Phi_X = \frac{1}{64}\Delta_5(2Z)$ where
-$\Delta_5$ is the Igusa cusp form of weight~5 for $\mathrm{Sp}_4(\bZ)$.
-For toric CY3: $\Phi_X$ is the DT partition function
-$Z^{\mathrm{DT}}(X)$.
+For the $N=1$ $K3 \times E$ Borcherds target,
+$\Phi_X = 64^{-1}\Delta_5(2Z)$, where $\Delta_5$ is the
+theta-normalized Igusa cusp form of weight~5. For toric CY3, the
+positive half is governed by the critical CoHA and the DT partition
+function supplies product-form evidence; it is not by itself the full
+Drinfeld double.
 
 \subsection{The chiral algebra $A_X$ and the bar complex}
 
-The CY-to-chiral functor $\Phi$ (Theorem~CY-A) produces a quantum
-chiral algebra $A_X = \Phi(D^b(\Coh(X)))$ with:
+The CY-to-chiral assignment on a constructed CY$_3$ locus produces a
+native $E_1$ chiral algebra
+$A_X = \Phi_3^{(\Sigma_2,C)}(D^b(\Coh(X)))$ with:
 \begin{itemize}
 \item Bar complex $\barB(A_X)$ quasi-isomorphic to the cyclic bar
 complex $\mathrm{CC}_\bullet(\cC)$;
 \item Modular characteristic $\kappa_{\mathrm{ch}}(A_X) = \chi^{\mathrm{CY}}(\cC)$;
-\item $E_2$-enhancement encoding the braided monoidal structure
-$\Rep^{E_2}(G(X))$.
+\item a braided layer only after passage to
+$Z^{\mathrm{der}}_{\mathrm{ch}}(A_X)$, to
+$\cZ(\Rep^{E_1}(A_X))$, or to a completed Drinfeld double.
 \end{itemize}
 
-The product formula~\eqref{eq:denominator-product} for $\Phi_X$ is the
-bar-complex Euler product: the factorization structure of $\barB(A_X)$
-over $\Ran(C)$ encodes the product over positive roots.
+The product formula~\eqref{eq:denominator-product} is a double or BKM
+target identity. The boundary bar coalgebra $B(A_X)$ controls
+bar-cobar inversion of $A_X$; the product over positive roots is
+identified with it only after a recognition map from the boundary
+coalgebra to the denominator target has been constructed.
 
 
 % ======================================================================
@@ -191,12 +200,14 @@ over $\Ran(C)$ encodes the product over positive roots.
 \subsection{The chiral Koszul dual}
 
 For a chiral algebra $\cA$ on a smooth curve $C$, the chiral Koszul dual
-is
+is formed in two stages:
 \[
-\cA^! = \bigl(H^*(\barB(\cA))\bigr)^\vee,
+\cA^i = H^\bullet(\barB(\cA)),\qquad
+\cA^! = D_C(\cA^i),
 \]
-the linear dual of the bar cohomology. The Verdier intertwining
-(Volume~I, Theorem~A) gives
+where $D_C$ is Verdier duality on the curve, or the corresponding
+linear dual after finite-dimensionality and completion hypotheses are
+fixed. The Verdier intertwining gives
 \[
 D_{\Ran}(\barB(\cA)) \simeq \barB(\cA^!),
 \]
@@ -205,23 +216,26 @@ Koszul dual algebra. Bar-cobar inversion (Theorem~B) gives
 $\Omega(\barB(\cA)) \simeq \cA$ on the Koszul locus.
 
 \begin{warning}
-Three distinct functors act on $\barB(\cA)$:
+Five objects and three functors must be separated:
+(0)~$\cA$ (the chiral algebra), $\barB(\cA)$ (the bar coalgebra),
+$\cA^i$ (bar cohomology), $\cA^!$ (Verdier dual Koszul algebra), and
+$Z^{\mathrm{der}}_{\mathrm{ch}}(\cA)$ (bulk);
 (1)~$\Omega(\barB(\cA)) \simeq \cA$ (reconstruction);
 (2)~$D_{\Ran}(\barB(\cA)) \simeq \barB(\cA^!)$ (Koszul duality);
 (3)~$C^\bullet_{\mathrm{ch}}(\cA, \cA)$ (derived center, bulk observables).
-These are not the same. The Koszul dual $\cA^!$ lives on the boundary;
-the derived center lives in the bulk.
+The Koszul dual $\cA^!$ lives on the boundary; the derived center lives
+in the bulk.
 \end{warning}
 
 \subsection{The complementarity formula}
 
-For a chiral Koszul pair $(\cA, \cA^!)$, the complementarity formula
-(Volume~I, Theorem~C/D) reads:
+For a cyclic modular Koszul pair $(\cA, \cA^!)$ with a constructed
+conductor $K$, the complementarity formula reads:
 \begin{equation}\label{eq:complementarity}
 \kappa_{\mathrm{ch}}(\cA) + \kappa_{\mathrm{ch}}(\cA^!) = \varrho \cdot K,
 \end{equation}
 where $K = c(\cA) + c(\cA^!)$ is the Koszul conductor and
-$\varrho = \kappa_{\mathrm{ch}} / c$ is the anomaly ratio. The genus-$g$
+$\varrho$ is the anomaly ratio on that family. The genus-$g$
 complementarity is
 \[
 Q_g(\cA) \oplus Q_g(\cA^!)
@@ -257,9 +271,9 @@ Koszul dual is $\widehat{\fkg}_{-h^\vee}$ itself. The Feigin--Frenkel
 center $\mathfrak{z}(\widehat{\fkg}_{-h^\vee}) \simeq
 \Fun(\Op_{\fkg^\vee}(D^\times))$ connects the critical-level Koszul
 dual to the Langlands dual Lie algebra $\fkg^\vee$.
-This connection is \emph{external motivation}, not a formal consequence
-of chiral Koszul duality alone. The purpose of the present note is to
-make this connection precise in the CY3 setting.
+This connection is external motivation. In the CY$_3$ setting it becomes
+a theorem only after the positive half, center/double, and
+Verdier-duality data have been specified.
 \end{remark}
 
 
@@ -303,19 +317,20 @@ multiplicities.
 \subsection{Setup}
 
 Let $X_\Sigma$ be a toric CY3 determined by a fan $\Sigma$ with
-associated quiver $(Q_X, W_X)$. The quantum vertex chiral group is the
-affine super Yangian $G(X_\Sigma) = Y(\widehat{\fkg}_{Q_X})$, with:
+associated quiver $(Q_X, W_X)$. The native Hall object is the positive
+half of the affine super Yangian:
 \begin{itemize}
 \item Positive half: the critical CoHA
 $\cH(Q_X, W_X) \simeq Y^+(\widehat{\fkg}_{Q_X})$;
-\item $R$-matrix: the Yangian $R$-matrix $R(u)$ from the $E_2$-chiral
-structure;
+\item $R$-matrix: a structure on the Drinfeld double
+$D(Y^+(\widehat{\fkg}_{Q_X}))$ after a Hopf pairing and completion are
+fixed;
 \item Root multiplicities: DT invariants $\DT_\mathbf{d}(X_\Sigma)$.
 \end{itemize}
 
 \subsection{The Yangian--$\cW$-algebra duality}
 
-The fundamental observation is the Yangian/$\cW$-algebra correspondence
+The required comparison is the Yangian/$\cW$-algebra correspondence
 (Maulik--Okounkov, Schiffmann--Vasserot, Prochazka--Rapcak):
 \begin{equation}\label{eq:yangian-w-duality}
 Y(\widehat{\fkg}) \longleftrightarrow \cW(\fkg^L),
@@ -327,14 +342,17 @@ particular level is equivalent, as a braided monoidal category, to
 the category of modules over the $\cW$-algebra $\cW(\fkg^L)$ at the
 dual level.
 
-\begin{proposition}[Koszul dual of a toric CY3 quantum vertex chiral group]
+\begin{proposition}[Toric Koszul-dual proof obligation]
 \label{prop:toric-koszul-dual}
-For a toric CY3 $X_\Sigma$ without compact $4$-cycles:
+For a toric CY3 $X_\Sigma$ without compact $4$-cycles, the assertion
 \begin{equation}\label{eq:toric-koszul}
 G(X_\Sigma)^! \simeq Y(\widehat{\fkg^L}_{Q_X}),
 \end{equation}
-the affine Yangian of the Langlands-dual super Lie algebra.
-The identification proceeds through the $\cW$-algebra:
+for the completed quantum vertex group follows only from the following
+data: a constructed positive half $Y^+(\widehat{\fkg}_{Q_X})$, a
+non-degenerate Hopf pairing, a completed Drinfeld double, and a
+Yangian/$\cW$ correspondence compatible with Koszul duality. The target
+diagram is
 \[
 Y(\widehat{\fkg}_{Q_X}) \xleftrightarrow{\;\text{Y/W}\;}
 \cW(\fkg^L_{Q_X}) \xleftarrow{\;\text{Koszul}\;}
@@ -342,43 +360,40 @@ Y(\widehat{\fkg^L}_{Q_X}).
 \]
 \end{proposition}
 
-\begin{proof}[Evidence and structure of argument]
-The argument has three steps.
+\begin{proof}[Argument]
+The native chiral algebra $A_{X_\Sigma}$ is $E_1$. Its positive Hall
+comparison is $Y^+(\widehat{\fkg}_{Q_X})$. After a pairing and
+completion are supplied, the double has a braided representation
+category controlled by the Yangian $R$-matrix. The Yangian/$\cW$
+correspondence identifies this braided category with
+$\Rep(\cW(\fkg^L_{Q_X}))$ at an appropriate level.
 
-\emph{Step 1: Yangian/$\cW$ passage.}
-The chiral algebra $A_{X_\Sigma}$ associated to the toric CY3 has
-an $E_2$-structure whose representation category
-$\Rep^{E_2}(A_{X_\Sigma})$ is braided equivalent to
-$\Rep(Y(\widehat{\fkg}_{Q_X}))$. The Yangian/$\cW$ correspondence
-identifies this with $\Rep(\cW(\fkg^L_{Q_X}))$ at an appropriate
-level.
-
-\emph{Step 2: $\cW$-algebra Koszul duality.}
 The $\cW$-algebra Koszul duality (Volume~I, with conductor
 $K_N = 4N^3 - 2N - 2$ for $\cW_N$) sends
 $\cW_k(\fkg^L) \mapsto \cW_{k^!}(\fkg^L)$, where $k^!$ is
 determined by the complementarity formula. For the $\cW_{1+\infty}$
-algebra (the $\bC^3$ case), this is the self-dual point where the
-Yangian/$\cW$ correspondence identifies $Y(\widehat{\mathfrak{gl}}_1)
-\simeq \cW_{1+\infty}$ at the self-dual level.
-
-\emph{Step 3: reverse Yangian/$\cW$ passage.}
-Applying the Yangian/$\cW$ correspondence in reverse on the dual
+algebra (the $\bC^3$ double/center case), this is the self-dual point
+where the Yangian/$\cW$ correspondence identifies the completed double
+of $Y^+(\widehat{\mathfrak{gl}}_1)$ with $\cW_{1+\infty}$ at the
+self-dual level. Applying the Yangian/$\cW$ correspondence in reverse on the dual
 side gives $\cW_{k^!}(\fkg^L) \leftrightarrow
 Y(\widehat{\fkg^L}_{Q_X})$, yielding the
-identification~\eqref{eq:toric-koszul}.
+conditional identification~\eqref{eq:toric-koszul}.
 \end{proof}
 
 \begin{example}[$\bC^3$: self-dual Yangian]
 \label{ex:c3-koszul}
-For $X = \bC^3$: $G(\bC^3) = Y(\widehat{\mathfrak{gl}}_1)
-\simeq \cW_{1+\infty}$. The super Lie algebra is
+For $X = \bC^3$, the constructed Hall object is
+$Y^+(\widehat{\mathfrak{gl}}_1)$. The full $\cW_{1+\infty}$ algebra
+appears after the Drinfeld double/center passage. The super Lie algebra is
 $\fkg = \mathfrak{gl}_1$, which is self-dual:
 $\mathfrak{gl}_1^L = \mathfrak{gl}_1$. Hence
 \[
-G(\bC^3)^! = Y(\widehat{\mathfrak{gl}}_1) = G(\bC^3).
+D(Y^+(\widehat{\mathfrak{gl}}_1))^!
+\simeq D(Y^+(\widehat{\mathfrak{gl}}_1))
 \]
-The $\bC^3$ quantum vertex chiral group is \emph{Koszul self-dual}.
+after the completed Hopf pairing is fixed. The $\bC^3$ double is
+Koszul self-dual.
 This is consistent with the self-duality of $\cW_{1+\infty}$ at the
 self-dual level (Volume~I: the Yangian $R$-matrix is the DK-0 shadow,
 and MC4 is solved by weight stabilization).
@@ -396,7 +411,8 @@ simple root, and the Dynkin diagram is symmetric), we obtain
 G(X_{\mathrm{conifold}})^! \simeq
 Y(\widehat{\mathfrak{gl}}_{1|1}) \simeq G(X_{\mathrm{conifold}}).
 \]
-The conifold quantum vertex chiral group is also Koszul self-dual.
+This is a double-level self-duality claim. The native conifold
+$\Phi_3$ output remains an $E_1$ positive-half object.
 The self-duality reflects the geometric involution
 $\cO(-1) \oplus \cO(-1) \to \cO(-1) \oplus \cO(-1)$ exchanging the
 two line bundles.
@@ -412,11 +428,10 @@ $\psi_i(u)^{-1}$). The Koszul dual root datum has $\rho^! = -\rho$
 $\barB(Y^+) \simeq Y^-$ encodes the passage from creation to
 annihilation operators.
 
-However, this is only the $E_1$-sector of the story. The full
-Koszul dual---operating on the $E_3$ bar complex of the $E_1$-chiral
-algebra and inducing $E_2$-braided structure on the Drinfeld
-center---incorporates the Langlands involution on
-the root datum, exchanging $\fkg$ with $\fkg^L$. The negative mode
+This is the $E_1$ boundary sector. The braided Koszul statement
+operates after the center/double passage and incorporates the
+Langlands involution on the root datum, exchanging $\fkg$ with
+$\fkg^L$. The negative mode
 algebra is $Y^-(\widehat{\fkg})$; the Koszul dual quantum vertex
 chiral group is $Y(\widehat{\fkg^L})$, the full algebra of the
 \emph{Langlands-dual} super Lie algebra.
@@ -448,9 +463,10 @@ Z^{\DT}(X_\Sigma)^! =
 
 \subsection{The BKM superalgebra $\fkg_{\Delta_5}$ and its Koszul dual}
 
-Let $X = (S \times E) / (\bZ/N\bZ)$ where $S$ is a K3 surface and $E$
-is an elliptic curve. The quantum vertex chiral group
-$G(X) = \fkg_{\Delta_5}$ is the generalized BKM superalgebra with:
+At $N=1$, the $K3\times E$ Borcherds target is the generalized BKM
+superalgebra $\fkg_{\Delta_5}$. This is target BKM data; a compact
+Hall realization additionally requires the finite Hall--Borcherds
+recognition datum. The target has:
 \begin{itemize}
 \item Real simple roots $\{\delta_1, \delta_2, \delta_3\}$ with Gram
 matrix
@@ -458,7 +474,8 @@ $(\delta_i, \delta_j) = \begin{psmallmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\
 -2 & -2 & 2 \end{psmallmatrix}$;
 \item Imaginary root multiplicities $\mult(\alpha) = f(nm, l)$,
 the Fourier coefficients of $\phi_{0,1}$ (the K3 elliptic genus);
-\item Denominator identity: $\frac{1}{64}\Delta_5(2Z) = \Phi_X(z)$.
+\item Denominator identity:
+$\operatorname{den}(\fkg_{\Delta_5})=64^{-1}\Delta_5(2Z)$.
 \end{itemize}
 
 \begin{definition}[Borcherds involution]
@@ -493,37 +510,37 @@ coordinates, only under $\omega_B$.
 
 \subsection{The mirror CY3 and modular transformation}
 
-\begin{proposition}[Koszul dual denominator identity]
+\begin{proposition}[Borcherds-target dual denominator datum]
 \label{prop:k3e-koszul-denominator}
-The denominator identity of $G(X)^! = \fkg_{\Delta_5}^!$ is related to
-$\Delta_5$ by the Fricke involution $W_N$ in $\mathrm{Sp}_4(\bZ)$:
-\begin{equation}\label{eq:k3e-koszul-denominator}
-\Phi_{X^!}(z) = \Phi_X(W_N \cdot z) \cdot
-(\det W_N)^{-\kappa_{\mathrm{ch}}(A_X)},
-\end{equation}
-where $W_N = \begin{psmallmatrix} 0 & -I_2 \\ NI_2 & 0 \end{psmallmatrix}$
-is the Fricke involution of level $N$ in $\mathrm{Sp}_4(\bZ)$.
+The dual denominator identity of the $K3\times E$ BKM target is
+controlled by the automorphic transformation law of the corresponding
+Siegel modular form. At $N=1$,
+\[
+ \operatorname{den}(\fkg_{\Delta_5})=64^{-1}\Delta_5(2Z),
+ \qquad
+ \kappa_{\mathrm{BKM}}(\Phi_1)=\mathrm{wt}(\Delta_5)=c_1(0)/2=5 .
+\]
+For a CHL level $N$, replacing $\Delta_5$ by the correct row form
+$\Phi_N$ gives $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$. A Fricke
+formula must use the actual multiplier, the factor $\det(CZ+D)$, and
+the row's weight. It is not a formula with
+$\kappa_{\mathrm{ch}}(A_X)$ in the exponent.
 \end{proposition}
 
 \begin{proof}[Sketch]
-The argument proceeds through the $\mathrm{Sp}_4(\bZ)$-action on the
-Siegel upper half-space $\bH_2$, which is the $E_2$-structure of
-$G(X)$. The Koszul duality involution on the chiral algebra side
-corresponds, via the identification of $E_2$-braiding with the
-$\mathrm{Sp}_4(\bZ)$-action, to the Fricke involution $W_N$ on
-$\bH_2$.
-
-The weight factor $(\det W_N)^{-\kappa_{\mathrm{ch}}}$ arises from the modular
-transformation law of $\Delta_5$. Since $\Delta_5$ has weight~$5$
-and $\kappa_{\mathrm{ch}}(A_{K3 \times E}) = 5$, the factor is
-$(\det W_N)^{-5} = N^{-10}$. This is the ``Koszul conductor''
-contribution to the dual denominator identity.
+The denominator identity is target arithmetic. Igusa normalization gives
+$D_5=64^{-1}\Delta_5$, hence the denominator
+$64^{-1}\Delta_5(2Z)$. The modular exponent is the BKM weight,
+not the compact chiral Hodge supertrace: for compact $K3\times E$,
+$\kappa_{\mathrm{ch}}(A_{K3\times E})=0$ by Serre cancellation, while
+the Heisenberg specialization gives $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3$.
+The equality $5=c_1(0)/2$ is the Borcherds-weight identity.
 \end{proof}
 
 \subsection{Geometric interpretation: mirror symmetry}
 
-The Fricke involution $W_N$ on $\bH_2$ corresponds, on the geometric
-side, to the passage from $X = (S \times E)/(\bZ/N\bZ)$ to its
+The Fricke involution on $\bH_2$ is expected to correspond, on the
+geometric side, to the passage from $X = (S \times E)/(\bZ/N\bZ)$ to its
 \emph{mirror} CY3:
 \[
 X^\vee = (S^\vee \times E^\vee) / (\bZ/N\bZ),
@@ -544,13 +561,13 @@ Under this identification:
 \item The Borcherds involution $\omega_B$ on imaginary roots
 corresponds to the mirror map on the BPS spectrum:
 $\DT_\alpha(X^\vee) = \DT_{\omega_B(\alpha)}(X)$.
-\item The Koszul conductor $K_X$ equals $\kappa_{\mathrm{ch}}(A_X) + \kappa_{\mathrm{ch}}(A_{X^\vee})$,
-which vanishes when $X \simeq X^\vee$ (i.e., at the self-mirror point
-in moduli).
-\item The eight quantum vertex chiral groups $G(X_N)$ for
-$N = 1, \ldots, 8$ (Conjecture~8.7.1 of Volume~III) are paired
-by Koszul duality according to the Fricke pairing on the eight
-diagonal divisor Siegel modular forms.
+\item The Koszul conductor must be computed from the cyclic modular
+Koszul pair. It is not determined by replacing the Borcherds weight
+with $\kappa_{\mathrm{ch}}(A_X)$.
+\item The eight diagonal-divisor Siegel forms give eight BKM
+denominator targets. Compact $K3\times E$ CHL hosts occur only on the
+appropriate CHL subrows; the remaining rows are automorphic targets
+until a host geometry and recognition map are supplied.
 \end{enumerate}
 \end{conjecture}
 
@@ -558,9 +575,9 @@ diagonal divisor Siegel modular forms.
 At the self-mirror point $X \simeq X^\vee$ (the attractor point in
 K3 moduli), the BKM superalgebra $\fkg_{\Delta_5}$ becomes Koszul
 self-dual. This is the CY3 analogue of the Virasoro self-duality at
-$c = 13$: the ``self-dual central charge'' of $G(K3 \times E)$ is
-the self-mirror point, where the modular characteristic satisfies
-$\kappa_{\mathrm{ch}}(A_X) = \kappa_{\mathrm{ch}}(A_{X^\vee})$.
+$c = 13$: the self-dual datum is the mirror-fixed Borcherds target
+together with its multiplier and weight, not a replacement of
+$\kappa_{\mathrm{BKM}}$ by $\kappa_{\mathrm{ch}}$.
 \end{remark}
 
 \subsection{The Borcherds involution is not Cartan negation}
@@ -597,26 +614,29 @@ negation.
 
 \subsection{The CY complementarity formula}
 
-\begin{theorem}[CY complementarity]
+\begin{proposition}[CY complementarity datum]
 \label{thm:cy-complementarity}
-For a CY3 $X$ with quantum chiral algebra $A_X$ and Koszul dual
-$A^!_X$, the modular characteristics satisfy
+For a CY$_3$ constructed locus with native $E_1$ chiral algebra $A_X$,
+a Koszul dual $A^!_X$, and a cyclic modular Koszul conductor $K_X$, the
+expected complementarity relation is
 \begin{equation}\label{eq:cy-complementarity}
 \kappa_{\mathrm{ch}}(A_X) + \kappa_{\mathrm{ch}}(A^!_X) = \varrho_X \cdot K_X,
 \end{equation}
 where:
 \begin{itemize}
-\item $K_X = \kappa_{\mathrm{tot}}(X)$ is the total Koszul conductor,
-a topological invariant of $X$ determined by the lattice $\Lambda(X)$;
+\item $K_X$ is the Koszul conductor of the pair $(A_X,A_X^!)$;
 \item $\varrho_X = \kappa_{\mathrm{ch}}(A_X) / c_{\mathrm{eff}}(X)$ is the anomaly
 ratio, where $c_{\mathrm{eff}}$ is the effective central charge of
 $A_X$.
 \end{itemize}
-This is the CY extension of the $\cW$-algebra complementarity formula
+The proof obligation is to construct $A_X^!$, $K_X$, and the genus-one
+trace identifying $\kappa_{\mathrm{ch}}(A_X)$ with the appropriate
+negative-cyclic Hodge summand. This is the CY extension of the
+$\cW$-algebra complementarity formula
 $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = \varrho_N \cdot K_N$.
-\end{theorem}
+\end{proposition}
 
-\begin{proof}[Argument]
+\begin{proof}[Criterion]
 The genus-$g$ complementarity (Theorem~C of Volume~I) gives
 \[
 Q_g(A_X) \oplus Q_g(A^!_X) \simeq
@@ -625,10 +645,10 @@ H^*\bigl(\overline{\cM}_g,\, \cZ(A_X)\bigr).
 Taking the leading Hodge class $\lambda_g$ contribution at genus~$g$:
 $\obs_g(A_X) + \obs_g(A^!_X) = \kappa_{\mathrm{ch}}(A_X) \cdot \lambda_g +
 \kappa_{\mathrm{ch}}(A^!_X) \cdot \lambda_g = (\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^!) \cdot \lambda_g$.
-The right-hand side is determined by the center $\cZ(A_X)$, which for
-a CY3 quantum chiral algebra is controlled by the lattice structure
-of $\Lambda(X)$. The explicit computation gives
-$(\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^!) \cdot \lambda_g = \varrho_X \cdot K_X \cdot \lambda_g$.
+The right-hand side is determined by the center
+$Z^{\mathrm{der}}_{\mathrm{ch}}(A_X)$ after the center exists. The
+displayed formula follows precisely when its genus-one Hodge summand is
+computed and equals $\varrho_X K_X$.
 \end{proof}
 
 \subsection{The shadow obstruction tower of $A^!_X$}
@@ -638,7 +658,8 @@ shadow obstruction tower of $A_X$ via the Koszul intertwining:
 
 \begin{proposition}[Shadow obstruction tower duality]
 \label{prop:shadow-duality}
-The MC elements $\Theta_{A_X}$ and $\Theta_{A^!_X}$ are related by
+After the cyclic modular Koszul pair and conductor are constructed, the
+MC elements $\Theta_{A_X}$ and $\Theta_{A^!_X}$ should be related by
 \begin{equation}\label{eq:shadow-duality}
 \Theta_{A^!_X} = -\Theta_{A_X} + \Theta^{\mathrm{conductor}}_X,
 \end{equation}
@@ -656,26 +677,27 @@ imaginary roots plus the conductor shift on the Weyl vector.
 
 \subsection{Classification by shadow depth}
 
-The shadow depth classification (Volume~I: classes G/L/C/M) extends
-to quantum vertex chiral groups. The Koszul dual preserves shadow
-depth class:
+The shadow depth classification (Volume~I: classes G/L/C/M) extends to
+constructed quantum vertex chiral groups. Preservation under Koszul
+duality is a criterion, not a formal consequence of the bar-cobar
+counit:
 
 \begin{proposition}[Shadow depth preservation]
 \label{prop:depth-preservation}
-If $G(X)$ has shadow depth $r_{\max}$, then $G(X)^!$ also has shadow
-depth $r_{\max}$.
+If $G(X)$ and $G(X)^!$ are constructed and the Koszul involution
+preserves the quartic shadow invariant $S_4$, then the two have the
+same shadow depth $r_{\max}$.
 \end{proposition}
 
 \begin{proof}
 Shadow depth is determined by the critical discriminant
-$\Delta = 8\kappa_{\mathrm{ch}} S_4$. Under Koszul duality, the quartic shadow
-invariant $S_4$ transforms as $S_4^! = S_4$ (it depends only on the
-OPE structure constants, which are preserved up to the Koszul
-involution). The discriminant complementarity formula
+$\Delta = 8\kappa_{\mathrm{ch}} S_4$. Under the stated hypothesis
+$S_4^! = S_4$. The discriminant complementarity formula
 $\Delta(A) + \Delta(A^!) = \frac{6960}{(5c+22)(152-5c)}$ ensures
 that $\Delta = 0$ if and only if $\Delta^! = 0$ (at the self-dual
 point $c_* = 13$ for Virasoro; the analogous statement holds for
-CY3 quantum vertex chiral groups at the self-mirror/self-dual point).
+CY3 quantum vertex chiral groups only after their center/double model
+and conductor are supplied).
 \end{proof}
 
 
@@ -717,9 +739,10 @@ carries a \emph{CY category}: the derived category
 $D^b(\Coh(\cM_H(C, \mathbf{G})))$ is a CY category of dimension
 $\dim \cM_H$, and the Fukaya category $\Fuk(\cM_H(C, \mathbf{G}))$
 is a CY category of the same dimension. The CY-to-chiral functor
-$\Phi$ can therefore be applied to produce a quantum chiral algebra
-$A_{C,\mathbf{G}} = \Phi(D^b(\Coh(\cM_H(C, \mathbf{G}))))$ and a
-quantum vertex chiral group $G(C, \mathbf{G})$ in any dimension.
+$\Phi_d$ can therefore be applied only in its dimension-stratified
+form. For $d\geq 3$ the specialized output is $E_1$-chiral; a quantum
+vertex group $G(C,\mathbf{G})$ requires the same positive-half,
+pairing, completion, and center/double data as in the CY$_3$ examples.
 
 \subsection{Langlands duality of Hitchin systems}
 
@@ -821,16 +844,18 @@ The quantum vertex chiral group $G(C, \mathbf{G})$ is built from the
 CoHA of the Hitchin quiver, which is a shifted Yangian. The conjecture
 $G(C, \mathbf{G})^! = G(C, {}^L\mathbf{G})$ extends the shifted
 Yangian duality~\eqref{eq:shifted-yangian-langlands} to the full
-$E_2$-chiral setting.
+center/double setting.
 
 \subsubsection{(d) Homological mirror symmetry}
 
 HMS for Hitchin systems~\eqref{eq:hitchin-langlands} gives
 $D^b(\Coh(\cM_H(\mathbf{G}))) \simeq \Fuk(\cM_H({}^L\mathbf{G}))$.
-Applying the CY-to-chiral functor:
+Applying $\Phi_d$ gives an identification of chiral outputs only when
+the HMS equivalence preserves the CY structure, the specialization
+datum, and the obstruction-killing package:
 \[
-A_{C,\mathbf{G}} = \Phi(D^b(\Coh(\cM_H(\mathbf{G}))))
-\simeq \Phi(\Fuk(\cM_H({}^L\mathbf{G})))
+A_{C,\mathbf{G}} = \Phi_d(D^b(\Coh(\cM_H(\mathbf{G}))))
+\simeq \Phi_d(\Fuk(\cM_H({}^L\mathbf{G})))
 = A_{C,{}^L\mathbf{G}}.
 \]
 But this is the \emph{HMS identification}, not Koszul duality. The
@@ -844,45 +869,37 @@ These are consistent if and only if $A_{C,\mathbf{G}}$ is Koszul
 self-dual (for simply-laced $\mathbf{G}$). For non-simply-laced
 $\mathbf{G}$, HMS gives $A_{C,\mathbf{G}} \simeq A_{C,{}^L\mathbf{G}}$
 as underlying chiral algebras, but the Koszul involution acts
-nontrivially on the $E_2$-enhancement (the braiding), exchanging the
-quantum group parameter $q$ and $q^{-1}$.
+nontrivially on the center-layer braiding, exchanging the quantum group
+parameter $q$ and $q^{-1}$.
 
 \subsection{The Koszul conductor of the Hitchin CY3}
 
-\begin{proposition}[Hitchin Koszul conductor]
+\begin{proposition}[Hitchin conductor proof obligation]
 \label{prop:hitchin-conductor}
-The Koszul conductor of the Hitchin quantum vertex chiral group is
-\begin{equation}\label{eq:hitchin-conductor}
-K_{C,\mathbf{G}} = (g_C - 1) \cdot d_{\fkg} \cdot
-\bigl(h^\vee + h^{\vee,L}\bigr),
-\end{equation}
-where $d_\fkg = \dim \fkg$, $h^\vee$ is the dual Coxeter number of
-$\fkg$, and $h^{\vee,L}$ is the dual Coxeter number of $\fkg^L =
-{}^L\fkg$.
-\end{proposition}
-
-\begin{proof}[Sketch]
-The modular characteristic $\kappa_{\mathrm{ch}}(A_{C,\mathbf{G}})$ is the CY Euler
-characteristic of $\cM_H(C, \mathbf{G})$
-(Theorem~\ref{thm:cy-complementarity}). For the Hitchin system:
+Any formula for the Koszul conductor of the Hitchin quantum vertex
+group must supply:
+\begin{enumerate}[label=(\roman*)]
+\item the weighted trace realizing
 \[
 \kappa_{\mathrm{ch}}(A_{C,\mathbf{G}}) =
-\frac{(k + h^\vee) \cdot d_\fkg}{2 h^\vee} \cdot (g_C - 1),
+\frac{(k + h^\vee) \cdot d_\fkg}{2 h^\vee} \cdot (g_C - 1)
 \]
-generalizing the affine KM formula $\kappa_{\mathrm{ch}}(\widehat{\fkg}_k) =
-(k + h^\vee) d_\fkg / (2h^\vee)$ by the factor $(g_C - 1)$ from
-the curve. The Koszul conductor is
-\[
-K = \kappa_{\mathrm{ch}}(A_{C,\mathbf{G}}) + \kappa_{\mathrm{ch}}(A_{C,{}^L\mathbf{G}})
-= (g_C - 1) d_\fkg \cdot
-\biggl(\frac{k + h^\vee}{2h^\vee} +
-\frac{k^L + h^{\vee,L}}{2h^{\vee,L}}\biggr).
-\]
-Under the Feigin--Frenkel duality
-$(k + h^\vee)(k^L + h^{\vee,L}) = 1$, the sum simplifies. At
-critical level $k = -h^\vee$: $\kappa_{\mathrm{ch}} = 0$, so $K = 0 + 0 = 0$.
-At generic level, $K$ is given by~\eqref{eq:hitchin-conductor}
-evaluated at the natural normalization.
+on the affine local model;
+\item the Langlands-dual weighted trace for ${}^L\mathbf{G}$;
+\item the cyclic modular Koszul pair identifying
+$A_{C,\mathbf{G}}^!$ with the appropriate dual object;
+\item the conductor $K_{C,\mathbf{G}}$ extracted from that pair.
+\end{enumerate}
+The closed expression
+$(g_C - 1)d_\fkg(h^\vee+h^{\vee,L})$ is a normalization target, not a
+proved formula in the absence of these data.
+\end{proposition}
+
+\begin{proof}[Criterion]
+The displayed affine formula is the local Kac--Moody target. A Hitchin
+conductor theorem must first prove that the Hitchin $\Phi_d$ output has
+that weighted trace, then prove the dual trace and the Koszul pairing.
+Only then can the conductor be evaluated.
 \end{proof}
 
 \subsection{The Feigin--Frenkel--Langlands triangle}
@@ -918,8 +935,8 @@ The new content of Conjecture~\ref{conj:langlands-koszul} is that
 for \emph{quantum vertex chiral groups} (which incorporate the full
 BPS/automorphic data), Koszul duality \emph{does} exchange
 $\mathbf{G}$ and ${}^L\mathbf{G}$. The extra ingredient is the
-$E_2$-chiral enhancement and the automorphic correction
-(shadow obstruction tower), which are invisible at the level of affine
+center-layer braiding and the automorphic correction (shadow
+obstruction tower), which are invisible at the level of affine
 Kac--Moody algebras alone.
 \end{remark}
 
@@ -1022,11 +1039,11 @@ diagram when $\fkg_{Q_X}$ is not self-dual).
 
 
 % ======================================================================
-\section{Synthesis: the four faces of CY Koszul duality}
+\section{Four faces of CY Koszul duality}
 \label{sec:synthesis}
 % ======================================================================
 
-We summarize the four developments in a unified table.
+The four constructions have different proof surfaces.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.4}
@@ -1040,8 +1057,8 @@ $G(X)^!$ & $Y(\widehat{\fkg^L})$ & $\fkg_{\Delta_5}^!$
 & $A^!_X$ & $G(C,{}^L\mathbf{G})$ \\
 Mechanism & Y/W duality & Borcherds inv.
 & Verdier on $\Ran$ & Langlands \\
-Conductor $K$ & $0$ (s.l.) & $0$ (s.m.)
-& $\varrho \cdot K_X$ & $(g_C-1)d_\fkg(h^\vee + h^{\vee,L})$ \\
+Conductor $K$ & proof obligation & proof obligation
+& $\varrho \cdot K_X$ on constructed pairs & proof obligation \\
 Self-dual & $\fkg = \fkg^L$ & $X = X^\vee$
 & $c = c_*$ & $\mathbf{G}$ s.l. \\
 \end{tabular}
@@ -1055,38 +1072,39 @@ The unifying principle is:
 
 \begin{center}
 \fbox{\parbox{0.85\textwidth}{
-\textbf{Koszul duality of quantum vertex chiral groups is the
-$E_2$-chiral incarnation of Langlands duality.}
+\textbf{Koszul duality of completed quantum vertex chiral groups is a
+candidate $E_2$-center incarnation of Langlands duality.}
 The passage from $G(X)$ to $G(X)^!$ replaces the structure group
 $\mathbf{G}$ by ${}^L\mathbf{G}$, the level $k$ by its
 Feigin--Frenkel dual, and the imaginary roots by their Borcherds
-involution images, all at once.
+involution images, after the positive half, pairing, completion, and
+recognition data are fixed.
 }}
 \end{center}
 
 \subsection{Compatibility with the main theorems}
 
 \begin{itemize}
-\item \textbf{Theorem CY-A} (CY-to-chiral functor): The functor
-$\Phi$ applied to $D^b(\Coh(\cM_H(\mathbf{G})))$ produces
-$A_{C,\mathbf{G}}$. Koszul duality gives
-$A_{C,\mathbf{G}}^! = A_{C,{}^L\mathbf{G}}$.
+\item \textbf{Theorem CY-A} (CY-to-chiral assignment): The
+dimension-stratified assignment $\Phi_d$ produces an $E_1$ chiral output
+at $d\geq 3$ after specialization. The claim
+$A_{C,\mathbf{G}}^! = A_{C,{}^L\mathbf{G}}$ requires a constructed
+Koszul pair.
 
-\item \textbf{Theorem CY-B} ($E_2$ bar-cobar): The bar complex
-$\barB_{E_2}(A_{C,\mathbf{G}})$ has Verdier dual
-$D_{\Ran}(\barB_{E_2}(A_{C,\mathbf{G}})) \simeq
-\barB_{E_2}(A_{C,{}^L\mathbf{G}})$.
+\item \textbf{Theorem CY-B} (bar-cobar and Verdier duality): The
+native bar object is $B_{E_1}(A_{C,\mathbf{G}})$. Bar-cobar inversion
+recovers $A_{C,\mathbf{G}}$; Verdier duality of bar cohomology produces
+$A_{C,\mathbf{G}}^!$.
 
-\item \textbf{Theorem CY-C} (quantum group realization):
-$\Rep^{E_2}(G(C,\mathbf{G}))$ is braided equivalent to the
-Langlands-dual representation category
-$\Rep^{E_2}(G(C,{}^L\mathbf{G}))$ under the braiding reversal
-$q \mapsto q^{-1}$.
+\item \textbf{Theorem CY-C} (quantum group realization): The braided
+category lives on the center or completed double. A Langlands-dual
+braided equivalence is a theorem only on loci where both doubles and
+the braiding reversal $q \mapsto q^{-1}$ have been constructed.
 
 \item \textbf{Theorem CY-D} (modular characteristic):
 $\kappa_{\mathrm{ch}}(A_{C,\mathbf{G}}) + \kappa_{\mathrm{ch}}(A_{C,{}^L\mathbf{G}}) =
 \varrho \cdot K_{C,\mathbf{G}}$, where
-$K_{C,\mathbf{G}}$ is given by~\eqref{eq:hitchin-conductor}.
+$K_{C,\mathbf{G}}$ is the conductor of the constructed Koszul pair.
 \end{itemize}
 
 
@@ -1120,9 +1138,9 @@ The quantum geometric Langlands conjecture
 (Feigin--Frenkel--Stoyanovsky, Gaitsgory) predicts an equivalence
 of categories of twisted $D$-modules on $\mathrm{Bun}_\mathbf{G}$
 and $\mathrm{Bun}_{{}^L\mathbf{G}}$. Can this equivalence be
-realized as an $E_n$-chiral Koszul duality of the associated quantum
-vertex chiral groups (here $E_2$-Koszul for the KM algebras $V_k(\frakg)$,
-which are natively $E_2$)?
+realized as Koszul duality of the associated quantum vertex chiral
+groups, with the $E_2$ structure carried by the KZ center layer of the
+KM algebras $V_k(\frakg)$?
 
 \item \textbf{The eight diagonal divisor forms.}
 Conjecture~\ref{conj:k3e-mirror-koszul}(iii) predicts that the
@@ -1141,50 +1159,51 @@ S-duality via the Kapustin--Witten twist?
 
 
 % ======================================================================
-\section{Appendix: detailed computations for $\bC^3$}
+\section{Appendix: $\bC^3$ root data}
 \label{sec:appendix-c3}
 % ======================================================================
 
-We verify the self-duality $G(\bC^3)^! = G(\bC^3)$ at the level
-of root data and the shadow obstruction tower.
+The $\bC^3$ computation separates the positive half from the
+double/center layer.
 
 \subsection{Root datum}
-The quantum vertex chiral group $G(\bC^3) = Y(\widehat{\mathfrak{gl}}_1)$
-has:
+The native Hall algebra is the positive half
+$Y^+(\widehat{\mathfrak{gl}}_1)$. Its completed Drinfeld double is the
+quantum vertex group layer compared with $\mathcal W_{1+\infty}$. The
+positive-half root datum has:
 \begin{itemize}
 \item Lattice: $\Lambda = \bZ$ (one-dimensional, from the Jordan quiver).
 \item Real roots: none (the Jordan quiver has a single vertex with a
 single loop; there are no finite-type roots).
-\item Imaginary roots: $\Delta^{\mathrm{im}}_0 = \{n \in \bZ_{>0}\}$
-with $\mult(n) = p(n)$ (the number of partitions of $n$) from the
-MacMahon function $M(q) = \prod_{n \geq 1} (1-q^n)^{-n}$.
+\item Imaginary roots: $\Delta^{\mathrm{im}}_0 = \{n \in \bZ_{>0}\}$.
+The MacMahon product
+$M(q)=\prod_{n\geq 1}(1-q^n)^{-n}$ gives exponent $n$ in degree $n$;
+partition numbers appear as coefficients of $M(q)$, not as the
+primitive root multiplicities.
 \item Weyl group: trivial.
 \item Weyl vector: $\rho = 0$.
 \end{itemize}
 
 \subsection{Koszul dual root datum}
-$\Lambda^! = \Lambda^\vee = \bZ$. The Borcherds involution acts as
-the identity on $\Delta^{\mathrm{im}}_0$ (since $\mathfrak{gl}_1^L
-= \mathfrak{gl}_1$). Hence $\cR(\bC^3)^! = \cR(\bC^3)$.
+$\Lambda^! = \Lambda^\vee = \bZ$. The Borcherds involution acts as the
+identity on $\Delta^{\mathrm{im}}_0$ because
+$\mathfrak{gl}_1^L=\mathfrak{gl}_1$. Hence the positive-half root datum
+is self-dual; the full $\mathcal W_{1+\infty}$ comparison is made only
+after the double/center passage.
 
 \subsection{Shadow obstruction tower}
-The modular characteristic is $\kappa_{\mathrm{ch}}(A_{\bC^3}) = 0$ (the
-$\cW_{1+\infty}$ algebra at the self-dual level has vanishing
-degree-$2$ curvature). However, the shadow obstruction tower does
-\emph{not} terminate: the DT partition function
-$M(q) = \prod (1-q^n)^{-n}$ has infinitely many nonzero root
-multiplicities $\mult(n) = n$, so $r_{\max} = \infty$ (mixed
-class~$M$). The vanishing $\kappa_{\mathrm{ch}} = 0$ means the leading
-(degree-$2$) shadow is trivial, but higher-degree shadows are
-nonzero (cf.\: $\kappa_{\mathrm{ch}} = 0 \not\Rightarrow \Theta = 0$).
-The Koszul dual has the same $\kappa_{\mathrm{ch}} = 0$ and the same shadow
-depth class~$M$, confirming self-duality at the shadow level.
+The compact Hodge-supertrace formula does not apply to non-compact
+$\bC^3$. In the standard self-dual $\mathcal W_{1+\infty}$ normalization
+the degree-$2$ curvature vanishes, but the MacMahon product has
+infinitely many nonzero exponents. The leading shadow can vanish while
+higher shadows remain nonzero.
 
 \subsection{DT partition function}
 The DT partition function of $\bC^3$ is the MacMahon function
-$Z^{\DT}(\bC^3) = M(q)$. Its ``Koszul dual'' is
-$M(q)^! = M(q)$ (invariant under the trivial Borcherds involution),
-confirming the product-formula self-duality.
+$Z^{\DT}(\bC^3)=M(q)$. The trivial Borcherds involution leaves this
+product fixed. This verifies product-level self-duality; identifying it
+with chiral Koszul self-duality requires the completed double and
+center comparison.
 
 
 \end{document}

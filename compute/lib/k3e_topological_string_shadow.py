@@ -917,7 +917,7 @@ def topological_string_shadow_comparison_summary(max_n: int = 10) -> Dict[str, o
         },
         'borcherds_bridge': {
             'input': 'phi_{0,1} (K3 elliptic genus, genus 1)',
-            'output': 'Delta_5 (Igusa cusp form, genus 2)',
+            'output': 'Delta_5 (primitive Gritsenko-Nikulin denominator, genus 2)',
             'multiplicative': 'BPS instanton sum (non-perturbative)',
             'additive': 'Fourier-Jacobi expansion (perturbative)',
             'weight': f'c(0)/2 = 10/2 = {KAPPA_BKM}',

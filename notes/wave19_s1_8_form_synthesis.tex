@@ -1,206 +1,212 @@
-% =====================================================================
-% Wave-19 S1/20 (relaunch after rate-limit). Drinfeld voice.
-%
-% SUPERSESSION NOTE (2026-04-27).
-% This file is retained as a historical attack-heal note, not as a
-% canonical row-catalogue source.  The canonical Gritsenko--Clery
-% catalogue status is FRONTIER.md Pillar beta' and the Igusa paper:
-% weights in triple order are (5,2,3,1,2,1/2,3/2,1), the catalogue has
-% no quarter-weight row and no weight-zero row, and CHL/Govindarajan
-% denominator rows are not physical row-map theorems.
-%
-% Cross-form synthesis across the eight Gritsenko-Clery paramodular
-% diagonal-divisor forms, indexed by N in {1,...,8}. Consolidates
-% W1-W2 (N=1), X1-X4 (N=2,3), Y1-Y4 (N=4,6), Z1-Z4 (N=5,7,8).
-% Subscripted kappa only. \providecommand macros. No AI attribution.
-%
-% Primary sources:
-%   Gritsenko--Clery 2008 arXiv:0812.3962 Thm 1.1 (eight-form census);
-%   Gritsenko--Nikulin 1998 arXiv:alg-geom/9504006 Part II Thm 2.1 (BKM);
-%   Borcherds 1998 Invent. Math. 132 Thm 13.3 (singular theta);
-%   Borcherds 1995 Invent. Math. 120 Thm 10.1 (multiplicative lift);
-%   Nikulin 1980 Trudy Mosk. Mat. Obs. 38 Thm 4.5 (admissible orders);
-%   Mukai 1988 Invent. Math. 94 (Mathieu/Niemeier attachments);
-%   Cheng--Duncan--Harvey 2014 arXiv:1307.5793 Table 2 (twined genera);
-%   Bryan--Oberdieck 2018 arXiv:1811.06102 (CHL CY3 DT/Siegel);
-%   Oberdieck 2018 Duke 167:3045 (Igusa cusp form, N=1);
-%   Davison--Meinhardt 2020 arXiv:1512.08898 (BPS Lie / CoHA);
-%   Borcea 1997 + Voisin 1993 (K3 x E involution resolution, N=5);
-%   Lorgat 2020 (Conjecture 1, full eight-form pairing).
-%
-% Author: Raeez Lorgat. Inscribed 2026-04-22.
-% =====================================================================
-
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
-\providecommand{\ClaimStatusDegenerate}{\textbf{[Degenerate]}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\C}{\mathbb{C}}
-\providecommand{\Q}{\mathbb{Q}}
 \providecommand{\Sp}{\mathrm{Sp}}
-\providecommand{\Mp}{\mathrm{Mp}}
-\providecommand{\cO}{\mathcal{O}}
-\providecommand{\BPS}{\mathrm{BPS}}
-\providecommand{\BKM}{\mathrm{BKM}}
 \providecommand{\DT}{\mathrm{DT}}
+\providecommand{\BKM}{\mathrm{BKM}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
-\providecommand{\Yplus}{Y^{+}}
-\providecommand{\gBPS}{\mathfrak{g}_{\BPS}}
+\providecommand{\Yplus}{Y^+}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Woneinfty}{\mathcal W_{1+\infty}}
 \providecommand{\Delfnm}[2]{\Delta_{#1}^{(#2)}}
-\providecommand{\gDelfnm}[2]{\mathfrak{g}_{\Delta_{#1}^{(#2)}}}
 
-\section*{Wave-19 S1: the eight-form cross-form synthesis}
-\label{wn:sec:wave19-s1-eight-form-synthesis}
+\section*{Borcherds weights, CHL rows, and diagonal divisors}
+\label{sec:borcherds-weight-catalogues}
 
-One functor, four corners, eight indices. The Gritsenko--Cl\'ery
-census (GC 2008 Thm~1.1) enumerates eight paramodular cusp forms
-$\Delfnm{k(N)}{N}$ of simplest (diagonal) divisor, one per order
-$N \in \{1,\ldots,8\}$, with weights $k(N) \in \{5,2,1,1,\tfrac12,1,
-\tfrac14,0\}$. The synthesis below assembles the four-corner grammar
---- geometry / CoHA / BPS / automorphic --- uniformly across all
-eight, stratified by three axes (geometric, automorphic, algebraic)
-and organised around the universal identity
-$\kBKM(\Phi_N) = c_N(0)/2$ (Borcherds 1998 Thm~13.3).
-
-\subsection*{Five attack--heal cycles}
-
-\emph{Cycle~1 (status matrix).} Collating W1-W2 ($N=1$), X1-X4
-($N=2,3$), Y1-Y4 ($N=4,6$), Z1-Z4 ($N=5,7,8$) into a single row-per-$N$
-inventory:
+The Borcherds weight is a rowwise automorphic invariant.  For a fixed
+Borcherds product $\Phi_R$ with fixed cusp normalisation and input
+coefficient $c_R(0)$, Borcherds' singular-theta theorem gives
 \[
-\begin{array}{c|cccc|ccc|c}
-N & \text{host CY$_3$} & k(N) & c_N(0) & \kBKM &
-    \text{geom} & \text{CoHA} & \text{BPS} & \text{aut}\\\hline
-1 & K3\times E & 5 & 10 & 5 &
-   \text{Thm} & \text{Thm} & \text{Thm}^{\ast} & \text{Thm}\\
-2 & (K3\times E)/\Z_2\text{-CHL} & 2 & 4 & 2 &
-   \text{Thm} & \text{Thm}^{\ast} & \text{Conj} & \text{Thm}\\
-3 & (K3\times E)/\Z_3\text{-CHL} & 1 & 2 & 1 &
-   \text{Thm} & \text{Thm}^{\ast} & \text{Conj} & \text{Thm}\\
-4 & (K3\times E)/\Z_4\text{-CHL} & 1 & 2 & 1 &
-   \text{Thm} & \text{Thm}^{\ast} & \text{Conj} & \text{Thm}\\
-5 & X_5^{\mathrm{BV}} & \tfrac12 & 1 & \tfrac12 &
-   \text{Thm} & \text{Conj} & \text{Conj} & \text{Conj}\\
-6 & (K3\times E)/\Z_6\text{-CHL} & 1 & 2 & 1 &
-   \text{Thm} & \text{Thm}^{\ast} & \text{Conj} & \text{Thm}\\
-7 & \mu_4\text{-gerbe}/X_7 & \tfrac14 & \tfrac12 & \tfrac14 &
-   \text{Conj} & \text{Conj} & \text{Conj} & \text{Conj}\\
-8 & \text{abelian limit} & 0 & 0 & 0 &
-   \text{Degen} & \text{Degen} & \text{Degen} & \text{Degen}
+  \kBKM(\Phi_R)=\mathrm{wt}(\Phi_R)=\frac{c_R(0)}{2}.
+\]
+The row label $R$ is part of the datum.  The primitive CHL ladder, the
+three remaining Nikulin symplectic orders, and the Gritsenko--Cl\'ery
+diagonal-divisor classification are three different row systems sharing
+only the common entry $\Delta_5$.
+
+\subsection*{Primitive CHL ladder}
+
+For the primitive compact CHL orders the row label is the order
+$N\in\{1,2,3,4,6\}$ of a symplectic K3 automorphism compatible with an
+elliptic-curve automorphism in the diagonal quotient.  Gritsenko--Nikulin
+and Gritsenko's CHL paramodular construction give the following constants.
+\[
+\begin{array}{c|c|c|c|c}
+N & \text{Borcherds form} & c_N(0) & \kBKM & \text{proof scope}\\ \hline
+1 & \Delta_5=\Phi_1 & 10 & 5 &
+  \text{proved automorphic; primitive reduced scalar theorem}\\
+2 & \Delfnm{4}{2} & 8 & 4 &
+  \text{proved automorphic; compact BPS bracket theorem required}\\
+3 & \Delfnm{3}{3} & 6 & 3 &
+  \text{proved automorphic; compact BPS bracket theorem required}\\
+4 & \Delfnm{2}{4} & 4 & 2 &
+  \text{proved automorphic; compact BPS bracket theorem required}\\
+6 & \Delfnm{1}{6} & 2 & 1 &
+  \text{proved automorphic; compact BPS bracket theorem required}
 \end{array}
 \]
-Asterisks: primitive-$K3$ scope at $N=1$ (Oberdieck--Pixton 2017
-primitive Thm~1 + Pandharipande--Thomas 2014 KKV integrality);
-Davison--Meinhardt BPS Lie identification $\gBPS(X)\cong
-\gDelfnm{k(N)}{N}$ at graded-dimension level theorem for
-$N\in\{1,2,3,4,6\}$, at bracket level conjectural (AP-CY34: cyclic
-invariance of $[m_3,B^{(2)}]$ unresolved).
+Thus the CHL weight sequence is
+\[
+  \bigl(\kBKM(\Phi_1),\kBKM(\Phi_2),\kBKM(\Phi_3),
+  \kBKM(\Phi_4),\kBKM(\Phi_6)\bigr)=(5,4,3,2,1).
+\]
+The $N=1$ row also fixes the Igusa normalisation:
+\[
+  [q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64,\qquad
+  D_5=64^{-1}\Delta_5,\qquad
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2.
+\]
+In Oberdieck--Pandharipande's reduced-DT scalar convention
+$\Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2$ and
+$Z_{\mathrm{OP}}^{K3\times E}=-(\Phi_{10}^{\mathrm{OP}})^{-1}
+=-4096\,\Delta_5^{-2}$.  This is an inverse-square scalar convention.
+It is separate from the primitive Borcherds denominator $\Delta_5$ of
+weight $5$.
 
-\emph{Cycle~2 ($N=1$ theorem; $N\in\{2,3,4,6\}$ CHL conditional;
-$N\in\{5,7,8\}$ non-CHL conjectural).} The $N=1$ four-corner
-identification (Theorem~\ref{wn:thm:N1-four-corner} of W2) is
-unconditional on all four corners at primitive $K3$-classes; the
-bracket-level BPS$\cong$BKM isomorphism remains conjectural at all
-$N$. For $N\in\{2,3,4,6\}$, Bryan--Oberdieck 2018 Conj.~0.1
-$Z^{\mathrm{red}}_{\DT}(X_N) = -1/\Phi_N^{(N)}$ is proved at primitive
-square $\in\{-2,0\}$ only; the full denominator-identity-level
-identification of $\fg^{(N)}_{\BPS}$ with the Gritsenko--Cl\'ery
-BKM is conjectural away from primitive base cases. For
-$N\in\{5,7,8\}$ the CHL admissibility $\varphi(N)\mid 2$ fails
-($\varphi(5)=\varphi(8)=4$, $\varphi(7)=6$), the joint-diagonal
-$\Z/N$-action on $K3\times E$ does not exist, and the host CY$_3$
-is not a CHL quotient at all: at $N=5$ the Borcea--Voisin threefold
-$X_5^{\mathrm{BV}} = (S_5\times E_5)/(\iota_S\times\iota_E)$ with
-$\Z/5$ acting only on the K3 factor (Z1); at $N=7$ an order-$4$
-$\mu_4$-gerbe over the singular $Y_7=(K3\times E)/(\Z/7)$ with
-three $\C^3/(\Z/7)$ McKay points (Z2); at $N=8$ the degenerate
-limit where $\Delfnm{0}{8}$ is a weight-$0$ modular function and the
-superalgebra $\gDelfnm{0}{8}$ reduces to an abelian lattice algebra
-with all root multiplicities on the Weyl-chamber boundary (Wave-16
-V4 Cycle~3).
+\subsection*{Nikulin symplectic orders beyond the CHL quotient}
 
-\emph{Cycle~3 (universal identity $\kBKM(\Phi_N) = c_N(0)/2$).}
-Borcherds' singular-theta-lift weight formula (Borcherds 1998
-Thm~13.3) reads the weight of the lift directly from the
-$(q^0\zeta^0)$-Fourier coefficient of the weak Jacobi input:
-$\wt(\mathrm{Bor}(\psi_{0,N})) = \psi_{0,N}(q^0\zeta^0)/2$. Applied
-to the eight-form simple-diagonal inputs $\psi_{k(N),N}^{\mathrm{EZ}}$
-of GC~2008 Thm~1.1, this gives
-$\kBKM(\Delfnm{k(N)}{N}) = c_N(0)/2$ uniformly: the numeric pairs
-$(c_N(0), \kBKM) = (10,5), (4,2), (2,1), (2,1), (1,\tfrac12),
-(2,1), (\tfrac12,\tfrac14), (0,0)$ hold as Borcherds-weight
-identities at all eight $N$, including the metaplectic half-integer
-case $N=5$ (on $\Mp_4(\Z)$) and the spin-double-cover quarter-integer
-case $N=7$ (on the $2\Z$-graded Freitag--Hermann 1985 \S II.5 cover).
-The interpretation as the weight of a BKM-denominator identity
-survives only on $N\in\{1,2,3,4,6\}$; at $N\in\{5,7,8\}$ the
-$\gDelfnm{k(N)}{N}$ construction leaves the GN~1998 Part~II framework
-(metaplectic / quarter-cover / abelian-degenerate).
+The remaining Nikulin admissible symplectic orders have Borcherds weights
+from the same rowwise formula and a distinct geometric scope.  They sit
+outside the primitive compact CHL ladder unless a theorem supplies a
+common compact host and a row map.
+\begin{center}
+\begin{tabular}{c|c|c|c|p{7.1cm}}
+N & frame shape & $c_N(0)$ & $\kBKM$ & geometric scope\\ \hline
+5 & $1^4 5^4$ & $4$ & $2$ &
+  Borcea--Voisin CY$_3$ geometry; functor-level source package required\\
+7 & $1^3 7^3$ & $2$ & $1$ &
+  singular $(K3\times E)/\Z_7$ quotient with gerbe data; smooth source package required\\
+8 & $1^2 2^1 4^1 8^2$ & $2$ & $1$ &
+  Kummer-type hyperk\"ahler fourfold geometry; CY$_3$ interpretation requires a theorem
+\end{tabular}
+\end{center}
+As a Nikulin automorphic order list, separate from the compact CHL ladder,
+the eight orders give
+\[
+  c_N(0)=(10,8,6,4,4,2,2,2),\qquad
+  \kBKM=(5,4,3,2,2,1,1,1)
+\]
+for $N=(1,2,3,4,5,6,7,8)$.
 
-\emph{Cycle~4 (three axes).} The eight rows stratify along three
-orthogonal axes, each recording a distinct obstruction.
-\begin{itemize}[leftmargin=1.8em]
-\item \emph{Geometric axis (CY$_3$ vs CY$_4$).} $N\in\{1,2,3,4,6\}$:
-host is a smooth CHL CY$_3$ with reduced DT moduli supplying the
-chain-level Borcherds product. $N=5$: host is the Borcea--Voisin
-CY$_3$ --- still dimension three, but a mirror-involution quotient
-rather than a cyclic-order-$N$ quotient, and the DT zeta enters as
-a fourth root $(\mathsf{Z}^{X_5^{\mathrm{BV}}})^{-1/4} = \Delfnm{1/2}{5}$
-(Z1). $N=7$: host is an order-$4$ gerbe on a singular quotient,
-not a smooth CY$_3$ at all; the positive-half is twisted $K$-theoretic
-(Mathai--Murray--Stevenson 2002 Thm~1.2). $N=8$: host degenerates
-to an abelian limit outside the CY$_3$ / CY$_4$ geometric category.
-\item \emph{Automorphic axis (integer / half-integer / quarter-integer
-/ degenerate).} Weights $k(N)\in\{5,2,1,1\}$ at $N\in\{1,2,3,4\}$:
-integer weights on $\Sp_4(\Z)$ paramodular subgroups; $k(6)=1$ likewise.
-$k(5)=\tfrac12$: half-integer, $\Mp_4(\Z)$ metaplectic.
-$k(7)=\tfrac14$: quarter-integer, spin-double-cover of $\Mp_4(\Z)$.
-$k(8)=0$: degenerate (Siegel modular function). The case cluster
-$\{1,2,3,5,7\}$ of slide line 943 reflects the cyclotomic uniformity
-at prime-power $N$ with $\gcd(r,N)$-decomposition through a single
-divisor pattern; $\{4\}, \{6\}, \{8\}$ each require composite-order
-orbit sums.
-\item \emph{Algebraic axis (Kac--Moody / superalgebra / abelian).}
-$N=1$: rank-$3$ generalised Kac--Moody superalgebra $\gDelfnm{5}{1}$
-(Gritsenko--Nikulin 1998 Thm~1.1). $N\in\{2,3,4,6\}$:
-Kac--Moody superalgebras $\gDelfnm{k(N)}{N}$ on rank-$3$ paramodular
-lattices of level $N$ with $\Z/N$-twisted simple-root data
-(Gritsenko--Nikulin 1995 Part~II Thm~2.1). $N\in\{5,7\}$: the
-``superalgebra'' is on a metaplectic / spin cover with half-integer /
-quarter-integer imaginary-simple-root multiplicities, outside the
-GN~1998 framework. $N=8$: the algebra reduces to an abelian lattice
-algebra (all real-simple-root sets empty, all positive-root
-multiplicities zero outside the Weyl interior).
-\end{itemize}
+\subsection*{Gritsenko--Cl\'ery diagonal-divisor catalogue}
 
-\emph{Cycle~5 (residual frontier).} Three open problems close the
-eight-form picture. (a) \emph{Bracket-level BPS$\cong$BKM at
-$N\in\{2,3,4,6\}$.} Davison--Meinhardt gives the Lie-algebra
-structure on $\gBPS$; Gritsenko--Nikulin gives the BKM structure on
-$\gDelfnm{k(N)}{N}$. Matching brackets (not just graded dimensions)
-requires closing AP-CY34 at general $N$, for which the Wave-18 F3
-twisted cyclic invariance of Costello TCFT is a candidate input
-(Kontsevich--Soibelman 2008 motivic Hall variant). (b) \emph{Non-CHL
-chiral-side $\Phi_N$ at $N\in\{5,7,8\}$.} The $\Phi$-functor output
-at $N=5$ should be an $E_2$-chiral algebra on the Borcea--Voisin
-$X_5^{\mathrm{BV}}$ with metaplectic character; at $N=7$ an
-$E_2$-chiral gerbe module on the $\mu_4$-twisted sector; at $N=8$ the
-abelian chiral limit of a free-field realisation. None is constructed
-(Z1-Z2, W16 V4). (c) \emph{Harvey--Moore BPS $=\mathfrak{g}_{\BKM}$
-conjecture at non-primitive classes, $N\in\{2,3,4,6\}$.} The
-Bryan--Oberdieck 2018 primitive base case extends to arbitrary
-$K3$-fibre degree only under the Wave-11 W1 $\dim S_{k(N)}
-(\Gamma^{\mathrm{para}}_N,\nu_{k(N)}) = 1$ dimension formula;
-verified at $N=1$ (Igusa 1964, Wave-13 F3 Hole-1), open at
-$N\in\{2,3,4,6\}$.
+Gritsenko--Cl\'ery classify dd-modular forms whose divisor is the diagonal
+$\mathcal H_1$ with vanishing order $1$ on a paramodular quotient.  Their
+classification first gives nine numerical candidates and eliminates the
+candidate $(2,4;\tfrac12)$.  The eight surviving rows are indexed by
+triples $(t,N;k)$, with $k$ the weight.
+\[
+\mathsf{GC}_8=
+\{(1,1;5),(2,1;2),(1,2;3),(3,1;1),(1,3;2),
+(4,1;\tfrac12),(1,4;\tfrac32),(2,2;1)\}.
+\]
+For this catalogue the displayed constant $c_R(0)$ is the
+Gritsenko--Cl\'ery cusp-weighted zeroth term whose half is the weight of
+the row $R$.
+\[
+\begin{array}{c|c|c|c|c|c}
+R & (t,N;k) & F_R & \text{modular space} & c_R(0) & \kBKM(F_R)\\ \hline
+1 & (1,1;5) & \Delta_5 & M_5(\Gamma_1,\chi_2) & 10 & 5\\
+2 & (2,1;2) & \Delta_2 & M_2(\Gamma_2,\chi_4) & 4 & 2\\
+3 & (1,2;3) & \nabla_3 & M_3(\Gamma_0^{(2)}(2),\chi_2) & 6 & 3\\
+4 & (3,1;1) & \Delta_1 & M_1(\Gamma_3,\chi_6) & 2 & 1\\
+5 & (1,3;2) & \nabla_2 & M_2(\Gamma_0^{(2)}(3),\chi_2) & 4 & 2\\
+6 & (4,1;\tfrac12) & \Delta_{1/2} & M_{1/2}(\Gamma_4,\chi_8) & 1 & \tfrac12\\
+7 & (1,4;\tfrac32) & \nabla_{3/2} &
+  M_{3/2}(\Gamma_0^{(2)}(4),\chi_4) & 3 & \tfrac32\\
+8 & (2,2;1) & Q_1 & M_1(\Gamma_2(2),\chi_4) & 2 & 1
+\end{array}
+\]
+The GC weight sequence is
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1),
+\]
+and its twice-weight sequence is
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+The entries of weight $\tfrac12$ and $\tfrac32$ use multiplier systems of
+orders $8$ and $4$.  The displayed eight values are the complete GC
+weight list.  The GC row squares in Corollary~2.3 are row-specific
+paramodular identities; the primitive CHL constants $(10,8,6,4,2)$
+retain their own row system.
 
-\paragraph{Reading paths.}
-N=1 anchors the table (W2). The CHL cluster $\{2,3,4,6\}$ shares
-the Bryan--Oberdieck 2018 grammar (X1, X3 + sibling X4/Y2).
-Non-CHL $\{5,7,8\}$ requires new geometry per row (Z1 Borcea--Voisin,
-Z2 gerbe, Wave-16 V4 abelian degeneration). The universal
-$\kBKM = c_N(0)/2$ threads all eight.
+\subsection*{Invariant separation}
+
+The $K3\times E$ constants come from separate constructions:
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}=3,\qquad
+  \kBKM(\mathfrak g_{\Delta_5})=5,\qquad
+  \kfib=24.
+\]
+The value $5$ is the Borcherds weight of the $\Delta_5$ denominator.
+The value $3$ is a Heisenberg--Mukai chiral specialisation.  The value
+$24$ is the Mukai-lattice rank of the K3 fibre.  The two displayed
+zeros are the total-space categorical trace and the compact chiral
+Hodge supertrace.  Every table above reads $\kBKM$ directly from the
+relevant Borcherds product, independently of the other $K3\times E$
+scalar invariants.  These constants belong to distinct constructions.
+
+\subsection*{Native chiral and Hall boundaries}
+
+For a Calabi--Yau input of dimension $d\geq3$, the native output of
+$\Phi$ is an $\Eone$-chiral algebra.  An $\Etwo$ structure enters only
+after applying a centre, Drinfeld double, or module-category layer.  Thus
+the Hall positive half, the doubled Hall algebra, and the BKM denominator
+belong to different levels of the construction.
+
+For the local affine model, Schiffmann--Vasserot identify the critical
+cohomological Hall algebra of $\mathbb C^3$ with the positive half
+\[
+  \CoHA(\mathbb C^3)=\Yplus(\widehat{\mathfrak{gl}}_1).
+\]
+The full $\Woneinfty$ object appears only after double, centre,
+completion, and evaluation data have been supplied.  This positive-half
+statement supplies the local Hall input; a full vertex algebra requires
+the later structures.
+
+On the $K3\times E$ branch, the Hall--Drinfeld/BKM object is the
+Drinfeld double or denominator-recognition branch attached to the Hall
+positive half and the Borcherds product.  The Mukai Yangian branch is a
+separate self-mirror K3 construction.  The two branches meet through
+comparison theorems, with their names kept separate.
+
+\subsection*{Recognition boundaries}
+
+\begin{enumerate}
+\item \emph{Automorphic weights.}  The CHL constants
+$(10,8,6,4,2)$ and the Nikulin extensions $(4,2,2)$ are proved
+automorphic data by Borcherds' 1998 singular-theta theorem together
+with Gritsenko--Nikulin's denominator construction and Gritsenko's
+paramodular CHL products.  The GC eight-row weights are proved by
+Gritsenko--Cl\'ery's 2008/2011 classification and their Borcherds-product
+construction.
+\item \emph{CHL BPS realisation.}  At $N=1$ the
+Oberdieck--Pandharipande scalar convention and the Oberdieck--Pixton
+primitive theorem give the reduced scalar branch.  At
+$N\in\{2,3,4,6\}$, a full BPS$\cong$\BKM statement requires a compact
+reduced-DT theorem beyond the stated primitive scope, a Hall
+bracket-preserving map to the Borcherds denominator algebra, and an
+orientation/Pfaffian comparison.
+\item \emph{Non-CHL source packages.}  At $N=5$ the Borcea--Voisin
+geometry supplies the active CY$_3$ test object.  At $N=7$ the singular
+quotient requires gerbe and McKay correction data.  At $N=8$ the
+hyperk\"ahler fourfold supplies automorphic evidence.  Each row still
+requires a CY-to-chiral source package before it can be read as a
+compact CHL-type BPS theorem.
+\item \emph{GC row-to-BKM attachments.}  The GC theorem proves
+automorphy and the diagonal divisor.  A denominator algebra or compact
+CY source attached to a GC row is an extra theorem.  The two
+half-integer rows require source data carrying the relevant multiplier
+system.
+\item \emph{Igusa consistency.}  The normalisations
+$D_5=64^{-1}\Delta_5$, $\Phi_{10}^{\mathrm{un}}=\Delta_5^2$,
+$\Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2$, and
+$Z_{\mathrm{OP}}=-4096\,\Delta_5^{-2}$ are scalar normalisations.  They
+leave the rowwise Borcherds weights unchanged.
+\end{enumerate}

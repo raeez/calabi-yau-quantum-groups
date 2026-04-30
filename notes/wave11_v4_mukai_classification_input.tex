@@ -1,10 +1,3 @@
-% Wave-11 V4/20: Mukai classification as INPUT to the programme.
-% Target: state precisely what Mukai 1988 supplies (classification of
-% symplectic-automorphism groups of K3 + orders + fixed-point counts),
-% distinguish input data from derived identities, and inscribe the
-% logical chain Mukai -> EOT -> Gritsenko -> BKM -> CHL/DT.
-% Atomic splice. Working-notes inscription.
-
 \providecommand{\BKM}{\mathrm{BKM}}
 \providecommand{\ch}{\mathrm{ch}}
 \providecommand{\cat}{\mathrm{cat}}
@@ -17,174 +10,316 @@
 \providecommand{\GC}{\mathrm{GC}}
 \providecommand{\CHL}{\mathrm{CHL}}
 \providecommand{\DT}{\mathrm{DT}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
+\providecommand{\fr}{\mathrm{fr}}
+\providecommand{\topo}{\mathrm{top}}
+\providecommand{\dd}{\mathrm{dd}}
+\providecommand{\wt}{\operatorname{wt}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
-\section*{Wave-11 V4: Mukai classification as programme INPUT}
-\label{wn:sec:wave11-v4-mukai-classification-input}
+\section*{Mukai Classification and the Borcherds CHL Denominator}
+\label{wn:sec:mukai-classification-borcherds-chl}
 
-\subsection*{Scope declaration}
+\subsection*{Mukai Data}
 
-Mukai 1988 (\emph{Invent.\ Math.}~94, 183--221) supplies \emph{input
-data} to the $\kappa_{\BKM}$ programme: the classification of finite
-symplectic-automorphism groups of K3 surfaces, their admissible orders,
-and the Nikulin fixed-point counts. The programme's derived identities
-$\kappa_{\BKM}(\Phi_N) = c_N(0)/2$ (Borcherds weight) and $c_N(0) =
-T_{H^*}(g_N) - 2A_N$ (theta-component refinement, Wave-10~Q4) sit
-\emph{downstream} of Mukai's classification; they do not re-derive it.
+Mukai 1988 (\emph{Invent.\ Math.}~94, 183 to 221) gives the finite
+symplectic automorphism groups of K3 surfaces.  Nikulin gives the
+cyclic fixed locus.  The CHL denominator calculation uses the associated
+Mathieu frame shape, the index-$1$ K3 twining genus, and the Gritsenko
+paramodular lift.
 
-\subsection*{Mukai's eleven maximal groups}
+For the primitive CHL denominator branch,
+\[
+  \kBKM(\Phi_N)=c_N^{\CHL}(0)/2,\qquad N\in\{1,2,3,4,6\}.
+\]
+The coefficient $c_N^{\CHL}(0)$ is the discriminant-zero coefficient of
+the Borcherds lift seed.  The row-normalised ordinary twining
+coefficient and the Gritsenko and Clery diagonal-divisor coefficient
+belong to distinct coefficient systems.
 
-\begin{theorem}[Mukai 1988 Theorem 0.1, classification INPUT]
-\ClaimStatusTheorem
-\label{wn:thm:wave11-v4-mukai-eleven-groups}
+\subsection*{Mukai's Eleven Maximal Groups}
+
+\begin{theorem}[Mukai 1988 Theorem 0.1]
+\label{wn:thm:mukai-eleven-groups}
 Every finite group $G \subset \Aut_{\symp}(\K)$ of symplectic
-automorphisms of a K3 surface embeds in $M_{23} \subset M_{24}$
-(Mathieu), and is contained in one of eleven maximal groups:
+automorphisms of a K3 surface embeds in $M_{23} \subset M_{24}$ and is
+contained in one of eleven maximal groups:
 \[
-  L_2(7),\;\; A_6,\;\; S_5,\;\; M_{20} = 2^4{:}A_5,\;\;
-  F_{384} = 4^2{:}S_4,\;\; A_{4,4} = (Q_8 \times Q_8){:}S_3,
+  L_2(7),\quad A_6,\quad S_5,\quad M_{20}=2^4{:}A_5,\quad
+  F_{384}=4^2{:}S_4,\quad A_{4,4}=(Q_8 \times Q_8){:}S_3,
 \]
 \[
-  T_{192} = 2^4{:}A_4,\;\; H_{192},\;\; N_{72} = 3^2{:}D_8,\;\;
-  M_9 = 3^2{:}Q_8,\;\; T_{48} = \mathrm{SL}_2(3).
+  T_{192}=2^4{:}A_4,\quad H_{192},\quad N_{72}=3^2{:}D_8,\quad
+  M_9=3^2{:}Q_8,\quad T_{48}=\mathrm{SL}_2(3).
 \]
-Their orders are $(168, 360, 120, 960, 384, 1152, 192, 192, 72, 72, 48)$.
-\end{theorem}
-\begin{proof}[Primary source.]
-Mukai 1988 \S2 table and \S3--6 case analysis; Xiao 1996
-(\emph{Ann.\ Inst.\ Fourier}~46) independent finite-group analysis;
-Kondo 1998 (\emph{Duke Math.\ J.}~92) lattice-theoretic proof via
-Niemeier embedding. Inclusion $G \subset M_{23}$: Mukai Theorem 0.6
-using the Mukai representation on $H^*(\K, \mathbb{Z})$.
-\end{proof}
-
-\subsection*{Admissible cyclic orders}
-
-\begin{theorem}[Mukai--Nikulin cyclic orders INPUT]\ClaimStatusTheorem
-\label{wn:thm:wave11-v4-cyclic-orders}
-A symplectic automorphism $g \in \Aut_{\symp}(\K)$ of finite order has
-$|g| \in \{1,2,3,4,5,6,7,8\}$. The $\mathbb{Z}/N$-twined elliptic genus
-$\phi^{(g_N)}_{0,1}$ lies in the integer-weight paramodular space
-$M_{\mathbb{Z}}(\Gamma_N)$ iff
+Their orders are
 \[
-  N \in \{1,2,3,4,6\}.
+  (168,360,120,960,384,1152,192,192,72,72,48).
 \]
 \end{theorem}
-\begin{proof}[Primary sources.]
-Nikulin 1979, \emph{Trans.\ Moscow Math.\ Soc.}~38, \S4, Theorem on
-symplectic orders (bound $|g| \leq 8$ via lattice-symplectic form
-compatibility on $H^2(\K, \mathbb{Z})$). Exclusion of $N \in \{5, 7, 8\}$
-from the paramodular-integer-weight tower: at $N=5,7$ the Nikulin
-fixed-point count $\chi(\K^{g_N}) \in \{4, 3\}$ includes the odd value
-$3$ at $N=7$, and the twined elliptic genus lies on $\Gamma_0(N)$ with
-$N \nmid 24$; the Gritsenko additive lift to $\Gamma_N$ produces a form
-of half-integer weight (Gritsenko 1999 \S3, arXiv:math/9906191). At
-$N=8$ the frame shape $1^{-2}2^{1}4^{1}8^{2}$ yields a non-cuspidal
-obstruction at the boundary of $\Gamma_8$ (Cheng--Harrison--Paquette
-2014, arXiv:1307.5793, Table~4). The admissible tower is therefore
-$\{1,2,3,4,6\}$, matching the integer-weight Igusa--Gritsenko cusp form
-sequence $\Delta_{k(N)} \in M_{k(N)}(\Gamma_N)$ with
-$k(N) = (10, 4, 2, 2, 2)/2 = (5, 2, 1, 1, 1)$.
+\begin{proof}
+Mukai 1988 Section~2 table and Sections~3 to 6 give the classification.
+Xiao 1996 gives an independent finite-group analysis.  Kondo 1998 gives
+the Niemeier-lattice proof.  Mukai Theorem~0.6 gives
+$G\subset M_{23}$ through the Mukai representation on
+$H^*(\K,\mathbb Z)$.
 \end{proof}
 
-\subsection*{Nikulin fixed-point counts}
+\subsection*{Cyclic Orders and CHL Constants}
 
-\begin{theorem}[Mukai Table 2 / Nikulin fixed-point INPUT]
-\ClaimStatusTheorem
-\label{wn:thm:wave11-v4-fixed-point-counts}
-The topological Euler characteristic of the $g_N$-fixed locus equals
+\begin{theorem}[Mukai, Nikulin, and the primitive CHL row]
+\label{wn:thm:mukai-nikulin-chl-constants}
+A finite-order symplectic automorphism $g\in\Aut_{\symp}(\K)$ has
+\[
+  |g|\in\{1,2,3,4,5,6,7,8\}.
+\]
+The primitive CHL denominator row is the subfamily
+\[
+  N\in\{1,2,3,4,6\},
+\]
+with
+\[
+\begin{array}{c|c|c|c|c|c|c}
+N & [g_N] & \pi(g_N) & C_{\fr}(g_N) & A_N
+& c_N^{\CHL}(0) & \kBKM(\Phi_N)\\
+\hline
+1 & 1A & 1^{24} & 24 & 7 & 10 & 5\\
+2 & 2A & 1^8 2^8 & 16 & 4 & 8 & 4\\
+3 & 3A & 1^6 3^6 & 12 & 3 & 6 & 3\\
+4 & 4B & 1^4 2^2 4^4 & 10 & 3 & 4 & 2\\
+6 & 6A & 1^2 2^2 3^2 6^2 & 8 & 3 & 2 & 1
+\end{array}
+\]
+Here $\pi(g_N)=\prod_a a^{m_a}$ is the Mathieu frame shape,
+$C_{\fr}(g_N)=\sum_a m_a$, and
+\[
+  c_N^{\CHL}(0)=C_{\fr}(g_N)-2A_N.
+\]
+\end{theorem}
+\begin{proof}
+Nikulin 1979 Section~4 proves the cyclic order set from the lattice
+action on $H^2(\K,\mathbb Z)$.  Mukai's embedding in the Mathieu
+permutation representation gives the five CHL frame shapes displayed
+above.  Each has total degree
+\[
+  \sum_a a\,m_a=24.
+\]
+The topological fixed-locus count is
+\[
+  L_{\topo}(g_N)=m_1=(24,8,6,4,2)
+  \quad\text{for }N=(1,2,3,4,6),
+\]
+while the CHL theta component uses the frame-cycle count
+\[
+  C_{\fr}(g_N)=(24,16,12,10,8).
+\]
+For the index-$1$ theta decomposition
+\[
+  \psi_N^{\CHL}(\tau,z)
+  =h^{(N)}_0(\tau)\theta_{1,0}(\tau,z)
+   +h^{(N)}_1(\tau)\theta_{1,1}(\tau,z),
+\]
+set $A_N=[q^0]h^{(N)}_1$.  Gritsenko and Nikulin's paramodular seed,
+with the Eguchi and Hikami K3 twining table, gives
+\[
+  A_N=(7,4,3,3,3).
+\]
+Thus
+\[
+  c_N^{\CHL}(0)=C_{\fr}(g_N)-2A_N=(10,8,6,4,2).
+\]
+Borcherds 1998 Theorem~13.3 gives
+$\wt(\Phi_N)=c_N^{\CHL}(0)/2$.  The definition of
+$\kBKM(\Phi_N)$ on this denominator branch is the Borcherds weight,
+so
+\[
+  \bigl(\kBKM(\Phi_N)\bigr)_{N=1,2,3,4,6}=(5,4,3,2,1).
+\]
+At $N=1$, the $q^0$ expansion
+$\phi_{0,1}|_{q^0}=\zeta^{-1}+10+\zeta$ gives
+$c_1^{\CHL}(0)=10$ and $\wt(\Delta_5)=5$.
+\end{proof}
+
+\subsection*{Nikulin Fixed Loci}
+
+\begin{theorem}[Nikulin fixed-point counts]
+\label{wn:thm:mukai-nikulin-fixed-point-counts}
+For a symplectic K3 automorphism of order $N=1,\ldots,8$,
 \[
   \bigl(\chi(\K^{g_N})\bigr)_{N=1,\ldots,8}
-    \;=\; (24,\, 8,\, 6,\, 4,\, 4,\, 2,\, 3,\, 2).
+    =(24,8,6,4,4,2,3,2).
 \]
-For $N \in \{1,2,3,4,6\}$ the count equals the Lefschetz trace
-$T_{H^*}(g_N) = \mathrm{tr}(g_N^* | H^*(\K, \mathbb{Q}))$
-and is even.
+Equivalently, for a Mathieu frame shape $\pi(g_N)=\prod_a a^{m_a}$,
+\[
+  \chi(\K^{g_N})=m_1.
+\]
 \end{theorem}
-\begin{proof}[Primary sources.]
-Mukai 1988 Table~2; Nikulin 1979 \S4; Atiyah--Bott 1968
-(\emph{Ann.\ of Math.}~88, Thm.~4.12) applied to the holomorphic
-Lefschetz formula on the signature operator; specialisation
-$y=1$ of $Z^{(g_N)}_{\K}(\tau, z)$ yields $\chi(\K^{g_N})$
-(Eguchi--Ooguri--Tachikawa 2011, \emph{Exp.\ Math.}~20, Table~1). Odd
-values at $N=5,7$ break even $\zeta^{\pm 1}$-parity of the index-$1$
-theta decomposition, a second reason they drop from the programme's
-integer-weight tower.
+\begin{proof}
+Nikulin 1979 Section~4 and Mukai 1988 Table~2 give the fixed loci.
+The holomorphic Lefschetz formula of Atiyah and Bott 1968 identifies
+the Euler characteristic of the fixed locus with the topological
+Lefschetz number.  The Mathieu permutation frame shape records the same
+number as the exponent of $1$.
 \end{proof}
 
-\subsection*{Index-1 theta parity and $A_N$}
+\subsection*{Ordinary Mathieu Frame Shapes}
 
-The index-$1$ theta decomposition $\phi^{(g_N)}_{0,1} = h^{(N)}_0
-\theta_{1,0} + h^{(N)}_1 \theta_{1,1}$ (Eichler--Zagier 1985, Prog.\ Math.\
-55, \S5) produces $A_N := [q^0]h^{(N)}_1$. Mukai-Nikulin input
-$T_{H^*}(g_N) = (24,8,6,4,2)$ combined with the twined
-$c_N(0) = (10,4,2,2,2)$ (Cheng--Duncan--Harvey 2014, \emph{Commun.\ Num.\
-Theory Phys.}~8, Tables; Lorgat 2020 Conjecture 1) gives
-$A_N = (T_{H^*} - c_N(0))/2 = (7, 2, 2, 1, 0)$. The $A_N$ values are
-\emph{derived} from Mukai fixed-point data plus the EOT twined-genus
-tables; they are not Mukai input.
+\begin{theorem}[The ordinary $M_{24}$ table]
+\label{wn:thm:ordinary-mathieu-frame-shapes}
+The ordinary Mathieu permutation table has the following $26$ conjugacy
+classes:
+\[
+\begin{gathered}
+1A,\ 2A,\ 2B,\ 3A,\ 3B,\ 4A,\ 4B,\ 4C,\ 5A,\ 6A,\ 6B,\ 7A,\ 7B,\\
+8A,\ 10A,\ 11A,\ 12A,\ 12B,\ 14A,\ 14B,\ 15A,\ 15B,\ 21A,\ 21B,\ 23A,\ 23B.
+\end{gathered}
+\]
+The label-sensitive frame shapes are
+\[
+\begin{array}{c|c}
+[g] & \pi(g)\\
+\hline
+3B & 3^8\\
+4A & 2^4 4^4\\
+4B & 1^4 2^2 4^4\\
+6B & 6^4\\
+10A & 2^2 10^2\\
+12A & 2^1 4^1 6^1 12^1\\
+12B & 12^2
+\end{array}
+\]
+Each displayed row satisfies $\sum_a a\,m_a=24$.
+\end{theorem}
+\begin{proof}
+The ATLAS permutation character of $M_{24}$ gives the $24$-letter cycle
+shape of each class.  Eguchi and Hikami, Gaberdiel, Hohenegger, and
+Volpato, and the local executable table
+\texttt{compute/lib/mathieu\_moonshine\_yangian.py} record the same
+twenty-six rows.  The finite check is direct: sum $a\,m_a$ over the
+frame shape and recover $24$ for every class; the exponent $m_1$ gives
+the trace in the natural permutation representation.
+\end{proof}
 
-\subsection*{Programme logical chain}
+\subsection*{\texorpdfstring{$K3\times E$}{K3 x E} Values}
 
-\begin{center}
-\parbox{0.95\linewidth}{\raggedright
-(1) Mukai symplectic class $[g_N] \in \Aut_{\symp}(\K)$
-(Thm~\ref{wn:thm:wave11-v4-mukai-eleven-groups})
-$\longrightarrow$
-(2) Nikulin fixed-point count $\chi(\K^{g_N})$
-(Thm~\ref{wn:thm:wave11-v4-fixed-point-counts})
-$\longrightarrow$
-(3) EOT twined elliptic genus $Z^{(g_N)}_{\K}(\tau, z) \in
-J^{\mathrm{wk}}_{0,1}(\Gamma_0(N))$
-(EOT 2011 Table~1)
-$\longrightarrow$
-(4) Gritsenko additive lift $F^{\GC}_N(Z) \in M_{k(N)}(\Gamma_N)$,
-$k(N) = c_N(0)/2$
-(Gritsenko 1999, arXiv:math/9906191, Thm.~3.4; Lorgat 2020 \S2)
-$\longrightarrow$
-(5) Rank-$3$ BKM superalgebra $\mathfrak{g}^{(N)} = \mathfrak{g}_{\Phi_N}$
-via Borcherds denominator formula
-(Borcherds 1998, \emph{Invent.\ Math.}~132, Thm.~13.3)
-$\longrightarrow$
-(6) CHL $\mathbb{Z}/N$-orbifold DT partition function $Z^{\CHL,N}_{\DT}
-= 1/\Phi_N$
-(Bryan--Cadman 2015, Bryan--Leung 2000).
-}
-\end{center}
+\begin{theorem}[Four subscripted values on $K3\times E$]
+\label{wn:thm:k3xe-four-subscripted-values}
+Let $Y=K3\times E$.  The four values attached to the compact total
+space, the Heisenberg specialisation, the Borcherds denominator, and the
+K3 fibre lattice are
+\[
+\begin{array}{c|c|c}
+\text{symbol} & \text{value} & \text{construction}\\
+\hline
+\kch(Y) & 0 &
+\sum_q(-1)^q h^{0,q}(Y)=(1-1+1-1)\\
+\kch^{\mathrm{Heis}}(Y) & 3 &
+\text{Heisenberg Mukai specialisation on the elliptic base}\\
+\kcat(Y) & 0 &
+\chi(\cO_{K3})\,\chi(\cO_E)=2\cdot0\\
+\kBKM(\Delta_5) & 5 &
+c_1^{\CHL}(0)/2=10/2=\wt(\Delta_5)\\
+\kfib(Y) & 24 &
+\operatorname{rk}\widetilde H(K3,\mathbb Z)=1+22+1
+\end{array}
+\]
+\end{theorem}
+\begin{proof}
+The Hodge polynomial of the structure sheaf is
+\[
+  \sum_q h^{0,q}(K3\times E)t^q=(1+t^2)(1+t)
+  =1+t+t^2+t^3,
+\]
+hence the compact chiral Hodge supertrace is $0$.  Kunneth gives
+$\kcat(Y)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0$.  The Heisenberg value
+$3$ is the rank of the Stage-$2$ Mukai Heisenberg Cartan surviving on
+the elliptic base.  The Borcherds value is the weight of Gritsenko's
+$\Delta_5$, computed above from $c_1^{\CHL}(0)=10$.  The fibre value is
+the Mukai-lattice rank of K3.
+\end{proof}
 
-Mukai supplies steps (1)--(2) as input. The programme proves (3)--(6)
-as derived identities. Conjecture 1 of Lorgat 2020 is the assertion
-that the eight Gritsenko--Cl\'ery forms $F^{\GC}_N$ are in bijection
-with DT zeta roots and with twined elliptic genera; its content
-depends on Mukai's classification but does not re-derive it.
+\subsection*{Gritsenko and Clery Diagonal-Divisor Catalogue}
 
-\subsection*{Input vs derived, summary table}
+\begin{theorem}[Diagonal-divisor catalogue]
+\label{wn:thm:gritsenko-clery-dd-catalogue}
+The Gritsenko and Clery diagonal-divisor catalogue consists of eight
+row-labelled genus-two paramodular forms with
+\[
+\begin{array}{c|c|c|c}
+\text{row} & (t,N_0;k) & \wt & c_{\dd}^{\GC}(0)\\
+\hline
+1 & (1,1;5) & 5 & 10\\
+2 & (2,1;2) & 2 & 4\\
+3 & (1,2;3) & 3 & 6\\
+4 & (3,1;1) & 1 & 2\\
+5 & (1,3;2) & 2 & 4\\
+6 & (4,1;1/2) & 1/2 & 1\\
+7 & (1,4;3/2) & 3/2 & 3\\
+8 & (2,2;1) & 1 & 2
+\end{array}
+\]
+Thus
+\[
+  c_{\dd}^{\GC}(0)=(10,4,6,2,4,1,3,2),\qquad
+  \wt=c_{\dd}^{\GC}(0)/2
+\]
+row by row.  This catalogue is indexed by diagonal divisor, level, and
+multiplier system.  The primitive CHL row is indexed by cyclic K3
+automorphism order and elliptic CHL compatibility.
+\end{theorem}
+\begin{proof}
+Gritsenko and Clery classify the diagonal-divisor genus-two paramodular
+forms and give the displayed row data.  The first row is $\Delta_5$ and
+coincides with the $N=1$ primitive CHL denominator.  The other rows use
+their own row labels, cover groups, and multiplier systems, so the
+weight identity is evaluated inside the diagonal-divisor catalogue.
+\end{proof}
 
-\begin{center}
-\begin{tabular}{l|l}
-\textbf{Input (Mukai 1988 + Nikulin 1979)} & \textbf{Derived (programme)} \\ \hline
-eleven maximal groups $G \subset M_{23}$ & $\kappa_{\BKM} = c_N(0)/2$
-(Borcherds) \\
-cyclic order set $\{1,\ldots,8\}$ & admissible $\{1,2,3,4,6\}$ (weight integrality) \\
-$\chi(\K^{g_N}) = (24,8,6,4,4,2,3,2)$ & $A_N = (7,2,2,1,0)$ (theta parity) \\
-$G \subset M_{23} \subset M_{24}$ & Conjecture 1 (eight-form bijection) \\
-\end{tabular}
-\end{center}
+\subsection*{Borcherds CHL Chain}
+
+\[
+\begin{gathered}
+[g_N]\in\Aut_{\symp}(\K)
+\longrightarrow
+\pi(g_N)=\prod_a a^{m_a}
+\longrightarrow
+\psi_N^{\CHL}(\tau,z)\\
+\longrightarrow
+\Phi_N(Z)\in M_{\kBKM(\Phi_N)}(\Gamma_N)
+\longrightarrow
+\mathfrak g^{(N)}=\mathfrak g_{\Phi_N}
+\longrightarrow
+Z_{\DT}^{\CHL,N}=1/\Phi_N.
+\end{gathered}
+\]
+The first arrow is Mukai and Nikulin.  The second is the Mathieu frame
+shape.  The third is the CHL Jacobi seed.  The fourth is Gritsenko's
+paramodular lift with Borcherds weight $c_N^{\CHL}(0)/2$.  The fifth is
+the Borcherds denominator algebra.  The last is the CHL reduced
+Donaldson-Thomas partition function.
 
 \subsection*{References}
 
-Mukai 1988, \emph{Invent.\ Math.}~94, 183--221, Theorems 0.1, 0.3, 0.6,
-Table~2.
-Nikulin 1979, \emph{Trans.\ Moscow Math.\ Soc.}~38, \S4.
+Mukai 1988, \emph{Invent.\ Math.}~94, 183 to 221, Theorems~0.1, 0.3,
+0.6, Table~2.
+Nikulin 1979, \emph{Trans.\ Moscow Math.\ Soc.}~38, Section~4.
 Xiao 1996, \emph{Ann.\ Inst.\ Fourier}~46.
 Kondo 1998, \emph{Duke Math.\ J.}~92.
-Atiyah--Bott 1968, \emph{Ann.\ of Math.}~88, 451--491, Thm.~4.12.
-Eichler--Zagier 1985, \emph{Theory of Jacobi Forms}, Prog.\ Math.~55, \S5.
-Eguchi--Ooguri--Tachikawa 2011, \emph{Exp.\ Math.}~20, Table~1.
-Cheng--Duncan--Harvey 2014, \emph{Commun.\ Num.\ Theory Phys.}~8.
-Cheng--Harrison--Paquette 2014, arXiv:1307.5793, Table~4.
-Borcherds 1998, \emph{Invent.\ Math.}~132, 491--562, Thm.~13.3.
-Gritsenko 1999, arXiv:math/9906191, Thm.~3.4.
-Gritsenko--Nikulin 1995, arXiv:alg-geom/9504006.
-Bryan--Cadman 2015, \emph{Sel.\ Math.\ New Ser.}~21.
-Lorgat 2020, \emph{A Borcherds lift of $\phi_{0,1}$}, \S2 + Conjecture~1.
+Atiyah and Bott 1968, \emph{Ann.\ of Math.}~88, 451 to 491,
+Theorem~4.12.
+Eichler and Zagier 1985, \emph{Theory of Jacobi Forms}, Progress in
+Math.~55, Section~5.
+Eguchi, Ooguri, and Tachikawa 2011, \emph{Exp.\ Math.}~20, Table~1.
+Eguchi and Hikami 2011, \emph{Phys.\ Lett.}~B~694, Table~1.
+Gaberdiel, Hohenegger, and Volpato 2010, arXiv:1008.3778, Tables~2
+and~3.
+Borcherds 1998, \emph{Invent.\ Math.}~132, 491 to 562,
+Theorem~13.3.
+Gritsenko 1999, arXiv:math/9906191, Theorem~3.4.
+Gritsenko and Nikulin 1995, arXiv:alg-geom/9504006.
+Gritsenko and Clery 2008, Theorems~1.4 and~3.1.
+Bryan and Cadman 2015, \emph{Sel.\ Math.\ New Ser.}~21.
+Bryan and Leung 2000.
+Lorgat 2020, \emph{A Borcherds lift of $\phi_{0,1}$}, Section~2.

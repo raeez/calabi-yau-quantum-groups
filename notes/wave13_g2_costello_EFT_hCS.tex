@@ -18,7 +18,6 @@
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\eff}{\mathrm{eff}}
 \providecommand{\cl}{\mathrm{cl}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -30,194 +29,241 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Costello effective-field-theory quantisation of 6D hCS on $\C^3$}
-\author{Wave-13 G2/20}
+\title{Costello effective-field-theory quantisation of abelian 6D hCS on $\C^3$}
+\author{Raeez Lorgat}
 \date{2026-04-22}
 
 \begin{document}
 \maketitle
 
-Fix $X=\C^3$, $\Omega=dz_1\wedge dz_2\wedge dz_3$, and Abelian coefficients
-$\g=\C$ (the Abelian branch for which all homotopy obstructions vanish
-identically; the non-Abelian case is a perturbation of this ground truth).
-The classical BV datum of E1, now in the Abelian reduction, is
-$\cE=\Omega^{0,\bullet}(\C^3)$ with BV differential $Q=\dbar$, cubic
-vertex $S_3=\tfrac13\int\Omega\wedge\cA^3$ vanishing on $\g=\C$, and
-quadratic action $S_2(\cA)=\tfrac12\int\Omega\wedge\cA\dbar\cA$. We
-construct $\Obs^q$ of Costello 2011 in five cycles.
+Fix $X=\C^3$ with holomorphic volume form
+\[
+  \Omega=dz_1\wedge dz_2\wedge dz_3
+\]
+and abelian coefficients $\g=\C$. The field complex is
+$\cE=\Omega^{0,\bullet}(\C^3)$ with BV differential $Q=\dbar$. The cubic
+hCS vertex vanishes for $\g=\C$, and the action is the quadratic
+functional
+\[
+  S_2(\cA)=\frac12\int_{\C^3}\Omega\wedge\cA\,\dbar\cA .
+\]
+This note records the Costello effective-field-theory construction of
+the quantum factorisation algebra $\Obs^q$ in the abelian affine model.
+The non-abelian compact CY$_3$ problem requires a separate
+anomaly-cancellation and completion datum.
 
-\begin{remark}[$\hbar$ convention --- single deformation parameter]\label{rmk:hbar}
-Throughout, $\hbar$ is the \emph{single} Costello 2011 deformation parameter:
-weight-one on Feynman loops, with $S_\eff=\sum_{g\geq 0}\hbar^g S_\eff^{(g)}$
-and $\Obs^q$ a $\C[[\hbar]]$-module. No second $\hbar'$ appears: the OPE
-coefficient $\hbar$ of Prop.~\ref{prop:Fock}, the QME anomaly coefficient
-$\hbar$ of Thm.~\ref{thm:QME}, and the Fock-quantisation coefficient
-$\hbar$ of Construction~\ref{cons:Obs-q} are all the same $\hbar$.
+\begin{remark}[$\hbar$ convention]\label{rmk:hbar}
+Throughout, $\hbar$ is the single Costello deformation parameter:
+weight one on Feynman loops, with
+$S_\eff=\sum_{g\geq0}\hbar^gS_\eff^{(g)}$, and $\Obs^q$ a
+$\C[[\hbar]]$-module. The OPE coefficient in
+Proposition~\ref{prop:Fock}, the QME coefficient in
+Theorem~\ref{thm:QME}, and the Fock quantisation parameter in
+Construction~\ref{cons:Obs-q} are the same $\hbar$.
 \end{remark}
 
-\section{Cycle~1: Pre-quantisation --- classical BV datum}
+\section{Classical BV datum}
 
-\begin{construction}[Classical free BV theory on $\C^3$]\label{cons:classical-BV}
-The quadruple $(\cE,Q,S_\cl,\omega_\BV)$:
+\begin{construction}[Classical free BV theory on $\C^3$]
+\label{cons:classical-BV}
+The abelian hCS BV datum is
+\[
+  (\cE,Q,S_\cl,\omega_\BV)
+\]
+with:
 \begin{itemize}
-\item $\cE=\Omega^{0,\bullet}(\C^3)$, cohomological degree
+\item $\cE=\Omega^{0,\bullet}(\C^3)$ and cohomological degree
 $\deg=(\text{Dolbeault})-1\in\{-1,0,1,2\}$.
 \item $Q=\dbar:\Omega^{0,q}\to\Omega^{0,q+1}$ of degree $+1$.
-\item $S_\cl(\cA)=\tfrac12\int_{\C^3}\Omega\wedge\cA\,\dbar\cA$
-(pure quadratic in the Abelian branch).
+\item $S_\cl(\cA)=\tfrac12\int_{\C^3}\Omega\wedge\cA\,\dbar\cA$.
 \item The $(-1)$-shifted symplectic pairing
-$\omega_\BV(\cA_1,\cA_2)=\int_{\C^3}\Omega\wedge\cA_1\cA_2$, non-degenerate
-by Serre duality $\Omega^{0,q}\otimes\Omega^{0,3-q}\to\C$ pairing $(c,c^\ast)$
-and $(A,A^\ast)$.
+\[
+  \omega_\BV(\cA_1,\cA_2)
+  =
+  \int_{\C^3}\Omega\wedge\cA_1\cA_2,
+\]
+non-degenerate after imposing compact support or Schwartz decay, by
+Serre duality pairing
+$\Omega^{0,q}\otimes\Omega^{0,3-q}\to\C$.
 \end{itemize}
-The classical master equation $\{S_\cl,S_\cl\}=0$ holds trivially: the
-quadratic action has vanishing BV bracket with itself on any free theory
-(Costello 2011, \S2.6; Costello--Gwilliam 2017 Vol~I~\S5.3).
+The classical master equation $\{S_\cl,S_\cl\}=0$ is the identity
+$\dbar^2=0$ written through the inverse BV pairing
+(Costello 2011, \S2.6; Costello--Gwilliam 2017 Vol.~I, \S5.3).
 \end{construction}
 
-\section{Cycle~2: Gauge fixing and effective actions $S_\eff[\Lambda]$}
+\section{Gauge fixing and effective actions}
 
 \begin{construction}[Propagator via heat kernel]\label{cons:propagator}
-Choose the $L^2$-adjoint $\dbar^\ast$ (flat metric on $\C^3$) as gauge fix.
-The BV Laplacian is $[\dbar,\dbar^\ast]=\Delta_{\dbar}$. The heat kernel
-$K_t\in\cE\otimes\cE$ is the kernel of $e^{-t\Delta_{\dbar}}$; explicitly,
+Choose the $L^2$-adjoint $\dbar^\ast$ for the flat metric on $\C^3$.
+The Laplacian is $\Delta_{\dbar}=[\dbar,\dbar^\ast]$. In a
+translation-invariant trivialisation the scalar part of the heat kernel
+of $e^{-t\Delta_{\dbar}}$ is
 \[
-K_t(z,w)=\frac{1}{(4\pi t)^3}\,e^{-|z-w|^2/4t}\,
-\prod_{j=1}^3(d\bar z_j - d\bar w_j)^{\text{anti}},
+  (4\pi t)^{-3}e^{-|z-w|^2/4t}.
 \]
-where the anti-symmetric Dolbeault factor spreads across $(0,q)+(0,3-q)$ pairs.
-The propagator is
+The Dolbeault kernel $K_t\in\cE\widehat{\otimes}\cE$ is this Gaussian
+factor multiplied by the canonical antisymmetric Dolbeault volume factor
+pairing bidegrees $(0,q)$ and $(0,3-q)$. The scale propagator is
 \[
-P(\varepsilon,\Lambda)\;=\;\int_\varepsilon^{1/\Lambda}(\dbar^\ast\otimes 1)K_t\,dt
-\;\in\;\cE\otimes\cE,
+  P(\varepsilon,\Lambda)
+  =
+  \int_\varepsilon^{1/\Lambda}(\dbar^\ast\otimes 1)K_t\,dt
+  \in\cE\widehat{\otimes}\cE,
 \]
-cut-off between UV scale $\varepsilon\to 0$ and IR length $1/\Lambda$.
+with UV cutoff $\varepsilon$ and IR scale $\Lambda^{-1}$.
 \end{construction}
 
 \begin{definition}[Scale-$\Lambda$ effective action]\label{def:S-eff}
-Following Costello 2011 Def.~2.5.1, for interaction $I$ (here zero in the
-Abelian branch, but the construction is universal):
+Following Costello 2011 Def.~2.5.1, for interaction $I$ one sets
 \[
-S_\eff[\Lambda](\cA)\;=\;
+S_\eff[\Lambda](\cA)
+=
 \hbar\log\!\int_{y\in\cE_{>\Lambda}}
-\exp\!\Bigl(\tfrac{1}{\hbar}\bigl(S_\cl(\cA+y)+I(\cA+y)\bigr)\Bigr),
+\exp\!\Bigl(\hbar^{-1}\bigl(S_\cl(\cA+y)+I(\cA+y)\bigr)\Bigr),
 \]
-with $\cE_{>\Lambda}$ the eigenspaces of $\Delta_{\dbar}$ with eigenvalue
-$>\Lambda^2$. Equivalently, the sum over connected Feynman graphs with
-internal edges labelled by $P(0,\Lambda)$ and external legs $\cA$.
+where $\cE_{>\Lambda}$ denotes the eigenspaces of $\Delta_{\dbar}$ with
+eigenvalue $>\Lambda^2$. Equivalently, $S_\eff[\Lambda]$ is the sum over
+connected Feynman graphs with internal edges labelled by $P(0,\Lambda)$
+and external legs $\cA$. In the abelian branch $I=0$.
 \end{definition}
 
 \begin{proposition}[Renormalisation-group flow]\label{prop:RG}
-$S_\eff[\Lambda]$ and $S_\eff[\Lambda']$ are related by the Costello RG
-equation $S_\eff[\Lambda']=W(P(\Lambda,\Lambda'),S_\eff[\Lambda])$, where
-$W$ is the sum over connected graphs with propagator $P(\Lambda,\Lambda')$
-(Costello 2011 \S2.5; Costello--Gwilliam 2017 Vol~I~Ch.~8~Thm.~8.2.2.1).
+$S_\eff[\Lambda]$ and $S_\eff[\Lambda']$ are related by Costello's RG
+equation
+\[
+  S_\eff[\Lambda']
+  =
+  W(P(\Lambda,\Lambda'),S_\eff[\Lambda]),
+\]
+where $W$ is the connected-graph sum with propagator
+$P(\Lambda,\Lambda')$
+(Costello 2011, \S2.5; Costello--Gwilliam 2017 Vol.~I,
+Ch.~8, Thm.~8.2.2.1).
 \end{proposition}
 
 \begin{proof}
-Gaussian integration against $P(\Lambda,\Lambda')$ on the intermediate
-modes, together with the log-determinant cancelling in the connected
-generating functional. Abelian $\g=\C$: only tree and one-loop vacuum
-contributions; higher loops require cubic vertex and vanish.
+Gaussian integration over the intermediate modes gives the propagator
+$P(\Lambda,\Lambda')$. The logarithm keeps only connected graphs. For
+$\g=\C$, the interaction vanishes, so the only remaining graph
+contribution is the field-independent vacuum determinant, removed by
+the standard normalisation of observables.
 \end{proof}
 
-\section{Cycle~3: Quantum master equation}
+\section{Quantum master equation}
 
 \begin{definition}[BV Laplacian at scale $\Lambda$]\label{def:BV-Lap}
-$\Delta_\Lambda:\cO(\cE)\to\cO(\cE)$ contracts two copies of $\cE^\vee$ with
-$K_{1/\Lambda}\in\cE\otimes\cE$. On $\cE^\vee\otimes\cE^\vee$-polynomials of
-degree $\geq 2$ this is a second-order differential operator; on linear and
-constant functionals it vanishes.
+The operator $\Delta_\Lambda:\cO(\cE)\to\cO(\cE)$ contracts two
+functional derivatives with the regularised kernel
+	$K_{1/\Lambda}\in\cE\widehat{\otimes}\cE$. It is a second-order
+differential operator on polynomial functionals and vanishes on linear
+and constant functionals.
 \end{definition}
 
-\begin{theorem}[Quantum master equation, Abelian 6D hCS]\label{thm:QME}
-For 6D hCS with $\g=\C$,
+\begin{theorem}[Quantum master equation, abelian 6D hCS]\label{thm:QME}
+For abelian 6D hCS on $\C^3$, the normalised effective action satisfies
 \[
-\{S_\eff[\Lambda],S_\eff[\Lambda]\}\;+\;\hbar\,\Delta_\Lambda S_\eff[\Lambda]\;=\;0
-\qquad\text{for all }\Lambda>0.
+\{S_\eff[\Lambda],S_\eff[\Lambda]\}
+\;+\;\hbar\,\Delta_\Lambda S_\eff[\Lambda]
+\;=\;0
+\qquad\text{for all }\Lambda>0 .
 \]
 \end{theorem}
 
 \begin{proof}
-The BV bracket $\{\cdot,\cdot\}$ uses the inverse of $\omega_\BV$;
-on quadratic functionals $\{S_2,S_2\}=0$ identically. Abelian $\g=\C$
-kills the cubic vertex $\cA^3$: there is no interaction to contract, hence
-$\Delta_\Lambda S_\eff=\Delta_\Lambda S_2$, and on the pure quadratic
-Gaussian $\Delta_\Lambda S_2=\mathrm{tr}(K_{1/\Lambda}\circ\dbar)$
-which vanishes because $\dbar$ is off-diagonal in the Hodge decomposition
-that diagonalises $K_t$ (each heat-kernel eigenmode is either in
-$\ker\dbar$ or paired by $\dbar$; the trace cancels). Equivalently:
-the Abelian one-loop anomaly is controlled by $\int c_3(\cE)$ which vanishes
-on $\C^3$ flat (compare Costello 2013 for the four-dimensional
-analogue $\int c_2$; the six-dimensional case is $\int c_3$).
+The bracket term is the classical master equation for the free complex:
+$\{S_2,S_2\}=0$ is equivalent to $\dbar^2=0$. The BV Laplacian is
+compatible with $Q=\dbar$ because the heat kernel commutes with
+$\dbar$ and $\dbar^\ast$. With $I=0$ there are no interaction vertices
+from which a local obstruction cocycle can be formed. The possible
+field-independent determinant is removed by the Costello normalisation
+of the connected generating functional. Thus the renormalised QME holds
+with zero anomaly in the abelian affine model.
 \end{proof}
 
-\section{Cycle~4: Factorisation algebra of quantum observables}
+\section{Factorisation algebra of quantum observables}
 
 \begin{construction}[Quantum observables]\label{cons:Obs-q}
 For an open $U\subset\C^3$,
 \[
-\Obs^q(U)\;=\;\bigl(\Sym\!\bigl(\cE(U)^\vee[1]\bigr)[[\hbar]],\;Q+\hbar\Delta_\Lambda\bigr),
+\Obs^q(U)
+=
+\bigl(\Sym(\cE_c(U)^\vee[1])[[\hbar]],\ Q+\hbar\Delta_\Lambda\bigr),
 \]
-where $\Delta_\Lambda$ at scale $\Lambda\to\infty$ is defined by
-homotopy-transferred limits using the RG flow
-(Costello--Gwilliam 2017 Vol~I~Ch.~8 \S8.6, Def.~8.6.0.1).
-Factorisation structure: disjoint $U_1\sqcup U_2\hookrightarrow V$ induces
-$\Obs^q(U_1)\otimes\Obs^q(U_2)\to\Obs^q(V)$ from multiplication of
-polynomial observables supported on disjoint pieces.
+where $\cE_c(U)$ denotes compactly supported fields and the
+$\Lambda\to\infty$ limit is defined by homotopy transfer along the RG
+flow (Costello--Gwilliam 2017 Vol.~I, Ch.~8, \S8.6,
+Def.~8.6.0.1). A disjoint inclusion
+$U_1\sqcup U_2\hookrightarrow V$ induces
+\[
+  \Obs^q(U_1)\otimes\Obs^q(U_2)\longrightarrow\Obs^q(V)
+\]
+by multiplication of polynomial observables supported on disjoint
+subsets.
 \end{construction}
 
-\begin{proposition}[Free holomorphic boson Fock]\label{prop:Fock}
-At $\g=\C$, $\Obs^q(U)$ is the Fock space of the free holomorphic boson
-on $U$: generators $\cA(z), \cA^\vee(w)$ with operator product
+\begin{proposition}[Free holomorphic boson Fock module]\label{prop:Fock}
+At $\g=\C$, $\Obs^q(U)$ is the Fock module of the free holomorphic
+Dolbeault boson on $U$. Its basic contraction is
 \[
-\cA(z)\cA^\vee(w)\;\sim\;\hbar\,G(z,w)+\mathrm{regular},
-\qquad
-G(z,w)=\frac{\Omega(w)}{(z-w)\cdot\bar{(z-w)}^2}\text{ (heat-kernel regularised)},
+\cA(z)\cA^\vee(w)\sim\hbar\,G_{\dbar}(z,w)+\mathrm{regular},
 \]
-the Bochner--Martinelli $\dbar$-Green's kernel on $\C^3$. Taking
-$\Lambda\to\infty$ produces the scale-free algebraic Fock module.
+where the Bochner--Martinelli kernel is characterised by
+\[
+  \dbar_zG_{\dbar}(z,w)=\delta_\Delta(z,w)\,\Omega_z .
+\]
+In flat coordinates it has the form
+\[
+  G_{\dbar}(z,w)
+  =
+  c_3\,
+  \frac{\sum_{j=1}^3(-1)^{j-1}\overline{(z_j-w_j)}
+  d\bar z_1\wedge\cdots\widehat{d\bar z_j}\cdots\wedge d\bar z_3}
+  {|z-w|^6}
+  \wedge dz_1\wedge dz_2\wedge dz_3
+\]
+for the Costello normalisation constant $c_3$.
 \end{proposition}
 
-\section{Cycle~5: Existence + uniqueness (Costello 2011 Thm.)}
+\section{Existence and uniqueness}
 
-\begin{theorem}[Costello 2011; Costello--Gwilliam 2017 Vol~I~Ch.~8]\label{thm:existence}
-Let $(\cE,Q,S_\cl,\omega_\BV)$ be a BV-free (quadratic-action, Abelian) theory
-with gauge-fixing compatible elliptic $\Delta_Q$ and heat-kernel propagator.
-Then:
+\begin{theorem}[Costello 2011; Costello--Gwilliam 2017 Vol.~I, Ch.~8]
+\label{thm:existence}
+Let $(\cE,Q,S_\cl,\omega_\BV)$ be a free BV theory with quadratic action,
+compatible elliptic gauge fixing, and heat-kernel propagator. Then:
 \begin{enumerate}
-\item $\Obs^q$ exists as a factorisation algebra of cochain complexes over
-$U\mapsto$ open subsets of the spacetime.
-\item $\Obs^q$ is unique up to contractible choice: the space of
-gauge-fixings is contractible, and $\Obs^q$ is homotopy-invariant under this
-choice.
+\item $\Obs^q$ exists as a factorisation algebra of cochain complexes on
+open subsets of the spacetime.
+\item $\Obs^q$ is unique up to contractible gauge-fixing choice.
 \item The classical limit $\Obs^q/\hbar\simeq\Obs^\cl$ recovers the
 commutative factorisation algebra of classical observables.
 \end{enumerate}
-For 6D hCS Abelian on $\C^3$: $\Obs^q$ is the holomorphic factorisation
-algebra of the free Dolbeault boson with propagator
-$G(z,w)=K_{\dbar^\ast}(z,w)$ (Costello--Gwilliam 2017 Vol~I~Ch.~7
-Thm.~7.5.0.2 for the two-dimensional chiral boson; the six-dimensional
-case is the holomorphic analogue documented at op.~cit.~Ch.~8).
+For abelian 6D hCS on $\C^3$, this is the holomorphic factorisation
+algebra of the free Dolbeault boson with propagator $G_{\dbar}$.
 \end{theorem}
 
 \section{Quantisation chain}
 
-Classical $\to$ effective $\to$ QME $\to$ factorisation algebra:
+The construction is:
 \[
 (\cE,\dbar,S_\cl,\omega_\BV)
-\;\xrightarrow{\text{gauge fix }\dbar^\ast}\;
+\xrightarrow{\ \dbar^\ast\ }
 \{S_\eff[\Lambda]\}_\Lambda
-\;\xrightarrow{\text{QME}}\;
+\xrightarrow{\ \QME\ }
 (Q+\hbar\Delta_\Lambda)^2=0
-\;\xrightarrow{\text{Sym}\circ\Lambda\to\infty}\;
+\xrightarrow{\ \Sym,\ \Lambda\to\infty\ }
 \Obs^q=\mathrm{Fock}(\dbar\text{-boson}).
 \]
 
-The Abelian branch carries $\kappach(\C^3)=1$ (single holomorphic
-generator); the non-Abelian perturbation adds the cubic cocycle
-$c_3(\cA)=\tfrac13\int\Omega\wedge\tr(\cA^3)$ whose anomaly
-$\hbar\Delta_\Lambda S_\eff\neq 0$ generically and must be cancelled
-by the Green--Schwarz mechanism (Costello 2013).
+The abelian affine vacuum sector has one holomorphic generator; this is
+the local witness behind the toric value
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(\C^3)=1$. It is not the compact
+Hodge-supertrace theorem. For non-abelian hCS the cubic term
+\[
+  S_3(\cA)=\frac13\int_{\C^3}\Omega\wedge\tr(\cA[\cA,\cA])
+\]
+produces interaction graphs. On compact CY$_3$ targets, cancelling their
+one-loop obstruction is part of the Costello--Li or Green--Schwarz
+anomaly datum and of the analytic completion required before a global
+curve-specialised $E_1$ chiral algebra is asserted.
 
 \end{document}

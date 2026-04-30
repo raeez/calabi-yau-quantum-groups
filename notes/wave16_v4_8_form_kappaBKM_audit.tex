@@ -1,23 +1,8 @@
-% Wave-16 V4/20. Audit of the universal identity
-%   kappa_BKM(Phi) = c(0)/2
-% on the full eight-form Gritsenko--Clery paramodular census, with
-% focused attack on the three non-CHL indices N in {5, 7, 8}.
-% CG voice. Subscripted kappa only. \providecommand macros only.
-% Primary sources:
-%   Gritsenko--Clery 2008 arXiv:0812.3962 (eight dd paramodular forms; weights + characters);
-%   Gritsenko--Nikulin 1998 alg-geom/9504006 Part II Thm 2.1 (BKM denominator / arithmetic lift);
-%   Borcherds 1998 Invent. Math. 132 Thm 13.3 (singular-theta weight formula);
-%   Borcherds 1995 Invent. Math. 120 (multiplicative lift);
-%   Lorgat 2020 Sec 6 (N=1 explicit Borcherds lift to Delta_5);
-%   Nikulin 1980 Trudy Mosk. Mat. Obs. 38 Thm 4.5 (admissible orders on K3);
-%   Cheng--Duncan--Harvey 2014 arXiv:1204.2779 Table 2 (CHL admissibility).
-% No fabrication; every numeric entry traceable to primary source.
-% Author: Raeez Lorgat.
-
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\Mp}{\mathrm{Mp}}
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\Z}{\mathbb{Z}}
@@ -25,195 +10,212 @@
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\HH}{\mathbb{H}}
 \providecommand{\wt}{\mathrm{wt}}
-\providecommand{\Delfnm}[2]{\Delta_{#1}^{(#2)}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 
-\section*{Wave-16 V4/20: the universal identity $\kBKM(\Phi)=c(0)/2$
-on the eight Gritsenko--Cl\'ery forms}
-\label{wn:sec:wave16-v4-8form-kappaBKM-audit}
+\section*{Eight Gritsenko--Clery Forms and BKM Scope}
+\label{sec:eight-form-BKM-scope}
 
-\paragraph{Question.}
-The universal identity
-$\kBKM(\Phi_N)=c_N(0)/2$ is a theorem on the CHL slice
-$N\in\{1,2,3,4,6\}$, with $c_N(0)=(10,4,2,2,2)$ and
-$\kBKM=(5,2,1,1,1)$ (Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}
-in \texttt{cy\_d\_kappa\_stratification.tex}). The eight-form
-Gritsenko--Cl\'ery census (GC~2008 Thm~1.1) extends the table with three
-further entries $\Delfnm{1/2}{5},\Delfnm{1/4}{7},\Delfnm{0}{8}$ of
-non-integer or zero weight, outside the Nikulin/CHL locus. Does
-$\kBKM=c(0)/2$ still hold on these three?
+Three index systems meet at the level-one form $\Delta_5$ and then
+separate. The primitive CHL denominator branch is indexed by
+$N\in\{1,2,3,4,6\}$. The Gritsenko--Clery diagonal-divisor catalogue is
+indexed by paramodular triples $(t,N_0;k)$. The order-indexed Nikulin
+branch is indexed by symplectic K3 automorphism orders
+$N\in\{1,2,3,4,5,6,7,8\}$.
 
-\paragraph{Census and data.}
-Read from Wave-15 M2 (EZ-basis tabulation) against GC~2008 Thm~1.1:
+\subsection*{Primitive CHL Denominators}
+
+The CHL denominator branch on the $K3\times E$ slice has
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6 \\ \hline
+c_N(0) & 10 & 8 & 6 & 4 & 2 \\
+\kBKM(\Phi_N)=c_N(0)/2 & 5 & 4 & 3 & 2 & 1
+\end{array}
+\]
+Here $c_N(0)$ is the $\zeta^0q^0$ coefficient of the Borcherds input in
+the CHL normalisation. Borcherds' singular theta lift gives
+\[
+  \wt(\Phi_N)=c_N(0)/2,
+\]
+and the Vol~III BKM characteristic on this branch is
+\[
+  \kBKM(\Phi_N)=\wt(\Phi_N),\qquad N\in\{1,2,3,4,6\}.
+\]
+At $N=1$,
+\[
+  \Phi_1=\Delta_5,\qquad
+  c_1(0)=10,\qquad
+  \kBKM(\Delta_5)=5.
+\]
+The monic denominator for the Gritsenko--Nikulin BKM algebra is
+\[
+  \Dfive=64^{-1}\Delta_5,\qquad
+  \operatorname{den}(\mathfrak g_{\Delta_5})=\Dfive(2Z).
+\]
+
+\subsection*{Gritsenko--Clery Catalogue}
+
+The Gritsenko--Clery diagonal-divisor catalogue consists of the eight
+rows
+\[
+\begin{array}{c|c|c|c|c}
+\mathrm{row} & (t,N_0;k) & \mathrm{form} & \wt & c^{\mathrm{GC}}(0) \\
+\hline
+1 & (1,1;5) & \Delta_5 & 5 & 10 \\
+2 & (2,1;2) & D_2^{(2)} & 2 & 4 \\
+3 & (1,2;3) & D_3^{(1,2)} & 3 & 6 \\
+4 & (3,1;1) & D_1^{(3)} & 1 & 2 \\
+5 & (1,3;2) & D_2^{(1,3)} & 2 & 4 \\
+6 & (4,1;\tfrac12) & D_{1/2}^{(4)} & 1/2 & 1 \\
+7 & (1,4;\tfrac32) & D_{3/2}^{(1,4)} & 3/2 & 3 \\
+8 & (2,2;1) & D_1^{(2,2)} & 1 & 2
+\end{array}
+\]
+Equivalently,
+\[
+  \wt=(5,2,3,1,2,1/2,3/2,1),
+  \qquad
+  c^{\mathrm{GC}}(0)=(10,4,6,2,4,1,3,2).
+\]
+For every catalogue row the modular-weight identity is
+\[
+  \wt(D_j)=c_j^{\mathrm{GC}}(0)/2.
+\]
+The catalogue weights are exactly the displayed set; rows of weights
+$0$ and $1/4$ require a separate index system. A compact
+Hall--Borcherds reading of a
+catalogue row requires a root lattice, Weyl vector, positive chamber,
+reflection character, simple-root multiplicities, and a comparison with
+a compact Hall source.
+
+\subsection*{Nikulin Orders}
+
+For a symplectic K3 automorphism $g_N$ and its twined weak Jacobi input,
+the order-indexed Nikulin branch has
 \[
 \begin{array}{c|cccccccc}
 N & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline
-\wt(\Delta_{k(N)}^{(N)}) & 5 & 2 & 1 & 1 & 1/2 & 1 & 1/4 & 0 \\
-c_N(0) & 10 & 4 & 2 & 2 & 1 & 2 & 1/2 & 0 \\
-\kBKM & 5 & 2 & 1 & 1 & 1/2 & 1 & 1/4 & 0 \\
-\text{character} & \mathrm{triv} & \nu_2 & \nu_2 & \nu_2 & \chi_5 & \nu_2 & \chi_7^{\otimes 2} & \mathrm{triv} \\
-\text{status} & \ClaimStatusTheorem & \ClaimStatusTheorem & \ClaimStatusTheorem & \ClaimStatusTheorem & \ClaimStatusConjectured & \ClaimStatusTheorem & \ClaimStatusConjectured & \ClaimStatusConjectured
+c_N(0) & 10 & 8 & 6 & 4 & 4 & 2 & 2 & 2 \\
+\wt(\Phi_N^{\mathrm{Nik}})=c_N(0)/2
+& 5 & 4 & 3 & 2 & 2 & 1 & 1 & 1
 \end{array}
 \]
-The universal identity $\kBKM=\wt(\Delta_{k(N)}^{(N)})=c_N(0)/2$ holds
-on all eight rows as a statement about Borcherds weights, because
-Borcherds' singular-theta weight formula (Borcherds 1998 Thm~13.3) reads
-the weight directly from the $(q^0\zeta^0)$-coefficient of the weak
-Jacobi input, independent of integrality of $c_N(0)$ and independent of
-whether the form arises from a BKM denominator identity. The issue is
-not the identity; the issue is \emph{interpretation} of the two sides
-outside the CHL slice.
-
-\paragraph{Cycle 1 ($N=5$, weight $1/2$). \ClaimStatusConjectured.}
-\emph{Attack.} $\Delfnm{1/2}{5}\in M_{1/2}(K(5),\chi_5)$ has
-weight $1/2$; the universal identity demands $c_5(0)=1$ and
-$\kBKM=1/2$. Can $\kBKM$ be $1/2$?
-\emph{Heal.} Yes, on the Borcherds side: Borcherds 1998 Thm~10.1 admits
-half-integer weights on $\Mp_{2g}(\Z)$ (metaplectic cover), and the
-weight formula $\wt=c(0)/2$ carries through to
-$c(0)\in\tfrac{1}{2}\Z$. The weak Jacobi input $\psi_{1/2,5}^{\mathrm{EZ}}$
-has $(q^0\zeta^0)$-coefficient $1$ (Gritsenko--Cl\'ery 2008 Table~1,
-row $N=5$; equivalently, $\psi_{1/2,5}\in J^{\mathrm{w},\chi_5}_{1/2,5}$
-is the unique-up-to-scalar generator with simple zero on the diagonal).
-By Borcherds' formula, $\wt(\Delfnm{1/2}{5})=c_5(0)/2=1/2$, matching the
-GC~2008 entry. The identity $\kBKM(\Phi_5)=1/2$ \emph{holds as a
-Borcherds-weight statement}.
-
-The BKM-side interpretation is the obstruction: the GKM superalgebra
-$\fg_{\Delta_{1/2}^{(5)}}$ lives on the metaplectic cover
-$\Mp_4(\Z)\backslash\HH_2$, not on $\Sp_4(\Z)\backslash\HH_2$. Its
-imaginary-simple-root multiplicities are half-integer, which the
-Gritsenko--Nikulin denominator identity (GN~1998 Part~II Thm~2.1) does
-not cover. The Nikulin-admissibility failure at $N=5$ (Nikulin 1980,
-$5\nmid|W(\mathrm{Nie}_X)|$ for any Niemeier $X$ with symplectic
-order-$5$ element $\mathbb Z/5$-compatible with the elliptic factor; CHL
-condition $\varphi(N)\mid 2$ fails since $\varphi(5)=4$) means the
-chiral-side $\Phi_5$ is not constructed. Hence the identity is a
-\emph{Borcherds-weight theorem} but a \emph{$\kBKM$-as-BKM-weight
-conjecture} at $N=5$.
-
-\paragraph{Cycle 2 ($N=7$, weight $1/4$). \ClaimStatusConjectured.}
-\emph{Attack.} $\Delfnm{1/4}{7}\in M_{1/4}(K(7),\chi_7^{\otimes 2})$
-carries the quarter-integer character $\chi_7^{\otimes 2}$ on the spin
-double cover; the universal identity demands $c_7(0)=1/2$ and
-$\kBKM=1/4$.
-\emph{Heal.} Quarter-integer weights force the $2\nu$-cover of
-$\Mp_4(\Z)$, i.e.\ the spin cover (Borcherds 1998 \S10 treats half-integer
-via $\Mp_{2g}$; the quarter-integer extension uses the $2\mathbb Z$-graded
-cover of Freitag--Hermann 1985 \emph{Analytische Automorphieformen} \S II.5).
-The weight formula extends: $\wt(\Delfnm{1/4}{7})=c_7(0)/2=1/4$. The
-character $\chi_7^{\otimes 2}$ is nontrivial on the paramodular
-involution $V_7$; its second tensor power is the unique primitive
-$4$-valued character of $K(7)^+=\langle K(7),V_7\rangle$ compatible with
-Nikulin's $\#\,\mathrm{Fix}(g_7)=3$ orbit data (Mukai 1988 Table~1).
-The Borcherds weight identity holds at $N=7$.
-
-BKM interpretation: the attached superalgebra $\fg_{\Delta_{1/4}^{(7)}}$
-has simple roots in $\tfrac{1}{4}\Z$-graded height, outside the
-GN~1998 framework; the Nikulin-Weyl divisibility fails
-($\varphi(7)=6\nmid 2$), and the CHL elliptic-partner construction does
-not apply. The $\kBKM=1/4$ entry is a Borcherds-weight datum but not a
-BKM-denominator datum in the Vol III programme sense.
-
-\paragraph{Cycle 3 ($N=8$, weight $0$). \ClaimStatusConjectured.}
-\emph{Attack.} $\Delfnm{0}{8}\in M_0(K(8))$ is a weight-$0$ form, hence
-a modular function; $c_8(0)=0$ and $\kBKM=0$. Is $\kBKM=0$ meaningful?
-\emph{Heal.} Yes, degenerately. Weight $0$ means the Borcherds
-singular-theta lift produces a function rather than a form; the
-``superalgebra'' $\fg_{\Delta_0^{(8)}}$ has empty real-simple-root set
-and reduces to an abelian lattice algebra (Borcherds 1995 \S10
-degenerate case). The identity $\kBKM=c_8(0)/2=0$ holds tautologically
-and records that the $N=8$ sector sits at the boundary of the BKM
-category: the diagonal Humbert divisor of $\Delta_0^{(8)}$ is still
-forced by the GC~2008 simplest-divisor condition, but the
-$\prod(1-q^\alpha)^{m(\alpha)}$ denominator collapses to an abelian
-$\eta$-quotient with all multiplicities $m(\alpha)=0$ outside the
-Weyl-chamber interior.
-
-\paragraph{Cycle 4 (explicit Fourier cross-check, GC~2008).}
-\emph{Attack.} Read $c_N(0)$ directly from the Fourier head of
-$\psi_{k(N),N}^{\mathrm{EZ}}$. Does the table hold coefficient-level?
-\emph{Heal.} GC~2008 Thm~1.1 states the eight weak Jacobi inputs are
-the unique (up to scalar) generators of their respective
-$J_{k(N),N}^{\mathrm{w},\chi}$ with simple zero on the diagonal:
+The CHL subsequence is $N\in\{1,2,3,4,6\}$. The remaining Nikulin rows are
 \[
-\psi_{k(N),N}^{\mathrm{EZ}}(\tau,z) = c_N(0) + O(q,\zeta^{\pm 1}-1),
+\begin{array}{c|c|c|c|c}
+N & \mathrm{frame\ shape} & T_{H^*}(g_N) & c_N(0) &
+\wt(\Phi_N^{\mathrm{Nik}}) \\ \hline
+5 & 1^4 5^4 & 8 & 4 & 2 \\
+7 & 1^3 7^3 & 6 & 2 & 1 \\
+8 & 1^2 2^1 4^1 8^2 & 6 & 2 & 1
+\end{array}
 \]
-with $c_N(0)\in\{10,4,2,2,1,2,1/2,0\}$ read from the
-$(q^0\zeta^0)$-coefficient of the unique simple-diagonal generator.
-The $N=5$ entry $c_5(0)=1$ comes from
-$\psi_{1/2,5}=\vartheta_1(\tau,z)\cdot\eta(\tau)^{-3}\cdot f_5(\tau)$
-with $f_5$ the weight-$2$ cusp form on $\Gamma_0(5)$ normalised so
-$f_5(\tau)=q+O(q^2)$ (Gritsenko~1999 \S 3, constructed via the level-$5$
-Borcherds lift of $\eta(\tau)^4\eta(5\tau)^4$), giving
-$\psi_{1/2,5}(\tau,0)=1+O(q)$. The $N=7$ entry $c_7(0)=1/2$ comes from
-$\psi_{1/4,7}=\vartheta_1^{1/2}\eta^{-3/2}g_7$ on the spin cover, with
-$g_7\in M_{7/4}(\Gamma_0(7),\chi_7)$, the $(q^0\zeta^0)$-head computed
-via Freitag--Hermann~1985 \S II.5 lifts.
-Entry $N=8$ has $\psi_{0,8}=\tfrac{1}{384}(\phi_{0,1}^8-\ldots)$
-(GC~2008 Thm~1.1 row~$N=8$), a constant multiple of the unique linear
-combination of index-$8$ weight-$0$ weak Jacobi forms vanishing on the
-diagonal to order one with
-$(q^0\zeta^0)$-constant $0$ (by the coincidence of leading polynomial
-and subtracted polynomial). Directly: the vanishing along the
-diagonal $\{\zeta=1\}$ is dictated by the sum-to-zero constraint at the
-leading head, forcing $c_8(0)=0$.
+These constants come from the specified twined Jacobi input:
+\[
+  c_N(0)=T_{H^*}(g_N)-2A_N,\qquad A_5=A_7=A_8=2.
+\]
+Thus
+\[
+  (c_5(0),c_7(0),c_8(0))=(4,2,2),
+  \qquad
+  \wt=(2,1,1).
+\]
+A smooth compact $K3\times E$ CHL CY$_3$ host for $N=5,7,8$ is an
+additional construction, since the elliptic factor in the primitive CHL
+quotient supplies an origin-fixing cyclotomic automorphism precisely at
+\[
+  \varphi(N)\mid2,\qquad N\in\{1,2,3,4,6\}.
+\]
 
-\paragraph{Cycle 5 (verdict: universal extension, scope declaration).}
-The identity $\kBKM(\Phi_N)=c_N(0)/2$ extends to all eight
-Gritsenko--Cl\'ery forms, provided that
-\begin{enumerate}[label=(\roman*),leftmargin=1.8em]
-\item \emph{$\kBKM$} is read as the Borcherds singular-theta weight
-$\wt(\Delta_{k(N)}^{(N)})$, not as a BKM denominator weight in the
-Gritsenko--Nikulin sense;
-\item half-integer and quarter-integer values are admitted at
-$N\in\{5,7\}$ via the metaplectic/spin covers $\Mp_4$ and its
-$2\nu$-lift;
-\item the degenerate $N=8$ weight-$0$ entry is treated as the abelian
-boundary of the BKM category, with all imaginary-root multiplicities
-$0$.
+\subsection*{Level-One Normalisation}
+
+Let $\phi_{0,1}^{\mathrm{EZ}}$ be the Eichler--Zagier weak Jacobi form
+with
+\[
+  \phi_{0,1}^{\mathrm{EZ}}|_{q=0}=r^{-1}+10+r.
+\]
+The primitive Borcherds denominator uses $\phi_{0,1}^{\mathrm{EZ}}$ and
+therefore
+\[
+  \operatorname{Borch}(\phi_{0,1}^{\mathrm{EZ}})=\Dfive,
+  \qquad
+  \wt(\Delta_5)=c_1(0)/2=10/2=5.
+\]
+The K3 elliptic genus is
+\[
+  Z_{K3}=2\phi_{0,1}^{\mathrm{EZ}}.
+\]
+The doubled input lies on the scalar square line:
+\[
+  \operatorname{Borch}(2\phi_{0,1}^{\mathrm{EZ}})=\Dfive^2,\qquad
+  \Phi_{10}^{\theta}=\Delta_5^2,\qquad
+  \Phi_{10}^{\mathrm{OP}}=\Dfive^2=4096^{-1}\Delta_5^2.
+\]
+Thus $\Delta_5$ has primitive denominator weight $5$, while
+$\Phi_{10}$ has scalar-square weight $10$.
+
+\subsection*{\texorpdfstring{$K3\times E$}{K3 x E} Invariants}
+
+For $Y=K3\times E$,
+\[
+  h^{0,\bullet}(Y)=(1,1,1,1),
+  \qquad
+  \kch(Y)=\sum_q(-1)^q h^{0,q}(Y)=0.
+\]
+K\"unneth multiplicativity gives the compact categorical invariant
+\[
+  \kcat(Y)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0=0.
+\]
+The Heisenberg--Mukai specialisation, the Borcherds denominator, and the
+K3 fibre rank are distinct constructions:
+\[
+  \kHeis(Y)=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib(Y)=\operatorname{rk}\widetilde H(K3,\Z)=24.
+\]
+The compact chiral supertrace and compact categorical Euler
+characteristic vanish on the product. The Borcherds value is the weight
+of the denominator form. The fibre value is the Mukai-lattice rank.
+
+\subsection*{Branch Boundaries}
+
+The Hall--Borcherds branch is controlled by Borcherds products, Weyl
+chambers, Hall--Drinfeld doubles, PBW comparison, and compact Hall
+recognition. The Mukai self-mirror Yangian branch is controlled by the
+Mukai lattice, stable envelopes, and Yangian or quantum-toroidal
+specialisations.
+
+For a GC row or a Nikulin row to enter the compact $K3\times E$ BKM
+branch, the following data are required:
+\begin{enumerate}[label=\textup{(\roman*)}, leftmargin=1.8em]
+\item a CY$_3$ host theorem in the relevant geometric class;
+\item the Borcherds product input, automorphic group, character, and
+  constant $c(0)$ in the chosen normalisation;
+\item the Lorentzian root lattice, Weyl vector, positive chamber,
+  reflection character, and signed simple-root multiplicities;
+\item a Hall--Drinfeld or compact-source comparison identifying the
+  denominator algebra with the source-side primitive Hall algebra;
+\item fresh computations of $\kcat$, $\kch$, and any specialised
+  $\kch$-branch for the host.
 \end{enumerate}
-The extension is therefore a \emph{Borcherds-weight theorem} across all
-eight forms, upgrading the cross-programme status from
-``$5$ out of $5$ CHL'' to ``$8$ out of $8$ GC-census'', at the cost of
-admitting non-integer $\kBKM$ values. The BKM-denominator
-interpretation, requiring a physical K3$\times E$ orbifold CFT with
-$\mathcal N=(4,4)$ supersymmetry, remains restricted to
-$N\in\{1,2,3,4,6\}$ by Nikulin-Weyl divisibility and the CHL
-$\varphi(N)\mid 2$ condition; the three extra entries lie on the
-arithmetic Borcherds side alone.
 
-\paragraph{Chain-level and $(\infty,1)$-categorical.}
-Chain-level: the explicit Fourier heads $c_N(0)\in\{10,4,2,2,1,2,1/2,0\}$
-and Borcherds' singular-theta formula give the eight weights by direct
-computation. $(\infty,1)$-categorical: the eight forms are the
-simplest-divisor generators of $J^{\mathrm{w},\chi}_{\ast,\ast}$ as a
-module over $M_\ast(\mathrm{SL}_2(\Z))^{\mathrm{mp}}$ on the metaplectic
-cover; Borcherds' lift is an $\infty$-functor from weak Jacobi input to
-Baily--Borel boundary cohomology of $\mathcal A_2$, and the weight
-formula is its induced map on $H^0$ degrees.
+\subsection*{Sources}
 
-\paragraph{Cite.}
-Gritsenko--Cl\'ery 2008 arXiv:0812.3962 Thm~1.1 (eight dd paramodular);
-Borcherds 1998 \emph{Invent.\ Math.}~132 Thm~13.3, Thm~10.1
-(singular-theta weight; metaplectic extension);
-Borcherds 1995 \emph{Invent.\ Math.}~120 (multiplicative lift);
-Gritsenko--Nikulin 1998 alg-geom/9504006 Part~II Thm~2.1
-(BKM denominators on $\{1,2,3,4,6\}$);
-Gritsenko 1999 \emph{St.\ Petersburg Math.\ J.}~11 \S 3
-(level-$N$ arithmetic lift);
-Freitag--Hermann 1985 \emph{Analytische Automorphieformen} \S II.5
-(quarter-integer / spin cover);
-Nikulin 1980 \emph{Trudy Mosk.\ Mat.\ Obs.}~38 Thm~4.5;
-Mukai 1988 \emph{Invent.\ Math.}~94 Table~1;
-Cheng--Duncan--Harvey 2014 arXiv:1204.2779 Table~2 (CHL);
-Lorgat 2020 \S 6 (explicit $\Delta_5$ Borcherds lift, $N=1$).
-
-\paragraph{File.}
-\texttt{notes/wave16\_v4\_8\_form\_kappaBKM\_audit.tex}. Siblings:
-\texttt{notes/wave15\_m2\_EZ\_basis\_N1\_to\_8.tex} (EZ tabulation
-across $N=1,\ldots,8$); \texttt{notes/wave15\_r4\_N\_ge\_5\_forms.tex}
-(CHL admissibility commentary). Target:
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}, augmenting
-the five-row statement with a scope declaration for the full eight-form
-Borcherds-weight extension.
+\begin{itemize}[leftmargin=1.5em]
+\item Borcherds 1998, Theorem~13.3: singular theta lift weight
+  $c(0)/2$.
+\item Gritsenko--Nikulin 1995/1998 and Gritsenko 1999:
+  $\Delta_5$, the CHL denominator tower, and
+  $c_N(0)=(10,8,6,4,2)$ on $N\in\{1,2,3,4,6\}$.
+\item Gritsenko--Clery 2008, Theorems~1.4 and~3.1:
+  the eight diagonal-divisor paramodular forms and their multiplier
+  systems.
+\item Nikulin 1980, Mukai 1988, and Eguchi--Hikami 2011:
+  symplectic K3 automorphism orders, frame shapes, and the twined
+  Jacobi inputs for $N=5,7,8$.
+\item Eichler--Zagier 1985 and Eguchi--Ooguri--Tachikawa 2011:
+  $\phi_{0,1}^{\mathrm{EZ}}$ and $Z_{K3}=2\phi_{0,1}^{\mathrm{EZ}}$.
+\item Oberdieck--Pandharipande 2016 and Oberdieck--Pixton 2018:
+  the reduced $K3\times E$ scalar square.
+\end{itemize}

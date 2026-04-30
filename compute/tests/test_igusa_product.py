@@ -1,5 +1,5 @@
 """
-Tests for the Borcherds product formula for the Igusa cusp form Delta_5.
+Tests for the Borcherds product formula for the primitive Gritsenko-Nikulin denominator Delta_5.
 
 Verifies:
 1. Fourier coefficients f(D) of the weak Jacobi form phi_{0,1}

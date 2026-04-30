@@ -19,9 +19,14 @@
 \providecommand{\Ecal}{\mathcal{E}}
 \providecommand{\hCS}{\mathrm{hCS}}
 \providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Einf}{E_\infty}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\End}{\mathrm{End}}
 
-\title{$\mathrm{CoHA}(\mathbb{C}^3) = Y^+$ and the Disambiguation from
-$\mathcal{W}_{1+\infty}$}
+\title{The Positive Hall Half of $\mathbb{C}^3$ and the
+$\mathcal{W}_{1+\infty}$ Evaluation Layer}
 \author{Raeez Lorgat}
 \date{2026-04-22}
 
@@ -29,762 +34,507 @@ $\mathcal{W}_{1+\infty}$}
 \maketitle
 
 \begin{abstract}
-Schiffmann--Vasserot identifies the critical cohomological Hall algebra of
-the Jordan-triple loop quiver with the positive half of the affine Yangian
-$\Yp(\gglone)$. Writing this identity as $\CoHA(\mathbb{C}^3) = \Wilpha$ is
-a category mistake: $\Yp$ is an associative algebra carrying only
-creation modes, while $\Wilpha[\lambda]$ is a vertex algebra supporting
-state-field correspondence and two-sided modes. The correct bridge is a
-four-step chain passing through Hall--Drinfeld doubling, rational
-degeneration of the quantum toroidal algebra, Miki's $SL_2(\mathbb{Z})$
-automorphism, and the state-field correspondence provided by the
-CY-to-chiral functor on the spectral line. Six-dimensional holomorphic
-Chern--Simons on $\mathbb{C}^3$ realises this chain physically: its bulk
-observables form a holomorphic $E_3$-algebra whose boundary to a spectral
-line gives $\Wilpha[\lambda]$, and whose Koszul-dual bulk Lie algebra is
-$\Yp$.
+The critical cohomological Hall algebra of the Jordan three-loop quiver
+with potential $W=\operatorname{tr}(X[Y,Z])$ is the positive half
+$\Yp(\gglone)$ of the affine Yangian. Schiffmann-Vasserot prove this as
+an equality of associative Hall algebras. The vertex algebra
+$\Wilpha[\lambda]$ enters after adjoining the Cartan and negative
+halves, completing the Drinfeld double, choosing an evaluation or
+corner-VOA representation, and applying state-field correspondence. The
+native CY$_3$ output in the two-stage CY-to-chiral construction is
+$\Eone$; braided $\Etwo$ structure belongs to the centre, double, or
+representation layer.
 \end{abstract}
 
-\section{The five objects}
+\section{Objects}
 
-\begin{definition}[Objects in play]
-\label{def:five-objects}
-On the $\mathbb{C}^3$ side of the CY--chiral correspondence five distinct
-algebraic structures are in simultaneous circulation. They must be
-separated before any equality can be asserted.
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l|l|l}
-Object & Category & Primary generators \\\hline
-$\CoHA(\mathbb{C}^3)$ & $E_1$-associative (no Hopf, no diff.) &
-$[\mathrm{pt}_\lambda]$ on $(\Hilb^n(\mathbb{C}^2))^T$ \\
-$\Yp(\gglone)$ & $E_1$-associative shuffle & $\{E_n : n \geq 0\}$ \\
-$\YFull(\gglone) = \Yp \bowtie \Yz \bowtie \Ym$ & $E_1$-Hopf (Yangian) &
-$E_n, F_n, \psi^{\pm}_n$ \\
-$\Ecal_{q_1,q_2,q_3}(\gglone)$ & $E_1$-Hopf with $SL_2(\mathbb{Z})$ &
-vertical + horizontal currents \\
-$\Wilpha[\lambda]$ & vertex algebra ($E_1$-chiral) &
-$J^{(s)}(z),\; s \geq 1,\; n \in \mathbb{Z}$
-\end{tabular}
-\end{center}
-\end{definition}
-
-The first row is geometric, the next three are algebraic-combinatorial in
-ascending sophistication, and the last is vertex-algebraic. No two of
-these sit in the same category. A theorem relating any two is a
-construction, not a renaming.
-
-\section{$\CoHA(\mathbb{C}^3) = \Yp(\gglone)$: generator-level match}
-
-\subsection{The anti-canonical torus and the CY$_3$ parameter}
-
-Fix the standard action of $T = (\mathbb{C}^\times)^3$ on
-$\mathbb{C}^3 = \mathrm{Spec}\,k[X, Y, Z]$ by
-$(t_1, t_2, t_3)\cdot(x, y, z) = (t_1 x, t_2 y, t_3 z)$ with weights
-$\epsilon_i = \mathrm{weight}(\partial/\partial z_i)$. The holomorphic top
-form $\Omega_{\mathbb{C}^3} = dX \wedge dY \wedge dZ$ transforms by
-$\epsilon_1 + \epsilon_2 + \epsilon_3$. The subgroup preserving
-$\Omega_{\mathbb{C}^3}$,
+\begin{definition}[The five structures]
+\label{def:five-structures}
+On the $\mathbb{C}^3$ Hall side five algebraic structures occur.
 \[
-T^{\CY} := \ker\Big(\sum_i \epsilon_i : T \to \mathbb{C}^\times\Big)
-\;\cong\;(\mathbb{C}^\times)^2,
-\]
-is the Calabi--Yau torus. Every equivariant statement on
-$\mathbb{C}^3$-CoHA is automatically over
-\[
-\mathbb{F} := \mathbb{Q}(\epsilon_1, \epsilon_2, \epsilon_3)\big/
-(\epsilon_1 + \epsilon_2 + \epsilon_3).
-\]
-The ``three parameters with sum zero'' are not an ansatz: they are the
-weights of the $T$-action restricted to $T^{\CY}$.
-
-\subsection{Jordan-triple loop quiver and its Jacobi algebra}
-
-\begin{definition}[Jordan-triple loop quiver]
-One vertex $\ast$; three loops $X, Y, Z$; cyclic potential
-$W = \mathrm{tr}(X[Y, Z]) = \mathrm{tr}(XYZ - XZY)$.
-\end{definition}
-
-The cyclic derivatives give
-$\partial_X W = [Y, Z],\; \partial_Y W = [Z, X],\; \partial_Z W = [X, Y]$,
-so the Jacobi algebra
-$J(Q, W) = k\langle X, Y, Z\rangle /([X,Y], [Y,Z], [Z,X]) = k[X, Y, Z]
-= \mathcal{O}_{\mathbb{C}^3}$.
-The name ``Jordan triple'' refers to the three loops; it does not
-identify $J$ with any Jordan triple system. The cyclic derivatives
-form a matrix factorisation of $W$ in Eisenbud's sense; the Jacobi
-algebra is the zeroth cohomology of the associated Koszul complex.
-
-\subsection{The shuffle algebra}
-
-\begin{definition}[Feigin--Odesskii shuffle product]
-Let $\Lambda_n := \mathbb{F}[z_1, \ldots, z_n]^{S_n}$ and
-$\Lambda := \bigoplus_{n \geq 0} \Lambda_n$. The shuffle product
-$\star\colon \Lambda_m \otimes \Lambda_n \to \Lambda_{m+n}$ is
-\[
-(F \star G)(x_1, \ldots, x_{m+n}) =
-\frac{1}{m!\,n!}\sum_{\sigma \in S_{m+n}} \sigma\cdot \Big[
-F(x_1, \ldots, x_m)\, G(x_{m+1}, \ldots, x_{m+n})
-\prod_{\substack{1 \leq i \leq m \\ m < j \leq m+n}}
-\omega(x_j, x_i)\Big],
-\]
-with
-\[
-\omega(z, w) = \frac{\prod_{i=1}^{3}(z - w - \epsilon_i)}{(z - w)^3}.
+\begin{array}{l|l|l}
+\text{object} & \text{category} & \text{generators or fields} \\\hline
+\CoHA(\mathbb{C}^3) &
+\Eone\text{-associative Hall algebra} &
+\text{critical fixed-point classes} \\
+\Yp(\gglone) &
+\Eone\text{-associative shuffle algebra} &
+E_n,\ n\geq 0 \\
+\YFull(\gglone)=\Ym\bowtie\Yz\bowtie\Yp &
+\text{completed Hopf algebra} &
+F_n,\ \psi_n^\pm,\ E_n \\
+\Ecal_{q_1,q_2,q_3}(\gglone) &
+\text{quantum toroidal algebra} &
+\text{vertical and horizontal currents} \\
+\Wilpha[\lambda] &
+\text{vertex algebra} &
+J^{(s)}(z)=\sum_{n\in\mathbb{Z}}J^{(s)}_n z^{-n-s}
+\end{array}
 \]
 \end{definition}
 
-\begin{theorem}[Schiffmann--Vasserot 2013, Thm 1.1; 2017 Publ.\ IHES 118]
-\label{thm:SV-CoHA-Yplus}
-The $T^{\CY}$-equivariant cohomological Hall algebra of the Jordan-triple
-loop quiver with potential $W = \mathrm{tr}(X[Y,Z])$ is isomorphic as an
-$\mathbb{F}$-associative algebra to the positive half
-$\Yp(\gglone)$ of the affine Yangian of $\gglone$. The isomorphism is
-realised via the Feigin--Odesskii shuffle presentation: on charge-$n$
-summands,
+The first two rows are positive Hall halves. The third row is obtained
+from a Hall-Serre pairing and a completion. The fourth row is the
+$K$-theoretic, trigonometric lift. The last row is a chiral object with
+state-field correspondence and locality. Equalities between different
+rows require a named construction.
+
+\section{The Positive Half}
+
+\subsection{The Calabi-Yau torus}
+
+Let $T=(\mathbb{C}^{\times})^3$ act on
+$\mathbb{C}^3=\operatorname{Spec}k[X,Y,Z]$ by
+$(t_1,t_2,t_3)\cdot(x,y,z)=(t_1x,t_2y,t_3z)$. Let
+$\epsilon_i=c_1(t_i)$ be the additive equivariant weights. The
+holomorphic volume form $\Omega_{\mathbb{C}^3}=dX\wedge dY\wedge dZ$
+has character $t_1t_2t_3$, equivalently additive weight
+$\epsilon_1+\epsilon_2+\epsilon_3$. The Calabi-Yau subtorus is
 \[
-H^*_{T^{\CY}}(\mathcal{M}_n(Q, W), \phi_W)
-\xrightarrow{\;\sim\;} \Lambda_n^{\mathrm{SV-shuffle}} \subset
-\mathbb{F}[z_1, \ldots, z_n]^{S_n},
+T^{\CY}:=\{(t_1,t_2,t_3)\in T:\ t_1t_2t_3=1\},
 \]
-and the multiplication intertwines vanishing-cycle correspondence with
-$\star$.
+and all equivariant Hall statements below are over
+\[
+\mathbb{F}_{\CY}
+=\mathbb{Q}(\epsilon_1,\epsilon_2,\epsilon_3)/
+(\epsilon_1+\epsilon_2+\epsilon_3).
+\]
+The three equivariant parameters are coordinates on the ambient torus;
+the Calabi-Yau condition restricts them to a two-parameter slice.
+
+\subsection{The three-loop critical chart}
+
+Let $Q_{\mathbb{C}^3}$ be the one-vertex quiver with loops $X,Y,Z$ and
+cyclic potential
+\[
+W=\operatorname{tr}(X[Y,Z])=\operatorname{tr}(XYZ-XZY).
+\]
+The cyclic derivatives are
+\[
+\partial_XW=[Y,Z],\qquad
+\partial_YW=[Z,X],\qquad
+\partial_ZW=[X,Y],
+\]
+hence
+\[
+J(Q_{\mathbb{C}^3},W)
+=k\langle X,Y,Z\rangle/([X,Y],[Y,Z],[Z,X])
+\cong k[X,Y,Z]
+=\mathcal{O}_{\mathbb{C}^3}.
+\]
+The word ``three-loop'' records the quiver. No Jordan triple system is
+part of this Jacobi-algebra computation.
+
+\subsection{The shuffle presentation}
+
+\begin{definition}[Feigin-Odesskii shuffle product]
+\label{def:fo-shuffle}
+Set $\Lambda_n=\mathbb{F}_{\CY}[z_1,\ldots,z_n]^{S_n}$ and
+$\Lambda=\bigoplus_{n\geq 0}\Lambda_n$. For
+$F\in\Lambda_m$ and $G\in\Lambda_n$ define
+\[
+(F\star G)(x_1,\ldots,x_{m+n})
+=\frac{1}{m!\,n!}\sum_{\sigma\in S_{m+n}}\sigma\cdot
+\left[
+F(x_1,\ldots,x_m)G(x_{m+1},\ldots,x_{m+n})
+\prod_{\substack{1\leq i\leq m\\ m<j\leq m+n}}
+\omega(x_j,x_i)
+\right],
+\]
+where
+\[
+\omega(z,w)
+=\frac{\prod_{i=1}^{3}(z-w-\epsilon_i)}{(z-w)^3}.
+\]
+\end{definition}
+
+\begin{theorem}[Schiffmann-Vasserot positive-half theorem]
+\label{thm:sv-positive-half}
+The $T^{\CY}$-equivariant critical cohomological Hall algebra of
+$(Q_{\mathbb{C}^3},W)$ is isomorphic, as an
+$\mathbb{F}_{\CY}$-associative algebra, to the positive half of the
+affine Yangian:
+\[
+\CoHA_{T^{\CY}}(\mathbb{C}^3)
+\cong
+\Yp(\gglone).
+\]
+Under the Schiffmann-Vasserot shuffle realisation
+(Publ.\ Math.\ IHES 118, 2013, Theorem A), the charge-$n$
+summand maps to the SV shuffle subalgebra of $\Lambda_n$, and the
+critical Hall convolution corresponds to the product $\star$.
+Kapranov-Vasserot and Rap\v{c}ak-Soibelman-Yang-Zhao give the parallel
+factorisation and toric-Hall formulations.
 \end{theorem}
 
-\begin{proposition}[Generator audit]
-\label{prop:generator-audit}
-The subalgebra
-$\Yp(\gglone) \subset \Lambda$ is generated, as a shuffle algebra, by
-the charge-$1$ generators $\{f_{1, k}(z) := z^k : k \in \mathbb{Z}_{\geq 0}\}
-\subset \Lambda_1$. Higher-charge symmetric polynomials $f_{n, k} =
-\sum_i z_i^k \in \Lambda_n$ for $n \geq 2$ are not primitive generators:
-they are products $\star$-generated by $\{f_{1, \ell}\}$ modulo
-$\omega$-induced corrections.
+\begin{proposition}[Generator dictionary]
+\label{prop:generator-dictionary}
+The positive half $\Yp(\gglone)$ has shuffle generators given by the
+charge-one classes
+\[
+f_{1,k}(z)=z^k\in\Lambda_1,\qquad k\geq 0.
+\]
+The SV isomorphism sends the Drinfeld current generators to these
+classes:
+\[
+E_k\longmapsto f_{1,k}=z^k .
+\]
+Higher charge power sums in $\Lambda_n$ are produced by shuffle
+products and the kernel $\omega$. The elements $F_k$ and $\psi_k^\pm$
+belong to the negative and Cartan layers of the completed double; they
+are absent from the raw CoHA.
 \end{proposition}
 
-Under the SV isomorphism, the shuffle generators map to the creation-mode
-Drinfeld currents: $E_k \leftrightarrow f_{1, k} = z^k$ for
-$k \in \mathbb{Z}_{\geq 0}$. The annihilation modes $F_n$ and the Cartan
-$\psi^{\pm}_n$ are \emph{not} in the image: they do not arise from
-$\bigoplus_n \Lambda_n$ at all. This is the core reason
-$\CoHA(\mathbb{C}^3) = \Yp$ cannot read ``= $\Wilpha$'': it is the
-positive half of a triangular decomposition, and any vertex algebra
-has two-sided modes.
+\begin{proof}
+The Hall product is the pull-push product along the extension
+correspondence for the critical stack. Schiffmann-Vasserot identify this
+correspondence with the Feigin-Odesskii kernel in
+Definition~\ref{def:fo-shuffle}. Charge one is the one-point sector, so
+the functions $z^k$ give the positive Drinfeld current coefficients.
+The Hall product of charge-one sectors generates the positive shuffle
+subalgebra. The Serre-dual negative sector and Cartan current require a
+Hopf pairing and a double, hence have no source in
+$\bigoplus_n\Lambda_n$ alone.
+\end{proof}
 
-\section{$\Yp \ne \Wilpha$: the mode obstruction}
+\section{Modes and Vertex Algebras}
 
-\subsection{Mode structure of a vertex algebra}
-
-\begin{definition}[{$\Wilpha[\lambda]$}]
-$\Wilpha[\lambda]$ is the one-parameter family of vertex operator
-algebras of Kac--Radul 1993 / Frenkel--Kac--Radul--Wang 1995, generated
-by a primary field $J^{(s)}(z) = \sum_{n \in \mathbb{Z}} J^{(s)}_n
-z^{-n-s}$ at each conformal weight $s \geq 1$. The $s = 1$ field is
-Heisenberg: $J^{(1)}(z) J^{(1)}(w) \sim \tfrac{1}{(z - w)^2}$.
-Linshaw 2011 \emph{Invariant theory and $\Wilpha$} and the subsequent
-universal-$W$-algebra book establish uniqueness up to central charge.
+\begin{definition}[$\Wilpha[\lambda]$]
+\label{def:winfty}
+The Kac-Radul and Frenkel-Kac-Radul-Wang algebra
+$\Wilpha[\lambda]$ is a vertex algebra with fields
+\[
+J^{(s)}(z)=\sum_{n\in\mathbb{Z}}J^{(s)}_n z^{-n-s},
+\qquad s\geq 1,
+\]
+with $J^{(1)}$ the Heisenberg field. Its structure includes a vacuum,
+translation, locality, and a state-field map
+\[
+Y:V\to\End(V)[[z,z^{-1}]].
+\]
 \end{definition}
 
-Every vertex algebra comes with modes $J^{(s)}_n$ for
-\emph{all} $n \in \mathbb{Z}$, not just $n \geq 0$. This is forced by
-the Borcherds identity: locality
-$(z - w)^N[J(z), J(w)] = 0$ together with the OPE expansion at
-$z \to w$ requires the Laurent expansion in $z$ to have both
-positive and negative powers. A half-algebra with only creation modes
-cannot carry state-field correspondence
-$Y\colon V \to \mathrm{End}(V)[[z^{\pm 1}]]$.
+\begin{lemma}[The positive half has no state-field structure]
+\label{lem:positive-half-no-voa}
+$\Yp(\gglone)$ is the creation half of the affine-Yangian mode algebra.
+It has the generators $E_k$ for $k\geq 0$, an associative Hall product,
+and no intrinsic annihilation modes, Cartan field, vacuum axiom,
+Borcherds identity, or locality operator. The vertex algebra
+$\Wilpha[\lambda]$ is therefore a different object.
+\end{lemma}
 
-\subsection{The Yangian half is the creation-mode half}
+\begin{proof}
+A vertex algebra field has modes indexed by all of $\mathbb{Z}$, and
+locality is expressed by the Borcherds identity for these two-sided
+Laurent modes. The Hall algebra $\Yp$ contains the positive
+Drinfeld current coefficients. The opposite current $F(u)$ and the
+Cartan current $\psi^\pm(u)$ are produced by adjoining the
+negative half and the Cartan part. Thus the data defining a state-field
+map enters at the doubled and represented layer.
+\end{proof}
 
-\begin{theorem}[Arbesfeld--Schiffmann 2013 arXiv:1209.0429;
-Schiffmann--Vasserot 2013 \S7]
-\label{thm:AS-mode-isomorphism}
-There is an isomorphism of associative algebras
+\begin{proposition}[Completed double and evaluation]
+\label{prop:completed-double-evaluation}
+After a non-degenerate Hall-Serre pairing and the required completion
+are fixed, the Drinfeld double has triangular decomposition
 \[
-\YFull(\gglone) \;\cong\; \mathcal{U}\big(\mathrm{modes}(\Wilpha[\lambda])\big),
+D_{\mathrm{Drin}}(\Yp)
+=\Ym\widehat{\bowtie}\Yz\widehat{\bowtie}\Yp
+=\YFull(\gglone).
 \]
-normalised via the $\epsilon$-weighted structure function
+Completed evaluation representations of $\YFull(\gglone)$ act on
+$\Wilpha[\lambda]$ vacuum modules:
 \[
-g(u) = \frac{(u - \epsilon_1)(u - \epsilon_2)(u - \epsilon_3)}{
-(u + \epsilon_1)(u + \epsilon_2)(u + \epsilon_3)},
+\Yp(\gglone)
+\hookrightarrow
+\YFull(\gglone)
+\xrightarrow{\ \mathrm{ev}_{\lambda}\ }
+\End\bigl(\Wilpha[\lambda]\text{-}\mathrm{vac}\bigr).
 \]
-identifying
+The image is an algebra of operators on the chosen vacuum module. The
+vertex algebra is carried by that module with its state-field
+correspondence; the positive Hall half supplies creation operators.
+\end{proposition}
+
+The standard mode comparison in Arbesfeld-Schiffmann-Vasserot and
+Schiffmann-Vasserot sends $\Yp$ to creation operators, $\Ym$ to
+annihilation operators, and $\Yz$ to the Heisenberg-Cartan generating
+series. The equality lives at the completed mode or
+endomorphism-algebra level after central charge and representation data
+are fixed.
+
+\section{Native Operadic Level}
+
+\begin{theorem}[Two-stage CY-to-chiral level]
+\label{thm:native-level}
+For a specialisation datum $(\Sigma_{d-1},C)$ the constructed
+CY-to-chiral assignment has the form
 \[
-E_n \;\longleftrightarrow\; J^{(2)}_{-n-1}, \qquad
-F_n \;\longleftrightarrow\; J^{(2)}_{n+1}, \qquad
-\psi^{\pm}(u) \;\longleftrightarrow\; \text{generating series of }
-J^{(1)}_n\text{'s}.
+\Phi_d^{(\Sigma_{d-1},C)}
+=\operatorname{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\circ\Phi_d^{FA},
 \]
-Under this isomorphism, $\Yp$ maps onto the creation modes
-$\{J^{(s)}_{-n-1} : n \geq 0, s \geq 1\}$, $\Ym$ onto the annihilation
-modes $\{J^{(s)}_{n+1}\}$, and $\Yz$ onto the Cartan tower.
+with residual operadic level
+\[
+n_{\mathrm{native}}(d)=
+\begin{cases}
+\infty,& d=1,\\
+2,& d=2,\\
+1,& d\geq 3.
+\end{cases}
+\]
+Thus a specialised CY$_3$ output is natively $\Eone$-chiral. The braided
+$\Etwo$ structure is carried by a centre, double, or representation
+category:
+\[
+\mathcal{Z}\bigl(\Rep^{\Eone}(A)\bigr)
+\simeq
+\Rep^{\Etwo}\bigl(D(A)\bigr),
+\]
+on the locus where the double, completion, pairing, and half-braiding
+hypotheses are supplied.
 \end{theorem}
 
-\begin{corollary}
-$\Yp(\gglone) \ncong \Wilpha[\lambda]$ as vertex algebras: the former
-carries no state-field correspondence, being only the creation-mode
-subalgebra of the mode algebra of the latter. Equivalently,
-$\Yp$ has no locality, no Borcherds identity, no two-sided
-Fourier expansion.
-\end{corollary}
+\begin{proof}
+This is the PTVV and Dunn-Lurie shift calculation used in
+Chapter~\texttt{chapters/theory/cy\_to\_chiral.tex}. Stage one produces
+an $E_d$ holomorphic factorisation algebra. Stage two integrates over a
+complex $(d-1)$-dimensional specialisation submanifold and restricts to the
+reference curve. The operadic level drops by $d-1$, hence $E_d$ becomes
+$E_1$ for every $d\geq 3$. The nonsymmetric braiding required by
+Yangian representation theory is the half-braiding in the Drinfeld
+centre; the raw Hall product remains ordered and associative.
+\end{proof}
 
-The often-seen slogan ``$\Yp \cong \Wilpha$ at self-dual level'' is false
-as stated; the correct replacement is
-\[
-\boxed{\;\YFull(\gglone) \cong \mathrm{modes}(\Wilpha[\lambda]),
-\quad \Yp(\gglone) \cong
-\mathrm{creation\ modes}(\Wilpha[\lambda]),
-\quad \Yp \ne \Wilpha \text{ as a vertex algebra}.\;}
-\]
+\section{The Bridge to $\Wilpha[\lambda]$}
 
-\subsection{The Heisenberg fibre}
-
-The statement $\Wilpha[0] = H_1$ is meaningful but restrictive. The
-shuffle kernel $\omega(z, w)$ at $\epsilon_3 = 0$,
-$\epsilon_1 = -\epsilon_2$, degenerates:
-\[
-\omega\big|_{\epsilon_3 = 0}(z, w)
-= \frac{(z - w - \epsilon_1)(z - w + \epsilon_1)(z - w)}{(z - w)^3}
-= \frac{(z - w)^2 - \epsilon_1^2}{(z - w)^2}.
-\]
-The shuffle algebra generated by $\{z^n : n \geq 0\}$ under this kernel
-is the creation half of a Heisenberg algebra; Hall--Drinfeld doubling
-closes it to the level-$1$ Heisenberg vertex algebra $H_1$, which equals
-$\Wilpha[\lambda = 0]$ in the Gaiotto--Rap\v{c}\'ak parametrisation.
-This is a single point in the two-parameter family; at generic CY$_3$
-point (generic $[\epsilon_1 : \epsilon_2]$ on the $\epsilon_1 +
-\epsilon_2 + \epsilon_3 = 0$ slice), the vertex algebra is the full
-$\Wilpha[\lambda]$ with spin tower $J^{(s)}, s \geq 1$.
-
-\section{The four-step bridge $\CoHA \rightsquigarrow \Wilpha$}
-
-\subsection{Hall--Drinfeld double: restoring $\Ym$}
-
-\begin{theorem}[Negut 2014 Publ.\ IHES, Thm 1.4]
-\label{thm:negut-pairing}
-The Euler pairing on the critical cohomology of the Jordan-triple loop
-quiver is non-degenerate and extends the shuffle algebra $\Yp$ to a
-Drinfeld double
-$\YFull(\gglone) = \Yp \bowtie \Yz \bowtie \Ym$ carrying a topological
-Hopf algebra structure. Tsymbaliuk 2017 arXiv:1703.04551, Thm 1.1,
-identifies the resulting $\YFull$ with the affine Yangian of $\gglone$
-in the Drinfeld-currents presentation with structure function
-$\varphi(u) = \prod_i (u + \epsilon_i)/u^3$.
-\end{theorem}
-
-\subsection{Maulik--Okounkov stable envelopes: geometric restoration}
-
-For the torus $T = (\mathbb{C}^\times)^2$ on $\Hilb^n(\mathbb{C}^2)$,
-the stable envelope
-$\mathrm{Stab}_{\mathfrak{C}}\colon H^*_T((\Hilb^n(\mathbb{C}^2))^T)
-\to H^*_T(\Hilb^n(\mathbb{C}^2))$
-depends on a chamber $\mathfrak{C}$. For the positive/negative chambers,
-\[
-R_{MO}(u) := \mathrm{Stab}_{-}^{-1}\,\mathrm{Stab}_{+}
-\in \mathrm{End}\big(H^*_T((\Hilb^n(\mathbb{C}^2))^T)\big)(u),
-\]
-diagonal in the partition basis, has entries
-\[
-R_{\lambda, \mu}(u) = \prod_{s \in \lambda, t \in \mu}
-g\big(u + c(s) - c(t)\big).
-\]
-This matches the Yangian structure function exactly. The MO construction
-produces correspondence operators \emph{both} raising and lowering
-$n$; the raising operators generate $\Yp$, the lowering generate $\Ym$,
-and together with the stable-envelope pairing they furnish
-$\YFull$ as a Drinfeld double (Maulik--Okounkov 2019, \emph{Ast\'erisque} 408).
-
-\subsection{Quantum toroidal algebra and Miki's $SL_2(\mathbb{Z})$}
-
-\begin{theorem}[Ding--Iohara 1997; Miki 2007; Feigin--Jimbo--Miwa--Mukhin]
-\label{thm:miki-SL2Z}
-The quantum toroidal algebra
-$\Ecal_{q_1, q_2, q_3}(\gglone)$ has a distinguished
-$SL_2(\mathbb{Z})$-action; the generator
-$T \in SL_2(\mathbb{Z})$ is an algebra automorphism (Miki 2007, \S3)
-exchanging two commuting subalgebras,
-\[
-\Ecal^{\mathrm{vert}} \;\xleftrightarrow{\;T\;}\;
-\Ecal^{\mathrm{hor}}.
-\]
-$\Ecal^{\mathrm{vert}}$ is generated by ``row'' currents;
-$\Ecal^{\mathrm{hor}}$ by ``column'' currents. The rational degeneration
-$\Ecal^{\mathrm{rat}}$ of $\Ecal_{q_1, q_2, q_3}$ at the trigonometric
-level coincides with the Yangian $\YFull(\gglone)$.
-\end{theorem}
-
-\subsection{State-field correspondence: the CY-to-chiral functor}
-
-\begin{theorem}[Gaiotto--Rap\v{c}\'ak 2017 arXiv:1703.00982;
-Costello--Paquette 2020 arXiv:2009.04834]
-\label{thm:state-field}
-The image of the horizontal quantum toroidal subalgebra
-$\Ecal^{\mathrm{hor}}$ under state-field correspondence is
-$\Wilpha[\lambda]$: the vacuum module of $\Ecal^{\mathrm{hor}}$ carries
-a unique vertex-algebra structure with state-field map
-$Y\colon V \to \mathrm{End}(V)[[z^{\pm 1}]]$, and this vertex algebra is
-$\Wilpha[\lambda]$ with $\lambda$ determined by the transverse
-$\Omega$-background weights (Prochazka--Rapcak 2018 arXiv:1711.06888
-corner VOA framework).
-\end{theorem}
-
-\begin{theorem}[Four-step bridge]
-\label{thm:four-step-bridge}
-The chain from $\CoHA(\mathbb{C}^3)$ to $\Wilpha[\lambda]$ is four
-\emph{distinct constructions} composed in order:
+\begin{theorem}[Typed bridge]
+\label{thm:typed-bridge}
+The passage from $\CoHA(\mathbb{C}^3)$ to $\Wilpha[\lambda]$ is the
+following sequence of typed constructions:
 \[
 \CoHA(\mathbb{C}^3)
-\;\stackrel{\mathrm{SV}}{=}\;\Yp(\gglone)
-\;\stackrel{\mathcal{D}_\hbar}{\hookrightarrow}\;\YFull(\gglone)
-\;\stackrel{\mathrm{rat.\ deg.}}{\cong}\;\Ecal^{\mathrm{rat}}(\gglone)
-\;\stackrel{T_{\mathrm{Miki}}}{\cong}\;\Ecal^{\mathrm{hor}}
-\;\stackrel{\mathrm{state\text{-}field}}{\Longrightarrow}\;\Wilpha[\lambda].
+\xrightarrow[\cong]{\mathrm{SV}}
+\Yp(\gglone)
+\xhookrightarrow{\ D_{\mathrm{Drin}}\ }
+\YFull(\gglone)
+\xleftarrow[\mathrm{rat.\ deg.}]{\cong}
+\Ecal^{\mathrm{rat}}(\gglone)
+\xrightarrow{\ T_{\mathrm{Miki}}\ }
+\Ecal^{\mathrm{hor}}(\gglone)
+\xrightarrow{\ \mathrm{ev/corner}\ }
+\End\bigl(\Wilpha[\lambda]\text{-}\mathrm{vac}\bigr).
 \]
-Each arrow is a theorem; none is a renaming.
-The first three steps remain in the $E_1$-associative world; only the
-fourth arrow, furnished by the CY-to-chiral functor $\Phi_3$
-on the spectral line $\mathbb{C}_z \subset \mathbb{C}^3$, enters the
-vertex-algebra world.
+The steps have different mathematical types.
+\begin{enumerate}
+\item Schiffmann-Vasserot gives an equality of positive associative Hall
+algebras.
+\item The Drinfeld double adjoins $\Ym$ and $\Yz$ through a Hopf pairing.
+\item Rational degeneration identifies the completed affine Yangian
+with the rational limit of the Ding-Iohara-Miki quantum toroidal
+algebra.
+\item Miki's automorphism exchanges vertical and horizontal toroidal
+directions.
+\item A vacuum or corner-VOA representation gives an action on the
+$\Wilpha[\lambda]$ vacuum module; state-field correspondence is part of
+the vertex algebra carried by that module.
+\end{enumerate}
+The composite is an action chain between distinct layers. It is not a
+direct identification of the Hall algebra with the vertex algebra.
 \end{theorem}
 
-\section{The $\lambda$ prism}
-
-\begin{remark}[Two $\lambda$-parameters, one linear-fractional transformation]
-\label{rem:lambda-prism}
-Two parameters named $\lambda$ coexist in the literature and must not be
-conflated:
-\begin{itemize}
-\item $\lambda_{\mathrm{Tr}} = (\epsilon_1 + \epsilon_2)/\epsilon_3$:
-the Schiffmann--Vasserot / Tsymbaliuk truncation parameter, asymmetric
-in the three $\epsilon_i$.
-\item $\lambda_{\mathrm{GR}}$: the Gaiotto--Rap\v{c}\'ak parametrisation,
-symmetric in $(\epsilon_1, \epsilon_2, \epsilon_3)$, with the central
-charge of $\Wilpha[\lambda_{\mathrm{GR}}]$ an affine-linear functional
-of the three $\epsilon_i$.
-\end{itemize}
-A linear-fractional transformation relates them. Neither is ``the''
-$\lambda$. The Calabi--Yau condition $\sum_i \epsilon_i = 0$ cuts the
-two-parameter $(\epsilon_1, \epsilon_2, \epsilon_3)$-space to a
-one-parameter slice; it does \emph{not} freeze $\lambda$ to a single
-value. The Heisenberg fibre $\Wilpha[0] = H_1$ is the further point
-$\epsilon_1 = -\epsilon_2$, $\epsilon_3 = 0$, a single point on the
-CY$_3$ slice; this is the unique point at which $\Yp$-creation-modes
-close to a vertex algebra on their own (via trivial doubling).
+\begin{remark}[The Heisenberg fibre]
+\label{rem:heisenberg-fibre}
+At the special point $\epsilon_3=0$, $\epsilon_1=-\epsilon_2$, the
+shuffle kernel becomes
+\[
+\omega(z,w)
+=\frac{(z-w-\epsilon_1)(z-w+\epsilon_1)(z-w)}{(z-w)^3}
+=\frac{(z-w)^2-\epsilon_1^2}{(z-w)^2}.
+\]
+The corresponding vacuum evaluation of the completed double degenerates
+to the level-one Heisenberg vertex algebra $H_1$, the
+$\Wilpha[\lambda]$ fibre usually denoted $\Wilpha[0]$ in the
+Gaiotto-Rap\v{c}ak parametrisation. This is a point on the
+Calabi-Yau slice, distinct from the generic $\mathbb{C}^3$ Hall
+algebra.
 \end{remark}
 
-\section{Six-dimensional holomorphic Chern--Simons and the $E_3$-interweave}
+\section{Holomorphic Chern-Simons Reading}
 
-\subsection{hCS on $\mathbb{C}^3 = \mathbb{R}^6$}
-
-Let $X = \mathbb{C}^3$ with holomorphic volume form
-$\Omega = dz_1 \wedge dz_2 \wedge dz_3$. Take abelian gauge group
-$G = U(1)$. The field
-$\mathcal{A} \in \Omega^{0, \bullet}(X, \mathfrak{g})$ is a Dolbeault
-super-field; the hCS action is
+\begin{proposition}[Bulk, line, and Hall sector]
+\label{prop:hcs-reading}
+Let $X=\mathbb{C}^3$ with holomorphic volume form
+$\Omega=dz_1\wedge dz_2\wedge dz_3$. Six-dimensional holomorphic
+Chern-Simons theory has action
 \[
-S_{\hCS}(\mathcal{A}) = \int_X \Omega \wedge
-\Big(\mathcal{A}\,\bar{\partial}\mathcal{A}
-+ \tfrac{2}{3}\,\mathcal{A} \wedge [\mathcal{A}, \mathcal{A}]\Big),
+S_{\hCS}(A)
+=\int_X\Omega\wedge
+\operatorname{tr}\left(A\bar{\partial}A+\frac{2}{3}A\wedge A\wedge A\right).
 \]
-Gaussian in the abelian case.
+Costello-Gwilliam locality gives a holomorphic factorisation algebra of
+observables on $X$, hence a holomorphic $E_3$ bulk object. Restriction
+to a chosen complex spectral line $\mathbb{C}_z\subset\mathbb{C}^3$
+with the relevant defect data gives a factorisation algebra on the
+line, equivalently a vertex algebra. In the Costello-Paquette and
+Gaiotto-Rap\v{c}ak corner realisations this vertex algebra is
+$\Wilpha[\lambda]$.
 
-\begin{theorem}[Costello--Gwilliam 2017, Vol II \S5.1;
-Costello 2013 arXiv:1303.2632]
-\label{thm:hCS-factorisation}
-The observables of $\hCS(\mathbb{C}^3)$ form a holomorphic factorisation
-algebra on $\mathbb{C}^3 = \mathbb{R}^6$, i.e.\ a factorisation algebra
-whose locality structure depends on the Dolbeault data of the discs
-$(U \subset \mathbb{C}^3)$. Equivalently, by Lurie's locally-constant
-$\Leftrightarrow$ $E_n$-algebra theorem (\emph{Higher Algebra}, \S5.5.3),
-the observables form a \emph{holomorphic $E_3$-algebra}: neither
-topological $E_3$ nor bare $E_1$-associative, but an $E_3$-algebra in
-the Dolbeault category of $\mathbb{C}^3$.
-\end{theorem}
+The Hall identification is a separate comparison: after the
+hCS-to-critical-CoHA map is fixed on the toric chart, the positive BPS
+charge sector is $\CoHA(\mathbb{C}^3)=\Yp(\gglone)$. The boundary
+vertex algebra is obtained from the doubled and evaluated mode algebra,
+as in Theorem~\ref{thm:typed-bridge}.
+\end{proposition}
 
-\subsection{Boundary to a spectral line: the $\Wilpha$-output}
-
-\begin{theorem}[Costello 2013 \S9--11; Costello--Paquette 2020]
-\label{thm:hCS-boundary}
-Restrict the factorisation algebra
-$\mathrm{Obs}(\hCS(\mathbb{C}^3))$ to a complex line
-$\mathbb{C}_z \subset \mathbb{C}^3$ along a chosen defect. The defect
-factorisation algebra $\mathcal{F}_{\mathrm{def}}$ is a factorisation
-algebra on $\mathbb{C}_z$ with holomorphic locality, equivalently a
-vertex algebra (Costello--Gwilliam 2017, Vol I, Thm 5.3.3). This
-vertex algebra is $\Wilpha[\lambda]$ with
-$\lambda = \lambda(\epsilon_1, \epsilon_2, \epsilon_3)$ determined by
-the transverse $\Omega$-weights.
-\end{theorem}
-
-\subsection{Bulk Koszul dual: the $\Yp$-reading}
-
-The bulk holomorphic $E_3$-algebra on $\mathbb{C}^3$ is
-Koszul-dual, via the Costello--Paquette holomorphic-twist BV formalism,
-to a ``bulk Lie algebra'' whose modes match the Yangian modes. The
-precise identification:
-
-\begin{theorem}[6d hCS bulk $\leftrightarrow$ boundary chiral,
-Costello 2013 + Costello--Gaiotto 2018 arXiv:1810.01970]
-\label{thm:hCS-bulk-boundary}
-The six-dimensional holomorphic Chern--Simons theory on $\mathbb{C}^3$
-realises the four-step bridge of
-Theorem~\ref{thm:four-step-bridge} physically:
-\begin{itemize}
-\item The bulk observables on $\mathbb{C}^3$ form a holomorphic
-$E_3$-factorisation algebra, whose charge-graded subalgebra counting
-BPS states is identified with
-$\YFull(\gglone) \supset \Yp(\gglone)$, and whose
-\emph{positive charge} sector is $\CoHA(\mathbb{C}^3) = \Yp(\gglone)$.
-\item The boundary factorisation algebra along a spectral line
-$\mathbb{C}_z$ is $\Wilpha[\lambda]$.
-\item The bulk-to-boundary restriction functor is the state-field
-correspondence: it sends the creation-mode half of the bulk algebra
-to the creation modes of the vertex algebra, and similarly for
-annihilation modes once bulk-Drinfeld doubling (provided by
-wrong-way boundary $\mathbb{C}_{\bar{z}}$ defects) is installed.
-\end{itemize}
-\end{theorem}
-
-The physical slogan ``$\Yp(\gglone)$ is the BPS positive cone of 6d hCS
-on $\mathbb{C}^3$, and $\Wilpha[\lambda]$ is its boundary chiral
-algebra on a spectral line'' is the content of Theorem~\ref{thm:hCS-bulk-boundary}.
-The $E_3$-structure lives in the bulk; the vertex-algebra structure
-lives on the boundary; the Koszul-duality between them realises the
-bulk-boundary correspondence.
-
-\subsection{4d $\mathcal{N}=2$ $U(1)$ $\Omega$-background}
-
-The same story arises from 4d $\mathcal{N}=2$ pure $U(1)$ gauge theory
-on $\mathbb{C}^2_{\epsilon_1, \epsilon_2} \times \mathbb{C}_z$ with
-$\Omega$-deformation on the first two planes and holomorphic twist
-along $\mathbb{C}_z$ (Nekrasov 2003 hep-th/0206161;
-Costello--Gaiotto 2018). The equivariant instanton partition function
-$Z^{\mathrm{inst}}_{\Omega} = \prod_{n \geq 1}(1 - q^n)^{-1}$ is the
-character of a free-boson Fock space, reflecting the specialisation
-$\Wilpha[0] = H_1$. The generic $\Wilpha[\lambda]$ identification
-requires the full non-abelian or rank-enhanced setup and the
-Prochazka--Rapcak corner-VOA dictionary
-$Y_{L, M, N}[\psi]$: the corner $(L, M, N) = (\infty, 0, 0)$ recovers
-$\Wilpha[\psi]$.
-
-\section{Extensions: conifold and $K3 \times E$}
+\section{Conifold and $K3\times E$}
 
 \subsection{Conifold}
 
-The resolved conifold
-$\mathbb{Y} = \mathrm{Tot}(\mathcal{O}_{\mathbb{P}^1}(-1) \oplus
-\mathcal{O}_{\mathbb{P}^1}(-1))$ is modelled by the quiver
-$Q_{\mathrm{con}}$ with vertices $\circ, \bullet$, arrows
-$a_1, a_2\colon \circ \to \bullet$ and $b_1, b_2\colon \bullet \to \circ$,
-potential $W = \mathrm{tr}(a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1)$ (Szendroi
-2008). The relevant shuffle kernel (Negut 2015 arXiv:1505.01528) is
+For the resolved conifold
 \[
-\omega_{\mathrm{con}}(z, w)
-= \frac{(z - w + \epsilon_1)(z - w + \epsilon_2)}{
-(z - w)(z - w + \epsilon_1 + \epsilon_2)},
+\mathbb{Y}_{\mathrm{con}}
+=\operatorname{Tot}\bigl(\mathcal{O}_{\mathbb{P}^1}(-1)\oplus
+\mathcal{O}_{\mathbb{P}^1}(-1)\bigr),
 \]
-with $\epsilon_1 + \epsilon_2 \ne 0$ on the CY$_3$ slice (the
-$\mathbb{P}^1$-direction is compact, not an equivariant parameter).
+the Klebanov-Witten quiver has two vertices, arrows
+$a_1,a_2:\circ\to\bullet$ and $b_1,b_2:\bullet\to\circ$, and potential
+\[
+W_{\mathrm{con}}
+=\operatorname{tr}(a_1b_1a_2b_2-a_1b_2a_2b_1).
+\]
+Davison's critical CoHA, together with the
+Rap\v{c}ak-Soibelman-Yang-Zhao toric theorem, identifies the conifold
+Hall algebra with the positive half of the corresponding affine
+super-Yangian or quantum toroidal algebra. It is an ordered
+$\Eone$-algebra. A conifold defect VOA requires the doubled toroidal
+data and the defect-line OPE construction. Its generators and OPEs are
+conifold-specific; the $\gglone$ algebra $\Wilpha[\lambda]$ is the
+rank-one $\mathbb{C}^3$ corner.
 
-\begin{theorem}[Rapcak--Soibelman--Yang--Zhao 2020 arXiv:2001.10549,
-Thm B; Kapranov--Vasserot 2018 arXiv:1802.07988]
-\label{thm:conifold-RSYZ-KV}
-$\CoHA(\mathbb{Y}_{\mathrm{con}}) \cong U(\mathfrak{g}_{\mathrm{BPS}}
-(\mathbb{Y}_{\mathrm{con}}))$ as associative algebras, with
-$\mathfrak{g}_{\mathrm{BPS}}(\mathbb{Y}_{\mathrm{con}})$ identified as
-the positive half of the quantum toroidal algebra
-$U_{q_1, q_2}(\widehat{\widehat{\mathfrak{gl}}}_2)$ at specific
-parameters $(q_1, q_2) = (e^{\epsilon_1}, e^{\epsilon_2})$.
+\subsection{$K3\times E$}
+
+Let $Y=K3\times E$. This compact threefold is non-toric and carries no
+$T^3$ localisation package. The invariant readings are:
+\[
+\begin{array}{c|c|l}
+\text{invariant} & \text{value} & \text{construction}\\\hline
+\kappa_{\mathrm{cat}}(Y) & 0 &
+\chi(\mathcal{O}_{K3})\chi(\mathcal{O}_{E})=2\cdot 0\\
+\kappa_{\mathrm{ch}}(Y) & 0 &
+\sum_q(-1)^qh^{0,q}(Y)=1-1+1-1\\
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(Y) & 3 &
+K3\text{-fibre Heisenberg specialisation}\\
+\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) & 5 &
+c_1(0)/2=10/2=\operatorname{wt}(\Delta_5)\\
+\kappa_{\mathrm{fiber}}(K3) & 24 &
+\operatorname{rk}\widetilde{H}(K3,\mathbb{Z})
+\end{array}
+\]
+The automorphic normalisations are
+\[
+D_5=64^{-1}\Delta_5,\qquad
+\Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2,\qquad
+\Phi_{10}^{\mathrm{un}}=\Delta_5^2.
+\]
+Oberdieck-Pandharipande reduced DT theory uses the OP scalar
+normalisation. The primitive Borcherds denominator algebra uses
+$\Delta_5$, with
+$\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5})=5$. The OP scalar
+normalisation changes the reciprocal DT scalar and leaves the
+Borcherds weight unchanged.
+
+\begin{proposition}[Compact Hall-Borcherds scope]
+\label{prop:k3e-scope}
+Davison and Davison-Meinhardt supply PBW and integrality theorems for
+critical CoHAs under their critical-chart and orientation hypotheses.
+For $K3\times E$, primitive reduced DT dimensions match the
+Gritsenko-Nikulin and Oberdieck-Pandharipande automorphic product
+coefficients. This proves a graded-dimension comparison with the
+Borcherds algebra $\mathfrak{g}_{\Delta_5}$.
+
+A Lie-algebra isomorphism
+\[
+\mathfrak{g}_{\mathrm{BPS}}(K3\times E)
+\cong
+\mathfrak{g}_{\Delta_5}
+\]
+requires bracket compatibility, compact Hall pairing, coproduct,
+Cartan, completion, and Borcherds-Serre quotient data. Those data form
+the compact Hall-Drinfeld-Borcherds construction, separate from the
+$\mathbb{C}^3$ affine-Yangian theorem.
+\end{proposition}
+
+\section{KZ and KZB}
+
+KZ and KZB connections act on conformal blocks. Through the
+Drinfeld-Kohno and Cherednik correspondences they produce monodromy,
+associators, and braidings on representation categories. They furnish no
+morphism
+\[
+\CoHA(\mathbb{C}^3)\longrightarrow\Wilpha[\lambda].
+\]
+In the present dictionary they control the horizontal toroidal action
+and the $R$-matrix on $\Rep(\YFull(\gglone))$. The vertex algebra enters
+after evaluation and state-field correspondence.
+
+\section{Consolidated Dictionary}
+
+\begin{theorem}[Typed equalities and constructions]
+\label{thm:consolidated-dictionary}
+Over
+$\mathbb{F}_{\CY}=\mathbb{Q}(\epsilon_1,\epsilon_2,\epsilon_3)/
+(\epsilon_1+\epsilon_2+\epsilon_3)$:
+\begin{enumerate}
+\item $\CoHA_{T^{\CY}}(\mathbb{C}^3)\cong\Yp(\gglone)$ as
+associative $\Eone$ Hall algebras.
+\item $D_{\mathrm{Drin}}(\Yp)=\Ym\widehat{\bowtie}\Yz
+\widehat{\bowtie}\Yp=\YFull(\gglone)$ after the Hall pairing,
+Cartan part, negative half, and completion are fixed.
+\item $\YFull(\gglone)$ is the completed affine-Yangian mode algebra
+acting on $\Wilpha[\lambda]$ vacuum and corner-VOA modules by
+evaluation.
+\item $\Wilpha[\lambda]$ is a vertex algebra, distinct from the positive
+shuffle algebra $\Yp$.
+\item For $d\geq 3$, the CY-to-chiral output is natively $\Eone$.
+The $\Etwo$ braided structure belongs to
+$\mathcal{Z}(\Rep^{\Eone}(-))$, to a Drinfeld double, or to a module
+category with half-braidings.
+\item BKM algebras are Borcherds denominator objects whose weights are
+computed by $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$ after the
+relevant automorphic product is fixed.
+\item Affine Yangians, quantum toroidal algebras, VOAs, and KZ/KZB flat
+connections are distinct structures connected by the constructions
+above.
+\end{enumerate}
 \end{theorem}
 
-The conifold boundary vertex algebra along a defect line is
-\emph{not} $\Wilpha(\gglone)$; it is a conifold-specific
-elliptic-corrected chiral algebra, a deformation of
-$\Wilpha$ reflecting the two conifold vertices
-(Costello--Li 2016 arXiv:1606.00365; Awata--Feigin--Shiraishi 2011
-arXiv:1112.6074). The slogan ``Feynman $=$ shuffle $= \Wilpha$ OPE''
-holds perturbatively; the full identification replaces $\Wilpha$ by
-the conifold vertex algebra $\Ecal^{\mathrm{hor}}
-(\widehat{\widehat{\mathfrak{gl}}}_2)$.
+\section{Comparison Boundaries}
 
-\subsection{$K3 \times E$}
-
-$K3 \times E$ is compact, non-toric, and carries no $T^3$-action.
-Davison 2017 arXiv:1601.02479 and Davison--Meinhardt 2020
-(\emph{Inventiones}~221) construct a critical CoHA under the global
-critical-chart hypothesis for the sheaf-moduli.
-
-\begin{theorem}[Davison PBW]
-\label{thm:davison-PBW}
-For a smooth proper CY$_3$ threefold $X$ admitting a global
-critical-locus presentation for its sheaf moduli, there is a CoHA
-$\CoHA^{\mathrm{BPS}}(X)$ with a BPS Lie subalgebra
-$\mathfrak{g}_{\mathrm{BPS}}(X) \subset \CoHA^{\mathrm{BPS}}(X)$ such
-that
-\[
-\CoHA^{\mathrm{BPS}}(X) \;\cong\; U(\mathfrak{g}_{\mathrm{BPS}}(X))
-\qquad \text{(as associative algebras).}
-\]
-\end{theorem}
-
-The Oberdieck--Pixton 2017 theorem
-(arXiv:1706.10100; \emph{Inventiones} 222) gives, for primitive K3
-class $\gamma$,
-\[
-Z^{\mathrm{red}}_{DT}(K3 \times E; \gamma)(q, t, p) = -
-\frac{C}{\Phi_{10}(q, t, p)},
-\]
-matching the Gritsenko--Nikulin 1998 Borcherds-product expansion of
-$\Phi_{10} = \Delta_5^2$ root-multiplicity-by-root-multiplicity:
-\[
-\dim \mathfrak{g}_{\mathrm{BPS}, \gamma}(K3 \times E)
-= \mathrm{mult}_{\mathrm{BKM}}(\alpha_\gamma)
-= \dim \mathfrak{g}_{\Delta_5, \alpha_\gamma}
-\qquad \text{(primitive } \gamma \text{ only).}
-\]
-
-\begin{remark}[Lie-bracket identification is open]
-\label{rem:bracket-open}
-Equal dimensions of graded pieces do not force Lie-algebra isomorphism.
-The bracket compatibility
-\[
-[\mathfrak{g}_{\mathrm{BPS}, \gamma_1}, \mathfrak{g}_{\mathrm{BPS}, \gamma_2}]
-\;\stackrel{?}{=}\;
-[\mathfrak{g}_{\Delta_5, \alpha_{\gamma_1}},
-\mathfrak{g}_{\Delta_5, \alpha_{\gamma_2}}]
-\]
-is open (cf.\ \texttt{CoHA\_to\_W\_infty\_treatise.tex} lines 523--536).
-The formulation
-$\CoHA(K3 \times E) \cong
-U(\mathfrak{n}_{+}(\mathfrak{g}_{\Delta_5}))$ is an over-extension: the
-Davison PBW isomorphism identifies $\CoHA(K3 \times E)$ with
-$U(\mathfrak{g}_{\mathrm{BPS}}(K3 \times E))$, a \emph{full} Lie
-envelope, not a positive half; the subsequent identification
-$\mathfrak{g}_{\mathrm{BPS}}(K3 \times E) \stackrel{?}{\cong}
-\mathfrak{g}_{\Delta_5}$ is conjectural.
-\end{remark}
-
-\subsection{Davison--Meinhardt structure and the integrality conjecture}
-
-Davison--Meinhardt 2020 proves the \emph{integrality conjecture}:
-the BPS cohomology $\mathrm{BPS}(X) := \mathfrak{g}_{\mathrm{BPS}}(X)$
-is concentrated in cohomological degree zero (for Jacobi algebras of
-symmetric quivers with potential), and the motivic DT invariants
-$\Omega(\gamma)$ satisfy
-$\Omega(\gamma) = (-1)^{|\gamma|}\dim
-\mathrm{BPS}(X)_\gamma \in \mathbb{Z}$. For $X = \mathbb{C}^3$ this
-reproduces the MacMahon $\prod_n (1 - q^n)^{-n}$ count of plane
-partitions; for $X = \mathbb{Y}_{\mathrm{con}}$ it reproduces the
-conifold DT count; for $X = K3 \times E$ with primitive class it is
-consistent with the Oberdieck--Pixton / Gritsenko--Nikulin numerology.
-
-Davison--Meinhardt thus supplies the \emph{existence} of the BPS Lie
-algebra as a structural theorem, but the bracket-level comparison with
-a target Lie algebra (here $\mathfrak{g}_{\Delta_5}$) remains a separate
-open problem, exactly the open step named in
-Remark~\ref{rem:bracket-open}.
-
-\subsection{KZ/KZB connections: nerve, not identification}
-
-The Knizhnik--Zamolodchikov (KZ) and its elliptic analogue (KZB)
-connections, acting on spaces of conformal blocks, do \emph{not}
-furnish a CoHA $\to \Wilpha$ morphism. What they furnish, via the
-Drinfeld--Kohno / Cherednik correspondence, is:
-\begin{itemize}
-\item The horizontal direction of $\Ecal_{q_1, q_2, q_3}(\gglone)$
-(equivalently, the Hopf algebra acting on conformal blocks);
-\item A braiding on $\mathrm{Rep}(\YFull(\gglone))$ realising the
-$R$-matrix of Maulik--Okounkov.
-\end{itemize}
-The KZ connection is the \emph{nerve} of the braiding, not a
-map into the vertex algebra. The vertex-algebra structure is
-recovered only after composing with state-field correspondence
-(the fourth arrow of Theorem~\ref{thm:four-step-bridge}).
-
-\section{Synthesis: the corrected equalities}
-
-\begin{theorem}[Consolidated CoHA $\leftrightarrow$ Yangian
-$\leftrightarrow$ $\Wilpha$ dictionary]
-\label{thm:synthesis}
-Over $\mathbb{F} = \mathbb{Q}(\epsilon_1, \epsilon_2, \epsilon_3)/
-(\sum \epsilon_i)$, with $T^{\CY}$ the anti-canonical torus:
+\begin{proposition}[Independent comparison data]
+\label{prop:comparison-boundaries}
+The following comparisons require data beyond the
+$\mathbb{C}^3$ positive-half theorem and beyond the
+$\Wilpha[\lambda]$ evaluation chain.
 \begin{enumerate}
-\item[(a)] $\CoHA_{T^{\CY}}(\mathbb{C}^3) = \Yp(\gglone)$ as
-associative algebras (SV 2013 Thm 1.1 / SV 2017 Publ.\ IHES 118).
-\item[(b)] $\Yp \bowtie \Yz \bowtie \Ym = \YFull(\gglone)$ via
-Hall--Drinfeld doubling with the Euler / MO stable-envelope pairing
-(Negut 2014 Publ.\ IHES; MO 2019 Ast.\ 408).
-\item[(c)] $\YFull(\gglone) = \Ecal^{\mathrm{rat}}(\gglone)$ by
-rational degeneration; the Miki automorphism
-$T \in SL_2(\mathbb{Z})$ acts on $\Ecal$ exchanging vertical and
-horizontal subalgebras (Ding--Iohara 1997; Miki 2007; Tsymbaliuk
-2017 Thm 1.1).
-\item[(d)] $\Ecal^{\mathrm{hor}}(\gglone) \xrightarrow{\;Y\;}
-\Wilpha[\lambda]$ via state-field correspondence; equivalently,
-$\Wilpha[\lambda]$ is the boundary factorisation algebra of 6d
-$\hCS(\mathbb{C}^3)$ restricted to a spectral line $\mathbb{C}_z$
-(Costello 2013 arXiv:1303.2632; Gaiotto--Rap\v{c}\'ak 2017
-arXiv:1703.00982; Costello--Paquette 2020 arXiv:2009.04834;
-Prochazka--Rapcak 2018 arXiv:1711.06888).
-\item[(e)] $\CoHA(\mathbb{Y}_{\mathrm{con}}) =
-U(\mathfrak{g}_{\mathrm{BPS}}(\mathbb{Y}_{\mathrm{con}})) \subset$
-positive half of $U_{q_1, q_2}(\widehat{\widehat{\mathfrak{gl}}}_2)$
-(Davison 2012 arXiv:1209.4620; Rapcak--Soibelman--Yang--Zhao 2020
-arXiv:2001.10549 Thm B; Kapranov--Vasserot 2018 arXiv:1802.07988).
-\item[(f)] $\CoHA(K3 \times E) = U(\mathfrak{g}_{\mathrm{BPS}}
-(K3 \times E))$ (Davison 2017 arXiv:1601.02479;
-Davison--Meinhardt 2020 \emph{Inv.\ Math.} 221 integrality conjecture);
-graded characters match $C/\Phi_{10}$ on primitive K3 class
-(Oberdieck--Pixton 2017 \emph{Inv.\ Math.} 222).
+\item \emph{$K3\times E$ bracket comparison.}
+Primitive reduced DT dimensions match $\Delta_5$ root multiplicities.
+A bracket-preserving isomorphism between the compact BPS Lie algebra and
+$\mathfrak{g}_{\Delta_5}$ additionally requires the compact Hall
+pairing, coproduct, Cartan, completion, and Borcherds-Serre quotient
+data.
+\item \emph{Conifold defect OPEs.}
+The positive conifold Hall algebra is constructed. The defect vertex
+algebra requires explicit generators, OPEs, and comparison with the
+horizontal quantum toroidal presentation.
+\item \emph{General compact CY$_3$ critical charts.}
+Davison-style PBW statements require oriented critical atlases,
+orientation data, and integrality hypotheses case by case.
+\item \emph{Geometric negative half beyond toric surfaces.}
+For $\mathbb{C}^3$, stable envelopes and Hall pairings construct
+$\Ym$. For compact non-toric geometries, the Serre-dual pairing and
+completion are prerequisites for any Drinfeld double or centre-level
+claim.
 \end{enumerate}
-The equalities $\CoHA(\mathbb{C}^3) = \Wilpha$, $\Yp = \Wilpha$,
-and $\CoHA(K3 \times E) = U(\mathfrak{n}_{+}(\mathfrak{g}_{\Delta_5}))$
-are \emph{false as stated}. The correct content is the five-step chain
-(a)--(d) above, with (f) subject to the open bracket-level
-identification $\mathfrak{g}_{\mathrm{BPS}}(K3 \times E)
-\stackrel{?}{=} \mathfrak{g}_{\Delta_5}$.
-\end{theorem}
-
-\begin{remark}[What is missed, and why the conflation is seductive]
-\label{rem:why-seductive}
-At the level of graded characters, the MacMahon generating function
-$\prod_{n \geq 1}(1 - q^n)^{-n}$ simultaneously counts plane
-partitions (the CoHA basis of $\Yp$) and vacuum-module dimensions of
-$\Wilpha$ (as a free-field Fock space at the Heisenberg fibre). The
-numerical coincidence invites the identification. What the coincidence
-reflects is the Koszul-duality between the creation-mode half and
-the full vertex algebra, mediated by the MO stable-envelope pairing;
-what it does \emph{not} reflect is any identification of the underlying
-algebra structures. The categorical distinction ---
-$E_1$-associative vs.\ $E_1$-chiral --- is invisible at the level of
-graded dimensions.
-\end{remark}
-
-\section{Consistency with the treatise}
-
-The treatise \texttt{notes/CoHA\_to\_W\_infty\_treatise.tex} is internally
-correct at the identification level:
-\begin{itemize}
-\item Lines 100--104: $\CoHA(\mathbb{C}^3) \otimes \mathbb{F}((z))
-\cong \Sh$, the shuffle algebra.
-\item Lines 124--130: $\Yp(\widehat{\mathfrak{gl}}_1) := \CoHA(\mathbb{C}^3)_+$,
-the positive half of the affine Yangian.
-\item Lines 157--164: Drinfeld double $\YFull = \Yp \bowtie \Yz \bowtie \Ym$.
-\item Lines 185--189: \emph{full} Yangian maps to $\Wilpha$ via
-state-field correspondence on the vacuum module; not the positive half.
-\item Lines 190--219: $\lambda_{\mathrm{Tr}}$ vs $\lambda_{\mathrm{GR}}$
-disambiguation; CY$_3$ as a slice, not as a single point.
-\item Lines 391--398: conifold CoHA $\leftrightarrow$ quantum toroidal
-$\gglone$ of $\widehat{\widehat{\mathfrak{gl}}}_2$; \emph{not}
-$\Wilpha(\gglone)$.
-\item Lines 458--479: Davison 2017 hypothesis; CoHA $= U(\mathfrak{g}_
-{\mathrm{BPS}})$; the
-$\mathfrak{g}_{\mathrm{BPS}}(K3 \times E) \cong \mathfrak{g}_{\Delta_5}$
-question flagged open (line 523).
-\end{itemize}
-The present note compresses the four-step bridge and adds the 6d hCS
-bulk-boundary interweave (\S Six-dimensional holomorphic Chern--Simons
-and the $E_3$-interweave, above); it does not overwrite the treatise.
-Cross-references in $\texttt{wave12\_b1\_coha\_w\_infty\_cross\_consistency.tex}$
-(six inconsistencies, corner-VOA bridge) and
-$\texttt{wave12\_a7\_coha\_w\_infty\_drinfeld.tex}$ (eight attack-heal
-cycles, five-object taxonomy) are fully compatible with what is stated
-here; the three notes form a consistent triple.
-
-\section{Open questions}
-
-\begin{enumerate}
-\item \emph{Lie-bracket identification for $K3 \times E$}:
-$\mathfrak{g}_{\mathrm{BPS}}(K3 \times E) \stackrel{?}{\cong}
-\mathfrak{g}_{\Delta_5}$ as Lie algebras (equivalently: the
-CoHA correspondence product on $\CoHA(K3 \times E)$ matches the BKM
-bracket on $\mathfrak{g}_{\Delta_5}$). Consistent with Kontsevich--Soibelman
-motivic wall-crossing; not reduced to a single citation.
-\item \emph{Conifold chiral algebra, explicit generators and OPEs}: the
-boundary vertex algebra of $\hCS(\mathbb{Y}_{\mathrm{con}})$ along a
-defect line is conjectured to be a deformation of $\Wilpha$ matching
-the quantum toroidal $\widehat{\widehat{\mathfrak{gl}}}_2$ at specific
-parameters; explicit generator-and-OPE formulas are not in hand.
-\item \emph{Imprimitive / multiple-cover contributions for $K3 \times E$}:
-the Oberdieck--Pixton 2017 identity covers only the primitive K3 class;
-the imprimitive / multiple-cover DT invariants, and hence the
-full BPS Lie algebra dimension equality, await extension.
-\item \emph{Davison critical-chart hypothesis for general compact CY$_3$}:
-not every smooth proper CY$_3$ admits a global critical-locus
-presentation for its sheaf-moduli; the PBW theorem is conditional on
-this hypothesis being verified case by case.
-\item \emph{Geometric construction of $\Ym$ for $K3 \times E$}: on
-$\mathbb{C}^3$, MO stable envelopes furnish the negative half via
-chamber exchange; the analogous construction for $K3 \times E$ (with
-trivial $T$-action on generic K3) requires an alternative geometric
-pairing, for example via Serre duality on $D^b(K3 \times E)$ with
-$\mathrm{Ext}^3$-residue.
-\end{enumerate}
-
-\appendix
-
-\section{Rectification log}
-
-\subsection*{Six attack-heal cycles executed}
-
-\begin{enumerate}
-\item[\textbf{Cycle 1.}]
-\emph{Attack}: ``$\CoHA(\mathbb{C}^3) = \Wilpha$'' --- where are the
-generators? \emph{Heal}: $\CoHA(\mathbb{C}^3) = \Yp$, shuffle
-generators $\{z^k : k \geq 0\} \subset \Lambda_1$; $\Ym$ is absent.
-Source: SV 2013 Thm 1.1.
-
-\item[\textbf{Cycle 2.}]
-\emph{Attack}: modes in $\Wilpha[\lambda]$ not visible in $\Yp$. \emph{Heal}:
-negative-mode half $\Ym \leftrightarrow \{J^{(s)}_{n+1} : n \geq 0\}$;
-creation-mode identification is theorem AS 2013 + SV 2013 \S7;
-$\Yp$ is half of $\mathrm{modes}(\Wilpha)$, not $\Wilpha$.
-
-\item[\textbf{Cycle 3.}]
-\emph{Attack}: is there a non-trivial map
-$\CoHA \to \Wilpha$ mistaken for identity? \emph{Heal}: yes --- the
-four-step bridge $\CoHA \to \Yp \hookrightarrow \YFull \cong
-\Ecal^{\mathrm{rat}} \stackrel{T}{\cong} \Ecal^{\mathrm{hor}}
-\stackrel{Y}{\Longrightarrow} \Wilpha$. Each arrow is a different
-construction; their composite is the dictionary.
-
-\item[\textbf{Cycle 4.}]
-\emph{Attack}: $\Wilpha[\lambda]$ at generic $\lambda$ --- how does
-$\Yp$ see the family? \emph{Heal}: $\Yp$ lives over
-$\mathbb{F}_{\mathrm{CY}}$; the Miki automorphism + state-field
-correspondence converts the $[\epsilon_1:\epsilon_2]$ projective
-line into the $\lambda_{\mathrm{GR}}$-parameter for $\Wilpha$. The
-Heisenberg fibre $\Wilpha[0] = H_1$ is a single point.
-
-\item[\textbf{Cycle 5.}]
-\emph{Attack}: is CoHA $\to$ $\Wilpha$ via KZ/KZB? \emph{Heal}: no
---- KZ/KZB gives the horizontal $\Ecal$-action on conformal blocks,
-hence the Yangian $R$-matrix on $\mathrm{Rep}(\YFull)$, not a direct
-CoHA $\to \Wilpha$ morphism. The vertex algebra recovers only after
-state-field correspondence (fourth bridge arrow).
-
-\item[\textbf{Cycle 6.}]
-\emph{Attack}: what does Davison--Meinhardt 2020 say about CoHA structure?
-\emph{Heal}: the integrality conjecture (BPS cohomology concentrated in
-degree zero; $\Omega(\gamma) = (-1)^{|\gamma|}\dim \mathrm{BPS}(X)_\gamma
-\in \mathbb{Z}$) furnishes \emph{existence} of the BPS Lie algebra for
-symmetric-quiver-with-potential CY$_3$s under critical-chart hypothesis;
-it does \emph{not} furnish bracket-level identification with any
-particular target Lie algebra. The open step for $K3 \times E$ is
-exactly this identification.
-\end{enumerate}
-
-\subsection*{Convergence statement}
-
-Six cycles stabilised the identifications. No further attack surface
-remained after Cycle 6. The chain
-$\CoHA(\mathbb{C}^3) = \Yp \subsetneq \YFull \cong \Ecal^{\mathrm{rat}}
-\stackrel{T}{\cong} \Ecal^{\mathrm{hor}}
-\stackrel{Y}{\Longrightarrow} \Wilpha[\lambda]$
-is complete; the 6d hCS bulk-boundary realisation in
-\S Six-dimensional holomorphic Chern--Simons and the $E_3$-interweave
-gives the physical content. The treatise discipline is preserved; the
-working-notes prose rectifications listed in the cross-consistency note
-(wave12 B1, wave12 A7) remain to propagate.
+\end{proposition}
 
 \end{document}

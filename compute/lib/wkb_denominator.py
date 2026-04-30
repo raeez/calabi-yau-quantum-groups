@@ -2,7 +2,7 @@ r"""Weyl-Kac-Borcherds denominator identity for the BKM superalgebra g_{Delta_5}
 
 This module verifies the denominator identity for the generalized BKM Lie
 superalgebra g_{Delta_5} attached to K3 x E, whose denominator is the
-Igusa cusp form Delta_5 of weight 5 for Sp_4(Z).
+primitive Gritsenko-Nikulin denominator Delta_5 of weight 5 for Sp_4(Z).
 
 THE IDENTITY (thm:k3e-denominator, thm:k3e-product)
 =====================================================

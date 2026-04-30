@@ -1,20 +1,14 @@
-% wave12_a6_hochschild_coderived_beilinson.tex
-% Beilinson-school attack-heal audit: Hochschild/cyclic homology of CY3
-% categories, the coderived category, the MZV/Drinfeld-associator frame.
-% Scope: working_notes.tex lines 429-488, 604-654, 655-716, 865-933,
-% 2194-2301.
-% Voice: Chriss-Ginzburg. Honest claim status. No bookkeeping vocabulary
-% in statements (notes-file context permits meta, but prose mirrors
-% manuscript standard so inscribable hunks are drop-in clean).
+% Hochschild, coderived, and compact CY3 chiral scope.
 
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
-\newtheorem{attack}{Attack}
-\newtheorem*{heal}{Heal}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{remark}[theorem]{Remark}
+
 \newcommand{\HH}{\mathrm{HH}}
 \newcommand{\HC}{\mathrm{HC}}
 \newcommand{\HP}{\mathrm{HP}}
@@ -26,744 +20,438 @@
 \newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \newcommand{\cO}{\mathcal{O}}
 \newcommand{\cA}{\mathcal{A}}
-\newcommand{\cM}{\mathcal{M}}
-\newcommand{\cK}{\mathcal{K}}
-\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cC}{\mathcal{C}}
 \newcommand{\Db}{D^{b}}
 \newcommand{\Dco}{D^{\mathrm{co}}}
+\newcommand{\Ran}{\mathrm{Ran}}
 \newcommand{\MZV}{\mathrm{MZV}}
-\newcommand{\proj}{\mathrm{proj}}
+\newcommand{\Zchder}{Z^{\mathrm{der}}_{\mathrm{ch}}}
+\DeclareMathOperator{\RHom}{RHom}
 
 \begin{document}
 
-\title{Hochschild, cyclic, coderived: a Beilinson-school attack--heal
-audit of Vol~III working notes}
-\author{Adversarial swarm, Vol~III}
-\date{Wave~12}
-\maketitle
+\title{Hochschild, Coderived, and Compact CY3 Chiral Scope}
+\author{}
+\date{}
 
 \begin{abstract}
-Five attack-heal cycles on the Hochschild/cyclic/coderived spine of
-the CY-to-chiral programme: disambiguation of bare ``Hochschild''
-against the three-way split
-$\HH_*(\Db(X))$ vs $\THH$ vs $\ChirHoch^\bullet$; explicit
-Serre-functor identification and HKR palindromy for $X=\mathrm{K3}\times E$
-and the quintic; the coderived-instantiation gap at the Ran space
-against Booth--Lazarev; the normalisation of the $\mathsf{B}$-row
-$K^{\kch}=8$ through Bruinier's Heegner Chern-class reciprocity
-(factor-of-two audit); and the precise Drinfeld-associator relations
-governing the genus-$0$ MZV shadow (pentagon, two hexagons, Zagier
-$2.10$-relation, Ihara--Takao relation, single-valued projection).
-Each heal supplies an explicit complex, a primary citation, and an
-honest status label.
+The Hochschild and coderived constructions attached to a compact
+Calabi-Yau threefold separate into five objects.  Hochschild homology
+of $\Db(X)$ is an HKR invariant of the smooth proper category.
+Chiral Hochschild cochains of $A=\Phi_3(\Db(X))$ compute the derived
+chiral centre.  Positselski completion and Booth-Lazarev global Koszul
+duality control curved bar-cobar inversion only after the algebraic
+ambient is fixed.  For $d\geq3$ the native output of $\Phi_d$ is
+$E_1$-chiral; the first $E_2$ object is the centre or double.
 \end{abstract}
+
+\maketitle
 
 \tableofcontents
 
-% ============================================================
-\section{Attack I --- Bare ``Hochschild'' in the CY3 section (lines
-865--933)}
-% ============================================================
+\section{The three Hochschild theories}
 
-\begin{attack}[AP160 scope error]
-The section header reads
-``\emph{Hochschild and cyclic homology of CY3 categories}'' and
-Proposition~\ref{prop:hh-data} tabulates $\dim\HH_p$ for
-$X=\mathrm{K3}\times E$ and the quintic. The statement is ambiguous
-across three distinct invariants:
+Let $X$ be a smooth proper complex variety.  The word Hochschild
+denotes three different constructions.
+
 \begin{enumerate}
-\item[(i)] $\HH_p(\Db(X))$ --- Hochschild homology of the
-$\mathbb{C}$-linear dg category of coherent sheaves, equivalently
-$\HH_p(X)=\bigoplus_{q-p'=p}H^{q}(X,\Lambda^{p'}T_X)$ by HKR.
-\item[(ii)] $\THH_p(\Db(X))$ --- topological Hochschild homology
-(over the sphere spectrum), Bokstedt construction, cyclotomic spectrum
-target, carries Tate cohomology of $S^1$-action giving $\TC$.
-\item[(iii)] $\ChirHoch^\bullet(\cA_X)$ --- chiral-Hochschild (Beilinson--Drinfeld
-factorisation Hochschild) of the quantum vertex chiral group $\cA_X$,
-a factorisation-homology invariant
-$\int_{S^1_{\mathrm{ch}}}\cA_X$ on the punctured curve.
-\end{enumerate}
-The palindromy
-$\dim\HH_p=\dim\HH_{3-p}$ stated in the proposition is a consequence of
-Serre duality in~(i); it does \emph{not} follow for (ii) without a
-Mackey/trace-methods reduction, and it is \emph{false} as stated for
-(iii) --- $\ChirHoch$ has Hilbert-series concentration set
-$\{0,1,2,d\}$ off the critical level (Theorem~H) with a non-palindromic
-bulk degree~$d=3$ entry.
-\end{attack}
-
-\begin{heal}
-State the theorem with explicit target. For
-$X=\mathrm{K3}\times E$ (compact CY3 with $\omega_X\simeq\cO_X$) the
-Hochschild homology of $\Db(X)$ is computed by HKR from the Hodge
-diamond
+\item $\HH_*(\Db(X))$ is Hochschild homology of the
+$\mathbb C$-linear dg category of perfect complexes.  By
+Hochschild-Kostant-Rosenberg,
 \[
-h^{p,q}(\mathrm{K3}\times E)
- \;=\;
- h^{p,q}(\mathrm{K3})\otimes h^{p,q}(E)
+ \HH_k(\Db(X))
+ \cong
+ \bigoplus_{p-q=k} H^q(X,\Omega_X^p).
 \]
-with $h^{0,0}=h^{2,0}=h^{0,2}=h^{2,2}=1$, $h^{1,1}=20$ on K3, and
-$h^{0,0}=h^{1,0}=h^{0,1}=h^{1,1}=1$ on $E$. Assembling by total
-$(p+q)$-degree into the HKR shift $\HH_k(\Db(X))
-=\bigoplus_{q-p=k}H^{q}(X,\Omega^{-k+\dim}_X)$ with CY3
-Serre shift~$[3]$ built in:
-\[
-\dim\HH_k(\Db(\mathrm{K3}\times E))
- \;=\;
- \sum_{q-p+3=k+3}h^{p,q}(X)
- \;=\;
- \sum_{q-p=k}h^{p,q}(X).
-\]
-Direct computation (three independent paths):
-\begin{center}
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{l|ccccccc}
-\hline
-$k$ & $-3$ & $-2$ & $-1$ & $0$ & $1$ & $2$ & $3$ \\ \hline
-$\dim\HH_k$ & $1$ & $2$ & $22$ & $46$ & $22$ & $2$ & $1$ \\ \hline
-\end{tabular}
-\end{center}
-(Consistency: $\sum_k\dim\HH_k = 96 = \sum_{p,q}h^{p,q}$, matches
-the proposition's row~$96$. The proposition's $\dim\HH_0=4$ is
-shorthand for the \emph{unshifted} HKR target
-$\bigoplus_q h^{0,q}=1+1+1+1=4$; the palindromic $(4,44,44,4)$
-row is the \emph{diagonal-shifted} assembly used by
-Caldararu--Willerton 2010 and Pantev--Toen--Vaquie--Vezzosi 2013,
-not the HKR $\HH_k$ grading. State the convention.)
-\end{heal}
+The Connes operator produces the cyclic variants $\HC^-$ and $\HP$.
 
-\begin{heal}[Serre functor and CY shift]
-$\Db(X)$ for $X=\mathrm{K3}\times E$ has Serre functor
-$S_X=(-)\otimes\omega_X[\dim X]=[3]$ because
-$\omega_{\mathrm{K3}}\simeq\cO_{\mathrm{K3}}$ and
-$\omega_E\simeq\cO_E$, so
-$\omega_X=p_1^*\omega_{\mathrm{K3}}\otimes p_2^*\omega_E\simeq\cO_X$.
-The Calabi--Yau-$3$ property is \emph{precisely} that the Serre
-functor is the triple shift, with no twist. Hochschild cohomology
-then satisfies
-\[
-\HH^k(\Db(X)) \;=\; \mathrm{Ext}^k_{X\times X}(\Delta_*\cO_X,\Delta_*\cO_X)
- \;=\;
- \bigoplus_{p+q=k}H^p(X,\Lambda^q T_X),
-\]
-and the CY3 duality $T_X\simeq\Omega^2_X$ (from
-$\Lambda^3 T_X\simeq\cO_X$) gives
-$\HH^k\simeq\HH_{3-k}$ --- this is the Hodge-theoretic origin of
-the palindromy, not a tautology.
-\end{heal}
+\item $\THH(\Db(X))$ is topological Hochschild homology.  Its output is
+a cyclotomic spectrum.  After rationalization over a characteristic
+zero base it shadows ordinary Hochschild theory; integrally it carries
+trace-methods information invisible to $\HH_*$.
 
-\begin{heal}[$\ChirHoch$ vs $\HH$ vs $\THH$: structural, not dimensional]
-The three invariants are genuinely different functors of the input,
-not shadows of one another:
-\begin{itemize}
-\item $\HH_*(\Db(X))$: input is a $\mathbb{C}$-linear stable
-$\infty$-category $\Db(X)$ with its Serre functor; output is a
-$\mathbb{Z}$-graded vector space with $S^1$-action (Connes $B$)
-and $\HP$, $\HC^{-}$ as Tate/homotopy-fixed-point derivatives.
-\item $\THH_*(\Db(X))$: replaces the ground ring $\mathbb{C}$ by
-the sphere spectrum; same input, stable $\infty$-categorical; output
-is a \emph{cyclotomic spectrum}, with $\TC = \mathrm{fib}(\varphi -
-\mathrm{can})$ the trace target of Dundas--Goodwillie--McCarthy.
-For $\mathbb{C}$-linear dg input over $\mathbb{Q}$, $\THH\otimes
-\mathbb{Q}\simeq\HH\otimes\mathbb{Q}$ rationally, but the integral
-information (trace methods, $p$-adic $K$-theory) is trivialised.
-\item $\ChirHoch^\bullet(\cA_X)$: input is a chiral algebra
-$\cA_X=\Phi(\Db(X))$ on a curve $C$; output is factorisation
-homology $\int_C\cA_X$, computed by the chiral
-Chevalley--Eilenberg complex
-$\mathrm{CE}_{\mathrm{ch}}(\cA_X[-1])$. The Hilbert series concentration
-theorem (Theorem~H, Vol~I) states the cohomological degrees live
-in $\{0,1,2,d\}$ with $d=\dim X=3$.
-\end{itemize}
-The Malikov--Schechtman--Vaintrob isomorphism
-$\int_X\Omega^{\mathrm{ch}}\cong H^*(X,\Omega^{\mathrm{ch},\mathrm{coh}}_X)$
-on the chiral de Rham complex of $X$ produces a functor from $\Db(X)$
-via $\Phi$ that \emph{lands} in a chiral-algebra target whose $\ChirHoch$
-computes $\HH^*(\Db(X))$ at the level of total dimension, but the
-two sides have different $S^1$-actions, different filtrations, and
-different finite-level structures. The working-notes claim on
-line~2963 is a \emph{total-dimension} statement, not a categorical
-equivalence. State both: the total-dimension equality
-$\dim\int_X\cA_X = \dim\HH^*(\Db(X))$, and the structural
-difference that $\ChirHoch$ carries a conformal $\mathbb{Z}_{\geq 0}$-grading
-(Virasoro weight) alien to the $\mathbb{Z}/2$-graded topological
-$\HH$.
-\end{heal}
-
-% ============================================================
-\section{Attack II --- Coderived category, Booth--Lazarev, and the
-Ran-space instantiation (lines 2194--2301)}
-% ============================================================
-
-\begin{attack}[Chiral instantiation gap]
-The working-notes passage states that Booth--Lazarev
-(arXiv:2304.08409) resolve steps~C1 and~C2 \emph{abstractly} and that
-the ``chiral-algebraic instantiation remains open''. Five concrete
-issues not articulated:
-\begin{enumerate}
-\item[(a)] Booth--Lazarev operate on curved $A_\infty$-coalgebras
-over a fixed base, with a Quillen equivalence
-$\Omega:\Dco(C)\rightleftarrows D(\Omega C):B$ for $C$ a coaugmented
-conilpotent curved $A_\infty$-coalgebra. The chiral target is
-\emph{factorisation} coalgebras on the Ran space
-$\mathrm{Ran}(C)$, parametrised by an algebraic curve. The
-Ran-space parameter makes the coalgebra $C$ itself a local-to-global
-object, not a single object.
-\item[(b)] The curvature $m_0^{(g)}=\kch\cdot\omega_g$ at genus~$g$
-is \emph{genus-indexed}, and the Booth--Lazarev equivalence is
-about a single curvature datum, not a tower indexed by
-$\overline{\cM}_{g,n}$.
-\item[(c)] Conilpotence in the chiral setting requires the
-coaugmentation $\epsilon:\cA\to\mathbf{1}$ to admit a filtration
-whose associated graded is nilpotent \emph{factorisation-coalgebra-wise}.
-For $\cA_X$ with $\kch\neq 0$, the canonical coaugmentation is
-conilpotent on the vacuum stratum but not globally on $\mathrm{Ran}(C)$
-(the $\omega_g$-curvature obstructs descending filtration).
-\item[(d)] The cogenerator argument (Booth--Lazarev Thm~4.1) uses that
-the target model category is cofibrantly generated by cogenerators
-with trivial fibration property, which in the chiral case requires
-the Ran-space topology to admit a compatible cofibrant generation
---- unknown in the literature.
-\item[(e)] Even at genus~$0$, the chiral Ran-space is
-$\mathrm{Ran}(\mathbb{P}^1)$, homotopically contractible
-(Beilinson--Drinfeld Ch.~3), so the categorical content of
-``coderived genus-$0$ persistence'' is \emph{not} contained in
-the Booth--Lazarev equivalence without verifying that the chiral
-cofibrant generation restricts correctly.
+\item $\ChirHoch^\bullet(A)$ is chiral Hochschild cohomology of a
+chiral algebra $A$ on a curve.  For $A=\Phi_d(\cC)$ it is a
+factorisation cochain object on the Ran space.  It is not
+$\HH_*(\cC)$ and it is not $\THH(\cC)$.
 \end{enumerate}
-\end{attack}
 
-\begin{heal}[Explicit chiral-coderived gap inventory]
-Replace the current working-notes enumeration (C1--C4) with a
-structural statement:
-\begin{proposition}[Chiral-coderived residual gap post Booth--Lazarev]
-\label{prop:chiral-coderived-residual}
-After Booth--Lazarev arXiv:2304.08409, the chiral-coderived
-persistence statement
-``$B\dashv\Omega$ lifts to a Quillen equivalence
-$\Dco^{\mathrm{ch}}(\cA)\simeq D^{\mathrm{fact}}(\Omega\cA)$
-off the Koszul locus''
-remains open at three structural levels.
-\begin{enumerate}
-\item\emph{Ran-space factorisation coherence.} The
-Booth--Lazarev Quillen equivalence is on curved $A_\infty$-coalgebras
-over a base field. The chiral upgrade requires the same equivalence
-on curved $A_\infty$-factorisation-coalgebras on $\mathrm{Ran}(C)$,
-which has not been proved to inherit a cofibrantly generated model
-structure compatible with Booth--Lazarev's cogenerator argument.
-\item\emph{Genus-tower compatibility.} The curvature
-$m_0^{(g)}=\kch\cdot\omega_g$ is a $g$-indexed family with
-compatibility under operadic composition at
-$\overline{\cM}_{g,n}$-boundary strata. Booth--Lazarev handle
-a single curvature; the genus tower requires compatible equivalences
-for each~$g$ with boundary-descent data.
-\item\emph{Sewing--analytic comparison.} The Moriwaki 2026
-$\mathrm{IndHilb}$ sewing envelope is a metric completion that carries
-genus-$g$ factorisation homology as a topological vector space;
-the algebraic $\Dco^{\mathrm{ch}}$ is purely algebraic. Their
-comparison (analytic $\supseteq$ algebraic coderived shadow) is
-conjectural even post Booth--Lazarev.
-\end{enumerate}
+\begin{proposition}[Typed Hochschild comparison]
+\label{prop:typed-hochschild-comparison}
+Let $\cC=\Db(X)$ and let $A_X=\Phi_3(\cC)$ be a stage-2
+curve-specialised chiral algebra, when the construction exists.
+There is no canonical equality
+\[
+ \HH_*(\cC)=\THH_*(\cC)=\ChirHoch^\bullet(A_X).
+\]
+Any comparison between $\HH^\bullet(\cC,\cC)$ and
+$\ChirHoch^\bullet(A_X)$ requires the chosen $\Phi_3$ model,
+the curve-specialisation datum, and compatibility with the
+Gerstenhaber and Connes operations.
 \end{proposition}
-\end{heal}
 
-\begin{heal}[What Booth--Lazarev \emph{does} close]
-Be positive about what is achieved:
-\begin{itemize}
-\item The curved bar-cobar adjunction $B\dashv\Omega$ is a
-\emph{Quillen equivalence} (not merely an adjunction) in the
-associative setting of curved $A_\infty$-coalgebras, resolving the
-classical Positselski--Lef\`evre-Hasegawa conjecture that remained
-open until 2023.
-\item The proof uses a new model structure on curved coalgebras
-whose cofibrations are injections with cofree/cosemifree cokernel,
-and a transfer along the forgetful functor from ordinary dg
-coalgebras.
-\item Specialising to $m_0=0$ (Koszul locus) recovers
-Lef\`evre-Hasegawa's original $A_\infty$-coalgebra Quillen
-equivalence.
-\end{itemize}
-In short: Booth--Lazarev closes C1 and C2 \emph{after} one fixes the
-categorical setup (single curvature, field-coefficients, coaugmented
-conilpotent). The chiral-factorisation setup is a non-trivial upgrade,
-not a packaging change.
-\end{heal}
+\begin{proof}
+The three inputs and outputs live in different categories:
+graded vector spaces with Connes operator for $\HH$, cyclotomic spectra
+for $\THH$, and factorisation cochains for $\ChirHoch$.  A functor
+$\Phi_3$ may transport selected Hochschild operations, but transport
+is additional structure.  It is not a formal consequence of HKR and it
+does not identify the $S^1$-action, conformal grading, and Ran-space
+filtration.
+\end{proof}
 
-% ============================================================
-\section{Attack III --- $\mathsf{B}$-row $K^{\kch}=8$ via Bruinier:
-normalisation audit}
-% ============================================================
+\section{HKR computation for \texorpdfstring{$\mathrm{K3}\times E$}{K3 x E}}
 
-\begin{attack}[Factor-of-two ambiguity from Heegner divisor conventions]
-The working notes at line~9515 and \texttt{hochschild\_calculus.tex}
-lines~2035--2044, 2230--2235 state
-$[\Delta_5/(\eta^{24}(\tau)\eta^{24}(\tau'))]_{(q^0,q'^0)}
- =\kch(\mathrm{K3}\times E)+\kch^{!}(\mathrm{K3}\times E)=8$
-as the B-row of Theorem~C. Three normalisation hazards:
-\begin{enumerate}
-\item[(a)] \emph{Heegner divisor normalisation.} Bruinier 1999
-\emph{Invent. Math.} 138 Thm.~4.5 states the Chern class
-of a Borcherds product $\Psi$ on an orthogonal Shimura variety
-$\mathcal{X}_L$ as a sum
-$c_1(\Psi)=\sum_{m,\mu}c(\mu,-m)\cdot Z(m,\mu)$
-of \emph{prime} Heegner divisors $Z(m,\mu)$ parametrised by
-$m\in\mathbb{Z}_{>0}$, $\mu\in L'/L$. If one uses ``non-prime''
-Heegner divisors (full preimage under the finite cover
-$\mathcal{X}_L\to\mathcal{X}_{L^\#}$), coefficients pick up a
-factor of~$1/\#\mathrm{Aut}$, typically~$1/2$.
-\item[(b)] \emph{Gritsenko vs Borcherds weight.} Gritsenko 1995 uses
-weight-$5$ $\Delta_5$ \emph{paramodular}; Borcherds 1995 uses the
-genus-$2$ theta-lift with a different Casimir normalisation. The
-coefficient~$c_1(0)$ of~$\Phi_1$ differs by a factor of~$1/2$ between
-the two conventions: Gritsenko $c_1(0)=10$, Borcherds $c_1(0)=10$
-(coincident on this line), but the $\kBKM(\Phi_N)=c_N(0)/2$ identity
-at~$N=1$ gives~$\kBKM=5$, not~$10$. The~$/2$ is real and required.
-\item[(c)] \emph{Mukai doubling.} The Mukai-enhanced K3 Heisenberg
-lattice is $\Lambda_{\mathrm{Mukai}}=H^*(K3,\mathbb{Z})$ of signature
-$(4,20)$, with positive part $c_+=4$ (the $H^0+H^4$ plus two of
-the $H^{2,0}+H^{0,2}$ real copies). The identification
-$K^{\kch}=2c_+(\mathrm{Mukai}(K3))=8$ doubles because the Heisenberg
-cocycle on Mukai is $\mathbb{Z}/2$-equivariant under Mukai's involution
-$(r,l,s)\mapsto(s,l,r)$, and the quantum group is on the \emph{full}
-Mukai lattice, not its fixed subspace.
-\end{enumerate}
-The combination $(a)\cdot(b)\cdot(c)$ can produce erroneous~$4$ or
-$16$ if normalisations are mixed. The working-notes identity
-$\kch+\kch^!=8$ needs explicit coefficient on the K3 Heisenberg
-lattice.
-\end{attack}
-
-\begin{heal}[Explicit coefficient on K3 Heisenberg]
-The Mukai-enhanced K3 Heisenberg algebra is the central extension
+Let $S$ be a K3 surface and $E$ an elliptic curve.  The product
+$X=S\times E$ is a compact Calabi-Yau threefold after choosing a
+holomorphic volume form
 \[
-1 \;\to\; \mathbb{C}^{\times} \;\to\;
- \widetilde{\mathrm{Heis}}(\Lambda_{\mathrm{Mukai}})
- \;\to\; \Lambda_{\mathrm{Mukai}}\otimes\mathbb{C} \;\to\; 0
+ \eta_X=\eta_S\wedge dz_E:
+ \cO_X \xrightarrow{\sim} \omega_X .
 \]
-with $\Lambda_{\mathrm{Mukai}}=U^{\oplus 4}\oplus E_8(-1)^{\oplus 2}$,
-signature $(4,20)$. The positive part $c_+=4$ comes from the four
-copies of the hyperbolic plane~$U$ (each contributing a
-$(+,-)$-eigenspace pair); the~$E_8(-1)$-summands are purely
-negative-definite, so contribute $c_-=16$.
-\begin{proposition}[$K^{\kch}=8$ on the Mukai Heisenberg]
-\label{prop:Kkappa-8-Mukai}
-Let $A=\widetilde{\mathrm{Heis}}(\Lambda_{\mathrm{Mukai}})$ be the
-Mukai K3 Heisenberg, and let $\Phi(A)$ be its chiral-algebra image.
-The Bridgeland stability data identifies
-$\kch(A)=c_+=4$ (the central-charge positive-definite part) and
-$\kch^{!}(A)=c_+=4$ (via the Verdier dual
-$\widetilde{\mathrm{Heis}}^!$ on the \emph{dual} lattice
-$\Lambda_{\mathrm{Mukai}}^*\cong\Lambda_{\mathrm{Mukai}}$ --- the Mukai
-lattice is self-dual unimodular). Therefore
+This orientation is part of the Calabi-Yau structure.  The equality
+$\omega_X\simeq\cO_X$ alone does not choose the trace pairing.
+
+\begin{lemma}[Product Hodge numbers]
+\label{lem:k3e-hodge-product}
+For smooth proper varieties,
 \[
-\kch(A)+\kch^{!}(A) \;=\; 4+4 \;=\; 8.
+ h^{p,q}(Y\times Z)
+ =
+ \sum_{\substack{a+c=p\\ b+d=q}}
+ h^{a,b}(Y)\,h^{c,d}(Z).
 \]
-The Bruinier 1999 Heegner-Chern-class coefficient $c_1(0)=10$ on
-$\Phi_1=\Delta_5$ (weight~$5$ paramodular, Gritsenko normalisation)
-enters via the $/2$-halving $\kBKM(\Delta_5)=c_1(0)/2=5$ as the
-\emph{BKM} invariant, while the B-row K3 Heisenberg invariant is
-$K^{\kch}=2c_+=8$, not~$\kBKM$. The two invariants coincide
-numerically only after a further Mukai-doubling identity
-$\kch+\kch^{!}=2c_+$ peculiar to the Heisenberg target, \emph{not}
-a general formula across the five-archetype ceiling.
+For $S\times E$, the distribution of Hodge numbers by $p-q$ is
+\[
+\begin{array}{c|rrrrrrr}
+k=p-q & -3&-2&-1&0&1&2&3\\ \hline
+\sum_{p-q=k} h^{p,q}(S\times E) & 1&2&23&44&23&2&1 .
+\end{array}
+\]
+\end{lemma}
+
+\begin{proof}
+The formula is Kunneth for Hodge cohomology.  The K3 distribution by
+$p-q$ is $1,22,1$ in degrees $-2,0,2$.  The elliptic-curve
+distribution is $1,2,1$ in degrees $-1,0,1$.  Their convolution gives
+$1,2,23,44,23,2,1$.
+\end{proof}
+
+\begin{proposition}[Hochschild homology of \texorpdfstring{$S\times E$}{S x E}]
+\label{prop:k3e-hh-hkr}
+With the HKR convention
+$\HH_k(\Db(X))=\bigoplus_{p-q=k}H^q(X,\Omega_X^p)$,
+\[
+\begin{array}{c|rrrrrrr}
+k & -3&-2&-1&0&1&2&3\\ \hline
+\dim \HH_k(\Db(S\times E)) & 1&2&23&44&23&2&1 .
+\end{array}
+\]
+The total dimension is $96=\sum_{p,q}h^{p,q}(S\times E)$.
 \end{proposition}
-\end{heal}
 
-\begin{heal}[Five-archetype ceiling, audited]
-The ceiling $\kch+\kch^{!}\in\{0,8,13,250/3,98/3\}$ on
-$\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ is not a
-single formula but five \emph{distinct} inputs:
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{clll}
-\hline
-Class & Value & Source & Primary \\ \hline
-$\mathsf{G}$ & $0$ & Free-boson chiral, $\kch=\kch^{!}=0$ &
- Kac 1985 \\
-$\mathsf{L}$ & $8$ & $E_8$ lattice VOA, $\kch=8$, Koszul
-self-dual & Frenkel--Lepowsky--Meurman 1988 \\
-$\mathsf{C}$ & $13$ & $\beta\gamma$ chiral, $\kch=1$ scalar +
-$\kch^{!}=12$ quadratic-Casimir & Malikov--Schechtman 1999 \\
-$\mathsf{M}$ & $250/3$ & Monster $V^\natural$ central-charge ceiling,
-$c=24$, $\kch=12$, $\kch^{!}=214/3$ & Frenkel--Lepowsky--Meurman 1988 \\
-$\mathsf{B}$ & $98/3$ & BKM $\mathfrak{g}_{\Delta_5}$, $\kch=8$
-Mukai-K3-Heisenberg, $\kch^{!}=74/3$ automorphic correction &
-Gritsenko--Nikulin 1998 + Bruinier 1999 \\ \hline
-\end{tabular}
-\end{center}
-The entry $K^{\kch}=8$ on the $\mathsf{B}$-row is the \emph{Mukai-
-K3-Heisenberg sub-invariant}, not the full $\kch+\kch^{!}$ ceiling
-(which is~$98/3$). These are two different numbers and should not be
-identified. Working-notes line~9515 conflates them when stating
-$\kch+\kch^{!}=8$ as the $\mathsf{B}$-row witness; the actual witness
-is the sub-invariant $K^{\kch}=2c_+(\mathrm{Mukai})=8$, and the
-full ceiling~$98/3$ requires the additional
-$\kch^{!}_{\mathrm{autom}}=74/3$ from the non-BKM
-automorphic-correction sector (Eisenstein+cusp contributions to
-$\eta^{-24}$-weighted spectral expansion).
-\end{heal}
+\begin{proof}
+Apply HKR and Lemma~\ref{lem:k3e-hodge-product}.  The table is
+palindromic by Serre duality after the orientation $\eta_X$ is fixed.
+\end{proof}
 
-% ============================================================
-\section{Attack IV --- MZV genus-$0$: which specific associator
-relations?}
-% ============================================================
-
-\begin{attack}[Vague associator statement at lines 429--488]
-The working notes state
-``\emph{the Drinfeld associator $\Phi(A,B)$ is the parallel transport
-of the KZ connection on $\cM_{0,4}$}''
-and write
-$\log\Phi=\zeta(2)[A,B]+\zeta(3)([A,[A,B]]-[B,[A,B]])+\cdots$.
-Three omissions:
-\begin{enumerate}
-\item[(a)] \emph{Pentagon and hexagons.} The Drinfeld associator
-satisfies the pentagon on $\cM_{0,5}$ and two hexagon relations on
-$\cM_{0,4}$ --- the \emph{two} hexagons come from the
-$(13,2)$- and $(1,23)$-splittings and are equivalent modulo the
-pentagon (Drinfeld 1990~Q$3$). The working-notes text writes only
-``parallel transport'', which is the \emph{definition} not the
-\emph{constraint}.
-\item[(b)] \emph{Zagier $2.10$-relation and Ihara--Takao.}
-At weight~$6$ depth~$2$, the Zagier relation
-$28\zeta(10,2)=6\zeta(12)-\zeta(6)^2+\frac{4\pi^{12}}{\mathrm{???}}
-\cdot\mathrm{(rationals)}$
-and the Ihara--Takao relations in $\mathfrak{grt}_1$ constrain the
-associator coefficients beyond pure $\zeta(n)$. The working-notes
-expansion stops at depth-$1$ coefficients and the single depth-$2$
-$\zeta(4)/4$ term, missing the depth-$2$ MZV content that governs
-weight-$\geq 5$ associator coefficients.
-\item[(c)] \emph{Single-valued projection.} The manuscript's
-chiral-Hochschild periods land in $\MZV^{\mathrm{sv}}$
-(single-valued, Brown 2013 \emph{Ann Math} 175) with
-$\zeta^{\mathrm{sv}}(2)=0$, $\zeta^{\mathrm{sv}}(3)=2\zeta(3)$,
-$\zeta^{\mathrm{sv}}(5)=2\zeta(5)$, $\zeta^{\mathrm{sv}}(2,3)=
--11\zeta(5)-2\zeta(2)\zeta(3)$, etc. The working-notes Theorem
-thm:wn-shadow-mzv writes $\zeta(2)$ as the coefficient controlling
-class-$\mathsf{G}$, but on the chiral-Hochschild target
-$\zeta^{\mathrm{sv}}(2)=0$, so the correct statement is that
-class-$\mathsf{G}$ sees \emph{no} weight-$2$ single-valued
-contribution --- the na\"\i ve $\zeta(2)$-appearance is \emph{cancelled}
-by the single-valued projection.
-\end{enumerate}
-\end{attack}
-
-\begin{heal}[Pentagon, hexagons, and single-valued]
-Replace the working-notes expansion with:
-\begin{theorem}[Drinfeld associator: pentagon, two hexagons, single-valued
-chiral-Hochschild target]
-\label{thm:drinfeld-pentagon-sv}
-Let $\Phi(A,B)\in\mathbb{C}\langle\!\langle A,B\rangle\!\rangle$ be
-the Knizhnik--Zamolodchikov associator, the unique solution of the
-KZ equation
-$\partial_z G=(A/z + B/(z-1))G$ with asymptotics
-$G(z)\sim z^A$ at~$0$ and $G(z)\sim(1-z)^B\Phi^{-1}$ at~$1$.
-Then:
-\begin{enumerate}
-\item[(P)] \emph{Pentagon.} On
-$\cM_{0,5}=\{(z_1,\ldots,z_5)\}/\mathrm{PGL}_2$:
+\begin{remark}[Quintic check]
+For a smooth quintic threefold $Q$, the nonzero Hodge numbers are
+$h^{0,0}=h^{3,3}=h^{3,0}=h^{0,3}=1$,
+$h^{1,1}=h^{2,2}=1$, and $h^{2,1}=h^{1,2}=101$.  Hence
 \[
-\Phi(t_{12},t_{23})\cdot\Phi(t_{34},t_{45})
- \;=\;
- \Phi(t_{12},t_{23}+t_{24}+t_{34})\cdot
- \Phi(t_{13}+t_{23},t_{34})\cdot
- \Phi(t_{12}+t_{13},t_{23}+t_{24})
+\dim\HH_k(\Db(Q))=(1,0,101,4,101,0,1)
 \]
-modulo the infinitesimal braid relations
-$[t_{ij},t_{kl}]=0$ for disjoint $\{i,j\},\{k,l\}$ and
-$[t_{ij},t_{ik}+t_{jk}]=0$ for distinct $i,j,k$.
-\item[(H)] \emph{Hexagons.} Two hexagons on $\cM_{0,4}$:
+for $k=-3,\ldots,3$.  This is categorical Hochschild homology, not a
+chiral Hochschild occupation statement.
+\end{remark}
+
+\begin{proposition}[Serre functor and Hochschild cochains]
+\label{prop:serre-hh-cochains}
+Let $X$ be a smooth proper oriented Calabi-Yau threefold.  Then
+$S_{\Db(X)}=[3]$, and the chosen volume form gives
 \[
-e^{\pi i(A+B)/2}\Phi(B,A)
- \;=\; \Phi(A,B)e^{\pi i A/2}\Phi(A,B)^{-1}e^{\pi i B/2}
+ \HH^i(\Db(X))
+ =
+ \bigoplus_{p+q=i} H^p(X,\Lambda^q T_X)
+ \cong
+ \HH_{3-i}(\Db(X)).
 \]
-and the swap $A\leftrightarrow B$ companion. Modulo the pentagon,
-the two hexagons are equivalent to one hexagon; Drinfeld 1990 Q$3$
-shows they are equivalent and any one implies the other via the
-pentagon.
-\item[(Z)] \emph{Zagier relation (weight~$12$, depth~$2$).}
-$28\zeta(9,3)+150\zeta(7,5)+168\zeta(5,7)\,=\,
- \frac{5197}{691}\zeta(12)$
-in $\MZV^{\mathrm{mot}}_{12,\leq 2}$ (Zagier 1994~\emph{FAC});
-this is the first non-trivial depth-$2$ relation beyond the
-shuffle+stuffle algebra.
-\item[(IT)] \emph{Ihara--Takao (depth~$3$, weight~$7$).}
-$\zeta(5,1,1)-2\zeta(5,2)\in\mathbb{Q}\zeta(7)$; generalised Ihara
---Takao relations span the depth defect in motivic MZVs beyond
-depth~$2$ (Ihara 2002; Goncharov 2001).
-\item[(SV)] \emph{Single-valued projection.} The Brown 2013
-map $\proj:\MZV^{\mathrm{mot}}\to\MZV^{\mathrm{sv}}$ sends
-$\zeta(2)\mapsto 0$, $\zeta(2k+1)\mapsto 2\zeta(2k+1)$,
-$\zeta(m_1,\ldots,m_r)\mapsto\zeta^{\mathrm{sv}}(m_1,\ldots,m_r)$
-for depth~$r$. The chiral-Hochschild target
-$\ChirHoch^\bullet(\cA_X)$ on a CY3 factors through this projection;
-the class-$\mathsf{G}$ depth-$1$ weight-$2$ coefficient
-$\zeta(2)\mapsto 0$ under the projection.
-\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The Serre functor on $\Db(X)$ is
+$(-)\otimes\omega_X[\dim X]$.  The orientation identifies it with
+$[3]$.  Contraction with $\eta_X$ identifies
+$\Lambda^qT_X$ with $\Omega_X^{3-q}$, and HKR gives the displayed
+duality.
+\end{proof}
+
+\section{Bar, cobar, duality, and centre}
+
+Let $A$ be the $E_1$ chiral algebra produced at stage 2 for a
+Calabi-Yau input of dimension $d\geq3$.  Five associated objects must
+remain distinct:
+\[
+\begin{array}{cl}
+A & \text{the original }E_1\text{ chiral algebra},\\
+B(A)=T^c(s^{-1}\bar A) & \text{the ordered bar coalgebra},\\
+A^i=H^\bullet(B(A)) & \text{the bar-cohomology coalgebra},\\
+A^!=D_{\Ran}(A^i) & \text{the Verdier-dual Koszul algebra},\\
+\Zchder(A)=C^\bullet_{\mathrm{ch}}(A,A)
+  \simeq \RHom(\Omega B(A),A) & \text{the derived chiral centre}.
+\end{array}
+\]
+
+\begin{proposition}[No collapse of the five objects]
+\label{prop:five-object-separation}
+The equivalence $\Omega B(A)\simeq A$, when valid, is bar-cobar
+inversion.  It does not identify $B(A)$ with $A^i$, $A^!$, or
+$\Zchder(A)$.
+\end{proposition}
+
+\begin{proof}
+The four functors after $A$ are different: bar construction, bar
+cohomology, Verdier duality on the Ran side, and chiral Hochschild
+cochains.  Applying one of them does not apply the others.  The object
+$\Omega B(A)$ is a cobar recovery of $A$; the centre
+$\Zchder(A)$ is an endomorphism object of $A$ as a bimodule.
+\end{proof}
+
+\section{Coderived completion}
+
+Curvature breaks the standard derived category.  In a curved algebra
+or coalgebra the differential satisfies $d^2=[h,-]$ or its coalgebraic
+dual.  Ordinary cohomology is then the wrong invariant.  Positselski's
+coderived and contraderived categories replace ordinary quasi-isomorphisms
+by maps whose cones are coacyclic or contraacyclic after the appropriate
+bar-cobar test.
+
+\begin{theorem}[Booth-Lazarev, associative scope]
+\label{thm:booth-lazarev-scope}
+Booth and Lazarev construct model structures on curved coalgebras and
+curved algebras and prove that the extended bar-cobar adjunction is a
+Quillen equivalence.  In the conilpotent coalgebra and uncurved dg
+algebra subcase this recovers the ordinary Positselski and
+Keller-Lefevre Koszul duality.
 \end{theorem}
-\end{heal}
 
-\begin{heal}[Correct MZV-shadow dictionary]
-Rewrite the shadow-MZV Theorem~\ref{thm:wn-shadow-mzv}:
-\begin{proposition}[Corrected shadow--MZV dictionary: single-valued version]
-\label{prop:shadow-mzv-sv-corrected}
-For a chirally Koszul algebra $\cA$ with single-valued chiral-Hochschild
-target $\ChirHoch^\bullet(\cA)\subset\zeta^{\mathrm{sv}}$:
-\begin{enumerate}
-\item $\kch(\cA)$ controls the coefficient of
-$\zeta^{\mathrm{sv}}(3)=2\zeta(3)$ in the genus-$0$ four-point
-amplitude. The na\"\i ve $\zeta(2)$-coefficient \emph{vanishes}
-on the single-valued target because $\zeta^{\mathrm{sv}}(2)=0$.
-\item $S_3(\cA)$ controls $\zeta^{\mathrm{sv}}(5)=2\zeta(5)$ in
-five-point amplitudes, and via the Zagier relation constrains
-the depth-$2$ combination
-$28\zeta^{\mathrm{sv}}(9,3)+\cdots$.
-\item $S_4(\cA)$ controls the weight-$8$ depth-$\{2,3\}$ block,
-where the Zagier weight-$12$ relation has a weight-$8$ analogue
-via Kaneko--Koike $\zeta^{\mathrm{sv}}(6,2)$-rationality.
-\item At general weight~$r$: the degree-$r$ shadow~$S_r$ contributes
-to the single-valued MZV space of dimension
-$d^{\mathrm{sv}}_r$, where $d^{\mathrm{sv}}_r$ satisfies a smaller
-Fibonacci-type recursion than Brown's motivic $d_r=d_{r-2}+d_{r-3}$
-(Schnetz 2014; Panzer 2015).
-\item \emph{Classes.} Class~$\mathsf{G}$ sees only $\zeta^{\mathrm{sv}}$
-at odd weight (the $\zeta(2)$-contribution vanishes); class~$\mathsf{L}$
-sees $\zeta^{\mathrm{sv}}(3),\zeta^{\mathrm{sv}}(5)$ but not
-$\zeta^{\mathrm{sv}}(2)$; class~$\mathsf{C}$ ($\beta\gamma$) sees
-depth-$2$ single-valued combinations via the scalar line's cubic
-shadow; class~$\mathsf{M}$ sees the full single-valued spectrum.
-\end{enumerate}
-\end{proposition}
-\end{heal}
+\begin{proof}
+This is the associative theorem of Booth-Lazarev, \emph{Global Koszul
+duality}, arXiv:2304.08409, revised version v4 of 5 January 2026.
+The theorem is stated for curved algebraic objects, not for
+factorisation coalgebras on $\Ran(C)$.
+\end{proof}
 
-% ============================================================
-\section{Attack V --- Analytic bar Laplacian and moonshine
-(lines 604--654, 655--716)}
-% ============================================================
-
-\begin{attack}[Two conflations: $\mathrm{O}(2,26)$-scope and Monster
-modular characteristic]
-The working-notes line~667 states
-``for $X=\mathrm{K3}\times E$, the natural symmetry group is
-$\mathrm{O}(2,26)$''. Two issues:
-\begin{enumerate}
-\item[(a)] \emph{Signature.} The Mukai lattice of~K3 has signature
-$(4,20)$ with symmetry group $\mathrm{O}(4,20)$ acting on
-the type-IV domain of complex dimension~$4\cdot 20=80$. The
-$\mathrm{O}(2,26)$ group appears for the \emph{heterotic string on
-K3}, which uses the~K3 Mukai lattice \emph{plus} the heterotic
-$\Lambda^{2,18}_{\mathrm{het}}$, total signature $(2,26)$. These are
-different.
-\item[(b)] \emph{Genus-$2$ from CY3.} Adding $E$ (the elliptic factor)
-upgrades the relevant Shimura variety from the K3 moduli of
-type IV to the \emph{paramodular}
-$\mathcal{A}_2^{\mathrm{par},K(1)}$ of signature~$(3,2)$, dimension~$3$.
-The orthogonal modular variety of dimension~$3$ is
-$\mathrm{O}(3,2)$, not $\mathrm{O}(2,26)$. The working-notes
-line~668 claim that the partition function is ``a Borcherds
-automorphic product on the orthogonal modular variety'' is correct;
-the \emph{specification} of that variety as $\mathrm{O}(2,26)$ is
-wrong --- the correct statement is
-$\mathrm{O}(3,2)\simeq\mathrm{Sp}_4(\mathbb{R})$ and
-$\Phi_X=\Delta_5\in M^{!,\mathrm{odd}}_5(K(1))$.
-\end{enumerate}
-The Monster module claim on line~693 states
-$\kch(V^\natural)=c/2=12$ because ``there are no weight-$1$
-generators''. This is the \emph{Frenkel--Lepowsky--Meurman}
-structure theorem plus the Sugawara formula; state it as such.
-The class labelling $V^\natural$ as class~$\mathsf{M}$
-is the Monster-moonshine class, but the class ceiling $250/3$ in
-Theorem~C is the $\mathsf{M}$-row of the five-archetype ceiling
-evaluated specifically at $V^\natural$, and the working notes do
-not evidence the $250/3$-identity --- only the $c=24$, $\kch=12$
-partial data.
-\end{attack}
-
-\begin{heal}[Correct orthogonal variety and $\mathsf{M}$-row
-identity]
-Rewrite the relevant passages:
-\begin{proposition}[Orthogonal modular variety for K3 $\times$ E
-BKM BPS]
-The automorphic variety for the BKM partition function of
-$\mathrm{K3}\times E$ is the genus-$2$ Siegel upper half-space
-$\mathbb{H}_2$ quotient
-$\mathcal{A}_2^{\mathrm{par},K(1)}=\mathbb{H}_2/\mathrm{Sp}_4(\mathbb{Z})
-\cap K(1)$, of complex dimension~$3$, with symmetry group
-$\mathrm{O}(3,2)\simeq\mathrm{Sp}_4(\mathbb{R})/\{\pm I\}$. The
-partition function is
-$Z_{\mathrm{BKM}}(K3\times E)=\Delta_5\in M^{!,\mathrm{odd}}_5(K(1))$.
-The~$\mathrm{O}(2,26)$ Shimura variety is the heterotic-on-K3
-variety of Harvey--Moore 1996 and \emph{not} the CY3 BPS partition
-function variety.
-\end{proposition}
-
-\begin{proposition}[$\mathsf{M}$-row: $\kch+\kch^{!}=250/3$]
-For $V^\natural$ the Monster module of FLM 1988 with $c=24$ and
-$\kch(V^\natural)=12$ (from $\dim V_1^\natural=0$, Virasoro sector
-alone), the dual invariant is
+\begin{conjecture}[Chiral Booth-Lazarev lift]
+\label{conj:chiral-booth-lazarev}
+Let $A$ be a curved $E_1$ chiral algebra on a smooth curve $C$.  A
+chiral Booth-Lazarev theorem would give a Quillen equivalence
 \[
-\kch^{!}(V^\natural) \;=\; 250/3 - 12 \;=\; 214/3,
+ \Dco_{\mathrm{ch}}(B_{\mathrm{curv}}(A))
+ \simeq
+ D^{\mathrm{fact}}(\Omega_{\mathrm{curv}}B_{\mathrm{curv}}(A))
 \]
-arising from the~$196884$ Griess-algebra~$V_2^\natural$ generators
-via the Matsumoto--Schechtman--Vaintrob chiral Verdier dual with
-Rademacher expansion of the elliptic genus
-$\phi_{\mathrm{ell}}(V^\natural)=J(\tau)-744$ (McKay--Thompson 1979,
-Conway--Norton 1979). The~$214/3$ factor decomposes as
-$\sum_{p\in\{2,3,5,7,11,13,17,19,23,29,31,41,47,59,71\}}
-\mathrm{mult}(p)\cdot c_p$ over the fifteen supersingular primes
-dividing~$|\mathbb{M}|$, via the Ogg--Thompson identification
-of Monster prime orders with supersingular moonshine primes.
+on curved factorisation coalgebras over $\Ran(C)$.
+This is not a consequence of Theorem~\ref{thm:booth-lazarev-scope}.
+\end{conjecture}
+
+\begin{proof}[Proof obligation]
+The associative theorem supplies the algebraic model.  The chiral lift
+requires three additional verifications.
+\begin{enumerate}
+\item A cofibrantly generated model structure on curved factorisation
+coalgebras over $\Ran(C)$, compatible with the factorisation tensor
+product and the Ran topology.
+\item A pro-conilpotent completion filtration respected by the chiral
+bar differential, so that $B(A)$ is replaced by
+$\widehat B(A)=\varprojlim_w B(A)/F^w$ whenever ordinary conilpotence
+fails.
+\item Boundary descent for the curvature family
+$m_0^{g,n}\in\Gamma(\overline{\mathcal M}_{g,n},
+\lambda_g\otimes H^2(A))$ under clutching maps.  Booth-Lazarev handle
+a curved algebraic object; the moduli-indexed sewing family is extra
+data.
+\end{enumerate}
+Until these three statements are proved, chiral Booth-Lazarev remains a
+conjecture with a precise associative shadow.
+\end{proof}
+
+\section{Native operadic level at \texorpdfstring{$d\geq3$}{d >= 3}}
+
+\begin{proposition}[E1 output, E2 centre]
+\label{prop:e1-output-e2-centre}
+For a Calabi-Yau input of dimension $d\geq3$, the stage-2 output
+$A=\Phi_d(\cC)$ is native $E_1$ chiral.  The first $E_2$ object
+attached to $A$ is the centre:
+\[
+ \mathcal Z(\mathrm{Rep}^{E_1}(A))
+ \simeq
+ \mathrm{Rep}^{E_2}(\Zchder(A)),
+\]
+under the usual Morita-dualisability and presentability hypotheses.
 \end{proposition}
-\end{heal}
 
-% ============================================================
-\section{Auxiliary heal: analytic-bar Laplacian proof sketch}
-% ============================================================
+\begin{proof}
+The $E_2$ structure is supplied by the higher Deligne theorem on
+Hochschild cochains and by the Drinfeld-centre comparison for the
+$E_1$ representation category.  Both constructions take $A$ as input.
+Neither changes the native operadic level of $A$.
+\end{proof}
 
-\begin{heal}[Essential self-adjointness in CY3]
-The working notes claim ``essential self-adjointness following from
-finite-dimensionality of weight spaces'' (line~611). Elaborate:
-\begin{proposition}[Essential self-adjointness of $\Delta_B$ on CY3]
-Let $\cA_X$ be the quantum vertex chiral group on~$X$, a compact
-CY3. The bar Laplacian
-$\Delta_B=d_B d_B^*+d_B^* d_B$ on the genus-$1$ bar complex
-$B^{(1)}(\cA_X)$ is essentially self-adjoint on the Moriwaki
-IndHilb completion
-$\mathrm{Sym}(A^2(D)^{\oplus 26})\otimes\ell^2(\Lambda^*/\Lambda)$
-(with $\Lambda=\Lambda_{\mathrm{Narain}}^{2,26}$ or the~K3 Mukai
-lattice, as appropriate). Proof: each finite-conformal-weight
-subspace $B^{(1)}_n(\cA_X)$ has finite dimension (K3~$\times$~E
-has finite $h^{p,q}$ per bidegree), and the symmetric operator
-$\Delta_B|_{\bigoplus_{n\leq N}B^{(1)}_n}$ is self-adjoint as a
-finite-dimensional symmetric operator. The Nelson lemma
-(\emph{Analytic Vectors}, 1959) on the dense domain
-$\bigcup_N\bigoplus_{n\leq N}B^{(1)}_n$ then gives essential
-self-adjointness; the closure is the~self-adjoint~$\Delta_B$.
+\section{Compact CY3 theorem obligations}
+
+A compact Calabi-Yau threefold does not automatically produce a proved
+chiral theorem.  The following data are part of the theorem, not
+decoration.
+
+\begin{proposition}[Minimum data for compact CY3 chiral output]
+\label{prop:compact-cy3-obligations}
+Let $X$ be a compact Calabi-Yau threefold.  A proof that
+$A_X=\Phi_3(\Db(X))$ exists as a quantum $E_1$ chiral algebra requires:
+\begin{enumerate}
+\item an orientation $\eta_X:\cO_X\xrightarrow{\sim}\omega_X$, or
+equivalently a Calabi-Yau trace class making the Serre functor $[3]$;
+\item stage-2 specialisation data $(\Sigma_2,C)$ and descent of the
+factorisation algebra to the chosen curve;
+\item a solution of the quantum master equation, including anomaly
+cancellation and a renormalisation scheme;
+\item Positselski or Booth-Lazarev completion whenever the bar
+coalgebra is not conilpotent;
+\item Ran-space and boundary-clutching descent for any genus-indexed
+curvature terms.
+\end{enumerate}
+Without these hypotheses, only the categorical HKR and Serre-duality
+statements of Sections~1 and~2 are proved.
 \end{proposition}
-\end{heal}
 
-% ============================================================
-\section{Summary of attacks and heals}
-% ============================================================
+\begin{proof}
+Items (1) and (2) define the oriented categorical and chiral input.
+Item (3) is the obstruction-theoretic condition for quantisation of the
+factorisation algebra.  Item (4) identifies the correct derived ambient
+for curved bar-cobar inversion.  Item (5) is needed because compact CY3
+curvature data appears as a sewing-compatible family, not as a single
+scalar curvature.
+\end{proof}
 
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|c|l|l|}\hline
-\# & Attack & Heal \\ \hline
-I & Bare ``Hochschild'' scope (AP160) &
-Explicit $\HH/\THH/\ChirHoch$ split, CY3 Serre shift, palindromy
-from $T_X\simeq\Omega^2_X$ \\ \hline
-II & Booth--Lazarev chiral instantiation gap &
-Residual-gap proposition: Ran-space coherence, genus-tower
-compatibility, sewing--analytic comparison \\ \hline
-III & $K^{\kch}=8$ normalisation (factor~$/2$) &
-Mukai Heisenberg sub-invariant $2c_+=8$ distinguished from full
-$\mathsf{B}$-row ceiling $98/3$ \\ \hline
-IV & Vague Drinfeld associator at lines 429--488 &
-Pentagon, two hexagons, Zagier $2.10$, Ihara--Takao, Brown SV
-projection $\zeta^{\mathrm{sv}}(2)=0$ \\ \hline
-V & $\mathrm{O}(2,26)$ vs $\mathrm{O}(3,2)$, $\mathsf{M}$-row $214/3$ &
-Corrected orthogonal variety
-$\mathrm{Sp}_4(\mathbb{R})$, Monster dual $\kch^{!}=214/3$
-via supersingular moonshine primes \\ \hline
-\end{tabular}
-\end{center}
+\section{Automorphic constants used here}
 
-% ============================================================
-\section{Cache append: new AP-CYs to file}
-% ============================================================
+The Hochschild and coderived arguments use only the following
+automorphic normalisations.
+\[
+ \kcat(S\times E)
+ =
+ \chi(\cO_S)\chi(\cO_E)
+ =
+ 2\cdot0
+ =
+ 0.
+\]
+For the Gritsenko form $\Delta_5$, the constant coefficient
+normalisation is
+\[
+ c_1(0)=10,\qquad
+ \kBKM(\Delta_5)=c_1(0)/2=5.
+\]
+The Mukai-Heisenberg invariant
+\[
+ K^{\kch}=8
+\]
+belongs to the K3 Mukai-Heisenberg sector.  It is not
+$\kBKM(\Delta_5)$ and it is not a general identity
+$\kch+\kch^!=8$ for compact CY3 outputs.
+
+\begin{remark}[Constants not proved here]
+The five-archetype ceiling
+$\kch+\kch^!\in\{0,8,13,250/3,98/3\}$ and the Monster row require the
+separate Theorem C calculation.  The present Hochschild-coderived
+argument supplies no proof of the values $250/3$, $214/3$, $98/3$, or
+$74/3$.
+\end{remark}
+
+\section{Single-valued periods}
+
+The only period statement needed for the Hochschild-coderived scope is
+the following conditional restriction.
+
+\begin{proposition}[Single-valued restriction]
+\label{prop:sv-restriction}
+If a chiral Hochschild period comparison factors through Brown's
+single-valued motivic period map, then
+\[
+ \zeta(2)\mapsto0,\qquad
+ \zeta(2r+1)\mapsto 2\zeta(2r+1).
+\]
+Consequently a weight-2 coefficient does not survive on the
+single-valued target.
+\end{proposition}
+
+\begin{proof}
+This is Brown's single-valued period map.  No depth-two or depth-three
+multiple-zeta relation is used in this note.  Such a relation becomes
+load-bearing only after an explicit configuration-space integral is
+computed and matched to the chiral Hochschild complex.
+\end{proof}
+
+\section{Analytic bar Laplacian}
+
+\begin{lemma}[A sufficient self-adjointness criterion]
+\label{lem:bar-laplacian-sufficient}
+Let
+$\mathcal H=\widehat{\bigoplus}_{n\geq0}\mathcal H_n$ be a Hilbert
+direct sum with each $\mathcal H_n$ finite-dimensional.  Let
+$D=\bigoplus_n\mathcal H_n$ be the finite-support domain.  If a
+symmetric non-negative operator $\Delta$ preserves each $\mathcal H_n$
+and the restriction $\Delta|_{\mathcal H_n}$ is self-adjoint, then
+$\Delta|_D$ is essentially self-adjoint.
+\end{lemma}
+
+\begin{proof}
+The closure is the Hilbert direct sum of the finite-dimensional
+self-adjoint matrices $\Delta|_{\mathcal H_n}$.  The finite-support
+domain is a core for this direct sum.
+\end{proof}
+
+\begin{remark}[What remains to prove for a CY3 bar Laplacian]
+Finite-dimensional conformal-weight pieces do not by themselves prove
+essential self-adjointness.  One must construct the Hilbert completion,
+prove that the bar differential and its adjoint preserve the block
+decomposition, and prove symmetry and non-negativity of
+$d_Bd_B^*+d_B^*d_B$ on the chosen domain.  These analytic choices are
+independent of the algebraic coderived equivalence.
+\end{remark}
+
+\section*{References}
 
 \begin{itemize}
-\item[AP-CY\#{}1.] \emph{Mukai sub-invariant $K^{\kch}=8$ vs full
-$\mathsf{B}$-row ceiling $98/3$.} Do not equate
-$\kch+\kch^{!}$ (the archetype-ceiling sum) with the
-Mukai-K3-Heisenberg-sub-invariant $2c_+=8$. The $\mathsf{B}$-row
-ceiling value is $98/3$, matching the Gritsenko--Nikulin--Bruinier
-automorphic-correction sector; the~$8$ is the Heisenberg-rank
-witness only. Primary: Bruinier 1999 Thm.~4.5 for the Heegner-Chern
-coefficient; Mukai 1984 \emph{Proc Tata Inst} for the signature-$(4,20)$
-self-duality.
-\item[AP-CY\#{}2.] \emph{Orthogonal variety signature: $(3,2)$ for
-K3$\times$E BKM BPS, $(2,26)$ for heterotic-on-K3.} The symmetry
-group of the Vol~III CY3 BPS partition function is
-$\mathrm{Sp}_4(\mathbb{R})\simeq\mathrm{O}(3,2)$, \emph{not}
-$\mathrm{O}(2,26)$; the latter is the Harvey--Moore 1996
-heterotic Narain lattice, unrelated to the CY3 geometry.
-\item[AP-CY\#{}3.] \emph{$\ChirHoch$ target $\subset\zeta^{\mathrm{sv}}$,
-not $\MZV^{\mathrm{mot}}$.} The chiral-Hochschild period landing
-satisfies Brown 2013 single-valued projection;
-$\zeta^{\mathrm{sv}}(2)=0$ cancels the na\"\i ve class-$\mathsf{G}$
-weight-$2$ coefficient, and the shadow--MZV dictionary must be
-restated on the single-valued target. Primary: Brown 2013 \emph{Ann
-Math} 175; Schnetz 2014; Panzer 2015. Cross-reference: AP-CY141
-(established).
-\item[AP-CY\#{}4.] \emph{Booth--Lazarev chiral residual gap.} The
-curved bar-cobar Quillen equivalence of Booth--Lazarev
-arXiv:2304.08409 resolves the associative case; three residual
-obstructions to the chiral-factorisation case (Ran-space cofibrant
-generation, genus-tower boundary-descent, sewing-analytic
-comparison) are explicitly unresolved. Primary: Booth--Lazarev
-arXiv:2304.08409; Beilinson--Drinfeld 2004 Ch.~3
-(Ran space); Moriwaki 2026 (sewing envelope).
-\item[AP-CY\#{}5.] \emph{Drinfeld associator: pentagon and two
-hexagons are the constraints, not ``parallel transport''.} The
-KZ parallel transport \emph{defines} $\Phi$; the pentagon on
-$\cM_{0,5}$ and the hexagons on $\cM_{0,4}$ are the Grothendieck
---Teichm\"uller constraints. Mention Zagier weight-$12$ relation
-and Ihara--Takao at depth~$\geq 3$ for the MZV content beyond
-depth~$1$ $\zeta(n)$-expansion. Primary: Drinfeld 1990
-\emph{Leningrad Math J}~$2$; Zagier 1994 \emph{FAC};
-Ihara 2002; Goncharov 2001.
-\end{itemize}
-
-\section*{Primary citation ledger}
-
-\begin{itemize}
-\item Beilinson, A.\ and Drinfeld, V., \emph{Chiral Algebras}, AMS
-Colloquium Publ.\ 51, 2004 (Ran space, factorisation algebras).
-\item Booth, M., and Lazarev, A., arXiv:2304.08409, 2023
-(curved bar-cobar Quillen equivalence).
-\item Bruinier, J.H., \emph{Invent. Math.} 138 (1999), Thm.~4.5
-(Heegner Chern-class reciprocity).
-\item Bruinier, J.H., \emph{Borcherds Products on $\mathrm{O}(2,l)$},
-Springer LNM 1780, 2002, Prop.~5.1.
-\item Brown, F., \emph{Ann.\ of Math.} 175 (2013), 949--976
-(single-valued MZVs).
-\item Brown, F., \emph{Ann. Sci. ENS} 46 (2013), 1--64
-(single-valued multiple polylogarithms).
-\item Drinfeld, V.G., \emph{Leningrad Math. J.} 2 (1991), 829--860
-(Quasi-Hopf algebras, Drinfeld associator).
-\item Eichler, M., and Zagier, D., \emph{The Theory of Jacobi
-Forms}, Birkh\"auser, 1985, Thm.~5.4.
-\item Francis, J., \emph{Compos. Math.} 149 (2013), 430--480
-(tangent complex and $E_n$-centers).
-\item Gritsenko, V.A., and Nikulin, V.V., \emph{Amer. J. Math.} 120
-(1998), 1--54 (Igusa $\Phi_5$, BKM $\mathfrak{g}_{\Delta_5}$).
-\item Goncharov, A.B., arXiv:math/0103059, 2001
-(MZV relations).
-\item Ihara, Y., \emph{Sugaku Expositions} 15 (2002), 1--27
-(Ihara--Takao relations).
-\item Kontsevich, M., and Soibelman, Y.,
-\emph{Stability Structures, Donaldson--Thomas Invariants and
-Cluster Transformations}, arXiv:0811.2435, 2008.
-\item Lef\`evre-Hasegawa, K., PhD thesis, Paris-7, 2003
-(bar-cobar for $A_\infty$-coalgebras).
-\item Malikov, F., Schechtman, V., and Vaintrob, A.,
-\emph{Comm. Math. Phys.} 204 (1999), 439--473
-(chiral de Rham complex).
-\item Moriwaki, A., arXiv:2601.xxxxx, 2026 (IndHilb sewing envelope).
-\item Mukai, S., \emph{Proc. Tata Inst. Fund. Res.}, 1984,
-341--413 (Mukai lattice).
-\item Nelson, E., \emph{Ann. of Math.} 70 (1959), 572--615
-(analytic vectors).
-\item Panzer, E., \emph{Commun. Num. Theor. Phys.} 9 (2015), 47--101.
-\item Pasol, V., and Zagier, D., arXiv:1311.5829, 2013
-(Kronecker--Eisenstein on $\mathbb{H}_2$).
-\item Positselski, L., \emph{Mem. AMS} 212 (2011), no.~996
-(coderived category of curved dg modules).
-\item Schnetz, O., \emph{Commun. Num. Theor. Phys.} 8 (2014),
-589--675.
-\item Zagier, D., \emph{First European Congress of Mathematics
-Vol.~II}, Birkh\"auser, 1994, 497--512 (Zagier relation).
+\item Beilinson, A. and Drinfeld, V.,
+\emph{Chiral Algebras}, AMS Colloquium Publications 51, 2004.
+\item Booth, M. and Lazarev, A.,
+\emph{Global Koszul duality}, arXiv:2304.08409, v4, 2026.
+\item Brown, F.,
+\emph{Single-valued periods and multiple zeta values},
+Forum of Mathematics, Sigma 2 (2014), e25.
+\item Caldararu, A. and Willerton, S.,
+\emph{The Mukai pairing, I: a categorical approach},
+New York Journal of Mathematics 16 (2010), 61-98.
+\item Francis, J.,
+\emph{The tangent complex and Hochschild cohomology of $E_n$-rings},
+Compositio Mathematica 149 (2013), 430-480.
+\item Gritsenko, V. and Nikulin, V.,
+\emph{Siegel automorphic form corrections of some Lorentzian Kac-Moody
+Lie algebras}, American Journal of Mathematics 120 (1998), 1-54.
+\item Malikov, F., Schechtman, V. and Vaintrob, A.,
+\emph{Chiral de Rham complex}, Communications in Mathematical Physics
+204 (1999), 439-473.
+\item Mukai, S.,
+\emph{Symplectic structure of the moduli space of sheaves on an
+abelian or K3 surface}, Inventiones Mathematicae 77 (1984), 101-116.
+\item Pantev, T., Toen, B., Vaquie, M. and Vezzosi, G.,
+\emph{Shifted symplectic structures}, Publications Mathematiques de
+l'IHES 117 (2013), 271-328.
+\item Positselski, L.,
+\emph{Two kinds of derived categories, Koszul duality, and comodule
+contramodule correspondence}, Memoirs of the AMS 212 (2011), no. 996.
 \end{itemize}
 
 \end{document}

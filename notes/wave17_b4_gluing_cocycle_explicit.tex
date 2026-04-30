@@ -1,21 +1,15 @@
-% Wave-17 B4/20 audit: explicit gluing cocycle for Y^+ on quiver-affine charts.
-% Kapranov, M., "On the derived categories of coherent sheaves on some
-%   homogeneous spaces", Invent. Math. 92 (1988) 479--508.
-% Kontsevich, M. and Soibelman, Y., "Cohomological Hall algebra, exponential
-%   Hodge structures and motivic Donaldson--Thomas invariants",
-%   Commun. Number Theory Phys. 5 (2011) 231--352 (arXiv:1006.2706).
-% Soibelman, Y., "Remarks on Cohomological Hall algebras and their
-%   representations", 2014 (arXiv:1404.1606).
-% Bridgeland, T., "Stability conditions on triangulated categories",
-%   Ann. Math. 166 (2007) 317--345 (arXiv:math/0212237); and "Scattering
-%   diagrams, Hall algebras and stability conditions", Algebr. Geom. 4 (2017)
-%   523--561 (arXiv:1603.00416).
-% King, A., "Moduli of representations of finite dimensional algebras",
-%   Q. J. Math. Oxford 45 (1994) 515--530.
-% Keller, B., "On cluster theory and quantum dilogarithm identities",
-%   EMS Ser. Congr. Rep. (2011) 85--116 (arXiv:1102.4148).
-% Nagao, K., "Donaldson--Thomas theory and cluster algebras",
-%   Duke Math. J. 162 (2013) 1313--1367 (arXiv:1002.4884).
+% Explicit gluing cocycle for positive Hall charts.
+% Kapranov, "On the derived categories of coherent sheaves on some
+% homogeneous spaces", Invent. Math. 92 (1988), pages 479 to 508.
+% Kontsevich and Soibelman, "Cohomological Hall algebra, exponential
+% Hodge structures and motivic Donaldson-Thomas invariants",
+% Commun. Number Theory Phys. 5 (2011), pages 231 to 352.
+% Keller and Yang, "Derived equivalences from mutations of quivers with
+% potential", arXiv:0906.0761.
+% Davison and Meinhardt, "Cohomological Donaldson-Thomas theory of a
+% quiver with potential and quantum enveloping algebras", arXiv:1512.08898.
+% Rapcak, Soibelman, Yang, and Zhao, "Cohomological Hall algebras,
+% vertex algebras and instantons", arXiv:2007.13365.
 
 \providecommand{\Hom}{\mathrm{Hom}}
 \providecommand{\End}{\mathrm{End}}
@@ -24,10 +18,14 @@
 \providecommand{\Spec}{\mathrm{Spec}}
 \providecommand{\Db}{D^{b}}
 \providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Coh}{\mathrm{Coh}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Jac}{\mathrm{Jac}}
 \providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\cF}{\mathcal F}
+\providecommand{\cZ}{\mathcal Z}
 \providecommand{\sH}{\mathcal H}
 \providecommand{\sM}{\mathcal M}
 \providecommand{\sT}{\mathcal T}
@@ -35,174 +33,274 @@
 \providecommand{\bC}{\mathbb C}
 \providecommand{\bZ}{\mathbb Z}
 \providecommand{\bN}{\mathbb N}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Yp}{Y^{+}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
 
-\section*{Wave-17 B4: the gluing cocycle for $Y^{+}$ on quiver-affine charts}
+\section*{Gluing Cocycle for Positive Hall Charts}
 
-\subsection*{Cycle 1: the two charts.}
+\subsection*{Quiver-Affine Chart Datum}
 
-Fix a CY$_{3}$ stability datum $\sigma$ on a smooth projective CY$_{3}$
-$X$ (Bridgeland 2007, Definition~5.1). A \emph{quiver-affine chart}
-$U\subset\mathrm{Stab}(X)$ is an open connected subset on which the heart
-$\sT_{U}\subset\Db(\Coh X)$ is equivalent, via a silting mutation
-(Keller--Vossieck; Nagao 2013, Proposition~2.10), to
-$\Rep(Q_{U},W_{U})$ for a quiver with potential $(Q_{U},W_{U})$ such that
-the Jacobi algebra
+A positive Hall chart on a CY$_3$ category is a tuple
 \[
-  A_{U}\;:=\;\Jac(Q_{U},W_{U})
-  \;=\;\bC Q_{U}\big/\big\langle\partial_{a}W_{U}:a\in Q_{U}^{1}\big\rangle
+  \mathfrak U
+  =
+  (U,Q_U,W_U,\Gamma_U,A_U,\theta_U,o_U,C_U^{+})
 \]
-is a Ginzburg CY$_{3}$ algebra (Ginzburg arXiv:math/0612139, Theorem~3.6.4
-with Van den Bergh duality in dimension three). Do the same on a second
-chart $V$ with data $(Q_{V},W_{V},A_{V})$. On the overlap $U\cap V$, both
-hearts define the same triangulated category $\Db(A_{U})\simeq\Db(A_{V})$
-with the equivalence fixed up to natural isomorphism by the mutation
-path.
-
-\subsection*{Cycle 2: the overlap equivalence at the level of $\Db$.}
-
-Following Kapranov 1988 (\S 1, reconstruction theorem for exceptional
-collections) and its CY$_{3}$ extension (Keller--Yang arXiv:0906.0761,
-Theorem~3.2 on mutation of silting objects), the overlap $U\cap V$
-carries a \emph{tilting complex} $T_{UV}\in\Db(A_{U})$ with
-$\End^{*}_{\Db(A_{U})}(T_{UV})=A_{V}$ concentrated in degree zero. The
-derived equivalence
+with the following data. The set \(U\) is a connected chamber in the
+stability manifold of a fixed dg enhancement of \(\Db(\Coh X)\). The
+heart \(\sT_U\) is equivalent to finite-dimensional modules over the
+Jacobi algebra
 \[
-  \Psi_{UV}:=\mathbf R\Hom_{A_{U}}(T_{UV},-)\colon
-  \Db(A_{U})\xrightarrow{\ \sim\ }\Db(A_{V})
+  A_U
+  =
+  \Jac(Q_U,W_U)
+  =
+  \bC Q_U\Big/
+  \big\langle \partial_a W_U : a \in Q_U^1\big\rangle .
 \]
-is an exact $\bC$-linear equivalence of CY$_{3}$ triangulated categories;
-its inverse is $\Psi_{VU}=-\otimes^{\mathbf L}_{A_{V}}T_{UV}^{\vee}$
-where $T_{UV}^{\vee}=\mathbf R\Hom_{A_{U}}(T_{UV},A_{U})$.
-
-The tilting complex $T_{UV}$ is the \emph{cluster mutation datum}
-(Seiberg duality in the physics literature; Derksen--Weyman--Zelevinsky
-arXiv:0704.0649, \S 5 for the quiver-with-potential mutation at a vertex
-$k$). For a single mutation $\mu_{k}$:
+The CY$_3$ object is the Ginzburg dg algebra
 \[
-  T_{UV}\;=\;\bigoplus_{j\neq k}P_{j}\;\oplus\;
-  \operatorname{Cone}\!\Big(P_{k}\;\longrightarrow\;
-  \bigoplus_{a:k\to j}P_{j}\Big)[-1],
+  \Gamma_U=\Gamma(Q_U,W_U), \qquad H^0(\Gamma_U)=A_U,
 \]
-with $P_{j}$ the indecomposable projective at vertex $j$ and the morphism
-$P_{k}\to\bigoplus_{a:k\to j}P_{j}$ assembled from the arrows leaving
-$k$ (Iyama--Yoshino arXiv:math/0607736, Proposition~2.6 on mutation of
-cluster-tilting objects).
+whose perfect derived category is \(3\)-Calabi-Yau under the usual
+smoothness and finite-potential hypotheses. The Jacobi algebra is the
+degree-zero heart algebra; the CY pairing belongs to \(\Gamma_U\).
+The symbol \(o_U\) denotes orientation data for the critical
+vanishing-cycle sheaf, and \(C_U^{+}\subset \bN^{Q_U^0}\) is the cone of
+\(\theta_U\)-semistable dimension vectors used for the positive Hall
+half.
 
-\subsection*{Cycle 3: the induced CoHA cocycle at cohomological level.}
+The datum is part of the input. For compact CY$_3$ categories, a global
+finite Jacobi presentation is additional structure. Local toric charts,
+conifold charts, and chosen tilting chambers do supply this form.
 
-The cohomological Hall algebra of Kontsevich--Soibelman 2011
-(\S 2, Definition~2; arXiv:1006.2706) for a CY$_{3}$ Jacobi algebra
-$A=\Jac(Q,W)$ is
+\subsection*{Overlap Kernel}
+
+Let \(\mathfrak U\) and \(\mathfrak V\) be two such charts. An overlap
+kernel is a perfect \(\Gamma_V\)-\(\Gamma_U\) bimodule \(K_{UV}\) and a
+perfect \(\Gamma_U\)-\(\Gamma_V\) bimodule \(K_{VU}\) equipped with
+quasi-isomorphisms
 \[
-  \CoHA(A)\;=\;\bigoplus_{\mathbf d\in\bN^{Q^{0}}}
-  H^{*}_{G_{\mathbf d}}\!\big(\Rep(Q,\mathbf d),\varphi_{W}\big),
+  K_{VU}\otimes^{\mathbf L}_{\Gamma_V}K_{UV}\simeq \Gamma_U,\qquad
+  K_{UV}\otimes^{\mathbf L}_{\Gamma_U}K_{VU}\simeq \Gamma_V .
 \]
-with $G_{\mathbf d}=\prod_{i}GL(d_{i})$ and $\varphi_{W}$ the vanishing
-cycles of the regular function $\Tr(W)$ on King-stable
-(King 1994, Proposition~3.1) quiver representations. The product is
-Hecke-style convolution along the extension stack
-$\Rep(Q,\mathbf d')\times\Rep(Q,\mathbf d'')\hookleftarrow
-\Rep(Q,\mathbf d'\subset\mathbf d)\twoheadrightarrow
-\Rep(Q,\mathbf d)$ (Kontsevich--Soibelman 2011, Theorem~1).
-
-An exact equivalence of CY$_{3}$ derived categories that preserves the
-moduli problem --- that is, sends $G_{\mathbf d}$-stable representations
-to $G_{\mathbf d'}$-stable representations under an $\bN$-linear
-dimension-vector bijection $\mu_{k}^{*}\colon\bN^{Q_{U}^{0}}
-\xrightarrow{\sim}\bN^{Q_{V}^{0}}$, $\mathbf d\mapsto\mu_{k}^{*}\mathbf d$
-where $(\mu_{k}^{*}\mathbf d)_{j}=d_{j}$ for $j\neq k$ and
-$(\mu_{k}^{*}\mathbf d)_{k}=\sum_{a:j\to k}d_{j}-d_{k}$ on the
-$\sigma$-stable locus (Nagao 2013, Proposition~3.9) --- induces a graded
-linear isomorphism
+It gives a dg Morita equivalence
 \[
-  \phi_{UV}\colon\CoHA(A_{U})\xrightarrow{\ \sim\ }\CoHA(A_{V}),
+  \Psi_{UV}=
+  K_{UV}\otimes^{\mathbf L}_{\Gamma_U}(-):
+  \Perf(\Gamma_U)\xrightarrow{\sim}\Perf(\Gamma_V).
 \]
-given in dimension vector $\mathbf d$ by the pullback along the
-equivariant map on vanishing-cycle cohomology
-$\Psi_{UV}^{*}\colon H^{*}_{G_{\mathbf d}}(\Rep(Q_{U},\mathbf d),
-\varphi_{W_{U}})\to H^{*}_{G_{\mu_{k}^{*}\mathbf d}}
-(\Rep(Q_{V},\mu_{k}^{*}\mathbf d),\varphi_{W_{V}})$. Multiplicativity
-$\phi_{UV}(\alpha\cdot\beta)=\phi_{UV}(\alpha)\cdot\phi_{UV}(\beta)$
-follows from commutativity of the equivalence with the Hecke
-correspondence (Davison--Meinhardt arXiv:1512.08898, Theorem~A on CoHA
-functoriality under derived equivalence that preserves stability).
-
-The positive half $Y^{+}$ is cut out of the full CoHA by the
-King-stability cone $C_{\sigma}\subset\bN^{Q^{0}}$ (Bridgeland 2017,
-\S 3 on Hall algebras of stability conditions); $\mu_{k}^{*}$ sends
-$C_{\sigma}|_{U}$ to $C_{\sigma}|_{V}$ on the overlap, so $\phi_{UV}$
-restricts to
+For a Keller-Yang mutation at a vertex \(k\) with the standard
+loop-free and two-cycle-free hypotheses, \(K_{UV}\) is the mutation bimodule
+constructed from the cone replacing the \(k\)-th projective. On a
+source or sink chamber the induced dimension-vector map is
 \[
-  \phi^{+}_{UV}\colon Y^{+}(A_{U})\xrightarrow{\ \sim\ }Y^{+}(A_{V}).
+  (\mu_k\mathbf d)_i=d_i \quad (i\ne k),\qquad
+  (\mu_k\mathbf d)_k=\sum_{a:i\to k}d_i-d_k ,
 \]
+restricted to the cone where the right side is non-negative and the
+wall-crossing functor carries \(\theta_U\)-semistable objects to
+\(\theta_V\)-semistable objects. Outside that cone the mutation is
+recorded by a wall-crossing correspondence; a representation-variety
+map is absent from the datum.
 
-\subsection*{Cycle 4: cochain-level refinement (Koszul-homotopy cocycle).}
+\subsection*{Positive Hall Algebra}
 
-On triple overlaps $U\cap V\cap W$ the equality
-$\phi_{VW}\circ\phi_{UV}=\phi_{UW}$ holds up to a coherent homotopy, not
-strictly (the composition of tilting complexes is a tilting complex only
-up to quasi-isomorphism; Keller arXiv:1102.4148, \S 5 on mutation
-2-cocycles). Pass to the dg enhancement $\sE_{dg}(A)$ of Kontsevich's
-minimal $A_{\infty}$-model (Kontsevich--Soibelman 2009 arXiv:math/0606241,
-\S 7) and upgrade $\phi_{UV}$ to a quasi-isomorphism of dg algebras
-$\tilde\phi_{UV}\colon\CoHA_{dg}(A_{U})\to\CoHA_{dg}(A_{V})$. On the
-triple overlap the \v{C}ech differential
+For a dimension vector \(\mathbf d\), put
 \[
-  \delta\tilde\phi\;:=\;\tilde\phi_{VW}\circ\tilde\phi_{UV}
-  -\tilde\phi_{UW}
+  \sH_U(\mathbf d)
+  =
+  H^{\mathrm{BM},*}_{G_{\mathbf d}}
+  \bigl(\Rep(Q_U,\mathbf d),
+  \varphi_{\Tr(W_U)}\otimes o_U\bigr),
+  \qquad
+  G_{\mathbf d}=\prod_{i\in Q_U^0}GL(d_i).
 \]
-is not zero but is cohomologous to zero via an explicit homotopy
-$h_{UVW}\colon\CoHA_{dg}(A_{U})\to\CoHA_{dg}(A_{W})[-1]$ assembled from
-the higher products $m_{n}$ of the $A_{\infty}$-structure on
-$\Db(A_{U})$. The $h_{UVW}$ satisfy the Koszul-homotopy relation
-$\delta h=\delta\tilde\phi$, promoting $(\tilde\phi,h)$ to a
-$2$-cocycle in the \v{C}ech nerve of the open cover; the Maurer--Cartan
-equation is the CY$_{3}$ cyclic obstruction theory of Kontsevich--
-Soibelman 2009, Theorem~10.2.2, and closes because the minimal model
-carries a cyclic-$A_{\infty}$ structure of dimension three.
-
-\subsection*{Cycle 5: the simplest overlap, $\bC^{3}$ and one mutation.}
-
-Take $X=\bC^{3}$ with $Q_{U}$ the one-vertex, three-loop Jakob quiver and
-superpotential $W_{U}=x[y,z]$; then $A_{U}=\bC\langle x,y,z\rangle/
-([x,y],[y,z],[z,x])=\bC[x,y,z]$ is the polynomial CY$_{3}$ algebra.
-$\CoHA(A_{U})$ is the preprojective-style algebra identified by
-Kontsevich--Soibelman 2011, \S 2.5, with the positive nilpotent half of
-the affine Yangian of $\mathfrak{gl}_{1}$:
-$Y^{+}(A_{U})=Y^{+}_{\hbar,\varepsilon_{1},\varepsilon_{2}}(\widehat
-{\mathfrak{gl}_{1}})^{+}$ (Schiffmann--Vasserot arXiv:1202.2756,
-Theorem~7.9).
-
-Now take the Aspinwall--Katz flop quiver $Q_{V}$ obtained by mutating at
-the single vertex: $Q_{V}$ has one vertex with three loops
-$x',y',z'$ and potential $W_{V}=-x'[y',z']$. The tilting complex
-$T_{UV}=P_{0}[1]$ (shift of the unique projective) gives
-$\Psi_{UV}=[\,1\,]$, and the dimension-vector relabelling is the
-identity on $\bN$. The induced map
+The Hall product is the Kontsevich-Soibelman convolution along the
+stack of short exact sequences, with Thom-Sebastiani compatibility for
+vanishing cycles. The positive half is
 \[
-  \phi^{+}_{UV}\colon Y^{+}_{\hbar,\varepsilon_{1},\varepsilon_{2}}
-  (\widehat{\mathfrak{gl}_{1}})^{+}
-  \;\xrightarrow{\ \sim\ }\;
-  Y^{+}_{-\hbar,-\varepsilon_{1},-\varepsilon_{2}}
-  (\widehat{\mathfrak{gl}_{1}})^{+}
+  \sH_U^+
+  =
+  \bigoplus_{\mathbf d\in C_U^+}\sH_U(\mathbf d).
 \]
-is the parity involution sending a class of cohomological degree $d$ to
-its $(-1)^{d}$-twist; this is precisely the sign flip of the equivariant
-parameters $(\hbar,\varepsilon_{1},\varepsilon_{2})\mapsto
-(-\hbar,-\varepsilon_{1},-\varepsilon_{2})$ forced by the shift $[1]$
-and the sign of $W$. The homotopy $h_{UVV}=0$ because the mutation is
-an involution; the cocycle closes strictly on the double cover
-$\{U,V\}$ of $\mathrm{Stab}(\bC^{3})$, consistent with
-$\kappa_{\mathrm{ch}}(\bC^{3})=3/2$ being invariant under the flop
-(local $\bP^{2}$ shadow;
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}).
+In toric affine type this algebra is denoted \(\Yp_U\). For the
+Jordan quiver of \(\bC^3\),
+\[
+  \CoHA(\bC^3)
+  =
+  \Yp(\widehat{\mathfrak{gl}}_1),
+\]
+the positive half of the affine Yangian.
 
-\subsection*{Summary.}
+Assume the overlap kernel is realised by a correspondence of critical
+stacks
+\[
+  \sM_U(\mathbf d)
+  \xleftarrow{\ p_{UV,\mathbf d}\ }
+  Z_{UV,\mathbf d}
+  \xrightarrow{\ q_{UV,\mathbf d}\ }
+  \sM_V(\mu_{UV}\mathbf d)
+\]
+compatible with orientation data and with the extension
+correspondences. Define
+\[
+  \phi^+_{UV,\mathbf d}
+  =
+  (q_{UV,\mathbf d})_!\,p_{UV,\mathbf d}^{!}:
+  \sH_U(\mathbf d)\longrightarrow
+  \sH_V(\mu_{UV}\mathbf d),
+\]
+and set
+\[
+  \phi^+_{UV}
+  =
+  \bigoplus_{\mathbf d\in C_U^+}\phi^+_{UV,\mathbf d}:
+  \sH_U^+\longrightarrow\sH_V^+ .
+\]
+The map is multiplicative when the diagram obtained by adding one
+extension in the source and then transporting equals, as an oriented
+derived correspondence, the diagram obtained by transporting both
+summands and then forming the extension in the target. This supplies the
+finite positive-Hall gluing boundary. The Hall pairing, Drinfeld double,
+centre, completion, and vertex evaluation are later layers.
 
-$\phi_{UV}$ is the CoHA image of the cluster-mutation tilting complex
-$T_{UV}$; it restricts to $\phi^{+}_{UV}\colon Y^{+}(A_{U})\to Y^{+}
-(A_{V})$; at cochain level the triple-overlap defect is killed by a
-Koszul homotopy assembled from the cyclic-$A_{\infty}$ higher products;
-on $\bC^{3}$ the cocycle is the parity flip
-$(\hbar,\varepsilon_{i})\mapsto(-\hbar,-\varepsilon_{i})$.
+\subsection*{Homotopy-Coherent Cocycle}
+
+Choose dg chain models \(\sH_{U,dg}^+\) and chain maps
+\[
+  \widetilde\phi^+_{UV}:\sH_{U,dg}^+\longrightarrow\sH_{V,dg}^+
+\]
+lifting \(\phi^+_{UV}\). On a triple overlap \(U\cap V\cap W\), let
+\[
+  D_{UVW}
+  =
+  \widetilde\phi^+_{VW}\widetilde\phi^+_{UV}
+  -
+  \widetilde\phi^+_{UW}.
+\]
+This is a closed degree-zero map. A homotopy \(h_{UVW}\) of degree
+\(-1\) is a solution of
+\[
+  d\,h_{UVW}+h_{UVW}\,d=D_{UVW}.
+\]
+Equivalently, if
+\[
+  \eta_{UVW}:
+  K_{VW}\otimes^{\mathbf L}_{\Gamma_V}K_{UV}
+  \Longrightarrow K_{UW}
+\]
+is a degree \(-1\) homotopy between bimodule kernels, the induced Hall
+homotopy is
+\[
+  h_{UVW,\mathbf d}
+  =
+  (q_{UVW,\mathbf d})_!\,
+  \eta_{UVW,\mathbf d}\,
+  p_{UVW,\mathbf d}^{!},
+\]
+where \(Z_{UVW,\mathbf d}\) is the critical correspondence carrying the
+universal object through the two kernel compositions. The displayed
+identity follows from the differential identity for \(\eta_{UVW}\) and
+from functoriality of shriek pullback and proper pushforward on the
+oriented correspondence.
+
+On quadruple overlaps the boundary of the \(h_{UVW}\) family is the
+degree \(-1\) map
+\[
+  \widetilde\phi^+_{WX}h_{UVW}
+  -h_{UVX}
+  +h_{UWX}
+  -h_{VWX}\widetilde\phi^+_{UV}.
+\]
+Vanishing of its cohomology class is the next descent condition. Thus
+the gluing object is a homotopy-coherent \v{C}ech cocycle valued in
+positive Hall dg algebras. Cyclic \(A_\infty\) formality supplies the
+kernel homotopies; the cocycle closes precisely when the displayed
+obstruction classes vanish.
+
+\subsection*{Operadic and Representation-Theoretic Boundary}
+
+For \(d=3\), the native CY-to-chiral output
+\[
+  \Phi_3^{(\Sigma_2,C)}(\mathcal C)
+\]
+is \(\Eone\)-chiral on the witnessed filtered locus. The positive Hall
+algebras above are associative \(\Eone\) objects. Braiding and
+\(\Etwo\)-structure live on
+\[
+  \cZ\bigl(\Rep^{\Eone}(\sH_U^+)\bigr)
+  \quad\text{or}\quad
+  D(\sH_U^+)
+\]
+after the negative half, Cartan part, Hopf pairing, radical quotient,
+and completion have been supplied.
+
+The allowed chain of structures on a smooth toric \(\bC^3\) chart is
+\[
+  \CoHA(\bC^3)
+  =
+  \Yp(\widehat{\mathfrak{gl}}_1)
+  \longrightarrow
+  D(\Yp)
+  =
+  Y(\widehat{\mathfrak{gl}}_1)
+  \xrightarrow{\ \mathrm{ev}_{\lambda}\ }
+  \End\bigl(\mathcal W_{1+\infty}[\lambda]\text{-}\mathrm{vac}\bigr).
+\]
+The \(\mathcal W_{1+\infty}\) object is reached at the evaluation
+layer. The Maulik-Okounkov \(R\)-matrix comparison starts after a common
+stable-envelope module, a centre or completed double, and the relevant
+Fock or \(K\)-theoretic evaluation representation have been fixed. The
+maps \(\phi^+_{UV}\) constructed above are Hall transition maps on the
+positive half.
+
+\subsection*{Toric Sanity Check}
+
+For the one-vertex three-loop quiver
+\[
+  Q_{\mathrm{Jor}}:\quad x,y,z,
+  \qquad
+  W=x[y,z],
+\]
+one has
+\[
+  A=\bC\langle x,y,z\rangle/
+  ([x,y],[y,z],[z,x])=\bC[x,y,z],
+  \qquad
+  \CoHA(Q_{\mathrm{Jor}},W)=\Yp(\widehat{\mathfrak{gl}}_1).
+\]
+The vertex has loops, so the Derksen-Weyman-Zelevinsky vertex-mutation
+hypotheses are absent. The correct local check is the \(S_3\)-symmetry
+of the equivariant parameters
+\((\epsilon_1,\epsilon_2,\epsilon_3)\) with
+\(\epsilon_1+\epsilon_2+\epsilon_3=0\), acting on the shuffle
+presentation of \(\Yp\). Reversing the orientation datum sends the
+vanishing-cycle complex to its parity-twisted dual and changes all
+equivariant weights by the common sign. It is an orientation change; the
+DWZ mutation theorem requires an input vertex, so it stays outside this
+check.
+
+The scalar
+\[
+  \kch(\mathrm{loc}\,\mathbb P^2)=3/2
+\]
+belongs to the \(dP_0\) McKay quiver for
+\(\mathrm{Tot}(\omega_{\mathbb P^2})\). The \(\bC^3\) check uses the
+identity \(\CoHA(\bC^3)=\Yp(\widehat{\mathfrak{gl}}_1)\); the
+local-\(\mathbb P^2\) \(\kch\) value is absent from this check.
+
+\subsection*{Result}
+
+The gluing cocycle is the homotopy-coherent system
+\[
+  \bigl(\sH_U^+,\phi^+_{UV},h_{UVW},h^{(2)}_{UVWX},\ldots\bigr)
+\]
+on the positive Hall layer. It becomes a global compact CoHA only after
+vanishing-cycle realisation, compact-support functoriality, orientation
+compatibility, and completion have been supplied. It becomes a Yangian
+or \(\mathcal W_{1+\infty}\)-type object only after the completed double
+or centre and the representation-theoretic evaluation layer have been
+supplied.

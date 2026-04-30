@@ -3,7 +3,7 @@ Tests for elliptic Hall algebra E_{q,t} as hocolim over Stab(K3 x E).
 
 Verifies:
     1. K3 x E chart structure: Mukai lattice, SL_2(Z) charts
-    2. Local CoHA dimensions: |c(D)| from phi_{0,1}
+    2. Local signed-character magnitudes: |c(D)| from phi_{0,1}
     3. Hocolim diagram: charts, transitions, SL_2(Z) action
     4. Large-volume specialization: q -> 0 gives Y^+(gl_1_hat)
     5. Trigonometric specialization: t -> 1 gives W_{1+infty}
@@ -52,9 +52,11 @@ from lib.elliptic_hall_hocolim import (
     EllipticChartData,
     ProductChart,
     k3e_chart_atlas,
-    # Local CoHA
+    # Local signed-character statistics and parity-resolved dimensions
+    CoHAParityFixture,
     local_coha_dimension,
-    local_coha_dimensions_table,
+    local_signed_character_magnitude,
+    local_signed_character_magnitude_table,
     cy3_tensor_twist_data,
     # EHA structure
     KNOWN_C_DISC,
@@ -211,11 +213,11 @@ class TestMukaiCharge:
 
 
 # =========================================================================
-# 3. LOCAL COHA DIMENSIONS
+# 3. LOCAL SIGNED-CHARACTER MAGNITUDES
 # =========================================================================
 
 class TestLocalCoHA:
-    """Test local CoHA dimensions from phi_{0,1}."""
+    """Test local signed-character statistics from phi_{0,1}."""
 
     def test_known_discriminant_coefficients(self):
         """Known c(D) values from Eichler-Zagier."""
@@ -233,53 +235,69 @@ class TestLocalCoHA:
         assert KNOWN_C_DISC[8] == 808
 
     def test_real_root_multiplicity(self):
-        """Real root (D = -1) has c(-1) = 1, dim = 1."""
+        """Real root (D = -1) has c(-1) = 1, |c(D)| = 1."""
         charge = MukaiCharge(0, 1, 0)
         # VERIFIED [DC] structural property [LC] nerve spectral sequence
         assert charge.discriminant == -1
-        # VERIFIED [DC] dimension count [LC] nerve spectral sequence
-        assert local_coha_dimension(charge) == 1
+        # VERIFIED [DC] coefficient statistic [LC] nerve spectral sequence
+        assert local_signed_character_magnitude(charge) == 1
 
     def test_first_imaginary_root(self):
-        """First imaginary root (D = 0) has c(0) = 10, dim = 10."""
+        """First imaginary root (D = 0) has c(0) = 10, |c(D)| = 10."""
         charge = MukaiCharge(1, 0, 0)
         # VERIFIED [DC] structural property [LC] nerve spectral sequence
         assert charge.discriminant == 0
-        # VERIFIED [DC] dimension count [LC] nerve spectral sequence
-        assert local_coha_dimension(charge) == 10
+        # VERIFIED [DC] coefficient statistic [LC] nerve spectral sequence
+        assert local_signed_character_magnitude(charge) == 10
 
     def test_first_fermionic_root(self):
-        """First fermionic root (D = 3) has c(3) = -64, dim = 64."""
+        """First fermionic root (D = 3) has c(3) = -64, |c(D)| = 64."""
         charge = MukaiCharge(1, 1, 1)
         # VERIFIED [DC] structural property [LC] nerve spectral sequence
         assert charge.discriminant == 3
-        # VERIFIED [DC] dimension count [LC] nerve spectral sequence
-        assert local_coha_dimension(charge) == 64
+        # VERIFIED [DC] coefficient statistic [LC] nerve spectral sequence
+        assert local_signed_character_magnitude(charge) == 64
 
-    def test_coha_dimension_d4(self):
-        """D = 4 root: c(4) = 108, dim = 108."""
+    def test_magnitude_d4(self):
+        """D = 4 root: c(4) = 108, |c(D)| = 108."""
         charge = MukaiCharge(1, 0, 1)
-        # VERIFIED [DC] dimension [LC] nerve spectral sequence
+        # VERIFIED [DC] coefficient statistic [LC] nerve spectral sequence
         assert charge.discriminant == 4
-        # VERIFIED [DC] dimension count [LC] nerve spectral sequence
-        assert local_coha_dimension(charge) == 108
+        # VERIFIED [DC] coefficient statistic [LC] nerve spectral sequence
+        assert local_signed_character_magnitude(charge) == 108
 
     def test_below_bogomolov_bound(self):
-        """Below the Bogomolov bound (D < -1): dim = 0."""
+        """Below the Bogomolov bound (D < -1): coefficient statistic = 0."""
         charge = MukaiCharge(0, 2, 0)
         # VERIFIED [DC] growth bound [LC] nerve spectral sequence
         assert charge.discriminant == -4
-        # VERIFIED [DC] dimension count [LC] nerve spectral sequence
-        assert local_coha_dimension(charge) == 0
+        # VERIFIED [DC] coefficient statistic [LC] nerve spectral sequence
+        assert local_signed_character_magnitude(charge) == 0
 
-    def test_dimension_table_nonempty(self):
-        """The dimension table is non-empty for reasonable bounds."""
-        table = local_coha_dimensions_table(max_r=2, max_l=2, max_m=2)
-        # VERIFIED [DC] dimension [LC] nerve spectral sequence
+    def test_magnitude_table_nonempty(self):
+        """The magnitude table is non-empty for reasonable bounds."""
+        table = local_signed_character_magnitude_table(max_r=2, max_l=2, max_m=2)
+        # VERIFIED [DC] coefficient statistic [LC] nerve spectral sequence
         assert len(table) > 0
-        # All dimensions should be positive
-        # VERIFIED [DC] dimension [LC] nerve spectral sequence
+        # All included magnitudes should be positive
+        # VERIFIED [DC] coefficient statistic [LC] nerve spectral sequence
         assert all(d > 0 for d in table.values())
+
+    def test_local_coha_dimension_requires_parity_fixture(self):
+        """The local CoHA dimension is not inferred from |c(D)|."""
+        charge = MukaiCharge(1, 1, 1)
+        with pytest.raises(ValueError, match="parity fixture"):
+            local_coha_dimension(charge)
+
+    def test_local_coha_dimension_from_fixture(self):
+        """A sourced parity fixture can produce an ordinary local dimension."""
+        charge = MukaiCharge(1, 1, 1)
+        fixture = CoHAParityFixture(
+            even_dim=0,
+            odd_dim=64,
+            source="finite test fixture recognizing the c(3) odd sector",
+        )
+        assert local_coha_dimension(charge, parity_fixture=fixture) == 64
 
 
 # =========================================================================

@@ -1,20 +1,20 @@
-% Wave-17 B3/20: the positive-half sheaf $\cY^{+}_{X}$ on a CY$_{3}$.
+% The positive half sheaf $\cY^{+}_{X}$ on a CY$_3$.
 % Primary sources:
-%   Gaitsgory--Rozenblyum, \emph{A study in derived algebraic geometry},
+%   Gaitsgory and Rozenblyum, \emph{A study in derived algebraic geometry},
 %     AMS Math. Surv. Monogr. 221 (2017).
-%   Kontsevich--Soibelman, \emph{Stability structures, motivic Donaldson--Thomas
+%   Kontsevich and Soibelman, \emph{Stability structures, motivic Donaldson-Thomas
 %     invariants and cluster transformations}, arXiv:0811.2435 (2008).
-%   Van den Bergh, \emph{Three-dimensional flops and non-commutative rings},
-%     Duke Math. J. 122 (2004) 423--455 (arXiv:math/0207170).
-%   Behrend, \emph{Donaldson--Thomas type invariants via microlocal geometry},
-%     Ann. Math. 170 (2009) 1307--1338 (arXiv:math/0507523).
-%   Joyce--Song, \emph{A theory of generalized Donaldson--Thomas invariants},
-%     Mem. AMS 217 (2012) no.\ 1020 (arXiv:0810.5645).
-%   Schiffmann--Vasserot, \emph{Cherednik algebras, W-algebras and the equivariant
+%   Van den Bergh, \emph{Three-dimensional flops and noncommutative rings},
+%     Duke Math. J. 122 (2004) 423-455 (arXiv:math/0207170).
+%   Behrend, \emph{Donaldson-Thomas type invariants via microlocal geometry},
+%     Ann. Math. 170 (2009) 1307-1338 (arXiv:math/0507523).
+%   Joyce and Song, \emph{A theory of generalized Donaldson-Thomas invariants},
+%     Mem. AMS 217 (2012), number 1020 (arXiv:0810.5645).
+%   Schiffmann and Vasserot, \emph{Cherednik algebras, W-algebras and the equivariant
 %     cohomology of the moduli space of instantons on $\bA^{2}$}, Publ. IHES 118
-%     (2013) 213--342 (arXiv:1202.2756).
-%   Davison--Meinhardt, \emph{Cohomological Donaldson--Thomas theory of a quiver
-%     with potential}, Invent. Math. 221 (2020) 777--871 (arXiv:1601.02479).
+%     (2013) 213-342 (arXiv:1202.2756).
+%   Davison and Meinhardt, \emph{Cohomological Donaldson-Thomas theory of a quiver
+%     with potential}, Invent. Math. 221 (2020) 777-871 (arXiv:1601.02479).
 
 \providecommand{\Hom}{\mathrm{Hom}}
 \providecommand{\End}{\mathrm{End}}
@@ -25,6 +25,8 @@
 \providecommand{\Crit}{\mathrm{Crit}}
 \providecommand{\Mod}{\text{-}\mathrm{Mod}}
 \providecommand{\Db}{D^{b}}
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\cC}{\mathcal C}
 \providecommand{\cY}{\mathcal Y}
 \providecommand{\cU}{\mathcal U}
 \providecommand{\cF}{\mathcal F}
@@ -34,139 +36,300 @@
 \providecommand{\cA}{\mathcal A}
 \providecommand{\bA}{\mathbb A}
 \providecommand{\bC}{\mathbb C}
+\providecommand{\bQ}{\mathbb Q}
 \providecommand{\bZ}{\mathbb Z}
+\providecommand{\BM}{\mathrm{BM}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\cZ}{\mathcal Z}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
 
-\section*{Wave-17 B3: the positive-half sheaf $\cY^{+}_{X}$ on a CY$_{3}$}
+\section*{The positive half sheaf $\cY^{+}_{X}$ on a CY$_3$}
 
-The affine construction $\CoHA(U,W_{U})$ of Kontsevich--Soibelman~2008
-attaches to a quiver-with-potential presentation of a CY$_{3}$ chart a
-graded algebra whose underlying space is
-$\bigoplus_{d}\cH^{*}_{T}(\Crit(W_{d});\varphi_{W}\bZ)$.  The content of
-this note is to show that these chart-level CoHAs glue to a sheaf of
-algebras $\cY^{+}_{X}$ on $X$ whose global sections recover the
-positive-half BPS quantum group $Y^{+}(X)$.  Five attack--heal cycles.
+Let $X$ be a smooth quasi-projective CY$_3$ equipped with an effective
+compact-support category $\cC_X^{+}$.  A positive Hall sheaf on $X$ is
+the descent, when it exists, of the local Kontsevich--Soibelman
+positive halves attached to oriented critical charts.  The topology is
+carried by the cover; the algebra is carried by the extension
+correspondence.
 
-\subsection*{Cycle 1: sheafification on a toric chart.}
+\subsection*{Critical Hall charts}
 
-Fix a smooth quasi-projective CY$_{3}$ $X$ with a Van den Bergh NCCR
-cover $\{U_{i}\}_{i\in I}$: each $U_{i}=\Spec R_{i}$ carries a tilting
-bundle $\mathcal P_{i}$ with $\Lambda_{i}=\End_{X}(\mathcal P_{i})$ a
-Jacobi algebra $\bC\langle Q_{i}\rangle/\partial W_{i}$ of a
-quiver-with-potential $(Q_{i},W_{i})$ (Van den Bergh~2004, Theorem~B).
-Set
+A critical Hall chart is a quadruple
 \[
-  \cY^{+}_{X}(U_{i}) \;:=\; \CoHA(Q_{i},W_{i})
-  \;=\;\bigoplus_{d\in\mathbb N^{Q_{i,0}}}
-         \cH^{*}_{G_{d}}\!\bigl(\Crit(W_{i,d})
-                        ;\,\varphi_{W_{i,d}}\mathbb Q\bigr),
+  \alpha=(U_{\alpha},Q_{\alpha},W_{\alpha},\theta_{\alpha}),
+  \qquad U_{\alpha}=\Spec R_{\alpha},
 \]
-with product the Kontsevich--Soibelman convolution on the stack of
-short exact sequences (Kontsevich--Soibelman~2008, \S 6--7;
-Davison--Meinhardt~2020, Theorem~A).  The constructibility of
-$\varphi_{W}\mathbb Q$ (Behrend 2009, \S 1.1) and the $T$-equivariant
-finiteness on each $d$-stratum give a presheaf valued in graded
-$H^{*}_{T}(\mathrm{pt})$-algebras.
-
-\subsection*{Cycle 2: restriction along open inclusions.}
-
-For $U'\subset U$ a toric subchart --- equivalently, a localisation
-$R\to R[f^{-1}]$ inducing a full subquiver
-$(Q',W')\hookrightarrow(Q,W)$ with $W'=W|_{Q'}$ --- the inclusion
-$\iota\colon\mathrm{Rep}(Q',d')\hookrightarrow\mathrm{Rep}(Q,d)$ is
-$G_{d'}$-equivariantly closed, and $\iota^{*}\varphi_{W}=\varphi_{W'}$
-by Thom--Sebastiani for vanishing cycles (Kontsevich--Soibelman~2008,
-Theorem~7.1).  Pullback on equivariant vanishing-cycle cohomology
-supplies a restriction
+where $(Q_{\alpha},W_{\alpha})$ is a $3$-Calabi-Yau Jacobi model for the
+chosen local category of compactly supported effective objects, and
+$\theta_{\alpha}$ is an orientation, equivalently a square root of the
+virtual canonical line, on the associated $d$-critical moduli stack.  For
+a dimension vector $\mathbf d$ put
 \[
-  \rho_{UU'}\colon \cY^{+}_{X}(U)\longrightarrow \cY^{+}_{X}(U')
+  \cM_{\alpha,\mathbf d}
+  =
+  \Crit\!\left(\Tr(W_{\alpha,\mathbf d})\right)/
+  G_{\mathbf d},
+  \qquad
+  G_{\mathbf d}=\prod_{i\in Q_{\alpha,0}}\GL_{d_i}.
 \]
-which commutes with the convolution product because both sides use the
-same short-exact-sequence stack restricted to $Q'$-representations
-(Davison--Meinhardt~2020, Proposition~3.12).  Transitivity
-$\rho_{U'U''}\rho_{UU'}=\rho_{UU''}$ is automatic from
-functoriality of $\iota^{*}$.  This defines a presheaf of graded
-algebras on the NCCR cover.
-
-\subsection*{Cycle 3: overlap cocycle via Morita equivalence.}
-
-For $U,V$ with $U\cap V\neq\emptyset$, the two NCCR presentations give
-two tilting objects $\mathcal P_{U},\mathcal P_{V}$ on $U\cap V$.  Van
-den Bergh~2004, Theorem~B (uniqueness of NCCRs in dimension~3 up to
-Morita equivalence) produces a derived equivalence
+The local positive Hall algebra is
 \[
-  \Phi_{UV}\colon
-  \Db\!\bigl(\Lambda_{U}|_{U\cap V}\text{-}\mathrm{mod}\bigr)
-  \;\xrightarrow{\;\sim\;}\;
-  \Db\!\bigl(\Lambda_{V}|_{U\cap V}\text{-}\mathrm{mod}\bigr)
+  \cH_{\alpha}^{+}
+  =
+  \CoHA(Q_{\alpha},W_{\alpha})
+  =
+  \bigoplus_{\mathbf d\in\bZ_{\geq 0}^{Q_{\alpha,0}}}
+  H^{\BM}_{G_{\mathbf d}}\!
+  \left(
+    \Crit(\Tr(W_{\alpha,\mathbf d})),
+    \varphi_{\Tr(W_{\alpha,\mathbf d})}\bQ\otimes\theta_{\alpha,\mathbf d}
+  \right).
 \]
-realised by a two-sided tilting complex $T_{UV}$.  Bridgeland~2002
-(Invent.\ Math.\ 147) shows $\Phi_{UV}$ restricts to a stack-level
-equivalence of moduli of stable representations preserving the critical
-locus of $W$, so it induces an isomorphism
+The Hall product is the convolution attached to the correspondence
 \[
-  \phi_{UV}\colon \cY^{+}_{X}(U)|_{U\cap V}
-  \;\xrightarrow{\;\sim\;}\; \cY^{+}_{X}(V)|_{U\cap V}
+  \cM_{\alpha,\mathbf d_1}\times\cM_{\alpha,\mathbf d_2}
+  \xleftarrow{\ p\ }
+  \cE_{\alpha,\mathbf d_1,\mathbf d_2}
+  \xrightarrow{\ q\ }
+  \cM_{\alpha,\mathbf d_1+\mathbf d_2},
 \]
-on convolution algebras via the isomorphism of vanishing-cycle sheaves
-$\varphi_{W_{U}}\mathbb Q\cong\varphi_{W_{V}}\mathbb Q$ under the Morita
-equivalence (Kontsevich--Soibelman~2008, \S 2.5; Behrend~2009, Theorem~1.5).
+where $\cE_{\alpha,\mathbf d_1,\mathbf d_2}$ is the stack of short exact
+sequences with subobject of class $\mathbf d_1$ and quotient of class
+$\mathbf d_2$.  The map $p$ records the two endpoints, the map $q$
+records the middle term, and the Thom--Sebastiani isomorphism identifies
+the vanishing-cycle coefficients.  Hence $a*b=q_{!}p^{*}(a\boxtimes b)$
+is associative by the two-step flag correspondence.  The algebra
+$\cH_{\alpha}^{+}$ is therefore an $E_1$ Hall algebra graded by the
+effective cone.  The opposite half, Cartan factor, Hopf pairing,
+coproduct, and half-braiding begin after additional double or centre
+data have been supplied.
 
-\subsection*{Cycle 4: the cocycle condition on triple overlaps.}
+\subsection*{Restriction data}
 
-On $U\cap V\cap W$ the three tilting complexes
-$T_{UV},T_{VW},T_{UW}$ compose: $T_{VW}\otimes^{L}_{\Lambda_{V}}T_{UV}$
-is a two-sided tilting complex from $\Lambda_{U}|_{U\cap V\cap W}$ to
-$\Lambda_{W}|_{U\cap V\cap W}$, and its class in the derived Picard
-group coincides with $[T_{UW}]$ because both come from the same
-coherent sheaf $\mathcal P_{W}\otimes\mathcal P_{U}^{\vee}$ on the
-triple overlap (Van den Bergh~2004, \S 5; Rouquier~2005).  Taking
-induced automorphisms on convolution CoHAs:
+A restriction map between Hall charts is a functorial critical square
+over an inclusion of open sets.  For $V\subset U$ in a chosen chart
+system one needs an exact restriction functor
 \[
-  \phi_{VW}\circ\phi_{UV} \;=\; \phi_{UW}
-  \qquad\text{on } U\cap V\cap W.
+  r_{UV}\colon \cC_{U}^{+}\longrightarrow \cC_{V}^{+}
 \]
-Equivalently, the cocycle $\{\phi_{UV}\}$ is trivialised by the global
-tilting datum $\{\mathcal P_{i}\}$, whose consistency is exactly the
-compatibility of Van den Bergh resolutions under flops
-(Bridgeland~2002, Theorem~1.2).  Hence $\cY^{+}_{X}$ is a sheaf of
-graded algebras on $X$ in the Zariski (and \'etale) topology.
+preserving compact support, effective classes, orientation lines, and
+the Hall correspondence of extensions.  In a toric localization
+$R\to R[f^{-1}]$ this operation is derived base change of the Jacobi
+algebra.  Deleting vertices from a quiver gives the correct map exactly
+when the localized category is represented by that full subquiver and
+the potential restricts compatibly.
 
-\subsection*{Cycle 5: global sections and $Y^{+}(X)$.}
+Under these hypotheses the critical stacks form Cartesian diagrams over
+the representation stacks, with compatible functions and orientation
+lines.  Base change for vanishing cycles gives
+\[
+  \rho_{UV}\colon \cH_{U}^{+}\longrightarrow \cH_{V}^{+}.
+\]
+Compatibility of the restriction square with the short-exact-sequence
+stack gives
+\[
+  \rho_{UV}\bigl(a*b\bigr)=\rho_{UV}(a)*\rho_{UV}(b),
+\]
+so $\rho_{UV}$ is a morphism of graded $E_1$ algebras.  For
+$W\subset V\subset U$, the equality
+$\rho_{VW}\rho_{UV}=\rho_{UW}$ is exactly the equality of the three
+restriction functors on critical stacks with their orientations.
+
+\subsection*{Morita descent}
+
+An oriented critical Hall atlas $\mathfrak A$ on $X$ consists of
+critical Hall charts $\{\alpha\}$, the restriction maps specified above,
+and transition kernels on overlaps.  On
+$U_{\alpha\beta}=U_{\alpha}\cap U_{\beta}$ a transition kernel is a
+$3$-Calabi-Yau Morita equivalence
+\[
+  T_{\alpha\beta}\colon
+  \Db(\mathrm{Jac}(Q_{\alpha},W_{\alpha})|_{U_{\alpha\beta}}\Mod)
+  \xrightarrow{\sim}
+  \Db(\mathrm{Jac}(Q_{\beta},W_{\beta})|_{U_{\alpha\beta}}\Mod)
+\]
+whose induced map on moduli identifies the $(-1)$-shifted symplectic
+derived critical stacks, the functions $\Tr(W_{\alpha})$ and
+$\Tr(W_{\beta})$ up to right-equivalence, the orientation lines, and the
+extension correspondences.  A derived Morita equivalence of the
+underlying algebras supplies the algebraic equivalence component of
+this datum; the potential, orientation, and Hall correspondence must
+also be preserved.
+
+Such a kernel induces an algebra isomorphism
+\[
+  \phi_{\alpha\beta}\colon
+  \cH_{\alpha}^{+}|_{U_{\alpha\beta}}
+  \xrightarrow{\sim}
+  \cH_{\beta}^{+}|_{U_{\alpha\beta}}.
+\]
+On triple overlaps the descent condition is the specified
+$2$-isomorphism
+\[
+  T_{\beta\gamma}\otimes^{L}T_{\alpha\beta}
+  \cong
+  T_{\alpha\gamma}
+\]
+in the oriented Morita $(2,1)$-category.  Applying vanishing-cycle
+cohomology and Hall convolution yields
+\[
+  \phi_{\beta\gamma}\circ\phi_{\alpha\beta}
+  =
+  \phi_{\alpha\gamma}.
+\]
+The descent datum $\{\cH_{\alpha}^{+},\phi_{\alpha\beta}\}$ then defines
+a sheaf of graded $E_1$ algebras on the topology in which
+$\mathfrak A$ is defined:
+\[
+  \cY^{+}_{X,\mathfrak A}.
+\]
+The subscript $\mathfrak A$ is part of the notation until atlas
+independence has been proved by compatible Morita descent.
+
+\subsection*{Derived global sections}
 
 Define
 \[
-  Y^{+}(X) \;:=\; R\Gamma\!\bigl(X,\cY^{+}_{X}\bigr)
-  \;=\; \varprojlim_{\check{C}\bullet}
-         \CoHA(U_{i_{0}\cdots i_{p}},W|_{U_{i_{0}\cdots i_{p}}}).
+  Y^{+}_{\mathrm{crit}}(X,\mathfrak A)
+  :=
+  R\Gamma\!\left(X,\cY^{+}_{X,\mathfrak A}\right)
+  \simeq
+  \Tot\!
+  \left[
+    \prod_{\alpha}\cH_{\alpha}^{+}
+    \longrightarrow
+    \prod_{\alpha,\beta}\cH_{\alpha\beta}^{+}
+    \longrightarrow
+    \prod_{\alpha,\beta,\gamma}\cH_{\alpha\beta\gamma}^{+}
+    \longrightarrow\cdots
+  \right].
 \]
-Convergence of the \v Cech spectral sequence is the CY$_{3}$-acyclicity
-statement: by Joyce--Song~2012, Theorem~5.14, the moduli stack of
-compactly-supported coherent sheaves on a smooth CY$_{3}$ is locally
-modelled on $\Crit(W)$ for $W$ an analytic Chern--Simons potential, and
-Behrend~2009, \S 3.2, shows the induced vanishing-cycle cohomology is
-$H^{i}$-concentrated in degree~$0$ on each symmetrised atlas.  Higher
-\v Cech cohomology $H^{p}(X,\cY^{+}_{X})$ vanishes for $p\ge 1$ on
-affine NCCR covers because $\CoHA(Q,W)$ is a free module over
-$H^{*}_{T}(\mathrm{pt})$ on each chart (Schiffmann--Vasserot~2013,
-Theorem~3.8; Davison--Meinhardt~2020, Theorem~A).  Hence
-$R\Gamma=\Gamma$ and $Y^{+}(X)$ is the algebra of global sections of a
-sheaf, not merely a homotopy limit.  For $X$ a NCCR-covered toric
-CY$_{3}$, the resulting algebra coincides by construction with the
-BPS positive half, consistent with $\kBKM(\Phi_{N})=c_{N}(0)/2$
-(Gritsenko--Nikulin) in the $K3\times E$ specialisation and with
-$\kch(X)=\sum_{q}(-1)^{q}h^{0,q}(X)$ in the compact case.
+The object on the right is the positive half attached to the atlas.
+Ordinary global sections compute it precisely when this \v{C}ech complex is
+acyclic above degree $0$.  Freeness of each local CoHA over its
+equivariant polynomial ring is a statement about the local module;
+acyclicity remains the descent assertion for the overlap system.
 
-\subsection*{Status.}
+For $X=\bC^{3}$ there is one chart, and the \v{C}ech differential is
+absent:
+\[
+  Y^{+}_{\mathrm{crit}}(\bC^{3})
+  =
+  \CoHA(\bC^{3})
+  =
+  Y^{+}(\widehat{\mathfrak{gl}}_{1}).
+\]
+This is the Schiffmann--Vasserot positive half.  The full affine Yangian
+is the Drinfeld double obtained by adjoining the opposite half and
+Cartan part; the vertex-algebra or
+$\mathcal W_{1+\infty}$ object belongs to the centre, completion, or
+evaluation layer.
 
-Cycles 1--3 are theorems on each chart and on pairwise overlaps.
-Cycle~4 is a theorem conditional on Van den Bergh's uniqueness of
-NCCRs; it is the point where the construction goes beyond
-Kontsevich--Soibelman (who work on one chart).  Cycle~5 is a theorem in
-the toric / NCCR-covered case and a conjecture for general
-quasi-projective CY$_{3}$, pending a global vanishing-cycle package in
-the derived algebraic geometry of Gaitsgory--Rozenblyum~2017.  The
-construction is the sheaf-level upgrade of the Davison--Meinhardt
-global CoHA and the Kapranov--Vasserot surface-CoHA, realising
-$Y^{+}(X)$ as $\mathrm{Ch}^{3}$-local data glued by flop-Morita.
+\subsection*{Scalar character sheaves}
+
+The character of a positive Hall sheaf is a weaker object than the sheaf
+itself.  Given a grading and finite-dimensional graded pieces, one may
+form
+\[
+  \operatorname{ch}\cY^{+}_{X,\mathfrak A}(U)
+  =
+  \sum_{\gamma}\dim\!\left(\cY^{+}_{X,\mathfrak A}(U)_{\gamma}\right)q^\gamma .
+\]
+This scalar character sheaf records dimensions, Behrend-weighted
+Donaldson--Thomas numbers, or automorphic coefficients after the chosen
+specialisation.  It forgets multiplication, extensions, orientations,
+coproducts, and pairings.  A character sheaf determines a sheaf of
+algebras in the presence of a separate reconstruction or recognition
+theorem supplying the algebra structure and compatibility with descent.
+
+\subsection*{Boundary with doubles, centres, and $\Phi_{3}$}
+
+For every atlas $\mathfrak A$ satisfying the hypotheses above,
+$Y^{+}_{\mathrm{crit}}(X,\mathfrak A)$ is an $E_1$ positive Hall
+algebra.  A Hall-Drinfeld double requires the additional data
+\[
+  \left(
+    Y^{-}_{\mathrm{crit}}(X),\,
+    Y^{0}_{X},\,
+    \Delta_{+},\,
+    \langle-,-\rangle,\,
+    \widehat{\phantom{Y}}
+  \right),
+\]
+namely a completed opposite half, Cartan part, continuous coproduct,
+nondegenerate Hopf pairing, and completion.  Under the usual finite or
+completed topological Hopf hypotheses,
+\[
+  D_{\hbar}\!\left(Y^{+}_{\mathrm{crit}}(X)\right)
+  =
+  Y^{-}_{\mathrm{crit}}(X)
+  \widehat\otimes
+  Y^{0}_{X}
+  \widehat\otimes
+  Y^{+}_{\mathrm{crit}}(X),
+  \qquad
+  \cZ\!\left(\Rep^{E_1}(Y^{+}_{\mathrm{crit}}(X))\right)
+  \simeq
+  \Rep^{E_2}\!\left(D_{\hbar}(Y^{+}_{\mathrm{crit}}(X))\right).
+\]
+$E_2$ structure is a property of the centre, double, or representation
+layer.  The native $d=3$ output of the CY-to-chiral functor $\Phi_{3}$
+is $E_1$-chiral.
+
+For $K3\times E$, a positive Hall sheaf supplies the positive input to
+the compact BKM comparison.  Recognition of the Hall-BKM object needs
+an oriented compact critical CoHA, compact-support realisation, the
+completed double data listed above, PBW control, and a bracket-preserving
+comparison map to the Borcherds denominator.  The numerical invariants
+belong to distinct constructions:
+\[
+  \kcat(K3\times E)
+  =
+  \chi(\cO_{K3\times E})
+  =
+  \chi(\cO_{K3})\chi(\cO_E)
+  =
+  2\cdot 0
+  =
+  0.
+\]
+The compact Hodge-supertrace value is likewise
+\[
+  \kch(K3\times E)=0.
+\]
+The Heisenberg--Mukai specialisation and the fibre lattice carry their
+own scalars,
+\[
+  \kch^{\mathrm{Heis}}(K3\times E)=3,
+  \qquad
+  \kfiber(K3\times E)=24,
+\]
+while the Borcherds weight of the $\Delta_{5}$ denominator is
+\[
+  \kBKM(\Delta_{5})=\frac{c_{1}(0)}{2}=5.
+\]
+These equations are independent layer statements.  The equality for
+$\kBKM$ belongs to the denominator-recognition layer; the positive half
+sheaf is one input to that layer.
+
+\subsection*{Exact hypotheses for the general CY$_3$ case}
+
+The construction has four independent hypotheses.  First, $X$ carries an
+oriented critical Hall atlas whose charts have quiver-with-potential or
+derived critical models for the chosen effective compact-support
+category.  Second, every overlap kernel preserves the $3$-Calabi-Yau
+pairing, potential, orientation line, effective cone, and extension
+correspondence.  Third, the triple-overlap kernels satisfy the oriented
+Morita cocycle condition.  Fourth, reduction of
+$R\Gamma(X,\cY^{+}_{X,\mathfrak A})$ to ordinary
+$\Gamma(X,\cY^{+}_{X,\mathfrak A})$ requires acyclicity of the descent
+complex.
+
+With these hypotheses the sheaf $\cY^{+}_{X,\mathfrak A}$ and its
+derived positive half are constructed.  The compact double, centre, and
+BKM comparison require the additional boundary data displayed above.

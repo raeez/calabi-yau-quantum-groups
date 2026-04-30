@@ -127,7 +127,7 @@ The five anomaly constraints and their Yangian translations:
        a weak Jacobi form of weight 0 and index 1.
    (c) The Borcherds lift of phi_{0,1} must be an automorphic form of
        weight c(0)/2 = 10/2 = 5 on the Siegel upper half-space H_2.
-   (d) The Igusa cusp form Delta_5 has weight kappa_BKM = 5.
+   (d) The primitive Gritsenko-Nikulin denominator Delta_5 has weight kappa_BKM = 5.
 
    For the Yangian, modular invariance constrains the STRUCTURE FUNCTION:
      g_{K3}(z) at z -> 0: g(0) = (-1)^{24} = 1
@@ -820,7 +820,7 @@ def kappa_anomaly_dictionary() -> List[KappaAnomalyEntry]:
             anomaly_mechanism=(
                 'kappa_BKM = c(0)/2 = 10/2 = 5: the Borcherds lift weight. '
                 'Modular invariance of the genus-2 partition function '
-                'on Sp_4(Z) requires the Igusa cusp form Delta_5 of weight 5. '
+                'on Sp_4(Z) requires the primitive Gritsenko-Nikulin denominator Delta_5 of weight 5. '
                 'The weight is fixed by the elliptic genus coefficient c(0).'
             ),
             verification=(
@@ -859,7 +859,7 @@ def kappa_bkm_from_anomaly() -> Dict[str, Any]:
     The weight k = c(0)/2 is determined by the anomaly cancellation:
     - The K3 elliptic genus phi_{0,1} has c(0) = 10.
     - The Borcherds lift maps phi_{0,1} to a form of weight c(0)/2 = 5.
-    - The resulting Delta_5 is the Igusa cusp form.
+    - The resulting Delta_5 is the primitive Gritsenko-Nikulin denominator.
 
     The anomaly chain:
       K3 sigma model -> phi_{0,1} -> c(0)=10 -> Borcherds wt = 5 -> Delta_5

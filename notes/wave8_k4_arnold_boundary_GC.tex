@@ -1,193 +1,208 @@
-% Arnold-Wall singularity classification of the boundary
-% Gritsenko-Clery forms at N in {5, 7, 8}.
-% Inscribed 2026-04-22. Arnold-Wall / boundary Gritsenko-Clery channel.
-% Author: Raeez Lorgat.
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
-\providecommand{\ClaimStatusAxiomatic}{\textbf{[Axiomatic]}}
 \providecommand{\cA}{\mathcal{A}}
-\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cO}{\mathcal{O}}
 \providecommand{\paramod}[1]{\Gamma_{#1}}
 \providecommand{\paramodlvl}[2]{\Gamma_{#1}(#2)}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\H}{\mathbb{H}}
 \providecommand{\bC}{\mathbb{C}}
 \providecommand{\Div}{\mathrm{Div}}
-\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\wt}{\mathrm{wt}}
 
-\section{Arnold--Wall singularity classification of the Gritsenko--Cl\'ery
-boundary forms on $\cA_2$}
-\label{wn:sec:arnold-boundary-GC-wave8-k4}
+\section{Humbert normal slices for the Gritsenko-Cl\'ery diagonal divisor}
+\label{wn:sec:arnold-boundary-GC}
 
-\subsection*{Setting}
+\subsection*{The two automorphic index sets}
 
-On $\cA_2 = \Sp_4(\Z) \backslash \mathbb{H}_2$ the Gritsenko--Cl\'ery $2008$ census
-gives eight diagonal-divisor paramodular cusp forms $F_k$ ($k = 1, \ldots, 8$);
-the five integer-weight entries with $N_k \in \{1, 2, 3, 4, 6\}$ carry the
-$\kBKM$-programme, and the three boundary entries ($N_k \in \{3, 4\}$ at
-levels $(1, 3)$ and $(1, 4)$, half-integer and level-$(2, 2)$) sit
-\emph{outside} Mukai-admissible twist orders yet remain forced by the
-Borcherds lift. This section applies Arnold 1972 + Arnold--Gusein-Zade--Varchenko
-1985 (AGV) hypersurface-singularity classification to $|F_k(Z)|^2$ at a
-CM-like test point $Z_0 \in \cA_2$, transporting the Wave-7 analysis of
-$F_4^+$ at $Z_0 = \tfrac{1}{2}I_4$ ($\mu = 3$, Arnold $A_3$) from $\cA_4$ to
-the $\cA_2$-boundary forms.
-
-\subsection*{Test point and local analysis}
-
-Fix $Z_0 = \mathrm{diag}(i, i) \in \mathbb{H}_2$, the unique $\Sp_4(\Z)$-Humbert CM
-point on the product locus $\mathbb{H}_1 \times \mathbb{H}_1 \subset \mathbb{H}_2$. Write
-$Z = Z_0 + W$ with $W = \left(\begin{smallmatrix}w_1 & w_{12} \\ w_{12} & w_2\end{smallmatrix}\right)$
-symmetric, $|w_j|$ small. Every $F_k$ vanishes along the diagonal Humbert
-divisor $H_1 = \{w_{12} = 0\}$ to order equal to its character order $j_k/2$;
-$|F_k|^2$ vanishes to order $j_k$.
-
-\begin{theorem}[Arnold type at the Humbert point]\ClaimStatusTheorem\label{wn:thm:arnold-type-boundary-GC}
-At $Z_0 = \mathrm{diag}(i, i)$, after Petersson-metric normalisation, the
-germ of $-\log|F_k(Z)|^2$ has the following Arnold type:
+Let
+\[
+  \cA_2=\Sp_4(\Z)\backslash\H_2 .
+\]
+Gritsenko-Cl\'ery's diagonal-divisor theorem gives eight genus-two
+paramodular forms whose divisor is the diagonal Humbert divisor
+\[
+  H_1=\left\{
+    \begin{pmatrix}\tau&0\\0&\omega\end{pmatrix}
+    :\tau,\omega\in\H
+  \right\}.
+\]
+The catalogue is indexed by paramodular triples \((t,N;k)\).  Its row
+weights, character orders, and Borcherds constants are
 \[
 \begin{array}{c|c|c|c|c|c}
-k & F_k & (N_k, M_k) & j_k & \mu_k & \text{Arnold class}\\\hline
-1 & \Delta_5 & (1,1) & 2 & 1 & A_1\\
-2 & M_2(\paramod{2},\nu_4) & (2,1) & 4 & 3 & A_3\\
-3 & M_3(\paramodlvl{1}{2},\nu_2) & (1,2) & 2 & 1 & A_1\\
-4 & M_1(\paramod{3},\nu_6) & (3,1) & 6 & 5 & A_5\\
-5 & M_2(\paramodlvl{1}{3},\nu_2) & (1,3) & 2 & 1 & A_1\\
-6 & M_{1/2}(\paramod{4},\nu_8) & (4,1) & 8 & 7 & A_7\\
-7 & M_{3/2}(\paramodlvl{1}{4},\nu_4) & (1,4) & 4 & 3 & A_3\\
-8 & M_1(\paramodlvl{2}{2},\nu_4) & (2,2) & 4 & 3 & D_4
+r&F_r&(t,N)&\wt(F_r)&m_r&c_r^{\mathrm{dd}}(0)\\ \hline
+1&\Delta_5&(1,1)&5&2&10\\
+2&M_2(\paramod{2},\nu_4)&(2,1)&2&4&4\\
+3&M_3(\paramodlvl{1}{2},\nu_2)&(1,2)&3&2&6\\
+4&M_1(\paramod{3},\nu_6)&(3,1)&1&6&2\\
+5&M_2(\paramodlvl{1}{3},\nu_2)&(1,3)&2&2&4\\
+6&M_{1/2}(\paramod{4},\nu_8)&(4,1)&1/2&8&1\\
+7&M_{3/2}(\paramodlvl{1}{4},\nu_4)&(1,4)&3/2&4&3\\
+8&M_1(\paramodlvl{2}{2},\nu_4)&(2,2)&1&4&2
 \end{array}
 \]
-Entries $k = 1, \ldots, 7$ are simple $A_{j_k - 1}$ singularities in the
-AGV $\mathcal{A}_{\mu}\mathcal{D}_{\mu}\mathcal{E}_{\mu}$ table; entry $k = 8$
-is the first non-$A$-type, of $D_4$ class.
+where \(m_r\) is the order of the multiplier and
+\[
+  c_r^{\mathrm{dd}}(0)=2\wt(F_r)=(10,4,6,2,4,1,3,2).
+\]
+The primitive CHL Borcherds ladder uses the distinct order set
+\[
+  N\in\{1,2,3,4,6\},\qquad
+  c_N(0)=(10,8,6,4,2),\qquad
+  \kBKM(\Phi_N)=(5,4,3,2,1).
+\]
+The common row is \(F_1=\Delta_5=\Phi_1\), with
+\(\kBKM(\Delta_5)=10/2=5\).  The monic denominator convention is
+\[
+  D_5=64^{-1}\Delta_5 .
+\]
+
+\subsection*{Local chart}
+
+Fix
+\[
+  Z_0=\operatorname{diag}(i,i)\in H_1\subset\H_2
+\]
+and write
+\[
+  Z=Z_0+W,\qquad
+  W=
+  \begin{pmatrix}w_1&w_{12}\\ w_{12}&w_2\end{pmatrix}.
+\]
+On the analytic cover \(\H_2\), the selected branch of \(H_1\) is
+\(\{w_{12}=0\}\).  The finite stabiliser of \(Z_0\), the multiplier
+system of \(F_r\), and the half-integral square-root convention are
+quotient data.  The divisor computation is made first on a local
+character cover, then descended to the quotient stack.
+
+\begin{theorem}[Normal slice of the diagonal divisor]
+\label{wn:thm:arnold-type-boundary-GC}
+Let \(F_r\) be one of the eight Gritsenko-Cl\'ery forms.  On a
+sufficiently small analytic character cover \(U\) of \(Z_0\), choose the
+branch of the preimage of \(H_1\) given by \(x=w_{12}=0\).  Then
+\[
+  F_r=u_r x,\qquad u_r(0)\neq0 .
+\]
+Consequently:
+\[
+\begin{array}{c|c|c|c|c}
+r&m_r&\Div(F_r)\text{ on }U&|F_r|^2\text{ normal form}
+&F_r^{m_r}\text{ normal-slice class}\\ \hline
+1&2&\text{smooth}&\xi^2+\eta^2&A_1\\
+2&4&\text{smooth}&\xi^2+\eta^2&A_3\\
+3&2&\text{smooth}&\xi^2+\eta^2&A_1\\
+4&6&\text{smooth}&\xi^2+\eta^2&A_5\\
+5&2&\text{smooth}&\xi^2+\eta^2&A_1\\
+6&8&\text{smooth}&\xi^2+\eta^2&A_7\\
+7&4&\text{smooth}&\xi^2+\eta^2&A_3\\
+8&4&\text{smooth}&\xi^2+\eta^2&A_3
+\end{array}
+\]
+Here \(x=\xi+i\eta\).  The \(A_{m_r-1}\) entry belongs to the
+one-variable normal slice of the character-trivialising power
+\(F_r^{m_r}\); the form \(F_r\) itself has a smooth divisor germ.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
-Expand $F_k(Z_0 + W) = w_{12}^{j_k/2} \cdot G_k(w_1, w_2) + O(w_{12}^{j_k/2 + 1})$
-with $G_k(i, i) \neq 0$ (non-vanishing normal-form coefficient, verified via
-$q$-expansion of the Borcherds product near the Humbert cusp; Gritsenko 1995
-Dimension Formula rules out $G_k \equiv 0$). Then
-$|F_k|^2 = |w_{12}|^{j_k} |G_k|^2$ locally. The germ of
-$-\log|F_k|^2 = -j_k\log|w_{12}| - \log|G_k|^2$ carries an isolated
-critical point at $w_{12} = 0$ after the logarithmic change $u = \log w_{12}$
-on the universal cover. Under the reduction of AGV \S11 (\emph{real
-singularities with cyclic $\Z/j_k$ monodromy around $u$}), the equivalent
-right-equivalence class is $A_{j_k - 1}$ for $k \leq 7$. At $k = 8$ the two
-components $w_{12}$ and $w_1 - w_2$ of $\Div F_8$ meet transversely at $Z_0$
-(the $(2,2)$-level imposes two Humbert-type conditions), giving a germ
-$w_{12}^2 + (w_1 - w_2)^2 \cdot w_{12}$ after Morse reduction — the $D_4$
-normal form $x^2 y + y^3$ under $x = w_{12}$, $y = w_1 - w_2$. Milnor
-$\mu_8 = 3 + 1 = 4$ unadjusted; post-rectification on the level-$(2,2)$
-moduli gives $\mu_8 = 4$ (AGV Table, $D_4$).
+\begin{proof}
+Gritsenko-Cl\'ery, Theorem~1.4, states that each row has diagonal
+divisor \(H_1\) with multiplicity one on the relevant paramodular
+quotient and character cover.  After shrinking \(U\), the local ring
+\(\cO_{U,Z_0}\) is regular and \(x=w_{12}\) is a reduced local equation
+for the selected branch of \(H_1\).  Multiplicity one gives
+\[
+  F_r\in (x),\qquad F_r\notin (x^2),
+\]
+so \(F_r/x\) is a unit.  This proves \(F_r=u_rx\).
+
+The divisor germ \(F_r=0\) is therefore smooth.  The squared Petersson
+norm satisfies
+\[
+  |F_r|^2=|u_r|^2|x|^2 .
+\]
+The factor \(|u_r|^2\) is a positive smooth unit, and the real Morse
+lemma gives the normal form \(\xi^2+\eta^2\) in the real normal plane.
+
+The multiplier of \(F_r\) has order \(m_r\), hence \(F_r^{m_r}\) is
+single-valued on the corresponding quotient.  On the normal slice
+transverse to \(H_1\),
+\[
+  F_r^{m_r}=u_r^{m_r}x^{m_r}
+\]
+is right-equivalent to \(x^{m_r}\).  The Milnor algebra is
+\[
+  \bC\{x\}/(\partial_x x^{m_r})
+  =
+  \bC\{x\}/(x^{m_r-1}),
+\]
+of dimension \(m_r-1\).  This is the simple \(A_{m_r-1}\) normal-slice
+singularity in the Arnold-Gusein-Zade-Varchenko classification.
 \end{proof}
 
-\subsection*{Attack--heal cycles}
+\subsection*{The \(D_4\) requirement}
 
-\paragraph{Cycle 1 (half-integer weight on $\Mp_2$).}
-\emph{Attack.} $F_6 = M_{1/2}$ lives on $\widetilde{\cA}_2 = \Mp_4(\Z) \backslash \mathbb{H}_2$
-(Gritsenko--Nikulin 1998 \S1.3); does Arnold right-equivalence pull back?
-\emph{Heal.} The metaplectic cover is a $2$-fold cover, branched along
-$\Div \Delta_5$; away from branch, local rings and their right-equivalence
-classes lift identically. At the Humbert point $Z_0 \notin \Div \Delta_5$
-(distinct Nikulin orbits), so AGV applies unchanged. Arnold $A_7$.
+The \(D_4\) normal form \(x^2y+y^3\) has Milnor number \(4\) and a
+three-line tangent cone over \(\bC\).  A proof of \(D_4\) at the
+\((2,2)\) row requires an explicit local equation supplying the extra
+branches or an equivalent cubic normal form.  The Gritsenko-Cl\'ery
+diagonal-divisor theorem supplies one simple \(H_1\)-branch at the
+chosen point.  The available theorem therefore gives the smooth
+divisor normal form for \(F_8\) and the \(A_3\) class for the
+normal-slice power \(F_8^4\).
 
-\paragraph{Cycle 2 (super-algebra at $N = 8$ equivalent, the integer-level split).}
-\emph{Attack.} At $N = 8$ the relevant paramodular lift sits on $M_1(\paramodlvl{2}{2},\nu_4)$
-(entry $k = 8$; the $(N, M) = (2, 2)$ form is the integer-weight avatar of
-the half-integer $F_6 \cdot F_7^{-1}$ split). Does fermionic simplicity at $N = 8$
-(Mukai cap, one odd-$Z$ root, superdimension bound) force non-isolated
-singularity? \emph{Heal.} The odd simple root at $N = 8$ sits on
-$\Lambda^{2,1}_{II}(4)$, not in the $w_{12}$-direction; at $Z_0$ the odd
-component pulls back trivially (its lift to $\cA_2$ is at a different cusp,
-Gritsenko--Cl\'ery 2008 Prop.\ 5.2). Isolation preserved; Milnor number
-$\mu_8 = 4$, $D_4$.
+\subsection*{BKM and \(K3\times E\) constants}
 
-\paragraph{Cycle 3 (Baily--Borel boundary at $N$-level).}
-\emph{Attack.} $\partial \overline{\cA}_2^{\mathrm{BB}}$ stratifies into
-$\cA_1$-rank-1 and point-rank-0 boundary strata; at $N$-level
-($\paramod{N}$-quotient) each stratum refines into $\sigma_0(N)$ rank-1
-cusps (Hermite--Humbert zero-divisor count). \emph{Heal.} At $N = 5$ the
-cusp count is $\sigma_0(5) = 2$; at $N = 7$, $\sigma_0(7) = 2$; at $N = 8$,
-$\sigma_0(8) = 4$. The Arnold class at the \emph{rank-0} point-cusp is
-$\cup_{d | N} A_{d-1}$ (Mumford 1977 cusp-resolution of Hilbert modular
-surfaces), a disjoint union of ADE strata indexed by divisors of $N$.
-For $N \in \{5, 7\}$: $\{A_0, A_4\}$ and $\{A_0, A_6\}$. For $N = 8$:
-$\{A_0, A_1, A_3, A_7\}$. Boundary and interior classifications match
-through the Fricke--Atkin--Lehner $W_N$-involution.
-
-\paragraph{Cycle 4 (non-ADE for boundary / CHL).}
-\emph{Attack.} Do $N \in \{5, 7, 8\}$ give non-ADE (Arnold-exceptional) classes
-$J_{k,i}$ or $Z_{k,i}$? \emph{Heal.} Looijenga 1985 \emph{Isolated Singular
-Points on Complete Intersections} \S15: for cyclic $\Z/N$-covers of rational
-double points of ADE type, the quotient is again ADE precisely when
-$N \leq 8$ and the action is free outside codimension $\geq 2$. At
-$N \in \{5, 7\}$ admissibility fails (non-Niemeier, CHL forbids); however,
-the Arnold class at the \emph{local} Humbert point is determined by the
-character order $j_k$ alone, independent of Niemeier embedding. Hence
-entries $k = 4$ ($N = 3$, $j = 6$, $A_5$) and $k = 6$ ($N = 4$ half-integer,
-$j = 8$, $A_7$) stay ADE. The non-ADE exceptional classes first appear at
-$N \geq 9$, outside Mukai's cap and outside the Gritsenko--Cl\'ery table.
-
-\paragraph{Cycle 5 (BKM Cartan type correspondence, hidden observation).}
-\emph{Attack.} Does the Arnold class encode the BKM Cartan type of
-$\fg_{F_k}$? \emph{Heal.} For $k = 1$, $\Delta_5$: $A_1$ Arnold = rank-3
-BKM $\fg_{\Delta_5}$ with simple-root $A$-chain matrix
-$\left(\begin{smallmatrix}2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2\end{smallmatrix}\right)$
-— affine-Heisenberg $A_1^{(1)}$ spine. For $k = 8$, $D_4$ Arnold =
-$\fg_{F_8}$ with $D_4$-type coinvariant lattice
-$\mathrm{II}_{1,9}(2) \supset D_4$ and Heisenberg-triality simple-root
-spinor structure. The dictionary
+Borcherds' weight theorem gives
 \[
-\text{Arnold class at } Z_0 \leftrightarrow \text{BKM Cartan type on } \Lambda^{2,1}_{II}(N_k)
+  \kBKM(\Psi_f)=\wt(\Psi_f)=c_f(0)/2
 \]
-is $\mathbb{Z}/j_k$-cyclic monodromy-matched ($A_{j-1}$, Heisenberg
-rank $j$) for $k = 1, \ldots, 7$, and triality-Heisenberg ($D_4$,
-rank-4 spinor) for $k = 8$.
-
-\subsection*{Singularity dictionary}
-
+for a Borcherds product with fixed input, chamber, character, and
+normalisation.  Applied to the CHL ladder this is
 \[
-\boxed{
-\begin{array}{c|cccccccc}
-k & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\\hline
-(N_k, M_k) & (1,1) & (2,1) & (1,2) & (3,1) & (1,3) & (4,1) & (1,4) & (2,2)\\
-j_k & 2 & 4 & 2 & 6 & 2 & 8 & 4 & 4\\
-\mu_k & 1 & 3 & 1 & 5 & 1 & 7 & 3 & 4\\
-\text{Arnold} & A_1 & A_3 & A_1 & A_5 & A_1 & A_7 & A_3 & D_4\\
-\text{BKM spine} & A_1^{(1)} & A_3 & A_1^{(1)} & A_5 & A_1^{(1)} & A_7 & A_3 & D_4
-\end{array}}
+  \kBKM(\Phi_N)=(5,4,3,2,1)
+  \quad(N=1,2,3,4,6).
 \]
+Applied row by row to the diagonal-divisor catalogue it reads
+\[
+  \kBKM(F_r)=\wt(F_r)
+  =(5,2,3,1,2,1/2,3/2,1).
+\]
+These are automorphic weights.  The local Humbert normal form is
+governed by the multiplicity-one divisor statement.
 
-\subsection*{Invariants and scope}
+For the compact \(K3\times E\) branch,
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)=3,
+\]
+and
+\[
+  \kBKM(\Delta_5)=5,\qquad
+  \kfiber(K3)=24.
+\]
+Thus the four construction-specific values are
+\[
+  \{0,3,5,24\}.
+\]
+An Arnold normal-slice class supplies local vanishing-cycle data.  A
+Cartan matrix comparison for the Borcherds-Kac-Moody algebra requires a
+map from vanishing cycles at \(Z_0\) to simple roots.
 
-$\kBKM(F_k) = c_{N_k}(0)/2$ (Theorem~\ref{wn:thm:eight-dd-forms-full});
-$\kappa_{\mathrm{cat}}((K3\times E)/\Z_{N_k}) = 0$ K\"unneth-multiplicative;
-Milnor numbers $\mu_k \in \{1, 3, 1, 5, 1, 7, 3, 4\}$; all classes simple
-(ADE). Comparison to Wave-7 C3: $F_4^+$ at $Z_0 = \tfrac{1}{2}I_4$ has
-$\mu = 3$, $A_3$; this matches $F_2$ and $F_7$ in the $\cA_2$-table,
-consistent with the $\cA_4 \to \cA_2$ Kuga--Satake Humbert restriction
-(Wave-7 synthesis line 201 + line 198).
+\subsection*{Source anchors}
 
-\paragraph{Chain-level vs $(\infty,1)$-categorical.} Chain-level: explicit
-$q$-expansion of $F_k$ near $Z_0$ gives the Milnor number directly.
-$(\infty,1)$-categorical: the Arnold class is the isomorphism class of
-the vanishing-cycles fibre $\mathrm{Vansh}(F_k)_{Z_0}$ as a perverse
-sheaf on $\cA_2$ — encoded in the $(\infty,1)$-category of
-$\mathrm{MHM}(\cA_2)$ (Saito).
-
-\paragraph{File:line declaration.}
-\texttt{notes/wave8\_k4\_arnold\_boundary\_GC.tex},
-Arnold--Wall / boundary Gritsenko--Cl\'ery channel, K4/20. Siblings:
-\S\ref{wn:sec:gritsenko-clery-wave7-d2-eight-forms-full}
-(GC 8-form table, Wave-7 D2); Wave-7 synthesis line 201 ($F_4^+$ Arnold
-$A_3$ at $\cA_4$). Cite: Arnold (1972, Russ.\ Math.\ Surv.\ 27); Arnold--
-Gusein-Zade--Varchenko (1985, \emph{Singularities of Differentiable Maps}
-Vol.\ I, Ch.\ 11--15); Looijenga (1985, \emph{Isolated Singular Points on
-Complete Intersections}, LMS Lecture Notes 77); Gritsenko--Cl\'ery (2008,
-Max Planck Preprint); Mumford (1977, \emph{An Analytic Construction of
-Degenerating Abelian Varieties over Complete Rings}, Compositio
-Math.\ 24); Gritsenko--Nikulin (1998, Amer.\ J.\ Math.\ 119); Lorgat (2020).
+Gritsenko-Cl\'ery, \emph{The Siegel modular forms of genus \(2\) with
+the simplest divisor}, arXiv:0812.3962, Theorems~1.4 and~3.1: the
+eight diagonal-divisor forms and the row-wise Borcherds product
+weights.  Borcherds, \emph{Automorphic forms with singularities on
+Grassmannians}, Invent.\ Math.\ 132 (1998), Theorem~13.3: the weight
+formula \(c(0)/2\).  Arnold-Gusein-Zade-Varchenko,
+\emph{Singularities of Differentiable Maps}, Vol.~I, Chs.~11-15:
+the \(A_\mu\) simple singularities.  The Vol~III Borcherds-weight
+theorem and eight-form catalogue theorem fix the CHL constants, the GC
+catalogue constants, and the \(K3\times E\) invariant spectrum;
+Gritsenko-Nikulin fixes the monic denominator
+\(D_5=64^{-1}\Delta_5\).

@@ -1,10 +1,3 @@
-% wave14_i3_deformation_hCS.tex
-% Wave-14 I3/20: Deformation complex of 6D hCS factorisation algebra on $\C^3$.
-% Channel: Lurie--Beilinson.
-% Five attack-heal cycles: compute $\Def(\Obs_{\hCS})$ at abelian $\g$, recognise
-% as chiral Dolbeault CE, twist by $\psi\in\Omega^{0,3}(\C^3)$, holographic
-% image as 5D boundary VOA deformation, chain-level vs $(\infty,1)$-lane parity.
-
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\hCS}{\mathrm{hCS}}
 \providecommand{\Ch}{\mathrm{Ch}}
@@ -16,197 +9,325 @@
 \providecommand{\CE}{\mathrm{CE}}
 \providecommand{\Sym}{\mathrm{Sym}}
 \providecommand{\Hol}{\mathrm{Hol}}
-\providecommand{\Tr}{\mathrm{Tr}}
-\providecommand{\g}{\mathfrak{g}}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Alg}{\mathrm{Alg}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\End}{\operatorname{End}}
+\providecommand{\BV}{\mathrm{BV}}
 \providecommand{\dbar}{\bar\partial}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cE}{\mathcal{E}}
 \providecommand{\cA}{\mathcal{A}}
-\providecommand{\Alg}{\mathrm{Alg}}
-\providecommand{\MC}{\mathrm{MC}}
-\providecommand{\id}{\mathrm{id}}
-\providecommand{\VOA}{\mathrm{VOA}}
-\providecommand{\BV}{\mathrm{BV}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\fa}{\mathfrak{a}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\Zchder}{Z^{\mathrm{der}}_{\mathrm{ch}}}
 
-\section*{Deformation complex of 6D hCS on $\C^3$ (Wave-14 I3/20)}
+\section*{Deformation Complex of Six-Dimensional hCS on $\C^3$}
 
-\paragraph{Theorem (main).}
-Let $\Obs_{\hCS}$ be the $E_3$-algebra of quantum observables for
-holomorphic Chern--Simons theory on $\C^3$ with abelian gauge algebra
-$\g$ (Wave-13 E3; Costello--Gwilliam Vol~II Thm~9.3.1).  Then the
-formal deformation complex
+\paragraph{The local hCS datum.}
+Let \(X=\C^3\) with holomorphic volume form
 \[
-  \Def(\Obs_{\hCS})
-  \;=\;
-  \HH^\ast_{E_3}\bigl(\Obs_{\hCS},\Obs_{\hCS}\bigr)[3]
+  \Omega=dz_1\wedge dz_2\wedge dz_3,
 \]
-is, at the Dolbeault chain level, quasi-isomorphic to
+and let \((\fg,\langle-,-\rangle)\) be a finite-dimensional quadratic
+complex Lie algebra. On a relatively compact open \(U\subset X\), the
+classical holomorphic Chern--Simons local Lie algebra is
 \[
-  \CE^\ast_{\dbar,\mathrm{chir}}\!\bigl(\cE_{\hCS}\oplus\cE_{\hCS}[2],\,
-  \cO_{\C^3}\bigr)
-  \;\simeq\;
-  \Omega^{0,\ast}(\C^3)\otimes\Sym\!\bigl(\g^\vee[-1]\oplus\g[-2]\bigr),
+  \fh_{\hCS}(U)
+  =
+  \Omega^{0,\bullet}_c(U,\fg)[1],
+  \qquad
+  \ell_1=\dbar,
+  \qquad
+  \ell_2(\alpha,\beta)=[\alpha\wedge\beta]_{\fg},
+  \qquad
+  \ell_n=0\quad(n\geq3).
 \]
-with $\dbar$-differential on the Dolbeault factor and the chiral
-Chevalley--Eilenberg differential on the Lie factor (degree shifts
-tracked by Francis 2013 Thm~1.1 and Tamarkin 2003 Thm~1.1).
-
-\paragraph{Cycle~1: the Francis--Lurie identification.}
-\emph{Attack.}  Lurie, \emph{Higher Algebra} Cor.~5.3.1.15, shows that
-for an $E_n$-algebra $A$ in a stable presentable symmetric monoidal
-$\infty$-category, the tangent space to the moduli functor
-$\Alg_{E_n}\to\mathrm{Spaces}$ at $A$ is
-$T_A\Alg_{E_n}\simeq\HH^\ast_{E_n}(A,A)[n]$.  Francis 2013
-(\emph{Compos.~Math.} 149, Thm~1.1) upgrades this to a formal moduli
-problem: $\Def(A)=\HH^\ast_{E_n}(A,A)[n]$ carries a canonical
-$L_\infty$-structure controlling first-order and obstructed
-deformations through the $E_n$-operad Kodaira--Spencer map.
-For $n=3$ and $A=\Obs_{\hCS}$ the shift is $[3]$; the deformation
-differential $\delta_{\Def}$ decomposes as $\dbar_{\mathrm{ext}}+
-d_{E_3\mathrm{-CE}}$ because $\Obs_{\hCS}$ lives in $\Ch(\Dolb)$.
-\emph{Heal.}  The Francis/Lurie statements assume a symmetric monoidal
-ambient ($\Ch(\Dolb)$ with Koszul sign rule); abelian $\g$ is needed
-to trivialise the Maurer--Cartan of the bracket so that
-$\Obs_{\hCS}=\Sym^\ast_{\Omega^{0,\ast}}(\cE_{\hCS})$ is a free
-commutative factorisation algebra and the $E_3$-Hochschild complex
-reduces to the symmetric one.
-
-\paragraph{Cycle~2: Tamarkin recognition.}
-\emph{Attack.}  Tamarkin 2003 (arXiv:math/0310273, Thm~1.1) identifies,
-for a commutative algebra $R$ and a Lie algebra $L$ over $R$ with
-$R$-linear representation $M$, the Hochschild-type complex
-$\HH^\ast_{E_n}(\Sym_R(L[1-n]),M)$ with the CE cochains of $L$ acting
-on $M$ twisted by an $n$-shifted Poisson bracket.  Apply with $R=
-\Omega^{0,\ast}(\C^3)$, $L=\cE_{\hCS}\simeq\Omega^{0,\ast}(\C^3)\otimes\g[1]$
-(the $(-1)$-shifted BV field; Wave-12 A5), and $M=\Obs_{\hCS}$.  For
-abelian $\g$ the bracket on $L$ vanishes, so only the $\dbar$-twist
-survives and
+The Maurer--Cartan equation is
 \[
-  \HH^\ast_{E_3}(\Obs_{\hCS},\Obs_{\hCS})
-  \;\simeq\;
-  \CE^\ast_{\dbar,\mathrm{chir}}\bigl(\cE_{\hCS}\otimes\cE_{\hCS},\cO\bigr)
-  \;=\;
-  \Omega^{0,\ast}(\C^3)\otimes\Sym^\ast\bigl(\g^\vee\oplus\g[-1]\bigr)[n-1],
+  \dbar A+\frac12[A,A]=0,
 \]
-with $n=3$; the total shift $[n]=[3]$ for $\Def$ lifts this to the
-complex displayed in the main theorem.
-\emph{Heal.}  Tamarkin's argument uses formality of the $E_n$-operad
-in characteristic zero (Kontsevich 1999/Tamarkin 1998); the
-Dolbeault refinement $E_3^{\hol}$ of Gwilliam--Williams 2021 respects
-formality because the Fadell--Neuwirth fibration of $\Conf_k(\C^3)$
-has Dolbeault-pure cohomology (Totaro 1996 Thm~1).
-
-\paragraph{Cycle~3: twist by CY$_3$ volume form.}
-\emph{Attack.}  A first-order deformation of $\Obs_{\hCS}$ is a
-Maurer--Cartan element
-$\alpha\in\Def(\Obs_{\hCS})^1\subset\Omega^{0,1}(\C^3)\otimes\Sym(\g^\vee\oplus\g[-1])[3]$.
-The canonical CY$_3$ volume form $\Omega=dz^1\wedge dz^2\wedge dz^3$
-pairs Dolbeault degrees $(0,3)\otimes(3,0)\to\C$ via fibre integration.
-A class $\psi\in\Omega^{0,3}(\C^3)$ produces a deformation
+the integrability equation for the \(\dbar\)-operator
+\(\dbar+A\). The classical observables form the Chevalley--Eilenberg
+cochain factorisation algebra
 \[
-  \dbar\;\longrightarrow\;\dbar+\psi\cdot\Omega^{-1}\lrcorner\,
-  (\text{vertical BV Laplacian}),
+  \Obs^{\mathrm{cl}}_{\hCS}(U)
+  =
+  C^\bullet_{\CE,\mathrm{cont}}\bigl(\fh_{\hCS}(U)\bigr)
+  =
+  \widehat{\Sym}\bigl(\fh_{\hCS}(U)^\vee[-1]\bigr),
+  \qquad
+  d_{\Obs}^{\mathrm{cl}}=d_{\dbar}+d_{\ell_2}.
 \]
-which deforms the BV propagator (Costello \emph{Renormalisation} Ch.~2,
-heat-kernel regularisation) while preserving the $E_3$-coherence from
-Wave-13 E3 Cycle~5.  By Costello--Gwilliam Vol~II Thm~11.0.1.1 the
-space of such deformations at tree level is
-$H^{0,3}_{\dbar,c}(\C^3)\otimes\Sym^2(\g^\vee)^{\mathrm{ad}}$; for
-$\g$ abelian $\Sym^2(\g^\vee)^{\mathrm{ad}}=\Sym^2(\g^\vee)$ and the
-Dolbeault cohomology with compact support contributes a single class
-$[\Omega]$.
-\emph{Heal.}  The identification is first-order; second-order
-obstruction lives in $H^{0,4}_{\dbar}(\C^3)=0$ (dimension reason,
-$\dim_\C\C^3=3$ has no $(0,4)$-forms), so the deformation is
-unobstructed to all orders at the chain level.  This realises the
-Beilinson--Drinfeld chiral-vacuum deformation \emph{Chiral Algebras}
-\S3.5.19 in the holomorphic six-dimensional setting: $\psi$ plays
-the role of the central extension cocycle of the $\bar\partial$-Kac--Moody
-algebra $\Omega^{0,\ast}(\C^3)\otimes\g$.
 
-\paragraph{Cycle~4: holographic image at the 5D boundary.}
-\emph{Attack.}  Costello--Gaiotto 2019 (arXiv:1812.09257) and
-Costello--Williams 2024 \emph{Twisted Holography for 6D hCS}
-establish that 6D hCS on $\C^3$ with an $\mathbb{R}_{\geq 0}$-boundary
-is holographically dual to a 5D boundary vertex algebra
-$\cA_5=U_\hbar(\g\llbracket z,\bar z\rrbracket)$-module; the bulk
-deformation complex $\Def(\Obs_{\hCS})$ maps to the vertex-algebra
-deformation complex
-$\HH^\ast_{\mathrm{vertex}}(\cA_5,\cA_5)[2]$ via the boundary-state
-functor.  Concretely, the class $[\psi\cdot\Omega]\in\Def(\Obs_{\hCS})^1$
-maps to the central-extension cocycle $c\cdot\Tr(ab)$ of the
-Kac--Moody $\hat\g$ at the 5D boundary (Kac--Moody level
-$\hbar$-promoted to a vertex algebra central charge).
-\emph{Heal.}  The holographic identification is $(\infty,1)$-categorical
-through Koszul duality on $E_1\otimes E_2=E_3$ (Francis 2013 Thm~3.4);
-chain-level witness is the explicit propagator degeneration
-$G_{\hCS}(z,w)\big|_{\partial}\to G_{\VOA}(z,w)$ of Costello--Williams
-2024 Prop~4.3 (traceable through the Costello ``twisted holography''
-series of lectures; \texttt{arXiv:2103.16711} for the earlier
-4D/2D case with the hCS variant in preparation).  The universal
-identity $\hbar^2\cdot K^{\kch}=-1$ at Lusztig $\hbar^2=-1/8$
-(Wave-13 strand S6) becomes, under the boundary functor, the 5D VOA
-central-charge relation $c=-k^2/(k+2)$ at root-of-unity level
-$k=\hbar^{-2}-2=-6$, matching the $\cN=2$ boundary VOA of
-$\Omega^{0,\ast}(\C^3)\otimes\g$ on $\g=\mathfrak{sl}_2$ (the
-abelian-rank truncation).
+\paragraph{Quantum observables and the holomorphic \(\Ethree\)-level.}
+A quantum hCS factorisation algebra is the preceding classical
+factorisation algebra equipped with a Costello renormalisation datum:
+an elliptic gauge fixing, heat kernels, regularised propagators,
+counterterms, completed local functionals, and effective interactions
+\(I[L]\) satisfying
+\[
+  QI[L]+\frac12\{I[L],I[L]\}_L+\hbar\Delta_LI[L]=0.
+\]
+When the quantum master equation is solved, the scale-\(L\) observables
+are
+\[
+  \Obs^q_{\hCS,L}(U)
+  =
+  \left(
+  \Obs^{\mathrm{cl}}_{\hCS}(U)[[\hbar]],
+  d_{\Obs}^{\mathrm{cl}}+\{I[L],-\}_L+\hbar\Delta_L
+  \right).
+\]
+The factorisation operations over configurations in \(\C^3\) give a
+holomorphic \(\Ethree\)-factorisation algebra in \(\Ch(\Dolb)\). A
+translation-invariant Dolbeault contraction supplies an ordinary
+\(\Ethree\)-algebra model. The contraction is extra data; the
+holomorphic factorisation object is the native local object.
 
-\paragraph{Cycle~5: chain-level versus $(\infty,1)$-categorical parity.}
-\emph{Attack.}  The chain-level statement is the explicit
-$\psi\in\Omega^{0,3}(\C^3)$ twist of $\dbar$ producing a
-Maurer--Cartan element in
-$\Omega^{0,\ast}\otimes\Sym^\ast(\g^\vee\oplus\g[-1])[3]$;
-verified by direct computation of the BV Laplacian on the deformed
-propagator.  The $(\infty,1)$-categorical statement is that the
-derived stack of $E_3$-algebras in $\Ch(\Dolb)$ has cotangent complex
-at $\Obs_{\hCS}$ given by $\HH^\ast_{E_3}(\Obs_{\hCS},\Obs_{\hCS})[3]$,
-and the moduli of CY$_3$ volume forms on $\C^3$ maps to it by a
-flat morphism of derived stacks (Calaque--Pantev--To\"en--Vaqui\'e--Vezzosi
-2017 on shifted symplectic structures).
-\emph{Heal.}  Both lanes are load-bearing (CLAUDE.md ``Chain-level and
-$(\infty,1)$-categorical: equal status''): the chain-level lane
-produces the explicit propagator deformation and Dolbeault-cohomology
-obstruction count $H^{0,4}(\C^3)=0$; the $(\infty,1)$-lane produces
-the flatness of the moduli of CY$_3$ structures over the
-$E_3$-Hochschild deformation space.  Neither subsumes the other.
+\paragraph{Formal deformation complex.}
+Let \(A\) be either the solved quantum observable algebra
+\(\Obs^q_{\hCS}\), or the classical observable algebra when the
+quantum datum has not been chosen. In a stable symmetric monoidal
+ambient category, the formal deformation complex of \(A\) as an
+\(\Ethree\)-algebra is
+\[
+  \Def_{\Ethree}(A)
+  =
+  \HH^\bullet_{\Ethree}(A,A)[3].
+\]
+The shift is the Francis--Lurie \(E_n\)-tangent shift at \(n=3\).
+This complex carries a canonical \(L_\infty\)-structure. Its
+cohomology has the following deformation-theoretic meaning:
+\[
+  H^1\Def_{\Ethree}(A)
+  \quad\hbox{classifies first-order deformations,}
+  \qquad
+  H^2\Def_{\Ethree}(A)
+  \quad\hbox{contains obstruction classes.}
+\]
+A first-order cocycle \(\alpha_1\) extends to a formal deformation
+\(\alpha(t)=t\alpha_1+t^2\alpha_2+\cdots\) only when the Maurer--Cartan
+equation
+\[
+  d_{\Def}\alpha
+  +\frac12\ell_2^{\Def}(\alpha,\alpha)
+  +\frac1{3!}\ell_3^{\Def}(\alpha,\alpha,\alpha)
+  +\cdots
+  =0
+\]
+can be solved recursively. The primary second-order obstruction is the
+class of \(\frac12\ell_2^{\Def}(\alpha_1,\alpha_1)\) in
+\(H^2\Def_{\Ethree}(A)\); higher brackets give the subsequent
+obstructions. Thus an explicit element of
+\(\HH^\bullet_{\Ethree}(A,A)[3]\) is a first-order deformation class
+until these obstruction equations are checked.
 
-\paragraph{Consequence for $\Phi$ and the CY-D stratification.}
-At $d=3$ the functor $\Phi$ outputs an $E_1$-chiral algebra (CLAUDE.md
-``$E_n$ hierarchy''); the ambient $E_3$-structure lives on
-$\Obs_{\hCS}$ before passing to $\mathrm{Rep}$.  The deformation class
-$[\psi\cdot\Omega]$ contributes additively to $\kch(\Obs_{\hCS})$ by
-$\chi(\cO_{\C^3})=1$ (non-compact, tree-level Euler characteristic of
-the structure sheaf), compatible with the CY-D identification
-$\kch(A_X)=\sum_q(-1)^q h^{0,q}(X)$ on the compact closure.  The
-holographic boundary functor maps the deformation to a shift of the
-5D VOA central charge, consistent with Wave-13 strand S6's Mukai
-doubling $K^{\kch}=8$ at K3 compactification of the underlying
-complex 3-manifold.
+\paragraph{Abelian affine computation.}
+For abelian \(\fg\), the bracket \(\ell_2\) vanishes. The hCS action is
+quadratic,
+\[
+  S_2(\cA)
+  =
+  \frac12\int_{\C^3}\Omega\wedge
+  \langle\cA,\dbar\cA\rangle,
+\]
+and the Costello quantum master equation has no interaction-graph
+anomaly. With polynomial boundary conditions the Dolbeault cohomology is
+\[
+  H^\bullet_{\dbar}(\C^3,\fg)
+  =
+  \C[z_1,z_2,z_3]\otimes\fg
+  \quad\hbox{in Dolbeault degree }0.
+\]
+With compact support the one-dimensional Serre-dual class is
+\[
+  H^{0,3}_{\dbar,c}(\C^3)\cong\C.
+\]
+After choosing the standard affine Dolbeault contraction, the
+translation-invariant polynomial first-order sector of
+\(\Def_{\Ethree}(\Obs^q_{\hCS})\) is represented by
+\[
+  \left(
+  \Omega^{0,\bullet}(\C^3)
+  \otimes
+  \widehat{\Sym}\bigl(\fg^\vee[-1]\oplus\fg[-2]\bigr),
+  \dbar
+  \right),
+\]
+with the displayed shifts coming from the BV field-antifield pairing
+and the \(E_3\)-Hochschild shift. This model covers the controlled
+abelian affine sector. Compact and nonabelian hCS deformations require
+the additional obstruction theory stated below.
+
+\paragraph{The compactly supported volume class.}
+Choose
+\(\psi\in\Omega^{0,3}_c(\C^3)\) with
+\(\int_{\C^3}\Omega\wedge\psi=1\). The class \([\psi]\) gives a
+degree-one local cochain in the abelian deformation complex by inserting
+the pointwise BV contraction against the density \(\Omega\wedge\psi\):
+\[
+  \alpha_\psi(F)
+  =
+  \int_{\C^3}\Omega\wedge\psi(z)\,
+  \Delta^{\mathrm{vert}}_zF .
+\]
+Here \(\Delta^{\mathrm{vert}}_z\) is the regularised second-variation
+operator contracting the field and antifield variables at \(z\). Since
+\(\dbar\psi=0\) and the free heat-kernel BV operator commutes with
+\(\dbar\), \(d_{\Def}\alpha_\psi=0\). The first obstruction is
+\[
+  \left[
+  \frac12\ell_2^{\Def}(\alpha_\psi,\alpha_\psi)
+  \right]
+  \in H^2\Def_{\Ethree}(\Obs^q_{\hCS}).
+\]
+In the constant-coefficient abelian subcomplex, the vertical
+contractions commute after regularisation, so this obstruction class
+vanishes and the one-parameter differential
+\[
+  d_{\Obs^q}+t\alpha_\psi
+\]
+defines a formal deformation inside that subcomplex. This proves
+unobstructedness for the displayed scalar abelian family. Arbitrary hCS
+deformations, nonabelian interactions, and compact Calabi--Yau
+threefolds remain governed by their own obstruction brackets.
+
+\paragraph{Nonabelian anomaly slot.}
+Let \(\rho:\fg\to\End(V)\) be a finite-dimensional representation. The
+dimension-three gauge anomaly is governed by the symmetric quartic
+invariant
+\[
+  I_4^\rho(x_1,x_2,x_3,x_4)
+  =
+  \frac1{4!}
+  \sum_{\sigma\in S_4}
+  \Tr_V\!\left(
+  \rho(x_{\sigma(1)})\rho(x_{\sigma(2)})
+  \rho(x_{\sigma(3)})\rho(x_{\sigma(4)})
+  \right)
+  \in\Sym^4(\fg^\vee)^\fg .
+\]
+The corresponding local Lie algebra cocycle has representative
+\[
+  \Theta^\rho_U(\alpha_0,\alpha_1,\alpha_2,\alpha_3)
+  =
+  \int_U
+  \left[
+  I_4^\rho\bigl(
+  \alpha_0,\partial\alpha_1,\partial\alpha_2,\partial\alpha_3
+  \bigr)
+  \right]_{(3,3)},
+  \qquad
+  \alpha_i\in\Omega^{0,\bullet}_c(U,\fg).
+\]
+Its cohomology class is the degree-one obstruction to solving the
+quantum master equation.
+
+The quadratic Casimir \(C_2^\rho\) belongs to the two-point
+field-strength counterterm,
+\[
+  S_{\mathrm{ct}}^{(2)}
+  =
+  -\hbar\,\frac{C_2^\rho}{(4\pi)^3}
+  \log(L/\varepsilon)
+  \int_U\Omega\wedge\Tr_\rho(\cA\,\dbar\cA),
+\]
+and is separate from the quartic quantum-master-equation obstruction.
+
+\paragraph{Compact closure hypotheses.}
+For a compact Calabi--Yau threefold \(Y\), a nonabelian quantum hCS
+factorisation algebra requires more than the local first-order
+deformation complex. The data are:
+\[
+  [\Theta^\rho_Y]=0
+  \quad\hbox{or a counterterm }S_{\mathrm{ct}}\hbox{ with }
+  Q_{\BV}S_{\mathrm{ct}}=-\Theta^\rho_Y,
+\]
+an orientation and determinant-line framing, a holomorphic volume form,
+elliptic gauge fixing, heat-kernel renormalisation, RG-compatible
+counterterms, factorisation or TCFT sewing, and analytic completion of
+the OPE operations. Under these hypotheses the same
+\(\Def_{\Ethree}=\HH^\bullet_{\Ethree}(-,-)[3]\) controls formal
+deformations of the solved observable algebra. Without these
+hypotheses the local complex supplies candidate first-order directions
+and obstruction groups.
+
+\paragraph{Specialisation to the CY-to-chiral output.}
+The bulk hCS factorisation object belongs to the first stage of the
+CY-to-chiral construction:
+\[
+  \PhiFA_3(\mathcal C)\in
+  \Ethree\hbox{-}\mathrm{HolFA}(X).
+\]
+For an admissible specialisation pair \((\Sigma_2,C)\), the
+dimension-three chiral output is
+\[
+  A_C
+  =
+  \SpCh_{\Sigma_2,C}\bigl(\PhiFA_3(\mathcal C)\bigr)
+  \in
+  \Alg^{\mathrm{ch}}_{\Eone}(C).
+\]
+The braided \(\Etwo\)-layer is carried by centre, double, or module
+constructions, for example
+\[
+  Z\bigl(\Rep^{\Eone}(A_C)\bigr)
+  \simeq
+  \Rep^{\Etwo}\bigl(
+    \Zchder(A_C)
+  \bigr)
+\]
+on the constructed Drinfeld-centre locus. Deforming the bulk
+\(\Ethree\)-factorisation algebra and deforming the specialised
+\(\Eone\)-chiral algebra are connected by the specialisation functor,
+with separate obstruction complexes on the two sides.
+
+\paragraph{Chain-level and \((\infty,1)\)-categorical forms.}
+The chain-level statement is the explicit Dolbeault/BV complex:
+\[
+  \Omega^{0,\bullet}(\C^3,\fg)[1],
+  \qquad
+  d=\dbar,
+  \qquad
+  \omega_{\BV}(\alpha,\beta)
+  =
+  \int_{\C^3}\Omega\wedge\langle\alpha,\beta\rangle,
+\]
+together with the heat-kernel construction of \(\Delta_L\), the
+cochain \(\alpha_\psi\), and the obstruction brackets
+\(\ell_m^{\Def}\). The \((\infty,1)\)-categorical statement is that the
+derived moduli problem of \(\Ethree\)-algebras in \(\Ch(\Dolb)\) has
+tangent \(L_\infty\)-algebra
+\(\HH^\bullet_{\Ethree}(A,A)[3]\) at \(A\). These two statements have
+equal force: the first supplies representatives and computations; the
+second supplies functoriality, base-change, and obstruction-theoretic
+meaning.
 
 \paragraph{References.}
 \begin{itemize}
-  \item Lurie, \emph{Higher Algebra}, \S5.3.1, Cor.~5.3.1.15
-    ($E_n$-Hochschild = tangent of $\Alg_{E_n}$).
+  \item K.~Costello, \emph{Renormalization and Effective Field Theory}
+  (2011), Chapter~2 and Section~5.9, for heat-kernel regularisation,
+  the BV Laplacian, and quantum-master-equation obstruction theory.
+  \item K.~Costello and O.~Gwilliam, \emph{Factorization Algebras in
+  Quantum Field Theory}, Vols.~I--II, for local dg Lie algebras,
+  classical and quantum observables, and factorisation descent.
+  \item K.~Costello and S.~Li, holomorphic BV anomaly analysis, for the
+  quartic invariant \(I_4^\rho\) in complex dimension three.
   \item J.~Francis, ``The tangent complex and Hochschild cohomology of
-    $E_n$-rings,'' \emph{Compos.\ Math.} 149 (2013), Thm~1.1, Thm~3.4.
-  \item D.~Tamarkin, ``Deformation complex of a $d$-algebra is a
-    $(d+1)$-algebra,'' arXiv:math/0310273 (2003), Thm~1.1.
-  \item Costello--Gwilliam, \emph{Factorization Algebras in QFT}
-    Vol~II, Thm~9.3.1, Thm~11.0.1.1 (hCS quantisation,
-    first-order deformations).
-  \item Costello, \emph{Renormalisation and Effective Field Theory}
-    (2011), Ch.~2 (heat-kernel propagator, BV Laplacian).
-  \item Costello--Gaiotto, ``Twisted holography,'' arXiv:1812.09257
-    (2018), \S5 (hCS holographic setup).
-  \item Gwilliam--Williams, ``Higher Kac--Moody and symmetries of
-    holomorphic field theories,'' arXiv:2009.05037 (2021),
-    Thm~2.5.5 (holomorphic $E_n$-avatar).
-  \item Beilinson--Drinfeld, \emph{Chiral Algebras} (2004), \S3.5.19
-    (chiral central extensions).
-  \item Calaque--Pantev--To\"en--Vaqui\'e--Vezzosi, ``Shifted Poisson
-    structures and deformation quantization,'' \emph{JTop} 10 (2017)
-    (derived cotangent complex for $E_n$-stacks).
+  \(E_n\)-rings,'' \emph{Compos.\ Math.} 149 (2013), for the
+  \(E_n\)-Hochschild tangent complex and the \(n\)-shift.
+  \item J.~Lurie, \emph{Higher Algebra}, Section~5.3, for formal
+  moduli of \(E_n\)-algebras in stable symmetric monoidal categories.
+  \item O.~Gwilliam and B.~Williams, ``Higher Kac--Moody algebras and
+  symmetries of holomorphic field theories,'' for holomorphic
+  factorisation algebras and holomorphic \(E_n\)-structures.
 \end{itemize}

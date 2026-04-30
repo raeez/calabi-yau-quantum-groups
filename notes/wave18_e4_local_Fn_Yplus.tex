@@ -13,201 +13,319 @@
 \providecommand{\Spec}{\mathrm{Spec}}
 \providecommand{\Coh}{\mathrm{Coh}}
 \providecommand{\End}{\mathrm{End}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Jac}{\mathrm{Jac}}
+\providecommand{\Pic}{\mathrm{Pic}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
 
-\section*{Local Hirzebruch $K_{\F_n}$: positive-half dependence on $n$}
-\label{sec:wave18-e4-local-fn-yplus}
+\section*{Local Hirzebruch $K_{\F_n}$ and the Hall positive half}
+\label{sec:local-hirzebruch-yplus}
 
-The Hirzebruch surface $\F_n = \P(\cO_{\P^1} \oplus \cO_{\P^1}(-n))$
-has, for every $n \in \Z_{\geq 0}$, a toric CY$_3$ canonical bundle
-$K_{\F_n} = \Tot(\omega_{\F_n})$. Three questions fix the problem.
-How does the toric fan encode the twist $n$? Which arrows of the
-McKay quiver depend on $n$, and which do not? And does the
-positive-half $Y^+(K_{\F_n})$ split by $n$ into distinct algebras,
-or do all $n$ fall into one equivalence class?
-
-\subsection*{Toric fan of $\F_n$ and of $K_{\F_n}$}
-
-The fan $\Sigma_{\F_n} \subset \Z^2$ carries four rays
+Fix the Hirzebruch surface
 \[
- v_1 = (1, 0), \quad v_2 = (0, 1), \quad v_3 = (-1, n), \quad v_4 = (0, -1),
+ \F_n=\P(\cO_{\P^1}\oplus\cO_{\P^1}(-n)),\qquad n\geq0,
 \]
-bounding four $2$-cones arranged cyclically. The $n$-dependence sits
-in the third ray: $n = 0$ gives the symmetric $\P^1 \times \P^1$
-fan with $v_3 = (-1, 0)$; $n = 1$ gives the one-blowup of $\P^2$;
-$n = 2$ gives the cone $\C^2/\Z_2$ partially resolved; $n \geq 3$
-gives non-Fano. The CY$_3$ fan of $K_{\F_n}$ lifts the four rays
-to height one and adds the CY direction,
+with negative section \(s\), fibre \(f\), and intersection form
 \[
- \tilde v_i = (v_i, 1) \in \Z^3, \qquad i = 1, 2, 3, 4,
+ s^2=-n,\qquad s\cdot f=1,\qquad f^2=0.
 \]
-so $\Sigma_{K_{\F_n}}$ has four $3$-cones, four walls, and one common
-vertex at the origin. The coplanarity of $\tilde v_1, \ldots, \tilde v_4$
-at height one is the CY condition. The twist $n$ is the shift of
-$\tilde v_3$ along the $\F_n$-base direction; the height-one CY
-component is unaffected.
-
-\subsection*{Four-chart cover and $\C^*$-overlaps}
-
-Label the $3$-cones $\sigma_1, \sigma_2, \sigma_3, \sigma_4$ cyclically.
-Each dualises to the positive octant, so
+Its canonical bundle is
 \[
- U_i = \Spec \C[\sigma_i^\vee \cap M] \simeq \C^3,
+ K_{\F_n}=-2s-(n+2)f,\qquad K_{\F_n}^2=8,
 \]
-with $M = \Z^3$ the character lattice of $T = (\C^*)^3$. The pairwise
-adjacent overlap along the wall $\sigma_i \cap \sigma_{i+1}$ is
-$\C^* \times \C^2$; the non-adjacent overlap $U_1 \cap U_3$ and
-$U_2 \cap U_4$ is $(\C^*)^2 \times \C$ because the two cones meet only
-at the vertex. The CY volume form $\Omega = dx \wedge dy \wedge dz$ is
-$T$-invariant on each chart; the transition Jacobian between adjacent
-charts is unimodular on the wall, and the $n$-twist enters the
-transition on the wall $\sigma_2 \cap \sigma_3$ as a monomial change
-of variable $(x_2, y_2, z_2) \mapsto (x_3, y_3, z_3)$ with matrix
+and its total space
+\[
+ X_n=K_{\F_n}=\Tot(\omega_{\F_n})
+\]
+is a noncompact local Calabi--Yau threefold with compact core
+\(\F_n\). The local chiral scalar belongs to this compact-core
+normalisation:
+\[
+ \kappa_{\mathrm{ch}}^{\mathrm{loc}}(X_n)
+ =\frac{1}{2}\chi_{\mathrm{top}}(\F_n)=2.
+\]
+This is a compact-core invariant. The compact Calabi--Yau
+supertrace \(\kappa_{\mathrm{cat}}=\chi(\cO_X)\) has compactness
+hypotheses outside the noncompact total space \(X_n\), since
+\[
+ \pi_*\cO_{X_n}=\bigoplus_{m\geq0}\omega_{\F_n}^{-m}
+\]
+has infinite rank over \(\F_n\). A Borcherds weight
+\(\kappa_{\mathrm{BKM}}\) is also absent until a Lorentzian lattice,
+Jacobi input, and denominator identity are supplied.
+
+\subsection*{The toric fan}
+
+The fan \(\Sigma_{\F_n}\subset\Z^2\) has rays
+\[
+ v_1=(1,0),\quad v_2=(0,1),\quad v_3=(-1,n),\quad v_4=(0,-1),
+\]
+with maximal cones \(\langle v_i,v_{i+1}\rangle\), indices taken
+cyclically. The parameter \(n\) is the shear in \(v_3\). The cases
+\(n=0\) and \(n=1\) are Fano:
+\(\F_0=\P^1\times\P^1\) and
+\(\F_1\simeq\mathrm{Bl}_{pt}\P^2\). The anticanonical class on
+\(\F_2\) is nef with zero intersection \((-K_{\F_2})\cdot s=0\), hence
+it lies on the boundary of the ample cone. For \(n\geq3\),
+\(-K_{\F_n}\) fails nefness.
+
+The fan of \(X_n\) lies in \(\Z^3\). Put
+\[
+ u_0=(0,0,1),\qquad \bar v_i=(v_i,1).
+\]
+The maximal cones are
+\[
+ \sigma_i=\langle u_0,\bar v_i,\bar v_{i+1}\rangle,\qquad i\in\Z/4\Z .
+\]
+Their determinants are the determinants of the smooth surface cones,
+hence every affine chart is smooth. All primitive generators lie on
+the affine hyperplane \(z=1\), the toric Calabi--Yau condition. The
+divisor \(D_{u_0}\) has star \(\Sigma_{\F_n}\), hence
+\[
+ D_{u_0}\simeq\F_n
+\]
+is the compact zero section. Thus \(X_n\) has a compact four-cycle.
+The Rapcak--Soibelman--Yang--Zhao compact-four-cycle-free theorem gives
+the \(\C^3\) chart model here and leaves the global compact-divisor
+sector as additional data.
+
+\subsection*{Affine charts and transition cocycles}
+
+For every \(i\),
+\[
+ U_i=\Spec\C[\sigma_i^\vee\cap M]\simeq\C^3,
+\]
+where \(M=\Hom(\Z^3,\Z)\). Adjacent charts meet along a smooth
+two-dimensional cone, so
+\[
+ U_i\cap U_{i+1}\simeq\C^2\times\C^*.
+\]
+Opposite charts share only the ray \(u_0\), so
+\[
+ U_i\cap U_{i+2}\simeq\C\times(\C^*)^2.
+\]
+On the wall between \(v_2\) and \(v_3\), one base change contains the
+integral shear
 \[
  \begin{pmatrix} -1 & 0 & 0 \\ n & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
- \in \mathrm{SL}_3(\Z),
+ \in\mathrm{GL}_3(\Z),
 \]
-the shear by $n$ in the base direction fixing the CY fibre. The
-discriminant locus of the transition sees $n$; the CY volume form
-does not.
+with determinant \(-1\). The logarithmic volume form is preserved up
+to sign. The cocycle remembers \(n\), although every local chart is
+\(\C^3\).
 
-\subsection*{McKay quiver from the exceptional collection}
+\subsection*{The surface collection and the \(3\)-Calabi--Yau completion}
 
-Kapranov $1988$ \cite{Kapranov1988} gives the full strong exceptional
-collection on $\F_n$,
+Put \(H=s+nf\). A standard toric exceptional collection on \(\F_n\) is
 \[
- E_\bullet(\F_n) \;=\; \bigl(\cO,\; \cO(f),\; \cO(h),\; \cO(h + f)\bigr),
+ E_\bullet(\F_n)=
+ \bigl(\cO,\ \cO(f),\ \cO(H),\ \cO(H+f)\bigr).
 \]
-with $h$ the class of the zero section (self-intersection $-n$) and
-$f$ the fibre class. The tilting bundle $T_n = \bigoplus E_\bullet$
-produces a derived equivalence $D^b(\Coh(\F_n)) \simeq D^b(\End(T_n)
-\text{-mod})$; the endomorphism algebra is the path algebra of the
-four-vertex quiver $Q_{\F_n}$ with four vertices and the Ext-arrows
+The elementary pushforward identity
+\[
+ \pi_*\cO_{\F_n}(s+bf)
+ =\cO_{\P^1}(b)\oplus\cO_{\P^1}(b-n)
+\]
+gives the Hom dimensions
 \begin{align*}
- &\dim \mathrm{Hom}(\cO, \cO(f)) = 2, \quad
- \dim \mathrm{Hom}(\cO(f), \cO(h)) = n + 2, \\[-2pt]
- &\dim \mathrm{Hom}(\cO(h), \cO(h + f)) = 2, \quad
- \dim \mathrm{Hom}(\cO, \cO(h)) = n + 2, \\[-2pt]
- &\dim \mathrm{Hom}(\cO(f), \cO(h + f)) = n + 2, \quad
- \dim \mathrm{Hom}(\cO, \cO(h + f)) = 2(n + 2).
+ &\dim\Hom(\cO,\cO(f))=2,\qquad
+ \dim\Hom(\cO,\cO(H))=n+2,\qquad
+ \dim\Hom(\cO,\cO(H+f))=n+4,\\
+ &\dim\Hom(\cO(f),\cO(H))=n,\qquad
+ \dim\Hom(\cO(f),\cO(H+f))=n+2,\qquad
+ \dim\Hom(\cO(H),\cO(H+f))=2 .
 \end{align*}
-The lifting to $K_{\F_n}$ adds the CY reverse-arrows via Serre duality,
-giving $(8 + 2n)$ forward and $(8 + 2n)$ Serre-dual arrows per
-surface. The superpotential $W_{\F_n}$ is the Closset $2012$
-\cite{Closset2012} cyclic-symmetric cubic-quartic combination
+These are raw Hom dimensions. The arrows of a minimal quiver are the
+indecomposable generators, i.e. Hom spaces modulo images of lower
+compositions. The relations are the multiplication maps
 \[
- W_{\F_n} \;=\; \sum_{\text{triangle}} \tr(a b c)
- \;+\; n \sum_{\text{base-fibre cycle}} \tr(a^{(h)} a^{(h)} a^{(f)} a^{(f)}),
+ H^0(\cO(D_1))\otimes H^0(\cO(D_2))
+ \longrightarrow H^0(\cO(D_1+D_2)).
 \]
-with the quartic term carrying the twist-dependent multiplicity.
-The Jacobi algebra $J(Q_{\F_n}, W_{\F_n})$ is the
-Klebanov--Witten--Closset $\mathcal{N} = 1$ worldvolume algebra of
-D$3$-branes probing $K_{\F_n}$ at the orbifold point.
+Consequently the quiver is presentation data, while the dependence on
+\(n\) is already forced by \(s^2=-n\) and by the summand
+\(\cO_{\P^1}(b-n)\) in \(\pi_*\cO_{\F_n}(s+bf)\).
 
-\subsection*{Positive half and Nekrasov character}
+The local threefold category is obtained from the surface endomorphism
+algebra by the \(3\)-Calabi--Yau completion. In strict quiver language
+this is the Ginzburg completion of a quiver with potential
+\((Q_n,W_n)\). In an \(A_\infty\)-presentation the same information is
+carried by higher products and Serre duality. The opposite arrows,
+loops, and cyclic derivatives are part of the completion. An arrow
+count alone falls short of an invariant of \(X_n\).
 
-Rapcak--Soibelman--Yang--Zhao $2018$ \cite{RSYZ} identifies, for
-every toric CY$_3$ $X$ without compact $4$-cycles, the critical
-CoHA of the associated quiver-with-potential with the positive half
-of the affine super-Yangian of the McKay Cartan:
+\subsection*{Critical CoHA and the positive half}
+
+For a chosen presentation, stability chamber \(\theta\), and
+orientation datum, write
 \[
- \CoHA(Q_{\F_n}, W_{\F_n}) \;\simeq\; Y^+(\widehat{\fg}_{Q_{\F_n}}),
+ Y^+_{\mathrm{Hall}}(X_n;\theta)
+ :=\CoHA(Q_n,W_n;\theta)
 \]
-where $\widehat{\fg}_{Q_{\F_n}}$ is the Kac--Moody algebra with
-$4 \times 4$ Cartan matrix read off the $Q_{\F_n}$ Euler form.
-The diagonal entries are $2$; the off-diagonals are $-2$ along the
-triangle and $-(n+2)$ along the base-fibre diagonal. For $n = 0$
-the matrix is the symmetric affine $D_4^{(1)}$-like pattern; for
-$n = 1$ it is the extended $A_3$ pattern with one arm weighted by $3$;
-for $n = 2$ it is the extended $A_1^{(1)} \times A_1^{(1)}$ pattern
-with one weight-$4$ arm.
+for the critical cohomological Hall algebra defined with vanishing
+cycles for \(\tr W_n\). It is an associative \(E_1\) Hall algebra.
+The symbol \(Y^+\) means positive half.
 
-The positive-half character is the Nekrasov partition function of
-$K_{\F_n}$ in the topological vertex formalism,
+The fixed-point calculation is a theorem. On every affine chart
+\(U_i\simeq\C^3\), with the standard equivariant Calabi--Yau condition
+on the torus weights, the critical CoHA of the Jordan three-loop model is
 \[
- \mathrm{ch}\bigl(Y^+(K_{\F_n})\bigr)(q, Q_h, Q_f)
- \;=\; Z_{\mathrm{top}}^{K_{\F_n}}(q, Q_h, Q_f),
+ \CoHA_T(\C^3)=Y^+(\widehat{\mathfrak{gl}}_1).
 \]
-with $Q_h, Q_f$ the K\"ahler parameters of the base and fibre and
-$q = e^{-g_s}$ the refined parameter \cite{IqbalNekrasov2004}.
-The leading expansion is
+The global algebra requires more than a tensor product of four chart
+algebras. The compact divisor \(D_{u_0}\simeq\F_n\), the transition
+cocycle, the orientation data, and wall-crossing for \(\theta\) all
+enter the global CoHA. A statement of the form
 \[
- Z_{\mathrm{top}}^{K_{\F_n}}
- \;=\; 1 \;+\; (2 + (n+2))\, q
- \;+\; \bigl(4 + 4(n+2) + (n+2)^2\bigr)\, q^2 \;+\; \cdots,
+ \CoHA(Q_n,W_n;\theta)\cong Y^+(\widehat{\mathfrak{g}}_{Q_n})
 \]
-the coefficient of $q^k$ counting coloured Young-diagram partitions
-weighted by the Ext-arrow multiplicities. The $n$-dependence is
-polynomial in $(n+2)$; the leading coefficient $(n + 4)$ records
-the total arrow count modulo the three base-fibre symmetries.
+requires an explicit \((Q_n,W_n)\), a stability chamber, and a PBW or
+shuffle presentation. Before these data are proved, the honest object
+is the chamberwise critical CoHA \(Y^+_{\mathrm{Hall}}(X_n;\theta)\).
 
-\subsection*{$n = 0$: the product structure}
-
-At $n = 0$, $\F_0 = \P^1 \times \P^1$ and $K_{\F_0} = K_{\P^1}
-\boxtimes K_{\P^1}$ in the total-space sense; the McKay quiver
-$Q_{\F_0}$ is the product of two $A_1$-McKay quivers (each the
-$\P^1$-exceptional collection $\cO, \cO(1)$ tilt). The positive-half
-factors,
+The positive half precedes every doubled or centred object:
 \[
- Y^+(K_{\F_0}) \;\simeq\; Y^+(\widehat{\fsl}_2) \otimes Y^+(\widehat{\fsl}_2),
+ Y^+_{\mathrm{Hall}}(X_n;\theta)
+ \quad\leadsto\quad
+ D^\wedge\!\bigl(Y^+_{\mathrm{Hall}}(X_n;\theta)\bigr)
+ \quad\leadsto\quad
+ Z^{\mathrm{der}}_{\mathrm{ch}}
+ \quad\leadsto\quad
+ \text{possible \(W\)-algebra evaluation}.
 \]
-the external tensor product of two rank-one affine Yangians. The
-Nekrasov partition factors accordingly,
-$Z_{\mathrm{top}}^{K_{\F_0}} = Z_{\mathrm{top}}^{K_{\P^1}}(Q_h) \cdot
-Z_{\mathrm{top}}^{K_{\P^1}}(Q_f)$. This is Iqbal--Nekrasov's
-product formula at the toric-product point.
+The CoHA itself is the positive Hall half. The Drinfeld double,
+completion, derived chiral centre, and any full \(W\)-algebra
+comparison are additional layers. Since \(X_n\) has Calabi--Yau
+dimension \(3\), the \(\Phi_3\)-output in this note is \(E_1\)-chiral.
+Braided \(E_2\) structure belongs to the centre, double, or module
+category above the positive half.
 
-\subsection*{$n = 2$: the exceptional $\P^1$ and toric McKay}
+\subsection*{Characters and the \(n\)-dependent refinement}
 
-At $n = 2$, the base $\P^1$ has self-intersection $-2$: it is a
-rational $(-2)$-curve, the exceptional divisor of the minimal
-resolution of $\C^2/\Z_2$. The fan $\Sigma_{\F_2}$ is the blow-up
-of the $\C^2/\Z_2$-cone at the apex, and $K_{\F_2}$ is the canonical
-bundle of this resolution. The Bridgeland--King--Reid derived
-equivalence \cite{BKR2001} gives
-$D^b(\Coh(K_{\F_2})) \simeq D^b([\C^3/\Z_2])$,
-where $\Z_2$ acts on $\C^3$ with weights $(1, 1, 0)$ (the CY
-condition fixes the third weight). The McKay presentation therefore
-identifies $Q_{\F_2}$ with the $\Z_2$-orbifold quiver on $\C^3$,
-two vertices with three arrows each, plus the Serre CY-dual arrows;
-the extra weight-$4$ arm corresponds to the length-two string of
-$\Z_2$-characters appearing in the $(n+2) = 4$ base-fibre Hom.
-Positive-half:
+G\"ottsche's rank-one surface Hilbert-scheme formula gives
 \[
- Y^+(K_{\F_2}) \;\simeq\; Y^+(\widehat{\fsl}_2|\widehat{\fsl}_2),
+ \sum_{m\geq0}\chi_{\mathrm{top}}\bigl(\Hilb^m(\F_n)\bigr)q^m
+ = \prod_{r\geq1}(1-q^r)^{-4}.
 \]
-the affine super-Yangian of rank $2$ with super-structure recording
-the $\Z_2$-character grading.
+The exponent is \(\chi_{\mathrm{top}}(\F_n)=4\), obtained either from
+the four torus fixed points or from \(b_0+b_2+b_4=1+2+1\). This
+one-variable character is the source of the local-surface
+\(\kappa_{\mathrm{ch}}^{\mathrm{loc}}\)-normalisation and is independent
+of \(n\).
 
-\subsection*{$\kappa_{\mathrm{ch}}$ and the twist witness}
-
-The non-compact shadow $\kappa_{\mathrm{ch}}(K_{\F_n})$ is the
-half-Euler of the base $\F_n$,
+The refined Hall or topological-vertex character must keep the two
+curve variables \(Q_s,Q_f\). There \(n\) enters through
 \[
- \kappa_{\mathrm{ch}}(K_{\F_n})
- \;=\; \tfrac{1}{2}\chi_{\mathrm{top}}(\F_n)
- \;=\; \tfrac{1}{2} \cdot 4 \;=\; 2,
+ s^2=-n,\qquad K_{\F_n}=-2s-(n+2)f,
 \]
-independent of $n$: the topological Euler number of every
-Hirzebruch is $4$. The Hodge numbers split as $h^{0,0} = h^{2,2} = 1$,
-$h^{1,1} = 2$; the $n$-dependence is invisible to $\chi_{\mathrm{top}}$
-and therefore to $\kappa_{\mathrm{ch}}$. The twist is witnessed at
-the level of $Y^+$: the algebras $Y^+(K_{\F_n})$ for different $n$
-are not isomorphic, distinguished by the Cartan matrix entry
-$-(n + 2)$. The $\kappa_{\mathrm{ch}}$ is a coarse invariant; the
-positive-half structure is the fine invariant.
+and through the chamber wall-crossing of \((Q_n,W_n)\). A
+presentation-independent character of
+\(Y^+_{\mathrm{Hall}}(X_n;\theta)\) must either retain these variables
+or prove the reduction to the chosen one-variable specialisation.
 
-\subsection*{Synthesis}
+\subsection*{\(n=0\): the product base}
 
-Four charts cover $K_{\F_n}$; four $\C^*$-walls glue them; the
-Kapranov exceptional collection provides a $4$-vertex McKay quiver
-whose Ext-form is $n$-twisted on one arrow class; the
-Rapcak--Soibelman--Yang--Zhao identification gives $Y^+(K_{\F_n})
-\simeq Y^+(\widehat{\fg}_{Q_{\F_n}})$, with structure constants
-polynomial in $(n + 2)$; the Nekrasov--Iqbal topological vertex
-computes the positive-half character; $n = 0$ factors as a product,
-$n = 2$ is the minimal resolution of $\C^3/\Z_2$ under
-Bridgeland--King--Reid. The family $\{Y^+(K_{\F_n})\}_{n \geq 0}$
-interpolates between the product affine Yangian and the orbifold
-super-Yangian through a continuous family of Cartan matrices; this
-is the first non-trivial $n$-family of positive halves in the
-local-surface landscape.
+For \(n=0\), \(\F_0=\P^1\times\P^1\) and
+\[
+ X_0=\Tot\bigl(\cO_{\P^1\times\P^1}(-2,-2)\bigr).
+\]
+The two rulings give two curve variables and a square toric diagram.
+The total space is a line bundle over a product surface. A
+tensor-product decomposition of \(Y^+_{\mathrm{Hall}}(X_0;\theta)\)
+requires a K\"unneth theorem for critical CoHAs with potential and
+compatible stability chambers. The fan gives the unconditional
+statement: the two-ruling symmetry exchanges the \(s\)- and
+\(f\)-directions, and
+\[
+ \kappa_{\mathrm{ch}}^{\mathrm{loc}}(X_0)=2.
+\]
+
+\subsection*{\(n=2\): the \(A_1\) local neighbourhood}
+
+For \(n=2\), the negative section is a rational \((-2)\)-curve. The
+open neighbourhood obtained by deleting the section at infinity is
+\[
+ \Tot(\cO_{\P^1}(-2))\longrightarrow \C^2/\Z_2,
+\]
+the minimal \(A_1\)-resolution. Since this surface is symplectic, its
+canonical bundle is trivial. The restriction of \(X_2\) to this
+neighbourhood is therefore the crepant local model over
+\((\C^2/\Z_2)\times\C\), with stack form
+\[
+ [\C^2/\Z_2]\times\C .
+\]
+Bridgeland--King--Reid McKay applies to this local quotient chart. The
+global threefold \(X_2=K_{\F_2}\) still contains the compact divisor
+\(\F_2\), four toric fixed charts, and the local-surface wall-crossing
+problem. The \(\Z_2\)-orbifold quiver is a local \(A_1\) contribution;
+the global positive half requires the \(X_2\) potential and chamber
+data.
+
+\subsection*{The local chiral scalar and the \(n\)-dependent data}
+
+The local-surface modular characteristic is
+\[
+ \kappa_{\mathrm{ch}}^{\mathrm{loc}}(X_n)
+ :=\kappa_{\mathrm{ch}}(A_{\mathrm{loc}\,\F_n})
+ =\frac{1}{2}\chi_{\mathrm{top}}(\F_n)
+ =\frac{4}{2}
+ =2 .
+\]
+This is the same local-surface normalisation that gives
+\(\kappa_{\mathrm{ch}}(K_{\P^2})=3/2\), since
+\(\chi_{\mathrm{top}}(\P^2)=3\). The resolved conifold is a different
+noncompact CY$_3$: it is \(\Tot(\cO(-1)^{\oplus2}\to\P^1)\), a
+curve-base geometry separate from local surfaces \(\Tot(K_S\to S)\),
+and its separate value is
+\(\kappa_{\mathrm{ch}}=1\) by direct McKay computation.
+
+For \(X_n\), the number \(2\) is constant in \(n\). The parameter
+\(n\) is detected by the intersection form, by the multiplication maps
+in the surface presentation, and by the refined two-variable Hall
+character. Any isomorphism
+\[
+ Y^+_{\mathrm{Hall}}(X_n;\theta)
+ \cong
+ Y^+_{\mathrm{Hall}}(X_m;\theta')
+\]
+must state the permitted changes of stability chamber, grading lattice,
+and toric variables. With the toric compact-core grading fixed,
+\(s^2=-n\) is an invariant.
+
+\subsection*{Closed statements and stronger identifications}
+
+The closed statements are:
+\begin{enumerate}
+ \item the toric fan of \(X_n\) has four smooth affine charts
+ \(U_i\simeq\C^3\), adjacent overlaps \(\C^2\times\C^*\), and opposite
+ overlaps \(\C\times(\C^*)^2\);
+ \item \(D_{u_0}\simeq\F_n\) is a compact divisor, so global
+ compact-four-cycle-free theorems leave \(X_n\) outside their scope;
+ \item \(\CoHA_T(\C^3)=Y^+(\widehat{\mathfrak{gl}}_1)\) on each fixed
+ affine chart, while the global local-surface Hall algebra requires the
+ \(X_n\) potential and chamber data;
+ \item \(\kappa_{\mathrm{ch}}^{\mathrm{loc}}(X_n)=2\), independently
+ of \(n\);
+ \item the positive Hall half precedes the Drinfeld double, completion,
+ derived chiral centre, and any full \(W\)-algebra comparison;
+ \item the \(d=3\) \(\Phi\)-output attached to this geometry is
+ \(E_1\)-chiral.
+\end{enumerate}
+
+A stronger global identification must supply:
+\begin{enumerate}
+ \item a minimal \((Q_n,W_n)\) or \(A_\infty\) endomorphism model for
+ the chosen surface collection, with multiplication relations recording
+ \(s^2=-n\);
+ \item a PBW or shuffle presentation for \(\CoHA(Q_n,W_n;\theta)\) in
+ the compact-four-cycle regime;
+ \item a comparison between the refined Hall character and the
+ two-variable topological-vertex or Vafa--Witten partition function,
+ including the chamber and framing conventions;
+ \item named double, centre, completion, and evaluation data before any
+ full Yangian or \(W\)-algebra statement.
+\end{enumerate}
+Local Hirzebruch surfaces therefore form a discrete family of
+local-surface Hall positive halves with constant
+\(\kappa_{\mathrm{ch}}^{\mathrm{loc}}=2\) and \(n\)-dependent toric and
+Hall structure.

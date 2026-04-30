@@ -1,1022 +1,172 @@
 % =====================================================================
-% Wave-13 A1: Gelfand-voice adversarial assault and rectification of
-% Lorgat 2020 S1-S2: the motivating conjecture (8 Gritsenko-Clery
-% diagonal-divisor Siegel paramodular forms <-> DT zeta roots <-> twined
-% K3 elliptic genera) and the Delta_5 preamble.
-%
-% Five ATTACK<->HEAL cycles, first-principles protocol, Russian-elite
-% voice after Gelfand. Cross-references: wave12_u1_two_stage_functor.tex
-% (two-stage Phi_d = Sp_{Sigma,C} \circ Phi^{FA}_d), wave12_a2_k3xE_BKM
-% _kazhdan.tex (universal kappa_BKM(Phi_N) = c_N(0)/2), and
-% appendices/first_principles_cache.md F8 (native hFA vs E_n-chiral
-% shadow).
-%
-% Primary sources: Lorgat 2020 S1-S6; Gritsenko-Clery 2008 arXiv:0812.3962
-% (the 8 diagonal paramodular forms); Borcherds 1998 Invent 132 Thm 13.3
-% (singular theta lift weight formula); Gritsenko-Nikulin 1995-1998
-% (Lorentzian Kac-Moody automorphic corrections); Oberdieck-Pandharipande
-% 2016 arXiv:1411.1514 (Z^X = C/Delta_5^2 at N=1); Oberdieck-Pixton 2018
-% arXiv:1706.10100 (Igusa cusp form conjecture, holomorphic anomaly);
-% Eichler-Zagier 1985 (Jacobi forms); Mukai 1988 Invent 94 (K3 symplectic
-% Aut classification).
-%
-% Subscripted kappa discipline. No bookkeeping vocabulary in prose.
-% Authorship: Raeez Lorgat.
+% Delta_5 foundations, primitive CHL constants, and the GC catalogue.
 % =====================================================================
 
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusDerivation}{\textbf{[Derivable]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
-\providecommand{\ClaimStatusDefinition}{\textbf{[Def]}}
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\OO}{\mathrm{O}}
-\providecommand{\Hb}{\mathbb{H}}
 \providecommand{\fg}{\mathfrak{g}}
-\providecommand{\fh}{\mathfrak{h}}
 \providecommand{\fn}{\mathfrak{n}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\mult}{\mathrm{mult}}
 \providecommand{\Phih}{\Phi^{\mathrm{FA}}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\Phiten}{\Phi_{10}}
 
-\section*{Wave 13 A1: Gelfand-voice rectification of Lorgat 2020 \S 1--\S 2}
-\label{sec:wave13-a1-gelfand-delta5}
+\section*{$\Delta_5$, $\Phi_{10}$, and the Primitive CHL Denominator}
+\label{sec:delta5-foundations-gelfand}
 
-The preamble of Lorgat 2020 declares a conjecture (one labelled,
-load-bearing) and sets up a single Siegel paramodular cusp form
-$\Delta_5$ of weight~$5$, from which the entire construction of the
-GKM superalgebra $\mathfrak g_{\Delta_5}$ is deduced. Five cycles
-probe: (\textbf{A}) the conjecture's eight modular-form list,
-(\textbf{B}) the DT zeta side, (\textbf{C}) the twining side,
-(\textbf{D}) the weight-5 numerology against Borcherds~1998
-Thm.~13.3, (\textbf{E}) the infinite-product expansion of $\Delta_5$
-and the $f(1,1,1)=64$ normalisation.
-
-The voice is after Gelfand: every equals sign is a theorem or a
-definition, never a suggestion; every symbol is defined at or before
-first use; the construction precedes the hedge.
-
-%--------------------------------------------------------------------
-\subsection*{Cycle 1: The eight Gritsenko--Cl\'ery diagonal-divisor forms
--- naming every specimen by weight, level, character}
-%--------------------------------------------------------------------
-
-\paragraph{Attack.}
-Lorgat~2020 Theorem~1 reads verbatim: \emph{``For all possible
-congruence subgroups $\Gamma_t(N)<\Gamma_t$ there are exactly~$8$
-diagonal-divisor modular forms.''} Four first-principles objections
-before this assertion enters the manuscript:
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item ``Exactly~$8$'' -- a cardinal-quantifier claim (cache
-  entry~7). Which~$8$? Which paramodular level $t$ for each, which
-  Hecke congruence level $N$, which weight, which character? The
-  slides (\texttt{wave13\_source\_slides.txt:47--54}) list a
-  partition:
-  \[
-    \{M_5(\Gamma_1,\nu_2),\
-       M_2(\Gamma_2,\nu_4),\
-       M_3(\Gamma_1(2),\nu_2),\
-       M_1(\Gamma_3,\nu_6),\
-       M_2(\Gamma_1(3),\nu_2),
-  \]
-  \[
-       M_{1/2}(\Gamma_4,\nu_8),\
-       M_{3/2}(\Gamma_1(4),\nu_4),\
-       M_1(\Gamma_2(2),\nu_4)\}.
-  \]
-  Without this explicit list the cardinal $8$ floats.
-\item The paper's~\S1 attributes the theorem to Gritsenko--Cl\'ery
-  [1] but does not commit to a weight pattern. The weights
-  $(5,2,3,1,2,\tfrac12,\tfrac32,1)$ mix integer and half-integer;
-  two of the eight lie in the half-integer paramodular tower,
-  crossing an established integrality boundary. This is
-  mathematically real, not notational.
-\item ``Vanish exactly along $\Gamma_t(N)$-translates of the
-  diagonal to order~$1$'': one checks that diagonal-divisor
-  vanishing is a linear constraint selecting a finite-dimensional
-  space. The theorem asserts \emph{exactly $8$} linearly
-  independent such forms, yet the eight live in eight different
-  modular form spaces (different $t,N,k,\nu$), so linear
-  independence is cross-space, hence not an obvious dimension count.
-\item What is the relationship between these eight spaces and the
-  Borcherds singular theta correspondence on $\Lambda^{3,2}$?
-  Gritsenko--Cl\'ery produce the eight via a direct paramodular
-  construction; the Borcherds lift of $\phi_{0,1}$ produces exactly
-  one of them ($\Delta_5$ on $\Sp_4(\mathbb Z)=\Gamma_1$). The
-  conjecture under rectification asserts all eight arise as
-  Borcherds lifts of \emph{distinct} Jacobi forms.
-\end{enumerate}
-
-\paragraph{Ghost theorem (first-principles reconstruction).}
-Gritsenko--Cl\'ery 2008 (arXiv:0812.3962) enumerate
-diagonal-divisor paramodular cusp forms on genus-2 Siegel upper
-half-space $\mathfrak H_2$: a Siegel paramodular form
-$F\in M_k(\Gamma_t(N),\nu)$ is \emph{diagonal-divisor} if its zero
-locus on $\mathfrak H_2$ is exactly the $\Gamma_t(N)$-orbit of the
-diagonal locus $\{\mathrm{diag}(z_1,z_2)\mid z_1,z_2\in\mathfrak
-H_1\}$, vanishing to order~$1$. The classification:
+The form $\Delta_5$ is the weight-$5$ square root of the Igusa cusp form
+on the level-$1$ Siegel modular group:
 \[
-  \mathrm{DD}(\Gamma_t(N))=
-  \begin{cases}
-    \langle\Delta_5\rangle_{\mathbb C}, & (t,N,k,\nu)=(1,1,5,\nu_2),\\
-    \langle D_2^{(2)}\rangle, & (t,N,k,\nu)=(2,1,2,\nu_4),\\
-    \langle D_3^{(1,2)}\rangle, & (t,N,k,\nu)=(1,2,3,\nu_2),\\
-    \langle D_1^{(3)}\rangle, & (t,N,k,\nu)=(3,1,1,\nu_6),\\
-    \langle D_2^{(1,3)}\rangle, & (t,N,k,\nu)=(1,3,2,\nu_2),\\
-    \langle D_{1/2}^{(4)}\rangle, & (t,N,k,\nu)=(4,1,\tfrac12,\nu_8),\\
-    \langle D_{3/2}^{(1,4)}\rangle, & (t,N,k,\nu)=(1,4,\tfrac32,\nu_4),\\
-    \langle D_1^{(2,2)}\rangle, & (t,N,k,\nu)=(2,2,1,\nu_4).
-  \end{cases}
+  \Delta_5\in M_5(\Sp_4(\mathbb Z),\nu_{\Delta_5}),\qquad
+  \Phiten^{\theta}=\Delta_5^2\in M_{10}(\Sp_4(\mathbb Z)).
 \]
-Each space is one-dimensional over $\mathbb C$; cross-space linear
-independence is automatic because the eight live on eight
-non-isomorphic paramodular groups. The weights read off the
-$N$-labelled tower: $k(N)=(5,2,3,1,2,\tfrac12,\tfrac32,1)$,
-correlated with the character order $\mathrm{ord}(\nu)\in
-\{2,4,2,6,2,8,4,4\}$.
-
-\paragraph{Heal.}
-The motivating-conjecture section opens with the explicit
-classification table above, not with ``exactly~$8$''. The reader
-sees each form by its four-tuple $(t,N,k,\nu)$; the cardinal
-``eight'' is then a counted item, not an assertion. The integer /
-half-integer split is named at inscription: the integer-weight
-tower $(N=1,2,3)$ gives $(k=5,2,3,1,2)$; the half-integer tower
-$(N=4)$ contributes $(k=\tfrac12,\tfrac32,1)$, three forms for
-which $\kBKM$-integrality is lost and the Borcherds-lift mechanism
-requires Cl\'ery--Gritsenko half-integral-weight paramodular theory
-(Cl\'ery--Gritsenko 2008 Thm.~3.1).
-
-The correspondence under consideration --- the content of the
-motivating conjecture as restated below --- sends each of the
-eight $D_{k(N)}^{(t,N)}$ to a distinct GKM superalgebra via
-Borcherds' singular theta lift, with input Jacobi form the
-$g_N$-twined K3 elliptic genus at the appropriate level.
-
-%--------------------------------------------------------------------
-\subsection*{Cycle 2: DT zeta roots -- which zeta, whose theorem, what
-is ``reciprocal-square-root''}
-%--------------------------------------------------------------------
-
-\paragraph{Attack.}
-Lorgat~2020 Theorem~2 reads: \emph{``For $X=S\times E$ i.e.\ order
-$N=1$ we have $Z^X(q,t,p)=C/(\Delta_5)^2$ for a constant $C$.''} The
-conjecture extrapolates: \emph{``all eight diagonal divisor
-modular forms of Gritsenko--Cl\'ery arise, up to constant $C$, as
-reciprocal-square roots of $Z^X_{L,h_M}$.''} Attacks:
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item Which $Z$-function? Paper~\S1 defines
-  \[
-    Z^X(q,t,p):=\sum_{h\geq 0}\sum_{d\geq 0}\sum_{n\in\mathbb Z}
-      \mathrm{DT}^X_{n,(\beta_h,d)}\,q^{d-1}\,
-      t^{\frac{1}{2}\langle\beta_h,\beta_h\rangle}\,(-p)^n
-  \]
-  with $\mathrm{DT}^X_{n,(\beta_h,d)}=\int_{\mathrm{Hilb}^n(X,\beta_h)/E}\nu_{de}$
-  the Behrend-weighted reduced Donaldson--Thomas invariant,
-  quotient taken by the free $E$-action. This is the
-  \emph{reduced} $E$-equivariant DT zeta, not the unreduced 3-variable
-  DT; the distinction costs a factor of $\eta(q)^{-24}$ in
-  mis-stated comparisons (Oberdieck--Pandharipande 2016
-  arXiv:1411.1514~\S0.3).
-\item The ``theorem at $N=1$''. At the time of Lorgat~2020 the
-  $N=1$ statement was the Oberdieck--Pandharipande 2016 theorem
-  (\textit{Invent.~Math.}~\textbf{213}, 507--587;
-  arXiv:1411.1514), proved modulo the reduced-DT $=$ PT equivalence
-  (Pandharipande--Thomas 2014). The extended
-  Igusa-cusp-form conjecture to all cohomology classes is
-  Oberdieck--Pixton 2018 (\textit{Duke Math.~J.}~\textbf{168},
-  1543--1600; arXiv:1706.10100), proved via holomorphic anomaly.
-  Theorem~2 as stated in Lorgat 2020 is therefore a \emph{theorem},
-  not a conjecture, at $N=1$.
-\item ``Reciprocal-square root'' -- specifically,
-  $Z^X=C/(\Delta_5)^2$ says the DT partition function has a
-  \emph{double} pole along the diagonal divisor. The
-  ``square-root'' $\Delta_5=\sqrt{(\Delta_5)^2}$ has a \emph{single}
-  vanishing there. The $\Delta_5$-to-$\Phi_{10}$ relation
-  $\Phi_{10}=(\Delta_5)^2\in M_{10}(\Sp_4(\mathbb Z))$ --- where
-  $\Phi_{10}$ is the Igusa cusp form named in the title of Igusa
-  1964 --- is what allows the ``square root of Igusa'' to be
-  $\Delta_5$ with character $\nu_{\Delta_5}$ of order~$2$.
-\item The conjectural extension to $(g_N,h_M)$: the twisted
-  $Z^X_{L,h_M}$ should equal $-C_N/\Phi^{(N)}$ where $\Phi^{(N)}$
-  is the level-$N$ analogue of $\Phi_{10}$, i.e.\
-  $(D^{(N)}_{k(N)})^2$ under the Gritsenko--Cl\'ery
-  classification. Only $k(N)=5,2,3$ (integer weights at $N=1,2,3$)
-  yield integer $\Phi^{(N)}$-weights via squaring; $k(N)=1$ yields
-  $\Phi^{(N)}$ of weight~$2$; $k(N)=1/2,3/2$ yield weights
-  $1,3$. The Oberdieck--Pandharipande--Pixton CHL-conjecture
-  (Bryan--Oberdieck--Pandharipande--Yin 2018
-  arXiv:1706.10100~\S1.5) spans $N\in\{2,3,4,6\}$; Lorgat 2020's
-  $N=7,8$ cases lie outside.
-\end{enumerate}
-
-\paragraph{Ghost theorem.}
-Two distinct mathematical objects collide under the rubric
-``DT zeta root'': one proved, one conjectural.
-
-The $N=1$ identity
+The monic Borcherds denominator used by the BKM algebra is
 \[
-  Z^{S\times E}(q,t,p) \;=\; \frac{C}{\Phi_{10}(q,t,p)}
-  \;=\; \frac{C}{\Delta_5(q,t,p)^2}
+  \Dfive=64^{-1}\Delta_5,\qquad
+  \operatorname{den}(\fg_{\Delta_5})=\Dfive(2Z).
 \]
-is the \emph{Igusa cusp form theorem of Oberdieck--Pandharipande}
-(arXiv:1411.1514~Thm.~3, for the $K3$-fibre-class version), with
-the full-cohomology extension Oberdieck--Pixton 2018. Status:
-$\ClaimStatusTheorem$. The constant $C$ is determined by the
-genus-zero / primitive-class initial condition; its explicit value
-is $C=-1$ in the Oberdieck--Pandharipande normalisation of
-$\mathrm{DT}^X$ and $\Phi_{10}(Z)$.
+Multiplying a denominator by a non-zero scalar does not change its
+modular weight, divisor, character, or BKM root multiplicities.
 
-The $N\in\{2,3,4,6\}$ identity
+\subsection*{Eichler--Zagier and K3 Normalisations}
+
+The Eichler--Zagier generator satisfies
 \[
-  Z^X_{L,h_M}(q,t,p)
-  \;\stackrel{?}{=}\;
-  \frac{C_N}{\big(D^{(N)}_{k(N)}(q,t,p)\big)^2}
-  \;=\;
-  \frac{C_N}{\Phi^{(N)}_{2k(N)}(q,t,p)}
+  \phi_{0,1}^{\mathrm{EZ}}(\tau,z)
+  =
+  r^{-1}+10+r+O(q).
 \]
-is the \emph{CHL-orbifold Igusa conjecture} of
-Bryan--Oberdieck--Pandharipande--Yin 2018 (arXiv:1706.10100;
-refining Oberdieck 2017 arXiv:1706.07469, Oberdieck 2020
-\textit{Geom.~Topol.}~24). Status: $\ClaimStatusTheorem$ for the
-PT/DT compatibility framework (Pandharipande--Thomas); the
-\emph{explicit} right-hand side at $N\in\{2,3,4,6\}$ is proved in
-Oberdieck 2018 \textit{J.~Reine Angew.~Math.}~\textbf{752}
-(arXiv:1607.01149) for the reduced $K3[n]$-class version modulo
-the Bloch--Okounkov wall-crossing; still
-$\ClaimStatusConjectured$ at the level of matching Lorgat 2020's
-$D^{(N)}_{k(N)}$ specimen-by-specimen to the
-$Z^X_{L,h_M}$-reciprocal-square roots.
-
-At $N\in\{5,7,8\}$ the CHL Igusa conjecture is $\ClaimStatusOpen$ as
-of 2026-04; the input twined genus $\phi^{(g_N)}_{0,1}$ is defined
-(EOT 2011 Table~2) but the Borcherds-lift construction of a
-corresponding $\Phi^{(N)}$-form requires the half-integer
-paramodular tower Cl\'ery--Gritsenko 2008 Thm.~3.1, whose
-``automorphic correction'' to a BKM superalgebra is not yet
-established.
-
-\paragraph{Heal.}
-The motivating conjecture, restated in precise form (replacing the
-paper's \S1 final sentence):
-
-\begin{conjecture}[Lorgat, motivating, rectified]\label{conj:lorgat-motivating}
-Let $X=(S\times E)/(\mathbb Z/N\mathbb Z)$ with
-$S$ a $K3$ surface, $\mathbb Z/N\mathbb Z$ acting diagonally via a
-symplectic automorphism $g_N\in\mathrm{Aut}_{\mathrm{sympl}}(S)$ of
-order~$N$ (Mukai 1988 \textit{Invent.~Math.}~94~Thm.~1.1) and an
-$N$-torsion translation on $E$. Let $L\subset\mathrm{Pic}(S)$ be a
-lattice polarisation fixed pointwise by $g_N$, and let $h_M=g^s_N$
-be an admissible symplectic secondary automorphism of order $M|N$.
-Then the Behrend-weighted reduced Donaldson--Thomas $E$-equivariant
-zeta function $Z^X_{L,h_M}(q,t,p)$ satisfies
+The K3 elliptic genus is twice this form:
 \[
-   Z^X_{L,h_M}(q,t,p) \;=\; \frac{C_N}{\Phi^{(N)}(q,t,p)},
-   \qquad
-   \Phi^{(N)}=\bigl(D^{(N)}_{k(N)}\bigr)^2,
+  Z_{K3}(\tau,z)=2\,\phi_{0,1}^{\mathrm{EZ}}(\tau,z).
 \]
-where $D^{(N)}_{k(N)}$ is the unique (up to scaling) Gritsenko--Cl\'ery
-diagonal-divisor paramodular cusp form of weight $k(N)$ on
-$\Gamma_{t(N)}(N_0)$ for an explicit assignment
-$(t(N),N_0(N),k(N),\nu(N))$, and the level-$N$ character of $\Phi^{(N)}$
-matches the Borcherds singular theta lift of the $g_N$-twined K3
-elliptic genus $\phi^{(g_N)}_{0,1}\in J_{0,1}(\Gamma_0(N))$. Status:
+The primitive $N=1$ Borcherds input records the normalised coefficient
+\[
+  c_1(0)=10,
+\]
+so Borcherds' weight theorem gives
+\[
+  \kBKM(\Delta_5)=c_1(0)/2=5.
+\]
+The reduced DT scalar on $K3\times E$ uses the square normalisation:
+\[
+  Z^{K3\times E}_{\mathrm{red}}=C\,(\Phiten^\theta)^{-1}
+  =C\,\Delta_5^{-2}.
+\]
+In the Oberdieck--Pandharipande monic convention
+$\Phiten^{\mathrm{OP}}=\Dfive^2=4096^{-1}\Delta_5^2$, so the reciprocal
+scalar differs by the corresponding constant.
+
+\subsection*{Primitive CHL Constants}
+
+For the primitive CHL/BKM denominator branch,
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6 \\ \hline
+c_N(0) & 10 & 8 & 6 & 4 & 2 \\
+\kBKM(\Phi_N) & 5 & 4 & 3 & 2 & 1 \\
+2\,\kBKM(\Phi_N) & 10 & 8 & 6 & 4 & 2
+\end{array}
+\]
+The last row is the scalar-square weight. At $N=1$ the primitive
+denominator is $\Delta_5$ and the scalar square is
+$\Phiten^\theta=\Delta_5^2$. For $N>1$, identifying a primitive CHL
+denominator with a specific Gritsenko--Clery row is an additional
+normalisation theorem. The tuple $(10,4,2,2,2)$ is a fixed-locus or
+twining-row convention and is not the primitive CHL table.
+
+\subsection*{Gritsenko--Clery Diagonal-Divisor Catalogue}
+
+Gritsenko--Clery classify eight diagonal-divisor paramodular forms. The
+catalogue is triple-indexed by paramodular level, congruence level, and
+weight:
+\[
+\begin{array}{c|c|c|c}
+\text{row} & (t,N_0) & \text{form} & \mathrm{wt} \\
+\hline
+1 & (1,1) & \Delta_5 & 5 \\
+2 & (2,1) & D_2^{(2)} & 2 \\
+3 & (1,2) & D_3^{(1,2)} & 3 \\
+4 & (3,1) & D_1^{(3)} & 1 \\
+5 & (1,3) & D_2^{(1,3)} & 2 \\
+6 & (4,1) & D_{1/2}^{(4)} & 1/2 \\
+7 & (1,4) & D_{3/2}^{(1,4)} & 3/2 \\
+8 & (2,2) & D_1^{(2,2)} & 1
+\end{array}
+\]
+The twice-weight row is
+\[
+  c^{\mathrm{GC}}(0)=(10,4,6,2,4,1,3,2).
+\]
+This row belongs to the Gritsenko--Clery catalogue. It is separate from
+the primitive CHL tuple $(10,8,6,4,2)$. The catalogue contains no
+quarter-weight row and no weight-$0$ row.
+
+\subsection*{Borcherds Weight and Denominator Interpretation}
+
+Borcherds 1998, Theorem~13.3, states that the singular theta lift of a
+weakly holomorphic input with constant coefficient $c_0(0)$ has weight
+$c_0(0)/2$. On the primitive CHL branch this yields
+\[
+  \kBKM(\Phi_N)=c_N(0)/2,\qquad N\in\{1,2,3,4,6\}.
+\]
+On a Gritsenko--Clery row it yields the modular weight of that row after
+the row and input normalisation have been fixed:
+\[
+  \mathrm{wt}(D_j)=c^{\mathrm{GC}}_j(0)/2.
+\]
+The second formula is a weight statement for the catalogue. It becomes
+a Vol~III BKM denominator statement only when the corresponding Hall or
+Borcherds superalgebra has been constructed with its multiplier,
+Weyl-vector, and root-multiplicity conventions.
+
+\subsection*{$K3\times E$ Branch Separation}
+
+The $K3\times E$ BKM branch is the Hall--Drinfeld double or compact Hall
+branch under the compactness, orientation, PBW, and finite comparison
+hypotheses:
+\[
+  \mathcal D_{\hbar}\bigl(\CoHA(K3\times E)\bigr)
+  \leadsto
+  \fg_{\Delta_5}.
+\]
+It is not a Drinfeld Yangian. The K3 Yangian is the separate Mukai
+self-mirror branch. The two-stage factorisation
+\[
+  \Phi_d=\mathrm{Sp}_{\Sigma_{d-1},C}\circ\Phih_d
+\]
+produces a chiral specialisation; it does not identify the BKM branch
+with a Yangian branch.
+
+\subsection*{Reduced DT and Reciprocal Squares}
+
+For $X=K3\times E$, Oberdieck--Pandharipande prove the reduced
+Donaldson--Thomas identity in the $N=1$ sector:
+\[
+  Z^X_{\mathrm{red}}=C\,\Phiten^{-1}=C\,\Delta_5^{-2}
+\]
+in the unnormalised theta convention. The CHL sectors
+$N\in\{2,3,4,6\}$ carry primitive denominator forms of weights
+$(5,4,3,2,1)$ and scalar-square weights $(10,8,6,4,2)$. Matching those
+primitive denominators with individual Gritsenko--Clery rows requires a
+named overlap theorem and a scalar normalisation.
+
+\subsection*{Primary Sources}
 
 \begin{itemize}[leftmargin=1.5em]
-\item $\ClaimStatusTheorem$ at $N=1$: Oberdieck--Pandharipande 2016
-  (arXiv:1411.1514) proves $Z^{S\times E}=-1/\Phi_{10}$; the
-  reciprocal-square-root side is $\Delta_5$ with
-  $\Phi_{10}=\Delta_5^2$; the BKM side is $\mathfrak g_{\Delta_5}$
-  per Gritsenko--Nikulin 1998 \textit{J.~Reine Angew.~Math.}~507
-  (Thm.~2.1) with denominator identity $\tfrac{1}{64}\Delta_5(2Z)$.
-  This is the content of \S\S 2--6 of Lorgat 2020.
-\item $\ClaimStatusConjectured$ at $N\in\{2,3,4,6\}$: the identity
-  $Z^X_{L,h_M}=C_N/\Phi^{(N)}$ is expected following
-  Bryan--Oberdieck--Pandharipande--Yin 2018 and is proved modulo
-  the reduced-DT=PT equivalence for the primitive-class sector
-  (Oberdieck 2018 \textit{J.~Reine Angew.~Math.}~752, arXiv:1607.01149);
-  the BKM automorphic-correction side
-  $\mathfrak g_{\Phi^{(N)}}$ is the Gritsenko--Nikulin 1998
-  hierarchy at Theorem~2.1 with root multiplicities
-  $c_N(\alpha)=\mathrm{ch}^{(g_N)}_{\phi^{(g_N)}_{0,1}}(\alpha)$
-  given by $g_N$-twined elliptic-genus Fourier coefficients.
-\item $\ClaimStatusOpen$ at $N\in\{5,7,8\}$: the half-integer
-  paramodular tower Cl\'ery--Gritsenko 2008 Thm.~3.1 produces
-  $D^{(N)}_{k(N)}$ at $k(N)\in\{\tfrac12,1,\tfrac32\}$, but the
-  Borcherds-lifted BKM superalgebra at these weights does not
-  admit the standard denominator identity and is
-  structurally distinct (no integrality of $\kBKM$).
+\item Igusa 1964: the genus-$2$ cusp form $\Phi_{10}$.
+\item Eichler--Zagier 1985: $\phi_{0,1}^{\mathrm{EZ}}$.
+\item Gritsenko--Nikulin 1995/1998: the denominator
+  $\Dfive(2Z)=64^{-1}\Delta_5(2Z)$.
+\item Borcherds 1998, Theorem~13.3: singular theta lift weight
+  $c_0(0)/2$.
+\item Gritsenko--Clery 2008: the eight diagonal-divisor paramodular
+  forms and the tuple $(10,4,6,2,4,1,3,2)$.
+\item Oberdieck--Pandharipande 2016 and Oberdieck--Pixton 2018:
+  reduced $K3\times E$ DT partition functions and the Igusa square.
 \end{itemize}
-\end{conjecture}
-
-%--------------------------------------------------------------------
-\subsection*{Cycle 3: Twined elliptic genera -- the $c_N(0)$ constants
-and the Mukai--Mathieu arithmetic}
-%--------------------------------------------------------------------
-
-\paragraph{Attack.}
-The conjecture's third clause: \emph{``root multiplicities
-specified by $g_N-h_M$-twisted twined elliptic genera of K3
-surfaces.''} Two attacks:
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item Whose definition of $g_N$-twined elliptic genus? The phrase
-  admits two inequivalent conventions:
-  \begin{itemize}
-    \item Euler-character twining:
-      $\chi^{(g_N)}(K3)=\mathrm{tr}_{H^\ast(K3)}(g_N)$, an
-      integer; for $g_N$ Mukai-symplectic of order~$N\in\{1,2,3,4,6\}$
-      the values are $(24,8,6,4,2)$ (Mukai 1988 Table~1).
-    \item Elliptic-genus twining:
-      $\phi^{(g_N)}_{0,1}(\tau,z):=\mathrm{tr}_{H^\ast(K3)}
-      (g_N(-1)^F y^{J_0}q^{L_0-c/24})$, a weak Jacobi form of
-      weight~$0$ and index~$1$ on $\Gamma_0(N)$ (EOT 2011
-      \textit{Exp.~Math.}~20; Cheng--Harvey 2012 arXiv:1204.2779
-      Thm.~2.3).
-  \end{itemize}
-  Only the latter is what enters Borcherds' singular theta lift on
-  $\Lambda^{3,2}$; the former is its $q^0|_{z=0}$ constant up to a
-  factor of~$2$.
-\item The Mathieu moonshine connection: Cheng--Duncan--Harvey 2014
-  (arXiv:1307.5793, \textit{Commun.~Number Theory
-  Phys.}~\textbf{8}) associate to each $M_{24}$ conjugacy class
-  $[g]$ a weak Jacobi form $\phi^{[g]}_{0,1}$ via the Mathieu
-  moonshine conjecture (proved by Gannon 2012 arXiv:1211.3703 at
-  the character level). The Mukai symplectic classes
-  $\{1A,2A,3A,4B,6A\}$ of $M_{24}$ correspond precisely to
-  $N\in\{1,2,3,4,6\}$ via Mukai's embedding
-  $\mathrm{Aut}_{\mathrm{sympl}}(K3)\hookrightarrow M_{23}\subset
-  M_{24}$; this is what \emph{makes} $c_N(0)$ well-defined.
-  Paper~\S 1 does not cite Mathieu moonshine, reflecting its
-  pre-Gannon-era drafting; the content it names is
-  Mukai-symplectic twining of elliptic genera.
-\end{enumerate}
-
-\paragraph{Ghost theorem.}
-For $N\in\{1,2,3,4,6\}$, Mukai 1988 classifies
-$\mathrm{Aut}_{\mathrm{sympl}}(K3)$ finite-order elements;
-each $g_N$ of order $N\leq 8$ has Euler-characteristic trace
-$\chi^{g_N}(K3)\in\{24,8,6,4,2,-,4,0\}$ for
-$N\in\{1,2,3,4,6,-,7,8\}$. The twined elliptic genus is
-\[
-  \phi^{(g_N)}_{0,1}(\tau,z)
-  \;=\;
-  \mathrm{tr}_{H^{\ast}(K3)}\!\Big(g_N\,(-1)^F y^{J_0}q^{L_0-c/24}\Big),
-\]
-a weak Jacobi form of weight~$0$, index~$1$, and multiplier system
-$\nu^{(g_N)}$ on the Hecke congruence subgroup
-$\Gamma_0(N)$. Its $q^0$ Laurent polynomial is
-\[
-  \phi^{(g_N)}_{0,1}(\tau,z)\big|_{q=0}
-  \;=\;
-  c_N(0,-1)y^{-1}+c_N(0,0)+c_N(0,1)y,
-\]
-with $c_N(0,-1)=c_N(0,1)=1$ fixed by the index-$1$ cusp condition,
-and $c_N(0,0)\in\{10,4,2,2,2\}$ for $N\in\{1,2,3,4,6\}$
-respectively. The scalar
-$c_N(0):=c_N(0,0)=\phi^{(g_N)}_{0,1}(\tau,z)\big|_{q=0,z=0}$
-equals the $g_N$-twined cohomological Euler character of $K3$
-normalised by the $y^0$-coefficient; its values match those of
-Cheng--Harvey 2012 Table~1 at $N\in\{1,2,3,4,6\}$.
-
-The Borcherds singular theta lift on $\Lambda^{3,2}$ with input
-$\phi^{(g_N)}_{0,1}$ yields a level-$N$ Siegel paramodular cusp form
-$\Phi^{(N)}=\mathrm{Lift}(\phi^{(g_N)}_{0,1})$ of weight
-$\mathrm{wt}(\Phi^{(N)})=c_N(0)/2\in\{5,2,1,1,1\}$
-(Borcherds 1998 \textit{Invent.~Math.}~132~Thm.~13.3). Matching the
-Gritsenko--Nikulin 1998 $\Delta^{(N)}_{k(N)}$-tower identifies
-\[
-  (k(N))_{N\in\{1,2,3,4,6\}}=(5,2,1,1,1)=(c_N(0)/2)_{N\in\{1,2,3,4,6\}},
-\]
-so
-\[
-  \boxed{\kBKM(\Phi^{(N)}) \;=\; c_N(0)/2, \quad
-    N\in\{1,2,3,4,6\}.}
-\]
-At $N=1$ this recovers $\kBKM(\Delta_5)=10/2=5$ as the
-Gelfand-check of Lorgat 2020's central numerical assertion.
-
-\paragraph{Heal.}
-The twining-side of the rectified conjecture
-(Conjecture~\ref{conj:lorgat-motivating}) is inscribed as:
-
-\begin{proposition}[Twined Borcherds input with $c_N(0)$-table]
-\label{prop:twined-cN}
-For $N\in\{1,2,3,4,6\}$ and $g_N\in\mathrm{Aut}_{\mathrm{sympl}}(K3)$
-Mukai-symplectic of order $N$:
-\begin{center}
-\begin{tabular}{cccccc}
-\hline
-$N$ & $[g]\in M_{24}$ & $\chi^{g_N}(K3)$ & $c_N(0)$ &
-$k(N)=c_N(0)/2$ & $D^{(N)}_{k(N)}$ \\
-\hline
-$1$ & $1A$ & $24$ & $10$ & $5$ & $\Delta_5$ \\
-$2$ & $2A$ & $8$ & $4$ & $2$ & $D^{(2)}_2$ \\
-$3$ & $3A$ & $6$ & $2$ & $1$ & $D^{(3)}_1$ \\
-$4$ & $4B$ & $4$ & $2$ & $1$ & $D^{(4)}_1$ \\
-$6$ & $6A$ & $2$ & $2$ & $1$ & $D^{(6)}_1$ \\
-\hline
-\end{tabular}
-\end{center}
-The table is an identity of Fourier-coefficient arithmetic between
-(a) the Mukai-symplectic classification of $\mathrm{Aut}_{\mathrm{sympl}}(K3)$,
-(b) the $M_{24}$ twined elliptic genus, and (c) the
-Gritsenko--Cl\'ery paramodular tower. Primary: Mukai 1988;
-Cheng--Harvey 2012; Gritsenko--Cl\'ery 2008; Borcherds 1998.
-Proof: direct computation of $\phi^{(g_N)}_{0,1}|_{q=0,z=0}$ and
-Borcherds Thm.~13.3.
-\end{proposition}
-
-The $\kBKM$-subscript discipline forbids writing ``$\kBKM=c(0)/2$''
-without the $N$-index on both sides. The rectified motivating
-conjecture's twining clause reads:
-\emph{``root multiplicities $\mult_{\Phi^{(N)}}(\alpha)=c_N(nm,\ell)$
-where $\alpha=(n,\ell,m)\in\Lambda^{2,1}_{II}\cap\mathbb R_{>0}
-\mathcal P_{II}$ and $c_N(nm,\ell)$ is the $(nm,\ell)$-Fourier
-coefficient of the $g_N$-twined K3 elliptic genus
-$\phi^{(g_N)}_{0,1}$.''}
-
-%--------------------------------------------------------------------
-\subsection*{Cycle 4: The Delta\_5 weight is 5, not 10 -- Borcherds
-1998 Thm.~13.3 and the Siegel/paramodular discipline}
-%--------------------------------------------------------------------
-
-\paragraph{Attack.}
-The paper's~\S 2 opens: \emph{``$\Delta_{10}$ is the square of a cusp
-form $\Delta_5$ of weight~$5$.''} Attacks:
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item Which convention for ``weight''? A Siegel modular form of
-  weight $k$ on $\Sp_4(\mathbb Z)$ transforms as $F(MZ)=(\det
-  CZ+D)^k\nu(M)F(Z)$; a paramodular form of weight $k$ on
-  $\Gamma_t$ at level $t$ transforms by the same formula on
-  $\Gamma_t$. The numerical weight on
-  $\Gamma_1=\Sp_4(\mathbb Z)$ is a single number; but
-  $\Phi_{10}\in M_{10}(\Sp_4(\mathbb Z))$ and
-  $\Delta_5\in M_5(\Sp_4(\mathbb Z),\nu_{\Delta_5})$ (with
-  non-trivial character of order~$2$) are \emph{both} written on the
-  same group. The ambiguity is not between Siegel and paramodular;
-  it is between $\Phi_{10}$ and $\Delta_5$, and it costs a factor
-  of~$2$.
-\item What is the Borcherds-lift weight? Borcherds 1998
-  \textit{Invent.~Math.}~132 Theorem~13.3 (``Automorphic forms on
-  $O_{s+2,2}(\mathbb R)$ and infinite products'', primary citation)
-  states: if
-  $\phi(\tau)=\sum_{\lambda}q^{-n_\lambda}c_\lambda(-n_\lambda)e_\lambda
-  +\cdots$ is a weakly holomorphic vector-valued modular form of
-  weight $1-(n^++n^-)/2$ on a lattice $\Lambda$ of signature
-  $(n^+,n^-)$ (the bookkeeping lift to vector-valued Jacobi forms
-  proceeds via Eichler--Zagier 1985 Thm.~5.1), then its singular
-  theta lift
-  $\Phi(Z) :=\lim_{\epsilon\to 0^+}\mathrm{reg}\int_{\Gamma_1
-    \backslash\mathfrak H_1}\Theta_\Lambda(\tau,Z)\phi(\tau)
-  y^{-\epsilon}\,\frac{dxdy}{y^2}$
-  is an automorphic form on $\mathrm O(\Lambda)_+$ of weight
-  $\mathrm{wt}(\Phi)=c_0(0)/2$, with $c_0(0)$ the
-  $q^0$ coefficient of the trivial-class component.
-\item At $\Lambda=\Lambda^{3,2}$ (signature $(3,2)$) and
-  $\phi=\phi_{0,1}$ (weight~$0$, index~$1$, lifted to
-  vector-valued form of weight $1-5/2=-3/2$ on $\Lambda^{3,2}$ via
-  the Eichler--Zagier $\theta$-decomposition), the $q^0$ constant
-  of the trivial-class component is $c_{\phi_{0,1}}(0,0)$, the
-  $y^0$-coefficient of $\phi_{0,1}(\tau,z)|_{q=0}=y^{-1}+10+y$. So
-  $c_{\phi_{0,1}}(0,0)=10$, and Borcherds' formula gives
-  $\mathrm{wt}(\Phi)=10/2=5$, not~$10$.
-\end{enumerate}
-
-\paragraph{Ghost theorem.}
-The Borcherds singular theta lift on the quadratic lattice
-$\Lambda=\Lambda^{3,2}\simeq\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus[2]$
-with input the weight-$0$, index-$1$ weak Jacobi form
-$\phi_{0,1}(\tau,z)$ has weight
-\[
-   \mathrm{wt}\bigl(\mathrm{Lift}(\phi_{0,1})\bigr)
-   \;=\;\frac{c_{\phi_{0,1}}(0,0)}{2}\;=\;\frac{10}{2}\;=\;5
-\]
-by Borcherds 1998 \textit{Invent.~Math.}~\textbf{132}~Thm.~13.3. The
-explicit output
-\[
-   \mathrm{Lift}(\phi_{0,1})(Z) \;=\; \frac{1}{64}\,\Delta_5(2Z)
-\]
-is the content of Lorgat 2020 Theorem~3
-(\texttt{wave13\_source\_paper.txt:689--693}): Gritsenko--Nikulin
-1995 Part~II (arXiv:alg-geom/9504006) Theorem~2.1. The factor
-$\tfrac{1}{64}$ is the $f(1,1,1)$-normalisation (cycle~5).
-
-The Igusa cusp form $\Phi_{10}\in M_{10}(\Sp_4(\mathbb Z))$ of weight
-$10$ is then $\Phi_{10}=\Delta_5^2$ with weight~$10$, character
-$\nu_{\Delta_5}^2=\mathbf 1$ trivial; both $\Delta_5$ and $\Phi_{10}$
-live on $\Sp_4(\mathbb Z)=\Gamma_1$ and both are well-defined Siegel
-modular forms. The Gelfand-level numerical match is
-\[
-  \kBKM(\Delta_5) \;=\; \mathrm{wt}(\Delta_5)\;=\;5
-  \;=\;c_{\phi_{0,1}}(0,0)/2,
-\]
-with $c_{\phi_{0,1}}(0,0)=10$ the $q^0|_{z=0}$ constant of the weak
-Jacobi form input.
-
-\paragraph{Heal.}
-The Delta\_5 preamble (rectified):
-
-\begin{definition}[Igusa cusp form and its square root]
-\label{def:delta-5-preamble}
-The ring of Siegel modular forms of genus~$2$ with respect to the
-full Siegel modular group $\Sp_4(\mathbb Z)$ is
-$\mathrm{SM}(\Sp_4(\mathbb Z))=\mathbb C[E_4,E_6,\Delta_{10},\Delta_{12}]$
-(Igusa 1964 \textit{Am.~J.~Math.}~\textbf{86}), with $E_4,E_6$ the
-genus-$2$ Eisenstein series and $\Delta_{10}\in M_{10}(\Sp_4(\mathbb Z)),
-\Delta_{12}\in M_{12}(\Sp_4(\mathbb Z))$ the two cusp-form
-generators of weights~$10,12$.
-
-The Igusa cusp form $\Phi_{10}:=\Delta_{10}$ is a square: there
-exists a Siegel cusp form
-\[
-   \Delta_5 \in M_5\bigl(\Sp_4(\mathbb Z),\,\nu_{\Delta_5}\bigr)
-\]
-of weight~$5$ and non-trivial multiplier system $\nu_{\Delta_5}$ of
-order~$2$ such that $\Phi_{10}=\Delta_5^2$ (Igusa 1964; the
-character was determined explicitly by Maass 1964
-\textit{Nachr.~Akad.~Wiss.~G\"ottingen Math.-Phys.~Kl.}~11).
-Explicitly,
-\[
-   \Delta_5 \;=\; \prod_{\substack{(a,b)\in(\mathbb Z/2\mathbb Z)^2\\
-     {}^t\! a b\equiv 0\pmod 2}}
-     \vartheta_{a,b},
-\]
-the product of the ten even theta constants on the genus-$2$
-theta-characteristics $(a,b)\in(\mathbb Z/2\mathbb Z)^4$ with
-$a\cdot b\equiv 0\pmod 2$. The multiplier system $\nu_{\Delta_5}$
-has explicit formulae on the generators of $\Sp_4(\mathbb Z)$
-given by Maass 1964; in the shearing decomposition
-$M=\mathrm{diag}({}^t\! A^{-1},A)\cdot\bigl(\begin{smallmatrix}
-I_2 & B\\0 & I_2\end{smallmatrix}\bigr)\cdot
-\bigl(\begin{smallmatrix}0 & I_2\\-I_2 & 0\end{smallmatrix}\bigr)$,
-\begin{align*}
-  \nu_{\Delta_5}\!\Big(\begin{smallmatrix}0 & I_2\\-I_2 & 0\end{smallmatrix}\Big)
-  &=1,
-  \\
-  \nu_{\Delta_5}\!\Big(\begin{smallmatrix}I_2 & B\\0 & I_2\end{smallmatrix}\Big)
-  &=(-1)^{b_1+b_2+b_3},
-  \\
-  \nu_{\Delta_5}\!\Big(\begin{smallmatrix}{}^t\! A^{-1} & 0\\0 & A\end{smallmatrix}\Big)
-  &=(-1)^{(1+a_1+a_4)(1+a_2+a_3)+a_1a_4}.
-\end{align*}
-\end{definition}
-
-\begin{theorem}[Borcherds lift of $\phi_{0,1}$ to $\Delta_5$]
-\label{thm:borcherds-phi01-delta5}
-Let $\phi_{0,1}(\tau,z)=\sum_{n\geq 0,\ell\in\mathbb Z}
-f(n,\ell)q^n y^\ell$ be the unique-up-to-scaling weak Jacobi form
-of weight~$0$ and index~$1$ (Eichler--Zagier 1985
-\textit{The Theory of Jacobi Forms}, Prop.~2.1; normalisation
-$\phi_{0,1}|_{q=0}=y^{-1}+10+y$, i.e.\ $f(0,\pm1)=1$ and $f(0,0)=10$).
-Then the Borcherds singular theta lift on
-$\Lambda=\Lambda^{3,2}\simeq\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus[2]$
-with input $\phi_{0,1}$ (decomposed to vector-valued form on
-$\Lambda^{3,2}$ via Eichler--Zagier $\theta$-decomposition) produces
-the Siegel modular form
-\[
-  \mathrm{Lift}(\phi_{0,1})(Z) \;=\; \tfrac{1}{64}\,\Delta_5(2Z)
-\]
-of weight $\mathrm{wt}(\Delta_5)=f(0,0)/2=5$, matching Borcherds
-1998 \textit{Invent.~Math.}~132 Thm.~13.3. The GKM superalgebra
-$\mathfrak g_{\Delta_5}$ constructed in \S 5 of Lorgat 2020 has
-Weyl--Kac--Borcherds denominator
-\[
-   \Phi_{\mathfrak g_{\Delta_5}}(z) \;=\; \tfrac{1}{64}\,\Delta_5(2z)
-\]
-(Gritsenko--Nikulin 1995 Part~II Theorem~2.1; Lorgat 2020 Theorem~3).
-Status: $\ClaimStatusTheorem$, with the decomposition
-$\Delta_5\mapsto\phi_{0,1}$ the content of the paper's \S 2 Lemma and
-\S 6 Theorem~4.
-\end{theorem}
-
-%--------------------------------------------------------------------
-\subsection*{Cycle 5: The $f(1,1,1)=64$ normalisation and the infinite
-product -- what the 64 is, and what ``product over positive roots'' means}
-%--------------------------------------------------------------------
-
-\paragraph{Attack.}
-The paper's~\S 2 states: \emph{``$f(1,1,1)=64$ as well as
-$64\mid f(n,\ell,m)$ for all $n,\ell,m$''} and uses this without
-explaining why the $64$ factor arises or how it propagates. Three
-attacks:
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item The factor $64=2^6$ has an immediate arithmetic origin: $2^6$
-  is the size of the kernel of the twofold cover
-  $\mathrm{Sp}_4(\mathbb Z)\to\mathrm{Sp}_4(\mathbb Z)/\{\pm I\}$
-  tensored with the genus-$2$ theta-characteristic structure
-  (ten even theta constants at first nontrivial Fourier index each
-  contribute a factor of $2$: but this heuristic alone gives
-  $2^{10}$, not $2^6$). So the $64$ is not ``obvious from the theta
-  constants''; it demands a computation.
-\item Why does $64\mid f(n,\ell,m)$ for all $n,\ell,m$? The Lorgat
-  2020 derivation proceeds via the Fourier--Jacobi
-  expansion
-  \[
-    \Delta_5(Z)=\sum_{m>0,m\equiv 1\pmod 2}\phi_{5,m}(z_1,z_2)
-      \,\exp(\pi imz_3),
-  \]
-  where $\phi_{5,m}$ is a Jacobi cusp form of weight~$5$ and
-  index~$\tfrac m2$, and the first Fourier--Jacobi coefficient
-  factors as $\phi_{5,\tfrac12}=\eta(z_1)^9\vartheta_{11}(z_1,z_2)$,
-  then squares to a Jacobi cusp form of weight~$10$ index~$1$; the
-  $64$ is the product of normalisation factors $\eta^9,
-  \vartheta_{11}$ at the first nontrivial Fourier mode, as Lorgat
-  2020 \S 2 Lemma computes.
-\item The infinite-product expansion of Lorgat 2020 Theorem~4
-  \[
-    \tfrac{1}{64}\Delta_5(Z)
-    = \exp(\pi i(z_1+z_2+z_3))\prod_{(n,\ell,m)>0}
-      \bigl(1-\exp(2\pi i(nz_1+\ell z_2+mz_3))\bigr)^{f(nm,\ell)}
-  \]
-  depends on: (i) the cone-ordering ``$(n,\ell,m)>0$''
-  (defined in Lorgat 2020 Remark~1: $n,m\geq 0$, $\ell$ arbitrary
-  if $n>0$ or $m>0$, $\ell<0$ if $n=m=0$); (ii) the identification
-  of multiplicities $\mult(\alpha=(n,\ell,m))=f(nm,\ell)$ with
-  $\phi_{0,1}$-Fourier coefficients; and (iii) the Borcherds
-  singular-theta-lift cone-ordering, which differs from the
-  Weyl-chamber ordering by the sequence of cone embeddings
-  $\Delta(\Lambda^{2,1}_{II})^*_+\subset\mathcal C(\Lambda^{2,1})_+
-  =\mathcal C(\Lambda^{2,1})^*_+\subset\Delta(\Lambda^{2,1}_{II})_+$
-  (Lorgat 2020 \S 4).
-\end{enumerate}
-
-\paragraph{Ghost theorem.}
-The infinite-product expansion is the Borcherds--Gritsenko--Nikulin
-automorphic-correction formula. Expressed cleanly:
-
-\begin{theorem}[Infinite-product expansion of $\Delta_5$; Lorgat 2020
-Theorem~4]\label{thm:delta5-infinite-product}
-Let $\phi_{0,1}(\tau,z)=\sum_{n,\ell}f(n,\ell)q^n y^\ell$ with
-$f(n,\ell)$ dependent only on $4n-\ell^2$ (Eichler--Zagier 1985
-Thm.~2.2, parity of weight). Then
-\[
-  \tfrac{1}{64}\Delta_5(Z)
-  \;=\;
-  \exp\!\bigl(\pi i(z_1+z_2+z_3)\bigr)\!
-  \prod_{(n,\ell,m)\in\mathbb Z^3,\ (n,\ell,m)>0}\!\!
-  \bigl(1-\exp(2\pi i(nz_1+\ell z_2+mz_3))\bigr)^{f(nm,\ell)}
-\]
-where the positive-root cone $(n,\ell,m)>0$ is
-\[
-   (n,\ell,m)>0
-   \;\Longleftrightarrow\;
-   \bigl(n\geq 0,\ m\geq 0,\ (n,m)\neq(0,0);\ \ell\in\mathbb Z\bigr)
-   \;\vee\;
-   \bigl(n=m=0,\ \ell<0\bigr).
-\]
-The multiplicity function $\mult(\alpha)=f(nm,\ell)$ is the
-Fourier coefficient of $\phi_{0,1}$, equivalently the
-super-dimension of the root space
-$(\mathfrak g_{\Delta_5})_{\alpha=(n,\ell,m)}$ in the
-$\Lambda^{2,1}_{II}$-grading. Proof: Fourier--Jacobi expansion of
-$\Delta_5$, Borcherds singular theta lift on $\Lambda^{3,2}$, and
-the Weyl--Kac--Borcherds denominator identity for
-$\mathfrak g_{\Delta_5}$ applied to the trivial one-dimensional
-representation.
-\end{theorem}
-
-\paragraph{Heal.}
-The preamble's $f(1,1,1)=64$ line is replaced by:
-
-\begin{lemma}[Normalisation of the first Fourier coefficient]
-\label{lem:f111-64}
-In the Fourier expansion
-$\Delta_5(Z)=\sum_{n,\ell,m=1\pmod 2;\ 4nm-\ell^2>0;\ n,m>0}
-f(n,\ell,m)\,\exp(\pi i(nz_1+\ell z_2+mz_3))$,
-the leading coefficient is $f(1,1,1)=64$, and $64\mid f(n,\ell,m)$
-for all admissible $(n,\ell,m)$. Equivalently, the first
-Fourier--Jacobi coefficient factors as
-$\phi_{5,\tfrac12}(z_1,z_2)=\eta(z_1)^9\vartheta_{11}(z_1,z_2)$, and
-\[
-  \tfrac{1}{64}\phi_{5,1}(z_1,z_2)
-  \;=\;
-  \psi_{5,\tfrac12}(z_1,z_2)^2
-  \;=\;
-  -q^{1/2}y^{-1/2}\prod_{n\geq 1}(1-q^{n-1}y)(1-q^n y^{-1})(1-q^n)^{10},
-\]
-the unique (up to scaling) Jacobi cusp form of weight~$10$ and
-index~$1$, identified with the first Fourier--Jacobi coefficient of
-$\Delta_{10}=\Delta_5^2$ (Lorgat 2020 \S 2 Lemma; Jacobi triple
-product applied to the $y^{1/2}$ coefficient).
-\end{lemma}
-
-%--------------------------------------------------------------------
-\subsection*{Convergence: the motivating conjecture in rectified form,
-Chriss--Ginzburg economy}
-%--------------------------------------------------------------------
-
-The five cycles close. The rectified \S 1--\S 2 reads, in the voice
-of Gelfand (direct construction, no hedging, no narration):
-
-\begin{quote}
-\emph{Fix genus~$g=2$ and consider the paramodular groups
-$\Gamma_t(N)<\Sp_4(\mathbb Q)$ of Hecke type at level
-$(t,N)\in\mathbb Z_+^2$. Gritsenko--Cl\'ery 2008 classify the
-diagonal-divisor Siegel paramodular cusp forms: the one-dimensional
-spaces $\mathbb C\cdot D^{(N)}_{k(N)}$ for the eight triples
-$(t,N,k,\nu)$ listed in Proposition~\ref{prop:twined-cN}; the
-archetype is $D^{(1)}_5=\Delta_5\in M_5(\Sp_4(\mathbb Z),\nu_{\Delta_5})$,
-the unique square root of the Igusa cusp form
-$\Phi_{10}=\Delta_5^2$.}
-
-\emph{Each $D^{(N)}_{k(N)}$ is the Borcherds singular theta lift
-(\textit{Invent.~Math.}~132 Thm.~13.3) of the $g_N$-twined K3
-elliptic genus $\phi^{(g_N)}_{0,1}\in J_{0,1}(\Gamma_0(N))$, with
-weight $k(N)=c_N(0)/2=\mathrm{tr}_{H^*(K3)}(g_N)|_{q=0,z=0}/2$ and
-multiplier character determined by the $\Gamma_0(N)$-level of the
-twisting automorphism. The BKM superalgebra automorphic correction
-$\mathfrak g_{\Phi^{(N)}}$ (Gritsenko--Nikulin 1998
-\textit{J.~Reine Angew.~Math.}~507 Thm.~2.1) has denominator
-identity $\Phi^{(N)}(Z)=(D^{(N)}_{k(N)}(Z))^2$ and root
-multiplicities $\mult(\alpha)=c_N(nm,\ell)$ given by the
-$\phi^{(g_N)}_{0,1}$-Fourier coefficients.}
-
-\emph{On the arithmetic geometry side, the Behrend-weighted reduced
-$E$-equivariant Donaldson--Thomas zeta $Z^X_{L,h_M}$ of the
-CHL-orbifold $X=(K3\times E)/(\mathbb Z/N\mathbb Z)$ satisfies the
-Igusa-cusp-form reciprocal identity
-$Z^X_{L,h_M}=C_N/\Phi^{(N)}=C_N/(D^{(N)}_{k(N)})^2$. Status:
-$\ClaimStatusTheorem$ at $N=1$ via Oberdieck--Pandharipande 2016
-\textit{Invent.~Math.}~213 and Oberdieck--Pixton 2018
-\textit{Duke Math.~J.}~168; $\ClaimStatusConjectured$ at
-$N\in\{2,3,4,6\}$ per Bryan--Oberdieck--Pandharipande--Yin 2018.
-The three correspondences ---
-(Gritsenko--Cl\'ery classification) $\leftrightarrow$
-(twined K3 elliptic genera of Mukai-symplectic automorphisms)
-$\leftrightarrow$ (reciprocal-square-roots of reduced
-CHL-orbifold DT zeta functions) --- are the content of the
-motivating conjecture.}
-\end{quote}
-
-Six routes of construction in Vol~III (CoHA, stable envelope,
-Koszul, chiral Yangian via $\Phi$, BKM screening, Borcherds lift)
-are six different constructions, not six applications of
-$\Phi_3^{\mathrm{FA}}$ to $D^b(\mathrm{Coh}(K3\times E))$
-(cache~F8, AP-CY144). The specialisation
-$\mathrm{Sp}_{K3,E}(\Phi_3^{\mathrm{FA}}(K3\times E))$ of
-Wave~12~U1 is the canonical chiral shadow; $\mathfrak g_{\Delta_5}$
-sits on the classical-limit BPS Lie subalgebra of this shadow.
-
-%--------------------------------------------------------------------
-\subsection*{Two-stage factorisation perspective (cross-reference to
-Wave~12 U1 and cache F8)}
-%--------------------------------------------------------------------
-
-In the two-stage factorisation of Wave~12~U1
-(\texttt{notes/wave12\_u1\_two\_stage\_functor.tex}),
-\[
-  \Phi_d \;=\; \mathrm{Sp}_{\Sigma_{d-1},C}\;\circ\;\Phih_d,
-\]
-Lorgat 2020 is the explicit computation of the specialisation
-$\mathrm{Sp}_{K3,E}$ applied to the native $E_3$-holomorphic
-factorisation algebra $\Phih_3(K3\times E)$:
-
-\begin{itemize}[leftmargin=1.5em]
-\item Stage~1 canonical: $\Phih_3(K3\times E)$ is an $E_3$-holomorphic
-  factorisation algebra on the compact CY$_3$
-  $X=K3\times E$, the Costello--Li 2020 hCS BV construction on $X$
-  (arXiv:1505.06703 \S 3).
-\item Stage~2 choice-dependent: the fibre cycle $\Sigma_2=K3$ with
-  reference curve $C=E$ gives the $E_1$-chiral shadow
-  $\mathrm{Sp}_{K3,E}(\Phih_3(K3\times E))$ on the reference
-  elliptic curve $E$. This is a chiral bialgebra whose
-  classical-limit BPS Lie subalgebra is conjecturally
-  $\mathfrak g_{\Delta_5}$.
-\item Lorgat 2020 constructs $\mathfrak g_{\Delta_5}$ directly from
-  the Borcherds lift of $\phi_{0,1}$ on $\Lambda^{3,2}$, without
-  passing through the factorisation-algebra formalism; the result
-  matches the classical-limit BPS Lie subalgebra of
-  $\mathrm{Sp}_{K3,E}(\Phih_3)$ at the denominator-identity level
-  (Gritsenko--Nikulin 1998 matches Borcherds 1998 via the common
-  $\Lambda^{3,2}$-lift).
-\item Sibling specialisations $\mathrm{Sp}_{\Sigma'_2,C}$ for other
-  cycles $\Sigma'_2\in\mathrm{Cyc}_2(K3\times E)$ give different
-  BKMs: the $\mathrm{Sp}_{\Sigma^{\mathrm{Fake}}_2,E}$ specialisation
-  gives a Fake-Monster sibling; the $\mathrm{Sp}_{H_N,E}$
-  specialisation for a paramodular Humbert surface $H_N$ gives the
-  sibling $\Phi^{(N)}$-BKM at level $N$. Lorgat 2020's
-  $N\in\{2,3,4,6\}$ cases are the $\mathrm{Sp}_{H_N,E}$-family.
-\end{itemize}
-
-The motivating conjecture of Lorgat 2020 thus translates under the
-two-stage factorisation to: \emph{the eight Gritsenko--Cl\'ery
-diagonal-divisor forms are the weight-$c_N(0)/2$ denominators of eight
-distinct $\mathrm{Sp}_{\Sigma_2,C}$-specialisations of
-$\Phih_3$ applied to CHL-orbifolds of $K3\times E$
-(and their $N=7,8$ half-integer analogues on
-$\Phih_3$ of $N$-twisted CY$_3$s).}
-
-%--------------------------------------------------------------------
-\subsection*{Status summary, survived / falsified / new derivations}
-%--------------------------------------------------------------------
-
-\begin{description}
-\item[\ClaimStatusTheorem ~Survived in strong form]
-Lorgat 2020 Theorem~2 ($Z^{S\times E}=C/(\Delta_5)^2$ at $N=1$):
-is a theorem, not a conjecture, via
-Oberdieck--Pandharipande 2016. Lorgat 2020 Theorem~3
-($\tfrac{1}{64}\Delta_5(2Z)=\Phi(z)$ as
-Weyl--Kac--Borcherds denominator of $\mathfrak g_{\Delta_5}$):
-theorem via Gritsenko--Nikulin 1998 Thm.~2.1.
-Lorgat 2020 Theorem~4 (infinite product for
-$\tfrac{1}{64}\Delta_5$): theorem via the same source.
-$\kBKM(\Delta_5)=5=c_{\phi_{0,1}}(0,0)/2$: theorem via
-Borcherds 1998 Thm.~13.3 (not Thm.~10.1).
-
-\item[\ClaimStatusConjectured ~Survived as conjecture]
-Lorgat 2020 Conjecture~1 (generalisation to
-$N\in\{2,3,4,6\}$ CHL-orbifolds): conjectural, partially proved
-for the reduced-primitive-class sector via Oberdieck 2018
-\textit{J.~Reine Angew.~Math.}~752 and
-Bryan--Oberdieck--Pandharipande--Yin 2018. Lorgat 2020
-Conjecture~1 at $N\in\{5,7,8\}$ (half-integer paramodular tower):
-open; requires Cl\'ery--Gritsenko 2008 half-integer Borcherds
-lift, whose BKM automorphic-correction is not yet constructed.
-
-\item[\ClaimStatusDerivation ~New derivations inscribed]
-\begin{enumerate}[leftmargin=1.5em]
-  \item The eight Gritsenko--Cl\'ery forms enumerated with explicit
-    $(t,N,k,\nu)$-signature (cycle~1 heal table).
-  \item The $c_N(0)$ table at $N\in\{1,2,3,4,6\}$:
-    $c_N(0)=(10,4,2,2,2)$, matched against Mukai-symplectic
-    orders (Proposition~\ref{prop:twined-cN}).
-  \item The weight-5 derivation via Borcherds 1998 Thm.~13.3:
-    $\mathrm{wt}(\Delta_5)=f(0,0)/2=5$, where $f(0,0)=10$ is the
-    $y^0$-coefficient of $\phi_{0,1}|_{q=0}=y^{-1}+10+y$
-    (Theorem~\ref{thm:borcherds-phi01-delta5}).
-  \item The $f(1,1,1)=64$ normalisation as a product of
-    $\eta^9\vartheta_{11}$ factors at the first nontrivial
-    Fourier mode (Lemma~\ref{lem:f111-64}).
-\end{enumerate}
-
-\item[Falsified]
-The unsubscripted-$\kBKM$ / unsubscripted-$c(0)$ phrasings (``$\kBKM=5=c(0)/2$''
-without $N$-subscript) of earlier Vol~III drafts: subscript
-discipline ($\kBKM(\Phi^{(N)})=c_N(0)/2$ with $N$ explicit on both
-sides). Not a falsification of content; a falsification of
-convention. The Kazhdan-voice Wave~12~A2 assault already
-enforces this at the cache-AP113 level.
-
-The claim that \emph{``all eight [Gritsenko--Cl\'ery] specimens arise
-as Borcherds lifts''} is not fully established at the half-integer
-tower ($N\in\{4,7,8\}$ weight-$\tfrac12,\tfrac32$ specimens):
-Cl\'ery--Gritsenko 2008 Thm.~3.1 constructs these half-integer
-paramodular forms directly (not via Borcherds lift of a Jacobi
-form), and the lift-to-BKM correspondence fails integrality. Three
-of the eight specimens cross an integrality boundary; the
-motivating conjecture as stated must be qualified to
-$N\in\{1,2,3,4,6\}$ for the BKM-lifting clause to hold.
-\end{description}
-
-%--------------------------------------------------------------------
-\subsection*{Frontier: open questions for Wave~14}
-%--------------------------------------------------------------------
-
-\begin{enumerate}[leftmargin=1.5em]
-\item \textbf{BKM-side of half-integer weight forms.} Construct the
-  BKM automorphic correction for the three half-integer specimens
-  $(D^{(4)}_{1/2},D^{(1,4)}_{3/2},D^{(2,2)}_1)$, or prove no such
-  correction exists and the three specimens fall outside the
-  Borcherds-lift programme. Primary path: Cl\'ery--Gritsenko 2008
-  arXiv:0812.3962 \S 4 (half-integer Jacobi input);
-  Borcherds 1998 Thm.~13.3 (integer-weight hypothesis) extension
-  via Rayen--Shelton 2018 arXiv:1810.03893 (meromorphic Borcherds
-  lifts).
-\item \textbf{Oberdieck--Pandharipande--Yin completion for
-  $N\in\{5,7,8\}$.} Extend the CHL Igusa conjecture; the obstruction
-  is the failure of $\chi^{g_N}(K3)\in\{0,4\}$ at these orders to
-  produce an integer $c_N(0)/2$ weight.
-\item \textbf{Explicit $\mathrm{Sp}_{\Sigma_2,C}$ at the eight
-  specimens.} Identify for each of the eight Gritsenko--Cl\'ery
-  specimens the specialisation cycle $\Sigma_2\in\mathrm{Cyc}_2$
-  that produces it as $\mathrm{Sp}_{\Sigma_2,C}\circ\Phih_3$. At
-  $N=1$ this is the $K3$-fibre; at $N=2,3,4,6$ the paramodular
-  Humbert surface $H_N$; at half-integer weight the cycle is
-  expected to be a lattice-polarised $K3$-fibre with
-  $g_N$-invariant polarisation.
-\item \textbf{Chiral-side upgrade of $\mathfrak g_{\Delta_5}$.} The
-  classical-limit BPS Lie subalgebra of
-  $\mathrm{Sp}_{K3,E}(\Phih_3(K3\times E))$ is conjecturally
-  $\mathfrak g_{\Delta_5}$; upgrade this to a chiral-bialgebra
-  statement at the level of $\mathbf H_{\Delta_5}$ (Wave 15--16
-  DRINFELD/GELFAND cache appends), not merely at the Lie-algebra
-  bracket level.
-\item \textbf{Mathieu moonshine at the BKM level.} Cheng--Duncan--Harvey
-  2014 Umbral Moonshine conjecturally extends the Mukai-symplectic
-  $c_N(0)$-table to the full $M_{24}$-equivariant $c_{[g]}$-table
-  for $[g]$ any $M_{24}$ conjugacy class; extend the rectified
-  motivating conjecture to the Umbral regime by identifying the
-  $M_{24}$-twined $\Phi^{[g]}$ as Borcherds lifts of
-  $\phi^{[g]}_{0,1}$ and their BKM automorphic corrections as
-  $\mathfrak g_{\Phi^{[g]}}$.
-\end{enumerate}
-
-%--------------------------------------------------------------------
-\subsection*{Primary sources audit}
-%--------------------------------------------------------------------
-
-\begin{itemize}[leftmargin=1.5em]
-\item Igusa 1964 \textit{Am.~J.~Math.}~\textbf{86}: ring of Siegel
-  modular forms $\mathrm{SM}(\Sp_4(\mathbb Z))=\mathbb C[E_4,E_6,
-  \Delta_{10},\Delta_{12}]$.
-\item Maass 1964 \textit{Nachr.~Akad.~Wiss.~G\"ottingen Math.-Phys.
-  Kl.}~11: the $\nu_{\Delta_5}$ character of order~$2$.
-\item Eichler--Zagier 1985 \textit{The Theory of Jacobi Forms},
-  Prog.~Math.~\textbf{55}, Thm.~5.1: decomposition of Jacobi forms into
-  vector-valued modular forms, and the uniqueness of $\phi_{0,1}$
-  up to scaling.
-\item Borcherds 1995 \textit{Invent.~Math.}~\textbf{120} \S 6:
-  automorphic forms with singularities on Grassmannians,
-  denominator formulae.
-\item Borcherds 1998 \textit{Invent.~Math.}~\textbf{132} Thm.~13.3:
-  weight of the singular theta lift, $\mathrm{wt}(\Phi)=c_0(0)/2$.
-\item Gritsenko--Nikulin 1995 Part~II arXiv:alg-geom/9504006 Thm.~2.1:
-  Siegel automorphic correction of Lorentzian Kac--Moody Lie
-  algebras; $\tfrac{1}{64}\Delta_5(2Z)=\Phi_{\mathfrak g_{\Delta_5}}$.
-\item Gritsenko--Nikulin 1998 \textit{J.~Reine Angew.~Math.}~\textbf{507}:
-  BKM hierarchy at $N\in\{1,2,3,4,6\}$, weights $(5,2,1,1,1)$.
-\item Gritsenko--Cl\'ery 2008 arXiv:0812.3962: classification of
-  $8$ diagonal-divisor paramodular cusp forms at $(t,N,k,\nu)$.
-\item Cl\'ery--Gritsenko 2008 Thm.~3.1: half-integer paramodular
-  tower at $N=4$, weights $1/2, 3/2, 1$.
-\item Mukai 1988 \textit{Invent.~Math.}~\textbf{94} Thm.~1.1:
-  $\mathrm{Aut}_{\mathrm{sympl}}(K3)\hookrightarrow M_{23}\subset M_{24}$,
-  order at most $8$, Euler-character table at orders
-  $\{1,2,3,4,5,6,7,8\}$.
-\item EOT 2011 \textit{Exp.~Math.}~\textbf{20}: K3 elliptic genus
-  and the $M_{24}$ Mathieu moonshine observation.
-\item Cheng--Harvey 2012 arXiv:1204.2779 Thm.~2.3: twined K3 elliptic
-  genera $\phi^{[g]}_{0,1}\in J_{0,1}(\Gamma_0(N_g))$ at the $M_{24}$
-  conjugacy classes; Table~1: $c_{[g]}(0)$ values.
-\item Oberdieck--Pandharipande 2016 arXiv:1411.1514
-  \textit{Invent.~Math.}~\textbf{213}: $Z^{S\times E}=-1/\Phi_{10}$
-  at $N=1$.
-\item Oberdieck 2018 \textit{J.~Reine Angew.~Math.}~\textbf{752}
-  (arXiv:1607.01149): reduced DT = PT for CHL-orbifolds of $K3\times E$
-  at $N\in\{2,3,4,6\}$, primitive-class sector.
-\item Oberdieck--Pixton 2018 \textit{Duke Math.~J.}~\textbf{168}
-  (arXiv:1706.10100): Igusa cusp form conjecture at full
-  cohomology, holomorphic anomaly equation.
-\item Bryan--Oberdieck--Pandharipande--Yin 2018: CHL-orbifold
-  extension of the Igusa cusp form conjecture.
-\item Cheng--Duncan--Harvey 2014 arXiv:1307.5793
-  \textit{Commun.~Number Theory Phys.}~\textbf{8}: Umbral Moonshine.
-\item Gannon 2012 arXiv:1211.3703: Mathieu moonshine proved at the
-  character level.
-\item Costello--Li 2020 arXiv:1505.06703 \S 3: hCS BV construction on
-  CY$_3$.
-\item Costello--Gwilliam 2017 \textit{Factorization Algebras in QFT}
-  Vol~II \S 10--11: holomorphic factorisation algebras.
-\item Francis 2013 arXiv:1211.5619 \S 2: $E_n$-chiral algebras and
-  factorisation homology.
-\end{itemize}
-
-%--------------------------------------------------------------------
-\subsection*{Cache appends (new patterns)}
-%--------------------------------------------------------------------
-
-Three pattern-level refinements of existing cache entries surface in
-this assault; no new AP-CY entries are warranted, but the following
-refinements belong at
-\texttt{appendices/first\_principles\_cache.md} as AP-append rows:
-
-\begin{enumerate}[leftmargin=1.5em]
-\item \textbf{AP-CY144-refine (Wave-13 A1):} the eight
-  Gritsenko--Cl\'ery diagonal-divisor forms correspond to eight
-  $\mathrm{Sp}_{\Sigma_2,C}$-specialisations of $\Phih_3$, with
-  $\Sigma_2=K3$-fibre at $N=1$ (canonical) and $\Sigma_2=H_N$
-  (paramodular Humbert surface at level $N$) at
-  $N\in\{2,3,4,6\}$, integer-weight sector. The three
-  half-integer-weight specimens require extension of the
-  specialisation functor beyond the integer Borcherds-lift tower;
-  their specialisation cycles are not yet identified.
-\item \textbf{AP-CY145-refine (Wave-13 A1):} the classical-limit
-  BPS Lie subalgebra of $\mathrm{Sp}_{K3,E}(\Phih_3(K3\times E))$
-  agrees with $\mathfrak g_{\Delta_5}$ at the denominator-identity
-  level by direct Borcherds-lift computation
-  (Gritsenko--Nikulin 1998), bypassing the Davison PBW route.
-  Both routes produce Lie-algebra-level identification; the
-  chiral-bialgebra-level upgrade
-  $\mathbf H_{\Delta_5}\leftrightarrow\mathrm{Sp}_{K3,E}(\Phih_3)$
-  remains open.
-\item \textbf{AP-CY155 (new; Wave-13 A1, if append warranted):}
-  ``Motivating-conjecture integrality boundary.'' The Lorgat 2020
-  motivating conjecture extends a Borcherds-lift statement beyond
-  the integer-weight paramodular tower; three of the eight
-  Gritsenko--Cl\'ery specimens live at half-integer weight and
-  require the Cl\'ery--Gritsenko 2008 Thm.~3.1 tower, whose
-  BKM-correction is not constructed. The conjecture's scope must
-  be qualified to $N\in\{1,2,3,4,6\}$ integer-weight regime, with
-  the half-integer extension stated as a separate open problem.
-\end{enumerate}
-
-% End of Wave-13 A1 Gelfand rectification.

@@ -1,204 +1,381 @@
-% Stage 2 specialisation selects the positive effective geometry.
-% Wave 17, A5/20. Costello + Francis voices.
-% Author: Raeez Lorgat.
-% Chriss--Ginzburg register. Subscripted $\kappa_\bullet$. No AI attribution.
-
-\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[Definition]}}
-\providecommand{\ClaimStatusConstruction}{\textsc{[Construction]}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\HolFA}{\mathrm{HolFA}}
-\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\SpCh}{\mathrm{SpCh}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\DT}{\mathrm{DT}}
 \providecommand{\Prim}{\mathrm{Prim}}
 \providecommand{\ZZ}{\mathbb{Z}}
 \providecommand{\CC}{\mathbb{C}}
 \providecommand{\cF}{\mathcal{F}}
+\providecommand{\cK}{\mathcal{K}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\cA}{\mathcal{A}}
 \providecommand{\cC}{\mathcal{C}}
 \providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
 \providecommand{\Lie}{\mathrm{Lie}}
 \providecommand{\coLie}{\mathrm{coLie}}
 \providecommand{\Yplus}{Y^{+}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\PhiTenOP}{\Phi_{10}^{\mathrm{OP}}}
+\providecommand{\PhiTenUn}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\wt}{\mathrm{wt}}
 
-\section{Stage~2 specialisation selects the positive effective geometry}
+\section{Specialisation and Positive Effective Geometry}
 \label{wn:sec:Sp-selects-pos-geom}
 
-\emph{The $E_d$-hFA $\cF_X$ carries an intrinsic coalgebra structure under
-Francis--Gaitsgory Koszul duality. Its primitives form a positive-effective
-cone; Stage~2 specialisation transports that cone onto the $E_1$-chiral
-output. At $\CC^3$ the positive primitives are the Schiffmann--Vasserot
-cohomological Hall algebra; at $K3 \times E$ they are the reduced
-Pandharipande--Oberdieck Donaldson--Thomas generating series, whose K3-primitive
-character is $1/\Phi_{10}$.}
+\emph{An augmented $E_d$ holomorphic factorisation algebra determines a
+Koszul bar coalgebra. An effective charge monoid cuts out its positive
+primitive sector. A witnessed factorisation-homology specialisation with
+degree-zero kernel preserves that sector. For $d \geq 3$ the output on
+the reference curve is native $E_1$; braided structure belongs to a
+centre, a completed Hall-Drinfeld double, or a module category after
+the pairing and completion data have been supplied. The toric model is
+$\CoHA(\CC^3)=\Yplus(\widehat{\fgl}_1)$ after the standard equivariant
+localisation and completion. The compact model $K3\times E$ gives the
+Oberdieck-Pandharipande reduced-DT scalar; compact Hall-Borcherds
+recognition is an additional theorem with its own hypotheses.}
 
-\subsection{Cycle 1: Francis--Gaitsgory Koszul duality fixes a coalgebra}
-\label{wn:subsec:cycle1-koszul}
+\subsection{Koszul Bar Coalgebra}
+\label{wn:subsec:koszul-coalgebra}
 
-\begin{theorem}[$E_d$-hFA carries a canonical coalgebra]\ClaimStatusTheorem
-\label{wn:thm:Ed-hFA-coalgebra}
-For $\cF_X \in E_d\text{-}\HolFA(X)$ augmented over the CY datum, the
-Francis--Gaitsgory bar construction $\mathrm{Bar}^{E_d}(\cF_X)$ is an
-$E_d^!$-coalgebra. Under $E_d^! \simeq E_d\{d\}$ (Fresse 2017 Vol~I Thm.~1.3.3;
-Francis 2013 arXiv:1111.0580 Thm.~2.29), there is an intrinsic
-$E_d$-coalgebra $\cC_X := \mathrm{Bar}^{E_d}(\cF_X)\{-d\}$ on $X$ with counit
-augmentation $\cC_X \twoheadrightarrow \cO_X$.
-\end{theorem}
+\begin{proposition}[Bar coalgebra of an augmented $E_d$ holomorphic factorisation algebra]
+\label{wn:prop:Ed-hFA-bar-coalgebra}
+Let $\cF_X\in E_d\text{-}\HolFA(X)$ be an augmented holomorphic
+factorisation algebra on a CY$_d$ target, valued in a pro-nilpotent
+complete category where Francis-Gaitsgory Koszul duality applies. Then
+\[
+ \mathrm{Bar}^{E_d}(\cF_X)
+\]
+is an $E_d^!$ coalgebra. Using the standard operadic self-duality
+$E_d^!\simeq E_d\{d\}$, the shifted object
+\[
+ \cC_X:=\mathrm{Bar}^{E_d}(\cF_X)\{-d\}
+\]
+is an $E_d$ coalgebra with counit induced by the augmentation of
+$\cF_X$.
+\end{proposition}
 
-\begin{proof}[Sketch]
-Francis--Gaitsgory 2012 establishes that the bar--cobar adjunction
-$\mathrm{Bar}^{E_d} \dashv \mathrm{coBar}^{E_d}$ on nilpotent augmented
-$E_d$-algebras is an equivalence after pro-completion. For an
-$E_d$-\emph{factorisation} algebra (not merely an $E_d$-algebra at a point)
-the fibrewise bar construction extends by Ayala--Francis 2015 §7 to a
-factorisation coalgebra on $X$. Self-duality of $E_d$ up to shift is
-Fresse 2017 Vol~I §1.3; see also Lurie \emph{HA} Thm.~5.2.3.13.
+\begin{proof}
+Francis and Gaitsgory, \emph{Chiral Koszul duality} (2012), construct
+Koszul duality for augmented chiral algebras under nilpotence and
+completion hypotheses. On a disk the construction is the usual reduced
+$E_d$ bar construction. Factorisation descent transports the coalgebra
+structure across the cosheaf. The displayed shift is exactly the
+operadic suspension in the Koszul self-duality
+$E_d^!\simeq E_d\{d\}$, as in Fresse,
+\emph{Homotopy of Operads and Grothendieck-Teichm\"uller Groups},
+Vol.~I, Theorem~1.3.3, and Lurie, \emph{Higher Algebra},
+Theorem~5.2.3.13.
 \end{proof}
 
-\subsection{Cycle 2: positive primitives as operadic positive cone}
-\label{wn:subsec:cycle2-primitives}
+\subsection{Effective Positive Half}
+\label{wn:subsec:positive-primitives}
 
-\begin{definition}[Positive half of the CY datum]\ClaimStatusDefinition
+\begin{definition}[Positive half from an effective charge monoid]
 \label{wn:def:positive-half}
-Define the positive half
-$$
-\Yplus(X) \;:=\; \Prim_{\cC_X}\!\big(\mathrm{Bar}^{E_d}(\cF_X)\big)
-\;=\; \mathrm{coLie}_d\text{-primitives of } \cC_X,
-$$
-i.e.\ the space of $E_d^!$-coLie primitives of the Francis--Gaitsgory bar
-output. This is a graded $\Lie_d$-algebra concentrated in non-negative
-charges with respect to any ample class on $X$ (effective-cone grading).
+Let $M_X$ be an effective charge monoid for the CY datum. For a
+projective target take the monoid generated by effective curve classes
+and zero-dimensional charge. For a toric local target take the
+non-negative dimension-vector monoid. Put
+$M_X^\circ=M_X\setminus\{0\}$ and suppose the reduced bar coalgebra is
+$M_X$-graded,
+\[
+ \cC_X=\bigoplus_{\gamma\in M_X}\cC_{X,\gamma},
+ \qquad
+ \Delta(\cC_{X,\gamma})
+ \subset
+ \bigoplus_{\gamma_1+\gamma_2=\gamma}
+ \cC_{X,\gamma_1}\otimes\cC_{X,\gamma_2}.
+\]
+The positive primitive complex is
+\[
+ \Yplus_M(X)
+ :=
+ \bigoplus_{\gamma\in M_X^\circ}
+ \Prim(\cC_X)_\gamma,
+ \qquad
+ \Prim(\cC_X)
+ :=
+ \ker\!\left(
+   \bar\Delta\colon \bar\cC_X\to \bar\cC_X\otimes\bar\cC_X
+ \right).
+\]
+When the coalgebra is realised by Hall correspondences, the shifted
+Lie operations on primitives are the positive Hall Lie operations.
 \end{definition}
 
-\begin{theorem}[Positive-effective grading]\ClaimStatusTheorem
-\label{wn:thm:effective-cone-grading}
-For $X$ projective CY$_d$ with ample class $H \in H^{1,1}(X)$, the weight
-decomposition of $\Yplus(X)$ under the $H$-charge grading is supported on
-the positive-effective cone
-$\mathrm{NE}(X) := \{[\beta] \in H_2(X, \ZZ) \,:\, H \cdot \beta \geq 0\}$.
-\end{theorem}
+\begin{lemma}[Effective support]
+\label{wn:lem:effective-support}
+For a projective CY$_d$ target with ample class $H$, every charge
+$\gamma=(\beta,n)$ in the effective Hall or Donaldson-Thomas subcategory
+generated by sheaves, ideal sheaves, or stable pairs has
+$H\cdot\beta\geq0$. Consequently the primitive complex defined from the
+effective Hall coalgebra is supported on the positive-effective cone.
+\end{lemma}
 
-\begin{proof}[Sketch]
-Costello--Gwilliam Vol~II §3 (Thm.~3.4.3) shows the classical observable
-$E_d$-hFA on $X$ is built from holomorphic gauge fields whose zero modes
-are parametrised by $H^{0,*}(X, \cO_X)$-polynomial functors on the moduli
-of effective divisors. The Koszul dual coalgebra $\cC_X$ inherits the
-effective-cone grading from Ayala--Francis 2015 Prop.~4.14 (grading
-preservation under bar). Primitives live in the irreducible generating
-cone, hence in $\mathrm{NE}(X)$.
+\begin{proof}
+The curve component $\beta$ of a stable sheaf, ideal sheaf, or stable
+pair is represented by an effective one-cycle. Positivity of an ample
+class gives $H\cdot\beta\geq0$. Hall multiplication and comultiplication
+are defined by extensions inside the chosen effective subcategory, so
+the charge of an extension is the sum of the two charges. The coproduct
+is therefore graded by the effective monoid, and the primitive kernel is
+a graded subcomplex of that monoid.
 \end{proof}
 
-\subsection{Cycle 3: specialisation transports positivity}
-\label{wn:subsec:cycle3-sp-transports}
+\subsection{Specialisation Kernel}
+\label{wn:subsec:sp-transports-positivity}
 
-\begin{theorem}[$\Sp$ preserves positivity]\ClaimStatusTheorem
+\begin{theorem}[Specialisation preserves the positive charge filtration]
 \label{wn:thm:Sp-preserves-pos}
-Let $\Sigma_{d-1} \subset X$ be effective and $C \subset X$ a curve
-transverse to $\Sigma_{d-1}$. The specialisation
-$\Sp_{\Sigma_{d-1}, C}(\cF_X) \in E_1\text{-}\mathrm{ChirAlg}(C)$ inherits
-a positive half
-$$
-\Yplus\big(\Sp_{\Sigma_{d-1}, C}(\cF_X)\big) \;\simeq\;
-\int_{\Sigma_{d-1}} \Yplus(X)\big|_{\Sigma_{d-1}},
-$$
-and the $H$-charge grading restricts to the effective cone of the
-relative geometry $\Sigma_{d-1} \hookrightarrow X$.
+Let $(\Sigma_{d-1},C)$ be a witnessed admissible specialisation datum
+for $X$, and let
+\[
+ \SpCh_{\Sigma_{d-1},C}\colon E_d\text{-}\HolFA(X)\longrightarrow
+ E_{n(d)}\text{-}\HolFA(C),
+ \qquad
+ n(d)=
+ \begin{cases}
+ \infty,&d=1,\\
+ 2,&d=2,\\
+ 1,&d\geq3,
+ \end{cases}
+\]
+be the factorisation-homology specialisation. Assume the witnessed kernel
+$\cK_{\Sigma_{d-1},C}$ is degree zero for the effective charge
+grading and the Beck-Chevalley, Fubini, properness, Tor-independence,
+and completion cells of the witnessed datum hold. Then
+$\SpCh_{\Sigma_{d-1},C}$ is filtered by effective charge and induces
+\[
+ \SpCh_{\Sigma_{d-1},C}\bigl(\Yplus_M(X)\bigr)
+ \subset
+ \Yplus_{M_C}\!\bigl(\SpCh_{\Sigma_{d-1},C}(\cF_X)\bigr),
+\]
+where $M_C$ is the image charge monoid on the reference curve. If the
+specialisation is conservative on primitives and primitive extraction is
+exact on the relevant graded conilpotent coalgebras, this inclusion is
+an equality.
 \end{theorem}
 
-\begin{proof}[Sketch]
-Ayala--Francis 2015 Thm.~2.40 (factorisation homology commutes with
-Koszul bar under $\otimes$-excision) gives
-$\mathrm{Bar}^{E_1}(\Sp \cF_X) \simeq \Sp(\mathrm{Bar}^{E_d} \cF_X)$
-after Dunn additivity $E_d \simeq E_{d-1} \otimes E_1$. Taking primitives
-commutes with the integral since $\Sigma_{d-1}$ is effective (no
-cancellation of positive-charge generators). See Gwilliam--Williams 2021
-Thm.~2.5.5 for the $E_d^{\mathrm{hol}}$-to-$E_d$ compatibility.
+\begin{proof}
+The witnessed kernel formula identifies specialisation with
+\[
+ \SpCh_{\Sigma_{d-1},C}(\cF)
+ =
+ \bigl((\pi_C)_*(\pi_X^*\cF\otimes^{\mathbf L}
+ \cK_{\Sigma_{d-1},C})\bigr)^{E_{n(d)}\text{-}\mathrm{structure}}.
+\]
+This is part of the witnessed specialisation datum. The degree-zero
+condition on $\cK_{\Sigma_{d-1},C}$ makes the push-pull
+charge-preserving. The projection formula and Fubini cell identify
+coproducts before and after pushforward, so the primitive kernel maps to
+the primitive kernel after specialisation. Exactness and conservativity
+on primitives upgrade the filtered map to equality. The
+PTVV/Dunn-Lurie level calculation gives $n(d)=1$ for all $d\geq3$;
+centre and Drinfeld-double constructions supply braided $E_2$ data once
+their Hopf pairing and completion hypotheses are available.
 \end{proof}
 
-\subsection{Cycle 4: $\CC^3$ recovers Schiffmann--Vasserot}
-\label{wn:subsec:cycle4-C3-SV}
+\subsection{The Toric Model $\CC^3$}
+\label{wn:subsec:C3-SV-positive-half}
 
-At $X = \CC^3$ with trivial $(\Sigma_2, C) = (\mathrm{pt}, \CC)$ --- the
-open case --- the $E_3$-hFA is Costello--Gwilliam Vol~II §4.8 6D hCS
-observables. Stage~1 bar delivers the Kontsevich--Soibelman 2008 motivic
-DT coalgebra; its coLie-primitives are
-$\Yplus(\CC^3) = \Yplus(\fg_{\mathrm{aff}}(\fgl_\infty))$, the positive
-half of the affine-Yangian.
+Let $Q$ be the one-vertex quiver with loops $X,Y,Z$ and potential
+$W=\operatorname{tr}(X[Y,Z])$. Its Jacobi algebra is
+\[
+ \CC\langle X,Y,Z\rangle/
+ ([X,Y],[Y,Z],[Z,X])
+ \cong \CC[X,Y,Z],
+\]
+so $(Q,W)$ is the standard CY$_3$ quiver presentation of $\CC^3$.
 
-\begin{theorem}[$\CC^3$ specialisation = CoHA positive half]\ClaimStatusTheorem
+\begin{theorem}[$\CC^3$ Hall positive half]
 \label{wn:thm:C3-SV}
-$\Sp_{\mathrm{pt},\CC}(\cF_{\CC^3})^{\mathrm{prim}} \;\simeq\;
-\CoHA(\CC^3) \;=\; \Yplus(\widehat{\fgl}_1)$,
-where the right-hand side is the Schiffmann--Vasserot 2013 cohomological
-Hall algebra on the Hilbert scheme of points; equivalently the positive
-half of the affine Yangian of $\fgl_1$.
+Let $\mathcal M_n$ be the stack of $n$-dimensional representations of
+the Jordan three-loop quiver. The torus-equivariant vanishing-cycle
+cohomological Hall algebra
+\[
+ \CoHA(\CC^3)
+ :=
+ \bigoplus_{n\geq0}
+ H^\bullet_T(\mathcal M_n,\phi_W)
+\]
+is, after the standard equivariant localisation and shuffle completion,
+the Schiffmann-Vasserot positive half,
+\[
+ \CoHA(\CC^3)
+ \cong
+ \Yplus(\widehat{\fgl}_1).
+\]
+On the toric hCS-Hall comparison locus, this is the Hall positive half
+of the chiral specialisation of the $\CC^3$ CY$_3$ datum. The full
+affine Yangian and the $\mathcal W_{1+\infty}$ vertex realisation are
+obtained from the Drinfeld double or derived centre together with the
+vacuum realisation.
 \end{theorem}
 
-\begin{proof}[Sketch]
-Costello 2013 arXiv:1303.2632 identifies the $4$D CS observables (a
-Stage~2 specialisation of 6D hCS along $\CC^2$) with the Yangian
-$Y(\fgl_n)$. Gaiotto--Rap{\v c}{\'a}k 2019 extend to 6D hCS boundary
-operators on $\CC^3$, producing the affine Yangian $Y(\widehat{\fgl}_1)$.
-Schiffmann--Vasserot 2013 Thm.~4.7 shows
-$\CoHA(\CC^3) = \Yplus(\widehat{\fgl}_1)$; positivity sits in the
-effective cone $\ZZ_{\geq 0}[\mathrm{pt}] \subset H_0(\mathrm{Hilb}^n)$.
-The positive half is forced by the CoHA being a half-Hopf algebra, not
-the full double --- matching AP-CY key fact
-$\CoHA(\CC^3) = \Yplus$, not $\mathcal{W}_{1+\infty}$.
+\begin{proof}
+Kontsevich-Soibelman identify the cohomological Hall algebra of a
+quiver with potential from the vanishing-cycle cohomology of its
+representation stacks. For the Jordan three-loop quiver the critical
+locus is the commuting-triple locus, and the $T=(\CC^\times)^3$
+equivariant localisation is governed by plane partitions, equivalently
+the effective monoid $\ZZ_{\geq0}[\mathrm{pt}]$. Schiffmann and Vasserot
+(2013, Theorem~4.7, in the affine-Yangian normalisation
+$h_1+h_2+h_3=0$) identify the localised CoHA with the positive shuffle
+half of the affine Yangian of $\fgl_1$. Tsymbaliuk's
+Drinfeld-current presentation identifies the completed double with the
+full affine Yangian. The vertex algebra $\mathcal W_{1+\infty}$ is a
+vacuum-module realisation of the full algebra, so the CoHA itself is the
+positive half.
 \end{proof}
 
-\subsection{Cycle 5: $K3 \times E$ recovers reduced DT and $1/\Phi_{10}$}
-\label{wn:subsec:cycle5-K3E-PO}
+\subsection{\texorpdfstring{$K3\times E$}{K3 x E}: Reduced DT Character and Hall Recognition}
+\label{wn:subsec:K3E-PO-character}
 
-\begin{theorem}[$K3\times E$ specialisation, K3-primitive character]\ClaimStatusTheorem
-\label{wn:thm:K3E-PO}
-With $(\Sigma_2, C) = (K3, E)$,
-$$
-\Sp_{K3, E}(\cF_{K3\times E})^{\mathrm{prim}} \;\simeq\;
-\Yplus(K3 \times E)^{\mathrm{K3\text{-}prim}},
-$$
-and its graded character (with respect to the K3-primitive lattice
-$H^2_{\mathrm{prim}}(K3, \ZZ)$-grading and the $E$-modular grading) is
-$$
-\chi_{\mathrm{K3\text{-}prim}}\!\big(\Yplus(K3 \times E)\big) \;=\;
-\frac{1}{\Phi_{10}(\tau, z, \sigma)}
-$$
-as a Jacobi form of weight $-10$ on $\mathrm{Sp}_4(\ZZ)$, where
-$\Phi_{10}$ is the Igusa cusp form.
-\end{theorem}
+\begin{proposition}[\texorpdfstring{$K3\times E$}{K3 x E} scalar test and primitive denominator]
+\label{wn:prop:K3E-PO}
+Let $X=K3\times E$ and use the K3-fibre specialisation
+$(\Sigma_2,C)=(K3,E)$. On the framed object-level locus of the
+CY$_3$ construction,
+\[
+ A_{K3,E}:=
+ \SpCh_{K3,E}\bigl(\PhiFA_3(\mathrm{Perf}(K3\times E))\bigr)
+ \in E_1\text{-}\mathrm{ChirAlg}(E).
+\]
+Oberdieck and Pandharipande compute the reduced primitive
+Donaldson-Thomas scalar as
+\[
+ Z^{\mathrm{red}}_{\DT}(K3\times E)
+ =
+ -(\PhiTenOP)^{-1}
+ =
+ -\Dfive^{-2}
+ =
+ -4096\,\DeltaFive^{-2},
+\]
+with
+\[
+ \Dfive=64^{-1}\DeltaFive,\qquad
+ \PhiTenOP=\Dfive^2=4096^{-1}\DeltaFive^2,\qquad
+ \PhiTenUn=\DeltaFive^2.
+\]
+The primitive Borcherds denominator has
+\[
+ \kBKM(\DeltaFive)=c_1(0)/2=10/2=5.
+\]
+The scalar identity is a character-level arithmetic test for the target
+denominator. A compact Hall recognition theorem identifying
+$A_{K3,E}$ with $U_{\mathrm{ch}}(\fg_{\DeltaFive})$ additionally
+requires a compact critical Hall source, orientation and parity data, a
+Hopf pairing, radical quotient, PBW theorem, relation-exhaustion check,
+and Mittag-Leffler compatibility.
+\end{proposition}
 
-\begin{proof}[Sketch]
-Pandharipande--Oberdieck 2018 (\emph{Geom.\ Topol.}, arXiv:1411.1514)
-Thm.~2 states the reduced DT generating series of $K3 \times E$ in
-K3-primitive class equals $1/\Phi_{10}$ after the Gromov--Witten/DT
-correspondence (MNOP). Costello--Li 2016 identifies 6D hCS partition
-functions on $K3 \times E$ with BCOV-reduced DT. Taking primitives of
-the Koszul coalgebra on the K3-fibre transports this to the character
-of $\Yplus(K3\times E)^{\mathrm{K3\text{-}prim}}$. The positive cone is
-$\mathrm{NE}(K3\times E)|_{\mathrm{K3\text{-}prim}}$; every generator sits
-in effective K3-primitive class $\times$ positive $E$-fibre class. The
-Borcherds weight identity $\kBKM(\Delta_5) = c_1(0)/2 = 5$ (Gritsenko 1999)
-appears as the constant-term specialisation of the $\Phi_{10}$ character.
+\begin{proof}
+Oberdieck and Pandharipande, \emph{Curve counting on $K3\times E$, the
+Igusa cusp form $\chi_{10}$, and descendent integration}, compute the
+reduced DT partition function in primitive K3 class and identify it
+with the reciprocal of the OP-normalised Igusa square. The normalisation
+$\Dfive=64^{-1}\DeltaFive$ is the monic denominator convention used in
+the $K3\times E$ BKM chapter, so $\PhiTenOP=\Dfive^2$ and
+$\PhiTenUn=\DeltaFive^2$ are scalar-square conventions of weight $10$.
+Borcherds' singular theta lift weight formula gives
+$\wt(\DeltaFive)=c_1(0)/2=5$, with
+$\phi_{0,1}|_{q^0}=\zeta^{-1}+10+\zeta$. Character agreement supplies
+the denominator test. Recognition of
+$\SpCh_{K3,E}(\PhiFA_3(\mathrm{Perf}(K3\times E)))$ as a compact
+Hall-Borcherds chiral envelope needs the additional Hall source,
+orientation, pairing, quotient, PBW, and completion data listed above.
 \end{proof}
 
-\subsection{Synthesis}
-\label{wn:subsec:synthesis}
+\begin{corollary}[Numerical invariants of \texorpdfstring{$K3\times E$}{K3 x E}]
+\label{wn:cor:K3E-four-invariants}
+The standard $K3\times E$ values on the compact, Heisenberg, Borcherds,
+and fibre readings are
+\[
+ \kcat(K3\times E)=0,\qquad
+ \kch(K3\times E)=0,\qquad
+ \kHeis(K3\times E)=3,\qquad
+ \kBKM(\DeltaFive)=5,\qquad
+ \kfib(K3)=24.
+\]
+They arise from distinct constructions: K\"unneth multiplicativity of
+$\chi(\cO)$ on the total space, the compact Hodge supertrace, the
+Heisenberg-Cartan rank of the K3-fibre specialisation, the Borcherds
+weight of the primitive denominator, and the K3 Mukai/fibre rank.
+\end{corollary}
 
-Stage~1 produces the $E_d$-hFA $\cF_X$ on $X$; Francis--Gaitsgory bar
-produces the positive half $\Yplus(X)$ as coLie-primitives of the
-Koszul-dual coalgebra. This positive half carries the effective-cone
-grading intrinsic to the geometry. Stage~2 specialisation
-$\Sp_{\Sigma_{d-1}, C}$ integrates $\Yplus(X)$ along $\Sigma_{d-1}$,
-transporting positivity to the $E_1$-chiral output on $C$. The two
-worked cases $(\CC^3, \mathrm{pt}, \CC)$ and $(K3\times E, K3, E)$
-recover the Schiffmann--Vasserot CoHA and the Pandharipande--Oberdieck
-$1/\Phi_{10}$ character of the primitive effective cone. Stage~2 is not
-a generic functorial projection: it is the operadic mechanism by which
-the effective geometry of $X$ becomes the positive-root system of the
-chiral shadow.
+\begin{proof}
+K\"unneth gives
+$\chi(\cO_{K3\times E})=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0$, hence
+$\kcat(K3\times E)=0$. The compact chiral Hodge supertrace is
+$\sum_q(-1)^q h^{0,q}(K3\times E)=1-1+1-1=0$, hence
+$\kch(K3\times E)=0$. The Heisenberg-Cartan specialisation has rank
+$2+1=3$. The Borcherds value is the weight calculation of
+Proposition~\ref{wn:prop:K3E-PO}. The fibre value is the Mukai rank, or
+equivalently the topological Euler number
+$\chi_{\mathrm{top}}(K3)=24$. These values come from distinct
+constructions.
+\end{proof}
+
+\subsection{CHL and Gritsenko-Cl\'ery Constants}
+\label{wn:subsec:constants}
+
+The primitive CHL denominator ladder on the $K3\times E$ slice is
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\ \hline
+c_N(0)&10&8&6&4&2\\
+\kBKM(\Phi_N)=c_N(0)/2&5&4&3&2&1
+\end{array}
+\]
+by Borcherds 1998 Theorem~13.3, Gritsenko-Nikulin 1995 Part~II, and
+Gritsenko 1999.
+
+The Nikulin symplectic orders outside primitive compact $K3\times E$
+CHL are
+\[
+\begin{array}{c|ccc}
+N&5&7&8\\ \hline
+c_N(0)&4&2&2\\
+\kBKM(\Phi_N)=c_N(0)/2&2&1&1
+\end{array}
+\]
+They are Borcherds-weight values for the corresponding twined K3
+Jacobi inputs. Compact $K3\times E$ CHL statements at these orders
+require a source package with the quotient, orientation, reduced DT
+theory, and Hall recognition data.
+
+The diagonal-divisor Gritsenko-Cl\'ery catalogue is a separate
+triple-indexed atlas. Its triple order is
+\[
+(t,N)=(1,1),(2,1),(1,2),(3,1),(1,3),(4,1),(1,4),(2,2),
+\]
+and its weight tuple is
+\[
+ \wt=(5,2,3,1,2,\tfrac12,\tfrac32,1).
+\]
+Equivalently $2\wt=(10,4,6,2,4,1,3,2)$. These diagonal-divisor
+weights are distinct from the primitive CHL constant table. Comparison
+with a CHL denominator requires a row map and normalisation theorem
+identifying the two inputs.
+
+\subsection{Positive Root System}
+\label{wn:subsec:positive-root-system}
+
+The construction separates three layers. The bar coalgebra supplies
+primitives. The effective charge monoid selects the positive half. The
+specialisation kernel transports that positive half to the native
+$E_1$ chiral output when $d\geq3$. At $\CC^3$ this gives the
+Schiffmann-Vasserot CoHA positive half
+$\Yplus(\widehat{\fgl}_1)$. At $K3\times E$ the reduced-DT scalar
+fixes the primitive denominator test. Compact Hall-Borcherds recognition
+must still supply the algebraic source, orientation character, pairing,
+radical quotient, and PBW theorem. The Hall-Drinfeld/BKM branch and the
+K3 self-mirror Yangian branch are distinct comparison problems.

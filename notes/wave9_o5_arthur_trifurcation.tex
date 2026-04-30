@@ -1,193 +1,145 @@
-% ============================================================
-%  Wave-9 O5/20.  Arthur-trifurcation channel.
-%  Explicit construction of
-%    F^{total} = F^{SK}  \sqcup  F^{Mp}  \sqcup  F_{exc}
-%  with orthogonality + exhaustiveness verified through
-%  five attack-heal cycles.
-%
-%  Splice target: working_notes.tex, appended before \end{document}.
-%  Author: Raeez Lorgat.  No AI attribution.
-% ============================================================
-
 \providecommand{\GSp}{\mathrm{GSp}}
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\Mp}{\mathrm{Mp}}
 \providecommand{\Oo}{\mathrm{O}}
 \providecommand{\PGSp}{\mathrm{PGSp}}
 \providecommand{\GSpin}{\mathrm{GSpin}}
-\providecommand{\SL}{\mathrm{SL}}
 \providecommand{\A}{\mathbb{A}}
 \providecommand{\Q}{\mathbb{Q}}
-\providecommand{\Z}{\mathbb{Z}}
-\providecommand{\R}{\mathbb{R}}
 \providecommand{\BKM}{\mathrm{BKM}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\cA}{\mathcal{A}}
-\providecommand{\cL}{\mathcal{L}}
 \providecommand{\fg}{\mathfrak{g}}
 \providecommand{\fm}{\mathfrak{m}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
 
-\section{Arthur-trifurcation $F^{\mathrm{total}} = F^{\mathrm{SK}}
-\sqcup F^{\mathrm{Mp}} \sqcup F_{\mathrm{exc}}$}
+\section{Arthur Trifurcation for Paramodular BKM Targets}
 \label{wn:sec:arthur-trifurcation-o5}
 
-The Ngo--Arthur--Kottwitz functor decomposes on the moonshine-module
-space as three Langlands-functorial branches of the Arthur-parameter
-space: Saito--Kurokawa endoscopic, Shimura--Waldspurger metaplectic,
-exceptional theta lift.  Each branch has its own ambient reductive
-group and its own Arthur parameter datum; the three are pairwise
-orthogonal on Arthur-parameter support and exhaustive on paramodular
-BKM targets.
+\paragraph{Claim.}
+The constructed moonshine and paramodular BKM targets decompose by
+automorphic input into three Langlands-theoretic channels:
+\[
+F^{\mathrm{total}} =
+F^{\mathrm{SK}}\sqcup F^{\mathrm{Mp}}\sqcup F_{\mathrm{exc}}.
+\]
+The Saito-Kurokawa channel is the CAP/endoscopic locus on $\GSp_4$;
+the metaplectic channel is the genuine Shimura-Waldspurger locus on
+$\Mp_4$ or on an explicitly specified multiplier cover; the exceptional
+channel is the orthogonal singular-theta locus containing the Monster,
+Fake-Monster, and Conway constructions. The three channels are disjoint
+by ambient group, multiplier character, and lattice datum. Exhaustiveness
+is asserted only for the rows whose product, multiplier, and denominator
+data are displayed below.
 
-\subsection{The three functors with explicit scope}
+\paragraph{Saito-Kurokawa channel.}
+Let $\cA^{\mathrm{SK}}_{\GSp_4}$ be the holomorphic CAP locus of
+cuspidal automorphic packets on $\GSp_4(\A_\Q)$. The associated
+paramodular BKM rows over the CHL slice
+$N\in\{1,2,3,4,6\}$ have denominator constants and Borcherds weights
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\ \hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\Phi_N)=c_N(0)/2 & 5 & 4 & 3 & 2 & 1
+\end{array}
+\]
+These are weights of Borcherds denominator products. The calculation is
+independent of the compact Hodge supertrace and of the categorical Euler
+characteristic. The functorial reading is endoscopic: the relevant packet
+is Saito-Kurokawa type, and the denominator is supplied by the
+Gritsenko-Nikulin or Gritsenko-Clery lift after the Jacobi seed,
+multiplier, chamber, and product normalisation have been fixed.
 
-\begin{definition}[Trifurcation of the AKN functor]
-\label{wn:def:trifurcation}
-Define three Arthur-parameter-indexed functors into the category
-$\BKM^{\mathrm{im}}$ of imaginary-rank Borcherds--Kac--Moody algebras:
-\begin{align*}
-F^{\mathrm{SK}}:\ &
-\cA^{\mathrm{SK}}_{\GSp_4}
-\ \longrightarrow\ \BKM^{\mathrm{im},\,\mathrm{rk}2}_{\mathrm{int}},
-&& \text{Saito--Kurokawa endoscopic,}\\[2pt]
-F^{\mathrm{Mp}}:\ &
-\cA^{\mathrm{Sh}}_{\Mp_4}
-\ \longrightarrow\ \BKM^{\mathrm{im},\,\mathrm{rk}2,\,\mathrm{super}}_{\mathrm{half}},
-&& \text{Shimura--Waldspurger metaplectic,}\\[2pt]
-F_{\mathrm{exc}}:\ &
-\cA^{\mathrm{exc}}_{\Oo(26,2)}
-\ \longrightarrow\ \BKM^{\mathrm{im},\,\mathrm{rk}26},
-&& \text{exceptional theta lift.}
-\end{align*}
-Domains are: $(\mathrm{SK})$ the Saito--Kurokawa-CAP locus of cuspidal
-automorphic packets on $\GSp_4(\A)/\Q$ at integer weight;
-$(\mathrm{Sh})$ the Shimura-liftable cuspidal locus on the metaplectic
-cover $\Mp_4(\A)$ at half-integer weight with genuine theta-multiplier;
-$(\mathrm{exc})$ the exceptional-$\Theta$ orbit of $\Oo(26,2)$-cuspidal
-data hosting the fake-Monster/Monster datum.
-\end{definition}
+\paragraph{Metaplectic channel.}
+Let $\cA^{\mathrm{Sh}}_{\Mp_4}$ be the genuine half-integral-weight
+Shimura-Waldspurger locus on the metaplectic cover. The
+Gritsenko-Clery diagonal-divisor catalogue is a separate eight-row
+catalogue:
+\[
+\begin{array}{c|cccccccc}
+F & \Delta_5 & \Delta_2 & \nabla_3 & \Delta_1
+  & \nabla_2 & \Delta_{1/2} & \nabla_{3/2} & Q_1\\ \hline
+2\,\mathrm{wt}(F) & 10 & 4 & 6 & 2 & 4 & 1 & 3 & 2
+\end{array}
+\]
+It overlaps the CHL ladder only at $\Delta_5$. The half-integral rows
+$\Delta_{1/2}$ and $\nabla_{3/2}$ carry genuine multiplier systems, so
+they lie in the metaplectic channel until a descent datum is supplied.
+The CHL constants $(10,8,6,4,2)$ and the diagonal-divisor row data
+$(10,4,6,2,4,1,3,2)$ have distinct indexing conventions and distinct
+geometric scopes.
 
-\subsection{Attack-heal cycle 1 ($F^{\mathrm{SK}}$ scope).}
-\ClaimStatusTheorem.  Wave-6 Y2 (Pitale--Schmidt 2014 \emph{Mem.\ AMS}
-exhausts the holomorphic $\Sp_4(\Z)$-spherical CAP locus at
-$k \in \{10,12,14,16,18,20,22,26\}$) identifies $F^{\mathrm{SK}}$
-with the Saito--Kurokawa block
-$(\mathbf{1}\boxtimes[2]) \boxplus (\pi_{g_N}\boxtimes[1])$ on the
-paramodular level--$N$ automorphic side, bijectively with
-$\BKM^{\mathrm{im},\,\mathrm{rk}2}_\Sigma$ at $N \in \{1,2,3,4,6\}$.
-Integer-weight output weight $\kBKM(\Phi_N) = c_N(0)/2 \in
-\{5, 4, 3, 2, 2\}$.  Verified against Gritsenko--Nikulin 1998
-\emph{St.\ Petersburg Math.\ J.}~11 Tbl.~2.
+\paragraph{Exceptional orthogonal channel.}
+Borcherds' singular-theta construction supplies orthogonal BKM
+denominators, including the Fake-Monster denominator on
+$\mathrm{II}_{25,1}$, while the Monster and Conway objects enter through
+their vertex-algebra and Leech-lattice inputs. This is an object-level
+orthogonal theta-lift channel. Arthur's classical-group packet
+classification and Weissauer's $\GSp_4$ endoscopy supply the packet
+grammar for the first channel; the full singular-theta locus has only the
+constructed BKM objects recorded here.
 
-\subsection{Attack-heal cycle 2 ($F^{\mathrm{Mp}}$ scope).}
-\ClaimStatusTheorem\ (local; global pending $N$-adic extension of
-Rallis--Kudla 1994).  Wave-8 K5 Prop.~\ref{wn:prop:akn-boundary-no-gsp4-extension}
-proves that $N \in \{5,7,8\}$ admits no $\GSp_4$-internal Arthur
-extension, because the boundary $\theta$-multiplier $v^{\theta}_N$
-defines a non-restrictable class in $H^1(\Gamma^{(2)}_N, \{\pm 1\})$.
-Wave-9 N1 Thm.~\ref{wn:thm:saito-weil-theta-23-explicit} constructs
-$F^{\mathrm{Mp}}$ via the Saito--Weil theta
-$\theta_{2, 3}: \Mp_2 \to \Oo(3, 2) \simeq \PGSp_4/\{\pm 1\}$,
-signature-shift $+(p-q)/2 = +1/2$, landing at half-integer
-paramodular weight $c_N(0)/2 \in \{3/2, 1, 1\}$ for $N = 5, 7, 8$.
-The image is genuinely $\Mp_4$-automorphic, $\Z/2$-graded, super-BKM.
+\paragraph{Orthogonality.}
+Representations in the Saito-Kurokawa channel are ordinary automorphic
+packets on $\GSp_4$ at integral weight. Representations in the
+metaplectic channel are genuine representations of $\Mp_4$ or of a
+specified multiplier cover; the central $\mu_2$ acts through the Weil
+multiplier. Objects in the exceptional channel live on orthogonal lattices
+with different rank and discriminant form. A target can cross channels
+only after an explicit functorial transfer, descent, or square-root datum
+has been constructed.
 
-\subsection{Attack-heal cycle 3 ($F_{\mathrm{exc}}$ status).}
-\ClaimStatusConjectured\ (post-Wave-6 Y2).  Borcherds 1992
-\emph{Invent.\ Math.}~109 constructs the Monster Lie algebra $\fm$ as
-the $\Oo(\mathrm{II}_{26,2})$-singular-theta lift of $1/\Delta(\tau)$;
-the Conway algebra $\fc$ arises identically at $\Oo(\mathrm{II}_{25,1})$.
-Functoriality upgrade to a packet-level Arthur functor is not settled.
-The Langlands parametrisation of exceptional cuspidal packets on
-$\Oo(26,2)$ is open (Arthur 2013 excludes the non-quasi-split
-exceptional case); no Ngo-style fundamental-lemma transfer is
-available at this rank.  $F_{\mathrm{exc}}$ is therefore an
-\emph{object-level} functor defined on the theta-datum
-$(1/\Delta,\,\mathrm{II}_{26,2})$ only, landing at
-$(\fm, \Lambda^{\mathrm{im}}_0, \mu_0)$ of central charge $c = -26$
-($\fc$: $c = -24$).  Upgrade to $(\infty,1)$-functor status awaits an
-exceptional Arthur classification.
+\paragraph{Known scope.}
+The rows $N\in\{1,2,3,4,6\}$ belong to the integer SK channel with
+the weights displayed above. The half-integral diagonal-divisor rows
+belong to the genuine $\Mp_4$ or multiplier-cover channel. The Monster,
+Fake-Monster, and Conway objects belong to the orthogonal theta channel.
+Higher-level paramodular rows acquire a channel only after their Jacobi
+seed, multiplier, chamber, and Borcherds product have been specified.
 
-\subsection{Attack-heal cycle 4 (pairwise orthogonality).}
-\ClaimStatusTheorem.
-\emph{(SK $\cap$ Mp.)}  $\cA^{\mathrm{SK}}_{\GSp_4}$ consists of
-integer-weight automorphic packets on $\GSp_4(\A)$; $\cA^{\mathrm{Sh}}_{\Mp_4}$
-of half-integer-weight packets on $\Mp_4(\A)$.  Weil's two-cocycle on
-$\Mp_4$ is nontrivial (Weil 1964 \emph{Acta Math.}~111 \S40); the
-genuine representations of $\Mp_4$ are disjoint from those of $\GSp_4$
-as Arthur packets.  Intersection empty.
-\emph{(SK $\cap$ exc.)}  $\GSp_4$ has rank $2$; $\Oo(26, 2)$ has rank
-$13$.  Arthur parameters on groups of distinct absolute rank are
-disjoint (Arthur 2013 \S1.4).  The Borcherds--Monster datum
-$1/\Delta$ has Fourier coefficients $j(\tau) - 744 = 196884 q + \cdots$
-not realised as any $\Sp_4(\Z)$-spherical weight-$10$
-Saito--Kurokawa root datum.  Intersection empty.
-\emph{(Mp $\cap$ exc.)}  $\Mp_4 / Z \simeq \GSpin(3,2)$ has rank $2$;
-$\Oo(26, 2)$ has rank $13$.  Distinct ambient group, distinct
-discriminant lattice $|\det \Lambda^{3,2}_{(N)}| \in \{30, 14, 14\}$
-vs $|\det \mathrm{II}_{26,2}| = 1$.  Intersection empty.
+\paragraph{Invariants.}
+The compact $K3\times E$ invariants are separated by construction:
+\[
+\begin{array}{c|c|l}
+\text{invariant} & \text{value} & \text{source}\\ \hline
+\kcat(K3\times E) & 0 &
+\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot 0\\
+\kch(K3\times E) & 0 &
+\text{compact Hodge supertrace on the total space}\\
+\kHeis(K3\times E) & 3 &
+\text{Mukai-Heisenberg specialisation}\\
+\kBKM(\mathfrak g_{\Delta_5}) & 5 &
+c_1(0)/2=10/2\\
+\kfiber(K3\times E) & 24 &
+\text{Mukai-lattice rank of the K3 fibre}
+\end{array}
+\]
+The trifurcation uses the BKM row only through the denominator weight
+$\kBKM(\Phi_N)=c_N(0)/2$; it leaves the compact total-space invariants
+and the Mukai-Heisenberg specialisation in their own lanes.
 
-\subsection{Attack-heal cycle 5 (exhaustiveness).}
-\ClaimStatusConjectured\ (open at rank~$\geq 3$ Heegner support).
-The paramodular BKMs constructed by Gritsenko--Nikulin~1998 and
-Gritsenko--Cl\'ery~2008 all factor: $N \in \{1,\dots,8\}$ covered by
-$F^{\mathrm{SK}} \sqcup F^{\mathrm{Mp}}$ at imaginary rank~$2$; the
-Monster and Conway covered by $F_{\mathrm{exc}}$ at imaginary
-rank~$26$ and $25$.  The Persson--Volpato 2018 \emph{Comm.\ Math.\ Phys.}~355
-supplementary rows at $N \in \{9, 10, 12, 13\}$ are
-conjecturally in $\cA^{\mathrm{SK}}_{\GSp_4}$ or $\cA^{\mathrm{Sh}}_{\Mp_4}$
-by CAP-block parity; no row is known to require a fourth sector.
-Imaginary rank~$3$ BKMs (Gritsenko--Nikulin rank-$3$ classification)
-are covered by $F_{\mathrm{exc}}|_{\Oo(p, 2), p \in \{3, 4\}}$
-after replacing $\Oo(26,2)$ by the appropriate $\Oo(p, 2)$ theta
-datum.  No known paramodular BKM falls outside
-$F^{\mathrm{SK}} \sqcup F^{\mathrm{Mp}} \sqcup F_{\mathrm{exc}}$;
-exhaustiveness conjecturally holds.
+\paragraph{Hall and Yangian branches.}
+The BKM-side K3 object is the compact Hall-Drinfeld double of the
+positive Hall half after the negative half, Hopf pairing, radical
+quotient, coproduct, completion, centre control, and associator
+compatibilities have been supplied. The K3 Yangian branch is the Mukai
+self-mirror current-algebra branch with $24$ Heisenberg generators and
+degree-$(24,24)$ structure function. The Arthur-trifurcation statement
+concerns the automorphic and BKM denominator branch, while Drinfeld
+Yangian presentations remain confined to the Mukai branch.
 
-\subsection{Trifurcation summary}
-\begin{center}
-\begin{tabular}{c|ccc}
- & $F^{\mathrm{SK}}$ & $F^{\mathrm{Mp}}$ & $F_{\mathrm{exc}}$ \\ \hline
-Ambient group & $\GSp_4(\A)$ & $\Mp_4(\A)$ & $\Oo(26, 2)(\A)$ \\
-Weight locus & $k \in \Z$ & $k \in \tfrac12 + \Z$ & $k = -12$ lift \\
-Paramodular $N$ & $\{1,2,3,4,6\}$ & $\{5,7,8\}$ & exceptional $\fm, \fc$ \\
-Imaginary rank & $2$ & $2$ (super) & $26, 25$ \\
-Arthur classified & yes (2013) & metaplectic lift & open \\
-Status & \ClaimStatusTheorem & \ClaimStatusTheorem & \ClaimStatusConjectured \\
-$\kBKM$ output & $c_N(0)/2$ & $c_N(0)/2$ & $c_{\fm}(0)/2 = -12$
-\end{tabular}
-\end{center}
-
-\paragraph{Verdict on the hidden observation.}
-The trifurcation is the Langlands-functorial decomposition of the
-moonshine-module space into three branchings of the Arthur-parameter
-space: endoscopic ($\GSp_4$-SK), metaplectic (Shimura--Waldspurger on
-$\Mp_4$), exceptional theta lift ($\Oo(26,2)$-Borcherds).  Pairwise
-orthogonality is forced by distinct ambient reductive groups and
-distinct Arthur parameter data; exhaustiveness on the known
-paramodular BKM catalogue holds, with the rank-$\geq 3$ extension
-conjecturally absorbed by $F_{\mathrm{exc}}$.
-
-\paragraph{Invariants.}  On compact K3 $\times$ E input:
-$\kch(K3\times E) = 0$ (H-supertrace), $\kcat(K3\times E) = 0$
-(Kunneth total space), $\kBKM(\Phi_N) = c_N(0)/2$ (primary source
-Borcherds 1995).  Trifurcation preserves the
-$\kBKM(\Phi_N) = c_N(0)/2$ universal identity on both integer
-($F^{\mathrm{SK}}$) and half-integer ($F^{\mathrm{Mp}}$) slices, and
-extends it to $F_{\mathrm{exc}}$ as the $c_{\fm}(0)/2 = -12$
-Monster-weight on $\Lambda^{\mathrm{im}}_0$.
-
-\paragraph{Primary sources.}
-Arthur 2013 (\emph{The Endoscopic Classification}, AMS Colloq.~61);
-Ngo 2010 (\emph{Fundamental Lemma}, Publ.\ IHES~111);
-Waldspurger 1980 (\emph{Correspondance de Shimura}, J.\ Math.\ Pures~59);
-Borcherds 1992 (\emph{Monstrous moonshine}, Invent.\ Math.~109);
-Weissauer 2009 (\emph{Endoscopy for $\GSp(4)$}, SLN~1968);
-Howe 1979 (Proc.\ Sympos.\ Pure Math.~33);
-Gritsenko--Nikulin 1998 (St.\ Petersburg Math.\ J.~11);
-Pitale--Schmidt 2014 (Mem.\ AMS~1242);
-Lorgat 2020 arXiv:2004.01676.
+\paragraph{Primary-source anchors.}
+Arthur 2013 supplies the endoscopic packet framework for classical
+groups, with Ngo 2010 as the fundamental-lemma input. Weissauer 2009
+gives the $\GSp_4$ endoscopic surface needed for Saito-Kurokawa packets.
+Andrianov 1974 and Zagier's Saito-Kurokawa account identify the
+spinor-$L$ factor of the Igusa square line. Waldspurger 1980 and Howe
+1979 govern the metaplectic theta correspondence. Gritsenko-Nikulin
+1998, Gritsenko 1999, and Borcherds 1995 give the denominator-weight
+identity. Gritsenko-Clery 2013 gives the eight diagonal-divisor forms.
+Borcherds 1992 and Borcherds 1998 supply the orthogonal singular-theta
+and automorphic-product constructions.

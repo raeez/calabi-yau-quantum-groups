@@ -1,57 +1,3 @@
-%% wave14_a6_DT_GW_MNOP_soibelman.tex
-%% Soibelman voice: adversarial assault and rigorous healing of
-%%
-%%   "MNOP's DT/GW correspondence (the -q = e^{iu} change of variables)
-%%    is precisely the statement that the partition functions of the
-%%    same E_3-factorisation algebra F_X computed via the two
-%%    presentations match. The morality is exact at the level of F_X;
-%%    the technical work in MNOP is because the two chain-level
-%%    presentations are wildly different even though the homotopy class
-%%    is the same."
-%%
-%% FOCUS (the gap the wave14 sequence had not yet filled):
-%%   KS wall-crossing as the EXPLICIT HOMOTOPY between the DT-side and
-%%   GW-side presentations of F_X, implemented by the motivic/quantum
-%%   chamber-crossing operators
-%%     T_gamma = exp( Li_2(e_gamma) )  (semi-classical, KS 0811.2435)
-%%     T_gamma^q = Psi_q(e_gamma)      (quantum, KS 1006.2706)
-%%   with the MNOP substitution -q = e^{iu} identified, at the level of
-%%   generating functions, with the Gopakumar-Vafa (GV) reorganisation
-%%   of the GW partition function by M2-brane BPS multiplicities:
-%%     Z^{GW}(X; u) = exp( sum_{g, beta} n^g_beta
-%%                         sum_{k >= 1} (1/k) (2 sin(k u/2))^{2g-2} Q^{k beta} )
-%%   matching Z^{DT'}(X; -q) = M(-q)^{-chi(X)} Z^{DT}(X; -q) term-by-term
-%%   under the dictionary exp(iu) <-> -q (Pandharipande-Thomas 2009;
-%%   MNOP II; Katz-Klemm-Vafa 1999; Gopakumar-Vafa 1998).
-%%
-%% Primary sources:
-%%   Maulik-Nekrasov-Okounkov-Pandharipande I, arXiv:math/0312059
-%%   Maulik-Nekrasov-Okounkov-Pandharipande II, arXiv:math/0406092
-%%   Maulik-Oblomkov-Okounkov-Pandharipande, Compos.Math. 147, 2011
-%%   Pandharipande-Thomas, Invent.Math. 178, 2009; arXiv:0903.4155
-%%   Bridgeland, Invent.Math. 182, 2011
-%%   Toda, J.AMS 23, 2010
-%%   Kontsevich-Soibelman 0811.2435 (motivic DT, stability, clusters)
-%%   Kontsevich-Soibelman 1006.2706 (CoHA, motivic MHM)
-%%   Gopakumar-Vafa, hep-th/9812127 and hep-th/9811131
-%%   Katz-Klemm-Vafa, ATMP 3, 1999
-%%   Costello-Li, arXiv:1606.00365 (holomorphic CS on CY_3)
-%%   Costello-Gwilliam Vol II Ch. 11-13 (observables; quantisation)
-%%   Lurie HA Ch.5 / DAG XIII (E_n traces, factorisation homology)
-%%   Nekrasov-Okounkov, Membranes and sheaves, arXiv:1404.2323
-%%   Oberdieck-Pandharipande 2014, Oberdieck-Pixton arXiv:1706.10100
-%%   Okounkov, Lectures on K-theoretic DT (arXiv:1512.07363)
-%%
-%% Cross-references inside the repo:
-%%   notes/wave12_u1_two_stage_functor.tex
-%%   notes/wave12_a10_wall_crossing_soibelman.tex
-%%   notes/wave13_a10_DT_wallcrossing_soibelman.tex
-%%   notes/wave14_a9_DT_as_E3_trace_nekrasov.tex
-%%   notes/wave14_a15_MNOP_trace_segal.tex
-%%   notes/CoHA_to_W_infty_treatise.tex
-%%
-%% This file is infrastructure (notes/), not manuscript prose.
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
@@ -63,1047 +9,619 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem{observation}[theorem]{Observation}
-\newtheorem{attack}{Attack}
-\newtheorem{heal}{Heal}
 
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\R}{\mathbb{R}}
 \providecommand{\Q}{\mathbb{Q}}
-\providecommand{\N}{\mathbb{N}}
-\providecommand{\HH}{\mathbb{H}}
-\providecommand{\bP}{\mathbb{P}}
-\providecommand{\bY}{\mathbb{Y}}
-\providecommand{\bS}{\mathbb{S}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cM}{\mathcal{M}}
 \providecommand{\cF}{\mathcal{F}}
-\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\cH}{\mathcal{H}}
 \providecommand{\cC}{\mathcal{C}}
-\providecommand{\cP}{\mathcal{P}}
-\providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\cT}{\mathcal{T}}
-\providecommand{\cE}{\mathcal{E}}
 \providecommand{\fg}{\mathfrak{g}}
 \providecommand{\fgl}{\mathfrak{gl}}
-\providecommand{\CoHA}{\mathrm{CoHA}}
-\providecommand{\Stab}{\mathrm{Stab}}
-\providecommand{\Hall}{\mathrm{Hall}}
-\providecommand{\Eone}{E_1}
-\providecommand{\Etwo}{E_2}
-\providecommand{\Ethree}{E_3}
-\providecommand{\ad}{\mathrm{ad}}
-\providecommand{\BCH}{\mathrm{BCH}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\End}{\mathrm{End}}
 \providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\DT}{\mathrm{DT}}
 \providecommand{\GW}{\mathrm{GW}}
 \providecommand{\PT}{\mathrm{PT}}
 \providecommand{\GV}{\mathrm{GV}}
-\providecommand{\Sym}{\mathrm{Sym}}
-\providecommand{\sgn}{\mathrm{sgn}}
-\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\BPS}{\mathrm{BPS}}
 \providecommand{\Tr}{\mathrm{Tr}}
-\providecommand{\HolFA}{\mathrm{HolFA}}
-\providecommand{\MM}{\mathrm{M}}
-\providecommand{\Id}{\mathrm{Id}}
-\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
-\providecommand{\nuB}{\nu_{\mathrm{B}}}
-\providecommand{\Obs}{\mathrm{Obs}}
-\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\ch}{\mathrm{ch}}
 \providecommand{\Li}{\mathrm{Li}}
-\providecommand{\Psiq}{\boldsymbol{\Psi}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
-\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles]}}
-\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
-\providecommand{\ClaimStatusMorality}{\textsc{[morality]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textsc{[proved elsewhere]}}
-\providecommand{\Perf}{\mathrm{Perf}}
-\providecommand{\Coh}{\mathrm{Coh}}
-\providecommand{\End}{\mathrm{End}}
+\providecommand{\MM}{\mathrm{M}}
+\providecommand{\vir}{\mathrm{vir}}
+\providecommand{\red}{\mathrm{red}}
+\providecommand{\topc}{\mathrm{top}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kchcomp}{\kappa_{\mathrm{ch}}^{\mathrm{comp}}}
+\providecommand{\kchHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\PhiTen}{\Phi_{10}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\Wilpha}{\mathcal{W}_{1+\infty}}
 
-\title{MNOP $-q = e^{iu}$ as the Kontsevich--Soibelman homotopy
-between DT and GW presentations of $\cF_X$ \\
-{\normalfont (Soibelman-voice adversarial rectification, wave~14 strand A6)}}
+\title{MNOP, Wall Crossing, and the Trace Comparison}
 \author{Raeez Lorgat}
-\date{\today}
+\date{2026-04-30}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Five adversarial assaults on the essay claim --- MNOP's DT/GW
-correspondence is partition-function equality for the same
-$\Ethree$-holomorphic factorisation algebra $\cF_X$ on a compact
-Calabi--Yau threefold $X$, the $-q = e^{iu}$ substitution being the
-passage between two chain-level presentations in one homotopy class
---- each followed by a first-principles heal. The wave~14 companions
-A9 (Nekrasov: DT as $\Ethree$-trace with MacMahon verification) and
-A15 (Segal: three dualisable $\cF_X$-modules $M_{\DT}, M_{\PT}, M_{\GW}$
-and the unique $\Etwo$-centre automorphism $\sigma$ intertwining their
-traces) are fixed as load-bearing input. The present note fills the
-gap those leave open: the \emph{explicit homotopy} implementing
-the equality on the DT side is the Kontsevich--Soibelman motivic
-wall-crossing formula, and its image under $-q = e^{iu}$ is the
-Gopakumar--Vafa reorganisation of $Z^{\GW}$. The homotopy is the
-path-ordered product of chamber-crossing operators
-$\cT_\gamma = \exp(\Li_2(e_\gamma))$ (semi-classical; KS
-\texttt{0811.2435} \S2) / $\Psiq_\gamma$ (quantum; KS
-\texttt{1006.2706} \S3) along a one-parameter family in
-$\Stab(D^b(X))$ connecting the DT chamber to the PT chamber to
-(formally) the stable-map chamber. Test cases: $\C^3$ (MacMahon
-$= M(-q)$; only one chamber, empty homotopy; Okounkov--Reshetikhin--Vafa
-topological vertex on both sides); conifold (Szendr\H{o}i
-non-commutative DT versus Bryan--Pandharipande GW; MNOP proved by
-Okounkov--Pandharipande; the homotopy is one dilogarithm crossing);
-$K3\times E$ (Oberdieck--Pixton $Z^{\DT'} = C/\Phi_{10}$; GW via
-BCOV holomorphic anomaly; MNOP reduced theorem at primitive fibre
-class; homotopy is a Humbert-tower in $\HH_2$).
+The Maulik-Nekrasov-Okounkov-Pandharipande comparison relates three
+different curve-counting theories on a Calabi-Yau threefold: ideal-sheaf
+Donaldson-Thomas theory, stable-pair theory, and Gromov-Witten stable-map
+theory.  Its equality has content only after the degree-zero DT factor is
+removed and the variables are identified by
+\[
+  -q=e^{iu}.
+\]
+Kontsevich-Soibelman wall crossing supplies the DT/PT part of the
+comparison.  The PT/GW part is the BPS or Gopakumar-Vafa
+reorganisation of stable-pair and stable-map series.  A trace
+formulation packages the three numerical series as character images of
+traces in a common \(\Etwo\)-centre only after dualisable modules,
+orientation data, quantum-master-equation completions, and comparison
+maps have been supplied.
+
+For \(K3\times E\), the reduced primitive scalar uses the
+Oberdieck-Pandharipande normalisation
+\[
+  \Dfive=64^{-1}\DeltaFive,\qquad
+  \PhiTen^{\mathrm{OP}}=\Dfive^2=4096^{-1}\DeltaFive^2,\qquad
+  Z^{\DT,\red,\prime}_{K3\times E}
+  =-\bigl(\PhiTen^{\mathrm{OP}}\bigr)^{-1}
+  =-4096\,\DeltaFive^{-2}.
+\]
+This scalar is separate from
+\[
+  \kcat(K3\times E)=0,\quad
+  \kchcomp(K3\times E)=0,\quad
+  \kchHeis(K3\times E)=3,\quad
+  \kBKM(\fg_{\DeltaFive})=5,\quad
+  \kfib(K3)=24.
+\]
 \end{abstract}
 
 \tableofcontents
 
-%======================================================================
-\section{Gate~0: posture, sources, scope}
-\label{sec:gate-zero}
-%======================================================================
+\section{The Three Curve-Counting Series}
 
-\paragraph{Claim under test (verbatim).} User's essay:
-``MNOP's DT/GW correspondence (the $-q = e^{iu}$ change of variables)
-is precisely the statement that the partition functions of the same
-$\Ethree$-factorisation algebra $\cF_X$ computed via the two
-presentations match. The morality is exact at the level of $\cF_X$;
-the technical work in MNOP is because the two chain-level
-presentations are wildly different even though the homotopy class is
-the same.''
+Let \(X\) be a smooth Calabi-Yau threefold and
+\(\beta\in H_2(X,\Z)\) an effective curve class.  Compact projective
+targets, toric local targets, and reduced \(K3\times E\) targets use
+different properness and equivariance packages; the moduli problems
+remain distinct.
 
-\paragraph{Companions fixed as load-bearing.}
-\texttt{wave14\_a9\_DT\_as\_E3\_trace\_nekrasov.tex} establishes
-Theorem~wn:thm:dt-e3-trace-c3-nekrasov: at $X = \C^3$,
-$Z^{\DT}_{\C^3}(q) = M(-q) = \Tr^{\cF_{\C^3}}_{\mathrm{cat}}(\cO_{\C^3})$
-via equivariant character of $\Obs^q_{\hCS}(\C^3, \fgl_1)$. The
-identification on $K3\times E$ is stated there as a reduced primitive-
-class theorem. \texttt{wave14\_a15\_MNOP\_trace\_segal.tex} establishes
-Proposition~prop:three-modules and Theorem~thm:mnop-intertwiner:
-three dualisable $\cF_X$-modules $M_{\DT}, M_{\PT}, M_{\GW}$ and the
-unique graded automorphism $\sigma$ of the $\Etwo$-centre intertwining
-their $\Ethree$-traces under $-q = e^{iu}$. The present note takes
-both as given and asks the question neither answers: \emph{what
-concrete homotopy carries one chain-level presentation of $\cF_X$ to
-the other?} Answer: the KS wall-crossing formula.
-
-\paragraph{Primary sources (read, not invented).}
-Maulik--Nekrasov--Okounkov--Pandharipande, MNOP~I
-(\texttt{math/0312059}) and MNOP~II (\texttt{math/0406092});
-Pandharipande--Thomas \texttt{0903.4155} (stable pairs; DT/PT);
-Bridgeland, \emph{Hall algebras and curve-counting invariants}
-(\texttt{0902.4371}); Toda, \emph{Curve counting theories via stable
-objects I} (\texttt{0902.4371} companion); Kontsevich--Soibelman,
-\emph{Stability structures, motivic DT invariants and cluster
-transformations} (\texttt{0811.2435}); Kontsevich--Soibelman,
-\emph{Cohomological Hall algebra, exponential Hodge structures}
-(\texttt{1006.2706}); Gopakumar--Vafa, \emph{M-theory and topological
-strings I, II} (\texttt{hep-th/9809187}, \texttt{hep-th/9812127});
-Katz--Klemm--Vafa, \emph{M-theory, topological strings and spinning
-black holes} (\emph{ATMP} 3, 1999); Oberdieck--Pandharipande,
-\emph{Curve counting on $K3\times E$, $\chi_{10}$, descendants};
-Oberdieck--Pixton \texttt{1706.10100}; Costello--Li
-\texttt{1606.00365}; Costello--Gwilliam Vol~II Ch.~11--13; Lurie
-\emph{HA} Ch.~5; Nekrasov--Okounkov, \emph{Membranes and sheaves}
-\texttt{1404.2323}.
-
-\paragraph{CLAUDE.md cache posture.}
-\begin{itemize}[leftmargin=1.1em]
-\item $\kBKM(\Phi_N) = c_N(0)/2$ is a theorem for $N\in\{1,2,3,4,6\}$;
-  any numeric appearing below cites either Borcherds 1995/98 or
-  Gritsenko 1999, never memory.
-\item $\CoHA(\C^3) = Y^+$ (positive half of the affine Yangian of
-  $\widehat\fgl_1$); not $\mathcal W_{1+\infty}$. $\mathcal W_{1+\infty}$
-  is the Drinfeld-double output.
-\item Conifold at $d = 3$: $\kch = 1$ via direct McKay, not a
-  dimensional reduction of a $d = 2$ local surface.
-\item $\chi(\cO_{K3\times E}) = 0$ (K\"unneth on the total space); the
-  MNOP factor $\MM(-q)^{\chi(X)}$ is trivial at $X = K3\times E$, which
-  is what makes the Igusa-side identity $Z^{\DT'} = C/\Phi_{10}^2$
-  clean.
-\item Stage~1 $\PhiFA_3$ is pinned by Kontsevich--Tamarkin formality;
-  Stage~2 $\Sp_{\Sigma_2, C}$ is moduli-parameterised. MNOP lives
-  entirely on Stage~1.
-\end{itemize}
-
-\paragraph{Scope of the morality.} Compact smooth projective CY$_3$
-$X$ with $K_X \simeq \cO_X$, $b_1 = 0$. Toric $X$ (MNOP~II theorem);
-$X = K3\times E$ (Oberdieck--Pixton, reduced primitive theorem); local
-CY$_3$ (MOOP 2011, toric-compactified); general projective
-(Pandharipande--Pixton: descendent match \ClaimStatusConjectured{}
-partial results).
-
-%======================================================================
-\section{The $\Ethree$-FA $\cF_X$ and two chain-level presentations}
-\label{sec:fx-presentations}
-%======================================================================
-
-\paragraph{$\cF_X$, Stage~1 of $\Phi$.}
-By Costello--Li \texttt{1606.00365} and Costello--Gwilliam Vol~II
-Ch.~11, a compact CY$_3$ $X$ carries a canonical $\Ethree$-holomorphic
-factorisation algebra $\cF_X = \Obs^q_{\hCS}(X, \fgl_r)$ of quantum
-observables of abelian holomorphic Chern--Simons (rank $r$ of the
-gauge multiplet; we take $r = 1$ in the essay's scope). Kontsevich--
-Tamarkin $\Ethree$-formality of the Hochschild complex of the
-Dolbeault algebra $\Omega^{0,\bullet}(X)$ pins the $\Ethree$-structure
-up to contractible choice; the locality axiom of Costello--Gwilliam
-makes $\cF_X$ into a factorisation algebra on $X$.
-
-\paragraph{Two chain-level presentations of $\cF_X$.}
-There are two ways to write $\cF_X$ as an explicit cochain complex:
-
-\begin{enumerate}[label=(\Alph*), leftmargin=1.3em]
-\item \emph{DT / categorical presentation.} Start with the CY$_3$
-dg-category $\cC = \Perf(X)$ with its Serre-functor CY structure and
-Bridgeland stability $\sigma_{\DT}$ (large-volume / slope heart). The
-Kontsevich--Soibelman motivic Hall algebra $\mathcal H^{\mathrm{mot}}_\sigma$
-is built as a cochain complex on the moduli of $\sigma$-semistable
-objects; its image under the motivic integration map $\Phi^{\mathrm{mot}}$
-lands in a completion of the quantum torus $\widehat{\mathfrak g}_\Gamma^q$
-of \S\ref{sec:dgla} below. The $\Ethree$-structure on $\cF_X$ is recovered
-as the $\Ethree$-envelope of the motivic Hall algebra via Dunn--Lurie
-additivity $\Ethree = \Eone \otimes \Etwo$ (one $\Eone$ from the Hall
-convolution, one $\Etwo$ from the Maulik--Okounkov stable envelope on
-$\Coh(X)^{\le 2}$, one from the Nakajima diagonal).
-
-\item \emph{GW / geometric presentation.} Start with the stable-map
-stacks $\overline{\cM}_{g,0}(X,\beta)$ and their virtual fundamental
-classes $[\overline{\cM}_{g,0}(X,\beta)]^{\mathrm{vir}}$ (Behrend--Fantechi
-\texttt{alg-geom/9601010}). The GW partition function
+\begin{definition}[Donaldson-Thomas series]
+The ideal-sheaf moduli space
 \[
-Z^{\GW}_X(u, Q) \;=\; \exp\Biggl(\sum_{g\ge 0}u^{2g-2}
-\sum_{\beta > 0} Q^\beta \int_{[\overline{\cM}_{g,0}(X,\beta)]^{\mathrm{vir}}} 1
-\Biggr)
+  I_n(X,\beta)=\Hilb(X,\beta,n)
 \]
-is, via Costello's genus-weighted action principle, the partition
-function of a \emph{different} chain-level representative of
-$\cF_X$: the topological-string B-model observables on $X$, equivalently
-the quantisation of the classical $\hCS$ action at loop-expansion
-parameter $u$ (Costello--Li \texttt{1606.00365} \S5; BCOV
-\texttt{hep-th/9309140}). Concretely this is the cochain complex
-$\Sym^\bullet(\cE_{\hCS}^\vee[1])[[u^2]]$ with the quantum BV
-differential, whereas the DT presentation is (morally) the same
-complex reorganised along the Hilbert-stratification of $X$-subschemes.
-\end{enumerate}
-
-\begin{observation}[The two presentations are homotopic]
-\label{obs:two-presentations-homotopic}
-By Costello 2013 \texttt{1303.2632} Thm.~1.1 and Costello--Li
-\texttt{1606.00365} Thm.~3.2, both (A) and (B) quantise the same
-classical $\hCS$ $\Ethree$-factorisation algebra $\cF^{\mathrm{cl}}_X$
-on $X$, hence agree as objects in the homotopy category
-$\mathrm{Ho}(\Ethree\text{-}\HolFA(X))$. The Kontsevich--Tamarkin
-formality theorem makes this homotopy class contractible: there is
-a contractible space of quasi-isomorphisms $(A) \simeq (B)$. The
-$-q = e^{iu}$ substitution is the image of \emph{one such}
-quasi-isomorphism, restricted to $\pi_0$ of the trace.
-\end{observation}
-
-Observation~\ref{obs:two-presentations-homotopic} says the morality
-holds. The attack--heal cycles below refine \emph{which}
-quasi-isomorphism, why it takes the form $-q = e^{iu}$, and what
-concrete homotopy implements it.
-
-%======================================================================
-\section{The lattice dgLa and KS wall-crossing}
-\label{sec:dgla}
-%======================================================================
-
-Fix $\Gamma = K^{\mathrm{num}}_0(\cC)$ with the skew-symmetric Euler
-pairing $\langle\cdot,\cdot\rangle = \chi_\cC - \chi_\cC^{\mathrm{op}}$.
-
-\begin{definition}[Lattice Lie algebra, quantum torus]
-\label{def:lattice-algebra}
-The \emph{semi-classical lattice Lie algebra} $\fg_\Gamma$ is the
-$\Q$-vector space spanned by $\{e_\gamma : \gamma \in \Gamma\setminus\{0\}\}$
-with
+parametrises ideal sheaves \(I_Z\subset \cO_X\) with
+\([Z]=\beta\) and \(\chi(\cO_Z)=n\).  In the proper or equivariantly
+proper setting, the symmetric obstruction theory and Behrend function
+\(\nu_I\) define
 \[
-[e_{\gamma_1}, e_{\gamma_2}] \;=\; (-1)^{\langle\gamma_1,\gamma_2\rangle}
-\langle\gamma_1, \gamma_2\rangle \, e_{\gamma_1+\gamma_2}.
+  \DT_{n,\beta}(X)
+  =
+  \int_{[I_n(X,\beta)]^{\vir}}1
+  =
+  \chi\bigl(I_n(X,\beta),\nu_I\bigr).
 \]
-The \emph{quantum torus} $\widehat\fg_\Gamma^q$ has generators
-$\hat e_\gamma$ with
-$\hat e_{\gamma_1}\hat e_{\gamma_2} = q^{\langle\gamma_1,\gamma_2\rangle/2}
-\hat e_{\gamma_1+\gamma_2}$ and Lie bracket
-$[\hat e_{\gamma_1}, \hat e_{\gamma_2}] = (q^{\langle\gamma_1,\gamma_2\rangle/2}
-- q^{-\langle\gamma_1,\gamma_2\rangle/2}) \hat e_{\gamma_1+\gamma_2}$,
-recovering $\fg_\Gamma$ in the semi-classical $q\to 1$ limit up to KS
-sign twist (KS \texttt{0811.2435} \S2.5).
+The partition function and its degree-zero reduction are
+\[
+  Z_X^{\DT}(q,Q)
+  =
+  \sum_{\beta,n}\DT_{n,\beta}(X)\,q^nQ^\beta,
+  \qquad
+  Z_X^{\DT,\prime}(q,Q)
+  =
+  \frac{Z_X^{\DT}(q,Q)}{Z_{X,0}^{\DT}(q)}.
+\]
+For a projective Calabi-Yau threefold,
+\[
+  Z_{X,0}^{\DT}(q)=\MM(-q)^{\chi_{\topc}(X)},\qquad
+  \MM(q)=\prod_{m\ge1}(1-q^m)^{-m}.
+\]
 \end{definition}
 
-\begin{definition}[Chamber-crossing operator]
-\label{def:chamber-crossing}
-For a primitive class $\gamma\in\Gamma$ and a chamber $\sigma$ of
-$\Stab(\cC)$, the KS \emph{chamber-crossing operator} at the wall
-$W_\gamma$ is the formal automorphism
+\begin{definition}[Pandharipande-Thomas series]
+The stable-pair moduli space \(P_n(X,\beta)\) parametrises pairs
 \[
-\cT_\gamma \;:=\; \exp\!\Bigl(\sum_{k\ge 1} \frac{1}{k^2} e_{k\gamma}\Bigr)
-\;=\; \exp\!\bigl(\Li_2(e_\gamma)\bigr) \qquad
-\text{(semi-classical; KS \texttt{0811.2435} \S2.6)}
+  \cO_X\longrightarrow F
 \]
-acting on the pro-nilpotent completion $\widehat{\fg}_{\Gamma, >0}$,
-where $\Li_2(x) = \sum_{k\ge 1} x^k/k^2$ is the dilogarithm. In the
-quantum-torus version,
+with \(F\) pure of dimension one, \([F]=\beta\), and \(\chi(F)=n\).
+Its virtual class defines
 \[
-\Psiq_\gamma \;:=\; \prod_{n\ge 0}\Bigl(1 - q^{n+1/2} \hat e_\gamma\Bigr)^{-1}
-\qquad \text{(quantum; KS \texttt{1006.2706} \S3.3)},
+  \PT_{n,\beta}(X)=\int_{[P_n(X,\beta)]^{\vir}}1,
+  \qquad
+  Z_X^{\PT}(q,Q)=
+  \sum_{\beta,n}\PT_{n,\beta}(X)\,q^nQ^\beta .
 \]
-the quantum dilogarithm (Fadeev--Kashaev), satisfying
-$\Psiq_\gamma|_{q\to 1} = \cT_\gamma$ after KS sign-twist.
+Joyce-Song, Toda, and Bridgeland wall crossing give
+\[
+  Z_X^{\DT,\prime}(q,Q)=Z_X^{\PT}(q,Q)
+\]
+in their stated Calabi-Yau threefold settings and chambers.
 \end{definition}
 
-\begin{theorem}[Kontsevich--Soibelman wall-crossing]
-\label{thm:ks-wc}\ClaimStatusTheorem
-Fix a CY$_3$ category $\cC$ (meaning a $\Z/2$-graded Calabi--Yau
-triangulated category with a bounded t-structure). For any two
-stability conditions $\sigma, \sigma' \in \Stab(\cC)$ connected by a
-path $\rho:[0,1]\to\Stab(\cC)$ crossing finitely many walls
-$W_{\gamma_1}, \ldots, W_{\gamma_k}$, the path-ordered product
+\begin{definition}[Gromov-Witten series]
+The stable-map stack \(\overline{\cM}_{g,0}(X,\beta)\) carries a virtual
+class of expected dimension zero.  The primary invariant is
 \[
-U^{\rho}_{\sigma \to \sigma'}
-\;=\; \prod_{j=1}^{k} \cT_{\gamma_j}^{\Omega^{\sigma_j}(\gamma_j)}
-\qquad \text{(ordered along } \rho\text{)}
+  \GW_{g,\beta}(X)
+  =
+  \int_{[\overline{\cM}_{g,0}(X,\beta)]^{\vir}}1 .
 \]
-is independent of $\rho$ (homotopy-invariant in $\Stab(\cC)$ rel
-endpoints), where $\Omega^{\sigma_j}(\gamma_j)$ is the KS BPS-invariant
-of class $\gamma_j$ on the chamber $\sigma_j$ immediately before the
-wall. The equality
+After separating constant maps, the disconnected series is
 \[
-\prod_{j:\, \sigma\to \sigma'}^{\text{path ordered}}
-\cT_{\gamma_j}^{\Omega^{\sigma}(\gamma_j)}
-\;=\;
-\prod_{j:\, \sigma'\to \sigma}^{\text{path ordered reverse}}
-\cT_{\gamma_j}^{\Omega^{\sigma'}(\gamma_j)}
+  Z_X^{\GW,\prime}(u,Q)
+  =
+  \exp\!\left(
+    \sum_{\beta>0}\sum_{g\ge0}
+      \GW_{g,\beta}(X)\,u^{2g-2}Q^\beta
+  \right).
 \]
-is the \emph{Kontsevich--Soibelman wall-crossing formula}.
+\end{definition}
+
+\begin{theorem}[MNOP comparison]
+\label{thm:mnop-comparison}
+On theorem loci of the DT/GW correspondence,
+\[
+  Z_X^{\GW,\prime}(u,Q)
+  =
+  Z_X^{\DT,\prime}(q,Q)\big|_{-q=e^{iu}}
+  =
+  Z_X^{\PT}(q,Q)\big|_{-q=e^{iu}}.
+\]
+The theorem loci include the smooth toric threefolds in the
+topological-vertex setting of MNOP and MOOP, toric local examples such as
+the resolved conifold, and the reduced primitive \(K3\times E\) theory
+of Oberdieck-Pandharipande, Oberdieck-Pixton, and Oberdieck.  For a
+generic smooth projective Calabi-Yau threefold this displayed equality
+is the MNOP conjecture.
 \end{theorem}
 
-\begin{proof}[Primary source] KS \texttt{0811.2435} Theorems~2.1, 2.2,
-Proposition~2.3; proof via the motivic Hall algebra and motivic
-integration map. The homotopy invariance uses pentagon / Rogers
-identities on the quantum dilogarithm.
+\begin{remark}[The variable]
+The substitution \(-q=e^{iu}\) is part of the theorem data.  The sign
+belongs to the Behrend-weighted DT convention.  The exponential records
+the passage from connected stable-map free energies to the disconnected
+GW partition function.
+\end{remark}
+
+\section{Kontsevich-Soibelman Wall Crossing}
+
+Let \(\cC=\Perf(X)\) and
+\(\Gamma=K^{\mathrm{num}}_0(\cC)\), equipped with the skew Euler form
+\[
+  \langle \gamma_1,\gamma_2\rangle
+  =
+  \chi_\cC(\gamma_1,\gamma_2)-\chi_\cC(\gamma_2,\gamma_1).
+\]
+The completed quantum torus has generators \(\hat e_\gamma\) and product
+\[
+  \hat e_{\gamma_1}\hat e_{\gamma_2}
+  =
+  q^{\langle\gamma_1,\gamma_2\rangle/2}
+  \hat e_{\gamma_1+\gamma_2}.
+\]
+For a primitive class \(\gamma\), the quantum dilogarithm operator is
+\[
+  \Psi_\gamma^q
+  =
+  \prod_{n\ge0}\bigl(1-q^{n+1/2}\hat e_\gamma\bigr)^{-1},
+\]
+acting in the pro-nilpotent completion fixed by a strict sector in the
+central-charge plane.  Its semiclassical logarithm is
+\[
+  \log \Psi_\gamma^q
+  \sim
+  \sum_{k\ge1}\frac{e_{k\gamma}}{k^2}
+  =
+  \Li_2(e_\gamma),
+\]
+with the usual KS sign twist in the \(q\to1\) limit.
+
+\begin{theorem}[Kontsevich-Soibelman wall crossing]
+\label{thm:ks-wall-crossing}
+Let \(\sigma,\sigma'\in\Stab(\cC)\) be connected by a path crossing
+walls \(W_{\gamma_1},\ldots,W_{\gamma_r}\) in a strict sector.  The
+path-ordered product
+\[
+  U^\rho_{\sigma\to\sigma'}
+  =
+  \prod_{j=1}^r
+  \left(\Psi^q_{\gamma_j}\right)^{\Omega_{\sigma_j}(\gamma_j)}
+\]
+is invariant under homotopy of the path with endpoints and sector fixed.
+Equivalently, the ordered product of BPS automorphisms attached to a
+sector is constant as the stability condition crosses its walls.
+\end{theorem}
+
+\begin{proof}
+This is Kontsevich-Soibelman's motivic wall-crossing theorem.  The proof
+uses the motivic Hall algebra, the integration map to the quantum torus,
+and the quantum dilogarithm identities attached to rank-two wall
+patterns.
 \end{proof}
 
-Theorem~\ref{thm:ks-wc} is the specific content that lets
-Observation~\ref{obs:two-presentations-homotopic} be made explicit.
-\emph{``Same homotopy class''} in that Observation $=$ \emph{``path-ordered product
-$U^\rho_{\DT\to \GW}$ is independent of $\rho$''} in this Theorem.
-
-%======================================================================
-\section{Attack 1: the homotopy is not a path in $\Stab(\cC)$,
-so Theorem~\ref{thm:ks-wc} does not apply to DT~$\leftrightarrow$~GW}
-\label{sec:attack-1}
-%======================================================================
-
-\begin{attack}
-The KS wall-crossing formula (Theorem~\ref{thm:ks-wc}) homotopes
-\emph{one DT chamber to another DT chamber}. The GW presentation of
-$\cF_X$ is not a Bridgeland stability condition on $\cC$; it lives on
-a different moduli space ($\overline{\cM}_{g,0}(X,\beta)$, not a
-$\sigma$-semistable locus in $\cC$). So the claim ``KS wall-crossing
-is the homotopy between DT and GW presentations of $\cF_X$'' is a
-category error: KS crosses walls inside $\Stab(\cC)$; GW lives outside
-$\Stab(\cC)$. The user's morality has no explicit homotopy on offer.
-\end{attack}
-
-\begin{heal}
-The attack is right that GW is not a Bridgeland chamber. It is wrong
-that no homotopy exists. The homotopy has \emph{three segments}:
-(i) DT $\to$ PT inside $\Stab(\cC)$ via KS wall-crossing (this is
-Theorem~\ref{thm:ks-wc}; the walls are the Pandharipande--Thomas walls
-and the semi-classical BPS operators are the $\cT_\gamma$'s); (ii)
-PT $\to$ GV via the Katz--Klemm--Vafa BPS structure theorem (this is
-a \emph{rewriting} of $Z^{\PT}$ in terms of GV-integers $n^g_\beta$,
-not a chamber crossing --- it is algebraic); (iii) GV $\to$ GW via the
-Gopakumar--Vafa summation formula (this is likewise algebraic, a
-specific closed-form summation of BPS multiplicities into a stable-map
-generating function). Segment (i) is the KS homotopy; segments (ii)
-and (iii) are identities inside the $\Etwo$-centre $\End^{\Etwo}(\mathbf{1})$.
-Together they produce a chain
+\begin{proposition}[DT/PT/GW factorisation]
+\label{prop:dt-pt-gw-factorisation}
+On every locus where the required wall-crossing and BPS expansions are
+proved, the comparison in Theorem~\ref{thm:mnop-comparison} factors as
 \[
-Z^{\DT'}_X(-q, Q)
-\;\xrightarrow{\;\cT_{\gamma_1}^{\Omega(\gamma_1)}\cdots\cT_{\gamma_k}^{\Omega(\gamma_k)}\;}\;
-Z^{\PT}_X(-q, Q)
-\;\xrightarrow{\;\mathrm{KKV}\;}\;
-Z^{\GV}_X(n^g_\beta; -q, Q)
-\;\xrightarrow{\;\mathrm{GV\ sum}\;}\;
-Z^{\GW}_X(u, Q)
+  Z_X^{\DT}(q,Q)
+  =
+  \MM(-q)^{\chi_{\topc}(X)}Z_X^{\PT}(q,Q),
 \]
-under $-q = e^{iu}$. The first arrow is KS wall-crossing; the last two
-are closed-form reorganisations. This is the explicit homotopy Attack~1
-demanded.
-\end{heal}
-
-\begin{proposition}[KS--KKV--GV chain as the MNOP homotopy]
-\label{prop:ks-kkv-gv}\ClaimStatusTheorem \emph{(for segment (i) on toric $X$;
-\ClaimStatusConjectured{} in general for segments (ii)--(iii))}
-Let $X$ be a smooth projective CY$_3$. The MNOP identification
-$Z^{\GW}_X(u, Q) = Z^{\DT'}_X(-q, Q)|_{-q = e^{iu}}$ factorises as
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item (DT/PT reduction; Bridgeland \texttt{0902.4371} / Toda
-\texttt{0902.4371}; \emph{theorem} on every smooth projective CY$_3$)
+followed by the BPS expansion of the PT series and the GV stable-map
+summation
 \[
-Z^{\DT}_X(-q, Q) \;=\; Z^{\DT',\mathrm{deg\,0}}_X(-q) \cdot Z^{\PT}_X(-q, Q),
-\qquad Z^{\DT',\mathrm{deg\,0}}_X(-q) \;=\; \MM(-q)^{\chi(X)},
+  F_X^{\GW}(u,Q)
+  =
+  \sum_{\beta>0}\sum_{g\ge0}\sum_{k\ge1}
+  n^g_\beta(X)\,
+  \frac{1}{k}
+  \bigl(2\sin\tfrac{ku}{2}\bigr)^{2g-2}
+  Q^{k\beta}.
 \]
-implemented inside $\widehat\fg_\Gamma^q$ by a single KS wall-crossing
-at the PT wall, $\cT^{\Omega(\gamma^{\PT})}_{\gamma^{\PT}}$.
-\item (KKV reorganisation; Katz--Klemm--Vafa \emph{ATMP}~3 1999
-Proposition 1; a structure theorem, algebraic identity on generating
-functions, conjectural for general $X$ and theorem in toric / primitive
-K3-fibre cases) there exist BPS multiplicities $n^g_\beta \in \Z$,
-vanishing for $g \gg 0$ fibre by fibre, such that
+For a fixed curve class, the PT BPS expansion is written in the
+Pandharipande-Thomas convention as
 \[
-Z^{\PT}_X(-q, Q) \;=\; \prod_{\beta > 0, g \ge 0, k \ge 1}
-\Bigl(1 - (-q)^k Q^{k\beta}\Bigr)^{k\cdot n^g_\beta \cdot (-1)^{g-1} \cdot \text{(binomial coeffs)}}
+  \sum_n P_{n,\beta}q^n
+  =
+  \sum_{g\ge0} n^g_\beta\,q^{1-g}(1+q)^{2g-2}.
 \]
-(the explicit product is the KKV denominator formula; cf.\
-Pandharipande--Thomas 2009 Conjecture~3).
-\item (GV summation; Gopakumar--Vafa \texttt{hep-th/9812127};
-theorem on toric, conjectural in general)
-\[
-Z^{\GW}_X(u, Q) \;=\; \exp\!\Biggl(\sum_{g\ge 0, \beta>0, k\ge 1}
-n^g_\beta \cdot \frac{1}{k}\bigl(2\sin\tfrac{k u}{2}\bigr)^{2g-2} Q^{k\beta}\Biggr).
-\]
-\end{enumerate}
-Under $-q = e^{iu}$, the identity
-$\bigl(2\sin\tfrac{u}{2}\bigr)^2 = (e^{iu/2} - e^{-iu/2})^2
-= 2 - (e^{iu} + e^{-iu}) = -(1 - (-q))(1 - (-q)^{-1})/(-q)^{1/2}$
-translates (iii) into (ii); composed with (i) this gives the MNOP
-equality.
+Under \(-q=e^{iu}\), the factor \(q^{1-g}(1+q)^{2g-2}\) becomes the
+corresponding sine factor up to the standard sign convention absorbed in
+the BPS integer \(n^g_\beta\).
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-(i) Toda 2010 J.AMS Thm.~1.1; Bridgeland 2011 Invent.~Math. Thm.~1.3.
-(ii) Pandharipande--Thomas 2009 \texttt{0903.4155} Thm.~2 and
-Conjecture~3 (theorem on toric; PT/KKV algebraic identity on
-$Z^{\PT}$). (iii) Gopakumar--Vafa \texttt{hep-th/9812127} \S3 and
-Katz--Liu \texttt{math/0103074} for the formal-trace setup; Konishi
-2006 \texttt{math/0608325} for toric; Pandharipande--Thomas
-\texttt{1407.3314} and Maulik--Toda \texttt{1610.07303} for the
-projective proof of KKV integrality.
+\begin{proof}
+The first equality is the DT/PT wall-crossing theorem.  The displayed
+BPS expansion is the PT rationality and integrality package of
+Pandharipande-Thomas, with its later projective proofs in the available
+generality.  The GV summation is the Gopakumar-Vafa expression of the
+stable-map free energy in terms of the same BPS integers.  The
+substitution \(-q=e^{iu}\) identifies the PT basis
+\(q^{1-g}(1+q)^{2g-2}\) with the sine basis of the GW expansion.
 \end{proof}
 
-%======================================================================
-\section{Attack 2: $\cT_\gamma = \exp(\Li_2(e_\gamma))$ is formal;
-the homotopy does not converge to a geometric trace}
-\label{sec:attack-2}
-%======================================================================
+\section{Trace Formulation}
 
-\begin{attack}
-Even granting Proposition~\ref{prop:ks-kkv-gv}, the operators
-$\cT_\gamma = \exp(\Li_2(e_\gamma))$ are formal series in a
-pro-nilpotent Lie algebra $\widehat{\fg}_{\Gamma, >0}$. They act on
-\emph{generating functions}, not on traces of the factorisation
-algebra $\cF_X$ as geometric objects. The morality claim ``the
-partition functions of the same $\cF_X$ match'' requires the homotopy
-to live \emph{on $\cF_X$ itself}, not on its character. The $\cT_\gamma$
--homotopy is a formal shadow, not a geometric one.
-\end{attack}
-
-\begin{heal}
-The attack conflates two distinct lanes. In the chain-level lane
-(Costello--Gwilliam), $\cF_X$ is an explicit cochain complex and its
-\emph{character trace} is a formal power series; KS wall-crossing is
-an automorphism of that formal series. In the $(\infty,1)$-categorical
-lane (Lurie HA, Bhatt--Halpern-Leistner), $\cF_X$ is a dualisable
-$\Ethree$-monoidal category and its trace is an element of
-$\End^{\Etwo}(\mathbf{1}_{\cF_X})$. The two lanes are connected by a
-natural map --- the \emph{character map}
+The two-stage CY-to-chiral construction has a factorisation-algebra
+stage
 \[
-\chi: \End^{\Etwo}(\mathbf{1}_{\cF_X}) \longrightarrow
-\Q[[q, Q]]^{\wedge}_{\Gamma},
+  \PhiFA_3(\Perf(X))=\cF_X.
 \]
-sending a trace to its generating function. The $\cT_\gamma$-homotopy
-lives in the target $\Q[[q, Q]]^{\wedge}_{\Gamma}$ (it is an
-automorphism of the generating-function ring); its lift to
-$\End^{\Etwo}(\mathbf{1}_{\cF_X})$ is the categorical wall-crossing
-of Bhatt--Halpern-Leistner / Gaiotto--Moore--Neitzke 2013, which is a
-$\Etwo$-Hopf-algebra automorphism of the centre. Both are the ``same''
-homotopy viewed through different lenses (Pattern~273): the
-chain-level $\cT_\gamma$ is the character image of the
-$(\infty,1)$-categorical Bhatt--HL wall-crossing operator on the
-stable-$\infty$-category of $\cF_X$-modules.
-\end{heal}
-
-\begin{theorem}[Two-lane compatibility of KS wall-crossing]
-\label{thm:two-lane-ks}\ClaimStatusTheorem \emph{(chain-level;
-\ClaimStatusConjectured{} for the $(\infty,1)$-lift on non-toric
-projective CY$_3$)}
-The square
+In the holomorphic field-theoretic lane one writes
 \[
-\begin{array}{ccc}
-\End^{\Etwo}(\mathbf{1}_{\cF_X}) & \xrightarrow{\;\widetilde\cT_\gamma\;} &
-\End^{\Etwo}(\mathbf{1}_{\cF_X}) \\
-{\scriptstyle \chi}\downarrow & & \downarrow{\scriptstyle \chi} \\
-\Q[[q, Q]]^{\wedge}_{\Gamma} & \xrightarrow{\;\cT_\gamma\;} &
-\Q[[q, Q]]^{\wedge}_{\Gamma}
+  \cF_X\simeq\Obs^q_{\hCS}(X)
+\]
+after solving the quantum master equation on the chosen completion of
+fields.  The specialised CY-to-chiral output at dimension \(d\ge3\) is
+native \(\Eone\).  The \(\Etwo\)-structure used by trace comparisons
+lives on a centre, double, or module category, for example an
+\(\Etwo\)-centre of \(\cF_X\)-modules.
+
+\begin{definition}[\(\Ethree\)-trace target]
+Let \(A\) be an \(\Ethree\)-algebra in a symmetric monoidal
+\((\infty,1)\)-category and let \(M\) be a dualisable \(A\)-module.
+Dunn-Lurie additivity gives a trace value
+\[
+  \Tr_A^{\Ethree}(M,\mathrm{id}_M)
+  \in
+  \End_A^{\Etwo}(\mathbf 1_A).
+\]
+A character map from this \(\Etwo\)-centre to a completed
+generating-function ring turns the trace value into a numerical
+partition function.
+\end{definition}
+
+\begin{theorem}[Conditional trace comparison]
+\label{thm:conditional-trace-comparison}
+Let \(X\) be a smooth compact Calabi-Yau threefold.  Assume:
+\begin{enumerate}
+\item the hCS or TCFT construction of \(\cF_X\) satisfies the quantum
+master equation on the completed field space;
+\item the DT, PT, and GW geometries define dualisable \(\cF_X\)-modules
+\[
+  M_\DT,\qquad M_\PT,\qquad M_\GW;
+\]
+\item their orientation data agree with the \((-1)\)-shifted symplectic
+structures and with Behrend weighting on the DT side;
+\item comparison maps identify trace insertions with ideal-sheaf,
+stable-pair, and stable-map insertions;
+\item the MNOP or PT/GW correspondence is established in the relevant
+chamber.
+\end{enumerate}
+Then the character images of the three trace values satisfy
+\[
+  \ch\Tr_{\cF_X}^{\Ethree}(M_\DT)
+  =
+  \MM(-q)^{\chi_{\topc}(X)}
+  \ch\Tr_{\cF_X}^{\Ethree}(M_\PT),
+\]
+and
+\[
+  \ch\Tr_{\cF_X}^{\Ethree}(M_\GW)
+  =
+  \left(\ch\Tr_{\cF_X}^{\Ethree}(M_\PT)\right)\big|_{-q=e^{iu}}.
+\]
+Thus the trace formulation is equivalent to MNOP after applying the
+specified character maps.  Equality of full trace maps on all
+observables is the stronger TCFT comparison.
+\end{theorem}
+
+\begin{proof}
+The first displayed equality is DT/PT wall crossing in trace character
+form, including the degree-zero DT factor.  The second is the PT/GW
+comparison after the MNOP variable substitution.  The hypotheses place
+the three character values in one completed \(\Etwo\)-centre and make
+the enumerative integrals into the character images of the corresponding
+trace insertions.
+\end{proof}
+
+\section{Affine and Local Tests}
+
+\begin{proposition}[\(\C^3\)]
+\label{prop:c3}
+For \(X=\C^3\) with the standard Calabi-Yau torus action,
+\[
+  Z_{\C^3}^{\DT}(q)=\MM(-q).
+\]
+The equivariant hCS trace on the vacuum insertion has the same value:
+\[
+  \Tr^{\cF_{\C^3},T}_{\DT}(\mathbf1;q)
+  =
+  \sum_{\pi}(-q)^{|\pi|}
+  =
+  \MM(-q),
+\]
+where \(\pi\) ranges over plane partitions.  The GW vertex gives
+\[
+  Z_{\C^3}^{\GW}(u)=\MM(e^{iu}),
+\]
+and the two vacuum amplitudes agree under \(-q=e^{iu}\).
+\end{proposition}
+
+\begin{proof}
+The fixed points of \(\Hilb^n(\C^3)\) are plane partitions.  The
+Calabi-Yau specialisation of the virtual tangent ratio gives the Behrend
+sign, hence the MacMahon series \(\MM(-q)\).  The topological vertex
+computes the corresponding GW vacuum amplitude.
+\end{proof}
+
+The affine toric Hall algebra identity used here is
+\[
+  \CoHA(\C^3)\simeq Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The full \(\Wilpha\) algebra appears after the negative half, Cartan
+factor, Hopf pairing, Drinfeld double or centre, completion, and
+evaluation data are added.
+
+\begin{proposition}[Resolved conifold]
+\label{prop:conifold}
+Let
+\[
+  X=\cO_{\mathbb P^1}(-1)\oplus\cO_{\mathbb P^1}(-1).
+\]
+The toric theorem gives
+\[
+  Z_{\mathrm{con}}^{\DT}(q,Q)
+  =
+  \MM(-q)^2
+  \prod_{k\ge1}\bigl(1-Q(-q)^k\bigr)^k,
+\]
+so
+\[
+  Z_{\mathrm{con}}^{\PT}(q,Q)
+  =
+  \prod_{k\ge1}\bigl(1-Q(-q)^k\bigr)^k.
+\]
+The single nonzero BPS invariant is \(n^0_{[\mathbb P^1]}=1\), and the
+GW free energy is
+\[
+  F_{\mathrm{con}}^{\GW}(u,Q)
+  =
+  \sum_{k\ge1}
+  \frac{Q^k}{k(2\sin(ku/2))^2}.
+\]
+These formulas give MNOP for the conifold under \(-q=e^{iu}\).
+\end{proposition}
+
+\begin{proof}
+The DT formula is the topological-vertex calculation, with
+\(\chi_{\topc}(X)=2\).  Removing \(\MM(-q)^2\) gives the stable-pair
+series.  The Bryan-Pandharipande GW formula is the GV summation with
+one genus-zero BPS state in the compact curve class.
+\end{proof}
+
+\section{\texorpdfstring{\(K3\times E\)}{K3 x E}}
+
+Let \(S\) be a K3 surface, \(E\) an elliptic curve, and \(X=S\times E\).
+The translation action of \(E\) forces reduced obstruction theories.
+For primitive nonzero \(\beta_h\in H_2(S,\Z)\) with
+\(\langle\beta_h,\beta_h\rangle=2h-2\), the reduced DT, PT, and GW
+series are compared in the Oberdieck-Pandharipande and
+Oberdieck-Pixton theory.
+
+\begin{proposition}[Reduced primitive scalar]
+\label{prop:k3e-op-scalar}
+In the theta normalisation of the Igusa square root,
+\[
+  [q^{1/2}r^{1/2}s^{1/2}]\DeltaFive=64,
+  \qquad
+  \Dfive=64^{-1}\DeltaFive.
+\]
+The OP Igusa form is
+\[
+  \PhiTen^{\mathrm{OP}}
+  =
+  \Dfive^2
+  =
+  4096^{-1}\DeltaFive^2,
+\]
+while the unnormalised Igusa square is
+\[
+  \PhiTen^{\mathrm{un}}=\DeltaFive^2.
+\]
+The primitive reduced branch is
+\[
+  Z_X^{\DT,\red,\prime}
+  =
+  Z_X^{\PT,\red}
+  =
+  Z_X^{\mathrm{OP}}
+  =
+  -\bigl(\PhiTen^{\mathrm{OP}}\bigr)^{-1}
+  =
+  -\Dfive^{-2}
+  =
+  -4096\,\DeltaFive^{-2}.
+\]
+\end{proposition}
+
+\begin{proof}
+Igusa's theta product gives
+\([q^{1/2}r^{1/2}s^{1/2}]\DeltaFive=64\), hence
+\(\Dfive=64^{-1}\DeltaFive\).  Oberdieck-Pixton use the monic square
+\(\PhiTen^{\mathrm{OP}}=\Dfive^2\).  Oberdieck's reduced DT/PT theorem
+identifies the reduced DT and PT quotient series, and the
+Oberdieck-Pandharipande primitive comparison identifies this series with
+the OP reduced GW expansion after \(P=e^{iu}\) and the DT sign convention
+\((-P)^n\).  The displayed sign is the OP scalar convention.
+\end{proof}
+
+\begin{proposition}[Five separate \(K3\times E\) numbers]
+\label{prop:k3e-five-numbers}
+The following quantities have independent definitions:
+\[
+\begin{array}{c|c|c}
+\text{quantity} & \text{value} & \text{source}\\
+\hline
+\kcat(K3\times E) & 0
+& \chi(\cO_{K3})\chi(\cO_E)=2\cdot0\\
+\kchcomp(K3\times E) & 0
+& \sum_q(-1)^qh^{0,q}(K3\times E)=1-1+1-1\\
+\kchHeis(K3\times E) & 3
+& \text{Mukai-Heisenberg specialisation}\\
+\kBKM(\fg_{\DeltaFive}) & 5
+& c_1(0)/2=10/2\\
+\kfib(K3) & 24
+& \mathrm{rk}\,\widetilde H(K3,\Z)
 \end{array}
 \]
-commutes, where $\widetilde\cT_\gamma$ is the Bhatt--HL / GMN
-categorical wall-crossing and $\cT_\gamma$ is the formal dilogarithm of
-Definition~\ref{def:chamber-crossing}. Commutativity is the statement
-that character and formal wall-crossing are natural with respect to
-each other; on toric $X$ both sides are explicitly computable and
-agree by MNOP~II Thm.~1.
+The scalar \(Z_X^{\mathrm{OP}}\) is partition-function data.  These five
+numbers live in distinct constructions, and none is obtained by summing
+the others.
+\end{proposition}
+
+\begin{proof}
+The first row is Kunneth multiplicativity for \(\chi(\cO)\) on the total
+space.  The second is the compact Hodge supertrace from the
+\((1,1,1,1)\) Hodge column.  The third is a chiral Heisenberg-Mukai
+specialisation.  The fourth is Borcherds' weight formula applied to the
+Gritsenko form \(\DeltaFive\), whose Jacobi input has constant term
+\(c_1(0)=10\).  The fifth is the Mukai-lattice rank of the K3 fibre.
+\end{proof}
+
+\section{Final Form}
+
+\begin{theorem}[MNOP as wall crossing plus trace comparison]
+\label{thm:final-form}
+Let \(X\) be a Calabi-Yau threefold in one of the proved MNOP settings:
+smooth toric threefolds in the vertex formalism, toric local examples
+such as the conifold, or the reduced primitive \(K3\times E\) theory.
+Then the numerical comparison is
+\[
+  Z_X^{\GW,\prime}(u,Q)
+  =
+  \left(
+  \frac{Z_X^{\DT}(q,Q)}{\MM(-q)^{\chi_{\topc}(X)}}
+  \right)\bigg|_{-q=e^{iu}}
+  =
+  Z_X^{\PT}(q,Q)\big|_{-q=e^{iu}},
+\]
+with reduced obstruction theories and OP variables in the \(K3\times E\)
+case.  Kontsevich-Soibelman wall crossing accounts for the DT/PT
+equality.  The PT/GW equality is the stable-pairs/GV/stable-map
+comparison.  The trace reading of this identity is valid under the
+dualisability, orientation, QME/completion, and comparison-map
+hypotheses of Theorem~\ref{thm:conditional-trace-comparison}.
 \end{theorem}
 
-\begin{remark}[The Mittag--Leffler obstruction tower]
-\label{rem:ML}
-The user's essay mentions ``the two chain-level presentations are
-wildly different even though the homotopy class is the same.'' In
-this framework the wildness is controlled by a \emph{Mittag--Leffler
-tower} on the quantum-torus side: the DT generating function is a
-\emph{genuine} element of $\Q[[q, Q]]$, while the GW generating
-function a priori lives in $\Q[[u, Q]]$. The homotopy crosses this
-wildness by convergence of the Fadeev--Kashaev quantum-dilogarithm
-infinite product $\Psiq_\gamma = \prod_{n\ge 0}(1 - q^{n+1/2}
-\hat e_\gamma)^{-1}$ as a formal series in $q, Q$ (Mittag--Leffler is
-automatic because the indexing by $\gamma$ and $n$ is well-ordered).
-The $q\to 1$ semi-classical limit is controlled by the Stokes
-phenomenon on $\Li_2$, which is what produces the $\bigl(2\sin\tfrac{u}{2}\bigr)^{2g-2}$ GV
-factor under $-q = e^{iu}$.
-\end{remark}
-
-%======================================================================
-\section{Attack 3: test case $\C^3$ --- no wall-crossing,
-so the ``KS-homotopy'' claim is vacuous at the MacMahon point}
-\label{sec:attack-3}
-%======================================================================
-
-\begin{attack}
-At $X = \C^3$, the MNOP correspondence is the MacMahon identity:
-$Z^{\DT}_{\C^3}(q) = \MM(-q)$, and $Z^{\GW}_{\C^3}(u)$ is the
-Gopakumar--Vafa version of the same. But $\Stab(D^b(\C^3))$ has only
-one chamber (the heart $\Coh(\C^3)^{\le 0}$ is the unique Bridgeland
-chamber at the equivariant T-fixed point for generic weights; no PT
-wall crosses inside this geometry). So segment~(i) of
-Proposition~\ref{prop:ks-kkv-gv} is empty at $\C^3$: the KS wall-
-crossing operator $\cT_\gamma$ is the identity. If the homotopy is
-empty, the morality is empty --- we are identifying two generating
-functions with nothing in between.
-\end{attack}
-
-\begin{heal}
-The attack sharpens exactly what the $\C^3$ case does say. At $\C^3$:
-\begin{itemize}
-\item Segment (i) of Proposition~\ref{prop:ks-kkv-gv} is indeed empty;
-no chamber crossing. The DT and PT partition functions of $\C^3$
-coincide after the obvious degree-zero factor
-$\MM(-q)^{\chi(\C^3)} = \MM(-q)^1 = \MM(-q)$.
-\item Segment (ii), KKV reorganisation: the only BPS datum on $\C^3$ is
-$n^0_0 = 1$ (the single degree-zero class). The KKV product collapses
-to $\MM(-q) = \prod_{k\ge 1}(1 - (-q)^k)^{-k}$.
-\item Segment (iii), GV summation: the single-BPS data gives
-$Z^{\GW}_{\C^3}(u) = \exp(\sum_k \frac{1}{k}(2\sin\tfrac{ku}{2})^{-2}) = \MM(e^{-iu})$
-(Faber--Pandharipande \texttt{math/9810173} Thm.~2, the equivariant
-$\C^3$ partition function identity).
-\end{itemize}
-The entire content of MNOP at $\C^3$ is the identity
-$\MM(-q) = \MM(e^{-iu})$ under $-q = e^{iu}$, which is a tautology on
-the formal MacMahon series. Attack~3 correctly identifies that the
-``KS-homotopy'' is empty at $\C^3$; the morality is carried by the
-KKV + GV segments, and it reduces to a tautology on $\MM$. The non-triviality
-of the morality lives on compact, non-toric examples where all three
-segments are non-trivial.
-\end{heal}
-
-\begin{proposition}[MNOP morality at $\C^3$: trivial homotopy, tautological identity]
-\label{prop:mnop-c3}\ClaimStatusTheorem
-At $X = \C^3$, the homotopy of Proposition~\ref{prop:ks-kkv-gv}
-decomposes as: (i) empty KS segment (identity wall-crossing);
-(ii) KKV with single BPS multiplicity $n^0_0 = 1$; (iii) GV with
-$Z^{\GW}_{\C^3}(u) = \MM(e^{-iu})$. The composite gives
-$Z^{\GW}_{\C^3}(u) = Z^{\DT}_{\C^3}(q)|_{-q = e^{iu}}$ as an identity of
-formal series.
-\end{proposition}
-
-Complement (Nekrasov wave14~A9): at $\C^3$, $\Tr^{\cF_{\C^3}}_{\mathrm{cat}}(\cO_{\C^3})
-= \MM(-q)$ via equivariant $T^3$-character of $\Obs^q_{\hCS}(\C^3, \fgl_1)$.
-Thus the $\Ethree$-trace equals both the DT and GW partition functions
-after substitution, directly on $\cF_X$. The empty-homotopy status at
-$\C^3$ is \emph{not} evidence against the morality; it is evidence
-that $\C^3$ is not a discriminating test. The serious tests are
-conifold and $K3\times E$.
-
-%======================================================================
-\section{Attack 4: test case conifold --- a genuine KS chamber crossing
-is necessary but does Szendr\H{o}i NC-DT reach the GW side?}
-\label{sec:attack-4}
-%======================================================================
-
-\begin{attack}
-At $X = \text{resolved conifold} = \cO(-1)\oplus\cO(-1) \to \bP^1$,
-the MNOP correspondence has non-trivial content on all three segments:
-Szendr\H{o}i \texttt{math/0705.3419} computed the non-commutative DT
-partition function
-\[
-Z^{\DT,\mathrm{NC}}_{\mathrm{con}}(q, Q) \;=\; \MM(-q)^2 \prod_{k\ge 1}
-\bigl(1 - Q(-q)^k\bigr)^k \bigl(1 - Q^{-1}(-q)^k\bigr)^k
-\]
-on the NC heart $\cA_0 \subset D^b(X)$, while the commutative DT side
-(Morrison--Mozgovoy--Nagao--Szendr\H{o}i 2011 \texttt{1004.0198})
-restricts the product to one factor:
-\[
-Z^{\DT}_{\mathrm{con}}(q, Q) \;=\; \MM(-q)^{\chi(X)} \prod_{k\ge 1}
-\bigl(1 - Q(-q)^k\bigr)^k.
-\]
-(The conifold has $\chi(X) = 2$; the total Euler characteristic is
-$2$, not $0$: there are two $T^2$-fixed points on the $\bP^1$.) The
-passage NC-DT $\to$ DT is a KS chamber crossing --- explicitly, the
-pentagon relation
-$\cT_{\alpha}\cT_{\beta} = \cT_\beta \cT_{\alpha+\beta} \cT_{\alpha}$
-with $\alpha, \beta$ the two simple roots of the conifold quiver.
-But: does the KS chamber crossing reach the GW side? The GW partition
-function (Bryan--Pandharipande \texttt{math/0411037}) on the conifold is
-\[
-Z^{\GW}_{\mathrm{con}}(u, Q) \;=\; \exp\!\Biggl(\sum_{k\ge 1}
-\frac{Q^k}{k(2\sin\tfrac{ku}{2})^2}\Biggr) \cdot Z^{\GW,\mathrm{deg\,0}}_{\mathrm{con}}(u).
-\]
-The ``homotopy'' from NC-DT to GW is not one KS crossing; it is
-\emph{two crossings plus a KKV + GV rewrite}. Attack: the KS-homotopy
-is not \emph{the} MNOP homotopy; it is one of several ingredients, and
-the morality conflates the parts.
-\end{attack}
-
-\begin{heal}
-The attack is right that the conifold homotopy has multiple segments.
-But its own analysis confirms Proposition~\ref{prop:ks-kkv-gv}: segment
-(i) is \emph{two} KS crossings (NC $\to$ DT $\to$ PT) rather than one,
-and segments (ii)--(iii) are the KKV and GV reorganisations. Explicitly:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item KS wall-crossing segment: NC-DT $\to$ DT absorbs the factor
-$\prod_k (1 - Q^{-1}(-q)^k)^k$ into the vacuum sector (Nagao 2010
-\texttt{0907.3784}), and DT $\to$ PT removes the $\MM(-q)^{\chi(X)} =
-\MM(-q)^2$ vacuum factor. After both crossings,
-$Z^{\PT}_{\mathrm{con}}(q, Q) = \prod_k (1 - Q(-q)^k)^k$.
-\item KKV reorganisation: the conifold PT denominator $\prod_k (1 -
-Q(-q)^k)^k$ factorises with BPS data $n^0_{\bP^1} = 1$, all other
-$n^g_\beta = 0$ (the conifold has a single curve class supporting a
-single rational curve of genus $0$; Bryan--Pandharipande).
-\item GV summation: substituting $n^0_{\bP^1} = 1$ into the GV formula
-gives $Z^{\GW}_{\mathrm{con}}(u, Q) = \exp(\sum_k Q^k/(k(2\sin\tfrac{ku}{2})^2))$
-matching Bryan--Pandharipande.
-\end{enumerate}
-The MNOP identity $Z^{\DT'}_{\mathrm{con}}(-q, Q) = Z^{\GW}_{\mathrm{con}}(u, Q)|_{u = \pm i\log(-q)}$
-is Okounkov--Pandharipande's theorem (proved for toric CY$_3$; the
-conifold is toric). The \emph{homotopy} decomposes as
-(two KS crossings) $\circ$ (KKV) $\circ$ (GV). The morality is that
-all three live on the same $\cF_X = \Obs^q_{\hCS}(\text{conifold},\fgl_1)$.
-\end{heal}
-
-\begin{proposition}[MNOP morality at the conifold; KS-chain explicit]
-\label{prop:mnop-conifold}\ClaimStatusTheorem
-At $X = \text{resolved conifold}$, the MNOP homotopy of
-Proposition~\ref{prop:ks-kkv-gv} is explicit:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item two KS chamber crossings $\cT^{\Omega(\gamma_\alpha)}_{\gamma_\alpha}
-\cT^{\Omega(\gamma_\beta)}_{\gamma_\beta}$ realising Nagao's NC $\to$ DT
-and Bridgeland--Toda's DT $\to$ PT, with $\Omega(\gamma_\alpha) =
-\Omega(\gamma_\beta) = 1$ and $\gamma_\alpha + \gamma_\beta = $ class
-of the $\bP^1$-curve;
-\item KKV reorganisation with BPS data $n^0_{\bP^1} = 1$;
-\item GV summation yielding Bryan--Pandharipande's closed-form
-$Z^{\GW}_{\mathrm{con}}(u, Q)$.
-\end{enumerate}
-Composed and restricted to $-q = e^{iu}$, these three segments give
-Okounkov--Pandharipande's theorem $Z^{\DT'}_{\mathrm{con}}(-q, Q)
-= Z^{\GW}_{\mathrm{con}}(u, Q)$. The common $\Ethree$-factorisation
-algebra is $\cF_{\mathrm{con}} = \Obs^q_{\hCS}(\text{conifold}, \fgl_1)$
-(Costello--Li \texttt{1606.00365} \S6 for non-compact CY$_3$). The
-Davison conifold CoHA matches: $\CoHA^0(\text{con}) = Y^+(\fgl_2)$ by
-Davison \texttt{1102.4367} Thm.~1.3.
-\end{proposition}
-
-\begin{proof}[Primary sources]
-Szendr\H{o}i \texttt{0705.3419}; Morrison--Mozgovoy--Nagao--Szendr\H{o}i
-\texttt{1004.0198}; Nagao \texttt{0907.3784}; Bridgeland
-\texttt{0902.4371}; Toda \texttt{0902.4371}; Bryan--Pandharipande
-\texttt{math/0411037}; Okounkov--Pandharipande \texttt{math/0411210}
-(MNOP proof on toric CY$_3$).
+\begin{proof}
+The first equality is the combination of degree-zero DT removal and
+DT/PT wall crossing.  The second is the MNOP variable substitution and
+the stable-pairs/GW comparison on the named theorem loci.  The trace
+form follows by applying the character map to the three trace values in
+the common \(\Etwo\)-centre supplied by the hypotheses.
 \end{proof}
 
-\begin{remark}[The conifold proves the morality beyond tautology]
-At $\C^3$ the morality was tautological (empty homotopy +
-single-BPS KKV + direct GV $=$ MacMahon). At the conifold all three
-segments are genuinely non-trivial: two wall crossings, one non-empty
-curve class, a non-tautological GV reorganisation. The identity
-$Z^{\DT'} = Z^{\GW}$ under $-q = e^{iu}$ is Okounkov--Pandharipande's
-theorem \emph{precisely because} the three segments commute along the
-homotopy, which is Theorem~\ref{thm:ks-wc}'s path-invariance.
-\end{remark}
-
-%======================================================================
-\section{Attack 5: test case $K3\times E$ --- $\chi(X) = 0$
-obliterates the MacMahon factor; where is the homotopy?}
-\label{sec:attack-5}
-%======================================================================
-
-\begin{attack}
-On $X = K3\times E$, $\chi(X) = \chi(K3)\cdot\chi(E) = 24\cdot 0 = 0$,
-so the DT/PT degree-zero factor $\MM(-q)^{\chi(X)} = 1$ is trivial.
-Worse: the naive GW/DT partition functions vanish or diverge on
-$K3\times E$ because of the $E$-direction translation symmetry;
-Oberdieck--Pandharipande work with the \emph{reduced} partition functions
-$Z^{\DT,\mathrm{red}}_X$, $Z^{\GW,\mathrm{red}}_X$ throughout. The
-Oberdieck--Pixton \texttt{1706.10100} theorem is
-\[
-Z^{\DT,\mathrm{red}}_{K3\times E, \beta}(q, \tilde q, y)
-\;=\; \frac{-C}{\Phi_{10}(q, \tilde q, y)^2 \cdot \text{(automorphic factor)}}
-\]
-for primitive K3-fibre class $\beta$. Where is the KS homotopy in this
-reduced, non-toric, $\chi = 0$ setup? The KS-homotopy relies on
-wall-crossing inside $\Stab(D^b(X))$; but on $K3\times E$ the Bridgeland
-stability manifold is a Humbert-covered complexification of a period
-domain, and the DT-to-PT wall-crossing involves \emph{infinite-rank}
-BPS contributions from the K3 fibres. Is the morality still a
-theorem?
-\end{attack}
-
-\begin{heal}
-The attack correctly flags three complications on $K3\times E$: the
-$\chi(X) = 0$ collapse, the reduced-theory requirement, and the
-infinite-rank K3-fibre BPS content. None of them breaks the morality;
-they specify its exact scope.
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item $\chi(X) = 0 \Rightarrow \MM(-q)^{\chi(X)} = 1$ is a
-\emph{simplification}, not an obstruction: segment (i) of
-Proposition~\ref{prop:ks-kkv-gv} still runs, but the PT vacuum factor
-vanishes, so $Z^{\DT,\mathrm{red}} = Z^{\PT,\mathrm{red}}$ on the
-reduced primitive class.
-\item Reduced theory $=$ passage to the $E$-translation quotient:
-the reduced $\cF^{\mathrm{red}}_X$ is the $S^1$-reduction of $\cF_X$
-along the $E$-direction, and the reduced $\Ethree$-FA is an
-$\Etwo$-FA on $K3$ with an additional modular parameter $\tilde q$
-(the $E$-modulus). The $\Etwo$-trace on $\cF^{\mathrm{red}}_X$ is the
-Siegel modular form $C/\Phi_{10}^2$; the reduced DT / GW partition
-functions are the two presentations of this single trace.
-\item Infinite-rank BPS $=$ the K3 elliptic-genus contribution:
-the KS BPS invariants on $K3\times E$ for the reduced theory
-specialise to $\Omega^{\mathrm{red}}(\gamma_\beta) = c(\beta^2/2) =
-$ coefficient of $q^{\beta^2/2}$ in the K3 elliptic genus $\phi_{0,1}$
-(Mathieu moonshine class $\mathbf M$). The infinite sum over K3-fibre
-classes resums by Borcherds lift: $\sum_\beta c(\beta^2/2) q^{\beta^2/2}
-= \phi_{0,1}(q, y)$, and the Borcherds product gives
-$\mathrm{Bo}(\phi_{0,1}) = \Delta_5$, whose square is $\Phi_{10}$
-(after the Gritsenko relation $\Delta_5^2 = \Phi_{10}$, cf.\
-wave13~A10). The KS wall-crossing \emph{is}, in this reduced context,
-the Borcherds lift $J_{0,1} \to M_5(\Gamma_5, \nu_{\Delta_5})$, and
-the $-q = e^{iu}$ substitution matches the Igusa parameterisation of
-the reduced trace.
-\end{enumerate}
-The morality is a theorem on the reduced primitive-class stratum of
-$K3\times E$ (Oberdieck--Pixton 2018); the homotopy is a Humbert
-tower $H_1 \subset H_2 \subset \cdots$ in the Siegel period domain
-$\HH_2$, implementing successive specialisations to the reduced
-primitive sector.
-\end{heal}
-
-\begin{proposition}[MNOP morality at $K3\times E$; reduced + primitive + Borcherds]
-\label{prop:mnop-k3e}\ClaimStatusTheorem \emph{(Oberdieck--Pixton 2018,
-reduced primitive K3-fibre class; otherwise \ClaimStatusConjectured{})}
-At $X = K3\times E$:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item The reduced DT and reduced PT partition functions coincide
-($\chi(X) = 0$ collapses the DT/PT vacuum factor).
-\item The reduced PT partition function equals $-C/\Phi_{10}$ as a
-function on the Igusa quotient $\mathrm{Sp}_4(\Z)\backslash\HH_2$
-(Oberdieck--Pandharipande 2014 for primitive; Oberdieck--Pixton 2018
-for the full class of reduced partition functions).
-\item The reduced GW partition function is computed via the BCOV
-holomorphic-anomaly equation + Igusa-cusp conjecture
-(Oberdieck--Pixton \texttt{1706.10100} Thm.~1): under $-q = e^{iu}$
-it equals $Z^{\DT',\mathrm{red}}_{K3\times E}$.
-\item The KS-homotopy from DT$^{\mathrm{red}}$ to PT$^{\mathrm{red}}$ is
-vacuous ($\chi = 0$). The PT$^{\mathrm{red}}$-to-KKV-to-GV chain goes
-through the K3-elliptic-genus BPS data with the Borcherds lift
-$\mathrm{Bo}(\phi_{0,1}) = \Delta_5$, $\Delta_5^2 = \Phi_{10}$, and
-the Gritsenko--Cl\'ery paramodular tower acting as the refined
-Humbert homotopy in $\HH_2$.
-\end{enumerate}
-The common $\Ethree$-FA is $\cF^{\mathrm{red}}_{K3\times E} =
-\Obs^q_{\hCS}(K3\times E, \fgl_1)^{\mathrm{red}}$; its $\Etwo$-centre
-trace is $-C/\Phi_{10}$, matched on both DT and GW sides as two
-presentations of a single Siegel modular form.
-\end{proposition}
-
-\begin{proof}[Primary sources]
-Oberdieck--Pandharipande 2014; Oberdieck--Pixton \texttt{1706.10100};
-Maulik--Pandharipande--Thomas \texttt{1007.3085} (reduced theories);
-Borcherds \texttt{alg-geom/9609022}; Gritsenko 1999 St.~Petersburg~Math.~J.;
-Lorgat 2020 \emph{A Borcherds lift of $\phi_{0,1}$}.
-\end{proof}
-
-%======================================================================
-\section{Synthesis: the morality formalised, with homotopy explicit}
-\label{sec:synthesis}
-%======================================================================
-
-\begin{theorem}[Soibelman morality, formalised with KS homotopy]
-\label{thm:soibelman-morality}
-Let $X$ be a smooth projective CY$_3$ satisfying one of:
-\begin{enumerate}[label=\textup{(\alph*)}]
-\item toric (MNOP~II; MOOP 2011);
-\item $K3\times E$ on the reduced primitive-class stratum
-(Oberdieck--Pixton 2018);
-\item a local CY$_3$ with compact support curves (Bryan--Pandharipande
-for the conifold and for local $\bP^2$ on primitive classes).
-\end{enumerate}
-Let $\cF_X = \Obs^q_{\hCS}(X, \fgl_1)$ be the $\Ethree$-holomorphic
-factorisation algebra. Then:
-\begin{enumerate}
-\item The $\Ethree$-trace $\Tr^{\Ethree}(\cF_X) \in
-\End^{\Etwo}(\mathbf 1_{\cF_X})$ has \emph{two} chain-level
-presentations, the DT presentation $Z^{\DT}_X(q, Q)$ and the GW
-presentation $Z^{\GW}_X(u, Q)$, related by the homotopy of
-Proposition~\ref{prop:ks-kkv-gv}: (i) a finite path-ordered product of
-KS wall-crossing operators $\cT_\gamma$; (ii) a KKV reorganisation into
-BPS multiplicities $n^g_\beta$; (iii) a GV summation
-$\bigl(2\sin\tfrac{ku}{2}\bigr)^{2g-2}$. Under $-q = e^{iu}$, the
-composite of (i), (ii), (iii) gives the MNOP identity
-\[
-Z^{\GW}_X(u, Q) \;=\; \Bigl(Z^{\DT}_X(q, Q) / Z^{\DT,\mathrm{deg\,0}}_X(q)\Bigr)\Big|_{-q = e^{iu}}.
-\]
-\item The morality is exact at the level of $\cF_X$: the two chain-
-level presentations (A) and (B) of \S\ref{sec:fx-presentations} are
-quasi-isomorphic $\Ethree$-FAs on $X$ in the homotopy category
-$\mathrm{Ho}(\Ethree\text{-}\HolFA(X))$; their character traces are
-two generating-function readings of a single trace element of
-$\End^{\Etwo}(\mathbf 1_{\cF_X})$. Differentiating by cases~(a)--(c):
-\begin{itemize}
-\item Case~(a): (i) is a finite chain of dilogarithms, (ii) finite,
-(iii) finite; morality is a $\Q$-algebra identity on $\Q[[q, Q]]$.
-\item Case~(b): (i) is vacuous ($\chi(X) = 0$), (ii) infinite via
-the K3-elliptic-genus BPS tower, (iii) converges via Borcherds
-lift of $\phi_{0,1}$ to $\Delta_5$; morality is a Siegel-modular
-identity on $\HH_2/\mathrm{Sp}_4(\Z)$.
-\item Case~(c): intermediate; (i) finite, (ii) finite up to rational
-curves supported on the compact locus, (iii) convergent.
-\end{itemize}
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}[Structure of proof]
-Part 1 is the chain of Propositions~\ref{prop:ks-kkv-gv} (i)--(iii)
-specialised to cases (a)--(c). Part 2 uses
-Observation~\ref{obs:two-presentations-homotopic} (Kontsevich--Tamarkin
-$\Ethree$-formality + Costello--Gwilliam locality) plus
-Theorem~\ref{thm:two-lane-ks} (chain-level / $(\infty,1)$-categorical
-compatibility). For case (a) see MNOP~II Thm.~1 (toric MNOP theorem);
-(b) Oberdieck--Pixton \texttt{1706.10100} Thm.~1; (c)
-Okounkov--Pandharipande for the conifold, Bryan--Pandharipande
-\texttt{math/0411037} for local $\bP^2$. The unifying KS-homotopy
-structure is the content of Proposition~\ref{prop:ks-kkv-gv}.
-\end{proof}
-
-%======================================================================
-\section{The quantum dilogarithm and the $u$-expansion}
-\label{sec:qdilog-u}
-%======================================================================
-
-The $-q = e^{iu}$ substitution has a precise meaning via the
-Fadeev--Kashaev quantum dilogarithm.
-
-\begin{lemma}[Semi-classical limit of quantum dilogarithm produces
-$(2\sin\tfrac{u}{2})^2$]
-\label{lem:qdilog-u}
-Let $\Psiq_\gamma(q) = \prod_{n\ge 0}(1 - q^{n+1/2}\hat e_\gamma)^{-1}$ be
-the quantum dilogarithm. Under the substitution $q = e^{i u/1}$ (more
-precisely, the Nekrasov--Okounkov integrality map), the formal
-logarithmic derivative satisfies
-\[
-\log\Psiq_\gamma(q)\big|_{q = e^{i u}}
-\;=\; \sum_{k\ge 1} \frac{e_{k\gamma}}{k\cdot\bigl(2\sin\tfrac{ku}{2}\bigr)^2}
-\]
-to leading order in $u$ (i.e.\ after subtracting the anomalous
-MacMahon zero-mode). In the semi-classical $q\to 1$ limit
-($u\to 0$) the right-hand side $\sim \sum_{k\ge 1} e_{k\gamma}/(k^2 u^2)
-\cdot (1 + O(u^2))$ matches $\Li_2(e_\gamma)/u^2$ up to a scaling, so
-$\cT_\gamma = \exp(\Li_2(e_\gamma)) =
-\lim_{u\to 0} u^2 \log\Psiq_\gamma(e^{iu})$.
-\end{lemma}
-
-\begin{proof}[Sources] Fadeev--Kashaev \texttt{hep-th/9310070} Thm.~2;
-Kashaev--Nakanishi \texttt{1011.6131} Prop.~3.2; KS
-\texttt{1006.2706} \S3.3.
-\end{proof}
-
-\begin{corollary}[GV factor as semi-classical qdilog residue]
-\label{cor:gv-qdilog}
-The GV factor $\bigl(2\sin\tfrac{ku}{2}\bigr)^{2g-2}$ in
-Proposition~\ref{prop:ks-kkv-gv}(iii) is the $u$-expansion coefficient
-of the quantum-dilogarithm loop that implements the KS wall-crossing
-under $-q = e^{iu}$. Explicitly, for a BPS class $\gamma$ with
-multiplicity $n^g_\beta$,
-\[
-\log\Psiq_\gamma(-q)^{n^g_\beta}\big|_{-q = e^{iu}}
-\;=\; n^g_\beta\cdot\sum_{k\ge 1}\frac{1}{k}\bigl(2\sin\tfrac{ku}{2}\bigr)^{2g-2}
-Q^{k\gamma}.
-\]
-The full GW partition function is the product over all $\gamma$ of
-such qdilog expansions.
-\end{corollary}
-
-Corollary~\ref{cor:gv-qdilog} gives the cleanest statement of the
-morality: \emph{MNOP $-q = e^{iu}$ is the semi-classical expansion
-of the Fadeev--Kashaev quantum dilogarithm}. The DT side reads $\Psiq_\gamma$
-as a formal $q$-series (integrality: each coefficient is integer, the
-BPS count); the GW side reads $\Psiq_\gamma$ as a $u$-series via
-Gopakumar--Vafa. Both are expansions of the same quantum dilogarithm,
-ordered along the same path in $\Stab(\cC)$, traced on the same
-$\cF_X$. This is the morality in its sharpest form.
-
-%======================================================================
-\section{Claim-status ledger}
-\label{sec:ledger}
-%======================================================================
-
-\begin{center}
-\small
-\begin{longtable}{p{6.5cm} p{3.2cm} p{5cm}}
-\toprule
-\textbf{Claim} & \textbf{Status} & \textbf{Source / scope} \\
-\midrule
-KS wall-crossing formula $U^\rho$ path-invariant &
-\ClaimStatusTheorem & KS \texttt{0811.2435} Thm.~2.1 \\
-$\cT_\gamma = \exp(\Li_2(e_\gamma))$ semi-classical &
-\ClaimStatusDefinition & KS \texttt{0811.2435} \S2.6 \\
-$\Psiq_\gamma = \prod(1 - q^{n+1/2}\hat e_\gamma)^{-1}$ quantum &
-\ClaimStatusDefinition & KS \texttt{1006.2706} \S3.3 \\
-DT/PT wall-crossing via $\cT_{\gamma^{\PT}}$ &
-\ClaimStatusTheorem & Bridgeland \texttt{0902.4371}, Toda J.AMS 23 \\
-$Z^{\DT,\mathrm{deg\,0}} = \MM(-q)^{\chi(X)}$ on projective CY$_3$ &
-\ClaimStatusTheorem & MNOP~I Thm.~1 \\
-KKV reorganisation of $Z^{\PT}$ &
-\ClaimStatusTheorem (toric, K3-fibre primitive); \ClaimStatusConjectured{} (general) &
-PT \texttt{0903.4155} Conj.~3; KKV~1999; Maulik--Toda \texttt{1610.07303} \\
-GV summation formula for $Z^{\GW}$ &
-\ClaimStatusTheorem (toric) &
-Gopakumar--Vafa \texttt{hep-th/9812127}; Konishi \texttt{math/0608325} \\
-MNOP $Z^{\GW}(u) = Z^{\DT'}(-q)$ &
-\ClaimStatusTheorem (toric, $K3\times E$ primitive reduced, conifold) &
-MNOP~II Thm.~1; Okounkov--Pandharipande; MOOP 2011; OP \texttt{1706.10100} \\
-Two chain-level presentations (A) and (B) of $\cF_X$ quasi-isomorphic &
-\ClaimStatusTheorem &
-Costello 2013 Thm.~1.1; Costello--Li \texttt{1606.00365} Thm.~3.2 \\
-Character map $\chi: \End^{\Etwo}(\mathbf 1) \to \Q[[q, Q]]^\wedge$ natural w.r.t.\ $\cT_\gamma$ &
-\ClaimStatusTheorem (chain-level; \ClaimStatusConjectured{} for $(\infty,1)$-lift on non-toric) &
-Bhatt--HL \texttt{1703.04724}; GMN \texttt{1204.4824} \\
-MacMahon at $\C^3$: empty KS segment, tautological GV &
-\ClaimStatusTheorem &
-Proposition~\ref{prop:mnop-c3}; Faber--Pandharipande \texttt{math/9810173} \\
-Conifold: two KS crossings + single-BPS KKV/GV &
-\ClaimStatusTheorem &
-Proposition~\ref{prop:mnop-conifold}; Okounkov--Pandharipande \texttt{math/0411210} \\
-$K3\times E$: reduced trace $= -C/\Phi_{10}$, Borcherds $\mathrm{Bo}(\phi_{0,1}) = \Delta_5$ &
-\ClaimStatusTheorem &
-Proposition~\ref{prop:mnop-k3e}; OP \texttt{1706.10100}; Borcherds \texttt{alg-geom/9609022} \\
-Soibelman morality on toric / $K3\times E$ / conifold &
-\ClaimStatusTheorem & Theorem~\ref{thm:soibelman-morality} \\
-Soibelman morality on general projective CY$_3$ &
-\ClaimStatusConjectured & Pandharipande--Pixton \texttt{1206.5490} partial results \\
-\bottomrule
-\end{longtable}
-\end{center}
-
-%======================================================================
-\section{Postlude: what this note contributes to Vol~III}
-\label{sec:postlude}
-%======================================================================
-
-The morality ``MNOP $-q = e^{iu}$ is two presentations of the same
-$\Ethree$-trace on $\cF_X$'' is a theorem on toric, $K3\times E$ reduced
-primitive, and conifold / local CY$_3$ with compact support, and a
-conjecture in general. Its sharpest formulation is:
-\begin{itemize}[leftmargin=1.1em]
-\item The $\Ethree$-trace lives in $\End^{\Etwo}(\mathbf 1_{\cF_X})
-\cong \Q[[q, Q]]^{\wedge}_{\Gamma}$ (paramodular completion for
-$K3\times E$).
-\item The DT presentation expands as formal $q$-series via
-equivariant cohomological integration on $\Hilb^\bullet(X)$ with
-Behrend weight.
-\item The GW presentation expands as formal $u$-series via
-stable-map virtual integration on $\overline{\cM}_{g,0}(X,\beta)$.
-\item The KS wall-crossing formula + KKV reorganisation + GV
-summation is the explicit homotopy between the two presentations,
-and $-q = e^{iu}$ is the semi-classical $u$-expansion of the quantum
-dilogarithm (Lemma~\ref{lem:qdilog-u}).
-\end{itemize}
-
-Relation to the Vol~III programme:
-\begin{itemize}[leftmargin=1.1em]
-\item The morality sits at Stage~1 of the two-stage functor
-$\Phi = \Sp_{\Sigma_2, C}\circ\PhiFA_3$
-(\texttt{wave12\_u1\_two\_stage\_functor.tex}). MNOP is an identity
-on the $\PhiFA_3$-trace, not on the specialised $\Phi$-shadow.
-\item The Stage~2 chiral shadow on $K3\times E$ is the $\Delta_5$ BKM
-denominator (\texttt{wave13\_a10\_DT\_wallcrossing\_soibelman.tex}),
-which enters Conjecture~1 of Lorgat 2020. The present note's
-morality explains why the DT side of Conjecture~1 $=$ Borcherds lift
-of the K3 elliptic genus: it is the KS-homotopy of
-Proposition~\ref{prop:mnop-k3e}(iv) specialised to the reduced
-primitive class.
-\item $\kBKM(\Delta_5) = 5 = c_1(0)/2$ (Borcherds weight theorem) is
-preserved: none of the homotopy segments (i)--(iii) change the Borcherds
-weight of the denominator. The morality is compatible with the
-Borcherds weight universality.
-\item $\kch(K3\times E) = 3$ is the Hodge-supertrace of
-$\cF_{K3\times E}$ on the total space; it is unaffected by the DT vs.\
-GW presentation choice (both presentations of $\cF_X$ have the same
-Hodge structure). $\kcat(K3\times E) = 0$ (K\"unneth on the total
-space) is the degree-zero DT factor exponent, trivially $=1$ in the
-MNOP morality at $K3\times E$.
-\end{itemize}
-
-\paragraph{AP-CY guard.} The note respects:
-(AP-CY2: bare $\kappa$ forbidden; every $\kappa$ subscripted);
-(AP-CY3: $\kcat$ vs $\kch$ distinction; $\kcat(K3\times E) = 0$
-made explicit);
-(AP-CY6: CY-A$_3$ conjectural except as $\PhiFA_3$ specialisation; the
-present note's morality lives at $\PhiFA_3$, not at the specialised
-$\Phi$-output);
-(AP-CY10: Stage~1 vs Stage~2 of $\Phi$ distinguished; MNOP is Stage~1);
-(AP-CY21: dualisability of $\Coh(X)$ noted as \ClaimStatusConjectured{}
-on general projective CY$_3$).
-
-%======================================================================
-\section*{Navigation}
-\label{sec:navigation}
-%======================================================================
+\section{References}
 
 \begin{itemize}[leftmargin=1.1em]
-\item \texttt{wave12\_u1\_two\_stage\_functor.tex} --- the two-stage
-factorisation of $\Phi$; Stage~1 $\PhiFA_3$ and Stage~2 $\Sp_{\Sigma_{d-1}, C}$.
-\item \texttt{wave12\_a10\_wall\_crossing\_soibelman.tex} --- KS / MC
-gauge-equivalence framework; conifold MC chamber bridge.
-\item \texttt{wave13\_a10\_DT\_wallcrossing\_soibelman.tex} --- $N = 1$
-$K3\times E$ reduced slice; $\Delta_5$ and $\fg_{\Delta_5}$
-Macdonald denominator.
-\item \texttt{wave14\_a9\_DT\_as\_E3\_trace\_nekrasov.tex} --- DT
-as $\Ethree$-trace on $\cF_X$; Nekrasov voice; MacMahon verification
-at $\C^3$.
-\item \texttt{wave14\_a15\_MNOP\_trace\_segal.tex} --- Segal voice;
-three dualisable modules $M_{\DT}, M_{\PT}, M_{\GW}$; unique $\Etwo$-
-centre automorphism $\sigma$ intertwining traces.
-\item \texttt{CoHA\_to\_W\_infty\_treatise.tex} --- CoHA on
-$\C^3$, conifold, $K3\times E$; passage to $\mathcal W_{1+\infty}$.
-\item Reader-facing chapters (Vol~III manuscript): the morality does
-not propagate directly to \texttt{chapters/} (no Wave~N vocabulary).
-Content feeds \texttt{chapters/theory/cy\_to\_chiral.tex} (Stage~1
-$\PhiFA_3$) and \texttt{chapters/examples/k3e\_cy3\_programme.tex}
-(the $K3\times E$ specialisation), rephrased in Chriss--Ginzburg voice.
+\item D. Maulik, N. Nekrasov, A. Okounkov, and R. Pandharipande,
+\emph{Gromov-Witten theory and Donaldson-Thomas theory} I-II,
+Compositio Math. 142 (2006), arXiv:math/0312059 and arXiv:math/0406092.
+\item D. Maulik, A. Oblomkov, A. Okounkov, and R. Pandharipande,
+\emph{Gromov-Witten/Donaldson-Thomas correspondence for toric
+3-folds}, Invent. Math. 186 (2011), arXiv:0809.3976.
+\item R. Pandharipande and R. P. Thomas, \emph{Curve counting via stable
+pairs in the derived category}, Invent. Math. 178 (2009),
+arXiv:0707.2348, and the stable-pairs rationality papers.
+\item T. Bridgeland, \emph{Hall algebras and curve-counting invariants},
+J. Amer. Math. Soc. 24 (2011), arXiv:1002.4372.
+\item Y. Toda, \emph{Curve counting theories via stable objects I},
+J. Amer. Math. Soc. 23 (2010), arXiv:0902.4371.
+\item M. Kontsevich and Y. Soibelman, \emph{Stability structures,
+motivic Donaldson-Thomas invariants and cluster transformations},
+arXiv:0811.2435.
+\item R. Gopakumar and C. Vafa, \emph{M-theory and topological strings}
+I-II, arXiv:hep-th/9809187 and arXiv:hep-th/9812127.
+\item S. Katz, A. Klemm, and C. Vafa, \emph{M-theory, topological
+strings and spinning black holes}, Adv. Theor. Math. Phys. 3 (1999).
+\item J. Bryan and R. Pandharipande, \emph{The local Gromov-Witten
+theory of curves}, arXiv:math/0411037.
+\item G. Oberdieck and R. Pandharipande, \emph{Curve counting on
+\(K3\times E\), the Igusa cusp form \(\chi_{10}\), and descendent
+integration}, arXiv:1411.1514.
+\item G. Oberdieck and A. Pixton, \emph{Holomorphic anomaly equations and
+the Igusa cusp form conjecture}, Invent. Math. 213 (2018),
+arXiv:1706.10100.
+\item G. Oberdieck, \emph{On reduced stable pair invariants},
+Duke Math. J. 167 (2018), arXiv:1510.06561.
+\item R. E. Borcherds, \emph{Automorphic forms with singularities on
+Grassmannians}, Invent. Math. 132 (1998).
+\item V. Gritsenko and V. Nikulin, \emph{Siegel automorphic form
+corrections of some Lorentzian Kac-Moody Lie algebras}, Amer. J. Math.
+119 (1997), and the Gritsenko weight-five paramodular form.
+\item K. Costello and S. Li, \emph{Quantum BCOV theory on Calabi-Yau
+manifolds and the higher genus B-model}, arXiv:1201.4501, and
+Costello-Gwilliam, \emph{Factorization algebras in quantum field theory}.
+\item O. Schiffmann and E. Vasserot, the cohomological Hall algebra of
+\(\C^3\) and \(Y^+(\widehat{\mathfrak{gl}}_1)\).
 \end{itemize}
 
 \end{document}

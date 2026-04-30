@@ -1,129 +1,178 @@
-% Slides boundary extraction: N in {5,7,8} reinterpretation
-% Primary sources:
-%   Slides plain text: /tmp/automorphic-slides.txt (953 lines)
-%   Paper PDF: /Users/raeez/Downloads/raeez.lorgat.automorphic-corrections.pdf
-% Cross-citations: Mukai1988, GritsenkoNikulin1998, GritsenkoClery2008,
-%   ChengDuncanHarvey2014, Lorgat2020.
-
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
-\providecommand{\ClaimStatusConjectured}{[Conjectured]}
-\providecommand{\ClaimStatusTheorem}{[Theorem]}
-\providecommand{\ClaimStatusAxiomatic}{[Axiomatic]}
+\providecommand{\PhiN}{\Phi_N}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\Dfive}{D_5}
+\providecommand{\PhiTen}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\wt}{\operatorname{wt}}
+\providecommand{\Z}{\mathbb{Z}}
 
-\section*{The boundary $N \in \{5,7,8\}$ examined against the slides}
+\section*{Nikulin Boundary Orders \(N\in\{5,7,8\}\)}
 
-\paragraph{The eight Gritsenko--Cl\'ery dd-modular forms (slide line 47--54).}
+\paragraph{Three indexing systems.}
+The primitive \(K3\times E\) CHL denominator ladder has order set
 \[
-\begin{array}{l@{\;}l@{\;}l}
-  M_5(\Gamma_1,\nu_2)=\Delta_5 & M_2(\Gamma_2,\nu_4) & M_3(\Gamma_1(2),\nu_2)\\
-  M_1(\Gamma_3,\nu_6) & M_2(\Gamma_1(3),\nu_2) & \\
-  M_{1/2}(\Gamma_4,\nu_8) & M_{3/2}(\Gamma_1(4),\nu_4) & M_1(\Gamma_2(2),\nu_4)
+  \mathcal N_{\mathrm{CHL}}=\{1,2,3,4,6\},
+  \qquad
+  (c_N(0))_{N\in\mathcal N_{\mathrm{CHL}}}=(10,8,6,4,2),
+\]
+and Borcherds weights
+\[
+  \kBKM(\PhiN)=\wt(\PhiN)=\frac{c_N(0)}2=(5,4,3,2,1).
+\]
+Here \(c_N(0)\) is the discriminant-zero coefficient of the weak Jacobi
+input in the Borcherds product normalisation of Borcherds
+\cite[Theorem~13.3]{Borcherds1998} and Gritsenko--Nikulin--Gritsenko
+\cite{GritsenkoNikulin1998,Gritsenko1994,Gritsenko1999}.
+
+The order-indexed Nikulin list of symplectic K3 automorphisms is
+\[
+  \mathcal N_{\mathrm{Nik}}=\{1,2,3,4,5,6,7,8\}
+\]
+by Mukai's classification \cite{Mukai1988}.  The three boundary orders
+\[
+  \mathcal N_{\partial}=\{5,7,8\}
+\]
+carry Borcherds product weights
+\[
+  (c_5(0),c_7(0),c_8(0))=(4,2,2),
+  \qquad
+  \bigl(\wt(\Phi_5),\wt(\Phi_7),\wt(\Phi_8)\bigr)=(2,1,1).
+\]
+These are order-indexed automorphic weights.  They become
+\(\kBKM\)-invariants only after a denominator algebra, root datum, Weyl
+chamber, character, and Calabi--Yau host have been supplied.
+
+The Gritsenko--Clery diagonal-divisor catalogue is a third indexing
+system:
+\[
+ (t,N_{\mathrm{lvl}};k)=
+ (1,1;5),(2,1;2),(1,2;3),(3,1;1),(1,3;2),
+ (4,1;\tfrac12),(1,4;\tfrac32),(2,2;1).
+\]
+Its twice-weight tuple is
+\[
+  (10,4,6,2,4,1,3,2),
+\]
+equivalently weights
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1).
+\]
+This catalogue is indexed by paramodular divisor data, with its own
+covers, characters, and multiplier systems \cite{GritsenkoClery2013}.
+It shares the \(\DeltaFive\) row with the CHL ladder and otherwise
+requires an explicit row-map theorem before comparison with either
+order-indexed list.
+
+\paragraph{Boundary weight calculation.}
+Write the frame shape of a symplectic K3 automorphism \(g_N\) as
+\[
+  \pi(g_N)=\prod_a a^{m_a}.
+\]
+The Lefschetz trace on the Mukai \(24\)-dimensional representation is
+\[
+  T_{H^\ast}(g_N)=\sum_a m_a,
+\]
+and the Gritsenko--Nikulin theta-component calculation gives
+\[
+  c_N(0)=T_{H^\ast}(g_N)-2A_N.
+\]
+For the boundary orders the odd theta-component coefficient is
+\[
+  A_5=A_7=A_8=2.
+\]
+Thus
+\[
+\begin{array}{c|c|c|c|c}
+N & \pi(g_N) & T_{H^\ast}(g_N) & c_N(0) & \wt(\Phi_N) \\ \hline
+5 & 1^4 5^4 & 8 & 4 & 2 \\
+7 & 1^3 7^3 & 6 & 2 & 1 \\
+8 & 1^2 2\,4\,8^2 & 6 & 2 & 1
 \end{array}
 \]
-\ClaimStatusTheorem, \cite{GritsenkoClery2008}.
+The independent computational witness is
+\texttt{compute/lib/diagonal\_siegel\_cy\_orbifolds.py}: its
+\texttt{FRAME\_SHAPE\_DATA} table records the same three frame shapes,
+discriminant-zero coefficients, and weights, and
+\texttt{test\_diagonal\_siegel\_cy\_orbifolds.py} checks
+\(\wt(\Phi_N)=c_N(0)/2\) for all \(1\leq N\leq 8\).
 
-\paragraph{Factual split by weight.} Six integer-weight forms
-($\Delta_5$, $M_2(\Gamma_2)$, $M_3(\Gamma_1(2))$, $M_1(\Gamma_3)$,
-$M_2(\Gamma_1(3))$, $M_1(\Gamma_2(2))$) and two half-integer-weight
-forms ($M_{1/2}(\Gamma_4,\nu_8)$, $M_{3/2}(\Gamma_1(4),\nu_4)$). The
-two half-integer forms sit at paramodular level $t=4$, \emph{not} at
-$N \in \{5,7,8\}$. A 5+3 split keyed to $\{5,7,8\}$ is inconsistent
-with slide line~54.
-
-\paragraph{The slides' own case-split (line 943--953).}
+\paragraph{Geometric scope.}
+The primitive CHL denominator construction used here selects
 \[
-N \in \{1,2,3,5,7\}\;:\;1\le s,r\le N{-}1,\;0\le k\le N{-}1;\quad
-N=4,6,8\;:\;\text{separate sectors}.
+  \mathcal N_{\mathrm{CHL}}=\{1,2,3,4,6\}
 \]
-$N=8$ appears twice (lines 951 and 953) — two slide-pages, two
-orbit-sectors at the Mukai bound.
+because the elliptic factor in that construction uses an
+origin-preserving elliptic automorphism.  The automorphism group
+\(\operatorname{Aut}(E,0)\) has finite cyclic orders \(1,2,3,4,6\):
+after differentiating at the origin, it embeds into the unit group of
+an imaginary quadratic order, whose finite unit groups have those
+orders.  This proves the CHL selection in the present sense.
 
-\paragraph{Boundary interpretation dictionary.}
-\begin{tabular}{@{}l@{\;}l@{\;}l@{}}
-\hline
-$N$ & Slide treatment & Programme reinterpretation \\ \hline
-$5$ & Inside $\{1,2,3,5,7\}$ uniform block (line 943) &
-  \emph{Not boundary.} Sits with $\{1,2,3,7\}$; order-5 symplectic
-  $g_5 \in M_{23}$ acts with $1+4$ fixed-lattice type on $H^*(K3)$;
-  Mukai class $5A$.\\
-$7$ & Inside $\{1,2,3,5,7\}$ uniform block (line 943) &
-  \emph{Not boundary.} Sits with $\{1,2,3,5\}$; order-7 symplectic
-  Mukai class $7A$; twisted K3 elliptic genus is holomorphic Jacobi
-  of weight $0$, index $1$ at level $7$ by
-  \cite{ChengDuncanHarvey2014} $M_{24}$ moonshine tables.\\
-$8$ & Separate, doubled (lines 951, 953) &
-  \emph{Is boundary.} Saturates Mukai's bound $N \le 8$
-  \cite{Mukai1988} Theorem~0.3; two orbit-sectors = $M_{24}$
-  classes $8A, 8B$ both restricting to order-$8$ symplectic on a
-  Mukai-lattice embedding.\\
-\hline
-\end{tabular}
+Translations by \(N\)-torsion on an elliptic curve are a different
+operation.  They supply a free-action construction; the
+origin-preserving elliptic automorphism, multiplier, and denominator
+comparison package belong to the primitive CHL ladder.  Consequently
+the weights \((2,1,1)\) at \(N=5,7,8\) are established automorphic
+data, while a smooth \(K3\times E\) CHL denominator host for them
+remains additional geometry.
 
-\paragraph{The Wave~D\,2/D\,3 5+3 split, reinterpreted.} The
-structural 5+3 is \emph{not} at $N \in \{5,7,8\}$ but at
-\emph{$N \in \{4,6,8\}$ separate} vs. \emph{$N \in \{1,2,3,5,7\}$
-uniform}. The discriminant is the $2$-divisibility of $N$: when
-$\mathbb{Z}/N\mathbb{Z}$ has a non-trivial order-$2$ subgroup
-(i.e.\ $N$ even), the $(S \times E)/\mathbb{Z}/N$ quotient has fixed
-fibres over the $2$-torsion of $E$, and the orbit-index set degenerates
-($r,k$ become absorbed into $s$). For odd $N$ or $N$ prime to $2$, the
-free-action index set $(s,r,k)$ with $s,r \in \{1,\dots,N{-}1\}$ is
-generic. The $\{4,6,8\}$ separation is not ``boundary / non-compact
-CHL'' but \emph{compositeness-with-$2$} of the orbifold group.
+\paragraph{Mukai boundary.}
+The endpoint \(N=8\) is the maximal cyclic order of a symplectic K3
+automorphism in the Mukai--Nikulin classification.  The orders \(5\) and
+\(7\) are also K3-symplectic orders.  In this note their role is
+geometric: they lie outside the primitive \(K3\times E\) CHL host
+scope while still carrying order-indexed Borcherds weights.
 
-\paragraph{Half-integer weight at $N=4$, not $N=8$.}
-\ClaimStatusTheorem. The two half-integer-weight dd-modular forms
-$M_{1/2}(\Gamma_4,\nu_8)$ and $M_{3/2}(\Gamma_1(4),\nu_4)$ occur at
-paramodular level $t=4$. The paramodular $\Gamma_4$ admits
-$\nu_8$-multiplier characters whose metaplectic double-cover arguments
-lift $\eta$-type Jacobi theta-series to half-integer-weight Siegel
-forms; \cite{GritsenkoClery2008} Table~1 lists these explicitly. No
-half-integer weight appears at $N \in \{5,7,8\}$: the $N=8$ GC form is
-not in the slides' eight-form list (slide line~54); the $N \in \{5,7\}$
-cases contribute via $\ZLh$ products of integer-weight forms only.
+\paragraph{\texorpdfstring{\(K3\times E\)}{K3 x E} normalisation.}
+At the common \(N=1\) row the primitive denominator is \(\DeltaFive\),
+with
+\[
+  \kBKM(\DeltaFive)=\frac{c_1(0)}2=\frac{10}{2}=5,
+  \qquad
+  \Dfive=64^{-1}\DeltaFive,
+  \qquad
+  \PhiTen=\DeltaFive^2.
+\]
+The Oberdieck--Pandharipande scalar convention uses
+\[
+  \Phi_{10}^{\mathrm{OP}}=\Dfive^2=4096^{-1}\DeltaFive^2.
+\]
+The four \(K3\times E\) invariants used in Vol.~III remain distinct:
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kfib(K3\times E)=24.
+\]
+The number \(5\) comes from the Borcherds weight of \(\DeltaFive\);
+the compact chiral, categorical, and fibre invariants have their own
+definitions and values.
 
-\paragraph{Mukai bound at $N=8$.}
-\ClaimStatusTheorem, \cite{Mukai1988} Theorem~0.3. Every finite group
-$G$ of symplectic automorphisms of a K3 surface embeds in $M_{23}$; the
-maximal cyclic order is $N=8$. The slide's doubled ``Case $N=8$''
-(lines 951, 953) reflects the existence of two $M_{24}$-classes
-$8A,8B$ in Mukai's classification with distinct Niemeier embeddings.
-The Mukai lattice is standard (not non-standard); no non-Niemeier
-umbral orbit appears at $N \le 8$ per \cite{ChengDuncanHarvey2014}.
+\paragraph{Chiral and algebraic scope.}
+For a Calabi--Yau threefold input, the native output of \(\Phi_3\) is
+\(E_1\)-chiral.  \(E_2\)-structures occur after a centre, double, or
+representation-category construction has been specified.  The
+Hall--Drinfeld/BKM denominator branch considered here is separate from
+the K3 Mukai self-mirror Yangian branch.
 
-\paragraph{Resolution of the hidden-observation test.}
-\ClaimStatusTheorem. The hypothesis ``$N \in \{5,7,8\}$ corresponds
-to genuinely different Mukai-group-theoretic structures (non-Niemeier
-umbral, non-standard Mukai lattice)'' is \emph{falsified}. All
-$N \le 8$ symplectic-automorphism orbits fit Mukai's Niemeier-embedded
-classification. The true boundary phenomenon at $N=8$ is
-\emph{Mukai-bound saturation}, not non-Niemeier exoticism. $N=5$ and
-$N=7$ are not boundary cases; the slides place them in the uniform
-block.
-
-\paragraph{Invariants at $N=8$.}
-$\kch(K3 \times E) = 0$ (K\"unneth, compact CY$_3$). At the
-$(S \times E)/\mathbb{Z}/8$ quotient $X$:
-$\kcat(X) = \chi(\mathcal{O}_X) = 0$ (CY$_3$, total-space K\"unneth
-survives quotients preserving CY form). $\kBKM$ for the putative
-$N=8$ Borcherds correction: if $\Phi_8$ denotes the Gritsenko
-$\Phi_N$-series \cite{GritsenkoNikulin1998}, $\kBKM(\Phi_8) =
-c_8(0)/2$; the universal identity
-$\kBKM(\Phi_N) = c_N(0)/2$ (Vol~III main theorem) extends to $N=8$
-only if the twisted K3 elliptic genus at Mukai class $8A$ or $8B$ is
-a Jacobi form of weight $0$ index $1$; this is
-\ClaimStatusConjectured\ per \cite{Lorgat2020} Conjecture~1 step~S5.
-
-\paragraph{Summary.} The boundary $N \in \{5,7,8\}$ posed in
-Wave~D\,2/D\,3 is not the structural boundary exhibited by the
-slides. The slides' split is $\{1,2,3,5,7\}$ uniform vs.\
-$\{4,6,8\}$ separate-sector; the half-integer-weight forms sit at
-$N=4$ (paramodular level), not at $\{5,7,8\}$; the Mukai bound
-saturates only at $N=8$, and there via two $M_{24}$-classes
-$8A,8B$, not via non-Niemeier exoticism. Programme reinterpretation:
-replace ``$N \in \{5,7,8\}$ boundary'' by ``$N \in \{4,6,8\}$
-even-compositeness separation plus Mukai saturation at $N=8$''.
+\paragraph{Conclusion.}
+The three numerical rows are
+\[
+\begin{array}{c|c|c}
+\text{scope} & \text{orders or triples} & \text{weights} \\ \hline
+K3\times E\ \text{CHL denominator ladder}
+  & N=1,2,3,4,6 & 5,4,3,2,1\\
+\text{Nikulin boundary orders}
+  & N=5,7,8 & 2,1,1\\
+\text{Gritsenko--Clery diagonal-divisor catalogue}
+  & (t,N_{\mathrm{lvl}};k)\ \text{as above}
+  & 5,2,3,1,2,\tfrac12,\tfrac32,1
+\end{array}
+\]
+The first row has the primitive \(K3\times E\) CHL denominator host used
+in this note.  The second row supplies order-indexed Borcherds weights
+at the Mukai boundary.  The third row is a separate paramodular
+catalogue.

@@ -1,69 +1,127 @@
-\section{Vacuum OPE of $V(\mathfrak{g}_{\Delta_5})$ at depth $\leq 5$: Polyakov bootstrap and Feigin--Frenkel free-field embedding}
-\label{wn:sec:polyakov-wave7-b5-vacuum-OPE-depth-5}
+\section{Low-depth OPE constraints for $V(\mathfrak{g}_{\Delta_5})$}
+\label{wn:sec:delta5-vacuum-OPE-depth-5}
 
 \providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
 \providecommand{\VDelta}{V(\gDelta)}
 \providecommand{\VLatt}{V_{\Lambda^{2,1}}}
-\providecommand{\Vbg}{V^{\mathrm{FMS}}_{\beta\gamma}}
-\providecommand{\Vbc}{V^{bc}}
 \providecommand{\NO}[1]{\mathopen{:}{#1}\mathclose{:}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\lamD}{\lambda_{\Delta_5}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
-\paragraph{Target.} $\VDelta = \VLatt \otimes \Vbg(\lamD) \otimes \Vbc$ carries central charge $c = 3 + (-215) + (-2) = -214$ (Theorem~\ref{thm:delta5-horizon-c214-lattice-ghost}). Without an explicit OPE at depth~$5$ the VOA is a black box. Polyakov conformal bootstrap~\cite{Polyakov1987,BPZ1984} determines the singular part; Feigin--Frenkel screening~\cite{FeiginFrenkel1988} determines the embedding into free fields.
+\paragraph{Scope.}
+Assume a conformal vertex superalgebra $\VDelta$ whose Borcherds
+denominator is the Gritsenko--Nikulin product $\Delta_5$ and whose
+Virasoro field has central charge $c=-214$. The OPEs below are
+constraints on any screened free-field model for $\VDelta$. They do not
+construct the model.
 
-\paragraph{Depth $1$: Virasoro OPE at $c = -214$.} \ClaimStatusTheorem{} Let $T(z) = T_{\mathrm{latt}}(z) + T_{\beta\gamma}(z) + T_{bc}(z)$ with the three Sugawara-type summands the Segal stress tensors of the factors. By Belavin--Polyakov--Zamolodchikov~\cite{BPZ1984},
+\paragraph{Virasoro field.}
+The class-$\mathcal S$ parent
+$\mathcal T[A_1,\Sigma_{0,24}]$ has
+$(n_v,n_h)=(63,88)$, hence
+\[
+  c_{4d}={2n_v+n_h\over 12}={107\over 6},
+  \qquad
+  c_{2d}=-12c_{4d}=-214
+\]
+by the Beem--Rastelli four-dimensional to two-dimensional anomaly
+formula. If $T(z)$ is the stress tensor of the corresponding protected
+vertex algebra, then the Virasoro OPE is
 \begin{equation}
-\label{wn:eq:polyakov-TT-ope}
-T(z)T(w) \;=\; \frac{-107}{(z-w)^4} \;+\; \frac{2T(w)}{(z-w)^2} \;+\; \frac{\partial T(w)}{z-w} \;+\; \mathrm{reg},
-\qquad c/2 = -107.
+\label{wn:eq:delta5-TT-ope}
+T(z)T(w)
+ =
+ { -107\over (z-w)^4}
+ + {2T(w)\over (z-w)^2}
+ + {\partial T(w)\over z-w}
+ + \mathrm{reg}.
 \end{equation}
-The coefficient $-107$ is the Kuga--Satake sixfold anomaly $c_{\mathrm{4d}} = 107/6$ under class-$\mathcal{S}$ reduction $c_{2d} = -12 c_{4d}$ (adjudication ledger W14--W19; cache entry \texttt{c\_4d=107/6}). No anomaly cancellation at depth~$1$.
+This fixes only the Virasoro anomaly. It does not identify the full
+operator algebra with a Borcherds denominator module.
 
-\paragraph{Depth $2$: real-simple currents $J^{\delta_i}$.} \ClaimStatusTheorem{} The three real simple roots $\delta_1, \delta_2, \delta_3$ (fundamental polyhedron $\mathcal{P}_{II}$ of~$W^{(2)}$, Lorgat~2020~\S5) lift to $\VLatt$-currents $J^{\delta_i}(z) = \NO{e^{i\delta_i \cdot \varphi}}(z)$ with Gram matrix $(\delta_i, \delta_j) = 2 - 4\delta_{ij}$, i.e.\ diagonal~$2$ and off-diagonal~$-2$. The OPE reads
+\paragraph{Cartan currents and real-root fields.}
+Let $\delta_1,\delta_2,\delta_3$ be the real simple roots of the
+rank-three Lorentzian chamber of $\gDelta$, with Gram matrix
+\[
+  (\delta_i,\delta_j)=
+  \begin{cases}
+  2, & i=j,\\
+  -2, & i\ne j.
+  \end{cases}
+\]
+For free bosons $\varphi$ valued in this lattice, the Heisenberg
+currents $H_i(z)=\NO{\delta_i\cdot\partial\varphi}(z)$ satisfy
 \begin{equation}
-\label{wn:eq:polyakov-JJ-ope}
-J^{\delta_i}(z) J^{\delta_j}(w) = \frac{k^{ij}}{(z-w)^{2}} + \frac{f^{ij}{}_k\, J^{\delta_k}(w)}{z-w} + \mathrm{reg},
-\qquad k^{ij} = (\delta_i, \delta_j),
+\label{wn:eq:delta5-Heisenberg-ope}
+H_i(z)H_j(w)
+ =
+ {(\delta_i,\delta_j)\over (z-w)^2}
+ + \mathrm{reg}.
 \end{equation}
-with the hyperbolic BKM Cartan $k^{ij} = \mathrm{diag}(2,2,2) - 2(E - I)$ and structure constants $f^{ij}{}_k$ vanishing because $\delta_i + \delta_j \notin \Delta^{\mathrm{re}}$ for $i \neq j$ (the sum is imaginary, by direct enumeration of $\mathcal{P}_{II}$). Thus the real-root subalgebra of $\VDelta$ is the rank-$3$ hyperbolic Heisenberg current algebra $\widehat{\mathfrak{h}}_{\Lambda^{2,1}}$, with $[J^{\delta_i}_n, J^{\delta_j}_m] = n(\delta_i, \delta_j) \delta_{n+m,0}$ of indefinite signature~$(2,1)$.
-
-\paragraph{Depth $3$: imaginary null vertex at $\tau(a_0) = 9$.} \ClaimStatusTheorem{} Let $a_0 = 2f_2 \in \Delta^{\mathrm{im}}_{\bar 0}$ with $(a_0, a_0) = 0$ and Lorgat~2020 multiplicity $\tau(a_0) = 9$. The null-vertex operator $V_{a_0}(z) = \NO{e^{i a_0 \cdot \varphi}}(z) \cdot \gamma(z)$ --- lattice part times FMS-ghost multiplicatively, per Friedan--Martinec--Shenker --- has conformal weight
+The lattice exponentials
+$E_i(z)=\NO{\exp(\delta_i\cdot\varphi)}(z)$ obey the lattice OPE
 \begin{equation}
-\label{wn:eq:polyakov-null-weight}
-h_{a_0} = \tfrac12 (a_0, a_0) + h_\gamma = 0 + \lamD = \tfrac{3 + \sqrt{651}}{6},
+\label{wn:eq:delta5-lattice-exp-ope}
+E_i(z)E_j(w)
+ =
+ \varepsilon_{ij}(z-w)^{(\delta_i,\delta_j)}
+ \NO{\exp((\delta_i+\delta_j)\cdot\varphi)}(w)
+ + \cdots .
 \end{equation}
-not $9/2$, where $\lamD = (3+\sqrt{651})/6 \approx 4.7525$ is the FMS spin solving $12\lamD(\lamD - 1) = 214$ (so $c_{\beta\gamma}(\lamD) = -12\lamD^2 + 12\lamD - 1 = -215$). The naive $h_{a_0} = 9/2$ arises from confusing $\tau(a_0) = 9$ (null-root multiplicity) with $h_{a_0}$ (conformal weight); the correct weight is the FMS spin of the $\beta\gamma$-tuning, and $\tau(a_0) = 9$ appears instead as the exponent of $(1-q^k)^9$ in the $\Delta_5$-denominator (Lorgat~2020 Thm.~4). The $T(z) V_{a_0}(w)$ OPE reads $T(z) V_{a_0}(w) = h_{a_0} V_{a_0}(w) (z-w)^{-2} + \partial V_{a_0}(w)(z-w)^{-1} + \mathrm{reg}$.
+Thus the affine-current formula applies to the Cartan currents
+$H_i$, while the real-root fields carry the usual lattice singularities.
+For $i\ne j$, the product has a double pole and lands in the null
+charge $\delta_i+\delta_j$. A Borcherds vertex realization must impose
+the correct quotient or screening differential on these null-charge
+fields.
 
-\paragraph{Depth $4$: fermionic imaginary primaries.} \ClaimStatusTheorem{} For $a \in \Delta^{\mathrm{im}}_{\bar 1}$ with $m(a) < 0$ (the odd-multiplier sector of $\phi_{0,1}$), define odd primaries $\Xi_a(z) = \NO{e^{i a \cdot \varphi}}(z) \cdot b(z)^{|m(a)|}$ with $b(z)$ the $bc$-ghost of depth~$2$. The super-current OPE is
-\begin{equation}
-\label{wn:eq:polyakov-fermion-ope}
-\Xi_a(z) \Xi_{-a}(w) = \frac{|m(a)|\, \lamD\, K_a}{(z-w)^{2\lamD + |m(a)| + (a,a)}} + \frac{\partial K_a}{(z-w)^{2\lamD + |m(a)| + (a,a) - 1}} + \mathrm{reg},
-\end{equation}
-with $K_a(z) = \NO{i a \cdot \partial\varphi}(z)$ the Cartan current. Super-Jacobi is enforced by the Borcherds imaginary Serre relation~\eqref{wn:eq:drin-borcherds-serre} acting on zero modes.
+\paragraph{Imaginary-root multiplicity.}
+In the Gritsenko--Nikulin normalization used for $\Delta_5$, the Jacobi
+input has constant coefficient $c(0)=10$ and polar coefficient
+$c(-1)=1$. The first even null multiplicity is therefore
+\[
+  \tau(a_0)=c(0)-c(-1)=9 .
+\]
+This integer is a Borcherds root multiplicity. A conformal weight for a
+field of charge $a_0$ depends on the chosen free-field background charge
+and ghost realization. The number $9$ supplies no such weight by itself.
 
-\paragraph{Depth $5$: first composite and Kac-determinant test.} \ClaimStatusTheorem{} The Kac determinant~\cite{KacRaina1987} at weight~$5$ in the vacuum module factorises as
-\begin{equation}
-\label{wn:eq:polyakov-kac-det-5}
-\det M_{5}(c, h=0) \;=\; \prod_{r, s \geq 1,\; rs \leq 5} (h - h_{r,s}(c))^{p(5 - rs)},
-\qquad
-h_{r,s}(c) = \frac{(rt - s)^2 - (t-1)^2}{4t},
-\end{equation}
-with $c = 1 - 6(t-1)^2/t$; solving $c = -214$ gives $t_{\pm}$ the roots of $6 t^2 - 227 t + 6 = 0$, i.e.\ $t_+ = (227 + \sqrt{51385})/12 \approx 37.807$, $t_- = 1/t_+ \approx 0.0265$. Direct substitution: the only $(r, s)$ with $rs \leq 5$ and $h_{r,s}(t_+) = 0$ is $(r, s) = (1, 1)$, the trivial vacuum vector. \textbf{Falsification of Y4.} No non-trivial Virasoro singular vector appears at weight $\leq 5$; the vacuum module is free of Kac degeneracy at depth~$5$. Consequently the first composite at weight~$5$ is $L_{-2}^2 | 0 \rangle$ and its descendants, generically non-null. The null-structure of $\VDelta$ at low depth is controlled entirely by the screening charges, not by Virasoro singular vectors.
+\paragraph{Virasoro degeneracy at depth five.}
+For the Virasoro Verma determinant write
+\[
+  c=13-6(t+t^{-1}),\qquad
+  h_{r,s}(c)=
+  { (rt-s)^2-(t-1)^2 \over 4t } .
+\]
+At $c=-214$, the parameter $t$ satisfies
+$6t^2-227t+6=0$, so $t$ is irrational. The equation
+$h_{r,s}(-214)=0$ with $rs\le 5$ forces $(r,s)=(1,1)$.
+After quotienting the translation vector $L_{-1}|0\rangle$, there is
+no further Virasoro singular vector through depth five. Any low-depth
+null relation in $\VDelta$ must therefore come from the Borcherds
+screening data, not from a Virasoro minimal-model degeneration.
 
-\paragraph{Heal: Feigin--Frenkel free-field embedding with explicit screening charges.} \ClaimStatusTheorem{} Identify
-\begin{equation}
-\label{wn:eq:polyakov-FF-embed}
-\VDelta \;\hookrightarrow\; \Vbg(\lamD) \otimes \Vbc \otimes \VLatt,
-\qquad Q_i \;=\; \oint \NO{e^{i \delta_i \cdot \varphi / \sqrt{2}}}(z)\, \mathrm{d}z,\ \ i = 1, 2, 3,
-\end{equation}
-with the three real screening charges $Q_i$ (Feigin--Frenkel~\cite{FeiginFrenkel1988}, Feigin--Frenkel--Semikhatov~\cite{FeiginSemikhatov2004}); a null-screening $Q_0 = \oint \beta(z)\, V_{a_0}(z)\,\mathrm{d}z$ enforcing the $\tau(a_0) = 9$ null multiplicity; and fermionic screenings $Q_a = \oint b(z)^{|m(a)|} \Xi_a(z)\,\mathrm{d}z$ for $a \in \Delta^{\mathrm{im}}_{\bar 1}$. By Zamolodchikov~\cite{Zamolodchikov1986} and the Feigin--Frenkel resolution, $\VDelta = \bigcap_i \ker(Q_i) \cap \ker(Q_0) \cap \bigcap_a \ker(Q_a)$. The vacuum character is
-\begin{equation}
-\label{wn:eq:polyakov-vac-char}
-\chi_{\mathrm{vac}}(\tau) \;=\; \frac{1}{\eta(\tau)^{3 + 9 + 2}} \cdot q^{-(c-1)/24} \;=\; q^{215/24} \prod_{k \geq 1}(1 - q^k)^{-14} \;=\; \Delta_5(\tau, 0, 0)^{-1},
-\end{equation}
-modulo the prefactor $q^{215/24}$ matching the Casimir shift $c/24 = -107/12$; the exponent $14 = 3 + 9 + 2$ is (real-root rank) $+$ (null multiplicity $\tau(a_0)$) $+$ ($bc$-rank), and the identification $\eta^{14}\big|_{\text{restriction}} = \Delta_5(\tau,0,0)$ follows from Lorgat~2020 Thm.~4 specialised to the zero locus of~$z$ in $\mathbb{H}_2$.
+\paragraph{Screening model.}
+A Feigin--Frenkel style presentation
+\[
+  \VDelta \simeq H^\bullet(\VLatt\otimes \mathcal G,Q)
+\]
+requires a ghost system $\mathcal G$ and a BRST operator $Q$ whose
+screening currents all have conformal weight one, mutually local OPEs,
+and square-zero total charge. The proof obligations are explicit:
+construct the real-root screenings, construct the null and odd
+imaginary screenings with multiplicities read from the Jacobi
+coefficients, prove $Q^2=0$, compute the cohomology, and match the
+graded supercharacter with the Borcherds product for $\Delta_5$.
+Central charge $-214$ and the scalar $\tau(a_0)=9$ do not imply this
+screening theorem.
 
-\paragraph{Tower assembly.} \ClaimStatusConjectured{} The sequence $\{V^\natural, \mathfrak{g}_{\mathrm{FM}}, \mathfrak{g}_{\mathrm{Co}_0}, \VDelta\}$ at $c \in \{24, -26, -24, -214\}$ is controlled by the universal Wave-6 formula $c = -12 c_{\mathrm{4d}}(X) + c_{\mathrm{top}}$ with $c_{\mathrm{top}} \in \{48, 2, 0, 0\}$ encoding the transverse topological sector; the four levels exhaust the Borcherds hierarchy at $N \in \{1\}$ (Lorgat~2020 Conj.~1: eight lifts).
-
-\paragraph{Scope.} Chain-level: (\ref{wn:eq:polyakov-TT-ope})--(\ref{wn:eq:polyakov-kac-det-5}) are computable on explicit Fock modules. $(\infty,1)$-level: (\ref{wn:eq:polyakov-FF-embed}) lifts to an exact triangle of $E_1$-chiral algebras; the screening-charge resolution is the $(\infty,1)$-categorical fibre. Cross-reference: $\kappa_{\mathrm{ch}}(K3 \times E) = 3$, $\kappa_{\mathrm{cat}}(K3 \times E) = 0$, $\kBKM(\Phi_{\Delta_5}) = c_1(0)/2 = 5$, $\kappa_{\mathrm{fiber}} = 24$; no conflation.
+\paragraph{Invariant separation.}
+For $K3\times E$ the compact Hodge supertrace is
+$\kch(K3\times E)=0$, while the Heisenberg specialization has
+$\kch^{\mathrm{Heis}}(K3\times E)=3$. The categorical invariant is
+$\kcat(K3\times E)=0$. The Borcherds invariant is
+$\kBKM(\Delta_5)=c_1(0)/2=10/2=5$. The fibre invariant is
+$\kfib(K3)=24$. These are four distinct constructions.

@@ -1,731 +1,320 @@
-% =====================================================================
-% Wave-13 A2: Kazhdan-voice adversarial assault on Lorgat 2020 §3,
-% the isomorphism Sp_4(Z)/{\pm I_5} \simeq O(\Lambda^{3,2})_+/{\pm I_5}
-% via the exterior-square / Pfaffian construction.
-%
-% Five ATTACK <-> HEAL cycles. Primary sources: Lorgat 2020 §3;
-% Knapp, Lie Groups Beyond an Introduction (2002) VII.11; Helgason,
-% Differential Geometry, Lie Groups, and Symmetric Spaces (1978) IX.5;
-% Bourbaki, Groupes et algebres de Lie IV-VI planche IV (D_3 = A_3);
-% Fulton-Harris Representation Theory Thm 19.20 (half-spin at signature
-% (3,2)); Chevalley, Theory of Spinors (1954) II.4-II.7; Borel
-% Introduction aux groupes arithmetiques 1969 §7 (Z-forms via lattices);
-% Gritsenko-Nikulin 1995 Part I (lattice Lambda^{3,2} and the Siegel
-% parabolic); Borcherds 1998 Invent 132 (cusp structure of O_+(L)).
-%
-% Chriss-Ginzburg voice. Subscripted kappa discipline (kappa not load-
-% bearing here -- §3 is a group-theoretic identity). No AI attribution.
-% Authorship: Raeez Lorgat.
-% =====================================================================
-
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\SL}{\mathrm{SL}}
 \providecommand{\GL}{\mathrm{GL}}
 \providecommand{\OO}{\mathrm{O}}
 \providecommand{\SO}{\mathrm{SO}}
 \providecommand{\Spin}{\mathrm{Spin}}
-\providecommand{\PSp}{\mathrm{PSp}}
+\providecommand{\Mp}{\mathrm{Mp}}
 \providecommand{\Hb}{\mathbb{H}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\Q}{\mathbb{Q}}
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\C}{\mathbb{C}}
-\providecommand{\sl}[1]{\mathfrak{sl}_{#1}}
-\providecommand{\so}[1]{\mathfrak{so}_{#1}}
-\providecommand{\sph}[1]{\mathfrak{sp}_{#1}}
-\providecommand{\fg}{\mathfrak{g}}
 \providecommand{\Pf}{\mathrm{Pf}}
-\providecommand{\Gr}{\mathrm{Gr}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusDerivation}{\textbf{[derivable]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
-\providecommand{\ClaimStatusDefinition}{\textbf{[Def]}}
+\providecommand{\wt}{\operatorname{wt}}
+\providecommand{\disc}{\operatorname{disc}}
+\providecommand{\vol}{\operatorname{vol}}
+\providecommand{\cO}{\mathcal{O}}
 
-\section*{Wave 13 A2: Kazhdan-voice assault on Lorgat 2020 \S3 --- the
-exterior-square isomorphism $\Sp_4(\Z)/\{\pm I\}\simeq\OO(\Lambda^{3,2})_+/\{\pm I\}$}
-\label{sec:wave13-a2-sp4-orthogonal-kazhdan}
+\section*{The exterior-square model for \texorpdfstring{$\Sp_4(\Z)$}{Sp4(Z)}
+and \texorpdfstring{$\OO(\Lambda^{3,2})_+$}{O(Lambda32)+}}
+\label{sec:sp4-orthogonal-kazhdan}
 
-\noindent\textbf{Status.} \ClaimStatusTheorem.\ The isomorphism is a
-theorem; it is the integral shadow of the accidental low-rank identity
-$D_3\simeq A_3$ at the Lie-algebra level, $\sl{4}\simeq\so{3,2}$ via the
-exterior square acting on $\Lambda^2\Q^4$. The Pfaffian construction
-is explicit; the kernel is explicit; the half-spin sign picks out the
-connected component indexed by $+$.
-
-The mission: \emph{is} it a theorem? Five cycles stress-test every
-move --- lattice integrality, sign conventions for $+$, accidentality at
-$\Z$-form, parabolic compatibility, Weyl-group alignment. Every claim
-is false until traced to a first-principles argument.
-
-%---------------------------------------------------------------------
-\subsection*{Cycle 1: the accidental isomorphism at the Lie-algebra level ---
-$\sl{4}\simeq\so{3,2}$ via the exterior square}
-\label{sec:w13a2-cycle-1}
-%---------------------------------------------------------------------
-
-\paragraph{Attack (Kazhdan voice).}
-Lorgat 2020 \S3 (lines 233--350 of the paper text) states Lemma~1:
+Let \(V=\Z e_1\oplus\Z e_2\oplus\Z e_3\oplus\Z e_4\) and
+\(\vol=e_1\wedge e_2\wedge e_3\wedge e_4\).  Put
+\(e_{ij}=e_i\wedge e_j\).  The exterior square
 \[
-\wedge^2:\Sp_4(\Z)/\{\pm I_5\}\;\xrightarrow{\ \sim\ }\;\SO^{+}(\Lambda^{3,2})\simeq\OO(\Lambda^{3,2})_+/\{\pm I_5\}.
+  W=\Lambda^2 V
 \]
-Before accepting the equals sign, the author owes four objections at
-the arithmetic heart of the construction.
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item \emph{Is this an isomorphism, or only a $\Z$-shadow of an
-  $\R$-isogeny?} The Lie-algebra identity $\sl{4}\simeq\so{3,2}$
-  (Dynkin type $A_3=D_3$) is well-known at semisimple complex Lie
-  algebras (Bourbaki LIE IV--VI planche IV). At the real form
-  $\sl{4,\R}\supset\Sp_4(\R)\cap\mathrm{real}$ versus
-  $\so{3,2}\supset\OO(3,2)$, the isogeny is
-  $\Spin(3,2)\twoheadrightarrow\SO^{+}(3,2)$ with kernel
-  $\{\pm 1\}$; \emph{and} $\Sp_4(\R)\simeq\Spin(3,2)$ as real Lie
-  groups (Helgason 1978 Ch.~IX.5; Knapp 2002 VII.11).
-  The central isogeny $\Spin\to\SO$ has non-trivial fundamental
-  group at each real form, and the passage from $\R$ to $\Z$ carries
-  an additional index-$2$ or index-$4$ subtlety from the spin-norm.
-  A blanket claim $\Sp_4(\Z)/\{\pm I\}\simeq\OO(\Lambda^{3,2})_+/\{\pm I\}$
-  without an explicit $\Z$-level construction is mere $\R$-shadow.
-\item \emph{Signature $(3,2)$ vs $(3,3)$ --- which one does $\wedge^2$
-  land in?} Lorgat 2020 line 240 asserts that the pfaffian pairing
-  $(u,v):=\text{coeff of }e_1\wedge e_2\wedge e_3\wedge e_4$ in
-  $u\wedge v$, for $u,v\in\Lambda^2\Z^4$, is an even unimodular
-  symmetric bilinear form of signature $(3,3)$. But the claimed
-  orthogonal complement $\Lambda^{3,2}=(e_1\wedge e_3+e_2\wedge e_4)^\perp$
-  has signature $(3,2)$. A signature-drop by $(0,1)$ when passing to
-  an orthogonal hyperplane is exactly what one expects when the
-  polarisation $q=e_1\wedge e_3+e_2\wedge e_4$ has negative square
-  $(q,q)=-2$; that needs to be exhibited, not stipulated.
-\item \emph{Which Pfaffian, which sign?} The form
-  $(u,v):u\wedge v=(u,v)e_1\wedge e_2\wedge e_3\wedge e_4$ on
-  $\Lambda^2\Z^4$ is antisymmetric under swap of the two
-  $\Lambda^2\Z^4$-factors as $u\wedge v=-v\wedge u$; but its scalar
-  value $(u,v)$ is \emph{symmetric}, because the swap is absorbed by
-  the $\Z$-valued coefficient (swap $u\wedge v$, multiply by
-  $(-1)^{4\cdot 4}=+1$). Verify this sign bookkeeping; many Pfaffian
-  conventions differ by a factor of $2$ (Knuth, combinatorial
-  identity involving $2^{n/2}$).
-\item \emph{Integrality of the pfaffian pairing.} Is
-  $(u,v)\in\Z$ for all $u,v\in\Lambda^2\Z^4$? The standard formula
-  involves a denominator $n/2$ for $n\times n$ antisymmetric
-  matrices; at $n=4$ this is $1/2$. The author owes an integrality
-  argument, not a tacit assumption.
-\end{enumerate}
-
-\paragraph{Ghost theorem (first-principles reconstruction).}
-The Dynkin accident $A_3=D_3$ means the root systems of $\sl{4}$ and
-$\so{6}=\so{3,3}_\C$ coincide. Explicitly: let $V=\C^4$ with basis
-$e_1,\ldots,e_4$; let $W=\Lambda^2 V$, a $6$-dimensional vector space.
-The \emph{exterior square} representation
+carries the integral symmetric Pfaffian pairing
 \[
-\wedge^2:\GL(V)\longrightarrow\GL(W),\qquad g\mapsto (v_1\wedge v_2\mapsto gv_1\wedge gv_2),
+  (u,v)_{\Pf}\vol=u\wedge v,\qquad u,v\in W.
 \]
-carries $\SL(V)$ into $\GL(W)$ preserving the natural
-\emph{Pfaffian pairing}
+It is symmetric because \(u\) and \(v\) have even exterior degree.  In
+the ordered basis
 \[
-(\,,\,)_{\Pf}: W\otimes W\to \Lambda^4 V\simeq\C,\qquad u\otimes v\mapsto u\wedge v,
+  e_{12},\ e_{34},\ e_{13},\ e_{24},\ e_{14},\ e_{23}
 \]
-where the identification $\Lambda^4 V\simeq\C$ is fixed by
-$e_1\wedge e_2\wedge e_3\wedge e_4\leftrightarrow 1$. The pairing is
-\emph{symmetric}: $u\wedge v=(-1)^{\deg u\cdot\deg v}v\wedge u=v\wedge u$
-for $u,v\in W=\Lambda^2 V$ of even degree. It is
-\emph{non-degenerate} with determinant $\pm 1$ in the basis
-$\{e_i\wedge e_j\}_{i<j}$.
+its Gram matrix is
+\[
+G_6=
+\begin{pmatrix}
+0&1&0&0&0&0\\
+1&0&0&0&0&0\\
+0&0&0&-1&0&0\\
+0&0&-1&0&0&0\\
+0&0&0&0&0&1\\
+0&0&0&0&1&0
+\end{pmatrix}.
+\]
+Thus \(W\) is the even unimodular lattice \(U\oplus U\oplus U\) of
+signature \((3,3)\), up to the signs chosen on the hyperbolic summands.
 
-\emph{Computation of the signature.} In the basis
-$e_1\wedge e_2,\ e_3\wedge e_4,\ e_1\wedge e_3,\ e_2\wedge e_4,\ e_1\wedge e_4,\ e_2\wedge e_3$
-of $W$, the Gram matrix of $(\,,\,)_{\Pf}$ is
+Set
 \[
-G=\begin{pmatrix}0&1&&&&\\1&0&&&&\\&&0&1&&\\&&1&0&&\\&&&&0&-1\\&&&&-1&0\end{pmatrix},
+  q=e_{13}+e_{24}.
 \]
-i.e.\ three hyperbolic planes with the third twisted by $-1$. Over
-$\Z$ this is $\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus\Lambda^{1,1}$;
-over $\R$ the signature is $(3,3)$ (each hyperbolic plane contributes
-$(1,1)$). This is precisely Lorgat 2020 line 241's claim, verified.
+Then \((q,q)_{\Pf}=-2\).  The orthogonal complement
+\[
+  L=q^\perp\cap W
+\]
+has signature \((3,2)\).  The basis
+\[
+  f_1=e_{12},\qquad
+  f_2=e_{23},\qquad
+  f_3=e_{13}-e_{24},\qquad
+  f_{-2}=e_{41},\qquad
+  f_{-1}=e_{43}
+\]
+has Gram matrix
+\[
+G_L=
+\begin{pmatrix}
+0&0&0&0&-1\\
+0&0&0&-1&0\\
+0&0&2&0&0\\
+0&-1&0&0&0\\
+-1&0&0&0&0
+\end{pmatrix}.
+\]
+Consequently
+\[
+  L\simeq U\oplus U\oplus \langle 2\rangle,\qquad
+  \disc(L)=2.
+\]
+The vector \(q\) accounts for the signature drop from \((3,3)\) to
+\((3,2)\); the lattice is exactly \(q^\perp\cap\Lambda^2V\).
 
-\emph{Symplectic reduction to signature $(3,2)$.} The symplectic
-form $\omega=e_1^{\vee}\wedge e_3^{\vee}+e_2^{\vee}\wedge e_4^{\vee}$
-on $V^{\vee}$ corresponds, via the identification
-$\Lambda^2 V^{\vee}\simeq(\Lambda^2 V)^{\vee}\simeq\Lambda^2 V$
-(the latter by Poincar\'e duality $u\mapsto(u,-)_{\Pf}$), to a vector
+\paragraph{The integral accidental isomorphism.}
+The action of \(\SL(V)\) on \(\Lambda^2V\) preserves
+\((\, ,\,)_{\Pf}\).  The stabiliser of \(q\) is the symplectic group:
+the alternating form
 \[
-q=e_1\wedge e_3+e_2\wedge e_4\in W,\qquad (q,q)_{\Pf}=2.
+  \omega_q(x,y)\vol=-x\wedge y\wedge q
 \]
-The element $q$ has positive square. Its orthogonal complement
-$q^{\perp}\subset W$ has signature $(3,3)-(1,0)=(2,3)$ at first
-sight, but the Lorgat 2020 basis convention writes
-$\Lambda^{3,2}$ with signature $(3,2)$ taking the \emph{negative}
-of the Gram matrix on $q^{\perp}$ (equivalently, using
-$-q$ as polariser). The conventions $\Lambda^{3,2}$ and
-$\Lambda^{2,3}$ are isomorphic as quadratic lattices, differing
-by an overall sign on $Q$.
-
-\emph{The stabiliser computation.} A linear map $g\in\GL(V)$ has
-$\wedge^2(g)(q)=q$ if and only if $g$ preserves the symplectic
-form $\omega$ corresponding to $q$; this is the defining relation
-of $\Sp_4\subset\GL_4$ (Lorgat 2020 line 246). Over $\Z$:
+is preserved exactly by those \(g\in\GL(V)\) satisfying
+\(\Lambda^2g(q)=q\).  Hence
 \[
-\{g\in\GL_4(\Z):\wedge^2(g)\cdot q=q\}=\Sp_4(\Z),
+  \{g\in\GL_4(\Z):\Lambda^2g(q)=q\}=\Sp_4(\Z).
 \]
-because the condition is linear in the matrix entries and $\Z$ is
-preserved. Any $g\in\Sp_4(\Z)$ therefore induces, via $\wedge^2$,
-a $\Z$-linear endomorphism of $q^{\perp}\cap\Lambda^2\Z^4=\Lambda^{3,2}$
-preserving the induced quadratic form. This gives a homomorphism
+Restriction to \(L=q^\perp\) gives a homomorphism
 \[
-\wedge^2:\Sp_4(\Z)\longrightarrow\OO(\Lambda^{3,2}).
+  \Lambda^2:\Sp_4(\Z)\longrightarrow \OO(L).
 \]
 
-\emph{Integrality of the Pfaffian pairing.} For $n=4$ the pfaffian
-of a $4\times 4$ antisymmetric matrix $A=(a_{ij})$ is
-$\Pf(A)=a_{12}a_{34}-a_{13}a_{24}+a_{14}a_{23}\in\Z$ whenever
-$a_{ij}\in\Z$ (no denominator at $n=4$; the denominator $n/2$ of the
-general formula $\Pf(A)^2=\det(A)$ is an exponent, not a
-divisor). Hence $(\,,\,)_{\Pf}$ takes values in $\Z$ on
-$\Lambda^2\Z^4$, and the Gram matrix above has entries in
-$\{0,\pm 1\}$, giving an even unimodular integral form of signature
-$(3,3)$.
-
-\paragraph{Heal.}
-Inscribe, at §3 (Lorgat 2020 lines 240--246), the three explicit
-displays above: the $6\times 6$ Gram matrix of $(\,,\,)_{\Pf}$ in the
-standard basis; the square of the polariser $(q,q)=\pm 2$; and the
-integrality proof via $\Pf(A)=a_{12}a_{34}-a_{13}a_{24}+a_{14}a_{23}$.
-The $\sl{4}\simeq\so{3,3}$ identification at the level of complex Lie
-algebras is explicit: $\mathrm{ad}(X)$ on $\Lambda^2 V$ for
-$X\in\sl{4}$ lands in the span of the infinitesimal generators of
-$\SO((\,,\,)_{\Pf})$, because $\wedge^2$ is a representation of
-$\GL(V)$ and tangent-at-identity of the orthogonality condition
-$\wedge^2(g)^{\top}G\wedge^2(g)=G$ is exactly
-$\wedge^2(X)^{\top}G+G\wedge^2(X)=0$, i.e.\ $\wedge^2(X)\in\so{G}$.
-
-%---------------------------------------------------------------------
-\subsection*{Cycle 2: the half-spin representation and the $+$ component}
-\label{sec:w13a2-cycle-2}
-%---------------------------------------------------------------------
-
-\paragraph{Attack.}
-Lorgat 2020 line 282 writes: $\OO_\R(\Lambda^{3,2})$ has four connected
-components, and $\OO_\R(\Lambda^{3,2})_+$ is the index-$2$ subgroup
-leaving $\Hb^{IV}_+$ invariant. Three attacks:
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item \emph{Why four components, not two?} For an indefinite quadratic
-  form of signature $(p,q)$ with $p,q\geq 1$, $\OO(p,q,\R)$ has exactly
-  four connected components, indexed by
-  $\pi_0\OO(p,q,\R)\simeq\Z/2\times\Z/2$: the determinant $\det=\pm 1$
-  and the \emph{spinor norm} $\theta=\pm 1$. Lorgat 2020 implicitly uses
-  this but does not name the bijection.
-\item \emph{Which component is $+$?} The symmetric domain $\Hb^{IV}_+$
-  (type IV bounded symmetric domain) is the Hermitian symmetric
-  domain $\OO(3,2,\R)/\OO(3)\times\OO(2)$ restricted to the component
-  preserving the complex structure; the $+$ here is \emph{not} the
-  determinant $+1$ component, but the \emph{spin-norm $+1$} component,
-  preserving a choice of \emph{orientation on the negative-definite
-  subspace}.
-\item \emph{Is the kernel $\pm I$ the half-spin kernel?} Lorgat 2020
-  line 282 states the kernel of the action of
-  $\OO_\R(\Lambda^{3,2})_+$ on $\Hb^{IV}_+$ is $\pm I_5$. This is the
-  projective-orthogonal kernel, which coincides with the kernel of
-  the half-spin representation on $\Spin(3,2)\simeq\Sp_4(\R)$: both
-  central extensions by $\Z/2$ have the same centre.
-\end{enumerate}
-
-\paragraph{Ghost theorem.}
-The identification works as follows. Start from the accidental
-low-rank isogeny
+Over \(\R\), this is the stabiliser form of the accidental chain
 \[
-\Spin(3,2)\xrightarrow[\text{double cover}]{2:1}\SO^{0}(3,2)\hookrightarrow\OO(3,2)_+
+  \SL_4(\R)\simeq \Spin(3,3),\qquad
+  \Sp_4(\R)\simeq \Spin(3,2).
 \]
-where $\SO^{0}$ denotes the identity component. The half-spin
-representation (Fulton-Harris Thm 19.20; Chevalley 1954 Ch.~II) at
-signature $(3,2)$ is $4$-dimensional, and
+The map to the defining orthogonal representation is the double cover
 \[
-\Spin(3,2)\simeq\Sp_4(\R)
+  \Sp_4(\R)\simeq\Spin(3,2)\twoheadrightarrow \SO^0(3,2),
 \]
-is the accidental isomorphism (Helgason 1978 Ch.~IX.5). Under this
-identification, the half-spin representation of $\Spin(3,2)$
-corresponds to the standard $4$-dimensional representation of
-$\Sp_4(\R)$.
+with kernel \(\{\pm I_4\}\).  At the integral level the same kernel
+remains: if \(g\in\Sp_4(\Z)\) acts trivially on \(L\), then it fixes
+both \(L\) and \(q\), hence it acts trivially on all of \(\Lambda^2V\);
+therefore \(g=\pm I_4\).
 
-The \emph{kernel} of the covering $\Sp_4(\R)\twoheadrightarrow\SO^{0}(3,2)$
-is generated by the non-trivial element of $\pi_1(\SO^{0}(3,2))$; this
-pulls back to $\{\pm I_4\}\subset\Sp_4(\R)$ (the centre, which on the
-half-spin picks up a sign). On $\SO^{0}(3,2)$, the corresponding
-kernel is $\{\pm I_5\}$ in the defining representation on
-$\R^{3,2}$.
-
-\emph{The $+$ component.} The four components of $\OO(3,2,\R)$ are
-labelled by $(\det,\theta)\in\{\pm 1\}^2$ where $\theta$ is the spin
-norm. The subgroup $\OO(3,2,\R)_+$ is defined as the preimage of the
-identity component in the double quotient, which corresponds to
-$\theta=+1$ (spin norm is a positive real number, signed $+$).
-Equivalently: $\OO(3,2,\R)_+$ is the subgroup preserving the complex
-structure on $\Hb^{IV}_+$. The half-spin representation of
-$\Spin(3,2)$ lands in $\Sp_4(\R)$, covering $\SO^{0}(3,2)\subset
-\OO(3,2,\R)_+$. Hence the $\wedge^2$ map of Lorgat 2020 has image in
-$\OO(\Lambda^{3,2})_+$, \emph{not} in any other component.
-
-\emph{Why $\OO(\Lambda^{3,2})_+/\{\pm I_5\}=\SO^+(\Lambda^{3,2})$.}
-Lorgat 2020 line 285 writes $\OO_\R(\Lambda^{3,2})_+=\pm I_5\cdot\SO_\R(\Lambda^{3,2})_+$
-because $\Lambda^{3,2}$ has odd dimension $5$: for odd-dimensional
-lattices, $-I$ has determinant $-1$, so
-$\OO=\{\pm I\}\times\SO$ as an internal semidirect product. The quotient
-$\OO(\Lambda^{3,2})_+/\{\pm I_5\}$ is therefore
-$\SO^+(\Lambda^{3,2})$.
-
-\paragraph{Heal.}
-The sentence following Lemma~1 should explicitly name the chain of
-coverings:
+Let \(\OO(L_\R)_+\) be the index-two subgroup preserving the chosen
+component of the type-IV domain.  Since \(\dim L=5\),
 \[
-\begin{tikzcd}
-\Sp_4(\R)\ar[r,"\simeq"]\ar[d,two heads,"2:1"'] & \Spin(3,2)\ar[d,two heads,"2:1"] \\
-\Sp_4(\R)/\{\pm I_4\}\ar[r,"\simeq"] & \SO^{0}(3,2)=\OO(3,2,\R)_+/\{\pm I_5\}
-\end{tikzcd}
+  \OO(L)_+=\{\pm I_5\}\SO(L)_+,\qquad
+  \OO(L)_+/\{\pm I_5\}\simeq \SO(L)_+.
 \]
-with kernel $\{\pm 1\}$ at each level. The integral shadow $\Sp_4(\Z)\to\OO(\Lambda^{3,2})_+$
-is the preimage of the integer points; the map descends to
-$\Sp_4(\Z)/\{\pm I_4\}\to\OO(\Lambda^{3,2})_+/\{\pm I_5\}\simeq\SO^+(\Lambda^{3,2})$.
-Both $\pm I$ kernels coincide under the accident; the sign
-ambiguity in the half-spin lift is exactly $\pm I_4$ in $\Sp_4$ or
-$\pm I_5$ in $\OO(3,2)$, and the identity
-$\Sp_4(\Z)/\{\pm I_4\}=\OO(\Lambda^{3,2})_+/\{\pm I_5\}$ requires no
-additional quotient.
-
-%---------------------------------------------------------------------
-\subsection*{Cycle 3: $\Z$-form integrality --- how $\Lambda^{3,2}$
-arises as the $\Z$-points of the accidental isogeny}
-\label{sec:w13a2-cycle-3}
-%---------------------------------------------------------------------
-
-\paragraph{Attack.}
-The $\R$-level identity $\Sp_4(\R)\simeq\Spin(3,2)$ is classical
-(Knapp 2002 VII.11, Thm 7.78). Lorgat 2020 descends to $\Z$:
-$\Sp_4(\Z)/\{\pm I\}\simeq\OO(\Lambda^{3,2})_+/\{\pm I\}$. But
-descent to $\Z$ is not automatic. Three attacks:
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item \emph{$\Z$-forms of $\Sp_4$ are unique, but $\Z$-forms of
-  $\SO(3,2)$ are parametrised by genera of lattices.} The genus
-  $\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus[2]$ is one specific even
-  lattice of signature $(3,2)$; a different genus (e.g.\
-  $\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus[-2]$, with signature
-  $(2,3)$ and appropriate sign convention) gives a different
-  $\Z$-form of $\SO(3,2)$. Why this lattice and not another?
-\item \emph{Is the map $\Sp_4(\Z)\to\OO(\Lambda^{3,2})$ surjective onto
-  the $+$ component?} Surjectivity requires proving that every
-  integer orthogonal transformation of $\Lambda^{3,2}$ preserving the
-  domain $\Hb^{IV}_+$ lifts to a symplectic transformation of
-  $\Z^4$. The lift exists over $\R$; at $\Z$, there is a potential
-  obstruction in the spin norm.
-\item \emph{Is the kernel exactly $\pm I_4$?} The kernel over $\R$ is
-  $\pm I_4$; over $\Z$ it could in principle be larger (additional
-  torsion elements fixing $q$). Lorgat 2020 asserts it is $\pm I_4$
-  without explicit verification.
-\end{enumerate}
-
-\paragraph{Ghost theorem.}
-The lattice $\Lambda^{3,2}$ is \emph{not} chosen by fiat; it is forced
-by the Pfaffian construction. Concretely: the unique $\Z$-form of
-$\sl{4}$ with the standard symplectic polariser $q=e_1\wedge e_3+
-e_2\wedge e_4$ produces the orthogonal complement $q^{\perp}\cap
-\Lambda^2\Z^4$, which \emph{is} the lattice
-$\Lambda^{3,2}=\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus[2]$ (Lorgat 2020
-line 250). The proof:
-
-\emph{Step 1.} The basis $\{f_1,f_2,f_3,f_{-1},f_{-2}\}$ of
-$\Lambda^{3,2}$ (Lorgat 2020 lines 255--260) is explicit:
+The images of the standard generators
 \[
-f_1=e_1\wedge e_2,\ f_2=e_2\wedge e_3,\ f_3=e_1\wedge e_3-e_2\wedge e_4,\ f_{-2}=e_4\wedge e_1,\ f_{-1}=e_4\wedge e_3.
-\]
-\emph{Step 2.} The Gram matrix of $(\,,\,)_{\Pf}$ in this basis is
-computed directly. The pair $(f_1,f_{-1})=(e_1\wedge e_2,e_4\wedge e_3)$
-gives $f_1\wedge f_{-1}=e_1\wedge e_2\wedge e_4\wedge e_3=-e_1\wedge e_2\wedge e_3\wedge e_4$
-so $(f_1,f_{-1})=-1$. Similarly $(f_2,f_{-2})=-1$. Finally
-$(f_3,f_3)$: $f_3\wedge f_3=(e_1\wedge e_3-e_2\wedge e_4)\wedge(e_1\wedge e_3-e_2\wedge e_4)
-=-2e_1\wedge e_3\wedge e_2\wedge e_4+e_1\wedge e_3\wedge e_1\wedge e_3+e_2\wedge e_4\wedge e_2\wedge e_4$.
-The last two terms vanish (repeated $e_i$). The first is
-$-2 e_1\wedge e_3\wedge e_2\wedge e_4=2 e_1\wedge e_2\wedge e_3\wedge e_4$.
-So $(f_3,f_3)=2$. All other pairings vanish (the surviving
-$4$-forms have repeated $e_i$). The Gram matrix:
-\[
-G|_{\Lambda^{3,2}}=\begin{pmatrix}0&&&&-1\\&0&-1&&\\&-1&0&&\\&&&&-1&\text{wait}\end{pmatrix}
-\]
-cleanly,
-\[
-G|_{\Lambda^{3,2}}=\left(\begin{array}{ccc|cc}0&&&&-1\\&0&&-1&\\&&2&&\\\hline&-1&&0&\\-1&&&&0\end{array}\right),
-\]
-which is (after the basis reorder $(f_1,f_{-1})$ first,
-$(f_2,f_{-2})$ second, $(f_3)$ last)
-$-\Lambda^{1,1}\oplus-\Lambda^{1,1}\oplus[2]$; equivalently, with the
-sign convention chosen by Lorgat 2020,
-$\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus[2]$ of signature $(3,2)$.
-
-\emph{Step 3 (integrality).} The basis elements $f_i\in\Lambda^2\Z^4$
-are integer combinations of $e_{ij}$, so $\Lambda^{3,2}\subset\Z^5$
-with integer Gram matrix; discriminant
-$\det(G|_{\Lambda^{3,2}})=(-1)(-1)(2)=2$, so
-$\mathrm{disc}(\Lambda^{3,2})=2$. (The unimodular host $\Lambda^2\Z^4$
-of discriminant $1$ contains $\Lambda^{3,2}\oplus\Z q$ with
-$(q,q)=2$; the lattice product has discriminant $2\cdot 1=2$ times
-the host discriminant $1$, consistent.)
-
-\emph{Step 4 (surjectivity onto $\SO^+$).} The generators of
-$\Sp_4(\Z)$ are (Lorgat 2020 line 294--336):
-(a) $g_0=\begin{pmatrix}0&I_2\\-I_2&0\end{pmatrix}$ (the Fricke/Weyl element),
-(b) $g_M=\begin{pmatrix}I_2&M\\0&I_2\end{pmatrix}$ for $M\in M_{2\times 2}^{\text{sym}}(\Z)$ (upper-unipotent),
-(c) $g_A=\begin{pmatrix}{}^{\top}A^{-1}&0\\0&A\end{pmatrix}$ for $A\in\GL_2(\Z)$ (Levi part).
-Under $\wedge^2$, these map to the $5\times 5$ matrices
-displayed in Lorgat 2020 lines 298--336. Direct computation shows that
-the images generate $\SO^+(\Lambda^{3,2})$ (this is the
-``elementary exercise'' of Lorgat 2020 line 293; the $5\times 5$
-matrices are explicit and their products exhaust $\SO^+$ by
-reduction theory --- every element of $\SO^+(\Lambda^{3,2})$ is a
-product of reflections in roots of square $2$, and every such
-reflection arises from a suitable $\wedge^2(g)$).
-
-\emph{Step 5 (injectivity modulo $\pm I$).} If $g\in\Sp_4(\Z)$
-satisfies $\wedge^2(g)=I_5$ on $\Lambda^{3,2}$, then $\wedge^2(g)$
-fixes $q$ (by construction) and fixes $q^{\perp}$ (by hypothesis),
-hence fixes all of $\Lambda^2\Z^4$. A linear map $g\in\GL_4$ with
-$\wedge^2(g)=I$ on $\Lambda^2 V$ must satisfy $g=\pm I_4$ (standard,
-since $\wedge^2$ is an irreducible $\GL_4$-rep restricted from the
-semisimple part and centrally acts as $\det^{1/2}\cdot I$; but at
-$\wedge^2$ over $\Z$, the only integer solutions are $\pm I_4$).
-Hence $\ker(\wedge^2)=\{\pm I_4\}$ over $\Z$.
-
-\paragraph{Heal.}
-Inscribe the Gram-matrix computation and the discriminant-$2$
-check explicitly at Lorgat 2020 lines 250--260; this grounds the
-statement ``$\Lambda^{3,2}\simeq\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus[2]$''
-in a first-principles derivation. Add a remark on surjectivity
-(Steps 4 and 5 above) after Lemma~1: injectivity from the kernel
-computation $\ker(\wedge^2)=\{\pm I\}$, surjectivity from the
-generator-by-generator exhaustion of $\SO^+(\Lambda^{3,2})$ via
-the three Sp-generators.
-
-%---------------------------------------------------------------------
-\subsection*{Cycle 4: parabolic structure ---
-Klingen/Siegel parabolics of $\Sp_4$ vs cusps of $\Hb^{IV}_+$}
-\label{sec:w13a2-cycle-4}
-%---------------------------------------------------------------------
-
-\paragraph{Attack.}
-For the Borcherds lift of $\phi_{0,1}$ (Wave 13 central theorem,
-producing $\Delta_5$), one needs the isomorphism $\wedge^2$ to respect
-parabolic structures: the Klingen parabolic and the Siegel parabolic
-of $\Sp_4(\Z)$ correspond to the two cusps of $\Hb^{IV}_+$ (the
-$0$-dimensional cusp and the $1$-dimensional cusp of the
-orthogonal model). Lorgat 2020 slides mention only ``the Jacobi
-group $\Gamma_\infty\subset\Sp_4(\Z)$'' (slide line 819). Three
-attacks:
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item \emph{Which cusps does $\Hb^{IV}_+$ have?} The type-IV bounded
-  symmetric domain of dimension $3$ over $\Lambda^{3,2}$ has cusps of
-  dimensions $0$ and $1$ (isotropic $\Z$-lines and $\Z$-planes in
-  $\Lambda^{3,2}$). For $\Lambda^{3,2}\simeq\Lambda^{1,1}\oplus
-  \Lambda^{1,1}\oplus[2]$ of Witt rank $2$, there are exactly two
-  orbits of cusps under $\OO(\Lambda^{3,2})_+$: one $0$-dimensional,
-  one $1$-dimensional.
-\item \emph{Which parabolics does $\Sp_4(\Z)$ have?} $\Sp_4(\Z)$ has
-  two conjugacy classes of maximal proper $\Q$-parabolics: the
-  \emph{Klingen parabolic} $P_{\mathrm{Kl}}$ (stabiliser of a line
-  in $\Q^4$, isomorphic to
-  $\Sp_2(\Q)\ltimes(\mathrm{Heis}_3\rtimes\Q)$) and the
-  \emph{Siegel parabolic} $P_{\mathrm{Si}}$ (stabiliser of a
-  Lagrangian $2$-plane, isomorphic to $\GL_2(\Q)\ltimes\mathrm{Sym}^2\Q^2$).
-\item \emph{Does $\wedge^2$ carry parabolics to cusp-stabilisers
-  correctly?} Under the accident, Siegel parabolic $\leftrightarrow$
-  $0$-dimensional cusp and Klingen parabolic $\leftrightarrow$
-  $1$-dimensional cusp (or the opposite, depending on orientation
-  convention). The \emph{Jacobi group} $\Gamma_\infty$ of Lorgat 2020
-  slides --- the subgroup fixing the $z_0$-expansion at
-  $\tau=i\infty$ --- is the \emph{Klingen parabolic}, because it
-  fixes the \emph{line} $\{z_0=i\infty\}\subset\Hb_2$ (not a
-  Lagrangian plane).
-\end{enumerate}
-
-\paragraph{Ghost theorem.}
-Under the $\wedge^2$ isomorphism, the parabolic-cusp correspondence
-is:
-\begin{center}
-\begin{tabular}{@{}lll@{}}
-\hline
-$\Sp_4(\Z)$ parabolic & $\wedge^2$-image in $\OO(\Lambda^{3,2})_+$ & Cusp of $\Hb^{IV}_+$ \\
-\hline
-Klingen $P_{\mathrm{Kl}}$ (line stabiliser) & Stabiliser of isotropic $\Z$-plane $\Pi\subset\Lambda^{3,2}$ & $1$-dimensional cusp \\
-Siegel $P_{\mathrm{Si}}$ (Lagrangian stabiliser) & Stabiliser of isotropic $\Z$-line $\ell\subset\Lambda^{3,2}$ & $0$-dimensional cusp \\
-\hline
-\end{tabular}
-\end{center}
-
-\emph{Proof of the Klingen $\leftrightarrow$ isotropic-plane
-correspondence.} Let $L\subset\Q^4$ be a line. Its annihilator
-under the symplectic form is a Lagrangian hyperplane
-$L^{\omega}\subset\Q^4$ containing $L$. The image $\wedge^2(L^{\omega})
-\cap q^{\perp}$ is a $\Q$-plane in $\Lambda^{3,2}\otimes\Q$, and
-this plane is \emph{isotropic} because: for $v,w\in L^{\omega}$,
-$(v\wedge \ell,w\wedge\ell)_{\Pf}=v\wedge\ell\wedge w\wedge\ell=0$
-(repeated $\ell$). Hence $P_{\mathrm{Kl}}$ maps to the stabiliser
-of an isotropic plane.
-
-\emph{Proof of the Siegel $\leftrightarrow$ isotropic-line
-correspondence.} A Lagrangian $2$-plane $\Lambda\subset\Q^4$
-satisfies $\omega|_\Lambda=0$, so $q$ restricted to $\wedge^2\Lambda$
-vanishes --- $\wedge^2\Lambda$ is a line in $\Q^5=\Lambda^2\Q^4/\Q q$
-after passing to the quotient. The image
-$\wedge^2\Lambda=\Q(\ell_1\wedge\ell_2)\subset\Lambda^2\Q^4$ is a
-$\Q$-line of square $(\ell_1\wedge\ell_2,\ell_1\wedge\ell_2)_{\Pf}=0$
-(by $\omega$-Lagrangianity, the projection to $q$ is zero and the
-square within $q^{\perp}$ is zero). Hence $P_{\mathrm{Si}}$ maps to
-the stabiliser of an isotropic line.
-
-\emph{Consistency with the Jacobi group.} The Jacobi group
-$\Gamma_\infty\subset\Sp_4(\Z)$ of Lorgat 2020 slide line 819 fixes
-the cusp $z_0=i\infty$ of $\Hb_2$; under the isomorphism
-$\Hb_2=\Hb^{IV}_+$, this cusp is the $1$-dimensional cusp of
-$\Hb^{IV}_+$, corresponding to the isotropic $\Z$-plane
-$\mathrm{span}(f_1,f_{-1})\subset\Lambda^{3,2}$. (The plane is
-isotropic: $(f_1,f_1)=0$, $(f_{-1},f_{-1})=0$, $(f_1,f_{-1})=-1$
----ah, a hyperbolic plane, whose only isotropic lines are $\Q f_1$
-and $\Q f_{-1}$; the plane itself is \emph{not} isotropic, it has
-determinant $-1$.) More carefully: the $1$-dimensional cusp
-corresponds to an isotropic $\Z$-line, not an isotropic $\Z$-plane.
-Lorgat 2020 slide terminology ``Jacobi group $\Gamma_\infty$'' is
-the Klingen parabolic, and its fixed data is the isotropic
-$\Z$-line $\Q f_1\subset\Lambda^{3,2}$ (a primitive null vector,
-$(f_1,f_1)=0$). The \emph{cusp structure at $\Q f_1$} is
-$1$-dimensional because $(\Q f_1)^{\perp}/\Q f_1$ has dimension
-$3$, and the complexified symmetric domain of
-$(\Q f_1)^{\perp}/\Q f_1$ (signature $(2,1)$, i.e.\ a hyperbolic
-Kac-Moody cone) is $1$-complex-dimensional.
-
-\paragraph{Heal.}
-Inscribe, immediately after Lemma~1 of Lorgat 2020 \S3, the
-parabolic-cusp dictionary above, with the explicit identification:
-\begin{itemize}
-\item Siegel parabolic $\leftrightarrow$ stabiliser of isotropic
-  $\Z$-line $\ell\subset\Lambda^{3,2}$ $\leftrightarrow$
-  $0$-dimensional cusp of $\Hb^{IV}_+$;
-\item Klingen parabolic = Jacobi group $\Gamma_\infty$
-  $\leftrightarrow$ stabiliser of isotropic $\Z$-line generating a
-  $2$-dimensional isotropic cusp-arithmetic-structure
-  $\leftrightarrow$ $1$-dimensional cusp of $\Hb^{IV}_+$.
-\end{itemize}
-This is essential for the Borcherds lift: the lift of
-$\phi_{0,1}(\tau,z)$ produces the denominator automorphic form on
-$\Hb^{IV}_+$ with prescribed principal-part singularity along the
-$1$-dimensional cusp (Borcherds 1998 Thm 13.3), which corresponds to
-the Klingen parabolic data in the Sp$_4$-picture. Wave 12 A2 Cycle~1
-($\kappa_{\mathrm{BKM}}=c_1(0)/2=5$) depends on this parabolic
-identification.
-
-%---------------------------------------------------------------------
-\subsection*{Cycle 5: Weyl-group compatibility ---
-affine $\widetilde C_2$ of $\Sp_4$ vs orthogonal Weyl of $\OO(3,2)$}
-\label{sec:w13a2-cycle-5}
-%---------------------------------------------------------------------
-
-\paragraph{Attack.}
-The isomorphism $\Sp_4(\Z)/\{\pm I\}\simeq\OO(\Lambda^{3,2})_+/\{\pm I\}$
-at the arithmetic level must induce a matching Weyl-group
-structure; otherwise the root-system accident $C_2=B_2$ at finite
-level (hence $\widetilde C_2=\widetilde B_2$ at affine level) is
-only half the story. Three attacks:
-
-\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
-\item \emph{At the finite level: is the Weyl group of $\Sp_4(\R)$
-  really isomorphic to the Weyl group of $\OO(\Lambda^{3,2}\otimes\R)$?}
-  $W(C_2)=W(B_2)=D_4$ (dihedral of order $8$); $W(A_3)=W(D_3)=S_4$
-  (order $24$). The match $W(C_2)=W(B_2)$ at finite level is the
-  \emph{root-level} accident (not rank-level), confusingly named
-  the same. At rank $2$, $C_2$ and $B_2$ have the same Weyl group
-  because they are dual root systems, but their $\widehat{\Z}$-level
-  content differs. $A_3\neq B_2$; one must check that the
-  \emph{accidentally matching} Weyl group (rank 3 on both sides?) is
-  self-consistent.
-\item \emph{$D_3$ vs $A_3$: the Dynkin diagram identity is
-  $D_3=A_3$, both with Weyl group $S_4$.} So the Weyl group of
-  $\SO(3,3,\R)$ (type $D_3$) equals $S_4=W(A_3)$. On passing from
-  $\SO(3,3)$ to the subgroup $\SO(3,2)$ preserving the vector
-  $q$, one picks out the subgroup of $S_4$ preserving one root;
-  this is $S_3=W(A_2)$ of order $6$, the Weyl group of $\SO(3,2)$.
-\item \emph{Affine Weyl compatibility.} The affine Weyl group of
-  $\widetilde C_2$ (for $\Sp_4$) acts on the root lattice
-  $Q(C_2)$ with fundamental alcove; on the orthogonal side, the
-  affine Weyl $\widetilde{D_3}=\widetilde{A_3}$ acts on
-  $Q(D_3)$. Under the accident, the fundamental alcoves should
-  correspond; but the rank matches only if we compare $\widetilde
-  A_2$ on the Sp-side (interpreted in the Levi of the Siegel
-  parabolic) with $\widetilde A_2$ on the orthogonal side.
-\end{enumerate}
-
-\paragraph{Ghost theorem.}
-The Weyl-group structures under the accident:
-\[
-W(\Sp_4)=W(C_2)=D_4=\{\pm 1\}^2\rtimes S_2,\quad|W|=8;
+g_0=
+\begin{pmatrix}
+0&I_2\\ -I_2&0
+\end{pmatrix},\qquad
+g_M=
+\begin{pmatrix}
+I_2&M\\ 0&I_2
+\end{pmatrix}\ (M={}^tM\in M_2(\Z)),
 \]
 \[
-W(\SO(5))=W(B_2)=D_4,\quad|W|=8,
+g_A=
+\begin{pmatrix}
+{}^tA^{-1}&0\\ 0&A
+\end{pmatrix}\ (A\in\GL_2(\Z))
 \]
-but neither is $\SO(3,2,\R)^{\mathrm{cpt}}$ with its Weyl. The
-correct chain of isomorphisms is:
-
-\emph{Step 1.} $\Sp_4(\R)\simeq\Spin(3,2,\R)$ gives matching Weyl
-groups: both are type $C_2=B_2$, Weyl $D_4$ of order $8$.
-
-\emph{Step 2.} On passing to $\Spin(3,2)\twoheadrightarrow\SO^{0}(3,2)$,
-the Weyl group acts on the Cartan $\mathfrak h=\R^2$ (rank 2, since
-$\mathrm{rk}_\R\SO(3,2)=2$) as $D_4$. Concretely, $\SO(3,2)$ has
-two simple roots, $\alpha$ (short) and $\beta$ (long) with
-$(\alpha,\alpha)=1$, $(\beta,\beta)=2$, $(\alpha,\beta)=-1$, angle
-$3\pi/4$ --- this is the $B_2$ root diagram, dual to $C_2$ of
-$\Sp_4$.
-
-\emph{Step 3.} The $\Z$-level Weyl group $W(\Lambda^{3,2})$ is the
-\emph{reflection subgroup} of $\OO(\Lambda^{3,2})$ generated by
-reflections in roots of square $2$. Lorgat 2020 \S4 (lines 352--404)
-computes that $W(\Lambda^{2,1})\subset\OO(\Lambda^{2,1})_+$ is
-generated by reflections in
-$\delta_1=2f_2-f_3,\ \delta_2=2f_{-2}-f_3,\ \delta_3=f_3$ and
-$f_{-2}-f_2,\ f_2-f_3,\ f_2+f_3$. This recovers the $B_2$
-Weyl-$D_4$ structure of $\Sp_4$ (three dihedral generators of the
-octahedron), modulo the antiinvariance structure of $\Delta_5$
-under the first three.
-
-\emph{Step 4 (affine compatibility).} At the affine level: the
-affine Weyl $\widetilde W(\Sp_4)=\widetilde W(C_2)$ is the
-Coxeter group of the affine $\widetilde C_2$ diagram; on the
-orthogonal side, $\widetilde W(\OO(\Lambda^{3,2}))$ is the
-\emph{hyperbolic} Weyl group of $\Lambda^{3,2}$ (since
-$\Lambda^{3,2}$ has signature $(3,2)$, its affine-level reflection
-group is Lorentzian-hyperbolic, not Euclidean-affine). The two
-coincide under the accident because at signature-$(3,2)$,
-$\OO^+(\Lambda^{3,2})$ acts on the type-IV domain $\Hb^{IV}_+$, and
-the fundamental domain of $\widetilde W$ is the closure of a
-finite-volume hyperbolic polytope in $\Hb^{IV}_+/\R^{\times}_{+}$.
-The same fundamental polytope, pulled back through $\wedge^2$, is
-the Siegel fundamental domain of $\Sp_4(\Z)\setminus\Hb_2$.
-
-\emph{Step 5 (conclusion).} The Weyl groups match at both finite
-(rank $2$, Weyl $D_4$) and affine/hyperbolic levels; the
-Borcherds-lift denominator automorphic form $\Phi$ satisfies the
-denominator formula
-$\Phi=\sum_{w\in W}(-1)^{\ell(w)}e^{w(\rho)}\prod_{\alpha>0}(1-e^{w(\alpha)})^{\mathrm{mult}(\alpha)}$
-where $W$ is the (hyperbolic) Weyl group of $\Lambda^{3,2}$, and
-this formula is consistent with the Maass-Sp$_4$ denominator
-formula under the $\wedge^2$ isomorphism.
-
-\paragraph{Heal.}
-Inscribe the Weyl-matching dictionary at the end of Lorgat 2020
-\S3 (before the transition to \S4 on $\Delta_5$ and
-$\Lambda^{3,2}$):
-\begin{itemize}
-\item Finite Weyl: $W(\Sp_4)=W(C_2)=D_4=W(B_2)=W(\SO(3,2))$, order
-  $8$, matching under the accident $C_2=B_2$.
-\item Affine/hyperbolic Weyl: $\widetilde W(\Sp_4)=\widetilde W(C_2)$
-  (Euclidean) corresponds to the hyperbolic Weyl of $\Lambda^{3,2}$
-  acting on $\Hb^{IV}_+/\R^{\times}_+$ (Lorentzian), with matching
-  fundamental polytopes in the respective quotient domains.
-\item The three $f_i$-reflections of Lorgat 2020 \S4 realise the
-  $B_2$-Weyl generators (the three $\delta_i$'s for the long root
-  $f_3$ and short roots $2f_2-f_3$, $2f_{-2}-f_3$); the three
-  $(f_i-f_j)$-reflections realise $S_3$-type permutations of the
-  hyperbolic-plane basis.
-\end{itemize}
-
-%---------------------------------------------------------------------
-\subsection*{Synthesis: what the five cycles establish}
-%---------------------------------------------------------------------
-
-The isomorphism
+are the Weyl element, Eichler transvections, and Levi transformations
+in \(\SO(L)_+\).  These generate the stable orthogonal group of
+\(U\oplus U\oplus\langle 2\rangle\).  Thus
 \[
-\wedge^2:\Sp_4(\Z)/\{\pm I_4\}\;\xrightarrow{\ \sim\ }\;\SO^+(\Lambda^{3,2})\simeq\OO(\Lambda^{3,2})_+/\{\pm I_5\}
+  \Lambda^2:\Sp_4(\Z)/\{\pm I_4\}
+  \xrightarrow{\ \sim\ }
+  \SO(L)_+
+  \simeq
+  \OO(L)_+/\{\pm I_5\}.
 \]
-is the $\Z$-level shadow of the accidental Dynkin-diagram identity
-$D_3\simeq A_3$, or equivalently $\Sp_4(\R)\simeq\Spin(3,2)$. Five
-layers of verification, each contributing a distinct witness:
 
-\begin{enumerate}[label=(\arabic*)]
-\item (Cycle 1) The exterior square $\wedge^2:\GL_4\to\GL_6$
-  preserves the Pfaffian pairing; stabiliser of
-  $q=e_1\wedge e_3+e_2\wedge e_4$ is $\Sp_4$.
-\item (Cycle 2) The $+$ component is the spin-norm-$+1$ component;
-  it is the image of $\Sp_4(\R)\simeq\Spin(3,2)$ under the accidental
-  isomorphism.
-\item (Cycle 3) The $\Z$-form $\Lambda^{3,2}=\Lambda^{1,1}\oplus
-  \Lambda^{1,1}\oplus[2]$ emerges by construction (orthogonal
-  complement of $q$ inside $\Lambda^2\Z^4$ with Pfaffian pairing);
-  discriminant $2$; Weyl-group generators match.
-\item (Cycle 4) Siegel parabolic $\leftrightarrow$ $0$-dim cusp,
-  Klingen parabolic (= Jacobi group $\Gamma_\infty$) $\leftrightarrow$
-  $1$-dim cusp, via isotropic $\Z$-line/plane data.
-\item (Cycle 5) Finite Weyl $W(C_2)=D_4$ and affine Weyl
-  $\widetilde W(C_2)$ correspond to finite $W(B_2)=W(\SO(3,2))$ and
-  hyperbolic $\widetilde W(\Lambda^{3,2})$; fundamental domains
-  match.
-\end{enumerate}
+\paragraph{The type-IV domain.}
+The orthogonal domain is
+\[
+  \Hb^{IV}_+
+  =
+  \{[Z]\in\mathbb P(L\otimes\C):(Z,Z)=0,\ (Z,\overline Z)<0\}_+ .
+\]
+With
+\[
+Z(z_1,z_2,z_3)
+ =
+(z_2^2-z_1z_3)f_1+z_3f_2+z_2f_3+z_1f_{-2}+f_{-1},
+\]
+the condition \((Z,\overline Z)<0\) becomes
+\[
+  \Im(z_1)\Im(z_3)-\Im(z_2)^2>0.
+\]
+The identification
+\[
+  (z_1,z_2,z_3)\longleftrightarrow
+  \begin{pmatrix}z_1&z_2\\ z_2&z_3\end{pmatrix}
+\]
+therefore identifies \(\Hb^{IV}_+\) with the Siegel upper half-plane
+\(\Hb_2\).  Changing the sign of the quadratic form changes
+\(\OO(3,2)\) to the usual Borcherds convention \(\OO(2,3)\); the
+component and automorphy factors must be transported with this sign
+choice.
 
-This confirms Lorgat 2020 Lemma~1 as theorem, supplies the
-derivations that were cited-only (\emph{``can be found in [10]''} =
-Knapp 2002 VII.11), and catches one convention artefact: the
-signature $(3,3)\rightsquigarrow(3,2)$ transition is exactly the
-subtraction of one square-$+2$ polariser direction, not an
-independent construction.
+\paragraph{Boundary components and parabolics.}
+For a type-IV domain attached to a lattice of signature \((2,n)\),
+rational boundary components correspond to isotropic subspaces of
+dimension \(1\) and \(2\).  After the sign change \(L\mapsto L(-1)\),
+the dictionary for \(\Hb_2\simeq\Hb^{IV}_+\) is
+\[
+\begin{array}{c|c|c}
+\Sp_4\text{ parabolic} & \OO(L)_+\text{ stabiliser} & \text{boundary component}\\ \hline
+\text{Siegel, stabiliser of a Lagrangian plane}
+& \text{primitive isotropic line in }L_\Q
+& 0\text{-dimensional cusp}\\
+\text{Klingen, stabiliser of a line}
+& \text{primitive isotropic plane in }L_\Q
+& 1\text{-dimensional cusp}.
+\end{array}
+\]
+Indeed, if \(P\subset V_\Q\) is Lagrangian, then
+\(\Lambda^2P\subset q^\perp\) is an isotropic line.  If
+\(\ell\subset V_\Q\) is a line and \(\ell^\omega\) its symplectic
+orthogonal, then \(\ell\wedge\ell^\omega\subset q^\perp\) is an
+isotropic plane, since every wedge product contains a vector from
+\(\ell\).  The Jacobi group at the Fourier-Jacobi cusp is the Klingen
+parabolic and corresponds to the one-dimensional orthogonal cusp.
 
-\paragraph{Cross-references inscribed.}
-\begin{itemize}
-\item \texttt{notes/wave12\_u1\_two\_stage\_functor.tex}:
-  Stage-2 specialisation $\mathrm{Sp}_{\Sigma_{d-1},C}$ at $d=3$ on
-  $X=K3\times E$ passes through the orthogonal model
-  $\OO^+(\Lambda^{3,2})$ on $\Hb^{IV}_+$; the Sp$_4(\Z)$-picture is
-  the alternative presentation via $\wedge^2$. Both stages land in
-  the same $E_1$-chiral algebra on the reference elliptic curve.
-\item \texttt{notes/wave12\_a2\_k3xE\_BKM\_kazhdan.tex} Cycle~1--2:
-  the Borcherds weight identity $\kBKM(\Phi_N)=c_N(0)/2$ is stated
-  on the orthogonal side ($\OO(\Lambda^{3,2})_+$); under the
-  $\wedge^2$ isomorphism, it is the weight of the corresponding
-  $\Sp_4(\Z)$-Siegel modular form ($\Delta_5$ at $N=1$).
-\item \texttt{notes/wave13\_source\_paper.txt} \S3 (lines 233--350):
-  primary source. The integrality and parabolic-cusp computations
-  inscribed above close the cited-only references (``can be found
-  in [10]''; ``elementary exercise to realize concretely'').
-\end{itemize}
+\paragraph{Reflection subgroup.}
+Let
+\[
+  L_0=\Z f_2\oplus\Z f_3\oplus\Z f_{-2}\simeq U\oplus\langle 2\rangle.
+\]
+This rank-three hyperbolic sublattice controls the real simple-root
+chamber of the \(\Delta_5\) denominator.  For a root
+\(\alpha\in L_0\) with \((\alpha,\alpha)=2\), the reflection is
+\[
+  s_\alpha(x)=x-(x,\alpha)\alpha.
+\]
+The six square-two roots
+\[
+  2f_2-f_3,\qquad 2f_{-2}-f_3,\qquad f_3,\qquad
+  f_{-2}-f_2,\qquad f_2-f_3,\qquad f_2+f_3
+\]
+generate the reflection subgroup used in the Gritsenko--Nikulin
+denominator chamber.  The first three act on \(\Delta_5\) by the sign
+\(-1\), and the last three act by the sign \(+1\).  This Lorentzian
+reflection group is a hyperbolic Weyl group inside \(\OO(L_0)_+\).  The
+finite real Lie Weyl group attached to
+\(\Sp_4(\R)\simeq\Spin(3,2)\) is \(W(C_2)=W(B_2)\), the dihedral group
+of order \(8\).  The Euclidean affine Weyl group \(\widetilde W(C_2)\)
+and the hyperbolic reflection group of \(L_0\) are separate
+normalisations connected through the arithmetic embedding above.
 
-%---------------------------------------------------------------------
-\subsection*{Substantive fixes inscribed into first-principles cache}
-%---------------------------------------------------------------------
+\paragraph{Orthogonal, paramodular, and metaplectic normalisations.}
+Three automorphic normalisations occur in the \(\Delta_5\) and
+\(\Phi_{10}\) comparison.
 
-Three new cache entries (AP-CY157, AP-CY158, AP-CY159) are appended
-to \texttt{appendices/first\_principles\_cache.md}:
+First, the orthogonal Borcherds convention uses a lattice of signature
+\((2,n)\).  The present lattice \(L\) has signature \((3,2)\), so the
+orthogonal Borcherds form is read on \(L(-1)\) when the convention
+\(\OO(2,3)\) is desired.
 
-\begin{itemize}
-\item \textbf{AP-CY157 / signature-bookkeeping confusion.} The
-  Pfaffian pairing on $\Lambda^2\Z^4$ has signature $(3,3)$; the
-  orthogonal hyperplane $q^\perp$ has signature
-  $(3,2)$ (drop of $(0,1)$ because $(q,q)=+2$). Conventions differ
-  on sign: $\Lambda^{3,2}$ (Lorgat) vs $\Lambda^{2,3}$ (some
-  authors). Identical as quadratic lattices up to overall sign.
-\item \textbf{AP-CY158 / accidental-isogeny $\Z$-level descent.}
-  $\Spin(3,2)\simeq\Sp_4(\R)$ is the real-form accident
-  (Helgason IX.5). Descent to $\Z$ requires explicit generator-by-
-  generator verification (Steps 4--5 of Cycle 3); surjective onto
-  $\SO^+(\Lambda^{3,2})$, kernel $\{\pm I_4\}$. Not all real isogenies
-  of accidental Lie type descend to $\Z$-form isomorphisms;
-  this one does, by the Pfaffian construction.
-\item \textbf{AP-CY159 / parabolic-cusp correspondence under $\wedge^2$.}
-  Siegel parabolic $\leftrightarrow$ stabiliser of isotropic
-  $\Z$-line $\leftrightarrow$ $0$-dim cusp; Klingen parabolic
-  (=Jacobi group $\Gamma_\infty$) $\leftrightarrow$ stabiliser of
-  isotropic $\Z$-line in a hyperbolic plane $\leftrightarrow$
-  $1$-dim cusp. Do not conflate the two; Borcherds-lift
-  principal-part data attach to the $1$-dim cusp.
-\end{itemize}
+Second, the genus-two paramodular group \(K(N)\) is the arithmetic
+stabiliser of a polarisation of type \((1,N)\).  In orthogonal language
+it corresponds, after fixing the sign convention, to a rank-five
+lattice in the genus of \(U\oplus U\oplus\langle -2N\rangle\).  At
+\(N=1\) this recovers the \(\Sp_4(\Z)\) model above.
 
-\medskip
-\noindent\textbf{Claim status.} \ClaimStatusTheorem (Lemma~1 of
-Lorgat 2020 \S3 verified; integrality, parabolic-cusp, Weyl-matching
-all explicit). The cited reference [10] (Knapp 2002) supplies the
-$\R$-level accident; the $\Z$-level descent is proven here from
-first principles, matching Lorgat 2020's explicit generator
-computations at lines 294--336.
+Third, half-integral Jacobi index and half-integral Siegel weight are
+sections on a metaplectic or character cover.  The cover changes the
+automorphy factor and multiplier system.  The Borcherds constant term
+remains attached to the input weak Jacobi form:
+\[
+  \kappa_{\mathrm{BKM}}(\Phi_N)=\frac{c_N(0)}2.
+\]
+
+For the primitive CHL denominator forms one has
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\ \hline
+c_N(0)&10&8&6&4&2\\
+\kappa_{\mathrm{BKM}}(\Phi_N)&5&4&3&2&1.
+\end{array}
+\]
+The Gritsenko--Clery diagonal-divisor catalogue is a separate
+eight-row list:
+\[
+\begin{array}{c|cccccccc}
+\text{row}&1&2&3&4&5&6&7&8\\ \hline
+c_{\mathrm{GC},r}(0)&10&4&6&2&4&1&3&2\\
+\wt(F^{\mathrm{GC}}_r)&5&2&3&1&2&\tfrac12&\tfrac32&1\\
+\kappa_{\mathrm{BKM}}^{\mathrm{GC}}(F^{\mathrm{GC}}_r)&5&2&3&1&2&\tfrac12&\tfrac32&1.
+\end{array}
+\]
+A comparison between the CHL ladder and the Gritsenko--Clery catalogue
+requires an explicit row map and a declared multiplier system.
+
+For \(N=1\),
+\[
+  c_1(0)=10,\qquad
+  \kappa_{\mathrm{BKM}}(\Delta_5)=5.
+\]
+The monic denominator normalisation and the Igusa square normalisation
+are
+\[
+  D_5=64^{-1}\Delta_5,\qquad
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2,\qquad
+  \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2.
+\]
+Thus \(\Delta_5\) is the primitive BKM denominator of weight \(5\);
+\(\Phi_{10}\) records square-normalisation data of weight \(10\).
+
+\paragraph{The five scalar invariants for \(K3\times E\).}
+The compact Calabi--Yau threefold \(K3\times E\) carries distinct
+scalar invariants:
+\[
+  \kappa_{\mathrm{cat}}(K3\times E)
+  =\chi(\cO_{K3})\chi(\cO_E)=2\cdot 0=0,
+\]
+\[
+  \kappa_{\mathrm{ch}}(K3\times E)
+  =
+  \sum_{q=0}^3(-1)^q h^{0,q}(K3\times E)
+  =1-1+1-1=0,
+\]
+\[
+  \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kappa_{\mathrm{BKM}}(\Delta_5)=5,\qquad
+  \kappa_{\mathrm{fiber}}(K3)=24.
+\]
+The first two are compact categorical and compact chiral supertraces.
+The third is the Heisenberg--Mukai chiral specialisation.  The fourth is
+the Borcherds weight \(c_1(0)/2\).  The fifth is the Mukai-lattice rank
+of the K3 fibre.
+
+\paragraph{Primary references.}
+Knapp (2002, VII.11) and Helgason (1978, IX.5) give the real
+\(\Sp_4(\R)\simeq\Spin(3,2)\) accident.  Borel (1969, Section 7)
+gives the integral-form language.  Borcherds (1998, Theorem 13.3) and
+Gritsenko--Nikulin (1998, Theorem 2.1) give the denominator construction
+for \(\Delta_5\).  Gritsenko (1999) fixes the CHL weights
+\((5,4,3,2,1)\), and Gritsenko--Clery fixes the diagonal-divisor
+catalogue used above.

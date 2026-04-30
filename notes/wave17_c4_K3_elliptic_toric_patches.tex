@@ -1,10 +1,7 @@
-% wave17_c4_K3_elliptic_toric_patches.tex
-% Wave-17 C4/20: K3 covered by toric patches via elliptic fibration
-% and ADE singular fibres; positive-half Yangian from the patch cover.
+% Elliptic K3 surface patch note.
 % Author: Raeez Lorgat. 2026-04-22.
-% Primary sources: Kodaira 1963, Miranda 1983, Nakajima 1994,
-% Schiffmann--Vasserot 2013.
-% Stand-alone note; not picked up by main.tex.
+% Primary sources: Kodaira 1963, Miranda 1989, Nakajima 1994,
+% Kapranov-Vasserot 2019, Schiffmann-Vasserot 2013.
 
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
@@ -24,177 +21,252 @@
 \providecommand{\PP}{\mathbb{P}}
 \providecommand{\CC}{\mathbb{C}}
 \providecommand{\ZZ}{\mathbb{Z}}
-\providecommand{\NN}{\mathbb{N}}
 \providecommand{\Ybold}{Y}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
 \providecommand{\frakg}{\mathfrak{g}}
-\providecommand{\Muk}{\mathrm{Muk}}
-\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\NS}{\mathrm{NS}}
+\providecommand{\Pic}{\mathrm{Pic}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Root}{R}
 
 \begin{document}
 
-\title{K3 as an elliptic cover by toric and ADE patches}
+\title{Elliptic K3 Surface Patches and the Positive Hall Half}
 \author{Raeez Lorgat}
 \date{22 April 2026}
 \maketitle
 
-\section{Elliptic fibration and the 24-point discriminant}
+\section{Elliptic K3 surfaces}
 
-A generic projective K3 surface $S$ is non-toric: its automorphism
-group is infinite, and $H^{1,1}(S, \ZZ)$ has rank $\leq 20 < \dim S +
-\mathrm{rk}(\mathrm{Pic}) + 1$ required for a fan. Ellipticity rescues
-locality: $S$ admits an elliptic fibration $\pi: S \to \PP^1$ iff
-$\mathrm{Pic}(S)$ contains an isotropic class $F$ with $F \cdot F = 0$
-and $F$ effective, and a generic polarised K3 of Picard rank
-$\geq 5$ carries such a fibration (Piatetski-Shapiro--Shafarevich).
-Fix one: $\pi: S \to \PP^1$ with $\chi_{\mathrm{top}}(S) = 24 =
-\sum_{b \in B_{\mathrm{sing}}} e(\pi^{-1}(b))$, where the Euler-number
-accounting is Kodaira 1963, Theorem 12.2.
+Let $S$ be a projective K3 surface. A smooth complete toric variety
+has $H^{p,0}=0$ for $p>0$ by the Danilov-Demazure cohomology
+calculation, while $h^{2,0}(S)=1$. Hence a compact K3 surface admits
+only non-toric smooth complete presentations. Toric geometry enters
+through formal charts and ADE surface singularities obtained from local
+contractions.
 
-The discriminant locus $\Delta_\pi \subset \PP^1$ is a finite set
-$\{b_1, \ldots, b_r\}$ with multiplicities summing to $24$. At a
-generic base point $b \in \PP^1 \setminus \Delta_\pi$ the fibre is a
-smooth elliptic curve $E_\tau = \CC / (\ZZ + \tau \ZZ)$, $\tau =
-j^{-1}(j(b))$; at $b \in \Delta_\pi$ the fibre degenerates into one of
-the Kodaira types $\{I_n, I_n^*, II, II^*, III, III^*, IV, IV^*\}$,
-whose dual graphs are the affine Dynkin diagrams of $\widetilde{A}_{n-1}$,
-$\widetilde{D}_{n+4}$, $\widetilde{E}_6$, $\widetilde{E}_7$,
-$\widetilde{E}_8$, $\widetilde{E}_6$, $\widetilde{E}_7$,
-$\widetilde{E}_8$ respectively (Kodaira 1963; Miranda 1983, \S I.4).
-The generic stratification has $24$ nodal $I_1$ fibres; non-generic
-choices collide these into higher-type fibres.
+An elliptic fibration on $S$ is a morphism
+\[
+ \pi\colon S \longrightarrow \PP^1
+\]
+whose general fibre is a smooth genus-one curve. A primitive nef
+isotropic class $F\in\NS(S)$ with $F^2=0$ gives a genus-one fibration
+whose fibre class is $F$; a class $O$ with $O\cdot F=1$ supplies a
+section. If $\rho(S)\geq 5$,
+the lattice $\NS(S)$ is indefinite of rank at least five, so Meyer's
+theorem gives an integral isotropic vector, and the K3 Weyl group
+moves an effective representative into the nef cone on the elliptic
+locus. This is the Piatetski-Shapiro-Shafarevich elliptic-fibration
+criterion in lattice form.
 
-\section{Local toric model at a smooth fibre}
+For every elliptic K3 surface,
+\[
+ \chi_{\mathrm{top}}(S)=c_2(S)=24
+   = \sum_{b\in\Delta_\pi} e(F_b),
+\]
+where $F_b=\pi^{-1}(b)$ and $\Delta_\pi\subset\PP^1$ is the Kodaira
+discriminant. A generic elliptic K3 with section has twenty-four
+fibres of type $I_1$. Special members collect these contributions
+into higher Kodaira fibres.
 
-Let $U \subset \PP^1$ be a small disc with $\overline{U} \cap
-\Delta_\pi = \emptyset$. The restriction $\pi^{-1}(U) \to U$ is a
-holomorphic submersion with fibre $E_\tau$; by Ehresmann it is
-$C^\infty$-trivial. Holomorphically, it is the pullback of the
-universal elliptic curve $\mathcal{E} \to \mathcal{H}/SL_2(\ZZ)$ along
-$j \circ \pi|_U$. The transition functions between two such tubes
-$U, U'$ are modular: $\tau \mapsto (a\tau + b)/(c\tau + d)$ composed
-with fibrewise translations by sections of $\pi$.
+\section{Smooth-fibre tubes}
 
-The local model $E_\tau \times U$ is \emph{toric in the $U$-direction
-and abelian-toric in the fibre}: $E_\tau = (\CC^\times)/q^{\ZZ}$ with
-$q = e^{2\pi i \tau}$, so $E_\tau$ carries a $\CC^\times$-action up
-to the $\ZZ_2$ extension generated by $[-1]: x \mapsto -x$. On
-$\pi^{-1}(U) \setminus \{\text{torsion sections}\}$ the action is
-free. We therefore treat smooth-fibre tubes as \emph{quasi-toric
-patches}: the Schiffmann--Vasserot shuffle-algebra generators
-(Schiffmann--Vasserot 2013, \S 2.3) act fibrewise through the
-$T = \CC^\times$-equivariant K-theory of Hilbert schemes of points
-on $\CC^2 = T^* E_\tau|_{U}$ stripped to a formal neighbourhood.
+Let $U\subset\PP^1$ be a small simply connected disc with
+$U\cap\Delta_\pi=\emptyset$, and set $W=\pi^{-1}(U)$. The map
+$W\to U$ is a holomorphic family of elliptic curves. After choosing a
+section and a holomorphic period ratio $\tau(t)$ on $U$, it has the
+analytic presentation
+\[
+ W \simeq (\CC_z\times U_t)/
+ \bigl(z\sim z+m+n\tau(t)\bigr),\qquad m,n\in\ZZ.
+\]
+Ehresmann gives $C^\infty$ local triviality. Holomorphic triviality is
+equivalent to constant $j$-invariant on $U$.
 
-\section{Local ADE model at a singular fibre}
+The elliptic fibre acts on itself by translations. This is an abelian
+variety action; the algebraic-torus input used in Hall calculations is
+formal: at a point
+$p\in W$,
+\[
+ \widehat{\cO}_{W,p}\simeq \CC[[x,t]],
+\]
+and the completed bidisc carries the formal two-torus weights
+$(x,t)\mapsto(\lambda_1x,\lambda_2t)$. Nakajima creation operators on
+$\bigoplus_n H^*(\Hilb^n(W))$ restrict to this formal surface chart and
+give the positive Heisenberg half generated by $H^*(F_t)$ on the
+smooth-fibre tube. The Schiffmann-Vasserot shuffle formulas apply to
+the formal $\CC^2$ model; the compact elliptic fibre is recovered only
+after quotienting by the period lattice and imposing monodromy.
 
-At $b \in \Delta_\pi$ with Kodaira type $T_b \in
-\{I_n, I_n^*, II, \ldots, IV^*\}$, a tubular neighbourhood
-$V_b \subset S$ deformation-retracts onto the singular fibre
-$\pi^{-1}(b)$. The dual graph $\Gamma_b$ of the singular fibre is
-affine Dynkin of type $T_b^{\mathrm{Dyn}} \in \{\widetilde{A},
-\widetilde{D}, \widetilde{E}\}$. Deleting the extending node yields
-the finite ADE Dynkin diagram
-$T_b^{\mathrm{fin}} \in \{A_{n-1}, D_{n+4}, E_{6,7,8}\}$.
+\section{Kodaira fibres and ADE root lattices}
 
-Nakajima 1994 (Theorem 1.5) identifies a formal neighbourhood of the
-singular fibre with the minimal resolution $\widetilde{\CC^2/G_{T_b}}$
-of the Kleinian singularity $\CC^2/G_{T_b}$, where $G_{T_b} \subset
-SU(2)$ is the finite subgroup matching $T_b^{\mathrm{fin}}$ under
-McKay. Concretely, $I_n \leftrightarrow \ZZ/n$ cyclic,
-$I_n^* \leftrightarrow$ binary dihedral $BD_{4(n+2)}$,
-$II, III, IV, II^*, III^*, IV^* \leftrightarrow$ binary tetrahedral,
-octahedral, icosahedral (twice, via the affine-finite pairing).
-Away from the exceptional divisor, $V_b \setminus \pi^{-1}(b) \simeq
-(\CC^2 \setminus \{0\}) / G_{T_b}$ is a quotient of a torus chart.
+Assume $\pi$ has a section $O$. For a singular fibre $F_b$, let
+$\Root_b$ be the negative-definite root lattice generated by the
+irreducible components of $F_b$ disjoint from $O$. Kodaira's
+classification gives the following local root data.
+\[
+\begin{array}{c|c|c}
+\text{Kodaira type} & e(F_b) & \Root_b \\
+\hline
+I_1 & 1 & 0 \\
+I_n,\ n\geq 2 & n & A_{n-1} \\
+II & 2 & 0 \\
+III & 3 & A_1 \\
+IV & 4 & A_2 \\
+I_n^{*},\ n\geq 0 & n+6 & D_{n+4} \\
+IV^{*} & 8 & E_6 \\
+III^{*} & 9 & E_7 \\
+II^{*} & 10 & E_8
+\end{array}
+\]
+The sum of the middle column over all singular fibres is $24$.
+The root lattice column records real ADE roots. The generic
+twenty-four $I_1$ fibres contribute vanishing cycles and
+Picard-Lefschetz monodromy; their root-lattice entry is zero.
 
-On $V_b$, the Nakajima quiver variety $\mathfrak{M}(T_b^{\mathrm{fin}})$
-of the corresponding ADE quiver carries the Maulik--Okounkov stable
-envelope, and its cohomological Hall algebra $\CoHA_b$ is Yangian-like:
-$\CoHA_b \cong \Ybold^+(\frakg_{T_b^{\mathrm{fin}}})$ as a graded
-algebra over $H^*_T(\mathrm{pt})$ (Schiffmann--Vasserot 2013 for
-type $A$; extensions to ADE by Nakajima--Yoshioka and Maulik--Okounkov).
+For $\Root_b\neq 0$, Grauert contraction of the components generating
+$\Root_b$ produces a rational double point of the same ADE type, and
+the original neighbourhood is its minimal resolution near the
+exceptional configuration. Nakajima quiver varieties attached to
+$\Root_b$ carry the corresponding geometric representation of
+$\frakg_{\Root_b}$, and the Maulik-Okounkov stable envelope supplies
+the local positive Yangian half $\Ybold^+_\hbar(\frakg_{\Root_b})$
+after equivariant localisation. Type $I_1$ and type $II$ fibres lie in
+the vanishing-cycle Heisenberg sector instead of the ADE real-root
+sector.
 
-\section{\v{C}ech cover and gluing cocycle}
+\section{\v{C}ech cover}
 
-\begin{construction}[\v{C}ech cover of $S$ by toric $+$ ADE patches]
-\label{constr:K3-cover}
-Fix $\pi: S \to \PP^1$ and enumerate $\Delta_\pi = \{b_1, \ldots, b_r\}$.
-Choose small disjoint discs $D_i \ni b_i$ in $\PP^1$; let
-$V_i := \pi^{-1}(D_i)$. Cover the complement $\PP^1 \setminus
-\bigsqcup_i \overline{D_i}$ by finitely many smooth-fibre tubes
-$U_\alpha$ (two suffice: one for each hemisphere of $\PP^1 \setminus
-\bigsqcup_i D_i$). Set $W_\alpha := \pi^{-1}(U_\alpha)$. Then
-$\{W_\alpha\} \cup \{V_i\}$ is an open cover of $S$.
+\begin{construction}[\v{C}ech cover of an elliptic K3 surface]
+\label{constr:k3-elliptic-cover}
+Fix $\pi\colon S\to\PP^1$ with section. Enumerate
+$\Delta_\pi=\{b_1,\ldots,b_r\}$. Choose pairwise disjoint discs
+$D_i\subset\PP^1$ with $b_i\in D_i$, and set $V_i=\pi^{-1}(D_i)$.
+Cover $\PP^1\setminus\bigcup_i D_i$ by finitely many simply connected
+discs $U_\alpha$ avoiding $\Delta_\pi$, and set
+$W_\alpha=\pi^{-1}(U_\alpha)$. Then
+\[
+ \mathfrak U_\pi=\{W_\alpha\}_\alpha\cup\{V_i\}_{i=1}^r
+\]
+is an analytic open cover of $S$.
 \end{construction}
 
-Each $W_\alpha$ is quasi-toric by \S 2; each $V_i$ is ADE-Nakajima by
-\S 3. Overlaps $W_\alpha \cap V_i$ are annular tubes of smooth elliptic
-fibres lying in the complement of the singular fibre inside $V_i$;
-these are the regions where both descriptions hold, and the transition
-is governed by local monodromy around $b_i$, which is the Picard--Lefschetz
-transformation $M_{T_b} \in SL_2(\ZZ)$ tabulated in Miranda 1983, \S IV.1.
+On a smooth tube $W_\alpha$ the local positive half is the Heisenberg
+algebra generated by the cohomology of the smooth fibre. On a singular
+tube $V_i$ the positive half has two pieces: the vanishing-cycle
+Heisenberg part from local Picard-Lefschetz monodromy, and the ADE
+Yangian half $\Ybold^+_\hbar(\frakg_{\Root_{b_i}})$ when
+$\Root_{b_i}\neq 0$. On overlaps $W_\alpha\cap V_i$, the restriction
+map is conjugation by the local monodromy operator
+$M_{b_i}\in SL_2(\ZZ)$ on $H_1(F_t,\ZZ)$, together with the induced
+reflection on the root lattice $\Root_{b_i}$ when the fibre is
+reducible.
 
-\section{Patch-level positive-half Yangian and global sections}
+\section{Positive half before double and centre}
 
-\begin{proposition}[Patch-level $\Ybold^+$]\label{prop:patch-Y-plus}
-On each patch of Construction \ref{constr:K3-cover}:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item On a smooth-fibre tube $W_\alpha$, the positive-half Heisenberg
-$H^+_{E_\tau}$ acts on $\bigoplus_n H^*_T(\mathrm{Hilb}^n(W_\alpha))$
-by the Nakajima 1994 creation operators restricted to the formal
-fibre (\S 7, Theorem 2).
-\item On an ADE patch $V_i$, $\Ybold^+(\frakg_{T_i^{\mathrm{fin}}})$ acts
-on $\bigoplus_n H^*_T(\mathrm{Hilb}^n(V_i))$ through the Nakajima
-quiver-variety presentation (1994, Theorem 10.2) composed with the
-Schiffmann--Vasserot shuffle map.
-\end{enumerate}
+\begin{proposition}[Patch positive halves]
+\label{prop:patch-positive-halves}
+Let $\mathfrak U_\pi$ be the cover of
+Construction~\ref{constr:k3-elliptic-cover}. There is a diagram
+$\mathcal H^+_\pi$ of local algebras on the \v{C}ech nerve of
+$\mathfrak U_\pi$ with
+\[
+ \mathcal H^+_\pi(W_\alpha)=H^+(H^*(F_t)),\qquad
+ \mathcal H^+_\pi(V_i)=
+ H^+_{\mathrm{van}}(b_i)\otimes
+ \Ybold^+_\hbar(\frakg_{\Root_{b_i}})
+\]
+where the Yangian factor is omitted when $\Root_{b_i}=0$. The
+restriction maps are induced by Picard-Lefschetz monodromy and by
+the ADE Weyl action on the contracted rational double point.
 \end{proposition}
 
-\begin{theorem}[Global positive half as derived sections]
-\label{thm:global-Y-plus-K3}
-Let $\mathcal{Y}^+$ be the patch-assignment $W_\alpha \mapsto
-H^+_{E_\tau}$, $V_i \mapsto \Ybold^+(\frakg_{T_i^{\mathrm{fin}}})$,
-with restriction maps along overlaps induced by Picard--Lefschetz
-monodromy conjugation. Let $\mathbb{R}\Gamma(S, \mathcal{Y}^+)$ denote
-its derived global sections computed by the \v{C}ech complex on
-Construction \ref{constr:K3-cover}. Then there is a graded-algebra
-isomorphism
+\begin{theorem}[Surface positive half by descent]
+\label{thm:k3-surface-positive-half-descent}
+Assume the Kapranov-Vasserot surface CoHA descent comparison for the
+analytic cover $\mathfrak U_\pi$, the Nakajima-Maulik-Okounkov
+identification on every ADE contraction, and monodromy equivariance
+of the local stable envelopes. Then the \v{C}ech derived sections of
+the patch diagram identify the generated positive half of the K3
+surface Hall algebra:
 \[
-  \mathbb{R}\Gamma(S, \mathcal{Y}^+)
-  \;\cong\;
-  \Ybold^+(\frakg_{K3})
-  \;=\;
-  \CoHA(Q_{K3}),
+ \mathbb R\Gamma(\mathfrak U_\pi,\mathcal H^+_\pi)
+ \;\simeq\;
+ \CoHA^+_{\mathrm{KV}}(S)_{\pi}.
 \]
-where $Q_{K3}$ is the Mukai quiver associated to $S$
-(Schiffmann--Vasserot 2013, Theorem 0.4) and $\frakg_{K3}$ is the
-Borcherds--Kac--Moody algebra whose Chevalley generators match the
-patch-local Chevalley generators on ADE patches, with the smooth-fibre
-Heisenberg generators contributing the imaginary-root part.
+The subscript $\pi$ records dependence on the chosen elliptic
+fibration and its root lattice decomposition. The isomorphism is on
+the algebra generated by smooth-fibre Heisenberg classes, vanishing
+cycles, and ADE real-root generators.
 \end{theorem}
 
-The isomorphism is forced at the level of Chern characters: each
-ADE patch contributes the real roots of its local $\frakg_{T_i^{\mathrm{fin}}}$
-to the positive cone, the smooth fibres contribute imaginary roots
-indexed by $H^*(E_\tau)$, and the Picard--Lefschetz cocycle glues the
-local presentations into the Mukai-lattice root system, matching the
-Borcherds product whose weight is
-$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ in the $K3 \times E$
-specialisation (Borcherds 1995; Gritsenko 1999).
+The descent statement stops at the positive half. The following
+promotions are separate constructions:
+\[
+ \CoHA^+(S)
+ \longrightarrow
+ \mathcal D_\hbar(\CoHA^+(S))
+ \longrightarrow
+ Z(\Rep(\mathcal D_\hbar(\CoHA^+(S))))
+ \longrightarrow
+ \widehat{\mathcal D}_\hbar(\CoHA^+(S)).
+\]
+Thus the elliptic K3 cover supplies local generators and monodromy
+relations for $\CoHA^+(S)$. A Hall-Drinfeld double, a braided centre,
+and a completed BKM denominator object require extra dual, centre,
+and completion data.
 
-\section{Reading}
+\section{Surface invariants and the product boundary}
 
-The cover is not by toric patches alone --- $S$ is not toric. It is by
-\emph{fibrewise toric} tubes outside the discriminant, and by
-McKay--Nakajima ADE patches at the singular fibres. The smooth-fibre
-patches supply the Heisenberg imaginary roots; the ADE patches supply
-the finite-type real roots; the Picard--Lefschetz overlap cocycle is
-the data that specifies which BKM lattice $\frakg_{K3}$ emerges as
-the derived global sections. $\kcat(S) = \chi(\cO_S) = 2$ is the
-structure-sheaf Euler character; $\kch(S) = 2$ is the chiral-side
-supertrace read from the Hodge diamond $(1,0,1,0,20,0,1,0,1)$
-via $\sum_q (-1)^q h^{0,q}$.
+For the K3 surface itself,
+\[
+ \kcat(S)=\chi(\cO_S)=h^{0,0}(S)-h^{0,1}(S)+h^{0,2}(S)=2,
+\]
+and the CY-to-chiral surface supertrace gives
+\[
+ \kch(S)=\sum_q(-1)^q h^{0,q}(S)=1+1=2.
+\]
+The Mukai lattice has rank
+\[
+ \operatorname{rk}\widetilde H(S,\ZZ)
+ =\operatorname{rk}\bigl(H^0(S,\ZZ)\oplus H^2(S,\ZZ)\oplus H^4(S,\ZZ)\bigr)
+ =24.
+\]
+This rank is the K3 fibre invariant used by the compact
+$S\times E$ constructions.
+
+Let $Y=S\times E$ with $E$ an elliptic curve. The compact
+Calabi-Yau threefold invariants are
+\[
+ \kcat(Y)=\chi(\cO_S)\chi(\cO_E)=2\cdot0=0,
+\]
+\[
+ \kch(Y)=\sum_q(-1)^q h^{0,q}(Y)
+ =1-1+1-1=0,
+\]
+\[
+ \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(Y)=2+1=3,\qquad
+ \kBKM(\Delta_5)=\frac{c_1(0)}2=5,\qquad
+ \kfiber(S)=24.
+\]
+These entries keep five readings separated. The four named
+$S\times E$ spectrum values are $\{0,3,5,24\}$; the compact Hodge
+supertrace shares the value $0$ with $\kcat(Y)$. The constructions are
+Kunneth structure-sheaf Euler characteristic on the total space,
+compact Hodge supertrace, Heisenberg specialisation along the K3 fibre
+and elliptic curve, Borcherds weight of the Gritsenko-Nikulin
+$\Delta_5$ denominator, and Mukai-lattice rank on the K3 fibre. The
+elliptic surface cover of $S$ accounts only for the surface
+positive-half input. Reduced Hall and BKM data for $S\times E$ belong
+to the compact CY$_3$ product geometry.
+
+For $d=3$, the two-stage $\Phi_3$ specialisation along
+$\Sigma_2=S$ and reference curve $E$ yields an $E_1$-chiral output on
+$E$. The associated $E_2$ braided structure lives on the Drinfeld
+centre of the $E_1$ representation category.
 
 \end{document}

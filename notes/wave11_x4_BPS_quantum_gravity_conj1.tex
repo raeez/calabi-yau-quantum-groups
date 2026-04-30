@@ -1,211 +1,235 @@
 % !TEX root = ../main.tex
-%
-% 1/4-BPS microstate counting at CHL orbifold X^{(N)} = (K3 x E)/Z_N
-% for N in {1,2,3,4,6}, with holographic AdS_3 x S^3/Z_N x K3/Z_N
-% interpretation. Primary sources: Dabholkar-Harvey 1989, Maldacena
-% 1998, Jatkar-Sen 2005, Sen 2007/2010 CHL, Bekenstein-Hawking.
-%
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
-\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}}
-\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
-\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kappafib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\FGC}{F^{\mathrm{GC}}}
+
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\DBKM}{\Delta^{\mathrm{BKM}}}
+\providecommand{\PhiPhys}{\Phi^{\mathrm{phys}}}
 \providecommand{\AdS}{\mathrm{AdS}}
 \providecommand{\Tr}{\mathrm{Tr}}
 
-\section*{1/4-BPS microstate counting at CHL orbifold $X^{(N)}$}
-\label{wn:sec:wave11-x4-BPS-quantum-gravity}
+\section*{CHL dyon indices and Borcherds weights}
+\label{wn:sec:chl-bps-bkm}
 
-\paragraph{Datum.} $X^{(N)} = (K3 \times E)/\Z_N$ for
-$N\in\{1,2,3,4,6\}$, with $\Z_N$ acting by a symplectic K3-auto\-morphism
-$g_N$ of order $N$ (Mukai $1988$, \emph{Invent.\ Math.}~$94$:$183$;
-Mathieu frame shape $1^{a_1}2^{a_2}\cdots$) times a free translation on
-$E$. Type~IIB on $X^{(N)}\times S^1$ yields the CHL dyon ensemble
-(Chaudhuri--Hockney--Lykken $1995$; Jatkar--Sen $2005$,
-\emph{hep-th/}$0510147$). Let $\FGC_N$ denote the Gritsenko--Cl\'ery
-paramodular form on $K(N)\subset\Sp_4(\Q)$ with weight $k_N$ and
-Borcherds constant $c_N(0)$: $(k_N, c_N(0)) = (5,10), (2,4), (1,2),
-(1,2), (1,2)$ for $N\in\{1,2,3,4,6\}$; hence
-$\kappaBKM(\FGC_N) = c_N(0)/2 \in \{5,2,1,1,1\}$
-(\texttt{thm:borcherds-weight-kappa-BKM-universal};
-\texttt{cy\_d\_kappa\_stratification.tex} L$1481$).
-The twined K3 Euler character is $\chi_{g_N}(K3) \in \{24,8,6,4,2\}$
-(Eguchi--Ooguri--Tachikawa $2011$, \emph{Exp.\ Math.}~$20$:$91$).
+\paragraph{Primitive CHL geometry.}
+Let
+\[
+  X^{(N)}=(K3\times E)/\mathbb{Z}_N,\qquad
+  N\in\{1,2,3,4,6\},
+\]
+where \(g_N\) is a symplectic automorphism of the K3 factor and the
+elliptic factor supplies the compatible free diagonal action. The
+quotient is a smooth compact Calabi-Yau threefold in the primitive CHL
+range. Let \(\DBKM_N\) be the Borcherds denominator attached to the
+\(g_N\)-twined weak Jacobi input. The Borcherds input constants are
+\[
+  (c_1(0),c_2(0),c_3(0),c_4(0),c_6(0))
+  =
+  (10,8,6,4,2),
+\]
+hence Borcherds' weight theorem gives
+\[
+  \kBKM(\DBKM_N)=\frac{c_N(0)}2=(5,4,3,2,1).
+\]
+At \(N=1\), \(\DBKM_1=\Delta_5\), \(\mathrm{wt}(\Delta_5)=5\), and the
+physical Igusa denominator is \(\Phi_{10}=\Delta_5^2\). For
+\(N\in\{2,3,4,6\}\), the square-root Borcherds denominator \(\DBKM_N\)
+and the square-normalized physical Siegel denominator \(\PhiPhys_N\)
+are separate objects; the exact normalization comparison is an
+additional datum.
 
-\paragraph{1/4-BPS count.} \ClaimStatusTheorem{} For charges
-$(Q,P)\in\Lambda^{(N)}_e\oplus\Lambda^{(N)}_m$ in the CHL Narain
-lattice with T-duality invariants
-$\Delta_N(Q,P) = Q^2\,P^2 - (Q\cdot P)^2$, the 1/4-BPS degeneracy is
-\begin{equation}
-d_N(Q,P) \;=\; (-1)^{Q\cdot P + 1}\oint_{\mathcal{C}}
-  \frac{e^{-\pi i(Q^2 z_1 + 2(Q\cdot P) z_2 + P^2 z_3)}}
-       {\FGC_N(Z)} \, d^3 Z,
-\qquad Z = \begin{pmatrix} z_1 & z_2\\ z_2 & z_3\end{pmatrix}
-\in \mathfrak{H}_2,
-\label{wn:eq:wave11-x4-dyon-count-CHL}
-\end{equation}
-with contour $\mathcal{C}$ enclosing the unique attractor pole of
-$\FGC_N$ on the Humbert divisor $\mathcal{H}_N\subset\mathfrak{H}_2$.
-At $N=1$ this reduces to Dabholkar--Harvey $1989$
-(\emph{Nucl.\ Phys.\ B}~$324$:$387$) + Dijkgraaf--Verlinde--Verlinde
-$1997$ (\emph{hep-th/}$9607026$) with $\FGC_1 = \Delta_{10} = \Phi_{10}$
-the Igusa cusp form. At $N\geq 2$ it is Jatkar--Sen $2005$ Theorem~$3$.
-\emph{Proof.} Type~IIB on $(K3\times E)/\Z_N \times S^1$ has U-duality
-group $G^{(N)} = \Sp_4(\Z) \cap K(N)$; the dyon partition function is
-the $(L_0 - \bar L_0)$-graded trace over single-particle BPS states,
-realising $\FGC_N$ as the denominator function of the BKM algebra
-$\mathfrak{g}_{\FGC_N}$ (Lorgat $2020$, arXiv:$2003$.$XXXXX$;
-Gritsenko--Nikulin $1995$ Part~II). The contour integral extracts the
-coefficient of $e^{\pi i Q\cdot Z}$ in $1/\FGC_N$. \qed
+\paragraph{Separate Borcherds catalogues.}
+The constants above belong to the primitive CHL ladder indexed by
+\(N\in\{1,2,3,4,6\}\). The Gritsenko-Clery diagonal-divisor, or dd,
+catalogue is a separate eight-row paramodular atlas with its own row
+indices, cover groups, multipliers, and weights. A comparison between a
+CHL denominator and a Gritsenko-Clery dd row requires an explicit row
+map and multiplier comparison; the tuple \((10,8,6,4,2)\) is the
+primitive CHL tuple.
 
-\paragraph{Rademacher asymptotics.} \ClaimStatusTheorem{} As
-$\Delta_N\to\infty$ in the attractor chamber,
-\begin{equation}
-\log d_N(Q,P) \;=\; \pi\sqrt{\Delta_N/N}
-  + \bigl(c_N(0)/2 - \tfrac{3}{2}\bigr)\log\Delta_N
-  + O(1),
-\label{wn:eq:wave11-x4-rademacher-asymptotic-CHL}
-\end{equation}
-reproducing Bekenstein--Hawking area $S_{BH} = \pi\sqrt{\Delta_N/N}$ at
-leading order. \emph{Proof.} Saddle-point of the contour integral at
-the quadratic attractor zero of $\FGC_N$ on $\mathcal{H}_N$: the
-$\sqrt{\Delta_N/N}$ arises from the $N$-level normalisation of the
-Humbert divisor, the logarithmic correction is the one-loop
-paramodular Jacobian $\det(\partial\FGC_N/\partial Z)|_{\mathcal{H}_N}$
-whose weight is $k_N = c_N(0)/2 - \chi(\mathcal{O}_{K3^{g_N}})$
-(cf.\ \texttt{wave8\_j4\_mirror\_CHL\_orbifold.tex} L$98$--$108$). At
-$N=1$ this recovers Sen $2007$ (\emph{hep-th/}$0708.1270$) Thm.~$2$.
+\paragraph{Mathieu twining census.}
+The ordinary \(M_{24}\) twining table has \(26\) ATLAS conjugacy classes:
+\[
+\begin{gathered}
+1A,\ 2A,\ 2B,\ 3A,\ 3B,\ 4A,\ 4B,\ 4C,\ 5A,\ 6A,\ 6B,\ 7A,\ 7B,\ 8A,\\
+10A,\ 11A,\ 12A,\ 12B,\ 14A,\ 14B,\ 15A,\ 15B,\ 21A,\ 21B,\ 23A,\ 23B.
+\end{gathered}
+\]
+The frame-shape rows most sensitive to misidentification are
+\[
+\begin{array}{c|c}
+\text{class} & \text{frame shape} \\
+\hline
+3B & 3^8 \\
+4A & 2^4 4^4 \\
+4B & 1^4 2^2 4^4 \\
+6B & 6^4 \\
+10A & 2^2 10^2 \\
+12A & 2^1 4^1 6^1 12^1 \\
+12B & 12^2 .
+\end{array}
+\]
+Each row satisfies \(\sum_i i a_i=24\) for frame shape
+\(\prod_i i^{a_i}\). The primitive CHL ladder uses the chosen CHL
+classes and their orbifold Jacobi inputs; the ordinary \(M_{24}\)
+census remains independent.
 
-\paragraph{BTZ entropy.} \ClaimStatusTheorem{} The AdS$_3$/CFT$_2$
-dual at CHL level $N$ is
-$\AdS_3 \times S^3/\Z_N \times K3/\Z_N$ with AdS$_3$ radius set by
-$\Delta_N$ and CFT$_2$ central charge
-\begin{equation}
-c_L^{(N)} \;=\; 6\,\chi_{g_N}(K3), \qquad
-c_R^{(N)} \;=\; 6\,\chi_{g_N}(K3) + 12,
-\label{wn:eq:wave11-x4-CFT-central-charge-CHL}
-\end{equation}
-matching Maldacena $1998$ (\emph{Adv.\ Theor.\ Math.\ Phys.}~$2$:$231$)
-at $N=1$ with $c_L = 144$ from $6\cdot 24$. Cardy gives
-$S_{\mathrm{Cardy}}^{(N)} = 2\pi\sqrt{c_L^{(N)} L_0 / 6}$ which at
-$L_0 = \Delta_N/(4N)$ reproduces
-\eqref{wn:eq:wave11-x4-rademacher-asymptotic-CHL} to leading order,
-confirming AdS$_3$/CFT$_2$. \emph{Proof.} The D1-D5-KK-P brane
-configuration on $(K3\times E)/\Z_N$ near-horizon geometry is
-AdS$_3\times S^3\times (K3/\Z_N)$ (Maldacena--Strominger $1997$); the
-$\Z_N$-quotient on $S^3$ reduces $c_L$ from $6\cdot 24 = 144$ to
-$6\chi_{g_N}(K3)$ exactly as the symplectic $g_N$-trace on
-$H^{*,*}(K3)$.
+\paragraph{Protected dyon index.}
+For charges \((Q,P)\) in the CHL electric-magnetic Narain lattice, put
+\[
+  \Delta_N(Q,P)=Q^2P^2-(Q\cdot P)^2 .
+\]
+In a contour chamber \(\mathcal C\) avoiding walls of marginal
+stability, the Jatkar-Sen quarter-BPS helicity supertrace is extracted
+by
+\[
+d_N(Q,P;\mathcal C)
+=
+(-1)^{Q\cdot P+1}
+\oint_{\mathcal C}
+\frac{
+e^{-\pi i(Q^2 z_1+2(Q\cdot P)z_2+P^2 z_3)}
+}{
+\PhiPhys_N(Z)
+}
+d^3Z,
+\qquad
+Z=\begin{pmatrix}z_1&z_2\\ z_2&z_3\end{pmatrix}\in\mathfrak H_2 .
+\label{wn:eq:chl-dyon-count}
+\]
+The output is a protected signed index in the specified CHL chamber. At
+\(N=1\) this is the Dijkgraaf-Verlinde-Verlinde contour formula for
+\(1/\Phi_{10}=1/\Delta_5^2\). For \(N\in\{2,3,4,6\}\), the theorem-level
+input is the CHL protected-index formula for the physical denominator
+\(\PhiPhys_N\); comparison with the BKM square root is an additional
+normalization theorem.
 
-\paragraph{Holographic elliptic genus.} \ClaimStatusTheorem{} The
-sphere partition function of AdS$_3$/CFT$_2$ at CHL level $N$ equals
-the $g_N$-twined elliptic genus:
-\begin{equation}
-Z^{\AdS_3}_{\mathrm{ell}}(X^{(N)})(\tau,z)
-\;=\; \Tr_{\mathrm{RR}}\bigl(g_N\, q^{L_0 - c/24}\,
-  \bar q^{\bar L_0 - \bar c/24}\, y^{J_0}\bigr)
-\;=\; Z^{(g_N)}_{\mathrm{ell}}(K3)(\tau,z).
-\label{wn:eq:wave11-x4-holographic-elliptic-genus-CHL}
-\end{equation}
-\emph{Proof.} Dijkgraaf--Moore--Verlinde--Verlinde $1997$
-(\emph{Comm.\ Math.\ Phys.}~$185$:$197$) second-quantised
-Sym$^n(K3)$ elliptic genus; CHL orbifolding by $g_N$ extracts the
-$g_N$-invariant Hilbert series, which is the $g_N$-twined elliptic
-genus by Eguchi--Ooguri--Tachikawa $2011$. The right-hand side is a
-weak Jacobi form of weight $0$ and index $1$ with character under
-$\Gamma_0(N)$; its theta-decomposition coefficients generate the
-Mathieu moonshine $M_{24}$-module graded representations (Gannon
-$2016$, \emph{Adv.\ Math.}~$301$:$322$).
+\paragraph{Large-charge saddle.}
+The attractor-chamber saddle gives
+\[
+  \log d_N(Q,P;\mathcal C)
+  =
+  \pi\sqrt{\Delta_N(Q,P)/N}+O(\log \Delta_N).
+\label{wn:eq:chl-leading-entropy}
+\]
+In the BKM square-root normalization, the automorphic weight
+contribution to the logarithmic term is
+\[
+  \kBKM(\DBKM_N)-\frac32
+  =
+  \frac{c_N(0)}2-\frac32 .
+\label{wn:eq:chl-bkm-log-weight}
+\]
+Conversion from \eqref{wn:eq:chl-bkm-log-weight} to the full quantum
+entropy logarithmic coefficient requires the square-root comparison,
+the contour measure, the Gaussian determinant, and the massless
+zero-mode subtraction in one convention.
 
-\paragraph{Four $\kappa_\bullet$ at CHL.} \ClaimStatusTheorem{}
-\begin{equation}
-\bigl(\kappacat(X^{(N)}),\, \kappach(\mathcal{A}_{X^{(N)}}),\,
-  \kappaBKM(\FGC_N),\, \kappafib(X^{(N)})\bigr)
-\;=\; \bigl(0,\, 0,\, c_N(0)/2,\, \chi_{g_N}(K3)\bigr).
-\label{wn:eq:wave11-x4-four-kappa-CHL}
-\end{equation}
-\emph{Proof.} $\kappacat = \chi(\mathcal{O}_{X^{(N)}}) = 0$ by
-K\"unneth multiplicativity: $\chi(\mathcal{O}_{K3\times E}) =
-\chi(\mathcal{O}_{K3})\cdot\chi(\mathcal{O}_E) = 2\cdot 0 = 0$, and the
-$\Z_N$-quotient preserves $\chi(\mathcal{O}) = 0$. $\kappach = 0$ via
-$\Phi$ at $d = 3$ (Hodge supertrace identification; $E_1$-chiral
-output). $\kappaBKM(\FGC_N) = c_N(0)/2$ is Borcherds weight
-(Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}).
-$\kappafib = \chi_{g_N}(K3) \in \{24,8,6,4,2\}$ from the twined Euler
-character of the K3-fibre under $g_N$. The four invariants are
-computed from four \emph{different} constructions; no conflation.
+\paragraph{AdS and index scope.}
+The holographic consequence supported by the protected dyon formula is
+the leading entropy identity
+\[
+  S_{\mathrm{BH}}^{(N)}
+  =
+  \pi\sqrt{\Delta_N(Q,P)/N}.
+\]
+The Brown-Henneaux central charge is determined by the near-horizon
+radius and the three-dimensional Newton constant of the chosen
+D1-D5-KK-P host. The cohomological trace
+\[
+  \chi_{g_N}(K3)=\Tr(g_N\mid H^*(K3))
+  \in\{24,8,6,4,2\}
+\]
+is the protected K3 fibre index entering the twined elliptic genus and
+\(\kfib^{\mathrm{tw}}\).
 
-\paragraph{Five attack--heal cycles.}
-\begin{enumerate}[(1)]
-\item \emph{Attack.} Denominator exponent of $\FGC_N$ in
-\eqref{wn:eq:wave11-x4-dyon-count-CHL} is not $2$ at $N\geq 2$;
-Dabholkar--Harvey uses $(\Phi_{10})^1$, not squared. \emph{Heal.}
-Corrected: the denominator is $\FGC_N$ to the first power, with
-weight $k_N$; the DVV $(\Phi_{10})^{-1}$ at $N=1$ has $k_1 = 10$
-matching the Igusa cusp form $\Phi_{10}$ (not
-$\FGC_1 = \Delta_5$ squared; $\Phi_{10} = (\Delta_5)^2$ via Gritsenko
-$1999$ Cor.~$3.3$). Formula \eqref{wn:eq:wave11-x4-dyon-count-CHL}
-uses $\FGC_N = \Delta_{k_N}^{(N)}$, the Gritsenko--Cl\'ery tower;
-at $N=1$, $1/\FGC_1^2 = 1/\Delta_5^2 = 1/\Phi_{10}$.
+\paragraph{Twined elliptic genus.}
+The protected seed index is
+\[
+Z^{(g_N)}_{\mathrm{ell}}(K3)(\tau,z)
+=
+\Tr_{\mathrm{RR}}\!\left(
+g_N q^{L_0-c/24}\bar q^{\bar L_0-\bar c/24}y^{J_0}
+\right).
+\label{wn:eq:chl-twined-elliptic-genus}
+\]
+It is a weak Jacobi form of weight \(0\) and index \(1\), with the
+multiplier determined by the CHL congruence subgroup. A theorem-level
+bulk comparison concerns this protected index, the contour chamber, and
+the specified CHL host geometry; equality of ordinary partition
+functions requires a localization theorem with matching boundary
+conditions and measures.
 
-\item \emph{Attack.} $\sqrt{\Delta_N/N}$ vs $\sqrt{\Delta_N}$ in
-Rademacher: does the $1/N$ arise from lattice normalisation or from
-orbifold area reduction? \emph{Heal.} Both: $\Lambda^{(N)}_e$ has
-discriminant $N$-scaled (Jatkar--Sen $2005$ \S$3$), and the BTZ
-horizon at CHL level $N$ shrinks by $\sqrt{N}$ (Sen $2010$
-\emph{hep-th/}$0908.0039$); they are two views of the same
-$\Z_N$-quotient of AdS$_3\times S^3$.
+\paragraph{Four invariants.}
+The CHL quotient carries four separate invariants:
+\[
+\bigl(
+  \kcat(X^{(N)}),
+  \kch(\mathcal A_{X^{(N)}}),
+  \kBKM(\DBKM_N),
+  \kfib^{\mathrm{tw}}(X^{(N)})
+\bigr)
+=
+\bigl(
+  0,\ 0,\ c_N(0)/2,\ \chi_{g_N}(K3)
+\bigr).
+\label{wn:eq:chl-four-invariants}
+\]
+The equality \(\kcat(X^{(N)})=\chi(\mathcal O_{X^{(N)}})=0\) follows
+from the finite etale cover \(K3\times E\to X^{(N)}\) and
+\(\chi(\mathcal O_{K3\times E})=\chi(\mathcal O_{K3})\chi(\mathcal O_E)
+=2\cdot0=0\). The compact chiral supertrace is
+\[
+  \kch(\mathcal A_{X^{(N)}})=
+  \sum_q(-1)^q h^{0,q}(X^{(N)})=1-1=0
+\]
+for the compact Calabi-Yau threefold output. The Borcherds invariant is
+the automorphic weight \(c_N(0)/2\). The fibre invariant is the Lefschetz
+trace of \(g_N\) on K3 cohomology.
 
-\item \emph{Attack.} BTZ entropy \eqref{wn:eq:wave11-x4-CFT-central-charge-CHL}
-fails at $N=6$: $c_L^{(6)} = 6\cdot 2 = 12$, too small for non-trivial
-black holes. \emph{Heal.} $N=6$ is the extremal CHL point: the
-near-horizon AdS$_3$ degenerates to BTZ-thermal vacuum with
-$c_L = 12$ matching the $6D_4$-Niemeier fibre; only $(Q,P)$ with
-$\Delta_6 \geq 12$ produce smooth black holes (Cheng--Duncan
-$2012$). Below this bound: small black holes with stringy
-$\alpha'$-corrections.
+At \(N=1\), the compact \(K3\times E\) object also has the
+four-construction menu
+\[
+  \{\kcat,\ \kappa_{\mathrm{ch}}^{\mathrm{Heis}},\ \kBKM,\ \kfib\}
+  =
+  \{0,3,5,24\}.
+\]
+Here \(\kch(K3\times E)=0\) is the compact Hodge supertrace, while
+\(\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3\) is the Heisenberg-Mukai
+specialization. The number \(5\) is the weight of \(\Delta_5\), and
+\(24\) is the K3 fibre cohomological trace.
 
-\item \emph{Attack.} Holographic elliptic genus
-\eqref{wn:eq:wave11-x4-holographic-elliptic-genus-CHL} is not exact
-at finite $N$; bulk 1-loop corrections alter the RHS. \emph{Heal.}
-The elliptic genus is a \emph{protected} BPS index (Witten $1987$):
-supersymmetric localisation on AdS$_3$ (Murthy--Reys $2014$
-\emph{arXiv:}$1306$.$3795$) shows $Z^{\AdS_3}_{\mathrm{ell}}$ receives
-only tree-level contributions from $\mathcal{N}=4$ supergravity,
-matching CFT$_2$ exactly.
+\paragraph{Operadic scope.}
+Since \(\dim_{\mathbb C}X^{(N)}=3\), the specialized chiral output
+\(\mathcal A_{X^{(N)}}\) is native \(E_1\)-chiral. Any \(E_2\) braided
+structure belongs to the derived chiral centre
+\[
+  \mathcal Z(\operatorname{Rep}^{E_1}(\mathcal A_{X^{(N)}}))
+\]
+or to a completed Hall-Drinfeld double after the pairing, coproduct,
+completion, and centre-continuity data are supplied.
 
-\item \emph{Attack.} $\kappafib = \chi_{g_N}(K3)$ conflates the
-K3-fibre Euler with a \emph{twisted} Euler; at $N=1$, $\chi_{g_1}=24$
-but the untwisted K3 has $\chi = 24$ already. \emph{Heal.} $g_1 =
-\mathrm{id}$, so $\chi_{g_1}(K3) = \chi(K3) = 24$ trivially; at
-$N\geq 2$, $\chi_{g_N}(K3) < 24$ strictly, tracking the
-$g_N$-fixed-point count via Lefschetz-fixed-point
-(Mukai $1988$ Theorem~$4.1$). The four invariants
-\eqref{wn:eq:wave11-x4-four-kappa-CHL} remain from four distinct
-constructions.
+\paragraph{Theorem boundary.}
+The following data are required before a quantum-gravity or BPS-algebra
+claim can be used as theorem-level input:
+\begin{enumerate}
+\item the precise protected index, including sign convention and charge
+  lattice;
+\item the contour or stability chamber;
+\item the host geometry and quotient convention;
+\item the comparison theorem relating the physical denominator
+  \(\PhiPhys_N\) to \(\DBKM_N\);
+\item the compact Hall-Drinfeld or BPS quantum-group construction,
+  including orientation, primitive projection, PBW compatibility, and
+  radical quotient.
 \end{enumerate}
+Consequently, the theorem-level content consists of the constants,
+invariant separation, protected-index scope, and listed proof
+obligations.
 
-\paragraph{Scope.} Theorem at chain-level for
-\eqref{wn:eq:wave11-x4-dyon-count-CHL}--\eqref{wn:eq:wave11-x4-four-kappa-CHL}
-conditional on the CFG25-lift of $\FGC_N$ (Cheng--Feraro--Gritsenko
-$2025$, $24\%$ lift rate at $N=4$; \texttt{FRONTIER.md} L$122$) and
-the Mukai-sublattice identification
-$K3^{g_N}\subset\Lambda_{K3}^{\Z_N}$. No conflation of the four
-subscripted $\kappa_\bullet$. All statements at $E_1$-chiral level
-for $d = \dim X^{(N)} = 3$, consistent with the
-$E_n$-hierarchy~(Part~III).
-
-\paragraph{Citations.} Dabholkar--Harvey $1989$,
-\emph{Nucl.\ Phys.\ B}~$324$:$387$. Maldacena $1998$,
-\emph{Adv.\ Theor.\ Math.\ Phys.}~$2$:$231$. Maldacena--Strominger
-$1997$, \emph{JHEP}~$12$:$002$. Jatkar--Sen $2005$,
-\emph{hep-th/}$0510147$. Sen $2007$,
-\emph{hep-th/}$0708.1270$. Sen $2010$,
-\emph{hep-th/}$0908.0039$. Bekenstein $1973$,
-\emph{Phys.\ Rev.\ D}~$7$:$2333$;
-Hawking $1975$, \emph{Comm.\ Math.\ Phys.}~$43$:$199$.
-Dijkgraaf--Moore--Verlinde--Verlinde $1997$,
-\emph{Comm.\ Math.\ Phys.}~$185$:$197$.
+\paragraph{Sources.}
+Borcherds 1998, Theorem 13.3; Gritsenko-Nikulin 1995; Gritsenko 1999;
+Dijkgraaf-Verlinde-Verlinde 1997; Jatkar-Sen 2005; Sen 2007 and 2010;
+Eguchi-Ooguri-Tachikawa 2011; the ATLAS \(M_{24}\) table;
+Conway-Sloane; Gaberdiel-Hohenegger-Volpato 2012.

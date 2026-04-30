@@ -139,6 +139,7 @@ phi01_coefficient = _phi01_mod.phi01_coefficient
 
 _k3e_coha = _import_sibling('k3e_coha_structure')
 _k3e_chain = _import_sibling('k3e_e1_product_chain')
+CoHAParityFixture = _k3e_coha.CoHAParityFixture
 
 
 # =========================================================================
@@ -443,15 +444,53 @@ def k3e_chart_atlas() -> Dict[str, Any]:
 
 
 # =========================================================================
-# 2. LOCAL COHA ON EACH CHART
+# 2. LOCAL SIGNED-CHARACTER STATISTICS ON EACH CHART
 # =========================================================================
 
-def local_coha_dimension(charge: MukaiCharge, max_n: int = 20) -> int:
-    """Dimension of the local CoHA at charge gamma = (r, l, m).
+def local_signed_character_coefficient(charge: MukaiCharge,
+                                       max_n: int = 20) -> int:
+    """Signed character coefficient c(D) at charge gamma = (r, l, m)."""
+    D = charge.discriminant
+    if D < -1:
+        return 0
+    c_disc = phi01_by_discriminant(min(max_n, 24))
+    return c_disc.get(D, 0)
 
-    For K3 x E, the CoHA dimension at charge gamma is |c(D)| where
-    D = 4rm - l^2 is the discriminant and c(D) is the Fourier coefficient
-    of the weak Jacobi form phi_{0,1} of weight 0 and index 1.
+
+def local_signed_character_magnitude(charge: MukaiCharge,
+                                     max_n: int = 20) -> int:
+    """Unsigned statistic |c(D)| at charge gamma, not a CoHA dimension."""
+    return abs(local_signed_character_coefficient(charge, max_n))
+
+
+def local_unsigned_coefficient_statistic(charge: MukaiCharge,
+                                         max_n: int = 20) -> int:
+    """Alias for the unsigned local coefficient magnitude |c(D)|."""
+    return local_signed_character_magnitude(charge, max_n)
+
+
+def _local_parity_fixture_for_charge(
+    charge: MukaiCharge,
+    parity_fixture: Optional[Any],
+) -> Optional[CoHAParityFixture]:
+    """Resolve a parity fixture keyed by MukaiCharge or by (r,l,m)."""
+    if parity_fixture is None:
+        return None
+    if isinstance(parity_fixture, CoHAParityFixture):
+        return parity_fixture
+    return (
+        parity_fixture.get(charge)
+        or parity_fixture.get((charge.r, charge.l, charge.m))
+    )
+
+
+def local_coha_dimension(charge: MukaiCharge, max_n: int = 20,
+                         parity_fixture: Optional[Any] = None) -> int:
+    """Parity-resolved local CoHA dimension at charge gamma = (r, l, m).
+
+    The Fourier coefficient c(D) gives a signed character.  The magnitude
+    |c(D)| is not a CoHA dimension unless a parity fixture/source identifies
+    the even/odd split in the local charge sector.
 
     Parameters
     ----------
@@ -460,17 +499,22 @@ def local_coha_dimension(charge: MukaiCharge, max_n: int = 20) -> int:
     max_n : int
         Truncation for phi_{0,1} computation.
     """
-    D = charge.discriminant
-    if D < -1:
-        return 0
-    c_disc = phi01_by_discriminant(min(max_n, 24))
-    return abs(c_disc.get(D, 0))
+    fixture = _local_parity_fixture_for_charge(charge, parity_fixture)
+    if fixture is None:
+        raise ValueError(
+            "Local CoHA dimension requires parity fixture/source recognition; "
+            "use local_signed_character_magnitude(...) for |c(D)|."
+        )
+    return _k3e_coha.coha_dimension(
+        charge.r, charge.l, charge.m, max_n=max_n, parity_fixture=fixture
+    )
 
 
-def local_coha_dimensions_table(max_r: int = 3, max_l: int = 3,
-                                 max_m: int = 3,
-                                 max_n: int = 20) -> Dict[MukaiCharge, int]:
-    """Table of local CoHA dimensions for charges up to given bounds."""
+def local_signed_character_magnitude_table(max_r: int = 3, max_l: int = 3,
+                                           max_m: int = 3,
+                                           max_n: int = 20
+                                           ) -> Dict[MukaiCharge, int]:
+    """Table of local unsigned coefficient magnitudes |c(D)|."""
     c_disc = phi01_by_discriminant(min(max_n, 24))
     table = {}
     for r in range(0, max_r + 1):
@@ -485,6 +529,33 @@ def local_coha_dimensions_table(max_r: int = 3, max_l: int = 3,
                 if cD != 0:
                     charge = MukaiCharge(r, l_val, m)
                     table[charge] = abs(cD)
+    return table
+
+
+def local_coha_dimensions_table(
+    max_r: int = 3,
+    max_l: int = 3,
+    max_m: int = 3,
+    max_n: int = 20,
+    parity_fixtures: Optional[Any] = None,
+) -> Dict[MukaiCharge, int]:
+    """Table of sourced local CoHA dimensions from parity fixtures."""
+    if parity_fixtures is None:
+        raise ValueError(
+            "Local CoHA dimensions require parity fixtures; "
+            "use local_signed_character_magnitude_table(...) for |c(D)|."
+        )
+    table: Dict[MukaiCharge, int] = {}
+    for key, fixture in parity_fixtures.items():
+        if isinstance(key, MukaiCharge):
+            charge = key
+        else:
+            charge = MukaiCharge(*key)
+        if not (0 <= charge.r <= max_r and abs(charge.l) <= max_l and 0 <= charge.m <= max_m):
+            continue
+        table[charge] = local_coha_dimension(
+            charge, max_n=max_n, parity_fixture=fixture
+        )
     return table
 
 
@@ -656,14 +727,19 @@ class StabilityChart:
         self.tau_label = tau_label
         self.bps_spectrum = bps_spectrum or {}
 
-    def coha_dimension(self, charge: MukaiCharge) -> int:
-        """Dimension of the local CoHA at charge gamma."""
+    def signed_character_magnitude(self, charge: MukaiCharge) -> int:
+        """Unsigned local coefficient magnitude |c(D)| at charge gamma."""
         if charge in self.bps_spectrum:
             return abs(self.bps_spectrum[charge])
-        return local_coha_dimension(charge)
+        return local_signed_character_magnitude(charge)
+
+    def coha_dimension(self, charge: MukaiCharge,
+                       parity_fixture: Optional[Any] = None) -> int:
+        """Parity-resolved local CoHA dimension at charge gamma."""
+        return local_coha_dimension(charge, parity_fixture=parity_fixture)
 
     def generating_function(self, N: int) -> FPS:
-        """The generating function of the local CoHA dimensions.
+        """The large-volume rank-sector generating function.
 
         For the large-volume chart, this is:
           Z(q) = prod_{n>=1} 1/(1-q^n)^{chi(K3)} = 1/eta(q)^{24}
@@ -1262,10 +1338,11 @@ def bar_euler_product_observation(N: int = 12) -> Dict[str, Any]:
     What we CAN verify:
     1. The Borcherds product formula for Delta_5 uses the discriminant
        coefficients c(D) of phi_{0,1}.
-    2. The CoHA dimensions dim CoHA_gamma = |c(D)|.
-    3. The root multiplicities of g_{Delta_5} are |c(D)|.
+    2. The unsigned coefficient statistic is |c(D)|.
+    3. The signed BKM character coefficient is c(D).
     4. IF B^{E_1}(E_{q,t}) existed, its bar Euler product would be
-       prod (1 - x_gamma)^{dim_gamma} = prod (1 - ...)^{|c(D)|}.
+       constrained by these signed coefficients; ordinary CoHA dimensions
+       would still require parity-resolved source data.
 
     The SIGN of c(D) matters: c(D) < 0 for fermionic roots (D = 3, 7, 11, ...)
     and c(D) > 0 for bosonic roots (D = 0, 4, 8, 12, ...).
@@ -1354,8 +1431,8 @@ def verify_hocolim_identification(N: int = 12) -> Dict[str, Any]:
       (not merely trigonometric) deformation.
 
     PATH 3 (Root multiplicities):
-      The CoHA dimensions = |c(D)| = root multiplicities of g_{Delta_5}.
-      These are the same multiplicities appearing in the Borcherds product
+      The signed BKM character coefficients are c(D), with finite unsigned
+      magnitude statistic |c(D)|.  These are the coefficients appearing in the Borcherds product
       for Delta_5, which is the denominator identity of the BKM algebra.
 
     PATH 4 (Specializations):
@@ -1547,7 +1624,7 @@ def cross_verify_with_k3e_coha(N: int = 12) -> Dict[str, Any]:
 
     The existing k3e_coha_structure module computes:
     1. Root multiplicities c(D) from phi_{0,1}.
-    2. CoHA dimensions |c(D)|.
+    2. Unsigned coefficient magnitudes |c(D)|.
     3. Rank-sector generating functions.
 
     We verify that our computations agree.
@@ -1632,7 +1709,7 @@ def elliptic_hall_hocolim_summary(N: int = 12) -> Dict[str, Any]:
 
     Brings together all computations:
     1. Chart atlas for K3 x E.
-    2. Local CoHA dimensions.
+    2. Local signed-character coefficient statistics.
     3. Hocolim diagram.
     4. Specialization verifications.
     5. Borcherds product observation.

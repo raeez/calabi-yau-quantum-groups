@@ -123,7 +123,7 @@ which is the statement that parameters coincide (degeneration).
 COMPARISON WITH BKM ROOTS
 ===========================
 
-The BKM Lie algebra g_{Delta_5} associated to the Igusa cusp form Delta_5
+The BKM Lie algebra g_{Delta_5} associated to the primitive Gritsenko-Nikulin denominator Delta_5
 has simple roots indexed by the Mukai lattice vectors of norm -2.
 The qdet zeros u_i = rho_i + h_i should correspond to these simple roots
 in the following sense:
@@ -882,7 +882,7 @@ def qdet_bkm_connection(
             'analogous to g_{i0} * g_{i1} = 1 in the sl_2 case).'
         ),
         'kappa_connection': (
-            'kappa_BKM = 5 (weight of Igusa cusp form Delta_5). '
+            'kappa_BKM = 5 (weight of primitive Gritsenko-Nikulin denominator Delta_5). '
             'compact kappa_ch(K3xE)=0; relative kappa_ch^Heis=3. '
             'kappa_fiber = 24 (Mukai lattice rank = degree of qdet). '
             'The degree of qdet equals kappa_fiber, NOT compact kappa_ch, '

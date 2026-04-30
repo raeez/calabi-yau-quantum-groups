@@ -1,229 +1,345 @@
-% !TEX root = ../main.tex
-%
-% Wave-19 Y3/20: N=6 CHL effective positive-half geometry and
-%   M^+_{eff}(X_6) and BPS Lie algebra g^{(6)}_{BPS}.
-%
-% Primary sources (no fabrication):
-%   Bryan--Oberdieck 2018 arXiv:1811.06102 (CHL K3xE reduced DT);
-%   Oberdieck 2018 Duke 167:3045 Thm.~1 (reduced K3xE);
-%   Nikulin 1980, Trudy Moscow Math.\ Soc.\ 38 (symplectic K3 aut);
-%   Mukai 1988 Invent.\ Math.\ 94 Table 2 (class 6A);
-%   Hashimoto 2012 Tohoku 64:105 Thm.\ 4.1 (order-6 fixed locus);
-%   Gritsenko 1999 alg-geom/9906190 Thm.\ 1.2, Cor.~3.3 (paramodular lifts);
-%   Gritsenko--Cl\'ery 2008, Abh.\ Math.\ Sem.\ Univ.\ Hamburg 78;
-%   Cheng--Duncan--Harvey 2014 arXiv:1307.5793 (umbral Niemeier 6D_4);
-%   Borcherds 1998 Invent.\ Math.\ 132 Thm.\ 13.3 (singular theta lift);
-%   Davison--Meinhardt 2020 Invent.\ Math.\ 221 Thm.\ 5.13 (BPS Lie algebra);
-%   Maulik--Okounkov 2019 Ast\'erisque 408 \S 4 (stable envelopes);
-%   Schiffmann--Vasserot 2017 Duke 166:1005 (positive half);
-%   Lorgat 2020 arXiv:2007.14218 (explicit Borcherds lift of phi_{0,1}).
-%
-% Subscripted kappa. \providecommand. No AI attribution. Authorship: Raeez Lorgat.
-
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
 \providecommand{\bC}{\mathbb{C}}
 \providecommand{\bZ}{\mathbb{Z}}
 \providecommand{\bQ}{\mathbb{Q}}
 \providecommand{\Aut}{\mathrm{Aut}}
 \providecommand{\Auts}{\mathrm{Aut}_s}
+\providecommand{\Fix}{\mathrm{Fix}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Coh}{\mathrm{Coh}}
 \providecommand{\DT}{\mathrm{DT}}
 \providecommand{\red}{\mathrm{red}}
 \providecommand{\BPS}{\mathrm{BPS}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
 \providecommand{\eff}{\mathrm{eff}}
-\providecommand{\mult}{\mathrm{mult}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cA}{\mathcal{A}}
 \providecommand{\cM}{\mathcal{M}}
 \providecommand{\fg}{\mathfrak{g}}
 \providecommand{\fn}{\mathfrak{n}}
-\providecommand{\FGC}{F^{\mathrm{GC}}}
+\providecommand{\Teq}{T_{\mathrm{eq}}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Yp}{Y^{+}}
 \providecommand{\DTred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
+\providecommand{\Hall}{\mathrm{Hall}}
+\providecommand{\wt}{\mathrm{wt}}
+\providecommand{\sdim}{\operatorname{sdim}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\DeltaCHLSix}{\Delta_{1}^{(6)}}
 
-\section*{Wave-19 Y3: $N=6$ CHL positive-half geometry and
-$\fg^{(6)}_{\BPS}$}
-\label{wn:sec:wave19-y3-N6-positive-half-BPS}
+\section*{Level-six CHL positive half and BPS Lie algebra}
+\label{n6:sec:positive-half-BPS}
 
-\paragraph{The threefold.}
-Let $g_6 \in \Auts(K3)$ be a Mukai-symplectic automorphism of order $6$,
-Mathieu class $6A$ of $M_{23}$ with cycle shape $1^{2}2^{2}3^{2}6^{2}$
-(Mukai 1988 Table~2). The $\bZ_6$-factorisation
-$\bZ_6 = \bZ_2 \oplus \bZ_3$ realises $g_6 = g_2 \circ g_3$ as the
-commuting product of a Nikulin involution (frame shape $1^{8}2^{8}$) and
-the order-$3$ symplectic class (frame shape $1^{6}3^{6}$). The
-$g_6$-fixed locus on K3 is $2A_5 + 2D_4$ (Hashimoto 2012 Theorem~4.1);
-the Mukai-invariant sublattice $\Lambda_{K3}^{g_6}\subset
-\Lambda_{K3}=\mathrm{II}_{3,19}$ has rank $r_6 = 14$ and coinvariant
-signature $(0,8)$ (Nikulin 1980 Theorem~4.15). Let $t_6 \in E[6]$ be a
-six-torsion translation of \emph{exact} order $6$. The diagonal
-$\langle(g_6, t_6)\rangle \cong \bZ_6$ acts freely on $K3\times E$ --
-the $g_6$-fixed K3 points are displaced by $t_6 \neq 0 \in E$ -- so
+\paragraph{The quotient and the K3 lattice.}
+Let $S$ be a K3 surface and let
+$g_6\in\Auts(S)$ be a Mukai symplectic automorphism of order $6$,
+Mathieu class $6A$, with cycle shape $1^2 2^2 3^2 6^2$ on the
+Mathieu permutation representation. Hashimoto's fixed-locus table gives
 \[
-   X_6 \;=\; (K3\times E) \big/ \langle(g_6, t_6)\rangle
+  |\Fix(g_6)|=2,\qquad
+  |\Fix(g_6^2)|=6,\qquad
+  |\Fix(g_6^3)|=8 .
 \]
-is the CHL Calabi--Yau threefold at level $6$ (Chaudhuri--Hockney--Lykken
-1995, \texttt{arXiv:hep-th/9506144}). Symplecticity of $g_6$ and
-translation invariance of $dz_E$ preserve the product holomorphic
-$3$-form; $X_6$ is smooth CY$_3$ with
-$\omega_{X_6}\in H^{3,0}(X_6)$, requiring no crepant resolution because
-the action is fixed-point free.
-Four-invariant accounting: $\kcat(X_6) = \chi(\cO_{X_6}) = 0$ by
-K\"unneth-multiplicativity on the cover ($\chi(\cO_E) = 0$);
-$\kfib^{(6)} = r_6 = 14$; $\kBKM(\Delta_1^{(6)}) = c_6(0)/2 = 1$;
-$\kch(X_6) = \chi(\cO_{X_6}) = 0$ by the compact-CY$_3$ Hodge-supertrace
-identification.
+The topological Lefschetz formula gives
+\[
+  \operatorname{Tr}(g_6^a\mid H^2(S,\bQ))
+  =
+  |\Fix(g_6^a)|-2
+\]
+for $a=1,\ldots,5$, hence the trace row on $H^2(S)$ is
+\[
+  22,\ 0,\ 4,\ 6,\ 4,\ 0
+\]
+for $a=0,\ldots,5$. Averaging over the cyclic group gives
+\[
+  \operatorname{rk}H^2(S,\bQ)^{g_6}=6,\qquad
+  \operatorname{rk}\widetilde H(S,\bQ)^{g_6}=8,
+\]
+where $\widetilde H(S,\bQ)=H^0(S,\bQ)\oplus H^2(S,\bQ)\oplus H^4(S,\bQ)$
+is the Mukai lattice over $\bQ$. The $H^2$ coinvariant lattice has rank
+$16$ and is negative definite. The order-six descent uses the rank $8$
+invariant Mukai charge.
 
-\paragraph{Cycle 1 (attack--heal): Niemeier vs.~Du-Val stratification.}
-\emph{Attack.} Two lattice-theoretic anchors at $N = 6$ apparently
-compete: the umbral Niemeier lattice $6D_4$ (Cheng--Duncan--Harvey 2014
-Table~2, umbral group $3.\mathrm{Sym}_6$ of order $2160$) and the local
-Du-Val type $2A_5 + 2D_4$ of the singular quotient
-$K3/\langle g_6\rangle$.
-\emph{Heal.} Both are canonical in disjoint categories: $6D_4$ is the
-global rank-$24$ positive-definite unimodular umbral anchor; $2A_5+2D_4$
-is the local Du-Val stratification on $K3/\langle g_6\rangle$ (not on
-$X_6$ itself, which is smooth). The Niemeier lattice $4A_5 + D_4$ also
-has Coxeter number $h = 6$ but is a distinct Niemeier entry (item \#18
-of Niemeier's list) and does \emph{not} label the $N=6$ umbral anchor
-(Wave-11 U1 resolution).
+The quotient surface $S/\langle g_6\rangle$ has two
+stabiliser-$\bZ_6$ orbits, two stabiliser-$\bZ_3$ orbits, and two
+stabiliser-$\bZ_2$ orbits. Its Du Val type is therefore
+\[
+  2A_5+2A_2+2A_1 .
+\]
+The Burnside check is
+\[
+   e(S/\langle g_6\rangle)
+   = {24+2+6+8+6+2\over 6}=8,\qquad
+   2\cdot5+2\cdot2+2\cdot1=16,
+\]
+and the minimal resolution has Euler number $24$.
 
-\paragraph{Cycle 2 (attack--heal): reduced equivariant DT character.}
-\emph{Attack.} The untwisted DT theory of $X_6$ vanishes by the
-Maulik--Pandharipande--Thomas reduced-theory obstruction inherited from
-the K3 factor (MPT 2010 \texttt{arXiv:1001.2719}).
-\emph{Heal (Bryan--Oberdieck 2018 \texttt{arXiv:1811.06102};
-Oberdieck 2018 Theorem~1).} The reduced orbifold DT partition function
-of the CHL threefold $X_6$ is
+Let $t_6\in E[6]$ be a translation of exact order $6$ on an elliptic
+curve $E$, and put
+\[
+  \sigma_6=(g_6,t_6),\qquad
+  X_6=(S\times E)/\langle\sigma_6\rangle .
+\]
+For $1\leq a\leq5$, the translation $t_6^a$ is fixed-point free. Hence
+$\sigma_6^a$ is fixed-point free on $S\times E$, and the quotient map
+$p\colon S\times E\to X_6$ is finite \'{e}tale of degree $6$. The product
+form $\omega_S\wedge dz_E$ descends because $g_6$ is symplectic and
+translations preserve $dz_E$. Thus $X_6$ is a smooth $K$-trivial
+threefold with $h^{0,\bullet}(X_6)=(1,1,1,1)$. Projection to the
+elliptic factor gives a smooth isotrivial K3 fibration
+\[
+  X_6\longrightarrow E_6:=E/\langle t_6\rangle
+\]
+whose monodromy around the base is $g_6$.
+
+\paragraph{Invariant package and the level-six constant.}
+Translation acts trivially on $H^{0,*}(E)$, and the symplectic
+automorphism $g_6$ acts trivially on $H^{0,0}(S)$ and $H^{0,2}(S)$.
+Therefore
+\[
+  H^q(X_6,\cO_{X_6})
+  =
+  H^q(S\times E,\cO_{S\times E})^{\sigma_6},
+  \qquad
+  h^{0,\bullet}(X_6)=(1,1,1,1).
+\]
+Consequently
+\[
+  \kcat(X_6)=\chi(\cO_{X_6})=0,\qquad
+  \kch(\cA_{X_6})=\sum_q(-1)^q h^{0,q}(X_6)=0 .
+\]
+The level-six monodromy-invariant fibre charge is
+\[
+  \kfib^{(6),\mathrm{mon}}
+  =
+  \operatorname{rk}\widetilde H(S,\bQ)^{g_6}
+  =
+  8.
+\]
+These are compact total-space invariants of the free quotient. The
+untwisted parent $K3\times E$ carries a different five-entry package:
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(\cA_{K3\times E})=0,\qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,
+\]
+\[
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib(K3)=\operatorname{rk}\widetilde H(K3,\bQ)=24.
+\]
+The compact Hodge supertrace, the Heisenberg-Mukai specialisation, the
+Borcherds weight, and the Mukai fibre rank are four different
+constructions.
+
+The primitive CHL constants are
+\[
+  (c_1(0),c_2(0),c_3(0),c_4(0),c_6(0))
+  =(10,8,6,4,2),
+\]
+and Borcherds' singular-theta weight theorem gives, for the primitive
+CHL product $\Delta_{k(N)}^{(N)}$,
+\[
+  \kBKM\!\left(\Delta_{k(N)}^{(N)}\right)=\frac{c_N(0)}2 .
+\]
+For $N=6$,
 \begin{equation}
+  c_6(0)=2,\qquad
+  \kBKM(\DeltaCHLSix)=\wt(\DeltaCHLSix)=1 .
+  \label{n6:eq:kBKM}
+\end{equation}
+The level-one scalar convention is separate:
+\[
+  D_5=64^{-1}\Delta_5,\qquad
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2 .
+\]
+The ordinary $6A$ Mathieu twining constant, the primitive CHL constant,
+and the Gritsenko and Cl\'ery diagonal-divisor rows are three different
+normalisations. The ordinary single-twining row lies outside the
+primitive denominator. The primitive CHL denominator uses $c_6(0)=2$.
+The Gritsenko and Cl\'ery catalogue is indexed by triples $(t,N;k)$; its
+weight-$1$ row is the full-paramodular $(3,1;1)$ form $\Delta_1$, while
+the primitive CHL row here is the level-six form $\DeltaCHLSix$. The
+twice-weight tuple of the Gritsenko and Cl\'ery catalogue is
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+
+\paragraph{Niemeier and surface strata.}
+The order-six CHL row has two ADE anchors in different categories. The
+umbral Niemeier lattice is the rank-$24$ positive-definite unimodular
+lattice with root system $6D_4$ and umbral group
+$3.\mathrm{Sym}_6$ of order $2160$ (Cheng, Duncan, and Harvey 2014).
+The local analytic strata of the singular surface quotient are
+$2A_5+2A_2+2A_1$. The CHL and umbral level-six row is anchored by
+$6D_4$; the neighbouring Coxeter-number-$6$ Niemeier lattice
+$A_5^4D_4$ belongs to a different umbral character.
+
+\paragraph{Reduced DT scalar.}
+Let
+\[
+  \phi^{(6)}_{0,1}(\tau,z)
+  =
+  \sum_{n,\ell}c^{(6)}(n,\ell)q^n\zeta^\ell
+\]
+be the CHL-normalized level-six weak Jacobi input attached to $6A$. In the
+primitive Bryan and Oberdieck reduced curve-counting chamber the scalar
+denominator is the square of the primitive CHL denominator:
+\begin{equation}
+   \Phi^{\mathrm{scal}}_6(\tau,\sigma,z)
+   =
+   \DeltaCHLSix(\tau,\sigma,z)^2,
+   \qquad
    \DTred(X_6)(\tau,\sigma,z)
-   \;=\;
-   -\,\frac{C_6(\tau,z)}{\bigl(\Delta_1^{(6)}(\tau,\sigma,z)\bigr)^{2}},
-   \qquad C_6 = 2\,\phi^{(g_6)}_{0,1},
-   \label{wn:eq:wave19-y3-DTred-N6}
+   =
+   -\,\mathcal C^{\mathrm{BO}}_6(\tau,z)\,
+   \bigl(\Phi^{\mathrm{scal}}_6(\tau,\sigma,z)\bigr)^{-1}.
+   \label{n6:eq:DTred}
 \end{equation}
-where $\Delta_1^{(6)} \in M^{\mathrm{cusp}}_1(\Gamma_6^+)$ is the
-Gritsenko paramodular cusp form of weight $1$ on $\Gamma_6^+$
-(Gritsenko 1999 Corollary~3.3; Gritsenko--Cl\'ery 2008 item $N=6$ of
-the eight diagonal paramodular forms). The Borcherds input is the
-$g_6$-twined weak Jacobi form
-$\phi^{(g_6)}_{0,1}(\tau,z) = Z^{(g_6)}_{K3}(\tau,z)\in J_{0,1}(\Gamma_0(6))$
-with constant Fourier coefficient $c_6(0) = 2$
-(Cheng--Duncan--Harvey 2014 Table~2; Eguchi--Ooguri--Tachikawa
-\texttt{arXiv:1004.0956} Table~1; Gritsenko--Nikulin 1995 Part~II
-Theorem~2.1). The weight reads
-$\mathrm{wt}(\Delta_1^{(6)}) = c_6(0)/2 = 1$. Independent
-fixed-locus verification: $F_6 = \chi^{g_6}_{\mathrm{top}}(K3) = 2$
-(Mukai 1988, two $A_5$-points plus two $D_4$-points contributing one
-apiece), $\varepsilon_6 = 6$, giving
-$\kBKM = F_6/(2\varepsilon_6) \cdot \varepsilon_6 = 1$.
+The prefactor $\mathcal C^{\mathrm{BO}}_6$ is fixed by the
+Bryan-Oberdieck scalar normalisation and boundary terms. The square in
+\eqref{n6:eq:DTred} is the protected scalar curve-counting denominator.
+It records signed characters in the Bryan-Oberdieck chamber. The compact
+Hall positive half, Hall-Drinfeld double, and BKM recognition theorem are
+separate structures. A compact Hall bracket, Drinfeld double, vertex
+envelope, and BPS Lie algebra require the orientation, stability,
+pairing, parity, and PBW data below.
 
-\paragraph{Cycle 3 (attack--heal): effective positive-half geometry.}
-\emph{Attack.} The positive half $Y^+(K3\times E)$ of
-Schiffmann--Vasserot (SV 2017 Theorem~1.1) carries no Cartan
-involution; the CHL generator $\sigma_6 = (g_6)_* \otimes (t_6)_*$
-must be restricted equivariantly without spoiling the
-Maulik--Okounkov stable-envelope structure.
-\emph{Heal (Maulik--Okounkov 2019 \S 4, compatibility of stable
-envelopes with finite abelian symplectic $G$-action).} The effective
-positive half is the $\sigma_6$-invariant subalgebra
-\begin{equation}
-   \cM^{+}_{\eff}(X_6) \;\coloneqq\; Y^+(X_6) \;=\;
-   \bigl(Y^+(K3\times E)\bigr)^{\sigma_6},
-   \label{wn:eq:wave19-y3-Meff-N6}
-\end{equation}
-graded by the $\sigma_6$-invariant sublattice
-$\Lambda_{K3}^{g_6} \oplus H^*(E_6) \subset \Lambda_{K3} \oplus H^*(E)$
-of rank $r_6 + 2 = 16$, where $E_6 = E/\langle t_6\rangle$ is the
-$6$-isogenous elliptic curve. The $R$-matrix
-$R^{(6)}(u)$ on $\cM^{+}_{\eff}(X_6)$ is the $\sigma_6$-invariant
-restriction of $R^{K3\times E}(u)$ with spectral parameter rescaled by
-the isogeny.
-
-\paragraph{Cycle 4 (attack--heal): BPS Lie algebra via Davison--Meinhardt.}
-\emph{Attack.} Matching Fourier characters does not pin isomorphism
-class of a BKM; real- and imaginary-simple root content must be
-identified independently.
-\emph{Heal (Davison--Meinhardt 2020 Theorem~5.13; Davison 2022 Ann.\ of
-Math.\ 195 Theorem~1.1, BPS sheaf purity).} The perverse filtration on
-the reduced cohomological Hall algebra
-$\mathrm{CoHA}^{\mathrm{red}}(X_6)$ isolates the BPS sheaf
-$\mathcal{BPS}_{X_6}$, whose hypercohomology
+\paragraph{Effective positive half.}
+Fix a stability chamber $\theta$, a compact-support convention, an
+orientation datum $o$, and an equivariant torus $\Teq$ for the reduced
+critical CoHA construction on the cover. Write
 \[
-   \fg^{(6)}_{\BPS} \;\coloneqq\;
-   \bigoplus_{\alpha\in\Gamma^{+}_{X_6}}
-   H^{\bullet}\!\bigl(\mathcal{BPS}_{X_6,\alpha}\bigr)
+  \Yp_{\theta,o,\Teq}(S\times E)
 \]
-is a $\Gamma^{+}_{X_6}$-graded Lie superalgebra. Grading: the
-signature-$(2,1)$ rank-$3$ paramodular lattice $\mathrm{II}_{2,1}(6)$
-attached to $\Gamma_6^+$, with the root-multiplicity assignment
-\begin{equation}
-   \mult_{\fg^{(6)}_{\BPS}}(\alpha)
-   \;=\;
-   c^{(g_6)}_{K3}\!\bigl(4nm - \ell^2,\,\ell\bigr),
-   \qquad \alpha = n\delta + \ell z + m w,
-   \label{wn:eq:wave19-y3-mult-N6}
-\end{equation}
-reading the $(4nm-\ell^2,\ell)$-Fourier coefficient of
-$\phi^{(g_6)}_{0,1}$. Positive multiplicity requires
-$\ell\equiv\pm 1\pmod{6}$ or $6\mid\ell^2 - 4nm$.
+for the completed Hall positive half along the effective BPS monoid.
+The generator $\sigma_6$ acts on charges and Hall correspondences once
+the orientation and completion are chosen equivariantly.
 
-\paragraph{Cycle 5 (attack--heal): identification with
-$\fg_{\Delta_1^{(6)}}$ and Borcherds lift.}
-\emph{Attack.} Borcherds 1998 Theorem~13.3 applies at level $1$;
-at level $6$ the target paramodular group $\Gamma_6^+$ requires the
-Hecke-equivariant arithmetic lift of Gritsenko 1988.
-\emph{Heal (Gritsenko 1999 Theorem~1.2).} The Borcherds product
+The Hall source on the quotient is the Hall algebra of
+$\langle\sigma_6\rangle$-equivariant objects on $S\times E$. Forgetting
+the linearisation gives invariant classes upstairs. The effective
+positive half used for denominator comparison is the image
+\begin{equation}
+   \Yp_{\eff}(X_6)
+   =
+   \operatorname{Im}\!\left(
+     p^*\colon
+     \Yp_{\Hall}(X_6)
+     \longrightarrow
+     \bigl(\Yp_{\theta,o,\Teq}(S\times E)\bigr)^{\sigma_6}
+   \right).
+   \label{n6:eq:Meff}
+\end{equation}
+The fibre charge projection satisfies, rationally,
 \[
-   \Delta_1^{(6)}(Z) \;=\; e^{\langle\rho_6, Z\rangle}
-   \prod_{\alpha>0}\bigl(1 - e^{\langle\alpha,Z\rangle}\bigr)^{c_6(4nm-\ell^2)}
+   p^*\Gamma^{\mathrm{fib}}_{X_6}
+   =
+   \widetilde H(S,\bQ)^{g_6},
+   \qquad
+   \operatorname{rk}p^*\Gamma^{\mathrm{fib}}_{X_6}=8.
 \]
-converges on the tube domain over the forward light cone of
-$\mathrm{II}_{2,1}(6)$ and defines a weight-$1$ paramodular cusp form
-on $\Gamma_6^+$, invariant under the Fricke involution
-(Gritsenko 1988 Lemma~3; Gritsenko--Cl\'ery 2008 item $N=6$). The
-generalised Kac--Moody superalgebra $\fg_{\Delta_1^{(6)}}$ has
-denominator identity $\Delta_1^{(6)}$; its positive nilpotent
-$\fn_+(\fg_{\Delta_1^{(6)}})$ carries real and imaginary simple roots
-exactly matching \eqref{wn:eq:wave19-y3-mult-N6}. The resulting
-isomorphism
+The elliptic base contributes its degree and point-class directions
+through $H^0(E_6)\oplus H^2(E_6)$. Equality between
+$\Yp_{\Hall}(X_6)$ and the invariant subalgebra upstairs requires the
+rational projector
+\[
+  \Pi_6=\frac{1}{6}\sum_{a=0}^{5}\sigma_6^a
+\]
+to preserve the Hall product, signs, Harder-Narasimhan completion, and
+reduced obstruction theory. A descended Maulik and Okounkov $R$-matrix
+requires the same $\Pi_6$ compatibility for stable envelopes and the
+$6$-isogeny on the elliptic factor.
+
+\paragraph{BPS Lie algebra.}
+Given a reduced d-critical orientation datum on the proper BPS
+substacks of $X_6$, purity for the completed cohomological Hall algebra,
+and compact-support functoriality for the quotient, Davison and
+Meinhardt's construction then isolates BPS sheaves
+\[
+  \mathcal{BPS}_{X_6,\alpha},
+  \qquad
+  \alpha\in\Gamma^+_{X_6},
+\]
+and the Hall commutator gives a graded Lie superalgebra
+\[
+   \fg^{(6)}_{\BPS}
+   =
+   \bigoplus_{\alpha\in\Gamma^+_{X_6}}
+   H^\bullet_c\!\left(\mathcal{BPS}_{X_6,\alpha}\right).
+\]
+The scalar Borcherds product fixes the target signed superdimension
+function. For a quotient charge whose projection to $L_6$ is
+$\alpha=n\delta+\ell z+mw$, denominator comparison asks for
+\begin{equation}
+   \sdim\,\fg^{(6)}_{\BPS,\alpha}
+   =
+   c^{(6)}(4nm-\ell^2,\ell),
+   \label{n6:eq:root-sdim}
+\end{equation}
+This equation records the superdimension. The ordinary even and odd
+multiplicities are the parity blocks of the chosen Borcherds
+superalgebra and must be supplied in the recognition datum.
+
+\paragraph{Borcherds target and recognition data.}
+Put $Z=(\tau,z,\sigma)$,
+$q=e^{2\pi i\tau}$, $\zeta=e^{2\pi iz}$, and $s=e^{2\pi i\sigma}$.
+Gritsenko's level-six product is
+\begin{equation}
+   \DeltaCHLSix(Z)
+   =
+   e^{2\pi i\langle\rho_6,Z\rangle}
+   \prod_{(n,\ell,m)>0}
+   \left(1-q^n\zeta^\ell s^m\right)^{
+     c^{(6)}(4nm-\ell^2,\ell)} ,
+   \label{n6:eq:borcherds-product}
+\end{equation}
+on the rank-three CHL charge lattice $L_6$ generated by the product
+coordinates $(n,\ell,m)$. The weight is the value in
+\eqref{n6:eq:kBKM}. The product supplies the signed denominator
+multiplicity function for the positive nilpotent part
+$\fn_+(\fg_{\DeltaCHLSix})$ of the associated Borcherds-Kac-Moody Lie
+superalgebra.
+
+A Hall-Borcherds recognition datum for $X_6$ consists of the compact
+Hall source, orientation monodromy, parity blocks, product and coproduct
+matrices, super-bracket matrices, Hopf-pairing matrices, radical
+kernels, quotient maps, defining relations, parity-refined PBW
+comparison, and compatible completions. If these data identify the Hall
+commutator with the Borcherds denominator coefficients root by root, then
 \begin{equation}
    \fg^{(6)}_{\BPS}
-   \;\xrightarrow{\;\sim\;}\;
-   \fn_+(\fg_{\Delta_1^{(6)}})
-   \label{wn:eq:wave19-y3-g6-iso}
-\end{equation}
-closes the CHL $N=6$ pentagon as $\mathrm{II}_{2,1}(6)$-graded BKM Lie
-superalgebras. The Harvey--Moore 1996 ``algebra of BPS states is a
-BKM'' principle is realised at the twined level, with the explicit
-Borcherds lift $\phi^{(g_6)}_{0,1}\mapsto\Delta_1^{(6)}$ supplying the
-bridge from K3-automorphic input to paramodular BKM output
-(Lorgat 2020 Theorem~4 adapted to $g_6$-twining).
+   \cong
+   \fn_+(\fg_{\DeltaCHLSix})
+   \label{n6:eq:bps-recognition}
+ \end{equation}
+as a completed $L_6$-graded BKM Lie superalgebra. Harvey and Moore's
+BPS-algebra principle is physical input for the recognition problem; the
+mathematical comparison is the Borcherds lift plus the finite Hall data
+above.
 
-\paragraph{Scope and lane discipline.}
-\eqref{wn:eq:wave19-y3-Meff-N6} is $(\infty,1)$-categorical: $Y^+(X_6)$
-as a stable $\infty$-category construction in the Schiffmann--Vasserot /
-Maulik--Okounkov lane. The Davison--Meinhardt identification
-\eqref{wn:eq:wave19-y3-g6-iso} is chain-level, verified by explicit
-Borcherds-product expansion of $\Delta_1^{(6)}$ against the Fourier
-coefficients of $\phi^{(g_6)}_{0,1}$. Both lanes are load-bearing.
-\ClaimStatusTheorem\ numerical and motivic DT identity
-\eqref{wn:eq:wave19-y3-DTred-N6} (Bryan--Oberdieck 2018); the
-denominator-identity isomorphism \eqref{wn:eq:wave19-y3-g6-iso} is
-\ClaimStatusTheorem\ conditional on Gritsenko 1999 Theorem~1.2 and the
-BOPY 2018 orbifold DT programme at level $6$; K-theoretic PT orbifold
-refinement remains \ClaimStatusConjectured. Companion notes:
-\texttt{wave11\_u1\_niemeier\_N6\_resolution.tex};
-\texttt{wave11\_x2\_slides\_N6\_data.tex};
-\texttt{wave17\_d3\_CHL\_positive\_half\_orbifold.tex};
-\texttt{wave19\_y1\_N4\_positive\_half\_BPS.tex} (companion at $N=4$);
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}. The
-canonical four-invariant spectrum at $N=6$ reads
-$(\kch, \kcat, \kBKM, \kfib) = (0, 0, 1, 14)$, four distinct
-constructions, no conflation.
+\paragraph{Chiral scope.}
+The quotient $X_6$ is smooth and free, with isotrivial K3 fibration over
+$E_6$. Its compact Hodge package gives
+$\kcat(X_6)=\kch(\cA_{X_6})=0$, while the monodromy-invariant fibre
+charge gives $\kfib^{(6),\mathrm{mon}}=8$. The primitive CHL
+Borcherds product gives $\kBKM(\DeltaCHLSix)=1$ from $c_6(0)=2$. The
+parent $K3\times E$ constants remain
+\[
+  \kcat=0,\qquad
+  \kch=0,\qquad
+  \kch^{\mathrm{Heis}}=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib=24.
+\]
+The ADE anchors are the umbral Niemeier root system $6D_4$ and the
+quotient-surface strata $2A_5+2A_2+2A_1$. The compact Hall recognition
+\eqref{n6:eq:bps-recognition} requires orientation, parity, pairing,
+PBW, radical, and completion data. The native CY$_3$ positive half is
+$\Eone$-chiral; braided $\Etwo$ structure belongs to a centre, double,
+or representation category after those operations have been constructed.
+The positive-half BPS data, the Hall-Drinfeld double, the BKM
+recognition datum, and the scalar square \eqref{n6:eq:DTred} are
+separate objects. The Hall-Drinfeld and BKM branch in this note is
+separate from the K3 self-mirror Yangian branch.

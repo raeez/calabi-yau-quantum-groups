@@ -1,685 +1,522 @@
-% wave14_b5_hcs_vs_cat_synthesis.tex
-% Wave-14 B5/5: Synthesis — hCS vs categorical Hochschild
-% as two presentations of one $E_3$ holomorphic factorisation algebra.
-%
-% Standalone section intended to be \input-ed into
-%   notes/CoHA_to_W_infty_treatise.tex
-% after the "Example 1" block on $\mathbb{C}^3$. It sits orthogonally
-% between \ref{wn:subsubsec:hCS-on-C3} and \ref{wn:subsubsec:E3-CS-2026}
-% as the structural bridge that says: the Stage-1 object is unique,
-% hCS and $\HH^\bullet(\cC)$ are two chain-level presentations of it.
-%
-% Voice: Chriss-Ginzburg / Kontsevich / Costello-Francis-Gwilliam
-% side-by-side. No bookkeeping vocabulary ("Wave N", "strand", "DNA")
-% in prose. No AI attribution anywhere.
-%
-% Depends only on macros provided by the enclosing treatise plus the
-% local \providecommand block below.
-
-%----------------------------------------------------------------------
-% Local \providecommand block (idempotent; all macros re-declarable).
-%----------------------------------------------------------------------
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem, cited]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
-\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles derivable]}}
-\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
-\providecommand{\ClaimStatusScoped}{\textsc{[scoped]}}
 \providecommand{\hCS}{\mathrm{hCS}}
 \providecommand{\HH}{\mathrm{HH}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
-\providecommand{\CE}{\mathrm{CE}}
 \providecommand{\PV}{\mathrm{PV}}
-\providecommand{\Tpoly}{T_{\mathrm{poly}}}
-\providecommand{\Dpoly}{D_{\mathrm{poly}}}
-\providecommand{\Ger}{\mathrm{Ger}}
-\providecommand{\FM}{\overline{\mathrm{FM}}}
 \providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\QME}{\mathrm{QME}}
+\providecommand{\BV}{\mathrm{BV}}
 \providecommand{\Perf}{\mathrm{Perf}}
-\providecommand{\Ran}{\mathrm{Ran}}
-\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\FM}{\overline{\mathrm{FM}}}
 \providecommand{\At}{\mathrm{At}}
 \providecommand{\Td}{\mathrm{Td}}
 \providecommand{\ch}{\mathrm{ch}}
-\providecommand{\BCOV}{\mathrm{BCOV}}
 \providecommand{\DT}{\mathrm{DT}}
 \providecommand{\GW}{\mathrm{GW}}
 \providecommand{\PT}{\mathrm{PT}}
-\providecommand{\MNOP}{\mathrm{MNOP}}
-\providecommand{\Sym}{\mathrm{Sym}}
 \providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Loc}{\mathrm{Loc}}
 \providecommand{\gl}{\mathfrak{gl}}
-\providecommand{\sone}{\mathsf{S}^1}
 \providecommand{\Gtone}{\mathrm{GRT}_1}
 \providecommand{\dbar}{\bar\partial}
 \providecommand{\cC}{\mathcal{C}}
-\providecommand{\cE}{\mathcal{E}}
 \providecommand{\cF}{\mathcal{F}}
-\providecommand{\cA}{\mathcal{A}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\cL}{\mathcal{L}}
-\providecommand{\cT}{\mathcal{T}}
-\providecommand{\cM}{\mathcal{M}}
 \providecommand{\cD}{\mathcal{D}}
-\providecommand{\cS}{\mathcal{S}}
-\providecommand{\ccC}{\mathbb{C}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
-%======================================================================
-\subsection{Holomorphic Chern--Simons and categorical Hochschild:
-two presentations of one factorisation algebra}
+\subsection{Holomorphic Chern--Simons and categorical Hochschild presentations}
 \label{wn:subsec:hcs-vs-cat-synthesis}
-%======================================================================
 
-The Stage-1 object $\Phi^{\mathrm{FA}}_3(X)$ of the two-stage factorisation
-of $\Phi_3$ (\S\ref{sec:two-stage-functor}) is an $E_3$ holomorphic
-factorisation algebra on a Calabi--Yau threefold $X$. Two chain-level
-presentations access it: holomorphic Chern--Simons from the gauge-theory
-datum $(X, \mathfrak{g}, \Omega_X)$, and categorical Hochschild cohomology
-from the Calabi--Yau category $(\cC, \eta)$. These are not two functors
-producing two outputs. They produce the \emph{same} $E_3$ factorisation
-algebra, read through two coordinate charts on it. The bridge between the
-charts is Kontsevich--Tamarkin formality; the obstruction to trivialising
-the bridge globally is the Atiyah class; the signatures that measure it are
-Donaldson--Thomas, Gromov--Witten, and their matching (MNOP). The paragraphs
-below make each of these statements a theorem.
+Let $X$ be a Calabi--Yau threefold with holomorphic volume form
+$\Omega_X$, and let $\cC$ be a smooth proper Calabi--Yau category of
+dimension $3$. Put
+\[
+  \cF_{\cC}:=\PhiFA_3(\cC)\in E_3\text{-}\mathrm{HolFA}(X).
+\]
+For a specialisation datum $(\Sigma_2,C)$, the chiral output is
+\[
+  A_{\cC,\Sigma_2,C}
+  :=
+  \Sp_{\Sigma_2,C}(\cF_{\cC})
+  \in E_1\text{-}\mathrm{HolFA}(C).
+\]
+The braided $E_2$ layer belongs to
+$\mathcal Z(\Rep^{E_1}(A_{\cC,\Sigma_2,C}))$, to a Drinfeld double, or
+to a module enhancement after the relevant construction has been made.
 
-\subsubsection{The two input data}
+\begin{definition}[Typed layers and allowed arrows]
+\label{def:hcs-cat-typed-layers}
+The comparison uses six typed layers:
+\[
+\begin{array}{ccl}
+\mathsf{BV}^{\mathrm{loc}}_{\hCS}(U,\mathfrak g)
+  &=& \Obs_{\hCS}^{q}(U,\mathfrak g),\\[0.4ex]
+\mathsf{BV}^{\mathrm{glob}}_{\hCS}(X,\mathfrak g;\mathcal H_X)
+  &=& \text{global quantum hCS built from }\mathcal H_X,\\[0.4ex]
+\mathsf{CY}_3(\cC,\eta)
+  &=& \text{smooth proper CY category with trace }\eta,\\[0.4ex]
+Y^+_\sigma(X)
+  &=& \text{critical Hall positive half on a stratum }\sigma,\\[0.4ex]
+\mathsf{Cent}(A)
+  &=& \mathcal Z(\Rep^{E_1}(A))\ \text{or}\ \cD(Y^+_\sigma(X)),\\[0.4ex]
+\mathsf{Chir}(A)
+  &=& A_{\cC,\Sigma_2,C}.
+\end{array}
+\]
+The allowed comparison arrows are
+\[
+  \Theta_{\mathrm{oc}}\colon
+  \mathsf{BV}^{\mathrm{loc}}_{\hCS}(U,\gl(V))
+  \longrightarrow
+  C^\bullet_{\mathrm{Hoch},E_3}(\Perf(U);\operatorname{End}(V)),
+\]
+\[
+  \Theta_{\mathrm{glob}}\colon
+  \mathsf{BV}^{\mathrm{glob}}_{\hCS}(X,\gl(V);\mathcal H_X)
+  \longrightarrow
+  \PhiFA_3(\Perf(X)),
+\]
+\[
+  \Theta_{\mathrm{Hall}}\colon
+  C^\bullet_{\mathrm{Hoch},E_3}(\Perf(X))
+  \longrightarrow
+  Y^+_\sigma(X),
+  \qquad
+  \Sp_{\Sigma_2,C}\colon
+  \PhiFA_3(\cC)\longrightarrow A_{\cC,\Sigma_2,C}.
+\]
+Every equivalence below is produced by one of these arrows together
+with its displayed hypotheses.
+\end{definition}
+
+The hCS--Hochschild comparison is local on Stein polydiscs. On a
+compact threefold it requires a Costello--Li all-scale BV quantisation
+package satisfying the quantum master equation, trivialisation of the
+local anomaly class, orientation, framing, descent, sewing,
+counterterms, analytic completion, and RG-compatible gauge fixing. The
+absence of this package is the compact proof obligation.
+
+\subsubsection{Input data}
 \label{wn:subsubsec:hcs-cat-inputs}
 
-\begin{definition}[hCS input $(X, \mathfrak{g}, \Omega_X)$]
-\label{def:hcs-input}\ClaimStatusDefinition
-$X$ is a complex manifold of complex dimension $3$ with a nowhere-vanishing
-holomorphic volume form $\Omega_X \in H^0(X, K_X)$. A finite-dimensional
-complex Lie algebra $\mathfrak{g}$ carries an invariant symmetric bilinear
-form $\langle \cdot, \cdot \rangle_{\mathfrak{g}}$. The hCS field is
-$\cA \in \Omega^{0,\bullet}(X, \mathfrak{g})$, of total ghost-form degree
-one in the BV complex. The action is
+\begin{definition}[Holomorphic Chern--Simons input]
+\label{def:hcs-input}
+An hCS input is a triple $(X,\mathfrak g,\Omega_X)$ in which $X$ is a
+complex threefold with $\Omega_X\in H^0(X,K_X)$ nowhere vanishing,
+$\mathfrak g$ is a finite-dimensional complex Lie algebra with invariant
+symmetric pairing, and the BV field is
 \[
-  S_\hCS[\cA] \;=\; \int_X \Omega_X \wedge
-  \mathrm{tr}\Bigl(\tfrac{1}{2}\cA\dbar\cA + \tfrac{1}{3}\cA[\cA,\cA]\Bigr),
+  A\in\Omega^{0,\bullet}(X,\mathfrak g)[1].
 \]
-with classical Maurer--Cartan equation $\dbar\cA + \tfrac{1}{2}[\cA,\cA]=0$.
+The classical action is
+\[
+  S_{\hCS}[A]
+  =
+  \int_X \Omega_X\wedge
+  \operatorname{tr}
+  \left(\frac12 A\dbar A+\frac13 A[A,A]\right),
+\]
+with Maurer--Cartan equation
+$\dbar A+\frac12[A,A]=0$.
 \end{definition}
 
-\begin{definition}[CY$_3$ category $(\cC, \eta)$]
-\label{def:cy3-category}\ClaimStatusDefinition
-A CY$_3$ category is a $\ccC$-linear stable $\infty$-category $\cC$ (or,
-chain-level, a smooth proper pre-triangulated dg-category) equipped with
-a non-degenerate cyclic trace
-$\eta\colon \HH_\bullet(\cC) \to \ccC[-3]$
-identifying the Serre functor with the $[3]$-shift; equivalently, a class
-$\eta\in\HH_{-3}(\cC)^\vee$ inducing a $3$-shifted symplectic structure on
-the moduli of objects of $\cC$ (Kontsevich--Soibelman 2008
-\texttt{arXiv:0811.2435}~\S3--\S4; Pantev--To\"en--Vaqui\'e--Vezzosi 2013
-\texttt{arXiv:1111.3209}~Thm.~2.5). The geometric instance is
-$\cC = \Perf(X)$ with $\eta$ the residue of $\Omega_X$ under Serre duality.
+\begin{definition}[Calabi--Yau category input]
+\label{def:cy3-category}
+A Calabi--Yau category of dimension $3$ is a $\mathbb C$-linear smooth
+proper stable category $\cC$, or a smooth proper pre-triangulated
+dg-category on a chain model, equipped with a non-degenerate cyclic trace
+\[
+  \eta\colon \HH_\bullet(\cC)\longrightarrow \mathbb C[-3]
+\]
+identifying the Serre functor with the shift $[3]$. For
+$\cC=\Perf(X)$, $\eta$ is the Serre-duality residue pairing determined
+by $\Omega_X$.
 \end{definition}
 
-\begin{remark}[The two inputs are not the same datum]
-\label{rmk:two-inputs-distinct}
-$(X, \mathfrak{g}, \Omega_X)$ specifies a complex $3$-fold, a gauge algebra
-sitting \emph{over} the fibres, and a holomorphic volume form witnessing
-the CY condition. $(\cC, \eta)$ specifies a derived category of sheaves
-(or matrix factorisations, or twisted D-branes) and an abstract
-Serre-duality pairing. The first is a geometric presentation of a gauge
-theory; the second is a categorical presentation of a CY geometry. Neither
-reduces to the other: at the geometric instance $\cC = \Perf(X)$, the gauge
-algebra $\mathfrak{g}$ does not appear in $(\cC, \eta)$ per se --- it enters
-through the choice of \emph{framing} of the category by
-$\gl(V)$-representations (moduli of bundles of rank $\dim V$, Cycle~2
-below). The Stage-1 factorisation algebra on $X$ is what both data compute.
-\end{remark}
-
-\paragraph{Attack (Cycle 1).} Two distinct input types for two distinct
-functors: hCS should produce a gauge-theoretic factorisation algebra on
-$X$ with coefficients in $\mathfrak{g}$; $\HH^\bullet(\cC)$ should produce
-an $E_3$-algebra on the formal disc governed by the categorical
-Kodaira--Spencer data. \emph{Why should the two outputs be the same
-factorisation algebra?}
-
-\paragraph{Heal.} Because hCS on $X$ with gauge $\gl(V)$ is the
-\emph{framed matrix model} of the categorical Hochschild data at rank $V$.
-Costello--Gwilliam 2017~Vol.~II~\S10.4 shows that the factorisation algebra
-of hCS observables on an open $U\subset X$ with gauge algebra $\gl(V)$ is
-quasi-isomorphic to a framed avatar of $\HH^\bullet(\Perf(U))$ acting on
-$V$-bundles. The $V\to\infty$ limit (equivalently, the stabilisation with
-respect to $\gl(V)\to \gl(V\oplus \ccC)$) recovers the categorical
-Hochschild presentation; each finite $V$ is the gauge-theoretic presentation
-at fixed rank. The Stage-1 object $\Phi^{\mathrm{FA}}_3(X)$ is the common
-stabilised limit.
-
-\subsubsection{Kontsevich--Tamarkin formality pins the bridge up to
-$\Gtone$}
-\label{wn:subsubsec:KT-formality}
-
-\begin{theorem}[KT formality at $d=3$ with contractible-choice space]
-\label{thm:KT-formality-d3}\ClaimStatusTheorem
-Let $V$ be a finite-dimensional complex vector space, regarded as the
-formal model of a point of a smooth CY$_3$. There exists a quasi-isomorphism
-of $E_3$-algebras
+\begin{definition}[Hall input]
+\label{def:hall-input}
+A Hall input on a stability or equivariant stratum $\sigma$ is a
+critical cohomological Hall algebra
 \[
-  \Phi_{\mathrm{KT}}\colon
-  \Tpoly(V) \xrightarrow{\;\sim\;} \Dpoly(V)
-  \simeq \HH^\bullet(\Perf(V)),
+  Y^+_\sigma(X)
+  =
+  H^\bullet_{\mathrm{crit},\sigma}
+  (\mathcal M_{\mathrm{eff}}(X),\phi_W)
 \]
-lifting the Kontsevich $L_\infty$-formality map (Kontsevich~1997
-\texttt{arXiv:q-alg/9709040}) to full $E_3$-formality (Tamarkin~1998
-\texttt{arXiv:math/9803025}; lift from $\Ger$ to $E_3$ via Koszul duality
-$E_3^!\simeq E_3\{3\}$, Fresse~2017 Ch.~14; Lurie~\emph{HA}~\S5.2). Up to
-isomorphism the lift is unique, i.e.\ the $\infty$-groupoid of isomorphism
-classes of $E_3$-formality quasi-isomorphisms is contractible. Parametrised
-up to homotopy, the space of such quasi-isomorphisms is a torsor under the
-prounipotent Grothendieck--Teichm\"uller group $\Gtone(\QQ)$ (Drinfeld~1990;
-Willwacher~2014 \texttt{arXiv:1009.1654}). On a global CY$_3$ $X$ the
-Duflo--Kontsevich obstruction $c_1(X)\cup\Td(X)^{1/2}$ vanishes because
-$c_1(X)=0$ (Calaque--Van den Bergh~2007 \texttt{arXiv:0708.2725}), so the
-formal-disc formality globalises to a sheaf-level $E_3$-quasi-isomorphism
-$\Tpoly(X)\xrightarrow{\sim}\HH^\bullet(\Perf(X))$.
-\end{theorem}
+with orientation data, vanishing-cycle sheaf, and associative Hall
+product. For the toric chart $X=\mathbb C^3$ this input is the
+Jordan triple-loop critical CoHA. Its algebra is the positive half
+of the affine Yangian.
+\end{definition}
 
-\begin{proof}[Proof sketch]
-The four steps are standard: (1) Kontsevich~1997 $L_\infty$-formality on
-the formal disc via configuration-space integrals on $\FM_3(n)$; (2)
-Tamarkin~1998 upgrades to $\Ger$-formality via Etingof--Kazhdan-style
-quantisation with input a Drinfeld associator; (3) Fresse Ch.~14 and Lurie
-\emph{HA} \S5.2 promote $\Ger$-formality to $E_3$-formality by Koszul duality
-of $E_n$-operads; (4) Calaque--Van den Bergh globalises using the
-Harish-Chandra pair $(\widehat{T_X}, \gl_{\dim X})$ and the formal-geometry
-Fedosov--Kontsevich resolution, with the Duflo--Kontsevich twist
-$\Td(X)^{1/2}$ trivialised on CY$_3$. The $\Gtone$-torsor claim is
-Drinfeld~1990 for associators; its promotion to the torsor of operadic
-formality data is Willwacher's identification of $\mathfrak{grt}_1$ with
-$H^0$ of the Kontsevich graph complex.
-\end{proof}
+\begin{definition}[Specialised chiral output]
+\label{def:specialised-chiral-output}
+For $d=3$ and $(\Sigma_2,C)$, the object
+$A_{\cC,\Sigma_2,C}=\Sp_{\Sigma_2,C}(\PhiFA_3(\cC))$ is the native
+$E_1$-chiral algebra on $C$. The $E_2$ structure used for braiding is
+the centre, double, or module-enhancement layer attached to
+$A_{\cC,\Sigma_2,C}$.
+\end{definition}
 
-\begin{remark}[Why ``contractible choice''; the precise content]
-\label{rmk:contractible-choice-precise}
-Two statements coexist. \emph{(A)} Isomorphism classes of
-$E_3$-formality quasi-isomorphisms form a contractible $\infty$-groupoid
-(a point), Tamarkin's theorem that non-empty + rigid $=$ point. \emph{(B)}
-Parametrised quasi-isomorphisms form a $\Gtone$-torsor, rationally
-equivalent to $B\Gtone$. Wave-14 A2 disentangles the conflation. For the
-Stage-1 synthesis: uniqueness of $\Phi^{\mathrm{FA}}_3(X)$ up to
-quasi-isomorphism is statement~(A); explicit comparison of hCS-Feynman
-weights with Kontsevich configuration integrals (Cycle~3 below) is
-statement~(B), pinning a specific point.
+\begin{remark}[Five separated Hochschild objects]
+\label{rmk:five-objects-separated}
+For a strict $E_1$ Hochschild model $A$ attached to $\cC$, the objects
+\[
+  A,\qquad B(A),\qquad A^i,\qquad A^!,\qquad
+  Z^{\mathrm{der}}_{\mathrm{ch}}(A)
+\]
+play different roles. The identity $\Omega B(A)\simeq A$ is bar--cobar
+inversion. The object $A^!$ is the Verdier or Koszul dual. The bulk
+object is accessed through Hochschild theory and the derived chiral
+centre. The comparison below keeps these objects separated.
 \end{remark}
 
-\paragraph{Attack (Cycle 2).} ``Up to contractible choice'' is a
-categorical statement; the two chain-level presentations (hCS and
-$\HH^\bullet(\cC)$) are explicit complexes. How does a categorical
-uniqueness translate into an explicit chain-level identification?
+\subsubsection{Local open--closed comparison}
+\label{wn:subsubsec:local-open-closed-comparison}
 
-\paragraph{Heal.} By the Francis--Lurie construction of $\HH^\bullet(\cC)$
-as an $E_3$-algebra for CY$_3$ $\cC$ (Francis~2013 \texttt{arXiv:1110.5442}
-Thm.~1.1, Thm.~3.4; Lurie \emph{HA}~\S5.3; higher Deligne conjecture) and
-by Costello--Gwilliam locality for hCS observables
-(Costello--Gwilliam~2017~Vol.~II~\S10), both complexes are
-$E_3$-algebras in the $\infty$-category $\Ch(\Dolb)_\infty$ of
-Dolbeault chain complexes on $X$ with its monoidal structure. Theorem
-\ref{thm:KT-formality-d3} then says they are equivalent objects; any
-explicit chain-level map between them realising the equivalence exists
-and is unique up to contractible space of choices of homotopies. The
-Costello--Li construction below produces \emph{one} such explicit map, via
-Feynman-graph weights equal to Kontsevich's configuration integrals.
-
-\subsubsection{HKR on $\ccC^3$ plus matrix framing recovers hCS}
-\label{wn:subsubsec:HKR-matrix-hCS}
-
-\begin{theorem}[HKR on $\ccC^3$ $+$ matrix framing $=$ hCS with $\gl(V)$]
-\label{thm:HKR-matrix-hCS}\ClaimStatusTheorem\ClaimStatusDerivation
-Let $X = \ccC^3$ with coordinates $z_1, z_2, z_3$ and holomorphic volume
-form $\Omega = dz_1\wedge dz_2\wedge dz_3$. The Hochschild--Kostant--Rosenberg
-isomorphism (Swan~1996; Yekutieli~2002 \texttt{arXiv:math/0007082}; chain
-level via the antisymmetriser quasi-isomorphism) identifies
+\begin{proposition}[Local hCS observables and Hochschild cochains]
+\label{prop:local-hcs-hochschild-comparison}
+Let $U\subset X$ be a Stein polydisc with coordinates
+$z_1,z_2,z_3$ and volume form
+$\Omega=dz_1\wedge dz_2\wedge dz_3$. Fix a vector space $V$ and gauge
+algebra $\gl(V)$. Assume a formality point for the $E_3$ operad, a
+Costello--Li anomaly-free hCS quantisation package on $U$, and completed
+local observables. Then the open--closed map gives an $E_3$
+quasi-isomorphism of local factorisation observables
 \[
-  \HH^\bullet(\Perf(\ccC^3))
+  \Obs_{\hCS}^{q}(U,\gl(V))
   \;\simeq\;
-  \PV^\bullet(\ccC^3)
-  \;=\;
-  \bigoplus_{p,q\geq 0} \Omega^{0,q}(\ccC^3, \Lambda^p T^{1,0}\ccC^3)
+  C^\bullet_{\mathrm{Hoch},E_3}(\Perf(U);\operatorname{End}(V)).
 \]
-with the Schouten bracket promoted to a shifted Lie bracket of degree
-$1-3=-2$. The CY$_3$ volume form contracts
-$\Omega\lrcorner\colon \PV^\bullet(\ccC^3) \xrightarrow{\;\sim\;}
-\Omega^{3-\bullet,\bullet}(\ccC^3)$, converting polyvectors to Dolbeault
-forms. Framing by $V = \ccC^N$ (rank-$N$ matrix coefficients) produces
+At the level of symbols, Hochschild--Kostant--Rosenberg identifies
 \[
-  \PV^\bullet(\ccC^3)\otimes\gl(V)
-  \;\simeq\;
-  \Omega^{0,\bullet}(\ccC^3, \gl(V))[1]
-  \;=\;
-  \cE_\hCS(\ccC^3, \gl(V)),
+  \HH^\bullet(\Perf(U))
+  \simeq
+  \PV^\bullet(U)
+  =
+  \bigoplus_{p,q}\Omega^{0,q}(U,\wedge^p T^{1,0}U),
 \]
-the shifted Dolbeault complex carrying the classical hCS gauge field with
-gauge algebra $\gl(V)$. The Schouten bracket on $\PV^\bullet$ pulls back
-to the Dolbeault wedge-Lie bracket $[-,-]_{\gl(V)}$ on $\cE_\hCS$. The
-$\dbar$-differential on both sides agrees. Consequently,
-\[
-  \boxed{
-  \PV^\bullet(\ccC^3)\otimes\gl(V), \text{ CY-contracted}
-  \;\;\;=\;\;\;
-  \cE_\hCS(\ccC^3, \gl(V))
-  }
-\]
-as $L_\infty$-algebras, and the hCS factorisation algebra of observables
-is, under Costello--Li's BV quantisation, the Kontsevich deformation
-quantisation of $\PV^\bullet(\ccC^3)$ twisted by $\gl(V)$-matrix coefficients
-(Costello--Li~2015/2016 \texttt{arXiv:1606.00365} \S4; Costello--Gaiotto~2018
-\texttt{arXiv:1812.09257} \S2.3).
-\end{theorem}
+and contraction by $\Omega$ sends $\PV^{p,q}(U)$ to
+$\Omega^{3-p,q}(U)$. The hCS field complex
+$\Omega^{0,\bullet}(U,\gl(V))[1]$ is the matrix-framed open-string
+sector. The full polyvector complex is the closed-string Hochschild
+sector acting on that open sector.
+\end{proposition}
 
-\begin{proof}[Proof sketch, first-principles]
-HKR is the antisymmetriser $\alpha\colon \PV^\bullet \to \Dpoly$ sending
-$X_1\wedge\cdots\wedge X_p$ (polyvectors) to the antisymmetrisation of
-the differential operator $X_1\otimes\cdots\otimes X_p$ (Hochschild
-cochains); its quasi-inverse is the symmetriser, and both chain maps are
-explicit. On $\ccC^3$, $\PV^\bullet = \ccC[z_1,z_2,z_3]\otimes
-\Lambda^\bullet \ccC^3$ at polynomial level, and $\Omega$-contraction is
-the concrete isomorphism
-$\partial_{z_1}\wedge\partial_{z_2}\wedge\partial_{z_3} \mapsto 1$,
-$\partial_{z_i}\wedge\partial_{z_j}\mapsto dz_k$ (cyclic), etc.
-Matrix framing tensors with $\gl(V)$ and promotes brackets by the
-structure constants of $\gl(V)$. The $\dbar$-complex
-$\Omega^{0,\bullet}(\ccC^3,\gl(V))[1]$ is manifestly the resulting graded
-dg-Lie algebra. Wave-14 I2 Cycle 5 confirms that the Maurer--Cartan locus
-of this dg-Lie algebra is the commuting-triple variety
-$\{[X_1,X_2]=[X_2,X_3]=[X_3,X_1]=0 : X_i\in\gl(V)\}$, whose equivariant
-cohomology is $Y^+(\gl_1)$ (Schiffmann--Vasserot~2013
-\texttt{arXiv:1202.2756}) in the rank-$V\to\infty$ limit. This recovers the
-Jordan triple-loop quiver presentation of \S\ref{wn:subsec:jordan-triple}
-from the categorical input, verifying that matrix-framed HKR reconstructs
-the hCS/CoHA pipeline.
+\begin{proof}
+HKR is the antisymmetriser quasi-isomorphism from polyvector fields to
+Hochschild cochains. The Calabi--Yau volume form converts polyvectors
+to Dolbeault forms with complementary holomorphic degree. Matrix
+framing tensors the open sector with $\operatorname{End}(V)$ and gives
+the hCS dg Lie algebra
+$\Omega^{0,\bullet}(U,\gl(V))[1]$ with differential $\dbar$ and
+wedge--Lie bracket. Costello--Gwilliam locality turns an anomaly-free
+BV package into a factorisation algebra of quantum observables. The
+Costello open--closed map identifies closed Hochschild cochains with
+local operations on the hCS open sector. The $V\to\infty$ stabilisation
+is the usual trace-stable matrix limit.
 \end{proof}
 
-\paragraph{Attack (Cycle 3).} The identity
-``$\PV^\bullet(\ccC^3)\otimes\gl(V) = \cE_\hCS$'' is chain-level;
-KT formality is categorical. Does the BV quantisation of hCS compute
-the \emph{specific} formality associator appearing in Theorem
-\ref{thm:KT-formality-d3}, or some $\Gtone$-related point?
-
-\paragraph{Heal.} The Costello--Li 2016 BV propagator
-$P(\epsilon,L)$ solves the Dolbeault heat equation and, in the diagonal
-regularisation, degenerates to the Bochner--Martinelli kernel on
-$\ccC^3\times\ccC^3$. Pulled back along the compactification
-$\FM_3(n)$ of $\Conf_n(\ccC^3)$, this propagator coincides with
-Kontsevich's angle form $\omega_e$ up to the universal $\Omega$-normalisation
-(Costello--Li~2016~Thm.~4.1; Wave-14 A2 Cycle 6). The Feynman weights
-\[
-  w_\Gamma^\hCS
-  \;=\;
-  \int_{\FM_3(|V_\Gamma|)}\prod_{e\in E_\Gamma}P|_{\Conf}
-  \;=\;
-  w_\Gamma^{\mathrm{Kontsevich}}
-\]
-agree graph-by-graph, so the hCS BV path integral selects the Kontsevich
-associator, not an arbitrary $\Gtone$-orbit member.
-
-\subsubsection{Atiyah obstruction and BCOV curving}
-\label{wn:subsubsec:Atiyah-BCOV}
-
-\begin{theorem}[Atiyah obstruction on compact CY$_3$ and BCOV curving]
-\label{thm:Atiyah-BCOV}\ClaimStatusTheorem
-Let $X$ be a compact Calabi--Yau threefold with holomorphic tangent bundle
-$T_X$. The Atiyah class
-\[
-  \At(T_X)\;\in\; H^1(X, \Omega^1_X \otimes \mathrm{End}(T_X))
-\]
-is the obstruction to a global holomorphic splitting of the first jet
-sequence $0 \to \Omega^1_X\otimes T_X \to J^1(T_X) \to T_X\to 0$; equivalently
-(Kapranov~1999 \texttt{arXiv:math/9704009} Prop.~2.3), it is the
-curvature of the shifted holomorphic tangent $L_\infty$-algebra
-$T_X[-1]$. The Atiyah class obstructs strict (chain-level) equivalence
-between the $E_3$ factorisation algebras of hCS and of $\HH^\bullet(\Perf(X))$
-as $L_\infty$-algebras over $X$: the Maurer--Cartan element
-\[
-  \mathrm{At}(X) \;\in\;
-  \Omega^{0,1}(X, \Omega^1_X\otimes \mathrm{End}(T_X))
-\]
-satisfies $l_3^{\min}[x,y,z] = \mathrm{At}(X)\cdot\{x,y,z\}_{\mathrm{Sch}}$
-for the induced $L_\infty$-bracket of arity $3$ on the minimal model of the
-tangent complex, where $\{-,-,-\}_{\mathrm{Sch}}$ is the Schouten bracket
-squared against $\At$ (Kapranov~1999 Thm.~2.6; Wave-14 I2 Cycle 2).
-
-The BCOV $B$-field $B \in \Omega^{2,0}(X)$ of Bershadsky--Cecotti--Ooguri--Vafa
-1994 (\emph{Comm.\ Math.\ Phys.}~165; Costello--Li~2012
-\texttt{arXiv:1201.4522}) curves the hCS action by
-\[
-  S_\hCS^{\mathrm{curved}}[\cA, B] \;=\; \int_X \Omega_X\wedge
-  \mathrm{tr}\Bigl(\tfrac12\cA\dbar\cA + \tfrac13\cA[\cA,\cA]\Bigr)
-  \;+\; \hbar\int_X B\wedge \ch_3(F_\cA),
-\]
-where $\ch_3(F_\cA) = \tfrac16\mathrm{tr}(F_\cA^3)$ and
-$F_\cA = \dbar\cA + \tfrac12[\cA,\cA]$. The $B$-field deformation is
-the chain-level trivialisation of the Atiyah-obstructed $l_3^{\min}$:
-on any compact CY$_3$ with $\int_X c_3(T_X)\neq 0$ the one-loop BV
-obstruction (Wave-14 I1 Theorem) is
-\[
-  \kappa_{\mathrm{anom}}(X)
-  \;=\;
-  \frac{h^\vee(\mathfrak{g})}{(4\pi)^3}\int_X \ch_3(T_X)\wedge\Omega_X
-  \;=\;
-  \frac{h^\vee(\mathfrak{g})}{2(4\pi)^3}\int_X c_3(T_X)\cdot\Omega_X,
-\]
-and is cancelled by the BCOV curving; on $K3\times E$ the class
-$c_3(T(K3\times E))$ vanishes by K\"unneth ($c_1(TE)=0$, $c_3(TK3)=0$),
-so $\kappa_{\mathrm{anom}}(K3\times E)=0$ and the curving is inessential
-(Wave-14 I1 Cycle 5).
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-Kapranov~1999 Thm.~2.6 identifies $\At(T_X)$ with the first nontrivial
-bracket $l_3^{\min}$ of the minimal $L_\infty$-model of the Dolbeault
-resolution of $T_X$. Costello~2011 App.~A.1 computes the one-loop BV
-obstruction $\kappa_\mathrm{BV}$ for a gauge theory with Feynman graphs
-built from the triangle vertex; on hCS the triangle collapses to the
-$\ch_3(F_\cA)\wedge\Omega$ characteristic density. The
-Chern--Simons transgression between the $B$-field curving and the
-classical action is standard (BCOV Thm.~5.1; Costello--Li~2012
-Prop.~3.4). On $K3\times E$ the Künneth splitting
-$c(T(K3\times E)) = c(TK3)\cdot c(TE)$ with $c(TE) = 1$ (elliptic
-curve has trivial tangent bundle) and $c_3(TK3)=0$ (real rank $4$)
-gives $c_3(T(K3\times E))=0$, hence
-$\kappa_{\mathrm{anom}}=0$; Wave-14 I1 Cycle 5 confirms that
-$\Phi_3(\Perf(K3\times E))$ is one-loop unobstructed.
-\end{proof}
-
-\begin{remark}[Atiyah class is the global formality obstruction]
-\label{rmk:Atiyah-global-formality}
-On the formal disc $X = \widehat\ccC^3$, $\At(T_X)=0$ because $T_X$ is
-trivial; Theorem~\ref{thm:KT-formality-d3} globalises without obstruction.
-On a nontrivial compact CY$_3$, $\At(T_X)\neq 0$ in general; the
-Duflo--Kontsevich $\Td(X)^{1/2}$-twist in Calaque--Van den Bergh is
-the partial trivialisation that survives the CY$_3$ condition ($c_1=0$).
-What remains is the BCOV $B$-field gerbe, which measures the finer
-$\int_X c_3$-anomaly. On $K3\times E$ both vanish; on the quintic
-$\int_X c_3(T_X)=-200$, so BCOV curving is structurally non-trivial and
-$\Phi^{\mathrm{FA}}_3(\mathrm{quintic})$ is available only after the
-corresponding gerbe trivialisation (Costello--Li~2012; still open in
-full generality, Theorem~\ref{thm:Atiyah-BCOV} scope clause).
+\begin{remark}[Raw complexes and observable algebras]
+\label{rmk:raw-complexes-observables}
+The equality in Proposition~\ref{prop:local-hcs-hochschild-comparison}
+is an equality of completed $E_3$ observable algebras. The raw complexes
+$\PV^\bullet(U)$ and $\Omega^{0,\bullet}(U,\gl(V))[1]$ have different
+degrees and different meanings: the first is closed Hochschild bulk
+data, the second is the open hCS field complex.
 \end{remark}
 
-\paragraph{Attack (Cycle 4).} On a compact CY$_3$ the Atiyah class
-obstruction produces a nontrivial $l_3^{\min}$. Does this break the
-equivalence of hCS and $\HH^\bullet(\cC)$ presentations, or only their
-\emph{formal} identification?
+\subsubsection{Formality and the associator}
+\label{wn:subsubsec:formality-associator}
 
-\paragraph{Heal.} It breaks neither. The Atiyah class lives on the
-\emph{minimal model}, accessing the bracket data after taking cohomology;
-the chain-level $L_\infty$-algebras $\cE_\hCS(X,\mathfrak{g})$ and
-$\HH^\bullet(\Perf(X))\otimes\gl(V)$ remain quasi-isomorphic as $E_3$
-factorisation algebras on $X$. The non-zero $l_3^{\min}$ is a shared
-invariant visible in both presentations; its role is not to forbid
-identification but to encode the curvature of the common object. BCOV
-curving enters when one wants the factorisation algebra to extend to the
-\emph{quantum} level across the full compact CY$_3$; the curving is the
-global analogue of the BV propagator choice in the Stage-1 construction.
-
-\subsubsection{DT, GW, MNOP as $E_3$-trace identities}
-\label{wn:subsubsec:DT-GW-MNOP}
-
-\begin{theorem}[DT, GW, and MNOP as $E_3$-trace identities on $\cF_X$]
-\label{thm:DT-GW-MNOP}\ClaimStatusTheorem
-Let $\cF_X := \Phi^{\mathrm{FA}}_3(X)$ be the Stage-1 $E_3$ holomorphic
-factorisation algebra on a compact CY$_3$ $X$, equivalently presented as
-hCS observables or as the categorical Hochschild $E_3$-algebra
-(Theorem~\ref{thm:HKR-matrix-hCS}). Two traces exist on
-$\int_X \cF_X$, namely the $E_3$-factorisation homology over the closed
-$6$-manifold $X$:
-
-\emph{(DT trace).} The Donaldson--Thomas partition function is the trace
-of $\cF_X$ against the $\DT$-framing, a $\gl_\infty$-equivariant structure
-encoded by the moduli of ideal sheaves $\mathrm{Hilb}^n(X)$ (Thomas~1998
-\texttt{arXiv:math/9806111}; Maulik--Nekrasov--Okounkov--Pandharipande~2006
-\texttt{arXiv:math/0312059}):
-\[
-  Z_\DT(X; q) \;=\; \mathrm{Tr}_{\DT}^{E_3}\!\bigl(\,\int_X \cF_X\,\bigr)
-  \;=\; \sum_{n}q^n \chi_{\mathrm{vir}}(\mathrm{Hilb}^n(X)).
-\]
-
-\emph{(GW trace).} The Gromov--Witten partition function is the trace
-against the $\GW$-framing, the $\sone$-equivariant stable-maps moduli
-(Kontsevich~1995 \texttt{arXiv:hep-th/9405035}; Li--Tian~1998;
-Behrend--Fantechi~1997):
-\[
-  Z_\GW(X; u) \;=\; \mathrm{Tr}_{\GW}^{E_3}\!\bigl(\,\int_X \cF_X\,\bigr)
-  \;=\; \sum_{g,\beta}u^{2g-2}q^\beta \langle\,1\,\rangle_{g,\beta}^X.
-\]
-
-\emph{(MNOP).} The DT and GW traces agree after the MNOP change of variables
-$q = -e^{iu}$ (Maulik--Nekrasov--Okounkov--Pandharipande~2006
-\texttt{arXiv:math/0312059} \S1; proved for toric CY$_3$ by
-MNOP-Okounkov--Pandharipande~2011; conjectural in general):
-\[
-  Z'_\DT(X; q)\big|_{q=-e^{iu}}
-  \;=\; Z_\GW(X; u),
-\]
-where $Z'_\DT$ is the reduced DT partition function (dividing out degree-zero
-contributions). The $\PT$-reformulation of Pandharipande--Thomas~2009
-\texttt{arXiv:0707.2348} identifies the reduced $\DT$ as counting stable pairs
-$[\cO_X\to F]$ with $F$ a $1$-dimensional sheaf, giving a second trace
-$\mathrm{Tr}_\PT^{E_3}$ matching $\mathrm{Tr}_\DT'^{E_3}$ by the
-DT/PT correspondence (Toda~2010 \texttt{arXiv:0806.0062};
-Bridgeland~2011 \texttt{arXiv:1002.4384}). All three
-($\DT, \GW, \PT$) are $E_3$-traces on one factorisation algebra $\cF_X$;
-the change-of-variables identities MNOP and DT/PT are \emph{functorial
-properties of the trace}, not constructions of distinct objects.
+\begin{theorem}[Formality datum for the Stage-\texorpdfstring{$1$}{1} comparison]
+\label{thm:stage-one-formality-datum}
+After a point of the Kontsevich--Tamarkin formality torsor is fixed, the
+local Hochschild cochain complex of a Calabi--Yau threefold carries the
+$E_3$ structure used by $\Phi^{\mathrm{FA}}_3$. The ambiguity of the
+chain-level comparison is governed by the prounipotent group
+$\Gtone(\mathbb Q)$. A Costello--Li heat-kernel regulator on the flat
+chart selects the Kontsevich configuration-integral point of this
+torsor when its graph weights satisfy the all-scale QME and
+boundary-stratum compatibility conditions.
 \end{theorem}
 
-\begin{proof}[Proof sketch, first-principles]
-Factorisation homology $\int_X\cF_X$ of an $E_3$-algebra $\cF_X$ on a
-closed $3$-manifold-like object (here the real $6$-manifold underlying $X$,
-with its CY complex structure) is a chain complex with a canonical
-integration pairing to $\ccC$, by Lurie's non-abelian Poincar\'e duality
-for $E_n$-algebras on closed $n$-manifolds (Lurie \emph{HA}~\S5.5.3;
-Ayala--Francis~2015 \texttt{arXiv:1212.5553}~Thm.~2.4). Framings of
-$\int_X\cF_X$ by equivariant structures produce distinct traces:
-$\DT$-framing by rank-$1$ ideal sheaves (degree-$0$ Hilbert scheme),
-$\GW$-framing by stable maps (virtual dimension $0$), $\PT$-framing by
-stable pairs. The shifted symplectic structure of PTVV on the moduli
-space $\mathcal{M}_X$ of objects of $\cC = \Perf(X)$ (PTVV~2013
-Thm.~2.5; K.--Soibelman~\texttt{arXiv:0811.2435}~\S3) provides the
-cohomological-Hall-algebra virtual count compatible with all three
-framings. The MNOP identity and DT/PT identity are then \emph{properties
-of the specialisation of the one trace to two coordinate systems}
-(Nekrasov~$q$-variable vs.\ topological $u$-variable), not theorems
-comparing two different functors; this is the intrinsic reason for the
-MNOP conjecture and explains why it is an equality-of-traces, not an
-equality-of-objects. On $K3\times E$, the reduced DT trace collapses to
-the Gritsenko--Nikulin--Igusa Borcherds product
-$Z'_\DT(K3\times E)|_{\mathrm{primitive}} = -C/\Phi_{10}$
-(Oberdieck--Pixton~2017~Thm.~1), identifying the $\kBKM(\Phi_1)=5$
-Borcherds weight with one specific trace-moment of $\cF_{K3\times E}$.
+\begin{proof}
+Kontsevich formality identifies polyvectors and Hochschild cochains on
+the formal disc. Tamarkin's refinement and the operadic formality of
+little disks promote the comparison to the $E_3$ level once a Drinfeld
+associator is chosen. Willwacher identifies the degree-zero graph-complex
+symmetries with $\mathfrak{grt}_1$, giving the $\Gtone$ action. In the
+Costello--Li hCS regulator, the small-scale propagator on $\mathbb C^3$
+has Bochner--Martinelli leading term. Pulling graph weights to
+Fulton--MacPherson compactifications gives the same configuration-space
+integrals as the chosen Kontsevich formality point, provided the QME and
+boundary terms close.
 \end{proof}
 
-\paragraph{Attack (Cycle 5).} If $\DT$, $\GW$, $\PT$ are three traces on
-one factorisation algebra, why does each have its own moduli-theoretic
-construction and its own virtual class? Why not one construction with
-three notations?
+\subsubsection{Compact Calabi--Yau threefolds and the anomaly slot}
+\label{wn:subsubsec:compact-cy3-anomaly-slot}
 
-\paragraph{Heal.} The three \emph{framings} are distinct --- $\DT$ frames
-objects by $1$-dimensional subsheaves, $\GW$ by maps from curves,
-$\PT$ by stable pairs. Each framing presents the same
-$E_3$-factorisation-homology trace through a different equivariant
-structure; the virtual classes are different \emph{calculations} of the
-same virtual Euler characteristic. MNOP is the theorem that the
-calculations match; categorically, it is the statement that the two framings
-induce the same trace on $\int_X\cF_X$. The ``redundancy'' of three
-constructions is not actual redundancy --- each framing is a
-different access route to the same trace, computable in different
-regimes (toric vs.\ non-toric; primitive vs.\ imprimitive K3 class;
-abelian vs.\ non-abelian gauge algebra).
-
-\subsubsection{Synthesis: hCS as geometric resolution of categorical
-$E_3$-structure}
-\label{wn:subsubsec:synthesis-resolution}
-
-\begin{corollary}[hCS is the geometric resolution of the categorical
-$E_3$-structure]
-\label{cor:hcs-geometric-resolution}\ClaimStatusScoped
-Let $X$ be a compact CY$_3$ with $(X, \mathfrak{g}, \Omega_X)$ the hCS datum
-at $\mathfrak{g} = \gl(V)$ and $(\Perf(X), \eta)$ the categorical datum
-with $\eta$ Serre-duality residue of $\Omega_X$. Write
-$\cF^\hCS_X := \Obs_\hCS(X, \gl(V))$ and
-$\cF^{\HH}_X := \HH^\bullet(\Perf(X))\otimes\gl(V)$. Then:
-
-(i) \emph{Stage-1 equivalence.} There is a canonical equivalence of $E_3$
-holomorphic factorisation algebras on $X$
+\begin{definition}[Compact comparison package]
+\label{def:compact-comparison-package}
+For compact $X$, an hCS--Hochschild comparison package consists of:
 \[
-  \cF^\hCS_X \;\simeq\; \cF^{\HH}_X \;=\; \Phi^{\mathrm{FA}}_3(X),
+  \mathcal H_X =
+  \left(
+  I[L],\Delta_L,\QME,\mathcal A_{\QME},
+  \mathcal K,\mathrm{or},\mathrm{fr},\mathrm{desc},
+  \mathrm{TCFT},\widehat{\mathrm{comp}},\mathrm{gf},
+  \Theta_{\mathrm{oc}}
+  \right).
 \]
-pinned up to $\Gtone$-action by Theorem~\ref{thm:KT-formality-d3} and
-realised chain-level by the explicit map
-$\PV^\bullet(X)\otimes\gl(V)\to\cE_\hCS(X,\gl(V))$ of
-Theorem~\ref{thm:HKR-matrix-hCS} on local affine charts, globalised by
-Calaque--Van den Bergh using $c_1(X)=0$.
+Here $I[L]$ are scale-dependent effective interactions, $\Delta_L$ is
+the BV Laplacian, $\mathcal A_{\QME}$ is the local QME anomaly class,
+$\mathcal K$ is the counterterm space in the same local functional
+complex, $\mathrm{or}$ and $\mathrm{fr}$ are orientation and framing
+data, $\mathrm{desc}$ is descent data, $\mathrm{TCFT}$ denotes the
+factorisation or TCFT sewing datum, $\widehat{\mathrm{comp}}$ is
+analytic completion, $\mathrm{gf}$ is regulator-compatible gauge
+fixing, and $\Theta_{\mathrm{oc}}$ is the open--closed Hochschild
+comparison.
+\end{definition}
 
-(ii) \emph{The explicit presentation is the physics one.} $\cF^\hCS_X$ is
-a concrete presentation of the abstract $E_3$ object: it comes with a
-propagator, Feynman graphs, a BV Laplacian, one-loop anomaly computations,
-and a compatible BCOV curving. The categorical presentation $\cF^{\HH}_X$
-is abstractly unique but does not, by itself, carry a preferred propagator;
-hCS provides the propagator and hence the Kontsevich associator point in
-the $\Gtone$-torsor.
+\begin{proposition}[Quartic QME anomaly and degree-two two-point term]
+\label{prop:quartic-qme-quadratic-counterterm}
+For six-dimensional non-abelian hCS on a complex threefold, the
+one-loop QME anomaly is represented by a quartic invariant
+\[
+  I_4^\rho\in\operatorname{Sym}^4(\mathfrak g^\vee)^{\mathfrak g}
+\]
+attached to the chosen representation $\rho$. On a coordinate chart
+$U$, its local cocycle has the form
+\[
+  \Theta^\rho_U(\alpha_0,\alpha_1,\alpha_2,\alpha_3)
+  =
+  \int_U
+  I_4^\rho
+  \bigl(\alpha_0,\partial\alpha_1,
+  \partial\alpha_2,\partial\alpha_3\bigr),
+  \qquad
+  \alpha_i\in\Omega^{0,\bullet}_c(U,\mathfrak g).
+\]
+The degree-two invariant $C_2^\rho(\mathfrak g)$ appears in the
+two-point field-strength counterterm
+\[
+  S_{\mathrm{ct}}^{(2)}
+  =
+  -\,\hbar\,\frac{C_2^\rho(\mathfrak g)}{(4\pi)^3}
+  \log(L/\varepsilon)
+  \int_X\Omega_X\wedge\operatorname{Tr}_\rho(A\dbar A).
+\]
+This term renormalises the kinetic pairing. The QME obstruction is the
+degree-one class $[\hbar\Theta^\rho]$ in the Costello local functional
+complex.
+\end{proposition}
 
-(iii) \emph{Curving aligns the presentations at the quantum level.} On a
-compact CY$_3$ with $\int c_3(T_X)\neq 0$, quantum-level identification
-of the two presentations requires the BCOV $B$-field (Theorem
-\ref{thm:Atiyah-BCOV}) trivialising the $\kappa_{\mathrm{anom}}$-anomaly.
-On $K3\times E$ the curving is inessential ($\kappa_{\mathrm{anom}}=0$ by
-Wave-14 I1 Cycle 5).
+\begin{proof}
+The hCS cubic vertex has one field and three holomorphic derivatives in
+the one-loop anomaly descent on a complex threefold, so its invariant
+polynomial has arity four. The two-point graph has arity two and
+contracts through the invariant bilinear form, producing the
+$C_2^\rho(\mathfrak g)$ kinetic counterterm. The quartic descent class
+and the two-point counterterm live in different cohomological slots of
+the BV local functional complex.
+\end{proof}
 
-(iv) \emph{The traces probe the common object.} $\DT$, $\GW$, $\PT$ of
-Theorem~\ref{thm:DT-GW-MNOP} are $E_3$-factorisation-homology traces on
-the common object $\Phi^{\mathrm{FA}}_3(X)$; they do not distinguish the
-hCS and $\HH^\bullet(\cC)$ presentations --- they see only $\cF_X$. MNOP
-and DT/PT are trace-identities, not functor-comparisons.
+\begin{proposition}[Compact proof obligations]
+\label{prop:compact-proof-obligations}
+For compact $X$, a global hCS presentation of
+$\PhiFA_3(\Perf(X))$ requires:
+\begin{enumerate}
+\item the local QME for the chosen quartic tensor $I_4^\rho$;
+\item a primitive for $\mathcal A_{\QME}$ in the same local functional
+complex, or a proof of its vanishing;
+\item orientation and framing data for the BV pairing;
+\item determinant-line, BCOV, or TCFT background data;
+\item descent and sewing for the factorisation algebra;
+\item counterterms compatible with the regulator and RG flow;
+\item analytic OPE completion.
+\end{enumerate}
+A vanishing Euler coefficient verifies the scalar BCOV entry alone. The
+representation-dependent quartic class remains part of the QME problem.
+\end{proposition}
+
+\begin{corollary}[Compact presentation theorem under the package]
+\label{cor:compact-presentation-package}
+Let $X$ be compact and let $\mathcal H_X$ be a compact comparison
+package in the sense of Definition~\ref{def:compact-comparison-package}.
+If $\mathcal A_{\QME}=0$, or if a counterterm primitive kills
+$\mathcal A_{\QME}$ in the same local functional complex, then hCS
+observables and categorical Hochschild cochains give equivalent
+presentations of $\Phi^{\mathrm{FA}}_3(\Perf(X))$ in the completed
+holomorphic $E_3$ homotopy category.
 \end{corollary}
 
-\begin{proof}[Proof]
-(i) is the combination of Theorem~\ref{thm:KT-formality-d3} (KT formality
-uniqueness up to $\Gtone$) and Theorem~\ref{thm:HKR-matrix-hCS} (HKR
-$+$ matrix framing $=$ hCS at the chain level). (ii) is Wave-14 A2 Cycle
-6: Costello--Li's BV propagator realises Kontsevich's configuration
-integrals, pinning the Kontsevich associator. (iii) is Theorem
-\ref{thm:Atiyah-BCOV}: Atiyah class and BCOV curving are the global
-formality obstruction and its trivialisation respectively. (iv) is
-Theorem~\ref{thm:DT-GW-MNOP}.
+\begin{proof}
+The QME makes the renormalised BV differential square-zero at every
+scale. RG compatibility identifies the factorisation algebras obtained
+from different scales. The orientation, framing, TCFT sewing,
+completion, and gauge-fixing data allow the local open--closed maps of
+Proposition~\ref{prop:local-hcs-hochschild-comparison} to glue over
+$X$. The resulting glued object is the Stage-$1$ factorisation algebra
+attached to $\Perf(X)$.
 \end{proof}
 
-\begin{remark}[The CG side-by-side]
-\label{rmk:CG-side-by-side}
-Costello--Francis--Gwilliam present the $E_n$ chain-level story through
-factorisation algebras (Costello--Gwilliam~2017, Volumes I and II); Francis
-presents the $(\infty,1)$-categorical story through higher Deligne and
-the tangent complex of $E_n$-algebras (Francis~2013~\emph{Compos.\ Math.}
-149; Lurie \emph{HA}~\S5). The two presentations of Corollary
-\ref{cor:hcs-geometric-resolution} are exactly these two sides: hCS is
-the Costello--Gwilliam chain-level factorisation-algebra presentation with
-explicit propagator and Feynman graphs; $\HH^\bullet(\Perf(X))$ is the
-Francis--Lurie $(\infty,1)$-categorical presentation with higher-Deligne
-$E_3$-structure. CLAUDE.md's equal-status rule for chain-level and
-$(\infty,1)$-categorical mathematics is here a theorem: the two
-presentations are quasi-isomorphic $E_3$-objects by Theorem
-\ref{thm:KT-formality-d3}, chain-level and $(\infty,1)$-categorical
-access points to the same Stage-1 object $\Phi^{\mathrm{FA}}_3(X)$.
+\begin{remark}[The product \texorpdfstring{$K3\times E$}{K3 x E}]
+\label{rmk:k3xe-anomaly}
+For $X=K3\times E$, the tangent characteristic contribution
+$c_3(T_X)$ vanishes by Kunneth: $T_E\simeq\cO_E$ and $K3$ has complex
+dimension $2$. This removes the geometric $c_3$ contribution to the
+compact anomaly calculation. The gauge-theoretic quartic slot
+$I_4^\rho$ remains part of the QME package and must vanish or be
+trivialised for the chosen representation. The scalar lanes attached
+to the $K3\times E$ comparison are:
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}=3,\qquad
+  \kBKM(\mathfrak g_{\Delta_5})=\frac{c_1(0)}2=5,\qquad
+  \kfib=24.
+\]
+The first two coincide numerically here and remain separate functionals:
+$\kcat$ is the categorical Euler characteristic, while compact
+$\kch$ is the Hodge supertrace
+$\sum_q(-1)^q h^{0,q}(K3\times E)=
+\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0$.
 \end{remark}
 
-\begin{remark}[Why this synthesis matters for the treatise]
-\label{rmk:why-matters-treatise}
-The three worked examples of \S\ref{wn:subsec:jordan-triple},
-\S\ref{wn:subsec:resolved-conifold}, \S\ref{wn:subsec:K3xE} each exhibit
-both presentations at their own level of rigour: $\ccC^3$ has both a hCS
-realisation (Costello--Gwilliam Vol.~II \S10; Wave-14 J3) and a categorical
-presentation via the Jordan triple quiver
-(Theorem~\ref{thm:HKR-matrix-hCS}); the conifold has both a hCS
-factorisation algebra and a quiver-with-potential category
-(Szendroi~2008); $K3\times E$ has a categorical Davison BPS presentation
-and an open hCS presentation (the BCOV anomaly computation of Wave-14 I1
-supplies the compatibility). The Stage-1 object
-$\Phi^{\mathrm{FA}}_3(X)$ exists uniformly across all three examples;
-the chiral Yangian / $\cW_{1+\infty}$ output on the spectral line is the
-Stage-2 specialisation.
+\subsubsection{Traces and enumerative theories}
+\label{wn:subsubsec:trace-identities}
+
+\begin{proposition}[DT, GW, and PT traces]
+\label{prop:dt-gw-pt-traces}
+Assume the compact comparison package of
+Definition~\ref{def:compact-comparison-package}. Then Donaldson--Thomas,
+Gromov--Witten, and Pandharipande--Thomas theories define trace
+functionals on the completed Stage-$1$ object
+$\Phi^{\mathrm{FA}}_3(\Perf(X))$:
+\[
+  Z_{\DT}(X;q)=
+  \operatorname{Tr}_{\DT}^{E_3}
+  \left(\int_X \Phi^{\mathrm{FA}}_3(\Perf(X))\right),
+\]
+\[
+  Z_{\GW}(X;u)=
+  \operatorname{Tr}_{\GW}^{E_3}
+  \left(\int_X \Phi^{\mathrm{FA}}_3(\Perf(X))\right),
+\]
+and
+\[
+  Z_{\PT}(X;q)=
+  \operatorname{Tr}_{\PT}^{E_3}
+  \left(\int_X \Phi^{\mathrm{FA}}_3(\Perf(X))\right).
+\]
+The DT/PT correspondence identifies the DT and PT traces under its
+usual hypotheses. MNOP identifies the reduced DT trace with the GW
+trace after $q=-e^{iu}$ on the proven toric locus and remains
+conjectural for general compact threefolds.
+\end{proposition}
+
+\begin{proof}
+The PTVV shifted symplectic form on the moduli of objects in
+$\Perf(X)$ gives the virtual orientation data behind DT and PT counts.
+The stable-map moduli give the GW trace. The compact package supplies
+the same completed Stage-$1$ factorisation algebra to each trace. The
+known DT/PT and toric MNOP theorems identify the resulting trace
+functionals after their standard changes of variables and reductions.
+\end{proof}
+
+\begin{remark}[Borcherds weight from the trace on \texorpdfstring{$K3\times E$}{K3 x E}]
+\label{rmk:k3xe-trace-weight}
+On primitive classes of $K3\times E$, the reduced DT trace is governed
+by the Oberdieck--Pixton and Gritsenko--Nikulin--Igusa product. The
+Borcherds weight invariant is
+\[
+  \kBKM(\Phi_N)=\frac{c_N(0)}2,
+\]
+so the $N=1$ row has $c_1(0)=10$ and
+$\kBKM(\Phi_1)=5$. This invariant is separate from
+$\kcat$, $\kch$, and $\kfib$.
 \end{remark}
 
-\subsubsection{Status summary}
-\label{wn:subsubsec:hcs-vs-cat-status}
+\subsubsection{Local \texorpdfstring{$\mathbb C^3$}{C3} CoHA and the chiral output}
+\label{wn:subsubsec:c3-coha-output}
 
-\begin{description}
-\item[\ClaimStatusTheorem] Theorem~\ref{thm:KT-formality-d3}
-(KT formality for $\cD_3$; Kontsevich~1997 $L_\infty$; Tamarkin~1998
-$\Ger$-lift; Fresse/Lurie Koszul-duality upgrade to $E_3$;
-Calaque--Van den Bergh~2007 CY globalisation with $c_1=0$).
+\begin{proposition}[\texorpdfstring{$\CoHA(\mathbb C^3)$}{CoHA(C3)} and the positive half]
+\label{prop:c3-coha-positive-half}
+For the Jordan triple-loop quiver with cubic potential,
+Schiffmann--Vasserot identify the critical cohomological Hall algebra
+with the positive half of the affine Yangian:
+\[
+  \CoHA(\mathbb C^3)\cong Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The full $\mathcal W_{1+\infty}$ algebra is reached through the typed
+chain
+\[
+  Y^+(\widehat{\mathfrak{gl}}_1)
+  \longrightarrow
+  \mathcal D\bigl(Y^+(\widehat{\mathfrak{gl}}_1)\bigr)
+  \longrightarrow
+  \mathcal W_{1+\infty},
+\]
+where $\mathcal D$ denotes the Drinfeld double and the final arrow
+uses a completed Fock or evaluation representation.
+\end{proposition}
 
-\item[\ClaimStatusTheorem] Theorem~\ref{thm:HKR-matrix-hCS} (HKR $+$
-matrix framing $=$ hCS on $\ccC^3$; Swan~1996; Yekutieli~2002 for HKR;
-Costello--Li~2016 for the BV quantisation producing Kontsevich deformation
-quantisation; Schiffmann--Vasserot~2013 for the CoHA = Maurer--Cartan
-shadow).
+\begin{proof}
+The critical CoHA multiplication is the shuffle multiplication on
+symmetric functions with the three equivariant parameters
+$\epsilon_1,\epsilon_2,\epsilon_3$. This is the positive half
+$Y^+(\widehat{\mathfrak{gl}}_1)$. Negative modes and the Cartan current
+enter after forming the double and choosing the representation that
+realises the vertex algebra.
+\end{proof}
 
-\item[\ClaimStatusTheorem] Theorem~\ref{thm:Atiyah-BCOV} (Atiyah class
-obstruction; Kapranov~1999; BCOV curving; Costello--Li~2012 chain-level
-and $K3\times E$ K\"unneth vanishing of $c_3$; Wave-14 I1 for the
-one-loop BV anomaly identification).
+\begin{corollary}[Geometric and categorical presentations]
+\label{cor:hcs-geometric-resolution}
+Under the hypotheses stated above, hCS is the geometric BV presentation
+of the same Stage-$1$ object that categorical Hochschild theory presents
+through $\HH^\bullet(\Perf(X))$. The typed chain is
+\[
+  \Obs_{\hCS}^{q}
+  \xrightarrow{\Theta_{\mathrm{oc}}}
+  C^\bullet_{\mathrm{Hoch},E_3}(\Perf(X))
+  \xrightarrow{\Theta_{\mathrm{glob}}}
+  \PhiFA_3(\Perf(X))
+  \xrightarrow{\Sp_{\Sigma_2,C}}
+  A_{\Perf(X),\Sigma_2,C}.
+\]
+The hCS presentation supplies propagators, RG flow, QME, counterterms,
+and Feynman weights. The categorical presentation supplies the
+Hochschild $E_3$ structure, Serre-duality trace, centre, and
+open--closed action. The last object is the $E_1$ chiral output for
+$d=3$.
+\end{corollary}
 
-\item[\ClaimStatusTheorem] Theorem~\ref{thm:DT-GW-MNOP} parts on
-$\DT$ (Thomas~1998; MNOP~2006), $\GW$ (Kontsevich~1995;
-Behrend--Fantechi~1997), $\PT$ (Pandharipande--Thomas~2009), and the
-MNOP conjecture proved for toric CY$_3$; Oberdieck--Pixton~2017 on
-$K3\times E$ primitive class. \ClaimStatusConjectured\ MNOP in full
-non-toric generality.
+\begin{proof}
+The local statement is Proposition~\ref{prop:local-hcs-hochschild-comparison}.
+The associator and formality dependence are recorded in
+Theorem~\ref{thm:stage-one-formality-datum}. Compact targets require
+Definition~\ref{def:compact-comparison-package} and
+Corollary~\ref{cor:compact-presentation-package}. The passage from
+$\CoHA(\mathbb C^3)$ to the chiral vertex algebra is typed by
+Proposition~\ref{prop:c3-coha-positive-half}. The operadic level after
+specialisation is the $E_1$ level prescribed by the two-stage
+factorisation theorem for $d\geq3$.
+\end{proof}
 
-\item[\ClaimStatusScoped] Corollary~\ref{cor:hcs-geometric-resolution}
-(synthesis): (i) and (ii) and (iv) are theorem under the scope of
-Theorems~\ref{thm:KT-formality-d3}--\ref{thm:DT-GW-MNOP}; (iii) is
-scoped to compact CY$_3$ with explicit BCOV trivialisation, open in
-full generality for $\int c_3 \neq 0$.
-\end{description}
-
-\paragraph{Cross-references.} Wave-12 U1
-(\texttt{wave12\_u1\_two\_stage\_functor.tex}) for the two-stage
-factorisation $\Phi_3 = \Sp\circ\Phi^{\mathrm{FA}}_3$; Wave-14 A2
-(\texttt{wave14\_a2\_KT\_formality\_kontsevich.tex}) for the
-$\Gtone$-torsor vs.\ contractible-iso-classes distinction and the
-Kontsevich-associator identification; Wave-14 I1
-(\texttt{wave14\_i1\_hCS\_nonabelian\_anomaly.tex}) for the one-loop
-BV anomaly computation on $\ccC^3$ and $K3\times E$; Wave-14 I2
-(\texttt{wave14\_i2\_Linf\_Obs\_hCS.tex}) for the $L_\infty$-structure
-beyond the minimal model and Atiyah-class obstruction on compact CY$_3$;
-Wave-14 I3 (\texttt{wave14\_i3\_deformation\_hCS.tex}) for the
-$E_3$-Hochschild deformation complex and holographic image; Wave-14 J3
-(\texttt{wave14\_j3\_framed\_E3\_PROP\_action.tex}) for the framed
-$E_3$-operad action via Fulton--MacPherson; Wave-14 J5
-(\texttt{wave14\_j5\_chiral\_Koszul\_hCS.tex}) for the chiral Koszul
-duality $U^\chir(\cE_\hCS)^! \simeq \CE^*_{\dbar,\chir}(\cE_\hCS, \cO)$.
-
-\paragraph{Primary sources engaged.} Kontsevich~1997
-\texttt{arXiv:q-alg/9709040}; Tamarkin~1998 \texttt{arXiv:math/9803025};
-Drinfeld~1990 (quasi-Hopf, $\Gtone$); Willwacher~2014
-\texttt{arXiv:1009.1654}; Fresse~2017 (\emph{Homotopy of Operads},
-AMS SURV~217); Lurie \emph{Higher Algebra} \S5.2--5.5;
-Swan~1996 (HKR); Yekutieli~2002 \texttt{arXiv:math/0007082};
-Calaque--Van den Bergh~2007 \texttt{arXiv:0708.2725};
-Kapranov~1999 \texttt{arXiv:math/9704009} (Atiyah class $=l_3^{\min}$);
-Costello~2011 \emph{Renormalization and EFT};
-Costello--Gwilliam~2017 \emph{Factorization Algebras in QFT}, Vols.~I--II;
-Costello--Li~2012 \texttt{arXiv:1201.4522} (BCOV);
-Costello--Li~2016 \texttt{arXiv:1606.00365} (hCS and Kontsevich
-quantisation); BCOV~1994 \emph{Comm.\ Math.\ Phys.}~165;
-Pantev--To\"en--Vaqui\'e--Vezzosi~2013 \texttt{arXiv:1111.3209}
-(PTVV shifted symplectic); Kontsevich--Soibelman~2008
-\texttt{arXiv:0811.2435} (CY$_3$ categories); Thomas~1998
-\texttt{arXiv:math/9806111} (DT); Maulik--Nekrasov--Okounkov--Pandharipande~2006
-\texttt{arXiv:math/0312059} (MNOP I); Pandharipande--Thomas~2009
-\texttt{arXiv:0707.2348} (PT pairs); Oberdieck--Pixton~2017
-\texttt{arXiv:1706.10100} (K3$\times$E reduced DT); Francis~2013
-\texttt{arXiv:1110.5442} (higher Deligne); Ayala--Francis~2015
-\texttt{arXiv:1212.5553} (non-abelian Poincar\'e duality).
-
-%======================================================================
-% End of Wave-14 B5/5 synthesis section.
-%======================================================================
+\paragraph{References.}
+Kontsevich formality; Tamarkin formality; Drinfeld associators;
+Willwacher's graph-complex theorem; Costello--Gwilliam factorisation
+algebras; Costello--Li hCS and BCOV quantisation; Francis higher
+Deligne theory; Lurie \emph{Higher Algebra}; Pantev--To\"en--Vaqui\'e--
+Vezzosi shifted symplectic geometry; Kontsevich--Soibelman
+Calabi--Yau categories; Thomas DT theory; Maulik--Nekrasov--Okounkov--
+Pandharipande MNOP; Pandharipande--Thomas stable pairs; Schiffmann--
+Vasserot affine Yangian CoHA; Oberdieck--Pixton reduced DT theory on
+$K3\times E$; Gritsenko--Nikulin and Borcherds product formulae.

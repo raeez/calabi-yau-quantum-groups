@@ -6,128 +6,221 @@
 \providecommand{\PP}{\mathbb{P}}
 \providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
 \providecommand{\Spf}{\mathrm{Sp}_4(\ZZ)}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\PhiTenUN}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\PhiTenOP}{\Phi_{10}^{\mathrm{OP}}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\ZOP}{Z_{\mathrm{OP}}}
+\providecommand{\wt}{\operatorname{wt}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kchHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\bC}{\mathbb{C}}
 
-\section*{Slides lines 870--953: the eight-form enumeration}
+\section*{Eight Orders, CHL Denominators, and Scalar Squares}
 
-\paragraph{What the slides state (lines 870--953).}
-The final stretch enumerates $(S, g_N, h_M)$ data with $N, M \le 8$ and
-constructs, for each $N$, a DT-zeta function $Z^X(q, t, p)$ of the
-smooth projective CY3 $X = (S \times E)/(\ZZ/N\ZZ)$.  The DT series is
-assembled as
+\paragraph{Translation quotients.}
+Let \(S\) be a K3 surface with a symplectic automorphism \(g_N\) of
+order \(N\leq8\), let \(E\) be an elliptic curve, and choose a torsion
+point \(e_0\in E\) of exact order \(N\). The diagonal action
 \[
-  Z^X(q, t, p) \;=\; \sum_{h \ge 0} \sum_{d \ge 0} \sum_{n \in \ZZ}
-      \mathrm{DT}_{n, (\beta_h, d)}\; q^{d - 1} t^{\tfrac{1}{2}\langle \beta_h, \beta_h\rangle}(-p)^n,
+  (s,e)\longmapsto(g_Ns,e+e_0)
 \]
-with classes $\beta_h = (s_1 + \cdots + s_N + h F)/N$ built from the
-$N$ torsion sections $s_1, \ldots, s_N$ and the fibre class $F$ of
-$\pi: S \to \PP^1$; Behrend-weighted Euler characteristics
-$\mathrm{DT}_{n,(\beta_h,d)} = \int_{\mathrm{Hilb}^n(X,\beta_h)/E} \nu_{\mathrm{dE}}$
-define the coefficients.  The theorem at $N = 1$ reads
+of \(\ZZ/N\ZZ\) on \(S\times E\) is free, since translation by
+\(e_0\) acts freely on \(E\). It preserves the holomorphic \(3\)-form,
+so
 \[
-  Z^{S \times E} \;=\; -\,\frac{C}{(\Delta_5)^2},
-  \qquad \text{K3 elliptic genus } = 2\phi_{0, 1},
+  X_N=(S\times E)/(\ZZ/N\ZZ)
 \]
-and the conjecture (slide line 929) advances this to all $N$: the
-$L$-$(h_M = g_N^s)$-twisted DT series $-1/Z^X_{L, h_M}(q, t, p)$ is a
-Siegel modular form, and there is a GKM algebra
-$\mathfrak{g}_{(g_N, h_M)} \subset \mathfrak{g}_L$ with multiplicities
-controlled by the $(g_N, h_M)$-twisted elliptic genus
-$F_L^{(g_N, h_M)}$, a Jacobi form of weight $0$ and index $1$.
+is a smooth \(K\)-trivial threefold for every Mukai-admissible cyclic
+order \(N\leq8\). The quotient follows the holomorphic-volume
+Calabi--Yau convention. Since \(g_N\) is symplectic on \(S\) and
+translation is trivial on \(H^{0,\bullet}(E)\),
+\[
+  H^{0,\bullet}(X_N)
+  \cong
+  \bigl(H^{0,\bullet}(S)\otimes H^{0,\bullet}(E)\bigr)^{\ZZ/N\ZZ},
+  \qquad
+  (h^{0,0},h^{0,1},h^{0,2},h^{0,3})=(1,1,1,1).
+\]
+Thus \(\kcat(X_N)=\chi(\cO_{X_N})=0\). The strict convention
+\(h^{0,1}=h^{0,2}=0\) belongs to quotients with additional geometry; this
+translation quotient has the displayed nonzero \(h^{0,1}\) and
+\(h^{0,2}\).
 
-\paragraph{Final six slides: the case split.}
-After defining $A = \tfrac{1}{4}\phi_{0,1}$ and
-$B = \phi_{-2, 1} = \nu_1^2/\eta^6$ (line 939), the talk partitions
-$N \in \{1, \ldots, 8\}$ into four case clusters and states the
-twisted-genus formula in each:
-\begin{enumerate}
-\item[(a)] \emph{Generic cluster} $N \in \{1, 2, 3, 5, 7\}$
-  (line 943): uniform formula valid for all $1 \le s, r \le N - 1$
-  and $0 \le k \le N - 1$.  The slide frames this as the primary
-  generic family — the same generic family where
-  $g_N$ acts on $H^*(S, \ZZ)$ with spectrum determined by a single
-  cyclotomic divisor pattern.
-\item[(b)] $N = 4$ (line 945), enumerated over $s \in \{0, 1, 2, 3\}$.
-\item[(c)] $N = 6$ (lines 947, 949), enumerated over $s \in \{0, 1, 2, 3\}$.
-\item[(d)] $N = 8$ (lines 951, 953), without an $s$-enumeration on the
-  slide header.
-\end{enumerate}
-The case split is \emph{arithmetic}, not physical: the primes
-$\{2, 3, 5, 7\}$ together with $N = 1$ form one uniform family because
-$g_N^r$ generates a subgroup of order $N/\gcd(r, N)$ whose character
-sum decomposes through a single cyclotomic polynomial;
-the composite orders $N \in \{4, 6, 8\}$ each require separate
-orbit-sum formulas because multiple cyclotomic factors enter.
+The translation quotient supplies a smooth \(K\)-trivial host. The
+primitive \(K3\times E\) CHL denominator ladder below is a separate
+automorphic input.
 
-\paragraph{Cross-check against \textsc{Lorgat 2020}.}
-The slide partition $\{1, 2, 3, 5, 7\} \cup \{4\} \cup \{6\} \cup \{8\}$
-aligns with the \emph{eight Gritsenko--Cl\'ery paramodular diagonal-divisor
-forms} — the subject of Conjecture 1 of Lorgat 2020
-(\texttt{reference\_lorgat\_2020\_automorphic\_corrections.md}): the eight
-paramodular forms indexed by $N \le 8$ are the eight denominator
-functions the conjecture associates to $(S, g_N)$-twisted DT zetas,
-one per case cluster plus the prime-cluster entries.
-The slides state Conjecture 1 in prospective form (\emph{``all 8
-Siegel modular forms arise as $-1/Z^X_{L, h_M}$''}, line 929), matching
-exactly the paper's conjectural scope.
+\paragraph{Reduced DT series.}
+When \(S\to\PP^1\) is elliptically fibered and an \(N\)-torsion section
+is fixed, let \(s_1,\ldots,s_N\) be its translates and let \(F\) be the
+fibre class. Put
+\[
+  \beta_h=\frac{s_1+\cdots+s_N+hF}{N}.
+\]
+The reduced DT series has the convention
+\[
+  Z^{X_N}(q,t,p)
+  =
+  \sum_{h\geq0}\sum_{d\geq0}\sum_{n\in\ZZ}
+  \mathrm{DT}_{n,(\beta_h,d)}
+  q^{d-1}t^{\langle\beta_h,\beta_h\rangle/2}(-p)^n ,
+\]
+where \(\mathrm{DT}_{n,(\beta_h,d)}\) is the Behrend-weighted Euler
+characteristic of the Hilbert scheme modulo the elliptic translation
+action. The monomial \(q^{d-1}t^{\langle\beta_h,\beta_h\rangle/2}(-p)^n\)
+is part of the definition.
 
-\paragraph{CHL-admissibility.}
-\textbf{The slides contain no ``CHL-admissibility'' language.}  The
-restriction to $N \in \{1, 2, 3, 4, 6\}$ that governs the Vol III
-programme's Borcherds-weight identity
-$\kBKM(\Phi_N) = c_N(0)/2$ is \emph{not} imposed in the slides: the
-slides enumerate through all of $\{1, \ldots, 8\}$, and the
-prime-cluster slide explicitly includes $N = 5, 7$.  This is a
-non-trivial divergence of scope.
+\paragraph{The \(N=1\) scalar.}
+For \(X_1=S\times E\), the Oberdieck--Pandharipande reduced-DT theorem
+in the monic scalar normalisation gives
+\[
+  \PhiTenOP=\Dfive^2=4096^{-1}\DeltaFive^2,
+  \qquad
+  \ZOP=-(\PhiTenOP)^{-1}
+  =-\Dfive^{-2}=-4096\,\DeltaFive^{-2},
+  \qquad
+  \Dfive=64^{-1}\DeltaFive .
+\]
+The primitive square coordinate is
+\[
+  \PhiTenUN=\DeltaFive^2 .
+\]
+The primitive Borcherds denominator uses the Eichler--Zagier input
+\(\phi_{0,1}^{\mathrm{EZ}}\), with \(c_1(0)=10\), and gives
+\[
+  \kBKM(\DeltaFive)=c_1(0)/2=5 .
+\]
+The K3 elliptic genus is \(2\phi_{0,1}^{\mathrm{EZ}}\) and lands on the
+square \(\PhiTenUN\). The OP scalar records the inverse square of the
+monic coordinate \(\Dfive\). The primitive root datum of \(\gDelta\)
+uses the Gritsenko--Nikulin/Kac denominator theorem, the Lorentzian
+lattice, real simple roots, imaginary simple roots, parity, and Weyl
+vector.
 
-Reconciliation: the programme's $\{1, 2, 3, 4, 6\}$ set is the
-\emph{CHL-admissible} subset — those $N$ for which $\ZZ/N\ZZ$ acts
-\emph{symplectically} on a K3 lattice extending to a free action on
-$S \times E$ with the quotient carrying the relevant
-$\SU(2)$ R-symmetry structure needed for string-theoretic $1/2$-BPS
-countings.  The slides work at the broader Gritsenko--Cl\'ery level
-of $\Spf$ modular forms, where the constraint on $N$ is only
-``$N \le 8$ and $g_N$ preserves the elliptic genus of $S$''.  The
-slide cases $N \in \{5, 7\}$ and $N = 8$ correspond to paramodular
-forms of the eight-form family that do \emph{not} admit the full
-$(g_N, h_M)$ twist pairing satisfying the CHL physical consistency
-condition; the Vol III programme treats these as outside the scope
-of $\kBKM(\Phi_N) = c_N(0)/2$ (AP-CY on scope discipline).
+\paragraph{\(K3\times E\) constants.}
+For the compact total space and its distinguished specialisations,
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kchHeis(K3\times E)=3,\qquad
+  \kBKM(\DeltaFive)=5,\qquad
+  \kfib(K3\times E)=\kfib(K3)=24 .
+\]
+The first equality is K\"unneth multiplicativity:
+\(\chi(\cO_{K3\times E})=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0\).
+The second is the compact Hodge supertrace on the total space. The
+Heisenberg value, the Borcherds weight, and the fibre rank are separate
+constructions, with independent definitions and independent verification
+paths.
 
-\paragraph{In slides vs added by programme.}
-\begin{itemize}
-\item \emph{In slides} (lines 870--953): K3 elliptic fibration with
-  $N$ sections, $(S \times E)/(\ZZ/N\ZZ)$ CY3 construction, DT zeta
-  $Z^X(q, t, p)$ with explicit $\beta_h$, the $N = 1$ theorem
-  $Z^{S \times E} = -C/(\Delta_5)^2$, Conjecture 1 enumeration across
-  the four clusters $\{1, 2, 3, 5, 7\}, \{4\}, \{6\}, \{8\}$, and the
-  $A = \phi_{0,1}/4$, $B = \phi_{-2,1}$ generators of the weak Jacobi
-  ring $J_{0, *}$.
-\item \emph{Added by programme, not in slides}:
-  \begin{itemize}
-  \item The identity $\kBKM(\Phi_N) = c_N(0)/2$ as a universal
-    statement for $N \in \{1, 2, 3, 4, 6\}$ — slides state
-    \emph{denominator identity} data but do not extract
-    $\kappa$-invariants from weights.
-  \item The CHL-admissibility cut $\{1, 2, 3, 4, 6\} \subset \{1, \ldots, 8\}$.
-  \item The $\{2, 3, 5, 24\}$ constellation on $S \times E$: slides
-    give only $\kcat(S \times E) = 0$ indirectly (via the K3 elliptic
-    genus being $2\phi_{0,1}$), not the four-construction picture.
-  \item The CY-D dimensional stratification.
-  \item The cross-identification
-    $\kBKM(\Phi_N) = \kch(K3 \times E) + \chi(\cO_{\text{fibre}})$, which
-    is \emph{false} at every $N$ and is explicitly disclaimed in the
-    cache; the slides never assert this identification.
-  \end{itemize}
-\end{itemize}
+\paragraph{Primitive CHL denominator ladder.}
+The primitive CHL denominator levels are
+\[
+  N\in\{1,2,3,4,6\}.
+\]
+For \(\Phi_N^{\mathrm{CHL}}\) the Borcherds input constants and modular
+characteristics are
+\[
+  c_N(0)=(10,8,6,4,2),
+  \qquad
+  \kBKM(\Phi_N^{\mathrm{CHL}})=c_N(0)/2=(5,4,3,2,1).
+\]
+Borcherds's multiplicative-lift theorem gives the weight as half the
+constant term of the weak Jacobi input. The table is indexed by
+primitive compact CHL denominator data, with Jacobi input, product
+normalisation, and denominator algebra fixed at each row. Cyclic
+translation quotients form a different index.
 
-\paragraph{Summary (three lines).}
-The final slide stretch inscribes the eight-$N$ case enumeration
-underpinning Conjecture 1 of Lorgat 2020, with case clusters
-$\{1, 2, 3, 5, 7\}, \{4\}, \{6\}, \{8\}$ covering the full
-Gritsenko--Cl\'ery paramodular-form family.  The Vol III programme
-\emph{subset} $\{1, 2, 3, 4, 6\}$ is a CHL-admissibility restriction
-added by the programme, not present in the slide material.  All
-$\kBKM$-weight arithmetic ($c_N(0)/2$ as the $\Phi_N$ weight) is
-programme-internal and draws on slide content only through the
-$N = 1$ theorem $Z^{S\times E} = -C/(\Delta_5)^2$ and the associated
-$\phi_{0, 1}$ Fourier-coefficient data.
+\paragraph{Nikulin order extension.}
+For symplectic K3 automorphisms of the remaining Mukai-admissible
+orders, let \(\Phi_N^{\mathrm{Nik}}\) denote the order-indexed
+Borcherds product of the \(g_N\)-twined K3 Jacobi input. Its constants
+and automorphic weights are
+\[
+  (c_5(0),c_7(0),c_8(0))=(4,2,2),
+  \qquad
+  \bigl(\wt(\Phi_N^{\mathrm{Nik}})\bigr)_{N=5,7,8}
+  =c_N(0)/2=(2,1,1).
+\]
+These three rows give Borcherds-weight data. A statement with
+\(\kBKM(\Phi_N^{\mathrm{Nik}})\) requires a specified BKM denominator
+algebra; after denominator recognition the corresponding \(\kBKM\)-values
+are \((2,1,1)\). A CY-to-chiral realisation requires a supplied
+\(E_1\)-chiral host, comparison map, and denominator identity.
+
+\paragraph{The Gritsenko--Clery diagonal-divisor catalogue.}
+The simplest-divisor diagonal-divisor catalogue is the separate
+triple-indexed list
+\[
+ (t,N;k)=
+ (1,1;5),(2,1;2),(1,2;3),(3,1;1),(1,3;2),
+ (4,1;\tfrac12),(1,4;\tfrac32),(2,2;1).
+\]
+Its weights are
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1),
+\]
+and its twice-weight constants are
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+The common entry with the primitive CHL ladder is \((1,1;5)\), the
+\(\DeltaFive\) row. Every other comparison requires a row-map theorem
+preserving the Jacobi input, paramodular group, character, divisor
+multiplicity, Weyl chamber, and product normalisation.
+
+\paragraph{Hall and chiral layers.}
+For \(d\geq3\), the native CY-to-chiral output is an \(E_1\)-chiral
+algebra; \(E_2\) appears only on a centre, double, or module category
+after that layer has been constructed. On the affine toric chart,
+\[
+  \CoHA(\bC^3)=Y^+(\widehat{\mathfrak{gl}}_1),
+\]
+the positive Hall half of Schiffmann--Vasserot. The full
+\(\cW_{1+\infty}\) vertex algebra is reached only after the
+Drinfeld double, centre, completion, and evaluation steps. The
+Hall--Drinfeld/BKM branch attached to \(\DeltaFive\) is distinct from
+the Mukai Yangian branch.
+
+\paragraph{Twisted denominators.}
+A formula of the form
+\[
+  -\bigl(Z^X_{L,h_M}(q,t,p)\bigr)^{-1}
+  =
+  \text{Siegel denominator}
+\]
+contains these data: the lattice polarisation \(L\), a commuting pair
+\((g_N,h_M)\), a Jacobi input, a product normalisation, orientation
+data, and a proof that the reduced-DT scalar equals the chosen
+automorphic product. A generalized BKM algebra
+\(\mathfrak g_{(g_N,h_M)}\) contains a Lorentzian root lattice, real
+simple roots, Weyl vector, imaginary simple roots, parity split, and
+denominator identity. A modular form supplies scalar automorphic data;
+a physical interpretation supplies a heuristic until it is identified
+with a BPS index or a reduced-DT theorem.
+
+\paragraph{Comparison table.}
+\[
+\begin{array}{c|c|c|c}
+\text{scope} & \text{indexing} & \text{numerics} & \text{supplied structure}\\ \hline
+\text{translation quotient} & N\leq8 &
+\kcat=0 & \text{smooth }K\text{-trivial host}\\
+\text{OP scalar square} & N=1 &
+\ZOP=-4096\DeltaFive^{-2} & \text{reduced-DT scalar}\\
+\text{primitive CHL denominator} & N=1,2,3,4,6 &
+\kBKM=5,4,3,2,1 & \text{BKM denominator}\\
+\text{Nikulin order extension} & N=5,7,8 &
+\wt=2,1,1 & \text{Borcherds product}\\
+\text{Gritsenko--Clery diagonal divisor} & (t,N;k) &
+5,2,3,1,2,\tfrac12,\tfrac32,1 & \text{diagonal-divisor form}
+\end{array}
+\]
+The translation-quotient row is geometric. The OP row is a scalar
+inverse-square convention. The primitive CHL row is the compact
+denominator ladder. The Nikulin row is the non-CHL automorphic
+extension. The Gritsenko--Clery row is the diagonal-divisor
+classification.
+Identifying two rows is a theorem with its own data.

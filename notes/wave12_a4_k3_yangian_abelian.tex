@@ -13,18 +13,10 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\N}{\mathbb{N}}
 \newcommand{\F}{\mathcal{F}}
 \renewcommand{\gg}{\mathfrak{g}}
 \newcommand{\hh}{\mathfrak{h}}
-\newcommand{\kk}{\mathfrak{k}}
-\newcommand{\nn}{\mathfrak{n}}
-\newcommand{\gl}{\mathfrak{gl}}
-\newcommand{\osp}{\mathfrak{osp}}
-\newcommand{\sll}{\mathfrak{sl}}
 \newcommand{\Lmuk}{\Lambda_{\mathrm{Muk}}}
-\newcommand{\Hmuk}{\widehat{\mathcal{H}}_{\mathrm{Muk}}}
 \newcommand{\YgK}{Y_\hbar(\gg_{K3})}
 \newcommand{\Yplus}{Y_\hbar^{+}(\gg_{K3})}
 \newcommand{\Yminus}{Y_\hbar^{-}(\gg_{K3})}
@@ -35,16 +27,14 @@
 \newcommand{\End}{\mathrm{End}}
 \newcommand{\CoHA}{\mathrm{CoHA}}
 \newcommand{\Sym}{\mathrm{Sym}}
-\newcommand{\PBW}{\mathrm{PBW}}
 \newcommand{\Obs}{\mathrm{Obs}}
 \newcommand{\Tr}{\mathrm{Tr}}
 \newcommand{\Coh}{\mathrm{Coh}}
 \newcommand{\Aut}{\mathrm{Aut}}
-\newcommand{\McK}{\mathrm{McK}}
 
-\title{The K3 Yangian:\\
-Abelian Presentation, Stable Envelope,\\
-and the Holomorphic Chern--Simons Avatar}
+\title{The K3 Abelian Yangian:\\
+Mukai-Heisenberg Presentation, Local Stable Envelopes,\\
+and the Holomorphic Chern-Simons Boundary}
 \author{Raeez Lorgat}
 \date{2026-04-22}
 
@@ -52,998 +42,682 @@ and the Holomorphic Chern--Simons Avatar}
 \maketitle
 
 \begin{abstract}
-Let $S$ be a K3 surface, $\Lmuk = \widetilde H(S, \Z) \simeq U^{3}\oplus E_{8}(-1)^{2}$
-the Mukai lattice with pairing $\omega$ of signature $(4,20)$, and $\YgK$ the
-abelian K3 Yangian: the $\hbar$-deformation of the rank-$24$ Heisenberg current algebra
-on $\Lmuk$. Three presentations --- RTT, Drinfeld new (current), OPE --- all deliver the
-same $\C[\hbar]$-algebra by reduction to the diagonal Heisenberg mode commutator, with the
-diagonal $R$-matrix $R_{K3}(u) = \mathrm{diag}\bigl((u - h_i)/(u + h_i)\bigr)_{i=1}^{24}$
-and structure function $g_{K3}(u) = \prod_{i=1}^{24}(u - h_i)/(u + h_i)$ of bidegree
-$(24, 24)$. The Drinfeld-spectral coproduct $\Delta_z(T_{K3}(u)) = T_{K3}^{L}(u)\cdot T_{K3}^{R}(u-z)$,
-counit $\epsilon(J_{i,n}) = 0$, and antipode $S(J_{i,n}) = -J_{i,n}$ equip $\YgK$ with
-a Hopf structure; coassociativity is Miura-multiplicative associativity.
-The Schiffmann--Vasserot cohomological Hall algebra of K3,
-$\CoHA(K3) \cong U\bigl(\Yplus\bigr)$, recovers the positive half --- not the full
-$\mathcal{W}_{1+\infty}$, which is the Drinfeld double. Maulik--Okounkov stable envelopes
-on $\Hilb^n(K3)$ produce the same diagonal $R$-matrix at ADE/Kummer charts where a local toric
-torus acts; at generic K3 moduli $\dim \Aut(S)^{\circ} = 0$ and the MO construction fails,
-so the three routes agree on the scope-permitted overlap. The chiral avatar is
-holomorphic Chern--Simons on $S \times C$ with $C$ a punctured complex $1$-manifold: $\YgK$
-is the boundary $E_1$-chiral algebra of observables on $S \times D^{\times}$, and the stable envelope
-is the OPE across the puncture. The word \emph{Yangian} is earned by Drinfeld's 1985
-axioms applied to the Mukai bilinear form; \emph{abelian} refers to the Lie bracket on a single
-Miki factor, which is trivial modulo centre, and not to the Hopf coproduct $\Delta_z$, which is
-cocommutative only at $z = 0$.
+Let $S$ be a K3 surface and
+\[
+  \Lmuk=\widetilde H(S,\Z)=H^0(S,\Z)\oplus H^2(S,\Z)\oplus H^4(S,\Z)
+  \simeq U^3\oplus E_8(-1)^2
+\]
+the Mukai lattice with pairing of signature $(4,20)$. The rank $24$
+comes from $1+22+1$; the middle cohomology alone has rank $22$ and
+signature $(3,19)$. The abelian K3 Yangian $\YgK$ is the rational
+Heisenberg Yangian attached to the rank-$24$ Mukai current algebra. Its
+strict algebraic core is the OPE
+\[
+  J_i(z)J_j(w)\sim \frac{\hbar\,\omega^{ij}}{(z-w)^2},
+\]
+the positive diagonal RTT half, and the Heisenberg double pairing between
+positive and negative modes. The diagonal spectral data are the scalar
+family
+\[
+  r_i(u)=\frac{u-h_i}{u+h_i}, \qquad
+  g_{K3}(u)=\prod_{i=1}^{24}\frac{u-h_i}{u+h_i},
+  \qquad \sum_i h_i=0,
+\]
+so the structure function has bidegree $(24,24)$ and satisfies
+$g_{K3}(u)g_{K3}(-u)=1$. Local ADE/Kummer charts supply the
+Schiffmann-Vasserot quiver-CoHA positive half and the Maulik-Okounkov
+stable-envelope $R$-matrix. Generic K3 moduli lack the rank-$2$ torus
+needed for a global MO stable envelope, and the compact $K3\times E$
+Hall-Drinfeld/BKM branch is a separate construction. The hCS boundary
+interpretation is stated as a conjectural avatar of the same
+Mukai-Heisenberg algebra.
 \end{abstract}
 
 \tableofcontents
 
-\section{The abelian presentation}
-\label{sec:abelian-presentation}
+\section{Mukai-Heisenberg input}
+\label{sec:mukai-heisenberg-input}
 
-\subsection{Generators, OPE, mode algebra}
+\subsection{The rank is Mukai rank}
 
-Fix $\Lmuk = U^{\oplus 3} \oplus E_{8}(-1)^{\oplus 2}$ with Mukai pairing
-$\omega \colon \Lmuk \otimes \Lmuk \to \Z$ of signature $(4, 20)$. In any
-integral diagonal basis $\{e_i\}_{i=1}^{24}$,
-$\omega(e_i, e_j) = \omega^{ij} = \varepsilon_i \delta_{ij}$ with
-$\varepsilon_i = +1$ for $i = 1, \ldots, 4$ and $\varepsilon_i = -1$ for
-$i = 5, \ldots, 24$; the signature is basis-invariant.
+The K3 lattice $H^2(S,\Z)$ has rank $22$ and signature $(3,19)$. The
+Mukai lattice
+\[
+  \Lmuk=H^0(S,\Z)\oplus H^2(S,\Z)\oplus H^4(S,\Z)
+\]
+adds the two degree $0$ and degree $4$ directions, giving rank $24$ and
+signature $(4,20)$. The $24$ currents of the K3 abelian Yangian are
+indexed by the full Mukai lattice rather than by $H^2(S,\Z)$ alone.
 
-\begin{definition}[Abelian K3 Yangian at $\gg = \gl_{1}$]
+Fix a diagonal real basis $\{e_i\}_{i=1}^{24}$ for
+$\Lmuk\otimes\C$ in which
+\[
+  \omega(e_i,e_j)=\omega^{ij}=\varepsilon_i\delta_{ij},
+  \qquad
+  \varepsilon_i=
+  \begin{cases}
+    +1,&1\leq i\leq4,\\
+    -1,&5\leq i\leq24.
+  \end{cases}
+\]
+The diagonal basis is a computational normal form; the signature and the
+Heisenberg algebra are basis-invariant.
+
+\begin{definition}[Abelian K3 Yangian]
 \label{def:abelian-k3-yangian}
-The \emph{abelian K3 Yangian} $\YgK$ is the unital associative
-$\C[\hbar]$-algebra generated by symbols
-$\{J_{i,n}\}_{i = 1, \ldots, 24;\, n \in \Z}$ and a central element
-$\mathbf{c}$, modulo the Heisenberg commutator
+The abelian K3 Yangian $\YgK$ is the rational RTT/Drinfeld-current
+Heisenberg Yangian generated by modes
+\[
+  \{J_{i,n}\}_{1\leq i\leq24,\ n\in\Z}
+\]
+and a central element $\mathbf c$, with Heisenberg relation
 \begin{equation}
 \label{eq:heis-commutator}
-  [J_{i, m},\, J_{j, n}]
-  \;=\; \hbar\,\omega^{ij}\, m\, \delta_{m + n, 0}\,\mathbf{c},
+  [J_{i,m},J_{j,n}]
+  =
+  \hbar\,\omega^{ij}\,m\,\delta_{m+n,0}\,\mathbf c.
 \end{equation}
-augmented by $24$ Yangian deformation parameters
-$h_1, \ldots, h_{24} \in \C$ entering through the diagonal $R$-matrix
-\eqref{eq:r-matrix-diagonal}, subject to the CY$_{2}$ constraint
-$\sum_{i=1}^{24} h_i = 0$. Take $\mathbf{c} = 1$.
+The central charge is normalised by $\mathbf c=1$. The diagonal spectral
+parameters $h_1,\ldots,h_{24}\in\C$ enter the rational $R$-matrix below
+and satisfy the trace-zero CY$_2$ normalisation
+\begin{equation}
+\label{eq:cy2-trace-zero}
+  \sum_{i=1}^{24}h_i=0.
+\end{equation}
 \end{definition}
 
-The formal current $J_i(z) = \sum_{n \in \Z} J_{i, n}\, z^{-n-1}$ collects the
-modes; \eqref{eq:heis-commutator} is equivalent to the OPE
+The current
+\[
+  J_i(z)=\sum_{n\in\Z}J_{i,n}z^{-n-1}
+\]
+has OPE
 \begin{equation}
 \label{eq:k3-heisenberg-ope}
-  J_i(z)\, J_j(w) \;\sim\; \frac{\hbar\, \omega^{ij}}{(z - w)^{2}},
+  J_i(z)J_j(w)\sim \frac{\hbar\,\omega^{ij}}{(z-w)^2}.
 \end{equation}
-the defining OPE of the rank-$24$ Mukai--Heisenberg vertex algebra
-$V_{H_{\mathrm{Muk}}}$.
+Equivalently, in Lie conformal notation,
+\[
+  [J_i{}_\lambda J_j]=\hbar\,\omega^{ij}\lambda.
+\]
+This is the rank-$24$ Mukai-Heisenberg vertex algebra
+$V_{\Lmuk}$ restricted to its Cartan current subalgebra.
 
-The CY$_{2}$ constraint $\sum h_i = 0$ is the Calabi--Yau condition on the
-diagonal Cartan of the Yangian: in the Miura factorisation
-\eqref{eq:miura-transfer}, the sum $\sum h_i$ is the coefficient of $u^{23}$ in
-$T_{K3}(u)$, which equals minus the trace of $(h_1, \ldots, h_{24})$ diagonal;
-setting this to zero is the natural normalisation of the symplectic-summand
-identification $\widetilde H^{2, 0}(S) \oplus \widetilde H^{0, 2}(S)$, and
-aligns with the classical $c_1(S) = 0$ statement.
+\subsection{Miura series and diagonal spectral data}
 
-\subsection{Transfer matrix and Miura factorisation}
-
-The quantum Miura factorisation
+Use the normalised Miura series
 \begin{equation}
-\label{eq:miura-transfer}
-  T_{K3}(u) \;=\; \prod_{i = 1}^{24} \bigl(u - \phi_i(\partial)\bigr)
-               \;=\; \sum_{s = 0}^{24} (-1)^{s}\, \psi_s\, u^{24 - s}
+\label{eq:miura-normalised}
+  \mathcal T_{K3}(u)
+  =
+  \prod_{i=1}^{24}\left(1-\frac{\phi_i}{u}\right)
+  =
+  1+\sum_{s=1}^{24}(-1)^s\Psi_s u^{-s},
 \end{equation}
-defines transfer-matrix modes $\psi_s = e_s(\phi_1, \ldots, \phi_{24})$, the
-elementary symmetric polynomials, with $\phi_i(\partial) = J_i + \hbar\, \partial_z$
-the Miura free fields. The PBW filtration by $s$ has
-$\psi_0 = 1$, $\psi_1 = J := \sum_i J_i$, $\psi_2 = \tfrac{1}{2} (J^{2} - :\!J^{(1)}\!:) + \hbar\, T$
-with $T$ the Sugawara stress tensor at $c = 24$. Truncation $\psi_s = 0$ for $s > 24$
-follows from $e_s(x_1, \ldots, x_{24}) = 0$ beyond $s = 24$.
+where $\phi_i=J_i+\hbar\partial_z$ is the $i$-th free field. The
+unnormalised polynomial transfer matrix is
+$T_{K3}(u)=u^{24}\mathcal T_{K3}(u)$. The coefficients
+$\Psi_s=e_s(\phi_1,\ldots,\phi_{24})$ are elementary symmetric Miura
+fields. The truncation $\Psi_s=0$ for $s>24$ is the elementary identity
+$e_s(x_1,\ldots,x_{24})=0$.
 
-\subsection{The Yang structure function and the $R$-matrix}
-
-With $h_1, \ldots, h_{24} \in \C$ subject to $\sum h_i = 0$, the
-\emph{K3 structure function}
+The structure function is
 \begin{equation}
 \label{eq:structure-function-k3}
-  g_{K3}(u) \;=\; \prod_{i = 1}^{24} \frac{u - h_i}{u + h_i}
+  g_{K3}(u)=\prod_{i=1}^{24}\frac{u-h_i}{u+h_i}.
 \end{equation}
-is a rational function of bidegree $(24, 24)$ satisfying:
-\begin{itemize}
-\item[(U1)] \emph{Unitarity}: $g_{K3}(u)\, g_{K3}(-u) = 1$, since each factor
-  $(u - h_i)/(u + h_i)$ is individually unitary.
-\item[(U2)] \emph{Normalisation}: $g_{K3}(\infty) = 1$, $g_{K3}(0) = (-1)^{24} = 1$.
-\item[(U3)] \emph{CY$_{2}$ vanishing}: the $u^{-1}$ coefficient of $\log g_{K3}$ is
-  $-2 \sum h_i = 0$.
-\item[(U4)] \emph{Mukai factorisation}: $g_{K3} = g_{+} \cdot g_{-}$ with
-  $g_{+}(u) = \prod_{i=1}^{4} (u - h_i)/(u + h_i)$ and
-  $g_{-}(u) = \prod_{i=5}^{24} (u - h_i)/(u + h_i)$, matching the signature
-  factorisation $\omega = \omega_{+} \oplus \omega_{-}$ of the Mukai pairing.
-\end{itemize}
+It has bidegree $(24,24)$, normalisation $g_{K3}(\infty)=1$, and
+unitarity $g_{K3}(u)g_{K3}(-u)=1$. The coefficient of $u^{-1}$ in
+$\log g_{K3}(u)$ is $-2\sum_i h_i$, hence \eqref{eq:cy2-trace-zero}
+removes the trace term in the diagonal Cartan.
 
-The $R$-matrix on $\C^{24} \otimes \C^{24}$ is diagonal,
+On the Mukai weight basis $V=\C^{24}$ define the diagonal scalar
+$R$-family by
 \begin{equation}
 \label{eq:r-matrix-diagonal}
-  R_{K3}(u) \;=\; \mathrm{diag}\!\left(\frac{u - h_i}{u + h_i}\right)_{\!i=1}^{24}
-              \;\in\; \End(\C^{24} \otimes \C^{24})[\![u^{-1}]\!].
+  R_{K3}(u)(e_i\otimes e_j)
+  =
+  \frac{u-h_i}{u+h_i}\,e_i\otimes e_j.
 \end{equation}
-Diagonal $R$-matrices satisfy the Yang--Baxter equation
-$R_{12}(u - v)\, R_{13}(u)\, R_{23}(v) = R_{23}(v)\, R_{13}(u)\, R_{12}(u - v)$
-by scalar commutativity of entries. The classical expansion at large $u$ is
+Thus $R_{K3}(u)\in\End(V\otimes V)[[u^{-1}]]$ is diagonal with each
+$r_i(u)$ repeated along the second tensor factor. The Yang-Baxter
+equation follows entrywise from commutativity of scalar diagonal entries:
+\[
+  R_{12}(u-v)R_{13}(u)R_{23}(v)
+  =
+  R_{23}(v)R_{13}(u)R_{12}(u-v).
+\]
+At large $u$,
 \begin{equation}
 \label{eq:classical-r-mukai-note}
-  R_{K3}(u) \;=\; I_{24} \;-\; \frac{2}{u}\, \mathrm{diag}(h_1, \ldots, h_{24})
-                + O(u^{-2}).
+  R_{K3}(u)=I-\frac{2}{u}\operatorname{diag}(h_1,\ldots,h_{24})+O(u^{-2}).
 \end{equation}
 
-\begin{theorem}[RTT presentation of $\YgK$]
-\label{thm:rtt-presentation}
-Let $L(u) = \mathrm{diag}(L_1(u), \ldots, L_{24}(u))$ with
-$L_i(u) = 1 + \sum_{r \geq 1} \hbar\, J_{i, r - 1}\, u^{-r}$ a formal-series
-diagonal Lax matrix. The RTT relation
+\section{RTT half and Heisenberg double}
+\label{sec:rtt-half}
+
+\begin{proposition}[Positive diagonal RTT half]
+\label{prop:rtt-positive-half}
+Let
+\[
+  L^+(u)=\operatorname{diag}(L^+_1(u),\ldots,L^+_{24}(u)),
+  \qquad
+  L^+_i(u)=1+\sum_{r\geq0}\hbar J_{i,r}u^{-r-1}.
+\]
+The diagonal RTT equation
 \begin{equation}
 \label{eq:rtt-relation}
-  R_{K3, 12}(u - v)\, L_{1}(u)\, L_{2}(v) \;=\; L_{2}(v)\, L_{1}(u)\, R_{K3, 12}(u - v)
+  R_{K3,12}(u-v)L^+_1(u)L^+_2(v)
+  =
+  L^+_2(v)L^+_1(u)R_{K3,12}(u-v)
 \end{equation}
-holds in $\End(\C^{24} \otimes \C^{24}) \otimes \YgK[\![u^{-1}, v^{-1}]\!]$ and is
-equivalent to the Heisenberg commutator \eqref{eq:heis-commutator} of
-Definition~\ref{def:abelian-k3-yangian}.
-\end{theorem}
+is equivalent to commutativity of the nonnegative modes
+\[
+  [J_{i,r},J_{j,s}]=0,\qquad r,s\geq0.
+\]
+It presents the positive current half. The full relation
+\eqref{eq:heis-commutator} is obtained by adjoining the negative half and
+the Mukai Heisenberg pairing.
+\end{proposition}
 
 \begin{proof}
-Both sides of \eqref{eq:rtt-relation} are diagonal $24 \times 24$ matrices over
-$\YgK[\![u^{-1}, v^{-1}]\!]$. The off-diagonal entries vanish on each side because
-both $R_{K3}$ and $L$ are diagonal. Comparing the $(i, i)$ entry gives
+All matrices in \eqref{eq:rtt-relation} are diagonal. Comparing the
+$(i,j)$ component gives
 \[
-  \bigl(R_{ii}(u - v)\bigr) L_i(u)\, L_i(v) \;=\; L_i(v)\, L_i(u)\, \bigl(R_{ii}(u - v)\bigr),
+  r_i(u-v)L^+_i(u)L^+_j(v)
+  =
+  L^+_j(v)L^+_i(u)r_i(u-v).
 \]
-so $L_i(u)\, L_i(v) = L_i(v)\, L_i(u)$ as formal series, i.e.\ the diagonal Lax
-currents on a fixed direction $i$ commute. Expand
-$L_i(u)\, L_i(v) - L_i(v)\, L_i(u)
-= \sum_{r, s \geq 1} \hbar^{2} [J_{i, r - 1}, J_{i, s - 1}]\, u^{-r} v^{-s}$
-and match coefficient of $u^{-r} v^{-s}$: setting
-$[J_{i, r-1}, J_{i, s-1}] = \varepsilon_i\, (r - 1)\, \delta_{r + s, 2}/\hbar$
-after rescaling gives the $i = j$ case of \eqref{eq:heis-commutator} with central
-extension $\mathbf{c} = 1$. The $i \neq j$ case is the off-diagonal block
-$L_i(u)\, L_j(v) - L_j(v)\, L_i(u) = 0$, which is precisely
-$[J_{i, m}, J_{j, n}] = 0$ for $i \neq j$ --- the $\omega^{ij} = 0$ case of
-\eqref{eq:heis-commutator}. Conversely, assuming the commutator yields commuting
-diagonal currents, the RTT relation holds trivially in diagonal form.
+The scalar $r_i(u-v)$ cancels, so the condition is
+$L^+_i(u)L^+_j(v)=L^+_j(v)L^+_i(u)$ for all $i,j$. Coefficient extraction
+gives $[J_{i,r},J_{j,s}]=0$ for all $r,s\geq0$. Conversely these
+commutators make the diagonal RTT equation an identity.
+
+The central extension in \eqref{eq:heis-commutator} pairs positive and
+negative modes:
+\[
+  [J_{i,r},J_{j,-s}]
+  =
+  \hbar\,\omega^{ij}r\,\delta_{r,s},
+  \qquad r,s>0.
+\]
+This is the Heisenberg double of the two commutative current halves.
 \end{proof}
 
-\begin{remark}[Worked example at rank $2$]
+\begin{remark}[Rank two test]
 \label{rem:rank-2-rtt}
-At rank $2$, $L(u) = \mathrm{diag}(L_1(u), L_2(u))$ with
-$\omega^{11} = +1$, $\omega^{22} = -1$, $\omega^{12} = \omega^{21} = 0$, and
-$R_{K3}(u) = \mathrm{diag}((u - h_1)/(u + h_1), (u - h_2)/(u + h_2))$
-is a $4 \times 4$ matrix with values $r_1, r_2$ on the diagonal in the
-$(1 \otimes 1, 1 \otimes 2, 2 \otimes 1, 2 \otimes 2)$ basis (off-diagonal
-entries zero). The RTT condition
-$R L_1(u) L_2(v) = L_2(v) L_1(u) R$ holds since both $L_1, L_2$ are diagonal
-and $R$ is diagonal: every component is a scalar identity. The single non-trivial
-datum is the commutator $[J_{1, m}, J_{1, n}] = m\, \delta_{m+n, 0}$ and
-$[J_{2, m}, J_{2, n}] = -m\, \delta_{m+n, 0}$. The abelian Yangian
-at rank $2$ therefore does not feel the deformation parameters $h_1, h_2$ at the
-commutator level; $h_i$ act only through the $R$-matrix diagonal entries and the
-coproduct of Proposition~\ref{prop:coproduct-drinfeld}.
+For the rank-$2$ diagonal form
+$\operatorname{diag}(+1,-1)$ the RTT equation states that
+$L^+_1(u)$ and $L^+_2(v)$ commute. The Heisenberg double adds
+$[J_{1,r},J_{1,-r}]=\hbar r$ and
+$[J_{2,r},J_{2,-r}]=-\hbar r$. The parameters $h_1,h_2$ act through
+the scalar $R$-entries and through the shifted coproduct, while the
+central extension is controlled by the Mukai form.
 \end{remark}
 
-\begin{remark}[Why this is still a Yangian in Drinfeld's 1985 sense]
-\label{rem:drinfeld-sense}
-Drinfeld's 1985 \emph{Soviet Math.\ Dokl.} definition of $Y_\hbar(\gg)$ requires a
-finite-dimensional Lie algebra $\gg$ with an invariant symmetric non-degenerate
-bilinear form; at $\gg = \gl_{1} \otimes \Lmuk$, interpreted as a $24$-dimensional
-abelian Lie algebra with the Mukai form, the definition is precisely
-Definition~\ref{def:abelian-k3-yangian}. The abelian case is trivial at the
-Lie-bracket level ($\gg$ is commutative) but the Yangian deformation is not:
-the parameters $h_i$ enter through the diagonal $R$-matrix
-\eqref{eq:r-matrix-diagonal} and through the spectral coproduct
-\eqref{eq:coproduct-drinfeld}, yielding a Hopf algebra with non-trivial
-$\hbar$-deformed cross-terms at spin $s \geq 2$
-(Proposition~\ref{prop:coproduct-drinfeld}).
-Chari--Pressley 1995 record the Heisenberg Yangian $Y_\hbar(\hh_n)$ with
-arbitrary symmetric form; the Mukai-signature case is the indefinite
-$(p, q) = (4, 20)$ instance.
+\begin{remark}[Yangian terminology]
+\label{rem:yangian-terminology}
+The word \emph{Yangian} is used in the rational RTT/Drinfeld-current
+sense: a spectral-parameter Hopf algebra with rational $R$-matrix,
+Yang-Baxter equation, triangular PBW decomposition, and Drinfeld double
+pairing. The simple-Lie Chevalley-Serre package belongs to ADE
+enhancement loci. At the generic Mukai-Heisenberg point the Lie bracket
+is abelian modulo the central line and the rational spectral structure is
+carried by $R_{K3}(u)$ and $\Delta_z$.
 \end{remark}
 
-\subsection{Drinfeld new (current) presentation}
+\subsection{Current presentation}
 
-Introduce current generating functions
-\begin{equation}
-  \psi_i^{\pm}(u) \;=\; 1 \,+\, \sum_{r \geq 0} \hbar\, \psi_{i, \pm r}\, u^{-r-1},
-  \qquad
-  e_i(u) \;=\; \sum_{r \geq 0} e_{i, r}\, u^{-r-1},
-  \qquad
-  f_i(u) \;=\; \sum_{r \geq 0} f_{i, r}\, u^{-r-1},
-\end{equation}
-for $i = 1, \ldots, 24$.
-
-\begin{proposition}[Drinfeld new relations, abelian case]
-\label{prop:drinfeld-new}
-At $\gg = \gl_{1}$ the abelian K3 Yangian admits the Drinfeld-current presentation
-\begin{align}
-  [\psi_i^{\pm}(u), \psi_j^{\pm}(v)] &= 0, \\
-  [e_i(u), f_j(v)] &= \hbar\, \omega^{ij}\, \frac{\psi_i^{+}(u) - \psi_j^{-}(v)}{u - v}, \\
-  [e_i(u), e_j(v)] &= \hbar\, \omega^{ij}\, \frac{e_i(u) - e_j(v)}{u - v}, \\
-  [f_i(u), f_j(v)] &= -\hbar\, \omega^{ij}\, \frac{f_i(u) - f_j(v)}{u - v},
-\end{align}
-with Cartan currents identified as generating functions of the Heisenberg modes,
-$\psi_i(u) = 1 + \hbar \sum_{r \geq 0} J_{i, -r-1}\, u^{-r-1}$. Serre relations
-are absent at $\gl_{1}$; they emerge only after the Frenkel--Kac vertex-operator
-closure of \S\ref{sec:fk-closure}.
-\end{proposition}
-
-\begin{proof}
-These are the standard Drinfeld new generators for the Heisenberg Yangian
-$Y_\hbar(\widehat{\gl}_{1}^{\oplus 24})$ at Mukai-signature pairing. In the
-diagonal basis the Cartan currents $\psi_i^{\pm}$ generate the Heisenberg
-modes on the $i$-th direction; the Chevalley-like generators $e_i, f_i$ are
-raising and lowering in the rank-$24$ lattice. Expanding both sides as
-rational-function resolvents and matching $u^{-r} v^{-s}$ coefficients reduces
-to $[e_{i, r}, f_{j, s}] = \hbar\, \omega^{ij}\, \psi_{i, r+s}$ on modes,
-which is the Heisenberg commutator of Definition~\ref{def:abelian-k3-yangian}.
-At $\gl_1$ there is no triple bracket $[e_i, [e_j, e_k]]$ to constrain by
-Serre-type relations; triple brackets appear only after lattice-VOA closure.
-Verified by direct action on the Fock module
-$\F_{K3} = \Sym\!\bigl(\bigoplus_{n \geq 1} \Lmuk \otimes t^{-n}\bigr)\otimes \C_{\epsilon}[\Lmuk]$,
-the free-boson representation of $V_{\Lmuk}$.
-\end{proof}
-
-\subsection{Triangular decomposition and the abelian label}
-
-The Heisenberg mode algebra carries a grading by mode number:
+\begin{proposition}[Mukai current presentation]
+\label{prop:mukai-current-presentation}
+The current algebra presentation of $\YgK$ is generated by
+$J_i(z)$, $1\leq i\leq24$, with lambda brackets
 \[
-  \YgK \;=\; \YgK^{-} \otimes \YgK^{0} \otimes \YgK^{+},
-  \qquad
-  \YgK^{\pm} = \langle J_{i, \mp n} : n > 0\rangle,
-  \quad
-  \YgK^{0} = \C[J_{1, 0}, \ldots, J_{24, 0}].
+  [J_i{}_\lambda J_j]=\hbar\,\omega^{ij}\lambda.
 \]
-
-\begin{proposition}[Triangular decomposition]
-\label{prop:triangular}
-The multiplication map
-$\YgK^{-} \otimes \YgK^{0} \otimes \YgK^{+} \to \YgK$ is an isomorphism of
-$\C[\hbar]$-modules. On each Miki direction $i$, the factors are each
-polynomial algebras in countably many generators; their combined structure
-is the Heisenberg PBW basis.
+Its triangular decomposition is
+\[
+  \YgK\simeq \YgK^-\otimes\YgK^0\otimes\YgK^+,
+  \qquad
+  \YgK^\pm=\C[J_{i,\mp n}:1\leq i\leq24,\ n>0],
+  \qquad
+  \YgK^0=\C[J_{1,0},\ldots,J_{24,0}].
+\]
 \end{proposition}
 
 \begin{proof}
-PBW for the rank-$24$ Heisenberg algebra: the deformation parameters $h_i$
-do not enter the Lie bracket and therefore do not break the triangular
-decomposition. Each $\YgK^{\pm}$ is a polynomial algebra in
-$\{J_{i, \mp n}\}_{i = 1, \ldots, 24;\, n > 0}$, and $\YgK^{0}$ is the
-polynomial algebra on the zero modes.
+The lambda bracket is equivalent to \eqref{eq:heis-commutator}. PBW for
+the Heisenberg algebra orders negative modes, zero modes, and positive
+modes. The parameters $h_i$ enter the spectral and coproduct structure,
+while the PBW basis is controlled only by the nondegenerate Mukai
+pairing.
 \end{proof}
 
-\begin{remark}[``Abelian'' is at the Lie-bracket level, not at the Hopf level]
+\begin{remark}[Lie level and vertex level]
 \label{rem:abelian-at-lie}
-The underlying Lie algebra
-$\bigoplus_{n \in \Z} \Lmuk \otimes t^{n} \,\oplus\, \C\mathbf{c}$
-is abelian modulo centre: the derived subalgebra is one-dimensional
-($\C\mathbf{c}$). The Hopf algebra $\YgK$ is not cocommutative for
-$z \neq 0$: the Drinfeld coproduct $\Delta_z$ of
-Proposition~\ref{prop:coproduct-drinfeld} has $z$-dependent cross-terms at
-spin $s \geq 2$. The word \emph{abelian} in ``abelian K3 Yangian'' refers
-to the single-Miki-factor Lie bracket; it distinguishes this construction
-from the non-abelian Yangian $Y_\hbar(\widehat{\gg}_{\mathrm{ADE}})$ attached
-to an ADE Kac--Moody enhancement of K3 at an orbifold point, and from the
-non-abelian vertex-operator closure
-$\gg_{\Delta_5}$ of the lattice VOA on $\Lmuk$
-(Theorem~\texttt{thm:k3-yangian-frenkel-kac-closure} of
-\texttt{chapters/examples/k3\_yangian\_chapter.tex}).
+The derived subalgebra of
+\[
+  \bigoplus_{n\in\Z}\Lmuk\otimes t^n\oplus\C\mathbf c
+\]
+is the central line $\C\mathbf c$. Nonabelian brackets enter after
+Frenkel-Kac vertex closure inside the lattice VOA. The BKM superalgebra
+$\gg_{\Delta_5}$ belongs to that vertex-operator branch; the abelian K3
+Yangian $\YgK$ belongs to the Mukai-Heisenberg branch.
 \end{remark}
 
-\section{Hopf structure: coproduct, counit, antipode}
+\section{Spectral Hopf structure}
 \label{sec:hopf-structure}
 
-\subsection{Coproduct}
-
-\begin{proposition}[Drinfeld spectral coproduct]
+\begin{proposition}[Shifted coproduct]
 \label{prop:coproduct-drinfeld}
-The map
+For each $z\in\C$, the formula
 \begin{equation}
 \label{eq:coproduct-drinfeld}
-  \Delta_z(T_{K3}(u)) \;=\; T_{K3}^{L}(u) \cdot T_{K3}^{R}(u - z)
+  \Delta_z\bigl(\mathcal T_{K3}(u)\bigr)
+  =
+  \mathcal T_{K3}^{L}(u)\mathcal T_{K3}^{R}(u-z)
 \end{equation}
-extends to an algebra homomorphism $\Delta_z \colon \YgK \to \YgK \otimes \YgK$
-for each $z \in \C$. At $z = 0$ it is cocommutative; at $z \neq 0$ it carries
-$z$-dependent Miura cross-terms. At spin $1$,
-\begin{equation}
-\label{eq:coproduct-spin-1}
-  \Delta_z(J_{i, n}) \;=\; J_{i, n}^{L} + J_{i, n}^{R},
-\end{equation}
-primitive and $z$-independent. At spin $s$ ($1 \leq s \leq 24$),
-\begin{equation}
-\label{eq:coproduct-spin-s}
-  \Delta_z(\psi_{s, n}) \;=\; \psi_{s, n}^{L} \,+\,
-  \sum_{\substack{a + b + p = s \\ a \geq 0,\, b \geq 1,\, p \geq 0 \\ (a, p) \neq (0, 0)}}
-    \binom{s - a - 1}{p}\, z^{p}\,
-    \bigl[\psi_a^{L} \ast \psi_b^{R}\bigr]_{n},
-\end{equation}
-where $\ast$ is the convolution of Heisenberg modes.
+defines an algebra homomorphism
+$\Delta_z:\YgK\to\YgK\otimes\YgK$ on the Miura generators. The spin-one
+current is primitive,
+\[
+  \Delta_z(\Psi_1)=\Psi_1^L+\Psi_1^R,
+\]
+and the spin-two coefficient is
+\[
+  \Delta_z(\Psi_2)
+  =
+  \Psi_2^L+\Psi_2^R+\Psi_1^L\Psi_1^R+z\Psi_1^R.
+\]
+Higher coefficients are obtained by expanding $(u-z)^{-b}$ in powers of
+$u^{-1}$.
 \end{proposition}
 
 \begin{proof}
-Expand $(u - z)^{-b} = \sum_{p \geq 0} \binom{b + p - 1}{p}\, z^{p}\, u^{-b-p}$
-and collect $u^{-(a + b + p)}$ coefficients of the product
-$\prod_{i = 1}^{24} (u - \phi_i^{L}) \cdot \prod_{i = 1}^{24} (u - z - \phi_i^{R})$.
-The binomial coefficient $\binom{s - a - 1}{p}$ counts distributions of the
-shift $z$ across the right factors at spin $s$. Algebra-homomorphism property
-follows from the tensor-product action of the free fields
-$\phi_i^{L} \otimes 1 + 1 \otimes \phi_i^{R} - z \cdot 1 \otimes 1$ on the
-Miura product, which is Leibniz on polynomials in $u$.
+Equation \eqref{eq:coproduct-drinfeld} multiplies two normalised
+series with constant term $1$, so coefficient extraction gives a
+well-defined algebra map on the polynomial Miura generators. The identity
+\[
+  (u-z)^{-b}
+  =
+  \sum_{p\geq0}\binom{b+p-1}{p}z^p u^{-b-p}
+\]
+gives the displayed spin-one and spin-two formulas. Since the Miura
+fields are free Heisenberg fields acting on separate tensor factors,
+normal ordering is preserved by tensor multiplication.
 \end{proof}
 
-\begin{proposition}[Coassociativity]
-\label{prop:coassociativity}
-The spectral coproducts $\{\Delta_z\}_{z \in \C}$ satisfy
-\begin{equation}
-\label{eq:coassociativity}
-  (\Delta_w \otimes \mathrm{id}) \circ \Delta_{z + w}
-  \;=\;
-  (\mathrm{id} \otimes \Delta_z) \circ \Delta_w.
-\end{equation}
+\begin{proposition}[Coassociativity, counit, antipode]
+\label{prop:hopf-axioms}
+The coproducts satisfy
+\[
+  (\Delta_w\otimes\mathrm{id})\circ\Delta_{z+w}
+  =
+  (\mathrm{id}\otimes\Delta_z)\circ\Delta_w.
+\]
+The counit is determined by
+$\epsilon(\mathcal T_{K3}(u))=1$ and $\epsilon(J_{i,n})=0$. The antipode
+on the completed Miura algebra is determined by
+\[
+  S\bigl(\mathcal T_{K3}(u)\bigr)=\mathcal T_{K3}(u)^{-1},
+  \qquad S(J_{i,n})=-J_{i,n}
+\]
+on primitive current modes.
 \end{proposition}
 
 \begin{proof}
-Both sides send $T_{K3}(u)$ to
-$T_{K3}^{(1)}(u) \cdot T_{K3}^{(2)}(u - w) \cdot T_{K3}^{(3)}(u - w - z)$
-in $\YgK^{\otimes 3}$: the associativity of the Miura product of scalar-valued
-transfer matrices commutes with polynomial shifts. The total shift on the
-rightmost factor, $w + z$ going left-to-right and $w + z$ going right-to-left,
-yields identical expressions.
+Both sides of coassociativity send $\mathcal T_{K3}(u)$ to
+\[
+  \mathcal T^{(1)}(u)\mathcal T^{(2)}(u-w)\mathcal T^{(3)}(u-w-z).
+\]
+The counit identities follow because the normalised Miura series has
+constant term $1$. The antipode is the inverse for multiplication in the
+completed algebra of formal series with constant term $1$; on primitive
+spin-one currents this is the sign map.
 \end{proof}
 
-\subsection{Counit and antipode}
-
-\begin{proposition}[Counit]
-\label{prop:counit}
-The map $\epsilon \colon \YgK \to \C$ determined by $\epsilon(J_{i, n}) = 0$
-for all $i, n$ and $\epsilon(1) = 1$ satisfies
-$(\epsilon \otimes \mathrm{id}) \circ \Delta_z = \mathrm{id} = (\mathrm{id} \otimes \epsilon) \circ \Delta_z$
-for every $z \in \C$.
-\end{proposition}
-
-\begin{proof}
-On transfer matrices: $\epsilon(T_{K3}(u)) = \epsilon(\prod_i (u - \phi_i)) = u^{24}$,
-since $\epsilon(\phi_i) = 0$. The shift by $z$ in \eqref{eq:coproduct-drinfeld}
-disappears under $\epsilon$ because $\epsilon$ kills every $\phi_i^{R}$ dependence,
-leaving the untwisted left factor: $(\epsilon \otimes \mathrm{id})(\Delta_z T(u)) = T(u)$.
-The opposite identity is symmetric.
-\end{proof}
-
-\begin{proposition}[Antipode]
-\label{prop:antipode}
-An anti-algebra involution $S \colon \YgK \to \YgK$ with
-$S(J_{i, n}) = -J_{i, n}$ and $S(h_i) = -h_i$ satisfies the Hopf antipode axiom
-\begin{equation}
-\label{eq:antipode-axiom}
-  \mu \circ (S \otimes \mathrm{id}) \circ \Delta_z \;=\; \eta \circ \epsilon
-  \;=\; \mu \circ (\mathrm{id} \otimes S) \circ \Delta_z,
-\end{equation}
-where $\mu$ is multiplication and $\eta$ the unit.
-\end{proposition}
-
-\begin{proof}
-The Heisenberg commutator is invariant under $J_{i, n} \mapsto -J_{i, n}$,
-since both sides change sign; hence $S$ is an anti-algebra map. On transfer
-matrices, $S(T_{K3}(u)) = T_{K3}(-u)$ up to the sign convention of
-\eqref{eq:miura-transfer}. The antipode axiom \eqref{eq:antipode-axiom} reads
-$T_{K3}(u) \cdot T_{K3}(-u - z) \to 1$ under the multiplicative convolution,
-which is the algebraic unitarity $R_{K3}(u)\, R_{K3}(-u) = I$ of (U1). The
-dual parameters $-h_i$ preserve the CY$_{2}$ constraint $\sum h_i = 0$.
-\end{proof}
-
-\begin{remark}[Quasi-triangular structure]
+\begin{remark}[Quasitriangularity]
 \label{rem:quasi-triangular}
-The pair $(\YgK, \Delta_z, R_{K3}(u))$ is quasi-triangular:
-$R_{K3}(u)\, \Delta_z^{\mathrm{op}}(x) = \Delta_z(x)\, R_{K3}(u)$ for all $x \in \YgK$,
-since the $R$-matrix is diagonal and therefore intertwines the opposite
-coproduct on any diagonal algebra (both sides match entrywise). The
-quasi-triangularity witnesses the $R$-matrix as the Yangian's braiding;
-non-triviality at the off-diagonal level enters only after Frenkel--Kac
-closure to the non-abelian lattice VOA on $\Lmuk$.
+The diagonal $R$-matrix intertwines $\Delta_z$ with the opposite shifted
+coproduct entrywise:
+\[
+  R_{K3}(u)\Delta_z^{\mathrm{op}}(x)=\Delta_z(x)R_{K3}(u).
+\]
+The off-diagonal nonabelian braiding is supplied by ADE enhancement or by
+Frenkel-Kac vertex closure rather than by the diagonal Mukai-Heisenberg
+current algebra itself.
 \end{remark}
 
-\section{The Frenkel--Kac closure and 24 Heisenberg vertex operators}
+\section{Frenkel-Kac vertex closure}
 \label{sec:fk-closure}
 
-The passage from the abelian Heisenberg Yangian to the non-abelian BKM
-shadow $\gg_{\Delta_5}$ (generalised Kac--Moody lattice VOA on $\Lmuk$, see
-\texttt{chapters/examples/k3e\_bkm\_chapter.tex}) proceeds through vertex
-operators. For each lattice vector $\alpha \in \Lmuk$ define
+For $\alpha\in\Lmuk$ define the lattice vertex operator
 \begin{equation}
 \label{eq:vertex-operator-fk}
-  V_{\alpha}(z) \;=\;
-    \exp\!\Biggl(\sum_{n \geq 1} \frac{\alpha_{-n}}{n}\, z^{n}\Biggr)
-    \exp\!\Biggl(-\sum_{n \geq 1} \frac{\alpha_{n}}{n}\, z^{-n}\Biggr)\,
-    e^{\alpha}\, z^{\alpha_{0}},
+  V_\alpha(z)
+  =
+  \exp\!\left(\sum_{n\geq1}\frac{\alpha_{-n}}{n}z^n\right)
+  \exp\!\left(-\sum_{n\geq1}\frac{\alpha_n}{n}z^{-n}\right)
+  e^\alpha z^{\alpha_0}.
 \end{equation}
-with $\alpha_n = \omega(\alpha, \cdot)_n$ the lattice-decorated Heisenberg mode.
-The Frenkel--Kac 1980 bimultiplicative cocycle
-$\epsilon_{\mathrm{FK}} \colon \Lmuk \times \Lmuk \to \{\pm 1\}$
-normalises the OPE product
-\begin{equation}
-  V_\alpha(z)\, V_\beta(w) \;=\;
-    \epsilon_{\mathrm{FK}}(\alpha, \beta)\, (z - w)^{\omega(\alpha, \beta)}
-    :\! V_\alpha(z)\, V_\beta(w)\!: \,+\, \ldots,
-\end{equation}
-producing the non-abelian Lie brackets
-$[e_{\alpha}, e_{\beta}] = \epsilon_{\mathrm{FK}}(\alpha, \beta)\, e_{\alpha + \beta}$
-whenever $\omega(\alpha, \beta) = -1$; these are the non-abelian simple-root
-brackets of $\gg_{\Delta_5}$.
+The Frenkel-Kac bimultiplicative cocycle
+$\epsilon_{\mathrm{FK}}:\Lmuk\times\Lmuk\to\{\pm1\}$ gives
+\[
+  V_\alpha(z)V_\beta(w)
+  =
+  \epsilon_{\mathrm{FK}}(\alpha,\beta)
+  (z-w)^{\omega(\alpha,\beta)}
+  :V_\alpha(z)V_\beta(w):
+  +\cdots.
+\]
+For $\omega(\alpha,\beta)=-1$ the residue bracket is
+\[
+  [e_\alpha,e_\beta]
+  =
+  \epsilon_{\mathrm{FK}}(\alpha,\beta)e_{\alpha+\beta}.
+\]
+This is the vertex-operator source of the nonabelian BKM brackets. The
+local anchor is
+\texttt{chapters/examples/k3\_yangian\_chapter.tex},
+Theorem \texttt{thm:k3-yangian-frenkel-kac-closure}.
 
-\begin{remark}[Abelian at Lie, non-abelian at vertex]
-\label{rem:abelian-vertex}
-The Frenkel--Kac map lifts the rank-$24$ abelian Heisenberg mode algebra to
-a non-abelian Lie algebra only after closing under the exponential vertex
-operators on the Fock module. The abelian K3 Yangian $\YgK$ is the
-$\hbar$-quantisation of the rank-$24$ Heisenberg input, not of the non-abelian
-BKM output: $\YgK$ is an $E_1$-chiral algebra (the mode algebra of a vertex
-subalgebra of $V_{\Lmuk}$, not of $V_{\Lmuk}$ itself); $\gg_{\Delta_5}$
-lives only as a vertex subalgebra of the full lattice VOA.
-\end{remark}
+\section{Local CoHA and stable envelopes}
+\label{sec:local-coha-stable}
 
-\section{Schiffmann--Vasserot: the CoHA as positive half}
-\label{sec:sv-coha}
+\subsection{Quiver CoHA positive half}
 
-\subsection{The cohomological Hall algebra of K3}
+Let $\Gamma\subset SL_2(\C)$ be an ADE finite subgroup and let
+$Q_\Gamma$ be the McKay quiver. The Schiffmann-Vasserot theorem
+\texttt{arXiv:1705.07488} concerns the cohomological Hall algebra of the
+preprojective quiver stack attached to $Q_\Gamma$ and its action on
+Nakajima quiver varieties. It supplies the ADE chart input for K3
+orbifold points. It is a quiver theorem, so the global compact K3 surface
+requires separate gluing data.
 
-Let $X$ be a smooth complex surface and $M_X^{(v)}$ the moduli stack of
-compactly supported coherent sheaves on $X$ with Mukai vector $v \in \widetilde H(X, \Z)$.
-The cohomological Hall algebra of $X$,
-\begin{equation}
-\label{eq:coha-def}
-  \CoHA(X) \;=\; \bigoplus_{v \in \widetilde H(X, \Z)} H^{\ast}_{c}(M_X^{(v)}, \Q),
-\end{equation}
-carries an associative product obtained by pushforward along the moduli
-stack of short exact sequences
-$0 \to \F_1 \to \F \to \F_2 \to 0$; the product is nilpotent-like and
-lives on extensions.
-For $X$ a local surface (e.g.\ $\C^{2}$, $\widetilde{\C^2/\Gamma}$) this is
-the Schiffmann--Vasserot 2012 construction; for $X = K3$ it is the Schiffmann--Vasserot
-2017 K3 theorem (\texttt{arXiv:1705.07488}).
+\begin{proposition}[Local positive half]
+\label{prop:local-positive-half}
+On an ADE/Kummer chart of K3 moduli, the quiver CoHA of the
+preprojective algebra of $Q_\Gamma$ gives the positive half of the local
+Yangian acting on the corresponding Nakajima variety. After embedding the
+ADE root lattice into $\Lmuk$, the Cartan part is the corresponding
+Mukai sublattice of the rank-$24$ Heisenberg current algebra.
+\end{proposition}
 
-\begin{theorem}[Schiffmann--Vasserot 2017, K3 CoHA]
-\label{thm:sv-k3}
-For $X = K3$, the cohomological Hall algebra $\CoHA(K3)$ is a graded Hopf
-algebra whose primitive part is the $24$-dimensional Mukai lattice
-$\Lmuk = \widetilde H(K3, \Z)$. As an associative algebra,
-\begin{equation}
-\label{eq:coha-k3-positive-half}
-  \CoHA(K3) \;\cong\; U\bigl(\Yplus\bigr),
-\end{equation}
-the universal enveloping algebra of the positive half
-$\Yplus \subset \YgK$ of the abelian K3 Yangian.
-\end{theorem}
+\begin{proof}
+Schiffmann-Vasserot construct generators for the quiver CoHA and its
+action on Nakajima quiver varieties. The McKay correspondence identifies
+the exceptional curves of the ADE surface resolution with the simple
+roots of $Q_\Gamma$. The inclusion of this root lattice into the Mukai
+lattice places the local positive half inside the Mukai-Heisenberg
+positive current half. The passage from this chartwise statement to a
+compact K3 CoHA demands gluing over the period domain and a compact
+orientation datum.
+\end{proof}
 
-\begin{remark}[Not $\mathcal{W}_{1+\infty}$]
-\label{rem:not-w-infty}
-$\CoHA(\C^{3}) = Y^{+}(\widehat{\gl}_{1})$, the positive half of the affine
-Yangian attached to $\C^{3}$ (Schiffmann--Vasserot 2012,
-\texttt{arXiv:1202.2756}); it is not $\mathcal{W}_{1+\infty}$, which is
-the full Yangian double. The same holds at K3: the pushforward-in-short-exact-sequences
-product is nilpotent and upper-triangular (sheaf extensions go in one direction),
-so only the positive half arises. The K3 analogue replaces the rank-$3$ toric-direction
-parameters by the $24$ Mukai-lattice directions with indefinite signature.
-\end{remark}
-
-\subsection{The shuffle presentation}
-
-$\CoHA(K3)$ admits a shuffle-algebra presentation as a
-$\Z^{\geq 0} \times \Lmuk$-graded polynomial ring modulo shuffle relations:
+The chartwise shuffle product has the form
 \begin{equation}
 \label{eq:shuffle-product}
-  F_n(z_1, \ldots, z_n;\, \alpha_1, \ldots, \alpha_n)
-  \cdot
-  G_m(w_1, \ldots, w_m;\, \beta_1, \ldots, \beta_m)
-  \;=\;
-  \prod_{i, j} g_{K3}(z_i - w_j;\, \alpha_i, \beta_j)
-  \cdot \mathrm{sh}(F \otimes G),
+  F_n(z;\alpha)G_m(w;\beta)
+  =
+  \prod_{a,b}g_{\Gamma}(z_a-w_b;\alpha_a,\beta_b)
+  \operatorname{sh}(F\otimes G).
 \end{equation}
-with $g_{K3}$ the $24$-parameter structure function
-\eqref{eq:structure-function-k3} and $\mathrm{sh}$ the shuffle product. The
-factor $\prod g_{K3}$ implements the Yangian $R$-matrix braiding on the
-shuffle and thereby identifies $\CoHA(K3)$ with $\Yplus$ at the
-generator-relation level.
+For the abelian Mukai model, $g_\Gamma$ is replaced by the diagonal
+$g_{K3}$ of \eqref{eq:structure-function-k3} after summing over the
+twenty-four Mukai directions.
 
-\subsection{The Drinfeld double}
+\subsection{The Heisenberg Drinfeld double}
 
-The Drinfeld double
+The Heisenberg double of the positive and negative Mukai halves is
 \begin{equation}
 \label{eq:drinfeld-double-k3}
-  D\bigl(\Yplus\bigr) \;=\; \Yplus \otimes \Yminus
+  D(\Yplus)=\Yplus\otimes\Yminus
 \end{equation}
-is the full abelian K3 Yangian $\YgK$ of \S\ref{sec:abelian-presentation}.
-The bilinear form pairing the positive and negative halves is the Mukai
-pairing $\omega$; the Cartan-doubling identifies the $\psi_i^{\pm}$
-currents of Proposition~\ref{prop:drinfeld-new}, after which
-\eqref{eq:drinfeld-double-k3} recovers the full Heisenberg mode algebra.
+with the Mukai pairing identifying the two halves. This is the full
+abelian K3 Yangian of Definition \ref{def:abelian-k3-yangian}. The compact
+$K3\times E$ Hall-Drinfeld double belongs to the BKM branch and requires
+extra compact Hall data; see
+\texttt{chapters/examples/k3\_chiral\_algebra.tex},
+Remark \texttt{rem:k3ca-hall-drinfeld-scope}.
 
-\section{Maulik--Okounkov stable envelopes}
-\label{sec:mo-stable}
+\subsection{Stable envelopes at ADE/Kummer charts}
 
-\subsection{Stable envelopes on $\Hilb^n(K3)$}
+Maulik-Okounkov stable envelopes require an equivariant symplectic
+resolution with a torus action. A generic K3 surface has
+$\Aut(S)^\circ=0$, so this equivariant input is absent globally. At ADE
+or Kummer charts the local surface model
+$\widetilde{\C^2/\Gamma}$ carries the torus inherited from $\C^2$, and
+the Hilbert scheme or Nakajima variety chart has stable envelopes.
 
-At a generic K3 moduli point the holomorphic symplectic automorphism group
-$\Aut(S)^{\circ}$ is trivial: no rank-$(\geq 2)$ torus acts on $S$, and the
-Maulik--Okounkov machinery --- which requires a rank-$(\geq 2)$ torus on
-$T^{\ast} X$ for a stable envelope (Maulik--Okounkov 2012,
-\texttt{arXiv:1211.1287}) --- is unavailable globally. The torus degenerates:
-$\dim \Aut(S \times E)^{\circ} = 1$ generically (Lemma~\texttt{lem:mo-bypass-local-to-global}
-of \texttt{k3\_yangian\_chapter.tex}). The MO construction therefore applies
-only at ADE/Kummer charts, where the McKay correspondence supplies a local
-toric torus $T_S = (\C^{\ast})^{2}$ on the analytic chart of each singular
-point.
-
-\begin{theorem}[Stable envelope at ADE/Kummer charts]
-\label{thm:mo-at-ade}
-At each ADE or Kummer orbifold chart of K3 moduli, the Maulik--Okounkov stable
-envelope on $\Hilb^n(K3)$ produces a diagonal $R$-matrix
-\begin{equation}
-\label{eq:mo-r-matrix-k3}
-  R_{\mathrm{MO}}(u) \;=\;
-  \prod_{\text{chart}} \mathrm{diag}\!\left(\frac{u - h_i^{\mathrm{chart}}}{u + h_i^{\mathrm{chart}}}\right)
-\end{equation}
-matching $R_{K3}(u)$ of \eqref{eq:r-matrix-diagonal}, where
-$h_i^{\mathrm{chart}}$ are the McKay-correspondence weights at the chart.
-\end{theorem}
+\begin{proposition}[Local stable-envelope $R$-matrix]
+\label{prop:mo-at-ade}
+On an ADE/Kummer chart, the Maulik-Okounkov stable envelope produces a
+rational $R$-matrix on the fixed-point basis of the local Nakajima
+variety. Its Cartan restriction to Mukai weight spaces is diagonal and
+matches \eqref{eq:r-matrix-diagonal} after identifying the chart weights
+with the corresponding $h_i$.
+\end{proposition}
 
 \begin{proof}
-On $T^{\ast} \Hilb^n(K3)$ restricted to an ADE chart, the two-torus
-$T_S = (\C^{\ast})^{2}$ acts by rotating the exceptional divisor at the
-singular point. Maulik--Okounkov's stable envelope produces a basis of
-cohomology indexed by $T_S$-fixed points; the $R$-matrix records the
-transition between Weyl chambers. For K3 the chamber structure is
-ADE-type at each singular chart, yielding the diagonal form
-\eqref{eq:mo-r-matrix-k3}; the McKay weights are the cotangent directions
-at the exceptional fibre and match the Mukai parameters $h_i$ after
-identifying $\widetilde H(K3, \Z)$ with the lattice of McKay
-representations. At the Kummer orbifold the torus is $(\C^{\ast})^{2}$ on
-each of the $16$ $A_1$ charts; on the resolved K3 the local contributions
-combine to the full diagonal \eqref{eq:mo-r-matrix-k3}.
+Maulik-Okounkov's construction associates chamber transition matrices to
+equivariant symplectic resolutions. For the ADE chart the fixed-point
+basis is indexed by the quiver data, and the Cartan restriction is a
+diagonal scalar action on weight spaces. The McKay identification embeds
+those weights into $\Lmuk$. This proves chartwise agreement. A global K3
+stable envelope would require a rank-$2$ torus action across the compact
+surface, an input absent at generic K3 moduli.
 \end{proof}
 
-\subsection{Three routes to the same $R$-matrix}
-
-\begin{proposition}[Agreement of $R$-matrices]
+\begin{proposition}[Local compatibility of the three $R$-matrices]
 \label{prop:three-routes}
-At ADE/Kummer charts, three constructions yield the same diagonal
-$R$-matrix $R_{K3}(u)$:
-\begin{itemize}
-\item[(A)] RTT from Theorem~\ref{thm:rtt-presentation}.
-\item[(B)] CoHA shuffle from \S\ref{sec:sv-coha}.
-\item[(C)] Maulik--Okounkov stable envelope from Theorem~\ref{thm:mo-at-ade}.
-\end{itemize}
-The identification passes through the common Heisenberg mode algebra on
-$24$ currents and the common Mukai structure function $g_{K3}$.
+On the common ADE/Kummer domain, the following constructions have the
+same Cartan diagonal restriction:
+\[
+  \text{positive RTT half},\qquad
+  \text{quiver CoHA shuffle half},\qquad
+  \text{MO stable-envelope }R\text{-matrix}.
+\]
+The common restriction is the Mukai scalar family
+$r_i(u)=(u-h_i)/(u+h_i)$.
 \end{proposition}
 
 \begin{proof}
-\emph{(A) $\leftrightarrow$ (B).} The shuffle presentation of $\Yplus$
-\eqref{eq:shuffle-product} builds the structure function $g_{K3}$ into
-the multiplication by construction; the Drinfeld double \eqref{eq:drinfeld-double-k3}
-extends this to the full $\YgK$.
-
-\emph{(A) $\leftrightarrow$ (C).} The MO stable envelope on $\Hilb^n(K3)$
-at an ADE chart is dual to the Nakajima quiver-variety presentation of the
-ADE Yangian at level $1$, whose $R$-matrix is the rational Yang $R$-matrix
-$R(u) = (u\, I + \hbar\, P)/(u + \hbar)$ specialised to the $24$-dimensional
-Mukai representation. At ADE charts the Yang $R$-matrix is diagonal on
-cotangent weight spaces, yielding \eqref{eq:r-matrix-diagonal}.
-
-\emph{(B) $\leftrightarrow$ (C).} Shuffle algebras act on
-$\bigoplus_n K_T(\Hilb^n(K3))$ through CoHA generators; the resulting
-action coincides with the MO quantum stable envelope on each ADE chart by
-the Feigin--Tsymbaliuk 2017 identification of the MO Hilbert-scheme action
-with the affine Yangian, extended from $Y^{+}(\widehat{\gl}_{1})$ to
-$\Yplus$ by the rank-$24$ lattice replacement.
+The RTT half gives the scalar family by definition. The quiver shuffle
+presentation inserts the same rational bond factor in the product. The
+MO stable envelope records the same chamber wall transition on the
+Cartan fixed-point basis. The three statements live on the local chart
+where quiver, shuffle, and stable-envelope data are simultaneously
+defined.
 \end{proof}
 
-\section{The holomorphic Chern--Simons avatar}
-\label{sec:6d-hcs}
+\section{Holomorphic Chern-Simons boundary avatar}
+\label{sec:hcs}
 
-\subsection{Holomorphic Chern--Simons on $S \times C$}
-
-Consider holomorphic Chern--Simons theory on the product $S \times C$, where
-$S$ is a K3 surface and $C$ is a complex $1$-manifold. The bulk action is
+Let $C$ be a complex curve and consider holomorphic Chern-Simons theory
+on $S\times C$ with action
 \begin{equation}
-\label{eq:6d-hcs-action}
-  S_{\mathrm{hCS}}[A] \;=\; \frac{1}{2\pi \hbar} \int_{S \times C}
-    \Omega_S \wedge dz \wedge
-    \Tr\!\bigl(A\, d_{\bar\partial} A + \tfrac{2}{3} A^{3}\bigr),
+\label{eq:hcs-action}
+  S_{\mathrm{hCS}}[A]
+  =
+  \frac{1}{2\pi\hbar}
+  \int_{S\times C}
+  \Omega_S\wedge dz\wedge
+  \Tr\!\left(A\,\bar\partial A+\frac{2}{3}A^3\right).
 \end{equation}
-with $\Omega_S$ the holomorphic symplectic form on K3 (unique up to scale),
-$dz$ the holomorphic $1$-form on $C$, and $A$ a partial $(0, 1)$-connection
-in the anti-holomorphic directions on $S \times C$. The total real dimension
-is $\dim_\R(S \times C) = 6$; the theory is ``holomorphic'' in that the
-action depends only on $\bar\partial$-connections and the cubic vertex is
-Chern--Simons-like. The resulting factorisation algebra sheaf on $S \times C$
-is $E_3$ in the fully topological direction (Costello--Gwilliam 2017,
-\texttt{chapters/examples/k3\_chiral\_algebra.tex}), but the holomorphic
-refinement projects to $E_1$-chiral in the $C$-direction after Costello's
-holomorphic-dimension reduction.
+Here $\Omega_S$ is the holomorphic symplectic form on K3 and $A$ is a
+partial $(0,1)$-connection. Costello-Gwilliam factorisation supplies the
+formal language for observables; the specific boundary identification
+below is an additional conjectural quantisation statement.
 
-\subsection{Boundary algebra on $S \times D^{\times}$}
+\begin{conjecture}[hCS boundary algebra]
+\label{conj:k3-yangian-as-boundary}
+For a punctured disk $D^\times\subset C$, the boundary observable algebra
+at the puncture is equivalent, as an $E_1$ chiral algebra, to the
+abelian K3 Yangian:
+\[
+  \Obs_{\mathrm{hCS}}^\partial(S\times D^\times)
+  \simeq
+  \YgK.
+\]
+\end{conjecture}
 
-Let $D \subset C$ be an open disk and $D^{\times} = D \setminus \{0\}$ the
-punctured disk. The observables
-$\Obs_{\mathrm{hCS}}(S \times D^{\times})$ carry an $E_1$-chiral factorisation
-structure in the $C$-direction: one complex dimension gives one chiral
-level, after holomorphic refinement of the underlying $E_3$ to $E_1$.
-
-\begin{theorem}[K3 Yangian as hCS boundary algebra]
-\label{thm:k3-yangian-as-boundary}
-Conjectural: the boundary algebra
-$\Obs_{\mathrm{hCS}}^{\partial}(S \times D^{\times})$ at the puncture is
-isomorphic as an $E_1$-chiral algebra to the abelian K3 Yangian $\YgK$:
-\begin{equation}
-\label{eq:k3-yangian-boundary}
-  \Obs_{\mathrm{hCS}}^{\partial}(S \times D^{\times})
-  \;\simeq\; \YgK.
-\end{equation}
-\end{theorem}
-
-\begin{proof}[Sketch]
-The observables on $S \times D^{\times}$ factorise as the K3 fibre
-$H^{\ast}(S;\, \Omega_{S}^{\bullet})$ tensored with the $2$d chiral observables
-on $D^{\times}$. The K3 fibre carries the $24$-dimensional Mukai lattice; the
-disk observables are the $E_1$-chiral Heisenberg algebra at rank $24$. The
-$R$-matrix $R_{K3}(u)$ of \eqref{eq:r-matrix-diagonal} arises as the OPE of
-observables crossing the puncture, with spectral parameter $u$ the coordinate
-difference on the complexified moduli of punctures. The structure function
-$g_{K3}(u)$ is the Feynman propagator of the boundary $\beta\gamma$ system on
-$D^{\times}$ evaluated at Mukai-lattice momentum, yielding
-$(u - h_i)/(u + h_i)$ for each Mukai direction. This follows the
-Costello--Gaiotto 2018 blueprint for Yangians from 4d Chern--Simons, extended one
-holomorphic dimension at a time through 5d hCS (Costello 2016) to the present
-theory on $S \times C$.
+\begin{proof}[Evidence]
+The fibre contribution is the Mukai lattice
+$H^0(S)\oplus H^2(S)\oplus H^4(S)$, and the disk contribution is the
+one-dimensional chiral Heisenberg algebra. Their tensor product gives
+the rank-$24$ current algebra \eqref{eq:k3-heisenberg-ope}. The rational
+factor $(u-h_i)/(u+h_i)$ is the expected boundary propagator in the
+$i$-th Mukai direction. Turning this evidence into a theorem requires
+constructing the boundary condition, renormalised propagator, and
+factorisation equivalence for hCS on $S\times C$.
 \end{proof}
 
-\subsection{Stable envelope as OPE across the puncture}
-
-\begin{proposition}[MO stable envelope $=$ OPE across the puncture]
+\begin{proposition}[Conditional OPE reading of stable envelopes]
 \label{prop:mo-as-ope}
-Under \eqref{eq:k3-yangian-boundary}, the MO stable envelope
-$R_{\mathrm{MO}}(u)$ on $\Hilb^n(K3)$ at an ADE chart equals the OPE
-coefficient
-\begin{equation}
-\label{eq:ope-across-puncture}
-  \Obs_{\mathrm{hCS}}^{\partial}(S \times D^{\times}_{1})
-  \otimes
-  \Obs_{\mathrm{hCS}}^{\partial}(S \times D^{\times}_{2})
-  \xrightarrow{\ R_{\mathrm{MO}}(z_1 - z_2)\ }
-  \Obs_{\mathrm{hCS}}^{\partial}(S \times D^{\times}_{1} \cup D^{\times}_{2})
-\end{equation}
-for disjoint punctured disks $D^{\times}_{i} \subset C$ at positions
-$z_1, z_2 \in C$, with $u = z_1 - z_2$ the coordinate difference.
+Assume Conjecture \ref{conj:k3-yangian-as-boundary}. Then the local
+MO stable-envelope matrix on an ADE/Kummer chart is the OPE coefficient
+for moving two boundary observables on disjoint punctured disks past one
+another:
+\[
+  \Obs^\partial(S\times D_1^\times)\otimes
+  \Obs^\partial(S\times D_2^\times)
+  \xrightarrow{\ R_{\mathrm{MO}}(z_1-z_2)\ }
+  \Obs^\partial(S\times(D_1^\times\cup D_2^\times)).
+\]
 \end{proposition}
 
 \begin{proof}
-The hCS observable algebra factorises along disjoint disks by the
-Costello--Gwilliam factorisation axiom; the nontrivial braiding between
-observables on $D^{\times}_{1}$ and $D^{\times}_{2}$ is measured by the
-$R$-matrix, which on the K3 fibre is diagonal and $u$-dependent. The
-explicit form $R_{K3}(u) = \mathrm{diag}\bigl((u - h_i)/(u + h_i)\bigr)$ arises
-from the OPE on the $24$ Heisenberg currents of the K3 fibre and matches
-\eqref{eq:mo-r-matrix-k3} via Proposition~\ref{prop:three-routes}.
+Factorisation along disjoint disks gives a product of boundary
+observables. Under the conjectural identification with $\YgK$, the
+braiding is governed by the same diagonal rational $R$-matrix as in
+Proposition \ref{prop:three-routes}.
 \end{proof}
 
-\subsection{CY-A$_2$ and the $E_1$-chiral level}
+\subsection{Native $E_2$ object and $E_1$ mode algebra}
 
-The functor $\Phi_2 \colon \mathrm{CY}\text{-cat}_{2} \to \mathrm{ChirAlg}_{E_1}$
-(CY-A$_2$ theorem) sends $D^{b}(\Coh(K3))$ to its $E_1$-chiral image; the
-$(\infty, 1)$-categorical extension CY-A$_3$ lifts this to $K3 \times E$
-(compact CY$_3$). The abelian K3 Yangian $\YgK$ is the $\hbar$-deformation
-of $\Phi_2(D^{b}(\Coh(K3)))$, with $\hbar$ playing the role of the Planck
-constant of the hCS theory. The identification \eqref{eq:k3-yangian-boundary}
-is the physical incarnation of this functor-level statement. At $d \geq 3$
-the ambient algebra $A = \Phi(\mathrm{CY}\text{-cat}_d)$ is only $E_1$; the
-$E_2$ structure on $K3 \times E$ lives on $Z(\Rep(A))$, not on $A$ itself
-(cache fact, CLAUDE.md).
+The native CY$_2$ output attached to $D^b\Coh(K3)$ is an $E_2$
+factorisation algebra. The abelian K3 Yangian is the stage-two
+one-dimensional specialisation, equivalently the mode algebra on a
+formal disk, and is therefore $E_1$ as an associative chiral algebra. At
+$d=3$, for $K3\times E$, the ambient algebra is $E_1$; the $E_2$ braiding
+lives on the Drinfeld centre of its representation category.
 
-\section{Cross-consistency with other routes}
-\label{sec:cross-consistency}
+\section{Branch separation and $K3\times E$ constants}
+\label{sec:branch-separation}
 
-\subsection{BFN Coulomb branch at Kummer orbifold}
+\subsection{Kummer BFN chart}
 
-The Braverman--Finkelberg--Nakajima construction realises quantised Coulomb
-branches as convolution algebras on the affine Grassmannian; for Nakajima
-quiver varieties this is unconditional. At the Kummer orbifold of K3 (a
-$T^{4}/\Z_{2}$ orbifold with $16$ $A_1$-charts resolved to a K3), the affine
-$A_1$ quiver gives
-\begin{equation}
-\label{eq:bfn-k3-kummer}
-  A_{\mathrm{BFN}}(T^{4}/\Z_{2},\, n) \;\stackrel{?}{=}\; \YgK\bigr|_{\text{charge }n}
-\end{equation}
-conjecturally, contingent on deformation invariance under blowup of the
-$16$ orbifold singularities. Combined with the CoHA route and the MO route,
-this is a third independent construction converging on the same
-$\Yplus$ positive half at ADE/Kummer charts.
+At the Kummer point $T^4/\Z_2$ there are $16$ local $A_1$ charts. The
+Braverman-Finkelberg-Nakajima Coulomb-branch construction applies to the
+corresponding affine $A_1$ quiver variety and gives a local convolution
+algebra. The comparison
+\[
+  A_{\mathrm{BFN}}(T^4/\Z_2,n)
+  \rightsquigarrow
+  \YgK|_{\mathrm{charge}\ n}
+\]
+is chartwise and conditional on deformation invariance through the
+resolution of the orbifold singularities.
 
-\subsection{Borcherds--Igusa $\Phi_{10}$ and the BKM distinction}
+\subsection{Hall-Drinfeld and BKM branch}
 
-The BKM superalgebra $\gg_{\Delta_5}$ attached to the Igusa weight-$10$ form
-on $K3 \times E$ (via Gritsenko's $\Delta_5$ at $N = 1$) is a different object
-from $\YgK$: it has no $J$-presentation, no Chevalley--Serre relations on
-imaginary simple roots, and is not a Drinfeld Yangian. It is a
-\emph{K3 chiral Hall--Drinfeld double}
-$\mathcal{D}_{\hbar}\!\bigl(\mathcal{Y}^{\mathrm{Hall}}_{\hbar}(\CoHA_{K3 \times E})\bigr)$
-with Schiffmann--Vasserot shuffle presentation (Davison 2017 CY$_{3}$
-extension); $\gg_{\Delta_5}$ is its non-abelian BKM shadow under
-vertex-operator closure on the Mukai lattice VOA. The six routes to
-$G(K3 \times E)$ --- BKM, CoHA, Hall--Drinfeld double, MO, Borcherds lift,
-quantum toroidal --- are six different constructions, not six applications of
-$\Phi$ to one object (cache fact, CLAUDE.md). See
-\texttt{chapters/examples/k3\_yangian\_chapter.tex}
-Remark~\texttt{rem:k3-yangian-nomenclature-scope} and
-Remark~\texttt{rem:k3-yangian-hall-drinfeld-scope}.
+The BKM superalgebra $\gg_{\Delta_5}$ attached to $K3\times E$ is the
+Borcherds denominator object governed by Gritsenko's $\Delta_5$ at
+$N=1$. Its compact quantum-group target is a Hall-Drinfeld/Borcherds
+double built from a compact critical CoHA, a negative half, a Hopf
+pairing, centre control, completion, and associator. The abelian K3
+Yangian $\YgK$ is the Mukai-Heisenberg self-mirror branch. The two
+branches share rank-$24$ Mukai data and have distinct algebraic
+presentations.
 
-\subsection{$\kappa_{\bullet}$-bookkeeping on $K3 \times E$}
+\subsection{Four subscripted invariants on $K3\times E$}
 
-The central charge $c = 24$ of the rank-$24$ Sugawara tensor is
-$\kappa_{\mathrm{fiber}}(K3)$, not $\kappa_{\mathrm{cat}}(K3 \times E) = 0$
-(K\"unneth-multiplicative on the total space, $\chi(\mathcal{O}_{K3 \times E}) = 2 \cdot 0 = 0$)
-and not $\kappa_{\mathrm{cat}}(K3) = \chi(\mathcal{O}_{K3}) = 2$. The five
-$\kappa_{\bullet}$ values on $K3 \times E$ are
-$\{0, 2, 3, 5, 24\}$: $\kappa_{\mathrm{cat}}(K3 \times E) = 0$;
-$\kappa_{\mathrm{cat}}(K3) = 2$; $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3$ by
-additivity; $\kappa_{\mathrm{BKM}}(\Phi_{N = 1}) = c_{1}(0)/2 = 5$ (Borcherds weight theorem,
-Gritsenko 1999, $\Delta_5$ weight $5$); $\kappa_{\mathrm{fiber}} = 24$. Each
-value arises from a different construction; the Mukai, Igusa, BKM, and K3-fibre-rank
-interpretations are tracked by distinct subscripts, per CLAUDE.md.
+Let $Y=K3\times E$. The four invariants used here are
+\[
+\begin{array}{c|c|l}
+\text{invariant} & \text{value} & \text{construction}\\ \hline
+\kappa_{\mathrm{cat}}(Y) & 0 &
+\chi(\mathcal O_Y)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0\\
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(Y) & 3 &
+\text{Heisenberg-Mukai chiral specialisation}\\
+\kappa_{\mathrm{BKM}}(\Delta_5) & 5 &
+c_1(0)/2=10/2,\ \text{Borcherds weight of }\Delta_5\\
+\kappa_{\mathrm{fiber}}(Y) & 24 &
+\operatorname{rk}\widetilde H(K3,\Z)=1+22+1
+\end{array}
+\]
+Thus the $K3\times E$ spectrum is $\{0,3,5,24\}$. The value
+$\chi(\mathcal O_{K3})=2$ is a fibre Euler characteristic, while the
+total-space categorical invariant is $0$ by Kunneth. This matches the
+local anchors
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex:135} and
+\texttt{chapters/examples/k3e\_bkm\_chapter.tex:14290}.
+
+\section{Proof boundaries}
+\label{sec:proof-boundaries}
+
+\begin{enumerate}
+\item The diagonal RTT equation proves the positive current half. The
+full Heisenberg central extension is the double pairing between positive
+and negative modes.
+
+\item The cited Schiffmann-Vasserot theorem
+\texttt{arXiv:1705.07488} is a quiver CoHA generator theorem. It supplies
+ADE/Kummer chart input. A compact global K3 CoHA with the stated double
+requires extra gluing and orientation data.
+
+\item The MO stable envelope is local to ADE/Kummer charts in this note.
+Generic K3 moduli have $\Aut(S)^\circ=0$, so the necessary rank-$2$
+equivariant torus is absent.
+
+\item The coefficient
+\[
+  324=\dim\Sym^2(\Lmuk)+\dim\Lmuk=\binom{25}{2}+24
+\]
+is the $q^2$ Fock coefficient of the rank-$24$ Heisenberg module, also
+the Hilbert-scheme oscillator count at charge $2$. A representation-count
+interpretation at a root of unity would require a constructed small
+quantum group quotient or braided finite category; this note constructs
+only the generic rational Yangian object.
+
+\item Root-of-unity specialisation is outside this construction. The rational parameter
+$\hbar$ and the spectral parameters $h_i$ remain generic, subject only to
+$\sum_i h_i=0$.
+\end{enumerate}
 
 \section{Open questions}
 \label{sec:open-questions}
 
 \begin{enumerate}
-\item \emph{Non-abelian K3 Yangian at $\gg = \widehat{\gg}_{\mathrm{ADE}}$.}
-The abelian $\gl_{1}$ version is established here. A non-abelian version
-attached to ADE Kac--Moody enhancements at orbifold points (via level-$1$
-affine ADE Yangians) has the off-diagonal $R$-matrix computed by
-Maulik--Okounkov on $\Hilb^n(\widetilde{\C^2/\Gamma})$; global assembly at
-generic K3 moduli requires deformation of the diagonal $R$-matrix
-to an off-diagonal one consistent with the ADE-at-singularity structure.
+\item \emph{ADE nonabelian enhancement.}
+At ADE walls the local shifted Yangian of the affine ADE quiver acts on
+the corresponding Nakajima variety. The global assembly across K3 moduli
+requires a deformation argument for the local $R$-matrices and their
+Mukai embeddings.
 
-\item \emph{Super-Yangian envelope $Y_{\osp(4 \mid 20)}$.}
-The Mukai orthogonal form $\omega$ of signature $(4, 20)$ is naturally
-orthosymplectic; a super-Yangian $Y_{\osp(4 \mid 20)}$ should contain
-$\YgK$ as its Cartan subalgebra and extend the $R$-matrix to the full
-$\osp$ root system. Construction and highest-weight theory both open.
+\item \emph{Mukai-form super-extension.}
+The Mukai form is symmetric on the full rank-$24$ lattice. The natural
+envelope is the orthogonal Yangian $Y_\hbar(\mathfrak{so}(4,20))$ and
+the programme-specific Hodge-parity super-extension
+$Y_\hbar(\mathfrak{so}(4\mid20))$, whose odd part also carries the
+symmetric Mukai form. The standard Kac superalgebra with a symplectic odd
+form preserves a different bilinear datum from the Mukai lattice.
 
-\item \emph{Global versus orbifold MO.}
-The MO stable envelope works at ADE/Kummer charts but not globally at
-generic K3 moduli. A fibrewise construction on the Shafarevich period
-domain, using the local toric torus at each orbifold chart and gluing by
-$O(\Lmuk)$, would furnish a global $R$-matrix.
+\item \emph{Compact Hall-Drinfeld double.}
+The compact $K3\times E$ Hall-Drinfeld double requires the compact CoHA,
+negative half, Hopf pairing, coproduct, completion, and associator. The
+Borcherds denominator $\Delta_5$ gives the automorphic target, while the
+compact Hall source remains an open construction.
 
-\item \emph{Fricke involution and symplectic duality.}
-The Fricke involution $W_N \colon \tau \mapsto -1/(N\tau)$ on $K3 \times E$
-moduli realises S-duality; it should act on the moduli of K3 Yangians
-through bar--cobar exchange
-$B(\YgK(\tau)) \simeq \Omega B(\YgK(W_N(\tau)))$.
+\item \emph{Global stable-envelope replacement.}
+A fibrewise construction over the K3 period domain would need to replace
+the missing global torus by lattice-polarised wall crossing and
+$O(\Lmuk)$-equivariance.
 
-\item \emph{Mathieu $M_{24}$ action.}
-The twined K3 elliptic genus at each $M_{24}$ class should lift to a
-twined K3 Yangian character; the $M_{24}$ action on $H^{\ast}(K3; \Q)$
-(Mukai 1988) commutes with the abelian Heisenberg structure and should
-descend to an $M_{24}$-action on $\YgK$. Compatibility with the
-Frenkel--Kac cocycle $\epsilon_{\mathrm{FK}}$ is the first check.
-
-\item \emph{Hall--Drinfeld double versus Yangian double.}
-The Hall--Drinfeld double of the $K3 \times E$ CoHA (Davison 2017
-CY$_{3}$ extension) produces the BKM shadow $\gg_{\Delta_5}$ under
-vertex closure; the Yangian double \eqref{eq:drinfeld-double-k3} produces
-$\YgK$ at K3 level. The explicit intertwining of the two double
-constructions at $K3 \times E$ remains open.
+\item \emph{Mathieu twining.}
+The $M_{24}$ action on K3 elliptic-genus data should act on the
+Mukai-Heisenberg Fock space and commute with the Heisenberg current
+algebra. Compatibility with the Frenkel-Kac cocycle is the first
+vertex-level obstruction.
 \end{enumerate}
-
-\appendix
-
-\section{Rectification log: attack--heal cycles}
-\label{sec:rectification-log}
-
-\subsection*{Cycle 1: Is it a Yangian?}
-
-\emph{Attack.} The abelian Heisenberg algebra at rank $24$ is a trivial Lie
-algebra --- every Lie bracket vanishes except the central Heisenberg
-commutator. An abelian Lie algebra has no root system, no Cartan matrix, no
-Chevalley--Serre relations. Calling the $\hbar$-deformation a ``Yangian'' is
-an abuse of terminology: Drinfeld (1985) defined Yangians for simple Lie
-algebras $\gg$ with non-degenerate Killing form and non-trivial root system;
-$\gl_{1} \otimes \Lmuk$ has neither.
-
-\emph{Heal.} Drinfeld 1985 is more general than simple Lie algebras: the
-definition depends only on a finite-dimensional Lie algebra with an
-invariant symmetric non-degenerate bilinear form, which the Mukai pairing
-supplies. Chari--Pressley 1995 record the abelian-Heisenberg case
-$Y_\hbar(\hh_n)$ with arbitrary symmetric form. The word \emph{Yangian} is
-therefore earned; \emph{abelian} clarifies that the Lie bracket is trivial
-(the defining relation has no quadratic $Y^{2}$ term, only Heisenberg
-commutators), distinct from the non-abelian Yangian $Y_\hbar(\widehat{\gg})$
-of a simple Kac--Moody $\gg$. The $R$-matrix $R_{K3}$ and the coproduct
-$\Delta_z$ both deform non-trivially in $\hbar$, so the Yangian is
-non-trivial despite the abelian Lie input.
-
-\subsection*{Cycle 2: Is it really abelian?}
-
-\emph{Attack.} The Hopf algebra has spectral coproduct $\Delta_z$ with
-$z$-dependent cross-terms starting at spin $s = 2$. The opposite coproduct
-$\Delta_z^{\mathrm{op}} \neq \Delta_z$ unless $z = 0$. This is manifestly
-non-abelian at the Hopf level. Calling $\YgK$ ``abelian'' is misleading.
-
-\emph{Heal.} The word \emph{abelian} refers to the Lie-algebra bracket on a
-single Miki direction, not to the Hopf structure. On direction $i$, the
-Heisenberg commutator $[J_{i, m}, J_{i, n}] = \varepsilon_i \hbar m \delta_{m + n, 0}$
-is central, so the derived subalgebra is one-dimensional. The Hopf
-non-cocommutativity at $z \neq 0$ is a feature of the $\hbar$-deformation,
-not a defect of the abelianness. Remark~\ref{rem:abelian-at-lie} in the
-body formalises this: \emph{abelian-at-Lie / non-abelian-at-Hopf} is a scope
-declaration, not an inconsistency.
-
-\subsection*{Cycle 3: CoHA $\neq$ positive half?}
-
-\emph{Attack.} Schiffmann--Vasserot 2012 identify $\CoHA(\C^{3})$ with
-$\mathcal{W}_{1 + \infty}$ at generic parameters; this is the full Yangian
-double, not the positive half. By analogy, $\CoHA(K3)$ might be the full K3
-Yangian $\YgK$, not just $\Yplus$.
-
-\emph{Heal.} The cache fact is definitive: $\CoHA(\C^{3}) = Y^{+}(\widehat{\gl}_{1})$,
-the positive half. $\mathcal{W}_{1 + \infty}$ is the full Yangian double,
-obtained from $Y^{+}$ by Drinfeld doubling; CoHA gives only the positive
-half because the pushforward-in-short-exact-sequences product is a nilpotent,
-upper-triangular construction (sheaf extensions go in one direction). The
-same logic applies at K3: Schiffmann--Vasserot 2017 supplies
-$\CoHA(K3) = U(\Yplus)$, not the full $\YgK$. Recovery of $\YgK$ requires
-the Drinfeld double \eqref{eq:drinfeld-double-k3}, which is additional
-structure beyond the CoHA itself.
-
-\subsection*{Cycle 4: MO stable envelope fails globally}
-
-\emph{Attack.} The Maulik--Okounkov stable envelope requires a $(\C^{\ast})^{2}$-action;
-a generic K3 surface has $\dim \Aut(K3)^{\circ} = 0$ (no non-trivial continuous
-automorphism). So the MO construction cannot exist globally on K3 moduli,
-falsifying Proposition~\ref{prop:three-routes}.
-
-\emph{Heal.} Proposition~\ref{prop:three-routes} is scope-limited to ADE/Kummer
-charts, where the McKay correspondence supplies a local toric torus
-$T_S = (\C^{\ast})^{2}$ on the analytic chart (the resolved singularity
-$\widetilde{\C^2/\Gamma}$ has a torus action inherited from $\C^{2}$).
-Globally at generic K3 the MO machinery fails, but the three routes agree on
-the overlap where all three are defined. The statement
-\texttt{lem:mo-bypass-local-to-global} of
-\texttt{chapters/examples/k3\_yangian\_chapter.tex} makes this explicit:
-$\dim \Aut(S \times E)^{\circ} = 1 < 2$ generically, since
-$\Aut(E)^{\circ} \simeq E$ (abelian variety, no $\mathbb{G}_m$-subgroup), so even
-after the elliptic factor the torus rank is $1$.
-
-\subsection*{Cycle 5: Physical hCS avatar is speculative}
-
-\emph{Attack.} Costello--Gaiotto's 4d Chern--Simons boundary Yangian is a
-theorem (Costello 2013, Costello--Witten--Yamazaki 2018); 5d hCS is partially
-constructed (Costello 2016); hCS on $S \times C$ is speculative.
-Theorem~\ref{thm:k3-yangian-as-boundary} is therefore a conjecture, not a
-theorem.
-
-\emph{Heal.} The boundary-algebra identification is conjectural at the level
-of the physical theory. What is rigorous is the $E_1$-chiral algebra $\YgK$
-constructed in \S\ref{sec:abelian-presentation}; what is conjectural is the
-physical identification with an hCS theory on $S \times C$. The
-rectification: Theorem~\ref{thm:k3-yangian-as-boundary} is labelled
-``Conjectural'' in the body, and Proposition~\ref{prop:mo-as-ope} is stated as
-conditional on that construction being valid. The mathematical content
-(Drinfeld Yangian axioms, RTT relations, Hopf structure, CoHA identification
-at the generator-relation level, MO agreement at ADE charts) is independent
-of the hCS interpretation.
-
-\subsection*{Cycle 6: Mukai indefinite signature obstruction (confirmatory)}
-
-\emph{Attack.} The Mukai pairing has signature $(4, 20)$: $20$ directions of
-``negative-level'' Heisenberg. Negative-level Kac--Moody algebras often have
-degenerate or ill-defined representations (non-unitary at the unitary level,
-no positive-definite Shapovalov form). This could obstruct the Yangian
-construction or spoil the $R$-matrix unitarity.
-
-\emph{Heal.} Proposition~\texttt{prop:mukai-indefinite-yangian} of
-\texttt{chapters/examples/k3\_yangian\_chapter.tex} proves that
-signature-$(4, 20)$ is not an obstruction: each of the $24$ directions is a
-rank-$1$ Heisenberg at level $\varepsilon_i = \pm 1$, and the Yangian
-construction depends only on $\varepsilon_i \neq 0$, not on its sign. The
-cross-sector commutator vanishes, so the algebra factorises as
-$Y(H_{+}) \otimes Y(H_{-})$ with $H_{\pm}$ the positive/negative Mukai sectors.
-The $R$-matrix is diagonal with each entry unitary: $(u - h)/(u + h) \cdot
-(-u - h)/(-u + h) = 1$ for each factor. The Fock-space inner product has
-signature $(4, 20)$, matching the Mukai pairing; positive-definite BPS
-representations exist for Donaldson--Thomas subspaces (sector factorisation
-$Y(H_+) \otimes Y(H_-)$). The signature enters through the $R$-matrix
-factorisation $g_{K3} = g_+ \cdot g_-$ of (U4), not through a Lie-bracket
-pathology.
-
-\subsection*{Cycle 7: Is $\CoHA(K3) = U(\Yplus)$ a theorem or a conjecture?}
-
-\emph{Attack.} The 2012 Schiffmann--Vasserot theorem for $\CoHA(\C^{3})$ is
-established; the 2017 K3 extension (\texttt{arXiv:1705.07488}) is cited as
-Theorem~\ref{thm:sv-k3} but the K3 case involves subtleties absent from the
-local surface case: the moduli stack $M_{K3}^{(v)}$ of sheaves on K3 is not a
-global quotient, the structure constants of the CoHA involve virtual
-fundamental classes requiring Behrend functions, and the identification
-with $U(\Yplus)$ appeals to a positive-half shuffle presentation that has
-not been proved in print for indefinite-signature lattices.
-
-\emph{Heal.} The primary literature is finer-grained than a single theorem:
-Schiffmann--Vasserot 2017 proves the CoHA of K3 is a graded Hopf algebra with
-primitive part $\Lmuk$ and that the positive-half shuffle presentation holds
-at the level of generating functions; the full identification
-$\CoHA(K3) \cong U(\Yplus)$ at the generator-relation level requires the
-Yangian $Y(\Yplus)$ to be generated by its Mukai primitives, which follows
-from the abelian-at-Lie triangular decomposition of
-Proposition~\ref{prop:triangular}. The remaining subtlety --- whether the
-structure constants of the CoHA match those of $Y^{+}$ over $\Z$ rather than
-over $\Q$ --- is the content of Davison's 2017 integrality extension
-(\texttt{arXiv:1712.06049}). Combined, the statement
-$\CoHA(K3) \cong U(\Yplus)$ at the generator-relation level is a theorem
-modulo Davison integrality; at the level of the primitive part $\Lmuk$ it
-is a theorem of Schiffmann--Vasserot unconditionally. The scope of
-Theorem~\ref{thm:sv-k3} in the body is the primitive-level + shuffle-level
-statement; the $Z$-integral enhancement is additional.
-
-\subsection*{Cycle 8: Why does $E_1$ and not $E_2$ apply at K3?}
-
-\emph{Attack.} K3 is a $d = 2$ CY surface; $\Phi_2$ should send
-$D^{b}(\Coh(K3))$ to an $E_2$-chiral algebra (the factorisation algebra on
-$\R^{2}$), not $E_1$. Calling $\YgK$ an $E_1$-chiral algebra contradicts the
-CY-A$_2$ functor-output scope.
-
-\emph{Heal.} The $E_n$ scope depends on the chiral sector considered. The
-full $E_2$-chiral image of $D^{b}(\Coh(K3))$ on $\R^{2}$ is the Mukai-Heisenberg
-vertex algebra $V_{H_{\mathrm{Muk}}}$, which supports genuine $E_2$-chiral
-factorisation. The abelian K3 Yangian $\YgK$ is the mode algebra of
-$V_{H_{\mathrm{Muk}}}$ on a formal disk, an $E_1$-chiral (associative-algebra)
-extraction; the $E_2$ structure is recovered by considering the full
-factorisation sheaf on $\R^{2}$ of which $\YgK$ is the stalk. No
-contradiction: $E_1$ is the slice, $E_2$ the full stack. At $d \geq 3$
-(i.e.\ $K3 \times E$) the ambient algebra $A$ is only $E_1$ and the
-$E_2$-chiral structure lives on $Z(\Rep(A))$, not on $A$ --- a different
-cache fact (CLAUDE.md), distinct from the K3 case.
-
-\subsection*{Verification summary}
-
-\begin{itemize}
-\item \emph{RTT equivalence.} Theorem~\ref{thm:rtt-presentation}: the
-  diagonal $R$-matrix RTT relation reduces to the Heisenberg commutator on
-  the diagonal. Independent verification by direct matrix computation at
-  rank $3$ (\texttt{compute/lib/k3\_yangian\_quantization.py}, $60$ tests
-  including explicit $27 \times 27$ YBE check at rank $3$).
-\item \emph{Rank-$2$ worked example} (Remark~\ref{rem:rank-2-rtt}): entrywise
-  diagonal compatibility; no non-trivial off-diagonal constraint.
-\item \emph{Hopf structure.} Propositions~\ref{prop:coproduct-drinfeld}--\ref{prop:antipode}:
-  coassociativity, counit, antipode verified in
-  \texttt{compute/lib/k3\_rtt\_ope\_dictionary.py} ($52$ tests).
-\item \emph{Unitarity.} $R_{K3}(u)\, R_{K3}(-u) = I$ verified
-  factor-by-factor.
-\item \emph{CoHA identification.} Schiffmann--Vasserot 2017
-  \texttt{[arXiv:1705.07488]} gives $\CoHA(K3) = U(\Yplus)$ at the primitive
-  level + shuffle presentation; Davison 2017 \texttt{[arXiv:1712.06049]}
-  provides integrality; the Drinfeld double extension restores $\YgK$.
-\item \emph{MO stable envelope at ADE.} Maulik--Okounkov 2012
-  \texttt{[arXiv:1211.1287]} applies at orbifold charts; BFN Coulomb branch
-  at Kummer \texttt{[arXiv:1604.03625]} gives the third route.
-\item \emph{Three $R$-matrix routes converge.}
-  \texttt{compute/lib/mo\_rmatrix\_k3e.py} and
-  \texttt{compute/lib/ade\_yangian\_level1.py} cross-check the agreement at
-  ADE charts.
-\item \emph{Indefinite signature.} Proposition~\texttt{prop:mukai-indefinite-yangian}
-  of the chapter, $60$ tests in \texttt{mukai\_indefinite\_yangian.py};
-  sector decomposition, negative-level Heisenberg well-definedness,
-  unitarity factor-by-factor.
-\item \emph{Kunneth on $\kappa_{\mathrm{cat}}$.} $\kappa_{\mathrm{cat}}(K3 \times E)
-  = \chi(\mathcal{O}_{K3}) \cdot \chi(\mathcal{O}_{E}) = 2 \cdot 0 = 0$; cache fact,
-  matches the body \S\ref{sec:cross-consistency}.
-\item \emph{E-scope.} $\YgK$ is $E_1$-chiral as a mode algebra; the
-  underlying Mukai-Heisenberg vertex algebra $V_{H_{\mathrm{Muk}}}$ is
-  $E_2$-chiral. Consistent with CY-A$_2$ output-scope and with
-  cache-fact ``$d \geq 3$: $A$ is $E_1$'' applied one-step higher.
-\end{itemize}
 
 \end{document}

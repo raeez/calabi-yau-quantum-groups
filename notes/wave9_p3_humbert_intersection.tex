@@ -1,140 +1,162 @@
-% wave9_p3_humbert_intersection.tex
-% Humbert-divisor intersection theory on A_2 and order-of-vanishing
-% lattice for Delta_5 across H_d, d in {1,4,5,8,9}.
-% Atomic splice. No AI attribution. Raeez Lorgat.
-
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
 \providecommand{\Amoduli}{\mathcal{A}_2}
-\providecommand{\Hd}{H_d}
+\providecommand{\Hd}{H_D}
 \providecommand{\Hone}{H_1}
-\providecommand{\Hdhat}{\widehat{\mathbf{H}}_1}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\Dfive}{\Delta_5}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\Dfive}{D_5}
 \providecommand{\Hsieg}{\mathbb{H}_2}
 \providecommand{\Spfour}{\mathrm{Sp}_4(\mathbb{Z})}
 
-\section*{Humbert divisors on $\Amoduli$ and the $\Dfive$-order lattice}
+\section*{Humbert divisors on $\Amoduli$ and the $\DeltaFive$ divisor}
 
-\subsection*{Slides audit}
-The slides discuss the diagonal divisor $\Hone \subset \Hsieg$ (line~43)
-and prove (Thm p.~45--54) that exactly eight Siegel modular forms
-vanish to order~$1$ along $\Gamma_t(N)$-translates of $\Hone$, with
-$\Dfive = M_5(\Gamma_1,\nu_2)$ the Sp$_4(\mathbb{Z})$-case. The slides
-name \emph{no} Humbert divisor $\Hd$ for $d \geq 2$, no Heegner point,
-no CM point, no Gritsenko--Hulek 1998 reference, and no explicit
-Aut$(\Amoduli)$ action on higher Humbert loci. The $\Dfive$ content
-treated is (i) the product expansion via $\phi_{0,1}$, (ii) the
-Borcherds--Gritsenko--Nikulin identity $\tfrac{1}{64}\Dfive(2z)=\Phi(z)$
-(line~718), and (iii) the GBKM superalgebra $\mathfrak{g}_{\Dfive}$.
-Consequently the intersection lattice below is reconstructed
-from the primary literature, not the slides.
-
-\subsection*{Humbert divisors: first-principles definition}
-For $d \in \mathbb{Z}_{>0}$ with $d \equiv 0,1 \pmod 4$, the
-\emph{Humbert surface} $\Hd \subset \Amoduli$ parametrises principally
-polarised abelian surfaces $(A,\lambda)$ admitting a symmetric
-endomorphism of discriminant $d$ (Humbert 1901; van der Geer 1988,
-Ch.~IX). Equivalently, $\Hd = \{\tau \in \Hsieg : \exists (a,b,c,d,e)
-\in \mathbb{Z}^5\text{ primitive with } a\tau_1 + b\tau_2 + c\tau_3 +
-d(\tau_1\tau_3 - \tau_2^2) + e = 0,\ b^2 - 4ac - 4de = d\}/\Spfour$.
-Geometrically:
-\begin{itemize}\itemsep2pt
-\item $\Hone$: products $E_1 \times E_2$ of elliptic curves (diagonal
-  locus; equation $\tau_2 = 0$).
-\item $H_4$: surfaces $(\mathrm{Sym}^2 E, \mathrm{can})$ with
-  $\mathrm{End} \supset \mathbb{Z}[\sqrt{2}]$; contains bielliptic
-  Jacobians.
-\item $H_5$: real multiplication by $\mathbb{Z}[\tfrac{1+\sqrt{5}}{2}]$;
-  Hilbert modular surface for $\mathbb{Q}(\sqrt 5)$.
-\item $H_8$: RM by $\mathbb{Z}[\sqrt 2]$; Hilbert modular surface for
-  $\mathbb{Q}(\sqrt 2)$.
-\item $H_9$: \emph{reducible}, decomposes as isogeny-$3$ translates of
-  $\Hone$ (van der Geer 1988, IX.2.5).
-\end{itemize}
-
-\subsection*{Order of vanishing of $\Dfive$ along $\Hd$}
-\ClaimStatusTheorem\ (Gritsenko 2000, Thm~3.1; Gritsenko--Hulek 1998,
-\S 3; Freitag 1983 for $H_1$). The divisor of $\Dfive$ on
-$\Amoduli$ is
+\subsection*{Humbert surfaces}
+Write a point of the Siegel upper half-space as
 \[
-  (\Dfive) \;=\; \Hone \quad\text{(simple zero)},
+  Z=\begin{pmatrix}\tau & z\\ z & \sigma\end{pmatrix}\in\Hsieg .
 \]
-with no components along any other Humbert divisor. Thus
+For an integer $D>0$ with $D\equiv 0,1\pmod 4$, the Humbert surface
+$H_D\subset\Amoduli=\Spfour\backslash\Hsieg$ is the image of the
+primitive singular relations
 \[
-  \boxed{\;\mathrm{ord}_{\Hd}\Dfive \;=\; \begin{cases}
-    1 & d = 1, \\ 0 & d \in \{4,5,8,9\}.
-  \end{cases}\;}
+  a\tau+bz+c\sigma+d(z^2-\tau\sigma)+e=0,\qquad
+  b^2-4ac-4de=D,
 \]
-\emph{Proof sketch.} $\Dfive$ is the unique (up to scalar) weight-$5$
-cusp form for $\Spfour$ with nontrivial character $\nu_{\Dfive}$
-(slides p.~60). Its zero-divisor is Sp$_4(\mathbb{Z})$-invariant. By
-the Borcherds product expansion (slides p.~768--773) the only zero
-locus comes from roots $(n,\ell,m)$ with $4nm-\ell^2=1$, $(n,\ell,m)$
-primitive: these are precisely the $\Gamma_1$-translates of $\tau_2=0$,
-i.e.\ $\Hone$. The multiplicity is $f_{0,1}(1,\pm 1) = 1$ from the
-Fourier expansion $\phi_{0,1}(z,\tau) = (r^{-1}+10+r) + \cdots$
-evaluated at the first Humbert exponent.
+with $(a,b,c,d,e)\in\mathbb Z^5$ primitive.  This is the classical
+Humbert--van der Geer normalisation.  The divisor $H_1$ is the
+decomposable locus: in the chart above it is represented by $z=0$ and
+parametrises principally polarised products $E_\tau\times E_\sigma$,
+modulo the involution interchanging the two factors.
 
-\subsection*{Intersection lattice $\Hone \cap \Hd$}
-\ClaimStatusTheorem\ (van der Geer 1988, IX.3; Hermann 1991). Inside
-$\Amoduli$, as two-cycles:
+\subsection*{The divisor of $\DeltaFive$}
+The Gritsenko--Nikulin form $\DeltaFive$ is the genus-two Siegel modular
+form of weight $5$ and theta character whose square is Igusa's scalar
+weight-$10$ form in the usual unnormalised convention:
 \[
-  \Hone \cdot \Hd \;=\;
-  \sum_{\substack{(Q_1,Q_2)\\ \mathrm{disc}(Q_1\oplus Q_2)=d}}
-  [C_{Q_1,Q_2}]
+  \Phi_{10}^{\mathrm{un}}=\DeltaFive^2 .
 \]
-where the sum is over pairs of positive-definite binary quadratic
-forms of discriminants $d_1, d_2$ with $d_1 d_2 = d$ (and
-$d_i \geq 1$). The components $C_{Q_1,Q_2}$ are modular curves
-$X_0(Q_1) \times X_0(Q_2)/\mathrm{Aut}$ parametrising CM-product
-abelian surfaces.
+The monic denominator convention is \(\Dfive=64^{-1}\DeltaFive\).
+Equivalently, $\DeltaFive$ is the Borcherds product attached to the
+weak Jacobi form
+\[
+  \phi_{0,1}(\tau,z)=\zeta^{-1}+10+\zeta+O(q).
+\]
+Borcherds' divisor formula reads the weight from the constant term and
+the reflective divisor from the negative-discriminant principal part:
+\[
+  \mathrm{wt}(\DeltaFive)=\frac{c_1(0)}2=\frac{10}{2}=5,\qquad
+  \operatorname{div}(\DeltaFive)=H_1 .
+\]
+The coefficient of the terms $\zeta^{\pm1}$ gives a simple reflective
+component, so the vanishing order is
+\[
+  \operatorname{ord}_{H_D}(\DeltaFive)=
+  \begin{cases}
+    1,&D=1,\\
+    0,&D\in\{4,5,8,9\}.
+  \end{cases}
+\]
+This is a divisor statement about the automorphic form.  Monodromy
+order, Atkin--Lehner orbits, and the Borcherds weight $\kBKM$ are
+separate data.
+
+\subsection*{Restriction of $H_D$ to the product locus}
+Restrict the singular relation for $H_D$ to $H_1$ by setting $z=0$:
+\[
+  -d\tau\sigma+a\tau+c\sigma+e=0,\qquad
+  b^2-4ac-4de=D.
+\]
+For fixed $b$ with $b^2\le D$ and $b^2\equiv D\pmod 4$, put
+\[
+  n=\frac{D-b^2}{4}.
+\]
+The remaining equation is the graph of a degree-$n$ modular
+correspondence between the two elliptic factors:
+\[
+  \sigma=\frac{a\tau+e}{d\tau-c},\qquad
+  \det\begin{pmatrix}a&e\\ d&-c\end{pmatrix}=n .
+\]
+Thus the support of $H_1\cap H_D$ in the interior of the product locus
+is obtained from the Hecke correspondences $C_n$ indexed by the
+primitive integer matrices above.  Stabiliser factors and stack
+normalisations determine Chow multiplicities.  The support calculation
+is independent of the divisor-order separation for $\DeltaFive$.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{c|c|c|c}
-$d$ & $\mathrm{ord}_{\Hd}\Dfive$ & $\Hone \cdot \Hd$ (components) & Arithmetic content \\\hline
-$1$ & $1$ & $\Hone$ itself (self-int.) & $\Hone^2 = -\tfrac{1}{2}c_1(\omega)^2$ \\
-$4$ & $0$ & $Y_0(2) + Y_0(2)'$ & CM by $\mathbb{Z}[i]$, $\mathbb{Z}[\sqrt{-2}]$ pairs \\
-$5$ & $0$ & $Y_0(5)$ & CM by $\mathbb{Z}[\tfrac{1+\sqrt{-5}}{2}]$ pts \\
-$8$ & $0$ & $Y_0(2) + Y_0(8)$ & RM $\sqrt 2$ meets isogeny-$2$ locus \\
-$9$ & $0$ & $3 \cdot \Hone$ & $H_9 = 3\cdot\Hone$ (reducible) \\
+\begin{tabular}{c|c|c}
+$D$ & $\operatorname{ord}_{H_D}(\DeltaFive)$ & support of $H_1\cap H_D$ in $H_1$ \\\hline
+$1$ & $1$ & self-intersection of the decomposable divisor $H_1$ \\
+$4$ & $0$ & $C_1$ \\
+$5$ & $0$ & $C_1$ \\
+$8$ & $0$ & $C_1\cup C_2$ \\
+$9$ & $0$ & $C_2$ \\
 \end{tabular}
 \end{center}
 
-\subsection*{$\mathrm{Aut}(\Amoduli)$ action}
-$\mathrm{Aut}(\Amoduli) = \Spfour/\{\pm I\}$ permutes components of
-$\Hone \cdot \Hd$ transitively within each isogeny type; the Atkin--
-Lehner group $W_d$ acts on $Y_0(d)$-components of $\Hone \cdot \Hd$.
+Here $C_1$ is the diagonal correspondence $E_\tau\simeq E_\sigma$, and
+$C_2$ is the degree-$2$ Hecke correspondence.  The square-discriminant
+boundary components of $H_9$ lie on the Satake boundary.  The interior
+support remains the degree-\(2\) Hecke correspondence.
 
-\subsection*{Connection to the derived Humbert germ $\Hdhat$}
-Wave-$6$ Z5 identified $\Hdhat$ as the derived completion of
-$\mathcal{G}^{\circ}_{\mathrm{mn}}$ at basepoint. Under the
-Bruinier--Howard--Yang (2009) arithmetic intersection pairing
-on $\widehat{\mathrm{CH}}^2(\Amoduli)$:
+\subsection*{Monodromy, conductor, and Borcherds weight}
+The order of vanishing of $\DeltaFive$ along $H_1$ is $1$.  The
+Theorem-C $\mathcal B$-family conductor face records a different
+integer:
 \[
-  \langle \hat{\Hone}, \hat{\Hd}\rangle
-  \;=\; -\tfrac{1}{2}\, c_d(0) \,\log(d) + \cdots,
+  K^{\kch}=8,\qquad
+  \operatorname{ord}\bigl(\mathrm{mon}_{H_1}\mathcal L^{\DeltaFive}\bigr)=8,
+  \qquad
+  \hbar^2 K^{\kch}=-1 .
 \]
-where $c_d(0)$ is the constant Fourier coefficient of the Borcherds
-weight-lift of $\phi_{0,d}$ (Gritsenko series). For $d=1$ this
-recovers $\kBKM(\Phi_1) = c_1(0)/2 = 5$, matching
-$\mathrm{ord}_{\Hone}\Dfive = 1$.
+The first equality is the Mukai-positive-signature calculation
+$2c_+(\widetilde H(K3,\mathbb Z))=2\cdot4=8$.  The second is the
+Humbert-$H_1$ monodromy order of the automorphic local system
+$\mathcal L^{\DeltaFive}$.  The vanishing order of $\DeltaFive$ along
+\(H_1\) remains \(1\).  The third equality is the Lusztig
+eighth-root specialisation written in the normalisation
+$\hbar^2=-1/8$.
 
-\subsection*{Scope}
-$\kch$ is not affected: $\Hd$-vanishing is an automorphic property of
-the $\Amoduli$-side, not of $A_X$ on $K3 \times E$. $\kBKM(\Dfive)=5$
-is the $N=1$ Gritsenko specialisation; higher-$N$ analogues
-$\Delta_{k(N)}$ on $\Amoduli$ have order-$1$ along paramodular-$\Hone$
-translates, not along $\Hd$ for $d \geq 4$.
+The Borcherds weight is again separate:
+\[
+  \kBKM(\DeltaFive)=5.
+\]
+On the CHL denominator ladder,
+\[
+  \bigl(c_N(0)\bigr)_{N=1,2,3,4,6}=(10,8,6,4,2),\qquad
+  \bigl(\kBKM(\Phi_N)\bigr)_{N=1,2,3,4,6}=(5,4,3,2,1).
+\]
+These constants are weights of primitive BKM denominators.  Humbert
+intersection multiplicities and Atkin--Lehner orbit counts are separate
+arithmetic data.
 
-\subsection*{Cites}
-Humbert 1901 \emph{J.\ Math.\ Pures Appl.} (original $\Hd$
-definition); van der Geer 1988 \emph{Hilbert Modular Surfaces} Ch.~IX;
-Gritsenko 2000 arXiv:math/9906190 (order-of-vanishing tables);
-Gritsenko--Hulek 1998 \emph{Int.\ J.\ Math.} (Siegel
-threefold divisors); Gritsenko--Nikulin 1998 arXiv:alg-geom/9704022
-(Borcherds products on $\mathrm{II}_{2,3}$); Lorgat 2020
-\emph{Automorphic corrections} \S 2 (explicit Borcherds lift
-$\phi_{0,1}\to\Dfive$); slides p.~45--54, 718--773.
+\subsection*{The $K3\times E$ constants}
+The $K3\times E$ values are four subscripted invariants from four
+distinct constructions:
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kBKM(\mathfrak g_{\DeltaFive})=5,\qquad
+  \kfiber(K3)=24 .
+\]
+The value $5$ is the weight of the $\DeltaFive$ BKM denominator.  The value
+$8$ is the conductor/monodromy integer in the $\mathcal B$-family.
+The Humbert intersection table fixes the divisor and correspondence
+geometry.  The Borcherds weight and the conductor/monodromy integer
+come from the two displayed constructions above.
+
+\subsection*{References}
+Humbert's singular-relation definition and van der Geer's
+\emph{Hilbert Modular Surfaces}, Ch.~IX, fix the convention
+$D=b^2-4ac-4de$ and identify $H_1$ with the decomposable locus.
+Igusa's genus-two theta-constant calculation gives
+$\Phi_{10}^{\mathrm{un}}=\DeltaFive^2$ and the decomposable divisor.
+Gritsenko--Nikulin's Borcherds-product construction identifies the
+primitive denominator with $\DeltaFive$ and the simple $H_1$ divisor.
+Borcherds' weight formula gives $\mathrm{wt}(\DeltaFive)=c_1(0)/2=5$.
+Bruinier's Heegner Chern-class reciprocity is the source for the
+separate order-$8$ Humbert-monodromy input used by the
+$\mathcal B$-family conductor bridge.

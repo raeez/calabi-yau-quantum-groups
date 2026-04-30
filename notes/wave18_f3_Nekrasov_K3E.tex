@@ -1,13 +1,3 @@
-% Wave-18 F3/20 — The Pandharipande-Oberdieck partition function on
-% K3 x E as the Nekrasov partition function, and its identification
-% with chi(Y^+(K3 x E)). Nekrasov + Okounkov voice, CG prose.
-% Subscripted kappa. No AI attribution.
-% Primary sources: Oberdieck–Pixton 2018 (arXiv:1706.10100);
-% Nekrasov 2003 (arXiv:hep-th/0206161); Nekrasov–Okounkov 2006
-% (Progr. Math. 244); Okounkov 2009 (ICM) and 2017 Lectures
-% (arXiv:1512.07363); Nakajima 1994 (Duke 76); Gritsenko–Nikulin 1995;
-% Maulik–Pandharipande–Thomas 2010 (arXiv:1001.2719); Kawai–Yoshioka 2000.
-
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
@@ -16,218 +6,284 @@
 \providecommand{\Zred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
 \providecommand{\Mred}{\mathcal{M}^{\mathrm{red}}}
 \providecommand{\virred}{[\Mred]^{\mathrm{vir}}}
-\providecommand{\Cstar}{\mathbb{C}^{*}}
-\providecommand{\Auts}{\mathrm{Aut}_{s}}
-\providecommand{\PhiTen}{\Phi_{10}}
+\providecommand{\PhiOP}{\Phi_{10}^{\mathrm{OP}}}
+\providecommand{\Phiun}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\Dfive}{D_5}
 \providecommand{\Ypos}{Y^{+}}
-\providecommand{\Om}{\Omega}
+\providecommand{\CoHA}{\operatorname{CoHA}}
+\providecommand{\Rep}{\operatorname{Rep}}
 
-\section*{Pandharipande--Oberdieck as a Nekrasov partition function, and $\chi(\Ypos(K3\times E))$}
+\section*{The reduced Nekrasov character of $K3\times E$}
 
-\subsection*{Cycle 1 — From Nekrasov to reduced DT}
+Let $S$ be a nonsingular projective K3 surface, let $E$ be an elliptic
+curve, and put $X=S\times E$.  The toric Nekrasov partition function is
+an equivariant integral over an instanton or sheaf moduli space in an
+$\Omega$-background.  On $S\times E$ the holomorphic symplectic form on
+$S$ gives a cosection of the ordinary obstruction sheaf, so the ordinary
+virtual class is replaced by the Maulik--Pandharipande--Thomas reduced
+class.  The free translation orbit of $E$ is divided out before
+integration.
 
-Nekrasov~2003 \texttt{hep-th/0206161} defines, for $X$ a toric
-Calabi--Yau with torus $T \curvearrowright X$, the partition function
+For a primitive class $\beta\in H_2(S,\mathbb Z)$ with
+$\beta^2=2h-2$, elliptic degree $d$, and stable-pair Euler
+characteristic $n$, define
 \[
-  \ZNek(X;q,\epsilon_1,\epsilon_2)
-  \;=\;
-  \sum_{\gamma \in H_2(X,\mathbb{Z})_{\mathrm{eff}}}
-  q^{\gamma}
-  \int_{[\mathcal{M}_{\gamma}(X)]^{\mathrm{vir}}}
-  \frac{1}{e_{T}(\mathrm{Nor}^{\mathrm{vir}})},
+  \mathrm{PT}^{\mathrm{red}}_{h,d,n}(S\times E)
+  =
+  \int_{[P_n(S\times E,\beta+d[E])/E]^{\mathrm{red}}}1 .
 \]
-the equivariant volume of the instanton / Hilbert-scheme moduli
-stack, evaluated by Atiyah--Bott on $T$-fixed loci. On $X = \mathbb{C}^{2}$
-with $\mathcal{M}_{n} = \mathrm{Hilb}^{n}(\mathbb{C}^{2})$, Nekrasov
-obtained
-$\sum_{n} q^{n}\, e_{T}(T \mathrm{Hilb}^{n}\mathbb{C}^{2})^{-1} =
-\prod_{k\geq 1}(1-q^{k})^{-1}\cdot (\epsilon_{1}\epsilon_{2}/\hbar^{2})$
-at the instanton level, recovered by Nakajima~1994 (Duke \textbf{76})
-as the Fock-space character
-$\chi(\mathrm{Heis})(q) = \prod(1-q^{k})^{-1}$. On $X = K3$, the
-replacement is Kawai--Yoshioka~2000: $\sum \chi(\mathrm{Hilb}^{n}K3)\,
-q^{n-1} = 1/\eta^{24}(\tau)$, a \emph{non-equivariant} identity on
-the surface whose continuous-symmetry group is trivial.
-
-\textbf{Flaw.} The Nekrasov prescription applied verbatim to $K3$
-vanishes: the symplectic $2$-form $\sigma_{K3}$ annihilates the
-naive virtual class, and $K3$ admits no nontrivial global torus.
-\textbf{Heal (MPT~2010).} Reduce the obstruction sheaf by
-$\sigma_{K3}$: $\mathrm{Ob}^{\mathrm{red}} =
-\ker(\mathrm{Ob} \twoheadrightarrow \mathcal{O})$, obtaining the
-reduced virtual class $\virred$ of virtual dimension
-$\mathrm{vd}+1$. The Nekrasov sum becomes the Pandharipande--Thomas
-reduced DT generating series, and on $X = K3\times E$ with
-K3-primitive classes $\gamma$,
+The three variables record the three primitive charges:
+$q^{h-1}$ records the K3 norm, $\zeta^n$ records the stable-pair Euler
+characteristic, and $p^d$ records the elliptic degree.  The reduced
+Nekrasov character of $S\times E$ is
 \[
-  \ZNek(K3\times E;\gamma,q,t,p)
-  \;=\;
-  \Zred(K3\times E;\gamma)(q,t,p),
+  \ZNek^{\mathrm{red}}(S\times E)
+  =
+  \Zred(S\times E)
+  =
+  \sum_{h,d,n}
+  \mathrm{PT}^{\mathrm{red}}_{h,d,n}(S\times E)\,
+  q^{h-1}\zeta^n p^d .
 \]
-the right-hand side evaluated in three variables: $q$ tracks the
-K3 curve class $\beta$ with $\beta^{2}= 2h - 2$, $p$ tracks the
-Euler characteristic $\chi(\mathcal{F}) = n$ of the stable pair,
-$t$ tracks the $E$-base degree. \textbf{Resolution.} Reduced DT is
-the K3-adapted Nekrasov partition function; the MPT reduction
-replaces the Atiyah--Bott residue over vanishing fixed loci.
 
-\subsection*{Cycle 2 — $\Cstar_{E}$-equivariance as residual weight}
-
-The continuous symmetry of $K3\times E$ is the translation
-$\Cstar_{E} = \mathrm{Aut}^{0}(E)$, acting trivially on the K3-factor.
-\textbf{Flaw.} $\Cstar_{E}$ is free on $E$, so naive localisation is
-vacuous: no fixed points, no Atiyah--Bott input. \textbf{Heal.}
-Stable pairs $I^{\bullet}_{\gamma,n}$ supported on K3-fibres are
-$\Cstar_{E}$-translated among isomorphic pairs; the translation
-orbit descends to moduli. The $\Cstar_{E}$-equivariant Euler class
-$e_{\Cstar_{E}}(\mathrm{Nor}^{\mathrm{vir}})$ of the fibrewise
-normal bundle inserts the elliptic weight $t$, and the
-$\Cstar_{E}$-residual integration produces a $3$-variable
-Laurent series in $(q,t,p)$. \textbf{Resolution.}
-$\Cstar_{E}$ is a weight-bookkeeping device, not a
-Bia\l ynicki--Birula torus; the Nekrasov $\Om$-background role
-$(\epsilon_{1},\epsilon_{2})$ is replaced by the single elliptic
-weight $t$ plus the reduced class.
-
-\subsection*{Cycle 3 — The Oberdieck--Pixton theorem and the character formula}
-
-Oberdieck--Pixton~2018 \texttt{arXiv:1706.10100} Theorem~1: on
-K3-primitive classes,
+\paragraph{Scalar theorem.}
+In the primitive quotient-by-$E$ Oberdieck--Pandharipande convention,
 \[
-  \Zred(K3\times E;\gamma_{\mathrm{prim}})(q,t,p)
-  \;=\;
-  -\frac{1}{\PhiTen(q,t,p)},
+  \Zred(S\times E;q,\zeta,p)
+  =
+  -\bigl(\PhiOP(q,\zeta,p)\bigr)^{-1}.
 \]
-with $\PhiTen$ the Igusa cusp form of weight $10$ on
-$\mathrm{Sp}_{4}(\mathbb{Z})$, expanded at the cusp
-$(q,t,p)\mapsto (e^{2\pi i\tau}, e^{2\pi i z}, e^{2\pi i\sigma})$.
-The positive half $\Ypos(K3\times E)$ of the K3 affine Yangian
-(Schiffmann--Vasserot~2013, Maulik--Okounkov~2012) is the equivariant
-cohomology
+The automorphic normalisations are
 \[
-  \Ypos(K3\times E)
-  \;=\;
-  H^{\bullet}_{\Cstar_{E}\times\Auts(K3)}
-  \bigl(\Mred_{\mathrm{DT}}(K3\times E;\gamma_{\mathrm{prim}})\bigr),
+  \Dfive=64^{-1}\DeltaFive,\qquad
+  \PhiOP=\Dfive^2=4096^{-1}\DeltaFive^2,\qquad
+  \Phiun=\DeltaFive^2 .
 \]
-graded by $(\beta, n, d_{E})\in\mathbb{Z}^{3}$ through the
-K3-primitive class, the Euler characteristic, and the elliptic
-degree. The character of $\Ypos$ in its BPS basis is
+Therefore
 \[
-  \chi(\Ypos(K3\times E))(q,t,p)
-  \;=\;
-  \sum_{(\beta,n,d_{E})}
-  \dim H^{\bullet}(\Mred_{\mathrm{DT}})_{\beta,n,d_{E}}
-  \,q^{\beta}\,p^{n}\,t^{d_{E}}
-  \;=\;
-  \frac{1}{\PhiTen(q,t,p)},
+  \boxed{\;
+  \Zred(S\times E)
+  =
+  -(\PhiOP)^{-1}
+  =
+  -\Dfive^{-2}
+  =
+  -4096\,\DeltaFive^{-2}.
+  \;}
 \]
-the sign absorbed into the standard BPS grading. \textbf{Resolution.}
-The Nekrasov partition function on $K3\times E$ equals, up to sign,
-the generating character of $\Ypos$:
-$\ZNek(K3\times E) = -\,\chi(\Ypos(K3\times E))$.
 
-\subsection*{Cycle 4 — Gritsenko factorisation and the Borcherds product}
+\paragraph{Proof.}
+Oberdieck--Pandharipande compute the reduced stable-pair series on
+$K3\times E$ as the inverse of the monic Igusa product, with the
+primitive quotient by the elliptic translation factor.  Oberdieck--
+Pixton prove the corresponding primitive reduced Gromov--Witten Igusa
+cusp-form theorem; the reduced GW/PT comparison preserves the displayed
+normalisation.  Gritsenko--Nikulin's theta-normalised square root
+$\DeltaFive$ has leading theta coefficient $64$, while $\Dfive$ is the
+monic Borcherds product.  Hence $\Dfive=64^{-1}\DeltaFive$ and
+$\PhiOP=\Dfive^2=4096^{-1}\DeltaFive^2$.  Inverting the OP product and
+including the stable-pair sign gives the boxed formula.
 
-$\PhiTen$ factors through the multiplicative Borcherds lift of the
-Jacobi form $\phi_{10,1}$ of weight $10$ and index $1$
-(Gritsenko--Nikulin~1995; Borcherds~1995). Two structural expressions:
-the Gritsenko square-root,
-$\PhiTen(\tau,z,\sigma) = \Delta_{5}(\tau,z,\sigma)^{2}$,
-with $\Delta_{5}$ the weight-$5$ paramodular form; and the
-Borcherds product
+\subsection*{Positive Hall character}
+
+Assume compact orientation data for the reduced critical CoHA of
+$S\times E$: an orientation line, proper Hall correspondences on the
+completed support, a coproduct, a non-degenerate Hopf pairing, a
+closed radical quotient, PBW compatibility, and centre/Fock evaluation
+data.  The positive Hall half is then
 \[
-  \PhiTen(\tau,z,\sigma)
-  \;=\;
-  q\, t\, p \cdot
+  \Ypos_{S\times E}
+  =
+  H^\bullet_{\mathrm{red}}
+  \bigl(P_\bullet(S\times E,\beta+d[E])/E,\varphi_{\mathrm{DT}}\bigr)
+\]
+with Kontsevich--Soibelman convolution and K3 cosection-reduced
+cohomology of vanishing cycles.  Its signed Euler character is
+\[
+  \chi_{\mathrm{sgn}}\bigl(\Ypos_{S\times E}\bigr)(q,\zeta,p)
+  =
+  \Zred(S\times E;q,\zeta,p)
+  =
+  -(\PhiOP)^{-1}.
+\]
+This statement is a character identity.  The Hall bracket, the
+negative half, the Hopf pairing, and the completed Hall--Drinfeld
+double are the additional algebraic recognition data carried by the
+orientation package.
+
+The affine toric comparison fixes the layer separation:
+\[
+  \CoHA(\mathbb C^3)\cong \Ypos(\widehat{\mathfrak{gl}}_1),
+\]
+the Schiffmann--Vasserot positive half.  The full affine Yangian and
+the $\mathcal W_{1+\infty}$ vacuum module arise from Drinfeld doubling,
+derived-centre passage, completion, and evaluation.  For compact
+$K3\times E$, the enumerative layer is the Hall positive half; the BKM
+layer is the completed Hall--Drinfeld double.  The Mukai self-mirror
+Yangian branch is a separate K3 construction.
+
+\subsection*{Borcherds denominator}
+
+Let
+\[
+  \phi_{0,1}^{K3}(\tau,z)
+  =
+  \sum_{n,\ell}c_1(4n-\ell^2)q^n\zeta^\ell
+\]
+be the K3 weak Jacobi input.  Its constant term is
+\[
+  [q^0\zeta^0]\phi_{0,1}^{K3}=c_1(0)=10.
+\]
+The Gritsenko--Nikulin product attached to this input is the
+weight-$5$ Siegel form
+\[
+  \DeltaFive=\mathrm{Grit}(\eta^9\vartheta_1).
+\]
+The monic Borcherds product is
+\[
+  \Dfive(Z)
+  =
+  q^{1/2}\zeta^{1/2}p^{1/2}
   \prod_{(m,\ell,n)>0}
-  (1 - q^{m}\, \zeta^{\ell}\, p^{n})^{c(4mn - \ell^{2})},
+  \bigl(1-q^m\zeta^\ell p^n\bigr)^{c_1(4mn-\ell^2)},
   \qquad
-  \zeta = e^{2\pi i z},
+  Z=(\tau,z,\sigma),
 \]
-with exponents $c(k)$ from
-$\phi_{10,1}(\tau,z) = \sum c(4n - \ell^{2})\, q^{n}\zeta^{\ell}$.
-A third factorisation makes the K3 side explicit: at $(\tau, z)$
-with $\sigma \to i\infty$,
-\[
-  \PhiTen(\tau,z,\sigma)
-  \;=\;
-  p\,\eta^{24}(\tau)\,
-  \vartheta_{1}^{2}(\tau,z)\,
-  \bigl(1 + O(p)\bigr),
-\]
-reproducing Kawai--Yoshioka $1/\eta^{24}$ (K3 Hilbert scheme) and
-$\vartheta_{1}^{2}$ (two copies of the elliptic theta, one for each
-$E$-insertion). \textbf{Resolution.} The three factorisations are
-three different windows on the same modular form: square-root
-$\Delta_{5}^{2}$ (paramodular structure), Borcherds product (BPS
-state counting), and $p$-leading $\eta^{24}\vartheta_{1}^{2}$
-(K3 Hilbert scheme times theta correction).
+and $\DeltaFive=64\Dfive$.  The denominator of the primitive BKM
+superalgebra $\mathfrak g_{\DeltaFive}$ is the single product
+$\Dfive$; in Weyl-character variables the same denominator is often
+written $\Dfive(2Z)$ because the exponent convention changes from
+$e^{-\pi i(\alpha,Z)}$ to $e^{-2\pi i(\alpha,Z)}$.
 
-\subsection*{Cycle 5 — BPS matching of the three-parameter expansion}
+Borcherds' singular theta lift gives the product weight as one half of
+the constant coefficient of the weight-zero Jacobi input.  Hence
+\[
+  \kBKM(\mathfrak g_{\DeltaFive})
+  =
+  \frac{c_1(0)}{2}
+  =
+  5 .
+\]
+The Igusa square $\Phiun=\DeltaFive^2$ and the OP scalar
+$\PhiOP=\Dfive^2$ are square-level enumerative forms.  The primitive
+BKM denominator is the square root $\Dfive$.
 
-The Borcherds exponents $c(4mn - \ell^{2})$ count BPS states in the
-M-theoretic origin (Dijkgraaf--Verlinde--Verlinde~1997): on
-$\mathrm{type\ IIA}/K3\times S^{1}$, BPS bound states at charge
-$(\beta,n,d_{E})$ are enumerated by the $\mathcal{N} = 4$
-five-dimensional BPS index, and the $K3\times E$ reduction lifts
-$S^{1}\to E$. In the Nekrasov language, each BPS multiplet
-contributes a Gopakumar--Vafa factor
-$(1 - q^{m}\zeta^{\ell}p^{n})^{c(4mn - \ell^{2})}$, reproducing the
-Borcherds product term-by-term. The K3 Yangian interpretation is
-that the positive generators of $\Ypos(K3\times E)$ are BPS states
-of charges $(m, \ell, n)$ with multiplicity $c(4mn - \ell^{2})$,
-and their bar-dual (Vol I Theorem~A) produces the Cartan and
-negative generators. The four $\kappa_{\bullet}$ invariants
-crystallise on this geometry:
+For the primitive CHL denominator rows,
 \[
-  \kcat(K3\times E)
-  \;=\;
-  \chi(\mathcal{O}_{K3\times E}) = 0
-  \text{ (K\"unneth on total space)},
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\
+\hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\Phi_N) & 5 & 4 & 3 & 2 & 1
+\end{array}
 \]
+and in every row
 \[
-  \kch(K3\times E)
-  \;=\;
-  2\text{ (K3-fibre Hodge-supertrace shadow)},
+  \kBKM(\Phi_N)=\frac{c_N(0)}{2}.
 \]
-\[
-  \kBKM(\PhiTen)
-  \;=\;
-  \frac{c_{1}(0)}{2}
-  = 5
-  \text{ (Gritsenko--Nikulin; Lorgat~2020 \S1 Thm.~2)},
-\]
-\[
-  \kfib(K3)
-  \;=\;
-  24
-  \text{ (K3 Euler number / $\eta^{24}$ exponent)}.
-\]
-The spectrum $\{2,3,5,24\}$ is assembled from four distinct
-constructions on the same threefold, three of which project to
-$\PhiTen$: the character $\chi(\Ypos) = 1/\PhiTen$ reads off
-$\kch$; the Borcherds weight $c_{1}(0)/2 = 5$ reads off $\kBKM$;
-the $\eta^{24}$ factor at $p$-leading order reads off $\kfib = 24$.
-\textbf{Resolution.} The Nekrasov partition function on $K3\times E$
-is the generating function of BPS states of $\Ypos(K3\times E)$;
-the Borcherds product is the bar--cobar denominator identity; the
-four $\kappa_{\bullet}$ values are four distinct numerical shadows
-of the same geometry.
+The Nikulin-order rows $N\in\{5,7,8\}$ and the Gritsenko--Clery
+diagonal-divisor rows belong to separate automorphic catalogues with
+their own cover-group and recognition data; they are separate from the
+primitive compact CHL ladder above.
 
-\subsection*{Primary-source ledger}
+\subsection*{Subscripted invariants on $K3\times E$}
 
-Nekrasov $2003$ \texttt{hep-th/0206161}: instanton partition
-function and $\Omega$-background definition. Nekrasov--Okounkov
-$2006$ Progr.~Math.~\textbf{244}: symmetric-function reformulation
-and BPS state counting. Okounkov $2009$ ICM and $2017$
-\texttt{arXiv:1512.07363}: $K$-theoretic stable envelopes, residual
-integration over non-toric moduli. Nakajima $1994$ Duke \textbf{76}:
-Heisenberg-Fock structure on $H^{\bullet}(\mathrm{Hilb}^{\bullet}
-K3)$. Oberdieck--Pixton $2018$ \texttt{arXiv:1706.10100} Invent.~Math.
-\textbf{222}: $\Zred(K3\times E;\gamma_{\mathrm{prim}}) =
--1/\PhiTen$. Gritsenko--Nikulin $1995$ \texttt{alg-geom/9504006}:
-$\PhiTen = \Delta_{5}^{2}$ and Borcherds product. Maulik--Pandharipande--
-Thomas $2010$ \texttt{arXiv:1001.2719}: reduced virtual class on
-holomorphic-symplectic surfaces. Kawai--Yoshioka $2000$:
-$\sum\chi(\mathrm{Hilb}^{n}K3)q^{n-1} = 1/\eta^{24}$.
+The compact chiral supertrace is the Hodge supertrace:
+\[
+  \kch(S\times E)
+  =
+  \sum_{q=0}^3(-1)^q h^{0,q}(S\times E).
+\]
+By Kunneth,
+\[
+  H^{0,\bullet}(S\times E)
+  =
+  H^{0,\bullet}(S)\otimes H^{0,\bullet}(E),
+  \qquad
+  (h^{0,0},h^{0,1},h^{0,2},h^{0,3})=(1,1,1,1).
+\]
+Thus
+\[
+  \kch(S\times E)=1-1+1-1=0 .
+\]
+The categorical Euler invariant is the holomorphic Euler
+characteristic of the total space:
+\[
+  \kcat(S\times E)
+  =
+  \chi(\mathcal O_{S\times E})
+  =
+  \chi(\mathcal O_S)\chi(\mathcal O_E)
+  =
+  2\cdot0
+  =
+  0 .
+\]
+The Heisenberg--Mukai specialisation uses a different chiral trace:
+the Mukai/Nakajima component contributes $2$ and the elliptic current
+contributes $1$, so
+\[
+  \kch^{\mathrm{Heis}}(S\times E)=2+1=3.
+\]
+Since $X$ has Calabi--Yau dimension $3$, the native object
+$A_{S\times E}$ is $E_1$-chiral.  Braided $E_2$ structure lives on
+$Z(\Rep(A_{S\times E}))$, on the completed double, or on the associated
+module-centre layer.
+
+The BKM invariant is the automorphic weight of the primitive
+denominator:
+\[
+  \kBKM(\mathfrak g_{\DeltaFive})=\frac{10}{2}=5.
+\]
+The fibre invariant is the Mukai-lattice rank of the K3 fibre:
+\[
+  \kfib(S)=\operatorname{rk}\widetilde H(S,\mathbb Z)=1+22+1=24.
+\]
+The four constructions therefore give
+\[
+\begin{array}{c|c|l}
+\text{object} & \text{invariant} & \text{value}\\
+\hline
+S\times E & \kcat & 0\\
+S\times E & \kch & 0\\
+S\times E & \kch^{\mathrm{Heis}} & 3\\
+\mathfrak g_{\DeltaFive} & \kBKM & 5\\
+S & \kfib & 24
+\end{array}
+\]
+with numerical spectrum $\{0,3,5,24\}$.  The fibre number
+$\chi(\mathcal O_S)=2$ is the holomorphic Euler characteristic of the
+K3 fibre; it is absent from the compact total-space values
+$\kcat(S\times E)$ and $\kch(S\times E)$.
+
+At $N=1$ the proposed additive formula is contradicted by the two sides:
+\[
+  \kBKM(\mathfrak g_{\DeltaFive})
+  =
+  5,
+  \qquad
+  \kch(S\times E)+\chi(\mathcal O_E)
+  =
+  0+0 .
+\]
+The equality governing the BKM side is the Borcherds formula
+$\kBKM(\Phi_N)=c_N(0)/2$.
+
+\subsection*{Primary anchors}
+
+Nekrasov's instanton partition function supplies the equivariant
+$\Omega$-background model for toric localization.  Nakajima's
+Heisenberg action on Hilbert schemes and Kawai--Yoshioka's K3
+Hilbert-scheme formula supply the surface Fock-space input.
+Maulik--Pandharipande--Thomas give the K3 reduced obstruction theory.
+Oberdieck--Pandharipande compute the reduced $K3\times E$ pairs
+partition function in the Igusa cusp-form normalisation, and
+Oberdieck--Pixton prove the primitive reduced Gromov--Witten Igusa
+theorem.  Gritsenko--Nikulin construct the primitive denominator
+$\DeltaFive$ and the monic product $\Dfive=64^{-1}\DeltaFive$; Gritsenko
+gives the primitive CHL constants.  Schiffmann--Vasserot identify
+$\CoHA(\mathbb C^3)$ with the positive half
+$\Ypos(\widehat{\mathfrak{gl}}_1)$.  The compact $S\times E$ scalar
+character uses these source results together with the compact
+orientation and Hall-recognition data stated above.

@@ -1,148 +1,249 @@
-% Wave-12 B4/20 inscription. Quantum-toroidal audit of the claimed identification
-% CoHA^+(resolved conifold) ≅ U^+_{q_1,q_2}(widehat{widehat{gl_2}}).
-% FJMV / AFS channel. All mathematics by Raeez Lorgat.
-% Cite: Ginzburg--Kapranov--Vasserot 1995 (Math.\ Res.\ Lett.\ 2, 147--160);
-% Varagnolo--Vasserot 1996 (Comm.\ Math.\ Phys.\ 182); Feigin--Jimbo--Mukhin--Vilkoviskiy
-% 2021 (arXiv:2112.14687); Awata--Feigin--Shiraishi 2011 (arXiv:1112.6074);
-% Negut 2015 (arXiv:1505.01528); Feigin--Jimbo--Miwa--Mukhin 2015 (J.\ Phys.\ A 48);
-% Szendroi 2008 (Geom.\ Topol.\ 12); Davison 2012 (arXiv:1209.4620).
-
 \providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\KHA}{\mathrm{KHA}}
 \providecommand{\U}{\mathrm{U}}
 \providecommand{\Sh}{\mathrm{Sh}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\P}{\mathbb{P}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\bY}{\mathbb{Y}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\tr}{\operatorname{tr}}
 \providecommand{\fgl}{\mathfrak{gl}}
 \providecommand{\fsl}{\mathfrak{sl}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
-\providecommand{\ClaimStatusFalse}{\textbf{[False as stated]}}
-\providecommand{\ClaimStatusAmended}{\textbf{[Amended]}}
-\providecommand{\ClaimStatusDerivation}{\textbf{[Derivation]}}
-\providecommand{\ClaimStatusDefinition}{\textbf{[Definition]}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
-\section*{Conifold CoHA${}^+$ vs.\ quantum toroidal $\fgl_2$: what is proved, what is not}
-\label{wn:sec:wave12-b4-quantum-toroidal}
+\section*{Conifold Positive Half and the Quantum Toroidal Boundary}
+\label{sec:conifold-quantum-toroidal-boundary}
 
-\paragraph{Target claim.}
-The positive-half conifold CoHA, namely $\CoHA^+(\mathbb{Y})$ with
-$\mathbb{Y} = \mathrm{Tot}(\mathcal{O}_{\P^1}(-1)\oplus\mathcal{O}_{\P^1}(-1))$
-and Klebanov--Witten quiver with quartic potential
-$W = \tr(a_1b_1a_2b_2 - a_1b_2a_2b_1)$, is asserted isomorphic to
-$\U^+_{q_1,q_2}(\widehat{\widehat{\fgl}}_2)$ at specific parameters, with citations
-FJMV 2021 and Negut 2015.
-
-\paragraph{Cycle 1: Definition of $\U_{q_1,q_2}(\widehat{\widehat{\fgl}}_n)$.}
-\ClaimStatusDefinition\ (\emph{Ginzburg--Kapranov--Vasserot 1995; Varagnolo--Vasserot
-1996; Feigin--Jimbo--Miwa--Mukhin 2015.}) Quantum toroidal $\fgl_n$ is \emph{not} the
-original GKV 1995 object. GKV 1995 (\emph{Math.\ Res.\ Lett.\ 2, 147--160}) introduced
-the quantum toroidal $\fsl_n$ as a two-parameter deformation of $\U(\fsl_n^{\mathrm{tor}})$
-with double-loop generators $\{E_{i,k,r}, F_{i,k,r}, H_{i,k,r}\}$, $i \in \Z/n\Z$,
-$k,r\in\Z$, and Drinfeld--Jimbo-style $(q,d)$-relations including the cubic Serre
-relations and the toroidal quartic exchange. The $\fgl_n$-extension, adding a central
-Heisenberg sector $\{c_{k,r}\}$ and a rank-$n$ diagonal correction, is due to
-Varagnolo--Vasserot 1996 (\emph{Comm.\ Math.\ Phys.\ 182}) at $n=1$, extended by
-Feigin--Jimbo--Miwa--Mukhin 2015 (J.\ Phys.\ A 48: arXiv:1505.07386) to all $n\ge 2$.
-The ``double-hat'' denotes the \emph{double loop} (toroidal), \emph{not} a double
-Kac--Moody affinisation; the second affinisation is conceptual shorthand and is not
-a Kac--Moody affinisation in the Drinfeld sense.
-
-\paragraph{Cycle 2: Positive half generators and relations, $n=2$.}
-\ClaimStatusDefinition\ (\emph{FJMM 2015 Def.~2.1.}) $\U^+_{q_1,q_2,q_3}(\widehat{\widehat{\fgl}}_2)$
-is the $\mathbb{F}$-algebra with generators $\{E_{i,k}\}_{i\in\Z/2\Z,\,k\in\Z}$ and
-relations (CY constraint $q_1q_2q_3=1$):
+\paragraph{Boundary question.}
+Let
 \[
-(z - q_i^{\pm 1} w)(z - q_{i+1}^{\mp 1} w)\,E_i(z)E_{i+1}(w) =
-(q_i^{\pm 1}z - w)(q_{i+1}^{\mp 1}z - w)\,E_{i+1}(w)E_i(z),
+  \bY =
+  \Tot\bigl(\cO_{\P^1}(-1)\oplus\cO_{\P^1}(-1)\bigr)
 \]
+be the resolved conifold.  Its non-commutative crepant resolution is the
+Klebanov-Witten Jacobi algebra with vertices \(0,1\), arrows
 \[
-E_i(z)E_i(w) \;\cdot\; g_i(z,w) = E_i(w)E_i(z) \;\cdot\; g_i(w,z),
-\qquad
-g_i(z,w) = (z - q_1 w)(z - q_2 w)(z - q_3 w),
+  a_1,a_2:0\to 1,\qquad b_1,b_2:1\to 0,
 \]
-plus the toroidal Serre relation
-$\mathrm{Sym}_{z_1,z_2}\,[E_i(z_1),[E_i(z_2), E_{i+1}(w)]_{q}]_{q^{-1}} = 0$.
-At $n=2$ the $i\in\{0,1\}$ sectors are the two Dynkin nodes of $\widehat{\fsl}_2$;
-the \emph{imaginary} generators $\{\psi^{\pm}_k\}$ live on the Cartan.
+and potential
+\[
+  W_{\mathrm{KW}}
+  =
+  \tr(a_1b_1a_2b_2-a_1b_2a_2b_1).
+\]
+For a dimension vector \(\gamma=(\gamma_0,\gamma_1)\), set
+\[
+  \Rep_\gamma(Q_{\mathrm{KW}})
+  =
+  \bigoplus_{a\in Q_{\mathrm{KW},1}}
+  \operatorname{Hom}
+  \bigl(\C^{\gamma_{s(a)}},\C^{\gamma_{t(a)}}\bigr),
+  \qquad
+  G_\gamma=\operatorname{GL}_{\gamma_0}\times
+  \operatorname{GL}_{\gamma_1}.
+\]
+The critical cohomological Hall algebra is
+\[
+  \CoHA_{\mathrm{con}}
+  =
+  \bigoplus_{\gamma\in\N^2}
+  H^{\bullet}_{c,G_\gamma}
+  \bigl(\Rep_\gamma(Q_{\mathrm{KW}}),
+  \varphi_{\tr(W_{\mathrm{KW}})_\gamma}\bigr)^\vee ,
+\]
+with Hall product given by the vanishing-cycle correspondence for short
+exact sequences of \(J(Q_{\mathrm{KW}},W_{\mathrm{KW}})\)-modules.
+This is the cohomological, rational, positive-half object.  A formula
+identifying it directly with
+\(\U^+_{q_1,q_2}(\widehat{\widehat{\fgl}}_2)\) conflates this object with
+its trigonometric \(K\)-theoretic boundary.
 
-\paragraph{Cycle 3: What FJMV 2021 (arXiv:2112.14687) actually proves.}
-\ClaimStatusFalse\ (\emph{as CoHA $\leftrightarrow$ toroidal $\fgl_2$ citation}).
-FJMV 2021 (\emph{Branching rules for quantum toroidal $\fgl_n$}) studies the
-\emph{representation theory} of $\U_{q_1,q_2}(\widehat{\widehat{\fgl}}_n)$: branching
-of Fock modules $\mathcal{F}^{(u)}$ under the $\fgl_n\hookrightarrow\fgl_{n+m}$ embedding,
-with emphasis on MacMahon modules and vector representations. FJMV 2021 does not
-reference the conifold, Klebanov--Witten quiver, or any CY$_3$ geometry; it does not
-prove, or even state, an isomorphism between a CoHA of a quiver-with-potential and a
-quantum toroidal algebra. The CoHA $\leftrightarrow$ toroidal citation to FJMV 2021
-is \emph{misattributed}.
+\paragraph{Native operadic level.}
+The conifold is a Calabi-Yau threefold, hence the curve output of the
+CY-to-chiral construction is native \(\Eone\)-chiral.  The Hall product
+above is associative and ordered.  The braided \(\Etwo\) layer belongs to
+the Drinfeld centre
+\[
+  \cZ\bigl(\Rep^{\Eone}(\CoHA_{\mathrm{con}})\bigr)
+\]
+or to the completed Hall-Drinfeld double after a non-degenerate Hall
+pairing has been fixed.  This is the same separation as on an affine
+chart:
+\[
+  \CoHA(\C^3)\simeq Y^+(\widehat{\fgl}_1),
+\]
+the positive half of the affine Yangian of Schiffmann-Vasserot and
+Tsymbaliuk.  The full affine Yangian is the Drinfeld double of
+\(Y^+\).  The \(\mathcal W_{1+\infty}\) vacuum module appears through a
+completed evaluation action of the full algebra, after doubling and
+completion; it is a vertex-algebra representation layer, while the CoHA
+itself remains the positive Hall half.
 
-\paragraph{Cycle 4: What AFS 2011 (arXiv:1112.6074) proves.}
-\ClaimStatusAmended\ AFS 2011 (Awata--Feigin--Shiraishi, \emph{Quantum algebraic approach
-to refined topological vertex}) constructs an intertwiner
-$\Phi \colon \mathcal{F}^{(u)}_{q_1,q_2} \otimes V^{(1,n)} \to \mathcal{F}^{(u')}_{q_1,q_2}$
-between DIM ($\fgl_1$-toroidal) Fock modules, and computes its matrix elements as
-the refined topological vertex. The conifold enters AFS 2011 as the \emph{target}
-geometry of a topological string computation: the refined open/closed amplitude on
-$\mathbb{Y}$ is reproduced by a four-point configuration of DIM intertwiners with
-glueing along the exceptional $\P^1$. AFS 2011 \emph{does not} construct a CoHA for
-$\mathbb{Y}$, \emph{does not} identify the positive half of the $\fgl_2$-toroidal
-algebra with any critical cohomology, and \emph{does not} involve the $\fgl_2$
-quantum toroidal algebra at all: the algebra is $\fgl_1$-toroidal throughout, and
-the conifold appears only as a refined topological string background. The
-$\fgl_2$-toroidal structure of the conifold CoHA is not in AFS 2011.
+\paragraph{Cohomological shuffle kernel.}
+Let \(\epsilon_1,\epsilon_2\) be the two fibre weights of
+\(\cO(-1)\oplus\cO(-1)\).  Serre duality supplies the obstruction weight
+\(-\epsilon_1-\epsilon_2\).  In additive variables the localized
+off-diagonal conifold shuffle factor in the \(0\to 1\) convention is
+\[
+  \omega_{01}(u)
+  =
+  \frac{(u+\epsilon_1)(u+\epsilon_2)}
+       {u(u+\epsilon_1+\epsilon_2)} .
+\]
+The numerator records the two arrows \(a_1,a_2:0\to 1\).  The pole at
+\(u=0\) is the Hall correspondence pole.  The pole at
+\(u=-\epsilon_1-\epsilon_2\) is the Serre-dual obstruction supplied by
+the Calabi-Yau threefold potential.  Reversing orientation replaces the
+off-diagonal factor by the corresponding \(1\to 0\) kernel.
 
-\paragraph{Cycle 5: Low-order check at dimension vector $(1,1)$.}
-\ClaimStatusDerivation\ CoHA side (Szendroi 2008; Davison 2012). $\mathcal{M}_{1,1}$
-is the potential-cut moduli of pairs $(a_1,a_2,b_1,b_2)\in\mathbb{A}^4$ modulo
-$(\C^\times)^2/\Delta$. Since $W = \tr(a_1b_1a_2b_2 - a_1b_2a_2b_1)$ has scalar
-matrices vanishing ($[a_i,a_j] \equiv 0$ for $1\times 1$), the Jacobi locus is all of
-$\mathbb{A}^4$ and $\CoHA^+_{(1,1)} = H^*_T(\mathbb{A}^4) = \mathbb{F}[\epsilon_1,\epsilon_2]$.
-The generator is the class of the origin, call it $e_{[1,1]}$.
+At the dimension vector \((1,1)\), the potential vanishes on scalar
+representations because the four scalar arrow variables commute.  The
+Jacobi locus is therefore the whole affine space
+\(\C^4_{a_1,a_2,b_1,b_2}\), and the localized Hall product is governed
+by the same four arrow weights and the Serre-dual denominator above.
+This low-degree computation fixes the kernel normalisation.  The global
+presentation theorem requires a separate PBW and wheel-condition proof.
 
-\ClaimStatusDerivation\ Toroidal side (FJMM 2015; Negut 2015 arXiv:1505.01528). The
-$(1,1)$-graded piece of $\U^+_{q_1,q_2}(\widehat{\widehat{\fgl}}_2)$ is the degree-$(1,1)$
-piece of the shuffle algebra with kernel
-$\omega_{\widehat{\fsl}_2}(z,w) = \frac{(z-q_1w)(z-q_2w)}{(z-w)(z-q_1q_2w)}$
-(Negut 2015 Prop.~1.3, $\fsl_2$ specialisation; the $\fgl_2$ kernel adds a Heisenberg
-factor). The generator at $(1,1)$ is the symmetric function $E_0(z)E_1(w)$ shuffled by
-$\omega$. The CoHA-to-shuffle map $\CoHA^+_{\mathbb{Y}} \to \Sh_{q_1,q_2}$ sending
-$e_{[1,1]}$ to $E_0 E_1|_{\mathrm{sym}}$ is shown to be an injective algebra map by
-Rapcak--Soibelman--Yang--Zhao 2020 (\emph{J.\ Eur.\ Math.\ Soc.}~arXiv:2001.10549
-Theorem~B), with image conjecturally the $\fsl_2$-toroidal positive half after CY
-specialisation $q_3=q_1^{-1}q_2^{-1}$.
+\paragraph{Affine Yangian boundary.}
+The cohomological conifold algebra is rational.  Its natural
+Yangian-type target is the positive half of the affine super-Yangian
+attached to the two-node conifold quiver, often written
+\[
+  Y^+\bigl(\widehat{\fgl}(1|1)\bigr)_{\mathrm{con}}
+\]
+or, after choosing the purely even \(A_1^{(1)}\) convention,
+\[
+  Y^+(\widehat{\fsl}_2).
+\]
+The choice records the parity convention for the quiver BPS algebra.
+The Hall proof obligation is a PBW theorem plus a wheel-condition
+identification for the Klebanov-Witten kernel.  Rapcak-Soibelman-Yang-Zhao
+(\texttt{arXiv:1810.10402}) prove the double-CoHA action and affine
+Yangian identification for the spiked-instanton \(\fgl_1\) setting and
+state the broader toric Calabi-Yau expectation.  The conifold case must
+therefore cite its own two-node kernel calculation, the Davison-Meinhardt
+PBW framework, and the Li-Yamazaki quiver-Yangian dictionary.
 
-\paragraph{Status of the isomorphism, corrected.}
-\ClaimStatusAmended\ (\emph{correct attribution.}) The established chain is:
-\begin{enumerate}
-\item $\CoHA^+(\mathbb{Y}) \simeq Y^+(\widehat{\fsl}_2)$ (affine \emph{Yangian},
-cohomological level) --- Rapcak--Soibelman--Yang--Zhao 2020 Theorem~B, extending
-Schiffmann--Vasserot 2013 from $\fgl_1$ to Klebanov--Witten quiver.
-\item $Y^+(\widehat{\fsl}_2) \hookrightarrow \U^+_{q_1,q_2}(\widehat{\widehat{\fsl}}_2)$
-(rational-to-trigonometric degeneration, $K$-theoretic lift) --- Guay 2007, formalised
-for toroidal $\fsl_n$ in Negut 2015 arXiv:1505.01528 Prop.~4.2. The equality, not
-merely embedding, requires the $K$-theoretic CoHA (Kapranov--Vasserot 2018
-arXiv:1802.07988), which replaces $H^*_T$ by $K_T$ and recovers trigonometric
-$\omega(z,w)$ automatically.
-\item The toroidal $\fgl_2$ extension with the second Heisenberg centre is
-$\U^+_{q_1,q_2}(\widehat{\widehat{\fgl}}_2) = \U^+_{q_1,q_2}(\widehat{\widehat{\fsl}}_2)
-\otimes \mathcal{H}^+_{q_1,q_2}$, matching the $c_1 = -2$ framing twist of the
-resolved conifold (RSYZ 2020 Remark~4.4).
-\end{enumerate}
-The cohomological CoHA gives the \emph{Yangian} $Y^+(\widehat{\fsl}_2)$; the toroidal
-$\fgl_2$ identification is valid for the \emph{$K$-theoretic} (KHA) conifold algebra.
+\paragraph{Quantum toroidal boundary.}
+Quantum toroidal algebras are trigonometric double-loop objects.  For
+parameters \(q_1q_2q_3=1\), their current relations use multiplicative
+kernel factors
+\[
+  g(z,w)=(z-q_1w)(z-q_2w)(z-q_3w)
+\]
+and the toroidal Serre relations.  Feigin-Jimbo-Miwa-Mukhin
+(\texttt{arXiv:1309.2147}, Adv. Math. 2016) study representation
+branching for quantum toroidal \(\fgl_n\).  Negu\c{t}
+(\texttt{arXiv:1302.6202}) proves that the quantum toroidal algebra of
+\(\fgl_n\) is isomorphic to the double shuffle algebra of Feigin-Odesskii
+for the cyclic quiver; his thesis version
+(\texttt{arXiv:1504.06525}) gives the K-theoretic cyclic-quiver
+variety construction.  Varagnolo-Vasserot
+(\texttt{arXiv:2011.01203}) prove K-theoretic Hall algebra
+identifications with positive halves of quantum toroidal quantum groups
+for affine preprojective type and compare type \(A\) super-toroidal
+quantum groups with \(K\)-theoretic Hall algebras of quivers with
+potential.
 
-\ClaimStatusTheorem\ Under the CY constraint $q_1 q_2 q_3 = 1$, and replacing
-$\CoHA$ by $\KHA$ (Kapranov--Vasserot 2018),
-$\KHA^+(\mathbb{Y}) \simeq \U^+_{q_1,q_2}(\widehat{\widehat{\fgl}}_2)$ as shuffle algebras,
-with the rank-$2$ shuffle kernel matching the Klebanov--Witten framing.
+These results justify the following boundary statement.  After replacing
+the critical cohomological Hall algebra by the \(K\)-theoretic Hall
+algebra and after matching the Klebanov-Witten wheel conditions with
+the cyclic \(A_1^{(1)}\) current relations, the trigonometric boundary
+is expected to be
+\[
+  \KHA^+(\bY)
+  \simeq
+  \U^+_{q_1,q_2}
+  \bigl(\widehat{\widehat{\fgl}}_2\bigr)
+\]
+up to the central Heisenberg extension determined by the \(\fgl_2\)
+convention; the \(\fsl_2\) convention is obtained by removing this
+central sector.  The displayed formula is a conditional
+\(K\)-theoretic shuffle comparison.  Its missing local ingredient is
+the explicit wheel-to-current calculation for the Klebanov-Witten
+two-node kernel.
 
-\paragraph{Primary-citation verdict.}
-(i)~GKV 1995: correct for the definition of $\U_{q,d}(\widehat{\widehat{\fsl}}_n)$.
-(ii)~FJMV 2021 \emph{does not} prove the conifold CoHA identification; the correct
-citation is RSYZ 2020 Theorem~B (cohomological, Yangian) plus Kapranov--Vasserot 2018
-(for the $K$-theoretic toroidal lift). (iii)~AFS 2011 \emph{does not} use $\fgl_2$-toroidal;
-it uses $\fgl_1$-toroidal and the conifold appears only as a refined topological vertex
-target, not as a CoHA input. (iv)~Negut 2015 supplies the shuffle kernel, not an
-isomorphism with CoHA per se; the kernel-match is RSYZ 2020.
+\paragraph{Rational limit and Miki scope.}
+The rational degeneration from quantum toroidal to affine Yangian is
+visible on the structure function.  Put \(q_a=\exp(\hbar h_a)\) with
+\(h_1+h_2+h_3=0\), \(x=\exp(\hbar u)\), and
+\[
+  \varphi_{\mathrm{tor}}(x)
+  =
+  \prod_{a=1}^{3}
+  \frac{1-q_a^{-1}x}{1-q_a x}.
+\]
+Then
+\[
+  \lim_{\hbar\to 0}\varphi_{\mathrm{tor}}(\exp(\hbar u))
+  =
+  \prod_{a=1}^{3}\frac{u-h_a}{u+h_a}
+  =
+  g_{\mathrm{aff}}(u),
+\]
+the affine-Yangian structure function used in the \(\C^3\) chart
+calculation.  Miki's automorphism is an automorphism of the toroidal
+double-loop algebra, exchanging the two loop directions and generating
+the \(SL_2(\mathbb Z)\) symmetry of the torus.  In the rational
+Yangian limit the second loop has degenerated; only the permutation
+symmetry of the parameters \(h_1,h_2,h_3\) remains on the shuffle
+kernel.  Thus Miki symmetry is a quantum-toroidal datum, while the
+affine Yangian keeps its rational \(S_3\)-symmetric structure function.
 
-$\kappa_{\mathrm{ch}}(\mathbb{Y}) = 1$ (direct McKay at $d=3$) is unchanged by this
-audit; $\kappa_{\mathrm{cat}}(\mathbb{Y}) = 0$ (non-compact, $\chi(\mathcal{O}) = 0$);
-no $\kappa_{\mathrm{BKM}}$ or $\kappa_{\mathrm{fiber}}$ for the non-compact conifold.
+\paragraph{Citation separation.}
+The citation string
+``Feigin-Jimbo-Mukhin-Vilkoviskiy 2021'' is unrelated to the conifold
+CoHA comparison; the matching arXiv identifier belongs to Zenkevich's
+note on the pentagon identity in the Ding-Iohara-Miki algebra.  The
+quantum-toroidal branching reference used here is
+Feigin-Jimbo-Miwa-Mukhin \(\texttt{arXiv:1309.2147}\).  The conifold
+topological-string reference Awata-Feigin-Shiraishi
+\(\texttt{arXiv:1112.6074}\) constructs refined-topological-vertex
+matrix elements from Miki's \(\mathcal W_{1+\infty}\) or DIM
+intertwiners.  It supplies a refined-vertex amplitude comparison.  It
+leaves the critical CoHA construction for \(\bY\) and the
+Klebanov-Witten wheel-to-current theorem as external obligations.
+
+\paragraph{Branch separation.}
+The conifold toric branch, the \(\C^3\) affine-Yangian chart branch,
+and the \(K3\times E\) Hall-Borcherds branch are separate constructions.
+For the conifold, the invariant used in this note is the direct McKay
+value
+\[
+  \kch(A_{\bY})=1 .
+\]
+A Borcherds product is absent from the non-compact conifold argument,
+so no \(\kBKM\) value is assigned.  The fibre invariant \(\kfib\) is
+likewise absent.  The \(K3\times E\) constants
+\[
+  \{\kcat,\kch^{\mathrm{Heis}},\kBKM,\kfib\}
+  =
+  \{0,3,5,24\}
+\]
+belong to the Hall-Drinfeld double and Borcherds-product branch; they
+are outside the conifold quantum-toroidal comparison.  Root-of-unity
+truncation for \(U_{q,t}(\widehat{\widehat{\fgl}}_1)\) or
+\(U_{q,t}(\widehat{\widehat{\fgl}}_2)\) remains an open quotient problem,
+so finite module counts and Verlinde-type specialisation theorems remain
+outside the scope of this note.
+
+\paragraph{Proof boundary.}
+The proved content retained here is the construction of the
+Klebanov-Witten critical CoHA, the additive conifold shuffle kernel, the
+\(\Eone\) native level for a CY\(_3\) output, the positive-half
+identification \(\CoHA(\C^3)=Y^+(\widehat{\fgl}_1)\) on affine charts,
+and the rational limit from toroidal structure functions to affine
+Yangian structure functions.  The \(K\)-theoretic equality with
+\(\U^+_{q_1,q_2}(\widehat{\widehat{\fgl}}_2)\) is recorded as a
+construction-level target: prove the conifold wheel conditions, match
+the central Heisenberg extension, and check the PBW/no-extra-relations
+ideal after completion.

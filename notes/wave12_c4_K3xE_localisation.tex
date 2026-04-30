@@ -1,8 +1,10 @@
-% Wave-12 C4/20 audit: three localisation strategies on K3 x E, tested
-% for compatibility with the CoHA / Drinfeld-double picture at d=3.
 % Graber--Pandharipande 1999 (Invent. Math. 135), "Localization of virtual classes"
+% Edidin--Graham 1998, "Equivariant intersection theory"
+% Kiem--Li 2013 (JAMS 26), "Localizing virtual cycles by cosections"
 % Pandharipande--Thomas 2014 (Forum Math. Pi 2), "The Katz-Klemm-Vafa conjecture for K3 surfaces"
+% Oberdieck--Pandharipande 2016 (arXiv:1411.1514), "Curve counting on K3 x E, the Igusa cusp form chi_10, and descendent integration"
 % Maulik--Oberdieck--Pandharipande 2017 (arXiv:1605.05473), "Curves on K3 surfaces"
+% Oberdieck--Pixton 2017 (arXiv:1706.10100), "Holomorphic anomaly equations for K3 surfaces"
 % Oberdieck 2018, "Gromov-Witten invariants of the Hilbert schemes of points of a K3 surface"
 % Nakajima 1997, "Heisenberg algebra and Hilbert schemes of points on projective surfaces" (Ann. Math. 145)
 % Grojnowski 1996 (arXiv:alg-geom/9506020), "Instantons and affine algebras I"
@@ -18,208 +20,286 @@
 \providecommand{\cH}{\mathcal H}
 \providecommand{\cF}{\mathcal F}
 \providecommand{\bC}{\mathbb C}
+\providecommand{\bQ}{\mathbb Q}
 \providecommand{\bZ}{\mathbb Z}
 \providecommand{\bP}{\mathbb P}
 \providecommand{\bH}{\mathbb H}
+\providecommand{\Gm}{\mathbb G_m}
 \providecommand{\vir}{\mathrm{vir}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kbkm}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Deltafive}{\Delta_5}
+\providecommand{\Dfive}{D_5}
+\providecommand{\PhiOP}{\Phi_{10}^{\mathrm{OP}}}
 
-\section*{Wave-12 C4: three localisation strategies on $K3\times E$}
+\section*{Reduced equivariance on $K3\times E$}
 
-The target threefold $X = K3\times E$ admits no generic algebraic
-torus action: $\mathrm{Aut}(X)^{\circ}=E$ contains no $\bC^{\times}$
-subgroup, so classical Atiyah--Bott / virtual localisation is
-unavailable (drinfeld\_center.tex, Lemma~\ref{lem:no-Gm-on-E}). Three
-substitute strategies are available; we develop each and test
-whether their outputs glue into one CoHA.
+Let \(S\) be a smooth projective K3 surface, let \(E\) be an elliptic
+curve, and set \(X=S\times E\).  Since \(H^0(S,T_S)=0\),
+\(\mathrm{Aut}(S)^\circ\) is trivial.  The connected automorphism group
+of \(X\) is the translation group \(E\), and an abelian variety contains
+no nontrivial affine algebraic subgroup \(\Gm\).  Ordinary
+Atiyah--Bott or Graber--Pandharipande localisation would require an
+additional global algebraic \(\Gm\)-action on the moduli problem.
 
-\subsection*{Cycle 1: virtual $E[N]$ localisation.}
+The usable structures are narrower.  A local noncompact chart may carry
+an \(\Omega\)-background \(\Gm\)-action.  A special K3 surface may carry
+a finite symplectic automorphism.  The product always carries the
+K3-sourced cosection of the stable-pair obstruction sheaf and the free
+translation action of \(E\).  The compact enumerative theorem for
+\(K3\times E\) is the reduced theory obtained from this cosection and the
+quotient by the free elliptic translation.
 
-The finite subgroup $E[N]\cong(\bZ/N)^{2}$ acts freely on $E$ and
-trivially on $K3$; the quotient $X^{(N)}:=(K3\times E)/E[N]=K3\times
-E_{N}$ with $E_{N}=E/E[N]$ isogenous to $E$. The $E[N]$-fixed locus
-on any moduli scheme $M_{v}(X)$ of stable sheaves with Mukai vector
-$v$ equals the $E[N]$-equivariant moduli $M_{v}^{E[N]}(X)$. Graber--
-Pandharipande 1999 Theorem~1 gives the virtual-class formula
+The reduced DT statements below are in K3-primitive curve class unless a
+nonprimitive divisor-sum correction is named.  The obstruction theory is
+the Kiem--Li/Maulik--Pandharipande--Thomas reduced theory obtained from
+the K3 cosection \(\mathrm{Ob}\twoheadrightarrow\cO\).  The orientation
+line is fixed by the reduced K3 orientation and the product
+Calabi--Yau form \(\sigma_S\wedge dz_E\).
+
+\subsection*{Finite torsion descent}
+
+The finite subgroup \(G=E[N]\cong(\bZ/N)^2\) acts freely on \(E\) and
+trivially on \(S\).  The quotient
 \[
- [M_{v}(X)]^{\vir}
- \;=\;
- \iota_{*}\frac{[M_{v}^{E[N]}(X)]^{\vir}}
-               {e(N^{\vir}_{M^{E[N]}/M})}
+  X/G=S\times E_N,\qquad E_N=E/E[N],
 \]
-in $H_{*}^{E[N]}(M_{v}(X))\otimes_{R_{E[N]}}\mathrm{Frac}(R_{E[N]})$,
-where $R_{E[N]}=\bZ[E[N]^{\vee}]$ is the representation ring of the
-finite group, so the denominator is a product of $1-\chi$ for
-$\chi\in E[N]^{\vee}\setminus\{1\}$. This is \emph{finite-group}
-virtual localisation (Edidin--Graham 1998 \S5; the GP proof works
-verbatim for any finite group acting on a quasi-projective DM
-stack). The limitation is severe: $R_{E[N]}$ has no generic
-parameter $t\to\infty$, only $(N^{2}-1)$ discrete characters, so
-one recovers only the \emph{sum} of residues at the $N^{2}-1$
-nontrivial isotypic components. As $N\to\infty$ the tower
-$\{E[N]\}$ is dense in $E$, and the character-sum limit
-reconstructs the full ($E$-equivariant) integral only in the sense
-of a Riemann--Stieltjes average against Haar measure on $E$; no
-rational $R_{E[N]}$-parameter carries the modular $q$-dependence.
-
-\subsection*{Cycle 2: K3-fibre reduction.}
-
-Let $\pi\colon X\to E$ with $K3$-fibres. For a reduced
-Mukai-primitive class $v\in H^{*}(K3,\bZ)$ supported on fibres,
-Pandharipande--Thomas 2014 Theorem~1 (KKV for $K3$) computes the
-PT partition function on $K3$ in closed form,
+is an isogenous copy of \(S\times E\).  A \(G\)-linearised coherent sheaf
+on \(X\) descends to \(X/G\), and pullback from \(X/G\) produces a
+\(G\)-linearised sheaf on \(X\).  This is finite etale descent, with
+the usual character decomposition in the representation ring
 \[
- Z^{\PT}_{K3}(y,q)
- \;=\;
- \sum_{n\in\bZ}\chi(\Hilb^{n}(K3))q^{n-1}
- \;=\;
- \prod_{k\geq 1}(1-q^{k})^{-24},
+  R_G=\bZ[G^\vee].
 \]
-the Yau--Zaslow / G\"ottsche formula. On the product $X=K3\times E$,
-Maulik--Oberdieck--Pandharipande 2017 Theorem~1 (MNOP reduced
-reduction) factorises the reduced DT generating series along the
-fibration as
+
+This descent is a finite equivariant descent datum.  In
+cohomological Chow theory over \(\bQ\), \(H^\bullet(BG,\bQ)=\bQ\), so
+finite torsion supplies no continuous localisation parameter.  In
+equivariant \(K\)-theory, concentration after localising \(R_G\) gives
+character idempotents and denominators \(\lambda_{-1}(N^\vee)\).  This
+is \(K\)-theoretic fixed-point concentration.  The
+Graber--Pandharipande virtual residue formula for the reduced DT class
+requires a genuine \(\Gm\)-equivariant obstruction theory.
+
+For the point-object charge this distinction is visible.  If
 \[
- Z^{\DT}_{X}(p,q,\tilde q)
- \;=\;
- \frac{\cC(p,q,\tilde q)}{\Delta_{5}(p,q,\tilde q)^{2}}
+  M_{[pt]}(X)=X,
 \]
-(Oberdieck 2018 Geom.\ \& Topol.\ 22 \S5), where $p$ is the
-point-class variable, $q$ is the $K3$-primitive-class variable
-(descending to the $K3$-fibre), and $\tilde q$ is the $E$-modular
-variable. The $E$-direction appears \emph{only} through
-$\tilde q=e^{2\pi i\tilde\tau}$ in the modular factor
-$\Delta_{5}(p,q,\tilde q)$; the fibre-primitive integral over
-$K3$ contributes the Yau--Zaslow $\prod(1-q^{k})^{-24}$, and the
-$\tilde q$-dependence is supplied by winding sectors of curves
-wrapping $E$ (Oberdieck--Pixton 2018 Invent.\ Math.\ 213
-Theorem~1, the multiplicative holomorphic-anomaly factorisation).
-Modular dependence on $E$ factors because $E$ acts trivially
-on the fibre cohomology (the monodromy $\pi_{1}(E)\to
-\mathrm{Aut}(H^{*}(K3))$ is trivial for the trivial fibration);
-hence the $\tilde q$-expansion is a genus-one generating function
-with $E$ as the spectral curve, exactly the structure $\Phi_{3}$
-predicts for an $E_{1}$-chiral algebra on $E$ (\S
-hochschild\_calculus.tex, Remark on
-$\bH_{\Delta_{5}}$ as $E_{1}$-chiral boundary).
+then every nonidentity element of \(E[N]\) translates the support of a
+skyscraper sheaf.  Hence
+\[
+  M_{[pt]}(X)^G=\varnothing
+\]
+for nontrivial \(G\).  A point of \(X/G\) pulls back to the orbit-sum of
+\(|G|=N^2\) points on \(X\); the quotient/descent lane begins at that
+orbit charge.  The charge-one fixed residue is absent.
 
-\subsection*{Cycle 3: Nakajima--Grojnowski on $\Hilb^{n}(K3\times E)$.}
+\subsection*{Finite K3 automorphism strata}
 
-Nakajima 1997 Theorem~1 and Grojnowski 1996 construct a Heisenberg
-algebra $\cH(S)$ acting on
-$\bigoplus_{n\geq 0}H^{*}(\Hilb^{n}(S),\bQ)$ for any quasi-projective
-smooth surface $S$; the creation operator
-$p_{-k}(\alpha)$ pushes $k$-points carrying class $\alpha\in
-H^{*}(S)$ onto the vacuum, and the commutator
-$[p_{k}(\alpha),p_{-\ell}(\beta)] =k\delta_{k,\ell}(\alpha,\beta)$
-reproduces the Heisenberg OPE. The construction is
-two-dimensional; the threefold $X=K3\times E$ is \emph{not} a
-surface. Two extensions are available: (i) the \emph{fibrewise}
-Nakajima algebra $\cH(K3)$ acting on
-$H^{*}(\Hilb^{n}(K3))$, tensored with $H^{*}(\Hilb^{m}(E))$ via
-the external K\"unneth decomposition, because
-$\Hilb^{n+m}(K3\times E)\neq\Hilb^{n}(K3)\times\Hilb^{m}(E)$ in
-general (the left side is the Hilbert scheme of the threefold,
-the right is a fibre product), so one obtains a proper
-\emph{sub}algebra $\cH(K3)\otimes\cH(E)$ of the full generator
-algebra; (ii) the G\"ottsche product-surface formula
-$\sum_{n}\chi(\Hilb^{n}(S_{1}\times S_{2}))q^{n}\neq
-(\sum\chi(\Hilb(S_{1}))q)\cdot(\sum\chi(\Hilb(S_{2}))q)$, so the
-tensor product of Nakajima Heisenbergs is insufficient to
-capture the full cohomology. The \emph{Mukai}-enhanced Heisenberg
-$H_{\mathrm{Muk}}(K3)$ (rank~$24$, Mukai lattice $\Lambda_{24}$;
-drinfeld\_center.tex line~1704) carries the correct fibre data;
-the elliptic direction supplies the spectral parameter
-$z\in E$ via the evaluation modules
-$\mathrm{ev}_{z}\colon H_{\mathrm{Muk}}(K3)_{\mathrm{aff}}
-\to H_{\mathrm{Muk}}(K3)$, and the affinisation
-$H_{\mathrm{Muk}}(K3)_{\mathrm{aff}}$ takes the role of the
-threefold Heisenberg.
+Finite symplectic K3 automorphisms give CHL-type strata only on special
+K3 loci.  If \(g\in\mathrm{Aut}(S)\) has order \(N\) and preserves
+\(\sigma_S\), then \(g\times t_a\) preserves
+\(\sigma_S\wedge dz_E\) for every \(N\)-torsion translation \(t_a\) of
+the elliptic factor.  Choosing \(a\) so that the product action is free
+produces a smooth Calabi--Yau quotient.  If the quotient presentation is
+kept stack-theoretic, the K3 fixed-point data enter through orbifold and
+inertia sectors.  A global
+\(\Gm\)-localisation parameter on \(S\times E\) is still absent, and
+Nikulin's finite symplectic automorphism bounds control the allowable
+orders.
 
-\subsection*{Cycle 4: integration test.}
+\subsection*{K3-fibre reduced DT}
 
-The three strategies produce different algebras: (1) the $E[N]$-
-equivariant integral on $M_{v}(X)$ extracts finite-character
-residues, which assemble (via $N\to\infty$) to the $E$-equivariant
-integral but do not carry Drinfeld-double comultiplication on the
-nose; (2) the $K3$-fibre reduction
-$Z^{\DT}_{X}=\cC/\Delta_{5}^{2}$ carries the full Igusa
-denominator, hence the full BKM, hence the full $E_{1}$-chiral
-algebra $\bH_{\Delta_{5}}$ on $E$; (3) the fibrewise Nakajima
-$\cH(K3)$ gives only the $E_{2}$-chiral $K3$-factor
-($d=2$ output of $\Phi_{2}$), and the $E$-direction must be
-re-adjoined by evaluation-module affinisation. The three are
-compatible but \emph{not} identical: (1) and (2) agree after
-summing the character residues (Riemann--Roch on the
-$N\to\infty$ tower reconstructs the $\tilde q$-modular integral),
-and (2) equals (3)-plus-affinisation after identifying
-$\bH_{\Delta_{5}}=(H_{\mathrm{Muk}}(K3))_{\mathrm{aff}}$ via the
-$E_{1}$-boundary of the
-$\mathrm{Hilb}^{\infty}(K3)\times\bR_{\geq 0}$ HT bulk
-(hochschild\_calculus.tex lines~1879--1884). No single
-strategy alone yields the Drinfeld double with comultiplication;
-only strategy~(2) supplies modular $\tilde q$-data intrinsically,
-only strategy~(3) supplies Heisenberg currents with explicit OPE,
-and only strategy~(1) supplies the virtual-class cycle-level
-denominator.
+Let \(\pi:X\to E\) be the projection.  For a K3-primitive class
+\(\beta\in H_2(S,\bZ)\), Pandharipande--Thomas prove the KKV
+stable-pair formula on the K3 fibre:
+\[
+ Z^{\PT}_{S}(q)
+ \;=\;
+ \sum_{n}\chi(\Hilb^{n}(S))q^{n-1}
+ \;=\;
+ \prod_{k\geq 1}(1-q^{k})^{-24}.
+\]
+On \(X=S\times E\), the K3 symplectic form gives the cosection
+\[
+  \mathrm{Ob}\twoheadrightarrow\cO,
+\]
+and the reduced class has virtual dimension \(1\) before quotienting the
+free elliptic translation.  Oberdieck--Pandharipande compute the
+primitive reduced DT series as
+\[
+  Z^{X}_{\mathrm{OP/DT}}(q,t,p)
+  =
+  -(\PhiOP)^{-1}
+  =
+  -\Dfive^{-2}
+  =
+  -4096\,\Deltafive^{-2},
+  \qquad
+  \Dfive=64^{-1}\Deltafive,\qquad
+  \PhiOP=\Dfive^2.
+\]
+Here \(\Deltafive\) is the primitive Gritsenko--Nikulin denominator of
+weight \(5\), and \(\PhiOP\) is the Oberdieck--Pandharipande monic
+weight-\(10\) scalar.  The variables \(q,t,p\) record elliptic base
+degree, K3 curve degree, and point class in this convention.  The
+primitive denominator and the scalar square carry different weights:
+\[
+  \kbkm(\Deltafive)=c_1(0)/2=10/2=5,\qquad
+  \mathrm{wt}(\PhiOP)=10.
+\]
+Nonprimitive K3 classes require the imprimitive multiple-cover
+correction.  The Oberdieck--Pixton programme controls broader
+descendant and equivariant extensions; the \(N=1\) scalar displayed
+above is the Oberdieck--Pandharipande reduced-DT theorem.
 
-\subsection*{Cycle 5: explicit charge-$(1,0,0)$ check.}
+The \(d=3\) specialisation
+\[
+  \Phi_3^{(S,E)}\bigl(\Db\Coh(S\times E)\bigr)
+\]
+is an \(E_1\)-chiral algebra on the elliptic base.  The braided \(E_2\)
+structure belongs to the Drinfeld-centre construction on
+representations of this \(E_1\)-algebra.
 
-At Mukai charge $v=(1,0,0)$ (ideal sheaf of a point on $X$), the
-moduli space is $M_{(1,0,0)}=X=K3\times E$; each strategy
-produces a CoHA generator:
+\subsection*{Fibrewise Nakajima--Grojnowski theory}
 
-(1) The $E[N]$-virtual localisation contributes the equivariant
-class $[X]^{\vir}=[K3\times E]$ decomposed across $N^{2}$
-characters; the trivial-character component is
-$(24\cdot 0)\cdot[\text{pt}]=0$, consistent with
-$\chi(K3\times E)=0$ and $\kcat(K3\times E)=0$ (Lorgat CLAUDE.md
-key fact).
+Nakajima 1997 and Grojnowski 1996 construct a Heisenberg algebra
+\(\cH(S)\) acting on
+\[
+  \bigoplus_{n\geq0}H^{*}(\Hilb^{n}(S),\bQ)
+\]
+for a smooth surface \(S\).  The creation operator \(p_{-k}(\alpha)\)
+adds \(k\) points carrying \(\alpha\in H^{*}(S)\), and
+\[
+  [p_k(\alpha),p_{-\ell}(\beta)]
+  =
+  k\delta_{k,\ell}(\alpha,\beta)
+\]
+is the Heisenberg commutator.  The construction is a surface theorem.
+For \(S\times E\), it applies fibrewise to
+\[
+  \Hilb^n_{S/E}(S\times E)=\Hilb^n(S)\times E,
+\]
+the relative Hilbert scheme of points contained in fibres of
+\(\pi\).  The absolute Hilbert scheme of points on the threefold is
+governed by DT/PT obstruction theory with three-dimensional
+embedded-point deformations.
 
-(2) The $K3$-fibre reduction extracts the coefficient of $q^{0}$
-in $Z^{\DT}_{K3\times E}=\cC/\Delta_{5}^{2}$: this is the
-$24$-dimensional $K3$-cohomology-weighted vacuum of
-$\bH_{\Delta_{5}}$, i.e.\ the $24\times 24$ diagonal
-$R$-matrix $R(z)=\mathrm{diag}((z-h_{a})/(z+h_{a}))_{a=1}^{24}$
-of quantum\_groups\_foundations.tex line~387.
+The fibre supplies the Mukai-enhanced Heisenberg algebra
+\[
+  H_{\mathrm{Muk}}(S),
+  \qquad
+  \operatorname{rank}\widetilde H^{*}(S,\bZ)=24.
+\]
+The elliptic direction supplies the spectral parameter \(z\in E\) by
+evaluation modules
+\[
+  \mathrm{ev}_{z}\colon
+  H_{\mathrm{Muk}}(S)_{\mathrm{aff}}\to H_{\mathrm{Muk}}(S).
+\]
+Thus the fibrewise Heisenberg currents and the elliptic spectral
+parameter give the rank-\(24\) current block tested by the reduced DT
+character.  The Borcherds bracket requires the denominator-root datum and
+the Hall pairing; the surface Heisenberg action supplies the current
+generators only.
 
-(3) The Nakajima strategy produces the $24$ creation operators
-$p_{-1}(e_{a})$, $a=1,\dots,24$, of $H_{\mathrm{Muk}}(K3)$,
-which act on $H^{*}(\Hilb^{1}(K3))=H^{*}(K3)$; affinisation by
-evaluation at $z\in E$ gives the same $24$ currents
-$p_{-1}(e_{a};z)$ with OPE
-$[p_{-1}(e_{a};z),p_{1}(e_{b};w)]\sim\delta_{ab}\delta(z-w)$.
+\subsection*{Compatibility of the three mechanisms}
 
-The three generator sets coincide as the $24$-dimensional
-$K3$-cohomology basis, dressed by the elliptic spectral
-parameter. $\kch(K3\times E)=0$ (Hodge supertrace at $d=3$;
-cy\_d\_kappa\_stratification.tex), $\kbkm=5$ (Borcherds weight
-$c_{1}(0)/2=10/2$), $\kcat=0$ (K\"unneth-multiplicative on
-products), $\kfib=24$ (K3 second cohomology rank). The
-four values are route-independent: $\kbkm=5$ appears in all
-three strategies via the Borcherds weight of $\Delta_{5}$
-supplied by strategy~(2); the fibre-rank $24$ appears via the
-Nakajima generators of strategy~(3); $\kcat=0$ is
-$\chi(\cO_{K3\times E})=0$, route-free; $\kch=0$ is the
-supertrace of the $\Phi_{3}$-output, accessible only through
-$(\infty,1)$-categorical $\Phi_{3}$ on
-$\Db\Coh(K3\times E)$. The matrix of strategies against
-invariants is diagonal: each strategy produces one invariant
-cleanly.
+The three mechanisms carry different pieces of the \(K3\times E\) data.
+Finite torsion descent supplies quotient and character data for free
+\(E[N]\)-actions and for CHL-type finite automorphism strata.
+Reduced DT supplies the Oberdieck--Pandharipande scalar
+\(-\Dfive^{-2}\).  Fibrewise Nakajima--Grojnowski theory supplies the
+\(24\) Mukai Heisenberg currents and their elliptic evaluation
+parameter.
 
-\subsection*{Audit verdict.}
+The full BKM-side quantum object is the Hall--Drinfeld double of the
+compact oriented positive-half
+\(\CoHA(K3\times E)\), once the negative half, Hopf pairing, Hall
+coproduct, centre compatibility, completion, and Borcherds bracket
+comparison are constructed.  The scalar reduced-DT identity proves a
+positive-half character equality.  Double construction is the additional
+Hall problem: build both halves, prove PBW, identify the radical quotient,
+and compare the Serre/Borcherds relations with
+\(\mathfrak g_{\Delta_5}\).
 
-The three strategies are \emph{complementary}, not redundant.
-A single CoHA with Drinfeld-double comultiplication is produced
-by \emph{combining} strategies~(2) and~(3): fibre reduction
-supplies the modular $\tilde q$-weight, Nakajima supplies the
-Heisenberg currents, affinisation by $E$-evaluation glues them.
-Strategy~(1) is the virtual-class cycle-level counterpart
-consistent at every $E[N]$-isotypic
-component but does not on its own carry comultiplication.
-The outputs are compatible at charge $(1,0,0)$ and agree on the
-four $\kappa_{\bullet}$-invariants $(\kch,\kbkm,\kcat,\kfib)=(0,5,0,24)$
-tabulated in cy\_d\_kappa\_stratification.tex.
+\subsection*{Point charge and fibre current checks}
+
+At point-object charge, the moduli space is
+\[
+  M_{[pt]}=S\times E.
+\]
+For nontrivial \(G=E[N]\), the fixed locus \(M_{[pt]}^G\) is empty by
+free translation on the elliptic factor.  The first quotient-descended
+point class is the \(N^2\)-point orbit class.  Its ordinary topological
+Euler diagnostic remains
+\[
+  \chi_{\mathrm{top}}(S\times E)=24\cdot0=0,
+\]
+consistent with
+\[
+  \kcat(S\times E)=\chi(\cO_{S\times E})
+  =
+  \chi(\cO_S)\chi(\cO_E)
+  =
+  2\cdot0
+  =
+  0.
+\]
+The K3 fibre value \(2=\chi(\cO_S)\) is a separate fibre witness.
+
+The reduced K3 fibre contributes the \(24\)-dimensional Mukai
+cohomology basis of the Heisenberg vacuum.  The Nakajima construction
+realises the same basis as the creation operators
+\[
+  p_{-1}(e_a),\qquad a=1,\ldots,24,
+\]
+acting on \(H^{*}(\Hilb^1(S))=H^{*}(S)\).  Affinisation by evaluation
+at \(z\in E\) gives currents \(p_{-1}(e_a;z)\).
+
+The four construction-level invariants attached to the \(K3\times E\)
+datum are
+\[
+  \{\kcat,\kch^{\mathrm{Heis}},\kbkm,\kfib\}(K3\times E)
+  =
+  \{0,3,5,24\}.
+\]
+They are read as
+\[
+  \kcat(K3\times E)=0,
+  \qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,
+\]
+\[
+  \kbkm(\Deltafive)=c_1(0)/2=10/2=5,
+  \qquad
+  \kfib(S)=\operatorname{rank}\widetilde H^{*}(S,\bZ)=24.
+\]
+The raw compact Hodge supertrace
+\[
+  \sum_q(-1)^qh^{0,q}(K3\times E)=0
+\]
+and the K3 structure-sheaf Euler characteristic \(\chi(\cO_S)=2\) are
+separate witnesses.  The Heisenberg value \(3\), the Borcherds weight
+\(5\), and the Mukai rank \(24\) come from distinct constructions.
+
+\subsection*{Sources and remaining comparison}
+
+Graber--Pandharipande 1999 supplies virtual localisation for
+\(\Gm\)-equivariant obstruction theories.  Edidin--Graham supplies the
+equivariant intersection framework, and finite \(E[N]\)-data here are
+used as descent and character data.  The reduced DT input is the
+Kiem--Li/Maulik--Pandharipande--Thomas cosection reduction with the
+Oberdieck--Pandharipande orientation normalisation.
+Oberdieck--Pandharipande prove the primitive \(K3\times E\)
+reduced-DT scalar at \(N=1\); Oberdieck--Pixton belongs to the broader
+descendant and equivariant extension.  Nakajima--Grojnowski supplies the
+fibrewise Heisenberg algebra.
+
+The compact Hall--Drinfeld double comparison remains the proof
+obligation: construct the compact oriented \(\CoHA^{+}(K3\times E)\),
+the negative half, Hopf pairing, coproduct, centre compatibility,
+completion, and the Borcherds bracket/Serre comparison with
+\(\mathfrak g_{\Delta_5}\).

@@ -1121,7 +1121,7 @@ def verify_kappa_spectrum_consistency() -> Dict[str, Any]:
       kappa_cat = 0 = chi(O_{K3 x E}) by Kunneth
       kappa_cat_fiber = 2 = chi(O_{K3}) = h^{0,0} - h^{0,1} + h^{0,2} = 1-0+1
       kappa_ch = 3: this is the Vol III chiral kappa from Phi(D^b(Coh(K3)))
-      kappa_BKM = 5: weight of Igusa cusp form Delta_5
+      kappa_BKM = 5: weight of primitive Gritsenko-Nikulin denominator Delta_5
     """
     summary = chiral_homology_summary()
 

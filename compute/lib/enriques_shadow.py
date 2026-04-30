@@ -28,7 +28,7 @@ This vanishing of chi_top does NOT imply kappa_BKM = 0. The Borcherds
 weight is an automorphic denominator invariant, not the topological Euler
 characteristic.
 
-For K3 x E: kappa_BKM = 5 (weight of Delta_5, the Igusa cusp form).
+For K3 x E: kappa_BKM = 5 (weight of Delta_5, the primitive Gritsenko-Nikulin denominator).
 For Enriques x E: kappa_BKM = 4 (weight of the Enriques Borcherds product).
 
 The difference kappa_BKM(K3 x E) - kappa_BKM(Enr x E) = 5 - 4 = 1 reflects the

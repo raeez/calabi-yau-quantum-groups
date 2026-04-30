@@ -34,20 +34,24 @@ RANK DECOMPOSITION
 For K3 x E, the CoHA decomposes by rank:
 
 Rank 0: Ideal sheaves of subschemes Z subset K3 x E.
-    dim CoHA_{(0,0,n)} = chi(Hilb^n(K3 x E)).
+    The protected Euler/signed-character statistic is chi(Hilb^n(K3 x E)).
+    It is not an unsourced ordinary CoHA dimension.  A dimension statement
+    requires an explicit parity-resolved fixture or compact source datum.
     Generating function: M(q) * prod_{k>=1} 1/(1-q^k)^{20} (from DMVV).
-    The 20 = b_2(K3) - 2 additional generators come from the K3 cohomology
-    beyond the algebraic classes.
+    The 20 = b_2(K3) - 2 terms are protected-character inputs from K3
+    cohomology beyond the algebraic classes.
 
 Rank 1: Pure dimension-2 sheaves supported on K3 fibers.
     The CoHA_{(1,0,n)} counts rank-1 sheaves with ch_2 = n.
     GF: 1/eta(q)^{24} (Hilbert scheme of K3).
 
-General: The full second-quantized generating function is the DMVV formula:
+General: the Delta_5 Borcherds signed-character lane is
 
     sum_{N>=0} p^N Z_N(q,y) = prod_{n>0,l,m>=0} 1/(1-p^n q^l y^m)^{c(4nm-l^2)}
 
 where c(D) are the discriminant coefficients of the weak Jacobi form phi_{0,1}.
+The doubled K3 elliptic-genus/DMVV lane uses exponents 2c(D) and gives
+Phi_10^{un} = Delta_5^2; it is not the coefficient lane computed below.
 
 BKM IDENTIFICATION
 ==================
@@ -64,7 +68,10 @@ where n_+ is the positive nilpotent part of g_{Delta_5} in the triangular
 decomposition g = n_- oplus h oplus n_+.
 
 Evidence:
-(1) Root multiplicities match: mult(alpha) = c(4nm - l^2) = dim CoHA_alpha.
+(1) The signed BKM character coefficient is c(4nm - l^2).  Its
+    magnitude |c(D)| is an unsigned coefficient statistic, not by itself
+    a local CoHA dimension.  A CoHA dimension requires an even/odd parity
+    source for the charge sector.
 (2) The DMVV product = BKM denominator identity (Gritsenko-Nikulin).
 (3) The Weyl symmetry of g_{Delta_5} acts on the K3 moduli.
 
@@ -101,9 +108,10 @@ on the manuscript comparison data.
 WHAT THIS MODULE COMPUTES
 =========================
 
-1. dim(CoHA_gamma) for low charges, via the DMVV formula + phi_{0,1}.
+1. Signed-character coefficients c(D) and unsigned magnitudes |c(D)| for
+   low charges, via the Delta_5 Borcherds product attached to phi_{0,1}.
 2. The associative E1 product structure constants at low orders.
-3. Root multiplicities = dim(CoHA_gamma) verification.
+3. Root multiplicity / signed-character verification against phi_{0,1}.
 4. The equivariant deformation structure function.
 5. Generating functions for each rank sector.
 6. Comparison with the BKM root datum.
@@ -128,10 +136,11 @@ Manuscript references:
 from __future__ import annotations
 
 import math
+import warnings
 from collections import defaultdict
 from fractions import Fraction
 from functools import lru_cache
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Mapping, NamedTuple, Optional, Tuple, Union
 
 import importlib as _importlib
 import os as _os
@@ -171,10 +180,10 @@ def phi01_by_discriminant(max_n: int) -> Dict[int, int]:
 
 # For K3 x E, the effective charge lattice for the CoHA is:
 #   Gamma_eff = Z^3  with basis (rank r, fiber class l, instanton number m)
-# The discriminant D = 4rm - l^2 classifies the root type:
-#   D < 0: no BPS states (below Bogomolov bound)
-#   D = -1: real roots, mult = 1  [c(-1) = 1 from phi_{0,1}]
-#   D >= 0: imaginary roots, mult = c(D) from phi_{0,1}
+# The discriminant D = 4rm - l^2 classifies the target root type:
+#   D < 0: below the retained BPS chamber in this finite sanity model
+#   D = -1: real-root signed character c(-1) = 1 from phi_{0,1}
+#   D >= 0: imaginary-root signed character c(D) from phi_{0,1}
 
 # Gram matrix for g_{Delta_5} (real simple roots)
 GRAM_MATRIX = ((2, -2, -2), (-2, 2, -2), (-2, -2, 2))
@@ -194,6 +203,8 @@ B2_K3 = 22
 # c(4)  = 108 (D=4)
 # c(7)  = -513 (D=7)
 # c(8)  = 808 (D=8)
+# c(11), c(12), c(15), c(16) extend the finite source table used by
+# the three-path low-degree verification below.
 
 KNOWN_C_DISC = {
     -1: 1,
@@ -202,6 +213,10 @@ KNOWN_C_DISC = {
     4: 108,
     7: -513,
     8: 808,
+    11: -2752,
+    12: 4016,
+    15: -11775,
+    16: 16524,
 }
 
 
@@ -210,25 +225,30 @@ def discriminant(r: int, l: int, m: int) -> int:
     return 4 * r * m - l * l
 
 
-def root_multiplicity(r: int, l: int, m: int, max_n: int = 20) -> int:
-    """Root multiplicity mult(r, l, m) = c(4rm - l^2) from phi_{0,1}.
-
-    Parameters
-    ----------
-    r, l, m : int
-        Charge vector coordinates (rank, fiber class, instanton number).
-    max_n : int
-        Truncation for phi_{0,1} computation.
-
-    Returns
-    -------
-    int : the root multiplicity c(D) where D = 4rm - l^2.
-    """
+def _signed_character_coefficient_raw(r: int, l: int, m: int, max_n: int = 20) -> int:
+    """Internal signed root-character coefficient c(4rm - l^2)."""
     D = discriminant(r, l, m)
     if D < -1:
         return 0
     c_disc = phi01_by_discriminant(max(max_n, D // 4 + 5))
     return c_disc.get(D, 0)
+
+
+def root_multiplicity(r: int, l: int, m: int, max_n: int = 20) -> int:
+    """Deprecated legacy alias for signed root-character coefficient c(D).
+
+    This function is kept for compatibility. Its return value may be
+    negative and must not be read as an ordinary dimension or generator
+    count without a parity-resolved fixture/source datum.
+    """
+    warnings.warn(
+        "root_multiplicity() is a deprecated legacy alias for the signed "
+        "root-character coefficient; use signed_character_coefficient() and "
+        "do not read it as an ordinary dimension without a parity fixture.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return _signed_character_coefficient_raw(r, l, m, max_n)
 
 
 def is_real_root(r: int, l: int, m: int) -> bool:
@@ -251,7 +271,7 @@ def root_type(r: int, l: int, m: int) -> str:
     D = discriminant(r, l, m)
     if D < -1:
         return 'none'
-    mult = root_multiplicity(r, l, m)
+    mult = signed_character_coefficient(r, l, m)
     if mult == 0:
         return 'none'
     if D == -1:
@@ -262,40 +282,105 @@ def root_type(r: int, l: int, m: int) -> str:
 
 
 # =========================================================================
-# 2. CoHA DIMENSIONS BY CHARGE
+# 2. SIGNED CHARACTER STATISTICS AND PARITY-RESOLVED DIMENSIONS
 # =========================================================================
 
-def coha_dimension(r: int, l: int, m: int, max_n: int = 20) -> int:
-    """Dimension of CoHA_{(r,l,m)} = |root multiplicity c(4rm - l^2)|.
+class CoHAParityFixture(NamedTuple):
+    """Parity-resolved source data for a CoHA charge sector.
 
-    For the CoHA, the dimension is the ABSOLUTE VALUE of the root multiplicity,
-    since both bosonic and fermionic root spaces contribute positively to the
-    dimension of the cohomology.  The sign distinguishes the super-grading
-    (even vs odd), not the dimension.
-
-    Parameters
-    ----------
-    r, l, m : int
-        Charge vector.
-    max_n : int
-        Truncation for phi_{0,1}.
-
-    Returns
-    -------
-    int : dim CoHA_{(r,l,m)} = |c(4rm - l^2)|.
+    The signed character c(D) only determines even_dim - odd_dim.  The
+    ordinary dimension even_dim + odd_dim is available only after a source
+    has resolved the parity split for the sector.
     """
-    return abs(root_multiplicity(r, l, m, max_n))
+    even_dim: int
+    odd_dim: int
+    source: str
+
+    @property
+    def signed_character(self) -> int:
+        """The super-character contribution even_dim - odd_dim."""
+        return self.even_dim - self.odd_dim
+
+    @property
+    def total_dimension(self) -> int:
+        """The ordinary dimension even_dim + odd_dim."""
+        return self.even_dim + self.odd_dim
 
 
-def coha_dimension_table(max_r: int, max_l: int, max_m: int,
-                         max_n: int = 20) -> Dict[Tuple[int, int, int], int]:
-    """Compute dim CoHA_gamma for all charges with 0 < r <= max_r, |l| <= max_l, 0 <= m <= max_m.
+ParityFixtureInput = Union[
+    CoHAParityFixture,
+    Mapping[Tuple[int, int, int], CoHAParityFixture],
+]
 
-    Only includes charges with nonzero multiplicity.
 
-    Returns
-    -------
-    dict : mapping (r, l, m) -> dim CoHA_gamma.
+def _parity_fixture_for_charge(r: int, l: int, m: int,
+                               parity_fixture: Optional[ParityFixtureInput]
+                               ) -> Optional[CoHAParityFixture]:
+    """Resolve a charge-specific parity fixture."""
+    if parity_fixture is None:
+        return None
+    if isinstance(parity_fixture, CoHAParityFixture):
+        return parity_fixture
+    return parity_fixture.get((r, l, m))
+
+
+def _validate_parity_fixture(fixture: CoHAParityFixture) -> None:
+    """Reject fixture data that cannot be a sourced dimension split."""
+    if fixture.even_dim < 0 or fixture.odd_dim < 0:
+        raise ValueError("CoHA parity fixture dimensions must be non-negative")
+    if not fixture.source:
+        raise ValueError("CoHA parity fixture needs a non-empty source")
+
+
+def signed_character_coefficient(r: int, l: int, m: int,
+                                 max_n: int = 20) -> int:
+    """Signed character coefficient c(4rm - l^2)."""
+    return _signed_character_coefficient_raw(r, l, m, max_n)
+
+
+def signed_character_magnitude(r: int, l: int, m: int,
+                               max_n: int = 20) -> int:
+    """Unsigned statistic |c(4rm - l^2)|, not a CoHA dimension."""
+    return abs(signed_character_coefficient(r, l, m, max_n))
+
+
+def unsigned_coefficient_statistic(r: int, l: int, m: int,
+                                   max_n: int = 20) -> int:
+    """Alias for the unsigned coefficient magnitude |c(D)|."""
+    return signed_character_magnitude(r, l, m, max_n)
+
+
+def coha_dimension(r: int, l: int, m: int, max_n: int = 20,
+                   parity_fixture: Optional[ParityFixtureInput] = None) -> int:
+    """Parity-resolved dimension of CoHA_{(r,l,m)}.
+
+    The coefficient c(D) is a signed character.  The number |c(D)| is only
+    an unsigned coefficient statistic unless a source identifies the charge
+    sector as purely even, purely odd, or otherwise gives the even/odd split.
+    """
+    fixture = _parity_fixture_for_charge(r, l, m, parity_fixture)
+    if fixture is None:
+        raise ValueError(
+            "CoHA dimension requires parity fixture/source recognition; "
+            "use signed_character_magnitude(...) for |c(D)|."
+        )
+    _validate_parity_fixture(fixture)
+    expected_character = signed_character_coefficient(r, l, m, max_n)
+    if fixture.signed_character != expected_character:
+        raise ValueError(
+            "Parity fixture signed character does not match c(D): "
+            f"{fixture.signed_character} != {expected_character}"
+        )
+    return fixture.total_dimension
+
+
+def signed_character_magnitude_table(max_r: int, max_l: int, max_m: int,
+                                     max_n: int = 20
+                                     ) -> Dict[Tuple[int, int, int], int]:
+    """Compute |c(D)| for all charges up to the given bounds.
+
+    This is a finite unsigned coefficient statistic, not a table of local
+    CoHA dimensions.
     """
     # Need c(D) for D up to 4*max_r*max_m + max_l^2.
     # phi01_by_discriminant(N) computes c(D) for D up to ~4*N.
@@ -318,17 +403,37 @@ def coha_dimension_table(max_r: int, max_l: int, max_m: int,
     return table
 
 
-def total_coha_dimension_by_degree(max_degree: int,
-                                   max_n: int = 20) -> Dict[int, int]:
-    """Total CoHA dimension at each degree N = r + m.
+def coha_dimension_table(max_r: int, max_l: int, max_m: int,
+                         max_n: int = 20,
+                         parity_fixtures: Optional[
+                             Mapping[Tuple[int, int, int], CoHAParityFixture]
+                         ] = None) -> Dict[Tuple[int, int, int], int]:
+    """Compute sourced CoHA dimensions from parity fixtures.
 
-    dim CoHA_N = sum_{r+m=N, l} |c(4rm - l^2)|.
+    Without parity fixtures this function refuses to promote |c(D)| to a
+    dimension.
+    """
+    if parity_fixtures is None:
+        raise ValueError(
+            "CoHA dimension table requires parity fixtures; "
+            "use signed_character_magnitude_table(...) for |c(D)|."
+        )
+    table: Dict[Tuple[int, int, int], int] = {}
+    for (r, l_val, m), fixture in parity_fixtures.items():
+        if not (0 <= r <= max_r and abs(l_val) <= max_l and 0 <= m <= max_m):
+            continue
+        table[(r, l_val, m)] = coha_dimension(
+            r, l_val, m, max_n=max_n, parity_fixture=fixture
+        )
+    return table
 
-    This counts the total number of BPS states at "instanton number" N.
 
-    Returns
-    -------
-    dict : mapping N -> sum of |c(D)| over all (r,l,m) with r+m = N.
+def total_signed_character_magnitude_by_degree(max_degree: int,
+                                               max_n: int = 20) -> Dict[int, int]:
+    """Sum |c(D)| by degree N = r + m.
+
+    This is a signed-character magnitude statistic.  It is useful for finite
+    sanity checks, but it is not a CoHA dimension without parity data.
     """
     c_disc = phi01_by_discriminant(max(max_n, max_degree**2 + 5))
     totals: Dict[int, int] = {}
@@ -336,7 +441,6 @@ def total_coha_dimension_by_degree(max_degree: int,
         total = 0
         for r in range(0, N + 1):
             m = N - r
-            # l ranges: D = 4rm - l^2 >= -1, so l^2 <= 4rm + 1
             l_max = int(math.isqrt(4 * r * m + 1))
             for l_val in range(-l_max, l_max + 1):
                 D = 4 * r * m - l_val * l_val
@@ -347,6 +451,53 @@ def total_coha_dimension_by_degree(max_degree: int,
                     total += abs(cD)
         totals[N] = total
     return totals
+
+
+def total_coha_dimension_by_degree(max_degree: int,
+                                   max_n: int = 20,
+                                   parity_fixtures: Optional[
+                                       Mapping[Tuple[int, int, int], CoHAParityFixture]
+                                   ] = None) -> Dict[int, int]:
+    """Total sourced CoHA dimension at each degree N = r + m.
+
+    Requires parity fixtures for the charge sectors being counted.
+    """
+    if parity_fixtures is None:
+        raise ValueError(
+            "CoHA dimensions require parity fixtures; "
+            "use total_signed_character_magnitude_by_degree(...) for |c(D)| sums."
+        )
+    totals: Dict[int, int] = {N: 0 for N in range(1, max_degree + 1)}
+    for (r, l_val, m), fixture in parity_fixtures.items():
+        degree = r + m
+        if 1 <= degree <= max_degree:
+            totals[degree] += coha_dimension(
+                r, l_val, m, max_n=max_n, parity_fixture=fixture
+            )
+    return totals
+
+
+def _legacy_abs_coefficient_totals(max_degree: int,
+                                   max_n: int = 20) -> Dict[int, int]:
+    """Compatibility helper for code paths explicitly using |c(D)| statistics."""
+    return total_signed_character_magnitude_by_degree(max_degree, max_n)
+
+
+def _canonical_phi01_representative(D: int) -> Optional[Tuple[int, int]]:
+    """Return a canonical (n, l) with D = 4n - l^2 when one exists."""
+    if D < -1:
+        return None
+    if D % 4 == 0:
+        return (D // 4, 0)
+    if D % 4 == 3:
+        return ((D + 1) // 4, 1)
+    return None
+
+
+@lru_cache(maxsize=None)
+def _direct_phi01_coefficient(n: int, l: int, max_n: int) -> int:
+    """Cached direct Fourier coefficient path for verification."""
+    return phi01_coefficient(n, l, max_n)
 
 
 # =========================================================================
@@ -410,7 +561,8 @@ def rank_r_gf_leading(r: int, max_n: int) -> List[Fraction]:
     r"""Leading terms of the rank-r CoHA generating function.
 
     For rank r >= 2, the generating function is more complex.
-    The DMVV formula packages all ranks together.
+    The single-Delta_5 product packages the signed-character lane; the
+    doubled DMVV/Phi_10 lane has exponents 2c(D).
 
     At leading order, the rank-r contribution involves:
         Z_r(q) ~ prod_{k>=1} 1/(1-q^k)^{r * chi(K3)}   (crude upper bound)
@@ -425,19 +577,23 @@ def rank_r_gf_leading(r: int, max_n: int) -> List[Fraction]:
     """
     if r == 0 or r == 1:
         return [Fraction(c) for c in rank0_generating_function(max_n)]
-    # For r >= 2, use the DMVV rank-r sector extraction
+    # For r >= 2, use the Delta_5 product rank-r sector extraction
     # At leading order, the rank-r contribution can be extracted from
-    # the DMVV product by collecting the p^r coefficient.
+    # the single-Delta_5 product by collecting the p^r coefficient.
     # The p^r coefficient involves convolutions of lower-rank terms.
     # Here we compute the first few terms by direct enumeration.
     return _extract_rank_r_from_dmvv(r, max_n)
 
 
 def _extract_rank_r_from_dmvv(r: int, max_n: int) -> List[Fraction]:
-    """Extract rank-r sector from DMVV product.
+    """Extract rank-r sector from the Delta_5 Borcherds product.
 
-    The DMVV formula gives:
+    The single-Delta_5 product gives:
         sum_N p^N Z_N(q) = prod (1/(1-p^n q^l s^m))^{c(4nm-l^2)}
+
+    The doubled K3 elliptic-genus DMVV/Phi_10 product uses exponents
+    2c(4nm-l^2).  This helper deliberately stays on the signed-character
+    Delta_5 lane.
 
     We need the coefficient of p^r in this product.
 
@@ -624,7 +780,7 @@ def verify_g_involution(h1: float, h2: float, h3: float,
 
 def root_decomposition(max_degree: int,
                        max_n: int = 20) -> Dict[str, Any]:
-    """Decompose the CoHA root data into bosonic and fermionic sectors.
+    """Decompose the BKM signed-character data into parity sectors.
 
     The BKM superalgebra g_{Delta_5} has:
     - Real roots: D = -1, mult = 1 (always bosonic)
@@ -664,8 +820,8 @@ def root_decomposition(max_degree: int,
                 else:
                     fermionic_roots.append(entry)
 
-    total_bos_dim = sum(abs(e[4]) for e in real_roots) + sum(e[4] for e in bosonic_roots)
-    total_ferm_dim = sum(abs(e[4]) for e in fermionic_roots)
+    total_bos_magnitude = sum(abs(e[4]) for e in real_roots) + sum(e[4] for e in bosonic_roots)
+    total_ferm_magnitude = sum(abs(e[4]) for e in fermionic_roots)
 
     return {
         'real': real_roots,
@@ -674,9 +830,9 @@ def root_decomposition(max_degree: int,
         'n_real': len(real_roots),
         'n_bosonic': len(bosonic_roots),
         'n_fermionic': len(fermionic_roots),
-        'total_bosonic_dim': total_bos_dim,
-        'total_fermionic_dim': total_ferm_dim,
-        'super_dimension': total_bos_dim - total_ferm_dim,
+        'total_bosonic_magnitude': total_bos_magnitude,
+        'total_fermionic_magnitude': total_ferm_magnitude,
+        'signed_super_character': total_bos_magnitude - total_ferm_magnitude,
     }
 
 
@@ -693,8 +849,8 @@ def plethystic_log_k3e(max_n: int) -> Dict[int, int]:
     For Z(q) = 1/eta(q)^{24} = prod 1/(1-q^n)^{24}:
         PL[Z(q)] = 24 * sum_{n>=1} q^n = 24 * q/(1-q)
 
-    This means the rank-0 CoHA is freely generated by 24 generators,
-    one for each direction in H^*(K3).
+    This is a protected-character/even-cohomology fixture with value 24.
+    It is not, by itself, an unsourced ordinary CoHA generator count.
 
     Returns
     -------
@@ -708,13 +864,16 @@ def plethystic_log_k3e(max_n: int) -> Dict[int, int]:
 
 
 def plethystic_log_full(max_r: int, max_n: int) -> Dict[Tuple[int, int], int]:
-    r"""Plethystic logarithm of the full DMVV generating function.
+    r"""Plethystic logarithm of the Delta_5/BKM signed-character product.
 
-    For the DMVV product:
+    For the Borcherds product attached to phi_{0,1}:
         Z = prod_{n>0,l,m>=0} 1/(1-p^n q^l y^m)^{c(4nm-l^2)}
 
     the plethystic logarithm is:
         PL[Z] = sum_{n>0,l,m>=0} c(4nm - l^2) * p^n q^l y^m
+
+    The K3 elliptic-genus DMVV/Phi_10 lane has doubled exponents 2c(D).
+    This function deliberately returns the Delta_5 signed-character lane.
 
     So the single-particle spectrum at charge (n, m) is:
         f(n, m) = sum_l c(4nm - l^2)
@@ -760,7 +919,7 @@ def single_particle_index(r: int, max_m: int, max_n: int = 20) -> Dict[int, int]
     For r = 1, m = 1:
         f_1(1) = sum_l c(4 - l^2):
             l=0: c(4) = 108
-            l=+/-1: c(3) = -64 each -> -128
+            l=+/-1: c(3) = -64 each -> combined row contribution -128
             l=+/-2: c(0) = 10 each -> 20
             Total: 108 - 128 + 20 = 0.
 
@@ -1008,27 +1167,19 @@ def verify_yang_baxter_rank1(h1: float, h2: float, h3: float,
 
 
 # =========================================================================
-# 10. CoHA AS BKM ENVELOPING ALGEBRA
+# 10. BKM POSITIVE HALF SIGNED-CHARACTER DATA
 # =========================================================================
 
-def coha_as_bkm_positive_half(max_degree: int,
-                              max_n: int = 20) -> Dict[str, Any]:
-    """Verify the identification CoHA(K3 x E) = U(n_+) for g_{Delta_5}.
+def bkm_positive_half_signed_character_data(max_degree: int,
+                                            max_n: int = 20) -> Dict[str, Any]:
+    """Finite BKM positive-half signed-character data for g_{Delta_5}.
 
-    The positive half n_+ of the BKM superalgebra g_{Delta_5} has:
-        dim(n_+)_alpha = mult(alpha) = c(4rm - l^2)
+    The positive half n_+ of the BKM superalgebra has signed character
+    coefficient c(4rm - l^2).  The magnitude |c(D)| is recorded only as
+    a coefficient statistic; it is not promoted to a local CoHA dimension.
 
-    The universal enveloping algebra U(n_+) has:
-        dim U(n_+)_N = sum_{partitions of N into positive roots}
-                       prod mult(alpha_i)
-
-    We verify that the CoHA generating function matches U(n_+).
-
-    For low degrees, we compute dim U(n_+)_N by enumerating root partitions.
-
-    Returns
-    -------
-    dict : with 'coha_dims', 'u_n_plus_dims', 'match' for each degree.
+    Returns per-degree root counts, signed character, and unsigned
+    coefficient magnitude totals.
     """
     c_disc = phi01_by_discriminant(max(max_n, max_degree**2 + 5))
 
@@ -1051,13 +1202,15 @@ def coha_as_bkm_positive_half(max_degree: int,
     for N in range(1, max_degree + 1):
         roots = roots_by_degree.get(N, [])
         n_roots = len(roots)
-        total_mult = sum(abs(r[3]) for r in roots)
+        total_signed_character_magnitude = sum(abs(r[3]) for r in roots)
+        signed_character = sum(r[3] for r in roots)
         n_bosonic = sum(1 for r in roots if r[3] > 0)
         n_fermionic = sum(1 for r in roots if r[3] < 0)
 
         result[N] = {
             'n_roots': n_roots,
-            'total_mult': total_mult,
+            'total_signed_character_magnitude': total_signed_character_magnitude,
+            'signed_character': signed_character,
             'n_bosonic': n_bosonic,
             'n_fermionic': n_fermionic,
             'roots': roots,
@@ -1067,16 +1220,20 @@ def coha_as_bkm_positive_half(max_degree: int,
 
 
 # =========================================================================
-# 11. CROSS-VERIFICATION: CoHA dim vs phi_{0,1}
+# 11. CROSS-VERIFICATION: signed character vs phi_{0,1}
 # =========================================================================
 
-def verify_coha_dim_vs_phi01(max_degree: int = 5,
-                             max_n: int = 20) -> Dict[str, Any]:
-    """Cross-verify CoHA dimensions against phi_{0,1} coefficients.
+def verify_signed_character_vs_phi01(max_degree: int = 5,
+                                     max_n: int = 20) -> Dict[str, Any]:
+    """Cross-verify signed-character coefficients against phi_{0,1}.
 
-    Path 1: CoHA_gamma = |c(D)| where D = disc(gamma), from the DMVV formula.
-    Path 2: Root multiplicity from the BKM denominator identity.
-    Path 3: Direct computation from phi_{0,1} Fourier coefficients.
+    Path 1: c(D) where D = disc(gamma), from the discriminant table.
+    Path 2: direct Fourier coefficient f(n,l) of phi_{0,1}.
+    Path 3: finite source constants in KNOWN_C_DISC.
+
+    The signed-character API is checked against all three paths but is not
+    counted as an independent source, since it is the local interface under
+    test.
 
     All three should agree.
 
@@ -1097,27 +1254,40 @@ def verify_coha_dim_vs_phi01(max_degree: int = 5,
                     continue
                 # Path 1: from discriminant table
                 cD_path1 = c_disc.get(D, 0)
-                # Path 2: direct from root_multiplicity function
-                cD_path2 = root_multiplicity(r, l_val, m, max_n)
-                # Path 3: if D = 4*n*1 - l^2 for some n, compare with phi01 table
-                # In general D = 4rm - l^2. For the phi01 table, f(n, l) = c(4n - l^2).
-                # So c(D) should equal f(n, l') where 4n - l'^2 = D.
-                # Find such (n, l'): n = (D + l'^2)/4 for some l' with l'^2 = D mod 4.
-                cD_path3 = cD_path1  # by construction from the same source
+                api_value = signed_character_coefficient(r, l_val, m, max_n)
+                representative = _canonical_phi01_representative(D)
+                if representative is None:
+                    continue
+                n_rep, l_rep = representative
+                # Path 2: direct Fourier coefficient, not the discriminant table
+                cD_path2 = _direct_phi01_coefficient(n_rep, l_rep, max(max_n, n_rep))
+                # Path 3: finite source/parity gate.  We only claim a
+                # three-path check at discriminants whose source constant is
+                # recorded independently of the discriminant-table computation.
+                if D not in KNOWN_C_DISC:
+                    continue
+                cD_path3 = KNOWN_C_DISC[D]
 
-                match = (cD_path1 == cD_path2)
-                if cD_path1 != 0:
-                    checks.append({
-                        'r': r, 'l': l_val, 'm': m, 'D': D,
-                        'path1': cD_path1, 'path2': cD_path2,
-                        'match': match,
-                    })
+                match = (cD_path1 == cD_path2 == cD_path3 == api_value)
+                checks.append({
+                    'r': r, 'l': l_val, 'm': m, 'D': D,
+                    'path1': cD_path1, 'path2': cD_path2,
+                    'path3': cD_path3, 'api': api_value,
+                    'path2_representative': (n_rep, l_rep),
+                    'match': match,
+                })
 
     all_match = all(c['match'] for c in checks)
     return {
         'checks': checks,
         'n_checks': len(checks),
         'all_match': all_match,
+        'path_sources': (
+            'phi01_by_discriminant',
+            'phi01_coefficient',
+            'KNOWN_C_DISC',
+        ),
+        'api_checked': 'signed_character_coefficient',
     }
 
 
@@ -1205,15 +1375,19 @@ def coha_k3e_summary(max_degree: int = 4, max_n: int = 20) -> Dict[str, Any]:
     Returns a comprehensive dict with all computed data.
     """
     return {
-        'coha_dimensions': total_coha_dimension_by_degree(max_degree, max_n),
+        'signed_character_magnitudes': total_signed_character_magnitude_by_degree(max_degree, max_n),
+        'dimension_caveat': (
+            "CoHA dimensions are not inferred from |c(D)|; they require "
+            "parity-resolved source fixtures."
+        ),
         'root_decomposition': root_decomposition(max_degree, max_n),
         'super_character': super_character_by_degree(max_degree, max_n),
         'row_sum_vanishing': verify_row_sum_vanishing(max_degree**2, max_n),
-        'cross_verification': verify_coha_dim_vs_phi01(max_degree, max_n),
+        'cross_verification': verify_signed_character_vs_phi01(max_degree, max_n),
         'plethystic_log_rank0': plethystic_log_k3e(max_degree),
         'e1_central_charge': e1_central_charge(),
         'identification': {
-            'algebra': 'U(n_+) of g_{Delta_5}',
+            'algebra': 'BKM positive half signed-character data for g_{Delta_5}',
             'type': 'BKM superalgebra (generalized Kac-Moody)',
             'root_multiplicities': 'c(D) from phi_{0,1}',
             'real_root_mult': 'c(-1) = 1 (simple roots)',
@@ -1232,18 +1406,18 @@ if __name__ == '__main__':
 
     summary = coha_k3e_summary(4)
 
-    print("\n--- CoHA dimensions by degree N = r + m ---")
-    for N, dim_val in sorted(summary['coha_dimensions'].items()):
-        print(f"  N = {N}: total dim = {dim_val}")
+    print("\n--- Signed-character magnitudes by degree N = r + m ---")
+    for N, magnitude in sorted(summary['signed_character_magnitudes'].items()):
+        print(f"  N = {N}: total |c(D)| = {magnitude}")
 
     rd = summary['root_decomposition']
     print(f"\n--- Root decomposition (degree <= 4) ---")
     print(f"  Real roots: {rd['n_real']}")
     print(f"  Bosonic imaginary: {rd['n_bosonic']}")
     print(f"  Fermionic imaginary: {rd['n_fermionic']}")
-    print(f"  Total bosonic dim: {rd['total_bosonic_dim']}")
-    print(f"  Total fermionic dim: {rd['total_fermionic_dim']}")
-    print(f"  Super-dimension: {rd['super_dimension']}")
+    print(f"  Total bosonic magnitude: {rd['total_bosonic_magnitude']}")
+    print(f"  Total fermionic magnitude: {rd['total_fermionic_magnitude']}")
+    print(f"  Signed super-character: {rd['signed_super_character']}")
 
     print(f"\n--- Super-character by degree ---")
     for N, sdim in sorted(summary['super_character'].items()):

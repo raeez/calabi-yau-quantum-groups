@@ -146,7 +146,7 @@ Bare $\kappa$ forbidden (HZ-7 / AP113).
 - $\mathrm{CoHA}(\mathbb{C}^3) = Y^+$ (positive half), NOT $\mathcal{W}_{1+\infty}$.
 - Six routes to $G(K3 \times E)$ are six DIFFERENT constructions, NOT six $\Phi$ applications.
 - $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$ FAILS at every $N \in \{1,2,3,4,6\}$ (not a coincidence; at $N=1$ LHS = $5$, RHS = $0+0 = 0$). Universal formula: $\kappa_{\mathrm{BKM}} = c_N(0)/2$ (Borcherds 1998; Gritsenko 1999).
-- Wave 13 crown: bi-based Ran/$\overline{\mathcal{A}_2}$ architecture, CY-2 $[2]$ shift, class-$\mathcal{S}$ $A_1$ parent on $\Sigma_{0,24}$, $H^2(\mathfrak{g}_{\Delta_5})^{\mathbb{Z}/2,K(1)} = \mathbb{C}\cdot\Delta_5$, and $\Delta_5$ as 1-loop-forced output.
+- Wave 13 crown: bi-based Ran/$\overline{\mathcal{A}_2}$ architecture, CY-2 $[2]$ shift, class-$\mathcal{S}$ $A_1$ parent on $\Sigma_{0,24}$, the conditional comparison characteristic $H^2(\mathfrak{g}_{\Delta_5})^{\mathbb{Z}/2,K(1)} \cong \mathbb{C}\cdot\Delta_5$ after finite Hall--Borcherds recognition gates and Heegner comparison, and $\Delta_5$ as 1-loop-forced output.
 - On the $\mathcal{B}$-family, $K^{\kappa_{\mathrm{ch}}}=8=\mathrm{ord}(H_1)$ and $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}}=-1$.
 - Wave 13 installs 59 AP-CY-W13-* anti-patterns; highest-recurrence confusions are Ikeda↔Gritsenko, BKM-as-Yangian, $\Delta_5$ input-vs-output, Lie-level abelianity versus vertex-level non-abelianity, and CY-3 versus CY-2 shift.
 - Class M $E_3$ bar $= 6^g$ at cohomology, NOT infinite.

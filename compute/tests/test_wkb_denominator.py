@@ -1,7 +1,7 @@
 """Tests for the Weyl-Kac-Borcherds denominator identity for g_{Delta_5}.
 
 Verifies both sides of the denominator identity for the BKM superalgebra
-attached to K3 x E, whose denominator is the Igusa cusp form Delta_5.
+attached to K3 x E, whose denominator is the primitive Gritsenko-Nikulin denominator Delta_5.
 
 Ground truth:
   - k3_times_e.tex: thm:k3e-denominator, thm:k3e-product, def:k3e-weyl-vector

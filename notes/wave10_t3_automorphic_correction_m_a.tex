@@ -1,129 +1,340 @@
 % !TEX root = ../main.tex
-% Wave-10 T3/20: Automorphic correction m(a), tau(a) analysis
-% for Delta_5 -> g_{Delta_5} GBKM super-algebra.
-% Sources: Borcherds 1995 Invent 109; Gritsenko-Nikulin 1998;
-% Lorgat 2020 + slides (/tmp/automorphic-slides.txt).
 
+\providecommand{\Z}{\mathbb Z}
+\providecommand{\N}{\mathbb N}
+\providecommand{\R}{\mathbb R}
 \providecommand{\LambdaIIone}{\Lambda^{2,1}_{II}}
 \providecommand{\PII}{\mathcal P_{II}}
 \providecommand{\WII}{W^{(2)}(\LambdaIIone)}
-\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kappaCH}{\kappa_{\mathrm{ch}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kCH}{\kappa_{\mathrm{ch}}}
+\providecommand{\kCat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kFiber}{\kappa_{\mathrm{fiber}}}
 \providecommand{\gDeltaFive}{\mathfrak g_{\Delta_5}}
-\providecommand{\ClaimStatusTheorem}{\textsf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsf{[Conjectured]}}
+\providecommand{\wt}{\operatorname{wt}}
+\providecommand{\smult}{\operatorname{smult}}
 
-\section*{Automorphic correction $m(a)$ and $\tau(a)$ for $\gDeltaFive$}
+\section*{Automorphic correction for the $\Delta_5$ denominator algebra}
 
-\paragraph{Setup.} On the hyperbolic lattice $\LambdaIIone = \{m f_2 + l f_3
-+ n f_{-2} \in \Lambda^{2,1} : m \equiv n \equiv 0 \bmod 2\}$ with Gram
-matrix $((\delta_i,\delta_j)) = \bigl(\!\begin{smallmatrix}2&-2&-2\\
--2&-2&2\\ -2&2&-2\end{smallmatrix}\!\bigr)$, Weyl vector
-$\rho = \tfrac12(\delta_1+\delta_2+\delta_3) = f_2 - \tfrac12 f_3 + f_{-2}$,
-fundamental polyhedron $\PII \subset \mathcal C(\LambdaIIone)_+/\mathbb R_{>0}$
-with $\PII{}_{\mathrm{prim}} = \{\delta_1 = 2f_2 - f_3,\ \delta_2 = 2f_{-2} -
-f_3,\ \delta_3 = f_3\}$.
+\paragraph{Type-II chamber.}
+Work on the hyperbolic lattice
+\[
+  \LambdaIIone=2\Z f_2\oplus \Z f_3\oplus 2\Z f_{-2}.
+\]
+The type-II chamber has primitive real walls
+\[
+  \delta_1=2f_2-f_3,\qquad
+  \delta_2=2f_{-2}-f_3,\qquad
+  \delta_3=f_3,
+\]
+and Weyl vector
+\[
+  \rho=f_2-\frac12 f_3+f_{-2},
+  \qquad
+  (\rho,\delta_i)=-1.
+\]
+The symmetric Cartan matrix is
+\[
+  \bigl((\delta_i,\delta_j)\bigr)_{1\leq i,j\leq3}
+  =
+  \begin{pmatrix}
+  2&-2&-2\\
+  -2&2&-2\\
+  -2&-2&2
+  \end{pmatrix}.
+\]
+The real simple roots of the corrected BKM superalgebra are the three
+walls above, and the real roots are their
+\(\WII\)-orbit.
 
-\paragraph{The correction coefficient $m(a)$. \ClaimStatusTheorem}
-For $a \in \LambdaIIone \cap \mathbb R_{>0}\PII$ and
-$(n,l,m) \in \mathbb Z^3$ with $n,m>0$, $n\equiv m \equiv l\equiv 1\bmod 2$,
-$4nm - l^2 > 0$ the change-of-variable
-$a = (n-1)f_2 - \tfrac{l-1}2 f_3 + (m-1)f_{-2} \in \tfrac12\LambdaIIone$
-gives
-\begin{equation}\label{eq:m-a-formula}
-  m(a) \;=\; -\,\frac{f(n,l,m)}{64},\qquad m(0)=-1,
-\end{equation}
-where $f(n,l,m) = \sum_{(n,l,m)} f(n,l,m)\,e^{\pi i(nz_1+lz_2+mz_3)}$
-are the Fourier coefficients of Igusa's $\Delta_5$. Since $64 \mid f(n,l,m)$
-(Maass multiplier quantisation) one has $m(a) \in \mathbb Z$. The sign
-$m(a) < 0$ for $(a,a) < 0$ encodes the fermionic imaginary simple roots.
+\paragraph{Coefficient normalisation.}
+Put
+\[
+  q=e^{2\pi i z_1},\qquad r=e^{2\pi i z_2},\qquad
+  s=e^{2\pi i z_3}.
+\]
+Write the Siegel coefficients of Igusa's square root in the theta
+normalisation as
+\[
+  \Delta_5(Z)
+  =\sum c_\Delta(n,l,m)\,
+    e^{\pi i(nz_1+lz_2+mz_3)} .
+\]
+The monic Borcherds product is
+\[
+  D_5(Z):=64^{-1}\Delta_5(Z)
+  =
+  q^{1/2}r^{1/2}s^{1/2}
+  \prod_{(n,l,m)>0}
+  (1-q^nr^ls^m)^{f(nm,l)},
+\]
+where
+\[
+  \phi_{0,1}(\tau,z)=\sum_{n\geq0,\ l\in\Z}f(n,l)q^nr^l
+\]
+is the Eichler-Zagier weak Jacobi form. Thus
+\[
+  [q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64,
+  \qquad c_\Delta(1,1,1)=64.
+\]
+The notation separates two coefficient systems: \(c_\Delta(n,l,m)\) is
+a Siegel coefficient of \(\Delta_5\), while \(f(nm,l)\) is the Jacobi
+coefficient used as a product exponent.
 
-\paragraph{The bosonic exponent $\tau(a_0)$. \ClaimStatusTheorem}
-At a null vertex $a_0 \in \{2f_2,\,2f_{-2},\,2f_2 - 2f_3 + 2f_{-2}\}$ of
-$\PII$, $(a_0, a_0) = 0$. The Jacobi cusp form identity
-$\psi_{5,1/2} = \eta(z_1)^9\nu_{11}(z_1,z_2)$ combined with the
-Jacobi-triple-product gives
-\begin{equation}\label{eq:tau-9}
-  1 \,-\, \sum_{t\in\mathbb N} m(t a_0)\,q^t \;=\;
-  \prod_{t\in\mathbb N}(1 - q^t)^{\tau(t a_0)},\qquad \tau(a_0)=9.
-\end{equation}
-The integer $9$ is the $\eta^9$-exponent and is the bosonic imaginary-null
-correction multiplicity.
+The first Jacobi rows are
+\[
+  \phi_{0,1}
+  =
+  r^{-1}+10+r
+  +q(10r^{-2}-64r^{-1}+108-64r+10r^2)+O(q^2).
+\]
+Consequently
+\[
+  f(0,-1)=f(0,1)=1,\quad f(0,0)=10,
+  \quad f(1,\pm1)=-64,\quad f(1,0)=108,\quad
+  f(1,\pm2)=10.
+\]
 
-\paragraph{The $\mathbb Z/2$-graded root system. \ClaimStatusTheorem}
-Following Borcherds–Gritsenko–Nikulin, define
-\begin{align*}
-  \Delta^{\mathrm{re}} &= \PII{}_{\mathrm{prim}}\cdot\mathbb Z
-  = \mathbb Z\delta_1 \oplus\mathbb Z\delta_2 \oplus \mathbb Z\delta_3, \\
-  \Delta^{\mathrm{im}}_{\bar 0} &= \{\tau(a)\cdot a : (a,a)=0,\ \tau(a)>0\}
-  \quad\text{(bosonic null)},\\
-  \Delta^{\mathrm{im}}_{\bar 1} &= \{m(a)\cdot a : (a,a)<0,\ m(a)<0\}
-  \quad\text{(fermionic negative-norm)},
-\end{align*}
-so $\Delta = \Delta^{\mathrm{re}} \cup \Delta^{\mathrm{im}}_{\bar 0}
-\cup \Delta^{\mathrm{im}}_{\bar 1}$ is a Borcherds–Kac–Moody super-root
-system. Generators $\{e_\alpha,h_\alpha,f_\alpha\}_{\alpha\in\Delta}$ with
-$\mathfrak{sl}_2$-relations, Serre relations on $\alpha\in\Delta^{\mathrm{re}}$,
-and $[\mathfrak g_\alpha,\mathfrak g_{\alpha'}]=0$ whenever $(\alpha,\alpha')=0$
-give the GBKM super-algebra $\gDeltaFive$, $\LambdaIIone$-graded with
-triangular decomposition $\gDeltaFive = \mathfrak n_-\oplus\mathfrak h
-\oplus\mathfrak n_+$, $\dim\mathfrak g_\alpha = \mathrm{mult}_0(\alpha)
-- \mathrm{mult}_1(\alpha)$ a supertrace.
+\paragraph{Negative-norm correction coefficient.}
+Let \(n,m,l\) be odd integers with \(n,m>0\) and \(4nm-l^2>0\), and set
+\[
+  a=(n-1)f_2-\frac{l-1}{2}f_3+(m-1)f_{-2}\in\LambdaIIone.
+\]
+Then
+\[
+  \rho+a=n f_2-\frac l2f_3+m f_{-2},
+\]
+and the Gritsenko-Nikulin additive correction coefficient is
+\[
+  m(a)=-\frac{c_\Delta(n,l,m)}{64}.
+\]
+The integrality assertion is a statement in this fixed theta
+normalisation: the chamber coefficients \(c_\Delta(n,l,m)\) that enter
+the additive correction are divisible by \(64\). In particular
+\[
+  m(0)=-\frac{c_\Delta(1,1,1)}{64}=-1.
+\]
+For negative-norm \(a\), the sign of \(m(a)\) is the parity datum:
+positive \(m(a)\) contributes even imaginary simple roots, and negative
+\(m(a)\) contributes odd imaginary simple roots with multiplicity
+\(-m(a)\).
 
-\paragraph{Automorphic-corrected denominator. \ClaimStatusTheorem
-(Borcherds–Gritsenko–Nikulin)}
-\begin{equation}\label{eq:corrected-denominator}
+\paragraph{Isotropic correction coefficient.}
+The primitive isotropic rays of the chamber boundary are generated by
+\[
+  2f_2,\qquad 2f_{-2},\qquad 2f_2-2f_3+2f_{-2}.
+\]
+For \(a_0=2f_2\), the Jacobi identity
+\(\psi_{5,1/2}=\eta^9\nu_{11}\) gives
+\[
+  1+\frac{1}{64}\sum_{t\geq1}c_\Delta(1+2t,1,1)q^t
+  =
+  \prod_{k\geq1}(1-q^k)^9 .
+\]
+Since \(m(t a_0)=-c_\Delta(1+2t,1,1)/64\), this is exactly
+\[
+  1-\sum_{t\geq1}m(t a_0)q^t
+  =
+  \prod_{t\geq1}(1-q^t)^{\tau(t a_0)},
+  \qquad
+  \tau(t a_0)=9\quad(t\geq1).
+\]
+The \(S_3\)-symmetry of the chamber carries the same value to the other
+two primitive isotropic rays. The integer \(9\) is the \(\eta^9\)
+exponent in the isotropic correction. The Borcherds weight is the
+separate scalar \(\kBKM(\Delta_5)=5\).
+
+\paragraph{Imaginary simple roots.}
+For \(a\in\LambdaIIone\cap\R_{>0}\PII\), define the even and odd
+imaginary multiplicities by
+\[
+  \mu_{\bar 0}(a)=
+  \begin{cases}
+  m(a),& (a,a)<0\ \text{and}\ m(a)>0,\\
+  \tau(a),& (a,a)=0\ \text{and}\ \tau(a)>0,\\
+  0,& \text{otherwise},
+  \end{cases}
+\]
+and
+\[
+  \mu_{\bar 1}(a)=
+  \begin{cases}
+  -m(a),& (a,a)<0\ \text{and}\ m(a)<0,\\
+  -\tau(a),& (a,a)=0\ \text{and}\ \tau(a)<0,\\
+  0,& \text{otherwise}.
+  \end{cases}
+\]
+The imaginary simple-root multisets are \(a\) with multiplicity
+\(\mu_{\bar0}(a)\) in parity \(\bar0\) and \(a\) with multiplicity
+\(\mu_{\bar1}(a)\) in parity \(\bar1\). This sign split is part of the
+Gritsenko-Nikulin denominator algebra. The product exponent
+\(f(nm,l)\) gives the signed root supermultiplicity after the BKM
+presentation and its radical quotient have been imposed.
+
+\paragraph{Denominator identity.}
+The corrected Weyl denominator is
+\[
 \begin{aligned}
-  \tfrac{1}{64}\Delta_5(2z) \;&=\;
-  \sum_{w\in\WII}\det(w)\,\Bigl(e^{-2\pi i(w\rho,z)}
-  \,-\!\!\!\sum_{a\in\LambdaIIone\cap\mathbb R_{>0}\PII}
-  m(a)\,e^{-2\pi i(w(\rho+a),z)}\Bigr) \\
-  &=\; e^{-2\pi i(\rho,z)}\prod_{\alpha\in\Delta_+}
-  \bigl(1-e^{-2\pi i(\alpha,z)}\bigr)^{\mathrm{mult}\,\alpha}.
+  64^{-1}\Delta_5(2Z)
+  &=
+  \sum_{w\in\WII}\det(w)\,
+  \left(
+  e^{-2\pi i(w\rho,z)}
+  -
+  \sum_{a\in\LambdaIIone\cap\R_{>0}\PII}
+  m(a)e^{-2\pi i(w(\rho+a),z)}
+  \right) \\
+  &=
+  e^{-2\pi i(\rho,z)}
+  \prod_{\alpha\in\Delta_+}
+  \left(1-e^{-2\pi i(\alpha,z)}\right)^{\smult(\alpha)} .
 \end{aligned}
-\end{equation}
-The first line is Borcherds' correction: the naive $\sum_w \det(w)
-e^{-2\pi i(w\rho,z)}$ fails to be a Siegel modular form; the sum
-$-\sum_a m(a) e^{-2\pi i(w(\rho+a),z)}$ over fermionic imaginary simples
-with $m(a) = -f(n,l,m)/64$ and the bosonic null exponents $\tau(a_0)=9$
-are precisely the corrections that promote the character formula to the
-cusp form $\Delta_5(2z)/64$.
+\]
+Equivalently,
+\[
+  \operatorname{den}(\gDeltaFive)=D_5(2Z)=64^{-1}\Delta_5(2Z).
+\]
+On the visible active support
+\[
+  \alpha(n,l,m)=2nf_2-lf_3+2mf_{-2},
+\]
+the signed multiplicity is
+\[
+  \smult\,\mathfrak g_{\Delta_5,\alpha(n,l,m)}=f(nm,l).
+\]
+This is the denominator-algebra statement. A compact Hall bracket or
+microscopic BPS operator product requires independent source data.
 
-\paragraph{Super-multiplicities and $\phi_{0,1}$. \ClaimStatusTheorem}
-Setting $\phi_{0,1} = \phi_{12,1}/\delta_{12}
-= \sum_{n\geq 0, l\in\mathbb Z} f(n,l)\,e^{2\pi i(nz_1 + lz_2)}$
-(weak Jacobi form, weight $0$, index $1$), one has
-\begin{equation}\label{eq:mult-phi01}
-  \mathrm{mult}\,\alpha \;=\; f(nm,l)\qquad
-  \text{for } \alpha = (n,l,m),\; (n,l,m) > 0,
-\end{equation}
-with $f(0,0)=10$, $f(0,-1)=1$, $f(0,l)=0$ for $l<-1$, and
-$f(1,-1)=-64$, $f(1,0)=108$, $f(1,1)=-64$, $f(1,2)=10$ from the
-$q^1$-expansion of $\phi_{0,1}$.
+\paragraph{First timelike coefficient.}
+The first negative-norm additive coefficient beyond \(m(0)\) occurs at
+\[
+  \delta_{123}:=\delta_1+\delta_2+\delta_3
+  =2f_2-f_3+2f_{-2}.
+\]
+It corresponds to \((n,l,m)=(3,3,3)\), hence
+\[
+  m(\delta_{123})=-\frac{c_\Delta(3,3,3)}{64}.
+\]
+Removing the leading monomial from \(D_5\) gives
+\[
+  \left[qrs\right]
+  \prod_{(n,l,m)>0}
+  (1-q^nr^ls^m)^{f(nm,l)}=93,
+\]
+so
+\[
+  c_\Delta(3,3,3)=64\cdot93,
+  \qquad
+  m(\delta_{123})=-93.
+\]
+The same root has signed product multiplicity \(f(1,1)=-64\). In the
+Gritsenko-Nikulin target presentation this signed value is realised as
+\[
+  29-93=-64:
+\]
+there are \(29\) even presentation directions and \(93\) odd
+negative-norm imaginary simple directions. The coefficient \(93\) is
+therefore an additive-correction coefficient; the Jacobi product
+exponent at the same signed root is \(f(1,1)=-64\).
 
-\paragraph{First-principles check on $f(1,1,1)=64$. \ClaimStatusTheorem}
-From $\phi_{5,1} = \psi_{5,1/2}^2 = \eta(z_1)^{18}\nu_{11}(z_1,z_2)^2$
-and the Jacobi-triple expansion $\nu_{11} = q_1^{1/8}q_2^{-1/2}
-\prod_{n\geq 1}(1-q_1^{n-1}q_2)(1-q_1^n q_2^{-1})(1-q_1^n)$, the leading
-term of $\Delta_5 = \sum \phi_{5,m}(z_1,z_2)e^{\pi i m z_3}$ at
-$(n,l,m)=(1,1,1)$ picks out the constant in $\nu_{11}^2 \eta^{18}$ after
-the Jacobi-triple expansion, yielding $f(1,1,1) = 64 = 2^6$. The
-normalising factor $1/64 = 2^{-6}$ is then forced by $m(0) = -1$ and
-integrality of $m(a)$.
+\paragraph{Borcherds weights and catalogue separation.}
+For the primitive CHL Borcherds products \(\Phi_N\), the symbol
+\(c_N(0)\) is the \(\zeta^0q^0\)-coefficient of the normalised twined
+K3 Jacobi input after the cusp and product normalisation are fixed. In
+the standard Gritsenko-Nikulin CHL normalisation,
+\[
+  (c_1(0),c_2(0),c_3(0),c_4(0),c_6(0))
+  =(10,8,6,4,2),
+\]
+Borcherds' weight theorem gives
+\[
+  \kBKM(\Phi_N)=\wt(\Phi_N)=\frac{c_N(0)}{2},
+  \qquad
+  (\kBKM(\Phi_1),\kBKM(\Phi_2),\kBKM(\Phi_3),
+  \kBKM(\Phi_4),\kBKM(\Phi_6))=(5,4,3,2,1).
+\]
+At \(N=1\), \(\Phi_1=\Delta_5\) and \(c_1(0)=10\).
 
-\paragraph{Interpretation.} Each $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
-($N \in \{1,2,3,4,6\}$) sits as the \emph{bosonic-null} part of
-\eqref{eq:corrected-denominator}; the fermionic part organised by
-$m(a) < 0$ is the genuinely super-algebraic correction. At $N=1$,
-$c_1(0)/2 = 5 = \kappa_{\mathrm{BKM}}(\Delta_5)$ is the weight of $\Delta_5$, and
-the super-algebra $\gDeltaFive$ is the K3$\times E$ BPS quantum group.
-The formula $m(a) = -f(n,l,m)/64$ is the universal automorphic-correction
-formula propagating through $N \in\{1,2,3,4,6\}$ (Gritsenko–Nikulin 1998).
+Let \(Y=K3\times E\). The compact total-space Hodge numbers are
+\[
+  (h^{0,0}(Y),h^{0,1}(Y),h^{0,2}(Y),h^{0,3}(Y))=(1,1,1,1),
+\]
+hence
+\[
+  \kCH^{\mathrm{comp}}(Y)=\sum_q(-1)^q h^{0,q}(Y)=0.
+\]
+The categorical invariant is Kunneth-multiplicative:
+\[
+  \kCat(Y)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0=0.
+\]
+The Heisenberg-Mukai specialisation gives
+\[
+  \kCH^{\mathrm{Heis}}(Y)=\kCH(K3)+\kCH(E)=2+1=3.
+\]
+The Borcherds denominator gives
+\[
+  \kBKM(\Delta_5)=\wt(\Delta_5)=c_1(0)/2=10/2=5,
+\]
+and the fibre scalar is the Mukai-lattice rank
+\[
+  \kFiber(Y)=\operatorname{rk}\widetilde H(K3,\Z)=1+22+1=24.
+\]
+Thus
+\[
+  \{\kCat(Y),\kCH^{\mathrm{Heis}}(Y),
+  \kBKM(\Delta_5),\kFiber(Y)\}=\{0,3,5,24\},
+\]
+while \(\kCH^{\mathrm{comp}}(Y)=0\) records the compact Hodge-supertrace
+reading. The equality \(\kBKM(\Phi_N)=c_N(0)/2\) is a Borcherds weight
+identity. The additive expression
+\(\kBKM=\kCH+\chi(\mathcal O_{\mathrm{fiber}})\) evaluates to left side
+\(5\) and right side \(0+0\) at the compact \(N=1\) total-space
+reading; the CHL ladder is governed by the Borcherds denominator
+theorem.
+
+The Gritsenko-Cl\'ery diagonal-divisor catalogue is the distinct
+eight-row diagonal-divisor family indexed by triples \((t,N;k)\). Its
+weights are
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1),
+\]
+with twice-weight tuple
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+The common row with the CHL normalisation is \((t,N;k)=(1,1;5)\). The
+Fake-Monster product belongs to a third lattice:
+\(\eta(\tau)^{-24}=q^{-1}+24+\cdots\) gives
+\(\kBKM(\Phi_{12}^{\mathrm{FM}})=24/2=12\) on the orthogonal
+rank-\(26\) Fake-Monster lattice, whereas the \(\Delta_5\) type-II
+denominator algebra is built from the rank-\(3\) lattice \(\LambdaIIone\).
+
+\paragraph{Hall source-recognition data.}
+The automorphic theorem supplies the monic product, the corrected Weyl
+sum, the signed root supermultiplicities, and the simple-imaginary-root
+coefficients \(m(a)\) and \(\tau(a)\) for \(\gDeltaFive\). A compact
+\(K3\times E\) Hall or BPS realisation requires source-side protected
+primitive bases, parity dimensions, Hall brackets, Serre relations, a
+Hopf pairing, its closed radical quotient, and PBW compatibility.
+
+For \(N\geq2\), a CHL denominator algebra with explicit correction
+coefficients requires its own Jacobi input, chamber lattice, Weyl
+vector, multiplier character, product normalisation, and additive
+coefficient formula. For a Gritsenko-Cl\'ery row, the proof names
+the row \((t,N;k)\), the relevant cusp-weighted coefficient sum, the
+multiplier system, and the row-wise denominator theorem. A comparison
+using weights without these data records a numerical equality of scalar
+invariants.
 
 \paragraph{References.}
-Borcherds, \emph{Automorphic forms on $O_{s+2,2}(\mathbb R)$ and infinite
-products}, Invent.\ Math.\ 120 (1995) 161--213;
-Gritsenko--Nikulin, \emph{Automorphic forms and Lorentzian Kac-Moody
-algebras I \& II}, Internat.\ J.\ Math.\ 9 (1998) 153--199, 201--275;
-Lorgat, \emph{Automorphic corrections and diagonal divisor Siegel modular
-forms of genus 2} (2020).
+Borcherds, \emph{Automorphic forms on \(O_{s+2,2}(\mathbb R)\) and
+infinite products}, Invent.\ Math.\ 120 (1995), 161-213; Borcherds,
+\emph{The singular theta correspondence and automorphic forms},
+Invent.\ Math.\ 132 (1998), 491-562; Gritsenko-Nikulin,
+\emph{Automorphic forms and Lorentzian Kac-Moody algebras I, II},
+Internat.\ J.\ Math.\ 9 (1998), 153-199, 201-275; Gritsenko-Cl\'ery,
+\emph{The Siegel modular forms of genus 2 with the simplest divisor},
+Proc.\ Lond.\ Math.\ Soc.\ 102 (2011), 1024-1052; Mukai,
+\emph{On the moduli space of bundles on K3 surfaces I}, Vector Bundles
+on Algebraic Varieties (1987), 341-413; Huybrechts, \emph{Lectures on
+K3 Surfaces}, Cambridge University Press (2016).

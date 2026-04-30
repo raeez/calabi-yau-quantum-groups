@@ -1,21 +1,5 @@
-% =====================================================================
-% Wave-19 Y2/20: N=4 automorphic Borcherds lift and denominator identity
-% for Delta_1^{(4)}. Gritsenko voice. Sibling to Y1 (geometric).
-%
-% Primary sources: Gritsenko-Clery 2013 (arXiv:1106.1979 Thm.~4.1);
-% Cheng-Duncan-Harvey 2014 (arXiv:1307.5793); Gritsenko 1999
-% (arXiv:math/9906129 Thm.~3.4, Cor.~3.3); Gritsenko-Nikulin 1995
-% Part~II (arXiv:alg-geom/9504006 Thm.~2.1); Borcherds 1995
-% (Invent.\ Math.~120 Thm.~10.1); Mukai 1988 (Invent.\ Math.~94);
-% Nikulin 1979 (Trudy); Eguchi-Ooguri-Tachikawa 2011 Table~1;
-% Lorgat 2020 (Conj.~1).
-%
-% Authorship: Raeez Lorgat. Inscribed 2026-04-22.
-% =====================================================================
+% Level-four CHL automorphic denominator.
 
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textbf{[Proved elsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
@@ -23,249 +7,296 @@
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\cO}{\mathcal{O}}
+\providecommand{\DTred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
 \providecommand{\mult}{\mathrm{mult}}
-\providecommand{\gDeltaFour}{\mathfrak{g}_{\Delta_1^{(4)}}}
+\providecommand{\smult}{\operatorname{smult}}
+\providecommand{\wt}{\operatorname{wt}}
+\providecommand{\Hup}{\mathbb H_2}
+\providecommand{\Hdiag}{\mathcal H_{\mathrm{diag}}}
+\providecommand{\PhiFour}{\Phi_4}
+\providecommand{\DeltaFour}{\Delta^{(4)}_2}
+\providecommand{\DeltaOneFour}{\Delta_{1,4}}
+\providecommand{\NablaThreeHalf}{\nabla_{3/2}}
+\providecommand{\gPhiFour}{\mathfrak{g}_{\Phi_4}}
 
-\section*{Wave-19 Y2: $N = 4$ automorphic lift and Weyl--Kac--Borcherds
-denominator identity for $\Delta_1^{(4)}$}
-\label{wn:sec:wave19-y2-N4-automorphic}
+\section*{Level-four CHL automorphic denominator}
+\label{wn:sec:N4-automorphic-denominator}
 
-Fix $g_4 \in M_{24}$ of conjugacy class $4B$, cycle shape
-$1^{4} 2^{2} 4^{4}$, $\chi(K3^{g_4}) = 4$ (Mukai 1988,
-\emph{Invent.~Math.}~94, Prop.~1.2 Table~\S2). On the $K3$ fibre this
-is the Nikulin symplectic $\Z/4$-action with fixed locus four isolated
-$A_3$ singularities (Nikulin 1979, \emph{Trudy Moscow Math.~Soc.}~38
-Thm.~4.5; Hashimoto 2012, \emph{Tohoku Math.~J.}~64:105 Table~2).
-
-\subsection*{Cycle 1: Cheng--Duncan--Harvey twined Jacobi input
-$\phi^{(g_4)}_{0,1}$}
-
-\ClaimStatusProvedElsewhere\ (Eguchi--Ooguri--Tachikawa 2011 Table~1;
-Cheng--Duncan--Harvey 2014 \texttt{arXiv:1307.5793} Table~2; Eguchi--Hikami
-2011, \emph{Comm.~Math.~Phys.}~307:209 eq.~(3.9).)
-The weight-$0$ index-$1$ Jacobi form twined by $g_4$ at class $4B$ is
+Let $S$ be a K3 surface, let $g_4\in\mathrm{Aut}_s(S)$ be a symplectic
+automorphism of order $4$, and let $t_4\in E[4]$ be a translation of
+exact order $4$ on an elliptic curve $E$. The diagonal quotient
 \[
-  \phi^{(g_4)}_{0,1}(\tau, z)
-  \;=\;
-  \tfrac{1}{4}\bigl(\alpha_4\,\phi_{0,1}(\tau,z)
-      \;+\; \beta_4\,\phi_{-2,1}(\tau,z)\, E_4^{(4)}(\tau)\bigr),
-  \qquad (\alpha_4, \beta_4) = (2,\, -2),
+  X_4=(S\times E)/\langle(g_4,t_4)\rangle
 \]
-in the Eichler--Zagier basis $\{\phi_{0,1}, \phi_{-2,1}\}$
-(Eichler--Zagier 1985, Thm.~9.3), with $E_4^{(4)}(\tau)$ the level-$4$
-Eisenstein of weight~$2$ pulled back along the CDH normalisation.
-The Fourier expansion
+is smooth and $K$-trivial. The holomorphic $3$-form descends because
+$g_4$ fixes $H^{2,0}(S)$ and $t_4$ fixes $dz_E$. Mukai and Nikulin give
+the Mathieu class $4B$, frame shape $1^4 2^2 4^4$,
 \[
-  \phi^{(g_4)}_{0,1}(\tau, z)
-  \;=\;
-  \sum_{n \geq 0}\sum_{\ell \in \Z}
-    c^{(g_4)}(n, \ell)\,q^{n}\zeta^{\ell},
+  \#S^{g_4}=4,\qquad
+  \#S^{g_4^2}=8.
+\]
+The Lefschetz equations for the eigenvalue multiplicities
+$(a,b,c,c)$ of $g_4$ on $H^2(S,\C)$ at eigenvalues
+$(1,-1,i,-i)$ are
+\[
+  a+b+2c=22,\qquad a-b=2,\qquad a+b-2c=6.
+\]
+Thus
+\[
+  (a,b,c)=(8,6,4),\qquad
+  \mathrm{rk}\,H^2(S,\Z)^{g_4}=8,\qquad
+  \mathrm{rk}\,\widetilde H(S,\Z)^{g_4}=10,\qquad
+  \mathrm{rk}\,(H^2(S,\Z)^{g_4})^\perp=14.
+\]
+The surface quotient $S/\langle g_4\rangle$ has four $A_3$ quotient
+points from the $g_4$-fixed locus and two $A_1$ quotient points from
+the other $g_4^2$-fixed orbits. These points record the fibre
+monodromy; the diagonal translation removes stabilizers from the
+threefold $X_4$.
+
+\subsection*{The level-four Borcherds input}
+
+Let $\phi^{(4)}_{0,1}=\phi^{(g_4)}_{0,1}$ be the $4B$-twined K3 weak
+Jacobi form of weight $0$ and index $1$,
+\[
+  \phi^{(4)}_{0,1}(\tau,z)
+  =
+  \sum_{n\geq 0}\sum_{\ell\in\Z}
+  c^{(4)}(4n-\ell^2,\ell)\,q^n\zeta^\ell .
+\]
+The primitive CHL Borcherds-input constant is
+\[
+  c_4(0)=4.
+\]
+Together with
+\[
+  (c_1(0),c_2(0),c_3(0),c_4(0),c_6(0))=(10,8,6,4,2),
+\]
+this is the Gritsenko--Nikulin CHL normalisation. Borcherds' singular
+theta lift then gives
+\[
+  \mathrm{wt}(\Phi_N)=\frac{c_N(0)}2,\qquad
+  N\in\{1,2,3,4,6\}.
+\]
+Hence the primitive level-four denominator has weight
+\[
+  \mathrm{wt}(\PhiFour)=\frac{c_4(0)}2=2.
+\]
+The coefficient $c_4(0)$ belongs to the primitive CHL input. The
+Gritsenko--Cl\'ery row $\DeltaOneFour$ below has its own coefficient
+normalisation.
+
+The notation used here is
+\[
+  \PhiFour=\DeltaFour
+  \in M_2(\Gamma_0^+(4),\chi^{\mathrm{CHL}}_4).
+\]
+This is the primitive CHL denominator, on the CHL orthogonal model
+\[
+  L^{\mathrm{CHL}}_4=U\oplus U(4)\oplus\langle-2\rangle,
+  \qquad \operatorname{sig}(L^{\mathrm{CHL}}_4)=(2,3),
+\]
+with Jacobi input $\phi^{(4)}_{0,1}$ and
+$[q^0\zeta^0]\phi^{(4)}_{0,1}=4$. Its divisor is the
+Gritsenko--Nikulin CHL reflective Humbert divisor in the product
+chamber, with product exponents $c^{(4)}(4nm-\ell^2,\ell)$.
+
+\subsection*{The symbol $\Delta_{1,4}$}
+
+The Gritsenko--Cl\'ery diagonal-divisor row with coordinate
+$(t,N_{\mathrm{lvl}};k)=(1,4;\tfrac32)$ is
+\[
+  \DeltaOneFour:=\NablaThreeHalf
+  \in M_{3/2}(\Gamma_0^{(2)}(4),\chi_4).
+\]
+Its orthogonal lattice is
+\[
+  \mathcal O_{1,4}=U\oplus U(4)\oplus\langle-2\rangle,
+\]
+and its product-degree lattice is
+\[
+  M_1=U(4)\oplus\langle2\rangle.
+\]
+Its divisor is
+\[
+  \operatorname{div}(\DeltaOneFour)
+  =
+  \Gamma_0^{(2)}(4)\cdot\Hdiag,
   \qquad
-  c^{(g_4)}(0, 0) \;=\; 2,\quad
-  c^{(g_4)}(0, \pm 1) \;=\; 0,\quad
-  c^{(g_4)}(0, \ell) = 0 \;(|\ell| > 1),
+  \operatorname{mult}_{\Hdiag}(\DeltaOneFour)=1.
 \]
-lies in $J^{w, \nu_4}_{0,1}(\Gamma_0(4))$ (index $1$, level $4$,
-multiplier $\nu_4$). The constant $c_4(0) := c^{(g_4)}(0, 0) = 2$ is
-the doubly-twined value of Gritsenko--Nikulin 1995 Part~II
-(\texttt{arXiv:alg-geom/9504006} Thm.~2.1), reconciled with the
-singly-twined CDH value $c_4(0)^{\mathrm{single}} = 4$ via the
-$\phi^{(g_4, h_4)}_{0,1}$ vs.\ $\phi^{(g_4)}_{0,1}$ distinction of
-Lorgat 2020 Conj.~1.
-
-\subsection*{Cycle 2: weight, index, character}
-
-\ClaimStatusTheorem\ (Gritsenko--Cl\'ery 2013
-\texttt{arXiv:1106.1979} Thm.~4.1; Gritsenko--Nikulin 1995 Part~II
-Thm.~2.1.)
-The Jacobi form $\phi^{(g_4)}_{0,1}$ has
+The Jacobi input in the Cl\'ery--Gritsenko product normalisation is
 \[
-  \mathrm{weight} = 0,
+  2\,\xi_{2,1}^{(4)}\xi_{2,3}^{(4)}
+  \in J^w_{0,1}(\Gamma_0(4)).
+\]
+The product is integral on the $\mu_4$ multiplier cover and has
+$\wt(\DeltaOneFour)=3/2$, equivalently
+$c^{\mathrm{GC}}_{1,4}(0)=3$. The common orthogonal lattice is ambient
+quadratic data. Transporting constants between the GC row and the
+primitive CHL ladder demands a theorem identifying host, chamber,
+multiplier, and coefficient convention.
+
+\subsection*{Automorphic product}
+
+For
+\[
+  Z=\begin{pmatrix}\tau&z\\ z&\sigma\end{pmatrix}\in\Hup,
   \qquad
-  \mathrm{index} = 1,
+  (q,\zeta,p)=(e^{2\pi i\tau},e^{2\pi iz},e^{2\pi i\sigma}),
+\]
+the Borcherds product is
+\[
+  \PhiFour(Z)
+  =
+  q^{a_0}\zeta^{b_0}p^{c_0}
+  \prod_{\substack{(n,\ell,m)\in\Z^3\\(n,\ell,m)>0}}
+  \bigl(1-q^n\zeta^\ell p^m\bigr)^{c^{(4)}(4nm-\ell^2,\ell)} .
+\]
+The Weyl vector $(a_0,b_0,c_0)$ is determined by the chosen cusp and
+the level-four multiplier. Its precise representative is part of the
+automorphic-product normalisation; the invariant needed for
+$\kBKM$ is the weight $2$ above.
+
+The product is the denominator of a Borcherds--Kac--Moody superalgebra
+$\gPhiFour$:
+\[
+  \PhiFour(Z)
+  =
+  e^{2\pi i(W_4,Z)}
+  \prod_{\alpha\in\Delta_+}
+  \bigl(1-e^{2\pi i(\alpha,Z)}\bigr)^{
+    \smult_{\gPhiFour}(\alpha)}.
+\]
+For $\alpha=n\delta+\ell z+mw$ in the positive chamber,
+\[
+  \smult_{\gPhiFour}(\alpha)
+  =
+  c^{(4)}(4nm-\ell^2,\ell).
+\]
+The displayed identity is target automorphic BKM data. It determines
+signed root supermultiplicities. A compact Hall--Drinfeld or
+CY-to-chiral realisation is additional data: orientations, a completed
+Hall product, parity, a radical quotient, PBW recognition, and a
+protected-bracket comparison with these signed exponents. For a
+threefold source the native CY-to-chiral output is $E_1$; $E_2$
+structure lives after passage to the centre, Drinfeld double, or module
+layer.
+
+\subsection*{Primitive denominator and scalar square}
+
+The primitive automorphic object is $\PhiFour$ of weight $2$. The
+reduced Donaldson--Thomas scalar comparison fixes the scalar
+denominator, after the chamber and variables are chosen, as the square
+of the primitive level-four denominator:
+\[
+  \Phi^{\mathrm{scal}}_4(\tau,\sigma,z)=\PhiFour(\tau,\sigma,z)^2,
   \qquad
-  \mathrm{character}\; \chi_{g_4}\colon \Z/4 \to \C^\times,\;
-  \chi_{g_4}(s) = e^{2\pi i s/4},
+  \DTred(X_4)(\tau,\sigma,z)
+  =
+  -\,\mathcal C^{\mathrm{BO}}_4(\tau,z)\,
+  \bigl(\Phi^{\mathrm{scal}}_4(\tau,\sigma,z)\bigr)^{-1}.
 \]
-and transforms under the congruence subgroup $\Gamma_0(4)$. The character
-$\chi_{g_4}$ is non-trivial on the $\phi_{-2,1}$ summand and trivial
-on the $\phi_{0,1}$ summand (Cheng--Duncan--Harvey 2014 eq.~(4.12);
-Gaberdiel--Hohenegger--Volpato 2012 \texttt{arXiv:1211.7074} Thm.~4).
-These three data --- weight $0$, index $1$, character $\chi_{g_4}$ ---
-are the input parameters of the Borcherds multiplicative lift.
-
-\subsection*{Cycle 3: Borcherds lift to $\Delta_1^{(4)}$ on $\Gamma_4^+$}
-
-\ClaimStatusTheorem\ (Borcherds 1995, \emph{Invent.~Math.}~120:161
-Thm.~10.1; Gritsenko 1999 \texttt{arXiv:math/9906129} Thm.~3.4,
-Cor.~3.3; Gritsenko--Cl\'ery 2013 Thm.~4.1.)
-The multiplicative Borcherds lift of $\phi^{(g_4)}_{0,1}$ is the
-paramodular Siegel cusp form
+The prefactor $\mathcal C^{\mathrm{BO}}_4$ is fixed by the
+Bryan--Oberdieck scalar normalisation and boundary terms. This identity
+is the scalar content of a compatibility theorem placing Bryan--Steinberg
+equivariant descent, Oberdieck's reduced $K3\times E$ theory, and the
+primitive CHL denominator normalisation in one convention for
+orientations, cosections, stability chambers, and completions. Thus the
+scalar denominator has weight $4$.
+The level-one normalisation split is
 \[
-  \Delta_1^{(4)}(Z)
-  \;=\;
-  q^{a_{0}}\zeta^{b_{0}}p^{c_{0}}
-  \prod_{\substack{(n, \ell, m) \in \Z^3 \\ (n,\ell,m) > 0}}
-    \bigl(1 - q^{n}\zeta^{\ell}p^{m}\bigr)^{c^{(g_4)}(nm,\ell)},
-  \quad
-  Z = \begin{pmatrix}\tau & z\\ z & \sigma\end{pmatrix}\in \mathbb{H}_2,
+  D_5=64^{-1}\Delta_5,\qquad
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2,\qquad
+  Z^{K3\times E}_{\mathrm{OP}}=-4096\,\Delta_5^{-2}.
 \]
-$(q, \zeta, p) = (e^{2\pi i\tau}, e^{2\pi i z}, e^{2\pi i\sigma})$,
-convergent on the tube over the forward light cone of
-$\Lambda^{2,1}_{II}(4)$ (the level-$4$ rescale of the hyperbolic
-sublattice; Borcherds 1995 \S6), with Weyl vector
-$(a_0, b_0, c_0) = (1/4, 1/2, 1/4)$ reading off the $\zeta^{\pm 1/2}$
-and $q^{1/4}$ displacements forced by the level-$4$ multiplier system.
-The form $\Delta_1^{(4)}$ is a holomorphic cusp form on the paramodular
-group $\Gamma_4^+ = \Gamma_4 \cup V_4 \Gamma_4$ (Gritsenko--Hulek 1998,
-\emph{Int.~J.~Math.}~9:201 \S1) of weight
+These are scalar normalisations of the square. They leave the primitive
+BKM characteristic $\kBKM(\PhiFour)=2$ unchanged.
+
+Under the scalar comparison theorem, the scalar denominator contributes
+the inverse-square factor
 \[
-  \mathrm{wt}\bigl(\Delta_1^{(4)}\bigr)
-  \;=\;
-  \frac{c_4(0)}{2}
-  \;=\;
-  \frac{2}{2}
-  \;=\;
-  1,
+  \PhiFour(Z)^{-2}
+  =
+  q^{-2a_0}\zeta^{-2b_0}p^{-2c_0}
+  \prod_{\substack{(n,\ell,m)\in\Z^3\\(n,\ell,m)>0}}
+  \bigl(1-q^n\zeta^\ell p^m\bigr)^{
+    -2c^{(4)}(4nm-\ell^2,\ell)}.
 \]
-by direct application of Borcherds 1995 Thm.~10.1 to the Jacobi input.
-The weight matches the Gritsenko--Nikulin 1995 Part~II Thm.~2.1 entry
-$k(4) = 1$ in the $\Delta_{k(N)}^{(N)}$-tower
-$(k(1), k(2), k(3), k(4), k(6)) = (5, 2, 1, 1, 1)$, and populates the
-Vol III $\kBKM$-table at position $N = 4$:
+Ordinary even and odd BPS multiplicities require the parity and
+Hall--Drinfeld recognition data named above.
+
+\paragraph{Scalar compatibility datum.}
+Borcherds' weight formula and the Gritsenko--Nikulin CHL tower prove
+the automorphic product, its weight, and the BKM denominator identity.
+The scalar comparison theorem must supply the common orientations,
+cosections, stability chambers, and completions. The fixed automorphic
+inputs are
 \[
-  \kBKM\bigl(\Delta_1^{(4)}\bigr)
-  \;=\;
-  \frac{c_4(0)}{2}
-  \;=\;
-  1.
+  c_4(0)=4,\qquad \mathrm{wt}(\PhiFour)=2.
 \]
 
-\subsection*{Cycle 4: Weyl--Kac--Borcherds denominator identity for
-$\gDeltaFour$}
+\subsection*{Four invariants at level four}
 
-\ClaimStatusTheorem\ (lattice level, Gritsenko--Nikulin 1998,
-\emph{Amer.~J.~Math.}~119 Thm.~2.3; Borcherds 1995 Thm.~10.1.)
-Let $L^{(4)} = \Lambda^{2,1}_{II}(4) \subset \Lambda^{3,2}(4)$ carry the
-Gram matrix
+For the smooth CHL threefold $X_4$ and its primitive automorphic
+denominator,
 \[
-  G^{(4)}
-  \;=\;
-  \tfrac{1}{2}\!\begin{pmatrix}
-     2 & -2 & -2 \\
-    -2 &  2 & -2 \\
-    -2 & -2 &  2
-  \end{pmatrix},
-  \qquad
-  \det G^{(4)} \;=\; -12,
+  \kBKM(\PhiFour)=\frac{c_4(0)}2=2.
 \]
-carried by the Mukai-invariant primitive sublattice of signature
-$(2,1)$ at Mukai-invariant rank $r_4 = 22 - 8 = 14$ (Mukai 1988 \S 4
-Table; Nikulin 1979 Thm.~4.5). The Borcherds--Kac--Moody superalgebra
-$\gDeltaFour$ with real-simple-root Cartan $G^{(4)}$ and imaginary
-simple roots
+The total-space categorical Euler characteristic is
 \[
-  \Delta^{\mathrm{im}}_{\bar 0}
-  \;=\;
-  \bigl\{\,\alpha = n\delta + \ell z + m w \in L^{(4)}\;\bigm|\;
-          (\alpha,\alpha) = 4nm - \ell^{2} = 0,\;
-          \alpha\cdot W_4 > 0\,\bigr\},
+  \kcat(X_4)
+  =
+  \chi(\cO_{X_4})
+  =
+  1-1+1-1
+  =
+  0,
 \]
-(with $W_4$ the Weyl vector above; $\Delta^{\mathrm{im}}_{\bar 1}$
-the odd sublattice as in Gritsenko--Nikulin 1998 Thm.~2.3) has
-denominator identity
+because $g_4$ fixes $H^{0,0}(S)$ and $H^{0,2}(S)$, while translation
+fixes $H^{0,0}(E)$ and $H^{0,1}(E)$.
+The compact K-trivial threefold Hodge-supertrace value is
 \[
-  \Delta_1^{(4)}(Z)
-  \;=\;
-  e^{2\pi i (W_4, Z)}
-  \prod_{\alpha \in \Delta_{+}}
-    \bigl(1 - e^{2\pi i(\alpha, Z)}\bigr)^{\mult_{\gDeltaFour}(\alpha)},
+  \kch(\mathcal A_{X_4})=0.
 \]
-with positive-root multiplicity
+The output attached to this threefold source is $E_1$-chiral. The
+associated $E_2$ structures live on the centre, double, or module layer.
+The fibre-lattice invariant at level four is the invariant Mukai-lattice
+rank
 \[
-  \mult_{\gDeltaFour}(\alpha)
-  \;=\;
-  c^{(g_4)}(nm,\, \ell),
-  \qquad
-  \alpha = n\delta + \ell z + m w.
+  \kfib^{(4)}
+  =
+  \mathrm{rk}\,\widetilde H(S,\Z)^{g_4}
+  =
+  10.
 \]
-This is Theorem W4.N4 eq.~\eqref{wn:eq:wave11-w4-mult-N4} read through
-the denominator form.
+The rank $14$ computed above is the coinvariant rank in $H^2(S,\Z)$.
 
-\subsection*{Cycle 5: matching to Y1 BPS characters}
-
-\ClaimStatusTheorem\ (reduced DT identification; Bryan--Steinberg 2014
-\emph{Duke Math.~J.}~168:3517, \texttt{arXiv:1403.4748} Thm.~1.1;
-Oberdieck 2018, \emph{Duke Math.~J.}~167:3045 Thm.~1; Wave-11 W4.N4.)
-On the untwisted sector $X^{(4)} = [K3\times E/\Z_4]$ the reduced
-Donaldson--Thomas partition function produced by the Y1 geometric
-channel is
+These four numbers come from four constructions: automorphic weight,
+total-space Euler characteristic, compact chiral Hodge supertrace, and
+invariant fibre lattice. The parent $K3\times E$ values
 \[
-  Z^{\mathrm{red}}_{\mathrm{DT}}\!\bigl(X^{(4)}\bigr)(\tau, \sigma, z)
-  \;=\;
-  -\,\frac{2\,\phi^{(g_4)}_{0,1}(\tau, z)}
-           {\bigl(\Delta_1^{(4)}(\tau, \sigma, z)\bigr)^{2}}.
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib(K3)=24
 \]
-The numerator $2\phi^{(g_4)}_{0,1}$ is the level-$4$ twined K3
-elliptic genus (Cheng--Duncan--Harvey 2014 Table~2); the denominator
-$(\Delta_1^{(4)})^{2}$ is the square of the Borcherds lift of Cycle~3.
-Taking logarithmic derivative along the $q^n\zeta^{\ell}p^m$-frame and
-extracting BPS counts recovers
+therefore remain separate from the level-four CHL tuple
+$(0,0,2,10)$ attached to $(\kcat,\kch,\kBKM,\kfib)$.
+
+\subsection*{Sources}
+
+Borcherds' singular-theta product gives the weight formula
+$\mathrm{wt}(\Psi(f))=c_0(0)/2$. Gritsenko--Nikulin's CHL tower gives
+$\Delta^{(N)}_{k(N)}$ with
 \[
-  \Omega^{X^{(4)}}_{\mathrm{BPS}}(n, \ell, m)
-  \;=\;
-  2\,\mult_{\gDeltaFour}(\alpha_{n,\ell,m}),
-  \qquad
-  \alpha_{n,\ell,m} = n\delta + \ell z + m w,
+  k(1),k(2),k(3),k(4),k(6)=(5,4,3,2,1),
 \]
-so the BPS state-counting function on $X^{(4)}$ equals twice the
-root-multiplicity function of $\gDeltaFour$. This is the $N = 4$
-instance of the Harvey--Moore BPS$=\mathfrak{g}_{\mathrm{BKM}}$
-conjecture (Harvey--Moore 1996, \emph{Comm.~Math.~Phys.}~176:775
-Conj.~I), proved at this $N$ by combining Bryan--Steinberg 2014 Thm.~1.1
-with Gritsenko 1999 Thm.~3.4.
-
-\subsection*{$\kappa_\bullet$-accounting at $N = 4$ (subscript-disciplined)}
-
-On $X^{(4)} = [K3 \times E / \Z_4]$ the four $\kappa_\bullet$-invariants
-are:
-\begin{itemize}
-\item $\kBKM(\Delta_1^{(4)}) = c_4(0)/2 = 1$
-      (Gritsenko--Nikulin 1995 Part~II Thm.~2.1; this note Cycle~3).
-\item $\kcat(X^{(4)}) = \chi(\cO_{K3})^{g_4}\,\chi(\cO_E)/4
-       = 2\cdot 0/4 = 0$
-      (K\"unneth-multiplicative on total space; cache entry
-      $\kcat(K3\times E) = 0$, not $2$).
-\item $\kfib^{(4)} = r_4 = 14$
-      (Mukai-invariant lattice rank; Mukai 1988; Nikulin 1979).
-\item $\kch(\mathcal{A}_{X^{(4)}}) = \chi(\cO_{X^{(4)}}) = 0$
-      via Hodge supertrace on compact CY$_3$
-      (CY-D stratification; Vol III essential constants).
-\end{itemize}
-The additive decomposition
-$\kBKM \stackrel{?}{=} \kch + \chi(\cO_{\mathrm{fiber}})$
-fails here ($1 \neq 0 + 0$); the universal formula
-$\kBKM(\Phi_N) = c_N(0)/2$ holds.
-
-\paragraph{Relation to Y1 geometric channel.}
-Y1 supplies the reduced orbifold DT generating function via
-Bryan--Steinberg crepant resolution + Oberdieck $K3\times E$
-reduction; Y2 (this note) supplies the automorphic denominator
-$\Delta_1^{(4)}$ via Borcherds lift of the CDH twined Jacobi
-input. The Harvey--Moore identification at the level of Fourier
-coefficients is the meeting point.
-
-\paragraph{References.}
-Borcherds 1995 \emph{Invent.~Math.}~120:161;
-Gritsenko 1999 \texttt{arXiv:math/9906129};
-Gritsenko--Cl\'ery 2013 \texttt{arXiv:1106.1979};
-Gritsenko--Nikulin 1995 Part~II \texttt{arXiv:alg-geom/9504006};
-Gritsenko--Nikulin 1998 \emph{Amer.~J.~Math.}~119;
-Cheng--Duncan--Harvey 2014 \texttt{arXiv:1307.5793};
-Eguchi--Ooguri--Tachikawa 2011 \texttt{arXiv:1004.0956};
-Mukai 1988 \emph{Invent.~Math.}~94; Nikulin 1979 \emph{Trudy} 38;
-Bryan--Steinberg 2014 \texttt{arXiv:1403.4748};
-Oberdieck 2018 \emph{Duke}~167:3045;
-Harvey--Moore 1996 \emph{CMP}~176:775; Lorgat 2020.
-Sibling waves: Y1 (geometric); Wave-11 W4.N4; Wave-11 X1;
-Wave-10 R4; Wave-8 I2.
+so $k(4)=2$ and $c_4(0)=4$. Eguchi--Hikami and
+Cheng--Duncan--Harvey give the $4B$ twined Jacobi input. Mukai and
+Nikulin give the fixed-locus and invariant-lattice data.
+Bryan--Steinberg and Oberdieck supply the reduced-DT mechanisms. The
+scalar comparison theorem supplies the common orientation, cosection,
+chamber, and completion conventions needed to compare them with the
+primitive CHL denominator.

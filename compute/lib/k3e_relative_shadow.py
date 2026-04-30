@@ -11,7 +11,8 @@ The relative DT theory decomposes the full DT partition function fiber-by-fiber:
 
 Each K3 fiber contributes its own shadow tower data.  The sewing of fiber
 contributions along E (the MC5 sewing formalism of Vol I) must reproduce the
-global invariants, including the Igusa cusp form Delta_5.
+global invariants, including the primitive Gritsenko-Nikulin BKM
+denominator Delta_5.
 
 KEY MATHEMATICAL CONTENT
 ========================
@@ -29,9 +30,11 @@ KEY MATHEMATICAL CONTENT
    - Full second-quantized sewing: the DMVV formula
      Z_DMVV(p,q,y) = prod_{n>0,m>0,l} (1-p^n q^m y^l)^{-c(4nm-l^2)}
 
-3. THE IGUSA CUSP FORM TEST.  The denominator of the DMVV product is the
-   denominator formula of the BKM superalgebra g_{Delta_5}, which equals
-   (up to normalization) the Igusa cusp form Delta_5.  The test:
+3. THE BKM DENOMINATOR / IGUSA-SQUARE TEST.  The denominator of the DMVV
+   product is the denominator formula of the BKM superalgebra g_{Delta_5}.
+   Its primitive weight-5 factor is Delta_5; the scalar Igusa form is the
+   square Phi_10^{un} = Delta_5^2, and OP/DT inserts the monic factor
+   D_5 = 64^{-1} Delta_5.  The test:
    does fiber-by-fiber sewing reproduce Delta_5?
 
    The answer is YES, and the mechanism is:
@@ -495,7 +498,7 @@ def fibration_kappa_constraint() -> Dict[str, object]:
 
     Verification:
     - Path 1: c(0) = 10 from phi_{0,1} (EZ normalization)
-    - Path 2: weight of Delta_5 = 5 (Igusa cusp form)
+    - Path 2: weight of the primitive BKM denominator Delta_5 = 5
     - Path 3: Borcherds product weight formula: weight = c(0)/2
 
     These three must agree: c(0)/2 = 5 = weight(Delta_5).
@@ -665,7 +668,8 @@ def verify_dmvv_reproduces_delta5(max_order: int = 3) -> Dict[str, object]:
 
         prod_{(n,l,m)>0} (1 - p^n q^l y^m)^{c(4nm-l^2)} = Phi
 
-    where Phi is (up to normalization) the Igusa cusp form Delta_5.
+    where Phi is, up to normalization, the primitive BKM denominator
+    Delta_5. The scalar Igusa form is the square Phi_10^{un}=Delta_5^2.
 
     More precisely, in EZ normalization (c(-1) = 1, c(0) = 10):
         Phi = (1/64) * Delta_5

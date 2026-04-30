@@ -1,1025 +1,303 @@
-%% wave12_a15_moonshine_segal.tex
-%% Adversarial assault and rigorous healing of four working-notes sections:
-%%   (i) moonshine and Niemeier atlas (working_notes.tex 681--716);
-%%   (ii) idiosyncrasies and computational discoveries (2095--2125);
-%%   (iii) beyond CY_3: chiral algebras from non-CY local surfaces (2126--2193);
-%%   (iv) content heatmap: Vol III sources in the three-volume programme
-%%        (2334--2446).
-%%
-%% Voice: Graeme Segal (elliptic cohomology, modular functors, CFT axioms)
-%% with Moore--Tachikawa precision (BPS state algebra, symplectic duality).
-%% Primary sources: Borcherds 1995, 1998; Gritsenko--Nikulin 1995--1998;
-%%   Gritsenko--Clery 2008--2011; Eguchi--Ooguri--Tachikawa 2011; Cheng 2010;
-%%   GHV 2010; Niemeier 1973; Conway--Sloane 1999; Lorgat 2020; Mukai 1988;
-%%   Cheng--Duncan--Harvey 2014 (umbral); Segal 1988 (elliptic cohomology);
-%%   Moore--Tachikawa 2011 (BPS state algebra); Hitchin 1987;
-%%   Kapustin--Witten 2007; Feigin--Frenkel 1990, 1992.
-%% Format: read-only vs working_notes.tex; write-only this file. Not part of
-%%   the manuscript. Internal working-notes artefact per CLAUDE.md convention.
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{observation}[theorem]{Observation}
 \newtheorem{warning}[theorem]{Warning}
-\newtheorem*{attack}{Attack}
-\newtheorem*{heal}{Heal}
-
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}\ }
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}\ }
-\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}\ }
-\providecommand{\ClaimStatusConditional}[1]{\textbf{[Conditional on: #1]}\ }
-\providecommand{\ClaimStatusFalse}{\textbf{[False]}\ }
 
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\fg}{\mathfrak{g}}
-\providecommand{\fh}{\mathfrak{h}}
-\providecommand{\so}{\mathfrak{so}}
-\providecommand{\gl}{\mathfrak{gl}}
-\providecommand{\sll}{\mathfrak{sl}}
 \providecommand{\ZZ}{\mathbb{Z}}
-\providecommand{\QQ}{\mathbb{Q}}
 \providecommand{\CC}{\mathbb{C}}
-\providecommand{\RR}{\mathbb{R}}
-\providecommand{\NN}{\mathbb{N}}
-\providecommand{\cP}{\mathcal{P}}
-\providecommand{\cO}{\mathcal{O}}
-\providecommand{\cL}{\mathcal{L}}
-\providecommand{\cE}{\mathcal{E}}
-\providecommand{\cF}{\mathcal{F}}
-\providecommand{\cH}{\mathcal{H}}
-\providecommand{\cZ}{\mathcal{Z}}
-\providecommand{\bP}{\mathbf{P}}
-\providecommand{\bH}{\mathbf{H}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
-\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\Aut}{\mathrm{Aut}}
-\providecommand{\Tot}{\mathrm{Tot}}
-\providecommand{\Tr}{\mathrm{Tr}}
-\providecommand{\Hom}{\mathrm{Hom}}
-\providecommand{\End}{\mathrm{End}}
-\providecommand{\Ext}{\mathrm{Ext}}
-\providecommand{\Stab}{\mathrm{Stab}}
-\providecommand{\Jac}{\mathrm{Jac}}
-\providecommand{\Pic}{\mathrm{Pic}}
-\providecommand{\id}{\mathrm{id}}
-\providecommand{\Spec}{\mathrm{Spec}}
-\providecommand{\Coh}{\mathrm{Coh}}
-\providecommand{\Eone}{E_1}
-\providecommand{\Etwo}{E_2}
+\providecommand{\wt}{\operatorname{wt}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\Delf}{\Delta_5}
+\providecommand{\PhiTen}{\Phi_{10}}
+\providecommand{\Mtf}{M_{24}}
+\providecommand{\phiK}{\phi^{K3}_{0,1}}
 
-\title{Moonshine, Niemeier atlas, idiosyncrasies, non-CY local surfaces, and the
-  Vol~III heatmap:\\
-  an adversarial assault and rigorous healing\\[0.3em]
-  \textit{(Segal voice: modular functors, elliptic cohomology, CFT axioms;
-   Moore--Tachikawa precision: BPS state algebra, symplectic duality)}}
-\author{Wave 12, note A15 (internal; \texttt{notes/} only)}
-\date{2026--04--22}
+\title{Moonshine Atlases, K3 Twining, and Borcherds Constants}
+\author{Raeez Lorgat}
+\date{2026-04-22}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We subject four sections of \texttt{working\_notes.tex} to six
-adversarial attack--heal cycles. The targets are (i) the moonshine and
-Niemeier atlas paragraphs, which conflate lattice-level identity,
-modular-characteristic datum, and the Monster/Mathieu Borcherds-lift
-provenance; (ii) the idiosyncrasies list, whose Fermat-quintic Jacobian
-identity and $\kappa_\bullet$ additivity remark carry latent AP-CY scope
-errors; (iii) the non-CY local-surface table, which promotes a
-sign-ambiguous curved $\kch$ to a tabulated invariant; (iv) the content
-heatmap, which reads $\Eone$-at-$d{=}3$ / $\Etwo$-at-$d{=}2$ as a flat
-status matrix rather than the output-scope stratification mandated by
-Pattern~273 and AP-CY10. The adversarial line is that the 24 Niemeier
-lattices, the 8 Gritsenko--Cl\'ery diagonal-divisor paramodular forms,
-the 5 admissible Borcherds-lift cases $N\in\{1,2,3,4,6\}$, the 26
-conjugacy classes of $M_{24}$, and the 194 irreducible characters of
-the Monster are five \emph{different} arithmetic atlases in five
-\emph{different} categories, glued by explicit lifts (singular theta,
-multiplicative, BRST), not by a single functor; the working-notes
-prose conflates them. After healing: each atlas is stated in its own
-category, each lift is named, each Borcherds-Harvey-Moore /
-EOT-Mathieu / umbral-moonshine / Lorgat-2020-Conjecture-1
-correspondence is labelled at its proved scope, and the $\kch$ /
-$\kBKM$ / $\kcat$ / $\kfib$ discipline is audited across the targeted
-ranges. The punchline: Conjecture~1 of Lorgat 2020 is a theorem at
-$N=1$ (construction of $\fg_{\Delta_5}$ with root multiplicities
-$= \phi_{0,1}$ Fourier coefficients, explicit Borcherds product); it
-is conjectural at $N\in\{2,3,4,6\}$ (the twined-elliptic-genus /
-GKM-denominator identification requires Gritsenko--Cl\'ery 2008 data
-not computed in the 2020 paper); it is speculative at $N\in\{5,7,8\}$
-(outside the CHL-admissible set, no $c_N(0)/2$ integer weight).
+The K3 moonshine, umbral, Enriques, and Borcherds data use different
+indexing sets.  The K3 elliptic genus twining system is indexed by the
+26 conjugacy classes of \(M_{24}\).  Umbral moonshine is indexed by the
+23 Niemeier root systems, with the Leech case giving Conway moonshine.
+The Enriques denominator uses the Enriques lattice and its own
+multiplier data.  Borcherds denominators require a Jacobi input,
+multiplier, lattice, Weyl chamber, and root datum.  The automatic
+numerical rule in the denominator lane is
+\[
+  \kBKM(\Phi)=\wt(\Phi)=\frac{c(0)}2
+\]
+for the chosen Borcherds input.
 \end{abstract}
 
-\tableofcontents
-
-% ============================================================
-\section{First-principles preliminaries}
-% ============================================================
-
-\subsection{The five atlases and the maps between them}
-
-The subject matter of this note lives in five distinct categories with
-five distinct atlases:
+\section{The Four Atlases}
 
 \begin{enumerate}[label=(\Alph*)]
-\item \textbf{$\mathbf{Lat}^{\mathrm{II}}_{24,0}$:} the 24 Niemeier
-  lattices, i.e. even self-dual positive-definite rank-24 lattices
-  (Niemeier 1973). Each is determined by its root sublattice, ranging
-  from the empty (Leech) to $D_{24}$ (Niemeier's item \#$24$). Their
-  theta series all satisfy $\Theta_\Lambda = E_{12} + c_\Delta \Delta$
-  with the Niemeier reduction coefficient
-  $c_\Delta(\Lambda) = (691\cdot|R_\Lambda| - 65520)/691$ where $|R_\Lambda|$ is
-  the number of root vectors.
-\item \textbf{$\mathbf{ParMod}_\Gamma$:} Siegel paramodular forms on
-  genus-2 upper half-space, with congruence levels
-  $\Gamma_t(N) < \Sp_4(\ZZ)$. The Gritsenko--Cl\'ery 2008 theorem
-  supplies exactly \emph{8} diagonal-divisor paramodular forms across
-  all admissible $(\Gamma_t(N))_{N}$; the subset with integer weight
-  $c_N(0)/2$ lies over $N\in\{1,2,3,4,6\}$ giving weights
-  $(5,2,1,1,1)$.
-\item \textbf{$\mathbf{BKM}$:} Borcherds--Kac--Moody Lie superalgebras
-  (Borcherds 1988) with real and imaginary simple roots and a
-  denominator identity. Each singular theta lift of a weak Jacobi form
-  produces one BKM.
-\item \textbf{$M_{24}\mathrm{-rep}$:} the 26 conjugacy classes of
-  $M_{24}$ (ATLAS) labelling twined K3 elliptic genera $Z_g(\tau,z)$
-  (Eguchi--Ooguri--Tachikawa 2011; Gaberdiel--Hohenegger--Volpato
-  2010, 2012); five classes $1A, 2A, 3A, 4B, 6A$ are the
-  CHL-admissible Nikulin-automorphism classes.
-\item \textbf{$\mathbf{MonsterRep}$:} the 194 conjugacy classes of the
-  Monster $\mathbb{M}$ (ATLAS) labelling McKay--Thompson series
-  (Conway--Norton 1979; Borcherds 1992).
+\item \textbf{K3 elliptic-genus twining.}
+For each conjugacy class \([g]\subset \Mtf\), Gaberdiel-Hohenegger-Volpato
+attach a weak Jacobi form
+\[
+  \phi_g(\tau,z)
+  =\operatorname{Tr}_{\mathcal H_{RR}}
+  \left(g(-1)^{F+\widetilde F}q^{L_0-c/24}
+  \bar q^{\widetilde L_0-\widetilde c/24}y^{J_0}\right)
+  \in J^{w,\nu_g}_{0,1}(\Gamma_0(|g|)).
+\]
+The specialisation \(\phi_g(\tau,0)\) is the \(24\)-dimensional
+Mathieu character \(\chi_{24}(g)\).  This datum is a one-variable
+twining genus; denominator and twisted-twined interpretations require
+additional structures.
+
+\item \textbf{Umbral moonshine.}
+Cheng-Duncan-Harvey attach mock modular forms to the 23 Niemeier
+root systems through the quotient
+\(\Aut(\Lambda)/W(\Lambda)\).  The lattice \(\Lambda=24A_1\) gives the
+Mathieu case.  The remaining 22 root systems are separate umbral
+systems, and the rootless Leech lattice belongs to the Conway branch.
+The words ``Mathieu'' and ``umbral'' name different indexing rules:
+conjugacy classes of \(M_{24}\) in the first case and Niemeier root
+systems in the second.
+
+\item \textbf{Enriques denominator data.}
+An Enriques surface has \(K_S\) nontrivial
+2-torsion and \(\chi(\cO_S)=1\), so it lies outside the Calabi-Yau
+surface class.  Its K3 cover is governed by a
+fixed-point-free anti-symplectic involution.  The symplectic Mathieu
+class \(2A\) has Frame shape \(1^8 2^8\) and K3 fixed-locus Euler
+number \(8\); it is a different row.  The Enriques automorphic product
+uses the Enriques lattice and its multiplier.
+
+\item \textbf{Borcherds denominators.}
+A Borcherds denominator requires a weak Jacobi input, a group or cover,
+a character or multiplier, a lattice of signature \((2,n)\), a Weyl
+chamber, and a root-multiplicity convention.  The product weight is
+\(c(0)/2\) in that convention.  A Mathieu character-table row supplies
+the conjugacy-class datum only.
 \end{enumerate}
 
-These atlases are \emph{not} indexed by the same set. The maps
-between them are:
+\section{Numerical Normalisations}
 
-\begin{itemize}
-\item The Borcherds 1992 lift $\mathbf{ParMod}_{\Sp_4(\ZZ)} \to
-  \mathbf{BKM}$ sends $\Delta_5 \mapsto \fg_{\Delta_5}$ (rank-3 BKM;
-  Lorgat 2020 \S5).
-\item The Borcherds--Harvey--Moore 1995 \emph{Monster} lift
-  $\mathbf{MonsterRep} \to \mathbf{BKM}$ sends $V^\natural$ to the
-  Monster Lie algebra of rank 26 (denominator $j(\sigma)-j(\tau)$).
-  This lift uses the $\mathrm{II}_{25,1}$ lattice, not an
-  $\mathrm{II}_{3,2}$ paramodular lattice; it does \emph{not} factor
-  through $\mathbf{ParMod}$.
-\item The Mathieu lift (EOT 2011; GHV 2010, 2012) sends
-  $M_{24}\mathrm{-rep} \to \mathbf{ParMod}$ (twined) for the five
-  Nikulin-admissible classes, via the twined K3 elliptic genus.
-\item The umbral-moonshine lift (Cheng--Duncan--Harvey 2014) sends
-  $\mathbf{Lat}^{\mathrm{II}}_{24,0} \to$ (mock modular forms)
-  by attaching $H^{(\Lambda)}$ to each Niemeier lattice $\Lambda$
-  through the outer automorphism group modulo the Weyl group.
-\end{itemize}
+\subsection{Ordinary \(M_{24}\) Frame Shapes}
 
-\textbf{Rank discipline} (AP-CY49-style):
-\[
-\underbrace{24}_{\text{Niemeier rank}} \ \neq\
-\underbrace{26}_{\text{Monster/Fake-Monster Cartan rank}} \ \neq\
-\underbrace{3}_{\text{K3-BKM } \fg_{\Delta_5} \text{ rank}} \ \neq\
-\underbrace{8}_{\text{Gritsenko--Cl\'ery diag-div forms}} \ \neq\
-\underbrace{5}_{\text{CHL-admissible } N}.
-\]
-Every cross-atlas assertion in the working-notes sections must be
-checked against this rank ledger.
-
-\subsection{Segal's axiomatic frame}
-
-A \emph{modular functor} (Segal 1988, Atiyah 1988, Moore--Seiberg 1989)
-assigns to each closed oriented surface $\Sigma$ a finite-dimensional
-vector space $\mathcal{Z}(\Sigma)$, covariantly under orientation-
-preserving diffeomorphisms; to each cobordism a linear map
-functorial under gluing. For a K3 SCFT at $c = 6$, the genus-1
-partition function on $E_\tau$ with a $\ZZ/N\ZZ$ twist gives the
-twined elliptic genus $Z_{g_N}(\tau, z) \in \mathcal{Z}(E_\tau, g_N)$.
-The EOT observation that $Z_g(\tau,z)$ decomposes as a (mock) modular
-object with $M_{24}$-representation-theoretic Fourier coefficients is
-the first-principles content of Mathieu moonshine: Segal's axioms
-produce a one-dimensional space at each conjugacy class, the Fourier
-coefficient is the character value.
-
-The Borcherds \emph{multiplicative lift} (singular theta correspondence,
-Borcherds 1998 Inventiones 132) is a second-layer construction: given
-a weak Jacobi form $\phi$ of weight $0$ index $m$, the Borcherds
-product
-\[
-\Phi(Z) \ = \ e^{2\pi i (\rho, Z)} \prod_{(n,\ell,m)>0}
-  \left(1 - e^{2\pi i (n\tau + \ell z + m\sigma)}\right)^{c_\phi(nm, \ell)}
-\]
-is a meromorphic Siegel modular form of weight $c_\phi(0,0)/2$ on
-genus-2 upper half-space. The \emph{Borcherds weight theorem} is
-$\mathrm{wt}(\Phi) = c_\phi(0,0)/2$; this is the formula
-$\kBKM(\Phi_N) = c_N(0)/2$ of the CLAUDE.md Essential constants.
-
-\subsection{Lorgat 2020 Conjecture~1 in its category}
-
-Lorgat 2020 \S5 Conjecture~1 asserts: \emph{for
-$X = (S\times E)/(\ZZ/N\ZZ)$ with $(S, L, g_N, h_M)$ K3 data and
-$N, M \leq 8$ symplectic-automorphism orders, all 8 Gritsenko--Cl\'ery
-diagonal-divisor paramodular forms arise as reciprocal-square roots
-of the refined/motivic DT zeta function $Z^X_{L, h_M}$ AND as
-denominator functions of BKM superalgebras with root multiplicities
-equal to the $g_N$-$h_M$-twisted twined K3 elliptic genus coefficients.}
-
-The status is stratified:
-
-\begin{itemize}
-\item \textbf{$N=1$:} \ClaimStatusTheorem. Borcherds 1995, Gritsenko 1999;
-  the reciprocal-square-root claim
-  $Z^X_{L,1} = C/\Delta_5^2$ is Oberdieck--Pixton Igusa cusp conjecture
-  (theorem of Oberdieck--Pandharipande 2016 for K3$\times$E); the BKM
-  denominator-function realisation is the GKM $\fg_{\Delta_5}$ in Lorgat 2020 \S5.
-\item \textbf{$N\in\{2,3,4,6\}$:} \ClaimStatusConjectured. Both sides
-  of the Conjecture~1 equivalence hold at the \emph{weight} level
-  (Gritsenko 1999; GHV 2010); the root-multiplicity $=$ twined genus
-  identification is \emph{not} tabulated case-by-case in Lorgat 2020
-  and requires the full Gritsenko--Cl\'ery 2008 data.
-\item \textbf{$N\in\{5,7,8\}$:} Speculative / outside the admissible
-  CHL set. For $N=5$ the form
-  $\Phi_{0,1}(\tau, z; 5) / \text{something}$ has non-integer weight
-  $c_5(0)/2$; the CY-to-chiral pipeline is not developed in Vol III
-  for these cases.
-\end{itemize}
-
-% ============================================================
-\section{Attack--heal cycle 1: the 24 Niemeier lattices and shadow indistinguishability}
-% ============================================================
-
-\subsection*{Scope}
-
-Target: \texttt{working\_notes.tex} lines 683--691, including
-``\emph{The 24 Niemeier lattices (even unimodular in dimension~24) all
-have $\kappa_{\mathrm{ch}} = 24$ ($ = d$ for $d = 24$ free bosons at
-level $k = 1$), class~$\mathbf{G}$, shadow depth~2. The shadow
-obstruction tower is blind to their root systems: all 24 produce
-identical shadow data.}''
-
-\subsection*{Ghost theorem, precise error, correct relationship}
-
-\paragraph{Ghost theorem.}
-The lattice VOA $V_\Lambda$ for each Niemeier $\Lambda$ is a holomorphic
-$c = 24$ VOA of central charge 24, produces the same Virasoro sector
-$\mathrm{Vir}_{c=24}$ modulo its root lattice, and has the same
-genus-1 shadow obstruction $\kch = 12 = c/2$ if one \emph{only}
-tracks Virasoro data (cf.\ the Monster module treatment in line 693).
-This is the genuine content: genus-1 shadow depth-2 data is a
-\emph{Virasoro-central-charge} invariant, hence coincides for all
-holomorphic $c=24$ VOAs.
-
-\paragraph{Precise error.}
-The passage asserts $\kch(V_\Lambda) = 24$ ``$ = d$ for $d = 24$ free
-bosons at level $k=1$.'' This conflates the dimension of the
-Heisenberg-free-boson coordinate space (the rank of $\Lambda$, which
-is 24) with $\kch$. By the Vol III convention
-\[
-\kch \ = \ c/2 \qquad\text{on genus-1 shadow depth-2 chiral data,}
-\]
-the correct value is $\kch(V_\Lambda) = c/2 = 24/2 = 12$, matching
-$V^\natural$ (line 693) exactly.
-
-The pre-heal passage is then self-contradictory: it asserts
-$\kch(V_\Lambda) = 24$ and $\kch(V^\natural) = 12$, then claims
-``genuine shadow-tower separation'' between them; but the separation
-is \emph{manufactured} by the $\kch(V_\Lambda) = 24$ mis-assignment.
-The true separation between Niemeier lattice VOAs and the Monster
-module is finer:
-
-\begin{theorem}[\ClaimStatusTheorem\ Niemeier-vs-Monster shadow
-  separation, correctly stated]
-\label{thm:a15-niemeier-monster-separation}
-All 24 Niemeier lattice VOAs $V_\Lambda$ and the Monster module
-$V^\natural$ have the same genus-1 central charge $c = 24$ and
-therefore the same Virasoro-shadow coefficient $\kch = 12$.
-They are distinguished by:
-\begin{enumerate}[label=(\roman*)]
-\item $\dim V_1$: $V_\Lambda$ has $\dim V_1 = |R_\Lambda| + 24$ (roots
-  plus Heisenberg Cartan) $\geq 48$ for every $\Lambda$ except the
-  Leech lattice, for which $\dim V_1^\Lambda = 24$ (Cartan only);
-  $V^\natural$ has $\dim V_1 = 0$ (this is the Griess construction
-  input).
-\item The Frame shape / McKay--Thompson series at depth $\geq 3$.
-\item The genus-2 Siegel modular invariant of the partition function.
-\end{enumerate}
-The Virasoro shadow alone at depth 2 does not separate the 24 + 1
-objects.
-\end{theorem}
-
-\paragraph{Correct relationship.}
-The correct passage reads: all 24 Niemeier lattice VOAs + $V^\natural$
-share $\kch = 12$ and are therefore indistinguishable by genus-1
-depth-2 shadow; the Niemeier theta reduction coefficient
-$c_\Delta(\Lambda) = (691 |R_\Lambda| - 65520)/691$ distinguishes them
-at the theta-series level (which lives \emph{outside} the $\kch$
-shadow); $V^\natural$ is distinguished from all 24 Niemeier VOAs by
-$\dim V_1 = 0$, not by $\kch$.
-
-The pre-heal passage's final clause --- ``This gives genuine
-shadow-tower separation: $\kch(V^\natural) = 12 \neq 24 =
-\kch(V_\Lambda)$ for all twenty-four Niemeier lattice VOAs'' ---
-is false and should be deleted.
-
-\subsection*{Cache append pattern (AP-CY draft)}
-
-\begin{itemize}
-\item[] \textbf{AP-CY-NEW(N1).} Assigning $\kch = \mathrm{rank}(\Lambda)$
-  to a Niemeier lattice VOA $V_\Lambda$ where
-  $\mathrm{rank}(\Lambda) = 24$. Ghost: the lattice rank is the
-  Heisenberg coordinate dimension, a real invariant. Error:
-  $\kch = c/2$ in the genus-1 shadow, which is $12$, not $24$. Fix:
-  $\kch(V_\Lambda) = \kch(V^\natural) = 12$ for all 24 Niemeier
-  lattice VOAs; use other invariants (theta coefficient, $\dim V_1$,
-  Frame shape) for separation.
-\end{itemize}
-
-% ============================================================
-\section{Attack--heal cycle 2: Mathieu moonshine, umbral moonshine, and the Niemeier-24-to-23 split}
-% ============================================================
-
-\subsection*{Scope}
-
-Target: \texttt{working\_notes.tex} lines 708--714 on the K3 quantum
-vertex chiral group, Mathieu moonshine via umbral moonshine for
-$\Lambda = 24 A_1$ (the Mathieu Niemeier).
-
-\subsection*{Ghost theorem, precise error, correct relationship}
-
-\paragraph{Ghost theorem.}
-Cheng--Duncan--Harvey 2014 umbral moonshine assigns to each of the 23
-Niemeier lattices \emph{with roots} a mock modular form
-$H^{(\Lambda)}(\tau)$ and an umbral group $G^{(\Lambda)} =
-\Aut(\Lambda) / W(R_\Lambda)$. The $\Lambda = 24 A_1$ case gives
-$G^{(24A_1)} = M_{24}$ and $H^{(24A_1)}$ is the EOT mock modular
-generating function $\sum_{n\geq 0} A_n q^{n - 1/8}$ with
-$A_1 = 45, A_2 = 231, A_3 = 770, \ldots$ (EOT 2011 eq.~(1.12)). This
-is a real and important correspondence.
-
-\paragraph{Precise error.}
-The pre-heal passage reads ``umbral moonshine for $\Lambda = 24A_1$''
-as if the Niemeier lattice $24 A_1$ is the single anchor for \emph{all}
-Mathieu moonshine. Two issues:
-
-\begin{enumerate}
-\item The $\Lambda = 24 A_1$ anchor is specifically for the umbral-
-  moonshine formulation; the original Mathieu moonshine (EOT 2011)
-  is phrased in terms of K3 elliptic genus and $M_{24}$, without
-  explicit reference to a Niemeier lattice.
-\item Mathieu moonshine is one of \emph{23} cases of umbral moonshine
-  (one per Niemeier lattice with roots; Leech excluded because
-  $\Aut(\mathrm{Leech}) = \mathrm{Co}_0$ does not centralise a
-  nontrivial mock modular shadow in the umbral scheme). The 23
-  umbral groups $G^{(\Lambda)}$ are distinct finite groups; $M_{24}$
-  is only one. The passage conflates ``umbral moonshine'' (23 cases)
-  with ``Mathieu moonshine'' (1 case).
-\end{enumerate}
-
-\paragraph{Correct relationship.}
-
-\begin{theorem}[\ClaimStatusTheorem\ The CHP 2014 umbral atlas]
-\label{thm:a15-umbral-atlas}
-Cheng--Duncan--Harvey 2014 assigns to each of the 23 Niemeier lattices
-$\Lambda \neq \mathrm{Leech}$ with nonempty root system $R_\Lambda$:
-\begin{itemize}
-\item an umbral group $G^{(\Lambda)} = \Aut(\Lambda) / W(R_\Lambda)$;
-\item a vector-valued mock modular form $H^{(\Lambda)} = (H^{(\Lambda)}_r)_r$
-  of weight $1/2$, shadow the unary theta series for the root system
-  $R_\Lambda$;
-\item an umbral McKay--Thompson series
-  $H^{(\Lambda)}_g$ for each $g \in G^{(\Lambda)}$.
-\end{itemize}
-The $\Lambda = 24 A_1$ case has $G^{(24A_1)} = M_{24}$ and reproduces
-EOT Mathieu moonshine. At $N = 6$ the relevant Niemeier lattice is
-$6D_4$ with $G^{(6D_4)} = 3.\mathrm{Sym}_6$ (order 2160); this is
-\emph{distinct} from the $4A_5 + D_4$ Niemeier lattice (order-144 outer
-group) which shares Coxeter number $h = 6$ (see
-\texttt{wave11\_u1\_niemeier\_N6\_resolution.tex}).
-\end{theorem}
-
-\paragraph{The K3 chiral vertex group programme heal.}
-The pre-heal passage's mathematical claim ``the K3 quantum vertex
-chiral group should encode the Mathieu moonshine through the genus-1
-shadow obstruction tower'' has a non-vacuous kernel:
-
-\begin{conjecture}[\ClaimStatusConjectured\ Programme K3-Mathieu
-  shadow factorisation]
-\label{conj:a15-k3-mathieu-shadow}
-The twined K3 elliptic genus $Z_g(\tau, z)$ for $g \in M_{24}$ admits
-an Eichler--Zagier decomposition
-\[
-Z_g(\tau, z) \ = \ \mathcal{E}_g \cdot \mu(\tau, z) + \sum_{r} H_{g, r}(\tau) \theta_{1/2, r}(\tau, z),
-\]
-where $\mathcal{E}_g$ is the twined Euler number, $\mu$ the Appell--
-Lerch sum, $\theta_{1/2, r}$ the index-1 theta series, and $H_{g, r}$
-the Mathieu mock modular form. The Vol~III genus-1 shadow obstruction
-tower $\Theta_A(\tau)$ on the chiral algebra image $A = \Phi(D^b\Coh(K3))$
-acquires the $H_{g, r}$ component as a quasi-modular correction to the
-$E_2$-regulator at generator-level depth~$\geq 3$.
-\end{conjecture}
-
-Status: conjectural. Proved at the level of modular-form identity
-(EOT 2011 + GHV 2010 + subsequent verification through $N = 600$
-Fourier coefficients). \emph{Not} proved as a factorisation through
-the Vol III shadow-tower construction of $\Theta_A$ ---
-that factorisation requires the CY-A$_2$ identification of Vol~III
-\S~\ref{sec:k3-chiral}, which is proved, composed with a mock
-correction tower, which is open.
-
-\subsection*{Cache append pattern (AP-CY draft)}
-
-\begin{itemize}
-\item[] \textbf{AP-CY-NEW(N2).} Writing ``umbral moonshine for
-  $\Lambda = 24A_1$'' as if it covers all of Mathieu moonshine. Ghost:
-  the $24A_1$ anchor in CHP 2014 is the \emph{Mathieu} case of umbral
-  moonshine, one of 23. Error: elides the 22 other Niemeier-anchored
-  umbral cases and the fact that Mathieu moonshine \emph{precedes}
-  umbral moonshine in the literature. Fix: distinguish (i) Mathieu
-  moonshine (EOT 2011, K3 elliptic genus $+ M_{24}$); (ii) umbral
-  moonshine (CHP 2014, 23 Niemeier lattices); (iii) the $24 A_1$ case
-  of umbral moonshine (recovers (i)). The three are not synonymous.
-\end{itemize}
-
-% ============================================================
-\section{Attack--heal cycle 3: the Fermat quintic Jacobian dimension identity and the Burnside-lemma claim}
-% ============================================================
-
-\subsection*{Scope}
-
-Target: \texttt{working\_notes.tex} lines 2104--2106, entry (ii) of
-the idiosyncrasies list: ``The Fermat quintic at the Gepner point has
-orbifold-invariant Jacobian ring of dimension $204 = b_3(Q) = (4^5 - 4)/5$,
-matching the quintic Hodge diamond $\{1, 101, 101, 1\}$ exactly. This is
-a purely combinatorial identity verified by Burnside's lemma.''
-
-\subsection*{Ghost theorem, precise error, correct relationship}
-
-\paragraph{Ghost theorem.}
-For the Fermat quintic $Q = \{x_0^5 + x_1^5 + \ldots + x_4^5 = 0\}
-\subset \bP^4$, the Jacobian ring is
-\[
-\mathrm{Jac}(f) \ = \ \CC[x_0, \ldots, x_4] / (\partial_i f) \ = \
-\CC[x_0, \ldots, x_4] / (x_i^4)
-\]
-of total dimension $4^5 = 1024$. The orbifold model is the Gepner
-$(3)^5$ / $\ZZ_5$ diagonal quotient. The $\ZZ_5$-invariant part is
-governed by the multi-degree $5$ graded piece of the ring $\CC[x_i]$
-modulo $x_i^4$; the grading constraint
-$\deg = \sum_i d_i \equiv 0 \pmod 5$
-with $d_i \in \{0,1,2,3\}$ counts monomials with
-$\sum_i d_i \in \{0, 5, 10, 15\}$.
-The \emph{middle Hodge number} of the quintic is
-$h^{2,1}(Q) = 101$ by Candelas--de la Ossa--Green--Parkes 1991 and
-Batyrev 1994.
-
-\paragraph{Precise error.}
-The passage asserts $204 = b_3(Q) = (4^5 - 4)/5 = 1020/5 = 204$,
-treating this as a Burnside-lemma identity matching the Hodge
-diamond.
-
-Three issues:
-
-\begin{enumerate}
-\item \textbf{$b_3(Q)$ value.} The third Betti number of the quintic
-  threefold is $b_3(Q) = h^{3,0} + h^{2,1} + h^{1,2} + h^{0,3} = 1 +
-  101 + 101 + 1 = 204$. This is correct.
-\item \textbf{$(4^5 - 4)/5$ computation.} $4^5 = 1024$, so
-  $(4^5 - 4)/5 = 1020/5 = 204$. The numerical identity holds.
-\item \textbf{Burnside-lemma interpretation.} The cyclic group
-  $\ZZ_5$ acts on $\{0, 1, 2, 3\}^5$ (the monomial exponents in the
-  Jacobian ring after quotienting by $x_i^4$) by cyclic permutation.
-  Burnside's lemma gives
-  \[
-  |X/\ZZ_5| \ = \ \tfrac{1}{5} \sum_{k=0}^{4} |\mathrm{Fix}(\sigma^k)| \ = \
-  \tfrac{1}{5}(4^5 + 4 \cdot 4) \ = \ \tfrac{1044}{5}
-  \]
-  (the $k=0$ term is all 1024 monomials; the $k \neq 0$ terms each
-  contribute the diagonal $\{(a,a,a,a,a) : a \in \{0,1,2,3\}\} = 4$
-  monomials). This gives $|X/\ZZ_5| = 1044/5$, which is \emph{not} an
-  integer, so the na\"ive Burnside count is off. The correct
-  $\ZZ_5$-invariant Jacobian-ring dimension is computed differently:
-  as the \emph{degree-grading-constrained} invariant
-  \[
-  \dim(\mathrm{Jac}(f)^{\ZZ_5 \text{ by phase}}) \ = \ \#\{(d_0, \ldots, d_4) :
-  d_i \in \{0,1,2,3\}, \sum d_i \equiv 0 \pmod 5\}.
-  \]
-  This count is $(4^5 + 4\cdot 4 \cdot \omega^\bullet\text{-character-sum})/5 = 204$
-  by the standard character-sum trick, and this does reduce to
-  $(4^5 - 4)/5 + $ correction.
-\end{enumerate}
-
-\paragraph{Correct relationship.}
-
-\begin{theorem}[\ClaimStatusTheorem\ Fermat quintic
-  Gepner-invariant Jacobian dimension]
-\label{thm:a15-fermat-quintic-jac}
-For the Fermat quintic $Q \subset \bP^4$, the $\ZZ_5$-quantum-symmetry-
-invariant Jacobian ring $\mathrm{Jac}(f)^{\ZZ_5^{\mathrm{qs}}}$ of
-$f = \sum_i x_i^5$ has dimension
-\[
-\dim \mathrm{Jac}(f)^{\ZZ_5^{\mathrm{qs}}} \ = \ 204,
-\]
-matching $b_3(Q) = h^{3,0} + h^{2,1} + h^{1,2} + h^{0,3} = 1 + 101 +
-101 + 1$. The identification is a theorem of Vafa's topological
-Landau--Ginzburg / Calabi--Yau correspondence (Vafa 1989,
-Greene--Plesser 1990, Witten 1993), not of Burnside's lemma alone.
-The explicit count
-$\#\{(d_0, \ldots, d_4) \in \{0,1,2,3\}^5 : \sum d_i \equiv 0
-\pmod 5\} = 204$ is a character-sum identity using the nontrivial
-5th roots of unity; it is \emph{not} the Burnside orbit-count.
-\end{theorem}
-
-\paragraph{The Burnside-elision fix.}
-Replace ``verified by Burnside's lemma'' with ``verified by the
-character-sum identity $\frac{1}{5}\sum_{k=0}^{4}(1 + \omega^k + \omega^{2k} + \omega^{3k})^5 = 204$
-where $\omega = e^{2\pi i/5}$.''
-
-\subsection*{Cache append pattern (AP-CY draft)}
-
-\begin{itemize}
-\item[] \textbf{AP-CY-NEW(I3).} Attributing to Burnside's lemma an
-  orbit count that is in fact a character-sum / grading-constrained
-  count. Ghost: the two are both finite-group techniques, both produce
-  integer dimensions of invariants. Error: Burnside counts
-  \emph{orbits} of a set action; grading-constrained invariants count
-  \emph{graded pieces} of a group character; the arithmetic is
-  different and can give different totals. Fix: name the specific
-  technique (character sum / weighted orbit count with $\omega^{kd}$
-  phases / Molien series) explicitly.
-\end{itemize}
-
-% ============================================================
-\section{Attack--heal cycle 4: $\kBKM = \kch + \chi(\cO_{\mathrm{fiber}})$ coincidence at $N=1$ only}
-% ============================================================
-
-\subsection*{Scope}
-
-Target: \texttt{working\_notes.tex} lines 2112--2113, entry (iv) of the
-idiosyncrasies list: ``For $K3 \times E$: $\kappa_{\mathrm{ch}}$ is
-NOT additive. Using $\kappa_{\mathrm{cat}}(K3) = 12$ (the CY$_2$
-categorical value; see F2): $12 + 1 = 13 \neq 5 = \kappa_{\mathrm{ch}}(K3 \times E)$.
-The BKM superalgebra structure absorbs $8$ units.''
-
-This is the CLAUDE.md ``WATCH: coincidence'' item: the tempting
-identity $\kBKM = \kch + \chi(\cO_{\mathrm{fiber}})$ is N=1 only.
-
-\subsection*{Ghost theorem, precise error, correct relationship}
-
-\paragraph{Ghost theorem.}
-For $K3 \times E$ at $N = 1$: $\kBKM(\Delta_5) = 5$;
-$\kch(K3\times E) = 0$ (compact CY$_3$ Hodge-supertrace); but the
-CY$_3$-compact Mukai-refinement gives a ``five-count'' which does
-come out to 5 via the Bruinier Heegner Chern-class reciprocity
-(Vol I Theorem~B-B-row; Vol III
-$\texttt{cy\_d\_kappa\_stratification.tex}$ Theorem~B), not via a
-universal formula.
-
-\paragraph{Precise error.}
-The passage implicitly invites the reader to infer a relation
-``BKM structure absorbs 8 units'' as if there is a universal
-absorption count. But per CLAUDE.md:
-
-\begin{quote}
-\emph{$\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$
-is FALSE at every $N \in \{1, 2, 3, 4, 6\}$.}
-\end{quote}
-
-Explicit tabulation (CLAUDE.md + \texttt{cy\_d\_kappa\_stratification.tex}):
-
+\begin{proposition}[The 26 ordinary Mathieu rows]
+\label{prop:m24-ordinary-26-rows}
+In the 24-letter permutation normalisation, the ordinary Mathieu
+twining table has the following 26 rows:
 \begin{center}
 \small
-\begin{tabular}{c|c|c|c|c}
-\toprule
-$N$ & $\kBKM(\Phi_N) = c_N(0)/2$ & $\kch(K3\times E)^{(N)}$ &
-  $\chi(\cO_{\mathrm{fiber}_N})$ & $\kBKM - \kch - \chi(\cO_{\mathrm{fib}})$ \\
-\midrule
-$1$ & $5$ & $0$   & $0$ & $5$ \\
-$2$ & $2$ & $0$   & $1$ & $1$ \\
-$3$ & $1$ & $0$   & $1$ & $0$ \\
-$4$ & $1$ & $0$   & $1$ & $0$ \\
-$6$ & $1$ & $0$   & $1$ & $0$ \\
-\bottomrule
+\begin{tabular}{c|c|c|c}
+class & $|g|$ & Frame shape & $\chi_{24}(g)$\\
+\hline
+1A & 1 & $1^{24}$ & 24\\
+2A & 2 & $1^8 2^8$ & 8\\
+2B & 2 & $2^{12}$ & 0\\
+3A & 3 & $1^6 3^6$ & 6\\
+3B & 3 & $3^8$ & 0\\
+4A & 4 & $2^4 4^4$ & 0\\
+4B & 4 & $1^4 2^2 4^4$ & 4\\
+4C & 4 & $4^6$ & 0\\
+5A & 5 & $1^4 5^4$ & 4\\
+6A & 6 & $1^2 2^2 3^2 6^2$ & 2\\
+6B & 6 & $6^4$ & 0\\
+7A & 7 & $1^3 7^3$ & 3\\
+7B & 7 & $1^3 7^3$ & 3\\
+8A & 8 & $1^2 2^1 4^1 8^2$ & 2\\
+10A & 10 & $2^2 10^2$ & 0\\
+11A & 11 & $1^2 11^2$ & 2\\
+12A & 12 & $2^1 4^1 6^1 12^1$ & 0\\
+12B & 12 & $12^2$ & 0\\
+14A & 14 & $1^1 2^1 7^1 14^1$ & 1\\
+14B & 14 & $1^1 2^1 7^1 14^1$ & 1\\
+15A & 15 & $1^1 3^1 5^1 15^1$ & 1\\
+15B & 15 & $1^1 3^1 5^1 15^1$ & 1\\
+21A & 21 & $3^1 21^1$ & 0\\
+21B & 21 & $3^1 21^1$ & 0\\
+23A & 23 & $1^1 23^1$ & 1\\
+23B & 23 & $1^1 23^1$ & 1
 \end{tabular}
 \end{center}
-(K\"unneth-multiplicative $\kcat(K3\times E) = \chi(\cO)(K3) \cdot
-\chi(\cO)(E) = 2 \cdot 0 = 0$ confirms $\kch(K3\times E) = 0$ by
-Vol~III Hodge-supertrace identification on compact CY$_3$.)
-
-The table shows: the putative identity
-$\kBKM = \kch + \chi(\cO_{\mathrm{fiber}})$ has residual $5, 1, 0, 0, 0$
-at $N = 1, 2, 3, 4, 6$. It is not a universal relation. At $N=1$
-the residual 5 matches $\kBKM(\Delta_5) = 5$ numerically, but this
-is a \emph{degeneration coincidence}, not a theorem: the right-hand
-side $\kch(K3\times E) + \chi(\cO_E) = 0 + 0 = 0$ at $N = 1$ gives
-$5 - 0 = 5$, but at $N = 2$ the residual is $1$, not $5$; at $N \geq 3$
-it is 0. The identity is false as a universal relation.
-
-\paragraph{The working-notes-list phrasing ``BKM structure absorbs 8
-units'' specifically.}
-The 8-unit claim comes from the particular choice to compare
-$\kBKM(\Delta_5) = 5$ against a na\"ive sum $\kcat(K3) +
-\chi(\cO)(E) = 12 + 1 = 13$, giving $13 - 5 = 8$. But
-$\kcat(K3) = \chi(\cO_{K3}) = 2$ by Hodge computation of the
-trivial-class category, not 12; the $12$ value is the $F_1$-BCOV
-CY-$2$ categorical value $\kcat^{\mathrm{cat-BCOV}} = \chi_{\mathrm{top}}(K3)/2 = 24/2 = 12$,
-a \emph{different} categorical invariant (AP-CY cache entry 1).
-The K\"unneth-multiplicative $\kcat(K3\times E) = \kcat(K3) \cdot
-\kcat(E) = 2 \cdot 0 = 0$ by the programme-canonical choice of
-$\kcat$; the value $12$ is an alternate-reading artefact.
-
-\paragraph{Correct relationship.}
-
-\begin{proposition}[\ClaimStatusTheorem\ K3$\times$E $\kappa_\bullet$ spectrum]
-\label{prop:a15-k3e-spectrum}
-The four $\kappa_\bullet$ invariants on $K3\times E$ are:
-\begin{itemize}
-\item $\kch(K3\times E) = 0$ (Hodge supertrace on compact CY$_3$,
-  Vol~III cy\_d\_kappa\_stratification.tex Thm CY-D).
-\item $\kcat(K3\times E) = \chi(\cO_{K3\times E}) = \chi(\cO_{K3})
-  \cdot \chi(\cO_E) = 2\cdot 0 = 0$ (K\"unneth-multiplicative).
-\item $\kBKM(\Delta_5) = c_1(0)/2 = 5$ (Borcherds weight of the
-  rank-3 K3-BKM via Lorgat 2020 \S5).
-\item $\kfib(K3) = 24$ (K3 fibre rank / $\chi_{\mathrm{top}}(K3)$;
-  CLAUDE.md Essential constants line 5).
-\end{itemize}
-These are four numerics from four distinct constructions. No
-additive combination of any three equals the fourth across the full
-CHL-admissible set $N\in\{1,2,3,4,6\}$ (per Cycle 4 Proposition
-\ref{prop:a15-k3e-spectrum} numerical table, the putative relation
-$\kBKM = \kch + \chi(\cO_{\mathrm{fib}})$ holds only at $N \in
-\{3,4,6\}$, fails at $N=2$ by $1$, and fails at $N=1$ by $5$;
-the $N=1$ residual is the content of the Bruinier Heegner Chern-class
-reciprocity of Vol~I Thm~B-$\mathsf B$-row, not of a K\"unneth-
-arithmetic formula).
+The row \(3B\) is part of the ordinary table.  The corrected rows
+\[
+4A=2^4 4^4,\quad
+4B=1^4 2^2 4^4,\quad
+6B=6^4,\quad
+10A=2^2 10^2,\quad
+12A=2^1 4^1 6^1 12^1,\quad
+12B=12^2
+\]
+are the ones used by the local Mathieu compute oracle.
 \end{proposition}
 
-\paragraph{Heal replacement text for line 2112--2113.}
-Replace with:
-\begin{quote}
-\emph{For $K3 \times E$: the four $\kappa_\bullet$ invariants
-$(\kch, \kcat, \kBKM, \kfib) = (0, 0, 5, 24)$ come from four
-\emph{distinct} constructions (Hodge supertrace; K\"unneth
-categorical Euler; Borcherds weight of $\Delta_5$ via singular
-theta lift; K3 fibre rank). No na\"ive additive
-$\kBKM = \kch + \chi(\cO_{\mathrm{fib}})$ relation holds across
-$N \in \{1,2,3,4,6\}$; the apparent $N=1$ coincidence $5 = 0 + 0 +
-5$ is a degeneration artefact, not a theorem. The $8$-unit gap
-between $\kBKM = 5$ and a putative $12 + 1 = 13$ arises only under
-the alternate-reading $\kcat^{\mathrm{BCOV}}(K3) = 12$ convention
-(cache entry 1); under the programme's K\"unneth-multiplicative
-$\kcat = \chi(\cO)$ there is no such gap to explain.}
-\end{quote}
+\begin{proof}
+Each Frame shape \(\prod_i i^{a_i}\) is the cycle type of \(g\) in the
+natural 24-letter permutation representation, hence
+\(\sum_i i a_i=24\), and the displayed character value is \(a_1\).
+The local source
+\(\texttt{compute/lib/mathieu\_moonshine\_yangian.py}\) stores exactly
+these 26 rows and checks both identities by
+\(\texttt{verify\_frame\_shapes()}\).
+\end{proof}
 
-\subsection*{Cache append pattern (AP-CY draft)}
+\subsection{The Primitive Level-One Denominator}
 
-\begin{itemize}
-\item[] \textbf{AP-CY-NEW(I4).} Reading the $N=1$ residual
-  $\kBKM - \kch - \chi(\cO_{\mathrm{fib}}) = 5 - 0 - 0 = 5$ as
-  evidence of a universal relation $\kBKM = \kch + \chi(\cO_{\mathrm{fib}})$.
-  Ghost: the equation is true at $N=1$ under the alternate
-  $\kcat^{\mathrm{BCOV}}(K3) = 12$ convention; the coincidence is
-  real. Error: the identity fails at $N \in \{2,3,4,6\}$ per the
-  table above; CLAUDE.md Essential constants line 4 explicitly
-  flags this. Fix: never assert the relation without naming the
-  specific $N$ and the specific $\kcat$-convention; prefer the
-  $\kBKM(\Phi_N) = c_N(0)/2$ universal formula as the only
-  reliable identity.
-\end{itemize}
+The index-one generator is normalised by
+\[
+  \phi_{0,1}(\tau,z)=y^{-1}+10+y+O(q).
+\]
+Hence the discriminant-zero coefficient is \(c_1(0)=10\).  Borcherds'
+weight theorem gives
+\[
+  \kBKM(\Delf)=\wt(\Delf)=10/2=5.
+\]
+The Igusa form \(\PhiTen=\Delf^2\) has weight \(10\).  The square is the
+scalar genus-two partition function normalisation; the primitive BKM
+denominator is \(\Delf\) of weight \(5\).
 
-% ============================================================
-\section{Attack--heal cycle 5: non-CY local surfaces and the signed $\kch^{\mathrm{crv}}$}
-% ============================================================
+\subsection{CHL-Averaged Denominators}
 
-\subsection*{Scope}
+For the cyclic CHL denominator inputs used in the \(K3\times E\)
+Borcherds lane, the local compute witnesses
+\texttt{compute/lib/diagonal\_siegel\_cy\_orbifolds.py} and
+the universal BKM-weight witness use the row
+\[
+\begin{array}{c|c|c|c}
+N & \text{frame shape} & c_N^{\mathrm{CHL}}(0) &
+\kBKM(\Phi_N^{\mathrm{CHL}})\\
+\hline
+1 & 1^{24} & 10 & 5\\
+2 & 1^{8}2^{8} & 8 & 4\\
+3 & 1^{6}3^{6} & 6 & 3\\
+4 & 1^{4}2^{2}4^{4} & 4 & 2\\
+6 & 1^{2}2^{2}3^{2}6^{2} & 2 & 1
+\end{array}
+\]
+This is an averaged orbifold denominator row.  Ordinary \(M_{24}\)
+twining coefficients live in Proposition~\ref{prop:m24-ordinary-26-rows}
+and in the Jacobi forms \(\phi_g\).
 
-Target: \texttt{working\_notes.tex} lines 2141--2173, the non-CY
-local-surface table and three findings, especially:
+\subsection{Singly Twined Mathieu Inputs}
 
-\begin{quote}
-\emph{$\kappa_{\mathrm{ch}}^{\mathrm{crv}}(\delta) = \kappa_{\mathrm{ch}}^{\mathrm{crv}}(-\delta)$:
-the curved modular characteristic is an \emph{even} function of the CY
-defect. Genus-$1$ data cannot distinguish a geometry from its Koszul
-dual.}
-\end{quote}
+For the ten low-order \(M_{24}\) classes
+\[
+1A,\ 2A,\ 2B,\ 3A,\ 3B,\ 4A,\ 4B,\ 4C,\ 6A,\ 6B
+\]
+the \(q^0y^0\)-coefficients of the ordinary twined K3 elliptic genera
+are
+\[
+  c^{(g)}(0,0)=(20,4,-4,2,-4,0,4,-4,0,0).
+\]
+The half-vector
+\[
+  c^{(g)}(0,0)/2=(10,2,-2,1,-2,0,2,-2,0,0)
+\]
+is a singly twined scalar additive-lift vector.  The CHL denominator
+row is \((5,4,3,2,1)\).  Rows with zero or negative half-coefficient
+are ordinary twining data; primitive positive-weight BKM denominators
+use Borcherds input constants.
 
-\subsection*{Ghost theorem, precise error, correct relationship}
+\subsection{Cl\'ery-Gritsenko Diagonal-Divisor Forms}
 
-\paragraph{Ghost theorem.}
-For a rank-2 bundle $E \to C$ on a smooth projective curve $C$ of genus
-$g$, the total space $\Tot(E)$ has CY defect $\delta = \deg(\det E) -
-\deg(K_C) = \deg(\det E) - (2g - 2)$. When $\delta = 0$, $\Tot(E)$ is a
-local CY$_3$ (Serre-duality condition). When $\delta \neq 0$, the
-chiral algebra $A_E$ carries a curving $m_0 = \delta \cdot \omega_C$
-and bar complexes live in the coderived category
-$D^{\mathrm{co}}(A_E)$. A genuine theorem: the curving-squared
-correction $\delta^2 \chi(C)/24$ (the BCOV-type defect) is even in
-$\delta$.
+The Cl\'ery-Gritsenko catalogue is indexed by triples \((t,N;k)\).  The
+CHL order alone is insufficient:
+\[
+\begin{array}{c|c|c|c}
+\text{form} & (t,N) & \text{group} & \wt\\
+\hline
+\Delf & (1,1) & \Sp_4(\ZZ) & 5\\
+\Delta_2 & (2,1) & \Gamma_2 & 2\\
+\nabla_3 & (1,2) & \Gamma_0^{(2)}(2) & 3\\
+\Delta_1 & (3,1) & \Gamma_3 & 1\\
+\nabla_2 & (1,3) & \Gamma_0^{(2)}(3) & 2\\
+\Delta_{1/2} & (4,1) & \Gamma_4 & 1/2\\
+\nabla_{3/2} & (1,4) & \Gamma_0^{(2)}(4) & 3/2\\
+Q_1 & (2,2) & \Gamma_2(2) & 1
+\end{array}
+\]
+The \(\Delf\) row is the common intersection of the CHL ladder and the
+Cl\'ery-Gritsenko catalogue.  Ordinary Mathieu twining supplies the
+identity Jacobi input; the paramodular group, product, and BKM root data
+are additional structure.  The half-integral rows require the stated
+cover and multiplier.  A transfer to a CHL or Mathieu table requires an
+explicit row map.
 
-\paragraph{Precise error.}
-Three precision issues:
+\section{K3, Enriques, and Persson-Volpato}
 
-\begin{enumerate}
-\item \textbf{Sign conventions on $\delta$.} The claim
-  $\kch^{\mathrm{crv}}(\delta) = \kch^{\mathrm{crv}}(-\delta)$ depends
-  on the precise definition of $\kch^{\mathrm{crv}}$. Under the
-  formula $\kch^{\mathrm{crv}} = \kch + \delta^2 \chi(C)/24$, the
-  $\delta^2$ dependence is indeed even. But a more refined invariant
-  --- e.g. the curved stress-tensor level
-  $k_{\mathrm{crv}}(\delta) = k + \delta \cdot (\text{linear}) + \delta^2 \cdot (\text{quadratic})$ ---
-  has a linear-in-$\delta$ piece that is odd, not even. The
-  working-notes passage identifies the even-in-$\delta$ piece with the
-  full ``curved modular characteristic'' and declares the invariant
-  even; but the ``curved modular characteristic'' is not a single
-  number, it is a pair (level, central-charge shift), and the level
-  part has an odd-in-$\delta$ component.
+The ordinary twined genus \(\phi_g\) exists for every \(M_{24}\) class.
+The twisted-twined genus \(\phi_{g,h}\) requires an actual commuting
+pair \(gh=hg\), a projective action of \(C_{M_{24}}(g)\) on the
+\(g\)-twisted sector, and the Persson-Volpato anomaly multiplier.  The
+second-quantised product of the twisted-twined genus is a Siegel
+modular object after the anomaly correction.  It is a BKM denominator
+only after the lattice, chamber, Weyl vector, cover, and product
+exponents have been supplied.
 
-\item \textbf{The ``Koszul dual is $-\delta$'' claim.} Koszul duality
-  on curved $A_\infty$-algebras (Positselski 2011, Booth--Lazarev
-  2023) sends $(A, m_0) \mapsto (A^!, -m_0^!)$ under appropriate
-  curvature sign conventions; but the sign of the dual curvature is
-  \emph{convention-dependent}, not intrinsic. The $\kch^{\mathrm{crv}}$
-  even-in-$\delta$ statement therefore amounts to a convention fix,
-  not to a statement about Koszul duality classes.
+\begin{warning}[Class-row separation]
+Canonical maps from the 26 \(M_{24}\) conjugacy classes to CHL or
+Cl\'ery-Gritsenko denominator rows require extra data.  A valid row
+assertion names:
+the conjugacy class or commuting pair, the multiplier, the Jacobi input,
+the paramodular group or orthogonal group, the product weight, and the
+root datum.  With only the class row, the mathematical object is a K3
+twining genus or a twisted-twined genus.
+\end{warning}
 
-\item \textbf{Genus-1 data cannot distinguish.} This is correct at
-  depth 2 (even-in-$\delta$ piece controls genus-1 shadow), but
-  genus-2 partition functions \emph{do} see the linear-in-$\delta$
-  piece through the $\delta \cdot \omega_C$ coupling on the gluing
-  annulus. The passage's ``genus-$1$ data cannot distinguish'' is
-  correct; it should not be read as ``no data can distinguish.''
-\end{enumerate}
+\section{Consequences for Vol III}
 
-\paragraph{Correct relationship.}
+\[
+\begin{array}{c|c|c}
+\text{object} & \text{indexing set} & \text{constant}\\
+\hline
+\Delf & \phi_{0,1} & \kBKM=5\\
+\PhiTen=\Delf^2 & \text{Igusa square} & \wt=10\\
+\Phi_N^{\mathrm{CHL}} & N=1,2,3,4,6 & \kBKM=(5,4,3,2,1)\\
+\phi_g & [g]\subset M_{24} & \chi_{24}(g),\ c^{(g)}(0,0)\\
+\text{umbral }H^{(\Lambda)} & 23\text{ Niemeier root systems} &
+\text{mock modular shadow}\\
+\text{Enriques product} & \text{Enriques lattice} &
+\text{lattice and multiplier dependent}
+\end{array}
+\]
 
-\begin{theorem}[\ClaimStatusTheorem\ Non-CY curved shadow discipline]
-\label{thm:a15-noncy-curved}
-For $E \to C$ a rank-2 bundle with CY defect $\delta \in \ZZ$, the
-curved chiral algebra $A_E$ has:
-\begin{enumerate}[label=(\roman*)]
-\item Genus-1 shadow obstruction $\kch^{\mathrm{crv}}(\delta) = \kch(\Tot(E)) + \delta^2 \chi(C)/24$,
-  \emph{even} in $\delta$.
-\item Classical level deformation $k_{\mathrm{crv}}(\delta) = k + \delta\cdot\ell_1(C) + \delta^2\cdot\ell_2(C)$
-  with an odd-in-$\delta$ component $\ell_1(C) \neq 0$ when $2g - 2 \neq 0$.
-\item Genus-2 partition function $Z_2(\tau; \delta) = Z_2(\tau; 0) \cdot (1 + \delta \cdot F_1(\tau) + O(\delta^2))$
-  with $F_1(\tau) \neq 0$ generically, distinguishing $\delta$ from
-  $-\delta$.
-\end{enumerate}
-Therefore ``genus-1 data is blind to $\delta$-sign'' is correct;
-``all chiral data is blind to $\delta$-sign'' is false; the
-distinction requires genus-2 or higher.
-\end{theorem}
+The four Vol III invariants remain separated:
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kBKM(\Delf)=5,\qquad
+  \kfib(K3)=24.
+\]
+The equality \(3+2=5\) at the K3 fibre is a comparison of different
+constructions at \(N=1\).  The denominator formula is
+\(\kBKM(\Phi)=c(0)/2\) for the chosen Borcherds input.
 
-\paragraph{Heal for (iii) in lines 2169--2172.}
-Replace ``Genus-$1$ data cannot distinguish a geometry from its
-Koszul dual.'' with ``Genus-$1$ shadow data cannot distinguish
-$(E, \delta)$ from $(E^\vee \otimes K_C, -\delta)$; genus-$2$
-partition functions do distinguish them through the linear-in-$\delta$
-term of the level deformation (Hitchin 1987; Kapustin--Witten 2007
-for the $t=1$ normalisation).''
-
-\subsection*{Cache append pattern (AP-CY draft)}
-
-\begin{itemize}
-\item[] \textbf{AP-CY-NEW(I5).} Declaring the entire ``curved modular
-  characteristic'' even in $\delta$ when only the genus-1
-  $\delta^2$-piece is even. Ghost: the $\delta^2$ piece is the BCOV
-  quantity Vol III tracks; it is genuinely even. Error: conflates a
-  single graded component with the full invariant, which has
-  odd-in-$\delta$ components in higher-genus / level-shift data.
-  Fix: name the depth at which evenness holds; name the higher-depth
-  invariant where oddness appears.
-\end{itemize}
-
-% ============================================================
-\section{Attack--heal cycle 6: content heatmap $\Eone$/$\Etwo$ status collapse}
-% ============================================================
-
-\subsection*{Scope}
-
-Target: \texttt{working\_notes.tex} lines 2357--2374, the content
-heatmap table rows ``\texttt{cy\_to\_chiral} $\cdots$ P/$d{=}2$, C/$d{=}3$'',
-``\texttt{e2\_chiral\_algebras} $\cdots$ P/$d{=}2$'',
-``\texttt{drinfeld\_center} $\cdots$ P/$d{=}2$''.
-
-\subsection*{Ghost theorem, precise error, correct relationship}
-
-\paragraph{Ghost theorem.}
-The output of $\Phi$ is $E_2$-chiral at $d \leq 2$ and $E_1$-chiral at
-$d \geq 3$ (CLAUDE.md ``The mathematics'', first paragraph). The
-heatmap entries ``P/$d{=}2$'' correctly name the proof-status for
-$d = 2$. Columns listing ``P/$d=2$, C/$d=3$'' correctly name the
-joint status across dimensions.
-
-\paragraph{Precise error.}
-The table reads as if the heatmap columns are cross-cutting: a single
-chapter \texttt{drinfeld\_center} is ``proved at $d=2$'' as if the
-chapter covers $d=2$ only, or as if $d = 3$ is a conjectural extension
-of the same object. Per Pattern 273 ``$\Phi$ functor vs object-level
-correspondence'' and AP-CY10, the $d=2$ and $d=3$ outputs are
-\emph{different objects in different categories}:
+\section{Source Anchors}
 
 \begin{itemize}
-\item At $d = 2$: $\Phi(D^b\Coh(K3))$ is an $E_2$-chiral algebra; the
-  Drinfeld center is $\cZ(\Rep^{E_1}(A)) \simeq A$-$E_2$-center
-  (braided monoidal).
-\item At $d = 3$: $\Phi(D^b\Coh(X))$ is an $E_1$-chiral algebra; the
-  Drinfeld center lives on $\cZ(\Rep^{E_1}(A))$, one categorical
-  level up from $A$ itself (CLAUDE.md Key facts line ``At $d \geq 3$,
-  $A$ is $E_1$; $E_2$ lives on $Z(\mathrm{Rep}(A))$, not on $A$'').
+\item Borcherds 1998, \emph{Automorphic forms with singularities on
+Grassmannians}, Theorem 13.3: product weight \(c(0)/2\).
+\item Gritsenko-Nikulin 1998 and Gritsenko 1999: \(\Delf\) and the
+rank-three denominator construction.
+\item Eguchi-Ooguri-Tachikawa 2011; Gaberdiel-Hohenegger-Volpato
+2012: \(M_{24}\)-twined K3 elliptic genera.
+\item Cheng-Duncan-Harvey 2014: umbral moonshine and the Niemeier
+root-system indexing.
+\item Persson-Volpato 2012 and Gaberdiel-Persson-Volpato 2013:
+twisted-twined genera and anomaly phases.
+\item Allcock 2000 and the Enriques-lattice Borcherds literature:
+the Enriques denominator branch.
 \end{itemize}
-
-The ``P/$d=2$'' entry is therefore not a partial-progress toward a
-uniform ``proved at all $d$'' statement; it is a complete statement
-about a $d=2$ object, and the $d=3$ chapter covers a \emph{different}
-object (a Drinfeld centre of a $\Rep$-category, not of the chiral
-algebra).
-
-\paragraph{Correct relationship.}
-
-\begin{table}[h]
-\small
-\begin{tabular}{@{}lcl@{}}
-\toprule
-Chapter & Object at $d=2$ & Object at $d=3$ \\
-\midrule
-\texttt{cy\_to\_chiral} & $A_2 = \Phi(D^b\Coh(K3))$, $E_2$-chiral &
-  $A_3 = \Phi(D^b\Coh(X_3))$, $E_1$-chiral \\
-\texttt{drinfeld\_center} & $\cZ(A_2) \simeq A_2$ (trivial $E_2$-center) &
-  $\cZ(\Rep^{E_1}(A_3))$, $E_2$-category on $\Rep$ \\
-\texttt{e2\_chiral\_algebras} & $A_2$ itself & Not $A_3$; rather
-  $\cZ(\Rep^{E_1}(A_3))$ \\
-\texttt{hochschild\_calculus} & $\HH^\bullet(A_2)$ with $E_3$-bracket &
-  $\HH^\bullet(A_3)$ with $E_2$-bracket (loop level +1) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The heatmap's ``P/$d=2$'' entry on \texttt{drinfeld\_center} is
-correct for the object $\cZ(A_2) \simeq A_2$; the $d=3$ object is
-$\cZ(\Rep^{E_1}(A_3))$ which lives at a different categorical level
-and has its own P/C status (largely C, as the programme is
-mid-stream for compact CY$_3$).
-
-\paragraph{Heal for the heatmap.}
-Add a column \textbf{Categorical level} with entries
-``$E_2$-algebra'' ($d=2$), ``$E_2$-category on $\Rep(A)$'' ($d=3$), or
-``$E_1$-algebra'' ($d=3$, on $A$ itself). The P/C status-cell then
-refers unambiguously to the object named in the Categorical-level
-column, not to ``the $\Phi$ image at that dimension'' which is
-overloaded.
-
-\subsection*{Cache append pattern (AP-CY draft)}
-
-\begin{itemize}
-\item[] \textbf{AP-CY-NEW(H6).} Reading a status-column ``P/$d=2$''
-  in a heatmap as a partial-progress marker toward ``P/all $d$''.
-  Ghost: the proof is real and complete for $d=2$. Error: the $d=3$
-  object is a different categorical-level entity (AP-CY10
-  functor-output-scope; Pattern 273); ``P/$d=2$, C/$d=3$'' is not a
-  progress-stratification but a two-object statement. Fix: always
-  accompany the dimension-split with a Categorical-level column
-  naming the object the P/C status applies to.
-\end{itemize}
-
-% ============================================================
-\section{Cross-cutting findings}
-% ============================================================
-
-\subsection{Five atlases, four lifts, the programme's output location}
-
-Reconstruction of the atlases-and-lifts picture specific to the
-moonshine paragraph (cycle 2):
-
-\begin{center}
-\small
-\begin{tabular}{lll}
-\toprule
-Atlas & Cardinality & Lift landing in Vol III? \\
-\midrule
-Niemeier lattices & 24 & only via $24 A_1$ (Mathieu) and $6 D_4$ ($N=6$) \\
-Gritsenko--Cl\'ery diagonal-divisor forms & 8 & 5 land (CHL-admissible $N$) \\
-CHL-admissible $N$ & 5 & all 5 (core Vol III V.2--V.4) \\
-$M_{24}$ conjugacy classes & 26 & 5 Nikulin-admissible + 21 non-Nikulin \\
-Monster conjugacy classes & 194 & 1 (at $N=1$ via Vol I B-row; not direct) \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection{The Monster vs the K3-BKM vs the Fake Monster}
-
-Three Borcherds automorphic BKMs, three distinct Cartan ranks (26,
-26, 3), three distinct input weak Jacobi forms, three distinct Vol III
-roles:
-
-\begin{center}
-\small
-\begin{tabular}{lccl}
-\toprule
-BKM & Cartan rank & Denominator & Vol III role \\
-\midrule
-Monster $\mathfrak{m}$ & $26$ & $j(\sigma) - j(\tau)$ & Vol I B-row at
-  $N{=}1$ (B-row $K^{\kappa_{\mathrm{ch}}} = 8$) \\
-Fake Monster $\mathfrak{f}$ & $26$ & Weyl denominator of $\mathrm{Co}_1$ & none direct \\
-K3-BKM $\fg_{\Delta_5}$ & $3$ & $\Delta_5$ via $\phi_{0,1}$ lift & core
-  of Vol III K3$\times$E and the CY-landscape part \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-Neither the Monster nor the Fake Monster is a subalgebra of the other;
-neither is a subalgebra of the K3-BKM (per cache entry 16B). The Vol III
-preference for $\fg_{\Delta_5}$ as ``the programme's BKM'' is
-correct; prose should never suggest the K3-BKM sits inside the Monster.
-
-\subsection{Lorgat 2020 Conjecture~1 status table (programme-wide)}
-
-\begin{center}
-\small
-\begin{tabular}{c|c|l|c}
-\toprule
-$N$ & Gritsenko--Cl\'ery form & Status of Conjecture~1 & Primary source \\
-\midrule
-$1$ & $\Delta_5$ (weight 5) & \textbf{Theorem} & Lorgat 2020 \S5; Oberdieck--Pandharipande 2016 \\
-$2$ & $\Delta_2^{(2)}$ (weight 2) & \textbf{Conjecture} & Gritsenko 1999; GHV 2010 \\
-$3$ & $\Delta_1^{(3)}$ (weight 1) & \textbf{Conjecture} & Gritsenko 1999 \\
-$4$ & $\Delta_1^{(4)}$ (weight 1) & \textbf{Conjecture} & Gritsenko 1999 \\
-$6$ & $\Delta_1^{(6)}$ (weight 1) & \textbf{Conjecture} & Gritsenko 1999; CDH 2014 ($6D_4$) \\
---- & 3 further Gritsenko--Cl\'ery & Speculative / outside CHL set & Gritsenko--Cl\'ery 2008 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-% ============================================================
-\section{Summary of attack--heal outputs and cache appends}
-% ============================================================
-
-\begin{enumerate}
-\item \textbf{Cycle 1} (Niemeier shadow): $\kch(V_\Lambda) = 12 = c/2$
-  for all 24, not $24 = \mathrm{rank}$. Retract the ``shadow
-  separation'' claim. Cache AP-CY-NEW(N1).
-\item \textbf{Cycle 2} (Mathieu/umbral): distinguish 3 moonshines:
-  Mathieu (EOT 2011), umbral (CHP 2014, 23 Niemeier anchors), the
-  $24 A_1$ case specifically. Cache AP-CY-NEW(N2). K3-chiral-vertex-group
-  $\to$ Mathieu connection stated as Conjecture \ref{conj:a15-k3-mathieu-shadow}.
-\item \textbf{Cycle 3} (Fermat quintic): character-sum identity, not
-  Burnside lemma. Theorem \ref{thm:a15-fermat-quintic-jac}.
-  Cache AP-CY-NEW(I3).
-\item \textbf{Cycle 4} ($\kBKM = \kch + \chi(\cO_{\mathrm{fib}})$):
-  N=1-only coincidence; fails at $N=2$ and holds trivially
-  (both sides $= 0$ or $= 1$) at $N \in \{3,4,6\}$. CLAUDE.md WATCH item
-  confirmed. Cache AP-CY-NEW(I4).
-\item \textbf{Cycle 5} (non-CY curved $\kch$): even-in-$\delta$ at
-  genus-1 only; odd-in-$\delta$ at level-deformation / genus-$\geq 2$.
-  Theorem \ref{thm:a15-noncy-curved}. Cache AP-CY-NEW(I5).
-\item \textbf{Cycle 6} (heatmap $d$-stratification): ``P/$d=2$'' is a
-  complete statement on a $d=2$ object, not partial progress. Pattern
-  273 applied to the heatmap reading. Cache AP-CY-NEW(H6).
-\end{enumerate}
-
-\paragraph{Cache append batch (intended destination:
-\texttt{appendices/first\_principles\_cache.md} table).}
-
-\begin{center}
-\footnotesize
-\begin{tabular}{@{}p{1.8cm}p{4cm}p{4cm}p{5cm}@{}}
-\toprule
-Pattern ID & Wrong Claim & Ghost Theorem & Correct Relationship \\
-\midrule
-AP-CY-NEW(N1) & Niemeier lattice VOA has $\kch = 24$ & Lattice rank is
-  24; $c = 24$ & $\kch = c/2 = 12$ for all 24 Niemeier + $V^\natural$;
-  separate via $\dim V_1$ or theta coefficient \\
-AP-CY-NEW(N2) & ``umbral moonshine for $\Lambda = 24A_1$'' covers all
-  of Mathieu & $24 A_1$ is the CHP 2014 anchor for Mathieu moonshine &
-  3 distinct objects: Mathieu moonshine (EOT 2011); umbral moonshine
-  (CHP 2014, 23 Niemeier anchors); the $24A_1$ umbral case recovers
-  Mathieu \\
-AP-CY-NEW(I3) & Fermat-quintic $204 = b_3(Q)$ via Burnside's lemma &
-  The identity holds; $b_3(Q) = 1 + 101 + 101 + 1 = 204$ & Via
-  character sum $\tfrac{1}{5}\sum_{k=0}^{4}(1+\omega^k+\omega^{2k}+\omega^{3k})^5 = 204$,
-  not Burnside orbit count \\
-AP-CY-NEW(I4) & BKM absorbs 8 units on $K3\times E$; implicit
-  $\kBKM = \kch + \chi(\cO_{\mathrm{fib}})$ & BCOV-convention
-  $\kcat^{\mathrm{BCOV}}(K3) = 12$ & Under K\"unneth $\kcat =
-  \chi(\cO)$, the gap is 0; the additivity fails at every
-  $N\in\{1,2,3,4,6\}$; use $\kBKM(\Phi_N) = c_N(0)/2$ instead \\
-AP-CY-NEW(I5) & Curved $\kch^{\mathrm{crv}}$ is even in $\delta$ as a
-  full invariant & The $\delta^2$ piece (BCOV defect) is even &
-  Higher-genus / level-shift data has odd-in-$\delta$ components;
-  the evenness applies to genus-1 shadow only \\
-AP-CY-NEW(H6) & Content-heatmap ``P/$d=2$'' is partial progress toward
-  uniform proof & Proof is complete for $d=2$ object & The $d=3$
-  object is a different-categorical-level entity (AP-CY10 /
-  Pattern~273); always accompany with Categorical-level column \\
-\bottomrule
-\end{tabular}
-\end{center}
 
 \end{document}

@@ -342,7 +342,7 @@ def four_weight_formulas_k3xe() -> Dict[str, WeightFormula]:
             formula="wt = kappa_BKM",
             input_kappa="kappa_BKM",
             weight=Fraction(5),
-            modular_form="Delta_5 (Igusa cusp form of weight 5)",
+            modular_form="Delta_5 (primitive Gritsenko-Nikulin denominator of weight 5)",
             status="OBSERVATION (AP-CY8)",
         ),
     }

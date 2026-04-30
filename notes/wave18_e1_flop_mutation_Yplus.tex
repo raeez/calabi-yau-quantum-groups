@@ -1,209 +1,333 @@
-% Wave-18 E1/20: the Atiyah flop as an automorphism of the positive half
-% Yplus(\widetilde Y) of the resolved conifold.
-% Voice: Bridgeland + Szendroi, channelled through Russian elite + math-physics elite.
-% Primary sources: Bridgeland 2002 (arXiv:math/0502050); Szendroi 2008
-% (arXiv:0705.3419); Kontsevich-Soibelman 2008 (arXiv:0811.2435) sec.8;
-% Nagao-Nakajima 2011 (arXiv:0809.2992); Morrison-Mozgovoy-Nagao-Szendroi
-% 2012 (arXiv:1107.5017); Van den Bergh 2004 (arXiv:math/0207170).
-% Companion to wave17_c1_conifold_gluing_explicit.tex.
+% Atiyah flop, quiver mutation, and the conifold positive half.
+% Primary sources: Bridgeland arXiv:math/0009053; Van den Bergh
+% arXiv:math/0211064; Szendroi arXiv:0705.3419; Nagao--Nakajima
+% arXiv:0809.2992; Morrison--Mozgovoy--Nagao--Szendroi arXiv:1107.5017;
+% Kontsevich--Soibelman arXiv:0811.2435 and arXiv:1006.2706.
 
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\bP}{\mathbb{P}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\cY}{\mathcal{Y}}
-\providecommand{\cF}{\mathcal{F}}
-\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\Yplus}{Y^{+}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
-\providecommand{\DT}{\mathrm{DT}}
 \providecommand{\Db}{D^{b}}
 \providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\tr}{\mathrm{tr}}
 \providecommand{\Jac}{\mathrm{Jac}}
-\providecommand{\Aut}{\mathrm{Aut}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\slhat}{\widehat{\mathfrak{sl}}_{2}}
-\providecommand{\nplus}{\mathfrak{n}_{+}^{\slhat}}
-\providecommand{\ghat}{\widehat{\mathfrak{gl}}_{1}}
-\providecommand{\Wflop}{\phi_{\mathrm{flop}}}
-\providecommand{\Wflopp}{\phi_{\mathrm{flop}}^{+}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Eone}{E_{1}}
+\providecommand{\Etwo}{E_{2}}
+\providecommand{\fgl}{\mathfrak{gl}}
 \providecommand{\FMflop}{\Phi_{\mathrm{flop}}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
-\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\Thetaflop}{\Theta_{\mathrm{flop}}}
+\providecommand{\Twall}{\mathbb{T}_{\Gamma}}
+\providecommand{\Dilog}{\mathbb{E}}
 
-\section*{Wave-18 E1/20: the Atiyah flop as an automorphism of
-         $\Yplus(\widetilde Y)$}
+\section*{Atiyah flop, mutation, and the conifold positive half}
 \label{wn:sec:flop-mutation-Yplus}
 
-The resolved conifold admits a second small resolution
-$\widetilde{Y}^{\vee}$, obtained by contracting the exceptional
-$\bP^{1}$ and blowing up along the transverse direction.  Bridgeland's
-derived equivalence $\Db(\widetilde Y)\cong\Db(\widetilde Y^{\vee})$
-lifts, through the cohomological-Hall construction, to an automorphism
-$\Wflopp$ of the global positive half $\Yplus(\widetilde Y) =
-U(\nplus)\otimes\Lambda$ of Wave-17 C1.  Five cycles show: the
-automorphism is the affine Weyl reflection $s_{1}$ on
-$A_{1}^{(1)}$, composed with a parity flip on the Cartan
-$\Lambda$; its character-level shadow is the Kontsevich--Soibelman
-wall-crossing of the conifold chamber; together with the overlap
-cocycle $\phi_{UV}$ of Wave-17 C1 it generates the Seiberg-duality
-groupoid of $(Q_{\mathrm{KW}},W_{\mathrm{KW}})$.
-
-\subsection*{Cycle 1 --- the flop as Fourier--Mukai transform}
-
-\ClaimStatusDefinition\ Let $\widetilde{Y}\times_{Y}\widetilde{Y}^{\vee}$
-denote the fibre product over the singular conifold
-$Y=\{xy=zw\}\subset\C^{4}$, and let $\cE = \cO_{\widetilde{Y}\times_{Y}
-\widetilde{Y}^{\vee}}$ be its structure sheaf.  Bridgeland
-(\texttt{math/0502050}, Thm.~1.1) shows that $\cE$ is a perfect complex
-whose associated Fourier--Mukai kernel
+Let
 \[
-  \FMflop \;=\; \bigl(p_{2,*}\circ(\,\cdot\,\otimes^{\mathbb L}\cE)\circ
-                   p_{1}^{*}\bigr)\colon \Db(\widetilde{Y})
-                   \;\longrightarrow\; \Db(\widetilde{Y}^{\vee})
+  \widetilde Y=\operatorname{Tot}\bigl(\cO_{\bP^1}(-1)\oplus
+  \cO_{\bP^1}(-1)\bigr)
 \]
-is an equivalence of triangulated categories.  Away from the
-exceptional $\bP^{1}$, $\FMflop$ restricts to the identity; on
-the exceptional fibre it acts as the spherical twist around
-$\cO_{\bP^{1}}(-1)$ (Seidel--Thomas-type twist).  The two resolutions
-share the same toric fan at the level of rays but differ in
-triangulation (Wave-17 C1, Cycle 1); the flop is the change of
-triangulation.
-
-\subsection*{Cycle 2 --- induced CoHA automorphism}
-
-\ClaimStatusTheorem\ The Fourier--Mukai equivalence $\FMflop$ preserves
-compact support, preserves the $(-1,-1)$-shifted symplectic structure
-(the Calabi--Yau $3$-form, up to the orientation flip of Wave-17 C1
-Cycle 2), and commutes with Ext pushforward along moduli of compactly
-supported sheaves.  By the functoriality of the cohomological-Hall
-construction for CY$_{3}$ categories (Kontsevich--Soibelman
-\texttt{0811.2435} sec.~5; Davison--Meinhardt \texttt{1601.02479}
-Thm.~A), $\FMflop$ induces an isomorphism of associative algebras
+be the small resolution of the conifold
+$Y=\{xy=zw\}\subset\C^{4}$, and let
+$\widetilde Y^\vee$ be the other small resolution.  The Klebanov--Witten
+quiver $Q_{\mathrm{KW}}$ has vertices $0,1$, arrows
+$a_1,a_2\colon0\to1$, $b_1,b_2\colon1\to0$, and potential
 \[
-  \Wflopp\colon \Yplus(\widetilde{Y})
-  \;\xrightarrow{\,\sim\,}\; \Yplus(\widetilde{Y}^{\vee}).
+  W_{\mathrm{KW}}
+  = \tr(a_1b_1a_2b_2-a_1b_2a_2b_1).
 \]
-The two global positive halves are \emph{a priori} distinct algebras ---
-one built from $(Q_{\mathrm{KW}},W_{\mathrm{KW}})$ with vertex set
-$\{0,1\}$, the other with $\{0',1'\}$ and the opposite orientation of
-each arrow.  Both are, by Wave-17 C1, Cycle 5, canonically isomorphic
-to $U(\nplus)\otimes\Lambda$; the flop-induced map identifies the
-two copies and lands as an endomorphism of the ambient algebra.
-
-\subsection*{Cycle 3 --- explicit form: $s_{1}$-Weyl reflection and
-             parity flip}
-
-\ClaimStatusDerivation\ Under the identification
-$\Yplus(\widetilde{Y})=U(\nplus)\otimes\Lambda$, the Chevalley
-generators indexed by the $A_{1}^{(1)}$ simple roots $\alpha_{0}=\delta-\alpha,\alpha_{1}=\alpha$
-are
+For the Klebanov--Witten stability chamber $\sigma_{\mathrm{KW}}$, the
+conifold positive half is the critical CoHA
 \[
-  e_{0} \;\longleftrightarrow\; \tr(a_{1}b_{2}-a_{2}b_{1}),\qquad
-  e_{1} \;\longleftrightarrow\; \tr(b_{1}a_{2}-b_{2}a_{1}),
+  \Yplus_{\sigma_{\mathrm{KW}}}(\widetilde Y)
+  :=
+  \CoHA(Q_{\mathrm{KW}},W_{\mathrm{KW}}),
 \]
-i.e.\ the two real-root level-$(1,0)$ and $(0,1)$ generators of the MMNS
-resolution (\texttt{1107.5017}, Prop.~2.4).  On the quiver side, Seiberg
-duality at vertex $1$ exchanges $a_{i}\leftrightarrow b_{i}^{\vee}$,
-reverses arrow orientation, and adjusts $W_{\mathrm{KW}}$ by the
-dualising term; on the root system, this is the simple reflection
+graded by $\Gamma_{\geq 0}=\Z_{\geq0}^{2}$.  Completion is part of the
+notation only when infinite DT products or wall-crossing operators are
+evaluated.
+
+The MMNS conifold root system has real positive roots
 \[
-  s_{1}\colon \alpha_{1}\mapsto -\alpha_{1},\qquad
-  \alpha_{0}\mapsto \alpha_{0}+\alpha_{1},
+  (n+1,n),\quad (n,n+1) \qquad (n\ge 0)
 \]
-extended multiplicatively to the Kac--Moody Weyl group $W(A_{1}^{(1)})$.
-Accordingly
+with BPS multiplicity one, and imaginary roots $(n,n)$ for $n\geq 1$
+with absolute multiplicity two.  The signs depend on the Behrend,
+motivic, or refined specialization.  The algebraic object before
+Drinfeld doubling is the positive half
 \[
-  \Wflopp(e_{0}) = e_{0} + [e_{1},e_{0}],\qquad \Wflopp(e_{1}) = -e_{1}
+  \Yplus_{\sigma_{\mathrm{KW}}}(\widetilde Y)
+  \simeq
+  Y^+\!\bigl(\widehat{\fgl}(1|1)\bigr)^{\mathrm{con}}
 \]
-(Serre relation: $\mathrm{ad}_{e_{1}}^{3}(e_{0})=0$ in $\slhat$, so the
-formula closes at one bracket).  On the Cartan $\Lambda = \Lambda^{*}
-(h_{\delta})$ (the Heisenberg generated by the imaginary-root elements),
-the flop acts by \emph{parity flip} $h_{n\delta}\mapsto (-1)^{n}
-h_{n\delta}$.  This is forced by the orientation-reversal of
-$\Omega_{\widetilde{Y}}\mapsto -\Omega_{\widetilde{Y}^{\vee}}$ on the
-overlap (Wave-17 C1, Cycle 2): each imaginary-root generator, being
-built from $\bP^{1}$-fundamental classes, picks up the pullback sign of
-the volume form.
-
-The spectrum of invariants is preserved: $\kch(\Yplus(\widetilde Y)) =
-\kch(\Yplus(\widetilde Y^{\vee})) = 1$, and $\kcat(\widetilde Y) =
-\chi(\cO_{\widetilde Y}) = 1 = \kcat(\widetilde Y^{\vee})$, as each
-quantity is a birational invariant of smooth CY$_{3}$'s
-(Batyrev--Kontsevich motivic integration).
-
-\subsection*{Cycle 4 --- Kontsevich--Soibelman wall-crossing at the
-             character level}
-
-\ClaimStatusTheorem\ Pass to the Poincar\'e character
-$\chi_{\Yplus}(q,y_{0},y_{1}) = \sum_{n_{0},n_{1}}
-q^{n_{0}+n_{1}}y_{0}^{n_{0}}y_{1}^{n_{1}}\dim\Yplus_{(n_{0},n_{1})}$.
-The generating function is the refined DT partition function
-$Z^{\mathrm{DT}}_{\widetilde Y}(q,y_{0},y_{1})$ on the NCDT chamber
-(Szendr\H{o}i \texttt{0705.3419}, Thm.~1.2).  Kontsevich--Soibelman
-(\texttt{0811.2435}, sec.~8.4) identifies $\Wflopp$ at the character
-level with the \emph{wall-crossing operator} between the NCDT chamber
-and the DT chamber of $\widetilde Y^{\vee}$:
+as a connected $\Z_{\geq0}^{2}$-graded super-bialgebra, in the conifold
+current presentation.  On a smooth affine chart $\C^3$ the local algebra
+is
 \[
-  Z^{\mathrm{NCDT}}_{\widetilde Y}(q,y_{0},y_{1}) \;=\;
-  Z^{\mathrm{DT}}_{\widetilde{Y}^{\vee}}(q,y_{1},y_{0})\cdot
-  M(-q)^{-2},
+  \CoHA(\C^3)\simeq Y^+(\widehat{\fgl}_{1}),
 \]
-where $M(q)=\prod_{n\ge 1}(1-q^{n})^{-n}$ is the MacMahon function and
-the factor $M(-q)^{-2}$ is the contribution of the two bifundamental
-hypermultiplets crossing the wall (Nagao--Nakajima \texttt{0809.2992},
-Thm.~1.1, for refined version).  The exchange $y_{0}
-\leftrightarrow y_{1}$ is the image of $s_{1}\in W(A_{1}^{(1)})$ on the
-character lattice; the $M(-q)^{-2}$ prefactor is the imaginary-root
-parity flip of Cycle 3, evaluated at the universal character.
-
-\subsection*{Cycle 5 --- the Seiberg-duality groupoid}
-
-\ClaimStatusTheorem\ Wave-17 C1, Cycle 4 produces the overlap cocycle
-$\phi_{UV}\colon\Yplus(\widetilde Y)|_{U_{+}\cap U_{-}}^{+}
-\xrightarrow{\sim}\Yplus(\widetilde Y)|_{U_{+}\cap U_{-}}^{-}$; the
-present cycle produces the flop automorphism $\Wflopp$.  The pair
-generates a subgroup of $\Aut_{\mathrm{alg}}(\Yplus(\widetilde Y))$
-isomorphic to the \emph{Seiberg-duality groupoid} of
-$(Q_{\mathrm{KW}},W_{\mathrm{KW}})$: a groupoid whose objects are
-presentations of the NCCR $\Jac(Q_{\mathrm{KW}},W_{\mathrm{KW}})$ via
-tilting bundles (Van den Bergh \texttt{math/0207170}) and whose
-morphisms are mutations at vertices (Aspinwall--Katz
-\texttt{hep-th/0412209}).  Explicitly:
+the positive half of the affine Yangian.  The full Yangian, universal
+$R$-matrix, and vertex-algebra layer enter only after Drinfeld doubling,
+centre formation, completion, or framed evaluation.  For this CY$_3$
+input the native Hall/chiral output is $\Eone$.  The $\Etwo$-braided
+layer is instead
 \[
-  \Wflopp = s_{1}\cdot\pi,\qquad
-  \phi_{UV} = s_{0}\cdot s_{1}\cdot\pi,
+  \cZ\bigl(\Rep^{\Eone}(\Yplus_\sigma(\widetilde Y))\bigr)
+  \quad\text{or}\quad
+  D\bigl(\Yplus_\sigma(\widetilde Y)\bigr),
 \]
-where $s_{0},s_{1}\in W(A_{1}^{(1)})$ are the simple reflections and
-$\pi$ is the Cartan parity flip; their product generates $W(A_{1}^{(1)})
-\rtimes\Z/2$, i.e.\ the affine Weyl group extended by the diagram
-automorphism.  Mathematically, $\pi^{2}=1,s_{i}^{2}=1$, and
-$(s_{0}s_{1})^{n}$ is of infinite order (exactly the affine
-$A_{1}^{(1)}$ Weyl group).  The groupoid closes: all presentations of
-$\Jac(Q_{\mathrm{KW}},W_{\mathrm{KW}})$ related by iterated mutation are
-related, at the level of $\Yplus$, by compositions of $\Wflopp$ and
-$\phi_{UV}$.
+after the Hopf pairing and completion have been fixed.
 
-\emph{Verification}.  Three independent checks.
-(i)~Action on $A_{1}^{(1)}$ simple roots: $s_{0}$ sends $\alpha_{0}
-\mapsto -\alpha_{0}$, $\alpha_{1}\mapsto\alpha_{0}+\alpha_{1}$; $s_{1}$
-sends $\alpha_{1}\mapsto-\alpha_{1},\alpha_{0}\mapsto\alpha_{0}+\alpha_{1}$;
-their composition has infinite order and preserves the imaginary root
-$\delta=\alpha_{0}+\alpha_{1}$.  (ii)~Action on refined DT generating
-series: $\phi_{UV}$ exchanges $(y_{0},y_{1})\mapsto(y_{1},y_{0})$ at
-the character level (overlap cocycle, Wave-17 C1 Cycle 4), while
-$\Wflopp$ sends $y_{1}\mapsto y_{1}^{-1}q^{?}$ up to the DT
-$M(-q)^{-2}$ prefactor (Cycle 4 above); both are well-defined
-substitutions preserving the partition function modulo MacMahon.
-(iii)~Preservation of $\kch=1$, $\kcat=1$, and the Borcherds weight
-$\kBKM=0$ (no modular witness for non-compact CY$_{3}$: Gritsenko
-$\Phi_{N}$ is trivial when $\chi$ vanishes at the fibre, and
-$\widetilde Y$ is non-compact, so $\kBKM(\widetilde Y) = 0$ by
-convention; the flop preserves this trivially).  All three checks
-confirm $\Wflopp\in\Aut_{\mathrm{alg}}(\Yplus(\widetilde Y))$.\qed
+\subsection*{Flop equivalence}
+
+Let
+\[
+  Z=\widetilde Y\times_Y\widetilde Y^\vee
+\]
+with projections $p_1,p_2$ to the two small resolutions.  Bridgeland's
+flop theorem gives the Fourier--Mukai equivalence
+\[
+  \FMflop =
+  Rp_{2,*}\bigl(Lp_1^*(-)\otimes^{\mathbb L}\cO_Z\bigr)
+  \colon
+  \Db\Coh(\widetilde Y)\xrightarrow{\sim}
+  \Db\Coh(\widetilde Y^\vee).
+\]
+It identifies the two perverse hearts attached to the two small
+resolutions and transports compactly supported curve classes by the
+Atiyah flop.  Under Van den Bergh's tilting bundle, these hearts are
+presented by adjacent NCCR chambers of the same Jacobi algebra
+\[
+  J_{\mathrm{KW}}=\Jac(Q_{\mathrm{KW}},W_{\mathrm{KW}}).
+\]
+Thus the geometric flop is the derived form of mutation of the
+Klebanov--Witten seed.
+
+With compatible orientation data on the two $3$CY critical moduli
+problems, $\FMflop$ gives an isomorphism between the completed positive
+Hall algebras attached to the transported hearts,
+\[
+  \Thetaflop\colon
+  \widehat{\Yplus}_{\sigma}(\widetilde Y)
+  \xrightarrow{\sim}
+  \widehat{\Yplus}_{\sigma^\vee}(\widetilde Y^\vee).
+\]
+This is a chamber comparison.  It becomes an endomorphism of one named
+positive half only after choosing either a transport
+$\tau_{\sigma^\vee,\sigma}\colon
+\widehat{\Yplus}_{\sigma^\vee}\to\widehat{\Yplus}_{\sigma}$, or
+embeddings of all chamber halves into a common localized Drinfeld
+double or quantum torus.  The Fourier--Mukai kernel supplies the
+comparison between chambers; the extra transport supplies the
+fixed-algebra action.
+
+\subsection*{Mutation on charges}
+
+Write the charge group of the two-vertex heart as
+\[
+  \Gamma=\Z\alpha_0\oplus\Z\alpha_1,\qquad
+  \delta=\alpha_0+\alpha_1,
+\]
+where $\alpha_0,\alpha_1$ are the two simple dimension vectors.  There
+are three related forms on this rank-two lattice, and only the last two
+carry the mutation constant.
+
+First, the full Klebanov--Witten quiver has two arrows in each
+direction, so its raw skew adjacency is zero:
+\[
+  \#(0\to1)-\#(1\to0)=2-2=0.
+\]
+Second, the DWZ-reduced two-acyclic seed is the Kronecker seed
+\[
+  B_{\mathrm{red}}
+  =
+  \begin{pmatrix}
+  0&2\\
+  -2&0
+  \end{pmatrix}.
+\]
+Third, the symmetric affine Cartan matrix controlling the associated
+$A_1^{(1)}$ root labels is
+\[
+  C
+  =
+  \begin{pmatrix}
+  2&-2\\
+  -2&2
+  \end{pmatrix}.
+\]
+The numerical constant is therefore fixed from first principles: it is
+the number of bifundamental arrows between the two vertices.  In the
+Cartan root envelope the simple reflection is
+\[
+  s_i(\alpha_i)=-\alpha_i,\qquad
+  s_i(\alpha_j)=\alpha_j+2\alpha_i\quad (i\neq j),\qquad
+  s_i(\delta)=\delta.
+\]
+The uncompleted positive half carries chamber generators.  The
+reflection is the root-label action seen after passing to the double,
+the localized quantum torus, or a transported chamber presentation.
+
+The completed quantum torus $\Twall$ is generated by symbols $x_\gamma$
+with multiplication twisted by the chosen skew Euler form.  The
+Drinfeld double contains both positive and negative halves.  Since
+$s_i(\alpha_i)=-\alpha_i$, the reflected simple generator leaves the
+positive cone.  A Lusztig braid formula, when written in a doubled
+current presentation, belongs to that enlarged algebra:
+\[
+  T_i(e_j)
+  \in
+  D\bigl(\Yplus_\sigma(\widetilde Y)\bigr)_{\alpha_j+2\alpha_i}
+  \qquad (i\neq j).
+\]
+Inside $\Yplus_\sigma$ only the transported positive seed is available;
+the reflected image of $e_i$ lies outside the positive cone.  Mutation
+changes the positive seed.  The Weyl or cluster action becomes a
+literal automorphism only on the double, the localized quantum torus, or
+a chosen transport of chamber halves.
+
+\subsection*{Wall-crossing character}
+
+Let $\mathrm{BPS}_{\sigma,\gamma}$ be the BPS cohomology in charge
+$\gamma$ for a chamber $\sigma$, after the chosen Behrend, motivic, or
+refined specialization.  Its reduced character is
+\[
+  \chi_\sigma(q,y_0,y_1)
+  =
+  \sum_{\gamma=(n_0,n_1)}
+  q^{n_0+n_1}y_0^{n_0}y_1^{n_1}
+  \chi_{\mathrm{vir}}\bigl(\mathrm{BPS}_{\sigma,\gamma}\bigr).
+\]
+Szendroi's NCDT series and the Nagao--Nakajima perverse-coherent
+series are specializations of this chamber character.
+Morrison--Mozgovoy--Nagao--Szendroi compute all chambers by the
+conifold root system.
+
+Kontsevich--Soibelman wall-crossing acts on the completed quantum torus
+by an ordered product of quantum dilogarithms
+\[
+  \Theta_{\mathrm{KS}}(\sigma_-,\sigma_+)
+  =
+  \prod_{\arg Z_\sigma(\gamma)\ \mathrm{decreases}}
+  \Dilog(x_\gamma)^{\Omega_\sigma(\gamma)} .
+\]
+For the conifold, the exponents are the BPS multiplicities attached to
+the two real-root families and to the multiplicity-two imaginary-root
+sector.  The MacMahon factor in the numerical DT/NCDT formulas is the
+specialized character of this imaginary sector.  Borcherds-product input
+and a passage from the positive Hall half to a full vertex algebra are
+separate data.  The variable exchange and monomial
+correction come from the reduced seed mutation.  A Hall-algebra lift of
+the KS operator uses the completed CoHA comparison and orientation data
+above.
+
+\subsection*{Seiberg-duality groupoid}
+
+The relevant symmetry object is a groupoid.  Its objects are tilting
+hearts or NCCR presentations of the conifold Jacobi algebra, and its
+morphisms are mutations at vertices.  To a heart $\mathcal A_\sigma$ it
+assigns the completed positive Hall algebra
+$\widehat{\cH}_\sigma$.  To a mutation it assigns three compatible
+maps:
+\[
+\begin{array}{rcl}
+  \Db(\mathcal A_\sigma) &\xrightarrow{\sim}&
+  \Db(\mathcal A_{\mu_i\sigma}),\\[2mm]
+  \widehat{\cH}_\sigma &\xrightarrow{\sim}&
+  \widehat{\cH}_{\mu_i\sigma},\\[2mm]
+  \Twall &\xrightarrow{\Theta_{\mathrm{KS}}}& \Twall .
+\end{array}
+\]
+The first line is the derived mutation equivalence.  The second line is
+the completed Hall comparison under orientation compatibility.  The
+third line is the KS quantum-torus wall-crossing operator.  After
+embedding the positive halves into a common double, these morphisms
+realise the affine $A_1^{(1)}$ cluster/Weyl action.  On a single
+uncompleted positive half they remain chamber-to-chamber maps.
+
+\subsection*{Local invariants}
+
+The conifold Hall/chiral invariant is
+\[
+  \kch(A_{\mathrm{conifold}})=1,
+\]
+the unit primitive wall contribution of the Klebanov--Witten NCCR.  The
+resolved conifold is a noncompact toric CY$_3$ with curve base
+$\bP^1$, while the local-surface formula has input
+$\operatorname{Tot}(K_S\to S)$.  The direct McKay/NCCR computation supplies the
+single compact curve generator $\cO_{\bP^1}$ and hence the value above.
+
+The compact Hodge-supertrace formula, the Borcherds weight formula, and
+the fibre/lattice invariant belong to different constructions:
+\[
+  \kcat=\chi(\cO_X),\qquad
+  \kBKM(\Phi_N)=c_N(0)/2,\qquad
+  \kfiber=\text{chosen compact fibre or lattice datum}.
+\]
+The local conifold positive half is separate from these data.  If one
+records the regularized noncompact row for the resolved conifold, the
+ordinary structure-sheaf entry is $\kcat(X_{\mathrm{con}})=0$; the
+Hall/chiral value remains $\kch(A_{\mathrm{conifold}})=1$.
+
+\subsection*{Fixed-algebra criterion}
+
+A fixed-algebra flop action on a named algebra is the following datum:
+\[
+\begin{array}{ll}
+  \mathrm{(i)} & \text{orientation data on both critical CoHA moduli
+  stacks;}\\
+  \mathrm{(ii)} & \text{the completion in which the infinite DT products
+  converge;}\\
+  \mathrm{(iii)} & \text{the embedding of all chamber positive halves into
+  a common Drinfeld double or localized quantum torus;}\\
+  \mathrm{(iv)} & \text{the PBW/current-presentation comparison with
+  }Y^+(\widehat{\fgl}(1|1))^{\mathrm{con}}\text{;}\\
+  \mathrm{(v)} & \text{the compatibility of the Hall comparison with the
+  KS quantum-torus character map.}
+\end{array}
+\]
+With these data, the chamber comparison composes with the chosen
+transport to give an automorphism of the selected completion.  Without
+them, the theorem is exactly the chamber-to-chamber flop/mutation
+comparison:
+\[
+  \text{flop/mutation}
+  \longmapsto
+  \text{completed positive-half comparison}
+  \longmapsto
+  \text{Weyl/cluster action on the double or quantum torus}.
+\]
+This form keeps
+$\CoHA(\C^3)=Y^+(\widehat{\fgl}_1)$ on the positive half, keeps the
+conifold object at
+$Y^+(\widehat{\fgl}(1|1))^{\mathrm{con}}$, and keeps the $d=3$
+$\Eone$ output separate from the $\Etwo$ centre/double/module layer.
+
+\subsection*{References}
+
+Bridgeland's flop theorem is \texttt{arXiv:math/0009053}.  Van den
+Bergh's NCCR framework is \texttt{arXiv:math/0211064}.  DWZ mutation is
+\texttt{arXiv:0704.0649}; Keller--Yang mutation equivalence is
+\texttt{arXiv:0906.0761}.  Szendroi's non-commutative DT theory of the
+conifold is \texttt{arXiv:0705.3419}.  Nagao--Nakajima compute
+perverse-coherent wall-crossing for the resolved conifold in
+\texttt{arXiv:0809.2992}.  The all-chamber motivic conifold computation
+is Morrison--Mozgovoy--Nagao--Szendroi \texttt{arXiv:1107.5017}.  The
+wall-crossing and CoHA formalisms are Kontsevich--Soibelman
+\texttt{arXiv:0811.2435} and \texttt{arXiv:1006.2706}.  The local
+$\C^3$ positive-half theorem is Schiffmann--Vasserot
+\texttt{arXiv:1202.2756}; the toric affine-super-Yangian comparison is
+Rapcak--Soibelman--Yang--Zhao \texttt{arXiv:2004.07841}; the conifold
+shuffle kernel is Negu\c{t} \texttt{arXiv:1505.01528}.

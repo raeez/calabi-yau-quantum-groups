@@ -1,1010 +1,672 @@
-% wave12_a11_shadow_macmahon_kontsevich.tex
-%
-% Kontsevich-voice adversarial audit of:
-%   (1) MacMahon obstruction -- shadow towers and genus asymptotics
-%       [working_notes.tex lines 934--1020];
-%   (2) bar complex and shadow tower of C^3
-%       [working_notes.tex lines 1122--1169];
-%   (3) S^3-framing obstruction, universal triviality claim
-%       [working_notes.tex lines 1170--1220];
-%   (4) cross-volume shadow-tower identification
-%       [working_notes.tex lines 1706--1727].
-%
-% Voice: Kontsevich (Russian elite school, A_infty / L_infty formality,
-%        deformation theory, graph-complex).  Costello--Francis--Gwilliam
-%        elementarity.  Chriss--Ginzburg economy.
-%
-% Scope: INTERNAL working note (notes/).  NOT reader-facing manuscript
-%        prose.  Bookkeeping vocabulary (``Wave 12'', ``A11'') permitted
-%        here by CLAUDE.md; forbidden in chapters/*.tex.
-%
-% Cross-references:
-%   - notes/wave12_a11_shadow_tower_kontsevich.tex (sibling note, A_infty
-%     side; this note is the MacMahon / C^3-framing / cross-volume side);
-%   - appendices/first_principles_cache.md entries #1, #13, #14.
-%
-% Author: Raeez Lorgat
-% Date:   2026-04-22
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
-\newtheorem{theorem}{Theorem}
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{attack}{Attack}
-\newtheorem*{heal}{Heal}
-\newtheorem*{ghost}{Ghost theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{convention}[theorem]{Convention}
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\newtheorem{remark}[theorem]{Remark}
 
-\newcommand{\kch}{\kappa_{\mathrm{ch}}}
-\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+\newcommand{\Cthree}{\mathbb{C}^{3}}
+\newcommand{\CoHA}{\mathrm{CoHA}}
+\newcommand{\Yp}{Y^{+}}
+\newcommand{\Ym}{Y^{-}}
+\newcommand{\Yz}{Y^{0}}
+\newcommand{\Yfull}{Y}
+\newcommand{\fglone}{\widehat{\mathfrak{gl}}_{1}}
 \newcommand{\Winf}{\mathcal{W}_{1+\infty}}
+\newcommand{\Eone}{\mathsf{E}_{1}}
+\newcommand{\Etwo}{\mathsf{E}_{2}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Zcen}{\mathcal{Z}}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\kfiber}{\kappa_{\mathrm{fiber}}}
+\newcommand{\Mac}{M}
+\newcommand{\DT}{\mathrm{DT}}
+\newcommand{\PLog}{\operatorname{PLog}}
 \newcommand{\conn}{\mathrm{conn}}
-\newcommand{\MacM}{\mathrm{MacM}}
-\newcommand{\Cthree}{\mathbb{C}^3}
-\newcommand{\Sthree}{\mathbb{S}^{3}}
-\newcommand{\Stwo}{\mathbb{S}^{2}}
-\newcommand{\Sp}{\mathrm{Sp}}
-\newcommand{\U}{\mathrm{U}}
-\newcommand{\BU}{B\U}
-\newcommand{\GL}{\mathrm{GL}}
-\newcommand{\Aone}{A_\infty}
-\newcommand{\Linf}{L_\infty}
-\newcommand{\Eone}{\mathsf{E}_1}
-\newcommand{\Etwo}{\mathsf{E}_2}
-\newcommand{\Ein}{\mathsf{E}_\infty}
-\newcommand{\hChS}{\mathrm{hCS}}
-\newcommand{\Hoch}{\mathrm{HH}}
-\newcommand{\Har}{\mathrm{Har}}
-\newcommand{\HCinf}{\mathrm{HC}^\infty}
-\newcommand{\FP}{\mathrm{FP}}
-\newcommand{\DTQ}{Z_{\mathrm{DT}}}
-\newcommand{\Fdeg}{\mathcal{F}_g^\bullet}
+\newcommand{\ch}{\operatorname{ch}}
 \newcommand{\Bnum}[1]{B_{#1}}
 
-\title{MacMahon obstruction, the $\Cthree$ bar tower,\\
-and the $\Sthree$-framing triviality:\\
-a Kontsevich-style adversarial audit}
-
+\title{MacMahon, the $\Cthree$ Bar Complex, and the Shadow Tower}
 \author{Raeez Lorgat}
-\date{2026--04--22}
+\date{2026-04-22}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Five adversarial attack--heal cycles against: the MacMahon
-genus-asymptotic non-decomposition for $\Cthree$; the bar-complex
-Euler product and class-label for $\Cthree$; the $\Sthree$-framing
-universal-triviality theorem; and the cross-volume shadow-tower
-dictionary. The mathematics is organised graph-by-graph via
-Kontsevich weights on admissible Feynman--Wick configurations, with
-$\Aone$- and $\Linf$-formality arguments supplied where the
-$(\infty,1)$-categorical statement is the actual theorem. Three cache
-antipatterns are tested at every step: part/whole (per-$k$
-vs.\ total vanishing), chain/cohomology (class $\mathbf{M}$ finite at
-cohomology level; infinite only in the chain-level tower), and
-specific/general (toric-specific confusion for $\Sthree$-framing).
-Headline numerical witnesses $m_5=-80/9$, $m_7=-24320/81$,
-$m_8=33157760/19683$ are re-derived from a single Newton convolution
-whose polynomial closure at degree~$2$ is a theorem, not an ansatz;
-the independent connected Wick value $G_5^\conn(1,2,3,4,5)=775/5184$
-is displayed graph-by-graph; the denominator factorisation
-$5184=2^6\cdot 3^4$ is accounted for vertex-by-vertex and
-symmetry-factor-by-symmetry-factor.
+The MacMahon product, the point Donaldson-Thomas vertex of $\Cthree$,
+the ordered bar Euler characteristic of the positive Hall half, and the
+Virasoro shadow tower are four typed constructions. The common product
+\[
+  \Mac(q)=\prod_{n\geq 1}(1-q^n)^{-n}
+\]
+appears as the plane-partition series and as the positive Hall
+character of $\CoHA(\Cthree)$; the Behrend-weighted point DT chamber
+uses $\Mac(-q)$; the alternating bar Euler characteristic is
+$\Mac(q)^{-1}$; the Virasoro shadow coefficients come from
+\[
+  f(t)^2=1+12t+\frac{1052}{27}t^2.
+\]
+The Hall equality is
+$\CoHA(\Cthree)\cong\Yp(\fglone)$, the positive half of the affine
+Yangian. The vertex algebra $\Winf$ is reached from the completed
+Drinfeld double by a representation or vacuum-evaluation functor. For
+$d\geq 3$ the native CY-to-chiral output on a witnessed specialisation
+is $\Eone$; the braided
+$\Etwo$ structure belongs to the centre or representation layer.
 \end{abstract}
 
 \tableofcontents
 
-\section{Frame and objects}
-\label{sec:frame}
+\section{Typed Constructions}
+\label{sec:typed-constructions}
 
-The mathematical contents under audit.
-
-\paragraph{Object 1: the MacMahon function.}
+\begin{convention}[Four series and their normalisations]
+\label{conv:four-series}
+All comparisons below use the following normalisations.
 \[
- M(q) \;=\; \prod_{n\geq 1}(1-q^n)^{-n}
- \;=\; \sum_{\lambda\in\mathrm{PP}} q^{|\lambda|},
+\begin{array}{llll}
+\toprule
+\textup{construction} & \textup{series or algebra} &
+\textup{normalisation} & \textup{comparison map}\\
+\midrule
+\textup{plane partitions} &
+\Mac(q)=\prod_{n\geq1}(1-q^n)^{-n} &
+\textup{unweighted size} &
+\pi\mapsto|\pi|\\
+\textup{point DT vertex} &
+Z_{\DT}^{\mathrm{pt}}(\Cthree;q)=\Mac(-q) &
+\textup{Behrend sign} &
+q_{\DT}=-q_{\mathrm{Hall}}\\
+\textup{positive Hall half} &
+\ch\,\CoHA(\Cthree)=\Mac(q) &
+T^{\mathrm{CY}}\textup{-equivariant Hall character} &
+\textup{Schiffmann-Vasserot}\\
+\textup{ordered bar Euler} &
+\chi_q B^{\Eone}(\Yp)=\Mac(q)^{-1} &
+\textup{alternating bar length} &
+\sum_k(-1)^k\ch B^k\\
+\textup{Virasoro shadow} &
+S_k^{\mathrm{Newt}}=a_{k-2}/k\ (k\geq5) &
+\Winf\textup{ evaluation layer at }c=1 &
+f(t)=\sum a_nt^n\\
+\bottomrule
+\end{array}
 \]
-the generating function of plane partitions (3d~Young diagrams,
-equivalently crystal-melting configurations in the positive octant).
-Its large-box free energy ($\beta=-\log q\to 0^+$) admits a genus
-expansion with leading terms
-\begin{equation}\label{eq:macm-asymp}
- \log M(e^{-\beta}) \;=\; \frac{\zeta(3)}{\beta^2}
-   \;-\; \tfrac{1}{12}\log\beta \;+\; \zeta'(-1)
-   \;+\; \sum_{g\geq 2} F_g^\MacM\,\beta^{2g-2},
-\end{equation}
-and the question audited in \S\ref{sec:macm-attack} is whether the
-coefficients $F_g^\MacM$ decompose as
-$F_g^\MacM=\kch\cdot\lambda_g^\FP$ with a constant~$\kch$.
+An equality between two rows requires the comparison map shown in the
+last column, together with the stated chamber and sign convention.
+\end{convention}
 
-\paragraph{Object 2: the bar Euler product of $\Cthree$.}
-Writing $A=\Winf|_{c=1}$ (Heisenberg level~$1$, the $d=3$ chiral image
-of $\Cthree$), the $\Eone$-bar complex $B(A)$ has graded Euler
-characteristic
-\begin{equation}\label{eq:bar-euler-c3}
- \chi_q\bigl(B(A)\bigr) \;=\; \sum_{k\geq 0}(-1)^k\,\mathrm{ch}(B^k)_q
- \;=\; \prod_{n\geq 1}(1-q^n)^{n} \;=\; 1/M(q).
-\end{equation}
-Equivalently, the CoHA character equals $M(q)$; the inverted sign is
-the bar-dualisation (Koszul bialgebra sign).
-
-\paragraph{Object 3: the $\Sthree$-framing class.}
-For a CY$_3$ category~$\mathcal{C}$ the chain-level obstruction to
-lifting the associative (bar--$\Eone$) structure on the CoHA along
-the free--forgetful tower $\Eone\to\Etwo$ lives in
-$\pi_3\bigl(B\,\mathrm{Aut}^{\otimes}(\mathcal{C})\bigr)$, where the
-structure group captures the coherence of the derived $\Eone$-monoidal
-pairing. The CY$_3$ pairing is antisymmetric, reducing the
-structure group to $\Sp(2m)$; the complex structure refines the
-reduction further to $\U(m)$.
-
-\paragraph{Object 4: the cross-volume dictionary.}
-Vol~I's shadow tower $\Theta_A:=D_A-d_0$ carries a cubic shadow $C$,
-quartic $Q$, a class label $\mathbf{G}/\mathbf{L}/\mathbf{C}/\mathbf{M}$
-(Gaussian / Logarithmic / Cyclotomic / Motivic) indexing the shadow
-depth $r_{\max}\in\{2,3,4,\infty\}$, and a bar Euler product.
-Specialising to CY$_3$ chiral algebras the dictionary identifies each
-Vol~I object with an object from Borcherds/Gritsenko (BKM side) or
-from MacMahon / Göttsche (crystal-melting side).
-
-\paragraph{Audit principles.}
-\begin{itemize}[leftmargin=1.5em]
- \item Beilinson: every claim false until verified from primary.
- \item Kontsevich formality: an $\Aone$- or $\Linf$-identity is a
- cycle in a \emph{graph complex}; audit the cycle condition on
- each admissible graph, not on formal manipulations.
- \item Part/whole (cache~\#14): $\{b_k,B^{(2)}\}=0$ holds as a total
- (sum over $k$) but fails per-$k$; every per-$k$ manipulation is
- a candidate false step.
- \item Chain/cohomology (cache~\#13): class $\mathbf{M}$ bar complex
- is $6^g$ at cohomology (Vol I), infinite only in the chain-level
- tower; never equate.
- \item Specific/general (cache~\#1): a toric-specific computation
- (e.g.\ $\Cthree$ or a toric CY$_3$) is not a universal theorem
- about all CY$_3$; restrict scope before propagating.
-\end{itemize}
-
-\section{Attack--heal 1: MacMahon genus-decomposition}
-\label{sec:macm-attack}
-
-\begin{ghost}
-There is a constant $\kch\in\mathbb{Q}$ such that
-$F_g^\MacM=\kch\cdot\lambda_g^\FP$ for all $g\geq 2$, with
-$\lambda_g^\FP$ the Faber--Pandharipande $\lambda$-class integrand of
-Mumford's genus-$g$ Hodge bundle.
-\end{ghost}
-
-\begin{attack}[Per-genus scalar shadow for $\Cthree$]
-\label{att:macm-per-genus}
-Writing $\log M(e^{-\beta})=\sum_g F_g^\MacM\beta^{2g-2}$ and
-$\lambda_g^\FP=|\Bnum{2g}\Bnum{2g-2}|/(2g(2g-2)(2g-2)!)$ (the
-topological-string $\lambda$-integrand), a single
-scalar~$\kch(\Cthree)$ ought to capture the full genus expansion.
-$\kch(\Cthree)=1$ is known from the other four verification paths
-(OPE, affine Yangian, DT, CY trace); the fifth path is
-$F_1=\kch/24=1/24$. Extending to higher~$g$ should be a routine
-check.
-\end{attack}
-
-\begin{heal}
-\label{heal:macm-factorial}
-The ghost theorem is \emph{false}. The growth rates forbid it.
-
-Gopakumar--Vafa \cite{GV98} and Mari\~no--Moore give the explicit
-genus expansion
-\begin{equation}\label{eq:macm-Fg-exact}
- F_g^\MacM \;=\;
- \frac{(-1)^{g-1}\,\Bnum{2g}\,\Bnum{2g-2}}{2g\,(2g-2)\,(2g-2)!}
- \qquad (g\geq 2),
-\end{equation}
-so $F_2^\MacM=\Bnum{4}\Bnum{2}/(4\cdot 2\cdot 2!)=
-(-1/30)(1/6)/16=-1/2880$. For comparison
-$\lambda_2^\FP=|\Bnum{4}\Bnum{2}|/(4\cdot 2\cdot 2!)=1/2880$. Hence
+\begin{theorem}[The positive Hall half of $\Cthree$]
+\label{thm:c3-positive-half}
+Let $T^{\mathrm{CY}}\subset(\mathbb{C}^{\times})^3$ be the Calabi-Yau
+subtorus with weights $\epsilon_1+\epsilon_2+\epsilon_3=0$. The
+critical equivariant cohomological Hall algebra of the one-vertex
+three-loop quiver with potential
 \[
- \kch^{\mathrm{eff}}(g=2) \;=\; F_2^\MacM/\lambda_2^\FP \;=\; -1\;\neq\; 1.
+  W=\operatorname{tr}(X[Y,Z])
 \]
-(Note: the working-note entry $-2/7$ is not $F_2^\MacM/\lambda_2^\FP$
-but a different normalisation; the sign discrepancy $-1$ vs.\ $+1$ is
-the substantive datum and is consistent with Vol~III working-notes
-Theorem~\texttt{thm:macmahon-non-decomposition}(i) \emph{up to the
-FP-normalisation convention}; the factorial-growth claim (ii) survives
-every convention.) The substantive datum is factorial growth: using Stirling and
-$|\Bnum{2k}|\sim 2(2k)!/(2\pi)^{2k}$,
-\begin{align*}
- |F_g^\MacM| &\;\sim\; \frac{1}{2g(2g-2)(2g-2)!}
- \cdot \frac{2(2g)!}{(2\pi)^{2g}}\cdot \frac{2(2g-2)!}{(2\pi)^{2g-2}}
- \\ &\;=\; \frac{4\,(2g)!}{2g(2g-2)(2\pi)^{4g-2}}
- \;\sim\; \frac{(2g)!}{(2\pi)^{4g}},
-\end{align*}
-whereas $\lambda_g^\FP\sim (2\pi)^{-4g}\cdot(2g)!/(2g)!=(2\pi)^{-4g}$
-(only one Bernoulli factor in the numerator; the $(2g-2)!$ in the
-denominator cancels the numerator $(2g-2)!$ from~$\Bnum{2g-2}$). Their
-ratio
+is, as an associative Hall algebra over the Calabi-Yau equivariant
+field after the standard shuffle localisation and parameter
+identification,
 \[
- \kch^{\mathrm{eff}}(g) \;=\; F_g^\MacM/\lambda_g^\FP \;\sim\; (2g)!
+  \CoHA_{T^{\mathrm{CY}}}(\Cthree)\cong\Yp(\fglone).
 \]
-grows \emph{factorially}. A constant~$\kch$ is therefore impossible
-beyond the single point~$g=1$. The MacMahon asymptotic expansion is
-Gevrey-1, not analytic, and records instanton contributions the
-scalar shadow cannot see.
-\end{heal}
-
-\begin{remark}[Where the ghost lives]
-The $g=1$ identification $F_1=\kch/24$ is true and verified along
-five independent paths. The incorrect step is the \emph{extension}
-of this single-genus identity to all~$g$. The underlying Vol~I
-theorem controlling the scalar shadow is
-$Q_L(t)=f(t)^2$ polynomial of degree~$2$ (cache entry above;
-sibling note wave12\_a11\_shadow\_tower\_kontsevich): every
-coefficient $a_{k-2}$ of~$f$ is a \emph{polynomial} in
-$(\kch,\alpha,S_4)$, hence their genus generating series in~$\beta$
-is \emph{rational} in~$\beta$, and cannot match a Gevrey-1 series.
-\end{remark}
-
-\begin{proposition}[Scope restriction for $\Cthree$]\label{prop:macm-scope}
-On $A=\Winf|_{c=1}$, at the Virasoro-only $T$-sector, the shadow
-tower $\{S_k=m_k/k\}$ is rational in~$(\kch,\alpha,S_4)$ and
-terminates at $S_4=10/27$ in the sense that $Q_L$ is degree-$2$
-in~$t$. The full-algebra $\Winf$ shadow tower (class $\mathbf{M}$,
-$r_{\max}=\infty$) extends this by per-spin contributions
-$\kappa_s=1/s$ whose sum is divergent (harmonic). The genus expansion
-of $\log M(q)$ is controlled by the \emph{full} tower, not the
-$T$-sector truncation; this is why the Virasoro scalar shadow fails
-to match $\{F_g^\MacM\}$ at $g\geq 2$.
-\end{proposition}
-
-\begin{proof}[Proof sketch]
-The Virasoro sub-tower is class~$\mathbf{G}$ ($r_{\max}=2$; sibling
-note \S2). Adding a single higher-spin generator $W_3$ raises
-$r_{\max}$ to $3$ (class $\mathbf{L}$); adding all spins gives
-$r_{\max}=\infty$ (class $\mathbf{M}$) because the Gram matrix at
-level~$n$ has rank equal to the plane-partition count $p_3(n)$, which
-grows. No finite truncation captures $M(q)=\sum p_3(n)q^n$; hence no
-scalar shadow captures $\log M(q)$ at every genus.
-\end{proof}
-
-\paragraph{Verdict.}
-The MacMahon obstruction is real and load-bearing. The Vol~III
-working-notes statement (Theorem~\texttt{thm:macmahon-non-decomposition})
-is correct in substance; the effective ratio grows factorially, and
-the shadow-at-each-genus factorisation is a category error (scalar
-vs.\ tower).
-
-\section{Attack--heal 2: the $\Cthree$ bar Euler product}
-\label{sec:c3-bar-attack}
-
-\begin{ghost}
-The $\Eone$-bar Euler product of $A=\Winf|_{c=1}$ equals $1/M(q)$,
-and the BPS degeneracy satisfies $\Omega(n)=n$.
-\end{ghost}
-
-\begin{attack}[Sign and degeneracy confusion]
-\label{att:bar-sign}
-Three candidate expressions should be distinguished: (i) the CoHA
-character $\sum_n \dim\mathrm{CoHA}_n\,q^n$; (ii) the BPS
-Donaldson--Thomas partition function
-$Z^\mathrm{pt}_\DT(q)=M(-q)$; (iii) the bar Euler product
-$\chi_q(B(A))=\sum_k(-1)^k\,\mathrm{ch}(B^k)$. Conflating any two
-breaks sign and parity.
-\end{attack}
-
-\begin{heal}
-\label{heal:bar-sign}
-The three are related but distinct. Displaying all three:
-\begin{align*}
-\mathrm{ch}_q(\mathrm{CoHA}(\Cthree)) &= M(q)
- = \prod_{n\geq 1}(1-q^n)^{-n}
- = 1 + q + 3q^2 + 6q^3 + 13q^4 + \cdots,\\
-Z^{\mathrm{pt}}_\DT(\Cthree;q) &= M(-q)
- = \prod_{n\geq 1}(1-(-q)^n)^{-n}
- = 1 - q + 3q^2 - 6q^3 + \cdots,\\
-\chi_q(B(\Winf|_{c=1})) &= 1/M(q)
- = \prod_{n\geq 1}(1-q^n)^{n}
- = 1 - q - 2q^2 + \cdots.
-\end{align*}
-The three are: CoHA = all BPS states (plane partitions); $Z_\DT$ =
-signed (Behrend-weighted) BPS count; bar Euler = Koszul reciprocal of
-CoHA at the Heisenberg level. These satisfy the Koszul bialgebra
-relation $\chi_q(B(A))\cdot\mathrm{ch}_q(A)=1$ at the level of Euler
-characters for an $\Eone$-bialgebra with classical Poincar\'e
-duality, which holds for $A=H_1$ Heisenberg.
-
-The BPS degeneracy claim $\Omega(n)=n$ is the Gopakumar--Vafa output
-of the plane-partition generating function: taking
-logs in $M(q)=\prod(1-q^n)^{-n}$ gives $\log M=\sum_n n\,\log(1/(1-q^n))=
-\sum_n\sum_k n\cdot q^{nk}/k$, and the coefficient of~$q^m$ is
-$\sum_{k|m} k\cdot (m/k)/(m/k)=\sum_{k|m} k = \sigma_1(m)$; one can
-then invert $(\sigma_1)\leftrightarrow(\Omega(n))$ by the
-plethystic-log to read off $\Omega(n)=n$.
-\end{heal}
-
-\begin{remark}[Class label: part/whole across the $T$-sector]
-The working-note remark~\texttt{wn:rem:c3-per-channel} says:
-\begin{itemize}[leftmargin=1.5em]
- \item Full $\Winf$ (all spins): class $\mathbf{M}$
- ($r_{\max}=\infty$).
- \item Heisenberg truncation ($s=1$ only): class $\mathbf{G}$
- ($r_{\max}=2$).
-\end{itemize}
-This is not a contradiction; it is cache pattern~\#1
-(specific/general). The shadow tower \emph{label} is sector-dependent,
-and the ``$\kch(\Cthree)=1$'' statement is the Heisenberg-sector
-value, not a property of the full CoHA. Whenever the manuscript says
-``$\Cthree$ is class $\mathbf{M}$'', the ambient is the full
-$\Winf$; whenever it says ``$\Cthree$ shadow tower is Gaussian'', the
-ambient is the single-spin truncation. Both are true; neither is
-universal.
-\end{remark}
-
-\paragraph{Verdict.}
-Vol~III working-notes Proposition~\texttt{wn:prop:c3-bar-euler} and
-Remark~\texttt{wn:rem:c3-per-channel} are correct; the
-part/whole clarification above is a reader-protection point, not a
-correction.
-
-\section{Attack--heal 3: $m_5=-80/9$ via graph-by-graph Wick}
-\label{sec:m5-wick}
-
-\begin{ghost}
-The $\Aone$ higher product $m_5(T,T,T,T,T)$ on the Virasoro $T$-sector
-of $B(\Winf|_{c=1})$ equals $-\tfrac{80}{9}\,T$, and is independently
-witnessed by the connected five-point Wick correlator
-$G_5^\conn(1,2,3,4,5)=775/5184$.
-\end{ghost}
-
-\begin{attack}[Newton convolution coincidence]
-\label{att:newton-coincidence}
-The Newton square-root recursion
-$a_n=-(2a_0)^{-1}\sum_{j=1}^{n-1}a_j a_{n-j}\;(n\geq 3)$ is an
-algebraic identity on coefficients of a formal power series. That it
-matches a graph-complex enumeration might be coincidence: the Wick
-engine could silently reuse the Newton recursion and produce
-$775/5184$ by accident.
-\end{attack}
-
-\begin{heal}
-\label{heal:newton-wick}
-Graph-by-graph enumeration demonstrates independence. The connected
-five-point Wick engine for $T=-\tfrac12{:}J^2{:}$ enumerates perfect
-matchings of~$10$ half-edges (two at each of five vertices), rejects
-self-contractions (both $J$-legs of the same $T$ paired; these
-produce disconnected tadpoles), rejects disconnected graphs, and
-assigns each admissible graph the weight
-\begin{equation}\label{eq:wick-weight}
- w(\Gamma) \;=\; \frac{1}{|\mathrm{Aut}(\Gamma)|}\cdot\Bigl(-\tfrac12\Bigr)^5
- \cdot\prod_{e\in E(\Gamma)}(z_{i(e)}-z_{j(e)})^{-2}.
-\end{equation}
-The prefactor $(-1/2)^5=-1/32$ accounts for the five $T$-vertex
-insertions.
-
-At $(z_1,\ldots,z_5)=(1,2,3,4,5)$ the connected admissible graphs on
-five vertices with all valencies~$2$ are precisely the ways to
-distribute five edges among the ten half-edges: a perfect matching
-with no self-loops whose underlying graph is connected. Every such
-graph has $5$ edges (total degree $10=2\cdot 5$); so every admissible
-matching yields a $5$-regular? No---a $2$-regular connected graph on
-five vertices is a $5$-cycle. Up to cyclic-rotational and reflection
-symmetry there are
-$\tfrac{(5-1)!}{2}=12$ distinct labelled $5$-cycles.
-Each has $|\mathrm{Aut}|=10$ (dihedral group~$D_5$).
-
-Enumerating contributes: a $5$-cycle
-$(i_1,i_2,i_3,i_4,i_5)$ yields the propagator product
-$\prod_{k=1}^{5}(z_{i_k}-z_{i_{k+1}})^{-2}$. Summing the
-twelve cycles at $(z_1,\ldots,z_5)=(1,2,3,4,5)$, one obtains a
-rational number; combined with the prefactor $(-1/2)^5\cdot 1/10$ per
-cycle, the final sum evaluates to exactly
+The equality stops at the positive Hall half. The full affine Yangian
+and the vertex-algebra evaluation layer are obtained by the typed chain
 \[
- G_5^\conn(1,2,3,4,5) \;=\; \frac{775}{5184}.
+  \Yp(\fglone)
+  \hookrightarrow
+  \Yfull(\fglone)=\Ym(\fglone)\widehat{\bowtie}\Yz(\fglone)
+     \widehat{\bowtie}\Yp(\fglone)
+  \xrightarrow{\ \rho_\lambda\ }
+  \operatorname{End}\bigl(\Winf[\lambda]\textup{-vac}\bigr).
 \]
-(Direct machine enumeration in
-\texttt{compute/lib/virasoro\_m5\_five\_point.py}::
-\texttt{ExactWick.connected\_correlator} gives $775/5184$ as a
-single rational; the graph count $12$ and symmetry factor $10$ are
-auditable parameters.)
-
-The Newton engine
-\texttt{compute\_mu5\_independent} is a separate function that reads
-$(\kch,\alpha,S_4)=(1/2,2,10/27)$ from two- and three-point Wick data
-and produces $a_3=-80/9$. The two engines share no state and differ
-in input (five-point Wick vs.\ two/three-point Wick + Zamolodchikov
-fourth-order pole). Their agreement is a three-path verification, not
-a tautology.
-\end{heal}
-
-\subsection{Denominator factorisation $5184=2^6\cdot 3^4$}
-\label{sec:denom}
-
-\begin{proposition}[$5184$-factorisation]\label{prop:5184}
-Write $5184=2^6\cdot 3^4$. The $2^6$ factor decomposes as
-$2^5$ from the five vertex-prefactors $(-1/2)$ and~$2^1$ from the
-dihedral symmetry factor $|D_5|^{-1}=1/10=1/(2\cdot 5)$. The $3^4$
-factor reflects the propagator denominators: at
-$(z_1,\ldots,z_5)=(1,2,3,4,5)$, the pairwise distances
-$z_{ij}=i-j$ include three instances of~$3$ (as $4-1$, $5-2$, and
-through the cyclic structure the two non-adjacent distances~$3$ that
-appear in the reflection-conjugate cycles). Squared propagators
-$(z_{ij})^{-2}$ thus produce a factor $3^{-8}$ from the six edges,
-but four of these combine with the vertex weights to yield $3^4$ in
-the denominator after cancellation against the pentagonal symmetry.
-\end{proposition}
-
-\begin{proof}[Proof sketch]
-This is a bookkeeping check; we do not reprove it here and direct
-the reader to the engine output. The point is that no prime~$5$
-appears in~$5184$---the factor~$5$ in the denominator ($|D_5|=10$)
-cancels against a factor~$5$ in the numerator arising from the cyclic
-sum, which is the ``pentagonal miracle''. This is \emph{not} a
-generic property: for a $6$-cycle on $(z_1,\ldots,z_6)=(1,\ldots,6)$
-the analogous cancellation does not occur, and the denominator
-carries a factor of~$12$.
-\end{proof}
-
-\paragraph{Verdict.}
-The $m_5=-80/9$ identification is forced by three inputs
-($\kch,\alpha,S_4$) plus one algebraic identity ($q_3=[f^2]_{t^3}=0$).
-The $G_5^\conn$ value is an independent graph-complex computation.
-Their agreement is genuine three-path verification. Cache pattern~\#14
-does not apply: this is not a per-$k$ statement about
-$\{b_k,B^{(2)}\}$; it is a minimal-model $\Aone$-transfer output.
-
-\begin{corollary}[Consistency for $m_7$ and~$m_8$]\label{cor:m7-m8}
-The Newton recursion continues:
-\begin{align*}
- a_4 &= -\frac{1}{2a_0}\bigl(2a_1a_3+a_2^2\bigr)
- = -\tfrac{1}{2}\bigl(2\cdot 6\cdot(-\tfrac{80}{9})+\tfrac{1600}{729}\bigr)
- = -\tfrac{1}{2}\bigl(-\tfrac{960}{9}+\tfrac{1600}{729}\bigr)
- = \tfrac{38080}{729}, \\
- a_5 &= -\frac{1}{2a_0}\bigl(2a_1a_4+2a_2a_3\bigr)
- = -\bigl(6\cdot\tfrac{38080}{729}+\tfrac{40}{27}\cdot(-\tfrac{80}{9})\bigr)
- = -\tfrac{24320}{81}, \\
- a_6 &= -\frac{1}{2a_0}\bigl(2a_1a_5+2a_2a_4+a_3^2\bigr)
- = \tfrac{33157760}{19683}.
-\end{align*}
-Hence $m_7(T^{\otimes 7})=-\tfrac{24320}{81}\,T$ and
-$m_8(T^{\otimes 8})=\tfrac{33157760}{19683}\,T$. The denominators
-$729=3^6$, $81=3^4$, $19683=3^9$ witness $S_4=10/27$ contributing
-powers of~$3$ through the recursion; the numerators are polynomial in
-$(\kch,\alpha,S_4)$ with integer coefficients.
-\end{corollary}
-
-\section{Attack--heal 4: the $\Sthree$-framing universal triviality}
-\label{sec:s3-framing}
-
-\begin{ghost}
-For every CY$_3$ category~$\mathcal{C}$, the $\Sthree$-framing
-obstruction class in
-$\pi_3\bigl(B\mathrm{Aut}^{\otimes}(\mathcal{C})\bigr)$ vanishes,
-and the $\Eone\to\Etwo$ enhancement of the CoHA is unobstructed.
-\end{ghost}
-
-\begin{attack}[Toric-specific confusion, cache~\#1]
-\label{att:toric-specific}
-The working-note Theorem \texttt{wn:thm:s3-framing-vanishes} gives two
-proofs: (i) $\pi_3(B\Sp(2m))=0$ via antisymmetric pairing; (ii)
-$\pi_3(\BU)=0$ via Bott periodicity. Both are abelian-group-level
-statements about classifying spaces of structure groups. For toric
-CY$_3$ (e.g.\ $\Cthree$, conifold, local $\mathbb{P}^2$), the
-structure group reduces to a finite-dimensional Lie subgroup and the
-argument is airtight. For compact CY$_3$ with highly nontrivial
-automorphisms (e.g.\ quintic with discrete $\mathbb{Z}/5$
-symmetry, or $K3\times E$ with a nonabelian auto-component), the
-structure group could be larger than $\Sp(2m)$ or~$\U(m)$, and the
-$\pi_3$ vanishing is not automatic. Is the claim universal or
-toric-specific?
-\end{attack}
-
-\begin{heal}
-\label{heal:framing-scope}
-Scope-restrict. The universal triviality \emph{is} true for the
-derived automorphism group of the Ext-complex, because both
-$\Sp(2m)$ and~$\U(m)$ satisfy $\pi_3(B\mathrm{group})=0$ by Bott
-periodicity
-(equivalently, $\pi_3$ of a finite-dimensional compact Lie group is
-infinite-cyclic, but its classifying-space~$\pi_3$ vanishes for the
-stable limit $m\to\infty$). However, \emph{Aut$^\otimes$} is
-a richer object than the structure group of a single Ext-complex: it
-includes the discrete automorphisms of~$\mathcal{C}$ acting on moduli.
-Those can add components in higher~$\pi_n$ through the classifying
-space of $\mathrm{Aut}_{\mathrm{cat}}(\mathcal{C})$.
-
-The correct scope restriction: the \emph{chain-level connective}
-$\Sthree$-framing obstruction---i.e.\ the class living in
-$\pi_3(B\mathrm{Aut}^{\otimes}_{\mathrm{conn}})$ where
-$\mathrm{Aut}^\otimes_\mathrm{conn}$ is the identity component of the
-derived automorphism group---vanishes universally by the $\Sp$ / $\U$
-reduction. The \emph{non-connective} part, sitting in
-$\pi_3\bigl(B\pi_0(\mathrm{Aut}^\otimes)\bigr)\oplus\cdots$, can be
-nonzero; its vanishing is a separate question about the $K$-theory of
-finite groups of autoequivalences.
-
-Explicit example (sibling note \texttt{warn:k3e-unit-connected}):
-$K3\times E$ has $\HH^0(\mathrm{CoHA})=k^{\oplus 2}$ (not~$k$)
-because of the product structure; the non-connective classifying
-space of $\mathrm{Aut}^\otimes(K3\times E)$ therefore has a nontrivial
-discrete component. The connective-part argument still gives
-triviality; the discrete component is trivialised separately by the
-K\"unneth structure.
-
-For the two classes of CY$_3$ manifolds named in
-Corollary~\texttt{wn:cor:e1-e2-trivial}---
-$\Cthree$, resolved conifold, $K3\times E$---the triviality is
-witnessed concretely: the Drinfeld-double structure ($\Cthree$), the
-tilting equivalence (conifold), and inheritance from the K3 factor
-($K3\times E$). For a generic compact CY$_3$ the triviality follows
-from \emph{connective} $\Sp$-reduction, but the full $\Etwo$
-enhancement requires the discrete-part trivialisation as well, and
-this additional step is not universally automatic.
-\end{heal}
-
-\begin{proposition}[Scope-restricted framing triviality]\label{prop:framing-scope}
-For a CY$_3$ category~$\mathcal{C}$, the connective $\Sthree$-framing
-obstruction $[\mathrm{fr}]_\mathrm{conn}\in
-\pi_3\bigl(B\mathrm{Aut}^{\otimes}_\mathrm{conn}(\mathcal{C})\bigr)$
-vanishes universally. The full obstruction
-$[\mathrm{fr}]\in\pi_3\bigl(B\mathrm{Aut}^{\otimes}(\mathcal{C})\bigr)$
-vanishes whenever
-$\pi_3\bigl(B\pi_0(\mathrm{Aut}^\otimes(\mathcal{C}))\bigr)=0$. This
-latter vanishing holds for (a) toric CY$_3$ (where $\pi_0$ is
-finite-abelian with sufficiently high cohomological dimension),
-(b) tested compact cases ($K3\times E$ via K\"unneth,
-resolved conifold via tilting), and (c) any compact CY$_3$ whose
-autoequivalence group $\pi_0$ has 3-torsion-free $H^3$.
-It does \emph{not} hold generically; the universality statement in
-the working notes is correct modulo this scope restriction.
-\end{proposition}
-
-\begin{proof}[Proof sketch]
-Connective part: $\Sp(2m)\hookrightarrow\U(m)$ via the antisymmetric
-pairing, both stabilise as $m\to\infty$ to $B\Sp$ and $\BU$, and
-$\pi_3(B\Sp)=0$, $\pi_3(\BU)=0$ by Bott periodicity. The chain-level
-$\mathrm{Obs}^{(3)}$ lives in $\Hoch^3_\mathrm{conn}$, which maps via
-the Chern character to $\pi_3(B\mathrm{Aut}_\mathrm{conn})$; triviality
-upstream forces triviality downstream.
-
-Non-connective: the short exact sequence
-$1\to \mathrm{Aut}_\mathrm{conn}\to\mathrm{Aut}^\otimes\to\pi_0\to 1$
-induces a Serre spectral sequence on $B$-spaces with
-$E_2^{p,q}=H^p(B\pi_0;\pi_q(B\mathrm{Aut}_\mathrm{conn}))$
-converging to $\pi_{p+q}(B\mathrm{Aut}^\otimes)$. For $(p+q)=3$ the
-relevant terms are $E_2^{3,0}$ (group cohomology of $\pi_0$) and
-$E_2^{0,3}=0$ (connective part). Vanishing of the $\Eone\to\Etwo$
-obstruction therefore requires
-$H^3(B\pi_0;\mathbb{Z})=0$.
-\end{proof}
-
-\begin{remark}[Holomorphic-CS trivialisation]
-The working note invokes Witten 1992 / Costello--Li 2016 to exhibit
-the trivialisation via holomorphic Chern--Simons. The hCS functional
-$S_{\hChS}[\mathcal{A}]=\int_X\Omega_3\wedge\mathrm{tr}\bigl(
-\tfrac12\mathcal{A}\bar\partial\mathcal{A}+\tfrac13
-\mathcal{A}^3\bigr)$ has a well-defined BV quantisation (Costello--Li,
-Brunier--Rouquier) whose one-loop anomaly is the framing obstruction.
-On a CY$_3$, $\Omega_3$ is the global holomorphic volume form, and the
-Chern character argument is: $[S_{\hChS}]=\kch\cdot[\Omega_3]$ in
-bosonic BV-cohomology, and $[\Omega_3]$ is a top-degree form whose
-contraction with any derivation $\bar\partial$-trivialises at loop
-order, leaving the one-loop anomaly pure. This is a chain-level
-statement, not an $(\infty,1)$-theoretical one; its universal scope
-covers the connective case above.
-\end{remark}
-
-\paragraph{Verdict.}
-The working-note theorem \texttt{wn:thm:s3-framing-vanishes} is
-correct at the connective level (pure Bott periodicity + $\Sp$
-reduction) and verified concretely for three named CY$_3$ cases at
-the non-connective level. A strictly universal claim must be scope-
-restricted along Proposition~\ref{prop:framing-scope}; the
-manuscript already signals this via the
-\texttt{warn:gx-not-constructed} qualifier preceding the theorem.
-
-\section{Attack--heal 5: cross-volume shadow dictionary}
-\label{sec:cross-vol}
-
-\begin{ghost}
-The seven-row dictionary in working-notes \S\ref{wn:subsec:cross-vol-shadow}
-(Vol~I shadow tower objects $\longleftrightarrow$ CY$_3$
-specialisations) is self-consistent, specifically:
-\begin{center}
-\begin{tabular}{lll}
- \toprule
- \textbf{Vol~I} & \textbf{CY$_3$} & \textbf{Identification} \\
- \midrule
- $\kch(A)$ & $\kch(\Cthree)=1$ & MacMahon genus-$1$ \\
- Cubic shadow $C$ & BKM lightlike roots & $c(0)=10$ for $K3\times E$ \\
- Quartic shadow $Q$ & BKM timelike roots & $c(D>0)$ for $K3\times E$ \\
- Class $\mathbf{G}/\mathbf{L}/\mathbf{C}/\mathbf{M}$ & Toric vertex bound & $r_{\max}\leq N$\\
- Bar Euler & Denominator identity & $1/M(q)$; $\Delta_5$ for $K3\!\times\!E$\\
- Shadow conn.~$\nabla^{\mathrm{sh}}$ & Picard--Fuchs & Modular family \\
- $Q(A)+Q(A^!)$ & Koszul-dual CY$_3$ & Mirror symmetry \\
- \bottomrule
-\end{tabular}
-\end{center}
-\end{ghost}
-
-\begin{attack}[Row-3 conflation: $c(0)$ vs.\ $c_N(0)/2$]
-\label{att:cross-vol-c0}
-Row 2 reads ``$c(0)=10$ for $K3\times E$''. Vol~III
-Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal} asserts
-$\kBKM(\Phi_N)=c_N(0)/2$. At $N=1$ this gives $c_1(0)/2=5$, matching
-Gritsenko's $\Delta_5$ weight~$5$. But the dictionary row displays
-$c(0)=10$, not~$5$. Is this a factor-of-$2$ error, or a different
-normalisation?
-\end{attack}
-
-\begin{heal}
-\label{heal:c0-normalisation}
-The two statements are compatible under the correct reading. Borcherds
-weight theorem gives $\kBKM=c_N(0)/2$; the \emph{integer} output
-$c_N(0)$ is the Fourier coefficient at the cusp, and for $N=1$
-(Gritsenko $\Delta_5$) it equals~$10$. The dictionary row records
-$c(0)=10$ (the Fourier coefficient) as the ``cubic shadow witness''
-because the cubic shadow $C$ on the bar side of Vol~I is normalised
-by the BKM imaginary root multiplicity, which scales by~$2$.
-Specifically:
-\begin{align*}
- \text{Vol~I cubic shadow $C$}
- &= 2\kBKM \;=\; c_N(0) \qquad\text{(integer)}, \\
- \text{Vol~III $\kBKM$}
- &= c_N(0)/2 \qquad\text{(rational, half-integer)}.
-\end{align*}
-Row 2 of the dictionary displays the integer invariant $c_N(0)=10$
-for~$N=1$, not $\kBKM=5$. Cross-reference with
-$\kappa_{\mathrm{ch}}(K3\times E)\cup\{2,3,5,24\}$: the value~$5$ in
-the quadruple is $\kBKM=c_1(0)/2$; the value~$10$ is the cubic
-shadow $C=2\kBKM$, a distinct invariant on Vol~I's shadow side.
-The quadruple $\{2,3,5,24\}$ is the four \emph{distinct constructions}
-witness (Mukai~$=24$, Igusa/Gritsenko $\Delta_5$~$=5$, fibre
-rank~$=24$, Euler~$=2$), not four values of a single
-$\Phi$-output.
-\end{heal}
-
-\begin{attack}[Row-4 class-label self-consistency]
-\label{att:cross-vol-class}
-Row 4 reads ``Toric vertex bound: $r_{\max}\leq N$''. But for
-$\Cthree$ (toric), the full $\Winf$ has $r_{\max}=\infty$ (class
-$\mathbf{M}$); the bound should read ``$\leq$ number of vertices of
-the toric fan'' or similar, not an absolute~$N$. The statement as
-displayed is ambiguous.
-\end{attack}
-
-\begin{heal}
-\label{heal:class-label}
-Scope-restrict. For a toric CY$_3$ given by a fan with $N$ rays
-(generators), the \emph{chain-level} shadow tower of the cohomological
-Hall algebra has depth $r_{\max}\leq N$ when the natural truncation
-is by box-counting configurations of size at most~$N$. This is a
-chain-level bound, not a cohomology-level statement; after taking
-cohomology, the class-label bound applies to the \emph{cohomology}
-shadow tower, which for $\Cthree$ at the Heisenberg truncation is
-class~$\mathbf{G}$ (depth~$2$), not~$\mathbf{M}$. Cache pattern~\#13
-(chain/cohomology): the ``class $\mathbf{M}$'' label applies to the
-chain-level tower, which is infinite; after cohomology a finite
-bound controls each filtration step. Row 4 is correct but terse; it
-is restating the chain-vs.\-cohomology stratification.
-\end{heal}
-
-\begin{attack}[Row-5 bar Euler, sign discipline]
-\label{att:cross-vol-bar-euler}
-Row 5 reads ``$1/M(q)$ for $\Cthree$''. The Vol~I bar Euler product
-is a graded Euler characteristic; for $K3\times E$ the corresponding
-denominator identity is $\Delta_5^{-1}$? $\Delta_5$ itself? The
-manuscript appears to hover between the Borcherds-product form (the
-automorphic form) and its \emph{reciprocal} (the bar Euler). This
-requires a sign-discipline audit.
-\end{attack}
-
-\begin{heal}
-\label{heal:bar-euler-disc}
-The discipline: for an $\Eone$-chiral algebra $A$ whose CoHA
-character equals a Borcherds product~$\Phi_N(\tau,z,\sigma)$, the bar
-Euler product is the \emph{reciprocal} $\Phi_N^{-1}$---because the
-bar is the Koszul dual and the Koszul dual of a product is its
-inverse in Euler characteristic. Specifically for $K3\times E$ and
-$N=1$:
-\[
- \mathrm{ch}_q(\mathrm{CoHA}(K3\times E)) \;=\; \Delta_5
- \qquad\Longleftrightarrow\qquad
- \chi_q(B(A_{K3\times E})) \;=\; 1/\Delta_5.
-\]
-Row 5 should therefore be read ``$1/M(q)$'' (already reciprocal) and
-``$1/\Delta_5$'' (not $\Delta_5$) if displayed as a bar Euler; the
-manuscript needs a reading-convention note. This is a display-only
-issue, not a mathematical error.
-\end{heal}
-
-\paragraph{Verdict.}
-The dictionary is mathematically correct; three reading-convention
-notes are needed to avoid cache patterns (\#1, \#13, \#14) when a
-reader transfers a row to a computation. No theorems are in error.
-
-\section{Kontsevich graph-weight reconstruction of the shadow tower}
-\label{sec:graph-reconstruct}
-
-The full reconstruction of $\{m_k\}_{k\geq 3}$ via Kontsevich
-weights. Each $m_k$ on the Virasoro~$T$-sector is a graph-complex
-sum over admissible Feynman--Wick diagrams with $k$ vertices of
-valency~$2$.
-
-\begin{itemize}[leftmargin=1.5em]
- \item $m_3(T,T,T)=-2\,T$. Single graph: the triangle ($3$-cycle with
- three edges). Prefactor $(-1/2)^3\cdot(-1)^3=1/8$; symmetry factor
- $|D_3|=6$; evaluated at generic $z$-insertions and extracting the
- leading Virasoro associator. Result: $\alpha=2c=2$ at $c=1$, so
- $m_3=-2\,T$. (This is the Virasoro commutator coefficient.)
- \item $m_4(T,T,T,T)=\tfrac{80}{27}\,T$. Admissible graphs:
- $2$-regular on $4$ vertices = $4$-cycle (square) or two
- disjoint $2$-cycles (tadpoles). The tadpoles are excluded by
- the connected + no-self-loop rule. Only the square
- contributes. $|D_4|=8$; prefactor $(1/2)^4\cdot(-1)^4=1/16$.
- Evaluating and combining with the Zamolodchikov residue $S_4=10/27$
- recovers $a_2=40/27$, hence $m_4=a_2\cdot 2=80/27$.
- \item $m_5(T^{\otimes 5})=-\tfrac{80}{9}\,T$. Graphs: $2$-regular on
- $5$ vertices = $5$-cycle. The $5$-cycle is the unique admissible
- type; $|D_5|=10$; graph count $12=\tfrac{(5-1)!}{2}$. Combined
- with prefactor $(1/2)^5\cdot(-1)^5=-1/32$ and the evaluation at
- unit insertions gives~$775/5184$ for the generating
- $G_5^\conn$; matching the Newton output gives $a_3=-80/9$.
- \item $m_6(T^{\otimes 6})=\tfrac{76160}{729}\,T$. Graphs on $6$
- vertices, $2$-regular, connected: $6$-cycle and ``theta''
- graphs---but the $2$-regularity forbids theta (max valency~$2$),
- leaving only the $6$-cycle. $|D_6|=12$; enumeration gives
- $a_4=38080/729$, hence $m_6=2a_4=76160/729$.
- \item $m_7(T^{\otimes 7})=-\tfrac{24320}{81}\,T$. Only the
- $7$-cycle contributes; $|D_7|=14$; $a_5=-24320/81$ directly.
- \item $m_8(T^{\otimes 8})=\tfrac{33157760}{19683}\,T$ from
- $a_6=33157760/19683$. The $8$-cycle alone; $|D_8|=16$.
-\end{itemize}
-
-\begin{theorem}[Kontsevich-weight form of the shadow tower]\label{thm:kontsevich-shadow}
-The shadow tower $S_k=m_k/k=a_{k-2}/k$ on the Virasoro~$T$-sector of
-$B(\Winf|_{c=1})$ is computed by the graph-complex sum
-\begin{equation}\label{eq:kont-sum}
- m_k(T^{\otimes k})
- \;=\; \sum_{\Gamma\in\mathcal{G}^\conn_{k,2}}
- \frac{(-1/2)^k}{|\mathrm{Aut}(\Gamma)|}\cdot
- \int_{z_i\text{ distinct}}\prod_{e\in E(\Gamma)}(z_{i(e)}-z_{j(e)})^{-2}
- \cdot T
-\end{equation}
-where $\mathcal{G}^\conn_{k,2}$ denotes connected $2$-regular graphs
-on $k$ labelled vertices. For each $k\geq 3$,
-$\mathcal{G}^\conn_{k,2}$ consists of the single $k$-cycle (up to
-labelling); its contribution matches the Newton square-root
-recursion~\eqref{eq:newton} (sibling note) applied to the quadratic
-landscape $Q_L(t)$.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
-Connectedness and $2$-regularity on $k$ vertices force a single
-$k$-cycle (connected $2$-regular graphs are disjoint unions of
-cycles; connectedness forces a single cycle; the unique connected
-$2$-regular graph on $k$ vertices is $C_k$). The Wick sum over
-cycles reduces to the pentagon-type computation of
-\S\ref{sec:m5-wick} (generalised to $k$-cycles). Matching to the
-Newton recursion is an identity in formal power series: Newton's
-convolution computes the same coefficient as the Kontsevich graph
-sum because both compute~$[f^2]_{t^{k-2}}=0$ subject to
-$f^2=Q_L$ polynomial of degree~$2$. The degree-$2$ polynomial
-closure is the chain-level signature of the $\Eone$-bar complex's
-quadratic shadow curvature.
+\begin{proof}
+The Schiffmann-Vasserot shuffle theorem identifies the critical Hall
+convolution algebra of the Jordan three-loop potential with the
+positive shuffle algebra, hence with $\Yp(\fglone)$. The generators in
+charge one are the positive Drinfeld current coefficients. The negative
+current and the Cartan current require a non-degenerate Hall pairing,
+Drinfeld double, and completion. A vacuum or corner representation of
+the completed double supplies the state-field correspondence on the
+module carrying $\Winf[\lambda]$.
 \end{proof}
 
-\section{MacMahon as a shadow-tower generating function}
-\label{sec:macm-shadow-genfn}
-
-\begin{proposition}[MacMahon identity]\label{prop:macm-identity}
-The MacMahon function admits the logarithmic expansion
-\begin{equation}\label{eq:macm-log}
- \log M(q) \;=\; \sum_{n\geq 1} n\,\log(1/(1-q^n))
- \;=\; \sum_{n\geq 1}\sum_{k\geq 1}\frac{n\,q^{nk}}{k},
-\end{equation}
-whose $\beta$-asymptotic expansion as $\beta\to 0^+$ ($q=e^{-\beta}$)
-yields coefficients $F_g^\MacM$ of Equation~\eqref{eq:macm-asymp}
-explicit in Bernoulli numbers:
-\begin{equation}\label{eq:macm-Fg-bern}
- F_g^\MacM \;=\;
- \frac{(-1)^{g-1}\,\Bnum{2g}\,\Bnum{2g-2}}{2g(2g-2)(2g-2)!},
- \qquad g\geq 2.
-\end{equation}
+\begin{proposition}[Native operadic level]
+\label{prop:native-e1}
+For a CY$_d$ category on a verified two-stage locus with witnessed
+admissible datum $(\Sigma_{d-1},C)$,
+\[
+  \Phi_d^{(\Sigma_{d-1},C)}
+  =
+  \operatorname{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\circ\Phi_d^{FA}
+\]
+has residual operadic level
+\[
+  n_{\mathrm{native}}(d)=
+  \begin{cases}
+  \infty,& d=1,\\
+  2,& d=2,\\
+  1,& d\geq 3.
+  \end{cases}
+\]
+Thus a specialised CY$_3$ output $A$ is an $\Eone$-chiral algebra on
+the reference curve. The braided structure is recovered on
+\[
+  \Zcen\bigl(\Rep^{\Eone}(A)\bigr),
+\]
+where half-braidings carry the $R$-matrix data.
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-Standard: use the Mellin--Barnes representation of
-$\sum_{n\geq 1}n\,\log(1/(1-e^{-n\beta}))$, swap the
-$n$- and $k$-sums, and apply the classical expansion
-$\sum_{k\geq 1}k^{-s}q^k=\mathrm{Li}_s(q)$ with its
-Euler--Maclaurin asymptotic. The double Bernoulli product
-$\Bnum{2g}\Bnum{2g-2}$ arises as the product of the two
-$\zeta$-values produced by the two sums. Details: Gopakumar--Vafa
-\cite{GV98}; Mari\~no, \emph{Topological strings and integrable
-systems}; Harvey--Moore for the BKM analogue.
+\begin{proof}
+The PTVV shifted symplectic form on the derived moduli stack has shift
+$2-d$, and the Hochschild cochain side carries the corresponding
+$E_d$ structure. Stage-two holomorphic factorisation homology over the
+complex $(d-1)$-dimensional specialisation cycle lowers the residual
+operadic level to $E_{d-(d-1)}=E_1$ for $d\geq3$. The centre statement
+is the Ben-Zvi-Francis-Nadler mechanism applied to the
+$\Eone$-monoidal representation category. The proposition records this
+object-level specialisation statement and leaves arbitrary
+CY$_3$-morphism functoriality outside its scope.
 \end{proof}
 
-\begin{corollary}[Ratio with Faber--Pandharipande]\label{cor:macm-FP}
-The ratio
+\section{MacMahon Asymptotics}
+\label{sec:macmahon-asymptotics}
+
+\begin{theorem}[Mellin expansion of MacMahon]
+\label{thm:macmahon-mellin}
+As $\beta\to0^+$,
 \[
- \kch^{\mathrm{eff}}(g) \;=\; F_g^\MacM/\lambda_g^\FP
- \;=\;\frac{(-1)^{g-1}\cdot 1}{1} \cdot (\text{convention factor}),
+  \log \Mac(e^{-\beta})
+  \sim
+  \frac{\zeta(3)}{\beta^2}
+  +\frac{1}{12}\log\beta
+  +\zeta'(-1)
+  +\sum_{g\geq2}F_g^{\Mac}\,\beta^{2g-2},
 \]
-so $|\kch^{\mathrm{eff}}(g)|=1$ under the convention that absorbs all
-factorial growth into $\lambda_g^\FP$. Under the \emph{canonical}
-topological-string convention where
-$\lambda_g^\FP=|\Bnum{2g}|/(2g(2g-2)!)$ (single Bernoulli factor), the
-ratio is
+with
 \[
- \kch^{\mathrm{eff}}(g) \;=\; (-1)^{g-1}\cdot\frac{|\Bnum{2g-2}|}{2(2g-2)}
+  F_g^{\Mac}
+  =
+  \frac{\zeta(3-2g)\zeta(1-2g)}{(2g-2)!}
+  =
+  \frac{\Bnum{2g}\Bnum{2g-2}}
+       {2g(2g-2)(2g-2)!}.
 \]
-which grows factorially ($\sim (2g)!/(2\pi)^{2g-2}$) via Stirling.
-Either way, no constant $\kch$ exists across all~$g$; the MacMahon
-tower is not shadow-scalar-decomposable.
+In particular $F_2^{\Mac}=-1/2880$.
+\end{theorem}
+
+\begin{proof}
+From
+\[
+  \log \Mac(e^{-\beta})
+  =
+  \sum_{n,k\geq1}\frac{n}{k}e^{-nk\beta}
+\]
+one obtains the Mellin representation
+\[
+  \log \Mac(e^{-\beta})
+  =
+  \frac{1}{2\pi i}\int_{\sigma-i\infty}^{\sigma+i\infty}
+  \Gamma(s)\zeta(s+1)\zeta(s-1)\beta^{-s}\,ds
+  \qquad(\sigma>2).
+\]
+Moving the contour left gives the pole at $s=2$, the double pole at
+$s=0$, and the poles of $\Gamma(s)$ at $s=2-2g$ for $g\geq2$. The
+residue at $s=0$ has coefficient $+1/12$ in front of $\log\beta$ since
+$\zeta(-1)=-1/12$. The residues at $s=2-2g$ give
+$\zeta(3-2g)\zeta(1-2g)/(2g-2)!$. The Bernoulli form follows from
+$\zeta(1-2m)=-B_{2m}/(2m)$. Crossing finitely many poles gives the
+expansion to the corresponding order; the full Bernoulli series is an
+asymptotic series.
+\end{proof}
+
+\begin{proposition}[Scalar shadows and Bernoulli growth]
+\label{prop:scalar-shadow-growth}
+Let
+\[
+  \lambda_g^{(1)}
+  :=
+  \frac{|\Bnum{2g}|}{2g(2g-2)!}
+\]
+be the one-Bernoulli genus normalisation determined by the genus-one
+term. Then
+\[
+  \frac{|F_g^{\Mac}|}{\lambda_g^{(1)}}
+  =
+  \frac{|\Bnum{2g-2}|}{2g-2}
+  \sim
+  \frac{2(2g-2)!}{(2\pi)^{2g-2}(2g-2)}.
+\]
+The ratio has factorial growth. In the constant-map normalisation that
+already contains the double Bernoulli product
+\[
+  \lambda_g^{(2)}
+  :=
+  \frac{|\Bnum{2g}\Bnum{2g-2}|}
+       {2g(2g-2)(2g-2)!},
+\]
+the quotient $F_g^{\Mac}/\lambda_g^{(2)}$ is the sign forced by the
+Bernoulli convention. The normalisation must therefore be part of any
+claimed genus-by-genus comparison. A scalar comparison with
+$\lambda_g^{(1)}$ cannot be independent of $g$.
+\end{proposition}
+
+\begin{proof}
+The first formula is immediate from Theorem~\ref{thm:macmahon-mellin}.
+The asymptotic uses
+$|\Bnum{2m}|\sim2(2m)!/(2\pi)^{2m}$. The second statement is the same
+identity after moving the second Bernoulli factor into the comparison
+sequence.
+\end{proof}
+
+\section{The Ordered Bar Complex of $\Cthree$}
+\label{sec:c3-bar-complex}
+
+\begin{theorem}[Positive character and ordered bar Euler]
+\label{thm:bar-poincare-euler}
+For $A_{\Cthree}:=\Yp(\fglone)$ on the toric $\Cthree$ Hall locus,
+\[
+  \ch_q A_{\Cthree}
+  =
+  \Mac(q),
+\]
+where the degree-$n$ Hall basis is indexed by plane partitions of size
+$n$. The ordered bar complex itself is used through its Euler
+characteristic:
+\[
+  B^{\Eone}(A_{\Cthree})^k=(\overline{A}_{\Cthree})^{\otimes k}.
+\]
+The alternating bar Euler characteristic is the reciprocal product
+\[
+  \chi_q B^{\Eone}(A_{\Cthree})
+  =
+  \sum_{k\geq0}(-1)^k\ch(B^k)_q
+  =
+  \Mac(q)^{-1}
+  =
+  \prod_{n\geq1}(1-q^n)^n.
+\]
+\end{theorem}
+
+\begin{proof}
+The first equality is the crystal basis of the positive shuffle
+algebra: fixed points of the torus action on the Hilbert tower are
+three-dimensional partitions. For the ordered bar chains,
+\[
+  \sum_{k\geq0}(-1)^k\ch_q
+  \bigl((\overline{A}_{\Cthree})^{\otimes k}\bigr)
+  =
+  \sum_{k\geq0}(-1)^k(\ch_q A_{\Cthree}-1)^k
+  =
+  \frac{1}{\ch_q A_{\Cthree}}.
+\]
+Substituting $\ch_q A_{\Cthree}=\Mac(q)$ gives the reciprocal product.
+This is an Euler-characteristic statement; the plane partitions index
+the Hall basis of $A_{\Cthree}$.
+\end{proof}
+
+\begin{corollary}[Primitive BPS multiplicities]
+\label{cor:primitive-bps}
+The plethystic logarithm is
+\[
+  \PLog\,\Mac(q)=\sum_{n\geq1}nq^n.
+\]
+Thus the primitive point-class BPS multiplicity in degree $n$ is
+\[
+  \Omega(n)=n.
+\]
 \end{corollary}
 
-\paragraph{Headline identification.}
-MacMahon's $\prod_{n\geq 1}(1-q^n)^{-n}$ is the generating function
-of plane partitions, the CoHA character of~$\Cthree$, and the
-tree-level topological-string partition function on~$\Cthree$. It is
-\emph{not} a shadow-tower generating function in the Vol~I scalar
-sense; it is rather the exponential of a double-Bernoulli tower whose
-scalar shadow captures only the $g=1$ genus. The Vol~I shadow tower
-is tetrahedral (finite depth $r_{\max}=2,3,4,\infty$); the MacMahon
-tower is Gevrey-1 (factorial growth). Their relationship is a
-\emph{generating-function vs.\ asymptotic-scalar} distinction, not a
-factorisation.
+\begin{proof}
+For a product $\prod_{n\geq1}(1-q^n)^{-a_n}$, the plethystic logarithm
+is $\sum_{n\geq1}a_nq^n$. Here $a_n=n$.
+\end{proof}
 
-\section{Cross-volume summary}
-\label{sec:summary}
+\section{The Virasoro Shadow Tower}
+\label{sec:virasoro-shadow}
 
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lll}
- \toprule
- \textbf{Claim} & \textbf{Scope as displayed} & \textbf{Scope as corrected} \\
- \midrule
- MacMahon non-decomposition & Universal CY$_3$ & Holds at $\Cthree$; $g=1$ identity
-   only \\
- MacMahon factorial growth & ``Ratio $\to\infty$'' & $\sim (2g)!/(2\pi)^{2g-2}$;
-   Gevrey-1 \\
- $\Cthree$ bar Euler $=1/M(q)$ & Class $\mathbf{M}$ CoHA & Heisenberg-sector
-   class $\mathbf{G}$; full $\mathbf{M}$ at $\Winf$ \\
- $\Omega(n)=n$ for $\Cthree$ & BPS degeneracy & Plane-partition
-   logarithmic inversion of $M(q)$ \\
- $\Sthree$-framing triviality & Universal CY$_3$ & Connective part universal; non-connective
-   case-by-case \\
- $\Eone\to\Etwo$ triviality & Universal CY$_3$ & $\Cthree$,
-   conifold, $K3\times E$; compact general conditional \\
- Cross-vol row 2 $c(0)=10$ & Identity & Integer invariant; $\kBKM=5$ is
-   $c(0)/2$ \\
- Cross-vol row 4 class label & Toric vertex bound & Chain-level
-   depth bound (cohomology bounded) \\
- Cross-vol row 5 bar Euler & $1/M(q)$, $\Delta_5$ & $1/M(q)$,
-   $1/\Delta_5$ (reciprocal discipline) \\
- \bottomrule
-\end{tabular}
-\end{center}
+\begin{definition}[The $c=1$ quadratic landscape]
+\label{def:quadratic-landscape}
+On the stress-tensor line of the $\Winf$ evaluation layer at $c=1$ set
+\[
+  \kch^{T}:=\frac{c}{2}=\frac12,\qquad
+  \alpha:=2c=2,\qquad
+  S_4:=\frac{10}{c(5c+22)}=\frac{10}{27}.
+\]
+The quadratic landscape is
+\[
+  Q_L(t)
+  =
+  4(\kch^{T})^2+12\kch^{T}\alpha t
+  +(9\alpha^2+16\kch^{T}S_4)t^2
+  =
+  1+12t+\frac{1052}{27}t^2.
+\]
+Write
+\[
+  f(t)=\sqrt{Q_L(t)}=\sum_{n\geq0}a_nt^n.
+\]
+For $k\geq5$ the post-quartic Newton shadow coefficient is
+\[
+  m_k^{\mathrm{Newt}}(T,\ldots,T)=a_{k-2}T,\qquad
+  S_k^{\mathrm{Newt}}=\frac{a_{k-2}}{k}.
+\]
+The lower arities belong to the OPE normalisation of the $A_\infty$ bar
+operation.
+\end{definition}
 
-No working-note theorem is in mathematical error. Three reading-
-convention notes and one scope restriction are needed to avoid
-per-genus scalar shadow confusion (cache~\#14 variant),
-chain-vs.-cohomology class label confusion (cache~\#13), and
-toric-specific vs.\ general CY$_3$ confusion (cache~\#1).
+\begin{theorem}[Newton reconstruction]
+\label{thm:newton-shadow}
+The coefficients of $f(t)$ are determined by
+\[
+  a_0=1,\qquad a_1=6,\qquad a_2=\frac{40}{27},
+\]
+and, for $n\geq3$,
+\[
+  a_n=-\frac{1}{2a_0}\sum_{i=1}^{n-1}a_ia_{n-i}.
+\]
+Consequently
+\[
+\begin{array}{c|c|c}
+\toprule
+k & m_k^{\mathrm{Newt}}(T,\ldots,T)/T & S_k^{\mathrm{Newt}}\\
+\midrule
+5 & -80/9 & -16/9\\
+6 & 38080/729 & 19040/2187\\
+7 & -24320/81 & -24320/567\\
+8 & 33157760/19683 & 4144720/19683\\
+\bottomrule
+\end{array}
+\]
+\end{theorem}
 
-\section{Cache-appendable patterns}
-\label{sec:cache}
+\begin{proof}
+The identity $f(t)^2=Q_L(t)$ gives
+\[
+  2a_0a_n+\sum_{i=1}^{n-1}a_ia_{n-i}=0
+  \qquad(n\geq3),
+\]
+because $Q_L$ has degree $2$. The first three coefficients come from
+matching the coefficients of $t^0,t^1,t^2$. Substitution gives
+\[
+  a_3=-\frac{2\cdot6\cdot(40/27)}{2}=-\frac{80}{9},
+\]
+\[
+  a_4=-\frac{2\cdot6\cdot(-80/9)+(40/27)^2}{2}
+      =\frac{38080}{729},
+\]
+\[
+  a_5=-\frac{2\cdot6\cdot(38080/729)
+        +2\cdot(40/27)\cdot(-80/9)}{2}
+      =-\frac{24320}{81},
+\]
+and
+\[
+  a_6=-\frac{2\cdot6\cdot(-24320/81)
+        +2\cdot(40/27)\cdot(38080/729)
+        +(-80/9)^2}{2}
+      =\frac{33157760}{19683}.
+\]
+The relation $S_k^{\mathrm{Newt}}=a_{k-2}/k$ gives the displayed
+post-quartic shadow values.
+\end{proof}
 
-Patterns for append to
-\texttt{appendices/first\_principles\_cache.md}:
+\begin{proposition}[Convergence radius]
+\label{prop:shadow-radius}
+The shadow generating function $f(t)$ is analytic for
+\[
+  |t|<\rho,\qquad
+  \rho=\sqrt{\frac{27}{1052}}
+       =\frac{3\sqrt{3}}{2\sqrt{263}}.
+\]
+\end{proposition}
 
-\begin{itemize}[leftmargin=1.5em]
- \item \textbf{Cache~\#MacMahon-scalar}: ``MacMahon function decomposes
- as scalar shadow''; correction: only at $g=1$; genus-asymptotic
- expansion is Gevrey-1 with double-Bernoulli growth; the Vol~I scalar
- shadow captures only the $g=1$ term. Cross-file: working\_notes
- \texttt{thm:macmahon-non-decomposition};
- \texttt{macmahon\_shadow\_decomposition.py}.
- \item \textbf{Cache~\#Class-M-stratification}: ``$\Cthree$ is class
- $\mathbf{M}$'' vs.\ ``$\Cthree$ Heisenberg sector is class
- $\mathbf{G}$''. Both true; different ambients (full $\Winf$ vs.\
- $T$-sector truncation). When making a shadow-tower statement, declare
- ambient. Variant of cache~\#13 (chain/cohomology).
- \item \textbf{Cache~\#Framing-connective}: ``$\Sthree$-framing
- obstruction vanishes universally for CY$_3$''; correction: connective
- part vanishes universally; non-connective part requires
- $H^3(B\pi_0;\mathbb{Z})=0$; holds for toric, tested compact cases;
- not automatic for general compact CY$_3$. Ties to AP-CY framing
- obstruction entries.
- \item \textbf{Cache~\#BKM-c0-normalisation}: ``$c_N(0)=10$'' vs.\
- ``$\kBKM=5$''. Factor-of-$2$ normalisation: $\kBKM=c_N(0)/2$
- (Borcherds 1995 weight theorem; Gritsenko 1999);
- $c_N(0)$ is the integer Fourier coefficient. Cross-vol dictionary row~2
- records the integer.
- \item \textbf{Cache~\#Bar-Euler-reciprocal}: CoHA character equals a
- Borcherds product $\Longleftrightarrow$ bar Euler equals its
- reciprocal. Koszul-dual sign discipline. Cross-vol dictionary row~5
- displays CoHA side; bar-side is inverse.
-\end{itemize}
+\begin{proof}
+The branch points of $f(t)=\sqrt{1+12t+(1052/27)t^2}$ are the two roots
+of $Q_L$. Their product is $27/1052$. Since the discriminant
+\[
+  12^2-4\cdot\frac{1052}{27}=-\frac{320}{27}
+\]
+is negative, the roots are complex conjugates with equal modulus
+$\sqrt{27/1052}$.
+\end{proof}
 
-\section{Coda}
+\section{The Connected Wick Witness}
+\label{sec:wick-witness}
 
-Five attack--heal cycles completed. Two substantive mathematical
-points survive every adversarial challenge: (a) the MacMahon
-genus-asymptotic expansion is Gevrey-1 with factorial growth
-$|F_g^\MacM|\sim(2g)!/(2\pi)^{4g}$, obstructing scalar-shadow
-decomposition at every $g\geq 2$ by a \emph{theorem} of
-Gopakumar--Vafa \eqref{eq:macm-Fg-exact}, not by a choice; (b) the
-$\Sthree$-framing connective triviality holds universally by
-Bott/Sp~reduction, but the non-connective completion is a
-classifying-space~$\pi_0$ statement that is conditional on
-$H^3(B\pi_0;\mathbb{Z})=0$. Three display-convention notes sharpen
-the cross-volume dictionary without altering any theorem. All
-numerical witnesses $m_5=-80/9$, $m_7=-24320/81$,
-$m_8=33157760/19683$, $G_5^\conn=775/5184$ are re-derived
-graph-by-graph or via the Newton recursion whose polynomial closure
-is itself a theorem of the Virasoro OPE.
+\begin{definition}[Connected stress-tensor cumulant]
+\label{def:connected-cumulant}
+Let $J(z)J(w)\sim(z-w)^{-2}$ and
+$T(z)=-\frac12{:}J(z)^2{:}$. For $k$ marked points set
+\[
+  G_k^{\conn}(z_1,\ldots,z_k)
+  =
+  \left(-\frac12\right)^k
+  \sum_{\pi\in\mathcal{P}^{\conn}_{k}}
+  \prod_{\{(i,r),(j,s)\}\in\pi}(z_i-z_j)^{-2},
+\]
+where $\mathcal{P}^{\conn}_{k}$ is the set of perfect pairings of the
+$2k$ labelled half-edges whose incidence graph on the $k$ vertices is
+connected, with pairings inside a single vertex excluded.
+\end{definition}
 
-The substance is: MacMahon is \emph{not} a scalar shadow, it is a
-generating function of plane partitions and a Gevrey-1 topological
-amplitude; $\Sthree$-framing is \emph{connectively trivial and
-conditionally complete}; the cross-volume dictionary is correct with
-display-convention discipline.
+\begin{proposition}[Five-point value]
+\label{prop:g5-value}
+The connected five-point Wick cumulant at the integral configuration
+$(1,2,3,4,5)$ is
+\[
+  G_5^{\conn}(1,2,3,4,5)
+  =
+  \frac{775}{5184}
+  =
+  \frac{5^2\cdot31}{2^6\cdot3^4}.
+\]
+\end{proposition}
+
+\begin{proof}
+The Wick formula in Definition~\ref{def:connected-cumulant} is an
+explicit finite sum over perfect matchings of ten half-edges. Each
+term is a rational function in the differences $z_i-z_j$. Evaluation
+at $(1,2,3,4,5)$ gives the displayed rational number after ordinary
+cumulant subtraction. This is the exact finite enumeration implemented
+by the local Wick engine
+\texttt{compute/lib/virasoro\_m5\_five\_point.py}; it uses the
+free-field Wick rule alone.
+\end{proof}
+
+\begin{remark}[Comparison with $m_5$]
+\label{rem:g5-m5-comparison}
+The coefficient $m_5=-80/9$ is the Newton coefficient $a_3$ of
+Theorem~\ref{thm:newton-shadow}. The rational number
+$G_5^{\conn}=775/5184$ is a connected free-field cumulant. A comparison
+from the second number to the first must pass through the Virasoro
+normalisation, projection to the $T$-line, the $S_4=10/27$ level-two
+constant, and the residue map from configuration-space cumulants to
+minimal-model operations. The two numbers live in different vector
+spaces before this comparison map is supplied.
+\end{remark}
+
+\section{Borcherds Constants and the $K3\times E$ Separation}
+\label{sec:borcherds-k3e}
+
+\begin{proposition}[The five $K3\times E$ readings]
+\label{prop:k3e-readings}
+For $Y=K3\times E$ the relevant scalar readings are
+\[
+\begin{array}{c|c|l}
+\toprule
+\textup{invariant} & \textup{value} & \textup{construction}\\
+\midrule
+\kcat(Y) & 0 &
+\chi(\mathcal{O}_{K3})\chi(\mathcal{O}_{E})=2\cdot0\\
+\kch(Y) & 0 &
+\sum_q(-1)^qh^{0,q}(Y)=1-1+1-1\\
+\kch^{\mathrm{Heis}}(Y) & 3 &
+\textup{K3-fibre Heisenberg specialisation}\\
+\kBKM(\Delta_5) & 5 &
+c_1(0)/2=10/2=\operatorname{wt}(\Delta_5)\\
+\kfiber(Y) & 24 &
+\operatorname{rk}\widetilde H(K3,\mathbb{Z})\\
+\bottomrule
+\end{array}
+\]
+These are parallel constructions with separate comparison maps.
+\end{proposition}
+
+\begin{proof}
+The first row is K\"unneth multiplicativity of
+$\chi(\mathcal{O}_{K3\times E})$. The second row is the compact
+CY$_3$ Hodge supertrace:
+$h^{0,\bullet}(K3\times E)=(1,1,1,1)$ after K\"unneth, so the alternating
+sum is zero. The Heisenberg row is a specialisation along the K3-fibre
+Mukai sector. The Borcherds row is the weight theorem applied to the
+Gritsenko $\Delta_5$ input with $c_1(0)=10$. The fibre row is the rank
+of the Mukai lattice
+$H^0(K3,\mathbb{Z})\oplus H^2(K3,\mathbb{Z})\oplus H^4(K3,\mathbb{Z})$.
+\end{proof}
+
+\begin{proposition}[Primitive CHL constants]
+\label{prop:chl-constants}
+For primitive $N\in\{1,2,3,4,6\}$ in the five-row CHL ladder with the
+Gritsenko-Nikulin Jacobi normalisation,
+\[
+  \bigl(c_1(0),c_2(0),c_3(0),c_4(0),c_6(0)\bigr)
+  =
+  (10,8,6,4,2),
+\]
+and
+\[
+  \bigl(\kBKM(\Phi_1),\kBKM(\Phi_2),\kBKM(\Phi_3),
+        \kBKM(\Phi_4),\kBKM(\Phi_6)\bigr)
+  =
+  (5,4,3,2,1).
+\]
+The relation is
+\[
+  \kBKM(\Phi_N)=\frac{c_N(0)}{2}.
+\]
+The five-row CHL ladder and the eight-row Gritsenko-Clery
+diagonal-divisor catalogue are separate tables; the displayed tuple
+concerns only the CHL ladder.
+For the untwined square normalisation,
+\[
+  D_5=64^{-1}\Delta_5,\qquad
+  \Phi_{10}=\Delta_5^2.
+\]
+\end{proposition}
+
+\begin{proof}
+The Borcherds weight theorem assigns half the constant Fourier
+coefficient of the Jacobi input to the automorphic product weight. For
+$N=1$ this is Gritsenko's $\Delta_5$ with $c_1(0)=10$, hence weight
+$5$. The primitive CHL constants listed above are the corresponding
+constant terms for $N=1,2,3,4,6$. The scalar $D_5$ is the
+Oberdieck-Pandharipande monic normalisation of $\Delta_5$, and the
+untwined genus-two form is the square $\Delta_5^2$.
+\end{proof}
+
+\section{Consequences}
+\label{sec:consequences}
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item The MacMahon product, the Behrend-weighted DT vertex, the ordered
+bar Euler characteristic, and the Virasoro shadow tower admit comparison
+only with their chamber, sign, normalisation, and comparison map
+specified.
+\item The equality $\CoHA(\Cthree)=\Yp(\fglone)$ is an equality of
+positive associative Hall algebras. The vertex algebra $\Winf$ is a
+completed double or centre evaluation layer.
+\item For $d\geq3$, a specialised CY-to-chiral output is $\Eone$. The
+braided $\Etwo$ structure is carried by the derived chiral centre or by
+the completed representation category.
+\item The numbers
+\[
+  m_5=-\frac{80}{9},\qquad
+  m_6=\frac{38080}{729},\qquad
+  m_7=-\frac{24320}{81},\qquad
+  m_8=\frac{33157760}{19683},\qquad
+  G_5^{\conn}=\frac{775}{5184}
+\]
+are exact, typed constants. The first four are post-quartic Newton
+coefficients of the Virasoro shadow tower; the last is a Wick cumulant.
+\item The $K3\times E$ invariants
+$0,0,3,5,24$ and the CHL constants
+$(c_N(0))=(10,8,6,4,2)$ arise from distinct geometric and automorphic
+constructions. The CHL tuple is separate from the Gritsenko-Clery
+diagonal-divisor catalogue.
+\end{enumerate}
 
 \begin{thebibliography}{99}
 
-\bibitem{GV98} R.~Gopakumar and C.~Vafa.
-\emph{M-theory and topological strings~II.}
-arXiv:hep-th/9812127 (1998). [MacMahon genus expansion, BPS
-invariants for $\Cthree$.]
-
-\bibitem{Borcherds95} R.~Borcherds.
-\emph{Automorphic forms on $O_{s+2,2}(\mathbb{R})$ and infinite
-products.} Invent.\ Math.\ 120 (1995), 161--213.
-[Borcherds product, weight theorem, $\kBKM=c_N(0)/2$.]
-
-\bibitem{GN98} V.~Gritsenko and V.~Nikulin.
-\emph{Automorphic forms and Lorentzian Kac--Moody algebras.
-Parts I/II.} Intern.\ J.\ Math.\ 9 (1998), 153--199, 201--275.
-[$\Delta_5$ via Gritsenko lift; weight table.]
-
-\bibitem{CostLi16} K.~Costello and S.~Li.
-\emph{Quantization of open-closed BCOV theory, I.}
-arXiv:1505.06703 (2016). [BV quantisation of holomorphic CS; CY$_3$
-framing.]
-
-\bibitem{KontsFor03} M.~Kontsevich.
-\emph{Deformation quantization of Poisson manifolds.}
-Lett.\ Math.\ Phys.\ 66 (2003), 157--216. [Formality via graph
-complex weights; $L_\infty$-morphism.]
-
-\bibitem{KS00} M.~Kontsevich and Y.~Soibelman.
-\emph{Homological mirror symmetry and torus fibrations.}
-Symplectic geometry and mirror symmetry (Seoul, 2000), 203--263.
-[$A_\infty$ minimal model; homotopy transfer.]
-
-\bibitem{SV} O.~Schiffmann and E.~Vasserot.
+\bibitem{SV13}
+O.~Schiffmann and E.~Vasserot.
 \emph{The elliptic Hall algebra and the $K$-theory of the Hilbert
-scheme of~$\mathbb{A}^2$.} Duke Math.\ J.\ 162 (2013), 279--366.
-[CoHA; bar identification at $d=2$; Vol~III ambient.]
+scheme of $\mathbb{A}^2$.}
+Duke Math. J. 162 (2013), 279-366.
 
-\bibitem{Nak} H.~Nakajima.
-\emph{Lectures on Hilbert schemes of points on surfaces.}
-Univ.\ Lect.\ Ser.\ 18, AMS (1999). [Heisenberg algebra and
-$\mathrm{Hilb}^n(\mathbb{C}^2)$; $N=1$ model.]
+\bibitem{Tsymbaliuk17}
+A.~Tsymbaliuk.
+\emph{The affine Yangian of $\mathfrak{gl}_1$ revisited.}
+Adv. Math. 304 (2017), 583-645.
 
-\bibitem{FPcurves} C.~Faber and R.~Pandharipande.
-\emph{Logarithmic series and Hodge integrals in the tautological
-ring.} Michigan Math.\ J.\ 48 (2000), 215--252.
-[$\lambda$-class integrand; $\lambda_g^\FP$.]
+\bibitem{ProchazkaRapcak}
+T.~Prochazka and M.~Rapcak.
+\emph{$\mathcal{W}_{1+\infty}$ and the affine Yangian.}
+JHEP 2019, arXiv:1711.06888.
 
-\bibitem{Bott} R.~Bott.
-\emph{The stable homotopy of the classical groups.}
-Ann.\ of Math.\ 70 (1959), 313--337. [Bott periodicity;
-$\pi_3(B\Sp)=\pi_3(\BU)=0$.]
+\bibitem{MNOP06}
+D.~Maulik, N.~Nekrasov, A.~Okounkov, and R.~Pandharipande.
+\emph{Gromov-Witten theory and Donaldson-Thomas theory I.}
+Compos. Math. 142 (2006), 1263-1285.
+
+\bibitem{ORV06}
+A.~Okounkov, N.~Reshetikhin, and C.~Vafa.
+\emph{Quantum Calabi-Yau and classical crystals.}
+In \emph{The Unity of Mathematics}, Birkhauser, 2006.
+
+\bibitem{GV98}
+R.~Gopakumar and C.~Vafa.
+\emph{M-theory and topological strings II.}
+arXiv:hep-th/9812127.
+
+\bibitem{FP00}
+C.~Faber and R.~Pandharipande.
+\emph{Logarithmic series and Hodge integrals in the tautological ring.}
+Michigan Math. J. 48 (2000), 215-252.
+
+\bibitem{Borcherds95}
+R.~Borcherds.
+\emph{Automorphic forms on $O_{s+2,2}(\mathbb{R})$ and infinite
+products.}
+Invent. Math. 120 (1995), 161-213.
+
+\bibitem{GN98}
+V.~Gritsenko and V.~Nikulin.
+\emph{Automorphic forms and Lorentzian Kac-Moody algebras.}
+Internat. J. Math. 9 (1998), 153-199 and 201-275.
+
+\bibitem{PTVV13}
+T.~Pantev, B.~To\"en, M.~Vaqui\'e, and G.~Vezzosi.
+\emph{Shifted symplectic structures.}
+Publ. Math. IHES 117 (2013), 271-328.
+
+\bibitem{BFN10}
+D.~Ben-Zvi, J.~Francis, and D.~Nadler.
+\emph{Integral transforms and Drinfeld centers in derived algebraic
+geometry.}
+J. Amer. Math. Soc. 23 (2010), 909-966.
 
 \end{thebibliography}
 

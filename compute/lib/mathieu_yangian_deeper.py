@@ -512,13 +512,13 @@ def twined_bar_euler_product(
 
 
 def verify_all_twined_bar_euler_products(max_degree: int = 15) -> Dict[str, Any]:
-    r"""Verify bar = eta for all 25 M_24 conjugacy classes.
+    r"""Verify bar = eta for all 26 M_24 conjugacy classes.
 
     For each class g in M_24:
       twined bar Euler product = eta product of Frame shape
 
     This is a consequence of the cyclotomic identity and should hold
-    for ALL classes, not just the 21 realized on K3.
+    for all ordinary Mathieu rows, independently of the K3-sigma subset.
     """
     results = {}
     all_ok = True
@@ -992,7 +992,7 @@ def surfing_union_generates_m24() -> Dict[str, Any]:
         for cls in point_data['frame_shapes_realized']:
             all_realized.add(cls)
 
-    # The GHV theorem says 21 of 25 classes are realized
+    # The GHV theorem selects a K3-sigma subset of the 26 Mathieu rows.
     ghv_realized = {name for name, cc in M24_CONJUGACY_CLASSES.items()
                     if cc.realized_on_k3}
 

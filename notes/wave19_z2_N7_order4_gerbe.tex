@@ -1,237 +1,381 @@
-% ============================================================
-%  Wave-19 Z2/20: $N=7$ non-CHL host as order-$4$ gerbe
-%                 Cheeger--Simons differential character.
-%
-%  Author: Raeez Lorgat.  No AI attribution.
-% ============================================================
-
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\Q}{\mathbb{Q}}
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\C}{\mathbb{C}}
-\providecommand{\T}{\mathbb{T}}
-\providecommand{\ZZ}{\mathbb{Z}}
 \providecommand{\CC}{\mathbb{C}}
-\providecommand{\RR}{\mathbb{R}}
-\providecommand{\Br}{\mathrm{Br}}
-\providecommand{\Fix}{\mathrm{Fix}}
-\providecommand{\Aut}{\mathrm{Aut}}
-\providecommand{\Spin}{\mathrm{Spin}}
-\providecommand{\Mp}{\mathrm{Mp}}
-\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\HH}{\mathbb{H}}
+\providecommand{\muFour}{\mu_{4}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cO}{\mathcal{O}}
 \providecommand{\cH}{\widehat{H}}
-\providecommand{\CS}{\mathrm{CS}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Auts}{\mathrm{Aut}_{s}}
+\providecommand{\Fix}{\mathrm{Fix}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\BPS}{\mathrm{BPS}}
 \providecommand{\DT}{\mathrm{DT}}
-\providecommand{\PT}{\mathrm{PT}}
+\providecommand{\red}{\mathrm{red}}
+\providecommand{\wt}{\mathrm{wt}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kBKMaut}{\kappa_{\mathrm{BKM}}^{\mathrm{aut}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
-\providecommand{\ClaimStatusHeuristic}{\textsc{[Heuristic]}}
+\providecommand{\PhiNik}{\Phi_{7}^{\mathrm{Nik}}}
+\providecommand{\Dfive}{\Delta_{5}}
+\providecommand{\PhiTenUn}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\PhiTenOP}{\Phi_{10}^{\mathrm{OP}}}
 
-\section*{$N=7$ positive-half via an order-$4$ gerbe and its
-Cheeger--Simons character}
-\label{wn:sec:N7-order4-gerbe-cheeger-simons}
+\section*{The Order-7 Nikulin Boundary}
+\label{wn:sec:N7-nikulin-boundary}
 
-The Gritsenko--Cl\'ery form $\Delta_{1/4}^{(7)}\in
-M_{1/4}(K(7),\chi_7^{\otimes 2})$ carries weight $1/4$ and the
-Borcherds weight theorem forces $\kBKM(\Phi_7)=c_7(0)/2=1/4$
-with $c_7(0)=1/2$ from the spin-cover weak Jacobi input
-$\psi_{1/4,7}=\vartheta_1^{1/2}\eta^{-3/2}g_7$, $g_7\in
-M_{7/4}(\Gamma_0(7),\chi_7)$ (Freitag--Hermann 1985 \emph{Analytische
-Automorphieformen} \S II.5). A geometric realisation
-$(Z^{X_7})^{-1/8}=\Delta_{1/4}^{(7)}$ thus demands an eighth root of
-the reduced DT partition function on the CY$_3$ host. The
-Nikulin fixed count $\#\,\Fix(g_7)=3$ and
-$\chi(\mathrm{K3}^{g_7})/3=0$ obstruct a smooth $\ZZ/7$-free quotient;
-the CHL elliptic-partner construction collapses because
-$\varphi(7)=6\nmid 2$ excludes
-$\ZZ[\zeta_7]\hookrightarrow\End(E)$. The host is a $\mu_4$-gerbe
-over the singular quotient $(\mathrm{K3}\times E)/(\ZZ/7)$; the
-eighth root is the Cheeger--Simons differential character of a
-spin-double-cover of that gerbe.
-
-\subsection*{Cycle 1 --- Cheeger--Simons differential characters}
-
-\ClaimStatusTheorem\ (Cheeger--Simons 1985 \emph{LNM}~1167 \S1.)
-For $X$ a smooth manifold, the group $\cH^{k}(X;\ZZ)$ of
-\emph{differential characters of degree $k$} sits in the exact
-diamond
+The integer \(7\) belongs to Nikulin's list of symplectic K3
+automorphism orders and lies outside the primitive CHL
+\(K3\times E\) ladder.  The primitive CHL levels are exactly
 \[
-0\to H^{k-1}(X;\RR/\ZZ)\to \cH^{k}(X;\ZZ)\xrightarrow{(\delta_1,\delta_2)}
-\Omega^{k}_{\ZZ}(X)\times_{H^{k}(X;\RR)}H^{k}(X;\ZZ)\to 0,
+  N\in\{1,2,3,4,6\},
 \]
-$\delta_1$ the curvature ($\ZZ$-periodic closed $k$-form), $\delta_2$
-the characteristic class. Brylinski~1993 \emph{Loop spaces,
-characteristic classes, and geometric quantization} \S5.3
-identifies $\cH^{k}(X;\ZZ)$ with smooth Deligne cohomology
-$H^{k}_{\mathcal{D}}(X;\ZZ(k))$; the case $k=3$ classifies
-\emph{smooth abelian gerbes with connection and curving}. A
-gerbe of order $m$ is a torsion element $[\cG]\in H^{3}(X;\ZZ)_{\rm tors}$
-with $m\cdot[\cG]=0$; the full differential datum lifts $[\cG]$ to
-$\cH^{3}(X;\ZZ)_{m\text{-tors}}$, equivalently a $\mu_{m}$-gerbe.
-
-\subsection*{Cycle 2 --- The order-$4$ gerbe on $X_7=(\mathrm{K3}\times E)/(\ZZ/7)$}
-
-\ClaimStatusConjectured\ Let $S_7$ be a Nikulin K3 carrying a
-symplectic $g_7\in\Aut_s(S_7)$ of order $7$ with
-$\#\,\Fix(g_7)=3$ (Nikulin~1980, \emph{Trudy Mosk.~Mat.~Obs.}~38,
-Thm~4.5, case $N=7$). The quotient $Y_7 := (S_7\times E)/(\ZZ/7)$
-is a singular threefold with $3$ isolated $1/7(1,2,4)$ Gorenstein
-terminal singularities: at each fixed point $p_i\in\Fix(g_7)$, the
-symplectic form forces $g_7$ to act on $T_{p_i}S_7$ with eigenvalues
-$(\zeta_7,\zeta_7^{-1})$ and trivially on $T_qE$; reading the
-$\ZZ/7$-weights on $T_{p_i}S_7\oplus T_qE$ at a fixed point of
-$g_7\times\mathrm{id}$ gives $(1,6,0)$, and the unique Gorenstein
-restriction $\sum w_i\equiv 0\bmod 7$ is met after the standard
-$1/7(1,2,4)$ reshuffle (Reid 2002 \emph{Surveys in Geometry} \S3.1;
-the $(1,2,4)$ weights are the unique isolated Gorenstein triple of
-order $7$ up to $(\ZZ/7)^\times$). The Bridgeland--King--Reid
-$G$-Hilbert scheme $X_7:=G\text{-}\Hilb(Y_7)\to Y_7$ is a crepant
-resolution (BKR 2001 \emph{JAMS}~14 Thm~1.2). Ito--Nakajima 2000
-\emph{Topology}~39 \S6 compute $H^{\bullet}(X_7;\ZZ)$ via the McKay
-generators: the nontrivial irreducible $\mu_7$-characters
-$\zeta_7^{j}$, $j=1,\ldots,6$, label tautological line bundles
-$\cR_j\to X_7$ with $c_1(\cR_j)$ spanning the exceptional cohomology.
-The determinant relation $\prod_{j=1}^6 \cR_j^{\,j}\simeq\cO_{X_7}$
-(Ito--Nakajima~\S6 Cor.~6.10) produces a $\ZZ/7$-congruence on
-exceptional Chern classes, and the spin-double-cover twist of the
-$\mu_7$-McKay datum promotes the relevant torsion class to a
-$\mu_4$-gerbe class
+the orders for which the elliptic factor admits an origin-fixing
+cyclotomic automorphism.  Equivalently
+\(\varphi(N)\mid2\).  Since \(\varphi(7)=6\), the cyclotomic order
+exceeds the endomorphism rank of an elliptic curve:
 \[
-[\cG_7]\ :=\ [E_{\rm exc}^{\,\rm spin}]\ \in\ H^{3}(X_7;\ZZ)_{\rm tors},
-\qquad 4\cdot[\cG_7]\ =\ 0,
+  \Z[\zeta_7]\ \hbox{has rank }6,\qquad \End(E)\otimes\Q
+  \hbox{ has rank }\leq 2 .
 \]
-where $E_{\rm exc}^{\,\rm spin}$ records the mod-$2$ Wu obstruction
-to lifting the $\mu_7$-equivariant structure to the Pfaffian line
-bundle of the virtual $(0,2)$ sigma model on $X_7$ (Hopkins--Singer
-2005 \emph{J.~Diff.~Geom.}~70 \S4.10). The Cheeger--Simons lift
-$\widehat{\cG}_7\in\cH^{3}(X_7;\ZZ)$ has torsion curvature class
-$\delta_1=0$ and characteristic class $\delta_2=[\cG_7]$.
+The order-7 row is therefore a non-CHL Nikulin automorphic boundary
+row, outside the primitive \(K3\times E\) quotient theorem.
+Its automorphic weight is an automorphic datum alone.  A CY-to-chiral
+realisation requires a separately constructed Calabi--Yau source,
+orientation data, and a Hall or DT comparison.
 
-\subsection*{Cycle 3 --- Effective positive-half via gerbe $K$-theory}
+\subsection*{Automorphic Constant}
 
-\ClaimStatusTheorem\ (Mathai--Murray--Stevenson~2002 \emph{Commun.\
-Math.\ Phys.}~228 Thm~1.2.) For $[\cG]\in H^{3}(X;\ZZ)_{\rm tors}$
-of order $m$, the $\cG$-twisted topological $K$-theory
-$K^{\bullet}(X,\cG)$ is a module over $K^{\bullet}(X)$ via tensor
-with the twisted Azumaya algebra $\cA_{\cG}$ of local-rank $m$.
-Mathai--Stevenson~2006 \emph{Adv.~Math.}~$200$ Thm~4.1 further
-identifies
+Let \(S_7\) be a projective K3 surface with a symplectic automorphism
+\(g_7\in\Auts(S_7)\) of order \(7\).  Nikulin's classification gives
 \[
-K^{0}(X,\cG)\otimes\CC\ \cong\ \bigoplus_{[\chi]\in\widehat{\mu_m}}
-H^{\rm even}_{\rm dR}(X;\CC_{\chi}),
+  \#\Fix(g_7)=3,
 \]
-the $\mu_m$-graded equivariant de Rham cohomology. At $X=X_7$ with
-$m=4$ this gives a $\ZZ/4$-grading
-$K^{0}(X_7,\cG_7)=\bigoplus_{j=0}^{3}K^{0}_{(j)}$, the $j=0$ summand
-being the untwisted $K^{0}(X_7)$. The \emph{effective positive-half}
-is
+and Mukai's Mathieu description gives frame shape \(1^3 7^3\).  The
+paramodular lift attached to this symplectic order is the Gritsenko
+order-\(7\) product of weight \(1\).  Equivalently, in the theta-split
+normalisation of the twined K3 elliptic genus, the order-\(7\) Jacobi
+trace parameter and singular-theta correction are
 \[
-Y^{+}_{\rm eff}(X_7)\ :=\ \bigoplus_{j=1}^{3} K^{0}_{(j)}(X_7,\cG_7)^{\rm BPS}
-\ \subset\ K^{0}(X_7,\cG_7)\otimes\CC,
+  T^{\mathrm{Jac}}_7=6,\qquad
+  A_7=2.
 \]
-the sum of twisted-$K$-theory weight spaces restricted to BPS classes
-(DT-stable sheaves of reduced rank). The $\ZZ/4$-grading is the
-positive-half gradation; the $j=0$ ``uncharged'' piece decouples
-from the BPS counting exactly as in the CHL untwisted-genus
-decoupling (Oberdieck--Pixton~arXiv:1808.03524, \S3.2, $h_M=1$
-chiral sector).
-
-\subsection*{Cycle 4 --- Metaplectic eighth-root of reduced DT}
-
-\ClaimStatusConjectured\ (Eighth-root identity.) Let
-$Z^{X_7}_{L,1}(p,q,y)$ be the reduced DT zeta function on the
-crepant resolution $X_7$ with polarisation $L\subset H^2(X_7;\ZZ)$
-and pure order-$7$ twist ($h_M=1$). The Cheeger--Simons character
-$\widehat{\cG}_7\in\cH^{3}(X_7;\ZZ)$ evaluated on the virtual DT
-cycle produces a $\mu_{8}$-valued \emph{metaplectic phase}
-$\varepsilon_7(L)\in\mu_8\subset\CC^{\times}$ (order-$4$ gerbe $\otimes$
-spin-double-cover $=$ eighth-root). The identification
+Thus the Jacobi input has constant term
 \[
-\bigl(Z^{X_7}_{L,1}\bigr)^{-1/8}\cdot\varepsilon_7(L)\ =\ \Delta_{1/4}^{(7)}(p,q,y)
+  c_7(0)=T^{\mathrm{Jac}}_7-2A_7=6-4=2.
 \]
-reads: the eighth-root of the reduced DT partition function,
-corrected by the Cheeger--Simons metaplectic phase, equals the
-Gritsenko--Cl\'ery weight-$1/4$ paramodular form. The spin-double-cover
-character $\chi^{\otimes 2}\in\Spin^{c}(X_7)$ is the Wu class mod $2$
-on the smooth resolution (Hopkins--Singer~2005 \emph{J.~Diff.~Geom.}~70
-\S4.10 identify the Wu class as the obstruction to a canonical square
-root of the Pfaffian line bundle of a fermionic path integral);
-its square, the order-$4$ twist, is the geometric meaning of
-$c_7(0)=1/2$, $\wt(\Delta_{1/4}^{(7)})=1/4$, giving
-$\kBKM(\Phi_7)=c_7(0)/2=1/4$.
-
-The eighth-root is well-defined on $X_7$ \emph{only} after the
-Cheeger--Simons datum is fixed: different trivialisations of
-$\widehat{\cG}_7$ differ by an element of $H^{2}(X_7;\RR/\ZZ)$
-whose $8$-torsion part shifts the eighth-root by a $\mu_8$-phase,
-matching the Mumford~1983 \emph{Tata Lectures I} \S$II.3$
-theta-characteristic indeterminacy on the Siegel domain.
-
-\subsection*{Cycle 5 --- BPS algebra and automorphic identification}
-
-\ClaimStatusConjectured\ The BPS algebra of $Y^{+}_{\rm eff}(X_7)$
-is a \emph{metaplectic BKM Lie superalgebra}
-$\widetilde{\mathfrak{g}}_{\Phi_7}$ with denominator
+Borcherds' singular-theta weight formula gives
 \[
-\prod_{\alpha>0}\bigl(1-e^{\alpha}\bigr)^{\mathrm{mult}(\alpha)}
-=\sum_{w\in W^{\rm ch}} \det(w)\cdot w\bigl(\Delta_{1/4}^{(7)}\bigr),
+  \wt(\PhiNik)
+  =
+  \kBKMaut(\PhiNik)
+  =
+  \frac{c_7(0)}{2}
+  =
+  1.
 \]
-Weyl group $W^{\rm ch}$ the Cheng--Duncan--Harvey umbral Weyl group
-at $N=7$ (primary: Cheng--Duncan~arXiv:1307.5793 \S4 umbral data
-at $N-1=6\mid 24$). The metaplectic correction
-$\chi^{\otimes 2}$ acts on the positive roots by the mod-$2$
-spin-double-cover character, producing a $\ZZ/2$-graded root
-multiplicity $\mathrm{mult}(\alpha)=c_7(4nm-\ell^2\mid\chi^{\otimes 2})$
-that reduces to the Cl\'ery $c_7$ coefficient on the even
-sublattice. The BPS/automorphic identification
-$\widetilde{\mathfrak{g}}_{\Phi_7}=\mathrm{Borch}(F_3^{(7)},
-\phi_{0,1}^{K3,g_7})$ holds on the full $N=7$ paramodular lattice,
-where $\phi_{0,1}^{K3,g_7}$ is the $g_7$-twisted K3 elliptic genus
-of weak-Jacobi weight $0$ index $1$ (Bryan--Cadman~arXiv:1803.07271
-\S3 compute the twisted genus for symplectic order-$N$; $N=7$
-entry: $\chi(\mathrm{K3}^{g_7})/3=0$, matching Cycle~2 Nikulin data).
+The superscript in \(\kBKMaut\) records that this is an automorphic
+Borcherds weight.  It is promoted to a BKM-denominator invariant when a
+denominator algebra and a Calabi--Yau Hall or DT comparison have been
+constructed.
+The symbol \(N=7\) here denotes the order of the Nikulin symplectic
+automorphism.  The Cl\'ery--Gritsenko diagonal-divisor catalogue is
+indexed by triples \((t,N;k)\).  Its order-four multiplier row is
+\[
+  F_{1,4}=\nabla_{3/2}\in
+  M_{3/2}(\Gamma_0^{(2)}(4),\chi_4),
+\]
+a separate row with a separate product theorem, cover character, and
+scalar-square convention.
 
-\subsection*{Heal --- scope and invariants}
+\subsection*{The Stack, Coarse Quotient, and Crepant Resolution}
 
-$\kfib(X_7)$ counts the $3$ McKay exceptional fibres with the
-$1/7(1,2,4)$ Gorenstein terminal contribution, giving
-$\kfib=3\cdot(2/7)=6/7$ in the normalisation of
-\texttt{cy\_d\_kappa\_stratification.tex} at the
-$\Delta_5$--$\Delta_{1/4}$ interface. $\kcat(X_7)=
-\chi(\cO_{S_7\times E})/7+\kfib=0+6/7=6/7$ on the total space
-(non-K\"unneth-multiplicative because $X_7$ is not a product).
-$\kch(X_7)$, computed by $\Phi$ on the derived category of the
-smooth resolution, equals $c_7(0)/2=1/4$ after the metaplectic
-eighth-root correction; the gap $6/7-1/4=17/28$ is absorbed by the
-$\mu_8$-Cheeger--Simons character. $\kBKM(\Phi_7)=1/4$ is the
-Borcherds weight theorem (Borcherds~1998 \emph{Invent.~Math.}~132
-Thm~13.3, extended to the spin cover by Freitag--Hermann 1985
-\S II.5). The identity
-$\kBKM=\kch+\kfib-\text{metaplectic correction}$ is
-numerologically decorative; the operative identity is the universal
-Borcherds weight $\kBKM(\Phi_N)=c_N(0)/2$ read off the spin-cover
-weak Jacobi head.
+Let
+\[
+  G_7=\langle g_7\times\mathrm{id}_E\rangle\cong \Z/7,
+  \qquad
+  \mathcal Y_7=[S_7\times E/G_7],
+  \qquad
+  Y_7=(S_7\times E)/G_7 .
+\]
+The stack \(\mathcal Y_7\) is a compact stacky Calabi--Yau threefold:
+the action preserves the K3 holomorphic two-form and the elliptic
+one-form.  Its stabiliser is \(G_7\) exactly along the three elliptic
+curves below and is trivial elsewhere.  The coarse space \(Y_7\) is a
+compact singular Gorenstein Calabi--Yau threefold.
+
+The product action has fixed locus
+\[
+  \Fix(g_7\times\mathrm{id}_E)
+  =
+  \bigsqcup_{i=1}^{3} \{p_i\}\times E .
+\]
+At \(p_i\), the symplectic condition gives local K3 eigenvalues
+\((\zeta_7,\zeta_7^{-1})\).  Since the elliptic factor is fixed
+pointwise, the local analytic quotient is
+\[
+  \bigl(\C^2/\langle\mathrm{diag}(\zeta_7,\zeta_7^{-1})\rangle\bigr)
+  \times E,
+\]
+an \(A_6\) surface singularity along an elliptic curve.  The singular
+locus consists of three elliptic curves.  The isolated terminal
+threefold model with cyclic weights \((1,2,4)\) is excluded by the
+fixed elliptic tangent direction.
+
+The minimal resolution of the \(A_6\) surface factor produces six
+exceptional curves over each fixed K3 point, fibrewise over \(E\).
+It gives the crepant resolution
+\[
+  \pi\colon
+  X_7^{\mathrm{res}}
+  :=
+  \widetilde{S_7/\langle g_7\rangle}\times E
+  \longrightarrow
+  Y_7 ,
+\]
+where \(\widetilde{S_7/\langle g_7\rangle}\) is again a K3 surface.
+Thus \(X_7^{\mathrm{res}}\) is a compact smooth Calabi--Yau threefold.
+This resolution lies outside the primitive CHL denominator construction;
+the CHL cyclotomic linearisation, reduced \(K3\times E\)
+Donaldson--Thomas comparison, Hall root datum, and BKM recognition
+theorem remain separate data.
+
+With a \(7\)-torsion translation \(t\in E[7]\), the action
+\(g_7\times t\) is free.  The quotient
+\[
+  X_7^{\mathrm{fr}}=(S_7\times E)/\langle g_7\times t\rangle
+\]
+is a compact smooth Calabi--Yau threefold with trivial stabilisers.
+It is a different geometric problem: the elliptic one-form is
+translation-invariant, while the primitive compact CHL denominator
+construction uses the origin-fixing cyclotomic action, reduced
+obstruction theory, and automorphic comparison.
+
+\subsection*{Cheeger--Simons Characters and \texorpdfstring{\(\mu_4\)}{mu4} Gerbes}
+
+Cheeger--Simons differential characters of degree \(3\) fit into
+\[
+0\to H^{2}(X;\R/\Z)\to \cH^{3}(X;\Z)
+\xrightarrow{(\delta_1,\delta_2)}
+\Omega^{3}_{\Z}(X)\times_{H^{3}(X;\R)}H^{3}(X;\Z)\to 0.
+\]
+Brylinski identifies this group with smooth Deligne cohomology, and
+degree \(3\) classifies abelian gerbes with connection and curving.
+A banded \(\muFour\)-gerbe with flat connection requires a torsion
+class
+\[
+  \alpha\in H^{3}(X;\Z)_{\mathrm{tors}},
+  \qquad 4\alpha=0,
+\]
+together with a differential lift
+\(\widehat\alpha\in\cH^{3}(X;\Z)\) satisfying
+\(\delta_1(\widehat\alpha)=0\) and
+\(\delta_2(\widehat\alpha)=\alpha\).
+
+For \(X_7^{\mathrm{res}}\), K\"unneth gives
+\[
+  H^3(X_7^{\mathrm{res}};\Z)
+  \cong
+  H^2(\widetilde{S_7/\langle g_7\rangle};\Z)
+  \otimes H^1(E;\Z),
+\]
+which is torsion-free.  Hence
+\[
+  H^3(X_7^{\mathrm{res}};\Z)[4]=0.
+\]
+The crepant compact resolution has trivial degree-\(3\), order-\(4\)
+Cheeger--Simons torsion.
+
+The order-7 stabilisers in the Nikulin quotient produce \(7\)-primary
+orbifold data.  For the stabiliser group \(G=\Z/7\),
+\[
+  H^{i}(G;\mu_4)=0\quad(i>0),
+\]
+because multiplication by \(7\) is invertible on \(\mu_4\).  With
+integral coefficients,
+\[
+  H^\bullet(B\Z/7;\Z)=\Z[u]/(7u),\qquad \deg u=2,
+\]
+so the cohomological torsion contributed by the stabiliser is
+\(7\)-primary and \(H^3(B\Z/7;\Z)=0\).  A \(\muFour\)-gerbe is
+therefore extra torsion data on the chosen global space, beyond the
+\(\Z/7\) McKay stabiliser and the exceptional \(A_6\)-surface chain.
+
+Spin and Pfaffian orientation data are \(2\)-primary determinant-line
+questions.  They affect signs or square roots only after a determinant
+line and a quadratic refinement have been constructed.  They leave the
+Borcherds constant \(c_7(0)=2\) unchanged, and
+\(H^3(X_7^{\mathrm{res}};\Z)[4]\) remains zero.  A
+degree-\(3\), order-\(4\) Cheeger--Simons class is an additional global
+datum on a chosen space with actual \(4\)-torsion in \(H^3\).
+
+\subsection*{Twisted \texorpdfstring{\(K\)}{K}-Theory}
+
+For a torsion class \(\alpha\in H^3(X;\Z)\), twisted topological
+\(K\)-theory \(K^\bullet(X,\alpha)\) is defined through an Azumaya
+representative or, equivalently, through the associated bundle of
+compact operators.  A \(\Z/4\)-graded decomposition of a BPS
+coefficient theory requires a constructed \(\muFour\)-banded gerbe,
+its Azumaya representative, and an orientation character for the
+moduli problem.
+
+The order-7 Nikulin datum determines the Borcherds product \(\PhiNik\),
+its Lorentzian root lattice, Weyl vector, positive chamber, reflection
+character, and signed root multiplicities.  A \(\Z/4\)-graded
+\(K\)-theory coefficient system is separate data.  A gerbe-twisted
+\(K\)-theoretic Hall construction becomes meaningful after a class
+\(\alpha_7\) and its compatibility with the Hall product have been
+specified.
+
+\subsection*{Donaldson--Thomas and BPS Recognition}
+
+The \(K3\times E\) reduced Donaldson--Thomas comparison is governed by
+the \(N=1\) normalisation
+\[
+  D_5=64^{-1}\Dfive,\qquad
+  \PhiTenUn=\Dfive^2,\qquad
+  \PhiTenOP=D_5^2=4096^{-1}\Dfive^2,
+\]
+and
+\[
+  Z^{\red}_{\DT}(K3\times E)=
+  -(\PhiTenOP)^{-1}
+  =
+  -D_5^{-2}
+  =
+  -4096\,\Dfive^{-2}.
+\]
+This scalar-square comparison belongs to the primitive \(K3\times E\)
+row.  It gives \(\kBKM(\Dfive)=5\).  The order-7 Nikulin value is
+\(\kBKMaut(\PhiNik)=1\).
+
+For an order-7 compact comparison theorem one must first choose the
+geometric input:
+\[
+  \mathcal Y_7=[S_7\times E/G_7],\qquad
+  X_7^{\mathrm{res}}=
+  \widetilde{S_7/\langle g_7\rangle}\times E,\qquad
+  X_7^{\mathrm{fr}}=(S_7\times E)/\langle g_7\times t\rangle .
+\]
+The stacky quotient carries \(\Z/7\)-stabilisers along three elliptic
+curves; the crepant resolution is compact smooth with
+\(H^3(X_7^{\mathrm{res}};\Z)[4]=0\); the free quotient has trivial
+stabilisers.
+After this choice, the comparison requires:
+\[
+\begin{gathered}
+  \text{a reduced obstruction theory},\\
+  \text{orientation data, possibly gerbe-valued},\qquad
+  \text{a Jacobi input with }c_7(0)=2,\\
+  \text{the root lattice, Weyl vector, chamber, and reflection
+  character of }\PhiNik,\\
+  \text{Hall--Borcherds bracket compatibility, PBW comparison, and
+  relation preservation}.
+\end{gathered}
+\]
+With these data in place, the target identity would have the form
+\[
+  Z^{\red}_{7,L}(p,q,y)=C_7\,\PhiNik(p,q,y)^{-1},
+  \qquad C_7\in\Q^\times,
+\]
+in a normalisation where \(\PhiNik\) is the weight-\(1\) denominator.
+The displayed identity is a theorem once those data are constructed and
+the Hall--Borcherds comparison is proved.
+
+\subsection*{Chiral Scope and Branch Separation}
+
+A Calabi--Yau threefold source enters the CY-to-chiral functor at
+\(d=3\).  The output algebra \(A=\Phi_3(\mathcal C)\) is \(E_1\)-chiral.
+Any \(E_2\)-structure belongs to a derived centre or a representation
+category.
+
+The Borcherds branch and the Mukai Yangian branch have different
+sources.  The order-7 automorphic object above is a Borcherds/BKM
+boundary datum.  A Hall-side compact object, if constructed, must be
+compared with a Hall--Drinfeld or Borcherds denominator algebra.  The
+Mukai self-mirror Yangian branch is built from K3 stable envelopes and
+the Mukai current algebra.
+
+\subsection*{Invariant Normalisations}
+
+The canonical \(K3\times E\) spectrum is
+\[
+ \{\kcat,\kappa_{\mathrm{ch}}^{\mathrm{Heis}},
+ \kBKM,\kfib\}(K3\times E)
+ =
+ \{0,3,5,24\}.
+\]
+Here
+\[
+  \kcat(K3\times E)=
+  \chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0,
+\]
+the compact Hodge-supertrace value is
+\[
+  \kch(K3\times E)=
+  \sum_q(-1)^q h^{0,q}(K3\times E)=0,
+\]
+the Heisenberg--Mukai specialisation gives
+\(\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3\), the BKM denominator
+value is \(\kBKM(\Dfive)=5\), and the K3 fibre invariant is the Mukai
+rank \(\kfib=24\).
+
+For the order-7 Nikulin automorphic row,
+\[
+  \kBKMaut(\PhiNik)=1.
+\]
+For the crepant resolution \(X_7^{\mathrm{res}}=K3'\times E\),
+\[
+  \kcat(X_7^{\mathrm{res}})=
+  \chi(\cO_{K3'})\chi(\cO_E)=0,\qquad
+  \kch(X_7^{\mathrm{res}})=
+  \sum_q(-1)^q h^{0,q}(X_7^{\mathrm{res}})=0 .
+\]
+These compact threefold values are independent of the order-7
+automorphic weight.  Any specialised branch invariant on a chosen
+\(X_7\) requires its own construction.  McKay fractions, exceptional
+curve counts, and gerbe phases are topological or twisting data.  A fibre invariant
+\(\kfib\) requires its own construction.  The order-7 automorphic
+invariant is the weight \(\kBKMaut(\PhiNik)=c_7(0)/2\).
+
+\subsection*{Order-7 Theorem Shape}
+
+The proved order-7 datum is the automorphic constant
+\[
+  c_7(0)=2,\qquad \kBKMaut(\PhiNik)=1.
+\]
+The geometric theorem still to be supplied has the following exact
+content.  Choose \(\mathcal Y_7\), \(X_7^{\mathrm{res}}\), or
+\(X_7^{\mathrm{fr}}\); construct a reduced and oriented DT theory on
+that object; construct, if the chosen object permits it, a gerbe class
+\[
+  \alpha_7\in H^3(X_7;\Z)_{\mathrm{tors}},\qquad 4\alpha_7=0,
+\]
+and a Hall algebra whose denominator is the Borcherds product
+\(\PhiNik\).  The class \(\alpha_7\), if present, must be constructed
+as a Cheeger--Simons differential character and checked against the
+orientation and Hall product.  For \(X_7=X_7^{\mathrm{res}}\), the
+group \(H^3(X_7;\Z)[4]\) is zero.  The \(\Z/7\)-stabiliser supplies
+only \(7\)-primary data.
 
 \paragraph{Primary literature.}
-Cheeger--Simons~1985 \emph{LNM}~1167 \S1;
-Brylinski~1993 \emph{Loop spaces \& char.~classes} \S5.3;
-Mathai--Murray--Stevenson~2002 \emph{CMP}~228 Thm~1.2;
-Mathai--Stevenson~2006 \emph{Adv.~Math.}~200 Thm~4.1;
-Nikulin~1980 \emph{Trudy MMO}~38 Thm~4.5;
-Reid~2002 \emph{Surveys in Geometry} \S3.1 (isolated Gorenstein
-terminal $1/r(a,b,c)$ classification);
-Bridgeland--King--Reid~2001 \emph{JAMS}~14 Thm~1.2;
-Ito--Nakajima~2000 \emph{Topology}~39 \S6;
-Borcherds~1998 \emph{Invent.~Math.}~132 Thm~13.3;
-Freitag--Hermann~1985 \emph{Analytische Automorphieformen} \S II.5
-(spin double cover of $\Mp_4$);
-Gritsenko--Cl\'ery~arXiv:0812.3962 Thm~1.2;
-Hopkins--Singer~2005 \emph{JDG}~70 \S4.10;
-Bryan--Cadman~arXiv:1803.07271 \S3;
-Cheng--Duncan~arXiv:1307.5793 \S4;
-Oberdieck--Pixton~arXiv:1808.03524 \S3.2;
-Mumford~1983 \emph{Tata Lectures on Theta I} \S II.3.
+Nikulin 1980, \emph{Finite automorphism groups of K\"ahler K3 surfaces};
+Mukai 1988, \emph{Finite groups of automorphisms of K3 surfaces and
+the Mathieu group}; Borcherds 1998, \emph{Automorphic forms with
+singularities on Grassmannians}, Theorem~13.3; Gritsenko 1994,
+\emph{Modular forms and moduli spaces of abelian and K3 surfaces},
+Proposition~3.1; Gritsenko--Cl\'ery 2011, \emph{The Siegel modular forms
+of genus 2 with the simplest divisor}, Theorem~1.2; Cheeger--Simons
+1985, \emph{Differential characters and geometric invariants};
+Brylinski 1993, \emph{Loop spaces, characteristic classes and
+geometric quantization}; Hopkins--Singer 2005, \emph{Quadratic
+functions in geometry, topology, and M-theory}; Oberdieck--
+Pandharipande 2016 and Oberdieck--Pixton 2018 on reduced
+\(K3\times E\) invariants; Bridgeland--King--Reid 2001 for the McKay
+crepant-resolution framework.

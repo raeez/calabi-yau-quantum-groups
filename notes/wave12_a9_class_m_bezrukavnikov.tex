@@ -1,25 +1,4 @@
-% wave12_a9_class_m_bezrukavnikov.tex
-% Adversarial audit and heal of the Class M E_3 bar = 6^g identification
-% at cohomology in Vol III working_notes.tex (+ chapters/theory/en_factorization.tex
-% Corollary cor:class-m-higher-genus; chapters/theory/braided_factorization.tex
-% Remark rem:e3-bar-genus3; chapters/theory/e2_chiral_algebras.tex ~1696).
-%
-% Voice: R. Bezrukavnikov (sheaf-theoretic depth, geometric Langlands
-% precision, affine Hecke spectral discipline) + Chriss--Ginzburg.
-%
-% Scope: the proposition is, verbatim:
-%
-%   For the Virasoro VOA at generic central charge c (5c+22 nonzero) taken
-%   in g independent copies, the E_3 bar spectral sequence degenerates at
-%   the E_4 page for g <= 3 with total dimension dim E_infty = 6^g.
-%
-% Class M = shadow-depth class M = non-terminating A_infty shadow tower,
-% prototype Virasoro Vir_c (or principal W_N). Not moduli-of-curves, not a
-% Nakajima quiver variety; a SHADOW-CLASS label (Vol I landscape census).
-%
-% We attack the claim along six axes and heal each with a proof written
-% in the voice of Bezrukavnikov: exact triangles, spectral sheaves,
-% functorial Koszul.
+% Standalone note on the class M E_3 bar computation for Virasoro copies.
 
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
@@ -29,548 +8,343 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{attack}{Attack}
-\newtheorem{heal}[attack]{Heal}
-\newtheorem{remark}{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
 
 \providecommand{\kk}{\mathbf{k}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\Vir}{\mathrm{Vir}}
 \providecommand{\Lam}{\Lambda}
-\providecommand{\id}{\mathrm{id}}
-\providecommand{\rk}{\mathrm{rk}}
-\providecommand{\im}{\operatorname{im}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\rk}{\operatorname{rk}}
 
-\title{Class M at higher genus: attack--heal of
-$\dim H^\bullet(B_{E_3}(\Vir_c^{\oplus g})) = 6^g$}
-\author{Wave 12 A9 (Bezrukavnikov voice, CG rectification)}
+\title{Class M higher-genus \(E_3\) bar cohomology}
+\author{Raeez Lorgat}
 \date{2026-04-22}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The Vol III memory cache asserts the identity
-$\dim H^\bullet(B_{E_3}(\Vir_c^{\oplus g})) = 6^g$,
-called ``class M $E_3$ bar $= 6^g$ at cohomology''. We probe this claim
-adversarially along six axes --- the meaning of ``class M''; the origin of
-the base $6$; the split between chain and cohomological levels; the K\"unneth
-hypothesis on independent handle copies; the unconditional range $g \leq 3$;
-the link (absent) with Hausel--Rodriguez-Villegas character-variety counts.
-Each attack is then healed by a direct computation in the CG voice. Five
-cycles converge on a single precise statement: the formula is correct on the
-stated hypotheses, narrow in scope, and load-bearing because the base
-$6 = 2 \cdot 3 = (3t(1+t))|_{t=1}$ is the character of $E_4^{(1)} = [0,3,3,0]$
-of a \emph{single} handle, not the order of a finite group, and the
-K\"unneth factorisation is the only structural mechanism that preserves the
-identity across $g$.
+For \(g\) independent copies of the Virasoro VOA at central charge
+\(c\), with \(c \ne 0\) and \(5c+22 \ne 0\), the \(E_3\) bar spectral
+sequence has
+\[
+  E_4 \cong [0,3,3,0]^{\otimes g},
+  \qquad
+  P_{E_4}(t) = (3t+3t^2)^g.
+\]
+Thus \(\dim E_4=6^g\). Degree reasons force \(E_4=E_\infty\) for
+\(g\leq 3\). For \(g\geq4\) the identity is not a theorem without the
+vanishing of the induced higher differentials; the first unresolved
+map is \(d_5:E_4^8\to E_4^4\) at \(g=4\). The computation concerns
+bar cohomology of an auxiliary \(E_3\) centre-type construction. It is
+not a chain-level dimension, not a character-variety count, not a
+native \(E_2\)-structure on a \(d\geq3\) CY-to-chiral output, and not a
+construction of a global quantum vertex group \(G(X)\).
 \end{abstract}
 
-\section*{Setting}
+\section{Scope}
 
-We reason throughout with
+Work over a field \(\kk\) of characteristic \(0\). Let
 \[
-  A \;=\; \Vir_c^{\oplus g}, \qquad c \ne 0, \quad 5c + 22 \ne 0,
+  A_g=\bigoplus_{i=1}^g \Vir_c^{(i)},
+  \qquad c\in\kk,\quad c\ne0,\quad 5c+22\ne0,
 \]
-the direct sum of $g$ independent copies of the Virasoro VOA, and
-with the $E_3$ bar complex
+where the summands are independent Virasoro copies: mixed OPEs between
+distinct summands vanish. The symbol \(g\) is the number of independent
+copies in this algebraic model. It is not the assertion that a single
+chiral algebra on a genus-\(g\) curve factorises into \(g\) unrelated
+Virasoro algebras.
+
+The class \(M\) label used here is the shadow-depth class of the
+\(A_\infty\) bar spectral sequence. In the Virasoro case the shadow
+tower is non-terminating and the first class-distinguishing differential
+on the \(E_3\) page is the quartic differential \(d_4\). No assertion
+about moduli of curves, mock-modular K3 classes, BKM superalgebras, or
+Maulik-Okounkov stable envelopes is part of this definition.
+
+\section{The centre boundary}
+
+The \(E_3\) bar complex in this note is a bar-cohomological object
+attached to \(A_g\). It is not the native CY-to-chiral output in
+complex dimension \(d\geq3\).
+
+\begin{proposition}[Centre hypotheses and native level]
+\label{prop:centre-scope}
+Let \(A\) be an \(E_1\)-chiral algebra in a presentable stable
+monoidal setting satisfying the dualisability and completeness
+hypotheses required for the Ben-Zvi-Francis-Nadler comparison. Then
 \[
-  B_{E_3}(A) \;=\; \bigotimes_{i=1}^g B_{E_3}(\Vir_c^{(i)})
+  Z_{\mathrm{ch}}^{\mathrm{der}}(A)=\HH^\bullet(A,A)
 \]
-built on the tricomplex model $B_{E_3}(\Vir_c^{(i)}) \simeq \Lam^\bullet(\kk^3_i)$
-at the $E_3$ page. The spectral sequence has pages $E_r$ with differentials
-$d_r$ of homological shift $r-1$; the class-M input is that the quartic
-shadow $S_4 = 10/(c(5c+22))$ is non-zero, so $d_4 \ne 0$.
+is an \(E_2\)-algebra by the higher Deligne theorem, and its
+representation category agrees with the Drinfeld centre of
+\(\Rep^{E_1}(A)\) under those hypotheses. This produces a centre
+object. It does not promote \(A\) itself from \(E_1\) to \(E_2\).
 
-The language ``class M'' is the Vol I landscape-census shadow-class label
-for algebras with non-terminating $A_\infty$ shadow tower ($r_{\max} = \infty$)
-whose first non-trivial class distinction at the bar spectral sequence
-appears at $d_4$: Virasoro, $\cW_N$, and their BKM descendants (K3 Yangian,
-Monster BKM) all belong to this class. It is \emph{not} a moduli-of-curves
-class, not a Nakajima-quiver-variety attachment, and not a
-Schiffmann--Vasserot curve-CoHA of a Riemann surface.
-
-\section{Cycle 1: What is Class M, really?}
-
-\begin{attack}[Class M is a shadow-depth label, not a geometric class]
-\label{atk:class-m-semantic}
-The 6-letter label ``M'' suggests many possible referents:
-(a) moduli-of-curves; (b) \emph{M}ock modular (as in K3 elliptic genus);
-(c) \emph{M}onster / BKM; (d) \emph{M}aulik--Okounkov; (e) \emph{M}aurer--Cartan;
-(f) \emph{M}ukai. If ``M'' were any of (a)--(f), the identity $6^g$ would be
-a topological invariant of a moduli space (e.g.\ $\cM_g$, whose
-rational cohomology Betti numbers $b_0(\cM_2) = 1, b_2(\cM_2) = 1,
-b_4(\cM_2) = 1$ give a total of $3$, already ruling out a $6^2 = 36$
-count). A search on small genera would catch this instantly: $\cM_2$ has
-$\chi_{\mathrm{orb}}(\cM_2) = -1/120$, not $36$.
-\end{attack}
-
-\begin{heal}[Class M = shadow-tower depth $r_{\max} = \infty$ stratum]
-\label{heal:class-m-semantic}
-From \texttt{chapters/examples/landscape\_census.tex} (Vol I) and
-\texttt{chapters/theory/en\_factorization.tex} (Vol III), the taxonomy is
-unambiguous: \emph{shadow class} refers to the $A_\infty$-depth stratification
-of the bar complex of a chiral algebra by the first page $E_r$ at which the
-spectral sequence degenerates:
-\[
-\begin{array}{ll}
-  \text{Class G (Gaussian, Heisenberg):} & r_{\max} = 0;\ \text{all } m_k = 0, k \geq 3.\\
-  \text{Class L (Lie, Yangian):} & r_{\max} = 2;\ S_4 = 0,\ \text{degenerates at }E_3.\\
-  \text{Class C (Charge-preserving, }\beta\gamma\text{):} & r_{\max} = 3;\ d_4 = 0\text{ by parity.}\\
-  \text{Class M (Mock/``Mysterious'', Virasoro/}\cW_N\text{):} & r_{\max} = \infty;\ d_4 \ne 0.
-\end{array}
-\]
-The label ``M'' is a historical shorthand for the algebras in which the
-Zamolodchikov/BPZ tower of higher-spin shadows does not terminate. Virasoro
-is the canonical representative; $\cW_N$ for $N \geq 2$ and the BKM
-superalgebras inherit the label.
-
-The proposition under audit is thus:
-\emph{For $A = \Vir_c^{\oplus g}$ with $5c + 22 \ne 0$, the $E_3$ bar
-spectral sequence has $E_\infty$-dimension $6^g$, unconditionally for
-$g \leq 3$ and conditionally on $d_{r \geq 5}|_{E_4} = 0$ for $g \geq 4$.}
-
-Semantic attack blocked: the identity is about a spectral-sequence
-degeneration, not about a moduli space.
-\end{heal}
-
-\section{Cycle 2: Where does the base $6$ come from?}
-
-\begin{attack}[The numerology of $6$ admits many false interpretations]
-\label{atk:six-numerology}
-The constant $6$ appears in at least eight a-priori-plausible places:
-\begin{enumerate}[label=\textup{(\roman*)}]
-  \item $6 = |S_3| = $ symmetric group on three letters (the Weyl group of
-    the CY torus acting on $E_3 = \Conf_n(D^3)$);
-  \item $6 = |SL_2(\F_2)| = |S_3|$ (same count, different route);
-  \item $24 = |S_4|$, so $6 = 24/4 = $ tetrahedral vertex stabiliser quotient;
-  \item $6 = $ number of even spin structures on a genus-$1$ curve minus
-    $4$: there are $3$ even, $1$ odd, hmm, this fails;
-  \item $6 = \dim \mathrm{Sp}_2 = \dim \cA_1^{\mathbb C}$, the dimension of
-    the genus-$1$ Siegel half-plane;
-  \item $6 = \dim_{\mathbb C} \cM_3 = \dim_{\mathbb C} \cA_3$ (the
-    coincidence at the last dominant Torelli genus);
-  \item $6 = \chi(K3)/4 = 24/4$ (K3 Euler divided by 4);
-  \item $6 = \binom{4}{2}$ (six pair-contractions in a $4$-point function).
-\end{enumerate}
-If the base $6$ in $6^g$ came from any of (i)--(viii), the proof would have
-a different shape, and the formula would fail at some genus. For instance,
-if $6$ were $|S_3|$, the power law would be $|S_3|^g = 6^g$ coincidentally
-at $g = 1, 2, 3$ but would be replaced by a different group order at
-higher $g$. The Vol III claim is load-bearing only if the $6$ has a clean
-spectral-sequence origin.
-\end{attack}
-
-\begin{heal}[$6 = \dim[0,3,3,0] = 3 + 3$: the $E_4^{(1)}$ dimension for one copy]
-\label{heal:six-spectral}
-The origin of $6$ is resolved by Proposition~\texttt{prop:virasoro-d4}
-(Vol III, \texttt{chapters/theory/en\_factorization.tex} line~930ff).
-For one copy ($g = 1$):
-\begin{enumerate}
-  \item The $E_3$ page is $\Lam^\bullet(\kk^3) = [1, 3, 3, 1]$, total
-  dimension $2^3 = 8$ (class L/C).
-  \item The $d_4$ differential $\Lam^3(\kk^3) \to \Lam^0(\kk^3)$ is the
-  scalar
-  \[
-    d_4(\omega_3) \;=\; \frac{40}{5c + 22},
-  \]
-  non-zero for generic $c$.
-  \item $E_4 = \ker(d_4) \oplus \mathrm{coker}(d_4)$ in degrees
-  $(3,0)$: since $d_4$ is an isomorphism $\kk \to \kk$ between
-  $1$-dimensional spaces, it kills $\Lam^3$ and $\Lam^0$ entirely. The
-  middle degrees $\Lam^1 = \kk^3$ and $\Lam^2 = \kk^3$ are untouched.
-  \item Hence $E_4 = [0, 3, 3, 0]$ with Poincar\'e polynomial
-  \[
-    P_{E_4}^{(1)}(t) \;=\; 3t + 3t^2 \;=\; 3t(1 + t).
-  \]
-  \item At $t = 1$: $P_{E_4}^{(1)}(1) = 6 = 3 + 3$. This is the base.
-\end{enumerate}
-The constant $6$ is therefore the sum of the two middle Hodge numbers of a
-single Virasoro copy's bar cohomology, \emph{not} a group order. It has no
-connection with $|S_3|$, $SL_2(\Z/3)$, or any Platonic symmetry. The
-coincidence with $|S_3| = 6$ is numerology.
-
-For internal consistency: if the base were the tetrahedral rotation order
-$12$ or the icosahedral order $60$, we would have $E_4^{(1)} \ne [0,3,3,0]$,
-contradicting the direct $d_4$ computation. The spectral sequence forces
-$E_4^{(1)} = [0,3,3,0]$, and hence $6^1$, $6^2$, $6^3$ at small genera are
-mandated.
-\end{heal}
-
-\section{Cycle 3: Cohomology vs chain level (the key distinction)}
-
-\begin{attack}[At chain level the bar complex is infinite-dimensional]
-\label{atk:chain-vs-cohomology}
-The memory phrase ``class M $E_3$ bar $= 6^g$ at cohomology, NOT infinite''
-reveals a dangerous conflation waiting to happen. The chain-level $E_3$ bar
-complex of $\Vir_c$ at $g = 1$ is
-\[
-  B_{E_3}^{\mathrm{chain}}(\Vir_c) \;=\; T^c(\Vir_c[1])^{\otimes 3}
-  \qquad (\text{three axes of } \kk^3 = \R^3),
-\]
-where $T^c$ is the tensor coalgebra. Even for a single Virasoro copy, $\Vir_c$
-is graded with one generator $T$ at weight $2$ plus derivatives $\partial^n T$
-at all weights $\geq 2$. The bar complex at chain level is thus
-$P(q)^3 = \prod_{n \geq 2} (1 - q^n)^{-3}$, infinite-dimensional as a
-$\Z$-graded vector space. The memory cache risks being read as
-``$\dim B_{E_3}(\Vir_c) = 6$'' --- a falsehood.
-
-Specifically: chain-level Poincar\'e polynomial at $g = 1$ is
-\[
-  P^{\mathrm{chain}}_{E_3}(q) \;=\; \prod_{n \geq 2} \frac{1}{(1 - q^n)^3}
-  \;=\; 1 + 3q^2 + 3q^3 + 9q^4 + 9q^5 + \cdots,
-\]
-formally infinite at every degree $\geq 2$, with total $q$-series diverging
-at $q = 1$.
-\end{attack}
-
-\begin{heal}[The $6^g$ identity is for $H^\bullet$, not chains]
-\label{heal:chain-vs-cohomology}
-The statement is: \emph{the total cohomology $H^\bullet(B_{E_3}(A), d_{\mathrm{tot}})$,
-computed by the $E_3$ bar spectral sequence, has dimension $6^g$ at genus
-$g \leq 3$}. It is not a chain-level dimension.
-
-The precise sharpening, in the CG voice:
-\begin{proposition}[Cohomology vs chain level, class M]
-\label{prop:chain-cohom-class-m}
-Let $A = \Vir_c^{\oplus g}$, $c \ne 0$, $5c + 22 \ne 0$. Then:
-\[
-  \dim_{\kk} B_{E_3}^{\mathrm{chain}}(A) \;=\; \infty,
-  \qquad
-  \dim_{\kk} H^\bullet\bigl(B_{E_3}(A)\bigr) \;=\; 6^g \quad (g \leq 3).
-\]
-The chain-level infinity arises because $B_{E_3}(\Vir_c)$ has one generator
-$T$ in each conformal weight $\geq 2$; the cohomology finiteness arises
-because the $E_3$ bar spectral sequence collapses to a finite-dimensional
-$E_4$ page supported in a band of width $g + 1$.
+Consequently, if \(A=\Phi_d(\mathcal C)\) comes from the CY-to-chiral
+construction with \(d\geq3\), the native output remains \(E_1\). Any
+non-symmetric \(E_2\) braiding belongs to the derived or Drinfeld
+centre, to a double, or to a module category where the half-braiding
+has been constructed.
 \end{proposition}
 
-The distinction is functorial: the $E_3$ bar spectral sequence is the
-Eilenberg--Moore tower associated to the $E_3$-cobar of the cofree
-cocommutative coalgebra resolution. Its $E_2$ page is
-$\bigotimes \mathrm{Tor}^{\Vir_c}_\bullet(\kk, \kk)$ per copy, finite-dimensional
-for each copy \emph{at fixed conformal weight bounds}. The $d_4$ differential
-is the first non-trivial higher bracket, controlled by $S_4$. Once $d_4$ is
-an isomorphism on the top/bottom degrees $(\Lam^3, \Lam^0)$ per copy, the
-entire conformal-weight tower collapses into the finite middle degrees
-$\Lam^1, \Lam^2$, each of which is $3$-dimensional per copy.
-
-No inconsistency: the chain-level complex is infinite but the cohomology
-is finite. The memory cache phrase is correct.
-\end{heal}
-
-\section{Cycle 4: Small-case table and K\"unneth structure}
-
-\begin{attack}[The K\"unneth assumption is load-bearing and easily false]
-\label{atk:kunneth-load}
-The proof of $\dim E_4 = 6^g$ uses the K\"unneth theorem on the $d_4$
-differential:
-\[
-  H^\bullet\bigl(\Lam^\bullet(\kk^{3g}), d_4\bigr)
-  \;=\; \bigotimes_{i=1}^g H^\bullet\bigl(\Lam^\bullet(\kk^3_i), d_4^{(i)}\bigr).
-\]
-This requires the $d_4$-cross-terms $m_4(T_i, T_j, T_k, T_l)$ for
-$i \ne j$ to vanish, i.e.\ the independent-copy assumption. For
-$A = \Vir_c^{\oplus g}$ this is automatic: the direct sum means no cross-OPE.
-But if ``Vol III class M at genus $g$'' secretly meant
-\emph{tensor product} $\Vir_c^{\otimes g}$ with non-trivial cross-OPEs
-(e.g.\ cross-term Sugawara from the diagonal embedding of $sl_2$), the
-K\"unneth would fail and $6^g$ would collapse to something else.
-
-Explicit potential failures:
-\begin{itemize}
-  \item $g = 1$: $\dim = 6$, agrees with direct $d_4$ computation.
-  \item $g = 2$: $\dim = 36$, predicted $[0, 0, 9, 18, 9, 0, 0]$.
-    If the ``$g = 2$'' here meant a genus-$2$ \emph{Riemann surface}
-    instead of a direct-sum of two copies on disjoint $S^1$s, the
-    cross-handle $\alpha$-$\beta$ cycle OPEs would generate cross-terms
-    and the $36$ would shrink.
-  \item $g = 3$: $\dim = 216$, predicted
-    $[0, 0, 0, 27, 81, 81, 27, 0, 0, 0]$.
-\end{itemize}
-The question: is the claim truly about \emph{$g$ independent copies on disjoint
-spheres} (K\"unneth holds) or about \emph{one chiral algebra on a genus-$g$
-Riemann surface} (K\"unneth fails)?
-\end{attack}
-
-\begin{heal}[The claim is about $g$ independent handles; K\"unneth is a theorem]
-\label{heal:kunneth-handles}
-\texttt{chapters/theory/en\_factorization.tex} Corollary
-\texttt{cor:class-m-higher-genus} makes the scope explicit:
-``let $A = \Vir_c^{\oplus g}$ be $g$ independent copies of the Virasoro VOA'',
-and the proof line 1061 verifies: ``cross-terms $m_4(T_i, T_j, T_k, T_l)$
-for $i \ne j$ vanish because the copies are independent''.
-
-The geometric content is: $B_{E_3}(\Vir_c^{\oplus g})$ is the $E_3$-operadic
-tensor product of $g$ copies of the genus-$1$ bar complex, where each
-copy corresponds to one \emph{handle} of a genus-$g$ surface in the
-Heegaard decomposition. Per Vol III convention (CLAUDE.md Key Facts
-and \texttt{chapters/theory/en\_factorization.tex} \S2651), for a
-handle decomposition of a closed oriented $3$-manifold $Y^3$ carrying the
-$E_3$-chiral structure, the factorization homology factorises:
-\[
-  \int_{Y^3} B_{E_3}(A) \;\simeq\; \bigotimes_{\text{handles}}
-  B_{E_3}(A)|_{\text{single handle}}.
-\]
-For $Y^3 = \Sigma_g \times S^1$ (the relevant topology, with the $S^1$
-being the chiral direction), $g$ handles of $\Sigma_g$ contribute
-independently. This is the geometric source of the K\"unneth.
-
-Verification tables, $g = 1, 2, 3$ (from \texttt{e3\_bar\_higher\_genus\_class\_m.py}):
-\[
-\begin{array}{c|ccccccccccc}
-  g & E_4^0 & E_4^1 & E_4^2 & E_4^3 & E_4^4 & E_4^5 & E_4^6 & E_4^7 & E_4^8 & E_4^9 & \dim \\\hline
-  1 & 0 & 3 & 3 & 0 & & & & & & & 6 \\
-  2 & 0 & 0 & 9 & 18 & 9 & 0 & 0 & & & & 36 \\
-  3 & 0 & 0 & 0 & 27 & 81 & 81 & 27 & 0 & 0 & 0 & 216
-\end{array}
-\]
-The K\"unneth structure gives $E_4^n = 3^g \binom{g}{n - g}$ for
-$g \leq n \leq 2g$: at $g = 2$, $n = 3$ gives $3^2 \binom{2}{1} = 9 \cdot 2 = 18$,
-matching. At $g = 3$, $n = 4$ gives $3^3 \binom{3}{1} = 27 \cdot 3 = 81$,
-matching.
-
-Cross-check against small-case direct computation: the $d_4$ matrix for $g = 2$
-is $\Lam^6 \to \Lam^3 \oplus \Lam^2 \oplus \Lam^1$ via $d_4 = d_4^{(1)} + d_4^{(2)}$.
-Direct rank computation gives rank $28 = 8^2 - 6^2$, matching $28 = 2^{3g} - 6^g$
-at $g = 2$.
-
-The K\"unneth is thus not an assumption but a theorem forced by (a) the direct-sum
-structure of $A$, (b) the independence of shadow contractions for disjoint copies,
-and (c) the factorization-homology decomposition on $\Sigma_g \times S^1$.
-\end{heal}
-
-\section{Cycle 5: Unconditional range $g \leq 3$ vs open range $g \geq 4$}
-
-\begin{attack}[The claim collapses at $g = 4$ and memory doesn't flag this]
-\label{atk:g-geq-4-collapse}
-The corollary is \emph{unconditional for $g \leq 3$} because a support-band
-argument forces $d_{r \geq 5}|_{E_4} = 0$ by homological degree. But for
-$g = 4$: the $E_4$ page is supported in degrees $[4, 8]$, a band of
-width $5$. The differential $d_5$ has shift $4$, so
-\[
-  d_5 \colon E_4^8 \to E_4^4
-\]
-is a candidate non-zero map: source and target both sit inside the
-support band. If $d_5 \ne 0$, then $E_4 \ne E_\infty$, and $6^g$ at $g = 4$
-is at most an \emph{upper bound} on $\dim E_\infty$ (possibly
-$\dim E_\infty < 6^4 = 1296$).
-
-\texttt{chapters/theory/en\_factorization.tex} Remark
-\texttt{rem:class-m-genus-geq-4} acknowledges this: ``whether $d_5$ acts
-nontrivially on the $E_4$ cohomology requires computing the induced
-action of $m_5$ on $\otimes^g [0,3,3,0]$, which is beyond the scope of
-the present computation.'' But the memory cache statement
-``class M $E_3$ bar $= 6^g$'' drops this caveat.
-
-Concrete risk: at $g = 4$ with $c = 1$, $S_5 = -16/9$
-(see Vol III ZTE tables). The induced $d_5$ on the K\"unneth product
-$[0,3,3,0]^{\otimes 4}$ could kill some portion of
-$E_4^8 = 3^4 = 81$ and $E_4^4 = 3^4 = 81$, reducing $\dim E_\infty$
-below $1296$.
-\end{attack}
-
-\begin{heal}[Memory cache needs ``$g \leq 3$ unconditional, $g \geq 4$ open'' rider]
-\label{heal:g-geq-4-open}
-The scope-precise statement is:
-\begin{theorem}[Class M $E_3$ bar dimension, scope-precise]
-\label{thm:class-m-scope}
-Let $A = \Vir_c^{\oplus g}$, $c \ne 0$, $5c + 22 \ne 0$. Then:
-\begin{enumerate}[label=\textup{(\roman*)}]
-  \item For $g \leq 3$, unconditionally:
-  \[
-    \dim H^\bullet\bigl(B_{E_3}(A)\bigr) \;=\; 6^g.
-  \]
-  \item For $g \geq 4$, the bound
-  \[
-    \dim H^\bullet\bigl(B_{E_3}(A)\bigr) \;\leq\; 6^g
-  \]
-  holds unconditionally, with equality conditional on $d_{r \geq 5}|_{E_4} = 0$.
-  The first potential failure is $d_5 \colon E_4^8 \to E_4^4$ at $g = 4$,
-  controlled by the quintic shadow $S_5 = -16/9$ (at $c = 1$).
-\end{enumerate}
-\end{theorem}
-
-The memory-cache phrase ``class M $E_3$ bar $= 6^g$ at cohomology, NOT
-infinite'' is shorthand for (i) + (ii) with the implicit scope $g \leq 3$.
-For explicit high-genus statements the manuscript must add the rider
-``for $g \leq 3$''; the identity is a theorem, not a conjecture, in the
-unconditional range.
-
-The source of the degeneration for $g \leq 3$ is a clean
-homological-degree argument: the $E_4$ page of $[0,3,3,0]^{\otimes g}$
-sits in degrees $[g, 2g]$, a band of width $g + 1$. The differential
-$d_r$ has shift $r - 1$, so a non-zero $d_r$ requires
-$2g - (r - 1) \geq g$, i.e.\ $r \leq g + 1$. For $g = 3$: $r \leq 4$,
-i.e.\ only $d_4$ can act, and $d_4$ has already been fully computed
-in building $E_4$ itself.
-
-For $g = 4$: $r \leq 5$, so $d_5$ is the first candidate obstruction.
-Whether it vanishes requires a genuine calculation of the induced $m_5$
-action on $[0,3,3,0]^{\otimes 4}$, which has not been carried out.
-The honest status is:
-\[
-  \boxed{\dim H^\bullet B_{E_3}(\Vir_c^{\oplus 4}) \in \{1296, 1296 - k : k > 0\}},
-\]
-with the exact value controlled by $\rk(d_5)$.
-\end{heal}
-
-\section{Cycle 6: HRV character-variety counts and the Hitchin check}
-
-\begin{attack}[Is $6^g$ a Hausel--Rodriguez-Villegas count?]
-\label{atk:hrv}
-The formula $6^g$ is reminiscent of character-variety / Higgs-bundle counts:
-for $\mathrm{PGL}_2$-character varieties over $\Sigma_g$, the mixed-Hodge
-polynomial evaluates at the point-count specialisation as a sum over
-partitions (Hausel--Rodriguez-Villegas). A priori,
-$\dim H^\bullet(X^{\mathrm{Hitchin}}_{g, \mathrm{PGL}_2}) = 6^g$ or
-similar could be a \emph{different} geometric interpretation of the same
-formula, via a Langlands-type spectral decomposition:
-\[
-  B_{E_3}(\Vir_c^{\oplus g})
-  \;\stackrel{?}{\sim}\;
-  \text{some sheaf on } \mathrm{Bun}_G(\Sigma_g) \text{ or } \cM_{\mathrm{Higgs}}(\Sigma_g).
-\]
-If such an identification existed, the $6^g$ formula would admit a
-\emph{second} proof and would have HRV mirror-symmetry implications.
-
-Worse, if HRV gives a different count (say, $2 \cdot 3^g$ or
-$\binom{2g}{g}$), the geometric identification would break and the
-CG-style ``geometric Langlands consequence'' claim would be false.
-\end{attack}
-
-\begin{heal}[$6^g$ is combinatorial, not HRV; the right geometric dressing is Koszul]
-\label{heal:hrv-none}
-There is no Hausel--Rodriguez-Villegas identification. The formula
-$6^g$ is not a character-variety count; it is the K\"unneth tensor
-power of the single-handle $E_4$ dimension.
-
-Structural check. HRV character-variety point counts for
-$\mathrm{GL}_n$-twisted character varieties over $\Sigma_g$ give
-\[
-  |X^{\mathrm{char}}_{g, n}(\F_q)| \;=\; q^{d/2} \cdot \prod_\lambda (\text{Hook-content formulae}),
-\]
-which at $q = 1$ specialises to $\binom{2g}{g}$-style counts, not to
-$6^g$. The Higgs-moduli Poincar\'e polynomial for $\mathrm{SL}_2$ at
-genus $g$ (Hausel) is
-\[
-  P_{\mathcal{M}_{\mathrm{Higgs}}}(t) \;=\;
-  \frac{(1 + t^3)^{2g}(1 + t)^{2g}}{(1 - t^2)(1 - t^4)}
-  - \cdots
-\]
-evaluated at $t = 1$ gives $4^g$ leading order, not $6^g$.
-
-The correct geometric frame is Bezrukavnikov's spectral picture of
-affine-Hecke / $E_2$ centre. The $E_3$ bar complex of a VOA $A$ is,
-by chiral bar-cobar (Vol I Thm A), the chiral derived centre of
-$A$ in the $E_2$-direction iterated:
-\[
-  B_{E_3}(A) \;\simeq\; \mathsf{Z}^{\mathrm{ch}}_{E_2}\bigl(\mathsf{Z}^{\mathrm{ch}}_{E_1}(A)\bigr),
-\]
-and the per-handle factorisation gives the $g$-th tensor power. The
-Bezrukavnikov-style statement: the $E_3$ bar complex is the spectral sheaf
-on $\mathrm{Spec}(Z^{\mathrm{ch}}(A))$ whose global sections at a genus-$g$
-curve cover are the $g$-fold iterated centre, matching the
-$6^g$ dimension for $A = \Vir_c$ on each handle.
-
-No HRV connection. The $6$ is not a $q = 1$ character-variety point
-count; it is a spectral-sequence K\"unneth factor.
-
-\begin{remark}[A real geometric dressing: Costello--Francis--Gwilliam]
-\label{rem:cfg-dressing}
-The factorization-algebra route gives the cleanest geometric statement.
-For the $E_3$-chiral algebra $B_{E_3}(\Vir_c)$ viewed as a factorization
-algebra on $\R^3$ (or $\C^3$ holomorphically), the factorization homology
-on $\Sigma_g \times S^1$ decomposes via the Heegaard splitting into $g$
-handles:
-\[
-  \int_{\Sigma_g \times S^1} B_{E_3}(\Vir_c)
-  \;\simeq\; \bigotimes_{i = 1}^g \int_{S^2 \times S^1} B_{E_3}(\Vir_c)
-  \;\simeq\; \bigl(E_4^{(1)}\bigr)^{\otimes g}
-  \;=\; [0, 3, 3, 0]^{\otimes g}.
-\]
-Each handle contributes the class-M $E_4 = [0,3,3,0]$ of dimension $6$, and
-the product is $6^g$. This is the CG/CFG proof of the formula.
-\end{remark}
-\end{heal}
-
-\section{Cycle 7 (consolidation): CG-voice statement + proof}
-
-\begin{theorem}[Bezrukavnikov--CFG form of the class M $E_3$ bar identity]
-\label{thm:cg-class-m}
-\emph{For the direct-sum Virasoro algebra $A = \Vir_c^{\oplus g}$ at
-central charge $c$ with $5c + 22 \ne 0$, the total cohomology of the
-$E_3$ bar complex is:}
-\[
-  H^\bullet\bigl(B_{E_3}(A), d_{\mathrm{tot}}\bigr)
-  \;\cong\; \bigl[0, 3, 3, 0\bigr]^{\otimes g}
-  \;\cong\; \bigwedge\nolimits^{\bullet}\!\!\!\left[(\kk^3)^{\oplus g}\right]
-  \!\Big/\!\bigl\langle \omega_3^{(i)} \wedge \text{anything}, \text{ unit}^{(i)} \bigr\rangle_{i=1}^g,
-\]
-\emph{with Poincar\'e polynomial $\bigl(3t(1+t)\bigr)^g$ and total
-dimension $6^g$, unconditionally for $g \leq 3$.}
-\end{theorem}
-
-\begin{proof}[Sketch in CG voice]
-The $E_3$ page for one copy is the exterior algebra
-$\Lam^\bullet(\kk^3)$ on three generators, one for each axis of
-$\R^3 = \mathrm{Lie}(T^3)$. The $d_4$ differential is induced by the
-unique connected $4$-point function of the stress tensor, whose residue
-at the deepest pole channel is $20/(5c+22)$ (BPZ,
-\texttt{chapters/theory/en\_factorization.tex} Step 1--2 of
-Proposition~\texttt{prop:virasoro-d4}). Contracting against the cube
-volume form $\omega_3 = e_1 \wedge e_2 \wedge e_3$ gives
-$d_4(\omega_3) = 8 \kch \cdot S_4 = 40/(5c+22) \ne 0$.
-
-For $g$ copies: the per-copy $d_4^{(i)}$ acts only on the $i$-th
-tensor factor of $\Lam^\bullet(\kk^3)^{\otimes g}$; cross-copy terms
-vanish by direct-sum independence. By K\"unneth:
-$E_4 = \bigotimes_i E_4^{(i)} = [0,3,3,0]^{\otimes g}$, with total
-dimension $(3 + 3)^g = 6^g$.
-
-Degeneration for $g \leq 3$: the support of $E_4$ in degrees
-$[g, 2g]$ has width $g + 1$, so any non-zero $d_r|_{E_4}$ requires
-shift $r - 1 \leq g$, i.e.\ $r \leq g + 1 \leq 4$. But $d_4$ has
-already been accounted for in building $E_4$; hence $d_{r \geq 5}|_{E_4} = 0$
-unconditionally for $g \leq 3$, and $E_4 = E_\infty$.
-
-The CG/CFG interpretation: each handle of the Heegaard splitting of
-$\Sigma_g \times S^1$ contributes the class-M factor $[0,3,3,0]$ to the
-$E_3$-factorization homology, and the $g$-fold tensor product gives
-$6^g$.
+\begin{proof}
+The higher Deligne theorem gives an \(E_2\)-structure on Hochschild
+cochains of an \(E_1\)-algebra. The BZFN comparison identifies this
+algebraic centre with the categorical Drinfeld centre only after the
+usual presentability and dualisability hypotheses. Both constructions
+take \(A\) as input and produce a new centre object. Neither changes
+the operadic level of \(A\). The CY-to-chiral convention used in
+\texttt{chapters/theory/cy\_to\_chiral.tex} and
+\texttt{chapters/theory/en\_factorization.tex} is exactly this:
+\(d\leq2\) gives native \(E_2\)-chiral structure, while \(d\geq3\)
+gives native \(E_1\)-chiral structure and recovers \(E_2\)-braiding
+only through a centre or double construction.
 \end{proof}
 
-\section{Summary of attack--heal convergence}
+\begin{remark}[No global \(G(X)\)]
+Nothing below constructs \(G(X)\) for a general CY threefold. The
+notation \(G(X)\) requires a positive half, a non-degenerate Hopf
+pairing, a compatible completion, a Drinfeld double, and centre
+compatibility. Those inputs are available only on constructed loci.
+\end{remark}
 
-Six cycles converge on a single scope-precise statement:
+\section{The one-copy computation}
 
-\begin{enumerate}
-  \item Class M $=$ shadow-depth $r_{\max} = \infty$ stratum (Vir, $\cW_N$);
-    not geometric, not HRV, not moduli-of-curves.
-  \item The base $6 = \dim[0,3,3,0] = 3 + 3$ is the single-copy $E_4$
-    dimension, forced by the $d_4$ isomorphism on $(\Lam^3, \Lam^0)$;
-    not a symmetry-group order.
-  \item Chain-level bar dimension is infinite; cohomological bar dimension
-    is $6^g$ (the memory-cache distinction is essential).
-  \item K\"unneth structure follows from direct-sum independence and the
-    factorization-homology Heegaard decomposition; it is a theorem, not
-    an assumption.
-  \item For $g \leq 3$, $\dim E_\infty = 6^g$ unconditionally; for
-    $g \geq 4$, this is an upper bound with equality conditional on
-    $d_{r \geq 5}|_{E_4} = 0$; first obstruction is $d_5$ at $g = 4$.
-  \item No HRV / character-variety identification; the correct geometric
-    dressing is CFG factorization homology on $\Sigma_g \times S^1$ via
-    Heegaard splitting, each handle contributing the class-M $[0,3,3,0]$.
-\end{enumerate}
-
-The manuscript statement at
+\begin{proposition}[Virasoro \(d_4\) differential]
+\label{prop:virasoro-one-copy}
+Assume the tricomplex model for \(B_{E_3}(\Vir_c)\) used in
 \texttt{chapters/theory/en\_factorization.tex}
-Corollary~\texttt{cor:class-m-higher-genus}
-is correct. The memory cache phrase
-``Class M E\_3 bar $= 6^g$ at cohomology, NOT infinite'' is correct
-with the implicit $g \leq 3$ scope and the implicit
-direct-sum-of-$g$-copies meaning of $A$. No rectification needed to the
-manuscript; the memory cache could be tightened to
-``Class M E\_3 bar cohomology $= 6^g$ at $g \leq 3$, chain-level infinite''.
+Proposition \texttt{prop:virasoro-d4}. The \(E_3\) page is
+\[
+  E_3\cong \Lam^\bullet(\kk^3)=[1,3,3,1].
+\]
+The Virasoro OPE
+\[
+  T(z)T(w)\sim
+  \frac{c/2}{(z-w)^4}+\frac{2T(w)}{(z-w)^2}
+  +\frac{\partial T(w)}{z-w}
+\]
+gives
+\[
+  \kch=\frac c2,\qquad
+  S_4(c)=\frac{10}{c(5c+22)}.
+\]
+The induced quartic differential is the scalar map
+\[
+  d_4:\Lam^3(\kk^3)\longrightarrow \Lam^0(\kk^3),
+  \qquad
+  d_4(\omega_3)=8\kch S_4(c)=\frac{40}{5c+22}.
+\]
+It is an isomorphism between one-dimensional spaces. Hence
+\[
+  E_4=[0,3,3,0],
+  \qquad
+  P_{E_4}^{(1)}(t)=3t+3t^2,
+  \qquad
+  \dim E_4=6.
+\]
+For one copy, all \(d_r\) with \(r\geq5\) vanish by degree reasons, so
+\(E_4=E_\infty\).
+\end{proposition}
+
+\begin{proof}
+The first three pages reduce to the exterior algebra on the three
+\(E_3\) directions. The quartic shadow \(S_4(c)\) is the connected
+four-point Virasoro contribution after subtracting Gaussian pairings.
+In the tricomplex normalization the volume class
+\(\omega_3=e_1\wedge e_2\wedge e_3\) contracts with the unit by the
+factor \(8\kch S_4(c)\). Substitution gives \(40/(5c+22)\), nonzero
+under the stated hypotheses. Therefore \(\Lam^0\) is the image of
+\(d_4\), \(\Lam^3\) has zero kernel on \(E_4\), and the middle
+exterior degrees survive unchanged. The \(E_4\) support is contained
+in degrees \(1\) and \(2\); a later differential has degree shift
+\(r-1\geq4\), so it has no source-target pair inside the support.
+\end{proof}
+
+\section{Independent copies}
+
+\begin{theorem}[Higher-genus class \(M\) bar cohomology]
+\label{thm:class-m-higher-genus}
+For \(A_g=\bigoplus_{i=1}^g\Vir_c^{(i)}\) under the hypotheses above,
+the \(E_4\) page of the \(E_3\) bar spectral sequence is
+\[
+  E_4(A_g)
+  \cong
+  \bigotimes_{i=1}^g [0,3,3,0]_i.
+\]
+Equivalently,
+\[
+  P_{E_4(A_g)}(t)=(3t+3t^2)^g=3^g t^g(1+t)^g,
+\]
+and
+\[
+  \dim E_4^n(A_g)=
+  \begin{cases}
+    3^g\binom{g}{n-g}, & g\leq n\leq2g,\\
+    0, & \text{otherwise}.
+  \end{cases}
+\]
+The total dimension of \(E_4\) is \(6^g\). For \(g\leq3\),
+\[
+  E_4=E_\infty,\qquad
+  \dim H^\bullet\bigl(B_{E_3}(A_g),d_{\mathrm{tot}}\bigr)=6^g.
+\]
+\end{theorem}
+
+\begin{proof}
+On the \(E_3\) page,
+\[
+  \Lam^\bullet(\kk^{3g})
+  \cong
+  \bigotimes_{i=1}^g \Lam^\bullet(\kk_i^3).
+\]
+Because the summands of \(A_g\) are independent, all mixed quartic
+terms \(m_4(T_i,T_j,T_k,T_l)\) with indices from more than one
+summand vanish. Thus
+\[
+  d_4=\sum_{i=1}^g
+  1\otimes\cdots\otimes d_4^{(i)}\otimes\cdots\otimes1,
+\]
+where each \(d_4^{(i)}:\Lam^3(\kk_i^3)\to\Lam^0(\kk_i^3)\) is
+multiplication by \(40/(5c+22)\). The Kunneth theorem over \(\kk\)
+therefore gives
+\[
+  H^\bullet(\Lam^\bullet(\kk^{3g}),d_4)
+  \cong
+  \bigotimes_{i=1}^g
+  H^\bullet(\Lam^\bullet(\kk_i^3),d_4^{(i)})
+  =
+  [0,3,3,0]^{\otimes g}.
+\]
+Multiplying the one-copy polynomial \(3t+3t^2\) gives the stated
+degree formula and total dimension.
+
+The support of this \(E_4\) page is the interval \([g,2g]\). A
+differential \(d_r\) lowers total degree by \(r-1\). A nonzero
+\(d_r\) on \(E_4\) requires both \(n\) and \(n-(r-1)\) to lie in
+\([g,2g]\), hence \(r\leq g+1\). For \(g\leq3\) no differential with
+\(r\geq5\) can act. The \(d_4\) differential has already been used in
+forming \(E_4\), so \(E_4=E_\infty\) in this range.
+\end{proof}
+
+\begin{corollary}[Explicit low-genus pages]
+\[
+\begin{array}{c|ccccccccccc|c}
+g & E_\infty^0 & E_\infty^1 & E_\infty^2 & E_\infty^3
+  & E_\infty^4 & E_\infty^5 & E_\infty^6
+  & E_\infty^7 & E_\infty^8 & E_\infty^9 & \dim\\
+\hline
+1 & 0 & 3 & 3 & 0 & & & & & & & 6\\
+2 & 0 & 0 & 9 & 18 & 9 & 0 & 0 & & & & 36\\
+3 & 0 & 0 & 0 & 27 & 81 & 81 & 27 & 0 & 0 & 0 & 216
+\end{array}
+\]
+\end{corollary}
+
+\section{Chain level}
+
+\begin{proposition}[Cohomology is finite, chains are not]
+\label{prop:chain-level}
+For one Virasoro copy, the chain-level \(E_3\) bar complex has
+infinitely many nonzero conformal-weight pieces. Its vacuum-character
+growth is represented by
+\[
+  P_{E_3}^{\mathrm{chain}}(q)
+  =
+  \prod_{n\geq2}(1-q^n)^{-3}
+  =
+  1+3q^2+3q^3+9q^4+9q^5+\cdots .
+\]
+Thus the total chain dimension is infinite. The number \(6^g\) is the
+total dimension of \(E_\infty\) for \(g\leq3\), equivalently the
+total dimension of \(E_4\) for all \(g\), not a chain-level dimension.
+\end{proposition}
+
+\begin{proof}
+The generic Virasoro vacuum module has independent descendants
+generated by \(L_{-n}\) for \(n\geq2\). The \(E_3\) tricomplex has
+three directions, giving the third power of the vacuum partition
+product. The coefficient of each fixed \(q\)-degree is finite, but
+there are infinitely many nonzero degrees, so the total dimension
+diverges at \(q=1\). The cohomological computation above first passes
+to the finite \(E_3\) page \(\Lam^\bullet(\kk^{3g})\) and then kills
+the bottom and top exterior degrees in each independent copy by
+\(d_4\).
+\end{proof}
+
+\section{The first open high-genus differential}
+
+\begin{proposition}[High-genus status]
+\label{prop:high-genus-status}
+For \(g\geq4\), the equality
+\[
+  \dim H^\bullet(B_{E_3}(A_g),d_{\mathrm{tot}})=6^g
+\]
+is not proved by the \(d_4\) calculation. The unconditional statement is
+\[
+  \dim H^\bullet(B_{E_3}(A_g),d_{\mathrm{tot}})\leq6^g.
+\]
+At \(g=4\) the first unresolved map is
+\[
+  d_5:E_5^8\longrightarrow E_5^4,
+\]
+represented on the \(E_4\) cohomology by the \(m_5\)-induced map
+between two \(81\)-dimensional vector spaces. Hence
+\[
+  \dim E_\infty(A_4)=1296-2\rk(d_5).
+\]
+The value of \(\rk(d_5)\) is an open computation. At \(c=1\) the local
+shadow table records \(S_5=-16/9\), so no vanishing follows from the
+shadow coefficient alone.
+\end{proposition}
+
+\begin{proof}
+For \(g=4\), \(E_4\) is supported in degrees \([4,8]\). Since \(d_5\)
+lowers degree by \(4\), the map \(E_5^8\to E_5^4\) is allowed by
+degree. No \(d_r\) with \(r\geq6\) can act, because it would lower
+degree by at least \(5\), outside the interval \([4,8]\). The total
+dimension of a page drops by twice the rank of a differential, giving
+the displayed formula. For larger \(g\), degree reasons allow further
+higher differentials up to \(d_{g+1}\). The \(E_4\) dimension remains
+an upper bound because spectral sequence pages over a field cannot
+increase in total dimension.
+\end{proof}
+
+\section{No character-variety count}
+
+The formula \(6^g\) is the Kunneth tensor power of the one-copy
+cohomology \([0,3,3,0]\). It is not a Hausel-Rodriguez-Villegas
+mixed-Hodge polynomial, not a point count of a \(\mathrm{PGL}_2\)
+character variety, and not a Hitchin-system Betti number. Such a
+comparison would require an explicit functor from the \(E_3\) bar
+tricomplex of \(A_g\) to sheaves on \(\mathrm{Bun}_G(\Sigma_g)\) or to
+Higgs moduli. No such functor is used or constructed here.
+
+\section{Verification anchors}
+
+The local computation in
+\texttt{compute/lib/e3\_bar\_higher\_genus\_class\_m.py} builds the
+\(d_4\) matrix in the multi-degree basis and verifies the Kunneth
+closed form against matrix rank computations for \(g=1,2,3\). The
+tests in
+\texttt{compute/tests/test\_e3\_bar\_higher\_genus\_class\_m.py} check
+the Poincare polynomials
+\[
+  [0,3,3,0],\qquad
+  [0,0,9,18,9,0,0],\qquad
+  [0,0,0,27,81,81,27,0,0,0],
+\]
+the dimensions \(6,36,216\), and the absence of \(d_5\) for
+\(g=1,2,3\) by degree. The one-copy test
+\texttt{compute/tests/test\_e3\_bar\_virasoro\_d4.py} checks
+\[
+  \kch=\frac12,\qquad S_4=\frac{10}{27},\qquad
+  d_4(\omega_3)=\frac{40}{27}
+\]
+at \(c=1\).
 
 \end{document}

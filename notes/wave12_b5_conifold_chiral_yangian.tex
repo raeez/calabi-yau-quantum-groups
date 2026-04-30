@@ -2,34 +2,20 @@
 \usepackage[localtheorems]{raeez-math-template}
 
 \providecommand{\C}{\mathbb{C}}
-\providecommand{\bC}{\mathbb{C}}
 \providecommand{\bP}{\mathbb{P}}
 \providecommand{\bY}{\mathbb{Y}}
-\providecommand{\R}{\mathbb{R}}
-\providecommand{\Z}{\mathbb{Z}}
-\providecommand{\N}{\mathbb{N}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\cE}{\mathcal{E}}
-\providecommand{\cW}{\mathcal{W}}
-\providecommand{\dbar}{\bar{\partial}}
-\providecommand{\g}{\mathfrak{g}}
-\providecommand{\fgl}{\mathfrak{gl}}
-\providecommand{\fsl}{\mathfrak{sl}}
-\providecommand{\fh}{\mathfrak{h}}
-\providecommand{\Obs}{\mathrm{Obs}}
-\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\Tot}{\mathrm{Tot}}
 \providecommand{\Eone}{E_1}
 \providecommand{\Etwo}{E_2}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\DT}{\mathrm{DT}}
-\providecommand{\hCS}{\mathrm{hCS}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
-\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}\ }
-\providecommand{\ClaimStatusProposition}{\textbf{[Proposition]}\ }
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectural]}\ }
-\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}\ }
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -43,200 +29,357 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conifold chiral Yangian from holomorphic Chern--Simons\\
-on $\bY = \Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$}
-\author{Wave-12 B5/20}
-\date{2026-04-22}
+\title{The conifold positive half and its chiral realisation}
+\date{}
 
 \begin{document}
 \maketitle
 
-\paragraph{Target.} Construct the conifold chiral Yangian as the defect
-VOA of holomorphic Chern--Simons on the resolved conifold
-$\bY = \Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$ along the $\bP^1$-base, in
-the $\fgl_1$ Abelian regime, and compare with the Klebanov--Witten
-two-node CoHA $Y^+(\widehat{\fgl}_{1|1})$ prediction of
-Conjecture~CY-C. Every step marked by epistemic status.
-
-\section{Geometry and volume form}
-
-\begin{construction}[Holomorphic volume form on $\bY$]\label{cons:vol-form}
-\ClaimStatusTheorem{}Let $\bY = \Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$ with
-affine cover $U_0 = \C_t \times \C^2_{u,v}$, $U_\infty = \C_{\tilde t}\times
-\C^2_{\tilde u,\tilde v}$, gluing $\tilde t = 1/t$, $\tilde u = tu$,
-$\tilde v = tv$. The $2$-parameter family
+The resolved conifold
 \[
-\Omega_\bY \;=\; \frac{dt \wedge du \wedge dv}{1} \quad\text{on } U_0,\qquad
-\Omega_\bY \;=\; -\,\frac{d\tilde t \wedge d\tilde u \wedge d\tilde v}{\tilde t^{\,1}} \cdot 1 \quad\text{on } U_\infty,
+  \bY=\Tot\bigl(\cO_{\bP^1}(-1)\oplus\cO_{\bP^1}(-1)\bigr)
 \]
-glues to a nowhere-vanishing global holomorphic $3$-form because
-$c_1(T\bY) = c_1(T\bP^1) + c_1(\cO(-1)) + c_1(\cO(-1)) = 2 - 1 - 1 = 0$
-(Calabi--Yau condition; small resolution of $\{xy=zw\}$).\qed
+is a smooth quasi-projective toric Calabi-Yau threefold with one compact
+curve.  The Hall object is the unframed critical CoHA of the two-vertex
+Klebanov-Witten Jacobi algebra.  It is an \(\Eone\)
+algebra \(A_{\mathrm{con}}\).  Its quasitriangular and vertex-algebra
+data live on \(D(A_{\mathrm{con}})\), on
+\(\mathcal{Z}(\Rep^{\Eone}(A_{\mathrm{con}}))\), or on evaluation
+modules of the double.
+
+\section{The conifold NCCR}
+
+\begin{construction}[Holomorphic volume form]\label{cons:conifold-volume-form}
+Let \(U_0=\C_t\times\C^2_{u,v}\) and
+\(U_\infty=\C_{\tilde t}\times\C^2_{\tilde u,\tilde v}\) be the standard
+cover of \(\bY\), with
+\[
+  \tilde t=t^{-1},\qquad \tilde u=t u,\qquad \tilde v=t v .
+\]
+Then
+\[
+  dt\wedge du\wedge dv
+  =
+  -\,d\tilde t\wedge d\tilde u\wedge d\tilde v
+\]
+on \(U_0\cap U_\infty\).  Hence
+\[
+  \Omega_{\bY}|_{U_0}=dt\wedge du\wedge dv,\qquad
+  \Omega_{\bY}|_{U_\infty}=-\,d\tilde t\wedge d\tilde u\wedge d\tilde v
+\]
+defines a nowhere-vanishing holomorphic \(3\)-form.  Equivalently,
+\[
+  c_1(T\bY)=c_1(T\bP^1)+c_1(\cO(-1))+c_1(\cO(-1))=2-1-1=0 .
+\]
 \end{construction}
 
-\begin{construction}[BV field content, hCS on $\bY$]\label{cons:bv}
-\ClaimStatusTheorem{}For Abelian gauge algebra $\g=\fgl_1$, the
-Costello--Gwilliam field is $\mathcal{A} \in \Omega^{0,\bullet}(\bY)[1]$,
-with BV superfield $\mathcal{A} = c + A_{0,1} + A^*_{0,2} + c^*_{0,3}$,
-$(-1)$-shifted symplectic pairing
+\begin{construction}[Klebanov-Witten Jacobi algebra]\label{cons:kw-jacobi}
+Let \(Q_{\mathrm{KW}}\) have vertices \(0,1\), arrows
 \[
-\omega_{\mathrm{BV}}(\mathcal{A}_1,\mathcal{A}_2)
-= \int_\bY \Omega_\bY \wedge \mathcal{A}_1 \wedge \mathcal{A}_2,
+  a_1,a_2\colon 0\to 1,\qquad b_1,b_2\colon 1\to 0,
 \]
-and classical action $S_{\hCS} = \tfrac12\int_\bY \Omega_\bY \wedge \mathcal{A}\,\dbar\mathcal{A}$;
-quadratic in the Abelian case, Chern--Simons-cubic $\tfrac16\int\Omega_\bY
-\wedge\mathcal{A}\wedge[\mathcal{A},\mathcal{A}]$ vanishing at $\fgl_1$
-(Costello 2013, \S2; Costello--Li 2016 \S4).\qed
+and potential
+\[
+  W_{\mathrm{KW}}
+  =
+  \tr(a_1b_1a_2b_2-a_1b_2a_2b_1).
+\]
+The Jacobi algebra
+\[
+  J_{\mathrm{KW}}
+  =
+  \C Q_{\mathrm{KW}}\big/
+  \langle \partial_a W_{\mathrm{KW}}:a\in Q_{\mathrm{KW},1}\rangle
+\]
+is the Van den Bergh-Szendr\H{o}i noncommutative crepant resolution of
+the affine conifold \(X_0=\Spec \C[x,y,z,w]/(xy-zw)\).  The four cyclic
+derivatives are
+\[
+\begin{aligned}
+  \partial_{a_1}W_{\mathrm{KW}}&=b_1a_2b_2-b_2a_2b_1,\\
+  \partial_{a_2}W_{\mathrm{KW}}&=b_2a_1b_1-b_1a_1b_2,\\
+  \partial_{b_1}W_{\mathrm{KW}}&=a_2b_2a_1-a_1b_2a_2,\\
+  \partial_{b_2}W_{\mathrm{KW}}&=a_1b_1a_2-a_2b_1a_1 .
+\end{aligned}
+\]
+On the vertex \(0\) corner one normalization sends the mesons
+\[
+  x=a_1b_1,\qquad y=a_2b_2,\qquad z=a_1b_2,\qquad w=a_2b_1
+\]
+to the four affine coordinates.  The corresponding vertex \(1\) mesons
+represent the same central classes by the Jacobi relations, and
+\[
+  Z(J_{\mathrm{KW}})=\C[x,y,z,w]/(xy-zw).
+\]
+The two small resolutions of \(X_0\) are the two geometric chambers of
+this NCCR.
 \end{construction}
 
-\section{Large-$N$ channel and defect geometry}
+\section{The positive half}
 
-\begin{remark}[Gopakumar--Vafa channel]\label{rmk:GV}
-\ClaimStatusHeuristic{}Gopakumar--Vafa (1998, hep-th/9811131) equates
-$U(N)$ Chern--Simons on $S^3$ at level $k$ with the closed-string
-topological A-model on $\bY$ with K\"ahler parameter $t_s = 2\pi
-i(N+k)/(k+N)$. Aganagic--Klemm--Marino--Vafa (2002, hep-th/0206164)
-realise the A-model as equivariant localisation on $\bY$ with
-$(\epsilon_1,\epsilon_2)$-background on the fibre $\C^2_{u,v}$. The hCS
-perspective is B-model dual: $S^3$-CS becomes the \emph{conjugate}
-B-side on $\bY$, and the CS path integral is the equivariant integral
-of $\exp(S_\hCS)$ over harmonic $A_{0,1}$ modes.
-\end{remark}
+\begin{definition}[Conifold critical CoHA]\label{def:conifold-coha}
+For \(\gamma=(\gamma_0,\gamma_1)\in\mathbb{N}^2\), set
+\[
+  \Rep_\gamma(Q_{\mathrm{KW}})
+  =
+  \bigoplus_{a\in Q_{\mathrm{KW},1}}
+  \mathrm{Hom}\bigl(\C^{\gamma_{s(a)}},\C^{\gamma_{t(a)}}\bigr),
+  \qquad
+  G_\gamma=\mathrm{GL}_{\gamma_0}\times\mathrm{GL}_{\gamma_1}.
+\]
+The trace of \(W_{\mathrm{KW}}\) defines a \(G_\gamma\)-invariant
+function \(\tr(W_{\mathrm{KW}})_\gamma\) on \(\Rep_\gamma(Q_{\mathrm{KW}})\).
+The critical cohomological Hall algebra is
+\[
+  \CoHA_{\mathrm{con}}
+  =
+  \bigoplus_{\gamma\in\mathbb{N}^2}
+  H^{*}_{c,G_\gamma}
+  \bigl(\Rep_\gamma(Q_{\mathrm{KW}}),
+  \varphi_{\tr(W_{\mathrm{KW}})_\gamma}\bigr)^\vee ,
+\]
+with product given by the Kontsevich-Soibelman correspondence.
+\end{definition}
 
-\begin{construction}[Defect line]\label{cons:defect}
-\ClaimStatusTheorem{}Choose the zero-section $C = \bP^1 \hookrightarrow \bY$
-with normal bundle $N_{C/\bY} = \cO(-1)\oplus\cO(-1)$, equivariant
-weights $(\epsilon_1,\epsilon_2)$ on $(u,v)$ subject to
-$\epsilon_1 + \epsilon_2 = -c_1(T\bP^1)$-twist $= -2\epsilon_t$ on the
-$\bP^1$-direction. Setting $h_1 = \epsilon_1$, $h_2 = \epsilon_2$,
-$h_3 = -h_1 - h_2$, the CY constraint is $h_1+h_2+h_3 = 0$ (one
-dimension fewer than $\C^3$ because $\bP^1$ has $c_1 = 2$, compensated
-by $\cO(-1)\oplus\cO(-1)$ twist). The defect line is the restriction of
-observables to a formal tubular neighbourhood $U = C \times D^2$ of $C$.\qed
+\begin{construction}[Two-colour shuffle kernel]\label{cons:conifold-shuffle-kernel}
+Let \(h_1,h_2\) be the torus weights on the two fibre directions and set
+\(h_3=-h_1-h_2\).  In additive shuffle variables \(u=z-w\), the
+Klebanov-Witten cross-kernel is
+\[
+  \omega_{01}(u)=
+  \frac{(u+h_1)(u+h_2)}
+       {u(u+h_1+h_2)},
+  \qquad
+  \omega_{10}(u)=
+  \frac{(u-h_1)(u-h_2)}
+       {u(u-h_1-h_2)} .
+\]
+The diagonal kernels are \(1\).  The two numerator factors record the
+two arrows in a fixed direction.  The poles at \(u=0\) and
+\(u=\mp(h_1+h_2)\) record the diagonal morphism and the
+CY\(_3\)-Serre-dual Jacobi obstruction.  This is the rank-two
+conifold kernel, distinct from the one-colour \(\C^3\) cubic kernel.
 \end{construction}
 
-\section{Defect VOA}
-
-\begin{theorem}[Conifold defect VOA; Abelian $\fgl_1$]\label{thm:defect}
-\ClaimStatusTheorem{} Let $\mathcal{A}_{\bY,C}^{\fgl_1}$ denote the
-$\Eone$-chiral algebra on $C = \bP^1$ obtained by restricting the factorisation
-algebra of Abelian hCS-observables on $\bY$ to a tubular neighbourhood of $C$
-and integrating along the $\cO(-1)\oplus\cO(-1)$ fibre in equivariant
-$\dbar$-regularisation. Then
+\begin{theorem}[Conifold positive half]\label{thm:conifold-positive-half}
+After the standard cohomological shift and shuffle completion, the
+Hall-side conifold algebra is the positive half
 \[
-\mathcal{A}_{\bY,C}^{\fgl_1}
-\;\simeq\;
-\mathcal{W}_{1+\infty}\!\left[h_1, h_2, h_3; \mathcal{O}(-1)\oplus\mathcal{O}(-1)\right]
+  \CoHA_{\mathrm{con}}
+  \simeq
+  Y^+\!\bigl(\widehat{\mathfrak{gl}}(1|1)\bigr)^{\mathrm{con}}
 \]
-with central charge $c = -2$ per free $bc$-ghost pair from the
-$\cO(-1)\oplus\cO(-1)$-twist, plus $c = 1$ from the $\bP^1$-Heisenberg
-sector, giving
+as a \(\mathbb{N}^2\)-graded connected bialgebra in super-vector spaces
+over \(\C((\hbar))\), with positive-root set
 \[
-c(\mathcal{A}_{\bY,C}^{\fgl_1}) \;=\; 1 + 2\cdot(-1) \;=\; -1.
+  \Delta_+^{\mathrm{re}}
+  =
+  \{(n+1,n),(n,n+1):n\geq 0\},\qquad
+  \Delta_+^{\mathrm{im}}=\{(n,n):n\geq 1\}.
 \]
-The structure function of the $\Eone$-chiral algebra OPE factorises through
-the RSYZ/$\C^3$ one at equivariant weights determined by
-$\cO(-1)\oplus\cO(-1)$:
+The real root sectors have primitive supertrace \(1\); the imaginary
+sector has primitive supertrace \(-2\).  A nondegenerate Hall pairing
+between the positive and negative halves gives the Drinfeld double
 \[
-\varphi_{\bY}(z) \;=\; \frac{(z+h_1)(z+h_2)(z+h_3)}{(z-h_1)(z-h_2)(z-h_3)}
-\cdot \left(1 + O(q^{\mathrm{K\ddot ahler}})\right),
+  D(\CoHA_{\mathrm{con}})
+  \simeq
+  Y\!\bigl(\widehat{\mathfrak{gl}}(1|1)\bigr)^{\mathrm{con}},
 \]
-with leading factor the $\C^3$ structure function of the Maulik--Okounkov /
-affine Yangian $Y(\widehat{\fgl}_1)$ and $O(q)$-corrections generated by the
-K\"ahler class $q = e^{-t_s}$ counting $\bP^1$-degree $n$ bubbles
-(Gopakumar--Vafa contributions).
+and the braided \(\Etwo\) structure is the corresponding centre or
+double layer.
 \end{theorem}
 
-\begin{proof}[Proof sketch; five-step Costello pipeline on $\bY$]
-\emph{Step 1 (tubular propagator).} On $U = C \times D^2$, the propagator of
-$A_{0,1}$ with the equivariant $\dbar$-regularisation is the $\dbar$-Green's
-function of $\C_t \times \C^2_{u,v}$ restricted-and-twisted by
-$\cO(-1)\oplus\cO(-1)$. The twist amounts to a shift of the Dolbeault
-weight spectrum by $-1$ on each fibre factor, visible in the Bott residue as
-a factor $\det_{N_{C/\bY}}^{-1} = 1/(h_1 h_2)$ times the pole structure of
-$\C^3$. \emph{Step 2 (Feynman graphs).} The one-loop hCS vertex is cubic in
-the non-Abelian case but Abelian hCS has only mass--propagator Feynman diagrams
-plus the BV-anomaly pentagon; each diagram localises to $C$ and contributes a
-rational expression in $(z-w)$ with poles at $z-w \in \Z h_1 + \Z h_2$. The
-$\bP^1$-topology forces a sum over $H^1(\bP^1, \cO(-2)) = \C$ zero-mode
-sector that produces the K\"ahler-class generating function
-$\sum_n e^{-nt_s} \cdot (\text{wall-crossing factor})$
-(Aganagic--Klemm--Marino--Vafa). \emph{Step 3 (structure function).} Summing
-Feynman graphs gives the OPE
-$J(z)J(w) \sim \varphi_\bY(z-w)/(z-w)^2 \cdot J(w) + \cdots$ with
-$\varphi_\bY$ of Theorem~\ref{thm:defect}. \emph{Step 4 (Serre relations).}
-$\cO(-1)\oplus\cO(-1)$ is equivariantly trivial on any point of $\bP^1$, so
-the local structure function is $\C^3$'s, reproducing the Maulik--Okounkov
-cubic Serre relation. The K\"ahler-corrections preserve the Serre identity
-because the generating function $\sum_n q^n$ commutes with the Serre
-pattern (Nekrasov--Okounkov instanton partition identity). \emph{Step 5
-(central charge).} The BV-anomaly pentagon contributes $-2$ per fibre
-copy of $\cO(-1)$, giving $c_{\mathrm{fib}} = -2$; the $\bP^1$-base is a
-free boson contributing $c_{\mathrm{base}} = 1$; total $c = -1$.
+\begin{proof}
+The Jacobi algebra in Construction~\ref{cons:kw-jacobi} gives the
+conifold NCCR.  Davison's critical CoHA construction applies to the
+quiver with potential \((Q_{\mathrm{KW}},W_{\mathrm{KW}})\), and the
+two-colour kernel in Construction~\ref{cons:conifold-shuffle-kernel}
+is Negu\c{t}'s conifold shuffle kernel.  Davison-Meinhardt PBW
+identifies the primitive mixed Hodge structure with the conifold BPS
+Lie algebra.  Morrison-Mozgovoy-Nagao-Szendr\H{o}i compute the chamber
+decomposition and the affine \(A_1^{(1)}\) root system:
+\[
+  \Omega(n+1,n)=\Omega(n,n+1)=1,\qquad
+  \Omega(n,n)=-2 .
+\]
+Li-Yamazaki give the corresponding current presentation as the
+positive half of the affine super Yangian of
+\(\widehat{\mathfrak{gl}}(1|1)\).  The Hall product is associative and
+ordered, hence \(\Eone\).  A universal \(R\)-matrix requires the Hall
+pairing and the negative half, i.e. the Drinfeld double, or equivalently
+the centre of the \(\Eone\)-monoidal representation category.
 \end{proof}
 
-\begin{conjecture}[Costello--Li hCS extends to $\bY$]\label{conj:CL-extend}
-The perturbative hCS construction of Costello--Li (arXiv:1606.00365) for
-$\C^3$-twists of supergravity, extended via the Klebanov--Witten B-side
-of Costello--Gaiotto (arXiv:1812.09257) and Costello--Paquette
-(arXiv:2104.14573), produces on $\bY$ a BV-consistent factorisation algebra
-whose defect-VOA restriction to $C = \bP^1$ is the $q$-corrected
-$\cW_{1+\infty}$ family of Theorem~\ref{thm:defect}. Equivalently, the
-$\bY$-to-$\cW_{1+\infty}[h_1,h_2,h_3;\cO(-1)\oplus\cO(-1)]$ identification
-lifts from implicit (via Koszul duality with the Klebanov--Witten CoHA)
-to explicit (via direct Feynman-graph summation on $U = C \times D^2$).
-What Costello--Li prove: BV consistency of the $\C^3$ family. What remains:
-the $\bY$-version of the five-step Costello--Paquette pipeline.
-\end{conjecture}
-
-\section{Comparison with $B4$: quantum toroidal vs $\cW_{1+\infty}$}
-
-\begin{conjecture}[$B4$-consistency]\label{conj:B4}
-The two-node Klebanov--Witten quiver with potential
-$W = \Tr(A_1 B_1 A_2 B_2 - A_1 B_2 A_2 B_1)$ has CoHA isomorphic to the
-positive half of the affine Yangian of $\widehat{\fgl}_{1|1}$
-(Li--Yamazaki 2020), and by CY-C its Drinfeld center carries an
-$\Etwo$-braided structure on modules identifiable with the quantum toroidal
-$U_{q,t}(\widehat{\widehat{\fgl}}_{1|1})$ at specific $(q,t)$. The defect
-VOA of Theorem~\ref{thm:defect} is then a \emph{limit} of the $U_{q,t}$:
+\begin{proposition}[Chart algebra and global two-colour algebra]\label{prop:chart-restriction}
+Each toric chart \(U_\pm\simeq\C^3\) carries the one-vertex critical
+CoHA
 \[
-\mathcal{A}_{\bY,C}^{\fgl_1}
-\;=\;
-\lim_{q,t\to 1,\, \log q/\log t \to h_1/h_2}
-U_{q,t}(\widehat{\widehat{\fgl}}_{1|1})^{\mathrm{chiral}},
+  \CoHA(\C^3)\simeq Y^+(\widehat{\mathfrak{gl}}_1)
 \]
-consistent with both the \emph{$B4$ quantum-toroidal} and the
-\emph{$\cW_{1+\infty}$-deformation} pictures: they are two limits of one
-family.
+of Schiffmann-Vasserot and Tsymbaliuk.  The global conifold algebra has
+three inputs: the two chart algebras
+\[
+  \CoHA(U_+)\simeq Y^+(\widehat{\mathfrak{gl}}_1),
+  \qquad
+  \CoHA(U_-)\simeq Y^+(\widehat{\mathfrak{gl}}_1),
+\]
+the Laurent transition on \(U_+\cap U_-\simeq\C^*\times\C^2\),
+\[
+  (t,u,v)\longmapsto (t^{-1},tu,tv),
+\]
+and the cross-kernel of Construction~\ref{cons:conifold-shuffle-kernel}.
+The compact-curve sector \(\Delta_+^{\mathrm{im}}=\{(n,n):n\geq 1\}\)
+belongs to this global two-colour algebra.
+\end{proposition}
+
+\begin{proof}
+The fan of \(\bY\) has two maximal cones, each spanned by a lattice
+basis; the corresponding affine toric varieties are \(\C^3\).  The
+critical CoHA of the one-vertex three-loop quiver with potential
+\(\tr(x[y,z])\) is \(Y^+(\widehat{\mathfrak{gl}}_1)\).  The common wall
+of the two cones gives the overlap \(\C^*\times\C^2\).  The transition
+matrix has the determinant cancellation computed in
+Construction~\ref{cons:conifold-volume-form}; the remaining data are
+the Fourier-Mukai twist and the two-colour cross-kernel.  These data
+produce the \((n,n)\) compact-curve tower in
+Theorem~\ref{thm:conifold-positive-half}.
+\end{proof}
+
+\section{Chiral layer}
+
+\begin{proposition}[Operadic level]\label{prop:conifold-operadic-level}
+For the conifold CY\(_3\) input, the native output of the
+CY-to-chiral construction is \(\Eone\)-chiral.  Any \(\Etwo\) structure
+attached to it belongs to the representation-theoretic layer
+\[
+  \mathcal{Z}\bigl(\Rep^{\Eone}(A_{\mathrm{con}})\bigr)
+  \quad\text{or}\quad
+  D(\CoHA_{\mathrm{con}}),
+\]
+with the half-braiding encoded by the Yangian \(R\)-matrix.
+\end{proposition}
+
+\begin{proof}
+The dimension rule in the CY-to-chiral construction gives native
+operadic level
+\[
+  n_{\mathrm{native}}(d)=
+  \begin{cases}
+  \infty, & d=1,\\
+  2, & d=2,\\
+  1, & d\geq 3 .
+  \end{cases}
+\]
+Since \(\bY\) has complex dimension \(3\), its native chiral output is
+\(\Eone\).  The \(\Etwo\) layer at \(d\geq 3\) is the Drinfeld-centre
+layer of the representation category, in agreement with the double in
+Theorem~\ref{thm:conifold-positive-half}.
+\end{proof}
+
+\begin{conjecture}[Holomorphic Chern-Simons realisation]\label{conj:hcs-realisation}
+Abelian holomorphic Chern-Simons theory on \(\bY\), restricted to a
+formal neighbourhood of the exceptional curve \(C=\bP^1\), admits a
+comparison map to a factorisation algebra whose Hall shadow is
+\(\CoHA_{\mathrm{con}}\).  On the two affine charts this comparison
+recovers the \(\C^3\) affine-Yangian structure function
+\[
+  \varphi_{\C^3}(z)=
+  \frac{(z+h_1)(z+h_2)(z+h_3)}
+       {(z-h_1)(z-h_2)(z-h_3)},
+  \qquad h_1+h_2+h_3=0 .
+\]
+The global conifold realisation is obtained by descent across
+\((t,u,v)\mapsto(t^{-1},tu,tv)\), with the compact curve producing the
+imaginary-root sector of \(Y^+(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{con}}\).
 \end{conjecture}
 
-\section{Invariants and consistency}
+\begin{remark}[Proof boundary for the hCS comparison]\label{rem:hcs-proof-boundary}
+The proved input is the Klebanov-Witten critical CoHA and the chart
+\(\C^3\) affine-Yangian calculation.  The conjectural input is the
+oriented comparison from perturbative holomorphic Chern-Simons
+observables on the formal neighbourhood of \(C\) to the critical
+vanishing-cycle CoHA.  The comparison must preserve the Laurent
+transition, the two-colour kernel, and the Hall product.
+\end{remark}
 
-\begin{corollary}[$\kappa_{\mathrm{ch}}$ via defect trace]\label{cor:kappa-check}
-\ClaimStatusProposition{} The supertrace-modular characteristic of
-$\mathcal{A}_{\bY,C}^{\fgl_1}$ equals
-$\kappa_{\mathrm{ch}}(\text{conifold}) = 1 = \DT_{(1,0)}(\bY)$, matching the direct
-McKay / quiver computation in
-\texttt{chapters/examples/toric\_cy3\_coha.tex} (Corollary~\textup{\ref{cor:conifold-shadow}}).
-The $\bP^1$-base contributes the single compact curve class;
-the fibre contribution cancels between the two $\cO(-1)$-copies.\qed
+\begin{remark}[Layer separation]\label{rem:no-w-confusion}
+The equality \(\CoHA(\C^3)=Y^+(\widehat{\mathfrak{gl}}_1)\) is a
+chart statement about the positive half.  A vertex algebra of
+\(\mathcal{W}_{1+\infty}\)-type requires a double, centre, completion,
+or evaluation representation.  The conifold chain is
+\[
+  Y^+\!\bigl(\widehat{\mathfrak{gl}}(1|1)\bigr)^{\mathrm{con}}
+  \hookrightarrow
+  D\!\left(Y^+\!\bigl(\widehat{\mathfrak{gl}}(1|1)\bigr)^{\mathrm{con}}\right)
+  \xrightarrow{\mathrm{ev}_\lambda}
+  \End(\mathcal V_\lambda),
+\]
+where \(\mathcal V_\lambda\) is the chosen free-field or
+\(\mathcal{W}\)-type vacuum module.  The Hall algebra is the first
+term of this chain.
+\end{remark}
+
+\section{The chiral invariant}
+
+\begin{corollary}[Direct conifold value]\label{cor:conifold-kappach}
+The chiral invariant of the conifold Hall shadow is
+\[
+  \kch(A_{\mathrm{con}})=\DT_{(1,0)}=1 .
+\]
 \end{corollary}
 
-\begin{conjecture}[Frontier verifications]\label{conj:frontier}
-Three open verifications sharpen Theorem~\ref{thm:defect}:
-(i) the $O(q)$-expansion of $\varphi_\bY(z)$ matches the Nekrasov--Okounkov
-refined vertex at the resolved conifold to one-loop order;
-(ii) the BV-anomaly central charge $c = -1$ derives independently from
-Costello--Gwilliam one-loop exactness;
-(iii) $\kappa_{\mathrm{BKM}}(\bY) = 0$ holds because no Borcherds lift of a
-paramodular form attaches to the conifold, consistent with the conifold
-being class G (Gaussian, non-automorphic) per \texttt{cor:conifold-shadow}.
-\end{conjecture}
+\begin{proof}
+The dimension vector \((1,0)\) is a simple real root of the
+Klebanov-Witten quiver.  At this dimension all arrows vanish and
+\(\tr(W_{\mathrm{KW}})\) is zero.  The primitive BPS summand is the
+simple module at vertex \(0\); after the Davison cohomological shift and
+PBW extraction it contributes one generator.  The
+Morrison-Mozgovoy-Nagao-Szendr\H{o}i root decomposition gives
+\(\Omega(1,0)=1\).  This is the direct McKay/Jacobi/NCCR computation of
+the conifold Hall shadow.  In the resolved chamber it is the genus-zero
+BPS multiplicity of the single primitive compact curve class
+\([\bP^1]\).
+\end{proof}
 
-\paragraph{References.}
-Costello--Li 2016 (arXiv:1606.00365), \emph{Twisted supergravity and its
-quantisation}; Costello--Gwilliam 2017, Vol.~II; Aganagic--Klemm--Marino--Vafa
-2002 (hep-th/0206164); Gopakumar--Vafa 1998 (hep-th/9811131); Costello
-2013 (arXiv:1303.2632); Costello--Paquette 2021 (arXiv:2104.14573).
+\begin{remark}[Separation of the four invariants]\label{rem:four-invariants}
+The value in Corollary~\ref{cor:conifold-kappach} is
+\(\kch\).  The compact categorical invariant
+\(\kcat=\chi(\cO_X)\) lies outside its compact-CY definition on the
+quasi-projective total space \(\bY\), since
+\(H^0(\bY,\cO_{\bY})\) is infinite-dimensional.  The Borcherds invariant
+\(\kBKM=c_N(0)/2\) requires a Borcherds product input.  The fibre
+invariant \(\kfib\) requires a chosen compact fibre or lattice
+datum.  The conifold Jacobi/NCCR computation supplies exactly
+\(\kch(A_{\mathrm{con}})=1\).
+\end{remark}
+
+\begin{remark}[Surface canonical-bundle formula]\label{rem:surface-canonical-bundle-formula}
+The surface canonical-bundle formula
+\[
+  \kappa_{\mathrm{ch}}\bigl(\Tot(\omega_S)\bigr)
+  =
+  \frac{1}{2}\chi_{\mathrm{top}}(S)
+\]
+has input a compact Fano surface \(S\).  The conifold has base
+\(\bP^1\) and rank-two normal bundle \(\cO(-1)^{\oplus 2}\).  Thus the
+value \(3/2\) belongs to the local \(\bP^2\) computation alone.
+\end{remark}
+
+\paragraph{Primary anchors.}
+Van den Bergh 2004, \emph{Three-dimensional flops and non-commutative
+rings}, Theorem 3.2.10; Szendr\H{o}i 2008, \emph{Non-commutative
+Donaldson-Thomas theory and the conifold}; Morrison, Mozgovoy, Nagao,
+and Szendr\H{o}i 2011, \emph{Motivic Donaldson-Thomas invariants of the
+conifold and the refined topological vertex}, Theorem 1; Davison
+2013, \texttt{arXiv:1311.6989}, Theorem A; Davison-Meinhardt 2016,
+\texttt{arXiv:1601.02479}, Theorem A; Negu\c{t} 2015,
+\texttt{arXiv:1512.06473}, equation (1.6); Li-Yamazaki 2020,
+\texttt{arXiv:2003.08909}, Section 8.3.6.3; Schiffmann-Vasserot 2013,
+\emph{Cherednik algebras, W-algebras and the equivariant cohomology of
+the moduli space of instantons on \(\mathbb{A}^2\)}; Tsymbaliuk 2017,
+\emph{The affine Yangian of \(\mathfrak{gl}_1\) revisited}; Costello
+2013, \emph{Supersymmetric gauge theory and the Yangian};
+Costello-Gwilliam 2017/2021, \emph{Factorization Algebras in Quantum
+Field Theory}.
 
 \end{document}

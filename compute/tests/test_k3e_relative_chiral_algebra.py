@@ -7,8 +7,8 @@ Verifies:
     3. Relative chiral algebra A_{K3xE/E}
     4. Factorization homology character (rank-0 sector)
     5. Kappa spectrum accessible from relative construction
-    6. BKM positive part: root multiplicities from phi_{0,1}
-    7. Total root multiplicity = 24 at each level
+    6. BKM positive part: signed Borcherds exponents from phi_{0,1}
+    7. Signed root superdimension = 24 at each level
     8. Obstruction analysis: what the relative construction misses
     9. Relative vs absolute comparison
    10. Second-quantized elliptic genus verification
@@ -21,7 +21,8 @@ Ground truth:
     - compact kappa_ch(K3 x E) = 0; kappa_ch_Heis(K3 x E) = 3 (additivity)
     - kappa_BKM = 5 (weight of Delta_5)
     - kappa_fiber = 24 (Mukai rank)
-    - Total root multiplicity per level = 24 (Jacobi form identity)
+    - Signed root superdimension per level = 24 (Jacobi form identity)
+    - Ordinary dimensions require parity fixture / target presentation
     - c(-1) = 1, c(0) = 10 (EZ normalization)
     - K3 is formal (DGMS 1975)
 
@@ -58,7 +59,7 @@ from lib.k3e_relative_chiral_algebra import (
     kappa_spectrum_relative,
     # BKM positive part
     bkm_positive_part_from_relative,
-    total_root_mult_per_level,
+    signed_root_superdimension_per_level,
     # Obstruction analysis
     obstruction_analysis,
     relative_vs_absolute_comparison,
@@ -339,17 +340,18 @@ class TestKappaSpectrum:
 # =========================================================================
 
 class TestBKMPositivePart:
-    """Root multiplicities from the relative bar complex."""
+    """Signed Borcherds exponents from the relative bar complex."""
 
     def test_level1_has_roots(self):
         """Level 1 has positive roots."""
         data = bkm_positive_part_from_relative(3)
         assert data[1]['num_roots'] > 0
 
-    def test_level1_total_mult_24(self):
-        """Total root multiplicity at level 1 is 24."""
+    def test_level1_signed_superdimension_24(self):
+        """Signed Borcherds superdimension at level 1 is 24."""
         data = bkm_positive_part_from_relative(3)
-        assert data[1]['total_mult'] == 24
+        assert data[1]['signed_superdimension'] == 24
+        assert data[1]['borcherds_character_value'] == 24
 
     def test_root_types(self):
         """Roots are correctly classified as real/lightlike/imaginary."""
@@ -364,25 +366,37 @@ class TestBKMPositivePart:
                 else:
                     assert root_info['type'] == 'imaginary'
 
+    def test_absolute_sum_is_not_ordinary_dimension(self):
+        """The absolute coefficient sum is not promoted to an ordinary dimension."""
+        data = bkm_positive_part_from_relative(3)
+        assert data[2]['absolute_coefficient_sum'] > data[2]['signed_superdimension']
+        assert data[2]['ordinary_dimension'] is None
+        assert 'REQUIRES' in data[2]['ordinary_dimension_status']
+        for root_info in data[2]['roots']:
+            assert root_info['ordinary_dimension'] is None
+            assert root_info['signed_mult'] == root_info['borcherds_exponent']
+
 
 # =========================================================================
-# 7. TOTAL ROOT MULTIPLICITY = 24
+# 7. SIGNED ROOT SUPERDIMENSION = 24
 # =========================================================================
 
-class TestTotalMultiplicity:
-    """Total root multiplicity at each level = 24 = chi(K3)."""
+class TestSignedSuperdimension:
+    """Signed root superdimension at each level = 24 = chi(K3)."""
 
     @pytest.mark.parametrize("h", range(1, 11))
-    def test_level_h_mult_24(self, h):
-        """Total multiplicity at level h is 24."""
-        mult = total_root_mult_per_level(h)
-        assert mult[h] == 24, f"Total mult at level {h}: {mult[h]}, expected 24"
+    def test_level_h_signed_superdimension_24(self, h):
+        """Signed superdimension at level h is 24."""
+        superdimension = signed_root_superdimension_per_level(h)
+        assert superdimension[h] == 24, (
+            f"Signed superdimension at level {h}: {superdimension[h]}, expected 24"
+        )
 
     def test_levels_1_to_20(self):
-        """All levels 1-20 have total multiplicity 24."""
-        mult = total_root_mult_per_level(20)
+        """All levels 1-20 have signed superdimension 24."""
+        superdimension = signed_root_superdimension_per_level(20)
         for h in range(1, 21):
-            assert mult[h] == 24, f"Level {h}: {mult[h]}"
+            assert superdimension[h] == 24, f"Level {h}: {superdimension[h]}"
 
 
 # =========================================================================
@@ -473,10 +487,16 @@ class TestSecondQuantizedEllipticGenus:
         assert result['c_neg1_correct'] is True
         assert result['c_neg1'] == 1
 
-    def test_mult_all_24(self):
-        """Total root multiplicity at each level is 24."""
+    def test_signed_superdimension_all_24(self):
+        """Signed root superdimension at each level is 24."""
         result = second_quantized_elliptic_genus_check(6)
-        assert result['mult_all_24'] is True
+        assert result['signed_superdimension_all_24'] is True
+
+    def test_ordinary_dimensions_not_claimed(self):
+        """The check does not claim ordinary root-space dimensions."""
+        result = second_quantized_elliptic_genus_check(6)
+        assert result['ordinary_dimensions_available'] is False
+        assert 'parity fixture' in result['ordinary_dimension_status']
 
 
 # =========================================================================
@@ -489,17 +509,23 @@ class TestBPSLieAlgebra:
     def test_has_real_roots(self):
         """g^+ has real roots."""
         result = bps_lie_algebra_from_relative(3)
-        assert result['total_real_mult'] > 0
+        assert result['signed_real_superdimension'] > 0
 
     def test_has_imaginary_roots(self):
         """g^+ has imaginary roots."""
         result = bps_lie_algebra_from_relative(3)
-        assert result['total_imaginary_mult'] > 0
+        assert result['signed_imaginary_superdimension'] != 0
+        assert result['absolute_imaginary_coefficient_sum'] > abs(result['signed_imaginary_superdimension'])
 
     def test_has_lightlike_roots(self):
         """g^+ has lightlike roots."""
         result = bps_lie_algebra_from_relative(3)
-        assert result['total_lightlike_mult'] > 0
+        assert result['signed_lightlike_superdimension'] > 0
+
+    def test_bps_ordinary_dimensions_not_claimed(self):
+        """BPS Lie data stops at signed character data without parity input."""
+        result = bps_lie_algebra_from_relative(3)
+        assert 'NOT_COMPUTED' in result['ordinary_dimension_status']
 
     def test_coha_identification(self):
         """CoHA identification is stated correctly (AP-CY7)."""

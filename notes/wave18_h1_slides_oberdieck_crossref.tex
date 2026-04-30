@@ -2,156 +2,251 @@
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\Ochl}{\mathcal{O}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\DTred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
+\providecommand{\GWred}{Z^{\mathrm{red}}_{\mathrm{GW}}}
+\providecommand{\PTred}{Z^{\mathrm{red}}_{\mathrm{PT}}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\PhiTenUn}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\PhiTenOP}{\Phi_{10}^{\mathrm{OP}}}
+\providecommand{\chiTen}{\chi_{10}}
+\providecommand{\phizo}{\phi_{0,1}}
+\providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
 
-\section*{Slides cross-reference to ancillary Oberdieck-family papers}
+\section*{OP scalar normalisation and Borcherds denominator for \(K3\times E\)}
 
-\subsection*{Scope}
+Let \(S\) be a projective K3 surface, \(E\) an elliptic curve, and
+\(X=S\times E\). Five objects meet at the same Siegel variable:
+the primitive \(N=1\) reduced curve-counting theorem of
+Oberdieck-Pixton, the Bryan-Oberdieck CHL scalar conjecture, the
+Pandharipande-Thomas KKV theorem, the fibre-class theorem of
+Oberdieck-Shen, and the Borcherds-Gritsenko-Nikulin denominator
+construction. Each has its own hypotheses and output. Their common
+automorphic image is the Igusa square attached to the weight-five
+denominator \(\DeltaFive\).
 
-The slides cache \texttt{/tmp/automorphic-slides.txt} (953 lines,
-\textit{Arithmetic Geometry of some CY3's} self-quotient deck) is
-interrogated for any surface contact with the Oberdieck-ancillary
-corpus beyond Oberdieck--Pixton 2017: Oberdieck 2018 (twisted DT),
-Bryan--Oberdieck 2018, Pandharipande--Thomas 2014 (stable pairs),
-Oberdieck--Shen 2020.  Five parallel grep passes across the deck and
-a line-context read of the only DT block (\S{}\texttt{856--952})
-decide the question.
+\subsection*{Normalisation}
 
-\subsection*{What is in the slides}
-
-The deck carries exactly one DT-geometric statement, concentrated in
-the closing eight-slide block \texttt{L.856--952}.  The geometry is
-the $\mathbb{Z}/N\mathbb{Z}$ self-quotient $X = (S \times E)/(\mathbb{Z}/N\mathbb{Z})$
-of an elliptically fibred K3 $S$ against an elliptic curve $E$ with an
-$N$-torsion point, the acting diagonal shift $(s,e) \mapsto (g \cdot s,
-e + e_0)$ preserving the CY form.  The generating series
+The Eichler-Zagier weak Jacobi form in the Gritsenko-Nikulin
+normalisation has
 \[
-   Z^X(q,t,p) = \sum_{h \geq 0} \sum_{d \geq 0} \sum_{n \in \mathbb{Z}}
-      \mathrm{DT}_{n,(\beta_h,d)} \, q^{\tfrac{1}{2}\langle \beta_h,
-      \beta_h\rangle \cdot d - 1}\,(-p)^n
+  \phizo(\tau,z)
+  =
+  (y^{-1}+10+y)+O(q).
 \]
-is defined through $E$-equivariant Behrend-weighted Euler integrals on
-$\mathrm{Hilb}^n(X,\beta_h)/E$.  At $N=1$ the deck states
-$Z^{S \times E} = -C/(\Delta_5)^2$ and records that the K3 elliptic genus
-is $2\varphi_{0,1}$.  The $L$-$(h_M = g_N^s)$-twisted series
-$Z^X_{L,h_M}(q,t,p)$ is defined and conjectured to furnish, up to
-constant, all eight Gritsenko--Cl\'ery diagonal-divisor Siegel forms
-with a GBKM correction $\mathfrak{g}_{(g_N,h_M)} \subset
-\mathfrak{g}_L$ whose twisted-twined weight-zero index-one Jacobi form
-$F^{(g_N,h_M)}_L$ reads off the root-multiplicity data.
-
-\subsection*{What is absent}
-
-Grep against the full token set
+The K3 elliptic genus is \(2\phizo\). The Borcherds denominator
+\(\DeltaFive\) uses the half-index input \(\phizo\), so the Borcherds
+constant is \(c_1(0)=10\), and Borcherds' weight formula gives
 \[
-   \{\text{Oberdieck}, \text{Pixton}, \text{Bryan},
-     \text{Pandharipande}, \text{Thomas}, \text{Shen},
-     \text{MNOP}, \text{KKV}, \text{stable pairs}, \text{PT}\}
+  \kBKM(\DeltaFive)=\frac{c_1(0)}{2}=5.
 \]
-returns zero line-level hits in the deck.  The author-string
-``Oberdieck'' is never typed; ``Pandharipande'' is never typed;
-``Bryan'' is never typed; ``Pixton'' is never typed; ``Shen'' is never
-typed.  ``MNOP'' and ``KKV'' do not occur.  The phrase ``stable pairs''
-does not occur.  A broader chiral-side sweep against
-$\{\text{chiral}, \text{vertex}, \text{factorisation}, \text{CoHA},
-\text{Maulik}, \text{Nakajima}, \text{Schiffmann}, \text{Vasserot},
-\text{Yangian}\}$ likewise returns zero hits.
-
-\subsection*{The single bridge that does appear}
-
-At line 912 the deck asserts, without proof or citation-track,
+Gritsenko and Nikulin use the monic product
 \[
-   Z^{S \times E}(q,t,p) = -\frac{C}{\Delta_5^2}\,,
+  \Dfive(Z)=64^{-1}\DeltaFive(Z).
 \]
-this being the Oberdieck--Pixton Igusa cusp form conjecture (now a
-theorem of Oberdieck, Pixton, and joint work; the deck's author
-himself in 2020 cites Oberdieck--Pixton here) at $N=1$, $X = S
-\times E$.  This is the \emph{only} lattice-arithmetic-to-DT bridge
-printed in the deck.  The bridge is stated at the level of the
-generating series; it is not unpacked through the reduced theory,
-the GW/DT correspondence, stable pairs, or the KKV formula --- none
-of those machines appear as named objects.
-
-\subsection*{Cross-reference against memory}
-
-The memory entry
-\texttt{reference\_lorgat\_2020\_automorphic\_corrections.md}
-confirms the deck's scope.  Conjecture 1 is the author's: all eight
-Gritsenko--Cl\'ery diagonal-divisor paramodular forms arise as
-reciprocal-square roots of refined/motivic DT zeta
-$Z^X_{L,h_M}$ and simultaneously as GBKM denominators with root
-multiplicities equal to twisted-twined K3 elliptic genera.  The
-$N = 1$ reduction to Oberdieck--Pixton is the only fully-proved
-instance; $N \in \{2,3,4,5,6,7,8\}$ are the conjectural-extension
-targets.  No ancillary Oberdieck-family paper is cited in the deck
-or in the memory entry's cited-works line, which names
-\emph{Gritsenko--Nikulin 1995, Gritsenko--Cl\'ery 2008, Borcherds
-1998, Oberdieck--Pixton 2017} as the four pillars.
-
-\subsection*{Finding, sharp}
-
-The deck carries \emph{no ancillary Oberdieck-family content}.  The
-only Oberdieck reference in the deck is the implicit Oberdieck--Pixton
-$N=1$ identity $Z^{S \times E} = -C/\Delta_5^2$, taken as a black box.
-Oberdieck 2018 twisted DT, Bryan--Oberdieck 2018, Pandharipande--Thomas
-2014, and Oberdieck--Shen 2020 are not engaged either by direct
-citation or by implicit use of their technology.  Wave-17~D1's
-conclusion (zero gluing content in the deck) extends to: zero
-DT-ancillary machinery content.
-
-\subsection*{Consequence for Vol III frontier}
-
-The bridge the programme actually wants --- between
-lattice-arithmetic $(\Lambda^{3,2},\ \Delta_5,\ \mathfrak{g}_{\Delta_5})$
-and DT geometry $\bigl(\mathrm{Hilb}^n(X,\beta_h),\ \nu_{\mathrm{Behrend}},\
-Z^X\bigr)$ --- is the $N=1$ Oberdieck--Pixton identity in its
-$1/\Delta_5^2$ form, extended conjecturally to $N \leq 8$ and
-$g_N$-twisted analogues.  The ancillary Oberdieck-family machines that
-would be expected to deliver the $N \geq 2$ extensions, i.e.\
-Oberdieck 2018 $g$-twisted DT for K3 surfaces, Bryan--Oberdieck 2018
-on $K3 \times E$ curve-counting of higher-genus class,
-Pandharipande--Thomas 2014 stable pairs, and Oberdieck--Shen 2020
-Nekrasov-type pairs on CY3, are \emph{absent from the 2020 deck}.
-That absence is itself content: the author's route in 2020 was
-arithmetic (Borcherds--Gritsenko--Nikulin denominator calculus) and
-not geometric; the geometric ancillary would be supplied only by
-later work.
-
-For the Vol III Part V / Part VI programme this has three
-consequences.
-\emph{(i)} The 2020 deck cannot be used to cite $g_N$-twisted DT
-invariants at $N \geq 2$; primary source there remains
-Oberdieck 2018 \texttt{arXiv:1705.10672} and subsequent extensions,
-not the deck.
-\emph{(ii)} The universal weight identity
-$\kBKM(\Phi_N) = c_N(0)/2$ (Borcherds 1995; Gritsenko 1999) is
-independently verified in the deck through the
-$(\Delta_5,\ \varphi_{0,1})$ Fourier-Jacobi data at $N=1$: root
-super-multiplicities read off $\varphi_{0,1}$, constant coefficient
-$c_1(0) = 10$, $\kBKM = 5$.  The deck carries no analogous direct
-Fourier data at $N \geq 2$.
-\emph{(iii)} Conjecture 1 (deck, L.929--936) is the natural
-statement of a $\Phi$-to-DT correspondence at the generating-function
-level.  In the Vol III vocabulary it says
+The unnormalised Igusa square and the OP scalar square are therefore
 \[
-   -1\,\big/\,Z^X_{L,h_M}(q,t,p)\ =\ \Phi_{N}(q,t,p)
-   \quad
-   \text{(up to constant)},
+  \PhiTenUn=\DeltaFive^2,\qquad
+  \PhiTenOP=\Dfive^2=4096^{-1}\DeltaFive^2.
 \]
-with $\Phi_N$ a diagonal-divisor paramodular form of weight
-$c_N(0)/2$; and the GBKM correction
-$\mathfrak{g}_{(g_N,h_M)} \subset \mathfrak{g}_L$ has root multiplicities
-equal to $F^{(g_N,h_M)}_L$.  This is precisely the frontier
-statement ancillary Oberdieck-family work would interface with.
-The deck does not close that interface; it states it.
+Thus the OP reduced Donaldson-Thomas scalar in the primitive chamber is
+\[
+  \DTred(X)
+  =
+  -(\PhiTenOP)^{-1}
+  =
+  -\Dfive^{-2}
+  =
+  -4096\,\DeltaFive^{-2}.
+\]
+The schematic expression \(-C/\DeltaFive^2\) has \(C=4096\) in this
+normalisation. The bare expression \(-\DeltaFive^{-2}\) denotes the
+unnormalised convention.
 
-\subsection*{Next step, concrete}
+\subsection*{Primitive \(N=1\) scalar theorem}
 
-A Vol III rectification pass on \texttt{cy\_d\_kappa\_stratification.tex}
-Section~V ($K3 \times E$) should cite Oberdieck--Pixton 2017 for the
-$N=1$ identity, Oberdieck 2018 for the $N \geq 2$ $g$-twisted DT
-primary data, Bryan--Oberdieck 2018 for the $K3 \times E$
-higher-genus GW reduction, and Lorgat 2020 for the Conjecture 1
-arithmetic--geometric bridge.  The 2020 deck alone is insufficient
-for Part V $N \geq 2$; the ancillary Oberdieck corpus is the
-supplementing primary source.
+Oberdieck and Pixton prove the primitive reduced Gromov-Witten theory
+of \(S\times E\) and deduce the Igusa cusp-form identity. For a
+primitive class
+\(\beta_h\in H_2(S,\Z)\) with
+\(\langle\beta_h,\beta_h\rangle=2h-2\), their partition function is the
+Laurent expansion
+\[
+  \GWred(S\times E;\beta_h)=-\chiTen^{-1},
+  \qquad
+  \chiTen=\PhiTenOP.
+\]
+Oberdieck's reduced DT/PT comparison and the
+Oberdieck-Pandharipande GW/PT change of variables identify the same
+Laurent expansion with the Behrend-weighted reduced DT/PT scalar:
+\[
+  \DTred(S\times E;\beta_h\ \mathrm{primitive})
+  =
+  \PTred(S\times E;\beta_h\ \mathrm{primitive})
+  =
+  -4096\,\DeltaFive^{-2}.
+\]
+This theorem is scalar: it fixes the Igusa factor, the monic OP
+normalisation, and the Behrend sign. Hall algebra,
+Drinfeld-double, and BKM-recognition structures require additional
+source data.
+
+\subsection*{Primitive CHL weights}
+
+For a symplectic K3 automorphism \(g_N\) of order
+\(N\in\{1,2,3,4,6\}\) and an order-\(N\) translation \(t_N\) of \(E\),
+the diagonal quotient
+\[
+  X_N=(S\times E)/\langle(g_N,t_N)\rangle
+\]
+is a smooth elliptic CHL threefold. The primitive CHL Borcherds
+constants are
+\[
+\begin{array}{c|c|c|c}
+N & \text{frame shape} & c_N(0) & \kBKM(\Phi_N)=c_N(0)/2\\
+\hline
+1 & 1^{24} & 10 & 5\\
+2 & 1^8 2^8 & 8 & 4\\
+3 & 1^6 3^6 & 6 & 3\\
+4 & 1^4 2^2 4^4 & 4 & 2\\
+6 & 1^2 2^2 3^2 6^2 & 2 & 1 .
+\end{array}
+\]
+This table is the primitive CHL ladder. The rows \(N=5,7,8\), when
+used in the Gritsenko-Clery diagonal-divisor catalogue or in Nikulin
+symplectic-order geometry, have different host geometry and belong
+outside the primitive CHL ladder.
+
+\subsection*{Bryan-Oberdieck CHL scalar conjecture}
+
+For an elliptic CHL quotient
+\[
+  X_N=[S\times E/\langle(g_N,t_N)\rangle],
+\]
+Bryan and Oberdieck define the primitive reduced DT series
+\[
+  Z^{X_N}(q,t,p)
+  =
+  \sum_{h,d,n}
+  \mathrm{DT}^{X_N}_{n,(\beta_h,d)}
+  q^{d-1}t^{\langle\beta_h,\beta_h\rangle/2}(-p)^n .
+\]
+Their Conjecture A predicts
+\[
+  Z^{X_N}(q,t,p)=-\widetilde\Phi_N(\tau,z,\sigma)^{-1},
+  \qquad
+  q=e^{2\pi i\tau},\quad t=e^{2\pi i\sigma},\quad p=e^{2\pi iz},
+\]
+where \(\widetilde\Phi_N\) is the CHL Siegel form obtained as the
+Borcherds lift of the corresponding twisted-twined K3 elliptic genus.
+For \(N=1\), \(\widetilde\Phi_1=\chiTen=\PhiTenOP\). For \(N\ge2\),
+the full primitive scalar identity remains conjectural. Bryan and
+Oberdieck prove base cases by the orbifold topological vertex and by
+degeneration to \(K3\times\mathbb P^1\). The imprimitive sectors are
+governed by multiple-cover conjectures, except in the special cases
+proved by Oberdieck-Shen.
+
+\subsection*{Ancillary theorems}
+
+Pandharipande and Thomas prove the KKV formula for reduced K3 curve
+counts in every genus and every K3 curve class:
+\[
+  \sum_{g,h}
+  (-1)^g r_{g,h}
+  (y^{1/2}-y^{-1/2})^{2g}q^h
+  =
+  \prod_{n\ge1}
+  \frac{1}{(1-q^n)^{20}(1-yq^n)^2(1-y^{-1}q^n)^2}.
+\]
+This theorem controls K3 BPS numbers. Passing from K3 to
+\(K3\times E\) uses the reduced \(E\)-translation quotient and the
+Oberdieck-Pixton scalar normalisation
+above.
+
+Oberdieck and Shen compute all \(E\)-reduced DT invariants in fibre
+classes \((0,d)\) on \(S\times E\) and prove special imprimitive checks
+through motivic Hall integration to the ring of dual numbers. The full
+imprimitive \(K3\times E\) multiple-cover formula remains conjectural
+outside those checked sectors.
+
+\subsection*{Borcherds and Hall separation}
+
+Write
+\[
+  \phizo(\tau,z)=\sum_{n,\ell} f(n,\ell)q^n y^\ell .
+\]
+The Borcherds-Gritsenko-Nikulin side starts from \(\phizo\), constructs
+the denominator \(\DeltaFive\), and gives the BKM superalgebra
+\(\gDelta\) with root superdimensions
+\[
+  \operatorname{sdim}\gDelta_{\alpha}=f(nm,\ell),
+  \qquad
+  \alpha=(n,\ell,m).
+\]
+The scalar Oberdieck-Pixton theorem uses the square product attached to
+the full K3 elliptic genus \(2\phizo\), hence the reciprocal square
+\(-\Dfive^{-2}\). The BKM datum remains the square-root denominator
+\(\DeltaFive\) with
+\[
+  \kBKM(\gDelta)=\kBKM(\DeltaFive)=5.
+\]
+
+The reduced DT scalar determines a partition function. A Hall algebra
+presentation, a Drinfeld double, and compact Hall-Borcherds recognition
+for \(Y^+(K3\times E)\) require separate generator, relation, chamber,
+and orientation comparisons. The equality of scalar products supplies a
+necessary character check for the positive half.
+
+For \(d=3\), \(\Phi_3\) lands in an \(E_1\)-chiral algebra. Braided
+\(E_2\) structure belongs to the centre, double, module, or
+representation layer. In the same convention,
+\(\mathrm{CoHA}(\mathbb C^3)=Y^+\); the
+full \(\mathcal W_{1+\infty}\) belongs after double, centre,
+completion, or evaluation. The Hall-Drinfeld/BKM branch is distinct
+from the Mukai self-mirror Yangian branch.
+
+\subsection*{Invariant and recognition boundary}
+
+The compact \(K3\times E\) invariants are
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kBKM(\DeltaFive)=5,\qquad
+  \kfib(K3)=24.
+\]
+The first equality is
+\[
+  \chi(\mathcal O_{K3\times E})
+  =
+  \chi(\mathcal O_{K3})\chi(\mathcal O_E)
+  =
+  2\cdot 0
+  =
+  0.
+\]
+The compact chiral supertrace is the same alternating Hodge column:
+\[
+  \kch(K3\times E)
+  =
+  \sum_{q=0}^3 (-1)^q h^{0,q}(K3\times E)
+  =
+  1-1+1-1
+  =
+  0.
+\]
+The Heisenberg-Mukai specialisation supplies the separate
+\(\kch^{\mathrm{Heis}}=3\). The Borcherds weight is \(5\). The fibre
+rank is \(\operatorname{rk}H^\bullet(K3,\Z)=24\). These are four
+independent constructions.
+
+The \(N=1\) scalar theorem is Oberdieck-Pixton with the normalisation
+above. The \(N\ge2\) primitive CHL scalar identity is the
+Bryan-Oberdieck conjecture with proved base coefficients. K3 BPS
+numbers are controlled by Pandharipande-Thomas KKV. Fibre-class and
+special imprimitive reduced DT sectors are controlled by
+Oberdieck-Shen. Hall-Borcherds recognition is the separate algebraic
+comparison: positive-half generators, BKM root multiplicities,
+Drinfeld-double completion, orientation character, and chamber
+compatibility.

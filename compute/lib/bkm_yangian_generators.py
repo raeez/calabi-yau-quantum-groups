@@ -542,7 +542,7 @@ def imaginary_generator_at_discriminant(D: int) -> Dict[str, Any]:
             'role': (
                 f'The {mult} lightlike generators span the isotropic root space '
                 'of II_{2,1}. Their multiplicity determines the weight of the '
-                'Borcherds product (the Igusa cusp form Delta_5 of weight 5). '
+                'Borcherds product (the primitive Gritsenko-Nikulin denominator Delta_5 of weight 5). '
                 'In the conjectural Yangian, these form a multiplet under the '
                 'Weyl group S_3.'
             ),

@@ -1,232 +1,356 @@
-% Wave-17 B5/20: Global positive half Y^+(X) for compact CY_3
-% and Oberdieck--Pixton 2017 compatibility on K3 x E.
-% Voice: Beilinson + Costello. Chriss--Ginzburg standard.
-
 \providecommand{\cY}{\mathcal{Y}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cM}{\mathcal{M}}
+\providecommand{\cE}{\mathcal{E}}
 \providecommand{\CC}{\mathbb{C}}
 \providecommand{\ZZ}{\mathbb{Z}}
 \providecommand{\RGam}{R\Gamma}
 \providecommand{\Ch}{\mathrm{Ch}}
-\providecommand{\Sh}{\mathrm{Sh}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\Yplus}{Y^{+}}
-\providecommand{\Zred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
+\providecommand{\DTred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
+\providecommand{\ZOPred}{Z^{\mathrm{red}}_{\mathrm{OP}}}
+\providecommand{\PhiOP}{\Phi_{10}^{\mathrm{OP}}}
 
-\section{Global positive half on compact $\mathrm{CY}_3$}
-\label{sec:wave17-b5-global-Yplus}
+\section{Oriented Critical Positive Half}
+\label{sec:global-Yplus-critical-positive-half}
 
-Fix $X$ a smooth projective Calabi--Yau threefold with trivial
-canonical bundle $\omega_X \simeq \cO_X$. The affine $\Yplus$-sheaves
-of B1--B4 are built on \'etale charts $U_\alpha \subset X$ where
-$D^b(\mathrm{Coh})(U_\alpha)$ admits a tilting presentation as
-$\mathrm{mod}\,J_\alpha$ for a Van den Bergh Jacobi algebra
-$J_\alpha = \CC Q_\alpha/(\partial W_\alpha)$
-(Van den Bergh 2004, \S3). The cohomological Hall algebra
-$\cY^+_\alpha = \mathrm{CoHA}^{\mathrm{BPS}}(J_\alpha, W_\alpha)$
-of Kontsevich--Soibelman provides the sheaf
-$\cY^+_X \in \Sh(X, \mathbb{N}^r\text{-graded dg alg})$.
-$B5$ globalises.
-
-\begin{definition}[Global positive half]
-\label{def:global-Yplus}
+Let $X$ be a smooth projective Calabi-Yau threefold with
+$\omega_X\simeq\cO_X$. Fix a numerical charge lattice
+$\Gamma=K_0^{\mathrm{num}}(X)$, a positive cone $\Gamma_+\subset\Gamma$,
+and a stability condition $\tau$ for coherent sheaves. For
+$\gamma\in\Gamma_+$ let $\cM_\gamma(X)$ be the derived moduli stack of
+$\tau$-semistable objects of charge $\gamma$. The Calabi-Yau trace gives
+$\cM_\gamma(X)$ a $(-1)$-shifted symplectic structure by
+Pantev-Toen-Vaquie-Vezzosi 2013, Theorem~2.5. Brav-Bussi-Joyce 2019,
+Theorem~5.18 gives local critical charts for the classical truncation.
+An orientation datum fixes a compatible square root of the determinant
+line and hence a perverse sheaf of vanishing cycles
 \[
-  \Yplus(X) \;:=\; \RGam\!\bigl(X,\, \cY^+_X\bigr),
+  \phi_\gamma\in\mathrm{Perv}\bigl(t_0\cM_\gamma(X)\bigr).
 \]
-computed as the derived functor
-$\RGam : \Sh(X) \to \Ch_{\CC}$ of global sections, equivalently the
-totalisation of the \v{C}ech complex
-$\check{C}^\bullet(\{U_\alpha\}, \cY^+_X)$
-for any affine cover $\{U_\alpha\}$ trivialising the quiver data.
-\end{definition}
+The oriented critical positive half is the formal charge-graded complex
+\[
+  \Yplus_\tau(X)
+  :=
+  \bigoplus_{\gamma\in\Gamma_+}
+  H^*_c\bigl(t_0\cM_\gamma(X),\phi_\gamma\bigr).
+\]
+Equivalently, the local Darboux critical charts carry the sheaves
+\(\phi_\gamma\), and their transition isomorphisms descend to the
+global perverse sheaf on \(t_0\cM_\gamma(X)\). The expression above is
+the compactly supported global section functor applied after that
+descent. The scalar Euler series forgets the descended operations; the
+Hall algebra retains them.
 
-The cover-independence is Godement; the dg algebra structure on
-$\Yplus(X)$ is the Eilenberg--Zilber totalisation of the sheaf of
-CoHA multiplications. Compactness of $X$ ensures
-$\RGam(X, \cO_X)$ has finite total dimension and $\Yplus(X)$ is a
-finitely generated dg algebra in each charge sector.
+The Hall product is defined on finite charge windows. For a finite
+\(\Gamma_+\)-window where the stacks are of finite type, the extension
+correspondences are proper on the chosen support, and the six-functor
+operations are defined, let
+$\cE_{\gamma_1,\gamma_2}(X)$ classify short exact sequences
+$0\to F_2\to F\to F_1\to0$ with charges $\gamma_i$. The extension
+correspondence is
+\[
+  \cM_{\gamma_1}(X)\times\cM_{\gamma_2}(X)
+  \xleftarrow{\;p\;}
+  \cE_{\gamma_1,\gamma_2}(X)
+  \xrightarrow{\;q\;}
+  \cM_{\gamma_1+\gamma_2}(X),
+\]
+and multiplication is $q_!p^*$ with the Thom shift determined by the
+orientation. On an etale critical chart equivalent to a Jacobi algebra
+$(Q,W)$ this is the Kontsevich-Soibelman critical CoHA product. In the
+quiver-with-potential setting, Davison-Meinhardt 2020, Theorem~A gives
+the cohomological Hall algebra.
 
-\begin{lemma}[Structure sheaf control]
-\label{lem:RGam-O}
-For $X$ compact $\mathrm{CY}_3$,
-$\RGam(X, \cO_X) \;=\; H^0(X,\cO_X) \,\oplus\, H^3(X,\cO_X)[-3]
- \;=\; \CC \,\oplus\, \CC[-3]$,
-with the degree-$3$ summand the Serre-dual of $H^0$ under the
-Calabi--Yau pairing
-$H^i(X,\cO_X) \otimes H^{3-i}(X,\omega_X) \to \CC$.
+Thus $\Yplus_\tau(X)$ carries the positive $E_1$ Hall multiplication,
+the native output level of \(\Phi_3\). A Hall-Drinfeld double
+requires a nondegenerate Hopf pairing, a compatible coproduct, and a
+completion. A Borcherds-Kac-Moody recognition further requires a
+bracket, root multiplicities, and a denominator identity. These data
+are independent of the positive half and of its scalar Euler character.
+
+\begin{lemma}[Hodge trace on compact Calabi-Yau threefolds]
+\label{lem:compact-cy3-hodge-trace}
+If $X$ is strict, meaning $h^{0,1}(X)=h^{0,2}(X)=0$, then
+\[
+  R\Gamma(X,\cO_X)\simeq \CC\oplus\CC[-3],
+  \qquad
+  \sum_q(-1)^q h^{0,q}(X)=0.
+\]
+For $Y=S\times E$, with $S$ a K3 surface and $E$ an elliptic curve,
+\[
+  H^\bullet(Y,\cO_Y)
+  =
+  (H^0(S,\cO_S)\oplus H^2(S,\cO_S)[-2])
+  \otimes
+  (H^0(E,\cO_E)\oplus H^1(E,\cO_E)[-1]),
+\]
+so
+\[
+  \kcat(Y)=\chi(\cO_Y)=1-1+1-1=0.
+\]
 \end{lemma}
 
 \begin{proof}
-Hodge theory gives $H^0(X,\cO_X) = \CC$ (connected) and
-$H^3(X,\cO_X) \simeq H^0(X,\omega_X)^{\vee} = \CC$ (trivial
-canonical). Middle cohomologies vanish by $h^{0,1}(X) = h^{0,2}(X) =
-0$ for simply-connected $\mathrm{CY}_3$. The pairing is Serre duality.
+For strict $X$, connectedness gives $H^0(X,\cO_X)=\CC$, and Serre
+duality with $\omega_X\simeq\cO_X$ gives
+$H^3(X,\cO_X)\simeq H^0(X,\omega_X)^\vee=\CC$. The middle terms vanish
+by hypothesis. The product computation is the Kunneth formula applied
+to $H^{0,*}(S)=(1,0,1)$ and $H^{0,*}(E)=(1,1)$.
 \end{proof}
 
-\begin{proposition}[Bialgebra via Serre duality]
-\label{prop:bialgebra-serre}
-The degree-$3$ Serre class $[\omega_X] \in H^3(X,\cO_X)$ induces a
-shifted Poincar\'e pairing
-$\langle -,-\rangle : \Yplus(X) \otimes \Yplus(X) \to \CC[-3]$
-which, via Behrend's symmetric obstruction theory on $\cM(X,\gamma)$
-(Behrend 2009, Thm.~4.18), identifies with the Hopf pairing between
-$\Yplus(X)$ and its Koszul-dual negative half
-$Y^{-}(X) := R\mathrm{Hom}_{\Yplus(X)}(\CC,\CC)$.
-The coproduct on $\Yplus(X)$ is transposed from the shuffle product
-on the moduli stratification
-$\cM(X,\gamma_1+\gamma_2) \leftarrow \cM(X,\gamma_1)\times\cM(X,\gamma_2)$.
+\begin{proposition}[Joyce-Song character of the positive half]
+\label{prop:Yplus-JS-character}
+In any stability chamber where Joyce-Song Hall integration applies, the
+formal compactly supported Euler series of the oriented positive half is
+\[
+  \chi_c^\Gamma\bigl(\Yplus_\tau(X)\bigr)
+  :=
+  \sum_{\gamma\in\Gamma_+}
+  \chi_c\bigl(t_0\cM_\gamma(X),\phi_\gamma\bigr)x^\gamma.
+\]
+It is the Joyce-Song generalized Donaldson-Thomas character in that
+chamber.
 \end{proposition}
 
-The above is the $\mathrm{CY}_3$ analogue of the
-Schiffmann--Vasserot construction for $S = $ K3: the symmetric
-obstruction theory $\mathbb{E}_{\cM}^\vee \simeq \mathbb{E}_{\cM}[-1]$
-is precisely what feeds Behrend's weighted Euler characteristic
-$\chi^B$ into the motivic DT generating function.
-
-\section{Character and the Joyce--Song matching}
-\label{sec:wave17-b5-character}
-
-\begin{theorem}[Character identity]
-\label{thm:character-JS}
-For $X$ compact $\mathrm{CY}_3$ with charge lattice
-$\Gamma = K_0^{\mathrm{num}}(X)$, the Poincar\'e series
-\[
-  \chi\!\bigl(\Yplus(X)\bigr)
-  \;=\; \sum_{\gamma \in \Gamma_{+}}
-    \chi\!\bigl(H^*(\cM(X,\gamma),\,\phi_{W_\alpha})\bigr)\,
-    x^{\gamma}
-\]
-equals the Joyce--Song BPS generating function of $(X, \omega_X)$
-on the positive charge cone, where $\phi_{W}$ is the
-vanishing cycle sheaf of the local superpotential
-(Joyce--Song 2012, Thm.~5.11; Behrend 2009 for the weighted
-$\chi^B$).
-\end{theorem}
-
 \begin{proof}
-Charge-graded \v{C}ech resolution of $\cY^+_X$ has each
-$\cY^+_\alpha(\gamma) = H^*(\cM(J_\alpha,\gamma),\phi_{W_\alpha})$
-by Kontsevich--Soibelman. Compatibility of $\phi_W$ with \'etale
-restriction (KS 2011, \S6) makes the sheaf totalisation
-additive in $\gamma$. Behrend's theorem identifies
-$\chi(\phi_W) = \chi^B(\cM)$, whose generating function is the
-Joyce--Song DT series.
+The charge decomposition is the definition of $\Yplus_\tau(X)$. On each
+oriented critical chart, Behrend 2009, Theorem~4.18 identifies the Euler
+characteristic of the vanishing-cycle sheaf with the Behrend weighted
+Euler characteristic. Joyce-Song 2012, Theorem~5.8 constructs the
+Behrend-weighted Hall integration map to the completed quantum torus,
+and Definition~5.13 defines the rational generalized DT invariants. The
+displayed series is the additive Euler character of the graded positive
+Hall complex under that integration map.
 \end{proof}
 
-\section{$K3 \times E$ and Oberdieck--Pixton $1/\Phi_{10}$}
-\label{sec:wave17-b5-op-match}
+\section{Primitive Oberdieck-Pixton Scalar}
+\label{sec:K3E-OP-primitive-character}
 
-Let $X = S \times E$, $S$ a projective K3 surface, $E$ an elliptic
-curve. The reduced Donaldson--Thomas series of $X$ in primitive
-classes $\beta = (\beta_S, n_E) \in H_2(S) \oplus H_2(E)$ with
-$\beta_S$ primitive is the Oberdieck--Pixton generating function
-(Oberdieck--Pixton 2017, Thm.~1):
+Let $Y=S\times E$, where $S$ is a projective K3 surface and $E$ is an
+elliptic curve. Let $\beta=(\beta_S,d[E])$ be a curve class with
+$\beta_S$ primitive in $H_2(S,\ZZ)$. Let $\Delta_5$ be the
+Gritsenko-Nikulin weight-$5$ denominator. The theta-leading coefficient
+of $\Delta_5$ is $64$, hence the monic Borcherds product is
 \[
-  \Zred(X;\, p, q, \tilde{q})
-  \;=\; \frac{-1}{\Phi_{10}(p,q,\tilde{q})},
+  D_5=64^{-1}\Delta_5.
 \]
-where $\Phi_{10}$ is the Igusa weight-$10$ Siegel cusp form,
-and $(p, q, \tilde{q})$ track $(n_E,\, \beta_S^2/2,\, \langle
-\beta_S, \ell\rangle)$ on the K3 lattice.
+Oberdieck-Pixton use the scalar Igusa normalization
+\[
+  \PhiOP=D_5^2=4096^{-1}\Delta_5^2.
+\]
 
-\begin{theorem}[$\Yplus$--OP match]
+Oberdieck-Pixton, arXiv:1706.10100, Theorem~1, prove the primitive
+reduced theory of $S\times E$ in the Laurent chamber
+$|p^kq^h\tilde q^d|<1$ for $4hd-k^2\ge -1$:
+\[
+  \DTred(Y;p,q,\tilde q)
+  =
+  \ZOPRed(Y;p,q,\tilde q)
+  =
+  -\frac{1}{\PhiOP(p,q,\tilde q)}
+  =
+  -4096\,\Delta_5^{-2}.
+\]
+The assertion is primitive in the K3 class. Imprimitive classes require
+the separate Oberdieck-Pandharipande and Bryan-Oberdieck reduced-pairs
+inputs.
+
+\begin{lemma}[OP square and denominator square root]
+\label{lem:D5-Phi10-normalization}
+The unnormalized Igusa square is
+$\Phi_{10}^{\mathrm{un}}=\Delta_5^2$, while the OP scalar form is
+$\PhiOP=D_5^2$. Consequently
+\[
+  \PhiOP=4096^{-1}\Delta_5^2,
+  \qquad
+  \DTred(Y)=-4096\,\Delta_5^{-2}.
+\]
+\end{lemma}
+
+\begin{proof}
+The Gritsenko-Nikulin square-root identity gives
+$\Phi_{10}^{\mathrm{un}}=\Delta_5^2$. The monic denominator section is
+$D_5=64^{-1}\Delta_5$. Squaring gives
+$\PhiOP=D_5^2=4096^{-1}\Delta_5^2$, and the OP sign convention gives
+$\DTred(Y)=-(\PhiOP)^{-1}=-4096\,\Delta_5^{-2}$.
+\end{proof}
+
+\begin{theorem}[Positive-half character on the primitive reduced sector]
 \label{thm:Yplus-OP-match}
-For $X = S \times E$,
+Assume the following data are fixed for \(Y=S\times E\):
 \[
-  \chi\!\bigl(\Yplus(X)\bigr)\Bigr|_{\mathrm{prim}}
-  \;=\; \Zred(X)
-  \;=\; -\,\frac{1}{\Phi_{10}}.
+\begin{array}{ll}
+\mathrm{(i)}&
+\text{an oriented critical positive half on primitive finite-type
+reduced Hall sectors,}\\
+\mathrm{(ii)}&
+\text{a Joyce-Song integration map compatible with the OP reduced
+obstruction theory,}\\
+\mathrm{(iii)}&
+\text{the DT/PT chamber and variables in the OP Laurent normalization.}
+\end{array}
+\]
+Then the primitive reduced Euler character of the positive half is the
+OP reduced-DT scalar:
+\[
+  \chi_c^\Gamma\bigl(\Yplus_\tau(Y)\bigr)
+  \Big|_{\beta_S\ \mathrm{primitive,red}}
+  =
+  \DTred(Y)
+  =
+  -\frac{1}{\PhiOP}
+  =
+  -4096\,\Delta_5^{-2}.
 \]
 \end{theorem}
 
 \begin{proof}
-Left side is Joyce--Song for $X$ by Thm.~\ref{thm:character-JS}.
-On $X = S \times E$ with reduced theory (the insertion $\sigma
-\in H^0(X, \omega_X) = \CC$ kills the embedded-point factor), DT
-invariants factor through stable-pair invariants via
-Pandharipande--Thomas; the $S$-direction is K3 PT; the $E$-direction
-contributes the translation-invariant Euler factor
-$\prod_n (1-p^n)^{-24}$ after equivariant reduction
-(Oberdieck--Pixton 2017, \S2).
-
-The K3 piece is the Kawai--Yoshioka / Maulik--Pandharipande
-Katz--Klemm--Vafa series
-$\sum_{n,\beta_S} \chi(\mathrm{Hilb}^n(S,\beta_S))\, q^{\beta_S^2/2}
-\tilde{q}^n = \prod_{n\ge 1}(1-q^n)^{-24}\cdot (\text{elliptic})$
-controlled by the Borcherds--Gritsenko lift of $\phi_{0,1}$
-(Gritsenko--Nikulin). Multiplying the three Euler product factors
-assembles into the Igusa $\Phi_{10} = \Delta_5^2$ denominator.
-
-On the $\Yplus$ side, the CoHA of $S \times E$ decomposes via the
-K\"unneth factorisation
-$\cM(S\times E,\beta) = \cM(S,\beta_S) \times \cM(E, n_E)$ for
-primitive $\beta_S$ (no gluing instantons transverse to $E$ because
-$h^{1,0}(E) = 1$ is absorbed into reduced theory). The reduced
-Behrend weight is $\chi^{B,\mathrm{red}} = \chi^B / \chi(\cO_X) $
-applied along the trivial Serre class of $E$; on $S$ alone one has
-the Schiffmann--Vasserot K3 CoHA whose generating function is the
-Kawai--Yoshioka product. Tensoring with the translation orbit of $E$
-inserts the $\prod(1-p^n)^{-24}$ factor.
-
-Equating the two sides:
-\[
- \chi(\Yplus(S\times E))\bigl|_{\mathrm{prim}}
- = \prod_{n\ge 1}(1-p^n)^{-24}\cdot
-   \text{(KKV lift)} = \frac{-1}{\Phi_{10}}.
-\]
-The sign is the Behrend orientation convention; it matches the
-Oberdieck--Pixton sign by the Calabi--Yau orientation on $X$.
+Proposition~\ref{prop:Yplus-JS-character} identifies the Euler character
+of the oriented positive Hall complex with the Joyce-Song DT character
+in the chosen stability chamber. Assumption (ii) replaces the ordinary
+obstruction theory by the OP reduced obstruction theory, including the
+$E$-translation reduction and the K3 holomorphic-symplectic reduction.
+The scalar $\chi(\cO_Y)=0$ from
+Lemma~\ref{lem:compact-cy3-hodge-trace} is a total-space Hodge
+supertrace, separate from \(\kBKM(\Delta_5)\). The reduced invariant
+takes its denominator from the OP primitive theorem, which supplies
+$\DTred(Y)=-(\PhiOP)^{-1}=-4096\,\Delta_5^{-2}$ in the stated Laurent
+chamber.
 \end{proof}
 
-\begin{corollary}[$\kBKM = 5$ from $\Yplus$]
-\label{cor:kBKM-from-Yplus}
-The character equation gives the weight-$10$ pole of $1/\Phi_{10}$
-along the Humbert divisor $\{\tilde{q} = 0\}$, whose principal
-part is $\Delta_5^{-2}$; the residue
-$c_1(0) = 10$ of the weight-$5$ Gritsenko form $\Delta_5$ yields
-$\kBKM(\Phi_1) = c_1(0)/2 = 5$
-(Borcherds 1995; Gritsenko 1999). Thus $\Yplus(S\times E)$ carries
-the BKM weight as a spectral invariant: no conflation with
-$\kcat(S\times E) = 0$ (K\"unneth), no conflation with
-$\kch(S\times E) = 0 - 0 = 0$ (Hodge supertrace on compact
-$\mathrm{CY}_3$, Lem.~\ref{lem:RGam-O} gives
-$\chi(\cO_X) = \sum(-1)^q h^{0,q} = 1 - 0 + 0 - 1 = 0$), and no
-conflation with $\kappa_{\mathrm{fiber}} = 24$ (K3 fibre rank).
-The four $\kappa_\bullet$ on $S\times E$ --- $\{0,0,5,24\}$ at the
-rigorously computed scale, $\{2,3,5,24\}$ in the full stratified
-spectrum of the four distinct constructions
-(Mukai lattice, Igusa $\Phi_{10}/\Delta_5$, BKM weight, K3 fibre) ---
-are recovered from distinct spectral features of $\Yplus(X)$, the
-OP series $1/\Phi_{10}$, its Gritsenko factorisation, and its
-cuspidal expansion. Six routes to $G(S\times E)$ remain six
-\emph{different} constructions, not six $\Phi$-applications.
+\begin{proposition}[Recognition data beyond the scalar character]
+\label{prop:scalar-character-recognition-boundary}
+The equality in Theorem~\ref{thm:Yplus-OP-match} determines the
+charge-graded Euler character of the primitive reduced positive half.
+An algebra theorem identifying a compact Hall source with a positive
+Borcherds half requires the following additional data:
+\[
+\begin{array}{ll}
+\mathrm{(a)}&
+\text{descent of the Hall product through the critical atlas and reduced
+finite windows,}\\
+\mathrm{(b)}&
+\text{an orientation-compatible coproduct and nondegenerate Hopf
+pairing,}\\
+\mathrm{(c)}&
+\text{a radical quotient, PBW comparison, and kernel equality excluding
+extra relations,}\\
+\mathrm{(d)}&
+\text{a completion supporting the Hall-Drinfeld double,}\\
+\mathrm{(e)}&
+\text{root multiplicities matching the coefficients of the
+Borcherds product \(D_5\),}\\
+\mathrm{(f)}&
+\text{a centre or vacuum-evaluation passage for any
+\(\mathcal W_{1+\infty}\) avatar.}
+\end{array}
+\]
+These data are independent hypotheses. The OP scalar identity is a
+necessary character test for them.
+\end{proposition}
+
+\begin{proof}
+The map
+\(\Yplus_\tau(Y)\mapsto\chi_c^\Gamma(\Yplus_\tau(Y))\) factors through
+the charge-graded Grothendieck group and records alternating dimensions
+of compactly supported vanishing-cycle cohomology. Products,
+coproducts, Hopf pairings, radicals, PBW filtrations, completions, and
+vertex-evaluation maps are structure maps on the complexes themselves.
+The denominator identity for \(\mathfrak g_{\Delta_5}\) fixes root
+spaces and signs whose superdenominator is \(D_5\). Therefore the
+scalar OP identity supplies the numerical character constraint;
+recognition of a Hall-Drinfeld or BKM object begins with the six data
+listed above.
+\end{proof}
+
+\section{Borcherds Weight and Separated Invariants}
+\label{sec:igusa-borcherds-normalizations}
+
+\begin{lemma}[Borcherds weights]
+\label{lem:borcherds-weight-tuples}
+For the primitive CHL denominator ladder $N\in\{1,2,3,4,6\}$,
+\[
+  (c_N(0))=(10,8,6,4,2),
+  \qquad
+  \bigl(\kBKM(\Phi_N)\bigr)=(5,4,3,2,1).
+\]
+For the Gritsenko-Clery diagonal-divisor catalogue, a different
+eight-row list, the twice-weight tuple is
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+At level one,
+\[
+  \kBKM(\Delta_5)=\kBKM(\Phi_1)=c_1(0)/2=10/2=5.
+\]
+\end{lemma}
+
+\begin{proof}
+Borcherds 1998, Theorem~13.3 gives the weight of a Borcherds product as
+one half of the constant term of the input vector-valued form. Gritsenko
+1999 and the Gritsenko-Nikulin paramodular construction give
+$c_N(0)=(10,8,6,4,2)$ on the primitive CHL ladder, hence
+$\kBKM(\Phi_N)=c_N(0)/2=(5,4,3,2,1)$. The Gritsenko-Clery list is a
+separate diagonal-divisor catalogue with its own cover groups and the
+twice-weight tuple displayed above.
+\end{proof}
+
+\begin{corollary}[Separated \(K3\times E\) invariants]
+\label{cor:k3e-four-invariants-from-character}
+For \(Y=K3\times E\), the four invariants appearing at this interface
+are
+\[
+\begin{array}{ccl}
+ \kcat(Y) &=& \chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0,\\[2pt]
+ \kch^{\mathrm{Heis}}(Y) &=& 3,\\[2pt]
+ \kBKM(\Delta_5) &=& c_1(0)/2=5,\\[2pt]
+ \kfib(Y) &=& \mathrm{rk}\,\widetilde H(K3,\ZZ)=1+22+1=24.
+\end{array}
+\]
+The compact Hodge supertrace
+\[
+  \sum_q(-1)^q h^{0,q}(Y)=1-1+1-1=0
+\]
+is the total-space Hodge reading and is separate from the
+Heisenberg-Mukai specialization.
 \end{corollary}
 
-\section{Five attack--heal cycles closed}
-\label{sec:wave17-b5-cycles}
+\begin{proof}
+The first equality is Kunneth multiplicativity for
+$\chi(\cO_Y)$. The fourth is the Mukai-lattice rank of the K3 fibre. The
+Heisenberg-Mukai value is the fibre specialization giving the
+single-copy chiral invariant. The compact chiral Hodge trace is the
+separate value \(\kch(Y)=0\).
+The \(\kBKM\) value is Lemma~\ref{lem:borcherds-weight-tuples} at
+\(N=1\). The OP scalar
+identity records the reduced-DT character
+$\DTred(Y)=-4096\,\Delta_5^{-2}$; Hall-Drinfeld doubling and BKM
+recognition are further algebraic constructions.
+\end{proof}
 
-(1) $\RGam$ functor: \v{C}ech totalisation on a quiver-affine cover;
- independent of cover by Godement.
-(2) Compactness: Lem.~\ref{lem:RGam-O} controls $\cO_X$ cohomology
- via Hodge + Calabi--Yau + Serre.
-(3) Character: Thm.~\ref{thm:character-JS} identifies
- $\chi(\Yplus)$ with the Joyce--Song DT series via Behrend.
-(4) OP match: Thm.~\ref{thm:Yplus-OP-match} equates the primitive
- restriction of $\chi(\Yplus(S\times E))$ with $-1/\Phi_{10}$,
- heated by Kawai--Yoshioka / KKV for the K3 factor and by
- translation-reduction for $E$.
-(5) Bialgebra: Prop.~\ref{prop:bialgebra-serre}; Serre-duality
- pairing is Behrend's symmetric obstruction theory; the Hopf
- pairing identifies $Y^-$ as Koszul dual.
+\section{Boundary of the Character Comparison}
+\label{sec:global-Yplus-character-boundary}
 
-\paragraph{Status.}
-Thm.~\ref{thm:character-JS} is unconditional given the
-Kontsevich--Soibelman sheaf structure (B1--B4). Thm.~\ref{thm:Yplus-OP-match}
-is \textbf{conditional} on the K\"unneth factorisation of reduced DT
-for $S\times E$ in primitive classes (Oberdieck--Pixton 2017, proved)
-and on the Schiffmann--Vasserot K3 CoHA--KKV comparison
-(ambient $(\infty,1)$-categorical; Pattern 236 ambient-qualifier
-discipline). Sign convention deferred to the orientation chapter.
+Theorem~\ref{thm:Yplus-OP-match} is a scalar character comparison. Its
+inputs are the oriented critical positive half, Behrend vanishing
+cycles, OP reduced obstruction theory on \(K3\times E\), and the
+primitive OP Igusa theorem.
+Proposition~\ref{prop:scalar-character-recognition-boundary} records
+the extra recognition data needed for the compact Hall-Drinfeld double,
+the nondegenerate Hopf pairing, the Borcherds root-space comparison, and
+the centre/completion passage.
+
+The local toric anchor is
+\[
+  \mathrm{CoHA}(\CC^3)=Y^+(\widehat{\mathfrak{gl}}_1),
+\]
+the positive half. The full \(\mathcal W_{1+\infty}\) object appears
+after Drinfeld double or centre and a vacuum specialization. The BKM
+object attached to \(K3\times E\) is the Hall-Drinfeld/Borcherds branch
+governed by \(\Delta_5\). The K3 self-mirror Yangian branch is a
+different Mukai-lattice construction.

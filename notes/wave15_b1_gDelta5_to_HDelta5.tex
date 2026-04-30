@@ -1,679 +1,457 @@
-\section{From the BKM primitive shadow $\mathfrak{g}_{\Delta_5}$ to the
-chiral bialgebra $\mathbf{H}_{\Delta_5}$: the three-step Hall--Drinfeld--Siegel
-assembly}
-\label{wn:wave15-b1-gDelta5-to-HDelta5}
+\section{The \texorpdfstring{$\Delta_5$}{Delta5} Denominator and the Conditional
+\texorpdfstring{$\mathbf H_{\Delta_5}$}{HDelta5} Source}
+\label{sec:delta5-denominator-conditional-hdelta5-source}
 
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusProvedHere}{\textsc{[proved]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textsc{[proved-elsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
-\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles]}}
-\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
-\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
+\providecommand{\BM}{\mathrm{BM}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Eone}{E_1}
 \providecommand{\Etwo}{E_2}
-\providecommand{\Sp}{\mathbf{Sp}}
-\providecommand{\SO}{\mathbf{SO}}
-\providecommand{\OO}{\mathbf{O}}
-\providecommand{\cA}{\mathcal{A}}
-\providecommand{\cC}{\mathcal{C}}
-\providecommand{\cD}{\mathcal{D}}
-\providecommand{\cF}{\mathcal{F}}
-\providecommand{\cH}{\mathcal{H}}
-\providecommand{\cO}{\mathcal{O}}
-\providecommand{\cR}{\mathcal{R}}
-\providecommand{\cY}{\mathcal{Y}}
-\providecommand{\cZ}{\mathcal{Z}}
-\providecommand{\bH}{\mathbb{H}}
-\providecommand{\Ran}{\mathrm{Ran}}
 \providecommand{\Rep}{\mathrm{Rep}}
-\providecommand{\Sym}{\mathrm{Sym}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
 \providecommand{\Prim}{\mathrm{Prim}}
-\providecommand{\Hopf}{\mathrm{Hopf}}
-\providecommand{\QHopf}{\mathrm{QHopf}}
-\providecommand{\LieBialg}{\mathrm{LieBialg}}
+\providecommand{\Hecke}{\mathrm{Hecke}}
+\providecommand{\Hall}{\mathrm{Hall}}
+\providecommand{\BKM}{\mathrm{BKM}}
+\providecommand{\SVect}{\mathrm{SVect}}
+\providecommand{\cH}{\mathcal H}
+\providecommand{\cM}{\mathcal M}
+\providecommand{\cP}{\mathcal P}
+\providecommand{\cR}{\mathcal R}
+\providecommand{\cZ}{\mathcal Z}
+\providecommand{\fn}{\mathfrak n}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\gDelta}{\mathfrak g_{\Delta_5}}
+\providecommand{\HDelta}{\mathbf H_{\Delta_5}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\PhiTen}{\Phi_{10}}
+\providecommand{\LII}{\Lambda^{2,1}_{\mathrm{II}}}
+\providecommand{\WII}{W^{(2)}(\Lambda^{2,1}_{\mathrm{II}})}
 
-\textsc{Scope.} $\mathfrak{g}_{\Delta_5}$ is the Borcherds--Kac--Moody
-Lie superalgebra of Gritsenko--Nikulin
-(\texttt{alg-geom/9504006})~/~Lorgat~2020, constructed on the hyperbolic
-sublattice $\Lambda^{2,1}_{\mathrm{II}}\subset \Lambda^{3,2}$, with real
-simple roots $\mathcal{P}_{\mathrm{II,prim}}=\{\delta_1,\delta_2,\delta_3\}$
-and imaginary simple roots $\Delta^{\mathrm{im}}_{\bar 0}\cup
-\Delta^{\mathrm{im}}_{\bar 1}$ indexed by the sign of the $\phi_{0,1}$
-Fourier coefficients $f(nm,l)$. Its denominator function is the Igusa
-cusp form $\Delta_5$. The chiral bialgebra $\mathbf{H}_{\Delta_5}$
-(Chapter~\ref{ch:k3-chiral-bialgebra-platonic},
-Definition~\ref{def:k3-chiral-bialgebra}) is the quasi-Hopf super-algebra
-whose primitive-shadow Lie superalgebra is $\mathfrak{g}_{\Delta_5}$ and
-whose classification cocycle is $\Delta_5$. The scope of the present note
-is the upgrade $\mathfrak{g}_{\Delta_5}\;\rightsquigarrow\; \mathbf{H}_{\Delta_5}$
-in three explicitly constructed steps, performed from first principles,
-channelled through five investigation cycles.
+\subsection{Borcherds Product}
+\label{subsec:delta5-borcherds-product}
 
-\textsc{Conventions.} $\hbar$ is the BV shift; $(\tau,z,\rho)\in \bH_2$
-parametrise the Siegel upper half-plane of genus~$2$;
-$\Hilb^n(K3)$ the Hilbert scheme of $n$~points on a K3 surface;
-$T = (\mathbb{C}^\times)^2$ acts on local toric charts via the McKay
-atlas. The Mukai lattice is $\Lambda_{\mathrm{Muk}} = H^*(K3,\mathbb{Z})$
-with signature $(4,20)$; its restriction to the real-homology lattice
-$\Lambda^{2,1}$ is the BKM Cartan.
-
-\paragraph{Obstruction opening.}
-The primitives functor $\Prim\colon \QHopf^{\mathrm{super}} \to \LieBialg^{\mathrm{super,quasi}}$
-sends $\mathbf{H}_{\Delta_5}\mapsto \mathfrak{g}_{\Delta_5}$; its
-left-adjoint $\mathcal{Q}^{\mathrm{EK,super}}_{K(1)}$ (\emph{super-}
-Etingof--Kazhdan at $K(1)$-paramodular equivariance) sends
-$\mathfrak{g}_{\Delta_5}\mapsto \mathbf{H}_{\Delta_5}$
-(Theorem~\ref{thm:k3-structural-genesis}). The gauge-equivalence class is
-one-parameter, fixed by the twist $\Phi_{10}/\eta^{24}$. Three concrete
-data must be produced for a usable model:
-\begin{enumerate}[label=\textup{(i\textsubscript{\arabic*})}]
-\item\label{op-i} a Hopf-algebra bialgebra presentation of the
-  positive--negative assembly: $\mathbf{H}_{\Delta_5}$ as a
-  \emph{shuffle-Hopf Drinfeld double};
-\item\label{op-ii} an associator $3$-cocycle making the assembly
-  quasi-Hopf: the Siegel--Borcherds associator
-  $\widetilde{\Phi}^{\mathrm{Sieg\text{-}Bor}}[\Phi_{10}/\eta^{24}]$;
-\item\label{op-iii} a dynamical $R$-matrix realising the braiding on
-  $\Rep^{\Etwo}(\mathbf{H}_{\Delta_5})$: the Siegel--elliptic dynamical
-  $R$-matrix $R_{\mathrm{Sieg,dyn}}$.
-\end{enumerate}
-Data~\ref{op-i} is the \emph{Hall--Drinfeld} layer; data~\ref{op-ii}~--
-\ref{op-iii} are the \emph{Siegel} layer. All three interlock through
-the Sievers coproduct (\S\ref{ssec:wave15-b1-sievers}) and the
-Mukai lattice coordinates $h_1,\ldots,h_{24}$.
-
-\subsection{Cycle 1. Hall-algebra upgrade $\mathcal{H} \rightsquigarrow
-\cY^{\mathrm{Hall}}_\hbar$: the CoHA of $K3\times E$ and its shuffle
-presentation}
-\label{ssec:wave15-b1-step1-hall}
-
-\begin{theorem}[Schiffmann--Vasserot shuffle presentation for $K3\times E$]
-\label{thm:wn-wave15-b1-SV-shuffle}
-\ClaimStatusProvedElsewhere
-The cohomological Hall algebra $\CoHA(K3\times E)$, defined as the
-$T$-equivariant Borel--Moore homology of the moduli of semistable sheaves
-on $K3\times E$ with composition product given by the standard
-Hecke-flag correspondence (Kontsevich--Soibelman~2011), admits a shuffle
-presentation
+Let
 \[
-  \cY^{\mathrm{Hall}}_\hbar(\CoHA_{K3\times E})
-  \;=\;
-  \bigoplus_{n\geq 0}\, \Sym^n(V_{K3\times E}),
+  Z=(\tau,z,\rho)\in\mathfrak H_2,\qquad
+  q=e^{2\pi i\tau},\quad r=e^{2\pi iz},\quad s=e^{2\pi i\rho}.
+\]
+The K3 Jacobi input is the Eichler--Zagier generator
+\[
+  \phi_{0,1}^{K3}(\tau,z)=\sum_{n,l}f(n,l)q^nr^l
+  =r^{-1}+10+r+O(q).
+\]
+Thus the discriminant-zero constant entering Borcherds' weight theorem
+is
+\[
+  c_1(0)=f(0,0)=10.
+\]
+Borcherds' singular theta lift gives weight \(c_1(0)/2\).  Gritsenko
+and Nikulin identify the resulting product with the weight-five Igusa
+square root.  In the theta-leading convention
+\([q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64\), the monic product is
+\[
+  \Dfive(Z)
+  =
+  q^{1/2}r^{1/2}s^{1/2}
+  \prod_{(n,l,m)>0}
+  (1-q^nr^ls^m)^{f(nm,l)}
+  =
+  64^{-1}\Delta_5(Z).
+\]
+The denominator algebra uses the even denominator variable:
+\[
+  \operatorname{den}(\gDelta)
+  =
+  \Dfive(2Z)
+  =
+  64^{-1}\Delta_5(2Z).
+\]
+Therefore
+\[
+  \kBKM(\gDelta)
+  =
+  \kBKM(\Delta_5)
+  =
+  \operatorname{wt}(\Delta_5)
+  =
+  \frac{c_1(0)}2
+  =
+  5.
+\]
+This statement is automorphic and Lie-theoretic.  Compact Hall
+correspondences, BPS operator products, Pfaffian orientations, Hopf
+pairings, associators, and representation categories are extra source
+data.
+
+\subsection{Root Lattice, Weyl Chamber, and Character}
+\label{subsec:delta5-root-lattice-weyl-character}
+
+Inside the Gritsenko--Nikulin orthogonal model
+\(\Lambda^{3,2}\subset\bigwedge^2\mathbb Z^4\), fix the primitive
+hyperbolic sublattice
+\[
+  \Lambda^{2,1}
+  =
+  \mathbb Z f_2\oplus\mathbb Z f_3\oplus\mathbb Z f_{-2}.
+\]
+The type-II root sublattice \(\LII\subset\Lambda^{2,1}\) has real
+simple roots
+\[
+  \delta_1=2f_2-f_3,\qquad
+  \delta_2=2f_{-2}-f_3,\qquad
+  \delta_3=f_3,
+\]
+and \(\LII=\mathbb Z\delta_1\oplus\mathbb Z\delta_2
+\oplus\mathbb Z\delta_3\), with Gram matrix
+\[
+  ((\delta_i,\delta_j))_{i,j=1}^3
+  =
+  \begin{pmatrix}
+    2 & -2 & -2\\
+    -2 & 2 & -2\\
+    -2 & -2 & 2
+  \end{pmatrix}.
+\]
+Its signature is \((2,1)\).  The Weyl chamber is the cone
+\[
+  \cP_{\mathrm{II}}
+  =
+  \{x\in C(\LII)_+:(x,\delta_i)\leq0,\ i=1,2,3\},
+\]
+and the Weyl group \(\WII\) has simple reflections
+\(s_{\delta_i}\).  The Weyl vector is the unique solution of
+\((\rho_{\Delta},\delta_i)=-1\):
+\[
+  \rho_{\Delta}
+  =
+  \tfrac12(\delta_1+\delta_2+\delta_3)
+  =
+  f_2-\tfrac12 f_3+f_{-2}.
+\]
+
+The charge-to-root map is
+\[
+  \alpha(n,l,m)
+  =
+  2nf_2-lf_3+2mf_{-2}
+  =
+  n\delta_1+m\delta_2+(n+m-l)\delta_3,
+\]
+with character
+\[
+  q^nr^ls^m=\exp\!\bigl(-\pi i(\alpha(n,l,m),z_{\mathrm{ort}})\bigr).
+\]
+On the active support \(f(nm,l)\neq0\), the Gritsenko--Nikulin
+denominator identity gives the signed root supermultiplicity
+\[
+  \operatorname{sdim}\gDelta_{\alpha(n,l,m)}
+  =
+  \dim\gDelta_{\alpha(n,l,m),\bar0}
+  -
+  \dim\gDelta_{\alpha(n,l,m),\bar1}
+  =
+  f(nm,l).
+\]
+Equivalently,
+\[
+  \operatorname{den}(\gDelta)
+  =
+  e^{-2\pi i(\rho_{\Delta},z_{\mathrm{ort}})}
+  \prod_{\alpha\in\cR_+}
+  \left(1-e^{-2\pi i(\alpha,z_{\mathrm{ort}})}\right)^{
+    \operatorname{sdim}\gDelta_{\alpha}}
+  =
+  64^{-1}\Delta_5(2Z).
+\]
+The product determines signed superdimensions.  Ordinary even and odd
+root-space dimensions require a parity fixture or an explicit
+finite-height presentation of \(\gDelta\).
+
+The Maass character of the square root is denoted \(\nu_{\Delta_5}\).
+On the three type-II simple reflections,
+\[
+  \nu_{\Delta_5}(s_{\delta_i})=-1,\qquad i=1,2,3.
+\]
+The chamber-permuting \(S_3=\operatorname{Aut}(\cP_{\mathrm{II}})\)
+has automorphic value \(+1\) on the standard Gritsenko--Nikulin
+extension.  A compact Hall orientation must supply an orientation
+character \(\epsilon_o\) and prove
+\[
+  \epsilon_o|_{\WII}=\nu_{\Delta_5}|_{\WII}.
+\]
+The constants \(64\), \(4096\), and the Oberdieck--Pandharipande sign
+carry no reflection-character datum.
+
+\subsection{Square Normalisation}
+\label{subsec:delta5-square-normalisation}
+
+The scalar Igusa form belongs to the squared branch.  In the
+unnormalised theta convention,
+\[
+  \PhiTen^{\mathrm{un}}(Z)=\Delta_5(Z)^2.
+\]
+In the Oberdieck--Pandharipande monic convention,
+\[
+  \PhiTen^{\mathrm{OP}}(Z)
+  =
+  \Dfive(Z)^2
+  =
+  4096^{-1}\Delta_5(Z)^2.
+\]
+The primitive reduced \(K3\times E\) scalar series is
+\[
+  Z^{K3\times E}_{\mathrm{OP/DT}}(Z)
+  =
+  -(\PhiTen^{\mathrm{OP}}(Z))^{-1}
+  =
+  -\Dfive(Z)^{-2}
+  =
+  -4096\,\Delta_5(Z)^{-2}.
+\]
+Thus \(\Delta_5^{-2}\) is a squared scalar convention.  A positive
+Hall--BKM half carries one denominator copy.  A full scalar character
+requires both halves, the Hopf pairing, the trace convention, and the
+normalisation above.
+
+\subsection{The Five \texorpdfstring{$K3\times E$}{K3 x E} Invariants}
+\label{subsec:k3e-five-invariants-delta5}
+
+Let \(X=K3\times E\).  The compact total-space values are
+\[
+  \kcat(X)
+  =
+  \chi(\mathcal O_{K3})\chi(\mathcal O_E)
+  =
+  2\cdot0
+  =
+  0,
+\]
+and
+\[
+  \kch(X)
+  =
+  \sum_q(-1)^q h^{0,q}(X)
+  =
+  1-1+1-1
+  =
+  0.
+\]
+The Heisenberg--Mukai specialisation, the Borcherds denominator, and
+the K3 fibre lattice give
+\[
+  \kHeis(X)=3,\qquad
+  \kBKM(\gDelta)=5,\qquad
+  \kfib(X)=\operatorname{rk}\widetilde H(K3,\mathbb Z)=24.
+\]
+The separated invariant list is
+\[
+  \bigl(
+  \kcat,\,
+  \kch,\,
+  \kHeis,\,
+  \kBKM,\,
+  \kfib
+  \bigr)(K3\times E)
+  =
+  (0,0,3,5,24).
+\]
+The value \(2=\chi(\mathcal O_{K3})\) is a fibre witness.  The
+total-space invariant is \(\kcat(K3\times E)=0\).  The Borcherds
+weight is read from \(c_1(0)/2\), independently of chiral Hodge
+supertraces and fibre Euler characteristics.
+
+\subsection{The Compact Hall Source Package}
+\label{subsec:compact-hall-source-package-hdelta}
+
+The notation \(\HDelta\) denotes an inverse-limit compact
+Hall--Drinfeld source only after the following finite-height data have
+been supplied.  Fix a stability chamber \(\sigma\) and a
+downward-saturated finite Borcherds window \(W_H\subset\cR_+\).  The
+positive Hall window is
+\[
+  \cH^{+,\le H}_{X,\sigma}
+  =
+  H^{\BM,\mathrm{red}}_\bullet
+  \bigl(\cM^{\le H}_{X,\sigma},\varphi_{\mathrm{vir}}\bigr),
+\]
+graded by \(\alpha\in W_H\).  Its product is the Hall product induced
+by Hecke correspondences
+\[
+  \cM_{\alpha,\sigma}\times\cM_{\beta,\sigma}
+  \xleftarrow{\ p_-\ }
+  \Hecke_{\alpha,\beta}
+  \xrightarrow{\ p_+\ }
+  \cM_{\alpha+\beta,\sigma},
+\]
+namely
+\[
+  m_{\alpha,\beta}
+  =
+  (p_+)_*
+  \bigl(p_-^*(-\boxtimes-)\cap[\Hecke_{\alpha,\beta}]_{\mathrm{red}}\bigr).
+\]
+This is the Hall functor
+\[
+  \mathsf{Hall}^{\le H}_{X,\sigma}\colon
+  \mathsf{Corr}^{\Hecke}_{X,\sigma,W_H}
+  \longrightarrow
+  \SVect,
   \qquad
-  V_{K3\times E} = H^*(K3,\mathbb{C}) \otimes H^*(E,\mathbb{C}),
+  \cM_{\alpha,\sigma}\longmapsto
+  H^{\BM,\mathrm{red}}_\bullet(\cM_{\alpha,\sigma},\varphi_{\mathrm{vir}}).
 \]
-with $\dim_{\mathbb{C}} V_{K3\times E} = 24\cdot 2 = 48$, and shuffle
-product
-\[
-  (F\star G)(x_1,\dots,x_{n+m})
-  \;=\;
-  \sum_{\substack{I\sqcup J = \{1,\dots,n+m\}\\ |I|=n,\;|J|=m}}
-    F(x_I)\,G(x_J)\,
-    \prod_{i\in I,\,j\in J}
-      K_{K3\times E}(x_i,x_j)
-\]
-with kernel
-\[
-  K_{K3\times E}(x,y) \;=\; \prod_{k=1}^{24}
-    \frac{\theta(x-y-h_k;\tau)}{\theta(x-y+h_k;\tau)},
-\]
-where $\theta(z;\tau)$ is the Jacobi theta function on the elliptic
-curve $E_\tau$ and $h_1,\dots,h_{24}$ are the $24$ Mukai lattice
-coordinates of $K3$. The rank $24$ is $\mathrm{rk}\, \Lambda_{\mathrm{Muk}}(K3)$,
-equivalently $\chi_{\mathrm{top}}(K3)=24$.
-\end{theorem}
 
-\begin{proof}[First-principles construction]
-Schiffmann~2012 (\emph{Lectures on Hall algebras and quantum loop
-groups}, Theorem~7.9) establishes the shuffle presentation for
-$\CoHA(E)$ with elliptic kernel $\theta(z-w+h)/\theta(z-w-h)$
-(Feigin--Odesskii form). Davison--Meinhardt~2016
-(arXiv:1601.02479) extend this to CY$_3$ via the critical-cohomology
-construction: for $X = X_3$ a CY threefold, $\CoHA(X)$ is the
-$H^*_T(\mathrm{Crit}\,W)$-object with composition via Hecke
-correspondences on $\mathrm{Crit}\,W$. For $X = K3\times E$, the
-smoothing argument of Davison~2017 (\emph{The integrality conjecture
-and the cohomology of preprojective stacks}, Theorem~B) gives a
-deformation-invariant shuffle presentation whose kernel is the
-Feigin--Odesskii elliptic kernel promoted from rank~$1$ to rank~$24$
-(one factor per Mukai-lattice coordinate, equivalently one per element
-of an integral basis of $H^*(K3,\mathbb{Z})$). The $24$ factors are
-independent because the Mukai pairing on $H^*(K3,\mathbb{Z})$ has
-determinant $\pm 1$ (unimodular), so the rank-$24$ promotion is
-non-degenerate.
-
-The shuffle-Hopf structure is obtained by Sievers~coproduct: set
+The BKM target functor is
 \[
-  \Delta^{\mathrm{Siev}}(F)(x_I,x_J)
-  \;=\;
-  F(x_I\sqcup x_J),
+  \mathsf{BKM}^{\le H}_{\Delta_5}\colon
+  W_H\longrightarrow\SVect,
   \qquad
-  (F,G)^{\mathrm{Siev}}
-  \;=\;
-  \int_{\prod_i \mathrm{res}_{x_i=\infty}} F\cdot G \cdot \prod_{i<j}K_{K3\times E}(x_i,x_j)^{-1}
+  \alpha\longmapsto\gDelta_{\alpha},
 \]
-(residue pairing against the inverse kernel). The coproduct is
-coassociative by the obvious set-partition associativity; the pairing
-is non-degenerate because the elliptic kernel has no zeros on
-$\bH_2\setminus\{\mathrm{divisors}\}$. This equips
-$\cY^{\mathrm{Hall}}_\hbar(\CoHA_{K3\times E})$ with a
-$\mathbb{Z}_{\geq 0}$-graded Hopf bialgebra structure, not
-yet a Hopf \emph{super}-algebra (the super-grading is introduced in
-step~3 via the odd imaginary simple roots of $\mathfrak{g}_{\Delta_5}$).
-\end{proof}
-
-\begin{remark}[Oberdieck--Pixton primitive-class link]
-\label{rem:wn-wave15-b1-OP-primitive}
-The primitive-class content $\Prim(\cY^{\mathrm{Hall}}_\hbar)
-\subset \cY^{\mathrm{Hall}}_\hbar$ is $\mathfrak{n}_+(\mathfrak{g}_{\Delta_5})$
-at the level of $\hbar$-leading order (the Oberdieck--Pixton theorem,
-\emph{The Igusa cusp form conjecture}, Invent.\ Math.~213, 2018). The
-graded dimensions of $\Prim$ agree with the root multiplicities of
-$\mathfrak{g}_{\Delta_5}$ computed from $\Delta_5^{-2}$:
-$\mathrm{mult}\,\alpha = f(nm,l)$ for $\alpha = (n,l,m)$. The
-$\mathfrak{h}_{\mathrm{rk\,23}}^{\mathrm{imag}}$-factor of the Manin pair
-(Definition~\ref{def:hall-drinfeld-double}) is the $\hbar\to 0$ classical
-limit of the primitive centraliser.
-\end{remark}
-
-\begin{remark}[Why not $\CoHA(K3)$ alone]
-\label{rem:wn-wave15-b1-K3-vs-K3E}
-Schiffmann--Vasserot~2013
-(\emph{The elliptic Hall algebra and the equivariant K-theory of the
-Hilbert scheme of $\mathbb{A}^2$}, Duke Math.~J.~162) constructs
-$\CoHA(K3)$ with rank-$2$ shuffle kernel (two Feigin--Odesskii factors
-per K3 fibre). The present application requires the $K3\times E$
-relative version: the elliptic base $E$ supplies the Sieg-elliptic
-$\tau$-parameter, through which $R_{\mathrm{Sieg,dyn}}$ varies. The
-rank-$24$ kernel of Theorem~\ref{thm:wn-wave15-b1-SV-shuffle} is the
-correct relative object; the rank-$2$ $K3$-only shuffle is the
-$\tau\to i\infty$ (rational) degeneration.
-\end{remark}
-
-\subsection{Cycle 2. The Sievers coproduct and the bialgebra-level
-positive--negative pairing}
-\label{ssec:wave15-b1-sievers}
-
-\begin{proposition}[Sievers coproduct pairing]
-\label{prop:wn-wave15-b1-sievers}
-\ClaimStatusProvedHere
-The coproduct $\Delta^{\mathrm{Siev}}$ and the residue pairing
-$(\cdot,\cdot)^{\mathrm{Siev}}$ of Theorem~\ref{thm:wn-wave15-b1-SV-shuffle}
-satisfy the Hopf compatibility
+equipped with the Borcherds--Serre bracket, parity fixture, PBW
+filtration, and signed character
+\(\operatorname{sdim}\gDelta_{\alpha}=f(nm,l)\) for
+\(\alpha=\alpha(n,l,m)\) on the active support.  A positive comparison
+is a natural transformation after primitive projection:
 \[
-  (F\star G,\,H)^{\mathrm{Siev}}
-  \;=\;
-  (F\otimes G,\,\Delta^{\mathrm{Siev}}(H))^{\mathrm{Siev}\otimes\mathrm{Siev}}
+  \Psi_H^+\colon
+  \operatorname{gr}\Prim(\cH^{+,\le H}_{X,\sigma})
+  \longrightarrow
+  \bigoplus_{\alpha\in W_H}\gDelta_{\alpha}.
 \]
-and the antipode is $S(F)(x_1,\ldots,x_n) = (-1)^n\prod_{i<j}
-K_{K3\times E}(x_i,x_j)^{-1}\cdot F(x_n,\ldots,x_1)$.
-\end{proposition}
+It must preserve the Lorentzian charge \(\alpha\), signed Euler
+character, parity, the associated graded Hall commutator, the real
+Serre relations, the orthogonal imaginary super-commutativity
+relations, and the no-extra primitive relation condition.
 
-\begin{proof}[First-principles derivation]
-Shuffle product and deshuffle coproduct are mutually adjoint under the
-residue pairing on $\Sym^\bullet(V_{K3\times E})$; this is Sievers~2022
-(\emph{Hopf structures on elliptic shuffle algebras}, Lemma~2.4)
-for elliptic kernels. Antipode: the formula follows from the defining
-relation $S\star \id = \id \star S = \eta\circ\epsilon$ with
-$\epsilon$ the augmentation sending $F\mapsto F(\emptyset)$. Both sides
-of the antipode compatibility equation involve integration against the
-kernel product; the sign alternation and order reversal produce the
-required vanishing of the convolution identity.
-\end{proof}
-
-\subsection{Cycle 3. Drinfeld doubling step: Hall--Drinfeld double of the
-super-Manin pair}
-\label{ssec:wave15-b1-step2-double}
-
-\begin{theorem}[The Drinfeld double $\cD_\hbar(\cY^{\mathrm{Hall}}_\hbar)$]
-\label{thm:wn-wave15-b1-drinfeld-double}
-\ClaimStatusProvedHere
-The Drinfeld double
+The negative half is the continuous Serre-dual Hall dual
 \[
-  \cD_\hbar\!\bigl(\cY^{\mathrm{Hall}}_\hbar(\CoHA_{K3\times E})\bigr)
-  \;=\;
-  \cY^{\mathrm{Hall}}_\hbar \bowtie (\cY^{\mathrm{Hall}}_\hbar)^{*\mathrm{cop}}
+  \cH^{-,\le H}_{X,\sigma}
+  =
+  \left(\cH^{+,\le H}_{X,\sigma^\vee}\right)^\vee_{\mathrm{cont}},
 \]
-of the shuffle-Hopf bialgebra of
-Proposition~\ref{prop:wn-wave15-b1-sievers} is a super-Hopf algebra
-equipped with a non-degenerate Hopf pairing
+and the Cartan part is the completed group algebra of \(\LII\) modulo
+the Borcherds Cartan radical.  A finite compact Hall--Drinfeld double
+is then
 \[
-  \langle\cdot,\cdot\rangle\colon
-  \cY^{\mathrm{Hall}}_\hbar \otimes (\cY^{\mathrm{Hall}}_\hbar)^{*\mathrm{cop}}
-  \;\longrightarrow\; \mathbb{C}[[\hbar]]
+  D^{\le H}_\hbar(\cH^+_{X,\sigma})
+  =
+  D_\hbar
+  \bigl(
+    \overline{\cH}^{+,\le H}_{X,\sigma},\,
+    \overline{\cH}^{-,\le H}_{X,\sigma},\,
+    \mathbb C[\LII]^{\le H}
+  \bigr),
 \]
-which is exactly the Sieg-dynamical $R$-pairing of
-step~\ref{op-iii}: $\langle F, G^*\rangle = (F, \overline{G})^{\mathrm{Siev}}$
-where $\overline{G}$ is the formal conjugate on the dual shuffle space.
-The super-grading is inherited from the $\mathbb{Z}/2$-decomposition
-$\Delta^{\mathrm{im}}_{\bar 0}\sqcup\Delta^{\mathrm{im}}_{\bar 1}$
-of imaginary simple roots of $\mathfrak{g}_{\Delta_5}$ (odd imaginary
-roots correspond to Fourier coefficients with $m(a)<0$,
-equivalently to the super-Jacobi sign of the $\phi_{0,1}$
-expansion~\S6 Thm~4 of Lorgat~2020).
-\end{theorem}
-
-\begin{proof}[First-principles derivation]
-Standard Drinfeld-double construction (Drinfeld~1986; Majid~1995,
-\emph{Foundations of quantum group theory}, Ch.~7): given a Hopf
-bialgebra $H$ with non-degenerate Hopf pairing to its dual cop,
-$D(H) = H \bowtie H^{*\mathrm{cop}}$ is determined by the crossed
-relation $xh = (S^{-1}h_{(1)}, x_{(1)})\,h_{(2)}\, x_{(2)}\,(h_{(3)}, x_{(3)})$
-for $x\in H^*, h\in H$. The super-version (Gorelik~2004,
-\emph{Strongly typical representations of basic classical Lie
-superalgebras}, \S~1; Tsymbaliuk~2017 super-Yangian construction,
-arXiv:1609.07011) extends by replacing tensor-swap with super-swap
-and inserting Koszul signs per odd-odd transposition. The residue
-pairing of Proposition~\ref{prop:wn-wave15-b1-sievers} is automatically
-non-degenerate (elliptic kernel non-vanishing on the primary
-$\bH_2$-domain), so the Drinfeld-double construction applies directly.
-
-The identification of the Hopf pairing with the Sieg-dynamical $R$-pairing
-requires the promotion to $\bH_2$: Tsymbaliuk~2017, \S~3, constructs
-the Drinfeld double of the positive half of the affine Yangian
-$Y^+(\widehat{\mathfrak{gl}}_1)$, obtaining the full
-$Y(\widehat{\mathfrak{gl}}_1) = \mathcal{W}_{1+\infty}$. The
-super-lattice extension for the $\Delta_5$-grading replaces the
-rank-$1$ Fock input by the rank-$24$ Mukai Fock, which yields the rank-$24$
-Heisenberg Hopf algebra as the abelian-at-Lie shadow of
-$\mathbf{H}_{\Delta_5}$
-(Theorem~\ref{thm:k3-abelian-at-lie}). The $(\Lambda^{2,1}_{\mathrm{II}},
-\mathbb{Z}/2)$-grading (real roots even, odd imaginary roots odd) is
-genuinely super because Gritsenko--Nikulin's imaginary odd roots sit
-at $m(a)<0$ and force Fermi statistics on the corresponding vertex
-operators.
-\end{proof}
-
-\begin{remark}[Comparison: $\C^3$ vs.\ $K3\times E$ Drinfeld double]
-\label{rem:wn-wave15-b1-c3-vs-k3e}
-For $X = \C^3$, the Drinfeld double of $\CoHA(\C^3) = Y^+$ is
-$D(Y^+) = Y^+\bowtie (Y^+)^{*\mathrm{cop}} \simeq Y(\widehat{\mathfrak{gl}}_1)$,
-canonically isomorphic to $\mathcal{W}_{1+\infty}$
-(Schiffmann--Vasserot~2013; Tsymbaliuk~2017); this is the Kac--Moody
-Manin-\emph{triple} case with symmetrisable Cartan of rank~$1$. For
-$X = K3\times E$, the Cartan form on $\Lambda^{2,1}$ has signature
-$(2,1)$, so the decomposition is a Manin \emph{pair} (not triple),
-and the Drinfeld double is only \emph{quasi}-Hopf: the coassociativity
-is violated by the genus-$2$ associator
-$\widetilde{\Phi}^{\mathrm{Sieg\text{-}Bor}}$ of step~\ref{op-ii} below.
-The super-extension is forced by the odd imaginary roots
-$\Delta^{\mathrm{im}}_{\bar 1}$, absent in the $\C^3$ case.
-\end{remark}
-
-\subsection{Cycle 4. Siegel-dynamical $R$-matrix: Aganagic--Okounkov elliptic
-stable envelopes on $\Hilb(K3)$ restricted to $\bH_2$}
-\label{ssec:wave15-b1-step3-R}
-
-\begin{theorem}[Siegel--elliptic dynamical $R$-matrix]
-\label{thm:wn-wave15-b1-sieg-R}
-\ClaimStatusProvedHere
-There exists a meromorphic function
+formed with a nondegenerate finite Euler--Hall pairing.  A full source
+package also contains:
 \[
-  R_{\mathrm{Sieg,dyn}}\colon\, \bH_2\times \bH_2 \;\longrightarrow\;
-    \Aut\bigl(\cY^{\mathrm{Hall}}_\hbar \otimes \cY^{\mathrm{Hall}}_\hbar\bigr)
+\begin{array}{ll}
+\text{coproduct} &
+  \text{a continuous Hall coproduct compatible with the finite windows;}\\
+\text{orientation} &
+  \text{a Pfaffian orientation with }
+  \epsilon_o|_{\WII}=\nu_{\Delta_5}|_{\WII};\\
+\text{completion} &
+  \text{Mittag--Leffler exact transition maps over the windows;}\\
+\text{associator} &
+  \text{a Siegel--Borcherds associator satisfying the pentagon;}\\
+\text{braiding} &
+  \text{an \(R\)-matrix satisfying the hexagon in the chosen module category;}\\
+\text{comparison} &
+  \text{maps \(\Theta_H:D^{\le H}_\hbar(\cH^+_{X,\sigma})
+  \to U(\gDelta)^{\le H}\) preserving PBW, pairing, coproduct,
+  centre, and radical.}
+\end{array}
 \]
-satisfying the dynamical Yang--Baxter equation
+The representation category is the exact inverse limit
 \[
-  R_{12}(Z)\,R_{13}(Z - h_2)\,R_{23}(Z)
-  \;=\;
-  R_{23}(Z - h_1)\,R_{13}(Z)\,R_{12}(Z - h_3)
+  \Rep^{\Eone}(\HDelta)
+  =
+  \varprojlim_H
+  \Rep^{\Eone}\!\left(D^{\le H}_\hbar(\cH^+_{X,\sigma})\right),
 \]
-on $(\cY^{\mathrm{Hall}}_\hbar)^{\otimes 3}$, with dynamical parameter
-$Z\in\bH_2$ and shifts $h_i$ valued in the Cartan
-$\mathfrak{h}^{\mathrm{imag,rk\,23}}$ of
-Theorem~\ref{thm:wn-wave15-b1-drinfeld-double}. Concretely, via the
-Aganagic--Okounkov elliptic stable envelope
+with restriction functors induced by \(W_{H+1}\to W_H\).  Associator
+and braiding data act on this category after the displayed pentagon and
+hexagon identities are part of the source package.
+
+\subsection{Recognition Statement}
+\label{subsec:hdelta5-recognition-statement}
+
+Assume the compact Hall source package of
+Subsection~\ref{subsec:compact-hall-source-package-hdelta}.  Assume
+that the finite comparison maps \(\Theta_H\) preserve
+\(\nu_{\Delta_5}\), identify the primitive signed root characters with
+the coefficients \(f(nm,l)\), identify the Borcherds--Serre ideal, and
+pass to an exact inverse limit.  Then
 \[
-  \mathrm{Stab}_{\mathfrak{C}}^{\mathrm{ell}}\colon\,
-    H_T^*(\Hilb^n(K3)^{T})\;\longrightarrow\;
-    H_T^*(\Hilb^n(K3))\otimes \mathrm{Theta}_{n}(\bH_2)
+  \Prim(\HDelta)|_{\hbar=0}
+  \cong
+  \gDelta
 \]
-of Aganagic--Okounkov~2016
-(\emph{Elliptic stable envelopes}, arXiv:1604.00423), the $R$-matrix is
+as a \(\LII\)-graded BKM Lie superalgebra, and
 \[
-  R_{\mathrm{Sieg,dyn}}(Z)
-  \;=\;
-  \bigl(\mathrm{Stab}_{\mathfrak{C}_1}^{\mathrm{ell}}\bigr)^{-1}
-  \circ
-  \mathrm{Stab}_{\mathfrak{C}_2}^{\mathrm{ell}}
+  \operatorname{den}(\Prim(\HDelta)|_{\hbar=0})
+  =
+  \Dfive(2Z),
+  \qquad
+  \kBKM(\Prim(\HDelta)|_{\hbar=0})=5.
 \]
-with the two chambers $\mathfrak{C}_1,\mathfrak{C}_2$ of the K\"ahler
-torus, restricted to the image of $\bH_2\hookrightarrow \bH^{24}$
-induced by the Mukai-Torelli embedding of the paramodular period domain.
-\end{theorem}
-
-\begin{proof}[First-principles derivation]
-Aganagic--Okounkov~2016 constructs elliptic stable envelopes on
-$\Hilb^n(S)$ for $S$ a symplectic surface with $T$-action, producing an
-$R$-matrix $R^{\mathrm{ell}}\colon \bH^{\mathrm{rk}}\to \Aut(V^{\otimes 2})$
-satisfying dynamical YBE with dynamical parameter in the K\"ahler torus
-of $\Hilb^n(S)$. For $S=K3$, $\mathrm{rk}\,\Pic(K3)=\rho$ varies
-(Oguiso~1989); for \emph{generic} K3 the full Mukai lattice has rank
-$24$, so the K\"ahler torus is a $24$-dimensional complex torus, and
-$R^{\mathrm{ell}}$ is defined on $\bH^{24}$.
-
-The Siegel restriction step: the genus-$2$ Siegel upper half-plane
-$\bH_2$ embeds into $\bH^{24}$ via the Kuga--Satake map
-$\mathcal{A}_2 \hookrightarrow \mathcal{A}_{g}^{\mathrm{KS}}$
-composed with the K3-Torelli identification of the period locus.
-Explicitly, a principally polarised abelian surface $(A_\tau,\lambda)$
-with $\tau\in\bH_2$ gives a K3 surface $\Kum(A_\tau)$ with
-$\rho(\Kum(A_\tau)) = 17$ generically, and the transcendental lattice
-$T(\Kum(A_\tau))\simeq T(A_\tau)\otimes[2]$ determines the
-elliptic-genus parameters. The restriction of $R^{\mathrm{ell}}$ to
-$\bH_2\subset \bH^{24}$ is $R_{\mathrm{Sieg,dyn}}$, and it satisfies
-dynamical YBE on this slice because $\bH_2$ is a totally geodesic
-holomorphic submanifold of $\bH^{24}$ with respect to the
-Borel--Weil metric, so the connection on the stable-envelope bundle
-restricts compatibly (Looijenga~1979
-\emph{Root systems and elliptic curves}, \S~5, restricted to
-paramodular slices).
-
-The genus-$2$ Riemann theta function appears through the
-Pasol--Zagier extension of the Kronecker--Eisenstein series:
-$F^{\mathrm{Sieg}}(z,\rho,\tau)$ is the $\bH_2$-analog of the
-genus-$1$ Kronecker $F(z,\tau)$, and its second derivative
-$F^{\mathrm{Sieg}}_{zz}$ is the classical $r$-matrix
-($\hbar\to 0$ limit of $R_{\mathrm{Sieg,dyn}}$)
-(Pasol--Zagier~2013, Theorem~$3.2$, extended to $\bH_2$). The
-Aganagic--Okounkov $R$-matrix at $\hbar>0$ is the one-parameter
-quantisation of this classical $r$-matrix in the category of
-$K(1)$-paramodular elliptic automorphic forms.
-\end{proof}
-
-\begin{remark}[Why dynamical]
-\label{rem:wn-wave15-b1-why-dynamical}
-Standard ($\bH_2$-independent) $R$-matrices on the rank-$24$ tensor
-space fail the YBE: the Cartan form has signature $(2,1)$, not
-split, so the naive trigonometric $R$-matrix does not extend.
-Introducing a dynamical parameter $Z\in\bH_2$ absorbs the signature
-obstruction; the shifts $Z-h_i$ satisfy the dynamical YBE
-automatically because the Kuga--Satake map intertwines the Cartan
-action with the Siegel modular action. The dynamical parameter is
-precisely the Pasol--Zagier Siegel period map.
-\end{remark}
-
-\subsection{Cycle 5. Assembly: $\mathbf{H}_{\Delta_5}$ as the quasi-Hopf
-super-algebra}
-\label{ssec:wave15-b1-assembly}
-
-\begin{theorem}[Three-step assembly of $\mathbf{H}_{\Delta_5}$]
-\label{thm:wn-wave15-b1-three-step-assembly}
-\ClaimStatusProvedHere
-The chiral bialgebra $\mathbf{H}_{\Delta_5}$ of
-Definition~\ref{def:k3-chiral-bialgebra} is constructed by the
-following three-step assembly from the primitive shadow
-$\mathfrak{g}_{\Delta_5}$:
-\begin{enumerate}[label=\textup{(Step~\arabic*)}]
-\item\label{step1} \emph{Hall-algebra stage.} Take the CoHA
-  $\mathcal{H} = \CoHA(K3\times E)$ of
-  Theorem~\ref{thm:wn-wave15-b1-SV-shuffle}; by Oberdieck--Pixton
-  primitive-class theorem,
-  $\Prim(\mathcal{H})|_{\hbar=0}\simeq \mathfrak{n}_+(\mathfrak{g}_{\Delta_5})$,
-  so $\mathcal{H}$ is a deformation of
-  $U(\mathfrak{n}_+(\mathfrak{g}_{\Delta_5}))$ at the positive-half
-  level.
-\item\label{step2} \emph{Shuffle-Hopf upgrade.} Equip $\mathcal{H}$
-  with the Sievers coproduct
-  $\Delta^{\mathrm{Siev}}$ of Proposition~\ref{prop:wn-wave15-b1-sievers},
-  producing the shuffle-Hopf bialgebra
-  $\cY^{\mathrm{Hall}}_\hbar(\mathcal{H})$ as in
-  Theorem~\ref{thm:wn-wave15-b1-SV-shuffle}. This stage is
-  Hopf but \emph{coassociative}; it is not yet quasi-Hopf.
-\item\label{step3} \emph{Drinfeld double and associator twist.}
-  Form the Drinfeld double
-  $\cD_\hbar(\cY^{\mathrm{Hall}}_\hbar(\mathcal{H}))$
-  (Theorem~\ref{thm:wn-wave15-b1-drinfeld-double}), combining the
-  positive and negative halves via the $R_{\mathrm{Sieg,dyn}}$-pairing
-  (Theorem~\ref{thm:wn-wave15-b1-sieg-R}); then twist the coproduct by
-  the Siegel--Borcherds associator
-  $\widetilde{\Phi}^{\mathrm{Sieg\text{-}Bor}}[\Phi_{10}/\eta^{24}]$ of
-  Definition~\ref{def:siegel-borcherds-associator}, producing a
-  quasi-Hopf super-algebra whose pentagon-equation obstruction
-  $\phi^{(3)} = \zeta(3)\,c_{\mathrm{symm}} + \tfrac{25}{3}\,c_{\mathrm{timelike}}
-  + (\Phi_{10}/\eta^{24})\,c_{\Phi_{10}}$ is the Gritsenko--Nikulin
-  denominator cocycle.
-\end{enumerate}
-The result
+The full scalar character satisfies
 \[
-  \mathbf{H}_{\Delta_5}
-  \;=\;
-  \cD_\hbar\!\Bigl(\cY^{\mathrm{Hall}}_\hbar(\CoHA_{K3\times E}),\,
-      \widetilde{\Phi}^{\mathrm{Sieg\text{-}Bor}}[\Phi_{10}/\eta^{24}],\,
-      R_{\mathrm{Sieg,dyn}}\Bigr)
+  \operatorname{ch}_{\mathrm{full}}(\HDelta)
+  =
+  -\Dfive^{-2}
+  =
+  -4096\,\Delta_5^{-2}
 \]
-is the quasi-Hopf super-algebra of Definition~\ref{def:k3-chiral-bialgebra},
-and $\Prim(\mathbf{H}_{\Delta_5})|_{\hbar=0} = \mathfrak{g}_{\Delta_5}$.
-\end{theorem}
+precisely in the Oberdieck--Pandharipande square convention and after
+the trace normalisation is fixed.  The denominator product alone gives
+the automorphic target.  The Hall package gives the algebra.
 
-\begin{proof}[First-principles derivation]
-Step~\ref{step1} is Theorem~\ref{thm:wn-wave15-b1-SV-shuffle} plus
-the Oberdieck--Pixton theorem (\emph{Invent.\ Math.}~213, 2018): the
-reduced DT partition function of $K3\times E$ equals
-$\mathrm{C}/\Delta_5^2$, and the Borcherds--Gritsenko denominator formula
-writes $\Delta_5^{-2}$ as the character of $\mathfrak{g}_{\Delta_5}$'s
-universal enveloping algebra. Step~\ref{step2} is
-Proposition~\ref{prop:wn-wave15-b1-sievers}. Step~\ref{step3} is
-Theorem~\ref{thm:wn-wave15-b1-drinfeld-double} combined with
-Theorem~\ref{thm:pentagon-sieg-bor} of the chapter (pentagon equation
-at order $\hbar^{\leq 3}$, with the three $3$-coboundary coefficients
-explicit).
+\subsection{Adjacent Branches}
+\label{subsec:adjacent-branches-hdelta}
 
-The combined object is quasi-Hopf because the associator
-$\widetilde{\Phi}^{\mathrm{Sieg\text{-}Bor}}$ encodes
-coassociativity-defect at the $3$-cocycle level; the Drinfeld-double
-construction combined with a $3$-cocycle twist is the standard
-recipe for a quasi-Hopf algebra (Majid~1995, \S~7.3; Drinfeld~1989
-quasi-Hopf original paper). The super-structure is preserved through
-all three steps because the shuffle and pairing are both super-symmetric
-in the $\Delta^{\mathrm{im}}_{\bar 0}/\Delta^{\mathrm{im}}_{\bar 1}$
-decomposition of imaginary simple roots.
-
-The primitives identity is the classical Milnor--Moore theorem
-applied after $\hbar\to 0$: the Drinfeld double of the Hall algebra
-reduces to the universal enveloping algebra of
-$\mathfrak{g}_{\Delta_5}$, and $\Prim(U(\mathfrak{g}_{\Delta_5}))
-= \mathfrak{g}_{\Delta_5}$ (Milnor--Moore~1965
-\emph{On the structure of Hopf algebras}, Theorem~5.18; super-version
-Kac~1977 \emph{Lie superalgebras}, \S~2.4, extended to BKM by
-Borcherds~1988).
-\end{proof}
-
-\begin{remark}[Lane discipline]
-\label{rem:wn-wave15-b1-lane-discipline}
-Step~\ref{step1} is chain-level: $\CoHA(K3\times E)$ is the explicit
-shuffle complex with kernel $K_{K3\times E}$. Step~\ref{step2} is
-chain-level: Sievers coproduct is an explicit residue pairing.
-Step~\ref{step3} lives in both lanes: the Drinfeld double at the
-chain level is a quasi-Hopf super-algebra by the standard recipe;
-at the $(\infty,1)$-categorical level it is the derived-centre
-$\cZ^{\mathrm{der}}_{\mathrm{ch}}\bigl(\Rep^{\Eone}(\cY^{\mathrm{Hall}}_\hbar)\bigr)$
-combined with the quasi-Hopf twist. The Aganagic--Okounkov stable
-envelope is natively $(\infty,1)$-categorical (derived-geometry
-input); its restriction to $\bH_2$ is chain-level.
-\end{remark}
-
-\begin{remark}[Chiral-bialgebra status: Hopf + vertex + quasi]
-\label{rem:wn-wave15-b1-chiral-bialgebra-status}
-$\mathbf{H}_{\Delta_5}$ is a \emph{chiral bialgebra} in three
-simultaneous senses:
-\begin{itemize}
-\item \emph{Hopf:} product $\star$ and coproduct
-  $\Delta^{\mathrm{Siev}}$ from step~\ref{step2}, up to associator
-  twist;
-\item \emph{vertex:} the Frenkel--Kac construction on the
-  $\Lambda^{2,1}_{\mathrm{II}}$ Fock space produces a vertex operator
-  algebra whose zero-modes recover the abelian-at-Lie shadow
-  (\texttt{thm:k3-abelian-at-lie}), and whose higher modes carry the
-  $24$-Miki quantum-toroidal $U_{q_1,q_2}(\widehat{\widehat{\mathfrak{gl}}}_1)$
-  presentation of Theorem~\ref{thm:k3-24miki-presentation};
-\item \emph{quasi:} the coassociativity defect is the
-  Siegel--Borcherds associator with explicit $\hbar^3$-coefficient
-  $\phi^{(3)}$.
-\end{itemize}
-All three structures are compatible: the pentagon equation (closing the
-associator against the shuffle-Hopf coproduct) and the hexagon equation
-(closing the $R$-matrix against the twisted coproduct) hold on the
-paramodular locus $K(1)\subset \overline{\mathcal{A}_2}$
-(Theorem~\ref{thm:hexagon-R-Sieg}).
-\end{remark}
-
-\subsection{First-principles consequences}
-\label{ssec:wave15-b1-consequences}
-
-\begin{corollary}[Classification invariant]
-\label{cor:wn-wave15-b1-classification}
-\ClaimStatusProvedHere
-The gauge-equivalence class of the quasi-Hopf super-algebra
-$\mathbf{H}_{\Delta_5}$ is determined by the single cocycle class
-$[\Delta_5]\in H^3(\mathfrak{g}_{\Delta_5})^{\mathbb{Z}/2,K(1)} /(\mathrm{gauge})
-\simeq \mathbb{C}$, pinned down by the twist coefficient
-$\Phi_{10}/\eta^{24}$. This is a first-principles re-derivation of
-Theorem~\ref{thm:k3-classification-etingof}.
-\end{corollary}
-
-\begin{proof}
-The three-step assembly exhibits $\mathbf{H}_{\Delta_5}$ as the
-super-Etingof--Kazhdan quantisation of the Manin pair
-$(\mathfrak{g}_{\Delta_5}, \mathfrak{n}_+^{\mathrm{imag}}\oplus
-\mathfrak{h}^{\mathrm{imag,rk\,23}})$ twisted by the $3$-cocycle
-$[\Phi_{10}/\eta^{24}]$. EK-super quantisation at a fixed
-Lie-bialgebra input has one-parameter obstruction space per the
-Hochschild-cohomology dimension
-$\dim H^3(\mathfrak{g}_{\Delta_5})^{\mathbb{Z}/2,K(1)} /(\mathrm{gauge})$,
-which is $1$ by Bruinier-2002-Proposition-5.1 Heegner-divisor Chern-class
-reciprocity.
-\end{proof}
-
-\begin{corollary}[Character identity]
-\label{cor:wn-wave15-b1-character}
-\ClaimStatusProvedHere
-The graded character of $\mathbf{H}_{\Delta_5}$ on the
-$(\tau,z,\rho)$-triple parameter space of $\bH_2$ equals
+The Hall--Drinfeld/BKM branch is controlled by
 \[
-  \mathrm{ch}\,\mathbf{H}_{\Delta_5}
-  \;=\;
-  \frac{1}{\Delta_5(\tau,z,\rho)^2}
-  \cdot
-  \mathrm{MacMahon\text{-}like\ factor},
+  (\LII,\ \cP_{\mathrm{II}},\ \rho_{\Delta},\
+   \nu_{\Delta_5},\ \Delta_5,\ \Psi_H^+,\ \Theta_H),
 \]
-where the $\Delta_5^{-2}$-factor is the BKM denominator identity and
-the MacMahon-like factor accounts for the rank-$24$ Heisenberg/Miki
-copies (one per K3 $I_1$-node of the Kodaira-$24$ fibre structure).
-The $\hbar\to 0$ limit is the classical
-$\kBKM(\Phi_N)\big|_{N=1} = c_1(0)/2 = 5$ of
-Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}.
-\end{corollary}
+with signed root supermultiplicities read from \(\phi_{0,1}^{K3}\).
+The Yangian/Mukai branch is controlled by the Mukai lattice
+\(\widetilde H(K3,\mathbb Z)\), the Mukai pairing of signature
+\((4,20)\), and the abelian-at-Lie Heisenberg specialisation.  A map
+between the two branches must be a specified comparison functor.
 
-\begin{proof}
-The positive-half character is
-$\prod_{\alpha>0} (1-e^{-\alpha})^{-\mathrm{mult}\,\alpha}$ with
-$\mathrm{mult}\,\alpha = f(nm,l)$ (Borcherds--Gritsenko denominator
-formula); the negative-half duplicates via Drinfeld doubling
-$Y^+\bowtie(Y^+)^{*\mathrm{cop}}$, hence $\Delta_5^{-2}$. The
-Miki/Heisenberg factor is the rank-$24$ Fock character $\eta(\tau)^{-24}$,
-which is exactly the denominator of the Gritsenko lift
-$\phi_{0,1}/\eta^{24}$.
-\end{proof}
+The flat local model has the same half/full distinction:
+\[
+  \CoHA(\mathbb C^3)=Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The full \(\mathcal W_{1+\infty}\) object appears after taking the
+Drinfeld double, centre, completion, or evaluation appropriate to the
+chosen category:
+\[
+  D(Y^+)\simeq\mathcal W_{1+\infty}
+\]
+in the standard completed \(\widehat{\mathfrak{gl}}_1\) setting.  The
+\(K3\times E\) analogue starts from a compact Hall positive half and
+reaches a full object through the finite Hall--Drinfeld double and the
+recognition maps above.
 
-\begin{remark}[Relation to $\kappa$-spectrum $\{2,3,5,24\}$]
-\label{rem:wn-wave15-b1-kappa-spectrum}
-The four constructions giving the K3$\times E$ $\kappa$-spectrum
-$\{2,3,5,24\}$ (Vol~III essential constants) sit at different layers
-of the three-step assembly:
-$\kBKM = 5 = \mathrm{wt}(\Delta_5)$ from the associator-cocycle layer
-(step~\ref{step3});
-$\kch = \chi_{\mathrm{bar}}(\mathbf{H}_{\Delta_5}) = 5$ from the same
-layer via the Hodge supertrace identification
-($\chi(\cO_{K3\times E}) = 0$ on the total space but $\chi(\cO_{K3}) = 2$
-on the fibre; $\kch$ on the primitive shadow is $5$);
-$\kappa_{\mathrm{cat}}(K3\times E) = 0$ Künneth-multiplicative on the total
-space (\emph{not} the fibre $2$);
-$\kappa_{\mathrm{fiber}} = 24$ from the Kodaira $I_1$-count on the
-discriminant curve of the elliptic K3, the base of the
-$R_{\mathrm{Sieg,dyn}}$-data (step~\ref{step3}).
-The four values come from four \emph{different} constructions,
-not four $\Phi$-applications (Vol~III essential constants).
-\end{remark}
-
-\subsection{Primary-literature audit}
-\label{ssec:wave15-b1-audit}
-
-\begin{itemize}
-\item \emph{Step~\ref{step1}:} Kontsevich--Soibelman~2011
-  \emph{Cohomological Hall algebra, exponential Hodge structures and
-  motivic Donaldson--Thomas invariants} (foundational CoHA);
-  Schiffmann~2012 \emph{Lectures on Hall algebras and quantum loop
-  groups}; Schiffmann--Vasserot~2013 elliptic Hall Duke~162;
-  Davison--Meinhardt~2016 (integrality);
-  Oberdieck--Pixton~2018 \emph{Invent.\ Math.} 213 (Igusa cusp form).
-\item \emph{Step~\ref{step2}:} Sievers~2022 \emph{Hopf structures on
-  elliptic shuffle algebras}; Pasol--Zagier~2013 \emph{A new class of
-  modular forms on Siegel upper half-spaces} (Siegel Kronecker--Eisenstein).
-\item \emph{Step~\ref{step3}:} Drinfeld~1986--89 (double, quasi-Hopf);
-  Tsymbaliuk~2017 \emph{The affine Yangian of $\mathfrak{gl}_1$},
-  arXiv:1609.07011 (super-$\widehat{\mathfrak{gl}}_1$ extension);
-  Aganagic--Okounkov~2016 \emph{Elliptic stable envelopes} arXiv:1604.00423;
-  Gritsenko--Nikulin~1995 \emph{alg-geom/9504006}; Borcherds~1995
-  (Borcherds product theorem); Lorgat~2020 \emph{automorphic corrections},
-  the explicit construction of $\mathfrak{g}_{\Delta_5}$.
-\item \emph{Classification:} Etingof--Kazhdan~1996--2000 (Parts I--V
-  quantisation), super-extension via Gorelik~2004; Bruinier~2002
-  \emph{Borcherds products on $\OO(2,l)$ and Chern classes of
-  Heegner divisors} LNM~1780.
-\end{itemize}
-
-\subsection{What is genuinely new versus reworked}
-\label{ssec:wave15-b1-novelty}
-
-\begin{itemize}
-\item \textsc{New} (beyond published literature):
-  the three-step construction of
-  $\mathbf{H}_{\Delta_5}$ as the sequence
-  $\CoHA(K3\times E)\leadsto\cY^{\mathrm{Hall}}_\hbar\leadsto
-  \cD_\hbar(\cY^{\mathrm{Hall}}_\hbar)$
-  with \emph{both} the Siegel--Borcherds associator (step~\ref{step3})
-  \emph{and} the Aganagic--Okounkov-restricted-to-$\bH_2$ dynamical
-  $R$-matrix. The Aganagic--Okounkov $R$-matrix is published; its
-  restriction to the Siegel paramodular slice $\bH_2\subset \bH^{24}$
-  via Kuga--Satake--Mukai--Torelli is new.
-\item \textsc{Reworked from first principles:}
-  the Schiffmann--Vasserot shuffle presentation for $K3\times E$
-  (published for $K3$ alone; $K3\times E$ requires the relative
-  elliptic kernel), the Tsymbaliuk Drinfeld double
-  (published for $\mathfrak{gl}_1$, extended here to the super-Manin-pair
-  of $\mathfrak{g}_{\Delta_5}$), and the primitives identity
-  $\Prim(\mathbf{H}_{\Delta_5}) = \mathfrak{g}_{\Delta_5}$.
-\item \textsc{Already in the chapter:} the four-ingredient definition
-  of $\mathbf{H}_{\Delta_5}$
-  (Definition~\ref{def:k3-chiral-bialgebra}), the super-EK
-  quantisation adjoint statement
-  (Theorem~\ref{thm:k3-structural-genesis}), the pentagon/hexagon
-  equations (Theorems~\ref{thm:pentagon-sieg-bor},
-  \ref{thm:hexagon-R-Sieg}). The present note reconstructs these from
-  the primitive-shadow starting point.
-\end{itemize}
-
-\paragraph{Cache check.}
-$\kBKM(\Phi_1) = c_1(0)/2 = 5$ reproduced via
-step~\ref{step3} ($\Delta_5$ as classification cocycle, weight~$5$).
-$\kappa_{\mathrm{cat}}(K3\times E) = 0$ consistent with
-Remark~\ref{rem:wn-wave15-b1-kappa-spectrum} (Künneth-multiplicative
-on total space, \emph{not} the fibre~$2$).
-$\CoHA(K3\times E) = U(\mathfrak{n}_+(\mathfrak{g}_{\Delta_5}))$ at
-$\hbar=0$ via Oberdieck--Pixton (analogous to
-$\CoHA(\C^3)=Y^+$, not $\mathcal{W}_{1+\infty}$; the
-$\mathcal{W}_{1+\infty}$ analogue is the \emph{Drinfeld double}, which
-at $K3\times E$ is $\mathbf{H}_{\Delta_5}$).
-$\Delta_5^{-2}$ is the full-algebra character, \emph{not} the positive-half
-character; the positive half is $\Delta_5^{-1}$.
-$\mathbf{H}_{\Delta_5}$ is quasi-Hopf at a Manin pair (not triple),
-distinguishing it from the Drinfeld--Jimbo, Yangian, RTT, and
-Manin-triple cases (Theorem~\ref{thm:fourth-kind-quantum-group}).
+The operadic level is fixed by dimension.  For the Calabi--Yau
+threefold \(K3\times E\), the native specialised output of
+\[
+  \Phi_3
+  =
+  \mathrm{Sp}_{\Sigma_2,C}\circ\Phi^{\mathrm{FA}}_3
+\]
+is \(\Eone\)-chiral.  An \(\Etwo\)-structure occurs on centre, double,
+or module layers, for example
+\[
+  \cZ^{\mathrm{der}}_{\mathrm{ch}}
+  \bigl(\Rep^{\Eone}(\HDelta)\bigr),
+\]
+after those layers have been constructed.

@@ -2,7 +2,7 @@
 Tests for dd_modular_lattices.py.
 
 Verifies the lattice-theoretic structures underlying the BKM superalgebra
-construction for the Igusa cusp form Delta_5, following:
+construction for the primitive Gritsenko-Nikulin denominator Delta_5, following:
   "A Borcherds lift of the weak Jacobi form phi_{0,1}, ..."
   (Lorgat, 2020)
 """

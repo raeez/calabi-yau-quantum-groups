@@ -1,30 +1,11 @@
-% wave13_b2_last30_architecture.tex
-% Wave 13 B2/5: structural architecture of the LAST 30 slides of
-% Lorgat 2020 presentation (slide range approx. 35-64 of 64,
-% covering: reflection groups W^{(2)}_{I,II}, automorphic invariance
-% of Delta_5, Fourier coefficients and the Weyl vector rho,
-% automorphic correction and the GBKM superalgebra g_{Delta_5},
-% Weyl-Kac-Borcherds denominator identity, weak Jacobi form phi_{0,1}
-% multiplicities, arithmetic geometry of (S x E)/Z_N quotients,
-% and the conjectural Siegel atlas across N in {1,2,3,4,5,6,7,8}).
-%
-% Source: /Users/raeez/calabi-yau-quantum-groups/notes/wave13_source_slides.txt,
-% lines 400-953.
-%
-% Cross-references:
-%   - wave12_u1_two_stage_functor.tex (two-stage Phi factorisation)
-%   - wave13_p3_slides_automorphic_corrections.tex (§4 GBKM construction)
-%   - wave13_source_paper.txt
-%   - chapters/examples/cy_d_kappa_stratification.tex (N -> c_N(0)/2 table)
-%   - reference_lorgat_2020_automorphic_corrections.md
-%
-% First-principles protocol: each architectural claim extracted from the
-% slides is restated as theorem / conjecture / open problem with its
-% primary literature anchor, following Beilinson's dictum.
+% delta5_reflection_siegel_atlas.tex
+% Reflection lattices, Borcherds products, and the CHL Siegel atlas
+% attached to the Delta_5 denominator.
 
 \providecommand{\ZZ}{\mathbb{Z}}
 \providecommand{\RR}{\mathbb{R}}
 \providecommand{\CC}{\mathbb{C}}
+\providecommand{\QQ}{\mathbb{Q}}
 \providecommand{\NN}{\mathbb{N}}
 \providecommand{\Delaf}{\Delta_5}
 \providecommand{\LamII}{\Lambda^{2,1}_{\mathrm{II}}}
@@ -37,42 +18,50 @@
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\Phihol}{\Phi^{\mathrm{FA}}}
 \providecommand{\PII}{\mathcal{P}_{\mathrm{II}}}
+\providecommand{\PIprim}{\mathcal{P}_{\mathrm{I},\mathrm{prim}}}
 \providecommand{\PIIprim}{\mathcal{P}_{\mathrm{II},\mathrm{prim}}}
 \providecommand{\Wtwo}{W^{(2)}}
-\providecommand{\ClaimStatusTheorem}{\textbf{Theorem}}
-\providecommand{\ClaimStatusDerivation}{\textbf{Derivation}}
-\providecommand{\ClaimStatusConjectured}{\textbf{Conjectured}}
-\providecommand{\ClaimStatusOpenProblem}{\textbf{Open problem}}
 
-\section{Architecture of the last thirty slides:
-from reflection lattice to Siegel atlas}
-\label{sec:wave13-b2-last30}
+\section{From reflection lattice to Siegel atlas}
+\label{sec:delta5-reflection-siegel-atlas}
 
-The closing third of the presentation is a single architectural
-movement: one fixes an even Lorentzian $(2,1)$ lattice $\LamII$, reads
-off its reflection group $\Wtwo(\LamII)$ and Weyl vector $\rho$, uses
-$\rho$ to diagonalise the Fourier expansion of $\Delaf$, extracts the
-imaginary simple roots that $\rho$ alone cannot account for,
-generalises Kac-Moody to admit them (Borcherds), and recognises the
-resulting denominator as a Siegel cusp form. The same machine, fed
-different lattice data $L$ and different symplectic twists
-$(g_N, h_M)$, produces every known BKM in the $\Phi_N$ hierarchy.
-What the slides call a \emph{correction} is this: the GBKM
-denominator computed from real roots alone misses the Siegel form by
-exactly the automorphic input $\phi_{0,1}$; feeding $\phi_{0,1}$ (or
-its twisted cousin) back as imaginary-simple-root data closes the gap.
-This is the automorphic bootstrap. It is the mechanism behind every
-entry of the $\kBKM(\Phi_N) = c_N(0)/2$ table.
+Fix an even Lorentzian $(2,1)$ lattice $\LamII$. Its reflection group
+$\Wtwo(\LamII)$ and Weyl vector $\rho$ order the Fourier expansion of
+$\Delaf$ into a Weyl denominator. The real roots give the Lorentzian
+Kac--Moody skeleton. The weak Jacobi form $\phi_{0,1}$ supplies the
+imaginary simple-root multiplicities. The completed denominator is the
+Siegel cusp form $\Delaf$, equivalently the monic Borcherds product
+$D_5=64^{-1}\Delaf$. This is the automorphic bootstrap behind the
+primitive CHL identity
+\[
+  \kBKM(\Phi_N)=\frac{c_N(0)}{2},
+  \qquad N\in\{1,2,3,4,6\}.
+\]
+
+For $X=K3\times E$ the numerical invariants are separated:
+\[
+  \kcat(X)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0=0,
+  \qquad
+  \kch(X)=\sum_q(-1)^qh^{0,q}(X)=0,
+\]
+\[
+  \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(X)=3,\qquad
+  \kBKM(\gbkm)=5,\qquad
+  \kfib(K3)=\mathrm{rank}\,H^\ast(K3,\ZZ)=24.
+\]
+The first two are total-space invariants, the third is a
+Heisenberg--Mukai specialisation, the fourth is the Borcherds weight of
+$\Delaf$, and the fifth is the Mukai-lattice rank of the K3 fibre. No
+additive law relates these numbers.
 
 \subsection{The architectural frame in one diagram}
 \label{subsec:atlas-diagram}
 
-The last thirty slides commit to a four-layer architecture, which
-this section renders in the Chriss--Ginzburg voice as a single
-commutative triangle:
+The construction has four layers:
 \[
 \begin{array}{ccc}
 \text{lattice data } (L, g_N, h_M) & \xrightarrow{\;\text{twisted elliptic genus}\;} & \phi^{(g_N, h_M)}_L(z_1, z_2) \\
@@ -83,20 +72,19 @@ commutative triangle:
 Horizontal arrows: automorphic content. Vertical arrows: Lie-algebraic
 content. The left column is finite-dimensional reflection geometry on
 $L^{2,1}$ and the Gritsenko--Nikulin Weyl-vector computation; the
-right column is a weight-$c_{(g_N, h_M)}(0)/2$ Siegel modular form on
-$\mathrm{Sp}_4(\ZZ)$ or a paramodular congruence subgroup. The
-diagram commutes when and only when $\phi^{(g_N, h_M)}_L$ is a weak
-Jacobi form of weight $0$ index $1$ (or a higher-index generalisation
-for twists of order $\geq 4$).
+right column is a Siegel modular form of weight
+$c_{(g_N,h_M)}(0)/2$ on $\mathrm{Sp}_4(\ZZ)$ or on a paramodular
+congruence subgroup. When $\phi^{(g_N,h_M)}_L$ is a weight-$0$ weak
+Jacobi form of index $1$, or the corresponding higher-index input for
+composite twists, Borcherds' singular theta lift supplies the right
+vertical arrow.
 
-The architectural content of the closing slides is the identification
-of the objects in this diagram across the arithmetic geometry of
-$(S \times E)/\ZZ_N$ quotients and the Donaldson--Thomas partition
-function $Z^X(q,t,p)$. What is stated as Theorem at $N = 1$
-(slide 912-919) and Conjecture at $N \geq 2$ (slide 929-936) is
-precisely the commutation of this diagram --- the Borcherds lift of
-the twisted elliptic genus lands on the inverse of the DT partition
-function of the corresponding CY3 quotient.
+For $N=1$ the Borcherds lift of the K3 elliptic genus gives the inverse
+Donaldson--Thomas partition function of $K3\times E$. For the twisted
+quotients $(S\times E)/\ZZ_N$ the same assertion is a conjectural
+arithmetic-geometric atlas: the twisted elliptic genus determines a
+Borcherds denominator, and the reciprocal denominator is expected to be
+the reduced DT partition function of the corresponding CY3 quotient.
 
 \subsection{Layer 1: reflection architecture of $\LamII$}
 \label{subsec:refl}
@@ -109,7 +97,8 @@ $\bigl(\begin{smallmatrix} 0 & 0 & 1 \\ 0 & 2 & 0 \\ 1 & 0 & 0 \end{smallmatrix}
 and
 $\LamII = \{m f_2 + l f_3 + n f_{-2} \in \Lamtwoone : m \equiv n \equiv 0 \pmod 2\}$.
 Let $\Wtwo(\Lamtwoone) = \langle s_\delta : \delta \in \Lamtwoone,\ (\delta,\delta)=2,\ \delta\ \text{primitive}\rangle$
-be the reflection group generated by $(-2)$-reflections. Then:
+be the reflection group generated by primitive square-$2$ reflections.
+Then:
 \begin{enumerate}
 \item $W(\Lamtwoone) = \Wtwo(\Lamtwoone)$, every reflection is of
 Type I $((\delta, \Lamtwoone) = \ZZ)$ or Type II $((\delta, \Lamtwoone) = 2\ZZ)$.
@@ -131,7 +120,7 @@ Lorentzian Kac--Moody Lie algebras}, American J.\ Math.\ 119 (1997)
 181--224. The Type I / Type II dichotomy and the $\wedge^2$
 identification
 $\mathrm{Sp}_4(\ZZ)/\{\pm I\} \simeq \mathrm{SO}_+(\Lambda^{3,2})$
-are standard (cf.\ slide 263-268 of the presentation).
+are standard in this lattice model.
 \end{proof}
 
 \begin{theorem}[Weyl vector of $\PII$]
@@ -148,14 +137,12 @@ $\LamII \otimes \QQ \simeq \Lamtwoone \otimes \QQ$, one has
 $\rho \in \Delta(\LamII)^{*}_+$.
 \end{theorem}
 
-\begin{remark}[CG voice]
-The Weyl vector is not a fortunate coincidence; it is the unique
-element of the simple-root dual cone normalising each pairing to
-$-1$, and its fractional part in $f_3$ is the shadow of the parity
-condition $m \equiv n \equiv 0 \pmod 2$ defining $\LamII$. The
-factor of $\tfrac{1}{2}$ carries through the Fourier expansion and
-dictates the $\exp(\pi i(z_1 + z_2 + z_3))$ prefactor of the infinite
-product.
+\begin{remark}[Weyl-vector normalisation]
+The Weyl vector is the unique element of the simple-root dual cone
+normalising each pairing to $-1$. Its fractional part in $f_3$ records
+the parity condition $m \equiv n \equiv 0 \pmod 2$ defining $\LamII$.
+The factor $\tfrac{1}{2}$ carries through the Fourier expansion and
+fixes the $\exp(\pi i(z_1+z_2+z_3))$ prefactor of the infinite product.
 \end{remark}
 
 \subsection{Layer 2: automorphic invariance and the Fourier expansion}
@@ -178,8 +165,8 @@ $\Wtwo(\LamII)$,
 \end{theorem}
 \begin{proof}[Primary source]
 Gritsenko--Nikulin 1997 and Maass's explicit multiplier formula for
-$\mathrm{Sp}_4(\ZZ)$. The slide proof (lines 306-320) uses the
-matrix representatives $s_{f_{-2}-f_2}, s_{f_3}, s_{f_2-f_3}$ in
+$\mathrm{Sp}_4(\ZZ)$. The calculation uses the matrix representatives
+$s_{f_{-2}-f_2}, s_{f_3}, s_{f_2-f_3}$ in
 $\mathrm{GL}_2(\ZZ)/\{\pm I\}$ after the $\wedge^2$ identification.
 \end{proof}
 
@@ -206,7 +193,7 @@ $m(0) = -1$. Combining with Theorem~\ref{thm:inv-anti-Delta5}:
 \label{thm:cone-embedding}
 The cone embedding
 $\Delta(\LamII)^{*}_+ \subset \mathcal{C}(\LamII)^{*}_+ = \mathcal{C}(\LamII)_+
-\subset \Delta(\LamII)_+$ (slide 533-546) forces
+\subset \Delta(\LamII)_+$ forces
 \[
   a \in \LamII \cap \RR_{>0}\PII
   \quad\text{if } a \neq 0, \qquad m(0) = -1.
@@ -219,19 +206,16 @@ yields, for $a_0 = 2f_2$ and every $t \in \NN$,
   1 - \sum_{t \in \NN} m(t a_0) q^t
   = \prod_{t \in \NN} (1 - q^t)^{\tau(t a_0)},
 \]
-implicitly defining the multiplicities $\tau(a) = 9$ for isotropic $a_0$
-via the $\eta^9$ factor $A = \eta(z_1)^9 \nu_{11}(z_1, z_2)$.
+and the $\eta^9$ factor $A=\eta(z_1)^9\nu_{11}(z_1,z_2)$ gives
+$\tau(a_0)=9$ for a primitive isotropic vertex.
 \end{theorem}
 
-\begin{remark}[CG voice]
-The factor $\tau(a_0) = 9$ is not a coincidence; $\eta^9$ is the
-unique modular form that enforces the weight-$1/2$ prefactor of
-$\psi_{5,1/2}\, e^{2\pi i t z_3}$ and is dictated by the cusp
-structure of $\Phi_{10} = \Delaf^2$ at weight $10$. The nine is
-Gritsenko's; it is the count of imaginary-simple-root multiplicities
-above the isotropic vertex, and it is the number of twists needed
-for the full $\Phi_N$ atlas up to $N = 8$ before the primary
-arithmetic geometry degenerates.
+\begin{remark}[Isotropic multiplicity]
+The factor $\eta^9$ fixes the weight-$1/2$ prefactor of
+$\psi_{5,1/2}e^{2\pi i t z_3}$ at the cusp of
+$\Phi_{10}^{\mathrm{un}}=\Delaf^2$. The integer $9$ is Gritsenko's
+isotropic simple-root multiplicity above the chosen vertex. It is
+independent of the primitive CHL constants $(10,8,6,4,2)$.
 \end{remark}
 
 \subsection{Layer 3: automorphic correction and the GBKM algebra}
@@ -243,10 +227,14 @@ Starting from the Kac--Moody generated by the real simple roots
 $\PIIprim = \ZZ\delta_1 \oplus \ZZ\delta_2 \oplus \ZZ\delta_3$ with
 Cartan matrix
 $(\delta_i, \delta_j) = \bigl(\begin{smallmatrix}2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2\end{smallmatrix}\bigr)$,
-define imaginary simple roots by
+define the imaginary simple-root multiset by
 \[
-  \Delta^{\mathrm{im}}_0 = \{\tau(a)\, a : (a,a)=0, \tau(a) > 0\},\qquad
-  \Delta^{\mathrm{im}}_1 = \{m(a)\, a : (a,a)<0, m(a) < 0\},
+  \Delta^{\mathrm{im}}_0 = \{a : (a,a)=0,\ \tau(a)>0\}
+  \quad\text{with multiplicity }\tau(a),
+\]
+\[
+  \Delta^{\mathrm{im}}_1 = \{a : (a,a)<0,\ m(a)<0\}
+  \quad\text{as odd simple roots, with multiplicity }-m(a),
 \]
 $\Delta^{\mathrm{im}} = \Delta^{\mathrm{im}}_0 \cup \Delta^{\mathrm{im}}_1$,
 $\Delta^{\mathrm{re}} = \Delta^{\mathrm{re}}_0 = \PIIprim$.
@@ -297,32 +285,51 @@ the automorphic correction of $\gbkm$ has denominator the Siegel cusp form of ge
 Borcherds, \emph{Automorphic forms on $O_{s+2,2}(\RR)$ and infinite products},
 Invent.\ Math.\ 120 (1995); Gritsenko--Nikulin, Amer.\ J.\ Math.\ 119 (1997).
 The infinite-product expression and the identification with $\tfrac{1}{64}\Delaf(2z)$
-is the slide content 697-722.
+is the Gritsenko--Nikulin denominator normalisation.
 \end{proof}
 
 \begin{theorem}[Multiplicity formula via $\phi_{0,1}$]
 \label{thm:mult-phi01}
-Let $\phi_{12,1} = r^{-1} \!\!+\! 10 \!\!+\!\! r)q + \cdots$ be the weight-$12$ index-$1$ Jacobi cusp form coming from the Fourier--Jacobi expansion of $\Delta_{12}$, and set
+Let
+\[
+  \phi_{12,1}=(r^{-1}+10+r)q+O(q^2)
+\]
+be the weight-$12$ index-$1$ Jacobi cusp form coming from the
+Fourier--Jacobi expansion of $\Delta_{12}$, and set
 $\phi_{0,1} = \phi_{12,1}/\delta_{12}$ with
 $\delta_{12} = q \prod_n (1 - q^n)^{24}$. Write
 $\phi_{0,1} = \sum_{n \geq 0, l \in \ZZ} f(n, l)\, \exp(2\pi i(n z_1 + l z_2))$.
 Then:
 \[
-  \tfrac{1}{64}\Delaf = \exp(\pi i (z_1 \!\!+\!\! z_2 \!\!+\!\! z_3)) \prod_{(n,l,m)>0}\!\!\!\!(1 - \exp(2\pi i(n z_1 \!\!+\!\! l z_2 \!\!+\!\! m z_3)))^{f(nm, l)},
+  D_5(z):=\tfrac{1}{64}\Delaf(z)
+  = \exp(\pi i (z_1+z_2+z_3))
+    \prod_{(n,l,m)>0}
+    (1-\exp(2\pi i(nz_1+lz_2+mz_3)))^{f(nm,l)},
 \]
-with $(n,l,m) > 0$ meaning $n \geq 0$, $m \geq 0$ with $l$ arbitrary if $n > 0$ or $m > 0$, and $l < 0$ if $n = m = 0$. In particular, $\mult_\alpha = f(nm, l)$ reads off the BKM super-multiplicities from the Jacobi-form coefficients.
+with $(n,l,m) > 0$ meaning $n\geq0$, $m\geq0$ with $l$ arbitrary if
+$n>0$ or $m>0$, and $l<0$ if $n=m=0$. The BKM character normalisation
+uses $D_5(2z)=64^{-1}\Delaf(2z)$, and
+$\mult_\alpha=f(nm,l)$ reads the root super-multiplicities from the
+Jacobi-form coefficients.
 \end{theorem}
 
 \begin{proof}[Primary source]
-Slide 727-774 follow the Fourier-Jacobi extraction of $\phi_{12,1}$ from $\Delta_{12}$ and its normalisation by $\delta_{12}$. The resulting $\phi_{0,1}$ is the weight-$0$ index-$1$ weak Jacobi form whose Fourier coefficients furnish the BKM multiplicities; this is Borcherds's product expansion from the perspective of the Fourier-Jacobi tower.
+The Fourier--Jacobi extraction of $\phi_{12,1}$ from $\Delta_{12}$ and
+the normalisation by $\delta_{12}$ produce the Gritsenko--Nikulin
+weight-$0$ index-$1$ weak Jacobi form $\phi_{0,1}$. Borcherds'
+product theorem turns its coefficients into the imaginary-root
+multiplicities of the denominator algebra.
 \end{proof}
 
-\begin{remark}[CG voice: what the correction corrects]
-The naive Weyl denominator
+\begin{remark}[Automorphic correction]
+The real-root Weyl denominator
 $e^{-2\pi i(\rho, z)}\prod_{\alpha \in \Delta^{\mathrm{re}}_+}(1 - e^{-2\pi i(\alpha, z)})$
-produces a finite Kac--Moody form that is not a Siegel cusp form; it misses modular weight, and it misses the infinite tower of imaginary roots above the isotropic vertex. The \emph{correction} is the imaginary-root product
+is only the Lorentzian Kac--Moody skeleton. The imaginary-root product
 $\prod_{\alpha \in \Delta^{\mathrm{im}}_+}(1 - e^{-2\pi i(\alpha, z)})^{\mult_\alpha}$,
-whose multiplicities are the Fourier coefficients $f(nm, l)$ of $\phi_{0,1}$. The Siegel weight $5 = c_1(0)/2$ is precisely the weight of the automorphic input. This is the content of $\kBKM(\Phi_N) = c_N(0)/2$: the BKM weight is the automorphic weight of the twisted elliptic genus at the cusp.
+with multiplicities $f(nm,l)$ from $\phi_{0,1}$, completes the Siegel
+modular form. The weight $5=c_1(0)/2$ is the automorphic weight of the
+input at the cusp. For the primitive CHL denominators, the same
+mechanism gives $\kBKM(\Phi_N)=c_N(0)/2$.
 \end{remark}
 
 \subsection{Layer 4: atlas of arithmetic-geometry CY3 quotients}
@@ -334,36 +341,62 @@ For $X = S \times E$ a smooth projective CY3 arising from an elliptically fibere
 \[
   Z^{S \times E}(q, t, p) = \sum_{h \geq 0, d \geq 0, n \in \ZZ} \mathrm{DT}_{n, (\beta_h, d)}\, q^{d - 1}\, t^{\tfrac{1}{2}\langle \beta_h, \beta_h\rangle}\, (-p)^n
 \]
-be the elliptic Donaldson--Thomas partition function, with $\beta_h = (s_1 + \cdots + s_N + h F)/N$ and $\mathrm{DT}_{n, (\beta_h, d)} = \int_{\mathrm{Hilb}^n(X, \beta_h)/E} k \cdot e(\nu^{-1}(k))$ Behrend-weighted. Then:
+be the reduced elliptic Donaldson--Thomas partition function, with
+$\beta_h\in H_2(S,\ZZ)$ primitive of square
+$\langle\beta_h,\beta_h\rangle=2h-2$ and
+$\mathrm{DT}_{n,(\beta_h,d)}$ the Behrend-weighted reduced invariant
+on $\mathrm{Hilb}^n(X,(\beta_h,d))/E$. In the Oberdieck--Pandharipande
+monic normalisation,
 \[
-  Z^{S \times E}(q, t, p) = -\frac{C}{\Delaf(q, t, p)^2}.
+  Z^{S\times E}(q,t,p)
+  =
+  -\frac{1}{\Phi_{10}^{\mathrm{OP}}}
+  =
+  -D_5^{-2}
+  =
+  -\frac{4096}{\Delaf(q,t,p)^2}.
 \]
-The elliptic genus of $K3$ equals $2 \phi_{0,1}$.
+In the square theta normalisation,
+$\Phi_{10}^{\mathrm{un}}=\Delaf^2$. The geometric elliptic genus of
+$K3$ equals $2\phi_{0,1}$, while the Borcherds input uses the
+Gritsenko--Nikulin normalisation with $c_1(0)=10$.
 \end{theorem}
 \begin{proof}[Primary source]
-Oberdieck, \emph{Gromov--Witten theory, Hurwitz numbers, and conjectures on the Donaldson--Thomas theory of $K3 \times E$}, Advances (2018); Bryan, \emph{The Donaldson--Thomas theory of $K3 \times E$ via the topological vertex}, Geometry \& Topology (2021). Slide 910-919 states this as a theorem with primary source Bryan--Oberdieck--Pandharipande.
+Oberdieck, \emph{Gromov--Witten theory, Hurwitz numbers, and
+conjectures on the Donaldson--Thomas theory of $K3 \times E$},
+Advances (2018); Bryan, \emph{The Donaldson--Thomas theory of
+$K3 \times E$ via the topological vertex}, Geometry \& Topology
+(2021); Bryan--Oberdieck--Pandharipande for the reduced DT product.
 \end{proof}
 
 \begin{conjecture}[Twisted elliptic genus atlas]
 \label{conj:twisted-atlas}
 Let $(S, g_N, h_M)$ be a K3 surface with two symplectic automorphisms of orders $N, M \leq 8$. Let $L$ be a lattice polarization and $(E, e_0)$ an elliptic curve with an $N$-torsion point. For the CY3 quotient $X = (S \times E)/\ZZ_N$ acting by $(s, e) \mapsto (g_N s, e + e_0)$, there is an $L$-twisted DT series $Z^X_{L, h_M}(q, t, p)$.
 
-\textbf{Claim}: every well-defined Siegel modular form with dd-congruent Fourier coefficients arises, up to constant, as
+For each admissible datum whose twisted elliptic genus
+$F_L^{(g_N,h_M)}$ is a Borcherds input, the conjectural identity is
 \[
-  -Z^X_{L, h_M}(q, t, p)^{-1},
+  \operatorname{Bor}\bigl(F_L^{(g_N,h_M)}\bigr)
+  =
+  -Z^X_{L,h_M}(q,t,p)^{-1}
 \]
-and there is a GBKM subalgebra $\gbkmLh \subset \gbkmL$ whose automorphic correction is determined by the $(g_N, h_M)$-twisted elliptic genus $F_L^{(g_N, h_M)}$ of $K3$ (a weight-$0$ index-$1$ Jacobi form when $N \in \{1, 2, 3, 5, 7\}$; index $\geq 2$ for $N \in \{4, 6, 8\}$).
+up to the normalising scalar fixed at the cusp. The associated
+denominator algebra $\gbkmLh$ is determined by the same twisted genus:
+it has weight-$0$ index-$1$ input for $N\in\{1,2,3,5,7\}$ and
+higher-index input for $N\in\{4,6,8\}$.
 \end{conjecture}
 
-\begin{remark}[Slide catalogue of cases]
-The closing slides (943-953) enumerate
+\begin{remark}[Twisted-genus cases]
+The explicit cases are:
 \begin{enumerate}
 \item $N \in \{1, 2, 3, 5, 7\}$: $A = \tfrac{1}{4}\phi_{0,1}^2,\ B = \phi_{-2,1} = \nu_1^2/\eta^6$, and for all $1 \leq s, r \leq N-1$, $0 \leq k \leq N-1$ the explicit $F_L^{(g_N^r, g_N^s)}$ is a Jacobi form of weight $0$ index $1$.
 \item $N = 4$: for $s \in \{0, 1, 2, 3\}$ the twisted genus is index $1$ or $2$ depending on $(r, s)$.
 \item $N = 6$: analogous enumeration, index $\in \{1, 2, 3\}$.
-\item $N = 8$: displayed last; the elementary cases degenerate and additional lattice polarization input $L$ is required.
+\item $N = 8$: the elementary cases degenerate and additional lattice
+polarization input $L$ is required.
 \end{enumerate}
-Each case produces a sibling BKM superalgebra $\gbkmLh$ whose denominator is the corresponding twisted Siegel--Jacobi product.
+Each admissible case produces a sibling BKM superalgebra $\gbkmLh$
+whose denominator is the corresponding twisted Siegel--Jacobi product.
 \end{remark}
 
 \begin{theorem}[$\kBKM$ universality across $N \in \{1, 2, 3, 4, 6\}$]
@@ -385,79 +418,122 @@ At $N = 1$ this is Theorem~\ref{thm:bgn-denominator} (Gritsenko--Nikulin 1997 vi
 
 \begin{openproblem}[$N \in \{5, 7, 8\}$]
 \label{prob:N-5-7-8}
-The cases $N = 5, 7$ are admitted by the slide enumeration (weight-$0$ index-$1$ Jacobi forms of $F_L^{(g_N, g_N^s)}$) but the Borcherds--Kac--Moody Lie algebras in the $\Phi_N$ hierarchy fail at these orders because the associated symplectic automorphism fixes fewer than four points on $K3$ and the Mukai vector decomposition degenerates. Extending $\kBKM$ to $N \in \{5, 7\}$ requires either (i) a Humbert surface substitute for the K3-fibre specialisation in Stage~2 of the two-stage $\Phi$, or (ii) a partial-Borcherds lift in the sense of Borcherds 2000. $N = 8$ is open beyond the lattice-polarization input suggested by slide 951-953.
+The primitive smooth $K3\times E$ CHL ladder used in
+Theorem~\ref{thm:kBKM-universal} has orders $\{1,2,3,4,6\}$. Nikulin
+orders $\{5,7,8\}$ belong to a different extension: the K3 side has
+symplectic automorphisms of those orders, while the elliptic factor
+lacks the corresponding origin-fixing CM quotient. A denominator
+theorem for $N\in\{5,7,8\}$ must therefore specify a different quotient
+geometry, multiplier system, and Borcherds input. The primitive
+constant tuple remains $(10,8,6,4,2)$ for
+$N=(1,2,3,4,6)$.
 \end{openproblem}
 
-\subsection{Mapping to the two-stage $\Phi$ factorisation}
+\subsection{Framed specialisation of $\Phi_3$}
 \label{subsec:two-stage-agreement}
 
-\begin{theorem}[Slide atlas is Stage~2 moduli of $\Phihol_3(K3 \times E)$]
-\label{thm:atlas-stage-2}
-In the notation of wave12\_u1 (two-stage functor), each atlas entry
-$(L, g_N, h_M)$ of Conjecture~\ref{conj:twisted-atlas} corresponds
-to a specific specialisation cycle $\Sigma_2^{(L, g_N, h_M)} \subset K3 \times E$:
+\begin{proposition}[Borcherds atlas as framed $E_1$ specialisations]
+\label{prop:atlas-stage-2}
+Assume the framed CY$_3$ specialisation of $\Phi_3$ exists for
+$D^b\mathrm{Coh}(K3\times E)$ under the hypotheses of the
+CY-to-chiral construction. For each atlas datum $(L,g_N,h_M)$ whose
+twisted genus is a Borcherds input, the corresponding cycle
+$\Sigma_2^{(L,g_N,h_M)}\subset K3\times E$ gives an $E_1$-chiral
+shadow
 \[
-  \mathrm{Sp}_{\Sigma_2^{(L, g_N, h_M)}, E}\bigl(\Phihol_3(K3 \times E)\bigr) \;=\; \text{$E_1$-chiral shadow whose vertex-operator denominator is $\Phi(L, g_N, h_M)(z)$.}
+  A_3^{(L,g_N,h_M)}
+  :=
+  \Sp_{\Sigma_2^{(L,g_N,h_M)},E}
+  \bigl(\Phihol_3(D^b\mathrm{Coh}(K3\times E))\bigr)
+  \in \mathrm{ChirAlg}_{E_1}.
 \]
-Specifically: the fixed-point locus of the symplectic involution pair $(g_N, h_M)$ on $K3$ defines a divisor class $D_{(g_N, h_M)} \in \mathrm{Pic}(K3)$, and the corresponding cycle is the analytic closure of $D_{(g_N, h_M)} \times E$ pulled back along the quotient $\pi_N \colon K3 \times E \to X$. Two different $(g_N, h_M)$ pairs produce two different cycles; hence two different $E_1$-chiral shadows, both arising from the same $\Phihol_3(K3 \times E)$.
-\end{theorem}
-\begin{proof}[Derivation]
-Stage~1 of the two-stage factorisation is the canonical $E_3$-holomorphic factorisation algebra $\Phihol_3(K3 \times E)$, pinned by Kontsevich--Tamarkin formality and Costello--Gwilliam locality (Costello--Li 2020 for the explicit $hCS$ construction). Stage~2 is the $(\Sigma_2, C)$-specialisation. The automorphic content of the atlas (slides 855-953) depends only on the twist pair $(g_N, h_M)$ and the lattice polarization $L$; these data are encoded in the divisor class defining $\Sigma_2^{(L, g_N, h_M)}$. Lurie--Francis factorisation homology $\int_{\Sigma_2} E_3 \simeq E_1 \otimes \int_{\Sigma_2} E_2$ together with vanishing of $\int_{\Sigma_2} E_2$ on the closed surface produces the $E_1$-shadow on $E$; the automorphic weight of the corresponding denominator is $c_N(0)/2$ by Theorem~\ref{thm:kBKM-universal}.
+After the Borcherds pushforward, the denominator attached to this
+shadow is $\Phi(L,g_N,h_M)(z)$. The native output is $E_1$; any
+$E_2$-structure belongs to a centre, double, or representation layer.
+\end{proposition}
+\begin{proof}
+The CY-to-chiral theorem at $d=3$ constructs
+$\Phi_3^{(\Sigma_2,C)}=\Sp_{\Sigma_2,C}\circ\Phihol_3$ as a framed
+$E_1$-chiral specialisation. The twist pair $(g_N,h_M)$ and the lattice
+polarisation $L$ choose the specialisation cycle and the Jacobi input.
+The denominator comparison is then a separate Borcherds pushforward.
+For the primitive CHL orders the automorphic weight is $c_N(0)/2$ by
+Theorem~\ref{thm:kBKM-universal}. This proves the typed comparison and
+keeps any $E_2$-structure at the centre, double, or representation
+layer.
 \end{proof}
 
-\begin{corollary}[Slide architecture vindicates the native/shadow split]
-\label{cor:slide-architecture-vindicates}
-The slide architecture is \emph{implicitly} but \emph{unambiguously} the two-stage factorisation:
+\begin{corollary}[Native output and automorphic specialisation]
+\label{cor:native-output-automorphic-specialisation}
+The Borcherds atlas separates the framed CY$_3$ output from the
+automorphic denominator:
 \begin{enumerate}
-\item \textbf{Stage~1 invariance.} Every step from slide 250 to slide 780 (Layers~1-3 above) depends only on the ambient lattice $\Lamtwoone$, the reflection group $\Wtwo(\LamII)$, and the weak Jacobi form $\phi_{0,1}$. These are invariants of the Stage~1 holomorphic factorisation algebra $\Phihol_3(K3 \times E)$; they do not depend on the choice of $\Sigma_2$.
-\item \textbf{Stage~2 moduli.} Every step from slide 856 to slide 953 (Layer~4 above) depends on the twist pair $(g_N, h_M)$ and the lattice polarization $L$. These are the parameters of the Stage~2 specialisation cycle $\Sigma_2^{(L, g_N, h_M)}$.
-\item \textbf{Universality of $\kBKM$.} $\kBKM(\Phi_N) = c_N(0)/2$ is universal across $N$ because $c_N(0)$ is the constant Fourier coefficient of $F_L^{(g_N, h_M)}$, and this coefficient is a Stage~2 invariant --- it records which cycle was specialised along, not how the ambient factorisation algebra was constructed.
+\item The reflection lattice, Weyl vector, and Jacobi input determine
+the Borcherds denominator.
+\item The datum $(L,g_N,h_M)$ determines the framed specialisation
+cycle $\Sigma_2^{(L,g_N,h_M)}$.
+\item The value $\kBKM(\Phi_N)=c_N(0)/2$ records the constant term of
+the chosen Borcherds input. It is independent of the compact
+total-space value $\kch(K3\times E)=0$.
 \end{enumerate}
-The slide presentation does not state the two-stage factorisation explicitly; it states its consequences across $N \in \{1, 2, 3, 5, 7\}$ case-by-case. The two-stage factorisation is the generating theorem that unifies the atlas.
 \end{corollary}
 
-\subsection{Open problems / frontier conjectures from the last thirty slides}
-\label{subsec:frontier}
+\subsection{Remaining mathematical questions}
+\label{subsec:remaining-questions}
 
 \begin{openproblem}[Full Mathieu twining completion]
 \label{prob:mathieu-twining}
-The slide presentation treats $(g_N, h_M)$ as a pair of commuting symplectic automorphisms of $K3$. The Eguchi--Ooguri--Tachikawa observation (2010) identifies the elliptic-genus coefficients with dimensions of Mathieu $M_{24}$ representations; Gaberdiel--Hohenegger--Volpato (2012) proved the Mathieu moonshine conjecture at the twined level. \textbf{Open}: construct, for every conjugacy class pair $([g], [h])$ of $M_{24}$ (subject to the Niemeier-class admissibility constraint of Cheng--Duncan--Harvey), an explicit Jacobi form $F^{(g, h)}$ and corresponding BKM superalgebra $\gbkmLh$ whose denominator is the Borcherds lift of $F^{(g, h)}$. The slide enumeration covers the symplectic-automorphism subset; the full $M_{24}$ atlas extends this to non-symplectic twists.
+The construction above treats $(g_N,h_M)$ as a pair of commuting
+symplectic automorphisms of $K3$. Eguchi--Ooguri--Tachikawa (2010)
+identify elliptic-genus coefficients with Mathieu $M_{24}$
+representations; Gaberdiel--Hohenegger--Volpato (2012) prove the
+twined Mathieu moonshine statement. The remaining problem is to
+construct, for every admissible conjugacy-class pair $([g],[h])$ of
+$M_{24}$, an explicit Jacobi form $F^{(g,h)}$ and a BKM superalgebra
+$\gbkmLh$ whose denominator is the Borcherds lift of $F^{(g,h)}$.
 \end{openproblem}
 
 \begin{openproblem}[Physical DT/BPS interpretation of the atlas]
 \label{prob:physical-dt-bps}
-Slide 912-936 identifies $Z^X(q, t, p) = -C/\Delaf^2$ as a Donaldson--Thomas partition function of CY3. Physically, $Z^X$ is a BPS index for Type IIA string theory compactified on $X$ (Cecotti--Vafa, Gaiotto--Moore--Neitzke). \textbf{Open}: match each GBKM $\gbkmLh$ of Conjecture~\ref{conj:twisted-atlas} to a specific physical partition function of the CHL-type orbifold $(S \times E)/\ZZ_N$, with a clean dictionary between (i) the algebraic BPS invariants $\mathrm{DT}_{n, (\beta_h, d)}$, (ii) the automorphic correction coefficients $m(a), \tau(a)$, (iii) the Lie-algebra multiplicities $\mult_\alpha = \dim \gbkm_{\alpha, 0} - \dim \gbkm_{\alpha, 1}$. First principle: the Euler characteristic of moduli of BPS states equals, via the cohomological-Hall-algebra construction of Kontsevich--Soibelman, the super-multiplicity of the corresponding root space in $\gbkm$.
+For $N=1$, the reduced DT product is
+$Z^{K3\times E}=-4096/\Delaf^2$ in theta normalisation. The physical
+problem is to match each GBKM $\gbkmLh$ of
+Conjecture~\ref{conj:twisted-atlas} to a partition function of the
+CHL-type orbifold $(S\times E)/\ZZ_N$, with a dictionary between the
+algebraic BPS invariants $\mathrm{DT}_{n,(\beta_h,d)}$, the
+automorphic coefficients $m(a),\tau(a)$, and the Lie-superalgebra
+multiplicities
+$\mult_\alpha=\dim\gbkm_{\alpha,0}-\dim\gbkm_{\alpha,1}$.
 \end{openproblem}
 
 \begin{openproblem}[Conjecture~\ref{conj:twisted-atlas} for $N = 8$ with generic $L$]
 \label{prob:N-8-generic-L}
-Slide 951-953 asserts the $N = 8$ case conjecturally but displays only the enumeration of $(r, s)$ pairs with $s \in \{0, 1, 2, 3\}$; the explicit Jacobi form $F_L^{(g_8^r, g_8^s)}$ is not given. \textbf{Open}: enumerate the irreducible components of the moduli of lattice-polarized K3 surfaces with $N = 8$ symplectic automorphism and determine, for each component, the Jacobi form index. The expected answer lives in the Scheithauer fake-$N = 8$ algebra or the Borcherds--Harvey--Moore Fake Monster completion.
+For $N=8$ the generic lattice-polarised input is missing. The problem
+is to enumerate the irreducible components of the moduli of
+lattice-polarised K3 surfaces with an order-$8$ symplectic automorphism
+and determine the Jacobi-form index on each component.
 \end{openproblem}
 
 \begin{openproblem}[Root-of-unity specialisations and Oberdieck--Pandharipande]
 \label{prob:root-unity-OP}
-The quantum-toroidal algebra at root-of-unity parameter $q = e^{2\pi i / N}$ specialises the quantum Yangian of $K3$ to a finite-dimensional Hopf algebra (324 modules at $N = 2$, per working\_notes.tex). \textbf{Open}: identify the automorphic correction $\gbkmLh$ of Conjecture~\ref{conj:twisted-atlas} at the root-of-unity quantum parameter with the S-matrix of the Oberdieck--Pandharipande Gromov--Witten / Donaldson--Thomas correspondence at $q^N = 1$. This is a chiral-algebraic sharpening of the OP duality that goes beyond the classical $q \to 1$ limit.
+Root-of-unity specialisations belong to the Mukai self-mirror Yangian
+branch. The denominator algebras above belong to the Hall--Drinfeld
+double and Borcherds branch. The problem is to construct a comparison,
+if one exists, through a specified centre or double layer and then
+match it to the Oberdieck--Pandharipande GW/DT correspondence at
+$q^N=1$. Any identification must pass through that extra layer rather
+than the native $\Phi_3$ output.
 \end{openproblem}
 
-\subsection{The most load-bearing architectural insight}
+\subsection{Automorphic bootstrap}
 \label{subsec:most-load-bearing}
 
-Of the six architectural frames in the last thirty slides, the single most load-bearing is the \emph{automorphic bootstrap}: the GBKM algebra is not constructed from a Cartan matrix alone; one needs the weak Jacobi form $\phi_{0,1}$ (or its twisted cousin $F_L^{(g_N, h_M)}$) to supply the imaginary-simple-root multiplicities $\mult_\alpha = f(nm, l)$. This is the content of Theorem~\ref{thm:mult-phi01}. Every other piece of the architecture --- the reflection group, the Weyl vector, the DT partition function identity, the $\Phi_N$ atlas --- is either a precursor to this bootstrap or its consequence.
-
-The bootstrap is load-bearing because it reveals the mechanism: the automorphic form \emph{defines} the Lie algebra via the weight-$c_N(0)/2$ constant of its Fourier expansion. Without the bootstrap, one has only a finite Kac--Moody algebra whose character is not a Siegel cusp form. With the bootstrap, the character \emph{becomes} the Siegel cusp form because the imaginary roots are chosen to make the character modular. This is why the universal formula $\kBKM(\Phi_N) = c_N(0)/2$ works: the BKM weight equals, by construction, the automorphic weight of its denominator.
-
-In the two-stage-functor language of wave12\_u1: the automorphic bootstrap is the \emph{content} of Stage~2. Stage~1 produces the ambient $E_3$-holomorphic factorisation algebra, whose tangent data (Hochschild cohomology, bracket, formality) is rigid. Stage~2, the $(\Sigma_{d-1}, C)$-specialisation, is automorphic: it selects a weak Jacobi form, and that Jacobi form selects the BKM. The atlas entries of Conjecture~\ref{conj:twisted-atlas} are the points in the moduli of $(\Sigma_2, C)$ where the bootstrap closes to a Siegel modular form.
-
-\subsection{Claims and their status}
-\label{subsec:status}
-
-\begin{description}
-\item[\ClaimStatusTheorem] Theorem~\ref{thm:refl-LamII}, Theorem~\ref{thm:weyl-vector-rho}, Theorem~\ref{thm:inv-anti-Delta5}, Proposition~\ref{prop:fourier-rho}, Theorem~\ref{thm:cone-embedding} (Gritsenko--Nikulin 1997, slides 250-600).
-\item[\ClaimStatusTheorem] Theorem~\ref{thm:imag-roots}, Definition~\ref{def:gbkm}, Theorem~\ref{thm:bgn-denominator}, Theorem~\ref{thm:mult-phi01}, Theorem~\ref{thm:dt-siegel-N1} (Borcherds 1995, Gritsenko--Nikulin 1997, Bryan--Oberdieck--Pandharipande 2018--2021; slides 601-919).
-\item[\ClaimStatusTheorem] Theorem~\ref{thm:kBKM-universal} at $N \in \{1, 2, 3\}$ (Gritsenko--Nikulin explicit); at $N \in \{4, 6\}$ (Scheithauer 2006, slide 929-953).
-\item[\ClaimStatusConjectured] Conjecture~\ref{conj:twisted-atlas} (the slide-930 atlas conjecture).
-\item[\ClaimStatusDerivation] Theorem~\ref{thm:atlas-stage-2} and Corollary~\ref{cor:slide-architecture-vindicates} (reading of slide architecture through the two-stage $\Phi$ factorisation; rigorous modulo Conjecture~\ref{conj:twisted-atlas} at $N \geq 2$).
-\item[\ClaimStatusOpenProblem] Problems~\ref{prob:N-5-7-8}, \ref{prob:mathieu-twining}, \ref{prob:physical-dt-bps}, \ref{prob:N-8-generic-L}, \ref{prob:root-unity-OP} (frontier).
-\end{description}
-
-% End of wave13_b2_last30_architecture.tex
+The automorphic bootstrap is the mechanism. A Cartan matrix supplies the
+real-root skeleton. The weak Jacobi form $\phi_{0,1}$, or its twisted
+cousin $F_L^{(g_N,h_M)}$, supplies the imaginary simple-root
+multiplicities $\mult_\alpha=f(nm,l)$. The denominator character then
+becomes the Siegel modular form because the imaginary roots are chosen
+from the Borcherds input. Thus $\kBKM(\Phi_N)=c_N(0)/2$: the
+Borcherds weight is the automorphic weight of the chosen denominator,
+separate from $\kcat$, compact $\kch$, Heisenberg-specialised
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$, and $\kfib$.

@@ -1,10 +1,3 @@
-%% wave18_e2_KS_wall_crossing_Yplus.tex
-%% Wave 18 / E2 strand: Kontsevich-Soibelman wall-crossing integrality
-%% at the positive-half level Y^+_X. Kontsevich + Soibelman voices.
-%% Primary sources: KS 2008 (arXiv:0811.2435), Joyce-Song 2012,
-%% Manschot-Pioline-Sen 2011, Schiffmann-Vasserot 2017 (CoHA = Y^+(C^3)).
-%% Infrastructure (notes/), not manuscript prose.
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
@@ -15,14 +8,15 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem{attack}{Attack}
-\newtheorem{heal}{Heal}
 
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\Q}{\mathbb{Q}}
 \providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
 \providecommand{\cH}{\mathcal{H}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cR}{\mathcal{R}}
 \providecommand{\cT}{\mathcal{T}}
 \providecommand{\fg}{\mathfrak{g}}
 \providecommand{\Yplus}{Y^{+}}
@@ -32,247 +26,475 @@
 \providecommand{\Li}{\mathrm{Li}}
 \providecommand{\Ad}{\mathrm{Ad}}
 \providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\id}{\mathrm{id}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
-\title{Kontsevich--Soibelman wall-crossing at the $\Yplus$ level \\
-{\normalfont (Wave 18 / E2; Kontsevich + Soibelman voice)}}
+\title{Kontsevich-Soibelman Wall-Crossing and the Positive Half
+\texorpdfstring{$\Yplus$}{Y+}}
 \author{Raeez Lorgat}
-\date{\today}
+\date{}
 
 \begin{document}
 \maketitle
 
-\paragraph*{Scope.}
-Fix a CY$_3$ triangulated category $\cA$ with numerical Grothendieck
-group $\Gamma = K_0^{\mathrm{num}}(\cA)$ and Euler pairing
-$\langle -, - \rangle$. The motivic quantum torus is
-$\cT_q = \bigoplus_{\gamma \in \Gamma} \Q(q^{1/2}) \cdot \hat{e}_\gamma$
-with $\hat{e}_\alpha \hat{e}_\beta =
-q^{\langle \alpha, \beta \rangle / 2} \hat{e}_{\alpha + \beta}$. For
-toric $X$ without compact $4$-cycles the Schiffmann--Vasserot theorem
-identifies the critical CoHA with the positive half of the affine
-Yangian, $\cH(Q_X, W_X) \simeq \Yplus_X$; in the special case
-$X = \C^3$ this is $\Yplus(\widehat{\mathfrak{gl}}_1)$. The question of
-this note: how do the KS wall-crossing automorphisms of $\cT_q$ act on
-$\Yplus_X$, and what integrality survives the restriction?
+\begin{abstract}
+Kontsevich-Soibelman wall-crossing is an ordered-product theorem in a
+completed motivic quantum torus after Hall integration. A positive-half
+CoHA presentation $\CoHA^+(X)\simeq\Yplus_X$ contributes to this theorem
+through its completed Hall algebra, its integration character, and a
+fixed shuffle realisation when such a realisation is known. Chamber
+change preserves the ordered sector product after integration.
+A chamber-to-chamber automorphism of $\Yplus_X$ is additional structure:
+it must come from a Hall comparison, a Drinfeld double, a centre, or
+stable-envelope modules. For a CY$_3$ input the specialised
+Calabi-Yau-to-chiral output is $E_1$; the $E_2$ operation belongs to the
+centre, double, or module layer. In particular
+$\CoHA^+(\C^3)=\Yplus(\widehat{\mathfrak{gl}}_1)$ is a positive-half
+statement. The full $\mathcal W_{1+\infty}$ object is reached only after
+the double, central completion, and Fock or evaluation realisation have
+been supplied.
+\end{abstract}
 
-% =========================================================================
-\section{Attack 1: KS 2008 Theorem 7.1 as a factorisation of $\Ad$}
-\label{sec:attack1}
+\section{The Quantum-Torus Ambient}
 
-\begin{attack}
-\label{atk:ks-thm71-raw}
-KS 2008 Theorem 7.1 asserts that for a CY$_3$ category with Bridgeland
-stability condition $\sigma = (Z, \cA) \in \Stab(\cA)$ and a ray
-$\ell \subset \C^{*}$, the product
+\begin{definition}[Charge lattice and sector completion]
+Let $\cC$ be a $3$-Calabi-Yau category equipped with a Bridgeland
+stability condition $\sigma=(Z,\cA)$ on a connected open subset of
+$\Stab(\cC)$. Put
 \[
-A_\ell(\sigma) \;=\; \!\!\!\prod_{\gamma:\; Z(\gamma) \in \ell}^{\curvearrowright}
-\exp\!\bigl( \Omega(\gamma; \sigma) \cdot \Li_2^{q}(\hat{e}_\gamma) \bigr)
+ \Gamma=K^{\mathrm{num}}_0(\cC),\qquad
+ \langle \alpha,\beta\rangle
+   =\chi(\alpha,\beta)
+   =-\chi(\beta,\alpha).
 \]
-is locally constant as $\sigma$ varies, where
-$\Li_2^{q}(x) = \sum_{n \geq 1} x^n / (n\, [n]_q)$ is the quantum
-dilogarithm and $[n]_q = q^{n/2} - q^{-n/2}$. The rational numbers
-$\Omega(\gamma; \sigma) \in \Q$ are the refined DT invariants.
-\end{attack}
-
-\begin{heal}
-\label{heal:ks-thm71-precise}
-Two refinements are required before the formula reads at $\Yplus$ level.
-
-\emph{(a) Integrality.} The original rational-valued $\Omega(\gamma)$ of
-KS 2008~\S2.5 fails to be integer in general; the \emph{refined}
-$\bar\Omega(\gamma) \in \Z[q^{\pm 1/2}]$ of KS 2008~\S6.2 is the
-integer-valued primitive, related by the multicover/MPS formula
+Equivalently, if one starts from a non-skew Euler pairing, this note
+uses the half-skew convention
+$\langle\alpha,\beta\rangle=(\chi(\alpha,\beta)-\chi(\beta,\alpha))/2$.
+This is the normalization in which the elementary conifold pair has
+$\langle\gamma_1,\gamma_2\rangle=1$.
+For a strict convex sector $V\subset \C^*$ with boundary free of active
+rays, set
 \[
-\Omega(\gamma; q)
-\;=\; \sum_{m \mid \gamma}
-\frac{1}{m}\,
-\frac{q^{1/2} - q^{-1/2}}{q^{m/2} - q^{-m/2}}\,
-\bar\Omega(\gamma / m; q^m),
+ \Gamma_V(\sigma)=\{\gamma\in\Gamma : Z_\sigma(\gamma)\in V\}.
 \]
-which is Manschot--Pioline--Sen 2011 Equation~(2.9). The classical
-Euler-characteristic specialisation $q \to 1$ sends
-$\bar\Omega(\gamma) \mapsto \bar\Omega^{\mathrm{cl}}(\gamma) \in \Z$
-(Joyce--Song 2012 Theorem~5.3).
-
-\emph{(b) Ordering.} The symbol $\prod^{\curvearrowright}$ denotes the
-ordered product with factors arranged by clockwise argument of
-$Z(\gamma)$ along $\ell$. Across a wall $W$ two rays collide; the
-jump of the product around $W$ is trivial, which is the wall-crossing
-formula in the form
+The completed quantum torus of the sector is
 \[
-\prod^{\curvearrowright}_{\gamma \in S^{+}} \exp(\Omega_\gamma^{+}\,\Li_2^{q}(\hat{e}_\gamma))
-\;=\;
-\prod^{\curvearrowleft}_{\gamma \in S^{-}} \exp(\Omega_\gamma^{-}\,\Li_2^{q}(\hat{e}_\gamma)),
+ \widehat{\cT}_{\Gamma,V}
+ =
+ \widehat{\bigoplus}_{\gamma\in\Gamma_V(\sigma)}
+ \Q(q^{1/2})\,\hat e_\gamma,
+ \qquad
+ \hat e_\alpha\hat e_\beta
+ =
+ q^{\langle\alpha,\beta\rangle/2}\hat e_{\alpha+\beta}.
 \]
-reading across the wall from chamber $(+)$ to chamber $(-)$.
-\end{heal}
+The completion is the monoid completion along effective charge in
+$\Gamma_V(\sigma)$.
+\end{definition}
 
-% =========================================================================
-\section{Attack 2: $\bar\Omega(\gamma) \in \Z$ as a torus automorphism}
-\label{sec:attack2}
-
-\begin{attack}
-\label{atk:integer-torus-aut}
-Each refined $\bar\Omega(\gamma) \in \Z$ produces a specific
-automorphism of the quantum torus $\cT_q$: the inner
-automorphism $\Ad_\gamma := \exp(\bar\Omega(\gamma) \Li_2^{q}(\hat{e}_\gamma))$.
-\end{attack}
-
-\begin{heal}
-\label{heal:integer-torus-aut}
-The adjoint action on a generator $\hat{e}_\beta$ is
+\begin{definition}[Quantum dilogarithm factor]
+Let
 \[
-\Ad_\gamma(\hat{e}_\beta)
-\;=\; \hat{e}_\beta \cdot
-\prod_{n = 1}^{\langle \gamma, \beta \rangle}
-\bigl(1 - q^{n - 1/2} \hat{e}_\gamma\bigr)^{\bar\Omega(\gamma)}
+ \Psi_q(x)=\prod_{r\geq0}(1-q^{r+1/2}x)^{-1}
 \]
-when $\langle \gamma, \beta \rangle \geq 0$, with the inverse exponent
-for negative pairing. Integrality of $\bar\Omega(\gamma)$ is precisely
-the condition that the RHS be a \emph{rational} element of the
-completed quantum torus (no fractional powers of $(1 - q^n \hat{e}_\gamma)$),
-hence the condition that $\Ad_\gamma$ be a well-defined automorphism
-of the integral form $\cT_q^{\Z} \subset \cT_q$. The non-integer
-$\Omega(\gamma) \in \Q$ alone yields only a formal exponential, not an
-automorphism; the integer $\bar\Omega$ is the correct input.
-\end{heal}
-
-% =========================================================================
-\section{Attack 3: Restriction to $\Yplus_X$}
-\label{sec:attack3}
-
-\begin{attack}
-\label{atk:restrict-Yplus}
-Restricting the KS torus automorphisms to $\Yplus_X$, the refined
-$\bar\Omega(\gamma)$ enumerate BPS states contributing to the graded
-piece $\Yplus_{X, \gamma}$.
-\end{attack}
-
-\begin{heal}
-\label{heal:restrict-Yplus}
-Schiffmann--Vasserot 2017 provides an embedding
-$\iota \colon \Yplus_X \hookrightarrow \cT_q$ given on generators by
-$\iota(E_\gamma) = c_\gamma \hat{e}_\gamma$ with
-$c_\gamma \in \Z[q^{\pm 1/2}]$ determined by the shuffle product. The
-graded dimension reads
+in the $x$-adic completion. If
+$\bar\Omega(\gamma;q)=\sum_j a_{\gamma,j}q^{j/2}$ is the primitive
+refined BPS invariant of charge $\gamma$ in a fixed orientation-data
+normalization, define
 \[
-\dim_q \Yplus_{X, \gamma}
-\;=\; \sum_{k \geq 0}\; q^{k}\, N_{\gamma, k},
-\qquad
-N_{\gamma, k} \;=\; \#\{\text{BPS states of charge } \gamma,\ \text{spin } k\},
+ U_\gamma
+ =
+ \prod_j \Psi_q(q^{j/2}\hat e_\gamma)^{a_{\gamma,j}}
+ \in \widehat{\cT}_{\Gamma,V}^{\times}.
 \]
-with the identification (MPS 2011~\S3)
+The exponents $a_{\gamma,j}\in\Z$ are the integrality datum.
+\end{definition}
+
+\begin{lemma}[Integrality is the torus-automorphism condition]
+\label{lem:integrality-automorphism}
+Assume $\bar\Omega(\gamma;q)\in\Z[q^{\pm1/2}]$. For every
+$\beta\in\Gamma$ the conjugation $\Ad_{U_\gamma}(\hat e_\beta)$ lies in
+the rational localisation of the integral completed quantum torus
+$\widehat{\cT}_{\Gamma,V}^{\Z}$. More explicitly, if
+$a=\langle\gamma,\beta\rangle\geq0$, then
 \[
-\sum_{k} N_{\gamma, k}\, q^{k}
-\;=\; \bar\Omega(\gamma; q)\big|_{\text{positive part}}.
+ \Ad_{\Psi_q(q^{j/2}\hat e_\gamma)}(\hat e_\beta)
+ =
+ \hat e_\beta
+ \prod_{r=0}^{a-1}
+ (1-q^{j/2+r+1/2}\hat e_\gamma),
 \]
-The positive-half restriction $\Yplus_X = \bigoplus_{\gamma \in \Gamma^{+}}$
-keeps only $\gamma$ in the positive cone $\Gamma^{+}$ of the chosen
-heart. The wall-crossing automorphisms permute these graded pieces
-across the stability locus, reallocating BPS multiplicity between
-$\gamma$ and $m \gamma + n \delta$ for primitive charge splittings.
-\end{heal}
+and the case $a<0$ is obtained by inverting the same finite product.
+\end{lemma}
 
-% =========================================================================
-\section{Attack 4: Wall-crossing as $\Yplus$-automorphism}
-\label{sec:attack4}
-
-\begin{attack}
-\label{atk:Yplus-aut}
-The KS wall-crossing automorphism $A_\ell$ of $\cT_q$ restricts to a
-graded automorphism of $\Yplus_X$ permuting the $\Gamma$-graded pieces.
-\end{attack}
-
-\begin{heal}
-\label{heal:Yplus-aut}
-Two obstructions must be cleared. First, $A_\ell$ preserves the
-positive cone $\Gamma^{+}$ iff the ray $\ell$ lies in the upper
-half plane $\C^{+}$ of central charges, which is automatic for
-semistable objects in the heart $\cA$. Second, the shuffle subalgebra
-$\iota(\Yplus_X) \subset \cT_q$ is preserved iff $\Ad_\gamma$ commutes
-with the coproduct coalgebra structure up to the quasi-triangular
-$R$-matrix of the Drinfeld double. This is the \emph{quasi-triangular
-compatibility}: for $\gamma$ primitive of spin $s = 1/2$ (hypermultiplet),
-the action is by the Maulik--Okounkov $R$-matrix
-$R_{\gamma, \beta}(u) \in \Aut(\Yplus_{X, \gamma} \otimes \Yplus_{X, \beta})$,
-and the compatibility is the RTT relation. The upshot: the restricted
-automorphism is
+\begin{proof}
+The relation
+$\hat e_\gamma\hat e_\beta=q^{\langle\gamma,\beta\rangle}
+\hat e_\beta\hat e_\gamma$ gives
+$f(\hat e_\gamma)\hat e_\beta
+=\hat e_\beta f(q^{\langle\gamma,\beta\rangle}\hat e_\gamma)$ for every
+formal series $f$. Taking $f(x)=\Psi_q(q^{j/2}x)$ gives
 \[
-A_\ell\big|_{\Yplus_X}
-\;=\; \prod^{\curvearrowright}_{Z(\gamma) \in \ell}
-\Ad_\gamma, \qquad
-\Ad_\gamma \in \Aut_{\Z\text{-graded}}(\Yplus_X),
+ \Psi_q(q^{j/2+a}x)\Psi_q(q^{j/2}x)^{-1}
+ =
+ \prod_{r=0}^{a-1}(1-q^{j/2+r+1/2}x)
 \]
-acting on the graded piece $\Yplus_{X, \beta}$ by multiplication by a
-rational function of $q$ and $\bar\Omega(\gamma)$ with integer Laurent
-expansion (MPS 2011 Lemma~3.2).
-\end{heal}
+for $a\geq0$. Multiplying over $j$ with integer exponents
+$a_{\gamma,j}$ produces integer powers of the displayed factors. The
+negative-pairing case follows by the same computation with the quotient
+reversed.
+\end{proof}
 
-% =========================================================================
-\section{Attack 5: Conifold flop as two-BPS wall}
-\label{sec:attack5}
+\section{Kontsevich-Soibelman Sector Products}
 
-\begin{attack}
-\label{atk:conifold-flop}
-For the resolved conifold $X = \cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1)$,
-the wall between the small-resolution chamber and the flopped chamber
-carries two BPS states. The wall-crossing is the pentagon identity for
-two commuting quantum dilogarithms, producing two automorphisms of
-$\Yplus_X$.
-\end{attack}
-
-\begin{heal}
-\label{heal:conifold-flop}
-Let $\gamma_{\pm}$ be the D0--D2 charges of the two BPS hypermultiplets
-with $\langle \gamma_{+}, \gamma_{-} \rangle = 1$ (the single-arrow
-conifold quiver). The KS wall-crossing formula reduces to the quantum
-pentagon
+\begin{definition}[Primitive and rational BPS invariants]
+The primitive refined invariants $\bar\Omega(\gamma;q)$ and the rational
+DT invariants $\Omega(\gamma;q)$ are related, in the usual refined
+multicover normalization, by
 \[
-\Psi_q(\hat{e}_{\gamma_{+}})\, \Psi_q(\hat{e}_{\gamma_{-}})
-\;=\;
-\Psi_q(\hat{e}_{\gamma_{-}})\, \Psi_q(\hat{e}_{\gamma_{+} + \gamma_{-}})\,
-\Psi_q(\hat{e}_{\gamma_{+}}),
+ \Omega(\gamma;q)
+ =
+ \sum_{m\mid\gamma}
+ \frac{1}{m}\,
+ \frac{q^{1/2}-q^{-1/2}}{q^{m/2}-q^{-m/2}}\,
+ \bar\Omega(\gamma/m;q^m).
 \]
-where $\Psi_q(x) = \prod_{n \geq 0} (1 - q^{n + 1/2} x)^{-1}$ is the
-compact quantum dilogarithm (Faddeev--Kashaev). Reading the identity at
-$\Yplus$ level, the two BPS states on the wall correspond to the two
-simple roots of the conifold CoHA
-$\cH(Q_{\mathrm{con}}, W_{\mathrm{con}})$, and the wall-crossing
-automorphism factors as
-$\Ad_{\gamma_{+}} \circ \Ad_{\gamma_{-}} = \Ad_{\gamma_{-}} \circ
-\Ad_{\gamma_{+} + \gamma_{-}} \circ \Ad_{\gamma_{+}}$, two
-automorphisms on the LHS and three on the RHS, matched by the
-Maurer--Cartan gauge equivalence of Chapter~\ref{ch:coha-wall-crossing-platonic}.
-The integer $\bar\Omega(\gamma_{\pm}) = 1$, $\bar\Omega(\gamma_{+} + \gamma_{-}) = -1$
-(the sign fixed by the orientation of the conifold quiver, Szendr\H{o}i
-2008) recovers Nagao--Nakajima wall-crossing numerics exactly. At
-$q \to 1$ the classical specialisation gives Abel's five-term relation
-for the Rogers dilogarithm, $L(x) + L(y) = L(xy) + L(x(1-y)/(1-xy))
-+ L(y(1-x)/(1-xy))$. The $\kch$-invariant specialisation matches the
-conifold direct-McKay value $\kch(\mathrm{conifold}) = 1$; the flop
-preserves $\kch$, consistent with birational invariance.
-\end{heal}
+At $q=1$ this becomes
+$\Omega(\gamma)=\sum_{m\mid\gamma}m^{-2}\bar\Omega(\gamma/m)$.
+The ordered quantum-torus product is built from the primitive integral
+factors; the rational invariants are logarithmic coefficients.
+\end{definition}
 
-% =========================================================================
-\section{Summary}
-\label{sec:summary}
+\begin{theorem}[Kontsevich-Soibelman ordered product]
+\label{thm:ks-sector-product}
+Assume the support property and the motivic Hall integration map for the
+sector $V$. For a stability condition $\sigma$ define
+\[
+ A_V(\sigma)
+ =
+ \prod_{\ell\subset V}^{\curvearrowright}
+ \prod_{\gamma:\,Z_\sigma(\gamma)\in\ell}
+ U_\gamma(\sigma),
+\]
+where rays are ordered by decreasing central-charge argument and the
+factors on a fixed ray are grouped in the ray completion. If
+$\sigma_0$ and $\sigma_1$ are connected by a path whose active rays stay
+inside $V$, then
+\[
+ A_V(\sigma_0)=A_V(\sigma_1)
+ \quad\text{in}\quad
+ \widehat{\cT}_{\Gamma,V}^{\times}.
+\]
+The invariant is the ordered sector product in the completed torus.
+\end{theorem}
 
-The five attack--heal cycles establish: (1) KS Theorem 7.1 requires
-refined integer $\bar\Omega$ for a torus-automorphism reading; (2) the
-integer valuedness is the automorphism condition on
-$\cT_q^{\Z}$; (3) restriction to $\Yplus_X$ is compatible with the
-positive cone $\Gamma^{+}$ and the shuffle embedding; (4) the
-quasi-triangular compatibility identifies the restricted automorphism
-with the Maulik--Okounkov $R$-matrix; (5) the conifold wall realises
-the pentagon identity with $\bar\Omega \in \{1, 1, -1\}$. The output
-to manuscript prose lands in
-\texttt{chapters/examples/coha\_wall\_crossing\_platonic.tex}
-\S\ref{sec:coha-setup-platonic} (Theorem
-\texttt{thm:ks-wall-crossing-mc-on-coha-dgla}, clause (ii) on motivic
-ambient) and in the $\kch$-invariance row of the conifold entry of
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}.
+\begin{proof}
+In the motivic Hall algebra the Harder-Narasimhan factorisation of the
+stack of objects in the sector $V$ is independent of the chamber after
+the boundary of $V$ is fixed. Kontsevich-Soibelman integration sends
+Hall convolution to the quantum-torus product, with the skew Euler form
+producing the $q$-commutation factor. Applying the integration map to
+the Harder-Narasimhan factorizations on the two sides gives the
+displayed equality. The support property supplies the pronilpotent
+convergence required for the sector completion.
+\end{proof}
+
+\begin{corollary}[Logarithmic form]
+\label{cor:logarithmic-form}
+Let $\fg_{\Gamma,V}$ be the completed quantum-torus Lie algebra under the
+commutator. The logarithm
+\[
+ \Theta_V(\sigma)=\log A_V(\sigma)\in\widehat{\fg}_{\Gamma,V}
+\]
+is chamber-independent under the hypotheses of
+Theorem~\ref{thm:ks-sector-product}. Different ray factorizations are
+Baker-Campbell-Hausdorff presentations of the same element.
+\end{corollary}
+
+\section{The Positive-Half Comparison}
+
+\begin{definition}[Positive-half CoHA datum]
+For a toric CY$_3$ quiver with potential $(Q_X,W_X)$, a positive-half
+CoHA datum consists of a heart, a positive cone $\Gamma^+$, orientation
+data, and an associative critical Hall algebra
+\[
+ \cH_X^+
+ =
+ \bigoplus_{\gamma\in\Gamma^+}
+ H^\bullet_{\mathrm{eq}}\bigl(\cM_\gamma,\phi_{\mathrm{Tr}W_X}\bigr),
+ \qquad
+ \cH_X^+\simeq \Yplus_X,
+\]
+together with the completed Hall integration character
+\[
+ I_\sigma:\widehat{\cH}_{X,V}^+\longrightarrow
+ \widehat{\cT}_{\Gamma,V}.
+\]
+For $X=\C^3$, Schiffmann-Vasserot identify
+$\cH_{\C^3}^+$ with the positive half
+$\Yplus(\widehat{\mathfrak{gl}}_1)$.
+\end{definition}
+
+\begin{proposition}[Integrated character on \texorpdfstring{$\Yplus$}{Y+}]
+\label{prop:yplus-integrated-character}
+Let $X$ carry a positive-half CoHA datum on a sector $V$. For two
+stability conditions $\sigma_0,\sigma_1$ as in
+Theorem~\ref{thm:ks-sector-product}, the semistable Hall products
+$\mathbf A_V(\sigma_i)\in\widehat{\cH}_{X,V}^+$ satisfy
+\[
+ I_{\sigma_0}\bigl(\mathbf A_V(\sigma_0)\bigr)
+ =
+ I_{\sigma_1}\bigl(\mathbf A_V(\sigma_1)\bigr)
+ \quad\text{in}\quad
+ \widehat{\cT}_{\Gamma,V}^{\times}.
+\]
+Thus the transported statement on $\Yplus_X$ is equality of integrated
+characters. A genuine algebra automorphism of $\widehat{\Yplus}_X$ is an
+additional lift $\widetilde A_V$ satisfying the intertwining condition
+\[
+ I_\sigma\circ\widetilde A_V
+ =
+ \Ad_{A_V(\sigma)}\circ I_\sigma .
+\]
+\end{proposition}
+
+\begin{proof}
+The first assertion is Theorem~\ref{thm:ks-sector-product} before and
+after the identification $\cH_X^+\simeq\Yplus_X$. The integration map
+is a Hall character, so it records the torus-valued DT series attached
+to a completed Hall product. The last display is the defining square for
+a lift from the torus to the positive-half algebra. KS wall-crossing
+supplies the torus operator. Generators, relations, coproduct, Hopf
+pairing, and a double for $\Yplus_X$ are additional Hall data.
+\end{proof}
+
+\begin{proposition}[Location of the \texorpdfstring{$E_2$}{E2} structure]
+\label{prop:e2-location}
+For CY$_3$ inputs the specialised output of $\Phi_3$ is $E_1$-chiral.
+Braided, $R$-matrix, and $E_2$ structures used in the
+Maulik-Okounkov framework live only after passing to an enhanced layer:
+\[
+ D(\Yplus_X),\qquad
+ Z\bigl(\Rep(\Yplus_X)\bigr),\qquad
+ \text{stable-envelope module categories},\qquad
+ \text{central or Cartan completions}.
+\]
+Consequently
+\[
+ \CoHA^+(\C^3)=\Yplus(\widehat{\mathfrak{gl}}_1)
+\]
+is a positive-half statement. The vertex algebra
+$\mathcal W_{1+\infty}$ belongs to the full-double, centre, completion,
+and evaluation chain.
+\end{proposition}
+
+\begin{proof}
+The CoHA product on a CY$_3$ quiver with potential is the associative
+Hall product, hence the $E_1$ operation on the positive half. Braiding
+appears after passing from a half algebra to representations, doubles,
+centres, or stable-envelope correspondences. In the $\C^3$ model the
+shuffle algebra gives the positive half of the affine Yangian; the
+vertex algebra $\mathcal W_{1+\infty}$ is obtained after adding the
+opposite half, completing the Cartan and central directions, and taking
+Fock or evaluation realisations.
+\end{proof}
+
+\section{Rank-Two Wall: The Conifold Pentagon}
+
+\begin{proposition}[The torus identity]
+\label{prop:conifold-pentagon}
+Let
+$X_{\mathrm{con}}=\operatorname{Tot}(\mathcal O_{\mathbb P^1}(-1)
+\oplus\mathcal O_{\mathbb P^1}(-1))$ and let
+$\gamma_1,\gamma_2$ be the two simple charges in the elementary
+rank-two wall with
+$\langle\gamma_1,\gamma_2\rangle=1$. In the KS convention
+\[
+ \hat e_{\gamma_1}\hat e_{\gamma_2}
+ =
+ q^{1/2}\hat e_{\gamma_1+\gamma_2},
+ \qquad
+ \hat e_{\gamma_2}\hat e_{\gamma_1}
+ =
+ q^{-1/2}\hat e_{\gamma_1+\gamma_2},
+\]
+the elementary wall is the quantum pentagon
+\[
+ \Psi_q(\hat e_{\gamma_1})\,
+ \Psi_q(\hat e_{\gamma_2})
+ =
+ \Psi_q(\hat e_{\gamma_2})\,
+ \Psi_q(\hat e_{\gamma_1+\gamma_2})\,
+ \Psi_q(\hat e_{\gamma_1}).
+\]
+The three exponents in this elementary $A_2$ scattering factor are
+\[
+ \varepsilon(\gamma_1)=
+ \varepsilon(\gamma_2)=
+ \varepsilon(\gamma_1+\gamma_2)=1.
+\]
+They are the exponents of this rank-two torus identity, separate from
+the complete conifold CoHA primitive spectrum.
+\end{proposition}
+
+\begin{proof}
+The active lattice at the elementary conifold wall is the $A_2$ lattice
+with quantum variables $X=\hat e_{\gamma_1}$ and
+$Y=\hat e_{\gamma_2}$ satisfying $XY=q^{1/2}\hat e_{\gamma_1+\gamma_2}$.
+When the central-charge arguments of $\gamma_1$ and $\gamma_2$ exchange
+order, consistency of the KS scattering diagram inserts the bound-state
+ray $\gamma_1+\gamma_2$. Since
+$q^{-1/2}XY=\hat e_{\gamma_1+\gamma_2}$, the standard compact form
+$E(X)E(Y)=E(Y)E(q^{-1/2}XY)E(X)$ is exactly the displayed identity after
+the change of variable between $E(z)=\prod_{r\ge0}(1+q^r z)$ and
+$\Psi_q(x)=\prod_{r\ge0}(1-q^{r+1/2}x)^{-1}$. The sign convention for
+the BPS index changes all three exponents coherently; the torus identity
+is unchanged.
+\end{proof}
+
+\begin{remark}[Full conifold CoHA]
+The Klebanov-Witten conifold critical CoHA has affine
+$A_1^{(1)}$ real-root families $(n+1,n)$ and $(n,n+1)$ with primitive
+supertrace $1$ in the parity-forgotten convention, and an imaginary
+sector $(n,n)$ of multiplicity two before traceless projection. The
+pentagon above isolates the first rank-two scattering wall. A full
+conifold quantum-group construction requires the completed double,
+Cartan part, Hopf pairing, and representation layer.
+\end{remark}
+
+\begin{corollary}[Positive-half reading]
+On the conifold positive half the pentagon gives equality after Hall
+integration. A lift to an automorphism of the conifold Yangian positive
+half requires a chosen stable-envelope or double presentation and must
+satisfy the intertwining square of
+Proposition~\ref{prop:yplus-integrated-character}. The conifold
+$\kch$ value remains
+\[
+ \kch(X_{\mathrm{con}})=1,
+\]
+the direct McKay value of the conifold chamber.
+\end{corollary}
+
+\section{Borcherds Constants and Yangian Branches}
+
+\begin{proposition}[Separate invariant slots]
+\label{prop:k3e-slots}
+For $K3\times E$ the categorical, chiral, Borcherds, and fibre
+invariants
+occupy separate slots:
+\[
+ \kcat(K3\times E)=0,\qquad
+ \kch(K3\times E)=0,\qquad
+ \kch^{\mathrm{Heis}}(K3\times E)=3,
+\]
+\[
+ \kBKM(\mathfrak{g}_{\Delta_5})=5,\qquad
+ \kfib(K3)=24.
+\]
+For the primitive CHL series indexed by $N\in\{1,2,3,4,6\}$,
+\[
+ (c_N(0))=(10,8,6,4,2),\qquad
+ \bigl(\kBKM(\Phi_N)\bigr)=(5,4,3,2,1),
+\]
+with $\kBKM(\Phi_N)=c_N(0)/2$ term by term.
+\end{proposition}
+
+\begin{proof}
+The compact value $\kch(K3\times E)=0$ is the Hodge supertrace
+$\sum_q(-1)^q h^{0,q}(K3\times E)$, and $\kcat(K3\times E)=0$ is the
+same K\"unneth-multiplicative Euler characteristic of $\mathcal O$ on
+the total space. The Heisenberg-Mukai value $3$ belongs to the chiral
+specialisation. The BKM value is the Borcherds weight, computed by the
+constant term $c_N(0)/2$. The fibre value $24$ is the Mukai-lattice
+rank of the K3 fibre. KS wall-crossing supplies the chamber product in
+the completed torus; these four values enter through the four named
+constructions above.
+\end{proof}
+
+\begin{remark}[Two branches]
+The Hall-Drinfeld/BKM branch starts from the Hall double of the
+$K3\times E$ CoHA and its Borcherds denominator. The Mukai Yangian branch
+starts from the self-mirror Mukai-lattice Yangian. The two constructions
+may share lattice data, but their generators, doubles, and automorphic
+outputs are distinct mathematical objects.
+\end{remark}
+
+\section{Data for a General \texorpdfstring{$Y_X^+$}{Y+X} Lift}
+
+For a toric or reduced CY$_3$ target $X$, a statement stronger than
+Proposition~\ref{prop:yplus-integrated-character} consists of the
+following data.
+
+\begin{enumerate}
+\item A fixed heart, positive cone $\Gamma^+$, support property, and
+sector completion.
+\item A critical CoHA or shuffle presentation
+$\cH_X^+\simeq\Yplus_X$ with orientation data.
+\item A Hall integration character
+$I_\sigma:\widehat{\cH}_{X,V}^+\to\widehat{\cT}_{\Gamma,V}$ compatible
+with convolution and the quantum-torus product.
+\item A lift of each sector factor through a Drinfeld double, centre,
+stable-envelope module, or central completion, giving an automorphism
+$\widetilde A_V$ of the completed target and satisfying
+$I_\sigma\circ\widetilde A_V=\Ad_{A_V(\sigma)}\circ I_\sigma$.
+\item An $E_2$ claim stated only on the lifted layer from item 4; the
+positive half itself carries the $E_1$ Hall product.
+\end{enumerate}
+
+\section*{References}
+
+\begin{thebibliography}{99}
+\bibitem{KS2008}
+M. Kontsevich and Y. Soibelman, \emph{Stability structures, motivic
+Donaldson-Thomas invariants and cluster transformations},
+arXiv:0811.2435.
+
+\bibitem{JS2012}
+D. Joyce and Y. Song, \emph{A theory of generalized Donaldson-Thomas
+invariants}, Memoirs of the AMS 217 (2012).
+
+\bibitem{MPS2011}
+J. Manschot, B. Pioline and A. Sen, \emph{Wall crossing from Boltzmann
+black hole halos}, Journal of High Energy Physics 2011.
+
+\bibitem{SV2013}
+O. Schiffmann and E. Vasserot, \emph{Cherednik algebras, W-algebras and
+the equivariant cohomology of the moduli space of instantons on
+$\mathbb A^2$}, Publications Math\'ematiques de l'IH\'ES 118 (2013),
+arXiv:1202.2756.
+
+\bibitem{NN2011}
+K. Nagao and H. Nakajima, \emph{Counting invariant of perverse coherent
+systems and its wall-crossing}, International Mathematics Research
+Notices 2011.
+
+\bibitem{DM2016}
+B. Davison and S. Meinhardt, \emph{Cohomological Donaldson-Thomas
+theory of a quiver with potential and quantum enveloping algebras},
+Inventiones Mathematicae 221 (2020), arXiv:1601.02479.
+
+\bibitem{MO2012}
+D. Maulik and A. Okounkov, \emph{Quantum groups and quantum cohomology},
+Ast\'erisque 408 (2019), arXiv:1211.1287.
+
+\bibitem{Borcherds1998}
+R. Borcherds, \emph{Automorphic forms with singularities on Grassmannians},
+Inventiones Mathematicae 132 (1998).
+
+\bibitem{GritsenkoNikulin1997}
+V. Gritsenko and V. Nikulin, \emph{Siegel automorphic form corrections
+of some Lorentzian Kac-Moody Lie algebras}, American Journal of
+Mathematics 119 (1997), arXiv:alg-geom/9504006.
+
+\bibitem{Gritsenko1999}
+V. Gritsenko, \emph{Elliptic genus of Calabi-Yau manifolds and Jacobi
+and Siegel modular forms}, Algebra i Analiz 11 (1999), number 5, 100-125;
+St. Petersburg Mathematical Journal 11 (2000), number 5, 781-804,
+arXiv:math/9906190.
+\end{thebibliography}
 
 \end{document}

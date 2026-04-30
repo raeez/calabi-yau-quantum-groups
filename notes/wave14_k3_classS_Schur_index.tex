@@ -1,158 +1,268 @@
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\PP}{\mathbb{P}}
+\providecommand{\HH}{\mathbb{H}}
+\providecommand{\cI}{\mathcal{I}}
+\providecommand{\cO}{\mathcal{O}}
 \providecommand{\cS}{\mathcal{S}}
 \providecommand{\cT}{\mathcal{T}}
-\providecommand{\cW}{\mathcal{W}}
-\providecommand{\fsl}{\mathfrak{sl}}
-\providecommand{\fe}{\mathfrak{e}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\Borch}{\mathrm{Borch}}
+\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsu}{\mathfrak{su}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
 \providecommand{\Sph}{\Sigma_{0,24}}
 
-\section*{K3/20: class-$\cS$ Schur route to $c_{4d}(A_1,\Sph)=107/6$}
+\section*{Class-\texorpdfstring{$\cS$}{S} Schur Index and the Igusa Denominator for \texorpdfstring{$K3\times E$}{K3xE}}
 
-\paragraph{Object.}
-The theory $\cT_{24} := \cT[A_1,\Sph]$ is the class-$\cS$
-superconformal theory engineered by the $6$d $(2,0)$ $A_1$ theory on
-a sphere with $24$ maximal (regular, full) punctures --- the
-$24$-punctured cousin of $\cT[A_1,\Sigma_{0,4}] = \mathrm{SU}(2){+}4F$,
-one maximal puncture per $\chi(K3)$-factor.  The four central charges
-read
+\paragraph{The Gaiotto curve.}
+Let
 \[
-  c_{4d} \;=\; \frac{2 n_v + n_h}{12}, \qquad
-  a_{4d} \;=\; \frac{5 n_v + n_h}{24}, \qquad
-  (n_v, n_h) \;=\; (63, 88),
+  \Sph=(\PP^1;p_1,\ldots,p_{24})
 \]
-giving $c_{4d}=107/6$, $a_{4d}=403/24$ (Coulomb rank $21$, flavour
-rank $24 \cdot 3 = 72$ at full $A_1$).  The Beem--Rastelli
-$4$d/$2d$ dictionary $c_{2d} = -12\,c_{4d}$ (Beem--Lemos--
-Liendo--Peelaers--Rastelli--van~Rees, arXiv:1312.5344 eq.~3.14)
-forces $c_{2d} = -214$.
-
-\paragraph{Cycle 1 --- Schur index via TQFT on $\Sph$.}
-The Schur index of $\cT[A_1, C_{g,n}]$ is the partition function of a
-$2$d TQFT on $C_{g,n}$ with structure group $\mathrm{SU}(2)$ and state
-space the space of Schur operators.  Gadde--Rastelli--Razamat--
-Yan (arXiv:1110.3740) compute
+be the \(A_1\) class-\(\cS\) curve with twenty-four maximal regular
+\(\fsu(2)\)-punctures, and set
 \[
-  \mathcal{I}_{\mathrm{Schur}}\bigl(\cT[A_1, C_{g,n}]; \{a_i\}\bigr)
-  \;=\; (q;q)_\infty^{2(g-1)} \sum_{R} \frac{\prod_{i=1}^n \chi_R(a_i)}
-         {(\dim_q R)^{2g-2+n}},
+  \cT_{24}:=\cT[A_1,\Sph].
 \]
-sum over $\mathrm{SU}(2)$ irreps with $\dim_q R$ the quantum
-dimension at $q$.  Setting $g = 0$, $n = 24$, and the flavour
-fugacities to unity,
+A pants decomposition of \(\Sigma_{0,n}\) has \(n-2\) trinions \(T_2\)
+and \(n-3\) gauged \(SU(2)\) tubes. The \(A_1\) trinion is the
+trifundamental half-hypermultiplet system with effective
+\((n_v,n_h)=(0,4)\), while an \(SU(2)\) vector multiplet contributes
+\((n_v,n_h)=(3,0)\). Hence
 \[
-  \mathcal{I}_{\mathrm{Schur}}(\cT_{24}; q)
-  \;=\; (q;q)_\infty^{-2}
-        \sum_{k \ge 0} \frac{(k+1)^{24-\chi}}{(\dim_q V_k)^{22}},
+  (n_v,n_h)\bigl(\cT[A_1,\Sigma_{0,n}]\bigr)
+  =
+  (3(n-3),4(n-2)).
 \]
-with $\dim_q V_k = [k{+}1]_q$.  The $(q;q)_\infty^{-2}$ prefactor
-encodes the $g = -1$ Euler term; the $22 = 2g - 2 + n$ denominator
-is the Coulomb rank.  Expanding in $q$ and extracting the
-$c_{2d}$-controlled growth
-$\log \mathcal{I} \sim -\frac{c_{2d}}{24} \log q + O(1)$
-reproduces $c_{2d} = -214$, \emph{not} through algebraic
-identification but through modular asymptotics of the Schur series.
-Primary: Gadde--Rastelli--Razamat--Yan 2011 Thm.~1;
-Beem--Lemos--Peelaers--Rastelli 2015 eq.~2.27.
-
-\paragraph{Cycle 2 --- VOA$[\cT_{24}]$: not $L_{-6}(\fe_8)$.}
-The chiral algebra $\cV_{24} := \cV[\cT_{24}]$ has central charge
-$-214$.  The natural guess $L_{k}(\fe_8)$ at level $k = -6$ has
+At \(n=24\),
 \[
-  c(L_{-6}(\fe_8)) \;=\; \frac{k \dim \fe_8}{k + h^\vee}
-                 \;=\; \frac{-6 \cdot 248}{-6 + 30}
-                 \;=\; \frac{-1488}{24} \;=\; -62,
+  (n_v,n_h)(\cT_{24})=(63,88).
 \]
-not $-214$.  The discrepancy $-214 + 62 = -152$ excludes a simple
-embedding $L_{-6}(\fe_8) \hookrightarrow \cV_{24}$ as the full
-Sugawara stress tensor.  What \emph{does} survive: $\cV_{24}$ is a
-$\cW$-algebra obtained by iterated Drinfeld--Sokolov reduction on
-the pants decomposition of $\Sph$ (Beem--Lemos--Liendo--Peelaers--
-Rastelli 2015 Thm.~6.1), with $22$ trinion factors glued along
-$21$ tubes.  Each $A_1$ trinion contributes
-$c_{\mathrm{triple}} = -26$ (Argyres--Seiberg); gluing shifts
-by $+1$ per tube (free-hyper tube central charge), yielding
-$22 \cdot (-26) + 21 \cdot (+1) = -572 + 21 = -551$, a lower
-bound exceeded because non-trinion Drinfeld--Sokolov contributions
-enter.  The correct identification is
+The Shapere-Tachikawa normalization gives
 \[
-  \cV_{24} \;\cong\; H^0_{\mathrm{DS}}\bigl( L_{-2+1/22}(\fsl_2)^{\otimes 22} \bigr)
+  c_{4d}=\frac{2n_v+n_h}{12},
+  \qquad
+  a_{4d}=\frac{5n_v+n_h}{24}.
 \]
-as a $\cW$-algebra extension, with level $k = -2 + 1/22$ saturating
-$-12\,c_{4d} = -12(2n_v + n_h)/12 = -214$ via Kac--Wakimoto character.
-Primary: Arakawa 2017 \emph{Duke Math.~J.}~166 Thm.~1.3
-(BRST reduction proof); Creutzig--Linshaw 2017 arXiv:1610.02860
-(chiralisation at admissible level).
-
-\paragraph{Cycle 3 --- factorisation through $\mathfrak{g}_{\Delta_5}$.}
-The question: does $\cV_{24}$ factor through the GKM
-superalgebra $\mathfrak{g}_{\Delta_5}$ of Lorgat 2020?  Answer:
-only at a \emph{character} level, not at the level of VOAs.
-Specifically, the Siegel modular form $\Delta_5$ is the
-denominator of $\mathfrak{g}_{\Delta_5}$, weight $5$,
-$\kBKM(\Delta_5) = c_1(0)/2 = 5$.  The Schur index of $\cT_{24}$
-restricted to the Schur--Schwinger locus (Gaiotto--Moore--Neitzke
-spectral network, $\mathrm{Sp}_4(\mathbb{Z})$ modular orbit) is
+The four-dimensional to two-dimensional Schur dictionary of Beem,
+Lemos, Liendo, Peelaers, Rastelli, and van Rees gives
 \[
-  \mathcal{I}_{\mathrm{Schur}}(\cT_{24}; q, p, y)\Big|_{\mathrm{Humbert}\;H_1}
-  \;=\; \Delta_5(\Omega)^{-\beta_{24}}, \qquad \Omega \in \mathbb{H}_2,
+  c_{2d}=-12c_{4d}.
 \]
-for an exponent $\beta_{24}$ determined by
-$-214 = -\beta_{24} \cdot \mathrm{wt}(\Delta_5) \cdot 2 + \gamma$
-via Kac--Wakimoto with the boundary correction
-$\gamma = b_2(K3) \cdot \mathrm{wt}(\Phi_{10}) - 6 = 22 \cdot 10 - 6
-= 214$, giving $\beta_{24} = 0$ at the pure-anomaly match ---
-$\cV_{24}$ does not \emph{equal} a power of $\Delta_5^{-1}$; it
-meets it on the Humbert locus $H_1$.  See
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-Remark~\texttt{rem:cydkappa-c2d-214-restoration}.
+Therefore
+\[
+  c_{4d}(\cT_{24})=\frac{2\cdot63+88}{12}=\frac{107}{6},
+  \qquad
+  a_{4d}(\cT_{24})=\frac{403}{24},
+  \qquad
+  c_{2d}\bigl(\chi(\cT_{24})\bigr)=-214.
+\]
+The Coulomb rank is \(21\), and the flavour algebra is
+\(\fsu(2)^{24}\).
 
-\paragraph{Cycle 4 --- Song 2016 cross-check.}
-Song (arXiv:1612.08956) tabulates the vertex operator algebra for
-$n$-punctured $A_1$ spheres through the Macdonald index limit.
-For $n$ punctures the chiral-algebra central charge is
-$c_{2d}[A_1, \Sigma_{0,n}] = -2(19 n - 28)/24 \cdot 12 \cdot (1/12)
-= -(19 n - 28)/2$.  At $n = 24$,
-$c_{2d} = -(19 \cdot 24 - 28)/2 = -428/2 = -214$. \checkmark
-This is the Shapere--Tachikawa face of the $-214$ factorisation:
-Coulomb rank $23 = n - 1$, Higgs branch dimension shift
-$\Delta_i = 2$, sum rule $2 a_{4d} - c_{4d} = 23/2$,
-matching $2 \cdot 403/24 - 107/6 = 806/24 - 428/24 = 378/24 = 63/4$.
-Correction: $2 a_{4d} - c_{4d} = 403/12 - 107/6 = 403/12 - 214/12
-= 189/12 = 63/4$, and the Coulomb rank is $21$ (not $23$):
-the dimension-$2$ Coulomb operators number $2 g - 2 + n - 1 = 21$
-for $g = 0$, $n = 24$.
+\paragraph{The genus-two curve.}
+For the closed genus-two curve \(\Sigma_{2,0}\), the same pants count
+has \(2g-2=2\) trinions and \(3g-3=3\) gauged tubes:
+\[
+  (n_v,n_h)=2(0,4)+3(3,0)=(9,8).
+\]
+Consequently
+\[
+  c_{4d}\bigl(\cT[A_1,\Sigma_{2,0}]\bigr)=\frac{2\cdot9+8}{12}
+  =\frac{13}{6},
+  \qquad
+  c_{2d}=-26.
+\]
+The curve carrying the \(107/6\) Schur parent is \(\Sph\). The
+genus-two variable belongs to the Siegel target of the Borcherds lift,
+through \(Z=\bigl(\begin{smallmatrix}\tau&z\\z&\sigma\end{smallmatrix}\bigr)\in\HH_2\)
+and the Humbert divisor \(H_1\subset\mathcal A_2\).
 
-\paragraph{Cycle 5 --- link to $\kBKM(\Delta_5) = 5$ and Lorgat 2020 Conj.~1.}
-The chain.  (i) Beem--Rastelli: $c_{2d}(\cV_{24}) = -214$.
-(ii) Igusa weight identity: $-214 = -(22 \cdot 10 - 6)$ with
-$10 = 2 \cdot \mathrm{wt}(\Delta_5)$, hence the $-214$ exactly
-doubles the K3-Betti-twisted Borcherds weight of $\Delta_5$.
-(iii) Lorgat 2020 Conj.~1: all $8$ Gritsenko--Cl\'ery paramodular
-forms arise as reciprocal-square-roots of refined DT zeta
-$Z^{X}_{L,h_M}$; at $N = 1$, $Z^{X} = C/\Delta_5^2$
-(Oberdieck--Pixton).  Combining: the Schur index of $\cT_{24}$
-at the Humbert $H_1$ locus is governed by the \emph{square} of
-the $\mathfrak{g}_{\Delta_5}$ denominator, giving the doubling
-factor $2 \cdot 10 = 20$ that populates the $22 \cdot 10$ term.
-The subtraction $-6$ is the triple of $-2$ copies of the
-ghost-number anomaly of the BRST reduction, matching
-Arakawa 2017 Thm.~1.3 with rank $3$ input
-(three $\fsl_2$-ghosts, compatible with $\mathrm{rk}(\mathfrak{g}_{\Delta_5}) = 3$).
+\paragraph{Schur character and Jacobi projection.}
+The Schur construction assigns to a four-dimensional \(\mathcal N=2\)
+SCFT \(\cT\) a vertex algebra \(\chi(\cT)\). Its graded character is
+\[
+  \cI_{\mathrm{Schur}}(\cT;q,\mathbf{x})
+  =
+  \operatorname{Tr}_{\mathcal H_{\mathrm{Schur}}}
+  (-1)^Fq^{E-R}\mathbf{x}^{\mathbf f}.
+\]
+For class-\(\cS\) theories, Gadde, Rastelli, Razamat, and Yan identify
+this character with the correlator of the Schur topological field
+theory on the Gaiotto curve:
+\[
+  \cI_{\mathrm{Schur}}\bigl(\cT[A_1,C_{g,n}];q,\mathbf{x}\bigr)
+  =
+  \sum_{\lambda\geq0}
+  C_{\lambda}(q)^{\,2g-2+n}
+  \prod_{i=1}^{n}\psi_{\lambda}(x_i;q).
+\]
+The \(24\) variables of \(\cT_{24}\) are attached to the \(24\) maximal
+punctures. After those punctures are labelled by the singular fibres of
+an elliptic \(K3\), the Mathieu average gives a Jacobi-form projection
+\[
+  \Pi_{M_{24}}\colon
+  \cI_{\mathrm{Schur}}(\cT_{24})
+  \longrightarrow
+  \phi_{0,1}^{K3}(\tau,z).
+\]
+The Gritsenko-Nikulin normalization is
+\[
+  \phi_{0,1}^{K3}(\tau,z)=y^{-1}+10+y+O(q),
+  \qquad
+  c_1(0)=[q^0y^0]\phi_{0,1}^{K3}=10.
+\]
+The geometric \(K3\) elliptic genus is \(2\phi_{0,1}^{K3}\); the
+primitive Borcherds denominator uses the displayed half-normalized
+Jacobi form.
 
-\paragraph{Budget.}
-$c_{4d}(\cT_{24}) = 107/6$ closed: TQFT Schur formula
-(Gadde--Rastelli--Razamat--Yan) $\Rightarrow$ central charge
-$-214$ $\Rightarrow$ $\cV_{24}$ is a DS-reduced iterated
-$\fsl_2$ $\cW$-algebra (Arakawa--Creutzig--Linshaw) whose
-Humbert restriction sits on the $\Delta_5$-denominator locus
-of Lorgat 2020.  Cross-checks: Song 2016
-$c_{2d}[A_1, \Sigma_{0,n}] = -(19 n - 28)/2$; Shapere--Tachikawa
-$a$--$c$ sum rule; K3-signature factorisation $-(22 \cdot 10 - 6)$.
-No reduction to $L_{-6}(\fe_8)$ (central charge mismatch
-$-62 \ne -214$); the affine cousin is $\fsl_2$-DS, not $\fe_8$.
-$\kBKM(\Delta_5) = 5$ enters as a denominator-weight witness, not
-as a VOA embedding.  Open frontier: explicit Fourier coefficient
-of $\Delta_5(\Omega)^{-1}$ matching $\mathcal{I}_{\mathrm{Schur}}$
-expansion coefficient-by-coefficient through order $q^{10}$.
+\paragraph{Igusa normalization.}
+Let \(\Delta_5\) denote the weight-five Igusa square root in theta
+normalization. Its first product coefficient fixes
+\[
+  [q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64,
+  \qquad
+  D_5=64^{-1}\Delta_5.
+\]
+The monic denominator of the rank-three Borcherds-Kac-Moody
+superalgebra \(\fg_{\Delta_5}\) is
+\[
+  \operatorname{den}(\fg_{\Delta_5})=D_5(2Z).
+\]
+Borcherds' weight formula gives
+\[
+  \kBKM(\Delta_5)=\frac{c_1(0)}{2}=\frac{10}{2}=5.
+\]
+The square normalization is
+\[
+  \Phi_{10}^{\theta}=\Delta_5^2,
+\]
+while the Oberdieck-Pandharipande monic scalar convention is
+\[
+  \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2.
+\]
+
+\paragraph{Typed comparison.}
+The comparison from the class-\(\cS\) Schur sector to the Igusa
+denominator has the form
+\[
+  \cT[A_1,\Sph]
+  \xrightarrow{\ \chi\ }
+  \chi(\cT_{24})
+  \xrightarrow{\ \operatorname{ch}\ }
+  \cI_{\mathrm{Schur}}(\cT_{24})
+  \xrightarrow{\ \Pi_{M_{24}}\ }
+  \phi_{0,1}^{K3}
+  \xrightarrow{\ \Borch\ }
+  \Delta_5
+  \rightsquigarrow
+  \fg_{\Delta_5}.
+\]
+The first arrow is the protected chiral-algebra construction. The
+second takes the Schur character. The third uses the chosen
+Mathieu-equivariant labelling of the punctures. The fourth is the
+Gritsenko-Nikulin Borcherds lift. The final arrow records the
+denominator superalgebra whose imaginary-root supermultiplicities are
+read from the Fourier coefficients of \(\phi_{0,1}^{K3}\). Each arrow
+requires its displayed source and target; the character, the Jacobi
+form, the Siegel form, the class-\(\cS\) curve, and the Hall data are
+different mathematical objects.
+
+\paragraph{\texorpdfstring{$K3\times E$}{K3xE} invariants.}
+Let \(X=K3\times E\). The compact Hodge column is
+\[
+  h^{0,\bullet}(X)=(1,1,1,1),
+\]
+so the compact chiral Hodge supertrace is
+\[
+  \kch(X)=\sum_{q=0}^{3}(-1)^qh^{0,q}(X)=1-1+1-1=0.
+\]
+The categorical Euler invariant is K\"unneth-multiplicative:
+\[
+  \kcat(X)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0.
+\]
+The Heisenberg-Mukai specialization gives
+\[
+  \kHeis(X)=3,
+\]
+and the K3 fibre supplies the Mukai-lattice rank
+\[
+  \kfib(X)=\operatorname{rk}\widetilde H(K3,\Z)=1+22+1=24.
+\]
+Together with the Borcherds weight,
+\[
+  \kcat(X)=0,\qquad
+  \kch(X)=0,\qquad
+  \kHeis(X)=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib(X)=24.
+\]
+The two zeros are distinguished by construction. An identity joining
+these quantities would require an additional morphism connecting the
+Hodge, Hall, Jacobi, and fibre layers; the displayed comparison contains
+only the typed arrows above.
+
+\paragraph{Native threefold output.}
+For \(d\geq3\), the native CY-to-chiral output is \(E_1\)-chiral. In
+the present case,
+\[
+  A_X=
+  \SpCh_{K3,E}\bigl(\PhiFA_3(\Perf(K3\times E))\bigr)
+  \in E_1\text{-}\ChirAlg(E).
+\]
+Two-dimensional braided structure belongs to a named centre, double,
+module category, or external Schur layer, for example
+\[
+  Z^{\mathrm{der}}_{\mathrm{ch}}(A_X),
+  \qquad
+  D(\CoHA(X)),
+  \qquad
+  Z(\operatorname{Rep}(A_X)),
+  \qquad
+  \chi(\cT_{24}).
+\]
+The compact threefold output is \(A_X\).
+
+\paragraph{Branch register.}
+\[
+\begin{array}{lll}
+\text{Layer} & \text{Object} & \text{Controlling datum} \\
+\hline
+\text{class-\(\cS\) curve} & \Sph & 24\ \text{maximal punctures} \\
+\text{Schur VOA} & \chi(\cT_{24}) & c_{2d}=-214 \\
+\text{Jacobi seed} & \phi_{0,1}^{K3} & c_1(0)=10 \\
+\text{Borcherds denominator} & D_5(2Z) & \kBKM(\Delta_5)=5 \\
+\text{Hall-Drinfeld branch} & D(\CoHA(K3\times E)) &
+  \text{oriented compact critical CoHA data} \\
+\text{Mukai-Yangian branch} & \text{ADE/Kummer local Yangian data} &
+  \text{Mukai lattice and Maulik-Okounkov \(R\)-matrix} \\
+\text{native CY output} & A_X & E_1\text{-chiral specialization}
+\end{array}
+\]
+The Borcherds/Hall-Drinfeld row has its own input data. The
+Mukai-Yangian row has its own input data. The class-\(\cS\)/VOA row has
+its own input data. A theorem comparing two rows must name the functor,
+lattice, chamber, orientation character, and source of product
+coefficients.
+
+\paragraph{Primary anchors.}
+The class-\(\cS\) central-charge arithmetic uses Gaiotto 2012,
+Chacaltana and Distler 2010, and Shapere and Tachikawa 2008. The
+Schur VOA relation \(c_{2d}=-12c_{4d}\) is the Beem, Lemos, Liendo,
+Peelaers, Rastelli, and van Rees dictionary. The Schur TQFT character
+formula is due to Gadde, Rastelli, Razamat, and Yan. The
+\(\Delta_5\) normalization and weight use Gritsenko and Nikulin's
+Borcherds product and Borcherds' singular-theta weight formula. The
+reduced \(K3\times E\) Igusa square convention is the
+Oberdieck-Pandharipande convention.

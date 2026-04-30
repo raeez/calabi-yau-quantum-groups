@@ -1,214 +1,288 @@
-% wave15_n1_HH2_E2_nonab.tex
-% Wave-15 N1/20, Costello + Francis channel.
-% Target: close the Wave-14 K5 conditional by proving the all-orders
-% vanishing HH^2_{E_2}(d hCS_5(sl_n), -) = 0, upgrading the non-abelian
-% hCS -> VOA descent from conditional theorem to theorem.
-
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\hCS}{\mathrm{hCS}}
-\providecommand{\Obs}{\mathrm{Obs}}
-\providecommand{\Def}{\mathrm{Def}}
-\providecommand{\HH}{\mathrm{HH}}
-\providecommand{\CE}{\mathrm{CE}}
-\providecommand{\Yaff}{Y_{\epsilon_1,\epsilon_2,\epsilon_3}}
-\providecommand{\slnhat}{\widehat{\mathfrak{sl}}_n}
-\providecommand{\ghhat}{\widehat{\mathfrak{g}}}
-\providecommand{\klev}{k}
-\providecommand{\Vvac}{V^{\mathrm{vac}}_{\klev}(\slnhat)}
+\providecommand{\A}{\mathcal{A}}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\R}{\mathbb{R}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\CoHA}{\operatorname{CoHA}}
+\providecommand{\Def}{\mathrm{Def}}
+\providecommand{\Ed}{E_d}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\QME}{\mathrm{QME}}
+\providecommand{\Rep}{\operatorname{Rep}}
+\providecommand{\SpCh}{\operatorname{Sp}^{\mathrm{ch}}}
+\providecommand{\Sym}{\operatorname{Sym}}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\Woneinf}{\mathcal{W}_{1+\infty}}
+\providecommand{\Yp}{Y^{+}}
+\providecommand{\Zchder}{Z^{\mathrm{der}}_{\mathrm{ch}}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cL}{\mathcal{L}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\sln}{\mathfrak{sl}_n}
 \providecommand{\dbar}{\bar\partial}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\klev}{k}
+\providecommand{\sln}{\mathfrak{sl}_n}
 
-\section{HH${}^2_{E_2}$ rigidity for $\partial\hCS_5(\sln)$
-  (Wave-15 N1/20)}
-\label{wn:sec:wave15-n1-HH2}
+\section{Hochschild Deformations and Nonabelian hCS Boundary Quantisation}
+\label{sec:hochschild-nonabelian-hcs}
 
-\subsection{Target}
+\subsection{Typed deformation complexes}
 
-\ClaimStatusTheorem\ (\emph{HH${}^2_{E_2}$ vanishing, all orders.})
-For $\g=\sln$, $n\ge 2$, and $\epsilon_1+\epsilon_2+\epsilon_3=0$,
+Let $\cC$ be a smooth proper Calabi-Yau $d$-category. The
+CY-to-chiral construction has two stages
 \[
-  \HH^2_{E_2}\!\bigl(\partial\hCS_5(\sln),\,M\bigr)\;=\;0
-  \quad\text{for every }\partial\hCS_5(\sln)\text{-bimodule }M.
+  \Phi_d^{(\Sigma_{d-1},C)}
+  =
+  \SpCh_{\Sigma_{d-1},C}\circ \PhiFA_d,
+  \qquad
+  \PhiFA_d(\cC)\in \mathrm{Alg}_{\Ed}^{\mathrm{hol}}(X),
 \]
-Combined with Wave-14 K5 Cycle~5, this upgrades the non-abelian
-compound
-\(
-  \partial\hCS_5(\sln)\simeq \Yaff(\slnhat)
-\)
-from conditional to unconditional all-orders theorem.
-
-\subsection{Cycle 1 --- HH${}^2_{E_2}$ as Kac--Moody deformation cohomology}
-
-\emph{Attack.} By Wave-14 K5 Cycle~1 the boundary vertex algebra is
-the BRST reduction
-\(
-  \partial\hCS_5(\sln)=H^\ast_{\mathrm{BRST}}(\beta\gamma(\sln)
-  \otimes\mathrm{Ghost}(\slnhat))
-\);
-the chiral current sector is the vacuum module $\Vvac$ at level
-$\klev=-h^\vee+\epsilon_3/\epsilon_2$ (Kac--Moody level, not a
-Vol~III $\kappa_\bullet$-invariant; Frenkel--Ben-Zvi 2004
-\emph{Vertex Algebras and Algebraic Curves} Ch.~2, hereafter FBZ).
-Francis 2013 \texttt{arXiv:1104.0181} Thm~2.29 identifies
-$E_2$-Hochschild cohomology of a factorisation algebra $\cA$ on $\C$
-with the chiral tangent complex
+and
 \[
-  \HH^\ast_{E_2}(\cA,\cA)
-  \;\simeq\;
-  \mathrm{Def}^\ast_{E_2}(\cA)
-  \;\simeq\;
-  H^\ast\!\bigl(\mathrm{Tan}_{\C}\,\cA\bigr)[2]
+  \SpCh_{\Sigma_{d-1},C}\bigl(\PhiFA_d(\cC)\bigr)
+  \in
+  \mathrm{Alg}_{E_{n(d)}}^{\mathrm{ch}}(C),
+  \qquad
+  n(d)=
+  \begin{cases}
+    \infty, & d=1,\\
+    2, & d=2,\\
+    1, & d\geq 3.
+  \end{cases}
 \]
-where $\mathrm{Tan}_{\C}\cA$ is the Francis--Lurie chiral tangent
-complex. For $\cA=\Vvac$ a vacuum current module of an affine
-Kac--Moody vertex algebra, this tangent complex is computed by
-chiral Chevalley--Eilenberg cohomology (FBZ Prop.~19.3.3):
+The Gerstenhaber bracket on $\HH^\bullet_{\mathrm{cat}}(\cC)$ supplies
+the Stage 1 Hochschild input. It is categorical Hochschild cohomology.
+It is separate from topological Hochschild cohomology of an $E_1$
+algebra and from chiral Hochschild cohomology of a chiral algebra on
+the curve $C$.
+
+For $d\geq 3$ the specialised object
 \[
-  H^\ast\!\bigl(\mathrm{Tan}_{\C}\,\Vvac\bigr)
-  \;\simeq\;
-  H^\ast_{\mathrm{ch}}\!\bigl(\slnhat,\,\Vvac\bigr).
+  A_C=\SpCh_{\Sigma_{d-1},C}\bigl(\PhiFA_d(\cC)\bigr)
 \]
-\emph{Heal.} Restricting the shift by $[2]$ and reducing via
-Francis factorisation-$\mathrm{to}$-Kac--Moody equivalence, our
-target becomes
+is an $\Eone$-chiral algebra. Set $Z_C=\Zchder(A_C)$. The braided
+$\Etwo$ structure appears on centre, double, or module layers, for
+example on the verified Drinfeld-centre locus
 \[
-  \HH^2_{E_2}\!\bigl(\partial\hCS_5(\sln),-\bigr)
-  \;\simeq\;
-  H^2_{\mathrm{ch}}\!\bigl(\slnhat,\Vvac\bigr).
+  Z\bigl(\Rep^{\Eone}(A_C)\bigr)
+  \simeq
+  \Rep^{\Etwo}\bigl(Z_C\bigr).
 \]
+Thus an $\Etwo$-Hochschild tangent complex is available only after an
+$\Etwo$ object such as $Z_C$, a double, or a module category has been
+specified.
 
-\subsection{Cycle 2 --- Perturbative (one-loop) vanishing}
+\paragraph{Proposition.}
+An element of $\HH^2_{\mathrm{cat}}(\cC)$ controls a first order
+deformation of the Calabi-Yau category $\cC$. It lies outside the
+intrinsic deformation theory of the native $d\geq 3$ specialised
+chiral algebra. Its $\Etwo$ meaning requires the centre, double, or
+module layer.
 
-\emph{Attack.} Costello \emph{Renormalisation and EFT} Ch.~5
-Thm~5.6.1 classifies tree-level deformations of a gauge theory
-with simple structure algebra $\g$ on $\R\times\C^2$ as
+\paragraph{Proof.}
+The Hochschild complex of $\cC$ is the cyclic bar or cochain complex of
+the category. Its degree two classes deform the dg or $A_\infty$ product
+on $\cC$, with obstruction in degree three through the Gerstenhaber
+square. The object $A_C$ is obtained only after Stage 1 factorisation
+and Stage 2 specialisation. At $d\geq 3$ that specialisation lands in
+$\Eone$-chiral algebras. Passing from $A_C$ to $\Zchder(A_C)$ is an
+additional centre construction with its own deformation complex. A
+comparison map
 \[
-  H^0_{\mathrm{Lie}}\!\bigl(\g,\,\mathrm{Sym}^2\g^\vee\bigr)
-  \;=\;
-  \C\cdot\langle-,-\rangle_{\mathrm{Killing}}
+  \HH^\bullet_{\mathrm{cat}}(\cC)
+  \longrightarrow
+  \Def^\bullet_{\Etwo}\bigl(Z_C\bigr)
 \]
-(one-dimensional, the Killing form). By the Getzler--Kapranov
-spectral sequence (Francis 2013 \S2.3) the $E_1$-page of
-$H^\ast_{\mathrm{ch}}(\slnhat,\Vvac)$ is the standard Lie-algebra
-cohomology $H^\ast_{\mathrm{Lie}}(\sln,\mathrm{Sym}^\bullet\sln^\vee)$
-twisted by the loop direction. At degree two: $H^2_{\mathrm{Lie}}
-(\sln,\C)=0$ (Whitehead's second lemma, $\sln$ semisimple) and
-$H^2_{\mathrm{Lie}}(\sln,\sln)=0$ (semisimplicity of adjoint).
-\emph{Heal.} The Killing-form deformation of Costello Ch.~5 is
-absorbed into the choice of level $\klev$; no genuine deformation
-of $\Vvac$ as an $E_2$-algebra arises at tree level. Hence
-\(
-  H^2_{\mathrm{ch}}(\slnhat,\Vvac)^{(0)}=0
-\)
-to first order in $\hbar$.
+is therefore extra structure beyond the notation $\Phi_d$.
 
-\subsection{Cycle 3 --- All-orders via formality of affine Kac--Moody}
+\subsection{Finite-dimensional Lie cohomology and chiral deformation}
 
-\emph{Attack.} Does rigidity propagate? The $E_2$-deformation
-complex of a vertex algebra is formal iff the underlying chiral
-Chevalley--Eilenberg complex is formal as an $L_\infty$-algebra.
-For generic (non-critical) level $\klev$, FBZ Thm~3.4.3 proves
-that $\Vvac$ is a \emph{simple} vertex algebra: no nontrivial
-submodules, hence no nontrivial singular vectors, hence no
-obstructions to formality in the Francis--Getzler sense (Francis
-2013 Thm~3.14). The Tamarkin--Kontsevich formality
-$\mathrm{HC}^\ast(\cA)\simeq\mathrm{Sym}^\ast\mathrm{HH}^\ast(\cA)[1]$
-(Kontsevich 2003 \texttt{arXiv:q-alg/9709040}) lifts to $E_2$ via
-Costello--Gwilliam Vol~I Thm~5.3.3 applied to the holomorphic
-translation on $\C$. Therefore the higher-order Maurer--Cartan
-obstruction tower collapses: every $n$-th order deformation either
-rescales $\klev$ (one-dimensional, already absorbed) or vanishes.
-\emph{Heal.} Rigidity propagates. Formally: the Francis spectral
-sequence
+Let $\fg=\sln$ and let $V$ be a finite-dimensional $\fg$-module. The
+Whitehead lemmas give
 \[
-  E_2^{p,q}=H^p_{\mathrm{Lie}}\!\bigl(\sln,\mathrm{Sym}^q\sln^\vee
-  [\hbar]\bigr)\;\Longrightarrow\;
-  H^{p+q}_{\mathrm{ch}}(\slnhat,\Vvac)
+  H^1_{\mathrm{Lie}}(\fg,V)=0,
+  \qquad
+  H^2_{\mathrm{Lie}}(\fg,V)=0.
 \]
-degenerates at $E_2$ because the differentials $d_r$ are given by
-successive brackets with the Kac--Moody cocycle (FBZ \S16.8),
-which on $\sln$ has kernel the Killing form only; Whitehead's
-lemmas kill $E_2^{2,q}=0$ for all $q\ge 0$ and all levels $\klev$.
-Hence $H^2_{\mathrm{ch}}(\slnhat,\Vvac)=0$ to all orders.
+These statements control finite-dimensional colour-sector
+deformations. Their hypotheses exclude the completed loop algebra, the
+central extension, BRST ghosts, OPE singularities, factorisation
+modules, and chiral completions.
 
-\subsection{Cycle 4 --- Non-perturbative obstructions:
-  Feigin--Frenkel screening}
-
-\emph{Attack.} Could non-perturbative obstructions appear at
-$H^3_{\mathrm{Lie\text{-}ch}}(\slnhat,\Vvac)$? The
-Feigin--Frenkel construction
-(\emph{Affine Kac--Moody algebras and semi-infinite flag manifolds},
-\emph{Comm.~Math.~Phys.~128} (1990)) identifies $\Vvac$ at critical
-level with the centre of the enveloping algebra and, at non-critical
-level, with the free-field screening complex
-$\pi_0\to\pi_1\to\cdots\to\pi_n$ where each $\pi_k$ is a Fock module
-for the Cartan Heisenberg $\hat{\mathfrak{h}}$. Screening operators
-$S_i$ (one per simple root) anticommute; the total complex computes
-$H^\ast(\slnhat,\Vvac)$. \emph{Heal.} The screening complex has
-length $n-1$ (rank of $\sln$) and is concentrated in degrees $\le
-n-1$; non-perturbative corrections to $H^3$ vanish for $n\le 3$ by
-degree reasons, and for $n\ge 4$ vanish because the degree-$3$ piece
-of the screening complex is $\bigwedge^3(\text{simple roots})$
-tensored with a free Fock, and the screening differential restricts
-on $\bigwedge^3$ to the Koszul differential of the simple-root
-lattice, which is exact away from degree $0$. Concretely, the
-Gaitsgory--Lurie tangent computation
-(\emph{A study in derived algebraic geometry} Vol~II Ch.~6,
-Thm~6.1.5) identifies $H^3_{\mathrm{Lie\text{-}ch}}(\slnhat,
-\Vvac)=H^3(\sln,\sln)\otimes\C[\![\hbar]\!]=0$ (Whitehead third
-lemma, semisimplicity). No non-perturbative correction survives.
-
-\subsection{Cycle 5 --- Consequence: non-abelian compound is theorem}
-
-Combining Cycles 1--4:
+\paragraph{Proposition.}
+The vanishing
+$H^2_{\mathrm{Lie}}(\sln,V)=0$ for finite-dimensional $V$ has no
+implication
 \[
-  \HH^2_{E_2}\!\bigl(\partial\hCS_5(\sln),\partial\hCS_5(\sln)\bigr)
-  \;\simeq\;H^2_{\mathrm{ch}}(\slnhat,\Vvac)\;=\;0
+  \HH^2_{\Etwo}\bigl(\partial\hCS_5(\sln),M\bigr)=0
 \]
-unconditionally and to all orders in $\hbar$, for every $n\ge 2$
-and every generic level $\klev\ne-h^\vee$. The critical-level case
-is handled by the Feigin--Frenkel isomorphism $Z(\Vvac_{-h^\vee})
-\simeq\mathrm{Fun}(\mathrm{Op}_{\sln^\vee})$ (FBZ Thm~18.4.2);
-deformations of the centre are classified by $H^2$ of the opers
-differential graded scheme, which vanishes by smoothness of the
-oper moduli.
+for arbitrary chiral bimodules or factorisation modules $M$.
 
-\ClaimStatusTheorem\ (\emph{Non-abelian compound, unconditional.})
-For $\g=\sln$, $n\ge 2$, and $\epsilon_1+\epsilon_2+\epsilon_3=0$:
+\paragraph{Proof.}
+The left side is computed in the ordinary Chevalley-Eilenberg complex
+of the semisimple finite-dimensional Lie algebra $\sln$. The right side
+is an operadic Hochschild or chiral tangent complex for a boundary
+factorisation algebra. It contains the loop variable, the
+Kac-Moody cocycle, the BRST differential, distributional OPE kernels,
+completed tensor products, and coefficient objects $M$ whose underlying
+representation is usually infinite-dimensional. A reduction from the
+right side to the left side requires a filtration, an associated graded
+identification, convergence, compatibility with BRST reduction, and a
+proof that the only surviving coefficient systems satisfy Whitehead's
+finite-dimensional hypotheses. Simplicity of a generic vacuum
+Kac-Moody vertex algebra controls vertex ideals; formality of its full
+$L_\infty$ deformation complex is a separate theorem.
+
+At the critical level, the Feigin-Frenkel centre already changes the
+tangent problem: the centre is the algebra of functions on opers, and
+deformations of the centre are governed by the derived geometry of the
+oper space. Generic and critical levels therefore require different
+arguments.
+
+\subsection{BV quantisation of nonabelian hCS}
+
+Let $X$ be a complex Calabi-Yau threefold with holomorphic volume form
+$\Omega_X$, and let $(\fg,\langle-,-\rangle)$ be a quadratic complex Lie
+algebra. The local holomorphic Chern-Simons fields on $U\subset X$ are
 \[
-  \partial\hCS_5(\sln)\;\simeq\;\Yaff(\slnhat)
+  \cL_{\hCS}(U)=\Omega^{0,\bullet}(U,\fg)[1],
+  \qquad
+  \ell_1=\dbar,
+  \qquad
+  \ell_2(\alpha,\beta)=[\alpha\wedge\beta]_\fg .
 \]
-as vertex algebras, to all orders in $\hbar$, in the compound scope
-of Wave-14 K5 Cycle~5. The HH${}^2_{E_2}$ rigidity hypothesis is
-now a theorem via Francis--Lurie chiral tangent identification
-(Cycle 1) plus Whitehead second-lemma semisimplicity of $\sln$
-(Cycle 2) plus formality of $\Vvac$ at generic level (Cycle 3)
-plus Feigin--Frenkel screening / Gaitsgory--Lurie tangent
-vanishing at $H^3$ (Cycle 4).
+In unshifted Dolbeault grading the $(0,1)$ component is the connection
+field, the $(0,0)$ component is the ghost, and the $(0,2)$ and $(0,3)$
+components are BV antifields under the pairing
+\[
+  \omega(\alpha,\beta)
+  =
+  \int_U \Omega_X\wedge \langle\alpha,\beta\rangle .
+\]
 
-\subsection{Scope, shadow, and cross-volume placement}
+A compact or boundary nonabelian hCS statement requires a Costello
+renormalisation datum: orientation and determinant-line framing for the
+BV pairing, elliptic gauge fixing $Q^{\mathrm{GF}}$, heat kernels
+$K_t$, propagators $P_{\varepsilon,L}$, completed local functionals
+$\cO_{\mathrm{loc}}(\cE_X)[[\hbar]]$, counterterms, and factorisation
+or TCFT sewing. The effective interaction must satisfy the scale $L$
+quantum master equation
+\[
+  QI[L]
+  +\frac12\{I[L],I[L]\}_L
+  +\hbar\Delta_L I[L]
+  =
+  0.
+\]
 
-The argument is chain-level: the Francis spectral sequence and
-its $E_2$-degeneration are explicit complexes; Whitehead's lemmas
-are finite-dimensional Lie-algebra statements; screening
-operators are explicit free-field vertex operators. The
-$(\infty,1)$-categorical shadow is the tangent-complex fibration
-$\mathrm{Tan}(\mathrm{Alg}_{E_2})\to\mathrm{Alg}_{E_2}$ of
-Francis 2013 \S2; fibre at $\Vvac$ has vanishing $\pi_{-2}$ by
-the chain-level input. Shadow constants unchanged:
-$\kch(\C^3)=3/2$, $\kcat(\C^3)=\chi(\cO_{\C^3})=1$.
+For a representation $\rho:\fg\to\operatorname{End}(V)$ the quartic
+invariant is
+\[
+  I_4^\rho(x_1,x_2,x_3,x_4)
+  =
+  \frac1{4!}\sum_{\sigma\in S_4}
+  \Tr_V\!\left(
+    \rho(x_{\sigma(1)})\rho(x_{\sigma(2)})
+    \rho(x_{\sigma(3)})\rho(x_{\sigma(4)})
+  \right).
+\]
+The corresponding one-loop local functional is
+\[
+  \Theta^\rho_U(\alpha_0,\alpha_1,\alpha_2,\alpha_3)
+  =
+  \int_U
+  \left[
+    I_4^\rho(
+      \alpha_0,\partial\alpha_1,\partial\alpha_2,\partial\alpha_3
+    )
+  \right]_{(3,3)} .
+\]
+Its cohomology class is the degree one obstruction to the quantum
+master equation. A quantisation through this obstruction requires an
+explicit local counterterm $J$ with
+\[
+  QJ+\Theta^\rho_U=0
+\]
+in the completed local BV complex, followed by the higher order
+compatibilities imposed by the renormalisation group.
 
-\ClaimStatusConjectured\ The type-$D/E$ extension of Wave-14 K5
-Cycle~5 inherits rigidity from Whitehead's second lemma, which
-holds for all semisimple $\g$; the missing ingredient is Cycle~1
-Chan--Paton representation theory, not HH${}^2_{E_2}$ rigidity.
-Rigidity is therefore \emph{not} the obstruction to ADE extension;
-the brane representation theory is.
+The quadratic Casimir
+\[
+  C_2^\rho=\sum_a \rho(T_a)\rho(T^a)
+\]
+has arity two and degree zero. It is the coefficient of a two-point
+kinetic or field-strength counterterm. It is separate from the quartic
+QME anomaly $I_4^\rho$.
+
+\subsection{Objects that remain distinct}
+
+The following objects have different definitions and functorial roles:
+\[
+  A,\qquad B(A),\qquad A^i,\qquad A^!,\qquad \Zchder(A).
+\]
+Here $A$ is the specialised $\Eone$-chiral algebra, $B(A)$ is its bar
+coalgebra, $A^i$ is the Koszul dual coalgebra, $A^!$ is the Verdier or
+Koszul dual algebra in the specified duality context, and
+$\Zchder(A)$ is the derived chiral centre. The identity
+$\Omega B(A)\simeq A$ is bar-cobar inversion. It says nothing about
+$A^!$ or about the bulk centre.
+
+Hochschild polyvectors are another layer. For a smooth variety $X$, HKR
+identifies
+\[
+  \HH^\bullet(\operatorname{Perf}(X))
+  \simeq
+  \bigoplus_{p,q} H^q(X,\wedge^p T_X)
+\]
+after the completed diagonal is used. Product, module, and Mukai-pairing
+comparisons carry the Duflo-Todd correction generated by the Atiyah
+class. The hCS fields $\Omega^{0,\bullet}(X,\fg)[1]$ and their BV
+antifields belong to the gauge theory layer. Hochschild polyvectors
+belong to the HKR layer.
+
+\subsection{The toric Hall comparison}
+
+For the toric affine threefold $\C^3$, the critical CoHA of the tripled
+Jordan quiver gives the positive half
+\[
+  \CoHA(\C^3)\cong \Yp(\widehat{\fgl}_1).
+\]
+The complete $\Woneinf$ comparison passes through the double, centre,
+completion, and evaluation layers:
+\[
+  \Yp(\widehat{\fgl}_1)
+  \hookrightarrow
+  D\bigl(\Yp(\widehat{\fgl}_1)\bigr)
+  =
+  \widehat{Y}(\widehat{\fgl}_1)
+  \longrightarrow
+  \operatorname{End}\bigl(\Woneinf[\lambda]\text{-vacuum}\bigr).
+\]
+This is the typed route from Hall algebra to vertex algebra. The direct
+Hall output is the positive half.
+
+\subsection{Corrected conclusion}
+
+For $\fg=\sln$, finite-dimensional Whitehead vanishing removes the
+ordinary colour-sector first order deformations. It has no force as an
+all-coefficient $\Etwo$-Hochschild vanishing theorem for
+$\partial\hCS_5(\sln)$.
+
+A theorem identifying a nonabelian hCS boundary algebra with an affine
+Yangian or Yangian vertex algebra must provide the following witnesses:
+the BV quantisation satisfying the scale $L$ QME, trivialisation of the
+quartic class $I_4^\rho$,
+a distinct treatment of the two-point counterterm $C_2^\rho$,
+BRST reduction compatible with the chosen Kac-Moody level,
+completion and coefficient control for the chiral tangent complex, PBW
+or no-extra-relation comparison, and sewing for compact or boundary
+geometries. The Hochschild calculation supplies one input to this
+construction. The construction requires the remaining witnesses.

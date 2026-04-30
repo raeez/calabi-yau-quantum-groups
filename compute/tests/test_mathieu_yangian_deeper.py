@@ -6,7 +6,7 @@ The tests verify INTERNAL CONSISTENCY of the deeper construction.
 CENTRAL RESULTS (all conjectural):
     (1) M_24 permutes the 24 Mukai generators at the A_1^{24} Niemeier point.
     (2) The twined bar Euler product equals the Frame shape eta product
-        for ALL 25 M_24 conjugacy classes (cyclotomic identity).
+        for all 26 M_24 conjugacy classes (cyclotomic identity).
     (3) The 23 Niemeier Yangians form a landscape with universal bar Euler
         product eta^{24} and varying Umbral groups.
     (4) The Yangian deformation preserves the GHV symmetry surfing group.
@@ -144,7 +144,7 @@ class TestGeneratorPermutation:
         """The generator permutation verification suite passes."""
         result = verify_generator_permutation()
         assert result['all_ok']
-        assert result['num_classes'] == 25
+        assert result['num_classes'] == 26
 
 
 # =========================================================================
@@ -196,11 +196,11 @@ class TestFrameShapeBarEuler:
         result = twined_bar_euler_product('3A')
         assert result['bar_equals_eta']
 
-    def test_bar_euler_all_25_classes(self):
-        """Twined bar Euler = eta product for ALL 25 M_24 classes."""
+    def test_bar_euler_all_26_classes(self):
+        """Twined bar Euler = eta product for all 26 M_24 classes."""
         result = verify_all_twined_bar_euler_products(max_degree=12)
         assert result['all_ok']
-        assert result['num_classes'] == 25
+        assert result['num_classes'] == 26
 
     def test_modular_data_1A(self):
         """For 1A: eta product has weight 12, level 1."""

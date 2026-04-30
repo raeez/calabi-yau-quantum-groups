@@ -1,184 +1,356 @@
-% wave14_i2_Linf_Obs_hCS.tex
-% Wave-14 I2/20: $L_\infty$-structure on $\Obs_{\hCS}(\C^3)$ beyond the minimal model.
-% Voices: Kontsevich--Soibelman + Kapranov.
-% Five attack--heal cycles. No AI attribution. Do not commit.
-
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\hCS}{\mathrm{hCS}}
-\providecommand{\Conf}{\mathrm{Conf}}
-\providecommand{\FM}{\mathrm{FM}}
 \providecommand{\CE}{\mathrm{CE}}
+\providecommand{\BV}{\mathrm{BV}}
 \providecommand{\MC}{\mathrm{MC}}
+\providecommand{\QME}{\mathrm{QME}}
 \providecommand{\dbar}{\bar\partial}
-\providecommand{\cE}{\mathcal{E}}
-\providecommand{\cO}{\mathcal{O}}
-\providecommand{\cK}{\mathcal{K}}
-\providecommand{\gfrak}{\mathfrak{g}}
-\providecommand{\hfrak}{\mathfrak{h}}
-\providecommand{\C}{\mathbb{C}}
-\providecommand{\Z}{\mathbb{Z}}
-\providecommand{\Tr}{\mathrm{tr}}
+\providecommand{\cA}{\mathcal A}
+\providecommand{\cF}{\mathcal F}
+\providecommand{\cH}{\mathcal H}
+\providecommand{\cL}{\mathcal L}
+\providecommand{\cO}{\mathcal O}
+\providecommand{\cW}{\mathcal W}
+\providecommand{\fg}{\mathfrak g}
+\providecommand{\C}{\mathbb C}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\FM}{\mathrm{FM}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\Yplus}{Y^+}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\kanom}{\kappa_{\mathrm{anom}}}
 
-\section*{$L_\infty$-structure on $\Obs_{\hCS}(\C^3)$ beyond minimal model (Wave-14 I2/20)}
+\section*{$L_\infty$ Observables for Holomorphic Chern--Simons Theory}
 
-\paragraph{Object.}
-Fix gauge algebra $\gfrak$ with invariant pairing $\langle-,-\rangle$.
-The cochain-level $L_\infty$-algebra of 6D holomorphic Chern--Simons on
-$X = \C^3$ is
+\paragraph{BV field complex.}
+Let \(X\) be a Calabi--Yau threefold with holomorphic volume form
+\(\Omega_X\).  Let \(\rho:\fg\to\End(V)\) be a finite-dimensional
+representation of a complex Lie algebra and set
 \[
-  \hfrak_{\hCS} \;=\; \Omega^{0,\bullet}(\C^3,\gfrak)[1],
+  \langle x,y\rangle_\rho=\Tr_V(\rho(x)\rho(y)).
+\]
+The pairing is assumed invariant and non-degenerate on the quotient of
+\(\fg\) used by the theory.  For an open set \(U\subset X\) the compactly
+supported hCS BV fields form the shifted Dolbeault dg Lie algebra
+\[
+  \cL_{\hCS,c}(U)
+  =
+  \Omega^{0,\bullet}_c(U,\fg)[1],
   \qquad
-  \ell_1 = \dbar,
-  \quad
-  \ell_2(\alpha,\beta) = [\alpha \wedge \beta]_\gfrak,
+  \ell_1=\dbar,
 \]
-with Maurer--Cartan equation $\dbar \cA + \tfrac12[\cA,\cA] = 0$ recovering
-classical hCS solutions (Costello 2011 \S5; Costello--Gwilliam 2017 Vol.~I
-Example~3.5.3). Question: are $\ell_{\geq 3}$ zero at chain level, zero on
-the minimal model, or nonzero on either?
-
-\paragraph{Cycle 1: Kontsevich--Soibelman minimal model, $\ell_3$ via trees.}
-\emph{Attack.}
-Homotopy transfer (Kontsevich--Soibelman 2000 \emph{Deformations of algebras
-over operads}, \S6.4; Loday--Vallette 2012 Thm~10.3.5) produces a minimal
-$L_\infty$-structure $(H^*(\hfrak_{\hCS}), \ell_n^{\min})$ on Dolbeault
-cohomology from a Hodge decomposition
-$\hfrak_{\hCS} = \ker\dbar \oplus \mathrm{im}\,\dbar \oplus \cH$ with
-propagator $h$. The transferred $\ell_n^{\min}$ is the sum over planar
-binary trees $T \in \mathrm{Tree}_n$ of
-$p \circ (\bigotimes_{\text{int}} h\, \ell_2) \circ i^{\otimes n}$,
-one $\ell_2$ per internal vertex, one propagator $h$ per internal edge,
-inclusion $i: \cH \hookrightarrow \hfrak_{\hCS}$ and projection $p$ to
-harmonics. For $n = 3$:
 \[
-  \ell_3^{\min}(x_1,x_2,x_3) \;=\;
-  \tfrac{1}{2}\bigl(
-    p\,\ell_2(h\,\ell_2(x_1,x_2), x_3)
-    \pm \text{(2 cyclic)}
-  \bigr).
+  \ell_2(\alpha\otimes x,\beta\otimes y)
+  =
+  (-1)^{|x||\beta|}
+  (\alpha\wedge\beta)\otimes[x,y]_\fg,
+  \qquad
+  \ell_n=0\quad(n\geq3).
 \]
-\emph{Heal.}
-On $X = \C^3$ with flat Dolbeault structure the harmonic subspace
-$\cH \subset \Omega^{0,\bullet}_{L^2}(\C^3,\gfrak)$ is \emph{zero} for
-$L^2$ boundary conditions (no $L^2$ harmonic $(0,q)$-forms on $\C^n$);
-for polynomial boundary conditions $\cH = \C[z_1,z_2,z_3]\otimes\gfrak$
-placed in degree $0$ of the shifted complex. The tree sum collapses:
-the inner bracket $\ell_2(x_1,x_2) \in \Omega^{0,0}\otimes\gfrak$ lies in
-$\cH$ already, so $h\,\ell_2(x_1,x_2) = 0$ and every binary tree with an
-internal edge is killed. Therefore
-$\ell_n^{\min} = 0$ for $n \geq 3$, and the minimal model is the
-strict graded Lie algebra $(\C[z_1,z_2,z_3]\otimes\gfrak, [-,-])$.
-This is the Kontsevich--Soibelman formality pattern for holomorphic
-theories on affine varieties (Kapranov 2001 \emph{Rozansky--Witten
-invariants via Atiyah classes}, Thm~2.6: the Atiyah class obstruction
-to formality vanishes on affine Calabi--Yau for polynomial ideals).
+The trace pairing and \(\Omega_X\) give the degree \(-1\) BV form
+\[
+  \omega_{\BV,U}(a,b)
+  =
+  \int_U\Omega_X\wedge\langle a,b\rangle_\rho .
+\]
+The classical action is
+\[
+  S_{\hCS}(a)
+  =
+  \int_U\Omega_X\wedge
+  \left(
+    \frac12\langle a,\dbar a\rangle_\rho
+    +\frac16\langle a,[a,a]\rangle_\rho
+  \right).
+\]
+The classical master equation follows from \(\dbar^2=0\), the Jacobi
+identity, and invariance of \(\langle-,-\rangle_\rho\).  Its
+Maurer--Cartan equation is
+\[
+  \dbar\cA+\frac12[\cA,\cA]=0,
+\]
+the integrability equation for the holomorphic structure determined by
+the \((0,1)\)-field \(\cA\).
 
-\paragraph{Cycle 2: does the minimal model truncate, and where does obstruction live?}
-\emph{Attack.}
-Formality of $\hfrak_{\hCS}$ at chain level is a stronger claim: an
-$L_\infty$-quasi-isomorphism $\hfrak_{\hCS} \simeq \cH$ with
-$\ell_{\geq 3}^\infty \neq 0$ possibly on the chain side. The obstruction
-to propagating the $\ell_2$-quasi-isomorphism $\cH \hookrightarrow
-\hfrak_{\hCS}$ to a full $L_\infty$-map lies in
-$H^2(\mathrm{Der}(\cH), \ell_1) = H^2(\cH, \ell_2^\vee) = 0$ for
-polynomial coefficients on $\C^3$ (Harrison vanishing, smooth affine).
-\emph{Heal.}
-The obstruction class on a nontrivial CY$_3$ target $X$ is the
-Atiyah--Kapranov class $\mathrm{At}(TX) \in H^1(X, \Omega^1_X \otimes
-\mathrm{End}(TX))$, obstructing the existence of a global
-$L_\infty$-splitting. For $X = \C^3$ this class vanishes ($TX$ trivial),
-so $\hfrak_{\hCS}(\C^3)$ is \emph{formal}: $\ell_n^\infty = 0$ for
-$n \geq 3$ on the minimal side and the chain-level $\ell_3$ is a pure
-coboundary. For $X$ a projective CY$_3$ (quintic, $K3 \times E$, abelian)
-$\mathrm{At}(TX) \neq 0$ and $\ell_3^{\min}$ is forced nonzero; for
-$K3 \times E$ the class restricts to the Kuranishi cubic on the K3 factor
-times the elliptic period on $E$, and $\kcat(K3 \times E) = 0$ controls
-the global cancellation.
+\paragraph{Local formal and compact observables.}
+The formal local theory at \(x\in X\) uses the completed Dolbeault
+fields on the formal polydisk \(D_x\):
+\[
+  \cL_{\hCS,x}^{\mathrm{for}}
+  =
+  \Omega^{0,\bullet}_{\mathrm{for}}(D_x,\fg)[1],
+  \qquad
+  \Obs^{\mathrm{cl}}_{\hCS,x}
+  =
+  C^\bullet_{\CE,\mathrm{cont}}
+  \bigl(\cL_{\hCS,x}^{\mathrm{for}}\bigr).
+\]
+Compact observables on \(U\) are the continuous CE cochains
+\[
+  \Obs^{\mathrm{cl}}_{\hCS,c}(U)
+  =
+  C^\bullet_{\CE,\mathrm{cont}}\bigl(\cL_{\hCS,c}(U)\bigr)
+  =
+  \widehat{\Sym}
+  \bigl(\cL_{\hCS,c}(U)^\vee[-1]\bigr),
+\]
+with differential
+\[
+  d^{\mathrm{cl}}_{\Obs}=d_{\dbar}+d_{\ell_2}.
+\]
+Here \(d_{\dbar}\) is the dual coderivation induced by \(\dbar\), and
+\(d_{\ell_2}\) is the quadratic coderivation induced by the Lie bracket.
+For pairwise disjoint opens \(U_i\subset U\), extension by zero gives
+the factorisation product
+\[
+  \bigotimes_i\Obs^{\mathrm{cl}}_{\hCS,c}(U_i)
+  \longrightarrow
+  \Obs^{\mathrm{cl}}_{\hCS,c}(U).
+\]
+On compact \(X\), global observables use the completed Fréchet complex
+\(\Omega^{0,\bullet}(X,\fg)[1]\) and the same trace pairing integrated
+over \(X\).  Local formal observables, compactly supported
+factorisation observables, and compact global observables are three
+different completions of the same local dg Lie input.
 
-\paragraph{Cycle 3: $\ell_3$ as a 6D Drinfeld associator.}
-\emph{Attack.}
-Kontsevich 1997 \emph{Deformation quantisation of Poisson manifolds}
-\S7 realises the formality $L_\infty$-quasi-isomorphism on
-$\R^d$ via integrals over $\overline{\FM_n(\R^d)}$ of differential forms
-pulled back from pairs of configuration points. The 2D Drinfeld
-associator arises as the period of the Knizhnik--Zamolodchikov connection
-on $\overline{\FM_4(\C)}$.
-\emph{Heal.}
-For 6D hCS the analogous integrand lives on
-$\overline{\FM_n(\C^3)}$, the Fulton--MacPherson compactification
-indexed by holomorphic (not real) blow-ups, with propagator the
-Bochner--Martinelli kernel
-$G(z,w) = \tfrac{2}{(2\pi i)^3}\sum_k
-(-1)^{k-1}\overline{(z_k{-}w_k)}\|z{-}w\|^{-6}
-\,\widehat{d\bar z_k}\wedge d^3w$
-(Wave-13 H3). The $n=3$ tree integral
-$\int_{\overline{\FM_3(\C^3)}} G_{12}\wedge G_{23}$ vanishes on
-$X = \C^3$ by translation invariance plus dimension count: the
-compactified moduli has real dimension $2 \cdot 6 = 12$ (three points
-modulo $\C^3$ translation plus scale), while $G\wedge G$ is a
-$(\bullet, 4)$-form of real degree $8$; the four-form gap is a
-$\bar z$-deficit that no translation-invariant integrand can fill.
-Hence the 6D ``Drinfeld associator on $\C^3$'' is trivial, recovering
-formality of Cycle~2. A nontrivial 6D associator appears on compact CY$_3$
-where translation invariance is broken; the Costello 2011 Thm~5.0.1
-one-loop anomaly identifies it with the integrated second Chern class
-$c_2(TX) \cup c_2(\gfrak)$, matching the Costello--Gaiotto 2018
-(\emph{Twisted M-theory}, \S3) identification of 6D hCS with the
-Yangian R-matrix on $X = \C^3$.
+\paragraph{Quantum observables.}
+A Costello quantisation datum consists of an elliptic gauge fixing,
+heat kernels \(K_t\), regularised propagators \(P_{\varepsilon,L}\), a
+completed local-functional topology, counterterms, and effective
+interactions \(I[L]\).  At scale \(L\) the quantum observables are
+\[
+  \Obs^q_{\hCS,L}(U)
+  =
+  \left(
+    \Obs^{\mathrm{cl}}_{\hCS,c}(U)[[\hbar]],
+    d^{\mathrm{cl}}_{\Obs}+\{I[L],-\}_L+\hbar\Delta_L
+  \right),
+\]
+provided the scale-\(L\) quantum master equation holds:
+\[
+  Q_{\hCS}I[L]
+  +\frac12\{I[L],I[L]\}_L
+  +\hbar\Delta_LI[L]
+  =
+  0.
+\]
+Here \(Q_{\hCS}\) is the linear BV differential induced by \(\dbar\).
+Compact or global quantum hCS requires the following additional data:
+orientation and determinant-line framing for the BV pairing, an
+anomaly-cancellation class in the Costello local functional complex,
+counterterms trivialising the local obstruction class, descent or sewing
+compatibility for factorisation products, gauge-fixing independence
+under RG flow, and a nuclear completion supporting OPE and BV
+operations.
 
-\paragraph{Cycle 4: Stasheff $\cK_n$ coherence at chain level.}
-\emph{Attack.}
-The $L_\infty$-relations $\sum_{i+j = n+1}
-\sum_\sigma (\pm) \ell_j(\ell_i \otimes 1^{\otimes j-1})\sigma = 0$
-are a stratification of the boundary of the Stasheff associahedron
-$\cK_n$ (Loday--Vallette 2012 Ch.~9), equivalently of the real
-Fulton--MacPherson $\overline{\FM_n(\R)}$.
-\emph{Heal.}
-The holomorphic analogue requires replacing $\cK_n$ by the complex
-Fulton--MacPherson $\overline{\FM_n(\C^3)}$; the boundary divisors
-enumerate collisions of $\geq 2$ points. The $L_\infty$-Jacobi at order
-$n$ becomes Stokes' theorem for the Bochner--Martinelli $n$-gon integral
-on $\overline{\FM_n(\C^3)}$ with boundary divisor corresponding to the
-tree where a $k$-subset collides (Kapranov 2001 \S4). On $X = \C^3$ every
-such boundary integral vanishes by the Cycle~3 dimension count, so the
-Stasheff coherence is strict at chain level (formality re-proved via
-boundary integrals).
+\paragraph{Quartic anomaly.}
+In complex dimension \(3\) the local gauge anomaly is controlled by the
+symmetrised quartic invariant
+\[
+  I_4^\rho(x_1,x_2,x_3,x_4)
+  =
+  \frac{1}{4!}
+  \sum_{\sigma\in S_4}
+  \Tr_V\!\left(
+    \rho(x_{\sigma(1)})\rho(x_{\sigma(2)})
+    \rho(x_{\sigma(3)})\rho(x_{\sigma(4)})
+  \right),
+  \qquad
+  I_4^\rho\in\Sym^4(\fg^\vee)^\fg .
+\]
+The curvature of a field is
+\[
+  F_\cA=\dbar\cA+\frac12[\cA,\cA],
+\]
+and the one-loop obstruction class has representative
+\[
+  \kanom(X,\fg,\rho)
+  =
+  \left[
+    \hbar\int_X\Omega_X\wedge
+    I_4^\rho(\cA,F_\cA,F_\cA,F_\cA)
+  \right]
+  \in
+  H^1_{\mathrm{loc}}\bigl(\cL_{\hCS}(X),\cO_{\mathrm{loc}}\bigr).
+\]
+Here \(\cL_{\hCS}(X)=\Omega^{0,\bullet}(X,\fg)[1]\) in the compact
+global topology.
+The two-point invariant
+\[
+  C_2^\rho(x,y)=\Tr_V(\rho(x)\rho(y))
+\]
+enters wave-function renormalisation through degree-zero kinetic
+counterterms such as
+\[
+  S_{\mathrm{ct}}^{(2)}
+  =
+  \hbar\,\lambda_{\varepsilon,L}
+  \int_X\Omega_X\wedge\Tr_\rho(\cA\,\dbar\cA).
+\]
+The QME obstruction lives in degree \(1\) and is governed by
+\(I_4^\rho\).  The kinetic rescaling and the anomaly-cancellation
+condition are distinct requirements.
 
-\paragraph{Cycle 5: Maurer--Cartan locus, hCS solutions, and the
-CoHA identification.}
-\emph{Attack.}
-$\MC(\hfrak_{\hCS}) = \{\cA \in \Omega^{0,1}(\C^3,\gfrak) :
-\dbar \cA + \tfrac12 [\cA,\cA] = 0\}$ is the moduli of holomorphic
-$\gfrak$-connections on $\C^3$, equivalently semistable
-$\gfrak$-bundles with holomorphic structure.
-\emph{Heal.}
-Under the formality of Cycle~2, MC of $\hfrak_{\hCS}$ equals MC of the
-minimal model $(\C[z_1,z_2,z_3]\otimes\gfrak, [-,-])$; the latter is
-the moduli of commuting triples in $\gfrak$ (three commuting elements
-$X_1, X_2, X_3$ from $z_i$-coefficients), whose deformation quantisation
-is $Y^+(\gfrak) = \mathrm{CoHA}(\C^3_\gfrak)$, the positive half of
-the affine Yangian (Schiffmann--Vasserot 2013, Costello--Gaiotto 2018).
-The cache-level identity
-$\mathrm{CoHA}(\C^3) = Y^+$ (positive half only, \emph{not}
-$\cW_{1+\infty}$) is the $L_\infty$-MC shadow at $\gfrak = \mathfrak{gl}_1$.
-The invariant on this side is $\kch(\mathbb{C}^3) = 1$
-(Hodge supertrace $\sum_q (-1)^q h^{0,q}(\C^3) = 1$ for
-polynomial-$L^2$ boundary); this is \emph{not} $\kcat$, since $\C^3$ is
-non-compact and $\chi(\cO_{\C^3})$ diverges / is not defined in the
-compact sense.
+\paragraph{Affine minimal model.}
+On \(X=\C^3\) with polynomial boundary conditions,
+\[
+  H^\bullet_{\dbar}(\C^3,\fg)
+  =
+  \C[z_1,z_2,z_3]\otimes\fg
+\]
+in Dolbeault degree \(0\).  Choose the standard Dolbeault contraction
+\[
+  \bigl(H^\bullet_{\dbar},0\bigr)
+  \xrightarrow{i}
+  \Omega^{0,\bullet}_{\mathrm{poly}}(\C^3,\fg)
+  \xrightarrow{p}
+  \bigl(H^\bullet_{\dbar},0\bigr),
+  \qquad
+  \dbar h+h\dbar=\mathrm{id}-ip .
+\]
+Homotopy transfer gives
+\[
+  \ell_1^{\min}=0,\qquad
+  \ell_2^{\min}(f\otimes x,g\otimes y)=fg\otimes[x,y]_\fg .
+\]
+For \(n\geq3\), each transferred tree contains an internal edge labelled
+by \(h\).  The bracket of holomorphic polynomial representatives is
+again holomorphic, hence \(h\,\ell_2(iu,iv)=0\).  Thus
+\[
+  \ell_n^{\min}=0\quad(n\geq3)
+\]
+for the polynomial affine model.  With \(L^2\) boundary conditions on
+\(\C^3\), the harmonic Dolbeault subspace is zero and the minimal model
+is the zero dg Lie algebra.
 
-\paragraph{Synthesis.}
-\ClaimStatusTheorem\ On $X = \C^3$ the $L_\infty$-algebra
-$\hfrak_{\hCS}$ is formal: $\ell_n^{\min} = 0$ for $n \geq 3$, with
-chain-level Stasheff coherence strict by Bochner--Martinelli
-boundary-integral vanishing (Kapranov 2001). The MC locus is the
-commuting-triple variety, quantising to $Y^+(\gfrak)$
-(Schiffmann--Vasserot 2013). \ClaimStatusConjectured\ On compact CY$_3$
-the Atiyah class $\mathrm{At}(TX)$ is the universal obstruction to
-formality; $\ell_3^{\min}$ on $X = K3 \times E$ is the product of
-the K3 Kuranishi cubic and the elliptic period, controlled by
-$\kcat(K3 \times E) = 0$ (Cycle~2 heal).
+\paragraph{Configuration formula.}
+The Bochner--Martinelli kernel \(G(z,w)\) is the integral kernel of the
+Dolbeault homotopy \(h\).  The ternary transferred bracket is
+\[
+  \ell_3^{\min}(x_1,x_2,x_3)
+  =
+  \frac12\,p\,\ell_2\bigl(h\,\ell_2(ix_1,ix_2),ix_3\bigr)
+  +\hbox{cyclic terms}.
+\]
+For polynomial holomorphic inputs this expression is zero by the
+previous paragraph.  Equivalently, the corresponding tree integral on
+\(\overline{\FM}_3(\C^3)\) has zero harmonic projection.  Boundary
+strata of \(\overline{\FM}_n(\C^3)\) encode the \(L_\infty\) relations
+by Stokes' theorem; in the affine polynomial contraction the relations
+reduce to the strict dg Lie identities for \(\ell_1\) and \(\ell_2\).
+
+\paragraph{Compact threefolds.}
+For compact \(X\), the affine contraction is replaced by a Hodge
+decomposition and a global Green kernel.  Transferred brackets are sums
+over trees whose internal edges carry this global propagator, and their
+cohomology classes are governed by the Atiyah--Kapranov class of
+\(T_X\).  For \(X=K3\times E\),
+\[
+  T_X=T_{K3}\oplus T_E,
+  \qquad
+  \mathrm{At}(T_E)=0,
+\]
+while the K3 factor contributes the nonzero Atiyah class.  The Hodge
+Euler identity
+\[
+  \kcat(K3\times E)
+  =
+  \chi(\cO_{K3})\chi(\cO_E)
+  =
+  2\cdot0
+  =
+  0
+\]
+is only the compact categorical Euler computation.  Vanishing of compact
+transferred brackets, anomaly cancellation, and a BKM boundary
+comparison are additional constructions.
+
+\paragraph{Toric representation stack and positive half.}
+The affine hCS Maurer--Cartan equation describes integrable Dolbeault
+operators.  After the polynomial affine reduction and a choice of
+\(N\)-dimensional vector space, representations of
+\(\C[z_1,z_2,z_3]\) are triples
+\[
+  (X_1,X_2,X_3)\in\End(\C^N)^3,
+  \qquad
+  [X_i,X_j]=0.
+\]
+The critical cohomological Hall algebra of this derived commuting-triple
+stack is the positive half
+\[
+  \mathrm{CoHA}(\C^3)\simeq\Yplus .
+\]
+The full \(\cW_{1+\infty}\) vertex algebra appears after Drinfeld
+double, centre, completion, and evaluation/Fock-module operations.
+
+\paragraph{Curve specialisation.}
+For a holomorphic curve \(C\subset X\) with formal normal neighbourhood
+\(N_C\), a quantum hCS factorisation algebra produces
+\[
+  \cA_C
+  =
+  \int_{N_C/C}\Obs^q_{\hCS}
+  \in
+  \mathrm{Alg}^{\mathrm{ch}}_{\Eone}(C).
+\]
+The chiral Chevalley--Eilenberg object is
+\[
+  C^\bullet_{\CE,\mathrm{ch}}(\cA_C)
+  =
+  \Gamma_{\Ran(C)}
+  \left(
+    \widehat{\Sym}(\cA_C^\vee[-1]),
+    d_{\CE}^{\mathrm{ch}}
+  \right),
+\]
+where \(d_{\CE}^{\mathrm{ch}}\) contains the ordinary CE differential
+and OPE contractions on Ran diagonals.  In dimension \(d=3\), the
+specialised \(\Phi_3\) output is native \(\Eone\)-chiral.  The
+\(\Etwo\) layer is the centre, double, or module-category enhancement,
+for example
+\[
+  Z\bigl(\Rep^{\Eone}(\cA_C)\bigr)
+  \simeq
+  \Rep^{\Etwo}\bigl(Z^{\mathrm{der}}_{\mathrm{ch}}(\cA_C)\bigr)
+\]
+on loci where the chiral centre hypotheses hold.
+
+\paragraph{\(K3\times E\) invariants.}
+The compact total-space Hodge supertrace is
+\[
+  \kch(K3\times E)
+  =
+  \sum_{q=0}^{3}(-1)^q h^{0,q}(K3\times E)
+  =
+  (1-0+1)(1-1)
+  =
+  0.
+\]
+The categorical Euler invariant agrees:
+\[
+  \kcat(K3\times E)=\chi(\cO_{K3\times E})=0.
+\]
+The Heisenberg specialisation has rank-additive value
+\[
+  \kHeis(K3\times E)=\kHeis(K3)+\kHeis(E)=2+1=3.
+\]
+The Borcherds weight attached to the Gritsenko denominator is
+\[
+  \kBKM(\Delta_5)=\frac{c_1(0)}{2}=\frac{10}{2}=5.
+\]
+The K3 fibre lattice invariant is
+\[
+  \kfiber(K3)=\mathrm{rk}\,H^\bullet(K3,\C)=24.
+\]
+These five formulas belong to distinct constructions: compact Hodge
+supertrace, categorical Euler, Heisenberg rank, Borcherds automorphic
+weight, and fibre Mukai rank.

@@ -1,134 +1,271 @@
-% wave15_r2_slides_600_723.tex
-% Extraction channel R2/20 (Wave-15) — slides 600--723 re-audit.
-% Source: /tmp/automorphic-slides.txt.
-% Cross-reference: wave13_p3_slides_automorphic_corrections.tex;
-% memory/reference_lorgat_2020_automorphic_corrections.md.
+% Rank-three denominator data for the Gritsenko--Nikulin Delta-five algebra.
+% Primary anchors: Gritsenko--Nikulin 1998, Gritsenko 1995,
+% Eichler--Zagier 1985, Borcherds 1998.
 
+\providecommand{\CC}{\mathbb{C}}
 \providecommand{\ZZ}{\mathbb{Z}}
 \providecommand{\RR}{\mathbb{R}}
 \providecommand{\NN}{\mathbb{N}}
-\providecommand{\Delaf}{\Delta_5}
+\providecommand{\Delaf}{\Delta_{5}}
 \providecommand{\LamII}{\Lambda^{2,1}_{\mathrm{II}}}
-\providecommand{\LamIIdual}{(\Lambda^{2,1})^{\ast}}
-\providecommand{\gbkm}{\mathfrak{g}_{\Delta_5}}
-\providecommand{\mult}{\operatorname{mult}}
+\providecommand{\gbkm}{\mathfrak{g}_{\Delta_{5}}}
+\providecommand{\smult}{\operatorname{smult}}
+\providecommand{\CoHA}{\operatorname{CoHA}}
 \providecommand{\Pii}{\mathcal{P}_{\mathrm{II}}}
 \providecommand{\Piprim}{\mathcal{P}_{\mathrm{II},\mathrm{prim}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
 
-\section*{Wave-15 R2/20: slide block 600--723 line-granularity verification}
+\section*{Rank-Three Borcherds Denominator and \(K3\times E\) Separations}
 
-\paragraph{Cycle 1 --- line sweep.}
-Blocks 600--600, 601--613, 614--630, 631--645, 646--660,
-661--675, 676--693, 694--711, 712--722, 723. The block 676--693
-duplicates 661--675 verbatim then appends the super-multiplicity
-identity $\mult_\alpha = \mult_0 + \mult_1 = \dim\mathfrak{g}_0 -
-\dim\mathfrak{g}_1$ (line 693); the duplication is authorial
-layering, not new mathematics.
-
-\paragraph{Cycle 2 --- corroboration of P3.}
-The four assertions anchoring Wave-13 P3 hold verbatim against the
-slide source:
-\begin{enumerate}[label=(\alph*)]
-\item The Cartan matrix $(\delta_i,\delta_j) = \mathrm{diag}(2,2,2) -
-      2(J-I)$ (slide 605--607) agrees with the Gram matrix of
-      $\Piprim = \ZZ\delta_1 \oplus \ZZ\delta_2 \oplus \ZZ\delta_3$.
-\item Imaginary simple roots split into $\Delta^{\mathrm{im}}_0 =
-      \{\tau(a)a : (a,a)=0,\ \tau(a)>0\}$ and $\Delta^{\mathrm{im}}_1 =
-      \{m(a)a : (a,a)<0,\ m(a)<0\}$ (slide 617--620). Signs match.
-\item The denominator (slide 700--707) with Weyl side and infinite
-      product side, and the identification
-      $\tfrac{1}{64}\Delaf(2z) = \Phi(z)$ (slide 716--722).
-\item The $m(a)$ coefficients are the automorphic correction to the
-      naive Weyl denominator; multiplicities $\mult_\alpha$ are the
-      Fourier coefficients of $\phi_{0,1}$ via
-      $\mult_\alpha = f(nm,l)$.
-\end{enumerate}
-
-\paragraph{Cycle 3 --- additional sub-formulas.}
-Three items not pulled into P3:
-\begin{itemize}
-\item \emph{Root-system axioms as a four-line checklist} (slide
-      631--645). For all $\alpha, \alpha' \in \Delta$:
-      $(\alpha,\alpha)>0 \Leftrightarrow \alpha \in
-      \Delta^{\mathrm{re}}$; $(\alpha,\alpha)\leq 0 \Leftrightarrow
-      \alpha \in \Delta^{\mathrm{im}}$; $(\alpha,\alpha')\leq 0$
-      whenever $\alpha \neq \alpha'$; and $2(\alpha,\alpha')/
-      (\alpha,\alpha) \in \ZZ$ on the real part. The last is the
-      integrality condition that makes $\gbkm$ a Borcherds--Kac--Moody
-      Lie algebra (not merely a contragredient algebra).
-\item \emph{Super-dimension from the grading}. Slide 693 reads
-      $\mult_\alpha = \mult_0 + \mult_1 = \dim\mathfrak{g}_0 -
-      \dim\mathfrak{g}_1$. The $+$ on the left and $-$ on the right
-      is the super-multiplicity convention:
-      $\mult_\alpha$ is the graded dimension, and only when $(\alpha,
-      \alpha)<0$ does the odd part contribute with a sign. This is the
-      step at which $\phi_{0,1}$-coefficients $f(n,l)$ become
-      \emph{graded} dimensions and negative $f(n,l)$ become actual
-      root multiplicities of the odd sector.
-\item \emph{Validity domain.} $\Phi$ is valid on
-      $\Omega(\LamII) = \LamII \otimes \RR + i\mathcal{C}(\LamII)_+$
-      (slide 710--711). This is the Siegel upper half-plane realised
-      as a tube domain over the positive cone $\mathcal{C}(\LamII)_+$;
-      the product $\prod_{\alpha \in \Delta_+}(1 - e^{-2\pi i
-      (\alpha, z)})^{\mult_\alpha}$ converges absolutely there. The
-      domain is the $d=3$ Baily--Borel hull inside which
-      $\tfrac{1}{64}\Delaf(2z)$ admits the Borcherds product.
-\end{itemize}
-
-\paragraph{Cycle 4 --- $\tau(a_0) = 9$ and the $\eta^9\nu_{11}$
-structure.}
-The slide 594 identity (one block before 600) is the single-variable
-shadow of the full $\eta^9\nu_{11}$ factorisation:
+\paragraph{Theorem 1: rank-three denominator.}
+Let
 \[
-  1 + \tfrac{1}{64}\sum_{t\in\NN} f(1+2t, 1, 1)\, q^t
-  = \prod_{k \in \NN} (1 - q^k)^9,
+  \Lambda^{2,1}=\ZZ f_2\oplus\ZZ f_3\oplus\ZZ f_{-2},
+  \qquad
+  (f_2,f_{-2})=-1,\qquad (f_3,f_3)=2,
 \]
-and the general statement (slide 596--598)
+with all other pairings zero. The Type-II real simple roots are
 \[
-  1 - \sum_{t\in\NN} m(t a_0) q^t
-  = \prod_{t \in \NN} (1 - q^t)^{\tau(t a_0)}
+  \delta_1=2f_2-f_3,\qquad
+  \delta_2=2f_{-2}-f_3,\qquad
+  \delta_3=f_3 .
 \]
-implicitly defines $\tau(ta_0)$ along every isotropic multiple. The
-transitivity of $\mathrm{Aut}(\Pii)$ on the three vertices at
-infinity $\{2f_2,\ 2f_{-2},\ 2f_2 - 2f_3 + 2f_{-2}\}$ (slide 586) and
-the invariance of the Fourier expansion (slide 588) together force
-$\tau(a_0) = 9$ at every isotropic $a_0$: the exponent on the RHS is
-controlled by the $\eta(z_1)^9$ factor in $A = \psi_{5,1/2} \exp(2\pi
-i t z_3) = \eta(z_1)^9 \nu_{11}(z_1, z_2)$, which at the $a_0 = 2f_2$
-vertex pulls back to $\eta(q)^9 = \prod_{k}(1-q^k)^9$. Hence
-$\tau(a_0) = 9$ is not an arithmetic surprise: it is the exponent of
-$\eta$ in the multiplicative decomposition of the Jacobi
-$\psi_{5,1/2}$ that appears in the Borcherds product input.
+Their Gram matrix is
+\[
+  ((\delta_i,\delta_j))_{i,j=1}^{3}
+  =
+  \begin{pmatrix}
+    2&-2&-2\\
+    -2&2&-2\\
+    -2&-2&2
+  \end{pmatrix},
+  \qquad \det=-32,
+\]
+with signature \((2,1)\). The chamber
+\(\Piprim=\ZZ_{\geq0}\delta_1+\ZZ_{\geq0}\delta_2+\ZZ_{\geq0}\delta_3\)
+is preserved up to permutation by the \(S_3\)-symmetry generated by the
+reflections in \(f_2-f_3\) and \(f_{-2}-f_2\). Its three isotropic
+vertices are
+\[
+  2f_2,\qquad 2f_{-2},\qquad 2(f_2-f_3+f_{-2}).
+\]
 
-\paragraph{Cycle 5 --- class-$\mathcal{S}$ / CoHA bridge in block
-600--723?}
-Negative: no mention of class-$\mathcal{S}$ theories, cohomological
-Hall algebras, Schiffmann--Vasserot, Maulik--Okounkov, or
-$\mathcal{W}_{1+\infty}$ in the range 600--723. The word
-``fiber'' appears first at slide 879 (class of a fibre of $\pi : S
-\to \mathbb{P}^1$, in the N=1 Oberdieck--Pixton block), outside the
-audit range. The frontier bridge --- $\kBKM(\Delaf) =
-\kch(K3 \times E) + \kBKM(\mathrm{fibre correction})$ type
-identifications --- is not inscribed in this slide block and must
-be constructed externally, consistently with the cache entry
-$\kBKM = \kch + \chi(\cO_{\mathrm{fiber}})$ being FALSE and with the
-universal identity $\kBKM(\Phi_N) = c_N(0)/2$ holding by Borcherds
-weight directly.
+The simple roots of the Borcherds--Kac--Moody superalgebra satisfy
+\[
+\begin{array}{ll}
+(\alpha,\alpha)>0 &\Longleftrightarrow\ \alpha\in\Delta^{\mathrm{re}},\\
+(\alpha,\alpha)\leq0 &\Longleftrightarrow\ \alpha\in\Delta^{\mathrm{im}},\\
+\alpha\neq\alpha' &\Longrightarrow\ (\alpha,\alpha')\leq0,\\
+\alpha\in\Delta^{\mathrm{re}} &\Longrightarrow\
+  2(\alpha,\alpha')/(\alpha,\alpha)\in\ZZ .
+\end{array}
+\]
+The final implication is the real-root Serre integrality condition.
+Together these conditions promote the Lorentzian denominator data to a
+Borcherds--Kac--Moody root system.
 
-\paragraph{Frontier readings.}
-Two items the manuscript could absorb cleanly:
-\begin{enumerate}
-\item An explicit \emph{tube-domain statement} for $\Phi$ convergence
-      (slide 710--711), to tighten the scope statement in the K3 $\times
-      E$ denominator proof.
-\item An explicit \emph{four-axiom checklist} for $\Delta$ being a
-      BKM root system (slide 631--645), useful in the definition of
-      the generalised BKM superalgebra whenever we cite the Borcherds
-      theory more than glancingly.
-\end{enumerate}
-No claim in this slide block refutes anything the manuscript currently
-asserts; the $\kBKM(\Delaf) = 5$ anchor is reinforced by lines
-716--722 (Borcherds--Gritsenko--Nikulin theorem, weight 5 cusp form
-of genus 2 as denominator).
+The Weyl vector is fixed by \((\rho,\delta_i)=-1\):
+\[
+  \rho=\frac12(\delta_1+\delta_2+\delta_3)
+  =f_2-\frac12 f_3+f_{-2},
+  \qquad
+  (\rho,\rho)=-\frac32 .
+\]
+On the tube domain
+\[
+  \Omega(\LamII)=\LamII\otimes\RR+i\,\mathcal C(\LamII)_+,
+\]
+where \(\mathcal C(\LamII)_+\) is the chosen positive cone, the
+Gritsenko--Nikulin denominator is
+\[
+  64^{-1}\Delaf(2Z)
+  =
+  e^{-2\pi i(\rho,Z)}
+  \prod_{\alpha\in\Delta_+}
+  \bigl(1-e^{-2\pi i(\alpha,Z)}\bigr)^{\smult(\alpha)}.
+\]
+The scalar \(64^{-1}\) fixes the monic product normalization; the weight
+and root exponents are read from the Borcherds product.
+
+Write the Eichler--Zagier generator as
+\[
+  \phi_{0,1}(\tau,z)=\sum_{a\geq0,\ell\in\ZZ} f(a,\ell)q^a r^\ell,
+  \qquad
+  f(a,\ell)=c(4a-\ell^2).
+\]
+For the root
+\[
+  \alpha(n,\ell,m)=2nf_2-\ell f_3+2mf_{-2},
+  \qquad
+  D=4nm-\ell^2,
+\]
+the denominator exponent is the signed supermultiplicity
+\[
+  \smult_{\gbkm}(\alpha(n,\ell,m))
+  =
+  \dim\gbkm_{\alpha,\bar0}-\dim\gbkm_{\alpha,\bar1}
+  =
+  f(nm,\ell)
+  =
+  c(D).
+\]
+Positive coefficients contribute even signed dimension; negative
+coefficients contribute odd signed dimension. A parity-refined
+root-space dimension requires the parity datum in addition to the
+Jacobi coefficient.
+
+The constant term of \(\phi_{0,1}\) is
+\[
+  \phi_{0,1}|_{q^0}=\zeta^{-1}+10+\zeta,
+  \qquad c(0)=10.
+\]
+At a primitive isotropic vertex \(a_0\) of \(\Pii\), the even
+imaginary-simple multiplicity is
+\[
+  \tau(a_0)=c(0)-c(-1)=10-1=9.
+\]
+The subtraction removes the real-root contribution. Equivalently,
+the one-variable cusp identity reads
+\[
+  1-\sum_{t\geq1}m(ta_0)q^t
+  =
+  \prod_{t\geq1}(1-q^t)^{\tau(ta_0)},
+\]
+and the primitive exponent is the \(\eta^9\) factor in the
+Gritsenko--Nikulin cusp expansion. The \(S_3\)-symmetry of the chamber
+permutes the three isotropic vertices, so the value \(\tau(a_0)=9\)
+is the same at each zero-dimensional cusp.
+
+Borcherds' weight theorem gives
+\[
+  \kBKM(\Delaf)
+  =
+  \operatorname{wt}(\Delaf)
+  =
+  \frac{c(0)}2
+  =
+  5 .
+\]
+\emph{Proof.}
+The Gram matrix follows by substitution from the three displayed
+simple roots and the bilinear form on \(f_2,f_3,f_{-2}\). Solving
+\((\rho,\delta_i)=-1\) gives the displayed Weyl vector. The product
+formula is the Gritsenko--Nikulin Borcherds denominator attached to
+the Eichler--Zagier input \(\phi_{0,1}\). The \(q^0\)-coefficient
+\(\zeta^{-1}+10+\zeta\) gives \(c(0)=10\), and Borcherds' weight
+formula gives \(\operatorname{wt}(\Delaf)=c(0)/2=5\). The same
+coefficient gives \(\tau(a_0)=c(0)-c(-1)=9\) after subtracting the
+real-root contribution \(c(-1)=1\).
+
+\paragraph{Theorem 2: the four \(K3\times E\) scalars.}
+Let \(Y=K3\times E\). The compact and specialised invariants are
+\[
+\begin{array}{c|c|l}
+\text{invariant} & \text{value} & \text{construction}\\
+\hline
+\kappa_{\mathrm{cat}}(Y) & 0
+  & \chi(\mathcal O_Y)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0\\
+\kappa_{\mathrm{ch}}(Y) & 0
+  & \sum_q(-1)^q h^{0,q}(Y)=1-1+1-1\\
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(Y) & 3
+  & \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3)+
+    \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E)=2+1\\
+\kBKM(\gbkm) & 5
+  & c_1(0)/2=10/2\\
+\kappa_{\mathrm{fiber}}(Y) & 24
+  & \operatorname{rk}\widetilde H(K3,\ZZ)=1+22+1 .
+\end{array}
+\]
+The set of values is \(\{0,3,5,24\}\), sourced by compact Hodge theory,
+Heisenberg--Mukai specialisation, the Borcherds denominator, and the
+Mukai lattice.
+
+\emph{Proof.}
+K\"unneth gives \(\chi(\mathcal O_{K3})=2\), \(\chi(\mathcal O_E)=0\),
+and \(\chi(\mathcal O_Y)=0\). The Hodge diamond factorisation gives
+\((h^{0,0},h^{0,1},h^{0,2},h^{0,3})=(1,1,1,1)\), hence
+\(\kappa_{\mathrm{ch}}(Y)=0\). The Heisenberg--Mukai specialisation
+has one rank from the elliptic factor and two ranks from the K3
+holomorphic symplectic directions. The BKM value is Theorem 1. The
+Mukai lattice rank is \(1+22+1=24\).
+
+\paragraph{Theorem 3: primitive CHL denominator constants.}
+For \(N\in\{1,2,3,4,6\}\) the primitive BKM denominator convention uses
+the \(g_N\)-twined weight-zero index-one Jacobi input
+\(\phi_{0,1}^{(N)}\) with discriminant-zero coefficient \(c_N(0)\):
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\
+\hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kappa_{\mathrm{BKM}}(\Phi_N) & 5 & 4 & 3 & 2 & 1 .
+\end{array}
+\]
+The Gritsenko--Clery diagonal-divisor rows have their own triples
+\((t,N;k)\), cover groups, characters, and product normalisations. A
+comparison with the primitive CHL row requires an explicit row map
+recording all four data.
+
+\emph{Proof.}
+Borcherds' weight formula gives
+\(\kappa_{\mathrm{BKM}}(\Phi_N)=\operatorname{wt}(\Phi_N)=c_N(0)/2\).
+Gritsenko--Nikulin's CHL tower has weights \((5,4,3,2,1)\) at
+\(N=(1,2,3,4,6)\), yielding the displayed constants. At \(N=1\),
+\(\phi_{0,1}|_{q^0}=\zeta^{-1}+10+\zeta\), so \(c_1(0)=10\).
+
+\paragraph{Square convention.}
+The primitive \(N=1\) denominator consumes the Eichler--Zagier input
+\[
+  \phi_{0,1}(\tau,z)=\zeta^{-1}+10+\zeta+O(q)
+\]
+and produces the weight-five form \(\Delaf\). The K3 elliptic genus is
+\[
+  \operatorname{Ell}_{K3}(\tau,z)=2\,\phi_{0,1}(\tau,z).
+\]
+This doubled input belongs to the Igusa square convention:
+\[
+  \chi_{10}^{\mathrm{un}}=\Delaf^2,
+  \qquad
+  \Phi_{\!10}^{\mathrm{phys}}=(\Delta_{k(1)}^{(1)})^2 .
+\]
+Thus the primitive denominator weight is \(5\), while the square
+convention has weight \(10\).
+
+\paragraph{Operadic and Hall-algebra scope.}
+For \(d\geq3\), the native CY-to-chiral output is
+\[
+  \Phi_d(\mathcal C)\in E_1\text{-}\mathrm{ChirAlg}.
+\]
+\(E_2\)-structures enter through centre, double, module-category, or
+stable-envelope enhancements such as
+\[
+  Z^{\mathrm{der}}_{\mathrm{ch}}(A),\qquad
+  D(Y^+(X)),\qquad
+  \mathrm{Rep}^{E_2}(A).
+\]
+For the toric affine threefold,
+\[
+  \CoHA(\mathbb{C}^{3})=Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The vacuum algebra \(\mathcal W_{1+\infty}\) appears after adjoining
+the opposite half and evaluating the centre. The \(K3\times E\)
+Hall--Drinfeld branch is the automorphic Borcherds branch
+\[
+  \mathcal D_{\hbar}\bigl(\CoHA_{K3\times E}\bigr)\leadsto\gbkm .
+\]
+The Mukai self-mirror K3 Yangian branch has a separate current
+presentation and a separate \(d=2\) origin.
+
+\paragraph{Proof obligations for comparison theorems.}
+A comparison with class \(\mathcal S\), a Hall product, a higher-level
+CHL form, or a Yangian current presentation must exhibit:
+\[
+\begin{array}{ll}
+\text{source} & \text{the chiral algebra and its operadic level};\\
+\text{lattice} & \text{the Lorentzian lattice, simple roots, and Weyl vector};\\
+\text{input} & \text{the Jacobi form, coefficient }c_N(0),\text{ and parity rule};\\
+\text{product} & \text{the denominator identity and scalar normalisation};\\
+\text{passage} & \text{the map from positive CoHA half to double, centre, or module layer}.
+\end{array}
+\]
+These data are the minimum proof datum for an identification.

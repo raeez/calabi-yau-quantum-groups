@@ -1,33 +1,5 @@
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
-% ============================================================================
-% Wave-5 relaunch, Nekrasov-channel attack on §7 (Route R4 RTT super-Yangian)
-% of /Users/raeez/calabi-yau-quantum-groups/notes/master_synthesis_coha_conifold_2026_04_23.tex.
-%
-% Five attack-heal cycles, each a first-principles replacement of a
-% citation-only black box:
-%   (C1) Super-YBE by direct matrix-element verification (replaces
-%        Mukhin-Varchenko / AMR citation).
-%   (C2) RTT commutation expanded into L_±(u) Lax pair + quantum-double
-%        gluing cocycle.
-%   (C3) Omega-background parameters (ε₁,ε₂) via equivariant free-field;
-%        CY constraint ε₁+ε₂+ε₃=0 from Ω_Y preservation.
-%   (C4) Macdonald/Shiraishi (q,t)-refinement + Nekrasov-Shatashvili limit.
-%   (C5) Super-Gauss decomposition matches KW shuffle-algebra generators
-%        at leading (1,1)-weight.
-%
-% Primary sources: Kulish-Sklyanin 1982; Yamane arXiv:math/9603017;
-% Nekrasov-Okounkov hep-th/0306238; Nekrasov-Shatashvili arXiv:0908.4052;
-% Maulik-Okounkov arXiv:1211.1287; Smirnov arXiv:2004.06542.
-%
-% Date: 2026-04-23. Author: Raeez Lorgat.
-%
-% This note is to be inscribed into §7 of master_synthesis_coha_conifold
-% once parallel edits in that file settle. The anchor is the "RTT relation
-% with graded tensor (Arnaudon-Molev-Ragoucy..." paragraph: replace that
-% paragraph and the Gauss-decomposition stub that follows it with the
-% content of §2-§6 below.
-% ============================================================================
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -45,13 +17,8 @@
 \providecommand{\fgl}{\mathfrak{gl}}
 \providecommand{\End}{\mathrm{End}}
 \providecommand{\bY}{\mathbf{Y}}
-\providecommand{\ClaimStatusTheorem}{\textbf{\textsf{[Theorem]}}}
-\providecommand{\ClaimStatusProposition}{\textbf{\textsf{[Proposition]}}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textbf{\textsf{[Proved elsewhere]}}}
-\providecommand{\ClaimStatusConjectured}{\textbf{\textsf{[Conjectural]}}}
 
-\title{Wave-5 Nekrasov attack on Route~R4:\\
-RTT super-Yangian of the resolved conifold}
+\title{RTT super-Yangian of the resolved conifold}
 \author{Raeez Lorgat}
 \date{2026-04-23}
 
@@ -59,16 +26,15 @@ RTT super-Yangian of the resolved conifold}
 \maketitle
 
 \begin{abstract}
-\noindent Five attack-heal cycles on §7 (Route~R4 RTT super-Yangian) of the
-master synthesis. Direct matrix-element verification of super Yang--Baxter
-for the Kulish--Sklyanin $R$-matrix on $\bC^{1|1} \otimes \bC^{1|1}$;
-$L_\pm(u)$ Lax-pair decomposition and the Reshetikhin--Semenov-Tian-Shansky
-gluing cocycle; $\Omega$-background parameters via equivariant free-field;
-Macdonald--Shiraishi refinement with Nekrasov--Shatashvili limit; RTT
-super-Gauss decomposition matches the Klebanov--Witten shuffle generators
-at leading $(1,1)$-weight. Each cycle replaces a citation-only black box
-with a first-principles computation. Subleading $c_{11}$ correction
-remains conjectural per Remark~\ref{rem:rtt-subleading-open}.
+\noindent The rational Kulish--Sklyanin \(R\)-matrix on
+\(\bC^{1|1}\otimes\bC^{1|1}\) gives an RTT presentation of the
+\(\fgl(1|1)\) super-Yangian. Its half-current decomposition is the
+Reshetikhin--Semenov-Tian-Shansky gluing cocycle; an equivariant
+free-field module realises the conifold shuffle bond; the
+Macdonald--Shiraishi deformation supplies the \((q,t)\)-refinement and
+the Nekrasov--Shatashvili limit. The leading \((1,1)\)-weight term
+matches the Klebanov--Witten shuffle product. The subleading
+\(c_{11}\)-term remains an explicit second-order RTT computation.
 \end{abstract}
 
 % ============================================================================
@@ -87,7 +53,7 @@ e_2 \otimes e_1, e_2 \otimes e_2)$ with matrix
 $\mathrm{diag}(1, 0, 0, -1)$ on the diagonal pairs and the off-diagonal
 flip $e_1 \otimes e_2 \leftrightarrow e_2 \otimes e_1$.
 Kulish--Sklyanin~1982 write
-\begin{equation}\label{eq:R-matrix-wave5}
+\begin{equation}\label{eq:rtt-super-r-matrix}
   R(u) \;=\; \mathrm{Id} \;+\; \frac{\hbar}{u}\, P^{\mathrm{super}}
   \;=\;
   \begin{pmatrix}
@@ -100,12 +66,11 @@ Kulish--Sklyanin~1982 write
 with $(22; 22)$-entry $1 - \hbar/u$ from $P^{\mathrm{super}}(e_2 \otimes e_2)
 = -e_2 \otimes e_2$. Schur's lemma on the two-dimensional fixed-weight
 space of the $\fgl(1|1)$-action on $V^{\otimes 2}$ fixes
-\eqref{eq:R-matrix-wave5} up to overall scalar at rational order.
+\eqref{eq:rtt-super-r-matrix} up to overall scalar at rational order.
 
 \begin{theorem}[Super-Yang--Baxter by direct matrix elements]
 \label{thm:rtt-super-ybe-direct}
-\ClaimStatusTheorem\
-The super-$R$-matrix \eqref{eq:R-matrix-wave5} satisfies
+The super-$R$-matrix \eqref{eq:rtt-super-r-matrix} satisfies
 \[
   R_{12}(u)\, R_{13}(u + v)\, R_{23}(v)
   \;=\;
@@ -168,14 +133,14 @@ the diagonal weight-$(1,1)$ subrepresentation; the sign matching is the
 graded braid identity just verified.
 \end{proof}
 
-\begin{remark}[What the direct proof replaces]
+\begin{remark}[Source comparison for the YBE]
 \label{rem:ybe-direct-vs-citation}
-Earlier drafts invoked Mukhin--Varchenko \texttt{arXiv:math/0303045}
-(which, on inspection, addresses the super-Sutherland operator rather
-than YBE) or the rank-$2$ case of Arnaudon--Crampé--Doikou--Frappat--Ragoucy
-\texttt{arXiv:math/0511481}; both are useful cross-references but are
-not indispensable. Kulish--Sklyanin~1982 remains the primary source for
-the ansatz \eqref{eq:R-matrix-wave5}; Theorem~\ref{thm:rtt-super-ybe-direct}
+Mukhin--Varchenko \texttt{arXiv:math/0303045} concerns the
+super-Sutherland operator rather than this YBE calculation. The rank-$2$
+case of Arnaudon--Crampé--Doikou--Frappat--Ragoucy
+\texttt{arXiv:math/0511481} gives a compatible RTT presentation.
+Kulish--Sklyanin~1982 remains the primary source for the ansatz
+\eqref{eq:rtt-super-r-matrix}; Theorem~\ref{thm:rtt-super-ybe-direct}
 verifies YBE from the graded flip alone. The super-Yangian presentation
 (Yamane \texttt{arXiv:math/9603017} Thm.~6.4.1) is derived downstream
 from the RTT relation built on this $R$-matrix.
@@ -189,7 +154,7 @@ from the RTT relation built on this $R$-matrix.
 Form the generating matrix $T(u) = \sum_{r \geq 0} T^{(r)}\, u^{-r}$ with
 entries $t_{ij}(u)$, $T^{(0)} = \mathrm{Id}$, and impose the graded RTT
 relation
-\begin{equation}\label{eq:RTT-wave5}
+\begin{equation}\label{eq:rtt-super-relation}
   R_{12}(u - v)\, T_1(u)\, T_2(v)
   \;=\;
   T_2(v)\, T_1(u)\, R_{12}(u - v)
@@ -201,7 +166,7 @@ convention of Theorem~\ref{thm:rtt-super-ybe-direct}
 Writing $T(u) = L_+(u)\, L_-(u)^{-1}$ with $L_\pm(u)$ regular at
 $u = \pm\infty$ yields the Reshetikhin--Semenov-Tian-Shansky half-current
 presentation
-\begin{equation}\label{eq:RTT-half-wave5}
+\begin{equation}\label{eq:rtt-half-current}
 \begin{aligned}
   R_{12}(u - v)\, L_{\pm, 1}(u)\, L_{\pm, 2}(v)
   &\;=\;
@@ -215,7 +180,7 @@ The second equation is the gluing cocycle that realises
 $Y^{\mathrm{RTT}}$ as the quantum double of its $L_+$ and $L_-$ halves.
 
 Extracting the $(12; 21)$ and $(22; 22)$ matrix entries of
-\eqref{eq:RTT-wave5} and expanding in $u^{-1}, v^{-1}$ gives
+\eqref{eq:rtt-super-relation} and expanding in $u^{-1}, v^{-1}$ gives
 \begin{align*}
   [t_{12}(u), t_{12}(v)]_+ &\;=\; 0, \\
   [t_{12}(u), t_{21}(v)]_+
@@ -240,7 +205,7 @@ Jordan-quiver coordinates of the conifold's affine chart.
 On the conifold's normal bundle to $\bP^1$, the third weight
 $\varepsilon_3$ is the $\bP^1$-direction weight, constrained by
 preservation of the CY volume form $\Omega_\bY$ to
-\begin{equation}\label{eq:CY-constraint-wave5}
+\begin{equation}\label{eq:conifold-cy-constraint}
   \varepsilon_1 + \varepsilon_2 + \varepsilon_3 \;=\; 0
   \qquad (T^2_{\mathrm{CY}} \subset T^3).
 \end{equation}
@@ -254,7 +219,7 @@ equivariantly-twisted OPE
 \]
 and $\psi(z), \bar\psi(z)$ free fermions with
 $\psi(z)\, \bar\psi(w) \sim (z - w)^{-1}$. The vertex operators
-\begin{equation}\label{eq:vertex-ops-wave5}
+\begin{equation}\label{eq:rtt-free-field-vertices}
   t_{11}(u) = :\!e^{+\phi(u)/\hbar}\!:,
   \ \
   t_{22}(u) = :\!e^{-\phi(u)/\hbar}\!:,
@@ -263,7 +228,7 @@ $\psi(z)\, \bar\psi(w) \sim (z - w)^{-1}$. The vertex operators
   \ \
   t_{21}(u) = \bar\psi(u)\,:\!e^{-\phi(u)/\hbar}\!:
 \end{equation}
-satisfy \eqref{eq:RTT-wave5} on the equivariant Fock module
+satisfy \eqref{eq:rtt-super-relation} on the equivariant Fock module
 $\cF_{(\varepsilon_1, \varepsilon_2)}$ (Nekrasov--Okounkov~2003 \S7 in
 the $\fgl_n$ case, specialised to the $\fgl(1|1)$
 two-boson-plus-two-fermion current algebra; Nakajima~1999 Ch.~8 for the
@@ -271,8 +236,7 @@ equivariant-cohomology Fock model on quiver varieties).
 
 \begin{proposition}[$\Omega$-background realisation of the conifold bond]
 \label{prop:omega-bond-RTT}
-\ClaimStatusProposition\
-The normal-ordered two-point function of \eqref{eq:vertex-ops-wave5} on
+The normal-ordered two-point function of \eqref{eq:rtt-free-field-vertices} on
 $\cF_{(\varepsilon_1, \varepsilon_2)}$ recovers the Klebanov--Witten
 shuffle bond factor:
 \[
@@ -283,7 +247,7 @@ shuffle bond factor:
   \;=\;
   k^{\mathrm{off}}(u - v).
 \]
-Under \eqref{eq:CY-constraint-wave5} and the rescaling
+Under \eqref{eq:conifold-cy-constraint} and the rescaling
 $h_1 = \varepsilon_1$, $h_2 = -\varepsilon_2$, this equals the KW bond
 $\varphi_{0 \Rightarrow 1}(u - v)$ of eq.~(\emph{bond-factors}) on the
 Costello--Gaiotto branch $h_1 = \sqrt{\hbar}$.
@@ -300,7 +264,7 @@ $(u - v + \varepsilon_1)(u - v + \varepsilon_2)$ is the refined
 Jordan-triple kernel $(u + \varepsilon_1)(u + \varepsilon_2)(u +
 \varepsilon_3)/u^3$ specialised at
 $\varepsilon_3 = -\varepsilon_1 - \varepsilon_2$; extracting the
-$(12; 21)$-entry of \eqref{eq:RTT-wave5} on the Fock vacuum reproduces
+$(12; 21)$-entry of \eqref{eq:rtt-super-relation} on the Fock vacuum reproduces
 the bond.
 \end{proof}
 
@@ -309,10 +273,10 @@ the bond.
 \label{sec:MS-refinement}
 % ============================================================================
 
-The trigonometric lift of \eqref{eq:R-matrix-wave5} is the
+The trigonometric lift of \eqref{eq:rtt-super-r-matrix} is the
 $U_q(\widehat{\fgl}(1|1))$ $R$-matrix. Substituting $u \mapsto z = e^u$,
 $\hbar \mapsto \log q$ gives
-\begin{equation}\label{eq:R-trig-wave5}
+\begin{equation}\label{eq:rtt-trig-super-r}
   R^{\mathrm{trig}}(z)
   \;=\;
   \frac{1}{z - 1}
@@ -332,7 +296,7 @@ through the Shiraishi--Kubo--Awata--Odake vertex operators
 (\texttt{arXiv:q-alg/9507034} eq.~(3.5);
 Feigin--Hashizume--Hoshino--Shiraishi--Yanagida
 \texttt{arXiv:1002.2485} for the super $(q, t)$ case):
-\begin{equation}\label{eq:bond-refined-wave5}
+\begin{equation}\label{eq:rtt-refined-bond}
   \varphi^{(q, t)}_{0 \Rightarrow 1}(z)
   \;=\;
   \frac{(1 - t z)(1 - q^{-1} z)}
@@ -342,10 +306,10 @@ Feigin--Hashizume--Hoshino--Shiraishi--Yanagida
 Three specialisations:
 \begin{enumerate}[leftmargin=2em]
 \item $t = q^{-1}$ (unrefined, $\varepsilon_1 = \varepsilon_2$) collapses
-  \eqref{eq:bond-refined-wave5} to the standard
+  \eqref{eq:rtt-refined-bond} to the standard
   $U_q(\widehat{\fgl}(1|1))$ $R$-matrix scalar.
 \item $q \to 1$ with $t = q^\beta$ fixed at $\beta = -1$ (rational limit
-  at the isotropic wall) recovers \eqref{eq:R-matrix-wave5}.
+  at the isotropic wall) recovers \eqref{eq:rtt-super-r-matrix}.
 \item Generic $\beta$ is the Macdonald--Ruijsenaars deformation
   interpolating between the Yangian ($\beta = -1$) and the quantum
   affine algebra ($\beta = 0$).
@@ -353,16 +317,16 @@ Three specialisations:
 
 \begin{remark}[Nekrasov--Shatashvili limit and the XXX Bethe system]
 \label{rem:NS-limit}
-\ClaimStatusProvedElsewhere\ \emph{(Nekrasov--Shatashvili
+\emph{(Nekrasov--Shatashvili
 \texttt{arXiv:0908.4052} \S3; Nekrasov--Pestun--Shatashvili
 \texttt{arXiv:1312.6689} for the quantum spectral curve;
 Smirnov \texttt{arXiv:2004.06542} for the stable-envelope / $R$-matrix
 correspondence.)}
 Under the Nekrasov--Shatashvili limit $\varepsilon_2 \to 0$ with
 $\varepsilon_1 = \hbar$ fixed, the refined bond
-\eqref{eq:bond-refined-wave5} degenerates to the quantum spectral curve
+\eqref{eq:rtt-refined-bond} degenerates to the quantum spectral curve
 $(1 - q^{-1} z)/(1 - z)$ of the $\fgl(1|1)$ XXX spin chain. The super
-Yangian $Y^{\mathrm{RTT}}(\widehat{\fgl}(1|1))$ acts on the XXX Bethe
+Yangian $Y^{\mathrm{RTT}}(\fgl(1|1))$ acts on the XXX Bethe
 eigenspaces, with Bethe roots $u_k$ solving
 \[
   \prod_j \frac{u_k - \theta_j + \hbar/2}{u_k - \theta_j - \hbar/2}
@@ -375,8 +339,8 @@ from fermionic ($|k| = 1$) Bethe strings. Maulik--Okounkov
 \texttt{arXiv:1211.1287} stable-envelope $R$-matrices align with the
 RTT presentation in this sector: $R^{MO}(u) = R(u)$ under the
 equivariant parameter match $u = u_k - u_l$, and the residue
-$\mathrm{Res}_{u = 0} R^{MO}(u)$ of the Wave-2 Agent-2 Maulik--Okounkov
-calculation is the NS-limit of \eqref{eq:R-matrix-wave5}.
+$\mathrm{Res}_{u = 0} R^{MO}(u)$ of the local Maulik--Okounkov
+calculation is the NS-limit of \eqref{eq:rtt-super-r-matrix}.
 \end{remark}
 
 % ============================================================================
@@ -384,9 +348,9 @@ calculation is the NS-limit of \eqref{eq:R-matrix-wave5}.
 \label{sec:super-Gauss}
 % ============================================================================
 
-The RTT presentation \eqref{eq:RTT-wave5} relates to Drinfeld's second
+The RTT presentation \eqref{eq:rtt-super-relation} relates to Drinfeld's second
 (``current'') presentation by the super-Gauss decomposition
-\begin{equation}\label{eq:super-gauss-wave5}
+\begin{equation}\label{eq:rtt-super-gauss}
   T(u) \;=\; F(u)\, D(u)\, E(u),
   \qquad
   F(u) \;=\;
@@ -405,7 +369,7 @@ $d_1(u), d_2(u)$ even diagonal generators.
 The super-Ding--Frenkel map \texttt{arXiv:q-alg/9608002} (Zhang
 \texttt{arXiv:q-alg/9701011} for the explicit $\fgl(1|1)$ case)
 extracts the Drinfeld-new currents
-\begin{equation}\label{eq:drinfeld-currents-wave5}
+\begin{equation}\label{eq:rtt-drinfeld-currents}
   e^{(1)}(u) \;=\; d_1(u)^{-1}\, t_{12}(u),
   \quad
   f^{(1)}(u) \;=\; t_{21}(u)\, d_1(u)^{-1},
@@ -418,15 +382,14 @@ and the odd Serre relation $(e^{(1)}(u))^2 = 0$ (isotropy
 $(\alpha, \alpha) = 0$, with $\alpha$ the odd simple root;
 see Kac~1977 Thm.~2.4).
 
-The earlier-cited \texttt{arXiv:q-alg/9603024} is a different paper and
-was an erroneous citation; the correct source for the explicit
+The source \texttt{arXiv:q-alg/9603024} concerns a different construction;
+the source for the explicit
 $\fgl(1|1)$ Gauss decomposition is Zhang \texttt{arXiv:q-alg/9701011}.
 
 \begin{proposition}[RTT Gauss matches KW shuffle at leading weight]
 \label{prop:gauss-to-drinfeld-kw}
-\ClaimStatusProposition\
-Under the free-field realisation \eqref{eq:vertex-ops-wave5}, the
-Drinfeld-new currents \eqref{eq:drinfeld-currents-wave5} satisfy
+Under the free-field realisation \eqref{eq:rtt-free-field-vertices}, the
+Drinfeld-new currents \eqref{eq:rtt-drinfeld-currents} satisfy
 \[
   e^{(1)}(u)\, e^{(1)}(v) + e^{(1)}(v)\, e^{(1)}(u) \;=\; 0
   \qquad (\text{odd Serre}),
@@ -454,71 +417,32 @@ vacuum, which is the empty product and therefore the shuffle-algebra
 unit. The leading product is Proposition~\ref{prop:omega-bond-RTT}
 applied to the Drinfeld-new currents; identification of $h_1, h_2$
 with $\varepsilon_1, -\varepsilon_2$ (Costello--Gaiotto normalisation
-$h_1 = \sqrt{\hbar}$) closes compatibility with Routes~R1--R3.
+$h_1 = \sqrt{\hbar}$) closes compatibility with the shuffle and
+free-field constructions.
 \end{proof}
 
 \begin{remark}[Subleading $c_{11}$ correction remains conjectural]
 \label{rem:rtt-subleading-open}
 Proposition~\ref{prop:gauss-to-drinfeld-kw} establishes agreement at
 the leading $(1, 1)$-weight binomial. The asymmetric $c_{11}$
-correction of the Hopf-pairing conjecture (master synthesis
-Conjecture~\emph{hopf-pairing}, Remark~\emph{pairing-checks}) would
+correction of the Hopf-pairing conjecture would
 require the second-order $u^{-2}$-term of the RTT commutation, which
-in Gauss form is a derivative of \eqref{eq:vertex-ops-wave5} evaluated
+in Gauss form is a derivative of \eqref{eq:rtt-free-field-vertices} evaluated
 on the vacuum; the direct computation is open.
 \end{remark}
 
 % ============================================================================
-\section{Inscription directive}
-\label{sec:inscription-directive}
+\section{RTT--shuffle comparison}
+\label{sec:rtt-shuffle-comparison}
 % ============================================================================
 
-The material of \S\ref{sec:R-matrix-direct}--\S\ref{sec:super-Gauss}
-replaces the pre-existing §7 (Route~R4) of
-\texttt{master\_synthesis\_coha\_conifold\_2026\_04\_23.tex}. Anchor:
-the paragraph beginning \emph{``RTT relation with graded tensor
-(Arnaudon--Molev--Ragoucy''} and ending
-\emph{``the earlier-cited arXiv:q-alg/9603024 is a different paper and
-was an erroneous citation''}. The replacement preserves the five prior
-labels in that section (\texttt{eq:R-matrix}, \texttt{sec:rtt-route},
-and the Kulish--Sklyanin attribution), strengthens the YBE verification
-from citation to direct proof, and adds six new labels:
-\texttt{thm:rtt-super-ybe-direct},
-\texttt{rem:ybe-direct-vs-citation},
-\texttt{eq:RTT-half},
-\texttt{eq:CY-constraint},
-\texttt{eq:vertex-ops},
-\texttt{prop:omega-bond-RTT},
-\texttt{eq:bond-refined},
-\texttt{rem:NS-limit},
-\texttt{eq:super-gauss},
-\texttt{eq:drinfeld-currents},
-\texttt{prop:gauss-to-drinfeld-kw},
-\texttt{rem:rtt-subleading-open}.
-
-The five attack-heal cycles:
-\begin{enumerate}[leftmargin=2em]
-\item Super-YBE by direct matrix elements
-  (Theorem~\ref{thm:rtt-super-ybe-direct}) replaces the citation-only
-  reference to Mukhin--Varchenko / AMR. Hierarchy item~1 (direct
-  computation) beats hierarchy item~4 (published literature).
-\item RTT $\to$ $L_\pm(u)$ Lax pair and quantum-double gluing cocycle
-  (\eqref{eq:RTT-half-wave5}) expands the single RTT equation into the
-  Reshetikhin--Semenov-Tian-Shansky half-current presentation.
-\item $\Omega$-background parameters via free field
-  (Proposition~\ref{prop:omega-bond-RTT}) pins the free-field
-  realisation to the equivariant Fock module
-  $\cF_{(\varepsilon_1, \varepsilon_2)}$, with the CY constraint
-  $\varepsilon_1 + \varepsilon_2 + \varepsilon_3 = 0$ arising from
-  $\Omega_\bY$-preservation.
-\item Macdonald--Shiraishi refinement
-  (eq.~\eqref{eq:bond-refined-wave5}) and NS limit
-  (Remark~\ref{rem:NS-limit}) tie the RTT presentation to the refined
-  topological vertex and XXX Bethe ansatz.
-\item Super-Gauss decomposition matches KW shuffle at leading
-  $(1, 1)$-weight (Proposition~\ref{prop:gauss-to-drinfeld-kw}) closes
-  the RTT--shuffle compatibility; the subleading $c_{11}$ correction
-  remains conjectural per Remark~\ref{rem:rtt-subleading-open}.
-\end{enumerate}
+The resolved-conifold RTT presentation is therefore fixed at three
+levels. First, the rational \(R\)-matrix is the graded-flip solution of
+YBE on \(V^{\otimes 3}\). Second, the \(L_\pm\)-factorisation is the
+quantum-double gluing datum of the two half-currents. Third, the
+equivariant free-field realisation sends the Drinfeld current product to
+the Klebanov--Witten shuffle bond at leading \((1,1)\)-weight. The
+remaining proof obligation is the explicit second-order
+\(u^{-2}\)-coefficient producing the asymmetric \(c_{11}\) correction.
 
 \end{document}

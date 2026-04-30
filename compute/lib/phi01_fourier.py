@@ -298,7 +298,7 @@ def verify_bkm_identity(max_t: int) -> bool:
 
     is FALSE for phi_{0,1} Fourier coefficients (it fails at q^0).
     The correct eta^9 identity involves the Fourier-Jacobi coefficients of the
-    Igusa cusp form Delta_5, NOT those of phi_{0,1}.  See igusa_product_formula.py
+    primitive Gritsenko-Nikulin denominator Delta_5, NOT those of phi_{0,1}.  See igusa_product_formula.py
     for a verified numerical version using Delta_5 FJ coefficients.
 
     This function returns False (documenting the failure), and is retained

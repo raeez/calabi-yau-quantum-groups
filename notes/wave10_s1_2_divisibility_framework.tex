@@ -1,126 +1,114 @@
-% Wave-10 S1/20: the 2-divisibility orbit framework for N in {4,6,8}.
-% Successor to wave8_l5_slides_boundary_N_5_7_8.tex.
-% Primary sources: Mukai 1988 Invent. Math. 94, 183-221; Clery-Gritsenko
-% 2008 (arXiv:0812.3962), 2013 (IJM 24:1350059); Cheng-Harvey-Paquette
-% 2014 (arXiv:1406.5502). Slides: /tmp/automorphic-slides.txt.
-
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\ZZ}{\mathbb{Z}}
-\providecommand{\ClaimStatusTheorem}{[Theorem]}
-\providecommand{\ClaimStatusConjectured}{[Conjectured]}
 
-\section*{The $\{4,6,8\}$ 2-divisibility orbit framework}
+\section*{CHL Divisibility and Boundary Rows}
 
-\paragraph{Question (Wave-9 L5 residual).} Why do
-$N \in \{4, 6, 8\}$ separate from $\{1, 2, 3, 5, 7\}$ in the
-slide case-split (lines 943--953)? Three candidate selectors: (i)
-orbifold fixed-point topology; (ii) CHL-heterotic duality-frame
-index; (iii) paramodular level $t$.
-
-\paragraph{Q1. $N=4$ orbifold on K3.} \ClaimStatusTheorem,
-\cite{Mukai1988} Table~2, Nikulin 1980 classification. For
-$g_4 \in M_{23}$ symplectic of order~$4$, $\mathrm{Fix}(g_4) = 4$
-isolated points on K3; $\mathrm{Fix}(g_4^2 = g_2) = 8$ points. The
-$\ZZ/4$-orbifold $(K3 \times E)/\ZZ/4$ has: (a) 4 fibres of fixed
-K3-points over each 2-torsion point of $E$; (b) $16 \cdot 4 = 64$
-fixed-orbifold-points in total split by $\ZZ/4$-subgroup stabiliser.
-Euler contribution $\chi_{\mathrm{orb}}(g_4) = 4$ at K3 level.
-
-\paragraph{Q2. $N=8$ orbifold on K3.} \ClaimStatusTheorem,
-\cite{Mukai1988} Theorem~0.3 (Mukai bound), Nikulin table entry
-$8A, 8B$. For $g_8$ symplectic of order $8$,
-$\mathrm{Fix}(g_8) = 2$ points on K3; the chain of fixed loci
-$\mathrm{Fix}(g_8) \subset \mathrm{Fix}(g_4) \subset \mathrm{Fix}(g_2)$
-has cardinalities $(2, 4, 8)$. $N=8$ saturates the Mukai bound: no
-symplectic cyclic order $> 8$ embeds into $M_{23}$; hence the slides
-list $N=8$ twice (lines 951, 953) to encode the two $M_{24}$-classes
-$8A, 8B$ at distinct Niemeier embeddings.
-
-\paragraph{Q3. $N=6$ mixed orbifold.} \ClaimStatusTheorem,
-\cite{Mukai1988} Table~2. For $g_6$ of order~$6$,
-$\mathrm{Fix}(g_6) = 2$ isolated points on K3. The Chinese-Remainder
-splitting $\ZZ/6 = \ZZ/2 \times \ZZ/3$ decomposes the orbifold
-action into commuting $\ZZ/2$-factor and $\ZZ/3$-factor; the fixed
-locus $\mathrm{Fix}(g_6) = \mathrm{Fix}(g_2) \cap \mathrm{Fix}(g_3) =
-8 \cap 6 = 2$ (Nikulin intersection count). The $\ZZ/6$-orbit is
-\emph{not} a product: it carries a distinct $\ZZ/6$-cohomological
-action via the Hecke twist on the K3 elliptic genus, per
-\cite{ChengDuncanHarvey2014} Table~1.
-
-\paragraph{Q4. Physical driver of the 2-divisibility selection.}
-\ClaimStatusTheorem, heterotic-CHL duality frame. The CHL orbifold
-$(K3 \times T^2)/\ZZ/N$ admits a $T^2$-fibre quotient by
-$\ZZ/N$-translation only when the $T^2$ lattice $(\ZZ \oplus \ZZ)$
-admits a fixed-point-free $\ZZ/N$-action by translation; this
-requires $N | 6$ (translation order on the $T^2$-Jacobian lattice
-is $1, 2, 3, 6$) or $N = 4, 8$ (via $\ZZ/4$-on-$E[2]$). At
-$N \in \{5, 7\}$ the $T^2$-translation is free, and the Niemeier
-frame shape is Monster-like; at $N \in \{4, 6, 8\}$ the $T^2$-action
-factors through $E[2]$, giving the \emph{metaplectic cover}
-obstruction: the Weil representation on the discriminant group
-$E[2] = \ZZ/2$ becomes non-trivial. \cite{ChengDuncanHarvey2014}
-identify this as the boundary between the Monster and Mathieu
-moonshine regimes.
-
-\paragraph{Q5. Paramodular level $t = 4$ as the selector.}
-\ClaimStatusTheorem, \cite{GritsenkoClery2008} Table~1 and
-\cite{Lorgat2020} \S2. The eight Gritsenko--Cl\'ery dd-modular forms
-organise by paramodular level $t$:
+\paragraph{Primitive CHL ladder.}
+For a symplectic K3 automorphism $g_N$ of order
+$N\in\{1,2,3,4,6\}$ and an order-$N$ translation $\sigma_N$ on an
+elliptic curve $E$, the diagonal quotient
 \[
-\begin{array}{c|l|l}
-t & \text{Forms (integer weight)} & \text{Forms (half-integer weight)} \\ \hline
-1 & \Delta_5 = M_5(\Gamma_1, \nu_2) & \text{---} \\
-2 & M_2(\Gamma_2, \nu_4),\; M_1(\Gamma_2(2), \nu_4) & \text{---} \\
-3 & M_1(\Gamma_3, \nu_6),\; M_2(\Gamma_1(3), \nu_2) & \text{---} \\
-4 & M_3(\Gamma_1(2), \nu_2)\text{ (uplifted)} &
-    M_{1/2}(\Gamma_4, \nu_8),\; M_{3/2}(\Gamma_1(4), \nu_4) \\
+X_N=(K3\times E)/\langle g_N\times\sigma_N\rangle
+\]
+is smooth. The translation supplies freeness of the threefold action.
+The automorphic constant is supplied by the CHL Jacobi input and by
+Borcherds' weight theorem, in the normalisation used by Gritsenko and
+Nikulin:
+\[
+\begin{array}{c|c|c|c|c}
+N & \text{frame shape} & c_N(0) & \kBKM(\Phi_N) & \text{Borcherds form}\\
+\hline
+1 & 1^{24} & 10 & 5 & \Delta_5\\
+2 & 1^8 2^8 & 8 & 4 & \Delta_4^{(2)}\\
+3 & 1^6 3^6 & 6 & 3 & \Delta_3^{(3)}\\
+4 & 1^4 2^2 4^4 & 4 & 2 & \Delta_2^{(4)}\\
+6 & 1^2 2^2 3^2 6^2 & 2 & 1 & \Delta_1^{(6)} .
 \end{array}
 \]
-Half-integer-weight metaplectic forms exist \emph{only} at $t = 4$.
-Paramodular level $t$ is the universal selector: $t \in \{1, 2, 3\}$
-carries integer-weight compact-CHL Borcherds products;
-$t = 4$ saturates Mukai's bound and carries the half-integer-weight
-metaplectic forms that lift to the GKM boundary super-algebra.
+The Borcherds-weight identity is
+\[
+\kBKM(\Phi_N)=\operatorname{wt}(\Phi_N)=\frac{c_N(0)}2
+\]
+row by row. The half-constant formula is the singular theta-lift
+weight formula of Borcherds. The table is the five-row CHL ladder;
+the Gritsenko and Clery diagonal-divisor catalogue is indexed by
+paramodular data and multiplier systems.
 
-\paragraph{Framework (heal).} \ClaimStatusTheorem\ (numerical),
-\ClaimStatusConjectured\ (categorical).
-The \emph{2-divisibility orbit}
-$\{N \in \{4, 6, 8\} : 2 | N\} \cap \{N : N \le 8\}$ coincides with
-the set $\{N : t_{\max}(N) = 4\}$, where $t_{\max}(N)$ is the
-maximal paramodular level supporting a Gritsenko--Cl\'ery
-dd-modular form at $\Gamma_t$ of $N$-twist.
-\begin{enumerate}
-\item \emph{Algebraic selector}: $t = 4$, the paramodular level.
-\item \emph{Geometric shadow}: $\ZZ/N$-orbifold fixed-locus chain
-$\mathrm{Fix}(g_N) \subset \mathrm{Fix}(g_{N/2})$ non-trivial iff
-$2 | N$ iff $t_{\max}(N) = 4$.
-\item \emph{Physical shadow}: CHL duality frame at the
-metaplectic-cover boundary; $E[2]$-translation obstruction on
-$T^2$.
-\end{enumerate}
-Corollary: the $\{4, 6, 8\}$ separation in the slides is not an
-accident of slide-pagination but the $t = 4$ paramodular selector
-acting through the metaplectic-CHL frame. The Mukai-bound saturation
-at $N = 8$ (two Niemeier embeddings $8A, 8B$) is the
-endpoint-phenomenon within the $t = 4$ orbit, not a separate
-boundary.
+\paragraph{The order-four quotient surface.}
+For a symplectic automorphism $g_4$ of order $4$ on $K3$,
+\[
+\#\Fix(g_4)=4,\qquad \#\Fix(g_4^2)=8.
+\]
+The four points fixed by $g_4$ have stabiliser $\ZZ/4$ and give four
+$A_3$ singularities on $K3/\langle g_4\rangle$. The remaining
+$8-4=4$ points fixed by $g_4^2$ form two $\langle g_4\rangle$-orbits
+with stabiliser $\ZZ/2$ and give two $A_1$ singularities. The Du-Val
+type is
+\[
+4A_3+2A_1.
+\]
 
-\paragraph{Invariants.} $\kch(K3 \times E) = 0$ (K\"unneth on
-compact CY$_3$). At each $N \in \{4, 6, 8\}$:
-$\kcat((K3 \times E)/\ZZ/N) = \chi(\mathcal{O}) = 0$ (CY$_3$ form
-preserved under symplectic-orbifold quotients).
-$\kBKM(\Phi_N) = c_N(0)/2$ with values $(2, 1, \text{conj.})$ for
-$N = (4, 6, 8)$; the $N = 8$ entry is \ClaimStatusConjectured\ per
-\cite{Lorgat2020} Conjecture~1 step~S5.
+\paragraph{The order-six quotient surface.}
+For a symplectic automorphism $g_6$ of order $6$,
+\[
+\#\Fix(g_6)=2,\qquad \#\Fix(g_6^2)=6,\qquad \#\Fix(g_6^3)=8.
+\]
+The cyclic quotient $K3/\langle g_6\rangle$ has two stabiliser-$\ZZ_6$
+orbits, two stabiliser-$\ZZ_3$ orbits, and two stabiliser-$\ZZ_2$
+orbits. The Du-Val type is
+\[
+2A_5+2A_2+2A_1.
+\]
+The frame shape in the CHL row is $1^2 2^2 3^2 6^2$. The local
+surface quotient datum above and the umbral Niemeier root system
+$6D_4$ are different invariants.
 
-\paragraph{Summary.} The universal selector is paramodular level
-$t$. The $t = 4$ slice carries both (a) the integer-weight
-CHL-orbifold forms at $N = 4, 6, 8$ and (b) the two
-half-integer-weight metaplectic forms $M_{1/2}(\Gamma_4, \nu_8)$,
-$M_{3/2}(\Gamma_1(4), \nu_4)$. The 2-divisibility condition
-$2 | N$ with $N \le 8$ enumerates exactly this slice; the
-Mukai-bound saturation at $N = 8$ is the closure of the orbit, not
-a separate phenomenon.
+\paragraph{Boundary symplectic orders.}
+Nikulin's cyclic symplectic orders continue through $N=5,7,8$. They
+have the following geometric scopes.
+\[
+\begin{array}{c|c|c|c|l}
+N & \text{frame shape} & c_N(0) & \kBKM & \text{geometric scope}\\
+\hline
+5 & 1^4 5^4 & 4 & 2 &
+  \text{Borcea-Voisin CY}_3\text{ geometry}\\
+7 & 1^3 7^3 & 2 & 1 &
+  \text{singular quotient with gerbe and McKay correction data}\\
+8 & 1^2 2^1 4^1 8^2 & 2 & 1 &
+  \text{Kummer-type hyperk\"ahler geometry; CY}_3\text{ interpretation open}
+\end{array}
+\]
+For $N=8$ the fixed-locus chain is
+\[
+\#\Fix(g_8)=2,\qquad
+\#\Fix(g_8^2)=4,\qquad
+\#\Fix(g_8^4)=8,
+\]
+so the quotient surface has Du-Val type $2A_7+A_3+A_1$. This is the
+endpoint of the cyclic symplectic K3 list.
+
+\paragraph{The $K3\times E$ invariant split.}
+For the compact CHL total spaces,
+\[
+\kcat(X_N)=0,\qquad \kch(A_{X_N})=0.
+\]
+The first identity is $\chi(\mathcal O_{X_N})=0$. The second is the
+Hodge supertrace
+\[
+\sum_q(-1)^q h^{0,q}(X_N)=1-1+1-1=0,
+\]
+since the finite etale cover $K3\times E\to X_N$ preserves the
+invariant $H^{0,\bullet}$ column. At the unquotiented
+$K3\times E$ point, the four scalar invariants are
+\[
+\kcat(K3\times E)=0,\qquad
+\kch^{\mathrm{Heis}}(A_{K3\times E})=3,\qquad
+\kBKM(\mathfrak g_{\Delta_5})=5,\qquad
+\kfib(K3\times E)=24.
+\]
+They arise from the total-space holomorphic Euler characteristic, the
+Heisenberg-Mukai chiral specialisation, the $\Delta_5$ Borcherds
+weight, and the Mukai-lattice rank of the K3 fibre.

@@ -644,7 +644,7 @@ def k3_times_e_deformation_data() -> CY3DeformationData:
     Complex structure moduli: dim M_{cs} = h^{2,1} = 21.
     At each point, the CY-compatible quantization is unique.
 
-    kappa_BKM(K3 x E) = 5 (weight of Igusa cusp form Delta_5).
+    kappa_BKM(K3 x E) = 5 (weight of primitive Gritsenko-Nikulin denominator Delta_5).
     NOTE: kappa_BKM != chi/24 = 0 for K3 x E (AP48).
     """
     # K3 Hodge

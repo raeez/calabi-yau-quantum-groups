@@ -79,7 +79,7 @@ COMPUTATIONS FOR SPECIFIC CY3s:
      - Attractor: at the points of enhanced symmetry
 
   4. K3 x E:
-     - kappa_BKM = 5 (weight of Igusa cusp form Delta_5)
+     - kappa_BKM = 5 (weight of primitive Gritsenko-Nikulin denominator Delta_5)
        while compact kappa_ch = 0 and the Heisenberg shadow kappa_ch_Heis = 3
      - BPS states counted by phi_{0,1} (K3 elliptic genus)
      - Entropy: S = pi * |Z|^2 at attractor
@@ -288,7 +288,7 @@ def k3_times_e_data() -> CY3Data:
     """K3 x E (K3 surface times elliptic curve).
 
     h11=21, h21=21, chi=0 (product formula).
-    kappa_cy stores kappa_BKM = 5 (weight of the Igusa cusp form Delta_5).
+    kappa_cy stores kappa_BKM = 5 (weight of the primitive Gritsenko-Nikulin denominator Delta_5).
     NOT chi/24 = 0!  The chiral/CY categorical scalar is kappa_ch = 3.
     """
     return CY3Data(

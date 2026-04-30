@@ -1,6 +1,5 @@
 % physics_3d_mirror.tex
-% Physics note: 3d mirror symmetry, CY_2 quantum vertex chiral groups, and Coulomb branches
-% Standalone note (not compiled as part of main.tex)
+% 3d mirror symmetry, CY_2 quantum vertex chiral groups, and Coulomb branches
 
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
@@ -52,13 +51,17 @@
 \title{3d Mirror Symmetry, $\CY_2$ Quantum Vertex Chiral Groups,\\
 and Coulomb Branches}
 \author{Raeez Lorgat}
-\date{April 2026 \\ {\small\itshape Working note for Volume III}}
+\date{April 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We develop the relationship between 3d $\cN=4$ mirror symmetry and the quantum vertex chiral groups of $\CY_2$ targets. A 3d $\cN=4$ gauge theory $T$ has two hyperk\"ahler branches of vacua, $M_H(T)$ and $M_C(T)$, exchanged by mirror symmetry: $M_H(T) \cong M_C(T^!)$. Both carry quantum vertex chiral group structures, and mirror symmetry should exchange them: $G(M_H(T)) \cong G(M_C(T^!))$. We trace this through the BFN construction of Coulomb branches, the identification of the Higgs-branch CoHA with a Yangian half, and the emergence of Hitchin moduli from pure gauge theory on a curve.
+We formulate the $\CY_2$ root--BPS dictionary behind 3d $\cN=4$ mirror symmetry. A 3d $\cN=4$ gauge theory $T$ has two hyperk\"ahler branches of vacua, $M_H(T)$ and $M_C(T)$, exchanged by mirror symmetry:
+\[
+ M_H(T) \cong M_C(T^!), \qquad M_C(T) \cong M_H(T^!).
+\]
+On constructed branches the $\CY_2$ functor produces $\Etwo$-chiral algebras. The Higgs side is controlled by quiver-variety CoHA and Maulik--Okounkov stable envelopes; the Coulomb side is controlled by the Braverman--Finkelberg--Nakajima convolution algebra and its quantization. Mirror symmetry predicts equality of these $\Etwo$ data after the derived-category and $R$-matrix identifications have been supplied.
 \end{abstract}
 
 \tableofcontents
@@ -186,7 +189,7 @@ Let $G$ be a complex reductive group and $R$ a representation of $G$. Define:
  \item The \emph{space of triples} $\mathcal{R} = \{(g, s) \mid g \in \mathrm{Gr}_G,\; s \in R[\![t]\!],\; g \cdot s \in R[\![t]\!]\}$ (the space of pairs of a lattice in $\mathrm{Gr}_G$ and a section of $R$ compatible with the lattice change).
  \item The \emph{BFN algebra}
  \[
- \mathcal{A}_{G,R} = H^{G(\!(t)\!)}_\bullet(\mathcal{R})
+ \mathcal{A}_{G,R} = H^{G[\![t]\!]}_\bullet(\mathcal{R})
  \]
  is the $G[\![t]\!]$-equivariant Borel--Moore homology of $\mathcal{R}$, equipped with a convolution product.
 \end{enumerate}
@@ -205,9 +208,10 @@ The algebra $\mathcal{A}_{G,R}$ is a commutative, finitely generated $\mathbb{C}
 \label{rem:quantized-coulomb}
 The quantization of $\mathcal{A}_{G,R}$ is the \emph{quantized Coulomb branch algebra}
 \[
- \mathcal{A}_{G,R}^\hbar = K^{G[\![t]\!]}_\bullet(\mathcal{R}),
+ \mathcal{A}_{G,R}^\hbar =
+ H^{G[\![t]\!] \rtimes \mathbb{C}^\times}_\bullet(\mathcal{R}),
 \]
-defined via equivariant $K$-theory. This is a filtered associative algebra whose associated graded is $\mathcal{A}_{G,R}$. This quantization is the ``Coulomb branch algebra'' that we will connect to quantum vertex chiral groups.
+where the extra $\mathbb{C}^\times$ rotates the loop parameter and supplies $\hbar$. This is a filtered associative algebra whose associated graded is $\mathcal{A}_{G,R}$. Equivariant $K$-theory gives the multiplicative, $q$-difference version of the same Coulomb-branch construction.
 \end{remark}
 
 \subsection{Key examples}
@@ -248,7 +252,7 @@ Each of these is a \emph{quantum vertex chiral group}: an $\Etwo$-chiral algebra
 
 \subsection{Mirror symmetry for quantum vertex chiral groups}
 
-The central claim of this note:
+The central conjecture:
 
 \begin{conjecture}[Mirror symmetry for quantum vertex chiral groups]
 \label{conj:mirror-qvcg}
@@ -269,7 +273,7 @@ The conjecture has a tautological flavor if one simply applies $\Phi$ to both si
 \begin{enumerate}[label=(\alph*)]
  \item The \emph{algebraic structures} arising from the Higgs and Coulomb branch descriptions are very different: the Higgs side gives a CoHA (convolution on moduli of quiver representations), while the Coulomb side gives a BFN algebra (convolution on the affine Grassmannian). The conjecture asserts these produce equivalent $\Etwo$-chiral algebras.
  \item The \emph{root data} are a priori different: on the Higgs side, roots come from dimension vectors of quiver representations; on the Coulomb side, from cocharacters of the gauge group. The isomorphism of root data is itself a deep statement.
- \item The equivalence should hold \emph{categorically}, not just at the level of varieties: $D^b(\Coh(M_H)) \simeq D^b(\Coh(M_C^!))$ as $\CY_2$ categories.
+ \item The categorical form is stronger: $D^b(\Coh(M_H)) \simeq D^b(\Coh(M_C^!))$ as $\CY_2$ categories, not merely as an isomorphism of coarse varieties.
 \end{enumerate}
 \end{remark}
 
@@ -299,7 +303,7 @@ This is the combined result of Schiffmann--Vasserot (for $\widehat{\mathfrak{gl}
 
 \subsection{$\Eone$-structure of the CoHA}
 
-The CoHA is an \emph{associative} algebra; it is naturally an $\Eone$-algebra. In the language of Volume III:
+The CoHA is an \emph{associative} algebra; it is naturally an $\Eone$-algebra. The $\Etwo$ information is not carried by the Hall product alone. It enters through the stable-envelope $R$-matrix, equivalently through the braided representation category. In Volume~III terms:
 \begin{itemize}
  \item $\CoHA(M_H) = Y^+(\frakg_Q)$ is the \emph{positive half} of the quantum vertex chiral group $G(M_H)$.
  \item It carries an $\Eone$-chiral structure: the ordered OPE from the Hall convolution.
@@ -308,7 +312,7 @@ The CoHA is an \emph{associative} algebra; it is naturally an $\Eone$-algebra. I
  G(M_H) = \frakn_+ \oplus \mathfrak{h} \oplus \frakn_-
  \]
  with $U(\frakn_+) = Y^+(\frakg_Q) = \CoHA(M_H)$.
- \item The passage from $\Eone$ (associative, the CoHA) to $\Etwo$ (braided, the full quantum vertex chiral group) requires the $R$-matrix: this is the Maulik--Okounkov $R$-matrix, constructed via stable envelopes on Nakajima varieties.
+ \item The passage from $\Eone$ (associative, the CoHA) to $\Etwo$ (braided representation theory) requires the $R$-matrix: this is the Maulik--Okounkov $R$-matrix, constructed via stable envelopes on Nakajima varieties.
 \end{itemize}
 
 \begin{remark}[$R$-matrix from stable envelopes]
@@ -331,7 +335,7 @@ satisfying the Yang--Baxter equation. This is the $\Etwo$-structure: the braidin
 
 \subsection{BFN algebra and the positive half of $G(M_C)$}
 
-The BFN Coulomb branch algebra $\mathcal{A}_{G,R}$ (Definition~\ref{def:bfn}) is a commutative algebra whose spectrum is $M_C$. Its \emph{quantization} $\mathcal{A}_{G,R}^\hbar$ is an associative (non-commutative) algebra. We propose:
+The BFN Coulomb branch algebra $\mathcal{A}_{G,R}$ (Definition~\ref{def:bfn}) is a commutative algebra whose spectrum is $M_C$. Its \emph{quantization} $\mathcal{A}_{G,R}^\hbar$ is an associative (non-commutative) algebra. The conjectural identification is:
 
 \begin{conjecture}[BFN = positive half of $G(M_C)$]
 \label{conj:bfn-positive}
@@ -346,7 +350,7 @@ The evidence for this:
 \begin{enumerate}[label=(\roman*)]
  \item For $G = GL(n)$, $R = N$ fundamentals, $M_C$ is an affine Grassmannian slice and $\mathcal{A}_{G,R}^\hbar$ is a truncated shifted Yangian (Kamnitzer--Webster--Weekes--Yacobi), which is literally a quotient of $Y^+(\frakg)$ for the appropriate $\frakg$.
  \item The BFN algebra has a convolution product coming from the affine Grassmannian, which is an $\Eone$-structure (associative, from the ``ordering'' of loop groups).
- \item The full quantum vertex chiral group $G(M_C)$ should be obtained from $\mathcal{A}_{G,R}^\hbar$ by ``doubling'': adding the negative half and the Cartan, analogous to the Drinfeld double construction.
+ \item The full quantum vertex chiral group $G(M_C)$ is expected from $\mathcal{A}_{G,R}^\hbar$ by the Drinfeld-double operation: add the negative half and the Cartan after constructing the required Hopf pairing and completion.
 \end{enumerate}
 
 \subsection{Mirror symmetry as Yangian duality}
@@ -495,7 +499,7 @@ Kapustin--Witten & A-model/B-model exchange & Geometric Langlands via $\Etwo$-ch
 The toric $\CY_3$ story of Chapter~\ref*{ch:toric-coha} in the main text and the $\CY_2$ story of this note are complementary but structurally different:
 
 \begin{itemize}
- \item \textbf{$\CY_3$}: The target $X$ is a Calabi--Yau threefold. The CoHA arises from curve-counting (DT invariants) on $X$ itself. The quantum vertex chiral group $G(X)$ has $\Etwo$-structure from the $\mathbb{S}^3$-framing (which gives $E_3$, descending to $\Etwo$ via Dunn). The root multiplicities come from BPS invariants of $X$.
+ \item \textbf{$\CY_3$}: The target $X$ is a Calabi--Yau threefold. The CoHA arises from curve-counting (DT invariants) on $X$ itself. The specialised output $A_X$ is natively $\Eone$-chiral on the reference curve. The non-symmetric $\Etwo$ quantum-group structure belongs to $\mathcal{Z}(\Rep^{\Eone}(A_X))$ or to the corresponding Drinfeld double once the Hopf pairing, completion, and half-braiding data have been constructed. The root multiplicities come from BPS invariants of $X$.
 
  \item \textbf{$\CY_2$ from 3d $\cN=4$}: The target $M$ is a hyperk\"ahler surface (the branch of a 3d gauge theory). The CoHA arises from sheaf counting on $M$ or equivalently from quiver representation theory. The quantum vertex chiral group $G(M)$ has $\Etwo$-structure from the $\mathbb{S}^2$-framing of $\HH_\bullet(D^b(\Coh(M)))$. The root multiplicities come from dimensions of quiver representation moduli.
 \end{itemize}
@@ -520,15 +524,15 @@ Each level refines the previous, and the chiral level (4) is the most refined st
 \begin{enumerate}[label=\textbf{P\arabic*.}]
  \item \textbf{Rigorous CoHA = BFN.} Prove that for a 3d mirror pair $(T, T^!)$, the CoHA of the Higgs branch of $T$ is isomorphic (as an $\Eone$-algebra) to the quantized BFN algebra of $T^!$. This is known for type $A$ quivers (Kamnitzer--Webster--Weekes--Yacobi); the general case is open.
 
- \item \textbf{$R$-matrix matching.} Show that the Maulik--Okounkov $R$-matrix on the Higgs side matches the $R$-matrix arising from the quantized BFN algebra on the Coulomb side. This would establish the $\Etwo$-equivalence, not just the $\Eone$-equivalence.
+ \item \textbf{$R$-matrix matching.} Show that the Maulik--Okounkov $R$-matrix on the Higgs side matches the $R$-matrix arising from the quantized BFN algebra on the Coulomb side. This establishes the $\Etwo$ equivalence after the $\Eone$ algebra equivalence.
 
- \item \textbf{Modular characteristic under mirror symmetry.} Compute $\kappa_{\mathrm{ch}}(G(M_H))$ and $\kappa_{\mathrm{ch}}(G(M_C^!))$ independently and verify they agree. The Higgs-branch modular characteristic should be computable from the Hausel--Rodriguez-Villegas formula for the mixed Hodge polynomial of quiver varieties.
+ \item \textbf{Modular characteristic under mirror symmetry.} Compute $\kappa_{\mathrm{ch}}(G(M_H))$ and $\kappa_{\mathrm{ch}}(G(M_C^!))$ independently and verify they agree. The Higgs-branch modular characteristic is a concrete extraction problem from the Hausel--Rodriguez-Villegas formula for the mixed Hodge polynomial of quiver varieties.
 
- \item \textbf{Hitchin CoHA.} Give a complete construction of the CoHA of Higgs sheaves on a curve $C$ (for general $G$, not just $GL_n$) and identify it with the positive half of a quantum vertex chiral group. The work of Sala--Schiffmann and Minets handles the $GL_n$ case; the general case requires new ideas.
+ \item \textbf{Hitchin CoHA.} Give a complete construction of the CoHA of Higgs sheaves on a curve $C$ for general $G$ and identify it with the positive half of a quantum vertex chiral group. The work of Sala--Schiffmann and Minets handles the $GL_n$ case; the general case requires new ideas.
 
- \item \textbf{Shadow obstruction tower from BFN.} Construct the full shadow obstruction tower $\Theta^{\leq r}$ (in the sense of Volume~I) directly from the BFN data. The degree-2 component $\kappa_{\mathrm{ch}}$ should be the ``BFN Weyl vector,'' and higher degrees should encode quantum corrections to the Coulomb branch metric.
+ \item \textbf{Shadow obstruction tower from BFN.} Construct the full shadow obstruction tower $\Theta^{\leq r}$ (in the sense of Volume~I) directly from the BFN data. The degree-2 component $\kappa_{\mathrm{ch}}$ is the candidate BFN Weyl vector; higher degrees encode the expected quantum corrections to the Coulomb branch metric.
 
- \item \textbf{Wall-crossing.} Interpret the Kontsevich--Soibelman wall-crossing formula for DT invariants of $\CY_2$ categories as a gauge transformation of the MC element $\Theta_{G(M)}$. For the Hitchin system, this should recover the wall-crossing of spectral networks (Gaiotto--Moore--Neitzke).
+ \item \textbf{Wall-crossing.} Interpret the Kontsevich--Soibelman wall-crossing formula for DT invariants of $\CY_2$ categories as a gauge transformation of the MC element $\Theta_{G(M)}$. For the Hitchin system, the target comparison is the wall-crossing of spectral networks (Gaiotto--Moore--Neitzke).
 
  \item \textbf{Symplectic duality.} The mathematical formalization of 3d mirror symmetry is Braden--Licata--Proudfoot--Webster's ``symplectic duality.'' Formulate the quantum vertex chiral group construction in their framework and verify Conjecture~\ref{conj:mirror-qvcg} as a consequence of symplectic duality.
 \end{enumerate}
@@ -550,6 +554,6 @@ The message of this note is that 3d $\cN=4$ mirror symmetry, when viewed through
  \item A \emph{bridge between $\CY_2$ and $\CY_3$}: the Higgs and Coulomb branches are $\CY_2$, but the 3d theory itself can arise from compactification of a theory on a $\CY_3$ (or from engineering on a $\CY_3$ singularity). The quantum vertex chiral group construction provides a uniform framework encompassing both dimensions.
 \end{enumerate}
 
-This note should be viewed as a roadmap for incorporating the Coulomb branch and Hitchin moduli material into the main text of Volume~III, particularly in Chapters~\ref*{ch:braided-factorization} and~\ref*{ch:geometric-langlands}.
+The Coulomb-branch and Hitchin-moduli constructions supply the $\CY_2$ mirror-symmetric input for the braided factorisation and geometric-Langlands parts of the main text.
 
 \end{document}

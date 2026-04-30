@@ -19,206 +19,288 @@
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\bps}{\mathrm{BPS}}
 \providecommand{\red}{\mathrm{red}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem, cited]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
-\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles derivable]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
+\section*{Universal positive-Hall grammar
+         $\Yplus_{G_X}(X)=H^{\mathrm{BM},*}_{G_X}(\Mbps(X),\varphi_{W})$}
+\label{sec:universal-Yplus-grammar}
 
-\section*{Wave-17 A1/20: the universal grammar
-         $\Yplus(X) = \Heq(\Mbps(X))$}
-\label{wn:sec:universal-Yplus-grammar}
-
-The positive half is not a family of tricks; it is a single grammar
-read across four equivariance strata.  The grammar instructs: given a
-Calabi--Yau datum $X$ of dimension $d$, select the positive effective
-moduli stack $\Mbps(X)$ carrying the Kontsevich--Soibelman critical
-structure, and form its equivariant cohomology under the symmetry
-that survives compactness.  What follows formalises this, then walks
-it across toric CY$_{3}$, non-toric compact CY$_{3}$, orbifold, and
-lattice-polarised strata, closing on $K3 \times E$, Drinfeld doubling,
-and the $E_{d}$-hFA selection rule.
-
-\subsection*{Attack-heal 1 --- the universal grammar}
-
-\ClaimStatusDefinition\ \emph{Positive effective moduli.}  For a
-Calabi--Yau $\infty$-category $X$ of dimension $d$, the \emph{positive
-effective moduli stack} $\Mbps(X) \subset \Meff(X)$ is the substack of
-objects of positive charge $\gamma \in \Gamma^{+}(X)$ with respect to
-the Kontsevich--Soibelman central charge, equipped with the critical
-structure $(W, \phi_{W})$ coming from the minimal Maurer--Cartan
-presentation of the Calabi--Yau shift (Kontsevich--Soibelman 2008,
-\texttt{arXiv:0811.2435}; Van den Bergh 2004, \emph{NCCR} construction).
-
-\ClaimStatusDefinition\ \emph{Universal grammar.}
+Let $X$ denote an oriented Calabi-Yau datum whose Kontsevich and
+Soibelman critical Hall algebra is defined.  Its charge lattice is
+$\Gamma(X)$, the chosen stability condition cuts a strict cone
+$\Gamma^{+}(X)$, and
 \[
-   \Yplus(X) \;=\; \Heq\bigl(\Mbps(X), \phi_{W}\bigr)
-   \;=\; \Heq\bigl(\Meff(X), \phi_{W}\bigr)\bigr|_{\gamma \in \Gamma^{+}(X)}.
+  \Mbps(X)
+  :=
+  \coprod_{\gamma \in \Gamma^{+}(X)} \mathcal{M}_{\gamma}(X)
+  \subset
+  \Meff(X)
 \]
-The two writings agree: in the first the positive cone is absorbed
-into the moduli; in the second (matching Wave-17 A2/20) the
-positive cone is cut by the equivariance.  The equivariance $\Heq$
-is fixed by the next stratum.  The
-multiplication is the Kontsevich--Soibelman correspondence product on
-the Hall-type stack $\mathcal{M}_{\gamma_{1}} \times \mathcal{M}_{\gamma_{2}}
-\xleftarrow{} \mathcal{M}_{\gamma_{1} \to \gamma_{1} + \gamma_{2}}
-\xrightarrow{} \mathcal{M}_{\gamma_{1} + \gamma_{2}}$.  The grammar
-reads as a single formula across $X$; what changes is which
-equivariance survives compactness.
+is the positive effective moduli stack.  The local potential $W$ gives
+the vanishing-cycle sheaf $\varphi_{W}$.  A coefficient datum
+$G_X$ records the symmetry, quotient, monodromy, or reduced obstruction
+theory that survives on the stratum containing $X$.  The positive Hall
+half is
+\[
+  \Yplus_{G_X}(X)
+  :=
+  H^{\mathrm{BM}, *}_{G_X}
+  \bigl(\Mbps(X), \varphi_{W}\bigr)
+  =
+  \bigoplus_{\gamma \in \Gamma^{+}(X)}
+  H^{\mathrm{BM}, *}_{G_X}
+  \bigl(\mathcal{M}_{\gamma}(X), \varphi_{W}\bigr).
+\]
+Equivalently,
+\[
+  \Yplus_{G_X}(X)
+  =
+  H^{\mathrm{BM}, *}_{G_X}
+  \bigl(\Meff(X), \varphi_{W}\bigr)\big|_{\Gamma^{+}(X)}.
+\]
+The product is the Hall correspondence
+\[
+  \mathcal{M}_{\gamma_{1}} \times \mathcal{M}_{\gamma_{2}}
+  \xleftarrow{\;p\;}
+  \mathcal{M}_{\gamma_{1} \subset \gamma_{1}+\gamma_{2}}
+  \xrightarrow{\;q\;}
+  \mathcal{M}_{\gamma_{1}+\gamma_{2}},
+  \qquad
+  a \star b = q_{*}p^{!}(a \boxtimes b).
+\]
+This is an associative $E_{1}$ Hall algebra.  At dimension $d \geq 3$,
+the two-stage $\Phi_d$ output is also $E_{1}$; the $E_{2}$ object lives
+on the Drinfeld centre of its representation category.
 
-\subsection*{Attack-heal 2 --- the four equivariance strata}
+\subsection*{Coefficient strata}
 
-\ClaimStatusDerivation\ \emph{Stratification.}  Four strata exhaust the
-programme's CY inputs:
-
+The coefficient datum $G_X$ is part of the construction.
 \begin{enumerate}
-\item \emph{Toric CY$_{3}$.}  $X$ admits a Calabi--Yau torus
-$T = (\C^{\times})^{3}$ with $t_{1} t_{2} t_{3} = 1$.  $\Heq =
-H^{*}_{T}$, and localisation reduces to $T$-fixed quiver
-representations (Schiffmann--Vasserot 2013, \texttt{arXiv:1202.2756},
-Thm 1.1).  This is the $\Yplus(\C^{3}) = \CoHA(\C^{3})$ benchmark:
-fixed loci are Young diagrams, characters are MacMahon.
+\item \emph{Smooth toric CY$_3$.}
+For $X$ toric, the Calabi-Yau subtorus
+\[
+  T_{\mathrm{CY}}
+  =
+  \{(t_1,t_2,t_3)\in(\C^\times)^3: t_1t_2t_3=1\}
+\]
+acts on the critical Hall stack, and
+$\Heq = H^{*}_{T_{\mathrm{CY}}}$.  Localisation reduces the Hall product
+to fixed quiver data.  For $X=\C^3$, the torus-fixed points of
+$\Hilb^{n}(\C^3)$ are plane partitions and the character is MacMahon.
+Schiffmann and Vasserot 2013 identify
+\[
+  \CoHA(\C^3)
+  \cong
+  Y^{+}(\widehat{\mathfrak{gl}}_{1})
+\]
+as the positive half of the affine Yangian.
 
-\item \emph{Non-toric compact CY$_{3}$.}  No non-trivial torus acts;
-one replaces $T$-equivariance by the \emph{reduced virtual class plus
-residual $\C^{\times}$}.  The virtual cotangent complex is perfect of
-virtual dimension $0$ (Pandharipande--Thomas 2014,
-\texttt{arXiv:0904.2891}, on stable pairs;
-Maulik--Nekrasov--Okounkov--Pandharipande 2006
-\texttt{arXiv:math/0312059} for the reduced theory on surfaces
-fibered over $\C^{\times}$).  The residual $\C^{\times}$ is the
-holomorphic-symplectic scaling on the elliptic / abelian direction or,
-when the CY$_{3}$ is a $K3$-fibration, the $\C^{\times}$ acting on the
-base.
+\item \emph{Compact non-toric CY$_3$.}
+For a compact non-toric threefold, $G_X$ is supplied by reduced
+obstruction theory, quotient data, and actual automorphisms of the
+geometry.  A $K3 \times E$ target uses the reduced $K3$ obstruction
+theory together with the quotient by translations of the elliptic curve
+$E$.  A $\C^\times$ parameter requires a genuine $\C^\times$-action.
 
-\item \emph{Orbifold / finite-symplectic.}  When $X = [Y/G]$ with $G$
-finite symplectic, $\Heq = H^{*}_{G}$ acts through the Nikulin--Mukai
-$M_{23}$-subgroup classification.  The positive effective stack
-fibres over the discrete fixed strata $Y^{G}$, and $\Yplus([Y/G])$
-receives a Davison--Meinhardt 2020 (\emph{Invent. Math.}\ 221) BPS Lie
-algebra by descent through the orbifold cotangent complex.
+\item \emph{Finite symplectic quotient.}
+For $X=[Y/G]$ with $G$ finite symplectic, the coefficient datum is the
+finite-equivariant one, and the Hall stack decomposes over the fixed
+strata of $Y$.  In the K3 case, Nikulin and Mukai place the finite
+symplectic groups inside the Mathieu-lattice picture; the
+Davison and Meinhardt 2020 BPS Lie algebra descends through the orbifold
+cotangent complex after orientation data are fixed.
 
-\item \emph{Lattice-polarised.}  When $X$ is polarised by a lattice
-$L \subset H^{2}(X, \Z)$, the automorphic moduli stack (period domain
-$\mathcal{A}_{2} = \mathrm{Sp}(4, \Z) \backslash \mathbb{H}_{2}$ for
-$K3$ type) carries a \emph{period-domain equivariance}: $\Heq =
-H^{*}_{\mathrm{O}(L)}$, equivariant under the orthogonal group of
-the lattice.  The character of $\Yplus(X)$ is then an automorphic form
-on $\mathcal{A}_{L}$, matching the Gritsenko--Nikulin 1998
-(\emph{Amer. J. Math.}\ 119) Borcherds lifts that define $\kBKM$.
+\item \emph{Lattice-polarised boundary.}
+For a lattice-polarised K3 or $K3 \times E$ boundary, $G_X$ is the
+monodromy group preserving the polarising lattice.  The natural period
+domain is orthogonal for the K3 lattice; its Siegel or paramodular
+realisation appears after the genus-two comparison.  When the
+Borcherds and Gritsenko denominator theorem supplies an automorphic
+product, the Hall character is read as a Borcherds character and
+\[
+  \kBKM(\Phi)=\frac{c(0)}{2}.
+\]
 \end{enumerate}
+The correspondence product is unchanged across the four regimes; the
+coefficient ring $H^{*}_{G_X}(\mathrm{pt})$ and the quotient stack are
+the moving pieces.
 
-In all four strata, the multiplicative structure is the KS
-correspondence product; only the coefficient ring
-$\mathbb{F} = \Heq(\mathrm{pt})$ shifts.
+\subsection*{\texorpdfstring{$K3 \times E$}{K3 x E} reduced boundary}
 
-\subsection*{Attack-heal 3 --- $K3 \times E$ via Pandharipande--Oberdieck reduced DT}
-
-\ClaimStatusTheorem\ (Oberdieck--Pixton 2017 \texttt{arXiv:1706.10100},
-\emph{Invent. Math.}\ 222 (2020), primitive $K3$ class.)
+Let $S$ be a K3 surface and let $E$ be an elliptic curve.  In a
+primitive fibre class, Oberdieck and Pandharipande 2016 prove the
+reduced DT/GW identity
 \[
-  Z^{\red}_{DT}\bigl(K3 \times E; \gamma \text{ primitive on } K3\bigr)(q, t, p)
-   \;=\; -\,\frac{C}{\Phi_{10}(q, t, p)}.
+  Z^{S\times E,\,\red,\,\mathrm{prim}}_{\mathrm{DT}}(\Omega)
+  =
+  -\,\frac{C}{\Phi_{10}^{\mathrm{OP}}(\Omega)},
+  \qquad C=pqt,
 \]
-
-\ClaimStatusDerivation\ \emph{Positive effective geometry for
-$K3 \times E$.}  Stratum 2 applies: $K3$ is non-toric; $E$ supplies the
-surviving $\C^{\times}_{E}$ via its translation automorphism group.
-The positive effective moduli is the Pandharipande--Oberdieck reduced
-DT stack,
+with the Weyl-vector prefactor absorbed in $C$.  The positive Hall
+object on this boundary is the reduced, elliptic-quotient critical
+cohomology
 \[
-  \Mbps(K3 \times E) \;=\;
-    \mathcal{M}^{\red, \bps}\!\bigl(K3 \times E;\, \gamma\bigr)_{\gamma \text{ $K3$-primitive}},
+  H^{+}_{S\times E}
+  :=
+  H^{\mathrm{BM}, *}_{\red/E}
+  \bigl(\mathcal{M}^{\red,\bps}(S\times E)_{\mathrm{prim}},
+        \varphi_{W}\bigr).
 \]
-with reduced virtual dimension $0$ (the $K3$-holomorphic-symplectic
-direction is excised, per MNOP reduced theory), carrying the residual
-$\C^{\times}_{E}$-action from $E$-translation.  The universal grammar
-then gives
+Its numerical character is the reciprocal Igusa form above.  The
+scalar square-root relation
 \[
-  \Yplus(K3 \times E) \;=\; H^{*}_{\C^{\times}_{E}}\bigl(\mathcal{M}^{\red, \bps}(K3 \times E), \phi_{W}\bigr).
+  \Phi_{10}^{\mathrm{un}}=\Delta_{5}^{2}
 \]
-Restricting to $K3$-primitive charges, the $\C^{\times}_{E}$-equivariant
-character reproduces $\Phi_{10}^{-1}$ via Oberdieck--Pixton 2017, which
-locks $\kBKM(\Phi_{10}) = c_{1}(0)/2$ to the Gritsenko $\Delta_{5}$
-weight (Lorgat 2020, April; $\kBKM = 5$).  The imprimitive
-multiple-cover contribution sits outside the stated identity and is
-the $\Yplus$-side opening for Maulik--Toda 2018 refinement.
-
-\ClaimStatusOpen\ \emph{Lie-algebra isomorphism
-$\mathfrak{g}_{\bps}(K3 \times E) \cong \mathfrak{g}_{\Delta_{5}}$.}
-Charge-by-charge dimensions match via KS wall-crossing (Attack-heal 3
-of \texttt{CoHA\_to\_W\_infty\_treatise.tex}); the bracket-level
-identification remains open (non-adjacent contractions, per AP-CY34).
-
-\subsection*{Attack-heal 4 --- Drinfeld double commutes with the stratum selector}
-
-\ClaimStatusDefinition\ \emph{Drinfeld double.}
-Given $\Yplus(X)$ with a non-degenerate Hopf pairing
-$\langle -, - \rangle: \Yplus(X) \otimes \Yminus(X) \to \Yzero(X)$,
-the Drinfeld double is
+separates the two Borcherds weights:
 \[
-  G(X) \;=\; \Yplus(X) \bowtie \Yzero(X) \bowtie \Yminus(X).
+  \kBKM(\Delta_{5})=5,
+  \qquad
+  \kBKM(\Phi_{10}^{\mathrm{un}})=10.
 \]
-
-\ClaimStatusDerivation\ \emph{Pairing source.}
-In the compact stratum (2, 4), the pairing is Serre duality on
-$D^{b}(X)$: $\mathrm{Ext}^{d}_{X}(E, F)^{\vee} \cong \mathrm{Ext}^{0}_{X}(F, E)$
-for $E, F$ in the perfect Hall-stack, descending to a non-degenerate
-pairing on $\Heq$-cohomology via the Davison--Meinhardt 2020 PBW
-integration map.  In the toric stratum (1), the pairing is the
-equivariant residue on torus-fixed loci; the two agree on the
-intersection by the Atiyah--Bott fixed-point formula.
-
-\ClaimStatusDerivation\ \emph{Universality.}
-The doubling constructor commutes with the stratum selector.  At
-$\C^{3}$, $G(\C^{3}) = Y(\widehat{\gl}_{1})$ (Tsymbaliuk 2017
-\texttt{arXiv:1703.04551}).  At the conifold, $G(\mathrm{cfd}) = Y^{\mathrm{cfd}}$
-(Szendroi 2008 \texttt{arXiv:0708.4384} NCCR quiver).  At $K3 \times E$,
-$G(K3 \times E) \supset \mathfrak{g}_{\Delta_{5}}$ conjecturally,
-with Cartan series $\psi(z)$ automorphic on $\mathcal{A}_{2}$.  Six
-routes to $G(K3 \times E)$ are six different \emph{constructions},
-not six $\Phi$-applications.
-
-\subsection*{Attack-heal 5 --- two-stage coherence: $E_{d}$-hFA selection}
-
-\ClaimStatusDerivation\ \emph{Stage-2 selection.}
-In the Vol III two-stage $E_{d}$-hFA framework, \emph{Stage 1} is the
-raw chiral factorisation $\mathrm{Fact}_{E_{d}}$ on the Ran space;
-\emph{Stage 2} is $\mathrm{Sp}_{\Sigma_{d - 1}, C}$, the
-$\Sigma_{d - 1}$-stratified specialisation along a CY curve or surface
-slice $C$.  Stage 2 is what \emph{selects} the positive effective
-geometry: the cone $\Gamma^{+}(X)$ is the image of the KS central
-charge read through Stage 2, and the equivariance stratum is the
-monodromy of the specialisation.
-
-\ClaimStatusDerivation\ \emph{Coherence.}  Writing
-$\Phi: \mathrm{CY}\text{-cat}_{d} \to \mathrm{ChirAlg}$ for the
-CY-to-chiral functor, the universal grammar gives a square
+The four $K3 \times E$ invariants are construction-distinct:
 \[
-  \Phi(X) \xhookrightarrow{\text{Stage 1}} \mathrm{Fact}_{E_{d}}(X)
-  \xrightarrow{\mathrm{Sp}_{\Sigma_{d-1}, C}} \Yplus(X) =
-  \Heq(\Mbps(X), \phi_{W}),
+  \kcat(S\times E)
+  =
+  \chi(\mathcal{O}_{S})\chi(\mathcal{O}_{E})
+  =
+  2\cdot 0
+  =
+  0,
+  \qquad
+  \kchir^{\mathrm{Heis}}=3,
+  \qquad
+  \kBKM(\Delta_{5})=5,
+  \qquad
+  \kfib=24.
 \]
-the horizontal composite agreeing with the Hodge-supertrace
-identification $\kchir(A_{X}) = \sum_{q} (-1)^{q} h^{0, q}(X)$ on
-compact CY$_{d}$.
+The total-space Hodge supertrace is
+\[
+  \sum_{q}(-1)^q h^{0,q}(S\times E)=0.
+\]
+The value $2$ belongs to the K3 fibre invariant
+$\chi(\mathcal{O}_{S})$; the categorical invariant of the total space
+is $0$.  The value $3$ belongs to the Heisenberg-Mukai specialisation.
+The value $5$ belongs to the Borcherds product $\Delta_5$.
 
-At $d = 3$, Stage 2 picks out the reduced virtual cycle and the
-residual $\C^{\times}_{E}$; at $d = 2$, it picks out the $K3$ Mukai
-lattice and its $\mathrm{O}(\Lambda_{K3})$-equivariance.  The grammar
-is one formula; the coherence is that Stage 2 always reads it in the
-correct stratum.
+\subsection*{Double, centre, and evaluation}
 
-\subsection*{Status}
+A double is available after the positive half carries a non-degenerate
+Hopf pairing compatible with the chosen coefficient datum:
+\[
+  \langle -, - \rangle:
+  \Yplus_{G_X}(X)\otimes \Yminus_{G_X}(X)
+  \longrightarrow
+  \Yzero_{G_X}(X).
+\]
+Then
+\[
+  D\bigl(\Yplus_{G_X}(X)\bigr)
+  =
+  \Yplus_{G_X}(X)
+  \bowtie
+  \Yzero_{G_X}(X)
+  \bowtie
+  \Yminus_{G_X}(X).
+\]
+For $\C^3$, Schiffmann and Vasserot 2013 give the positive half, and the
+Drinfeld double gives the full affine Yangian:
+\[
+  \CoHA(\C^3)
+  \cong
+  Y^{+}(\widehat{\mathfrak{gl}}_{1}),
+  \qquad
+  D\bigl(Y^{+}(\widehat{\mathfrak{gl}}_{1})\bigr)
+  \cong
+  Y(\widehat{\mathfrak{gl}}_{1}).
+\]
+By Prochazka and Rapcak 2018, the vertex algebra
+$\mathcal{W}_{1+\infty}[\lambda]$ is reached through
+the centred or evaluated full Yangian,
+\[
+  Y(\widehat{\mathfrak{gl}}_{1})
+  \xrightarrow{\;\mathrm{ev}_{\lambda}\;}
+  \operatorname{End}
+  \bigl(\mathcal{W}_{1+\infty}[\lambda]\text{-}\mathrm{vac}\bigr).
+\]
+The positive Hall algebra supplies the positive modes.  Cartan,
+negative modes, completion, and the pairing supply the full object.
 
-The grammar is written.  Strata 1 (Schiffmann--Vasserot) and 3
-(Nikulin--Mukai orbifold) are theorems.  Stratum 2 at $K3 \times E$ is
-a definition plus the Oberdieck--Pixton primitive-class identification,
-with the bracket-level $\mathfrak{g}_{\bps}(K3 \times E) \cong
-\mathfrak{g}_{\Delta_{5}}$ isomorphism open.  Stratum 4 is programmatic,
-anchored to Gritsenko--Nikulin 1998.  The Drinfeld doubling commutes
-with the stratum selector; the two-stage $E_{d}$-hFA provides the
-selection rule.  Open: bracket-level compact-CY$_{3}$ identification,
-the automorphic $\psi(z)$ on $\mathcal{A}_{2}$, and the lattice-polarised
-stratum character formula for a general polarisation $L \ne U \oplus U
-\oplus U \oplus E_{8}(-1)^{\oplus 2}$.
+For $K3 \times E$, the compact double theorem has the form
+\[
+  H^{+}_{K3\times E}
+  \longrightarrow
+  U\bigl(\mathfrak{n}_{+}(\mathfrak{g}_{\Delta_5})\bigr).
+\]
+If the Hall pairing, Lorentzian Cartan, automorphic completion, and
+radical quotient satisfy the Hall-Borcherds recognition gates, the
+reduced double is the completed Borcherds algebra:
+\[
+  D^{\red}\bigl(H^{+}_{K3\times E}\bigr)
+  \simeq
+  \widehat{U}\bigl(\mathfrak{g}_{\Delta_5}\bigr).
+\]
+The denominator character is fixed by
+\[
+  \operatorname{den}(\mathfrak{g}_{\Delta_5})
+  =
+  64^{-1}\Delta_5(2Z)
+  =
+  e^{-2\pi i(\rho,z)}
+  \prod_{\alpha\in\mathcal{R}_{+}}
+  \bigl(1-e^{-2\pi i(\alpha,z)}\bigr)^{\operatorname{smult}(\alpha)}.
+\]
+The bracket-level identification is the remaining mathematical content
+of the compact Hall-Borcherds theorem; the character identity alone
+leaves it as an extra theorem.
+
+\subsection*{Compatibility with \texorpdfstring{$\Phi_d$}{Phi-d}}
+
+For a specialisation datum $(\Sigma_{d-1},C)$, the
+Calabi-Yau-to-chiral construction is
+\[
+  \Phi_d^{(\Sigma_{d-1},C)}
+  =
+  \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\circ \Phi^{\mathrm{FA}}_d
+  :
+  \mathrm{CY}_{d}\text{-}\mathrm{Cat}
+  \longrightarrow
+  E_{d}\text{-}\mathrm{HolFA}(X)
+  \longrightarrow
+  E_{n(d)}\text{-}\mathrm{ChirAlg}(C),
+\]
+where
+\[
+  n(d)=
+  \begin{cases}
+    \infty, & d=1,\\
+    2, & d=2,\\
+    1, & d\geq 3.
+  \end{cases}
+\]
+The Hall grammar is a separate positive-geometry construction attached
+to the same CY input.  A comparison map
+\[
+  \rho_X^{+}:
+  \Yplus_{G_X}(X)
+  \dashrightarrow
+  \Gamma_{\mathrm{Hall}}\!
+  \bigl(\Phi_d^{(\Sigma_{d-1},C)}(X)\bigr)
+\]
+requires the relevant hCS-Hall, reduced-DT, or localisation witnesses.
+At $d=3$, the target
+$\Phi_3^{(\Sigma_2,C)}(X)$ is $E_{1}$-chiral.  The braided
+$E_{2}$ structure belongs to
+\[
+  \mathcal{Z}
+  \bigl(\mathrm{Rep}^{E_1}
+  (\Phi_3^{(\Sigma_2,C)}(X))\bigr),
+\]
+or to an equivalent doubled or centred construction.
+
+On compact even-dimensional constructed loci, the scalar
+\[
+  \kchir(A_X)=\sum_q (-1)^q h^{0,q}(X)
+\]
+is the Hodge-supertrace invariant of the chiral output.  At odd
+dimension the compact Hodge supertrace cancels by Serre duality; the
+nonzero $d=3$ values in the CY landscape come from chain-level
+noncompact or specialised computations, such as local $\mathbb{P}^{2}$,
+the conifold, and the Heisenberg-Mukai specialisation of $K3\times E$.

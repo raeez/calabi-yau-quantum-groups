@@ -1,11 +1,4 @@
-% wave12_a14_quiver_chart_gaiotto.tex
-% Gaiotto-voice adversarial-heal on the quiver-chart gluing frontier,
-% cross-volume bridges to Vol II (Swiss-cheese, E_2 bar, completed modular
-% Koszul datum), and the CY_4 prediction.
-% Source manuscript: working_notes.tex lines 1700-1751, 1967-2012, 2044-2094,
-% 2447-2588.
-% Voice: Gaiotto (VOA/W-algebra, boundary conditions, corner vertex algebras,
-% Y-algebras, Costello-Gaiotto twisted holography). Chriss-Ginzburg discipline.
+% Quiver-chart gluing and the CY4 prediction.
 
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
@@ -14,9 +7,6 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem*{ghost}{Ghost theorem}
-\newtheorem*{attack}{Attack}
-\newtheorem*{heal}{Heal}
 
 \providecommand{\Eone}{E_1}
 \providecommand{\Etwo}{E_2}
@@ -26,7 +16,6 @@
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\Q}{\mathbb{Q}}
-\providecommand{\R}{\mathbb{R}}
 \providecommand{\bP}{\mathbb{P}}
 \providecommand{\bS}{\mathbb{S}}
 \providecommand{\cF}{\mathcal{F}}
@@ -34,604 +23,370 @@
 \providecommand{\cW}{\mathcal{W}}
 \providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cT}{\mathcal{T}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\fgl}{\mathfrak{gl}}
 \providecommand{\ChirAlg}{\mathrm{ChirAlg}}
 \providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kbkm}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
 
-\title{Quiver-chart gluing and the CY$_4$ prediction\\
-{\large A corner-vertex-algebra audit of the April 2026 swarm}}
-\author{Wave 12 / A14 (Gaiotto channel)}
+\title{Quiver-Chart Gluing and the CY$_4$ Prediction}
+\author{Raeez Lorgat}
 \date{2026-04-22}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The quiver-chart gluing frontier of \texttt{working\_notes.tex} (\S\S 2447--2588)
-presents three ``answers'' to why CY$_3$ produces $\Eone$, a cross-volume
-bridge asserting that Vol~II's Swiss-cheese operad is ``the operadic
-framework'' for the $\Etwo$ bar complex, and a CY$_4$ prediction reading
-CY$_4 \to \Etwo$ through Dunn additivity. We audit each claim through the
-Costello--Gaiotto twisted-holography and corner-vertex-algebra lens
-(Gaiotto--Rapcak $\cY$, Prochazka--Rapcak $\cW_{1+\infty}$). The audit
-uncovers five conflations, each healed by identifying (i) the ghost theorem,
-(ii) the precise error, (iii) the correct mathematical relationship. The
-three ``answers'' are three distinct invariants of a single obstruction, not
-three faces of one invariant; the Swiss-cheese bridge is one-sided
-(Vol~II $\to$ Vol~III is an embedding, not an equivalence); the CY$_4$
-prediction reading $\Etwo = \Eone \otimes \Eone$ via two $\bS^2$ factors is
-lane-mixed and, when stated in the lane in which it holds, becomes a
-conjecture about a 2-category of CY$_4$ data mapping to the Swiss-cheese
-$\Etwo$.
+The quiver-chart gluing problem separates into three obstruction
+objects. The structural obstruction records the Serre-parity source of
+the native $\Eone$ output in CY$_3$. The \v{C}ech
+obstruction records whether the ordered local $\Eone$ charts glue. The
+deformation obstruction records whether the $\Omega$-background preserves
+the higher braiding locus. Vol~II's Swiss-cheese operad supplies a
+one-sided bulk-to-boundary comparison map; the Vol~III $\Etwo$ bar
+complex remains the closed-sector input. The class-$\mathcal S$ parent
+attached to the K3$\times E$ boundary shadow is
+$\cT[A_1,\Sigma_{0,24}]$, with central charges fixed by pants
+decomposition. The CY$_4$ prediction is a typed conjecture about a
+2-category of CY$_4$ data mapping to a Swiss-cheese $\Etwo$ boundary
+theory.
 \end{abstract}
 
-\section*{Overview}
+\section{Three Obstruction Objects}
 
-The mission has two adversarial fronts and one heal:
-\begin{itemize}[leftmargin=1.5em]
-  \item \textbf{Front I} (\S\ref{sec:attack-heal-1}--\ref{sec:attack-heal-3}).
-  The three answers to ``why $d=3$ gives $\Eone$'' on the quiver-chart
-  gluing frontier. We separate them.
-  \item \textbf{Front II} (\S\ref{sec:attack-heal-4}--\ref{sec:attack-heal-5}).
-  The cross-volume bridges (Swiss-cheese, $\Etwo$ bar, completed modular
-  Koszul datum) and the CY$_4$ prediction.
-  \item \textbf{Heal}. Reconstruct the gluing theorem on local $\bP^2$,
-  local $\mathbb{F}_2$, conifold in corner-vertex-algebra language; state
-  the CY$_4$ conjecture at the right scope.
-\end{itemize}
-
-% ==========================================================================
-\section{Attack--heal 1. Three answers, one obstruction, three invariants}
-\label{sec:attack-heal-1}
-% ==========================================================================
-
-\textit{Scope: \texttt{working\_notes.tex} \S\S 2447--2493, subsections
-``Why $d=3$ gives $\Eone$'', ``$\Eone$ descent degenerates at $E_2$'',
-``Deformation universally breaks to $\Eone$''.}
-
-\begin{attack}
-The section heading ``The three answers'' invites the reading: one question
-(``why does CY$_3$ give $\Eone$?'') has three answers (topological $+$
-structural $+$ hexagon; $\Eone$-\v{C}ech degeneration; deformation breakdown).
-A single invariant $\mathcal{O}$ with three faces. Is $\mathcal{O}$ a
-single number, three numbers of a single object, or three distinct invariants
-of three distinct objects? The manuscript does not say, and the conflation
-has a cost: the ``Structural obstruction'' takes values $\{0,1,27\}$ on
-$\{\C^3, \text{conifold}, \text{local }\bP^2\}$, the ``$\Eone$-\v{C}ech''
-obstruction has values in $E_2^{2,*}$ of a spectral sequence (which is zero
-for all three toric CY$_3$), and the ``deformation'' obstruction is a proper
-subvariety in $\mathrm{Spec}\,\mathbb{Q}[\varepsilon_1,\varepsilon_2,\varepsilon_3]/
-(\varepsilon_1 + \varepsilon_2 + \varepsilon_3)$. They are numerically
-incomparable.
-\end{attack}
-
-\begin{ghost}
-\emph{Serre duality $\Rightarrow \Eone$-floor on CY$_d$ for odd $d$, via an
-obstruction-triad that is structurally irreducible.}
-The three answers crystallise three genuinely distinct obstructions
-whose vanishing is independent. Each probes a different structural
-ingredient: (A) the Euler form $\chi(E,F) = (-1)^d \chi(F,E)$, (B) the
-configuration space $\mathrm{Conf}_n^{\mathrm{ord}}(\R)$ is contractible
-for $n \geq 1$, (C) the hexagon deformation factor
-$D(\varepsilon_1, \varepsilon_2) = (\varepsilon_1-\varepsilon_2)^2/
-(\varepsilon_1+\varepsilon_2)^2$. Vanishing of the Euler antisymmetriser
-is the datum that the CoHA \emph{can} receive an $R$-matrix; vanishing of
-the Cech $E_2^{2,*}$ is the datum that the $\Eone$-structure \emph{glues}
-from charts; vanishing of $D(\varepsilon_1,\varepsilon_2)$ is the datum
-that the deformation \emph{preserves} the higher braiding. Three questions,
-three obstructions.
-\end{ghost}
-
-\begin{heal}
-Name the three invariants $\mathcal{O}_1^{\mathrm{str}}, \mathcal{O}_2^{\mathrm{Cech}},
-\mathcal{O}_3^{\mathrm{def}}$, with these types:
+For a toric Calabi--Yau threefold chart system $\mathfrak U$ and its
+factorisation-algebra output $A_X$, the question ``why does CY$_3$
+specialise to $\Eone$?'' has three separate answers:
 \[
-  \mathcal{O}_1^{\mathrm{str}}(X) \in \mathbb{Z}_{\geq 0}
-  \qquad
-  \mathcal{O}_2^{\mathrm{Cech}}(X) \in E_2^{2,*}(\mathfrak{U}; \cH^{\Eone})
-  \qquad
-  \mathcal{O}_3^{\mathrm{def}}(X) \subset V_{\mathrm{def}}(X).
+  \mathcal O_1^{\mathrm{str}}(X)\in\Z_{\ge0},\qquad
+  \mathcal O_2^{\mathrm{Cech}}(X)\in
+  E_2^{2,*}(\mathfrak U;\cH^{\Eone}),\qquad
+  \mathcal O_3^{\mathrm{def}}(X)\subset V_{\mathrm{def}}(X).
 \]
-On $\C^3$: all three vanish. On the conifold:
-$\mathcal{O}_1^{\mathrm{str}} = 1$ (rank-$1$ Drinfeld-centre deficit),
-$\mathcal{O}_2^{\mathrm{Cech}} = 0$ (ordered two-chart descent degenerates
-immediately), $\mathcal{O}_3^{\mathrm{def}}$ is the codim-$2$ $B$-field
-locus. These are three distinct objects --- not three faces of one
-invariant. The correct bookkeeping is a triple
-$(\mathcal{O}_1, \mathcal{O}_2, \mathcal{O}_3)$, not a single $\mathcal{O}$.
-\end{heal}
+The first object measures the deficit of a braided $R$-matrix on the
+native output. The second measures the obstruction to gluing ordered
+$\Eone$ charts. The third is the deformation locus where the
+$\Omega$-background preserves a higher braiding.
 
-The rectification of the manuscript prose: the section subtitle
-``The three answers'' should read ``Three independent obstructions to
-$\Eone \to \Etwo$ lifting,'' and the CY$_d$ Serre-parity statement
-$\mathcal{O}_1^{\mathrm{str}}(X)$ is what the Gaiotto--Rapcak $\cY$-algebra
-corner construction detects as the obstruction to extending the
-$R$-matrix across a corner of the toric diagram. Concretely, for the
-$\cY_{N_1, N_2, N_3}$ of Gaiotto--Rapcak (which is the corner vertex
-algebra at a tri-junction of three D-branes), $\mathcal{O}_1^{\mathrm{str}}$
-is the defect of the $R$-matrix between two $\cY$-modules coming from
-different legs of the corner; $\mathcal{O}_2^{\mathrm{Cech}}$ is the
-defect of the \v{C}ech two-cocycle on the Gaiotto--Rapcak trivalent
-vertex; $\mathcal{O}_3^{\mathrm{def}}$ is the defect of the
-$\cY_{N_1,N_2,N_3} \to \cW_{N_1+N_2+N_3}$ reduction functor under
-$\Omega$-background deformation. Each has its own computation, its own
-target, and its own zero locus. (The conflation ``three answers'' is an
-AP-CY-type \emph{single-invariant illusion}.)
-
-% ==========================================================================
-\section{Attack--heal 2. The Swiss-cheese bridge is one-sided}
-\label{sec:attack-heal-2}
-% ==========================================================================
-
-\textit{Scope: \texttt{working\_notes.tex} \S 1728--1737.}
-
-\begin{attack}
-``The Vol~II Swiss-cheese structure $\mathrm{SC}^{\mathrm{ch,top}}$ provides
-the operadic framework for the $\Etwo$ bar complex of
-Section~\ref{wn:sec:e2-bar}.''
-The verb ``provides'' is too strong. The $\Etwo$ bar complex is a functor
-on $\Etwo$-algebras; the Swiss-cheese operad $\mathrm{SC}^{\mathrm{ch,top}}$
-of Voronov (and its holomorphic-topological chiralisation in Vol~II) is a
-two-coloured operad encoding algebras of \emph{pairs} (closed-sector
-$\Etwo$-algebra $+$ open-sector $\Eone$-module over it). The bar complex
-of an $\Etwo$-algebra does not know about the open sector. If the claim is
-that $B_{\Etwo}(A) = $ ``boundary sector'' of some $\mathrm{SC}^{\mathrm{ch,top}}$
-pair, then there is a missing $\Eone$-module data specifying the boundary.
-\end{attack}
-
-\begin{ghost}
-\emph{The $\Etwo$ bar complex of a closed-sector algebra embeds into the
-open-sector $\Eone$ Hochschild of a bulk-to-boundary extension.}
-This is the Kontsevich--Soibelman bulk-to-boundary framework: given
-$A \in \Etwo\text{-Alg}$, one can construct a Swiss-cheese pair
-$(A, M)$ where $M \in \Eone\text{-Mod}(A)$ is the regular module; the
-Hochschild complex of $M$ then carries a comparison map \emph{to} the
-$\Etwo$ bar complex of $A$. This is the Swiss-cheese connection --- a
-\emph{comparison map from Vol~II machinery to Vol~III machinery}, not an
-operadic identification.
-\end{ghost}
-
-\begin{heal}
-State:
-\begin{proposition}[Swiss-cheese comparison, conjectural]
-\label{prop:sc-comparison}
-Let $A \in \Etwo\text{-}\ChirAlg$ and let $(A, A_{\text{reg}})$ denote the
-Swiss-cheese pair with regular open-sector module. There is a comparison
-morphism
+\begin{proposition}[Typing of the CY$_3$ obstruction triple]
+\label{prop:three-obstruction-typing}
+The three objects
 \[
-  B_{\Etwo}(A) \;\hookrightarrow\; \mathrm{HH}_{\mathrm{ch}}^{\mathrm{SC}}(A, A_{\text{reg}})
+(\mathcal O_1^{\mathrm{str}},
+ \mathcal O_2^{\mathrm{Cech}},
+ \mathcal O_3^{\mathrm{def}})
 \]
-from the $\Etwo$ bar complex to the Swiss-cheese Hochschild cohomology,
-injective on cohomology with cokernel concentrated in the open-bulk
-\emph{transition} strata. The three bar complexes
-$(B_{\Eone}, B_{\Etwo}, B_{\Einf})$ of \S\ref{wn:sec:e2-bar} correspond
-to the three boundary strata of Voronov's Swiss-cheese operad (pure
-boundary, mixed boundary, bulk only), not to the three sectors
-\emph{freely} --- the passage is through this comparison map.
+live in distinct targets. Their simultaneous vanishing is meaningful,
+and a single numerical comparison between them is type-incoherent.
 \end{proposition}
-\end{heal}
 
-At the concrete level: the three bar complexes correspond to three
-\emph{restrictions} of the SC comparison map, not to three sectors of one
-structure. For $A = H_1$ the Heisenberg at level $1$: $B_{\Etwo}^n(H_1)$
-has dimension $d(n)$ (divisor function), whereas the Swiss-cheese
-Hochschild $\mathrm{HH}^{\mathrm{SC}}_n(H_1, H_1)$ has a strictly larger
-Hilbert series. The comparison map captures the $d(n)$ summand; the
-cokernel is the open-sector excess, which encodes the boundary $\Eone$
-deformation of $H_1$ as a bulk-to-boundary module.
-
-% ==========================================================================
-\section{Attack--heal 3. The completed modular Koszul datum is typed}
-\label{sec:attack-heal-3}
-% ==========================================================================
-
-\textit{Scope: \texttt{working\_notes.tex} \S 1739--1748.}
-
-\begin{attack}
-The eight-fold CY3 Koszul datum
+\begin{proof}
+Serre duality on a CY$_3$ category makes the Euler form skew:
 \[
-\Pi^{\mathrm{oc}}_X(A_{X_3}) =
+  \chi(E,F)=-\chi(F,E).
+\]
+This is the structural source of the ordered $\Eone$ floor and defines
+$\mathcal O_1^{\mathrm{str}}$. Descent over an affine toric cover is a
+\v{C}ech question for the local $\Eone$ factorisation algebras, giving
+the spectral-sequence class $\mathcal O_2^{\mathrm{Cech}}$. The
+$\Omega$-background has its own parameter space
+\[
+  V_{\mathrm{def}}=\mathrm{Spec}\,
+  \Q[\varepsilon_1,\varepsilon_2,\varepsilon_3]/
+  (\varepsilon_1+\varepsilon_2+\varepsilon_3),
+\]
+and the higher-braiding locus is a subvariety of that space. The three
+targets are respectively numerical, cohomological, and geometric.
+\end{proof}
+
+\begin{example}[$\C^3$, conifold, local $\bP^2$]
+For $\C^3$, all three obstructions vanish at the undeformed chart. For
+the resolved conifold, $\mathcal O_2^{\mathrm{Cech}}$ vanishes on the
+two-chart cover, while $\mathcal O_1^{\mathrm{str}}$ records the
+rank-one centre/double deficit and $\mathcal O_3^{\mathrm{def}}$
+selects the conifold deformation locus. For local $\bP^2$, the
+\v{C}ech obstruction is governed by the three-chart toric cover and the
+nontrivial transition around the compact curve class.
+\end{example}
+
+\section{Corner Vertex Algebras}
+
+The Gaiotto--Rapcak corner algebra $\cY_{N_1,N_2,N_3}$ sees the same
+triple. The structural obstruction is the defect of the $R$-matrix
+between modules attached to different legs of the corner. The \v{C}ech
+obstruction is the trivalent gluing defect for chart vertex algebras.
+The deformation obstruction is the defect of the reduction
+\[
+  \cY_{N_1,N_2,N_3}\longrightarrow
+  \cW_{N_1+N_2+N_3}
+\]
+to preserve the higher braiding away from the self-dual
+$\Omega$-background locus.
+
+\section{Class-\texorpdfstring{$\mathcal S$}{S} Parent}
+
+The protected four-dimensional parent used in the K3$\times E$ boundary
+comparison is the Gaiotto theory
+\[
+  \cT[A_1,\Sigma_{0,24}]
+\]
+with twenty-four maximal regular $\mathfrak{su}(2)$ punctures. A pants
+decomposition of $\Sigma_{g,n}$ contains $2g-2+n$ trinions and
+$3g-3+n$ tubes. For $(g,n)=(0,24)$ this gives $22$ copies of the
+$A_1$ trinion $T_2$ and $21$ $\mathfrak{su}(2)$ gauge tubes. In the
+Shapere--Tachikawa normalisation,
+\[
+  T_2:\ (n_v,n_h)=(0,4),\qquad
+  \mathfrak{su}(2)\text{ tube}:\ (n_v,n_h)=(3,0),
+\]
+hence
+\[
+  (n_v,n_h)=(21\cdot3,22\cdot4)=(63,88).
+\]
+The central charges are therefore
+\[
+  c_{4d}=\frac{2n_v+n_h}{12}
+        =\frac{2\cdot63+88}{12}
+        =\frac{107}{6},
+  \qquad
+  a_{4d}=\frac{5n_v+n_h}{24}
+        =\frac{5\cdot63+88}{24}
+        =\frac{403}{24}.
+\]
+The Beem--Lemos--Liendo--Peelaers--Rastelli--van Rees correspondence
+then gives the protected two-dimensional central charge
+\[
+  c_{2d}=-12c_{4d}=-214.
+\]
+
+\begin{proposition}[The supported class-\texorpdfstring{$\mathcal S$}{S} label]
+\label{prop:class-s-sigma024}
+The class-$\mathcal S$ parent compatible with the twenty-four K3
+boundary points, the $\mathfrak{su}(2)^{24}$ flavour symmetry, and the
+Beem--Rastelli central charge is $\cT[A_1,\Sigma_{0,24}]$. Replacing
+the label by $\Sigma_{2,0}$ changes the theory: the same pants count
+gives two trinions, three gauge tubes,
+\[
+  (n_v,n_h)=(9,8),\qquad
+  c_{4d}=\frac{13}{6},\qquad
+  a_{4d}=\frac{53}{24},\qquad
+  c_{2d}=-26,
+\]
+and the puncture permutation symmetry disappears.
+\end{proposition}
+
+\begin{proof}
+For $A_1$ class-$\mathcal S$, the Lagrangian pants decomposition
+computes the effective multiplet counts: every trinion is $T_2$ and
+every internal edge gauges an $\mathfrak{su}(2)$. At $(g,n)=(0,24)$
+the counts above give $(63,88)$ and the displayed central charges.
+This agrees with the Chacaltana--Distler all-maximal formula
+$c_{4d}(A_1,\Sigma_{0,n})=(5n-13)/6$ at $n=24$, with the
+Shapere--Tachikawa formula for $a_{4d}$, and with the Beem--Rastelli
+$4d/2d$ relation. At $(g,n)=(2,0)$ the pants counts are $2$ and $3$,
+which yields the second displayed line. These invariants determine
+different class-$\mathcal S$ theories.
+\end{proof}
+
+\begin{proposition}[K3\texorpdfstring{$\times$}{x}E invariants and modular lanes]
+\label{prop:k3e-invariant-separation}
+The K3$\times E$ construction spectrum is
+\[
+  \bigl\{\kcat(K3\times E),\,
+  \kch^{\mathrm{Heis}},\,
+  \kbkm(\Delta_5),\,
+  \kfiber\bigr\}
+  =
+  \{0,3,5,24\}.
+\]
+Here
+\[
+  \kcat(K3\times E)=
+  \chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0,\qquad
+  \kbkm(\Delta_5)=c_1(0)/2=10/2=5,
+\]
+and $\kfiber=24$ is the Mukai-lattice rank of K3. These four entries
+belong to categorical, Heisenberg-specialisation, Borcherds-weight,
+and fibre-lattice constructions respectively. CHL quotients and the
+Gritsenko--Clery catalogue contribute Borcherds weights in their own
+rows; the class-$\mathcal S$ central charges above remain
+four-dimensional and protected-sector data.
+\end{proposition}
+
+\begin{proof}
+K\"unneth multiplicativity gives the categorical value because
+$\chi(\cO_E)=0$. The Heisenberg value records the rank-three
+specialised chiral branch. The Borcherds value is the weight of the
+Gritsenko $\Delta_5$ product, equivalently $c_1(0)/2$. The fibre value
+is the rank of the K3 Mukai lattice. The construction labels differ,
+so no arithmetic operation among the four entries is part of the
+definition.
+\end{proof}
+
+\section{Swiss-Cheese Comparison}
+
+Let $A\in\Etwo\text{-}\ChirAlg$. The Swiss-cheese operad
+$\mathrm{SC}^{\mathrm{ch,top}}$ is a two-coloured operad: it contains a
+closed $\Etwo$ algebra and an open $\Eone$ module over it. The
+$\Etwo$ bar complex of $A$ uses the closed sector alone. The
+Swiss-cheese structure enters after an open-sector module is chosen.
+
+\begin{proposition}[Swiss-cheese comparison map]
+\label{prop:swiss-cheese-comparison}
+Let $A\in\Etwo\text{-}\ChirAlg$, and let $(A,A_{\mathrm{reg}})$ be the
+Swiss-cheese pair with regular open-sector module. There is a natural
+comparison morphism
+\[
+  B_{\Etwo}(A)\longrightarrow
+  \HH_{\mathrm{ch}}^{\mathrm{SC}}(A,A_{\mathrm{reg}}).
+\]
+Closed-sector injectivity and a cokernel description on open-bulk
+transition strata form the remaining chain-level proof obligation.
+\end{proposition}
+
+\begin{proof}
+The closed operations of the Swiss-cheese operad restrict to the usual
+$\Etwo$ operations. The open operations add the $\Eone$ module
+structure. Applying chiral Hochschild cochains gives a map from the
+closed bar complex into the two-coloured Hochschild complex. The
+additional open-sector operations are precisely the terms whose
+homological support remains to be computed.
+\end{proof}
+
+\section{The Completed Modular Koszul Datum}
+
+The eightfold open-closed datum is a stratified object with entries in
+three ambient categories. Write
+\[
+\Pi_X^{\mathrm{oc}}(A)=
 \bigl(
-\cF_X(A),\ \overline{B}_X(A),\ \Theta_A,\ L_A,\
-(V^{\mathrm{br}}, T^{\mathrm{br}}),\
-R^{\mathrm{mod}}_4,\
-\cZ^{\mathrm{der}}_{\mathrm{ch}}(A),\
+\cF_X(A),\overline B_X(A),\Theta_A,L_A,
+(V^{\mathrm{br}},T^{\mathrm{br}}),
+R_4^{\mathrm{mod}},
+\cZ_{\mathrm{ch}}^{\mathrm{der}}(A),
 \Tr_A
-\bigr)
+\bigr).
 \]
-presents as a single eight-tuple, but the type-signatures of the eight
-entries are heterogeneous: $\Theta_A$ is a derivation on
-$\overline{B}_X(A)$, $R^{\mathrm{mod}}_4$ is an $R$-matrix living on
-$\Rep$ (not on $A$), $\cZ^{\mathrm{der}}_{\mathrm{ch}}(A)$ is a derived
-category (not a module). Using $\Pi^{\mathrm{oc}}$ as a single object
-(``the datum'') with no type declaration invites the confusion
-$A \leftrightarrow \Rep A \leftrightarrow \cZ^{\mathrm{der}}_{\mathrm{ch}}(A)$
-(AP-CY $\Phi$-output-scope).
-\end{attack}
+The first four entries and the trace live on $A$. The braided vacuum
+data and the modular $R$-matrix live on $\Rep(A)$ or its completion.
+The derived centre is a categorical object. This stratification is the
+typing that prevents confusion between $A$, $\Rep(A)$, and
+$\cZ_{\mathrm{ch}}^{\mathrm{der}}(A)$.
 
-\begin{ghost}
-\emph{$\Pi^{\mathrm{oc}}$ is a stratified object: some entries on $A$ itself
-($\cF, \overline{B}, \Theta, \Tr$), some on $\Rep(A)$
-($(V^{\mathrm{br}}, T^{\mathrm{br}}), R^{\mathrm{mod}}_4$), one on the
-derived centre ($\cZ^{\mathrm{der}}_{\mathrm{ch}}$). The stratification is
-by $\Eone$/$\Etwo$/$\Ethree$-level.}
-\end{ghost}
-
-\begin{heal}
-Annotate the Koszul datum with a stratification superscript:
+\begin{theorem}[Typed open-closed datum]
+\label{thm:typed-open-closed-datum}
+The datum $\Pi_X^{\mathrm{oc}}(A)$ is well formed as an object of the
+fibre product
 \[
-  \Pi^{\mathrm{oc}}_X(A_{X_3}) =
-  \bigl(
-    \underbrace{\cF_X(A)^{\Eone},\;\overline{B}_X(A)^{\Eone},\;\Theta_A^{\Eone},\;L_A^{\Eone},\;\Tr_A^{\Eone}}_{\text{on } A}
-    \,\big|\,
-    \underbrace{(V^{\mathrm{br}}, T^{\mathrm{br}})^{\Etwo},\;R^{\mathrm{mod}_4\,,\Etwo}}_{\text{on }\Rep A}
-    \,\big|\,
-    \underbrace{\cZ^{\mathrm{der}}_{\mathrm{ch}}(A)^{\Ethree}}_{\text{derived centre}}
-  \bigr).
+  \mathsf{Alg}_{\Eone}
+  \times_{\mathsf{Cat}}
+  \mathsf{RepCat}
+  \times_{\mathsf{Cat}}
+  \mathsf{Cent}_{\Etwo},
 \]
-Each entry's $E_n$-level is where it naturally lives. On CY$_3$: the $A$
-part is $\Eone$, the $\Rep A$ part acquires $\Etwo$ via the Drinfeld
-centre (hence the braided-centre $V^{\mathrm{br}}, T^{\mathrm{br}}$ and
-the $R^{\mathrm{mod}}_4$), and the derived centre $\cZ^{\mathrm{der}}_{\mathrm{ch}}(A)$
-carries $\Ethree$ structure. The Borcherds denominator identity
-(``controls the bar Euler product'') is strictly an $\Eone$-level
-statement: it is a \emph{numerical} consequence of
-$\chi_q(\overline{B}_X(A)^{\Eone}) = \Phi_N(\tau, \rho, z)$ for
-$K3 \times E$. It does \emph{not} determine the $(V^{\mathrm{br}}, T^{\mathrm{br}})$
-entries. The type-error in the original datum is that ``the Borcherds
-denominator formula controls the bar Euler product'' is stated as though
-it controlled the whole octuple; in fact it controls the $\Eone$ stratum
-only.
-\end{heal}
+where the maps are induced by representation category and derived-centre
+functors. The ordinary product in $\ChirAlg$ is type-incoherent for
+this datum.
+\end{theorem}
 
-% ==========================================================================
-\section{Attack--heal 4. The Dunn-additivity CY$_4$ prediction is lane-mixed}
-\label{sec:attack-heal-4}
-% ==========================================================================
+\begin{proof}
+The trace, bar complex, and modular deformation are operations on the
+algebra $A$. The braiding and $R$-matrix require modules, hence live on
+$\Rep(A)$. The centre is a braided category. A fibre product over the
+underlying categorical data is the minimal typed container for all
+entries.
+\end{proof}
 
-\textit{Scope: \texttt{working\_notes.tex} \S 2527--2534.}
+\section{The CY$_4$ Prediction}
 
-\begin{attack}
-``For $K3 \times K3$: $\bS^4 = \bS^2 \times \bS^2$ (Hopf decomposition),
-each $\bS^2$ gives $\Eone$, two $\Eone$'s give $\Etwo$ by Dunn additivity.''
-Three distinct errors nest here:
-\begin{enumerate}[label=(\roman*)]
-  \item \textbf{Sphere decomposition}. $\bS^4$ is \emph{not} diffeomorphic
-  to $\bS^2 \times \bS^2$: the former has Euler characteristic $2$, the
-  latter $4$. The statement conflates ``the twistor fibration
-  $\bS^2 \hookrightarrow \mathbb{CP}^3 \to \bS^4$'' with a product
-  decomposition, or confuses $\bS^4$ with its complexification
-  $\bS^2 \times \bS^2$ in one of the K\"ahler--Einstein models. Neither
-  is a product decomposition of $\bS^4$ in Top.
-  \item \textbf{Dunn additivity arithmetic}. Dunn: $\Eone \otimes \Eone$
-  (tensor product of operads) equals $\Etwo$. So two $\Eone$'s give $\Etwo$,
-  correct. But the manuscript pattern is $\mathrm{CY}_d \to E_{d-2}$:
-  CY$_4 \to E_2$. That is $\Etwo$, \emph{one} $\Etwo$, not
-  $\Etwo \otimes \Etwo = E_4$.
-  \item \textbf{Lane mixing}. The claim ``each $\bS^2$ gives $\Eone$''
-  is chain-level ($\bS^2$-framing of a chain-level CoHA), whereas
-  ``two give $\Etwo$ by Dunn additivity'' is $(\infty,1)$-operadic. The
-  two lanes agree asymptotically but their combination-rules differ at
-  the level of explicit models.
-\end{enumerate}
-\end{attack}
+Dunn additivity gives
+\[
+  \Etwo\simeq \Eone\otimes\Eone
+\]
+at the level of operads. A CY$_4$ input has two independent
+two-dimensional transverse directions only after a polarisation,
+framing, and Swiss-cheese boundary condition are chosen. The natural
+CY$_4$ prediction is therefore categorical.
 
-\begin{ghost}
-\emph{CY$_4$ $\to \Etwo$ is the correct prediction, and the route through
-Dunn is valid once the framing is stated in the correct lane.}
-At $d = 4$: Serre duality is symmetric ($(-1)^4 = +1$), so the CoHA
-\emph{can} admit a commutative-up-to-braiding structure. The
-framing sphere is $\bS^2$ (from the one-point compactification of the
-normal $\mathbb{R}^2$ in $\mathrm{Conf}_n(\mathbb{R}^2)$), not $\bS^4$.
-The Pontryagin-Thom construction for the $\Etwo$ bar complex operates on
-$\bS^2$ one-point compactifications at each height, and the CY$_4$
-category supplies the bulk-to-boundary gluing that realises the
-$\Etwo$ structure.
-\end{ghost}
-
-\begin{heal}
-State the correct CY$_4$ prediction in the $(\infty,1)$-lane:
-\begin{conjecture}[CY$_4$ $\Etwo$-level image of $\Phi$, \emph{conjectural}]
-\label{conj:cy4-e2}
-Let $X$ be a compact CY$_4$ with
-$\kappa_{\mathrm{cat}}(X) = \chi(\cO_X) = \sum_q (-1)^q h^{0,q}(X)$
-nonzero. The functor
-$\Phi\colon \mathrm{CY}\text{-}\mathrm{cat}_4 \to \ChirAlg$ lands in
-$\Etwo\text{-}\ChirAlg$ (not $\Eone$, not $\Einf$). The $\Etwo$
-structure on $\Phi(A_X)$ is witnessed by:
-\begin{enumerate}[leftmargin=2em]
-  \item (chain-level) an explicit $\bS^2$-framing of the CoHA of the
-  moduli of sheaves on $X$, analogous to Joyce--Song framing;
-  \item ($(\infty,1)$-categorical) a lift of $\Phi$ through the Dunn
-  decomposition $\Etwo \simeq \Eone \otimes \Eone$, with the two
-  $\Eone$-factors corresponding respectively to the \emph{holomorphic}
-  factorisation (along a CY$_3$-fibration where available) and the
-  \emph{transverse} direction (closing up the fibration).
-\end{enumerate}
-Both lanes must match on the locus where both are defined. The specific
-instance $X = K3 \times K3$ is \emph{not} a decomposition $\bS^4 =
-\bS^2 \times \bS^2$ --- it is a decomposition
-$\mathrm{CY}_4 = \mathrm{CY}_2 \times \mathrm{CY}_2$ and supplies the
-Dunn splitting of $\Etwo$ through the $\Eone \otimes \Eone$ tensor
-product of the two K3 CoHAs.
+\begin{conjecture}[CY$_4$ Swiss-cheese boundary functor]
+\label{conj:cy4-swiss-cheese-boundary}
+There is a 2-category $\mathsf{CY}_4^{\mathrm{fr,oc}}$ of framed
+open-closed CY$_4$ data and a functor
+\[
+  \Phi_4^{\mathrm{SC}}:
+  \mathsf{CY}_4^{\mathrm{fr,oc}}
+  \longrightarrow
+  \mathrm{Alg}_{\Etwo}(\ChirAlg)
+\]
+whose closed-sector restriction is an $\Etwo$ chiral algebra and whose
+boundary restriction is the Swiss-cheese open sector. Under a product
+polarisation by two oriented surfaces, the local model is governed by
+Dunn additivity.
 \end{conjecture}
 
-\begin{proposition}[Dunn additivity in the correct arithmetic]
-\label{prop:dunn-additivity-cy-d}
-The pattern $\mathrm{CY}_d \to E_{d-2}$ is compatible with Dunn tensor
-products of $E_n$-operads in the following sense: for a product CY
-$X = Y \times Z$ with $\dim Y = a$, $\dim Z = b$, $a + b = d$, with
-$a, b \geq 2$,
-\[
-  \Phi(A_{Y \times Z}) \;\in\; E_{(a-2)+(b-2)}\text{-}\ChirAlg
-  \;=\; E_{d-4}\text{-}\ChirAlg.
-\]
-The apparent discrepancy ``$E_{d-4}$ for $X = Y \times Z$ vs. $E_{d-2}$
-for indecomposable $X$'' reflects the fact that $\Phi$ is \emph{not}
-Künneth-multiplicative on $E_n$-levels: products lose two units of
-$E_n$-level relative to irreducibles of the same dimension. The
-$\Einf$ image of a $\C^d$-product reflects the $d$-fold Dunn-stabilisation
-of $\Eone$ to $\Einf$, not the irreducible CY$_d$ image.
-\end{proposition}
-\end{heal}
+\begin{remark}[Relation to the CY$_3$ rule]
+For $d\ge3$, the specialised Vol~III output $A$ is $\Eone$-chiral.
+Braided $\Etwo$ structure belongs to the Drinfeld centre, a completed
+double, or a separately constructed CY$_4$ closed sector. The CY$_4$
+conjecture above supplies the latter route while the CY$_3$ output
+retains its $\Eone$ type.
+\end{remark}
 
-Concretely: CY$_4$ irreducible: $\Etwo$ (one braiding). CY$_2 \times$
-CY$_2$: $\Eone \otimes \Eone = \Etwo$, \emph{coincidentally} $\Etwo$,
-but by a different route --- through the tensor of two $\Eone$'s
-(bicommutant diagram), not through the ambient CY$_4$ Serre functor.
-This distinguishes the irreducible-CY$_4$-prediction from the
-product-CY$_4$-prediction. The $K3 \times E$ case at $d = 3$ is the
-mirror phenomenon: two $\Einf$ (from K3, E separately) should give
-$\Einf$, but with a twist in the Dunn operation reflecting the
-K3-fibration.
+\section{Concrete Chart Consequences}
 
-% ==========================================================================
-\section{Attack--heal 5. CY$_d$ $\to E_{d-2}$ at $d = 4$ and the CY$_4$
-  $E_0$ question}
-\label{sec:attack-heal-5}
-% ==========================================================================
-
-\textit{Scope: \texttt{working\_notes.tex} \S 2527--2534 (CY$_4$), cross-ref
-to $d \geq 3$ $\Eone$ floor.}
-
-\begin{attack}
-The Mission formulation proposes: ``is $\kappa_{\mathrm{ch}}$ for CY$_4$
-$E_0$-chiral (a vector space)?'' This tests the reading: ``Dunn additivity
-at $d = 4$: $E_{-1} \otimes E_5 = E_4$; or $\kappa_{\mathrm{ch}}(\mathrm{CY}_4)
-= $ vector space with quartic structure.'' Both readings misread the
-Dunn arithmetic. Dunn additivity is $E_m \otimes E_n = E_{m+n}$ for
-$m, n \geq 0$; there is no $E_{-1}$. The correct pattern for the
-$\Phi$-output level at CY$_d$ is:
-\[
-  d = 1: E_2, \quad d = 2: E_2, \quad d = 3: \Eone, \quad d = 4: \Etwo,
-  \quad d = 5: \Eone, \quad d = 6: \Etwo, \; \ldots
-\]
-(even $d$: $\Etwo$; odd $d \geq 3$: $\Eone$; $d = 1,2$: $\Etwo$ from the
-$\Einf$ lattice VOA stabilisation). There is no $E_0$ sector. The
-$E_0$-question is a red herring --- it would force $\kappa_{\mathrm{ch}}$
-to be a bare vector space, losing all operadic content.
-\end{attack}
-
-\begin{ghost}
-\emph{What \emph{is} true at $d = 4$, which the $E_0$ question
-gestures at: $\kappa_{\mathrm{ch}}$ is $\Etwo$-valued, i.e.\ a
-braided tensor category's image in $\ChirAlg$, but its numerical
-shadow $\kappa_{\mathrm{ch}} \in \Q$ is just a rational number
-(hence, as a numerical invariant, zero-categorical).}
-\end{ghost}
-
-\begin{heal}
-The $E_0$-question arises from failing to distinguish the functor
-$\Phi$ (landing in $\Etwo$-$\ChirAlg$ at $d = 4$) from its numerical
-shadow $\kappa_{\mathrm{ch}}\colon \mathrm{CY}\text{-}\mathrm{cat} \to
-\Q$. The numerical shadow is always ``vector-space-valued'' (just a
-rational number) regardless of $d$; the functor valence is $E_{d-2}$
-for $d \geq 3$. The CY$_4$ prediction for the functor $\Phi$ is:
-\[
-  \Phi(A_X) \in \Etwo\text{-}\ChirAlg \quad \text{for } X \in
-  \mathrm{CY}\text{-}\mathrm{cat}_4.
-\]
-The prediction for the numerical $\kappa_{\mathrm{ch}}$ specialisation
-is: $\kappa_{\mathrm{ch}}(A_X) = \sum_q (-1)^q h^{0,q}(X) =
-\chi(\cO_X)$, a rational number. For example,
-$\kappa_{\mathrm{ch}}(\text{hyperk\"ahler CY}_4) = 3$ (since $\chi(\cO) = 3$
-for a hyperk\"ahler fourfold with $h^{0,0} = h^{0,2} = h^{0,4} = 1$,
-$h^{0,1} = h^{0,3} = 0$). The $\Etwo$-structure on
-$\Phi(A_{\text{hyperk\"ahler }CY_4})$ is \emph{additional} data
-beyond this number.
-\end{heal}
-
-% ==========================================================================
-\section{Heal: reconstructing the three quiver-chart answers concretely}
-\label{sec:reconstruction}
-% ==========================================================================
-
-The remaining adversarial-heal cycle reconstructs the three answers on
-specific CY$_3$ examples with corner-vertex-algebra precision.
-
-\subsection{Local $\bP^2$ (three charts, $\Z_3$-symmetric)}
-
-The three toric charts of local $\bP^2$ are the three $\mathbb{C}^3$
-patches meeting at the three toric fixed points. Each carries a local
-CoHA isomorphic to $\CoHA(\mathbb{C}^3) = Y^+(\widehat{\fgl}_1)^{+}$
-(positive half). The Gaiotto--Rapcak $\cY$-algebra for $(N_1, N_2, N_3)
-= (1, 1, 1)$ is the corner vertex algebra at the tri-junction:
-\[
-  \cY_{1,1,1}(\varepsilon_1, \varepsilon_2, \varepsilon_3)
-  \;\simeq\; \cW_3(\varepsilon_1, \varepsilon_2, \varepsilon_3)
-  \;/\;\ldots
-\]
-(rank-3 $\cW$-algebra, subject to the $\varepsilon_1 + \varepsilon_2 +
-\varepsilon_3 = 0$ constraint). The three charts' CoHA's glue via a
-\emph{\v{C}ech-cocycle} valued in isomorphisms of corner vertex
-algebras. The structural obstruction $\mathcal{O}_1^{\mathrm{str}} = 27$
-is the defect of the cocycle; its vanishing at the self-dual locus
-$\varepsilon_1 : \varepsilon_2 : \varepsilon_3 = 1 : 1 : -2$
-(permuted) is where the three charts assemble coherently.
-
-\begin{proposition}[Local $\bP^2$ three-chart gluing, conjectural]
-\label{prop:local-p2-gluing}
-The global CoHA of local $\bP^2$ is
-\[
-  \CoHA(K_{\bP^2}) \;=\;
-  \operatorname{hocolim}\bigl(
-    \CoHA(\mathbb{C}^3)_{\alpha_0}
-    \rightrightarrows
-    \CoHA(\mathbb{C}^3)_{\alpha_1}
-    \rightrightarrows
-    \CoHA(\mathbb{C}^3)_{\alpha_2}
-  \bigr)
-\]
-where the three arrows are the Gaiotto--Rapcak $\cY$-algebra
-corner-gluing maps (one per edge of the toric fan). The hocolim
-is an $\Eone$-algebra by unobstructed $\Eone$-descent; the failure
-to be $\Etwo$ is witnessed by the $\Z_3$-orbit of the Miki
-automorphism on the $\widehat{\widehat{\fgl}_1}$ quantum toroidal
-hocolim-image, which is the correct quantum-affine image at the
-self-dual locus. Status: \emph{conjectural}; the $\Eone$-hocolim
-is verified in \texttt{quantum\_toroidal\_from\_3chart.py} (124
-tests).
+\begin{proposition}[Local $\bP^2$]
+For $X=\mathrm{Tot}(\cO_{\bP^2}(-3))$, the three toric charts are
+$\C^3$ charts glued by the canonical bundle transition. The local chart
+CoHAs are positive halves; the compact curve class enters through the
+\v{C}ech transition and the corresponding DT vertex. Any full
+$\cW$-algebra statement requires the completed double and evaluation
+functor.
 \end{proposition}
 
-\subsection{Local $\mathbb{F}_2$ (two charts, non-toric-at-infinity)}
+\begin{proposition}[Resolved conifold]
+For
+\[
+  X=\mathrm{Tot}(\cO_{\bP^1}(-1)\oplus\cO_{\bP^1}(-1)),
+\]
+the two affine $\C^3$ charts glue by the transition
+$\tilde z=z^{-1}$, $u_-=zu_+$, $v_-=zv_+$. The chart CoHAs are
+$Y^+(\widehat{\mathfrak{gl}}_1)$ objects; the conifold shuffle kernel
+builds the positive half attached to the two-vertex conifold quiver.
+\end{proposition}
 
-Local $\mathbb{F}_2$ = $K_{\mathbb{F}_2}$, the total space of the
-canonical bundle over the Hirzebruch surface $\mathbb{F}_2 =
-\mathbb{P}(\cO \oplus \cO(-2))$. It has two toric charts meeting along
-a line (the generic point of the $(-2)$-curve). The ``structural
-obstruction'' $\mathcal{O}_1^{\mathrm{str}}$ is the defect of the
-$R$-matrix between the two $\cY$-modules coming from the two charts;
-since $\mathbb{F}_2$ has a $\mathbb{P}^1$-bundle structure over
-$\mathbb{P}^1$, the CoHA receives an extra Lie bracket from the
-base-direction, giving a nontrivial $\Eone$-presentation with one
-extra generator relative to local $\bP^2$. Status: \emph{conjectural}
-prediction; no explicit presentation in the manuscript.
+\begin{proposition}[Quintic boundary]
+For the compact quintic threefold $X_5$, the Hodge supertrace gives
+\[
+  \kch^{\mathrm{Hodge}}(A_{X_5})=
+  \sum_q(-1)^qh^{0,q}(X_5)=1-1=0.
+\]
+The BCOV scalar
+\[
+  \frac{\chi_{\mathrm{top}}(X_5)}{24}=-\frac{200}{24}=-\frac{25}{3}
+\]
+is a different invariant. A strict compact chain-level chiral model
+requires TCFT trace, framing, anomaly cancellation, and analytic
+completion.
+\end{proposition}
 
-\subsection{Conifold (two charts, pentagon)}
+\section{Primary Sources}
 
-The conifold has two chamber-charts separated by a wall-crossing
-pentagon. The Gaiotto--Rapcak $\cY_{0,1,1}$ (resp.\ $\cY_{1,1,0}$)
-algebras at the two corner-vertices are equivalent under the
-Seiberg duality; the gluing obstruction is precisely the
-Faddeev--Kashaev quantum-dilogarithm pentagon identity. The two-chart
-hocolim is $\Eone$; no $\Etwo$ lift is available because the
-structural obstruction $\mathcal{O}_1^{\mathrm{str}} = 1$ is nonzero
-($1$-dimensional Drinfeld-centre deficit between the two
-$\cY_{0,1,1}$-copies).
-
-\subsection{Quintic at the Gepner point}
-
-The Gepner chart is $\mathrm{MF}(x_1^5 + \cdots + x_5^5)^{\Z/5}$, which
-is \emph{not} a Gaiotto--Rapcak corner vertex algebra (it is a boundary
-condition of a non-toric LG model). The Gepner CoHA carries an
-$\Eone$-structure via the MF tensor product, but there is no
-$\cY_{N_1, N_2, N_3}$ corner construction available. The
-$\kappa_{\mathrm{ch}} = -25/3$ computation via
-\texttt{gepner\_coha\_comparison.py} uses four independent paths:
-direct Hodge-supertrace ($\chi(\cO_{\text{quintic}})/24 = -200/24 =
--25/3$, wait --- the quintic has $\chi = -200$, so $-200/24 =
--25/3$\checkmark), DT invariant, matrix-factorisation dimension, and
-Landau--Ginzburg $\cW$-algebra character. These four paths agree.
-The Gaiotto-voice reading: the Gepner chart is a non-corner boundary
-condition, and the gluing to the large-volume chart is through Orlov
-equivalence, which is an $\Eone$-functor but not $\Etwo$.
-
-\subsection{$K3 \times E$}
-
-$K3 \times E$ has no quiver atlas; the CoHA is constructed via
-Maulik--Okounkov (K3 part) tensored with the elliptic-curve part.
-The corner-vertex-algebra avatar is the Costello--Gaiotto twisted
-holography dictionary: the chiral algebra on the AdS$_3$ boundary of
-IIA on $K3 \times E$ is an affine W-algebra with level determined
-by the $\kappa_{\mathrm{BKM}}(\Phi_5) = c_5(0)/2$ Borcherds weight.
-The $\Eone$-floor for $K3 \times E$ is structural (CY$_3$), and the
-$\Einf$ lattice VOA appearing in the undeformed limit is \emph{not}
-the $\Phi$-image --- it is a specialisation of the deformed $\Eone$
-algebra at the self-dual locus $q = 1$, $t = 1$, and this is the
-lattice-VOA/elliptic-Hall specialisation.
-
-% ==========================================================================
-\section{Cache append (Vol III AP-CY candidates)}
-\label{sec:cache-append}
-% ==========================================================================
-
-From the five attack-heal cycles, five candidate AP-CY entries:
-\begin{enumerate}[leftmargin=1.5em]
-  \item \textbf{AP-CY candidate 1: Single-invariant illusion.} When a
-  section says ``the three answers to'' or ``three faces of'', check
-  whether the invariants share a target type. If not, rename to
-  ``three independent obstructions''. (Affects
-  \texttt{working\_notes.tex} \S 2453.)
-
-  \item \textbf{AP-CY candidate 2: Swiss-cheese-as-framework
-  over-claim.} Swiss-cheese is a two-coloured operad; the $\Etwo$ bar
-  of a single $\Etwo$-algebra does not natively live in it. The
-  correct relationship is a comparison map from $B_{\Etwo}(A)$ into
-  $\mathrm{HH}^{\mathrm{SC}}(A, A_{\mathrm{reg}})$. (Affects
-  \texttt{working\_notes.tex} \S 1731.)
-
-  \item \textbf{AP-CY candidate 3: Un-stratified Koszul datum.} An
-  eight-fold tuple mixing $\Eone$-level entries with
-  $\Etwo$-Drinfeld-centre entries and $\Ethree$-derived-centre
-  entries, without type annotation, invites scope-confusion.
-  Require $|$-separated strata. (Affects
-  \texttt{working\_notes.tex} \S 1744.)
-
-  \item \textbf{AP-CY candidate 4: Sphere-decomposition sleight.}
-  $\bS^4 \neq \bS^2 \times \bS^2$ in Top. Claims like ``$\bS^4 =
-  \bS^2 \times \bS^2$ (Hopf decomposition)'' should be rewritten as
-  ``$K3 \times K3$ is a product CY$_4$ for which $\Phi$ factors
-  through Dunn $\Eone \otimes \Eone = \Etwo$'', stated in
-  $(\infty,1)$-lane not chain-level. (Affects
-  \texttt{working\_notes.tex} \S 2531.)
-
-  \item \textbf{AP-CY candidate 5: Functor-vs-number valence
-  conflation.} The operadic valence of $\Phi$ ($E_{d-2}$ for $d
-  \geq 3$) is a property of the functor, not of its numerical shadow
-  $\kappa_{\mathrm{ch}}(A_X) \in \Q$. Speaking of ``$E_0$-valued
-  $\kappa_{\mathrm{ch}}$'' conflates functor-with-number-shadow.
-  (Would affect future CY$_4$ expositions.)
-\end{enumerate}
-
-% ==========================================================================
-\section*{Status summary and verifications}
-
-\begin{itemize}[leftmargin=1.5em]
-  \item \textbf{Three-obstruction typing} (\S\ref{sec:attack-heal-1}):
-  \emph{structural} (applies to the manuscript; the three
-  obstructions $\mathcal{O}_1^{\mathrm{str}},
-  \mathcal{O}_2^{\mathrm{Cech}}, \mathcal{O}_3^{\mathrm{def}}$ have
-  incompatible target types per direct inspection).
-  \item \textbf{Swiss-cheese comparison map} (\S\ref{sec:attack-heal-2}):
-  Proposition~\ref{prop:sc-comparison} is \emph{conjectural}; the
-  injection follows from abstract Kontsevich--Soibelman but the
-  explicit cokernel identification requires chain-level computation
-  on $H_1$.
-  \item \textbf{Stratified Koszul datum} (\S\ref{sec:attack-heal-3}):
-  \emph{structural}; follows from the $E_n$-level discipline
-  (\texttt{CLAUDE.md} ``$A$, $B(A)$, $A^!$, $\cZ^{\mathrm{der}}$
-  never conflate'').
-  \item \textbf{Dunn additivity} (\S\ref{sec:attack-heal-4},
-  Prop.~\ref{prop:dunn-additivity-cy-d}): \emph{conjectural};
-  Conjecture~\ref{conj:cy4-e2} on CY$_4 \to \Etwo$ is the main
-  CY$_4$ conjecture.
-  \item \textbf{$E_0$-is-the-wrong-question} (\S\ref{sec:attack-heal-5}):
-  \emph{structural}; $\Phi$ functor-valence vs.\ numerical shadow
-  are distinct.
-  \item \textbf{Local $\bP^2$/local $\mathbb{F}_2$/conifold/Gepner/
-  $K3\times E$ reconstructions} (\S\ref{sec:reconstruction}):
-  \emph{conjectural} throughout; the local $\bP^2$ three-chart
-  gluing via Gaiotto--Rapcak $\cY_{1,1,1}$ is the most concrete and
-  is verified on the $\Eone$-side in
-  \texttt{quantum\_toroidal\_from\_3chart.py}.
-\end{itemize}
-
-The five attack-heal cycles have been completed. All resulting
-statements at publication standard are marked conjectural; the
-structural observations about type-signatures, lane-mixing, and
-functor-vs-number-shadow discipline are inherent consequences of the
-CY-to-chiral framework rather than new theorems.
+The operadic input is Dunn additivity and Voronov's Swiss-cheese
+operad, with the holomorphic-topological form used in Vol~II. The
+corner-vertex-algebra input is Gaiotto--Rapcak and
+Prochazka--Rapcak. The chart CoHA input is Schiffmann--Vasserot for
+$\C^3$ and Rapcak--Soibelman--Yang--Zhao for toric CY$_3$ quivers.
+The class-$\mathcal S$ arithmetic uses Gaiotto's construction,
+Chacaltana--Distler's pants-decomposition central charges,
+Shapere--Tachikawa's anomaly normalisation, and the
+Beem--Lemos--Liendo--Peelaers--Rastelli--van Rees $4d/2d$
+correspondence. The compact CY$_3$ boundary statements use
+Costello--Li, Costello--Gwilliam, and the BCOV/TCFT formalism.
 
 \end{document}

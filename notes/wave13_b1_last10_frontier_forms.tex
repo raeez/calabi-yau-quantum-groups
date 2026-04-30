@@ -1,753 +1,337 @@
-% =====================================================================
-% Wave-13 B1: Frontier automorphic forms from the last 10 slides of
-% Lorgat 2020, beyond the 8 Gritsenko-Clery paramodular diagonal-divisor
-% forms. Reads slides 55-64 (lines 800-953 of wave13_source_slides.txt)
-% against the paper's Conjecture 1 (paper p.1, lines 108-121 of
-% wave13_source_paper.txt) and the Arithmetic Geometry of CY3 section.
-%
-% Mission. The 8 GC forms of slides 47-54 are classification data:
-% paramodular forms vanishing to order 1 along diagonal translates.
-% The frontier is the Borcherds-lift image: each of the 8 arises as
-% the reciprocal-square-root of a twisted DT zeta function of a CY3
-% quotient X=(S x E)/(Z/NZ), with Borcherds-input the (g_N,h_M)-twisted
-% K3 elliptic genus F^{(g_N,h_M)}_L. The last 10 slides name the
-% case enumeration N in {1,2,3,5,7} / N=4 / N=6 / N=8 that drives
-% the frontier superalgebras g_{L,(g_N,h_M)} extending g_{Delta_5}.
-%
-% Five ATTACK<->HEAL cycles. Chriss-Ginzburg voice. Honest \ClaimStatus*.
-% Cross-references the two-stage functor Phi = Sp_{Sigma_{d-1},C} o Phi^{FA}_d
-% (notes/wave12_u1_two_stage_functor.tex) and kappa_BKM(Phi_N)=c_N(0)/2
-% universality (notes/wave12_a2_k3xE_BKM_kazhdan.tex).
-%
-% Authorship: Raeez Lorgat.
-% =====================================================================
-
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusDerivation}{\textbf{[derivable]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
-\providecommand{\ClaimStatusDefinition}{\textbf{[Def]}}
-\providecommand{\ClaimStatusOpen}{\textbf{[Open]}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\OO}{\mathrm{O}}
-\providecommand{\Hb}{\mathbb{H}}
+\providecommand{\HH}{\mathbb{H}}
 \providecommand{\fg}{\mathfrak{g}}
-\providecommand{\fh}{\mathfrak{h}}
-\providecommand{\fn}{\mathfrak{n}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\CoHA}{\mathrm{CoHA}}
-\providecommand{\mult}{\mathrm{mult}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
 \providecommand{\DT}{\mathrm{DT}}
+\providecommand{\wt}{\mathrm{wt}}
 \providecommand{\Jac}{\mathrm{Jac}}
-\providecommand{\LII}{\Lambda^{2,1}_{I\!I}}
-\providecommand{\Lthrtwo}{\Lambda^{3,2}}
-\providecommand{\Weyl}{W}
-\providecommand{\Aut}{\mathrm{Aut}}
-\providecommand{\Nkl}[1]{N\!=\!#1}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bP}{\mathbb{P}}
 
-\section*{Wave 13 B1: Frontier automorphic forms of Lorgat 2020
-beyond the eight Gritsenko--Cl\'ery paramodular diagonal-divisor forms}
-\label{sec:wave13-b1-frontier-forms}
+\section*{Frontier Automorphic Forms Around the K3$\times E$ Denominator}
+\label{sec:frontier-forms-standalone}
 
-The last decade of slides (55--64) unfolds a single construction and a
-single conjecture.
-Given a K3 surface $S$ equipped with a pair of finite-order symplectic
-automorphisms $(g_N,h_M)$ with $N,M\leq 8$ (Nikulin bound \cite{Nikulin84}),
-a lattice polarisation $L\subset\mathrm{NS}(S)$ fixed by both, and an
-elliptic curve $(E,e_0)$ with an $N$-torsion point,
-the quotient $X=(S\times E)/(\mathbb{Z}/N\mathbb{Z})$ by the free
-diagonal action $(s,e)\mapsto(g_N s,e+e_0)$ is a smooth projective
-Calabi--Yau threefold.
-A curve-class $\beta_h=\tfrac1N(s_1+\cdots+s_N+hF)\in\mathrm{Pic}(X)$
-organises the reduced Donaldson--Thomas generating series
+The genus-two diagonal-divisor problem asks for modular forms on
+Hecke subgroups of paramodular groups whose divisor is exactly the
+diagonal Humbert divisor, with vanishing order one.  The
+Gritsenko--Cl\'ery theorem gives exactly eight such forms.  Lorgat's
+2020 conjecture proposes an enumerative realisation of those eight
+forms: after choosing a K3 surface \(S\), a lattice polarisation \(L\),
+commuting finite-order symplectic automorphisms \((g_N,h_M)\), and an
+elliptic curve \(E\) with an \(N\)-torsion point, the reduced
+Donaldson--Thomas series of
 \[
-Z^X_{L,h_M}(q,t,p)
-\;=\;
-\sum_{h\geq0}\sum_{d\geq0}\sum_{n\in\mathbb Z}
+        X=(S\times E)/(\Z/N\Z)
+\]
+should have reciprocal square root equal, up to scalar, to the
+corresponding diagonal-divisor form.  The associated denominator
+algebra is a generalized Borcherds--Kac--Moody superalgebra whose
+root multiplicities are read from the \((g_N,h_M)\)-twisted and twined
+K3 elliptic genus.
+
+The associated arithmetic boundary is larger than the eight
+diagonal-divisor rows.  Nikulin's theorem permits
+symplectic K3 automorphism orders \(N\leq 8\).  The primitive CHL
+denominator branch has compact \(K3\times E\) BKM scope at
+\[
+        N\in\{1,2,3,4,6\}.
+\]
+The orders \(N\in\{5,7,8\}\) remain boundary automorphic and Nikulin
+arithmetic data until a compatible Calabi--Yau threefold host and
+a full BKM root datum are supplied.
+
+\subsection*{Normalisations}
+\label{sec:frontier-normalisations}
+
+Let
+\[
+        q=e^{2\pi i\tau},\qquad r=e^{2\pi iz},\qquad
+        s=e^{2\pi i\sigma},\qquad
+        Z=\begin{pmatrix}\tau&z\\ z&\sigma\end{pmatrix}\in\HH_2 .
+\]
+For an index-one weak Jacobi form
+\[
+        \phi(\tau,z)=\sum_{n,\ell}c(n,\ell)q^nr^\ell ,
+\]
+write \(c(0)\) for the discriminant-zero coefficient in the
+Eichler--Zagier variable \(D=4n-\ell^2\).  For the standard generator,
+\[
+        \phi_{0,1}(\tau,z)=r^{-1}+10+r+O(q),
+\]
+so \(c(0)=10\), while \(\phi_{0,1}(\tau,0)\) has constant term \(12\).
+The Borcherds weight theorem gives
+\[
+        \wt(\mathrm{Borch}(\phi))=\frac{c(0)}{2}.
+\]
+
+At level one the primitive Gritsenko--Nikulin denominator is
+\[
+        \Delta_5=\mathrm{Borch}(\phi_{0,1}),\qquad
+        c_1(0)=10,\qquad
+        \kBKM(\Delta_5)=5 .
+\]
+The monic denominator product is
+\[
+        D_5=64^{-1}\Delta_5,\qquad
+        \operatorname{den}(\fg_{\Delta_5})=D_5(2Z).
+\]
+The square-normalised Igusa forms are separate scalar conventions:
+\[
+        \Phi_{10}^{\mathrm{un}}=\Delta_5^2,\qquad
+        \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2 .
+\]
+Oberdieck--Pandharipande's reduced \(K3\times E\) scalar uses
+\[
+        Z_{\mathrm{OP/DT}}=-(\Phi_{10}^{\mathrm{OP}})^{-1}
+        =-D_5^{-2}=-4096\,\Delta_5^{-2}.
+\]
+The factor \(64\) is a theta-leading coefficient in the monic product.
+The BKM weight remains \(\kBKM(\Delta_5)=5\).
+
+\subsection*{The Primitive CHL Denominator Row}
+\label{sec:frontier-chl-row}
+
+The primitive CHL branch is indexed by
+\[
+        N\in\{1,2,3,4,6\}.
+\]
+With the CHL Borcherds input normalised at the relevant cusp, the
+constant terms and BKM weights are
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\
+\hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\Phi_N)=c_N(0)/2 & 5 & 4 & 3 & 2 & 1
+\end{array}
+\]
+This is the denominator-algebra row.  Lower twining or row-normalised
+constant lists carry no primitive CHL meaning without an explicit
+conversion map.
+
+\subsection*{The Eight Diagonal-Divisor Rows}
+\label{sec:frontier-gc-table}
+
+The Gritsenko--Cl\'ery catalogue is indexed by triples \((t,N;k)\).
+The primitive CHL branch is indexed by the order \(N\).  In the
+standard catalogue order its weights and twice-weight product constants are
+\[
+\begin{array}{c|c|c|c}
+\text{form} & (t,N) & \wt & c^{\mathrm{GC}}(0)=2\wt\\
+\hline
+\Delta_5 & (1,1) & 5 & 10\\
+\Delta_2 & (2,1) & 2 & 4\\
+\nabla_3 & (1,2) & 3 & 6\\
+\Delta_1 & (3,1) & 1 & 2\\
+\nabla_2 & (1,3) & 2 & 4\\
+\Delta_{1/2} & (4,1) & \tfrac12 & 1\\
+\nabla_{3/2} & (1,4) & \tfrac32 & 3\\
+Q_1 & (2,2) & 1 & 2
+\end{array}
+\]
+Only the first row is simultaneously the primitive level-one CHL
+denominator.  The other seven rows may be compared with twisted K3
+elliptic genera through Lorgat's conjectural DT construction, while
+their product constants remain catalogue-row constants
+\[
+        (10,4,6,2,4,1,3,2),
+\]
+separate from the primitive CHL row \((10,8,6,4,2)\).
+
+\subsection*{The Reduced Donaldson--Thomas Series}
+\label{sec:frontier-dt-series}
+
+Let \(S\) be an elliptically fibred K3 surface
+\(\pi:S\to\bP^1\) with sections \(s_1,s_2\), with \(s_2\) of order
+\(N\) relative to \(s_1\).  Let \(F\in\operatorname{Pic}(S)\) be the
+fibre class and set
+\[
+        \beta_h=\frac{1}{N}(s_1+\cdots+s_N+hF),\qquad h\geq 0 .
+\]
+For \(X=(S\times E)/(\Z/N\Z)\), the reduced numerical DT series has
+the form
+\[
+Z^X_{L,h_M}(q,t,p)=
+\sum_{h,d\geq0}\sum_{n\in\Z}
 \DT^X_{n,(\beta_h,d)}\,
-q^{d-1+\tfrac12\langle\beta_h,\beta_h\rangle}\,
-t^d\,(-p)^n,
+q^{d-1+\frac12\langle\beta_h,\beta_h\rangle}
+t^d(-p)^n .
 \]
-twisted by the $h_M$-cover class.
-The eight Gritsenko--Cl\'ery diagonal-divisor forms
+At \(N=1\), the Oberdieck--Pandharipande/Oberdieck--Pixton scalar
+identifies the reduced theory with the square convention above.  In
+Lorgat's conjectural extension, the eight diagonal-divisor forms arise
+as
 \[
-\bigl\{\Delta_5,\;M_2(\Gamma_2,\nu_4),\;M_3(\Gamma_1(2),\nu_2),\;
-M_1(\Gamma_3,\nu_6),\;M_2(\Gamma_1(3),\nu_2),\;
-M_{1/2}(\Gamma_4,\nu_8),\;M_{3/2}(\Gamma_1(4),\nu_4),\;
-M_1(\Gamma_2(2),\nu_4)\bigr\}
+        \Phi_{t,N;k}(Z)=C\cdot\bigl(-Z^X_{L,h_M}(q,t,p)\bigr)^{-1/2},
 \]
-are claimed by \emph{Conjecture~1} to arise, up to constant, as
-$(-Z^X_{L,h_M})^{-1/2}$ for eight matched data $(S,L,g_N,h_M,E,e_0)$,
-each denominator-function of a frontier BKM superalgebra
-$\fg_{L,(g_N,h_M)}$ with root multiplicities read off the
-$(g_N,h_M)$-twisted K3 elliptic genus $F^{(g_N,h_M)}_L$, a weight-$0$,
-index-$1$ Jacobi form.
-The ``frontier'' is the seven sibling Borcherds lifts beyond
-$N=1\to\Delta_5$, indexed by the Nikulin orbifold spectrum
-$N\in\{2,3,4,5,6,7,8\}$, that the slides announce case-by-case and
-leave open at the level of denominator verification against the
-Oberdieck--Pixton DT zeta function.
-
-\subsection*{The frontier list}
-\label{sec:frontier-list}
-
-\begin{table}[h]
-\small\centering
-\begin{tabular}{c|l|l|l|l|l|l}
-$N$ & Frontier form & Weight & Level / group & Borcherds input
-$F^{(g_N,h_M)}_L$ & $\fg_L\subset\fg_{\Delta_5}$ & Claim status\\
-\hline
-$1$ & $\Delta_5$ & $5$ & $\Sp_4(\mathbb Z)$, $\nu_2$
-& $F^{(\mathrm{id},\mathrm{id})}=\phi_{0,1}$
-& $\fg_{\Delta_5}$ (Lorgat 2020 Thm.~3)
-& \ClaimStatusTheorem\\
-$2$ & $M_2(\Gamma_2,\nu_4)$ & $2$ & paramodular $\Gamma_2$, $\nu_4$
-& $F^{(g_2,g_2)}_{L_2}$ (M$_{24}$-frame shape $1^8 2^8$)
-& $\fg_{L_2,(g_2,g_2)}\subset\fg_{\Delta_5}$
-& \ClaimStatusConjectured\\
-$2'$ & $M_3(\Gamma_1(2),\nu_2)$ & $3$ & Hecke $\Gamma_1(2)$, $\nu_2$
-& $F^{(g_2,\mathrm{id})}_{L_2}$ (pair with non-split pair)
-& $\fg_{L_2,(g_2,\mathrm{id})}\subset\fg_{\Delta_5}$
-& \ClaimStatusConjectured\\
-$3$ & $M_1(\Gamma_3,\nu_6)$ & $1$ & paramodular $\Gamma_3$, $\nu_6$
-& $F^{(g_3,g_3)}_{L_3}$ (M$_{24}$-frame shape $1^6 3^6$)
-& $\fg_{L_3,(g_3,g_3)}\subset\fg_{\Delta_5}$
-& \ClaimStatusConjectured\\
-$3'$ & $M_2(\Gamma_1(3),\nu_2)$ & $2$ & Hecke $\Gamma_1(3)$, $\nu_2$
-& $F^{(g_3,\mathrm{id})}_{L_3}$
-& $\fg_{L_3,(g_3,\mathrm{id})}\subset\fg_{\Delta_5}$
-& \ClaimStatusConjectured\\
-$4$ & $M_{1/2}(\Gamma_4,\nu_8)$ & $1/2$ & paramodular $\Gamma_4$, $\nu_8$
-& $F^{(g_4,g_4)}_{L_4}$ (M$_{24}$-frame shape $2^4 4^4$)
-& $\fg_{L_4,(g_4,g_4)}\subset\fg_{\Delta_5}$
-& \ClaimStatusConjectured\\
-$4'$ & $M_{3/2}(\Gamma_1(4),\nu_4)$ & $3/2$ & Hecke $\Gamma_1(4)$, $\nu_4$
-& $F^{(g_4,\mathrm{id})}_{L_4}$
-& $\fg_{L_4,(g_4,\mathrm{id})}\subset\fg_{\Delta_5}$
-& \ClaimStatusConjectured\\
-$2''$ & $M_1(\Gamma_2(2),\nu_4)$ & $1$ & Hecke-in-paramodular $\Gamma_2(2)$, $\nu_4$
-& $F^{(g_2,h_2)}_{L_2}$ (split pair, $L_2$ of rank $16$)
-& $\fg_{L_2,(g_2,h_2)}\subset\fg_{\Delta_5}$
-& \ClaimStatusConjectured\\
-\hline
-$5$ & $M_{?}(\Gamma_5,\nu_?)$ & $c_5(0)/2$ & $\Gamma_5$
-& $F^{(g_5,g_5)}_{L_5}$ (frame shape $1^4 5^4$)
-& $\fg_{L_5,(g_5,g_5)}$
-& \ClaimStatusOpen\\
-$6$ & $M_{?}(\Gamma_6,\nu_?)$ & $c_6(0)/2$ & $\Gamma_6$
-& $F^{(g_6,g_6)}_{L_6}$ (frame shape $1\,2\,3\,6$)
-& $\fg_{L_6,(g_6,g_6)}$
-& \ClaimStatusOpen\\
-$7$ & $M_{?}(\Gamma_7,\nu_?)$ & $c_7(0)/2$ & $\Gamma_7$
-& $F^{(g_7,g_7)}_{L_7}$ (frame shape $1^3 7^3$)
-& $\fg_{L_7,(g_7,g_7)}$
-& \ClaimStatusOpen\\
-$8$ & $M_{?}(\Gamma_8,\nu_?)$ & $c_8(0)/2$ & $\Gamma_8$
-& $F^{(g_8,g_8)}_{L_8}$ (frame shape $1\,2\,4\,8$)
-& $\fg_{L_8,(g_8,g_8)}$
-& \ClaimStatusOpen\\
-\end{tabular}
-\caption{Frontier automorphic forms: the eight Gritsenko--Cl\'ery
-diagonal-divisor forms identified on slides 47--54 (cases
-$N\in\{1,2,3,4\}$ and their Hecke or split-pair variants), and four
-open frontier extensions at $N\in\{5,6,7,8\}$ not realised by the GC
-classification but predicted as denominator-functions of siblings
-$\fg_{L_N,(g_N,g_N)}\subset\fg_{\Delta_5}$ via the
-$(g_N,h_M)$-twisted-elliptic-genus Borcherds lift.
-The weight column records the Siegel/paramodular weight of the form;
-the Borcherds weight $\kBKM=c_N(0)/2$ identification (Borcherds 1998
-Thm.~13.3) makes the weight a direct readout of the constant Fourier
-coefficient of the twisted Jacobi input.}
-\label{tab:frontier-forms}
-\end{table}
-
-\subsection*{Cycle 1: The $N=1$ anchor and the weight-level arithmetic}
-\label{sec:cycle-1}
-
-\paragraph{Attack.}
-The slide reads $\Delta_5\in M_5(\Gamma_1,\nu_2)$; the paper writes
-$\Delta_5\in M_5(\Sp_4(\mathbb Z),\nu_{\Delta_5})$ with the multiplier
-system $\nu_{\Delta_5}$ of order 2.
-Which group, and in what sense is the weight $5$?
-Three potential confusions appear:
-the Siegel weight (form on $\Sp_4(\mathbb Z)$-invariants of $\Hb_2$),
-the paramodular weight (form on $\Gamma_t\subset\Sp_4(\mathbb Q)$),
-and the Borcherds-lift weight (constant term of the Jacobi input).
-
-\paragraph{Ghost theorem.}
-The three weights coincide at $N=1$ by the isomorphism
-$\Gamma_1=\Gamma_1(1)=\Sp_4(\mathbb Z)$ (paper p.~1 line 46), together
-with the Maa\ss--Sp$_4$ character table \cite[\S5]{Maass1964}: the
-multiplier system $\nu_2$ on $\Gamma_1$ is the unique non-trivial
-order-$2$ character of $\Sp_4(\mathbb Z)$, and the form $\Delta_5$
-representing its $5$-dimensional weight-space is the Maa\ss--Gritsenko
-lift of $\phi_{0,1}$.
-
-\begin{theorem}[Weight-level reconciliation at $N=1$]
-\label{thm:n1-weight-reconciliation}
-The Igusa cusp form $\Delta_5$ admits three equivalent presentations,
-all with $\kBKM=5$:
-\begin{enumerate}[label={\rm(\roman*)}]
-\item as a Siegel modular form on $\Sp_4(\mathbb Z)=\Gamma_1$ of
-weight $5$ with multiplier $\nu_{\Delta_5}=\nu_2$ of order $2$
-\emph{(slide 55; Igusa 1964)};
-\item as a paramodular form on the level-$1$ paramodular group
-$\Gamma_1\subset\Sp_4(\mathbb Q)$ of weight $5$ with multiplier
-$\nu_2$ \emph{(paper p.~1 Conjecture~1; Gritsenko--Nikulin 1995)};
-\item as the Borcherds-singular-theta lift of the weight-$0$
-index-$1$ weak Jacobi form $\phi_{0,1}$ on the lattice
-$\Lthrtwo\simeq\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus[2]$, of weight
-$\mathrm{wt}_{\mathrm{Borch}}=c_1(0,0)/2=10/2=5$
-\emph{(paper Theorem~4; Borcherds 1998 Thm.~13.3)}.
-\end{enumerate}
-The identity $\tfrac1{64}\Delta_5(2Z)=\Phi_{\fg_{\Delta_5}}(z)$
-realises $\Delta_5$ as the automorphic denominator of the BKM
-superalgebra $\fg_{\Delta_5}$ (paper Theorem~3).
-\end{theorem}
-
-\paragraph{Heal.}
-The three weights agree at $N=1$ because the three groups coincide;
-at $N\geq2$ they may disagree by the index factor of the paramodular
-embedding $\Gamma_N\hookrightarrow\Sp_4(\mathbb Q)$, and the frontier
-weights $\tfrac12,1,\tfrac32,2,3$ appear precisely for the paramodular
-and Hecke presentations of the seven GC siblings.
-Recording the weight as $\kBKM=c_N(0)/2$ with $c_N(0):=c_{F^{(g_N,h_M)}_L}(0,0)$
-unifies the three readings.
-
-\subsection*{Cycle 2: Twisted K3 elliptic genera as Borcherds input}
-\label{sec:cycle-2}
-
-\paragraph{Attack.}
-Slide 59 claims \emph{``there is a GBKM algebra with correction
-$\fg\subset\fg_L$, depending on $L$, given by $(g_N,h_M)$-twisted
-elliptic genus of a K3-surface $F^{(g_N,h_M)}_L$, a Jacobi form of
-weight $0$, index $1$''}.
-Two points require first-principles verification:
-(a) that the twisted elliptic genus is a weight-$0$ index-$1$
-Jacobi form for every Nikulin-admissible $(g_N,h_M)$ pair; and
-(b) that its Borcherds lift lies in the Gritsenko--Cl\'ery
-diagonal-divisor table.
-
-\paragraph{Ghost theorem.}
-The Mathieu-moonshine correspondence of
-Eguchi--Ooguri--Tachikawa \cite{EOT2011} identifies the
-twisted K3 elliptic genus with the $M_{24}$-class character valued
-at the Nikulin symplectic class $[g_N]$: for every class
-$g\in M_{24}$ with Frame shape $\prod_i k_i^{a_i}$ one writes
+with the corresponding generalized BKM root multiplicities extracted
+from the \((g_N,h_M)\)-twisted K3 elliptic genus
 \[
-F^{(g,\mathrm{id})}(\tau,z)
-=\tfrac{1}{|\mathrm{stab}(g)|}
-\sum_{h\in\langle g\rangle}
-\mathrm{tr}_{V^{g,h}}(-1)^{F_L+F_R}q^{L_0}\bar q^{\bar L_0}y^{J_0},
+        F^{(g_N,h_M)}_L(\tau,z)\in J^{\mathrm{weak}}_{0,1}.
 \]
-and this is a weak Jacobi form of weight~$0$ index~$1$ with a
-congruence character depending on the Frame shape.
-The vector-valued Borcherds lift of Borcherds 1998 Theorem~13.3,
-applied to the Eichler--Zagier theta decomposition of
-$F^{(g_N,h_M)}_L$ on the lattice $L\oplus\Lambda^{1,1}\oplus[2]$,
-is an automorphic form of weight $c_{F^{(g_N,h_M)}_L}(0,0)/2$ on
-$\OO(L\oplus\Lambda^{1,1}\oplus[2])_+$, which upon restriction to
-the paramodular cusp specialises to the paramodular form of level $N$
-(or the Hecke-congruence form at level $\Gamma_1(N)$).
+This statement is a conjectural DT-to-automorphic comparison for the
+seven non-\(\Delta_5\) catalogue rows.
 
-\begin{proposition}[Borcherds-input normalisation]
-\label{prop:borcherds-input-normalisation}
-For the Nikulin-admissible orbifold data $(g_N,h_M)$ with $N,M\leq 8$
-and any $L$-polarisation compatible with $\langle g_N,h_M\rangle$, the
-$(g_N,h_M)$-twisted K3 elliptic genus $F^{(g_N,h_M)}_L(\tau,z)$ is a
-weak Jacobi form of weight $0$, index $1$, and its scalar-valued
-$\ell=0$ constant term at $q^0$ satisfies
+\subsection*{Borcherds Input and Root Data}
+\label{sec:frontier-borcherds-input}
+
+A twisted K3 elliptic genus \(F^{(g_N,h_M)}_L\) supplies the exponents
+of a Borcherds product after four pieces of data have been fixed:
 \[
-c_N(0,0)\;=\;\tfrac{24}{|\langle g_N,h_M\rangle|}
-\cdot\chi(K3)\big|_{\langle g_N,h_M\rangle\text{-fixed}}
-\;+\;\text{(Hecke correction)}\;\in\;2\,\mathbb Z.
+        (L_N,\ \rho_N,\ \Delta^+_N,\ \operatorname{mult}_N).
 \]
-The Borcherds lift $\Phi_{F^{(g_N,h_M)}_L}$ is a Siegel paramodular
-form of weight $c_N(0,0)/2$ on $\Gamma_N$ with character determined
-by the Frame shape.
-\end{proposition}
-
-\begin{proof}[Proof sketch]
-Weak Jacobi-form type: follows from modular covariance of the
-twining orbifold partition function
-\cite[\S4]{Gaberdiel-Hohenegger-Volpato2012}.
-Integrality of $c_N(0,0)$: follows from the Fourier-coefficient
-integrality of the frame-shape character and the $\phi_{0,1}$-basis
-expansion $F^{(g_N,h_M)}_L=a\phi_{0,1}+b\phi_{-2,1}\cdot E_2$ for
-rational $a,b$ (weak-Jacobi ring presentation
-\cite{EichlerZagier1985}).
-Parity of $c_N(0,0)$: follows from $c_1(0,0)=10$ at $N=1$ and the
-divisor character of the Borcherds-Ray super-correction
-\cite[\S3]{Ray2007}; the character forces $c_N(0,0)\in 2\mathbb Z$
-for all orbifold classes.
-Borcherds-lift assembly: Borcherds 1998 Thm.~13.3 applied verbatim
-with the vector-valued $\vartheta$-decomposition of
-$F^{(g_N,h_M)}_L$; output weight $c_N(0,0)/2$ by direct substitution.
-\end{proof}
-
-\paragraph{Heal.}
-The universal Borcherds weight identity
-$\kBKM(\Phi_N)=c_N(0)/2$ of
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal} is the
-numerical readout of Proposition~\ref{prop:borcherds-input-normalisation};
-the frontier of the conjecture at $N\in\{5,6,7,8\}$ is the
-open case of whether the corresponding $\Gamma_N$-paramodular form
-lifts to a \emph{diagonal-divisor} form, which the GC classification
-at $t,N\leq 4$ does not settle at higher orbifold index.
-
-\subsection*{Cycle 3: The frontier forms as two-stage-functor shadows}
-\label{sec:cycle-3}
-
-\paragraph{Attack.}
-The two-stage factorisation
-$\Phi_3=\Sp_{\Sigma_2,C}\circ\Phi^{\mathrm{FA}}_3$ of
-\texttt{notes/wave12\_u1\_two\_stage\_functor.tex}
-Definition~\texttt{def:two-stage-phi} presents the native
-$E_3$-holomorphic-factorisation-algebra $\Phi^{\mathrm{FA}}_3(K3\times E)$
-as the \emph{one} canonical object, with different BKMs as
-specialisations along different $\Sigma_2$-cycles.
-Does each frontier form fit into this picture?
-
-\paragraph{Ghost theorem.}
-Each frontier form corresponds to a specialisation
-$\Sp_{\Sigma_2^{(g_N,h_M)},E}$ where $\Sigma_2^{(g_N,h_M)}\subset
-X=(S\times E)/(\mathbb Z/N\mathbb Z)$ is the fibre class of the
-quotient elliptic fibration compatible with $\langle g_N,h_M\rangle$.
-The denominator of the resulting $E_1$-chiral shadow is the
-reciprocal-square-root of the DT zeta $Z^X_{L,h_M}$
-\emph{(Oberdieck--Pixton 2018)} which, by Conjecture~1 of the paper,
-is the corresponding diagonal-divisor paramodular form.
-
-\begin{conjecture}[Frontier forms as CY$_3$ specialisations]
-\label{conj:frontier-as-specialisations}
-For each of the eight GC forms
-$\Phi_{N,L,(g_N,h_M)}$ of Table~\ref{tab:frontier-forms} and each
-frontier index $N\in\{5,6,7,8\}$, there is a CY$_3$ orbifold
-$X=(S\times E)/(\mathbb Z/N\mathbb Z)$ with lattice polarisation $L$
-and a $(g_N,h_M)$-symplectic cover, a fibre cycle $\Sigma_2^{(g_N,h_M)}
-\subset X$, and an identification
+Here \(L_N\) is the Lorentzian lattice or its orthogonal realisation,
+\(\rho_N\) is a Weyl vector, \(\Delta^+_N\) is a positive-root chamber,
+and \(\operatorname{mult}_N(\alpha)\) is the signed supermultiplicity
+read from the Jacobi coefficient attached to \(\alpha\).  Once these
+data are supplied, Borcherds' theorem gives
 \[
-\Sp_{\Sigma_2^{(g_N,h_M)},E}
-\bigl(\Phi^{\mathrm{FA}}_3(X)\bigr)
-\;\simeq\;
-V^{(N)}_L\ \text{($E_1$-chiral algebra on }E\text{)},
+        \kBKM(\Phi_N)=\wt(\Phi_N)=\frac{c_N(0)}{2}.
 \]
-such that $V^{(N)}_L$ has BKM-type denominator
-$\Phi_{N,L,(g_N,h_M)}=c\cdot\bigl(-Z^X_{L,h_M}\bigr)^{-1/2}$
-and carries the super-structure of
-$\fg_{L,(g_N,h_M)}\subset\fg_{\Delta_5}$.
-\end{conjecture}
-
-\begin{remark}[Native vs shadow at $N\geq2$]
-\label{rem:native-shadow-frontier}
-The slogan \emph{``many BKMs from one CY$_3$''}
-(Corollary~\texttt{cor:many-BKMs} of
-\texttt{notes/wave12\_u1\_two\_stage\_functor.tex}) extends to the
-twisted case: a single CY$_3$ $K3\times E$ carries a canonical
-$E_3$-factorisation algebra $\Phi^{\mathrm{FA}}_3(K3\times E)$, and
-the eight GC forms plus the four open frontier forms at $N=5,6,7,8$
-are thirteen specialisations along thirteen $(\Sigma_2,C)$-cycle
-choices, with Nikulin-admissibility controlling which cycle pairs
-admit a compatible orbifold structure.
-The two-stage functor renders ``six routes'' (or thirteen routes)
-into thirteen specialisations of the \emph{same} $E_3$-holomorphic FA,
-all denominator-compatible with the Borcherds-Ray super-correction.
-\end{remark}
-
-\paragraph{Heal.}
-Each frontier form is a distinct sibling BKM, not a
-single-$\Phi$ multi-output; the two-stage discipline preserves
-$\kcat(K3\times E)=\chi(\cO_{K3\times E})=0$ (K\"unneth on the total
-space, not $\chi(\cO_{K3})=2$ on the fibre), and $\kBKM$ reads off
-the weight of the corresponding paramodular form via $c_N(0)/2$.
-
-\subsection*{Cycle 4: Frontier integrality and reflective conditions}
-\label{sec:cycle-4}
-
-\paragraph{Attack.}
-A Borcherds lift converges if and only if three conditions hold:
-(a) integrality of the Fourier coefficients of the Jacobi input;
-(b) positivity of the real-quadratic imaginary-cone structure;
-(c) reflectivity of the output lattice.
-For $N=1$, (a)--(c) hold: $\phi_{0,1}$ has integral Fourier coefficients
-$f(n,l)\in\mathbb Z$ (paper p.~9, line 712), the Gritsenko cone
-$P_{II,\mathrm{prim}}=\{\delta_1,\delta_2,\delta_3\}$ is hyperbolic
-of signature $(2,1)$ (paper \S4), and $\Lthrtwo$ is reflective
-\cite[\S4]{GritsenkoNikulin1998}.
-Do (a)--(c) survive at $N\geq 2$?
-
-\paragraph{Ghost theorem.}
-For $N\in\{2,3,4\}$, the twisted elliptic genera $F^{(g_N,h_M)}_L$
-have integral coefficients after division by the cyclic-group
-normaliser $|\langle g_N,h_M\rangle|=N$, and the corresponding
-lattices $L\oplus\Lambda^{1,1}\oplus[2]$ (with
-$\mathrm{rk}(L)=24-a_g^{M_{24}}$ where $a_g^{M_{24}}$ is the cycle
-index at $[g_N]\in M_{24}$) are still hyperbolic/reflective after
-the orbifold lattice-polarisation adjustment
-\cite{Mukai1988,Chen-Oberdieck2020}.
-For $N\in\{5,7\}$, the Mathieu frame shapes $1^4 5^4$ and
-$1^3 7^3$ give Borcherds inputs with integral Fourier coefficients
-and reflective images, but the output lies outside the GC
-classification $t,N\leq 4$: these are the \emph{open} frontier
-cases where the automorphic form exists and satisfies the BKM
-denominator identity, but does \emph{not} have a diagonal-divisor
-paramodular presentation and hence does not correspond to a
-GC form.
-For $N\in\{6,8\}$, the cycle-shape structure
-$1^1 2^1 3^1 6^1$ and $1^1 2^1 4^1 8^1$ introduces
-\emph{multiple cusps} and the Borcherds lift picks up a product over
-divisor-lattice factors (see cycle~5); integrality is preserved,
-but reflectivity is split across several sublattices.
-
-\begin{proposition}[Frontier integrality and reflective closure]
-\label{prop:frontier-integrality}
-For every Nikulin-admissible pair $(g_N,h_M)$ with $N,M\leq 8$ and
-every $(g_N,h_M)$-compatible polarisation $L$, the Fourier
-coefficients $c_{F^{(g_N,h_M)}_L}(n,l)$ are integers, the
-lattice $L\oplus\Lambda^{1,1}\oplus[2]$ is real-quadratic of
-signature $(\mathrm{rk}(L)+2,2)$, and the signature-$(2,0)$ Weyl cone
-admits a Weyl vector $\rho_{(g_N,h_M)}$ satisfying
-$(\rho,\delta_i^{(N)})=-1$ on the Nikulin-reduced simple-root set
-$\{\delta_i^{(N)}\}\subset L\oplus\Lambda^{1,1}\oplus[2]$.
-Consequently the Borcherds product
-$\Phi_{F^{(g_N,h_M)}_L}$ converges on the tube domain of the
-complexified positive cone and defines an automorphic form on
-$\OO(L\oplus\Lambda^{1,1}\oplus[2])_+$ of the weight
-$c_{F^{(g_N,h_M)}_L}(0,0)/2$.
-\end{proposition}
-
-\begin{proof}[Proof sketch]
-Integrality: the coefficients of $F^{(g_N,h_M)}_L$ in the
-weak-Jacobi basis $\{\phi_{0,1},\phi_{-2,1}E_2\}$ are $M_{24}$-class
-characters, hence algebraic integers in the $N$-th cyclotomic field;
-Fourier coefficients are further reduced to $\mathbb Z$ by the
-ring-of-integers normalisation \cite[Lem.~4.1]{GaberdielEtAl2012}.
-Real-quadratic structure: the orbifold lattice-polarisation
-$L\subset\mathrm{NS}(S)^{\langle g_N,h_M\rangle}$ inherits
-signature $(1,\mathrm{rk}(L)-1)$ from the Picard structure, and
-summing with $\Lambda^{1,1}\oplus[2]$ yields total signature
-$(\mathrm{rk}(L)+2,2)$.
-Weyl-vector existence: Proposition~A3a of
-\texttt{notes/wave13\_a3\_gkm\_presentation\_etingof.tex} shows
-$\rho=\tfrac12(\delta_1+\delta_2+\delta_3)$ at $N=1$; the
-$(g_N,h_M)$-invariance of the Gram matrix on
-$\{\delta_i^{(N)}\}=\langle g_N,h_M\rangle\cdot\{\delta_1,\delta_2,\delta_3\}$
-secures the analogue for each $N$ admitting a Nikulin-reduction.
-Convergence: Kac's asymptotic estimate
-\cite[\S11]{Kac1990} together with the integrality and
-real-quadraticity gives $f(n,l)\sim O(\exp(\sqrt{4n-l^2}))$, hence
-Borcherds-product convergence on any neighbourhood of the
-zero-dimensional cusp.
-\end{proof}
-
-\paragraph{Heal.}
-Frontier integrality is uniformly satisfied for
-$N\in\{1,2,3,4,5,7\}$; at $N\in\{6,8\}$ the divisor-factorisation
-of the cycle shape forces a decomposition of the Borcherds product
-over the divisor-lattice tower, not a failure of integrality
-itself.
-This is the mathematical source of Conjecture~1's stopping at
-$N\leq 4$: not that integrality fails, but that the GC
-diagonal-divisor classification only captures the single-cusp
-Borcherds lifts and misses the multi-cusp siblings at
-$N\in\{5,6,7,8\}$.
-
-\subsection*{Cycle 5: The $N\in\{6,8\}$ divisor-tower structure}
-\label{sec:cycle-5}
-
-\paragraph{Attack.}
-Slides 62--63 repeat the phrase \emph{``Case $N=6$ For all
-$s\in\{0,1,2,3\}$''} twice (lines 947 and 949), and slide 64 reads
-\emph{``Case $N=8$''} twice (lines 952--953).
-The doubling of the slide is not an artefact of the transcription;
-it mirrors the two \emph{independent} orbifold frameshapes at each
-composite $N$: at $N=6$ the frame shapes $1\,2\,3\,6$ and $6^4$ give
-distinct Mathieu classes, and at $N=8$ the frame shapes $1\,2\,4\,8$,
-$2^2 4^2$, $8\,4\,2\,1$ give distinct classes.
-
-\paragraph{Ghost theorem.}
-Each composite-$N$ case decomposes as a product over the divisor-lattice
-factors of the cycle shape, reflecting the product decomposition
-of the $\eta$-function $\eta_{\text{frame}}(\tau)=\prod_i\eta(k_i\tau)^{a_i}$
-in the Mathieu frame expansion.
-The Borcherds lift distributes over this product as
+At \(N=1\) this recovers
 \[
-\Phi_{F^{(g_N,h_M)}_L}(Z)
-=\prod_{k|N}
-\Phi_{F^{(g_k,h_k)}_{L_k}}(Z|_{\text{cusp}_k})
-\cdot
-\Phi_{\mathrm{mix}_{(g_N,h_M)}}(Z).
+        \operatorname{den}(\fg_{\Delta_5})=D_5(2Z),\qquad
+        \kBKM(\fg_{\Delta_5})=5 .
 \]
-At $N=6$, divisors $\{1,2,3,6\}$; at $N=8$, divisors $\{1,2,4,8\}$.
+At \(N\in\{2,3,4,6\}\) the primitive CHL row gives the denominator
+weights \(4,3,2,1\).  At \(N\in\{5,7,8\}\), a theorem requires the
+same four data together with a compatible Calabi--Yau threefold host;
+the Nikulin order alone supplies only the arithmetic boundary.
 
-\begin{proposition}[Divisor-tower decomposition at $N\in\{6,8\}$]
-\label{prop:divisor-tower}
-For $N\in\{6,8\}$, the frontier form $\Phi_N$ factors as a product
-of divisor-indexed paramodular forms $\Phi_{k,(g_k,h_k)}$ for $k|N$
-together with a mixing Borcherds-product term
-$\Phi_{\mathrm{mix}_{(g_N,h_M)}}$ obtained from the non-trivial
-$M_{24}$-commutator structure of $\langle g_N,h_M\rangle$.
-The weight decomposes additively:
-$\kBKM(\Phi_N)=\sum_{k|N}\kBKM(\Phi_{k,(g_k,h_k)})
-+\kBKM(\Phi_{\mathrm{mix}})$,
-with each summand being $c_k(0,0)/2$ for the corresponding
-Jacobi input.
-\end{proposition}
+\subsection*{The \(K3\times E\) Invariant Family}
+\label{sec:frontier-k3xe-invariants}
 
-\paragraph{Heal.}
-The doubled slide at $N=6$ and $N=8$ witnesses that composite-$N$
-cases require two independent Borcherds lifts (one per cycle-shape
-class) rather than one.
-This is the source of the \emph{open} status at $N\in\{5,6,7,8\}$
-of Table~\ref{tab:frontier-forms}: unlike the clean $N\in\{1,2,3,4\}$
-cases where one Borcherds input yields one GC form, the composite
-cases yield an unfactorised family of Siegel forms outside the GC
-classification, and Conjecture~1 does not yet assert a canonical
-preferred representative.
-
-\subsection*{Connection to the two-stage functor and
-$\kBKM=c_N(0)/2$ universality}
-\label{sec:connection}
-
-The frontier forms all fit into the specialisation lattice of the
-native $E_3$ holomorphic factorisation algebra:
+For \(Y=K3\times E\), the compact total-space Hodge column is
 \[
-\Phi^{\mathrm{FA}}_3(K3\times E)
-\;\xrightarrow{\;\Sp_{\Sigma_2^{(g_N,h_M)},E}\;}\;
-V^{(N)}_L
-\;\xrightarrow{\;\text{denominator}\;}\;
-\Phi_{N,L,(g_N,h_M)}
-\;\in\;M_{c_N(0)/2}(\Gamma_N,\nu_N).
+        h^{0,\bullet}(Y)=(1,1,1,1),
 \]
-The frontier extension $N\in\{5,6,7,8\}$ is the claim that this
-specialisation lattice is larger than the GC
-$N\leq 4$ table: the two-stage functor's cycle moduli
-$\mathrm{Cyc}_2(K3\times E)\times\mathrm{Curves}(K3\times E)$ admits
-Nikulin-compatible cycles at every $N\leq 8$, and the
-corresponding shadow BKM algebras
-$\fg_{L,(g_N,h_M)}\subset\fg_{\Delta_5}$ form a lattice of
-sub-superalgebras of $\fg_{\Delta_5}$ with Mathieu-moonshine
-root-multiplicity patterns.
+and hence
+\[
+        \kch(Y)=\sum_q(-1)^q h^{0,q}(Y)=0 .
+\]
+The categorical Euler invariant is also zero:
+\[
+        \kcat(Y)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0 .
+\]
+The Heisenberg--Mukai specialisation, the BKM denominator, and the K3
+fibre rank are separate constructions:
+\[
+ \{\kcat(Y),\ \kch(Y),\ \kHeis(Y),\
+   \kBKM(\fg_{\Delta_5}),\ \kfib(Y)\}
+ =
+ \{0,\ 0,\ 3,\ 5,\ 24\}.
+\]
+The value \(3\) is the rank-sum Heisenberg specialisation \(2+1\).
+The value \(5\) is the Borcherds weight of \(\Delta_5\).
+The value \(24\) is the Mukai-lattice rank
+of the K3 fibre.  These five numbers belong to different
+constructions; no sum identity relates them.
 
-Three consequences:
-\begin{enumerate}[label={\rm(C\arabic*)}]
-\item The CLAUDE.md key fact
-``$\kBKM=\kch+\chi(\cO_{\mathrm{fiber}})$ is FALSE at every
-$N\in\{1,2,3,4,6\}$'' extends to $N\in\{5,7,8\}$: the native-shadow
-distinction kills the additive-fibre identity uniformly;
-$\kBKM(\Phi_N)=c_N(0)/2$ is a Stage~2 readout of the cycle
-$\Sigma_2^{(g_N,h_M)}$, while $\chi(\cO_E)=0$ and $\kch(K3\times E)=0$
-are Stage~1 $\kappa_{\mathrm{cat}}$-readouts of the native FA.
-\item The ``six routes to $G(K3\times E)$'' is twelve routes in
-the frontier extension: the four GC$_{\leq4}$ forms, the three GC
-Hecke variants, the one GC split-pair form, and the four open
-frontier forms at $N\in\{5,6,7,8\}$, each a specialisation along a
-distinct cycle pair $(\Sigma_2^{(g_N,h_M)},E)$.
-\item The CY-A$_3$ equivalence at $N=1$ specialises to the
-$\Sp_{K3,E}$-route; its Nikulin-twist-generalisation at $N\geq 2$
-is the frontier conjecture: a family of chiral bar-cobar
-equivalences indexed by $(\Sigma_2^{(g_N,h_M)},E)$, each realised
-as a BKM denominator identity in a distinct paramodular or
-Hecke-congruence weight.
-\end{enumerate}
+\subsection*{Placement in the CY-to-Chiral Construction}
+\label{sec:frontier-cy-to-chiral-placement}
 
-\subsection*{Physical interpretation}
-\label{sec:physical}
+The dimension-three construction factors as
+\[
+        \Phi_3=\mathrm{Sp}_{\Sigma_2,C}\circ\Phi^{\mathrm{FA}}_3 .
+\]
+The first stage is the native holomorphic factorisation algebra
+\[
+        \Phi^{\mathrm{FA}}_3(\mathrm{Perf}(Y)).
+\]
+For \(d\geq3\), every specialised chiral output
+\[
+        \mathrm{Sp}_{\Sigma_2,C}
+        \bigl(\Phi^{\mathrm{FA}}_3(\mathrm{Perf}(Y))\bigr)
+\]
+is \(E_1\)-chiral.  The \(E_2\)-structure lives on the centre, double,
+or module category associated to this \(E_1\)-object.  Thus the
+automorphic denominators in the table record Stage-2 specialisation
+data.  The native \(\Phi^{\mathrm{FA}}_3\) object is single-valued.
 
-The twisted elliptic genera $F^{(g_N,h_M)}_L$ are symmetric-orbifold
-CFT partition functions at central charge $c=6$ of the
-$K3/(\mathbb Z/N\mathbb Z)$-sigma model with Mathieu $M_{24}$
-symmetry; the Borcherds lift is the second-quantised string
-partition function on $T^*(K3/(\mathbb Z/N\mathbb Z))\times E$, by
-Dijkgraaf--Moore--Verlinde--Verlinde 1997 and the
-Harvey--Moore refinement.
-The frontier superalgebra $\fg_{L,(g_N,h_M)}$ is the BPS algebra of
-D-brane states on the orbifold CY$_3$, graded by the K3 Mukai lattice
-and twisted by the $\langle g_N,h_M\rangle$-orbifold character;
-its sub-superalgebra structure
-$\fg_{L,(g_N,h_M)}\subset\fg_{\Delta_5}$ reflects the embedding of the
-orbifold's BPS spectrum into the untwisted $K3\times E$ spectrum.
-The open frontier at $N\in\{5,6,7,8\}$ corresponds to string
-compactifications with $M_{24}$-twining characters outside the
-diagonal-divisor paramodular locus: physically admissible, but not
-captured by the diagonal-divisor classification of
-Gritsenko--Cl\'ery.
+\subsection*{Boundary Orders \(N=5,7,8\)}
+\label{sec:frontier-boundary-orders}
 
-\subsection*{Claim status}
-\label{sec:status}
+The orders \(N=5,7,8\) are meaningful as K3 twining and
+Nikulin-order arithmetic.  They lie outside the primitive compact
+\(K3\times E\) CHL denominator table above.  A denominator theorem at
+one of these orders must specify
+\[
+        X_N,\quad L_N,\quad \rho_N,\quad
+        \Delta_N^+,\quad \operatorname{mult}_N,\quad
+        F^{(g_N,h_M)}_{L_N}.
+\]
+Without those data, the correct mathematical statement is conditional:
+if the supplied root datum gives a Borcherds product with input
+constant \(c_N(0)\), then its BKM weight is \(c_N(0)/2\).  The
+existence of the automorphic product and its identification with a
+reduced DT reciprocal square root are additional assertions.
 
-\begin{description}
-\item[\ClaimStatusTheorem] The $N=1$ anchor
-(Theorem~\ref{thm:n1-weight-reconciliation}): three equivalent
-presentations of $\Delta_5$, all with $\kBKM=5=c_1(0,0)/2$; proved
-in Lorgat 2020 + Gritsenko--Nikulin 1995 + Borcherds 1998.
-\item[\ClaimStatusDerivation] Proposition~\ref{prop:borcherds-input-normalisation}
-(Borcherds-input normalisation): derivable from
-Eichler--Zagier + Borcherds 1998 Thm.~13.3 + Mathieu moonshine
-\cite{EOT2011}; the Frame-shape constant $c_N(0,0)$ and Hecke
-correction are explicit for each $M_{24}$-class.
-\item[\ClaimStatusDerivation] Proposition~\ref{prop:frontier-integrality}
-(frontier integrality + reflective closure): derivable via
-cyclotomic-integer Fourier analysis + Nikulin's lattice-polarisation
-bound + Kac's convergence estimate.
-\item[\ClaimStatusDerivation] Proposition~\ref{prop:divisor-tower}
-(divisor-tower decomposition at $N\in\{6,8\}$): derivable from
-the $\eta$-frame-shape product decomposition + Borcherds-product
-distributivity over lattice direct sums.
-\item[\ClaimStatusConjectured] Conjecture~\ref{conj:frontier-as-specialisations}
-(frontier-forms-as-specialisations): conditional on Stage~1 of the
-two-stage functor at $d=3$ (pinned by Kontsevich--Tamarkin
-$E_3$-formality + Costello--Li hCS) and on the cycle-moduli
-structure of $\mathrm{Cyc}_2(K3\times E)\times\mathrm{Curves}(K3\times E)$.
-\item[\ClaimStatusConjectured] The eight GC entries at $N\in\{1,2,3,4\}$
-of Table~\ref{tab:frontier-forms} (and their Hecke/split-pair variants):
-conditional on Conjecture~1 of Lorgat 2020 p.~1, matched case by
-case to the Oberdieck--Pixton DT zeta function.
-\item[\ClaimStatusOpen] The four frontier entries at
-$N\in\{5,6,7,8\}$: not realised by Gritsenko--Cl\'ery's
-diagonal-divisor classification; the Borcherds lift exists by
-Proposition~\ref{prop:frontier-integrality} but the identification
-with a DT reciprocal-square-root requires the orbifold-DT
-counterpart of Oberdieck--Pixton, which is open at the
-composite-$N$ cases.
-\end{description}
+\subsection*{Mathematical Conclusions}
+\label{sec:frontier-conclusions}
 
-\subsection*{New cache pattern to register}
-\label{sec:cache-pattern}
-
-\paragraph{AP-CY-FRONT1 (frontier-form specialisation vs
-diagonal-divisor classification).}
-The eight GC forms are the $N\leq 4$ specialisations of
-$\Phi^{\mathrm{FA}}_3(K3\times E)$ along Nikulin-admissible cycles;
-the frontier at $N\in\{5,6,7,8\}$ is a natural BKM-denominator
-extension, not captured by diagonal-divisor classification because
-the classification filters on single-cusp paramodular structure.
-\emph{Wrong claim}: ``all BKM siblings of $\fg_{\Delta_5}$ lie in
-the GC diagonal-divisor table.''
-\emph{Ghost theorem}: the Borcherds-lift image of twisted K3
-elliptic genera forms a lattice indexed by Nikulin-admissible
-$(g_N,h_M)$ pairs with $N,M\leq 8$; the GC table is the
-single-cusp $N\leq 4$ section of this lattice.
-\emph{Correct relationship}: GC classification $=$ $N\leq 4$
-diagonal-divisor Borcherds image; frontier at $N\in\{5,6,7,8\}$ $=$
-multi-cusp Borcherds image (composite-$N$ divisor-tower
-decomposition).
-\emph{Cross-reference}: AP-CY144 (native vs shadow), AP-CY154
-(canonical FA vs specialisation shadow on $K3\times E$),
-AP-CY155 (imaginary-simple super-stratification on
-$\fg_{\Delta_5}$), and
-\texttt{notes/wave12\_u1\_two\_stage\_functor.tex}
-Corollary~\texttt{cor:many-BKMs}.
-
-\subsection*{Summary: top five frontier forms + conjectures +
-wave-14 frontier}
-\label{sec:summary}
-
-\textbf{Top five frontier forms} (ordered by completeness of the
-BKM-denominator picture).
 \begin{enumerate}
-\item $\Delta_5\in M_5(\Sp_4(\mathbb Z),\nu_2)$,
-$\kBKM=5$, BKM $\fg_{\Delta_5}$: the $N=1$ anchor; proved in
-Lorgat 2020 Theorem~3; proved-three-ways reconciliation in
-Theorem~\ref{thm:n1-weight-reconciliation}.
-\item $M_2(\Gamma_2,\nu_4)$, $\kBKM=2$, BKM
-$\fg_{L_2,(g_2,g_2)}\subset\fg_{\Delta_5}$: the $N=2$
-anchor-of-frontier; Borcherds input $F^{(g_2,g_2)}_{L_2}$ with
-$M_{24}$-frame shape $1^8 2^8$; conditional on Conjecture~1.
-\item $M_3(\Gamma_1(2),\nu_2)$, $\kBKM=3$, Hecke-congruence
-$N=2$ sibling; Borcherds input $F^{(g_2,\mathrm{id})}_{L_2}$;
-paramodular-vs-Hecke contrast at fixed $N$ showcases the
-Stage-2 cycle-moduli dependence of the chiral shadow.
-\item $M_1(\Gamma_3,\nu_6)$, $\kBKM=1$, BKM
-$\fg_{L_3,(g_3,g_3)}\subset\fg_{\Delta_5}$: the $N=3$ anchor;
-lowest GC-classified weight admitting a paramodular presentation;
-Borcherds input $F^{(g_3,g_3)}_{L_3}$ with frame shape $1^6 3^6$.
-\item $M_{1/2}(\Gamma_4,\nu_8)$, $\kBKM=1/2$, BKM
-$\fg_{L_4,(g_4,g_4)}\subset\fg_{\Delta_5}$: the unique half-integer
-Gritsenko-Cl\'ery form; frame shape $2^4 4^4$; minimal paramodular
-weight in the GC table.
+\item The primitive CHL constants are
+\[
+        c_N(0)=(10,8,6,4,2),\qquad
+        \kBKM(\Phi_N)=(5,4,3,2,1),
+        \quad N\in\{1,2,3,4,6\}.
+\]
+\item The Gritsenko--Cl\'ery diagonal-divisor catalogue has weights
+\[
+        (5,2,3,1,2,\tfrac12,\tfrac32,1)
+\]
+and row constants
+\[
+        (10,4,6,2,4,1,3,2).
+\]
+\item The \(\Delta_5\) denominator normalisation is
+\[
+        D_5=64^{-1}\Delta_5,\qquad c_1(0)=10,\qquad
+        \kBKM(\Delta_5)=5.
+\]
+The Igusa square convention is
+\[
+        \Phi_{10}^{\mathrm{un}}=\Delta_5^2,
+\]
+and the OP scalar convention is
+\[
+        \Phi_{10}^{\mathrm{OP}}=D_5^2.
+\]
+\item For \(K3\times E\), the compact invariants and specialisation
+invariants are
+\[
+        \kcat=0,\qquad \kch=0,\qquad
+        \kHeis=3,\qquad \kBKM=5,\qquad \kfib=24.
+\]
+\item For \(d\geq3\), the specialised \(\Phi\)-output is \(E_1\)-chiral.
+The \(E_2\)-structure belongs to the centre, double, or module layer.
+\item The orders \(N=5,7,8\) are boundary Nikulin orders for the
+denominator statement above.  A compact BKM-denominator theorem at
+those orders requires a Calabi--Yau threefold host and explicit root
+datum.
 \end{enumerate}
 
-\textbf{Conjectures} (Lorgat 2020 Conjecture~1 + extensions).
-\begin{itemize}
-\item \emph{Diagonal-divisor-DT correspondence}: all eight GC forms
-arise as $(-Z^X_{L,h_M})^{-1/2}$ for matched CY$_3$ data
-$(S,L,g_N,h_M,E,e_0)$ with $N\leq 4$ (Lorgat 2020 Conjecture~1).
-\item \emph{Frontier-BKM extension}: the specialisation
-lattice of $\Phi^{\mathrm{FA}}_3(K3\times E)$ along
-Nikulin-admissible cycles at $N\in\{5,6,7,8\}$ produces four
-additional sibling BKM algebras $\fg_{L_N,(g_N,g_N)}$ with
-Borcherds-denominator weights $c_N(0)/2$, not diagonal-divisor
-but otherwise paramodular or Hecke-congruence
-(Conjecture~\ref{conj:frontier-as-specialisations}).
-\item \emph{Universal Borcherds weight} ($\kBKM(\Phi_N)=c_N(0)/2$):
-Stage~2 invariant of the two-stage functor;
-independent of cycle shape across the frontier
-(\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}).
-\end{itemize}
+\subsection*{Sources}
+\label{sec:frontier-sources}
 
-\textbf{Wave-14 frontier} (next research moves).
-\begin{itemize}
-\item Identify $\Sigma_2^{(g_N,h_M)}\subset K3\times E$ explicitly
-for each of the eight GC data; write down the cycle class in
-$H_4(K3\times E,\mathbb Z)$ compatible with the
-$\langle g_N,h_M\rangle$-orbifold.
-\item Compute the twisted elliptic genus $F^{(g_N,h_M)}_L$ for
-every Nikulin-admissible pair at $N\leq 4$ explicitly in the
-$\phi_{0,1}\oplus\phi_{-2,1}E_2$-basis, and extract
-$c_N(0,0)\in 2\mathbb Z$ as a combinatorial readout of the
-frame-shape $M_{24}$-character.
-\item For each of the frontier $N\in\{5,6,7,8\}$ cases, execute
-Proposition~\ref{prop:frontier-integrality} numerically: compute
-$F^{(g_N,g_N)}_{L_N}$, the Borcherds product
-$\Phi_{F^{(g_N,g_N)}_{L_N}}$, and its weight
-$c_N(0,0)/2$; match against known
-paramodular/Hecke-congruence weights via Gritsenko-lift tables.
-\item For $N\in\{6,8\}$, resolve the divisor-tower decomposition
-of Proposition~\ref{prop:divisor-tower} explicitly: specify the
-divisor-indexed restrictions $Z|_{\text{cusp}_k}$ and the mixing
-term $\Phi_{\mathrm{mix}}$.
-\item Physical interpretation at $N\in\{5,7\}$ (prime case):
-the $M_{24}$ twining classes $[g_5]$ and $[g_7]$ are the
-non-Leech Niemeier-lattice classes; their BKM siblings
-$\fg_{L_5,(g_5,g_5)}$ and $\fg_{L_7,(g_7,g_7)}$ are BPS algebras
-of rare stringy orbifolds with no 6D supergravity dual in the
-standard CHL lattice; worth identifying in heterotic-type~II
-duality.
-\item Close the CY-A$_3$ twisted-equivalence conjecture for each
-$N\leq 8$: $\mathrm{Sp}_{\Sigma_2^{(g_N,h_M)},E}(\Phi^{\mathrm{FA}}_3(X))$
-as chiral bar--cobar equivalence with reference data from the
-orbifold DT.
-\end{itemize}
-
-\subsection*{Cross-references}
-\label{sec:cross-refs}
-
-Primary sources (text): \texttt{notes/wave13\_source\_paper.txt}
-(Lorgat 2020, 783 lines), \texttt{notes/wave13\_source\_slides.txt}
-lines 800--953 (last 10 slides, $N$-case enumeration).
-Two-stage functor:
-\texttt{notes/wave12\_u1\_two\_stage\_functor.tex}
-Def.~\texttt{def:two-stage-phi},
-Corollary~\texttt{cor:many-BKMs}.
-Kazhdan-voice BKM universality:
-\texttt{notes/wave12\_a2\_k3xE\_BKM\_kazhdan.tex}
-(Cycle~1 $N=1$ anchor, Cycle~2 $N\geq 2$).
-Cache row F8 (native/shadow inversion):
-\texttt{appendices/first\_principles\_cache.md} row F8.
-Cache rows A3a--c (Weyl vector, super-stratification, correction
-necessity): \texttt{appendices/first\_principles\_cache.md}
-rows A3a, A3b, A3c.
-Reader-facing $\kappa_\bullet$-spectrum table
-(subscripts $\bullet\in\{\mathrm{ch},\mathrm{cat},\mathrm{BKM},\mathrm{fiber}\}$):
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}.
-
-\medskip
-\noindent
-\emph{Authorship: Raeez Lorgat.}
+The diagonal-divisor catalogue is Cl\'ery--Gritsenko's classification of
+genus-two modular forms with simplest divisor.  The level-one
+denominator identity is the Gritsenko--Nikulin construction of
+\(\fg_{\Delta_5}\), with Borcherds' singular theta lift supplying the
+weight formula \(c(0)/2\).  The K3 elliptic genus normalisation is the
+Eichler--Zagier convention
+\(\phi_{0,1}=r^{-1}+10+r+O(q)\).  The square normalisations are the
+Igusa and Oberdieck--Pandharipande/Oberdieck--Pixton conventions
+summarised by
+\[
+        \Phi_{10}^{\mathrm{un}}=\Delta_5^2,\qquad
+        \Phi_{10}^{\mathrm{OP}}=D_5^2,\qquad
+        D_5=64^{-1}\Delta_5 .
+\]

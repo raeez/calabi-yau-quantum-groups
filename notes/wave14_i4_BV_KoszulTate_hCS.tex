@@ -3,27 +3,22 @@
 
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\R}{\mathbb{R}}
-\providecommand{\Z}{\mathbb{Z}}
-\providecommand{\cA}{\mathcal{A}}
-\providecommand{\cE}{\mathcal{E}}
-\providecommand{\cO}{\mathcal{O}}
 \providecommand{\cD}{\mathcal{D}}
-\providecommand{\cL}{\mathcal{L}}
-\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cE}{\mathcal{E}}
 \providecommand{\cJ}{\mathcal{J}}
-\providecommand{\dbar}{\bar{\partial}}
-\providecommand{\g}{\mathfrak{g}}
-\providecommand{\tr}{\mathrm{tr}}
-\providecommand{\gh}{\mathrm{gh}}
-\providecommand{\af}{\mathrm{af}}
+\providecommand{\cO}{\mathcal{O}}
 \providecommand{\BV}{\mathrm{BV}}
 \providecommand{\KT}{\mathrm{KT}}
-\providecommand{\CE}{\mathrm{CE}}
 \providecommand{\EOM}{\mathrm{EOM}}
-\providecommand{\Crit}{\mathrm{Crit}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Def}{\mathrm{Def}}
+\providecommand{\Dens}{\mathrm{Dens}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\gh}{\mathrm{gh}}
 \providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\tr}{\mathrm{tr}}
 \providecommand{\Jinf}{J^{\infty}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -32,187 +27,326 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{construction}[theorem]{Construction}
+\newtheorem{remark}[theorem]{Remark}
 
-\title{Jet BV and Koszul--Tate resolution of $\Crit(S_\hCS)$ on $\C^3$}
-\author{Wave-14 I4/20}
+\title{BV and Koszul--Tate model for holomorphic Chern--Simons theory on
+\texorpdfstring{$\C^3$}{C3}}
 \date{2026-04-22}
 
 \begin{document}
 \maketitle
 
-Fix $X = \C^3$ with holomorphic volume $\Omega = dz_1\wedge dz_2\wedge dz_3$
-and $\g$ reductive with invariant pairing $\tr$. The Wave~13~E1 superfield
+Let \(X=\C^3\), let
+\(\Omega=dz_1\wedge dz_2\wedge dz_3\), and let \(\g\) be a finite
+dimensional complex Lie algebra with non-degenerate invariant symmetric
+pairing \(\tr(-,-)\). Write
 \[
-\cA \;=\; c + A_{0,1} + A^*_{0,2} + c^*_{0,3}
-\;\in\; \cE = \Omega^{0,\bullet}(\C^3,\g),\qquad \gh(\cA)=1,
+  \cE_{\mathrm{cl}}=\Omega^{0,1}(X,\g)
 \]
-carries only enough data to witness the quartet. What it does not display is
-the jet-space $\cD_X$-module on which the classical master equation is
-actually an identity of local functionals, nor the Koszul--Tate differential
-that resolves the critical locus $\Crit(S_\hCS)$ as a derived scheme. We
-supply both.
+for the classical hCS fields in the fixed \(C^\infty\)-trivialisation.
+The bracket on \(\Omega^{0,\bullet}(X,\g)\) is the wedge product of
+forms combined with the Lie bracket of \(\g\).
 
-\section{Jet bundle and the $\cD_X$-module of local functionals}
+\section{Jets and local functionals}
 
-Let $\cE = \Omega^{0,\bullet}(X,\g)[1]$ (degree shift so that $A_{0,1}$ sits
-in ghost-number $0$; Dolbeault form-degree remains intrinsic). The
-$\infty$-jet bundle $\Jinf\cE \to X$ is the pro-finite-rank smooth bundle
-whose fibre at $x\in X$ is $\cE_x \otimes \hat{\cO}_{X,x}/\mathfrak{m}_x$,
-equivalently the space of formal Taylor expansions of sections of $\cE$ at
-$x$. Write $\cJ\cE := \Jinf\cE$.
-
-The sheaf $\cO(\cJ\cE)$ of smooth functions on jets carries a left
-$\cD_X$-module structure: the total derivatives $\partial_{z_i},
-\partial_{\bar z_i}$ act on jet coordinates by shifting the multi-index.
-The space of \emph{local functionals} is
+The infinite jet bundle \(\Jinf\cE_{\mathrm{cl}}\to X\) has fibre over
+\(x\in X\) equal to the formal Taylor expansions at \(x\) of
+\((0,1)\)-forms with values in \(\g\). Its function sheaf
+\(\cO(\Jinf\cE_{\mathrm{cl}})\) is a left \(\cD_X\)-module: the total
+derivatives \(\partial_{z_i}\) and \(\partial_{\bar z_i}\) shift the jet
+multi-index. Local functionals are coinvariants for total derivatives:
 \[
-\cO_{\mathrm{loc}}(\cE) \;=\;
-  \mathrm{Dens}_X \otimes_{\cD_X} \cO(\cJ\cE)_{\mathrm{red}}
-\;\simeq\;
-  \Omega^{3,3}_X \otimes_{\cD_X} \cO(\cJ\cE)/\R,
+  \cO_{\mathrm{loc}}(\cE_{\mathrm{cl}})
+  =
+  \Dens_X\otimes_{\cD_X}\cO(\Jinf\cE_{\mathrm{cl}})_{\mathrm{red}}
+  \simeq
+  \Omega_X^{3,3}\otimes_{\cD_X}\cO(\Jinf\cE_{\mathrm{cl}})/\C .
 \]
-Costello--Gwilliam Vol~I, Definition~5.3.1. Every action $S$ below is an
-element of $\cO_{\mathrm{loc}}$; its variational derivatives live
-in $\cE^\vee \otimes \cO(\cJ\cE)$ after a single integration by parts.
+This quotient is the algebraic form of integration by parts. A local
+action is an element of \(\cO_{\mathrm{loc}}\), and its Euler--Lagrange
+section is obtained by moving all total derivatives off the variation.
 
-\section{Classical action and the EOM ideal}
+\section{Euler--Lagrange ideal}
 
-Writing $\cA_{0,1}$ for the ghost-zero component, the action reads
+For \(A\in\Omega^{0,1}(X,\g)\), the holomorphic Chern--Simons action is
 \[
-S_\hCS(\cA_{0,1}) \;=\; \int_{\C^3} \Omega \wedge \tr\!\Bigl(
-  \tfrac12\, \cA_{0,1}\wedge \dbar \cA_{0,1}
-  + \tfrac13\, \cA_{0,1}\wedge \cA_{0,1}\wedge \cA_{0,1}\Bigr).
+  S_{\hCS}(A)=
+  \int_X\Omega\wedge
+  \tr\!\left(\frac12 A\wedge\dbar A+\frac16 A\wedge[A,A]\right).
 \]
-Variation yields the Euler--Lagrange section
+The variation is
 \[
-\EL(S_\hCS) \;=\; \dbar \cA_{0,1} + \cA_{0,1}\wedge \cA_{0,1}
-\;\in\; \Omega^{0,2}(X,\g) \subset \cE^\vee[-1].
+  \delta S_{\hCS}(A)=
+  \int_X\Omega\wedge
+  \tr\!\left(\delta A,\,
+    F_A^{0,2}\right),
+  \qquad
+  F_A^{0,2}=\dbar A+\frac12[A,A]\in\Omega^{0,2}(X,\g).
 \]
-The \emph{equation-of-motion ideal} $I_\EOM \subset \cO(\cJ\cE)$ is
-generated, under $\cD_X$, by the components of $\EL(S_\hCS)$:
+Thus the equation of motion is the Maurer--Cartan equation
 \[
-I_\EOM \;=\; \cD_X \cdot \bigl\{ (\dbar A)^a_{\bar\jmath\bar k}
-  + f^a{}_{bc} A^b_{\bar\jmath} A^c_{\bar k}
-  \;:\; a\in\dim\g,\ 1\le \bar\jmath<\bar k\le 3\bigr\}.
+  F_A^{0,2}=0 .
 \]
-The classical locus $\Crit(S_\hCS) = V(I_\EOM) \subset \cJ\cE$ is the
-jet-scheme of holomorphic $G$-bundles in the $(0,1)$-gauge. It is highly
-non-reduced: the Bianchi identity $\dbar\EL(S_\hCS) + [\cA,\EL(S_\hCS)]=0$
-forces a syzygy, which the Koszul--Tate resolution records.
+Let \(I_{\EOM}\subset\cO(\Jinf\cE_{\mathrm{cl}})\) be the differential
+ideal generated by the components of \(F_A^{0,2}\) and by all their
+total derivatives. In coordinates,
+\[
+  F^a_{\bar\imath\bar\jmath}
+  =
+  \partial_{\bar\imath}A^a_{\bar\jmath}
+  -\partial_{\bar\jmath}A^a_{\bar\imath}
+  +\frac12 f^a{}_{bc}
+    \bigl(A^b_{\bar\imath}A^c_{\bar\jmath}
+          -A^b_{\bar\jmath}A^c_{\bar\imath}\bigr),
+  \qquad 1\leq i<j\leq3 .
+\]
+The underived critical locus in the chosen trivialisation is the jet
+scheme cut out by \(I_{\EOM}\). It is the formal moduli of integrable
+\(\dbar\)-operators before division by gauge transformations.
+
+\begin{lemma}[Bianchi syzygy]
+\label{lem:bianchi}
+The Euler--Lagrange section satisfies
+\[
+  \dbar_A F_A^{0,2}=0,\qquad
+  \dbar_A=\dbar+[A,-].
+\]
+\end{lemma}
+
+\begin{proof}
+The operator \(\dbar_A=\dbar+[A,-]\) has curvature
+\((\dbar_A)^2=[F_A^{0,2},-]\). Applying the graded Jacobi identity to
+\(\dbar_A^2\) gives
+\(\dbar_A F_A^{0,2}=0\). Equivalently, expanding
+\(\dbar(\dbar A+\frac12[A,A])+[A,\dbar A+\frac12[A,A]]\) leaves only
+the Jacobi sum in \(\g\), which is zero.
+\end{proof}
 
 \section{Koszul--Tate resolution}
 
-\begin{construction}[Koszul--Tate complex of $\Crit(S_\hCS)$]
-\label{cons:KT}
-Introduce the antifield pair: for each EOM component (a section of
-$\Omega^{0,2}\otimes\g$) adjoin a generator $A^*_{0,2} \in
-\Omega^{0,2}(X,\g^\vee)[1]$ of ghost-number $-1$. For each syzygy (the
-Bianchi identity is a section of $\Omega^{0,3}\otimes\g$) adjoin
-$c^*_{0,3} \in \Omega^{0,3}(X,\g^\vee)[2]$ of ghost-number $-2$. Ghost
-generators $c\in\Omega^{0,0}(X,\g)[-1]$, ghost-number $+1$, encode the
-gauge symmetry $\delta\cA_{0,1} = \dbar c + [\cA_{0,1},c]$.
+Let
+\[
+  P=\Omega^{0,2}(X,\g),\qquad R=\Omega^{0,3}(X,\g).
+\]
+The section \(F_A^{0,2}\) takes values in \(P\), and
+Lemma~\ref{lem:bianchi} gives a first syzygy in \(R\). Denote by
+\[
+  A^\dagger_{0,2}\in P^\vee[1],\qquad
+  c^\dagger_{0,3}\in R^\vee[2]
+\]
+the corresponding antifield generators, of ghost numbers \(-1\) and
+\(-2\). Via the invariant pairing and the Calabi--Yau form, these duals
+are represented by \((0,2)\)- and \((0,3)\)-forms with values in
+\(\g\).
 
-The Koszul--Tate algebra is the free graded-commutative $\cD_X$-algebra
+\begin{construction}[Koszul--Tate algebra]
+\label{cons:KT}
+The Koszul--Tate algebra of the hCS Euler--Lagrange locus is the free
+graded-commutative \(\cD_X\)-algebra
 \[
-\KT(\cE) \;=\;
-\Sym^\bullet_{\cO(\cJ\cE)}\!\Bigl(
-  \g[-1]\,\oplus\,\Omega^{0,2}\otimes\g^\vee[1]\,\oplus\,
-  \Omega^{0,3}\otimes\g^\vee[2]\Bigr)
+  \KT_{\hCS}
+  =
+  \cO(\Jinf\cE_{\mathrm{cl}})
+  \otimes
+  \operatorname{Sym}\bigl(P^\vee[1]\oplus R^\vee[2]\bigr).
 \]
-with differential $d_{\KT}$ determined by
+Its differential is the \(\cD_X\)-linear derivation determined by
 \[
-d_{\KT}(A^*_{0,2}) = \EL(S_\hCS),\qquad
-d_{\KT}(c^*_{0,3}) = \dbar A^*_{0,2} + [\cA_{0,1}, A^*_{0,2}],\qquad
-d_{\KT}(c) = 0.
+  d_{\KT}A=0,\qquad
+  d_{\KT}A^\dagger_{0,2}=F_A^{0,2},\qquad
+  d_{\KT}c^\dagger_{0,3}=\dbar_A A^\dagger_{0,2}.
 \]
-Equivalently $\KT(\cE) = \bigwedge^\bullet\EOM^\vee[1]$ with Bianchi
-syzygies in the next layer. Antifields sit in form-degree matching
-the $(-1)$-shifted Serre dual of the corresponding field.
 \end{construction}
 
-\begin{proposition}[Koszul--Tate acyclicity]
-\label{prop:KT-acyclic}
-Away from gauge-degenerate strata, $H^{<0}(\KT(\cE),d_\KT) = 0$ and
-$H^0(\KT(\cE),d_\KT) = \cO(\cJ\cE)/I_\EOM = \cO(\Crit(S_\hCS))$. The
-ghost generators $c$ lift the gauge quotient to the full BRST complex.
+\begin{lemma}
+\label{lem:KT-square}
+\(d_{\KT}^2=0\).
+\end{lemma}
+
+\begin{proof}
+The only generator with a square to check is \(c^\dagger_{0,3}\):
+\[
+  d_{\KT}^2c^\dagger_{0,3}
+  =d_{\KT}(\dbar_AA^\dagger_{0,2})
+  =\dbar_A F_A^{0,2}=0
+\]
+by Lemma~\ref{lem:bianchi}. The connection coefficient \(A\) in
+\(\dbar_A\) is \(d_{\KT}\)-closed.
+\end{proof}
+
+\begin{proposition}[Resolution on complete-intersection charts]
+\label{prop:KT-resolution}
+On a jet chart where \(F_A^{0,2}\) is a regular section and the Bianchi
+identity generates the first syzygy sheaf of the Euler--Lagrange ideal,
+\[
+  H^0(\KT_{\hCS},d_{\KT})
+  \cong
+  \cO(\Jinf\cE_{\mathrm{cl}})/I_{\EOM},
+  \qquad
+  H^{<0}(\KT_{\hCS},d_{\KT})=0 .
+\]
 \end{proposition}
 
-\begin{proof}[Sketch]
-Away from reducibility loci the EL operator is a regular section of a
-locally free sheaf, so Koszul resolves $\cO(\Crit)$ in the reduced direction;
-the syzygy generated by Bianchi is the unique relation (one Bianchi per
-$\g$-component of $\Omega^{0,3}$), killed by the $c^*_{0,3}$-layer.
-Costello~2011 Thm.~5.3.1 assembles this as an $L_\infty$-resolution on
-$\cJ\cE$; Costello--Gwilliam Vol~I Prop.~5.5.2 asserts the identification
-with $(\cO_{\mathrm{loc}}[[\hbar]], d_{\KT}+\hbar\Delta_{\BV})$ at
-$\hbar=0$.
+\begin{proof}
+For a regular section, the ordinary Koszul complex on
+\(F_A^{0,2}\) resolves the quotient by \(I_{\EOM}\). The displayed
+Bianchi identity is a relation among the Koszul generators. Adding
+\(c^\dagger_{0,3}\) is the Tate step killing precisely that relation.
+Completeness of the listed first syzygy sheaf on the chart makes the
+resulting Tate complex acyclic in negative degrees.
 \end{proof}
 
-\section{$(-1)$-shifted symplectic structure}
+This is a local statement on the jet scheme. Reducible connections and
+non-complete-intersection charts require the full Tate tower of higher
+syzygies for a global derived critical-locus theorem.
 
-Serre duality on $\C^3$ pairs $\Omega^{0,k}_c(\C^3)$ with
-$\Omega^{0,3-k}(\C^3)$ against $\Omega = dz_1\wedge dz_2\wedge dz_3$:
+\section{Classical BV theory}
+
+Set
 \[
-\omega_{\mathrm{BV}} \;=\; \int_{\C^3}\Omega\wedge \tr\!\bigl(
-  \delta\cA\wedge \delta\cA\bigr),\qquad
-\deg\omega_\BV = -1.
+  \cE_{\BV}=\Omega^{0,\bullet}(X,\g)[1].
 \]
-Quartet pairings: $\delta A_{0,1}\leftrightarrow \delta A^*_{0,2}$ via
-$\Omega^{0,1}\otimes\Omega^{0,2}\to\Omega^{0,3}\xrightarrow{\int\Omega\wedge}\C$;
-$\delta c\leftrightarrow \delta c^*_{0,3}$ via
-$\Omega^{0,0}\otimes\Omega^{0,3}\to\Omega^{0,3}$. Both contribute total
-ghost-number $\gh = -1 = \deg \omega_\BV$.
+A homogeneous element of \(\Omega^{0,q}(X,\g)\) has ghost number
+\(\gh=1-q\), so the BV superfield decomposes as
+\[
+  \mathcal A
+  =
+  c+A_{0,1}+A^\dagger_{0,2}+c^\dagger_{0,3},
+  \qquad
+  \gh(c,A,A^\dagger,c^\dagger)=(1,0,-1,-2).
+\]
+Serre duality on \(X\) gives the degree \(-1\) pairing
+\[
+  \omega_{\BV}(\alpha,\beta)
+  =
+  \int_X\Omega\wedge\tr(\alpha\wedge\beta),
+  \qquad
+  \alpha\in\Omega^{0,p},\ \beta\in\Omega^{0,3-p}.
+\]
+Indeed \(\gh(\alpha)+\gh(\beta)=2-(p+3-p)=-1\).
 
-\begin{theorem}[Shifted-symplectic hCS, PTVV-compatible]
-\label{thm:shifted-symp}
-$(\cE, \omega_\BV)$ is a $(-1)$-shifted symplectic elliptic $L_\infty$-space
-in the sense of Costello--Gwilliam Vol~I~\S5.2. Under the critical-locus
-identification $\Crit(S_\hCS) = \mathrm{Map}_{\mathrm{hol}}(\C^3_{\mathrm{dR}},BG)$,
-the symplectic form coincides with the Pantev--To\"en--Vaqui\'e--Vezzosi
-canonical $(-1)$-shifted form on
-$\mathrm{Map}(Y_{3},BG)$ pulled back to $\C^3$ formal-neighbourhood jets,
-where $Y_3$ is the Calabi--Yau $3$-fold datum $(\C^3,\Omega)$.
-\end{theorem}
-
-The statement is the CY-dimension-matching theorem: CY$_3$ produces a
-$(-1)$-shift, which is exactly the antifield parity required for the BV
-bracket $\{-,-\}$ to carry ghost-number $+1$. At $d=2$ the analogous form
-is $0$-shifted (a chiral Poisson bracket); at $d=4$ it is $(-2)$-shifted
-(a Maurer--Cartan curvature). Shift $= d - 4$.
-
-\section{Classical master equation}
-
-\begin{theorem}[Classical master]
+\begin{theorem}[Classical master equation]
 \label{thm:CME}
-Write $S_\BV = S_\hCS + S_{\mathrm{gh}}$ with
-$S_{\mathrm{gh}} = \int\Omega\wedge\tr\bigl(A^*_{0,2}(\dbar c + [A_{0,1},c])
- + \tfrac12 c^*_{0,3}[c,c]\bigr)$. Then
+The local functional
 \[
-\{S_\BV,S_\BV\} \;=\; 0
+  S_{\BV}(\mathcal A)=
+  \int_X\Omega\wedge
+  \tr\!\left(
+    \frac12\mathcal A\wedge\dbar\mathcal A
+    +\frac16\mathcal A\wedge[\mathcal A,\mathcal A]\right)
 \]
-as a local functional, equivalently $d_\BV := \{S_\BV,-\}$ satisfies
-$d_\BV^2=0$ and agrees with $d_\KT$ on negative-ghost generators.
+satisfies
+\[
+  \{S_{\BV},S_{\BV}\}_{\BV}=0 .
+\]
+Its Hamiltonian vector field is
+\[
+  Q_{\BV}\mathcal A=\dbar\mathcal A+\frac12[\mathcal A,\mathcal A],
+  \qquad
+  Q_{\BV}^2=0 .
+\]
 \end{theorem}
 
-\begin{proof}[Sketch]
-Expand $\{S_\BV,S_\BV\}$ in ghost-number. The $\gh=0$ piece is
-$\tr(\EL\wedge\dbar\cA + \EL\wedge[\cA,\cA])$, vanishing by the
-Bianchi identity $\dbar\EL + [\cA,\EL]=0$ above. The $\gh=1$ piece is
-$\tr([c,c]\wedge\EL)$, vanishing by cyclicity of $\tr$. The $\gh=2$
-piece is the Jacobi identity $[c,[c,c]]=0$ in $\g$. Compatibility with
-Koszul--Tate is $d_\BV(A^*_{0,2}) = \EL(S_\hCS) + \dbar c$-correction,
-matching Construction~\ref{cons:KT} after gauge-fixing $c=0$ on the
-classical shell.
+\begin{proof}
+The variation of \(S_{\BV}\) is
+\[
+  \delta S_{\BV}
+  =
+  \int_X\Omega\wedge
+  \tr\!\left(\delta\mathcal A,\,
+  \dbar\mathcal A+\frac12[\mathcal A,\mathcal A]\right),
+\]
+using invariance of \(\tr\) and integration by parts in
+\(\cO_{\mathrm{loc}}\). Hence the Hamiltonian vector field is the
+displayed Maurer--Cartan operator \(Q_{\BV}\). The square of this
+operator is
+\[
+  Q_{\BV}^2\mathcal A
+  =
+  \dbar\!\left(\dbar\mathcal A+\frac12[\mathcal A,\mathcal A]\right)
+  +
+  [\mathcal A,\dbar\mathcal A+\frac12[\mathcal A,\mathcal A]],
+\]
+which vanishes by \(\dbar^2=0\), the derivation rule for \(\dbar\), and
+the graded Jacobi identity. Since \(Q_{\BV}\) is Hamiltonian for
+\(S_{\BV}\), the identity \(Q_{\BV}^2=0\) is equivalent to the classical
+master equation.
 \end{proof}
 
-The pair $(\KT(\cE), d_\BV, \omega_\BV)$ is the classical BV theory of
-6D hCS. Quantisation (Costello--Gwilliam Vol~II~\S3) adjoins
-$\hbar\Delta_\BV$ and imposes the quantum master $\{S,S\} + 2\hbar\Delta S
-= 0$; obstruction is the one-loop anomaly, trivial on $\C^3$ by
-Costello~2016 Thm.~9.0.1 (the CY$_3$ condition $c_1(TX)=0$ makes the
-obstruction vanish). The $E_1$ factorisation algebra supplied by this
-BV data is the Wave~13~E3 object; its centre carries $E_3$ structure,
-matching the $d=3$ CY stratum with
-$\kappach(A_{\C^3}) = \chi(\cO_{\C^3}) = 1$ on the compactly-supported side.
+The ghost-independent, antifield-number lowering part of \(Q_{\BV}\) is
+exactly the differential of Construction~\ref{cons:KT}. The remaining
+terms are the Chevalley--Eilenberg differential for the gauge action:
+\[
+  Q_{\BV}A=\dbar_Ac,\qquad
+  Q_{\BV}c=\frac12[c,c],
+\]
+and the corresponding coadjoint action on \(A^\dagger\) and
+\(c^\dagger\). Thus the BV complex is the BRST quotient of the
+Koszul--Tate resolution. Proposition~\ref{prop:KT-resolution} still
+requires its regularity hypotheses.
+
+\section{Quantisation and anomaly}
+
+A Costello quantisation of the classical hCS theory consists of
+effective interactions
+\(\{I[L]\}_{L>0}\), a propagator and gauge fixing, local counterterms,
+and a completion of the space of fields such that the homotopy
+renormalisation-group equation holds and the scale-\(L\) quantum master
+equation
+\[
+  QI[L]+\frac12\{I[L],I[L]\}_L+\hbar\Delta_L I[L]=0
+\]
+is satisfied. At loop order \(n\), failure of the equation is a local
+cohomology class
+\[
+  [\Theta_n]\in H^1\bigl(\Def_{\mathrm{loc}}(\cE_{\BV})\bigr).
+\]
+Solving the quantum theory requires \([\Theta_n]=0\) and a chosen local
+counterterm primitive at every order.
+
+For holomorphic Chern--Simons theory in complex dimension \(d\), the
+one-loop gauge anomaly is governed by the invariant polynomial of degree
+\(d+1\). In dimension \(3\) this is the quartic invariant
+\[
+  \theta_{\g}(x_1,x_2,x_3,x_4)
+  =
+  \operatorname{Tr}_{\mathrm{ad}}
+  (x_1x_2x_3x_4)_{\mathrm{sym}}
+  \in (\operatorname{Sym}^4\g^\vee)^\g ,
+\]
+and its descent class in the local deformation complex. The QME
+obstruction is this quartic class. Cubic Casimir terms form a separate
+counterterm family. Contractibility of \(X=\C^3\) removes global
+Dolbeault cohomology, while quantisation still requires the vanishing or
+local trivialisation of the quartic anomaly for the chosen gauge algebra
+and renormalisation data. On a compact Calabi--Yau threefold, a
+quantisation theorem must exhibit the QME solution, anomaly
+cancellation, orientation or framing datum, factorisation or TCFT
+descent, local counterterms, and the analytic or formal completion in
+which the effective interactions live.
+
+\section{Operadic and Hall-algebra scope}
+
+The construction above proves a classical BV model and, under the
+quantisation hypotheses just stated, supplies the local observable
+factorisation algebra of hCS on \(\C^3\). For the CY-to-chiral
+dimension convention, the \(d=3\) specialization produces an
+\(E_1\)-chiral output. Braided \(E_2\) structures belong to derived
+centres, Drinfeld doubles, or module-category layers under their own
+hypotheses. The shifted symplectic form in the BV theory supplies the
+classical bracket, while the \(E_2\) upgrade requires those additional
+centre or double constructions.
+
+The Hall-algebra comparison is a separate theorem. In the toric
+\(\C^3\) case the accepted identification is
+\[
+  \CoHA(\C^3)=Y^+(\widehat{\mathfrak{gl}}_1),
+\]
+the positive half. The full \(\mathcal W_{1+\infty}\) object appears
+only after passing to the appropriate double, centre, or representation
+category. Constructing the CoHA product, the Drinfeld double, or a
+Borcherds--Kac--Moody denominator identity requires the corresponding
+Hall-algebra and completion data in addition to the BV and
+Koszul--Tate complexes written here.
 
 \end{document}

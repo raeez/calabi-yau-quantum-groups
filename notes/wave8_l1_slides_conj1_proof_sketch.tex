@@ -1,132 +1,217 @@
-% Slides extraction: Lorgat 2020 Conjecture 1 proof-path audit
-% Primary sources:
-%   Paper PDF: /Users/raeez/Downloads/raeez.lorgat.automorphic-corrections.pdf
-%   Slides plain text: /tmp/automorphic-slides.txt (pdftotext -layout, 953 lines)
-% Cross-citations: GritsenkoNikulin1998, Oberdieck2018, GritsenkoClery2008,
-% Borcherds1998.
-
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\ZLh}{Z^{X}_{L,h_M}}
 \providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
-\providecommand{\ClaimStatusConjectured}{[Conjectured]}
-\providecommand{\ClaimStatusTheorem}{[Theorem]}
-\providecommand{\ClaimStatusAxiomatic}{[Axiomatic]}
 
-\section*{Slide-extracted Conjecture~1 and proof-path status}
+\section*{Lorgat 2020 Conjecture~1: automorphic boundary}
 
-\paragraph{Verbatim slide statement (line 929--936 of
-\texttt{/tmp/automorphic-slides.txt}).}
-For $X$ obtained from $(S, g_N, h_M)$ with lattice polarisation $L$ and
-$(E, e_0)$, let $\ZLh(q,t,p)$ denote the $L$-polarised,
-$h_M = g_N^s$-twisted Donaldson--Thomas series. \emph{Conjecture (slides,
-line 929):} all eight diagonal-divisor Siegel modular forms of
-Gritsenko--Cl\'ery type arise, up to constant, as $-1/\ZLh$, and there
-is a generalised BKM algebra correction $\mathfrak{g}_{(g_N,h_M)}
-\subset \mathfrak{g}_L$ whose root multiplicities are computed by the
-$(g_N,h_M)$-twisted elliptic genus $F_L^{(g_N,h_M)}$, a Jacobi form of
-weight~$0$ index~$1$.
+\paragraph{Conjecture.}
+Let $X=(S\times E)/\langle(g_N,t_N)\rangle$ be a diagonal quotient of
+an elliptic K3 surface and an elliptic curve, let $L$ be a K3 lattice
+polarisation, and let $h_M$ be a commuting finite-order twist. Lorgat
+2020 Conjecture~1 asserts that the diagonal-divisor Siegel paramodular
+forms in the Gritsenko-Cl\'ery range arise, up to scalar, as
+reciprocal square-roots of the $L$-polarised, $h_M$-twisted
+Donaldson-Thomas series $\ZLh$, and that these forms are denominator
+functions of generalized Borcherds-Kac-Moody superalgebras whose root
+multiplicities are supplied by the $(g_N,h_M)$-twisted K3 elliptic
+genera.
 
-\paragraph{Slide organisational data absent from paper \S 4.2
-(lines 937--952).} With $A = \phi_{0,1}/4$ and
-$B = \phi_{-2,1} = \nu_1^2/\eta^6$:
-\begin{itemize}[leftmargin=*]
-\item $N \in \{1,2,3,5,7\}$: indexing $1 \le s,r \le N-1$,
-  $0 \le k \le N-1$.
-\item $N=4$: $s \in \{0,1,2,3\}$.
-\item $N=6$: $s \in \{0,1,2,3\}$ (stated twice in slides).
-\item $N=8$: case listed; orbit data in slide image only, not
-  transcribable from \texttt{pdftotext} layout.
-\end{itemize}
-The case-split is a parametrisation shape, not a proof.
+The assertion has three layers. The automorphic layer is the
+classification and Borcherds-lift construction of paramodular forms.
+The curve-counting layer is the reduced, twisted Donaldson-Thomas
+identity in the same normalisation. The Lie-superalgebra layer is an
+explicit root datum, Weyl vector, parity split, multiplicity rule, and
+Weyl-Kac-Borcherds denominator identity. The first layer gives a
+modular form; the third layer gives a BKM superalgebra.
 
-\paragraph{$N=1$ anchor (slide line 912--917).}
-\ClaimStatusTheorem\ For $X = S \times E$ with $S$ elliptic K3:
-$Z^{S \times E} = -C/(\Delta_5)^2$. Proof: Oberdieck--Pixton
-conjecture, now \cite{Oberdieck2018}. Slides cite as theorem; this is
-primary-literature anchored.
-
-\paragraph{Hidden observation test: the unified Borcherds functor
-$\Phi^{\mathrm{Bor}}$.}
-The slide parametrisation $(N,s,r,k)$ suggests a single family
+\paragraph{The primitive \texorpdfstring{$\Delta_5$}{Delta5} row.}
+Let $\phi_{0,1}^{\mathrm{EZ}}$ be the Eichler-Zagier weak Jacobi form
+of weight $0$ and index $1$, normalised by
 \[
-  \Phi^{\mathrm{Bor}}: \mathcal{C}_{M_{24}}(g_N)
-  \longrightarrow \mathrm{BKM}^{\mathrm{param}},
-  \qquad (g_N,h_M) \mapsto (F_L^{(g_N,h_M)},\;
-  \mathfrak{g}_{(g_N,h_M)})
+  \phi_{0,1}^{\mathrm{EZ}}\big|_{q^0}=\zeta^{-1}+10+\zeta,
+  \qquad c_1(0)=10.
 \]
-through twisted Borcherds lifting. The slides do not construct this
-functor; they exhibit its object-level shadow at $N=1$ and an
-orbit-index pattern at $N \in \{2,3,4,5,6,7,8\}$. No morphism-level
-compatibility (composition with conjugation in $M_{24}$, or with
-symplectic-automorphism covers) is established. \ClaimStatusConjectured.
+The geometric K3 elliptic genus is
+\[
+  \operatorname{Ell}(K3;\tau,z)=2\phi_{0,1}^{\mathrm{EZ}}(\tau,z),
+\]
+while the primitive Borcherds product producing $\Delta_5$ uses the
+single Eichler-Zagier form. Borcherds' singular-theta weight theorem
+(Borcherds 1998, Theorem~13.3) gives
+\[
+  \kBKM(\gDelta)=\mathrm{wt}(\Delta_5)=\frac{c_1(0)}{2}=5.
+\]
+Gritsenko-Nikulin 1995 Part~II, Theorem~2.1, and Borcherds' product
+formalism construct the generalized BKM superalgebra $\gDelta$ with
+primitive denominator
+\[
+  \operatorname{den}(\gDelta)=D_5(2Z)=64^{-1}\Delta_5(2Z),
+\]
+with signed root multiplicities read from the Fourier coefficients of
+$\phi_{0,1}^{\mathrm{EZ}}$.
 
-\paragraph{Proof-path status matrix for Conjecture~1.}
-{\small
-\begin{tabular}{@{}p{0.48\linewidth}@{\hspace{1em}}p{0.44\linewidth}@{}}
-\hline
-Step & Anchor \\ \hline
-S1. Existence of eight GC dd-forms at
-$\Gamma_t(N)$ for $(t,N)$ in the Gritsenko--Cl\'ery list &
-\ClaimStatusTheorem\ \cite{GritsenkoClery2008} (slide line 47--54). \\
-S2. $\Delta_5$ is Borcherds lift of $\phi_{0,1}$;
-$\gDelta$ is GBKM with denominator $\Delta_5$ &
-\ClaimStatusTheorem\ \cite{GritsenkoNikulin1998, Borcherds1998} (slide
-line 716--718, 765--773). \\
-S3. $Z^{S \times E} = -C/(\Delta_5)^2$ at $N=1$ &
-\ClaimStatusTheorem\ \cite{Oberdieck2018} (slide line 912--917). \\
-S4. $L$-polarised $h_M$-twisted DT series $\ZLh$ well-defined at
-$N \geq 2$ with modularity &
-\ClaimStatusConjectured. Slides give no construction beyond $N=1$;
-paper \S 4.2 asserts without proof; no Oberdieck-style reduction yet
-published for $N \geq 2$ quotients. \\
-S5. Twisted K3 elliptic genus $F_L^{(g_N,h_M)}$ is Jacobi of weight~0,
-index~1 &
-\ClaimStatusTheorem\ at $M=\mathrm{id}$, any $g_N$ symplectic of order
-$\le 8$, \cite{GabererHohenVolpato2012} for twined genera; slide line
-936 asserts for general $(g_N,h_M)$. General case $h_M \neq \mathrm{id}$
-is \ClaimStatusConjectured. \\
-S6. Identification $\mathrm{mult}_\alpha(\mathfrak{g}_{(g_N,h_M)}) =
-F_L^{(g_N,h_M)}(nm,l)$ &
-\ClaimStatusConjectured. Paper states; slides give $N=1$ case
-(line 765--773, $\mathrm{mult}_\alpha = f(nm,l)$ for $\phi_{0,1}$);
-general-$N$ case is Conjecture~1 proper. \\
-S7. Denominator of $\mathfrak{g}_{(g_N,h_M)}$ equals the GC form at
-$(t,N,M)$ as Borcherds lift of $F_L^{(g_N,h_M)}$ &
-\ClaimStatusConjectured. Would follow from S4+S6 by
-Borcherds-lift functoriality \cite{Borcherds1998}; S4, S6 both open at
-$N \geq 2$. \\
-S8. $\kBKM(\Phi_N) = c_N(0)/2$ for $N \in \{1,2,3,4,6\}$ (universal
-Borcherds-weight identity) &
-\ClaimStatusTheorem\ \cite{Borcherds1998, Gritsenko1999}, independent
-of Conjecture~1. $N=1$: $c_1(0)=10$, $\kBKM=5$ (slide line 802).
-Other $N$: \emph{not} in slides. \\
-\hline
-\end{tabular}
-}
+Oberdieck-Pandharipande 2016, Theorem~1, in the Oberdieck-Pixton
+normalisation, gives the reduced scalar branch
+\[
+  Z^{K3\times E}_{\mathrm{red}}
+  =-\bigl(\Phi_{10}^{\mathrm{OP}}\bigr)^{-1}
+  =-D_5^{-2}
+  =-4096\,\Delta_5^{-2},
+  \qquad
+  \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2.
+\]
+The unnormalised Igusa square is $\Phi_{10}^{\mathrm{un}}=\Delta_5^2$.
+Thus the primitive row is proved at the automorphic denominator level
+and at the reduced scalar level. Compact Hall recognition and
+higher-level root data are additional structures.
 
-\paragraph{Numerical verification (slides vs.\ independent sources).}
-$\phi_{0,1}$ constant term $f(0,0) = 10$, sub-leading $f(0,-1)=1$
-(slide line 802); agrees with \cite{EichlerZagier1985} Jacobi-form
-tables. Weight $5 = 10/2$ consistent with $\kBKM(\Phi_1) = c_1(0)/2$.
-Slide-independent: $(t,N)$ enumeration matches the GC catalogue for
-$N \in \{1,2,3,4\}$ (paramodular) and $t \in \{1,2,3\}$. No slide
-numerics for $N \geq 2$ cases.
+\paragraph{The Gritsenko-Cl\'ery catalogue.}
+Gritsenko-Cl\'ery 2008, Theorem~1.4, classifies the Siegel modular
+forms of genus $2$ whose divisor is the diagonal
+$\mathcal H_1\subset\mathbb H_2$ with vanishing order $1$. The complete
+list is indexed by triples
+\[
+ (t,N;k)\in
+ \bigl\{(1,1;5),(2,1;2),(1,2;3),(3,1;1),(1,3;2),
+ (4,1;\tfrac12),(1,4;\tfrac32),(2,2;1)\bigr\}.
+\]
+The weights are
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1),
+\]
+and the twice-weight tuple is
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+Gritsenko-Cl\'ery 2008, Theorem~3.1, gives the corresponding
+cusp-weighted Borcherds product formula row by row. The catalogue
+overlaps the primitive CHL row at $F_{1,1}=\Delta_5$. Its remaining
+rows live at their own paramodular levels, multiplier systems, Jacobi
+inputs, and branches.
 
-\paragraph{What the slides do \emph{not} supply.}
-(i) No per-$N$ explicit Borcherds product for the seven non-$\Delta_5$
-GC forms. (ii) No DT-side construction of $\ZLh$ at $N \geq 2$.
-(iii) No proof of the $(g_N,h_M)$-twisted elliptic-genus Jacobi-form
-property for $h_M \neq \mathrm{id}$. (iv) No morphism-level
-$\Phi^{\mathrm{Bor}}$ functor construction.
+\paragraph{Borcherds weights on the CHL ladder.}
+Let $\Phi_N^{\mathrm{CHL}}$ denote the primitive CHL denominator form at
+order $N$. For
+\[
+  N\in\{1,2,3,4,6\},
+\]
+Gritsenko-Nikulin 1995 Part~II, Theorem~2.1, Gritsenko 1999,
+Corollary~3.3, and Borcherds 1998, Theorem~13.3, give the
+Borcherds-input constants and BKM weights
+\[
+  (c_1(0),c_2(0),c_3(0),c_4(0),c_6(0))
+  =(10,8,6,4,2),
+\]
+\[
+  \bigl(\kBKM(\Phi_1^{\mathrm{CHL}}),\kBKM(\Phi_2^{\mathrm{CHL}}),
+  \kBKM(\Phi_3^{\mathrm{CHL}}),\kBKM(\Phi_4^{\mathrm{CHL}}),
+  \kBKM(\Phi_6^{\mathrm{CHL}})\bigr)
+  =(5,4,3,2,1),
+  \qquad
+  \kBKM(\Phi_N^{\mathrm{CHL}})=\frac{c_N(0)}{2}.
+\]
+This is the CHL denominator table. It is independent of the
+Gritsenko-Cl\'ery twice-weight tuple
+$(10,4,6,2,4,1,3,2)$ away from the shared $\Delta_5$ entry.
 
-\paragraph{Assessment.}
-The slides contain the same Conjecture~1 as the paper \S 4.2 plus an
-orbit-indexing case split; they contain \emph{no} proof sketch
-stronger than the paper. Steps S1--S3 and S8 rest on primary-literature
-theorems; steps S4--S7 are open. The unified functor
-$\Phi^{\mathrm{Bor}}$ is a hidden structural shape hinted at by the
-orbit indexing, not a construction. Conjecture~1 remains genuinely
-open at $N \geq 2$ pending either twisted-DT modularity beyond
-Oberdieck or a direct Borcherds-lift proof of S6.
+\paragraph{\texorpdfstring{$K3\times E$}{K3xE} invariants.}
+At the compact $K3\times E$ boundary the subscripted values are
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kBKM(\gDelta)=5,\qquad
+  \kfib(K3)=24,
+\]
+with distinct constructions:
+\[
+  \chi(\mathcal O_{K3\times E})
+  =\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0=0,
+\]
+\[
+  \sum_q(-1)^q h^{0,q}(K3\times E)=1-1+1-1=0,
+\]
+\[
+  \kch^{\mathrm{Heis}}=3,\qquad
+  \kBKM(\gDelta)=c_1(0)/2=5,\qquad
+  \kfib(K3)=\operatorname{rk}\widetilde H(K3,\mathbb Z)=24.
+\]
+The compact Hodge-supertrace value, the Heisenberg-Mukai
+specialisation, the Borcherds denominator weight, and the K3 Mukai
+lattice rank are separate invariants.
+
+\paragraph{The order-six quotient.}
+At $N=6$ the CHL denominator is anchored by the Niemeier root system
+$6D_4$. Nikulin 1979, Theorem~4.5, in the fixed-point tabulation
+reproduced by Xiao 1996, gives
+\[
+  \#\operatorname{Fix}(g_6)=2,\qquad
+  \#\operatorname{Fix}(g_6^2)=6,\qquad
+  \#\operatorname{Fix}(g_6^3)=8.
+\]
+Thus $K3/\langle g_6\rangle$ has two stabiliser-$\mathbb Z_6$ orbits,
+two stabiliser-$\mathbb Z_3$ orbits, and two
+stabiliser-$\mathbb Z_2$ orbits. A cyclic stabiliser of order $m$
+contributes a Du~Val singularity of type $A_{m-1}$, so the quotient
+surface has local type
+\[
+  2A_5+2A_2+2A_1,
+\]
+and the Euler check is
+\[
+  e(K3/\mathbb Z_6)=\frac{24+2+6+8+6+2}{6}=8,\qquad
+  8+(2\cdot5+2\cdot2+2\cdot1)=24.
+\]
+The label $6D_4$ is a global positive-definite even unimodular
+rank-$24$ Niemeier datum. The ADE string above is the local analytic
+stratification of the quotient surface.
+
+\paragraph{Higher-level BKM data.}
+For each $N\geq2$ row in Conjecture~1, the following data must
+be supplied before the paramodular form determines a BKM superalgebra:
+\[
+\begin{array}{ll}
+\text{root lattice} & \Lambda_N\ \text{with positive cone and real simple roots},\\
+\text{Weyl vector} & \rho_N\ \text{compatible with the product prefactor},\\
+\text{parity split} &
+  \Delta^{\mathrm{im}}_{N,\bar0}\sqcup\Delta^{\mathrm{im}}_{N,\bar1},\\
+\text{multiplicities} &
+  \mathrm{sdim}\,\mathfrak g_{N,\alpha}
+  =c_N\bigl((\alpha,\alpha)/2,\ell(\alpha)\bigr),\\
+\text{denominator identity} &
+  \Phi_N(Z)=e^{-(\rho_N,Z)}
+  \prod_{\alpha\in\Delta_N^+}(1-e^{-(\alpha,Z)})^{
+  \mathrm{sdim}\,\mathfrak g_{N,\alpha}}\\
+&\hfill
+  =\sum_{w\in W_N}\det(w)\,w\!\left(e^{-\rho_N}
+  \sum_{a\in\mathcal I_N}\epsilon_N(a)e^{-a}\right).
+\end{array}
+\]
+The automorphic product theorem supplies the product side after the
+Jacobi input, multiplier system, chamber, and normalisation have been
+fixed. The Weyl-sum side is the Lie-superalgebra construction.
+
+\paragraph{Boundary.}
+The Gritsenko-Cl\'ery classification proves the eight
+diagonal-divisor paramodular forms and their weights. Borcherds'
+Theorem~13.3 proves the weight formula $c(0)/2$ for a Borcherds product
+after the weak Jacobi input is fixed. The $\Delta_5$ row has a constructed
+generalized BKM superalgebra with denominator $\Delta_5$.  The CHL
+constant table
+\[
+  c_N(0)=(10,8,6,4,2),\qquad
+  \bigl(\kBKM(\Phi_N^{\mathrm{CHL}})\bigr)_{N=1,2,3,4,6}
+  =(5,4,3,2,1),
+\]
+is an automorphic weight table.
+
+For $N\geq2$, Conjecture~1 is a construction problem: build the root
+datum, Weyl vector, parity rule, signed multiplicities, and denominator
+identity for the asserted superalgebra, and identify the resulting
+denominator with the appropriate Gritsenko-Cl\'ery or CHL paramodular
+form in a fixed normalisation. The Donaldson-Thomas layer requires a
+reduced, twisted $K3\times E$ theory whose scalar is $\ZLh^{-1/2}$ in
+the same normalisation. These data are the exact proof obligations.

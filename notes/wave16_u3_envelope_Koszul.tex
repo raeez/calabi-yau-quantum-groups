@@ -1,10 +1,3 @@
-% wave16_u3_envelope_Koszul.tex
-% Wave-16 U3/20: strict vs up-to-homotopy chiral Koszul duality
-% for the envelope $\gBKM_{\Lambda^{3,3}}$.
-% Voices: Positselski + Fresse. Extends Wave-14 J5 (chiral Koszul
-% for $\cE_{\hCS}$) and Wave-15 M3 ($\Lambda^{3,2}\hookrightarrow
-% \Lambda^{3,3}$ timelike codim-1 embedding, reflection $\sigma_q$).
-
 \providecommand{\Lat}{\Lambda}
 \providecommand{\gBKM}{\mathfrak{g}^{\mathrm{BKM}}}
 \providecommand{\Bar}{\mathrm{Bar}}
@@ -14,6 +7,7 @@
 \providecommand{\dbar}{\bar\partial}
 \providecommand{\Sym}{\mathrm{Sym}}
 \providecommand{\CE}{\mathrm{CE}}
+\providecommand{\coCE}{\mathrm{coCE}}
 \providecommand{\Hom}{\mathrm{Hom}}
 \providecommand{\Lie}{\mathrm{Lie}}
 \providecommand{\Op}{\mathrm{Op}}
@@ -27,196 +21,300 @@
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kchHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\HH}{\mathbb{H}}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Eone}{E_1}
 
-\section*{Strict vs up-to-homotopy chiral Koszul duality on the
-$\OO(3,3)$-envelope $\gBKM_{\Lat^{3,3}}$ (Wave-16 U3/20)}
+\section*{Completed Koszul duality for the
+$\mathrm{O}(3,3)$ BKM lattice envelope}
 
-\paragraph{Setting.} $\Lat^{3,3}=U^{\oplus 3}$ is the unique even
-unimodular lattice of signature $(3,3)$ (M3 Thm.~\ref{thm:uniqueness-33}).
-A primitive timelike $q$ of square $-2$ produces
-$\Lat^{3,2}=q^{\perp}\hookrightarrow\Lat^{3,3}$, and the envelope
-$\gBKM_{\Lat^{3,3}}$ carries a reflection involution $\sigma_q$ whose
-fixed subalgebra is $\gBKM_{\Delta_5}$ (M3 Thm.~\ref{thm:envelope}).
-Wave-14 J5 established strict (Gwilliam--Williams 2021,
-Thm.~3.3.1) versus homotopy (Francis--Gaitsgory 2012, Thm.~6.2.1)
-compatibility of chiral Koszul duality for the Dolbeault Lie algebroid
-$\cE_{\hCS}=\Omega^{0,\bullet}(\C^3,\mathfrak{g})$ via Fresse 2017
-Thm.~12.3.A and Positselski 2011 coderived/contraderived transfer.
-The question: does that compatibility extend to the larger envelope?
-
-\paragraph{Theorem (main).} Let $V_{\Lat^{3,3}}$ be the lattice vertex
-algebra attached to $\Lat^{3,3}$ (Borcherds 1986 \emph{PNAS}~83;
-Frenkel--Lepowsky--Meurman 1988~\S 8). The chiral enveloping algebra
+\paragraph{Lattice envelope.}
+Let $\Lat^{3,3}=U^{\oplus 3}$ be the even unimodular lattice of
+signature $(3,3)$.  Fix a primitive vector $q$ with $q^2=-2$ and let
+$\sigma_q(x)=x+(x,q)q$ be the reflection in $q$.  Let
+$\gBKM_{\Lat^{3,3}}$ be a Borcherds--Kac--Moody Lie algebra equipped
+with:
 \[
-U^{\chir}\bigl(\gBKM_{\Lat^{3,3}}\bigr)
-\ \simeq\ V_{\Lat^{3,3}}\ *_{\cH(\Lat^{3,3})}\
-\mathrm{BKM\text{-}corrections}
+  \gBKM_{\Lat^{3,3}}
+  =
+  \cH(\Lat^{3,3})
+  \oplus
+  \bigoplus_{\alpha\neq 0}\gBKM^{(\alpha)},
+  \qquad
+  [\gBKM^{(\alpha)},\gBKM^{(\beta)}]\subset
+  \gBKM^{(\alpha+\beta)} ,
 \]
-has an $E_3$-Koszul dual coalgebra quasi-isomorphic to the chiral
-Chevalley--Eilenberg cochain complex
-$\CE^{*}_{\dbar,\chir}\!\bigl(\gBKM_{\Lat^{3,3}},\mathcal{O}\bigr)$
-at chain level, and this identification upgrades to an equivalence in
-$\Coalg_{E_{3}^{!}}$. The reflection $\sigma_q$ is a strict Koszul
-morphism, and restriction to $\gBKM_{\Delta_5}=(\gBKM_{\Lat^{3,3}})^{
-\sigma_q}$ recovers the J5 duality. Consequence: strict/homotopy
-compatibility descends from envelope to sub-algebra.
-
-\paragraph{Cycle 1: lattice vertex algebra and $U^{\chir}$.}
-\emph{Attack.} Borcherds 1986 constructs $V_{\Lat}$ as the chiral
-algebra on a Heisenberg lattice, with $V_{\Lat}=M(\cH)\otimes\C[\Lat]$,
-$M(\cH)$ the Fock module for the Heisenberg algebra $\cH(\Lat\otimes\C)$
-and $\C[\Lat]$ the group algebra, glued by the cocycle $\epsilon:\Lat
-\times\Lat\to\{\pm 1\}$ witnessing the bilinear form mod~$2$. The
-GBKM algebra is the generalised Kac--Moody algebra on the root system
-of $\Lat^{3,3}$, with denominator $\Psi_{F_{0}}$ of weight $-3$ theta
-lift (M3 Construction~\ref{cons:envelope}).
-\emph{Heal.} The chiral envelope $U^{\chir}(\gBKM_{\Lat^{3,3}})$ is
-built by BD~2004~\S 3.7.1 as the left adjoint to forgetful from chiral
-algebras to chiral Lie; concretely, $V_{\Lat^{3,3}}$ is a completion
-of the \emph{root-filtered} chiral enveloping algebra, where the
-Heisenberg factor $M(\cH)$ gives the abelian slice and the
-$\C[\Lat]$-twist encodes the BKM brackets of Borcherds 1988. On a
-polydisc $D\subset\C^{3}$, using the Dolbeault chiral lift of Gwilliam--
-Williams 2021~\S 3,
+a root-height filtration $F_{\leq h}$ with finite-dimensional graded
+pieces, a lattice $2$-cocycle $\epsilon:\Lat^{3,3}\times\Lat^{3,3}
+\to\{\pm1\}$, and a $\sigma_q$-action preserving the bilinear form,
+$\epsilon$, and the root-height filtration.  Assume
 \[
-U^{\chir}\bigl(\gBKM_{\Lat^{3,3}}\bigr)(D)
-\ =\ \Sym^{\bullet}_{\chir}\!\bigl(\gBKM_{\Lat^{3,3}}|_{D}\bigr)
-\Big/\Bigl\langle\mu^{\chir}_{ij}-[\cdot,\cdot]_{\gBKM}
-\Bigr\rangle.
+  \bigl(\gBKM_{\Lat^{3,3}}\bigr)^{\sigma_q}
+  =
+  \gBKM_{\Delta_5}
 \]
+as a filtered Lie algebra.  This ambient denominator algebra is
+additional input.  The Pfaffian lattice and the reflection supply the
+lattice and stabiliser data; the Borcherds product, the root
+multiplicity function, and the restriction theorem are part of the
+present hypothesis.
 
-\paragraph{Cycle 2: $\Bar_{E_{3}}$ on the lattice envelope.}
-\emph{Attack.} The $E_3$-bar (Francis 2013 Thm.~3.4; Francis--Gaitsgory
-2012 Thm.~6.2.1) produces a conilpotent $E_{3}^{!}$-coalgebra. For
-the envelope,
+\paragraph{Completed chiral envelope.}
+Let $U^{\chir}_{\widehat F}(\gBKM_{\Lat^{3,3}})$ be the completed
+chiral envelope in the Dolbeault Ran category of $\C^3$, formed as a
+continuous inverse limit over root-height quotients:
 \[
-\Bar_{E_{3}}\!\bigl(U^{\chir}(\gBKM_{\Lat^{3,3}})\bigr)
-\ =\ \bigl(\Sym^{\bullet}_{E_{3}^{!}}\,\overline{U^{\chir}
-(\gBKM_{\Lat^{3,3}})}[1],\ d_{\Bar}\bigr),
+  U^{\chir}_{\widehat F}(\gBKM_{\Lat^{3,3}})
+  =
+  \varprojlim_h
+  U^{\chir}\!\left(F_{\leq h}\gBKM_{\Lat^{3,3}}\right).
 \]
-with $\overline{U^{\chir}}:=\ker(U^{\chir}\to\C)$. Using Cycle~1 of
-J5, $E_{3}^{!}\simeq\Lie[2]$ (Getzler--Jones 1994~\S 2; Fresse 2017
-Thm.~14.1.A), so $\Bar_{E_{3}}=\Sym^{\bullet}(\gBKM_{\Lat^{3,3}}[3])^{
-\vee}$ with coderivation $d=\dbar+d_{\chir}^{\vee}$.
-\emph{Heal.} The lattice refinement contributes a grading by
-$\Lat^{3,3}\subset\HH^{1,1}$ and the bar complex decomposes as a direct
-sum over root-height: $\Bar_{E_{3}}=\bigoplus_{\alpha\in\Lat^{3,3}}
-\Bar_{E_{3}}^{(\alpha)}$, with each summand a finite-dimensional
-Dolbeault-twisted cofree coLie coalgebra. This is the coalgebraic
-mirror of the root-space decomposition $\gBKM_{\Lat^{3,3}}=\cH(\Lat^{3,3})
-\oplus\bigoplus_{\alpha\neq 0}\gBKM^{(\alpha)}$.
-
-\paragraph{Cycle 3: Fresse Thm.~12.3.A hypotheses on the envelope.}
-\emph{Attack.} Fresse 2017 Thm.~12.3.A (Vol.~I, Ch.~12) states: a
-chain-level quasi-isomorphism of bar-cobar pairs
-$(\Bar(U), \CE^{*}(U))$ upgrades canonically to an
-$\infty$-equivalence in $\Op_{E_{n}}$, provided (i) $U$ is a
-cofibrant $E_{n}$-algebra, (ii) the underlying chain complex is
-$\cR$-flat over the base commutative ring, (iii) bar/cobar filtrations
-are complete (Positselski 2011 coderived-model axioms). For
-$U^{\chir}(\cE_{\hCS})$, these held by $\dbar$-softness of
-$\Omega^{0,\bullet}(\C^{3})$ (J5 Cycle~5).
-\emph{Heal.} For $U^{\chir}(\gBKM_{\Lat^{3,3}})$: (i) cofibrancy is
-established by presenting $U^{\chir}$ as a BD~$\S 3.7$ free chiral
-envelope followed by a Positselski coderived replacement
-(2011~Thm.~6.6.1); the lattice filtration by root height gives an
-admissible filtration whose associated graded is the free chiral
-Sym on $\gBKM_{\Lat^{3,3}}$, which is cofibrant. (ii) $\C$-flatness
-is automatic (chain complexes over a field). (iii) the bar filtration
-is complete because the $E_3$-bar increases both weight \emph{and}
-chiral $\Ran$-support, and the intersection of the decreasing
-filtration is zero by Ran-cosimplicial descent (Francis--Gaitsgory
-2012~\S 4.2). All three hypotheses hold. Hence Fresse Thm.~12.3.A
-applies, and the chain-level quasi-isomorphism
-$\Psi:\Bar_{E_{3}}(U^{\chir}(\gBKM_{\Lat^{3,3}}))\to\CE^{*}_{\dbar,
-\chir}(\gBKM_{\Lat^{3,3}},\mathcal{O})$ (defined by the
-sum-over-shuffles formula of J5 Cycle~4, with summation
-restricted to each root-height summand) upgrades to an equivalence
-in $\Coalg_{E_{3}^{!}}$.
-
-\paragraph{Cycle 4: the reflection $\sigma_q$ and Koszul structure.}
-\emph{Attack.} $\sigma_{q}:\gBKM_{\Lat^{3,3}}\to\gBKM_{\Lat^{3,3}}$
-reflects the root $q$ and sends $\gBKM^{(\alpha)}\to\gBKM^{(\sigma_q
-\alpha)}$. Extend to $U^{\chir}(\gBKM_{\Lat^{3,3}})$ as an involution
-of chiral algebras (BD 2004~\S 3.6 functoriality). The question is
-whether $\sigma_q$ commutes with $\Bar_{E_{3}}$, i.e., preserves the
-Koszul-duality structure.
-\emph{Heal.} $\sigma_q$ is an involution of lattice vertex algebras
-commuting with the Heisenberg $\cH(\Lat^{3,3})$, with
-$\sigma_q^{*}\epsilon=\epsilon$ (the cocycle is $\sigma_q$-invariant
-because $\sigma_q$ preserves $\langle\cdot,\cdot\rangle$ mod $2$).
-Hence $\sigma_q$ acts on $V_{\Lat^{3,3}}$ by a chiral automorphism
-and on $U^{\chir}(\gBKM_{\Lat^{3,3}})$ by $E_3$-algebra automorphism.
-By functoriality of bar (Fresse 2017~\S 6.5.2), $\Bar_{E_{3}}(\sigma_q)$
-is a coalgebra automorphism of $\Bar_{E_{3}}(U^{\chir})$, strictly
-at chain level. By Positselski 2011 Thm.~7.5.4 the coderived/
-contraderived transfer is $\sigma_q$-equivariant (both categories are
-$\Z/2$-graded via $\sigma_q$). Therefore $\sigma_q$ is a \emph{strict}
-Koszul morphism: it commutes with $\Psi$ on the nose, and the induced
-involution on $\CE^{*}_{\dbar,\chir}(\gBKM_{\Lat^{3,3}})$ matches
-$\Bar_{E_{3}}(\sigma_q)$ without higher homotopy coherence.
-
-\paragraph{Cycle 5: sub-algebra inheritance.}
-\emph{Attack.} Take $\sigma_q$-fixed points. On the Lie side,
-$(\gBKM_{\Lat^{3,3}})^{\sigma_q}=\gBKM_{\Delta_{5}}$ (M3 Thm.~\ref{thm:envelope}).
-On the chiral envelope, $(U^{\chir}(\gBKM_{\Lat^{3,3}}))^{\sigma_q}
-=U^{\chir}(\gBKM_{\Delta_{5}})$ because chiral enveloping commutes
-with fixed points of reductive group actions (BD 2004~\S 3.6.2; in
-finite characteristic zero the averaging functor is exact). On the
-Koszul-dual side,
+Its associated graded is the completed chiral symmetric algebra on the
+filtered Lie object:
 \[
-\bigl(\Bar_{E_{3}}(U^{\chir}(\gBKM_{\Lat^{3,3}}))\bigr)^{\sigma_q}
-\ \simeq\ \Bar_{E_{3}}\!\bigl(U^{\chir}(\gBKM_{\Delta_{5}})\bigr),
+  \operatorname{gr}_F U^{\chir}_{\widehat F}
+  \cong
+  \widehat{\Sym}^{\bullet}_{\chir}
+  \bigl(\gBKM_{\Lat^{3,3}}\bigr),
 \]
-by Cycle~4 (strict $\sigma_q$-equivariance of $\Bar_{E_{3}}$) and
-exactness of $\sigma_q$-averaging.
-\emph{Heal.} The Wave-14 J5 compatibility (strict GW 2021 $=$ homotopy
-FG 2012 for $\gBKM_{\Delta_5}\subset\cE_{\hCS}$) follows from the
-envelope statement of Cycles~1--4 by $\sigma_q$-fixed-point restriction.
-Hence the envelope Koszul duality \emph{inherits} strict-vs-homotopy
-compatibility from its construction, and the sub-algebra
-$\gBKM_{\Delta_5}$ inherits it by fixed-point restriction. No
-additional hypothesis is required at the $\Lat^{3,2}$ level beyond
-what M3 already establishes via Nikulin primitive embedding.
+with differential $\dbar+d_{\gBKM}+d_{\chir}$.  The lattice vertex
+algebra $V_{\Lat^{3,3}}=M(\cH)\otimes \C_\epsilon[\Lat^{3,3}]$ is the
+Heisenberg-and-lattice model for the associated local fields; it is a
+completion of the root-filtered chiral envelope once the Borcherds
+root completion and the cocycle convention have been fixed.
+The $\Ethree$-structure below is the local holomorphic factorisation
+structure on $\C^3$.  The compact CY$_3$ output of $\Phi_3$ is native
+$\Eone$.
 
-\paragraph{Consequence for $\kBKM$ and $\kch$.}
-The envelope chiral Koszul identification computes
-$\kch(U^{\chir}(\gBKM_{\Lat^{3,3}})^{!})=c_{F_{0}}(0)/2$ for
-$F_{0}$ the weight-$(-3)$ theta lift (Cycle~1; Borcherds weight
-theorem \texttt{thm:borcherds-weight-kappa-BKM-universal}).
-Restriction under $\sigma_q$ recovers $\kBKM(\Delta_{5})=c_{\phi_{0,1}}
-(0)/2=5$ (M3 (3); Lorgat 2020 Conj.~1 for $N=1$). The strict/
-homotopy compatibility ensures both the chain-level Borcherds
-denominator computation and the $(\infty,1)$-categorical $E_3$-Koszul
-statement refer to the same object; there is no ambient mismatch.
+\paragraph{Theorem.}
+Assume the following five conditions.
+\begin{enumerate}
+  \item The root-height completion of
+    $U^{\chir}_{\widehat F}(\gBKM_{\Lat^{3,3}})$ is separated,
+    complete, and conilpotent for the reduced bar filtration.
+  \item A $\sigma_q$-equivariant fibrant-cofibrant replacement has been
+    chosen in the Dolbeault Ran model category.
+  \item The bar filtration has finite-dimensional associated graded
+    pieces on every root-height quotient.
+  \item The inverse system of root-height quotients is Mittag--Leffler,
+    so continuous duals and completed Chevalley--Eilenberg cochains
+    compute the inverse-limit object.
+  \item Comparisons with compact CY$_3$ hCS data require TCFT trace,
+    $S^3$-framing, BV anomaly trivialisation, gauge-fixing/RG
+    compatibility, and completion transition data.
+\end{enumerate}
+Then there is a natural quasi-isomorphism of completed
+$E_3^!$-coalgebras
+\[
+  \Psi_{\Lat^{3,3}}:
+  \Bar_{E_3}
+  \!\left(U^{\chir}_{\widehat F}(\gBKM_{\Lat^{3,3}})\right)
+  \xrightarrow{\ \simeq\ }
+  \widehat{\CE}^{\,*}_{\dbar,\chir,\mathrm{cont}}
+  \!\left(\gBKM_{\Lat^{3,3}},\C\right).
+\]
+With the equivariant replacement in condition \textup{(2)}, the map is
+$\sigma_q$-equivariant at chain level.  For another cofibrant model,
+the completed homotopy category carries the canonical equivariant
+class.
 
-\paragraph{Scope.} \emph{Chain-level:} Cycles~1--4 (lattice vertex
-algebra, explicit $\Bar_{E_{3}}$ via root-height, Fresse hypotheses
-(i)--(iii) checked directly, $\sigma_q$-strict equivariance).
-\emph{$(\infty,1)$-categorical:} Francis--Gaitsgory Thm.~6.2.1 lifted
-along Positselski coderived transfer; Fresse Thm.~12.3.A upgrade to
-$\Coalg_{E_3^!}$ equivalence. Both lanes load-bearing.
+\paragraph{Proof.}
+Francis--Gaitsgory identify chiral Lie algebras on the Ran space with
+factorisation coalgebras through chiral Koszul duality.  Fresse's
+operadic bar--cobar formalism applies to a cofibrant completed
+$E_3$-algebra whose bar filtration is complete and whose associated
+graded pieces are controlled.  Positselski's criterion is the
+completion input: a filtered morphism between separated complete
+objects is a quasi-isomorphism once its associated graded morphism is a
+quasi-isomorphism.
 
-\paragraph{Primary sources.}
+Apply these three facts first to each finite root-height quotient
+$U^{\chir}(F_{\leq h}\gBKM_{\Lat^{3,3}})$.  The PBW filtration has
+associated graded the chiral symmetric algebra on
+$F_{\leq h}\gBKM_{\Lat^{3,3}}$, so the associated graded bar complex is
+the cofree Koszul coalgebra on the shifted root-graded Lie object.
+Passing to the completed inverse limit gives
+\[
+  \operatorname{gr}_F
+  \Bar_{E_3}
+  \!\left(U^{\chir}_{\widehat F}(\gBKM_{\Lat^{3,3}})\right)
+  \cong
+  \widehat{\coCE}_{E_3^!}
+  \bigl(\operatorname{gr}_F\gBKM_{\Lat^{3,3}}[1]\bigr).
+\]
+On primitives, $E_3$-Koszul duality gives the shifted Lie coalgebra
+governed by the $E_3^!$ cooperad.  The bar differential is
+\[
+  d_{\Bar}=\dbar+d_{\gBKM}^{\vee}+d_{\chir}^{\vee},
+\]
+where $d_{\gBKM}^{\vee}$ is dual to the Borcherds bracket and
+$d_{\chir}^{\vee}$ is dual to the chiral diagonal operation.  The
+Chevalley--Eilenberg differential on
+$\widehat{\CE}^{\,*}_{\dbar,\chir,\mathrm{cont}}
+(\gBKM_{\Lat^{3,3}},\C)$ is the same sum.  Hence the associated graded
+map induced by the shuffle pairing is a quasi-isomorphism on every
+finite root-height quotient.  The Mittag--Leffler condition removes
+derived inverse-limit error terms, and Positselski convergence promotes
+these finite quotient quasi-isomorphisms to the displayed completed
+quasi-isomorphism $\Psi_{\Lat^{3,3}}$.
+
+\paragraph{Reflection and fixed points.}
+The reflection $\sigma_q$ preserves the lattice bilinear form and the
+chosen cocycle $\epsilon$, so it acts on
+$V_{\Lat^{3,3}}=M(\cH)\otimes\C_\epsilon[\Lat^{3,3}]$ by chiral
+automorphisms.  It also preserves the root-height filtration and the
+Borcherds bracket; hence it acts on
+$U^{\chir}_{\widehat F}(\gBKM_{\Lat^{3,3}})$ by completed
+$E_3$-algebra automorphisms.  The bar functor is functorial, so
+$\Bar_{E_3}(\sigma_q)$ is a completed $E_3^!$-coalgebra automorphism.
+The equivariant replacement in the theorem makes the shuffle map
+$\Psi_{\Lat^{3,3}}$ commute with $\sigma_q$ strictly.  A changed
+replacement changes the strict square by a specified homotopy.
+
+Because $\sigma_q$ has finite order and the ground field has
+characteristic zero, invariants are exact on each finite root-height
+quotient.  Add the exactness condition
+\[
+  \left(\varprojlim_h C_h\right)^{\sigma_q}
+  \cong
+  \varprojlim_h C_h^{\sigma_q}
+\]
+for the completed bar and CE inverse systems.  Then
+\[
+  \left(
+    \Bar_{E_3}
+    U^{\chir}_{\widehat F}(\gBKM_{\Lat^{3,3}})
+  \right)^{\sigma_q}
+  \simeq
+  \Bar_{E_3}
+  U^{\chir}_{\widehat F}(\gBKM_{\Delta_5}),
+\]
+and the fixed-point restriction of $\Psi_{\Lat^{3,3}}$ gives
+\[
+  \Bar_{E_3}
+  U^{\chir}_{\widehat F}(\gBKM_{\Delta_5})
+  \xrightarrow{\ \simeq\ }
+  \widehat{\CE}^{\,*}_{\dbar,\chir,\mathrm{cont}}
+  (\gBKM_{\Delta_5},\C).
+\]
+Thus the fixed-point statement is the finite-quotient averaging theorem
+plus commutation of averaging with the separated completion.
+
+\paragraph{Strict and homotopy Koszul morphisms.}
+The phrase ``strict Koszul morphism'' means that a chosen
+$\sigma_q$-equivariant cofibrant model makes the square
+\[
+\begin{array}{ccc}
+  \Bar_{E_3}U^{\chir}_{\widehat F}(\gBKM_{\Lat^{3,3}})
+  & \xrightarrow{\ \Psi_{\Lat^{3,3}}\ } &
+  \widehat{\CE}^{\,*}_{\dbar,\chir,\mathrm{cont}}
+  (\gBKM_{\Lat^{3,3}},\C) \\
+  \big\downarrow{\scriptstyle \Bar_{E_3}(\sigma_q)}
+  && \big\downarrow{\scriptstyle \CE^*(\sigma_q)} \\
+  \Bar_{E_3}U^{\chir}_{\widehat F}(\gBKM_{\Lat^{3,3}})
+  & \xrightarrow{\ \Psi_{\Lat^{3,3}}\ } &
+  \widehat{\CE}^{\,*}_{\dbar,\chir,\mathrm{cont}}
+  (\gBKM_{\Lat^{3,3}},\C)
+\end{array}
+\]
+commute as a square of complexes.  Francis--Gaitsgory supply the
+homotopy-invariant equivalence; Fresse and Positselski allow the strict
+model after cofibrant replacement and completion.  The strict statement
+is model-dependent, while the completed homotopy class is canonical.
+
+\paragraph{Borcherds weight and chiral scalar.}
+Koszul duality controls the bar/CE comparison.  The Borcherds-side
+invariant is an independent denominator weight:
+\[
+  \kBKM(\operatorname{Borch}(F))=\frac{c_F(0)}{2}.
+\]
+For the Igusa form $\Delta_5$ this gives
+\[
+  \kBKM(\Delta_5)=\frac{c_1(0)}{2}=\frac{10}{2}=5.
+\]
+For the primitive CHL ladder,
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\ \hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\Phi_N) & 5 & 4 & 3 & 2 & 1
+\end{array}
+\]
+and $\kBKM(\Phi_N)=\operatorname{wt}(\Phi_N)=c_N(0)/2$.
+The Gritsenko--Cl\'ery simplest-divisor catalogue is a separate
+eight-row list with twice-weight tuple
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+The monic Igusa denominator convention is
+\[
+  D_5=64^{-1}\Delta_5,\qquad
+  \operatorname{den}(\gBKM_{\Delta_5})=D_5(2Z).
+\]
+
+On $Y=K3\times E$ the separated invariants are
+\[
+  \kcat(Y)=0,\qquad
+  \kch(Y)=0,\qquad
+  \kchHeis(Y)=3,\qquad
+  \kBKM(\gBKM_{\Delta_5})=5,\qquad
+  \kfiber(Y)=24.
+\]
+They arise respectively from K\"unneth for $\chi(\mathcal O_Y)$, the
+compact Hodge supertrace, the Heisenberg--Mukai specialisation, the
+Borcherds denominator, and the Mukai-lattice rank.  At $d=3$ the
+native CY-to-chiral output is an $\Eone$ algebra; an $\Etwo$ structure
+lives on the appropriate centre or double after its hypotheses are
+constructed.
+
+\paragraph{Boundary of the theorem.}
+The theorem asserts local completed Koszul duality for the supplied
+root-filtered envelope.  Compact CY$_3$ global chain-level closure
+requires the all-scale hCS BV package, TCFT trace, $S^3$-framing
+comparison, anomaly cancellation, gauge-fixing homotopy, overlap RG
+compatibility, relative orientation, and completion transition system.
+The smooth toric statement is
+\[
+  \mathrm{CoHA}(\C^3)=Y^+(\widehat{\mathfrak{gl}}_1),
+\]
+the positive Hall half; the $\mathcal W_{1+\infty}$ comparison belongs
+to the Drinfeld double or centre.  The Hall--Drinfeld/BKM branch
+attached to $\Delta_5$ and the K3 self-mirror Yangian branch are
+separate objects.
+
+\paragraph{References.}
 \begin{itemize}
-\item L.~Positselski, \emph{Two Kinds of Derived Categories, Koszul
-Duality, and Comodule-Contramodule Correspondence}, Memoirs AMS
-212 no.~996 (2011), \S 6, \S 7, Thm.~6.6.1, Thm.~7.5.4.
-\item J.~Francis, D.~Gaitsgory, ``Chiral Koszul duality,''
-\emph{Selecta Math.}~18 (2012), \S 4.2, \S 4.5, Thm.~6.2.1.
-\item O.~Gwilliam, B.~R.~Williams, ``Higher Kac--Moody algebras
-and symmetries of holomorphic field theories,'' arXiv:2009.05037
-(2021), Thm.~3.3.1, \S 3.
-\item B.~Fresse, \emph{Homotopy of Operads and
-Grothendieck--Teichm\"uller Groups}, AMS SURV~217 (2017), Vol.~I
-Ch.~6, Ch.~12, Thm.~12.3.A, Thm.~14.1.A.
-\item V.~Drinfeld, ``Quasi-Hopf algebras,'' \emph{Leningrad Math.~J.}~1
-(1990), \S 3.
-\item A.~Beilinson, V.~Drinfeld, \emph{Chiral Algebras}, AMS Coll.~51
-(2004), \S 3.4.11, \S 3.6, \S 3.7.
-\item R.~E.~Borcherds, ``Vertex algebras, Kac--Moody algebras and the
-Monster,'' \emph{PNAS}~83 (1986); ``Monstrous moonshine and monstrous
-Lie superalgebras,'' \emph{Invent.~Math.}~109 (1992).
-\item E.~Getzler, J.~D.~S.~Jones, hep-th/9403055 (1994), \S 2.
+  \item J.\ Francis and D.\ Gaitsgory, \emph{Chiral Koszul duality},
+    Selecta Math.\ 18 (2012), 27--87; chiral Koszul equivalence on
+    Ran spaces.
+  \item L.\ Positselski, \emph{Two kinds of derived categories, Koszul
+    duality, and comodule-contramodule correspondence}, Memoirs AMS
+    212 no.~996 (2011); complete filtrations, coderived categories,
+    and conilpotent coalgebras.
+  \item B.\ Fresse, \emph{Homotopy of Operads and
+    Grothendieck--Teichmuller Groups}, AMS Surveys 217 (2017);
+    operadic bar--cobar and Koszul replacement.
+  \item A.\ Beilinson and V.\ Drinfeld, \emph{Chiral Algebras},
+    AMS Colloquium Publications 51 (2004); chiral enveloping algebras
+    and Ran-space functoriality.
+  \item R.\ E.\ Borcherds, \emph{Vertex algebras, Kac--Moody algebras
+    and the Monster}, Proc.\ Natl.\ Acad.\ Sci.\ USA 83 (1986), and
+    \emph{Monstrous moonshine and monstrous Lie superalgebras},
+    Invent.\ Math.\ 109 (1992).
+  \item R.\ E.\ Borcherds, \emph{Automorphic forms with singularities
+    on Grassmannians}, Invent.\ Math.\ 132 (1998), Theorem 13.3;
+    automorphic-product weight $c(0)/2$.
+  \item V.\ Gritsenko and V.\ Nikulin, \emph{Automorphic forms and
+    Lorentzian Kac--Moody algebras, I, II}, Internat.\ J.\ Math.\ 9
+    (1998), 153--199 and 201--275; the $\Delta_5$ denominator
+    algebra.
+  \item I.\ Frenkel, J.\ Lepowsky, and A.\ Meurman, \emph{Vertex
+    Operator Algebras and the Monster}, Academic Press, 1988.
+  \item O.\ Gwilliam and B.\ R.\ Williams, \emph{Higher Kac--Moody
+    algebras and symmetries of holomorphic field theories},
+    Adv.\ Theor.\ Math.\ Phys.\ 25 (2021).
 \end{itemize}

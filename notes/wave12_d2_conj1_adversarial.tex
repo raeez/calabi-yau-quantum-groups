@@ -1,13 +1,3 @@
-% Wave-12 D2/20 — Adversarial audit of Conjecture 1' (Vol III)
-% Programme: /Users/raeez/calabi-yau-quantum-groups
-% Prior input: wave11_w1 (current Conj 1' statement, post U2 retraction),
-%   wave11_u2 (BOP 2019 fabrication), wave10_r5 (simultaneous twining),
-%   wave8_i3 (dim S_5 arithmetic rigidity).
-% Subscripted kappa. No AI attribution. Author: Raeez Lorgat.
-
-\providecommand{\ClaimStatusTheorem}{\textsc{Theorem}}
-\providecommand{\ClaimStatusConjectured}{\textsc{Conjectured}}
-\providecommand{\ClaimStatusOpen}{\textsc{Open}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
@@ -16,201 +6,156 @@
 \providecommand{\Mtf}{M_{24}}
 \providecommand{\CM}{C_{\Mtf}}
 
-\section{Wave-12 D2: five adversarial holes in Conjecture~1$'$}
-\label{sec:wave12-d2-adversarial}
+\section{Five Proof Obligations for Conjecture~1$'$}
+\label{sec:conj1-proof-obligations}
 
-The Wave-11 W1 statement (post-U2 fabricated-BOP retraction) reads:
-$(1,\mathrm{id})$ is a theorem, $(N\ge 2,\mathrm{id})$ partial/conjectural,
-$N\in\{5,7,8\}$ is a distinct super-VOA theorem. This note attacks
-each Wave-11 ``theorem'' label from first principles; five structural
-holes are identified. Every hole is mathematics, not bookkeeping.
+Conjecture~1$'$ concerns the automorphic, BKM, DT, and moonshine
+realisations of the CHL forms attached to \(N\in\{1,2,3,4,6\}\) and to
+the exceptional \(N\in\{5,7,8\}\) super-VOA range.  The assertions below
+are the exact proof obligations left by the verified literature.
 
-\subsection*{Hole 1. The $\dim S_5(\Sp_4(\ZZ),\nu_{\Delta_5})=1$ claim is
-cited from a \emph{twisted} dimension formula that Ibukiyama--Wakatsuki 2014
-does \emph{not} cover.}
-\label{subsec:d2-hole-dim-s5-twisted}
+\subsection*{The Twisted Weight-Five Dimension}
+\label{subsec:twisted-weight-five-dimension}
 
-Wave-8 I3 Theorem~\ref{thm:dim-S5-one} cites Pitale--Schmidt 2014
-(\emph{JNT} 134) as ``completing'' the twisted dimension
-$\dim S_5(\Sp_4(\ZZ),\nu_{\Delta_5})$ from Weissauer's untwisted
-Hilbert series. Ibukiyama--Wakatsuki 2014 (arXiv:1305.4886),
-\emph{``Siegel cusp forms of degree two and trace formula
-for Hecke operators''}, is the standard trace-formula reference
-for $\Sp_4(\ZZ)$-dimension computation and computes
-$\dim S_k(\Sp_4(\ZZ))$ on \emph{trivial} character at weight
-$k\ge 3$ via Hashimoto's explicit formula. Neither paper
-tabulates $\dim S_5(\Sp_4(\ZZ),\nu_{\Delta_5})$ directly; the
-Wave-8 I3 proof outline interpolates
-$J^{\mathrm{cusp}}_{5,1}\cong S_6(\mathrm{SL}_2(\ZZ))=0$
-(Eichler--Zagier), then asserts one-dimensionality by
-``Saito--Kurokawa non-lift''.
+The existence of the Igusa square-root denominator comes from the
+Gritsenko-Nikulin/Borcherds lift
+\[
+  \operatorname{Bor}(\phi_{0,1})=\Delta_5 .
+\]
+Uniqueness in the line
+\[
+  S_5(\Sp_4(\ZZ),\nu_{\Delta_5})
+\]
+requires a dimension computation for the sign-character space.  The
+untwisted trace formula of Ibukiyama-Wakatsuki applies to
+\(S_k(\Sp_4(\ZZ))\) with trivial character.  The Fourier-Jacobi
+injection sends the twisted space into Jacobi forms with the
+corresponding theta multiplier:
+\[
+  S_5(\Sp_4(\ZZ),\nu_{\Delta_5})
+  \hookrightarrow
+  \bigoplus_{m\ge 1}
+  J^{\mathrm{cusp}}_{5,m}
+  (\mathrm{SL}_2(\ZZ),\nu_{\Delta_5}^{1/2}) .
+\]
+The first coefficient lies in the half-integral theta-multiplier space,
+so the comparison with the untwisted identity
+\[
+  J^{\mathrm{cusp}}_{5,1}(\mathrm{SL}_2(\ZZ))\cong
+  S_6(\mathrm{SL}_2(\ZZ))=0
+\]
+proves no dimension statement for the sign-character space.  The
+remaining obligation is a direct trace computation for
+\(\nu_{\Delta_5}\), or a primary theorem proving
+\(\dim S_5(\Sp_4(\ZZ),\nu_{\Delta_5})=1\).
 
-\emph{Gap.} Eichler--Zagier maps $S_k(\Sp_4(\ZZ),\nu_{\Delta_5})
-\hookrightarrow \bigoplus_{m\ge 1} J^{\mathrm{cusp}}_{k,m}
-(\mathrm{SL}_2(\ZZ),\nu^{1/2}_{\Delta_5})$ only when the theta-multiplier
-$\nu^{1/2}_{\Delta_5}$ extends to the Jacobi group; for the binary
-sign character of $\Sp_4(\ZZ)^{\mathrm{ab}}=\ZZ/2\ZZ$ this extension
-introduces a half-integer theta shift. The first Fourier-Jacobi
-coefficient $\phi_1\in J^{\mathrm{cusp}}_{5,1}(\mathrm{SL}_2(\ZZ),\nu^{1/2})$
-is \emph{not} $J^{\mathrm{cusp}}_{5,1}(\mathrm{SL}_2(\ZZ))$; the latter
-is $S_6$, but the twisted space can have dimension $0$ or $1$
-independently. The Wave-8 cite ``Pitale--Schmidt 2014 Tables 1-2,
-completed computation'' is not independently verified; the actual
-Pitale--Schmidt 2014 paper treats $\mathrm{GSp}_4$ representation-theoretic
-lifts, not $\Sp_4(\ZZ)$ twisted dimensions. \textbf{Status:
-$\dim S_5(\Sp_4(\ZZ),\nu_{\Delta_5})=1$ is \ClaimStatusConjectured{}
-until either a direct Hashimoto trace computation on $\nu_{\Delta_5}$
-is exhibited or Gritsenko--Nikulin 1998 is shown to prove it (they
-prove \emph{existence} of $\Delta_5$ as the lift of $\phi_{0,1}$,
-\emph{not} uniqueness in the twisted space).}
+\subsection*{Scalar Normalisation of the Four Constructions}
+\label{subsec:scalar-normalisation}
 
-\subsection*{Hole 2. Four $c=-214$ derivations convergence: uniqueness
-forces coincidence \emph{up to scalar}, not to the \emph{same} scalar.}
-\label{subsec:d2-hole-four-derivations}
-
-Wave-8 I3 Proposition~\ref{prop:four-c-minus-214} states that four
-mechanically disjoint constructions (Arthur CAP, Kudla-Millson theta,
-Harvey-Moore $c=-214$, Borcherds $c_1(0)/2$) land in $S_5$ and are
-therefore scalar multiples of $\Delta_5$. The proposition then asserts
-$C_1=C_2=C_3=C_4=1$ is a ``theorem (not a free match)'' provided
-$a(T_0)=1$ is the shared normalisation.
-
-\emph{Adversarial finding.} The shared-normalisation hypothesis is
-precisely what needs proof. The four constructions operate in
-different normalisation conventions:
-\begin{enumerate}[label=(\roman*)]
-\item Arthur CAP-projection is normalised by the Arthur $SL_2$ packet
-multiplicity, fixed only up to a sign $(\pm 1)$ by the
-Arthur-endoscopic formula (Ta\"ibi 2019 gives $+1$ for $\Sp_4$ but
-not for the $\nu_{\Delta_5}$-twisted case);
-\item Kudla-Millson theta lift normalisation is fixed by the
-Heegner-divisor class of $H_1\subset\mathcal{A}_2$; the Bruinier-Funke
-regulator introduces a factor of $c_1(0)/2$ which is the very number
-under test (circularity);
-\item Harvey-Moore heterotic vacuum normalisation is convention-dependent
-(affected by the charge-lattice choice and the GSO projection sign);
-\item Borcherds' $c_1(0)/2$ normalisation is fixed by the Jacobi-form
-constant-term coefficient.
+If the twisted weight-five space is one-dimensional, the Arthur,
+Kudla-Millson, Harvey-Moore, and Borcherds constructions land on a
+common line:
+\[
+  F_i=C_i\Delta_5,\qquad i=1,2,3,4 .
+\]
+The equality \(C_1=C_2=C_3=C_4=1\) is four scalar normalisation
+theorems.  The normalisations come from different data:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Arthur packet multiplicities and endoscopic signs;
+\item the Heegner divisor class and the Bruinier-Funke regulator in the
+Kudla-Millson lift;
+\item heterotic charge-lattice and GSO conventions in the
+Harvey-Moore vacuum amplitude;
+\item the Jacobi constant term in the Borcherds lift.
 \end{enumerate}
-The statement $C_i=1$ for all $i$ is therefore four independent
-normalisation-matching theorems, one per construction, not a
-consequence of $\dim S_5=1$. \textbf{Status:
-$C_1=C_2=C_3=C_4$ as numerical identity is \ClaimStatusOpen{};
-up-to-scalar coincidence $\{C_i\Delta_5\}$ is theorem-forced, but this
-is strictly weaker than what Wave-8 / Wave-11 claim.}
+Line uniqueness gives scalar proportionality.  Equality of the scalars
+requires matching a single Fourier, divisor, or BPS coefficient in each
+normalisation, using the same primitive denominator convention.
 
-\subsection*{Hole 3. Oberdieck-Pixton 2017 is explicit only for
-primitive K3-factor classes at $N=1$; no low-rank $(N,\mathrm{id})$
-analog is explicitly computed.}
-\label{subsec:d2-hole-oberdieck-explicit}
+\subsection*{The DT Range Beyond the Primitive \(N=1\) Case}
+\label{subsec:dt-range}
 
-Wave-11 W1 labels $(2,\mathrm{id})$ and $(3,\mathrm{id})$ as
-\ClaimStatusTheorem{} with primary input ``BOP 2019, Oberdieck 2018''.
-Wave-11 U2 retracted BOP 2019 as fabricated. The residual citation
-``Oberdieck 2018'' is Oberdieck-Pandharipande 2014 (arXiv:1411.1514,
-\emph{conjectural at $N=1$}) plus Oberdieck-Pixton 2017
-(\emph{Invent.\ Math.}\ 222 (2020); theorem at $N=1$ for
-\emph{primitive-in-K3-factor} classes only).
+Oberdieck-Pixton prove the \(K3\times E\) reduced theory for primitive
+K3-factor classes in the \(N=1\) setting.  Bryan-Oberdieck prove
+selected primitive \(N=2\) base cases with square in \(\{-2,0\}\) by
+topological-vertex methods.  The general assertions
+\[
+  Z^{\mathrm{DT}}_{[K3\times E/\ZZ_N]}
+  =
+  -\,\Phi_N^{-1},
+  \qquad
+  N\in\{2,3,4,6\},
+\]
+require new input: the reduced obstruction theory on the quotient, the
+orientation line, the primitive-to-imprimitive divisor sums, and the
+comparison with the CHL Borcherds product.  The verified literature
+supplies the \(N=1\) primitive theorem and selected \(N=2\) checks; the
+remaining CHL rows require their own DT proof.
 
-\emph{Adversarial finding.} No paper in the verified literature
-makes $Z^{\mathrm{DT}}_{[K3\times E/\ZZ_N]} = -1/\Phi_N$ a theorem
-at any $N\ge 2$. The Bryan-Oberdieck 2018 (arXiv:1811.06102) paper
-proves \emph{base cases at $N=2$, primitive, square $\in\{-2,0\}$}
-via topological vertex; the general curve class at $N=2$ is
-conjectural, and $N\in\{3,4,6\}$ has no base-case theorem at all.
-\textbf{Status: Wave-11 W1 Table rows $(N,\mathrm{id})$ for
-$N\in\{2,3,4,6\}$ are \ClaimStatusConjectured{}, not
-\ClaimStatusTheorem{}. The W1 table overstates by four rows.}
+\subsection*{Automorphic Product Versus BKM Denominator}
+\label{subsec:automorphic-product-bkm}
 
-\subsection*{Hole 4. Cl\'ery-Gritsenko 2013 Theorem 5.1 proves paramodular
-\emph{cusp forms exist}, not that they are \emph{BKM denominators}.}
-\label{subsec:d2-hole-clery-gritsenko-bkm}
+Clery-Gritsenko construct paramodular Siegel cusp forms and write
+explicit multiplicative products.  A BKM denominator theorem requires
+additional root-theoretic data.  The product must determine a
+Lorentzian lattice, a Weyl chamber, real simple roots, imaginary simple
+roots, parity, and Borcherds-Serre relations with multiplicities
+\[
+  \mathrm{mult}(\alpha)
+  =
+  c_{g,h}\!\left(\frac{\alpha^2}{2},\alpha\cdot \ell\right).
+\]
+Borcherds' automorphic-product machinery supplies this conclusion under
+its singular-weight and lattice hypotheses.  For the CHL weights
+\[
+  k_N=\frac{10}{N+1},\qquad N\in\{2,3,4,6\},
+\]
+those hypotheses must be checked for the actual lattice and character.
+The automorphic form and its infinite product are established inputs;
+the finite BKM recognition is a separate theorem.
 
-Wave-10 R5 and Wave-11 W1 invoke Cl\'ery-Gritsenko 2013
-(\emph{Nagoya Math.\ J.}\ 199) Theorem~1.1 / Theorem~5.1 as
-furnishing the exponential Borcherds lift of the twisted-twined
-Jacobi form $\phi_{g,h}$ to a paramodular Siegel form
-$\Phi^{(g,h)}_{10}$ whose reciprocal is the DT partition function.
-Cl\'ery-Gritsenko's actual theorem proves the \emph{existence and
-automorphy} of the lifted form and gives its \emph{infinite-product
-expansion}; it does \emph{not} prove that the lifted form is a
-\emph{BKM denominator identity} in the sense of Borcherds 1995.
+\subsection*{The \(M_{24}\) Third-Cohomology Input}
+\label{subsec:m24-third-cohomology}
 
-\emph{Gap.} A BKM denominator identification requires that the
-infinite product admit a \emph{real-simple-root} interpretation
-(positive-norm roots of the superalgebra) together with
-\emph{imaginary-simple-roots} whose multiplicities satisfy the
-Borcherds superalgebra Serre relations. Cl\'ery-Gritsenko produces
-a Siegel paramodular form; Borcherds 1995 Theorem 10.1 converts a
-\emph{singular-weight} automorphic product into a BKM denominator,
-which requires the lifted Jacobi form's polar part to encode a
-Lorentzian lattice with hyperbolic Weyl chamber. The Wave-11 W1
-identification
-$\mathrm{mult}(\alpha) = c_{g,h}(\alpha^2/2, \alpha\cdot\ell)$ holds
-\emph{if} the Siegel form is of singular weight $(\mathrm{rk}\Lambda-2)/2$,
-which at weight $k_N = 10/(N+1) < 5$ for $N\ge 2$ on a Lorentzian
-lattice of rank $\le 26$ is \emph{not automatic}.
-\textbf{Status: BKM-denominator interpretation of $\Phi^{(g,h)}_{k_N}$
-at $N\ge 2$ is \ClaimStatusConjectured{}, not \ClaimStatusTheorem{};
-Cl\'ery-Gritsenko provides automorphy, not BKM structure.}
+The Mathieu cocycle input uses
+\[
+  H^3(M_{24},U(1))\cong\ZZ/12\oplus\ZZ/2 .
+\]
+Mason's 1994 paper computes the Schur multiplier and studies the quantum
+double context.  Gaberdiel-Persson-Volpato cite the third cohomology
+calculation to Thomas and to finite-group cohomology computations.  The
+programme needs a reproducible computation of the displayed group and
+of its restriction to the cyclic subgroups generated by the relevant
+CHL elements.
 
-\subsection*{Hole 5. $H^3(\Mtf,U(1))=\ZZ/12\oplus\ZZ/2$ is cited as
-``theorem'' but the standard reference proves only cohomology with
-integer coefficients; the $U(1)$-coefficient form requires an extra step.}
-\label{subsec:d2-hole-h3-mason}
+For \(N=6\), restriction to \(C_6\) already shows the issue:
+\[
+  H^3(C_6,U(1))\cong\ZZ/6 .
+\]
+The \(\ZZ/12\)-summand has a nontrivial kernel under reduction modulo
+six, and the additional \(\ZZ/2\)-summand is third cohomology.  The
+perfectness identity \(H_1(M_{24},\ZZ)=0\) records degree-one
+abelianisation and gives no third-cohomology vanishing.  Vanishing of
+the K3 sigma-model cocycle on each CHL cyclic subgroup is therefore an
+explicit restriction calculation.
 
-Wave-10 R5 and Wave-11 W1 cite Mason 1994 (\emph{Proc.\ London Math.\ Soc.})
-for $H^3(\Mtf,U(1))\cong\ZZ/12\oplus\ZZ/2$. The actual Mason 1994 paper
-(``The quantum double of a finite group and its role in conformal field
-theory'') computes the Schur multiplier $H^2(\Mtf,\mathbb{C}^\times)=\ZZ/2$
-and discusses the fusion-category third cohomology, but does not give
-the full $H^3(\Mtf,U(1))$.
+\subsection*{Conclusion}
+\label{subsec:conj1-proof-obligation-conclusion}
 
-\emph{Adversarial finding.} The decomposition
-$H^3(\Mtf,U(1))=\ZZ/12\oplus\ZZ/2$ appears in Gaberdiel-Persson-Volpato
-2013 (arXiv:1211.7074) \S 4, \emph{cited} to Thomas 1986
-(``$K$-theory of finite groups'') and to explicit cocycle computations
-of the Mathieu group via the MAGMA/GAP cohomology package. The claim
-is \emph{computational}, not a published theorem. The $\ZZ/12$-factor
-generator $[\alpha_{K3}]$ of the K3 sigma-model cocycle is identified
-via the transgression $H^4(BM_{24},\ZZ)\to H^3(\Mtf,U(1))$, and
-vanishing on the $N\in\{1,2,3,4,6\}$-slice is stated but the
-transgression kernel is not independently verified at each order.
+The \(N=1\) primitive automorphic denominator is supported by the
+Gritsenko-Nikulin/Borcherds construction and the K3 reduced DT theorem.
+The full Conjecture~1$'$ package requires five additional arguments:
+the sign-character weight-five dimension, four scalar normalisations,
+CHL quotient DT theorems for \(N\in\{2,3,4,6\}\), BKM recognition for
+the paramodular products, and the \(M_{24}\) third-cohomology
+restriction calculation.
 
-\emph{Concrete hole.} For $N=6$, the kernel of
-$H^3(\Mtf,U(1))\to H^3(\langle g_6\rangle,U(1))=\ZZ/6$ contains
-$\ZZ/12/\ZZ/6=\ZZ/2$, so the restriction is \emph{not} injective;
-the $\ZZ/2$-image could be non-zero and must vanish independently.
-Wave-11 W1's ``$N\mid 12$ therefore restriction is zero'' argument
-is valid modulo $\ZZ/12$ but does not handle the residual $\ZZ/2$
-summand beyond the ``Mathieu is perfect, so $M_{24}^{\mathrm{ab}}=0$''
-assertion; the $\ZZ/2$-summand of $H^3(\Mtf,U(1))$ is \emph{not}
-$M_{24}^{\mathrm{ab}}$ (one is third cohomology, other is first
-homology abelianisation); these are different groups.
-\textbf{Status: $H^3(\Mtf,U(1))=\ZZ/12\oplus\ZZ/2$ is
-\ClaimStatusConjectured{} pending a direct verification
-(GAP/MAGMA output is not a published theorem); vanishing on the
-programme slice requires independent calculation at each $N$.}
-
-\paragraph{Consolidated Wave-12 D2 verdict.}
-Conjecture~1$'$ currently carries \emph{one} primary-source-verified
-theorem ($(1,\mathrm{id})$, up to the Hole 1 twisted-dimension caveat
-and the Hole 2 normalisation-matching gap), \emph{four} row
-overstatements ($(N,\mathrm{id}),\ N\in\{2,3,4,6\}$, Hole 3), a
-\emph{BKM-structural} gap at all $N\ge 2$ (Hole 4), and a
-\emph{cohomology-computational} gap at the $M_{24}$-cocycle level
-(Hole 5). The corrected status table replaces six
-\ClaimStatusTheorem{} with one theorem (with two caveats) and five
-conjectures. Conjecture~1$'$ post-Wave-12 is \ClaimStatusConjectured{}
-on rows $N\ge 2$, with $(1,\mathrm{id})$ theorem-status contingent on
-Holes 1 and 2 being resolved.
-
-\paragraph{Primary literature invoked.}
-Ibukiyama--Wakatsuki, arXiv:1305.4886 (2014); Cl\'ery--Gritsenko,
-\emph{Nagoya Math.\ J.}\ 199 (2010), arXiv:0812.3962 (2013 revision);
-Gaberdiel--Persson--Volpato, arXiv:1211.7074 (2013); Mason,
-\emph{Proc.\ London Math.\ Soc.}\ (1994); Gritsenko--Nikulin
-1995, 1998; Borcherds 1995 (\emph{Invent.\ Math.}\ 120); Oberdieck--Pixton,
-\emph{Invent.\ Math.}\ 222 (2020); Bryan--Oberdieck, arXiv:1811.06102
-(2018); Pitale--Schmidt, \emph{JNT} 134 (2014); Ta\"ibi 2019
-(endoscopic multiplicities).
+\paragraph{Primary Sources.}
+Ibukiyama-Wakatsuki, arXiv:1305.4886 (2014); Clery-Gritsenko,
+\emph{Nagoya Math.\ J.}\ 199 (2010), arXiv:0812.3962; Gaberdiel,
+Persson, and Volpato, arXiv:1211.7074 (2013); Mason,
+\emph{Proc.\ London Math.\ Soc.}\ (1994); Gritsenko-Nikulin 1995,
+1998; Borcherds, \emph{Invent.\ Math.}\ 120 (1995);
+Oberdieck-Pixton, \emph{Invent.\ Math.}\ 222 (2020);
+Bryan-Oberdieck, arXiv:1811.06102 (2018); Pitale-Schmidt,
+\emph{JNT} 134 (2014); Taibi 2019.

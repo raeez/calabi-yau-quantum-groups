@@ -1,199 +1,254 @@
-% =====================================================================
-% Wave-11 U3/20: Motivic DT extension at CHL level N >= 2
-% Target: Z^{red, mot}_{DT}([X^{(N)}]) = -C^{mot}_N / (F^{GC}_N)^{2, mot}
-% Author: Raeez Lorgat. Primary sources: Maulik-Toda 2018, BCY 2013,
-% KS 2008, Oberdieck-Shen 2020. Five attack-heal cycles below.
-% =====================================================================
+\section{Motivic Donaldson-Thomas Theory for CHL Quotients}
+\label{wn:sec:motivic-DT-CHL-N-ge-2}
 
-\section{Motivic Donaldson--Thomas at CHL level
-\texorpdfstring{$N\geq 2$}{N geq 2}:
-$Z^{\mathrm{red},\mathrm{mot}}_{\mathrm{DT}}([X^{(N)}])
-= -C^{\mathrm{mot}}_N / (F^{\mathrm{GC}}_N)^{2,\mathrm{mot}}$}
-\label{wn:sec:motivic-DT-wave11-u3-CHL-N-ge-2}
-
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
-\providecommand{\ClaimStatusAxiomatic}{\textbf{[Ax]}}
 \providecommand{\DTmot}{Z^{\mathrm{red},\mathrm{mot}}_{\mathrm{DT}}}
-\providecommand{\DTnum}{Z^{\mathrm{red}}_{\mathrm{DT}}}
-\providecommand{\FGC}{F^{\mathrm{GC}}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\FCHL}{F^{\mathrm{CHL}}}
+\providecommand{\FDD}{F^{\mathrm{dd}}}
 \providecommand{\Lmot}{\mathbb L^{1/2}}
 \providecommand{\KSring}{\mathcal M^{\widehat\mu}_{\mathbb C}}
 \providecommand{\MOmot}{\Omega^{\mathrm{mot}}}
+\providecommand{\PhiOP}{\Phi_{10}^{\mathrm{OP}}}
+\providecommand{\Phiun}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
-\paragraph{Target.} Wave-10 R3/R4 placed the numerical reduced DT at
-$N\in\{2,3,4,6\}$ as \ClaimStatusTheorem{} via Bryan--Steinberg 2014
-composition on $[X^{(N)}]=[K3\times E/\Z_N]$
-\textup{(}\S\ref{wn:sec:bcy-orbifold-DT-wave9-m1-N46}\textup{)}.
-At $N=1$ the motivic refinement is \ClaimStatusTheorem{} via
-Maulik--Toda 2018 Behrend cosection on the reduced class of
-$S\times E$. Wave-11 U3 extends to $N\geq 2$:
-\begin{equation}
-\DTmot^{[X^{(N)}]}(q,p,y;\Lmot)
-\;=\;-\,\frac{C^{\mathrm{mot}}_N(q,y;\Lmot)}{\bigl(\FGC_{k_N}(q,p,y)\bigr)^{2,\mathrm{mot}}},
-\qquad k_N=c_N(0)/2,
-\label{wn:eq:motivic-DT-CHL-N-ge-2}
-\end{equation}
-valued in $\KSring[\Lmot]$ (Kontsevich--Soibelman motivic ring with
-$\widehat\mu$-equivariant structure), specialising to the numerical zeta
-under $\Lmot\mapsto 1$ (Joyce--Song reduction).
+\paragraph{The quotient.}
+Let $S$ be a K3 surface, let $E$ be an elliptic curve, let $g_N$ be a
+symplectic automorphism of $S$ of order $N$, and let $t_N$ be
+translation by a point of exact order $N$ on $E$, where
+$N\in\{1,2,3,4,6\}$. Put
+\[
+  G_N=\langle(g_N,t_N)\rangle,\qquad
+  X_N=(S\times E)/G_N .
+\]
+For every $a\in\{1,\ldots,N-1\}$, the translation $t_N^a$ has no fixed
+point on $E$. Hence $(g_N^a,t_N^a)$ has no fixed point on $S\times E$,
+even when $g_N^a$ fixes points on $S$. The quotient map
+\[
+  \pi_N:S\times E\longrightarrow X_N
+\]
+is finite \'etale of degree $N$. The holomorphic form
+$\Omega_S\wedge dz_E$ descends because $g_N^*\Omega_S=\Omega_S$ and
+translations preserve $dz_E$. Thus $X_N$ is a smooth projective
+threefold with trivial canonical bundle. The Du Val strata of
+$S/\langle g_N\rangle$ enter as surface degeneration charts, while the
+diagonal threefold quotient remains smooth.
 
-\paragraph{Cycle U3.A (Maulik--Toda cosection at $N\geq 2$).}
-\textsc{Attack.} Maulik--Toda 2018 arXiv:1810.11568 construct motivic
-DT on K3-fibred CY$_3$ via Behrend cosection: the reduced obstruction
-theory on $\Hilb^n(X,\beta_h)$ has a $1$-form shift $\sigma:\mathrm{Ob}
-\to\cO$ contracting against the holomorphic symplectic form on the K3
-fibre, giving a $\Lmot$-refined class. Does $\sigma$ descend to
-$[X^{(N)}]$?
-\textsc{Heal.} The Nikulin $g_N\in\mathrm{Co}_0$ is \emph{symplectic}
-by AP-CY admissibility at $N\in\{2,3,4,6\}$ (Mukai 1988 Thm.~0.1;
-Hashimoto 2012 Tohoku 64:105). The holomorphic two-form $\omega_{K3}$
-is $g_N$-invariant; the cosection $\sigma$ is $\Z_N$-equivariant and
-descends to $\sigma_{[X^{(N)}]}$ on
-$\Hilb^n([X^{(N)}],\beta)$. Maulik--Toda Prop.~3.4 applies verbatim:
-the $\Lmot$-refined motivic class
-$[\Hilb^n([X^{(N)}],\beta)]^{\mathrm{vir},\mathrm{mot}}_{\sigma}
-\in\KSring[\Lmot]$ is defined and has virtual dimension zero after
-cosection localisation. \textbf{Motivic reduced virtual class at
-$N\geq 2$ exists} \ClaimStatusTheorem{} for symplectic Nikulin
-actions.
+\paragraph{Surface local data.}
+The K3 quotient supplies the cyclic surface charts used in vertex and
+degeneration calculations. The elliptic translation removes fixed
+points from the threefold quotient and leaves the surface chart types
+unchanged.
 
-\paragraph{Cycle U3.B (BCY motivic orbifold vertex).}
-\textsc{Attack.} Bryan--Cadman--Young 2013 JAMS 28:163 define the
-motivic orbifold topological vertex on $[\C^3/G]$ for finite abelian
-$G\subset\SO(3)$. Does the motivic refinement glue to a global
-$[X^{(N)}]$?
-\textsc{Heal.} The local BCY motivic vertex is a class
-$V^{\mathrm{mot}}_{[\C^3/\Z_N]}(q;\Lmot)\in\KSring[\Lmot]$ attached
-to each $\Z_N$-fixed point on the elliptic-fibration degeneration
-$\pi:[X^{(N)}]\to\mathbb P^1_{\mathrm{nodal}}$. Bryan--Steinberg 2014
-JAMS 29:337 prove the motivic orbifold vertex glues along the MNOP
-degeneration formula, $\Lmot$-equivariantly. The assembly is a finite
-product of local $V^{\mathrm{mot}}$ over the fixed-point strata
-$\mathrm{Fix}(g_N)\subset K3$ decorated by the Euler pairing with
-$E/\langle e_0\rangle$. For $N=4$: $4$ $A_3$-points contribute
-$\bigl(V^{\mathrm{mot}}_{A_3}\bigr)^4$; for $N=6$: $2$ $E_6$-points
-$+$ $2$ $A_5$-points contribute
-$\bigl(V^{\mathrm{mot}}_{E_6}\bigr)^2\bigl(V^{\mathrm{mot}}_{A_5}\bigr)^2$.
-The global motivic zeta on $[X^{(N)}]$ assembles via the BCY--Bryan--Steinberg
-motivic gluing. \textbf{Motivic BCY on $[X^{(N)}]$ at
-$N\in\{4,6\}$} \ClaimStatusConjectured: gluing is proved for toric
-orbifold CY$_3$; the globalisation to a K3-fibred quotient at $N=4$
-requires $\Z_4$-equivariant motivic MNOP, open input.
+For order $4$, Nikulin-Mukai fixed point counts give four points fixed
+by $g_4$ and eight points fixed by $g_4^2$. The four $g_4$-fixed points
+give four $A_3$ singularities on $S/\langle g_4\rangle$. The remaining
+four $g_4^2$-fixed points form two $g_4$-orbits with stabilizer
+$\mathbb Z/2$, hence two $A_1$ singularities. The surface type is
+\[
+  4A_3+2A_1,
+\]
+and the local motivic factor is
+\[
+  \bigl(V^{\mathrm{mot}}_{A_3}\bigr)^4
+  \bigl(V^{\mathrm{mot}}_{A_1}\bigr)^2 .
+\]
+For order $6$, the fixed point counts are
+\[
+  \#\mathrm{Fix}(g_6)=2,\qquad
+  \#\mathrm{Fix}(g_6^2)=6,\qquad
+  \#\mathrm{Fix}(g_6^3)=8.
+\]
+Subtracting stabilizers gives the Du Val type
+\[
+  2A_5+2A_2+2A_1,
+\]
+and the local motivic factor is
+\[
+  \bigl(V^{\mathrm{mot}}_{A_5}\bigr)^2
+  \bigl(V^{\mathrm{mot}}_{A_2}\bigr)^2
+  \bigl(V^{\mathrm{mot}}_{A_1}\bigr)^2 .
+\]
 
-\paragraph{Cycle U3.C (KS motivic wall-crossing).}
-\textsc{Attack.} Kontsevich--Soibelman 2008 arXiv:0811.2435 \S6--7
-construct motivic DT invariants $\MOmot(\gamma)\in\KSring[\Lmot]$ and
-prove motivic wall-crossing on $\mathrm{Stab}(D^b(X))$. At CHL level,
-does the formula carry motivic weight?
-\textsc{Heal.} The Bridgeland stability space
-$\mathrm{Stab}(D^b([X^{(N)}]))$ is connected to
-$\mathrm{Stab}(D^b(X))$ by the $\Z_N$-equivariant forgetful map
-(Bridgeland 2007 Ann.\ Math.\ 166:317; Macr\`i 2014 for orbifold
-stability). The KS motivic wall-crossing formula
-$\mathbb E_{\mathrm{mot}}(\gamma_1+\gamma_2)=\mathbb E_{\mathrm{mot}}
-(\gamma_1)\mathbb E_{\mathrm{mot}}(\gamma_2)$ in the motivic quantum
-torus generalises to $\Z_N$-equivariant stability by KS \S4.4. The
-motivic BPS invariants satisfy
-$\MOmot([X^{(N)}];\gamma)=\MOmot(X;\gamma)^{\Z_N\text{-inv}}
-+\bigoplus_{s=1}^{N-1}\MOmot(X;\gamma)^{\Z_N,\zeta^s}\otimes
-[\mathrm{tw}_s]$, the decomposition into $g_N$-invariant and twisted
-sectors, weighted by $\Lmot^{\mathrm{age}(s)}$ (age grading from
-orbifold cohomology, Chen--Ruan 2004). \textbf{KS motivic
-wall-crossing carries through at $N\geq 2$} \ClaimStatusConjectured:
-$\Z_N$-equivariant motivic wall-crossing is stated in KS~\S4.4 but
-the explicit automorphic identification with
-$(F^{\mathrm{GC}}_{k_N})^{2,\mathrm{mot}}$ is not proved in the
-literature.
+\paragraph{Reduced motivic class.}
+Maulik-Toda's reduced obstruction theory for a K3-fibred CY$_3$ uses
+the K3 holomorphic two-form to define a cosection of the obstruction
+sheaf. Since $g_N$ is symplectic, this two-form is $G_N$-invariant, and
+the cosection descends through the finite \'etale quotient. With a
+$G_N$-equivariant moduli problem and compatible orientation data fixed,
+the reduced motivic class lies in $\KSring[\Lmot]$.
 
-\paragraph{Cycle U3.D ($\MOmot$ vs numerical $\Omega$: the Poincar\'e
-variable).}
-\textsc{Attack.} The motivic BPS invariant
-$\MOmot(\gamma;\Lmot)\in\Z[\Lmot^{\pm 1}]$ refines
-$\Omega(\gamma)=\MOmot(\gamma;\Lmot=1)$. Does the CHL refinement
-match the refined Poincar\'e polynomial of the moduli?
-\textsc{Heal.} At $N=1$, Maulik--Toda 2018 Thm.~1.2 identifies
-$\MOmot(K3\times E;\gamma)$ with the Poincar\'e polynomial of the
-reduced moduli, matching Oberdieck--Shen 2020 Invent.\ Math.\ 228:255
-K-theoretic PT generating function
-$Z^{\mathrm{K},\mathrm{red}}_{\mathrm{PT}}=\widetilde\Phi_{10}^{-1}$
-under $\Lmot\mapsto y$ (K-theoretic variable). At $N\geq 2$, the
-$\Z_N$-equivariant refinement
-$\MOmot([X^{(N)}];\gamma)=P_{\Z_N}(\mathrm{Hilb}^n;\Lmot)$ is the
-$\Z_N$-equivariant Poincar\'e polynomial; specialising
-$\Lmot\mapsto y$ gives the Oberdieck--Shen orbifold K-theoretic PT
-series. The numerical truncation $\Lmot\mapsto 1$ recovers the
-Wave-9 M1 numerical reduced DT
-$\DTnum^{[X^{(N)}]}=-C_N/(\FGC_{k_N})^2$
-\textup{(}\eqref{wn:eq:DTred-orbifold-N46-explicit}\textup{)}.
-\textbf{Motivic/K-theoretic/numerical ladder} \ClaimStatusConjectured{}
-at $N\geq 2$: the three-way comparison $\MOmot\leftrightarrow
-\text{K-PT}\leftrightarrow\text{numerical}$ is proved at $N=1$;
-the orbifold extension reduces to U3.B globalisation.
+At $N=1$, the Maulik-Toda and Oberdieck-Shen reduced K3$\times E$
+theorem gives the reduced DT/PT scalar. For $N\in\{2,3,4,6\}$, the CHL
+motivic formula requires three additional hypotheses:
+\[
+\begin{gathered}
+  \text{equivariant reduced motivic degeneration for the K3 fibration,}\\
+  \text{descent of the orientation line through }G_N,\\
+  \text{identification of the Kontsevich-Soibelman motivic}\\
+  \text{quantum dilogarithm with the CHL denominator.}
+\end{gathered}
+\]
+Under these hypotheses the identity is
+\[
+  \DTmot^{X_N}(q,p,y;\Lmot)
+  =
+  -\,\frac{C^{\mathrm{mot}}_N(q,y;\Lmot)}
+          {(\FCHL_N(q,p,y))^{2,\mathrm{mot}}},
+  \qquad
+  \mathrm{wt}(\FCHL_N)=\frac{c_N(0)}2 .
+\]
 
-\paragraph{Cycle U3.E (Oberdieck--Shen intermediate K-theoretic data).}
-\textsc{Attack.} Oberdieck--Shen 2020 arXiv:2005.09087 prove
-K-theoretic reduced PT on $K3\times E$ equals
-$\widetilde\Phi_{10}^{-1}$, lying between numerical and motivic. Does
-their argument provide the intermediate K-theoretic orbifold data?
-\textsc{Heal.} The Oberdieck--Shen proof uses (i) $\mathrm{MW}_0$
-multiplicative structure on $\mathrm{Hilb}^n(K3)$, (ii) $E$-shift
-invariance reducing to K3-fibre class, (iii) K-theoretic reduced
-KKV on primitive classes. Each input $\Z_N$-equivariantises under
-symplectic Nikulin action, giving a K-theoretic
-$Z^{\mathrm{K},\mathrm{red}}_{\mathrm{PT}}([X^{(N)}])
-=-C^{\mathrm K}_N(q,y)/\widetilde\Phi_{c_N(0)}(q,p,y)$ at the
-admissible Heegner scope $h_M\in\{g_N^s\}$. The K-theoretic series
-sits between numerical DT (specialise $y\to 1$) and motivic DT
-(promote $y\to\Lmot$). \textbf{K-theoretic orbifold PT as
-intermediate rung} \ClaimStatusConjectured{} at $N\in\{2,3,4,6\}$:
-Wave-9 M1D established this; Wave-11 U3E confirms the motivic lift
-factors through this intermediate.
+\paragraph{Primitive CHL Borcherds constants.}
+The primitive CHL ladder is the five-level family
+$N\in\{1,2,3,4,6\}$. Its weak Jacobi input is normalized by
+\[
+  c_N(0):=[q^0\zeta^0]\,\phi^{(g_N)}_{0,1}(\tau,z),\qquad
+  \phi^{(\mathrm{id})}_{0,1}(\tau,z)=\zeta^{-1}+10+\zeta+O(q).
+\]
+Borcherds' weight formula gives the automorphic weight as $c_N(0)/2$.
+For the Gritsenko-Nikulin and Gritsenko CHL denominator forms,
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\\hline
+c_N(0)&10&8&6&4&2\\
+\kBKM(\FCHL_N)=c_N(0)/2&5&4&3&2&1
+\end{array}
+\]
+The named denominator forms may be written
+\[
+  \Delta_5,\quad \Delta^{(2)}_4,\quad
+  \Delta^{(3)}_3,\quad \Delta^{(4)}_2,\quad \Delta^{(6)}_1 .
+\]
+Thus the level-one CHL row has \(\kBKM(\Delta_5)=5\).
 
-\paragraph{Heal (motivic zeta at $N\geq 2$).} Assembling U3.A--E: on
-$[X^{(N)}]$ with symplectic Nikulin $g_N$, $N\in\{2,3,4,6\}$,
-\begin{equation}
-\DTmot^{[X^{(N)}]}(q,p,y;\Lmot)
-\;=\;-\,\frac{C^{\mathrm{mot}}_N(q,y;\Lmot)}{\bigl(\FGC_{k_N}(q,p,y)\bigr)^{2,\mathrm{mot}}},
-\quad
-C^{\mathrm{mot}}_N\;=\;\sum_{s=0}^{N-1}\Lmot^{\mathrm{age}(s)}\,
-C^{(s)}_N(q,y),
-\label{wn:eq:motivic-DT-CHL-heal}
-\end{equation}
-where $(\FGC_{k_N})^{2,\mathrm{mot}}$ is the motivic promotion of
-$\widetilde\Phi_{c_N(0)}$ via KS $\widehat\mu$-equivariant quantum
-dilogarithm expansion, and $C^{(s)}_N$ are the twisted-sector
-Gritsenko--Cl\'ery Jacobi forms (age-graded). At $\Lmot\mapsto 1$
-recovers Wave-9 M1 numerical DT; at $\Lmot\mapsto y$ recovers
-Oberdieck--Shen K-theoretic PT orbifold extension.
-\ClaimStatusTheorem{} at $N=1$ (Maulik--Toda 2018);
-\ClaimStatusConjectured{} at $N\in\{2,3,4,6\}$ pending
-U3.B globalisation input.
+\paragraph{Gritsenko-Clery diagonal-divisor catalogue.}
+The Gritsenko-Clery dd-modular catalogue is an eight-row atlas of
+diagonal-divisor paramodular products. Its row labels and weights are
+\[
+\begin{array}{c|cccccccc}
+(N,M)&(1,1)&(2,1)&(1,2)&(3,1)&(1,3)&(4,1)&(1,4)&(2,2)\\\hline
+\mathrm{wt}(\FDD_{N,M})
+&5&2&3&1&2&\frac12&\frac32&1\\
+2\,\mathrm{wt}(\FDD_{N,M})
+&10&4&6&2&4&1&3&2
+\end{array}
+\]
+This catalogue has its own level, divisor, and multiplier data. It
+shares the \((1,1)\) row with the primitive CHL ladder through
+\(\Delta_5\). The other rows require their own comparison theorem before
+their weights can be used in a CHL denominator statement.
 
-\paragraph{Subscripted $\kappa_\bullet$-witness (four constructions).}
-$\kappa_{\mathrm{BKM}}(\Phi_{c_N(0)})=c_N(0)/2$
-\ClaimStatusTheorem{} \textup{(}Borcherds 1995;
-\texttt{cy\_d\_kappa\_stratification.tex}\,
-\texttt{thm:borcherds-weight-kappa-BKM-universal}\textup{)};
-$\kappa_{\mathrm{cat}}([X^{(N)}])=0$ \textup{(}K\"unneth on total;
-$\chi(\cO_E)=0$\textup{)};
-$\kappa_{\mathrm{ch}}$ via $\Phi$ on $\cA_{[X^{(N)}]}$ unchanged by
-motivic refinement;
-$\kappa_{\mathrm{fiber}}^{(N)}=r_N\in\{16,15,14,14\}$ at
-$N\in\{2,3,4,6\}$ (Mukai rank).
+\paragraph{The OP normalization.}
+At $N=1$, the theta-normalized Gritsenko-Nikulin form has leading
+coefficient $64$:
+\[
+  [q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64,\qquad
+  D_5=64^{-1}\Delta_5 .
+\]
+The unnormalized square and the Oberdieck-Pandharipande monic scalar
+square are
+\[
+  \Phiun=\Delta_5^2,\qquad
+  \PhiOP=D_5^2=4096^{-1}\Phiun .
+\]
+Consequently
+\[
+  Z_{\mathrm{OP/DT}}=-(\PhiOP)^{-1}=-D_5^{-2}
+  =-4096\,\Delta_5^{-2}.
+\]
+The primitive BKM denominator is the square root \(D_5(2Z)\) in the
+Gritsenko-Nikulin denominator convention. Squaring to \(\PhiOP\)
+changes the scalar DT partition function and doubles the scalar weight.
+The primitive BKM algebra remains the level-one \(\Delta_5\) algebra
+with \(\kBKM=5\).
 
-\paragraph{Scope and cross-reference.}
-\S\ref{wn:sec:bcy-orbifold-DT-wave9-m1-N46} (numerical Wave-9 M1);
-\S\ref{wn:sec:refined-DT-wave8-l2-N-ge-2} (Joyce--Song refinement
-discussion); \S\ref{wn:sec:nekrasov-wave8-i5-CHL-extension-delta5N}
-(Wave-8 I5 $\Omega$-background). Cite Maulik--Toda 2018
-\textup{(}Invent.\ Math.\ 213:1017, arXiv:1810.11568\textup{)};
-Bryan--Cadman--Young 2013 \textup{(}JAMS 28:163\textup{)};
-Bryan--Steinberg 2014 \textup{(}JAMS 29:337\textup{)};
-Kontsevich--Soibelman 2008 \textup{(}arXiv:0811.2435\textup{)};
-Oberdieck--Shen 2020 \textup{(}Invent.\ Math.\ 228:255,
-arXiv:2005.09087\textup{)}; Joyce--Song 2012 \textup{(}Mem.\ AMS
-217\textup{)}; Chen--Ruan 2004 \textup{(}Comm.\ Math.\ Phys.\
-248:1\textup{)}; Mukai 1988 \textup{(}Invent.\ Math.\ 94\textup{)};
-Lorgat 2020 \textup{(}automorphic corrections, Conj.~1\textup{)}.
+\paragraph{Wall crossing.}
+Kontsevich-Soibelman motivic wall crossing applies to the equivariant
+derived category after the orientation line and stability data are
+chosen. The sector decomposition has the form
+\[
+  \MOmot(X_N;\gamma)
+  =
+  \MOmot(S\times E;\gamma)^{g_N\mathrm{-inv}}
+  +\sum_{s=1}^{N-1}
+   \MOmot(S\times E;\gamma)^{g_N,\zeta^s}\Lmot^{\mathrm{age}(s)} .
+\]
+This is an identity of motivic BPS classes in the motivic quantum torus.
+Its numerical specialization is a character identity. A compact
+Hall/BKM comparison is a stronger datum: it requires extension
+correspondences, protected primitive bases, orientation signs, a
+non-degenerate Hall pairing, a radical quotient, PBW compatibility, and
+a comparison of brackets.
+
+\paragraph{K-theoretic comparison.}
+Oberdieck-Shen prove the reduced K-theoretic PT formula for
+$S\times E$. The CHL extension requires the same reduced
+$E$-fibred multiplicative structure after splitting every K-theoretic
+class into $g_N$-invariant and twisted sectors. The twisted-sector
+character is the Mathieu twining Jacobi form. The unconditional chain is
+\[
+  S\times E\ \mathrm{reduced\ DT}
+  \longrightarrow
+  S\times E\ K\text{-theoretic }PT
+  \longrightarrow
+  S\times E\ \mathrm{numerical\ DT}.
+\]
+For $N\in\{2,3,4,6\}$ the CHL chain is the same statement plus the
+twined Oberdieck-Shen compatibility above.
+
+\paragraph{Four invariants.}
+The finite \'etale quotient gives
+\[
+  H^q(X_N,\mathcal O_{X_N})
+  =
+  H^q(S\times E,\mathcal O_{S\times E})^{G_N}.
+\]
+The symplectic K3 automorphism acts trivially on
+$H^0(S,\mathcal O_S)$ and $H^2(S,\mathcal O_S)$, while the elliptic
+translation acts trivially on $H^0(E,\mathcal O_E)$ and
+$H^1(E,\mathcal O_E)$. Hence $h^{0,q}(X_N)=(1,1,1,1)$ and
+\[
+  \kcat(X_N)=\chi(\mathcal O_{X_N})=1-1+1-1=0 .
+\]
+In particular,
+\[
+  \kcat(K3\times E)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0=0.
+\]
+The compact CY$_3$ Hodge supertrace gives
+\[
+  \kch(X_N)=\sum_{q=0}^{3}(-1)^q h^{0,q}(X_N)=0 .
+\]
+For \(K3\times E\) the compact and chiral readings used in Vol III are
+therefore the separated tuple
+\[
+\begin{array}{c|c|c}
+\mathrm{construction}&\mathrm{invariant}&\mathrm{value}\\\hline
+\mathrm{compact\ total\ space}&\kcat(K3\times E)&0\\
+\mathrm{compact\ Hodge\ supertrace}&\kch(K3\times E)&0\\
+\mathrm{Heisenberg\ specialization}&\kch^{\mathrm{Heis}}(K3\times E)&3\\
+\mathrm{BKM\ denominator}&\kBKM(\Delta_5)&5\\
+\mathrm{K3\ fibre\ Mukai\ rank}&\kfib(K3)&24
+\end{array}
+\]
+The CHL Borcherds invariant is read from the Jacobi constant term:
+\[
+  \kBKM(\FCHL_N)=c_N(0)/2 .
+\]
+It is independent of \(\kcat(X_N)\), of the compact
+\(\kch(X_N)\), and of the K3 fibre witness \(\kfib(K3)=24\). At
+$N=1$, the Borcherds side has \(\kBKM(\Delta_5)=5\), while the compact
+Hodge supertrace has \(\kch(K3\times E)=0\). At $N=2$, the Borcherds
+side has \(\kBKM(\FCHL_2)=4\), while \(\kcat(X_2)=0\).
+
+\paragraph{Statement.}
+For the CHL quotient \(X_N\), the finite \'etale geometry gives a smooth
+CY$_3$ source, the K3 holomorphic two-form gives the reduced cosection,
+the primitive denominator gives
+\(\kBKM(\FCHL_N)=c_N(0)/2\), and the compact total space gives
+\(\kcat(X_N)=\kch(X_N)=0\). For \(N\in\{2,3,4,6\}\), equivariant
+motivic degeneration, orientation descent, CHL motivic denominator
+identification, and the twined Oberdieck-Shen K-theoretic comparison
+give the motivic CHL identity displayed above.

@@ -7,7 +7,7 @@
 % of Volume III. The four pillars: (1) A-model and GW invariants as
 % genus-g shadow amplitudes; (2) B-model holomorphic anomaly = MC equation;
 % (3) topological vertex as local root datum; (4) connection to the
-% Vol I shadow obstruction tower via F_g = kappa * lambda_g.
+% Vol I uniform shadow lane via F_g = \kappa_{\mathrm{ch}}\lambda_g.
 
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
@@ -61,18 +61,19 @@
 \maketitle
 
 \begin{abstract}
-We develop the dictionary between topological string theory on a Calabi--Yau
-threefold $X$ and the quantum vertex chiral group $G(X)$ of Volume~III.
-The A-model free energy $F = \sum_g F_g\, g_s^{2g-2}$, with $F_g$
-encoding Gromov--Witten invariants $N_{g,\beta}$, is identified with the genus
-expansion of the shadow obstruction tower $\Theta_{A_X}$. The B-model holomorphic
-anomaly equation of BCOV is reinterpreted as the Maurer--Cartan equation
-$D\Theta + \frac{1}{2}[\Theta, \Theta] = 0$ projected to genus~$g$.
-The topological vertex (AKMV) for toric CY3 is shown to factorize as a
-tensor product of local root data, one per vertex of the toric diagram.
-The leading genus-$g$ term $F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g$ is the
-uniform-weight lane of the Vol~I shadow obstruction tower; higher terms are shadow
-corrections from imaginary roots.
+This note records the physics dictionary between topological string theory on
+a Calabi--Yau threefold $X$ and the quantum vertex chiral group $G(X)$ of
+Volume~III. The A-model free energy
+$F = \sum_g F_g\, g_s^{2g-2}$ is compared with the genus expansion of the
+shadow obstruction tower $\Theta_{A_X}$; this is a conjectural comparison
+outside the constructed toric and local loci. The B-model holomorphic anomaly
+equation of BCOV has the same quadratic recursion as the Maurer--Cartan
+equation $D\Theta + \frac{1}{2}[\Theta, \Theta] = 0$ after the BCOV/bar
+comparison datum is supplied. The AKMV topological vertex factorizes toric
+CY3 amplitudes into local vertex contributions. The leading genus-$g$ term
+$F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g$ is the uniform-weight lane of the
+Vol~I shadow obstruction tower; root and instanton terms are additional
+shadow components.
 \end{abstract}
 
 \tableofcontents
@@ -94,7 +95,8 @@ the string-theoretic analogue of the genus-$g$ obstruction
 $\mathrm{obs}_g(A_X)$ of the quantum vertex chiral group $G(X)$ constructed
 in Volume~III.
 
-The purpose of this note is to make the following identifications precise:
+The dictionary used below separates theorem-level inputs from conjectural
+CY3 comparison steps:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
@@ -107,7 +109,7 @@ The purpose of this note is to make the following identifications precise:
  GW invariants $N_{g,\beta}$ & Shadow amplitudes of $G(X)$ at genus $g$ \\
  BCOV holomorphic anomaly & MC equation $D\Theta + \tfrac{1}{2}[\Theta,\Theta] = 0$ \\
  Topological vertex $C_{\lambda\mu\nu}(q)$ & Local root datum at a toric vertex \\
- DT partition function $Z^{\DT}(X)$ & Bar-complex Euler product of $G(X)$ \\
+ DT partition function $Z^{\DT}(X)$ & Euler-product shadow after the root datum is constructed \\
  Leading $F_g$ on uniform lane & $\kappa_{\mathrm{ch}}(G(X)) \cdot \lambda_g$ \\
  \hline
 \end{tabular}
@@ -154,41 +156,47 @@ free energy; the partition function proper is $Z = e^F$).
 \subsection{Gopakumar--Vafa reformulation}
 \label{sub:gv}
 
-The Gopakumar--Vafa conjecture (now theorem, Ionel--Parker) repackages the GW
-invariants into integer BPS invariants $n^g_\beta \in \mathbb{Z}$:
+The Gopakumar--Vafa expansion packages the GW invariants into integer BPS
+invariants $n^g_\beta \in \mathbb{Z}$ in the regimes where the GV
+integrality theorem applies:
 \begin{equation}\label{eq:gv}
  F = \sum_{g=0}^{\infty} \sum_{\beta \neq 0} \sum_{k=1}^{\infty}
  \frac{n^g_\beta}{k}
  \left(2\sin\frac{k g_s}{2}\right)^{2g-2} Q^{k\beta}.
 \end{equation}
-The integers $n^g_\beta$ count BPS states of charge $\beta$ and spin $g$ in
-the M-theory lift. In the language of the quantum vertex chiral group:
+Physically, the integers $n^g_\beta$ count BPS states of charge $\beta$
+and spin $g$ in the M-theory lift. In the quantum vertex chiral group
+dictionary:
 \begin{itemize}
- \item $n^0_\beta$ are the genus-0 BPS counts $=$ DT invariants
- $=$ root multiplicities $\mathrm{mult}(\beta)$ of $G(X)$.
+ \item $n^0_\beta$ are genus-0 BPS counts. They become root
+ multiplicities $\mathrm{mult}(\beta)$ only after the Hall/BKM root datum
+ of $G(X)$ has been independently constructed.
  \item $n^g_\beta$ for $g > 0$ are the genus-$g$ refinements of the root
  multiplicity, living in the $g$-th shadow correction.
 \end{itemize}
 
 \begin{remark}[GV invariants as root data]
 \label{rem:gv-root}
-The generating function $\sum_\beta n^0_\beta\, Q^\beta$ is the
-multiplicity-generating function of the imaginary roots of $G(X)$. For the
-$K3 \times E$ family, these are the Fourier coefficients of $\phi_{0,1}$
-(the K3 elliptic genus). For a toric CY3, they are the DT invariants of the
-quiver with potential $(Q_X, W_X)$. The higher-genus invariants $n^g_\beta$
-refine the root datum by incorporating information from the Hodge bundle
-$\mathbb{E}_g \to \Mbar_{g,0}$; in the shadow obstruction tower language, they appear
-as genus-$g$ shadow corrections to the tree-level root multiplicities.
+When the root datum is constructed, the generating function
+$\sum_\beta n^0_\beta\, Q^\beta$ becomes the multiplicity-generating
+function for imaginary roots. For the $K3 \times E$ BKM denominator these
+multiplicities are the Fourier coefficients of $\phi_{0,1}$, the K3
+elliptic genus. For a toric CY3 they are the DT invariants of the quiver
+with potential $(Q_X, W_X)$. The higher-genus invariants $n^g_\beta$ then
+refine the root datum by the Hodge bundle
+$\mathbb{E}_g \to \Mbar_{g,0}$; in the shadow obstruction tower they are
+genus-$g$ corrections to the tree-level multiplicities.
 \end{remark}
 
 \subsection{GW invariants as shadow amplitudes}
 \label{sub:gw-shadow}
 
-The quantum vertex chiral group $G(X) = \Phi(\cC_X)$ (where $\cC_X$ is the
-appropriate CY category of $X$, the Fukaya category on the A-side, or
-$D^b(\Coh(X^\vee))$ on the B-side via HMS) carries a shadow obstruction tower
-$\Theta_{A_X}$ (Volume~I). The genus expansion of $\Theta_{A_X}$ is:
+Assuming the CY-A$_3$ construction of
+$G(X)=\Phi(\cC_X)$, where $\cC_X$ is the appropriate CY category of
+$X$ (the Fukaya category on the A-side, or $D^b(\Coh(X^\vee))$ on the
+B-side via HMS), the resulting $E_1$-chiral algebra carries a shadow
+obstruction tower $\Theta_{A_X}$ (Volume~I). The genus expansion of
+$\Theta_{A_X}$ is:
 \begin{equation}\label{eq:theta-genus}
  \Theta_{A_X} = \sum_{g=0}^{\infty} \hbar^{2g-2}\, \Theta^{(g)}_{A_X},
 \end{equation}
@@ -223,11 +231,12 @@ For a CY3 $X$ and its quantum vertex chiral group $G(X)$:
 \end{conjecture}
 
 \begin{remark}
-The identification $F = \Theta_{A_X}$ is of course schematic: $F$ is a
+The equation $F = \Theta_{A_X}$ is a comparison statement, not a literal
+equality of objects: $F$ is a
 formal power series in $g_s$ and $Q^\beta$, while $\Theta_{A_X}$ is a
 Maurer--Cartan element in the dgLa governing deformations of the chiral bar
-complex. The precise statement is that the formal expansion of $\Theta_{A_X}$
-in the genus grading and the root-lattice grading reproduces $F$.
+complex. The proof obligation is to construct a comparison map under which
+the genus and root-lattice expansion of $\Theta_{A_X}$ reproduces $F$.
 \end{remark}
 
 
@@ -285,18 +294,19 @@ At genus $g = 1$, the anomaly takes a different form:
 where $\chi(X)$ is the Euler characteristic. In the BCOV formula the
 coefficient $\chi(X)/24$ controls the genus-1 gravitational anomaly of
 the \emph{target space} effective theory. This need not equal the
-modular characteristic $\kappa_{\mathrm{ch}}(A_X)$ of Vol~I in general: for
-$K3 \times E$, $\chi = 0$ while $\kappa_{\mathrm{ch}} = 5$ (see the anomaly
-cancellation note). The identification $\kappa_{\mathrm{ch}} = \chi(X)/24$
-holds only when the quantum vertex chiral group reduces to its
-Heisenberg subalgebra.
+modular characteristic $\kappa_{\mathrm{ch}}(A_X)$ of Vol~I in general.
+For $K3 \times E$, the compact $E_1$-chiral output has
+$\kappa_{\mathrm{ch}}(A_{K3\times E})=0$, the Heisenberg--Mukai
+specialization has $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3$, and the
+BKM denominator has $\kappa_{\mathrm{BKM}}(\Delta_5)=5$. These are
+different constructions; none is forced by $\chi(X)/24$ alone.
 \end{remark}
 
 \subsection{BCOV as Maurer--Cartan}
 \label{sub:bcov-mc}
 
-The key insight, which connects the B-model to the framework of Volume~I, is
-that the BCOV holomorphic anomaly equation \eqref{eq:bcov} IS the
+The comparison with Volume~I uses the fact that the BCOV holomorphic
+anomaly equation \eqref{eq:bcov} has the same quadratic form as the
 Maurer--Cartan equation
 \begin{equation}\label{eq:mc}
  D\Theta + \frac{1}{2}[\Theta, \Theta] = 0
@@ -318,12 +328,15 @@ The dictionary is as follows.
  bracket wedged with the Dolbeault differential. This is the
  Kodaira--Spencer dgLa governing deformations of $X^\vee$.
 
- \item \textbf{The MC element.} The total free energy
+ \item \textbf{The MC element.} After BV quantization satisfies the
+ quantum master equation and the anomaly, orientation/framing, TCFT, and
+ completion data are fixed, the total free energy
  \[
  \Theta = \sum_{g=0}^{\infty} \hbar^{2g-2}\, \Theta^{(g)},
  \qquad \Theta^{(g)} \sim F_g,
  \]
- assembled from all genera, is a MC element of $\mathcal{L}_X[[\hbar]]$.
+ assembled from all genera is represented by a MC element of
+ $\mathcal{L}_X[[\hbar]]$.
 
  \item \textbf{The genus-$g$ projection.} The MC equation
  $D\Theta + \frac{1}{2}[\Theta,\Theta] = 0$, expanded in powers of
@@ -332,7 +345,8 @@ The dictionary is as follows.
  D\Theta^{(g)} + \frac{1}{2} \sum_{r=1}^{g-1}
  [\Theta^{(r)}, \Theta^{(g-r)}] = 0.
  \end{equation}
- This is the BCOV equation \eqref{eq:bcov}: the differential
+ This is the BCOV equation \eqref{eq:bcov} under the comparison datum:
+ the differential
  $D$ encodes $\bar{\partial}$ plus the K\"ahler connection, while
  the bracket $[\Theta^{(r)}, \Theta^{(g-r)}]$ corresponds to the
  bilinear term $D_j F_r\, D_k F_{g-r}$ contracted with the propagator
@@ -357,26 +371,27 @@ The dictionary is as follows.
 \end{enumerate}
 \end{construction}
 
-\begin{proposition}[MC = BCOV, schematic]
+\begin{conjecture}[BCOV/MC comparison]
 \label{prop:mc-bcov}
-The Maurer--Cartan equation $D\Theta + \frac{1}{2}[\Theta,\Theta] = 0$ in the
-dgLa $\mathcal{L}_X = \mathrm{PV}^{\bullet,\bullet}(X^\vee)[[\hbar]]$, expanded
-at order $\hbar^{2g-2}$, reproduces the BCOV holomorphic anomaly equation
-\eqref{eq:bcov}. The propagator $S^{ij}$ of special geometry is the
-contraction kernel of the Lie bracket; the Yukawa coupling $C_{ijk}$ is the
-structure constant of the Schouten--Nijenhuis bracket; and the K\"ahler
-covariant derivative $D_i$ is the dgLa differential restricted to the
-holomorphic tangent directions.
-\end{proposition}
+Under the Costello--Li BV quantization, with the QME, anomaly
+cancellation, orientation/framing, TCFT, and completion hypotheses in
+place, the Maurer--Cartan equation
+$D\Theta + \frac{1}{2}[\Theta,\Theta] = 0$ in the dgLa
+$\mathcal{L}_X = \mathrm{PV}^{\bullet,\bullet}(X^\vee)[[\hbar]]$ expands
+at order $\hbar^{2g-2}$ to the BCOV holomorphic anomaly equation
+\eqref{eq:bcov}. The propagator $S^{ij}$ supplies the contraction kernel,
+the Yukawa coupling $C_{ijk}$ supplies the cubic vertex, and the
+K\"ahler covariant derivative $D_i$ is the corresponding connection in
+holomorphic directions.
+\end{conjecture}
 
 \begin{remark}
-This is, of course, the perspective championed by Costello--Li, who construct
-the BCOV theory as a quantization of the Kodaira--Spencer dgLa. What we add
-is the identification of this dgLa with the chiral bar dgLa of
-Volume~I: the BCOV complex $\mathcal{L}_X$ is quasi-isomorphic to the
-dgLa $C^\bullet(B(A_X))$ governing deformations of the bar complex of the
-quantum vertex chiral group $G(X)$. In this identification, the BCOV
-MC element $\Theta$ IS the shadow obstruction tower $\Theta_{A_X}$.
+Costello--Li construct BCOV theory as a quantization of the
+Kodaira--Spencer dgLa. The additional Vol~I comparison is a proof
+obligation: identify this dgLa with the chiral bar dgLa
+$C^\bullet(B(A_X))$ governing deformations of the bar complex of the
+quantum vertex chiral group $G(X)$. Under that identification, the BCOV
+MC element $\Theta$ maps to the shadow obstruction tower $\Theta_{A_X}$.
 \end{remark}
 
 \subsection{The holomorphic anomaly and the shadow obstruction tower}
@@ -426,7 +441,11 @@ $\mathbb{C}^2$ patches (``gluing strips''), and the external legs correspond
 to non-compact divisors.
 
 \begin{example}[$\mathbb{C}^3$: the simplest vertex]
-A single vertex. $X = \mathbb{C}^3$, quiver = Jordan quiver, $G(X) \supset Y(\widehat{\mathfrak{gl}}_1) \simeq \mathcal{W}_{1+\infty}$.
+A single vertex. $X = \mathbb{C}^3$, quiver = Jordan quiver,
+$\CoHA(\mathbb{C}^3)=Y^+(\widehat{\mathfrak{gl}}_1)$ is the positive
+half, and the Drinfeld double gives
+$G(\mathbb{C}^3)\simeq Y(\widehat{\mathfrak{gl}}_1)\simeq
+\mathcal{W}_{1+\infty}$.
 \end{example}
 
 \begin{example}[Resolved conifold]
@@ -483,7 +502,9 @@ quantum vertex chiral group $G_v = G(\mathbb{C}^3)$, with:
  \item \textbf{Lattice}: $\Lambda_v = K_0(\mathrm{pt}) = \mathbb{Z}$
  (the dimension vector).
  \item \textbf{Root datum}: the affine Yangian $Y(\widehat{\mathfrak{gl}}_1)$
- root system. The root multiplicities $\mathrm{mult}_v(n) = p(n)$
+ root system, with positive half $\CoHA(\mathbb{C}^3)=
+ Y^+(\widehat{\mathfrak{gl}}_1)$. The root multiplicities
+ $\mathrm{mult}_v(n) = p(n)$
  (partitions of $n$), controlled by the MacMahon function $M(q)$.
  \item \textbf{Vertex amplitude}: the topological vertex
  $C_{\lambda\mu\nu}(q)$ is the matrix element of the intertwiner
@@ -592,17 +613,21 @@ $H^\bullet(\Mbar_g)$) is:
  \mathrm{obs}_g(A)\big|_{\mathrm{uniform}} = \kappa_{\mathrm{ch}}(A) \cdot \lambda_g,
 \]
 where $\lambda_g$ is the top Chern class of the Hodge bundle
-$\mathbb{E}_g \to \Mbar_g$. For the quantum vertex chiral group $G(X)$
-of a CY3, the modular characteristic is conjecturally:
+$\mathbb{E}_g \to \Mbar_g$. For a compact CY3 on the constructed
+$\Phi_3$ locus, the compact $E_1$-chiral scalar is the Hodge supertrace
 \[
- \kappa_{\mathrm{ch}}(G(X)) = \chi^{\CY}(\cC),
+ \kappa_{\mathrm{ch}}(A_X)=\sum_q(-1)^q h^{0,q}(X)=0.
 \]
-the categorical CY Euler characteristic (this identification requires
-$G(X)$ to exist, which is Conjecture~CY-A$_3$). For compact CICYs with $h^{1,0} = 0$, this coincides with $\chi_{\mathrm{top}}(X)/24$, but in general $\kappa_{\mathrm{ch}}$ depends on the full chiral algebra and can differ drastically from any simple function of $\chi_{\mathrm{top}}$ (see the modular trace chapter and Proposition~\ref{prop:chi-kappa-discrepancy}; e.g.\ $\kappa_{\mathrm{ch}}(G(K3 \times E)) = 5$ while $\chi_{\mathrm{top}} = 0$; note that the single-copy chiral value is $\kappa_{\mathrm{ch}} = 3$, and $\kappa_{\mathrm{BKM}} = 5$ is the second-quantized value).
+The BCOV one-loop scalar $\chi_{\mathrm{top}}(X)/24$, a Heisenberg
+specialization, and a BKM weight are different construction-level
+scalars. For $K3 \times E$, $\chi_{\mathrm{top}}=0$,
+$\kappa_{\mathrm{ch}}(A_{K3\times E})=0$,
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3$, and
+$\kappa_{\mathrm{BKM}}(\Delta_5)=5$.
 
-This gives the leading term of the genus-$g$ topological string amplitude:
+For a chosen matter sector this gives the scalar-lane contribution:
 \begin{equation}\label{eq:fg-leading}
- F_g\big|_{\mathrm{leading}} = \kappa_{\mathrm{ch}}(G(X)) \cdot
+ F_g\big|_{\mathrm{scalar}} = \kappa_{\mathrm{matter}} \cdot
  \int_{\Mbar_g} \lambda_g \cdot (\text{known intersection number}).
 \end{equation}
 
@@ -617,30 +642,30 @@ $F_g$ (the $\beta = 0$ term) is indeed:
  F_g^{\beta=0} = \frac{(-1)^{g-1}\, \chi(X)}{2}
  \cdot \frac{|B_{2g}|\, |B_{2g-2}|}{2g\,(2g-2)\,(2g-2)!},
 \end{equation}
-%: This formula identifies kappa(G(X)) with chi(X)/2 (the
-% coefficient of the constant-map contribution). This identification
-% FAILS for K3 x E: chi = 0 but kappa_BKM = 5. The constant-map formula
-% uses lambda_g * lambda_{g-1}, not just lambda_g. The matching
-% kappa(G(X)) * lambda_g^FP = F_g^{beta=0} holds only when kappa
-% equals chi(X)/2, i.e., when the algebra is Heisenberg-type.
 which matches the Vol~I shadow formula $\kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}}$
-if one identifies $\kappa_{\mathrm{ch}}(G(X)) = \chi(X)/2$; however, this identification
-fails in general (e.g., $K3 \times E$ has $\chi = 0$ but $\kappa_{\mathrm{ch}} = 5$;
-see the anomaly cancellation note).
+only in the Heisenberg-type situation where
+$\kappa_{\mathrm{ch}}(G(X)) = \chi(X)/2$. The constant-map term carries the
+Faber--Pandharipande $\lambda_g\lambda_{g-1}$ contribution, while the
+uniform-weight shadow formula records the $\lambda_g$ projection. For
+$K3 \times E$, $\chi = 0$ and the second-quantized value is
+$\kappa_{\mathrm{BKM}}(\Delta_5) = 5$, so the constant-map coefficient and the
+modular characteristic are distinct; see the anomaly cancellation note.
 
 \subsection{Shadow corrections beyond the leading term}
 \label{sub:shadow-corrections}
 
 The full genus-$g$ amplitude $F_g = \sum_\beta N_{g,\beta}\, Q^\beta$
 includes contributions from all curve classes $\beta \neq 0$.
-These are the \emph{shadow corrections} to the leading term:
+These are compared with \emph{shadow corrections} after the CY3
+BCOV/bar comparison and root datum have been constructed:
 
 \begin{equation}\label{eq:fg-shadow}
- F_g = \underbrace{\kappa_{\mathrm{ch}}(G(X)) \cdot \lambda_g}_{\text{uniform-weight lane}}
+ F_g \sim \underbrace{\kappa_{\mathrm{matter}} \cdot \lambda_g}_{\text{uniform-weight lane}}
  + \underbrace{\sum_{\beta \neq 0} N_{g,\beta}\, Q^\beta}_{\text{shadow corrections}}.
 \end{equation}
 
-The shadow corrections are organized by the root lattice of $G(X)$:
+Once the Hall/BKM root datum is available, the shadow corrections are
+organized by the root lattice of $G(X)$:
 \begin{enumerate}[label=(\roman*)]
  \item The $\beta$-th Fourier coefficient $N_{g,\beta}$ is the genus-$g$
  amplitude of the root $\beta$ in the shadow obstruction tower. For $g = 0$, these
@@ -680,22 +705,27 @@ formula gives:
  \prod_{k=1}^{\infty} \prod_{j=-\infty}^{\infty}
  \left(1 - q^{j+k/2}\, Q^{k\beta}\right)^{(-1)^{2j+1}\, n^{|j|}_\beta},
 \end{equation}
-(schematically), which is a Weyl--Kac--Borcherds-type infinite product:
-the denominator identity of the quantum vertex chiral group $G(X)$.
+This is a scalar product expansion. It becomes a Weyl--Kac--Borcherds
+denominator identity only after the Hall positive half, the Drinfeld
+double, the orientation data, and the completion of the root datum of
+$G(X)$ have been supplied.
 
 \begin{itemize}
  \item The leading factor $M(q)^{\chi(X)/2}$ is the MacMahon function
- raised to the power $\chi(X)/2$. This exponent coincides with $\kappa_{\mathrm{ch}}(G(X))$
- only when $\kappa_{\mathrm{ch}} = \chi(X)/2$, which holds for toric CY3 (where the
- Heisenberg subalgebra dominates) but fails in general: for $K3 \times E$,
- $\chi = 0$ while $\kappa_{\mathrm{ch}} = 5$. The $M(q)^{\chi(X)/2}$ factor is
- the constant-map (Weyl vector) contribution.
+ raised to the power $\chi(X)/2$. This exponent coincides with
+ $\kappa_{\mathrm{ch}}(G(X))$ only in the Heisenberg-type normalization
+ where $\kappa_{\mathrm{ch}} = \chi(X)/2$. For $K3 \times E$,
+ $\chi = 0$, $\kappa_{\mathrm{ch}}(A_{K3\times E})=0$ on the compact
+ $E_1$ output, $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3$, and
+ $\kappa_{\mathrm{BKM}}(\Delta_5)=5$. The $M(q)^{\chi(X)/2}$ factor is
+ the constant-map contribution, not the BKM weight.
  \item The product over roots $\beta > 0$ with multiplicities $n^g_\beta$
  is the automorphic correction: the imaginary roots of $G(X)$ with
  their BPS multiplicities.
- \item For $K3 \times E$: $Z$ is related to $(\Delta_5)^{-2}$, and the
- product formula is the Borcherds denominator identity of
- $\mathfrak{g}_{\Delta_5}$.
+ \item For $K3 \times E$: the primitive BKM denominator is
+ $\Delta_5$ with $\kappa_{\mathrm{BKM}}(\Delta_5)=5$; the doubled
+ protected partition-function normalization is
+ $\Phi_{10}^{\mathrm{un}}=\Delta_5^2$ of weight~$10$.
  \item For toric CY3: $Z$ is the DT partition function, factorized via the
  topological vertex.
 \end{itemize}
@@ -726,17 +756,17 @@ and the quantum vertex chiral group $G(X)$.
  $F_g^{\beta=0}$ (constant maps) & $\kappa_{\mathrm{ch}} \cdot \lambda_g$ & Uniform-weight lane \\
  $F_g^{\beta \neq 0}$ (instantons) & Shadow corrections & Off-diagonal shadow \\
  Partition function $Z = e^F$ & Denominator identity & Bar-complex Euler product \\
- Topological vertex $C_{\lambda\mu\nu}$ & Local root datum & $E_2$-chiral intertwiner \\
+	 Topological vertex $C_{\lambda\mu\nu}$ & Local root datum & $E_1$-chiral amplitude; $E_2$ on centres/doubles \\
  Edge gluing & Tensor product of root data & Factorization product \\
  Mirror symmetry & HMS: $\Fuk(X) \simeq D^b(\Coh(X^\vee))$ & Koszul duality \\
- DT/GW correspondence & Cohomological Hall $\leftrightarrow$ GW & $E_1 \hookrightarrow E_2$ \\
+	 DT/GW correspondence & Hall positive half / doubled root datum & chamber comparison \\
  \hline
 \end{tabular}
 \end{center}
 
 
 %% ================================================================
-\section{Open questions and future directions}
+\section{Proof obligations}
 \label{sec:open}
 
 \begin{enumerate}[label=\textbf{Q\arabic*.}]
@@ -792,8 +822,9 @@ identity of the $\mathbb{C}^3$ quantum vertex chiral group.
 A natural question: does the shadow obstruction tower of
 $A_{\mathbb{C}^3}$ reproduce $M(q)$ term by term?
 
-The swarm computation (\texttt{compute/lib/macmahon\_shadow\_decomposition.py},
-50~tests) gives a precise negative answer.
+The direct computation in
+\texttt{compute/lib/macmahon\_shadow\_decomposition.py} gives a negative
+answer through 50 tests.
 
 \subsection{The mismatch}
 
@@ -873,8 +904,8 @@ the quantum mechanics of the B-model, is the BCOV partition function
 \begin{equation}\label{eq:bcov-partition-function}
  \Psi(X, g_s) = \exp\Bigl( \sum_{g \geq 0} g_s^{2g-2}\, F_g(X) \Bigr).
 \end{equation}
-The bar complex shadow tower provides a construction of this
-partition function.
+The bar complex shadow tower provides a construction of this partition
+function once the BCOV/bar comparison and completion data are fixed.
 
 \subsection{Construction from the shadow tower}
 \label{sub:partition-function-shadow}
@@ -890,7 +921,7 @@ for non-compact CY$_3$). Writing $x = g_s^2$, the regular part is
 \[
  F_{\mathrm{reg}}(x) = F_1 + F_2\, x + F_3\, x^2 + \cdots
 \]
-and the wavefunction factorises as
+and the partition function factorises as
 \begin{equation}\label{eq:psi-factorised}
  \Psi(x) = e^{F_1} \cdot \sum_{n \geq 0} \psi_n\, x^n,
 \end{equation}
@@ -911,26 +942,25 @@ for generic $\kappa_{\mathrm{ch}}$ and is kept as a separate factor.
 \begin{remark}[Bar complex interpretation]
 The MC element of the bar dgLa is
 $\Theta_A = \sum_{g \geq 1} \hbar^{2g}\, \Theta^{(g)}_A$,
-and the wavefunction is $\Psi = \exp(\Theta_A)$ (up to coupling
+and the BCOV state is $\Psi = \exp(\Theta_A)$ (up to coupling
 constant convention). The shadow tower $\{S_k\}$ \emph{is} the
-logarithm of the wavefunction: $\log \Psi = F = $ (integrated shadow
-tower). This is the content of the identification
-$\text{BCOV dgLa} = \text{bar dgLa of } A_X$ (Costello--Li).
+logarithm of the partition function: $\log \Psi = F = $ (integrated shadow
+tower) after the BCOV dgLa has been compared with the bar dgLa of $A_X$.
 \end{remark}
 
 \noindent
-Verification: \texttt{compute/lib/bcov\_wavefunction\_bar.py} (52 tests).
+Computation anchor: \texttt{compute/lib/bcov\_wav\allowbreak efunction\_bar.py}.
 
 \subsection{The heat equation}
-\label{sub:wavefunction-heat}
+\label{sub:bcov-heat}
 
-The wavefunction satisfies the BCOV master equation (Witten 1993):
+The partition-function state satisfies the BCOV master equation (Witten 1993):
 \begin{equation}\label{eq:heat-eq}
  \partial_{\bar{i}} \Psi = \frac{1}{2}\, \bar{C}^{jk}_{\bar{i}}\,
  D_j D_k\, \Psi.
 \end{equation}
 This is a \emph{heat equation} on the moduli space of complex
-structures. The wavefunction $\Psi$ transforms as a section of the
+structures. The state $\Psi$ transforms as a section of the
 half-form bundle $\mathcal{L}^{1/2}$, where $\mathcal{L}$ is the
 Hodge line bundle.
 
@@ -947,7 +977,7 @@ The shadow class controls the analytic type of the anomaly:
 \renewcommand{\arraystretch}{1.4}
 \begin{tabular}{lll}
  \hline
- \textbf{Class} & \textbf{Anomaly type} & \textbf{Wavefunction type} \\
+ \textbf{Class} & \textbf{Anomaly type} & \textbf{Partition-function type} \\
  \hline
  G & Scalar lane only (no $A_\infty$ corrections) & Determined by $\kappa_{\mathrm{ch}}$ \\
  L & Polynomial (finitely many $\bar{\partial} F_g \neq 0$) & Polynomial corrections \\
@@ -957,49 +987,62 @@ The shadow class controls the analytic type of the anomaly:
 \end{tabular}
 \end{center}
 
-\subsection{$K3 \times E$: the wavefunction and $1/\Phi_{10}$}
-\label{sub:wavefunction-k3xe}
+\subsection{$K3 \times E$: the partition function and $1/\Phi_{10}^{\mathrm{un}}$}
+\label{sub:partition-function-k3xe}
 
-\begin{conjecture}[$K3 \times E$ wavefunction]
-\label{conj:k3xe-wavefunction}
-\index{BCOV wavefunction!K3 x E}
-For $K3 \times E$ with $\kappa_{\mathrm{ch}} = 3$, $\kappa_{\mathrm{BKM}} = 5$,
+\begin{conjecture}[$K3 \times E$ partition-function state]
+\label{conj:k3xe-partition-function}
+\index{BCOV partition function!K3 x E}
+For $K3 \times E$ with
+$\kappa_{\mathrm{ch}}(A_{K3\times E})=0$,
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$,
+$\kappa_{\mathrm{BKM}}(\Delta_5) = 5$, and
 $\kappa_{\mathrm{fiber}} = 24$:
 \[
- |\Psi_{K3 \times E}|^2 \sim \frac{1}{\Phi_{10}},
+ |\Psi_{K3 \times E}|^2 \sim \frac{1}{\Phi_{10}^{\mathrm{un}}},
 \]
-where $\Phi_{10}$ is the Igusa cusp form. This identification is
-\textbf{conditional} on CY-A$_3$.
+where $\Phi_{10}^{\mathrm{un}}=\Delta_5^2$ is the unnormalised Igusa
+weight-$10$ square. The claim assumes the CY-A$_3$ construction and the
+protected trace comparison; the scalar partition function alone does not
+construct the Hall/BKM algebra.
 \end{conjecture}
 
-The bridge from the bar complex to $1/\Phi_{10}$ requires four steps:
+The bridge from the bar complex to $1/\Phi_{10}^{\mathrm{un}}$ requires
+four steps:
 \begin{enumerate}[label=(\roman*)]
  \item $\Phi\colon K3 \times E \to A_{K3 \times E}$
-       (CY-to-chiral functor, CY-A$_3$, \textbf{not proved});
+       (CY-to-chiral functor, assuming CY-A$_3$);
  \item Bar Euler product $\Theta_{A_{K3 \times E}}$ (Vol~I);
- \item Borcherds multiplicative lift: $\Theta \to \Delta_5$ (Vol~I bridge);
- \item DMVV formula: $Z_{\mathrm{DMVV}} = C / \Phi_{10}$
+ \item Borcherds denominator normalization:
+       $\Theta \to \Delta_5$ after the positive-half/double data are
+       supplied;
+ \item DMVV formula: $Z_{\mathrm{DMVV}} = C / \Phi_{10}^{\mathrm{un}}$
        (Dijkgraaf--Moore--Verlinde--Verlinde).
 \end{enumerate}
-Each step must be cited explicitly (AP-CY8).
+The proof obligation is the CY-A$_3$ construction of $A_{K3 \times E}$
+together with the comparison from the bar Euler product to the primitive
+denominator $\Delta_5$ and then to the doubled partition target
+$\Phi_{10}^{\mathrm{un}}$.
 
-The rank-$1$ sector is \textbf{unconditional}:
+The rank-$1$ sector is independent of CY-A$_3$:
 $Z_1 = \prod_{k \geq 1} (1 - q^k)^{-24}$, the G\"ottsche formula
 for $\chi(\mathrm{Hilb}^n(K3))$. The bar exponents are constant~$= 24
-= \kappa_{\mathrm{fiber}}$. Verified: $\chi(\mathrm{Hilb}^n(K3))
+= \kappa_{\mathrm{fiber}}$. The first coefficients are
+$\chi(\mathrm{Hilb}^n(K3))
 = 1, 24, 324, 3200, 25650, 176256$ for $n = 0, \ldots, 5$.
 
 \subsection{The OSV conjecture}
-\label{sub:osv-wavefunction}
+\label{sub:osv-partition-function}
 
 The Ooguri--Strominger--Vafa conjecture (hep-th/0405146):
 \begin{equation}\label{eq:osv}
  Z_{\mathrm{BH}}(p, \phi) = |\Psi_{\mathrm{top}}(X, \phi + ip)|^2
 \end{equation}
 relates the black hole partition function to the topological string
-wavefunction. For $K3 \times E$:
-$Z_{\mathrm{BH}} \sim 1/\Phi_{10}$ (DVV formula for $\frac{1}{4}$-BPS
-dyons), consistent with Conjecture~\ref{conj:k3xe-wavefunction}.
+partition-function state. For $K3 \times E$:
+$Z_{\mathrm{BH}} \sim 1/\Phi_{10}^{\mathrm{un}}$ (DVV formula for
+$\frac{1}{4}$-BPS dyons), consistent with
+Conjecture~\ref{conj:k3xe-partition-function}.
 
 The shadow class M of $K3 \times E$ implies:
 \begin{itemize}
@@ -1007,12 +1050,13 @@ The shadow class M of $K3 \times E$ implies:
  \item Borel resummation is required to extract $Z_{\mathrm{BH}}$.
  \item Wall-crossing phenomena arise from Stokes automorphisms of the
        Borel transform (conjectural: Kontsevich--Soibelman).
- \item The non-holomorphic completion of $\Psi$ produces the weight-$10$
-       Siegel modular form $\Phi_{10}$.
+ \item The non-holomorphic completion of the state $\Psi$ is expected to
+       produce the weight-$10$ Siegel modular form
+       $\Phi_{10}^{\mathrm{un}}=\Delta_5^2$.
 \end{itemize}
 
 \subsection{Scalar-lane asymptotics}
-\label{sub:wavefunction-asymptotics}
+\label{sub:partition-function-asymptotics}
 
 On the scalar lane, $F_g = \kappa_{\mathrm{ch}} \lambda_g^{\mathrm{FP}}$
 with
@@ -1028,9 +1072,9 @@ $2\pi$ comes from the first pole of $\hat{A}(x) = (x/2)/\sinh(x/2)$
 at $x = 2\pi$; note the argument is $x/2$, not $x$
 (cf.\ the $\hat{A}$-genus halving rule).
 
-The scalar lane \emph{always} converges, regardless of shadow class.
-Off-diagonal (multi-weight) corrections for class~M are Gevrey-$1$
-divergent and dominate the asymptotics of the full $F_g$.
+This scalar-lane model converges under the uniform-weight formula above.
+Off-diagonal (multi-weight) corrections for class~M are expected to be
+Gevrey-$1$ divergent and to dominate the asymptotics of the full $F_g$.
 
 \bibliographystyle{alpha}
 % References are inline for this note.

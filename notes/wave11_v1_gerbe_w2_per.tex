@@ -1,20 +1,19 @@
 % ============================================================
-%  Wave-11 V1/20: Explicit gerbe class $[w_2^{\mathrm{per}}]$
+%  Explicit gerbe class $[w_2^{\mathrm{per}}]$
 %
-%  Goal. Compute $[w_2^{\mathrm{per}}] \in H^2(\CY_2;\Z/2)$ at five
-%  test categories: K3 (generic / CM), Hilb^n(K3), Enriques, PPAS,
-%  and the Shimura--Weil pullback. Inscribe the universal formula
-%  in terms of the Mukai discriminant form.
-%
-%  Five attack-heal cycles.  Author: Raeez Lorgat.  No AI attribution.
+%  Author: Raeez Lorgat.
 % ============================================================
 
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\Orth}{\mathrm{O}}
+\providecommand{\SO}{\mathrm{SO}}
+\providecommand{\Spin}{\mathrm{Spin}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\Q}{\mathbb{Q}}
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\C}{\mathbb{C}}
+\providecommand{\A}{\mathbb{A}}
 \providecommand{\CY}{\mathrm{CY}}
 \providecommand{\NS}{\mathrm{NS}}
 \providecommand{\Muk}{\widetilde{H}}
@@ -23,158 +22,279 @@
 \providecommand{\Hilb}{\mathrm{Hilb}}
 \providecommand{\Enr}{\mathrm{Enr}}
 \providecommand{\Brau}{\mathrm{Br}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
+\providecommand{\Num}{\mathrm{Num}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cO}{\mathcal{O}}
 \providecommand{\wper}{w_2^{\mathrm{per}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
-\section{Explicit gerbe class $[w_2^{\mathrm{per}}]$ from the Mukai discriminant}
-\label{sec:w11-v1-wper}
+\section{The finite-discriminant period gerbe class}
+\label{sec:wper-mukai-discriminant}
 
-\subsection*{Cycle 1 — Generic K3 versus CM K3}
+\subsection*{The obstruction class}
 
-\ClaimStatusTheorem\ Let $\cC = D^b(X)$ for a projective K3 surface
-$X$. The Mukai lattice
-$\Muk(X,\Z) = U^{\oplus 4}\oplus E_8(-1)^{\oplus 2}$ is even
-unimodular of signature $(4,20)$. Hence the discriminant form
-$(A_{\Muk(X)}, q_{\Muk(X)}) = 0$. By Shimura~1975 \emph{Ann.~Math.}~102
-\S2.5 Prop.~$2.12$ (lift of $\Sp_4(\Z) \to \Mp_4(\Z)$ via quadratic
-refinement of the discriminant form), the period-bundle
-Stiefel--Whitney class is
+Let $L$ be an even integral lattice, $L^\vee$ its dual, and
 \[
-[\wper(\cC)] \;=\; [q_{\Muk(\cC)} \!\!\!\mod 2] \;\in\; H^2(\CY_2;\Z/2),
+  A_L=L^\vee/L,\qquad q_L(x+L)=(x,x)\bmod 2\Z
 \]
-the $\Z/2$-reduction of the discriminant form viewed as a class via
-the period-domain comparison map. For any projective K3, generic or
-CM, $A_{\Muk} = 0$ and so $[\wper(D^b(X))] = 0$. The metaplectic
-cover $\CY_2^{\Mp}|_{D^b(X)}$ admits a canonical section; CM-ness is
-irrelevant at this level (CM governs the period point inside
-$\Per(\Muk,\R)/O(\Muk)$, not the obstruction to lifting $\Sp_4\to\Mp_4$).
-
-\subsection*{Cycle 2 — Hilbert scheme $\Hilb^n(K3)$}
-
-\ClaimStatusTheorem\ The Beauville--Bogomolov--Markman Mukai lattice
-of $\Hilb^n(K3)$ is
+its discriminant quadratic module.  Let $\Gamma\subset\Orth(L)$ be
+the monodromy group of a connected period component.  The
+finite-discriminant part of the metaplectic period gerbe is the
+pullback to $B\Gamma$ of the theta central extension
 \[
-\Muk(\Hilb^n(K3),\Z) \;=\; \Muk(K3,\Z) \,\oplus\, \langle -2(n-1)\rangle
-\;=\; U^{\oplus 4}\oplus E_8(-1)^{\oplus 2}\oplus\langle -2(n-1)\rangle
+  1\longrightarrow \{\pm1\}
+  \longrightarrow \widetilde{\Gamma}_{q_L}
+  \longrightarrow \Gamma
+  \longrightarrow 1
 \]
-(Markman~2010 \emph{IMRN} 2010 Thm.~$1.2$; Beauville--Bogomolov
-form). Its discriminant is
-$A_{\Muk(\Hilb^n)} = \Z/2(n-1)$ carrying the quadratic form
-$x\mapsto -x^2/2(n-1)\!\!\mod 2\Z$. The $\Z/2$-reduction of this
-form is
+defined by the Weil representation of the finite quadratic module
+$(A_L,q_L)$.  Its class is
 \[
-[\wper(\Hilb^n(K3))] \;=\;
-\begin{cases}
-0, & n \equiv 1 \pmod 2\ \text{(so that}\ 2(n-1)\equiv 0\pmod 4), \\
-[\alpha_{n}]\neq 0, & n \equiv 0 \pmod 2,
-\end{cases}
+  e(L,\Gamma)\in H^2(\Gamma;\Z/2).
 \]
-where $\alpha_n\in H^2(\CY_2;\Z/2)$ is the class Poincar\'e-dual to
-the Markman generator $c_1(\det R^1\pi_*\cO_{\Hilb})$ mod $2$.
-Equivalently, $[\wper(\Hilb^n)] - [\wper(K3)] = [\alpha_n]$ with
-$\alpha_n = (n-1) \cdot c_1(\cL_{\mathrm{Mar}})\!\!\mod 2$,
-$\cL_{\mathrm{Mar}}$ the Markman tautological line bundle; this is
-the Chern-class difference asserted in the target.
-
-\subsection*{Cycle 3 — Enriques surface}
-
-\ClaimStatusTheorem\ Let $S$ be an Enriques surface, $\pi:X\to S$ its
-K3 double cover with free involution $\iota$. The Enriques Mukai
-lattice is
-$\Muk(S,\Z) = U(2) \oplus E_8(-2) \oplus \langle 2,2\rangle_{\omega_S}$
-of rank $12$, signature $(2,10)$ up to the $\iota$-invariant piece
-plus the $\omega_S$-torsion summand. Its discriminant form is
+For a period map $\Per_{\cC}:\pi_1(\cC)\to\Gamma$, the period-gerbe
+class of $\cC$ is
 \[
-A_{\Muk(S)} \;=\; (\Z/2)^{10} \,\oplus\, \Z/2_{\omega_S},
+  [\wper(\cC)]_{\mathrm{disc}} =
+  \Per_{\cC}^{*}e(L_\cC,\Gamma_\cC)
+  \in H^2(\pi_1(\cC);\Z/2).
 \]
-nontrivial, with quadratic refinement of Arf invariant $1$ on the
-$E_8(-2)$ block. Hence $[\wper(D^b(S))] \neq 0$: Enriques is the
-first CY$_2$ input where the metaplectic gerbe is genuinely
-nontrivial. Primary: Nikulin~1979 \emph{Math.~USSR Izv.}~14
-Thm.~$1.14.2$ (discriminant form classification);
-Gritsenko--Nikulin~1998 \emph{J.~reine angew.~Math.}~507 Prop.~$5.1$
-(Enriques BKM denominator in the half-integer weight slice,
-$\kappa_{\mathrm{BKM}} = 5/2$, directly matching the Mp$_4$
-half-integer sector).
+If $A_L=0$, then the finite-quadratic-module contribution to
+$[\wper]$ is zero.  If $A_L$ has a two-primary element $a$ with
+$q_L(a)=\frac12\bmod\Z$, then the period gerbe is nontrivial on the
+monodromy subgroup detecting $a$.
 
-\subsection*{Cycle 4 — Principally polarised abelian surfaces}
+This formulation separates the orthogonal K3 and hyperkahler period
+problem from the genus-two Siegel problem.  A pullback of the
+Shimura-Weil cocycle on $\Sp_4$ requires a period
+representation landing in $\Sp_4$, for example through a genus-two
+Kuga-Satake or principally polarised abelian-surface window.
 
-\ClaimStatusTheorem\ For $(A,L)$ a PPAS (abelian surface with
-polarisation $L\in H^2(A,\Z)$, $L\cdot L = 2$, $L^2 = 2$ the standard
-principal class), the Mukai lattice is
-$\Muk(A,\Z) = U^{\oplus 3}\oplus \langle -2\rangle_L\oplus\langle 0\rangle_0$
-after the $H^{1,0}(A)\oplus H^{0,1}(A)$-correction (Mukai~1987
-\emph{Invent.~Math.}~$77$ \S$1$; rank $8$, signature $(3,3)$
-effective after the Heisenberg-reduction of Cycle 1, Vol III
-\S$5.2$). The discriminant form reduces to $\Z/2\cdot[L]$ with
+\subsection*{K3 surfaces}
+
+Let $X$ be a projective K3 surface.  The full Mukai lattice of the
+derived category is
 \[
-[\wper(D^b(A))] \;=\; [L \cdot L / 2 \!\!\mod 2] \cdot [\eta_A]
-\;=\; [1]\cdot[\eta_A] \;=\; [\eta_A],
+  \Muk(X,\Z)=H^0(X,\Z)\oplus H^2(X,\Z)\oplus H^4(X,\Z)
+  \cong U^{\oplus4}\oplus E_8(-1)^{\oplus2},
 \]
-where $\eta_A\in H^2(\CY_2;\Z/2)$ is the class of the theta divisor
-on $\cA_2$ (Igusa~1972 \emph{Theta Functions} \S$V.5$). For the
-principal polarisation $L^2 = 2$, $[\wper]$ equals the mod-$2$
-reduction of the polarisation class, exactly matching the
-theta-characteristic obstruction on the Siegel upper half-space
-$\cH_2$ (Mumford~1983 \emph{Tata Lectures on Theta I} \S$II.3$).
-
-\subsection*{Cycle 5 — Shimura--Weil pullback identification}
-
-\ClaimStatusTheorem\ Howe~1979 \emph{Proc.~Symp.~Pure Math.}~33
-Thm.~$1.4$ defines the Shimura--Weil $2$-cocycle
-$c: \Sp_4(\A)\times\Sp_4(\A)\to\C^\times$ via the Rao normalisation
-of the Weil representation at the idelic level. Its pullback along
-the period map $\Per_{\cC}:\pi_1(\cC)\to\Sp_4(\Z)\hookrightarrow\Sp_4(\A)$
-yields an element of $H^2(\pi_1(\cC);\Z/2) \hookrightarrow
-H^2(\CY_2;\Z/2)$, and this class is $[\wper(\cC)]$. Concretely
+even unimodular of signature $(4,20)$ by Mukai's 1987 construction.
+The ordinary weight-two period lattice
+$H^2(X,\Z)\cong U^{\oplus3}\oplus E_8(-1)^{\oplus2}$ is also even
+unimodular.  Therefore
 \[
-[\wper(\cC)] \;=\; [\Per_{\cC}^*\, c] \;=\;
-\Big[\text{Rao symbol}\ (\gamma_1,\gamma_2)\mapsto
-c_{\mathrm{Rao}}(\gamma_1,\gamma_2)\Big]
+  A_{\Muk(X)}=0,\qquad A_{H^2(X)}=0,
 \]
-(Rao~1993 \emph{Pacific J.~Math.}~$157$ Thm.~$5.3$ explicit cocycle).
-This is the metaplectic obstruction coming from comparing the two
-square roots of the Jacobian of period transition maps; its class
-agrees with the $q\!\mod 2$ reduction of the discriminant form by
-Shimura's splitting lemma.
-
-\subsection*{Heal — Universal formula}
-
-\ClaimStatusTheorem\ (Universal gerbe class formula.) For any CY$_2$
-$(\infty,1)$-category $\cC$ with rational Mukai lattice $L_\cC$
-carrying discriminant form $(A_{L_\cC}, q_{L_\cC})$,
+and the finite-quadratic-module class vanishes:
 \[
-\boxed{\;[\wper(\cC)] \;=\; [\,q_{L_\cC}\!\!\!\mod 2\,]\;\in\; H^2(\CY_2;\Z/2)\,,\;}
+  [\wper(D^b(X))]=0.
 \]
-with $q_{L_\cC} \!\!\mod 2$ the Arf invariant of the $\Z/2$-reduction
-of the discriminant form. Test table:
+The same conclusion holds at a CM point.  Complex multiplication
+changes the Hodge endomorphism algebra of the period point while the
+discriminant quadratic module remains zero.
+
+\subsection*{Hilbert schemes of K3 type}
+
+For a hyperkahler manifold $Y$ deformation-equivalent to
+$\Hilb^n(K3)$, the Beauville-Bogomolov-Markman weight-two lattice is
+\[
+  H^2(Y,\Z)
+  \cong U^{\oplus3}\oplus E_8(-1)^{\oplus2}
+     \oplus \langle -2(n-1)\rangle .
+\]
+Thus
+\[
+  A_{H^2(Y)}\cong \Z/(2(n-1))\Z,\qquad
+  q(\bar{1})=-\frac{1}{2(n-1)}\bmod 2\Z .
+\]
+Let $a=(n-1)\bar{1}$ be the unique element of order $2$ in
+$A_{H^2(Y)}$.  Then
+\[
+  q(a)=-\frac{n-1}{2}\bmod 2\Z .
+\]
+Consequently the two-primary obstruction detected by the Markman
+generator is
+\[
+  [\wper(Y)]_{\mathrm{disc}}=
+  \begin{cases}
+    0, & n\equiv 1 \pmod 2,\\
+    \alpha_n, & n\equiv 0 \pmod 2,
+  \end{cases}
+\]
+where $\alpha_n$ denotes the nonzero order-two character of the
+monodromy action on the discriminant group.  This is a statement about
+the hyperkahler weight-two period problem.  For $n>1$,
+$D^b(\Hilb^n(K3))$ has CY dimension $2n$.
+
+\subsection*{Enriques quotient surface}
+
+Let $S$ be an Enriques surface and $\pi:X\to S$ its K3 double cover.
+The free numerical lattice is
+\[
+  \Num(S)\cong U\oplus E_8(-1),
+\]
+and pullback to the invariant lattice of the K3 cover scales the
+intersection form:
+\[
+  \pi^*\Num(S)\cong U(2)\oplus E_8(-2).
+\]
+Hence the invariant period lattice has two-elementary discriminant
+group
+\[
+  A_{\pi^*\Num(S)}\cong(\Z/2\Z)^{10}.
+\]
+The canonical bundle $\omega_S$ supplies an additional order-two
+torsion class.  The Enriques period gerbe is therefore nontrivial on
+the quotient surface period stack.  It belongs to torsion-canonical
+surface geometry.  The trivial-canonical CY$_2$ surface lane is the
+separate K3 case above.
+
+The associated Enriques metaplectic denominator lies in the
+half-integral sector:
+\[
+  \Delta^{\Enr}_5\in S_{5/2}\bigl(\widetilde{K(2)},v_{\Enr}\bigr),
+  \qquad
+  \kBKM(\Delta^{\Enr}_5)=\frac52 .
+\]
+This row is separate from the primitive CHL order-$2$ denominator
+$\Phi_2$, whose Borcherds weight is $\kBKM(\Phi_2)=4$.
+
+\subsection*{Principally polarised abelian surfaces}
+
+Let $(A,L)$ be a principally polarised abelian surface.  The full even
+Mukai lattice
+\[
+  H^{\mathrm{even}}(A,\Z)=H^0(A,\Z)\oplus H^2(A,\Z)\oplus H^4(A,\Z)
+  \cong U^{\oplus4}
+\]
+is unimodular.  Therefore the Mukai-discriminant contribution to the
+period gerbe is zero:
+\[
+  A_{H^{\mathrm{even}}(A)}=0,\qquad
+  [\wper(D^b(A))]_{\mathrm{Mukai}}=0.
+\]
+
+The theta-characteristic metaplectic cover over the Siegel modular
+stack $\cA_2$ is a different class.  It is the central extension of
+$\Sp_4(\Z)$ governing the Weil representation and theta multipliers.
+It is detected by the Shimura-Weil and Rao cocycles on $\Sp_4(\A)$,
+then pulled back along a genus-two period map.  It is separate from
+the full Mukai-lattice discriminant class of $A$.
+
+\subsection*{Shimura-Weil pullback}
+
+Let $\rho:\pi_1(\cC)\to\Sp_4(\Z)$ be a period representation.  Howe's
+adelic Weil representation and Rao's explicit cocycle define a central
+extension class
+\[
+  [c_{\mathrm{Rao}}]\in H^2(\Sp_4(\Z);\Z/2).
+\]
+The Siegel metaplectic gerbe on $\cC$ is
+\[
+  [\wper^{\mathrm{Siegel}}(\cC)]
+  =\rho^*[c_{\mathrm{Rao}}]\in H^2(\pi_1(\cC);\Z/2).
+\]
+For a K3-derived category with full Mukai monodromy in
+$\Orth(\mathrm{II}_{4,20})$, this formula requires a specified
+$\Sp_4$ realisation.  Absent that realisation, the relevant class is
+$e(L,\Gamma)$ for the orthogonal finite quadratic module.
+
+\subsection*{Computed cases}
+
 \[
 \begin{array}{l|l|l}
-\cC & A_{L_\cC} & [\wper(\cC)] \\ \hline
-D^b(K3) & 0 & 0 \\
-D^b(\Hilb^n K3) & \Z/2(n{-}1) & (n{-}1)\!\!\mod 2 \\
-D^b(\Enr) & (\Z/2)^{10}\oplus\Z/2_{\omega_S} & 1\ (\text{Arf}) \\
-D^b(\mathrm{PPAS}) & \Z/2_L & 1 \\
-\text{twisted } D^b(K3,\alpha), \alpha\in\Brau(K3) & \Z/\mathrm{ord}(\alpha) & [\alpha]\!\!\mod 2
+\text{period input} & \text{finite quadratic module} &
+\text{period-gerbe conclusion} \\
+\hline
+D^b(K3) &
+0 &
+[\wper]=0 \\
+\Hilb^n(K3)\text{ type} &
+\Z/(2(n-1))\Z,\ q(1)=-1/(2(n-1)) &
+[\wper]_{\mathrm{disc}}=(n-1)\bmod2 \\
+\Enr &
+(\Z/2\Z)^{10}\text{ on }U(2)\oplus E_8(-2),\ \omega_S\text{ torsion} &
+[\wper]\neq0 \\
+D^b(A),\ A\text{ abelian surface} &
+0\text{ for }H^{\mathrm{even}}(A,\Z) &
+[\wper]_{\mathrm{Mukai}}=0 \\
+\cA_2\text{ Siegel stack} &
+\text{theta multiplier on }\Sp_4(\Z) &
+[\wper^{\mathrm{Siegel}}]=[c_{\mathrm{Rao}}]
 \end{array}
 \]
-The formula agrees with Shimura~1975 at the Hodge-bundle level,
-with Giraud~1971 \emph{Cohomologie non ab\'elienne} III.$2.1$ at the
-gerbe level, and with Toën--Vaquié~2007 \emph{Ann.~Sci.~ENS} $40$ at
-the derived Morita level (Morita equivalences respect the
-discriminant form up to Witt cancellation; so $[\wper]$ is a
-Morita-invariant gerbe class on $\CY_2$).
+
+\subsection*{Borcherds and Mathieu normalisations}
+
+The period-gerbe calculation uses the following Borcherds and
+Mathieu normalisations as compatibility data.
+
+For the primitive CHL family on $K3\times E$,
+\[
+  (c_1(0),c_2(0),c_3(0),c_4(0),c_6(0))=(10,8,6,4,2)
+\]
+and Borcherds' weight formula gives
+\[
+  (\kBKM(\Phi_1),\kBKM(\Phi_2),\kBKM(\Phi_3),
+    \kBKM(\Phi_4),\kBKM(\Phi_6))=(5,4,3,2,1).
+\]
+At $N=1$, $\Phi_1=\Delta_5$ and $\mathrm{wt}(\Delta_5)=5$.
+For the compact total space $K3\times E$ the four scalars
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib(K3)=24
+\]
+come from four distinct constructions.
+
+The Gritsenko-Clery reflective catalogue is a separate eight-row
+catalogue with twice-weight tuple
+\[
+  (10,4,6,2,4,1,3,2),
+\]
+equivalently weights
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1).
+\]
+It is indexed by reflective paramodular data.  The five CHL orders form
+the separate primitive denominator row.
+
+The ordinary Mathieu table has $26$ conjugacy classes.  The frame
+shapes used here include the following corrected entries:
+\[
+\begin{array}{c|c}
+\text{class} & \text{frame shape} \\
+\hline
+3B & 3^8 \\
+4A & 2^4 4^4 \\
+4B & 1^4 2^2 4^4 \\
+6B & 6^4 \\
+10A & 2^2 10^2 \\
+12A & 2^1 4^1 6^1 12^1 \\
+12B & 12^2
+\end{array}
+\]
+These are ordinary $M_{24}$ frame shapes, separate from CHL
+denominator weights and from the Gritsenko-Clery catalogue.
 
 \paragraph{Primary literature.}
-Giraud~1971 \emph{Cohomologie non ab\'elienne} (gerbe classification);
-Shimura~1975 \emph{Ann.~Math.}~$102$ (metaplectic splitting);
-Howe~1979 \emph{Proc.~Symp.~Pure Math.}~$33$ (Weil representation);
-Nikulin~1979 \emph{Math.~USSR Izv.}~$14$ (discriminant form);
-Mukai~1987 \emph{Invent.~Math.}~$77$ (Mukai lattice);
-Rao~1993 \emph{Pacific J.~Math.}~$157$ (Weil cocycle);
-Markman~2010 \emph{IMRN} (Hilb$^n$ BB form);
-Toën--Vaquié~2007 \emph{Ann.~Sci.~ENS}~$40$ (derived Morita);
-Gritsenko--Nikulin~1998 \emph{J.~reine angew.~Math.}~$507$
-(Enriques BKM).
+Giraud 1971, \emph{Cohomologie non abelienne}, III.2.1, for gerbe
+classes; Shimura 1975, \emph{Annals of Mathematics} 102, for
+metaplectic splitting in the Siegel setting; Howe 1979, \emph{Proc.
+Symp. Pure Math.} 33, and Rao 1993, \emph{Pacific Journal of
+Mathematics} 157, for the Weil cocycle; Nikulin 1979, \emph{Math.
+USSR Izvestija} 14, for discriminant forms and Enriques lattices;
+Mukai 1987, \emph{Inventiones Mathematicae} 77, for Mukai lattices;
+Markman 2010, \emph{IMRN}, Theorem 1.2, for K3$^{[n]}$ monodromy and
+the Beauville-Bogomolov lattice; Borcherds 1998, \emph{Inventiones
+Mathematicae} 132, Theorem 13.3, for the weight formula
+$\operatorname{wt}\Psi(f)=c(0)/2$; Gritsenko-Nikulin 1998 and
+Gritsenko 1999 for $\Delta_5$ and the Enriques metaplectic
+denominator; Gaberdiel-Hohenegger-Volpato 2010 and
+Cheng-Duncan-Harvey 2014 for the Mathieu frame-shape normalisation.

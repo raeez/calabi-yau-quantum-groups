@@ -1,498 +1,387 @@
-% Vol III --- CY_4 prediction for Phi_4 output, Kapranov voice
-% Raeez Lorgat --- Calabi--Yau quantum groups, wave 15 a8
-
-\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
-\providecommand{\ClaimStatusProvedHere}{\textsc{[Proved here]}}
-\providecommand{\ClaimStatusConditional}{\textsc{[Conditional]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
-\providecommand{\ClaimStatusHeuristic}{\textsc{[Heuristic]}}
 \providecommand{\cC}{\mathcal{C}}
 \providecommand{\cA}{\mathcal{A}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cH}{\mathcal{H}}
 \providecommand{\cZ}{\mathcal{Z}}
-\providecommand{\RepE}{\mathrm{Rep}^{E_1}}
 \providecommand{\Coh}{\mathrm{Coh}}
 \providecommand{\HH}{\mathrm{HH}}
+\providecommand{\HC}{\mathrm{HC}}
 \providecommand{\Perf}{\mathrm{Perf}}
 \providecommand{\PV}{\mathrm{PV}}
 \providecommand{\Sym}{\mathrm{Sym}}
 \providecommand{\Ran}{\mathrm{Ran}}
 \providecommand{\StabOp}{\mathrm{Stab}}
+\providecommand{\RepE}{\mathrm{Rep}^{E_1}}
 \providecommand{\Drin}{\mathrm{Drin}}
 \providecommand{\Zder}{Z^{\mathrm{der}}_{\mathrm{ch}}}
-\providecommand{\At}{\mathrm{At}}
 \providecommand{\Eone}{E_1}
 \providecommand{\Etwo}{E_2}
 \providecommand{\Ethree}{E_3}
+\providecommand{\Efour}{E_4}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\HolFA}{\mathrm{HolFA}}
+\providecommand{\RWk}[1]{\mathsf{RW}_{#1}}
 \providecommand{\bP}{\mathbb{P}}
 \providecommand{\bS}{\mathbb{S}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\C}{\mathbb{C}}
 
-\section{$\Phi_4$ at $d=4$: the Kapranov prediction}
-\label{wn:sec:wave15-a8-CY4-kapranov}
+\section{The CY$_4$ Curve Shadow of $\Phi_4$}
+\label{sec:cy4-kapranov-output}
 
-\paragraph{The obstruction that fixes the output.}
-Fix a compact projective Calabi--Yau fourfold $X$, $\cC = D^b\Coh(X)$. The
-Gerstenhaber bracket on $\HH^\bullet(\cC)$ sits in cohomological degree
-$1 - d = -3$. Under Pantev--To\"en--Vaqui\'e--Vezzosi, $\Perf(X)$ carries
-a $(-4)$-shifted symplectic form, and Calaque--PTVV deformation
-quantisation produces a $(-3)$-Poisson bracket --- equivalently, an
-$E_4$-algebra structure on $\HH^\bullet(\cC)$ via Kontsevich--Tamarkin
-formality with $\mathrm{GRT}_1(\Q)$-ambiguity. The problem is not whether
-$\Phi_4$ lands in some $E_n$-chiral target; Dunn--Lurie provides the
-factorisations $E_4 \simeq \Eone \otimes E_3 \simeq \Etwo \otimes \Etwo$
-and one must specialise along a $3$-cycle. The problem is to determine
-which $E_n$ emerges after the specialisation $\mathrm{Sp}_{\Sigma_3, C}$
-collapses the native $E_4$-holomorphic factorisation algebra
-$\Phi_4^{\mathrm{FA}}(\cC) \in E_4\text{-}\mathrm{HolFA}(X)$ onto the
-reference curve $C$, and in which category the resulting chiral algebra
-lives.
+\paragraph{The curve-level obstruction.}
+Let \(X\) be a compact projective Calabi--Yau fourfold and
+\(\cC=D^b\Coh(X)\). The native stage of the CY-to-chiral construction is
+the conditional CY-A\(_4\) object
+\[
+  \PhiFA_4(\cC)\in \Efour\text{-}\HolFA(X),
+\]
+assembled from the degree \(1-4=-3\) Gerstenhaber bracket on
+\(\HH^\bullet(\cC)\), Kontsevich--Tamarkin formality, and
+Costello--Gwilliam--Li holomorphic locality. The completed curve shadow
+requires an admissible specialisation datum \((\Sigma_3,C)\):
+\[
+  \Phi_4^{(\Sigma_3,C)}(\cC)
+  =
+  \SpCh_{\Sigma_3,C}\bigl(\PhiFA_4(\cC)\bigr).
+\]
+The Hodge computations below are unconditional. Their interpretation as
+\(\kappa_{\mathrm{ch}}\) belongs to the constructed CY-A\(_4\) locus of
+Theorem~\ref{thm:kappa-hodge-supertrace-identification}. The full
+chain-level CY-A\(_4\) functor and its non-product specialisations remain
+conditional on the framing, formality, and completion witnesses named in
+Theorem~\ref{thm:phi-two-stage-factorisation}.
 
-\begin{theorem}[$\Phi_4$-output scope for product CY$_4$]
-\label{wn:thm:wave15-a8-phi4-product-scope}
-\ClaimStatusProvedHere\ Let $X = X_1 \times X_2$ be a product CY$_4$
-with $\dim_\C X_1 + \dim_\C X_2 = 4$, each factor a strict compact
-K\"ahler Calabi--Yau admitting an independent Ricci-flat metric
-\textup{(}Yau 1978\textup{)}, and let $\cC = D^b\Coh(X)$. On the
-product-stable sublocus $\StabOp(X_1) \times \StabOp(X_2) \hookrightarrow
-\StabOp(X)$,
+\begin{proposition}[Native curve output at \(d=4\)]
+\label{prop:cy4-native-e1-output}
+On every constructed CY-A\(_4\) locus and for every admissible
+\((\Sigma_3,C)\), the curve shadow
+\(\Phi_4^{(\Sigma_3,C)}(\cC)\) is an \(\Eone\)-chiral algebra on
+\(\Ran(C)\). The \(\Etwo\)-braided object attached to it is
+\[
+  \cZ\bigl(\RepE(\Phi_4^{(\Sigma_3,C)}(\cC))\bigr)
+  \simeq
+  \mathrm{Rep}^{\Etwo}\bigl(\Zder(\Phi_4^{(\Sigma_3,C)}(\cC))\bigr),
+\]
+the Drinfeld-centre or derived-centre layer.
+\end{proposition}
+
+\begin{proof}
+The stage-one object is \(\Efour\)-factorisation on the fourfold. Holomorphic
+factorisation homology over the complex threefold \(\Sigma_3\) reduces the
+operadic level by three:
+\[
+  \int_{\Sigma_3}^{\mathrm{hol}}:
+  \Efour\text{-}\HolFA(X)\longrightarrow
+  \Eone\text{-}\HolFA(C).
+\]
+This is Proposition~\ref{prop:native-en-level} and the \(d=4\) row of
+Proposition~\ref{prop:ptvv-shift-law}. The second multiplication is supplied
+by the centre construction, by the Deligne--Ben-Zvi--Francis--Nadler
+centre theorem quoted in Remark~\ref{rem:e2-on-drinfeld-centre}.
+\end{proof}
+
+\paragraph{Product fourfolds.}
+For \(X=X_1\times X_2\) with \(\dim_{\C}X_1+\dim_{\C}X_2=4\), the
+product statement is proved only under the split hypotheses of
+Proposition~\ref{prop:phi-d-kunneth-split-product}: split framing,
+factorwise anomaly cancellation, and product-stable Bridgeland slicing.
+Under these hypotheses,
+\[
+  \Phi_4(X_1\times X_2)
+  \simeq
+  \Phi_{d_1}(X_1)\boxtimes\Phi_{d_2}(X_2)
+\]
+as an \(\Eone\)-chiral algebra after curve specialisation. Dunn additivity
+acts at the stage-one factorisation level; the final curve object remains
+\(\Eone\).
+
+\begin{theorem}[\(K3\times K3\)]
+\label{thm:cy4-k3-k3-product}
+Let \(X=S_1\times S_2\) be a product of projective \(K3\) surfaces and
+\(\cC=D^b\Coh(X)\). On the product-stable locus
+\(\StabOp(S_1)\times\StabOp(S_2)\subset\StabOp(X)\), the \(d=4\) curve
+shadow is
 \[
   \Phi_4(X)
-  \;\simeq\;
-  \Phi_{d_1}(X_1) \;\boxtimes\; \Phi_{d_2}(X_2)
+  \simeq
+  \cH_{\mathrm{Muk}}(S_1)\boxtimes\cH_{\mathrm{Muk}}(S_2)
 \]
-as $\Eone$-chiral algebras on $\Ran(\Sigma)$, where each factor
-$\Phi_{d_i}(X_i)$ is $\Etwo$-chiral for $d_i = 2$ and $\Eone$-chiral for
-$d_i = 1$ or $d_i = 3$. The product chiral algebra is $\Eone$-chiral
-natively at the chain level, and carries an $\Etwo$-braided recovery on
-the Drinfeld centre $\cZ(\RepE(\Phi_4(X))) \simeq
-\mathrm{Rep}^{\Etwo}(\Drin(\Phi_4(X)))$.
-\end{theorem}
-
-\begin{proof}[Sketch]
-Proposition~\ref{prop:phi-d-kunneth-split-product} \textup{(}of
-\texttt{chapters/theory/cy\_to\_chiral.tex}\textup{)} applies: the
-hypotheses \textup{(}H1\textup{)} $\bS^4$-framing splits as
-$\bS^{d_1} \boxtimes \bS^{d_2}$ \textup{(}equivalent to the first
-Pontryagin class factoring through the two projections --- true for
-$K3 \times K3$, $K3 \times T^4$, $T^4 \times T^4$\textup{),}
-\textup{(}H2\textup{)} absence of BCOV one-loop anomaly at
-$d_i \leq 2$ \textup{(}Costello--Li 2016 Prop.~5.2\textup{),} and
-\textup{(}H3\textup{)} product slicing on the Bridgeland manifold
-\textup{(}Bayer--Macr\`i--Stellari 2016\textup{).} The Dunn--Lurie
-identification $E_{n_1} \otimes_{\mathrm{Dunn}} E_{n_2} \simeq
-E_{n_1 + n_2}$ matches the Gerstenhaber-degree calculation
-$1 - 4 = (1 - d_1) + (1 - d_2) - 1$ with $d_1 + d_2 = 4$. For
-$(d_1, d_2) = (2, 2)$ Dunn--Lurie gives $\Etwo \otimes \Etwo = E_4$,
-collapsing to $\Eone$ after specialisation $\mathrm{Sp}_{\Sigma_3, C}$
-over $\Sigma_3 = \Sigma_1 \times \Sigma_2 \subset X_1 \times X_2$, with
-each factor specialisation $\mathrm{Sp}_{\Sigma_1, C}$ already
-$\Eone$-chiral on $C$.
-\end{proof}
-
-\begin{corollary}[$K3 \times K3$ is the iterated-bar-tensor of the Mukai chiral algebra]
-\label{wn:cor:wave15-a8-K3-K3-explicit}
-\ClaimStatusProvedHere\ \ClaimStatusConditional{ (pointwise
-$\bS^4$-framing: $[p_1(T_X)] \neq 0$, Corollary~\ref{cor:phi-4-p1-vanishing-stratum})}
-For $X = K3 \times K3$, the CY-to-chiral functor at $d = 4$ factorises as
-\[
-  \Phi_4(K3 \times K3)
-  \;\simeq\;
-  \cH_{\mathrm{Muk}}(K3) \;\boxtimes\; \cH_{\mathrm{Muk}}(K3)
-  \;\simeq\;
-  \mathbf H_{\Delta_5} \boxtimes \mathbf H_{\Delta_5}
-\]
-as an $\Eone$-chiral algebra on $\Ran(\Sigma)$. Its four
-$\kappa_\bullet$-readings are $\kappa_{\mathrm{ch}}(K3 \times K3) = 4$
-\textup{(}K\"unneth-multiplicative Hodge supertrace
-$2 \cdot 2 = 4$\textup{),}
-$\kappa_{\mathrm{cat}}(K3 \times K3) = \chi(\cO_{K3 \times K3}) = 4$,
-$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times K3) = 24 + 24 = 48$
-\textup{(}rank-additive on the Heisenberg generators\textup{),} and
-$\kappa_{\mathrm{fiber}}(K3 \times K3) = 24 \cdot 24 = 576$
-\textup{(}total rank, $= \chi_{\mathrm{top}}$\textup{).}
-\end{corollary}
-
-\begin{proof}
-Theorem~\ref{thm:phi-4-k3-k3-kunneth-explicit} of
-\texttt{cy\_to\_chiral.tex} instantiates
-Theorem~\ref{wn:thm:wave15-a8-phi4-product-scope} at
-$(d_1, d_2) = (2, 2)$ with both factors K3. The second identification
-$\cH_{\mathrm{Muk}}(K3) = \mathbf H_{\Delta_5}$ is
-Theorem~\ref{thm:k3-cy2-serre-cocycle} \textup{(}of
-\texttt{chapters/examples/k3\_chiral\_bialgebra\_platonic.tex}\textup{).}
-The numerical $\kappa$-readings are Remark~\ref{rem:phi-4-k3-k3-kappa-quartet}.
-\end{proof}
-
-\begin{remark}[The $E_1$-output is forced, not a choice]
-\label{wn:rem:wave15-a8-E1-output-forced}
-At $d = 3$ the K3$\,\times\,$E analysis established the pattern:
-$\Phi_3(K3 \times E)$ is natively $\Eone$-chiral; the would-be
-$\Etwo$-structure on $\mathbf H_{\Delta_5}$ itself obstructs via the
-Siegel pentagon-$\hbar^3$ cocycle
-\textup{(}Proposition~\ref{prop:qgfnd-pentagon-hbar3-obstruction}\textup{).}
-At $d = 4$ the same obstruction persists, strengthened by one degree:
-the would-be $\Etwo$-associator class lives in $\ChirHoch^3(A)$
-\textup{(}not $\ChirHoch^2$ as at $d = 3$\textup{).} Francis' concentration
-theorem \textup{(}\cite{Francis2013} Thm.~1.1\textup{)} gives
-$\ChirHoch^\bullet(A)$ in $\{0, 1, 2\}$ for an $\Eone$-chiral algebra
-$A$; the associativity obstruction in degree $3$ therefore vanishes
-automatically for the $\Eone$-structure, while the $\Etwo$-lift requires
-annihilating a class in degree $3$ of the $\Etwo$-deformation complex
-which is non-zero at $d = 4$ whenever the BCOV quartic
-$\kappa^{(4)}_{\mathrm{BCOV}}(X) = \int_X H^4$ is non-zero
-\textup{(}Remark~\ref{rem:cy4-associator-falsification}\textup{).} The
-braided enhancement is recovered exactly as at $d = 3$: via the Drinfeld
-centre passage $\cZ \colon \Eone\text{-}\mathrm{Cat} \to
-\Etwo\text{-}\mathrm{Cat}$ categorifying the commutant, never the
-averaging map $\Eone \to E_\infty$.
-\end{remark}
-
-\paragraph{Irreducible CY$_4$: the Fermat sextic.}
-Let $X_6 \subset \bP^5$ be the Fermat sextic $\{z_0^6 + \cdots + z_5^6 =
-0\}$, a smooth compact projective CY$_4$ with
-$(h^{0,0}, h^{0,1}, h^{0,2}, h^{0,3}, h^{0,4}) = (1, 0, 0, 0, 1)$,
-$h^{1,1}(X_6) = 1$, $h^{3,1}(X_6) = 426$, $h^{2,2}(X_6) = 1752$,
-$h^{2,2}_{\mathrm{prim}}(X_6) = 1750$,
-$\chi_{\mathrm{top}}(X_6) = 2610$, $\int_{X_6} p_1(T_X) = -180$
-\textup{(}Klemm--Pandharipande 2007 Table~1\textup{).} The sextic is
-$\emph{not}$ a product, so hypothesis \textup{(}H1\textup{)} of
-Theorem~\ref{wn:thm:wave15-a8-phi4-product-scope} fails. The
-factorisation-homology route collapses in a different way: directly
-through the Kapranov $L_\infty$ structure on $T_{X_6}[-1]$.
-
-\begin{theorem}[$\Phi_4$-output scope for the Fermat sextic]
-\label{wn:thm:wave15-a8-phi4-sextic-scope}
-\ClaimStatusProvedHere\ \ClaimStatusConditional{ (pointwise $\bS^4$-framing: $N(X_6) = 5400 \neq 0$; $\bP^1$-family obstruction is genuine)}
-For $X_6 \subset \bP^5$ the smooth Fermat sextic CY$_4$, the CY-to-chiral
-functor $\Phi_4$ takes the value, not a single $\Eone$-chiral algebra,
-but a $\bP^1$-family of $\Eone$-chiral algebras
-$\{A^{(\sigma_3, \sigma_4)}_{X_6}\}_{[\sigma_3 : \sigma_4] \in \bP^1}$
-on $\Ran(\Sigma)$, where $\sigma_3 \in H^{3,1}(X_6)$ runs the classical
-complex-structure deformation direction and $\sigma_4 \in
-H^{2,2}_{\mathrm{prim}}(X_6)$ runs the new $d = 4$ primitive-middle BCOV
-deformation direction. Each fibre $A^{(\sigma_3, \sigma_4)}_{X_6}$ is
-constructed in four steps:
-\begin{enumerate}[label=\textup{(\arabic*)}]
- \item HKR endomorphism dg algebra
-   $\mathrm{End}_{\mathrm{HKR}}(\cC) \simeq \PV^\bullet(X_6)[u]$.
- \item Negative cyclic refinement $\HH C^-_\bullet(\mathrm{End}_{\mathrm{HKR}})$
-   with Connes' $u$.
- \item BCOV Maurer--Cartan twist
-   $\bar\partial \mu + \tfrac12[\mu,\mu] + \sigma_3 \wedge \mu^2 +
-   \sigma_4 \wedge \mu^3 = 0$
-   \textup{(}the third-order term is the novel CY$_4$ feature\textup{).}
- \item Universal $\Eone$-chiral envelope
-   $A^{(\sigma_3, \sigma_4)}_{X_6} := U^{ch}_{\Eone}(L^{(\sigma_3,
-   \sigma_4)}_{X_6})$.
-\end{enumerate}
-Each fibre is $\Eone$-chiral natively. The $\Etwo$-braided enhancement
-lives on the Drinfeld centre
-$\cZ(\RepE(A^{(\sigma_3, \sigma_4)}_{X_6}))$ with the $p_1$-twisted
-half-braiding driven by the integer level
-$\ell(X_6, \alpha) = \int_{X_6} p_1(T_{X_6}) \cup \alpha = -180$.
-\end{theorem}
-
-\begin{proof}[Sketch]
-Construction~\ref{constr:phi-4-p1-family} of
-\texttt{cy\_to\_chiral.tex} furnishes the four-step chain-level model;
-Theorem~\ref{thm:phi-4-eff-p1-vanishing} computes the integer level of
-the pointwise $\Z$-shifted symplectic structure from
-$\int_{X_6} p_1(T_{X_6}) \cup \alpha$ for
-$\alpha \in H^4(X_6; \Z)$; the $\Eone$ specialisation from the native
-$E_4$-holomorphic factorisation algebra is Dunn--Lurie collapse along the
-$3$-cycle $\Sigma_3 \subset X_6$. Pontryagin-number
-$N(X_6) = \int p_1^2 = 5400 \neq 0$ places $X_6$ off the $N = 0$
-stratum; the $\bP^1$-family is non-trivially non-constant, with central
-charges $c = 2591$ at the $\sigma_4 \to 0$ limit
-\textup{(}the $\Phi_3$-extension limit\textup{)} and
-$c = 3466$ at the $\sigma_3 \to 0$ limit
-\textup{(}the new CY$_4$-specific limit glued to
-$\mathrm{Cliff}(H^{2,2}_{\mathrm{prim}})$\textup{),}
-Example~\ref{ex:sextic-cy4-associator}.
-\end{proof}
-
-\begin{theorem}[Kapranov $L_\infty$ certification: sextic is weight-$2$, not higher]
-\label{wn:thm:wave15-a8-kapranov-sextic-weight}
-\ClaimStatusProvedHere\ The Fermat sextic $X_6 \subset \bP^5$ supports a
-non-trivial \emph{weight-$2$} Kapranov $L_\infty$-structure on
-$T_{X_6}[-1]$: the binary Atiyah bracket
-$\ell_2 = \At(T_{X_6})(v_1 \wedge v_2)$ of Kapranov 1999 Compositio
-Math.~115, and the ternary tree-level BCOV Yukawa
-$\ell_3^{\mathrm{min}}(v_1, v_2, v_3) = \int_{X_6} \Omega_{X_6} \wedge
-\At(v_1) \cup \At(v_2) \cup \At(v_3)$ on $H^1(X_6, T_{X_6})$ --- the
-two brackets with non-trivial $\sigma_{X_6}$-contraction, where
-$\sigma_{X_6} \in H^0(X_6, \Omega^{4,0}_{X_6})$ is the holomorphic
-$(4,0)$-form. Higher Kapranov brackets $\ell_n^{\mathrm{min}}$ for
-$n \geq 4$ vanish after $\iota_{\sigma_{X_6}^\vee}$-contraction because
-$H^{0,q}(X_6) = 0$ for $q \in \{1, 2, 3\}$; the relevant arities cap at
-$n = 3$ on the sextic. The Kapranov tower is sharp at weight $2$ in the
-sense of Definition~\ref{def:genericity-sigma-X-rank}.
-\end{theorem}
-
-\begin{proof}[Sketch]
-Direct by Theorem~\ref{thm:weight-k-kapranov-obstruction} applied at
-$k = 2$: the equivalent conditions require
-$\sigma_{X_6}$ generic of rank $\geq 3 = 2k - 1$ and
-$\iota_{\sigma_{X_6}^\vee}(\At^{(2)}(T_{X_6})) \neq 0$ in cohomology. The
-first holds because $\sigma_{X_6} \in H^0(\Omega^{4,0}) \cong \C$ is
-nowhere vanishing on the Fermat sextic \textup{(}CY condition\textup{),}
-forcing maximal rank $4$; the second is the obstruction-theoretic
-translation of
-$\kappa^{(4)}_{\mathrm{BCOV}}(X_6) = \int_{X_6} H^4 = \deg(X_6) = 6 \neq 0$
-\textup{(}top-intersection on $\bP^5$\textup{).} The vanishing of
-$\ell_n^{\mathrm{min}}$ for $n \geq 4$ follows from
-$H^{0,q}(X_6) = 0$ at $q = 1, 2, 3$: the target of
-$\ell_n^{\mathrm{min}}$ sits in $H^{0, n-1}(X_6)$ by Serre duality
-translation, vanishing for $n = 4, 5, 6$ on the strict CY fourfold.
-Higher Kapranov brackets exist only for hyperk\"ahler fourfolds with
-$h^{0,2} = 1$ from a holomorphic-symplectic form, such as $K3^{[2]}$ or
-Beauville--Donagi cubic fourfold lines $F(Y)$; the sextic has
-$h^{0,2}(X_6) = 0$ and is strictly weight-$2$.
-\end{proof}
-
-\begin{remark}[The sextic $\ell_3^{\mathrm{min}}$ is the BCOV $\sigma_3$-coupling]
-\label{wn:rem:wave15-a8-ell3-BCOV}
-\ClaimStatusTheorem{}\ The Kapranov ternary $\ell_3^{\mathrm{min}}$ on
-$X_6$ and the BCOV $\sigma_3$-coupling in the twisted Maurer--Cartan
-equation $\bar\partial \mu + \tfrac12 [\mu,\mu] + \sigma_3 \wedge \mu^2 +
-\sigma_4 \wedge \mu^3 = 0$ of Construction~\ref{constr:phi-4-p1-family}
-Step~$3$ are the same cohomology class: both compute
-$H^{0,3}(X_6) \otimes \Sym^3(H^1(X_6, T_{X_6}))^\vee$, realised as
-$\int_{X_6} \Omega_{X_6} \wedge \At(v_1) \cup \At(v_2) \cup \At(v_3)$
-\textup{(}Kapranov 1999 \S4; BCOV 1994
-Comm.~Math.~Phys.~165 \S2\textup{).} The quartic $\sigma_4$-coupling in
-Step~$3$ is the new CY$_4$-specific contribution; it has no counterpart
-in the $d = 3$ Kapranov tree-level Yukawa and is the precise obstruction
-that forces the $\bP^1$-family structure on $\Phi_4(X_6)$.
-\end{remark}
-
-\begin{theorem}[$\Etwo$-braided enhancement on $Z(\RepE(\Phi_4(X)))$]
-\label{wn:thm:wave15-a8-E2-drinfeld-centre}
-\ClaimStatusProvedHere\ Let $X$ be either $K3 \times K3$ or $X_6 \subset
-\bP^5$, $\cC = D^b\Coh(X)$, and $A = \Phi_4(\cC)$ \textup{(}a single
-$\Eone$-chiral algebra on the product-stable sublocus of
-$\StabOp(X_1 \times X_2)$ for the product case; a $\bP^1$-family of
-$\Eone$-chiral algebras for the sextic\textup{).} The Drinfeld centre
-\[
-  \cZ\bigl(\RepE(A)\bigr)
-  \;\simeq\;
-  \mathrm{Rep}^{\Etwo}\bigl(\Drin(A)\bigr)
-\]
-carries a canonical $\Etwo$-chiral structure. On the product case this is
-the iterated-bar-tensor
-$(\mathrm{Rep}^{\Etwo}(\Drin(\mathbf H_{\Delta_5})))^{\boxtimes 2}$;
-on the sextic case it is a $\bP^1$-family of $\Etwo$-chiral algebras.
-\end{theorem}
-
-\begin{proof}[Sketch]
-Proposition~\ref{prop:e2-enhancement-drinfeld} of
-\texttt{chapters/theory/e1\_chiral\_algebras.tex}: for any $\Eone$-chiral
-algebra $A$ with dualisable monoidal $\RepE(A)$, the Drinfeld centre
-$\cZ(\RepE(A))$ is braided monoidal and, under Lurie's identification of
-$\Etwo$-algebras with braided monoidal objects \textup{(}Lurie, Higher
-Algebra \S 5\textup{),} receives a canonical $\Etwo$-structure. The
-right-adjointness of $\cZ$ to the forgetful functor
-$\mathrm{BrMon} \to \mathrm{Mon}$ \textup{(}Etingof--Nikshych--Ostrik\textup{)}
-makes this a commutant construction, not an averaging: $\Eone \to \Etwo$ is
-the categorified commutant; $\Eone \to E_\infty$ is the averaging that
-destroys quantum-group data and is the wrong passage. In the product
-case, the Drinfeld centre commutes with external tensor product of
-$\Eone$-chiral algebras,
-$\cZ(\RepE(A \boxtimes B)) \simeq \cZ(\RepE(A)) \boxtimes
-\cZ(\RepE(B))$; in the sextic case it commutes with the $\bP^1$-family
-structure, producing a $\bP^1$-family of braided monoidal categories.
-\end{proof}
-
-\begin{remark}[Why not $E_{-1}$ or $E_0$ at $d = 4$]
-\label{wn:rem:wave15-a8-not-E-minus-1}
-\ClaimStatusTheorem{}\ The naive guesses $E_{-1}$-chiral
-\textup{(}spectrum-level\textup{)} or $E_0$-chiral \textup{(}pointed
-set\textup{)} do not arise. The output of $\Phi_4$ after specialisation
-$\mathrm{Sp}_{\Sigma_3, C}$ is $\Eone$-chiral. The reason is structural:
-Beilinson--Drinfeld's $E_n$-chiral hierarchy on a curve $C$ requires
-$n \geq 1$ to carry a non-trivial chiral operation
-\textup{(}$\Eone$-chiral = associative $\otimes$ holomorphic on
-$C$\textup{);} $n = 0$ would degenerate to a sheaf of pointed sets, and
-$n = -1$ has no chiral incarnation. The Dunn--Lurie collapse
-$E_4 \to E_1$ via $\int_{\Sigma_3}$ is proved in the category
-$\mathrm{Pr}^L$ of presentable $\infty$-categories
-\textup{(}Francis 2013 Adv.~Math.~239 Thm.~1.1\textup{),} where the
-result lands in $\Eone$-chiral, not below; a further collapse would
-require $\int_{\Sigma_0} = \int_{\mathrm{pt}}$, i.e., no specialisation,
-and the unrelated collapse $E_n \to E_{n-1}$ via
-$\int_{S^0}$ is not the specialisation operation. The $d = 4$ position
-is therefore: natively $\Eone$, with $\Etwo$ braided recovery via the
-Drinfeld centre, matching the general $d \geq 3$ pattern and extending
-the $d = 3$ position one degree upward.
-\end{remark}
-
-\begin{theorem}[The $\{2, 4, 151, 3\}$-quartet: CY$_4$ $\kappa_{\mathrm{ch}}$-spectrum]
-\label{wn:thm:wave15-a8-kappa-ch-spectrum}
-\ClaimStatusProvedHere\ Across the five $d = 4$ families of
-Theorem~\ref{thm:cy-d-d4-stratification}
-\textup{(}\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}\textup{),}
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lccc}
-\toprule
-$X$ & $h^{0,\bullet}(X)$ & $\kappa_{\mathrm{ch}}(X) = \Xi(X)$ & construction \\
-\midrule
-Sextic $X_6 \subset \bP^5$ & $(1,0,0,0,1)$ & $2$ & irreducible, $\bP^1$-family \\
-Octic double $X_8$ & $(1,0,149,0,1)$ & $151$ & irreducible, non-trivial $h^{0,2}$ \\
-Decic $X_{10} \subset \bP(1^5, 5)$ & $(1,0,0,0,1)$ & $2$ & irreducible \\
-$K3^{[2]}$ & $(1,0,1,0,1)$ & $3$ & hyperk\"ahler \\
-$F(Y) \subset \mathrm{Gr}(2, 6)$ & $(1,0,1,0,1)$ & $3$ & Beauville--Donagi \\
-$K3 \times K3$ & $(1,0,2,0,4)$ (K\"unneth) & $4$ & product \\
-\bottomrule
-\end{tabular}
-\end{center}
-$\kappa_{\mathrm{ch}}(X) = \Xi(X) = \sum_{q=0}^4 (-1)^q h^{0,q}(X)
-= \chi(\cO_X)$ \emph{holds at $d = 4$} \textup{(}in contrast to $d = 3$
-where $\chi(\cO_X) = 0$ for strict CY$_3$ and $\kappa_{\mathrm{ch}}$
-comes from the BCOV branch $\chi_{\mathrm{top}}/24$\textup{);} this is
-Theorem~\ref{thm:kappa-hodge-supertrace-identification}. The BCOV $F_2$
-zero-correction theorem
-\textup{(}Theorem~\ref{thm:bcov-f2-zero-correction-d4}\textup{)} certifies
-this is the complete answer at $d = 4$: no quantum correction from the
-genus-$2$ anomaly because $F_1(X) = \chi(X)/24$ is moduli-independent.
+as an \(\Eone\)-chiral algebra on \(\Ran(C)\). Each factor
+\(\cH_{\mathrm{Muk}}(S_i)=\Phi_2(S_i)\) is the Mukai--Heisenberg chiral
+algebra of Theorem~\ref{thm:phi-k3-explicit}.
 \end{theorem}
 
 \begin{proof}
-Each $\kappa_{\mathrm{ch}}$ value is Theorem~\ref{thm:cy-d-d4-stratification}.
-The $K3 \times K3$ value $4 = 2 \cdot 2$ is K\"unneth-multiplicative on
-$\chi(\cO_{-})$ \textup{(}Hirzebruch--Riemann--Roch\textup{).} The BCOV
-$F_2$ zero-correction is
-Theorem~\ref{thm:bcov-f2-zero-correction-d4}. The absence of any
-$F_g$-correction for $g \geq 2$ at $d = 4$ is the dimension-stratified
-claim of Remark~\ref{rem:cy-strat-d4-cross-d-mechanisms}.
+The factors are strict compact K\"ahler CY\(_2\) manifolds with Ricci-flat
+metrics by Yau's theorem. The \(d\leq2\) BCOV anomaly is absent, so the
+split product hypotheses hold on the stated stability locus. Applying
+Proposition~\ref{prop:phi-d-kunneth-split-product} with \(d_1=d_2=2\)
+gives the displayed external tensor product. Proposition
+\ref{prop:cy4-native-e1-output} fixes the curve-level operad as \(\Eone\).
 \end{proof}
 
-\paragraph{Falsifiable tests of the prediction.}
-
-\begin{remark}[Four falsifiable tests of the $\Phi_4$-output prediction]
-\label{wn:rem:wave15-a8-falsifiable-tests}
-Four independent computations would falsify the Kapranov prediction:
-\begin{enumerate}[label=\textup{(F\arabic*)}]
- \item \emph{Pontryagin-number test.} The prediction forces $N(X) =
-   \int_X p_1(T_X)^2$ to control the $\bP^1$-family twist: $N(X) = 0$
-   should give $\bP^1$-trivial $\Phi_4(X)$ \textup{(}single
-   $\Eone$-chiral algebra\textup{)} and $N(X) \neq 0$ should give a
-   genuinely non-constant family. The table of
-   Remark~\ref{rem:cy4-pontryagin-number-stratum} records
-   $N(\C^4/\Lambda) = N(K3 \times T^4) = 0$ on the $N = 0$ stratum
-   and $N(X_6) = 5400, N(K3 \times K3) = 4608, N(X_7) = 12348$ off it.
-   A direct computation producing a non-trivial $\bP^1$-family on an
-   $N = 0$ example would falsify.
- \item \emph{Central-charge test at the sextic.} The two limits of the
-   sextic $\bP^1$-family predict $c = 2591$ at $\sigma_4 \to 0$ and
-   $c = 3466$ at $\sigma_3 \to 0$, differing by
-   $h^{2,2}_{\mathrm{prim}}/2 = 1750/2 = 875$. A direct computation of
-   either central charge disagreeing with these values would falsify.
- \item \emph{$\kappa_{\mathrm{ch}}$ on the sextic.} The Hodge-supertrace
-   prediction $\kappa_{\mathrm{ch}}(X_6) = 2$ at $d = 4$ is tight: a
-   direct Costello--Li BCOV-quantisation computation of
-   $\kappa_{\mathrm{ch}}$ yielding any value $\neq 2$ would falsify, as
-   would a value $\neq 4$ on $K3 \times K3$ or $\neq 3$ on $K3^{[2]}$ /
-   $F(Y)$ or $\neq 151$ on the octic double cover.
- \item \emph{BCOV $F_g$-correction at $g \geq 2$.} The sextic
-   $\HH_{-1}(X_6) = h^{2,1} + h^{1,2} = 852$ is non-zero, so the
-   naive expectation is that $F_2$ contributes. The $F_1$
-   moduli-independence mechanism
-   \textup{(}Theorem~\ref{thm:bcov-f2-zero-correction-d4}\textup{)}
-   predicts zero correction. An explicit $F_2$ computation via
-   Costello--Li 2015 BCOV quantisation on the sextic with non-zero
-   anomaly at $F_2$ would falsify.
-\end{enumerate}
+\begin{remark}[Four \(K3\times K3\) scalars]
+\label{rem:cy4-k3-k3-scalars}
+The product carries four construction-distinct scalar readings:
+\[
+\begin{aligned}
+  \kappa_{\mathrm{ch}}(K3\times K3)
+    &= \Xi(K3\times K3)=2\cdot2=4,\\
+  \kappa_{\mathrm{cat}}(K3\times K3)
+    &= \chi(\cO_{K3\times K3})=4,\\
+  \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times K3)
+    &= 24+24=48,\\
+  \kappa_{\mathrm{fiber}}(K3\times K3)
+    &= \dim_{\C}H^\bullet(K3\times K3,\C)=24\cdot24=576.
+\end{aligned}
+\]
+Here
+\[
+  h^{0,\bullet}(K3\times K3)=(1,0,2,0,1),
+\]
+so the Hodge supertrace is \(1+2+1=4\). The Heisenberg scalar is
+the sum of the two Mukai-lattice ranks; the fibre scalar is
+K\"unneth-multiplicative on total cohomology. A Borcherds weight for a
+product fourfold would require a separately constructed Borcherds lift.
 \end{remark}
 
-\paragraph{Reading against the $d$-stratification table.}
-The dimensional stratification runs
+\paragraph{Irreducible fourfolds.}
+Let \(X_6\subset\bP^5\) be the Fermat sextic. It is a smooth compact
+CY\(_4\) with
+\[
+  (h^{0,0},h^{0,1},h^{0,2},h^{0,3},h^{0,4})=(1,0,0,0,1).
+\]
+Klemm--Pandharipande give the fourfold data
+\[
+  h^{1,1}=1,\qquad h^{3,1}=426,\qquad h^{2,2}=1752,\qquad
+  h^{2,2}_{\mathrm{prim}}=1750,\qquad \chi_{\mathrm{top}}=2610.
+\]
+Adjunction gives \(p_1(T_{X_6})=-30H^2\), hence
+\[
+  \ell(X_6,H^2)=\int_{X_6}p_1(T_{X_6})H^2=-180,\qquad
+  N(X_6)=\int_{X_6}p_1(T_{X_6})^2=5400.
+\]
 
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{ccccc}
+\begin{construction}[Conditional \(\bP^1\)-family for a CY\(_4\)]
+\label{constr:cy4-p1-family-clean}
+Assume the CY-A\(_4\) stage-one construction of \(\PhiFA_4\), the
+BCOV Maurer--Cartan model of Construction~\ref{constr:phi-4-p1-family},
+and the required analytic completion. For a compact projective CY\(_4\)
+\(X\), the model assigns to
+\([\sigma_3:\sigma_4]\in\bP^1\) an \(\Eone\)-chiral algebra
+\[
+  A_X^{(\sigma_3,\sigma_4)}
+  =
+  U^{\mathrm{ch}}_{\Eone}\bigl(L_X^{(\sigma_3,\sigma_4)}\bigr),
+\]
+where \(L_X^{(\sigma_3,\sigma_4)}\) is obtained from the HKR polyvector
+dg Lie algebra \(\PV^\bullet(X)[u]\), negative cyclic refinement, and
+the CY\(_4\) BCOV twist
+\[
+  \bar\partial\mu+\frac12[\mu,\mu]
+  +\sigma_3\wedge\mu^2+\sigma_4\wedge\mu^3=0.
+\]
+The parameter \(\sigma_3\) lies in \(H^{3,1}(X)\). The parameter
+\(\sigma_4\) lies in \(H^{2,2}_{\mathrm{prim}}(X)\) and records the
+primitive middle-dimensional BCOV direction.
+\end{construction}
+
+\begin{remark}[Sextic numerical consequences]
+\label{rem:cy4-sextic-consequences}
+For \(X_6\), the unconditional Hodge supertrace is
+\[
+  \Xi(X_6)=1-0+0-0+1=2.
+\]
+On the conditional family model, Example~\ref{ex:sextic-cy4-associator}
+computes the Mukai-style Hodge sum
+\[
+  1+426+1752+426+1=2606,
+\]
+then applies the Pontryagin shift \(\ell(X_6,H^2)/12=-15\). The effective
+central charge at the \(\sigma_4\to0\) limit is therefore \(2591\), while
+the \(\sigma_3\to0\) limit adds
+\(\frac12 h^{2,2}_{\mathrm{prim}}=875\), giving \(3466\). These central
+charges are computed consequences of the conditional family model, separate
+from \(\kappa_{\mathrm{ch}}(X_6)=2\).
+\end{remark}
+
+\begin{proposition}[The sextic lies outside \(\RWk{4}\)]
+\label{prop:cy4-sextic-outside-rw4}
+The Fermat sextic \(X_6\) carries the ordinary Kapranov \(L_\infty\)
+structure on \(T_{X_6}[-1]\) determined by the Atiyah class, and lies
+outside the weight-\(2\) Rozansky--Witten locus of
+Theorem~\ref{thm:weight-k-kapranov-obstruction}.
+\end{proposition}
+
+\begin{proof}
+The weight-\(2\) Rozansky--Witten condition uses a holomorphic
+symplectic form \(\sigma\in H^0(X,\Omega_X^{2,0})\) with the stated rank
+condition. A strict CY\(_4\) of sextic type has \(h^{0,2}(X_6)=0\).
+Thus the required \((2,0)\)-form is absent. The Atiyah class still
+defines Kapranov brackets on \(T_{X_6}[-1]\), but the extra
+holomorphic-symplectic contraction that defines \(\RWk{4}\) belongs to
+hyperk\"ahler fourfolds such as \(K3^{[2]}\) and Beauville--Donagi
+fourfolds.
+\end{proof}
+
+\paragraph{\(\kappa_{\mathrm{ch}}\) at \(d=4\).}
+For compact CY\(_4\), the Hodge supertrace is
+\[
+  \Xi(X)=\sum_{q=0}^4(-1)^q h^{0,q}(X).
+\]
+On the constructed CY-A\(_4\) locus this is
+\(\kappa_{\mathrm{ch}}(\cA_X)\) by
+Theorem~\ref{thm:kappa-hodge-supertrace-identification}. The following
+values are direct Hodge computations:
+\[
+\begin{array}{lcc}
 \toprule
-$d$ & Shifted-Poisson degree & Native $\Phi_d$-target & Braided recovery & $\kappa_{\mathrm{ch}}$ mechanism \\
+X & h^{0,\bullet}(X) & \Xi(X) \\
 \midrule
-$1$ & $+1$ & $E_\infty$-chiral & same & $h^{1,0}$-quantum \\
-$2$ & $\phantom{+}0$ & $\Etwo$-chiral & same & Hodge supertrace $\chi(\cO_X)$ \\
-$3$ & $-1$ & $\Eone$-chiral & $\Etwo$ on $\cZ(\RepE(A))$ & $\chi_{\mathrm{top}}/24$ or K\"unneth \\
-$4$ & $-2$ & $\Eone$-chiral & $\Etwo$ on $\cZ(\RepE(A))$ & Hodge supertrace $\chi(\cO_X)$ \\
-$5$ & $-3$ & $\Eone$-chiral & $\Etwo$ on $\cZ(\RepE(A))$ & $0$ \textup{(}Serre odd-$d$\textup{)} \\
-$2k$ & $2 - 2k$ & $E_{k-1}$-chiral $|_{\RWk{2k}}$; else $(\bP^1)^{k-1}$-family & $E_k$ on centre & $\chi(\cO_X)$ at $2 \mid d$ \\
+X_6\subset\bP^5\ \text{sextic} & (1,0,0,0,1) & 2\\
+X_8\ \text{octic double cover} & (1,0,149,0,1) & 151\\
+X_{10}\subset\bP(1^5,5)\ \text{decic} & (1,0,0,0,1) & 2\\
+K3^{[2]} & (1,0,1,0,1) & 3\\
+F(Y)\ \text{Beauville--Donagi} & (1,0,1,0,1) & 3\\
+K3\times K3 & (1,0,2,0,1) & 4\\
 \bottomrule
-\end{tabular}
-\end{center}
+\end{array}
+\]
+For strict compact CY\(_4\) with holonomy \(\mathrm{SU}(4)\), the only
+nonzero entries in the \(h^{0,\bullet}\) column are \(h^{0,0}=h^{0,4}=1\),
+so \(\Xi(X)=2\). Hyperk\"ahler fourfolds have the additional
+holomorphic-symplectic class in \(H^{0,2}\), giving \(\Xi=3\). The octic
+double cover is a separate middle-column example with \(h^{0,2}=149\).
 
-Three lessons: $d = 4$ \emph{recovers} $\kappa_{\mathrm{ch}} =
-\chi(\cO_X)$ from the $d = 3$ anomalous BCOV branch, consistent with the
-general even-$d$ Serre pattern; the native $\Phi_d$-target is
-$\Eone$-chiral for every $d \geq 3$ \textup{(}the output scope is stable,
-not an accident of $d = 3$\textup{);} the $E_2$-braided recovery is
-uniformly on the Drinfeld centre $\cZ(\RepE(A))$ across $d \geq 3$. The
-genuinely new $d = 4$ feature, beyond what $d = 3$ prescribes, is the
-$\bP^1$-family structure on the full output for irreducible CY$_4$ with
-$N(X) \neq 0$, forced by the bivariant BTT tangent splitting
-$T_{[X]} \mathrm{Def}(X) = H^{3,1}(X) \oplus H^{2,2}_{\mathrm{prim}}(X)$
-and by the Pontryagin obstruction to the $\bS^4$-framing
-\textup{(}$\pi_4(BU) = \Z$\textup{).}
+\begin{remark}[BCOV \(F_2\) scope]
+\label{rem:cy4-f2-scope-clean}
+Theorem~\ref{thm:bcov-f2-zero-correction-d4} states that the anomalous
+\(F_2\)-correction to \(\kappa_{\mathrm{ch}}\) vanishes at \(d=4\). The
+constant-map piece of \(F_2\) is classical and already absorbed into the
+Hodge-supertrace channel. Thus the \(d=4\) \(\kappa_{\mathrm{ch}}\) values
+above are Hodge-supertrace values on the constructed locus, with no
+additional genus-\(2\) quantum correction.
+\end{remark}
 
-\begin{conjecture}[Higher-dimensional Kapranov prediction: $\Phi_{2k}$ at general $k \geq 2$]
-\label{wn:conj:wave15-a8-higher-kapranov}
-\ClaimStatusConjectured\ At $d = 2k$ for $k \geq 2$ the native
-$\Phi_{2k}$-target specialises to $\Eone$-chiral via
-$\mathrm{Sp}_{\Sigma_{2k-1}, C}$ \textup{(}Dunn--Lurie collapse along the
-$(2k-1)$-cycle\textup{);} on the weight-$k$ Rozansky--Witten subcategory
-$\RWk{2k} \subset \mathrm{CY}_{2k}\text{-Cat}$ \textup{(}hyperk\"ahler or
-Hilbert-scheme-of-K3-type\textup{)} the $\Phi_{2k}$-output refines to
-$E_{k-1}$-chiral on $\Ran(\Sigma)$ \textup{(}Theorem~\ref{thm:rw-2k-category}~(v)\textup{);}
-off $\RWk{2k}$ the output is a $(\bP^1)^{k-1}$-family of
-$\Eone$-chiral algebras, with the $k - 1 = 1$ case \textup{(}CY$_4$
-off-$\RW_4$\textup{)} being the sextic $\bP^1$-family of
-Construction~\ref{constr:phi-4-p1-family}. The CY$_4$ prediction of the
-present note is the $k = 2$ instance of this conjectural general
-pattern.
+\paragraph{The \(p_1\)-twist.}
+The effective pointwise section of the conditional family is controlled by
+the first Pontryagin class. The criterion of
+Theorem~\ref{thm:phi-4-eff-p1-vanishing} is conditional on the
+identification of the obstruction class with \(p_1(T_X)\):
+\[
+  \Phi_4^{\mathrm{eff}}(X)\ \text{exists as a single framed fibre}
+  \quad\Longleftrightarrow\quad
+  [p_1(T_X)]=0\in H^4(X;\Z).
+\]
+When \([p_1(T_X)]\) is nonzero, the family carries integer levels
+\[
+  \ell(X,\alpha)=\int_X p_1(T_X)\cup\alpha,\qquad \alpha\in H^4(X;\Z).
+\]
+The weaker number \(N(X)=\int_Xp_1(T_X)^2\) controls the associator
+stratum in Conjecture~\ref{conj:cy4-p1-family-associator-sextic}; it is a
+different invariant from the cohomology class \([p_1(T_X)]\).
+
+\paragraph{Dimensional grammar.}
+The dimension table has three layers:
+\[
+\begin{array}{ccccc}
+\toprule
+d & \text{stage-one object} & \text{curve shadow} & \text{centre layer} &
+\kappa_{\mathrm{ch}}\text{ mechanism}\\
+\midrule
+1 & E_1\text{-HolFA} & E_\infty\text{-chiral} & \text{same} &
+h^{1,0}\text{ lattice}\\
+2 & E_2\text{-HolFA} & \Etwo\text{-chiral} & \text{same} &
+\sum_q(-1)^q h^{0,q}\\
+3 & E_3\text{-HolFA} & \Eone\text{-chiral} &
+\Etwo\text{ on }\cZ(\RepE(A)) &
+\text{chain-level shadow}\\
+4 & E_4\text{-HolFA} & \Eone\text{-chiral} &
+\Etwo\text{ on }\cZ(\RepE(A)) &
+\sum_q(-1)^q h^{0,q}\\
+5 & E_5\text{-HolFA} & \Eone\text{-chiral} &
+\Etwo\text{ on }\cZ(\RepE(A)) &
+0\text{ on compact strict CY}\\
+\bottomrule
+\end{array}
+\]
+For every \(d\geq3\), the native curve output is \(\Eone\)-chiral. Higher
+operadic structures at these dimensions must be read either before
+specialisation, or on the derived centre, Drinfeld double, module category,
+or a named layer.
+
+\begin{conjecture}[Even-dimensional Kapranov pattern]
+\label{conj:cy4-higher-kapranov-clean}
+Let \(d=2k\geq4\). The stage-one construction \(\PhiFA_{2k}\) is expected
+to carry the \(E_{2k}\)-factorisation structure forced by the Hochschild
+bracket degree and the PTVV shift. After specialisation along an admissible
+\((2k-1)\)-cycle, the native curve shadow remains \(\Eone\)-chiral. On
+Rozansky--Witten loci \(\RWk{2k}\), additional \(E_{k-1}\)-type structure
+may appear on centre, module, or factorisation-homology layers once the
+weight-\(k\) Kapranov brackets and the required completion data are
+constructed. Away from those loci, the expected output is a
+\((\bP^1)^{k-1}\)-family of \(\Eone\)-chiral algebras with twist data
+controlled by characteristic classes.
 \end{conjecture}
 
-\paragraph{Literature anchors.}
-PTVV 2013 \emph{Shifted symplectic structures}, Publ.\ IH\'ES~117; CPTVV
-\emph{Shifted Poisson structures and deformation quantization}, J.\ Topology 10
-(2017); Kapranov 1999 \emph{Rozansky--Witten invariants via Atiyah classes},
-Compositio Math.~115 \S2--4; Bershadsky--Cecotti--Ooguri--Vafa 1994
-\emph{Kodaira--Spencer theory of gravity}, Comm.\ Math.\ Phys.~165;
-Klemm--Pandharipande 2007 \emph{Enumerative geometry of Calabi--Yau 4-folds},
-Comm.\ Math.\ Phys.~281; Costello--Li 2015 \emph{Quantization of open-closed BCOV
-theory I}, arXiv:1505.06703; Francis 2013 \emph{The tangent complex and Hochschild
-cohomology of $E_n$-rings}, Adv.\ Math.~239; Lurie, Higher Algebra \S 5 (Dunn
-additivity); Beauville 1983 \emph{Vari\'et\'es k\"ahl\'eriennes dont la
-premi\`ere classe de Chern est nulle}, J.\ Diff.\ Geom.~18; G\"ottsche 1990
-\emph{The Betti numbers of the Hilbert scheme of points}, Math.\ Ann.~286;
-Beauville--Donagi 1985 \emph{La vari\'et\'e des droites d'une hypersurface
-cubique}; Bayer--Macr\`i--Stellari 2016 \emph{The space of stability conditions},
-Geom.\ Topol.~21; Yau 1978 \emph{On the Ricci curvature of a compact K\"ahler
-manifold}, Comm.\ Pure Appl.\ Math.~31.
+\paragraph{Local and automorphic boundaries.}
+The local threefold identity
+\[
+  \mathrm{CoHA}(\C^3)=Y^+(\widehat{\mathfrak{gl}}_1)
+\]
+belongs to the CY\(_3\) positive-half Hall branch. The full
+\(\mathcal{W}_{1+\infty}\) object appears only after Drinfeld double,
+centre, completion, and representation data. This identity supplies a
+warning against importing \(\C^3\) or \(\mathcal{W}\)-algebra conclusions
+into CY\(_4\) without an explicit construction.
 
-\paragraph{Internal anchors.}
-\texttt{chapters/theory/cy\_to\_chiral.tex}: Theorem~\ref{thm:phi-4-k3-k3-kunneth-explicit}
-\textup{(}$\Phi_4$ on $K3 \times K3$\textup{);}
-Construction~\ref{constr:phi-4-p1-family} \textup{(}four-step
-$\bP^1$-family\textup{);} Example~\ref{ex:sextic-cy4-associator}
-\textup{(}sextic central charges $c = 2591, 3466$\textup{);}
-Theorem~\ref{thm:weight-k-kapranov-obstruction},
-Theorem~\ref{thm:rw-2k-category} \textup{(}weight-$k$ Kapranov tower and
-Rozansky--Witten category\textup{).}
+For \(K3\times E\), the standard constants remain separated:
+\[
+\begin{aligned}
+ \kappa_{\mathrm{cat}}(K3\times E)&=0,\\
+ \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(K3\times E)&=0,\\
+ \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)&=3,\\
+ \kappa_{\mathrm{BKM}}(\Delta_5)&=c_1(0)/2=5,\\
+ \kappa_{\mathrm{fiber}}(K3)&=24.
+\end{aligned}
+\]
+The Hall--Borcherds double branch and the Mukai Yangian branch are
+separate constructions. Borcherds weights are read from
+\(\kappa_{\mathrm{BKM}}=c(0)/2\) for the chosen automorphic input.
+
+\paragraph{Primary anchors.}
+PTVV, \emph{Shifted symplectic structures}, Publ.\ IHES 117 (2013);
+Calaque--Pantev--To\"en--Vaqui\'e--Vezzosi, \emph{Shifted Poisson
+structures and deformation quantization}, J.\ Topology 10 (2017);
+Kapranov, \emph{Rozansky--Witten invariants via Atiyah classes},
+Compositio Math.\ 115 (1999); Bershadsky--Cecotti--Ooguri--Vafa,
+\emph{Kodaira--Spencer theory of gravity}, Comm.\ Math.\ Phys.\ 165
+(1994); Klemm--Pandharipande, \emph{Enumerative geometry of
+Calabi--Yau 4-folds}, Comm.\ Math.\ Phys.\ 281 (2007); Costello--Li,
+\emph{Quantization of open-closed BCOV theory I}; Francis,
+\emph{The tangent complex and Hochschild cohomology of \(E_n\)-rings},
+Adv.\ Math.\ 239 (2013); Lurie, \emph{Higher Algebra} \S5; Beauville,
+\emph{Vari\'et\'es k\"ahl\'eriennes dont la premi\`ere classe de Chern
+est nulle}, J.\ Diff.\ Geom.\ 18 (1983); G\"ottsche,
+\emph{The Betti numbers of the Hilbert scheme of points}, Math.\ Ann.\
+286 (1990); Beauville--Donagi, \emph{La vari\'et\'e des droites d'une
+hypersurface cubique}.
+
+\paragraph{Local anchors.}
+\texttt{chapters/theory/cy\_to\_chiral.tex}:
+Theorem~\ref{thm:phi-two-stage-factorisation},
+Proposition~\ref{prop:native-en-level},
+Proposition~\ref{prop:ptvv-shift-law},
+Proposition~\ref{prop:phi-d-kunneth-split-product},
+Theorem~\ref{thm:phi-4-k3-k3-kunneth-explicit},
+Construction~\ref{constr:phi-4-p1-family},
+Example~\ref{ex:sextic-cy4-associator},
+Theorem~\ref{thm:phi-4-eff-p1-vanishing},
+Theorem~\ref{thm:weight-k-kapranov-obstruction}, and
+Theorem~\ref{thm:rw-2k-category}.
 \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}:
-Theorem~\ref{thm:cy-d-d4-stratification} \textup{(}$d = 4$
-stratification\textup{);} Theorem~\ref{thm:bcov-f2-zero-correction-d4}
-\textup{(}$F_2$ zero-correction\textup{).}
-\texttt{chapters/theory/hochschild\_calculus.tex}:
-$(2 - d)$-shifted-Poisson on $\HH^\bullet(\cC)$ entry at $d = 4$ giving degree
-$-2$ Gerstenhaber bracket; Kapranov $\ell_2$ as Atiyah class.
-\texttt{chapters/theory/e1\_chiral\_algebras.tex}:
-Proposition~\ref{prop:e2-enhancement-drinfeld} \textup{(}$\Etwo$-braided
-recovery on Drinfeld centre\textup{).}
-\texttt{chapters/theory/braided\_factorization.tex}:
-$\cZ(\RepE(A)) \simeq \Rep^{\Etwo}(\Drin(A))$ identification.
+Theorem~\ref{thm:kappa-hodge-supertrace-identification},
+Theorem~\ref{thm:cy-d-d4-stratification}, and
+Theorem~\ref{thm:bcov-f2-zero-correction-d4}.

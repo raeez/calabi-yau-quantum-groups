@@ -519,7 +519,7 @@ def kappa_comparison() -> Dict[str, Any]:
     The BCOV kappa = 0 reflects chi = 0 (K3 x E has vanishing Euler char).
 
     Cross-check: kappa_BKM = 5 = weight(Delta_5) = c(0)/2.
-    The Igusa cusp form Delta_5 has weight 5 for Sp_4(Z), and the
+    The primitive Gritsenko-Nikulin denominator Delta_5 has weight 5 for Sp_4(Z), and the
     Borcherds product formula gives weight = c(0)/2 = 10/2 = 5.
     """
     return {
@@ -887,7 +887,7 @@ def chiral_algebra_k3e() -> ChiralAlgebraK3E:
       promotes the depth to infinity via the BKM imaginary roots.
 
     - BKM algebra: g_{Delta_5} (the Borcherds superalgebra with denominator
-      identity given by the Igusa cusp form Delta_5).
+      identity given by the primitive Gritsenko-Nikulin denominator Delta_5).
     """
     hh = hh_k3e_kuenneth()
     return ChiralAlgebraK3E(
@@ -1189,7 +1189,7 @@ def bkm_bar_identification() -> Dict[str, Any]:
     3. The bar spectral sequence collapses at E_2 (by Koszulness of the
        quadratic relations of g_{Delta_5}).
 
-    4. The Igusa cusp form Delta_5 appears as the DENOMINATOR of the bar
+    4. The primitive Gritsenko-Nikulin denominator Delta_5 appears as the DENOMINATOR of the bar
        generating function (Poincare series of the bar complex).
 
     Evidence:

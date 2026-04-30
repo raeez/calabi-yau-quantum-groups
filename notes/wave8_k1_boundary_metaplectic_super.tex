@@ -1,173 +1,277 @@
-% ============================================================
-%  Boundary paramodular tower at $N \in \{5, 7, 8\}$:
-%  metaplectic cover + fermionic-simple-root upgrade
-% ============================================================
-%  Scope. Five attack-heal cycles auditing the claim that the
-%  boundary $N \in \{5,7,8\}$ of the Gritsenko--Cl\'ery 8-form
-%  census admits a metaplectic / super-algebra extension of the
-%  rank-$3$ BKM tower, or whether the boundary is genuinely
-%  outside the paramodular framework.
-%
-%  Author: Raeez Lorgat.  No AI attribution.
-
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\Mp}{\mathrm{Mp}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\Q}{\mathbb{Q}}
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\C}{\mathbb{C}}
+\providecommand{\HH}{\mathbb{H}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\fg}{\mathfrak{g}}
-\providecommand{\fsg}{\mathfrak{sg}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
-\providecommand{\ClaimStatusAxiomatic}{\textsc{[Axiomatic]}}
+\providecommand{\wt}{\mathrm{wt}}
+\providecommand{\Lift}{\mathrm{Lift}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\cO}{\mathcal{O}}
 
-\section{Metaplectic super-algebra extension at the Mukai boundary
-$N \in \{5, 7, 8\}$}
-\label{sec:metaplectic-super-boundary}
+\section{Metaplectic boundary rows and Borcherds weights}
+\label{sec:metaplectic-boundary-weights}
 
-\subsection*{Normalisation correction}
+\subsection*{Metaplectic automorphy}
 
-The tabulation in \texttt{wave8\_i3} fixes $(k_N,t_N)=(1/2,1)$
-uniformly across $N\in\{5,7,8\}$ with theta-multiplier $\nu^{\theta}_N$
-on $\Gamma^{(2)}_N$; this overrides the mixed $(1/2, 3/2, 1)$
-normalisation floated in the prompt. The three constant terms of the
-CDH-twined $\phi^{(g_N)}_{0,1}$ at $N\in\{5,7,8\}$ are
-$(c_5(0), c_7(0), c_8(0)) = (4, 2, 2)$, reading Cheng--Duncan--Harvey
-2014 Table~$1$ at $M_{24}$ classes $5A, 7A/7B, 8A$ (Conway--Norton
-frame shapes $1^4 5^4$, $1^3 7^3$, $1^2 2^1 4^1 8^2$), with the
-$7A/7B$ conjugate-pair averaging reducing the naive Lefschetz
-$m_1(g_7) = 3$ to $c_7(0) = 2$ (Eguchi--Hikami~2011 Table~$1$;
-k3\_chiral\_algebra.tex~Prop.~pre-941). The resulting paramodular
-weights $c_N(0)/2 = 2, 1, 1$ abut the Mukai ceiling.
-
-\subsection*{Cycle 1: metaplectic cover and half-integer weight}
-
-\ClaimStatusTheorem\ The Shimura~1975 (\emph{Ann.\ Math.}~102)
-metaplectic group $\Mp_4(\Z)$ is the unique non-split double cover
-of $\Sp_4(\Z)$ with cocycle $\sigma\colon \Sp_4\times\Sp_4\to\{\pm 1\}$
-given by the Weil representation on $L^2(\R^2)$; half-integer-weight
-Siegel modular forms are sections of the $(1/2)^{\mathrm{th}}$ power
-of the Hodge bundle pulled back to $\Mp_4(\Z)$. The Bringmann--Kane 2014
-(\emph{Adv.~Math.}~264) Jacobi extension lifts weight-$1/2$ weak Jacobi
-forms via the Howe~1979 (\emph{Proc.~Sympos.~Pure Math.}~33) Weil
-representation on $\Mp_4$. The $N\in\{5,7,8\}$ theta-multipliers
-$\nu^{\theta}_N$ of Cl\'ery--Gritsenko~2008 factor through
-$\Mp_4(\Z)\to\Sp_4(\Z)$; the Gritsenko additive lift
-$\mathrm{Lift}_{\mathrm{Gr}}\colon J^{w}_{1/2,1}(\nu^{\theta}_N)
-\to M_{1/2}(\Gamma^{(2)}_N,\nu^{\theta}_N)$ is a genuine
-$\Mp_4$-equivariant functor (Gritsenko~1999 \emph{Algebra i Analiz}~11
-Thm.~$3.1$, extended to half-integer weight in Cl\'ery--Gritsenko~2008
-\emph{Acta Arith.}~133).
-
-\subsection*{Cycle 2: fermionic simple-root count at the Mukai bound}
-
-\ClaimStatusTheorem\ (lattice level) The Mukai~1988 (\emph{Invent.\
-Math.}~94) symplectic-automorphism bound is $|g|\leq 8$ with equality
-realised by the four classes $\{5A, 6A, 7A, 8A\}\subset M_{23}$. At
-$N\in\{5,7,8\}$ the Niemeier root system matched by CDH is:
-$N=5$ Niemeier $A_4^6$ (rank $24$, Coxeter $5$); $N=7$ Niemeier
-$A_6^4$ (rank $24$, Coxeter $7$); $N=8$ Niemeier $A_7^2 D_5^2$
-(rank $24$, Coxeter $8$). The Mukai-invariant rank
-$22-r(g_N)$ with $(r_5, r_7, r_8) = (16, 18, 16)$ gives invariant
-rank $(6, 4, 6)$, \emph{not} $3$: the rank-$3$ hyperbolic sublattice
-of $\Lambda^{2,1}_{II}$ used at $N\in\{1,2,3,4,6\}$ does not survive
-$g_N$-invariance at the boundary.
-
-\subsection*{Cycle 3: fermionic-bosonic simple-root decomposition}
-
-The Cartan datum of the boundary super-algebra
-$\fsg^{(N)}_{\Delta_{5,N}}$ degenerates: the real-root Cartan shrinks
-from rank $3$ to rank $r^{\mathrm{real}}_N$ with
-$(r^{\mathrm{real}}_5, r^{\mathrm{real}}_7, r^{\mathrm{real}}_8)
-= (1, 1, 2)$ (reading the $g_N$-invariant piece of
-$(U\oplus\langle-2\rangle)^{g_N}$ at the minus-eigenspace; the real
-reflections surviving are exactly those commuting with $g_N$).
-The imaginary-root census splits:
+Let $\Gamma \subset \Sp_4(\Q)$ be a genus-two paramodular group and let
 \[
-   \#\Delta^{\mathrm{im}}_{\bar 0}(\fsg^{(N)})
-   \;=\; c_N(0),\qquad
-   \#\Delta^{\mathrm{im}}_{\bar 1}(\fsg^{(N)})
-   \;=\; c_N(0),
+  1 \longrightarrow \mu_2 \longrightarrow \widetilde{\Gamma}
+  \longrightarrow \Gamma \longrightarrow 1
 \]
-each counted with Jacobi multiplicity, inheriting the bosonic/fermionic
-$\Z/2$-grading from the Mukai orbit parity of the fixed locus
-$\mathrm{Fix}(g_N)\subset S$ (Atiyah--Bott~1968 Lefschetz trace with
-$g_N$-character). Real roots contribute $(1,1,2)$ Cartan blocks of
-shape $A_1, A_1, A_1\oplus A_1$ respectively; the Weyl denominator
-collapses to a theta-multiplier weight-$1/2$ product, agreeing with
-the Cl\'ery--Gritsenko dimension $\dim M_{1/2} = 1$ at each $N$.
+be the pullback of Shimura's metaplectic cover.  A point of
+$\widetilde{\Gamma}$ is represented by
+$(\gamma,\varphi_\gamma)$ with
+\[
+  \gamma=\begin{pmatrix}A&B\\ C&D\end{pmatrix},\qquad
+  \varphi_\gamma(Z)^2=\det(CZ+D),\qquad Z\in \HH_2 .
+\]
+A scalar-valued Siegel modular form of weight $r/2$ on this cover is a
+holomorphic function $F\colon\HH_2\to\C$ satisfying
+\[
+  F(\gamma Z)=\nu(\widetilde{\gamma})\,
+  \varphi_\gamma(Z)^r\,F(Z),
+  \qquad \widetilde{\gamma}\in\widetilde{\Gamma},
+\]
+for a multiplier character $\nu\colon\widetilde{\Gamma}\to\C^\times$.
+This is the precise meaning of half-integral weight: the form is a
+section of a half-power automorphic line bundle on the cover.  Root
+parity and a Borcherds--Kac--Moody denominator require separate
+denominator data.
 
-\subsection*{Cycle 4: umbral ground truth beyond Niemeier}
+Gritsenko's additive lift applies after the Jacobi input and the Siegel
+multiplier have been matched.  In this notation the lift has the form
+\[
+  \Lift_{\mathrm{Gr}}\colon
+  J^{\mathrm w}_{k,t}(\rho)
+  \longrightarrow
+  M_k(\widetilde{\Gamma}^{(2)}_t,\nu),
+\]
+where $\rho$ is the Jacobi multiplier and $\nu$ is the induced Siegel
+multiplier.  Cl\'ery--Gritsenko's diagonal-divisor theorem supplies
+specific lifted products and their multiplier systems.  A denominator
+algebra begins with a root lattice, a chamber, a Weyl vector, and signed
+root multiplicities.
 
-CDH~2014 assigns an umbral $M_{24}$-moonshine only to the $24$ Niemeier
-lattices, not to the Leech or the $26$-dimensional Lorentzian
-$\mathrm{II}_{25,1}$. The boundary $N\in\{5,7,8\}$ corresponds to the
-\emph{Niemeier-realisable} symplectic orders but with sub-Leech-ground
-rank-$24$ target; the umbral shadow is the $A_4^6, A_6^4, A_7^2 D_5^2$
-triple, each a Niemeier in CDH's $23$-list. The boundary is
-\emph{inside} the CDH umbral catalogue; the "new moonshine" of
-non-Mathieu type is \emph{not} required. Falsification of the prompt's
-guess: CDH~2014 tables exhaust the $M_{24}$ coverage, and
-$N\in\{5,7,8\}$ lie inside.
+\subsection*{Three index systems}
 
-\subsection*{Cycle 5: compactness verdict on $X^{(N)} = (S\times E)/\Z_N$}
+Three finite lists meet at the level-one row.  They have different
+indices and different normalisations.
 
-For $N\in\{5,7,8\}$ the diagonal $\Z_N$-action on $S\times E$ fails
-compatibility: $|\mathrm{Aut}(E)| \in \{1,2,3,4,6\}$ never equals
-$N\in\{5,7,8\}$, so the free-quotient $X^{(N)}$ does not exist as a
-smooth compact CY$_3$. The Borcherds lift of $\phi^{(g_N)}_{0,1}$ to
-$\Phi^{(N)}_{1/2}$ is a convergent infinite product on a non-compact
-CHL-like orbifold obtained by allowing $E$ with an $N$-torsion
-\emph{marked point} (not an $N$-order automorphism), producing a
-\emph{formal power series} in the Fourier--Jacobi expansion that
-converges as a modular form but not as a stable-pairs partition
-function. The Oberdieck--Pixton reduced-DT denominator identity
-$Z^{\mathrm{red}}_{\mathrm{PT}} = -1/\Phi$ has no realisation at
-$N\in\{5,7,8\}$; the paramodular boundary is thus genuinely different
-from $N\in\{1,2,3,4,6\}$.
+\paragraph{Primitive CHL denominator ladder.}
+The primitive Gritsenko--Nikulin denominator ladder is indexed by the
+K3/elliptic compatible orders
+\[
+  N\in\{1,2,3,4,6\}.
+\]
+With the standard Borcherds input normalisation,
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\ \hline
+c_N(0)&10&8&6&4&2\\
+\kBKM(\Phi_N^{\mathrm{BKM}})&5&4&3&2&1
+\end{array}
+\]
+and $\kBKM(\Phi_N^{\mathrm{BKM}})=c_N(0)/2$.  The $N=1$ entry is
+$\Delta_5$, of weight $5$.  The monic Gritsenko--Nikulin denominator is
+\[
+  \Dfive=64^{-1}\Delta_5,\qquad
+  \operatorname{den}(\fg_{\Delta_5})=\Dfive(2Z).
+\]
+The scalar-square convention records
+\[
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2,\qquad
+  \Phi_{10}^{\mathrm{OP}}=\Dfive^2=4096^{-1}\Delta_5^2 .
+\]
+Thus the primitive BKM denominator has weight $5$, while the scalar
+square has weight $10$.
 
-\subsection*{Verdict}
+On the compact product row $Y=K3\times E$ the invariants come from
+distinct constructions:
+\[
+\begin{array}{c|c|c}
+\text{invariant}&\text{value}&\text{source}\\ \hline
+\kcat(Y)&0&\chi(\cO_{K3})\chi(\cO_E)=2\cdot0\\
+\kch(Y)&0&h^{0,\bullet}(Y)=(1,1,1,1)\\
+\kHeis(Y)&3&\text{Heisenberg--Mukai specialisation}\\
+\kBKM(\Delta_5)&5&c_1(0)/2=10/2\\
+\kfib(Y)&24&\operatorname{rk}\widetilde H(K3,\Z)
+\end{array}
+\]
+The product Hodge supertrace, the Heisenberg specialisation, the
+Borcherds weight, and the Mukai fibre rank are four different
+measurements.
 
-\ClaimStatusTheorem\ (existence of a metaplectic paramodular form
-of weight $1/2$ at each $N\in\{5,7,8\}$, via Cl\'ery--Gritsenko~2008
-$+$ Bringmann--Kane~2014 $+$ Howe~1979 Weil representation).
+\paragraph{Nikulin order-indexed twining.}
+Nikulin's symplectic K3 orders are
+\[
+  N\in\{1,2,3,4,5,6,7,8\}.
+\]
+For the three orders outside the primitive CHL ladder the twined K3
+Jacobi input has, in the order-indexed normalisation,
+\[
+\begin{array}{c|ccc}
+N&5&7&8\\ \hline
+\text{frame shape}&1^4 5^4&1^3 7^3&1^2 2^1 4^1 8^2\\
+c_N(0)&4&2&2\\
+\kBKM(\Phi_N)&2&1&1
+\end{array}
+\]
+after the Borcherds input, cover, character, chamber, and product
+normalisation have been fixed.  These are order-indexed K3 twining
+constants.  The half-integral Cl\'ery--Gritsenko rows belong to the
+diagonal-divisor catalogue below.
 
-\ClaimStatusConjectured\ (metaplectic super-algebra $\fsg^{(N)}_{\Delta_{5,N}}$
-at $N\in\{5,7,8\}$ exists with simple-root data
-$(r^{\mathrm{real}}, \#\Delta^{\mathrm{im}}_{\bar 0},
-\#\Delta^{\mathrm{im}}_{\bar 1})$ equal to $(r^{\mathrm{real}}_N, c_N(0), c_N(0))$
-with $c_N(0)\in\{4,2,2\}$ at $N\in\{5,7,8\}$; weight formula
-$\kBKM(\Phi^{(N)}_{1/2}) = c_N(0)/2 \in\{2, 1, 1\}$ at half-integer
-extension via Cl\'ery--Gritsenko theta-multiplier, \emph{not} integer
-$c_N(0)/2$ of the $N\in\{1,2,3,4,6\}$ slice).
+\paragraph{Gritsenko--Cl\'ery diagonal-divisor catalogue.}
+The diagonal-divisor catalogue is indexed by paramodular triples
+$(t,N_{\mathrm{dd}};k)$.  Its row data are
+\[
+\begin{array}{c|c|c|c}
+\text{row}&(t,N_{\mathrm{dd}};k)&F_{t,N_{\mathrm{dd}}}
+&c^{\mathrm{dd}}_{t,N_{\mathrm{dd}}}(0)\\ \hline
+1&(1,1;5)&\Delta_5&10\\
+2&(2,1;2)&F_{2,1}&4\\
+3&(1,2;3)&F_{1,2}&6\\
+4&(3,1;1)&F_{3,1}&2\\
+5&(1,3;2)&F_{1,3}&4\\
+6&(4,1;\tfrac12)&F_{4,1}&1\\
+7&(1,4;\tfrac32)&F_{1,4}&3\\
+8&(2,2;1)&F_{2,2}&2
+\end{array}
+\]
+so the twice-weight tuple is
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+The genuine half-integral rows are $(4,1;\tfrac12)$ and
+$(1,4;\tfrac32)$, with half-integral multiplier-system data.
+The only automatic overlap with the primitive CHL ladder is the
+first row $\Delta_5$.  Any further overlap requires a row-map theorem
+identifying the automorphic group, cover, character, divisor, Jacobi
+input, and product normalisation on both sides.
 
-\ClaimStatusTheorem\ (\emph{falsification of the prompt hidden
-observation}) The rank-$3$ BKM does \emph{not} ``degenerate via the
-Leech ground truth'': it degenerates because the $g_N$-invariant
-sublattice of $\Lambda^{2,1}_{II}$ collapses below rank $3$ at the
-Mukai bound $N\in\{5,7,8\}$, so the real-root Cartan shrinks; the
-Leech/Niemeier umbral catalogue (CDH~2014) accommodates the boundary
-without leaving the $M_{24}$-moonshine framework.
+\subsection*{Borcherds weight with fixed datum}
 
-\ClaimStatusTheorem\ (\emph{geometric falsification}) Non-existence
-of the $X^{(N)}$ free-quotient CY$_3$ at $N\in\{5,7,8\}$ (elliptic
-curves have no automorphism of order $5, 7, 8$ fixing the origin)
-forces the Oberdieck--Pixton denominator to be a formal power series;
-the paramodular form exists as a metaplectic modular form, but not as
-a stable-pairs partition function; the boundary is thus genuinely
-different from the CY$_3$-programme slice.
+Let $f$ be a weakly holomorphic vector-valued modular form, or the
+Jacobi form from which it is obtained, satisfying Borcherds' integrality
+and principal-part hypotheses for a lattice of signature $(2,n)$.  Fix
+the arithmetic group or metaplectic cover, character, Weyl chamber, and
+normalisation of the leading product coefficient.  If $\Psi_f$ denotes
+the resulting Borcherds product, then Borcherds' singular-theta theorem
+gives
+\[
+  \wt(\Psi_f)=\frac{c_f(0)}{2}.
+\]
+Within this fixed datum define
+\[
+  \kBKM(\Psi_f):=\wt(\Psi_f)=\frac{c_f(0)}{2}.
+\]
+Changing the input form, squaring the product, replacing the cover, or
+changing the character changes the datum.  Thus $\Delta_5$,
+$\Delta_5^2$, a CHL product, an order-indexed K3 twining product, and a
+Cl\'ery--Gritsenko diagonal-divisor row carry their own $c(0)$ data.
+An equality between two such products is a theorem about the same
+normalised automorphic product.
 
-\paragraph{Primary literature.}
-Gritsenko~1999 (\emph{Algebra i Analiz}~11); Mukai~1988 (\emph{Invent.\
-Math.}~94); Shimura~1975 (\emph{Ann.\ Math.}~102); Howe~1979
-(\emph{Proc.~Sympos.~Pure Math.}~33); Bringmann--Kane~2014
-(\emph{Adv.~Math.}~264); Cl\'ery--Gritsenko~2008 (\emph{Acta
-Arith.}~133); Cl\'ery--Gritsenko~2010 (\emph{Nagoya Math.\ J.}~199);
-Cheng--Duncan--Harvey~2014 (\emph{Comm.~Num.~Th.~Phys.}~8);
-Gritsenko--Nikulin~1998 (\emph{Internat.~J.~Math.}~9);
-Borcherds~1995 (\emph{Invent.~Math.}~120); Atiyah--Bott~1968
-(\emph{Ann.~Math.}~88); Nikulin~1980 (\emph{Trans.~Moscow Math.\
-Soc.}~38); Lorgat~2020 (arXiv:2004.01676).
+For half-integral Cl\'ery--Gritsenko rows the same formula is read on
+the appropriate cover.  A value such as $1/2$ or $3/2$ is a modular
+weight on that cover.  Cartan rank, simple-root multiplicities, and
+bosonic/fermionic splitting are denominator-algebra data.
+
+\subsection*{Denominator algebra criterion}
+
+A Borcherds--Kac--Moody superalgebra attached to a boundary product
+$F$ requires both a denominator datum and a multiplier.  The datum is:
+\[
+  (L,\mathcal C,\rho,P^{\mathrm{re}},W,\epsilon,\mu,F).
+\]
+Here $L$ is the Lorentzian product lattice, $\mathcal C$ a Weyl chamber,
+$\rho$ the Weyl vector, $P^{\mathrm{re}}$ the set of real simple roots,
+$W$ the reflection group, $\epsilon$ the reflection character, and
+$\mu(\lambda)$ the integral signed root-multiplicity function.  The
+denominator identity is the equality
+\[
+  F(Z)=e^\rho
+  \prod_{\lambda\in L\cap\mathcal C}
+  (1-e^\lambda)^{\mu(\lambda)}
+  =
+  \sum_{w\in W}\epsilon(w)\left(
+    e^{w\rho}+\sum_a N(a)e^{w(\rho+a)}
+  \right),
+\]
+with the same product-degree map on both sides.  Root parity is read
+from a parity lift of the signed multiplicity function
+\[
+  \mu(\lambda)
+  =\dim \fg_{\lambda,\bar 0}-\dim \fg_{\lambda,\bar 1}.
+\]
+When both even and odd parts are asserted, the lift to nonnegative
+multiplicities is part of the structure.
+
+A boundary product determines a Borcherds--Kac--Moody superalgebra after
+the displayed datum, denominator identity, and parity lift are supplied.
+A multiplier-system statement proves modularity of the product on its
+cover.  A compact Hall interpretation then requires a Hall--Drinfeld
+comparison with a source algebra.  On the K3 side this is the
+Hall--Drinfeld branch attached to the Borcherds product.  The Mukai
+self-mirror K3 Yangian is a separate stable-envelope branch.
+
+\subsection*{Boundary geometry}
+
+The fixed-origin elliptic automorphism construction used by the
+$K3\times E$ CHL slice is available for
+$N\in\{1,2,3,4,6\}$, equivalently for cyclotomic order
+$\varphi(N)\mid 2$ on an elliptic curve.  Indeed the origin-fixing
+automorphism group of a complex elliptic curve is the unit group of
+its endomorphism ring: generically $\{\pm1\}$, at $j=1728$ the fourth
+roots of unity, and at $j=0$ the sixth roots of unity.  Hence the
+possible orders are exactly $\{1,2,3,4,6\}$.  Orders $5,7,8$ occur as
+symplectic K3 automorphism orders and lie outside this elliptic
+fixed-origin construction.
+
+An $N$-torsion translation on an elliptic curve is a different datum.
+The fixed-origin CM action used in the CHL specialisation must be
+replaced by a new host theorem.  To use a translation quotient, or any
+replacement host, one must prove the following statements:
+\[
+\begin{array}{ll}
+\text{(i)}&\text{the quotient or stack has the required Calabi--Yau and
+orientation data;}\\
+\text{(ii)}&\text{the reduced stable-pairs or Donaldson--Thomas theory is
+constructed on that host;}\\
+\text{(iii)}&\text{the protected partition function equals the same
+Borcherds product, with variables and chamber fixed;}\\
+\text{(iv)}&\text{the one-particle Hall object or native }E_1\text{-chiral
+}\Phi_3\text{ output has primitive index equal to the Jacobi input.}
+\end{array}
+\]
+Before these four statements are proved, the boundary rows remain
+automorphic products and, where a denominator datum is supplied,
+Borcherds--Kac--Moody denominator products.  A reduced stable-pairs
+partition function of a compact $K3\times E$-type CY$_3$ host is the
+stronger geometric conclusion.
+
+\subsection*{Source anchors}
+
+Shimura 1975 constructs the metaplectic automorphy factor for
+half-integral Siegel modular forms.  Howe 1979 identifies the Weil
+representation governing the corresponding cover.  Borcherds 1998,
+Theorem 13.3, gives the singular-theta weight formula
+$\wt(\Psi_f)=c_f(0)/2$.  Gritsenko--Nikulin 1995/1998 give the
+primitive denominator row containing $\Delta_5$.  Gritsenko 1999 fixes
+the arithmetic-lift normalisation.  Gritsenko--Nikulin's product fixes
+$\Dfive=64^{-1}\Delta_5$.  Cl\'ery--Gritsenko 2008/2011, Theorems
+0.1, 1.2, and 3.1, give the diagonal-divisor genus-two catalogue, the
+excluded ninth row, and the cusp-weighted product formula.  Mukai 1988
+and Nikulin 1980 give the K3 symplectic automorphism orders.
+Cheng--Duncan--Harvey 2014 and Eguchi--Hikami 2011 give the twined K3
+moonshine data used in the order-indexed constants.
+Oberdieck--Pandharipande and Oberdieck--Pixton fix the reduced
+$K3\times E$ scalar square convention.

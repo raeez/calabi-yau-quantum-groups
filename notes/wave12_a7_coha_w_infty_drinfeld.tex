@@ -1,768 +1,449 @@
-% Wave-12 A7/20 inscription (strengthened). Drinfeld-voice adversarial attack-heal:
-% CoHA(C^3) = Y^+(gl_hat_1), the W_{1+infty} avatar, and the K3xE / conifold extension.
-% Cross-check primary sources against working_notes.tex lines 266, 345-377 (toric CY3 / CoHA),
-% 1025-1170 (C^3 Rosetta Stone), 1227-1253 (K3xE CoHA/BKM), 1425-1501 (toric CY3 landscape),
-% 1663 and 2088 (the W_{1+infty} five-routes + six-component Koszul datum), and
-% notes/CoHA_to_W_infty_treatise.tex Examples 1, 2, 3.
-% All mathematics by Raeez Lorgat.
-
-\providecommand{\Sh}{\mathrm{Sh}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\Z}{\mathbb{Z}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Hilb}{\mathrm{Hilb}}
-\providecommand{\Fock}{\mathrm{Fock}}
-\providecommand{\gghone}{\widehat{\widehat{\mathfrak{gl}}}_1}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Sh}{\mathrm{Sh}}
 \providecommand{\gglone}{\widehat{\mathfrak{gl}}_1}
+\providecommand{\gghone}{\widehat{\widehat{\mathfrak{gl}}}_1}
 \providecommand{\Wilpha}{\mathcal{W}_{1+\infty}}
-\providecommand{\YDrin}{Y^{\mathrm{Drin}}}
 \providecommand{\YFull}{Y}
 \providecommand{\Yp}{Y^{+}}
 \providecommand{\Ym}{Y^{-}}
 \providecommand{\Yz}{Y^{0}}
 \providecommand{\MO}{\mathrm{MO}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
-\providecommand{\ClaimStatusDerivation}{\textbf{[Derivation]}}
-\providecommand{\ClaimStatusDefinition}{\textbf{[Definition]}}
-\providecommand{\ClaimStatusAttack}{\textbf{[Attack]}}
-\providecommand{\ClaimStatusHeal}{\textbf{[Heal]}}
+\providecommand{\cZ}{\mathcal{Z}}
 
-\section*{Drinfeld attack-heal: $\CoHA(\C^3) = \Yp(\gglone)$,
-the $\Wilpha$ avatar, and the conifold/$K3 \times E$ extension}
-\label{wn:sec:wave12-a7-coha-w-infty-drinfeld}
+\section*{The positive CoHA of \texorpdfstring{$\C^3$}{C3} and the
+\texorpdfstring{$\mathcal W_{1+\infty}$}{W1+infty} realisation}
+\label{sec:coha-c3-w-infty-positive-half}
 
-The aim is to discriminate five objects that \texttt{working\_notes.tex} and the
-treatise \texttt{CoHA\_to\_W\_infty\_treatise.tex} silently identify:
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l|l|l|l}
-Object & Role & Category & Generators \\\hline
-$\CoHA(\C^3)$ & critical cohomology & assoc.~$E_1$-alg (NO diff., NO comult.) & $[\mathrm{pt}_\lambda]$ fixed-point classes \\
-$\Yp(\gglone)$ & Feigin-Odesskii shuffle & assoc.~$E_1$-alg & $E_n,\; n \in \Z_{\geq 0}$ \\
-$\YFull(\gglone) = \Yp \bowtie \Yz \bowtie \Ym$ & Drinfeld double & assoc.~$E_1$-Hopf & $E_n, F_n, \psi^\pm_n$ \\
-$\mathcal E_{q_1, q_2, q_3}(\gglone)$ & quantum toroidal & assoc.~$E_1$-Hopf (Miki $SL_2\Z$) & vert.~$\oplus$ hor.~currents \\
-$\Wilpha[\lambda]$ & vertex algebra / $E_1$-chiral & VOA (state-field, locality) & $J^{(s)}(z),\; s \geq 1,\; n \in \Z$ \\
-\end{tabular}
-\end{center}
-Cache entries 22T, 15W, 17F, and the AP-CY7 guard (CoHA $\neq$ chiral) all bar
-the collapse of these five objects. Below, seven attack-heal cycles force the
-correct identifications.
-
-% =====================================================================
-\subsection*{Cycle I. The three Macdonald parameters: origin and CY$_3$ locus}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{Three parameters from thin air.})\
-The three-parameter Nekrasov family $(q_1, q_2, q_3)$ or additively
-$(\epsilon_1, \epsilon_2, \epsilon_3)$ is often introduced without deriving
-\emph{why} they obey $q_1 q_2 q_3 = 1$ / $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$.
-The identity looks like an ansatz.
-
-\ClaimStatusHeal\ (\emph{Derivation from the anti-canonical action.})\
-On $\C^3 = \mathrm{Spec}\, k[X, Y, Z]$ take
-$T = (\C^\times)^3 \curvearrowright \C^3$ by
-$(t_1, t_2, t_3) \cdot (x, y, z) = (t_1 x, t_2 y, t_3 z)$. The characters
-$\epsilon_i := \mathrm{weight}(\partial/\partial z_i)$ live in
-$X^\bullet(T) \cong \Z^3$. The holomorphic top form
-$\Omega_{\C^3} = dX \wedge dY \wedge dZ$ has $T$-weight
-$\epsilon_1 + \epsilon_2 + \epsilon_3$. The Calabi--Yau condition is
-$T$-invariance of $\Omega_{\C^3}$: equivalently, $T$ acts through the
-anti-canonical kernel
+All statements are made over
 \[
-T^{\mathrm{CY}} := \ker\bigl(\epsilon_1 + \epsilon_2 + \epsilon_3 \colon T \to \C^\times\bigr)
-\;\subset\; T.
+  \mathbb F
+  =
+  \Q(\epsilon_1,\epsilon_2,\epsilon_3)/
+  (\epsilon_1+\epsilon_2+\epsilon_3).
 \]
-Hence the \emph{two-parameter} torus $T^{\mathrm{CY}} \cong (\C^\times)^2$
-is what acts respecting CY structure; the third parameter is eliminated
-by $\epsilon_3 = -\epsilon_1 - \epsilon_2$. The ``three parameters with
-product $1$'' are the full $T$-weights restricted to $T^{\mathrm{CY}}$.
-
-\ClaimStatusDerivation\ \emph{Propagation.}\
-Every CoHA / Yangian / $\Wilpha$ identification at $\C^3$ is a
-$T^{\mathrm{CY}}$-equivariant statement. The
-\emph{three}-parameter form $\omega(z,w) = \prod_i(z - w - \epsilon_i)/(z-w)^3$
-is a presentation convenience; the actual algebra lives over the quotient
-ring
+The quotient is the character field of the Calabi-Yau torus
 \[
-\mathbb{F} = \Q(\epsilon_1, \epsilon_2, \epsilon_3)/(\epsilon_1 + \epsilon_2 + \epsilon_3).
+ T^{\mathrm{CY}}
+ =
+ \ker\bigl(\epsilon_1+\epsilon_2+\epsilon_3:
+ (\C^\times)^3\to \C^\times\bigr)
 \]
-\emph{Comparison to} \texttt{working\_notes.tex}:357: ``self-dual level
-($h_1 + h_2 + h_3 = 0$)'' is the CY$_3$ identity, correct. But
-``$h_1 = 1,\, h_2 = 0,\, h_3 = -1$'' (line 1045) is a degenerate point:
-$h_2 = 0$ collapses $\omega(z,w)$'s zero structure (one factor becomes
-$(z-w)^1$), giving a \emph{different specialisation} of the shuffle
-algebra, not the generic $\C^3$ point. Flag: the $c=1$ Heisenberg is
-\emph{not} generic-$\C^3$; it is the special fibre at $\epsilon_3 = 0$
-of the $\Wilpha[\lambda]$ family.
+acting on \(\C^3=\operatorname{Spec}\C[x_1,x_2,x_3]\) with
+\(\Omega_{\C^3}=dx_1\wedge dx_2\wedge dx_3\) fixed.  The third
+weight is a record of the ambient three-coordinate action; on
+\(T^{\mathrm{CY}}\) it is constrained by
+\(\epsilon_3=-\epsilon_1-\epsilon_2\).
 
-% =====================================================================
-\subsection*{Cycle II. Schiffmann--Vasserot explicit generator match}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{Where are the generators?})\
-The assertion $\CoHA(\C^3) = \Yp(\gglone)$ is a theorem (Schiffmann--Vasserot
-2017, \emph{Publ.\ IHES} 118), but \texttt{CoHA\_to\_W\_infty\_treatise.tex}
-\S Jordan-triple sketches only power-sum generators $p_k := \sum_i z_i^k$.
-Drinfeld-currents are written $E(u) = \sum_{n \geq 0} E_n u^{-n-1}$.
-Where is the explicit dictionary $f_{n, k} \leftrightarrow J^{(r)}(h_k)$?
-
-\ClaimStatusHeal\ (\emph{Shuffle-side generator + Yangian-mode dictionary.})\
-
-\paragraph{Shuffle side.}\
-Let $\Lambda = \bigoplus_{n \geq 0} \Lambda_n$ with
-$\Lambda_n := \mathbb{F}[z_1, \ldots, z_n]^{S_n}$ equipped with the
-Feigin--Odesskii shuffle product
+The objects which occur in the local \(\C^3\) calculation live in
+different categories:
 \[
-(F \star G)(x_1, \ldots, x_{m+n}) =
-\frac{1}{m! n!} \sum_{\sigma \in S_{m+n}} \sigma \cdot
-\Big[F(x_1, \ldots, x_m)\, G(x_{m+1}, \ldots, x_{m+n})
-\prod_{\substack{1 \leq i \leq m \\ m < j \leq m+n}} \omega(x_j, x_i)\Big],
-\quad
-\omega(z, w) = \frac{\prod_{i=1}^{3}(z - w - \epsilon_i)}{(z-w)^3}.
+\begin{array}{l|l|l}
+\text{object} & \text{construction} & \text{structure} \\\hline
+\CoHA_{T^{\mathrm{CY}}}(\C^3) & \text{critical CoHA of the Jordan triple loop quiver} &
+E_1\text{-associative} \\
+\Yp(\gglone) & \text{positive Feigin-Odesskii shuffle half} &
+E_1\text{-associative} \\
+\YFull(\gglone)=\Yp\bowtie\Yz\bowtie\Ym & \text{Hall-Drinfeld double} &
+\text{topological Hopf algebra} \\
+\mathcal E_{q_1,q_2,q_3}(\gglone) & \text{quantum toroidal algebra} &
+\text{Hopf algebra with Miki }SL_2(\Z) \\
+\Wilpha[\lambda] & \text{vertex algebra on the spectral curve} &
+E_1\text{-chiral}
+\end{array}
 \]
-Schiffmann--Vasserot 2013 \texttt{arXiv:1202.2756} Thm~1.1 identifies
-$\CoHA_{T^{\mathrm{CY}}}(\C^3)$ with the sub-shuffle algebra generated by
-elementary sums $f_{n,k}(z_1, \ldots, z_n) := \sum_{i=1}^{n} z_i^k \in \Lambda_n$
-for $n \geq 1$, $k \in \Z_{\geq 0}$.
-
-\paragraph{Generator audit.}\
-Two points the treatise elides:
-\begin{enumerate}
-\item \emph{Primitivity.} $f_{n, k}$ for $n \geq 2$ is \emph{not} a primitive
-generator: it is a shuffle-product of $f_{1, k}$'s modulo lower-degree
-corrections. Primitive generators of $\Yp$ sit at $n = 1$, enumerating
-$k \in \Z_{\geq 0}$, so $\Yp$ is generated as a shuffle algebra by
-$\{f_{1, k} = z^k : k \geq 0\} \subset \Lambda_1$.
-\item \emph{Half only.} The full Drinfeld currents involve negative modes
-$E_n$ with $n < 0$ (equivalently $F_n$ for $n \geq 0$), which do not live
-on $\bigoplus_n \Lambda_n$ at all. They require Hall-Drinfeld doubling
-(Cycle V).
-\end{enumerate}
-
-\paragraph{Yangian side.}\
-The Drinfeld-currents presentation of $\YFull(\gglone)$ (Miki 2007,
-Feigin--Jimbo--Miwa--Mukhin 2012, Tsymbaliuk 2017 Thm~1.1) has
-fields $E(u), F(u), \psi^{\pm}(u)$ with
+The first two entries coincide.  The last entry is reached only after
+doubling, central completion, an evaluation or Fock realisation, and
+the state-field correspondence.  Thus
 \[
-E(u) = \sum_{n \geq 0} E_n u^{-n-1}, \qquad
-F(u) = \sum_{n \geq 0} F_n u^{-n-1}, \qquad
-\psi^{\pm}(u) = 1 + \sum_{n \geq 0} \psi^{\pm}_{n} u^{\mp n \mp 1},
+  \CoHA(\C^3)=\Yp(\gglone),
+  \qquad
+  \CoHA(\C^3)\neq \Wilpha[\lambda],
+  \qquad
+  \Yp(\gglone)\neq \YFull(\gglone).
 \]
-and OPE relations driven by
+
+\subsection*{The Calabi-Yau shuffle algebra}
+
+Let \(\Lambda_n=\mathbb F[z_1,\ldots,z_n]^{S_n}\) and
+\(\Lambda=\bigoplus_{n\geq0}\Lambda_n\).  The Feigin-Odesskii product is
 \[
-g(z) = \frac{(z - \epsilon_1)(z - \epsilon_2)(z - \epsilon_3)}{(z + \epsilon_1)(z + \epsilon_2)(z + \epsilon_3)}
+(F\star G)(x_1,\ldots,x_{m+n})
+ =
+\frac{1}{m!n!}
+\sum_{\sigma\in S_{m+n}}
+\sigma\!\left[
+F(x_1,\ldots,x_m)G(x_{m+1},\ldots,x_{m+n})
+\prod_{\substack{1\leq i\leq m\\m<j\leq m+n}}
+\omega(x_j,x_i)
+\right],
 \]
-(the affine Yangian structure function of \texttt{working\_notes.tex}:360).
-At the self-dual locus $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$, $\log g$
-contains only odd powers, hence $\phi_{2k}(g) = 0$; this is the
-\emph{$\phi_2 = \phi_4 = 0$} observation of \texttt{working\_notes.tex}:361.
-
-\paragraph{Dictionary $\Yp \leftrightarrow$ shuffle.}\
-The SV isomorphism $\Yp \xrightarrow{\;\sim\;} \bigoplus_n \Lambda_n^{\mathrm{SV-shuffle}}$
-sends
+where
 \[
-E_k \longmapsto f_{1, k} = z^k \in \Lambda_1, \qquad k \in \Z_{\geq 0},
+  \omega(z,w)
+  =
+  \frac{(z-w-\epsilon_1)(z-w-\epsilon_2)(z-w-\epsilon_3)}
+       {(z-w)^3}.
 \]
-extended by shuffle multiplication to generate all of $\Lambda_n$ for $n \geq 1$.
-The Cartan current is read off the $\omega$-prefactor: for a charge-$1$ state
-$F \in \Lambda_1$, $\psi^+(u)$ acts by the residue structure of $\omega$ at
-$z \to \infty$.
+The kernel is written with three weights, but it is a two-parameter
+Calabi-Yau kernel over \(\mathbb F\).  The self-dual identity
+\(\epsilon_1+\epsilon_2+\epsilon_3=0\) is not a special point of the
+family; it is the ambient Calabi-Yau constraint.
 
-\ClaimStatusDerivation\ \emph{Chevalley involution exists only virtually on $\Yp$.}\
-A Chevalley involution $\omega: \YFull \to \YFull^{\mathrm{op}}$ with
-$\omega(E_n) = F_n$ exists on the \emph{full} Drinfeld double
-(Tsymbaliuk 2017 Prop.~3.2), but $\omega$ does \emph{not} restrict to $\Yp$:
-it swaps $\Yp \leftrightarrow \Ym$. Hence the $F$-side generators
-\emph{cannot be manufactured internally} to $\CoHA(\C^3)$; they require
-either
-\begin{itemize}
-\item Hall-Drinfeld doubling via a non-degenerate Hopf pairing
-$\Yp \otimes \Ym \to \mathbb{F}$ (Negut 2014 \emph{Publ.\ IHES} Thm~1.4), or
-\item geometric restoration via MO stable envelopes (Cycle V).
-\end{itemize}
-
-\emph{Confirmation.}\ This is the beating core of AP-CY22T: one direction
-of the Yangian modes is \emph{absent} from the CoHA, so the CoHA cannot
-be the full $\Wilpha$ (a vertex algebra carrying both positive and negative
-Fourier modes). The PBW dimension match
-$\dim \CoHA_n(\C^3) = \dim \Yp_n = p(n)$ (plane partitions of $n$)
-is consistent with $\Wilpha$'s \emph{vacuum-module} character (MacMahon function),
-not with $\Wilpha$ itself as a vertex algebra.
-
-% =====================================================================
-\subsection*{Cycle III. $\Yp \neq \Wilpha$: explicit obstruction from mode structure}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{``At self-dual, $\Yp \simeq \Wilpha$''}, \texttt{working\_notes.tex}:358.)\
-The isomorphism is stated as an equality; no generator match is given.
-
-\ClaimStatusHeal\ (\emph{Vertex structure requires both half-algebras.})\
-
-\paragraph{The $\Wilpha$ vertex algebra.}\
-Kac--Radul 1993 / Frenkel--Kac--Radul--Wang 1995: $\Wilpha[\lambda]$ is
-a one-parameter family of vertex algebras generated by a field
-$J^{(s)}(z) = \sum_{n \in \Z} J^{(s)}_n z^{-n-s}$ at conformal weight
-$s$ for each $s \geq 1$. The $s = 1$ field is the Heisenberg current
-with OPE $J^{(1)}(z) J^{(1)}(w) \sim \frac{1}{(z-w)^2}$; the
-$s = 2, 3, \ldots$ fields generate higher spins. A vertex algebra comes
-with modes $J^{(s)}_n$ for $\emph{all}$ $n \in \Z$, not just $n \geq 0$.
-
-\paragraph{The Yangian structure.}\
-$\Yp(\gglone)$ carries only a half-current $E(u) = \sum_{n \geq 0} E_n u^{-n-1}$
-(Taylor expansion in $u^{-1}$ supported on $n \geq 0$). The positive-mode
-side $\sum_{n < 0} E_n u^{-n-1}$ lives in $\Ym$, not $\Yp$. Hence the
-state-field correspondence
-$Y^{\mathrm{VOA}}: V \to \mathrm{End}(V)[[z, z^{-1}]]$ cannot be built
-from $\Yp$ alone.
-
-\paragraph{Explicit mode match (Arbesfeld--Schiffmann 2013 + SV 2013).}\
-A comparison theorem (Arbesfeld--Schiffmann 2013 \texttt{arXiv:1209.0429};
-Schiffmann--Vasserot 2013 \S7) states
+\begin{theorem}[Local positive-half theorem]
+\label{thm:coha-c3-positive-half}
+For the Jordan triple loop quiver
 \[
-\YFull(\gglone) \;\cong\; \mathcal{U}\bigl(\mathrm{modes}(\Wilpha[\lambda])\bigr)
+Q=\bigl(\bullet \mathrel{\substack{\circlearrowleft X\\[-2pt]
+\circlearrowleft Y\\[-2pt]\circlearrowleft Z}}\bigr),
+\qquad
+W=\operatorname{tr}(X[Y,Z]),
 \]
-\emph{at the mode-algebra level.} Explicitly
+the \(T^{\mathrm{CY}}\)-equivariant critical CoHA of \(\C^3\) is the
+positive half of the affine Yangian of \(\widehat{\mathfrak{gl}}_1\):
 \[
-E_n \longleftrightarrow J^{(2)}_{-n-1},
-\qquad F_n \longleftrightarrow J^{(2)}_{n+1}, \qquad
-\psi^{+}(u) \longleftrightarrow \text{generating series of } J^{(1)}_n\text{'s}
+  \CoHA_{T^{\mathrm{CY}}}(\C^3)
+  \cong
+  \Sh^+_{\epsilon_1,\epsilon_2,\epsilon_3}
+  \cong
+  \Yp(\gglone)
 \]
-(normalised via the $\epsilon$-weighted structure function $g$).
-The $\Yp$ side corresponds to the \emph{creation modes}
-$\{J^{(s)}_{-n-1} : n \geq 0,\, s \geq 1\}$; $\Ym$ to the annihilation
-modes $J^{(s)}_{n+1}$; $\Yz$ to the Cartan tower.
-
-\emph{Corrected statement for \texttt{working\_notes.tex}:358 and :1663.}\
+as \(E_1\)-associative algebras.  Under this normalisation the
+Drinfeld current
 \[
-\boxed{\YFull(\gglone) \;\cong\; \mathrm{modes}(\Wilpha[\lambda]),
-\quad \Yp(\gglone) \;\cong\; \mathrm{creation\ modes}, \quad
-\Yp \ncong \Wilpha \text{ as a vertex algebra}.}
+  E(u)=\sum_{k\geq0}E_k u^{-k-1}
 \]
-$\Wilpha$ as a \emph{vertex algebra} (locality, state-field correspondence,
-Borcherds identity) is a structurally richer object than any of
-$\Yp, \Ym, \YFull$ alone: it is their \emph{chiralisation} through the
-state-field map, which is provided by the CY-to-chiral functor $\Phi_3$
-on the spectral line $\C_z$.
-
-% =====================================================================
-\subsection*{Cycle IV. The Miki automorphism, quantum toroidal algebra, and $SL_2(\Z)$}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{``Drinfeld double automatically gives $\Wilpha$.''})\
-\texttt{CoHA\_to\_W\_infty\_treatise.tex}:157 cites Tsymbaliuk 2017 Thm~1.1
-asserting ``$\YFull(\gglone) \cong$ affine Yangian of $\gglone$'' and then
-jumps to $\Wilpha$. The jump is an $SL_2(\Z)$ action on a \emph{different}
-algebra, not an isomorphism.
-
-\ClaimStatusHeal\ (\emph{Miki's $SL_2(\Z)$ and the vertical/horizontal braid.})\
-
-\paragraph{The quantum toroidal algebra $\mathcal{E}_{q_1, q_2, q_3}$.}\
-Ding--Iohara 1997, Miki 2007, Feigin--Hashizume--Hoshino--Shiraishi--Yanagida
-2009: the quantum toroidal algebra $\mathcal{E}_{q_1, q_2, q_3}(\gglone)$
-has a distinguished $SL_2(\Z)$-action generated by
-$T \in SL_2(\Z)$ (``Miki automorphism'') cyclically permuting the three
-deformation parameters $q_i$. The additive / Yangian form $\YFull(\gglone)$
-is the rational-degeneration limit of $\mathcal{E}_{q_1, q_2, q_3}$.
-
-\paragraph{Vertical vs horizontal subalgebras.}\
-$\mathcal{E}_{q_1, q_2, q_3}$ has two commuting copies of $U_q(\widehat{\mathfrak{gl}}_\infty)$:
-\begin{itemize}
-\item \emph{Vertical} $\mathcal{E}^{\mathrm{vert}}$: generated by ``row''
-currents $e^{\mathrm{vert}}_k(z)$; specialises to a Heisenberg subalgebra
-via evaluation at one central character.
-\item \emph{Horizontal} $\mathcal{E}^{\mathrm{hor}}$: generated by
-``column'' currents; specialises via the state-field correspondence
-to $\Wilpha[\lambda]$ at the self-dual level.
-\end{itemize}
-The Miki $T$ is an \emph{algebra} automorphism that \emph{interchanges}
-vertical and horizontal: $\mathcal{E}^{\mathrm{vert}} \xleftrightarrow{T}
-\mathcal{E}^{\mathrm{hor}}$.
-
-\paragraph{Why this resolves the five-object confusion.}\
-\begin{itemize}
-\item $\CoHA(\C^3)$ is a geometric object (critical cohomology of a
-moduli stack, Kontsevich--Soibelman 2008).
-\item $\Yp(\gglone) = \CoHA(\C^3)$ is the algebraic shadow: associative
-shuffle-product presentation.
-\item $\YFull(\gglone) = \Yp \bowtie \Yz \bowtie \Ym$ is the Hall-Drinfeld
-double: Hopf structure, not yet vertex.
-\item $\mathcal{E}_{q_1, q_2, q_3}(\gglone)$ is the quantum toroidal
-enhancement: $SL_2(\Z)$ acts.
-\item $\Wilpha[\lambda]$ is the vertex algebra obtained from the
-horizontal $\mathcal{E}^{\mathrm{hor}}$ via state-field correspondence;
-equivalently, via the Costello--Paquette 2020 / Gaiotto--Rap\v{c}\'ak 2017
-holomorphic-twist factorisation algebra on $\C_z$.
-\end{itemize}
-
-\ClaimStatusDerivation\ \emph{The chain is four arrows.}\
+maps to the charge-one shuffle generators
 \[
-\CoHA(\C^3)
-\;\stackrel{\text{SV}}{\cong}\;
-\Yp(\gglone)
-\;\stackrel{\mathcal{D}_\hbar}{\hookrightarrow}\;
-\YFull(\gglone)
-\;\stackrel{\text{ratio. deg.}}{\cong}\;
-\mathcal{E}^{\mathrm{rat}}(\gglone)
-\;\stackrel{T}{\cong}\;
-\mathcal{E}^{\mathrm{hor}}
-\;\stackrel{\Phi_3 / \text{state-field}}{\Longrightarrow}\;
-\Wilpha[\lambda].
+  E_k \longmapsto z^k\in \Lambda_1,\qquad k\geq0.
 \]
-Each arrow is a \emph{different} construction: $\mathcal{D}_\hbar$ is
-Hall-Drinfeld doubling (adds negative modes via a pairing); ratio.~deg.~is
-the rational degeneration of the quantum toroidal relations;
-$T$ is Miki's $SL_2(\Z)$ braid; $\Phi_3$ is the CY-to-chiral functor
-upgrading the $E_1$-associative structure to an $E_1$-chiral (vertex)
-structure on $\C_z$.
-
-\emph{Cross-check with} \texttt{working\_notes.tex}:2088\texttt{.}
-The ``six-component holographic modular Koszul datum'' for $\C^3$ lists
-$H(\C^3) = (\Wilpha, \Wilpha^!, \Rep(\YFull(\gglone)), r_{\mathrm{Yang}},
-\Theta^{E_1}, \nabla^{E_1})$. The first entry $\Wilpha$ is the chiral
-algebra $A_X = \Phi_3(\mathrm{Perf}(\C^3))$; the third entry
-$\Rep(\YFull)$ is the representation category of the associative
-Drinfeld double. These are the two opposite sides of $\Phi_3$: one
-$E_1$-chiral (vertex), one associative. The datum itself is correct;
-the presence of $r_{\mathrm{Yang}}$ separately confirms the algebraic
-side, so no conflation occurs.
-
-% =====================================================================
-\subsection*{Cycle V. Maulik--Okounkov stable envelopes: restoring the negative half geometrically}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{``Stable envelopes give $E$ and $F$ automatically.''})\
-The Maulik--Okounkov 2019 (Ast.~408) stable-envelope construction on
-$\Hilb^n(\C^2)$ produces an $R$-matrix $R_{\MO}$; MO generators are
-``automatically'' identified with Yangian currents. In what precise
-sense?
-
-\ClaimStatusHeal\ (\emph{Stable envelopes generate $\YFull$, not $\Yp$.})\
-
-\paragraph{The MO fixed-point basis.}\
-For $T = (\C^\times)^2$ acting on $\Hilb^n(\C^2)$, the fixed points are
-labelled by partitions $\lambda \vdash n$. MO stable envelopes
-$\mathrm{Stab}_\mathfrak{C}: H^*_T(\Hilb^n(\C^2)^T) \to H^*_T(\Hilb^n(\C^2))$
-depend on a chamber $\mathfrak{C}$.
-
-\paragraph{The universal $R$-matrix.}\
-For the positive/negative chambers $\mathfrak{C}_{\pm}$,
-\[
-R_{\MO}(u) := \mathrm{Stab}_{-}^{-1}\, \mathrm{Stab}_{+}
-\;\in\; \mathrm{End}\bigl(H^*_T(\Hilb^n(\C^2)^T)\bigr)(u),
-\]
-diagonal in the partition basis with entries
-\[
-R_{\lambda, \mu}(u) = \prod_{s \in \lambda, t \in \mu} g(u + c(s) - c(t)),
-\qquad g(u) = \frac{(u - \epsilon_1)(u - \epsilon_2)(u - \epsilon_3)}{(u + \epsilon_1)(u + \epsilon_2)(u + \epsilon_3)}.
-\]
-This matches \emph{exactly} the affine Yangian structure function
-of \texttt{working\_notes.tex}:360. The $\phi_2 = \phi_4 = 0$ vanishing
-at the CY$_3$ locus (\texttt{working\_notes.tex}:361) is the
-$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ reduction of $\log g$ to
-odd powers.
-
-\paragraph{Why MO gives the full $\YFull$.}\
-The MO construction takes $\bigoplus_n H^*_T(\Hilb^n(\C^2))$ and acts by
-stable-envelope correspondence operators \emph{both} increasing and
-decreasing $n$. The increasing direction generates $\Yp$ (SV's shuffle
-side); the decreasing direction generates $\Ym$; together they give
-$\YFull$ with non-degenerate Hopf pairing
-\[
-\langle \alpha, \beta \rangle_{\MO} :=
-\int^{T}_{\Hilb^n(\C^2)} \mathrm{Stab}_{+}(\alpha) \cup \mathrm{Stab}_{-}(\beta),
-\]
-the geometric incarnation of the Drinfeld pairing $\Yp \otimes \Ym \to \mathbb{F}$.
-
-\paragraph{Comparison to $\C^3$ CoHA.}\
-For $\C^3$ one restricts $\C^2 \hookrightarrow \C^3$ and pulls back the
-$T^3$-action to $(\C^\times)^2$ via $T^{\mathrm{CY}}$. The MO construction
-on $\Hilb^n(\C^2)$ therefore produces a $T^{\mathrm{CY}}$-equivariant
-Drinfeld double containing the $\C^3$-CoHA as its positive half.
-
-% =====================================================================
-\subsection*{Cycle VI. $W_{1+\infty}$ as a two-parameter family and the $\lambda$ prism}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{``$\Wilpha$ is the self-dual $c = 1$ algebra.''},
-\texttt{working\_notes.tex}:1025, 1066.)\
-The sentence elides that $\Wilpha$ is a \emph{family}.
-
-\ClaimStatusHeal\ (\emph{Triangular prism of $\lambda$.})\
-
-\paragraph{Two $\lambda$'s.}\
-Following \texttt{CoHA\_to\_W\_infty\_treatise.tex}:191:
-\begin{itemize}
-\item $\lambda_{\mathrm{Tr}} = (\epsilon_1 + \epsilon_2)/\epsilon_3$
-(Schiffmann--Vasserot / Tsymbaliuk truncation parameter). Ranges over
-$\mathbb{P}^1$ as $\epsilon_1:\epsilon_2$ varies at fixed $\epsilon_3 \neq 0$.
-\item $\lambda_{\mathrm{GR}}$ (Gaiotto--Rap\v{c}\'ak 2017): symmetric in
-the three $\epsilon_i$; the central charge depends affine-linearly on
-$(\epsilon_1, \epsilon_2, \epsilon_3)$.
-\end{itemize}
-Neither is ``the'' $\lambda$; they are related by a linear-fractional
-transformation.
-
-\paragraph{CY$_3$ as a one-parameter slice.}\
-Imposing $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ reduces the
-two-parameter $(\epsilon_1, \epsilon_2, \epsilon_3)$ to a one-parameter
-slice (projective $[\epsilon_1:\epsilon_2]$ line). This collapses the
-$\Wilpha$ family along \emph{one} direction; it does \emph{not} freeze
-$\lambda$ to a single value. The statement ``at $c = 1$,
-$\Wilpha = H_1$'' (line 1140) is the further specialisation
-$\epsilon_1 = -\epsilon_2$, $\epsilon_3 = 0$, a single point on the
-CY$_3$ slice.
-
-\paragraph{The Heisenberg fibre.}\
-At $\epsilon_1 = -\epsilon_2$, $\epsilon_3 = 0$, the shuffle kernel
-$\omega(z, w)$ degenerates to
-\[
-\omega\big|_{\epsilon_3 = 0}(z, w) = \frac{(z - w - \epsilon_1)(z - w + \epsilon_1)(z - w)}{(z-w)^3}
-= \frac{(z-w)^2 - \epsilon_1^2}{(z-w)^2},
-\]
-the Feigin--Odesskii Heisenberg kernel. The shuffle algebra generated by
-$\{z^n \in \Lambda_1 : n \geq 0\}$ under this kernel is the creation half
-of a Heisenberg algebra. Hall-Drinfeld doubling closes to
-$\mathcal{U}(\hat{\mathfrak{h}})_+ = H_1$, the level-1 Heisenberg VOA,
-which is $\Wilpha[\lambda = 0]$.
-
-\emph{Cross-check with the cache.}\
-First-principles cache entry 22T states: ``$\CoHA(\C^3) = \mathcal W_{1+\infty}$''
-is wrong -- CoHA is $\Yp$ only, missing negative modes. The generic
-CoHA slice is $\Yp \subset \YFull$ (associative); at the Heisenberg fibre,
-$\Phi_3$ produces $\Wilpha[0] = H_1$, which \texttt{working\_notes.tex}:1140
-correctly identifies.
-
-\ClaimStatusDerivation\ \emph{The Heisenberg modular characteristic.}\
-$\kappa_{\mathrm{ch}}(H_1) = 1$ follows from $\chi_{\mathrm{sup}}(\Phi_3(\mathrm{Perf}(\C^3)))
-= \chi(\mathcal{O}_{\C^3})$ via the Hodge-supertrace identification on the compact
-slice (cf.\ Essential Constants in CLAUDE.md); \emph{not} $c/2 = 1/2$ (which is
-the Witten-index convention for a single chiral boson, not $\kappa_{\mathrm{ch}}$).
-$\kappa_{\mathrm{ch}}$ is an Euler characteristic, not a Witten index.
-
-% =====================================================================
-\subsection*{Cycle VII. $K3 \times E$: CoHA = BPS-Lie-algebra envelope, NOT $U(\mathfrak{n}_+(\mathfrak g_{\Delta_5}))$}
-% =====================================================================
-
-\ClaimStatusAttack\ (\texttt{working\_notes.tex}:1234 claims
-$\CoHA(K3 \times E) \simeq U(\mathfrak{n}_+(\mathfrak g_{\Delta_5}))$.)\
-The claim identifies the CoHA directly with the universal envelope of the
-positive part of the $\Delta_5$-BKM superalgebra. This is an over-extension.
-
-\ClaimStatusHeal\ (\emph{Davison PBW gives $U(\mathfrak g_{\mathrm{BPS}})$, not $U(\mathfrak n_+(\mathfrak g_{\Delta_5}))$.})\
-
-\paragraph{What Davison 2017 proves.}\
-Davison \texttt{arXiv:1601.02479} and Davison--Meinhardt 2020 (\emph{Invent.\ Math.}~221):
-under the global critical-chart hypothesis on the sheaf-moduli of $X$, there
-exists a CoHA $\CoHA^{\mathrm{BPS}}(X)$ with a PBW identification
-\[
-\CoHA^{\mathrm{BPS}}(X) \;\cong\; U(\mathfrak g_{\mathrm{BPS}}(X)) \qquad \text{(as associative algebras)},
-\]
-where $\mathfrak g_{\mathrm{BPS}}(X)$ is the BPS Lie subalgebra of primitive
-elements. This is a \emph{full} Lie algebra, not a positive half.
-
-\paragraph{What $\mathfrak{n}_+(\mathfrak g_{\Delta_5})$ is.}\
-The Gritsenko--Nikulin BKM superalgebra $\mathfrak g_{\Delta_5}$ has a
-triangular decomposition $\mathfrak g_{\Delta_5} = \mathfrak n_- \oplus \mathfrak h
-\oplus \mathfrak n_+$, where $\mathfrak n_+$ is the sum of positive root spaces
-determined by $\Phi_{10}$'s Fourier coefficients via the Borcherds denominator
-identity. The assertion $\CoHA \simeq U(\mathfrak n_+(\mathfrak g_{\Delta_5}))$
-pairs the CoHA with \emph{one} half of the BKM triangular structure.
-
-\paragraph{The obstruction: two different splittings.}\
-The BPS Lie algebra $\mathfrak g_{\mathrm{BPS}}(K3 \times E)$ carries its
-own decomposition (if any) given by the effective-cone structure of the
-DT stability function; it is \emph{not} the same as the BKM triangular
-decomposition. Even if $\dim \mathfrak g_{\mathrm{BPS}, \gamma}(K3 \times E)
-= \mathrm{mult}_{\mathrm{BKM}}(\alpha_\gamma) = \dim \mathfrak g_{\Delta_5, \alpha_\gamma}$
-(the dimension equality is consistent with KS motivic wall-crossing; see
-treatise line 523), the \emph{bracket compatibility} is open
-(\texttt{CoHA\_to\_W\_infty\_treatise.tex}:523--536). Cache entry 17F names
-this as the cached confusion: equal graded characters do not force
-algebra-level identification.
-
-\paragraph{Corrected formulation.}\
-\[
-\boxed{
-\CoHA(K3 \times E) \;\cong\; U(\mathfrak g_{\mathrm{BPS}}(K3 \times E))
-\;\text{[Davison]},
-\quad \mathfrak g_{\mathrm{BPS}}(K3 \times E) \stackrel{?}{\cong} \mathfrak g_{\Delta_5}
-\;\text{[conjectural]}.}
-\]
-The conjectural isomorphism, if proved, would give
-$\CoHA(K3 \times E) \cong U(\mathfrak g_{\Delta_5})$ (full), not
-$U(\mathfrak n_+(\mathfrak g_{\Delta_5}))$.
-
-\emph{Manuscript rectification target.}\
-\texttt{working\_notes.tex}:1234 should read
-``$\CoHA(K3 \times E) \simeq U(\mathfrak g_{\mathrm{BPS}}(K3 \times E))$
-(Davison 2017), conjecturally $\simeq U(\mathfrak g_{\Delta_5})$.''
-The positive-half language at \texttt{working\_notes.tex}:266
-(``$\CoHA$ (positive half) $\to U(\mathfrak n_+)$'') is acceptable
-\emph{provided} the triangular decomposition is given and the CoHA is
-understood as sitting inside the full $U(\mathfrak g_X)$. Otherwise the
-table-row reading conflates the CoHA with $\mathfrak n_+$, not $\mathfrak g$.
-
-% =====================================================================
-\subsection*{Cycle VIII. The conifold and local $\mathbb{P}^2$: CoHA OPE vs shuffle vs $\Wilpha$ OPE}
-% =====================================================================
-
-\ClaimStatusAttack\ (\texttt{working\_notes.tex}:1493.)\
-``For $\C^3$ and the conifold: Feynman diagrams $=$ shuffle algebra
-$=$ $\Wilpha$ OPE.''
-A three-way equality across three distinct categorical structures.
-
-\ClaimStatusHeal\ (\emph{Parse the equality: perturbative match, full equality only at $\C^3$ Heisenberg fibre.})\
-
-\paragraph{Conifold CoHA is NOT $\Wilpha$.}\
-The resolved conifold has shuffle kernel
-\[
-\omega_{\mathrm{con}}(z, w) = \frac{(z - w + \epsilon_1)(z - w + \epsilon_2)}{(z - w)(z - w + \epsilon_1 + \epsilon_2)}
-\]
-(Negut 2015 \texttt{arXiv:1505.01528}; treatise line 408), with
-$\epsilon_1 + \epsilon_2 \neq 0$ on the CY$_3$ slice
-(the $\mathbb{P}^1$-direction is compact, not an equivariant parameter).
-Rapcak--Soibelman--Yang--Zhao 2020 Thm~B + Kapranov--Vasserot 2018
-identify the \emph{positive half of the quantum toroidal algebra
-$U_{q_1, q_2}(\widehat{\widehat{\mathfrak{gl}}}_2)$} with the conifold CoHA,
-NOT with $\Wilpha(\gglone)$. The target vertex algebra is a different
-chiral algebra (Costello--Li 2016 \texttt{arXiv:1606.00365}), an
-elliptic-corrected analogue of $\Wilpha$ with an additional $A_1$
-structure reflecting the two conifold vertices.
-
-\paragraph{Parsing the three-way equality.}\
-The correct reading of \texttt{working\_notes.tex}:1493 is:
-\begin{itemize}
-\item (i) \emph{5D-CS Feynman diagrams} reproduce the
-\emph{perturbative OPE} of the defect factorisation algebra on
-$\C_z$ (Costello--Gaiotto 2018 \texttt{arXiv:1810.01970}).
-\item (ii) \emph{Shuffle algebra structure} = algebraic presentation of
-the CoHA positive half (Feigin--Odesskii / SV).
-\item (iii) $\Wilpha$ OPE = vertex-algebra OPE of $A_X = \Phi_3(\mathrm{Perf}(X))$.
-\end{itemize}
-At $X = \C^3$ with $\epsilon_3 = 0$ (Heisenberg fibre), all three agree
-at the state-field level. At generic $\epsilon_i$ on $\C^3$, (ii) and (iii)
-are related by Miki $+$ state-field (Cycle IV). At $X = $ conifold,
-(i) and (ii) still match perturbatively (Costello--Li 2016), but the
-``$\Wilpha$ OPE'' on the right is a \emph{different vertex algebra}:
-not $\Wilpha(\gglone)$ but a conifold-specific quantum-toroidal-type
-vertex algebra. The sentence as written at line 1493 is a
-\emph{slogan}; its precise form depends on $X$.
-
-\paragraph{\texttt{working\_notes.tex}:1068 parsed.}\
-``For the resolved conifold: $\HH^2 = 1, \HH^3 = 0$, but the
-quantization produces the CoHA ($E_1$, associative), \emph{not} a
-vertex algebra. The singularity breaks factorization locality.''
-This is the correct parse of the $\C^3 \to $ conifold transition:
-the conifold CoHA is associative (per Davison 2012), and the
-vertex-algebra extension requires an additional $\Phi_3$ arrow
-(holomorphic Chern--Simons + state-field correspondence). The line
-1493 slogan and the line 1068 theorem are mutually consistent
-provided the $\Wilpha$ in line 1493 is read as the 5D-CS defect
-factorisation algebra image, not as $\Wilpha(\gglone)$.
-
-\paragraph{Local $\mathbb{P}^2$: the $\Z_3$-McKay refinement.}\
-\texttt{working\_notes.tex}:1464--1465 states that the
-$E_1$-chiral algebra of local $\mathbb{P}^2$ arises from the critical
-CoHA of the $\Z_3$-McKay quiver, and ``the deformed $\Wilpha$ acquires
-a loop correction factor $c_{\mathrm{loop}} = -1/15$.'' Correct parse:
-the McKay quiver CoHA is $\Yp$ for a \emph{quiver Yangian}
-$\Yp(\widehat{\mathfrak{sl}}_3)$, NOT $\Yp(\gglone)$; its state-field
-correspondence produces a $\Wilpha$-variant (the
-$\Wilpha \times \Wilpha \times \Wilpha$ coset if one descends to
-$\Z_3$-orbifolds of $\Wilpha$; cf.\ Gaiotto--Rap\v{c}\'ak 2017 Y-algebra
-vertices). The ``$-1/15$'' correction is a loop-level OPE modification
-of this coset, not of $\Wilpha$ itself.
-
-% =====================================================================
-\subsection*{Synthesis: corrected theorem and the five-object taxonomy}
-% =====================================================================
-
-\begin{theorem}[Corrected CoHA = positive-half-Yangian, with $\Wilpha$ extension]
-\label{thm:wave12-a7-coha-drinfeld-heal}
-Let $\mathbb{F} = \Q(\epsilon_1, \epsilon_2, \epsilon_3)/(\epsilon_1 + \epsilon_2 + \epsilon_3)$,
-$T^{\mathrm{CY}} = \ker(\sum \epsilon_i)$ acting on $\C^3$ preserving $\Omega_{\C^3}$.
-\begin{enumerate}
-\item[\upshape(a)]\ (Schiffmann--Vasserot 2013 \texttt{arXiv:1202.2756} Thm~1.1;
-Schiffmann--Vasserot 2017 \emph{Publ.\ IHES} 118.)\
-$\CoHA_{T^{\mathrm{CY}}}(\C^3)$ is isomorphic as an associative algebra to
-the positive half $\Yp(\gglone)$ of the affine Yangian of $\gglone$, via the
-Feigin--Odesskii shuffle presentation with kernel
-$\omega(z, w) = \prod_{i=1}^3 (z-w-\epsilon_i)/(z-w)^3$.
-\item[\upshape(b)]\ (Negut 2014 \emph{Publ.\ IHES}; MO 2019 Ast.~408.)\
-Hall-Drinfeld doubling with respect to the Euler / MO stable-envelope pairing
-restores $\Ym$ and $\Yz$, giving
-$\Yp \bowtie \Yz \bowtie \Ym = \YFull(\gglone)$.
-\item[\upshape(c)]\ (Miki 2007; Tsymbaliuk 2017 Thm~1.1;
-Arbesfeld--Schiffmann 2013 \texttt{arXiv:1209.0429};
-Gaiotto--Rap\v{c}\'ak 2017 \texttt{arXiv:1703.00982}.)\
-$\YFull(\gglone) \cong \mathrm{modes}(\Wilpha[\lambda])$ via the Miki
-$T \in SL_2(\Z)$ automorphism of the quantum toroidal algebra
-$\mathcal{E}_{q_1, q_2, q_3}(\gglone)$; specifically
-$E_n \leftrightarrow J^{(2)}_{-n-1}$, $F_n \leftrightarrow J^{(2)}_{n+1}$,
-$\psi^\pm_n \leftrightarrow J^{(1)}$-mode series.
-\item[\upshape(d)]\ (Costello 2013 \texttt{arXiv:1303.2632}; Costello--Paquette 2020
-\texttt{arXiv:2009.04834}.)\
-$\Phi_3(\mathrm{Perf}(\C^3)) \cong \Wilpha[\lambda]$ as vertex algebras
-(equivalently, as holomorphic factorisation algebras on the spectral
-line $\C_z$). $\Phi_3$ is the state-field correspondence applied to
-$\mathcal{E}^{\mathrm{hor}}$; $\lambda$ is determined by the
-transverse $\Omega$-weights.
-\item[\upshape(e)]\ Five objects, never conflated:
-\[
-\CoHA(\C^3) = \Yp \;\;\subsetneq\;\; \YFull \;\;\simeq\;\; \mathcal{E}^{\mathrm{rat}}
-\;\;\stackrel{T}{\simeq}\;\; \mathcal{E}^{\mathrm{hor}}
-\;\;\stackrel{\text{state-field}}{\Longrightarrow}\;\; \Wilpha[\lambda].
-\]
-The first is an $E_1$-associative algebra (no Hopf, no chiral); the second
-and third are $E_1$-associative Hopf algebras (no vertex); the fourth is
-a quantum toroidal Hopf algebra with $SL_2(\Z)$; the fifth is a VOA
-(vertex algebra; $E_1$-chiral).
-\end{enumerate}
 \end{theorem}
 
-\begin{proof}[Proof sketch.]
-\emph{(a)} SV 2013: identify critical cohomology of the Jordan-triple loop
-quiver $(Q = \bullet \circlearrowleft X, Y, Z,\, W = \mathrm{tr}(X[Y, Z]))$
-with the shuffle algebra $\Lambda$ via $T^{\mathrm{CY}}$-localisation on
-plane-partition fixed points in $(\Hilb^n(\C^2))^T$ (Cycle I).
-SV 2013 Thm~1.1 gives $\Lambda \cong \Yp$.
-\emph{(b)} Hall-Drinfeld doubling with the Euler pairing produces
-$\YFull$ (Negut 2014 Thm~1.4). MO 2019 \S14 identifies the stable-envelope
-pairing with the Euler pairing.
-\emph{(c)} Miki 2007 \S3 and Tsymbaliuk 2017 Thm~1.1 on the
-$\gglone$ case; $\lambda$ identification via Gaiotto--Rap\v{c}\'ak 2017 \S4.
-\emph{(d)} Costello 2013 and Costello--Paquette 2020: the holomorphic-twist
-factorisation algebra on $\C_z$ is $\Wilpha[\lambda]$; low-order OPE
-verified, full identification relies on Gaiotto--Rap\v{c}\'ak / Costello--Paquette
-framework.
-\emph{(e)} Categorical: $\Yp, \YFull, \mathcal{E}^{\mathrm{rat}}, \mathcal{E}^{\mathrm{hor}}$
-are associative algebras (no state-field operation, only one multiplication);
-$\Wilpha$ is a vertex algebra (locality, state-field, infinitely many OPE modes).
-They live in distinct categories.
+\begin{proof}
+Kontsevich and Soibelman define the critical CoHA from the vanishing
+cycles of \(\operatorname{Tr}(W)\) on representation stacks of the
+Jacobi algebra.  For the Jordan triple loop quiver the fixed-point
+localisation on the \(T^{\mathrm{CY}}\)-equivariant Hilbert scheme
+chart gives the shuffle product displayed above.  Schiffmann and
+Vasserot identify the corresponding shuffle presentation on Hilbert
+scheme cohomology with the positive part of the \(\mathfrak{gl}_1\)
+affine Yangian, and Tsymbaliuk gives the Drinfeld-current
+presentation with the same additive parameters.  Rapcak, Soibelman,
+Yang, and Zhao formulate the same local toric CoHA as the positive
+spherical CoHA whose double supplies the lowering operators.  These
+identifications preserve the charge grading and send the charge-one
+shuffle generator \(z^k\) to \(E_k\).
 \end{proof}
 
-\begin{theorem}[Extension to conifold and $K3 \times E$, honest status]
-\label{thm:wave12-a7-conifold-K3E}
-Let $X$ be a smooth CY$_3$ threefold with a quiver-with-potential model
-$(Q_X, W_X)$ admitting a global critical-chart presentation.
-\begin{enumerate}
-\item[\upshape(a)]\ \upshape(Davison 2012 \texttt{arXiv:1209.4620}; Rapcak--Soibelman--Yang--Zhao 2020
-\texttt{arXiv:2001.10549} Thm~B; Kapranov--Vasserot 2018 \texttt{arXiv:1802.07988}.)\
-For $X = $ resolved conifold, $\CoHA(X) \cong U(\mathfrak{g}_{\mathrm{BPS}}(X))$
-with $\mathfrak{g}_{\mathrm{BPS}}(X)$ identified as the positive half of
-the quantum toroidal algebra $U_{q_1, q_2}(\widehat{\widehat{\mathfrak{gl}}}_2)$
-via the Negut shuffle kernel $\omega_{\mathrm{con}}$.
-\item[\upshape(b)]\ \upshape(Davison 2017 \texttt{arXiv:1601.02479};
-Oberdieck--Pixton 2016 \texttt{arXiv:1706.10100}, \emph{Invent.\ Math.}~222.)\
-For $X = K3 \times E$, $\CoHA(X) \cong U(\mathfrak{g}_{\mathrm{BPS}}(K3 \times E))$
-(Davison PBW theorem for compact CY$_3$ with critical-chart hypothesis).
-Graded characters match the $\Phi_{10}$-reduced DT partition function:
-$\chi_{\mathrm{gr}}(\CoHA(K3 \times E)) = Z^{\mathrm{red},\prime}_{\mathrm{DT}}(K3 \times E)(q, t, p) = C / \Phi_{10}(q, t, p)$.
-\item[\upshape(c)]\ \emph{The bracket-level isomorphism
-$\mathfrak{g}_{\mathrm{BPS}}(K3 \times E) \stackrel{?}{\cong} \mathfrak{g}_{\Delta_5}$
-is open.} Dimension equality
-$\dim \mathfrak{g}_{\mathrm{BPS}, \gamma}(K3 \times E) = \mathrm{mult}_{\mathrm{BKM}}(\alpha_\gamma)$
-is consistent with KS motivic wall-crossing (Kontsevich--Soibelman 2008);
-algebra-level identification requires the open Lie-bracket compatibility.
-\item[\upshape(d)]\ The chiral BKM $A(K3 \times E) = \Phi_3(D^b(\Coh(K3 \times E)))$
-is the vertex-algebra output of the CY-to-chiral functor on the $E$-factor;
-its mode algebra is conjectured to contain $\mathfrak{g}_{\Delta_5}$ as a
-BPS Lie subalgebra. The chiral-side identification is a separate theorem
-via $\Phi_3$, not a direct consequence of the CoHA construction.
-\end{enumerate}
+The theorem is a positive-half statement.  The algebra
+\(\bigoplus_n\Lambda_n\) contains the raising modes \(E_k\) and their
+shuffle products.  It contains neither the lowering modes \(F_k\) nor
+the Cartan tower \(\psi^\pm_k\) as internal elements.  A Chevalley
+involution \(E_k\leftrightarrow F_k\) is defined only after passing to
+the double; it does not restrict to an endomorphism of \(\Yp\).
+
+\subsection*{The double and the vertex realisation}
+
+The full current algebra is obtained by a Hall-Drinfeld double with
+respect to a nondegenerate Euler or stable-envelope pairing:
+\[
+  \mathcal D_\hbar(\Yp)
+  =
+  \Yp\bowtie\Yz\bowtie\Ym
+  =
+  \YFull(\gglone).
+\]
+In Drinfeld currents,
+\[
+ E(u)=\sum_{k\geq0}E_k u^{-k-1},\qquad
+ F(u)=\sum_{k\geq0}F_k u^{-k-1},\qquad
+ \psi^\pm(u)=1+\sum_{k\geq0}\psi^\pm_k u^{\mp k\mp1},
+\]
+with structure function
+\[
+  g(u)
+  =
+  \frac{(u-\epsilon_1)(u-\epsilon_2)(u-\epsilon_3)}
+       {(u+\epsilon_1)(u+\epsilon_2)(u+\epsilon_3)}.
+\]
+The Calabi-Yau condition gives \(g(u)g(-u)=1\), the unitarity
+normalisation of the rational \(R\)-matrix.  Expanding
+\(\log g(u)\) at \(u=\infty\) leaves only odd powers at
+\(\epsilon_1+\epsilon_2+\epsilon_3=0\), since the even power sums cancel
+in the numerator-denominator ratio.
+
+The passage to \(\Wilpha[\lambda]\) is not another name for
+\(\CoHA(\C^3)\).  It is the completed chain
+\[
+\CoHA(\C^3)
+\cong
+\Yp(\gglone)
+\hookrightarrow
+\mathcal D_\hbar(\Yp)
+=
+\YFull(\gglone)
+\rightsquigarrow
+\widehat{\YFull}_{\mathrm{eval}}
+\cong
+\operatorname{Modes}(\Wilpha[\lambda]).
+\]
+The last arrow means central completion plus an evaluation or Fock
+module on which the state-field map is defined.  In the standard
+normalisation the raising and lowering modes correspond to opposite
+Fourier halves of the vertex-algebra fields:
+\[
+  E_k \leftrightarrow J^{(2)}_{-k-1},
+  \qquad
+  F_k \leftrightarrow J^{(2)}_{k+1},
+\]
+while \(\psi^\pm\) record the Heisenberg-Cartan tower.  A vertex
+algebra has fields
+\[
+  J^{(s)}(z)=\sum_{n\in\Z}J^{(s)}_n z^{-n-s},
+  \qquad s\geq1,
+\]
+and therefore requires both Fourier halves.  The positive CoHA supplies
+only the creation half.
+
+The \(d=3\) output of the Calabi-Yau-to-chiral construction is
+\(E_1\)-chiral:
+\[
+  A_{\C^3}=\Phi_3^{(\Sigma_2,C)}(\Perf(\C^3))
+  \in E_1\text{-}\mathrm{ChirAlg}.
+\]
+On constructed loci the \(E_2\)-braided structure lives on
+\[
+  \cZ\bigl(\Rep^{E_1}(A_{\C^3})\bigr),
+\]
+not on \(A_{\C^3}\) itself and not on the positive CoHA\@.  This is the
+operadic boundary that prevents
+\(\CoHA(\C^3)=\Wilpha[\lambda]\).
+
+\subsection*{Stable envelopes}
+
+For \(\Hilb^n(\C^2)\), Maulik-Okounkov stable envelopes give chamber
+maps
+\[
+  \operatorname{Stab}_{\mathfrak C}:
+  H^*_T\bigl(\Hilb^n(\C^2)^T\bigr)\to H^*_T(\Hilb^n(\C^2)).
+\]
+The ratio
+\[
+  R_{\MO}(u)=\operatorname{Stab}_{-}^{-1}\operatorname{Stab}_{+}
+\]
+satisfies the Yang-Baxter equation and has the scalar rank-one
+structure function \(g(u)\) displayed above.  Its full fixed-point
+matrix is triangular with arm-leg weight factors; it is not a diagonal
+product formula in general.  Increasing Nakajima correspondences give
+the \(E_k\)-half, decreasing correspondences give the \(F_k\)-half, and
+the stable-envelope pairing is the geometric source of the double:
+\[
+  \langle \alpha,\beta\rangle_{\MO}
+  =
+  \int_{\Hilb^n(\C^2)}^T
+  \operatorname{Stab}_{+}(\alpha)\cup
+  \operatorname{Stab}_{-}(\beta).
+\]
+Thus stable envelopes restore the missing half geometrically; they do
+not turn \(\Yp\) itself into a vertex algebra.
+
+\subsection*{Parameters and the Heisenberg fibre}
+
+The equation \(\epsilon_1+\epsilon_2+\epsilon_3=0\) leaves a projective
+one-parameter family of Calabi-Yau weights.  It does not force the
+\(\Wilpha\)-parameter to a single value.  The special point
+\[
+  \epsilon_3=0,\qquad \epsilon_1=-\epsilon_2
+\]
+is the Heisenberg fibre.  There the shuffle kernel becomes
+\[
+  \omega(z,w)
+  =
+  \frac{(z-w-\epsilon_1)(z-w+\epsilon_1)(z-w)}
+       {(z-w)^3}
+  =
+  \frac{(z-w)^2-\epsilon_1^2}{(z-w)^2}.
+\]
+The positive half generated by \(z^k\in\Lambda_1\) is the creation
+half of the level-one Heisenberg algebra; after doubling and
+state-field realisation one obtains the Heisenberg VOA\@.  The local
+normalisation
+\[
+  \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(\C^3)=1
+\]
+is the Heisenberg normalisation for the local \(d=3\) chart.
+It is not \(c/2\), not a compact Hodge supertrace of \(\C^3\), and not
+a Borcherds weight.
+
+\subsection*{Conifold and local \texorpdfstring{$\mathbb P^2$}{P2}}
+
+The resolved conifold is a different toric CY\(_3\).  Its positive CoHA
+has the Negut shuffle kernel
+\[
+  \omega_{\mathrm{con}}(z,w)
+  =
+  \frac{(z-w+\epsilon_1)(z-w+\epsilon_2)}
+       {(z-w)(z-w+\epsilon_1+\epsilon_2)}.
+\]
+Davison's conifold CoHA and the Rapcak, Soibelman, Yang, and Zhao
+toric construction identify this positive half with a conifold
+Yangian or quantum toroidal \(\widehat{\widehat{\mathfrak{gl}}}_2\)
+object, after the appropriate stability and shift data are fixed.  It
+is not \(\Yp(\gglone)\) and not \(\Wilpha(\gglone)\).
+
+Perturbative five-dimensional Chern-Simons diagrams, shuffle
+multiplication, and vertex OPEs agree only after the relevant
+doubling, completion, and state-field realisation have been specified.
+At the \(\C^3\) Heisenberg fibre this produces the usual
+\(\Wilpha\)-Heisenberg realisation.  At the conifold it produces a
+conifold-specific quantum-toroidal vertex algebra.
+
+For local \(\mathbb P^2\), the positive half is controlled by the
+\(\Z_3\)-McKay quiver.  The relevant Yangian is a quiver Yangian
+attached to that McKay data, not the \(\widehat{\mathfrak{gl}}_1\)
+positive half of \(\C^3\).  Orbifold or coset descriptions of the
+vertex algebra occur only after the same double-plus-state-field
+passage.
+
+\subsection*{\texorpdfstring{$K3\times E$}{K3 x E}}
+
+The compact threefold \(K3\times E\) is not a toric local chart.  The
+\(\C^3\) fixed-point shuffle proof does not globalise to it.  The
+correct compact source is a reduced critical Hall object built from
+K3-cosection-reduced moduli and finite Hall windows.  The local
+Davison-Meinhardt PBW theorem says that, under the quiver-with-potential
+and critical-chart hypotheses, a critical CoHA has a PBW degeneration
+whose primitive part is a BPS Lie algebra:
+\[
+  \operatorname{gr}\CoHA
+  \cong
+  \operatorname{Sym}\bigl(\mathfrak g_{\mathrm{BPS}}\otimes H^*(B\C^\times)\bigr).
+\]
+This is PBW control by the BPS primitive part, not an identification
+with a prescribed BKM triangular half.
+For compact \(K3\times E\), finite-window Hall objects must still pass
+orientation, parity, radical, PBW, centre, and completion gates before
+a Hall-Borcherds double is recognised.  The
+unconditional numerical evidence is character-level; the bracket-level
+comparison
+\[
+  \mathfrak g_{\mathrm{BPS}}(K3\times E)
+  \stackrel{?}{\cong}
+  \mathfrak g_{\Delta_5}
+\]
+remains an open recognition problem outside finite windows where all
+defects have been killed.
+
+The automorphic scalar is separate from the Hall multiplication.  The
+Gritsenko-Nikulin Borcherds product gives
+\[
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2,
+  \qquad
+  c_1(0)=10,
+  \qquad
+  \kappa_{\mathrm{BKM}}(\Delta_5)=\frac{c_1(0)}2=5.
+\]
+In Oberdieck-Pandharipande's reduced DT normalisation one writes
+\[
+  D_5=64^{-1}\Delta_5,
+  \qquad
+  \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2,
+  \qquad
+  Z^{\mathrm{red}}_{\mathrm{DT}}(K3\times E)
+  =-\bigl(\Phi_{10}^{\mathrm{OP}}\bigr)^{-1}.
+\]
+These identities determine denominator and character data.  They do
+not imply
+\[
+  \CoHA(K3\times E)
+  =
+  U\bigl(\mathfrak n_+(\mathfrak g_{\Delta_5})\bigr).
+\]
+The BKM-side compact object is a Hall-Drinfeld double or finite
+radical-quotient double of the reduced compact Hall source, when the
+recognition data exist.  It is not the local \(\C^3\) affine Yangian
+and not the K3 self-mirror Yangian branch.
+
+\begin{theorem}[Taxonomy]
+\label{thm:coha-w-taxonomy}
+The following identifications and non-identifications are forced by
+the constructions above.
+\[
+\CoHA_{T^{\mathrm{CY}}}(\C^3)
+\cong
+\Yp(\gglone),
+\qquad
+\mathcal D_\hbar(\Yp)
+=
+\YFull(\gglone),
+\]
+\[
+\widehat{\YFull}_{\mathrm{eval}}
+\cong
+\operatorname{Modes}(\Wilpha[\lambda]),
+\qquad
+\CoHA(\C^3)\neq \Wilpha[\lambda].
+\]
+For \(d=3\), \(\Phi_3\) produces \(E_1\)-chiral algebras after the
+chosen specialisation; the \(E_2\)-braided structure is a centre or
+representation-category structure.  For \(K3\times E\), the
+\(\Delta_5\) denominator fixes \(\kappa_{\mathrm{BKM}}=5\) and
+character data, while the compact Hall-Borcherds algebra-level
+identification remains conditional on the finite recognition data.
 \end{theorem}
 
-\begin{remark}[Inconsistencies in \texttt{working\_notes.tex} flagged]
-\label{rem:wn-inconsistencies}
-\begin{enumerate}
-\item Line 358: ``$Y^+(\widehat{\mathfrak{gl}}_1) \simeq \mathcal{W}_{1+\infty}$''.
-\textbf{False as stated} (AP-CY22T). Correct: $\Yp \subsetneq \YFull \cong \mathrm{modes}(\Wilpha)$.
-\item Line 1663: same error repeated in the ``five routes to $\Wilpha$'' enumeration.
-Same fix.
-\item Line 1234: ``$\CoHA(K3 \times E) \simeq U(\mathfrak{n}_+(\mathfrak g_{\Delta_5}))$''.
-\textbf{Over-extension} (Cycle~VII). Correct: $\CoHA(K3 \times E) \cong U(\mathfrak g_{\mathrm{BPS}}(K3 \times E))$
-(Davison PBW); the BKM-positive-half identification is conjectural.
-\item Line 266, table row ``$\CoHA$ (positive half) $\to U(\mathfrak n_+)$''.
-\textbf{Scope-ambiguous}: readable as shorthand for ``CoHA is the positive
-half of $U(\mathfrak g_X)$'' but literally reads ``CoHA equals $U(\mathfrak n_+)$'',
-which pairs the CoHA with one half of the BKM triangular decomposition.
-Fix: append ``(Davison: $\CoHA \cong U(\mathfrak g_{\mathrm{BPS}, +})$, with
-$\mathfrak g_{\mathrm{BPS}, +} \subset \mathfrak g_X$ the effective-cone positive subalgebra).''
-\item Line 1493: ``Feynman diagrams $=$ shuffle algebra $=$ $\Wilpha$ OPE''
-for conifold. \textbf{Slogan correct} perturbatively; full identification
-replaces ``$\Wilpha$'' by the conifold-specific quantum-toroidal vertex algebra
-(Costello--Li 2016). Fix: qualify ``$\Wilpha$-variant'' or explicit
-$\mathcal{E}(\widehat{\widehat{\mathfrak{gl}}}_2)$ reference.
-\item Line 2088, six-component Koszul datum $H(\C^3) = (\Wilpha, \Wilpha^!,
-\Rep(\YFull), \ldots)$. \textbf{Correct} provided $\Wilpha$ is read as
-$A_X = \Phi_3(\mathrm{Perf}(\C^3))$ (chiral), distinct from $\Yp = \CoHA(\C^3)$
-(associative). The separate entry $\Rep(\YFull)$ confirms the two-sided
-reading.
-\end{enumerate}
-\end{remark}
+\begin{proof}
+The first isomorphism is Theorem~\ref{thm:coha-c3-positive-half}.  The
+second is the Hall-Drinfeld double construction: it adds the missing
+lowering half and Cartan tower through the Euler or stable-envelope
+pairing.  The completed evaluated double acts as the affine Yangian
+mode algebra of \(\Wilpha[\lambda]\), where the state-field
+correspondence supplies the vertex operation.  Since a vertex algebra
+has all Fourier modes and locality, while \(\CoHA(\C^3)\) has only the
+positive shuffle product, the equality \(\CoHA(\C^3)=\Wilpha[\lambda]\)
+is category-theoretically impossible.  The dimension-three operadic
+scope follows from the construction of \(\Phi_3\): the native object is
+\(E_1\)-chiral and its \(E_2\) enhancement, when present, is carried by
+the Drinfeld centre.  The \(K3\times E\) statement follows from the
+separation between Borcherds denominator arithmetic and compact Hall
+multiplication.
+\end{proof}
 
-\begin{remark}[Consistencies in \texttt{CoHA\_to\_W\_infty\_treatise.tex}]
-\label{rem:treatise-consistencies}
-The treatise already carries subscripted discipline:
-\begin{itemize}
-\item Lines 100--104: ``$\CoHA(\C^3) \otimes_{\mathbb{F}} \mathbb{F}((z)) \cong \Sh$''
-(shuffle algebra). Correct.
-\item Lines 124--130: ``$Y^+(\gghone) := \CoHA(\C^3)_+$ \ldots positive half of
-the affine Yangian.'' Correct.
-\item Lines 157--164: Drinfeld double $\YFull = \Yp \bowtie \Yz \bowtie \Ym$
-isomorphic to the affine Yangian in Drinfeld-currents presentation. Correct.
-\item Lines 185--189: ``$\YFull(\gghone)$ maps to $\Wilpha[\lambda]$-endomorphisms
-via state-field correspondence.'' Full Yangian maps to $\Wilpha$, not the
-positive half. Correct.
-\item Lines 190--219: $\lambda_{\mathrm{Tr}} \ne \lambda_{\mathrm{GR}}$
-disambiguation and the CY$_3$ ``identity vs distinguished point'' clarification.
-Correct and load-bearing.
-\item Lines 391--398: conifold CoHA $\leftrightarrow$ quantum toroidal $\gghone{}_2$
-(Rapcak--Soibelman--Yang--Zhao 2020 + Kapranov--Vasserot 2018). Correct;
-does NOT identify the target as $\Wilpha(\gglone)$.
-\item Lines 458--479: Davison 2017 hypothesis explicit; CoHA $\cong U(\mathfrak g_{\mathrm{BPS}})$
-named correctly; the $\mathfrak g_{\mathrm{BPS}}(K3 \times E) \cong \mathfrak g_{\Delta_5}$
-question flagged as \emph{open} (line 523). Correct.
-\end{itemize}
-The treatise is internally consistent on the taxonomy. The inconsistencies
-live in \texttt{working\_notes.tex} prose. Target: propagate the treatise
-discipline to \texttt{working\_notes.tex} in the next rectification pass.
-\end{remark}
+\subsection*{Excluded equalities}
 
-% =====================================================================
-\subsection*{Final remark: Drinfeld's discipline}
-% =====================================================================
-
-The equals sign is a theorem, not a suggestion. The correct equals signs:
+The corrected local and compact formulas are
 \[
-\CoHA(\C^3) = \Yp(\gglone), \qquad
-\YFull(\gglone) = \mathcal{D}_\hbar(\Yp) = \mathcal E^{\mathrm{rat}}(\gglone), \qquad
-\YFull \xrightarrow{\;T_{\mathrm{Miki}}\;} \mathcal E^{\mathrm{hor}}
-\xrightarrow{\;\text{state-field}\;} \Wilpha[\lambda].
+  \CoHA(\C^3)=\Yp(\gglone),
+  \qquad
+  \mathcal D_\hbar(\Yp)=\YFull(\gglone),
+  \qquad
+  \widehat{\YFull}_{\mathrm{eval}}
+  \cong
+  \operatorname{Modes}(\Wilpha[\lambda]),
 \]
 \[
-\CoHA(K3 \times E) = U(\mathfrak g_{\mathrm{BPS}}(K3 \times E)), \quad
-\mathfrak g_{\mathrm{BPS}}(K3 \times E) \stackrel{?}{=} \mathfrak g_{\Delta_5}.
+  \kappa_{\mathrm{BKM}}(\Delta_5)=5,
+  \qquad
+  \Phi_{10}^{\mathrm{un}}=\Delta_5^2.
 \]
-The forbidden equals signs:
+The false shortcuts are
 \[
-\CoHA(\C^3) \ne \Wilpha, \qquad \Yp \ne \Wilpha, \qquad \Yp \ne \YFull,
+  \CoHA(\C^3)=\Wilpha[\lambda],
+  \qquad
+  \Yp(\gglone)=\YFull(\gglone),
+  \qquad
+  \CoHA(K3\times E)
+  =
+  U\bigl(\mathfrak n_+(\mathfrak g_{\Delta_5})\bigr)
+  \text{ unconditionally}.
 \]
-\[
-\CoHA(K3 \times E) \ne U(\mathfrak n_+(\mathfrak g_{\Delta_5})), \qquad
-\text{CoHA OPE} \ne \Wilpha\text{ OPE for conifold}.
-\]
-Hall-Drinfeld doubling, the Miki $SL_2(\Z)$, rational degeneration, and the
-CY-to-chiral functor $\Phi_3$ are \emph{four distinct} constructions that
-cannot be collapsed. The shuffle formula, the Drinfeld-currents presentation,
-the quantum toroidal algebra $\mathcal{E}$, and the vertex algebra $\Wilpha$
-are \emph{four distinct} presentations of the same tower of mathematical
-structure on the CY$_3$ side.
-
-Eight attack-heal cycles converged. Six inconsistencies in
-\texttt{working\_notes.tex} flagged for rectification
-(\S{}ref{rem:wn-inconsistencies}). The treatise
-\texttt{CoHA\_to\_W\_infty\_treatise.tex} is \emph{already correct} at the
-identification level; its discipline has not yet propagated to the main
-\texttt{working\_notes.tex} prose.
-
-\emph{End of Wave-12 A7 inscription.}
+The local \(\C^3\) positive half, the compact \(K3\times E\)
+Hall-Borcherds branch, and the K3 self-mirror Yangian branch are
+different constructions.  Their characters can meet; their algebra
+structures do not become equal without the explicit double,
+completion, centre, and recognition data.

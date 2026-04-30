@@ -101,8 +101,8 @@ class TestFrameShapes:
             )
 
     def test_num_conjugacy_classes(self):
-        """M_24 has exactly 25 conjugacy classes (ATLAS)."""
-        assert len(M24_CONJUGACY_CLASSES) == 25
+        """M_24 has exactly 26 conjugacy classes (ATLAS)."""
+        assert len(M24_CONJUGACY_CLASSES) == 26
 
     def test_identity_class(self):
         """1A is the identity: Frame shape 1^{24}, trace 24."""
@@ -138,7 +138,7 @@ class TestFrameShapes:
         """The full Frame shape verification suite passes."""
         result = verify_frame_shapes()
         assert result['all_ok']
-        assert result['num_classes'] == 25
+        assert result['num_classes'] == 26
 
     def test_involutions_are_order_2(self):
         """2A and 2B have order 2."""
@@ -382,10 +382,7 @@ class TestTraceOfPower:
         assert _trace_of_power(fs, 3) == 24
 
     def test_4A_squared_trace(self):
-        """4A^2: 1-cycles and 2-cycles survive. 4-cycles become 2-cycles.
-        Fixed points of 4A^2 = elements in 1-cycles or 2-cycles of 4A.
-        4A = 1^4 2^2 4^4: fixed by g^2 are 1-cycles (4*1=4) and 2-cycles (2*2=4).
-        Total: 4 + 4 = 8."""
+        """4A^2 fixes the entries in the four 2-cycles of 4A."""
         fs = M24_CONJUGACY_CLASSES['4A'].frame_shape
         assert _trace_of_power(fs, 2) == 8
 

@@ -990,7 +990,7 @@ def kappa_cy3_families() -> Dict[str, Dict[str, Any]]:
     # K3 x E: the prototypical case
     families["K3 x E"] = {
         "h11": 21, "h21": 21, "chi": 0,
-        "automorphic_form": "Igusa cusp form Delta_5 (Sp_4(Z))",
+        "automorphic_form": "primitive Gritsenko-Nikulin denominator Delta_5 (Sp_4(Z))",
         "kappa_label": "kappa_BKM",
         "kappa_BKM": 5,
         "kappa_source": "Borcherds weight c_1(0)/2 = 10/2",

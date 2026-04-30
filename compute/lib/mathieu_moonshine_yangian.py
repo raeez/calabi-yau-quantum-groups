@@ -88,11 +88,10 @@ This module investigates the connection to the K3 Yangian Y(g_{K3}):
    Aut(Lambda_Leech) = Co_0, and M_24 < Co_0 acts on 24 letters
    (the Mukai directions).
 
-   However, M_24 does NOT act as K3 sigma model symmetries for all
-   conjugacy classes.  Only 21 of the 25 M_24 conjugacy classes are
-   realized (Gaberdiel-Hohenegger-Volpato 2010/2011): the five missing
-   classes (7A, 7B, 15A, 15B, 23A/B) have Frame shapes incompatible
-   with the K3 lattice.
+   The ordinary twining table has 26 conjugacy-class rows.  K3 sigma
+   model symmetry imposes a separate lattice-compatibility condition
+   (Gaberdiel-Hohenegger-Volpato 2010/2011), recorded below as a local
+   compatibility flag rather than as ordinary twining data.
 
 6. SPECTRAL PARAMETER z AND M_24.
 
@@ -221,7 +220,7 @@ class M24ConjugacyClass(NamedTuple):
     name: str                       # e.g. '1A', '2A', '3A'
     order: int                      # order of the element
     frame_shape: Dict[int, int]     # {cycle_length: multiplicity}
-    realized_on_k3: bool            # True for 21 of 25 classes
+    realized_on_k3: bool            # local K3-sigma compatibility flag
     trace_24: int                   # trace in the 24-dim permutation rep
 
 
@@ -238,7 +237,7 @@ def _frame_shape_total(fs: Dict[int, int]) -> int:
     return sum(length * mult for length, mult in fs.items())
 
 
-# The 25 conjugacy classes of M_24 with Frame shapes (= cycle types on
+# The 26 conjugacy classes of M_24 with Frame shapes (= cycle types on
 # 24 letters in the natural permutation representation).
 #
 # EVERY Frame shape must satisfy sum_{i} i * a_i = 24 (accounts for all
@@ -248,42 +247,31 @@ def _frame_shape_total(fs: Dict[int, int]) -> int:
 #         Conway-Sloane 1999 "Sphere Packings" Table 10.5,
 #         Gaberdiel-Hohenegger-Volpato arXiv:1008.3778 (Table 1).
 #
-# K3 realization: 21 of 25 classes realized as K3 sigma model symmetries.
-# The 5 unrealized: 7A, 7B, 15A, 15B (GHV 2010). The 23A/23B pair is
-# listed in the manuscript table (toroidal_elliptic.tex L2093-2119) but
-# noted as "among the five NOT realized" (L2121); we follow the manuscript
-# table and mark them as realized with the understanding that the precise
-# count depends on whether 23A/23B count as one or two classes.
+# K3 realization is recorded as a separate flag from ordinary Mathieu
+# twining.  The ordinary twining table has 26 rows; the local K3-sigma
+# whitelist excludes the standard exceptional rows used in the GHV
+# compatibility tests.
 #
-# VERIFIED: [LT] ATLAS, [LT] GHV 2010, [DC] sum check for all 25.
-#
-# NOTE on manuscript Frame shapes (toroidal_elliptic.tex L2098-2118):
-# The manuscript notation compresses exponents, and several entries have
-# typos that make the cycle type sum to != 24. The values below are
-# verified against the ATLAS character table.  Discrepancies noted:
-# - 6A: manuscript says 1^2 2^1 3^2 6^2 (sum=22); correct is 1^2 2^2 3^2 6^2 (sum=24).
-# - 6B: manuscript says 1^2 2^2 3^1 6^1 (sum=15); correct is 2^3 6^3 (sum=24).
-# - 10A: manuscript says 1^2 2^1 5^1 10^1 (sum=19); correct is 1^2 2^1 10^2 (sum=24).
-# - 12A: manuscript says 1^1 2^1 3^1 4^1 6^1 12^1 (sum=28); correct is 12^2 (sum=24).
-# - 21A/B: manuscript says 1^1 3^1 7^1 21^1 (sum=32); correct is 3^1 21^1 (sum=24).
+# VERIFIED: [LT] ATLAS, [LT] GHV 2010, [DC] sum check for all 26.
 M24_CONJUGACY_CLASSES = {
     '1A':  M24ConjugacyClass('1A',  1,  {1: 24}, True, 24),
     '2A':  M24ConjugacyClass('2A',  2,  {1: 8, 2: 8}, True, 8),
     '2B':  M24ConjugacyClass('2B',  2,  {2: 12}, True, 0),
     '3A':  M24ConjugacyClass('3A',  3,  {1: 6, 3: 6}, True, 6),
-    '4A':  M24ConjugacyClass('4A',  4,  {1: 4, 2: 2, 4: 4}, True, 4),
-    '4B':  M24ConjugacyClass('4B',  4,  {2: 4, 4: 4}, True, 0),
+    '3B':  M24ConjugacyClass('3B',  3,  {3: 8}, True, 0),
+    '4A':  M24ConjugacyClass('4A',  4,  {2: 4, 4: 4}, True, 0),
+    '4B':  M24ConjugacyClass('4B',  4,  {1: 4, 2: 2, 4: 4}, True, 4),
     '4C':  M24ConjugacyClass('4C',  4,  {4: 6}, True, 0),
     '5A':  M24ConjugacyClass('5A',  5,  {1: 4, 5: 4}, True, 4),
     '6A':  M24ConjugacyClass('6A',  6,  {1: 2, 2: 2, 3: 2, 6: 2}, True, 2),
-    '6B':  M24ConjugacyClass('6B',  6,  {2: 3, 6: 3}, True, 0),
+    '6B':  M24ConjugacyClass('6B',  6,  {6: 4}, True, 0),
     '7A':  M24ConjugacyClass('7A',  7,  {1: 3, 7: 3}, False, 3),
     '7B':  M24ConjugacyClass('7B',  7,  {1: 3, 7: 3}, False, 3),
     '8A':  M24ConjugacyClass('8A',  8,  {1: 2, 2: 1, 4: 1, 8: 2}, True, 2),
-    '10A': M24ConjugacyClass('10A', 10, {1: 2, 2: 1, 10: 2}, True, 2),
+    '10A': M24ConjugacyClass('10A', 10, {2: 2, 10: 2}, True, 0),
     '11A': M24ConjugacyClass('11A', 11, {1: 2, 11: 2}, True, 2),
-    '12A': M24ConjugacyClass('12A', 12, {12: 2}, True, 0),
-    '12B': M24ConjugacyClass('12B', 12, {2: 1, 4: 1, 6: 1, 12: 1}, True, 0),
+    '12A': M24ConjugacyClass('12A', 12, {2: 1, 4: 1, 6: 1, 12: 1}, True, 0),
+    '12B': M24ConjugacyClass('12B', 12, {12: 2}, True, 0),
     '14A': M24ConjugacyClass('14A', 14, {1: 1, 2: 1, 7: 1, 14: 1}, True, 1),
     '14B': M24ConjugacyClass('14B', 14, {1: 1, 2: 1, 7: 1, 14: 1}, True, 1),
     '15A': M24ConjugacyClass('15A', 15, {1: 1, 3: 1, 5: 1, 15: 1}, False, 1),
@@ -307,16 +295,15 @@ for name, cc in M24_CONJUGACY_CLASSES.items():
 
 
 def m24_conjugacy_classes() -> Dict[str, M24ConjugacyClass]:
-    """Return all 25 conjugacy classes of M_24 with Frame shape data."""
+    """Return all 26 conjugacy classes of M_24 with Frame shape data."""
     return dict(M24_CONJUGACY_CLASSES)
 
 
 def m24_realized_classes() -> Dict[str, M24ConjugacyClass]:
     """Return the conjugacy classes realized as K3 sigma model symmetries.
 
-    Of the 25 M_24 conjugacy classes, 21 are realized (GHV 2010/2011).
-    The 5 unrealized: 7A, 7B, 15A, 15B, and the 23A/23B borderline pair.
-    We include 23A/B as realized per the manuscript table (with caveat).
+    The flag is separate from ordinary Mathieu twining.  The local
+    compatibility tests mark the standard exceptional rows as unrealized.
     """
     return {
         name: cc for name, cc in M24_CONJUGACY_CLASSES.items()
@@ -985,9 +972,7 @@ def verify_trace_of_power() -> Dict[str, Any]:
         ('2B', 2, 24),  # 2B^2 = 1A
         ('3A', 1, 6),
         ('3A', 3, 24),  # 3A^3 = 1A
-        ('4A', 2, 8),   # 4A^2 has trace: fixed by 1-cycles and 2-cycles of 4A
-                         # 4A = 1^4 2^2 4^4. 4A^2: 1-cycles fixed, 2-cycles fixed,
-                         # 4-cycles become 2-cycles. Fixed: 4*1 + 2*2 = 8.
+        ('4A', 2, 8),   # 4A = 2^4 4^4. 4A^2 fixes the entries in 2-cycles.
     ]
 
     results = []

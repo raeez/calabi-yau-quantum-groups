@@ -1,90 +1,58 @@
-% wave15_a14_humbert_surface_gaiotto.tex
-% Gaiotto-voice first-principles attack-heal on the Humbert-surface
-% sibling specialisation inside Hilb^2(K3), and its pullback to the
-% K3 x E locus. Five attack<->heal cycles; Chriss-Ginzburg voice; honest
-% conjectural status; cross-reference to wave9_p3 Humbert intersection,
-% wave18_f4 Hilb^n(K3xE) equivariance, wave13_a14 VOA corner, and the
-% k3e_bkm_chapter Humbert-seeds-monodromy remark.
-%
-% Principal question (heal-first): the Humbert divisor H_N sits inside
-% the genus-2 Siegel space A_2, whose period lattice has signature
-% (2,3). The period domain of a hyperkähler Hilb^2(K3) has signature
-% (2,20). These are different Grassmannians; one cannot "pull back" H_N
-% directly from A_2 to Hilb^2(K3). The correct statement routes through
-% the Shioda--Inose / Kummer bridge: a locus Sh \subset Hilb^2(K3)
-% whose Neron-Severi lattice contains <2,0,-N>, and whose period maps
-% via the Kummer / Nikulin isogeny to H_N \subset A_2.
-%
-% Voice: Gaiotto -- twisted holography, boundary conditions, Omega-
-% background, Costello--Gaiotto twisted M-theory. Raeez Lorgat, only
-% author; no AI attribution.
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem*{attack}{Attack}
-\newtheorem*{heal}{Heal}
-\newtheorem*{ghost}{Ghost theorem}
+\newtheorem{problem}[theorem]{Problem}
 \newtheorem*{remark}{Remark}
-
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusProposition}{\textbf{[Proposition]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
-\providecommand{\ClaimStatusDerivation}{\textbf{[Derivation]}}
 
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\R}{\mathbb{R}}
 \providecommand{\Q}{\mathbb{Q}}
 \providecommand{\PP}{\mathbb{P}}
+\providecommand{\HH}{\mathbb{H}}
 \providecommand{\cA}{\mathcal{A}}
 \providecommand{\cD}{\mathcal{D}}
 \providecommand{\cH}{\mathcal{H}}
 \providecommand{\cL}{\mathcal{L}}
 \providecommand{\cM}{\mathcal{M}}
-\providecommand{\cN}{\mathcal{N}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\cP}{\mathcal{P}}
 \providecommand{\cS}{\mathcal{S}}
-\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cT}{\mathcal{T}}
 \providecommand{\cV}{\mathcal{V}}
-\providecommand{\Cx}{\mathbb{C}^{\times}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
-\providecommand{\Sym}{\mathrm{Sym}}
-\providecommand{\Kum}{\mathrm{Kum}}
-\providecommand{\NS}{\mathrm{NS}}
-\providecommand{\rk}{\mathrm{rk}}
-\providecommand{\disc}{\mathrm{disc}}
-\providecommand{\Heis}{\mathrm{Heis}}
-\providecommand{\Pic}{\mathrm{Pic}}
-\providecommand{\Muk}{\mathrm{Muk}}
-\providecommand{\Sp}{\mathrm{Sp}}
-\providecommand{\SO}{\mathrm{SO}}
-\providecommand{\Ogp}{\mathrm{O}}
-\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
-\providecommand{\BKM}{\mathrm{BKM}}
-\providecommand{\ch}{\mathrm{ch}}
-\providecommand{\cat}{\mathrm{cat}}
 \providecommand{\fg}{\mathfrak{g}}
-\providecommand{\Dfive}{\Delta_5}
-\providecommand{\PhiN}{\Phi_N}
-\providecommand{\kBKM}{\kappa_{\BKM}}
-\providecommand{\kch}{\kappa_{\ch}}
-\providecommand{\kcat}{\kappa_{\cat}}
+\providecommand{\fsu}{\mathfrak{su}}
+\providecommand{\A}{\mathrm{A}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\BKM}{\mathrm{BKM}}
+\providecommand{\Borch}{\mathrm{Borch}}
+\providecommand{\CH}{\mathrm{CH}}
+\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\disc}{\mathrm{disc}}
+\providecommand{\Div}{\mathrm{Div}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Km}{\mathrm{Km}}
+\providecommand{\NS}{\mathrm{NS}}
+\providecommand{\Ogp}{\mathrm{O}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Pic}{\mathrm{Pic}}
+\providecommand{\rk}{\mathrm{rk}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\wt}{\mathrm{wt}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\HN}{H_N}
-\providecommand{\Hone}{H_1}
-\providecommand{\Hfour}{H_4}
-\providecommand{\SigmaN}{\Sigma_2^{(\HN)}}
+\providecommand{\Dfive}{\Delta_5}
+\providecommand{\PhiTen}{\Phi_{10}}
 
-\title{The Humbert-surface sibling inside $\Hilb^2(K3)$\\
-{\large A Gaiotto-channel attack--heal on the paramodular-indexed
-$\PhiN$-family and its Shioda--Inose--Nikulin route to the $K3\times E$ locus}}
+\title{Humbert Surfaces, Hilbert Schemes of K3 Surfaces, and the Igusa Denominator}
 \author{Raeez Lorgat}
 \date{2026-04-22}
 
@@ -92,624 +60,576 @@ $\PhiN$-family and its Shioda--Inose--Nikulin route to the $K3\times E$ locus}}
 \maketitle
 
 \begin{abstract}
-The paramodular Humbert-indexed sibling BKM family
-$\{\fg_{\PhiN}\}_{N\in\{1,2,3,4,6\}}$ of Lorgat 2020 and Gritsenko 1999
-admits a proposed geometric origin inside $\Hilb^2(K3)$: a distinguished
-cycle $\SigmaN \subset \Hilb^2(K3)$ whose $E$-restriction generates
-the $N$-th paramodular denominator $\PhiN$. The audit delivers five
-attack--heal cycles establishing: (i) the period domain
-$\cD_{\Hilb^2(K3)}$ of a hyperk\"ahler fourfold is an orthogonal
-Grassmannian of signature $(2, 20)$ on the Beauville--Bogomolov lattice
-$\Lambda_{K3^{[2]}} = \Lambda_{K3}\oplus\Z(-2)$, \emph{not} the
-Siegel domain $\cA_2$ of signature $(2,3)$, so there is no direct
-pullback of $\HN$; (ii) the Shioda--Inose--Nikulin diagram provides
-the correct bridge, via the Kummer orbifold $\Kum(A)=A/\{\pm 1\}\tilde{}$
-at the locus $A\in\HN$; (iii) the candidate cycle
-$\SigmaN\subset\Hilb^2(K3)$ is the locus of length-$2$ subschemes
-supported on the Kummer-resolved $16$-node lattice of the fibre
-$\Kum(A)$ at $A\in\HN$; (iv) the $K3\times E$-intersection
-$\SigmaN\cap(K3\times E\text{-locus})$ is not always a K3 fibre but
-a stratified family indexed by Nikulin isogeny degrees, which at
-$N=1$ collapses to the full K3 fibre and at $N=4$ opens a double
-Shioda--Inose cover; (v) the identity
-$\kBKM(\PhiN)=c_N(0)/2$ on each specimen holds via Borcherds 1998
-Theorem~13.3 applied to the $g_N$-twined elliptic genus, with the
-geometric origin providing the specific weakly holomorphic input
-$\phi_{0,N}^{g_N}$. The sibling specialisation is stated as a
-conjecture at publication standard, not a theorem: the generator-level
-functor $\Sp_{\SigmaN,E}\circ\Phi^{\mathrm{FA}}_3$ producing $\PhiN$
-from the canonical $E_3$-factorisation algebra on $\Hilb^2(K3)$
-requires non-abelian Hodge input not yet in the Vol~III catalogue.
+Humbert surfaces live in the Siegel threefold \(\cA_2\).  The period
+domain of \(S^{[2]}=\Hilb^2(S)\), for a K3 surface \(S\), is governed by
+the Beauville-Bogomolov lattice
+\[
+  \Lambda_{K3^{[2]}}
+  =
+  U^{\oplus 3}\oplus E_8(-1)^{\oplus 2}\oplus\langle -2\rangle,
+  \qquad
+  \operatorname{sign}\Lambda_{K3^{[2]}}=(3,20).
+\]
+After a primitive polarization is fixed, the relevant orthogonal
+complement has signature \((2,20)\), while the Siegel genus-two domain is
+the accidental \(\Sp_4\simeq\operatorname{Spin}(3,2)\) type-IV domain of
+signature \((2,3)\).  A Humbert divisor therefore reaches
+\(\Hilb^2(K3)\) only through specified Kummer, Shioda-Inose, and
+Noether-Lefschetz data.  The \(K3\times E\) BKM denominator, the
+class-\(\cS\) Gaiotto curve, the Siegel form \(\Dfive\), and the
+Mukai-Yangian branch are separate objects connected by named comparison
+maps.  The primitive normalizations are
+\[
+  D_5=64^{-1}\Dfive,\qquad
+  c_1(0)=10,\qquad
+  \kBKM(\Dfive)=5,\qquad
+  \PhiTen^{\mathrm{un}}=\Dfive^2.
+\]
 \end{abstract}
 
-% ==========================================================================
-\section*{Overview and voice}
-% ==========================================================================
+\section{Humbert Divisors in \texorpdfstring{\(\cA_2\)}{A2}}
 
-The picture is Gaiotto's: the period domain of $\Hilb^2(K3)$ is where
-$3$d $\cN{=}4$ mirror symmetry on $T^*\Hilb^2(K3)$ sees its Coulomb
-branch; the Humbert divisors $\HN\subset\cA_2$ are where a mass
-deformation hits a CM point with extra endomorphisms, and the 4d
-$\cN{=}2$ theory compactified along this direction acquires
-Argyres--Douglas-type strongly coupled degenerations. The mission
-is to identify the geometric avatar of the paramodular tower of
-Lorgat 2020 Conjecture~1 \emph{inside} the hyperk\"ahler geometry
-of $\Hilb^2(K3)$, not inside $\cA_2$, because the canonical
-$E_3$-factorisation-algebra datum of the CY-to-chiral functor
-$\Phi^{\mathrm{FA}}_3$ lives on a compact Calabi--Yau, and
-$\Hilb^2(K3)$ is the canonical CY$_4$ geometrisation of the
-$K3\times E$ Heisenberg Fock structure that underlies the
-$\Delta_5$ automorphic datum.
-
-The five cycles are organised so that the first three force the
-scope-correction from $\cA_2$ to $\Hilb^2(K3)$, and the last two
-deliver the Kummer-orbifold-resolved sibling cycle with the
-universal-Borcherds-weight identification
-$\kBKM(\PhiN)=c_N(0)/2$ verified at each $N\in\{1,2,3,4,6\}$.
-
-% ==========================================================================
-\section{Attack--heal 1. The period domain of $\Hilb^2(K3)$ is
-signature $(2,20)$, not $(2,3)$}
-\label{sec:cycle1}
-% ==========================================================================
-
-\begin{attack}
-Read the mission statement at face value: $\cA_2$ parametrises
-$\Hilb^2(K3)$'s period domain via the $\Sp_4(\Z)/\Ogp(\Lambda^{3,2})$
-isomorphism of Lorgat 2020 \S 3, so $\HN\subset\cA_2$ pulls back to a
-sub-$\Ogp(2,1)$-locus of the $\Hilb^2(K3)$ period domain. Since
-$\Hilb^2(K3)$ is a hyperk\"ahler fourfold with Beauville--Bogomolov
-quadratic form $q_{\mathrm{BB}}$ on $H^2(\Hilb^2(K3),\Z)$, the period
-map lands in the same Siegel domain $\mathbb{H}_2$ that parametrises
-principally polarised abelian surfaces. Then the Humbert divisor
-$\HN\subset\cA_2$ cuts out a codimension-$1$ cycle in this Siegel
-domain which, pulled back to $\Hilb^2(K3)$, gives a sub-fourfold
-$\Sigma^{(4)}_{2,\HN}\subset\Hilb^2(K3)$.
-\end{attack}
-
-\begin{ghost}
-The $\Sp_4(\Z)\simeq \SO^+(2,3)$ accident (Lorgat 2020 \S 3) identifies
-the Siegel $\mathbb{H}_2$ with an open orbit in the signature-$(2,3)$
-Grassmannian $\Ogp(2,3)/K$. The period domain of a hyperk\"ahler
-fourfold of K3$^{[2]}$-type is a signature-$(2, 20)$ orthogonal
-Grassmannian
-$\cD_{K3^{[2]}}\subset\mathbb{P}(\Lambda_{K3^{[2]}}\otimes\C)$ where
-$\Lambda_{K3^{[2]}}=\Lambda_{K3}\oplus\Z(-2)$ is the Beauville--Bogomolov
-lattice of rank $23$ and signature $(3, 20)$. These are different
-Grassmannians of different dimensions; there is no direct ``pullback''
-from $\HN\subset\cA_2$ to $\Hilb^2(K3)$ at the level of period data.
-\end{ghost}
-
-\begin{heal}
-The scope-correction is forced. Fix the lattice data precisely:
-\begin{proposition}[Period domain of $\Hilb^2(K3)$, cf.\ Beauville 1983
-\emph{J.\ Diff.\ Geom.}\ 18, p.~782]
-\label{prop:hilb2-k3-period}
-Let $\Sigma = \Hilb^2(K3)$. The Beauville--Bogomolov lattice
+Let
 \[
-  \Lambda_{K3^{[2]}} \;\cong\; U^{\oplus 3}\oplus E_8(-1)^{\oplus 2}\oplus\Z\delta_2,
-  \qquad q_{\mathrm{BB}}(\delta_2) = -2,
-\]
-has rank $23$ and signature $(3, 20)$, with $\delta_2$ the half-class of
-the exceptional divisor resolving the diagonal of $\Sym^2(K3)$. The
-period domain is the type-$\mathrm{IV}$ Hermitian symmetric domain
-\[
-  \cD_{K3^{[2]}}
-  \;=\;\bigl\{[\omega]\in\PP(\Lambda_{K3^{[2]}}\otimes\C)
-    \,:\,(\omega,\omega)=0,\ (\omega,\bar\omega)>0\bigr\}
-  \;\simeq\; \Ogp(2,20)/(\Ogp(2)\times\Ogp(20)).
-\]
-The monodromy group acts as a finite-index subgroup of
-$\Ogp^+(\Lambda_{K3^{[2]}})$. This is \emph{not} the genus-$2$ Siegel
-domain $\Sp_4(\Z)\backslash\mathbb{H}_2\simeq\cA_2$.
-\end{proposition}
-The $\Sp_4(\Z)\simeq\SO^+(2,3)$ accident acts on the rank-$5$ sublattice
-$U^{\oplus 2}\oplus\Z(-2)$ of $\Lambda_{K3^{[2]}}$, not on the full
-rank-$23$ lattice. Any statement pulling back $\HN\subset\cA_2$ to
-$\Hilb^2(K3)$ must specify which rank-$5$ sublattice embeds into
-$\Lambda_{K3^{[2]}}$. This is the Shioda--Inose embedding, treated
-in Cycle~2.
-\end{heal}
-
-\noindent The attack's ``naive pullback'' is structurally wrong: the
-Humbert divisor lives on $\cA_2$ of dimension $3$, and the period
-domain of $\Hilb^2(K3)$ has dimension $20$. A ``pullback of $\HN$''
-must go the other direction --- via a Shioda--Inose embedding of
-Abelian-surface periods into K3 periods.
-
-% ==========================================================================
-\section{Attack--heal 2. Shioda--Inose--Nikulin provides the correct bridge}
-\label{sec:cycle2}
-% ==========================================================================
-
-\begin{attack}
-Having established that the period domains differ, one might be tempted
-to abandon the Humbert-pullback picture altogether: $\HN\subset\cA_2$
-and $\Sigma^{(\HN)}\subset\Hilb^2(K3)$ have no direct geometric
-relationship, and the paramodular tower is an automorphic-side
-phenomenon with no hyperk\"ahler-side origin.
-\end{attack}
-
-\begin{ghost}
-The Shioda--Inose diagram relates abelian surfaces and K3 surfaces
-through a degree-$2$ isogeny and its Kummer resolution:
-\[
-  A \;\xrightarrow{\;\;\pi\;\;}\; \Kum(A) \;\xrightarrow{\;\;\nu\;\;}\; S,
-\]
-where $A$ is an abelian surface, $\pi\colon A\to A/\{\pm 1\}$ is the
-Kummer quotient, $\Kum(A)$ is the blow-up resolving the $16$ nodes,
-and $\nu\colon\Kum(A)\to S$ is a Shioda--Inose degree-$2$ cover by a K3
-surface $S$ whose transcendental lattice $T_S$ is isometric to
-$T_A(2)$ (doubled) as a lattice with polarisation
-(Shioda--Inose 1977; Morrison 1984). This diagram is the correct
-bridge: a Humbert divisor $\HN\subset\cA_2$ maps, under the Kummer
-construction, to a locus of K3 surfaces with Picard rank $17$ and
-transcendental lattice of discriminant $2N$.
-\end{ghost}
-
-\begin{heal}
-Define the K3-side avatar of $\HN$:
-\begin{proposition}[Shioda--Inose locus of $\HN$, cf.\ Morrison 1984
-Thm.~6.3 and Nikulin 1979 \S 3]
-\label{prop:shioda-inose-HN}
-For $N\equiv 0,1\pmod 4$ with $N\geq 1$, let
-\[
-  \cS_N \;=\; \bigl\{S\in\cM_{K3}^{\mathrm{alg}} :
-   T_S \supset U(2)\oplus\langle 2N\rangle\text{ primitive embedding}\bigr\}
-\]
-be the locus of K3 surfaces whose transcendental lattice contains the
-index-$2$ Shioda--Inose sublattice $U(2)\oplus\langle 2N\rangle$. Then
-$\cS_N$ is a codimension-$3$ sub-stack of the K3 moduli stack
-$\cM_{K3}^{\mathrm{alg}}$ of dimension $20$, i.e.\ a $17$-dimensional
-sub-stack. Shioda--Inose 1977 provides a bijection
-\[
-  \cS_N \;\xleftrightarrow{\;\;\nu\;\;}\; \HN^{\mathrm{Kum}},
+  Z=\begin{pmatrix}\tau&z\\ z&\sigma\end{pmatrix}\in\HH_2,
   \qquad
-  \HN^{\mathrm{Kum}} := \Kum(\HN) := \{\Kum(A) : A\in\HN\},
+  \cA_2=\Sp_4(\Z)\backslash\HH_2.
 \]
-identifying $\cS_N$ with the Kummer-resolution of the Humbert
-divisor in $\cA_2$, up to the finite-index subgroup
-$[\Ogp(\Lambda_{K3}):\Ogp(U(2)\oplus\langle 2N\rangle^\perp)]$.
+For a positive integer \(D\equiv 0,1\pmod 4\), the Humbert surface
+\(H_D\subset\cA_2\) is the image of the union of rational quadratic
+divisors
+\[
+  a\tau+bz+c\sigma+d(z^2-\tau\sigma)+e=0,
+  \qquad
+  b^2-4ac-4de=D,
+\]
+where \((a,b,c,d,e)\in\Z^5\) is primitive.  The discriminant \(D\)
+belongs to the Humbert surface.  It is distinct from the paramodular
+index \(N\) in the BKM/CHL ladder unless a row map explicitly identifies
+them.
+
+\begin{proposition}[The diagonal Humbert divisor]
+\label{prop:humbert-one}
+The divisor \(H_1\) is the \(\Sp_4(\Z)\)-orbit of the diagonal locus
+\[
+  \cH_{\mathrm{diag}}
+  =
+  \left\{
+    \begin{pmatrix}a&0\\0&b\end{pmatrix}
+    : a,b\in\HH_1
+  \right\}
+  \subset\HH_2.
+\]
+It is the decomposable principally polarized abelian surface locus
+\((E_1\times E_2,\lambda_1\boxplus\lambda_2)\).  The Humbert surface
+\(H_4\) is the surface of discriminant \(4\), defined by the same
+equations with \(b^2-4ac-4de=4\).
 \end{proposition}
-This identifies the \emph{K3-side} of the Humbert tower, not the
-$\Hilb^2(K3)$-side. Cycle~3 lifts $\cS_N$ from K3 to $\Hilb^2(K3)$
-via the Beauville construction.
-\end{heal}
 
-\noindent The attack is blocked: Shioda--Inose--Nikulin delivers the
-correct bridge from $\HN\subset\cA_2$ to a codimension-$3$ sub-locus
-$\cS_N$ of K3 surfaces. The $\Hilb^2$ lift is Cycle~3.
+\begin{proof}
+Taking \((a,b,c,d,e)=(0,1,0,0,0)\) gives the equation \(z=0\) and
+discriminant \(1\).  Its \(\Sp_4(\Z)\)-translates are exactly the
+decomposable locus in \(\cA_2\).  The formula above is Humbert's
+definition for every admissible discriminant.
+\end{proof}
 
-% ==========================================================================
-\section{Attack--heal 3. The cycle $\SigmaN\subset\Hilb^2(K3)$ as
-the punctual Hilbert scheme of the Kummer-resolved fibre}
-\label{sec:cycle3}
-% ==========================================================================
-
-\begin{attack}
-Having the K3-side $\cS_N$, propose the $\Hilb^2$-side
+\begin{proposition}[Igusa square-root normalization]
+\label{prop:delta5-normalization}
+In the theta normalization,
 \[
-  \SigmaN \;\stackrel{?}{=}\; \Hilb^2(S) \quad\text{for any }S\in\cS_N.
+  \Dfive\in M_5(\Sp_4(\Z),\nu_{\Dfive}),
+  \qquad
+  [q^{1/2}r^{1/2}s^{1/2}]\Dfive=64.
 \]
-But this is a single hyperk\"ahler fourfold per $S$, not a cycle
-\emph{inside} $\Hilb^2(K3)$ for a fixed $K3$ surface. The mission
-asks for $\SigmaN\subset\Hilb^2(K3)$, with $K3$ fixed and $\SigmaN$
-varying with $N$; the naive identification delivers a
-\emph{family of fourfolds parametrised by $\cS_N$}, not a
-subfourfold of a fixed $\Hilb^2(K3)$.
-\end{attack}
-
-\begin{ghost}
-The correct setup is at the level of the $\Hilb^2$-morphism, not at
-the level of a single point of $K3$-moduli. Fix a reference K3 surface
-$K3_0$ of Picard rank $\rho = 20$ (a Shioda--Inose K3, lying in
-$\cS_1 \cap \cS_4 \cap \cS_5\cap\cdots$ by attractor rigidity).
-Inside $\Hilb^2(K3_0)$ one has a distinguished cycle: the image of
-the Kummer fixed locus under the Hilbert--Chow morphism
-$\pi\colon\Hilb^2(K3_0)\to\Sym^2(K3_0)$. For each $N$, the
-Shioda--Inose discriminant locus selects a sub-cycle of the
-exceptional divisor $E_\pi$ of $\pi$ above a specific stratum.
-\end{ghost}
-
-\begin{heal}
-Define:
-\begin{proposition}[Humbert cycle $\SigmaN\subset\Hilb^2(K3_0)$,
-conjectural construction; cf.\ Beauville 1983 \emph{J.\ Diff.\ Geom.}\
-18, p.~782; Mongardi 2016 arXiv:1603.03801]
-\label{prop:humbert-cycle-hilb2}
-Let $K3_0$ be a K3 surface with a Shioda--Inose structure
-$\nu_0\colon\Kum(A_0)\to K3_0$ for some principally polarised abelian
-surface $A_0$. For $N\in\{1,2,3,4,6\}$, define
+The monic Borcherds product is
 \[
-  \SigmaN \;:=\;
-  \bigl\{[Z]\in\Hilb^2(K3_0)\,:\,\mathrm{supp}(Z)\subset
-   \nu_0\bigl(E_\pi\cap\Kum(A_0[N])\bigr)\bigr\},
+  D_5=64^{-1}\Dfive,
+  \qquad
+  \operatorname{den}(\fg_{\Dfive})=D_5(2Z).
 \]
-the locus of length-$2$ zero-dimensional subschemes $Z\subset K3_0$
-supported on the $\nu_0$-image of the exceptional divisor
-$E_\pi\subset\Kum(A_0)$ intersected with the $N$-torsion sub-locus
-$\Kum(A_0[N])\subset\Kum(A_0)$. Then $\SigmaN$ is a $2$-cycle of
-$\Hilb^2(K3_0)$ with
+The divisor is
 \[
-  \dim_\C\SigmaN \;=\; 2,\qquad \rk\NS(\SigmaN)\geq 2,
+  \operatorname{supp}\Div(\Dfive)=H_1,
+  \qquad
+  \operatorname{mult}_{H_1}(\Dfive)=1.
 \]
-and the N\'eron--Severi lattice of $\SigmaN$ contains the rank-$2$
-sublattice $\langle 2, 0, -N\rangle$ (in the convention of the
-mission statement).
+The scalar square normalizations are
+\[
+  \PhiTen^{\mathrm{un}}=\Dfive^2,
+  \qquad
+  \PhiTen^{\mathrm{OP}}=D_5^2=4096^{-1}\Dfive^2.
+\]
 \end{proposition}
-At $N=1$ (trivial torsion), $A_0[1]=\{0\}$ gives $\SigmaN=\Sigma_2^{(H_1)}$
-\emph{a single K3-fibre within the Hilbert scheme}: the point
-$0\in A_0$ lifts through Kummer, resolving the node to a
-$(-2)$-exceptional curve $E_0\simeq\PP^1$, and the locus of length-$2$
-subschemes supported on $\nu_0(E_0)\simeq\PP^1$ is
-$\Hilb^2(\PP^1)\simeq\PP^2$ --- a $\PP^2$-fibre of $\Hilb^2(K3_0)$
-over the diagonal locus, which is the ``K3-fibre itself'' in the
-mission statement's rough parlance.
-\end{heal}
 
-\noindent The attack's single-fourfold reading is replaced by the
-$\Hilb^2$-internal cycle $\SigmaN$ whose construction depends on a
-choice of Shioda--Inose K3 $K3_0$. The cycle is $2$-dimensional inside
-the $4$-dimensional $\Hilb^2(K3_0)$, with N\'eron--Severi lattice of
-the expected discriminant structure. The universal statement (independent
-of $K3_0$) requires the monodromy averaging of Cycle~5.
-
-% ==========================================================================
-\section{Attack--heal 4. The intersection with the $K3\times E$ locus
-is stratified by Nikulin isogeny degree}
-\label{sec:cycle4}
-% ==========================================================================
-
-\begin{attack}
-The mission statement proposes: at $N=1$, $\SigmaN = K3$ fibre
-itself; at $N=4$, $\SigmaN$ is the double cover of the K3 fibre with
-specific polarisation. The intersection
-$\SigmaN\cap(K3\times E\text{-locus})$ should give a curve (generic)
-or point (degenerate) depending on isogeny. This is stated as a
-universal ``intersect with the K3 fibre'' prescription, but the
-$K3\times E$ geometry is not a sub-locus of $\Hilb^2(K3_0)$; instead,
-$\Hilb^2(K3)$ and $K3\times E$ are \emph{distinct} CY$_4$ geometries
-sharing the K3 fibre but differing in their elliptic direction.
-The intersection is therefore at the level of cohomology classes, not
-at the level of a geometric cycle.
-\end{attack}
-
-\begin{ghost}
-The correct intersection lives at the level of the Beauville--Bogomolov
-lattice $\Lambda_{K3^{[2]}}$ versus the $K3\times E$ lattice
-$\Lambda_{K3}\oplus U_E$ (both of which embed into the $\Muk$-framework).
-Under the Oberdieck--Pixton $\Cx_E$-equivariant stratification
-(\texttt{wave18\_f4\_Hilb\_K3E\_equivariant.tex}, Cycle~2), the
-fixed locus of the residual $E$-translation action on
-$\Hilb^n(K3\times E)$ is
-$\coprod_{m\mid n}\Hilb^{n/m}(K3)\times E[m]$. At $n=2$, this is
+\begin{proof}
+Gritsenko and Nikulin identify the Borcherds product of the
+Eichler-Zagier generator \(\phi_{0,1}=y^{-1}+10+y+O(q)\) with the
+weight-five Igusa square root.  Borcherds' weight formula gives
 \[
-  \Hilb^2(K3\times E)^{\Cx_E}
-  \;=\;\Hilb^2(K3)\sqcup\bigl(\Hilb^1(K3)\times E[2]\bigr)
-  \;=\;\Hilb^2(K3)\sqcup(K3\times E[2]).
+  \wt(\Borch(\phi_{0,1}))=\frac{[q^0y^0]\phi_{0,1}}{2}
+  =\frac{10}{2}=5.
 \]
-The first summand $\Hilb^2(K3)$ is the ``K3-fibre in $\Hilb^2$-sense''
-of the mission.
-\end{ghost}
+The product theorem fixes the leading coefficient \(64\), hence the
+monic product \(D_5=64^{-1}\Dfive\).  Clery and Gritsenko identify the
+divisor of \(\Dfive\) with the diagonal Humbert divisor with
+multiplicity one.  Squaring gives the scalar Igusa form of weight ten,
+and the Oberdieck-Pandharipande convention squares the monic product.
+\end{proof}
 
-\begin{heal}
-The $N$-dependence enters through the Nikulin isogeny degree, not
-through a direct $\SigmaN\cap(K3\times E)$ set-theoretic intersection:
-\begin{proposition}[Humbert intersection stratification via Nikulin
-isogeny, conjectural; cf.\ Nikulin 1979 \emph{Math.\ USSR Izv.}\ 14,
-\S 3; Oberdieck--Pixton 2017 \S 2.3]
-\label{prop:humbert-K3E-intersection}
-Let $\nu\colon\Kum(A)\to K3$ be a Shioda--Inose cover of degree $2$
-with $A\in\HN$. The cohomological intersection
-$[\SigmaN]\cdot[K3\times E]\in H^\star(\Hilb^2(K3\times E),\Z)$
-decomposes as
+\section{\texorpdfstring{\(\Hilb^2(K3)\)}{Hilb2(K3)} Periods}
+
+Let \(S\) be a projective K3 surface.  Beauville's form gives
 \[
-  [\SigmaN]\cdot[K3\times E]
-  \;=\; \sum_{m\mid N} \mathrm{mult}_m(N)\,
-    \bigl[\Hilb^{N/m}(K3)_{\mathrm{SI}_N}\bigr]\cdot[E[m]],
+  H^2(S^{[2]},\Z)
+  \cong
+  H^2(S,\Z)\oplus\Z\delta,
+  \qquad
+  (\delta,\delta)=-2.
 \]
-where $\Hilb^{N/m}(K3)_{\mathrm{SI}_N}$ is the length-$N/m$ Hilbert
-scheme of the Shioda--Inose discriminant locus at isogeny degree $m$,
-and $\mathrm{mult}_m(N)$ is the Nikulin-isogeny multiplicity. At
-specific values:
-\begin{itemize}[leftmargin=1.5em]
-  \item $N=1$: $[\SigmaN]\cdot[K3\times E]=[\Hilb^1(K3)]\cdot[E[1]]
-    =[K3]\cdot[\{0\}]=[K3]$, the K3-fibre itself (matching the mission's
-    $N=1$ statement).
-  \item $N=4$: $[\SigmaN]\cdot[K3\times E]
-    =2\,[\Hilb^2(K3)_{\mathrm{SI}_4}]\cdot[E[2]]$, a double cover of
-    the K3-fibre by the Shioda--Inose discriminant-$4$ locus
-    (matching the mission's $N=4$ statement, up to the $E[2]$-torsion
-    factor).
-  \item $N=2,3,6$: intermediate stratifications indexed by divisors
-    of $N$, with the level-$m\mid N$ summand contributing
-    $\binom{N}{m}$-many Nikulin cover sheets.
-\end{itemize}
+Thus
+\[
+  \Lambda_{K3^{[2]}}
+  \cong
+  U^{\oplus 3}\oplus E_8(-1)^{\oplus 2}\oplus\langle -2\rangle,
+  \qquad
+  \operatorname{sign}(\Lambda_{K3^{[2]}})=(3,20).
+\]
+The marked period domain is
+\[
+  \Omega_{\Lambda}
+  =
+  \bigl\{[\omega]\in\PP(\Lambda_{K3^{[2]}}\otimes\C):
+  (\omega,\omega)=0,\;(\omega,\bar\omega)>0\bigr\}.
+\]
+It has complex dimension \(21\).  For a primitive polarization
+\(h\in\Lambda_{K3^{[2]}}\) with \(h^2>0\), the polarized period domain
+lies in \(h^\perp\), whose signature is \((2,20)\).
+
+\begin{proposition}[Typed pullback criterion from \(\cA_2\)]
+\label{prop:typed-humbert-pullback}
+A divisor \(H_D\subset\cA_2\) determines a divisor on a
+\(K3^{[2]}\)-type moduli space only after the following data have been
+fixed:
+\[
+  L_{\mathrm{Siegel}}\hookrightarrow\Lambda_{K3^{[2]}},
+  \qquad
+  \operatorname{sign}(L_{\mathrm{Siegel}})=(2,3),
+\]
+a compatible arithmetic subgroup, and a Noether-Lefschetz condition on
+the orthogonal complement.  The accidental isomorphism
+\(\Sp_4\simeq\operatorname{Spin}(3,2)\) controls this rank-five
+Siegel lattice; its action is confined to the rank-five summand, with
+the full rank-twenty-three Beauville-Bogomolov lattice outside its
+domain.
 \end{proposition}
-\end{heal}
 
-\noindent At $N=1$ the mission statement is confirmed \emph{in
-cohomology}: the intersection $[\Sigma_2^{(H_1)}]\cdot[K3\times E]$
-is the class of the K3 fibre. At $N=4$ the double-cover structure
-is identified: not a geometric double-cover but a cohomological one,
-weighted by the Nikulin-isogeny count. The $N\in\{2,3,6\}$ cases
-stratify by divisor structure of $N$, filling out the paramodular
-tower.
+\begin{proof}
+The Siegel space \(\HH_2\) is the symmetric domain for a rank-five
+lattice of signature \((2,3)\).  The full \(K3^{[2]}\) lattice has
+signature \((3,20)\), and a polarized \(K3^{[2]}\) period domain uses a
+rank-twenty-two lattice of signature \((2,20)\).  A morphism of
+orthogonal locally symmetric varieties requires an isometric embedding
+of lattices together with an arithmetic subgroup compatibility.  A
+Humbert equation records the discriminant divisor; the embedding and
+arithmetic subgroup are additional inputs.
+\end{proof}
 
-% ==========================================================================
-\section{Attack--heal 5. $\kBKM(\PhiN)=c_N(0)/2$ on each specimen,
-from the $g_N$-twined Jacobi input}
-\label{sec:cycle5}
-% ==========================================================================
+\section{Kummer and Shioda-Inose Comparison}
 
-\begin{attack}
-Having the cycle $\SigmaN$ and the cohomological intersection with
-$K3\times E$, verify the universal Borcherds-weight identity
-$\kBKM(\PhiN)=c_N(0)/2$ for $N\in\{1,2,3,4,6\}$. The mission asserts
-``verify $\kBKM=c_N(0)/2$ on each''. But $\PhiN$ is not a single form;
-it is a family of paramodular forms, and the ``$c_N(0)$'' on the
-right depends on \emph{which} twined Jacobi input one uses: the
-$g_N$-twined K3 elliptic genus $Z_{K3,g_N}(q,y)$ has a different
-constant term at each $N$ (Lorgat 2020 Table~2).
-\end{attack}
-
-\begin{ghost}
-The $g_N$-twined elliptic genus is determined by the Mukai symplectic
-order and its fixed-sublattice discipline:
+Let \(A\) be a principally polarized abelian surface.  Its Kummer K3
+surface is the minimal resolution
 \[
-  Z_{K3, g_N}(q, y) \;=\; \mathrm{Tr}_{\Gamma_{\mathrm{K3}}}
-   \bigl(g_N\cdot (-1)^{F}\cdot y^{J_0} q^{L_0-c/24}\bigr),
+  \Km(A)\longrightarrow A/\{\pm1\}.
 \]
-with $c_N(0)$ the $y^0$-coefficient of the weight-$0$ input
-$\phi_{0,N}^{g_N} := Z_{K3,g_N}/12$. Borcherds 1998 Theorem~13.3
-applies: the Borcherds singular-theta lift of $\phi_{0,N}^{g_N}$ on
-the paramodular lattice $\Lambda^{3,2}_N$ has weight $c_N(0)/2$.
-The values are computed in Lorgat 2020 \S 6 and reproduced in
-\texttt{wave10\_t4\_8\_form\_dd\_siegel.tex}.
-\end{ghost}
+The sixteen exceptional curves form the Kummer lattice.  The
+transcendental lattice satisfies
+\[
+  T_{\Km(A)}\cong T_A(2).
+\]
+A Shioda-Inose K3 surface \(S_A\) attached to \(A\) carries a Nikulin
+involution \(\iota\), a rational degree-two map
+\[
+  S_A\dashrightarrow\Km(A),
+\]
+and
+\[
+  T_{S_A}\cong T_A.
+\]
 
-\begin{heal}
-The universal identity:
-\begin{proposition}[$\kBKM(\PhiN)=c_N(0)/2$ on the paramodular tower,
-cf.\ Borcherds 1998 Thm.~13.3; Gritsenko--Nikulin 1998 \emph{Amer.\ J.\
-Math.}\ 120; Lorgat 2020 \S 6; CLAUDE.md cache entries]
-\label{prop:kBKM-cN-zero-table}
-For $N\in\{1,2,3,4,6\}$, the Borcherds weight of the paramodular
-form $\PhiN$ equals $c_N(0)/2$ where $c_N(0)$ is the $y^0$-Fourier
-coefficient of $\phi_{0,N}^{g_N}$. Explicit values:
+\begin{definition}[Humbert-Kummer locus]
+\label{def:humbert-kummer-locus}
+For \(D\equiv0,1\pmod4\), define \(\cK_D\) to be the locus of Kummer
+and Shioda-Inose K3 surfaces obtained from principally polarized
+abelian surfaces \(A\in H_D\).  Equivalently, \(\cK_D\) is the
+Noether-Lefschetz locus cut out by the extra algebraic class induced by
+the discriminant-\(D\) endomorphism of \(A\), transported through the
+Kummer lattice and the Shioda-Inose correspondence.
+\end{definition}
+
+\begin{proposition}[The correct Humbert route to K3 geometry]
+\label{prop:humbert-route}
+The comparison from a Humbert surface to K3 geometry factors as
+\[
+  H_D\subset\cA_2
+  \xrightarrow{\ A\mapsto\Km(A)\ }
+  \cM_{K3}^{\mathrm{Kum}}
+  \xleftarrow{\ S_A\dashrightarrow\Km(A)\ }
+  \cM_{K3}^{\mathrm{SI}}.
+\]
+Passing from \(S_A\) to \(S_A^{[2]}\) then uses the Beauville
+construction \(S_A\mapsto\Hilb^2(S_A)\).  A cycle
+\(\Sigma_D\subset S_A^{[2]}\) requires an algebraic correspondence or a
+tautological Nakajima class in addition to the Humbert discriminant.
+\end{proposition}
+
+\begin{proof}
+The Kummer construction and the Shioda-Inose correspondence are
+classical.  They transport periods and lattice polarizations from
+principally polarized abelian surfaces to K3 surfaces.  The Hilbert
+scheme \(S_A^{[2]}\) is functorial in the surface after \(S_A\) has been
+chosen.  The Humbert discriminant produces a Noether-Lefschetz
+condition; selection of a canonical codimension-two cycle in the Chow
+group of a fixed \(S^{[2]}\) requires an additional correspondence.
+\end{proof}
+
+\begin{problem}[Humbert-lifted Hilbert cycle]
+\label{prob:humbert-hilbert-cycle}
+Construct, for each \(D\) in a specified Humbert set, a cycle class
+\[
+  [\Sigma_D]\in\CH^2(S_A^{[2]})
+\]
+from the Kummer lattice, the Shioda-Inose correspondence, and the
+Noether-Lefschetz class attached to \(H_D\), with cohomology class
+lying in the image of the primitive embedding
+\[
+  L_{\mathrm{Siegel},D}\hookrightarrow
+  H^2(S_A^{[2]},\Z)
+\]
+and with discriminant \(D\) computed in the Beauville-Bogomolov form.
+The construction must specify the surface \(S_A\), the arithmetic group,
+the product chamber, and the tautological operator producing the class.
+\end{problem}
+
+\section{\texorpdfstring{\(K3\times E\)}{K3xE} Comparison}
+
+Let \(Y=S\times E\) with \(S\) a K3 surface and \(E\) an elliptic curve.
+The Hilbert scheme \(S^{[2]}\) is a holomorphic symplectic fourfold.
+The product \(Y\) is a Calabi-Yau threefold.  Their comparison runs
+through the Mukai lattice and through Fock-space or Hall-algebra
+functoriality.  A set-theoretic intersection is type-incoherent.
+
+\begin{proposition}[Separated \(K3\times E\) invariants]
+\label{prop:k3e-invariants}
+For \(Y=K3\times E\),
+\[
+  h^{0,\bullet}(Y)=(1,1,1,1),
+  \qquad
+  \kch(Y)=1-1+1-1=0.
+\]
+Kunneth multiplicativity gives
+\[
+  \kcat(Y)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0.
+\]
+The Heisenberg-Mukai specialization and the BKM denominator give
+\[
+  \kHeis(Y)=3,
+  \qquad
+  \kBKM(\Dfive)=c_1(0)/2=5.
+\]
+The fibre invariant is
+\[
+  \kfib(Y)=\rk\widetilde H(K3,\Z)=1+22+1=24.
+\]
+These values arise from separate constructions:
+\[
+  \{\kcat(Y),\kch(Y),\kHeis(Y),
+  \kBKM(\Dfive),\kfib(Y)\}
+  =
+  \{0,0,3,5,24\}.
+\]
+\end{proposition}
+
+\begin{proof}
+The compact Hodge column of \(K3\times E\) gives the alternating sum
+displayed above.  The categorical Euler invariant is the Euler
+characteristic of \(\cO_Y\) and is multiplicative on the product.  The
+Heisenberg value \(3\) belongs to the specialisation
+\(\SpCh_{K3,E}\circ\PhiFA_3\).  Proposition
+\ref{prop:delta5-normalization} gives the BKM value \(5\).  The final
+value is the Mukai-lattice rank of the K3 fibre.  Each equality uses a
+different input object.
+\end{proof}
+
+\begin{proposition}[Primitive BKM/CHL denominator constants]
+\label{prop:primitive-chl-constants}
+On the primitive BKM/CHL denominator ladder
+\[
+  N\in\{1,2,3,4,6\},
+\]
+the Borcherds input constants and weights are
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\
+\hline
+c_N(0)&10&8&6&4&2\\
+\kBKM(\Phi_N)=c_N(0)/2&5&4&3&2&1
+\end{array}
+\]
+The level-one entry is \(\Phi_1=\Dfive\).  The Gritsenko-Clery
+diagonal-divisor catalogue is a different eight-row catalogue with
+weights
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1)
+\]
+and row constants
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+A comparison between the two lists requires a named row map and a
+normalization.
+\end{proposition}
+
+\begin{proof}
+Borcherds' singular-theta lift gives
+\(\wt(\Phi_N)=c_N(0)/2\).  The primitive CHL inputs use the
+\(g_N\)-twined K3 weak Jacobi forms in the normalization
+\(\phi_{0,1}^{(g_N)}=\frac12 Z_{K3}^{(g_N)}\), whose zero Fourier
+coefficients are \((10,8,6,4,2)\).  Gritsenko-Nikulin give the \(N=1\)
+case, Eguchi-Hikami give the \(2A\) twining, and
+Govindarajan-Krishna give the \(3A\), \(4A\), and \(6A\) cases.  The
+Gritsenko-Clery list is indexed by \((t,N)\) and by multiplier systems,
+so its row constants belong to a separate classification problem.
+\end{proof}
+
+\section{Class-\texorpdfstring{\(\cS\)}{S} and VOA Layer}
+
+The four-dimensional class-\(\cS\) parent relevant to the \(K3\times E\)
+Igusa corner is
+\[
+  \cT_{24}:=\cT[A_1,\Sigma_{0,24}],
+\]
+where \(\Sigma_{0,24}\) is a sphere with twenty-four maximal regular
+\(\fsu(2)\)-punctures.  Its pants decomposition has \(22\) trinions and
+\(21\) gauged \(SU(2)\) tubes, hence
+\[
+  (n_v,n_h)=22(0,4)+21(3,0)=(63,88).
+\]
+The Shapere-Tachikawa and Beem-Lemos-Liendo-Peelaers-Rastelli-van Rees
+normalizations give
+\[
+  c_{4d}=\frac{2n_v+n_h}{12}=\frac{107}{6},
+  \qquad
+  c_{2d}=-12c_{4d}=-214.
+\]
+For the closed genus-two curve \(\Sigma_{2,0}\), the same pants count
+has two trinions and three gauged tubes:
+\[
+  (n_v,n_h)=(9,8),
+  \qquad
+  c_{4d}=\frac{13}{6},
+  \qquad
+  c_{2d}=-26.
+\]
+The \(107/6\) parent is therefore the punctured sphere
+\(\Sigma_{0,24}\).
+
+\begin{proposition}[Typed Schur-Jacobi-Borcherds composite]
+\label{prop:schur-jacobi-borcherds}
+The comparison from the Gaiotto curve to the Igusa denominator has the
+typed form
+\[
+  \cT[A_1,\Sigma_{0,24}]
+  \xrightarrow{\ \chi\ }
+  \chi(\cT_{24})
+  \xrightarrow{\ \Pi_{M_{24}}\ }
+  \phi_{0,1}^{K3}
+  \xrightarrow{\ \Borch\ }
+  \Dfive
+  \rightsquigarrow
+  \fg_{\Dfive}.
+\]
+Here \(\Pi_{M_{24}}\) is the Mathieu average on puncture-labelled Schur
+data, \(\phi_{0,1}^{K3}=y^{-1}+10+y+O(q)\) is the
+Gritsenko-Nikulin normalized Jacobi form, and
+\(\fg_{\Dfive}\) is the generalized BKM superalgebra whose denominator
+is \(D_5(2Z)\).
+\end{proposition}
+
+\section{Branch Separation}
+
+For \(d\geq3\), the native CY-to-chiral output is \(E_1\)-chiral.  In
+the \(K3\times E\) case,
+\[
+  A_Y=
+  \SpCh_{K3,E}\bigl(\PhiFA_3(\Perf(K3\times E))\bigr)
+  \in E_1\text{-}\ChirAlg(E).
+\]
+Higher braided structure belongs to named centre, double, or module
+layers such as
+\[
+  Z^{\mathrm{der}}_{\mathrm{ch}}(A_Y),
+  \qquad
+  D(\CoHA(Y)),
+  \qquad
+  Z(\mathrm{Rep}(A_Y)),
+  \qquad
+  \chi(\cT_{24}).
+\]
+
 \begin{center}
-\small
-\begin{tabular}{c|cccc|l}
-\hline
-$N$ & $\chi(K3^{g_N})$ & $c_N(0)$ & $\PhiN$ & $\kBKM(\PhiN)=c_N(0)/2$ & Source\\
-\hline
-$1$ & $24$ & $10$ & $\Delta_5$ & $5$ & Gritsenko 1999; Lorgat 2020 Thm~3\\
-$2$ & $8$  & $4$  & $\Phi_{\Gamma_2, \nu_4}$ & $2$ & Oberdieck 2018 \S 4\\
-$3$ & $6$  & $3$  & $\Phi_{\Gamma_1(3)}$ & $3/2$ & Gritsenko--Cl\'ery 2013\\
-$4$ & $8$  & $4$  & $\Phi_{\Gamma_1(2)}$ & $2$ & Gritsenko--Cl\'ery 2013\\
-$6$ & $2$  & $1$  & $\Phi_{\Gamma_1(4), \nu_4}^{3/2}$ & $1/2$ & Cl\'ery--Gritsenko 2008\\
-\hline
-\end{tabular}
-\end{center}
-All five entries match the universal identity
-$\kBKM(\PhiN)=c_N(0)/2$, with the constant term $c_N(0)$ computed
-directly from the Lorgat 2020 $y^0$-coefficient formula
-$c_N(0)=\tfrac{1}{12}\chi(K3^{g_N}) + (\text{correction from Mathieu
-moonshine})$ at each $N$.
-\end{proposition}
-\end{heal}
-
-\noindent The identity holds on each specimen; the Humbert-cycle
-construction of Cycle~3 and the stratified intersection of Cycle~4
-provide the geometric origin of the $g_N$-twined input $\phi_{0,N}^{g_N}$
-through the $\Sp_{\SigmaN,E}$ specialisation of the canonical
-$\Phi^{\mathrm{FA}}_3$-factorisation algebra on $\Hilb^2(K3)$.
-
-% ==========================================================================
-\section{Reconstruction: the Humbert-paramodular dictionary on
-$\Hilb^2(K3)$}
-\label{sec:dictionary}
-% ==========================================================================
-
-The five cycles deliver a dictionary on the $\Hilb^2(K3)$ side of the
-paramodular tower:
-
-\begin{center}
-\small
+\renewcommand{\arraystretch}{1.25}
 \begin{tabular}{lll}
 \hline
-$\HN\subset\cA_2$ datum & $\Hilb^2(K3)$-avatar & Status\\
+Layer & Object & Controlling datum \\
 \hline
-Humbert discriminant $N$ & N\'eron--Severi discriminant of $\SigmaN$ & conjectural\\
-Principal polarisation on $A\in\HN$ & Shioda--Inose cover
-$\nu\colon\Kum(A)\to K3$ & classical\\
-$\Sp_4(\Z)\simeq\SO^+(2,3)$ rank-$5$ & rank-$5$ sublattice
-$U^{\oplus 2}\oplus\Z(-2)$ & classical\\
- & in $\Lambda_{K3^{[2]}}\simeq U^{\oplus 3}\oplus E_8(-1)^{\oplus 2}\oplus\Z(-2)$ & \\
-Humbert $H_1$ diagonal $\tau_2=0$ & $\SigmaN=K3$-fibre (via $A_0[1]=\{0\}$) & proposition \ref{prop:humbert-cycle-hilb2}\\
-Humbert $H_4$ $\Z[i]$-locus & $\SigmaN=$ double Shioda--Inose cover & proposition \ref{prop:humbert-cycle-hilb2}\\
-Humbert $\HN\cap(K3\times E)$ in cohomology & Nikulin-isogeny strat. $\sum_{m\mid N}\cdots$ & proposition \ref{prop:humbert-K3E-intersection}\\
-Borcherds weight $\kBKM(\PhiN)$ & $c_N(0)/2$ via $\phi_{0,N}^{g_N}$ & proposition \ref{prop:kBKM-cN-zero-table}\\
-$\Sp_{\SigmaN,E}\circ\Phi^{\mathrm{FA}}_3$ shadow & $E_1$-chiral algebra on $E$ giving $\PhiN$-tower & conjectural\\
+Siegel divisor & \(H_D\subset\cA_2\) & discriminant \(D\) \\
+Igusa denominator & \(D_5(2Z)\) & \(\Dfive=\Borch(\phi_{0,1})\) \\
+BKM branch & \(\fg_{\Dfive}\) & Borcherds product and root multiplicities \\
+Hall-Drinfeld branch & \(D(\CoHA(K3\times E))\) & compact Hall orientation data \\
+Mukai-Yangian branch & local ADE/Kummer Yangian data & Maulik-Okounkov \(R\)-matrix \\
+Class-\(\cS\) branch & \(\chi(\cT[A_1,\Sigma_{0,24}])\) & Schur VOA and \(M_{24}\)-average \\
+Native CY output & \(A_Y\) & \(E_1\)-chiral specialisation \\
 \hline
 \end{tabular}
 \end{center}
 
-\subsection*{Cross-reference with Wave~9 P3 and Wave~18 F4}
+The table records distinct layers.  A theorem comparing two entries must
+name the functor, the lattice, the chamber, the orientation character,
+and the source of the product coefficients.
 
-The Wave~9 P3 Humbert-intersection lattice
-(\texttt{wave9\_p3\_humbert\_intersection.tex}, Thm of
-\S``Order of vanishing'') establishes
+\section{Comparison Diagram}
+
+The corrected Humbert-to-Igusa route is
 \[
-  \mathrm{ord}_{\HN}\Dfive = \begin{cases}1 & N=1,\\ 0 & N\in\{4,5,8,9\}.\end{cases}
+\begin{tikzcd}[column sep=large,row sep=large]
+H_D\subset\cA_2
+  \arrow[r,"A\mapsto\Km(A)"]
+&
+\cK_D\subset\cM_{K3}
+  \arrow[r,"S\mapsto S^{[2]}"]
+&
+\cM_{K3^{[2]}}
+\\
+\phi_{0,1}^{K3}
+  \arrow[r,"\Borch"]
+&
+\Dfive
+  \arrow[r,"\operatorname{den}"]
+&
+\fg_{\Dfive}
+\\
+\cT[A_1,\Sigma_{0,24}]
+  \arrow[r,"\chi"]
+&
+\chi(\cT_{24})
+  \arrow[r,"\Pi_{M_{24}}"]
+&
+\phi_{0,1}^{K3}
+\\
+\Perf(K3\times E)
+  \arrow[r,"\PhiFA_3"]
+&
+\PhiFA_3(\Perf(K3\times E))
+  \arrow[r,"\SpCh_{K3,E}"]
+&
+A_Y\in E_1\text{-}\ChirAlg(E)
+\end{tikzcd}
 \]
-Proposition~\ref{prop:humbert-cycle-hilb2} above is the geometric
-origin of this number: the $\Sp_{\SigmaN,E}$-specialisation of the
-$\Phi^{\mathrm{FA}}_3$-native output on $\Hilb^2(K3)$ at $N=1$ has
-a simple zero along the K3-fibre locus, matching
-$\mathrm{ord}_{\Hone}\Dfive=1$. The higher $\HN$ for $N\geq 2$ do
-not appear in the $\Dfive$-divisor because the canonical
-specialisation is the $\Sigma_2=K3$-fibre (Stage~2 shadow at
-$\Sigma_2=K3$, $C=E$), and $\Dfive$ at other Humbert cycles is in
-the siblings $\PhiN$, not in $\Dfive$ itself.
+The first row is a period and Noether-Lefschetz comparison.  The second
+row is the Borcherds denominator theorem.  The third row is the
+class-\(\cS\) Schur-to-Jacobi comparison.  The fourth row is the native
+CY-to-chiral construction for the compact threefold.
 
-The Wave~18 F4 $\Cx_E$-equivariant generating function
-(\texttt{wave18\_f4\_Hilb\_K3E\_equivariant.tex}, Cycle~4)
-delivers
-\[
-  \sum_{n\geq 0} q^n\,\chi_{\Cx_E}(\Hilb^n(K3\times E))
-  \;=\; \prod_{m\geq 1}\frac{1}{(1-q^m)^{24}}\;=\;\frac{q}{\eta(q)^{24}}.
-\]
-This is the $\zeta\to 1, p\to 0$ specialisation of the trivariate
-$1/\Dfive(q,\zeta,p)$. The paramodular siblings $1/\PhiN(q,\zeta,p)$
-arise from the $g_N$-twisted Hilbert-scheme generating function
-\[
-  \sum_{n\geq 0} q^n\,\chi_{\Cx_E}^{g_N}(\Hilb^n(K3\times E))
-  \;=\; \prod_{m\geq 1}\frac{1}{\phi_{0,N}^{g_N}(q^m)},
-\]
-which is the twisted sum needed for the BKM specimens at
-$N\in\{2,3,4,6\}$.
+\section{Conclusions}
 
-\subsection*{Cross-reference with the VOA-corner (Wave~13 A14)}
+\begin{enumerate}[leftmargin=1.7em]
+  \item Humbert surfaces \(H_D\) are divisors in \(\cA_2\) defined by
+  discriminant \(D=b^2-4ac-4de\).  \(H_1\) is the diagonal decomposable
+  locus; \(H_4\) is the discriminant-four Humbert surface.
+  \item The divisor of \(\Dfive\) is \(H_1\) with multiplicity one.
+  The monic denominator is \(D_5=64^{-1}\Dfive\), and the scalar square
+  is \(\PhiTen^{\mathrm{un}}=\Dfive^2\).
+  \item The period lattice of \(S^{[2]}\) has signature \((3,20)\);
+  a polarized period domain uses signature \((2,20)\).  The Siegel
+  Humbert domain uses signature \((2,3)\).
+  \item Kummer and Shioda-Inose constructions provide the route from
+  \(H_D\) to K3 Noether-Lefschetz geometry.  A canonical
+  \(\Sigma_D\subset S^{[2]}\) is an additional cycle-construction
+  problem.
+  \item For \(K3\times E\),
+  \[
+    \kcat=0,\qquad
+    \kch=0,\qquad
+    \kHeis=3,\qquad
+    \kBKM(\Dfive)=5,\qquad
+    \kfib=24.
+  \]
+  These numbers obey separation by construction; a summation law is
+  absent.
+  \item The primitive BKM/CHL constants are
+  \(c_N(0)=(10,8,6,4,2)\) and
+  \(\kBKM(\Phi_N)=(5,4,3,2,1)\) for
+  \(N\in\{1,2,3,4,6\}\).
+  \item The class-\(\cS\) parent is
+  \(T[A_1,\Sigma_{0,24}]\) with
+  \((n_v,n_h)=(63,88)\), \(c_{4d}=107/6\), and \(c_{2d}=-214\).
+  The closed genus-two curve \(\Sigma_{2,0}\) has \(c_{4d}=13/6\).
+  \item At \(d\geq3\), the native \(\Phi\)-output is \(E_1\)-chiral.
+  \(E_2\)-structures occur only on named centre, double, module, or VOA
+  layers.
+\end{enumerate}
 
-The Gaiotto--Rapcak corner conjecture
-(\texttt{wave13\_a14\_voa\_corner\_gaiotto.tex}, Conjecture~4.1)
-predicts $\cY_{4,20,0}\otimes\cV_{\phi_{0,1}-\mathrm{tail}}$ as the VOA
-avatar of $\fg_{\Dfive}$. Under the present Humbert-cycle dictionary,
-this avatar generalises: each $\SigmaN$ specifies a different $\rho(K3_N)$
-Picard rank at the cover endpoint (varying across the Shioda--Inose
-locus $\cS_N$), giving a \emph{family of corner VOAs}
-$\{\cY_{L_N, M_N, N_N}\otimes\cV_{\phi_{0,N}-\mathrm{tail}}\}_{N\in\{1,2,3,4,6\}}$
-parametrised by the paramodular tower. The $N=1$ case recovers
-$\cY_{4,20,0}$. At $N=4$ the double-cover structure halves the Mukai
-rank: $\cY_{2,10,0}$, with matching central-charge halving
-$c_{4d}^{(N=4)}=5/2=\tfrac{1}{2}\cdot 5$. The conjectural status of
-the VOA dictionary is inherited from the corner-VOA framework.
+\section{Primary Sources}
 
-% ==========================================================================
-\section{Honest scope: what is and is not a theorem}
-\label{sec:scope}
-% ==========================================================================
+Humbert, G.  \emph{Sur les fonctions abeliennes singulieres},
+J. Math. Pures Appl. 5 (1899), 233-350.
 
-\begin{itemize}[leftmargin=1.5em]
-  \item \textbf{Proposition~\ref{prop:hilb2-k3-period}} (period domain
-  of $\Hilb^2(K3)$) is a theorem of Beauville 1983 with explicit
-  lattice decomposition in Huybrechts 2016 \emph{Lectures on K3
-  Surfaces} Ch.~14. No conjectural content.
-  \item \textbf{Proposition~\ref{prop:shioda-inose-HN}}
-  (Shioda--Inose locus of $\HN$) is a theorem of Shioda--Inose 1977
-  and Morrison 1984 Thm~6.3, provided one keeps track of
-  finite-index subgroups. The rank-$17$ sub-stack identification
-  is standard. No conjectural content on the geometric side.
-  \item \textbf{Proposition~\ref{prop:humbert-cycle-hilb2}} (Humbert
-  cycle $\SigmaN$) is \emph{conjectural}: the explicit
-  construction via the Kummer-exceptional divisor intersected with
-  $N$-torsion is a proposal; the dimension count $\dim_\C\SigmaN=2$
-  and the rank-$2$ N\'eron--Severi sublattice $\langle 2,0,-N\rangle$
-  are claims that need verification against Mongardi 2016 on
-  $K3^{[2]}$-polarisation moduli. The $N=1$ K3-fibre specialisation
-  is consistent with the diagonal-locus reading.
-  \item \textbf{Proposition~\ref{prop:humbert-K3E-intersection}}
-  (Nikulin-isogeny stratification) is \emph{conjectural}: the
-  divisor-indexed sum $\sum_{m\mid N}\mathrm{mult}_m(N)\cdots$ is a
-  natural proposal but requires explicit verification. At $N=1,4$
-  the stratification collapses and the reading matches the mission
-  statement.
-  \item \textbf{Proposition~\ref{prop:kBKM-cN-zero-table}}
-  ($\kBKM(\PhiN)=c_N(0)/2$) is a theorem of Borcherds 1998 Thm~13.3
-  combined with the Lorgat 2020 \S 6 Fourier data, reproduced from
-  the Vol~III cache as an epistemic-hierarchy~1 (primary literature)
-  identity. The geometric origin through $\SigmaN$ is what is
-  conjectural; the numerical identity itself is theorem.
-  \item \textbf{The Stage-$2$ specialisation
-  $\Sp_{\SigmaN,E}\circ\Phi^{\mathrm{FA}}_3(\Hilb^2(K3))$}
-  delivering $\PhiN$ directly is \emph{conjectural at publication
-  standard}: it requires the Humbert-cycle version of the
-  Costello--Li holomorphic-Chern--Simons BV construction, which is
-  not in the Vol~III catalogue. The primary obstruction is
-  non-abelian Hodge on the Shioda--Inose locus $\cS_N$.
-\end{itemize}
+van der Geer, G.  \emph{Hilbert Modular Surfaces}, Springer, 1988,
+Chapter IX.
 
-\subsection*{Cross-programme $\kappa$-discipline check}
+Beauville, A.  \emph{Varietes kahleriennes dont la premiere classe de
+Chern est nulle}, J. Differential Geom. 18 (1983), 755-782.
 
-Under the Humbert-cycle specialisation of Cycles~3--5, the four
-$\kappa_\bullet$-invariants on the twofold $\Hilb^2(K3)$ cycle
-$\SigmaN$ behave as follows:
-\begin{itemize}[leftmargin=1.5em]
-  \item $\kcat(\Hilb^2(K3))=\chi(\cO_{K3^{[2]}})=3$ (Beauville 1983:
-  $\chi(\cO_{K3^{[n]}})=n+1$ at $n=2$). K\"unneth does not apply
-  because $\Hilb^2(K3)$ is not a product.
-  \item $\kcat(\SigmaN)=\chi(\cO_{\SigmaN})$ depends on the specific
-  cycle: at $N=1$, $\SigmaN\simeq K3$-fibre gives $\kcat=\chi(\cO_{K3})=2$;
-  at $N=4$, the double-cover structure gives $\kcat=2\cdot 2=4$ after
-  account for ramification (conjectural).
-  \item $\kBKM(\PhiN)=c_N(0)/2$ as tabulated
-  (Proposition~\ref{prop:kBKM-cN-zero-table}). Never conflated with
-  $\kcat$.
-  \item $\kfib(\SigmaN)$ is the Nikulin-isogeny degree correction:
-  $\kfib(\Sigma_2^{(H_1)})=0$ (trivial Shioda--Inose cover at $A_0[1]=\{0\}$),
-  $\kfib(\Sigma_2^{(H_4)})=1$ (single Nikulin doubling), and so on.
-  \item $\kch(\Hilb^2(K3))=\Xi(K3^{[2]})=3$ by the Hodge-supertrace
-  identification at $d=4$ (Beauville--Bogomolov + G\"ottsche
-  $n+1$ rule; cf.\ the $d=4$ hyperk\"ahler remark in
-  \texttt{cy\_d\_kappa\_stratification.tex}).
-\end{itemize}
+Shioda, T. and Inose, H.  \emph{On singular K3 surfaces}, in Complex
+Analysis and Algebraic Geometry, Cambridge Univ. Press, 1977.
 
-The four invariants on $\Hilb^2(K3)$ therefore read
-$(\kch,\kcat,\kBKM,\kfib)(K3^{[2]}; N=1) = (3, 3, 5, 0)$, a four-tuple
-whose $\kBKM$ is controlled by $\phi_{0,1}$ and whose $\kch=\kcat$
-coincidence reflects the Hodge-supertrace of a hyperk\"ahler
-fourfold. The sibling $N$-tower populates a two-parameter deformation
-$(\kBKM(\PhiN),\kfib(\SigmaN))$ while $\kch$ and $\kcat$ remain
-anchored to the compact Calabi--Yau datum.
+Nikulin, V. V.  \emph{Integral symmetric bilinear forms and some of
+their applications}, Math. USSR Izv. 14 (1980), 103-167.
 
-% ==========================================================================
-\section{Primary literature}
-\label{sec:cites}
-% ==========================================================================
+Morrison, D. R.  \emph{On K3 surfaces with large Picard number},
+Invent. Math. 75 (1984), 105-121.
 
-Shioda, T.; Inose, H. ``On singular K3 surfaces.'' In \emph{Complex
-Analysis and Algebraic Geometry}, Cambridge Univ.~Press, 1977;
-Morrison, D.~R. ``On K3 surfaces with large Picard number.''
-\emph{Invent.\ Math.}\ \textbf{75} (1984), 105--121 (esp.\ Thm~6.3);
-Nikulin, V.~V. ``Integral symmetric bilinear forms and some of their
-applications.'' \emph{Math.\ USSR Izv.}\ \textbf{14} (1980), 103--167
-(\S 3 on primitive embeddings); Beauville, A. ``Vari\'et\'es
-k\"ahl\'eriennes dont la premi\`ere classe de Chern est nulle.''
-\emph{J.\ Diff.\ Geom.}\ \textbf{18} (1983), 755--782 (Beauville
-decomposition; hyperk\"ahler $\chi(\cO)=n+1$);
-Mongardi, G. ``On the monodromy of irreducible symplectic manifolds.''
-\emph{Algebra Number Theory} \textbf{10} (2016), 1963--1988,
-arXiv:1603.03801 (polarisation moduli, N\'eron--Severi discriminants);
-Huybrechts, D.\ \emph{Lectures on K3 Surfaces}, Cambridge Studies in
-Advanced Mathematics 158, 2016, Ch.~14 (K3$^{[n]}$-lattice decomposition);
-Humbert, G. ``Sur les fonctions ab\'eliennes singuli\`eres.''
-\emph{J.\ Math.\ Pures Appl.}\ \textbf{5} (1899), 233--350
-(original $\HN$ definition); van der Geer, G. \emph{Hilbert Modular
-Surfaces}, Springer, 1988, Ch.~IX (Humbert divisor classification);
-Gritsenko, V. ``Arithmetical lifting and its applications.''
-arXiv:math/9906190, 1999 (additive lift producing $\Dfive$);
-Gritsenko, V.; Cl\'ery, F. ``Siegel modular forms of genus $2$ with
-the simplest divisor.'' \emph{Compos.\ Math.}\ \textbf{149} (2013),
-1563--1593 (8-form dd-Siegel classification);
-Cl\'ery, F.; Gritsenko, V. arXiv:0812.3962, 2008 (half-integer
-Borcherds lift); Borcherds, R.~E. ``Automorphic forms with singularities
-on Grassmannians.'' \emph{Invent.\ Math.}\ \textbf{132} (1998), 491--562,
-Thm~13.3 (universal weight formula $\mathrm{wt}=c(0)/2$);
-Oberdieck, G.; Pixton, A. ``Holomorphic anomaly equations and the
-Igusa cusp form conjecture.'' arXiv:1706.10100, 2017
-($\Cx_E$-equivariant Hilb$^n(K3\times E)$ generating function);
-Oberdieck, G. ``On reduced stable pair invariants.''
-\emph{Math.\ Z.}\ \textbf{289} (2018), 323--353 (CHL-twisted
-Igusa specialisations $N\in\{2,3,4,6\}$); Lorgat, R.
-``A Borcherds lift of the weak Jacobi form $\phi_{0,1}$, generalised
-Borcherds--Kac--Moody superalgebras and the Igusa cusp form
-$\Delta_5$,'' preprint + slides, April 2020 (first-principles
-construction of $\fg_{\Dfive}$, Conjecture~1 for the $N$-tower);
-Nakajima, H.\ \emph{Lectures on Hilbert Schemes of Points on Surfaces},
-AMS, 1997, Ch.~9 (Hilbert-scheme Fock-space structure);
-G\"ottsche, L. ``The Betti numbers of the Hilbert scheme of points
-on a smooth projective surface.'' \emph{Math.\ Ann.}\ \textbf{286}
-(1990), 193--207 (hyperk\"ahler $\chi(\cO)=n+1$).
+Gritsenko, V. A. and Nikulin, V. V.  \emph{Siegel automorphic form
+corrections of some Lorentzian Kac-Moody Lie algebras}, Amer. J. Math.
+119 (1997), 181-224.
+
+Gritsenko, V. A.  \emph{Elliptic genus of Calabi-Yau manifolds and
+Jacobi and Siegel modular forms}, Algebra i Analiz 11 (1999), 100-125.
+
+Borcherds, R. E.  \emph{Automorphic forms with singularities on
+Grassmannians}, Invent. Math. 132 (1998), 491-562.
+
+Clery, F. and Gritsenko, V.  \emph{Siegel modular forms of genus 2 with
+the simplest divisor}, Compos. Math. 149 (2013), 1563-1593.
+
+Oberdieck, G. and Pandharipande, R.  \emph{Curve counting on K3 x E,
+the Igusa cusp form chi10, and descendent integration}, in K3 Surfaces
+and Their Moduli, 2016.
+
+Gaiotto, D.  \emph{\(N=2\) dualities}, JHEP 1208 (2012), 034.
+
+Shapere, A. and Tachikawa, Y.  \emph{Central charges of \(N=2\)
+superconformal field theories in four dimensions}, JHEP 0809 (2008),
+109.
+
+Beem, C., Lemos, M., Liendo, P., Peelaers, W., Rastelli, L., and
+van Rees, B. C.  \emph{Infinite chiral symmetry in four dimensions},
+Commun. Math. Phys. 336 (2015), 1359-1433.
+
+Eguchi, T. and Hikami, K.  \emph{Note on twisted elliptic genus of K3
+surface}, Phys. Lett. B 694 (2011), 446-455.
+
+Govindarajan, S. and Krishna, K. G.  \emph{Generalized Kac-Moody
+algebras from CHL dyons}, JHEP 04 (2009), 032.
 
 \end{document}

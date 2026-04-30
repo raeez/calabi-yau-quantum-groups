@@ -218,7 +218,7 @@ def borcherds_lift_weight() -> int:
 
     weight = c(0)/2 = 10/2 = 5 = kappa_BKM.
 
-    This is the weight of Delta_5, the Igusa cusp form.
+    This is the weight of Delta_5, the primitive Gritsenko-Nikulin denominator.
     """
     return KNOWN_C_TABLE[0] // 2
 

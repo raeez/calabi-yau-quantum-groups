@@ -1,527 +1,483 @@
 % =====================================================================
-% Wave-15 B2 — Vol III frontier scaffold (notes/-resident)
-%
-% Scope: enumerate six concrete 2-cycles Sigma_2 in X = K3 x E, each
-% producing a sibling BKM image of the single canonical factorisation
-% algebra PhiFA_3(Perf(K3 x E)) via Corollary cor:sibling-BKMs-from-one-phiFA
-% (chapters/theory/cy_to_chiral.tex, line 193).
-%
-% For each cycle we record: ambient-qualified dimension; primitive
-% homology class; pullback paramodular Borcherds form; BKM weight
-% kappa_BKM via c_N(0)/2; physical M5-wrapping realisation; status.
-% All notation CG-voice; no bookkeeping vocabulary in theorem/lemma
-% statements; subscripted kappa throughout.
-%
-% Primary sources: Mukai 1988, Nikulin 1979, Oberdieck 2017
-% (arXiv:1706.04948), Bryan--Oberdieck 2017 (arXiv:1712.01593),
-% Borcea 1997, Voisin 1993, Gritsenko 1999 (arXiv:math/9906191),
-% Gritsenko--Nikulin 1995/1998, Gritsenko--Clery 2013, Borcherds 1998,
-% Lorgat 2020.
+% Standalone note: specialisation surfaces for K3 x E and CHL BKM weights
 % =====================================================================
 
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kfib}{\kappa_{\mathrm{fibre}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
 \providecommand{\SpCh}{\mathrm{Sp}_{\mathrm{ch}}}
-\providecommand{\Cyc}{\mathrm{Cyc}}
 \providecommand{\Perf}{\mathrm{Perf}}
 \providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\Aut}{\mathrm{Aut}}
-\providecommand{\symp}{\mathrm{symp}}
 \providecommand{\Fix}{\mathrm{Fix}}
-\providecommand{\Pic}{\mathrm{Pic}}
 \providecommand{\NS}{\mathrm{NS}}
+\providecommand{\Pic}{\mathrm{Pic}}
 \providecommand{\Hdg}{\mathrm{Hdg}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textbf{[ProvedElsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
-\providecommand{\ClaimStatusOpen}{\textbf{[Open]}}
+\providecommand{\CHL}{\mathrm{CHL}}
+\providecommand{\Bor}{\mathrm{Bor}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\cT}{\mathcal T}
+\providecommand{\cI}{\mathcal I}
+\providecommand{\cA}{\mathcal A}
+\providecommand{\cM}{\mathcal M}
+\providecommand{\HH}{\mathfrak H}
+\providecommand{\PP}{\mathbb P}
+\providecommand{\Borch}{\mathrm{Borch}}
+\providecommand{\Schur}{\mathrm{Schur}}
+\providecommand{\fg}{\mathfrak g}
+\providecommand{\su}{\mathfrak{su}}
 
-\section*{Wave-15 B2 --- $\Cyc_2(K3 \times E)$: the sibling-BKM
-catalogue}
-\label{wn:sec:wave15-b2-sigma2-moduli-K3xE}
+\section*{Specialisation surfaces for \(K3 \times E\)}
+\label{wn:sec:sigma2-moduli-k3xe}
 
-\subsection*{The ambient problem}
-
-Corollary~\ref{cor:sibling-BKMs-from-one-phiFA} of
-\texttt{chapters/theory/cy\_to\_chiral.tex} asserts the existence, for
-each admissible CHL level $N \in \{1, 2, 3, 4, 6\}$, of a specialisation
-cycle $\Sigma_2^{(N)} \subset K3 \times E$ whose $\SpCh_{\Sigma_2^{(N)}, E}$
-evaluates the single canonical $E_3$-factorisation algebra
-$\PhiFA_3(\Perf(K3 \times E))$ to the vertex envelope of a sibling BKM
-superalgebra $\mathfrak{g}_{\Phi_N}$ of Borcherds weight
-$\kBKM(\Phi_N) = c_N(0)/2$. The corollary names the cycles only at
-$N = 1$ (the K3 fibre, Theorem~\ref{thm:g-delta5-is-sp-k3}) and at $N = 2$
-(Oberdieck's CHL section-times-invariant-circle); the siblings at
-$N = 3, 4, 6$ and the Humbert/Niemeier siblings are deferred to the
-frontier. This note catalogues six explicit algebraic 2-cycles that
-index six sibling BKMs, matches five of them to the
-Gritsenko--Cl\'ery/CHL Borcherds-lift hierarchy of
-Theorem~\ref{thm:k3e-universal-kBKM-two-scopes}, and records the exact
-scope at which each sibling is proven, conditional on existing
-CY$_3$-host machinery, or open.
-
-\subsection*{Algebraic-2-cycle moduli on $K3 \times E$}
-
-\begin{proposition}[$\Hdg^{2,2}$ on $K3 \times E$ and the 2-cycle lattice]
-\ClaimStatusProvedElsewhere
-\label{wn:prop:wave15-b2-hdg22-k3xe}
-Let $X = K3 \times E$. The Hodge-algebraic summand of $H^4(X, \mathbb{Z})$
-decomposes under K\"unneth as
+Let \(S\) be a projective K3 surface, let \(E\) be an elliptic curve, and set
+\(X=S\times E\).  A \(d=3\) specialisation datum for
+\(\PhiFA_3(\Perf(X))\) consists of a complex surface
+\(\Sigma_2\subset X\) together with a reference curve \(C\), here
+\(C=E\), on which the residual chiral algebra lives.  The subscript in
+\(\Sigma_2\) records complex dimension; it is unrelated to the
+class-\(\mathcal S\) notation \(\Sigma_{g,n}\) for a genus-\(g\) curve
+with \(n\) punctures.  The output is an
+\(\Eone\)-chiral algebra on \(E\):
 \[
- \Hdg^{2,2}(X) \;=\; \mathbb{Z}\cdot[K3 \times \{p\}]
- \;\oplus\; (\NS(K3) \otimes_\mathbb{Z} H^1(E, \mathbb{Z}) )_{\mathrm{alg}}^{\text{self-dual}}
- \;\oplus\; (\NS(K3) \cdot [E])
- \;\oplus\; \mathbb{Z}\cdot[\mathrm{pt} \times E \times \{y\}]^{\vee},
+ \SpCh_{\Sigma_2,E}\bigl(\PhiFA_3(\Perf(X))\bigr)\in \Eone\text{-}\mathrm{ChirAlg}(E).
 \]
-with the middle summand of rank $\rho(K3)$ generic, reaching rank~$20$
-at the Picard-maximal slice; the $[K3 \times \{p\}]$ class is the
-distinguished K3-fibre class; and the $[D \times E]$ classes
-($D \in \NS(K3)$) are the divisor-times-$E$ classes. On a Picard-maximal
-K3, $\mathrm{rk}\,\Hdg^{2,2}(X) = 1 + 20 + 1 = 22$; on a generic K3,
-$\mathrm{rk}\,\Hdg^{2,2}(X) = 1 + \rho(K3) + 1$. The full Hodge-theoretic
-$H^{2,2}(X, \mathbb{C})$ has complex dimension $h^{2,2}(X) = 21$
-(K\"unneth, Proposition~\ref{prop:hodge-k3xe}), with the remaining
-$h^{2,0} \cdot h^{0,2}$-type classes carried by $H^{2,0}(K3)$ tensor
-$E$-factors.
-\end{proposition}
-\begin{proof}[Primary source.]
-K\"unneth for $K3 \times E$ in Proposition~\ref{prop:hodge-k3xe};
-Lefschetz $(1,1)$ on $K3$ identifies $\NS(K3)$ with $\Hdg^{1,1}(K3,
-\mathbb{Z})$; the algebraicity of $H^1(E) \otimes \NS(K3)$-classes via
-Abel--Jacobi on $E$ combined with holomorphic $E$-motion on the K3 factor
-(Deligne 1971, \emph{Publ.\ IH\'ES}~40, \S3).
-\end{proof}
+Any \(\Etwo\)-level braiding belongs to a named centre, double, module,
+or enhancement layer such as \(\mathcal Z(\Rep^{\Eone}(-))\).  The
+native \(d=3\) Stage-\(2\) output remains \(\Eone\)-chiral.
 
-The moduli space $\Cyc_2(K3 \times E)$ we care about is not all of
-$\Hdg^{2,2}$: the corollary singles out \emph{irreducible effective
-algebraic cycles realising a distinguished geometric structure} (K3-fibre
-class, graph of a K3 symplectic automorphism, Humbert locus in a
-principally polarised abelian surface fibre, etc.), each yielding a
-well-defined specialisation functor $\SpCh_{\Sigma_2, E}$. The catalogue
-has six entries; each corresponds to a distinct geometric datum and a
-distinct sibling BKM.
+The surface classes live in \(H_4(X,\mathbb Z)\), equivalently in
+\(\Hdg^{1,1}(X,\mathbb Z)\) by Poincar\'e duality.  Since \(H^1(S)=0\),
+K\"unneth gives
+\[
+ H^2(X,\mathbb Z)=H^2(S,\mathbb Z)\oplus H^2(E,\mathbb Z),\qquad
+ \NS(X)=\NS(S)\oplus \mathbb Z\,[S\times\{p\}].
+\]
+Thus
+\[
+ \mathrm{rk}\,\NS(X)=\rho(S)+1,\qquad
+ 1\leq \rho(S)\leq 20.
+\]
+The Picard-maximal algebraic surface lattice has rank \(21\).  Its
+standard generators are the K3 fibre \(S\times\{p\}\) and the
+surfaces \(D\times E\) with \(D\in\NS(S)\) represented by an effective
+curve on \(S\).  Codimension-\(2\) curve classes lie in \(H^4(X)\);
+they belong to a different lattice, outside the K3-fibre
+specialisation data.
 
-\subsection*{The six-cycle catalogue}
+\section*{The principal K3 surface}
+\label{wn:sec:principal-k3-surface}
 
-The following table records the six cycles. For each row:
-\begin{itemize}
-\item \emph{Cycle name + class}: the concrete algebraic 2-cycle.
-\item \emph{Ambient data}: the Mukai-class/$M_{24}$-label of the
-defining automorphism (when applicable).
-\item $\mathrm{wt}(\Phi_N) = \kBKM$: the Borcherds weight of the
-paramodular lift, via $c_N(0)/2$.
-\item \emph{Primary source}: the theorem establishing the sibling.
-\item \emph{Status at Vol III scope}.
-\end{itemize}
+The principal surface is
+\[
+ \Sigma_2^{(1)}=S\times\{p\}=p_E^{-1}(p).
+\]
+On the principal \(K3\times E\) recognition locus of
+Theorem~\ref{thm:g-delta5-is-sp-k3}, the Stage-\(2\) algebra is
+\[
+ A_{S,E}:=\SpCh_{\Sigma_2^{(1)},E}
+ \bigl(\PhiFA_3(\Perf(S\times E))\bigr)
+ \simeq U_{\mathrm{ch}}(\mathfrak g_{\Delta_5})
+\]
+as an \(\Eone\)-chiral algebra on \(E\).  The automorphic test attached
+to the target is
+\[
+ \kBKM(\Delta_5)=\mathrm{wt}(\Delta_5)
+ =\frac{c_1(0)}2=\frac{10}{2}=5.
+\]
+The K3 elliptic-genus convention with a doubled Jacobi form belongs to
+the Igusa-square normalisation.  In the theta normalisation,
+\[
+ [q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64,\qquad
+ D_5=64^{-1}\Delta_5,
+\]
+and the denominator algebra uses
+\[
+ \operatorname{den}(\mathfrak g_{\Delta_5})=D_5(2Z)
+ =64^{-1}\Delta_5(2Z).
+\]
+The square normalisation gives
+\[
+ \Phi_{10}^{\theta}=(\Delta_5)^2,\qquad
+ \mathrm{wt}(\Phi_{10}^{\theta})=10.
+\]
+Thus the primitive BKM denominator has characteristic \(5\), while its
+Igusa square has weight \(10\).
+
+\section*{Gaiotto curves, Siegel targets, and product periods}
+\label{wn:sec:gaiotto-siegel-product-periods}
+
+The class-\(\mathcal S\) parent of the Igusa corner is
+\[
+ \cT_{24}:=\cT[A_1,\Sigma_{0,24}],
+ \qquad
+ \Sigma_{0,24}=(\PP^1;p_1,\ldots,p_{24}),
+\]
+where all \(24\) punctures are maximal regular \(\su(2)\)-punctures.
+For \(A_1\) on a punctured sphere,
+\[
+ n_v(\Sigma_{0,n})=3(n-3),\qquad
+ n_h(\Sigma_{0,n})=4(n-2),
+\]
+and the Shapere--Tachikawa normalisation gives
+\[
+ c_{4d}=\frac{2n_v+n_h}{12},\qquad c_{2d}=-12c_{4d}.
+\]
+At \(n=24\),
+\[
+ (n_v,n_h)=(63,88),\qquad
+ c_{4d}\bigl(\cT[A_1,\Sigma_{0,24}]\bigr)=\frac{107}{6},
+ \qquad c_{2d}=-214.
+\]
+
+The closed genus-two class-\(\mathcal S\) curve \(\Sigma_{2,0}\) has two
+trinions and three gauged \(SU(2)\) tubes, hence
+\[
+ (n_v,n_h)=(9,8),\qquad
+ c_{4d}\bigl(\cT[A_1,\Sigma_{2,0}]\bigr)=\frac{13}{6},
+ \qquad c_{2d}=-26.
+\]
+It has no \(24\)-puncture labels, no \(\su(2)^{24}\) flavour algebra,
+and no \(M_{24}\)-permutation datum.  The Schur parent with
+\((c_{4d},c_{2d})=(107/6,-214)\) is \(\cT[A_1,\Sigma_{0,24}]\).
+
+The comparison targets have different source categories:
+\[
+\begin{array}{rcl}
+\Sigma_2\subset S\times E
+&\longmapsto&
+\SpCh_{\Sigma_2,E}\bigl(\PhiFA_3(\Perf(S\times E))\bigr),\\[0.35em]
+\Sigma_{0,24}
+&\longmapsto&
+\chi\bigl(\cT[A_1,\Sigma_{0,24}]\bigr),\\[0.35em]
+Z\in\HH_2
+&\longmapsto&
+A_Z=\mathbb C^2/(\mathbb Z^2+Z\mathbb Z^2)\in\cA_2,\\[0.35em]
+(S,E)
+&\longmapsto&
+[\omega_S\otimes\omega_E]\in
+\PP\bigl(F^3H^3(S\times E,\mathbb C)\bigr).
+\end{array}
+\]
+Here \(\cA_2=\mathrm{Sp}_4(\mathbb Z)\backslash\HH_2\) is the moduli
+stack of principally polarised abelian surfaces, and
+\[
+ H^3(S\times E,\mathbb Z)=H^2(S,\mathbb Z)\otimes H^1(E,\mathbb Z)
+\]
+is the product variation of Hodge structure.  The Gaiotto moduli of
+punctured curves, the Siegel moduli \(\cA_2\), the Humbert divisors in
+\(\cA_2\), and the product period locus of \(S\times E\) meet only after
+an explicit comparison datum has been supplied, such as a Kummer or
+Shioda--Inose construction from a principally polarised abelian surface
+to a K3 surface, or a Kuga--Satake-type period comparison with named
+lattice embedding.
+
+The Schur-to-Borcherds bridge is the typed composite
+\[
+ \cI_{\Schur}\bigl(\cT[A_1,\Sigma_{0,24}]\bigr)
+ \xrightarrow{\ \Pi_{M_{24}}\ }
+ \phi^{K3}_{0,1}(\tau,z)
+ \xrightarrow{\ \Borch\ }
+ \Delta_5
+ \rightsquigarrow
+ \fg_{\Delta_5}.
+\]
+The first arrow is the \(M_{24}\)-equivariant average on the
+puncture-labelled Schur data; the second is the Borcherds lift of the
+Gritsenko--Nikulin normalised K3 Jacobi form with \(c_1(0)=10\).
+
+\section*{CHL correspondences and Borcherds targets}
+\label{wn:sec:chl-correspondences}
+
+For \(N\in\{1,2,3,4,6\}\), choose a symplectic automorphism
+\(g_N\in\Aut(S)\) of order \(N\) and a primitive torsion translation
+\(\tau_N\in E[N]\).  The diagonal action
+\[
+ \langle g_N\times \tau_N\rangle\curvearrowright S\times E
+\]
+is free because the elliptic translation has no fixed point.  The CHL
+threefold is
+\[
+ X_N=(S\times E)/\langle g_N\times\tau_N\rangle.
+\]
+The cycle-level datum for \(N>1\) is therefore an equivariant
+correspondence
+\[
+ S\times E \xleftarrow{\ q_N\ } S\times E
+ \xrightarrow{\ \pi_N\ } X_N,
+\]
+together with an \(N\)-equivariant surface class on the quotient or on
+its resolved inertia correspondence.  The fixed locus \(\Fix(g_N)\)
+controls the twined Jacobi coefficient and the Du Val type of the K3
+quotient; by itself it supplies fixed-point data, with complex surfaces
+appearing after quotient or inertia resolution.  For nontrivial
+symplectic \(g_N\), \(\Fix(g_N)\) is
+zero-dimensional:
+\[
+ \chi(\Fix(g_N))=(8,6,4,2)\quad\text{for}\quad N=(2,3,4,6).
+\]
+The corresponding cyclic quotient singularity types are
+\[
+ 8A_1,\qquad 6A_2,\qquad 4A_3+2A_1,\qquad 2A_5+2A_2+2A_1.
+\]
+Exceptional curves in the resolved K3 quotient and their products with
+the elliptic direction provide the geometric surface pieces in the
+CHL quotient geometry.
+
+The automorphic side is already determined.  Let
+\(\Delta_{k(N)}^{(N)}\) be the Gritsenko--Nikulin CHL Borcherds product
+attached to the \(g_N\)-twined weak Jacobi form of weight \(0\) and
+index \(1\).  The symbol \(c_N(0)\) denotes the Borcherds-input
+constant in the CHL normalisation, fixed by \(c_1(0)=10\).  Borcherds'
+weight formula gives
+\[
+ \kBKM(\Delta_{k(N)}^{(N)})=\mathrm{wt}(\Delta_{k(N)}^{(N)})
+ =\frac{c_N(0)}2.
+\]
+The primitive CHL constants are
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\ \hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM & 5 & 4 & 3 & 2 & 1
+\end{array}
+\]
+with sources Gritsenko--Nikulin 1995 Part II, Gritsenko 1999,
+Borcherds 1998 Theorem 13.3, and the CHL weight table of
+Govindarajan--Krishna 2010.  These values are independent of the
+compact Hodge supertrace on \(X_N\).
 
 \begin{center}
-\renewcommand{\arraystretch}{1.35}
+\renewcommand{\arraystretch}{1.25}
 \small
-\begin{tabular}{c|l|l|c|l|l}
+\begin{tabular}{c|l|l|c|l}
 \hline
-\# & Cycle $\Sigma_2$ & Ambient $M_{24}$-class & $\kBKM$ & $\Phi_N$ & Status
-\\ \hline
-$(\mathrm{i})$ & $K3 \times \{p\}$ fibre & $1A$ (trivial) & $5$
-  & $\Delta_5$ & \ClaimStatusTheorem\ (N=1)
-\\
-$(\mathrm{ii})$ & $E \times S^1_{g_2}$, $g_2 \in \Aut_{\symp, 2}(K3)$ & $2A$ (Nikulin $8A_1$)
-  & $4$ & $\Phi_2$ GN & \ClaimStatusTheorem\ (N=2)
-\\
-$(\mathrm{iii})$ & $\Gamma_{g_3} \cap (K3 \times E)$, $g_3 \in \Aut_{\symp, 3}(K3)$ & $3A$ (Nikulin $6A_2$)
-  & $3$ & $\Phi_3$ GN & \ClaimStatusProvedElsewhere\ (N=3)
-\\
-$(\mathrm{iv})$ & $\Gamma_{g_4} \cap (K3 \times E)$, $g_4 \in \Aut_{\symp, 4}(K3)$ & $4A$ (Nikulin $4A_1 + 2A_3$)
-  & $2$ & $\Phi_4$ GN & \ClaimStatusProvedElsewhere\ (N=4)
-\\
-$(\mathrm{v})$ & $\Gamma_{g_6} \cap (K3 \times E)$, $g_6 \in \Aut_{\symp, 6}(K3)$ & $6A$ (Hashimoto $2A_5 + 2D_4$)
-  & $1$ & $\Phi_6$ GN & \ClaimStatusProvedElsewhere\ (N=6)
-\\
-$(\mathrm{vi})$ & $H_d \times E$, $H_d \subset K3$ Humbert divisor & (lattice-polarised)
-  & $n_d$ & $\Psi_{H_d}$ & \ClaimStatusOpen
-\\
+\(N\) & Geometric datum & Quotient input & \(\kBKM\) & Established input and missing construction \\
+\hline
+1 & \(S\times\{p\}\subset S\times E\) & identity & \(5\)
+  & Theorem~\ref{thm:g-delta5-is-sp-k3} on the recognition locus \\
+2 & \(\mathbb Z/2\)-CHL quotient correspondence & \(8A_1\) & \(4\)
+  & Oberdieck CHL reduced-DT input; equivariant \(\SpCh\) construction required \\
+3 & \(\mathbb Z/3\)-CHL quotient correspondence & \(6A_2\) & \(3\)
+  & Borcherds product fixed; equivariant Hall comparison required \\
+4 & \(\mathbb Z/4\)-CHL quotient correspondence & \(4A_3+2A_1\) & \(2\)
+  & Borcherds product fixed; quotient-surface \(\SpCh\) datum required \\
+6 & \(\mathbb Z/6\)-CHL quotient correspondence & \(2A_5+2A_2+2A_1\) & \(1\)
+  & Borcherds product fixed; abelian-composition DT comparison required \\
 \hline
 \end{tabular}
 \end{center}
 
-Each of cycles (i)--(v) is the product of a K3-invariant $2$-cycle of
-the $\mathbb{Z}/N$-symplectic automorphism $g_N$ with the corresponding
-invariant $1$-cycle on $E$ under the CHL shift $h_N \in E[N]$ (the
-$N$-torsion point on $E$ translating by $1/N$ of a period). The
-construction is:
-
-\begin{definition}[The CHL specialisation cycle $\Sigma_2^{(N)}$]
-\label{wn:def:wave15-b2-sigma2-N-chl}
-Fix $N \in \{1, 2, 3, 4, 6\}$. Choose a symplectic automorphism
-$g_N \in \Aut_{\symp}(K3)$ of order $N$ (Mukai class; unique up to
-conjugation at $N \in \{1, 3, 4\}$ in Mukai's Table~2, and the
-distinguished Niemeier-umbral class at $N \in \{2, 6\}$). Choose
-$h_N \in E[N] \setminus \{0\}$ a primitive $N$-torsion point. The
-specialisation cycle is
+Thus Corollary~\ref{cor:sibling-BKMs-from-one-phiFA} has two different
+levels.  At \(N=1\) the K3-fibre specialisation is constructed under
+the finite Hall--Borcherds recognition gate.  At
+\(N\in\{2,3,4,6\}\) the Borcherds denominator and its weight are
+theorems, while the \(\Eone\)-chiral equality
 \[
- \Sigma_2^{(N)} \;=\;
- \{ (s, e) \in K3 \times E \mid g_N(s) = s,\ N e = e_{h_N}\},
+ \SpCh_{\Sigma_2^{(N)},E}\bigl(\PhiFA_3(\Perf(S\times E))\bigr)
+ \simeq U_{\mathrm{ch}}(\mathfrak g_{\Delta_{k(N)}^{(N)}})
 \]
-the product of the $g_N$-fixed locus on $K3$ with the $h_N$-invariant
-$1$-cycle on $E$. At $N = 1$, $\Sigma_2^{(1)} = K3 \times \{p\}$ is the
-full K3-fibre over a point $p \in E$, and the definition reduces to the
-canonical fibre cycle of Theorem~\ref{thm:g-delta5-is-sp-k3}. At $N = 2$
-the fixed locus $K3^{g_2}$ consists of $8$ isolated $A_1$-singularities
-(Nikulin class $8A_1$), and $\Sigma_2^{(2)} = K3^{g_2} \times
-S^1_{h_2}$ has topological dimension $4$ only after resolving the
-$A_1$-quotient to the Nikulin resolution $\widetilde{K3/g_2}$. At
-$N = 3, 4, 6$ the $g_N$-fixed locus has positive topological dimension
-(Mukai 1988 Table 2: $N=3$ has fixed $6A_2 = 6$ isolated; $N=4$ has
-$4A_1 + 2A_3 = 4$ isolated plus two $\mathbb{P}^1$-components; $N=6$ has
-$2A_5 + 2D_4 = 2$ isolated plus two $\mathbb{P}^1$-components,
-Hashimoto 2012 Table 5).
-\end{definition}
+requires an equivariant oriented hCS-to-Hall comparison, a quotient
+surface specialisation datum, PBW/no-extra-relations at the Hall
+presentation, and compatibility with the Borcherds product denominator.
 
-\begin{remark}[The product structure $\Sigma_2^{(N)} = \Fix(g_N) \times S^1_{h_N}$]
-The key reason $\Sigma_2^{(N)}$ is $2$-complex-dimensional is the
-product-times-point dimension count:
-$\dim_{\mathbb{C}} \Fix(g_N) + \dim_{\mathbb{C}} S^1_{h_N} = 2 + 0 = 2$
-at $N = 1$ (the K3-fibre), and
-$\dim_{\mathbb{C}} (\text{isolated points}) + 1 = 0 + 1 = 1$ at $N = 2$
-(Oberdieck's section $\times$ invariant-circle), not $2$. The Oberdieck
-2017 construction resolves this dimension mismatch by thickening the
-isolated Nikulin fixed points to $8$ exceptional divisors on the
-Kummer-resolution $\widetilde{K3/g_2}$, each contributing an
-$A_1$-exceptional $\mathbb{P}^1$ crossed with $S^1_{h_2}$ as the
-$2$-cycle indexing the CHL shadow. At $N = 3, 4, 6$ the positive-dim
-fixed components contribute directly to the $2$-cycle without Kummer
-resolution.
-\end{remark}
+\section*{Gritsenko--Clery row normalisations}
+\label{wn:sec:gc-normalisations}
 
-\subsection*{Row-by-row primary-source derivations}
-
-\begin{theorem}[Sibling BKM at $N = 1$: the Igusa--Borcherds shadow]
-\label{wn:thm:wave15-b2-sibling-N1}
-\ClaimStatusTheorem\
-The specialisation cycle $\Sigma_2^{(1)} = K3 \times \{p\}$ produces
+The CHL ladder above is separate from the Gritsenko--Clery dd-modular
+catalogue.  The GC classification is indexed by triples
 \[
- \SpCh_{\Sigma_2^{(1)}, E}\!\bigl(\PhiFA_3(\Perf(K3 \times E))\bigr)
- \;\simeq\; U_{\mathrm{ch}}(\mathfrak{g}_{\Delta_5}),
+ (t,N;k)\in
+ \{(1,1;5),(2,1;2),(1,2;3),(3,1;1),
+   (1,3;2),(4,1;\tfrac12),(1,4;\tfrac32),(2,2;1)\}.
 \]
-the vertex envelope of the Gritsenko--Nikulin BKM superalgebra with
-Borcherds weight $\kBKM(\Delta_5) = c_{\phi_{0,1}}(0, 0)/2 = 10/2 = 5$
-and root multiplicities $\mathrm{mult}(\alpha) = f(nm, \ell)$ for
-$\alpha = (n, \ell, m) \in \Lambda^{2,1}_+$.
-\end{theorem}
-\begin{proof}[Primary source.]
-Theorem~\ref{thm:g-delta5-is-sp-k3}
-(\texttt{chapters/theory/cy\_to\_chiral.tex} line~171). Inputs:
-Oberdieck--Pixton 2018 (\emph{Ann.\ of Math.}~187) DT zeta
-$Z^{K3 \times E}_{\mathrm{DT}, \mathrm{red}} = C \cdot \Delta_5^{-2}$;
-Borcherds 1998 (\emph{Invent.\ Math.}~132, Thm.~13.3) product expansion
-of $\Delta_5$; Gritsenko--Nikulin 1995/1998 (arXiv:alg-geom/9504006;
-\emph{Internat.\ Math.\ Res.\ Notices}~1998:15) BKM-denominator
-identification; Lorgat 2020 \S2 explicit Weyl-vector and
-simple-root-multiplicities computation.
-\end{proof}
-
-\begin{theorem}[Sibling BKM at $N = 2$: the CHL Oberdieck shadow]
-\label{wn:thm:wave15-b2-sibling-N2}
-\ClaimStatusTheorem\
-Let $g_2 \in \Aut_{\symp, 2}(K3)$ be Mukai's order-$2$ symplectic
-automorphism (Nikulin fixed locus $8A_1$; $M_{24}$-class $2A$; Mukai
-Table~2). Let $h_2 \in E[2] \setminus \{0\}$. The specialisation cycle
-$\Sigma_2^{(2)} = \widetilde{K3/g_2} \cdot [E_{\mathrm{twist}}]$ --- the
-Oberdieck CHL $\mathbb{Z}/2$-orbifold of the Kummer-resolution of the
-$g_2$-quotient $K3$ fibred over the $h_2$-twist of $E$ --- produces
+For each row \(F_{t,N}\),
 \[
- \SpCh_{\Sigma_2^{(2)}, E}\!\bigl(\PhiFA_3(\Perf(K3 \times E))\bigr)
- \;\simeq\; U_{\mathrm{ch}}(\mathfrak{g}_{\Phi_2}),
+ \kBKM(F_{t,N})=\mathrm{wt}(F_{t,N})=k.
 \]
-the vertex envelope of the Gritsenko--Nikulin paramodular BKM with
-$\kBKM(\Phi_2) = c_2(0)/2 = 8/2 = 4$ and root multiplicities
-$\mathrm{mult}(\alpha) = f^{(g_2)}(nm, \ell)$ where $f^{(g_2)}$ are the
-Fourier coefficients of the $g_2$-twined K3 elliptic genus
-$\phi^{(g_2)}_{0, 1}$.
-\end{theorem}
-\begin{proof}[Primary source.]
-Oberdieck 2017 (arXiv:1706.04948) Theorem~1.1 proves the refined
-Oberdieck--Pixton identity at the $\mathbb{Z}/2$-CHL quotient; the
-paramodular Borcherds lift $\Phi_2$ is Gritsenko--Nikulin 1998 Thm~1.2
-for $N = 2$. Bryan--Oberdieck 2017 (arXiv:1712.01593) extends to the
-$(N, M)$-bi-parametrised setting. The $g_2$-twined K3 elliptic genus
-$\phi^{(g_2)}_{0, 1}$ has Fourier head $(c^{(g_2)}(-1, 1),
-c^{(g_2)}(0, 0)) = (0, 8)$ by the Eguchi--Ooguri--Tachikawa 2011 Table~1
-($M_{24}$-class $2A$, frame shape $1^8 2^8$); the Gritsenko-additive
-lift combined with Borcherds' weight theorem (Borcherds 1998 Thm.~13.3)
-gives $\kBKM(\Phi_2) = 8/2 = 4$.
-\end{proof}
-
-\begin{theorem}[Sibling BKM at $N = 3$: the CHL $\mathbb{Z}/3$-shadow]
-\label{wn:thm:wave15-b2-sibling-N3}
-\ClaimStatusProvedElsewhere\
-Let $g_3 \in \Aut_{\symp, 3}(K3)$ be Mukai's order-$3$ symplectic
-automorphism (Nikulin fixed locus $6 A_2$, i.e.\ $6$ isolated points;
-$M_{24}$-class $3A$; Mukai Table~2 row $3$). Let $h_3 \in E[3]$. The
-specialisation cycle $\Sigma_2^{(3)} = \widetilde{K3/g_3}
-\cdot [E_{h_3}]$ --- the Nikulin-resolved $\mathbb{Z}/3$-orbifold fibred
-over the $h_3$-twisted $E$ --- produces
+The doubled row constants are
 \[
- \SpCh_{\Sigma_2^{(3)}, E}\!\bigl(\PhiFA_3(\Perf(K3 \times E))\bigr)
- \;\simeq\; U_{\mathrm{ch}}(\mathfrak{g}_{\Phi_3}),
+ 2k=(10,4,6,2,4,1,3,2)
 \]
-with $\kBKM(\Phi_3) = c_3(0)/2 = 6/2 = 3$ and root multiplicities
-$\mathrm{mult}(\alpha) = f^{(g_3)}(nm, \ell)$.
-\end{theorem}
-\begin{proof}[Primary source.]
-The $g_3$-twined K3 elliptic genus has frame shape $1^6 3^6$ (EOT 2011
-Table 1, class $3A$) and Fourier head $(c^{(g_3)}(-1, 1),
-c^{(g_3)}(0, 0)) = (0, 6)$; the Gritsenko-additive lift is the
-paramodular Borcherds lift $\Phi_3 \in M_3(\Gamma_3)$ (Gritsenko 1999
-arXiv:math/9906191 Thm.~3.4; Gritsenko--Nikulin 1998 Thm.~1.5). The
-Borcherds weight $\kBKM(\Phi_3) = c_3(0)/2 = 3$ follows from Borcherds
-1998 Thm.~13.3. Chiral-side identification of
-$U_{\mathrm{ch}}(\mathfrak{g}_{\Phi_3})$ with
-$\SpCh_{\Sigma_2^{(3)}, E}(\PhiFA_3)$ reduces to the Oberdieck CHL
-$N = 3$ reduced-DT identity
-$Z^{\CHL, 3}_{\mathrm{DT}, \mathrm{red}} = C_3 \cdot \Phi_3^{-2}$
-(Bryan--Oberdieck 2017 arXiv:1712.01593 Thm.~1.2 for $N = 3$;
-conditional on the Bryan--Oberdieck--Pandharipande--Yin 2018
-arXiv:1808.00846 orbifold-DT programme at $N = 3$).
-\end{proof}
+in the order displayed above.  The common row with the CHL ladder is
+\((t,N;k)=(1,1;5)\), where \(F_{1,1}=\Delta_5\).  Away from that row,
+the group, divisor, multiplier, and input Jacobi form have their own
+normalisation.  The CHL tuple \((10,8,6,4,2)\) and the GC tuple
+\((10,4,6,2,4,1,3,2)\) record different moduli problems.
 
-\begin{theorem}[Sibling BKM at $N = 4$: the CHL $\mathbb{Z}/4$-shadow]
-\label{wn:thm:wave15-b2-sibling-N4}
-\ClaimStatusProvedElsewhere\
-Let $g_4 \in \Aut_{\symp, 4}(K3)$ with Nikulin fixed locus $4 A_1 + 2
-A_3$; $M_{24}$-class $4A$; Mukai Table~2 row~$4$. Let $h_4 \in E[4]$.
-The specialisation cycle $\Sigma_2^{(4)} = \widetilde{K3/g_4}
-\cdot [E_{h_4}]$ produces
+\section*{Humbert and Noether--Lefschetz surfaces}
+\label{wn:sec:humbert-surface}
+
+Let \(\mathcal H_D\subset\cA_2\) be the Humbert divisor of discriminant
+\(D\): it parametrises principally polarised abelian surfaces whose
+N\'eron--Severi lattice contains a primitive rank-two sublattice of
+discriminant \(D\).  A K3 interpretation requires an additional period
+bridge.  Under a Shioda--Inose/Kummer hypothesis, an abelian surface
+\(A_Z\in\mathcal H_D\) gives a Kummer surface \(\mathrm{Kum}(A_Z)\) and
+a K3 surface \(S\) with \(T_S\simeq T_{A_Z}(2)\).  The Humbert condition
+then maps to a Noether--Lefschetz condition on \(S\): a primitive class
+\(\lambda\in\NS(S)\) with the corresponding discriminant convention is
+present in the K3 N\'eron--Severi lattice.
+
+When \(\lambda\) is effective, choose a curve \(D_\lambda\subset S\).
+Then
 \[
- \SpCh_{\Sigma_2^{(4)}, E}\!\bigl(\PhiFA_3(\Perf(K3 \times E))\bigr)
- \;\simeq\; U_{\mathrm{ch}}(\mathfrak{g}_{\Phi_4}),
+ \Sigma_{2,\lambda}=D_\lambda\times E
 \]
-with $\kBKM(\Phi_4) = c_4(0)/2 = 4/2 = 2$.
-\end{theorem}
-\begin{proof}[Primary source.]
-$g_4$-twined frame shape $1^4 2^2 4^4$ (EOT class $4A$) yields
-$c_4(0) = 4$ (Wave-10~T4 row $N = 4$); paramodular Borcherds lift
-$\Phi_4 \in M_2(\Gamma_4)$ (Gritsenko 1999 Thm.~3.4); BKM-denominator
-form by Borcherds 1998 Thm.~13.3 combined with Bryan--Steinberg 2016
-(arXiv:1607.02830) abelian-composition rule for the
-$\mathbb{Z}/4 = \mathbb{Z}/2 \times \mathbb{Z}/2$-chain of CHL
-orbifolds. Chiral-side identification conditional on BOPY 2018 at
-$N = 4$.
-\end{proof}
+is a complex surface in \(S\times E\).  This construction supplies the
+Noether--Lefschetz/Heegner surface type, separate from the CHL quotient
+correspondences.
 
-\begin{theorem}[Sibling BKM at $N = 6$: the CHL $\mathbb{Z}/6$-shadow]
-\label{wn:thm:wave15-b2-sibling-N6}
-\ClaimStatusProvedElsewhere\
-Let $g_6 \in \Aut_{\symp, 6}(K3)$ with Nikulin fixed locus $2A_5 + 2D_4$
-(Hashimoto 2012 Table~5); $M_{24}$-class $6A$; Niemeier anchor
-$6D_4$ (umbral group $3 \cdot \mathrm{Sym}_6$, order $2160$, selected
-by character match of $H^{(6)}$ with $\chi_{6D_4}$). Let $h_6 \in E[6]$.
-The specialisation cycle $\Sigma_2^{(6)} = \widetilde{K3/g_6}
-\cdot [E_{h_6}]$ produces
+The conjectural automorphic target is the Borcherds product attached to
+the Heegner divisor of \(\lambda\), as in Bruinier's singular-theta
+construction.  The missing theorem is the compatibility
 \[
- \SpCh_{\Sigma_2^{(6)}, E}\!\bigl(\PhiFA_3(\Perf(K3 \times E))\bigr)
- \;\simeq\; U_{\mathrm{ch}}(\mathfrak{g}_{\Phi_6}),
+ \SpCh_{\Sigma_{2,\lambda},E}\bigl(\PhiFA_3(\Perf(S\times E))\bigr)
+ \simeq U_{\mathrm{ch}}(\mathfrak g_{\lambda})
 \]
-with $\kBKM(\Phi_6) = c_6(0)/2 = 2/2 = 1$.
-\end{theorem}
-\begin{proof}[Primary source.]
-$g_6$-twined frame shape $1^2 2^2 3^2 6^2$ (EOT class $6A$) yields
-$c_6(0) = 2$; paramodular Borcherds lift $\Phi_6 \in M_1(\Gamma_6)$
-(Gritsenko 1999 Thm.~3.4; Gritsenko--Cl\'ery 2013 \emph{Compos.\ Math.}~149
-Thm.~1.1 row~$(t, N) = (1, 6)$ omitted by $tN \leq 4$ bound, recovered
-from the CHL side by abelian composition $\mathbb{Z}/6 = \mathbb{Z}/2
-\times \mathbb{Z}/3$). Bryan--Steinberg abelian-composition rule for
-the DT identity $Z^{\CHL, 6}_{\mathrm{DT}, \mathrm{red}} = C_6 \cdot
-\Phi_6^{-2}$ conditional on BOPY 2018 at $N = 6$. The Niemeier anchor
-$6 D_4$ with umbral outer group $3 \cdot \mathrm{Sym}_6$ selects the
-correct CFT root multiplicity data (CHP 2014 arXiv:1307.5793 Table~4
-row~$X^{(6)}$).
-\end{proof}
+after the Heegner/Borcherds lift, the Hall presentation, and the
+surface specialisation have been matched.  The required construction is
+the Bruinier--Freitag singular-theta lift transported through the
+\(K3\times E\) Stage-\(2\) specialisation.  The object belongs to the
+Noether--Lefschetz/Heegner lane, outside the five-entry CHL ladder.
 
-\begin{remark}[The Humbert sibling $\Sigma_2^{H_d} = H_d \times E$]
-\label{wn:rem:wave15-b2-humbert-sibling}
-The sixth cycle is the Humbert divisor class $H_d \subset K3$ (for a
-fixed discriminant $d$) crossed with $E$: $\Sigma_2^{(H_d)} = H_d
-\times E$. Here $H_d \subset K3$ is a rational curve whose class in
-$\NS(K3)$ is a rank-$2$ primitive isotropic vector of discriminant $d$
-(Bruinier 2002, \emph{LNM} 1780, Ch.~3). On the B-model side, $H_d
-\times E$ is a Fourier--Mukai transform applied to a lattice-polarised
-K3 with discriminant $d$. The sibling-BKM is conjecturally the
-Bruinier--Freitag lift of the $H_d$-trace, with weight $\kBKM$ equal to
-the Heegner-divisor intersection number $\langle H_d, H_{d'} \rangle$.
-This sibling is not in the CHL tower and is not in the full
-Gritsenko--Cl\'ery atlas; it is a \emph{non-CHL} sibling whose
-CY$_3$-host is a Borcea--Voisin threefold fibred over a discriminant-$d$
-Humbert surface (Borcea 1997, Voisin 1993). Status:
-\ClaimStatusOpen\ --- the Humbert-class BKM identification is a
-conjecture awaiting the Bruinier--Freitag singular-theta machinery
-adapted to the $E$-product geometry.
-\end{remark}
+\section*{Invariant separation}
+\label{wn:sec:invariant-separation}
 
-\subsection*{Physical M$5$-wrapping realisations}
-
-Each sibling BKM has an M-theoretic realisation as the algebra of
-BPS states on a $5$-brane wrapping $\Sigma_2^{(N)}$ times a
-$1$-cycle $\gamma \subset E$, reducing to a chiral algebra on
-$E \setminus \{\mathrm{pt}\}$.
-
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\small
-\begin{tabular}{c|l|l|l}
-\hline
-\# & Physical realisation & Sibling & Microscopic interpretation
-\\ \hline
-$(\mathrm{i})$ & M$5$-brane on $K3 \times S^1_E$ & $\mathfrak{g}_{\Delta_5}$
- & 5d MSW string, $\mathcal{N} = 4$ SCA
-\\
-$(\mathrm{ii})$ & M$5$-brane on $\widetilde{K3/g_2} \times S^1_E$ & $\mathfrak{g}_{\Phi_2}$
- & $\mathcal{N} = 4$ CHL dyons, $1/4$-BPS
-\\
-$(\mathrm{iii})$ & M$5$-brane on $\widetilde{K3/g_3} \times S^1_E$ & $\mathfrak{g}_{\Phi_3}$
- & $\mathbb{Z}/3$ CHL, $1/2$-BPS sub-index
-\\
-$(\mathrm{iv})$ & M$5$-brane on $\widetilde{K3/g_4} \times S^1_E$ & $\mathfrak{g}_{\Phi_4}$
- & $\mathbb{Z}/4$ CHL, $1/2$-BPS sub-index
-\\
-$(\mathrm{v})$ & M$5$-brane on $\widetilde{K3/g_6} \times S^1_E$ & $\mathfrak{g}_{\Phi_6}$
- & $\mathbb{Z}/6$ CHL, $1/2$-BPS sub-index
-\\
-$(\mathrm{vi})$ & M$5$-brane on $H_d \times S^1_E$ & $\mathfrak{g}_{H_d}$ (conj)
- & Humbert-locus defect line
-\\
-\hline
-\end{tabular}
-\end{center}
-
-The $1$-cycle $\gamma \subset E$ reduction performs the Kaluza--Klein
-compactification at level $h_N \in E[N]$: the monodromy of the
-M$5$-brane Lagrangian around $\gamma$ restricts the CHL-orbifold
-symmetry to the $\mathbb{Z}/N$-invariant subalgebra, yielding
-$\mathfrak{g}_{\Phi_N}$ as the BPS algebra on the resulting $4d$
-boundary.
-
-\subsection*{Match against Lorgat 2020 Conjecture~1}
-
-The five rows $N \in \{1, 2, 3, 4, 6\}$ are the \emph{CHL slice} of the
-Lorgat 2020 Conjecture~1 classification (eight-form Gritsenko--Cl\'ery
-atlas). The CHL slice is strictly smaller than the full eight-form
-atlas: the eight GC-forms are indexed by paramodular pair $(t, N)$
-with $tN \leq 4$, producing
+For the compact product \(X=S\times E\),
 \[
- \{(1, 1), (1, 2), (1, 3), (1, 4), (2, 1), (2, 2), (3, 1), (4, 1)\},
+ \kcat(X)=\chi(\mathcal O_S)\chi(\mathcal O_E)=2\cdot0=0.
 \]
-with $\kBKM$ values $(5, 2, 1, 1, 2, 1, 1, 1/2)$ (Wave-11 V3 row
-sequence). The CHL-shadow slice of interest for the sibling catalogue
-is the diagonal sub-slice $(t, N) = (1, N)$ with $N \in \{1, 2, 3, 4\}$
-plus the $\mathbb{Z}/6 = \mathbb{Z}/2 \times \mathbb{Z}/3$ abelian
-composition at $N = 6$ (Bryan--Steinberg); this gives the CHL
-$\kBKM$-sequence $(5, 4, 3, 2, 1)$. The discrepancy with the full
-GC-sequence at $N = 2, 3, 4$ arises from the choice of paramodular
-polarisation: the CHL sequence indexes the $\Phi_N$-forms on
-$\Gamma_N$ with the CHL-level-matching polarisation $t = 1$, $N = 1$
-but with a twisting character $\nu_N$; the GC-sequence indexes
-$\Phi_{t, N}$ on $\Gamma_t(N)$ with a different paramodular
-polarisation. Both tower structures satisfy $\kBKM(\Phi_N) = c_N(0)/2$
-but with different $c_N(0)$ inputs; the CHL-side Fourier coefficient
-$c^{\CHL}_N(0) = $ the twined elliptic-genus zero coefficient at class
-$NA$, while the GC-side $c^{\GC}_N(0)$ is the zero-coefficient of the
-additive-lift input at paramodular index $(t, N)$.
+The compact chiral Hodge supertrace also vanishes:
+\[
+ \kch(X)=\sum_{q=0}^3(-1)^q h^{0,q}(X)
+ =1-1+1-1=0.
+\]
+The Heisenberg witness attached to the principal Stage-\(2\) shadow has
+\[
+ \kHeis(X)=3,
+\]
+the rank of the signature-\((2,1)\) Cartan in the
+\(\Delta_5\) Borcherds comparison.  The fibre invariant is
+\[
+ \kfib(X)=24,
+\]
+the rank of the K3 Mukai lattice.  The BKM invariant at CHL level \(N\)
+is
+\[
+ \kBKM(\Delta_{k(N)}^{(N)})=\frac{c_N(0)}2.
+\]
+Consequently
+\[
+ \{\kcat,\kch,\kHeis,\kBKM,\kfib\}(K3\times E)
+ =\{0,0,3,5,24\}
+\]
+at the principal denominator normalisation.  The commonly quoted
+\(\{0,3,5,24\}\) spectrum suppresses the compact \(\kch=0\) entry and
+records the Heisenberg witness \(3\) in the four-entry shorthand.
 
-The non-CHL sibling $(N, M) = (1, 2)$ with $\kBKM = 2$ (GC row~\#$3$)
-and the Humbert sibling $\Sigma_2^{(H_d)}$ (Remark~\ref{wn:rem:wave15-b2-humbert-sibling})
-are not in the CHL tower but lie in the full eight-form GC atlas or
-the conjectural non-CHL extension (Borcea--Voisin at $N = 5$;
-Mongardi--Tari--Wandel at $N = 8$; $N = 7$ obstructed by Nikulin
-fixed-count constraints).
+No addition law links these columns.  At \(N=1\), any rule formed from
+the compact \(\kch(X)\) and \(\chi(\mathcal O_E)\) gives \(0\), while
+the Borcherds product gives \(\kBKM(\Delta_5)=5\).  At \(N=2\), the
+Borcherds product gives \(c_2(0)/2=4\).  The governing identity is
+\[
+ \kBKM(\Delta_{k(N)}^{(N)})=c_N(0)/2.
+\]
 
-\subsection*{Scope-by-scope status declaration}
+\section*{Hall and Yangian separation}
+\label{wn:sec:hall-yangian-separation}
 
-\begin{proposition}[Scope declaration for the six-cycle catalogue]
-\label{wn:prop:wave15-b2-scope-declaration}
-The sibling BKMs of the six-cycle catalogue have the following scope
-of proof, each at the chain level via the Borcherds product expansion
-and at the $(\infty, 1)$-categorical level via the factorisation-algebra
-specialisation $\SpCh_{\Sigma_2^{(N)}, E}$:
-\begin{itemize}
-\item $(\mathrm{i})$ $N = 1$: \ClaimStatusTheorem\ (both lanes;
-Theorem~\ref{thm:g-delta5-is-sp-k3}).
-\item $(\mathrm{ii})$ $N = 2$: \ClaimStatusTheorem\ at the chain level
-(Oberdieck 2017 Thm.~1.1); $(\infty, 1)$-categorical
-identification conditional on the Stage-$2$ specialisation functor
-being well-defined on the $\mathbb{Z}/2$-CHL orbifold.
-\item $(\mathrm{iii})$--$(\mathrm{v})$ $N \in \{3, 4, 6\}$:
-\ClaimStatusProvedElsewhere\ at the chain level (Gritsenko 1999 +
-Bryan--Oberdieck 2017 + Bryan--Steinberg 2016); conditional on the
-BOPY 2018 orbifold-DT programme at $N \in \{3, 4, 6\}$ and the
-Nikulin-resolution compatibility with the chiral-side
-$\SpCh_{\Sigma_2^{(N)}, E}$.
-\item $(\mathrm{vi})$ Humbert sibling: \ClaimStatusOpen. The
-Bruinier--Freitag singular-theta machinery for the $H_d$-lift is
-established (Bruinier 2002); its compatibility with the $\PhiFA_3$
-specialisation along $H_d \times E$ is an open problem at the Vol~III
-frontier.
-\end{itemize}
-The four $\kappa$-invariants at each sibling separate cleanly by
-Stage (Remark~\ref{rem:four-kappa-stage-assignment}):
-$\kcat(X) = 0$ Stage-$1$ constant across all siblings (K\"unneth
-multiplicative, $\chi(\mathcal{O}_E) = 0$);
-$\kBKM(\Phi_N) = c_N(0)/2$ Stage-$2$ invariant depending on the cycle;
-$\kfib$ tracks the Hodge-datum discrepancy between $\Sigma_2^{(N)}$ and
-$X$; $\kch$ the Hodge-supertrace of the resulting $E_1$-chiral shadow
-on $E$. The universal identity is $\kBKM(\Phi_N) = c_N(0)/2$; the
-naive additivity $\kBKM = \kch + \chi(\mathcal{O}_{\mathrm{fibre}})$
-\emph{fails} at every $N \in \{1, 2, 3, 4, 6\}$ (at $N = 1$,
-LHS $= 5$, RHS $= 0 + 0 = 0$; at $N = 2$, LHS $= 4$, RHS $= 1$;
-Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}).
-\end{proposition}
+The Borcherds algebra in the principal \(K3\times E\) lane is the
+Hall--Drinfeld/BKM object recognised after the compact Hall
+presentation, radical quotient, and Borcherds denominator comparison.
+The K3 self-mirror Yangian branch is a separate CY\(_2\) construction
+from the Mukai-Heisenberg output of \(\Phi_2(D^b\Coh(K3))\).
+The class-\(\mathcal S\)/VOA branch begins with
+\(\cT[A_1,\Sigma_{0,24}]\) and the Schur functor; it reaches
+\(\Delta_5\) through the \(M_{24}\)-averaged Jacobi form and the
+Borcherds lift.  These are three branches with typed comparison maps:
+Hall--Drinfeld/BKM, Yangian/Mukai, and class-\(\mathcal S\)/VOA.
 
-\subsection*{Open frontiers from the catalogue}
+The toric reference follows the same positive-half discipline:
+\[
+ \mathrm{CoHA}(\mathbb C^3)=Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The full \(\mathcal W_{1+\infty}\) algebra is recovered after the
+Drinfeld double, centre, completion, or evaluation passage.  This is
+the model for reading every \(d=3\) Hall comparison: the native
+\(\Phi_3\) output is \(\Eone\)-chiral, and additional braided or full
+vertex structure has to be named.
 
-\begin{itemize}
-\item (Humbert-class specialisation, $N \geq 5$ non-CHL)
-Construction of $\SpCh_{H_d \times E, E}(\PhiFA_3)$ at arbitrary
-Humbert discriminant $d$; its identification with the Bruinier--Freitag
-BKM $\mathfrak{g}_{H_d}$; Borcea--Voisin $N = 5$ host compatibility.
-\item (Niemeier-anchor refinement at $N = 6$) The $6D_4$ Niemeier anchor
-selects the correct $\mathfrak{g}_{\Phi_6}$ root-system decomposition;
-the alternative $4A_5 + D_4$ anchor (outer group $S_3 \times S_3$)
-produces a distinct candidate sibling whose DT compatibility is open.
-\item (Bi-parametrised $(t, N)$-siblings) The four non-diagonal GC-forms
-$(t, N) \in \{(2, 1), (3, 1), (4, 1)\}$ and $(t, N) = (1, 2)$ produce
-four additional non-CHL siblings whose cycle-level realisation is a
-thickening of $\Sigma_2^{(1)}$ by the $t$-fold cover of the fibre;
-identification of each with a concrete $\Sigma_2^{(t, N)} \subset K3 \times E$
-is conjectural.
-\item ($N = 5, 7, 8$ non-CHL hosts) At $N = 5$ the Borcea--Voisin host
-replaces $K3 \times E$ by a twisted product; the sibling lives on the
-non-$K3 \times E$ side of the non-CHL tower. At $N = 7$ no admissible
-symplectic K3 host exists (Nikulin fixed-count $3$ breaks
-theta-parity). At $N = 8$ the Mongardi--Tari--Wandel Kummer-$3$
-fourfold provides a candidate non-K3$\times$E host.
-\end{itemize}
+\section*{M5 wrapping heuristic}
+\label{wn:sec:m5-wrapping}
 
-\subsection*{References}
+The physical interpretation is a heuristic.  An M5-brane wraps a
+four-real-dimensional specialisation surface and a circle in the
+elliptic direction, with time supplying the sixth worldvolume
+direction:
+\[
+ \mathrm{M5}\quad\text{on}\quad \Sigma_2\times S^1_E\times \mathbb R_t.
+\]
+For \(N=1\), \(\Sigma_2=S\times\{p\}\) gives the
+\(\mathfrak g_{\Delta_5}\) BPS algebra after the Hall--Borcherds
+recognition gate.  For \(N>1\), the wrapped surface lies in the CHL
+quotient or its resolved inertia correspondence.  The monodromy around
+\(S^1_E\) imposes the \(\mathbb Z/N\)-equivariant sector and predicts
+the BPS algebra \(\mathfrak g_{\Delta_{k(N)}^{(N)}}\).  The heuristic
+becomes a theorem only after the equivariant Hall presentation and
+Stage-\(2\) specialisation are constructed.
 
-Mukai 1988, \emph{Invent.\ Math.}~94, 183--221, Thm.~0.1, 0.6, Table~2.
-Nikulin 1979, \emph{Trans.\ Moscow Math.\ Soc.}~38, \S4.
-Hashimoto 2012, \emph{Osaka J.\ Math.}~49, Table~5.
-Oberdieck 2017, arXiv:1706.04948, Thm.~1.1 (CHL $N = 2$).
-Bryan--Oberdieck 2017, arXiv:1712.01593 (CHL $(N, M)$-bi-parameter).
-Bryan--Steinberg 2016, arXiv:1607.02830 (abelian composition).
-BOPY 2018, arXiv:1808.00846 (orbifold DT programme).
-Gritsenko 1999, arXiv:math/9906191, Thm.~3.4 (additive lift).
-Gritsenko--Nikulin 1995, arXiv:alg-geom/9504006, Thm.~1.2.
-Gritsenko--Nikulin 1998, \emph{Internat.\ Math.\ Res.\ Notices}~1998:15.
-Gritsenko--Cl\'ery 2013, \emph{Compos.\ Math.}~149, Thm.~1.1 (eightfold).
-Borcherds 1998, \emph{Invent.\ Math.}~132, Thm.~13.3.
-Eguchi--Ooguri--Tachikawa 2011, \emph{Exp.\ Math.}~20, Table~1.
-Cheng--Harrison--Paquette 2014, arXiv:1307.5793, Table~4.
-Oberdieck--Pixton 2018, \emph{Ann.\ of Math.}~187 (DT zeta).
-Borcea 1997 (Borcea--Voisin threefold construction).
-Voisin 1993 (Borcea--Voisin twistor construction).
-Bruinier 2002, \emph{LNM}~1780, Ch.~3 (Heegner-divisor singular-theta).
-Lorgat 2020, \emph{A Borcherds lift of $\phi_{0,1}$}, \S2 + Conj.~1.
+\section*{Missing constructions}
+\label{wn:sec:missing-constructions}
+
+\begin{enumerate}
+\item Construct the equivariant surface specialisation
+\(\SpCh_{\Sigma_2^{(N)},E}\) for \(N=2,3,4,6\) from the CHL quotient
+correspondence, including the resolved inertia surface classes.
+\item Prove the oriented equivariant hCS-to-Hall comparison for the
+same quotient geometries.
+\item Match the finite Hall presentation to
+\(U_{\mathrm{ch}}(\mathfrak g_{\Delta_{k(N)}^{(N)}})\) by radical
+quotient, PBW, and no-extra-relations checks.
+\item Transport the Bruinier--Freitag Heegner/Borcherds lift through
+the Noether--Lefschetz surface \(\Sigma_{2,\lambda}=D_\lambda\times E\).
+\item Keep the CHL constants, Gritsenko--Clery row constants,
+Igusa-square normalisation, and the separated \(K3\times E\) invariants
+in separate columns in every theorem using this comparison.
+\end{enumerate}
+
+\section*{References}
+\label{wn:sec:sigma2-references}
+
+Mukai 1988, \emph{Invent. Math.} 94, 183--221, Theorems 0.1 and 0.6,
+Table 2.
+Nikulin 1979, \emph{Trans. Moscow Math. Soc.} 38, Section 4.
+Hashimoto 2012, \emph{Osaka J. Math.} 49, Table 5.
+Gaiotto 2012, \emph{JHEP} 1208:034, arXiv:0904.2715.
+Chacaltana--Distler 2010, \emph{JHEP} 1011:099, arXiv:1008.5203.
+Shapere--Tachikawa 2008, \emph{JHEP} 0809:109, arXiv:0804.1957.
+Beem--Lemos--Liendo--Peelaers--Rastelli--van Rees 2015,
+\emph{Commun. Math. Phys.} 336, arXiv:1312.5344.
+Oberdieck 2017, arXiv:1706.04948, Theorem 1.1.
+Bryan--Oberdieck 2017, arXiv:1712.01593.
+Bryan--Steinberg 2016, arXiv:1607.02830.
+Bryan--Oberdieck--Pandharipande--Yin 2018, arXiv:1808.00846.
+Gritsenko 1999, arXiv:math/9906191, Theorem 3.4.
+Gritsenko--Nikulin 1995, arXiv:alg-geom/9504006, Part II.
+Gritsenko--Nikulin 1998, \emph{Internat. Math. Res. Notices} 1998:15.
+Gritsenko--Clery 2008, arXiv:0812.3962, Theorems 1.4 and 3.1.
+Borcherds 1998, \emph{Invent. Math.} 132, Theorem 13.3.
+Eguchi--Ooguri--Tachikawa 2011, \emph{Exp. Math.} 20, Table 1.
+Govindarajan--Krishna 2010, \emph{JHEP} 05, 014, Table 1.
+Oberdieck--Pixton 2018, \emph{Ann. of Math.} 187.
+Bruinier 2002, \emph{Lecture Notes in Mathematics} 1780, Chapter 3.
+Shioda--Inose 1977, \emph{Complex analysis and algebraic geometry},
+119--136.
+Morrison 1984, \emph{Duke Math. J.} 51, 959--976, Theorem 6.3.
+Lorgat 2020, \emph{A Borcherds lift of \(\phi_{0,1}\)}, Section 2 and
+Conjecture 1.

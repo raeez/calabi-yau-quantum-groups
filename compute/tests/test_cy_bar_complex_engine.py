@@ -903,7 +903,7 @@ class TestNumericalValues:
         assert k.kappa == Fraction(0)
         assert k.kappa_ch_Heis == Fraction(3)
         assert k.kappa_BKM == Fraction(5)
-        # Delta_5 is the Igusa cusp form of weight 5 on Sp(4, Z).
+        # Delta_5 is the primitive Gritsenko-Nikulin denominator of weight 5 on Sp(4, Z).
 
     def test_quintic_hh_symmetry(self):
         """HH^*(quintic) has the mirror symmetry: HH^2 = HH^4 = h^{2,1}+h^{1,1}."""

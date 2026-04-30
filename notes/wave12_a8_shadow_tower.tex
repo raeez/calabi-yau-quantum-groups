@@ -6,607 +6,481 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 \title{The Shadow Tower: $A_\infty$ Coproduct Corrections and Feynman Coefficients}
-\author{Raeez Lorgat}\date{2026-04-22}
-\begin{document}\maketitle
+\author{Raeez Lorgat}
+\date{2026-04-22}
+\begin{document}
+\maketitle
 
 \begin{abstract}
-On the universal Virasoro primary line at $c = 1$ --- the Rosetta
-stone of the $d = 3$ functor $\Phi(\mathbb{C}^{3}) = \mathcal{W}_{1+\infty}$ ---
-the shadow coefficients $S_{k}$ are the scalar residues of the
-$A_{\infty}$ coproduct corrections $\delta^{(k)}$, and the $A_{\infty}$
-operations $m_{k}(T,\ldots,T)$ on the stress tensor satisfy the clean
-identification $m_{k} = k\cdot S_{k}$. The Riccati master equation
-$H(t)^{2} = t^{4}\,Q_{c}(t)$ with
-$Q_{c}(t) = (1+6t)^{2} + (80/27)\,t^{2}$ at $c = 1$ delivers every
-higher coefficient as a polynomial recursion; the branch points of
-$\sqrt{Q_{c}}$ fix a finite convergence radius, and the $5$-point
-connected Green function $G_{5}^{\mathrm{conn}} = 775/5184$ (from
-Belavin--Polyakov--Zamolodchikov Wick cumulant inversion on $K_{5}$)
-is the third independent route. Reading the $k$-th corolla as the
-tree-level Feynman vertex of $6$-dimensional holomorphic
-Chern--Simons on the $5$-sphere configuration space displays the
-shadow tower as the $A_{\infty}$ perturbation of the Drinfeld
-Yangian coproduct in the $E_{3}$-environment of Costello--Gaiotto.
+The stress-tensor line in the $c=1$ Virasoro subalgebra of the
+$\mathcal W_{1+\infty}$ completion of the affine CY$_3$ Hall theory has
+a single quadratic shadow landscape. With
+$\kappa_{\mathrm{ch}}=c/2$, cubic coefficient $\alpha=2c$, and
+$S_4=10/(c(5c+22))$, the positive branch
+\[
+  f(t)^2
+  =
+  4\kappa_{\mathrm{ch}}^2
+  +12\kappa_{\mathrm{ch}}\alpha t
+  +(9\alpha^2+16\kappa_{\mathrm{ch}}S_4)t^2
+\]
+determines all post-quartic $A_\infty$ coefficients. At $c=1$ this
+gives
+\[
+  m_3=-2,\quad m_4=\frac{40}{27},\quad
+  m_5=-\frac{80}{9},\quad m_6=\frac{38080}{729},\quad
+  m_7=-\frac{24320}{81},\quad
+  m_8=\frac{33157760}{19683},
+\]
+and
+\[
+  S_5=-\frac{16}{9},\quad S_6=\frac{19040}{2187},\quad
+  S_7=-\frac{24320}{567},\quad
+  S_8=\frac{4144720}{19683}.
+\]
+The connected Wick cumulant
+$G_5^{\mathrm{conn}}(1,2,3,4,5)=775/5184$ is an independent finite
+enumeration of ten half-edge pairings. It witnesses the same Virasoro
+finite-OPE input, while the conversion to $m_5$ passes through the
+chosen residue and bar-normalisation map. The Hall-side equality is
+$\mathrm{CoHA}(\mathbb C^3)=Y^+(\widehat{\mathfrak{gl}}_1)$; the
+$\mathcal W_{1+\infty}$ line belongs to the completed double or centre
+layer.
 \end{abstract}
 
-\section{The Rosetta line}
+\section{The $c=1$ Virasoro Line}
 
-The CY$_{3}$ functor $\Phi$ evaluated on affine three-space produces,
-at the self-dual Omega point $h_{1} = 1,\; h_{2} = 0,\; h_{3} = -1$,
-the vertex algebra $\mathcal{W}_{1+\infty}$ at central charge $c = 1$.
-On the stress-tensor primary line $L_{T}$ (with
-$\kappa_{\mathrm{ch}} = c/2 = 1/2$), every chain-level invariant of
-$\Phi(\mathbb{C}^{3})$ is computed by the Virasoro shadow recurrence;
-the cohomological Hall algebra side
-$\mathrm{CoHA}(\mathbb{C}^{3}) = Y^{+}(\widehat{\mathfrak{gl}}_{1})$
-enters only as the Drinfeld double at the level of representation
-categories. The present note derives, from first principles, the
-shadow-tower entries at $c = 1$:
+The affine CY$_3$ specialisation of $\Phi$ supplies an $E_1$ chiral
+Hall algebra. Its positive Hall half is
 \[
-    m_{3} = -2,\qquad
-    m_{4} = \tfrac{40}{27},\qquad
-    m_{5} = -\tfrac{80}{9},\qquad
-    m_{7} = -\tfrac{24320}{81},\qquad
-    m_{8} = \tfrac{33157760}{19683},
+  \mathrm{CoHA}(\mathbb C^3)=Y^+(\widehat{\mathfrak{gl}}_1).
 \]
-and identifies each as the scalar component of an $A_{\infty}$
-coproduct correction $\delta^{(k)}$, equivalently as a tree-level
-Feynman sum of Arnold $d\log$ residues on
-$\mathrm{Conf}_{k}(\mathbb{P}^{1})$.
+The vertex algebra $\mathcal W_{1+\infty}$ appears after passing to the
+completed Drinfeld double, equivalently to the centre or representation
+category layer. This separation fixes the operadic scope: for $d\geq3$
+the algebra $A$ is $E_1$, and the braided $E_2$ structure is carried by
+$Z(\mathrm{Rep}(A))$ or by the corresponding completed double.
 
-\section{The shadow coproduct and its scalar residue}
+The self-dual Omega point
+\[
+  h_1=1,\qquad h_2=0,\qquad h_3=-1
+\]
+contains the Virasoro stress-tensor line
+$L_T=\mathbf{k}\cdot T$ at central charge $c=1$. All scalar statements
+below are made on this one-dimensional line and use the normalisation
+\[
+  \langle T(z)T(w)\rangle=\frac{c/2}{(z-w)^4},\qquad
+  \kappa_{\mathrm{ch}}=\frac c2.
+\]
 
-Let $(\mathcal{A}, m_{2}, m_{3}, \ldots)$ denote a chirally Koszul
-vertex algebra of finite type with its canonical $A_{\infty}$
-structure on the bar complex $B^{\mathrm{ord}}(\mathcal{A})$. The
-deconcatenation coproduct admits perturbative corrections
-\[
-    \delta^{(k)}\colon \mathcal{A} \;\longrightarrow\;
-    \mathcal{A}^{\otimes k},\qquad k \ge 2,
-\]
-whose projection onto the unit channel is the scalar
-\[
-    S_{k}(\mathcal{A}, L) \;:=\; \delta^{(k)}(1, \ldots, 1)
-    \;\in\; \mathbf{k}.
-\]
-$S_{k}$ is the $\Sigma_{k}$-coinvariant residue of the bar coproduct
-at the universal Maurer--Cartan insertion $\Theta_{\mathcal{A}}$.
+\section{OPE Inputs}
 
-\begin{definition}[The $k$-ary operation on the primary line]
-\label{def:mk}
-On the stress-tensor line $L_{T}$ of $\mathcal{A}$, the $A_{\infty}$
-operation $m_{k}\colon \mathcal{A}^{\otimes k} \to \mathcal{A}$
-evaluated on the diagonal $(T, \ldots, T) \in L_{T}^{\otimes k}$
-produces a multiple of $T$:
+\begin{definition}[The three scalar inputs]
+\label{def:three-inputs}
+For the Virasoro stress tensor at central charge $c$, set
 \[
-    m_{k}(T, \ldots, T) \;=\; \mu_{k}\, T,\qquad \mu_{k} \in \mathbf{k}.
+  \kappa_{\mathrm{ch}}=\frac c2,\qquad
+  \alpha=2c,\qquad
+  S_4=\frac{10}{c(5c+22)}.
 \]
-The scalar $\mu_{k}$ we denote $m_{k}$ by abuse of notation.
+The coefficient $\alpha$ is read from the associator convention
+\[
+  m_3(T,T,T)=-\,\alpha T.
+\]
 \end{definition}
 
-The corolla-coefficient identification binds the two sides.
-
-\begin{proposition}[Corolla identity]
-\label{prop:mk-sk}
-On a $\kappa_{\mathrm{ch}} \neq 0$ primary line,
+\begin{proposition}[Level-four denominator]
+\label{prop:level-four-denominator}
+The quartic shadow input is
 \[
-    m_{k} \;=\; k \cdot S_{k}\qquad (k \ge 3).
+  S_4=\frac{10}{c(5c+22)}.
 \]
 \end{proposition}
 
 \begin{proof}
-The $A_{\infty}$ relation expressing $m_{k}$ as the dual of $\delta^{(k)}$
-under the bar--cobar adjunction reads, on the Sym-coinvariant
-component of $L_{T}^{\otimes k}$, as the evaluation of the
-corolla with $k$ incoming stress tensors and one outgoing. The
-corolla symmetry factor is $k$: one rotation orbit per cyclic leg
-assignment. The coefficient is thus $k\cdot S_{k}$.
-\end{proof}
-
-\section{Virasoro shadow recurrence}
-
-\begin{theorem}[Master recurrence]
-\label{thm:mc-recursion}
-For $r \ge 5$, on a primary line with $\kappa_{\mathrm{ch}} \neq 0$,
+In the Virasoro vacuum module at level $4$, use the basis
+$L_{-4}|0\rangle$, $L_{-2}^2|0\rangle$. The commutation relation
 \[
-    S_{r} \;=\; -\,\frac{1}{2 r \kappa_{\mathrm{ch}}}
-    \sum_{\substack{j + k = r + 2 \\ 3 \le j \le k < r}}
-    \epsilon(j, k)\, j k\, S_{j}\, S_{k},
+  [L_m,L_n]=(m-n)L_{m+n}+\frac{c}{12}(m^3-m)\delta_{m+n,0}
 \]
-where $\epsilon(j, k) = 1$ for $j < k$ and $\epsilon(j, j) = 1/2$.
-\end{theorem}
-
-At the Virasoro primary $T$-line, the initial data are
+gives the Gram matrix
 \[
-    S_{2}(\mathrm{Vir}_{c}) = \tfrac{c}{2},\qquad
-    S_{3}(\mathrm{Vir}_{c}) = 2,\qquad
-    S_{4}(\mathrm{Vir}_{c}) = \tfrac{10}{c\,(5c+22)},
+  G_4=
+  \begin{pmatrix}
+    5c & 3c\\
+    3c & c(c+8)/2
+  \end{pmatrix}.
 \]
-with $S_{3} = 2$ the universal genus-zero three-collision residue
-and $S_{4}$ extracted from the Schur complement of the level-$4$
-Kac--Feigin--Fuchs Gram matrix via the $\Lambda$-norm
-$\langle \Lambda \mid \Lambda \rangle = c(5c+22)/10$.
-
-\begin{proposition}[Specialisation to $c = 1$]
-\label{prop:c1-initial}
-At $c = 1$:
+The quasi-primary
 \[
-    \kappa_{\mathrm{ch}} \;=\; \tfrac12,\qquad 5c+22 \;=\; 27,\qquad
-    S_{3} \;=\; 2,\qquad S_{4} \;=\; \tfrac{10}{27}.
+  \Lambda=L_{-2}^2|0\rangle-\frac35 L_{-4}|0\rangle
 \]
-\end{proposition}
-
-The denominator $27 = 3^{3}$ is the single source of every power of
-three appearing in the tower at $c = 1$.
-
-\section{The five values, derived}
-
-\begin{proposition}[$m_{3}$]
-\label{prop:m3}
-$m_{3} = 3\cdot S_{3} \cdot (-\tfrac13) = -2$.
-\end{proposition}
-
-\begin{proof}
-The cubic corolla carries an orientation sign inherited from the
-Gerstenhaber bracket on $\mathrm{CH}^{*}(\mathcal{A})$: the
-3-leg tree has odd cyclic order parity. Hence $m_{3} = -k S_{k}|_{k=3}
-\cdot \tfrac{k S_{k}}{k S_{k}} = -2$. Equivalently, the $A_\infty$
-relation $[m_{2}, m_{3}] = 0$ forces the sign via cyclic invariance
-of the Lie-bracket-on-$T$ coefficient.
-\end{proof}
-
-\begin{proposition}[$m_{4}$]
-\label{prop:m4}
-$m_{4} = 4 S_{4} = 4\cdot \tfrac{10}{27} = \tfrac{40}{27}$.
-\end{proposition}
-
-\begin{proof}
-Direct from Proposition~\ref{prop:mk-sk} with $S_{4} = 10/27$ at
-$c = 1$.
-\end{proof}
-
-\begin{proposition}[$m_{5}$ from the master recurrence]
-\label{prop:m5}
-$m_{5} = 5 S_{5} = -\dfrac{80}{9}$.
-\end{proposition}
-
-\begin{proof}
-Theorem~\ref{thm:mc-recursion} at $r = 5$ has a single pair
-$(j, k) = (3, 4)$ with $\epsilon = 1$; with
-$\kappa_{\mathrm{ch}} = 1/2$ at $c = 1$:
+has norm
 \[
-    S_{5} \;=\; -\,\frac{1}{2\cdot 5\cdot (1/2)} \cdot 12 \cdot 2 \cdot
-    \tfrac{10}{27} \;=\; -\,\frac{240}{5\cdot 27}
-    \;=\; -\,\frac{48}{27} \;=\; -\,\frac{16}{9}.
+  \langle\Lambda,\Lambda\rangle
+  =\frac{c(c+8)}2-\frac{(3c)^2}{5c}
+  =\frac{c(5c+22)}{10}.
 \]
-Multiplying by $k = 5$ gives $m_{5} = -80/9$. The universal closed
-form $S_{5}(\mathrm{Vir}_{c}) = -48/[c^{2}(5c+22)]$
-evaluated at $c = 1$ confirms $S_{5} = -48/27 = -16/9$.
+The inverse norm is the Zamolodchikov quartic channel coefficient, so
+$S_4=10/(c(5c+22))$.
 \end{proof}
 
-\begin{proposition}[$m_{6}$]
-\label{prop:m6}
-At $c = 1$,
-$S_{6} = \dfrac{19040}{2187}$ and $m_{6} = \dfrac{38080}{729}$.
-\end{proposition}
-
-\begin{proof}
-At $r = 6$ the pairs are $(3, 5)$ with $\epsilon = 1$ and $(4, 4)$ with
-$\epsilon = 1/2$. The $(3,5)$ term: $jk\, S_{j}S_{k} = 15 \cdot 2 \cdot
-(-16/9) = -480/9$. The $(4,4)$ term:
-$\tfrac12\cdot 16\cdot (10/27)^{2} = 8\cdot 100/729 = 800/729$.
-Over the common denominator $729 = 27^{2}$:
-$-480/9 = -38880/729$, so the sum is $(-38880 + 800)/729 = -38080/729$.
-Divide by $-2 r \kappa_{\mathrm{ch}} = -6$: $S_{6} = 38080/(6\cdot 729) =
-19040/2187$. Multiply by $6$: $m_{6} = 38080/729$.
-\end{proof}
-
-\begin{proposition}[$m_{7}$]
-\label{prop:m7}
-At $c = 1$,
-$S_{7} = -\dfrac{24320}{567}$ and $m_{7} = -\dfrac{24320}{81}$.
-\end{proposition}
-
-\begin{proof}
-At $r = 7$ the pairs are $(3, 6)$ and $(4, 5)$, both with
-$\epsilon = 1$. The $(3,6)$ term: $jk\, S_{3}S_{6} = 18 \cdot 2 \cdot
-19040/2187 = 685440/2187$. The $(4,5)$ term:
-$jk\, S_{4}S_{5} = 20 \cdot (10/27)\cdot (-16/9) = 20 \cdot (-160/243)
-= -3200/243 = -28800/2187$. Sum: $(685440 - 28800)/2187 =
-656640/2187$. Divide by $-7$ (since $2 r \kappa_{\mathrm{ch}} = 7 c = 7$ at $c = 1$):
-$S_{7} = -656640/(7\cdot 2187) = -656640/15309$. Reduce by
-$\gcd(656640, 15309) = 27$: $656640/27 = 24320$, $15309/27 = 567$,
-so $S_{7} = -24320/567$. Multiply by $7$: $m_{7} = -24320/81$.
-\end{proof}
-
-\begin{proposition}[$m_{8}$]
-\label{prop:m8}
-At $c = 1$,
-$S_{8} = \dfrac{4144720}{19683}$ and $m_{8} =
-\dfrac{33157760}{19683}$.
-\end{proposition}
-
-\begin{proof}
-At $r = 8$ the pairs are $(3, 7), (4, 6), (5, 5)$, with
-$\epsilon$-factors $1, 1, 1/2$. Expand in the common denominator
-$2187^{2} = 4782969$, or reduce stepwise:
-\begin{align*}
-(3, 7) &: 21\cdot S_{3}\cdot S_{7} = 21 \cdot 2 \cdot (-24320/567)
-   = -42\cdot 24320/567;\\
-(4, 6) &: 24\cdot S_{4}\cdot S_{6} = 24 \cdot (10/27)\cdot(19040/2187)
-   = 24 \cdot 190400/59049;\\
-(5, 5) &: \tfrac12\cdot 25\cdot S_{5}^{2} = (25/2)\cdot (256/81)
-   = 3200/81.
-\end{align*}
-Common denominator $3^{9} = 19683$. The sum over the three pairs
-evaluates (tracking signs) to $-33157760/19683 \cdot (-1/8)$ times
-the prefactor $1/(2r\kappa_{\mathrm{ch}}) = 1/8$. The result is
-$S_{8} = 4144720/19683$ and $m_{8} = 8\,S_{8} = 33157760/19683$.
-\end{proof}
-
-\begin{remark}[Denominator structure]
-\label{rem:denominator-3adic}
-Every denominator is a power of $3$ because the sole transcendental
-input at $c = 1$ is $5c + 22 = 27 = 3^{3}$. The Riccati master
-equation squares a linear function in $t$: each recursion step at
-most doubles the $3$-adic denominator exponent. The observed
-exponents $0, 3, 2, 7, 4, 9$ for $S_{2}, \ldots, S_{8}$ satisfy
-$v_{3}(S_{k}) \le 3(k - 2)$; the MC cross-terms cancel many
-subleading powers of $3$, producing the irregular growth. The
-denominator $19683 = 3^{9}$ for $S_{8}$ is not a numerical accident
-but the forced image of $(5c + 22)^{3}$ at $c = 1$ under the
-third-order MC iterate.
-\end{remark}
-
-\section{The Riccati master equation and the convergence radius}
-
-\begin{theorem}[Riccati identity]
-\label{thm:riccati}
-Let $H(t) := \sum_{r \ge 2} r\, S_{r}\, t^{r}$ be the weighted shadow
-generating function, and set
+At $c=1$,
 \[
-    Q_{c}(t) \;:=\; (2\kappa_{\mathrm{ch}} + 3\alpha\, t)^{2}
-    + 16\kappa_{\mathrm{ch}}\, S_{4}\, t^{2}
+  \kappa_{\mathrm{ch}}=\frac12,\qquad
+  \alpha=2,\qquad
+  S_4=\frac{10}{27}.
 \]
-with $\alpha = S_{3}$. Then $H(t)^{2} = t^{4}\, Q_{c}(t)$.
+
+\section{Newton Shadow Recursion}
+
+\begin{definition}[Shadow landscape and coefficients]
+\label{def:shadow-landscape}
+Let
+\[
+  Q_c(t)
+  =
+  4\kappa_{\mathrm{ch}}^2
+  +12\kappa_{\mathrm{ch}}\alpha t
+  +(9\alpha^2+16\kappa_{\mathrm{ch}}S_4)t^2,
+\]
+and let
+\[
+  f(t)=\sqrt{Q_c(t)}=\sum_{n\geq0}a_nt^n
+\]
+be the branch with $a_0=2\kappa_{\mathrm{ch}}$. For $k\geq5$ the
+post-quartic $A_\infty$ coefficient and the shadow coefficient are
+\[
+  m_k(T,\ldots,T)=a_{k-2}T,\qquad
+  S_k=\frac{a_{k-2}}{k}.
+\]
+The lower arities are the OPE normalisations
+\[
+  m_3=-\alpha,\qquad S_3=\alpha,\qquad m_4=4S_4.
+\]
+\end{definition}
+
+\begin{theorem}[Square-root recurrence]
+\label{thm:square-root-recurrence}
+The coefficients of $f(t)$ satisfy
+\[
+  a_0=2\kappa_{\mathrm{ch}},\qquad
+  a_1=\frac{12\kappa_{\mathrm{ch}}\alpha}{2a_0},\qquad
+  a_2=\frac{9\alpha^2+16\kappa_{\mathrm{ch}}S_4-a_1^2}{2a_0},
+\]
+and, for $n\geq3$,
+\[
+  a_n=-\frac{1}{2a_0}\sum_{i=1}^{n-1}a_i a_{n-i}.
+\]
 \end{theorem}
 
 \begin{proof}
-Substitute $a_{n} = (n + 2)\, S_{n+2}$. The MC recursion becomes the
-convolution identity $\sum_{i + j = m} a_{i} a_{j} = 0$ for $m \ge 3$,
-which is the statement that all $t^{\ge 3}$ coefficients of
-$F(t)^{2} - Q_{c}(t)$ vanish, where $F(t) = H(t)/t^{2}$. The matching
-at $m = 0, 1, 2$ is fixed by
-$(a_{0}, a_{1}, a_{2}) = (2\kappa_{\mathrm{ch}}, 3\alpha, 4 S_{4})$
-and the explicit form of $Q_{c}$.
+Expand $f(t)^2=Q_c(t)$. The coefficients of $t^0$, $t^1$, and $t^2$
+give the first three displayed equations. Since $Q_c(t)$ is quadratic,
+the coefficient of $t^n$ vanishes for every $n\geq3$, giving
+\[
+  2a_0a_n+\sum_{i=1}^{n-1}a_i a_{n-i}=0.
+\]
 \end{proof}
 
-\begin{proposition}[Convergence radius at $c = 1$]
-\label{prop:radius}
-At $c = 1$, $Q_{c}(t) = (1 + 6t)^{2} + (80/27)\, t^{2} =
-(36 + 80/27)\, t^{2} + 12\, t + 1 = (1052/27)\, t^{2} + 12 t + 1$.
-The discriminant of $Q_{c}$ as a quadratic in $t$ is
-$144 - 4 \cdot (1052/27) = 144 - 4208/27 = (3888 - 4208)/27 = -320/27 < 0$.
-Hence $Q_{c}$ has no real zeros, and $\sqrt{Q_{c}(t)}$ is analytic on
-a neighbourhood of $t = 0$. The branch points occur at the complex
-zeros
+\begin{proposition}[Equivalent $S_r$ recurrence]
+\label{prop:sr-recurrence}
+For $r\geq5$,
 \[
-    t_{\pm} \;=\; \frac{-12 \pm i\sqrt{320/27}}{2 \cdot 1052/27}
-    \;=\; \frac{27(-12 \pm i\sqrt{320/27})}{2104},
+  S_r
+  =
+  -\frac{1}{2r\kappa_{\mathrm{ch}}}
+  \sum_{\substack{j+k=r+2\\3\leq j\leq k<r}}
+  \epsilon(j,k)\,jk\,S_jS_k,
 \]
-with $|t_{\pm}|^{2} = (144 + 320/27)/(2\cdot 1052/27)^{2}
-= (3888 + 320)/(27 \cdot (2104/27)^{2})$.
-The convergence radius of $\sqrt{Q_{c}/Q_{c}(0)}$ is $|t_{+}| =
-3/\sqrt{263} \approx 0.185$.
+where $\epsilon(j,k)=1$ for $j<k$ and $\epsilon(j,j)=1/2$.
 \end{proposition}
 
-The shadow tower at $c = 1$ is convergent in the disc
-$|t| < 3/\sqrt{263}$: class $\mathbf{M}$ with infinite non-terminating
-tower but non-zero radius. The growth rate of $|m_{k}|$ is therefore
-$(|t_{+}|)^{-k} \approx 5.4^{k}$ modulo subexponential corrections,
-consistent with the observed values
-$2, 40/27, 80/9, \ldots, 33157760/19683 \sim 1685$ at $k = 8$.
-
-\section{The $5$-point connected Green function}
-
-The value $G_{5}^{\mathrm{conn}} = 775/5184$ has an independent origin
-at the level of 5-point BPZ--Wick contraction, not through the MC
-recursion.
-
-\begin{definition}[$5$-point connected Green function]
-\label{def:G5-conn}
-$G_{5}^{\mathrm{conn}}$ is the sum over connected 5-point Wick
-contraction diagrams of $\langle T(z_{1}) T(z_{2}) T(z_{3}) T(z_{4})
-T(z_{5})\rangle$, extracted as the Arnold $d\log$ residue at
-simultaneous collision $z_{1} = \cdots = z_{5}$ on
-$\mathrm{Conf}_{5}(\mathbb{P}^{1})$, normalised by the
-$\Lambda$-mediated chord-diagram weight on $K_{5}$.
-\end{definition}
-
-\begin{proposition}[$G_{5}^{\mathrm{conn}}$ at $c = 1$]
-\label{prop:G5-conn-value}
-$G_{5}^{\mathrm{conn}}(\mathrm{Vir}_{1}) = \dfrac{775}{5184}$.
-\end{proposition}
-
-\begin{proof}[Derivation]
-The full 5-point correlator decomposes via inclusion--exclusion into
-connected and disconnected cumulants. The 15 chord-diagram topologies
-on $K_{5}$ split: 5 tree topologies (stars, each contributing
-$2T/(z - w)^{2}$ at the three collisions), 10 double-edge topologies
-(contributing quartic pole factors). The $\Lambda$-mediation extracts
-$\langle \Lambda \mid \Lambda \rangle = c(5c + 22)/10$; at $c = 1$,
-this is $27/10$. The connected cumulant inverts as
-\[
-    G_{5}^{\mathrm{conn}} \;=\; \frac{1}{5!}
-    \sum_{\pi \in \mathrm{Conn}(K_{5})}
-    w_{\pi}\cdot \langle \Lambda \mid \Lambda \rangle^{-|\pi|_{\mathrm{int}}},
-\]
-where $w_{\pi}$ is the signed weight from the cumulant inversion
-(Leonov--Shiryaev) and $|\pi|_{\mathrm{int}}$ is the number of
-internal $\Lambda$-lines. The explicit sum on the 15 topologies
-evaluates to
-\[
-    G_{5}^{\mathrm{conn}} \;=\;
-    \frac{-48/10}{(27/10)^{2}}\cdot \frac{1}{5!/3!}
-    \;=\; \frac{-48 \cdot 10}{(27)^{2}}\cdot \frac{1}{20}
-    \;=\; \frac{-480}{729 \cdot 20} \;=\; -\frac{24}{729}.
-\]
-Correcting the sign and absorbing the Schur-complement determinant
-factor $\det G_{4}^{-1} = 2/[c^{2}(5c + 22)] = 2/27$ yields
-\[
-    G_{5}^{\mathrm{conn}} \;=\; \frac{775}{5184}
-    \;=\; \frac{5^{2} \cdot 31}{2^{6}\cdot 3^{4}}.
-\]
-The factorisation $5184 = 2^{6}\cdot 3^{4} = 64 \cdot 81$ tracks:
-$2^{6}$ from the $6!! / 3!!$ ordering of tree topologies, $3^{4}$
-from $(5c+22)^{2}/10^{2} = (27/10)^{2}$ at $c = 1$. The numerator
-$775 = 25\cdot 31$ is the signed multiplicity from the Leonov--Shiryaev
-cumulant inversion on the 15 chord-diagram topologies, after the
-$\Lambda$-descendant contributions cancel against the
-$(z - w)^{-4}$ central-charge sector.
+\begin{proof}
+Substitute $a_{r-2}=rS_r$ into
+Theorem~\ref{thm:square-root-recurrence}. The restriction
+$j\leq k$ records unordered pairs; the factor $\epsilon(j,j)=1/2$
+removes the double count on the diagonal.
 \end{proof}
 
-\begin{remark}[Compatibility with $m_{5}$]
-\label{rem:compat-m5}
-The value $m_{5} = -80/9$ and $G_{5}^{\mathrm{conn}} = 775/5184$
-sit on two disjoint derivation chains: $m_{5}$ via the MC recursion
-from $(S_{2}, S_{3}, S_{4})$, and $G_{5}^{\mathrm{conn}}$ via direct
-BPZ--Wick contraction. Their compatibility is the content of the
-Arnold $d\log$ descent:
-$5 S_{5} = m_{5} = \mathrm{Res}_{\mathrm{tot. coll.}}
-[G_{5}^{\mathrm{conn}} \cdot d\log \omega_{5}]$,
-where $\omega_{5}$ is the Arnold form on
-$\mathrm{Conf}_{5}(\mathbb{P}^{1})$. Numerically this yields
-$m_{5} = -80/9$, matching the MC output.
-\end{remark}
+\section{Exact Tower Through Arity Eight}
 
-\section{The $A_{\infty}$ coproduct corrections}
-
-On the bar complex of $\mathcal{A} = \mathrm{Vir}_{c}$, the
-coproduct admits the universal expansion
+\begin{theorem}[The $c=1$ shadow tower through $m_8$]
+\label{thm:c1-shadow-tower-through-eight}
+At $c=1$,
 \[
-    \Delta^{A_{\infty}} \;=\; \Delta^{\mathrm{Yangian}}
-    \;+\; \sum_{k \ge 3} \hbar^{k-2}\, \delta^{(k)},
+\begin{array}{c|c|c}
+k & m_k(T,\ldots,T)/T & S_k\\
+\hline
+3 & -2 & 2\\
+4 & 40/27 & 10/27\\
+5 & -80/9 & -16/9\\
+6 & 38080/729 & 19040/2187\\
+7 & -24320/81 & -24320/567\\
+8 & 33157760/19683 & 4144720/19683
+\end{array}
 \]
-where $\Delta^{\mathrm{Yangian}}$ is the primitive coproduct of the
-Drinfeld Yangian $Y^{+}(\widehat{\mathfrak{gl}}_{1})$ (via
-Schiffmann--Vasserot), and $\delta^{(k)}$ is the $k$-ary correction
-with scalar residue $S_{k}$.
-
-\begin{theorem}[Shadow tower = $A_{\infty}$ coproduct tower]
-\label{thm:shadow-ainfty-equivalence}
-On $L_{T}$,
-\[
-    \delta^{(k)}(T) \;=\; S_{k}\cdot \Delta^{(k)}_{\mathrm{sym}}(T)
-    \;+\; (\text{traceless primary corrections}),
-\]
-where $\Delta^{(k)}_{\mathrm{sym}}$ is the $S_{k}$-symmetrised
-iterated Yangian coproduct. The scalar $S_{k}$ equals the shadow
-coefficient; equivalently, $m_{k}(T, \ldots, T) = k\cdot S_{k}\cdot T$.
 \end{theorem}
 
 \begin{proof}
-Pair $\delta^{(k)}$ with the dual $m_{k}$ through the bar--cobar
-adjunction. On the Sym-coinvariant component
-$L_{T}^{\otimes k} / \Sigma_{k}$, the pairing reads
-$\langle \delta^{(k)}(T), m_{k}(T,\ldots,T)\rangle = k!\cdot S_{k}\cdot
-m_{k}/k! = S_{k}\cdot (k S_{k}) = k S_{k}^{2}$, and the corolla
-identity $m_{k} = k S_{k}$ follows from normalising by one factor of
-$S_{k}$. The traceless part lies in the kernel of the unit projection
-and contributes nothing to the scalar residue.
+At $c=1$,
+\[
+  Q_1(t)=1+12t+\frac{1052}{27}t^2.
+\]
+Thus $a_0=1$, $a_1=6$, and
+\[
+  a_2=\frac{1052/27-36}{2}=\frac{40}{27}.
+\]
+The recurrence gives
+\[
+  a_3=-\frac{2\cdot6\cdot(40/27)}2=-\frac{80}{9},
+\]
+\[
+  a_4=-\frac{2\cdot6\cdot(-80/9)+(40/27)^2}{2}
+      =\frac{38080}{729},
+\]
+\[
+  a_5=-\frac{2\cdot6\cdot(38080/729)
+        +2\cdot(40/27)\cdot(-80/9)}2
+      =-\frac{24320}{81},
+\]
+and
+\[
+  a_6=-\frac{2\cdot6\cdot(-24320/81)
+        +2\cdot(40/27)\cdot(38080/729)
+        +(-80/9)^2}{2}
+      =\frac{33157760}{19683}.
+\]
+Definition~\ref{def:shadow-landscape} converts $a_{k-2}$ to $m_k$ and
+$S_k$ for $k\geq5$; the $k=3,4$ rows are the OPE normalisations.
 \end{proof}
 
-\begin{proposition}[Class labels and shadow termination]
-\label{prop:class-labels}
-The class of $\mathcal{A}$ governs the termination of the
-$A_{\infty}$ coproduct correction series:
-\begin{itemize}
-\item Class $\mathbf{G}$ (Gaussian): $S_{k} = 0$ for $k \ge 3$.
-    The coproduct is exactly Yangian.
-\item Class $\mathbf{L}$ (Lemniscatic): $S_{3} \neq 0$, $S_{k} = 0$
-    for $k \ge 4$. One $A_{\infty}$ correction.
-\item Class $\mathbf{C}$ (Clausen): finitely many nonzero $S_{k}$.
-\item Class $\mathbf{M}$ (Mock): all $S_{k} \neq 0$; infinite tower
-    with finite convergence radius fixed by the complex branch
-    points of $\sqrt{Q_{c}}$.
-\end{itemize}
-At $c = 1$, $\mathcal{W}_{1+\infty}$ is class $\mathbf{M}$; the
-discriminant $\Delta = 8\kappa_{\mathrm{ch}}\, S_{4} = 40/27 \neq 0$
-and $Q_{c}$ has a complex-conjugate pair of zeros, forcing
-$S_{k} \neq 0$ for all $k \ge 2$.
-\end{proposition}
+\begin{remark}[Denominators]
+\label{rem:denominators}
+The post-quartic operation coefficients $m_k/T=a_{k-2}$ displayed
+above have denominators that are powers of $3$. The only denominator in
+the $c=1$ input data is $5c+22=27$ and the recurrence divides by
+$2a_0=2$ after a symmetric convolution whose numerator is even. The
+shadow coefficients $S_k=a_{k-2}/k$ may acquire an arity denominator
+before cancellation; $S_7=-24320/567$ retains the factor $7$.
+\end{remark}
 
-\section{Feynman-diagram reading on $6$-dimensional holomorphic
-Chern--Simons}
+\section{Convergence Radius}
 
-The $A_{\infty}$ corolla coefficient $m_{k}$ admits a Feynman-diagram
-expression through the Costello--Gaiotto identification of
-$\mathcal{W}_{1+\infty}$ with the boundary algebra of $6$-dimensional
-holomorphic Chern--Simons theory on $\mathbb{C}^{3}$.
-
-\begin{definition}[hCS on $\mathbb{C}^{3}$]
-\label{def:hCS-6d}
-Let $\mathrm{hCS}_{6}(\mathbb{C}^{3}, \mathfrak{g})$ denote the
-holomorphic Chern--Simons theory with action
+\begin{proposition}[Branch points at $c=1$]
+\label{prop:convergence-radius}
+The positive branch of
 \[
-    S[\mathcal{A}] \;=\; \int_{\mathbb{C}^{3}} \Omega_{3,0}\wedge
-    \mathrm{Tr}\Bigl(
-    \mathcal{A}\,\overline{\partial}\mathcal{A}
-    + \tfrac{2}{3}\,\mathcal{A}\wedge\mathcal{A}\wedge\mathcal{A}
-    \Bigr),
+  f(t)=\sqrt{1+12t+\frac{1052}{27}t^2}
 \]
-where $\mathcal{A} \in \Omega^{0,*}(\mathbb{C}^{3}) \otimes
-\mathfrak{g}[1]$ is a $(0, *)$-form valued in the Lie algebra.
-The propagator is $G(z_{1} - z_{2}) = \overline{\partial}^{-1}$
-regularised by heat-kernel descent to a $(0,2)$-form kernel on
-$\mathrm{Conf}_{2}(\mathbb{C}^{3})$.
-\end{definition}
-
-\begin{proposition}[Tree-level Feynman = shadow coefficient]
-\label{prop:tree-shadow}
-On the boundary chiral algebra $\mathcal{W}_{1+\infty}$, the $k$-ary
-$A_{\infty}$ operation $m_{k}$ evaluated on the stress tensor equals
-the sum over tree-level Feynman graphs with $k$ incoming $T$-legs
-and one outgoing $T$-leg, weighted by propagator contractions
-integrated against the Arnold form on
-$\mathrm{Conf}_{k}(\mathbb{C}^{3})|_{\mathrm{bdy}}$:
+has convergence radius
 \[
-    m_{k}(T, \ldots, T) \;=\;
-    \sum_{\Gamma \in \mathrm{Tree}_{k,1}}
-    \frac{1}{|\mathrm{Aut}(\Gamma)|}\,
-    \int_{\mathrm{Conf}_{k}(\mathbb{C}^{3})|_{\mathrm{bdy}}}
-    \prod_{e \in E(\Gamma)} G(z_{s(e)} - z_{t(e)})\cdot T^{\otimes k}.
+  \rho=\sqrt{\frac{27}{1052}}
+       =\frac{3\sqrt3}{2\sqrt{263}}
+       \approx 0.1602042423.
 \]
-The boundary restriction reduces the configuration-space integral to
-$\mathrm{Conf}_{k}(\mathbb{P}^{1})$; the $(0,3)$-form measure
-collapses to the Arnold $d\log$ form.
 \end{proposition}
 
 \begin{proof}
-Apply Costello--Gwilliam perturbative BV quantisation to
-$\mathrm{hCS}_{6}$: the factorisation algebra on the boundary is
-$\mathcal{W}_{1+\infty}$, and the tree-level part of the observable
-produces the tree-level part of the $A_{\infty}$ structure via the
-cobar. The homotopy-transfer formula identifies $m_{k}$ with the
-tree-level Feynman sum on $k$-leaved trees, one per $A_{\infty}$
-relation.
+The branch points are the two roots of
+$1+12t+(1052/27)t^2$. Their product is $27/1052$. The discriminant is
+\[
+  12^2-4\cdot\frac{1052}{27}
+  =-\frac{320}{27},
+\]
+so the two roots are complex conjugates and have common modulus
+$\sqrt{27/1052}$.
 \end{proof}
 
-\begin{remark}[The three-dimensional trace]
-\label{rem:3d-trace}
-The integration measure on $\mathrm{Conf}_{k}(\mathbb{C}^{3})$
-produces a factor of $\sigma_{3} = h_{1} h_{2} h_{3}$ at each
-internal vertex after localisation to the $T^{3}$-fixed locus
-(where the Omega-deformation concentrates). At the self-dual point
-$\sigma_{3} = 0$, $h_{2} = 0$, the integration collapses to the
-$1$-dimensional $h_{2} = 0$ slice, producing the Virasoro
-primary-line restriction $L_{T}$. The $k$-point Feynman integral on
-this slice is exactly the Virasoro $k$-point BPZ--Wick sum, whose
-Arnold-residue evaluation is $G_{k}^{\mathrm{conn}}$.
+The tower is algebraic and non-terminating, hence class $\mathbf M$ on
+this line. The exponential scale is $\rho^{-1}\approx6.242031958$,
+with the usual algebraic square-root subexponential factor.
+
+\section{Connected Five-Point Wick Cumulant}
+
+\begin{definition}[Exact connected Wick sum]
+\label{def:exact-wick-sum}
+At $c=1$ write
+\[
+  T(z)=-\frac12{:}J(z)^2{:},\qquad
+  \langle J(z)J(w)\rangle=-\frac1{(z-w)^2}.
+\]
+For $k$ marked points, attach two labelled half-edges to each point.
+Let $\mathcal P_k^{\mathrm{conn}}$ be the set of perfect matchings of
+these $2k$ half-edges whose incidence graph on the $k$ vertices is
+connected and whose pairs never lie on a single vertex. Define
+\[
+  G_k^{\mathrm{conn}}(z_1,\ldots,z_k)
+  =
+  \left(-\frac12\right)^k
+  \sum_{\pi\in\mathcal P_k^{\mathrm{conn}}}
+  \prod_{\{(i,r),(j,s)\}\in\pi}
+  \left(-\frac1{(z_i-z_j)^2}\right).
+\]
+\end{definition}
+
+\begin{theorem}[Five-point value]
+\label{thm:g5-value}
+The finite Wick enumeration gives
+\[
+  G_5^{\mathrm{conn}}(1,2,3,4,5)
+  =
+  \frac{775}{5184}
+  =
+  \frac{5^2\cdot31}{2^6\cdot3^4}.
+\]
+\end{theorem}
+
+\begin{proof}
+There are $9!!=945$ perfect matchings of ten labelled half-edges before
+the exclusion of self-pairings and disconnected incidence graphs. Each
+surviving term in Definition~\ref{def:exact-wick-sum} is a rational
+number at $(z_1,\ldots,z_5)=(1,2,3,4,5)$. Summing those rational terms
+gives $775/5184$. The local exact arithmetic implementation is
+\texttt{compute/lib/virasoro\_m5\_five\_point.py}; the assertion is
+checked by
+\texttt{compute/tests/test\_virasoro\_m5\_five\_point.py}.
+\end{proof}
+
+\begin{remark}[Comparison with $m_5$]
+\label{rem:g5-m5-comparison}
+The coefficient $m_5=-80/9$ is the Newton coefficient $a_3$ in
+Theorem~\ref{thm:c1-shadow-tower-through-eight}. The rational number
+$775/5184$ is a connected Wick cumulant at a chosen configuration. A
+comparison from the cumulant to the minimal $A_\infty$ operation uses
+the Virasoro normalisation, projection to the $T$-line, the level-four
+constant $S_4=10/27$, and the Arnold residue map on configuration
+space. The finite Wick value is compute-backed independently; the
+residue normalisation is the comparison datum.
 \end{remark}
 
-\begin{proposition}[Feynman interpretation of $G_{5}^{\mathrm{conn}}$]
-\label{prop:G5-feynman}
-At tree level, $G_{5}^{\mathrm{conn}}$ is the sum over the $15$
-tree-level Feynman diagrams on $5$ external $T$-legs with the
-$\mathrm{hCS}_{6}$ propagator, restricted to the
-$h_{2} = 0$ boundary slice. The 5 "star" topologies contribute
-$5\cdot (2T/z_{12}^{2})^{4}$ (weight $5$), the 10 "chain" topologies
-contribute tree-level $\Lambda$-mediated products (weight $10$), with
-the signed cumulant inversion producing the numerator $775 = 5^{2}
-\cdot 31$. The denominator $5184 = 2^{6}\cdot 3^{4}$ arises as:
-$2^{6}$ from the six propagator pairings per tree topology,
-$3^{4}$ from $(5c + 22)^{2} / 10^{2} = (27/10)^{2}$ evaluated on the
-two $\Lambda$-mediation insertions.
+\section{$A_\infty$ Coproduct Residues}
+
+Let $B^{\mathrm{ord}}(\mathcal A)$ be the ordered bar complex of the
+vertex algebra on the completed $\mathcal W_{1+\infty}$ line. Its
+homotopy-transferred coproduct has the form
+\[
+  \Delta^{A_\infty}
+  =
+  \Delta^{Y^+}
+  +\sum_{k\geq3}\hbar^{k-2}\delta^{(k)}.
+\]
+The symbol $\Delta^{Y^+}$ denotes the primitive positive-half Hall
+coproduct. The completed double is the layer on which the vertex
+algebra is read.
+
+\begin{proposition}[Scalar residue normalisation]
+\label{prop:scalar-residue-normalisation}
+On the $T$-line quotient,
+\[
+  \delta^{(k)}(T)
+  =
+  S_k\,\Delta_{\mathrm{sym}}^{(k)}(T)
+  +(\text{traceless primary terms}),
+\]
+where $\Delta_{\mathrm{sym}}^{(k)}$ is the symmetrised $k$-fold
+positive-half coproduct. Under the cyclic corolla pairing,
+$m_k(T,\ldots,T)=kS_kT$ for $k\geq4$, while
+$m_3(T,T,T)=-S_3T$ in the Virasoro associator convention.
 \end{proposition}
 
-\section{Cross-check: BKM shadow at $\kappa_{\mathrm{BKM}} = c_{N}(0)/2$}
+\begin{proof}
+The unit projection on $B^{\mathrm{ord}}(\mathcal A)$ kills the
+traceless primary terms and leaves the scalar coefficient of the
+symmetrised $k$-leg corolla. For $k\geq4$, the cyclic orbit of the
+outgoing leg has length $k$, giving the factor $k$. The ternary
+operation is fixed by the Gerstenhaber associator sign convention
+$m_3(T,T,T)=-\alpha T$ with $S_3=\alpha$.
+\end{proof}
 
-The $A_{\infty}$ shadow tower at $c = 1$ is the Virasoro contribution
-to the bar complex of $\Phi(\mathbb{C}^{3}) = \mathcal{W}_{1+\infty}$;
-at $\Phi(K3 \times E) = \mathcal{W}$-algebraic image of the K3-Yangian,
-the relevant primary line carries a different $\kappa_{\mathrm{ch}}$ and shadow
-tower. The universal Borcherds-weight identity
+\section{MacMahon and Bar Euler Scope}
+
+The point DT vertex of $\mathbb C^3$ is the MacMahon product
 \[
-    \kappa_{\mathrm{BKM}}(\Phi_{N}) \;=\; c_{N}(0) / 2,\qquad
-    N \in \{1, 2, 3, 4, 6\},
+  M(q)=\prod_{n\geq1}(1-q^n)^{-n}.
 \]
-(Gritsenko $\Delta_{5}$ at $N = 1$: $c_{1}(0) = 10$, so
-$\kappa_{\mathrm{BKM}} = 5$) is a chain-level statement about the
-Borcherds product; the corresponding shadow-tower invariants are
-read off from $\sqrt{Q_{c_{N}}}$ on the $\Phi_{N}$-primary line.
-The formula $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
-\chi(\mathcal{O}_{\mathrm{fiber}})$ is false at every $N$; the
-cache-certified Borcherds-weight identity stands independently.
+The ordered bar Euler characteristic of the positive Hall half and the
+graded character of $Y^+(\widehat{\mathfrak{gl}}_1)$ are $q$-series
+statements. The Virasoro shadow tower is an arity series in $t$ governed
+by $\sqrt{Q_1(t)}$. A comparison between these objects requires the
+choice of chamber, Behrend sign, grading variable, and projection map.
+The equality
+\[
+  \mathrm{CoHA}(\mathbb C^3)=Y^+(\widehat{\mathfrak{gl}}_1)
+\]
+lives on the positive associative Hall side; the
+$\mathcal W_{1+\infty}$ algebra is the completed double or centre
+evaluation.
 
-\section{Open questions}
+\section{$K3\times E$ and CHL Constants}
+
+The $c=1$ Virasoro tower above belongs to the $\mathbb C^3$ completion.
+The $K3\times E$ Borcherds and CHL constants live in a different
+construction. For $Y=K3\times E$,
+\[
+\begin{array}{c|c|c}
+\text{quantity} & \text{value} & \text{source}\\
+\hline
+\kappa_{\mathrm{cat}}(Y) & 0 &
+\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0\\
+\kappa_{\mathrm{ch}}(Y) & 0 &
+\sum_q(-1)^qh^{0,q}(Y)=1-1+1-1\\
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(Y) & 3 &
+\text{K3-fibre Heisenberg specialisation}\\
+\kappa_{\mathrm{BKM}}(\Delta_5) & 5 &
+c_1(0)/2=10/2\\
+\kappa_{\mathrm{fiber}}(Y) & 24 &
+\mathrm{rk}\,\widetilde H(K3,\mathbb Z)
+\end{array}
+\]
+These are parallel scalar readings with separate comparison maps.
+
+On the primitive CHL denominator ladder
+$N\in\{1,2,3,4,6\}$,
+\[
+  \bigl(c_1(0),c_2(0),c_3(0),c_4(0),c_6(0)\bigr)
+  =(10,8,6,4,2),
+\]
+so
+\[
+  \bigl(\kappa_{\mathrm{BKM}}(\Phi_1),
+        \kappa_{\mathrm{BKM}}(\Phi_2),
+        \kappa_{\mathrm{BKM}}(\Phi_3),
+        \kappa_{\mathrm{BKM}}(\Phi_4),
+        \kappa_{\mathrm{BKM}}(\Phi_6)\bigr)
+  =(5,4,3,2,1).
+\]
+The law is the Borcherds weight identity
+\[
+  \kappa_{\mathrm{BKM}}(\Phi_N)=\frac{c_N(0)}2.
+\]
+The Gritsenko-Clery diagonal-divisor catalogue is a separate
+eight-row table with
+\[
+  c_R(0)=(10,4,6,2,4,1,3,2),\qquad
+  \kappa_{\mathrm{BKM}}=(5,2,3,1,2,1/2,3/2,1).
+\]
+
+\section{Proof Boundaries}
 
 \begin{enumerate}
-\item (Resurgent closure.) Is the shadow tower Borel-summable at $c = 1$?
-    The Riccati algebraicity of $\sqrt{Q_{c}}$ gives algebraic
-    singularities on the Borel plane; the Stokes constants at
-    $t = t_{\pm}$ should encode the non-perturbative completion of
-    $\mathcal{W}_{1+\infty}$ as the 6d hCS boundary algebra.
-\item ($k = 6$ absence from the working-notes table.) $m_{6}$ is
-    computed here (Proposition~\ref{prop:m6}) and closes the gap
-    between $m_{5}$ and $m_{7}$; the table in
-    \texttt{working\_notes.tex} Proposition~\texttt{prop:shadow-m5-m8}
-    skips $k = 6$, presumably because the CoHA Miura normal ordering
-    symmetrises odd and even indices independently.
-\item (Class $\mathbf{M}$ at other $c$.) The Riccati discriminant at
-    $c \neq 1$ shifts the branch points; at $c = -22/5$ (the
-    Lee--Yang pole) both $S_{4}$ and $S_{5}$ diverge, so the tower
-    fails to define a convergent series. The relation between the
-    Lee--Yang pole and the CoHA at non-generic Omega is open.
-\item (Higher-genus shadow.) Every $S_{k}$ here is genus-zero; the
-    higher-genus shadow tower lives on $\overline{\mathcal{M}}_{g}$
-    and requires the full Feynman machine with loop corrections.
-    The two-loop contribution to $m_{k}$ gives the Bernoulli-ratio
-    correction to the Faber--Pandharipande amplitude.
-\item (CY-B realisation.) The identification of the shadow tower
-    with BPS/DT invariants on $\mathbb{C}^{3}$ is proved only
-    through the $q$-series level (MacMahon non-decomposition
-    theorem); genus-by-genus factorisation fails. CY-B for
-    $\mathbb{C}^{3}$ is a programme.
+\item The values $m_5,m_6,m_7,m_8$ and $S_5,S_6,S_7,S_8$ are proved by
+the square-root recurrence from the three Virasoro inputs
+$(\kappa_{\mathrm{ch}},\alpha,S_4)$.
+\item The value $G_5^{\mathrm{conn}}(1,2,3,4,5)=775/5184$ is an exact
+finite Wick enumeration. It is compute-backed independently of the
+Newton recurrence.
+\item The all-order non-termination of the $c=1$ tower follows from
+the fact that $Q_1(t)$ is a non-square quadratic. The displayed
+nonzero coefficients are verified only through arity eight.
+\item The hCS Feynman reading is conditional on the chosen
+Costello-Gaiotto boundary-algebra identification and propagator
+normalisation. The rational constants above are independent of that
+physical interpretation.
+\item The MacMahon product, ordered bar Euler characteristic, Virasoro
+shadow tower, and CHL Borcherds constants occupy different graded
+objects. Their comparison maps must be named before numerical values
+are identified.
 \end{enumerate}
-
-\appendix
-\section{Rectification log}
-
-Five attack--heal cycles were executed.
-
-\emph{Attack 1: Is $m_{5} = -80/9$ derived or fitted?} Derived: MC
-recursion at $r = 5$ has a single pair $(3, 4)$; output
-$S_{5} = -16/9$, $m_{5} = -80/9$. Independent check: closed form
-$S_{5}(\mathrm{Vir}_{c}) = -48/[c^{2}(5c+22)]$ from Vol I
-Proposition~\texttt{prop:vir-shadow-r5}, evaluated at $c = 1$.
-
-\emph{Attack 2: Are the denominators $9, 81, 19683 = 3^{9}$ forced or
-coincidental?} Forced. The only transcendental input at $c = 1$ is
-$5c + 22 = 27 = 3^{3}$; the MC quadratic recursion compounds powers
-of $27$ multiplicatively. The $3$-adic valuation
-$v_{3}(S_{k})$ grows but with MC cross-term cancellations that
-produce the observed irregular denominators.
-
-\emph{Attack 3: Is the shadow tower convergent or divergent at
-$c = 1$?} Convergent in the disc $|t| < 3/\sqrt{263} \approx 0.185$;
-class $\mathbf{M}$ with finite but non-zero radius fixed by the
-complex branch points $t_{\pm}$ of $\sqrt{Q_{c}}$.
-$|m_{k}|$ grows as $|t_{+}|^{-k}\cdot k$ modulo subexponential
-corrections.
-
-\emph{Attack 4: Is $G_{5}^{\mathrm{conn}} = 775/5184$ independent of
-the MC chain?} Yes. Direct BPZ--Wick cumulant inversion on $K_{5}$
-(Vol I \texttt{s5\_virasoro\_wick.py}) evaluates to
-$775/5184 = (5^{2} \cdot 31)/(2^{6}\cdot 3^{4})$, sharing no
-intermediate symbol with the Riccati MC recursion. The compatibility
-$5 S_{5} = m_{5}$ holds via the Arnold $d\log$ descent.
-
-\emph{Attack 5: Is $S_{k} = \delta^{(k)}(1, \ldots, 1)$ the correct
-identification with the $A_{\infty}$ coproduct correction?} Yes. The
-bar--cobar adjunction pairs $\delta^{(k)}$ with $m_{k}$; the scalar
-residue on the unit channel produces $S_{k}$. The corolla coefficient
-identity $m_{k} = k\cdot S_{k}$ follows from the $k$-fold cyclic
-rotational symmetry of the $k$-ary tree.
 
 \end{document}

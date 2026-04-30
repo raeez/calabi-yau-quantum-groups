@@ -1,76 +1,50 @@
 % !TEX root = /dev/null
-% ============================================================
-% Six-real-dimensional holomorphic Chern--Simons on K3 x E
-% Standalone mathematical note
-% Channel: Costello-Francis-Gwilliam 2026 E_3 algebra of observables
-% + Lorgat 2020 Borcherds-GKM reconstruction of Delta_5
-% + two-stage factorisation Phi = Sp_{Sigma,C} o Phi^{FA}
-% Compact CY3 X = K3 x E, K3-specialisation factorisation-homology
-% E_1 chiral on E, lattice Heisenberg abelianisation, and the
-% Borcherds-type theta denominator with weight-5 kappa_BKM = c_1(0)/2.
-% ============================================================
-
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
 
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\N}{\mathbb{N}}
 \providecommand{\Q}{\mathbb{Q}}
-\providecommand{\CC}{\mathbb{C}}
 \providecommand{\dbar}{\bar{\partial}}
-\providecommand{\g}{\mathfrak{g}}
+\providecommand{\dbarstar}{\bar{\partial}^{\ast}}
 \providecommand{\gfrak}{\mathfrak{g}}
-\providecommand{\h}{\mathfrak{h}}
-\providecommand{\Lat}{\Lambda}
-\providecommand{\frakgDelta}{\mathfrak{g}_{\Delta_5}}
-\providecommand{\frakgcirc}{\mathfrak{g}^{\circ}}
-\providecommand{\Obs}{\mathrm{Obs}}
-\providecommand{\Sym}{\mathrm{Sym}}
-\providecommand{\End}{\mathrm{End}}
-\providecommand{\Hom}{\mathrm{Hom}}
-\providecommand{\id}{\mathrm{id}}
-\providecommand{\gh}{\mathrm{gh}}
-\providecommand{\af}{\mathrm{af}}
-\providecommand{\cl}{\mathrm{cl}}
-\providecommand{\qu}{\mathrm{q}}
-\providecommand{\Fact}{\mathrm{Fact}}
-\providecommand{\PreFact}{\mathrm{PreFact}}
-\providecommand{\Disk}{\mathrm{Disk}}
-\providecommand{\cE}{\mathcal{E}}
+\providecommand{\ad}{\operatorname{ad}}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\Sym}{\operatorname{Sym}}
+\providecommand{\End}{\operatorname{End}}
+\providecommand{\Rep}{\operatorname{Rep}}
+\providecommand{\CoHA}{\operatorname{CoHA}}
+\providecommand{\Obs}{\operatorname{Obs}}
+\providecommand{\CE}{\operatorname{CE}}
+\providecommand{\BV}{\operatorname{BV}}
+\providecommand{\QME}{\operatorname{QME}}
+\providecommand{\hCS}{\operatorname{hCS}}
 \providecommand{\cA}{\mathcal{A}}
+\providecommand{\cE}{\mathcal{E}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\cU}{\mathcal{U}}
 \providecommand{\cF}{\mathcal{F}}
-\providecommand{\cP}{\mathcal{P}}
-\providecommand{\cS}{\mathcal{S}}
 \providecommand{\cH}{\mathcal{H}}
-\providecommand{\cI}{\mathcal{I}}
-\providecommand{\cN}{\mathcal{N}}
-\providecommand{\cR}{\mathcal{R}}
 \providecommand{\cL}{\mathcal{L}}
-\providecommand{\cM}{\mathcal{M}}
-\providecommand{\Ran}{\mathrm{Ran}}
-\providecommand{\PV}{\mathrm{PV}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\hCS}{\mathrm{hCS}}
-\providecommand{\CS}{\mathrm{CS}}
-\providecommand{\tr}{\mathrm{tr}}
-\providecommand{\Tr}{\mathrm{tr}}
-\providecommand{\hv}{h^{\vee}}
-\providecommand{\Heis}{\mathrm{Heis}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\Lat}{\Lambda}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\operatorname{Sp}^{\mathrm{ch}}}
 \providecommand{\Eone}{E_1}
 \providecommand{\Etwo}{E_2}
 \providecommand{\Ethree}{E_3}
-\providecommand{\En}{E_n}
-\providecommand{\Weyl}{W^{(2)}}
-\providecommand{\WeylII}{W^{(2)}(\Lat^{2,1}_{I\!I})}
-\providecommand{\Sp}{\mathrm{Sp}}
-\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+\providecommand{\Yp}{Y^{+}}
+\providecommand{\Woneinf}{\mathcal{W}_{1+\infty}}
+\providecommand{\Heis}{\operatorname{Heis}}
+\providecommand{\frakgDelta}{\mathfrak{g}_{\Delta_5}}
+\providecommand{\kanom}{\kappa_{\operatorname{anom}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kchc}{\kappa_{\mathrm{ch}}^{\mathrm{compact}}}
+\providecommand{\kchH}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -79,15 +53,11 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{construction}[theorem]{Construction}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem*{obstruction}{Obstruction}
-\newtheorem*{resolution}{Resolution}
 
-\title{Six-real-dimensional holomorphic Chern--Simons deepened:\\
-pre-factorisation observables on $K3\times E$, the $K3$-specialisation
-$E_1$-chiral as a lattice Heisenberg, and the Borcherds--Lorgat
-non-abelian correction to $\kBKM=5$}
+\title{Holomorphic Chern-Simons Observables on $\C^3$ and $K3\times E$}
 \author{Raeez Lorgat}
 \date{2026-04-22}
 
@@ -95,965 +65,756 @@ non-abelian correction to $\kBKM=5$}
 \maketitle
 
 \begin{abstract}
-Wave 12 constructed the $E_3$-algebra of observables of 6d holomorphic
-Chern--Simons on $\C^3$ --- the BV field $\cA \in
-\Omega^{0,\ast}(\C^3,\g)$, the Bochner--Martinelli propagator, the
-proof that every multi-loop Feynman graph on $\C^3$ vanishes
-identically by the algebraic identity $\Omega \wedge \Omega = 0$, and
-the stalk identification $\Obs^\qu_{(0)} \simeq U_{\Ethree}(\g[2])$.
-The present note pushes the construction to the compact Calabi--Yau
-threefold $X = K3 \times E$ and traces the pre-factorisation algebra
-$\Obs^\qu_{\hCS}(X)$ along the two-stage factorisation $\Phi =
-\Sp_{K3, E} \circ \Phi^{\FA}$. The $K3$-integrated transverse
-factorisation homology yields, at abelian $\g = \C^r$ with $r =
-\mathrm{rk}\,\Lat_{\mathrm{K3}}^{\mathrm{alg}}$, the lattice
-Heisenberg vertex algebra $\Heis_{\Lat_{\mathrm{K3}}^{\mathrm{alg}}}$
-on $E$; the non-abelian correction is the Borcherds theta denominator
-whose resulting GKM superalgebra is Lorgat's $\frakgDelta$, with
-$\kappaBKM = c_1(0)/2 = 5$ reading off from the weight of the
-Borcherds lift of $\phi_{0,1}$. Five ATTACK$\leftrightarrow$HEAL
-cycles establish: (1) non-abelian quantisation on $\C^3$ lifts to
-$\mathrm{su}_2$ with explicit one-loop anomaly control; (2) the
-pre-factorisation structure on $K3\times E$ refines the $\C^3$
-observables via a $\dbar_{K3}$-Laplacian local model; (3) the
-transverse $\int_{K3}$ pushforward is an $\Eone$-chiral algebra on
-$E$ whose abelianisation is the lattice Heisenberg
-$\Heis_{\Lat_{\mathrm{K3}}^{\mathrm{alg}}}$; (4) the Lorgat GKM
-$\frakgDelta$ is the chiral-algebra-of-positive-imaginary-simple-roots
-refinement of this Heisenberg, with weight $5 = c_1(0)/2$ of the
-Gritsenko $\Delta_5$ denominator visible in the one-loop Borcherds
-coefficient; (5) the $\Omega$-background is toric-specific and cannot
-deform $\int_{K3}$ without a choice of generic $K3$-automorphism
-action, which would break the Nikulin-$N\leq 8$ classification.
+Holomorphic Chern-Simons theory in complex dimension three has two
+different one-loop slots.  The degree-one quantum master equation
+obstruction is the quartic Chern-Weil class
+\(I_4^\rho\in\Sym^4(\gfrak^\vee)^{\gfrak}\).  The quadratic Casimir
+\(C_2^\rho\) contributes a degree-zero two-point counterterm and
+renormalises the kinetic pairing.  Compact statements on
+\(K3\times E\) therefore require an explicit BV package: orientation,
+framing, gauge fixing, heat-kernel regulator, completed local
+functionals, factorisation or TCFT sewing, and a trivialisation of the
+class \(\kanom(K3\times E,\gfrak,\rho)\).  After this package is fixed,
+the \(K3\)-fibre specialisation of the stage-one holomorphic
+factorisation algebra gives an \(\Eone\)-chiral algebra on \(E\).  In
+the abelian Gaussian sector it is the lattice Heisenberg algebra of the
+chosen \(K3\)-lattice.  On the principal Hall-Borcherds recognition
+locus, the rank-three hyperbolic Cartan shadow is transported to the
+vertex envelope \(U_{\mathrm{ch}}(\frakgDelta)\), whose denominator is
+the Borcherds product \(\Delta_5\) with
+\(\kBKM(\Delta_5)=c_1(0)/2=10/2=5\).  The compact Hodge invariant
+\(\kchc(K3\times E)=0\), the Heisenberg value \(\kchH=3\), the
+Borcherds weight \(5\), and the fibre rank \(24\) come from four
+separate constructions.
 \end{abstract}
 
 \tableofcontents
 
-%%=====================================================================
-\section{Preamble: where Wave 13 differs from Wave 12}
-%%=====================================================================
+\section{BV datum and one-loop classes}
+\label{sec:bv-datum}
 
-The Wave 12 construction was entirely on $\C^3$: the BV complex on
-$\Omega^{0,\ast}(\C^3,\g)$, the Costello heat-kernel regularised
-Bochner--Martinelli propagator, the all-loop algebraic vanishing
-$P \wedge P = 0$ on $\Omega^{0, \ge 4}(\C^3) = 0$, and the
-$E_3$-stalk identification $\Obs^\qu_{(0)} \simeq U_{\Ethree}(\g[2])$.
-Three questions are left untouched by that construction:
-
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item \emph{Non-abelian.} The all-loop vanishing covers any
-$\g$ as a differential-form statement. But for the $E_3$-algebra
-stalk to be $U_{\Ethree}(\g[2])$, one needs to check that the
-one-loop anomaly cocycle is BV-exact for the Lie algebras of
-interest. On $\C^3$ the cocycle is a local functional of
-degree $6$ in the Chern--Weil calculus of $\g$; for semisimple
-$\g$ the Pontryagin class $p_1(\g)$ pairs with the $c_2(\g)$
-Casimir and the vanishing requires $c_2(\g) \cdot [\C^3] = 0$,
-which is tautologically true on affine $\C^3$ but must be checked
-on a compact CY_3.
-
-\item \emph{Compact $X = K3 \times E$.} The pre-factorisation
-algebra lives on $X$, not $\C^3$. Its holomorphic locality
-structure is governed by a Dolbeault-Laplacian on $K3 \times E$
-whose heat kernel mixes the $K3$-harmonic representatives and
-the elliptic-theta harmonics. The construction survives
-unchanged in the BV-superfield formalism, but its $E_3$-stalk
-at a point of $X$ acquires a dependence on local $K3$-geometry
-(Nikulin lattice $\Lat_{\mathrm{K3}}$).
-
-\item \emph{$K3$-fibre specialisation $\int_{K3}$.} Reading the
-$E_1$-chiral algebra on $E$ as the transverse factorisation
-homology over $K3$ changes the problem: the $E_3$ observables
-on $X$ are pushed to $E_1$ observables on $E$, with the $K3$
-playing the role of a $4$-real-dimensional ``transverse manifold''.
-The resulting chiral algebra on $E$ is the Heisenberg of the
-$K3$-Mukai lattice in the abelian case, and the non-abelian
-correction is the Borcherds $\Delta_5$ denominator of Lorgat
-2020.
-\end{enumerate}
-
-These three questions are the three substantive refinements of
-Wave 13 over Wave 12. The present note works them out.
-
-\subsection{Two-stage $\Phi$ reminder}
-
-Per \texttt{notes/wave12\_u1\_two\_stage\_functor.tex}, the CY-to-chiral
-functor factors as
+\begin{construction}[Holomorphic Chern-Simons datum]
+\label{cons:hcs-datum}
+Let \(X\) be a complex threefold with a nowhere-vanishing holomorphic
+volume form \(\Omega_X\).  Let \((\gfrak,\langle-,-\rangle)\) be a
+finite-dimensional complex quadratic Lie algebra.  On an open
+\(U\subset X\) the local BV fields are
 \[
-\Phi_d \;=\; \Sp_{\Sigma_{d-1}, C} \;\circ\; \Phi^{\FA}_d,
+  \cE(U)=\Omega^{0,\bullet}(U,\gfrak)[1].
 \]
-with Stage~1 canonical (Kontsevich--Tamarkin $E_d$-formality plus
-Costello--Gwilliam holomorphic locality) producing an $E_d$-holomorphic
-factorisation algebra on $X$, and Stage~2 the factorisation-homology
-pushforward over a choice of $(d-1)$-cycle $\Sigma_{d-1}$ to a
-reference curve $C$. For $X = K3 \times E$ at $d = 3$:
-$\Sigma_{d-1} = \Sigma_2 = K3$, $C = E$, and $\Phi^{\FA}_3(X)$ is the
-$\Obs^\qu$ pre-factorisation algebra of the Wave 12 construction
-extended to the compact $X$. The present note is about constructing
-$\Obs^\qu(X)$ and computing $\int_{K3}\Obs^\qu|_E$.
-
-%%=====================================================================
-\section{Cycle 1: non-abelian quantisation on $\C^3$ past $\g = \C$}
-\label{sec:cycle1}
-%%=====================================================================
-
-\begin{attack}[Beyond the abelian free theory]
-Wave 12 Theorem 3.1 of \texttt{wave12\_b3\_6d\_hCS\_E3\_gen\_rel.tex}
-establishes $\Obs^\qu \simeq \Sym_\C(\cE_c^\vee[-1])[\hbar]_\star$
-for $\g = \C$, where the star product is governed by the
-Bochner--Martinelli two-point function and all higher-point functions
-vanish. For non-abelian $\g = \mathrm{su}_2$ (or $\mathrm{sl}_2$),
-the cubic vertex $\tfrac{1}{6}\cA[\cA,\cA]$ is non-zero. Is there a
-non-trivial one-loop diagram? The multi-loop vanishing of Wave 12 / B4
-Proposition 4.9 uses the identity $\Omega_w \wedge \Omega_w = 0$
-applied to two propagators whose $w$-legs both carry $\Omega_w$. Is
-that identity robust against a cubic vertex with three legs, each
-of which contributes at most one $\Omega_w$?
-\end{attack}
-
-\begin{heal}[Cubic vertex does not re-introduce $\Omega_w \wedge \Omega_w$]
-The cubic vertex of $\tfrac{1}{6}\tr(\cA[\cA,\cA])$ integrates against
-$\Omega_y$ at the vertex point $y$, not against propagator kernels.
-Each propagator attached to the vertex carries one factor of $\Omega$:
-namely, the $\Omega_w$-factor in
-\begin{equation}\label{eq:BM-prop-explicit}
-P_{\epsilon,L}(z,w) \;=\; \int_\epsilon^L \! dt \, (\dbar^\ast
-\otimes 1) K_t(z,w) \;\in\; \Omega^{0,2}_z(\C^3) \otimes
-\Omega^{0,1}_w(\C^3),
-\end{equation}
-up to the antisymmetry of $\bar{(z-w)}_k \widehat{d\bar z_k}$.
-The bubble diagram has two propagators connecting two trivalent
-vertices, giving
-\begin{equation}\label{eq:bubble-integrand}
-I_{\text{bubble}}^{\mathrm{ab}=\mathrm{non}}(z_1,z_2) \;=\;
-\Cas_{\gfrak} \cdot \tr(\cA(z_1) \cA(z_2)) \cdot
-\bigl(P_{\epsilon,L}(z_1,z_2)\bigr)^{\!\wedge 2},
-\end{equation}
-with $\Cas_\gfrak = f_{abc} f^{abc}$ the quadratic Casimir of $\gfrak$.
-The wedge square of $P$ carries two factors of $\Omega_w$, each of
-Dolbeault type $(0,1)$ in $w$, so $P \wedge P$ is a
-$(0, 2+2) = (0, 4)$-form in $w$. Since $\Omega^{0, 4}(\C^3) = 0$,
-$P \wedge P = 0$ identically. The cubic vertex of $\mathrm{sl}_2$
-does not introduce any new propagator; it merely contributes the
-$\Cas_{\mathrm{sl}_2} = 4$ colour factor. The same vanishing argument
-of Wave 12 / B4 Proposition 4.9 applies.
-\end{heal}
-
-\begin{proposition}[One-loop bubble vanishes for $\gfrak = \mathrm{sl}_2$]
-\label{prop:sl2-bubble-vanish}
-For $\gfrak = \mathrm{sl}_2$ (equivalently $\mathrm{su}_2$ after
-real-form passage), the one-loop bubble diagram in 6d hCS on $\C^3$
-has integrand
+The classical action is
 \[
-I^{\mathrm{sl}_2}_{\text{bubble}}(z_1, z_2) \;=\;
-\Cas_{\mathrm{sl}_2} \cdot \tr(\cA(z_1) \cA(z_2)) \cdot
-P_{\epsilon,L}(z_1, z_2) \wedge P_{\epsilon,L}(z_1, z_2) \;=\; 0
+  S_{\mathrm{cl}}(\cA)=
+  \int_U \Omega_X\wedge
+  \left\langle
+    \frac12\,\cA\wedge\dbar\cA+
+    \frac16\,\cA\wedge[\cA,\cA],
+    1
+  \right\rangle ,
+  \qquad
+  \cA\in\Omega^{0,\bullet}(U,\gfrak).
 \]
-identically as a differential form, by the $(0,4)$-Dolbeault
-dimension vanishing on $\C^3$.
-\end{proposition}
-
-\begin{proof}
-The integrand carries two copies of the $w$-leg $(0,1)$-form.
-Their wedge is a $(0,2)$-form in $w$; further wedged with the
-$z$-leg $(0,2)$-forms gives a top $(0,3)$-form in $z$ and a
-$(0,2)$-form in $w$ --- well, before integrating. Upon integrating
-one propagator over a loop with the other, the Dolbeault degree
-count gives $(0, 1) + (0, 1) = (0, 2)$ in one leg and
-$(0, 2) + (0, 2) = (0, 4)$ in the other; the latter vanishes since
-$\Omega^{0, \ge 4}(\C^3) = 0$.
-\end{proof}
-
-\begin{corollary}[No $k \to k + \hv$ shift]\label{cor:no-level-shift}
-For $\gfrak = \mathrm{sl}_2$ (dual Coxeter number $\hv = 2$) the
-anticipated $k \to k + 2$ level shift of 3d Chern--Simons does not
-occur in 6d hCS on $\C^3$. The pairing normalisation $\hbar \cdot
-\tr$ is exact at one loop and in fact at all loops by the
-multi-loop vanishing (Wave 12 / B4 Prop 4.9 extended
-verbatim to non-abelian $\gfrak$).
-\end{corollary}
-
-\begin{remark}[Obstruction only from $c_2(X)$]
-The BCOV anomaly proportional to $c_2(X)$ on a general CY_3 $X$ ---
-which is the obstruction to quantisation beyond the abelian free
-theory in BCOV / Kodaira--Spencer gravity
-\cite{CostelloLi2020} --- vanishes on $\C^3$ because $c_2(\C^3) = 0$.
-On $K3 \times E$ the first Chern class is $c_1 = 0$ (CY_3) and the
-second Chern class $c_2(K3\times E) = c_2(K3) + c_2(E) = 24 \cdot
-[pt]_{K3} + 0$; integrated against any closed 4-cycle on $K3$ the
-Pontryagin degree is non-zero. Thus on $K3 \times E$ the one-loop
-anomaly is a priori non-zero, but the Dolbeault dimension vanishing
-still forces it to be a $\dbar$-exact local functional (since the
-wedge square of any two $(0,2)$-forms on $K3\times E$ is a $(0,4)$-form
-in the $K3$-direction, which is top rank on $K3$ and hence equals
-$\Omega_{K3} \wedge \overline{\Omega_{K3}}$ times a scalar). This
-produces the \emph{Chern--Simons-level counterterm at rank}
-$\langle c_2(K3), [K3]\rangle = 24$, recovering the K3 Euler
-characteristic as the one-loop coefficient.
-\end{remark}
-
-\begin{construction}[Non-abelian $E_3$-stalk]\label{cons:non-abel-E3}
-Assume $\gfrak$ semisimple with $c_2(\gfrak)$ paired against any
-specific gauge-bundle class vanishing (automatic on $\C^3$; on
-compact $X$ requires $c_2(\gfrak) \cdot c_2(X) = 0$, which fails
-on $K3 \times E$ for $\gfrak$ of non-zero Casimir and requires a
-counterterm). The non-abelian $E_3$-stalk at $0 \in \C^3$ is
+The shifted BV pairing is
 \[
-\Obs^\qu_{(0)}(\C^3,\gfrak) \;\simeq\; U_{\Ethree}(\gfrak[2])
+  \omega(\alpha,\beta)=
+  \int_U\Omega_X\wedge\langle\alpha,\beta\rangle ,
 \]
-with $U_{\Ethree}(-)$ the $E_3$-enveloping functor of Lurie HA
-\S5.5.3 applied to $\gfrak$ placed in cohomological degree $+2$.
-The generators-and-relations presentation from Wave 12 / B3 \S6
-carries over unchanged: $\dim\gfrak$ primary generators $t^a$ in
-degree $+2$; braided commutativity (strict by even degree); $E_3$
-Gerstenhaber bracket $[t^a, t^b]_{\Ethree} = \hbar f^{ab}{}_c t^c$
-realising the Lie bracket of $\gfrak$ at one loop; graded Jacobi.
+which pairs \(\Omega^{0,p}\) with compactly supported
+\(\Omega^{0,3-p}\) and has BV degree \(-1\) after the shift.
 \end{construction}
 
-%%=====================================================================
-\section{Cycle 2: pre-factorisation algebra of $\hCS$ on $K3 \times E$}
-\label{sec:cycle2}
-%%=====================================================================
+\begin{proposition}[Classical master equation]
+\label{prop:cme}
+The functional \(S_{\mathrm{cl}}\) satisfies
+\[
+  \{S_{\mathrm{cl}},S_{\mathrm{cl}}\}=0 .
+\]
+\end{proposition}
 
-\begin{attack}[Compact $X$, holomorphic locality on $K3 \times E$]
-The BV construction, propagator, and Feynman vanishing of Wave 12
-were on $\C^3$. On $X = K3 \times E$ the $\dbar$-Laplacian is no
-longer the flat Bochner--Kodaira Laplacian; the heat kernel has
-curvature corrections, and the Dolbeault cohomology of $X$ is
-$(h^{0,0}, h^{0,1}, h^{0,2}, h^{0,3}) = (1, 1, 1, 1)$, reflecting
-the full elliptic-$\times$-K3 structure. What is the
-pre-factorisation pre-cosheaf $\Obs^\qu$ on $K3 \times E$, and does
-its stalk at any point $x \in X$ still equal $U_{\Ethree}(\gfrak[2])$
-up to BV-exact?
-\end{attack}
+\begin{proof}
+The Hamiltonian vector field of \(S_{\mathrm{cl}}\) is the
+Chevalley differential of the Dolbeault dg Lie algebra
+\[
+  \bigl(\Omega^{0,\bullet}(U,\gfrak),\dbar,[-,-]_{\gfrak}\bigr).
+\]
+The equation follows from \(\dbar^2=0\), the derivation rule for
+\(\dbar\), the Jacobi identity in \(\gfrak\), and invariance of the
+pairing.
+\end{proof}
 
-\begin{heal}[Local model on small polydisk; global holomorphic locality]
-At any $x \in X = K3 \times E$, a small holomorphic polydisk
-$D_\epsilon(x) \subset X$ admits local coordinates $(z_1, z_2, w)$
-with $(z_1, z_2)$ a local chart on $K3$ and $w$ a local chart on
-$E$. The restriction $\Obs^\qu|_{D_\epsilon(x)}$ is the Wave 12
-pre-factorisation algebra on the polydisk, and its stalk at $x$ is
-$U_{\Ethree}(\gfrak[2])$ by Wave 12 / B3 Theorem 6.1 (Costello--Francis
---Gwilliam 2026 local form). Global structure assembles via
-holomorphic locality: the $\dbar$-Laplacian on $X$ differs from the
-local flat Laplacian by a curvature-controlled operator, and its
-heat kernel $K_t^X(z, w)$ satisfies, for $t$ small, a Varadhan-type
-asymptotic
-\begin{equation}
-K_t^X(z, w) \;=\; K_t^{\C^3, \mathrm{local}}(z, w) \cdot
-\bigl(1 + t \cdot c(z, w) + O(t^2)\bigr),
-\end{equation}
-where $c(z, w)$ is a curvature scalar built from the K\"ahler form
-on $K3 \times E$. At scale $t \to 0$, the flat model dominates;
-the pre-factorisation stalk is unchanged.
-\end{heal}
-
-\begin{definition}[$\Obs^\qu_{\hCS}$ on $K3 \times E$]
-\label{def:obs-on-K3E}
-For $X = K3 \times E$ CY_3 and $U \subset X$ open, set
-\begin{equation}
-\Obs^\qu_{\hCS}(U) \;=\; \bigl(\cO(\cE(U))[[\hbar]],
-\; Q + \{I[L]_U, -\}_{BV} + \hbar \Delta_{BV}^{P^X_L}\bigr),
-\end{equation}
-where:
-\begin{itemize}
-\item $\cE(U) = \Omega^{0,\ast}(U, \gfrak[1]) \oplus
-\Omega^{0,\ast}(U, \gfrak^\ast[-2])$ is the BV field content
-on $U$, same as Wave 12 / B4 Definition 2.1;
-\item $Q = \dbar_X + \tfrac{1}{2}[\cA, -]$ with $\dbar_X = \dbar_{K3}
-+ \dbar_E$ the Dolbeault differential on $K3 \times E$;
-\item $P^X_L$ is the regularised propagator, equal to the integral
-over $[0, L]$ of the $\dbar$-heat kernel on $X$ with the
-CY volume form $\Omega_X = \Omega_{K3} \wedge dw$;
-\item $I[L]_U$ is the Costello-renormalised effective action of
-the classical $\hCS$ action on $U$.
-\end{itemize}
-This is a pre-factorisation algebra on $X$ by Costello--Gwilliam
-Vol 2 Thm 10.0.1.
+\begin{definition}[Costello quantum datum]
+\label{def:costello-quantum-datum}
+A perturbative quantisation consists of a Costello gauge-fixing operator
+\(Q^{\mathrm{GF}}\), heat kernels \(K_t\), regularised BV kernels
+\(P_{\varepsilon,L}\), effective interactions
+\[
+  I[L]\in\cO_{\mathrm{loc}}(\cE_X)[[\hbar]],
+\]
+and a completed local functional complex on which
+\[
+  QI[L]+\frac12\{I[L],I[L]\}_{L}+\hbar\Delta_L I[L]=0
+  \tag{\QME_L}
+\]
+is defined.  The obstruction at each quantum order lies in degree one in
+this local BV complex.
 \end{definition}
 
-\begin{proposition}[Stalk identification on $X = K3 \times E$]
-\label{prop:stalk-on-K3E}
-At any point $x \in X = K3 \times E$, the stalk of
-$\Obs^\qu_{\hCS}$ is equivalent to the flat-model stalk:
+\begin{definition}[Quartic invariant]
+\label{def:quartic-invariant}
+For a representation \(\rho:\gfrak\to\End(V)\), set
 \[
-\Obs^\qu_{\hCS,(x)} \;\simeq\; U_{\Ethree}(\gfrak[2])
-\quad \text{as $E_3$-algebras in chain complexes over } \C[[\hbar]].
+  I_4^\rho(x_1,x_2,x_3,x_4)
+  =
+  \frac1{4!}\sum_{\sigma\in S_4}
+  \Tr_V\!\left(
+    \rho(x_{\sigma(1)})\rho(x_{\sigma(2)})
+    \rho(x_{\sigma(3)})\rho(x_{\sigma(4)})
+  \right).
 \]
+Then \(I_4^\rho\in\Sym^4(\gfrak^\vee)^{\gfrak}\).  The adjoint
+choice is denoted \(I_4^{\ad}\).
+\end{definition}
+
+\begin{proposition}[Quartic QME obstruction in complex dimension three]
+\label{prop:quartic-qme-obstruction}
+The nonabelian one-loop gauge obstruction for holomorphic
+Chern-Simons theory on a complex threefold is represented in the local
+Chevalley complex by
+\[
+  \Theta^\rho_U(\alpha_0,\alpha_1,\alpha_2,\alpha_3)
+  =
+  \int_U
+  \left[
+  I_4^\rho\bigl(
+    \alpha_0,\partial\alpha_1,\partial\alpha_2,\partial\alpha_3
+  \bigr)
+  \right]_{(3,3)},
+  \qquad
+  \alpha_i\in\Omega^{0,\bullet}_c(U,\gfrak).
+\]
+Its obstruction class is
+\[
+  \kanom(X,\gfrak,\rho)
+  =
+  [\,\hbar\,\Theta^\rho\,]
+  \in
+  H^1_{\mathrm{loc}}
+  \bigl(\Omega^{0,\bullet}(X,\gfrak)[1],\cO_{\mathrm{loc}}\bigr).
+\]
+For \(\rho=\ad\), this is the Costello-Li descent class represented in
+ghost-field notation by \(\int_X\Tr_{\ad}(c\,F_A^3)\).
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-Passing to the flat tangent model at $x$: $T_x X \simeq \C^3$ by
-holomorphic exponential chart. The local heat kernel agrees with
-the flat $\C^3$ heat kernel at leading order; curvature corrections
-enter at sub-leading order and produce BV-exact contributions in the
-stalk. The $E_3$-algebra structure is robust under such corrections
-because it is determined by the germ of the factorisation algebra
-at the point, and the germ coincides with the flat $\C^3$ germ by
-the Varadhan asymptotic. This is Costello--Gwilliam Vol 2 Prop 10.1.4
-applied to the compact-CY case.
+\begin{proof}
+The relevant one-loop graph is the wheel with four external gauge
+insertions.  Its Lie factor is the symmetrised trace of four Lie algebra
+inputs, hence an element of \(\Sym^4(\gfrak^\vee)^{\gfrak}\).  The
+holomorphic form factor carries three \(\partial\)-derivatives; in
+complex dimension three this gives a holomorphic top density.  The
+\((3,3)\)-component is a local functional of cohomological degree one.
+Costello obstruction theory identifies this degree-one class as the
+first obstruction to solving \((\QME_L)\).
 \end{proof}
 
-\begin{remark}[Global $\Obs^\qu(X)$ vs stalk]
-The global factorisation algebra $\Obs^\qu_{\hCS}(X)$ is
-\emph{not} equal to $U_{\Ethree}(\gfrak[2])$: the local stalk is
-$E_3$-enveloping, but the global algebra carries the full Dolbeault
-cohomology of $X$ as derived invariants. Explicitly,
-\begin{equation}
-H^\ast\Obs^\qu_{\hCS}(X) \;\simeq\; \Sym_\C\bigl(H^{0,\ast}_{\dbar}(X, \gfrak)^\vee[-1]\bigr)[\hbar]_\star,
-\end{equation}
-where $H^{0,\ast}_{\dbar}(X, \gfrak)$ is the Dolbeault cohomology
-of $X$ with values in the adjoint bundle. For $X = K3 \times E$
-and trivial $\gfrak$-bundle, Künneth gives
-$H^{0,\ast}(X) = H^{0,\ast}(K3) \otimes H^{0,\ast}(E)$ with graded
-dimensions $(1,0,1,0) \otimes (1,1) = (1, 1, 1, 1)$, yielding
-$\kappach(K3\times E) = 1 - 1 + 1 - 1 = 0$, matching
-$\chi(\cO_{K3\times E}) = \kappacat = 0$ (cache: total space Künneth,
-not fibre).
+\begin{definition}[Quadratic Casimir coefficient]
+\label{def:quadratic-casimir}
+Let \(\{T_a\}\) be a basis of \(\gfrak\), and let \(\{T^a\}\) be the
+dual basis for the chosen invariant pairing.  The representation
+theoretic quadratic Casimir is
+\[
+  C_2^\rho=\sum_a\rho(T_a)\rho(T^a).
+\]
+For the adjoint representation of a simple Lie algebra, this is the
+usual dual-Coxeter quadratic coefficient.
+\end{definition}
+
+\begin{proposition}[Two-point counterterm]
+\label{prop:two-point-counterterm}
+With the flat heat-kernel normalisation, the two-point graph contributes
+a degree-zero local counterterm of the form
+\[
+  S_{\mathrm{ct}}^{(2)}
+  =
+  -\hbar\,\frac{C_2^\rho}{(4\pi)^3}
+  \log(L/\varepsilon)
+  \int_X\Omega_X\wedge\Tr_\rho(\cA\,\dbar\cA),
+\]
+up to the convention for the invariant pairing and the heat-kernel
+normalisation.  This term renormalises the field and the kinetic
+pairing.  The degree-one QME obstruction is the quartic class of
+Proposition~\ref{prop:quartic-qme-obstruction}.
+\end{proposition}
+
+\begin{proof}
+Closing two legs of the cubic vertex gives the colour contraction
+\(\sum_a\rho(T_a)\rho(T^a)=C_2^\rho\).  The remaining two external
+fields have the tensor type of the kinetic functional
+\(\int\Omega_X\wedge\Tr_\rho(\cA\dbar\cA)\).  The short-distance
+six-real-dimensional heat-kernel integral supplies the logarithmic
+factor.  Its cohomological degree is zero, while
+\(\Theta^\rho\) has degree one and arity four.
+\end{proof}
+
+\begin{corollary}[Real three-dimensional comparison]
+\label{cor:three-dimensional-comparison}
+The hCS BV complex has no secondary topological coupling of the real
+three-dimensional theory.  Its one-loop data in complex dimension three
+are the degree-one quartic class \(I_4^\rho\) and the degree-zero
+two-point coefficient \(C_2^\rho\).
+\end{corollary}
+
+\section{Flat local model on \texorpdfstring{$\C^3$}{C3}}
+\label{sec:flat-c3}
+
+\begin{proposition}[Bochner-Martinelli propagator]
+\label{prop:bm-propagator}
+On \(\C^3\) with the Euclidean Hermitian metric and
+\(Q^{\mathrm{GF}}=\dbarstar\), define
+\[
+  P_{\varepsilon,L}(z,w)
+  =
+  \int_{\varepsilon}^{L}(\dbarstar\otimes1)K_t(z,w)\,dt ,
+  \qquad
+  0<\varepsilon<L<\infty .
+\]
+Off the diagonal, the limit as \(\varepsilon\to0\) and
+\(L\to\infty\) is the Bochner-Martinelli kernel
+\[
+  P_{\mathrm{BM}}(z,w)
+  =
+  \frac{2!}{(2\pi i)^3}
+  \sum_{k=1}^{3}(-1)^{k-1}
+  \frac{\overline{z_k-w_k}}{\|z-w\|^6}\,
+  d\bar z_1\wedge\cdots\widehat{d\bar z_k}\cdots\wedge d\bar z_3 .
+\]
+The finite-cutoff kernel satisfies \(\dbar P_{\varepsilon,L}=K_L-K_\varepsilon\).
+\end{proposition}
+
+\begin{proof}
+The scalar heat kernel is
+\((4\pi t)^{-3}\exp(-\|z-w\|^2/(4t))\).  Applying
+\(\dbarstar\) in one variable differentiates the Gaussian and
+contributes the numerator \(\overline{z_k-w_k}\).  Integration in
+\(t\) gives a smooth homotopy kernel at finite cutoffs, and the
+telescoping identity for
+\(\Delta_{\dbar}=\dbar\dbarstar+\dbarstar\dbar\) gives
+\(\dbar P_{\varepsilon,L}=K_L-K_\varepsilon\).  Removing the cutoffs
+off the diagonal recovers the displayed Bochner-Martinelli
+representative.
+\end{proof}
+
+\begin{proposition}[Flat \(E_3\) PBW stalk]
+\label{prop:flat-e3-pbw-stalk}
+Let \(U\subset\C^3\) be a Stein polydisc, or let \(U=\C^3\) with
+polynomial boundary conditions.  The classical hCS factorisation
+algebra generated by
+\[
+  \mathscr L_{\hCS}(U)=\Omega^{0,\bullet}_c(U,\gfrak)
+\]
+is the \(E_3\)-holomorphic enveloping factorisation algebra.  Its
+completed classical observables are
+\[
+  \Obs^{\mathrm{cl}}_{\hCS}(U)
+  =
+  C^\bullet_{\CE,\mathrm{cont}}
+  \bigl(\mathscr L_{\hCS}(U)[1]\bigr)
+  =
+  \widehat{\Sym}\bigl(\mathscr L_{\hCS}(U)[1]^\vee[-1]\bigr).
+\]
+After a Costello quantum datum satisfying \((\QME_L)\) has been fixed,
+the local quantum stalk is filtered by the \(E_3\) PBW filtration with
+associated graded the completed signed symmetric algebra on
+\(\mathscr L_{\hCS}[2]\).
+\end{proposition}
+
+\begin{proof}
+Francis' \(E_n\) PBW theorem identifies the associated graded of the
+\(E_n\)-enveloping filtration with the shifted symmetric algebra on the
+generating Lie object.  At \(n=3\) the shift is \([2]\), the degree of
+the Browder operation attached to
+\[
+  H^\bullet(\operatorname{Conf}_2(\R^3))\cong H^\bullet(S^2).
+\]
+The observable formula is the continuous Chevalley cochain algebra of
+the local Dolbeault dg Lie algebra.  The quantum filtration exists only
+after the scale-\(L\) QME has been solved in the completed BV complex.
+\end{proof}
+
+\begin{corollary}[Flat nonabelian scope]
+\label{cor:flat-nonabelian-scope}
+For abelian \(\gfrak\) the cubic interaction vanishes and the theory is
+Gaussian.  For nonabelian \(\gfrak\), a flat \(\C^3\) quantisation
+requires \(I_4^\rho=0\) or an explicit trivialisation of
+\(\kanom(\C^3,\gfrak,\rho)\) in the chosen Costello local functional
+complex.  A vanishing two-point bubble or a Casimir computation is
+insufficient for the QME.
+\end{corollary}
+
+\begin{remark}[\(\C^3\) CoHA normalisation]
+\label{rem:c3-coha-normalisation}
+The toric cohomological Hall algebra attached to \(\C^3\) is
+\[
+  \CoHA(\C^3)\simeq \Yp(\widehat{\mathfrak{gl}}_1),
+\]
+the positive half of the affine Yangian in the Schiffmann-Vasserot
+normalisation.  The full \(\Woneinf\) vertex algebra appears after the
+appropriate Drinfeld double or centre, completion, and evaluation
+representation have been constructed.
 \end{remark}
 
-%%=====================================================================
-\section{Cycle 3: $\int_{K3}$ specialisation and the abelian Heisenberg}
-\label{sec:cycle3}
-%%=====================================================================
+\section{Compact product \texorpdfstring{$K3\times E$}{K3 x E}}
+\label{sec:compact-k3e}
 
-\begin{attack}[$E_3 \to E_1$ specialisation via $\int_{K3}$: what lives on $E$?]
-The two-stage factorisation $\Phi_3 = \Sp_{K3, E} \circ \Phi^{\FA}_3$
-asserts that the $E_1$-chiral on $E$ is the factorisation-homology
-pushforward $\int_{K3} \Phi^{\FA}_3(X)|_E$. The abstract $E_3
-\to E_1$ transition proceeds by Dunn additivity and the
-$\int_{S^4} E_3 = $ trivial vanishing on closed surfaces, but
-$K3$ is not a sphere. What is the resulting $E_1$-chiral algebra on
-$E$ concretely? At abelian $\gfrak = \C^r$ with $r$ the rank of the
-algebraic lattice $\Lat_{\mathrm{K3}}^{\mathrm{alg}} = H^2(K3,\Z) \cap
-H^{1,1}(K3)$ on $K3$?
-\end{attack}
+\begin{hypothesis}[Compact BV package]
+\label{hyp:compact-bv-package}
+A compact nonabelian holomorphic Chern-Simons quantisation theorem on a
+Calabi-Yau threefold requires:
+\begin{enumerate}
+\item a compact Calabi-Yau threefold \((X,\Omega_X)\) with an
+orientation and determinant-line framing compatible with the BV pairing;
+\item a quadratic gauge Lie algebra or dg Lie algebra
+\((\gfrak,\langle-,-\rangle)\), and a representation \(\rho\) whenever
+traces are used, fixing \(I_4^\rho\) and \(C_2^\rho\);
+\item an elliptic Costello gauge fixing, a heat-kernel regulator, and
+an RG-compatible counterterm scheme;
+\item a completed space of local functionals and observables on which
+\(\Delta_L\), \(\{-,-\}_L\), and the RG flow are defined;
+\item a factorisation or TCFT sewing structure with descent from
+holomorphic polydiscs to \(X\);
+\item a trivialisation of \(\kanom(X,\gfrak,\rho)\), by vanishing in
+local BV cohomology, an explicit local counterterm, or an open-closed
+Green-Schwarz term.
+\end{enumerate}
+\end{hypothesis}
 
-\begin{heal}[Transverse $\int_{K3}$ = lattice Heisenberg on $E$]
-The transverse factorisation homology of an $E_3$-holomorphic
-factorisation algebra $\cF$ on $X = K3 \times E$ over the closed
-$4$-real-manifold $K3$ is, by Lurie HA 5.5.3.1 composed with
-Costello--Gwilliam Vol 2 Prop 8.2.1:
-\begin{equation}
-\int_{K3} \cF \;\in\; E_1\text{-ChirAlg}(E),
-\end{equation}
-with $E_1$-chiral structure inherited from the one remaining
-complex direction. For $\cF = \Obs^\qu_{\hCS}(K3 \times E, \gfrak=\C^r)$
-the abelian linearisation, the integrand is Gaussian: its quantum
-observables are the symmetric algebra on the dual of Dolbeault
-cohomology of the $\gfrak$-bundle on $K3$. On $K3$ the Dolbeault
-cohomology is $H^{0,\ast}(K3) = \C \oplus 0 \oplus \C[-2]$
-(by $h^{0,0} = h^{0,2} = 1$, $h^{0,1} = 0$), and the second
-cohomology $H^2(K3, \C) = H^{2,0} \oplus H^{1,1} \oplus H^{0,2}$
-has signature $(3, 19)$ with $H^{1,1} \cap H^2(K3, \Z) =
-\Lat_{\mathrm{K3}}^{\mathrm{alg}}$ the N\'eron--Severi lattice of the
-generic K3. The abelian pushforward gives
-\begin{equation}\label{eq:abel-pushforward}
-\int_{K3} \Obs^\qu_{\hCS}(-, \C^r)|_E \;\simeq\;
-\Sym_\C\bigl(\Lat_{\mathrm{K3}}^{\mathrm{alg}} \otimes_\Z
-\Omega^{0,\ast}_c(E)^\vee[-1]\bigr)[\hbar]_\star,
-\end{equation}
-which is precisely the \emph{lattice Heisenberg vertex algebra}
-$\Heis_{\Lat_{\mathrm{K3}}^{\mathrm{alg}}}$ on $E$ at level 1.
-\end{heal}
-
-\begin{theorem}[Abelian transverse $K3$-specialisation is lattice Heisenberg]
-\label{thm:abelian-K3-Heisenberg}
-For $\gfrak = \C^r$ with $r = \mathrm{rk}\Lat_{\mathrm{K3}}^{\mathrm{alg}}$,
-the $E_1$-chiral algebra on $E$ given by $\int_{K3} \Obs^\qu_{\hCS}
-(K3 \times E, \C^r)$ is the lattice Heisenberg vertex algebra
+\begin{theorem}[Conditional compact quantisation]
+\label{thm:conditional-compact-quantisation}
+Assume Hypothesis~\ref{hyp:compact-bv-package}.  If
 \[
-\Heis_{\Lat_{\mathrm{K3}}^{\mathrm{alg}}} \;=\;
-\bigotimes_{\alpha \in \Lat_{\mathrm{K3}}^{\mathrm{alg}}}
-\Heis^{(\alpha)}, \quad
-\Heis^{(\alpha)} = \C[\alpha_{-n}]_{n \ge 1} \text{ free Heisenberg at level 1},
+  \kanom(X,\gfrak,\rho)=0
 \]
-with the $\alpha$-grading by $\Lat_{\mathrm{K3}}^{\mathrm{alg}}$-weight
-and the OPE
-$\alpha(z)\beta(w) \sim (\alpha \cdot \beta)_{\Lat}/(z - w)^2$
-given by the Mukai pairing on the N\'eron--Severi lattice.
+in the Costello local BV obstruction complex after the chosen
+counterterms and closed-sector contributions are included, then the
+effective interactions can be chosen to satisfy \((\QME_L)\) through
+one loop.  Under the analogous higher-loop obstruction vanishing or
+counterterm hypotheses, the completed observables form a quantum
+factorisation algebra on \(X\).
 \end{theorem}
 
 \begin{proof}
-Step 1 (Dolbeault cohomology). The $K3$-fibre contribution to
-$H^{0,\ast}_{\dbar}(K3 \times E, \C^r)$ is $r \cdot (H^{0,0}(K3)
-\oplus H^{0,2}(K3)) = \C^r \oplus \C^r[-2]$ where the $\C^r[-2]$
-is the contribution of the Calabi--Yau 2-form pairing with each
-lattice direction. The elliptic-fibre contribution adds
-$H^{0,\ast}(E) = \C \oplus \C[-1]$.
-
-Step 2 (transverse pushforward). Factorisation homology over $K3$
-extracts the $K3$-direction of the $E_3$-structure; the residual
-$E_1$-structure is along $E$. The quantum observables on a small
-disk $B \subset E$ are, by the Gaussian free-theory structure,
-\begin{align*}
-\Obs^\qu\bigl(\text{neighbourhood of } B\bigr)
-&\simeq \Sym\bigl((H^{0,\ast}_{\dbar, c}(K3 \times B))^\vee [-1]\bigr)
-[\hbar]_\star \\
-&\simeq \Sym\bigl(\Lat_{\mathrm{K3}}^{\mathrm{alg}} \otimes
-\Omega^{0,\ast}_c(B)^\vee [-1]\bigr)[\hbar]_\star.
-\end{align*}
-
-Step 3 (Heisenberg structure). The star product on
-$\Sym(\Lat_{\mathrm{K3}}^{\mathrm{alg}} \otimes \Omega^{0,\ast}_c(B)^\vee)$
-is, by the Bochner--Martinelli propagator specialised along the
-$K3$-transverse direction, the standard Heisenberg OPE
-\[
-\alpha(z) \beta(w) \;\sim\; \frac{(\alpha \cdot \beta)_{\Lat}}{(z - w)^2}
-+ \text{regular},
-\]
-since the propagator $\tfrac{1}{z - w}$ on a disk in $E$, Fourier
-transformed against the $K3$-transverse Dolbeault, gives the
-double pole structure with coefficient the lattice Mukai pairing
-$\alpha \cdot \beta$.
-
-Step 4 (lattice Heisenberg identification). The resulting vertex
-algebra is the universal Heisenberg on the vector space
-$\Lat_{\mathrm{K3}}^{\mathrm{alg}} \otimes_\Z \C$ with inner
-product the Mukai pairing. This is the lattice Heisenberg
-$\Heis_{\Lat_{\mathrm{K3}}^{\mathrm{alg}}}$ at level 1 (cf.\
-Frenkel--Lepowsky--Meurman 1988 Chapter 2).
+Costello's obstruction theory solves the QME inductively in powers of
+\(\hbar\).  At the first quantum step the obstruction is the degree-one
+local class of Proposition~\ref{prop:quartic-qme-obstruction}, corrected
+by the specified local or closed-sector counterterms.  Vanishing gives
+the first quantum correction.  The same induction applies at later loop
+orders inside the completed local functional complex.
 \end{proof}
 
-\begin{corollary}[Rank of the abelian Heisenberg]
-\label{cor:rank-abel-heis}
-For the Gritsenko--Nikulin \emph{generic} K3 (Picard rank 1,
-$\Lat_{\mathrm{K3}}^{\mathrm{alg}} \cong \Z$, intersection form
-$(2)$), the abelian Heisenberg on $E$ has rank $1$ and matches
-the usual Heisenberg at level $2$.
-
-For the \emph{Mukai full} K3 (entire Mukai lattice of rank 24,
-$\Lat_{\mathrm{Muk}} = H^{\mathrm{even}}(K3, \Z) \cong
-U^{\oplus 4} \oplus E_8(-1)^{\oplus 2}$ with signature $(4, 20)$),
-the abelian Heisenberg on $E$ has rank $24$.
-
-The intermediate cases (Picard rank $r \in \{2, \ldots, 19\}$)
-interpolate between these two extremes and are parametrised by the
-Nikulin lattice polarisation.
-\end{corollary}
+\begin{proposition}[Local and global data on \(K3\times E\)]
+\label{prop:k3e-local-global}
+Let \(X=K3\times E\), with
+\[
+  \Omega_X=\Omega_{K3}\wedge dz_E .
+\]
+At a point \(x\in X\), a holomorphic polydisc
+\[
+  D_x\simeq \C^2_{K3}\times\C_E
+\]
+has the same flat hCS local model as \(\C^3\).  The global compact
+theory is governed by Hypothesis~\ref{hyp:compact-bv-package}; its
+Dolbeault cohomology is
+\[
+  H^{0,\bullet}(K3\times E)
+  =
+  H^{0,\bullet}(K3)\otimes H^{0,\bullet}(E),
+  \qquad
+  (1,0,1)\otimes(1,1)=(1,1,1,1).
+\]
+Consequently
+\[
+  \kchc(K3\times E)
+  =
+  1-1+1-1
+  =
+  0,
+  \qquad
+  \kcat(K3\times E)=
+  \chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0.
+\]
+\end{proposition}
 
 \begin{proof}
-Rank 1 case: $h^{1,1}(K3) = 20$, algebraic part at generic $K3$ is
-$1$-dimensional, generated by the primitive ample class of the
-polarisation. Level 2 because the corresponding intersection is
-$(\alpha, \alpha) = 2$ for $\alpha$ primitive. Rank 24 case: full
-$\Lat_{\mathrm{Muk}}$ has rank 24 with signature $(4, 20)$;
-factorisation-homology sees the entire lattice as the coefficient of
-the transverse Heisenberg current. Intermediate cases by Nikulin
-classification of K3 polarised sublattices.
+The local statement uses a holomorphic coordinate chart
+\((z_1,z_2,w)\) with \((z_1,z_2)\) on \(K3\) and \(w\) on \(E\).  The
+heat kernel has the usual short-time expansion
+\[
+  K_t^X(z,w)=K_t^{\C^3,\mathrm{loc}}(z,w)\bigl(1+t\,a_1(z,w)+O(t^2)\bigr),
+\]
+so the germ is the flat Dolbeault model.  Global observables retain the
+compact harmonic modes and require the QME, regulator, completion, and
+sewing data listed in Hypothesis~\ref{hyp:compact-bv-package}.  The
+Hodge-number calculation is Kunneth:
+\[
+  H^{0,\bullet}(K3)=(1,0,1),\qquad
+  H^{0,\bullet}(E)=(1,1).
+\]
 \end{proof}
 
-\begin{remark}[Why the abelian answer is a \emph{lattice} Heisenberg,
-not a free Heisenberg]
-The lattice structure of the Heisenberg on $E$ comes from the
-fact that the $K3$ transverse direction is not $\R^4$ but a
-compact $4$-manifold with non-trivial second cohomology carrying a
-lattice structure. The factorisation-homology pushforward
-``evaluates the observables on $K3$ as a number'' via integration
-against Dolbeault top forms; the resulting vector space of
-observables on $E$ is indexed by the $K3$-lattice $H^2(K3, \Z)$
-(algebraic part). This is the \emph{essential} content of the
-Borcherds --- Gritsenko--Nikulin --- Harvey--Moore picture: K3 makes
-a contribution to the chiral algebra on $E$ that is lattice-indexed,
-not free.
+\begin{remark}[Characteristic numbers and anomaly classes]
+\label{rem:k3e-characteristic-numbers}
+For \(K3\times E\),
+\[
+  \chi_{\mathrm{top}}(K3\times E)=24\cdot0=0.
+\]
+The second Chern class of the K3 factor belongs to the geometry of the
+compact factor.  The open nonabelian hCS gauge obstruction is the local BV class
+\(\kanom(K3\times E,\gfrak,\rho)\) determined by \(I_4^\rho\), the
+trace normalisation, the regulator, and the descent representative.
+The quadratic coefficient \(C_2^\rho\) remains a two-point kinetic
+renormalisation datum.
 \end{remark}
 
-%%=====================================================================
-\section{Cycle 4: the Borcherds--Lorgat non-abelian correction}
-\label{sec:cycle4}
-%%=====================================================================
+\section{The \texorpdfstring{$K3$}{K3} specialisation}
+\label{sec:k3-specialisation}
 
-\begin{attack}[Non-abelian $\int_{K3}$: what replaces the lattice Heisenberg?]
-The abelian lattice Heisenberg of Cycle 3 covers $\gfrak = \C^r$. For
-non-abelian $\gfrak$, the pushforward acquires corrections from the
-cubic vertex of the $\hCS$ action. Does the result still live on $E$?
-What object on $E$ encodes these corrections? Lorgat 2020 constructs
-a GKM superalgebra $\frakgDelta$ whose denominator is $\Delta_5$,
-via an explicit $\Weyl(\Lat^{2,1}_{I\!I})$-Weyl-vector calculation and
-Borcherds--Gritsenko--Nikulin lifting. Is $\frakgDelta$ the non-abelian
-correction of the lattice Heisenberg, and what is the precise
-correspondence?
-\end{attack}
+\begin{definition}[Two-stage specialisation]
+\label{def:two-stage-specialisation}
+On the verified \(d=3\) loci, and after a witnessed admissible
+specialisation datum \((\Sigma_2,C)\) has been fixed, the CY-to-chiral
+assignment is
+\[
+  \Phi_3^{(\Sigma_2,C)}
+  =
+  \SpCh_{\Sigma_2,C}\circ\PhiFA_3 .
+\]
+Here \(\PhiFA_3\) is the stage-one \(E_3\)-holomorphic factorisation
+object, and \(\SpCh_{\Sigma_2,C}\) is factorisation homology over
+\(\Sigma_2\) followed by restriction to the curve \(C\).  For
+\[
+  X=K3\times E,\qquad
+  \Sigma_2=K3,\qquad
+  C=E,
+\]
+the specialised output is an \(\Eone\)-chiral algebra on \(E\).
+\end{definition}
 
-\begin{heal}[Chiral algebra of positive imaginary simple roots =
-Lorgat $\frakgDelta$]
-The non-abelian transverse factorisation homology
-$\int_{K3} \Obs^\qu_{\hCS}(K3 \times E, \gfrak)$, specialised to the
-real-rank-3 hyperbolic sublattice $\Lat^{2,1}_{I\!I}$ of the full K3
-lattice (with Weyl vector $\rho = \tfrac12 f_2 - \tfrac12 f_3 + f_{-2}$
-of Lorgat 2020 \S4), is identified with the chiral algebra of
-positive simple roots of the \emph{generalised Kac--Moody} superalgebra
-$\frakgDelta$:
-\begin{equation}\label{eq:chiral-Delta5}
-\int_{K3_{\Lat^{2,1}_{I\!I}}} \Obs^\qu_{\hCS}(K3 \times E, \gfrak)|_E
-\;\simeq\; \cU^{\mathrm{ch}}\bigl(\frakgDelta^+_{0}\bigr)\bigr|_E,
-\end{equation}
-the chiral universal enveloping algebra of the positive-root
-subalgebra of $\frakgDelta$, twisted by the $K3$-transverse Mukai
-pairing and the Gritsenko--Nikulin imaginary root multiplicities.
-The denominator identity, read as a partition function, is the
-Borcherds lift of the weak Jacobi form $\phi_{0,1}$:
-\begin{equation}\label{eq:borcherds-lift}
-\tfrac{1}{64} \Delta_5(2Z) \;=\; \Phi(z) \;=\;
-\exp(-2\pi i (\rho, z)) \prod_{\alpha \in \Delta_+}
-(1 - \exp(-2\pi i (\alpha, z)))^{\mathrm{mult}\,\alpha},
-\end{equation}
-with $\mathrm{mult}\,\alpha = f(nm, l)$ the Fourier coefficients
-of $\phi_{0,1}$ (Lorgat 2020, Theorem 4; Gritsenko--Nikulin
-\texttt{alg-geom/9504006}).
-\end{heal}
+\begin{proposition}[\(E_1\) output in complex dimension three]
+\label{prop:e1-output}
+Let \(C\subset X\) be a holomorphic curve and assume the compact BV
+package has been solved on a neighbourhood of \(C\).  Integration of
+completed quantum observables in the normal directions gives
+\[
+  \mathcal A_C=
+  \int_{N_{C/X}/C}\Obs^q_{\hCS}
+  \in
+  \operatorname{Alg}^{\mathrm{ch}}_{\Eone}(C).
+\]
+The \(\Etwo\)-structure belongs to the centre, double, or module layer,
+for example
+\[
+  Z\bigl(\Rep^{\Eone}(\mathcal A_C)\bigr)
+  \simeq
+  \Rep^{\Etwo}\!\left(
+    C^\bullet_{\CE,\mathrm{ch}}(\mathcal A_C,\mathcal A_C)
+  \right)
+\]
+under the chiral BZFN hypotheses.
+\end{proposition}
 
-\begin{theorem}[Non-abelian $K3$-specialisation = chiral $\frakgDelta$]
-\label{thm:non-abel-gDelta}
-For $\gfrak = \mathrm{sl}_2$ with Wave 13 Cycle 1 non-abelian
-quantisation on $\C^3$ (Proposition~\ref{prop:sl2-bubble-vanish})
-lifted to $X = K3 \times E$, the transverse factorisation
-homology $\int_{K3} \Obs^\qu_{\hCS}|_E$, pulled back along the
-$\Lat^{2,1}_{I\!I}$-polarisation of $K3$, yields an $\Eone$-chiral
-algebra on $E$ isomorphic to the universal chiral enveloping
-algebra of the positive-root subalgebra of the Lorgat GKM
-superalgebra $\frakgDelta$. The denominator function of this chiral
-algebra, read at the zero-dimensional cusp of $\mathrm{Sp}_4(\Z)$,
-is the Igusa cusp form $\Delta_5(2Z)$ up to factor $64$.
+\begin{proof}
+Stage one is \(E_3\)-holomorphic before specialisation.  Stage two
+integrates over a complex surface and leaves one complex direction, so
+factorisation homology drops the native operadic level to \(E_1\) on
+the reference curve.  Braiding is recovered only after applying the
+representation centre, Drinfeld double, or an equivalent module-layer
+construction.
+\end{proof}
+
+\begin{construction}[Gaussian \(K3\)-pushforward]
+\label{cons:gaussian-k3-pushforward}
+Let \(L\subset H^{\mathrm{even}}(K3,\Z)\) be an even lattice with Mukai
+pairing \((\, ,\,)_L\), and take the abelian coefficient algebra
+\(\gfrak=L\otimes_\Z\C\).  For a small disc \(B\subset E\), the abelian
+sector of the \(K3\)-pushforward is
+\[
+  \int_{K3}\Obs^q_{\hCS}(K3\times B,L\otimes\C)
+  \simeq
+  \widehat{\Sym}
+  \bigl(L\otimes_\Z\Omega^{0,\bullet}_c(B)^\vee[-1]\bigr)[[\hbar]]_\star .
+\]
+The induced OPE is
+\[
+  \alpha(z)\beta(w)
+  \sim
+  \frac{(\alpha,\beta)_L}{(z-w)^2},
+  \qquad
+  \alpha,\beta\in L,
+\]
+and the resulting vertex algebra is the lattice Heisenberg algebra
+\(\Heis_L\) on \(E\).
+\end{construction}
+
+\begin{proof}
+The abelian BV theory is Gaussian.  Factorisation homology over the
+compact \(K3\)-direction transfers the \(K3\) zero modes to coefficients
+on \(E\), and the BV pairing contracts them by the Mukai form.  The
+one-dimensional Green kernel on the elliptic disc supplies the double
+pole, while the coefficient of the pole is the lattice pairing.  This is
+the standard Heisenberg vertex algebra construction for an integral even
+lattice.
+\end{proof}
+
+\begin{corollary}[Hyperbolic Cartan and Mukai fibre values]
+\label{cor:heisenberg-values}
+For the principal \(\Delta_5\) comparison, the relevant Cartan lattice is
+the rank-three hyperbolic lattice \(\Lat^{2,1}_{II}\).  Hence
+\[
+  \kchH(K3\times E)=3 .
+\]
+For the full \(K3\) Mukai lattice
+\[
+  \widetilde{\Lat}_{K3}=H^{\mathrm{even}}(K3,\Z)
+  \cong U^{\oplus4}\oplus E_8(-1)^{\oplus2}
+\]
+the rank is \(24\), giving
+\[
+  \kfib(K3\times E)=24 .
+\]
+The Heisenberg rank and the fibre rank record different specialisation
+data.
+\end{corollary}
+
+\section{Borcherds recognition at the principal locus}
+\label{sec:borcherds-recognition}
+
+\begin{hypothesis}[Hall-Borcherds recognition datum]
+\label{hyp:hall-borcherds-recognition}
+The principal \(K3\times E\) Borcherds comparison consists of the
+following data:
+\begin{enumerate}
+\item a compact Hall or reduced DT source for \(\operatorname{Perf}(K3\times E)\)
+with orientation and compactness sufficient for Hall multiplication;
+\item the \(K3\)-fibre specialisation
+\(\SpCh_{K3,E}(\PhiFA_3(\operatorname{Perf}(K3\times E)))\);
+\item a transport from this specialisation to the rank-three hyperbolic
+lattice \(\Lat^{2,1}_{II}\);
+\item imaginary-root multiplicities
+\[
+  \operatorname{mult}(n,l,m)=c_{\phi}(nm,l)
+\]
+from the primitive \(\Delta_5\) Borcherds input, with
+\[
+  c_{\phi}(0,0)=10;
+\]
+\item a PBW and no-extra-relations comparison identifying the transported
+Hall presentation with the vertex envelope of \(\frakgDelta\).
+\end{enumerate}
+\end{hypothesis}
+
+\begin{theorem}[Principal Borcherds output]
+\label{thm:principal-borcherds-output}
+Assume Hypothesis~\ref{hyp:compact-bv-package} and
+Hypothesis~\ref{hyp:hall-borcherds-recognition} for \(X=K3\times E\).
+Then the \(K3\)-specialised \(\Eone\)-chiral algebra on \(E\), after the
+Hall-Borcherds transport, is
+\[
+  \SpCh_{K3,E}\bigl(\PhiFA_3(\operatorname{Perf}(K3\times E))\bigr)
+  \simeq
+  U_{\mathrm{ch}}(\frakgDelta).
+\]
+The denominator identity is
+\[
+  \frac{1}{64}\Delta_5(2Z)
+  =
+  e^{-2\pi i(\rho_3,z)}
+  \prod_{\alpha\in\Delta_+}
+  \bigl(1-e^{-2\pi i(\alpha,z)}\bigr)^{\operatorname{mult}(\alpha)},
+\]
+with
+\[
+  \rho_3=f_2-\frac12 f_3+f_{-2},
+  \qquad
+  \operatorname{mult}(n f_2+l f_3+m f_{-2})=c_{\phi}(nm,l).
+\]
 \end{theorem}
 
-\begin{proof}[Proof sketch; full proof conditional on detailed
-BV lift of Gritsenko--Nikulin]
-Step 1: The abelian lattice Heisenberg on $\Lat^{2,1}_{I\!I}$
-(Corollary~\ref{cor:rank-abel-heis} restricted to the hyperbolic
-sublattice) has OPE
-\[
-f_i(z) f_j(w) \;\sim\; \frac{(f_i, f_j)_{\Lat^{2,1}}}{(z - w)^2},
-\qquad (f_2, f_2) = (f_{-2}, f_{-2}) = 0, \; (f_3, f_3) = 2,
-\; (f_2, f_{-2}) = -1,
-\]
-i.e.\ a Heisenberg rank-3 lattice with inner-product matrix the
-Gram matrix of $\Lat^{2,1} = \Lat^{(1,1)} \oplus [2]$. The
-$\Lat^{2,1}_{I\!I}$-sublattice
-$\{m f_2 + l f_3 + n f_{-2} \in \Lat^{2,1} \mid m = n = 0 \mod 2\}$
-has index 6 in $\Lat^{2,1}$.
-
-Step 2: The simple real roots $\{\delta_1 = 2f_2 - f_3,
-\delta_2 = 2f_{-2} - f_3, \delta_3 = f_3\}$ have Gram matrix
-$\begin{pmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2
-\end{pmatrix}$. In the lattice Heisenberg of Step 1, the
-corresponding vertex operators $V_{\delta_i}(z) = :\exp(\delta_i
-\cdot \phi(z)):$ have weight $(\delta_i, \delta_i)/2 = 1$ and
-satisfy OPE
-\[
-V_{\delta_i}(z) V_{\delta_j}(w) \sim (z-w)^{(\delta_i, \delta_j)}
-V_{\delta_i + \delta_j}(w) + \cdots,
-\]
-giving simple currents indexed by real even simple roots.
-
-Step 3: The non-abelian one-loop correction from Wave 13 Cycle 1
-(Construction \ref{cons:non-abel-E3}) enters the Borcherds
-denominator identity as the $\mathrm{mult}\,\alpha = f(nm, l)$
-terms for the imaginary roots. These come from the K3-transverse
-Dolbeault of the adjoint bundle: Hodge supertrace on the
-$\gfrak$-adjoint at the imaginary root $\alpha = n f_2 + l f_3 + m f_{-2}$
-produces exactly the Fourier coefficient $f(nm, l)$ of $\phi_{0,1}$,
-by the key identity (Lorgat 2020 \S6; Gritsenko--Nikulin 1995
-\S3)
-\[
-\phi_{0,1}(z_1, z_2) \;=\; \tfrac{1}{2} Z_{K3, \mathrm{ell}}(z_1, z_2)
-\;=\; \sum_{n \ge 0, l \in \Z} f(n, l) q^n r^l
-\]
-with $Z_{K3, \mathrm{ell}}$ the K3 elliptic genus. The K3 elliptic
-genus is visible in the factorisation-homology pushforward as the
-Hirzebruch $\chi_y$-genus of the K3-transverse direction, which is
-\emph{exactly} the Dolbeault supertrace invariant the abelian case
-failed to capture.
-
-Step 4: Combining Steps 1-3: the factorisation algebra on $E$ is
-the lattice Heisenberg on $\Lat^{2,1}_{I\!I}$ tensored with the
-$f(nm, l)$-twisted chiral exponential from the K3 elliptic genus.
-This is precisely the chiral universal enveloping of
-$\frakgDelta^+$ by Lorgat 2020 Theorem 3 (denominator identity
-interpretation).
-
-Step 5: Reading off the weight. The Borcherds product
-(\ref{eq:borcherds-lift}) gives $\Delta_5(2Z)/64 = \Phi(z)$ with
-weight $5 = c_1(0)/2$ where $c_1(0) = 10$ is the constant Fourier
-coefficient of $\phi_{0,1}$. This $5$ is $\kappaBKM$: the
-Gritsenko weight of the denominator function, read as an automorphic
-form for $\mathrm{Sp}_4(\Z)$.
+\begin{proof}
+The recognition datum supplies a Hall presentation of the specialised
+\(\Eone\)-chiral algebra and transports its Cartan to
+\(\Lat^{2,1}_{II}\).  The PBW comparison identifies the real-root
+generators with the real simple roots of the Borcherds presentation and
+identifies the imaginary-root generators with the coefficients
+\(c_{\phi}(nm,l)\).  Borcherds' automorphic product theorem then gives
+the displayed denominator formula.  The factor \(64\) is the
+normalisation used for the primitive \(\Delta_5(2Z)\) denominator.
 \end{proof}
 
-\begin{proposition}[$\kappaBKM = 5$ from one-loop]
-\label{prop:kBKM-from-one-loop}
-The $\kappaBKM(\Phi_1) = 5$ identity, equivalently $c_1(0)/2 = 5$
-where $c_1(0)$ is the constant coefficient of $\phi_{0,1}$, arises
-in the Wave 13 B3 construction as the following:
-\begin{enumerate}
-\item The transverse factorisation-homology pushforward on $K3$
-produces a lattice Heisenberg of rank depending on the
-polarisation.
-\item The one-loop coefficient on the K3-transverse direction is
-the Hodge supertrace $\chi_y(K3) = \chi(\cO_{K3}) = 2$ at $y = 1$,
-giving the constant contribution $10 = 5 \cdot 2$ to $c_1(0)$ via
-the Mukai refinement (Bruinier Heegner Chern class
-reciprocity, cf.\ adjudication ledger).
-\item The total weight of the denominator $\Delta_5(2Z) = 64 \Phi(z)$
-is $5$, matching $c_1(0)/2 = 5$ by the Borcherds weight formula
-(Borcherds 1998 \texttt{alg-geom/9609022} Thm 10.4 specialised to
-$n = 2$).
-\item The factor $64 = 2^6$ in $\Delta_5 = 64 \Phi$ arises from
-the determinant of the $\Lat^{2,1}_{I\!I}/\Lat^{2,1}$ cokernel
-$(\Z/2)^3$ times $2^3$ character normalisation from the odd theta
-product $\Delta_5 = \prod \nu_{a,b}$ over even theta constants
-(Lorgat 2020 \S2).
-\end{enumerate}
+\begin{proposition}[Borcherds weight]
+\label{prop:borcherds-weight}
+In the primitive \(\Delta_5\) denominator normalisation,
+\[
+  \kBKM(\Delta_5)
+  =
+  \frac{c_1(0)}{2}
+  =
+  \frac{10}{2}
+  =
+  5.
+\]
+This is the automorphic weight of the Borcherds product.
 \end{proposition}
 
 \begin{proof}
-Each claim is a direct reading of the Borcherds formula, the
-$\phi_{0,1}$ Fourier coefficients, and the Hirzebruch $\chi_y$-genus
-identification of the K3 elliptic genus. References: Lorgat 2020
-\S2 (64 factor), \S5 (Weyl-Kac-Borcherds formula), \S6 (Borcherds
-product); Gritsenko--Nikulin 1995 \S3 (weight-5); Borcherds 1998
-Thm 10.4 (weight formula).
+Borcherds' singular-theta lift gives
+\[
+  \mathrm{wt}(\operatorname{BorLift}(\phi))=
+  \frac{c_{\phi}(0,0)}2 .
+\]
+For the primitive \(\Delta_5\) input, the constant coefficient is
+\(c_{\phi}(0,0)=10\).  Hence
+\(\mathrm{wt}(\Delta_5)=5\), which is \(\kBKM(\Delta_5)\) in the
+Vol III convention.
 \end{proof}
 
-\begin{remark}[The cache identity $\kappaBKM(\Phi_N) = c_N(0)/2$
-made explicit at $N = 1$]
-The CLAUDE.md / programme canonical identity
-$\kappaBKM(\Phi_N) = c_N(0)/2$ at $N = 1$ reads: the Borcherds weight
-of Gritsenko's $\Delta_5$ is $5$; the constant Fourier coefficient of
-$\phi_{0,1}$ is $c_1(0) = 10$; hence $\kappaBKM(\Phi_1) = 5 = 10/2$.
-The present construction derives this from the Wave 13 factorisation
-algebra: the K3-transverse pushforward brings in the K3 elliptic
-genus $2 \phi_{0,1}$; the constant-coefficient contribution
-$2 \cdot 10 = 20$ splits into $c_N(0)$ and $\kappaBKM$ via the
-Borcherds formula.
-\end{remark}
-
-\begin{remark}[Why Lorgat 2020's specific formula appears]
-Lorgat 2020's paper is an elementary construction of the
-Borcherds--Gritsenko--Nikulin lift at $N = 1$ from first principles.
-Specifically: (a) the lattice $\Lat^{3,2}$ via $\wedge^2$ on the
-rank-4 symplectic lattice; (b) the reflection group
-$\Weyl(\Lat^{2,1}_{I\!I})$ of index 6 in $O(\Lat^{2,1})_+$; (c) the
-Weyl vector $\rho$; (d) the identification of the Fourier
-coefficients $f(nm, l)$ as simple super-multiplicities of a GKM
-superalgebra $\frakgDelta$. The present Wave 13 B3 note identifies
-that $\frakgDelta$ with the non-abelian correction of the lattice
-Heisenberg produced by $\int_{K3} \Obs^\qu_{\hCS}$.
-\end{remark}
-
-%%=====================================================================
-\section{Cycle 5: $\Omega$-background is toric, cannot deform $\int_{K3}$}
-\label{sec:cycle5}
-%%=====================================================================
-
-\begin{attack}[Is there a Nekrasov refinement on $K3 \times E$?]
-The Nekrasov $\Omega$-background on $\C^3_{\epsilon_1, \epsilon_2,
-\epsilon_3}$ introduces a generic torus action that breaks the
-Dolbeault-dimension vanishing argument of Wave 12 / B4 Proposition
-4.9 and produces a non-trivial refined partition function. Can the
-same refinement be applied to $K3 \times E$, producing a
-refinement of $\Delta_5$ with two independent $\epsilon$-parameters?
-What does the $\epsilon \to 0$ limit recover?
-\end{attack}
-
-\begin{heal}[$K3$ has $\mathrm{Aut}^0 = \mathrm{finite}$;
-no $(\C^\ast)^2$ acts]
-The $\Omega$-background on $\C^3$ uses a generic $(\C^\ast)^3$
-acting on $\C^3$ by holomorphic automorphisms. The full
-$\Omega$-background requires the $3$-torus to act with isolated
-fixed points for the localisation computation to close.
-On $K3$, the automorphism group of the generic K3 is \emph{finite
-and symplectic}, with $|\mathrm{Aut}^{\mathrm{symp}}| \le 168$
-(Mukai 1988, extending Nikulin 1979). No continuous torus acts
-non-trivially; the lattice-polarised K3 has symplectic automorphism
-group generated by finite-order elements $g_N$ with $N \le 8$
-(Nikulin classification). On $K3 \times E$, the continuous
-automorphism group is $\mathrm{Aut}^0(K3 \times E) = E$, acting
-only on the $E$-factor by translation. This is a one-dimensional
-torus, not three; the $\Omega$-background with independent
-$(\epsilon_1, \epsilon_2)$-parameters does not globalise from
-$\C^3$ to $K3 \times E$.
-\end{heal}
-
-\begin{proposition}[Toric scope of $\Omega$-background]
-\label{prop:omega-toric}
-The Nekrasov $\Omega$-background is \emph{native} to toric
-Calabi--Yau varieties (and their local affine charts), where a
-dense continuous torus acts with isolated fixed points. On $K3
-\times E$:
-\begin{enumerate}
-\item The continuous $\mathrm{Aut}^0 = E$ contributes at most one
-$\epsilon$-parameter, captured by the Maulik--Okounkov spectral
-parameter $u = 2\pi i \epsilon_1^E/\hbar$ on the elliptic-fibre
-equivariant cohomology.
-\item The K3-factor contributes no continuous $\epsilon$-parameters.
-The discrete symplectic automorphisms $g_N$ at $N \in \{1, 2, 3, 4,
-5, 6, 7, 8\}$ (Nikulin classification) produce discrete
-twistings, not continuous deformations.
-\item Consequently, the two-parameter refined Nekrasov partition
-function $Z^{\mathrm{ref}}(\C^3; \epsilon_1, \epsilon_2, \epsilon_3)$
-restricts to the self-dual slice
-$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ (CY condition) and
-further to the single-parameter slice along the elliptic fibre.
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-Nikulin's theorem on K3 symplectic automorphisms (Nikulin
-\emph{Izv.\ Akad.\ Nauk SSSR} 1980) establishes the classification;
-$\mathrm{Aut}^0$ is trivial for generic K3. K3 polarisations force
-discrete groups of finite order. The continuous automorphism group
-of $K3 \times E$ is thus the continuous automorphism group of $E$,
-which is $E$ itself (translations). The Maulik--Okounkov spectral
-parameter identification is AP-CY20.
-\end{proof}
-
-\begin{corollary}[No two-parameter refinement of $\Delta_5$]
-\label{cor:no-two-param-delta5}
-There is no meaningful two-parameter $(\epsilon_1, \epsilon_2)$
-refinement of the Gritsenko $\Delta_5$ denominator coming from
-the 6d $\hCS$ partition function on $K3 \times E$. The Maulik
---Okounkov spectral parameter $u$ along the elliptic fibre is the
-\emph{unique} $\epsilon$-deformation available, and it enters as
-a weight in the twisted elliptic genus not as a refinement of the
-Fourier coefficients.
+\begin{corollary}[Four separate \(K3\times E\) invariants]
+\label{cor:four-k3e-invariants}
+The standard \(K3\times E\) values are
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kchc(K3\times E)=0,\qquad
+  \kchH(K3\times E)=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib(K3\times E)=24.
+\]
+The categorical value is the Kunneth product
+\(\chi(\cO_{K3})\chi(\cO_E)\).  The compact chiral value is the
+Hodge supertrace of \(H^{0,\bullet}(K3\times E)\).  The Heisenberg value
+is the rank of the \(\Lat^{2,1}_{II}\) Cartan shadow.  The Borcherds
+value is \(c_1(0)/2\).  The fibre value is the rank of the full Mukai
+lattice.  Any equality among these numbers requires a theorem for the
+named construction.
 \end{corollary}
 
-\begin{remark}[Contrast: $\Omega$-background on $\C^3$ CoHA refines
-$Y^+(\widehat{\mathfrak{gl}}_1)$]
-On $\C^3$ the $\Omega$-background refines the CoHA
-$\mathrm{CoHA}(\C^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ (cache 22T)
-with two-parameter $(\epsilon_1, \epsilon_2)$-refinement to
-$Y^+(\widehat{\mathfrak{gl}}_1; \epsilon_1, \epsilon_2)$, the
-positive half of the two-parameter affine Yangian. This is
-\emph{toric}: $(\C^\ast)^3$ acts densely. On $K3 \times E$ the
-analogous refinement does not exist by
-Proposition~\ref{prop:omega-toric}; what survives is the
-one-parameter $u$-spectral deformation on the fibre.
+\section{Automorphisms and equivariant refinements}
+\label{sec:omega-scope}
+
+\begin{proposition}[Equivariant scope of \(K3\times E\)]
+\label{prop:equivariant-scope}
+The toric \(\Omega\)-background on \(\C^3\) uses a dense
+\((\C^\ast)^3\)-action with isolated fixed points.  For a compact K3
+surface,
+\[
+  H^0(K3,T_{K3})=0,
+\]
+so the identity component of the automorphism group is trivial.  For a
+generic product \(K3\times E\),
+\[
+  \operatorname{Aut}^0(K3\times E)=E,
+\]
+acting by translations on the elliptic factor.  Thus the compact product
+supplies at most the elliptic spectral parameter.  Finite Nikulin-Mukai
+symplectic automorphisms of \(K3\) give discrete CHL twistings; continuous
+toric deformation parameters require a torus action.
+\end{proposition}
+
+\begin{proof}
+The holomorphic symplectic form identifies \(T_{K3}\) with
+\(\Omega^1_{K3}\), and \(H^0(K3,\Omega^1_{K3})=0\).  Hence a compact
+K3 has no nonzero holomorphic vector field.  The elliptic curve
+contributes its translation group.  Nikulin and Mukai classify finite
+symplectic automorphism groups of K3 surfaces; these groups provide
+finite equivariant sectors in place of a continuous torus action on the
+K3 factor.
+\end{proof}
+
+\begin{remark}[Toric and compact outputs]
+\label{rem:toric-compact-outputs}
+The \(\C^3\) toric output
+\(\CoHA(\C^3)\simeq\Yp(\widehat{\mathfrak{gl}}_1)\) belongs to the
+affine fixed-point calculation.  The \(K3\times E\) compact output uses
+the \(K3\)-fibre specialisation, the compact BV package, and the
+Hall-Borcherds recognition datum.  These are different geometric
+inputs: flat affine \(\C^3\), compact \(K3\times E\), and transverse
+\(K3\)-integration.
 \end{remark}
 
-\begin{remark}[What a two-parameter refinement would require]
-A two-parameter refinement of $\Delta_5$ would require a
-$(\C^\ast)^2$-action on $K3 \times E$ lifting to the factorisation
-algebra $\Obs^\qu_{\hCS}$. Such an action would need to act on
-$K3$ itself; the only continuous actions are degenerations to
-$\mathbb{P}^1$-bundles (via Kulikov), which are non-generic and
-destroy the CY_3 structure on the product. Alternatively, one could
-take the \emph{derived} torus of auto-equivalences of
-$D^b\mathrm{Coh}(K3)$, a $\mathrm{Spin}(4,20) / K$-valued
-parameter, but this is a Hodge-theoretic structure, not a
-continuous geometric $\epsilon$.
-\end{remark}
+\section{Conclusion}
+\label{sec:conclusion}
 
-%%=====================================================================
-\section{Consolidation: where Wave 13 sits}
-%%=====================================================================
+The local hCS theory on \(\C^3\) supplies the Bochner-Martinelli
+propagator and the \(E_3\) PBW stalk after the QME has been solved.
+The nonabelian QME obstruction in complex dimension three is the
+quartic class \(I_4^\rho\); \(C_2^\rho\) is a two-point kinetic
+coefficient.  The compact theory on \(K3\times E\) is a separate
+problem requiring anomaly trivialisation, orientation, framing,
+gauge-fixing, regulator, completion, and sewing.  Under those
+hypotheses, the \(K3\)-fibre specialisation gives an \(\Eone\)-chiral
+algebra on \(E\).  The abelian sector is the lattice Heisenberg algebra
+of the chosen \(K3\)-lattice.  On the principal Hall-Borcherds locus,
+the transported rank-three Cartan and the \(\phi_{0,1}\) multiplicities
+recognise \(U_{\mathrm{ch}}(\frakgDelta)\), with
+\(\kBKM(\Delta_5)=10/2=5\).  The values
+\[
+  0,\quad 0,\quad 3,\quad 5,\quad 24
+\]
+record \(\kcat\), \(\kchc\), \(\kchH\), \(\kBKM\), and \(\kfib\),
+respectively.
 
-\subsection{Diagram of the Wave 13 / B3 results}
-
-\begin{center}
-\begin{tabular}{l|l}
-Object & Wave 13 / B3 identification \\
-\hline
-$\Phi^{\FA}_3(K3 \times E, \gfrak)$ & pre-factorisation algebra
-$\Obs^\qu_{\hCS}(K3\times E, \gfrak)$ \\
- & of Definition~\ref{def:obs-on-K3E} \\
-Stalk at $x \in K3 \times E$ & $U_{\Ethree}(\gfrak[2])$
-(Proposition~\ref{prop:stalk-on-K3E}) \\
-Abelian $\int_{K3}|_E$, $\gfrak = \C^r$ &
-$\Heis_{\Lat_{\mathrm{K3}}^{\mathrm{alg}}}$ lattice Heisenberg\\
- & (Theorem~\ref{thm:abelian-K3-Heisenberg}) \\
-Non-abelian $\int_{K3}|_E$, $\gfrak = \mathrm{sl}_2$ &
-chiral $\cU^{\mathrm{ch}}(\frakgDelta^+_0)$ of the Lorgat \\
- & GKM superalgebra (Theorem~\ref{thm:non-abel-gDelta}) \\
-Denominator function & $\tfrac{1}{64}\Delta_5(2Z) = \Phi(z)$,
-weight $5 = \kappaBKM$ \\
- & (Proposition~\ref{prop:kBKM-from-one-loop}) \\
-$\Omega$-background & toric-specific, does not deform $\int_{K3}$ \\
- & (Proposition~\ref{prop:omega-toric})
-\end{tabular}
-\end{center}
-
-\subsection{Connection to CY-C $/$ $(K3 \times E)$-programme}
-
-The Wave 13 / B3 results refine three existing programme results:
-
-\begin{enumerate}
-\item \emph{Cache 17G (K3 $\times$ E has $\mathrm{Aut}^0 = E$).}
-This is Proposition~\ref{prop:omega-toric} restated in the
-factorisation-algebra language.
-
-\item \emph{Cache 22T (CoHA $= Y^+$, not $\cW_{1+\infty}$).}
-This is the $\C^3$ analogue of the Wave 13 / B3 result. The
-K3-analogue is: $\int_{K3} \Obs^\qu_{\hCS}|_E$ at abelian level is
-the Heisenberg $\Heis_{\Lat_{\mathrm{K3}}^{\mathrm{alg}}}$, and at
-non-abelian level is $\cU^{\mathrm{ch}}(\frakgDelta^+_0)$; the
-Drinfeld doubling produces the full $\frakgDelta$ but is an
-independent construction requiring a ``link'' across
-$K3 \times E \sqcup (K3 \times E)^{\mathrm{op}}$, just as the
-$\C^3$-case required a $\mathrm{S}^5$-link.
-
-\item \emph{$\kappaBKM(\Phi_N) = c_N(0)/2$ universal.} At $N = 1$
-the Wave 13 / B3 construction provides a first-principles derivation
-of $\kappaBKM = 5$ via $c_1(0) = 10$ from the $\phi_{0,1}$ constant
-coefficient, via the K3 elliptic genus appearing in the
-factorisation-homology pushforward. The remaining cases
-$N \in \{2, 3, 4, 6\}$ generalise by taking
-$(K3/g_N \times E)$-orbifold specialisations.
-\end{enumerate}
-
-\subsection{Compact CY$_3$ rigour status}
-
-\begin{description}
-\item[\ClaimStatusTheorem\ ]
-Proposition~\ref{prop:sl2-bubble-vanish},
-Corollary~\ref{cor:no-level-shift},
-Proposition~\ref{prop:stalk-on-K3E},
-Proposition~\ref{prop:omega-toric},
-Corollary~\ref{cor:no-two-param-delta5}.
-These are direct consequences of Dolbeault dimension vanishing,
-Costello--Gwilliam Vol 2 Thm 10.0.1, and the Nikulin classification.
-
-\item[\ClaimStatusTheorem\ ]
-Theorem~\ref{thm:abelian-K3-Heisenberg}
-(abelian pushforward = lattice Heisenberg): this follows from
-Gaussian BV calculation and Künneth + K3-Dolbeault.
-
-\item[\ClaimStatusDerivation\ ]
-Theorem~\ref{thm:non-abel-gDelta} (non-abelian pushforward = chiral
-$\frakgDelta^+$): the abelian skeleton is theorem; the non-abelian
-one-loop correction identification is derivation-level pending the
-detailed Gritsenko--Nikulin-to-factorisation-algebra comparison at
-imaginary-root multiplicities. The algebraic structure is unambiguous;
-the precise matching of $\frakgDelta$-multiplicities with the
-Feynman-bubble K3-fibre Dolbeault supertrace is conjectural at
-finite $N \ne 1$ (Lorgat Conjecture 1).
-
-\item[\ClaimStatusTheorem\ ]
-Proposition~\ref{prop:kBKM-from-one-loop} ($\kappaBKM = 5$ at $N = 1$):
-this is a direct reading of the Borcherds weight formula applied
-to $\phi_{0,1}$, matching Lorgat 2020 and Gritsenko--Nikulin 1995.
-
-\item[\ClaimStatusConjectured\ ]
-The full Lorgat Conjecture 1: all 8 Gritsenko--Cl\'ery diagonal-divisor
-modular forms arise as reciprocal-square roots of refined DT
-zeta functions $Z^X_{L, h_M}$ and as denominators of GKM
-superalgebras $\frakg_L$ with root multiplicities given by
-$g_N$-twisted K3 elliptic genera. Wave 13 / B3 establishes the
-forward direction (Stage-1 factorisation algebra + Stage-2
-specialisation gives the right chiral input); the identification
-with DT zeta is conjectural at $N > 1$.
-\end{description}
-
-%%=====================================================================
-\section*{Summary (less than 400 words)}
-%%=====================================================================
-
-Six-real-dimensional holomorphic Chern--Simons on the compact
-Calabi--Yau threefold $X = K3 \times E$ admits a pre-factorisation
-algebra $\Obs^\qu_{\hCS}(X, \gfrak)$ whose stalk at any point
-$x \in X$ is the $E_3$-enveloping algebra $U_{\Ethree}(\gfrak[2])$
-(Proposition~\ref{prop:stalk-on-K3E}); this extends the Wave 12 /
-B3 $\C^3$-stalk identification to compact CY$_3$, with the
-Dolbeault-dimension vanishing argument of Wave 12 / B4 lifting
-verbatim. The two-stage factorisation $\Phi = \Sp_{K3, E}
-\circ \Phi^{\FA}$ pushes these observables via the transverse
-factorisation homology $\int_{K3}\Obs^\qu|_E$ to an $\Eone$-chiral
-algebra on $E$. At abelian $\gfrak = \C^r$ with $r$ the
-Picard-lattice rank, the pushforward is the lattice Heisenberg
-$\Heis_{\Lat_{\mathrm{K3}}^{\mathrm{alg}}}$
-(Theorem~\ref{thm:abelian-K3-Heisenberg}): the K3 Dolbeault
-cohomology $H^{0,\ast}(K3) = \C \oplus \C[-2]$ contributes a
-single Heisenberg current per lattice direction, with OPE given by
-the Mukai pairing. At non-abelian $\gfrak = \mathrm{sl}_2$, the
-one-loop correction is the Borcherds--Lorgat denominator: the
-K3 elliptic genus $\phi_{0,1}(z_1, z_2)$ enters as the
-multiplicity function of imaginary simple roots, and the resulting
-chiral algebra on $E$ is $\cU^{\mathrm{ch}}(\frakgDelta^+_0)$, the
-chiral enveloping of the positive-root subalgebra of Lorgat's
-generalised Kac--Moody superalgebra $\frakgDelta$
-(Theorem~\ref{thm:non-abel-gDelta}). The denominator of this
-chiral algebra, read at the zero-cusp of $\mathrm{Sp}_4(\Z)$, is
-$\tfrac{1}{64}\Delta_5(2Z) = \Phi(z)$, weight $5 = c_1(0)/2
-= \kappaBKM$ (Proposition~\ref{prop:kBKM-from-one-loop}), matching
-the programme universal identity $\kappaBKM(\Phi_N) = c_N(0)/2$ at
-$N = 1$. The Nekrasov $\Omega$-background is toric-specific: $K3$
-has no continuous automorphism group, only finite symplectic
-$g_N$ with $N \le 8$; the continuous $\mathrm{Aut}^0(K3 \times E)
-= E$ provides only the single spectral parameter
-$u = 2\pi i\epsilon_1^E/\hbar$ along the elliptic fibre, not a
-two-parameter $\Delta_5$-refinement
-(Proposition~\ref{prop:omega-toric}). Five ATTACK$\leftrightarrow$HEAL
-cycles establish: (1) $\mathrm{sl}_2$ one-loop bubble vanishes by
-$(0,4)$-Dolbeault dimension on $\C^3$ (2) stalk at $x \in K3\times E$
-unchanged by curvature (3) abelian transverse $\int_{K3}$ is
-lattice Heisenberg (4) non-abelian transverse $\int_{K3}$ is
-chiral $\frakgDelta^+$ with weight 5 (5) $\Omega$-background
-toric-specific. The Borcherds weight at Lorgat $N = 1$ reads the
-constant Fourier coefficient $c_1(0) = 10$ of the K3 elliptic
-genus $\phi_{0,1}$, directly via the factorisation-homology
-pushforward; the same mechanism produces $c_N(0)/2$ for
-$N \in \{2, 3, 4, 6\}$ via $g_N$-twisted K3 elliptic genera (Lorgat
-2020 Conjecture 1, conjectural at $N > 1$).
-
-%%=====================================================================
-\section*{References (inline)}
-%%=====================================================================
 \begin{thebibliography}{99}
-\bibitem{Lorgat2020} R.\ Lorgat, ``A Borcherds lift of the weak
-Jacobi form $\phi_{0,1}$, generalised Borcherds--Kac--Moody
-superalgebras and the Igusa cusp form $\Delta_5$'', April 2020;
-PDF \texttt{raeez.lorgat.automorphic-corrections.pdf}.
-\bibitem{GritsenkoNikulin1995} V.\ Gritsenko, V.\ Nikulin,
-``Siegel automorphic form corrections of some Lorentzian
-Kac--Moody Lie algebras'', \texttt{alg-geom/9504006} (1995).
-\bibitem{Borcherds1998} R.\ Borcherds, ``Automorphic forms
-with singularities on Grassmannians'', \texttt{alg-geom/9609022}
-(1996) = \emph{Invent.\ Math.}\ 132 (1998), 491--562.
-\bibitem{Gritsenko1999} V.\ Gritsenko, ``Elliptic genus of
-Calabi--Yau manifolds and Jacobi and Siegel modular forms'',
-\emph{St.\ Petersburg Math.\ J.}\ 11 (1999).
-\bibitem{GritsenkoClery2008} V.\ Gritsenko, F.\ Cl\'ery, ``The
-Siegel modular forms of genus 2 with the simplest divisor'',
-arXiv:0812.3962 (2008).
-\bibitem{OberdieckPixton} G.\ Oberdieck, A.\ Pixton, ``Holomorphic
-anomaly equations and the Igusa cusp form conjecture'',
-arXiv:1802.00378.
-\bibitem{CGVol1} K.\ Costello, O.\ Gwilliam, \emph{Factorization
-Algebras in Quantum Field Theory}, vol.\ 1, Cambridge (2017).
-\bibitem{CGVol2} K.\ Costello, O.\ Gwilliam, \emph{Factorization
-Algebras in Quantum Field Theory}, vol.\ 2, Cambridge (2021).
-\bibitem{Costello2011} K.\ Costello, \emph{Renormalization and
-Effective Field Theory}, AMS Math.\ Surveys 170 (2011).
-\bibitem{Costello2013} K.\ Costello, ``Supersymmetric gauge
-theory and the Yangian'', arXiv:1303.2632.
-\bibitem{CostelloLi2020} K.\ Costello, S.\ Li, ``Quantization of
-open-closed BCOV theory I'', arXiv:1505.06703 (2015)
-published 2020.
-\bibitem{Nikulin1980} V.\ Nikulin, ``Finite groups of automorphisms
-of K\"ahlerian K3 surfaces'', \emph{Trudy Moskov.\ Mat.\ Obshch.}\
-38 (1980).
-\bibitem{Mukai1988} S.\ Mukai, ``Finite groups of automorphisms
-of K3 surfaces and the Mathieu group'', \emph{Invent.\ Math.}\ 94
-(1988), 183--221.
-\bibitem{SchiffmannVasserot2017} O.\ Schiffmann, E.\ Vasserot,
-``On cohomological Hall algebras of Kac--Moody quivers'',
-\emph{Publ.\ IHES}\ 118 (2017).
-\bibitem{ArbesfeldSchiffmann} N.\ Arbesfeld, O.\ Schiffmann, ``A
-presentation of the deformed $W_{1+\infty}$ algebra'', arXiv:1209.0429.
-\bibitem{ProchazkaRapcak2019} T.\ Proch\'azka, M.\ Rapcak,
-``Webs of $W$-algebras'', \emph{JHEP}\ 11 (2018), 109.
-\bibitem{MaulikOkounkov2012} D.\ Maulik, A.\ Okounkov,
-``Quantum groups and quantum cohomology'', arXiv:1211.1287.
-\bibitem{NekrasovOkounkov2014} N.\ Nekrasov, A.\ Okounkov,
-``Membranes and sheaves'', arXiv:1404.2323.
-\bibitem{Kac1990} V.\ Kac, \emph{Infinite Dimensional Lie
-Algebras}, Cambridge (1990).
-\bibitem{FLM1988} I.\ Frenkel, J.\ Lepowsky, A.\ Meurman,
+\bibitem{Lorgat2020}
+R. Lorgat, ``A Borcherds lift of the weak Jacobi form \(\phi_{0,1}\),
+generalised Borcherds-Kac-Moody superalgebras and the Igusa cusp form
+\(\Delta_5\)'', April 2020.
+
+\bibitem{GritsenkoNikulin1995}
+V. Gritsenko and V. Nikulin, ``Siegel automorphic form corrections of
+some Lorentzian Kac-Moody Lie algebras'', \texttt{alg-geom/9504006}
+(1995).
+
+\bibitem{Borcherds1998}
+R. Borcherds, ``Automorphic forms with singularities on
+Grassmannians'', \texttt{alg-geom/9609022} (1996),
+\emph{Invent. Math.} 132 (1998), 491-562.
+
+\bibitem{Costello2011}
+K. Costello, \emph{Renormalization and Effective Field Theory}, AMS
+Mathematical Surveys 170 (2011).
+
+\bibitem{CostelloGwilliam2017}
+K. Costello and O. Gwilliam, \emph{Factorization Algebras in Quantum
+Field Theory}, Volume 1, Cambridge (2017).
+
+\bibitem{CostelloGwilliam2021}
+K. Costello and O. Gwilliam, \emph{Factorization Algebras in Quantum
+Field Theory}, Volume 2, Cambridge (2021).
+
+\bibitem{CostelloLi2020}
+K. Costello and S. Li, ``Quantization of open-closed BCOV theory I'',
+\texttt{arXiv:1505.06703}, published 2020.
+
+\bibitem{Nikulin1980}
+V. Nikulin, ``Finite groups of automorphisms of Kahlerian K3 surfaces'',
+\emph{Trudy Moskov. Mat. Obshch.} 38 (1980).
+
+\bibitem{Mukai1988}
+S. Mukai, ``Finite groups of automorphisms of K3 surfaces and the
+Mathieu group'', \emph{Invent. Math.} 94 (1988), 183-221.
+
+\bibitem{SchiffmannVasserot2013}
+O. Schiffmann and E. Vasserot, ``The elliptic Hall algebra and the
+\(K\)-theory of the Hilbert scheme of \(\mathbb A^2\)'',
+\emph{Duke Math. J.} 162 (2013), 279-366.
+
+\bibitem{MaulikOkounkov2012}
+D. Maulik and A. Okounkov, ``Quantum groups and quantum cohomology'',
+\texttt{arXiv:1211.1287}.
+
+\bibitem{FLM1988}
+I. Frenkel, J. Lepowsky and A. Meurman,
 \emph{Vertex Operator Algebras and the Monster}, Academic (1988).
-\bibitem{EichlerZagier1985} M.\ Eichler, D.\ Zagier, \emph{The
-theory of Jacobi forms}, Progress in Math.\ 55, Birkh\"auser (1985).
-\bibitem{LurieHA} J.\ Lurie, \emph{Higher Algebra}.
+
+\bibitem{LurieHA}
+J. Lurie, \emph{Higher Algebra}.
 \end{thebibliography}
 
 \end{document}

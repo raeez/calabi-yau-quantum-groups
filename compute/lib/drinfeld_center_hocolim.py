@@ -1070,7 +1070,7 @@ class DrinfeldCenterK3EHocolim:
     The E_2 structure is controlled by the R-matrix, which is the
     Borcherds denominator identity of g_{Delta_5}.
 
-    ROOT MULTIPLICITIES (from the Igusa cusp form Delta_5 = phi_{0,1}):
+    ROOT MULTIPLICITIES (from the primitive Gritsenko-Nikulin denominator Delta_5 = phi_{0,1}):
         mult(alpha) = c(alpha^2/2)
     where c(D) are the Fourier coefficients of phi_{0,1} in the
     Eichler-Zagier convention (AP38):
@@ -1161,7 +1161,7 @@ class DrinfeldCenterK3EHocolim:
 
             Delta_5(tau, z) = e^{rho} prod_{alpha > 0} (1 - e^alpha)^{c(alpha^2/2)}
 
-        where Delta_5 is the Igusa cusp form (weight 5 Siegel modular form).
+        where Delta_5 is the primitive Gritsenko-Nikulin denominator (weight 5 Siegel modular form).
 
         The key identity: the infinite product over positive roots
         reproduces the Fourier expansion of Delta_5.
@@ -1173,7 +1173,7 @@ class DrinfeldCenterK3EHocolim:
         We verify the root multiplicities match the DMVV coefficients.
         """
         return {
-            "denominator": "Delta_5 (Igusa cusp form, weight 5)",
+            "denominator": "Delta_5 (primitive Gritsenko-Nikulin denominator, weight 5)",
             "product_formula": (
                 "Delta_5 = e^rho * prod_{alpha>0} (1-e^alpha)^{c(alpha^2/2)}"
             ),

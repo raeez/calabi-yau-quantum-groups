@@ -1,606 +1,451 @@
-% wave13_a14_voa_corner_gaiotto.tex
-% Gaiotto-voice adversarial-heal on the VOA avatar of g_{Delta_5}:
-% 4d N=2 -> 2d chiral correspondence (BBBLN 2015), corner vertex algebras
-% (Gaiotto-Rapcak Y_{L,M,N}), Prochazka-Rapcak W_{1+infty} horizontal/vertical,
-% Miki automorphism triangular rearrangement. Five ATTACK<->HEAL cycles.
-% Cross-reference: wave12_a14_quiver_chart_gaiotto.tex (three-obstruction
-% quiver-chart framework, local P^2 Y_{1,1,1}, CY_4 Dunn prediction);
-% wave12_u1_two_stage_functor.tex (Phi^{FA}_3 native / Sp_{Sigma_{d-1},C}
-% shadow split, many-BKMs-from-one-CY_3 via paramodular Humbert cycles).
-% Source paper (first-principles anchor): Lorgat 2020, Borcherds lift
-% of phi_{0,1} to Delta_5, with c_1(0) = 10, kappa_BKM(Delta_5) = 5.
-%
-% Voice: Gaiotto (VOA, boundary conditions, corner vertex algebras,
-% Y-algebras, Costello-Gaiotto twisted holography, Kapustin-Rozansky-Saulina).
-% Chriss-Ginzburg discipline; no "Wave N" meta in prose; honest
-% conjectural status; no AI attribution.
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem*{ghost}{Ghost theorem}
-\newtheorem*{attack}{Attack}
-\newtheorem*{heal}{Heal}
+\newtheorem{problem}[theorem]{Problem}
 \newtheorem*{remark}{Remark}
 
-\providecommand{\Eone}{E_1}
-\providecommand{\Etwo}{E_2}
-\providecommand{\Ethree}{E_3}
-\providecommand{\Einf}{E_\infty}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\R}{\mathbb{R}}
-\providecommand{\Q}{\mathbb{Q}}
-\providecommand{\cY}{\mathcal{Y}}
-\providecommand{\cW}{\mathcal{W}}
-\providecommand{\cN}{\mathcal{N}}
-\providecommand{\cT}{\mathcal{T}}
-\providecommand{\cO}{\mathcal{O}}
+\providecommand{\PP}{\mathbb{P}}
+\providecommand{\HH}{\mathbb{H}}
+\providecommand{\cA}{\mathcal{A}}
 \providecommand{\cH}{\mathcal{H}}
-\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cI}{\mathcal{I}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
 \providecommand{\cV}{\mathcal{V}}
-\providecommand{\chi}{\chi}
-\providecommand{\fgl}{\mathfrak{gl}}
-\providecommand{\fsl}{\mathfrak{sl}}
-\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cY}{\mathcal{Y}}
 \providecommand{\fg}{\mathfrak{g}}
-\providecommand{\fn}{\mathfrak{n}}
-\providecommand{\Muk}{\mathrm{Muk}}
-\providecommand{\Heis}{\mathrm{Heis}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsu}{\mathfrak{su}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\ChirAlg}{\mathrm{ChirAlg}}
-\providecommand{\Sch}{\mathrm{Sch}}
-\providecommand{\BBBLN}{\mathrm{BBBLN}}
-\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Borch}{\mathrm{Borch}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Ntwo}{\mathcal{N}{=}2}
 
-\title{The VOA avatar of $\fg_{\Delta_5}$ and the 4d $\cN{=}2 \to$ 2d chiral
-correspondence\\
-{\large A Gaiotto-channel audit of the corner-vertex-algebra route from
-$\cY_{L,M,N}$ to the Igusa $\Delta_5$ GBKM}}
-\author{Gaiotto channel}
-\date{2026-04-22}
+\title{The class-\texorpdfstring{$\cS$}{S} Schur corner of the Igusa denominator algebra}
+\author{}
+\date{2026-04-30}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The GBKM superalgebra $\fg_{\Delta_5}$ of Lorgat 2020 carries a rank-$3$
-real-root datum on $\Lambda^{2,1}_{II}$ and a $\phi_{0,1}$-graded imaginary
-spectrum whose Weyl--Kac--Borcherds denominator is $\tfrac{1}{64}\Delta_5(2z)$.
-The 4d $\cN{=}2$ Schur-chiral correspondence of Beem--Lemos--Liendo--
-Peelaers--Rastelli--van~Rees (BBBLN 2015) associates to any 4d $\cN{=}2$
-superconformal theory $\cT$ a vertex algebra $\chi(\cT)$ with central charge
-$c_{2d} = -12\, c_{4d}$. The mission is: identify the 4d $\cN{=}2$ theory
-$\cT_{\Delta_5}$ whose Schur-chiralisation is the vertex envelope of
-$\fg_{\Delta_5}$, and state its corner-VOA avatar. Five attack--heal cycles
-establish: (i) the Heisenberg / K3$\times T^2$ low-energy route is
-$\cN{=}4$ not $\cN{=}2$ and fails the BBBLN hypothesis; (ii) the 6d $(2,0)$
-$A_{N-1}$ on $K3\times T^2$ with a half-twist is $\cN{=}2$ on $T^2$ and
-is the correct UV seed; (iii) the corner VOA for the Mukai block is
-$\cY_{4,20,0}(\psi)$ at Dunn-twisted levels, which is the $\Omega$-deformed
-$\cW_{4,20,0}$; (iv) the $\phi_{0,1}$-imaginary-root tail lies outside
-any finite-$(L,M,N)$ corner and enters through Miki's horizontal-to-vertical
-rearrangement of $\cW_{1+\infty}$ at self-dual slope; (v) $\Delta_5$ is
-\emph{not} the vacuum character of any single $\cY_{L,M,N}$, but arises as
-the denominator of a quantum-toroidal Drinfeld double of a Borcherds-cone
-completion of the $\cY_{4,20,0}$ Miki limit, specialising to
-$\kappa_{\BKM}(\Delta_5) = c_1(0)/2 = 5$ via the central-charge match
-$c_{2d}(\cT_{\Delta_5}) = -60 = -12 \cdot 5$. The VOA avatar is a conjecture
-at publication standard: a limiting sheaf of corner vertex algebras over
-the paramodular Humbert moduli, not a single $\cY_{L,M,N}$.
+The four-dimensional parent of the \(K3\times E\) Igusa corner is the
+class-\(\cS\) theory
+\[
+  \cT_{24}:=\cT[A_1,\Sigma_{0,24}],
+\]
+where \(\Sigma_{0,24}\) is a sphere with twenty-four maximal regular
+\(\fsu(2)\)-punctures. Its pants decomposition gives
+\[
+  (n_v,n_h)=(63,88),\qquad c_{4d}=107/6,\qquad c_{2d}=-214.
+\]
+The closed genus-two curve \(\Sigma_{2,0}\) gives \(c_{4d}=13/6\) and
+has no twenty-four puncture labels. The Schur-to-Igusa comparison is the
+typed composite
+\[
+  \chi(\cT_{24})
+  \longrightarrow
+  \cI_{\mathrm{Schur}}(\cT_{24})
+  \xrightarrow{\Pi_{M_{24}}}
+  \phi_{0,1}^{K3}
+  \xrightarrow{\Borch}
+  \Delta_5
+  \rightsquigarrow
+  \fg_{\Delta_5}.
+\]
+Here \(D_5=64^{-1}\Delta_5\), \(c_1(0)=10\),
+\(\kBKM(\Delta_5)=5\), and \(\Phi_{10}^{\theta}=\Delta_5^2\).
+For \(X=K3\times E\), the separated invariants are
+\[
+  \kcat(X)=0,\qquad \kch(X)=0,\qquad
+  \kch^{\mathrm{Heis}}(X)=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad \kfib(X)=24.
+\]
+The native \(\Phi_3\)-output is \(E_1\)-chiral. Corner vertex algebras,
+Drinfeld doubles, representation centres, and Schur VOAs may carry
+additional two-dimensional structures only after the relevant
+construction has been named.
 \end{abstract}
 
-\section*{Overview}
+\section{The Gaiotto curve}
 
-Two theorems set the stage. First, the BBBLN Schur-chiralisation
-$\chi: \{4\text{d}\ \cN{=}2\ \mathrm{SCFTs}\}\to\mathrm{VOA}$ takes a 4d
-theory $\cT$ to a vertex algebra with $c_{2d}(\chi(\cT)) = -12\, c_{4d}(\cT)$;
-the Schur operators are the cohomology of a nilpotent supercharge
-$\mathbb{Q}_\cH$ acting on protected operators of a chosen $SU(1,1|1)$
-subalgebra. Second, the corner-vertex-algebra construction of
-Gaiotto--Rapcak $\cY_{L,M,N}(\psi)$ provides a family of vertex algebras
-parametrised by non-negative integer triples and a complex coupling $\psi$,
-each arising as the algebra of local operators at a tri-junction of three
-$GL$-twisted 4d $\cN{=}4$ boundary conditions. Prochazka--Rapcak identify
-$\cW_{1+\infty}[\mu]$ at generic $\mu$ as the universal triality-invariant
-parent of the $\cY_{L,M,N}$. The Miki automorphism swaps the horizontal
-$\widehat{\fgl}_\infty$ and vertical $\widehat{\fsl}_\infty$ subalgebras
-inside $\cW_{1+\infty}$; at self-dual $\Omega$-background
-$\varepsilon_1 + \varepsilon_2 + \varepsilon_3 = 0$ the triangular
-rearrangement gives a triality-invariant slice.
-
-The mission factors through five cycles: each attack surfaces a reading of
-``the VOA avatar of $\fg_{\Delta_5}$'' that, at a concrete numerical point,
-fails. Each heal offers the corrected scope --- a specific
-$(L,M,N,\psi)$ datum, a specific UV 6d seed, or a specific limiting
-procedure along $\mathrm{Cyc}_2(K3\times E)$ --- in Chriss--Ginzburg voice
-and at honest conjectural status.
-
-The five cycles are organised so that the $\fg_{\Delta_5}$ Cartan discipline
-of wave12\_a14 (three-obstruction separation) and the two-stage-functor
-discipline of wave12\_u1 ($\Phi^{\mathrm{FA}}_3$ native versus
-$\Sp_{\Sigma_2,C}$ shadow) cross-check each other: the VOA avatar is a
-particular specialisation of $\Phi^{\mathrm{FA}}_3(K3\times E)$ along the
-cycle $\Sigma_2 = K3$ and the curve $C = E$, and the Mukai-block corner
-$(L,M,N) = (4,20,0)$ of Gaiotto--Rapcak is the finite-rank truncation of
-the Borcherds-cone completion that $\fg_{\Delta_5}$ requires.
-
-% ==========================================================================
-\section{Attack--heal 1. The $\cN{=}4$ heterotic / K3$\times T^2$ route
-  fails the BBBLN hypothesis}
-\label{sec:cycle1}
-% ==========================================================================
-
-\begin{attack}
-Consider the most naive guess: the heterotic string compactified on $K3\times
-T^2$ produces, at low energy, a 4d $\cN{=}4$ $E_8\times E_8$ (or $Spin(32)/\Z_2$)
-gauge theory broken to a rank-$24$ Narain moduli. The $\fg_{\Delta_5}$ Cartan
-is rank-$3$, sitting inside $\Lambda^{2,1}_{II}\subset\Lambda^{3,2}$;
-$\Lambda^{3,2}$ is the signature-$(3,2)$ lattice inside the even unimodular
-$\Lambda_\Muk(K3)\oplus U_E$ of signature $(5,21)$ under the ``transfer
-of automorphic forms'' isomorphism $\Sp_4(\Z)/\{\pm I\} \simeq
-O(\Lambda^{3,2})_+/\{\pm I\}$ of the source paper \S3. One then proposes
-$\cT_{\Delta_5}$ = this heterotic 4d $\cN{=}4$ theory, and identifies
-$\chi(\cT_{\Delta_5})$ via BBBLN with the universal enveloping VOA
-$U(\fg_{\Delta_5})_{\kappa_{\BKM}}$ at the Borcherds level
-$\kappa_{\BKM} = 5$.
-\end{attack}
-
-\begin{ghost}
-\emph{The heterotic / K3$\times T^2$ route is the correct UV seed, but the
-theory it produces is $\cN{=}4$, not $\cN{=}2$; BBBLN's Schur-chiralisation
-requires $\cN{=}2$ \emph{strictly}, since the protected $SU(1,1|1)\subset
-SU(2,2|2)$ subalgebra used to define Schur cohomology only exists inside
-the $\cN{=}2$ superconformal algebra.}
-\end{ghost}
-
-\begin{heal}
-The resolution is to break $\cN{=}4\to\cN{=}2$ by a half-supersymmetry-
-preserving deformation. Two canonical routes:
-\begin{itemize}[leftmargin=1.5em]
-  \item \emph{Argyres--Douglas route}: mass-deform the $\cN{=}4$ hypers
-  by an $\cN{=}2$ mass $m$; the Coulomb branch becomes the $\cN{=}2^*$
-  theory on $K3\times T^2$, whose Schur sector is governed by the elliptic
-  genus of the $K3$ fibre (known to be $2\phi_{0,1}$).
-  \item \emph{Twisted-compactification route}: take 6d $(2,0)$ $A_{N-1}$
-  on $K3\times T^2$ with a geometric Nekrasov-Shatashvili half-twist
-  along $T^2$ that reduces $\cN{=}(2,2)$ on $T^2$ to $\cN{=}2$ on the
-  remaining 2d worldvolume. This is the Gaiotto--Moore--Neitzke setup
-  for $\cT[M_3]$ with $M_3 = K3\times S^1$.
-\end{itemize}
-The second route is the one that aligns with the Gaiotto--Rapcak corner.
-\end{heal}
-
-The attack is substantive: the naive $\cN{=}4$ reading is ruled out by
-the BBBLN hypothesis. The heal relocates the UV seed in 6d $(2,0)$ where
-the half-twist delivers $\cN{=}2$ on the 4d worldvolume. This is the
-route compatible with the Mukai-block corner $\cY_{4,20,0}$.
-
-% ==========================================================================
-\section{Attack--heal 2. The 6d $(2,0)$ $A_{N-1}$ on $K3\times T^2$
-  twist is a $\cT[M_3]$ of Argyres--Douglas type}
-\label{sec:cycle2}
-% ==========================================================================
-
-\begin{attack}
-One version of the heal in \S\ref{sec:cycle1} would read: take 6d $(2,0)$
-$A_{N-1}$ on $K3\times T^2$, half-twisted on $T^2$, and declare the 4d
-theory on $\R^{1,3}$ to be $\cT[K3\times S^1]_{A_{N-1}}$, a Class $\cS$-type
-theory labelled by $A_{N-1}$ and the 3-manifold $M_3 = K3\times S^1$.
-The ``$\cT[M_3]$'' machinery of Gaiotto--Moore--Neitzke associates to
-$(M_3,\fg)$ a 3d $\cN{=}2$ theory; compactifying further on an $S^1$ gives
-a 2d $\cN{=}(0,2)$. The result has $\cN{=}2$ supersymmetry
-\emph{enhanced only accidentally} to 4d $\cN{=}2$ at specific points of the
-moduli; generically one gets $\cN{=}(0,2)$ in 2d rather than 4d $\cN{=}2$.
-The BBBLN hypothesis fails again: no 4d 4-supercharge theory to
-Schur-chiralise.
-\end{attack}
-
-\begin{ghost}
-\emph{The correct dimensional reduction is 6d $(2,0)$ $A_{N-1}$ on $K3$,
-producing a 2d $(0,4)$ sigma model on $T^2$ which is the \emph{boundary
-theory} of a 4d $\cN{=}2$ theory on a half-space; the 4d theory is an
-Argyres--Douglas $(A_{N-1},A_{k})$ of rank depending on the K3 lattice
-polarisation.}
-\end{ghost}
-
-\begin{heal}
-Following Cecotti--Vafa's 4d/2d correspondence for Argyres--Douglas theories:
-the 6d $(2,0)$ $A_{N-1}$ on $K3$ produces, after Kaluza--Klein reduction
-along the holomorphic volume form of $K3$, a 2d $(0,4)$ chiral theory whose
-elliptic genus is $\phi_{0,1}^{24-\rho(K3)}$ (weighted by K3 Picard rank).
-The 4d $\cN{=}2$ theory whose Schur chiralisation captures this data is the
-$(A_{N-1},A_{k})$ Argyres--Douglas theory with $k = 2(24-\rho(K3)) - 1$;
-specialising to the Shioda--Inose locus $\rho(K3) = 20$ gives
-$(A_{N-1},A_7)$, whose BBBLN chiralisation carries central charge
+Let
 \[
-  c_{2d} = -12\,c_{4d}\bigl((A_{N-1},A_7)\bigr)
-  = -12 \cdot \frac{(N-1)(N+6)}{N+7}.
+  \Sigma_{0,24}=(\PP^1;p_1,\ldots,p_{24})
 \]
-At $N=1$ (trivial $A_0$ base) this reduces to $c_{2d}(A_0,A_7) = 0$; the
-$\Sp_4(\Z)$ structure enters at higher $N$ through the Class $\cS$ labelling.
-The specific identification with $\fg_{\Delta_5}$ requires the Borcherds-cone
-completion that is outside the finite-rank scope.
-\end{heal}
-
-At rank $N=2$ the central charge computes to
-$c_{2d}(A_1,A_7) = -12 \cdot 9/9 = -12$, which is \emph{not} $-60 = -12\cdot 5$.
-The heal therefore gives the \emph{wrong} $c_{4d}$ for a direct
-$\kappa_{\BKM} = 5$ identification. The cycle closes as a forced
-refinement: the UV seed is 6d $(2,0)$ but on a different 4-manifold than
-$K3$ alone.
-
-% ==========================================================================
-\section{Attack--heal 3. The Mukai-block corner: $\cY_{4,20,0}(\psi)$ at
-  self-dual $\Omega$-background}
-\label{sec:cycle3}
-% ==========================================================================
-
-\begin{attack}
-Turn to the corner-VOA candidate directly. The Gaiotto--Rapcak
-$\cY_{L,M,N}(\psi)$ is the vertex algebra at a tri-junction of three
-$GL$-twisted $\cN{=}4$ boundary conditions with ranks $(L,M,N)$ and
-coupling $\psi$ satisfying the $\psi$-algebra of $GL$-twisted $S$-duality.
-At self-dual coupling $\psi = 1/(\psi-1)$ the $\cY_{L,M,N}$ admits the
-Prochazka--Rapcak $\cW_{1+\infty}$-cover with three commuting
-$GL$-factors. The mission formulation proposes $(L,M,N) = (4,20,0)$ as the
-Mukai-block corner, cross-referencing the $Y(\fgl(4|20))$ super-Yangian
-that Schiffmann--Vasserot CoHA plus Maulik--Okounkov stable envelopes
-identify on $K3$ sheaves. Is $\cY_{4,20,0}(\psi)$ the VOA avatar of
-$\fg_{\Delta_5}$? Test: the vacuum character of $\cY_{4,20,0}$ at any
-rational $\psi$ is a McKay-style generating series controlled by a
-\emph{rational} vertex-algebra grading; $\Delta_5$ is a Siegel modular
-form of genus $2$, weight $5$, with Fourier coefficients $f(n,\ell,m)$
-that are controlled by a Borcherds lift from a weak Jacobi form
-$\phi_{0,1}$ of index $1$ and weight $0$. The vacuum character of
-$\cY_{4,20,0}$ at any $\psi$ cannot be $\Delta_5(2z)/64$: the vacuum
-character is a function of a single formal variable $q$ (the $L_0$-eigenvalue
-grading), whereas $\Delta_5$ lives on the three-dimensional Siegel upper
-half-plane $\cH_2$ in variables $(z_1, z_2, z_3)$.
-\end{attack}
-
-\begin{ghost}
-\emph{$\cY_{4,20,0}(\psi)$ is the correct Mukai-block truncation, but it
-captures only the \emph{finite-rank even-sublattice} of the $\fg_{\Delta_5}$
-Cartan data. Its vacuum character, as a function of the full
-$\Lambda^{2,1}_{II}$-grading, is a three-variable specialisation
-$\chi_{\cY_{4,20,0}}(q_1, q_2, q_3; \psi)$ whose limiting behaviour along
-the Borcherds cone gives the $\phi_{0,1}$-driven imaginary-root tail of
-$\fg_{\Delta_5}$.}
-\end{ghost}
-
-\begin{heal}
-State the corner-VOA conjecture at the right scope.
-\begin{conjecture}[Mukai-block corner avatar, conjectural]
-\label{conj:mukai-block-corner}
-Let $X = K3\times E$ and let $\Phi^{\mathrm{FA}}_3(X)$ be the native
-$E_3$ holomorphic factorisation algebra of
-\texttt{wave12\_u1\_two\_stage\_functor.tex}, Definition~1. The
-$\Sp_{K3,E}$-specialisation
+be the \(A_1\) class-\(\cS\) curve with twenty-four maximal regular
+\(\fsu(2)\)-punctures, and set
 \[
-  \Sp_{K3,E}\bigl(\Phi^{\mathrm{FA}}_3(K3\times E)\bigr)
-  \;\in\; E_1\text{-}\ChirAlg(E)
+  \cT_{24}:=\cT[A_1,\Sigma_{0,24}].
 \]
-factors as
+A pants decomposition of \(\Sigma_{0,n}\) has \(n-2\) trinions \(T_2\)
+and \(n-3\) gauged \(SU(2)\) tubes. The \(A_1\) trinion is the free
+trifundamental half-hypermultiplet system with effective
+\((n_v,n_h)=(0,4)\), and an \(SU(2)\) vector multiplet contributes
+\((n_v,n_h)=(3,0)\). Hence
 \[
-  \Sp_{K3,E}\bigl(\Phi^{\mathrm{FA}}_3(K3\times E)\bigr)
-  \;\simeq\;
-  \cY_{4,20,0}(\psi_{K3\times E})\otimes \cV_{\phi_{0,1}\text{-tail}}
+  (n_v,n_h)(\cT[A_1,\Sigma_{0,n}])
+  =
+  (3(n-3),4(n-2)).
 \]
-where:
-\begin{enumerate}[leftmargin=2em]
-  \item $\cY_{4,20,0}(\psi)$ is the Gaiotto--Rapcak corner vertex algebra
-  at $(L,M,N) = (4,20,0)$, parametrised by a coupling $\psi_{K3\times E}$
-  determined by the Shioda--Inose attractor point of $K3$ through
-  $\psi_{K3\times E} = \frac{20 - \rho(K3)}{4} + 1 = 1$ at $\rho(K3) = 20$;
-  \item $\cV_{\phi_{0,1}\text{-tail}}$ is the Borcherds-lifted VOA whose
-  vacuum character is the imaginary-root generating series
-  $\prod_{(n,\ell,m)>0}(1 - q_1^n q_2^\ell q_3^m)^{f(nm,\ell)}$ of the
-  weak Jacobi form $\phi_{0,1}$ with $f(n,\ell)$ its Fourier coefficients;
-  \item the tensor product is at the level of factorisation algebras on
-  $E$, with $\cY_{4,20,0}$ carrying the bosonic Mukai-block content and
-  $\cV_{\phi_{0,1}\text{-tail}}$ carrying the fermionic / imaginary-root
-  content via a BRST reduction against a ghost system of central charge
-  adjusted so that the total $c_{2d}$ matches
-  $-12 \cdot \kappa_{\BKM}(\Delta_5) = -60$.
-\end{enumerate}
-The 4d $\cN{=}2$ UV seed whose BBBLN Schur chiralisation is the above is
-the Argyres--Douglas $(A_1, D_{21})$ theory compactified on
-$T^2\times\{0\}\subset T^2\times\R^{1,3}$ with a Gaiotto--Moore--Neitzke
-$\Omega$-background along $T^2$; the Shioda--Inose attractor point of
-the K3 fibre corresponds to the self-dual $\psi = 1$ locus of the corner
-coupling.
-\end{conjecture}
-
-The specialisation of the central charge in (3) gives
-$c_{2d}(\cY_{4,20,0}(\psi=1)) = -24$ (from the BBBLN formula
-$c_{2d} = -12 \cdot c_{4d}^{AD}$ with $c_{4d}^{AD}(A_1,D_{21}) = 2$),
-so the required adjustment in the ghost system is
-$c_{\mathrm{ghost}} = -36$, matching the total $c_{2d} = -60 = -12 \cdot 5$
-on the nose.
-\end{heal}
-
-The conjecture is at publication-standard conjectural scope. It reduces
-the VOA avatar of $\fg_{\Delta_5}$ to two well-defined subproblems:
-(i) the explicit BRST reduction against a ghost system of matching
-central charge; (ii) the identification of the Argyres--Douglas $(A_1,
-D_{21})$ UV seed with the 6d $(2,0)$ $A_{N-1}$ on $K3\times T^2$ via the
-Gaiotto--Moore--Neitzke $\cT[M_3]$ dictionary.
-
-% ==========================================================================
-\section{Attack--heal 4. The Miki triangular rearrangement at the
-  self-dual slope delivers the Borcherds-cone completion}
-\label{sec:cycle4}
-% ==========================================================================
-
-\begin{attack}
-Conjecture~\ref{conj:mukai-block-corner} as stated produces a
-$\cY_{4,20,0}\otimes\cV_{\phi_{0,1}\text{-tail}}$ tensor product. The
-second factor, $\cV_{\phi_{0,1}\text{-tail}}$, is \emph{not} a corner VOA:
-it is a lattice VOA on the Borcherds cone, with infinite-rank imaginary
-content. The two factors commute, and the tensor product sits in a
-factorisation-algebra framework on $E$. Why would one call this ``the
-VOA avatar'' when the second factor is \emph{not} of the corner-VOA type
-targeted by the mission? The conflation is a structural one: the mission
-asks for a corner-VOA identification, but the $\fg_{\Delta_5}$ imaginary
-content is not of finite corner-rank.
-\end{attack}
-
-\begin{ghost}
-\emph{The Miki automorphism of $\cW_{1+\infty}$ at self-dual slope
-triangularises the imaginary tail: under Miki, the lattice VOA
-$\cV_{\phi_{0,1}\text{-tail}}$ appears as the \emph{horizontal} subalgebra
-$\widehat{\fgl}_\infty^{\mathrm{hor}}\subset\cW_{1+\infty}[\mu{=}1/2]$, and
-the $\cY_{4,20,0}$ Mukai block appears as the \emph{vertical} subalgebra
-$\widehat{\fsl}_\infty^{\mathrm{vert}}\cap\cW_{4,20,0}$. The full VOA
-avatar is therefore a single corner VOA at infinity rank with a
-Miki-rearranged bigrading, not a tensor product.}
-\end{ghost}
-
-\begin{heal}
-State the Miki-corrected conjecture:
-\begin{conjecture}[Miki-rearranged corner avatar, conjectural]
-\label{conj:miki-corner}
-Under the Miki automorphism
-$\mu: \cW_{1+\infty}[\psi]\xrightarrow{\sim}\cW_{1+\infty}[\psi^*]$
-which exchanges horizontal $\widehat{\fgl}_\infty^{\mathrm{hor}}$ and
-vertical $\widehat{\fgl}_\infty^{\mathrm{vert}}$ subalgebras (and swaps
-$\psi$ with $\psi^* = 1/\psi - 1$ inside the triangular $\psi$-algebra),
-the tensor product of Conjecture~\ref{conj:mukai-block-corner} is the
-Miki-rearrangement of a single limiting corner vertex algebra:
+At \(n=24\),
 \[
-  \cY_{4,20,0}(\psi=1)\otimes \cV_{\phi_{0,1}\text{-tail}}
-  \;\xrightarrow[\mu]{\;\;\mu\;\;}\;
-  \cY^{\mathrm{Miki}}_{\infty,\infty,\infty}\bigl(\psi_{\mathrm{Muk}},
-  \phi_{0,1}\bigr),
+  (n_v,n_h)(\cT_{24})=(63,88).
 \]
-where the right-hand side is the \emph{Borcherds-cone completion} of the
-Gaiotto--Rapcak corner at limiting rank
-$(L,M,N)\to(\infty,\infty,\infty)$ along the direction of the Borcherds
-cone $\Lambda^{2,1}_{II}\cap\R_{>0}\mathcal{P}_{II}$ in the sense of
-\texttt{wave12\_u1\_two\_stage\_functor.tex}, Corollary~1.3 (``many BKMs
-from one CY$_3$''). The Miki automorphism acts as the triality
-$(L,M,N)\to$ permutation on the finite-rank truncation
-$\cY_{4,20,0}\leftrightarrow\cY_{0,4,20}\leftrightarrow\cY_{20,0,4}$ and
-lifts to an automorphism of the $\mathrm{Aut}(\mathcal{P}_{II})\simeq
-S_3$ symmetry of the $\fg_{\Delta_5}$ Dynkin diagram.
-\end{conjecture}
-\end{heal}
-
-The Miki triangular rearrangement is the concrete mechanism by which the
-$\fg_{\Delta_5}$ Dynkin $S_3$ symmetry (on $\{\delta_1, \delta_2, \delta_3\}$,
-the three real simple roots, with symmetric Gram matrix of entries $2,-2,-2$)
-lifts to a corner-VOA triality. The $S_3$-equivariance of the three
-primitive null vectors $\{2f_2, 2f_{-2}, 2f_2 - 2f_3 + 2f_{-2}\}$ at
-infinity of $\mathcal{P}_{II}$ matches the $S_3$-triality permuting the
-three $\widehat{\fgl}_\infty$ subalgebras of $\cW_{1+\infty}$.
-
-% ==========================================================================
-\section{Attack--heal 5. $\Delta_5$ is the denominator, not the vacuum
-  character; the BBBLN central charge matches $\kappa_{\BKM} = 5$}
-\label{sec:cycle5}
-% ==========================================================================
-
-\begin{attack}
-If the VOA avatar of $\fg_{\Delta_5}$ is
-$\cY^{\mathrm{Miki}}_{\infty,\infty,\infty}(\psi_{\mathrm{Muk}},\phi_{0,1})$
-of Conjecture~\ref{conj:miki-corner}, then there should be a vacuum
-character $\chi_{\cY^{\mathrm{Miki}}}(q_1,q_2,q_3)$ given by a convergent
-triple-product series. The source paper \S5--\S6 computes the denominator
+The Shapere-Tachikawa normalization gives
 \[
-  \Phi \;=\; \tfrac{1}{64}\Delta_5(2z)
-  \;=\; \exp\bigl(-2\pi i(\rho,z)\bigr)\prod_{\alpha\in\Delta_+}
-  \bigl(1 - \exp(-2\pi i(\alpha,z))\bigr)^{\mathrm{mult}\,\alpha}
+  c_{4d}=\frac{2n_v+n_h}{12},\qquad
+  a_{4d}=\frac{5n_v+n_h}{24},
 \]
-of the GBKM superalgebra $\fg_{\Delta_5}$ acting on the trivial $\C$-module.
-The denominator of a Borcherds-Kac-Moody superalgebra is \emph{not} the
-vacuum character of its enveloping vertex algebra: the denominator is
-$\Phi(q) = \chi_{\mathbb{C}}(q)\cdot\prod_\alpha(1-q^\alpha)^{\mathrm{mult}
-\alpha}$, whereas the vacuum character is
-$\chi_{V_0}(q) = \prod_\alpha(1-q^\alpha)^{-\mathrm{mult}\alpha}$ (reciprocal
-exponent). Stating ``$\Delta_5$ is the vacuum character'' is a sign error
-on the imaginary-root exponent.
-\end{attack}
-
-\begin{ghost}
-\emph{$\Delta_5$ is the denominator, not the vacuum character, of the
-GBKM Lie superalgebra $\fg_{\Delta_5}$. The vacuum character of its
-enveloping vertex algebra is $1/\Delta_5$ (up to the Weyl-shift).}
-\end{ghost}
-
-\begin{heal}
-The sign is corrected by stating the avatar at the level of denominators
-directly. The 4d $\cN{=}2$ Schur index and the 2d chiralised vacuum
-character are related by reciprocal exponent: if
-$\chi(\cT_{\Delta_5})$ denotes the BBBLN-Schur chiralisation, then
+and the Beem, Lemos, Liendo, Peelaers, Rastelli, and van Rees
+Schur-chiral correspondence gives
 \[
-  \mathrm{ch}_{\chi(\cT_{\Delta_5})}(q_1,q_2,q_3)
-  \;=\; \frac{1}{(\tfrac{1}{64}\Delta_5(2z))^{\pm 1}},
+  c_{2d}=-12c_{4d}.
 \]
-with the sign determined by whether one takes the character of the
-symmetric or exterior-algebra piece of the GBKM universal enveloping. The
-even-imaginary subspace $\Delta^{\mathrm{im}}_0 = \{\tau(a)a\mid(a,a) = 0,
-\tau(a) > 0\}$ contributes a symmetric-algebra factor $\prod(1-q^a)^{-\tau(a)}$
-with $\tau(a) = 9$ at the three null vertices, giving the Dedekind
-$\eta(q_1)^{-9}\eta(q_2)^{-9}\eta(q_3)^{-9}$ cusp factor; the odd-imaginary
-subspace $\Delta^{\mathrm{im}}_1 = \{m(a)a\mid(a,a) < 0, m(a) < 0\}$
-contributes an exterior-algebra factor $\prod(1-q^a)^{-m(a)}$ with
-$m(a) = -\tfrac{1}{64}f(n,\ell,m)$. The BBBLN central charge match is:
-\begin{proposition}[BBBLN central charge match for $\fg_{\Delta_5}$,
-  conjectural]
-\label{prop:bbbln-kappa-5}
-Under Conjecture~\ref{conj:miki-corner}, the total central charge of
-$\chi(\cT_{\Delta_5}) = \cY^{\mathrm{Miki}}_{\infty,\infty,\infty}
-(\psi_{\mathrm{Muk}},\phi_{0,1})$ computes to $c_{2d} = -60$, matching
+Therefore
 \[
-  c_{2d} \;=\; -12\cdot\kappa_{\BKM}(\Delta_5)
-  \;=\; -12\cdot\frac{c_1(0)}{2}
-  \;=\; -12\cdot 5
-  \;=\; -60
+  c_{4d}(\cT_{24})
+  =
+  \frac{2\cdot63+88}{12}
+  =
+  \frac{107}{6},
+  \qquad
+  c_{2d}(\chi(\cT_{24}))=-214.
 \]
-via the BBBLN relation $c_{2d} = -12\, c_{4d}$, so that the 4d $\cN{=}2$
-anomaly of $\cT_{\Delta_5}$ is $c_{4d} = 5$. The factor of $5$ on the
-Borcherds side is $\kappa_{\BKM} = c_1(0)/2$ with $c_1(0) = 10$ the
-constant term of $\phi_{0,1}$'s Fourier coefficient at
-$4n - \ell^2 = 0$, $\ell = \pm 1$.
+The Coulomb rank is \(21\), and the flavour algebra is
+\(\fsu(2)^{24}\).
+
+\begin{proposition}[The genus-two curve is a different class-\(\cS\) datum]
+\label{prop:sigma20-different}
+For \(A_1\) on a closed genus-two curve \(\Sigma_{2,0}\), the same
+pants arithmetic gives
+\[
+  (n_v,n_h)=(9,8),\qquad
+  c_{4d}=\frac{13}{6},\qquad
+  c_{2d}=-26.
+\]
+The Schur parent with \(c_{4d}=107/6\) is
+\(\cT[A_1,\Sigma_{0,24}]\).
 \end{proposition}
-\end{heal}
 
-The central-charge match $c_{4d} = 5$ is the concrete numerical content
-of the mission. The 4d $\cN{=}2$ theory $\cT_{\Delta_5}$ would therefore
-need to have conformal central charge $c_{4d} = 5$ exactly. This rules
-out Lagrangian theories (for which $c_{4d}$ is bounded below by
-$n_v/6 + n_h/12$ with $n_v,n_h$ integer); it forces $\cT_{\Delta_5}$
-to be an Argyres--Douglas-type strongly-coupled $\cN{=}2$ theory with
-fractional central charge. The candidate $(A_1, D_{21})$ has
-$c_{4d} = \tfrac{21\cdot 22}{8(21+2+1)}\cdot\tfrac{1}{6} + \ldots$; a
-direct match to $c_{4d} = 5$ requires a specific Argyres--Douglas
-theory whose identification is the main open question of the mission.
+\begin{proof}
+A closed genus-two surface has \(2g-2=2\) trinions and \(3g-3=3\)
+gauged \(SU(2)\) tubes. Thus
+\[
+  (n_v,n_h)=2(0,4)+3(3,0)=(9,8),
+\]
+so \(c_{4d}=(18+8)/12=13/6\). The punctured sphere has the already
+computed vector \((63,88)\), hence central charge \(107/6\). It also
+carries the twenty-four puncture labels, the flavour algebra
+\(\fsu(2)^{24}\), and the \(M_{24}\)-permutation datum used in the
+K3 comparison.
+\end{proof}
 
-% ==========================================================================
-\section{Reconstruction: the corner-vertex-algebra dictionary}
-\label{sec:reconstruction}
-% ==========================================================================
+\section{Schur, Jacobi, and Borcherds data}
 
-The five cycles deliver a dictionary between the $\fg_{\Delta_5}$ data
-and the corner vertex algebra data:
+The Schur functor assigns to a four-dimensional \(\Ntwo\) SCFT \(\cT\)
+a vertex algebra \(\chi(\cT)\). Its graded character is the Schur
+index
+\[
+  \cI_{\mathrm{Schur}}(\cT;q,\mathbf{x})
+  =
+  \operatorname{Tr}_{\cH_{\mathrm{Schur}}}
+  (-1)^Fq^{E-R}\mathbf{x}^{\mathbf f}.
+\]
+For \(\cT_{24}\), the flavour variables \(\mathbf{x}\) are attached to
+the twenty-four maximal \(\fsu(2)\)-punctures. Marking these punctures
+by the singular fibres of an elliptic \(K3\) gives an \(M_{24}\)-equivariant
+comparison map
+\[
+  \Pi_{M_{24}}\colon
+  \cI_{\mathrm{Schur}}(\cT_{24})
+  \longrightarrow
+  \phi_{0,1}^{K3}(\tau,z),
+\]
+where the Gritsenko-Nikulin normalization is
+\[
+  \phi_{0,1}^{K3}(\tau,z)=y+10+y^{-1}+O(q).
+\]
+The geometric K3 elliptic genus is \(2\phi_{0,1}^{K3}\). The primitive
+Borcherds denominator for \(\fg_{\Delta_5}\) uses
+\(\phi_{0,1}^{K3}\), so
+\[
+  c_1(0)=[q^0y^0]\phi_{0,1}^{K3}=10,\qquad
+  \kBKM(\Delta_5)=\frac{c_1(0)}{2}=5.
+\]
+
+\begin{proposition}[Igusa normalizations]
+\label{prop:igusa-normalizations}
+Let \(Z=\begin{psmallmatrix}\tau&z\\ z&\sigma\end{psmallmatrix}\in\HH_2\).
+In the theta normalization,
+\[
+  [q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64.
+\]
+The monic Borcherds product is
+\[
+  D_5=64^{-1}\Delta_5,
+  \qquad
+  \operatorname{den}(\fg_{\Delta_5})=D_5(2Z)=64^{-1}\Delta_5(2Z).
+\]
+The square normalization gives the usual Igusa line
+\[
+  \Phi_{10}^{\theta}=\Delta_5^2.
+\]
+In the Oberdieck-Pixton monic scalar convention,
+\[
+  \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2.
+\]
+\end{proposition}
+
+\begin{proof}
+The first coefficient fixes the passage from the theta-normalized
+Igusa square root to the monic product. Squaring \(D_5\) gives
+\(4096^{-1}\Delta_5^2\), while squaring the theta-normalized
+\(\Delta_5\) gives the classical weight-ten Igusa form. The weight of
+the primitive denominator remains
+\(\kBKM(\Delta_5)=c_1(0)/2=5\); the square has weight \(10\).
+\end{proof}
+
+\begin{remark}
+The symbols in the displayed composite have different types. The Schur
+index is a protected character of a four-dimensional theory. The Jacobi
+form \(\phi_{0,1}^{K3}\) is a two-variable modular object. The form
+\(\Delta_5\) is a genus-two Siegel form. The algebra
+\(\fg_{\Delta_5}\) is the generalized Borcherds-Kac-Moody
+superalgebra whose signed root supermultiplicities are supplied by the
+Fourier coefficients of \(\phi_{0,1}^{K3}\).
+\end{remark}
+
+\section{\texorpdfstring{$K3\times E$}{K3xE} invariants}
+
+Let \(X=K3\times E\). The compact Hodge column is
+\[
+  h^{0,\bullet}(X)=(1,1,1,1),
+\]
+so the compact Hodge supertrace gives
+\[
+  \kch(X)=\sum_{q=0}^{3}(-1)^qh^{0,q}(X)=1-1+1-1=0.
+\]
+The categorical Euler invariant is Kunneth-multiplicative:
+\[
+  \kcat(X)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0.
+\]
+The Heisenberg-Mukai specialization has
+\[
+  \kch^{\mathrm{Heis}}(X)=3,
+\]
+and the K3 fibre contributes the Mukai lattice rank
+\[
+  \kfib(X)=\operatorname{rk}\widetilde H(K3,\Z)=1+22+1=24.
+\]
+Together with Proposition~\ref{prop:igusa-normalizations},
+\[
+  \{\kcat(X),\kch(X),\kch^{\mathrm{Heis}}(X),
+  \kBKM(\Delta_5),\kfib(X)\}
+  =
+  \{0,0,3,5,24\},
+\]
+with the two zeros distinguished by construction.
+
+\begin{theorem}[Separated numerical layers]
+\label{thm:separated-numerical-layers}
+For \(X=K3\times E\), the total-space categorical invariant, compact
+chiral Hodge supertrace, Heisenberg-Mukai specialization, Borcherds
+weight, and fibre rank are distinct constructions:
+\[
+  \kcat(X)=0,\qquad
+  \kch(X)=0,\qquad
+  \kch^{\mathrm{Heis}}(X)=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib(X)=24.
+\]
+No additive formula among these five quantities is part of the
+construction.
+\end{theorem}
+
+\begin{proof}
+The first two equalities are direct Hodge and Kunneth calculations on
+the compact total space. The value \(3\) belongs to the
+Heisenberg-Mukai specialization \(\SpCh_{K3,E}\circ\PhiFA_3\). The
+value \(5\) is the Borcherds weight \(c_1(0)/2\) of the primitive
+denominator. The value \(24\) is the rank of the Mukai lattice of the
+K3 fibre. These constructions use different objects and different
+functorial inputs, so an additive relation would have to supply an
+extra map between them. No such map occurs in the Schur-Jacobi-Borcherds
+chain or in the compact CY-to-chiral assignment.
+\end{proof}
+
+\section{The native \texorpdfstring{$\Phi_3$}{Phi3} output}
+
+For a Calabi-Yau threefold, the native output of the CY-to-chiral
+assignment is \(E_1\)-chiral. In the present case the constructed
+object has the form
+\[
+  A_X
+  =
+  \SpCh_{K3,E}\bigl(\PhiFA_3(D^b\operatorname{Coh}(K3\times E))\bigr)
+  \in E_1\text{-}\ChirAlg(E).
+\]
+An \(E_2\)-structure may appear on a named centre, double, module
+category, or external VOA corner layer:
+\[
+  Z^{\mathrm{der}}_{\mathrm{ch}}(A_X),\qquad
+  D(\CoHA),\qquad
+  Z(\operatorname{Rep}(A_X)),\qquad
+  \chi(\cT_{24}).
+\]
+Each expression is a different construction. The symbol \(A_X\) denotes
+the \(E_1\)-chiral output.
+
+\section{CoHA, Yangian, and \texorpdfstring{$\cW_{1+\infty}$}{W1+infty}}
+
+The toric local model fixes the positive-half convention:
+\[
+  \CoHA(\C^3)\cong Y^+(\widehat{\fgl}_1).
+\]
+The full affine Yangian and the \(\cW_{1+\infty}\) vacuum module enter
+after passing to the Drinfeld double, completing, and evaluating the
+centre:
+\[
+  D\bigl(Y^+(\widehat{\fgl}_1)\bigr)
+  =
+  Y(\widehat{\fgl}_1)
+  \curvearrowright
+  \cW_{1+\infty}\text{-vac}.
+\]
+For \(K3\times E\), a compact critical CoHA with orientation data and a
+Hall-Borcherds recognition map is an additional input. The scalar
+identity \(D_5=64^{-1}\Delta_5\) does not supply that compact source
+algebra.
+
+\section{Corner vertex algebra boundary}
+
+The Gaiotto-Rapcak algebras \(\cY_{L,M,N}(\psi)\) are vertex algebras
+attached to corners of \(GL\)-twisted four-dimensional
+\(\mathcal{N}{=}4\) gauge theory. Their finite triples record boundary
+rank data. The Igusa denominator requires the rank-three lattice
+\(\Lambda^{2,1}_{II}\), the \(\phi_{0,1}^{K3}\)-graded imaginary
+root cone, and a genus-two Siegel variable. Thus a finite
+\(\cY_{L,M,N}\) has the wrong grading for the full denominator
+of \(\fg_{\Delta_5}\).
+
+The Mukai block \(\cY_{4,20,0}\) is a useful finite boundary model:
+the numbers \(4\) and \(20\) remember the even and odd Mukai signature
+split. It supplies a corner truncation, while the Borcherds imaginary
+tail lives in the Siegel denominator layer. Miki's automorphism gives
+the local triality of toroidal charts and exchanges horizontal and
+vertical affine subalgebras in the completed \(\cW_{1+\infty}\)
+environment. Its compact \(K3\times E\) use requires compatibility with
+the Hall-Borcherds centre and the \(\Delta_5\) orientation character.
+
+\begin{problem}[Corner avatar with correct inputs]
+\label{prob:corner-avatar-correct-inputs}
+Construct a sheaf of completed corner vertex algebras
+\(\cV_{\mathrm{corner}}\) over the paramodular Humbert locus with the
+following data:
+\begin{enumerate}[leftmargin=2em]
+  \item a finite Mukai-block restriction whose local model is
+  \(\cY_{4,20,0}(\psi)\);
+  \item a \(\Lambda^{2,1}_{II}\)-graded completion carrying the
+  \(\phi_{0,1}^{K3}\)-Fourier coefficients as signed imaginary-root
+  supermultiplicities;
+  \item a Miki triality compatible with the Weyl \(S_3\)-symmetry of
+  the three real simple roots of \(\fg_{\Delta_5}\);
+  \item a BRST or centre reduction whose denominator is
+  \(D_5(2Z)=64^{-1}\Delta_5(2Z)\);
+  \item a comparison map from the Schur VOA \(\chi(\cT_{24})\) through
+  the \(M_{24}\)-averaged Jacobi form to this denominator algebra.
+\end{enumerate}
+Solving this problem would identify a Gaiotto-corner avatar of
+\(\fg_{\Delta_5}\). The numerical input from the four-dimensional parent
+would remain
+\[
+  (n_v,n_h,c_{4d},c_{2d})=(63,88,107/6,-214),
+\]
+and the Borcherds weight would remain \(\kBKM(\Delta_5)=5\).
+\end{problem}
+
+\section{Typed register}
 
 \begin{center}
-\begin{tabular}{c|c|c}
-$\fg_{\Delta_5}$ datum & Corner-VOA avatar & Status\\
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lll}
 \hline
-Cartan $\Lambda^{2,1}_{II}$ rank $3$ &
-$\cY_{4,20,0}$ Cartan, Mukai block & conjectural\\
-Real simple roots $\{\delta_1,\delta_2,\delta_3\}$ &
-$GL_L\times GL_M\times GL_N$ charges at corner & conjectural\\
-Weyl group $W^{(2)}(\Lambda^{2,1}_{II})$ index $6$ &
-$S_3$-triality of $\cW_{1+\infty}$ permuting $(L,M,N)$ & conjectural\\
-Weyl vector $\rho = f_2 - \tfrac{1}{2}f_3 + f_{-2}$ &
-Self-dual slope of $\psi$-algebra, $\psi = 1/(\psi-1)$ & conjectural\\
-Even-imaginary tail $\tau(a) = 9$, $(a,a)=0$ &
-$\widehat{\fgl}_\infty^{\mathrm{hor}}$ Miki-horizontal piece & conjectural\\
-Odd-imaginary tail $m(a) = -f(n,\ell,m)/64$, $(a,a)<0$ &
-$\phi_{0,1}$-lifted Borcherds-cone VOA piece & conjectural\\
-Denominator $\Delta_5/64$ &
-Denominator of Borcherds BRST on
-  $\cY^{\mathrm{Miki}}_{\infty,\infty,\infty}\otimes\mathrm{bc}$ &
-  conjectural\\
-Central charge $\kappa_{\BKM} = 5$ &
-BBBLN $c_{4d}(\cT_{\Delta_5}) = 5$ & conjectural\\
+Layer & Object & Numerical datum \\
+\hline
+Gaiotto curve & \(\Sigma_{0,24}\) & \(24\) maximal punctures \\
+Class-\(\cS\) theory & \(\cT[A_1,\Sigma_{0,24}]\) & \((n_v,n_h)=(63,88)\) \\
+Schur VOA & \(\chi(\cT_{24})\) & \(c_{2d}=-214\) \\
+Jacobi seed & \(\phi_{0,1}^{K3}\) & \(c_1(0)=10\) \\
+Borcherds denominator & \(D_5=64^{-1}\Delta_5\) & \(\kBKM=5\) \\
+Igusa square & \(\Phi_{10}^{\theta}=\Delta_5^2\) & weight \(10\) \\
+CY threefold & \(K3\times E\) & \(\kcat=\kch=0\) \\
+Heisenberg specialization & \(\SpCh_{K3,E}\circ\PhiFA_3\) & \(\kch^{\mathrm{Heis}}=3\) \\
+K3 fibre & \(\widetilde H(K3,\Z)\) & \(\kfib=24\) \\
+Toric positive half & \(\CoHA(\C^3)\) & \(Y^+(\widehat{\fgl}_1)\) \\
+\hline
 \end{tabular}
 \end{center}
 
-The dictionary supplies the scope at which the VOA avatar conjecture
-is well-posed: it is a conjecture about a limiting sheaf of corner
-vertex algebras over the $\mathrm{Cyc}_2(K3\times E)$-moduli of
-two-cycles inside $K3\times E$, with the Humbert-paramodular $N$-family
-of the source paper's Conjecture~1 corresponding to the Borcherds-cone
-direction of the limit.
+\begin{thebibliography}{99}
+\bibitem{Gaiotto2012}
+D. Gaiotto, \emph{\(N=2\) dualities}, JHEP 1208 (2012) 034,
+arXiv:0904.2715.
 
-\subsection{Cross-reference with wave12\_a14 and wave12\_u1}
+\bibitem{ChacaltanaDistler2010}
+O. Chacaltana and J. Distler, \emph{Tinkertoys for Gaiotto duality},
+JHEP 1011 (2010) 099, arXiv:1008.5203.
 
-The wave12\_a14 attack-heal framework on the three-obstruction
-$(\mathcal{O}_1^{\mathrm{str}}, \mathcal{O}_2^{\mathrm{Cech}},
-\mathcal{O}_3^{\mathrm{def}})$ triple types naturally to the three
-finite ranks $(L,M,N)$ of the Gaiotto--Rapcak corner. Under the
-Miki-rearranged avatar:
-\begin{itemize}[leftmargin=1.5em]
-  \item $\mathcal{O}_1^{\mathrm{str}}$ (structural, integer-valued) is
-  the \emph{rank} of the corner deficit along the horizontal axis:
-  $(L - 0)(M - 0)(N - 0)$ for the non-degenerate corner, reducing to
-  $4 \cdot 20 \cdot 0 = 0$ at the Mukai-block truncation
-  $\cY_{4,20,0}$.
-  \item $\mathcal{O}_2^{\mathrm{Cech}}$ (\v{C}ech cocycle, $E_2$-valued)
-  is the Miki-descent obstruction: whether the Miki-rearranged corners
-  glue coherently across the $S_3$-triality orbit.
-  \item $\mathcal{O}_3^{\mathrm{def}}$ (deformation, $\Omega$-locus
-  valued) is the $\psi$-coupling deformation obstruction: whether the
-  self-dual slope $\psi = 1$ is preserved under $\Omega$-background
-  deformation $\varepsilon_1 + \varepsilon_2 + \varepsilon_3 \to 0$.
-\end{itemize}
+\bibitem{ShapereTachikawa2008}
+A. Shapere and Y. Tachikawa, \emph{Central charges of
+\(\Ntwo\) superconformal field theories in four dimensions},
+JHEP 0809 (2008) 109, arXiv:0804.1957.
 
-The wave12\_u1 two-stage functor discipline $\Phi = \Sp_{\Sigma_{d-1},C}
-\circ\Phi^{\mathrm{FA}}$ types the avatar as a Stage~2 specialisation:
-the native $\Phi^{\mathrm{FA}}_3(K3\times E)$ carries all six paramodular
-Humbert specialisations (one per $N\in\{1,2,3,4,6\}$ with $N = 1$ the
-$\Delta_5$ case) as distinct Stage~2 shadows; the corner-VOA avatar
-$\cY^{\mathrm{Miki}}_{\infty,\infty,\infty}$ is the $\Sp_{K3,E}$-shadow
-for $N = 1$, and the other paramodular $N \in \{2,3,4,6\}$ specialisations
-correspond to $\cY^{\mathrm{Miki}}$ avatars at different Humbert-cycle
-$\Sigma_2^{(N)}$.
+\bibitem{BLLPRvR2015}
+C. Beem, M. Lemos, P. Liendo, W. Peelaers, L. Rastelli, and
+B. C. van Rees, \emph{Infinite chiral symmetry in four dimensions},
+Commun. Math. Phys. 336 (2015) 1359-1433, arXiv:1312.5344.
 
-% ==========================================================================
-\section{Claims and their status}
-\label{sec:status}
-% ==========================================================================
+\bibitem{GritsenkoNikulin1997}
+V. A. Gritsenko and V. V. Nikulin, \emph{Siegel automorphic form
+corrections of some Lorentzian Kac-Moody Lie algebras},
+Amer. J. Math. 119 (1997) 181-224, arXiv:alg-geom/9504006.
 
-\begin{itemize}[leftmargin=1.5em]
-  \item \textbf{Attack--heal 1} (\S\ref{sec:cycle1}): structural
-  observation that the heterotic $\cN{=}4$ route fails the BBBLN
-  hypothesis. The $\cN{=}2$-restriction of BBBLN's Schur cohomology is
-  \emph{documented} in BBBLN 2015, so this is a scope-correction rather
-  than a theorem.
-  \item \textbf{Attack--heal 2} (\S\ref{sec:cycle2}): conjectural;
-  the Argyres--Douglas identification $(A_{N-1},A_7)$ at Shioda--Inose
-  $\rho(K3) = 20$ is compatible with Cecotti--Vafa and
-  Gaiotto--Moore--Neitzke's $\cT[M_3]$ machinery but requires explicit
-  verification. The $N = 2$ central-charge mismatch
-  ($c_{2d} = -12$ versus $-60$) shows that simple $(A_1, A_7)$ is not
-  the UV seed; the correct seed is higher-rank, but pinning it down is
-  open.
-  \item \textbf{Attack--heal 3} (\S\ref{sec:cycle3},
-  Conjecture~\ref{conj:mukai-block-corner}): conjectural; the
-  Mukai-block corner $\cY_{4,20,0}$ is anchored to the Schiffmann--Vasserot
-  CoHA / Maulik--Okounkov stable envelope identification of
-  $Y(\fgl(4|20))$ in \texttt{chapters/examples/k3\_yangian\_chapter.tex}
-  \S10.3, but the explicit tensor factorisation
-  $\cY_{4,20,0}\otimes\cV_{\phi_{0,1}\text{-tail}}$ is a conjecture.
-  \item \textbf{Attack--heal 4} (\S\ref{sec:cycle4},
-  Conjecture~\ref{conj:miki-corner}): conjectural; the Miki
-  triangular-rearrangement claim goes through for finite $(L,M,N)$ by
-  Prochazka--Rapcak's construction, but the infinite-rank Borcherds-cone
-  completion is a limiting procedure requiring convergence control from
-  the $\phi_{0,1}$-Fourier asymptotic $f(n,\ell) = O(\exp\sqrt{4n-\ell^2})$
-  of the source paper \S6.
-  \item \textbf{Attack--heal 5} (\S\ref{sec:cycle5},
-  Proposition~\ref{prop:bbbln-kappa-5}): conjectural on the
-  central-charge match; structural on the denominator/vacuum-character
-  distinction. The BBBLN factor of $-12$ is a theorem of
-  Beem--Lemos--Liendo--Peelaers--Rastelli--van~Rees 2015; the factor of
-  $5$ on the Borcherds side is $c_1(0)/2$ with $c_1(0) = 10$ from
-  $\phi_{0,1}$'s Fourier data, which is computed first-principles in the
-  source paper \S6 (constant term $10 = f(0,0)$ of $\phi_{0,1}$).
-\end{itemize}
+\bibitem{Gritsenko1999}
+V. A. Gritsenko, \emph{Elliptic genus of Calabi-Yau manifolds and
+Jacobi and Siegel modular forms}, Algebra i Analiz 11 (1999) 100-125,
+arXiv:math/9906190.
 
-The cycles close on a single conjectural statement at publication
-standard: $\fg_{\Delta_5}$ is the BKM-Lie-superalgebra avatar of a
-Miki-rearranged Borcherds-cone completion of the Gaiotto--Rapcak corner
-$\cY_{4,20,0}$ at self-dual coupling, and its BBBLN UV seed is an
-Argyres--Douglas $\cN{=}2$ theory of central charge $c_{4d} = 5$. The
-identification of the specific AD theory is the main frontier opened by
-the audit.
+\bibitem{Borcherds1998}
+R. E. Borcherds, \emph{Automorphic forms with singularities on
+Grassmannians}, Invent. Math. 132 (1998) 491-562,
+arXiv:alg-geom/9609022.
+
+\bibitem{GaiottoRapcak2018}
+D. Gaiotto and M. Rapcak, \emph{Vertex algebras at the corner},
+JHEP 1901 (2019) 160, arXiv:1703.00982.
+
+\bibitem{ProchazkaRapcak2018}
+T. Prochazka and M. Rapcak, \emph{Webs of \(W\)-algebras},
+JHEP 1811 (2018) 109, arXiv:1711.06888.
+
+\bibitem{SchiffmannVasserot2013}
+O. Schiffmann and E. Vasserot, \emph{Cherednik algebras, W-algebras
+and the equivariant cohomology of the moduli space of instantons on
+\(A^2\)}, Publ. Math. IHES 118 (2013) 213-342.
+\end{thebibliography}
 
 \end{document}

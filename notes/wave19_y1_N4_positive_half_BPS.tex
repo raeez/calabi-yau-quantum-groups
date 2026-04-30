@@ -1,256 +1,312 @@
 % !TEX root = ../main.tex
 %
-% Wave-19 Y1/20: N=4 CHL effective positive-half geometry
-%   M^+_{eff}(X_4) and BPS Lie algebra g^{(4)}_{BPS}.
-%
-% Channels Wave-10 R4 (Bryan-Steinberg at N=4,6) + Wave-11 W4.N4
-% (DT identity, class 4B) + Wave-17 D3 (CHL positive-half orbifold)
-% + the canonical stratification k(4)=1, c_4(0)=2, r_4=14.
-%
-% Subscripted kappa. \providecommand. \ClaimStatusTheorem.
-% No AI attribution. Authorship: Raeez Lorgat.
+% Level-four CHL positive-half geometry and BPS denominator.
 
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
 \providecommand{\bC}{\mathbb{C}}
 \providecommand{\bZ}{\mathbb{Z}}
 \providecommand{\bQ}{\mathbb{Q}}
-\providecommand{\bH}{\mathbb{H}}
 \providecommand{\Aut}{\mathrm{Aut}}
 \providecommand{\Auts}{\mathrm{Aut}_s}
-\providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\DT}{\mathrm{DT}}
 \providecommand{\red}{\mathrm{red}}
-\providecommand{\ch}{\mathrm{ch}}
 \providecommand{\BKM}{\mathrm{BKM}}
 \providecommand{\cat}{\mathrm{cat}}
 \providecommand{\fib}{\mathrm{fiber}}
 \providecommand{\eff}{\mathrm{eff}}
 \providecommand{\BPS}{\mathrm{BPS}}
 \providecommand{\mult}{\mathrm{mult}}
+\providecommand{\sdim}{\mathrm{sdim}}
 \providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cA}{\mathcal{A}}
 \providecommand{\cM}{\mathcal{M}}
+\providecommand{\cW}{\mathcal{W}}
 \providecommand{\fg}{\mathfrak{g}}
-\providecommand{\FGC}{F^{\mathrm{GC}}}
+\providecommand{\Teq}{T_{\mathrm{eq}}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
 \providecommand{\DTred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kchHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\PhiFour}{\Phi_4}
 
-\section*{Wave-19 Y1: $N=4$ CHL positive-half geometry and
-$\fg^{(4)}_{\BPS}$}
-\label{wn:sec:wave19-y1-N4-positive-half-BPS}
+\section*{Level-four CHL positive-half geometry and the BPS denominator}
+\label{wn:sec:N4-positive-half-BPS}
 
-\paragraph{The threefold.}
-Let $g_4 \in \Auts(K3)$ be the Mukai-symplectic $\bZ_4$-action at
-Mathieu class $4B$, cycle shape $1^{4}2^{2}4^{4}$, acting on a generic
-K3 with the $g_4$-fixed period lying on the Humbert divisor of
-codimension $22 - r_4 = 8$ (Nikulin 1980, \emph{Finite automorphism
-groups of K\"ahler K3 surfaces}, \emph{Trudy Moscow} 38 Theorem~4.5;
-Hashimoto 2012, \emph{Tohoku Math.\ J.} 64:105 Table~2). The fixed
-locus on $K3$ is four isolated points of type $A_3$; the
-Mukai-invariant sublattice $\Lambda_{K3}^{g_4} \subset
-\Lambda_{K3} = \mathrm{II}_{3,19}$ has rank $r_4 = 14$ and
-coinvariant signature $(0,8)$. Let $t_4 \in E[4]$ be a
-$4$-torsion translation of exact order. The diagonal
-$\langle(g_4, t_4)\rangle \cong \bZ_4$ acts freely on
-$K3 \times E$ (the $g_4$-fixed points at $(p, \cdot) \in K3 \times E$
-are displaced by $t_4 \ne 0 \in E$), and
+\paragraph{The free quotient.}
+Let $S$ be a K3 surface and let
+$g_4 \in \Auts(S)$ be a Mukai symplectic automorphism of order $4$,
+Mathieu class $4B$, with frame shape $1^{4}2^{2}4^{4}$.  Let
+$\Lambda_S=H^2(S,\bZ)$ and
+$\widetilde\Lambda_S=H^*(S,\bZ)$ with the Mukai pairing.  Nikulin and
+Mukai give
 \[
-  X_4 \;=\; (K3 \times E) \big/ \langle (g_4, t_4)\rangle
+  \#S^{g_4}=4,\qquad
+  \#S^{g_4^2}=8 .
 \]
-is the CHL Calabi--Yau threefold at level $4$
-(Chaudhuri--Hockney--Lykken 1995, \texttt{arXiv:hep-th/9506144}).
-Symplecticity of $g_4$ and translation invariance of the elliptic
-form preserve the product holomorphic $3$-form, descending to
-$\omega_{X_4} \in H^{3,0}(X_4)$; hence $X_4$ is smooth CY$_3$.
-Four-invariant accounting: $\kcat(X_4) = 0$ (K\"unneth-multiplicative,
-$\chi(\cO_E) = 0$); $\kfib^{(4)} = r_4 = 14$; $\kBKM(\FGC_4) = 1$;
-$\kch$ via $\Phi$ on $\cA_{X_4}$ (cycle~3 below).
-
-\paragraph{Cycle 1 (attack--heal): geometric fibration.}
-\emph{Attack.} The projection $\pi: X_4 \to E/\langle t_4\rangle
-\cong E_4$ exists because the $\bZ_4$-action descends from
-$K3 \times E$ and the K3 fibres are permuted by $g_4$; the quotient
-$E_4 = E/\langle t_4\rangle$ is the $4$-isogenous elliptic curve
-in the upper-half-plane direction $\tau \mapsto \tau/4$
-(or $4\tau$ per isogeny orientation).
-\emph{Heal.} Each fibre $\pi^{-1}(e) \subset X_4$ is a smooth K3 for
-$e \notin (\Fix(g_4)_{K3}/\langle t_4\rangle)$; the
-four $A_3$-singular K3 fibres over the four branch points of
-$E \to E_4$ are resolved crepantly
-(Bridgeland--King--Reid 2001, \emph{JAMS} 14:535 Theorem~1.2) on the
-BCR crepant resolution $\widetilde{K3/\bZ_4} \to [K3/\bZ_4]$, so
-$X_4$ admits the free-fibre elliptic structure with four
-marked base points.
-
-\paragraph{Cycle 2 (attack--heal): twisted reduced DT character.}
-\emph{Attack.} The Maulik--Toda cosection
-$\sigma: T_{\cM_{\DT}} \to \cO$ (Maulik--Toda 2018, \emph{Invent.\
-Math.} 213:1017 \S4) exists on $X_4$ because $g_4$ is symplectic:
-$H^{0,2}(X_4)^{g_4} = \bC \omega_{K3}^{g_4}$ is one-dimensional,
-giving the reduced DT theory on $X_4$ and a
-Bryan--Steinberg-admissible cosection lift.
-\emph{Heal.} The reduced orbifold DT partition function of $X_4$
-factors as
-\begin{equation}
-  \DTred(X_4)(\tau, \sigma, z)
-  \;=\; -\,\frac{C_4(\tau, z)}{\bigl(\FGC_4(\tau, \sigma, z)\bigr)^{2}},
-  \qquad C_4 = 2\,\phi^{(g_4)}_{0,1},
-  \label{wn:eq:wave19-y1-DTred-N4}
-\end{equation}
-where $\FGC_4$ is the Gritsenko--Cl\'ery paramodular
-Borcherds lift of the weight-zero index-one $g_4$-twined Jacobi form
-$\phi^{(g_4)}_{0,1} \in J_{0,1}(\Gamma_0(4))$
-(Eguchi--Ooguri--Tachikawa 2011, \texttt{arXiv:1004.0956} Table~1).
-The weight is $\mathrm{wt}(\FGC_4) = c_4(0)/2 = 1$ with
-$c_4(0) = 2$ (Gritsenko--Nikulin 1995 Part~II, \emph{Int.\ J.\ Math.}
-6:1 Theorem~2.1; Gritsenko--Cl\'ery 2013, \texttt{arXiv:1106.1979}
-Theorem~4.1). The proof chain assembles Bryan--Steinberg 2014
-(\emph{Duke} 168:3517 Theorem~1.1, equivariant DT crepant resolution
-for finite abelian symplectic $G$), the Bryan--Cadman--Young
-orbifold topological vertex at each $[\bC^3/\bZ_4]$ chart
-(BCY 2013, \emph{JAMS} 28:163 \S4), Jun Li degeneration along
-$\pi$ fibrewise (Jun Li 2001, \emph{JDG} 60:199 Theorem~3.15), and
-the Oberdieck--Pandharipande reduced $K3 \times E$ theory
-(Oberdieck 2018, \emph{Duke} 167:3045 Theorem~1 and Remark~4) for
-the $E$-translation tensor factor, and the Bryan--Oberdieck
-reduced DT identity in the CHL CY$_3$ setting
-(Bryan--Oberdieck 2018, \texttt{arXiv:1811.06102} Theorem~1,
-the $1/\Phi^{(N)}_1$-shape at symplectic Nikulin levels
-$N \in \{1,2,3,4\}$); independent verification via
-Chattopadhyaya--David twisted-index
-(\texttt{arXiv:1704.00434} Proposition~4.3).
-
-\paragraph{Cycle 3 (attack--heal): effective positive-half geometry.}
-\emph{Attack.} On the positive half
-$Y^+(K3 \times E)$ -- the Schiffmann--Vasserot cohomological Hall
-algebra of $\cA_{K3 \times E}$ (positive half, not the full
-$\cW_{1+\infty}$; Schiffmann--Vasserot 2017, \emph{Duke} 166:1005
-Theorem~1.1) -- the CHL generator $\sigma_4 = (g_4)_* \otimes
-(t_4)_*$ acts along the Maulik--Okounkov $R$-matrix data on
-$H^*_T(\Hilb(K3), \bQ)$ and the elliptic stable envelope on $E$.
-The effective positive half is the fixed-point subalgebra
-\begin{equation}
-  \cM^{+}_{\eff}(X_4) \;\coloneqq\; Y^+(X_4) \;=\;
-  \bigl(Y^+(K3 \times E)\bigr)^{\sigma_4},
-  \label{wn:eq:wave19-y1-Meff-N4}
-\end{equation}
-graded by the $\sigma_4$-invariant sublattice
-$\Lambda_{K3}^{g_4} \oplus H^*(E_4) \subset \Lambda_{K3} \oplus H^*(E)$
-of rank $r_4 + 2 = 16$.
-\emph{Heal.} The effective positive half inherits Maulik--Okounkov
-stable-envelope structure from $Y^+(K3 \times E)$ by the
-equivariant-restriction formalism
-(Maulik--Okounkov 2019, \emph{Ast\'erisque} 408 \S4, compatibility
-of stable envelopes with finite abelian $G$-action preserving the
-symplectic form); the $R$-matrix $R^{(4)}(u)$ on
-$\cM^{+}_{\eff}(X_4)$ is the $\sigma_4$-invariant restriction of
-$R^{K3 \times E}(u)$, with spectral parameter $u$ rescaled by
-the isogeny factor on $E_4$.
-
-\paragraph{Cycle 4 (attack--heal): BPS algebra via Davison--Meinhardt.}
-\emph{Attack.} The BPS Lie algebra of the CHL threefold is defined
-via the Davison--Meinhardt integrality structure on the motivic
-Hall algebra: for a CY$_3$ with symmetric perfect obstruction theory,
+The topological Lefschetz formula gives
+$\mathrm{Tr}(g_4\mid H^2(S))=2$ and
+$\mathrm{Tr}(g_4^2\mid H^2(S))=6$.  If the eigenvalue multiplicities
+of $g_4$ on $H^2(S,\bC)$ are
+$(a,b,c,c)$ for $(1,-1,i,-i)$, then
+$a+b+2c=22$, $a-b=2$, and $a+b-2c=6$.  Hence
 \[
-  \fg_{\BPS}(X) \;=\; \mathrm{BPS}(X)[u] \quad
-  \text{(primitive generators concentrated in pure weight)},
+  \mathrm{rk}\,\Lambda_S^{g_4}=8,\qquad
+  \mathrm{rk}\,\widetilde\Lambda_S^{g_4}=10,\qquad
+  \mathrm{rk}\,(\Lambda_S^{g_4})^\perp=14 .
 \]
-with BPS cohomology computed from the weight filtration on
-$H^*(\cM_{\DT}, \varphi)$ for $\varphi$ the critical-locus potential
-(Davison--Meinhardt 2020, \emph{Invent.\ Math.} 221:777 Theorem~5.12).
-\emph{Heal.} Applied to $X_4$, the BPS cohomology reads off the
-root multiplicities of a GKM-type algebra $\fg^{(4)}_{\BPS}$ whose
-real-simple/imaginary-simple content is supplied by the
-Gritsenko--Nikulin denominator expansion of $\FGC_4$
-(Gritsenko--Nikulin 1998, \emph{Amer.\ J.\ Math.} 119:181
-Theorem~2.3). For every root $\alpha = n\delta + \ell z + m w$ in
-the paramodular lattice $\mathrm{II}_{2,1}(4)$ with norm
-$\langle \alpha, \alpha\rangle = 4nm - \ell^2$,
-\begin{equation}
-  \mult_{\fg^{(4)}_{\BPS}}(\alpha)
-  \;=\; c^{(g_4)}_{K3}\!\bigl(4nm - \ell^2,\, \ell\bigr),
-  \label{wn:eq:wave19-y1-mult-N4}
-\end{equation}
-the $(4nm - \ell^2, \ell)$-Fourier coefficient of
-$\phi^{(g_4)}_{0,1}$. Positive multiplicity requires
-$\ell \equiv \pm 1 \pmod 4$ or $4 \mid \ell^2 - 4nm$; the imaginary
-simple roots are recorded in the Cartan $A^{(4)}$ of
-determinant $\det A^{(4)} = -12$ (Wave-11 W4.N4
-\eqref{wn:eq:wave11-w4-mult-N4}).
-
-\paragraph{Cycle 5 (attack--heal): identification with
-$\fg_{\Delta_1^{(4)}}$ and Borcherds lift.}
-\emph{Attack.} The Gritsenko--Cl\'ery form
-$\Delta_1^{(4)} \coloneqq \FGC_4 \in M^{\mathrm{cusp}}_1(\Gamma_4)$ on
-the level-$4$ paramodular group is the unique (up to scalar) weight-$1$
-cusp form of index $1$ on $\Gamma_4$ whose Borcherds input is the
-$g_4$-twined weak Jacobi form (Gritsenko--Cl\'ery 2013
-\texttt{arXiv:1106.1979} Theorem~4.1 + Gritsenko 1999,
-\texttt{arXiv:math/9906190} Theorem~3.4). The generalised Kac--Moody
-superalgebra $\fg_{\Delta_1^{(4)}}$ is the BKM whose
-Weyl--Kac--Borcherds denominator identity is
+The invariant real subspace contains $H^{2,0}(S)\oplus H^{0,2}(S)$
+and a $g_4$-invariant K\"ahler class.  Its orthogonal coinvariant
+lattice is negative definite, so
+$\mathrm{sign}((\Lambda_S^{g_4})^\perp)=(0,14)$.
+The surface quotient $S/\langle g_4\rangle$ carries Du Val stabilizer
+data.  The CHL threefold uses the free diagonal action.  Choose
+$t_4\in E[4]$ of exact order on an elliptic curve $E$ and set
 \[
-  \Delta_1^{(4)}(Z) \;=\; e^{\langle \rho_4, Z\rangle}
-    \prod_{\alpha > 0}
-    \bigl(1 - e^{\langle \alpha, Z\rangle}\bigr)^{\mult(\alpha)},
+  X_4=(S\times E)/\langle(g_4,t_4)\rangle .
 \]
-with $\rho_4$ the Weyl vector of signature $(2,1)$ attached to
-$\Gamma_4$ and positive roots in the positive cone of
-$\mathrm{II}_{2,1}(4)$.
-\emph{Heal.} Both sides satisfy the same denominator identity: the
-BPS-side \eqref{wn:eq:wave19-y1-mult-N4} is the root-multiplicity
-assignment from Davison--Meinhardt, while the Borcherds-lift side
-is the Gritsenko--Nikulin Fourier expansion of $\log \Delta_1^{(4)}$
-(Gritsenko--Nikulin 1998 Theorem~2.3). The resulting isomorphism
+The translation $t_4$ acts freely on $E$, so the diagonal action is free.
+The quotient is smooth, and the holomorphic form
+$\omega_S\wedge dz_E$ descends because $g_4$ is symplectic and
+translation preserves $dz_E$.  Thus $X_4$ is a smooth $K$-trivial
+threefold in the CY$_3$ source convention used here.
+
+The projection to $E_4=E/\langle t_4\rangle$ is a smooth isotrivial
+K3 fibration:
+\[
+  S\times E \longrightarrow X_4 \longrightarrow E_4 .
+\]
+The cover $E\to E_4$ is an unramified isogeny.  For each
+$[e]\in E_4$, choosing a lift $e\in E$ identifies the fibre with $S$;
+changing the lift composes the identification with $g_4$.  After
+pullback along $E\to E_4$ the fibration becomes the product
+$S\times E$.
+
+\paragraph{Four invariants and the level-four constant.}
+Translation acts trivially on $H^{0,*}(E)$ and $g_4$ acts trivially on
+$H^{0,0}(S)$ and $H^{0,2}(S)$.  Hence
+\[
+  h^{0,q}(X_4)=(1,1,1,1),\qquad
+  \kcat(X_4)=\chi(\cO_{X_4})=1-1+1-1=0 .
+\]
+The compact Hodge-supertrace value is likewise
+$\kch(\cA_{X_4})=0$ in the compact CY$_3$ convention.  The invariant
+K3-fibre rank for the level-four CHL quotient is
+\[
+  \kfib^{(4)}=\mathrm{rk}\,\widetilde\Lambda_S^{g_4}=10.
+\]
+The unquotiented parent $S\times E$ carries the separate constants
+\[
+  \kcat(S\times E)=0,\qquad
+  \kch(\cA_{S\times E})=0,\qquad
+  \kchHeis(S\times E)=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib(S)=24 .
+\]
+The integer $14$ is the rank of the negative-definite coinvariant
+lattice $(\Lambda_S^{g_4})^\perp$ inside $H^2(S,\bZ)$.
+
+The primitive CHL Borcherds constants are
+\[
+  (c_1(0),c_2(0),c_3(0),c_4(0),c_6(0))
+  =(10,8,6,4,2),
+\]
+with
+\[
+  \kBKM(\Phi_N)=\frac{c_N(0)}{2}.
+\]
+For $N=4$ this gives
 \begin{equation}
-  \fg^{(4)}_{\BPS} \;\cong\; \fg_{\Delta_1^{(4)}}
-  \qquad \text{as } \bZ\text{-graded BKM Lie superalgebras}
-  \label{wn:eq:wave19-y1-g4-iso}
+  c_4(0)=4,\qquad
+  \kBKM(\PhiFour)=2 .
+  \label{wn:eq:N4-kBKM}
 \end{equation}
-identifies the Davison--Meinhardt BPS algebra of $X_4$ with the
-Gritsenko--Cl\'ery BKM. The Borcherds lift
-$\phi^{(g_4)}_{0,1} \to \Delta_1^{(4)}$ is the explicit Gritsenko
-arithmetic-lift formula (Gritsenko 1999 Theorem~3.4; Borcherds 1995,
-\emph{Invent.\ Math.} 120:161 Theorem~10.1), providing the bridge
-from K3-automorphic input to paramodular BKM output.
+Equivalently, the primitive level-four denominator is the weight-two
+Gritsenko--Nikulin CHL product
+\[
+  \PhiFour=\Delta^{(4)}_2 .
+\]
+The square appearing in reduced DT scalar formulae has weight $4$.
+At level one, $D_5=64^{-1}\Delta_5$ and
+$\Phi_{10}^{\mathrm{un}}=\Delta_5^2$ express the same distinction
+between primitive denominator and scalar square.
 
-\paragraph{Scope and lane discipline.}
-The effective positive-half reading \eqref{wn:eq:wave19-y1-Meff-N4}
-is $(\infty,1)$-categorical, stated at the level of the
-Schiffmann--Vasserot cohomological Hall algebra as a stable
-$\infty$-category construction (Maulik--Okounkov stable-envelope
-lane). The Davison--Meinhardt BPS algebra
-$\fg^{(4)}_{\BPS}$ and its denominator-identity identification
-\eqref{wn:eq:wave19-y1-g4-iso} with $\fg_{\Delta_1^{(4)}}$ are
-chain-level statements verified by the explicit Borcherds-product
-computation of $\Delta_1^{(4)}$ and the Fourier coefficients of
-$\phi^{(g_4)}_{0,1}$. Both lanes are load-bearing; neither is a
-shadow of the other. Numerical and motivic DT identities
-(cycle~2) are \ClaimStatusTheorem; K-theoretic PT orbifold
-refinement is \ClaimStatusConjectured\ (Wave-10 R4.E, awaiting
-Oberdieck--Shen equivariantisation). Companion notes:
-\texttt{wave10\_r4\_N\_4\_6\_bryan\_steinberg.tex};
-\texttt{wave11\_w4\_N\_4\_6\_theorems.tex};
-\texttt{wave17\_d3\_CHL\_positive\_half\_orbifold.tex};
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}.
+Borcherds' automorphic-product weight formula (Borcherds 1998,
+Theorem 13.3), the Gritsenko--Nikulin CHL paramodular tower
+(arXiv:alg-geom/9611028), Gritsenko's arithmetic lift
+(arXiv:math/9906190), and the normalization
+$\kBKM(\Phi_N)=\mathrm{wt}(\Phi_N)$ give \eqref{wn:eq:N4-kBKM}.
+The tuple above belongs to the primitive CHL tower.  Non-CHL Nikulin
+quotients and the Gritsenko--Cl\'ery diagonal-divisor catalogue require
+their own row-map data.
 
-\paragraph{Alternative weight $2$ at $N=4$.}
-A weight-$2$ candidate $\Delta_2^{(4)} \in M^{\mathrm{cusp}}_2(\Gamma_4)$
-exists (Gritsenko--Cl\'ery 2013 \S5, among the $8$ Gritsenko--Cl\'ery
-forms on the admissible chain), arising from the doubled Borcherds
-input $2 \phi^{(g_4)}_{0,1}$. This weight-$2$ form does \emph{not}
-supply the $\kBKM$ for the CHL $N=4$ BPS algebra: the canonical
-$\kBKM(\Phi_N) = c_N(0)/2$ theorem fixes
-$\kBKM(\Delta_1^{(4)}) = 1$ from $c_4(0) = 2$
-(cy\_d\_kappa\_stratification.tex Lemma~\texttt{lem:c-N-zero-closed-form}).
-$\Delta_2^{(4)}$ plays the role of a doubled symmetric-square index
-in the Conjecture~1 list (Lorgat 2020); its Borcherds denominator
-labels a distinct BKM on an index-$2$ extension of $\Gamma_4$, not
-the CHL fundamental BPS algebra of $X_4$.
+\paragraph{Reduced DT character.}
+Let $\phi^{(4)}_{0,1}=\phi^{(g_4)}_{0,1}$ be the $4B$-twined K3 weak
+Jacobi form of weight $0$ and index $1$, written
+\[
+  \phi^{(4)}_{0,1}(\tau,z)=
+  \sum_{n,\ell} c^{(4)}(n,\ell)q^n y^\ell .
+\]
+The Bryan--Oberdieck CHL reduced-DT conjecture fixes the scalar
+denominator, after the chamber and variables are chosen, as the square
+of the primitive level-four denominator:
+\begin{equation}
+  \Phi^{\mathrm{scal}}_4(\tau,\sigma,z)
+  =
+  \PhiFour(\tau,\sigma,z)^2,
+  \qquad
+  \DTred(X_4)(\tau,\sigma,z)
+  =
+  -\,\mathcal C^{\mathrm{BO}}_4(\tau,z)\,
+  \bigl(\Phi^{\mathrm{scal}}_4(\tau,\sigma,z)\bigr)^{-1}.
+  \label{wn:eq:N4-DTred}
+\end{equation}
+The prefactor $\mathcal C^{\mathrm{BO}}_4$ is fixed by the
+Bryan--Oberdieck scalar normalisation and boundary terms.  This is OP/DT
+scalar data.  The scalar partition function uses the squared
+automorphic product; the primitive denominator remains $\PhiFour$ with
+exponents $c^{(4)}(4nm-\ell^2,\ell)$.  The compact Hall source, BPS Lie
+bracket, Hall pairing, and Drinfeld double require orientation,
+stability, completion, and finite recognition data.
+
+\paragraph{The effective positive half.}
+The finite \'etale cover $p:S\times E\to X_4$ gives the descent
+equivalence
+\[
+  \Coh(X_4)\simeq \Coh_{\langle\gamma_4\rangle}(S\times E),
+  \qquad \gamma_4=(g_4,t_4).
+\]
+The positive half attached to $X_4$ is therefore the
+$\langle\gamma_4\rangle$-equivariant oriented critical CoHA positive
+half of the cover.  For a stability condition $\vartheta$, effective
+support monoid $\Gamma_{\eff}$, orientation datum $o$, and equivariant
+torus $\Teq$, write
+\[
+  Y^+_{\vartheta,\Gamma_{\eff},o,\Teq}(S\times E)
+\]
+for the completed Hall positive half along the effective BPS monoid.
+The action
+$\gamma_{4,*}=(g_4)_*\otimes(t_4)_*$ on Hall correspondences is defined
+once the equivariant orientation and completion are fixed.  The
+level-four effective positive half is
+\begin{equation}
+  Y^+_{\eff}(X_4)
+  :=
+  \widehat{
+    Y^{+,\langle\gamma_4\rangle}_{\vartheta,\Gamma_{\eff},o,\Teq}
+    (S\times E)}
+  _{\Gamma_{\eff}^{\gamma_4}},
+  \label{wn:eq:N4-positive-half}
+\end{equation}
+with fibre charge component controlled by
+\[
+  \widetilde\Lambda_S^{g_4}\subset\widetilde\Lambda_S,
+  \qquad \mathrm{rk}\,\widetilde\Lambda_S^{g_4}=10 .
+\]
+The $H^2$ part has rank $8$; the $H^0(S)\oplus H^4(S)$ summand
+contributes the remaining two invariant Mukai directions.
+Equation \eqref{wn:eq:N4-positive-half} is positive-half Hall data.
+A full quantum-group or vertex object requires the negative half,
+Cartan, Hopf pairing, completion, and centre or double comparison.  For
+$\bC^3$,
+\[
+  \CoHA(\bC^3)=Y^+(\widehat{\mathfrak{gl}}_1)
+\]
+is the positive affine-Yangian half; the $\cW_{1+\infty}$ vertex
+algebra appears after the Drinfeld-double, centre, completion, and
+evaluation operations.
+
+\paragraph{Root-superdimension convention.}
+The primitive Borcherds product has denominator expansion
+\begin{equation}
+  \PhiFour(Z)
+  =e^{(\rho_4,Z)}
+   \prod_{\alpha>0}
+   \bigl(1-e^{(\alpha,Z)}\bigr)^{
+     c^{(4)}(4nm-\ell^2,\ell)}
+  \label{wn:eq:N4-denominator}
+\end{equation}
+for $\alpha=n\delta+\ell z+mw$ in the positive cone of the
+level-four paramodular lattice, with norm convention
+\[
+  (\alpha,\alpha)=4nm-\ell^2 .
+\]
+The exponent in \eqref{wn:eq:N4-denominator} is the signed
+superdimension:
+\begin{equation}
+  \sdim\,\fg_{\PhiFour,\alpha}
+  =
+  \dim(\fg_{\PhiFour,\alpha}^{\bar 0})
+  -
+  \dim(\fg_{\PhiFour,\alpha}^{\bar 1})
+  =
+  c^{(4)}(4nm-\ell^2,\ell).
+  \label{wn:eq:N4-root-sdim}
+\end{equation}
+Recovering ordinary even and odd multiplicities from
+\eqref{wn:eq:N4-root-sdim} requires the parity convention of the chosen
+Borcherds superalgebra.  The denominator fixes signed
+superdimensions; a parity split is extra datum.
+
+\paragraph{Conditional BPS recognition.}
+The automorphic BKM target is
+\[
+  \fg_{\PhiFour}
+\]
+whose denominator is \eqref{wn:eq:N4-denominator} and whose
+modular characteristic is \eqref{wn:eq:N4-kBKM}.  The BPS Lie algebra
+of the compact CHL threefold is identified with this target under the
+following finite recognition datum:
+\begin{enumerate}
+  \item an equivariant oriented critical-CoHA construction for
+  $X_4$, including the orientation line and the reduced obstruction
+  theory compatible with the free diagonal quotient;
+  \item the equivariant positive half \eqref{wn:eq:N4-positive-half}, with
+  stability chamber, support monoid, and completion preserved by
+  $\gamma_{4,*}$;
+  \item a compact Hall pairing and Drinfeld double whose Cartan and
+  negative half are compatible with the invariant fibre charge lattice
+  $\widetilde\Lambda_S^{g_4}$ and the elliptic descent along
+  $E\to E_4$;
+  \item PBW checks and relation preservation identifying the primitive
+  BPS bracket beyond equality of scalar characters;
+  \item a Hall-Borcherds denominator comparison sending the primitive
+  BPS signed root spaces to the coefficients
+  $c^{(4)}(4nm-\ell^2,\ell)$ of $\phi^{(4)}_{0,1}$.
+\end{enumerate}
+Under these hypotheses there is an isomorphism of
+$\bZ$-graded BKM Lie superalgebras
+\begin{equation}
+  \fg_{\BPS}^{(4)}(X_4)\cong \fg_{\PhiFour},
+  \label{wn:eq:N4-conditional-BPS-BKM}
+\end{equation}
+and the root spaces satisfy
+\[
+  \sdim\,\fg_{\BPS,\alpha}^{(4)}
+  =
+  c^{(4)}(4nm-\ell^2,\ell).
+\]
+Before this recognition datum is supplied, the established data are the
+smooth free quotient, the CHL constant \eqref{wn:eq:N4-kBKM}, the
+automorphic denominator \eqref{wn:eq:N4-denominator}, and the scalar
+Bryan--Oberdieck input \eqref{wn:eq:N4-DTred} on its stated
+normalization.
+
+\paragraph{Dimensional and branch scope.}
+The CY$_3$ output of the CY-to-chiral construction is natively
+$\Eone$-chiral.  Braided $\Etwo$ structure belongs to the centre,
+Drinfeld double, or module category after construction of the
+corresponding data.  The BKM/Hall-Drinfeld branch considered here is
+separate from the Mukai self-mirror Yangian branch.  The
+level-four CHL target is a Borcherds-denominator object with
+\[
+  \kBKM(\PhiFour)=2.
+\]
+Compact Hodge data give $\kcat(X_4)=\kch(\cA_{X_4})=0$.
+These invariants come from separate constructions.

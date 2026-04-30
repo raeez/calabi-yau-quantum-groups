@@ -2,7 +2,7 @@
 
 Verifies:
   1. Siegel upper half-space utilities (period matrix validation, Sp_4 action)
-  2. Genus-2 theta functions and Igusa cusp form Delta_5
+  2. Genus-2 theta functions and primitive Gritsenko-Nikulin denominator Delta_5
   3. Heisenberg genus-2 partition function (class G)
   4. W_{1+infty} genus-2 partition function (class M, shadow corrections)
   5. K3 x E partition function (CONJECTURAL, depends on CY-A_3)

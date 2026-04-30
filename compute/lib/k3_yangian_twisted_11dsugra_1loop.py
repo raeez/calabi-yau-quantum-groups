@@ -6,7 +6,7 @@ I_1 fibres of an elliptic K3 and source a refined Omega-deformed 1-loop
 determinant with equivariant parameters (epsilon_1, epsilon_2) acting on C^2.
 
 At the self-dual locus epsilon_1 + epsilon_2 = 0, the 1-loop partition function
-is the Gritsenko-Nikulin Igusa cusp form Delta_5 of weight 5 = chi(O_K3) +
+is the Gritsenko-Nikulin primitive Gritsenko-Nikulin denominator Delta_5 of weight 5 = chi(O_K3) +
 sum of Kodaira I_1 residues = 2 + 3. Off self-dual, the partition function
 refines to a two-parameter family whose Fourier coefficients match the
 Bruinier Prop 5.1 multiplicities of the Borcherds lift of the K3 elliptic

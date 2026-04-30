@@ -14,7 +14,9 @@ Route A (3d topological CS on R^3):
   4. R-matrix from E_3 braiding on Conf_2(R^3) ~ S^2
      pi_1(Conf_2(R^3)) = pi_1(S^2) = 0, but the FRAMED E_3 braiding
      is nontrivial: pi_1(SO(3)) = Z/2, giving the sign twist q^{<lambda,mu>}
-  5. Parameter: q = exp(2*pi*i / (k + h^vee))  [single parameter]
+  5. Parameter split:
+       q_QG = exp(pi*i / (k + h^vee)) for U_q(g);
+       q_J  = q_QG^2 = exp(2*pi*i / (k + h^vee)) for monodromy/Jones.
 
 Route B (6d holomorphic theory on C^3):
   1. Start with 6d hol theory on C^3 with gl_1, Omega-background (h1,h2,h3)
@@ -34,9 +36,11 @@ ANSWER: NO, with three obstructions:
        is entirely from the Omega-background deformation, which has no analogue
        in the purely topological 3d theory.
   (O2) TWO-PARAMETER vs ONE-PARAMETER: R^3 has ONE coupling constant k giving
-       q = exp(2*pi*i/(k+h^vee)). C^3 has the Omega-background (h1,h2,h3) with
-       CY constraint h1+h2+h3=0, giving TWO independent parameters. The second
-       parameter (sigma_3 vs sigma_2) has no 3d analogue.
+       q_QG = exp(pi*i/(k+h^vee)); its monodromy/Jones square is
+       q_J = exp(2*pi*i/(k+h^vee)). C^3 has the Omega-background
+       (h1,h2,h3) with CY constraint h1+h2+h3=0, giving TWO independent
+       parameters. The second parameter (sigma_3 vs sigma_2) has no 3d
+       analogue.
   (O3) THE MIKI AUTOMORPHISM: C^3 has an S_3 = Weyl(CY torus) symmetry permuting
        the three complex directions (and hence (q1,q2,q3)). R^3 has SO(3) symmetry,
        which is continuous and does not produce a discrete S_3 action on parameters.
@@ -232,7 +236,7 @@ class RouteA_3dCS:
       2. Observables: Obs^q(R^3) is an E_3 factorization algebra
       3. Koszul duality: Obs^q(R^3)^! ~ Rep(U_q(g))
       4. R-matrix: from framed E_3 braiding, R in End(V tensor V)
-      5. q = exp(2*pi*i / (k + h^vee))
+      5. q_QG = exp(pi*i / (k + h^vee)); q_J = q_QG^2
 
     The E_3 is TOPOLOGICAL: from the framed little 3-disks operad on R^3.
     The braiding is from pi_1(SO(3)) = Z/2 (the framing group).
@@ -270,16 +274,28 @@ class RouteA_3dCS:
 
     @property
     def q_parameter(self) -> Dict[str, Any]:
-        """The single deformation parameter q = exp(2*pi*i / (k + h^vee)).
+        """The single deformation parameter with DK/Jones normalization split.
+
+        The Drinfeld-Kohno/Kazhdan-Lusztig quantum-group parameter is
+        q_QG = exp(pi*i/(k+h^vee)).  The monodromy/Jones parameter is its
+        square q_J = exp(2*pi*i/(k+h^vee)).
 
         For generic k (not a root of unity): Rep_q(g) is semisimple.
         At root of unity (k + h^vee integer): non-semisimple, KL theory.
         """
         if self.k + self._h_vee == 0:
-            return {"q": "undefined (critical level)", "regime": "critical"}
+            return {
+                "q_QG": "undefined (critical level)",
+                "q_J": "undefined (critical level)",
+                "q": "undefined (critical level)",
+                "regime": "critical",
+            }
 
         return {
-            "q_formula": f"exp(2*pi*i / ({self.k} + {self._h_vee}))",
+            "q_QG_formula": f"exp(pi*i / ({self.k} + {self._h_vee}))",
+            "q_J_formula": f"exp(2*pi*i / ({self.k} + {self._h_vee}))",
+            "q_formula": f"exp(pi*i / ({self.k} + {self._h_vee}))",
+            "legacy_q_formula": f"exp(2*pi*i / ({self.k} + {self._h_vee}))",
             "effective_level": self.k + self._h_vee,
             "is_root_of_unity": isinstance(self.k, Rational) and self.k.denominator == 1,
             "regime": "root_of_unity" if (isinstance(self.k, Rational) and
@@ -287,6 +303,7 @@ class RouteA_3dCS:
                                           self.k + self._h_vee > 0)
                       else "generic",
             "num_parameters": 1,
+            "monodromy_square_relation": "q_J = q_QG^2",
         }
 
     @property
@@ -312,7 +329,7 @@ class RouteA_3dCS:
             "pi_1_bare": "0",
             "pi_1_framed": "Z/2 (from pi_1(SO(3)))",
             "braiding_type": "framed_topological",
-            "braiding_parameter": "q = exp(2*pi*i/(k+h^vee))",
+            "braiding_parameter": "q_QG = exp(pi*i/(k+h^vee)); q_J = q_QG^2",
             "explanation": (
                 "The bare configuration space S^2 is simply connected, "
                 "but the framed E_3 operad on R^3 includes SO(3) framings "
@@ -732,7 +749,8 @@ class ObstructionAnalysis:
     def obstruction_O2_parameters(self) -> Dict[str, Any]:
         """O2: Two-parameter vs one-parameter deformation.
 
-        R^3: ONE parameter (CS level k -> q = exp(2*pi*i/(k+h^vee))).
+        R^3: ONE parameter (CS level k -> q_QG = exp(pi*i/(k+h^vee));
+        q_J = q_QG^2 for monodromy/Jones).
         C^3: TWO parameters (h1,h2) -> (q,t) = (exp(h1), exp(-h2)).
 
         The extra parameter arises because C^3 has THREE complex directions

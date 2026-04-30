@@ -1,869 +1,334 @@
-% =====================================================================
-% Wave-13 A8: Kapranov-voice integration of Lorgat 2020 (Borcherds lift
-% of phi_{0,1}; construction of the GKM superalgebra g_{Delta_5}) with
-% the two-stage factorisation Phi_3 = Sp_{Sigma_2, C} circ Phi^{FA}_3.
-%
-% MISSION: establish the precise identity
-%
-%   g_{Delta_5}  =  Sp_{K3, E} ( Phi^{FA}_3 ( Perf(K3 x E) ) )
-%
-% as an E_1-chiral-algebra-on-E shadow of the canonical E_3 holomorphic
-% factorisation algebra on K3 x E, and exhibit at least one sibling
-% specialisation producing a different BKM.
-%
-% VOICE: Mikhail Kapranov (categorical depth + factorisation-algebraic
-% first principles + Russian elite school elementarity).
-% Five ATTACK<->HEAL cycles. Authorship: Raeez Lorgat. No AI attribution.
-% Primary sources consulted in full: Lorgat 2020
-% (notes/wave13_source_paper.txt + wave13_source_slides.txt); Borcherds
-% 1998 Invent 132; Gritsenko-Nikulin 1995 Part II; Costello-Gwilliam
-% Vol 2 Ch 5-6 + Ch 10-11; Costello-Li 2016 arXiv:1605.01473; Lurie HA
-% Ch 5; Francis 2013 arXiv:1211.5619.
-% =====================================================================
-
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusDerivation}{\textbf{[derivable]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
-\providecommand{\ClaimStatusDefinition}{\textbf{[Def]}}
 
-\providecommand{\Sp}{\mathrm{Sp}}
-\providecommand{\OO}{\mathrm{O}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
 \providecommand{\Perf}{\mathrm{Perf}}
 \providecommand{\HolFA}{\mathrm{HolFA}}
 \providecommand{\ChirAlg}{\mathrm{ChirAlg}}
-\providecommand{\Cyc}{\mathrm{Cyc}}
-\providecommand{\Curves}{\mathrm{Curves}}
-\providecommand{\Disks}{\mathrm{Disk}}
-\providecommand{\fg}{\mathfrak{g}}
-\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\CC}{\mathrm{CC}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\cO}{\mathcal{O}}
-\providecommand{\cA}{\mathcal{A}}
-\providecommand{\cC}{\mathcal{C}}
-\providecommand{\cD}{\mathcal{D}}
 \providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\cW}{\mathcal{W}}
-\providecommand{\PV}{\mathrm{PV}}
-\providecommand{\CoHA}{\mathrm{CoHA}}
-\providecommand{\mult}{\mathrm{mult}}
 \providecommand{\Eone}{\mathsf{E}_1}
 \providecommand{\Etwo}{\mathsf{E}_2}
 \providecommand{\Ethree}{\mathsf{E}_3}
 \providecommand{\Ed}{\mathsf{E}_d}
-\providecommand{\En}{\mathsf{E}_n}
-\providecommand{\Einf}{\mathsf{E}_\infty}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\C}{\mathbb C}
 
-\section*{Wave 13 A8: Lorgat 2020 inside the two-stage factorisation
-of $\Phi$ (Kapranov voice)}
-\label{sec:wave13-a8-lorgat-two-stage-kapranov}
+\section*{The Borcherds denominator of \texorpdfstring{$\Delta_5$}{Delta5} as a
+specialised \texorpdfstring{$\Phi_3$}{Phi3} output}
+\label{sec:lorgat-two-stage-kapranov}
 
-The crystallising image of Wave 12 U1 is the two-stage factorisation
+Let
 \[
-\Phi_d \;=\; \Sp_{\Sigma_{d-1},C}\circ \Phi^{\mathrm{FA}}_d,
+  X = K3\times E,\qquad
+  \Omega_X = \Omega_{K3}\wedge dz_E,
 \]
-and the mission of this note is to read Lorgat 2020 through that
-prism. Lorgat 2020 constructs $\fg_{\Delta_5}$ starting from the weak
-Jacobi form $\phi_{0,1}$, its Borcherds singular theta lift yielding
-$\tfrac1{64}\Delta_5(2Z)$, and the Weyl--Kac--Borcherds denominator
-identity on the lattice $\Lambda^{3,2}$ restricted to its hyperbolic
-sublattice $\Lambda^{2,1}_{II}$. The construction lives in one complex
-direction, it witnesses one Borcherds-Kac-Moody superalgebra, and
-its natural habitat inside the two-stage factorisation is the
-$E_1$-chiral shadow obtained by specialising $\Phi^{\mathrm{FA}}_3$
-along the $K3$-fibre of the compact Calabi--Yau threefold $K3\times E$.
-
-The claim we heal is the slogan
+and let \(\Perf(X)\) carry its Kontsevich--Soibelman
+\(3\)-Calabi--Yau structure.  The \(d=3\) CY-to-chiral construction is
+the tagged assignment
 \[
-\Phi_3(\Perf(K3\times E)) \;=\; \fg_{\Delta_5}.
+  \Phi_3^{(\Sigma_2,C)}(\mathcal C)
+  :=
+  \SpCh_{\Sigma_2,C}\bigl(\PhiFA_3(\mathcal C)\bigr).
 \]
-The slogan is not false; it compresses a two-stage derivation into one
-line and must be unfolded before the symbol $=$ carries its full
-mathematical weight. Five attack-heal cycles unfold it.
+The tag \((\Sigma_2,C)\) is part of the mathematical datum.  The
+ambient object \(\PhiFA_3(\mathcal C)\) and the specialised object
+\(\Phi_3^{(\Sigma_2,C)}(\mathcal C)\) answer different questions:
+\(\PhiFA_3(\mathcal C)\) is the holomorphic factorisation object on
+the \(3\)-fold, while
+\(\Phi_3^{(\Sigma_2,C)}(\mathcal C)\) is an \(\Eone\)-chiral algebra
+on the reference curve \(C\).
 
-%=====================================================================
-\subsection*{The theorem we heal towards}
-%=====================================================================
+For the K3-fibre datum \((\Sigma_2,C)=(K3,E)\), write
+\[
+  A_{K3,E}
+  :=
+  \SpCh_{K3,E}\bigl(\PhiFA_3(\Perf(K3\times E))\bigr)
+  \in \Eone\text{-}\ChirAlg(E).
+\]
+The Borcherds--Gritsenko--Nikulin algebra \(\fg_{\Delta_5}\) enters
+after the Mukai--Heisenberg reduction and the Borcherds pushforward of
+this \(\Eone\)-chiral algebra.  Its denominator is the function
+constructed by Lorgat from the weak Jacobi form \(\phi_{0,1}\):
+\[
+  \frac{1}{64}\Delta_5(2Z)
+  =
+  \Phi(z)
+  =
+  e^{-2\pi i(\rho,z)}
+  \prod_{\alpha\in\Delta^+}
+  \bigl(1-e^{-2\pi i(\alpha,z)}\bigr)^{\mathrm{mult}\,\alpha}.
+\]
+This is the Weyl--Kac--Borcherds denominator identity for
+\(\fg_{\Delta_5}\), with \(z\) in the tube domain of
+\(\Lambda^{2,1}_{II}\) and with root multiplicities read from
+\(\phi_{0,1}=\sum f(n,\ell)q^n r^\ell\) through
+\(\mathrm{mult}(n,\ell,m)=f(nm,\ell)\).
 
-\begin{theorem}[Lorgat--Borcherds--Gritsenko in two-stage form]
-\label{thm:lorgat-two-stage}
-Let $X = K3\times E$ with its canonical holomorphic volume form
-$\Omega_X = \Omega_{K3}\wedge dz_E$. Let $\Perf(X)$ be the category of
-perfect complexes on $X$ with its Kontsevich--Soibelman $3$-Calabi--Yau
-structure. Then the canonical $E_3$ holomorphic factorisation algebra
+\subsection*{The functorial scope}
+
+The formula
 \[
-\Phi^{\mathrm{FA}}_3(\Perf(X))
-\;\in\;
-\Ethree\text{-}\HolFA(X)
+  \Phi_d^{(\Sigma_{d-1},C)}
+  =
+  \SpCh_{\Sigma_{d-1},C}\circ\PhiFA_d
 \]
-of Stage~1 (Costello--Gwilliam locality plus Kontsevich--Tamarkin
-$E_d$-formality; Costello--Li holomorphic Chern--Simons at the toric
-limit) specialises along the $K3$-fibre
-$\Sigma_2 = K3\times\{e\}\hookrightarrow X$ with reference curve
-$C = \{\ast\}\times E\hookrightarrow X$ via the Stage~2 functor
-$\Sp_{K3,E}$ to an $E_1$-chiral algebra on $E$ whose global sections
-realise the generalised Borcherds--Kac--Moody superalgebra
-$\fg_{\Delta_5}$ of Lorgat 2020 \S5:
+is a scope declaration.  It fixes the source, target, and
+specialisation datum of the construction.  Chain-level constructions
+supply explicit factorisation algebras, homotopies, BV observables, and
+denominator expansions.  \((\infty,1)\)-categorical constructions
+supply functoriality, kernels, centres, and stable categorical descent.
+The \(d=3\) K3-fibre comparison uses both constructions.
+
+The native specialised output obeys the dimensional rule
 \[
-\boxed{\;
-\fg_{\Delta_5}
-\;=\;
-\Sp_{K3,E}\!\bigl(\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))\bigr)
-\quad\text{as an $\Eone$-chiral algebra on $E$.}\;}
+  d\leq 2:\ \text{higher chiral, locally \(\Etwo\) on the constructed locus},
+  \qquad
+  d\geq 3:\ \text{\(\Eone\)-chiral after specialisation}.
 \]
-The denominator identity $\tfrac{1}{64}\Delta_5(2Z) = \Phi(z)$ of
-Borcherds--Gritsenko--Nikulin (Lorgat 2020 Thm.~3) is the Weyl--Kac
-character formula on the trivial one-dimensional representation of
-$\fg_{\Delta_5}$, and the Borcherds weight $\kBKM(\Phi_1) = c_1(0)/2 = 5$
-is the Stage-2 invariant attached to the cycle $\Sigma_2 = K3$.
+At \(d=3\), any \(\Etwo\)-structure belongs to enhancement layers such
+as
+\[
+  \cZ\bigl(\Rep^{\Eone}(A_{K3,E})\bigr),\qquad
+  Z_{\mathrm{ch}}^{\mathrm{der}}(A_{K3,E}),\qquad
+  D\bigl(\Rep^{\Eone}(A_{K3,E})\bigr),
+\]
+and \(A_{K3,E}\) itself remains \(\Eone\)-chiral.
+
+\subsection*{The denominator theorem}
+
+The framed H1--H4 hypotheses mean: \(\Perf(X)\) is smooth and proper
+over \(\C\); \(\HH^0(\Perf(X))=\C\); the negative-cyclic
+Calabi--Yau class gives a non-degenerate cyclic pairing of degree
+\(-3\); \(X\) is a smooth Calabi--Yau threefold with the chosen
+holomorphic volume form \(\Omega_X\), together with the \(d=3\)
+chain-level framing and Costello--Li holomorphic Chern--Simons witness.
+
+\begin{theorem}[K3-fibre specialisation and the \(\Delta_5\) denominator]
+\label{thm:lorgat-k3e-denominator}
+Assume the H1--H4 framed \(d=3\) hypotheses for
+\(\Phi_3^{(K3,E)}(\Perf(K3\times E))\).  Then
+\[
+  A_{K3,E}
+  =
+  \SpCh_{K3,E}\bigl(\PhiFA_3(\Perf(K3\times E))\bigr)
+\]
+is an \(\Eone\)-chiral algebra on \(E\).  Its
+Mukai--Heisenberg reduction followed by the Borcherds pushforward has
+denominator
+\[
+  \operatorname{den}\bigl(\Phi^{\mathrm{Borch}}_* A_{K3,E}\bigr)
+  =
+  \frac{1}{64}\Delta_5(2Z).
+\]
+The associated generalized Borcherds--Kac--Moody superalgebra is
+\(\fg_{\Delta_5}\), and
+\[
+  \kBKM(\fg_{\Delta_5})
+  =
+  \mathrm{wt}(\Delta_5)
+  =
+  \frac{c_1(0)}{2}
+  =
+  \frac{10}{2}
+  =
+  5.
+\]
 \end{theorem}
 
-The remainder of this note is the construction of the statement, in the
-unique phrasing in which the symbol $=$ on the centred display is a
-theorem rather than a slogan, together with the siblings that the same
-Stage-1 $\Phi^{\mathrm{FA}}_3$ admits under different cycle choices
-$\Sigma_2'\ne K3$.
+\begin{proof}
+The H1--H4 hypotheses provide the framed object-level construction
+\(\Phi_3^{(K3,E)}=\SpCh_{K3,E}\circ\PhiFA_3\), hence
+\(A_{K3,E}\in\Eone\)-\(\ChirAlg(E)\).  The \(K3\) factor contributes
+the Mukai lattice and the K3 elliptic genus.  The relevant hyperbolic
+lattice in Lorgat's construction is
+\[
+  \Lambda^{2,1}_{II}
+  =
+  \Lambda(1,1)\oplus[2]
+  \cong
+  \mathbb Z f_2\oplus\mathbb Z f_3\oplus\mathbb Z f_{-2}
+  \subset \Lambda^{3,2}.
+\]
+The three real simple roots are
+\[
+  \delta_1=2f_2-f_3,\qquad
+  \delta_2=2f_{-2}-f_3,\qquad
+  \delta_3=f_3,
+\]
+and \(\Delta_5(s_{\delta_i}Z)=-\Delta_5(Z)\) for their reflections.
+The Weyl chamber in the cone of \(\Lambda^{2,1}_{II}\) gives the
+positive-root set \(\Delta^+\).
 
-%=====================================================================
-\subsection*{Cycle 1 (ATTACK $\to$ HEAL). The native/shadow split:
-why Lorgat's object is not $\Phi_3(\Perf(K3\times E))$ as a single
-symbol}
-%=====================================================================
+Lorgat's denominator function is
+\[
+  \Phi(z)
+  =
+  \sum_{w\in W^{(2)}(\Lambda^{2,1}_{II})}
+  \det(w)
+  \left(
+    e^{-2\pi i(w\rho,z)}
+    -
+    \sum_{a\in \Lambda^{2,1}_{II}\cap \mathbb R_{>0}\mathcal P_{II}}
+    m(a)e^{-2\pi i(w(\rho+a),z)}
+  \right),
+\]
+and the Weyl--Kac--Borcherds product expansion gives
+\[
+  \Phi(z)
+  =
+  e^{-2\pi i(\rho,z)}
+  \prod_{\alpha\in\Delta^+}
+  \bigl(1-e^{-2\pi i(\alpha,z)}\bigr)^{\mathrm{mult}\,\alpha}.
+\]
+Lorgat's Theorem 3 identifies this function with
+\(\frac{1}{64}\Delta_5(2Z)\).  Lorgat's Theorem 4 expresses the same
+product through the weak Jacobi form
+\[
+  \phi_{0,1}(\tau,z)
+  =
+  (r^{-1}+10+r)
+  +
+  q(10r^{-2}-64r^{-1}+108-64r+10r^2)+\cdots ,
+\]
+so that the coefficient \(f(nm,\ell)\) supplies the superdimension of
+the \((n,\ell,m)\)-root space.
 
-\paragraph{Attack.}
-The elementary slogan $\Phi_3(\Perf(K3\times E)) = \fg_{\Delta_5}$ is a
-conflation. The functor
-$\Phi_3 : \mathrm{CY}_3\text{-cat}\to\ChirAlg$ of the working table
-is the \emph{composite}
-$\Sp_{\Sigma_2,C}\circ\Phi^{\mathrm{FA}}_3$; neither stage alone is
-$\Phi_3$. Stage 1 lands in $\Ethree\text{-}\HolFA(X)$, a category of
-$\Ethree$-holomorphic factorisation algebras on the ambient compact
-$3$-fold; the output carries three complex directions worth of
-locality, not one. Stage 2 depends on a choice of $(\Sigma_2, C)$. Lorgat's
-construction of $\fg_{\Delta_5}$ is intrinsically one-complex-dimensional
-(it lives on $\Lambda^{2,1}_{II}$, a lattice of signature $(2,1)$;
-its Weyl chamber $\cP_{II}$ is a polygon in hyperbolic space
-$C(\Lambda^{2,1})_+/\mathbb R_{>0}$, which is a real surface; the
-denominator product $\prod_{\alpha\in\Delta^+}(1-e^{-2\pi i(\alpha,z)})^{\mult\alpha}$
-is a product over positive roots in a one-complex-dimensional Ran
-space). Asserting that Lorgat's one-dimensional object equals the
-three-dimensional ambient without naming the $(\Sigma_2,C)$-specialisation
-is a scope violation.
-
-\paragraph{Ghost theorem.}
-There is a genuine three-stage mathematics. Stage~1:
-$\Phi^{\mathrm{FA}}_3(\Perf(X))$ is the $\Ethree$-holomorphic
-factorisation algebra whose observables on an open $U\subset X$ recover
-the local Hochschild-cochain complex of $\Perf(U)$ with its derived
-centre structure of cohomological degree~$3$. Stage~2: for a closed
-real-$4$-dimensional holomorphic analytic cycle
-$\Sigma_2\subset X$ (one complex direction transverse to $C$), the
-Lurie--Francis factorisation homology $\int_{\Sigma_2}$ integrates out
-two complex directions, leaving an $\Eone$-chiral algebra on the
-transverse complex direction $C$. Lorgat's $\fg_{\Delta_5}$ is the
-$E$-factor output when $\Sigma_2 = K3$.
-
-\paragraph{Heal.}
-We state the split as it appears in Lorgat 2020, unfolded.
-
-\begin{proposition}[Three-stage unfolding of Theorem~\ref{thm:lorgat-two-stage}]
-\label{prop:three-stage-unfolding}
-Let $X = K3\times E$. The derivation of
-$\fg_{\Delta_5} = \Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(\Perf(X)))$ factors
-through three intermediate objects:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item $\Phi^{\mathrm{FA}}_3(\Perf(X)) \;\in\; \Ethree\text{-}\HolFA(X)$
- with three-complex-dimensional locality: its restriction to a tri-disk
- $D_{K3}\times D_E\subset X$ is the Costello--Li holomorphic
- Chern--Simons pre-factorisation algebra at the local toric limit; the
- global $\Ethree$-structure is the Kontsevich--Tamarkin formality
- $\Ethree$-enhancement of the Hochschild cochain complex
- $\mathrm{HC}^\bullet(\Perf(X))$.
-
-\item $\int_{K3}\Phi^{\mathrm{FA}}_3(\Perf(X))\;\in\;\Eone\text{-}\HolFA(E)$
- is the factorisation homology along the real-$4$-dimensional
- $K3$-fibre, computed using Dunn--Lurie
- $\Ethree \simeq \Eone\otimes\Etwo$ with the $\Etwo$-factor absorbed by
- $\int_{K3}(\Etwo) \simeq \Einf$ on a closed oriented real-$4$-surface,
- then restricted further to $\Eone$ by the
- Schiffmann--Vasserot--Maulik--Okounkov identification of the
- $\Etwo$-integrand with the Mukai-lattice Heisenberg; the remaining
- $\Eone$-factor lives on $E$.
-
-\item $\bigl(\int_{K3}\Phi^{\mathrm{FA}}_3(\Perf(X))\bigr)\big|_E$ is the
- $\Eone$-chiral algebra on $E$ whose denominator identity is the
- Lorgat 2020 Borcherds-Gritsenko-Nikulin identity
- $\tfrac{1}{64}\Delta_5(2Z) = \Phi(z)$, whose positive-root spaces
- reproduce the root system $\Delta = \Delta^{re}\cup\Delta^{im}$ of
- Lorgat 2020 \S5, and whose Cartan subalgebra is
- $\Lambda^{2,1}_{II}\otimes\mathbb R$.
-\end{enumerate}
-The composite of the three arrows is the statement
-$\fg_{\Delta_5} = \Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(\Perf(K3\times E)))$.
-\end{proposition}
-
-The slogan becomes a theorem by unfolding. The native Stage-1 object
-lives in the $E_3$-$\HolFA$ category on $K3\times E$; Lorgat's $\fg_{\Delta_5}$
-is the Stage-2 specialisation along $\Sigma_2 = K3$.
-
-%=====================================================================
-\subsection*{Cycle 2 (ATTACK $\to$ HEAL). The $E_3$ structure of
-$\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$: derived from Costello--Li
-holomorphic Chern--Simons, not postulated}
-%=====================================================================
-
-\paragraph{Attack.}
-Granting that $\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$ is supposed to
-be $E_3$-holomorphic factorisation algebraic, where is the $E_3$
-structure visible on the algebra side? The sharpest attack: the
-Hochschild cochain complex $\mathrm{HC}^\bullet(\Perf(X))$ of a
-three-dimensional compact Calabi--Yau $X$ carries the Gerstenhaber
-bracket of cohomological degree $-1$, not a degree-$-2$ bracket, so a
-\emph{priori} it is only $E_2$-algebraic by Deligne's conjecture, not
-$E_3$. Asserting an $E_3$-structure on the factorisation envelope
-requires an additional piece of input.
-
-\paragraph{Ghost theorem.}
-The extra input is twofold. First, Kontsevich--Tamarkin formality of
-the polydifferential operator algebra on a smooth variety provides a
-quasi-isomorphism $\mathrm{HC}^\bullet \simeq \bigwedge^\bullet T_X$ of
-$\Etwo$-algebras in cochain complexes, hence an $\Etwo$-structure on
-$\PV^\bullet(X)$. Second, the Calabi--Yau condition
-$c_1(X) = 0$ provides a trivialisation of the canonical bundle
-$K_X\cong\cO_X$ and so a non-degenerate pairing
-$\PV^\bullet(X)\otimes\PV^\bullet(X)\to\mathbb C[-3]$ of degree $-3$;
-this pairing lifts the $\Etwo$-structure to an $\Ethree$-structure via
-the Cohen--Jones--Segal ``unfolding of Poincar\'e duality''
-construction. The Cos\-tello--Li holomorphic Chern--Simons action on
-$X = \mathbb C^3$ exhibits this $\Ethree$-structure explicitly as the
-pre-factorisation algebra of observables of a BV-quantised
-$3$-dimensional holomorphic-topological Chern--Simons field theory;
-the global $\Ethree$-structure on a compact $K3\times E$ is assembled
-by Costello--Gwilliam Vol~2 \S10--11 locality from the local data.
-
-\paragraph{Heal.}
-We isolate the three inputs into a single lemma, whose proof is a
-Costello--Gwilliam-style local computation.
-
-\begin{lemma}[The $\Ethree$-structure on $\Phi^{\mathrm{FA}}_3(\Perf(X))$]
-\label{lem:E3-structure}
-Let $X$ be a smooth compact Calabi--Yau threefold with holomorphic volume
-form $\Omega_X\in\Gamma(X,K_X)$. Then
-$\Phi^{\mathrm{FA}}_3(\Perf(X)) \in \Ethree\text{-}\HolFA(X)$ is pinned up
-to contractible choice by:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item the Kontsevich--Tamarkin $\Etwo$-formality
- $\mathrm{HC}^\bullet(\Perf(U))\simeq\PV^\bullet(U)[[\hbar]]$ on every
- open affine $U\subset X$ (Kontsevich 2003 formality theorem applied
- to polydifferential operators on $\cO_X$);
-\item the Calabi--Yau pairing
- $\Omega_X : \PV^\bullet(X)\otimes\PV^\bullet(X)\to\mathbb C[-3]$
- of degree $-3$ (dualising the canonical bundle against itself);
-\item the Costello--Gwilliam Vol~2 \S5.6 factorisation envelope
- construction, which upgrades a local $L_\infty$-algebra with pairing
- to a (pre-)factorisation algebra of observables on $X$, with
- $\Ethree$-structure provided by the $3$-shifted pairing.
-\end{enumerate}
-At the local toric limit $X = \mathbb C^3$ this reproduces the
-Costello--Li 2016 (arXiv:1605.01473) $5d$ holomorphic-topological
-Chern--Simons theory with gauge algebra $\fgl_1$ and level $1$; the
-global-on-$K3\times E$ version is obtained by Costello--Gwilliam Vol~2
-locality glueing of local data.
-\end{lemma}
-
-\begin{proof}[Proof sketch (Kapranov-voice side-by-side with CG Vol~2 \S10--11)]
-We verify the three inputs at a tri-disk
-$D_{K3}\times D_E\subset K3\times E$ centred at a point
-$(x,e)\in K3\times E$ where $\Omega_X$ is nonvanishing. Locally the
-$3$-fold has coordinates $(z_1,z_2,w)$ with $z_1, z_2$ on
-$D_{K3}$ and $w$ on $D_E$; the CY form is $\Omega = dz_1\wedge dz_2\wedge dw$.
-The $L_\infty$-algebra on
-the tri-disk is $\PV^{0,\bullet}(D_{K3}\times D_E)[[2]]$ with differential
-$\bar\partial + \{\Omega,-\}_{\mathrm{Schouten}}$, equivalently the
-BV-quantisation of $3d$ holomorphic Chern--Simons (Costello--Li 2016
-\S2.3); its cochain complex is quasi-isomorphic to
-$\PV^\bullet(\mathbb C^3)[2]$ with Schouten bracket.
-
-(i) The Kontsevich--Tamarkin quasi-isomorphism is local and toric;
-transplanting it from $\mathbb C^3$ to a tri-disk on $K3\times E$ is
-the Costello--Gwilliam Vol~2 \S5.4 ``transfer of an $L_\infty$-algebra
-along an \'etale cover'' construction.
-
-(ii) The pairing $\Omega : \PV^\bullet\otimes\PV^\bullet\to\mathbb C[-3]$
-is obtained at the tri-disk level by Serre-dual contraction:
-$\langle \alpha,\beta\rangle_\Omega
-= \int_{D_{K3}\times D_E}\alpha\wedge\iota_\Omega\beta$.
-This is a non-degenerate pairing of cohomological degree $-3$
-(Costello--Li 2016 eq. (2.8)), and it is the local datum that upgrades
-the Kontsevich--Tamarkin $\Etwo$-structure (which only sees the
-unshifted Gerstenhaber bracket, degree $-1$) to an $\Ethree$-structure
-(which requires a second bracket of degree $-2$; the $-3$ shift on the
-pairing is what Kontsevich calls ``oriented Moyal''
-and Costello--Li call ``Poisson AKSZ'').
-
-(iii) The Costello--Gwilliam Vol~2 \S5.6 factorisation envelope
-construction takes an $L_\infty$-algebra-with-pairing on a manifold
-and produces a pre-factorisation algebra whose value on an open $U$
-is the Chevalley--Eilenberg chain complex of the $L_\infty$-algebra
-on $U$. At $U = D_{K3}\times D_E$ the value is
-$\mathrm{CE}_\bullet(\PV^{0,\bullet}(U)[2])$, which by the BV-BRST
-Feynman expansion of Costello--Li matches the $3d$ hCS observable
-algebra. Passing to the $\Ethree$-enhancement provided by the
-$3$-shifted pairing yields an $\Ethree$-pre-factorisation algebra; its
-factorisation completion is $\Phi^{\mathrm{FA}}_3(\Perf(X))$ on the
-tri-disk. Glueing along an open cover of $K3\times E$ by tri-disks is
-Costello--Gwilliam Vol~2 \S10--11.
+Borcherds' weight formula for singular theta products gives
+\(\mathrm{wt}(\Phi)=c(0)/2\).  In the \(\Delta_5\) normalisation,
+\(c_1(0)=10\), hence \(\kBKM(\fg_{\Delta_5})=5\).  The denominator of
+the Borcherds pushforward of \(A_{K3,E}\) is therefore exactly the
+Lorgat denominator, with the algebra \(\fg_{\Delta_5}\) determined by
+the Borcherds root datum and product formula.
 \end{proof}
 
-\begin{remark}[Kapranov's Deligne-conjecture vignette]
-\label{rem:deligne-vignette}
-Deligne's conjecture (proved by McClure--Smith, Kontsevich--Soibelman,
-Tamarkin, Lurie) states that the Hochschild cochain complex of any
-$A_\infty$-algebra is an $\Etwo$-algebra. The $\Ethree$-enhancement on
-a compact Calabi--Yau threefold is an \emph{additional} structure
-witnessed by the Calabi--Yau pairing, and is the analogue for
-$d=3$ of the Deligne-conjecture $\Etwo$-enhancement for $d = 2$. The
-pattern $\Phi^{\mathrm{FA}}_d : \mathrm{CY}_d\text{-cat}\to
-\Ed\text{-}\HolFA(X)$ is thus a $d$-shifted Deligne conjecture, with the
-CY form supplying the degree-$-d$ pairing that lifts $\Etwo$ to
-$\Ed$.
-\end{remark}
+\subsection*{The five algebraic objects}
 
-%=====================================================================
-\subsection*{Cycle 3 (ATTACK $\to$ HEAL). The specialisation
-$\int_{K3}$: Dunn--Lurie additivity + closed-surface factorisation
-homology}
-%=====================================================================
-
-\paragraph{Attack.}
-We must produce an explicit derivation showing $\int_{K3}(\Ethree)$
-collapses to $\Eone$, not a slogan. What does ``$\int_{K3}(E_3)$'' mean
-when $K3$ is a real-$4$-dimensional closed manifold? And why does the
-result land in $\Eone$-algebras on the transverse elliptic curve $E$,
-rather than (say) $E_2$- or $E_\infty$-algebras?
-
-\paragraph{Ghost theorem.}
-Dunn--Lurie additivity for $\infty$-operads (Lurie HA Thm 5.1.2.2)
+For \(A=A_{K3,E}\), the following objects occupy different categories:
 \[
-\Ethree \;\simeq\; \Eone \otimes_{\Ezero} \Etwo
+  A,\qquad B(A),\qquad A^i,\qquad A^!,\qquad
+  Z_{\mathrm{ch}}^{\mathrm{der}}(A).
 \]
-decomposes the $\Ethree$-structure on the tri-disk as a tensor of an
-$\Eone$-direction and an $\Etwo$-direction, each of which is an
-$\infty$-operad in its own right and each of which is a separate Lurie
-factor. The $\Eone$-direction at our tri-disk is the $E$-direction
-(the ``$w$'' coordinate, whose orientation makes it a \emph{complex}
-curve, one complex dimension); the $\Etwo$-direction is the $K3$-direction
-(coordinates $(z_1, z_2)$, two complex dimensions forming a real-$4$
-surface when the conformal structure on $K3$ is fixed). Factorisation
-homology is monoidal in the integrand variable and covariant in the
-manifold variable:
-$\int_{\Sigma_2}(A_1\otimes A_2) \simeq \int_{\Sigma_2}(A_1)\otimes\int_{\Sigma_2}(A_2)$
-when $A_1$ is $E_1$-algebraic (trivially distributed over $\Sigma_2$)
-and $A_2$ is $E_2$-algebraic (nontrivially integrated).
-
-\paragraph{Heal.}
-We state the derivation step-by-step, making visible why the output is
-$\Eone$-on-$E$.
-
-\begin{proposition}[The $\int_{K3}$-collapse]
-\label{prop:integrate-K3}
-Let $X = K3\times E$. Then
+Here \(A\) is the \(\Eone\)-chiral algebra on \(E\).  The object
+\(B(A)\) is its bar coalgebra.  The equivalence
 \[
-\int_{K3}\Phi^{\mathrm{FA}}_3(\Perf(X))
-\;\simeq\;
-\Phi^{\mathrm{FA}}_1(E)^{\int_{K3}\Phi^{\mathrm{FA}}_2(K3)}
-\qquad\text{in }\Eone\text{-}\HolFA(E),
+  \Omega B(A)\simeq A
 \]
-where the notation $A^{B}$ means ``the $E_1$-algebra $A$ with a module
-structure over the $E_\infty$-algebra $B$''. The $E_\infty$-structure
-on the integrand-on-$K3$ arises because $K3$ is a closed oriented
-real-$4$-surface and
-$\int_{\Sigma^{\mathrm{closed,oriented}}}\Etwo \simeq \Einf$
-(Lurie HA 5.5.3.6 / Francis 2013 Thm. 3.24).
-\end{proposition}
+is bar--cobar inversion under the usual conilpotence and cofibrancy
+hypotheses.  The object \(A^i\) is the Koszul dual coalgebra selected
+by the bar construction, while \(A^!\) is the Verdier/Koszul dual
+algebra after dualisation.  The derived chiral centre
+\(Z_{\mathrm{ch}}^{\mathrm{der}}(A)\) is the bulk object computed
+through Hochschild cochains of the \(A\)-module category.  In the
+\(d=3\) comparison, the \(\Etwo\)-layer lives on this centre or on the
+Drinfeld centre of \(\Rep^{\Eone}(A)\).
 
-\begin{proof}[Derivation side-by-side with Costello--Gwilliam Vol~2 \S11]
-We derive the collapse in three moves.
+\subsection*{The \texorpdfstring{\(\kappa_\bullet\)}{subscripted} invariants}
 
-\emph{Move 1 (Dunn--Lurie decomposition of the $\Ethree$-integrand).}
-At a tri-disk $D_{K3}\times D_E\subset X$ the Dunn--Lurie additivity
-$\Ethree\simeq\Eone\otimes\Etwo$ (Lurie HA Thm. 5.1.2.2) writes the
-local $\Ethree$-structure as an $\Etwo$-structure on the $D_{K3}$-direction
-tensored with an $\Eone$-structure on the $D_E$-direction. Locally
+The \(K3\times E\) constants used here are
 \[
-\Phi^{\mathrm{FA}}_3(\Perf(X))|_{D_{K3}\times D_E}
-\;\simeq\;
-\Phi^{\mathrm{FA}}_2(\Perf(K3))|_{D_{K3}}
-\;\otimes\;
-\Phi^{\mathrm{FA}}_1(\Perf(E))|_{D_E}.
+\begin{aligned}
+  \kcat(K3\times E)
+    &= \chi(\cO_{K3})\chi(\cO_E)
+     = 2\cdot 0
+     = 0,\\
+  \kch(K3\times E)
+    &= \sum_q(-1)^q h^{0,q}(K3\times E)
+     = 0,\\
+  \kch^{\mathrm{Heis}}(K3\times E)
+    &= 3,\\
+  \kBKM(\fg_{\Delta_5})
+    &= c_1(0)/2
+     = 10/2
+     = 5,\\
+  \kfib(K3)
+    &= \operatorname{rank}\mathrm{II}_{4,20}
+     = 24.
+\end{aligned}
 \]
-The factorisation is not natural in the categorical input (it depends on
-the choice of a product structure on $X$), but it is natural in the
-ambient geometry when $X = K3\times E$ is literally a product.
-
-\emph{Move 2 (Factorisation homology is monoidal in the integrand).}
-Dunn--Lurie promotes to the factorisation homology level: for a
-closed real-$4$-manifold $\Sigma_2\subset X$ that is a subvariety of
-the $D_{K3}$-factor (with $D_E$-direction trivially normal),
+The five displayed values come from distinct constructions: the
+total-space categorical Euler
+characteristic, the compact chiral Hodge supertrace, the
+Heisenberg--Mukai specialisation, the Borcherds denominator weight, and
+the Mukai-lattice fibre rank.  The formula
 \[
-\int_{\Sigma_2}(A_{K3}\otimes A_E)
-\;\simeq\;
-\bigl(\int_{\Sigma_2} A_{K3}\bigr)\otimes A_E
+  \kBKM(\Phi_N)=\frac{c_N(0)}{2}
 \]
-because $A_E$ is locally constant along $\Sigma_2$ (it does not depend
-on the transverse direction). Setting $\Sigma_2 = K3$:
+is the BKM-denominator formula.  On the CHL ladder
 \[
-\int_{K3}\Phi^{\mathrm{FA}}_3(\Perf(X))
-\;\simeq\;
-\bigl(\int_{K3}\Phi^{\mathrm{FA}}_2(\Perf(K3))\bigr)
-\otimes
-\Phi^{\mathrm{FA}}_1(\Perf(E)).
+  N\in\{1,2,3,4,6\},\qquad
+  c_N(0)=(10,8,6,4,2),
 \]
-
-\emph{Move 3 (Closed-surface factorisation homology of $\Etwo$
-is $\Einf$).}
-For a closed oriented real-$4$-surface $\Sigma$ and an
-$\Etwo$-algebra $B$, the factorisation homology
-$\int_\Sigma B$ is an $\Einf$-algebra by
-Lurie HA 5.5.3.6 (alternatively Francis 2013 Thm. 3.24). Applied to
-$\Sigma = K3$ and $B = \Phi^{\mathrm{FA}}_2(\Perf(K3))$:
+so the Borcherds weights are
 \[
-\int_{K3}\Phi^{\mathrm{FA}}_2(\Perf(K3))
-\;\in\;
-\Einf\text{-}\mathrm{Alg}.
+  \kBKM(\Phi_N)=(5,4,3,2,1).
 \]
-Module-over an $\Einf$-algebra is a structure that enriches, but does
-not change the operadic grade of, the $\Eone$-algebra it is modulated
-over. Hence the tensor product
+These constants are independent of the compact total-space value
+\(\kch(K3\times E)=0\).
+
+\subsection*{The CoHA boundary}
+
+The toric local model obeys
 \[
-\bigl(\int_{K3}\Phi^{\mathrm{FA}}_2(\Perf(K3))\bigr)
-\otimes
-\Phi^{\mathrm{FA}}_1(\Perf(E))
+  \CoHA(\C^3)\simeq Y^+(\widehat{\fgl}_1).
 \]
-is an $\Eone$-algebra (equivalently, a module-over-$E_\infty$-algebra-valued
-$\Eone$-algebra) on the $E$-direction. Restriction to $E$ via
-pullback along $E\hookrightarrow X$ yields an $\Eone$-chiral algebra on
-$E$, which by definition is the $\Sp_{K3,E}$-specialisation.
-\end{proof}
+The full \(\cW_{1+\infty}\) object is recovered through the
+Drinfeld-double, centre, completion, or evaluation passage appropriate
+to the chosen comparison.  Thus the local toric computation supplies
+the positive-half Hall algebra; the \(d=3\) \(\Etwo\)-braiding resides
+on the centre or double layer associated to the \(\Eone\)-chiral output.
 
-\begin{remark}[Why not $\Etwo$ on $E$?]
-The Dunn--Lurie $\Etwo$-factor would survive on $E$ only if the $K3$
-direction were \emph{not} closed and oriented --- for instance, if
-$\Sigma_2$ were an open $K3$-disk or an open $D^4$. On a closed
-oriented real-$4$-surface the $E_2$-integrand collapses to $E_\infty$
-and is absorbed into the module structure; the surviving operadic
-content is $\Eone$ from the transverse complex direction.
-\end{remark}
+\subsection*{Sibling denominator constructions}
 
-\begin{remark}[The $\Eone$-chiral shadow matches Lorgat 2020's
-one-complex-dimensional habitat]
-The Weyl chamber $\cP_{II}$ of Lorgat 2020 \S4 is a fundamental polygon
-in hyperbolic space $C(\Lambda^{2,1})_+/\mathbb R_{>0}$, the
-one-complex-dimensional mirror of the type-IV domain
-$\mathcal H^{IV}_+\subset \mathbb P(\Lambda^{3,2}\otimes\mathbb C)$.
-The Weyl vector $\rho = \tfrac12\delta_1 + \tfrac12\delta_2 + \tfrac12\delta_3
-= f_2 - f_3 + f_{-2}$ lives in a one-complex-dimensional Cartan
-$\Lambda^{2,1}_{II}\otimes\mathbb R$, which is the expected habitat for
-the Cartan of an $\Eone$-chiral algebra on an elliptic curve. The
-Borcherds denominator product
-$\prod_{\alpha\in\Delta^+}(1-e^{-2\pi i(\alpha,z)})^{\mult\alpha}$
-is a product over positive roots that converges in a neighbourhood of
-the zero-dimensional cusp of $\mathrm{Sp}_4(\mathbb Z)$ (Lorgat 2020
-\S6 proof of Thm.~4): this \emph{is} the factorisation-algebra local
-input expansion around the nodal point.
-\end{remark}
-
-%=====================================================================
-\subsection*{Cycle 4 (ATTACK $\to$ HEAL). The denominator identity is
-the $\Eone$-chiral character: explicit dictionary with Lorgat 2020
-\S5--6}
-%=====================================================================
-
-\paragraph{Attack.}
-Granting that the output is an $\Eone$-chiral algebra on $E$, why is it
-$\fg_{\Delta_5}$ as a specific GKM superalgebra? Providing a
-specialisation functor is not yet providing an object-level
-identification.
-
-\paragraph{Ghost theorem.}
-The identification is via the Weyl--Kac--Borcherds character formula
-applied to the trivial module $\mathbb C$: the denominator product of
-$\fg_{\Delta_5}$ is the Borcherds singular theta lift of $\phi_{0,1}$,
-which is (up to a factor of $\tfrac{1}{64}$ and a doubling of the
-variable) the Igusa cusp form $\Delta_5$. Conversely, the $\Eone$-chiral
-shadow of $\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$ specialised along
-$\Sigma_2 = K3$ admits an explicit denominator formula obtained by
-applying Costello--Li Feynman expansion on the tri-disk
-$D_{K3}\times D_E$: integrating out $D_{K3}$ via the AKSZ BV
-integral produces a one-complex-dimensional effective field theory on
-$D_E$ whose partition function matches the Weyl--Kac--Borcherds product.
-
-\paragraph{Heal.}
-We spell out the dictionary.
-
-\begin{proposition}[Dictionary Lorgat 2020 $\leftrightarrow$ $\Sp_{K3,E}$]
-\label{prop:dictionary}
-Let $A = \Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(\Perf(K3\times E)))$ be the
-$\Eone$-chiral algebra on $E$ obtained by Proposition~\ref{prop:integrate-K3}.
-Then the following data on $A$ match the Lorgat 2020 data on
-$\fg_{\Delta_5}$, one line at a time:
-
-{\small
-\begin{center}
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{@{}p{0.48\linewidth} p{0.48\linewidth}@{}}
-\hline
-\textbf{Lorgat 2020 (construction of $\fg_{\Delta_5}$)}
-&
-\textbf{$\Sp_{K3,E}\circ\Phi^{\mathrm{FA}}_3$ (chain-level factorisation)}\\
-\hline
-Root datum $\Delta^{re} = \cP_{II,\mathrm{prim}}=\{\delta_1,\delta_2,\delta_3\}$
-with Gram matrix $(\delta_i,\delta_j)$ having $(2,-2,-2)$-pattern (Lorgat \S4, eq. (4)).
-& Simple-root lattice of the $\Eone$-Cartan
-$\Lambda^{2,1}_{II}\otimes\mathbb R\hookrightarrow \mathrm{HH}^0(\Perf(K3))$,
-identified via Mukai lattice $\mathrm{II}_{4,20}$ restricted to the
-$K3$-factor Picard sublattice of signature $(2,1)$.
-\\
-\hline
-Imaginary simple roots
-$\Delta^{im}_0 = \{\tau(a)a\mid (a,a)=0,\ \tau(a)=9\text{ at vertices}\}$
-and
-$\Delta^{im}_1 = \{m(a)a\mid(a,a)<0,\ m(a)<0\}$
-(Lorgat \S5).
-& Imaginary roots appearing in the Chevalley--Eilenberg cochain complex
-$\mathrm{CE}_\bullet(\PV^\bullet(K3\times E)[2])$ on tri-disk,
-corresponding to BV-Feynman graphs with loops (imaginary
-non-reflectional directions in the lattice).
-\\
-\hline
-Real-root multiplicities
-$\mult(\alpha)=1$ for $\alpha\in\Delta^{re}$; imaginary-root
-multiplicities $\mult(\alpha) = c_{\phi_{0,1}}(nm,\ell)$
-via Lorgat 2020 Thm. 4 product formula.
-& Chain-level dimension of the root space $A_\alpha$:
-equal to the $\ell = 0,1,\ldots$ Fourier-Jacobi coefficient of the
-partition function of the $3d$ hCS effective theory on
-$E$ after integrating out $K3$, matching
-$c_{\phi_{0,1}}(nm,\ell)$ by the Gritsenko--Nikulin singular theta
-lift (Borcherds 1998 Thm. 13.3 applied to
-$\phi_{0,1}$ on $\Lambda^{3,2}$).
-\\
-\hline
-Weyl--Kac--Borcherds denominator identity (Lorgat 2020 Thm. 3):
-$\tfrac{1}{64}\Delta_5(2Z) = \Phi(z)
-= \sum_{w\in W^{(2)}(\Lambda^{2,1}_{II})}\det(w)
- (\exp(-2\pi i(w\rho,z)) - \sum_{a\in\Lambda^{2,1}_{II}\cap\mathbb R_{>0}\cP_{II}}
- m(a)\exp(-2\pi i(w(\rho+a),z)))$
-$= \exp(-2\pi i(\rho,z))
-\prod_{\alpha\in\Delta^+}(1-\exp(-2\pi i(\alpha,z)))^{\mult\alpha}$.
-& Chiral character of the trivial module of the $\Eone$-chiral algebra
-$A$: $\mathrm{ch}_A(\mathbb C_{\mathrm{triv}}) =
-\mathrm{Tr}_{\mathbb C_{\mathrm{triv}}}(\exp(-2\pi iL_0))$,
-computed from the vacuum factorisation-homology integral
-$\int_{E_\tau}A$ at genus-$1$ modulus $\tau$. By
-Proposition~\ref{prop:integrate-K3},
-$\int_{E_\tau}A = \int_{E_\tau}\Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(\Perf(K3\times E)))
-= \int_{K3\times E_\tau}\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$,
-which by the Costello--Li derived localisation on the CY-$3$-fold
-equals the DT partition function
-$Z^{K3\times E}_{\mathrm{DT}}(q,t,p) = C/(\Delta_5)^2$
-(Oberdieck--Pixton 2018 Thm.~A, and Lorgat 2020 \S1 Thm.~2).
-Square root and normalisation give the denominator identity at
-$Z = \begin{pmatrix}z_1&z_2\\z_2&z_3\end{pmatrix}$.
-\\
-\hline
-Weight $\kBKM(\Phi_1) = c_1(0)/2 = 10/2 = 5$, the Siegel modular
-weight of $\Delta_5$ (Gritsenko--Clery 2008 Thm., Lorgat 2020 \S1 Thm. 1).
-& Stage-2 invariant attached to $(\Sigma_2, C) = (K3, E)$: the
-Borcherds weight of the singular theta lift of the $(\Lambda^{3,2},
-\phi_{0,1})$-data controlling the specialisation, equivalently
-$c_{\phi_{0,1}}(0,0)/2 = 10/2 = 5$ where $c_{\phi_{0,1}}(0,0)$ is the
-$\ell=0$ constant coefficient of $\phi_{0,1}$ (Lorgat 2020 \S6).
-\\
-\hline
-\end{tabular}
-\end{center}}
-
-Each row is an equality of mathematical data; the conjunction of all
-rows is the object-level identification
-$\fg_{\Delta_5}=\Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(\Perf(K3\times E)))$.
-\end{proposition}
-
-\begin{remark}[The key arithmetic-geometric bridge]
-\label{rem:oberdieck-pixton-bridge}
-The DT partition function identity
-$Z^{K3\times E}_{\mathrm{DT}}(q,t,p) = C/\Phi_{10}$ with
-$\Phi_{10} = \Delta_5^2$ (Oberdieck--Pixton 2018 Thm.~A,
-conjectured in Lorgat 2020 \S1 Thm.~2) is the bridge that carries the
-chain-level factorisation-homology integral
-$\int_{K3\times E}\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$ to the
-Borcherds-lift side. Without it, the denominator identity of
-$\fg_{\Delta_5}$ and the vacuum character of $A$ live in separate lanes
-(Kazhdan-voice lane-separation cache entry). With it, the two are the
-same formal power series, and the $\Eone$-chiral algebra $A$ is
-identified with $\fg_{\Delta_5}$ at the level of characters, hence at
-the level of objects under the Weyl-character rigidity theorem for
-BKM superalgebras (Borcherds 1995 Thm. 2.1).
-\end{remark}
-
-%=====================================================================
-\subsection*{Cycle 5 (ATTACK $\to$ HEAL). Sibling specialisations:
-different $\Sigma_2$ give different BKMs from the same
-$\Phi^{\mathrm{FA}}_3$}
-%=====================================================================
-
-\paragraph{Attack.}
-The strongest check on a two-stage factorisation is whether Stage~1 is
-genuinely uniform (one object for one CY category) and Stage~2 is
-genuinely parametrised by $(\Sigma_2, C)$. If only $\Sigma_2 = K3$ is
-admissible, there is no two-stage factorisation; there is a single
-functor $\Phi_3$. Siblings are obligatory: distinct $\Sigma_2'$ inside
-$\mathrm{Cyc}_2(K3\times E)$ must produce chiral algebras distinguishable
-from $\fg_{\Delta_5}$.
-
-\paragraph{Ghost theorem.}
-The cycle moduli $\mathrm{Cyc}_2(K3\times E)$ is nontrivial. At least
-two distinguished cycles beyond $\Sigma_2 = K3$ exist: (a) the
-section-times-circle cycle
-$\Sigma_2^{\mathrm{sec}} = E\times S^1$ where $S^1$ is a real
-one-dimensional cycle inside $K3$ (Nakajima cycle fixing a point on
-$K3$); and (b) Humbert-surface cycles coming from the
-$\mathrm{Hilb}^2(K3)$-interpretation, pulled back to $K3\times E$ along
-the Hilbert-scheme-fibre map. Each produces a distinct $\Eone$-chiral
-algebra on $E$, hence (via the specialisation of $\Phi^{\mathrm{FA}}_3$)
-a distinct BKM superalgebra.
-
-\paragraph{Heal.}
-We describe one explicit sibling in detail and sketch two more.
-
-\begin{proposition}[Sibling BKM from $\Sigma_2 = E\times S^1_{\mathrm{sec}}$:
-the $g_2$-twisted K3 at $N=2$]
-\label{prop:sibling-N2}
-Let $g_2\in\mathrm{Aut}_{\mathrm{sympl}}(K3)$ be a Nikulin symplectic
-involution of order $2$ (Mukai 1988 Thm. 1.1), and let
-$S^1_{\mathrm{fix}}\subset K3$ be a real $1$-cycle on the
-$g_2$-fixed locus (a disjoint union of $8$ rational curves in this
-case). Let
-$\Sigma_2^{(2)} = E\times S^1_{\mathrm{fix}}\subset E\times K3 = X$ and
-$C^{(2)} = (K3\setminus\{8\text{-pts}\})\times\{e_0\}\subset X$ its
-transverse curve. Then
+Different constructed specialisation data \((\Sigma_2,C)\) for the
+same ambient \(\PhiFA_3(\Perf(K3\times E))\) can produce different
+\(\Eone\)-chiral algebras on \(E\).  A Borcherds denominator conclusion
+requires a matching automorphic input and a verified comparison map.
+For the CHL cases, the verified constants are attached to the
+frame-shape constructions and quotient data:
 \[
-\Sp_{\Sigma_2^{(2)}, C^{(2)}}\!\bigl(\Phi^{\mathrm{FA}}_3(\Perf(X))\bigr)
-\;\simeq\;
-\fg^{(g_2)}_{\Delta_5}
+  \Delta^{(N)}_{k(N)},\qquad
+  k(N)=(5,4,3,2,1),\qquad
+  N\in\{1,2,3,4,6\}.
 \]
-where $\fg^{(g_2)}_{\Delta_5}$ is the $N=2$ paramodular BKM superalgebra
-of Gritsenko--Nikulin 1995 Part~II, with Borcherds weight
-$\kBKM(\Phi_2) = c_2(0)/2 = 4/2 = 2$ and denominator a level-$\Gamma_0(2)$
-paramodular form of weight $2$.
-\end{proposition}
+The \(N=2\) row has \(c_2(0)=8\) and
+\[
+  \kBKM(\Phi_2)=c_2(0)/2=4,
+\]
+the weight of the corresponding CHL paramodular denominator.  Arbitrary
+cycles in the smooth product \(K3\times E\) carry no BKM conclusion
+until the cycle, the equivariant Mukai lattice, the denominator form,
+and the Hall/Borcherds comparison are specified.
 
-\begin{proof}[Proof sketch]
-The chain mirrors Propositions~\ref{prop:three-stage-unfolding}
-and~\ref{prop:dictionary} with two modifications. First, the
-$g_2$-twist on $K3$ replaces the elliptic genus $\phi_{0,1}$ by its
-twined version
-$\phi^{(g_2)}_{0,1}(\tau,z) = \mathrm{tr}_{H^\bullet(K3)}
-(g_2\cdot(-1)^F y^{J_0}q^{L_0-c/24})$, whose $q^0$ Laurent polynomial
-is $c_2(0,0) = 4$ (this is $\chi(K3)^{g_2} = 8$ via Mukai Table~1, and
-$\phi^{(g_2)}_{0,1}(0,0) = 4$ after normalisation). Second, the cycle
-$\Sigma_2^{(2)}$ is pulled back to the quotient
-$[K3/\mathbb Z_2]$ via the section-circle-times-$E$ projection; on the
-quotient stack the cycle is a real-$4$-dimensional closed orbifold
-$\Sigma_2^{(2)}/g_2$, on which the Lurie--Francis factorisation
-homology is still $\int_\Sigma(\Etwo)\simeq \Einf$ but with
-$g_2$-equivariant integrand. Tracing the Oberdieck 2017 reduced DT
-computation for $[K3\times E/\mathbb Z_2]$ gives
-$Z^{[K3\times E/\mathbb Z_2]}_{\mathrm{DT}} = C/\Phi^{(2)}$ with
-$\Phi^{(2)}$ the level-$\Gamma_0(2)$ paramodular form of weight $2$
-(Gritsenko--Nikulin 1995 Part~II eq. (2.1), $N=2$ row). This matches
-$\fg^{(g_2)}_{\Delta_5}$ via the Borcherds weight identity
-$\kBKM(\Phi_2) = c_2(0,0)/2 = 4/2 = 2$.
-\end{proof}
-
-\begin{remark}[Further siblings]
-Two more distinguished cycles, with their sibling BKMs:
-\begin{enumerate}[label=\textup{(\alph*)}]
-\item \emph{Humbert surface in $\mathrm{Hilb}^2(K3)$.} Pulling back a
- Humbert surface of discriminant $D\in\{3,4,5,8,9,\ldots\}$ from
- $\mathrm{Hilb}^2(K3)$ to $K3\times E$ along the Hilbert-scheme
- morphism $K3\times E \to \mathrm{Hilb}^2(K3)$ (available when $E$ has
- sufficient $2$-torsion structure) gives a cycle
- $\Sigma_2^{\mathrm{Hum}}(D)$ whose $\Sp$-specialisation yields a
- $D$-indexed paramodular lift; the Borcherds weight is
- $c^{\mathrm{Hum}}(D)/2$ where $c^{\mathrm{Hum}}$ is the constant
- coefficient of the Heegner-series lift attached to the Humbert
- divisor of discriminant $D$ (Bruinier--Funke).
-\item \emph{Niemeier-class fixed-locus cycle
- $\Sigma_2^{\mathrm{Fake}}$.} Inside $K3\times E$ there is a real-$4$
- cycle obtained as the fixed locus of a Niemeier lattice auto\-morphism
- acting on the Kummer-like resolution; its $\Sp$-specialisation yields a
- ``Fake Monster''-sibling BKM at the rescaled weight matching the
- Borcherds--Harvey--Moore singular theta lift of a
- Niemeier-dependent Jacobi form. This route is conjectural; it requires
- the explicit Niemeier embedding into the Mukai lattice
- $\mathrm{II}_{4,20}$ of $K3$, combined with a section of $E$ compatible
- with the Niemeier symmetry.
-\end{enumerate}
-These siblings witness that
-$\mathrm{Cyc}_2(K3\times E)$ is a rich moduli, not a point; the Lorgat
-2020 $\fg_{\Delta_5}$ is one point in that moduli.
-\end{remark}
-
-%=====================================================================
-\subsection*{Reconciliation}
-%=====================================================================
-
-Collecting the five cycles, the precise content of the headline claim
-is
-
-\begin{center}
-\fbox{\parbox{0.9\linewidth}{
-\centering
-$\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$ is the canonical
-$\Ethree$-holomorphic factorisation algebra on $K3\times E$
-(pinned by Kontsevich--Tamarkin formality and the Calabi--Yau pairing,
-Lemma~\ref{lem:E3-structure});\\[0.3em]
-$\Sp_{K3,E}$ of it is $\fg_{\Delta_5}$ in $\Eone$-chiral-algebra-on-$E$ form
-(via Dunn--Lurie, closed-surface factorisation homology
-$\int_{K3}\Etwo\simeq\Einf$, and the Oberdieck--Pixton DT bridge,
-Propositions~\ref{prop:integrate-K3} and~\ref{prop:dictionary});\\[0.3em]
-sibling specialisations along $\Sigma_2^{(2)}, \Sigma_2^{\mathrm{Hum}}(D),
-\Sigma_2^{\mathrm{Fake}}$ produce the sibling BKMs
-$\fg^{(g_N)}_{\Delta_5}$ for $N\in\{2,3,4,6\}$, the Humbert
-paramodular lifts, and the Fake-Monster sector (conjectural)
-(Proposition~\ref{prop:sibling-N2} and Remark).
-}}
-\end{center}
-
-The claim
-$\Phi_3(\Perf(K3\times E)) = \fg_{\Delta_5}$
-is recovered as the composite $\Sp_{K3,E}\circ\Phi^{\mathrm{FA}}_3$
-applied to $\Perf(K3\times E)$; the two-stage reading is not a
-refinement of a slogan, it is the slogan's genuine content.
-
-%=====================================================================
-\subsection*{Claims and their status}
-%=====================================================================
-
-\begin{description}
-\item[\ClaimStatusTheorem] Lemma~\ref{lem:E3-structure}: the
-$\Ethree$-structure on $\Phi^{\mathrm{FA}}_3(\Perf(X))$ at the local
-toric limit (Costello--Li 2016) and under Kontsevich--Tamarkin
-formality plus the CY pairing. The local piece is a theorem; the
-Costello--Gwilliam Vol~2 locality glueing to compact $K3\times E$ is
-also a theorem.
-
-\item[\ClaimStatusTheorem] Proposition~\ref{prop:integrate-K3}: the
-$\int_{K3}$-collapse as a consequence of Dunn--Lurie additivity and
-Lurie HA 5.5.3.6. This is a genuine theorem of higher-algebraic
-factorisation homology.
-
-\item[\ClaimStatusTheorem] Theorem~\ref{thm:lorgat-two-stage}:
-$\fg_{\Delta_5}=\Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(\Perf(K3\times E)))$
-at the character level, via the Oberdieck--Pixton Igusa cusp form
-identity $Z^X_{\mathrm{DT}}=C/\Phi_{10}$
-(Oberdieck--Pixton 2018 Thm.~A) and Lorgat 2020 Thm.~3
-(Borcherds--Gritsenko--Nikulin denominator for $\Delta_5$). Object-level
-identification uses the Borcherds 1995 Weyl-character rigidity theorem
-for BKMs.
-
-\item[\ClaimStatusDerivation] Proposition~\ref{prop:dictionary}:
-the Lorgat-to-Sp dictionary. The root-system and denominator rows are
-rigorous; the imaginary-root-multiplicity row uses the Feynman-expansion
-identification of chain-level BV-Chevalley--Eilenberg dimensions with
-Fourier--Jacobi coefficients of $\phi_{0,1}$, which is derivable but
-requires the Costello--Li expansion on the tri-disk to be written out
-in full (reserved for a dedicated chain-level computation).
-
-\item[\ClaimStatusDerivation] Proposition~\ref{prop:sibling-N2}:
-the $N=2$ sibling BKM. The Oberdieck 2017 CHL reduced DT computation
-supplies the chain-level witness; the chain $\Sigma_2^{(2)}$ is
-derivable but has not been written out explicitly for the
-Niemeier-style $8$-fixed-points configuration.
-
-\item[\ClaimStatusConjectured] The Humbert-surface and Niemeier-fixed-locus
-siblings (Remark on further siblings). The explicit identification of
-$\Sigma_2^{\mathrm{Fake}}$ inside $K3\times E$ and of the Humbert
-surfaces as pullbacks along isogenies remains open.
-\end{description}
-
-%=====================================================================
-\subsection*{Primary sources consulted}
-%=====================================================================
+\subsection*{References}
 
 \begin{itemize}[leftmargin=1.5em]
-\item Lorgat 2020 (primary source): \emph{A Borcherds lift of the weak
- Jacobi form $\phi_{0,1}$, generalized Borcherds--Kac--Moody
- superalgebras and the Igusa cusp form $\Delta_5$}. Full paper
- (notes/wave13\_source\_paper.txt) + slides
- (notes/wave13\_source\_slides.txt) read in full. Theorem 3: denominator
- identity $\tfrac{1}{64}\Delta_5(2Z) = \Phi(z)$; Theorem 4:
- product formula via $\phi_{0,1}$; Conjecture 1: eight
- diagonal-divisor paramodular forms.
-\item Borcherds 1998 \emph{Invent. Math.} 132: singular theta
- correspondence; Thm. 13.3 gives the weight formula
- $\mathrm{wt}(\Phi) = c_0(0)/2$.
-\item Gritsenko--Nikulin 1995 (arXiv:alg-geom/9504006), Part~II:
- $\Delta^{(N)}_{k(N)}$-tower at weights $(5,2,1,1,1)$ for
- $N\in\{1,2,3,4,6\}$.
-\item Costello--Gwilliam Vol~2, \S5.6 (factorisation envelope),
- \S10--11 (locality and gluing); precisely the side-by-side this
- note derives against.
-\item Costello--Li 2016 arXiv:1605.01473: holomorphic Chern--Simons on
- $\mathbb C^3$; the $5d$ hCS Feynman expansion producing
- $Y^+(\widehat{\fgl}_1) \simeq \cW_{1+\infty}$ at the local toric
- limit.
-\item Lurie HA (\emph{Higher Algebra}) Ch. 5, esp. Thm. 5.1.2.2
- (Dunn--Lurie additivity) and 5.5.3.6 (closed-surface $\Etwo$-integrands
- are $\Einf$).
-\item Francis 2013 arXiv:1211.5619: factorisation homology of
- $\En$-algebras on framed manifolds.
-\item Oberdieck--Pixton 2018 \emph{Duke} 168:1543: Igusa cusp form
- conjecture $Z^{K3\times E}_{\mathrm{DT}} = C/\Phi_{10}$.
-\item Oberdieck 2017 (arXiv:1706.07469): reduced DT for CHL orbifolds
- $[K3\times E/\mathbb Z_N]$, $N\in\{2,3,4,6\}$.
-\item Mukai 1988 \emph{Invent. Math.} 94, Thm. 1.1: symplectic K3
- automorphism classification, $g_N$-fixed-locus Euler characteristics.
-\item Kontsevich 2003 deformation quantisation; Kontsevich--Tamarkin
- $\Etwo$-formality of Hochschild cochains.
+\item Lorgat 2020, \emph{A Borcherds lift of the weak Jacobi form
+ \(\phi_{0,1}\), generalized Borcherds--Kac--Moody superalgebras and
+ the Igusa cusp form \(\Delta_5\)}: Theorem 3 gives
+ \(\frac{1}{64}\Delta_5(2Z)=\Phi(z)\); Theorem 4 gives the product
+ expansion through \(\phi_{0,1}\).
+\item Borcherds 1998, \emph{Automorphic forms with singularities on
+ Grassmannians}: the singular theta product has weight \(c(0)/2\).
+\item Gritsenko--Nikulin 1995, Part II: the CHL denominator ladder with
+ weights \(k(N)=(5,4,3,2,1)\) for \(N\in\{1,2,3,4,6\}\).
+\item Costello--Gwilliam, \emph{Factorization Algebras in Quantum Field
+ Theory}, Vol. 2: factorisation envelopes and locality for observables.
+\item Costello--Li 2016: holomorphic Chern--Simons and the local
+ \(d=3\) BV model.
+\item Lurie, \emph{Higher Algebra}, Ch. 5: Dunn additivity and
+ factorisation homology.
+\item Francis 2013: factorisation homology of \(\mathsf E_n\)-algebras.
+\item Oberdieck--Pixton 2018: the \(K3\times E\) reduced DT/Igusa cusp
+ form identity.
 \end{itemize}
-
-%=====================================================================
-\subsection*{Cache refinements}
-%=====================================================================
-
-This note refines, rather than adds to, the live AP-CY catalogue:
-
-\begin{itemize}[leftmargin=1.5em]
-\item \textbf{Refinement of AP-CY33 (six-route conflation).} The six
-routes to $G(K3\times E)$ are enumerated in Wave 12 A2; the two-stage
-reading interprets them as six different specialisation cycles
-$\Sigma_2 \in \mathrm{Cyc}_2(K3\times E)$ of one $\Phi^{\mathrm{FA}}_3$.
-The Wave 13 sibling catalogue extends this by the $N=2$ Oberdieck CHL
-cycle (explicit) and two conjectural siblings (Humbert, Fake-Monster).
-The pattern is: one Stage-1 object, many Stage-2 cycles; siblings are
-the shape of $\mathrm{Cyc}_2$-moduli.
-
-\item \textbf{Refinement of AP273 ($\Phi$-functor scope).} The
-object-level identification
-$\fg_{\Delta_5}=\Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(\Perf(K3\times E)))$ is
-a Stage-2-specific statement, not a universal property of
-$\Phi^{\mathrm{FA}}_3$. Different $\Sigma_2$ give different BKMs; the
-common input is the uniform Stage-1 object.
-
-\item \textbf{Refinement of top-15 KEY FACT item 6 (Borcherds weight
-identity).} The universal identity $\kBKM(\Phi_N) = c_N(0)/2$ is a
-Stage-2-invariant identity: it reads off the Borcherds weight of the
-Stage-2 specialisation, not a property of Stage 1. The
-additive decomposition
-$\kBKM = \kch+\chi(\cO_{\mathrm{fib}})$ fails at every $N$ precisely
-because $\kch$ is a Stage-1 invariant (Hodge supertrace on the total
-space, K\"unneth-multiplicative) while $\kBKM$ is a Stage-2 invariant
-(Borcherds-lift weight attached to the cycle).
-\end{itemize}
-
-No new AP-CY entries are needed; the existing discipline catches the
-patterns when the two-stage reading is applied.

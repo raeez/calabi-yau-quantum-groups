@@ -722,7 +722,7 @@ class TestMultiPathVerification:
         """Route 1: kappa spectrum values from their definitions.
 
         compact kappa_ch = 0; kappa_ch_Heis = 3
-        kappa_BKM = 5 (weight of Igusa cusp form Delta_5)
+        kappa_BKM = 5 (weight of primitive Gritsenko-Nikulin denominator Delta_5)
         kappa_cat = 0 (= chi(O_{K3 x E}))
         kappa_cat_fiber = 2 (= chi(O_{K3}))
         kappa_fiber = 24 (Mukai lattice rank = rk(H^*(K3, Z)))

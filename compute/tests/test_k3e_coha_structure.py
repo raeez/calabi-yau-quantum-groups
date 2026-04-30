@@ -3,7 +3,7 @@ Tests for the E1-chiral algebra structure of CoHA(K3 x E).
 
 Verifies:
     1. Charge lattice and root data: D = 4rm - l^2, known c(D) values
-    2. CoHA dimensions: |c(D)| from phi_{0,1} discriminant coefficients
+    2. Signed-character magnitudes: |c(D)| from phi_{0,1} discriminant coefficients
     3. Root type classification: real/bosonic/fermionic
     4. Rank-sector generating functions: rank-0 = 1/eta^{24}
     5. E1 structure function: CY condition, involution g(z)g(-z)=1
@@ -18,7 +18,7 @@ Verifies:
 Ground truth:
     - Eichler-Zagier (1985): phi_{0,1} coefficients
     - DMVV (1997): second-quantized K3 partition function
-    - Gritsenko-Nikulin (1996): BKM root multiplicities
+    - Gritsenko-Nikulin (1996): BKM signed root characters
     - Maulik-Okounkov (2012): R-matrix and stable envelopes
     - Oberdieck-Pixton (2019): DT invariants of K3 x E
     - Gottsche (1990): chi(Hilb^n(K3))
@@ -36,8 +36,10 @@ from fractions import Fraction
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+import lib.k3e_coha_structure as k3e
 from lib.k3e_coha_structure import (
     # Root data
+    CoHAParityFixture,
     discriminant,
     root_multiplicity,
     is_real_root,
@@ -47,10 +49,12 @@ from lib.k3e_coha_structure import (
     GRAM_MATRIX,
     CHI_K3,
     B2_K3,
-    # CoHA dimensions
+    # CoHA dimensions and coefficient statistics
     coha_dimension,
-    coha_dimension_table,
-    total_coha_dimension_by_degree,
+    signed_character_coefficient,
+    signed_character_magnitude,
+    signed_character_magnitude_table,
+    total_signed_character_magnitude_by_degree,
     # Generating functions
     rank0_generating_function,
     rank1_generating_function,
@@ -77,8 +81,8 @@ from lib.k3e_coha_structure import (
     mo_r_matrix_rank1,
     verify_yang_baxter_rank1,
     # Verification
-    coha_as_bkm_positive_half,
-    verify_coha_dim_vs_phi01,
+    bkm_positive_half_signed_character_data,
+    verify_signed_character_vs_phi01,
     # Super-character
     super_character_by_degree,
     super_character_diagonal,
@@ -157,7 +161,7 @@ class TestChargeLattice:
 # =========================================================================
 
 class TestRootMultiplicities:
-    """Root mult = c(D) from phi_{0,1} discriminant coefficients."""
+    """Legacy API returns signed root-character coefficients c(D)."""
 
     @pytest.mark.parametrize("D,expected", list(KNOWN_C_DISC.items()))
     def test_known_c_disc(self, D, expected):
@@ -166,24 +170,29 @@ class TestRootMultiplicities:
         assert c_disc.get(D, 0) == expected, f"c({D}) = {c_disc.get(D, 0)}, expected {expected}"
 
     def test_c_neg1_is_1(self):
-        """c(-1) = 1: the real root has multiplicity 1."""
+        """c(-1) = 1: the real root has signed character 1."""
         # VERIFIED [DC] structural property [LT] Beauville83
-        assert root_multiplicity(0, 1, 0) == 1
+        assert signed_character_coefficient(0, 1, 0) == 1
 
     def test_c_0_is_10(self):
         """c(0) = 10: first imaginary root layer."""
         # VERIFIED [DC] structural property [LT] Beauville83
-        assert root_multiplicity(1, 2, 1) == 10  # D = 4 - 4 = 0
+        assert signed_character_coefficient(1, 2, 1) == 10  # D = 4 - 4 = 0
 
     def test_c_3_is_neg64(self):
         """c(3) = -64: first fermionic root."""
         # VERIFIED [DC] structural property [LT] Beauville83
-        assert root_multiplicity(1, 1, 1) == -64  # D = 4 - 1 = 3
+        assert signed_character_coefficient(1, 1, 1) == -64  # D = 4 - 1 = 3
 
     def test_c_4_is_108(self):
         """c(4) = 108."""
         # VERIFIED [DC] structural property [LT] Beauville83
-        assert root_multiplicity(1, 0, 1) == 108  # D = 4
+        assert signed_character_coefficient(1, 0, 1) == 108  # D = 4
+
+    def test_legacy_root_multiplicity_warns(self):
+        """Legacy root_multiplicity warns because it is signed, not a dimension."""
+        with pytest.warns(DeprecationWarning):
+            assert root_multiplicity(1, 1, 1) == -64
 
     def test_root_type_real(self):
         """Real roots classified correctly."""
@@ -209,53 +218,67 @@ class TestRootMultiplicities:
 
 
 # =========================================================================
-# 3. CoHA DIMENSIONS
+# 3. SIGNED-CHARACTER MAGNITUDES AND PARITY FIXTURES
 # =========================================================================
 
-class TestCoHADimensions:
-    """dim CoHA_gamma = |c(4rm - l^2)|."""
+class TestSignedCharacterMagnitudes:
+    """The executable |c(D)| statistic is not promoted to a CoHA dimension."""
 
-    def test_coha_dim_real_root(self):
-        """Real root: dim = |c(-1)| = 1."""
-        # VERIFIED [DC] dimension count [LT] Beauville83
-        assert coha_dimension(0, 1, 0) == 1
+    def test_magnitude_real_root(self):
+        """Real root: |c(-1)| = 1."""
+        # VERIFIED [DC] coefficient statistic [LT] Beauville83
+        assert signed_character_magnitude(0, 1, 0) == 1
 
-    def test_coha_dim_first_imaginary(self):
-        """First imaginary: dim = |c(0)| = 10."""
-        # VERIFIED [DC] dimension count [LT] Beauville83
-        assert coha_dimension(1, 2, 1) == 10
+    def test_magnitude_first_imaginary(self):
+        """First imaginary: |c(0)| = 10."""
+        # VERIFIED [DC] coefficient statistic [LT] Beauville83
+        assert signed_character_magnitude(1, 2, 1) == 10
 
-    def test_coha_dim_fermionic(self):
-        """Fermionic root: dim = |c(3)| = 64 (absolute value!)."""
-        # VERIFIED [DC] dimension count [LT] Beauville83
-        assert coha_dimension(1, 1, 1) == 64
+    def test_magnitude_fermionic(self):
+        """Fermionic root: |c(3)| = 64."""
+        # VERIFIED [DC] coefficient statistic [LT] Beauville83
+        assert signed_character_magnitude(1, 1, 1) == 64
 
-    def test_coha_dim_D4(self):
-        """D = 4: dim = |c(4)| = 108."""
-        # VERIFIED [DC] dimension count [LT] Beauville83
-        assert coha_dimension(1, 0, 1) == 108
+    def test_magnitude_D4(self):
+        """D = 4: |c(4)| = 108."""
+        # VERIFIED [DC] coefficient statistic [LT] Beauville83
+        assert signed_character_magnitude(1, 0, 1) == 108
 
-    def test_coha_dim_table_nonempty(self):
-        """The CoHA dimension table has entries."""
-        table = coha_dimension_table(2, 3, 2)
-        # VERIFIED [DC] CoHA structure [LT] Beauville83
+    def test_magnitude_table_nonempty(self):
+        """The signed-character magnitude table has entries."""
+        table = signed_character_magnitude_table(2, 3, 2)
+        # VERIFIED [DC] coefficient statistic [LT] Beauville83
         assert len(table) > 0
 
-    def test_coha_dim_table_all_positive(self):
-        """All CoHA dimensions are positive (absolute values)."""
-        table = coha_dimension_table(2, 3, 2)
-        for gamma, dim_val in table.items():
-            # VERIFIED [DC] dimension count [LT] Beauville83
-            assert dim_val > 0, f"dim CoHA_{gamma} = {dim_val} <= 0"
+    def test_magnitude_table_all_positive(self):
+        """All stored magnitudes are positive."""
+        table = signed_character_magnitude_table(2, 3, 2)
+        for gamma, magnitude in table.items():
+            # VERIFIED [DC] coefficient statistic [LT] Beauville83
+            assert magnitude > 0, f"|c(D)| at {gamma} = {magnitude} <= 0"
 
-    def test_total_dim_degree1(self):
-        """Total CoHA dimension at degree 1."""
-        totals = total_coha_dimension_by_degree(1)
+    def test_total_magnitude_degree1(self):
+        """Total signed-character magnitude at degree 1."""
+        totals = total_signed_character_magnitude_by_degree(1)
         # At N = 1: (r,m) = (0,1) or (1,0).
-        # (0,1): l can be 0 (D=0, c=10) or +/-1 (D=-1, c=1). Total: 10 + 1 + 1 = 12.
-        # (1,0): l can be 0 (D=0, c=10) or +/-1 (D=-1, c=1). Total: 10 + 1 + 1 = 12.
-        # VERIFIED [DC] dimension count [LT] Beauville83
-        assert totals[1] == 24, f"Total dim at N=1: {totals[1]}"
+        # (0,1): l = 0 gives c(0)=10 and l=+/-1 gives c(-1)=1.
+        # (1,0): the same contribution appears. Total |c(D)| is 24.
+        # VERIFIED [DC] coefficient statistic [LT] Beauville83
+        assert totals[1] == 24, f"Total magnitude at N=1: {totals[1]}"
+
+    def test_coha_dimension_requires_parity_fixture(self):
+        """A local CoHA dimension is not inferred from |c(D)|."""
+        with pytest.raises(ValueError, match="parity fixture"):
+            coha_dimension(1, 1, 1)
+
+    def test_coha_dimension_from_parity_fixture(self):
+        """A sourced parity fixture can produce an ordinary dimension."""
+        fixture = CoHAParityFixture(
+            even_dim=0,
+            odd_dim=64,
+            source="finite test fixture recognizing the c(3) odd sector",
+        )
+        assert coha_dimension(1, 1, 1, parity_fixture=fixture) == 64
 
 
 # =========================================================================
@@ -528,10 +551,10 @@ class TestPlethysticLog:
             # VERIFIED [DC] structural property [LT] Beauville83
             assert pl[n] == 24, f"PL[n={n}] = {pl[n]}, expected 24"
 
-    def test_pl_rank0_means_free(self):
-        """24 generators means the rank-0 CoHA is freely generated by 24 variables."""
+    def test_pl_rank0_records_protected_character_fixture(self):
+        """The rank-0 sanity fixture has protected-character value 24."""
         pl = plethystic_log_k3e(5)
-        # This reflects chi(K3) = 24 free bosonic generators
+        # This reflects the chosen even-cohomology fixture with signed value chi(K3).
         assert all(pl[n] == CHI_K3 for n in range(1, 6))
 
     def test_pl_full_at_01(self):
@@ -640,14 +663,59 @@ class TestCrossVerification:
     """Multiple independent paths to c(D) all agree."""
 
     def test_3path_verification(self):
-        """Path 1 (disc table) = Path 2 (root_multiplicity function)."""
-        result = verify_coha_dim_vs_phi01(4)
+        """Discriminant table, signed-character API, and source constants agree."""
+        result = verify_signed_character_vs_phi01(4)
         assert result['all_match'], "Cross-verification failed"
         # VERIFIED [DC] structural property [LT] Beauville83
         assert result['n_checks'] > 10, f"Only {result['n_checks']} checks"
+        assert result['path_sources'] == (
+            'phi01_by_discriminant',
+            'phi01_coefficient',
+            'KNOWN_C_DISC',
+        )
+        assert result['api_checked'] == 'signed_character_coefficient'
+        assert all('path3' in check for check in result['checks'])
 
-    def test_coha_dim_vs_bkm_root(self):
-        """CoHA dimension = |BKM root multiplicity| at each charge."""
+    def test_path3_source_constants_are_not_path1_alias(self, monkeypatch):
+        """The third verification path survives a corrupted path-1 table."""
+        original_known = dict(k3e.KNOWN_C_DISC)
+
+        def fake_phi01_by_discriminant(max_n):
+            del max_n
+            fake = dict(original_known)
+            fake[3] = 999
+            return fake
+
+        monkeypatch.setattr(k3e, 'phi01_by_discriminant', fake_phi01_by_discriminant)
+        result = k3e.verify_signed_character_vs_phi01(2)
+        d3_checks = [check for check in result['checks'] if check['D'] == 3]
+        assert d3_checks
+        assert any(check['path1'] != check['path3'] for check in d3_checks)
+        assert all(check['path2'] == original_known[3] for check in d3_checks)
+        assert all(check['path3'] == original_known[3] for check in d3_checks)
+        assert not result['all_match']
+
+    def test_path1_zero_deletion_is_not_skipped(self, monkeypatch):
+        """A missing known discriminant in path 1 remains a failed check."""
+        original_known = dict(k3e.KNOWN_C_DISC)
+
+        def fake_phi01_by_discriminant(max_n):
+            del max_n
+            fake = dict(original_known)
+            fake.pop(3)
+            return fake
+
+        monkeypatch.setattr(k3e, 'phi01_by_discriminant', fake_phi01_by_discriminant)
+        result = k3e.verify_signed_character_vs_phi01(2)
+        d3_checks = [check for check in result['checks'] if check['D'] == 3]
+        assert d3_checks
+        assert any(check['path1'] == 0 for check in d3_checks)
+        assert all(check['path2'] == original_known[3] for check in d3_checks)
+        assert all(check['path3'] == original_known[3] for check in d3_checks)
+        assert not result['all_match']
+
+    def test_signed_magnitude_vs_bkm_root(self):
+        """The unsigned statistic equals |BKM signed coefficient|."""
         c_disc = phi01_by_discriminant(20)
         for r in range(3):
             for m in range(3):
@@ -658,9 +726,9 @@ class TestCrossVerification:
                     if D < -1:
                         continue
                     cD = c_disc.get(D, 0)
-                    dim_coha = coha_dimension(r, l, m)
-                    assert dim_coha == abs(cD), (
-                        f"dim CoHA_{(r,l,m)} = {dim_coha} != |c({D})| = {abs(cD)}"
+                    magnitude = signed_character_magnitude(r, l, m)
+                    assert magnitude == abs(cD), (
+                        f"|c(D)| at {(r,l,m)} = {magnitude} != |c({D})| = {abs(cD)}"
                     )
 
 
@@ -677,7 +745,7 @@ class TestSuperCharacter:
         # At N=1: (r=0,m=1) + (r=1,m=0). Each contributes sum_l c(-l^2).
         # Each sum = c(0) + 2*c(-1) = 10 + 2 = 12.
         # Total = 24.
-        # VERIFIED [DC] dimension count [LT] Beauville83
+        # VERIFIED [DC] signed-character count [LT] Beauville83
         assert sc[1] == 24, f"sdim at N=1 = {sc[1]}, expected 24"
 
     def test_super_char_diagonal_vanishing(self):
@@ -696,24 +764,24 @@ class TestSuperCharacter:
 # =========================================================================
 
 class TestBKMPositiveHalf:
-    """CoHA = U(n_+) of g_{Delta_5} verification."""
+    """BKM positive-half signed-character data."""
 
     def test_roots_at_degree1(self):
         """At degree 1, there are roots."""
-        data = coha_as_bkm_positive_half(1)
+        data = bkm_positive_half_signed_character_data(1)
         assert 1 in data
         # VERIFIED [DC] structural property [LT] Beauville83
         assert data[1]['n_roots'] > 0
 
-    def test_total_mult_degree1(self):
-        """Total multiplicity at degree 1 = 24."""
-        data = coha_as_bkm_positive_half(1)
+    def test_total_magnitude_degree1(self):
+        """Total signed-character magnitude at degree 1 = 24."""
+        data = bkm_positive_half_signed_character_data(1)
         # VERIFIED [DC] structural property [LT] Beauville83
-        assert data[1]['total_mult'] == 24
+        assert data[1]['total_signed_character_magnitude'] == 24
 
     def test_has_fermionic_at_degree2(self):
         """Fermionic roots appear starting at degree 2."""
-        data = coha_as_bkm_positive_half(2)
+        data = bkm_positive_half_signed_character_data(2)
         # VERIFIED [DC] structural property [LT] Beauville83
         assert data[2]['n_fermionic'] > 0
 
@@ -728,7 +796,8 @@ class TestSummary:
     def test_summary_runs(self):
         """The summary function completes without error."""
         summary = coha_k3e_summary(3)
-        assert 'coha_dimensions' in summary
+        assert 'signed_character_magnitudes' in summary
+        assert 'dimension_caveat' in summary
         assert 'root_decomposition' in summary
         assert 'cross_verification' in summary
 
@@ -743,7 +812,7 @@ class TestSummary:
         assert summary['row_sum_vanishing']
 
     def test_summary_identification_algebra(self):
-        """The identification is with g_{Delta_5}."""
+        """Summary records the signed-character BKM target label."""
         summary = coha_k3e_summary(2)
         assert 'g_{Delta_5}' in summary['identification']['algebra']
 
@@ -793,12 +862,13 @@ class TestConsistency:
         # VERIFIED [DC] structural property [LT] Beauville83
         assert sum(spec.values()) == 12
 
-    def test_degree_N_total_dim_growth(self):
-        """Total CoHA dimension grows with degree."""
-        totals = total_coha_dimension_by_degree(5)
+    def test_degree_N_total_magnitude_growth(self):
+        """The finite |c(D)| statistic grows with degree."""
+        totals = total_signed_character_magnitude_by_degree(5)
         for N in range(2, 6):
             assert totals[N] > totals[N - 1], (
-                f"dim at N={N} ({totals[N]}) <= dim at N={N-1} ({totals[N-1]})"
+                f"|c(D)| total at N={N} ({totals[N]}) <= "
+                f"N={N-1} total ({totals[N-1]})"
             )
 
     def test_discriminant_formula_matches_phi01(self):
@@ -811,8 +881,8 @@ class TestConsistency:
                 if D < -1:
                     continue
                 cD_phi01 = c_disc.get(D, 0)
-                cD_coha = root_multiplicity(1, l, n)
+                cD_coha = signed_character_coefficient(1, l, n)
                 assert cD_phi01 == cD_coha, (
                     f"Mismatch at (1, {l}, {n}): phi01 gives {cD_phi01}, "
-                    f"root_mult gives {cD_coha}"
+                    f"signed_character gives {cD_coha}"
                 )

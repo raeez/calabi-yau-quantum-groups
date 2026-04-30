@@ -1,11 +1,3 @@
-% Wave-17 C3/20 — Positive half of C^3/Z_3 via McKay quiver and the
-% compatibility with local P^2 under Bridgeland–King–Reid.
-% Primary sources: Bridgeland–King–Reid 2001 (J. Amer. Math. Soc. 14, 535–554,
-% arXiv:math/9908027); Beasley–Plesser 2001 (JHEP 0104:008, hep-th/0104100);
-% King 1994 (Quart. J. Math. 45, 515–530); Craw–Ishii 2004 (Duke Math. J. 124,
-% 259–307, arXiv:math/0211360); Nakajima–Yoshioka 2005; Szendroi 2008 noncommutative
-% conifold and the Z_3 orbifold DT story.
-
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
@@ -19,141 +11,195 @@
 \providecommand{\coh}{\mathrm{coh}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Jac}{\mathrm{Jac}}
+\providecommand{\GL}{\mathrm{GL}}
 
 \section*{McKay quiver of $\CC^{3}/\ZZ_{3}$ and the positive half of local $\PP^{2}$}
 
-\subsection*{Attack--heal 1: the quiver}
+\subsection*{The McKay quiver}
 
 Let $\ZZ_{3} = \langle \zeta \rangle$ act on $\CC^{3}$ by
-$\zeta \cdot (x_{1},x_{2},x_{3}) = (\zeta x_{1}, \zeta x_{2}, \zeta x_{3})$,
-$\zeta = e^{2\pi i/3}$. The action is diagonal with the same weight on
-every coordinate, so the canonical class $\omega_{\CC^{3}} = dx_{1}\wedge
-dx_{2}\wedge dx_{3}$ transforms by $\zeta^{3}=1$: the quotient is
-Gorenstein Calabi--Yau of dimension three. Naively one writes down the
-quiver with three vertices $i \in \ZZ_{3}$ (one per irreducible
-character $\rho_{i}$) and three arrows per pair, and the resulting
-path algebra sees no obstruction to being the right homological model.
-\textbf{Flaw.} A bare path algebra on this quiver has Hochschild
-dimension one; it cannot model a three-dimensional Calabi--Yau
-singularity, whose NCCR is necessarily $3$-Calabi--Yau in the sense of
-Ginzburg. \textbf{Heal} (King 1994; Ginzburg 2006, arXiv:math/0612139).
-The McKay quiver $Q$ of $(\CC^{3},\ZZ_{3})$ has vertex set
-$Q_{0} = \{0,1,2\}$ and three arrows
-$a_{j}^{(i)}: i \to i+1 \pmod{3}$, $j \in \{1,2,3\}$, one per coordinate
-$x_{j}$; the adjacency encodes
-$\CC^{3}\otimes\rho_{i} = \rho_{i+1}^{\oplus 3}$. Ginzburg's construction
-demands a cubic superpotential to lift $\CC Q$ to a $3$-CY dg-algebra.
-
-\subsection*{Attack--heal 2: the superpotential}
-
-A first guess is $W = \sum_{i} a_{1}^{(i+2)}a_{2}^{(i+1)}a_{3}^{(i)}$.
-\textbf{Flaw.} This is not cyclically symmetric under the $S_{3}$
-permutation of coordinate labels; the Jacobi relations
-$\partial_{a} W = 0$ would pick out an ordered triple and break the
-$\mathrm{SL}(3,\CC)$-covariance that the Calabi--Yau structure on
-$\CC^{3}$ enjoys. \textbf{Heal} (Beasley--Plesser 2001, hep-th/0104100;
-Feng--Hanany--He 2001, hep-th/0104259; Cachazo--Katz--Vafa 2001).
-Totally antisymmetrise:
 \[
-  W \;=\; \sum_{i\in\ZZ_{3}} \;\sum_{(j,k,l)\in S_{3}}
-    \mathrm{sgn}(jkl)\, a_{k}^{(i+2)}\, a_{j}^{(i+1)}\, a_{l}^{(i)}
-  \;=\; \sum_{i\in\ZZ_{3}}
-    \epsilon^{jkl}\, a_{k}^{(i+2)}\, a_{j}^{(i+1)}\, a_{l}^{(i)} .
+  \zeta \cdot (x_{1},x_{2},x_{3})
+  =(\zeta x_{1},\zeta x_{2},\zeta x_{3}),
+  \qquad \zeta=e^{2\pi i/3}.
 \]
-The Jacobian relations
-$[a_{j}^{(i+1)}, a_{k}^{(i)}]_{\epsilon} := \epsilon^{jkl} a_{l}^{(i+1)}
-a_{k}^{(i)} - \cdots = 0$ reproduce the commutation ideal defining
-$\CC[x_{1},x_{2},x_{3}]$ as a module over each vertex algebra, i.e.\
-$\Jac(Q,W) = \mathrm{End}_{\CC^{3}/\ZZ_{3}}(\bigoplus_{i}\rho_{i})$,
-the skew group algebra $\CC[\CC^{3}]\rtimes\ZZ_{3}$
+The canonical form
+$dx_{1}\wedge dx_{2}\wedge dx_{3}$ transforms by $\zeta^{3}=1$; hence
+$\CC^3/\ZZ_3$ is Gorenstein Calabi--Yau of dimension three. The quiver
+with vertices alone is too small: a bare path algebra has homological
+dimension one. The three-dimensional Calabi--Yau model is the Jacobian
+algebra of the McKay quiver with its cubic potential (King 1994;
+Ginzburg 2006, arXiv:math/0612139).
+
+The McKay quiver $Q$ of $(\CC^{3},\ZZ_{3})$ has vertex set
+$Q_{0}=\{0,1,2\}$ and three arrows
+\[
+  a_{j}^{(i)}: i\longrightarrow i+1 \pmod 3,
+  \qquad j\in\{1,2,3\}.
+\]
+The adjacency records
+$\CC^{3}\otimes\rho_i\simeq \rho_{i+1}^{\oplus 3}$ for the irreducible
+characters $\rho_i$ of $\ZZ_3$.
+
+\subsection*{The superpotential}
+
+A single ordered monomial breaks coordinate symmetry. The Calabi--Yau
+potential is the $\mathrm{SL}(3,\CC)$-covariant antisymmetrisation
+\[
+  W
+  =\sum_{i\in\ZZ_{3}}\sum_{j,k,l=1}^{3}
+    \epsilon^{jkl}\,
+    a_{k}^{(i+2)}a_{j}^{(i+1)}a_{l}^{(i)}
+\]
+The cyclic derivatives give the commutation relations among the three
+coordinate arrows:
+\[
+  \partial_{a_r^{(i)}}W
+  =
+  \sum_{j,k=1}^{3}\epsilon^{rjk}a_k^{(i+2)}a_j^{(i+1)}
+  =0 .
+\]
+Equivalently, after relabelling the source vertex,
+\[
+  a_p^{(i+1)}a_q^{(i)}=a_q^{(i+1)}a_p^{(i)}
+  \qquad (p,q\in\{1,2,3\}).
+\]
+Consequently
+\[
+  \Jac(Q,W)
+  \simeq \CC[x_1,x_2,x_3]\rtimes \ZZ_3 .
+\]
+Equivalently, this skew-group algebra is
+$\mathrm{End}_{\CC[x_1,x_2,x_3]^{\ZZ_3}}(T)$ for the McKay tilting
+module
+\[
+  T=\bigoplus_{i\in\ZZ_3}
+    \left(\CC[x_1,x_2,x_3]\otimes\rho_i\right)^{\ZZ_3},
+\]
+hence it is the NCCR of $\CC[x_1,x_2,x_3]^{\ZZ_3}$
 (Bocklandt 2008 Theorem~3.2, arXiv:math/0603558).
 
-\subsection*{Attack--heal 3: the CoHA as positive half}
+\subsection*{The CoHA positive half}
 
-\textbf{Attack.} Build $\CoHA(Q,W)$ by summing critical cohomology of
-the stack of representations of $(Q,W)$, graded by dimension vector
-$\mathbf{d}\in\ZZ_{\ge 0}^{3}$:
+For a dimension vector $\mathbf d=(d_0,d_1,d_2)$ put
+$G_{\mathbf d}=\prod_i\GL_{d_i}$. The critical CoHA of the Jacobian
+quiver is the Hall algebra over effective dimension vectors:
 \[
-  \CoHA(Q,W) \;=\; \bigoplus_{\mathbf{d}}
-    H^{\bullet,\mathrm{crit}}\!\bigl(\mathrm{Rep}(Q,\mathbf{d}),\,
-    \varphi_{\mathrm{Tr}\,W}\bigr) .
+  \mathcal{H}_{Q,W}
+  =
+  \bigoplus_{\mathbf{d}\in\ZZ_{\ge 0}^{3}}
+  H^{\bullet,\mathrm{crit}}_{G_{\mathbf d}}\!\left(
+    \mathrm{Rep}(Q,\mathbf{d}),
+    \varphi_{\mathrm{Tr}\,W}
+  \right).
 \]
-\textbf{Flaw.} The raw CoHA is doubled: Davison--Meinhardt 2015
-(arXiv:1512.08898) construct not only the positive piece but also a
-Cartan of BPS states graded by the orbifold Chern character. Writing
-$\CoHA(Q,W) = Y_{\CC^{3}/\ZZ_{3}}$ without further decomposition
-conflates the positive and negative halves of the BPS Lie algebra.
-\textbf{Heal} (Kontsevich--Soibelman 2011 arXiv:1006.2706; Davison
-2016 arXiv:1603.00416). The positive half is precisely the
-critical-cohomology piece generated by effective classes
-$\mathbf{d}\succeq 0$,
+The product is defined by the usual Hecke correspondence for short
+exact sequences of quiver representations, with vanishing cycles pulled
+through the trace of $W$.
+This is the positive Hall half attached to the orbifold effective cone:
 \[
-  \Ypos_{\CC^{3}/\ZZ_{3}} \;=\; \CoHA(Q,W)^{\succeq 0}
-    \;\subset\; \CoHA(Q,W) .
+  \Ypos_{\CC^{3}/\ZZ_{3}} := \mathcal{H}_{Q,W}.
 \]
-Under the coproduct this is a sub-bialgebra. The integrality conjecture
-(Kontsevich--Soibelman, proved by Davison--Meinhardt) identifies its
-graded dimensions with BPS invariants
-$\Omega(\mathbf{d})\in\ZZ_{\ge 0}[q^{\pm 1/2}]$ of the orbifold.
+A full quantum group requires a negative half, a Cartan part, a
+non-degenerate Hopf pairing, and a completed Drinfeld double. A
+$\mathcal{W}_{1+\infty}$-type object requires those double or centre
+data. The Kontsevich--Soibelman critical Hall product, together with
+the standard localized coproduct/completion, gives the positive BPS
+bialgebra (Kontsevich--Soibelman 2011, arXiv:1006.2706; Davison 2016,
+arXiv:1603.00416). Davison--Meinhardt integrality identifies the BPS
+cohomology whose graded dimensions are the orbifold invariants
+$\Omega(\mathbf{d})\in\ZZ_{\ge 0}[q^{\pm 1/2}]$.
 
-\subsection*{Attack--heal 4: BKR and the equivalence}
+The ambient Calabi--Yau dimension is three. The $\Phi$-side object
+therefore has $E_1$-chiral scope. Braided $E_2$ structure enters through
+the Drinfeld centre of the $E_1$ representation category on constructed
+loci.
 
-\textbf{Attack.} The singular quotient $\CC^{3}/\ZZ_{3}$ admits a
-crepant resolution $Y \to \CC^{3}/\ZZ_{3}$ by blowing up the origin;
-identify $Y = K_{\PP^{2}}$ (total space of the canonical bundle of
-$\PP^{2}$) and declare $\Db(\coh\,Y) \simeq \Db(A_{Q})$.
-\textbf{Flaw.} Existence of a crepant resolution does not produce an
-equivalence of derived categories; the Fourier--Mukai kernel must be
-constructed. For a generic abelian $G\subset\mathrm{SL}(3,\CC)$ no such
-equivalence was available before 2001. \textbf{Heal}
+\subsection*{The Bridgeland--King--Reid equivalence}
+
+The quotient $\CC^3/\ZZ_3$ has a crepant resolution
+$Y\to \CC^3/\ZZ_3$, and here $Y=K_{\PP^2}$ is the total space of the
+canonical bundle of $\PP^2$. Bridgeland--King--Reid supplies the
+categorical equivalence. For
+$G=\ZZ_3\subset\mathrm{SL}(3,\CC)$, the $G$-Hilbert scheme
+$\GHilb(\CC^3)$ is a crepant resolution and its universal family
+$\mathcal{Z}\subset \GHilb(\CC^3)\times\CC^3$ gives the Fourier--Mukai
+kernel
+\[
+  \Phi_{\mathrm{BKR}}:
+  \Db(\coh\,\GHilb_{\ZZ_3}(\CC^3))
+  \xrightarrow{\ \simeq\ }
+  \Db_{\ZZ_3}(\coh\,\CC^3)
+  =
+  \Db\!\left((\CC[x_1,x_2,x_3]\rtimes\ZZ_3)\text{-}\mathrm{mod}\right)
+\]
 (Bridgeland--King--Reid 2001, arXiv:math/9908027, Theorem~1.2). The
-$G$-Hilbert scheme $\GHilb(\CC^{3})$ is a crepant resolution, and the
-universal family $\mathcal{Z}\subset \GHilb(\CC^{3})\times \CC^{3}$
-provides a Fourier--Mukai kernel
+identification $\GHilb_{\ZZ_3}(\CC^3)=K_{\PP^2}$ is Ito--Nakajima 1999
+(arXiv:math/9803120), hence
 \[
-  \Phi_{\mathrm{BKR}} \;:\; \Db(\GHilb(\CC^{3}))
-    \xrightarrow{\;\simeq\;} \Db_{\ZZ_{3}}(\CC^{3})
-    = \Db\bigl(\CC[x_{1},x_{2},x_{3}]\rtimes\ZZ_{3}\bigr) .
+  \Db(\coh K_{\PP^2}) \simeq \Db(A_Q\text{-}\mathrm{mod}),
+  \qquad A_Q=\Jac(Q,W).
 \]
-The identification $\GHilb_{\ZZ_{3}}(\CC^{3}) = K_{\PP^{2}}$ is
-Ito--Nakajima 1999 (arXiv:math/9803120); together with BKR this gives
-$\Db(\coh K_{\PP^{2}}) \simeq \Db(A_{Q})$ where $A_{Q} = \Jac(Q,W)$.
 
-\subsection*{Attack--heal 5: compatibility with local $\PP^{2}$}
+\subsection*{Compatibility with local $\PP^{2}$}
 
-\textbf{Attack.} From Wave-17 C2 one reads off
-$\Ypos(K_{\PP^{2}})$ from ADHM / instanton geometry on $\PP^{2}$; the
-present quiver construction reads off $\Ypos_{\CC^{3}/\ZZ_{3}}$ from
-McKay; assert these agree on the nose. \textbf{Flaw.} BKR is an
-equivalence of bounded derived categories of coherent sheaves; it does
-not a priori respect the critical-cohomology grading, the vanishing
-cycle functor, or the Davison--Meinhardt positive-cone decomposition
-that enters the CoHA definition. \textbf{Heal} (Szendroi 2008
-arXiv:0705.3419 for the conifold; Nagao--Nakajima 2011 arXiv:0809.2992
-and Davison 2013 arXiv:1311.7172 for the $\ZZ_{n}$ orbifolds).
-BKR lifts to an equivalence of $3$-Calabi--Yau dg-categories
-preserving the shifted symplectic structure (Brav--Bussi--Dupont--Joyce--Meinhardt
-2015 arXiv:1504.00690); the vanishing cycle sheaves
-$\varphi_{\mathrm{Tr}\,W}$ and $\varphi_{\mathrm{Chern--Simons}_{K_{\PP^{2}}}}$
-are identified as perverse sheaves on the matched moduli stacks. Hence
+BKR identifies the derived categories. The CoHA comparison also needs
+the induced identification of moduli stacks, effective cones,
+orientation data, vanishing cycles, and Hall correspondences. For a
+stability chamber $\theta$ on $K_{\PP^2}$ and the corresponding orbifold
+chamber $\theta'$, the oriented crepant-resolution/NCCR comparison gives
+the chamberwise positive-half equivalence
 \[
-  \Ypos(K_{\PP^{2}}) \;=\; \Ypos_{\CC^{3}/\ZZ_{3}} ,
+  \Ypos(K_{\PP^2},\theta)
+  \simeq_{E_1}
+  \Ypos_{\CC^3/\ZZ_3,\theta'} .
 \]
-with graded character
-$\mathrm{ch}\,\Ypos = \prod_{\mathbf{d}\succ 0}
-(1-q^{\mathbf{d}})^{-\Omega(\mathbf{d})}$,
-matching the Nakajima--Yoshioka local $\PP^{2}$ partition function
-(Nakajima--Yoshioka 2005, arXiv:math/0505553) chamber-by-chamber via
-Craw--Ishii 2004 (arXiv:math/0211360) GIT variation.
+The chamber dependence is the Craw--Ishii variation of GIT stability,
+and the DT wall-crossing statement is the $\ZZ_n$-orbifold comparison
+of Nagao--Nakajima and Davison (Craw--Ishii 2004, arXiv:math/0211360;
+Nagao--Nakajima 2011, arXiv:0809.2992; Davison 2013,
+arXiv:1311.7172). At the character level the comparison is
+\[
+  \mathrm{ch}\,\Ypos(K_{\PP^2},\theta)
+  =
+  \prod_{\mathbf{d}\succ 0}(1-q^{\mathbf{d}})^{-\Omega(\mathbf{d})},
+\]
+matching the Nakajima--Yoshioka local $\PP^2$ partition function
+(Nakajima--Yoshioka 2005, arXiv:math/0505553) after the
+Chern-character and stability-chamber transformation.
 
 \subsection*{Numerics}
 
-Four invariants, subscripted: $\kcat(\CC^{3}/\ZZ_{3})$ is ill-defined
-(non-compact, no $\chi(\mathcal{O}_{X})$); on the crepant resolution
-$\kcat(K_{\PP^{2}})$ is likewise non-compact. $\kch(K_{\PP^{2}}) = 3/2$
-(cache key fact, from McKay / shadow at $d=3$). $\kBKM$ is
-inapplicable (no automorphic lift for the local surface).
-$\kfib$ is absent in the non-fibred local geometry. The conifold is
-not a local surface at $d=3$; $\kch = 1$ via direct McKay on the
-$A_{1}$ quiver, a genuinely different construction, not a perturbation
-of the present $\ZZ_{3}$ datum.
+The numerical data split by construction. For the non-compact
+threefolds $X=\CC^3/\ZZ_3$ and $Y=K_{\PP^2}$, the compact Calabi--Yau
+total-space invariant $\kcat=\chi(\mathcal O_X)$ is outside the
+non-compact input. The local-surface compact-core convention records
+\[
+  \kcat^{\mathrm{core}}(Y)=\chi(\mathcal O_{\PP^2})=1,
+  \qquad
+  \kfib^{\mathrm{core}}(Y)=\operatorname{rk}H_2(\PP^2,\ZZ)=1 .
+\]
+These are invariants of the compact core $\PP^2$. The chiral invariant
+of the local Calabi--Yau threefold is the Vol III odd-$d$ chain-level
+value
+\[
+  \kch(K_{\PP^2})
+  =
+  \frac{1}{2}\chi_{\mathrm{top}}(\PP^2)
+  =
+  \frac{3}{2}.
+\]
+The same value is obtained from the three toric charts, from the
+MacMahon exponent, and from the genus-one local-surface extraction.
+
+$\kBKM(K_{\PP^2})$ is undefined: the local surface data stop before the
+hyperbolic Mukai lattice, weak Jacobi input, and Borcherds denominator
+product required for a BKM invariant. The compact $K3\times E$ spectrum
+$\{0,3,5,24\}$ belongs to the K3-fibred Borcherds construction.
+The resolved conifold belongs to a different McKay datum; its
+$\kch$-value is
+\[
+  \kch(\mathrm{conifold})=1,
+\]
+from the conifold quiver. The $\ZZ_3$ local-$\PP^2$ quiver gives the
+separate value $\kch(K_{\PP^2})=3/2$.

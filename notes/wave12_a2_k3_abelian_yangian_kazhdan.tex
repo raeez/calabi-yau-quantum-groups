@@ -1,20 +1,3 @@
-%% ======================================================================
-%% wave12_a2_k3_abelian_yangian_kazhdan.tex
-%%
-%% Adversarial assault and rigorous heal of the K3 abelian-Yangian
-%% presentation, channelling David Kazhdan's scope discipline on
-%% representation-theoretic honesty: what is a theorem, what is
-%% an observation, what is a nomenclature overshoot.
-%%
-%% Scope: working_notes.tex (Vol III) + k3_yangian_chapter.tex +
-%%        k3_chiral_bialgebra_platonic.tex + k3_quantum_toroidal_chapter.tex
-%%        + notes/CoHA_to_W_infty_treatise.tex
-%%
-%% Five attack<->heal cycles. Convergence target: precise scope
-%% declaration for the PROVED/CONJECTURAL status of every component
-%% of the ``K3 abelian-Yangian'' claim.
-%% ======================================================================
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
@@ -24,42 +7,28 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{attack}[theorem]{Attack}
-\newtheorem{heal}[theorem]{Heal}
-\newtheorem{falsification}[theorem]{Falsification}
 \theoremstyle{remark}
-\newtheorem{observation}[theorem]{Observation}
 \newtheorem{remark}[theorem]{Remark}
 
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\End}{End}
-\DeclareMathOperator{\rk}{rk}
-\DeclareMathOperator{\Tr}{Tr}
-\DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\ev}{ev}
-\DeclareMathOperator{\Sym}{Sym}
-\DeclareMathOperator{\Coh}{Coh}
-\DeclareMathOperator{\Rep}{Rep}
-\DeclareMathOperator{\ad}{ad}
-\DeclareMathOperator{\Res}{Res}
 \DeclareMathOperator{\CoHA}{CoHA}
+\DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Hilb}{Hilb}
-\newcommand{\Lmuk}{\widetilde{\Lambda}}
-\newcommand{\LmukC}{\widetilde{\Lambda}_{\mathbb{C}}}
-\newcommand{\Yabel}{Y^{\mathrm{ab}}}
-\newcommand{\Yabelgl}{Y^{\mathrm{ab}}(\mathfrak{gl}_1^{\oplus 24})}
-\newcommand{\YK}{Y(\mathfrak{g}_{K3})}
-\newcommand{\YHeis}{Y^{\mathrm{Heis}}_{\omega}}
-\newcommand{\Hmuk}{H_{\mathrm{Muk}}}
-\newcommand{\gK}{\mathfrak{g}_{K3}}
-\newcommand{\gDel}{\mathfrak{g}_{\Delta_5}}
-\newcommand{\A}{\mathcal{A}}
-\newcommand{\F}{\mathcal{F}}
-\newcommand{\Gm}{\mathbb{G}_m}
-\newcommand{\hO}{\widehat{\mathcal{O}}}
+\DeclareMathOperator{\Rep}{Rep}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Tr}{Tr}
 
-\title{Attack--heal: the K3 abelian-Yangian, scope discipline, \\
-       and the place of the $324$-module count}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Eone}{\mathbb{E}_1}
+\newcommand{\Etwo}{\mathbb{E}_2}
+\newcommand{\Fock}{\mathcal{F}_{K3}}
+\newcommand{\gDel}{\mathfrak{g}_{\Delta_5}}
+\newcommand{\Hmuk}{\mathcal{H}_{\mathrm{Muk}}}
+\newcommand{\HD}{\mathbf{H}_{\Delta_5}^{\mathrm{cand}}}
+\newcommand{\Lmuk}{\widetilde{\Lambda}_{K3}}
+\newcommand{\LmukC}{\Lmuk \otimes_{\mathbb{Z}} \mathbb{C}}
+\newcommand{\YHeis}{Y^{\mathrm{Heis}}_{\mathrm{Muk}}}
+
+\title{The Mukai Heisenberg Branch of the K3 Yangian}
 \author{Raeez Lorgat}
 \date{April 2026}
 
@@ -67,1239 +36,614 @@
 \maketitle
 
 \begin{abstract}
-Five attack--heal cycles against the claim, recorded in the manuscript
-memory as ``K3 abelian Yangian: PROVED, $47$ tests''. The claim survives
-as a theorem after scope contraction: what is proved is the rank-$24$
-\emph{Heisenberg Yangian} $Y^{\mathrm{Heis}}_{\omega}$ of signature
-$(4,20)$, equivalently $24$ commuting copies of the affine Yangian
-$Y(\widehat{\mathfrak{gl}}_1)$ in the RTT normalisation of
-Faddeev--Reshetikhin--Takhtajan 1989, realised on the Fock module
-$\mathcal{F}_{K3}$. What is \emph{not} proved is any statement of the
-form ``$Y^{\mathrm{Heis}}_{\omega}$ coincides with the quantisation of
-the Drinfeld double of the K3 CoHA outside the free-field branch'';
-this is the conjectural content of
-$Y_\hbar^{\mathrm{super}}(\mathfrak{g}_{\Delta_5})$ and reduces, on
-the generic K3 automorphism orbit, to $24$ scalars. The
-``$324$-module S-matrix degeneracy'' is recast as a
-\emph{free-field} statement about
-$(\widehat{\mathfrak{gl}}_1^{\oplus 24})$ at $q = -1$, true at the
-Heisenberg level and irrelevant to modularity of the non-abelian BKM
-closure. The K3 lattice input is the rank-$24$ even unimodular
-\emph{Mukai} lattice $\Lmuk = U^{\oplus 4} \oplus E_8(-1)^{\oplus 2}$,
-not the rank-$22$ second-cohomology lattice; the distinction is
-load-bearing at every cycle below.
+The abelian K3 Yangian presentation is the Mukai-Heisenberg branch:
+a rank-$24$ abelian current algebra with diagonal RTT/free-field
+quantisation. Its input is the Mukai lattice
+$\Lmuk \simeq \mathrm{II}_{4,20}$, a Miura frame, and parameters
+$h_1,\ldots,h_{24}$ with vanishing first Newton sum. The construction
+is abelian at Lie level. Vertex-algebra, quantum-toroidal, and
+Borcherds structures require additional input. The Hall-Drinfeld branch
+for $K3 \times E$ is a separate $d=3$ Borcherds construction. The
+integer $324$ is the coefficient $\chi(\Hilb^2(K3))$ in the
+Nakajima-Grojnowski Fock character; finite module counts require a
+separate tensor category.
 \end{abstract}
 
 \tableofcontents
 
-%% ======================================================================
-\section{The object under assault}
-\label{sec:object}
+\section{Mukai Input}
+\label{sec:mukai-input}
 
-The theorem at
-\texttt{chapters/examples/k3\_yangian\_chapter.tex} line~1676
-(\texttt{thm:k3-abelian-yangian-presentation}) asserts the following
-presentation of $\YK$ at $\mathfrak{g} = \mathfrak{gl}_1$.
-
-\begin{definition}[Data and generators]
-\label{def:data-generators}
-Let $\Lmuk = H^*(S,\mathbb{Z})_{\mathrm{even}}$ be the K3 Mukai lattice,
-a rank-$24$ even unimodular lattice of signature $(4,20)$, with
-diagonalised Mukai form
+Let $S$ be a complex projective K3 surface. Its Mukai lattice is
 \[
-  \omega^{ij}
-  \;=\;
-  \operatorname{diag}(\underbrace{+1,\ldots,+1}_{4},
-                      \underbrace{-1,\ldots,-1}_{20}).
+  \Lmuk
+  =
+  H^0(S,\mathbb{Z}) \oplus H^2(S,\mathbb{Z}) \oplus H^4(S,\mathbb{Z}),
 \]
-Fix deformation parameters $(h_1,\ldots,h_{24}) \in \mathbb{C}^{24}$
-subject to
-\begin{equation}\label{eq:cy2-constraint}
-  \sum_{i=1}^{24} h_i \;=\; 0
-  \qquad (\text{CY}_2\text{ constraint}).
-\end{equation}
-The \emph{rank-$24$ Heisenberg Yangian} $\YHeis$ is the associative
-$\mathbb{C}$-algebra generated by
-\begin{equation}\label{eq:generators}
-  \{J_{i,n} : 1 \le i \le 24,\; n \in \mathbb{Z}_{\ge 0}\}
-\end{equation}
-modulo the two-mode commutator
-\begin{equation}\label{eq:Heis-mode-comm}
-  [J_{i,m},\, J_{j,n}] \;=\; \omega^{ij}\, m\, \delta_{m+n,0},
-  \qquad J_{i,0} \text{ central}.
-\end{equation}
-The generating current
-$J_i(z) = \sum_{n \in \mathbb{Z}} J_{i,n}\, z^{-n-1}$
-has OPE
-\begin{equation}\label{eq:ope}
-  J_i(z)\, J_j(w) \;\sim\; \frac{\omega^{ij}}{(z-w)^2}.
-\end{equation}
-The spectral-parameter formal variable $u$ enters through the
-Miura transfer matrix
-\begin{equation}\label{eq:miura}
-  T_{K3}(u) \;=\; \prod_{i=1}^{24} (u - \phi_i(z))
-  \;=\; \sum_{s=0}^{24} (-1)^s\, \psi_s(z)\, u^{24-s},
-\end{equation}
-with $\phi_i(z)$ the Heisenberg free fields satisfying
-$[\phi_{i,m},\phi_{j,n}] = \omega^{ij}\,m\,\delta_{m+n,0}$ and
-$\psi_s$ the $s$-th elementary symmetric polynomial in the $\phi_i$.
+with pairing
+\[
+  \bigl((r,D,s),(r',D',s')\bigr)_{\mathrm{Muk}}
+  =
+  D \cdot D' - rs' - r's .
+\]
+By Mukai, $\Lmuk$ is even, unimodular, and has signature $(4,20)$.
+The second-cohomology lattice $H^2(S,\mathbb{Z})$ has rank $22$ and
+signature $(3,19)$. The rank controlling the abelian K3 Yangian is the
+Mukai rank $24$.
+
+\begin{definition}[Miura frame]
+\label{def:miura-frame}
+A Miura frame is a complex orthogonal basis
+$e_1,\ldots,e_{24}$ of $\LmukC$ for which
+\[
+  (e_i,e_j)_{\mathrm{Muk}} = \varepsilon_i \delta_{ij},
+  \qquad
+  \varepsilon_i =
+  \begin{cases}
+    +1, & 1 \leq i \leq 4,\\
+    -1, & 5 \leq i \leq 24,
+  \end{cases}
+\]
+together with parameters $h_1,\ldots,h_{24} \in \mathbb{C}$ satisfying
+\[
+  p_1(h) := \sum_{i=1}^{24} h_i = 0 .
+\]
+The equation $p_1(h)=0$ is the vanishing of the first Newton sum in
+the chosen Miura frame. It is the parameter-level trace condition; the
+signature $(4,20)$ is carried by the bilinear form, not by this scalar
+equation.
 \end{definition}
 
-We record the canonical modular data that will enter each cycle:
-\begin{align}
-  \rk \Lmuk &\;=\; 24, &
-  \mathrm{sgn}(\Lmuk) &\;=\; (4,20), \\
-  \chi(\mathcal{O}_{S}) &\;=\; 2, &
-  \chi_{\mathrm{top}}(S) &\;=\; 24 \qquad (S = \text{K3}), \\
-  \rk H^2(S,\mathbb{Z}) &\;=\; 22, &
-  \mathrm{sgn}(H^2(S,\mathbb{Z})) &\;=\; (3,19),
-\end{align}
-and for the product
-\begin{align}
-  \chi(\mathcal{O}_{S \times E}) &\;=\; 0, &
-  \chi_{\mathrm{top}}(S \times E) &\;=\; 0.
-\end{align}
-The four $\kappa_\bullet$-values for $S \times E$ are
-$\{2, 3, 5, 24\}$ from four distinct constructions; none is
-$\rk \Lmuk$ directly, and the distinction will tighten Cycle~5.
-
-
-%% ======================================================================
-\section{Cycle 1: Is the $24$-generator presentation a Yangian at all?}
-\label{sec:cycle1}
-%% ======================================================================
-
-\subsection{Attack 1: the bare algebra is a Heisenberg, not a Yangian}
-
-\begin{attack}[Yangian nomenclature fails at rank $24$]
-\label{att:heisenberg-not-yangian}
-Drinfeld's Yangian $Y(\mathfrak{g})$ in its classical sense
-(Drinfeld 1985 \emph{Sov.\ Math.\ Dokl.}~32; Drinfeld 1988 in
-\emph{Quantum Groups}) requires one of two presentations:
-\begin{enumerate}[label=\textup{(\roman*)}]
-  \item \emph{J-presentation} on a finite-type simple Lie algebra
-        $\mathfrak{g}$ with its Killing form, Chevalley generators
-        $\{e_i, f_i, h_i\}$, and an additional degree-one operator
-        $J(x)$ satisfying Drinfeld's terminal cubic-Serre relation;
-  \item \emph{Drinfeld new realisation}: current generators
-        $\{E_i(u), F_i(u), H_i(u)\}$ with a rational $R$-matrix
-        $R(u) = 1 + \hbar\,\Omega/u$ in which $\Omega$ is the split
-        Casimir of $\mathfrak{g}$.
-\end{enumerate}
-Presentation~\eqref{eq:Heis-mode-comm} is neither. The underlying
-Lie algebra $\bigoplus_{i=1}^{24}\mathfrak{gl}_1$ has trivial Killing
-form, no split Casimir outside a scalar, no cubic Serre relation to
-impose. Accordingly, \emph{there is no Yangian} in the Drinfeld 1985
-sense attached to the rank-$24$ abelian Heisenberg, only a family of
-$24$ commuting copies of the affine Yangian $Y(\widehat{\mathfrak{gl}}_1)$.
-Calling $Y^{\mathrm{Heis}}_{\omega}$ a Yangian is a category error:
-it is a \emph{Heisenberg double}, a commutative Hopf shadow of one.
-\end{attack}
-
-\begin{falsification}[J-presentation fails at rank $24$]
-\label{fal:no-J}
-A Drinfeld J-presentation would require a degree-one operator
-$J(x)$ on $\mathfrak{gl}_1^{\oplus 24}$ satisfying
-$[J(x), J(y)] \in \bigwedge^2(\mathfrak{gl}_1^{\oplus 24})$ with the
-Drinfeld cubic
+\begin{definition}[Mukai-Heisenberg current algebra]
+\label{def:mukai-heisenberg}
+The Mukai-Heisenberg current algebra $\Hmuk$ is generated by modes
+$J_{i,n}$, $1 \leq i \leq 24$, $n \in \mathbb{Z}$, and a central unit
+$\mathbf{1}$, with relations
 \[
-  [\,[J(x), J(y)],\, z\,] + \mathrm{cyc} \;=\;
-  (x, y, z)\cdot \text{(cubic Casimir)}.
+  [J_{i,m},J_{j,n}]
+  =
+  m\,\varepsilon_i\,\delta_{ij}\,\delta_{m+n,0}\,\mathbf{1}.
 \]
-For $\mathfrak{g} = \bigoplus \mathfrak{gl}_1$, the cubic Casimir
-vanishes (the three-fold product of a one-dimensional Lie algebra
-is one-dimensional, but the structure constants are zero). The
-cubic-Serre relation is therefore vacuous, so $J$ is unconstrained:
-the J-presentation does not pick out a finite-dimensional relations
-space. Any choice of degree-one $J$ is consistent, and the resulting
-``Yangian'' is not an algebra but a family.
-\end{falsification}
-
-\subsection{Heal 1: scope to Heisenberg Yangian, RTT at
-rank $24$ with diagonal $R$}
-
-\begin{heal}[What $\YHeis$ actually is]
-\label{heal:heisenberg-yangian}
-The object constructed by~\eqref{eq:generators}--\eqref{eq:miura}
-is the rank-$24$ \emph{Heisenberg Yangian}, meaning the RTT algebra
-at rank $24$ with diagonal rational $R$-matrix
-\begin{equation}\label{eq:diagonal-R}
-  R(u-v) \;=\; \operatorname{diag}\!\Bigl(\tfrac{u-v-h_i}{u-v+h_i}\Bigr)_{i=1}^{24},
-\end{equation}
-and diagonal Lax
-$L(u) = \operatorname{diag}(L_1(u),\ldots,L_{24}(u))$.
-Equivalently, $\YHeis$ is the tensor product
-\begin{equation}\label{eq:tensor}
-  \YHeis \;\cong\; \bigotimes_{i=1}^{24}
-  Y(\widehat{\mathfrak{gl}}_1)|_{\sigma_2 = h_i^2,\;\sigma_3 = 0}
-\end{equation}
-of $24$ commuting copies of the affine Yangian
-$Y(\widehat{\mathfrak{gl}}_1)$
-(Tsymbaliuk 2017, \texttt{arXiv:1404.5240}; Arbesfeld--Schiffmann 2013),
-each at the \emph{abelian specialisation}
-$\sigma_3 := h_1 h_2 h_3 = 0$
-(no cubic $W_{1+\infty}$ coupling). The CY$_2$ constraint
-$\sum h_i = 0$ is the parameter-level expression of
-$c_1(\Lmuk)= 0$ (equivalently $K_S = 0$).
-\end{heal}
-
-\begin{proof}[Proof of the tensor decomposition~\eqref{eq:tensor}]
-Orthogonality of the Mukai pairing in a diagonal basis
-$(\omega^{ij} = \pm\delta^{ij})$ gives
-$[J_{i,m}, J_{j,n}] = 0$ for $i \ne j$. By the universal property
-of free products of commuting Hopf algebras,
-$\YHeis = \bigotimes_i \YHeis^{(i)}$, with $\YHeis^{(i)}$ the
-single-$\mathfrak{gl}_1$ Heisenberg Yangian of signature
-$\omega^{ii} = \pm 1$. Each factor is the $\sigma_3 = 0$ abelian
-specialisation of Tsymbaliuk's $Y(\widehat{\mathfrak{gl}}_1)$
-(the cubic shuffle-algebra coupling vanishes at rank $1$).
-The diagonal-$R$ RTT relation is automatically satisfied because
-each $L_i(u)$ acts on its own Fock factor.
-The CY$_2$ constraint $\sum h_i = 0$ drops out as the first
-Newton power sum $p_1 = 0$, which is the $u^{-1}$ Laurent coefficient
-of $\log g_{K3}(u)$ and equals the parameter-level avatar of
-$c_1(T_S) = 0$.
-\end{proof}
-
-\begin{falsification}[CY$_2$ constraint without Mukai trace has no content]
-\label{fal:cy2-content}
-A purely algebraic restatement of $\sum h_i = 0$ is the vanishing
-of the $u^{-1}$ Laurent coefficient of $\log g_{K3}$, where
-$g_{K3}(u) = \prod (u-h_i)/(u+h_i)$. But the Mukai form
-$\omega^{ij}$ of signature $(4,20)$ enters nowhere in this equation;
-the same constraint follows for a $24$-tuple $(h_1,\ldots,h_{24})$
-on a rank-$24$ Euclidean lattice $(+,+,\ldots,+)$, a Lorentzian
-one $(+,-,-,\ldots,-)$, or an arbitrary signature. The CY$_2$
-constraint is \emph{weaker} than ``signature $(4,20)$''; it
-fixes $c_1$ but says nothing about the $c_+$ versus $c_-$
-decomposition.
-\end{falsification}
-
-\begin{heal}[The signature enters through the $R$-matrix zero pattern]
-\label{heal:signature-enters-through-R}
-The Mukai signature $(4,20)$ is extracted from $\YHeis$ not by
-$\sum h_i = 0$ but by the sign pattern of
-$\omega^{ii} \in \{+1,-1\}$ in the OPE~\eqref{eq:ope}, which
-determines on each one-dimensional factor whether the Heisenberg
-generator is \emph{bosonic-like} ($+1$) or \emph{fermionic-like}
-($-1$) at the level of the graded commutator
+The current
 \[
-  [\phi_{i,m}, \phi_{j,-m}]
-  \;=\; \omega^{ij}\, m.
+  J_i(z) = \sum_{n \in \mathbb{Z}} J_{i,n} z^{-n-1}
 \]
-The signature is a second-order invariant: it shows up in the
-two-point function, not in the one-point (first Chern class) datum.
-In RTT language: the positive-direction Lax
-$L_i^+(u) = u \cdot 1 - h_i J_i(u)$ has pole at $u = h_i$ and zero
-at $u = -h_i$; the negative-direction Lax has pole/zero swapped
-($L_i^-(u) = -u \cdot 1 - h_i J_i(u)$, equivalent to the sign
-reflection $h_i \mapsto -h_i$). The \emph{$4$-dimensional positive
-part} $\Lmuk^+ = U^{\oplus 4}$ and the \emph{$20$-dimensional
-negative part} $\Lmuk^- = U^{\oplus 4} \oplus E_8(-1)^{\oplus 2}
-\cap \Lmuk^-$ of the Mukai lattice determine the two blocks of the
-diagonal $R$-matrix~\eqref{eq:diagonal-R}.
-\end{heal}
-
-%% ======================================================================
-\section{Cycle 2: Serre relations -- are there any? Are they
-quadratic, cubic, quartic?}
-\label{sec:cycle2}
-%% ======================================================================
-
-\subsection{Attack 2: Serre relations at rank $24$ are trivial}
-
-\begin{attack}[No non-trivial Serre relations at rank $24$]
-\label{att:trivial-serre}
-For a simple Lie algebra of type $A_1$ the Drinfeld cubic-Serre
-relation is
-\begin{equation}\label{eq:drinfeld-cubic}
-  [\,[e, [e, [e, f\,]\,]\,]\,] \;=\;
-  (\ad e)^{3}(f) \;=\; 0,
-\end{equation}
-and for simply-laced ADE types the quadratic/cubic/quartic Serre
-relations are $(\ad e_i)^{1-a_{ij}}(e_j) = 0$ with
-$a_{ij} \in \{-1,-2,-3\}$. For $\bigoplus_{i=1}^{24}\mathfrak{gl}_1$
-all $e_i, e_j$ \emph{commute} with each other (no roots,
-$a_{ij} \equiv 0$), so
-\begin{equation}\label{eq:trivial-serre}
-  [\,[e_i, e_j]\,] \;=\; 0, \qquad i \ne j,
-\end{equation}
-are the only relations; the cubic Serre relation is vacuous
-(both sides are already zero). Calling~\eqref{eq:trivial-serre}
-the ``K3 Serre relation'' is misleading: it is a
-\emph{commutativity relation}, not a Serre relation in any
-Kac--Moody sense.
-\end{attack}
-
-\begin{falsification}[$E_8 \times E_8$ Serre-count claim at generic K3]
-\label{fal:e8-e8-serre}
-The manuscript entry at \texttt{working\_notes.tex} line~5350 states
-that the $E_8 \times E_8$ enhancement of the K3 Yangian has
-\emph{fourteen nontrivial Serre relations}, one per edge of the
-two Dynkin diagrams. This is correct at the enhancement point
-$h_i = h^{E_8^{(1)}}_i$ or $h^{E_8^{(2)}}_i$; but at a generic K3
-period point the $E_8 \times E_8$ sublattice does not sit inside
-the Picard lattice, and the enhanced $28$ generators
-($16$ Cartan $+$ $2 \times 120$ roots, modulo conjugation) reduce
-to the $24$ abelian Cartan generators of $\Yabelgl$. The $14$
-Serre relations become \emph{vacuous} at generic $h$: each
-$(\ad e_i)^3(e_j)$ evaluates to zero by~\eqref{eq:trivial-serre}
-rather than by a non-trivial Serre cancellation. The count $14$
-is a property of a measure-zero enhancement locus in K3 moduli,
-not of the generic K3.
-\end{falsification}
-
-\subsection{Heal 2: quadratic commutativity is the correct
-Serre content at the abelian level}
-
-\begin{heal}[What survives at rank $24$: quadratic $\operatorname{Sym}^2$ relation]
-\label{heal:quadratic-serre}
-At the abelian level, the only algebraic relation among the
-generators is~\eqref{eq:trivial-serre}, which takes the form of
-a quadratic constraint on $\Sym^2(\Lmuk \otimes \mathbb{C}[u])$:
-\begin{equation}\label{eq:quad-sym}
-  [J_i(u), J_j(v)] \;=\; \omega^{ij}\,\frac{1}{(u-v)^2}\, 1_{\YHeis},
-  \qquad 1 \le i, j \le 24.
-\end{equation}
-This is the full set of Serre relations of $\YHeis$. The
-\emph{Poincar\'e--Birkhoff--Witt} theorem for $\YHeis$ reduces
-to Heisenberg PBW: the associated graded is
-$\Sym(\Lmuk \otimes \mathbb{C}[u, u^{-1}])$, and flatness of the
-deformation is immediate from the triangular shape
-$\deg(\text{LHS}) = 2, \deg(\text{RHS}) \le 0$.
-
-The \emph{strong-Serre} content proved at the BKM-level in
-\texttt{working\_notes.tex} line~3403 (``modular Yangian detects
-the Mukai signature'') pertains to
-$Y^{\mathrm{super}}_{\hbar}(\gDel)$, the super-Yangian of
-Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
-Definition~\texttt{def:kcb-super-yangian}, whose Serre complement
-contains the $\gDel$ imaginary-root cubic and quartic relations
-of Borcherds 1988 \emph{J.~Algebra}~115. The abelian Yangian of
-Theorem~\texttt{thm:k3-abelian-yangian-presentation} does
-\emph{not} contain these; they enter only after the non-abelian
-closure (Frenkel--Kac dictionary, Cycle~3 below).
-\end{heal}
-
-\begin{proposition}[Three Serre strata]
-\label{prop:three-serre-strata}
-Three distinct Serre regimes govern the K3 Yangian tower:
-\begin{enumerate}[label=\textup{(\roman*)}]
-  \item \emph{Generic K3 point} $(h_1,\ldots,h_{24})$ in the
-        $22$-dimensional K3 moduli: only the quadratic
-        commutativity~\eqref{eq:trivial-serre} survives, and
-        $\YHeis \cong \bigotimes_{i=1}^{24}
-        Y(\widehat{\mathfrak{gl}}_1)|_{\sigma_3 = 0}$.
-        Fourteen ADE-Serre relations are vacuous.
-  \item \emph{$E_8 \times E_8$ enhancement locus} (codimension $16$):
-        the two $E_8$ Dynkin diagrams embed into the abelian
-        Cartan, producing $2 \times 7 = 14$ non-trivial cubic
-        Serre relations $(\ad e_i)^3(e_j) = 0$ for
-        $\mathrm{dist}_{\mathrm{Dynkin}}(i,j) = 1$. The abelian
-        complement $U^{\oplus 4}$ retains its commutativity.
-  \item \emph{BKM-level $\gDel$ closure}: mixed-sector cubic
-        Serre on three real simple roots ($\delta_i, \delta_j$,
-        $a_{ij} = -2$, giving $(\ad e_i)^3(e_j) = 0$) plus
-        quartic-Serre on lightlike imaginary roots
-        ($(\alpha,\alpha) = 0$, multiplicity $10$,
-        $[e_\alpha, e_\beta] = 0$ for
-        $\langle \alpha,\beta\rangle = 0$). The quartic imaginary
-        Serre is Borcherds axiom (GKM4) and is not derivable from
-        the real-root cubic Serre (see
-        Remark~\ref{rem:k3yang-serre-not-sufficient} in
-        \texttt{k3\_yangian\_chapter.tex}).
-\end{enumerate}
-Only~(i) is the abelian K3 Yangian of
-Theorem~\texttt{thm:k3-abelian-yangian-presentation}. (ii) and
-(iii) are enhancement-locus phenomena, not generic.
-\end{proposition}
-
-\begin{proof}
-(i) follows from Heal~\ref{heal:heisenberg-yangian}. (ii) follows
-from the $E_8 \times E_8$-enhancement proposition at
-\texttt{working\_notes.tex} line~5331. (iii) follows from
-the BKM Serre theorem \texttt{thm:bkm-serre-exact} of
-\texttt{working\_notes.tex} line~5435 and Borcherds 1988
-\emph{J.\ Algebra}~115.
-\end{proof}
-
-\begin{falsification}[``Serre-relations-count $= 14$'' is moduli-dependent]
-\label{fal:serre-count}
-The statement ``the K3 Yangian has $14$ non-trivial Serre relations''
-is true at the $E_8 \times E_8$ point and false everywhere else on
-K3 moduli. It is therefore not a property of $\YHeis$ as an abstract
-algebra but of a distinguished fibre in a family of algebras over
-$\mathcal{M}_{K3}$. The honest statement is:
+has operator-product expansion
 \[
-  \text{generic fibre: }\;
-  0 \text{ non-trivial Serre relations};
-  \quad
-  E_8 \times E_8 \text{ fibre: }\;
-  14 \text{ non-trivial Serre relations}.
+  J_i(z)J_j(w) \sim
+  \frac{\varepsilon_i\delta_{ij}}{(z-w)^2}.
 \]
-\end{falsification}
-
-%% ======================================================================
-\section{Cycle 3: Is the ``PROVED'' status actually a theorem,
-or only on a sub-locus?}
-\label{sec:cycle3}
-%% ======================================================================
-
-\subsection{Attack 3: generic-K3 ``$24$ commuting $\mathfrak{gl}_1$
-Yangians'' is a trivial object}
-
-\begin{attack}[Mirror of a shadow: the generic object is free]
-\label{att:generic-free}
-At a generic K3 period point with Picard rank $\rho(S) = 1$ and no
-lattice enhancement, the $24$ Cartan generators
-$J_1,\ldots,J_{24}$ generate an abelian Heisenberg algebra,
-trivially quantised by a diagonal $R$-matrix. The resulting
-$\YHeis$ is the commutative tensor product of $24$ copies of the
-affine Yangian $Y(\widehat{\mathfrak{gl}}_1)$, each at its abelian
-specialisation. The ``proved presentation'' at
-\texttt{k3\_yangian\_chapter.tex} line~1676 is nothing more than
-the statement that $24$ commuting Fock spaces form a factorisable
-algebra -- a tautology of the Heisenberg construction
-(Frenkel--Jing 1988).
-\end{attack}
-
-\begin{falsification}[$47$-test claim: counting tests, not theorems]
-\label{fal:47-tests}
-The manuscript records $47$ tests for
-\texttt{k3\_abelian\_yangian\_presentation.py}, distributed across
-OPE consistency ($7$), transfer-matrix truncation ($5$),
-structure-function unitarity ($8$), RTT/YBE ($4$), coproduct
-structural ($9$), Koszul ($6$), full-presentation assembly ($3$),
-and cross-verification ($5$). Every single one of these tests
-is an identity at the Heisenberg level that would hold for
-\emph{any} $24$ commuting Heisenberg generators on any
-signature $(p,q)$ with $p+q=24$ and trace zero. In particular,
-no test distinguishes signature $(4,20)$ from $(2,22)$ or $(24,0)$.
-The tests prove the Heisenberg Yangian \emph{abstractly};
-the name ``K3'' is a labelling of the data
-$(\Lmuk, \omega)$, not a consequence of any K3-specific geometry.
-\end{falsification}
-
-\subsection{Heal 3: what is proved, and what scope claim actually
-earns ``PROVED''}
-
-\begin{heal}[Scope-complete PROVED status]
-\label{heal:scope-proved}
-What is honestly proved is the following precise statement.
-
-\textbf{Theorem (scoped).}
-\emph{Let $\Lmuk$ be any rank-$24$ even unimodular lattice of
-signature $(4,20)$, $\omega$ its bilinear form, and
-$(h_1,\ldots,h_{24})\in\Lmuk \otimes \mathbb{C}$ a parameter vector
-satisfying $\Tr_\omega(h) = \sum h_i = 0$. The algebra $\YHeis$
-of Definition~\ref{def:data-generators} is the flat deformation
-of the rank-$24$ Heisenberg algebra
-$\Hmuk = \Sym(\Lmuk \otimes \mathbb{C}[z,z^{-1}])$, equipped with
-the diagonal-RTT bialgebra structure, the degree-$(24,24)$
-structure function $g_{K3}(u) = \prod (u-h_i)/(u+h_i)$, the
-block-diagonal Drinfeld coproduct, and the Koszul-dual parameters
-$h_i^! = -h_i$. The bar-cobar Euler product is
-$\prod(1-q^n)^{24} = \eta^{24}/q$, the Ramanujan discriminant
-modulo the $q^{-1}$ shift.}
-
-Three caveats scope the claim:
-\begin{enumerate}[label=\textup{(\alph*)}]
-  \item The algebra $\YHeis$ is isomorphic to
-        $\bigotimes_{i=1}^{24} Y(\widehat{\mathfrak{gl}}_1)
-        |_{\sigma_3 = 0}$; no CY$_2$ or K3-specific input is used
-        beyond $\rk = 24, \mathrm{sgn} = (4,20), \Tr(h) = 0$.
-  \item The structure function $g_{K3}$ is parametrised by a point
-        $(h_1,\ldots,h_{24})$ in a $23$-dimensional moduli space;
-        different points give different (but canonically isomorphic)
-        algebras.
-  \item The ``Yangian'' name is a nomenclature choice, legitimised
-        by the RTT presentation but misleading with respect to
-        Drinfeld 1985: $\YHeis$ has no non-abelian Lie-algebraic
-        content.
-\end{enumerate}
-\end{heal}
-
-\begin{observation}[Status correction for the manuscript memory]
-\label{obs:status-correction}
-The memory index records ``K3 abelian Yangian: PROVED, $47$ tests''.
-Honest reading: what is proved is the \emph{rank-$24$ Heisenberg
-Yangian} as a flat deformation of the Mukai--Heisenberg free-field
-algebra. What remains conjectural is:
-\begin{itemize}
-  \item the identification
-        $\YHeis \xrightarrow{\cong}
-        \Phi_2(D^b(\Coh(S)))|_{\text{free-field sector}}$
-        via CY-A$_2$ (this is an equivalence of
-        $\Eone$-chiral algebras; it is proved at $d=2$, see
-        \texttt{working\_notes.tex} line~5467);
-  \item the identification of the non-abelian closure
-        $Y^{\mathrm{super}}_\hbar(\gDel)$ with the Drinfeld double
-        of the CoHA$_{K3\times E}$ positive half
-        (this is CY-C, \emph{conjectural}, three routes converge
-        at character level);
-  \item any statement about the Yangian at the BFN / Coulomb-branch
-        avatar (Conjecture~\ref{conj:bfn-k3-yangian-kummer} of
-        \texttt{k3\_yangian\_chapter.tex}, conditional on
-        deformation invariance under blow-up of the $16$ orbifold
-        singularities at the Kummer point).
-\end{itemize}
-The PROVED status applies only to the first item. The remaining
-items remain conjectural, as the status table correctly indicates
-(CY-C: CONJECTURAL, three routes; CY-A$_3$-infinity-categorical:
-PROVED; super-Yangian: constructed, Serre verified, but embedding
-into CoHA-double remains open).
-\end{observation}
-
-%% ======================================================================
-\section{Cycle 4: Comparison with Schiffmann--Vasserot K3 CoHA}
-\label{sec:cycle4}
-%% ======================================================================
-
-\subsection{Attack 4: strict isomorphism $\YHeis \cong \CoHA(K3)$
-is claimed but not proved}
-
-\begin{attack}[The SV K3 CoHA is not the abelian Yangian]
-\label{att:sv-not-yangian}
-Schiffmann--Vasserot 2017 (\emph{K-theoretic Hall algebras and
-quantum groups}, \texttt{arXiv:1705.07498}) construct a
-cohomological Hall algebra $\CoHA(K3)$ on the moduli of compactly
-supported coherent sheaves $\mathcal{M}_S$ for K3 $S$, equipped
-with a shuffle-algebra presentation. For the affine
-Jordan quiver ($S = \mathbb{C}^2$), the CoHA is the positive half
-$Y^+(\widehat{\mathfrak{gl}}_1)$ of the affine Yangian
-(SV 2013 \emph{Duke} 162, Theorem~4.5.2). For $S = K3$,
-the claimed structure is different: the SV shuffle product uses
-the K\"ahler cone polarisation of $S$ and depends on Bridgeland
-stability conditions, not on a free-field Fock decomposition.
-No strict isomorphism
-$\CoHA(K3) \cong \YHeis$ has been established; the two algebras
-have different rank growth as a function of the Mukai vector
-sector.
-\end{attack}
-
-\begin{falsification}[Rank-growth mismatch between $\CoHA$ and $\YHeis$]
-\label{fal:rank-mismatch}
-The CoHA of $K3$ at Mukai vector $v = (r, D, s) \in \Lmuk$ has
-$\CoHA(K3)|_v$ of cohomological dimension
-$\chi(v, v)_{\mathrm{Euler}} = 2 - (v,v)_{\mathrm{Muk}}$
-(via Atiyah--Bott localisation on the moduli
-$M_S(v)$ of $v$-stable sheaves). For a generic v with
-$(v,v)_{\mathrm{Muk}} = 2n - 2$, this gives dimension
-$2 - (2n-2) = 4 - 2n$, so the CoHA grows \emph{quadratically}
-in $n$ via Hilbert-scheme cohomology
-$H^*(\Hilb^n(K3))$
-with generating function
-$\sum_n \chi(\Hilb^n S) q^n = \prod_m (1-q^m)^{-24}$
-(G\"ottsche 1990). In contrast, $\YHeis$ on the same Fock grading
-produces $H^*(\Hilb^n S)$ with the same generating function
-$1/\eta(\tau)^{24}$, but via a \emph{completely different
-mechanism}: the Nakajima creation operators on
-$H^*(\Hilb^n S)$ are scalar-valued (they act by cup product with
-classes in $H^2$), whereas the CoHA shuffle product is
-matrix-valued.
-
-The character match at $q^1$ is
+The Fock representation is
 \[
-  [1/\eta^{24}]_{q^1} \;=\; 24
-  \;=\; \rk H^*(\Hilb^1 S) \;=\; \rk H^*(S)
+  \Fock =
+  \Sym\!\left(
+    \bigoplus_{n\geq 1}\LmukC\, t^{-n}
+  \right),
 \]
-(with $\chi(K3) = 24$); at $q^2$,
-\[
-  [1/\eta^{24}]_{q^2} \;=\; 324
-  \;=\; \rk H^*(\Hilb^2 S) \;=\; 24 + 300
-  \;=\; \binom{24+1}{2} \;=\; \chi(\Sym^2 H^*(S))
-\]
-(consistent with the Nakajima--Grojnowski Heisenberg action on
-$\bigoplus_n H^*(\Hilb^n S)$). The character match does
-\emph{not} imply algebra-level isomorphism: character-level
-coincidence can arise from two inequivalent algebra structures on
-the same graded vector space. At the cohomological level, the
-isomorphism is \emph{graded but not preserved by products} in
-general.
-\end{falsification}
-
-\subsection{Heal 4: strict embedding at the free-field level,
-not isomorphism}
-
-\begin{heal}[Embedding rather than isomorphism]
-\label{heal:embedding}
-The precise statement, as a corollary of the Nakajima--Grojnowski
-theorem (Nakajima 1997 \emph{Ann.~Math.}~145;
-Grojnowski 1996 \emph{Math.~Res.~Lett.}~3), is
-\begin{equation}\label{eq:embedding}
-  \YHeis \;\hookrightarrow\; \CoHA(K3),
-\end{equation}
-as the commutant of the Heisenberg action on
-$\bigoplus_n H^*(\Hilb^n S)$. The embedding is:
-\begin{itemize}
-  \item \emph{Strict} (injective) on the Heisenberg currents:
-        each $J_{i,n}$ maps to the Nakajima operator
-        $\alpha_{i,n}$ of degree $n$ on the chosen Mukai direction $i$.
-  \item \emph{Not surjective}: the full CoHA contains also
-        \emph{shuffle} generators corresponding to sheaves with
-        $(v,v)_{\mathrm{Muk}} > 0$ (non-abelian stable sheaves,
-        e.g., Mukai's higher-rank bundles with $c_2 > 0$), not
-        just the Fock-space Heisenberg generators.
-  \item \emph{Character-preserving}: both sides have character
-        $1/\eta^{24}$, so the embedding is character-equivalent,
-        but the cokernel is non-trivial and encodes the non-abelian
-        part.
-\end{itemize}
-
-At the level of equivalences of Abelian categories
-(Nakajima--Yoshioka 2003), the embedding
-lifts to a strict embedding of $\Eone$-chiral algebras in the
-sense of Costello--Francis--Gwilliam, with
-$\YHeis$ the free-field envelope of
-$\Hmuk = \Sym(\Lmuk \otimes \mathbb{C}((z)))$ and
-$\CoHA(K3)$ its Frobenius extension by the Atiyah--Bott residue.
-\end{heal}
-
-\begin{proposition}[Three distinct algebras on $\bigoplus_n H^*(\Hilb^n S)$]
-\label{prop:three-algebras}
-The graded vector space $V = \bigoplus_n H^*(\Hilb^n S)$ with
-Poincar\'e series $\sum_n q^n \chi_t(\Hilb^n S)$ carries three
-inequivalent algebra structures:
-\begin{enumerate}[label=\textup{(\arabic*)}]
-  \item The \emph{Nakajima--Grojnowski Heisenberg}: rank-$24$
-        abelian free-field action of $\Hmuk$, giving $V$ as a
-        Fock module. This is $\YHeis$ acting on its own Fock
-        representation.
-  \item The \emph{Schiffmann--Vasserot CoHA}: K-theoretic Hall
-        algebra with shuffle product from matrix models on
-        $M_S(v)$. This is $\CoHA(K3)$.
-  \item The \emph{Maulik--Okounkov stable envelope algebra}: an
-        action of the quantum toroidal algebra
-        $U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)$ via the
-        Nakajima operators plus $K$-theoretic stable envelopes
-        (Maulik--Okounkov 2012 \emph{arXiv:1211.1287}).
-\end{enumerate}
-The three structures agree on the Heisenberg Cartan sector
-(the abelian rank-$24$ subalgebra) but differ on the non-abelian
-completion. The abelian K3 Yangian of
-Theorem~\texttt{thm:k3-abelian-yangian-presentation} is the
-Cartan sector common to all three; it is \emph{not} the full CoHA,
-\emph{not} the full quantum toroidal, and \emph{not} the full
-non-abelian Yangian.
-\end{proposition}
-
-\begin{proof}
-The Nakajima--Grojnowski Heisenberg is standard and produces $V$
-as $\Sym(H^*(S) \otimes q\mathbb{C}[[q]])$ with the Fock product
-(Nakajima 1997 Theorem~1). The SV CoHA is defined via
-$K$-theoretic pushforward from the Grassmannian
-$\Gr^n(S)$ to $\mathrm{Flag}^n(S)$ (SV 2017 Proposition~3.5);
-it has shuffle generators beyond the Heisenberg. The MO
-stable-envelope algebra gives the quantum toroidal action via
-Schiffmann 2012 (\emph{arXiv:1202.2219}); it agrees with the
-CoHA on the Heisenberg sector but differs by quantum-toroidal
-central elements on the non-abelian sector.
-Proposition~\ref{prop:k3-mo-bypass} of
-\texttt{k3\_yangian\_chapter.tex} gives the scope restrictions
-under which the MO route recovers all three.
-\end{proof}
-
-\begin{falsification}[Morally the CoHA is bigger, period]
-\label{fal:coha-bigger}
-The attempt to identify
-$\CoHA(K3) = \YK$ (full Yangian) fails for the same reason that
-$\CoHA(\mathbb{C}^3) = Y^+(\widehat{\mathfrak{gl}}_1)$, not
-$W_{1+\infty}$: a CoHA is always only a \emph{half} (positive/upper-
-triangular) of a Yangian, and the Drinfeld double is required
-to produce the full Yangian. For $K3$, the Drinfeld double of
-$\CoHA(K3)$ is the conjectural K3 Yangian $\YK$, of which the
-abelian sector is $\YHeis$ and the non-abelian sector is the
-super-Yangian $Y^{\mathrm{super}}_\hbar(\gDel)$. The identification
-$\CoHA(K3) = \YHeis$ is therefore \emph{false};
-the correct identification is
-$\YHeis \subsetneq \CoHA(K3)$, via the Nakajima embedding
-as the Heisenberg Cartan.
-\end{falsification}
-
-%% ======================================================================
-\section{Cycle 5: Root-of-unity $N = 2$ and the $324$-module count}
-\label{sec:cycle5}
-%% ======================================================================
-
-\subsection{Attack 5: the $324$ is not a property of $\YHeis$}
-
-\begin{attack}[The $324$ is a Hilbert-scheme Euler characteristic]
-\label{att:324-hilbert}
-The proposition at \texttt{working\_notes.tex} line~5380
-(\texttt{prop:root-unity-n2}) asserts that at the root of unity
-$q = -1$ ($N = 2$), the quantum toroidal algebra
-$U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)$ has exactly $324$
-finite-dimensional irreducible modules, organised by
-$\mathbb{Z}_2 \times \mathbb{Z}_2$ acting via Miki plus charge
-conjugation, and that the $S$-matrix on these modules is
-\emph{degenerate} on the abelian sector.
-
-\emph{The $324$ is suspicious.} This same number appears in
-three unrelated contexts:
-\begin{itemize}
-  \item $\chi_{\mathrm{top}}(\Hilb^2(K3)) = 324$ (G\"ottsche 1990);
-  \item $[1/\eta(\tau)^{24}]_{q^1} \cdot q^{-1}$ is $324$ at $q^2$;
-  \item $\binom{24+1}{2} = 300 + 24 = 324$ (dimension of
-        $\mathrm{Sym}^2 H^*(K3)$).
-\end{itemize}
-These three are \emph{the same number} by the Nakajima--Grojnowski
-identification $H^*(\Hilb^n K3) \cong \mathrm{Sym}^n H^*(K3)$
-(under the Heisenberg action). Identifying the number of
-irreducible modules of $U_{q,t}$ at $q = -1$ with this Euler
-characteristic requires showing that the specialisation of the
-quantum toroidal algebra at $q = -1$ produces exactly one module
-per Hilbert-scheme cohomology class. This is \emph{not proved}
-in the manuscript; the count $324$ is asserted by analogy and
-verified on a subset of tests.
-
-Equally, the ``$S$-matrix on the $324$ abelian modules is
-degenerate'' claim is trivially true at the Heisenberg level
-(abelian Fock modules have degenerate $S$-matrix because they
-are simple currents with scalar braiding), but the $324$ is not
-the number of Heisenberg modules -- it is the second
-Nakajima--Hilbert multiplicity. The matching is a coincidence of
-gradings, not a theorem about modularity.
-\end{attack}
-
-\begin{falsification}[Degeneracy of $S$-matrix for Heisenberg]
-\label{fal:heisenberg-s-matrix}
-The $S$-matrix of a rank-$24$ Heisenberg algebra on its Fock
-representation is the Gauss sum
-\[
-  S^{\mathrm{Heis}}_{\lambda,\mu}
-  \;=\; \frac{1}{\sqrt{|\Lmuk'/\Lmuk|}}\,
-  e^{2\pi i\,(\lambda,\mu)_{\omega}/2}
-\]
-for $\lambda,\mu$ in the dual lattice $\Lmuk' / \Lmuk$. For
-$\Lmuk$ unimodular, $\Lmuk'/\Lmuk = 0$, so the quotient is
-trivial and $S^{\mathrm{Heis}}$ is the $1 \times 1$ matrix
-$(1)$ (modular tensor category of rank $1$, the trivial modular
-category $\mathrm{Vec}$). The claim ``$S$-matrix is degenerate''
-is vacuous: there is no non-trivial structure to be
-non-degenerate.
-
-For the quantum toroidal at $q = -1$, the specialisation does not
-produce a modular tensor category by Kazhdan--Lusztig standards
-(the Kazhdan--Lusztig negligible quotient at a root of unity is
-required to yield a pre-modular category; see
-\texttt{working\_notes.tex} line~8051). The statement that
-``$N = 2$ is the only root of unity where the quotient is
-tractable'' is correct but trivial: at $q = -1$, the
-$q$-commutator $[\alpha,\alpha]_{q^2}$ reduces to an ordinary
-commutator (since $q^2 = 1$), so the algebra degenerates to a
-classical Lie algebra. The modular structure disappears.
-\end{falsification}
-
-\subsection{Heal 5: the $324$ as a graded-dimension coincidence,
-not a modularity theorem}
-
-\begin{heal}[The $324$ is a character coefficient]
-\label{heal:324-character}
-The honest statement is:
-\begin{equation}\label{eq:324-character}
-  \dim \bigl(H^*(\Hilb^2(K3))\bigr) \;=\; 324
-  \;=\; [1/\eta^{24}]_{q^1},
-\end{equation}
-and this number coincides with $\binom{25}{2}$ by the
-Nakajima--Grojnowski Heisenberg action. No modularity theorem is
-required or implied; the match is at the level of graded
-character. At the quantum toroidal level:
-\begin{enumerate}[label=\textup{(\roman*)}]
-  \item At $q = -1$, $U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)$
-        has a quotient by the Kazhdan--Lusztig negligible ideal,
-        producing a finite-dimensional pre-modular category (not
-        yet verified to be modular).
-  \item Abelian (Heisenberg Fock) modules of this quotient are in
-        bijection with the Hilbert-scheme cohomology classes at
-        degree $2$, giving $324$ abelian modules.
-  \item The restriction of the putative $S$-matrix to these
-        $324$ abelian modules is the Gauss-sum
-        $S^{\mathrm{Heis}}$ of
-        Falsification~\ref{fal:heisenberg-s-matrix}, which is
-        non-degenerate on the modules (each is a simple current
-        with its own scalar braiding).
-  \item The full $324 \times 324$ $S$-matrix including the
-        non-abelian sectors is \emph{not computed} in the
-        manuscript; the ``degenerate'' claim applies only in the
-        sense that $324 - \rk S^{\mathrm{full}} > 0$, i.e., there
-        are non-trivial modules outside the Cartan.
-\end{enumerate}
-
-The $N = 2$ case is the only root of unity where the quotient
-is computable \emph{because} $q^2 = 1$ reduces the $q$-deformation
-to a classical Lie algebra. The $324$ modules are Fock modules
-of rank-$24$ Heisenberg; they exist at every root of unity, but
-only at $N = 2$ does the finite-dimensionality hold without extra
-truncation.
-\end{heal}
-
-\begin{observation}[$N = 2$ finite count does not survive for $N \geq 3$]
-\label{obs:N3}
-At $N \geq 3$, the Kazhdan--Lusztig quotient produces infinitely
-many Fock-type modules indexed by continuous parameters (the
-$\phi_i$ shifts), and the $324$ count breaks down. The statement
-``$N = 2$ is special because finite-dim quotient exists'' is
-correct; the further claim ``$324$ modules, abelian $S$-matrix
-degenerate'' is a restatement of Falsification~\ref{fal:heisenberg-s-matrix}
-in the presence of a finite quotient.
-\end{observation}
-
-%% ======================================================================
-\section{Affine Yangian $Y(\widehat{\mathfrak{gl}}_1)$ versus
-$Y(\widehat{\mathfrak{gl}}_{K3})$}
-\label{sec:scope-comparison}
-%% ======================================================================
-
-\subsection{What is the K3 lattice input?}
-
-\begin{proposition}[Lattice scope]
-\label{prop:lattice-scope}
-The K3 abelian-Yangian of
-Theorem~\texttt{thm:k3-abelian-yangian-presentation} is determined
-by the data $(\Lmuk, \omega)$, where $\Lmuk$ is the \emph{Mukai
-lattice} $U^{\oplus 4} \oplus E_8(-1)^{\oplus 2}$ of rank $24$
-and signature $(4,20)$, not the \emph{second-cohomology lattice}
-$H^2(S,\mathbb{Z}) = U^{\oplus 3} \oplus E_8(-1)^{\oplus 2}$ of
-rank $22$ and signature $(3,19)$.
-\end{proposition}
-
-\begin{proof}
-The Mukai extension is
-\[
-  \Lmuk \;=\; H^0(S,\mathbb{Z}) \oplus H^2(S,\mathbb{Z}) \oplus H^4(S,\mathbb{Z})
-  \;=\; \mathbb{Z}\cdot [pt] \oplus H^2 \oplus \mathbb{Z}\cdot [S],
-\]
-with Mukai pairing
-$((r,D,s), (r',D',s'))_{\mathrm{Muk}} = D\cdot D' - rs' - r's$.
-The rank of the Yangian equals the rank of $\Lmuk$, namely $24$,
-not $22$. The signature is $(4,20)$, not $(3,19)$.
-See Mukai 1987 (\emph{On the moduli space of bundles on K3 surfaces,
-I}, Tata Inst.\ Fund.\ Res.\ Stud.~Math.~11).
-\end{proof}
-
-\begin{remark}[Why Mukai, not $H^2$]
-\label{rem:why-mukai}
-The CoHA $\CoHA(K3)$ is defined on the moduli of compactly supported
-sheaves of \emph{all} Mukai vectors $v = (r,D,s)$, including
-$v = (1,0,n)$ (point sheaves) and $v = (0,D,0)$ ($D$-line bundles
-on curves). The rank-$24$ Mukai structure is needed to capture
-point-like and line-bundle sectors alongside the $H^2$ sector.
-The resulting Yangian has $24$ Heisenberg generators rather than
-$22$; the two extra generators correspond to the ``point/plane''
-tautological classes $[pt]$ and $[S]$.
-
-Compare this to $Y(\widehat{\mathfrak{gl}}_1)$, the affine Yangian
-for $\mathbb{C}^3$ of Tsymbaliuk 2017: a \emph{single} Heisenberg
-generator per Mukai direction, with three deformation parameters
-$(h_1,h_2,h_3)$ satisfying $h_1+h_2+h_3 = 0$. The K3 analogue has
-$24$ Heisenberg generators with $24$ parameters $(h_1,\ldots,h_{24})$
-satisfying $\sum h_i = 0$. Each factor of $Y(\widehat{\mathfrak{gl}}_1)$
-in the decomposition~\eqref{eq:tensor} is specialised to the abelian
-branch $\sigma_3 = h_1 h_2 h_3 = 0$ -- at rank $1$ this means two
-of the three $h_j$ are set to zero.
-\end{remark}
-
-\begin{proposition}[Contrast: $Y(\widehat{\mathfrak{gl}}_1)$ vs.
-$\Yabelgl = \YHeis$]
-\label{prop:gl1-vs-gl24}
-The affine Yangian $Y(\widehat{\mathfrak{gl}}_1)$ of Tsymbaliuk
-2017 at generic $\hbar = \sigma_3 = h_1 h_2 h_3$ is a $W_{1+\infty}$-
-type algebra with \emph{non-commutative} cubic shuffle product:
-\begin{equation}\label{eq:cubic-shuffle}
-  (f \ast g)(z_1, \ldots, z_{m+n})
-  \;=\; \frac{1}{m!\, n!} \sum_{\sigma}
-  f(z_{\sigma(1)}, \ldots, z_{\sigma(m)})\,
-  g(z_{\sigma(m+1)}, \ldots, z_{\sigma(m+n)})
-  \prod_{i \le m < j} \zeta(z_j - z_i),
-\end{equation}
-with $\zeta(z) = \prod_{k=1}^{3}(z - h_k)/z$. At the abelian
-specialisation $\sigma_3 = 0$ (equivalently $h_1 = h_2 = 0$, say),
-$\zeta(z) = 1$ and the shuffle product degenerates to the
-symmetric algebra -- the Heisenberg Fock. The passage
-$Y(\widehat{\mathfrak{gl}}_1) \twoheadrightarrow
-Y(\widehat{\mathfrak{gl}}_1)|_{\sigma_3 = 0}$ is not an isomorphism:
-it kills the $W_{1+\infty}$ higher spin fields. On the $K3$ side,
-$\Yabelgl$ is the direct sum of $24$ such abelian specialisations,
-one per Mukai direction.
-\end{proposition}
-
-\begin{proof}
-At $\sigma_3 = 0$, the Tsymbaliuk 2017 shuffle structure function
-$\zeta$ becomes $1$, so the $\ast$-product on functions in
-$z_1,\ldots,z_n$ reduces to the unsymmetrised product followed by
-symmetrisation, i.e., the symmetric-algebra product.
-This is the Heisenberg Fock algebra.
-For the $24$-fold tensor product, each factor applies
-independently, giving $\Yabelgl = \YHeis$ as in~\eqref{eq:tensor}.
-See \texttt{notes/CoHA\_to\_W\_infty\_treatise.tex} Section~5.
-\end{proof}
-
-\begin{falsification}[The ``full K3 Yangian'' is not what $\YHeis$ is]
-\label{fal:full-yangian}
-The manuscript at
-\texttt{k3\_yangian\_chapter.tex} line~1406--1445
-distinguishes between the \emph{abelian K3 Yangian} $\YHeis$ and
-the conjectural \emph{full K3 Yangian} $Y(\gK)$ containing the
-full Mukai-lattice Borcherds--Kac--Moody structure. The PROVED
-status in the memory applies to the first; the second remains
-conjectural. The difference:
-\begin{itemize}
-  \item $\YHeis$: $24$ commuting Heisenberg generators,
-        quadratic commutativity relations,
-        character $1/\eta^{24}$.
-  \item $Y(\gK)$: includes non-abelian generators from the BKM
-        algebra $\gDel$, Serre relations of three types (real
-        simple root cubic, lightlike quartic, timelike imaginary
-        root, spacelike imaginary root), character expected
-        to match the denominator $\Delta_5$.
-\end{itemize}
-The second is \emph{not} the Heisenberg Yangian at generic K3;
-it collapses to the Heisenberg at generic moduli (by the
-``boring-generic-Yangian'' observation of
-\texttt{working\_notes.tex} line~4077) and is interesting only
-at enhancement points of measure zero.
-\end{falsification}
-
-%% ======================================================================
-\section{Explicit generator action on the standard module}
-\label{sec:explicit-action}
-%% ======================================================================
-
-We work out the action of the abelian K3 Yangian generators on the
-\emph{standard module} -- the Fock representation
-$\F_{K3} = \Sym(\Lmuk \otimes z\mathbb{C}[z])$ -- to confirm the
-presentation is self-consistent.
-
-\begin{definition}[Fock representation]
-\label{def:fock}
-The Fock module $\F_{K3}$ of the rank-$24$ Mukai--Heisenberg
-algebra $\Hmuk$ is the polynomial algebra
-$\F_{K3} = \mathbb{C}[J_{i,-n} : 1 \le i \le 24, n \ge 1]$, with
-$\Hmuk$-action:
-\begin{itemize}
-  \item $J_{i,-n}$ acts as multiplication by the variable $J_{i,-n}$
-        (for $n \ge 1$);
-  \item $J_{i,n}$ acts as $\omega^{ii}\, n\, \partial/\partial J_{i,-n}$
-        (for $n \ge 1$, in the diagonal Mukai basis);
-  \item $J_{i,0}$ acts as multiplication by
-        $\lambda_i \in \mathbb{C}$ (the highest weight).
-\end{itemize}
-The highest-weight vector $|0\rangle$ is annihilated by all positive
-modes $J_{i,n}$ ($n \ge 1$).
+where $J_{i,-n}$ acts by multiplication and $J_{i,n}$ acts by
+$n\varepsilon_i\,\partial/\partial J_{i,-n}$ for $n>0$.
 \end{definition}
 
-\begin{proposition}[Standard action verification]
-\label{prop:standard-action}
-The action in Definition~\ref{def:fock} satisfies the commutation
-relation~\eqref{eq:Heis-mode-comm}.
-\end{proposition}
+\begin{definition}[The abelian K3 Yangian branch]
+\label{def:heisenberg-branch}
+The algebra denoted here by $\YHeis$ is the diagonal RTT/free-field
+quantisation of $\Hmuk$ determined by the Miura polynomial
+\[
+  T_{K3}(u;z)
+  =
+  :\prod_{i=1}^{24}\bigl(u-\phi_i(z)\bigr):
+  =
+  \sum_{s=0}^{24}(-1)^s\psi_s(z)u^{24-s},
+\]
+where the $\phi_i$ are the free fields of Definition
+\ref{def:mukai-heisenberg}. Its scalar structure function is
+\[
+  g_{K3}(u)
+  =
+  \prod_{i=1}^{24}\frac{u-h_i}{u+h_i}.
+\]
+This is the abelian Lie-current branch. The word ``Yangian'' in this
+notation refers to the diagonal RTT/free-field package, not to a
+Drinfeld $J$-presentation for a non-abelian finite-dimensional simple
+Lie algebra.
+\end{definition}
 
-\begin{proof}
-Compute $[J_{i,m}, J_{j,n}]$ on a generic monomial
-$v = J_{k_1,-n_1}^{e_1}\cdots J_{k_r,-n_r}^{e_r}\,|0\rangle$.
-\begin{itemize}
-  \item If $m, n > 0$: $J_{i,m}$ and $J_{j,n}$ are both
-        differential operators, commute, contribute $0$; the RHS
-        $\omega^{ij} m \delta_{m+n,0}$ is also $0$ (since $m + n > 0$). Agreed.
-  \item If $m > 0, n < 0$, $i = j$, $m = -n$: the commutator is
-        $J_{i,m} J_{i,n} - J_{i,n} J_{i,m}$ applied to $v$.
-        $J_{i,n}$ multiplies by $J_{i,n}$, then $J_{i,m}$ (for
-        $m = -n$) differentiates, giving
-        $\omega^{ii}\cdot m$ times $v$ itself. Conversely,
-        $J_{i,m}$ first differentiates (gives $0$ on $|0\rangle$),
-        then $J_{i,n}$ multiplies: the second term is $0$ on
-        $|0\rangle$ and contains an additional $J_{i,n}$ factor
-        on higher-weight states. The difference is
-        $\omega^{ii} m$ times the identity on $|0\rangle$ and
-        its multiples, matching
-        $\omega^{ij} m \delta_{m+n,0}$ at $i=j, n = -m$.
-  \item If $i \ne j$: commutator is $0$; RHS is also $0$
-        (diagonal $\omega$). Agreed.
-\end{itemize}
-All cases match.
-\end{proof}
+\section{Algebraic Content}
+\label{sec:algebraic-content}
 
-\begin{proposition}[Transfer matrix action on $|0\rangle$]
-\label{prop:transfer-vacuum}
-The transfer matrix $T_{K3}(u)$ acts on the vacuum $|0\rangle$
-of $\F_{K3}$ (with highest weights $\lambda_i$) as
-\begin{equation}\label{eq:transfer-vacuum}
-  T_{K3}(u)\,|0\rangle
-  \;=\; \prod_{i=1}^{24} (u - \lambda_i)\,|0\rangle
-  \;=\; \bigl(u^{24} - e_1(\lambda)\, u^{23} + e_2(\lambda)\, u^{22}
-        - \cdots \bigr)\,|0\rangle.
-\end{equation}
-The CY$_2$ constraint $\sum h_i = 0$ at $\lambda_i = h_i$ gives
-$e_1(\lambda) = 0$, so the $u^{23}$ coefficient vanishes.
-\end{proposition}
-
-\begin{proof}
-The Miura factorisation~\eqref{eq:miura} has
-$\phi_i|0\rangle = \lambda_i |0\rangle$ by construction; substituting
-into $T_{K3}(u) = \prod (u - \phi_i)$ gives the polynomial
-on the right. The CY$_2$ constraint sets the linear coefficient
-$e_1 = \sum \lambda_i$ to zero.
-\end{proof}
-
-\begin{proposition}[Structure-function pole/zero distribution]
-\label{prop:structure-pole-zero}
-In the Kummer parametrisation of
-Proposition~\texttt{prop:k3-kummer-structure-function} with
-$h_i = \varepsilon$ for $i \in \{1,2,3,4\}$ and
-$h_i = -\varepsilon/5$ for $i \in \{5,\ldots,24\}$, the structure
-function $g_{K3}(u)$ has:
-\begin{itemize}
-  \item Four zeros at $u = \varepsilon$
-        (positive Mukai direction, multiplicity $4$).
-  \item Twenty zeros at $u = -\varepsilon/5$
-        (negative Mukai direction, multiplicity $20$).
-  \item Four poles at $u = -\varepsilon$ (multiplicity $4$).
-  \item Twenty poles at $u = \varepsilon/5$ (multiplicity $20$).
-\end{itemize}
-The ratio of positive to negative pole residues is $-4 : 20 \cdot 5 =
--4 : 100 = -1 : 25$, reflecting the signature asymmetry
-$(4,20)$ weighted by the Kummer eigenvalue ratio $5 : 1$.
-The structure function is $\Gm$-covariant under
-$u \mapsto \lambda u$, $\varepsilon \mapsto \lambda \varepsilon$.
-\end{proposition}
-
-\begin{proof}
-Direct from $g_{K3}(u) = \prod(u-h_i)/(u+h_i)$ at
-$h_i \in \{\varepsilon, -\varepsilon/5\}$. The residue computation
-is elementary.
-\end{proof}
-
-%% ======================================================================
-\section{Convergence: scope-complete summary}
-\label{sec:convergence}
-%% ======================================================================
-
-\begin{theorem}[Scope-complete K3 abelian Yangian theorem]
-\label{thm:convergence}
-Let $S$ be a K3 surface with Mukai lattice
-$\Lmuk = H^0 \oplus H^2 \oplus H^4(S,\mathbb{Z})$ of rank $24$ and
-signature $(4,20)$, and let
-$(h_1,\ldots,h_{24}) \in \Lmuk \otimes \mathbb{C}$ satisfy
-$\sum h_i = 0$. Then:
+\begin{proposition}[PBW, Fock module, and tensor factorisation]
+\label{prop:pbw-fock-factorisation}
+The Mukai-Heisenberg branch has the following properties.
 \begin{enumerate}[label=\textup{(\alph*)}]
-  \item \textbf{(Presentation)} There is a well-defined
-        associative $\mathbb{C}$-algebra $\YHeis$, the rank-$24$
-        Heisenberg Yangian with diagonal Mukai form, given by
-        generators $\{J_{i,n}\}$ and relations~\eqref{eq:Heis-mode-comm}.
-  \item \textbf{(Hopf structure)} $\YHeis$ is a graded Hopf algebra
-        with Drinfeld coproduct
-        $\Delta_z(J_n) = J_n^L + J_n^R$ and Miura multiplicativity
-        for higher currents.
-  \item \textbf{(RTT)} $\YHeis$ satisfies the RTT relation with
-        diagonal $R$-matrix~\eqref{eq:diagonal-R}, trivially
-        (scalar commutativity).
-  \item \textbf{(Structure function)} The degree-$(24,24)$
-        rational function
-        $g_{K3}(u) = \prod (u-h_i)/(u+h_i)$ satisfies unitarity
-        $g(u) g(-u) = 1$, is real-valued on the real axis, and
-        has Laurent expansion with vanishing $u^{-1}$ coefficient.
-  \item \textbf{(Koszul)} $\YHeis^! \cong \YHeis$ with
-        $h_i^! = -h_i$, and
-        $\kappa_{\mathrm{ch}}(\YHeis) +
-         \kappa_{\mathrm{ch}}(\YHeis^!) = 0$ on the free-field branch.
-  \item \textbf{(Fock module)} $\YHeis$ admits a standard Fock
-        representation on
-        $\F_{K3} = \Sym(\Lmuk \otimes z\mathbb{C}[z])$ with
-        highest weight $(\lambda_1,\ldots,\lambda_{24})$;
-        the transfer matrix acts by
-        $\prod (u-\lambda_i)$ on the vacuum.
-  \item \textbf{(Character)} The bar-cobar Euler product is
-        $\prod(1-q^n)^{24} = \eta^{24}/q = \Delta/q$.
-  \item \textbf{(Decomposition)} $\YHeis \cong
-        \bigotimes_{i=1}^{24} Y(\widehat{\mathfrak{gl}}_1)|_{\sigma_3=0}$
-        (the $24$-fold tensor of rank-$1$ affine Yangians, each at
-        abelian specialisation, along the Mukai diagonal basis).
+\item The enveloping algebra of $\Hmuk$ has Poincare-Birkhoff-Witt
+basis ordered by negative modes, zero modes, and positive modes.
+\item The Fock representation $\Fock$ is generated from a vacuum
+$|0\rangle$ annihilated by all $J_{i,n}$ with $n>0$.
+\item In a Miura frame,
+\[
+  \Hmuk \cong \widehat{\bigoplus}_{i=1}^{24}\mathrm{Heis}_{\varepsilon_i},
+  \qquad
+  \YHeis \cong
+  \widehat{\bigotimes}_{i=1}^{24}Y^{\mathrm{Heis}}_i
+\]
+as completed current algebras with diagonal RTT factors.
 \end{enumerate}
-All eight statements are theorems.
+The factor $Y^{\mathrm{Heis}}_i$ is the rank-one Heisenberg current
+factor. Identifying it with a specialisation of
+$Y(\widehat{\mathfrak{gl}}_1)$ requires an additional affine-Yangian
+normalisation and kills the generic cubic shuffle interaction.
+\end{proposition}
+
+\begin{proof}
+The PBW statement is the standard PBW theorem for a central extension
+of an abelian loop algebra. The Fock action follows from
+\[
+  \left[
+    n\varepsilon_i\frac{\partial}{\partial J_{i,-n}},
+    J_{j,-m}
+  \right]
+  =
+  n\varepsilon_i\delta_{ij}\delta_{nm}.
+\]
+Since the Mukai form is diagonal in the chosen frame, different
+directions commute. The completed tensor product is therefore the
+universal algebra generated by the $24$ rank-one factors with pairwise
+commuting images.
+\end{proof}
+
+\begin{proposition}[Structure-function identities]
+\label{prop:structure-function}
+The scalar structure function satisfies
+\[
+  g_{K3}(u)g_{K3}(-u)=1
+\]
+and
+\[
+  \log g_{K3}(u)
+  =
+  -2\sum_{r\geq 0}
+  \frac{p_{2r+1}(h)}{(2r+1)u^{2r+1}},
+  \qquad
+  p_k(h)=\sum_{i=1}^{24}h_i^k .
+\]
+Thus the $u^{-1}$ coefficient vanishes exactly when $p_1(h)=0$.
+The Mukai signature enters the two-point function through the signs
+$\varepsilon_i$, and the total Heisenberg level is
+\[
+  \Tr(\varepsilon)=4-20=-16 .
+\]
+\end{proposition}
+
+\begin{proof}
+The identity $g(u)g(-u)=1$ follows by pairing each factor
+$(u-h_i)/(u+h_i)$ with $(-u-h_i)/(-u+h_i)$. The logarithmic expansion is
+the difference of the two Taylor series for
+$\log(1-h_i/u)$ and $\log(1+h_i/u)$, summed over $i$.
+The trace is the difference between the positive and negative
+dimensions of the Mukai form.
+\end{proof}
+
+\begin{remark}[Kummer frame]
+\label{rem:kummer-frame}
+The common Kummer frame
+\[
+  h_i=\varepsilon \quad (1\leq i\leq 4),
+  \qquad
+  h_i=-\varepsilon/5 \quad (5\leq i\leq 24)
+\]
+satisfies $p_1(h)=4\varepsilon-20\varepsilon/5=0$. In this frame
+$g_{K3}$ has four zeros at $u=\varepsilon$, twenty zeros at
+$u=-\varepsilon/5$, four poles at $u=-\varepsilon$, and twenty poles
+at $u=\varepsilon/5$. These multiplicities display the signature block
+sizes. Serre relations require enhanced root-algebra data.
+\end{remark}
+
+\section{Serre Relations}
+\label{sec:serre-relations}
+
+\begin{proposition}[Serre content of the abelian branch]
+\label{prop:abelian-serre}
+At the Lie-current level the Mukai-Heisenberg branch has no
+non-trivial Serre relations. For $i\neq j$,
+\[
+  [J_i(z),J_j(w)] = 0,
+\]
+and every iterated adjoint expression built from distinct Heisenberg
+directions vanishes for the elementary reason that the Lie algebra is
+abelian modulo its central extension.
+\end{proposition}
+
+\begin{proof}
+The defining commutator in Definition \ref{def:mukai-heisenberg} is
+central and is zero unless $i=j$ and the mode numbers sum to zero.
+Consequently
+\[
+  \operatorname{ad}(J_{i,m})\operatorname{ad}(J_{j,n})(x)=0
+\]
+for all $i\neq j$ and all $x\in\Hmuk$. This is plain Heisenberg
+commutativity. Kac-Moody Serre cancellation belongs to enhanced root
+data.
+\end{proof}
+
+\begin{remark}[Enhancement and Borcherds sectors]
+\label{rem:enhancement-borcherds}
+ADE Serre relations at an $E_8\oplus E_8$ enhancement point are
+relations of the enhanced root algebra on that special locus. The
+Borcherds real-root and imaginary-root relations of
+$\gDel$ are relations of the BKM denominator algebra attached to
+$\Delta_5$. Neither family is a relation of $\YHeis$ at a generic
+K3 period point.
+\end{remark}
+
+\section{Fock Character and Hilbert Schemes}
+\label{sec:fock-character}
+
+\begin{theorem}[Nakajima-Grojnowski realisation]
+\label{thm:nakajima-grojnowski}
+There is an action of the Heisenberg algebra
+$H^*(S,\mathbb{C})\otimes t\mathbb{C}[t,t^{-1}]$ on
+\[
+  \mathcal{V}_S :=
+  \bigoplus_{n\geq 0} H^*(\Hilb^n S,\mathbb{C})
+\]
+for which $\mathcal{V}_S$ is the Fock representation generated by
+$H^*(S,\mathbb{C})$. The Euler-characteristic generating series is
+\[
+  \sum_{n\geq 0}\chi(\Hilb^n S)q^n
+  =
+  \prod_{m\geq 1}(1-q^m)^{-24}
+  =
+  1+24q+324q^2+3200q^3+\cdots .
+\]
+Equivalently,
+\[
+  \eta(\tau)^{-24}
+  =
+  q^{-1}+24+324q+3200q^2+\cdots .
+\]
 \end{theorem}
 
-\begin{theorem}[Scope-complete NOT-a-theorem list]
-\label{thm:not-a-theorem}
-The following statements are \emph{not} theorems of the abelian
-K3 Yangian in the sense of
-Theorem~\ref{thm:convergence}:
-\begin{enumerate}[label=\textup{(\arabic*)}]
-  \item ``$\YHeis$ is the full K3 Yangian $Y(\gK)$''.
-        \emph{Status}: false in general; true only after
-        restriction to the Heisenberg Cartan sector.
-  \item ``$\YHeis$ has $14$ cubic Serre relations''.
-        \emph{Status}: true at the $E_8 \times E_8$
-        enhancement locus, false at generic K3 moduli.
-  \item ``$\YHeis \cong \CoHA(K3)$''.
-        \emph{Status}: false; the correct statement is
-        $\YHeis \hookrightarrow \CoHA(K3)$, via the
-        Nakajima--Grojnowski Heisenberg embedding.
-  \item ``At $N = 2$, $\YHeis$ has $324$ irreducible modules''.
-        \emph{Status}: the $324$ is the Euler characteristic of
-        $\Hilb^2(K3)$, not a module count of $\YHeis$; the
-        identification is a character match, not a module-theoretic
-        theorem.
-  \item ``The abelian $S$-matrix of $\YHeis$ at $N=2$ is degenerate''.
-        \emph{Status}: trivially true (the abelian rank-$24$
-        Heisenberg has trivial $S$-matrix $S = (1)$); this is not
-        informative.
-  \item ``$\YHeis$ is a Drinfeld Yangian in the strict sense of
-        Drinfeld 1985''.
-        \emph{Status}: false; $\YHeis$ is a Heisenberg Yangian
-        / RTT algebra, not a J-presentation Yangian.
-  \item ``The identification of $\YHeis$ with the super-Yangian
-        $Y^{\mathrm{super}}_\hbar(\gDel)$ is an equivalence''.
-        \emph{Status}: the super-Yangian has $\YHeis$ as its
-        abelian sector; the non-abelian part is unconstrained by
-        the abelian theorem and is conjectural.
+\begin{proof}
+This is the Nakajima-Grojnowski Heisenberg construction for Hilbert
+schemes of points on a smooth projective surface, specialised to K3.
+G\"ottsche's formula gives the Euler-characteristic series. The
+coefficient of $q^2$ in the product is
+\[
+  \binom{24+1}{2}+24=300+24=324,
+\]
+coming respectively from two degree-one creation operators and one
+degree-two creation operator.
+\end{proof}
+
+\begin{corollary}[Meaning of the integer $324$]
+\label{cor:meaning-324}
+The integer $324$ is
+\[
+  324=\chi(\Hilb^2 S)=p_{24}(2),
+\]
+the second coefficient of the $24$-boson Fock character. Module counts
+for the abelian Heisenberg algebra $\Hmuk$ or for $\YHeis$ require
+additional finite tensor-categorical data.
+\end{corollary}
+
+\begin{proof}
+The Heisenberg algebra has Fock modules parametrised by highest
+weights. A finite list of $324$ irreducibles appears only after
+supplying a separate finite tensor category, such as a root-of-unity
+small quantum group or a finite quotient. The Nakajima-Grojnowski
+theorem supplies a graded vector-space coefficient. Such a tensor
+category is additional data.
+\end{proof}
+
+\section{CoHA Boundary}
+\label{sec:coha-boundary}
+
+\begin{proposition}[What the Hilbert-scheme theorem proves]
+\label{prop:coha-boundary}
+The theorem of Nakajima and Grojnowski proves a Heisenberg action on
+$\bigoplus_n H^*(\Hilb^n S)$. An algebra isomorphism
+\[
+  \CoHA(S) \cong \YHeis
+\]
+or an isomorphism between any compact K3 Hall algebra and the diagonal
+RTT algebra of Definition \ref{def:heisenberg-branch} requires a
+specified Hall product and an intertwining theorem.
+\end{proposition}
+
+\begin{proof}
+The Heisenberg construction uses correspondences between Hilbert
+schemes and produces creation and annihilation operators. A Hall
+algebra comparison requires a specified moduli stack, a product, a
+coproduct or pairing when a double is intended, and a proof that the
+Nakajima operators intertwine those structures. Equality of Fock
+characters is insufficient: different algebra structures can act on
+the same graded vector space.
+\end{proof}
+
+\begin{remark}[Positive halves and doubles]
+\label{rem:positive-halves-doubles}
+For local surfaces and quiver examples, cohomological Hall algebras
+often realise positive halves of quantum groups. Passing from a
+positive half to a full quantum group requires a Hopf pairing and a
+Drinfeld double. This distinction is load-bearing for the K3 and
+$K3\times E$ constructions.
+\end{remark}
+
+\section{Separation from the Hall-Drinfeld BKM Branch}
+\label{sec:hall-drinfeld-separation}
+
+The K3 Yangian branch and the $K3\times E$ BKM branch share the Mukai
+lattice but arise from different inputs.
+
+\begin{proposition}[Two inputs]
+\label{prop:two-inputs}
+The abelian K3 Yangian branch is the $d=2$ Mukai-Heisenberg
+construction attached to $D^b\Coh(S)$. The Hall-Drinfeld BKM branch is
+a $d=3$ construction problem attached to $D^b\Coh(S\times E)$ and to
+the Borcherds denominator $\Delta_5$.
+\end{proposition}
+
+\begin{proof}
+For $d=2$, the native chiral output is $\Etwo$-chiral and the
+Mukai-Heisenberg currents give the abelian Lie-current stratum. For
+$d=3$, the native output is $\Eone$-chiral. A braided or $\Etwo$
+structure appears only after passing to a centre, double, or an
+additional stage-$2$ specialisation under hypotheses. Thus the
+Hall-Drinfeld object belongs to the centre/double side of the
+$d=3$ theory, not to the native abelian K3 Yangian.
+\end{proof}
+
+\begin{definition}[BKM Hall-Drinfeld target]
+\label{def:bkm-hall-drinfeld-target}
+The $K3\times E$ comparison target has the form
+\[
+  \HD
+  :=
+  \mathcal{D}_{\hbar}\!\left(
+    Y^+_{\mathrm{Hall}}(K3\times E),\,
+    D_5(2Z)=64^{-1}\Delta_5(2Z),\,
+    R_{\mathrm{Sieg,dyn}}
+  \right),
+\]
+where $Y^+_{\mathrm{Hall}}(K3\times E)$ is a positive Hall half,
+$D_5$ is the Borcherds denominator input, and
+$R_{\mathrm{Sieg,dyn}}$ is the Siegel-elliptic dynamical
+$R$-matrix datum. This is a Hall-Drinfeld BKM target. Yangian
+structures belong to the separate Mukai-Heisenberg branch.
+\end{definition}
+
+\begin{remark}[The four invariants of $K3\times E$]
+\label{rem:four-invariants}
+The canonical spectrum attached to $K3\times E$ is
+\[
+  \{
+    \kappa_{\mathrm{cat}},
+    \kappa_{\mathrm{ch}}^{\mathrm{Heis}},
+    \kappa_{\mathrm{BKM}},
+    \kappa_{\mathrm{fiber}}
+  \}(K3\times E)
+  =
+  \{0,3,5,24\}.
+\]
+Here
+\[
+  \kappa_{\mathrm{cat}}(K3\times E)
+  =
+  \chi(\mathcal{O}_{K3})\chi(\mathcal{O}_E)
+  =
+  2\cdot 0=0,
+\]
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3$ belongs to the
+Heisenberg-Mukai stage-$2$ specialisation,
+$\kappa_{\mathrm{BKM}}(\Delta_5)=c_1(0)/2=5$ is the Borcherds weight,
+and $\kappa_{\mathrm{fiber}}=24$ is the Mukai-lattice rank of the K3
+fibre. The value $2$ is $\kappa_{\mathrm{cat}}(K3)$ for the fibre
+alone. The total-space invariant is $0$.
+\end{remark}
+
+\section{Root of Unity and Modular Data}
+\label{sec:root-of-unity}
+
+\begin{proposition}[Finite modular data require extra input]
+\label{prop:no-abelian-324-module-theorem}
+A finite modular tensor category with $324$ simple objects requires
+additional input beyond the abelian branch $\YHeis$. In a
+positive-definite lattice-VOA formula the number of simple currents is
+the order of the discriminant group $\Lambda^\vee/\Lambda$; for the
+Mukai lattice this group is trivial because $\Lmuk$ is unimodular. For
+the indefinite Mukai lattice, rational modular tensor categories require
+extra analytic or categorical input.
+\end{proposition}
+
+\begin{proof}
+Unimodularity gives $\Lmuk^\vee=\Lmuk$. Hence the standard finite
+discriminant-form modular datum has one simple-current label. The
+Heisenberg VOA itself has continuous Fock labels before a lattice or
+finite quotient is imposed. These constructions produce no $324$ simple
+objects.
+\end{proof}
+
+\begin{remark}[Where root-of-unity counts live]
+\label{rem:root-of-unity-counts}
+A statement that a root-of-unity small quantum group attached to
+$\gDel$ has $324$ simple modules at $N=2$ belongs to the BKM
+Hall-Drinfeld branch. Its proof requires an integral form, a
+Kazhdan-Lusztig negligible quotient, a specified tensor category, and
+an identification of its simples with the coefficient
+$p_{24}(2)=324$. The Fock-character coefficient supplies the number;
+the finite category is extra structure.
+\end{remark}
+
+\section{Abelian Theorem}
+\label{sec:abelian-theorem}
+
+\begin{theorem}[Scope of the abelian K3 Yangian presentation]
+\label{thm:abelian-k3-yangian-scope}
+Let $S$ be a K3 surface, let $\Lmuk$ be its Mukai lattice, choose a
+Miura frame, and let $h_1,\ldots,h_{24}$ satisfy $\sum_i h_i=0$.
+Then the construction above gives a well-defined rank-$24$
+Mukai-Heisenberg branch $\YHeis$ with:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item modes $J_{i,n}$ satisfying the central Heisenberg relation
+\[
+  [J_{i,m},J_{j,n}]
+  =
+  m\varepsilon_i\delta_{ij}\delta_{m+n,0}\mathbf{1};
+\]
+\item Fock module
+$\Fock=\Sym(\bigoplus_{n\geq 1}\LmukC t^{-n})$;
+\item Miura transfer polynomial
+$T_{K3}(u;z)=:\prod_i(u-\phi_i(z)):$ of degree $24$;
+\item scalar structure function
+$g_{K3}(u)=\prod_i(u-h_i)/(u+h_i)$ satisfying
+$g_{K3}(u)g_{K3}(-u)=1$;
+\item vanishing $u^{-1}$ coefficient in $\log g_{K3}(u)$ exactly when
+$\sum_i h_i=0$;
+\item tensor factorisation into $24$ commuting rank-one Heisenberg
+current factors;
+\item Hilbert-scheme Fock character
+\[
+  \prod_{m\geq 1}(1-q^m)^{-24}
+  =
+  1+24q+324q^2+\cdots .
+\]
 \end{enumerate}
-Each of these has been attacked in the cycles above and downgraded
-to a sharper, scope-correct statement.
+These are abelian Lie-current and free-field statements.
 \end{theorem}
 
-%% ======================================================================
-\section{Kazhdan's final dictum}
-%% ======================================================================
+\begin{proof}
+Items (a), (b), and (f) are Definition \ref{def:mukai-heisenberg} and
+Proposition \ref{prop:pbw-fock-factorisation}. Items (c), (d), and
+(e) are Definition \ref{def:heisenberg-branch} and Proposition
+\ref{prop:structure-function}. Item (g) is Theorem
+\ref{thm:nakajima-grojnowski}.
+\end{proof}
 
-\begin{remark}[Kazhdan's dictum applied]
-\label{rem:kazhdan-dictum}
-What the cycles have done: contracted the claim ``K3 abelian
-Yangian, PROVED, $47$ tests'' to its scope-correct minimum, a
-rank-$24$ Heisenberg Yangian with Mukai pairing and CY$_2$ trace
-constraint. The truth content of the original claim is preserved;
-the false content -- that this Heisenberg Yangian is
-\begin{itemize}
-  \item the full K3 Yangian,
-  \item the SV K3 CoHA,
-  \item a Drinfeld Yangian in the strict sense,
-  \item modular at $q = -1$ with $324$ distinguished modules,
-  \item $E_8 \times E_8$ Serre-equipped at generic K3 moduli,
-\end{itemize}
--- is refuted and replaced by scope-declaring statements. The
-quadratic Serre content is retained; the cubic and quartic content
-belongs to $Y^{\mathrm{super}}_\hbar(\gDel)$, a separate
-construction. The lattice input is $\Lmuk$ of rank $24$, not
-$H^2(S,\mathbb{Z})$ of rank $22$. The $324$ is an Euler
-characteristic, not a module count. Each identification at a
-specific parameter point is honestly scoped.
-
-The PROVED status stands for the scope-contracted statement of
-Theorem~\ref{thm:convergence}. The $47$ tests verify
-Theorem~\ref{thm:convergence}(a)--(h) at the stated level. They
-do \emph{not} verify any of the items in
-Theorem~\ref{thm:not-a-theorem}; the manuscript's memory record
-``$47$ tests'' should be understood in this narrower sense.
-\end{remark}
-
-\begin{remark}[What a genuine K3 Yangian theorem would require]
-\label{rem:genuine-k3-yangian}
-A genuine K3 Yangian theorem, beyond the abelian one above, would
-require (following the Kazhdan--Drinfeld pattern applied to the BKM
-$\gDel$):
+\begin{corollary}[Proof obligations beyond the abelian theorem]
+\label{cor:outside-abelian-theorem}
+The abelian theorem proves exactly the statements above. The following
+assertions require additional data:
 \begin{enumerate}[label=\textup{(\arabic*)}]
-  \item A J-presentation on $\gDel$: degree-one $J$-operators
-        compatible with Borcherds axioms (GKM1)--(GKM4), satisfying
-        the Drinfeld cubic-Serre on real simple roots and a
-        \emph{new} Yangian-BKM quartic/quintic axiom on imaginary
-        simple roots. This requires extending Drinfeld's 1985
-        framework to the BKM setting; not done in the literature.
-  \item A Drinfeld coproduct compatible with the Borcherds double
-        and the odd simple roots. The super-Yangian
-        $Y^{\mathrm{super}}_\hbar(\gDel)$ of
-        \texttt{k3\_chiral\_bialgebra\_platonic.tex} Definition
-        \texttt{def:kcb-super-yangian} provides a candidate;
-        consistency with CY-C remains conjectural.
-  \item Verification that this Yangian acts on
-        $\bigoplus_n H^*(\Hilb^n S)$ via Maulik--Okounkov stable
-        envelopes, extending Schiffmann 2012 from $\mathbb{A}^2$
-        to $S$. The MO route is unavailable at generic K3 moduli
-        (Lemma \texttt{lem:mo-bypass-local-to-global} of
-        \texttt{k3\_yangian\_chapter.tex}); restricted to the
-        ADE/Kummer locus, the route gives the $R$-matrix on
-        Fock space but not the full Yangian.
-  \item Identification of the classical limit with the Kazhdan
-        Lie bialgebra $(\gDel[u], \delta^{K3})$ of
-        \texttt{thm:kcb-classical-limit-kazhdan}, which has been
-        constructed. The Yangian-level quasitriangularity
-        (\texttt{prop:kcb-super-yangian-quasitriangular}) is
-        similarly established. The missing step is the strict
-        CoHA-to-double identification; this is CY-C, conjectural.
+\item $\YHeis$ is the BKM algebra $\gDel$ or the Hall-Drinfeld target
+$\HD$.
+\item $\YHeis$ has non-trivial ADE or Borcherds Serre relations at a
+generic K3 period point.
+\item $\YHeis$ is isomorphic to a compact K3 cohomological Hall
+algebra.
+\item The coefficient $324$ is a count of irreducible modules of
+$\YHeis$.
+\item The $K3\times E$ invariant $\kappa_{\mathrm{cat}}$ equals $2$.
 \end{enumerate}
-None of~(1)--(4) is proved in the manuscript; they remain open
-even after the abelian theorem is secured.
-\end{remark}
+\end{corollary}
 
-\begin{remark}[Programme-level note: the ``K3 Yangian'' label]
-\label{rem:programme-label}
-The label ``K3 Yangian'' throughout the volume refers to the
-conjectural object $Y(\gK)$ (full K3 Yangian, non-abelian
-completion of $\YHeis$), \emph{not} to $\YHeis$ itself. The
-abelian theorem of
-\texttt{thm:k3-abelian-yangian-presentation} provides the
-Heisenberg Cartan sector; the rest of $Y(\gK)$ is conjectural
-(see \texttt{conj:k3-yangian} at line~1406 of
-\texttt{k3\_yangian\_chapter.tex}). This scope is recorded
-correctly in the chapter but is occasionally elided in the memory
-and status tables. The corrected reading of
-``K3 abelian Yangian, PROVED'' is:
-\begin{center}
-\emph{The \textbf{Heisenberg Cartan sector} of the conjectural K3
-Yangian is constructed as $\YHeis$, with presentation, RTT,
-coproduct, and Koszul dual fully worked out. The non-abelian
-completion remains conjectural.}
-\end{center}
-\end{remark}
+\begin{proof}
+Item (1) is Proposition \ref{prop:two-inputs} and Definition
+\ref{def:bkm-hall-drinfeld-target}. Item (2) is Proposition
+\ref{prop:abelian-serre}. Item (3) is Proposition
+\ref{prop:coha-boundary}. Item (4) is Corollary
+\ref{cor:meaning-324} and Proposition
+\ref{prop:no-abelian-324-module-theorem}. Item (5) is Remark
+\ref{rem:four-invariants}.
+\end{proof}
+
+\section{Proof Obligations Beyond the Abelian Branch}
+\label{sec:proof-obligations}
+
+A non-abelian theorem extending the abelian branch must supply the
+following data.
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item A non-abelian current algebra or BKM input with explicit real
+and imaginary root generators, multiplicities, and Borcherds
+relations. The Mukai-Heisenberg algebra alone supplies only the
+Cartan/free-field sector.
+\item A quantisation functor or RTT presentation for that non-abelian
+input, including coproduct, antipode, Hopf pairing, and PBW theorem.
+\item For the $K3\times E$ branch, a compact Hall positive half
+$Y^+_{\mathrm{Hall}}(K3\times E)$, a nondegenerate Hopf pairing, and
+the completed Drinfeld double regulated by the $\Delta_5$ denominator.
+\item For any root-of-unity module count, an integral form, the
+negligible quotient, and a proof that the resulting simple objects are
+counted by $p_{24}(2)=324$.
+\item For any comparison with Maulik-Okounkov stable envelopes, a
+global K3 construction replacing the equivariant toric input available
+for $\mathbb{A}^2$ and $\mathbb{C}^3$.
+\end{enumerate}
+
+Until these data are supplied, the abelian theorem remains exactly the
+Mukai-Heisenberg statement of Theorem
+\ref{thm:abelian-k3-yangian-scope}.
 
 \bibliographystyle{plain}
 \begin{thebibliography}{99}
-\bibitem{Borcherds1988} R.~Borcherds, \emph{Generalized Kac--Moody
-  algebras}, J.~Algebra~115 (1988) 501--512.
-\bibitem{ChariPressley1995} V.~Chari and A.~Pressley,
-  \emph{A Guide to Quantum Groups}, Cambridge University Press, 1995.
-\bibitem{Drinfeld1985} V.~Drinfeld, \emph{Hopf algebras and the
-  quantum Yang--Baxter equation}, Sov.~Math.~Dokl.~32 (1985) 254--258.
-\bibitem{Drinfeld1988} V.~Drinfeld, \emph{A new realization of
-  Yangians and quantized affine algebras},
-  Sov.~Math.~Dokl.~36 (1988) 212--216.
-\bibitem{FaddeevReshetikhinTakhtajan1989} L.~Faddeev, N.~Reshetikhin,
-  and L.~Takhtajan, \emph{Quantization of Lie groups and Lie
-  algebras}, Leningrad Math.~J.~1 (1990) 193--225.
-\bibitem{FrenkelKac1980} I.~Frenkel and V.~Kac,
-  \emph{Basic representations of affine Lie algebras and dual
-  resonance models}, Invent.~Math.~62 (1980) 23--66.
-\bibitem{FrenkelJing1988} I.~Frenkel and N.~Jing,
-  \emph{Vertex representations of quantum affine algebras},
-  Proc.~Natl.~Acad.~Sci.~USA~85 (1988) 9373--9377.
-\bibitem{GritsenkoNikulin1998} V.~Gritsenko and V.~Nikulin,
-  \emph{Automorphic forms and Lorentzian Kac--Moody algebras II},
-  Int.~J.~Math.~9 (1998) 201--275.
-\bibitem{Goettsche1990} L.~G\"ottsche, \emph{The Betti numbers of the
-  Hilbert scheme of points on a smooth projective surface},
-  Math.~Ann.~286 (1990) 193--207.
-\bibitem{Grojnowski1996} I.~Grojnowski, \emph{Instantons and affine
-  algebras I: the Hilbert scheme and vertex operators},
-  Math.~Res.~Lett.~3 (1996) 275--291.
-\bibitem{MaulikOkounkov2012} D.~Maulik and A.~Okounkov,
-  \emph{Quantum groups and quantum cohomology},
-  \texttt{arXiv:1211.1287}.
-\bibitem{Mukai1987} S.~Mukai, \emph{On the moduli space of bundles
-  on K3 surfaces, I}, Tata Inst.\ Fund.\ Res.\ Stud.~Math.~11 (1987).
-\bibitem{Nakajima1997} H.~Nakajima, \emph{Heisenberg algebra and
-  Hilbert schemes of points on projective surfaces},
-  Ann.~Math.~145 (1997) 379--388.
-\bibitem{Schiffmann2012} O.~Schiffmann, \emph{On the Hall algebra of
-  an elliptic curve II}, Duke Math.~J.~161 (2012) 1711--1750.
-\bibitem{SchiffmannVasserot2013} O.~Schiffmann and E.~Vasserot,
-  \emph{Cherednik algebras, W-algebras and the equivariant cohomology
-  of the moduli space of instantons on $\mathbb{A}^2$},
-  Publ.~IHES~118 (2013) 213--342.
-\bibitem{SchiffmannVasserot2017} O.~Schiffmann and E.~Vasserot,
-  \emph{On cohomological Hall algebras of Edward Frenkel and
-  Olivier Schiffmann: quantum groups and Higgs bundles},
-  \texttt{arXiv:1705.07498}.
-\bibitem{Tsymbaliuk2017} A.~Tsymbaliuk, \emph{The affine Yangian of
-  $\mathfrak{gl}_1$ revisited}, Adv.~Math.~304 (2017) 583--645,
-  \texttt{arXiv:1404.5240}.
+\bibitem{Borcherds1988}
+R.~Borcherds,
+\emph{Generalized Kac-Moody algebras},
+J.~Algebra~115 (1988), 501--512.
+
+\bibitem{Drinfeld1985}
+V.~Drinfeld,
+\emph{Hopf algebras and the quantum Yang-Baxter equation},
+Sov.~Math.~Dokl.~32 (1985), 254--258.
+
+\bibitem{Drinfeld1988}
+V.~Drinfeld,
+\emph{A new realization of Yangians and quantized affine algebras},
+Sov.~Math.~Dokl.~36 (1988), 212--216.
+
+\bibitem{Goettsche1990}
+L.~G\"ottsche,
+\emph{The Betti numbers of the Hilbert scheme of points on a smooth
+projective surface},
+Math.~Ann.~286 (1990), 193--207.
+
+\bibitem{GritsenkoNikulin1998}
+V.~Gritsenko and V.~Nikulin,
+\emph{Automorphic forms and Lorentzian Kac-Moody algebras II},
+Int.~J.~Math.~9 (1998), 201--275.
+
+\bibitem{Grojnowski1996}
+I.~Grojnowski,
+\emph{Instantons and affine algebras I: the Hilbert scheme and vertex
+operators},
+Math.~Res.~Lett.~3 (1996), 275--291.
+
+\bibitem{KazhdanLusztig1993}
+D.~Kazhdan and G.~Lusztig,
+\emph{Tensor structures arising from affine Lie algebras I},
+J.~Amer.~Math.~Soc.~6 (1993), 905--947.
+
+\bibitem{Lusztig1990}
+G.~Lusztig,
+\emph{Quantum groups at roots of unity},
+Geom.~Dedicata~35 (1990), 89--113.
+
+\bibitem{MaulikOkounkov2012}
+D.~Maulik and A.~Okounkov,
+\emph{Quantum groups and quantum cohomology},
+arXiv:1211.1287.
+
+\bibitem{Mukai1987}
+S.~Mukai,
+\emph{On the moduli space of bundles on K3 surfaces, I},
+Tata Inst.\ Fund.\ Res.\ Stud.~Math.~11 (1987).
+
+\bibitem{Nakajima1997}
+H.~Nakajima,
+\emph{Heisenberg algebra and Hilbert schemes of points on projective
+surfaces},
+Ann.~Math.~145 (1997), 379--388.
+
+\bibitem{SchiffmannVasserot2013}
+O.~Schiffmann and E.~Vasserot,
+\emph{Cherednik algebras, W-algebras and the equivariant cohomology
+of the moduli space of instantons on $\mathbb{A}^2$},
+Publ.~IHES~118 (2013), 213--342.
+
+\bibitem{Tsymbaliuk2017}
+A.~Tsymbaliuk,
+\emph{The affine Yangian of $\mathfrak{gl}_1$ revisited},
+Adv.~Math.~304 (2017), 583--645.
 \end{thebibliography}
 
 \end{document}

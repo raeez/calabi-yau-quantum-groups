@@ -1,49 +1,5 @@
-% wave15_a5_mnop_generic_cy3_nekrasov.tex
-% Wave 15, attack-heal frontier note A5.
-%
-% Target: MNOP II Conjecture 3 at generic compact CY_3 beyond the two
-% established theatres (toric via MNOP II Thm 2; K3 x E primitive-reduced
-% via Oberdieck-Pixton 2016 + Oberdieck-Pandharipande 2015). Frontier.
-%
-% Voice: Nikita Nekrasov. Residue, localisation, Omega-background only
-% where the geometry asks for it. No coordinate shortcuts off the toric
-% patch. Every substitution carries its own theorem.
-%
-% Method: five-cycle first-principles attack-heal. Each cycle forces
-% a precise obstruction; the heal formulates the obstruction as a
-% hypothesis. End state: generic MNOP as an E_3-trace identity on
-% F_X conditional on three explicit hypotheses.
-%
-% Upstream notes consulted (read-only):
-%   wave14_a9_DT_as_E3_trace_nekrasov.tex (five-cycle DT-trace attack)
-%   wave14_a15_MNOP_trace_segal.tex (Segal/Lurie E_3-trace picture,
-%     three modules M_DT / M_PT / M_GW, Proposition ``three modules'')
-%   wave14_a14_L_function_MNOP_kazhdan.tex (automorphic repackaging)
-%   wave14_a6_DT_GW_MNOP_soibelman.tex (motivic DT / KS picture)
-%
-% Manuscript anchors (read-only):
-%   chapters/theory/introduction.tex Remark ``MNOP as sigma-intertwiner
-%     on three E_3-traces'' (the three-segment homotopy (i)/(ii)/(iii))
-%   chapters/theory/cy_to_chiral.tex Protocol summary (a)/(b)/(c) on
-%     the quintic / local P^2 / K3-fibred substitute stratification
-%   chapters/examples/k3e_bkm_chapter.tex Thm ``KKV = GV = PT'' and the
-%     MacMahon-vanishing (chi(K3 x E) = 0) prefactor cancellation
-%   chapters/examples/cy_c_beyond_k3e_existence_obstruction.tex Prop
-%     ``Bridgeland-Smith Sp_4(Z) monodromy'' on Stab^{OP}(K3 x E)
-%
-% Raeez Lorgat. Internal working-notes artefact; not part of main.tex.
-
-\section{Wave 15, attack--heal note A5:
-MNOP at generic compact CY$_3$ as a three-hypothesis $E_3$-trace
-identity; obstructions to propagation from toric and $K3 \times E$}
-\label{wn:wave15-a5-mnop-generic-cy3-nekrasov}
-
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textsc{[proved elsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
-\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
-\providecommand{\ClaimStatusConditional}[1]{\textsc{[conditional on: #1]}}
+\section{MNOP on a generic compact CY$_3$}
+\label{sec:generic-mnop-cy3}
 
 \providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
 \providecommand{\Tr}{\mathrm{Tr}}
@@ -51,13 +7,11 @@ identity; obstructions to propagation from toric and $K3 \times E$}
 \providecommand{\Ethree}{E_3}
 \providecommand{\Etwo}{E_2}
 \providecommand{\Eone}{E_1}
-\providecommand{\bE}{\mathbf{E}}
 \providecommand{\cC}{\mathcal{C}}
 \providecommand{\cF}{\mathcal{F}}
 \providecommand{\cM}{\mathcal{M}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cT}{\mathcal{T}}
-\providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\hCS}{\mathrm{hCS}}
 \providecommand{\Hilb}{\mathrm{Hilb}}
@@ -75,862 +29,299 @@ identity; obstructions to propagation from toric and $K3 \times E$}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\chitop}{\chi_{\mathrm{top}}}
 \providecommand{\CC}{\mathbb{C}}
 \providecommand{\ZZ}{\mathbb{Z}}
 \providecommand{\QQ}{\mathbb{Q}}
-\providecommand{\RR}{\mathbb{R}}
 
-\noindent
-\textbf{Scope.} Fix $X$ a smooth projective Calabi--Yau threefold,
-holomorphic volume form $\Omg_X \in H^0(X, K_X)$, $K_X \simeq \cO_X$.
-The Maulik--Nekrasov--Okounkov--Pandharipande Gromov--Witten / Donaldson--Thomas correspondence asserts
+\subsection{Partition functions and theorem loci}
+
+Let \(X\) be a smooth projective Calabi--Yau threefold.  The degree-zero
+Donaldson--Thomas factor is
 \begin{equation}
-  Z^{\GW}(X; u, v)
-  \;\overset{?}{=}\;
-  Z^{\DT\prime}(X; -q, v),
-  \qquad -q \;=\; e^{iu},
-  \label{eq:mnop-raw}
+  Z^{\DT}_{0}(X;q)=M(-q)^{\chitop(X)}.
+  \label{eq:generic-mnop-degree-zero}
 \end{equation}
-after removal of the degree-zero MacMahon factor $M(-q)^{\chitop(X)}$
-from the DT side. Theorem-grade at
-\emph{toric} $X$ (MNOP~II~\cite{MNOP-II}, Theorem 2, proved by
-Okounkov--Reshetikhin--Pandharipande topological vertex and
-Maulik--Oblomkov--Okounkov--Pandharipande 2011~\cite{MOOP}, via
-equivariant localisation to $T$-fixed ideal sheaves on $\CC^3$-patches)
-and at \emph{$X = K3 \times E$ in the primitive reduced theory}
-(Oberdieck--Pixton 2016~\cite{OP16} DT side; Oberdieck--Pandharipande
-2015~\cite{OP15} GW side; Oberdieck 2018~\cite{Oberdieck-PT} PT side;
-common value $1/\Phi_{10}$, Igusa cusp form of weight $10$). Conjectural
-everywhere else: MNOP~II Conjecture 3, verified numerically through
-genus $\le 8$ on the quintic (Pandharipande--Pixton
-2014~\cite{PP14})
-and genus $\le 51$ via BCOV holomorphic-anomaly at the
-Huang--Klemm--Quackenbush bound 2009~\cite{HKQ}.
-
-This note states what precisely is missing. The answer is three
-independent hypotheses, not one, and each controls a different leg of
-the trace diagram. Channel: Nekrasov. No trace shortcut off the toric
-fan; every residue computation we write down is local on a single
-$\CC^3$-chart, glued through a wall-crossing pentagon that does not
-propagate off $T$-fixed fans unless we supply matter. The essay
-spirit of
-\texttt{wave14\_a15\_MNOP\_trace\_segal.tex} carries over:
-MNOP is a three-trace identity on a single $E_3$-factorisation algebra
-$\cF_X = \Obs^q_{\hCS}(X)$; at generic $X$ the identity holds under
-three \emph{external} conditions that do not yet follow from
-first principles.
-
-\subsection*{The quintic as pivot example.}
-Throughout we use $X_5 \subset \mathbb{P}^4$, the smooth quintic
-threefold, as the benchmark generic CY$_3$. Invariants:
-$\chitop(X_5) = -200$; $h^{1,1}(X_5) = 1$, $h^{2,1}(X_5) = 101$;
-Picard rank $1$, ample class $H = \cO_{X_5}(1)$ with $H^3 = 5$.
-The degree-zero DT partition function is
-\begin{equation}
-  Z^{\DT, \deg 0}_{X_5}(q) \;=\; M(-q)^{-200}
-  \;=\; \prod_{n \ge 1} (1 - (-q)^n)^{200 n},
-  \label{eq:quintic-deg0}
-\end{equation}
-an infinite product with large and oscillating exponents
-(MNOP~I~\cite{MNOP-I} Theorem 1 for arbitrary smooth projective $3$-fold
-at degree~$0$). Beyond degree~$0$ the theory is conjectural. We come
-back to the higher-BPS content at the close of Cycle 2 below.
-
-%----------------------------------------------------------
-\subsection*{Cycle 1 (first-principles).
-Why is the toric proof toric, and what obstructs it off the fan?}
-\label{subsec:cycle1}
-%----------------------------------------------------------
-
-\textsc{Attack.}
-The MNOP~II theorem at toric $X$ is proved by reduction to a single
-$\CC^3$-vertex computation, glued along edges of the fan by the
-topological-vertex formalism of Okounkov--Reshetikhin--Pandharipande
-2003~\cite{ORP}. The vertex is itself computed by equivariant
-localisation on $\Hilb(\CC^3)$ to $T$-fixed box configurations
-(3D partitions), weighted by the Nekrasov partition function
-\begin{equation}
-  Z^{\mathrm{vert}}_{\CC^3}(q; t_1, t_2, t_3)
-  \;=\;
-  \sum_{\pi: 3\text{D partition}}
-  q^{|\pi|} \prod_{\Box \in \pi}
-  \frac{\bigl[-\mathrm{ch}(T^\vee_{\Box, \pi})\bigr]_t}{(1 - t_1 t_2 t_3 \cdot t^{-\mathrm{ch}(T_{\Box, \pi})})},
-  \label{eq:vertex}
-\end{equation}
-with the Calabi--Yau specialisation $t_1 t_2 t_3 = 1$ producing the
-signed MacMahon $M(-q)$. Every step uses the torus $T^3 = (\CC^*)^3$:
-the virtual localisation formula of Graber--Pandharipande
-1999~\cite{GraberPand} demands a torus action with isolated fixed
-points and normal bundles with nontrivial weights.
-
-At a generic CY$_3$, these torus actions do not exist. The quintic
-has automorphism group at most finite (Oguiso 2002: generic quintic
-has $\mathrm{Aut}(X_5) = 1$; see Beauville~\cite{Beauville} Thm 2.2),
-and \emph{no $\CC^*$-action} whatever. Replacing $\CC^*$-action by
-\emph{any} global continuous group action is impossible at the generic
-point of the quintic moduli, so the MNOP~II proof technique cannot
-propagate. First-principles question: what can?
-
-\textsc{First-principles analysis.}
-The localisation formula fails because the residue identity
-\begin{equation}
-  \int_{[\cM]^\vir} 1 \;=\; \sum_{F \subset \cM^T}
-  \frac{1}{e^T(N^\vir_{F/\cM})} \int_{[F]^\vir} 1
-  \label{eq:virtual-localisation}
-\end{equation}
-requires a $T$-action. The cohomological-DT sheaf $\mathcal{DT}_X$ of
-Brav--Bussi--Dupont--Joyce--Meinhardt 2013~\cite{BBDJS} gives a global
-replacement: a constructible sheaf on moduli that computes the
-Behrend-weighted Euler characteristic by global pushforward, without
-reference to torus fixed points,
-\begin{equation}
-  \chi^B\bigl(\cM^\sigma_X(\gamma)\bigr)
-  \;=\; \chi\bigl(\cM, \nu_\cM\bigr)
-  \;=\; \chi\bigl(\cM, \phi_s \cO_\cM\bigr)
-  \label{eq:BBDJS-pushforward}
-\end{equation}
-where $\nu_\cM \in \mathrm{Con}(\cM, \ZZ)$ is Behrend's constructible
-function and $\phi_s$ the perverse vanishing-cycle sheaf for the locally
-given d-critical function $s$ (Joyce 2015~\cite{Joyce-dcrit} Theorem
-6.14). The BBDJS categorification is a \emph{perverse sheaf}
-$\mathcal{DT}_X$ on $\cM$; the DT partition function is the Euler
-characteristic of its hypercohomology. This holds on \emph{any}
-projective CY$_3$, not just toric, but produces a partition function
-whose sum-over-$\gamma$ convergence and whose identity with the GW
-side are not controlled by the formalism itself.
-
-\textsc{Heal.} The obstruction is not the absence of a torus but the
-absence of a \emph{factorisation-algebra-compatible} decomposition of
-$\cM$ into small charts. On a toric fan, $\cM$ decomposes along the
-fan into $\CC^3$-contributions; on the quintic, no such decomposition
-exists.
-
-\begin{proposition}[Cycle 1 heal: quiver-chart atlas as toric substitute]
-\label{prop:quiver-chart-atlas}
-\ClaimStatusConjectured\ Let $X$ be a smooth projective CY$_3$. A
-\emph{quiver-chart atlas}
+The reduced DT series is
 \[
-  \cA(X) \;=\; \bigl\{ (Q_\alpha, W_\alpha, \Psi_\alpha) \bigr\}_{\alpha \in I(X)}
+  Z^{\DT\prime}(X;q,v)
+  =Z^{\DT}(X;q,v)/M(-q)^{\chitop(X)}.
 \]
-is a finite cover of $\Stab(D^b \Coh(X))$ by chambers $\sigma_\alpha$,
-each carrying a quiver-with-potential $(Q_\alpha, W_\alpha)$ and an
-equivalence
-$\Psi_\alpha: D^b(\Coh(X_{\sigma_\alpha})) \;\xrightarrow{\simeq}\;
-D^b(\mathrm{mod}\text{-}\CC Q_\alpha / \partial W_\alpha)$,
-with transition mutations across walls identified with
-Kontsevich--Soibelman wall-crossing. For toric $X$, $\cA(X)$ is the
-McKay atlas indexed by maximal cones (Bridgeland--King--Reid
-2001~\cite{BKR}). For the quintic, the existence of $\cA(X_5)$ is
-open; Szendr\H{o}i--Young partial-atlas constructions for
-non-commutative resolutions are known locally near limit points of
-K\"ahler moduli, but the finite-cover property fails at present.
-\end{proposition}
-
-The Proposition is conjectural on the quintic; the underlying
-principle is recorded at
-\texttt{chapters/theory/cy\_to\_chiral.tex} (the
-quiver-chart-atlas paragraph following
-$\cC = D^b(\Coh(X))$, around line 3129), flagged conjectural.
-
-\noindent
-\emph{First obstruction, compressed.} At generic CY$_3$, the torus
-shortcut dies; the BBDJS sheaf survives but does not by itself match
-DT to GW. The healing move is the quiver-chart atlas $\cA(X)$, whose
-existence at $X = X_5$ is an open problem in Bridgeland-stability
-theory.
-
-%----------------------------------------------------------
-\subsection*{Cycle 2 (first-principles).
-The moduli-compactness wall: $\Hilb^{n,\beta}(X)$ vs
-$\overline{\cM}_g(X, \beta)$ beyond toric data.}
-\label{subsec:cycle2}
-%----------------------------------------------------------
-
-\textsc{Attack.}
-MNOP identifies a sum over $\Hilb(X)$-integrals with a sum over
-$\overline{\cM}_g(X)$-integrals. On toric $X$ the virtual classes of
-both moduli stacks are \emph{explicitly} computed by the topological
-vertex: a finite sum of monomial partitions. On $K3 \times E$,
-primitive reduced theory rigidifies the obstruction by the holomorphic
-2-form, and Maulik--Pandharipande--Thomas 2010~\cite{MPT10} give the
-precise reduced virtual class.
-
-On the quintic, neither mechanism applies. $\Hilb^{n, \beta}(X_5)$ is
-projective (Grothendieck 1960) but its irreducible components are
-numerous and their Behrend-signs uncontrolled; the virtual class is
-defined abstractly via the cotangent complex
-(Behrend--Fantechi 1997~\cite{BF97}) but not explicitly computable.
-
-First-principles question: what higher-BPS states populate
-$Z^{\DT}_{X_5}$ beyond the degree-zero MacMahon prefactor
-\eqref{eq:quintic-deg0}?
-
-\textsc{First-principles computation.} Expand formally by curve class
-$\beta = d H$, $d \in \ZZ_{\ge 0}$, genus-reorganised via the
-Gopakumar--Vafa integer BPS invariants $n^g_\beta \in \ZZ$:
-\begin{align}
-  Z^{\DT\prime}_{X_5}(q, v)
-  &\;=\;
-  \mathrm{MacMahon} \;\cdot\;
-  \mathrm{higher\text{-}BPS}
-  \nonumber\\
-  &\;=\;
-  M(-q)^{-200}
-  \;\cdot\;
-  \prod_{d \ge 1} \prod_{g \ge 0}
-  \prod_{k \ge 1}
-  \bigl(1 - (-q)^{k}\, v^{d} \bigr)^{k \cdot n^g_{dH} \cdot s_g(k)}
-  \label{eq:quintic-higher-bps}
-\end{align}
-where $s_g(k)$ encodes the genus-$g$ spin refinement
-(Katz--Klemm--Vafa 1999~\cite{KKV}; Pandharipande--Thomas
-2014~\cite{PT-KKV} for the stable-pairs-side proof of the KKV identity
-at $\mathrm{Hilb}(S)$, $S$ a K3 surface; extrapolated form at the
-quintic conjectural).
-
-The first few genus-$0$ BPS numbers on the quintic (Candelas--de la
-Ossa--Green--Parkes 1991~\cite{CDGP}, confirmed by mirror symmetry):
-\begin{center}
-\begin{tabular}{cccccc}
-\toprule
-$d$ & 1 & 2 & 3 & 4 & 5 \\
-\midrule
-$n^0_{dH}$ & $2875$ & $609250$ & $317206375$ & $242467530000$ & $229305888887625$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-Rising factorially: the sum in \eqref{eq:quintic-higher-bps}
-converges only as a \emph{formal} power series in $v$ with coefficients
-in $\QQ[[q]]$, not as an analytic function. Higher-genus BPS numbers
-$n^g_{dH}$ are computed through genus $\le 51$ via the BCOV
-holomorphic-anomaly recursion of Bershadsky--Cecotti--Ooguri--Vafa
-1993~\cite{BCOV93} (Huang--Klemm--Quackenbush~\cite{HKQ}). At no finite
-genus is the KKV conjecture $n^g_\beta \in \ZZ$ proved on the quintic;
-it holds by fiat as input to the recursion.
-
-\textsc{Heal.} The higher-BPS content of $Z^{\DT}_{X_5}$ is a tower of
-conjectural integer invariants indexed by $(d, g)$, whose generating
-function is an automorphic-like object only at special loci. At the
-quintic we have no automorphic target analogous to $\Phi_{10}$; the
-partition function is not a modular form of any known type.
-The moduli-compactness issue at $\Hilb^{n, \beta}(X_5)$ is absorbed
-into the KKV hypothesis.
-
-\begin{hypothesis}[KKV integrality, $X_5$]
-\label{hyp:kkv-quintic}
-\ClaimStatusConjectured\ The genus-$g$ BPS invariants $n^g_{dH}(X_5)
-\in \ZZ$ for all $(d, g) \in \ZZ_{\ge 1} \times \ZZ_{\ge 0}$, and the
-Gopakumar--Vafa--Katz--Klemm--Vafa reorganisation
-\eqref{eq:quintic-higher-bps} converges as an element of
-$\QQ[[q, v]]$ to the Behrend-weighted DT generating function.
-\end{hypothesis}
-
-At the quintic this hypothesis is the strongest known formulation of
-the ``higher BPS'' content that enters on top of
-\eqref{eq:quintic-deg0}. On $K3 \times E$, the analogous statement
-(KKV for $K3 \times E$, primitive classes) is \emph{theorem-grade} via
-Pandharipande--Thomas 2014~\cite{PT-KKV}; the quintic is conjectural.
-
-\noindent
-\emph{Second obstruction, compressed.} Moduli-compactness of
-$\Hilb^{n, \beta}(X_5)$ holds; virtual-class computability fails. The
-higher-BPS expansion \eqref{eq:quintic-higher-bps} exists as a formal
-organising principle but its integer content is Hypothesis
-\ref{hyp:kkv-quintic}.
-
-%----------------------------------------------------------
-\subsection*{Cycle 3 (first-principles).
-The Bridgeland wall-crossing from DT to PT and the connectivity of
-$\Stab(X)$.}
-\label{subsec:cycle3}
-%----------------------------------------------------------
-
-\textsc{Attack.}
-The DT/PT relationship
+The MNOP correspondence asks for the formal identity
 \begin{equation}
-  Z^{\DT\prime}_X(q, v) \;=\; Z^{\PT}_X(q, v) \;\cdot\; M(-q)^{\chitop(X)}
-  \label{eq:DT-PT}
+  Z^{\GW\prime}(X;u,v)=Z^{\DT\prime}(X;-q,v),
+  \qquad -q=e^{iu},
+  \label{eq:generic-mnop-formula}
 \end{equation}
-is proved at generic CY$_3$ by Bridgeland 2010~\cite{Bridgeland10}
-and Toda 2010~\cite{Toda10} as a wall-crossing identity in a
-specific chamber of $\Stab(D^b \Coh(X))$. The proof requires moving
-from the large-volume chamber (DT heart = $\Coh(X)[0] \oplus
-\Coh_0(X)[-1]$) to a neighbouring chamber (PT heart) through a
-sequence of walls, each triggering a Kontsevich--Soibelman quantum
-dilogarithm identity.
+after the standard change of variables and the removal of unstable
+degree-zero factors.
 
-At $X$ toric this wall-crossing is combinatorially controlled. At
-$K3 \times E$ the monodromy of $\Stab$ factors through $\mathrm{Sp}_4(\ZZ)$
-(Bridgeland--Smith; see
-\texttt{chapters/examples/cy\_c\_beyond\_k3e\_existence\_obstruction.tex}
-Proposition line 5634). At the quintic, the \emph{connected component}
-of $\Stab(D^b \Coh(X_5))$ containing the large-volume chamber is
-known to be open (Bayer--Macr\`i--Stellari 2014~\cite{BMS};
-\texttt{chapters/theory/e2\_chiral\_algebras.tex} line 1248: ``Bridgeland
-$\Stab$ existence is open''), but the connectedness of $\Stab(X_5)$ as
-a whole --- or even the existence of a stability condition on the
-quintic --- is an open problem.
+The degree-zero formula \eqref{eq:generic-mnop-degree-zero} is a
+theorem for every smooth projective threefold.  The DT/PT comparison is
+a Hall-algebra theorem for projective Calabi--Yau threefolds in the
+Bridgeland--Toda form.  The GW/DT or GW/PT comparison has narrower
+theorem loci: smooth toric threefolds by the topological vertex of
+Maulik--Nekrasov--Okounkov--Pandharipande and
+Maulik--Oblomkov--Okounkov--Pandharipande; \(K3\times E\) in the
+primitive reduced theory by Oberdieck--Pandharipande, Oberdieck--Pixton,
+and Oberdieck's stable-pairs comparison; and the quintic in the
+Gromov--Witten/Pairs theorem of Pandharipande--Pixton.  A generic
+compact Calabi--Yau threefold remains conjectural.
 
-\textsc{First-principles analysis.}
-Without connectedness of $\Stab(X_5)$, there is no guarantee that the
-DT chamber and the PT chamber lie in the same connected component; if
-they do not, \eqref{eq:DT-PT} propagates through walls that may not
-exist in the classical heart structure. Bayer--Bridgeland
-2017~\cite{BayerBridgeland} prove existence in the K3 surface case,
-but the CY$_3$-quintic case remains open; the partial results of
-Li 2014 and Bayer--Macr\`i--Stellari give conditional stability
-conditions assuming Bogomolov--Gieseker-type inequalities
-(Bayer--Macr\`i--Toda 2014~\cite{BMT}), not yet proved on $X_5$.
-
-\textsc{Heal.} We promote connectedness of the stability space to a
-hypothesis and state \eqref{eq:DT-PT} conditional on it.
-
-\begin{hypothesis}[Bridgeland stability on $X_5$]
-\label{hyp:bridgeland-stab-quintic}
-\ClaimStatusConjectured\ $\Stab(D^b \Coh(X_5))$ is a nonempty complex
-manifold containing the large-volume chamber $U_{\mathrm{LV}}$ and a
-Pandharipande--Thomas chamber $U_{\PT}$, and the connected component
-$\Stab^{\dagger}(X_5) \subset \Stab(D^b \Coh(X_5))$ containing
-$U_{\mathrm{LV}}$ contains $U_{\PT}$ as well. The wall-crossing
-decomposition between $U_{\mathrm{LV}}$ and $U_{\PT}$ is governed by
-finitely many walls of real codimension one, each supporting a
-Kontsevich--Soibelman quantum-dilogarithm identity.
-\end{hypothesis}
-
-Under this hypothesis, Bridgeland's 2010 argument gives
-\eqref{eq:DT-PT} at $X = X_5$ and the vacuum-module factorisation
-$M_\DT \cong M_\PT \otimes \mathbf{1}^{\mathrm{vac}}$ of
-\texttt{wave14\_a15\_MNOP\_trace\_segal.tex}
-Proposition~``DT/PT as module factorisation'' (line 465) propagates
-from $K3 \times E$ to the quintic.
-
-\noindent
-\emph{Third obstruction, compressed.} The DT/PT bridge requires
-finitely many walls in a connected $\Stab(X)$; proved on K3 surfaces,
-proved on abelian threefolds, proved on toric CY$_3$, \emph{open} on
-the quintic. Bridgeland--Smith monodromy gives the $K3 \times E$
-case; generic CY$_3$ requires Hypothesis \ref{hyp:bridgeland-stab-quintic}.
-
-%----------------------------------------------------------
-\subsection*{Cycle 4 (first-principles).
-$E_3$-trace dualisability on derived moduli: Bhatt--Halpern-Leistner.}
-\label{subsec:cycle4}
-%----------------------------------------------------------
-
-\textsc{Attack.}
-The $E_3$-trace formulation of MNOP (Segal voice:
-\texttt{wave14\_a15\_MNOP\_trace\_segal.tex}
-Proposition~``three dualisable modules, one $E_3$-FA'', line 297)
-requires $M_\DT = \Coh(\Hilb_X)$, $M_\PT = \Coh(P_n(X, \beta))$,
-$M_\GW = \Coh(\overline{\cM}_g(X, \beta))$ to be \emph{dualisable}
-objects in the $E_3$-monoidal category of $\cF_X$-modules.
-Dualisability for smooth proper schemes is Bhatt--Halpern-Leistner
-2017~\cite{BHL17} Theorem 5.3. The derived Hilbert scheme
-$\Hilb_X$ is neither smooth nor proper in the classical sense; its
-\emph{derived enhancement} is a derived stack with perfect obstruction
-theory. That this suffices for $E_3$-dualisability is an extension of
-Bhatt--Halpern-Leistner to derived moduli that has not been carried
-out in the literature.
-
-First-principles question: what exactly does $E_3$-dualisability
-require, and why would we expect it to hold?
-
-\textsc{First-principles analysis.}
-Lurie HA Prop 7.3.4.2 (the trace of a dualisable $E_n$-module lands
-in the $E_{n-1}$-centre of the unit) requires a dualisable pairing
-$M \otimes M^\vee \to \cF_X$ and counit
-$\mathbf{1}_{\cF_X} \to M \otimes M^\vee$. For
-$M = \Coh(\Hilb^{n, \beta}(X))$, dualisability in the
-$E_3$-monoidal category of dg-categories over $\cF_X$ requires:
-\begin{enumerate}
-\item The derived $\Hilb^{n, \beta}(X)$ is \emph{proper} as a derived
-    algebraic stack (fiber compactness after derived enhancement).
-    True for $X$ smooth projective, by Grothendieck properness
-    transported to derived Hilbert schemes.
-\item The perfect obstruction theory exhibits $\Hilb^{n, \beta}(X)$ as
-    \emph{quasi-smooth} of virtual dimension $0$ on a CY$_3$ (following
-    the 0-shifted symplectic structure of
-    Pantev--To\"en--Vaqui\'e--Vezzosi~\cite{PTVV}; see the
-    CG-$3$ Pattern 273 discipline in
-    \texttt{platonic\_synthesis\_waves\_11\_through\_16.tex}).
-\item The virtual structure sheaf $\cO^\vir$ is \emph{dualisable} over
-    $\cF_X$, with the Serre pairing given by the BBDJS vanishing-cycle
-    sheaf. This requires $\phi_s \cO$ to be a self-dual perverse sheaf
-    (Joyce 2015~\cite{Joyce-dcrit} Theorem 6.14 gives Verdier self-duality
-    up to Tate twist).
-\end{enumerate}
-Conditions (1) and (2) hold in substantial generality on smooth
-projective CY$_3$. Condition (3) is the load-bearing step. The BBDJS
-perverse sheaf is defined on any $(-1)$-shifted symplectic derived
-stack (Brav--Bussi--Dupont--Joyce--Meinhardt 2013~\cite{BBDJS}), which
-is exactly what quasi-smooth $0$-virtual-dim CY$_3$ moduli are.
-Self-duality requires a choice of orientation data (square root of
-$K_X|_{\cM}$), which on a CY$_3$ reduces to the holomorphic volume
-form $\Omg_X$. The orientation issue has been checked in the K3 and
-abelian-surface cases (Davison--Meinhardt 2020~\cite{DM20}) and in
-the toric case (via explicit quiver orientations of
-Szendr\H{o}i 2008~\cite{Szendroi}). At the quintic, the orientation
-question is \emph{not} resolved.
-
-\textsc{Heal.} We formulate $E_3$-dualisability as a hypothesis; it
-propagates MNOP's trace-identity programme from the $K3 \times E$
-setting (where it is proved by automorphic rigidity, see
-Cycle 5) to the generic CY$_3$ setting.
-
-\begin{hypothesis}[Bhatt--Halpern-Leistner dualisability extension]
-\label{hyp:bhl-dualisability}
-\ClaimStatusConjectured\ Let $X$ be a smooth projective CY$_3$. The
-$\bE_3$-monoidal category of quasi-coherent sheaves of dg-categories
-over $\cF_X = \Obs^q_{\hCS}(X)$ contains
+For the quintic \(X_5\subset\mathbb P^4\),
 \[
-  M_\DT \;=\; \Coh(\Hilb_X), \qquad
-  M_\PT \;=\; \Coh(P_n(X, \beta)), \qquad
-  M_\GW \;=\; \Coh(\overline{\cM}_g(X, \beta)),
+  \chitop(X_5)=-200,\qquad
+  h^{1,1}(X_5)=1,\qquad
+  h^{2,1}(X_5)=101,
 \]
-each equipped with its BBDJS vanishing-cycle structure, as
-\emph{dualisable} objects. The trace of the identity on each is a
-well-defined element of $\End^{\bE_2}(\mathbf{1}_{\cF_X})$.
-\end{hypothesis}
-
-Under this hypothesis, the $E_3$-trace identity
+so
 \begin{equation}
-  \Tr^{\bE_3}(M_\DT) \;=\;
-  \Tr^{\bE_3}(M_\PT) \cdot M(-q)^{\chitop(X)} \;=\;
-  \sigma^{-1}\bigl(\Tr^{\bE_3}(M_\GW)\bigr)
-  \label{eq:three-trace-identity}
+  Z^{\DT}_{0}(X_5;q)=M(-q)^{-200}.
+  \label{eq:quintic-degree-zero}
 \end{equation}
-of
-\texttt{wave14\_a15\_MNOP\_trace\_segal.tex}
-Conjecture~``MNOP trace identity on generic CY$_3$'' (line 729)
-is the intrinsic formulation of MNOP at $X$, with
-$\sigma: \End^{\bE_2}(\mathbf{1}) \to \End^{\bE_2}(\mathbf{1})$ the
-unique graded automorphism $y \mapsto -y$ fixing curve-class variables,
-composed with $-q = e^{iu}$.
-
-\noindent
-\emph{Fourth obstruction, compressed.} Even granting Cycles 1--3,
-reading MNOP as an intrinsic $E_3$-trace identity requires dualisability
-of the three moduli-sheaf modules over $\cF_X$. This is
-Hypothesis \ref{hyp:bhl-dualisability}; proving it at $X_5$ is a
-frontier problem in derived symplectic geometry.
-
-%----------------------------------------------------------
-\subsection*{Cycle 5 (first-principles).
-The automorphic rigidity collapse at $K3 \times E$, and why it fails
-at the quintic.}
-\label{subsec:cycle5}
-%----------------------------------------------------------
-
-\textsc{Attack.}
-At $K3 \times E$ the MNOP intertwiner $\sigma$ is \emph{forced trivial}
-on the target: $\Phi_{10}$ is the unique Siegel cusp form of its
-weight-level data in $S_{10}(\mathrm{Sp}_4(\ZZ))$ (Igusa 1964), the
-DT, PT, and GW partition functions all equal $1/\Phi_{10}$, and the
-$\chitop(K3 \times E) = 0$ kills the MacMahon prefactor so no
-substitution is required (Bridgeland--Smith monodromy fixing $\Phi_{10}$:
-\texttt{chapters/examples/cy\_c\_beyond\_k3e\_existence\_obstruction.tex}
-line 5634). \emph{This collapse is accidental.} It uses three facts
-specific to $K3 \times E$:
-
-\begin{enumerate}
-\item $\chi(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$,
-    hence the MacMahon factor is trivial.
-\item $K3 \times E$ admits a holomorphic 2-form
-    $\omega_{K3} \in H^{2,0}(K3)$, which rigidifies the obstruction
-    theory and triggers the reduction to the primitive reduced theory
-    (Maulik--Pandharipande--Thomas 2010~\cite{MPT10}).
-\item The Kuga--Satake / paramodular monodromy on
-    $\Stab(D^b \Coh(K3 \times E))$ factors through
-    $\mathrm{Sp}_4(\ZZ)$, pinning the partition function to a single
-    automorphic target (Bridgeland--Smith).
-\end{enumerate}
-
-At the quintic, each fact fails:
-\begin{enumerate}
-\item $\chitop(X_5) = -200 \neq 0$; the MacMahon factor
-    $M(-q)^{-200}$ is nontrivial.
-\item $X_5$ has no holomorphic 2-form: $h^{2,0}(X_5) = 0$. The reduced
-    theory collapses to the full theory; no rigidification.
-\item $\Stab(X_5)$ monodromy is mirror-conjecturally a subgroup of
-    $\mathrm{Sp}(H^3(X_5^\vee, \ZZ)) \cong \mathrm{Sp}(4, \ZZ)$
-    (via mirror to a CY$_3$ with $h^{2,1} = 101$, hence $\mathrm{Sp}$ of
-    rank $204 = 2h^{2,1} + 2$), but no automorphic-rigidity target
-    analogous to $\Phi_{10}$ is known.
-\end{enumerate}
-
-First-principles question: is there \emph{any} automorphic target
-for $Z^{\DT\prime}_{X_5}$, or is the generic quintic MNOP
-non-automorphic?
-
-\textsc{First-principles analysis.}
-The candidate target space for $Z^{\DT\prime}_{X_5}$ is
-$(\QQ[[q, v]])^{\wedge}_{\mathrm{Sp}(4, \ZZ)\text{-inv}}$, formal
-power series invariant under the mirror-quintic monodromy group.
-Candelas--de la Ossa--Green--Parkes 1991~\cite{CDGP} identified the
-large-complex-structure limit partition function at genus $0$ with a
-rational function of the Picard--Fuchs solutions $(\varpi_0, \varpi_1)$
-on the mirror-quintic moduli space, determined by the Yukawa coupling
-$Y_{111} = 5/\varpi_0^2(1 - z)$.
-Bershadsky--Cecotti--Ooguri--Vafa 1993~\cite{BCOV93}
-extended this to higher genus via the BCOV holomorphic-anomaly equations,
-producing partition functions $F_g$ that are \emph{quasi-modular
-automorphic forms of}
-$\mathrm{Sp}(4, \ZZ)$-subgroups (the Humbert-surface restriction)
-\emph{only conjecturally}; no proof is known at $g \ge 2$.
-
-\textsc{Heal.} The automorphic rigidity that collapses MNOP at
-$K3 \times E$ has no known analogue at the quintic. MNOP at $X_5$ must
-be stated \emph{without} automorphic rigidity, as a three-trace identity
-in $\End^{\bE_2}(\mathbf{1}_{\cF_{X_5}})$ that is \emph{not}
-identified with any explicit automorphic form. Conjectural via
-mirror symmetry; not theorem-grade.
-
-\begin{remark}[What Hypothesis \ref{hyp:bhl-dualisability} buys at
-the quintic]
-\label{rem:what-BHL-buys}
-Granting Hypothesis \ref{hyp:bhl-dualisability} at $X = X_5$, MNOP at
-$X_5$ asserts \emph{existence} of the three traces as elements of
-$\End^{\bE_2}(\mathbf{1}_{\cF_{X_5}})$ and their \emph{equality under
-$\sigma$}. The identity does \emph{not} pin them to an explicit
-automorphic form: it says the three abstract objects agree
-under the unique $\sigma$. Verification at finite genus (Pandharipande--Pixton
-2014 through $g \le 8$; BCOV + HKQ through $g \le 51$) is the finite
-shadow of this identity. Proving it to all genera at the quintic is
-MNOP~II Conjecture 3 specialised.
-\end{remark}
-
-\noindent
-\emph{Fifth obstruction, compressed.}
-Automorphic rigidity of the target is the deep reason the
-$K3 \times E$ case is a theorem; at the quintic no such rigidity
-exists, so MNOP holds only conditionally on the three prior cycles.
-\emph{The conjecture at the quintic is not refutable via a single
-automorphic-form target; it must be checked genus by genus or proved
-via the abstract $\cF_X$-trace identity.}
-
-%----------------------------------------------------------
-\subsection*{Cycle 6 (synthesis).
-The generic MNOP theorem, conditional on three hypotheses.}
-\label{subsec:cycle6}
-%----------------------------------------------------------
-
-\textsc{Synthesis.} The five attack--heal cycles converge on three
-independent hypotheses:
-
-\begin{enumerate}
-\item[\textbf{(H1)}] \textbf{Bhatt--Halpern-Leistner dualisability}
-    (Hypothesis \ref{hyp:bhl-dualisability}): derived Hilbert / stable-pairs
-    / stable-maps moduli on $X$ are dualisable $\cF_X$-modules with
-    BBDJS vanishing-cycle structure, orientation data supplied by
-    $\Omg_X$. Target: trace identity
-    \eqref{eq:three-trace-identity} lands in $\End^{\bE_2}(\mathbf{1})$.
-    Not yet proved on $X_5$; proved on toric CY$_3$ and $K3 \times E$.
-\item[\textbf{(H2)}] \textbf{KKV integer BPS}
-    (Hypothesis \ref{hyp:kkv-quintic}): the genus-refined BPS invariants
-    $n^g_\beta(X) \in \ZZ$ exist and the Gopakumar--Vafa reorganisation
-    \eqref{eq:quintic-higher-bps} of the DT generating function
-    converges. Proved on $K3 \times E$ (Pandharipande--Thomas 2014,
-    primitive classes); conjectural on $X_5$.
-\item[\textbf{(H3)}] \textbf{Bridgeland $\Stab(X)$ connectedness}
-    (Hypothesis \ref{hyp:bridgeland-stab-quintic}):
-    $\Stab(D^b \Coh(X))$ is nonempty, and the connected component
-    containing the large-volume chamber contains the PT chamber, with
-    finitely many walls separating them. Proved on toric CY$_3$
-    (McKay atlas), on abelian threefolds
-    (Maciocia--Piyaratne), proved at K3 surfaces (Bayer--Bridgeland 2017),
-    proved at $K3 \times E$ via Bridgeland--Smith paramodular monodromy; open on $X_5$.
-\end{enumerate}
-
-\begin{theorem}[Generic MNOP conditional statement]
-\label{thm:generic-mnop-conditional}
-\ClaimStatusConditional{(H1)+(H2)+(H3)}
-\ Let $X$ be a smooth projective Calabi--Yau threefold. Under
-hypotheses (H1), (H2), (H3) above, the $\bE_3$-trace identity
-\eqref{eq:three-trace-identity} holds in
-$\End^{\bE_2}(\mathbf{1}_{\cF_X})$; equivalently, the MNOP~II
-Conjecture 3 identity
+The first genus-zero BPS numbers are
 \[
-  Z^{\GW}(X; u, v) \;=\; Z^{\DT\prime}(X; -q, v) \cdot M(-q)^{-\chitop(X)},
-  \qquad -q = e^{iu},
+  n^0_H=2875,\quad
+  n^0_{2H}=609250,\quad
+  n^0_{3H}=317206375.
 \]
-holds as an identity of formal power series with rational coefficients.
-\end{theorem}
+They give the first terms of the Gopakumar--Vafa reorganisation; the
+Pandharipande--Pixton theorem supplies the named quintic GW/Pairs
+comparison, and DT/PT supplies the corresponding DT comparison.
 
-\begin{proof}[Proof outline]
-Under (H1), Lurie HA Prop 7.3.4.2 gives the $\bE_3$-traces of the
-three modules $M_\DT, M_\PT, M_\GW$ as elements of
-$\End^{\bE_2}(\mathbf{1}_{\cF_X})$ (landed in the $\bE_2$-centre by
-Dunn additivity and the $\bE_3$-monoidal structure on the module
-category). Under (H3), the DT/PT module factorisation
-$M_\DT \cong M_\PT \otimes \mathbf{1}^{\mathrm{vac}}_{\cF_X}$
-of
-\texttt{wave14\_a15\_MNOP\_trace\_segal.tex} Proposition~``DT/PT as
-module factorisation'' propagates from $K3 \times E$ / toric to $X$,
-giving the MacMahon factor. Under (H2), the $\Tr^{\bE_3}(M_\GW)$
-reorganises through Gopakumar--Vafa integer BPS invariants, and the
-intertwiner $\sigma: y \mapsto -y$ composed with $-q = e^{iu}$ maps
-$\Tr^{\bE_3}(M_\DT)$ to $\Tr^{\bE_3}(M_\GW)$ via
-\texttt{wave14\_a15\_MNOP\_trace\_segal.tex} Theorem~``unique MNOP
-intertwiner''.
+The BCOV holomorphic-anomaly equation governs higher-genus amplitudes.
+Its genus-one anomaly scalar on the quintic is
+\[
+  \alpha_{\mathrm{BCOV}}(X_5)=\frac{\chitop(X_5)}{24}=-\frac{25}{3}.
+\]
+This scalar belongs to the BCOV recursion.  The Hodge supertrace
+\(\kch(A_{X_5})\) and the categorical Euler characteristic
+\(\kcat(X_5)\) are computed separately in
+\S\ref{subsec:generic-cy3-invariants}.
 
-(H1) + (H2) + (H3) together give all three segments of the
-three-segment homotopy of
-\texttt{chapters/theory/introduction.tex} Remark~``MNOP as
-$\sigma$-intertwiner on three $E_3$-traces'' (the KS motivic
-wall-crossing + KKV reorganisation + Gopakumar--Vafa summation
-composition). Each segment is independently verified on the three
-known cases (toric, $K3 \times E$); the generic CY$_3$ case is the
-conditional conclusion.
-\qed
-\end{proof}
+\subsection{Hypotheses for a generic compact threefold}
 
-\begin{remark}[Stratification of MNOP by proof status]
-\label{rem:stratification}
-The MNOP theorem stratifies as:
-\begin{center}
-\renewcommand{\arraystretch}{1.1}
-\begin{tabular}{@{}p{0.25\textwidth}p{0.25\textwidth}p{0.45\textwidth}@{}}
-\toprule
-\textbf{Class} & \textbf{Status} & \textbf{Proof inputs} \\
-\midrule
-Toric CY$_3$ & Theorem & MNOP~II Thm 2; topological vertex; MOOP 2011 \\
-$K3 \times E$, primitive reduced & Theorem & Oberdieck--Pixton 2016 (DT); Oberdieck--Pandharipande 2015 (GW); Oberdieck 2018 (PT); automorphic rigidity of $\Phi_{10}$; $\chi(K3 \times E) = 0$ kills MacMahon \\
-Abelian threefold & Theorem (partial) & Maciocia--Piyaratne for stability; primitive cases only \\
-Quintic $X_5$, genus $\le 8$ & Numerically verified & Pandharipande--Pixton 2014 direct computation \\
-Quintic $X_5$, $g \le 51$ & Verified via BCOV + KKV & Huang--Klemm--Quackenbush 2009 (still modulo KKV conjecture) \\
-Generic CY$_3$, all genus & Conjecture & Conditional on (H1) + (H2) + (H3); Theorem \ref{thm:generic-mnop-conditional} \\
-\bottomrule
-\end{tabular}
-\end{center}
-\end{remark}
+The generic compact threefold statement needs independent hypotheses
+beyond the theorem loci above.
+\begin{enumerate}
+\item \textbf{Vanishing cycles and orientation.}
+  The derived Hilbert, stable-pairs, and stable-maps moduli carry
+  BBDJM vanishing-cycle sheaves, proper or completed supports,
+  orientation data, and cyclic traces compatible with the
+  \((-1)\)-shifted symplectic structures.
+\item \textbf{DT/PT normalisation.}
+  The Bridgeland--Toda Hall product fixes the reduced DT/PT comparison
+  and the MacMahon factor \(M(-q)^{\chitop(X)}\) in the same
+  variable convention used by \eqref{eq:generic-mnop-formula}.
+\item \textbf{GW/PT comparison and GV/KKV reorganisation.}
+  The genus-refined BPS invariants \(n^g_\beta(X)\in\ZZ\) exist and
+  reorganise the GW and PT potentials as completed formal power series.
+\item \textbf{Trace dualisability and completion.}
+  The modules
+  \[
+    M_\DT=\Coh(\Hilb_X),\qquad
+    M_\PT=\Coh(P_n(X,\beta)),\qquad
+    M_\GW=\Coh(\overline{\cM}_g(X,\beta))
+  \]
+  are proper and dualisable over the completed \(\Ethree\)-monoidal
+  factorisation algebra
+  \(\cF_X=\Obs^q_{\hCS}(X)\).  Their cyclic traces land in a completed
+  \(\Etwo\)-centre of the module category.  The specialised threefold
+  \(\Phi_3\)-output remains \(\Eone\)-chiral.
+\item \textbf{Compact TCFT input.}
+  The compact holomorphic Chern--Simons or BCOV theory satisfies the
+  quantum master equation and supplies anomaly cancellation,
+  counterterms, descent, sewing, framing, orientation line, completed
+  state space, and comparison maps to the DT, PT, and GW enumerative
+  theories.
+\end{enumerate}
 
-\begin{remark}[Why the three hypotheses are independent]
-\label{rem:hypotheses-independent}
-None of (H1), (H2), (H3) implies another:
-\begin{itemize}
-\item (H1) is a claim about dualisability in $\bE_3$-monoidal derived
-    geometry; it does not predict integer BPS invariants (no integrality
-    statement in $\bE_n$-dualisability).
-\item (H2) is an integrality claim about genus-refined invariants;
-    it does not imply dualisability (integrality is a property of
-    $\pi_0$, dualisability is a $\bE_3$-property of the whole category).
-\item (H3) is a stability-space statement; it governs wall-crossing
-    from the large-volume chamber to the PT chamber but does not by
-    itself give dualisability (stability is a heart-structure on
-    $D^b$; dualisability is a separate $\bE_3$-structure on the
-    module category).
-\end{itemize}
-On toric CY$_3$, (H1) holds via McKay-quiver atlas compatible with
-$\CC^*$-localisation, (H2) holds via explicit topological-vertex
-integer partition counts, (H3) holds via finiteness of maximal cones
-in the fan. On $K3 \times E$, primitive-reduced: (H1) is proved by
-Oberdieck--Pixton orientation data, (H2) by Pandharipande--Thomas
-KKV, (H3) by Bridgeland--Smith paramodular monodromy. At the generic
-CY$_3$, all three are open, and the three obstructions are
-orthogonal.
-\end{remark}
+\subsection{Conditional theorem}
 
-%----------------------------------------------------------
-\subsection*{The four-$\kappa_\bullet$ audit, cross-reference.}
-\label{subsec:four-kappa}
-%----------------------------------------------------------
+Let \(\cT_X\) be the completed cyclic trace target produced by the
+compact TCFT package, and let
+\[
+  \tau_\DT,\tau_\PT,\tau_\GW \colon
+  \Tr^{\Ethree}(M_\bullet)\longrightarrow \cT_X
+\]
+be the corresponding comparison maps.  Under the five hypotheses above,
+the trace formulation of MNOP reads
+\begin{equation}
+  \tau_\DT\bigl(\Tr^{\Ethree}(M_\DT)\bigr)
+  =
+  \tau_\PT\bigl(\Tr^{\Ethree}(M_\PT)\bigr)\cdot M(-q)^{\chitop(X)}
+  =
+  \sigma^{-1}\tau_\GW\bigl(\Tr^{\Ethree}(M_\GW)\bigr),
+  \label{eq:generic-three-trace}
+\end{equation}
+where \(\sigma\) implements the change of variables \(-q=e^{iu}\) and
+acts on \(\cT_X\).  Equation
+\eqref{eq:generic-three-trace} is equivalent to
+\eqref{eq:generic-mnop-formula} after dividing by
+\eqref{eq:generic-mnop-degree-zero} and applying the enumerative
+character.  No equality of the three raw trace objects is asserted
+before the maps \(\tau_\bullet\) and the completion \(\cT_X\) are
+constructed.  The five hypotheses are part of the conditional
+statement; omitting any one of them leaves the generic MNOP conjecture.
 
-For the $K3 \times E$ endpoint, the four CY$_3$-$\kappa$ spectrum
-(see \texttt{CLAUDE.md} ``Essential constants'' and
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}):
+\subsection{Toric and \(K3\times E\) special features}
 
-\begin{center}
-\begin{tabular}{@{}ll@{}}
-\toprule
-Invariant & Value on $K3 \times E$ \\
-\midrule
-$\kch(A_{K3 \times E}) = \chi(\cO_{K3 \times E})$ & $= 2 \cdot 0 = 0$ (K\"unneth-multiplicative) \\
-$\kcat(K3 \times E) = \chi(\cO_X)$ & $= 0$ \\
-$\kBKM(\Phi_{10}) = c_{10}(0)/2$ & $= 10$ (Gritsenko $\Phi_{10} = \Delta_5^2$, doubling of weight 5) \\
-$\kappa_{\mathrm{fiber}}(K3)$ & $= 24$ (K3 fibre-class Euler = $24$) \\
-\bottomrule
-\end{tabular}
-\end{center}
-At $X_5$, the $\kappa$-spectrum is narrower. On a smooth projective
-CY$_3$ the Hodge numbers in the $(0, q)$-column are
-$h^{0,0} = h^{0,3} = 1$, $h^{0,1} = h^{0,2} = 0$, hence
-$\chi(\cO_{X_5}) = \sum_q (-1)^q h^{0,q}(X_5) = 1 - 0 + 0 - 1 = 0$
-and the Hodge supertrace identification gives
-$\kch(A_{X_5}) = \chi(\cO_{X_5}) = 0$, $\kcat(X_5) = 0$. No $\kBKM$
-(no Borcherds lift target, no weight-data Jacobi form input at
-$X_5$; the quintic lattice is not even unimodular Lorentzian in the
-sense required); no $\kappa_{\mathrm{fiber}}$ (no K3 fibration). The
-spectrum at $X_5$ is $\{\kch = 0, \kcat = 0\}$; the MNOP generic
-theorem has no automorphic-rigidity $\kBKM$ to collapse on.
+The toric proof uses a \(T^3\)-action, isolated fixed points on
+\(\Hilb(\CC^3)\)-type charts, and explicit topological-vertex
+gluing.  A generic quintic has no positive-dimensional
+algebraic torus action, so the residue computation has no global
+fixed-point basis.
 
-This is the cleanest arithmetic statement of why the generic MNOP
-is harder: there is no $\Phi$ to pin the partition function to.
-$K3 \times E$ lives on the rigidity locus $\kBKM$-nonvoid $\cap$
-$\kappa_{\mathrm{fiber}}$-nonvoid $\cap$ $\chi = 0$; the quintic
-lives off all three.
+The \(K3\times E\) primitive reduced proof uses three special facts:
+\[
+  \chitop(K3\times E)=0,\qquad
+  H^{2,0}(K3)\neq 0,\qquad
+  \text{paramodular rigidity of the }\chi_{10}\text{ target}.
+\]
+A generic quintic has \(\chitop(X_5)=-200\), \(H^{2,0}(X_5)=0\), and no
+\(\chi_{10}\)-rigidity.  The \(K3\times E\) proof gives a theorem
+locus for the trace architecture.  The generic compact threefold
+construction still requires the five hypotheses above.
 
-%----------------------------------------------------------
-\subsection*{Summary.}
-\label{subsec:summary}
-%----------------------------------------------------------
+\subsection{Four \(\kappa_\bullet\) constants}
+\label{subsec:generic-cy3-invariants}
 
-The generic-CY$_3$ MNOP conjecture is an $\bE_3$-trace identity on a
-single factorisation algebra $\cF_X = \Obs^q_{\hCS}(X)$ between three
-dualisable modules $M_\DT / M_\PT / M_\GW$, valued in
-$\End^{\bE_2}(\mathbf{1}_{\cF_X})$. It is theorem-grade on toric CY$_3$
-(MNOP~II Thm 2) and on $K3 \times E$ in the primitive reduced theory
-(Oberdieck--Pixton 2016 + Oberdieck--Pandharipande 2015 + automorphic
-rigidity of $\Phi_{10}$). It is conjectural on the generic projective
-CY$_3$, conditional on three independent hypotheses:
+For \(K3\times E\), the constants remain distinct:
+\[
+  \kcat(K3\times E)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot 0=0,
+  \qquad
+  \kch(A_{K3\times E})=0,
+\]
+\[
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kBKM(\mathfrak g_{\Delta_5})=\frac{c_1(0)}{2}=5,\qquad
+  \kfib(K3)=24.
+\]
+The OP reduced curve-counting partition function uses the Igusa cusp
+form \(\chi_{10}\).  In the Vol III primitive-denominator
+normalisation, \(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\) has scalar-square
+weight \(10\), and the BKM denominator algebra uses \(\Delta_5\) with
+\(\kBKM(\mathfrak g_{\Delta_5})=5\).
 
-\begin{center}
-\fbox{\parbox{0.93\textwidth}{
-\textbf{(H1)} Bhatt--Halpern-Leistner dualisability of the three
-derived-moduli modules over $\cF_X$ with BBDJS orientation data.\\[0.3em]
-\textbf{(H2)} Katz--Klemm--Vafa integer BPS invariants $n^g_\beta(X)
-\in \ZZ$ and convergence of Gopakumar--Vafa reorganisation.\\[0.3em]
-\textbf{(H3)} Bridgeland stability-manifold $\Stab(D^b \Coh(X))$
-nonempty, with large-volume and PT chambers in the same connected
-component separated by finitely many walls.
-}}
-\end{center}
+For a compact Calabi--Yau threefold such as the quintic,
+\[
+  \chi(\cO_X)=1-0+0-1=0,\qquad
+  \kcat(X)=0,\qquad
+  \kch(A_X)=0.
+\]
+A \(\kBKM\) value requires a Borcherds product with Jacobi input and
+constant term \(c(0)\).  MNOP and BCOV data on a quintic supply
+curve-counting and one-loop determinant data; a Borcherds denominator
+identity is separate input.
 
-Theorem \ref{thm:generic-mnop-conditional} is the conditional
-statement. Proving any of (H1), (H2), (H3) at $X_5$ is a frontier
-problem. Proving all three produces the generic MNOP.
+\subsection{CoHA and \(G(X)\)}
 
-No shortcut off the toric patch: each hypothesis is separately a
-frontier of derived geometry, enumerative geometry, and Bridgeland
-stability. The physical intuition that ``DT and GW are the same $\cF_X$
-read through different windows'' is exact at the level of the
-$\bE_3$-factorisation algebra; the content of MNOP, at generic $X$,
-is the three-hypothesis extension from the cases where windows have
-been constructed.
+The MNOP categorical CoHA, on loci where it is constructed, is an
+\(\Eone\) Hall or vanishing-cycle algebra.  In the affine toric model
+\(\CC^3\) one has the positive-half identification
+\[
+  \CoHA(\CC^3)\simeq Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The passage to \(\mathcal W_{1+\infty}\) requires the negative half,
+Cartan factor, Hopf pairing, Drinfeld double or centre, completion, and
+evaluation data.  For a generic compact threefold, CY-C and the global
+object \(G(X)\) remain conjectural.
+
+\subsection{Generic compact threefold inputs}
+
+For a generic compact threefold, a proof requires:
+\begin{enumerate}
+\item construct orientation data for the relevant vanishing-cycle
+  sheaves and derived moduli, with cyclic trace data;
+\item fix the DT/PT Hall comparison and MacMahon normalisation;
+\item prove the required GW/PT comparison map;
+\item prove GV/KKV integrality and formal convergence for all
+  genera and curve classes;
+\item establish proper dualisability of the three modules over the
+  completed \(\Ethree\)-factorisation algebra;
+\item build the compact TCFT, QME, anomaly-cancellation, counterterm,
+  descent, sewing, framing, and completion package for the chain-level
+  \(\Phi_3\) output;
+\item when invoking \(G(X)\), construct the doubled quantum group
+  separately from the positive-half CoHA.
+\end{enumerate}
 
 \begin{thebibliography}{99}
 
-\bibitem{MNOP-I} Maulik, Nekrasov, Okounkov, Pandharipande,
+\bibitem{MNOP-I}
+D. Maulik, N. Nekrasov, A. Okounkov, and R. Pandharipande,
 \emph{Gromov--Witten theory and Donaldson--Thomas theory, I},
-Compositio Math.\ 142 (2006), arXiv:math/0312059.
+Compositio Math. 142 (2006), arXiv:math/0312059.
 
-\bibitem{MNOP-II} Maulik, Nekrasov, Okounkov, Pandharipande,
+\bibitem{MNOP-II}
+D. Maulik, N. Nekrasov, A. Okounkov, and R. Pandharipande,
 \emph{Gromov--Witten theory and Donaldson--Thomas theory, II},
-Compositio Math.\ 142 (2006), arXiv:math/0406092.
+Compositio Math. 142 (2006), arXiv:math/0406092.
 
-\bibitem{MOOP} Maulik, Oblomkov, Okounkov, Pandharipande,
-\emph{Gromov--Witten / Donaldson--Thomas correspondence for toric
-3-folds}, Invent.\ Math.\ 186 (2011), arXiv:0809.3976.
+\bibitem{MOOP}
+D. Maulik, A. Oblomkov, A. Okounkov, and R. Pandharipande,
+\emph{Gromov--Witten/Donaldson--Thomas correspondence for toric
+3-folds}, Invent. Math. 186 (2011), arXiv:0809.3976.
 
-\bibitem{OP16} Oberdieck, Pixton,
-\emph{Holomorphic anomaly equations and the Igusa cusp form
-conjecture}, Invent.\ Math.\ 213 (2018), arXiv:1706.10100.
-
-\bibitem{OP15} Oberdieck, Pandharipande,
-\emph{Curve counting on $K3 \times E$, the Igusa cusp form
-$\chi_{10}$, and descendent integration}, Proc.\ Symp.\ Pure Math.\ 100
-(2018), arXiv:1411.1514.
-
-\bibitem{Oberdieck-PT} Oberdieck,
-\emph{On reduced stable pair invariants},
-Duke Math.\ J.\ 167 (2018), arXiv:1510.06561.
-
-\bibitem{ORP} Okounkov, Reshetikhin, Pandharipande,
-\emph{Quantum Calabi--Yau and classical crystals},
-Prog.\ Math.\ 244 (2006), arXiv:hep-th/0309208.
-
-\bibitem{PP14} Pandharipande, Pixton,
-\emph{Gromov--Witten/Pairs correspondence for the quintic 3-fold},
-JAMS 30 (2017), arXiv:1206.5490.
-
-\bibitem{HKQ} Huang, Klemm, Quackenbush,
-\emph{Topological string theory on compact Calabi--Yau: modularity
-and boundary conditions}, Lect.\ Notes Phys.\ 757 (2009),
-arXiv:hep-th/0612125 (through arXiv:0906.3284 for $g = 51$).
-
-\bibitem{CDGP} Candelas, de la Ossa, Green, Parkes,
-\emph{A pair of Calabi--Yau manifolds as an exactly soluble
-superconformal theory}, Nucl.\ Phys.\ B359 (1991).
-
-\bibitem{BCOV93} Bershadsky, Cecotti, Ooguri, Vafa,
-\emph{Kodaira--Spencer theory of gravity and exact results for
-quantum string amplitudes}, Commun.\ Math.\ Phys.\ 165 (1994),
-arXiv:hep-th/9309140.
-
-\bibitem{KKV} Katz, Klemm, Vafa,
-\emph{M-theory, topological strings, and spinning black holes},
-Adv.\ Theor.\ Math.\ Phys.\ 3 (1999), arXiv:hep-th/9910181.
-
-\bibitem{PT-KKV} Pandharipande, Thomas,
-\emph{The Katz--Klemm--Vafa conjecture for K3 surfaces},
-Forum Math.\ Pi 4 (2016), arXiv:1404.6698.
-
-\bibitem{GraberPand} Graber, Pandharipande,
-\emph{Localization of virtual classes},
-Invent.\ Math.\ 135 (1999), arXiv:alg-geom/9708001.
-
-\bibitem{BF97} Behrend, Fantechi,
-\emph{The intrinsic normal cone},
-Invent.\ Math.\ 128 (1997), arXiv:alg-geom/9601010.
-
-\bibitem{BBDJS} Brav, Bussi, Dupont, Joyce, Meinhardt,
-\emph{Symmetries and stabilization for sheaves of vanishing cycles},
-J.\ Singul.\ 11 (2015), arXiv:1312.0090.
-
-\bibitem{Joyce-dcrit} Joyce,
-\emph{A classical model for derived critical loci},
-J.\ Diff.\ Geom.\ 101 (2015), arXiv:1304.4508.
-
-\bibitem{Bridgeland10} Bridgeland,
+\bibitem{Bridgeland10}
+T. Bridgeland,
 \emph{Hall algebras and curve-counting invariants},
-JAMS 24 (2011), arXiv:1002.4372.
+J. Amer. Math. Soc. 24 (2011), arXiv:1002.4372.
 
-\bibitem{Toda10} Toda,
-\emph{Curve counting theories via stable objects I.\
-DT/PT correspondence}, JAMS 23 (2010), arXiv:0902.4371.
+\bibitem{Toda10}
+Y. Toda,
+\emph{Curve counting theories via stable objects I. DT/PT
+correspondence},
+J. Amer. Math. Soc. 23 (2010), arXiv:0902.4371.
 
-\bibitem{BayerBridgeland} Bayer, Bridgeland,
-\emph{Derived automorphism groups of K3 surfaces of Picard rank 1},
-Duke Math.\ J.\ 166 (2017), arXiv:1310.8266.
+\bibitem{OP}
+G. Oberdieck and R. Pandharipande,
+\emph{Curve counting on \(K3\times E\), the Igusa cusp form
+\(\chi_{10}\), and descendent integration},
+Proc. Symp. Pure Math. 100 (2018), arXiv:1411.1514.
 
-\bibitem{BMS} Bayer, Macr\`i, Stellari,
-\emph{The space of stability conditions on abelian threefolds, and
-on some Calabi--Yau threefolds}, Invent.\ Math.\ 206 (2016),
-arXiv:1410.1585.
+\bibitem{OPi}
+G. Oberdieck and A. Pixton,
+\emph{Holomorphic anomaly equations and the Igusa cusp form
+conjecture},
+Invent. Math. 213 (2018), arXiv:1706.10100.
 
-\bibitem{BMT} Bayer, Macr\`i, Toda,
-\emph{Bridgeland stability conditions on threefolds I: Bogomolov--Gieseker
-type inequalities}, J.\ Alg.\ Geom.\ 23 (2014), arXiv:1103.5010.
+\bibitem{Oberdieck-PT}
+G. Oberdieck,
+\emph{On reduced stable pair invariants},
+Duke Math. J. 167 (2018), arXiv:1510.06561.
 
-\bibitem{MPT10} Maulik, Pandharipande, Thomas,
-\emph{Curves on K3 surfaces and modular forms},
-J.\ Topol.\ 3 (2010), arXiv:1001.2719.
+\bibitem{PP}
+R. Pandharipande and A. Pixton,
+\emph{Gromov--Witten/Pairs correspondence for the quintic 3-fold},
+J. Amer. Math. Soc. 30 (2017), arXiv:1206.5490.
 
-\bibitem{BHL17} Bhatt, Halpern-Leistner,
-\emph{Tannaka duality revisited},
-Adv.\ Math.\ 316 (2017), arXiv:1507.01925
-(and extension in arXiv:1703.04724).
+\bibitem{CDGP}
+P. Candelas, X. de la Ossa, P. Green, and L. Parkes,
+\emph{A pair of Calabi--Yau manifolds as an exactly soluble
+superconformal theory},
+Nucl. Phys. B359 (1991).
 
-\bibitem{PTVV} Pantev, To\"en, Vaqui\'e, Vezzosi,
+\bibitem{BCOV}
+M. Bershadsky, S. Cecotti, H. Ooguri, and C. Vafa,
+\emph{Kodaira--Spencer theory of gravity and exact results for quantum
+string amplitudes},
+Commun. Math. Phys. 165 (1994), arXiv:hep-th/9309140.
+
+\bibitem{KKV}
+S. Katz, A. Klemm, and C. Vafa,
+\emph{M-theory, topological strings, and spinning black holes},
+Adv. Theor. Math. Phys. 3 (1999), arXiv:hep-th/9910181.
+
+\bibitem{BBDJM}
+C. Brav, V. Bussi, D. Dupont, D. Joyce, and B. Meinhardt,
+\emph{Symmetries and stabilization for sheaves of vanishing cycles},
+J. Singul. 11 (2015), arXiv:1312.0090.
+
+\bibitem{PTVV}
+T. Pantev, B. To\"en, M. Vaqui\'e, and G. Vezzosi,
 \emph{Shifted symplectic structures},
-Publ.\ IHES 117 (2013), arXiv:1111.3209.
-
-\bibitem{DM20} Davison, Meinhardt,
-\emph{Cohomological Donaldson--Thomas theory of a quiver with potential,
-and quantum enveloping algebras}, Invent.\ Math.\ 221 (2020),
-arXiv:1601.02479.
-
-\bibitem{Szendroi} Szendr\H{o}i,
-\emph{Non-commutative Donaldson--Thomas invariants and the conifold},
-Geom.\ Topol.\ 12 (2008), arXiv:0705.3419.
-
-\bibitem{BKR} Bridgeland, King, Reid,
-\emph{The McKay correspondence as an equivalence of derived
-categories}, JAMS 14 (2001), arXiv:math/9908027.
-
-\bibitem{Beauville} Beauville,
-\emph{Some remarks on Calabi--Yau threefolds}, in
-\emph{Higher-Dimensional Complex Varieties (Trento, 1994)}, de Gruyter,
-Berlin (1996).
+Publ. Math. IHES 117 (2013), 271--328.
 
 \end{thebibliography}

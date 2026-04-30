@@ -1,8 +1,3 @@
-% Wave-16 V2/20 --- Monstrous moonshine $j(\tau)$ and $V^\natural$
-% via the two-stage factorisation $\Phi_3 = \SpCh_{\Sigma_2,C} \circ \PhiFA_3$
-% Voices: Frenkel (VOA) + Carnahan (generalised moonshine)
-% Vol III, Calabi--Yau quantum groups (Raeez Lorgat)
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
@@ -10,28 +5,23 @@
 \providecommand{\Q}{\mathbb{Q}}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\HH}{\mathbb{H}}
-\providecommand{\Lat}{\Lambda}
 \providecommand{\Leech}{\Lambda_{24}}
-\providecommand{\IIlor}{\mathrm{II}_{25,1}}
-\providecommand{\IIonel}{\mathrm{II}_{1,1}}
 \providecommand{\Vnat}{V^{\natural}}
 \providecommand{\VLam}{V_{\Leech}}
 \providecommand{\Mon}{\mathbb{M}}
 \providecommand{\mMon}{\mathfrak{m}}
 \providecommand{\Aut}{\mathrm{Aut}}
-\providecommand{\Fcal}{\mathcal{F}}
-\providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
 \providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
-\providecommand{\EdHolFA}{E_d\text{-}\mathrm{hFA}}
 \providecommand{\ETHolFA}{E_3\text{-}\mathrm{hFA}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\Tg}{T_g}
 \providecommand{\Tgh}{T_{(g,h)}}
-\providecommand{\ClaimStatusTheorem}{[Theorem]}
-\providecommand{\ClaimStatusConjectured}{[Conjectured]}
+\providecommand{\Tr}{\operatorname{tr}}
+\providecommand{\Rep}{\mathrm{Rep}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
@@ -40,243 +30,319 @@
 \theoremstyle{definition}
 \newtheorem{construction}[theorem]{Construction}
 \newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
 
-\title{Moonshine, $\Vnat$, and $j(\tau)$ as witnesses of the
-two-stage factorisation}
-\author{Wave-16 V2/20\\ Frenkel + Carnahan voices}
+\title{Moonshine, \(\Vnat\), and \(J(\tau)\) in the two-stage CY\(_3\) frame}
+\author{Raeez Lorgat}
 \date{}
 
 \begin{document}
 \maketitle
 
-\paragraph{Orientation.} The sibling note S3 locates the Borcherds
-denominator $j(p)-j(q)$ at the $(T^{24}_\Leech,\mathrm{pt})$ cusp of the
-two-stage factorisation $\Phi_3=\SpCh_{\Sigma_2,C}\circ\PhiFA_3$. V2
-reads the same diagram from the vertex-algebra side: the graded
-character $J(\tau)=j(\tau)-744$ and its twists $\Tg(\tau)$,
-$\Tgh(\tau)$ are specialisation witnesses of $\PhiFA_3(X_B)$ at a
-tower of $(\Sigma_2,C)$-loci.
+\paragraph{Objects and hypotheses.}
+The vertex-operator-algebra statements in this note are theorems of
+Frenkel--Lepowsky--Meurman, Borcherds, and Carnahan. The CY\(_3\)
+realisation below is conditional. Its input is a smooth proper CY\(_3\)
+category \(\mathcal C_B\) equipped with a framed Leech
+\(\Z/2\)-orbifold sector and a second-stage specialization compatible
+with the FLM twisted sector. The symbol \(X_B^{\mathrm{form}}\) names
+only this formal Leech CFT datum together with the elliptic curve
+\(E_\tau\).
 
-\section*{1. $\Vnat$ as $\SpCh_{\Sigma_2,C}$ of the FLM $E_3$-hFA}
-
-The Frenkel--Lepowsky--Meurman $\Z/2$-orbifold
-\(
-\Vnat=(\VLam)^{\Z/2}\oplus(\VLam^T)^{\Z/2}
-\)
-has central charge $c=24$, partition function $J(\tau)$, and
-$\Aut\Vnat=\Mon$ (FLM 1988 Thm.~12.3.1; Griess 1982 for the
-algebra). On the CY$_3$ $X_B=(T^{24}_\Leech\times E_\tau)/(\Z/2)$
-the first-stage functor produces
+For any constructed \(d=3\) input, Vol III's two-stage rule
 \[
-\PhiFA_3(X_B)\in\ETHolFA(X_B),
+  \Phi_3=\SpCh_{\Sigma_2,C}\circ\PhiFA_3
 \]
-an $E_3$-holomorphic factorisation algebra pinned up to
-contractible choice by the Gerstenhaber bracket of degree $-2$ on
-$\HH^\bullet(D^b X_B)$ and Costello--Gwilliam--Li locality.
+places the specialized chiral output at the native \(E_1\)-level. Any
+\(E_2\)-braiding belongs to the Drinfeld centre
+\(\mathcal Z(\Rep^{E_1}(-))\).
 
-\begin{construction}[$\Vnat$ as second-stage specialisation]
-\label{cons:vnat-two-stage}
-Take $\Sigma_2=T^{24}_\Leech/(\Z/2)$ (the Leech fibre, with the
-FLM involution) and $C=E_\tau\subset X_B$. Then
+\section*{1. The FLM moonshine module}
+
+\begin{theorem}[Frenkel--Lepowsky--Meurman]
+\label{thm:flm-vnatural}
+Let \(\Leech\) be the Leech lattice, let \(\theta\) be the involution
+induced by \(-1\) on \(\Leech\), and let \(\VLam^T\) be the unique
+irreducible \(\theta\)-twisted \(\VLam\)-module. The orbifold
 \[
-\SpCh_{\Sigma_2,E_\tau}\bigl(\PhiFA_3(X_B)\bigr)
-\;=\;\Vnat \quad\text{as $E_1$-chiral algebra on $E_\tau$}.
+  \Vnat=\VLam^{+}\oplus(\VLam^T)^{+}
 \]
-Factorisation homology $\int_{\Sigma_2}\PhiFA_3(X_B)$ is the
-Dijkgraaf--Witten orbifold holomorphic-factorisation integral of
-the Leech sigma model; the untwisted summand gives $(\VLam)^{\Z/2}$
-and the $\mathrm{Aut}(\Sigma_2)^*(\Z/2)$-twist sector gives the
-FLM twisted module $(\VLam^T)^{\Z/2}$. Restriction to $E_\tau$
-returns the holomorphic VOA whose graded trace is $J(\tau)$.
-\end{construction}
-
-\noindent This is the precise Vol III sense in which the Monster
-module is a chiral-algebra shadow of a CY$_3$: $\Vnat$ lives at
-stage-2, while the $E_3$-hFA $\PhiFA_3(X_B)$ of stage-1 carries the
-full moonshine datum. The native operadic level at $d=3$ is
-$n_{\mathrm{native}}(3)=1$ (Prop.\ native-$E_n$-level,
-\S e1-chiral): the $E_2$-braided structure of $\Vnat$ sits on
-$\mathcal{Z}(\mathrm{Rep}^{E_1}(\Vnat))$, not on $\Vnat$ itself.
-
-\section*{2. McKay--Thompson series as $g$-twisted specialisations}
-
-For $g\in\Mon$ the McKay--Thompson series is
+is a holomorphic vertex operator algebra of central charge \(24\), with
 \[
-\Tg(\tau)\;=\;\mathrm{tr}_{\Vnat}\bigl(g\,q^{L_0-1}\bigr),
-\qquad q=e^{2\pi i\tau},
+  \Tr_{\Vnat}\bigl(q^{L_0-1}\bigr)
+  =J(\tau)=j(\tau)-744
+  =q^{-1}+196884q+21493760q^2+\cdots ,
 \]
-with $T_e=J$. Automorphisms of $\Vnat$ act by chiral-algebra
-automorphisms, hence lift through $\SpCh_{\Sigma_2,C}$ to
-automorphisms of $\PhiFA_3(X_B)$ covering the Leech-orbifold
-cover $X_B\to X_B$.
-
-\begin{proposition}[$g$-twisted second stage]
-\label{prop:g-twisted-spec}
-For each $g\in\Mon$ with lift $\hat g$ to
-$\Aut\PhiFA_3(X_B)$, the second-stage specialisation at the
-$\hat g$-twisted sector $(\Sigma_2,C)_{\hat g}$ gives the $g$-twisted
-module $\Vnat(g)$, whose graded character on $E_\tau$ is
-$\Tg(\tau)$. The Zhu functor on the $g$-twisted module recovers
-the FLM/Dong--Mason twisted-trace.
-\end{proposition}
-
-The lift $g\mapsto\hat g$ uses the Monster-orbifold pattern: an
-element of $\Mon$ acts on the Leech part $\Sigma_2$ through its
-Conway--Niemeier representative in $\mathrm{Co}_0$, and on the
-$E_\tau$-factor by a fractional linear transformation determined
-by the Fricke--Atkin--Lehner level of $g$. The two-stage functor
-transports this to the $\hat g$-twisted factorisation
-homology integrand.
-
-\section*{3. The Hauptmodul conjecture through two-stage factorisation}
-
-Conway--Norton 1979 asserts that each $\Tg$ is the
-Hauptmodul for a genus-zero subgroup $\Gamma_g\subset\Sp
-L_2(\R)^+$ commensurable with $\mathrm{SL}_2(\Z)$; Borcherds 1992
-proves this by identifying $\Tg(p)-\Tg(q)$ with a twisted
-denominator of $\mMon$.
-
-\begin{theorem}[Hauptmodul property as two-stage rigidity]
-\label{thm:hauptmodul-two-stage}
-\ClaimStatusTheorem{} \emph{(Borcherds 1992 Thm.~1.1; restated.)}
-For every $g\in\Mon$, $\Tg$ is a Hauptmodul for a genus-zero
-$\Gamma_g$. In two-stage terms: the map
-\[
-\Xi_g\;:\;E_\tau\longmapsto
-\SpCh_{(\Sigma_2)_{\hat g},\,E_\tau}\bigl(\PhiFA_3(X_B)\bigr)
-\]
-descends to an isomorphism $\Xi_g\colon
-X_0(\Gamma_g)\xrightarrow{\sim}\mathbb{P}^1$ after passing to
-graded characters. Genus zero of $X_0(\Gamma_g)$ is the
-\emph{rigidity} statement that the $\hat g$-twisted
-$E_3$-hFA on $E_\tau$ is determined by a single modular function
-$\Tg$.
+\(\Vnat_1=0\), and \(\Aut(\Vnat)=\Mon\). Its weight-two algebra is
+\(\C\omega\oplus\mathfrak B\), where \(\omega\) is the Virasoro vector
+and \(\mathfrak B\) is the \(196883\)-dimensional Griess algebra.
 \end{theorem}
 
-\begin{proof}[Sketch]
-Borcherds 1992 constructs from $\PhiFA_3(X_B)$ the Monster Lie
-algebra $\mMon$ with twisted denominator
-\(
-\Tg(p)-\Tg(q)=p^{-1}\prod_{m>0,n}(1-p^m q^n)^{c_g(mn,n)},
-\)
-where $c_g(mn,n)$ are Fourier coefficients of $\Tg$. The Euler
-character on both sides plus the Borcherds BKM Weyl identity
-forces $\Tg$ to be a replicable function of genus zero
-(Borcherds 1992 \S\S 7--8). In the two-stage picture the BKM
-denominator is the logarithm of the stage-2 partition function at
-the $\hat g$-twisted cusp; rigidity follows because
-$\SpCh$ at a codim-$1$ cusp of the $\IIonel$ period domain is
-parametrised by a single cross-ratio $q$.
+\begin{proof}[Source]
+FLM construct the Leech lattice VOA, the \(\theta\)-twisted module, and
+the fixed-sector orbifold in Chapters 10--12 of \emph{Vertex Operator
+Algebras and the Monster}. The character identity follows from central
+charge \(24\), the vacuum \(q^{-1}\)-term, and \(\Vnat_1=0\). FLM
+Theorem 12.3.1 identifies the full automorphism group with the Monster.
 \end{proof}
 
-\section*{4. Carnahan 2012 generalised moonshine as
-commuting-pair second stage}
-
-Norton's 1987 generalised-moonshine conjecture, proved by
-Carnahan 2012 (Thm.~1.4), assigns to each commuting pair
-$(g,h)\in\Mon\times\Mon$ a modular function $\Tgh$ with the
-properties: (i) $\Tgh$ depends only on the conjugacy class of
-$(g,h)$ in $\Mon$ up to scalar; (ii) under
-$\bigl(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\bigr)\in\Sp
-L_2(\Z)$,
-\(
-T_{(g^ah^b,g^ch^d)}=\gamma\cdot\Tgh
-\)
-for a root of unity~$\gamma$; (iii) each $\Tgh$ is either constant
-or a Hauptmodul. Carnahan's proof proceeds through Borcherds-product
-lifts of the $(g,h)$-twisted twined characters of $\Vnat$
-(arXiv:$0812.3440$ \S\S 5--7).
-
-\begin{proposition}[Two-stage hosting of generalised moonshine]
-\label{prop:two-stage-hosting}
-Fix a commuting pair $(g,h)\in\Mon\times\Mon$. The orbifold
-\(
-X_{B,(g,h)}=X_B/\langle\hat g,\hat h\rangle
-\)
-is a CY$_3$ with an $\langle\hat g,\hat h\rangle$-twisted
-$E_3$-hFA $\PhiFA_3(X_{B,(g,h)})$, and
+\begin{construction}[Conditional two-stage host]
+\label{cons:vnat-two-stage}
+A CY\(_3\) host for \(\Vnat\) consists of the following data.
+\begin{enumerate}
+\item A smooth proper CY\(_3\) category \(\mathcal C_B\).
+\item A first-stage factorisation algebra
 \[
-\SpCh_{(\Sigma_2)_{\hat g},\,E_\tau/\hat h}
-\bigl(\PhiFA_3(X_{B,(g,h)})\bigr)
-\;=\;\Vnat(g,h) \quad\text{as $h$-twisted $g$-twisted module},
+  \PhiFA_3(\mathcal C_B)\in\ETHolFA .
 \]
-whose graded character on $E_\tau/\hat h$ is $\Tgh(\tau)$. The
-Carnahan $\Sp L_2(\Z)$-equivariance is the stage-$1$ automorphism
-covariance
-\(
-\PhiFA_3\bigl(\sigma\cdot X_{B,(g,h)}\bigr)
-=\sigma^*\PhiFA_3(X_{B,(g,h)})
-\)
-transported through the second-stage modular-curve specialisation;
-the scalar~$\gamma$ is the Dijkgraaf--Witten anomaly cocycle of the
-$\langle\hat g,\hat h\rangle$-orbifold of the Leech sigma model.
-\end{proposition}
-
-The $(g,h)$-structure is the natural $(0+1)$-dimensional echo of
-the $E_3$-hFA: the commuting pair labels a point of
-$\mathrm{Hom}(\pi_1(E_\tau),\Mon)/\Mon$, so $\Tgh$ is the
-partition function of $\PhiFA_3(X_B)$ on the flat
-$\Mon$-bundle over $E_\tau$ with holonomies $(g,h)$. Carnahan's
-Hauptmodul conclusion is stage-1 rigidity of
-$\PhiFA_3(X_B)$ transported to stage-2 by the same cusp analysis
-as Theorem~\ref{thm:hauptmodul-two-stage}. The Duncan 2007
-super-moonshine enhancement (Conway-moonshine $V^{f\natural}$) sits
-in the same picture with $\Leech$ replaced by the odd Leech
-lattice and $\Sigma_2$ replaced by its super-analogue.
-
-\section*{5. Consequence: $j(\tau)$ as universal-CY$_3$ witness}
-
-Assemble the data. The $E_3$-hFA $\PhiFA_3(X_B)$ on the
-single CY$_3$ $X_B$ produces, through the second-stage functor
-$\SpCh_{\Sigma_2,C}$ applied to the Leech-$\mathrm{Mon}$-orbifold
-tower:
-\begin{itemize}
-\item the Monster VOA $\Vnat$ at $(\Sigma_2,C)=(T^{24}_\Leech/\Z_2,
-E_\tau)$, character $J(\tau)=j(\tau)-744$;
-\item each McKay--Thompson $\Tg$ at the $\hat g$-twisted cusp;
-\item each Carnahan $\Tgh$ at the commuting-pair orbifold;
-\item the Monster BKM denominator $j(p)-j(q)$ at the
-$(T^{24}_\Leech,\mathrm{pt})$ cusp (note S3);
-\item the Fake-Monster BKM at $(T^{24}_\Leech,E_\tau)$ (note S4).
-\end{itemize}
-
-\begin{conjecture}[$j(\tau)$ is a two-stage witness of CY$_3$ structure]
-\label{conj:j-universal-witness}
-The Klein $j$-function is the
-$q^0$-partition function of the trivial specialisation of
-$\PhiFA_3(X_B)$:
+\item A formal Leech-orbifold specialization datum
 \[
-j(\tau)-744\;=\;Z_{E_\tau}\bigl(\SpCh_{T^{24}_\Leech/\Z_2,\,E_\tau}
-\PhiFA_3(X_B)\bigr).
+  s_B=(\Leech/\{\pm1\},E_\tau,\alpha_{\mathrm{FLM}})
 \]
-The entire moonshine module $\Vnat$, the McKay--Thompson family
-$\{\Tg\}_{g\in\Mon}$, the Carnahan family $\{\Tgh\}$, and the
-Borcherds denominators $\{\Tg(p)-\Tg(q)\}$ are simultaneous
-specialisation witnesses of the single canonical $E_3$-hFA
-$\PhiFA_3(X_B)$. The $\Sp L_2(\Z)$-rigidity of each witness is
-controlled by the codim-$1$ cusp structure of the period domain
-$\mathcal{D}_{\IIonel}$; the Hauptmodul property is the stage-$1$
-uniqueness of $\PhiFA_3$ up to contractible choice.
+where \(\alpha_{\mathrm{FLM}}\) records the FLM twisted sector and its
+gluing with the untwisted fixed sector.
+\item A specialization functor \(\SpCh_{s_B}\) whose factorisation
+homology over \(s_B\) recovers both summands
+\(\VLam^+\) and \((\VLam^T)^+\).
+\end{enumerate}
+Given these data, set
+\[
+  A_B(\tau):=\SpCh_{s_B}\bigl(\PhiFA_3(\mathcal C_B)\bigr).
+\]
+\end{construction}
+
+\begin{conjecture}[Moonshine module as a second-stage output]
+\label{conj:vnat-two-stage}
+If Construction~\ref{cons:vnat-two-stage} exists, then there is an
+isomorphism of \(E_1\)-chiral algebras
+\[
+  A_B(\tau)\cong\Vnat .
+\]
+Consequently
+\[
+  Z_{E_\tau}(A_B)=\Tr_{\Vnat}\bigl(q^{L_0-1}\bigr)=J(\tau).
+\]
+The mathematical input still to be supplied is the geometric category
+\(\mathcal C_B\), the Leech-orbifold specialization datum \(s_B\), and
+the comparison between \(\SpCh_{s_B}\PhiFA_3(\mathcal C_B)\) and the
+FLM orbifold complex.
 \end{conjecture}
 
-This is the Vol III universal reading: moonshine is not a coincidence
-among three genus-zero lists, but the shadow on $E_\tau$ of a single
-$E_3$-hFA on $X_B$, evaluated at the Leech-$\Mon$-orbifold
-tower of specialisation data. The arithmetic scalars
-$\kBKM(\mathrm{Monster})=0$, $\kBKM(\Delta_5)=5$, and the
-spectrum $\{2,3,5,24\}$ on $K3\times E$ are second-stage cusp
-multiplicities; the Hauptmodul property of every $\Tg$ is the
-first-stage rigidity of $\PhiFA_3$.
+\section*{2. McKay--Thompson series and the Monster denominator}
 
-\paragraph{Primary sources.} Borcherds 1986 \emph{Proc.\ Natl.\ Acad.\
-Sci.}\ \textbf{83} (vertex algebras); Borcherds 1992 \emph{Invent.\ Math.}\
-\textbf{109} (monstrous moonshine, Thms.~1.1, 6.1, \S 8 twisted
-denominator); Frenkel--Lepowsky--Meurman 1988 \emph{VOA and the Monster}
-\S\S 10--12 (Leech $\Z/2$-orbifold, Thm.~12.3.1); Conway--Norton 1979
-\emph{Bull.\ LMS}\ \textbf{11} (Hauptmodul conjecture); Carnahan 2012
-(arXiv:$0812.3440$, Thm.~1.4, generalised moonshine, Borcherds-product
-construction of $\Tgh$); Duncan 2007 \emph{Math.\ Res.\ Lett.}\
-\textbf{14} (super-moonshine $V^{f\natural}$); Costello--Gwilliam 2017
-(holomorphic factorisation algebras, $E_3$-hFA on curves).
+For \(g\in\Mon\), define the McKay--Thompson series
+\[
+  \Tg(\tau)
+  =
+  \Tr_{\Vnat}\bigl(g\,q^{L_0-1}\bigr)
+  =
+  \sum_{n\geq -1}c_g(n)q^n,
+  \qquad q=e^{2\pi i\tau}.
+\]
+The identity class gives \(T_e=J\).
+
+\begin{theorem}[Borcherds' Conway--Norton theorem]
+\label{thm:hauptmodul-borcherds}
+For every \(g\in\Mon\), \(\Tg\) is the normalized Hauptmodul for the
+genus-zero group assigned to \(g\) by Conway--Norton. The identity-class
+denominator is the Koike--Norton--Zagier product
+\[
+  J(\sigma)-J(\tau)
+  =
+  p^{-1}
+  \prod_{\substack{m>0\\ n\in\Z}}
+  \bigl(1-p^m q^n\bigr)^{c_e(mn)},
+  \qquad p=e^{2\pi i\sigma}.
+\]
+For general \(g\), Borcherds' equivariant denominator is the Adams
+operation form
+\[
+  \Tg(\sigma)-\Tg(\tau)
+  =
+  p^{-1}
+  \exp\!\left(
+    -\sum_{r\geq1}\frac{1}{r}
+     \sum_{\substack{m>0\\ n\in\Z}}
+     c_{g^r}(mn)p^{mr}q^{nr}
+  \right).
+\]
+\end{theorem}
+
+\begin{proof}[Source]
+Borcherds constructs the Monster Lie algebra \(\mMon\) from
+\(\Vnat\otimes V_{\mathrm{II}_{1,1}}\), identifies its root
+multiplicities with the shifted coefficients of \(J\), and proves the
+denominator identity in \emph{Inventiones} 109 (1992), Theorems 1.1,
+6.1, and 10.1. The equivariant identity is the corresponding twined
+denominator formula: the \(r\)-th Adams operation sees \(g^r\), which
+explains the appearance of \(c_{g^r}\). The resulting replication
+relations prove the Conway--Norton genus-zero assertion.
+\end{proof}
+
+\begin{conjecture}[Twined sectors in the CY\(_3\) host]
+\label{conj:g-twisted-spec}
+Assume Construction~\ref{cons:vnat-two-stage} and an action of
+\(\Mon\) on \(\PhiFA_3(\mathcal C_B)\) whose second-stage specialization
+is the FLM action on \(\Vnat\). For each \(g\in\Mon\), the
+\(g\)-twisted specialization
+\[
+  \SpCh_{s_B(g)}\bigl(\PhiFA_3(\mathcal C_B)\bigr)
+\]
+is the irreducible \(g\)-twisted \(\Vnat\)-module. Its \(h=1\) graded
+trace is \(\Tg(\tau)\).
+\end{conjecture}
+
+\section*{3. Commuting-pair sectors}
+
+Let \(g,h\in\Mon\) commute. Generalized moonshine attaches to the pair
+an irreducible \(g\)-twisted \(\Vnat\)-module \(V^\natural(g)\), a
+projective action of \(C_{\Mon}(g)\), and a trace function
+\[
+  \Tgh(\tau)
+  =
+  \Tr_{V^\natural(g)}
+  \bigl(\widetilde h\,q^{L_0-1}\bigr),
+\]
+where \(\widetilde h\) is a lift of \(h\) to the twisted module. Changing
+the lift rescales \(\Tgh\) by a nonzero scalar.
+
+\begin{theorem}[Carnahan's generalized moonshine theorem]
+\label{thm:carnahan-generalized-moonshine}
+For the functions \(\Tgh\) attached to \(V^\natural\):
+\begin{enumerate}
+\item \(\Tgh\) is invariant under simultaneous conjugacy of
+\((g,h)\), up to scalar.
+\item For
+\(\gamma=\begin{psmallmatrix}a&b\\ c&d\end{psmallmatrix}\in
+\mathrm{SL}_2(\Z)\),
+\[
+  T_{(g^a h^c,g^b h^d)}(\tau)
+  \quad\text{is proportional to}\quad
+  \Tgh\!\left(\frac{a\tau+b}{c\tau+d}\right).
+\]
+\item Each \(\Tgh\) is constant or a Hauptmodul.
+\item \(\Tgh=J\) exactly for \((g,h)=(1,1)\).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Source]
+Carnahan proves the theorem for twisted modules of \(\Vnat\) by
+constructing the required \(g\)-twisted modules, building the associated
+monstrous Lie algebras, proving the Fricke cases by twisted denominator
+identities, and reducing the remaining cases through
+\(\mathrm{SL}_2(\Z)\)-covariance. The genus-zero criterion used in the
+last step is Carnahan 2010, \emph{Generalized Moonshine I}, Theorem 4.1:
+weak Hecke-monic functions with algebraic integer coefficients and a
+pole at infinity are genus-zero or degenerate. The full generalized
+moonshine statement is Carnahan 2016, \emph{Generalized Moonshine IV},
+Theorem ``Generalized Moonshine for twisted modules of \(V^\natural\)''.
+\end{proof}
+
+\begin{conjecture}[Commuting-pair second stage]
+\label{conj:two-stage-hosting-generalized}
+Under Conjecture~\ref{conj:g-twisted-spec}, a commuting pair
+\((g,h)\) is the monodromy of a flat \(\Mon\)-bundle on \(E_\tau\).
+The specialization over this bundle,
+\[
+  \SpCh_{s_B(g,h)}\bigl(\PhiFA_3(\mathcal C_B)\bigr),
+\]
+is \(V^\natural(g)\) equipped with the projective \(h\)-action, and its
+graded trace is \(\Tgh(\tau)\). The scalar in the modular covariance is
+the holonomy of the anomaly line of this finite orbifold. Identifying
+that anomaly line with the transgression of a Dijkgraaf--Witten
+\(3\)-cocycle requires an additional construction beyond Carnahan's
+Hauptmodul theorem.
+\end{conjecture}
+
+\section*{4. The identity sector and \(j(\tau)\)}
+
+\begin{conjecture}[\(J(\tau)=j(\tau)-744\) as the identity-sector character]
+\label{conj:j-universal-witness}
+Assume a CY\(_3\) host satisfying
+Construction~\ref{cons:vnat-two-stage}. Then
+\[
+  Z_{E_\tau}\!\left(
+  \SpCh_{s_B}\PhiFA_3(\mathcal C_B)
+  \right)
+  =
+  J(\tau)
+  =
+  j(\tau)-744.
+\]
+The same first-stage datum hosts, after the additional twisted-sector
+and flat-bundle data of Conjectures~\ref{conj:g-twisted-spec} and
+\ref{conj:two-stage-hosting-generalized}, the family
+\[
+  J,\qquad \Tg,\qquad \Tgh,\qquad
+  \Tg(\sigma)-\Tg(\tau).
+\]
+These are respectively the identity trace, ordinary twined trace,
+commuting-pair trace, and Borcherds denominator trace.
+\end{conjecture}
+
+The constant \(744\) is the normalization passing from the Klein
+\(j\)-function to the Monster character \(J\) with vanishing constant
+term. It carries no \(\kappa_\bullet\)-content and has no additive
+relation to the \(K3\times E\) invariants below.
+
+\section*{5. Separation from the \(K3\times E\) Borcherds constants}
+
+The Monster denominator \(J(\sigma)-J(\tau)\) has bi-weight \((0,0)\).
+In the Monster Lie algebra convention this gives
+\[
+  \kBKM(\mMon)=0.
+\]
+The \(K3\times E\) Borcherds object is the separate
+Gritsenko--Nikulin form \(\Delta_5\). For \(Y=K3\times E\), the
+canonical constants are
+\[
+\begin{array}{c|c|l}
+\text{invariant} & \text{value} & \text{source} \\
+\hline
+\kcat(Y) & 0 &
+\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0 \\
+\kch^{\mathrm{compact}}(Y) & 0 &
+\sum_q(-1)^q h^{0,q}(Y)=1-1+1-1 \\
+\kch^{\mathrm{Heis}}(Y) & 3 &
+\text{Heisenberg--Mukai specialization} \\
+\kBKM(\Delta_5) & 5 &
+c_1(0)/2=10/2 \\
+\kfib(Y) & 24 &
+\operatorname{rk}\widetilde H(K3,\Z)=1+22+1 .
+\end{array}
+\]
+The primitive CHL/BKM denominator ladder has
+\[
+  N\in\{1,2,3,4,6\},\qquad
+  c_N(0)=(10,8,6,4,2),\qquad
+  \kBKM(\Phi_N)=(5,4,3,2,1).
+\]
+The Gritsenko--Clery diagonal-divisor catalogue is a different
+eight-row list. Its twice-weight tuple is
+\[
+  (10,4,6,2,4,1,3,2),
+\]
+with the overlap with the CHL ladder only at the common
+\(\Delta_5\) row.
+
+In the theta-normalized Igusa convention,
+\[
+  [q^{1/2}r^{1/2}s^{1/2}]\Delta_5=64,
+  \qquad
+  D_5=64^{-1}\Delta_5.
+\]
+Thus \(D_5\) is the monic Borcherds product, while \(\Delta_5\) is the
+theta-normalized Siegel cusp form of weight \(5\).
+
+\paragraph{Primary sources.}
+Frenkel--Lepowsky--Meurman 1988, \emph{Vertex Operator Algebras and the
+Monster}, Chapters 10--12 and Theorem 12.3.1; Conway--Norton 1979,
+\emph{Bull. London Math. Soc.} \textbf{11}; Borcherds 1992,
+\emph{Invent. Math.} \textbf{109}, Theorems 1.1, 6.1, and 10.1;
+Carnahan 2010, \emph{Algebra Number Theory} \textbf{4}, Theorem 4.1;
+Carnahan 2016, arXiv:1208.6254, theorem ``Generalized Moonshine for
+twisted modules of \(V^\natural\)''; Gritsenko--Nikulin 1995, Part II,
+Theorem 2.1; Gritsenko--Clery 2008, Theorems 1.4 and 3.1;
+Costello--Gwilliam 2017, holomorphic factorisation algebras.
 
 \end{document}

@@ -295,7 +295,7 @@ def kappa_bkm_status() -> Dict[str, Any]:
     denominator product (automorphic form on an orthogonal group).
 
     For K3 x E: kappa_BKM = 5 = weight(Delta_5) = c(0)/2,
-    where Delta_5 is the Igusa cusp form and c(0) = 10 from phi_{0,1}.
+    where Delta_5 is the primitive Gritsenko-Nikulin denominator and c(0) = 10 from phi_{0,1}.
 
     For local P^2, kappa_BKM is UNDEFINED because:
 
@@ -324,7 +324,7 @@ def kappa_bkm_status() -> Dict[str, Any]:
       - The K3 lattice provides the hyperbolic lattice
       - The K3 elliptic genus provides phi_{0,1}
       - The DMVV formula IS the BKM denominator formula
-      - The Igusa cusp form Delta_5 IS the automorphic form
+      - The primitive Gritsenko-Nikulin denominator Delta_5 IS the automorphic form
       - kappa_BKM = weight(Delta_5) = c(0)/2 = 10/2 = 5
 
     LOCAL P^2 LACKS ALL FOUR INGREDIENTS.
@@ -343,7 +343,7 @@ def kappa_bkm_status() -> Dict[str, Any]:
             "kappa_BKM_k3xe": F(5),
             "lattice": "II_{3,19} (K3 lattice)",
             "input_form": "phi_{0,1} (K3 elliptic genus)",
-            "automorphic_form": "Delta_5 (Igusa cusp form, weight 5)",
+            "automorphic_form": "Delta_5 (primitive Gritsenko-Nikulin denominator, weight 5)",
         },
     }
 

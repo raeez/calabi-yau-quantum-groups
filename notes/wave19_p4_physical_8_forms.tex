@@ -1,190 +1,329 @@
-% =====================================================================
-% Wave-19 P4/20 -- Sen voice.
-% Physical consequences of the eight Gritsenko--Clery 8-forms:
-% AdS$_3$ dyon counting across $N\in\{1,2,3,4,5,6,7,8\}$, heterotic
-% CHL compactifications, non-CHL obstructions, moonshine via $g_N\in M_{24}$,
-% and the quantum-gravity status of non-CHL throats.
-% CG voice. Subscripted kappa. \providecommand. No AI attribution.
-% Primary sources:
-%   Sen 2008 arXiv:0708.1270 (BH/BPS dictionary; 1/4-BPS via Igusa);
-%   Sen 2010 arXiv:0908.0039 (exact dyon spectrum, CHL reviews);
-%   Dijkgraaf-Verlinde-Verlinde 1997 Nucl.Phys.B484 (D1-D5-p, Phi_{10});
-%   Shih-Strominger-Yin 2005 arXiv:hep-th/0505094 ({1/4-BPS = -1/Phi_{10}});
-%   Chaudhuri-Hockney-Lykken 1995 arXiv:hep-th/9505054 (CHL N=2,3,5,7);
-%   Chaudhuri-Polchinski 1995 arXiv:hep-th/9506048 (CHL mechanism);
-%   Jatkar-Sen 2005 arXiv:hep-th/0510147 (CHL dyon Phi_k);
-%   David-Sen 2006 arXiv:hep-th/0609074 (CHL genus-2 Siegel);
-%   Chattopadhyaya-David 2019 arXiv:1911.10775 (CHL partition function);
-%   Chattopadhyaya-David-Harvey 2014 arXiv:1404.7260 (second-quantized M_{24});
-%   Eguchi-Ooguri-Tachikawa 2010 arXiv:1004.0956 (Mathieu moonshine);
-%   Gaberdiel-Hohenegger-Volpato 2010 arXiv:1008.4924 (g_N in M_{23});
-%   Maldacena-Strominger-Witten 1997 hep-th/9711053 (AdS$_3$/CFT$_2$ on
-%       K3 x E);  Gritsenko-Clery 2008 arXiv:0812.3962 (eight 8-forms).
-% Author: Raeez Lorgat.
-% =====================================================================
-
 \providecommand{\ZZ}{\mathbb{Z}}
 \providecommand{\QQ}{\mathbb{Q}}
-\providecommand{\RR}{\mathbb{R}}
 \providecommand{\CC}{\mathbb{C}}
-\providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\cO}{\mathcal{O}}
 \providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\wt}{\mathrm{wt}}
 \providecommand{\Aut}{\mathrm{Aut}}
-\providecommand{\Fix}{\mathrm{Fix}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\BPS}{\mathrm{BPS}}
+\providecommand{\CHL}{\mathrm{CHL}}
+\providecommand{\DT}{\mathrm{DT}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\Dcrit}{\Delta_{\mathrm{crit}}}
-\providecommand{\BPS}{\mathrm{BPS}}
-\providecommand{\SBH}{S_{\mathrm{BH}}}
-\providecommand{\dquart}{d_{1/4}}
-\providecommand{\Delfnm}[2]{\Delta_{#1}^{(#2)}}
-\providecommand{\CHL}{\mathrm{CHL}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[Thm]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[Conj]}}
-\providecommand{\ClaimStatusHeuristic}{\textsc{[Heur]}}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\PhiTen}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\PhiTenOP}{\Phi_{10}^{\mathrm{OP}}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\ZOP}{Z_{\mathrm{OP}}}
+\providecommand{\Yplus}{Y^+}
+\providecommand{\Winfty}{\mathcal{W}_{1+\infty}}
 
-\section*{Wave-19 P4/20 --- physical consequences of the eight
-8-forms: dyon spectrum, CHL throats, and the non-CHL desert}
-\label{wn:sec:wave19-p4-physical-8-forms}
+\section*{Physical Meaning of CHL Denominators and Diagonal-Divisor Forms}
+\label{wn:sec:physical-meaning-chl-dd-forms}
 
-The eight Gritsenko--Cl\'ery paramodular forms
-$\{\Delfnm{k_N}{N}\}_{N\in\{1,\dots,8\}}$ carry weights
-$k_N=(5,2,1,1/2,1/2,1/6,1/4,0)$ and are uniformly produced by the
-Borcherds singular-theta lift of $\varphi_{0,1}(\tau,z)$ twisted by
-$N$-th-order K3 automorphisms (GC~2008 Thm~1.1). The CHL slice
-$N\in\{1,2,3,4,6\}$ --- those $N$ for which $\varphi(N)\le 2$ --- is
-the unique subset on which the paramodular form is the $1/4$-BPS
-helicity supertrace of an honest heterotic string compactification.
-We describe the physics both sides of the CHL horizon: what the
-$N\in\{1,\dots,6\}$ forms count, why $N\in\{5,7,8\}$ fail to count
-anything in a heterotic frame, and what non-CHL throats would have
-to be.
-
-\subsection*{Cycle 1 --- CHL heterotic $N\in\{1,2,3,4,6\}$ and
-the Jatkar--Sen dyon formula}
-\ClaimStatusTheorem\ (CHL 1995 eqn.~(2.1); Jatkar--Sen 2005 Thm~1;
-David--Sen 2006 \S4.)
-For $N\in\{1,2,3,4,6\}$ the heterotic string on
-$T^6/\ZZ_N$ --- where $\ZZ_N$ acts as an order-$N$ shift on
-$T^4\subset T^6$ combined with an order-$N$ symmetry of the
-$E_8\times E_8$ lattice --- has $\mathcal N=4$ supergravity with
-unbroken gauge symmetry. Its $1/4$-BPS dyon degeneracy is
-$\dquart(Q_e,Q_m)=(-1)^{Q_e\cdot Q_m+1}\oint
-e^{-i\pi(\rho Q_e^2/2+\sigma Q_m^2+ v Q_e\cdot Q_m)}
-\,\Delfnm{k_N}{N}(\rho,\sigma,v)^{-1}d\rho\,d\sigma\,d v$,
-with $k_N$ the Gritsenko--Cl\'ery weight listed above. The heterotic
-duality frame identifies $\Delfnm{k_N}{N}$ as the second-quantised
-partition function of the $N$-twisted symmetric product
-$\mathrm{Sym}^{*}(K3/g_N)$ (Chattopadhyaya--David 2019 Prop.~4.1,
-building on DVV~1997 eqn.~(4.7) for $N=1$).
-
-\subsection*{Cycle 2 --- the non-CHL obstruction at $N=5,7,8$}
-\ClaimStatusTheorem\ (Chaudhuri--Polchinski 1995 \S2.)
-The CHL mechanism requires the $\ZZ_N$ to act simultaneously on the
-heterotic Narain lattice $\Gamma^{6,22}$ and on the spacetime torus
-$T^6$ as a level-matched shift. Level matching obliges the shift
-vector $\delta$ to satisfy $N\delta\in\Gamma$ and
-$N\delta^2/2\in\ZZ$, conditions that are consistent with the modular
-transformation only when $\ZZ_N$ embeds in $\Aut(\Gamma^{6,22})$ via
-an element whose cycle structure leaves $\Gamma$-symmetric. Explicit
-listing: $N\in\{1,2,3,4,6\}$ passes; $N=5$ and $N=7$ fail the cycle
-decomposition of $M_{24}$ on $\Gamma^{6,22}$, and $N=8$ fails the
-level-matching discriminant condition.
-
-\ClaimStatusTheorem\ ($N=5$: Borcea--Voisin type II.) $N=5$ admits no
-heterotic realisation, but admits a \emph{type IIB} F-theory frame on
-the Borcea--Voisin CY$_3$
-$X_5^{\mathrm{BV}}=(S_5\times E_5)/(\iota_S\times\iota_E)$
-(Wave-19 Z1). In that frame $\Delfnm{1/2}{5}$ appears as a
-four-dimensional automorphic form counting $D3$-instanton corrections
-to a hypermultiplet moduli-space metric, not as a $1/4$-BPS dyon
-generating function; the $1/4$-BPS sector is empty because
-$\mathcal N=4$ is broken to $\mathcal N=2$.
-
-\ClaimStatusConjectured\ ($N=7,8$: singular throats.) At $N=7$ the
-host is an order-$4$ gerbe (Wave-19 Z2); $N=8$ would be an F-theory
-CY$_4$ with $\ZZ_8$ action on a K3 fibre-over-K3 base. Neither has a
-heterotic dual. The associated forms $\Delfnm{1/4}{7}$ and
-$\Delfnm{0}{8}$ count something automorphic, but not an index of a
-supergravity $\frac14$-BPS Hilbert space.
-
-\subsection*{Cycle 3 --- Bekenstein--Hawking entropy and the
-$\sqrt{\Delta/N}$ law}
-\ClaimStatusTheorem\ (Sen 2008 eqn.~(1.3); Jatkar--Sen eqn.~(4.16).)
-For a CHL $N\in\{1,2,3,4,6\}$ background and charges
-$(Q_e,Q_m)$ with quartic $U$-duality invariant
-$\Delta(Q_e,Q_m)=Q_e^2 Q_m^2-(Q_e\cdot Q_m)^2\gg0$, the large-charge
-saddle of the Jatkar--Sen contour yields the leading black-hole entropy
+\paragraph{Theorem (Borcherds weight).}
+Let \(R\) be a row label carrying a fixed Jacobi input \(\psi_R\), a
+cusp normalisation, a multiplier, and a target paramodular group.  Write
 \[
-\SBH^{(N)}(Q_e,Q_m)\;=\;\pi\sqrt{\,\Delta/N\,}\;+\;O(\log\Delta),
+  c_R(0)=[q^0\zeta^0]\psi_R .
 \]
-with the $1/N$ reflecting that the CHL twist projects out $(N-1)/N$
-of the moduli. The subleading logarithm
-$-(k_N+\tfrac{1}{2})\log\Delta$ tracks $k_N=c_N(0)/2=\kBKM(\Phi_N)$
-directly: the Gritsenko--Cl\'ery weight controls the one-loop
-correction. $N=1$: $k_1=5$, matching Sen 2008 eqn.~(6.4). $N=2$:
-$k_2=2$, matching Chattopadhyaya--David Tab.~3. $N=3$: $k_3=1$;
-$N=4,6$: $k_N=1/2,1/6$. The absence of $N=5,7,8$ from this table is
-the Bekenstein--Hawking imprint of the CHL horizon.
+Borcherds' singular theta lift gives the rowwise automorphic invariant
+\[
+  \kBKM(\Phi_R)=\wt(\Phi_R)=\frac{c_R(0)}{2}.
+\]
+The row label is part of the theorem.  Primitive \(\CHL\) denominators,
+Nikulin order rows, and Gritsenko-Clery diagonal-divisor rows share the
+row \(\DeltaFive\) and otherwise use different indexing principles.
+A physical BPS interpretation is a second theorem, supplied after the
+source geometry, scalar denominator, chamber, and Hall orientation have
+been constructed.
 
-The $\sqrt{\Delta/N}$ law is \emph{CHL-exclusive}. For $N=5$ the
-Borcea--Voisin background supports only $\mathcal N=2$
-small-black-hole entropy $\sim\sqrt{\Delta}$ (no $N$-factor, no
-$1/4$-BPS helicity supertrace). For $N=7,8$ the entropy is ill-defined
-because the horizon is obstructed.
+\subsection*{Primitive CHL Denominator Ladder}
 
-\subsection*{Cycle 4 --- Mathieu moonshine and $g_N\in M_{24}$}
-\ClaimStatusTheorem\ (Eguchi--Ooguri--Tachikawa 2010 Thm~1;
-Gaberdiel--Hohenegger--Volpato 2010 Thm~1.2.)
-The K3 elliptic genus decomposes into $\mathcal N=4$ superconformal
-characters with multiplicities that are dimensions of $M_{24}$
-representations. The twisted refinements
-$\phi_{\mathrm{ell}}^{g_N}(\tau,z)$ for $g_N\in M_{24}$ of order $N$
-generate, via the Gritsenko--Cl\'ery lift, the eight 8-forms
-$\Delfnm{k_N}{N}$ in the precise pattern $(N,k_N)=(1,5),(2,2),
-(3,1),(4,1/2),(5,1/2),(6,1/6),(7,1/4),(8,0)$. The $M_{24}$ conjugacy
-class governing each row is the cycle shape read from
-$\phi_{\mathrm{ell}}^{g_N}$; the shapes $1^{24}$, $1^8 2^8$,
-$1^6 3^6$, $1^4 2^2 4^4$, $1^4 5^4$, $1^2 2^2 3^2 6^2$, $1^3 7^3$,
-$1^2 2^1 4^1 8^2$ align exactly with the weights $k_N=(24-n(g_N))/2$
-where $n(g_N)$ is the number of cycles (Chattopadhyaya--David--Harvey
-2014 Prop.~3.1). $M_{24}$ supplies a cycle shape for every
-$N\le 23$, but the paramodular side truncates at $N=8$ because
-$\mathrm{ord}(g_N)\mid 24$ alone is not enough --- GC~2008 Thm~1.1
-requires the Jacobi form $\phi_{\mathrm{ell}}^{g_N}$ to have \emph{vanishing
-constant term at every cusp of $\Gamma_0(N)$}, which fails at $N\ge 9$.
+\paragraph{Theorem (primitive compact CHL rows).}
+The primitive compact \(K3\times E\) \(\CHL\) denominator ladder is
+indexed exactly by
+\[
+  N\in\{1,2,3,4,6\}.
+\]
+These are the symplectic K3 orders compatible with the elliptic factor
+in the compact \(K3\times E\) source package.  Gritsenko-Nikulin, Gritsenko,
+Eguchi-Hikami, and Govindarajan-Krishna give the Borcherds denominators
+\(\Phi_N^{\CHL}\) with constants
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\ \hline
+c_N^{\CHL}(0)&10&8&6&4&2\\
+\kBKM(\Phi_N^{\CHL})&5&4&3&2&1
+\end{array}
+\]
+in the primitive denominator normalisation.  The \(N=1\) row is
+\[
+  \Phi_1^{\CHL}=\DeltaFive,\qquad
+  \kBKM(\DeltaFive)=10/2=5.
+\]
+The \(N=5,7,8\) order rows belong to the Nikulin extension below.  A
+common compact host and a row map are separate theorem data.
 
-\subsection*{Cycle 5 --- do non-CHL throats exist as string backgrounds?}
-\ClaimStatusConjectured\ ($N=5$ yes, $N=7,8$ no.) The quantum-gravity
-status of the four off-slice forms splits:
+The \(N=1\) scalar inverse-square conventions separate as
+\[
+  \PhiTen=\DeltaFive^2,\qquad
+  \Dfive=64^{-1}\DeltaFive,\qquad
+  \PhiTenOP=\Dfive^2=4096^{-1}\DeltaFive^2,
+\]
+\[
+  \ZOP^{K3\times E}=-(\PhiTenOP)^{-1}
+  =-\Dfive^{-2}
+  =-4096\,\DeltaFive^{-2}.
+\]
+The unnormalised Igusa square \(\PhiTen\) is the scalar Siegel form of
+weight \(10\).  The OP reduced-DT scalar uses the monic product
+\(\Dfive\).  The chiral half has Borcherds weight \(5\).
 
-$N=5$: the Borcea--Voisin type IIB frame is a consistent string
-background with $\mathcal N=2$ supergravity. $\Delfnm{1/2}{5}$ counts
-not $1/4$-BPS dyons but $D3$-instanton corrections to the
-hypermultiplet metric on the Coulomb branch of that compactification;
-the singularity $\Delfnm{1/2}{5}^{-1}$ is integrated on an
-eight-chain in the Igusa threefold and gives a finite $\alpha'$
-correction. This is a physical throat, but not a black-hole throat.
+\subsection*{Nikulin Order Extension}
 
-$N=7$: the order-$4$ gerbe host (Wave-19 Z2) is \emph{not} known to
-be a consistent string background --- no target-space interpretation
-of the eighth-root $\bigl(Z^{X_7}\bigr)^{-1/8}=\Phi_7$ has been
-constructed. The differential-character obstruction (Cheeger--Simons
-$\widehat H^{4}(X_7,\ZZ)$ torsion) is a bulk-anomaly input that,
-if realisable, would correspond to a fractional charge sector with
-no known decoupling limit. The swampland conjecture status is
-open.
+\paragraph{Automorphic theorem (Nikulin order rows).}
+Nikulin's symplectic K3 orders include \(5,7,8\).  In the order-indexed
+automorphic extension their constants are
+\[
+\begin{array}{c|ccc}
+N&5&7&8\\ \hline
+\text{cycle shape}&1^4 5^4&1^3 7^3&1^2 2^1 4^1 8^2\\
+c_N^{\mathrm{Nik}}(0)&4&2&2\\
+\kBKM(\Phi_N^{\mathrm{Nik}})&2&1&1
+\end{array}
+\]
+where \(\Phi_N^{\mathrm{Nik}}\) denotes the order-indexed Nikulin
+Borcherds product after its Jacobi input, Weyl chamber, Weyl vector,
+and reflection character have been fixed.
 
-$N=8$: the F-theory CY$_4$ scenario would demand a $\ZZ_8$ action on
-a sixteen-real-dimensional host with eight-form metaplectic reduction
-to $\Delfnm{0}{8}$ weight zero; the vanishing weight makes it a
-\emph{character}, not a modular form, and forbids a non-trivial
-saddle-point entropy. No string background realising it is known.
+The \(N=5\) geometric test object is a Borcea-Voisin threefold
+\[
+  \widehat X_5^{\mathrm{BV}}\longrightarrow
+  (S_5\times E)/(\iota_S\times\iota_E),
+\]
+with \(S_5\) carrying an order-\(5\) symplectic automorphism commuting
+with the anti-symplectic involution \(\iota_S\).  The automorphic value
+is \(\kBKM(\Phi_5^{\mathrm{Nik}})=2\).  A compact BPS theorem at this
+row requires a reduced obstruction theory, orientation data, the
+weight-\(2\) Borcherds product, and Hall-Borcherds recognition.
 
-The physical content of the 8-form census: five of the eight are
-genuine BPS generating functions; three are automorphic shadows of
-CY geometries that fail to admit a heterotic or M-theory dual. The
-CHL horizon $\varphi(N)\le 2$ is not a technical curiosity but the
-boundary of what stringy quantum gravity can see.
+At \(N=7\), the direct quotient
+\((S_7\times E)/\langle g_7\times\mathrm{id}_E\rangle\) has three
+elliptic \(A_6\)-surface singularity curves.  A free translation
+quotient belongs to a different host problem.  The automorphic constant
+remains \(c_7^{\mathrm{Nik}}(0)=2\), hence
+\(\kBKM(\Phi_7^{\mathrm{Nik}})=1\).  Gerbe-valued or twisted
+\(K\)-theoretic refinements require a constructed torsion differential
+character and a compatible Hall orientation.
+
+At \(N=8\), the order-indexed value
+\(\kBKM(\Phi_8^{\mathrm{Nik}})=1\) is automorphic data.  A compact
+Calabi-Yau threefold source package is additional structure.  Hyperkahler
+or stacky boundary evidence gives automorphy at the boundary; a \(1/4\)-BPS
+Hilbert-space index requires the compact source package and its
+orientation data.
+
+\subsection*{Gritsenko-Clery Diagonal-Divisor Catalogue}
+
+\paragraph{Theorem (diagonal-divisor rows).}
+Gritsenko-Clery classify the genus-two modular forms whose divisor is
+the diagonal \(\mathcal H_1\) with vanishing order \(1\) on a
+paramodular quotient.  The catalogue is indexed by triples \((t,N;k)\),
+where \(k\) is the weight:
+\[
+ \mathsf{GC}_8=
+ \{(1,1;5),(2,1;2),(1,2;3),(3,1;1),(1,3;2),
+ (4,1;\tfrac12),(1,4;\tfrac32),(2,2;1)\}.
+\]
+In the canonical order the rows are
+\[
+\begin{array}{c|c|c|c|c}
+R&(t,N;k)&F_R&c_R(0)&\kBKM(F_R)\\ \hline
+1&(1,1;5)&\DeltaFive&10&5\\
+2&(2,1;2)&\Delta_2&4&2\\
+3&(1,2;3)&\nabla_3&6&3\\
+4&(3,1;1)&\Delta_1&2&1\\
+5&(1,3;2)&\nabla_2&4&2\\
+6&(4,1;\tfrac12)&\Delta_{1/2}&1&\tfrac12\\
+7&(1,4;\tfrac32)&\nabla_{3/2}&3&\tfrac32\\
+8&(2,2;1)&Q_1&2&1
+\end{array}
+\]
+so the weight sequence is
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1),
+\]
+and the twice-weight sequence is
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+The half-integral entries carry multiplier systems of orders \(8\) and
+\(4\), respectively.  The catalogue overlaps the primitive \(\CHL\)
+ladder at the triple \((1,1;5)\), where \(F_R=\DeltaFive\).  Order alone
+is insufficient for comparison with the primitive \(\CHL\) table.  Any
+further comparison requires a row map specifying the paramodular level,
+divisor, multiplier, Jacobi input, and scalar-square normalisation.
+
+\subsection*{Dyon Counting}
+
+\paragraph{Physical theorem (primitive CHL dyon count).}
+For a compact primitive \(\CHL\) row with charges \((Q_e,Q_m)\), choose
+chemical potentials \((\rho,\sigma,v)\) in the standard \(N=4\) quadratic
+normalisation.  The protected dyon index is obtained from the physics
+scalar denominator \(\Psi_N^{\mathrm{phys}}\) on the Sen contour:
+\[
+  d_N(Q_e,Q_m)=(-1)^{Q_e\cdot Q_m+1}
+  \oint_{\mathcal C_N}
+  \frac{\exp\!\bigl(-i\pi(\rho Q_e^2+\sigma Q_m^2+
+  2v\,Q_e\cdot Q_m)\bigr)}
+  {\Psi_N^{\mathrm{phys}}(\rho,\sigma,v)}
+  \,d\rho\,d\sigma\,dv .
+\]
+At \(N=1\), \(\Psi_1^{\mathrm{phys}}=\PhiTen=\DeltaFive^2\), the
+Dijkgraaf-Verlinde-Verlinde and Sen denominator for the \(1/4\)-BPS
+dyon index.  For \(N>1\), the scalar denominator and chamber are those
+of the corresponding Jatkar-Sen or Govindarajan-Krishna \(\CHL\)
+model.  The primitive Borcherds weight \(c_N^{\CHL}(0)/2\) is the
+chiral-half automorphic invariant attached to the same row.
+
+\paragraph{Semiclassical consequence.}
+With
+\[
+  \Delta(Q_e,Q_m)=Q_e^2Q_m^2-(Q_e\cdot Q_m)^2
+\]
+in the standard \(N=4\) charge convention, the attractor saddle for an
+actual \(\CHL\) throat gives
+\[
+  S_{\mathrm{BH}}^{(N)}(Q_e,Q_m)
+  =
+  \pi\sqrt{\Delta(Q_e,Q_m)/N}
+  +O(\log \Delta).
+\]
+The logarithmic coefficient is read from the full scalar denominator,
+the massless spectrum, and the chosen chamber.  The Gritsenko-Clery
+diagonal-divisor weights supply automorphic Borcherds weights for their
+own rows.  Substitution into the \(\CHL\) black-hole entropy formula
+requires a row-map theorem and a compact throat theorem.
+
+\subsection*{Mathieu Twining}
+
+\paragraph{Theorem (twined elliptic genera).}
+Mathieu moonshine supplies twined K3 elliptic genera
+\(\phi_{\mathrm{ell}}^{g}(\tau,z)\) for \(g\in M_{24}\).  A twined
+genus becomes a Borcherds product after three choices are fixed:
+the normalised Jacobi input, the cusp convention, and the target
+paramodular group.  The cycle shape of \(g\) is a conjugacy-class
+invariant; the Borcherds weight is computed from \(c_R(0)/2\).
+
+For the primitive \(\CHL\) ladder the constants are
+\[
+  (c_N^{\CHL}(0))_{N=1,2,3,4,6}=(10,8,6,4,2).
+\]
+For the Nikulin order extension the constants are
+\[
+  (c_N^{\mathrm{Nik}}(0))_{N=5,7,8}=(4,2,2).
+\]
+For the Gritsenko-Clery diagonal-divisor catalogue the constants are
+\[
+  (10,4,6,2,4,1,3,2)
+\]
+in triple-indexed order.  These three lines use different row systems.
+
+\subsection*{Hall Denominators and Chiral Scope}
+
+\paragraph{Scope theorem.}
+A compact Calabi-Yau threefold source enters the CY-to-chiral functor at
+\(d=3\), hence its output \(A=\Phi_3(\mathcal C_X)\) is \(E_1\)-chiral.
+An \(E_2\)-structure belongs to a derived centre, a representation
+category, or another explicitly constructed higher-centre layer.
+
+The Borcherds side is the Hall-Drinfeld denominator branch.  The
+Mukai self-mirror K3-current branch is a different construction built
+from K3 stable-envelope and Mukai-current data.  A comparison between a
+compact Hall algebra and a Borcherds denominator algebra requires a
+positive half, a Hall product, a non-degenerate pairing after completion,
+PBW comparison, relation preservation, parity of root multiplicities,
+and compatibility with the denominator identity.
+
+The local toric reference point remains
+\[
+  \CoHA(\CC^3)=\Yplus .
+\]
+The algebra \(\Winfty\) appears at Drinfeld-double, centre, completion,
+or evaluation layers.  This convention fixes the positive-half side of
+any compact-source comparison.
+
+\subsection*{Scalar Assignments on the Common \(K3\times E\) Row}
+
+The common triple \((1,1;5)\) carries the \(K3\times E\) Borcherds
+denominator \(\DeltaFive\).  The compact product and its
+Heisenberg-Mukai specialisation carry the assignments
+\[
+  \kcat(K3\times E)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0,
+\]
+\[
+  \kch(K3\times E)=
+  \sum_{q=0}^{3}(-1)^q h^{0,q}(K3\times E)
+  =1-1+1-1=0,
+\]
+\[
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kBKM(\mathfrak g_{\DeltaFive})=5,\qquad
+  \kfib=24.
+\]
+These assignments come from five constructions: the total-space
+categorical Euler characteristic, the compact Hodge supertrace, the
+specialised Heisenberg-Mukai chiral algebra, the Borcherds denominator
+weight of \(\DeltaFive\), and the Mukai-lattice rank of the K3 fibre.
+The automorphic rule is
+\[
+  \kBKM(\Phi_R)=c_R(0)/2
+\]
+for the chosen row \(R\).
+The expression
+\(\kBKM=\kch+\chi(\cO_{\mathrm{fiber}})\) gives \(0\) on the
+\(\DeltaFive\) compact row while \(\kBKM(\DeltaFive)=5\); the mismatch
+\(0\ne5\) rules it out as a row identity.
+
+\subsection*{Primary Theorems Used}
+
+Borcherds' singular theta lift gives
+\(\mathrm{wt}\operatorname{Bor}(\varphi)=c(0)/2\).  Igusa and
+Gritsenko-Nikulin identify the \(N=1\) Borcherds product with
+\(\DeltaFive\), with \(c_1(0)=10\) and weight \(5\).  Gritsenko,
+Eguchi-Hikami, Govindarajan-Krishna, Jatkar-Sen, and Sen fix the
+primitive \(\CHL\) denominator rows and the scalar \(1/4\)-BPS
+contours.  Gritsenko-Clery give the diagonal-divisor catalogue and its
+twice-weight tuple \((10,4,6,2,4,1,3,2)\).  Oberdieck-Pandharipande
+fix the OP reduced-DT scalar normalisation
+\(\PhiTenOP=4096^{-1}\DeltaFive^2\) and
+\(\ZOP=-4096\,\DeltaFive^{-2}\).  Kontsevich-Soibelman and
+Davison-Meinhardt provide the Hall product and BPS Lie algebra
+formalism after orientation and purity hypotheses are fixed.
+
+\subsection*{Data Required for a Physical Row Theorem}
+
+An automorphic row becomes a compact physical \(\BPS\) theorem after
+the following data have been supplied:
+\[
+\begin{gathered}
+  \text{a compact or stacky source geometry }X_R,\quad
+  \text{a reduced obstruction theory and orientation},\\
+  \text{a Jacobi input with specified cusp normalisation},\quad
+  \text{a scalar denominator and contour chamber},\\
+  \text{a Hall product, pairing, PBW comparison, and signed-root parity},\\
+  \text{a proof that the protected index equals the chosen product.}
+\end{gathered}
+\]
+For \(N=1\), Oberdieck-Pandharipande and the Igusa square give the
+scalar \(K3\times E\) branch
+\(-4096\,\DeltaFive^{-2}\).  Gritsenko-Nikulin and Borcherds give
+the \(\DeltaFive\) BKM denominator.  For \(N=2,3,4,6\), the primitive
+\(\CHL\) denominator constants are the table above.  For \(N=5,7,8\),
+the Nikulin order constants are automorphic boundary data.  For the
+Gritsenko-Clery catalogue, each triple-indexed diagonal-divisor row
+needs its own source theorem before it has a compact BPS interpretation.

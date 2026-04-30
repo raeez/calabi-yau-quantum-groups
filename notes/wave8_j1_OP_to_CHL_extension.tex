@@ -1,144 +1,222 @@
 % !TEX root = ../main.tex
-%
-% Extension of Oberdieck 2018 (Duke 167:3045) reduced-PT identity
-%   Z^{K3 x E}_{red,PT} = -1/Phi_{10}
-% to CHL orbifolds (K3 x E)/Z_N, N in {2,3,5,7,11} (Jatkar--Sen index set).
-% Audit of the claim that the extension is "seriously open but Pandharipande--
-% Thomas technology is actively applicable (not obstructed in principle)".
-%
-% Scope: five attack-heal cycles; obstacle-type tags (a)/(b)/(c).
-% Subscripted \kappa_{ch}, \kappa_{BKM}, \kappa_{cat} throughout.
-%
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
-\providecommand{\ClaimStatusAxiomatic}{\textbf{[Axiomatic input]}}
-\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
-\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
-\providecommand{\PhiCHL}{\Phi^{\mathrm{CHL}}}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\cO}{\mathcal{O}}
 \providecommand{\ZredPT}{Z^{\mathrm{red}}_{\mathrm{PT}}}
-\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\ZredDT}{Z^{\mathrm{red}}_{\mathrm{DT}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kchcomp}{\kappa_{\mathrm{ch}}^{\mathrm{comp}}}
+\providecommand{\kchHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\PhiOP}{\Phi_{10}^{\mathrm{OP}}}
+\providecommand{\Phiun}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\PhiN}{\Phi_N}
 
-\section*{Oberdieck 2018 to CHL-orbifold extension: a reduced-PT roadmap}
+\section*{Oberdieck-Pandharipande reduced pairs and CHL quotients}
 
-Let $X^{(1)} = K3 \times E$ and, for $N \in \{2,3,5,7,11\}$,
+Let $S$ be a projective K3 surface and let $E$ be an elliptic curve.
+Set $X_1=S\times E$.  The Oberdieck-Pandharipande reduced-pairs
+normalisation is fixed by the monic Gritsenko-Nikulin product
+\cite{OberdieckPandharipande2018,GritsenkoNikulin1998}
 \[
-  X^{(N)} \;=\; (K3 \times E)/\Z_N,
+  D_5(Z)=64^{-1}\Delta_5(Z).
 \]
-with $\Z_N$ acting as a balanced symplectic K3-automorphism $g_N$ times
-an order-$N$ translation on $E$ (Jatkar--Sen 2005,
-arXiv:hep-th/0510147, \S 2; Chaudhuri--Hockney--Lykken 1995). Write
-$\ZredPT(X^{(N)})$ for the reduced stable-pairs partition function in
-variables $(\tau,\sigma,z)$ conjugate to the K3-fibre class, the
-elliptic class, and the point class. The target identity is
+Thus the product denoted by the OP scalar formula is
 \[
-  \ZredPT\bigl(X^{(N)}\bigr)(\tau,\sigma,z)
-  \;=\; \text{sign} \cdot \frac{1}{\PhiCHL_N(\tau,\sigma,z)},
-  \qquad \mathrm{wt}(\PhiCHL_N) = \tfrac{24}{N+1}-2,
+  \PhiOP(Z)=D_5(Z)^2
+  =4096^{-1}\Delta_5(Z)^2,
 \]
-with $\PhiCHL_N$ the Jatkar--Sen paramodular form on
-$\Sp_4(\Z) \cap \Gamma_0(N)$ (weights $(10,6,4,2,1,0)$ at
-$N=1,2,3,5,7,11$). The audit below re-runs the Oberdieck 2018 proof
-step by step on the CHL datum and assigns obstacle tags (a) routine
-extension, (b) new technique required but achievable, (c) genuine
-obstruction pending breakthrough.
+whereas the unnormalised Igusa square is
+\[
+  \Phiun(Z)=\Delta_5(Z)^2=4096\,\PhiOP(Z).
+\]
+Consequently the reduced scalar branch is
+\[
+  \ZredPT(X_1)=\ZredDT(X_1)
+  =-\PhiOP(Z)^{-1}
+  =-4096\,\Delta_5(Z)^{-2}.
+\]
+Writing $-\Delta_5^{-2}$ for the OP scalar drops the factor
+$4096=64^2$.  The factor $4096$ and the minus sign are scalar
+normalisation data.  Pfaffian orientation, Hall source, and the
+square-root character of $\Delta_5$ are additional structures.
 
-\paragraph{Cycle 1: MNOP reduced GW/DT correspondence on $X^{(N)}$.}
-MNOP 2006 + Maulik--Pandharipande--Thomas 2010 proves
-$Z^{\mathrm{red}}_{\mathrm{GW}} = Z^{\mathrm{red}}_{\mathrm{DT}} =
-\ZredPT$ for holomorphic-symplectic CY$_3$. The orbifold extension is
-developed by Bryan--Cadman--Young 2012 and Maulik--Pandharipande 2006
-(\S 3--4, orbifold MNOP). Orbifold stable pairs exist on
-$X^{(N)}$ because $X^{(N)}$ is a Deligne--Mumford stack with trivial
-$\omega$ and isolated ADE quotient singularities (the $g_N$ fixed
-locus in $K3$ consists of $\chi_g := 24 - \mathrm{fix}(g_N)$ points
-contributing type-$A_{N-1}$ cones via the $\Z_N$ action). Tag (a):
-the orbifold MNOP correspondence extends routinely by
-Bryan--Cadman--Young + Maulik--Pandharipande 2006 Hilbert-scheme
-machinery.
+\paragraph{Reduced theory on $S\times E$.}
+The elliptic curve acts on $X_1$ by translation on the second factor.
+Ordinary Behrend-weighted Euler characteristics vanish in positive
+translation orbits.  The reduced invariant is the Behrend-weighted
+Euler characteristic of the quotient stable-pairs space by $E$,
+equivalently the degree of the reduced virtual class after the
+semiregularity direction
+\[
+  H^{0,2}(X_1)=H^{0,2}(S)\otimes H^0(E)
+\]
+has been removed.  Oberdieck's reduced-stable-pair theorem identifies
+the quotient definition with the reduced virtual-class definition and
+supplies the reduced DT/PT comparison in this geometry
+\cite{OberdieckPandharipande2018,Oberdieck2017}.  The Igusa formula
+above is the OP scalar input in that reduced convention.
 
-\paragraph{Cycle 2: KKV formula on the $g_N$-twisted $K3$.}
-The input to $\Phi_{10}$ is the $K3$ elliptic genus
-$Z_{\mathrm{ell}}(K3;\tau,z) = 2\phi_{0,1}(\tau,z)$
-(Pandharipande--Thomas 2014, Duke 161:2123, stable-pairs proof).
-The CHL input is the $g_N$-twined K3 elliptic genus
-$\phi^{(g_N)}_{0,1}(\tau,z)$, computed by Cheng--Duncan--Harvey 2014
-(arXiv:1307.5793) for all $M_{24}$-classes, with constant term
-$c_N(0)$ producing the paramodular weight $c_N(0)/2 = 5,4,3,2,1$ in
-the \emph{programme} index set. The Jatkar--Sen weight
-$24/(N+1)-2$ differs: at $N=2$, $24/3-2=6$; at $N=3$, $24/4-2=4$. The
-twined-KKV proof requires Pandharipande--Thomas 2014 extended to
-$g_N$-equivariant stable pairs. Oberdieck--Pandharipande 2019
-(Duke 168:1543) constructs equivariant stable pairs for $K3 \times E$
-with $E$-translation action and proves equivariant KKV for classes
-fixed by the translation. Tag (b): $g_N$-equivariant KKV on $K3$
-requires new input beyond PT 2014, but Oberdieck--Pandharipande 2019
-\S 5 supplies the equivariant PT machinery; the step is achievable
-via $g_N$-equivariant Hilbert-scheme cohomology (Nakajima 1997 +
-Lehn 1999 equivariant lift).
+\paragraph{Diagonal CHL quotient.}
+Let $N\in\{1,2,3,4,6\}$.  Let $g_N$ be a symplectic automorphism of
+$S$ of order $N$ in Nikulin's symplectic K3 list
+\cite{Nikulin1980}, and let $t_N$ be translation by an $N$-torsion
+point of $E$.  Put
+\[
+  X_N=(S\times E)/G_N,\qquad
+  G_N=\langle g_N\times t_N\rangle .
+\]
+For every nontrivial $a\in\Z/N\Z$, the translation $t_N^a$ has no fixed
+point on $E$.  Hence $g_N^a\times t_N^a$ has no fixed point on
+$S\times E$, even when $g_N^a$ has fixed points on $S$.  The quotient
+$X_N$ is a smooth projective threefold, and the quotient map
+$S\times E\to X_N$ is finite \'etale of degree $N$.  No ADE orbifold
+correction enters this diagonal translation quotient.
 
-\paragraph{Cycle 3: degeneration $E \rightsquigarrow \P^1_{\mathrm{nodal}}$ on the CHL orbifold.}
-Oberdieck 2018 \S 3 degenerates $E$ to a nodal $\P^1$ and integrates
-the rubber over the node to extract an $\eta^{24}$-factor. On
-$X^{(N)}$, the $\Z_N$-translation acts freely on $E$ (no fixed
-points) but interacts with the degeneration: the nodal $\P^1$
-inherits a $\Z_N$-marked-point structure, and the rubber becomes a
-$\Z_N$-equivariant rubber theory. This extends routinely once the
-rubber calculus of Maulik--Pandharipande 2006 (\S 3.2,
-$\Z_N$-equivariant rubber integrals) is invoked. Tag (a): the
-degeneration survives because $E \to E/\Z_N$ is \'etale, so the
-nodal-$\P^1$ degeneration lifts without obstruction. The rubber
-$\eta^{24}$ factor becomes $\eta^{24/(N+1)}$, reproducing the
-Jatkar--Sen weight exponent.
+The holomorphic three-form $\Omega_S\wedge dz_E$ is $G_N$-invariant:
+$g_N$ fixes $\Omega_S$ by the symplectic assumption, and $t_N$ fixes
+$dz_E$.  It descends to a nowhere-vanishing holomorphic three-form on
+$X_N$.  Thus $X_N$ is Calabi-Yau in the trivial-canonical sense used
+for $K3\times E$.  The residual elliptic curve
+$E_N=E/\langle t_N\rangle$ acts on $X_N$, and the reduced stable-pairs
+theory on $X_N$ is the $E_N$-quotient theory with the same
+semiregularity reduction.
 
-\paragraph{Cycle 4: reduced virtual class on $X^{(N)}$.}
-The reduced virtual class on $K3 \times E$ exists because
-$H^{0,2}(K3 \times E) = \C$ is one-dimensional and semiregularity
-removes it (Kool--Thomas 2014, Oberdieck 2018 \S 2). On $X^{(N)}$,
-$H^{0,2}(X^{(N)}) = H^{0,2}(K3)^{g_N} \otimes H^0(E)$; for a
-symplectic K3-automorphism the holomorphic 2-form is $g_N$-invariant,
-so $H^{0,2}(X^{(N)}) = \C$ persists. The reduced cycle therefore
-exists. Tag (a): routine via Kool--Thomas 2014 equivariant cosection
-localisation.
+\paragraph{Holomorphic Euler characteristic.}
+Since the quotient is finite \'etale,
+\[
+  H^q(X_N,\cO_{X_N})
+  =H^q(S\times E,\cO_{S\times E})^{G_N}.
+\]
+The K3 symplectic automorphism fixes $H^{0,2}(S)$ and acts trivially on
+$H^0(S,\cO_S)$; the elliptic translation acts trivially on
+$H^0(E,\cO_E)$ and $H^1(E,\cO_E)$.  Therefore
+\[
+  h^{0,q}(X_N)=(1,1,1,1)_q,\qquad 0\le q\le 3,
+\]
+and
+\[
+  \kcat(X_N)=\chi(\cO_{X_N})=1-1+1-1=0.
+\]
+In particular
+\[
+  \kcat(K3\times E)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot 0=0.
+\]
+The value $\chi(\cO_{K3})=2$ belongs to the K3 fibre.  It supplies no
+total-space value and no correction term for $\kBKM$.
 
-\paragraph{Cycle 5: refined/motivic extension $N \geq 2$.}
-At $N \geq 2$ the conjectured refined-MNOP identity
-$\ZredPT(X^{(N)})^{\mathrm{ref}} = -1/\PhiCHL_N(\text{refined})$
-requires a refined GW/DT correspondence. Pandharipande--Pixton--Thomas
-2015 (arXiv:1510.03849) gives refined GV on CY$_3$ under the $K3$-fibered assumption; Maulik--Nekrasov 2018 extends to
-$\Omega$-deformed instanton counts. The CHL-refined identity has no
-Oberdieck-grade theorem but no known obstruction. The hidden
-Euler-characteristic consistency:
-$\chi_{\mathrm{top}}(K3/g_N) = 24 - \mathrm{fix}(g_N) =
-24/(N+1) \cdot (N+1) - \mathrm{fix}(g_N)$; the
-$g_N$-twined $\chi$ is $\chi_g = 24/N$ for $N \in \{2,3\}$ (Mukai
-1988 Invent. 94), matching the paramodular-weight exponent
-$24/(N+1)-2$ after subtracting the two universal factors from the
-$(\sigma,\tau)$-Weyl vector. The reduced virtual dimension remains
-$1$ on $X^{(N)}$ (Kool--Thomas equivariant). Tag (b) at $N \in \{2,3\}$
-(achievable via Oberdieck--Shen 2020, Thomas 2020 $K$-theoretic PT);
-tag (c) at $N=11$ where the paramodular weight drops to $0$ and the
-cusp form degenerates --- the object $\PhiCHL_{11}$ is a weight-$0$
-modular function, not a cusp form, and the reduced PT theory loses
-its stable-pairs denominator interpretation.
+\paragraph{Borcherds constants.}
+Let $\PhiN$ be the Borcherds product attached to the standard
+twined-K3 CHL input at order $N\in\{1,2,3,4,6\}$.  Let $c_N(0)$ be the
+constant term of the zero component of the input form at the cusp used
+in the singular theta lift.  Borcherds' weight theorem
+\cite{Borcherds1998} gives
+\[
+  \kBKM(\PhiN)=\mathrm{wt}(\PhiN)=\frac{c_N(0)}{2}.
+\]
+For the standard twined-K3 normalisation of Gritsenko's CHL ladder
+\cite{Gritsenko1999},
+\[
+\begin{array}{c|c|c|c}
+N & \text{frame shape} & c_N(0) & \kBKM(\PhiN)\\
+\hline
+1 & 1^{24} & 10 & 5\\
+2 & 1^8 2^8 & 8 & 4\\
+3 & 1^6 3^6 & 6 & 3\\
+4 & 1^4 2^2 4^4 & 4 & 2\\
+6 & 1^2 2^2 3^2 6^2 & 2 & 1
+\end{array}
+\]
+Thus
+\[
+  (\kBKM(\Phi_1),\kBKM(\Phi_2),\kBKM(\Phi_3),
+    \kBKM(\Phi_4),\kBKM(\Phi_6))=(5,4,3,2,1).
+\]
+The proof is the singular-theta-product formula: the weight of a
+Borcherds product is one half of the zero-component constant term.
+The $N=1$ entry is the weight-$5$ Gritsenko lift $\Delta_5$; squaring
+it gives the OP weight-$10$ scalar product.  The primitive BKM
+invariant remains $\kBKM(\Delta_5)=5$.
 
-\paragraph{Summary: consolidated roadmap.}
-\ClaimStatusConjectured\ (\emph{CHL-Oberdieck identity}, $N \in \{2,3,5,7\}$)
-$\ZredPT(X^{(N)}) = -1/\PhiCHL_N$.
-Steps: (a) MNOP orbifold + Kool--Thomas reduced cycle + $E$-degeneration $\Rightarrow$
-three of five steps routine. (b) $g_N$-equivariant KKV on $K3$ +
-refined CHL at $N \in \{2,3\}$ achievable via
-Oberdieck--Pandharipande 2019 \S 5 + Maulik--Nekrasov 2018. (c)
-$N=11$ pathology where $\PhiCHL_{11}$ has weight $0$ obstructs
-cusp-form interpretation; separate treatment required.
-$\kappaBKM(\PhiCHL_N) \ne c_N(0)/2$ for $N \ne 1$ (programme vs.\
-CHL dichotomy, Theorem~\ref{thm:cy-c-beyond-k3e-chl-vs-programme-n-list}).
-Four subscripted invariants at $X^{(N)}$: $\kappacat(X^{(N)}) = 0$
-(Künneth collapses, $E$-factor kills $\chi$);
-$\kappach(X^{(N)}) = \sum_q (-1)^q h^{0,q}(X^{(N)})^{g_N}$
-equals $\chi(\cO_{X^{(N)}}) = 0$ at $d=3$;
-$\kappa_{\mathrm{fiber}}(X^{(N)}) = 24/(N+1)$ (twined K3 Euler).
-User's claim that extension is "actively applicable, not obstructed
-in principle" is affirmed at $N \in \{2,3,5,7\}$ with obstacle tags
-(a)+(b); contradicted at $N=11$ by the weight-zero degeneration
-(tag (c)).
+\paragraph{Index separation.}
+The heterotic Jatkar-Sen dyon forms use the physical level set
+$N\in\{1,2,3,5,7,11\}$ and weights
+\[
+  24/(N+1)-2=(10,6,4,2,1,0).
+\]
+This is a physical genus-two dyon sequence, separate from the
+twined-K3 Borcherds constants
+\[
+  \kBKM(\PhiN)=(5,4,3,2,1)
+  \quad\text{for}\quad N\in\{1,2,3,4,6\}.
+\]
+At the shared $N=1$ symbol, the physical Igusa form is the square
+$\Delta_5^2$ and the primitive BKM denominator is $\Delta_5$.
+
+\paragraph{Gritsenko-Cl\'ery catalogue.}
+The Gritsenko-Cl\'ery simplest-divisor catalogue is a third list
+\cite{GritsenkoClery2013}.  Its eight diagonal-divisor rows have
+twice-weight tuple
+\[
+  (2\,\mathrm{wt})=(10,4,6,2,4,1,3,2).
+\]
+This tuple is attached to the triple-indexed diagonal-divisor
+catalogue.  The primitive CHL constant tuple remains
+\[
+  (c_N(0))_{N=(1,2,3,4,6)}=(10,8,6,4,2).
+\]
+Both families obey the same Borcherds weight theorem
+$\kBKM=c(0)/2$ in their own input conventions.
+
+\paragraph{The CHL reduced-pairs identity.}
+The CHL scalar assertion extending the OP formula is
+\[
+  \ZredPT(X_N)(Z)
+  =-\Phi_N^{\mathrm{OP}}(Z)^{-1},
+\]
+where $\Phi_N^{\mathrm{OP}}$ denotes the square-normalised reduced-pairs
+product attached to the $g_N$-twined K3 input.  At $N=1$ this is the
+Oberdieck-Pandharipande scalar formula in the $D_5$ normalisation.
+For $N>1$ the assertion is conditional on three inputs: a
+$G_N$-equivariant KKV theorem for stable pairs on $S$, the
+$E_N$-quotient reduced obstruction theory on $X_N$, and a degeneration
+calculus whose rubber contribution is computed by the same twined
+Jacobi coefficients $c_N(n,\ell)$ that enter the Borcherds product.
+The smooth quotient, the semiregularity direction, and the Borcherds
+weight constants supply the geometric and automorphic boundary data for
+this conditional identity.
+
+\paragraph{Invariant separation.}
+The identities in this note use four different invariants:
+\[
+  \kcat(X_N)=0,\qquad
+  \kchcomp(X_N):=\sum_q(-1)^qh^{0,q}(X_N)=0
+\]
+on the compact Hodge-supertrace branch,
+\[
+  \kBKM(\PhiN)=c_N(0)/2,
+\]
+and the fibre/lattice invariant $\kfib$, whose value depends on the
+chosen K3 lattice sector.  At the untwisted $K3\times E$ anchor,
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kchcomp(K3\times E)=0,\qquad
+  \kchHeis(K3\times E)=3,\qquad
+  \kBKM(\Delta_5)=5,\qquad
+  \kfib(K3)=24.
+\]
+The universal Borcherds formula is $\kBKM(\Phi_N)=c_N(0)/2$.  The
+additive defect
+\[
+  \delta_N :=
+  \kBKM(\Phi_N)-\kchcomp(X_N)-\chi(\cO_{\mathrm{fiber}})
+\]
+is already nonzero at $N=1$: the BKM side is $5$, while the compact
+total-space Hodge-supertrace side gives $0+\chi(\cO_E)=0$.  The six
+constructions leading to $G(K3\times E)$ are distinct constructions of
+a common target.  They are separate from the single two-stage
+CY-to-chiral specialisation $\Phi_3^{(K3,E)}$, whose native output at
+$d=3$ is $E_1$-chiral.

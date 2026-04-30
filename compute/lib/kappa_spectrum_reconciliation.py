@@ -249,7 +249,8 @@ def kappa_BKM(X: HodgeData) -> Optional[int]:
 
     Defined only for CY manifolds whose BPS spectrum is controlled
     by a Borcherds-Kac-Moody superalgebra. For K3 x E: the weight
-    of the Igusa cusp form Delta_5 on Sp_4(Z).
+    of the primitive Gritsenko-Nikulin denominator Delta_5; the scalar
+    Igusa form is the square Phi_10^{un}=Delta_5^2.
 
     kappa_BKM = c_f(0) / 2 where c_f(0) is the zeroth Fourier
     coefficient of the scalar-valued input to the Borcherds lift.

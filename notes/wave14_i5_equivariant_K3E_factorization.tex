@@ -9,6 +9,7 @@
 \providecommand{\dbar}{\bar{\partial}}
 \providecommand{\g}{\mathfrak{g}}
 \providecommand{\gBPS}{\mathfrak{g}_{\mathrm{BPS}}}
+\providecommand{\gBPSN}{\mathfrak{g}_{\mathrm{BPS},N}}
 \providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\Sym}{\mathrm{Sym}}
@@ -22,10 +23,11 @@
 \providecommand{\cU}{\mathcal{U}}
 \providecommand{\cD}{\mathcal{D}}
 \providecommand{\Aut}{\mathrm{Aut}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
-\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kappafib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -38,231 +40,401 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Equivariant factorisation algebra on $K3\times E$:
-symplectic $\Aut(K3)\times E$-translation action and the $N$-twisted
-chiral BKM}
-\author{Wave-14 I5/20}
+\title{Equivariant factorisation algebra on $K3\times E$ and the CHL
+Borcherds quotient}
+\author{Raeez Lorgat}
 \date{2026-04-22}
 
 \begin{document}
 \maketitle
 
-Wave-13 G4 introduced the candidate chiral BKM factorisation algebra
-$\cF^{\chir}_{\mathrm{BKM}}(X) := \CE^*_{\dbar,\chir}(\cE_X,\cO_X)$ on
-the compact CY$_3$ $X = K3\times E$; on the total space
-$\kappach(\cF^{\chir}_{\mathrm{BKM}}) = \chi(\cO_X) = 2\cdot 0 = 0$ by
-K\"unneth, distinct from the fibre $\kappacat(K3)=2$,
-from $\kappaBKM(\Phi_1) = c_1(0)/2 = 5$, and from the fibre-rank $24$.
-The symplectic automorphism group $\Aut_{\mathrm{s}}(K3)$ acts on
-$D^b(\mathrm{Coh}(K3))$ preserving $\Omega_{K3}$; together with
-$N$-torsion translation on $E$ (Mukai 1988, Nikulin 1980), five
-conjugacy classes of finite symplectic automorphisms
-$g_N\in\Aut_{\mathrm{s}}(K3)$ of orders $N\in\{1,2,3,4,6\}$ survive as
-Gritsenko--Nikulin frame-shape representatives. Five attack-heal cycles
-globalise G4's local construction to an $\Aut_{\mathrm{s}}(K3)\times
-E[N]$-equivariant factorisation algebra, and identify the
-$g_N$-twisted sector.
-
-\section{Cycle 1: $\C^3$-charts and global gluing}
-
-\begin{construction}[Chart cover]\label{con:chart-cover}
-Fix an open cover $\{U_\alpha\}$ of $X = K3\times E$ by polydiscs
-$U_\alpha\cong \Delta^3\subset\C^3$ adapted to the product structure:
-each $U_\alpha = V_\alpha\times W_\alpha$ with $V_\alpha\subset K3$ a
-Calabi--Yau polydisc (trivialising $\Omega_{K3}$) and $W_\alpha\subset
-E$ an arc trivialising $\Omega_E$. On each $U_\alpha$, Wave-13 G4
-Cycle~2 produces a local factorisation algebra
-$\Obs^{\mathrm{hCS}}_\alpha := \Obs^{\mathrm{hCS}}(U_\alpha)\simeq
-\CE^*_{\dbar,\chir}(\cE|_{U_\alpha},\cO_{U_\alpha})$.
-\end{construction}
-
-\begin{proposition}[Global gluing]\label{prop:global-gluing}
-The local data $\{\Obs^{\mathrm{hCS}}_\alpha\}$ glue to a factorisation
-algebra $\cF^{\chir}_{\mathrm{BKM}}(X)$ on $X$. For overlaps
-$U_\alpha\cap U_\beta$ the Bochner--Martinelli propagator $P_\alpha$
-transforms under the biholomorphic transition $\varphi_{\alpha\beta}$
-as $\varphi_{\alpha\beta}^*P_\beta = P_\alpha + \dbar\eta_{\alpha\beta}$
-for a smooth $\eta_{\alpha\beta}\in\Omega^{0,0}(U_\alpha\cap U_\beta)$;
-the $\eta_{\alpha\beta}$ assemble into a \v{C}ech $1$-cocycle
-trivialising the obstruction to a global BV Laplacian.
-\end{proposition}
-
-\begin{proof}[Sketch]
-Costello--Gwilliam Vol~II Theorem~5.5.4 (holomorphic locally constant
-descent) gives a Weiss cosheaf on the polydisc topos; Weiss descent to
-the \v{C}ech cover of $X$ is Costello--Gwilliam Vol~I Theorem~6.5.4
-applied to the sheafification functor. The $\dbar$-exactness of
-$P_\alpha - P_\beta$ on the overlap is the standard transition
-behaviour of Bochner--Martinelli under biholomorphism, Henkin--Leiterer
-1984, Proposition~2.3.1.
-\end{proof}
-
-\section{Cycle 2: equivariant structure in the Kapranov--Vasserot sense}
-
-\begin{definition}[$G$-equivariant factorisation algebra]\label{def:equivariant-fact}
-Let $G$ act holomorphically on $X$ preserving $\Omega_X$. A
-\emph{$G$-equivariant factorisation algebra} on $X$ is a factorisation
-algebra $\cF$ together with, for each $g\in G$, a quasi-isomorphism
-$\rho_g\colon g^*\cF\xrightarrow{\sim}\cF$ intertwining the
-factorisation structure maps and satisfying the cocycle
-$\rho_{gh}=\rho_g\cdot g^*\rho_h$, in the sense of Kapranov--Vasserot
-2018 (arXiv:1901.07641) \S 6 for holomorphic factorisation on complex
-surfaces and threefolds.
-\end{definition}
-
-\begin{construction}[$\Aut_{\mathrm{s}}(K3)\times E[N]$-equivariant
-refinement]\label{con:equivariant}
-The product group $H := \Aut_{\mathrm{s}}(K3)\times E$ acts
-holomorphically on $X = K3\times E$ preserving $\Omega_X =
-\Omega_{K3}\wedge\Omega_E$. The chart cover
-$\{U_\alpha\}$ of Construction~\ref{con:chart-cover} may be chosen
-$H$-equivariantly by averaging over $g\in \Aut_{\mathrm{s}}(K3)$ and
-translating by $t\in E$; the local $\Obs^{\mathrm{hCS}}_\alpha$ carry
-$H$-action through the pullback $(g,t)^*$ on
-$\cE = \Omega^{0,\bullet}(X,\gBPS)$. The gluing cocycle
-$\eta_{\alpha\beta}$ of Proposition~\ref{prop:global-gluing} is
-$H$-invariant because $P_\alpha$ transforms trivially under
-biholomorphisms preserving $\Omega_X$; hence
-$\cF^{\chir}_{\mathrm{BKM}}$ is $H$-equivariant.
-\end{construction}
-
-\section{Cycle 3: $g_N$-twisted sector and the CHL orbifold}
-
-Nikulin 1980 classifies finite symplectic automorphisms $g_N\in
-\Aut_{\mathrm{s}}(K3)$: five conjugacy classes survive in cyclic
-orders $N\in\{1,2,3,4,6\}$, each embedding in Mathieu $M_{23}$.
-Pairing $g_N$ with translation by an $N$-torsion point
-$t_N\in E[N]\cong(\Z/N\Z)^2$ yields a fixed-point-free $\Z/N\Z$-action
-on $X$; the quotient $X_N := X/(\Z/N\Z)$ is a
-Chaudhuri--Hockney--Lykken (CHL) CY$_3$ orbifold (Chaudhuri--Hockney--Lykken
-1995 \emph{Phys.\ Rev.\ Lett.}~75).
-
-\begin{definition}[$g_N$-twisted chiral CE]\label{def:twisted-CE}
-For $N\in\{1,2,3,4,6\}$, the \emph{$g_N$-twisted chiral CE complex} is
+Let $S$ be a K3 surface, let $E$ be an elliptic curve, and put
+$X=S\times E$. Fix holomorphic volume forms $\Omega_S$ and $dz$ and set
+$\Omega_X=\Omega_S\wedge dz$. Let $\gBPS$ be a charge-graded Hall-BPS
+Lie algebra for the compact $K3\times E$ branch, equipped with its
+invariant pairing and with the linearisation induced by symplectic K3
+automorphisms on BPS charges. For an open set $U\subset X$, write
 \[
-\CE^*_{\dbar,\chir,g_N}(\cE_X,\cO_X) :=
-\bigl(\CE^*_{\dbar,\chir}(\cE_X,\cO_X)\bigr)^{\Z/N\Z}
+ \cE_U=\Omega_c^{0,\bullet}(U,\gBPS)[1],
+ \qquad
+ \cF^{\chir}_{\mathrm{BKM}}(U)
+ =\CE^*_{\dbar,\chir}(\cE_U,\cO_U).
 \]
-where the $\Z/N\Z$-action is generated by $(g_N,t_N)^*$ on
-$\cE_X = \Omega^{0,\bullet}(X,\gBPS)$. Untwisted: $N=1$.
-\end{definition}
+The shift is the holomorphic Chern--Simons shift in complex dimension
+$3$. The pairing is obtained by integrating the invariant pairing on
+$\gBPS$ against $\Omega_X$.
 
-\begin{proposition}[CHL identification]\label{prop:chl}
-There is a quasi-isomorphism of factorisation algebras on $X_N$:
+A compact hCS comparison datum on $X$ consists of an
+$\hbar$-complete nuclear completion of the Dolbeault field complex, a
+Costello--Gwilliam BV quantisation solving the quantum master equation,
+vanishing or cancellation of the local and global anomaly classes,
+orientation data for the determinant line, a chain-level $S^3$ framing
+or TCFT carrier for the compact bar operation, and a completed
+hCS-to-Hall comparison preserving charge grading, pairing, coproduct,
+and the relevant group linearisations. These hypotheses produce the
+compact quantum object. The same formulae, without these compact
+choices, define the classical local observables.
+
+The BKM branch is the compact Hall branch. Its algebraic endpoint, once
+the positive Hall half, Hopf pairing, completion, and bracket comparison
+are constructed, is the Hall--Drinfeld double of the compact Hall
+positive half with Borcherds denominator $\Phi_N$. The K3 self-mirror
+Yangian branch is a separate Mukai-lattice branch. The
+Maulik--Okounkov $E_2$ braiding enters through stable envelopes,
+centres, doubles, or representation categories. The native threefold
+output remains $E_1$-chiral.
+
+\section{Total-space invariants}
+
+\begin{proposition}[The K3$\times E$ invariant spectrum]\label{prop:k3e-four-invariants}
+For $X=K3\times E$,
 \[
-\CE^*_{\dbar,\chir,g_N}(\cE_X,\cO_X)
- \;\simeq\;
-\cF^{\chir}_{\mathrm{BKM}}(X_N),
+ \kcat(X)=0,\qquad
+ \kch(A_X)=0,\qquad
+ \kch^{\mathrm{Heis}}(X)=3,\qquad
+ \kBKM(\Phi_1)=5,\qquad
+ \kfib(X;K3)=24.
 \]
-the right side being the chiral BKM factorisation algebra on the CHL
-quotient $X_N = (K3\times E)/\langle g_N\times t_N\rangle$.
-\end{proposition}
-
-\begin{proof}[Sketch]
-The $\Z/N\Z$-action on $X$ is free (Nikulin); $X_N$ is smooth CY$_3$.
-$\dbar$- and chiral-CE differentials commute with $\Z/N\Z$-pullback;
-taking invariants commutes with the Weiss cosheaf limit by finiteness
-of the group. Kapranov--Vasserot 2018 Proposition~6.3.1 (equivariant
-factorisation homology equals factorisation homology on the quotient,
-for free finite group actions) identifies the invariant complex with
-the factorisation algebra on $X_N$.
-\end{proof}
-
-\section{Cycle 4: twined elliptic genus and BKM root multiplicities}
-
-Cheng--Duncan--Harvey 2014 (arXiv:1204.2779, \S 3.2) introduce the
-twined elliptic genus
-\[
-\phi_{0,1}^{(g_N)}(\tau,z) = \mathrm{Tr}_{H_{RR}(K3)}\!\bigl(g_N\cdot
-(-1)^{F_L+F_R} y^{J_L} q^{L_0-c/24}\bar q^{\bar L_0-\bar c/24}\bigr)
-\in J_{0,1}(\Gamma_0(N)),
-\]
-a weak Jacobi form of weight $0$, index $1$, with level structure
-$\Gamma_0(N)$. The Gritsenko multiplicative lift sends
-$\phi_{0,1}^{(g_N)}$ to a Siegel paramodular form
-$\Delta_5^{(N)}:= \mathrm{Lift}(\phi_{0,1}^{(g_N)})$ of weight
-$\mathrm{wt}(\Delta_5^{(N)}) = c_N(0)/2$, with
-\[
-(c_N(0))_{N\in\{1,2,3,4,6\}} = (10,4,2,2,2),
-\]
-Gritsenko--Nikulin 1995 (the rank-$3$ sequel, \emph{Amer.\ J.\ Math.}~\textbf{119}) Theorem~2.1.
-
-\begin{conjecture}[$N$-twisted chiral BKM]\label{conj:n-twisted-bkm}
-For $N\in\{1,2,3,4,6\}$:
-\[
-\kappaBKM(\cF^{\chir}_{\mathrm{BKM}}(X_N))
- \;=\; \frac{c_N(0)}{2}
- \;=\; \mathrm{wt}(\Delta_5^{(N)}),
-\]
-and the root multiplicities of the $g_N$-twisted sector are the Fourier
-coefficients of $\phi_{0,1}^{(g_N)}$ via the Borcherds product expansion
-of $\Delta_5^{(N)}$.
-\end{conjecture}
-
-\textbf{Status.} ClaimStatusConjectured. The $N=1$ identification
-$\kappaBKM(\Phi_1) = 5$ is the Wave-13 baseline
-(\texttt{cy\_d\_kappa\_stratification.tex}, Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}).
-The $N\geq 2$ cases depend on (a) Oberdieck--Pixton twisted DT at $N\geq 2$
-(open beyond $N=1$; see \texttt{audit\_red6\_k3xe.md} R6-3), (b)
-existence of the BKM $\gDelta^{(N)}$ for $N\geq 2$ (Gritsenko--Nikulin
-1998 construct the Lie superalgebra; the chiral envelope is not
-constructed). Mathematical content: the $g_N$-twined frame shape
-matches the twined bar-Euler of M_{24} (CDH 2014 \S 4), fixing the
-numerator of $\Delta_5^{(N)}$.
-
-\section{Cycle 5: scope of $\gDelta^{(N)}$ from equivariant $\cF^{\chir}_{\mathrm{BKM}}$}
-
-\begin{proposition}[Scope statement]\label{prop:scope-n}
-The equivariant factorisation algebra
-$\cF^{\chir}_{\mathrm{BKM}}(X_N)$ is constructed unconditionally for
-$N\in\{1,2,3,4,6\}$ via Proposition~\ref{prop:chl} and
-Construction~\ref{con:equivariant}. Its identification with
-$U^{\chir}(\gDelta^{(N)})$ (a putative chiral envelope of the BKM
-$\gDelta^{(N)}$) is conjectural and factors through four open
-ingredients: (i) the $d=3$ functor $\Phi$ (AP-CY6; extending
-\texttt{chapters/theory/cy\_to\_chiral.tex} to CY$_3$);
-(ii) Davison--Meinhardt BPS integrality on $X_N$
-(\texttt{k3e\_cy3\_programme.tex}, Proposition~\texttt{prop:k3e-cy3-motivic-dt-js-integrality-wc});
-(iii) the equivariant version of the Oberdieck--Pixton identification
-$Z^{DT}_{X_N} \propto 1/\Delta_5^{(N),2}$ (open); (iv)
-morphism-preservation of $\Phi$ on $\Aut_{\mathrm{s}}$-equivariant data
-(Pattern 273).
+The numerical spectrum is $\{0,3,5,24\}$, and its entries come from
+distinct constructions.
 \end{proposition}
 
 \begin{proof}
-Construction: immediate from Proposition~\ref{prop:chl}.
-Identification: the chain of implications at (i)--(iv) is the scope
-column of \texttt{k3e\_cy3\_programme.tex} Conjecture~\texttt{conj:eight-qvcg}.
-Current status: for $N=1$ all four ingredients are theorems or
-established (Oberdieck--Pixton; Gritsenko $\Delta_5$); for $N\in\{2,3,4,6\}$
-ingredient~(iii) remains open.
+K\"unneth for coherent cohomology gives
+\[
+ \kcat(X)=\chi(\cO_X)
+ =\chi(\cO_{K3})\chi(\cO_E)
+ =(1-0+1)(1-1)=2\cdot 0=0.
+\]
+For the compact total-space chiral Hodge supertrace,
+\[
+ \kch(A_X)=\sum_{q=0}^3(-1)^q h^{0,q}(X).
+\]
+The Hodge polynomial in the column $H^{0,\bullet}$ is
+$(1+t^2)(1+t)=1+t+t^2+t^3$, hence
+\[
+ \kch(A_X)=1-1+1-1=0.
+\]
+The Heisenberg--Cartan specialisation is rank-additive on the product
+branch: the K3 factor contributes $2$ and the elliptic factor
+contributes $1$, so
+\[
+ \kch^{\mathrm{Heis}}(X)=2+1=3.
+\]
+The Borcherds value is the weight of the denominator product attached
+to the K3 elliptic genus. In the Gritsenko--Nikulin normalization
+$c_1(0)=10$, so
+\[
+ \kBKM(\Phi_1)=c_1(0)/2=10/2=5.
+\]
+The fibre value is the Mukai rank
+\[
+ \kfib(X;K3)=\mathrm{rk}\,\widetilde H(K3,\Z)=24.
+\]
+The value $2$ is $\chi(\cO_{K3})$ on the K3 factor. It is separate from
+$\kcat(X)$ and from $\kch(A_X)$.
 \end{proof}
 
-\begin{remark}[Subscripted-$\kappa$ discipline across the twisted tower]
-\label{rem:kappa-n-tower}
-Across $N\in\{1,2,3,4,6\}$: $\kappacat(X_N) = 0$ (K\"unneth on the free
-quotient gives $\chi(\cO_{X_N}) = \chi(\cO_X) = 0$); $\kappach(X_N)=0$
-matching the Hodge-supertrace identity of the $E_n$-hierarchy (Part
-\ref{part:en-hierarchy} of the main text); $\kappafib(K3/g_N)
-= 20/N$ at generic level (Nikulin 1980); $\kappaBKM(\Phi_N) =
-c_N(0)/2\in\{5,2,1,1,1\}$. The four invariants remain distinct: no
-$N$-index formula of the shape $\kappaBKM =\kappach + \kappafib$ holds
-(\texttt{CLAUDE.md} key facts, $N=1$: $5 \neq 0+0$; $N=2$: $2\neq 0 + \kappafib(K3/g_2)=10$).
+\section{Factorisation algebra}
+
+\begin{proposition}[Holomorphic Chern--Simons factorisation]\label{prop:hcs-factorization}
+The assignment $U\mapsto \cF^{\chir}_{\mathrm{BKM}}(U)$ is the
+classical holomorphic Chern--Simons factorisation algebra on $X$. With
+the compact hCS comparison datum it is the corresponding quantum compact
+factorisation algebra.
+\end{proposition}
+
+\begin{proof}
+The fields $U\mapsto\cE_U$ form the elliptic local moduli problem for
+holomorphic Chern--Simons theory with coefficient Lie algebra $\gBPS$.
+The differential is $\dbar$, the bracket is the pointwise bracket on
+$\gBPS$ combined with wedge product of $(0,\bullet)$-forms, and the
+local functional is
+\[
+ I_U(\alpha)=\int_U \Omega_X\wedge
+ \left(\frac{1}{2}\langle \alpha,\dbar\alpha\rangle
+ +\frac{1}{6}\langle \alpha,[\alpha,\alpha]\rangle\right).
+\]
+All operations are local on $U$. For disjoint opens
+$U_1,\ldots,U_m\subset V$, extension by zero and multiplication of
+chiral Chevalley--Eilenberg cochains give the factorisation maps
+\[
+ \bigotimes_{i=1}^m
+ \CE^*_{\dbar,\chir}(\cE_{U_i},\cO_{U_i})
+ \longrightarrow
+ \CE^*_{\dbar,\chir}(\cE_V,\cO_V).
+\]
+Associativity follows from associativity of wedge product and the
+Chevalley--Eilenberg coalgebra. Descent is Costello--Gwilliam descent
+for observables of an elliptic local moduli problem. On polydiscs this
+is the standard holomorphic Chern--Simons factorisation algebra. On
+overlaps the transition functions preserve $\dbar$, the bracket, the
+pairing, $\Omega_X$, and the chosen compact BV data, so the local
+objects glue. The compact zero-mode, anomaly, orientation, framing,
+completion, and hCS-to-Hall comparison hypotheses are exactly the
+additional data needed for the quantum compact object.
+\end{proof}
+
+\section{Equivariance}
+
+\begin{definition}[$G$-equivariant factorisation algebra]\label{def:g-equivariant}
+Let a group $G$ act on $X$ by holomorphic maps preserving $\Omega_X$ and
+on $\gBPS$ by pairing-preserving Lie algebra automorphisms. A
+$G$-equivariant factorisation algebra on $X$ is a factorisation algebra
+$\cF$ together with quasi-isomorphisms
+\[
+ \rho_g:g^{-1}\cF\xrightarrow{\sim}\cF,\qquad g\in G,
+\]
+compatible with the factorisation maps and satisfying
+$\rho_{gh}=\rho_g\circ g^{-1}\rho_h$.
+\end{definition}
+
+\begin{proposition}[Volume-preserving equivariance]\label{prop:volume-equivariance}
+Let $G\subset\Aut(X,\Omega_X)$ be a finite subgroup equipped with a
+pairing-preserving linearisation on $\gBPS$. Assume that $G$ preserves
+the completion, counterterms, orientation datum, framing or TCFT carrier,
+and hCS-to-Hall comparison map. Then
+$\cF^{\chir}_{\mathrm{BKM}}$ has a canonical $G$-equivariant structure.
+\end{proposition}
+
+\begin{proof}
+For $g\in G$, pullback gives a cochain isomorphism
+\[
+ g^*:\Omega_c^{0,\bullet}(U,\gBPS)
+ \xrightarrow{\sim}
+ \Omega_c^{0,\bullet}(g^{-1}U,\gBPS).
+\]
+Here $g^*$ means pullback on forms together with the given automorphism
+of $\gBPS$. Because $g$ is holomorphic, $g^*$ commutes with $\dbar$.
+Because $g$ preserves $\Omega_X$ and the pairing on $\gBPS$, it
+preserves the BV pairing and the local holomorphic Chern--Simons
+functional. Preservation of the compact datum identifies the chosen
+orientation, counterterms, framing, and completion with their pullbacks.
+Therefore $g^*$ induces
+quasi-isomorphisms on chiral Chevalley--Eilenberg observables. The
+identity $(gh)^*=h^*g^*$ gives the group law, and functoriality
+of pullback gives compatibility with disjoint-union factorisation
+maps.
+\end{proof}
+
+\section{The CHL quotient}
+
+Fix $N\in\{1,2,3,4,6\}$. Let $g_N\in\Aut_{\mathrm{s}}(K3)$ be a finite
+symplectic automorphism of order $N$, and let $t_N\in E[N]$ have exact
+order $N$. Define
+\[
+ \gamma_N(s,e)=(g_Ns,e+t_N),
+ \qquad
+ \Gamma_N=\langle\gamma_N\rangle\cong\Z/N\Z .
+\]
+The action is taken with the induced $\Gamma_N$-linearisation on
+$\gBPS$. Let $\gBPSN=(\pi_{N,*}\underline{\gBPS})^{\Gamma_N}$ denote
+the descended locally constant Lie algebra on the quotient.
+
+\begin{lemma}[Free diagonal action]\label{lem:free-diagonal-action}
+The action of $\Gamma_N$ on $X=K3\times E$ is free, and
+\[
+ X_N=X/\Gamma_N
+\]
+is a smooth compact threefold with trivial canonical bundle. Its
+holomorphic volume form is the descent of $\Omega_X$.
+\end{lemma}
+
+\begin{proof}
+If $\gamma_N^m(s,e)=(s,e)$ for $0<m<N$, then $e+mt_N=e$, hence
+$mt_N=0$. Since $t_N$ has exact order $N$, this is impossible. Thus no
+nontrivial element of $\Gamma_N$ has a fixed point. The quotient is
+therefore smooth and the projection $\pi_N:X\to X_N$ is finite
+\'etale. The automorphism $g_N$ is symplectic, so $g_N^*\Omega_{K3}
+=\Omega_{K3}$; translation preserves $dz$. Hence
+$\gamma_N^*\Omega_X=\Omega_X$, and $\Omega_X$ descends to a nowhere
+vanishing holomorphic $3$-form on $X_N$. This is the Calabi--Yau
+condition used here.
+\end{proof}
+
+\begin{definition}[CHL chiral CE complex]\label{def:chl-ce}
+For an open set $V\subset X_N$, define
+\[
+ \cF^{\chir}_{\mathrm{BKM}}(X_N)(V)
+ =
+ \CE^*_{\dbar,\chir}
+ \bigl(\Omega_c^{0,\bullet}(V,\gBPSN)[1],\cO_V\bigr).
+\]
+Equivalently,
+\[
+ \cF^{\chir}_{\mathrm{BKM}}(X_N)(V)
+ \cong
+ \left(
+ \CE^*_{\dbar,\chir}
+ \bigl(\Omega_c^{0,\bullet}(\pi_N^{-1}V,\gBPS)[1],
+ \cO_{\pi_N^{-1}V}\bigr)
+ \right)^{\Gamma_N}.
+\]
+The second description is the $g_N$-twined model. The freeness of the
+action makes it quotient descent and eliminates fixed-locus inertia
+sectors.
+\end{definition}
+
+\begin{proposition}[Factorisation descent to the CHL quotient]\label{prop:chl-descent}
+There is an isomorphism of factorisation algebras on $X_N$:
+\[
+ \cF^{\chir}_{\mathrm{BKM}}(X_N)
+ \cong
+ \left(\pi_{N,*}\cF^{\chir}_{\mathrm{BKM}}(X)\right)^{\Gamma_N}.
+\]
+\end{proposition}
+
+\begin{proof}
+For every $V\subset X_N$, finite \'etale descent identifies
+\[
+ \Omega_c^{0,\bullet}(V,\gBPSN)
+ \cong
+ \Omega_c^{0,\bullet}(\pi_N^{-1}V,\gBPS)^{\Gamma_N}.
+\]
+The group is finite and the ground field has characteristic zero, so
+taking $\Gamma_N$-invariants is exact. The chosen nuclear completion
+makes the completed chiral Chevalley--Eilenberg functor commute with
+these finite invariants and with its defining projective limits. The
+identification respects $\dbar$, the pointwise $\gBPS$ bracket, the
+pairing, and the factorisation maps. The displayed isomorphism follows
+open by open and is compatible with disjoint unions.
+\end{proof}
+
+\begin{proposition}[Compact invariants of the CHL quotient]\label{prop:chl-hodge-invariants}
+For every $N\in\{1,2,3,4,6\}$,
+\[
+ \kcat(X_N)=0,\qquad
+ \kch(A_{X_N})=0.
+\]
+\end{proposition}
+
+\begin{proof}
+Since $\pi_N:X\to X_N$ is finite etale,
+\[
+ H^q(X_N,\cO_{X_N})
+ \cong H^q(X,\cO_X)^{\Gamma_N}.
+\]
+The action on $H^{0,\bullet}(K3)$ is trivial in degrees $0$ and $2$:
+$g_N$ is symplectic and fixes $\Omega_{K3}$. Translation on $E$ is
+homotopic to the identity and acts trivially on $H^{0,0}(E)$ and
+$H^{0,1}(E)$. Thus the invariant Hodge column is still
+\[
+ h^{0,0}=h^{0,1}=h^{0,2}=h^{0,3}=1.
+\]
+Therefore
+\[
+ \kch(A_{X_N})=\sum_q(-1)^q h^{0,q}(X_N)=1-1+1-1=0,
+ \qquad
+ \kcat(X_N)=\chi(\cO_{X_N})=0.
+\]
+\end{proof}
+
+\section{Borcherds denominator}
+
+Let
+\[
+ \phi_N(\tau,z)=\phi_{0,1}^{(g_N)}(\tau,z)
+ =\sum_{n,\ell}c_N(n,\ell)q^n y^\ell
+\]
+be the $g_N$-twined K3 elliptic genus in the Gritsenko--Nikulin CHL
+normalization, and write $c_N(0)=c_N(0,0)$. The Borcherds product
+$\Phi_N=\mathrm{Borch}(\phi_N)$ has weight $c_N(0)/2$. In the five CHL
+orders used here,
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\ \hline
+c_N(0)&10&8&6&4&2\\
+\kBKM(\Phi_N)=c_N(0)/2&5&4&3&2&1 .
+\end{array}
+\]
+
+\begin{proposition}[BKM weight]\label{prop:bkm-weight}
+For $N\in\{1,2,3,4,6\}$,
+\[
+ \kBKM(\Phi_N)=\mathrm{wt}(\Phi_N)=\frac{c_N(0)}{2}.
+\]
+The root multiplicities of the Borcherds--Kac--Moody algebra attached
+to $\Phi_N$ are the Fourier coefficients of $\phi_N$ appearing as
+exponents in the Borcherds product.
+\end{proposition}
+
+\begin{proof}
+Borcherds' singular theta correspondence gives the product expansion
+of $\Phi_N$ and identifies its weight with one half of the constant
+coefficient of the vector-valued input at the chosen cusp. Gritsenko
+and Nikulin apply this construction to the $g_N$-twined K3 elliptic
+genus for the CHL orders $N\in\{1,2,3,4,6\}$. The coefficient table
+above is the corresponding constant-term table. By definition
+$\kBKM$ is the automorphic weight of this denominator product, so
+the displayed equality follows. The same product formula writes each
+positive root factor with exponent given by a Fourier coefficient
+$c_N(n,\ell)$ of $\phi_N$, after the usual Weyl-chamber choice.
+\end{proof}
+
+\begin{remark}[Borcherds invariant formula]\label{rem:borcherds-invariant-formula}
+The Borcherds weight is read from the denominator product constant term.
+For $N=1$,
+\[
+ \kBKM(\Phi_1)=5,\qquad
+ \kch(A_{K3\times E})=0,\qquad
+ \chi(\cO_E)=0.
+\]
+The Heisenberg value $\kch^{\mathrm{Heis}}(K3\times E)=3$ and the
+K3 value $\chi(\cO_{K3})=2$ belong to different constructions. The
+Borcherds side is governed by the single identity
+$\kBKM(\Phi_N)=c_N(0)/2$.
 \end{remark}
 
-\paragraph{Provenance.}
-Kapranov--Vasserot 2018 (arXiv:1901.07641) \S 6 (equivariant
-factorisation on surfaces; the threefold extension is routine under
-holomorphic locality). Costello--Gwilliam Vol~I Theorem~6.5.4 (Weiss
-descent). Nikulin 1980 \emph{Izv.\ AN SSSR Ser.\ Mat.}~\textbf{44}
-Theorem~4.7 (finite symplectic $\Aut(K3)$ classification). Mukai 1988
-\emph{Invent.\ Math.}~\textbf{94} (embedding in $M_{23}$).
-Gritsenko--Nikulin 1998 \emph{Amer.\ J.\ Math.}~\textbf{120}
-Theorems~1.1--1.2 (Borcherds lifts of twined $\phi_{0,1}^{(g_N)}$).
-Cheng--Duncan--Harvey 2014 (arXiv:1204.2779) \S 3.2--4.3
-(Mathieu-moonshine twined elliptic genera; M_{24} frame shapes).
-Chaudhuri--Hockney--Lykken 1995 \emph{Phys.\ Rev.\ Lett.}~\textbf{75}
-(CHL orbifold construction). Oberdieck--Pixton 2018 (arXiv:1706.10100)
-\S 0.4 ($N=1$ only; $N\geq 2$ remains open).
+\section{Chiral BKM comparison}
+
+\begin{proposition}[Output scope at $d=3$]\label{prop:d3-output-scope}
+The factorisation algebra on $X_N$ is an $E_1$-chiral object. Any
+$E_2$-structure belongs to a center, Drinfeld double, module-category
+enhancement, or representation-category construction after the required
+hypotheses are supplied; it is outside the native $d=3$ output.
+\end{proposition}
+
+\begin{proof}
+The CY-to-chiral functor is dimension-stratified: $d\leq 2$ gives
+$E_2$-chiral output, while $d\geq 3$ gives $E_1$-chiral output. The
+quotient $X_N$ has complex dimension $3$ and trivial canonical bundle by
+Lemma~\ref{lem:free-diagonal-action}; hence the native output is $E_1$.
+Passing from an $E_1$-algebra to an $E_2$-object requires a separate
+center, double, or module-enhancement construction and the functorial
+hypotheses for that construction.
+\end{proof}
+
+\begin{conjecture}[Chiral envelope of the CHL BKM algebra]\label{conj:chl-chiral-bkm}
+For $N\in\{1,2,3,4,6\}$, the $E_1$-chiral factorisation algebra
+$\cF^{\chir}_{\mathrm{BKM}}(X_N)$ admits a comparison map to the compact
+Hall positive half. After the Hall--Drinfeld double, completion,
+nondegenerate Hopf pairing, and vacuum-envelope data are supplied, this
+comparison identifies the completed target with the chiral envelope of
+the Borcherds--Kac--Moody algebra whose denominator is $\Phi_N$. The
+denominator root multiplicities are those of
+Proposition~\ref{prop:bkm-weight}.
+\end{conjecture}
+
+The required hypotheses are the equivariant $d=3$ CY-to-chiral
+construction on $X_N$ with compact framing and TCFT data, the orientation
+and completion package for the hCS-to-Hall comparison, construction of
+the compact Hall positive half with nondegenerate Hopf pairing and
+completed double, the comparison between the reduced DT/BPS Hall algebra
+of $X_N$ and the Borcherds product $\Phi_N$, and functorial preservation
+of the $\Gamma_N$-linearisation through the chiral envelope.
+
+\paragraph{References.}
+Costello--Gwilliam, \emph{Factorization Algebras in Quantum Field
+Theory}, Vols.~I--II, for descent of observables of elliptic local
+moduli problems. Nikulin 1980, \emph{Izv.\ Akad.\ Nauk SSSR Ser.\ Mat.}
+\textbf{44}, for finite symplectic automorphisms of K3 surfaces. Mukai
+1988, \emph{Invent.\ Math.}~\textbf{94}, for finite symplectic K3
+automorphism groups and Mathieu embeddings. Chaudhuri--Hockney--Lykken
+1995, \emph{Phys.\ Rev.\ Lett.}~\textbf{75}, for CHL quotients.
+Borcherds 1998, \emph{Invent.\ Math.}~\textbf{132}, and
+Gritsenko--Nikulin, \emph{Automorphic forms and Lorentzian
+Kac--Moody algebras}, for the weight formula
+$\mathrm{wt}(\Phi_N)=c_N(0)/2$. Cheng--Duncan--Harvey 2014,
+\emph{Res.\ Math.\ Sci.}~\textbf{1}, for twined K3 elliptic genera.
 
 \end{document}

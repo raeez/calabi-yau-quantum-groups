@@ -150,7 +150,7 @@ For the abelian theory: V^{ch}_N(E) = N (the number of sectors on E).
 
 So: Z^{ch}(K3 x E; N) = N^{chi(K3)/2} * N = N^{13}.
 
-The connection to Delta_5: the Igusa cusp form Delta_5 (weight 5 on Sp(4, Z))
+The connection to Delta_5: the primitive Gritsenko-Nikulin denominator Delta_5 (weight 5 on Sp(4, Z))
 is the denominator of the BKM superalgebra g_{Delta_5}. Its Fourier expansion:
   Delta_5(Z) = sum a(n,r,m) exp(2*pi*i*(n*tau + r*z + m*sigma))
 

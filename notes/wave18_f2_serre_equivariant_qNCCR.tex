@@ -8,18 +8,36 @@
 \providecommand{\cH}{\mathcal{H}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cQ}{\mathcal{Q}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\bC}{\mathbb{C}}
 \providecommand{\bS}{\mathbb{S}}
 \providecommand{\bZ}{\mathbb{Z}}
 \providecommand{\Coh}{\mathrm{Coh}}
 \providecommand{\DCoh}{D^{b}\!\Coh}
+\providecommand{\Db}{D^{b}\!\Coh}
 \providecommand{\End}{\mathrm{End}}
 \providecommand{\Hom}{\mathrm{Hom}}
 \providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\RHom}{\mathbf{R}\!\operatorname{Hom}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\DT}{\mathrm{DT}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Tot}{\operatorname{Tot}}
 \providecommand{\red}{\mathrm{red}}
 \providecommand{\bcrit}{\mathrm{crit}}
 \providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\NCCR}{\mathrm{NCCR}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\DeltaFive}{\Delta_{5}}
+\providecommand{\Dfive}{D_{5}}
+\providecommand{\PhiTen}{\Phi_{10}}
+\providecommand{\PhiTenOP}{\Phi_{10}^{\mathrm{OP}}}
+\providecommand{\PhiTenUn}{\Phi_{10}^{\mathrm{un}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
@@ -28,155 +46,355 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 
-\title{Wave\,18~F2: Serre-equivariant quasi-NCCR for $K3\times E$}
+\title{Serre-Compatible quasi-NCCR Hall Atlas for $K3\times E$}
 \author{Raeez Lorgat}
 \date{2026-04-22}
 
 \begin{document}
 \maketitle
 
-\section*{F2/20.\ Serre-equivariant quasi-NCCR}
+\section*{Serre-Compatible quasi-NCCR Hall Atlas}
 
-\paragraph*{Cycle~1 (Serre functor).} Let $X=K3\times E$. The canonical bundle is
-$\omega_{X}\cong\omega_{K3}\boxtimes\omega_{E}\cong\cO_{X}$, so the Serre
-functor on $\cD:=\DCoh(X)$ is the pure shift
+\paragraph*{The Calabi-Yau Serre datum.}
+Let \(X=S\times E\), with \(S\) a K3 surface and \(E\) an elliptic
+curve, and set \(\cD=\Db(X)\). A choice of holomorphic volume form
+\(\Omega_X=\Omega_S\wedge dz_E\) gives a trivialisation
+\(\theta\colon \omega_X\xrightarrow{\sim}\cO_X\). Hence the Serre
+functor is
 \[
-  \bS_{X}\;=\;(-)\otimes\omega_{X}[3]\;=\;[3],
-\]
-the CY$_{3}$ condition (Kontsevich--Soibelman; \texttt{cy\_categories.tex}
-Defn.~CY$_{d}$).\ \emph{Heal.} On~$\cD$ the functor $\bS_{X}$ is central
-(natural in both arguments) and the lift to the dg enhancement is strict
-after the cyclic $A_{\infty}$-twist of Costello--Gwilliam~2017~\S5.6.
-
-\paragraph*{Cycle~2 (Serre-equivariant derived category).}
-\begin{definition}[$\bS$-equivariant derived category]
-  Let
-  \[
-    \cD^{\bS}\;:=\;\bigl\{\,(\cE,\varphi)\ \big|\ \cE\in\cD,\
-       \varphi\colon\bS_{X}(\cE)\xrightarrow{\sim}\cE[3]\,\bigr\},
-  \]
-  morphisms $(\cE,\varphi)\to(\cF,\psi)$ being maps $f$ with
-  $\psi\circ\bS_{X}(f)=f[3]\circ\varphi$.
-\end{definition}
-\noindent On a strict CY$_{3}$ every object admits the tautological
-$\varphi=\mathrm{id}$, so the forgetful functor
-$\cD^{\bS}\to\cD$ is an equivalence of triangulated categories; the
-refinement is that $\cD^{\bS}$ remembers the \emph{Serre character}, a
-$\bZ$-grading by the integer $n$ recording how often $\varphi$ crosses
-the $[3]$-shift. This is the grading $\Stab(\cD)\to\bZ$ coming from the
-central charge $Z$ of a Bridgeland stability condition
-(Bridgeland~2007~\S3, Defn.~1.1): the phase $\phi_{\sigma}(\cE)$ takes
-values in the $\bS$-torsor $\bR/3\bZ$.\ \emph{Heal.} The $\bZ$-grading
-is well-defined modulo the kernel of $Z$; on $K3\times E$ this kernel is
-$0$ because the Mukai lattice $\widetilde{H}(X,\bZ)$ is non-degenerate
-(Oberdieck--Pandharipande 2017, Thm.~1 of arXiv:1605.05473).
-
-\paragraph*{Cycle~3 (quasi-NCCR: sheaf of tilted algebras).}
-Theorem (Bondal--Van den Bergh 2003) gives a compact generator
-$G\in\cD$, but no single strong tilting generator exists on~$X$ (see
-\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex}, line~850: the
-compact CY$_{3}$ has no tilting object when $\Ext^{3}\neq0$; the same
-obstruction applies here via the K\"unneth component
-$H^{0,2}(K3)\otimes H^{0,1}(E)\neq0$).
-
-We replace a global NCCR by a \emph{sheaf of tilted algebras} over
-$\Stab(\cD)$. For $\sigma\in\Stab(\cD)$ let
-$\cD^{\heartsuit}_{\sigma}\subset\cD$ be the heart, and set
-\[
-  \cA_{\sigma}\;:=\;\End_{\cD^{\heartsuit}_{\sigma}}\bigl(G_{\sigma}\bigr),
+  \bS_X(-)=(-)\otimes \omega_X[3],
   \qquad
-  G_{\sigma}\;:=\;\bigoplus_{i}\cE^{\sigma}_{i}
+  \theta\colon \bS_X\xRightarrow{\sim}[3].
 \]
-where $\{\cE^{\sigma}_{i}\}$ are the simple objects of
-$\cD^{\heartsuit}_{\sigma}$ of bounded phase. The assignment
-$\sigma\mapsto\cA_{\sigma}$ is locally constant on the chambers of
-$\Stab(\cD)$ (Bridgeland~2007~\S7) and defines a constructible sheaf
-$\cA_{\bullet}$ of associative $\bZ$-graded algebras over
-$\Stab(\cD)/\mathrm{Aut}(\cD)$. On each chamber,
-$\cD^{b}(\cA_{\sigma}\text{-mod})\simeq\cD$ is a derived equivalence
-twisted by $\bS_{X}$: the derived category of $\cA_{\sigma}$-modules is
-equivalent to $\cD$ as a $\bS$-equivariant category (not merely as a
-triangulated one).
+The isomorphism \(\theta\) is part of the CY datum. It trivialises the
+canonical-bundle tensor factor in the Serre functor; objects of \(\cD\)
+remain distinct from their threefold shifts. If a Bridgeland
+slicing \(\mathcal P_\sigma\) is fixed,
+then \([1]\mathcal P_\sigma(\phi)=\mathcal P_\sigma(\phi+1)\), so
+\(\bS_X\) carries stability angle \(\phi\) to stability angle
+\(\phi+3\). A central charge
+\(Z\colon K_{\mathrm{num}}(X)\to\bC\) is a homomorphism to a
+two-dimensional real vector space. The Mukai pairing is a bilinear form
+on the numerical lattice and gives a different datum from injectivity of
+\(Z\).
 
-\begin{definition}[Serre-equivariant quasi-NCCR]
-  The \emph{Serre-equivariant quasi-NCCR} for $X=K3\times E$ is the
-  triple $(\Stab(\cD),\cA_{\bullet},\bS_{X})$ together with the wall-crossing
-  functors $\Psi_{W}\colon\cA_{\sigma_{-}}\text{-mod}\to\cA_{\sigma_{+}}\text{-mod}$
-  intertwining $\bS_{X}$.
-\end{definition}
-\noindent\emph{Heal.} Existence of $\Psi_{W}$ on $K3\times E$ follows
-from the Maulik--Okounkov--Oberdieck--Pandharipande K\"unneth wall-crossing
-(\texttt{hochschild\_calculus.tex} line~839, arXiv:1605.05473).
-
-\paragraph*{Cycle~4 (CoHA of the quasi-NCCR).}
-Let $\mathbf{W}_{\sigma}\colon\mathrm{Rep}(\cA_{\sigma})\to\bZ$ be the
-superpotential induced by the cyclic $A_{\infty}$-structure on $G$
-(Costello--Gwilliam~2017~\S5.6). Define
+\begin{definition}[Serre-compatible transition]
+Let \(\mathcal A_\alpha,\mathcal A_\beta\subset\cD\) be hearts in a
+finite wall-chamber atlas. A transition
+\(\Psi_{\alpha\beta}\colon D^b(\mathcal A_\alpha)\to
+D^b(\mathcal A_\beta)\) is \emph{Serre-compatible} if it is equipped
+with a coherent natural isomorphism
 \[
-  \CoHA^{\bS}(X)\;:=\;
-     \bigoplus_{\sigma\in\pi_{0}\Stab(\cD)}
-     H^{\bullet}_{\bcrit}\bigl(\mathrm{Rep}(\cA_{\sigma}),\,\mathbf{W}_{\sigma}\bigr)^{\bS_{X}},
+  \eta_{\alpha\beta}\colon
+  \Psi_{\alpha\beta}\circ\bS_X
+  \xRightarrow{\sim}
+  \bS_X\circ\Psi_{\alpha\beta}.
 \]
-the $\bS_{X}$-invariants of the sheaf of critical cohomologies, glued
-across walls by $\Psi_{W}$. The product is the
-Kontsevich--Soibelman Hall multiplication $(\cE_{1},\cE_{2})\mapsto
-\cE_{1}\oplus\cE_{2}$ on stacks of $\cA_{\sigma}$-representations,
-twisted by the $\bS_{X}$-character.\ \emph{Heal.} Convergence of the
-sum over chambers uses the discrete $Z$-grading on a non-degenerate
-Mukai lattice; the $\bS$-invariance cuts the infinite direct sum to its
-$[3]$-fixed subspace, which is what makes the output finite in each
-graded piece.
+After the volume-form trivialisation \(\theta\), this is compatibility
+with the shift \([3]\), together with the triple-overlap coherence for
+the \(\eta_{\alpha\beta}\).
+\end{definition}
 
-\paragraph*{Cycle~5 (positive half and the character identity).}
-The degree-$0$ phase in $\bR/3\bZ$ selects the positive cone
-$\CoHA^{\bS,+}(X)\subset\CoHA^{\bS}(X)$, the span of classes represented
-by $\sigma$-semistable objects of phase $\in[0,1)$ (Bridgeland~2007,
-\S8). This is the \emph{positive-half} extraction consonant with the
-cache lock
-\(
-  \CoHA(\bC^{3})=Y^{+},\ \mathrm{not}\ \mathcal{W}_{1+\infty}
-\)
-(\texttt{CLAUDE.md}, ``Key facts'').
+\paragraph*{The obstruction to a global NCCR.}
+The usual Van den Bergh \(\NCCR\) is an affine normal Gorenstein
+singularity construction. On the smooth proper CY threefold \(X\), the
+closest compact analogue would be a strong tilting generator \(T\) with
+\(D^b(\End(T)\text{-mod})\simeq\cD\). Serre duality excludes such a
+\(T\).
 
-\begin{theorem}[Character identity]\label{thm:char-qNCCR}
-  The graded character of $\CoHA^{\bS,+}(K3\times E)$ equals the reduced
-  DT partition function of $K3\times E$:
-  \[
-    \chi\bigl(\CoHA^{\bS,+}(K3\times E)\bigr)\;=\;Z^{\red}_{\DT}(K3\times E)
-    \;=\;-\,\frac{1}{\Phi_{10}(\tau,z,\tilde\tau)}.
-  \]
-\end{theorem}
-\begin{proof}[Sketch]
-  Apply the dimensional reduction of critical cohomology along the
-  elliptic fibre $X\to K3$: the $E$-factor contributes the elliptic
-  genus kernel, the $K3$-factor contributes the Mukai-lattice Fock
-  space. Oberdieck--Pandharipande~2017 (arXiv:1605.05473, Thm.~1)
-  identifies the resulting generating series with $-1/\Phi_{10}$, the
-  reciprocal of the Igusa cusp form. The $\bS_{X}$-invariance of each
-  summand in the CoHA reduces the sum to the degree-zero $\bR/3\bZ$
-  phase, matching the reduced DT normalisation.
+\begin{lemma}[Compact Serre obstruction]
+\label{lem:compact-serre-obstruction}
+Every nonzero \(T\in \Perf(X)\) satisfies
+\[
+  \Ext^3_X(T,T)\cong\Hom_X(T,T)^\vee ,
+\]
+so \(\Ext^3_X(T,T)\neq0\). Therefore classical tilting objects are
+absent from \(\Perf(X)\), and a presentation by one finite-dimensional
+ordinary algebra of finite global dimension cannot send its free module
+to a classical tilting generator.
+\end{lemma}
+
+\begin{proof}
+The Serre functor is \([3]\) after the volume-form trivialisation.
+Serre duality gives the displayed perfect pairing. The identity of a
+nonzero object gives a nonzero element of \(\Hom_X(T,T)\), hence a
+nonzero top self-extension. A classical tilting object would require
+\(\Ext^i_X(T,T)=0\) for all \(i>0\).
 \end{proof}
 
-\paragraph*{Locks.} Consistent with
-$\kappa_{\mathrm{BKM}}(\Phi_{N})=c_{N}(0)/2$ at $N=1$:
-$\Phi_{10}=\Delta_{5}^{2}$, weight $10$, reduced form $\Delta_{5}$ of
-weight $5$, $c_{1}(0)=10$, $\kappa_{\mathrm{BKM}}=5$
-(\texttt{cy\_d\_kappa\_stratification.tex} line~1607). The tower
-$\kappa_{\mathrm{cat}}(K3\times E)=0$ (K\"unneth-multiplicative) and
-$\kappa_{\mathrm{ch}}(K3\times E)=0$ (Hodge supertrace) are separate
-invariants, not outputs of $\Phi$ at this chart.
+The compact replacement for \(K3\times E\) is an equivariant
+quasi-\(\NCCR\) Hall atlas: finite local algebra charts,
+Serre-compatible Morita transitions, and reduced Hall integration data.
 
-\paragraph*{Scope.} The construction is $(\infty,1)$-categorical at the
-level of $\Stab(\cD)$ and chain-level at the level of each
-$\cA_{\sigma}$. No global NCCR is asserted; the sheaf
-$\cA_{\bullet}$ together with $\bS_{X}$ and $\{\Psi_{W}\}$ is the
-quasi-NCCR substitute. Morphism preservation for $\Phi_{3}$ at this
-chart remains \texttt{ClaimStatusConjectured} (AP-CY scope lock).
+\paragraph*{Local quotient charts.}
+Local \(\NCCR\) algebras still occur on singular charts. If
+\(\Gamma\subset\mathrm{SL}_2(\bC)\) is an ADE subgroup acting on
+\(\bC^2\) and trivially on a formal elliptic coordinate \(t\), then
+\[
+  R_{\Gamma,E}=\bC[[u,v,t]]^\Gamma,\qquad
+  \Lambda_{\Gamma,E}
+  =
+  \End_{R_{\Gamma,E}}\!\left(\bigoplus_{\rho\in\widehat\Gamma}M_\rho\right)
+  \cong
+  \bC[[u,v,t]]\rtimes\Gamma
+\]
+is the stretched McKay \(\NCCR\) of the local quotient singularity.
+These algebras are local affine-centre models. The compact coherent
+input is \(\Perf(X)\); its finite charts may remember such local
+quotient algebras, but Lemma~\ref{lem:compact-serre-obstruction}
+prevents their descent to a single global Van den Bergh \(\NCCR\).
 
-\paragraph*{Primary sources.} Bridgeland, \emph{Stability conditions on
-triangulated categories}, Ann.\ Math.\ 166 (2007). Van den Bergh,
-arXiv:math/0207170 (2004). Costello--Gwilliam, \emph{Factorization
-Algebras in QFT}~II, CUP 2017, \S5.6. Oberdieck--Pandharipande,
-arXiv:1605.05473 (2017). No fabrication.
+\begin{definition}[Finite Serre-compatible quasi-\(\NCCR\) Hall atlas]
+Fix a component of the stability space on which a finite bounded
+wall-chamber atlas \(\mathfrak U=\{U_\alpha\}\) has been chosen, and fix
+a finite bound
+\[
+  B=(\text{charge height},\text{jet order},\text{Ran arity}).
+\]
+A finite Serre-compatible quasi-\(\NCCR\) Hall atlas of height \(B\) on
+\(X=K3\times E\) consists of:
+\begin{enumerate}
+  \item a bounded heart window \(\mathcal A_{\alpha,B}\subset\cD\) over
+  each \(U_\alpha\);
+  \item a finite object \(T_{\alpha,B}\) split-generating the
+  pretriangulated dg subcategory \(\cC_{\alpha,B}\subset\Perf(X)\)
+  cut out by that window, and the degree-zero finite algebra
+  \[
+    \Lambda_{\alpha,B}:=
+    H^0\End_{\cC_{\alpha,B}}(T_{\alpha,B});
+  \]
+  \item the cyclic minimal \(A_\infty\)-algebra
+  \[
+    \cE_{\alpha,B}:=\Ext_X^\bullet(T_{\alpha,B},T_{\alpha,B})
+  \]
+  with its CY\(_3\) trace pairing, potential \(W_{\alpha,B}\), and
+  finite critical chart
+  \((\Rep(\Lambda_{\alpha,B}),W_{\alpha,B})\);
+  \item invertible \(A_\infty\)-bimodules \(P_{\alpha\beta,B}\)
+  inducing derived Morita transitions
+  \[
+    \Psi_{\alpha\beta,B}\colon
+    D^b(\Lambda_{\alpha,B}\text{-mod})
+    \longrightarrow
+    D^b(\Lambda_{\beta,B}\text{-mod});
+  \]
+  \item Serre-compatible natural isomorphisms
+  \(\eta_{\alpha\beta,B}\) for these transitions;
+  \item a specified null-homotopy of the triple-overlap gerbe
+  \[
+    \mathfrak o_{\alpha\beta\gamma,B}
+    \in H^2\!\left(N(\mathfrak U),
+    \mathrm{Aut}^{\otimes}(D^b\Coh(X))\right).
+  \]
+\end{enumerate}
+Finiteness refers to the truncation \(B\) and to the chosen atlas.
+The symbol \((\Rep(\Lambda_{\alpha,B}),W_{\alpha,B})\) denotes the
+Jacobi critical chart extracted from the cyclic \(A_\infty\)-model.
+The compact moduli stack of coherent sheaves on \(X\) enters at the
+compact Hall stage.
+Compact Hall theory begins after the Mittag-Leffler limit in \(B\),
+orientation transport, compact-support Beck-Chevalley, and compatibility
+with the reduced integration map.
+\end{definition}
+
+\paragraph*{Positive-half Hall charts.}
+For a finite datum \((\mathfrak U,B)\), define the chartwise critical
+cohomology
+\[
+  \mathcal H_{\alpha,B}:=
+  H^\bullet_{\bcrit}\bigl(\Rep(\Lambda_{\alpha,B}),W_{\alpha,B}\bigr).
+\]
+The Serre-compatible bimodules identify the \(\mathcal H_{\alpha,B}\)
+on overlaps. The finite positive half is the Cech totalisation
+\[
+  \Yplus_{\mathfrak U,B}(X):=
+  \Tot_{\alpha\in N(\mathfrak U)}
+  \mathcal H_{\alpha,B}^{\mathrm{or},+},
+\]
+where \(\mathrm{or}\) records the orientation local system and \(+\)
+selects the effective charge cone in a stability-angle window of
+length \(1\).
+The product is the Kontsevich-Soibelman critical Hall product on the
+finite representation stacks, transported by the Morita bimodules.
+The integration map carries the K3 cosection reduction and the quotient
+by elliptic translation; finite charts carry only local algebra
+generators.
+
+This construction is a positive-half object. It is the compact analogue
+of the local identity \(\CoHA(\bC^3)=Y^+\). The vertex algebra
+\(\mathcal W_{1+\infty}\), a Hall-Drinfeld double, and a BKM
+denominator require the negative half, the Cartan torus, a
+nondegenerate Hall-Serre pairing, and the radical quotient. The word
+``Serre'' in the quasi-\(\NCCR\) datum refers to the categorical Serre
+functor; Borcherds-Serre relations belong to the doubled BKM
+recognition datum.
+
+\begin{proposition}[Character constraint]
+\label{prop:qnccr-character-constraint}
+Assume that the finite Serre-compatible quasi-\(\NCCR\) data form a
+Mittag-Leffler compatible system in \(B\), that the compact orientation
+local system is trivialised, and that there is a Behrend-compatible
+character map
+\[
+  \chi_{\mathrm{qNCCR}}\colon
+  \varprojlim_B\Yplus_{\mathfrak U,B}(X)
+  \longrightarrow
+  \bC[[q,t,p]][(\PhiTenOP)^{-1}]
+\]
+whose scalar integration agrees with the reduced
+Oberdieck-Pandharipande stable-pairs integration on the primitive K3
+sector after quotient by the \(E\)-translation direction. Then
+\[
+  \chi_{\mathrm{qNCCR}}\!\left(
+  \varprojlim_B\Yplus_{\mathfrak U,B}(K3\times E)\right)
+  =
+  Z^{\red,\prime}_{\DT}(K3\times E)
+  =
+  -\bigl(\PhiTenOP\bigr)^{-1}
+  =
+  -\Dfive^{-2}
+  =
+  -4096\,\DeltaFive^{-2}.
+\]
+Here
+\[
+  \Dfive=64^{-1}\DeltaFive,
+  \qquad
+  \PhiTenOP=\Dfive^2,
+  \qquad
+  \PhiTenUn=\PhiTen=\DeltaFive^2.
+\]
+Equivalently,
+\[
+  Z^{\red,\prime}_{\DT}(K3\times E)
+  =
+  -4096\,(\PhiTenUn)^{-1}
+\]
+in the unnormalised Igusa convention.
+\end{proposition}
+
+\begin{proof}
+The assumptions produce a compact positive-half limit and a scalar
+character. Oberdieck and Pandharipande identify the reduced primitive
+stable-pairs/DT scalar of \(K3\times E\), with the Behrend sign and the
+\(E\)-translation quotient, with
+\(-(\PhiTenOP)^{-1}\). The OP convention uses the monic Borcherds
+product \(\Dfive=64^{-1}\DeltaFive\), so
+\[
+  \PhiTenOP=\Dfive^2=4096^{-1}\DeltaFive^2.
+\]
+The assumed character map is required to commute with that reduced
+integration. Therefore its scalar value is the displayed OP scalar. This
+proposition asserts the scalar constraint on the compact positive-half
+limit. The Hall-Serre pairing, negative half, radical quotient, and
+Hall-Drinfeld double belong to the later BKM recognition datum.
+\end{proof}
+
+\begin{proposition}[Scalar character versus Hall recognition]
+\label{prop:scalar-character-boundary}
+The identity in Proposition~\ref{prop:qnccr-character-constraint} is a
+necessary scalar constraint on a compact positive-half Hall atlas. An
+algebra isomorphism
+\[
+  \varprojlim_B\Yplus_{\mathfrak U,B}(X)
+  \cong
+  U(\mathfrak g_{\DeltaFive})^{+},
+\]
+and the construction of the Hall-Drinfeld double are additional Hall
+recognition theorems.
+
+A Hall recognition theorem would require, in addition to the scalar
+character, a nondegenerate Hall-Serre pairing, a Cartan lattice
+identified with the Mukai lattice, an explicit negative half, a radical
+quotient, and a comparison of the resulting denominator identity with
+the Borcherds product \(D_5(2Z)=64^{-1}\DeltaFive(2Z)\).
+\end{proposition}
+
+\begin{proof}
+A character map forgets extension products, coproducts, pairings,
+primitive classes, and radicals. Distinct graded algebras can have the
+same graded scalar character. The Borcherds denominator theorem
+recognises a generalized Kac-Moody algebra from a denominator identity
+with root lattice, Weyl vector, signs, and multiplicities. The OP
+scalar fixes the reciprocal square
+\(-(\PhiTenOP)^{-1}\); doubled Hall recognition requires the data
+listed above.
+\end{proof}
+
+\paragraph*{Constants and branch separation.}
+The primitive CHL constants on the Borcherds-denominator side are
+\[
+  \bigl(c_1(0),c_2(0),c_3(0),c_4(0),c_6(0)\bigr)
+  =
+  (10,8,6,4,2),
+  \qquad
+  \bigl(\kBKM(\Phi_1),\kBKM(\Phi_2),\kBKM(\Phi_3),
+  \kBKM(\Phi_4),\kBKM(\Phi_6)\bigr)
+  =
+  \frac12\bigl(c_1(0),c_2(0),c_3(0),c_4(0),c_6(0)\bigr)
+  =
+  (5,4,3,2,1).
+\]
+At \(N=1\), the primitive form is \(\DeltaFive\), \(c_1(0)=10\), and
+\(\kBKM(\DeltaFive)=5\). These are Borcherds weights from the
+Gritsenko-Nikulin and Gritsenko lift inputs. Hodge
+supertraces and compact quasi-\(\NCCR\) scalars are separate rows.
+The orders \(N\in\{5,7,8\}\) lie outside this primitive compact CHL
+ladder; when they are used, they belong to the non-CHL
+Nikulin/Gritsenko or Gritsenko-Cl\'ery catalogues with their own
+paramodular groups and row parameters.
+
+The \(K3\times E\) values used here are
+\[
+  \kcat(K3\times E)=0,\qquad
+  \kch(K3\times E)=0,\qquad
+  \kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+  \kBKM(\DeltaFive)=5,\qquad
+  \kfib(K3)=24.
+\]
+The compact Hodge supertrace is
+\[
+  \sum_{q=0}^3(-1)^q h^{0,q}(K3\times E)
+  =
+  1-1+1-1=0.
+\]
+This atlas keeps \(\kch^{\mathrm{Heis}}\) separate from the fibre Euler
+term, from the compact supertrace, and from the Borcherds weight. There
+are independent definitions for these invariants. The CHL formula is
+\(\kBKM(\Phi_N)=c_N(0)/2\).
+
+The symbol \(q\) in quasi-\(\NCCR\) abbreviates ``quasi''. Root-of-unity
+specialisation is separate input. For \(N>1\), the constants above are
+target Borcherds weights contingent on an equivariant hCS-to-Hall
+comparison, a \(g_N\)-equivariant
+\((\Sigma_2,C)\)-specialisation, and the Hall-Borcherds denominator
+comparison.
+
+For \(d=3\), the output of \(\Phi_3\) is \(E_1\)-chiral. Braided
+\(E_2\) structure belongs to the Drinfeld centre, the double, or module
+layers. The BKM/Hall-Drinfeld branch for \(K3\times E\) uses compact
+Hall primitives and automorphic denominators. The Mukai self-mirror
+branch uses stable envelopes and the rank-\(24\) Mukai current algebra.
+The local equality \(\CoHA(\bC^3)=Y^+\) is the positive-half statement.
+The \(\mathcal W_{1+\infty}\) identification requires the double,
+Cartan currents, completion, and evaluation module.
+
+\paragraph*{References and boundaries.}
+The Serre functor statement is the smooth proper Serre-duality theorem.
+The absence of a strong compact tilting generator follows from the
+CY threefold Ext pairing of Lemma~\ref{lem:compact-serre-obstruction}.
+Van den Bergh's \(\NCCR\) definition applies to affine normal
+Gorenstein centres; Bridgeland-King-Reid and Van den Bergh supply the
+local quotient/NCCR models. The wall-chamber language is Bridgeland
+stability theory. The critical Hall product is the Kontsevich-Soibelman
+and Davison-Meinhardt construction on finite critical charts. The OP
+scalar is Oberdieck-Pandharipande reduced stable-pairs theory,
+normalised by the monic product \(D_5\). The identities
+\(\PhiTenUn=\DeltaFive^2\), \(\Dfive=64^{-1}\DeltaFive\), and
+\(\kBKM(\Phi_N)=c_N(0)/2\) are the Gritsenko-Nikulin, Gritsenko, and
+Borcherds weight normalisations used in the Vol III invariant table.
+The scalar proposition assumes the compact
+positive-half limit and character map. Proposition~\ref{prop:scalar-character-boundary}
+records the remaining Hall recognition obligations.
 
 \end{document}

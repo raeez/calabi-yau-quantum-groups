@@ -1,180 +1,274 @@
 % !TEX root = ../main.tex
-% Wave-18 G2/20 — hCS-hFA / CoHA match on $\C^3$.
-% Channels: Costello, Schiffmann.
 % Primary: Costello--Li 2016; Costello--Gwilliam 2017 Vol II;
-%          Schiffmann--Vasserot 2013; Tsymbaliuk 2017.
+% Kontsevich--Soibelman 2011; Schiffmann--Vasserot 2013;
+% Tsymbaliuk 2017; Rapcak--Soibelman--Yang--Zhao 2020.
 
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\hCS}{\mathrm{hCS}}
 \providecommand{\Dolb}{\mathrm{Dolb}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\glhat}{\widehat{\mathfrak{gl}}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\BM}{\mathrm{BM}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\Hom}{\operatorname{Hom}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Ypos}{Y^{+}}
 
-\section*{hCS observables on $\C^3$ and the CoHA: one object, two presentations}
+\section*{hCS observables on $\C^3$ and the Hall positive half}
 
-\subsection*{The theorem to be proved}
+\subsection*{The three objects}
 
 Let $\Obs_{\hCS}(\C^3)$ denote the factorisation algebra of quantum
-observables of holomorphic Chern--Simons theory on $\C^3$ with
-abelian gauge datum $\mathfrak{gl}_1$, in the BV formalism of
-Costello--Gwilliam. Let $\CoHA(\C^3) = Y^+(\glhat_1)$ be the
-cohomological Hall algebra of the (commutative) Jordan quiver, i.e.\ the
-positive half of the affine Yangian of $\glhat_1$, in the presentation
-of Schiffmann--Vasserot. Both carry an $E_3$-structure --- the former
-by Dunn additivity on $\C^3 = \R^2 \times \R^2 \times \R^2$, the latter
-by the three-fold shuffle construction on $\bigoplus_n
-H^\ast_T(\Hilb^n(\C^3))$.
-
-\begin{theorem}[hCS--CoHA match, abelian]\label{thm:hcs-coha-abelian}
-There is a quasi-isomorphism of $E_3$-factorisation algebras in
-$\mathrm{Ch}(\Dolb)$
+observables of holomorphic Chern--Simons theory on $\C^3$ with abelian
+gauge datum $\mathfrak{gl}_1$, in the BV formalism of
+Costello--Gwilliam. Let $\CoHA(\C^3)$ denote the critical CoHA of the
+one-vertex three-loop quiver with potential
 \[
-  \Obs_{\hCS}^{\mathfrak{gl}_1}(\C^3)
-  \;\simeq\;
-  \bigotimes_{n \ge 0} H^\ast_T\bigl(\Hilb^n(\C^3)\bigr)
-  \;=\;
-  Y^+(\glhat_1),
+  W_3=x[y,z],
 \]
-graded by $n = $ instanton / Hilbert-point number, with $T = (\C^\times)^3$
-the Calabi--Yau torus fixing the holomorphic volume form
-$dz_1 \wedge dz_2 \wedge dz_3$.
-\end{theorem}
+equivalently the $0$-dimensional sheaf CoHA on $\C^3$. The comparison
+uses three distinct structures.
 
-\subsection*{Five attack--heal cycles}
+First, $\Obs_{\hCS}^{\mathfrak{gl}_1}$ is a holomorphic factorisation
+algebra in $\mathrm{Ch}(\Dolb)$ on the affine CY$_3$ chart. It is acted
+on by holomorphic little $3$-disks. A locally constant $E_3$ algebra is
+obtained only after a chosen topological transport or Dolbeault
+contraction; that choice is extra data.
 
-\paragraph{C1. Costello--Li: abelian hCS is three holomorphic bosons.}
+Second, $\CoHA(\C^3)$ is the associative Hall algebra
+\[
+  \CoHA(\C^3)
+  =
+  \bigoplus_{n\geq 0}
+  H^{\BM}_{\mathrm{GL}_n\times T}\!\left(
+    \Rep_n(\C\langle x,y,z\rangle),
+    \varphi_{\mathrm{Tr}(x[y,z])}
+  \right),
+\]
+with convolution along extensions of representations, vanishing-cycle
+coefficients, and $T=(\C^\times)^3$ restricted by
+$\epsilon_1+\epsilon_2+\epsilon_3=0$ on the Calabi--Yau subtorus. After
+the standard equivariant localisation and shuffle presentation, its
+charge cone is $n\geq0$, hence it is the Hall positive half
+\[
+  \CoHA(\C^3)=\Ypos(\glhat_1),
+\]
+the positive half of the affine Yangian of $\glhat_1$ in the
+Schiffmann--Vasserot and Tsymbaliuk normalisation.
+
+Third, on the constructed local toric locus, the specialised
+CY-to-chiral output $A_{\C^3}$ is an $E_1$-chiral algebra at $d=3$.
+Braided $E_2$ data is carried by the Drinfeld centre of the $E_1$
+representation category, equivalently by the completed Drinfeld double
+when the Hall pairing, Cartan part, negative half, and completion have
+been constructed.
+
+\subsection*{Abelian hCS}
+
 Holomorphic Chern--Simons on $\C^3$ with abelian gauge algebra
 $\mathfrak{gl}_1$ has BV action
 \[
-  S(\alpha) = \tfrac{1}{2} \int_{\C^3} \alpha \, \bar\partial \alpha
-  \wedge \Omega, \qquad \Omega = dz_1 \wedge dz_2 \wedge dz_3,
+  S(\alpha)=\frac{1}{2}\int_{\C^3}\alpha\,\bar\partial\alpha\wedge\Omega,
+  \qquad
+  \Omega=dz_1\wedge dz_2\wedge dz_3,
 \]
-on the shifted space $\alpha \in \Omega^{0,\ast}(\C^3)[1]$. The
-equation of motion is $\bar\partial \alpha = 0$; the free cohomology
-is the polyvector ring $\C[z_1, z_2, z_3]$ tensored against the
-$\bar\partial$-resolution. Costello--Li (2016,
-\emph{Twisted supergravity and its quantization}, \S3--4)
-identify the abelian factorisation algebra of observables with the
-$\beta\gamma$-system of three holomorphic bosons on $\C^3$:
+on the shifted field space
+$\alpha\in\Omega^{0,\ast}(\C^3)[1]$. The equation of motion is
+$\bar\partial\alpha=0$. On affine $\C^3$, without compact-support
+conditions, the Dolbeault--Poincare lemma gives the holomorphic
+solution ring $\C[z_1,z_2,z_3]$. For a relatively compact Stein polydisc
+$U\subset \C^3$ the compactly supported local dg Lie algebra is
 \[
-  \Obs_{\hCS}^{\mathfrak{gl}_1, \mathrm{cl}}(\C^3)
-  \;\simeq\;
-  \operatorname{Sym}\bigl(\mathcal{O}(\C^3)[\epsilon]\bigr),
+  L_{\hCS}(U)=\Omega^{0,\ast}_c(U)[1],
 \]
-with $\epsilon$ the BV--antifield direction of ghost number $-1$.
-The Dolbeault resolution makes this an object of $\mathrm{Ch}(\Dolb)$;
-the $E_3$-structure is Dunn additivity,
-$E_3 = E_1 \otimes_{\mathrm{BV}} E_1 \otimes_{\mathrm{BV}} E_1$, one
-$E_1$ per complex coordinate.
-
-\paragraph{C2. Schiffmann--Vasserot: CoHA$(\C^3) = Y^+(\glhat_1)$.}
-Schiffmann--Vasserot (2013, \emph{Cherednik algebras, W-algebras and
-the equivariant cohomology of the moduli space of instantons on $\A^2$},
-Thm.~A; Tsymbaliuk 2017, \emph{The affine Yangian of $\glhat_1$, and
-the infinitesimal Cherednik algebras}, Thm.~1.1) identify the
-$T$-equivariant cohomology
+with zero bracket in the abelian theory, and the classical observables
+are continuous Chevalley--Eilenberg cochains
 \[
-  \bigoplus_{n \ge 0} H^\ast_T(\Hilb^n(\C^3))
+  \Obs_{\hCS}^{\mathfrak{gl}_1,\mathrm{cl}}(U)
+  \simeq
+  C^\bullet_{\CE,\mathrm{cont}}\!\left(L_{\hCS}(U)\right)
+  =
+  \widehat{\operatorname{Sym}}\!\left(L_{\hCS}(U)^\vee[-1]\right),
 \]
-as a shuffle algebra whose structure function is
+with differential induced by $\bar\partial$. Costello--Li construct the
+renormalised BV quantisation in this holomorphic local model; for
+$\mathfrak{gl}_1$ the cubic vertex vanishes, so the quantum correction is
+the free BV correction. The $E_3$ label here belongs to the local
+holomorphic factorisation object. The Hall positive half is associative
+$E_1$, and the specialised $d=3$ chiral output is $E_1$.
+
+\subsection*{The positive half}
+
+After torus localisation the Hall product is the spherical shuffle
+algebra. In the Jordan-quiver normalisation the affine-Yangian structure
+polynomial is
 \[
-  \omega(z, w) = \frac{(z - w + \epsilon_1)(z - w + \epsilon_2)(z - w + \epsilon_3)}
-  {(z - w)(z - w + \epsilon_1 + \epsilon_2)(z - w + \epsilon_1 + \epsilon_3)},
+  G_{\C^3}(u)=
+  \prod_{i=1}^{3}(u-\epsilon_i),
+  \qquad
+  \epsilon_1+\epsilon_2+\epsilon_3=0.
 \]
-with $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ the CY torus
-constraint. This shuffle algebra is $Y^+(\glhat_1)$: positive half
-of the affine Yangian of $\glhat_1$, generator $e_0(z) = \sum_k
-e_{0,k} z^{-k-1}$, relations $(z - w + \epsilon_1)(z - w + \epsilon_2)
-(z - w + \epsilon_3) e(z) e(w) = (z - w - \epsilon_1)(z - w -
-\epsilon_2)(z - w - \epsilon_3) e(w) e(z)$.
-
-\paragraph{C3. The match at free level via Dunn additivity.}
-Abelian hCS is free; its observables are the symmetric algebra on the
-linear dual of the BV fields. The Hilbert scheme of points on $\C^3$
-resolves the symmetric product:
+With generator $e_0(z)=\sum_k e_{0,k}z^{-k-1}$, the positive currents
+satisfy
 \[
-  \bigsqcup_n \Hilb^n(\C^3) \xrightarrow{\ \mathrm{HC}\ }
-  \bigsqcup_n \mathrm{Sym}^n(\C^3),
+  \prod_{i=1}^{3}(z-w-\epsilon_i)e(z)e(w)
+  =
+  \prod_{i=1}^{3}(z-w+\epsilon_i)e(w)e(z).
 \]
-the Hilbert--Chow morphism. In $T$-equivariant cohomology, localisation
-to $T$-fixed points (Nakajima, \emph{Lectures on Hilbert schemes},
-Thm.~5.8) gives
+Schiffmann--Vasserot identify the resulting shuffle algebra with the
+positive half $Y^+(\widehat{\mathfrak{gl}}_1)$ in the cohomological
+normalisation. Tsymbaliuk gives the Drinfeld-current presentation of
+the corresponding affine Yangian. Rap\v{c}ak--Soibelman--Yang--Zhao give
+the toric critical-CoHA statement for the vanishing-cycle model. This is
+an associative $E_1$ Hall algebra. Vertex-algebra structure belongs to
+the double, centre, completion, and evaluation layer.
+
+\subsection*{Finite hCS--Hall comparison}
+
+\begin{definition}[Finite oriented Rees hCS--Hall datum]
+\label{def:c3-finite-oriented-rees-hcs-hall-datum}
+A finite oriented Rees datum on $\C^3$ consists of:
+\begin{enumerate}
+\item a finite disjoint-Weiss/Ran (DWR/Ran) family of relatively
+compact holomorphic polydiscs, with bounds $(N,r,L,m)$ and inclusions
+closed under disjoint union;
+\item the compactly supported hCS dg Lie algebras
+$L_{\hCS}(U)=\Omega^{0,\ast}_c(U)[1]$ with the Costello--Gwilliam
+factorisation products and the chosen Rees filtration;
+\item the finite critical Hall complexes for the tripled Jordan quiver
+with orientation line, vanishing-cycle sheaves, and equivariant
+parameters satisfying $\epsilon_1+\epsilon_2+\epsilon_3=0$;
+\item a natural transformation
 \[
-  H^\ast_T(\Hilb^n(\C^3))
-  \;=\;
-  \bigoplus_{\lambda \vdash n} \C[\epsilon_1, \epsilon_2, \epsilon_3]
-  \cdot [I_\lambda],
+  \Theta_{\hCS\to\mathrm{Hall}}^{\mathrm{Rees,or};N,r,L,m}
 \]
-with $\lambda$ a plane partition of size $n$ and $[I_\lambda]$ the
-class of a monomial ideal. The three $E_1$-factors of Dunn additivity
-on $\C^3 = \C \times \C \times \C$ generate the three $\epsilon_i$,
-and the plane-partition sum is the free symmetric algebra on
-$\C[z_1, z_2, z_3]$ localised at the CY torus. This matches the
-Costello--Li free cohomology of C1 on the nose: same generating
-function
+from the finite hCS observable complex to the finite Rees Hall complex
+which is compatible with refinements, Thom--Sebastiani for disjoint
+unions, the orientation line, and the Hall extension correspondence
+$\mathrm{Flag}^{n,m}(\C^3)$.
+\end{enumerate}
+\end{definition}
+
+The finite comparison is conditional on this datum.
+
+\begin{theorem}[Finite Rees comparison on \texorpdfstring{$\C^3$}{C3}]
+\label{thm:c3-finite-rees-hcs-hall-positive-half}
+Assume the finite oriented Rees hCS--Hall datum of
+Definition~\ref{def:c3-finite-oriented-rees-hcs-hall-datum}. Then the
+finite comparison sends the holomorphic factorisation object attached
+to the local toric $\C^3$ category to the Hall-valued assignment
 \[
-  \sum_n q^n \dim H^\ast_T(\Hilb^n(\C^3)) = M(q) = \prod_{k \ge 1}
-  (1 - q^k)^{-k},
+  U \longmapsto H^\ast_T(\Hilb^\bullet(U);\mathbb Q),
+  \qquad U\subset \C^3,
 \]
-MacMahon's plane-partition series, equal to the character of three
-bosons on $\C^3$ graded by total degree.
+with disjoint-support product realised by the Schiffmann--Vasserot
+convolution on $\mathrm{Flag}^{n,m}(\C^3)$. After Hall global sections
+and the standard equivariant localisation, the target algebra is
+\[
+  \Gamma_{\mathrm{Hall}}\!\left(
+    \Phi^{\mathrm{FA}}_3(\mathrm{Perf}(\C^3))
+  \right)
+  \simeq
+  \CoHA(\C^3)
+  =
+  \Ypos(\glhat_1)
+\]
+as an associative Hall algebra at finite Rees level.
+\end{theorem}
 
-\paragraph{C4. Non-abelian extension via Wave-15 N1.}
-The Wave-15 N1 all-orders theorem lifts the abelian match to
-$\mathfrak{gl}_N$: the interaction terms of the hCS action,
-$\tfrac{1}{6} \int \mathrm{tr}(\alpha [\alpha, \alpha]) \wedge \Omega$,
-quantise without anomaly on $\C^3$ (Costello--Li \S5, Costello--Gwilliam
-Vol~II Thm.~12.6.1) and match, term by term in $N$, the
-Maulik--Okounkov $R$-matrix of $Y(\glhat_N)$ specialised at the CY
-torus $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$. In particular the
-rank-one structure function $\omega(z, w)$ of C2 lifts to an
-$N \times N$ matrix-valued $R(z, w)$ whose rational expansion recovers
-the Costello--Li vertex $\gamma \ast \gamma \ast \gamma$ at
-$\mathcal{O}(N^3)$. The identification
-$\Obs_{\hCS}^{\mathfrak{gl}_N}(\C^3) \simeq Y^+(\glhat_N)$ is an
-equivalence of $E_3$-factorisation algebras in $\mathrm{Ch}(\Dolb)$.
+\begin{proof}
+Choose the standard cyclic Darboux chart on $\C^3$ with volume form
+$dz_1\wedge dz_2\wedge dz_3$ and potential
+$W_3=\mathrm{Tr}(XYZ-XZY)$. The affine hCS input is the compact-support
+Dolbeault dg Lie algebra with its CY pairing. The single affine chart
+\(\C^3\) makes the local statement independent of transition cocycles.
+The finite Rees datum supplies the comparison map and its orientation,
+refinement, and Thom--Sebastiani compatibilities. These compatibilities
+identify disjoint unions of finite Ran polydiscs with the Hall extension
+correspondences $\mathrm{Flag}^{n,m}(\C^3)$, so the induced product is
+the Schiffmann--Vasserot pull--push product. The last identification is
+the critical-CoHA/shuffle theorem for the tripled Jordan quiver, giving
+$\CoHA(\C^3)=\Ypos(\glhat_1)$ in the localised associative Hall
+normalisation.
+\end{proof}
 
-\paragraph{C5. Consequence: one object, two lenses.}
-The $E_3$-hFA picture and the CoHA picture are two presentations of
-the same $E_3$-algebra:
-\begin{itemize}
-\item hFA lens: $\Obs_{\hCS}$ as factorisation algebra on $\C^3$,
-  $E_3$-structure by Dunn additivity, quantisation by
-  Costello--Gwilliam BV.
-\item CoHA lens: $\bigoplus_n H^\ast_T(\Hilb^n(\C^3))$ as shuffle
-  algebra, $E_3$-structure by three-fold Feigin--Odesskii shuffle,
-  generators indexed by plane partitions.
-\end{itemize}
-Neither lens is a shadow of the other. The hFA lens computes
-correlation functions (Costello--Gwilliam descent); the CoHA lens
-computes Nekrasov partition functions (Nekrasov--Okounkov, Maulik--Okounkov
-stable envelopes). They agree on the invariant $\kch(\C^3) = 0$
-(Calabi--Yau threefold, $\chi(\mathcal{O}_{\C^3}) = 0$) via the
-$\Phi$-functor identification of Vol~III Thm.~\ref{thm:cy-d-stratification}.
+The theorem asserts the finite Rees comparison above. A
+quasi-isomorphism
+$\Obs_{\hCS}^{\mathfrak{gl}_1}\simeq\CoHA(\C^3)$ of factorisation
+algebras requires completion beyond finite Rees level, monoidal
+realisation of vanishing cycles, compact-support descent, and
+Drinfeld-double formation with their pairing and completion data. The
+finite theorem fixes the positive-half Hall target in the local $\C^3$
+bridge.
 
-\subsection*{Cross-references}
+\subsection*{Character and modular characteristic}
 
-\begin{itemize}
-\item \texttt{chapters/theory/cy\_to\_chiral.tex}: $\Phi$ at $d = 3$
-  produces the $E_1$-chiral algebra on $\C^3$ whose centre
-  $Z^{\mathrm{der}}_{\mathrm{ch}}$ is the $E_3$-hFA of this note.
-\item \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}:
-  $\kch(\C^3) = 0$, agreeing with both lenses.
-\item \texttt{notes/cy\_c\_I2\_I3\_higher\_genus\_half\_bps.md}:
-  the half-BPS sector on which $\Obs_{\hCS}^{\mathfrak{gl}_N}$ and
-  $Y^+(\glhat_N)$ act as dual symmetries.
-\end{itemize}
+The $T$-fixed points of $\Hilb^n(\C^3)$ are monomial ideals,
+equivalently plane partitions of size $n$. In the framed cyclic module,
+and in the localised PBW normalisation used for the positive half, the
+graded character is
+\[
+  \sum_{n\geq 0}q^n
+  \operatorname{rk}_{H^\ast_T(\mathrm{pt})}
+  H^\ast_{T,\mathrm{crit}}
+  \left(\Hilb^n(\C^3),\varphi_{\mathrm{CS}}\right)
+  =
+  M(q)
+  =
+  \prod_{k\geq 1}(1-q^k)^{-k}.
+\]
+This is MacMahon's plane-partition series. On the hCS side it is the
+index reached after the finite Hall projection in
+Theorem~\ref{thm:c3-finite-rees-hcs-hall-positive-half}. The character
+identity is weaker than a quasi-isomorphism of factorisation algebras:
+the map has to preserve the BV bracket, vanishing-cycle differential,
+Hall correspondences, and equivariant normalisation.
 
-\subsection*{What remains open}
+For the non-compact space $\C^3$, $\kcat$ lies outside the compact
+Hodge-supertrace convention. The constructed local toric $d=3$ output has
+\[
+  \kch(A_{\C^3})=1,
+\]
+in the regulated Heisenberg/free-boson normalisation. Borcherds
+denominator data and $\kBKM$ belong to different constructions.
 
-The non-abelian match at C4 is controlled, in Vol~III scope, by the
-Wave-15 N1 all-orders theorem; the $\mathfrak{gl}_\infty \to
-\mathcal{W}_{1+\infty}$ limit at $N \to \infty$ is handled separately
-(see \texttt{notes/CoHA\_to\_W\_infty\_treatise.tex}), noting that
-$\CoHA(\C^3) = Y^+(\glhat_1)$ is the \emph{positive half} of
-$\mathcal{W}_{1+\infty}$, never the full algebra. The
-$\Phi$-functorial lift of the match to $(\infty, 1)$-categories of CY
-data is the natural next inscription.
+\subsection*{Non-abelian extension}
+
+For gauge algebra $\mathfrak{gl}_N$, the interaction term in hCS is
+\[
+  \frac{1}{6}\int_{\C^3}\mathrm{tr}(\alpha[\alpha,\alpha])\wedge\Omega .
+\]
+Costello--Li and Costello--Gwilliam give the BV quantisation framework
+on the holomorphic local model. A rank-$N$ theorem requires a solution
+of the quantum master equation, including the vanishing or cancellation
+of the local one-loop obstruction in the completed local BV complex. It
+also requires a Hall comparison map to the relevant critical Hall
+positive half and compatibility with the Hall product, the BV bracket,
+the orientation line, and the equivariant normalisation. The
+Maulik--Okounkov $R$-matrix and braided representation category arise
+after the centre or double construction. The rank-one statement above
+supplies the proved abelian local model; rank $N$ is a separate theorem
+with the stated hypotheses.
+
+\subsection*{Positive half, double, and vacuum module}
+
+The passage from the Hall algebra to the vacuum-module action has three
+typed arrows:
+\[
+  \CoHA(\C^3)=\Ypos(\glhat_1)
+  \hookrightarrow
+  D^\wedge\!\bigl(\Ypos(\glhat_1)\bigr)
+  =
+  Y(\glhat_1)
+  \xrightarrow{\;\mathrm{ev}_\lambda\;}
+  \End\!\left(\mathcal{W}_{1+\infty}[\lambda]\text{-}\mathrm{vac}\right).
+\]
+The first arrow is the positive Borel inclusion after the negative half,
+Cartan part, Hopf pairing, and completion are fixed. The second arrow is
+a vacuum evaluation representation of the full affine Yangian. This is
+the type-correct form of the $\C^3$ Hall-to-\(\mathcal W\) comparison.

@@ -1,785 +1,756 @@
-% wave14_a8_gauge_2groupoid_etingof.tex
-%
-% Etingof-channelled adversarial assault + rigorous healing of the claim:
-%
-%   "Different g on same X give different hCS theories, factorisation algebras,
-%    BV determinants, one-loop anomalies (kappa_anom ~ A(g) chi_top(X)); the
-%    gauge group lives in the 2-groupoid Aut(C), not as a fixed g."
-%
-% Five ATTACK <-> HEAL cycles, each mathematically substantive. The through-line:
-% the bare category C = D^b Coh(X) does NOT determine g; g is EXTERNAL framing
-% data (a compact generator V with End*(V) = g). The correct ambient structure
-% is the 2-groupoid of framings, not Aut(C) per se.
-%
-% Primary sources audited:
-%   - Costello 2013 (arXiv:1303.2632) "Supersymmetric gauge theory and the Yangian"
-%   - Costello 2016 (arXiv:1610.04144) "Holography and Koszul duality"
-%   - Costello-Williams-Yamazaki 2018 (arXiv:1709.09993) "Gauge theory and integrability I, II"
-%   - Kontsevich-Soibelman 2008 (arXiv:0811.2435) "Stability structures, motivic DT invariants"
-%   - Ginzburg 2006 (arXiv:math/0612139) "Calabi-Yau algebras"
-%   - Bondal-Van den Bergh 2003 "Generators and representability"
-%   - Keller 2006 (arXiv:math/0601185) "On differential graded categories"
-%   - Toen 2007 (arXiv:math/0408337) "The homotopy theory of dg-categories"
-%   - Lurie HA 2017 §4.8.5 (Morita theory of E_1-algebras)
-%   - Francis 2013 (arXiv:1211.5619) "The tangent complex and Hochschild cohomology"
-%   - Costello-Gwilliam Vol II 2021 §3, §4 (one-loop BV determinants in holomorphic QFT)
-%
-% Cross-refs: wave12_a3_MO_E2_etingof.tex (E_2 on centre, not A);
-%             wave13_a3_gkm_presentation_etingof.tex (chain-level Chevalley-Serre);
-%             platonic_synthesis_waves_11_through_16.tex (kappa_anom in platonic table);
-%             CoHA_to_W_infty_treatise.tex (C^3 -> gl_r framing).
-%
-% Scope: chain-level throughout. The (infty,1)-categorical 2-groupoid
-% Framing(C) is constructed as a Segal category; morphisms are kernel
-% bimodules (Morita), 2-morphisms are kernel homotopies.
+\documentclass[11pt]{amsart}
+\usepackage[localtheorems]{raeez-math-template}
 
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem, cited]}}
-\providecommand{\ClaimStatusProvedHere}{\textsc{[proved here]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles derivable]}}
-\providecommand{\ClaimStatusFALSE}{\textsc{[FALSIFIED]}}
-\providecommand{\ClaimStatusSharpened}{\textsc{[sharpened]}}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
 
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\Q}{\mathbb{Q}}
-\providecommand{\R}{\mathbb{R}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
 \providecommand{\cC}{\mathcal{C}}
-\providecommand{\cD}{\mathcal{D}}
-\providecommand{\cO}{\mathcal{O}}
 \providecommand{\cE}{\mathcal{E}}
-\providecommand{\cF}{\mathcal{F}}
-\providecommand{\cP}{\mathcal{P}}
 \providecommand{\cG}{\mathcal{G}}
-\providecommand{\cH}{\mathcal{H}}
-\providecommand{\Coh}{\mathrm{Coh}}
-\providecommand{\Perf}{\mathrm{Perf}}
-\providecommand{\Mod}{\mathrm{Mod}}
-\providecommand{\BiMod}{\mathrm{BiMod}}
-\providecommand{\LMod}{\mathrm{LMod}}
-\providecommand{\RMod}{\mathrm{RMod}}
-\providecommand{\RHom}{\mathrm{RHom}}
-\providecommand{\End}{\mathrm{End}}
-\providecommand{\Hom}{\mathrm{Hom}}
-\providecommand{\Ext}{\mathrm{Ext}}
-\providecommand{\Aut}{\mathrm{Aut}}
-\providecommand{\Iso}{\mathrm{Iso}}
-\providecommand{\Morita}{\mathrm{Morita}}
-\providecommand{\Fun}{\mathrm{Fun}}
-\providecommand{\Tilt}{\mathrm{Tilt}}
-\providecommand{\Frame}{\mathrm{Frame}}
-\providecommand{\hCS}{\mathrm{hCS}}
-\providecommand{\BV}{\mathrm{BV}}
-\providecommand{\Obs}{\mathrm{Obs}}
-\providecommand{\id}{\mathrm{id}}
-\providecommand{\Spec}{\mathrm{Spec}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\fg}{\mathfrak{g}}
-\providecommand{\fh}{\mathfrak{h}}
 \providecommand{\fgl}{\mathfrak{gl}}
-\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\HH}{\operatorname{HH}}
+\providecommand{\PV}{\operatorname{PV}}
+\providecommand{\Perf}{\operatorname{Perf}}
+\providecommand{\REnd}{\operatorname{REnd}}
+\providecommand{\RHom}{\operatorname{RHom}}
+\providecommand{\End}{\operatorname{End}}
+\providecommand{\Aut}{\operatorname{Aut}}
+\providecommand{\Map}{\operatorname{Map}}
+\providecommand{\Mor}{\operatorname{Mor}}
+\providecommand{\Fr}{\operatorname{Fr}}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\Sym}{\operatorname{Sym}}
+\providecommand{\Obs}{\operatorname{Obs}}
+\providecommand{\CoHA}{\operatorname{CoHA}}
+\providecommand{\Rep}{\operatorname{Rep}}
+\providecommand{\CE}{\operatorname{CE}}
+\providecommand{\Del}{\operatorname{Del}}
+\providecommand{\MC}{\operatorname{MC}}
+\providecommand{\Tot}{\operatorname{Tot}}
+\providecommand{\QME}{\operatorname{QME}}
+\providecommand{\BV}{\operatorname{BV}}
+\providecommand{\hCS}{\operatorname{hCS}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\operatorname{SpCh}}
+\providecommand{\Yp}{Y^{+}}
+\providecommand{\Winf}{\mathcal{W}_{1+\infty}}
 \providecommand{\kanom}{\kappa_{\mathrm{anom}}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\chitop}{\chi_{\mathrm{top}}}
-\providecommand{\AAg}{A(\fg)}
 
-\section{Adversarial assault and rigorous healing: the gauge datum is a framing, and the framing 2-groupoid is not $\Aut(\cC)$}
-\label{wave14:sec:a8-gauge-2groupoid-etingof}
+\title{Gauge 2-Groupoids, Framings, and Quantisation in Holomorphic Chern-Simons Theory}
+\author{}
+\date{}
 
-\emph{Voice.} Etingof. \emph{Scope.} The claim under audit:
-\begin{quote}
-``Different $\fg$ on the same $X$ give different hCS theories, different
-factorisation algebras, different BV determinants, different one-loop
-anomalies $\kanom\propto\AAg\,\chitop(X)$. The anomaly formula depends on
-$\fg$ in a way the bare category cannot see. Gauge group lives in the
-2-groupoid of autoequivalences, not as a fixed $\fg$.''
-\end{quote}
-\emph{Mandate.} Five ATTACK$\leftrightarrow$HEAL cycles converging on a
-Chriss--Ginzburg-voiced precise statement of (i)~what the gauge datum
-\emph{is}, (ii)~what ambient 2-categorical structure organises it,
-(iii)~why the word ``autoequivalences'' in the original formulation is
-wrong and what replaces it, (iv)~the precise tower of invariants seen by
-the framing vs by the bare category, and (v)~a concrete worked example
-at $X=\C^3$ where $\fg$ varies and the category does not.
+\begin{document}
+\maketitle
 
-\subsection*{Opening: what is being asserted, what is being conflated}
+\begin{abstract}
+Holomorphic Chern-Simons theory takes a finite-dimensional gauge
+coefficient as external field-theoretic input. A Calabi-Yau dg category
+supplies Hochschild polyvectors, autoequivalence mapping spaces, and
+framed endomorphism algebras. The Deligne gauge 2-groupoid, derived
+quotient stack, BRST complex, BV field-antifield theory, hCS
+quantisation, Drinfeld centre, and chiral output form a typed ladder
+with explicit hypotheses at every arrow. A framing object and geometric
+realisation are required before categorical endomorphisms yield a
+finite colour algebra. Compact nonabelian hCS requires a Costello QME
+solution, quartic anomaly trivialisation, orientation and framing,
+analytic completion, gauge fixing with regulator, counterterms, and
+descent or sewing data. In complex dimension three the QME obstruction
+is the quartic class \(I_4^\rho\). The element \(C_2^\rho\) supplies a
+two-point kinetic counterterm. The specialised CY-to-chiral output at
+\(d\geq3\) is native \(\Eone\); \(\Etwo\) structure belongs to centre,
+double, or module layers.
+\end{abstract}
 
-Two mathematical facts, in tension at the level of phrasing:
-\begin{itemize}
-\item[(F1)] \emph{Gauge dependence is real.} Costello 2013, Costello 2016,
-Costello--Williams--Yamazaki 2018 establish that six-dimensional
-holomorphic Chern--Simons on $X$ with gauge Lie algebra $\fg$ carries an
-$\fg$-dependent one-loop anomaly, computable as a pairing of the
-$\fg$-adjoint Chern character against $\chitop(X)$; the resulting BV
-determinant is $\fg$-dependent; the resulting factorisation algebra of
-observables $\Obs^{\hCS}_\fg(X)$ is $\fg$-dependent.
-\item[(F2)] \emph{Bare-category invariance is real.} $D^b\Coh(X)$ does
-not, in general, remember a choice of gauge Lie algebra: two tilting
-generators $V_1, V_2\in D^b\Coh(X)$ with $\RHom(V_1,V_1)\ne\RHom(V_2,V_2)$
-(as algebras) both present the same category.
-\end{itemize}
-The claim glues these by naming ``$\Aut(\cC)$'' as the 2-groupoid where
-gauge data live. Five errors lurk in that glueing, and five precisions
-follow.
+\tableofcontents
 
-%=====================================================================
-\subsection*{Attack--heal cycle 1: the gauge datum is not in $\Aut(\cC)$; it is a framing}
-%=====================================================================
+\section{Typed Inputs}
+\label{sec:typed-inputs}
 
-\paragraph{Attack 1.} ``Gauge group lives in the 2-groupoid $\Aut(\cC)$.''
-This is wrong as stated. Consider $X=\C^3$ and $\cC=D^b\Coh(\C^3)=\Perf(\C[x,y,z])$
-(since $\C^3$ is affine smooth, coherent $=$ perfect). The 2-groupoid
-$\Aut(\cC)$ of autoequivalences of $\cC$ is, by Bondal--Orlov type theorems
-(Ballard 2011, Toen 2007), equivalent to
-$\Aut(\C^3)_{\mathrm{aut}}\ltimes\Pic(\C^3)\times B\C^\times$, generated by
-(i)~pullback along automorphisms of $\C^3$, (ii)~twist by line bundles
-(here trivial, since $\Pic(\C^3)=0$), and (iii)~scalar shifts. This is a
-small 2-groupoid depending only on the \emph{automorphism geometry} of
-$\C^3$, not on any $\fg$.
-
-But the hCS theory of Costello 2013 on $\C^3$ takes as input a Lie algebra
-$\fg$, and we want to organise different $\fg$ (e.g.\ $\fgl_r$ for
-$r=1,2,3,\dots$) over the same $\C^3$. These are \emph{different elements}
-of something, but they are \emph{not elements of $\Aut(\cC)$}: twisting
-$D^b\Coh(\C^3)$ by $\fgl_r$ does not produce an autoequivalence, it
-produces a \emph{different module category}, namely $\Perf(\C^3,\fgl_r)$
-(perfect complexes of $\fgl_r$-equivariant sheaves, i.e.\ $r\times r$
-matrices of perfect complexes).
-
-\paragraph{Ghost theorem.} Bondal--Van den Bergh 2003 Thm.~3.1.1:
-a compactly-generated triangulated category $\cC$ is equivalent, via
-$T\mapsto\RHom_\cC(V,T)$, to $\Perf(\End^\bullet_\cC(V))$ for any compact
-generator (equivalently, tilting object) $V\in\cC$. Keller 2006 Thm.~4.3
-(dg enhancement): the equivalence lifts to a quasi-equivalence of
-pre-triangulated dg categories, and the endomorphism dg algebra
-$A_V:=R\End^\bullet_\cC(V)$ is well-defined up to quasi-isomorphism.
-
-Apply this to $\cC=\Perf(\C^3)$. The structure sheaf $V_1=\cO_{\C^3}$ is
-a compact generator; $R\End(V_1)=H^\bullet(\C^3,\cO_{\C^3})=\C[x,y,z]$
-(in cohomological degree $0$). The direct sum $V_r:=\cO_{\C^3}^{\oplus r}$
-is also a compact generator; $R\End(V_r)=\mathrm{Mat}_r(\C[x,y,z])$. The
-two dg algebras $\C[x,y,z]$ and $\mathrm{Mat}_r(\C[x,y,z])$ are
-\emph{Morita equivalent} but \emph{not isomorphic}; their
-\emph{cohomologies as Lie algebras}, under the commutator bracket, are
-respectively $\fgl_1(\C[x,y,z])$ and $\fgl_r(\C[x,y,z])$. These are the
-$\fg$-algebras that appear in Costello's hCS construction.
-
-\paragraph{Precise error.} ``$\fg$ lives in $\Aut(\cC)$'' conflates two
-operations on $\cC$:
-(i)~automorphisms of $\cC$ as a $\C$-linear category (which preserve its
-bare-category structure and form a groupoid);
-(ii)~choices of \emph{compact generator} $V\in\cC$ (which do not
-preserve the category; they present it, with different presentations
-differing by Morita bimodules).
-Costello's gauge datum $\fg$ is (ii), not (i). The correct 2-categorical
-organising structure is the \emph{framing 2-groupoid} $\Frame(\cC)$
-introduced below, whose connected components are indexed by Morita classes
-of dg algebras and whose 1-morphisms are Morita bimodules.
-
-\paragraph{Heal 1.} State the correct definition.
-
-\begin{definition}[Framing of a compactly-generated dg category]
-\label{def:framing}\ClaimStatusDefinition
-Let $\cC$ be a compactly-generated pre-triangulated dg category over $\C$.
-A \emph{framing} of $\cC$ is a compact generator $V\in\cC$. The
-associated Morita-presentation is $\cC\simeq\Perf(A_V)$ with
-$A_V:=R\End^\bullet_\cC(V)$. Write $\Frame(\cC)$ for the $\infty$-groupoid
-(or $(\infty,1)$-category, see Cycle~2) of framings; objects are
-compact generators, 1-morphisms are kernel bimodules
-$K\in\Perf(A_{V_1}\otimes A_{V_2}^{\mathrm{op}})$ inducing a Morita
-equivalence, 2-morphisms are kernel homotopies
-$K\to K'$ in the derived category of bimodules.
+\begin{definition}[Geometric hCS coefficient]
+\label{def:hcs-coefficient}
+Let \(X\) be a complex threefold with holomorphic volume form
+\(\Omega_X\). A geometric holomorphic Chern-Simons coefficient consists
+of a complex reductive Lie algebra \(\fg\), an invariant pairing or trace
+\(\Tr_\rho\) coming from a representation
+\(\rho:\fg\to\End(W)\), and a principal \(G\)-bundle \(P\to X\). The
+classical field dg Lie algebra is
+\[
+  \cL_{\hCS}(X,P,\fg)
+  =
+  \Omega^{0,\bullet}(X,\operatorname{ad}P)[1],
+  \qquad d=\dbar_P .
+\]
+In a trivialisation \(P|_U\simeq U\times G\),
+\[
+  \cL_{\hCS}(U,\fg)
+  =
+  \Omega^{0,\bullet}(U)\otimes\fg[1].
+\]
+The classical action on \(a\in\Omega^{0,\bullet}(X,\operatorname{ad}P)\)
+is
+\[
+  S_{\hCS}(a)
+  =
+  \int_X \Omega_X\wedge
+  \Tr_\rho\!\left(
+    \frac12 a\,\dbar_Pa+\frac16 a[a,a]
+  \right).
+\]
 \end{definition}
 
-\begin{theorem}[Framing captures hCS gauge data; \ClaimStatusProvedHere]
-\label{thm:framing-gauge}
-For $X=\C^3$ and $\cC=\Perf(\C^3)$, the Costello hCS theory on $X$ with
-gauge Lie algebra $\fgl_r$ is associated to the framing
-$V_r=\cO_{\C^3}^{\oplus r}\in\cC$ via
+\begin{definition}[Gauge 2-groupoid and derived quotient]
+\label{def:gauge-2groupoid-derived-stack}
+Let
 \[
-A_{V_r}=R\End^\bullet(V_r)=\mathrm{Mat}_r(\C[x,y,z]),
-\qquad
-\fg:=A_{V_r}_\mathrm{Lie}=\fgl_r(\C[x,y,z])_{\deg 0}=\fgl_r\otimes\C[x,y,z].
+  L_P=\Omega^{0,\bullet}(X,\operatorname{ad}P),
+  \qquad d=\dbar_P .
 \]
-Different $r$ give \emph{different framings}, \emph{different
-endomorphism dg algebras}, and \emph{different Costello hCS theories},
-while the bare category $\cC=\Perf(\C^3)$ is independent of $r$.
-\end{theorem}
-
-\begin{proof}[Proof sketch (full proof at Cycle~5)]
-$V_r$ is compact (finitely-presented as an $\cO_{\C^3}$-module) and
-generates (its direct summands include $\cO_{\C^3}$, which generates).
-The endomorphism dg algebra is $\mathrm{Mat}_r(\C[x,y,z])$ concentrated
-in cohomological degree zero. Costello's hCS on $\C^3$ with gauge datum
-$\fg$ (Costello 2013 \S1, \S3) requires an $L_\infty$-algebra
-$\fg\otimes\Omega^{0,\bullet}(X)$; taking $\fg=\fgl_r\otimes\C[x,y,z]$
-is the holomorphic avatar that arises from the tilting presentation with
-$V=V_r$. Different $r$ yield non-Morita-equivalent theories because the
-one-loop BV determinant distinguishes them (Cycle~4).
-\end{proof}
-
-\begin{remark}[Why $\Aut(\cC)$ is not where $\fg$ lives]
-$\Aut(\Perf(\C^3))$ is the \emph{global symmetry} 2-groupoid of the
-category, not its \emph{gauge-datum} space. The global symmetries act
-on framings (by transport), but the framings themselves form a different
-structure. Compare: the ``group'' in a quiver gauge theory with
-Nakajima quiver $Q$ is $\prod_i GL(V_i)$ for dimension vector
-$\dim V_i$; this is not the automorphism group of the representation
-category $\Rep(Q)$, it is the group attached to a \emph{choice of framing
-vector} $\dim V_\bullet$.
-\end{remark}
-
-%=====================================================================
-\subsection*{Attack--heal cycle 2: 2-groupoid versus $(\infty,1)$-category; the correct ambient structure}
-%=====================================================================
-
-\paragraph{Attack $2$.} The user's essay says ``$2$-groupoid $\Aut(\cC)$''.
-After Cycle~$1$ we replaced ``$\Aut(\cC)$'' with ``$\Frame(\cC)$''. But is
-$\Frame(\cC)$ a $2$-groupoid? A $2$-groupoid requires (i)~objects, (ii)~$1$-morphisms,
-(iii)~$2$-morphisms, with $2$-morphisms invertible, and composition strictly or
-weakly coherent. Definition~\ref{def:framing} has kernels as 1-morphisms and
-kernel homotopies as 2-morphisms, but:
-\begin{itemize}
-\item The 1-morphisms in $\Frame(\cC)$ are \emph{not} all invertible: a
-kernel bimodule $K:A_{V_1}\to A_{V_2}$ is invertible (i.e.\ a Morita
-equivalence) iff $K$ is a projective bimodule with an inverse $K^{-1}$
-satisfying $K\otimes_{A_2} K^{-1}\simeq A_1$; generic bimodules are not
-Morita. Hence $\Frame(\cC)$ is a 2-\emph{category}, not a 2-groupoid,
-in general.
-\item When we restrict to invertible 1-morphisms, we get
-$\Frame(\cC)^\simeq$, the \emph{core} 2-groupoid. This is smaller: it is
-the groupoid of Morita equivalences between framings, which under
-Bondal--Van den Bergh is equivalent to $\Aut(\cC)$ (autoequivalences of
-the ambient category).
-\item So the correct statement is: $\Frame(\cC)^\simeq\simeq B\Aut(\cC)$,
-while $\Frame(\cC)$ itself is strictly richer, and the gauge data
-($r\mapsto V_r$ for different ranks) live at the \emph{object level} of
-$\Frame(\cC)$, not in $\Aut(\cC)$.
-\end{itemize}
-
-\paragraph{Ghost theorem.} Toen 2007 Thm.~8.15 (the homotopy theory of
-dg categories): the simplicial localisation $L(\mathrm{dgCat})$ of dg
-categories along quasi-equivalences is a well-defined $(\infty,1)$-category,
-and for a fixed dg category $A$, the mapping space $\Map_{L}(A,A)$
-computes the full $(\infty,1)$-groupoid of self-Morita equivalences
-(equivalently, invertible $A\otimes A^{\mathrm{op}}$-modules), which is
-the two-fold delooping of $A^\times$ modulo inner automorphisms. Lurie
-HA 2017 §4.8.5 gives an independent $(\infty,1)$-operadic proof: the
-$\infty$-category of $E_1$-algebras admits a Morita-theoretic
-$(\infty,2)$-structure; framings are its objects, bimodules its
-1-morphisms, bimodule maps its 2-morphisms.
-
-\paragraph{Precise error.} Calling $\Frame(\cC)$ a 2-groupoid ignores the
-non-invertibility of Morita bimodules. The correct statement is:
-$\Frame(\cC)$ is an $(\infty,1)$-category (in the sense of Lurie) whose
-\emph{core} $\Frame(\cC)^\simeq$ is a 2-groupoid equivalent to $B\Aut(\cC)$.
-
-\paragraph{Heal 2.} State the correct ambient structure.
-
-\begin{theorem}[Framing $(\infty,1)$-category and its core;
-\ClaimStatusProvedHere (reformulation of Toen 2007 Thm.~8.15)]
-\label{thm:framing-infty1}
-For a compactly-generated stable $\infty$-category $\cC$, the collection
-$\Frame(\cC)$ of compact generators, with 1-morphisms the Morita bimodules
-and 2-morphisms the bimodule maps, is an $(\infty,1)$-category. Its
-$(\infty,1)$-core
+For a nilpotent Artinian cdga ideal \(\mathfrak m\), the formal
+Deligne gauge 2-groupoid is the two-truncation of the Maurer-Cartan
+simplicial set
 \[
-\Frame(\cC)^\simeq\simeq B\Aut_{(\infty,1)}(\cC)
+  \Del_P(\mathfrak m)
+  =
+  \tau_{\leq2}
+  \MC\!\left(
+    L_P\otimes\mathfrak m\otimes\Omega^\bullet(\Delta^\bullet)
+  \right).
 \]
-is the 2-groupoid of ambient autoequivalences. Two framings $V_1,V_2$ lie
-in the same connected component of $\Frame(\cC)^\simeq$ iff there exists
-a Morita equivalence $A_{V_1}\simeq A_{V_2}$, which happens iff $V_1,V_2$
-are related by an autoequivalence of $\cC$ applied to an object with the
-same endomorphism type.
-\end{theorem}
-
-\begin{corollary}[The claim in user's essay, healed]
-\label{cor:gauge-claim-healed}
-The precise form of the user's essay-claim is: \emph{the gauge datum
-$(X,\fg)$ is organised by $\Frame(\Perf(X))$, an $(\infty,1)$-category
-whose objects are compact generators $V\in\Perf(X)$ with
-$\fg=R\End^\bullet(V)_{\mathrm{Lie}}$.} The 2-groupoid of
-autoequivalences $\Aut(\Perf(X))$ appears as the core
-$\Frame^\simeq(\Perf(X))$, but it does not index framings; it indexes
-symmetries of the ambient category.
-\end{corollary}
-
-\begin{remark}[Why the distinction matters for hCS]
-Costello 2013 works with a concrete Lie algebra $\fg$, not with a
-category. The choice of $\fg=\fgl_r$ for varying $r$ is the choice of a
-framing; different $r$ give distinct hCS theories. These are
-\emph{distinct points} in $\Frame(\Perf(X))$, not distinct elements of
-$\Aut(\Perf(X))$. The framing structure is a \emph{constellation} of hCS
-theories indexed by $\Frame$, and $\Aut(\cC)$ acts on this constellation
-but does not index it.
-\end{remark}
-
-%=====================================================================
-\subsection*{Attack--heal cycle 3: external data versus internal framing --- they are the same, but only via tilting}
-%=====================================================================
-
-\paragraph{Attack 3.} The user's essay says ``external gauge $\fg$ IS
-internal framing data'' (per the scope directive). But this is only true
-under a hypothesis that needs stating. Costello 2013 takes $\fg$ as
-\emph{external} input --- a Lie algebra given abstractly, not as an
-endomorphism algebra in any category. One might think of $\fg=\fgl_r$
-abstractly, without mention of $\Perf(\C^3)$. Whether this external
-datum equals an ``internal framing'' requires a tilting hypothesis that
-compact generators exist with the right endomorphism dg algebra.
-
-\paragraph{Ghost theorem.} Bondal--Van den Bergh 2003 Thm.~3.1.1 plus
-Keller 2006 Thm.~4.3: every compactly-generated stable dg category is
-quasi-equivalent to $\Perf(A)$ for some dg algebra $A$, and $A$ is
-recoverable as $R\End^\bullet(V)$ for any compact generator $V$. Hence
-for \emph{any} dg algebra $A$ of finite type, the category $\Perf(A)$
-has a tautological framing with $\fg=A_{\mathrm{Lie}}$. The external =
-internal identification is automatic at the level of dg algebras.
-
-The caveat: when $A$ is a \emph{non-commutative}, \emph{non-affine}
-dg algebra (in the sense that the HKR-map
-$A\to\mathrm{HH}^\bullet(A)$ lacks a commutative presentation), the
-category $\Perf(A)$ may not be the category of coherent sheaves on any
-scheme $X$. Then ``gauge datum $A$ on a space $X$'' cannot be phrased as
-``$A$ is a framing of $\Perf(X)$'', because no such $X$ exists.
-(Koszulness is automatic for the standard families considered here ---
-$\mathrm{Mat}_r(\C[x,y,z])$, $\fg\otimes\cO_X$ with $\fg$ reductive,
-CoHAs of Nakajima quivers --- so Koszulness is not the obstruction; the
-obstruction is the failure of commutative presentation.)
-
-\paragraph{Precise error.} The equality ``external = internal'' requires
-a compatibility: the dg algebra $\fg$ must arise as
-$R\End^\bullet_{\Perf(X)}(V)$ for some compact generator $V\in\Perf(X)$.
-For $\fg=\fgl_r\otimes\C[x,y,z]$ and $X=\C^3$, this holds via
-$V=\cO_{\C^3}^{\oplus r}$. For abstract $\fg$ not of the form
-``matrices over a commutative ring'', the identification fails, and
-``gauge on $X$'' needs rephrasing.
-
-\paragraph{Heal 3.} State the precise scope of the external/internal
-identification.
-
-\begin{theorem}[External = internal, under tilting existence;
-\ClaimStatusSharpened]
-\label{thm:external-internal}
-Let $X$ be a smooth quasi-projective variety and let $\fg$ be a
-$\Z_{\ge 0}$-graded finite-type dg algebra over $\C$. There exists a
-compact generator $V\in\Perf(X)$ with $R\End^\bullet(V)=\fg$ if and
-only if:
-\begin{enumerate}[label=\textup{(T\arabic*)}]
-\item (\emph{Tilting bridge}) $\fg$ is derived Morita equivalent to a
-sheaf-of-algebras $\cA$ on $X$ in a way compatible with
-$\Perf(\cA)\simeq\Perf(X)$.
-\item (\emph{Compact generation}) $\cA$ is compactly generated as a
-sheaf of dg algebras.
-\end{enumerate}
-When (T1)--(T2) hold, the external gauge datum $\fg$ and the internal
-framing $V$ determine each other up to quasi-isomorphism, via
-$V=\cA$ (viewed as a right $\cA$-module of itself) and
-$\fg=R\End^\bullet(V)$.
-\end{theorem}
-
-\begin{remark}[{$X=\C^3, \fg=\fgl_r\otimes\C[x,y,z]$}]
-The conditions hold: take $\cA=\mathrm{Mat}_r(\cO_{\C^3})$, the sheaf of
-$r\times r$ matrices of functions; $\Perf(\cA)\simeq\Perf(\cO_{\C^3})=\Perf(\C^3)$
-(Morita equivalence on affine schemes); $V=\cA$ gives $\fg=\cA$. Both
-(T1) and (T2) are satisfied.
-\end{remark}
-
-\begin{remark}[$X=\C^3, \fg=\fsl_r$ (no polynomial dressing)]
-Here $\fg$ is a finite-dimensional Lie algebra with no $X$-dependence.
-The hCS theory of Costello 2013 takes $\fg=\fsl_r$ on $\C^3$; the
-corresponding tilting algebra would be $\cA=\fsl_r\otimes\cO_{\C^3}$ with
-$V=\fsl_r\otimes\cO_{\C^3}$ a framing. Here $\fg$ enters as
-\emph{coefficients}: $\fg=H^0(\C^3,\cA)=\fsl_r\otimes\C[x,y,z]$, i.e.\
-the \emph{coefficient Lie algebra over $\C^3$}, not an abstract
-$\fsl_r$. Costello's input is ``$\fg$ on $X$'' $=$ $\fg\otimes\cO_X$, and
-this is always a framing of $\Perf(X,\cA)$ where $\cA=\fg\otimes\cO_X$.
-\end{remark}
-
-\begin{remark}[Counterexample: non-tilting $\fg$]
-Take $\fg$ the Heisenberg Lie algebra $\mathfrak{heis}$. As an abstract
-Lie algebra this is fine, but $\mathfrak{heis}\otimes\cO_{\C^3}$ is not
-$\mathrm{Mat}_r$-tilting for any $X$ built from polynomial rings; its
-enveloping algebra $U(\mathfrak{heis})$ is the three-variable Weyl algebra
-$A_3$, which is \emph{not} quasi-isomorphic to functions on any scheme.
-Hence ``Heisenberg gauge on $\C^3$ in hCS'' is not a framing of
-$\Perf(\C^3)$; it lives in $\Perf(A_3)$, a different category.
-\end{remark}
-
-%=====================================================================
-\subsection*{Attack--heal cycle 4: the one-loop anomaly $\kanom\propto\AAg\,\chitop(X)$ --- what $\AAg$ is, and what the bare category sees}
-%=====================================================================
-
-\paragraph{Attack 4.} The claim ``$\kanom\propto\AAg\,\chitop(X)$'' is
-stated without definition of $\AAg$. In Costello 2013, $\AAg$ is the
-\emph{Anomaly polynomial coefficient} of the gauge Lie algebra,
-computed as a specific Chern--character pairing on the adjoint
-representation. The claim that ``the bare category cannot see $\AAg$''
-needs tightening: the bare category $\cC=\Perf(X)$ does see
-$\chitop(X)$ (via Euler characteristic of cohomology), and
-\emph{could} see $\AAg$ if the framing data were present. The claim is
-really that $\AAg$ is a framing-dependent invariant, not a bare-category
-invariant.
-
-\paragraph{Ghost theorem.} Costello 2013 \S4 (arXiv:1303.2632, eq.~(4.5))
-and Costello 2016 \S4, Costello--Gwilliam Vol.~II 2021 \S3--4: the
-one-loop BV determinant of hCS on $X$ with gauge $\fg$ is an element
+Its objects are elements \(a\in(L_P\otimes\mathfrak m)^1\) satisfying
 \[
-\log\det_\BV^{(1)}(\hCS_\fg(X))\in H^2(X,\cO_X)^\vee
+  \dbar_Pa+\frac12[a,a]=0.
 \]
-whose class is computed by the diagrammatic expansion of the BV Laplacian
-on one-loop graphs. For hCS on $\C^3$ or on a compact CY$_3$ the
-dominant term is
+The degree-zero part gives gauge 1-morphisms, and negative degrees in
+the test cdga give gauge 2-morphisms. The associated formal derived
+quotient stack at \(P\) is
 \[
-\kanom(X,\fg)=\frac{\hbar}{(2\pi i)^3}\int_X \mathrm{ch}_3(\fg)\wedge\mathrm{td}(X),
+  \cM^{0,1}_G(X)_P
+  =
+  [\,\MC(L_P)/\cG_P\,],
+  \qquad
+  \cG_P=\Gamma(X,\operatorname{Ad}P),
 \]
-where $\mathrm{ch}_3(\fg)=\tfrac{1}{6}\mathrm{tr}_{\fg}(F^3)$ is the
-degree-$3$ Chern character of the adjoint representation. For
-$\fg=\fgl_r$ acting on itself,
-$\mathrm{ch}_3(\fgl_r)=\tfrac{r}{6}\mathrm{tr}_{\mathrm{fund}}(F^3)-\tfrac{1}{2}\mathrm{tr}_{\mathrm{fund}}(F^2)\mathrm{tr}_{\mathrm{fund}}(F)$
-(Zumino 1984), and the anomaly coefficient is
+with tangent complex \(R\Gamma(X,\operatorname{ad}P)[1]\).
+\end{definition}
+
+\begin{definition}[BRST and BV packages]
+\label{def:brst-bv-packages}
+The BRST complex of the formal quotient in
+Definition~\ref{def:gauge-2groupoid-derived-stack} is the
+Chevalley-Eilenberg model for functions on the derived quotient,
 \[
-\AAg_{\fgl_r}=\tfrac{r}{6}-\tfrac{1}{2}(\text{mixed terms}).
+  C^\bullet_{\mathrm{BRST}}(X,P)
+  =
+  \CE^\bullet\!\left(
+    L_P,
+    \cO(\MC(L_P))
+  \right),
 \]
-For compact $X$, $\kanom\propto\AAg\chitop(X)$ is \emph{the simplified
-form when $X$ is quasi-K\"ahler and only the $\mathrm{td}_3$ piece
-contributes}; in general it is the full integral above.
-
-\paragraph{Precise error.} ``$\kanom\propto\AAg\chitop(X)$'' is true
-when $X$ is quasi-K\"ahler CY with $\mathrm{td}_3=\chitop(X)/24$-like
-factor, i.e.\ when the Hirzebruch--Riemann--Roch specialises to a scalar
-multiple of $\chitop$. For general $X$, the formula is
-$\kanom(X,\fg)=\int_X\mathrm{ch}_3(\fg)\wedge\mathrm{td}(X)$, and different
-$\fg$ contribute differently. ``The bare category cannot see $\AAg$'' is
-correct in the sense that $\cC=\Perf(X)$ does not distinguish
-$\fg=\fgl_r$ from $\fg=\fgl_{r'}$ (both give Morita-equivalent
-$\mathrm{Mat}_r$ vs $\mathrm{Mat}_{r'}$ framings), but the
-\emph{framing} $V_r$ does see $r$ via its endomorphism algebra, and
-hence via $\AAg=r/6+\dots$.
-
-\paragraph{Heal 4.} Separate the bare-category invariants from the
-framing-dependent invariants.
-
-\begin{theorem}[Invariant tower across the framing functor; \ClaimStatusSharpened]
-\label{thm:invariant-tower}
-For a smooth quasi-projective $X$ and a framing $V\in\Perf(X)$ with
-$A_V=R\End^\bullet(V)$, the following tower of invariants is attached:
+with differential given by \(\dbar_P\), the gauge action, and
+contraction with the Maurer-Cartan equation. The BV field theory is the
+shifted cotangent theory
 \[
-\begin{array}{ll}
-\text{Bare category } \cC=\Perf(X): & \chitop(X),\ \mathrm{HH}^\bullet(\cC)=\mathrm{HH}^\bullet(X),\\[2pt]
-\text{Endomorphism algebra } A_V: & \dim A_V,\ \mathrm{HH}^\bullet(A_V),\\[2pt]
-\text{Framing Lie algebra } \fg=A_{V,\mathrm{Lie}}: & \rk\fg,\ \dim\fg,\ \AAg=\mathrm{ch}_3(\fg),\\[2pt]
-\text{hCS theory } \hCS_\fg(X): & \kanom(X,\fg)=\int_X\mathrm{ch}_3(\fg)\cdot\mathrm{td}(X).
+  T^\ast[-1]\cM^{0,1}_G(X)_P,
+\]
+represented by
+\[
+  L_P[1]\oplus L_P^\vee[-2]
+  \simeq
+  \Omega^{0,\bullet}(X,\operatorname{ad}P)[1]
+  \oplus
+  \Omega^{0,3-\bullet}_c(X,\operatorname{ad}P)^\vee[-2],
+\]
+where the last identification uses the CY$_3$ volume form and the trace
+pairing. A quantum hCS theory is a Costello quantisation of this BV
+theory. A chiral centre is a further construction applied to a chiral
+algebra or its representation category.
+\end{definition}
+
+\begin{definition}[Oriented and framed CY category]
+\label{def:framed-cy-category}
+An oriented CY$_3$ dg category is a smooth proper \(\C\)-linear
+pretriangulated dg category \(\cC\) with a negative cyclic Calabi-Yau
+class \(\eta\in HC^-_3(\cC)\) whose Hochschild image identifies the
+inverse dualising bimodule with \(\cC[-3]\). A brane framing of
+\((\cC,\eta)\) is a perfect object \(\cE\in\cC\). It determines the
+\(\Eone\)-algebra
+\[
+  A_{\cE}
+  =
+  \REnd_{\cC}(\cE)
+  =
+  \RHom_{\cC}(\cE,\cE)
+\]
+and its commutator dg Lie algebra \(A_{\cE}^{\operatorname{Lie}}\).
+A Morita presentation framing is a compact generator \(V\in\cC\);
+then \(A_V=\REnd_{\cC}(V)\) and \(\Perf(A_V)\simeq\cC\).
+\end{definition}
+
+\begin{proposition}[Typed layers]
+\label{prop:typed-layers}
+For a geometric framed input \((X,\Omega_X,P,\rho,\cE)\), the following
+objects have different definitions and functorial behaviour:
+\[
+\begin{array}{c|c|c}
+\text{layer} & \text{object} & \text{role}\\
+\hline
+\text{external hCS coefficient} & (\fg,\rho,\Tr_\rho) & \text{finite colour input}\\
+\text{Deligne data} & \Del_P & \text{formal gauge 2-groupoid}\\
+\text{gauge stack} & \cM^{0,1}_G(X)_P & \text{derived quotient}\\
+\text{BRST functions} & C^\bullet_{\mathrm{BRST}}(X,P) & \text{functions on the quotient}\\
+\text{BV fields} & T^\ast[-1]\cM^{0,1}_G(X)_P & \text{field-antifield theory}\\
+\text{framed endomorphisms} & \REnd_{\cC}(\cE) & \text{brane endomorphism algebra}\\
+\text{Hochschild polyvectors} & \HH^\bullet(\cC) & \text{intrinsic CY deformation complex}\\
 \end{array}
 \]
-The bare category sees $\chitop$ and $\mathrm{HH}^\bullet(X)$ but not
-$\AAg$. The framing sees $\AAg$. The hCS theory sees the full integral
-$\kanom$. Different framings of the same bare category produce the
-\emph{same} $\chitop$ but \emph{different} $\AAg$, hence different
-$\kanom$.
-\end{theorem}
+For \(\cC=\Perf(X)\) and \(\cE=E\) a vector bundle, the Dolbeault model is
+\[
+  \REnd_{\Perf(X)}(E)
+  \simeq
+  \Omega^{0,\bullet}(X,\End E),
+  \qquad d=\dbar_E .
+\]
+If \(E=\cO_X^{\oplus r}\) on a trivialising chart, this becomes
+\[
+  \Omega^{0,\bullet}(X)\otimes\operatorname{Mat}_r(\C),
+\]
+whose fibre coefficient is \(\fgl_r\). The recovery of \(\fgl_r\)
+therefore uses the framed geometric object \(E\) and the trivialisation.
+The unframed oriented category \((\cC,\eta)\) supplies
+\(\HH^\bullet(\cC)\), the derived centre, and categorical symmetries.
+\end{proposition}
 
-\begin{proof}[Proof sketch]
-The bare category-level is Hochschild cohomology; by Keller 2006 Thm.~4.3
-$\mathrm{HH}^\bullet(\cC)=\mathrm{HH}^\bullet(A_V)$ is
-Morita-invariant, so two framings $V_1,V_2$ give the same
-$\mathrm{HH}^\bullet$ but potentially different $A_V$ up to Morita. Under
-Morita equivalence $\mathrm{ch}$ is preserved up to scale on trace, but
-the \emph{adjoint} Chern character $\mathrm{ch}_3(\fg_{\mathrm{ad}})$ is
-not Morita-invariant: for $A_1=\C$, $\fg_1=\fgl_1$, $\mathrm{ch}_3=0$;
-for $A_2=\mathrm{Mat}_r$, $\fg_2=\fgl_r$, $\mathrm{ch}_3\ne 0$ at
-$r\ge 2$. Though $A_1,A_2$ are Morita-equivalent (when thought of as
-bimodule categories), $\mathrm{ch}_3$ of the adjoint distinguishes them.
-Hence the Morita-invariant chain $\cC\to\mathrm{HH}^\bullet$ loses
-the gauge-anomaly information.
+\begin{proof}
+The first row is the finite colour datum in the hCS action. The next
+four rows are Definitions~\ref{def:gauge-2groupoid-derived-stack}
+and~\ref{def:brst-bv-packages}: the Deligne object remembers formal
+gauge homotopies, the stack is the derived quotient, the BRST complex
+models functions on that quotient, and the BV theory is the shifted
+cotangent field theory. The framed endomorphism row is the algebra of
+the selected brane object. The Hochschild row is the Morita-invariant
+object
+\[
+  \HH^\bullet(\cC)
+  =
+  \REnd_{\cC\otimes\cC^{\mathrm{op}}}(\cC),
+\]
+which for \(\Perf(X)\) is identified by HKR with polyvectors, with the
+usual Todd correction in global comparisons:
+\[
+  \HH^\bullet(\Perf(X))
+  \simeq
+  \bigoplus_{p,q}H^q(X,\wedge^pT_X).
+\]
+The CY volume form and trace pairing identify the cotangent term in the
+BV row with the displayed antifield complex. These constructions use
+different universal properties.
 \end{proof}
 
-\begin{remark}[What ``Morita equivalent but not isomorphic'' means for
-$\AAg$]
-$A_r=\mathrm{Mat}_r(\C[x,y,z])$ are all pairwise Morita-equivalent
-(the categories of left modules are the same up to equivalence). Yet
-$\AAg(\fgl_r\otimes\C[x,y,z])=r/6\cdot[\C^3]$ grows linearly in $r$.
-The anomaly lives in the \emph{framing-level} data, not the
-Morita-equivalence class. This is the precise sense in which
-``the bare category cannot see $\AAg$''.
-\end{remark}
+\section{Symmetries, Framings, and Morita Presentations}
+\label{sec:symmetries-framings-morita}
 
-%=====================================================================
-\subsection*{Attack--heal cycle 5: worked example $X=\C^3$, framings $V_r=\cO^{\oplus r}$; BV determinant distinguishes $r$}
-%=====================================================================
-
-\paragraph{Attack 5.} The healed statements of Cycles~1--4 must be
-substantiated in a concrete example. Take $X=\C^3$, $V_r=\cO_{\C^3}^{\oplus r}$,
-$\fg_r=\fgl_r\otimes\C[x,y,z]$. Verify from first principles:
-(i)~all $V_r$ are compact generators of the same category;
-(ii)~their endomorphism dg algebras are non-isomorphic but Morita;
-(iii)~$\AAg_{\fgl_r}$ grows with $r$;
-(iv)~Costello's one-loop BV determinant $\log\det^{(1)}_\BV(\hCS_{\fgl_r}(\C^3))$
-grows with $r$, hence distinguishes framings;
-(v)~no autoequivalence of $\Perf(\C^3)$ can turn $V_r$ into $V_{r'}$
-for $r\ne r'$.
-
-\paragraph{Step (i): compact generation.} $\cO_{\C^3}$ is a compact
-generator of $\Perf(\C^3)=D^b\Coh(\C^3)$: compactness by
-finite-presentation ($\cO=\C[x,y,z]/0$), generation by Bondal--Van den
-Bergh Thm.~3.1.4 (any $T\in\Perf$ admits a resolution by $\cO^{\oplus n}$).
-Direct sums and summands of compact generators are compact generators;
-hence $V_r=\cO^{\oplus r}$ is a compact generator for all $r\ge 1$.
-
-\paragraph{Step (ii): endomorphism dg algebras.}
-$R\End^\bullet_{\Perf(\C^3)}(\cO^{\oplus r})=R\End(\cO)^{r\times r}
-=\C[x,y,z]^{r\times r}=\mathrm{Mat}_r(\C[x,y,z])$, concentrated in
-cohomological degree~$0$. The dg algebras $A_r=\mathrm{Mat}_r(\C[x,y,z])$
-for $r=1,2,3,\dots$ are pairwise \emph{not isomorphic as dg algebras}:
-$A_r$ has $r^2$-dimensional degree-$0$ fibre at the origin while $A_{r'}$
-has $(r')^2$-dimensional degree-$0$ fibre; these are different vector
-space dimensions. However, $A_r$ and $A_{r'}$ are \emph{Morita equivalent}:
-$A_r\otimes_\C\mathrm{Mat}_{r'}(\C)\simeq A_{r\cdot r'}$ exhibits each as a
-matrix-algebra extension of the other.
-
-\paragraph{Step (iii): adjoint Chern character.} For $\fgl_r$ acting on
-itself by the adjoint, the degree-$3$ Chern character is
+\begin{definition}[Aut-equivalence space]
+\label{def:aut-infty}
+The categorical symmetry of a dg category \(\cC\) is the mapping space
 \[
-\mathrm{ch}_3(\fgl_r,\mathrm{ad})=\tfrac{1}{6}\mathrm{tr}_{\mathrm{ad}}(F^3).
+  \Aut_\infty(\cC)
+  =
+  \Map_{\mathrm{dgCat}_\C}(\cC,\cC)^\simeq .
 \]
-Writing $F=F^a t_a$ with $t_a\in\fgl_r$ in the fundamental and using
-$\mathrm{tr}_{\mathrm{ad}}(t_a t_b t_c)=(r-0)\mathrm{tr}_{\mathrm{fund}}(t_a t_b t_c)
-+\text{mixed}$ (using $\mathrm{ad}_{\fgl_r}=\mathrm{fund}\otimes\mathrm{fund}^*
--\delta$ on trace-shifted part), one obtains the leading Zumino formula
+Its \(\pi_0\) is the ordinary group of exact dg autoequivalences. Its
+loop space at the identity is the unit space of the derived centre.
+\end{definition}
+
+\begin{definition}[Framed object groupoid and Morita presentation groupoid]
+\label{def:two-framing-groupoids}
+Let \(\Fr(\cC)\) be the groupoid of perfect objects of \(\cC\), with
+isomorphisms in the maximal subgroupoid of \(\cC\). Let
+\(\Mor_{\mathrm{gen}}(\cC)\) be the bicategory whose objects are compact
+generators \(V\), whose 1-morphisms from \(V\) to \(W\) are perfect
+\(A_W\)-\(A_V\) bimodules implementing Morita equivalences, and whose
+2-morphisms are bimodule equivalences.
+\end{definition}
+
+\begin{proposition}[Exact functors between categorical inputs]
+\label{prop:exact-functors}
+There are canonical functors
 \[
-\mathrm{ch}_3(\fgl_r,\mathrm{ad})=\frac{r}{6}\mathrm{tr}_{\mathrm{fund}}(F^3)-\frac{1}{2}\mathrm{tr}_{\mathrm{fund}}(F^2)\mathrm{tr}_{\mathrm{fund}}(F).
+  \Aut_\infty(\cC)\times\Fr(\cC)
+  \longrightarrow
+  \Fr(\cC),
+  \qquad
+  (F,\cE)\longmapsto F(\cE),
 \]
-In particular, at $r=1$: $\mathrm{tr}_{\mathrm{fund}}(F)=F$ (scalar),
-$\mathrm{tr}_{\mathrm{fund}}(F^3)=F^3$, and the two pieces cancel in
-the $\chitop$-pairing, giving $\AAg_{\fgl_1}=0$. At $r\ge 2$, $\AAg$ is
-non-zero and distinguishes $r$.
-
-\paragraph{Step (iv): Costello's one-loop BV determinant.}
-For $X=\C^3$ non-compact, the one-loop anomaly is computed via the
-residue at $\infty$ (Costello 2013 \S4). On a compactification
-$\overline X$ of $\C^3$ (e.g.\ $\overline X=\mathbb P^3$), the integral
 \[
-\log\det^{(1)}_\BV(\hCS_{\fg_r}(\overline X))
-=\int_{\overline X}\mathrm{ch}_3(\fg_r)\wedge\mathrm{td}(\overline X)
+  \Fr(\cC)
+  \longrightarrow
+  \Eone\operatorname{-Alg},
+  \qquad
+  \cE\longmapsto\REnd_{\cC}(\cE),
 \]
-evaluates to a non-zero multiple of $r/6\cdot\chitop(\overline X)$ on
-the adjoint-Chern-character term, plus the Zumino mixed term. Since
-$\chitop(\mathbb P^3)=4$, the dominant piece is $(2/3)r$, growing with
-$r$. Different $r$ give different BV determinants; the hCS theories are
-genuinely distinct.
+and
+\[
+  \Eone\operatorname{-Alg}
+  \longrightarrow
+  \operatorname{dgLie},
+  \qquad
+  A\longmapsto A^{\operatorname{Lie}} .
+\]
+The Morita presentation groupoid carries a separate functor
+\[
+  \Mor_{\mathrm{gen}}(\cC)
+  \longrightarrow
+  \operatorname{Cat}^{\mathrm{Mor}},
+  \qquad
+  V\longmapsto \Perf(\REnd_{\cC}(V)).
+\]
+The finite hCS coefficient \(\fg\) is obtained from a geometric
+trivialisation of \(A_{\cE}^{\operatorname{Lie}}\) or supplied as an
+external coefficient in Definition~\ref{def:hcs-coefficient}. It is a
+finite-dimensional Lie algebra, while \(\Aut_\infty(\cC)\) is an
+\(\infty\)-group and \(\Mor_{\mathrm{gen}}(\cC)\) is a Morita
+bicategory of presentations.
+\end{proposition}
 
-\paragraph{Step (v): no autoequivalence turns $V_r$ into $V_{r'}$.}
-If $\phi\in\Aut(\Perf(\C^3))$, then $\phi(V_r)$ has endomorphism algebra
-$R\End(\phi(V_r))\simeq\phi_*R\End(V_r)\simeq R\End(V_r)$ as dg algebras
-(up to quasi-isomorphism induced by $\phi$). So $\phi(V_r)$ has the same
-endomorphism algebra as $V_r$ up to isomorphism, which means
-$\mathrm{Mat}_r(\C[x,y,z])$. This cannot equal $\mathrm{Mat}_{r'}(\C[x,y,z])$
-for $r'\ne r$ (different degree-$0$ fibre dimensions). Therefore no
-autoequivalence $\phi$ satisfies $\phi(V_r)\simeq V_{r'}$. The framings
-$V_r$ for distinct $r$ are in distinct connected components of
-$\Frame(\Perf(\C^3))$ that are \emph{not} related by $\Aut$-action;
-they are related by Morita equivalence only at the level of categories
-of modules, not at the level of generators.
+\begin{proof}
+The first functor is the action of self-equivalences on objects. The
+second is functorial because an isomorphism \(\cE\simeq\cF\) conjugates
+endomorphism algebras. The third is the commutator construction on
+\(\Eone\)-algebras. The fourth is Bondal-Van den Bergh and Keller
+derived Morita theory: a compact generator \(V\) presents \(\cC\) as
+\(\Perf(A_V)\), and an invertible bimodule gives the Morita equivalence
+between two such presentations. These functors have distinct codomains,
+which separates gauge coefficients, framed objects, Morita
+presentations, and autoequivalences.
+\end{proof}
 
-\paragraph{Heal 5.} Inscribe the worked example as a theorem.
-
-\begin{theorem}[$\C^3$ framings by rank; \ClaimStatusProvedHere]
-\label{thm:C3-framings-rank}
-Let $X=\C^3$, $\cC=\Perf(\C^3)$, and $V_r=\cO_{\C^3}^{\oplus r}$ for
-$r\in\Z_{\ge 1}$. Then:
+\begin{theorem}[Rank framings on \(\C^3\)]
+\label{thm:c3-rank-framings}
+Let \(X=\C^3\), \(R=\C[x,y,z]\), \(\cC=\Perf(R)\), and
+\(V_r=\cO_X^{\oplus r}\) for \(r\geq1\). Then:
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item Each $V_r$ is a compact generator of $\cC$, exhibiting the framing
-$\cC\simeq\Perf(\mathrm{Mat}_r(\C[x,y,z]))$.
-\item The endomorphism dg algebras $A_r=\mathrm{Mat}_r(\C[x,y,z])$ are
-pairwise non-isomorphic but pairwise Morita-equivalent.
-\item The framing Lie algebras $\fg_r=\fgl_r\otimes\C[x,y,z]$ are
-pairwise non-isomorphic as Lie algebras.
-\item The adjoint-Chern-character $\AAg_{\fgl_r}=\mathrm{ch}_3(\fgl_r,\mathrm{ad})$
-is non-zero for $r\ge 2$ and grows with $r$.
-\item Costello's one-loop BV determinant $\log\det^{(1)}_\BV(\hCS_{\fg_r}(\C^3))$
-(computed on a compactification) grows linearly in $r$ in its leading
-anomaly term, hence distinguishes the hCS theories.
-\item No autoequivalence $\phi\in\Aut(\cC)$ satisfies
-$\phi(V_r)\simeq V_{r'}$ for $r\ne r'$; the framings are in distinct
-connected components of $\Frame(\cC)$ not linked by $\Aut$-action.
+\item \(V_r\) is a compact generator of \(\cC\).
+\item \(\REnd_{\cC}(V_r)=\operatorname{Mat}_r(R)\), concentrated in
+cohomological degree zero.
+\item The associated current Lie algebra is
+\[
+  \operatorname{Mat}_r(R)^{\operatorname{Lie}}
+  =
+  \fgl_r\otimes R .
+\]
+\item The fibre coefficient of the trivial hCS bundle is \(\fgl_r\),
+and the local hCS field complex is
+\[
+  \Omega^{0,\bullet}(\C^3)\otimes\fgl_r[1].
+\]
+\item \(V_r\) and \(V_s\) lie in the same \(\Aut_\infty(\cC)\)-orbit
+exactly when \(r=s\).
+\item The algebras \(\operatorname{Mat}_r(R)\) and
+\(\operatorname{Mat}_s(R)\) are Morita equivalent for all \(r,s\geq1\).
 \end{enumerate}
-Consequently the gauge datum $\fg_r$ is parametrised by a point of
-$\Frame(\cC)\setminus\Frame(\cC)^\simeq$, \emph{not} by an element of
-$\Aut(\cC)$.
 \end{theorem}
 
 \begin{proof}
-(i) Compact generation and framing dg algebra: Steps~(i)--(ii) above.
-(ii) Non-isomorphism: degree-$0$ fibre dimensions at the origin are
-$r^2\ne(r')^2$. Morita equivalence: $(A_r)\otimes\mathrm{Mat}_{r'}=(A_{r\cdot r'})
-\otimes\mathrm{Mat}_1=A_{r r'}$ on the nose.
-(iii) Non-isomorphism of Lie algebras: $\dim_{\C[x,y,z]}\fg_r=r^2\ne(r')^2$.
-(iv) Zumino formula: Step~(iii) above.
-(v) BV determinant: Step~(iv) above, plus Costello 2013 Thm.~4.1.
-(vi) Autoequivalence obstruction: Step~(v) above.
+The object \(\cO_X\) generates \(\Perf(R)\) because \(R\) is affine and
+regular; finite direct sums of a compact generator remain compact
+generators. The endomorphism computation is the usual matrix
+calculation over \(R\). The derived Picard description for affine
+space gives
+\[
+  \operatorname{DPic}(R)
+  \simeq
+  \Aut(R)\ltimes\Z,
+\]
+so an autoequivalence sends \(R^{\oplus r}\) to
+\({}_{\varphi}R^{\oplus r}[n]\). If this object is isomorphic to
+\(R^{\oplus s}\), then \(n=0\) and comparison after tensoring with
+\(R/(x,y,z)\) gives \(r=s\). Equivalently, an autoequivalence preserves
+endomorphism dg algebras up to quasi-isomorphism:
+\[
+  \REnd_{\cC}(F(V_r))\simeq \REnd_{\cC}(V_r).
+\]
+The fibre at the origin of \(\operatorname{Mat}_r(R)\) has dimension
+\(r^2\), so it is isomorphic to the fibre of
+\(\operatorname{Mat}_s(R)\) exactly when \(r=s\). Morita equivalence of
+matrix algebras over a fixed ring is implemented by the standard
+rectangular bimodules.
 \end{proof}
 
-\begin{corollary}[User's essay-claim, precise form]
-\label{cor:users-essay-precise}
-The essay-claim
-\begin{quote}\emph{``Different $\fg$ on the same $X$ give different hCS
-theories, different factorisation algebras, different BV determinants,
-different one-loop anomalies; the gauge group lives in the 2-groupoid
-of autoequivalences''}\end{quote}
-is made precise by the substitution
+\section{Quantum hCS and the Anomaly Slot}
+\label{sec:quantum-hcs-anomaly-slot}
+
+\begin{definition}[Quartic invariant]
+\label{def:quartic-invariant}
+For a representation \(\rho:\fg\to\End(W)\), define
 \[
-\boxed{\ \text{``the 2-groupoid of autoequivalences'' }\leadsto\
-\text{``the $(\infty,1)$-category of framings'' }\ }
+  I_4^\rho(x_1,x_2,x_3,x_4)
+  =
+  \frac1{4!}\sum_{\sigma\in S_4}
+  \Tr_W\!\left(
+    \rho(x_{\sigma(1)})\rho(x_{\sigma(2)})
+    \rho(x_{\sigma(3)})\rho(x_{\sigma(4)})
+  \right).
 \]
-viz., by Theorem~\ref{thm:framing-infty1}, the gauge datum
-$(X,\fg)$ is indexed by a compact generator $V\in\Perf(X)$ with
-$\fg=R\End^\bullet(V)_{\mathrm{Lie}}$, i.e.\ by an object of
-$\Frame(\Perf(X))$. The core $\Frame(\Perf(X))^\simeq\simeq B\Aut(\Perf(X))$
-is the 2-groupoid of autoequivalences, but this 2-groupoid \emph{does
-not} index the gauge data; it acts on framings. Framings in distinct
-connected components of $\Frame(\Perf(X))$ (e.g.\ $V_r$ for different
-$r$) are not related by $\Aut$ and yield genuinely distinct hCS theories,
-with BV determinants separated by Theorem~\ref{thm:invariant-tower}.
-\end{corollary}
+Then \(I_4^\rho\in\Sym^4(\fg^\vee)^\fg\).
+\end{definition}
 
-%=====================================================================
-\subsection*{Synthesis: the healed formulation}
-%=====================================================================
-
-The precise, healed statement of the essay-claim, CG-voiced:
-
-\begin{theorem}[Framing-indexed hCS; \ClaimStatusProvedHere, healed form
-of user's essay]
-\label{thm:framing-indexed-hCS}
-Let $X$ be a smooth CY three-fold (toric or compact) and $\cC=\Perf(X)$
-its bounded derived category of perfect complexes. Fix a framing
-$V\in\cC$ (compact generator). The tilting algebra
-$A_V=R\End^\bullet_\cC(V)$ is a dg algebra, and its associated Lie
-algebra $\fg_V=A_{V,\mathrm{Lie}}$ is the gauge input to the Costello
-holomorphic Chern--Simons theory $\hCS_{\fg_V}(X)$.
-
-\begin{itemize}
-\item[\textup{(1)}] \emph{Framing constellation.} The totality of
-framings $V$ forms an $(\infty,1)$-category $\Frame(\cC)$, with
-1-morphisms the Morita bimodules and 2-morphisms the bimodule maps.
-Its core $\Frame(\cC)^\simeq=B\Aut(\cC)$ is the 2-groupoid of ambient
-autoequivalences.
-\item[\textup{(2)}] \emph{Invariant tower.} Bare-category invariants
-($\chitop(X)$, $\mathrm{HH}^\bullet(\cC)$) are Morita-invariant; framing
-invariants ($\rk\fg_V,\ \AAg_{\fg_V}=\mathrm{ch}_3(\fg_V,\mathrm{ad})$)
-are not. The adjoint-Chern-character is the obstruction to
-bare-category invariance of the gauge data.
-\item[\textup{(3)}] \emph{One-loop BV anomaly.} The one-loop BV
-determinant of $\hCS_{\fg_V}(X)$ is
+\begin{proposition}[One-loop QME obstruction]
+\label{prop:qme-obstruction}
+In complex dimension three, the nonabelian one-loop hCS obstruction is
+represented locally by
 \[
-\log\det^{(1)}_\BV(\hCS_{\fg_V}(X))=\int_X\mathrm{ch}_3(\fg_V,\mathrm{ad})\wedge\mathrm{td}(X),
+  \Theta^\rho_U(\alpha_0,\alpha_1,\alpha_2,\alpha_3)
+  =
+  \int_U
+  \left[
+  I_4^\rho\bigl(
+    \alpha_0,\partial\alpha_1,\partial\alpha_2,\partial\alpha_3
+  \bigr)
+  \right]_{(3,3)},
+  \qquad
+  \alpha_i\in\Omega^{0,\bullet}_c(U,\fg).
 \]
-which specialises on compact CY$_3$ to $\kanom(X,\fg_V)\propto\AAg(\fg_V)\chitop(X)$
-(simplified form). This distinguishes framings in different connected
-components of $\Frame(\cC)$.
-\item[\textup{(4)}] \emph{Example $X=\C^3$.} Framings $V_r=\cO^{\oplus r}$
-lie in pairwise-distinct $\Frame$-components not linked by $\Aut$; the
-associated hCS theories $\hCS_{\fgl_r\otimes\C[x,y,z]}(\C^3)$ are
-genuinely distinct.
-\end{itemize}
-The claim ``$\fg$ lives in $\Aut(\cC)$'' is false as literally stated;
-the correct statement is ``$\fg$ is a framing in $\Frame(\cC)$, with
-$\Aut(\cC)=\Frame(\cC)^\simeq$ acting but not indexing''.
+Its obstruction class is
+\[
+  \kanom(X,\fg,\rho)
+  =
+  [\,\hbar\,\Theta^\rho\,]
+  \in
+  H^1_{\mathrm{loc}}
+  \bigl(\Omega^{0,\bullet}(X,\fg)[1],\cO_{\mathrm{loc}}\bigr).
+\]
+For \(\rho=\operatorname{ad}\), the corresponding descent expression is
+\[
+  \int_X \Tr_{\operatorname{ad}}(c\,F_A^3).
+\]
+\end{proposition}
+
+\begin{proof}
+The open one-loop anomaly graph is the wheel with four external gauge
+insertions. Its colour factor is the symmetrised trace of four
+representation matrices, which is \(I_4^\rho\). The holomorphic form
+factor contributes three \(\partial\)-derivatives; in complex dimension
+three this produces a holomorphic top density. Projection to bidegree
+\((3,3)\) gives a degree-one local functional. Costello's obstruction
+theory identifies this class as the first obstruction to solving the
+scale-\(L\) QME.
+\end{proof}
+
+\begin{definition}[Degree-two colour contraction]
+\label{def:degree-two-colour}
+Let \(\{T_a\}\) be a basis of \(\fg\) and \(\{T^a\}\) the dual basis
+for the chosen invariant pairing. The degree-two colour contraction in
+the representation \(\rho\) is
+\[
+  C_2^\rho=\sum_a \rho(T_a)\rho(T^a).
+\]
+For a simple Lie algebra in the adjoint normalisation,
+\[
+  C_2^{\operatorname{ad}}=2h^\vee .
+\]
+\end{definition}
+
+\begin{proposition}[Two-point counterterm]
+\label{prop:c2-counterterm}
+The two-point graph contributes a degree-zero kinetic counterterm of
+the following trace-channel form:
+\[
+  S_{\mathrm{ct}}^{(2)}
+  =
+  -\hbar\,\lambda_\rho(L,\varepsilon)
+  \int_X\Omega_X\wedge\Tr_\rho(A\,\dbar A),
+\]
+where \(\lambda_\rho(L,\varepsilon)\) is the heat-kernel scalar obtained
+from the contraction \(C_2^\rho\) after the chosen pairing and regulator
+are fixed. Thus \(C_2^\rho\) belongs to the field-strength
+renormalisation slot, while
+\(\kanom(X,\fg,\rho)\) is governed by \(I_4^\rho\).
+\end{proposition}
+
+\begin{proof}
+Closing two legs in the cubic hCS vertex contracts the colour indices
+as \(\sum_a\rho(T_a)\rho(T^a)\). The remaining two fields have the
+tensor type of the kinetic functional. The cohomological degree is zero.
+The QME obstruction of Proposition~\ref{prop:qme-obstruction} has
+degree one and four external gauge insertions.
+\end{proof}
+
+\begin{hypothesis}[Compact nonabelian hCS package]
+\label{hyp:compact-hcs-package}
+A compact nonabelian hCS quantisation theorem on a CY$_3$ target
+requires:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item a compact Calabi-Yau threefold \((X,\Omega_X)\) with orientation
+and determinant-line framing compatible with the BV pairing;
+\item a quadratic gauge Lie algebra or dg Lie algebra
+\((\fg,\langle-,-\rangle)\) and a trace representation \(\rho\) fixing
+\(I_4^\rho\) and \(C_2^\rho\);
+\item a Costello gauge fixing, heat-kernel regulator, propagators, and
+RG-compatible counterterms;
+\item completed local functionals and observables on which
+\(\Delta_L\), \(\{-,-\}_L\), and RG flow are defined;
+\item a solution of the scale-\(L\) QME;
+\item a vanishing or explicit trivialisation of
+\(\kanom(X,\fg,\rho)\) in the local BV obstruction complex;
+\item factorisation descent over \(X\), sewing data for global traces
+or partition functions, and compatibility of all counterterms with the
+chosen completion.
+\end{enumerate}
+\end{hypothesis}
+
+\begin{theorem}[Conditional compact hCS observables]
+\label{thm:conditional-compact-hcs}
+Assume Hypothesis~\ref{hyp:compact-hcs-package}. If the obstruction
+class \(\kanom(X,\fg,\rho)\) is trivial after the specified local and
+closed-sector counterterms are included, then the effective
+interactions can be chosen to solve the QME through one loop. Under the
+analogous higher-loop obstruction trivialisation hypotheses, the
+completed observables form a quantum factorisation algebra on \(X\).
+A surviving obstruction class is exactly the failure of the QME for the
+specified field content and regulator.
 \end{theorem}
 
-\begin{corollary}[The CY-to-chiral functor sees framings, not only
-$\cC$; \ClaimStatusSharpened]
-\label{cor:phi-sees-framings}
-In the notation of the manuscript main.tex, the CY-to-chiral functor
+\begin{proof}
+Costello's renormalisation theorem solves the QME inductively in powers
+of \(\hbar\). At the first quantum step the obstruction is the
+degree-one local class represented by \(\Theta^\rho\). Triviality gives
+the first quantum correction. The same induction handles higher loops
+inside the completed local functional complex. A surviving class means
+the inductive equation has no solution at that order.
+\end{proof}
+
+\begin{remark}[Characteristic shadows]
+\label{rem:characteristic-shadows}
+The expression \(A(\fg)\chi_{\mathrm{top}}(X)\) is a numerical shadow
+defined after a separate index calculation, trace normalisation, and
+descent representative have been fixed. The local QME obstruction
+class is \([\,\hbar\Theta^\rho\,]\), controlled by the quartic invariant
+\(I_4^\rho\). For \(K3\times E\),
 \[
-\Phi:\mathrm{CY}\text{-cat}_d\longrightarrow\mathrm{ChirAlg}
+  \chi_{\mathrm{top}}(K3\times E)=24\cdot0=0,
 \]
-is not a functor of bare categories: its input is a \emph{framed CY
-category} $(\cC,V)$, not just $\cC$. Different framings of the same
-$\cC$ produce different chiral outputs, even at fixed $d$ and fixed $X$.
-This resolves the apparent tension between
-\begin{itemize}
-\item[$\bullet$] ``$\Phi$ is a functor on CY categories'' (which is
-true at the level of cores $\Frame^\simeq$, i.e.\ autoequivalences
-permute framings), and
-\item[$\bullet$] ``$\Phi$ output depends on $\fg$'' (which is true at
-the level of framings themselves).
-\end{itemize}
-The correct domain for $\Phi$ is $\Frame(\mathrm{CY}\text{-cat}_d)$, the
-$(\infty,1)$-category of framed CY categories. When the manuscript
-writes $\Phi(X)$ without specifying a framing, the convention is
-$V=\cO_X$ (trivial framing, giving $\fg_V=$ Hochschild Lie algebra of
-functions on $X$).
-\end{corollary}
-
-\begin{remark}[Connection to AP-CY scope patterns]
-Corollary~\ref{cor:phi-sees-framings} is the $\Frame$-level strengthening
-of AP-CY discipline: Pattern~273 (``$\Phi$ functor vs object-level
-correspondence'') in the CLAUDE.md is the \emph{object-level} (framing)
-form; the functorial form lives on cores, i.e.\ on autoequivalences.
-Neither is a hierarchy; they are two distinct statements about two
-distinct $(\infty,1)$-categorical structures.
+and this topological vanishing leaves the quartic gauge class dependent
+on \((\fg,\rho,I_4^\rho)\), the regulator, and the chosen
+trivialisation.
 \end{remark}
 
-\begin{remark}[Connection to wave12\_a3\_MO\_E2\_etingof.tex]
-The MO $R$-matrix half-braiding identified there lives on
-$\cZ(\Rep^{E_1}(Y(\widehat{\fgl}_1)))$, the derived centre of a module
-category over a specific framed CY algebra. The framing is $V_r$ for
-$Y(\widehat{\fgl}_r)$ (since
-$Y(\widehat{\fgl}_r)$ is the CoHA of $\Perf(\C^3)$ with framing $V_r$).
-Varying $r$ (the framing) varies the Yangian and its centre, as in
-Theorem~\ref{thm:C3-framings-rank}.
-\end{remark}
+\section{CY-to-Chiral Output}
+\label{sec:cy-to-chiral-output}
 
-\begin{remark}[Connection to CoHA\_to\_W\_infty\_treatise.tex]
-In the CoHA treatise, the CoHA construction on $\C^3$ with framing
-$V=\cO^{\oplus r}$ gives the affine Yangian of $\fgl_r$. Varying $r$
-gives different Yangians, as framings, all ``of the same bare category''.
-\end{remark}
+\begin{proposition}[Native output at \(d\geq3\)]
+\label{prop:native-output-dgeq3}
+Let \(\cC\) be a CY$_d$ category on a verified locus of the two-stage
+construction, and let
+\[
+  A_\cC^{(\Sigma_{d-1},C)}
+  =
+  \SpCh_{\Sigma_{d-1},C}\bigl(\PhiFA_d(\cC)\bigr)
+\]
+be the specialised chiral algebra on the reference curve \(C\). Its
+native operadic level is
+\[
+  n_{\mathrm{native}}(d)
+  =
+  \begin{cases}
+  \infty, & d=1,\\
+  2, & d=2,\\
+  1, & d\geq3.
+  \end{cases}
+\]
+Thus for \(d\geq3\), \(A_\cC^{(\Sigma_{d-1},C)}\) is an \(\Eone\)-chiral
+algebra. Braided \(\Etwo\) structure belongs to the representation
+centre, Drinfeld double, or module layer, for example
+\[
+  \cZ\!\left(\Rep^{\Eone}(A_\cC^{(\Sigma_{d-1},C)})\right),
+\]
+when the centre construction and its comparison data have been supplied.
+\end{proposition}
 
-%=====================================================================
-\subsection*{Summary (\(\le\)400 words)}
-%=====================================================================
+\begin{proof}
+The Gerstenhaber bracket on \(\HH^\bullet(\cC)\) has degree \(1-d\).
+Kontsevich formality gives the \(E_d\)-structure on the witnessed
+locus. Factorisation homology over the
+\((d-1)\)-dimensional holomorphic specialisation submanifold
+\(\Sigma_{d-1}\) drops the residual operadic level to \(E_1\) for
+\(d\geq3\). The nonsymmetric quantum-group braiding is recovered by
+adjoining half-braidings in the representation centre or by constructing
+the corresponding Drinfeld double.
+\end{proof}
 
-\paragraph{What was asserted.} Different gauge Lie algebras $\fg$ on the
-same smooth CY three-fold $X$ give different holomorphic Chern--Simons
-theories, different factorisation algebras, different BV determinants,
-different one-loop anomalies $\kanom\propto\AAg\chitop(X)$ --- yet the
-bare category $D^b\Coh(X)$ is independent of $\fg$. The essay proposed
-``the 2-groupoid of autoequivalences'' as the locus of gauge data.
+\begin{proposition}[Toric \(\C^3\) Hall normalisation]
+\label{prop:c3-hall-normalisation}
+On the toric \(\C^3\) chart, the critical cohomological Hall algebra is
+\[
+  \CoHA(\C^3)\simeq \Yp(\widehat{\fgl}_1),
+\]
+the positive half of the affine Yangian. The full
+\(\Winf\) vertex algebra appears after the additional chain
+\[
+  \Yp(\widehat{\fgl}_1)
+  \longrightarrow
+  D_\hbar\!\left(\Yp(\widehat{\fgl}_1)\right)
+  \longrightarrow
+  \text{completed centre or evaluation representation}
+  \longrightarrow
+  \Winf .
+\]
+\end{proposition}
 
-\paragraph{What survived five attack--heal cycles.}
-\begin{enumerate}
-\item The gauge datum is not in $\Aut(\cC)$. It is a \emph{framing}: a
-compact generator $V\in\cC$ with $\fg=R\End^\bullet(V)_{\mathrm{Lie}}$
-(Cycle~1).
-\item The correct ambient structure is $\Frame(\cC)$, an
-$(\infty,1)$-category, not a 2-groupoid. Its core $\Frame(\cC)^\simeq\simeq B\Aut(\cC)$
-is the 2-groupoid of autoequivalences, but this core does not index
-framings; it acts on them (Cycle~2).
-\item ``External $=$ internal'' for gauge data holds iff Bondal--Van den
-Bergh tilting applies: $\fg$ must arise as $R\End^\bullet(V)$ for some
-compact generator. For $\fg=\fgl_r\otimes\cO_X$ this holds via
-$V=\cO_X^{\oplus r}$. For abstract non-matrix-type $\fg$, it may fail
-(Cycle~3).
-\item The adjoint-Chern-character $\AAg=\mathrm{ch}_3(\fg,\mathrm{ad})$
-is \emph{framing-dependent}, not Morita-invariant. The bare category
-sees only Hochschild-level invariants; the framing sees $\AAg$; the hCS
-theory sees the full anomaly integral (Cycle~4).
-\item Worked example $X=\C^3$, $V_r=\cO^{\oplus r}$: endomorphism
-algebras $\mathrm{Mat}_r(\C[x,y,z])$ are pairwise non-isomorphic but
-Morita-equivalent; $\AAg_{\fgl_r}$ grows in $r$; BV determinants grow
-linearly; no autoequivalence connects framings of different rank
-(Cycle~5).
+\begin{proof}
+The first identification is the Kontsevich-Soibelman and
+Schiffmann-Vasserot toric CoHA calculation in shuffle normalisation.
+The displayed chain adds the Hopf pairing, negative half, Cartan
+completion, centre data, and evaluation representation. These data are
+external to the positive Hall half.
+\end{proof}
+
+\begin{proposition}[\(K3\times E\) scalar slots]
+\label{prop:k3xe-scalar-slots}
+For \(X=K3\times E\), the compact categorical and chiral entries are
+\[
+  \kappa_{\mathrm{cat}}(K3\times E)
+  =
+  \chi(\cO_{K3})\chi(\cO_E)
+  =
+  2\cdot0
+  =
+  0,
+  \qquad
+  \kappa_{\mathrm{ch}}(A_{K3\times E})=0.
+\]
+The Heisenberg-Mukai specialisation, Borcherds denominator, and fibre
+rank give the separate values
+\[
+  \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)=3,
+  \qquad
+  \kappa_{\mathrm{BKM}}(\mathfrak g_{\Delta_5})=c_1(0)/2=5,
+  \qquad
+  \kappa_{\mathrm{fiber}}(K3)=24.
+\]
+The Hall-Drinfeld/Borcherds branch attached to \(K3\times E\) uses the
+completed double
+\[
+  \mathcal D_\hbar\!\left(
+    \CoHA^{\mathrm{or}}_{\mathrm{crit}}(K3\times E)
+  \right)^{\wedge},
+\]
+together with orientation, compact-support, Hopf-pairing, completion,
+and Borcherds-product comparison data. The Mukai self-mirror K3
+Yangian branch uses the K3 Mukai lattice and stable-envelope Yangian
+presentation. The branches share Mukai input and occupy separate
+construction slots.
+\end{proposition}
+
+\begin{proof}
+The first equality is Kunneth multiplicativity for
+\(\chi(\cO_X)\), since \(\chi(\cO_{K3})=2\) and
+\(\chi(\cO_E)=0\). The compact chiral value is the Hodge supertrace of
+the native \(\Eone\) output on the total CY$_3\). The value \(3\) comes
+from the Heisenberg-Mukai specialisation on the elliptic direction, the
+value \(5\) from the Gritsenko \(\Delta_5\) Borcherds weight through
+\(\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2\) at \(N=1\), and the value
+\(24\) from the Mukai rank of the K3 fibre. The displayed completed
+double requires the positive Hall half, negative half, pairing, and
+completion; the K3 Yangian presentation is governed by the separate
+self-mirror surface branch.
+\end{proof}
+
+\section{Final Formulation}
+\label{sec:final-formulation}
+
+\begin{theorem}[Gauge data as framed input]
+\label{thm:gauge-data-framed-input}
+Let \(X\) be a smooth complex CY$_3$ target and
+\(\cC=\Perf(X)\) with its oriented CY$_3$ class. The hCS colour datum
+enters by two procedures with a comparison on their intersection:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item choose an external principal \(G\)-bundle \(P\), a finite
+Lie algebra \(\fg\), and a trace representation \(\rho\), giving
+\(\Omega^{0,\bullet}(X,\operatorname{ad}P)[1]\);
+\item choose a geometric brane framing \(E\in\Perf(X)\), identify
+\(\REnd(E)\) with a Dolbeault algebra
+\(\Omega^{0,\bullet}(X,\End E)\), and read the fibre coefficient from
+a local trivialisation.
 \end{enumerate}
+On the common locus, \(P\) is the frame bundle or a reductive reduction
+of \(E\), \(G\) acts through \(\rho\subset\End(E)\), and
+\(\operatorname{ad}P\) maps to \(\End(E)\) compatibly with the trace.
+The structures \(\Aut_\infty(\cC)\), \(\Fr(\cC)\),
+\(\Mor_{\mathrm{gen}}(\cC)\), the Deligne gauge 2-groupoid
+\(\Del_P\), the derived quotient \(\cM^{0,1}_G(X)_P\), the BRST
+complex, the BV field theory, and the finite-dimensional gauge group
+\(G\) have separate functorial homes. The categorical symmetries act on
+framed objects, framings parametrise branes, Morita bimodules compare
+compact-generator presentations, the derived quotient records gauge
+orbits, BRST gives functions on that quotient, BV supplies the shifted
+field-antifield theory, and \(G\) is field-theoretic colour input.
+Compact nonabelian quantisation adds the package of
+Hypothesis~\ref{hyp:compact-hcs-package}. At \(d=3\), the specialised
+CY-to-chiral output is native \(\Eone\); \(\Etwo\) belongs to the
+centre, double, or module layer.
+\end{theorem}
 
-\paragraph{Precise healed statement.} Theorem~\ref{thm:framing-indexed-hCS}.
-The gauge input to hCS on a CY$_3$ is a framed CY category $(\cC,V)$,
-not a bare $\cC$. The CY-to-chiral functor $\Phi$ takes framed CY
-categories as input; different framings of the same $\cC$ give different
-chiral outputs, and different Costello anomalies, all detectable by
-$\AAg$ pairing against $\chitop$.
+\begin{proof}
+Definitions~\ref{def:hcs-coefficient} and~\ref{def:framed-cy-category}
+give the two inputs, and
+Definition~\ref{def:gauge-2groupoid-derived-stack} supplies the
+derived gauge stack attached to the first input.
+Definition~\ref{def:brst-bv-packages} separates functions on the gauge
+quotient from the shifted cotangent BV theory.
+Proposition~\ref{prop:exact-functors} separates the functorial homes of
+autoequivalences, framed objects, endomorphism algebras, Morita
+presentations, and finite gauge coefficients. The \(\C^3\) calculation
+of Theorem~\ref{thm:c3-rank-framings}
+shows that rank framings may be Morita equivalent as presentations
+while remaining separated as framed objects and as finite hCS
+coefficients. Propositions~\ref{prop:qme-obstruction} and
+\ref{prop:c2-counterterm} separate the quartic anomaly from the
+degree-two kinetic counterterm. The compact package, the \(d=3\)
+output level, and the \(K3\times E\) scalar slots are
+Theorem~\ref{thm:conditional-compact-hcs},
+Proposition~\ref{prop:native-output-dgeq3}, and
+Proposition~\ref{prop:k3xe-scalar-slots}.
+\end{proof}
 
-\paragraph{Voice.} The ``equals sign is a theorem''. The essay's
-statement $\fg\in\Aut(\cC)$ is false; its mathematical content is
-$\fg\in\mathrm{Ob}(\Frame(\cC))$, and this is a sharper, true theorem.
+\section{References}
+\label{sec:references}
+
+\begin{itemize}[leftmargin=1em,itemsep=1pt]
+\item A. Bondal and M. Van den Bergh, \emph{Generators and representability of functors in commutative and noncommutative geometry}, Mosc. Math. J. 3 (2003), 1-36.
+\item K. Costello, \emph{Renormalization and Effective Field Theory}, Mathematical Surveys and Monographs 170, AMS, 2011.
+\item K. Costello, \emph{Supersymmetric gauge theory and the Yangian}, arXiv:1303.2632, 2013.
+\item K. Costello and O. Gwilliam, \emph{Factorization Algebras in Quantum Field Theory}, Volumes 1 and 2, Cambridge University Press, 2017 and 2021.
+\item K. Costello and S. Li, \emph{Quantum BCOV theory on Calabi-Yau manifolds and the higher genus B-model}, arXiv:1201.4501, 2012.
+\item E. Getzler, \emph{Lie theory for nilpotent \(L_\infty\)-algebras}, Ann. of Math. 170 (2009), 271-301.
+\item V. Ginzburg, \emph{Calabi-Yau algebras}, arXiv:math/0612139, 2006.
+\item V. Hinich, \emph{Descent of Deligne groupoids}, Internat. Math. Res. Notices 1997, 223-239.
+\item B. Keller, \emph{On differential graded categories}, International Congress of Mathematicians, 2006.
+\item M. Kontsevich and Y. Soibelman, \emph{Stability structures, motivic Donaldson-Thomas invariants and cluster transformations}, arXiv:0811.2435, 2008.
+\item O. Schiffmann and E. Vasserot, \emph{Cherednik algebras, W-algebras and the equivariant cohomology of the moduli space of instantons on the plane}, Publ. Math. IHES 118 (2013), 213-342.
+\item B. Toen, \emph{The homotopy theory of dg-categories and derived Morita theory}, Invent. Math. 167 (2007), 615-667.
+\end{itemize}
+
+\end{document}

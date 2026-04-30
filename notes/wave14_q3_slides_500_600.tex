@@ -1,10 +1,3 @@
-% Wave-14 Q3/20 slides-frontier extraction — lines 500-600 of
-% /tmp/automorphic-slides.txt (Lorgat 2020 automorphic-corrections
-% presentation). Cross-refs: Gritsenko-Nikulin alg-geom/9504006,
-% Borcherds alg-geom/9609022, memory/reference_lorgat_2020_automorphic_corrections.md.
-% This is a notes/ file. Bookkeeping vocabulary is permitted here;
-% manuscript prose stays in chapters/.
-
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
@@ -13,155 +6,192 @@
 \providecommand{\PII}{\mathcal{P}_{\mathrm{II}}}
 \providecommand{\CII}{\mathcal{C}(\LII)_+}
 \providecommand{\DII}{\Delta(\LII)_+}
-\providecommand{\gBKM}{\mathfrak{g}_{\Delta_5}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\DeltaFive}{\Delta_{5}}
+\providecommand{\gBKM}{\mathfrak{g}_{\Delta_{5}}}
 \providecommand{\Wtwo}{W^{(2)}(\LII)}
+\providecommand{\phiEZ}{\phi_{0,1}^{\mathrm{EZ}}}
+\providecommand{\ZKthree}{Z_{\mathrm{K3}}}
+\providecommand{\CoHA}{\operatorname{CoHA}}
+\providecommand{\Yplus}{Y^+}
+\providecommand{\Wone}{\mathcal{W}_{1+\infty}}
+\providecommand{\Cthree}{\mathbb C^3}
 
-\section*{Wave-14 Q3: slide-central frontier (lines 500--600)}
+\section*{The \texorpdfstring{$\Delta_{5}$}{Delta5} Denominator and Its BKM Constants}
 
-Lines~500--600 house the Fourier-coefficient machinery that converts
-the Borcherds-lift formula for $\Delta_5$ into the denominator
-identity of a GKM superalgebra. The content is the spine of the
-N=1 anchor for $\kBKM(\Phi_N) = c_N(0)/2$.
-
-\paragraph{1. Inventory.} Five mathematical arcs traverse these
-lines.
-
-\textbf{(a) Parameterisation of Fourier support (496--498).}
-For $n, l, m \in \Z$ with $n, m > 0$, $n \equiv l \equiv m \equiv 1
-\pmod{2}$, and $4nm - l^2 > 0$, each $\Delta_5$-Fourier mode
-$f(n, l, m) \exp(\pi i(n z_1 + l z_2 + m z_3))$ is identified with
-$64 \cdot m(a) \exp(-\pi i(\rho + a, z))$ at
+\paragraph{Theorem: denominator normalization.}
+The monic denominator form is
 \[
-  a \;=\; (n-1)f_2 \;-\; \tfrac{1}{2}(l-1)f_3 \;+\; (m-1)f_{-2}
-  \;\in\; (\LII)^* = \tfrac{1}{2}\LII,
-  \qquad m(a) = -\tfrac{1}{64}f(n,l,m).
+  \Dfive(Z)=64^{-1}\DeltaFive(Z).
 \]
-So $\rho + a \in \mathcal{C}(\LII)_+$, $m(a) \in \Z$, and
-$m(0) = -1$.
-
-\textbf{(b) O(\LII)$_+$-invariance (502--514).} Lemma: $\Delta_5$ is
-either invariant or anti-invariant under $O(\LII)_+$ acting through
-$w \in \Wtwo$ and $a \in \mathrm{Aut}(\PII, \mathrm{prim})$, via
-$\Delta_5(w \cdot az) = \det(w)\Delta_5(z)$. The antisymmetrised
-Weyl sum form
+The denominator of the Gritsenko--Nikulin generalized
+Borcherds--Kac--Moody superalgebra is
 \[
-  \Delta_5(z) \;=\; \tfrac{1}{64}\!\!\!\sum_{w \in \Wtwo}\!\det(w)
-  \Bigl(\sum_{\rho + a \in (\LII)^* \cap \LII}\!\!m(a) \exp(-\pi i
-  (w(\rho + a), z))\Bigr)
+  \operatorname{den}(\gBKM)=\Dfive(2Z)=64^{-1}\DeltaFive(2Z).
 \]
-is the precise Weyl-Kac-Borcherds shape.
+The primitive denominator has weight \(5\).  The scalar Igusa square has
+weight \(10\) and equals the square of the monic Borcherds product.
 
-\textbf{(c) Cone-chain and positivity (519--563).} The cone-chain
-$\DII^* \subset \CII = \CII \subset (\DII)^{**}$ with
-$a \in \R_{\geq 0}\PII$ if and only if $a \in \R_{\geq 0}\CII^* \cap
-\CII$ pins the Fourier support: summation runs over $a \in \LII
-\cap \R_{>0}\PII$ (with $a = 0$ giving $m(0) = -1$). The positivity
-$(\rho + a, \delta_i) < 0$ is forced by $(\rho + a, \delta_i) \in \Z$
-plus the nonvanishing constraint $m(a) \neq 0 \Leftrightarrow
-(\rho + a, \delta_i) \neq 0$. Hence $a \in 2(\LII)^* = \LII$.
-
-\textbf{(d) Rewritten Weyl sum (576--579).}
+\paragraph{Fourier input.}
+The root exponents are read from the Eichler--Zagier generator
 \[
-  \tfrac{\Delta_5(z)}{64} \;=\; \sum_{w \in \Wtwo}\!\det(w)
-  \Bigl(e^{-\pi i(w(\rho), z)} - \!\!\!\sum_{a \in \LII \cap \R_{>0}\PII}\!\!m(a)\,
-  e^{-\pi i(w(\rho + a), z)}\Bigr).
+  \phiEZ(\tau,z)=\sum_{n,l} f(n,l)q^n r^l
+  =(r^{-1}+10+r)
+  +q(10r^{-2}-64r^{-1}+108-64r+10r^2)+O(q^2).
 \]
-This is the cone-truncated Weyl-Kac-Borcherds denominator.
-
-\textbf{(e) Vertex-ray $\tau(a)$-implicit definition (583--599).}
-The three light-like primitive vertices $\{2f_2,\, 2f_{-2},\, 2f_2
-- 2f_3 + 2f_{-2}\}$ on $\partial\overline{\PII}$ satisfy $(a_0, a_0)
-= 0$ and are transitively permuted by $\mathrm{Aut}(\PII)$. Picking
-$a_0 = 2f_2$ (the other two follow by lattice-isometry reflections),
-the generating identity
+Thus
 \[
-  1 + \tfrac{1}{64}\sum_{t \in \N}f(1 + 2t, 1, 1)\,q^t
-  \;=\; \prod_{k \in \N}(1 - q^k)^9
+  c(-1)=1,\qquad c(0)=10,\qquad c(3)=-64,\qquad c(4)=108,
 \]
-holds, and more generally
+where \(c(4n-l^2)=f(n,l)\).  For
+\(\alpha=\alpha(n,l,m)\) in the active positive cone,
 \[
-  1 - \sum_{t \in \N}m(ta_0)\,q^t \;=\; \prod_{t \in \N}(1 -
-  q^t)^{\tau(ta_0)}
+  \operatorname{sdim}\gBKM_{\alpha}=f(nm,l)=c(4nm-l^2).
 \]
-\emph{implicitly defines} $\tau$-coefficients along the isotropic
-ray $\R_{\geq 0}a_0$. Specialisation at $a_0$ primitive: $\tau(a_0)
-= 9$.
+The K3 elliptic genus is
+\[
+  \ZKthree(\tau,z)=2\,\phiEZ(\tau,z).
+\]
+The primitive denominator root exponents are the coefficients of
+\(\phiEZ\).  The doubled K3 elliptic genus gives the square of the
+monic product:
+\[
+  \operatorname{Borch}(2\,\phiEZ)=\Dfive^2=4096^{-1}\DeltaFive^2.
+\]
 
-\paragraph{2. $f(n,l,m)$-table cross-check.} Match against $\phi_{0,1}
-= (r^{-1} + 10 + r) + q(10r^{-2} - 64 r^{-1} + 108 - 64 r + 10 r^2)
-+ O(q^2)$ using $f(n, l) = $ coefficient of $q^n r^l$:
-$f(0, 0) = 10$, $f(0, \pm 1) = 1$, $f(1, \pm 2) = 10$,
-$f(1, \pm 1) = -64$, $f(1, 0) = 108$. Verification of the
-$\tau(a_0) = 9$ identity: expand $\prod_k(1-q^k)^9 = 1 - 9q +
-27q^2 - 12q^3 + \ldots$ against $\tfrac{1}{64}f(1,1,1) = 1$
-giving $\tfrac{1}{64}f(3, 1, 1) = -9$, i.e. $f(3,1,1) = -576$;
-cross-checked with Lorgat 2020 Section~4.
+\paragraph{Weyl sum.}
+For \(n,l,m\in\mathbb Z\) with \(n,m>0\),
+\[
+  a=(n-1)f_2-\frac{l-1}{2}f_3+(m-1)f_{-2}
+  \in(\LII)^*=\frac12\LII,
+  \qquad
+  m(a)=-\frac1{64}f_{\Delta_{5}}(n,l,m),
+\]
+where \(f_{\Delta_{5}}(n,l,m)\) denotes the corresponding
+\(\DeltaFive\)-Fourier coefficient.  On the cone selected by
+\[
+  \DII^*\subset \CII\subset \DII^{**},
+  \qquad
+  \mathbb R_{\ge0}\CII^*\cap\CII=\mathbb R_{\ge0}\PII,
+\]
+the support reduces to \(a\in\LII\cap\mathbb R_{>0}\PII\), with
+\(a=0\) contributing \(m(0)=-1\).  The denominator identity is
+\[
+  \Dfive(z)=
+  \sum_{w\in\Wtwo}\det(w)
+  \left(
+    e^{-\pi i(w\rho,z)}
+    -
+    \sum_{a\in\LII\cap\mathbb R_{>0}\PII}
+    m(a)e^{-\pi i(w(\rho+a),z)}
+  \right).
+\]
 
-\paragraph{3. Multiplicity formula.} Borcherds 1998 (alg-geom/9609022)
-Theorem~10.1 gives $\mathrm{mult}_\alpha = f(nm, l)$ for root
-$\alpha = (n, l, m)$; the slide lines set up the $(a, \rho + a)
-\leftrightarrow (n, l, m)$ dictionary that makes this formula
-visible. The index pairing $(\rho + a, \rho + a) =
-\frac{1}{2}(4nm - l^2) - 2$ (with the $-2$ from
-$(\rho, \rho)$) controls both the index stratification and the
-$(1 - q^k)^{\mathrm{mult}\,\alpha}$ Borcherds-product exponents.
+\paragraph{Isotropic ray.}
+The three primitive isotropic vertices
+\[
+  2f_2,\qquad 2f_{-2},\qquad 2f_2-2f_3+2f_{-2}
+\]
+are permuted by \(\operatorname{Aut}(\PII)\).  For
+\(a_0=2f_2\),
+\[
+  1+\frac1{64}\sum_{t\ge1}f_{\Delta_{5}}(1+2t,1,1)q^t
+  =
+  \prod_{k\ge1}(1-q^k)^9,
+\]
+and the isotropic-root coefficients are determined by
+\[
+  1-\sum_{t\ge1}m(ta_0)q^t
+  =
+  \prod_{t\ge1}(1-q^t)^{\tau(ta_0)}.
+\]
+The primitive coefficient is
+\[
+  \tau(a_0)=9=c(0)-c(-1)=10-1.
+\]
+Equivalently, the first nontrivial \(\DeltaFive\)-coefficient on this ray
+satisfies
+\[
+  \frac1{64}f_{\Delta_{5}}(3,1,1)=-9,
+  \qquad
+  f_{\Delta_{5}}(3,1,1)=-576.
+\]
 
-\paragraph{4. Frontier content not yet in manuscript.} Two sharpenings
-merit inscription into
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex} (or
-\texttt{chapters/examples/k3e\_bkm\_chapter.tex}):
+\paragraph{Borcherds weight.}
+Borcherds' weight theorem gives the weight of the multiplicative lift as
+one half of the discriminant-zero input coefficient.  For the level-one
+denominator,
+\[
+  \kBKM(\DeltaFive)=\operatorname{wt}(\DeltaFive)
+  =\frac{c_1(0)}2=\frac{10}{2}=5.
+\]
+The primitive CHL denominator row \(N\in\{1,2,3,4,6\}\) is
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\ \hline
+c_N(0)&10&8&6&4&2\\
+\kBKM(\Phi_N)&5&4&3&2&1
+\end{array}
+\]
+with \(\kBKM(\Phi_N)=c_N(0)/2\) in every row.
+The Gritsenko--Clery diagonal-divisor catalogue is a different
+triple-indexed table.  Its eight weights and single-cusp constants are
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1),
+  \qquad
+  (10,4,6,2,4,1,3,2).
+\]
 
-\textit{(i)}~The cone-chain $\DII^* \subset \CII \subset \DII^{**}$
-with the triple equality $\R_{\geq 0}\CII^* \cap \CII =
-\R_{\geq 0}\PII$ is not currently stated explicitly — manuscript
-quotes the final $a \in \LII \cap \R_{>0}\PII$ identification but
-not the three-step cone-inclusion that forces it.
+\paragraph{Invariant separation for \texorpdfstring{$K3\times E$}{K3 x E}.}
+For \(Y=K3\times E\), the denominator constant determines the BKM entry
+\[
+  \kBKM(\DeltaFive)=5.
+\]
+The compact total-space invariants and the specialization invariants are
+\[
+  \kcat(Y)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0=0,\qquad
+  \kch(Y)=\sum_q(-1)^q h^{0,q}(Y)=1-1+1-1=0,
+\]
+\[
+  \kch^{\mathrm{Heis}}(Y)=3,\qquad
+  \kfiber(Y)=24.
+\]
+The value \(0\) occurs twice, once through Kunneth multiplicativity and
+once through the compact Hodge supertrace.  The four numerical values
+\(\{0,3,5,24\}\) arise from five subscripted constructions.
 
-\textit{(ii)}~The \emph{implicit} $\tau$-definition along an isotropic
-ray (equation 598--599) is manuscript-unfolded only at $a_0$
-primitive ($\tau(a_0) = 9$); extending to $\tau(ta_0)$ and reading it
-as a formal power series identity determining all of $\tau(\cdot)$
-on the ray is a one-line sharpening with interpretive force:
-$\tau$ is \emph{not} a free function but a specific sequence of
-integers read off from the $\phi_{0,1}$-coefficients along the
-isotropic direction, which then matches the $\eta^9$-factor in the
-Borcherds product at each vertex.
+\paragraph{Scope theorem.}
+For \(d=3\), \(\Phi_{3}\) lands in \(E_1\)-chiral algebras.
+The \(E_2\)-structure belongs to centers, doubles, module categories,
+and stable-envelope enhancements.  On the toric chart,
+\[
+  \CoHA(\Cthree)=\Yplus(\widehat{\mathfrak{gl}}_1).
+\]
+The completed double, center, completion, and evaluation layers produce
+\(\Wone\).  The Hall--Drinfeld denominator object is \(\gBKM\) together
+with its positive half and completion data.  The K3 self-mirror Yangian
+branch is the Mukai-current construction with its own generators and
+relations.
 
-\paragraph{5. Anchor of $\kBKM = 5$ to $c_1(0) = 10$.} Triangulation
-from the three independent extraction paths: (I)~\emph{slide
-line~484--487} has $f(1, l, m)$ parameterised via
-$m(a) = -\tfrac{1}{64}f(n,l,m)$, with $f(0, 0) = 10$ the constant
-coefficient of $\phi_{0,1}$ at $q^0 r^0$ (slide lines 593--594
-pin $\tfrac{1}{64}\sum f(1+2t, 1, 1)q^t$ identity); (II)~\emph{Borcherds
-weight formula}: $w(\Delta_5) = \tfrac{1}{2}c_1(0) = 5$ (Borcherds
-1995, Gritsenko 1999); (III)~\emph{Vol III canonical identity}
-$\kBKM(\Phi_N) = c_N(0)/2$ at $N=1$ (cache-certified,
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}). All
-three routes deliver $\kBKM = 5$. The slide lines 500--600
-anchor route~(I): the \emph{explicit} appearance of $10$ in
-$\phi_{0,1} = r^{-1} + 10 + r + \ldots$ is the constant coefficient
-that, through the Borcherds-lift exponentiation formula $\Phi =
-\exp(-\Theta \cdot \phi_{0,1})$, produces the weight-$5$ Siegel-modular
-form $\Delta_5$; the factor $\tfrac{1}{2}$ converting $10 \to 5$ is
-the Borcherds weight formula $w = c(0)/2$ (Borcherds 1995
-Theorem~10.1, visible at the prefactor level in the Weyl-Kac-Borcherds
-denominator via $\sum_{w \in \Wtwo}\det(w)$ with $w$ weight-$1$ per
-reflection).
+\paragraph{Proof obligations.}
+The denominator data prove the signed root-character formula for
+\(\gBKM\), the monic normalization \(D_5=64^{-1}\DeltaFive\), the
+isotropic coefficient \(\tau(a_0)=9\), and the BKM weights
+\(\kBKM(\Phi_N)=c_N(0)/2\).
 
-\paragraph{6. Consequence for $\gBKM$.} The cone-truncated Weyl sum
-(arc~d) is the \emph{closed form} of the GKM superalgebra
-$\gBKM$ denominator identity: real simple roots
-$\{\delta_1, \delta_2, \delta_3\}$ generate $\Wtwo$; imaginary
-simple roots stratify as $\Delta^{\mathrm{im}}_0 = \{\tau(a)\,a \mid
-(a,a)=0, \tau(a) > 0\}$ (even sector) and
-$\Delta^{\mathrm{im}}_1 = \{m(a)\,a \mid (a,a) < 0, m(a) < 0\}$
-(odd sector). The $a_0$-vertex identity (arc~e) forces the even
-imaginary multiplicity at $ta_0$ to equal $\tau(ta_0)$, with
-$\tau(a_0) = 9$ controlling the primitive isotropic contribution;
-the $\prod(1-q^k)^9$ factor in the Borcherds product is exactly the
-sum over even-imaginary-root tower at each of the three light-like
-vertices. Three vertices~$\times$ one $\eta^9$-factor each~$=$
-the three isotropic-direction contributions; anti-symmetric Weyl
-averaging across $\Wtwo$ (index~$6$ in $O(\LII)_+$) closes the
-product into Siegel-modular weight~$5$.
+A class-\(\mathcal S\) statement requires an independently constructed
+curve, defect datum, and comparison functor to the denominator algebra.
+
+A cohomological-Hall statement requires a compact critical CoHA or
+quasi-NCCR source, an orientation/Pfaffian square root, and a character
+map whose value is \(D_5^2\) or \(D_5^{-2}\) in the specified scalar
+convention.
+
+A compact \(K3\times E\) Hall realization requires a finite recognition
+theorem identifying the Hall product with the positive half of
+\(U(\gBKM)\), the Borcherds--Serre ideal, the Hopf pairing, the
+coproduct, and the completed associator.
+
+Adjacent-volume and \texttt{igusa-cusp-form} concordance checks
+normalizations and signs.  The construction of the source category,
+target algebra, and comparison morphism remains a separate theorem.

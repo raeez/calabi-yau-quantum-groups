@@ -1,28 +1,25 @@
-% Wave-18 E5/20: cluster-category viewpoint on positive-half gluing.
-% Primary sources, consulted in full:
+% Cluster-category positive-half gluing for Y^+.
+% Primary sources:
 %   Keller, B., Yang, D., "Derived equivalences from mutations of quivers
-%     with potential", Adv. Math. 226 (2011) 2118--2168 (arXiv:0906.0761).
+%     with potential", Adv. Math. 226 (2011) 2118-2168 (arXiv:0906.0761).
 %   Iyama, O., Yoshino, Y., "Mutation in triangulated categories and
-%     rigid Cohen--Macaulay modules", Invent. Math. 172 (2008) 117--168
+%     rigid Cohen-Macaulay modules", Invent. Math. 172 (2008) 117-168
 %     (arXiv:math/0607736).
 %   Amiot, C., "Cluster categories for algebras of global dimension 2
-%     and quivers with potential", Ann. Inst. Fourier 59 (2009) 2525--2590
+%     and quivers with potential", Ann. Inst. Fourier 59 (2009) 2525-2590
 %     (arXiv:0805.1035).
 %   Fomin, S., Zelevinsky, A., "Cluster algebras II: finite type
-%     classification", Invent. Math. 154 (2003) 63--121 (arXiv:math/0208229).
-%   Ginzburg, V., "Calabi--Yau algebras" (arXiv:math/0612139).
+%     classification", Invent. Math. 154 (2003) 63-121 (arXiv:math/0208229).
+%   Ginzburg, V., "Calabi-Yau algebras" (arXiv:math/0612139).
 %   Kontsevich, M., Soibelman, Y., "Cohomological Hall algebra, exponential
 %     Hodge structures and motivic DT invariants" (arXiv:1006.2706).
-%   Nagao, K., "Donaldson--Thomas theory and cluster algebras",
-%     Duke Math. J. 162 (2013) 1313--1367 (arXiv:1002.4884).
-% Companion to wave17_b4 (gluing cocycle), wave17_c1 (conifold),
-% wave17_c2 (local P^2), wave17_c5 (K3 x E gluing).
+%   Nagao, K., "Donaldson-Thomas theory and cluster algebras",
+%     Duke Math. J. 162 (2013) 1313-1367 (arXiv:1002.4884).
 
 \providecommand{\Hom}{\mathrm{Hom}}
 \providecommand{\End}{\mathrm{End}}
 \providecommand{\Ext}{\mathrm{Ext}}
-\providecommand{\Db}{D^{b}}
-\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\per}{\mathrm{per}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Jac}{\mathrm{Jac}}
 \providecommand{\Rep}{\mathrm{Rep}}
@@ -30,150 +27,328 @@
 \providecommand{\fd}{\mathrm{fd}}
 \providecommand{\sC}{\mathcal{C}}
 \providecommand{\sD}{\mathcal{D}}
-\providecommand{\sT}{\mathcal{T}}
 \providecommand{\sH}{\mathcal{H}}
 \providecommand{\bC}{\mathbb{C}}
 \providecommand{\bZ}{\mathbb{Z}}
 \providecommand{\bP}{\mathbb{P}}
 \providecommand{\Yplus}{Y^{+}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
-\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles]}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\chiHall}{\chi^{\mathrm{Hall}}}
 
-\section*{Wave-18 E5/20: cluster categories and the $\Yplus$-gluing cocycle}
-\label{wn:sec:cluster-Yplus-gluing}
+\section*{Cluster Categories and Positive Hall Halves}
+\label{sec:cluster-Yplus-gluing}
 
-The gluing cocycle of Wave-17 B4 attaches a CoHA-automorphism
-$g_{UV}:\CoHA(A_{U},W_{U})\to\CoHA(A_{V},W_{V})$ to every overlap of
-quiver-affine charts on $\mathrm{Stab}(X)$.  The claim of this section
-is sharper: $g_{UV}$ is not merely an automorphism compatible with
-wall-crossing, it is the CoHA avatar of a cluster mutation.  Amiot's
-cluster category organises all quiver presentations of a fixed CY$_{3}$
-category into a single orbit under mutation; Keller--Yang lift each
-mutation to a derived equivalence; pushing that equivalence through the
-CoHA functor is the overlap datum.
-
-\subsection*{Cycle 1: the cluster category of a CY$_{3}$ Jacobi algebra.}
-
-Let $(Q,W)$ be a Jacobi-finite quiver with potential and $A_{Q} =
-\Jac(Q,W)$ its Ginzburg CY$_{3}$ dg algebra (Ginzburg 2006,
-Theorem~3.6.4).  Write $\per(A_{Q})$ for the perfect derived category
-and $\sD_{\fd}(A_{Q})$ for the full subcategory of finite-dimensional
-dg modules.  Amiot 2009, Theorem~2.1, defines
+\paragraph{Scope.}
+Let $(Q,W)$ be a reduced Jacobi-finite quiver with potential and let
+$\Gamma(Q,W)$ be the complete Ginzburg Calabi-Yau $3$ dg algebra, so
 \[
-  \sC(Q,W)\;:=\;\per(A_{Q})\big/\sD_{\fd}(A_{Q}),
+  H^0\Gamma(Q,W)=\Jac(Q,W).
 \]
-the \emph{generalised cluster category}.  For $Q$ of finite
-representation type $(ADE)$ and $W = 0$ this recovers the
-Buan--Marsh--Reineke--Reiten--Todorov cluster category of
-Fomin--Zelevinsky type (arXiv:math/0208229);  Amiot's theorem shows
-$\sC(Q,W)$ is Hom-finite, $2$-Calabi--Yau as a triangulated category,
-and admits the canonical object $\pi(A_{Q})$ as a cluster tilting
-object.  The functor $\CoHA:(Q,W)\mapsto\CoHA(Q,W)$ factors through
-$\sC(Q,W)$ at the triangulated level because CoHA cohomology depends
-only on the stack of representations up to derived equivalence
-(Kontsevich--Soibelman 2010, Corollary~6.3).
+A cluster seed is the pair consisting of a Jacobi presentation
+$(Q,W)$ and a stability chamber $\sigma$ whose heart is
+$\sH_\sigma=\mod\Jac(Q,W)$.  An admissible mutation edge is a vertex
+$k$ for which Derksen-Weyman-Zelevinsky mutation is defined, the reduced
+mutated potential $(Q',W')=\mu_k(Q,W)$ is Jacobi-finite, the adjacent
+heart is the simple tilt of $\sH_\sigma$ at $S_k$, and orientation data
+is transported through the Keller-Yang equivalence.
 
-\subsection*{Cycle 2: cluster tilting classifies quiver presentations.}
-
-\ClaimStatusTheorem\ \emph{(Iyama--Yoshino 2008, Theorem~5.3.)}  In the
-$2$-CY triangulated category $\sC(Q,W)$ the cluster tilting objects
-$T$ --- maximal rigid objects with $\Ext^{1}_{\sC}(T,T) = 0$ and
-$|T| = n$ summands --- are precisely the basic tilting objects whose
-endomorphism algebras
+The output of this construction is the transition map
 \[
-  A_{T}\;:=\;\End_{\sC(Q,W)}(T)
+  g_k:
+  \widehat{\Yplus}_{\sigma}(Q,W)
+  \longrightarrow
+  \widehat{\Yplus}_{\sigma'}(Q',W')
 \]
-are Jacobi algebras of quivers with potential $(Q_{T},W_{T})$ on the
-same vertex set as $Q$, satisfying $\sC(Q_{T},W_{T})\simeq\sC(Q,W)$.
-Two cluster tilting objects $T,T'$ in the same cluster category give
-two quiver presentations $A_{T}, A_{T'}$ of the \emph{same} CY$_{3}$
-category.  The collection of cluster tilting objects carries a free
-action of the mutation groupoid with $n$ generators
-$\mu_{1},\ldots,\mu_{n}$, one per vertex.  Translating to the CoHA side:
-a quiver-affine chart $U$ on $\mathrm{Stab}(X)$ records the choice of
-cluster tilting object $T_{U}\in\sC(Q,W)$, and the mutation groupoid
-acts on charts.
+between completed positive Hall halves.  Its mathematical content is
+seed mutation plus Kontsevich-Soibelman wall crossing.  A full BKM
+algebra, full Yangian, or $\mathcal W$-algebra enters after extra data:
+a negative half, Cartan factor, non-degenerate Hall pairing, completion,
+Drinfeld double or centre, and a representation or evaluation functor.
+For Calabi-Yau dimension $d\geq3$, the native $\Phi_d$ output is
+$E_1$-chiral; the $E_2$ layer lives at the centre, double, or module
+level.
 
-\subsection*{Cycle 3: mutation as derived equivalence.}
+\subsection*{The Amiot Category}
 
-\ClaimStatusTheorem\ \emph{(Keller--Yang 2011, Theorem~3.2.)}  The
-mutation $\mu_{k}T = T'$ lifts to a pair of triangle equivalences
+Amiot associates to the Jacobi-finite Ginzburg algebra the quotient
 \[
-  \mu_{k}^{+}:\per(A_{Q})\xrightarrow{\ \sim\ }\per(A_{Q'}),\qquad
-  \mu_{k}^{-}:\per(A_{Q'})\xrightarrow{\ \sim\ }\per(A_{Q}),
+  \sC(Q,W)=\per(\Gamma(Q,W))\big/\sD_{\fd}(\Gamma(Q,W)).
 \]
-restricting to equivalences $\sD_{\fd}(A_{Q})\simeq\sD_{\fd}(A_{Q'})$,
-hence descending to $\sC(Q,W)\simeq\sC(Q',W')$.  Explicitly, $\mu_{k}^{+}$
-is the left-twist along the spherical twist generated by the simple
-$S_{k}$ --- a derived tilt in the sense of Bondal--Kapranov --- and the
-potential transforms by the Derksen--Weyman--Zelevinsky mutation rule
-(arXiv:0704.0649, Definition~5.5).  Jacobi-finiteness is preserved
-when the pre-mutation contains no $2$-cycles, the regularity condition
-Keller--Yang impose throughout.
+This category is Hom-finite and $2$-Calabi-Yau, and the image
+$\pi\Gamma(Q,W)$ is a cluster tilting object.  For acyclic Dynkin $Q$
+and $W=0$, the same construction recovers the classical cluster
+category of the corresponding Fomin-Zelevinsky finite type.
 
-\subsection*{Cycle 4: the induced CoHA map is a cohomological
-isomorphism.}
-
-\ClaimStatusDerivation\ Derived equivalence of CY$_{3}$ Ginzburg algebras
-is preserved by the CoHA construction at the cohomological level: the
-critical cohomology $H^{\bullet}(\sM(A_{Q},W_{Q}),\varphi_{\tr W_{Q}})$
-and its $\mu_{k}^{+}$-twisted counterpart are related by the Saito--Li
-thimble-base-change identity (Kontsevich--Soibelman 2010, Theorem~6.4),
-which yields a graded algebra isomorphism
+The cluster category records tilting presentations.  The Hall algebra
+uses the additional critical presentation.  For a dimension vector
+$\gamma\in\bZ_{\geq0}^{Q_0}$ and
+$G_\gamma=\prod_{i\in Q_0}GL_{\gamma_i}$, the cohomological summand is
 \[
-  \mu_{k}^{*}:\CoHA(Q,W)\xrightarrow{\ \sim\ }\CoHA(Q',W').
+  \CoHA_\gamma(Q,W)
+  =
+  H^{\bullet}_{G_\gamma,c}
+  \bigl(\Rep_\gamma(Q),
+  \phi_{\mathrm{Tr}(W)_\gamma}\mathbb Q\bigr)
+  \otimes \mathbb L^{\chi_Q(\gamma,\gamma)/2}.
 \]
-The isomorphism is not canonical --- it depends on a framing of the
-spherical twist on critical loci --- but is canonical up to the
-Picard--Lefschetz monodromy, which acts on $\CoHA$ by inner
-automorphism.  Restricting to the positive half $\Yplus(Q,W)\subset
-\CoHA(Q,W)$ (the subalgebra of stable/semistable classes of positive
-degree, Soibelman 2014, \S 3) gives
+The Hall product is the vanishing-cycle correspondence for short exact
+sequences in the heart $\sH_\sigma$.  The square root of the Tate twist
+is fixed by orientation data.
+
+\subsection*{Cluster Charts}
+
+Iyama-Yoshino mutation applies to cluster tilting objects in a
+$2$-Calabi-Yau triangulated category.  Inside the mutation class of
+$\pi\Gamma(Q,W)$, a cluster tilting object $T$ gives
 \[
-  \mu_{k}^{*}\big|_{\Yplus}:\Yplus(Q,W)\xrightarrow{\ \sim\ }\Yplus(Q',W'),
+  A_T=\End_{\sC(Q,W)}(T),
 \]
-a positive-half CoHA automorphism attached to each mutation step.
-Composing mutations along a walking path $T_{U}\to T_{V}$ in the
-cluster groupoid produces the overlap automorphism
-$g_{UV}:\Yplus(A_{U})\to\Yplus(A_{V})$ of Wave-17 B4; path
-independence up to inner automorphism is the cocycle condition.
+and the Keller-Yang comparison identifies $A_T$ with the Jacobi algebra
+of the corresponding mutated quiver with potential.  Thus a quiver
+chart is the data
+\[
+  U=(T_U,Q_U,W_U,\sigma_U,o_U),
+\]
+where $o_U$ is orientation data and $\sigma_U$ is the chamber whose
+heart is $\mod\Jac(Q_U,W_U)$.
 
-\subsection*{Cycle 5: conifold and local $\bP^{2}$ as cluster seeds.}
+The mutation groupoid has one elementary generator $\mu_k$ for each
+mutable vertex and the usual exchange relations.  A path in this
+groupoid records a finite sequence of adjacent chamber changes.
 
-\ClaimStatusDerivation\ The two examples of Wave-17 are explicit
-cluster-seed transitions.  The resolved conifold $\widetilde{Y} =
-\cO(-1)^{\oplus 2}\to\bP^{1}$ admits the Klebanov--Witten quiver
-$(Q_{\mathrm{KW}},W_{\mathrm{KW}})$ with two vertices, four arrows, and
-superpotential $W_{\mathrm{KW}} = a_{1}b_{1}a_{2}b_{2} -
-a_{1}b_{2}a_{2}b_{1}$.  The flop $\widetilde{Y}\to\widetilde{Y}^{+}$
-(Bridgeland 2002) is precisely the Iyama--Yoshino mutation
-$\mu_{1}$ at the first vertex; Nagao 2013, Theorem~5.2, identifies the
-induced derived equivalence with the flop functor, and the CoHA transfer
-is the conifold wall-crossing operator
-$\CoHA(\widetilde{Y}) \to \CoHA(\widetilde{Y}^{+})$ of
-Morrison--Mozgovoy--Nagao--Szendr\H{o}i (arXiv:1107.5017).  Local $\bP^{2}$
-carries the three-vertex Beilinson quiver $(Q_{\bP^{2}},W_{\bP^{2}})$
-with nine arrows and cubic potential; the three charts of Wave-17 C2
-correspond to the three cluster seeds in the orbit
-$\mu_{1}\mu_{2}\mu_{3}$, the minimal cycle of the affine $\widehat{A}_{2}$
-cluster algebra (Fomin--Zelevinsky 2003, Figure~4 bottom row).  The
-positive-half gluing of Wave-17 C2 is thus the orbit cocycle of the
-cluster-$\widehat{A}_{2}$ mutation sequence acting on
-$\Yplus(\mathrm{Tot}(\omega_{\bP^{2}}))$.
+\subsection*{Keller-Yang Mutation}
 
-\subsection*{Upshot.}
+For an admissible mutation at $k$, Keller and Yang construct triangle
+equivalences
+\[
+  \mu_k^{+}:\per(\Gamma(Q,W))\xrightarrow{\sim}\per(\Gamma(Q',W')),
+  \qquad
+  \mu_k^{-}:\per(\Gamma(Q',W'))\xrightarrow{\sim}\per(\Gamma(Q,W)),
+\]
+restricting to
+\[
+  \sD_{\fd}(\Gamma(Q,W))\simeq\sD_{\fd}(\Gamma(Q',W')).
+\]
+They descend to an equivalence
+\[
+  \sC(Q,W)\simeq\sC(Q',W').
+\]
+Keller-Yang Theorem 6.3 identifies the endomorphism dg algebra of the
+mutated tilting object with $\Gamma(Q',W')$.  On hearts, the operation
+is the simple tilt at $S_k$; on charge lattices, it is the cluster
+mutation of the basis of simples.
 
-\ClaimStatusDerivation\ The positive-half gluing cocycle $\{g_{UV}\}$
-on $\mathrm{Stab}(X)$ is the CoHA image of the cluster mutation
-cocycle on $\sC(Q,W)$: to each path in the cluster groupoid between
-cluster tilting objects is attached a $\Yplus$-automorphism, and
-path-independence-up-to-inner-automorphism is precisely the Ext-group
-cocycle condition of Iyama--Yoshino.  $\kappa_{\mathrm{ch}}(X)$ is
-invariant along the orbit because $\mu_{k}^{*}$ is a graded algebra
-isomorphism preserving the Euler supertrace.  Global $\Yplus(X)$ is the descent
-of local $\Yplus(Q_{T},W_{T})$ along the cluster groupoid, with
-conifold and local $\bP^{2}$ as explicit two- and three-seed
-descent data.
+\subsection*{Positive Hall Transport}
+
+Fix the positive cone $C_\sigma^+\subset\bZ^{Q_0}$ determined by
+$\sH_\sigma$.  The completed positive half is
+\[
+  \widehat{\Yplus}_{\sigma}(Q,W)
+  =
+  \widehat{\bigoplus_{\gamma\in C_\sigma^+}
+  \CoHA_{\gamma}(Q,W)}.
+\]
+The completion is taken in the positive charge cone and in the
+motivic or cohomological grading used by the Hall product.
+
+Kontsevich-Soibelman wall crossing compares two ordered factorizations
+of the same motivic Hall element.  Nagao identifies this comparison
+with cluster mutation for the chamber change above.  After choosing
+orientation data and a cohomological realization, the wall element
+gives an isomorphism of completed chamber algebras
+\[
+  g_k:
+  \widehat{\Yplus}_{\sigma}(Q,W)
+  \xrightarrow{\sim}
+  \widehat{\Yplus}_{\sigma'}(Q',W').
+\]
+Equivalently, after the Kontsevich-Soibelman integration map, $g_k$ is
+the cluster transformation of the completed quantum torus.
+
+For a path $p:U\to V$ in the mutation groupoid, define
+\[
+  g_{UV}=g_p:
+  \widehat{\Yplus}_{\sigma_U}(Q_U,W_U)
+  \longrightarrow
+  \widehat{\Yplus}_{\sigma_V}(Q_V,W_V).
+\]
+For fixed paths and orientation data, the transition maps satisfy
+\[
+  g_{UW}=g_{VW}\circ g_{UV}
+\]
+on triple overlaps.  A loop in the mutation groupoid acts by the
+Picard-Lefschetz monodromy of the corresponding stability loop.  When
+that monodromy is represented by a Hall wall element, the action is
+conjugation by that element in the completed Hall algebra.
+
+\subsection*{The Toric Normal Form}
+
+For $\bC^3$, the critical quiver is the one-vertex three-loop quiver
+with cubic potential
+\[
+  W_{\bC^3}=x[y,z].
+\]
+Kontsevich-Soibelman and Schiffmann-Vasserot identify its cohomological
+Hall algebra with the positive half of the affine Yangian:
+\[
+  \CoHA(\bC^3)\cong\Yplus(\widehat{\mathfrak{gl}}_1).
+\]
+This is an associative $E_1$ positive half.  The full affine Yangian
+appears after adjoining the negative half and Cartan factor through
+the completed Hall-Drinfeld double:
+\[
+  \Yplus(\widehat{\mathfrak{gl}}_1)
+  \hookrightarrow
+  \widehat D_{\mathrm{Hall}}
+  \bigl(\Yplus(\widehat{\mathfrak{gl}}_1)\bigr)
+  =
+  Y^-\widehat\otimes Y^0\widehat\otimes \Yplus.
+\]
+A Fock representation or vacuum evaluation is a further step:
+\[
+  \widehat D_{\mathrm{Hall}}
+  \bigl(\Yplus(\widehat{\mathfrak{gl}}_1)\bigr)
+  \longrightarrow
+  \End\bigl(\mathcal W_{1+\infty}[\lambda]\text{-vacuum}\bigr).
+\]
+The cluster atlas supplies the positive-half input for this chain.
+
+\subsection*{Conifold}
+
+The resolved conifold is
+\[
+  X_{\mathrm{con}}=
+  \mathrm{Tot}\bigl(\mathcal O(-1)^{\oplus2}\to\bP^1\bigr).
+\]
+Its noncommutative crepant resolution is the Klebanov-Witten Jacobi
+algebra: two vertices, arrows
+$a_1,a_2:0\to1$, $b_1,b_2:1\to0$, and potential
+\[
+  W_{\mathrm{KW}}
+  =
+  a_1b_1a_2b_2-a_1b_2a_2b_1.
+\]
+The flop is the mutation at either vertex.  Nagao's theorem identifies
+the induced wall crossing with the conifold DT wall-crossing operator.
+The Hall object obtained here is the conifold positive half in the
+chosen chamber; its double or centre is additional structure.
+
+The chiral scalar attached to this Hall shadow is
+\[
+  \kch(A_{\mathrm{con}})=1.
+\]
+This value is the direct McKay/Jacobi-NCCR value of the conifold
+chamber.  The conifold is a rank-two bundle over a curve, so the local
+surface formula for $\mathrm{Tot}(\omega_S)$ is absent from this
+calculation.
+
+\subsection*{Local $\bP^2$}
+
+Let
+\[
+  X_{\bP^2}=\mathrm{Tot}(\omega_{\bP^2}).
+\]
+The $\bZ/3$ McKay presentation has three vertices and the cyclic
+Beilinson quiver with three arrows between consecutive vertices.  Its
+Jacobi potential is cubic.  The three toric affine charts form the
+affine $\widehat A_2$ mutation cycle, and the positive-half gluing is
+the corresponding cluster-groupoid cocycle acting on
+\[
+  \widehat{\Yplus}_{\sigma}(X_{\bP^2}).
+\]
+The Stage-1 chiral scalar is
+\[
+  \kch(A_{X_{\bP^2}})=\frac{1}{2}\chi_{\mathrm{top}}(\bP^2)=\frac32.
+\]
+This is the compactly supported McKay shadow of the local surface
+chart.
+
+\subsection*{Typed Local Constants}
+
+The local constants below are separated by construction:
+\[
+\begin{array}{c|c|c|c|c}
+X & \text{positive Hall seed} & \kch & \kcat
+  & \kappa_{\mathrm{BKM}}\\
+\hline
+\bC^3 &
+\Yplus(\widehat{\mathfrak{gl}}_1) &
+1 & 0 & \mathrm{n/a}\\
+X_{\mathrm{con}} &
+\text{Klebanov-Witten Jacobi CoHA} &
+1 & 0 & \mathrm{n/a}\\
+X_{\bP^2} &
+\bZ/3\text{-McKay Jacobi CoHA} &
+3/2 & 0 & \mathrm{n/a}
+\end{array}
+\]
+The table records local Hall-half constants.  Borcherds products and
+fibre lattice corrections live in separate constructions.  The BKM
+invariant $\kappa_{\mathrm{BKM}}$ belongs to the Borcherds-product
+construction, for example the Gritsenko-Clery rows, outside cluster
+mutation of these positive Hall seeds.
+
+\subsection*{Bridge To The Chiral Target}
+
+For a fixed oriented cluster atlas, the construction above gives a
+diagram in completed $E_1$ Hall algebras:
+\[
+  \operatorname*{hocolim}_{T\in\mathrm{Clust}(Q,W)}
+  \widehat{\Yplus}_{\sigma_T}(Q_T,W_T).
+\]
+Identification with a chiral algebra produced by $\Phi_3$ requires the
+following additional data:
+\[
+\begin{gathered}
+  \text{finite-type critical charts with compactly supported or
+  equivariant vanishing cycles,}\\
+  \text{compatible orientation data and a Kontsevich-Soibelman
+  integration map,}\\
+  \text{degree-preserving critical-cohomology identifications along
+  admissible mutations,}\\
+  \text{Hall multiplication compatible with all transition maps,}\\
+  \text{a negative half, Cartan factor, non-degenerate Hall pairing,
+  and completed double,}\\
+  \text{a centre or evaluation functor to the vertex-algebra target.}
+\end{gathered}
+\]
+These inputs carry the positive Hall atlas to the chiral target.  The
+CY$_3$ output itself remains $E_1$; the braided $E_2$ structure belongs
+to the centre, double, or representation category.
+
+\subsection*{Wall Crossing And Euler Series}
+
+Define the completed Hall Euler series in the quantum torus of the
+charge lattice by
+\[
+  \chiHall_{\sigma}(Q,W)
+  =
+  \sum_{\gamma\in C_{\sigma}^{+}}
+  \left(
+    \sum_i (-1)^i
+    \dim H^i_{G_\gamma,c}
+    \bigl(\Rep_\gamma(Q),
+    \phi_{\mathrm{Tr}(W)_\gamma}\mathbb Q\bigr)
+  \right)x^\gamma.
+\]
+For an admissible mutation edge, the Kontsevich-Soibelman
+transformation gives
+\[
+  \chiHall_{\sigma'}(Q',W')
+  =
+  \mu_k^{\mathrm{KS}}\bigl(\chiHall_{\sigma}(Q,W)\bigr)
+\]
+after the cluster identification of charge lattices.  This transported
+equality is the wall-crossing theorem.  Coefficientwise equality is a
+separate fixed-sector statement in transported variables.
+
+When the bridge data identify the transported Hall Euler scalar with
+the modular characteristic of the $\Phi_3$ output, the same equality
+gives mutation invariance of $\kch$ for the constructed chiral object.
+For the local geometries above, the invariant values are exactly
+\[
+  \kch(A_{\bC^3})=1,\qquad
+  \kch(A_{\mathrm{con}})=1,\qquad
+  \kch(A_{X_{\bP^2}})=\frac32.
+\]

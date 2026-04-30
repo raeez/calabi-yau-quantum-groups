@@ -1,12 +1,3 @@
-%% wave12_a10_cy_c_three_routes_soibelman.tex
-%% Adversarial assault and rigorous healing of the CY-C three-routes
-%% conjecture C(\fg_{K3}, q) = D(Y^+(\fg_{K3})) via
-%% (i) CoHA / (ii) Koszul / (iii) Maulik--Okounkov stable envelopes.
-%%
-%% Voice: Yan Soibelman -- CY-categorical rigour, DT theory,
-%% Kontsevich--Soibelman wall-crossing, CoHA precision.
-%% Format: read-only vs working_notes.tex; write-only this file.
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
@@ -16,687 +7,495 @@
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem{observation}[theorem]{Observation}
-\newtheorem{warning}[theorem]{Warning}
-
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}\ }
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}\ }
-\providecommand{\ClaimStatusConditional}[1]{\textbf{[Conditional on: #1]}\ }
-\providecommand{\ClaimStatusProvedHere}{\textbf{[Proved here]}\ }
-\providecommand{\ClaimStatusOpen}{\textbf{[Open]}\ }
 
 \providecommand{\fg}{\mathfrak{g}}
 \providecommand{\fh}{\mathfrak{h}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
 \providecommand{\Coh}{\mathrm{Coh}}
 \providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\End}{\mathrm{End}}
-\providecommand{\Ext}{\mathrm{Ext}}
-\providecommand{\Sym}{\mathrm{Sym}}
-\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
 \providecommand{\Stab}{\mathrm{Stab}}
 \providecommand{\MO}{\mathrm{MO}}
-\providecommand{\PT}{\mathrm{PT}}
-\providecommand{\DT}{\mathrm{DT}}
-\providecommand{\KS}{\mathrm{KS}}
-\providecommand{\ch}{\mathrm{ch}}
-\providecommand{\ZZ}{\mathbb{Z}}
-\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\Perf}{\mathrm{Perf}}
 \providecommand{\CC}{\mathbb{C}}
-\providecommand{\RR}{\mathbb{R}}
-\providecommand{\NN}{\mathbb{N}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\PP}{\mathbb{P}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cZ}{\mathcal{Z}}
 
-\title{CY-C three routes at the limit of the art:\\
-an adversarial assault and rigorous healing\\
-\textit{(Soibelman voice: CoHA, KS wall-crossing, DT)}}
-\author{Wave 12, note A10 (internal; \texttt{notes/} only)}
+\title{CY-C Three Routes for $K3 \times E$:\\
+CoHA, Koszul Duality, and Stable Envelopes}
+\author{Raeez Lorgat}
 \date{2026-04-22}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We subject the memory claim \emph{conj:cy-c-three-routes} --- that
-$C(\fg_{K3}, q) = D(Y^+(\fg_{K3}))$ is reconstructed by three routes
-(CoHA / Schiffmann--Vasserot; Koszul / Positselski; stable envelope /
-Maulik--Okounkov) --- to five attack--heal cycles. Adversarially: at
-each of $g \in \{0, 1, 2\}$ and each of $q \in \{1, \text{generic},
-\text{root of unity}\}$, we probe whether the three routes produce
-the \emph{same} object or three \emph{potentially non-isomorphic
-objects} that coincide only after a named equivalence. The
-punchline: the routes converge \emph{only on a specified
-Koszul--Gorenstein locus} in the $(g, q)$-parameter space, and they
-diverge demonstrably at $(g, q) = (0, q_{\mathrm{root}})$,
-$(g, q) = (1, 1)$, and (most seriously) at $g \geq 2$ where the
-stable-envelope route is not defined at all on generic K$3$.
-After healing: Route~(i) is the robust one; Routes~(ii) and (iii)
-are valid on proper subloci, with the intersection of all three
-validity domains giving the correct scope of Conjecture~CY-C.
+Let $S$ be a smooth projective K3 surface, let $E$ be an elliptic
+curve, and set $X=S\times E$. The CY-C comparison asks whether the
+compact Hall positive half, the Koszul-dual chiral category, and the
+Maulik-Okounkov stable-envelope algebra assemble to one completed
+Hall-Drinfeld and Borcherds target. The comparison is conditional. The
+compact positive half, non-degenerate Hopf pairing, completion, Koszul
+model, stable-envelope fixed-locus geometry, and comparison maps are
+part of the construction data. With those data supplied, the three
+routes define a comparison problem on the Mukai and equivariant loci at
+generic $q$. Without those data, CY-C remains conjectural and the
+global quantum vertex chiral group $G(X)$ is unconstructed in general.
+For $K3\times E$ the numerical invariants are fixed:
+$\kappa_{\mathrm{cat}}(X)=0$, $\kappa_{\mathrm{ch}}(X)=0$ on the
+compact total-space Hodge reading,
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(X)=3$,
+$\kappa_{\mathrm{BKM}}(\Delta_5)=5$, and
+$\kappa_{\mathrm{fiber}}(X)=24$.
 \end{abstract}
 
 \tableofcontents
 
-% ===================================================================
-\section{Notation and the three routes, rigorously stated}
-\label{sec:notation}
+\section{Objects and Status}
+\label{sec:objects-status}
 
-Throughout $S$ is a smooth projective K$3$ surface, $E$ an elliptic
-curve, $X = S \times E$ the CY$_3$. The \emph{K$3$ Yangian}
-$Y(\fg_{K3})$ is the BPS Yangian-like Hopf algebra whose existence
-is part of the CY-C programme --- not a theorem; at best,
-established on the abelian / Heisenberg sub-locus via Nakajima's
-Heisenberg action on $\bigoplus_n H^*(\Hilb^n S)$.
-
-The memory claim references
+The compact Calabi-Yau threefold is always
 \[
-  C(\fg, q) \;\stackrel{?}{=}\; D\bigl(Y^+(\fg_{K3})\bigr),
+ X=S\times E.
 \]
-where ``$g$'' in the memory note is a \emph{Lie-algebra} index
-$\fg$, but the investigation protocol asks us to probe the
-\emph{genus} dependence. We resolve this overloading by taking both
-readings seriously:
+An auxiliary curve $\Sigma_g$ is a chiral test curve or a stage-$2$
+specialisation curve. Only at $g=1$ does this curve coincide with the
+elliptic factor $E$ in the Calabi-Yau threefold.
 
-\begin{definition}[Genus refinement of $C(\fg, q)$]
-\label{def:genus-refinement}
-For a Riemann surface $\Sigma_g$ of genus $g$, define the
-\emph{genus-$g$ refinement} of the CY-C quantum group as
+\begin{definition}[The conditional target $G(X)$]
+\label{def:conditional-GX}
+A quantum vertex chiral group
 \[
-  C_g(\fg_{K3}, q) \;:=\; \text{End}^{\otimes}\bigl(
-  \Rep\bigl(A_{X,\Sigma_g}^{R_i}\bigr)\bigr),
+ G(X):=D_\hbar^\wedge(Y^+(X))
 \]
-the endomorphism algebra (on tensor structure) of the category of
-modules of the chiral algebra $A_{X, \Sigma_g}^{R_i}$ constructed
-by route $R_i \in \{\text{CoHA}, \text{Koszul}, \MO\}$ on the
-elliptic fibration over $\Sigma_g$ with K$3$ fibre. At $g = 1$ and
-$\Sigma_1 = E$ this recovers the setting of the CoHA treatise
-\cite[\S\ref{wn:subsec:coha-W-summary}]{treatise};
-at $g = 0$ this degenerates to the Fock-space / $\C \times K3$
-setting; at $g \geq 2$ this requires a choice of spin structure
-and level.
+is defined only after the following package is supplied:
+\begin{enumerate}[label=\textup{(H\arabic*)}, leftmargin=2.2em]
+\item a positive half $Y^+(X)$ in a completed $E_1$-chiral category;
+\item a completed negative half $Y^-(X)$;
+\item a non-degenerate Hopf pairing
+$Y^+(X)\widehat\otimes Y^-(X)\to\mathbf{1}$;
+\item a completed Drinfeld double $D_\hbar^\wedge(Y^+(X))$;
+\item a centre comparison
+\[
+ \cZ\bigl(\Rep^{E_1}(Y^+(X))\bigr)
+ \simeq
+ \Rep^{E_2}\bigl(D_\hbar^\wedge(Y^+(X))\bigr);
+\]
+\item route comparison maps preserving the framed stage-$2$
+specialisation, root grading, coproduct, pairing, and completion.
+\end{enumerate}
+For a general compact CY$_3$ this package is absent. Thus
+$G(X)$ is unconstructed in general.
 \end{definition}
 
-\begin{definition}[The three target objects]
-\label{def:three-targets}
-Fix $(g, q) \in \ZZ_{\geq 0} \times \CC^\times$.
-\begin{itemize}[leftmargin=1.5em]
-\item $\mathbf{C^{(i)}_g(\fg, q)} := D(Y^+_{\CoHA}(\fg_{K3},
-  \Sigma_g; q))$: Drinfeld double of the positive half assembled
-  from the CoHA of $X \times T^*\Sigma_g$ (or, at $g = 1$,
-  $X$ alone).
-\item $\mathbf{C^{(ii)}_g(\fg, q)} := \End^\otimes(\Rep(A_{X,\Sigma_g}^!))$:
-  Tannakian reconstruction from the category of representations of
-  the Koszul dual of the chiral algebra on $\Sigma_g$.
-\item $\mathbf{C^{(iii)}_g(\fg, q)} := \langle \mathcal{R}_{\MO}(z)
-  \rangle$: the algebra generated by the Maulik--Okounkov stable-
-  envelope $R$-matrix on $\Hilb^n(S \times T^*\Sigma_g)$ with
-  spectral parameter $z$.
-\end{itemize}
+\begin{definition}[Three route outputs]
+\label{def:three-route-outputs}
+The three constructions considered here are:
+\begin{enumerate}[label=\textup{(\roman*)}, leftmargin=2.0em]
+\item the compact Hall route
+\[
+ C^{\mathrm{Hall}}(X)
+ :=
+ D_\hbar^\wedge\bigl(Y^+_{\mathrm{Hall}}(X)\bigr),
+\]
+defined after compact critical CoHA correspondences, a positive half,
+a non-degenerate Hopf pairing, and completion are supplied;
+\item the Koszul route
+\[
+ C^{\mathrm{Kos}}(X,\Sigma_g)
+ :=
+ \End^\otimes\!\bigl(\Rep(A_{X,\Sigma_g}^{!})\bigr),
+\]
+defined after the stage-$2$ chiral algebra $A_{X,\Sigma_g}$ is
+constructed and a Koszul dual model $A_{X,\Sigma_g}^{!}$ is fixed;
+\item the stable-envelope route
+\[
+ C^{\mathrm{MO}}(S,T)
+ :=
+ \langle R^{\mathrm{MO}}_{\mathfrak C}(z)\rangle,
+\]
+the algebra generated by Maulik-Okounkov stable-envelope $R$-matrices
+on a symplectic resolution with a torus action $T$ and controlled fixed
+loci.
+\end{enumerate}
 \end{definition}
 
-The naive CY-C three-routes claim is then:
-\[
-  \tag{$\star$}
-  C^{(i)}_g(\fg, q) \;\simeq\; C^{(ii)}_g(\fg, q) \;\simeq\;
-  C^{(iii)}_g(\fg, q) \quad \text{for all } (g, q).
-\]
-We will attack $(\star)$ at five separate $(g, q)$ points, and
-progressively heal the claim down to its correct scope.
-
-% ===================================================================
-\section{Cycle 1. $g = 0$, $q$ generic: the baseline}
-\label{sec:cycle-1}
-
-\subsection*{Attack}
-
-At $g = 0$ the target is $\Sigma_0 = \PP^1$ and the chiral algebra
-is expected to be a \emph{rational} vertex algebra; at $q$ generic
-(neither $1$ nor a root of unity) all three routes should reduce
-to the Schiffmann--Vasserot / Nakajima description on $\Hilb^n S$.
-The adversarial question: is $C^{(i)}_0 = C^{(ii)}_0 = C^{(iii)}_0$
-literally, or only \emph{up to completion}?
-
-\textbf{Finding (SV+N).} The CoHA (i) is obtained by SV's
-correspondence construction; the MO stable envelope (iii) is given
-on $T^* \Hilb^n S$ for the fibration $T^*\PP^1 \to \PP^1$; the
-Koszul dual (ii) requires a Koszul chiral algebra $A_{X, \PP^1}$
-in the first place.
-
-\begin{observation}[$g = 0$ Koszul obstruction]
-\label{obs:g0-koszul}
-The chiral algebra $A_X^{R_1} = \Phi_3(D^b(\Coh(X)))$ is
-\emph{not} known to be Koszul at $g = 0$. Absent Koszulity,
-$A_{X, \PP^1}^!$ is not canonically defined: $\Rep(A^!)$ depends
-on the choice of resolution. Hence $C^{(ii)}_0(\fg, q)$
-requires an auxiliary input --- a choice of derived resolution of
-$A_X$ --- before it can be identified with $C^{(i)}_0$ or
-$C^{(iii)}_0$.
-\end{observation}
-
-\subsection*{Heal}
-
-\begin{conjecture}[Cycle-1 scope restriction]
-\label{conj:cycle-1-scope}
-\ClaimStatusConjectured
-At $g = 0$ and $q$ generic, the three routes converge \emph{on the
-Heisenberg sub-locus}:
-\[
-  C^{(i)}_0(\fg_{K3}, q)\big|_{\mathrm{Heis}} \;\simeq\;
-  C^{(ii)}_0(\fg_{K3}, q)\big|_{\mathrm{Heis}} \;\simeq\;
-  C^{(iii)}_0(\fg_{K3}, q)\big|_{\mathrm{Heis}}
-  \;\simeq\; D\bigl(\widehat{\fh}_{\Lambda_{K3}}\bigr),
-\]
-the Heisenberg double of the Mukai lattice of K$3$.
-The full $C^{(\bullet)}_0$ agreement is \emph{open} and depends on
-the Koszulity of $A_X^{R_1}$ at $g = 0$.
-\end{conjecture}
-
-\noindent
-The Heisenberg sub-locus is the one on which Nakajima's construction
-applies; Schiffmann--Vasserot's theorem
-\cite[arXiv:1202.2756]{SV} gives the $(\mathcal{W}_{1+\infty}$-like)
-description for the $\C^2 / K3$-analogue. The three routes agree
-here by the \emph{same} Fock-space isomorphism, not by three
-independent ones.
-
-% ===================================================================
-\section{Cycle 2. $g = 1$, $q$ generic: the K3 $\times$ E setting}
-\label{sec:cycle-2}
-
-\subsection*{Attack}
-
-At $g = 1$, $\Sigma_1 = E$, and the geometry is $X = S \times E$:
-the canonical CY-C setting. The adversarial probe: does the CoHA of
-$X$ actually admit a Drinfeld double?
-
-\begin{observation}[Pairing obstruction at $g = 1$ (CoHA side)]
-\label{obs:pairing-obstruction}
-On a \emph{non-compact} CY$_3$ (like $\C^3$ or the conifold) the
-Drinfeld double is constructed via the Ext-pairing (Serre duality
-with shift). On a \emph{compact} CY$_3$ like $K3 \times E$, the
-pairing is determined by Serre duality on $D^b(X)$:
-\[
-  \langle -, - \rangle \;:\; \CoHA^+(X)_\gamma \otimes
-  \CoHA^+(X)_{-\gamma} \;\to\; \CC,
-\]
-but its \emph{non-degeneracy} is only known up to the Davison--
-Meinhardt PBW framework, which requires the BPS sheaf to be
-\emph{pure}. K3 $\times$ E has primitive-class purity
-\cite[PT'14; OP'17]{treatise}, but imprimitive multiple-cover
-contributions are not yet purity-controlled.
-\end{observation}
-
-\begin{observation}[MO obstruction at $g = 1$]
-\label{obs:mo-obstruction-g1}
-The Maulik--Okounkov stable envelopes require a $T$-action with
-\emph{isolated} fixed points on $\Hilb^n(X)$. On $X = S \times E$:
-the $E$-translation symmetry $E \curvearrowright X$ has \emph{no}
-fixed points (it acts freely). The available torus actions reduce
-to $T_S \curvearrowright S$ for $S$ algebraic with $T$-action
-(i.e., $S$ a Kummer surface or toric-like, NOT generic K3). So
-$C^{(iii)}_1$ is \emph{undefined on a generic K3}.
-\end{observation}
-
-\subsection*{Heal}
-
-\begin{theorem}[Cycle-2 scope restriction]
-\label{thm:cycle-2-scope}
-\ClaimStatusTheorem
-At $(g, q) = (1, \text{generic})$, the three routes are
-simultaneously defined \emph{only on the subset of K3
-surfaces that admit a symplectic automorphism group action
-$G \subseteq M_{23}$} (Mukai's classification). On this
-sub-locus:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item Route~(i) is defined via the $G \times E[N]$-equivariant
-  CoHA of $X$, per the CoHA treatise.
-\item Route~(iii) is defined on $\Hilb^n(S^G \times E)$ where
-  $S^G$ is the $G$-fixed locus, which is a union of points and
-  rational curves.
-\item Route~(ii) requires the Koszul dual of the $G$-equivariant
-  chiral algebra, which exists for finite $G$ by Etingof--Ostrik.
-\end{enumerate}
-On the complement (generic K3 with no symplectic automorphisms),
-Routes~(ii) and (iii) are not defined; Route~(i) alone survives,
-but its Drinfeld double is constructed only conditionally on the
-Davison--Meinhardt purity extension to imprimitive classes.
-\end{theorem}
-
-\noindent
-Consequence: the three-routes CY-C is \emph{not a statement about
-the generic point of the K3 moduli space}; it is a statement about
-the Mukai sub-locus.
-
-% ===================================================================
-\section{Cycle 3. $g = 2$, $q$ generic: first obstruction to genericity}
-\label{sec:cycle-3}
-
-\subsection*{Attack}
-
-At $g \geq 2$ the target is a higher-genus Riemann surface, and
-the natural geometry is $X_g := S \times \Sigma_g$ (with
-$\Sigma_g$ hyperelliptic for simplicity) or the embedding
-$\Sigma_g \hookrightarrow S$ as a linear-system curve. The
-adversarial question: does the CY-C three-routes convergence
-survive to $g = 2$?
-
-\begin{observation}[$g = 2$ Schottky obstruction]
-\label{obs:schottky}
-At genus $2$, the moduli space of Riemann surfaces is an open
-subvariety of the Siegel upper half-space $\mathcal{H}_2$ (the
-Schottky locus is $5$-dimensional and closed of codimension $0$
-at genus $2$: $\dim \mathcal{M}_2 = 3 = \dim \mathcal{A}_2$).
-But the CoHA-Drinfeld-double construction on $X \times \Sigma_g$
-requires integration against the period matrix $\tau \in
-\mathcal{H}_2$, and the resulting quantum group depends on whether
-we integrate over $\mathcal{A}_2$ or only the Schottky locus
-$\mathcal{M}_2 \hookrightarrow \mathcal{A}_2$.
-
-The Borcherds route (R2 in the six-routes chapter) naturally
-lives on $\mathcal{A}_2$ (via the Gritsenko--Nikulin $\Delta_5$);
-the CoHA route~(i) naturally lives on $\mathcal{M}_g$ (via
-correspondence cycles on moduli of sheaves on $\Sigma_g$-fibred
-CY$_3$'s); the MO route~(iii) is undefined for $g = 2$ unless one
-works over the Hilbert scheme of $\Sigma_2 \subset S$, which
-requires $\Sigma_2$ to be in a complete linear system on $S$.
-\end{observation}
-
-\begin{observation}[$g = 2$ automorphic extension]
-\label{obs:g2-automorphic}
-The BKM superalgebra $\fg_{\Delta_5}$ is attached to the Igusa
-cusp form $\Phi_{10}$ on $\mathcal{A}_2$ (i.e., \emph{at}
-genus~$2$ in the Siegel sense). At genus $g \geq 3$, there is no
-Schottky-locus-compatible Borcherds lift: the Schottky
-obstruction $J(\mathcal{M}_g) \subsetneq \mathcal{A}_g$ is
-nontrivial, and the candidate BKM is $\fg_{\Phi_N^{(g)}}$ for a
-conjectural generalised Borcherds product
-$\Phi_N^{(g)}: \mathcal{A}_g \to \mathbb{C}$, which has not been
-explicitly constructed for $g \geq 3$.
-\end{observation}
-
-\subsection*{Heal}
-
-\begin{conjecture}[Cycle-3 scope statement: $g = 2$ convergence]
-\label{conj:cycle-3-scope}
-\ClaimStatusConjectured
-At $(g, q) = (2, \text{generic})$, the three routes converge
-\emph{to the Gritsenko--Nikulin BKM on $\mathcal{A}_2$}, not to
-the geometric CoHA on $\mathcal{M}_2$. The convergence is
-therefore up to the Torelli / Schottky map
-$J: \mathcal{M}_2 \hookrightarrow \mathcal{A}_2$, and the
-statement $C^{(i)}_2 \simeq C^{(ii)}_2 \simeq C^{(iii)}_2$
-holds \emph{only as pullbacks along $J$}. At $g \geq 3$, the
-statement is not formulable without a Schottky-compatible choice.
-\end{conjecture}
-
-\begin{remark}[Why this matters]
-\label{rem:why-schottky}
-The Schottky restriction is precisely the obstruction that
-terminates the genus-by-genus expansion of the BCOV B-model
-partition function at $g \geq 3$
-\cite[\S\ref{sec:bcov}]{vol3-frontier}.
-The CY-C programme, at the level of its three routes, is
-\emph{compatible} with this obstruction: all three routes cease
-to extend to $g \geq 3$ in the same failure mode.
+\begin{remark}[K3 BKM branch and K3 Yangian branch]
+\label{rem:bkm-yangian-separation}
+The BKM-side object attached to $K3\times E$ is the Hall-Drinfeld and
+Borcherds branch governed by $\Delta_5$. The Mukai self-mirror Yangian
+branch is a separate K3 lattice construction. The abelian Heisenberg
+locus witnesses both branches at their Cartan or Fock-space shadows.
+Beyond those shadows, the full compact Hall double and the K3 Yangian
+remain distinct.
 \end{remark}
 
-% ===================================================================
-\section{Cycle 4. $q$ a root of unity: the KS wall-crossing test}
-\label{sec:cycle-4}
+\section{Numerical Invariants}
+\label{sec:numerical-invariants}
 
-\subsection*{Attack}
-
-Fix $(g, q) = (0, q_{\mathrm{root}})$ where $q_{\mathrm{root}} =
-e^{2\pi i / N}$ for $N \in \{2, 3, 4, 6\}$ (the programme-core
-root orders). Applying Kontsevich--Soibelman motivic wall-crossing:
-
-\begin{observation}[KS wall-crossing at $q = q_{\mathrm{root}}$]
-\label{obs:ks-wall-crossing}
-The KS wall-crossing formula asserts that for a generic
-Bridgeland stability condition $\sigma$, the factorisation
+\begin{theorem}[Four subscripted values on $K3\times E$]
+\label{thm:k3e-four-values}
+Let $Y=K3\times E$. The values attached to the four distinct
+constructions are
 \[
-  \prod_{\gamma}^\leftarrow \mathrm{Ad}(q)^{\Omega(\gamma, \sigma)}_{\gamma}
-  \;=\; \text{const across walls}
+\begin{array}{ccl}
+\kappa_{\mathrm{cat}}(Y) &=& 0,\\[2pt]
+\kappa_{\mathrm{ch}}(Y) &=& 0
+  \quad\text{on the compact total-space Hodge reading},\\[2pt]
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(Y) &=& 3,\\[2pt]
+\kappa_{\mathrm{BKM}}(\Delta_5) &=& 5,\\[2pt]
+\kappa_{\mathrm{fiber}}(Y) &=& 24.
+\end{array}
 \]
-is preserved. At $q = q_{\mathrm{root}}$, the adjoint
-$\mathrm{Ad}(q)$ becomes a finite-order automorphism, and
-\emph{the ordering of the product matters in a non-trivial way}:
-the quantum dilogarithm identities require specific
-non-commutation rules that hold only in the positive-half
-algebra $Y^+$, not in $D(Y^+)$ after doubling.
-
-Concretely: at $N = 2$ (Proposition
-\ref{prop:root-unity-n2} in working\_notes.tex), the
-quantum toroidal algebra has $324$ finite-dimensional modules;
-the $S$-matrix on the abelian sub-category is \emph{degenerate}.
-This is exactly the signature of the \emph{failure of the
-Drinfeld double} at this $q$: the Hopf pairing becomes
-degenerate, and $D(Y^+) \neq Y$ generically.
-\end{observation}
-
-\begin{observation}[Stable envelope at $q_{\mathrm{root}}$]
-\label{obs:stable-envelope-root}
-The MO stable envelope construction $\Stab_{\mathfrak{C}}(z)$
-depends on a choice of \emph{chamber}
-$\mathfrak{C} \subset \mathrm{Lie}(T)_\RR$. At $q = q_{\mathrm{root}}$
-(``resonance''), the chamber structure degenerates: multiple
-chambers produce \emph{distinct} stable envelopes with transition
-matrices given by the MO $R$-matrix. The $R$-matrix is a
-\emph{universal} object only at $q$ generic; at
-$q_{\mathrm{root}}$, it factors through the finite-dimensional
-quotient (the Lusztig specialisation), and this quotient is
-generally \emph{not} the Drinfeld double of the analogous CoHA
-positive half.
-\end{observation}
-
-\subsection*{Heal}
-
-\begin{theorem}[Cycle-4: roots-of-unity failure]
-\label{thm:cycle-4-root-failure}
-\ClaimStatusTheorem
-At $q = q_{\mathrm{root}} = e^{2\pi i / N}$ for $N \in \{2, 3,
-4, 6\}$, the three routes produce \emph{distinct} finite-
-dimensional quotients:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item Route~(i) (CoHA) produces the $q_{\mathrm{root}}$-Lusztig-
-  style finite form $Y^+_N := Y^+ / I_N$ where $I_N$ is the
-  ideal of $q$-integer relations.
-\item Route~(ii) (Koszul) produces the fusion tensor category
-  $\mathcal{C}_N := \Rep_{\mathrm{f.d.}}(A_{X,\Sigma_0}^!)_{N}$,
-  which at $N = 2$ has $324$ simple objects per the working-notes
-  proposition.
-\item Route~(iii) (MO) produces the specialised $R$-matrix algebra
-  $\MO_N$, which is a quotient of the generic $R$-matrix by the
-  $N$-th cyclotomic polynomial in $q$.
-\end{enumerate}
-The natural maps
-$Y^+_N \twoheadleftarrow \MO_N \twoheadrightarrow \mathcal{C}_N$
-are \emph{not} isomorphisms in general. In particular:
-\begin{itemize}
-\item $|\mathrm{simple}(\mathcal{C}_2)| = 324$
-  (working\_notes Prop.\ref{prop:root-unity-n2}, but $\dim Y^+_2$
-  is infinite-dimensional unless further truncated.
-\item The MO $R$-matrix at $q_{\mathrm{root}}$ has a degenerate
-  $S$-matrix on the abelian sector, agreeing with $\mathcal{C}_2$
-  only after an explicit Morita reduction.
-\end{itemize}
-Therefore the three-routes convergence
-\eqref{conj:cy-c-three-routes} \emph{fails} at $q = q_{\mathrm{root}}$
-without imposing additional structure (level, fusion ring,
-cyclotomic completion).
+The set $\{0,3,5,24\}$ records four construction sources rather than
+four evaluations of one functor.
 \end{theorem}
 
-\begin{remark}[Failure mode found]
-\label{rem:failure-found}
-This is the adversarial-assault finding requested by the mission.
-\textbf{The concrete failure point is $(g, q) = (0, q = -1)$
-(i.e., $N = 2$)}: here Route~(ii) gives $324$ simple modules,
-Route~(i) gives an infinite-dimensional algebra (CoHA
-cohomology on $\Hilb^n$ is infinite-dimensional even after
-truncation), and Route~(iii) gives an $S$-matrix that is
-degenerate of rank $< 324$. The three objects are pairwise
-non-isomorphic \emph{as algebras}; they become equivalent only
-\emph{after Morita reduction to their semisimple quotients}.
-\end{remark}
-
-% ===================================================================
-\section{Cycle 5. Lefschetz hyperplane test for the CoHA}
-\label{sec:cycle-5}
-
-\subsection*{Attack}
-
-Apply the Konstevich-style Lefschetz hyperplane (KV-Lefschetz)
-test: the CoHA of a CY$_3$ $X$ restricted to a hyperplane
-section $H \subset X$ should relate to the CoHA of $X$ by a
-specific $\mathbb{Z}/2$-graded correction.
-
-\begin{observation}[Lefschetz test for K3 $\times$ E]
-\label{obs:lefschetz-k3e}
-A natural hyperplane section of $X = S \times E$ is
-$H = S \times \{p\}$ for $p \in E$ a point --- i.e., the K3 itself.
-The KV-Lefschetz test predicts:
+\begin{proof}
+Kunneth gives
 \[
-  \CoHA(X) \;\simeq\; \CoHA(S)[\text{primary}] \otimes
-  \CoHA(E)[\text{transverse}],
+ h^{0,\bullet}(K3\times E)=(1,1,1,1),
 \]
-which, under the identification
-$\CoHA(S) \simeq \mathcal{H}_{\mathrm{Heis}}$ (Nakajima),
-$\CoHA(E) \simeq \mathrm{Sym}(\mathrm{Heis})$,
-gives a \emph{Heisenberg-tensor} description
-$\CoHA(X) \simeq \mathcal{H}_{\mathrm{Heis}}^{\otimes 2}$.
-But the full CoHA of $X$ should carry the BKM
-$\fg_{\Delta_5}$, which has simple imaginary roots $\alpha$ with
-$\alpha^2 < 0$ --- \emph{these cannot be produced from a
-Heisenberg tensor alone}.
-\end{observation}
-
-\begin{observation}[MO stable envelope residue]
-\label{obs:mo-residue}
-The MO stable envelope satisfies a \emph{residue identity} at
-poles of the spectral parameter $z$:
+because $h^{0,\bullet}(K3)=(1,0,1)$ and $h^{0,\bullet}(E)=(1,1)$.
+Hence
 \[
-  \mathrm{Res}_{z = z_0} \Stab_\mathfrak{C}(z) \;=\;
-  (\text{convolution product on fixed points}).
+ \kappa_{\mathrm{cat}}(Y)
+ =
+ \chi(\cO_Y)
+ =
+ \chi(\cO_{K3})\chi(\cO_E)
+ =
+ 2\cdot 0
+ =
+ 0,
 \]
-For $X = S \times E$, the poles $z = z_0$ are at $E$-torsion
-points $z_0 \in E[N]$. The residues there are convolutions on
-$\Hilb^n(S)^{E[N]} = $ fixed locus, which for generic K3 is
-\emph{empty}. Thus the MO route (iii) \emph{fails the residue
-test at $g = 1$ for generic K3}.
-\end{observation}
-
-\subsection*{Heal}
-
-\begin{theorem}[Cycle-5: the Heisenberg obstruction to CoHA=BKM]
-\label{thm:cycle-5-heisenberg}
-\ClaimStatusTheorem
-The naive Lefschetz identification
-$\CoHA(S \times E) \simeq \CoHA(S) \otimes \CoHA(E)$ is
-\emph{false}: it captures only the real-root part of the BKM
-$\fg_{\Delta_5}$, missing all imaginary roots. Specifically:
+and the compact Hodge supertrace is
 \[
-  \text{rank}\bigl(\CoHA(S) \otimes \CoHA(E)\bigr)_{\alpha^2 < 0} = 0,
+ \kappa_{\mathrm{ch}}(Y)
+ =
+ \sum_{q=0}^{3}(-1)^q h^{0,q}(Y)
+ =
+ 1-1+1-1
+ =
+ 0.
 \]
-while $\dim \fg_{\Delta_5, \alpha} > 0$ for $\alpha^2 < 0$,
-$\alpha \in \Lambda_{\mathrm{Muk}}$ with $\mathrm{mult}_{\mathrm{BKM}}
-(\alpha) \geq 1$ (the imaginary simple roots of $\fg_{\Delta_5}$).
-
-\textbf{Failure mode:} the simplest imaginary root $\alpha$ of
-$\fg_{\Delta_5}$ has $\alpha^2 = -2$, $\mathrm{mult}(\alpha) = 10$
-(from the $c_1(0)/2 = 10$ calculation at $N = 1$), and this
-$10$-dimensional weight space is \emph{not} in the Lefschetz-
-tensor image. Hence the three-routes convergence, if true, must
-pass through a \emph{non-naive} identification between the CoHA
-and the BKM that includes a \emph{cap product with the
-discriminant divisor} on $\mathcal{A}_2$.
-\end{theorem}
-
-\begin{remark}[Correct route hierarchy]
-\label{rem:correct-hierarchy}
-The healing reveals a genuine hierarchy among the routes:
-\begin{itemize}[leftmargin=1.5em]
-\item \textbf{Route~(ii) (Koszul) is most robust} at $g \geq 1$:
-  it requires only Koszulity of $A_X^{R_1}$ and the Tannakian
-  reconstruction.
-\item \textbf{Route~(i) (CoHA) is second} and requires the
-  Davison--Meinhardt purity extension to compact CY$_3$, which
-  is the core obstruction.
-\item \textbf{Route~(iii) (MO) is weakest}: it requires an
-  explicit torus action with isolated fixed points, which
-  \emph{generic K3 does not admit}. It is defined only on the
-  Mukai sub-locus, and even there the residue test at $E[N]$
-  torsion gives only the $G$-equivariant fixed part.
-\end{itemize}
-\end{remark}
-
-% ===================================================================
-\section{Synthesis: the correct scope of conj:cy-c-three-routes}
-\label{sec:synthesis}
-
-\begin{conjecture}[Corrected three-routes scope (per AP-CY6)]
-\label{thm:corrected-scope}
-The three-routes convergence
+The Heisenberg-Mukai specialisation is a different stage-$2$ reading:
+it reduces to the rank-$3$ Lorentzian Heisenberg sector and gives
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(Y)=3$. Borcherds' weight theorem
+gives the weight of the multiplicative lift as one half of the
+discriminant-zero coefficient. In Eichler-Zagier normalisation for the
+primitive K3 input, $c_1(0)=10$, whence
 \[
-  C^{(i)}_g(\fg_{K3}, q) \;\simeq\; C^{(ii)}_g(\fg_{K3}, q)
-  \;\simeq\; C^{(iii)}_g(\fg_{K3}, q)
-  \;\simeq\; D(Y^+(\fg_{K3}))
+ \kappa_{\mathrm{BKM}}(\Delta_5)=c_1(0)/2=5.
 \]
-holds on the following restricted locus:
+Finally
 \[
-  \mathcal{L}_{\mathrm{CY-C}} \;:=\;
-  \{(S, g, q) : S \text{ admits } G \subset M_{23},\,
-  g \in \{1, 2\},\, q \notin \mu_{\infty}\}
-  \,\cap\, \mathcal{A}_g^{\mathrm{Schottky}},
+ \kappa_{\mathrm{fiber}}(Y)
+ =
+ \operatorname{rk}\widetilde H(K3,\ZZ)
+ =
+ 1+22+1
+ =
+ 24.
 \]
-where $\mu_\infty$ denotes the roots of unity and
-$\mathcal{A}_g^{\mathrm{Schottky}}$ is the Schottky locus.
-Off this locus, the three routes produce potentially non-
-isomorphic objects:
-\begin{itemize}
-\item Off the Mukai sub-locus: Routes~(ii), (iii) undefined.
-\item At $q \in \mu_\infty$: three distinct finite-dimensional
-  quotients, agreeing only after Morita reduction to semisimple
-  fusion category.
-\item At $g \geq 3$: Schottky-locus ambiguity renders the genus-$g$
-  automorphic lift non-unique.
-\end{itemize}
-\end{conjecture}
+These four computations use different inputs: structure-sheaf Euler
+characteristic, compact Hodge supertrace, Heisenberg specialisation,
+Borcherds lift, and Mukai-lattice rank.
+\end{proof}
 
-\begin{proposition}[Small-case verifications]
-\label{prop:verifications}
-\ClaimStatusTheorem
-The corrected scope is consistent with the following verified
-special cases (cross-checked against working\_notes.tex):
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item $(g, q) = (0, 1)$, $S = $ Kummer K3: the three routes
-  converge on the abelian Heisenberg double; verified by
-  Schiffmann--Vasserot Thm 1.1 and Nakajima.
-\item $(g, q) = (1, 1)$, $S = E_1 \times E_1 / \iota$ (Kummer):
-  the abelian CY-C statement
-  $C(\fg_{K3}, q)_{\mathrm{ab}} = D(Y^+(\fg_{K3})_{\mathrm{ab}})$
-  is the content of the ``abelian is constructive''
-  section of the CoHA treatise (line 508 ff.).
-\item $(g, q) = (2, q_{\mathrm{generic}})$: the BKM
-  $\fg_{\Delta_5}$ provides the target per the
-  Gritsenko--Nikulin construction; the CoHA side matches only
-  up to the Oberdieck--Pixton primitive-class theorem.
-\end{enumerate}
+\begin{proposition}[Primitive CHL constants]
+\label{prop:primitive-chl-constants}
+For the primitive CHL denominator ladder
+$N\in\{1,2,3,4,6\}$,
+\[
+ \bigl(c_N(0)\bigr)=(10,8,6,4,2)
+\]
+and
+\[
+ \bigl(\kappa_{\mathrm{BKM}}(\Phi_N)\bigr)
+ =
+ \bigl(c_N(0)/2\bigr)
+ =
+ (5,4,3,2,1).
+\]
+The Gritsenko-Clery diagonal-divisor catalogue is a separate eight-row
+catalogue with its own cover groups and weights.
 \end{proposition}
 
-\begin{warning}[What CY-C three-routes is \emph{not}]
-\label{warn:not-a-theorem}
-\textbf{None of the above upgrades CY-C to a theorem.} CY-C
-remains \ClaimStatusConjectured\ per AP-CY6. What the three-routes
-scope-restriction does is:
-\begin{enumerate}
-\item Identify where the claim is even well-formed.
-\item Identify concrete failure modes at roots of unity, at
-  generic K3, at $g \geq 3$.
-\item Separate Route~(i) (most robust) from Route~(iii) (most
-  fragile) and from Route~(ii) (requires Koszulity).
-\item Replace the naive ``three routes converge everywhere'' with
-  a specific sub-locus on which convergence is plausible.
-\end{enumerate}
-The correct Vol III position: \emph{CY-C is conjectural; its
-three-routes refinement is conjectural on the restricted locus
-$\mathcal{L}_{\mathrm{CY-C}}$, with explicit failure points
-outside this locus.}
-\end{warning}
+\begin{proof}
+Borcherds' weight theorem gives
+$\operatorname{wt}\mathrm{BL}(\phi)=c(0)/2$ for the multiplicative
+lift of a weak Jacobi or vector-valued input with discriminant-zero
+coefficient $c(0)$. The primitive CHL inputs have the displayed
+constant terms. Taking one half gives the displayed
+$\kappa_{\mathrm{BKM}}(\Phi_N)$ tuple. The Gritsenko-Clery catalogue is
+indexed by different diagonal-divisor data; importing the CHL tuple
+there requires a row-by-row overlap theorem.
+\end{proof}
 
-% ===================================================================
-\section{Specific adversarial failure points (summary table)}
-\label{sec:failure-table}
+\section{Conditional Three-Route Comparison}
+\label{sec:conditional-comparison}
+
+\begin{conjecture}[CY-C three-route comparison]
+\label{conj:cy-c-three-route-comparison}
+Fix $X=S\times E$ and generic $q\in\CC^\times$. Suppose that:
+\begin{enumerate}[label=\textup{(C\arabic*)}, leftmargin=2.2em]
+\item the compact Hall positive half $Y^+_{\mathrm{Hall}}(X)$ is
+constructed with coproduct and completion;
+\item the Serre-dual negative half and non-degenerate Hopf pairing are
+constructed;
+\item the stage-$2$ chiral algebra $A_{X,\Sigma_g}$ has a Koszul model
+$A_{X,\Sigma_g}^{!}$;
+\item the Maulik-Okounkov construction is available on a torus
+equivariant symplectic-resolution chart attached to the same Mukai
+data;
+\item the comparison maps preserve the root grading, PBW filtration,
+Serre kernel, coproduct, Hopf pairing, centre, and completion.
+\end{enumerate}
+Then the three route outputs are isomorphic in the completed
+Hall-Drinfeld target:
+\[
+ C^{\mathrm{Hall}}(X)
+ \simeq
+ C^{\mathrm{Kos}}(X,\Sigma_g)
+ \simeq
+ C^{\mathrm{MO}}(S,T)
+ \simeq
+ D_\hbar^\wedge(Y^+_{\mathrm{Hall}}(X)).
+\]
+\end{conjecture}
+
+\begin{remark}[Conjectural status]
+\label{rem:why-conjecture}
+The scalar identities above supply numerical constraints only. The
+route maps in Conjecture~\ref{conj:cy-c-three-route-comparison}, the
+compact Hall pairing, the Koszul dual model, and the stable-envelope
+fixed-locus input remain algebraic construction data. CY-C remains
+conjectural because those data are independent of the Borcherds
+denominator and Kunneth.
+\end{remark}
+
+\begin{proposition}[Six routes are distinct constructions]
+\label{prop:six-routes-distinct}
+The three routes in Definition~\ref{def:three-route-outputs} sit inside
+the six-route comparison for the conjectural target $G(K3\times E)$.
+Only the framed CY-to-chiral route applies
+\[
+ \Phi_3=\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2,C}\circ\Phi_3^{\mathrm{FA}}
+\]
+to $\Perf(K3\times E)$. The Borcherds, lattice-VOA, Kummer,
+sigma-model, and Schur-sector routes are independent constructions.
+Their convergence is a CY-C assertion, not a consequence of repeating
+$\Phi_3$ six times.
+\end{proposition}
+
+\section{Defined Loci}
+\label{sec:defined-loci}
+
+\begin{proposition}[Generic $q$, Heisenberg locus]
+\label{prop:g0-heisenberg-locus}
+On the Heisenberg or Kummer locus, Nakajima-Grojnowski theory supplies
+the Fock representation
+\[
+ \bigoplus_{n\geq 0} H^*(\Hilb^n S)
+ \cong
+ \mathcal{F}_{\widetilde H(S,\ZZ)}.
+\]
+There the Hall and stable-envelope constructions have a common
+Heisenberg shadow. The full equality with the Koszul route requires a
+constructed Koszul dual $A_{X,\Sigma_0}^{!}$ and comparison maps to the
+same completed double.
+\end{proposition}
+
+\begin{proposition}[Elliptic factor and stable envelopes]
+\label{prop:g1-stable-envelope-scope}
+At $g=1$ the test curve is the elliptic factor $E$ and the geometry is
+$X=S\times E$. The compact Hall route is conditional on compact
+critical CoHA correspondences, purity sufficient for PBW, a
+non-degenerate Hopf pairing, and completion. The stable-envelope route
+requires a torus action on a symplectic-resolution chart with controlled
+fixed loci. A generic K3 surface has no algebraic torus action of this
+kind. A finite Mukai symplectic automorphism group supplies finite
+equivariance data; Maulik-Okounkov stable envelopes require the
+additional torus action.
+\end{proposition}
+
+\begin{proposition}[Schottky boundary]
+\label{prop:schottky-boundary}
+At genus $2$, $\dim \mathcal M_2=\dim \mathcal A_2=3$, and the Torelli
+map identifies $\mathcal M_2$ with the open Jacobian locus in
+$\mathcal A_2$, with the decomposable Humbert divisor as boundary. A
+comparison between curve-side chiral data and Siegel automorphic data
+therefore requires pullback along the Torelli map. For $g=3$ the
+dimensions are again equal. For $g\geq 4$ the Schottky locus has
+codimension
+\[
+ \frac{g(g+1)}{2}-(3g-3)>0
+\]
+inside $\mathcal A_g$. A genus-$g$ route comparison with $g\geq 3$
+must specify Schottky-compatible automorphic input before it can be
+stated.
+\end{proposition}
+
+\begin{proposition}[Roots of unity]
+\label{prop:roots-of-unity-scope}
+Let $q=\zeta_N=e^{2\pi i/N}$ with $N\in\{2,3,4,6\}$. The generic
+comparison problem changes to a cyclotomic problem. The Hall route
+requires a Lusztig or cyclotomic quotient of the positive half; the
+Koszul route requires a fusion or semisimplified tensor category; the
+stable-envelope route requires specialised $R$-matrix data. At $N=2$
+the conditional K3 quantum-toroidal model has
+\[
+ p_{24}(2)=24+24+\binom{24}{2}=324
+\]
+simple objects, and its explicit $S$-matrix has full rank $324$ in the
+model computation. This count is a root-of-unity datum. The generic
+completed Hall double requires the cyclotomic quotient and comparison
+functor before comparison with this datum.
+\end{proposition}
+
+\section{Tensor Tests}
+\label{sec:tensor-tests}
+
+\begin{proposition}[Boundary of Heisenberg tensor data]
+\label{prop:heisenberg-tensor-boundary}
+The Nakajima Heisenberg construction on the K3 fibre and the elliptic
+oscillator data determine a Fock-space shadow. The compact Hall double
+requires additional data: the Borcherds denominator character, Weyl
+vector, imaginary-root multiplicities, Serre kernel, Hall bracket, Hopf
+pairing, and completion. Consequently a tensor expression built only
+from the K3 Heisenberg algebra and the elliptic oscillator algebra is
+insufficient for CY-C.
+\end{proposition}
+
+\begin{proof}
+Nakajima's construction uses the Mukai lattice and incidence
+correspondences on Hilbert schemes of points on the surface. It gives a
+Heisenberg action and its Fock representation. The BKM branch uses the
+Borcherds product attached to $\Delta_5$, whose denominator identity
+records root multiplicities and Weyl chamber data. The tensor product
+of surface Heisenberg operators and elliptic oscillators lacks the
+Borcherds product, Hall pairing, and Serre kernel. Hence the compact
+Hall-Drinfeld double requires the additional comparison data listed in
+Definition~\ref{def:conditional-GX}.
+\end{proof}
+
+\section{Separated Loci}
+\label{sec:separated-loci}
 
 \begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lllll}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{llll}
 \toprule
-$(g, q, S)$ & Route (i) & Route (ii) & Route (iii) & Verdict \\
+Locus & Hall route & Koszul route & Stable-envelope route \\
 \midrule
-$(0, q_{\mathrm{gen}}, \mathrm{Kummer})$ &
-$\mathcal{H}_{\mathrm{Heis}}^{\otimes 2}$ &
-$\mathcal{H}_{\mathrm{Heis}}^{\otimes 2}$ &
-$\mathcal{H}_{\mathrm{Heis}}^{\otimes 2}$ &
-\textbf{Converge} \\
-$(1, q_{\mathrm{gen}}, \mathrm{generic})$ &
-conditional (DM purity) &
-undefined (no Koszul) &
-\textbf{undefined} (no $T$) &
-\textbf{Only (i) valid} \\
-$(1, q_{\mathrm{gen}}, \mathrm{Mukai})$ &
-$G$-equivariant CoHA &
-$G$-equivariant $A^!$ &
-MO on $S^G \times E$ &
-\textbf{Converge on $\mathcal{L}$} \\
-$(2, q_{\mathrm{gen}}, \mathrm{Mukai})$ &
-$\CoHA(S \times \Sigma_2)$ &
-$A^!_{X, \Sigma_2}$ &
-conditional on $\Sigma_2 \subset S$ &
-\textbf{Conjectural; via $J: \mathcal{M}_2 \hookrightarrow \mathcal{A}_2$} \\
-$(0, q = -1, \mathrm{Kummer})$ &
-$\infty$-dim &
-$324$ simples &
-degenerate $R$-matrix &
-\textbf{Fail: three distinct objects} \\
-$(0, q_{\mathrm{root}}, \cdot)$, $N \geq 3$ &
-$Y^+_N$ &
-$\mathcal{C}_N$ fusion &
-MO$_N$ & \textbf{Fail: Morita-reduction needed} \\
-$(g \geq 3, \cdot, \cdot)$ &
-Schottky-ambiguous &
-Schottky-ambiguous &
-undefined &
-\textbf{Not formulable} \\
+Heisenberg or Kummer, generic $q$ &
+Fock shadow &
+requires $A^!$ &
+equivariant chart \\
+Generic K3, $g=1$, generic $q$ &
+conditional compact double &
+requires Koszul model &
+no generic torus chart \\
+Mukai equivariant locus, generic $q$ &
+equivariant Hall data &
+equivariant $A^!$ &
+requires torus chart \\
+Genus $2$ &
+curve-side data &
+curve-side $A^!$ &
+pullback along Torelli \\
+$g\geq 3$ &
+Schottky-compatible input required &
+Schottky-compatible input required &
+Schottky-compatible input required \\
+$q=\zeta_N$ &
+cyclotomic quotient &
+fusion category &
+specialised $R$-matrix \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-% ===================================================================
-\section{Recommended manuscript action}
-\label{sec:recommendation}
+\section{References}
+\label{sec:references}
 
-In \texttt{working\_notes.tex} at line 5314
-(\texttt{conj:cy-c-three-routes}), the conjecture as currently
-stated is too strong. The mathematically defensible statement
-is Theorem~\ref{thm:corrected-scope} above. Concretely:
+\begin{thebibliography}{99}
 
-\begin{enumerate}[leftmargin=1.5em]
-\item Replace the uniform ``three routes converge'' with the
-  scope-restricted statement on $\mathcal{L}_{\mathrm{CY-C}}$.
-\item Cite the explicit failure points: $(g, q) = (0, q = -1)$,
-  $(1, q_{\mathrm{gen}}, \text{generic K3})$, $g \geq 3$.
-\item Separate the three routes by robustness: Route~(i) most
-  robust conditional on DM purity; Route~(ii) conditional on
-  Koszulity; Route~(iii) only on Mukai sub-locus.
-\item Maintain \ClaimStatusConjectured\ per AP-CY6; upgrade
-  only the specific small cases (Kummer, abelian) to
-  \ClaimStatusTheorem\ where they are already proved.
-\end{enumerate}
+\bibitem{Borcherds1998}
+R. Borcherds,
+\emph{Automorphic forms with singularities on Grassmannians},
+Invent. Math. 132 (1998), 491-562.
 
-% ===================================================================
-\section*{Provenance and epistemic status}
+\bibitem{GritsenkoNikulin1998}
+V. Gritsenko and V. Nikulin,
+\emph{Automorphic forms and Lorentzian Kac-Moody algebras. Part II},
+Internat. J. Math. 9 (1998), 201-275.
 
-This note is \emph{adversarial internal analysis}, not manuscript
-content. All claims are cross-checked against:
-\begin{itemize}
-\item \texttt{working\_notes.tex} lines 5306--5339
-  (\texttt{conj:cy-c-three-routes});
-\item \texttt{chapters/examples/cy\_c\_six\_routes\_convergence.tex}
-  (the full six-routes chapter including Borcherds, lattice VOA,
-  Kummer, sigma model, BLLPR);
-\item \texttt{notes/CoHA\_to\_W\_infty\_treatise.tex} lines
-  508--711 (explicit open status of positive-half construction,
-  Serre-duality pairing, Drinfeld double on K3 $\times$ E);
-\item CLAUDE.md AP-CY6 (CY-C conjectural at $N \geq 2$) and
-  AP-CY60 (only Route~(i) uses $\Phi_3$).
-\end{itemize}
+\bibitem{Gritsenko1999}
+V. Gritsenko,
+\emph{Irrationality of the moduli spaces of polarized abelian surfaces},
+Abh. Math. Sem. Univ. Hamburg 69 (1999), 93-117.
 
-The five attack--heal cycles have converged on a consistent
-scope-restricted statement of CY-C three-routes convergence; this
-note does not propose elevation of CY-C to theorem status and
-recommends no change to its \ClaimStatusConjectured\ label. The
-note \emph{does} identify concrete falsifying points at roots of
-unity and at $g \geq 3$ that should be cited in the manuscript as
-explicit failure modes.
+\bibitem{CleryGritsenko2011}
+F. Clery and V. Gritsenko,
+\emph{The Siegel modular forms of genus 2 with the simplest divisor},
+Proc. Lond. Math. Soc. 102 (2011), 1024-1052.
+
+\bibitem{Mukai1987}
+S. Mukai,
+\emph{On the moduli space of bundles on K3 surfaces. I},
+Vector bundles on algebraic varieties, Tata Institute, 1987.
+
+\bibitem{Huybrechts2016}
+D. Huybrechts,
+\emph{Lectures on K3 Surfaces},
+Cambridge University Press, 2016.
+
+\bibitem{Nakajima1997}
+H. Nakajima,
+\emph{Heisenberg algebra and Hilbert schemes of points on projective
+surfaces},
+Ann. of Math. 145 (1997), 379-388.
+
+\bibitem{Grojnowski1996}
+I. Grojnowski,
+\emph{Instantons and affine algebras I: The Hilbert scheme and vertex
+operators},
+Math. Res. Lett. 3 (1996), 275-291.
+
+\bibitem{SchiffmannVasserot2012}
+O. Schiffmann and E. Vasserot,
+\emph{The elliptic Hall algebra and the K-theory of the Hilbert scheme
+of $\mathbb A^2$},
+Duke Math. J. 162 (2013), 279-366.
+
+\bibitem{MaulikOkounkov2012}
+D. Maulik and A. Okounkov,
+\emph{Quantum Groups and Quantum Cohomology},
+Asterisque 408 (2019).
+
+\bibitem{DavisonMeinhardt2020}
+B. Davison and S. Meinhardt,
+\emph{Cohomological Donaldson-Thomas theory of a quiver with potential
+and quantum enveloping algebras},
+Invent. Math. 221 (2020), 777-871.
+
+\bibitem{OberdieckPandharipande2018}
+G. Oberdieck and R. Pandharipande,
+\emph{Curve counting on K3 times elliptic curves and the Igusa cusp
+form},
+J. Topol. 11 (2018), 915-943.
+
+\bibitem{DMVV1997}
+R. Dijkgraaf, G. Moore, E. Verlinde, and H. Verlinde,
+\emph{Elliptic genera of symmetric products and second quantized
+strings},
+Comm. Math. Phys. 185 (1997), 197-209.
+
+\end{thebibliography}
 
 \end{document}

@@ -105,7 +105,7 @@ classes (Gaberdiel-Hohenegger-Volpato, Eguchi-Hikami):
     N=3: 1^6 3^6             c_N(0) = 6     (-> weight 3)
     N=4: 1^4 2^2 4^4         c_N(0) = 4     (-> weight 2)
     N=5: 1^4 5^4             c_N(0) = 4     (-> weight 2)
-    N=6: 1^2 2^1 3^2 6^2 (!) c_N(0) = 2     (-> weight 1)
+    N=6: 1^2 2^2 3^2 6^2     c_N(0) = 2     (-> weight 1)
     N=7: 1^3 7^3             c_N(0) = 2     (-> weight 1) [*]
     N=8: 1^2 2^1 4^1 8^2     c_N(0) = 2     (-> weight 1)
 

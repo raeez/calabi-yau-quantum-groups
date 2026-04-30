@@ -6,7 +6,7 @@ Verifies:
     2. Sewing along E (rank-1 partition function, log expansion)
     3. Relative DT fiber contributions
     4. Shadow tower constraints from fibration (depth upgrade, kappa)
-    5. The Igusa cusp form Delta_5 test (weight, symmetry)
+    5. The primitive Gritsenko-Nikulin denominator Delta_5 test (weight, symmetry)
     6. Multi-path cross-verification (4 independent paths)
     7. Shadow additivity and composition laws
     8. Genus-g shadow contributions from fiber data

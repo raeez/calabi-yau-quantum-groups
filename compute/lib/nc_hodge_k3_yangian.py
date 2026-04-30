@@ -335,7 +335,7 @@ K3_CHI_O = sum((-1)**q * K3_HODGE_DIAMOND[(0, q)] for q in range(3))  # 1 - 0 + 
 # kappa values (AP113 compliant)
 KAPPA_CAT_K3 = K3_CHI_O  # = 2
 KAPPA_CH_K3 = 2           # PROVED at d=2 via modular_koszul_bridge
-KAPPA_BKM_K3 = 5          # weight of Delta_5 (Igusa cusp form)
+KAPPA_BKM_K3 = 5          # weight of primitive Delta_5 denominator
 KAPPA_FIBER_K3 = 24        # Mukai lattice rank
 
 

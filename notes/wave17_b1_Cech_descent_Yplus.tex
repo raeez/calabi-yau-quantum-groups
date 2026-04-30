@@ -1,6 +1,4 @@
-% wave17_b1_Cech_descent_Yplus.tex
-% Cech descent for the positive-half sheaf Y^+_X on a compact CY_3
-% Working note in the Beilinson--Drinfeld voice.
+% Cech descent for positive Hall halves on CY3 atlases.
 
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
@@ -8,22 +6,21 @@
 \providecommand{\CC}{\mathbb{C}}
 \providecommand{\ZZ}{\mathbb{Z}}
 \providecommand{\cA}{\mathcal{A}}
-\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cC}{\mathcal{C}}
 \providecommand{\cH}{\mathcal{H}}
+\providecommand{\cM}{\mathcal{M}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cU}{\mathcal{U}}
 \providecommand{\cY}{\mathcal{Y}}
-\providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\Ran}{\operatorname{Ran}}
 \providecommand{\Fact}{\operatorname{Fact}}
 \providecommand{\Crit}{\operatorname{Crit}}
 \providecommand{\CoHA}{\operatorname{CoHA}}
-\providecommand{\Perv}{\operatorname{Perv}}
-\providecommand{\hocolim}{\operatorname{hocolim}}
-\providecommand{\holim}{\operatorname{holim}}
+\providecommand{\Perf}{\operatorname{Perf}}
+\providecommand{\Rep}{\operatorname{Rep}}
 \providecommand{\Spec}{\operatorname{Spec}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\Tot}{\operatorname{Tot}}
+\providecommand{\Alg}{\operatorname{Alg}}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -35,183 +32,348 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{\v{C}ech descent for $\cY^+_X$ on a compact CY$_3$:\\
-gluing cocycles for the positive--half factorisation sheaf}
-\author{Wave-17 B1/20 working note}
+\title{\v{C}ech descent for positive Hall halves on CY$_3$ atlases}
+\author{}
 \date{April 2026}
 
 \begin{document}
 \maketitle
 
-\section{The sheaf $\cY^+_X$}
+\section{Cyclic Hall atlases}
 
-Fix a compact Calabi--Yau threefold $X$ with holomorphic volume form
-$\Omega$ and a cover $\cU=\{U_\alpha\}$ by toric/quiver--affine charts:
-$U_\alpha=\Spec\cA_\alpha$, where $(\cA_\alpha,W_\alpha)$ is a
-Ginzburg--Calabi--Yau algebra of a quiver with superpotential $W_\alpha$
-whose Jacobi algebra $J(\cA_\alpha,W_\alpha)$ presents $D^b\operatorname{Coh}(U_\alpha)$
-in the Bocklandt sense (Bocklandt 2013, Thm.~3.6; Van den Bergh 2004,
-\S\S 3--4). On each chart the positive--half cohomological Hall algebra
-is the Kontsevich--Soibelman object
-\[
-\cY^+_{U_\alpha}\;=\;\CoHA(\cA_\alpha,W_\alpha)
-\;=\;\bigoplus_{d\in\ZZ^{Q_0}}
-H^\bullet_c\bigl(\cM_d(\cA_\alpha),\varphi_{W_\alpha}\bigr),
-\]
-with product the $\star$-convolution on moduli of representations
-(Kontsevich--Soibelman 2008, Ch.~6, \S 6.1--6.2). We upgrade the
-collection $\{\cY^+_{U_\alpha}\}$ to a sheaf on $X$.
+A \v{C}ech descent theorem for compact CY$_3$ Hall algebras starts with
+an atlas rather than a global quiver. For an arbitrary compact
+Calabi-Yau threefold, a toric quiver presentation is extra structure:
+it turns local critical CoHA calculations into a descent problem.
 
-\begin{definition}[positive--half factorisation sheaf]\label{def:Yplus-sheaf}
-$\cY^+_X$ is the sheaf on $X$ assigning to an affine toric open
-$U\subset X$ the chiral factorisation algebra
-$\cY^+_X(U)=\CoHA(U,W_U)$, with $W_U$ the restriction of the chart
-superpotential; to a general open $V$, the
-Beilinson--Drinfeld unital factorisation algebra obtained by
-left Kan extension along the inclusion of the toric--affine site
-(BD 2004, Ch.~3, \S 3.4).
+\begin{definition}[cyclic Hall atlas]\label{def:cyclic-hall-atlas}
+Let $X$ be a smooth compact CY$_3$ with holomorphic volume form
+$\Omega_X$. A cyclic Hall atlas on $X$ consists of:
+\begin{enumerate}
+\item a finite affine cover in the \'etale topology
+$\cU=\{U_\alpha\}_{\alpha\in I}$ and all nonempty intersections
+$U_{\alpha_0\cdots\alpha_p}$;
+\item for each $U_{\alpha_0\cdots\alpha_p}$, an oriented $3$-Calabi-Yau
+quiver-with-potential model $(Q_{\alpha_0\cdots\alpha_p},
+W_{\alpha_0\cdots\alpha_p})$ presenting the chosen NCCR or tilting chart
+for $\Perf(U_{\alpha_0\cdots\alpha_p})$;
+\item restriction Morita equivalences between these models for every
+inclusion in the \v{C}ech poset;
+\item coherent comparison isomorphisms of the orientation lines and
+vanishing-cycle complexes, satisfying the pentagon identity on quadruple
+overlaps.
+\end{enumerate}
+The final clause is part of the datum. It is the derived replacement for
+a single global quiver potential.
 \end{definition}
 
-The unit and the product are the factorisation $j_!j^*\to\Delta_!$
-structure maps of BD \S 3.4.11; $E_1$--associativity follows from the
-critical CoHA $\star$--product on each chart, $E_3$--compatibility from
-the Wave~13--16 6D holomorphic Chern--Simons locality of observables
-(Costello 2013, \S\S 8--10; Costello--Gaiotto 2018).
-
-\section{The \v{C}ech nerve and Francis--Gaitsgory descent}
-
-Let $N_\bullet(\cU)\to X$ be the \v{C}ech nerve of the cover, i.e.\ the
-simplicial scheme with $N_p=\coprod_{\alpha_0\dots\alpha_p}
-U_{\alpha_0\cdots\alpha_p}$, $U_{\alpha_0\cdots\alpha_p}
-=U_{\alpha_0}\cap\dots\cap U_{\alpha_p}$.
-
-\begin{proposition}[\v{C}ech presentation]\label{prop:cech-presentation}
-Under the \'etale--to--fppf refinement on the toric--affine site, the
-factorisation sheaf $\cY^+_X$ of Definition~\ref{def:Yplus-sheaf}
-satisfies
+For a chart $U_J=U_{\alpha_0\cdots\alpha_p}$ write
+$(Q_J,W_J)$ for its quiver with potential. Its positive Hall half is
+the critical CoHA
 \[
-\cY^+_X\;\cong\;
-\hocolim\Bigl(
-\coprod_{\alpha\beta}\cY^+_{U_{\alpha\beta}}\rightrightarrows
-\coprod_\alpha\cY^+_{U_\alpha}\Bigr)
-\quad\text{in}\quad\Fact(\Ran X),
+\cY^+_J
+\;=\;
+\CoHA(Q_J,W_J)
+\;=\;
+\bigoplus_{\mathbf d\in\ZZ_{\geq0}^{Q_{J,0}}}
+H^{\mathrm{BM}}_{*,G_{J,\mathbf d}}\!\left(
+\Crit(\operatorname{Tr}W_{J,\mathbf d}),
+\varphi_{\operatorname{Tr}W_{J,\mathbf d}}\otimes o_{J,\mathbf d}
+\right),
 \]
-where the arrows are restriction to the double--overlap charts.
+where $G_{J,\mathbf d}=\prod_{i\in Q_{J,0}}\mathrm{GL}_{d_i}$ and
+$o_{J,\mathbf d}$ is the orientation-line choice. Multiplication is Hall
+convolution along the stack of short exact sequences of representations,
+with Thom-Sebastiani identifying the vanishing-cycle factors. For
+$U_J\simeq\CC^3$ with the Jordan triple-loop potential
+$W=\operatorname{tr}(XYZ-XZY)$, the Schiffmann-Vasserot 2013 theorem
+identifies
+\[
+\CoHA(\CC^3)\;\simeq\;Y^+(\widehat{\mathfrak{gl}}_1)
+\]
+as an associative positive half. For smooth toric CY$_3$ targets whose
+compact four-cycle sector is empty, Rapcak-Soibelman-Yang-Zhao 2020
+identify the critical CoHA with the positive half
+$Y^+(\widehat{\mathfrak g}_{Q})$ of the affine super Yangian attached to
+the toric quiver.
+
+\section{The \v{C}ech totalisation}
+
+The atlas of Definition~\ref{def:cyclic-hall-atlas} gives a cosimplicial
+diagram in the infinity category of $E_1$ algebras in complexes,
+\[
+[p]\longmapsto
+\prod_{\alpha_0,\ldots,\alpha_p}
+\cY^+_{\alpha_0\cdots\alpha_p},
+\]
+where the coface maps are restriction maps followed by the Morita and
+vanishing-cycle comparison isomorphisms. Degeneracy maps come from
+identity refinements of the intersections.
+
+\begin{definition}[descended positive half]\label{def:descended-positive-half}
+The descended positive Hall half attached to the cyclic Hall atlas
+$\cU$ is the totalisation
+\[
+Y^+_{\cU}(X)
+\;:=\;
+\Tot\!\left(
+\prod_{\alpha}\cY^+_{\alpha}
+\rightrightarrows
+\prod_{\alpha,\beta}\cY^+_{\alpha\beta}
+\longrightarrow
+\prod_{\alpha,\beta,\gamma}\cY^+_{\alpha\beta\gamma}
+\;\cdots
+\right)
+\]
+in $\Alg_{E_1}(\mathrm{Ch}_{\CC})$. Equivalently, it is
+$R\Gamma(X,\cY^+_{\cU})$ for the sheaf convention. In the cosheaf
+convention for factorisation algebras on $\Ran X$, the corresponding
+factorisation object is obtained before applying sections; its derived
+sections are the same totalisation.
+\end{definition}
+
+\begin{proposition}[descent of the ordered product]\label{prop:ordered-product-descent}
+The object $Y^+_{\cU}(X)$ carries a canonical $E_1$ algebra structure.
+If every chart CoHA carries a coproduct natural under the atlas Morita
+equivalences, then $Y^+_{\cU}(X)$ is an $E_1$ bialgebra. The positive
+half acquires an antipode only after Hall-Drinfeld double data.
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-Francis--Gaitsgory chiral--Koszul duality (Francis--Gaitsgory 2011,
-Thm.~6.3.2) identifies factorisation algebras on $X$ with
-$\Fact$--coalgebras on $\Ran X$; both categories are
-$\infty$--presentable and satisfy \'etale descent. For the toric--affine
-cover $\cU$, BD 2004 Ch.~3, Prop.~3.4.6, gives that the assignment
-$U\mapsto\CoHA(U,W_U)$ is a co--sheaf on the toric site; passing to
-chiral duals yields the claimed $\hocolim$. The comparison with the
-Kontsevich--Soibelman critical CoHA on each chart is the content of
-KS~2008, Thm.~6.1, specialised to the local potential $W_U$.
+\begin{proof}
+For operadic algebras in complexes over $\CC$, the forgetful functor
+from $E_1$ algebras to complexes creates limits. The cosimplicial
+diagram above is a diagram of $E_1$ algebras because Hall convolution is
+natural under the restriction correspondences and under the chosen
+Morita equivalences. Its totalisation therefore inherits the ordered
+product.
+
+For the coproduct, the same argument applies to the diagram in
+$E_1$ bialgebras once the local coproducts are natural under the
+transition equivalences. The antipode belongs to a Hopf or quasi-Hopf
+completion after a nondegenerate pairing and the Hall-Drinfeld double
+have been supplied; it is absent from the positive half constructed by
+\v{C}ech descent.
 \end{proof}
 
-\section{Overlap cocycle: the glued potential}
+\begin{remark}[full nerve versus two-term equaliser]\label{rem:full-nerve}
+The two-term equaliser
+\[
+\operatorname{eq}\!\left(
+\prod_{\alpha}\cY^+_{\alpha}
+\rightrightarrows
+\prod_{\alpha,\beta}\cY^+_{\alpha\beta}
+\right)
+\]
+is valid under a split one-coskeletal cover or after higher
+\v{C}ech cohomology has vanished for the coefficient diagram. The
+general compact CY$_3$ atlas uses the full totalisation in
+Definition~\ref{def:descended-positive-half}.
+\end{remark}
 
-\begin{construction}[overlap cocycle]\label{cstr:overlap}
-Let $U_\alpha,U_\beta$ be two charts with
-$U_{\alpha\beta}=U_\alpha\cap U_\beta$. On $U_{\alpha\beta}$ both
-$(\cA_\alpha,W_\alpha)|_{U_{\alpha\beta}}$ and
-$(\cA_\beta,W_\beta)|_{U_{\alpha\beta}}$ present the same
-CY$_3$--affine derived category $D^b\operatorname{Coh}(U_{\alpha\beta})$,
-hence are Morita--equivalent as Ginzburg dg--algebras (Van den Bergh
-2004, Thm.~A). Write
-$M_{\alpha\beta}\colon\cA_\alpha|_{U_{\alpha\beta}}\xrightarrow{\sim}
-\cA_\beta|_{U_{\alpha\beta}}$ for the mutation/tilting--complex
-equivalence. The cocycle is the induced isomorphism of critical loci
+\begin{proposition}[scalar characters and Hall descent]\label{prop:character-vs-algebra-descent}
+Let $R$ be a commutative coefficient algebra. A compatible family of
+graded characters
+\[
+\chi_J\colon \cY^+_J\longrightarrow R
+\]
+on the \v{C}ech nerve descends to a scalar character
+$\chi_{\cU}\colon Y^+_{\cU}(X)\to R$. This scalar descent constructs
+only the character. Algebra descent requires transition maps preserving
+multiplication; bialgebra descent additionally requires coproduct
+descent; Drinfeld-double descent requires a nondegenerate pairing, the
+radical quotient, and the chosen completion.
+\end{proposition}
+
+\begin{proof}
+Compatibility of the $\chi_J$ says exactly that the $\chi_J$ form a
+map from the cosimplicial Hall diagram to the constant diagram $R$.
+Totalisation gives the induced scalar map. The data discarded by
+$\chi_J$ are precisely the tensors
+\[
+m_J\colon \cY^+_J\otimes\cY^+_J\to\cY^+_J,\qquad
+\Delta_J\colon \cY^+_J\to\cY^+_J\widehat{\otimes}\cY^+_J,
+\]
+and, for a double, the pairing and completion. A graded character
+records the graded dimension or trace of each charge sector; it does
+not record the Hall correspondence defining $m_J$, the compatibility
+square for $\Delta_J$, or the kernel of the pairing. Hence a glued
+character is a character of the descended object only after the
+corresponding algebraic descent datum has been supplied.
+\end{proof}
+
+\section{Overlap coherences}
+
+\begin{construction}[transition data]\label{cstr:transition-data}
+For a double overlap $U_{\alpha\beta}$, the atlas supplies a Morita
+equivalence of oriented $3$-CY dg models
+\[
+M_{\alpha\beta}\colon
+(\cA_\alpha,W_\alpha)|_{U_{\alpha\beta}}
+\longrightarrow
+(\cA_\beta,W_\beta)|_{U_{\alpha\beta}}.
+\]
+It induces an equivalence of critical loci and vanishing-cycle complexes,
 \[
 g_{\alpha\beta}\colon
-\Crit(W_\alpha)|_{U_{\alpha\beta}}
-\xrightarrow{\,M_{\alpha\beta}\,}
-\Crit(W_\beta)|_{U_{\alpha\beta}},
+\bigl(\Crit(W_\alpha),\varphi_{W_\alpha}\bigr)|_{U_{\alpha\beta}}
+\longrightarrow
+\bigl(\Crit(W_\beta),\varphi_{W_\beta}\bigr)|_{U_{\alpha\beta}},
 \]
-together with the comparison of vanishing cycles
-$\varphi_{W_\alpha}\simeq g_{\alpha\beta}^{*}\varphi_{W_\beta}$
-(KS 2008, \S 4.3). The collection $\{g_{\alpha\beta}\}$ is a \v{C}ech
-1--cocycle in $\mathrm{Aut}(\Perv(X))$ by construction, and its
-cohomology class is the obstruction to a global
-$(\cA,W)$--presentation.
+hence an $E_1$ algebra equivalence
+$g_{\alpha\beta}\colon\cY^+_{\alpha\beta}\to\cY^+_{\beta\alpha}$.
 \end{construction}
 
-\begin{lemma}[cocycle condition]\label{lem:cocycle}
-On triple overlaps $U_{\alpha\beta\gamma}$,
+\begin{lemma}[triple-overlap coherence]\label{lem:triple-coherence}
+On a triple overlap $U_{\alpha\beta\gamma}$, the descent datum is a
+specified $2$-cell
 \[
-g_{\beta\gamma}\circ g_{\alpha\beta}\;=\;g_{\alpha\gamma}
-\quad\text{in}\quad\mathrm{Aut}(\cY^+_{U_{\alpha\beta\gamma}}),
+\eta_{\alpha\beta\gamma}\colon
+g_{\beta\gamma}\circ g_{\alpha\beta}
+\Longrightarrow
+g_{\alpha\gamma}
 \]
-up to a $2$--cell recorded by the Seidel--Thomas spherical--twist class
-in $HH^2$ of the local derived category.
+in the infinity groupoid of $E_1$ algebra equivalences of
+$\cY^+_{\alpha\beta\gamma}$. The $2$-cells satisfy the pentagon
+identity on quadruple overlaps.
 \end{lemma}
 
 \begin{proof}
-Mutation equivalences compose to the identity on triple overlaps up to
-a spherical twist (Van den Bergh 2004, \S 5; Bocklandt 2013, \S 4).
-Passing to vanishing cycles converts the twist to a $2$--cell in the
-$\infty$--groupoid $\mathrm{Aut}(\Perv)$; the critical CoHA transports
-this to an $E_1$--equivalence of $\cY^+_{U_{\alpha\beta\gamma}}$.
+Derived Morita equivalences of the chart dg algebras compose only up to
+coherent natural isomorphism. Passing to critical loci and
+vanishing-cycle sheaves transports these natural isomorphisms to
+$2$-cells of Hall algebra equivalences. The orientation-line
+compatibility in Definition~\ref{def:cyclic-hall-atlas} makes the
+Thom-Sebastiani convolution products compatible with those $2$-cells.
+The pentagon identity is exactly the quadruple-overlap condition in the
+definition of a cyclic Hall atlas.
 \end{proof}
 
-\section{Derived global sections}
+\begin{remark}[strict global potentials]\label{rem:strict-global-potential}
+The obstruction to strictifying the atlas to one global quiver
+potential $(Q_X,W_X)$ is a nonabelian \v{C}ech class in the $2$-group of
+oriented Morita autoequivalences. Its first-order shadow lies in the
+\v{C}ech cohomology of local Hochschild cochains in degree $2$. A
+nonzero obstruction blocks strict global presentation and still permits
+descent in the infinity category.
+\end{remark}
 
-\begin{theorem}[$Y^+(X)$ as derived global sections]\label{thm:global-Yplus}
-With $\cY^+_X$ and $\{g_{\alpha\beta}\}$ as above,
-\[
-Y^+(X)\;\coloneqq\;R\Gamma\bigl(X,\cY^+_X\bigr)
-\;=\;\holim\Bigl(
-\prod_\alpha\cY^+_{U_\alpha}\rightrightarrows
-\prod_{\alpha\beta}\cY^+_{U_{\alpha\beta}}
-\rightthreetimes\dots\Bigr),
-\]
-the totalisation of the \v{C}ech cosimplicial object of
-Prop.~\ref{prop:cech-presentation}. The result carries an
-$E_1$--bialgebra structure, and an $E_3$--hFA refinement whenever the
-Wave 13--16 6D holomorphic Chern--Simons locality holds.
+\section{Positive-half boundary}
+
+\begin{theorem}[descent stops at the positive half]\label{thm:positive-half-boundary}
+The object $Y^+_{\cU}(X)$ constructed from a cyclic Hall atlas is an
+$E_1$ Hall positive half. It contains the chartwise positive modes and
+the coherently glued Hall product. Negative halves, Cartan doubles,
+universal $R$-matrices, vertex-algebra OPEs, and Borcherds-Kac-Moody
+denominator identities enter through separate double, centre,
+evaluation, and automorphic-product inputs.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
-Take derived global sections term--by--term in the \v{C}ech cosimplicial
-resolution. Homotopy limits commute with $R\Gamma$ on presentable
-stable $\infty$--categories (BD 2004 \S 3.4; Lurie HA, 1.2.4), yielding
-the totalisation. The $E_1$--bialgebra product is the chart--local
-$\star$--product; gluing preserves it because each $g_{\alpha\beta}$ is
-an $E_1$--algebra equivalence (Lemma~\ref{lem:cocycle}). The
-$E_3$--hFA refinement is the Costello--Gaiotto holomorphic twist
-locality on 6D hCS, which passes to factorisation homology on $X$
-(Costello 2013, \S 9).
+\begin{proof}
+Each entry of the \v{C}ech diagram is a critical CoHA positive half.
+Limits in $\Alg_{E_1}$ preserve the operations already present in the
+diagram. Negative modes and Cartan modes
+enter through the Hall-Drinfeld double
+\[
+D\bigl(Y^+\bigr)
+\;=\;
+Y^-\widehat{\bowtie}Y^0\widehat{\bowtie}Y^+,
+\]
+which requires a nondegenerate Hopf pairing, a PBW triangular
+decomposition, a radical quotient, and a completion. Braiding on
+representations enters
+through the Drinfeld centre
+\[
+\mathcal Z\!\left(\Rep^{E_1}(Y^+_{\cU}(X))\right),
+\]
+where half-braidings carry the $R$-matrix. A
+$\mathcal W_{1+\infty}$ vertex algebra appears only after a full
+Yangian or doubled algebra acts on a chosen vacuum module through an
+evaluation morphism. A Borcherds-Kac-Moody algebra requires a separate
+Borcherds product or denominator input, with weight
+$\kappa_{\mathrm{BKM}}=c_N(0)/2$ in the Gritsenko-Borcherds
+normalisation. On the primitive CHL rows $N\in\{1,2,3,4,6\}$ one has
+\[
+c_N(0)=(10,8,6,4,2),\qquad
+\kappa_{\mathrm{BKM}}(\Phi_N)=(5,4,3,2,1).
+\]
+The orders $N\in\{5,7,8\}$ belong to separate Nikulin or
+Gritsenko-Clery rows and carry their own Borcherds inputs.
 \end{proof}
 
-\section{Homotopy descent: survival of the bialgebra structure}
+\begin{center}
+\begin{tabular}{c|c|c}
+Layer & Operation & Output \\
+\hline
+\v{C}ech Hall descent & totalisation in $\Alg_{E_1}$ &
+$Y^+_{\cU}(X)$ \\
+Hall double & pairing, PBW, completion &
+$D(Y^+)$ \\
+Drinfeld centre & half-braidings on $\Rep^{E_1}$ &
+$E_2$ braided representation category \\
+Vacuum evaluation & representation of the full double &
+$\mathcal W$-algebra module action \\
+Borcherds lift & automorphic product input &
+BKM algebra and $\kappa_{\mathrm{BKM}}$
+\end{tabular}
+\end{center}
 
-\begin{proposition}[bialgebra descent]\label{prop:bialg-descent}
-The CoHA bialgebra structure (coproduct, antipode up to homotopy)
-survives the \v{C}ech totalisation: $Y^+(X)$ is an $E_1$--bialgebra in
-the symmetric--monoidal $\infty$--category of factorisation complexes
-on $X$.
-\end{proposition}
+\section{Dimension three and scalar invariants}
 
-\begin{proof}[Proof sketch]
-On each chart the Davison--Meinhardt coproduct on $\CoHA(\cA_\alpha,
-W_\alpha)$ is natural under mutation (Davison--Meinhardt 2020,
-Thm.~A). Naturality implies the chart coproducts assemble into a map
-of \v{C}ech cosimplicial objects, and homotopy limits of
-$E_1$--bialgebras in presentable stable $\infty$--categories are
-$E_1$--bialgebras (Lurie HA, 7.3.4.7 applied to the monad for $E_1$).
-Antipode descends up to coherent homotopy via the $2$--cells of
-Lemma~\ref{lem:cocycle}.
+The CY-to-chiral construction at dimension $d=3$ has native
+$E_1$ output. The braided $E_2$ structure lives on the Drinfeld centre
+of the $E_1$ representation category on the constructed loci. The
+ambient $E_3$ structure of six-dimensional holomorphic Chern-Simons
+local observables is a separate factorisation-algebra object; comparing
+it with Hall descent requires the framed hCS-Hall datum, orientation
+compatibility, compact-support realisation, and completion.
+
+For a compact CY$_3$, Serre duality gives the Hodge-supertrace scalar
+\[
+\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(X)
+\;=\;
+\sum_{q=0}^{3}(-1)^q h^{0,q}(X)
+\;=\;(h^{0,0}-h^{0,3})-(h^{0,1}-h^{0,2})
+\;=\;0.
+\]
+Thus $\kappa_{\mathrm{cat}}(X)=\chi(\cO_X)=0$ on the categorical Euler
+lane. This scalar is independent of the descended positive Hall half.
+The standard local normalisations are
+\[
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(\CC^3)=1,\qquad
+\kappa_{\mathrm{ch}}\!\left(\Tot(K_{\mathbb{P}^2})\right)=\frac32,\qquad
+\kappa_{\mathrm{ch}}(X_{\mathrm{con}})=1,
+\]
+where
+$X_{\mathrm{con}}=\Tot(\mathcal O_{\mathbb{P}^1}(-1)\oplus
+\mathcal O_{\mathbb{P}^1}(-1))$ is computed by the direct
+McKay/conifold quiver calculation. It is a curve-core conifold geometry,
+not a local surface. BKM weights such as
+$\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$ live in the automorphic
+denominator construction. None of these scalars is produced by
+\v{C}ech totalisation of $Y^+$ without an explicit character map.
+
+\begin{theorem}[one-chart check]\label{thm:one-chart-check}
+For the one-chart atlas $X=\CC^3$ with the Jordan triple-loop potential,
+Definition~\ref{def:descended-positive-half} gives
+\[
+Y^+_{\{\CC^3\}}(\CC^3)
+\;\simeq\;
+\CoHA(\CC^3)
+\;\simeq\;
+Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The full affine Yangian and the $\mathcal W_{1+\infty}$ vertex-algebra
+action are obtained only after the double, centre, and evaluation
+operations in Theorem~\ref{thm:positive-half-boundary}.
+\end{theorem}
+
+\begin{proof}
+The \v{C}ech nerve of the one-chart cover has one object in every
+simplicial degree and all coface maps are identities. Its totalisation
+is the chart CoHA. Schiffmann-Vasserot, \emph{Publ. IHES} 118 (2013),
+Theorem~9.1, identify that CoHA with the positive half
+$Y^+(\widehat{\mathfrak{gl}}_1)$. The remaining assertion is
+Theorem~\ref{thm:positive-half-boundary}.
 \end{proof}
-
-\begin{remark}[scope]
-On toric Calabi--Yau threefolds the cover by mutation--equivalent
-quiver charts is global (KS 2008, Ch.~8); on compact CY$_3$'s such as
-the quintic the cover is \'etale--local and the descent is genuinely
-\v{C}ech. $\kch(X)$ is chart--independent:
-$\kch=\sum_q(-1)^q h^{0,q}(X)$, hence coincides with $\kcat=\chi(\cO_X)$
-(HZ--3 supertrace, CY$_d$ identification).
-\end{remark}
 
 \end{document}

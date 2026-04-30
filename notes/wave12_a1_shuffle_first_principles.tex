@@ -1,123 +1,161 @@
-% Wave-12 A1/20 inscription. Shuffle-algebra associativity and low-order products
-% from first principles. Kac--Moody / Gelfand--Manin channel.
-% Cite: Schiffmann--Vasserot 2013 (arXiv:1202.2756), Negut 2014 (arXiv:1405.1989),
-% Feigin--Odesskii 1989. All mathematics by Raeez Lorgat.
-
 \providecommand{\Sh}{\mathrm{Sh}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Sym}{\mathrm{Sym}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
-\providecommand{\ClaimStatusDerivation}{\textbf{[Derivation]}}
-\providecommand{\ClaimStatusDefinition}{\textbf{[Definition]}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Winf}{\mathcal{W}_{1+\infty}}
+\providecommand{\End}{\operatorname{End}}
 
-\section*{Shuffle algebra: associativity, unit, and $p_1^{\star k}$ for $k \leq 3$}
-\label{wn:sec:wave12-a1-shuffle-first-principles}
+\section*{The shuffle algebra of the toric \texorpdfstring{$\mathbb{C}^3$}{C3} CoHA}
+\label{wn:sec:shuffle-first-principles-c3}
 
-\paragraph{Setup (fixing the prefactor).}
-For $F \in \mathbb{F}[z_1,\ldots,z_m]^{S_m}$, $G \in \mathbb{F}[w_1,\ldots,w_n]^{S_n}$,
-Schiffmann--Vasserot 2013 Prop.~2.3 defines
+\paragraph{The product.}
+Let
 \[
-(F \star G)(x_1,\ldots,x_{m+n}) \;=\; \frac{1}{m!\,n!} \sum_{\sigma \in S_{m+n}}
-\sigma \cdot \Big[ F(x_1,\ldots,x_m)\,G(x_{m+1},\ldots,x_{m+n})
-  \prod_{\substack{1\le i\le m\\ m<j\le m+n}} \omega(x_j, x_i) \Big],
+ \mathbb{F}=\mathbb{Q}(\epsilon_1,\epsilon_2,\epsilon_3),
+ \qquad
+ \omega(z,w)
+ =
+ \frac{(z-w-\epsilon_1)(z-w-\epsilon_2)(z-w-\epsilon_3)}
+      {(z-w)^3}.
 \]
+Put $\Sh_n=\mathbb{F}(x_1,\ldots,x_n)^{S_n}$, with poles allowed only on
+the partial diagonals. For
+$F\in \Sh_m$ and $G\in \Sh_n$, Schiffmann--Vasserot's rank-one shuffle
+product is
 \[
-\omega(z,w) \;=\; \frac{(z-w-\epsilon_1)(z-w-\epsilon_2)(z-w-\epsilon_3)}{(z-w)^3}.
+(F\star G)(x_1,\ldots,x_{m+n})
+=
+\frac{1}{m!\,n!}
+\sum_{\sigma\in S_{m+n}}
+\sigma\!\left[
+F(x_1,\ldots,x_m)G(x_{m+1},\ldots,x_{m+n})
+\prod_{\substack{1\le i\le m\\m<j\le m+n}}\omega(x_j,x_i)
+\right].
 \]
-The $\tfrac{1}{2}$ appearing next to $(p_1\star p_1)$ at
-§\ref{wn:sec:yplus-to-chiral-yangian-treatise} in the treatise is a transcription
-artefact: with prefactor $\tfrac{1}{m!n!}=1$ at $m=n=1$ and two permutations,
-the sum is \emph{unnormalised} (below).
+The factor $1/(m!\,n!)$ divides only the internal symmetries of the two
+input blocks. For $m=n=1$ there are two shuffle terms and no extra
+factor $1/2$ in this convention.
 
-\paragraph{Associativity: what is and is not used.}
-\ClaimStatusTheorem\ (\emph{Feigin--Odesskii 1989; SV 2013 Prop.~2.3; Negut 2014 Lem.~1.4.})
-The product $\star$ is associative for \emph{any} rational kernel $\omega(z,w)$; symmetry of
-$\omega$ is \emph{not} required.
-\begin{proof}
-Expand $(F\star G)\star H$ for $F,G,H$ in blocks of size $m,n,p$. Using
-$(F\star G)$'s inner $S_{m+n}$-sum composed with the outer $S_{m+n+p}$-sum and
-rearranging (cosets $S_{m+n+p}/(S_{m+n}\times S_p) \times S_{m+n}/(S_m\times S_n)
-= S_{m+n+p}/(S_m\times S_n \times S_p)$) gives
+\paragraph{Associativity.}
+For block sizes $n_1,\ldots,n_r$ and symmetric functions
+$F_a\in\Sh_{n_a}$, set $N=\sum_a n_a$ and let
+$I_a=\{n_1+\cdots+n_{a-1}+1,\ldots,n_1+\cdots+n_a\}$. The $r$-fold
+shuffle expression is
 \[
-(F\star G)\star H = \frac{1}{m!\,n!\,p!}\sum_{\sigma\in S_{m+n+p}}\sigma\cdot\Big[FGH\cdot
-\!\!\!\!\prod_{\substack{i\in F,\ j\in G\\ \cup\ i\in F,\ j\in H\\ \cup\ i\in G,\ j\in H}}\!\!\!\!\omega(x_j,x_i)\Big].
+\mu_{n_1,\ldots,n_r}(F_1,\ldots,F_r)
+=
+\frac{1}{\prod_a n_a!}
+\sum_{\sigma\in S_N}
+\sigma\!\left[
+\prod_{a=1}^r F_a(x_{I_a})
+\prod_{1\le a<b\le r}\prod_{\substack{i\in I_a\\j\in I_b}}
+\omega(x_j,x_i)
+\right].
 \]
-The analogous expansion of $F\star(G\star H)$ yields the \emph{same} cross-type product
-of $\omega$'s (each cross-pair $(i,j)$ with $\mathrm{type}(i)<\mathrm{type}(j)$ contributes
-one $\omega(x_j,x_i)$). Hence $(F\star G)\star H = F\star(G\star H)$.
-\end{proof}
-The only structural requirement on $\omega$ is that it be a function of two arguments;
-cross-type factorisation is what gives associativity. Symmetry $\omega(z,w)\omega(w,z)^{-1}\in
-\mathbb{F}(z-w)$ is the separate \emph{Feigin--Odesskii axiom} that ensures the Drinfeld-double
-pairing is non-degenerate, \emph{not} associativity.
-
-\paragraph{Unit.}
-\ClaimStatusDerivation\ $\mathbf{1}\in\Lambda_0=\mathbb{F}$. The empty cross-product is $1$,
-the outer sum is trivial, and $1\star F = F = F\star 1$.
-
-\paragraph{Low order I: $(p_1\star p_1)(x_1,x_2)$.}
-\ClaimStatusDerivation\ With $p_1(z)=z$, $m=n=1$, prefactor $1$:
+This formula is independent of parentheses. Indeed, in
+$(F\star G)\star H$ the inner $S_{m+n}$-sum and the outer
+$S_{m+n+p}$-sum compose to the same $S_{m+n+p}$-orbit as the one in
+$F\star(G\star H)$; each final permutation is counted exactly
+$(m+n)!$ times on the left before the factor
+$((m+n)!p!m!n!)^{-1}$ is applied, leaving
+$(m!n!p!)^{-1}$. The cross-pair factor is, in both parenthesisations,
 \[
-(p_1\star p_1)(x_1,x_2) = x_1 x_2\,\omega(x_2,x_1) + x_2 x_1\,\omega(x_1,x_2)
-= x_1 x_2\,[\omega(x_1,x_2)+\omega(x_2,x_1)].
+\prod_{\substack{i\in I_F\\j\in I_G}}\omega(x_j,x_i)
+\prod_{\substack{i\in I_F\\j\in I_H}}\omega(x_j,x_i)
+\prod_{\substack{i\in I_G\\j\in I_H}}\omega(x_j,x_i).
 \]
-Set $u:=x_1-x_2$ and let $e_k$ denote the $k$-th elementary symmetric polynomial in
-$(\epsilon_1,\epsilon_2,\epsilon_3)$. Then
-$(u-\epsilon_1)(u-\epsilon_2)(u-\epsilon_3) = u^3 - e_1 u^2 + e_2 u - e_3$ and
-$(u+\epsilon_1)(u+\epsilon_2)(u+\epsilon_3) = u^3 + e_1 u^2 + e_2 u + e_3$; dividing by
-$u^3$ and summing:
+No symmetry of $\omega$ is used. Associativity is the set-theoretic
+associativity of refining ordered blocks together with commutativity of
+the scalar cross-factors. The unit is the element $1\in\Sh_0=\mathbb{F}$,
+because the cross-product over an empty block is $1$.
+
+\paragraph{The degree-one square.}
+Let $p_1(z)=z$ and write
 \[
-\omega(x_1,x_2)+\omega(x_2,x_1) = 2 + \frac{2\,e_2}{(x_1-x_2)^2}.
+s_1=\epsilon_1+\epsilon_2+\epsilon_3,\quad
+s_2=\epsilon_1\epsilon_2+\epsilon_1\epsilon_3+\epsilon_2\epsilon_3,\quad
+s_3=\epsilon_1\epsilon_2\epsilon_3.
+\]
+For $u=x_1-x_2$,
+\[
+\omega(x_1,x_2)=1-\frac{s_1}{u}+\frac{s_2}{u^2}-\frac{s_3}{u^3},
+\qquad
+\omega(x_2,x_1)=1+\frac{s_1}{u}+\frac{s_2}{u^2}+\frac{s_3}{u^3}.
+\]
+Hence the odd terms cancel under the two shuffle terms:
+\[
+\omega(x_1,x_2)+\omega(x_2,x_1)
+=2+\frac{2s_2}{(x_1-x_2)^2}.
 \]
 Therefore
 \[
-\boxed{\ (p_1\star p_1)(x_1,x_2) \;=\; 2\,x_1 x_2 \;+\; \frac{2\,e_2\,x_1 x_2}{(x_1-x_2)^2}, \qquad
-e_2 = \epsilon_1\epsilon_2+\epsilon_1\epsilon_3+\epsilon_2\epsilon_3.\ }
+\boxed{\;
+(p_1\star p_1)(x_1,x_2)
+=
+2x_1x_2+\frac{2s_2\,x_1x_2}{(x_1-x_2)^2}.
+\;}
 \]
-The result is manifestly $S_2$-symmetric. The double pole $(x_1-x_2)^{-2}$ is of order
-$<3$ and so lies in the full $\Sh$; it is \emph{not} pole-free, hence $p_1\star p_1\notin
-Y^+$. The projection onto $Y^+$ (pole-free sub-shuffle) retains only the $2 x_1 x_2$ term,
-consistent with $p_1\cdot p_1 \in Y^+$ as expected from Tsymbaliuk 2017.
+The Calabi--Yau specialisation $s_1=0$ is irrelevant for this
+cancellation: the simple and triple poles cancel by the two-term
+$S_2$-orbit average, while the double pole is the even part of the
+kernel.
 
-\paragraph{Low order II: $(p_1\star p_1\star p_1)(x_1,x_2,x_3)$.}
-\ClaimStatusDerivation\ With three singletons, prefactor $1$, $|S_3|=6$:
+\paragraph{The degree-one cube.}
+Iterating the preceding product with three singleton blocks gives
 \[
-(p_1^{\star 3})(x_1,x_2,x_3) = x_1 x_2 x_3\sum_{\sigma\in S_3}\sigma\cdot\big[\omega(x_2,x_1)\,\omega(x_3,x_1)\,\omega(x_3,x_2)\big].
+p_1^{\star 3}(x_1,x_2,x_3)
+=
+x_1x_2x_3
+\sum_{\sigma\in S_3}
+\sigma\!\left[
+\omega(x_2,x_1)\omega(x_3,x_1)\omega(x_3,x_2)
+\right].
 \]
-Since $x_1 x_2 x_3$ is $S_3$-invariant, symmetry of the result reduces to symmetry of
-$\sum_\sigma \sigma\cdot\Omega_{123}$ with $\Omega_{123}:=\omega(x_2,x_1)\omega(x_3,x_1)\omega(x_3,x_2)$,
-which is automatic (summing a function over its $S_3$-orbit). No extra identity on $\omega$
-is invoked.
+The expression is $S_3$-symmetric because it is the orbit sum of one
+ordered-block cross-factor. Its associativity follows from the
+three-block formula above, not from a Yang--Baxter identity and not from
+the Calabi--Yau equation $s_1=0$.
 
-The Calabi--Yau specialisation $\epsilon_1+\epsilon_2+\epsilon_3=0$ sets $e_1=0$ but leaves
-$e_2,e_3$ free; the double-pole coefficient $2e_2$ and the degree-$0$ coefficient $2$ persist.
-The CY$_3$ constraint is \emph{not} used for associativity.
+\paragraph{Positive half and vertex algebra.}
+Schiffmann--Vasserot identify the critical cohomological Hall algebra of
+the Jordan quiver with cubic potential, equivalently the toric
+$\mathbb{C}^3$ CoHA, with the positive half
+$Y^+(\widehat{\mathfrak{gl}}_1)$. Under this identification the
+degree-one shuffle classes $z^r$ are the positive current generators.
+Thus $p_1\star p_1$ is an element of $Y^+(\widehat{\mathfrak{gl}}_1)$,
+represented by the rational shuffle function displayed above. The
+diagonal double pole is part of the Hall multiplication in the shuffle
+presentation.
 
-\paragraph{Cross-check against Schiffmann--Vasserot 2013 Prop.~2.3.}
-SV2013 state the $\star$-product at Prop.~2.3 eq.~(2.3) with the same prefactor
-$\frac{1}{m!n!}$ and the same cross-product of $\omega$'s. The $p_1\star p_1$ computation
-above reproduces SV2013 Example after eq.~(2.6): a degree-$2$ symmetric rational function
-with a double pole whose coefficient is $2 e_2$ (their notation: $2(\alpha_1\alpha_2+
-\alpha_1\alpha_3+\alpha_2\alpha_3)$). The absence of a simple pole follows from
-$e_1\cdot 0$ (odd-parity cancellation under $u\mapsto -u$), which is why the expansion
-contains only even powers of $(x_1-x_2)^{-1}$.
+The full affine Yangian or vertex-algebra object is a different
+construction:
+\[
+\CoHA(\mathbb{C}^3)
+=Y^+(\widehat{\mathfrak{gl}}_1)
+\hookrightarrow
+D\bigl(Y^+(\widehat{\mathfrak{gl}}_1)\bigr)
+=Y(\widehat{\mathfrak{gl}}_1)
+\xrightarrow{\ \mathrm{ev}_\lambda\ }
+\End\bigl(\Winf[\lambda]\text{-}\mathrm{vac}\bigr).
+\]
+The first term is an associative $\Eone$ Hall algebra. The
+$\Etwo$-braided structure belongs to the Drinfeld centre of the
+$\Eone$ representation category, once the double, pairing, and
+completion are supplied. The vertex algebra $\Winf[\lambda]$ is obtained
+through the evaluation representation of the double. The positive half
+is the Hall-side input to that construction.
 
-\paragraph{Status summary.}
-\ClaimStatusTheorem\ Associativity and unit of $\Sh$: complete, mechanical, independent of
-CY$_3$ constraint $e_1=0$.
-\ClaimStatusTheorem\ $(p_1\star p_1)(x_1,x_2) = 2 x_1 x_2 + 2 e_2 x_1 x_2/(x_1-x_2)^2$.
-\ClaimStatusTheorem\ $(p_1^{\star 3})$ symmetry: automatic from $S_3$-orbit averaging; no
-extra hypothesis on $\omega$.
-\ClaimStatusDerivation\ The $\tfrac{1}{2}$ appearing at treatise line~136 next to
-$(p_1\star p_1)$ is inconsistent with the $\tfrac{1}{m!n!}$ prefactor declared at
-line~110 and should read without the $\tfrac{1}{2}$.
-
-\paragraph{Connection to $\kappa_{\mathrm{ch}}$.}
-The shuffle algebra $\Sh\supseteq Y^+(\widehat{\mathfrak{gl}}_1)$ realises
-$\CoHA(\mathbb{C}^3)\otimes\mathbb{F}(\!(z)\!)$ (SV2013 Thm~1.1), hence sits in the positive
-part of the $d=3$ chiral side of $\Phi:\mathrm{CY}\text{-cat}_3\to\mathrm{ChirAlg}$.
-$\kappa_{\mathrm{ch}}(\mathbb{C}^3)$ is not directly read off $p_1\star p_1$ (this is a
-non-compact CY$_3$ shadow, not a compact Hodge supertrace), but the universal
-$\omega$-kernel controls every compact-CY$_3$ shuffle shadow through the same algebraic
-mechanism.
+\paragraph{The \texorpdfstring{$d=3$}{d=3} CY-to-chiral scope.}
+For the toric object over $\mathbb{C}^3$, the constructed Hall-side
+output is the positive $\Eone$ algebra
+$Y^+(\widehat{\mathfrak{gl}}_1)$. The calculation of
+$p_1\star p_1$ proves a low-degree Hall multiplication formula. The
+compact Hodge supertrace and the four invariants
+$\kappa_{\mathrm{ch}},\kappa_{\mathrm{cat}},
+\kappa_{\mathrm{BKM}},\kappa_{\mathrm{fiber}}$ are separate construction
+data. Those invariants belong
+to their own construction layers: $\kappa_{\mathrm{ch}}$ to the chiral
+shadow, $\kappa_{\mathrm{cat}}=\chi(\mathcal{O}_X)$ to the categorical
+Euler characteristic, $\kappa_{\mathrm{BKM}}=c(0)/2$ to a Borcherds
+product, and $\kappa_{\mathrm{fiber}}$ to the chosen fibering datum.

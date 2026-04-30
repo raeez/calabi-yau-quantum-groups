@@ -5,7 +5,7 @@
 % Used by chapters/examples/cy_c_six_routes_convergence.tex
 % (sec:cy-c-class-B-quintic, rem:quintic-hecke-falsifier).
 %
-% This is a stand-alone arithmetic certificate; it is NOT used by main.tex.
+% This is a stand-alone arithmetic certificate outside main.tex.
 % It is picked up by compute/scripts/audit_independent_verification.py.
 %
 % Author: Raeez Lorgat. 2026-04-17.
@@ -13,14 +13,12 @@
 \documentclass{article}
 \usepackage[localtheorems]{raeez-math-template}
 \newtheorem{proposition}{Proposition}
-\providecommand{\ClaimStatusProvedHere}{}
 
 \begin{document}
 
 \begin{proposition}[$E_{100/\mathbb{Q}}$ arithmetic ground truth at the
 quintic falsifier primes]
 \label{prop:E100-arithmetic-ground-truth}
-\ClaimStatusProvedHere
 The Hecke eigenvalues of the elliptic curve $E_{100/\mathbb{Q}} =
 \textup{LMFDB } \texttt{100.a1}$ at the five quintic falsifier primes
 $\{3,\, 7,\, 13,\, 29,\, 37\}$ are
@@ -36,7 +34,7 @@ The values satisfy:
       pair $(m, n)$ tested with $\max(m, n) \leq 100$;
 \item the prime-power recursion $a_{p^2} = a_p^{\,2} - p$ for every good
       prime $p \leq 50$;
-\item rank-$0$ analytic positivity: the Mellin-truncated partial sum
+\item analytic-rank check: the Mellin-truncated partial sum
       $L(1,\, E_{100}) \approx 0.6315 > 0$, consistent with the
       LMFDB-listed analytic rank $0$ for \texttt{100.a1};
 \item discriminant--conductor compatibility: $\Delta = 1\,250\,000 =
@@ -65,14 +63,15 @@ Weierstrass equation:
       Dirichletscher Reihen}, Math.~Ann.~112): the Euler product of an
       eigenform L-series gives $a_{mn} = a_m a_n$ for $\gcd(m, n) = 1$
       and the prime-power recursion at every good prime.
-\item (iv) is Coates--Wiles 1977 (Invent.~Math.~39) for the CM case
-      together with the general modularity theorem (Wiles 1995,
-      Ann.~Math.~141, completed by Breuil--Conrad--Diamond--Taylor 2001):
-      $L(1, E) \neq 0$ iff $\mathrm{rank}\,E(\mathbb{Q}) = 0$. The
-      partial sum is computed from the $a_p$ table via the
+\item (iv) is a numerical analytic-rank certificate for this curve,
+      computed from the modular $L$-series attached to the conductor-$100$
+      newform. The partial sum is computed from the $a_p$ table via the
       Mellin-truncated formula
       $L(1, E) \approx \sum_n a_n / n \cdot \exp(-2\pi n / \sqrt{N})$
-      with $N = 100$.
+      with $N = 100$, and is checked against the LMFDB analytic-rank
+      entry for \texttt{100.a1}. It is used here as corroborating
+      arithmetic evidence, not as a proof of the full Birch--Swinnerton-Dyer
+      equivalence.
 \item (v) is the N\'{e}ron--Ogg--Shafarevich criterion (N\'{e}ron 1964,
       Ogg 1967, Shafarevich): the conductor's bad-prime support is
       contained in the discriminant's bad-prime support. Equality forces

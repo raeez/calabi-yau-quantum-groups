@@ -1,7 +1,3 @@
-% physics_bps_root_multiplicities.tex
-% Physics note: Root multiplicities as BPS state counts
-% Standalone note, not compiled into the main monograph
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
 
@@ -27,7 +23,7 @@
 \newcommand{\SO}{\mathrm{SO}}
 \newcommand{\SL}{\mathrm{SL}}
 \newcommand{\GL}{\mathrm{GL}}
-\newcommand{\mult}{\mathrm{mult}}
+\newcommand{\sdim}{\operatorname{sdim}}
 \newcommand{\DT}{\mathrm{DT}}
 \newcommand{\GW}{\mathrm{GW}}
 \newcommand{\GV}{\mathrm{GV}}
@@ -43,24 +39,28 @@
 \newcommand{\bR}{\mathbb{R}}
 \newcommand{\bC}{\mathbb{C}}
 \newcommand{\bH}{\mathbb{H}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
 
-\title{Root Multiplicities as BPS State Counts:\\
+\title{Signed Root Characters as Protected BPS Indices:\\
  The Physical Meaning of the Quantum Vertex Chiral Group}
-\author{Physics note for Volume III}
-\date{}
+\author{Raeez Lorgat}
+\date{April 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-This note records the physical root--BPS dictionary conditional on the
-construction of the quantum vertex chiral group $G(X)$ and on the pure
-mathematical holographic bridge datum defined in the main manuscript.
-Under those data, root multiplicities satisfy
-$\mult(\alpha)=\Omega(\gamma)$ and Kontsevich--Soibelman wall-crossing
-maps to gauge equivalence of Maurer--Cartan elements in the shadow
-obstruction tower. Three geometries are treated: Type~IIA on a general
-CY3, the $K3 \times E$ tower, and toric CY3s.
+The physical root--BPS dictionary is conditional on the construction of
+the quantum vertex chiral group $G(X)$ and on the pure mathematical
+holographic bridge datum defined in the main manuscript.
+Under those data, signed root characters satisfy
+\(\sdim\mathfrak g_\alpha=\Omega(\gamma)\); ordinary root-space
+dimensions require the parity/source recognition datum. Kontsevich--Soibelman
+wall-crossing maps to gauge equivalence of Maurer--Cartan elements in the
+shadow obstruction tower. Three geometries are treated: Type~IIA on a
+general CY3, the $K3 \times E$ tower, and toric CY3s.
 \end{abstract}
 
 \tableofcontents
@@ -70,11 +70,10 @@ CY3, the $K3 \times E$ tower, and toric CY3s.
 \label{sec:overview}
 % ==================================================================
 
-Volume~III seeks to construct, for a CY3 $X$, a quantum vertex chiral
-group $G(X)$ whose root datum $\mathcal{R}(X)$ is extracted from the
-enumerative geometry of $X$. This note records the conditional physics
-dictionary under which the root multiplicities of $G(X)$ are BPS state
-counts. The unconditional inputs are the Hall/DT invariants and the
+For a CY3 $X$, the proposed quantum vertex chiral group $G(X)$ has root
+datum $\mathcal{R}(X)$ extracted from the enumerative geometry of $X$.
+The signed-root-character/BPS-index dictionary below is conditional on
+that construction. The unconditional inputs are the Hall/DT invariants and the
 automorphic products in the worked cases; the passage to a full
 $G(X)$-statement is conditional on the bridge datum.
 
@@ -89,12 +88,13 @@ Root lattice $\Lambda(X)$ & $H_*(X, \bZ)$ & Charge lattice of BPS
  states \\
 Root $\alpha \in \Lambda(X)$ & Effective class $\gamma \in H_*(X,\bZ)$
  & Charge vector of a BPS state \\
-$\mult(\alpha)$ & $\DT_\gamma(X)$ (DT invariant) &
- $\Omega(\gamma)$ (BPS degeneracy) \\
+$\operatorname{sdim}\mathfrak g_\alpha$ & $\DT_\gamma(X)$ (DT index) &
+ $\Omega(\gamma)$ (protected BPS index) \\
 Real roots & Rigid rational curves & Perturbative states \\
 Imaginary roots (even) & Families of curves/sheaves &
  Bosonic BPS multiplets \\
-Imaginary roots (odd) & (none) & Fermionic BPS multiplets \\
+Imaginary roots (odd) & Negative Behrend-weight strata &
+ Fermionic BPS multiplets \\
 Weyl group $W(X)$ & Autoequivalences of $D^b(\Coh(X))$ &
  Duality group \\
 Weyl vector $\rho$ & Half-sum of positive roots & Vacuum energy \\
@@ -104,7 +104,7 @@ Shadow obstruction tower $\Theta^{\leq r}_A$ & Degree-$r$ BPS bound states &
 \end{tabular}
 \end{center}
 
-BPS states in a Type~IIA compactification on $X$ are D-branes wrapping holomorphic cycles, and their counting function (the DT partition function) organizes into the denominator identity of a BKM superalgebra. The superalgebra structure arises because some BPS multiplets are fermionic: the sign of $\Omega(\gamma)$ distinguishes bosonic from fermionic states.
+BPS states in a Type~IIA compactification on $X$ are D-branes wrapping holomorphic cycles, and their protected index organizes into the denominator identity of a BKM superalgebra. The sign of $\Omega(\gamma)$ is a supertrace. It becomes an ordinary bosonic/fermionic generator statement only after the target parity fixture or finite Hall--Borcherds recognition supplies the root-space parity split.
 
 % ==================================================================
 \section{Type IIA on a Calabi--Yau threefold}
@@ -149,7 +149,7 @@ $\mathcal{H}_\gamma$ that preserves half the supercharges.
 Geometrically, BPS states correspond to \emph{stable coherent sheaves}
 (or stable objects in the derived category $D^b(\Coh(X))$ with
 respect to a Bridgeland stability condition $\sigma$). The
-\emph{BPS degeneracy}
+\emph{protected BPS index}
 \[
  \Omega(\gamma; \sigma) = \sum_n (-1)^n \dim H^n(\cM_\sigma(\gamma),
  \hat{\nu})
@@ -164,7 +164,7 @@ Kontsevich--Soibelman:
  \boxed{\Omega(\gamma; \sigma) = \DT_\gamma(X; \sigma).}
 \end{equation}
 
-\subsection{The root multiplicity identification}
+\subsection{The signed root-character identification}
 
 Assume from now on in this subsection that the quantum vertex chiral
 group $G(X)$ has been constructed and that the pure mathematical
@@ -174,18 +174,24 @@ and root spaces $\mathfrak{g}_\alpha$ for $\alpha\in\Delta_+$. The
 \textbf{fundamental identification under the supplied bridge datum} is:
 \begin{equation}
 \label{eq:root-mult-bps}
- \boxed{\mult(\alpha) = \Omega(\gamma_\alpha)}
+ \boxed{\sdim\mathfrak g_\alpha = \Omega(\gamma_\alpha)}
 \end{equation}
 where $\gamma_\alpha \in \Gamma$ is the charge vector corresponding
-to the root $\alpha$. The root spaces of $G(X)$ are identified by the
-bridge datum with the spaces of BPS states at the corresponding charge:
+to the root $\alpha$. A root-space dimension statement is stronger: it
+requires a parity split
+\(\mathfrak g_\alpha=\mathfrak g_{\alpha,0}\oplus\mathfrak g_{\alpha,1}\)
+with
+\(\sdim\mathfrak g_\alpha
+=\dim\mathfrak g_{\alpha,0}-\dim\mathfrak g_{\alpha,1}\).
+The root spaces of $G(X)$ are identified by the bridge datum with the
+spaces of BPS states at the corresponding charge:
 \[
  \mathfrak{g}_\alpha \cong \mathcal{H}_{\gamma_\alpha}^{\mathrm{BPS}}.
 \]
 
 The different types of roots have distinct physical origins:
 \begin{enumerate}[label=(\alph*)]
- \item \textbf{Real roots} ($(\alpha,\alpha) > 0$, $\mult = 1$):
+ \item \textbf{Real roots} ($(\alpha,\alpha) > 0$, \(\sdim\mathfrak g_\alpha=1\)):
  These correspond to \emph{rigid} BPS states: isolated stable
  sheaves with no moduli. Physically, these are perturbative
  states (W-bosons in the gauge theory on the D-brane worldvolume).
@@ -193,32 +199,33 @@ The different types of roots have distinct physical origins:
  $G(X)$.
 
  \item \textbf{Even imaginary roots} ($(\alpha,\alpha) \leq 0$,
- $\mult > 0$): These correspond to \emph{families} of BPS
- states, sheaves moving in positive-dimensional moduli spaces.
- They contribute \textbf{bosonic} generators $e_\alpha$ to the
- BKM superalgebra. The positive multiplicity means the BPS index
- is positive: these are states in the ``bosonic sector'' (even
- part) of the BPS Hilbert space.
+ $\operatorname{sdim}\mathfrak g_\alpha > 0$): These correspond to
+ \emph{families} of BPS states, sheaves moving in positive-dimensional
+ moduli spaces. The positive coefficient is a positive protected
+ index. It gives an even ordinary generator space only after the
+ parity fixture or finite Hall--Borcherds recognition identifies the
+ corresponding target root space as purely even.
 
  \item \textbf{Odd imaginary roots} ($(\alpha,\alpha) < 0$,
- $\mult < 0$): These are the distinguishing feature. A
- \emph{negative} BPS index arises when the Behrend function
- assigns a net negative weight; physically, this means the BPS
- multiplet is \textbf{fermionic}. These contribute
- \textbf{odd (fermionic) generators} $f_\alpha$ to $G(X)$,
- and it is their presence that forces $G(X)$ to be a Lie
- \emph{super}algebra rather than a plain Lie algebra.
+ $\operatorname{sdim}\mathfrak g_\alpha < 0$): These are the
+ distinguishing feature. A negative BPS index arises when the
+ Behrend function assigns a net negative weight. It records an odd
+ dominance in the protected supertrace; an ordinary odd generator
+ space is the additional output of the target parity fixture or finite
+ Hall--Borcherds recognition. The resulting Lie object $G(X)$ carries
+ its $\bZ/2$-graded superalgebra structure.
 \end{enumerate}
 
 \begin{remark}[Why a superalgebra?]
-The appearance of a superalgebra is not a mathematical convenience but
-a physical necessity. In Type~IIA on a CY3, the BPS spectrum
+The superalgebra records a physical parity constraint. In Type~IIA on a CY3, the BPS spectrum
 naturally splits into states of even and odd fermion number. The BPS
 index $\Omega(\gamma) = \Tr_{\mathcal{H}_\gamma}(-1)^F$ is a
 \emph{signed} count: it receives positive contributions from bosonic
 states and negative contributions from fermionic states. When
 $\Omega(\gamma) < 0$, the fermionic states dominate, and the
-corresponding root space is odd in the $\bZ/2$-grading of the Lie
+corresponding root character has negative superdimension. After the
+parity-split target presentation is fixed, this negative superdimension
+may be realised by an odd root space in the $\bZ/2$-grading of the Lie
 superalgebra. The denominator identity of the BKM superalgebra
 encodes these signs through the distinction between $(1-e^{-\alpha})^{+m}$
 (bosonic, appearing in the denominator) and
@@ -234,9 +241,9 @@ product form
 \label{eq:denominator-product}
  \Phi_X(z) = e^{-2\pi i \langle \rho, z \rangle}
  \prod_{\alpha \in \Delta_+}
- (1 - e^{-2\pi i \langle \alpha, z \rangle})^{\mult(\alpha)}.
+ (1 - e^{-2\pi i \langle \alpha, z \rangle})^{\sdim\mathfrak g_\alpha}.
 \end{equation}
-Under the identification $\mult(\alpha) = \Omega(\gamma_\alpha)$,
+Under the identification \(\sdim\mathfrak g_\alpha = \Omega(\gamma_\alpha)\),
 this becomes the \emph{BPS partition function}:
 \[
  \Phi_X(z) = e^{-2\pi i \langle \rho, z \rangle}
@@ -262,7 +269,7 @@ infinite product encodes the non-perturbative BPS corrections.
 
 \subsection{The geometry}
 
-The prototypical example. Let $S$ be a K3 surface with an elliptic
+Let $S$ be a K3 surface with an elliptic
 fibration $\pi \colon S \to \mathbb{P}^1$, and let $E$ be an
 elliptic curve. The product $X = S \times E$ is a (non-simply-connected)
 Calabi--Yau threefold. More generally, for an $N$-torsion section
@@ -296,32 +303,43 @@ $\Sp_4(\bZ)$.
 
 The Igusa cusp form $\Delta_5$ is a Siegel modular form on the
 genus-2 Siegel upper half-space $\bH_2$. It is the unique cusp form
-of weight 5 for $\Sp_4(\bZ)$, and its appearance here is not
-accidental: $\bH_2$ parametrizes period matrices of genus-2 curves,
-and the genus-2 data reflects the $E_2$-structure (braided monoidal
-structure) of the quantum vertex chiral group.
+of weight 5 for $\Sp_4(\bZ)$. The space $\bH_2$ parametrizes period
+matrices of genus-2 curves, and the genus-2 data is the automorphic
+shadow of the braided structure on the Drinfeld centre or completed
+Hall--Drinfeld double. The underlying $d=3$ chiral algebra remains
+$E_1$.
 
-\subsection{The weak Jacobi form $\phi_{0,1}$ and root multiplicities}
+\subsection{The weak Jacobi form $\phi_{0,1}$ and signed root characters}
 
-The root multiplicities of the BKM superalgebra $\mathfrak{g}_{
-\Delta_5}$ are controlled by a single function: the \emph{weak Jacobi
-form} $\phi_{0,1}(\tau, z)$ of weight $0$ and index $1$, which is
-the \textbf{K3 elliptic genus}:
+The signed root character of the BKM superalgebra
+\(\mathfrak g_{\Delta_5}\) is controlled by the Eichler--Zagier
+\emph{weak Jacobi form} \(\phi_{0,1}(\tau,z)\) of weight \(0\) and
+index \(1\):
 \[
- \phi_{0,1}(\tau, z) = \chi(S; q, y)
+ \phi_{0,1}(\tau, z)
  = \sum_{n \geq 0, \, l \in \bZ} f(n, l) \, q^n y^l,
  \qquad q = e^{2\pi i \tau}, \; y = e^{2\pi i z}.
 \]
-Explicitly, $\phi_{0,1} = 2y + 20 + 2y^{-1} + (20y^2 - 128y + 216
-- 128y^{-1} + 20y^{-2})q + \cdots$.
+Here \(Z_{K3}=2\,\phi_{0,1}\) is the K3 elliptic genus. Explicitly,
+\[
+\phi_{0,1}
+=y+10+y^{-1}
+ +(10y^2-64y+108-64y^{-1}+10y^{-2})q+\cdots,
+\]
+whereas \(Z_{K3}\) has doubled coefficients and gives the doubled
+\(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\) exponents. Thus
+\(c_0(3)=f(1,\pm1)=-64\) for \(\mathfrak g_{\Delta_5}\), while the
+\(Z_{K3}/\Phi_{10}\) lane has exponent \(-128\).
 
-The root multiplicity formula is:
+The signed root-character formula is:
 \begin{equation}
 \label{eq:k3e-root-mult}
- \boxed{\mult(\alpha) = f(nm, l)
+ \boxed{\operatorname{sdim}\mathfrak g_\alpha = f(nm, l)
  \quad \text{for } \alpha = (n, l, m) \in \Delta_+
  \subset \Lambda^{2,1}_{II}.}
 \end{equation}
+Ordinary even/odd dimensions or generator counts require a parity fixture
+or finite Hall--Borcherds recognition of the root space.
 Here $(n,l,m)$ parametrizes a root in the lattice $\Lambda^{2,1}_{II}$
 with the bilinear form $(\alpha, \alpha) = 2nm - l^2$. The
 physical content is:
@@ -334,35 +352,52 @@ physical content is:
  \item The integer $l$ counts \textbf{D2-brane momentum} along the
  elliptic curve $E$ (or equivalently, the winding charge in the
  $T$-dual frame).
- \item The BPS degeneracy of a state with charges $(n,l,m)$ is
- the Fourier coefficient $f(nm, l)$ of the K3 elliptic genus.
- The combination $nm$ (not $n$ and $m$ separately) appears because
- the BPS mass depends only on the discriminant $\Delta = 2nm - l^2$
- of the charge vector.
+ \item The protected BPS index of a state with charges $(n,l,m)$ is
+ the Fourier coefficient $f(nm, l)$ of \(\phi_{0,1}\) in the
+ \(\Delta_5\)-lane; the \(Z_{K3}\)-lane doubles it for
+ \(\Phi_{10}^{\mathrm{un}}\).
+ The combination $nm$ appears because the Jacobi-form coefficient
+ depends on the discriminant orbit of the charge vector, with the
+ elliptic variable recording the residual $l$-dependence.
 \end{itemize}
 
-\subsection{Bosonic and fermionic BPS states}
+\subsection{Signed BKM root character}
 
-The sign of $f(nm,l)$ has a direct physical interpretation. The
-elliptic genus is a supersymmetric index:
+The coefficient $f(nm,l)$ is the signed datum seen by the BKM
+denominator product. The elliptic genus is a supersymmetric index:
 \[
  \chi(S; q, y) = \Tr_{\mathcal{H}_{\mathrm{RR}}}
  (-1)^{F_L + F_R} \, y^{J_L} \, q^{L_0 - c/24}
 \]
 where the trace is over the Ramond--Ramond sector of the
-sigma model on $S$. The sign $(-1)^{F_L + F_R}$ distinguishes
-bosonic from fermionic states:
+sigma model on $S$. Thus $f(nm,l)$ is a protected supertrace, or
+equivalently the signed root character of the BKM target:
+\[
+ f(nm,l)
+ =
+ \operatorname{sdim} \mathfrak{g}_{(n,l,m)}
+ =
+ \dim \mathfrak{g}_{(n,l,m),0}
+ -
+ \dim \mathfrak{g}_{(n,l,m),1}
+\]
+after a parity fixture or finite Hall--Borcherds recognition supplies
+the actual root-space presentation. Without that extra datum the
+elliptic genus fixes the signed index, not separate ordinary
+even/odd dimensions:
 \begin{itemize}
  \item When $f(nm, l) > 0$: the BPS multiplet at charge $(n,l,m)$
- has more bosonic than fermionic states. These generate
- \textbf{even imaginary roots} $\Delta^{\mathrm{im}}_0$ of the
- BKM superalgebra: bosonic generators $e_\alpha$.
+ has positive superdimension. In the standard BKM target presentation
+ this is realised by \textbf{even imaginary roots}
+ $\Delta^{\mathrm{im}}_0$, hence by bosonic generators $e_\alpha$.
 
  \item When $f(nm, l) < 0$: the BPS multiplet has more fermionic
- than bosonic states. These generate \textbf{odd imaginary roots}
+ than bosonic states in the protected index. In the standard BKM
+ target presentation this is realised by \textbf{odd imaginary roots}
  $\Delta^{\mathrm{im}}_1$, fermionic generators that make $G(X)$
- a Lie \emph{super}algebra. The generator count is $|f(nm,l)|$,
- and each such generator is Grassmann-odd.
+ a Lie \emph{super}algebra. The ordinary odd dimension is
+ $-f(nm,l)$ only after the parity fixture identifies the root space as
+ purely odd.
 \end{itemize}
 
 The product formula for $\Delta_5$ makes this structure manifest:
@@ -373,12 +408,13 @@ The product formula for $\Delta_5$ makes this structure manifest:
  (1 - e^{2\pi i(nz_1 + lz_2 + mz_3)})^{f(nm,l)}.
 \]
 When $f(nm,l) > 0$, the factor $(1 - \cdots)^{f(nm,l)}$ appears in
-the denominator of $1/\Delta_5$ (bosonic oscillator modes). When
-$f(nm,l) < 0$, the factor appears with a negative exponent, i.e., in
-the numerator of $1/\Delta_5$ (fermionic oscillator modes). This is
-precisely the structure of a \emph{second-quantized} partition
-function with both bosonic and fermionic single-particle states: the
-``second quantization'' of the K3 elliptic genus.
+the denominator of $1/\Delta_5$ (bosonic oscillator modes in the
+target presentation). When $f(nm,l) < 0$, the factor appears with a
+negative exponent, i.e., in the numerator of $1/\Delta_5$ (fermionic
+oscillator modes in the target presentation). The product is therefore
+the second-quantized protected index of the K3 elliptic genus; ordinary
+generator counts belong to the chosen BKM/Hall presentation, not to
+the coefficient alone.
 
 \subsection{The three types of roots}
 
@@ -393,37 +429,48 @@ The root system $\Delta = \Delta^{\mathrm{re}} \sqcup
  2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2
  \end{pmatrix}.
  \]
- These have $\mult = 1$ and generate a Coxeter group $W^{(2)}$.
+ These have \(\sdim\mathfrak g_\alpha=1\) and generate a Coxeter group $W^{(2)}$.
  Physically, they correspond to rigid BPS states: isolated stable
  sheaves (``W-bosons'' of the gauge theory on the K3).
 
  \item \textbf{Even imaginary roots} $\Delta^{\mathrm{im}}_0$:
- roots $\alpha$ with $(\alpha,\alpha) \leq 0$ and $f(nm,l) > 0$.
- These are bosonic BPS multiplets. At the lowest level, $f(0,0)
- = 20$ gives a 20-dimensional space of ``massless'' bosonic
- generators, corresponding to the 20 moduli of the K3 surface
- (the 20 directions in $H^{1,1}(S)$).
+ roots $\alpha$ with $(\alpha,\alpha) \leq 0$ and signed
+ superdimension $f(nm,l) > 0$ in the denominator character. At the
+ lowest level, $f(0,0)=20$ is a signed index/superdimension. It becomes
+ an ordinary 20-dimensional massless bosonic generator space only after
+ the target parity fixture or finite Hall--Borcherds recognition
+ identifies that root space as purely even; then it matches the 20
+ directions in $H^{1,1}(S)$.
 
  \item \textbf{Odd imaginary roots} $\Delta^{\mathrm{im}}_1$:
- roots $\alpha$ with $(\alpha,\alpha) < 0$ and $f(nm,l) < 0$.
- These are fermionic BPS multiplets. For example, $f(1,1) =
- -128$ gives 128 fermionic generators of charge $(1,1,m)$; these
- are bound states of a D0-brane with a D2-brane wrapping the fiber,
- carrying one unit of $E$-momentum.
+ roots $\alpha$ with $(\alpha,\alpha) < 0$ and signed
+ superdimension $f(nm,l) < 0$ in the denominator character. For
+ example, \(f(1,1)=c_0(3)=-64\) is the
+ \(\mathfrak g_{\Delta_5}\) signed index/superdimension at the
+ indicated charge. The doubled \(Z_{K3}/\Phi_{10}\)-lane has exponent
+ \(-128\). The value \(-64\) gives an ordinary 64-dimensional
+ fermionic generator space only after the parity fixture or finite
+ Hall--Borcherds recognition identifies the root space as purely odd;
+ physically these charges are expected to be D0--D2 bound states with
+ one unit of $E$-momentum.
 \end{enumerate}
 
-\subsection{The eight CY3s and the eight Siegel modular forms}
+\subsection{CHL Geometries and the Eight Automorphic Rows}
 
-The construction generalizes from $N=1$ to the eight CY3 geometries
-$X_N = (S \times E)/(\bZ/N\bZ)$ for $N = 1, 2, 3, 4, 5, 6, 7, 8$
-(subject to the existence of appropriate torsion sections). Each
-$X_N$ determines a quantum vertex chiral group $G(X_N)$ whose
-denominator identity is one of the eight diagonal-divisor Siegel
-modular forms. The root multiplicities of $G(X_N)$ are given by the
-$g_N, h_M$-twisted twined elliptic genera of K3. The physical
-content: the orbifold $\bZ/N\bZ$ action modifies the D-brane spectrum
-by projecting onto $\bZ/N\bZ$-invariant states, and the twisted
-elliptic genus counts BPS states in the twisted sectors.
+The compact diagonal CHL quotients of $K3\times E$ occur at
+$N\in\{1,2,3,4,6\}$ in the standard $\varphi(N)\mid 2$ family. Their
+Borcherds weights satisfy
+\[
+ \kBKM(\Phi_N)=\frac{c_N(0)}{2},
+ \qquad
+ (c_N(0))_{N=1,2,3,4,6}=(10,8,6,4,2).
+\]
+The broader Gritsenko--Clery diagonal-divisor catalogue has eight
+automorphic rows. Those rows are useful Borcherds-product data, but
+they are not all compact diagonal $K3\times E$ quotient geometries.
+The signed root characters in the constructed rows are governed by the
+appropriate twisted and twined K3 elliptic genera; the orbifold action
+projects to invariant states and adds twisted-sector contributions.
 
 % ==================================================================
 \section{Toric Calabi--Yau threefolds}
@@ -503,11 +550,13 @@ Rapcak--Soibelman--Yang--Zhao (general toric) identifies:
 the positive half of the affine super Yangian determined by the
 toric quiver. In Volume~III language: the CoHA is the $E_1$-sector
 (the positive half) of the quantum vertex chiral group $G(X)$. The
-root multiplicities of $G(X)$ are:
+protected signed characters of $G(X)$ are:
 \[
- \mult(\mathbf{d}) = \DT_\mathbf{d}(X)
- = \dim_{\mathbf{d}} \mathcal{H}(Q_X, W_X).
+ \sdim\mathfrak g_{\mathbf{d}} = \DT_\mathbf{d}(X).
 \]
+An ordinary equality with
+\(\dim_{\mathbf d}\mathcal H(Q_X,W_X)\) requires a parity-resolved
+critical-CoHA fixture.
 
 \subsection{The resolved conifold}
 
@@ -524,7 +573,8 @@ directions). The DT partition function is:
 where $Q = e^{-\mathrm{vol}(\mathbb{P}^1)}$ tracks the D2-brane
 wrapping number. The factor $M(q)^2$ counts D0-brane bound states
 in the two toric patches, and the remaining factors count D2-D0
-bound states. Each exponent $k$ is a root multiplicity.
+bound states. Each exponent $k$ is a protected root-character
+coefficient.
 
 \subsection{The MacMahon function as vacuum character}
 
@@ -553,7 +603,7 @@ The BPS spectrum $\{\Omega(\gamma;\sigma)\}$ depends on the stability
 condition $\sigma$ (physically, on the values of the vector multiplet
 moduli in the $\mathcal{N}=2$ effective theory). As $\sigma$ varies
 in the space of Bridgeland stability conditions $\mathrm{Stab}(X)$,
-the BPS degeneracies can jump: bound states form or decay at
+the protected BPS indices can jump: bound states form or decay at
 \emph{walls of marginal stability}.
 
 A wall $\mathcal{W}(\gamma_1, \gamma_2) \subset \mathrm{Stab}(X)$
@@ -583,14 +633,14 @@ The KS wall-crossing formula states:
  = \text{invariant across walls,}}
 \end{equation}
 where the product is taken over all charges with $\Omega(\gamma) \neq 0$,
-ordered by \emph{decreasing} phase $\arg Z(\gamma)$. The content:
-as $\sigma$ crosses a wall, the individual factors $U_\gamma$ and
+ordered by decreasing argument $\arg Z(\gamma)$. As $\sigma$
+crosses a wall, the individual factors $U_\gamma$ and
 their multiplicities $\Omega(\gamma)$ change, but the ordered product
 is invariant.
 
 \subsection{Wall-crossing as gauge equivalence}
 
-We propose that in the quantum vertex chiral group framework,
+The conjectural quantum vertex chiral group statement is that
 wall-crossing corresponds to \textbf{gauge equivalence of
 Maurer--Cartan elements} in the shadow obstruction tower of Volume~I.
 
@@ -607,8 +657,8 @@ parallel is:
 \hline
 Stability condition $\sigma \in \mathrm{Stab}(X)$ &
  Gauge orbit of $\Theta_A$ \\
-BPS degeneracies $\Omega(\gamma;\sigma)$ &
- Root multiplicities $\mult(\alpha; \Theta)$ \\
+Protected indices $\Omega(\gamma;\sigma)$ &
+ Signed root characters \(\sdim\mathfrak g_\alpha(\Theta)\) \\
 Wall of marginal stability &
  Codimension-1 stratum in $\MC(A)$ \\
 KS product $\prod U_\gamma^{\Omega(\gamma)}$ &
@@ -718,12 +768,14 @@ combinatorial model for the shadow obstruction tower.
 \label{sec:gv}
 % ==================================================================
 
-\subsection{GV invariants as ``primitive'' root multiplicities}
+\subsection{GV invariants as primitive protected indices}
 
 The Gopakumar--Vafa invariants $n^g_\beta$ (for genus $g$ and curve
-class $\beta \in H_2(X,\bZ)$) are ``primitive'' BPS invariants: they
-count BPS states before forming multi-particle bound states. They
-are related to DT invariants by the GV formula:
+class $\beta \in H_2(X,\bZ)$) are primitive protected/refined BPS
+indices before the multi-particle exponential is formed. An ordinary
+primitive generator count is a further presentation statement: it requires
+the constructed bridge datum together with parity recognition of the
+source spaces. They are related to DT invariants by the GV formula:
 \[
  \sum_{\beta} \sum_{n} \DT_{\beta,n}(X) \, q^n \, Q^\beta
  = M(q)^{\chi(X)} \cdot
@@ -732,10 +784,10 @@ are related to DT invariants by the GV formula:
 \]
 
 Under the root--BPS bridge, the GV invariants $n^g_\beta$ have a clean
-root-theoretic interpretation: they are the multiplicities of the
+root-theoretic interpretation: they are the signed coefficients of the
 \emph{primitive} imaginary roots before applying the denominator
 formula. The DT
-invariants (= root multiplicities of $G(X)$) are obtained from the
+invariants (= protected root characters of $G(X)$) are obtained from the
 GV invariants by ``second quantization,'' the passage from
 single-particle states to the Fock space. In the BKM language, this
 is the passage from simple roots to all positive roots via the
@@ -755,13 +807,13 @@ The refined invariants contain strictly more information: they
 distinguish states that are paired by $\Omega(\gamma)$.
 
 In the quantum vertex chiral group framework, the refinement
-parameter $y$ should correspond to the \textbf{grading by conformal
+parameter $y$ is expected to correspond to the \textbf{grading by conformal
 weight} (or equivalently, by the Adams grading on the cyclic bar
-complex). The refined root multiplicity
+complex). The refined signed root character
 \[
- \mult(\alpha; y) = \Omega(\gamma_\alpha; y)
+ \sdim_y\mathfrak g_\alpha = \Omega(\gamma_\alpha; y)
 \]
-gives a $\bZ$-graded (not just $\bZ/2$-graded) root space
+ gives a $\bZ$-graded refinement of the $\bZ/2$-graded root space
 $\mathfrak{g}_\alpha = \bigoplus_j \mathfrak{g}_{\alpha,j}$, which
 is the beginning of a categorification of the BKM superalgebra.
 
@@ -791,9 +843,8 @@ encodes the contribution of $r$-particle BPS bound states:
 
  \item The \textbf{cubic shadow} $C$ encodes 3-body bound states.
  At the level of BPS counting: when three particles of charges
- $\gamma_1, \gamma_2, \gamma_3$ can form a bound state that is not
- a sequential binding of two 2-body states, the cubic shadow
- detects this ``genuinely 3-body'' contribution. This corresponds
+ $\gamma_1, \gamma_2, \gamma_3$ form an indecomposable 3-body bound
+ state, the cubic shadow detects this contribution. This corresponds
  to the 3-particle term in the Denef--Moore split attractor flow.
 
  \item The \textbf{quartic shadow} $Q$ encodes 4-body effects, etc.
@@ -832,22 +883,26 @@ theory on $X$. The correspondences are:
  intersection form (= Mukai pairing = Dirac pairing of charges)
  and the root system of $G(X)$.
 
- \item \textbf{Root multiplicities = BPS degeneracies.} The
- multiplicity $\mult(\alpha) = \Omega(\gamma_\alpha)$ is the
- number of BPS states of charge $\gamma_\alpha$. The sign
- distinguishes bosonic (even) from fermionic (odd) states.
+ \item \textbf{Signed root character = protected BPS index.} Under
+ the bridge datum, \(\sdim\mathfrak g_\alpha = \Omega(\gamma_\alpha)\) records the
+ protected index, equivalently the BKM superdimension at charge
+ $\gamma_\alpha$. An ordinary even/odd generator count requires the
+ parity fixture or a finite Hall--Borcherds recognition of the target
+ presentation.
 
  \item \textbf{Denominator identity = BPS partition function under the bridge.} The
  Weyl--Kac--Borcherds product formula for the denominator of
- $G(X)$ becomes the generating function of all BPS degeneracies, i.e.,
+ $G(X)$ becomes the generating function of all protected BPS indices, i.e.,
  the DT partition function. For $K3 \times E$, this is the Igusa
  cusp form $\Delta_5$.
 
  \item \textbf{Real roots = perturbative states; imaginary roots =
  non-perturbative states.} The real roots are rigid, isolated BPS
- states. The imaginary roots arise from families and are counted
- by the K3 elliptic genus $\phi_{0,1}$ (for $K3 \times E$) or the
- DT invariants (for toric CY3s).
+ states. The imaginary roots arise from families and are counted by
+ \(\phi_{0,1}\) in the \(\Delta_5\)-lane for \(K3\times E\); the K3
+ elliptic genus \(Z_{K3}=2\phi_{0,1}\) belongs to the doubled
+ \(\Phi_{10}\)-lane. For toric CY3s the corresponding input is the
+ protected DT index.
 
  \item \textbf{CoHA = positive half = $E_1$-sector.} The critical
  CoHA, which counts BPS states and encodes their bound-state
@@ -855,18 +910,18 @@ theory on $X$. The correspondences are:
  part $\mathfrak{n}_+$ of $G(X)$. This is the $E_1$
  (associative, ordered) sector.
 
- \item \textbf{$E_2$-structure = braided monoidal = quantum group.}
- The full quantum vertex chiral group is $E_2$ (braided monoidal).
- The braiding is the quantum group $R$-matrix, which governs the
- statistics of BPS particles: whether exchanging two BPS states
- picks up a phase (and what phase).
+ \item \textbf{$E_2$ centre/double = braided monoidal quantum group.}
+ At $d=3$ the specialised chiral algebra is natively $E_1$. The
+ braided monoidal structure belongs to the Drinfeld centre or completed
+ Hall--Drinfeld double after the required pairing, completion, and
+ half-braiding data have been constructed. Its $R$-matrix governs the
+ exchange statistics of BPS particles.
 
  \item \textbf{Wall-crossing = gauge equivalence of MC elements.}
  As the moduli (stability condition) varies, the BPS spectrum
- changes. This is not a change of the algebra $G(X)$ but a change
- of the representative $\Theta_A$ within its gauge-equivalence
- class. The KS wall-crossing formula expresses this gauge
- invariance.
+ changes. The algebra $G(X)$ remains fixed while the representative
+ $\Theta_A$ moves inside its gauge-equivalence class. The KS
+ wall-crossing formula expresses this gauge invariance.
 
  \item \textbf{Shadow obstruction tower = multi-particle BPS hierarchy.} The
  degree-$r$ shadow encodes $r$-body BPS bound states. The full
@@ -875,56 +930,52 @@ theory on $X$. The correspondences are:
  the automorphic correction.
 \end{enumerate}
 
-The emerging picture is that the quantum vertex chiral group is the
-candidate algebraic framework for BPS state counting on CY3s:
-it simultaneously encodes the BPS degeneracies (as root
-multiplicities), the bound-state formation rules (as the Lie bracket),
+The quantum vertex chiral group is the candidate algebraic framework
+for BPS state counting on CY3s: it simultaneously encodes the protected
+BPS indices (as signed root characters), the bound-state formation rules (as the Lie bracket),
 the BPS statistics (as the $\bZ/2$-grading), the partition function
 (as the denominator identity), and the wall-crossing (as gauge
-equivalence). The fact that these disparate physical phenomena (DT
-theory, elliptic genera, CoHAs, wall-crossing, automorphic forms) are
-unified by a single algebraic structure is the central observation
-of this programme.
+equivalence). The single algebraic structure binds DT theory, elliptic
+genera, CoHAs, wall-crossing, and automorphic forms.
 
 % ==================================================================
 \section{BPS entropy from the shadow obstruction tower}
 \label{sec:bps-entropy}
 % ==================================================================
 
-The shadow obstruction tower provides a systematic expansion of BPS
-black hole entropy, refining the Bekenstein--Hawking area law by
-sub-leading corrections that are controlled degree-by-degree. The
-swarm computation (\texttt{compute/lib/bps\_entropy\_shadow.py},
-78~tests) establishes the following structure.
+The conjectural role of the shadow obstruction tower is to refine the large-charge
+asymptotics of BPS black-hole degeneracies. For the $K3\times E$
+denominator branch this expectation is checked against the Rademacher
+expansion of the Fourier coefficients of $\Delta_5^{-1}$; outside that
+branch it remains a proof obligation.
 
 \subsection{Degree expansion of the entropy}
 
-Let $D = 4nm - l^2$ denote the discriminant (charge invariant) of a
-BPS state. The shadow tower decomposes the microstate degeneracy
-$\Omega(\gamma)$ into contributions graded by degree $r$:
+Let $D = 4nm - l^2$ denote the discriminant of a charge in the
+$K3\times E$ denominator normalisation. On the Rademacher branch for
+$1/\Delta_5$, the large-$D$ expansion has the form:
 
 \begin{enumerate}[label=(\roman*)]
- \item \textbf{Degree 2 (Bekenstein--Hawking).}
- The leading term is
+ \item \textbf{Leading saddle.}
+ The Bekenstein--Hawking term is
  \[
  S_{\mathrm{BH}} \;=\; 4\pi \sqrt{D},
  \]
- the Bekenstein--Hawking entropy of a large BPS black hole. This
- is the $\kappa_{\mathrm{ch}}$-level shadow: the scalar modular characteristic
- controls the area law.
+ in the normalisation used here. This term is controlled by the
+ polar part and Weyl vector of the Borcherds product, not by the
+ compact total-space invariant $\kch(K3\times E)$.
 
- \item \textbf{Degree 3 (logarithmic correction).}
- The cubic shadow $C$ produces the sub-leading correction
+ \item \textbf{Logarithmic correction.}
+ The cubic-shadow candidate matches the logarithmic term
  \[
  \Delta S^{(3)} \;=\; -\frac{27}{4} \log D.
  \]
- The coefficient $-27/4$ is universal within the $K3 \times E$
- family. Physically, this is the one-loop correction from
- massless fields in the near-horizon $\mathrm{AdS}_2$ geometry.
- The factor $27/4$ encodes the cubic Casimir of the BKM algebra,
- extracted from the degree-3 shadow.
+ This coefficient is a Rademacher/Bessel index datum for the
+ $\Delta_5^{-1}$ branch. Identifying it intrinsically with a cubic
+ Casimir of the compact Hall--Drinfeld object requires the compact
+ positive half, pairing, orientation, and completion data.
 
- \item \textbf{Degree $\geq 4$ (Bessel corrections).}
+ \item \textbf{Bessel corrections.}
  The quartic and higher shadows produce a tower of
  power-suppressed corrections of the form
  \[
@@ -932,9 +983,8 @@ $\Omega(\gamma)$ into contributions graded by degree $r$:
  \qquad z = \pi\sqrt{D},
  \]
  where $a_k(19/2)$ are modified Bessel coefficients evaluated at
- $\nu = 19/2$. These match the Rademacher expansion of the
- Fourier coefficients of $1/\Delta_5$ (the inverse Igusa cusp
- form), providing independent verification.
+ $\nu = 19/2$. These are the coefficients in the Rademacher expansion
+ of the Fourier coefficients of $1/\Delta_5$.
 \end{enumerate}
 
 \noindent
@@ -948,8 +998,7 @@ Combining all degrees:
 
 \subsection{Shadow depth class and black holes}
 
-The four shadow depth classes have direct physical meaning for
-BPS black holes:
+The four shadow depth classes have the following physical reading:
 
 \begin{itemize}
  \item \textbf{Class $G$ ($r_{\max} = 2$):}
@@ -966,33 +1015,32 @@ BPS black holes:
  holes with one sub-leading Bessel correction.
 
  \item \textbf{Class $M$ ($r_{\max} = \infty$):}
- Full infinite tower. \emph{Genuine black holes} with
- macroscopic horizons. The infinite degree tower reproduces
- the complete Rademacher series.
+ Full infinite tower. These are the natural home for macroscopic
+ black-hole degeneracies when the corresponding automorphic product
+ and charge lattice have been constructed.
 \end{itemize}
 
 \noindent
-Only class~$M$ algebras produce black holes with a genuine
-event horizon and thermodynamic entropy. The CY3 quantum
-vertex chiral groups are all class~$M$ (shadow depth infinite),
-consistent with the existence of BPS black holes in CY3
-compactifications.
+The proved examples with infinite automorphic products, including
+$K3\times E$ and the standard toric DT series, are class~$M$. A
+generic compact CY3 requires its own compact Hall/chiral construction
+before any universal class~$M$ assertion can be made.
 
-\subsection{Weight predictions from $\kappa_{\mathrm{ch}}$}
+\subsection{Borcherds Weight from \texorpdfstring{$\kappa_{\mathrm{BKM}}$}{Borcherds characteristic}}
 
-For the $K3 \times E$ family with $\kappa_{\mathrm{ch}} = 5$:
+For the $K3 \times E$ Borcherds denominator branch:
 \begin{itemize}
  \item The denominator identity has weight
- $\mathrm{wt}(\Delta_5) = 5 = \kappa_{\mathrm{ch}}$.
+ $\mathrm{wt}(\Delta_5) = 5 = \kBKM(\Delta_5)$.
  \item The Igusa cusp form $\Phi_{10}$ (the square of the
- denominator) has weight $10 = 2\kappa_{\mathrm{ch}}$.
- \item More generally, for a CY3 with modular characteristic
- $\kappa_{\mathrm{ch}}$, the automorphic denominator should have weight
- $\kappa_{\mathrm{ch}}$ as a Siegel modular form.
+ denominator) has weight $10 = 2\kBKM(\Delta_5)$.
+ \item For a Borcherds product $\Phi_N$ with input constant term
+ $c_N(0)$, the BKM modular characteristic is
+ $\kBKM(\Phi_N)=c_N(0)/2$.
 \end{itemize}
-The equality $\mathrm{wt}(\Delta_k) = \kappa_{\mathrm{ch}}(G_3)$ is a
-non-trivial prediction of the shadow tower framework: the
-algebraic invariant $\kappa_{\mathrm{ch}}$ (extracted from the degree-2
-bar complex) determines the automorphic weight.
+This is a Borcherds-weight statement. The compact total-space invariant is
+$\kcat(K3\times E)=\chi(\cO_{K3\times E})=0$, and the compact chiral Hodge
+supertrace is separate from the automorphic weight. Any comparison between
+$\kch$ and $\kBKM$ must pass through a constructed Hall--Borcherds bridge.
 
 \end{document}

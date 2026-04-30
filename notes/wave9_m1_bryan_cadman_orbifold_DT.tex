@@ -1,233 +1,172 @@
-% =====================================================================
-% Bryan-Cadman-Young orbifold DT extension at N in {4, 6}
-% Target: construct Z^{[K3 x E / Z_N]}_{red, DT} = -C_N / (F^{GC}_k)^2
-% bridging Nikulin-liftable {1,2,3,5,7} vs Mathieu-admissible {1,2,3,4,6}
-% =====================================================================
+\section{Reduced CHL Donaldson--Thomas Scope at \(N=4,6\)}
+\label{wn:sec:reduced-chl-DT-N46}
 
-\section{Orbifold Donaldson--Thomas on
-\texorpdfstring{$[K3\times E/\Z_N]$}{[K3xE/Z_N]}
-at $N\in\{4,6\}$ and the reduced zeta function
-$-C_N/(F^{\mathrm{GC}}_k)^2$}
-\label{wn:sec:bcy-orbifold-DT-wave9-m1-N46}
-
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
-\providecommand{\ClaimStatusAxiomatic}{\textbf{[Ax]}}
 \providecommand{\DTred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
-\providecommand{\FGC}{F^{\mathrm{GC}}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\PhiN}{\Phi_N}
+\providecommand{\Dfive}{D_5}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Z}{\mathbb Z}
 
-\paragraph{Target.} The Wave-8 I5 $\Omega$-background CHL extension
-terminates the Nikulin-liftable frame $\{1,2,3,5,7\}$ against the
-Mathieu-admissible frame $\{1,2,3,4,6\}$ at the common intersection
-$\{1,2,3\}$. At $N\in\{4,6\}$ --- Mathieu-admissible but not
-Nikulin-liftable --- the MNOP and Oberdieck--Pixton machinery requires
-a Bryan--Cadman--Young orbifold Donaldson--Thomas upgrade
-\textup{(}Bryan--Cadman--Young 2013, JAMS 28\textup{:}163;
-Oberdieck 2018 Rem.~4\textup{)}. The target is the explicit reduced
-orbifold DT partition function
-\begin{equation}
-\DTred^{[K3\times E/\Z_N]}(q,p,y)
-\;=\;-\,\frac{C_N(q,y)}{(\FGC_{k_N}(q,p,y))^{2}},
-\qquad
-k_N=c_N(0)/2,\quad N\in\{4,6\},
-\label{wn:eq:DTred-orbifold-N46}
-\end{equation}
-with $\FGC_{k_N}$ the Gritsenko--Cl\'ery paramodular Borcherds lift of
-$\phi^{(g_N)}_{0,1}$ and $C_N(q,y)\in J_{0,1}(\Gamma_0(N))$ an explicit
-twined Jacobi form.
+\paragraph{Finite etale CHL quotients.}
+Let \(N\in\{4,6\}\).  Choose a symplectic automorphism
+\(g_N\in\mathrm{Aut}_s(K3)\) of order \(N\) and an exact
+\(N\)-torsion translation \(t_N\in E[N]\).  The diagonal action
+\[
+  \sigma_N=(g_N,t_N)
+\]
+on \(K3\times E\) is free because \(t_N\) is free on \(E\).  Thus
+\[
+  X_N=(K3\times E)/\langle\sigma_N\rangle
+\]
+is a smooth finite etale quotient of \(K3\times E\).  The quotient is a
+Calabi--Yau threefold in the holomorphic-volume sense: \(g_N\) fixes the
+K3 holomorphic two-form and \(t_N\) fixes the elliptic one-form.
 
-\paragraph{Cycle M1.A (BCY machinery on $[K3\times E/\Z_N]$).}
-\textsc{Attack.} BCY 2013 constructs orbifold DT on
-$[\C^3/G]$ for finite abelian $G\subset\SO(3)$ via the orbifold
-topological vertex and the crepant resolution
-$\widetilde{\C^3/G}\to[\C^3/G]$. Does the machinery globalise to
-$[K3\times E/\Z_N]$?
-\textsc{Heal.} The K3-fibre carries a \emph{symplectic} Nikulin
-$\Z_N$-action $g_N$ fixing the holomorphic two-form $\omega_{K3}$
-\textup{(}Mukai 1988 \S4\textup{)}; the $E$-factor carries a
-$\Z_N$-translation by an $N$-torsion point. The product action on
-$K3\times E$ is free at generic fibres and fixes an $N$-torsion
-locus of codimension $\geq 2$. The BCY orbifold vertex lifts from the
-toric local model $[\C^3/\Z_N]$ to the global
-$[K3\times E/\Z_N]$ by the Maulik--Nekrasov--Okounkov--Pandharipande
-degeneration \textup{(}MNOP 2006\textup{)} applied fibrewise to the
-elliptic fibration $\pi: K3\times E\to E/\Z_N$, yielding the orbifold
-relative DT on each fibre and gluing by Jun Li's degeneration formula
-\textup{(}Li 2001, J.\ Diff.\ Geom.\ 60:199\textup{)}. The global
-assembly requires the $G$-equivariant motivic wall-crossing of Bryan--Steinberg 2014
-\textup{(}JAMS 29:337\textup{)} generalising BCY to
-non-toric orbifold CY$_3$. \textbf{BCY extends to
-$[K3\times E/\Z_N]$} \ClaimStatusTheorem{} at
-$N\in\{1,2,3,4,6\}$ via Bryan--Steinberg composition.
+The Hodge column is computed on invariants.  Translation acts trivially
+on \(H^{0,\bullet}(E)\), and a symplectic K3 automorphism acts trivially
+on \(H^{0,0}(K3)\oplus H^{0,2}(K3)\).  Therefore
+\[
+  H^{0,\bullet}(X_N)
+  \cong
+  \bigl(H^{0,\bullet}(K3)\otimes H^{0,\bullet}(E)\bigr)^{\langle\sigma_N\rangle}
+  =
+  (1,1,1,1),
+\]
+and
+\[
+  \kcat(X_N)=\chi(\mathcal O_{X_N})=0,\qquad
+  \kch(X_N)=\sum_q(-1)^q h^{0,q}(X_N)=0.
+\]
 
-\paragraph{Cycle M1.B ($N=4$ Mukai rank $14$ and the orbifold
-$\Hilb$).}
-\textsc{Attack.} At $N=4$ the Mukai-invariant sublattice of
-$\Lambda_{K3}\cong 3U\oplus 2E_8(-1)$ has rank $r_4=14$
-\textup{(}Mukai 1988 Table; Nikulin 1979\textup{)}. The coinvariant
-$\Lambda_{g_4}$ is of rank $8$ and signature $(0,8)$, isogeneous to
-$E_8(-1)\otimes \Z[i]/(2+2i)$. Does the $\Z_4$-fixed-point structure
-obstruct BCY?
-\textsc{Heal.} The fixed-point set of $g_4$ on $K3$ consists of
-$4$ isolated points of type $A_3$ \textup{(}Nikulin 1979 Thm.~4.5;
-Xiao 1996, CMH 71\textup{)}; each contributes an $A_3$-singular
-fibre to $[K3/\Z_4]$. The crepant resolution
-$\widetilde{K3/\Z_4}\to[K3/\Z_4]$ is a K3 fibration with Mukai-rank
-$14$ base and $A_3$-resolution of Euler characteristic
-$\chi(K3/\Z_4) = 24/4 + 4\cdot(\chi(A_3)-1) = 6 + 4\cdot 3 = 18$,
-matching the $d_4=10$ twisted Hodge numbers
-\textup{(}Wave-8 I5 \eqref{wn:eq:tau-a0-N}\textup{)} after the $E$-orbit
-correction. The orbifold $\Hilb^{[n]}([K3\times E/\Z_4])$ exists as a
-smooth Deligne--Mumford stack \textup{(}Fantechi--G\"ottsche 2003;
-Bridgeland--King--Reid 2001, JAMS 14:535\textup{)} and BCY applies.
-\textbf{$N=4$ BCY orbifold DT exists} \ClaimStatusTheorem.
-
-\paragraph{Cycle M1.C ($N=6$ Niemeier $4A_5+D_4$ and the split).}
-\textsc{Attack.} At $N=6$ the correct Niemeier anchor is
-$4A_5+D_4$ \textup{(}Niemeier 1973; Conway--Sloane 1999 Ch.~16; the
-$6D_4$ ansatz is false\textup{)}, with ATLAS symmetry group
-$3.\mathrm{Sym}_6$. Does this change the orbifold moduli versus $N=4$?
-\textsc{Heal.} The Mukai-rank remains $r_6=14$
-\textup{(}\texttt{working\_notes.tex}:22000\textup{)}, with
-coinvariant rank $4$ and fixed-point set
-$2$ isolated $E_6$-type points $+$ $2$ isolated $A_5$-type points
-\textup{(}Mukai 1988 \S4; Hashimoto 2012, Tohoku 64:105\textup{)}.
-The orbifold Euler characteristic is
-$\chi([K3/\Z_6]) = 24/6 + 2(\chi(E_6)-1) + 2(\chi(A_5)-1) = 4 + 2\cdot 6 + 2\cdot 5 = 26$;
-the crepant resolution contributes the stringy correction
-$\chi_{\mathrm{str}}([K3/\Z_6]) = \chi(K3) = 24$
-\textup{(}Batyrev 1999 string-theoretic Euler number\textup{)}. The
-$N=6$ orbifold moduli differ from $N=4$ in the
-singularity-type decomposition $E_6\!+\!A_5$ vs $4A_3$, reflecting
-the distinct Niemeier anchors, but the Bryan--Steinberg orbifold DT
-machinery is uniform across both cases.
-\textbf{$N=6$ BCY orbifold DT exists with $E_6+A_5$ anchor}
-\ClaimStatusTheorem.
-
-\paragraph{Cycle M1.D (Oberdieck--Shen K-theoretic orbifold PT).}
-\textsc{Attack.} Oberdieck--Shen 2020 \textup{(}arXiv:2005.09087,
-Invent.\ Math.\ 228:255\textup{)} prove the K-theoretic
-Pandharipande--Thomas invariants of $K3\times E$ are expressed by
-$1/\Phi_{10}$ via reduced K-theoretic DT/PT duality. Does the
-result lift to the orbifold $[K3\times E/\Z_N]$?
-\textsc{Heal.} The Oberdieck--Shen proof uses the
-$\mathrm{MW}_0$-multiplicative structure and the $E$-action to
-reduce all K-theoretic classes to the reduced class on the K3 fibre
-\textup{(}\emph{ibid}.\ Thm.~2\textup{)}. The $\Z_N$-orbifold quotient
-acts fibrewise by Nikulin symplectic automorphism and globally by
-$E$-translation, so the Oberdieck--Shen argument
-$\Z_N$-equivariantises once each K-theoretic class is decomposed into
-$g_N$-invariant and $g_N$-twisted sectors. The twisted sectors
-contribute the \emph{twined} K-theoretic DT series with fibrewise
-multiplier $\phi^{(g_N)}_{0,1}$, and the multiplicative lift is
-$\widetilde\Phi_{c_N(0)}$ on the intersection $\{1,2,3\}$, extending
-to $N\in\{4,6\}$ via the Bryan--Steinberg composition of M1.A.
-\textbf{Oberdieck--Shen extends to orbifold} \ClaimStatusConjectured{}
-at $N\in\{4,6\}$ \textup{(}K-theoretic PT/DT equivariantisation is
-proved for abelian finite group actions in Okounkov 2017,
-arXiv:1512.07363 Thm.~9.1.1; the $M_{24}$-twining compatibility with
-the $E$-action is the remaining open input\textup{)}.
-
-\paragraph{Cycle M1.E (Maulik--Toda motivic refinement).}
-\textsc{Attack.} Maulik--Toda 2018 \textup{(}Invent.\ Math.\
-213:1017\textup{)} construct motivic Donaldson--Thomas invariants
-via Behrend's cosection on K3-fibred CY$_3$; does it give the motivic
-refinement at orbifold level?
-\textsc{Heal.} The Maulik--Toda cosection on $[K3\times E/\Z_N]$
-requires a $\Z_N$-equivariant symplectic form on the moduli
-$\mathcal M_{\mathrm{DT}}$. This exists since $\omega_{K3}$ is
-$g_N$-invariant by the symplectic assumption on Nikulin automorphisms
-\textup{(}Mukai 1988; the non-symplectic case would obstruct the
-cosection, hence the restriction to \emph{symplectic} Nikulin
-automorphisms\textup{)}. The Behrend--Fantechi virtual class becomes
-the $\Z_N$-equivariant virtual class
-$[\mathcal M^{[\Z_N]}_{\mathrm{DT}}]^{\mathrm{vir}}_{\Z_N}$ with
-Euler class matching the twined Euler characteristic
-$\chi_{g_N}(\Hilb)$. The motivic class
-$[\mathcal M^{[\Z_N]}_{\mathrm{DT}}]_{\mathrm{mot}}\in K_0(\mathrm{Var})[\mathbb L^{1/2}]$
-is the Kontsevich--Soibelman $G$-equivariant motivic DT
-\textup{(}KS 2008, arXiv:0811.2435 \S 4.4 on orbifold CY$_3$\textup{)}.
-\textbf{Motivic refinement at orbifold} \ClaimStatusConjectured:
-the numerical DT is Theorem via M1.A; the motivic upgrade requires
-Kontsevich--Soibelman $G$-equivariant wall-crossing, established for
-toric $G$ but open for global $[K3\times E/\Z_N]$ at
-$N\in\{4,6\}$.
-
-\paragraph{Heal (reduced orbifold DT partition function).}
-Assembling M1.A--E: on $N\in\{4,6\}$,
-\begin{equation}
-\DTred^{[K3\times E/\Z_N]}(q,p,y)
-\;=\;-\,\frac{C_N(q,y)}{(\FGC_{k_N}(q,p,y))^{2}},
-\quad k_N=c_N(0)/2\in\{2,1\},\ \ C_N\in J_{0,1}(\Gamma_0(N)),
-\label{wn:eq:DTred-orbifold-N46-explicit}
-\end{equation}
+\paragraph{Primitive CHL constants.}
+The primitive CHL Borcherds ladder is indexed by
+\[
+  N\in\{1,2,3,4,6\}.
+\]
+For its Jacobi input \(\phi^{(g_N)}_{0,1}\), let \(c_N(0)\) denote the
+discriminant-zero coefficient.  Borcherds' weight theorem gives
+\[
+  \kBKM(\Phi_N)=\mathrm{wt}(\Phi_N)=\frac{c_N(0)}{2},
+\]
 with
-$C_4 = 2\cdot\phi^{(g_4)}_{0,1}$ \textup{(}leading
-$\zeta+2+\zeta^{-1}$\textup{)} and
-$C_6 = 2\cdot\phi^{(g_6)}_{0,1}$ \textup{(}leading same
-zero-point $2$\textup{)}, consistent with $c_4(0)=c_6(0)=2$.
-The minus sign is the $(-1)^{\dim\mathcal M^{\mathrm{vir}}}$ DT
-convention \textup{(}MNOP 2006\textup{)}; the squared denominator is
-the Gritsenko--Cl\'ery lift squared in the Siegel Borcherds-product
-convention $\FGC_{k_N}^2=\widetilde\Phi_{c_N(0)}$. Evaluating at the
-Mukai-refinement lane \textup{(}\texttt{working\_notes.tex}:22014\textup{)}
-confirms
-$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2 \in\{2,1\}$, matching the
-Borcherds weight theorem. \ClaimStatusTheorem{} at numerical level
-via M1.A--C; \ClaimStatusConjectured{} at K-theoretic and motivic
-levels via M1.D--E.
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\ \hline
+c_N(0)&10&8&6&4&2\\
+\kBKM(\Phi_N)&5&4&3&2&1 .
+\end{array}
+\]
+Thus \(N=4\) has \(c_4(0)=4\) and \(\kBKM(\Phi_4)=2\), while
+\(N=6\) has \(c_6(0)=2\) and \(\kBKM(\Phi_6)=1\).
 
-\paragraph{Obstruction vs open problem, resolved.}
-The Wave-8 I5 open problem at $N\in\{4,6\}$ is resolved at the
-numerical Donaldson--Thomas level by Bryan--Steinberg composition on
-$[K3\times E/\Z_N]$ with Mukai-symplectic Nikulin $\Z_N$-fibre action.
-The Nikulin-liftable frame $\{1,2,3,5,7\}$ is an artefact of the
-\emph{CHL heterotic} admissibility \textup{(}Dabholkar--Harvey 1989;
-David--Jatkar--Sen 2007\textup{)}, not of the orbifold DT machinery;
-the Mathieu-admissible frame $\{1,2,3,4,6\}$ is uniform on the DT
-side. The split is therefore \emph{duality-frame-specific}, not an
-obstruction to the type-IIA/$K3\times E$ construction of
-$\fg_{\Delta_{5,N}}$.
+\paragraph{Separation from the Gritsenko--Clery catalogue.}
+The Gritsenko--Clery diagonal-divisor catalogue is an eight-row
+paramodular classification with twice-weight tuple
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+It shares the level-one \(\Delta_5\) row with the primitive CHL ladder.
+The remaining rows have their own paramodular group, diagonal divisor,
+multiplier, and Borcherds input.  A CHL-to-Gritsenko--Clery comparison
+therefore requires a row map as part of the theorem.
 
-\paragraph{Scope and cross-reference.}
-$\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2\in\{5,4,3,2,1\}$
-\ClaimStatusTheorem{} \textup{(}Borcherds weight theorem;
-\texttt{cy\_d\_kappa\_stratification.tex}\,
-\texttt{thm:borcherds-weight-kappa-BKM-universal}\textup{)};
-$\kappa_{\mathrm{cat}}([K3\times E/\Z_N])=
-\chi(\cO_{K3})^{g_N}\cdot\chi(\cO_E)/N=0$
-\textup{(}K\"unneth multiplicative on the total orbifold;
-$\chi(\cO_E)=0$\textup{)};
-$\kappa_{\mathrm{ch}}$ via $\Phi$ on
-$\mathcal A_{[K3\times E/\Z_N]}$;
-$\kappa_{\mathrm{fiber}}^{(N)}=r_N=14$ at $N\in\{4,6\}$
-\textup{(}Mukai rank\textup{)}.
+The level-one normalisation is
+\[
+  \Dfive=64^{-1}\DeltaFive,\qquad
+  \Phi_{10}^{\mathrm{OP}}=\Dfive^2=4096^{-1}\DeltaFive^2,\qquad
+  \Phi_{10}^{\mathrm{un}}=\DeltaFive^2.
+\]
+The scalar-square convention at \(N=1\) is separate from the primitive
+Borcherds weight
+\[
+  \kBKM(\DeltaFive)=10/2=5.
+\]
 
-\paragraph{File:line declaration.}
-\texttt{notes/wave9\_m1\_bryan\_cadman\_orbifold\_DT.tex} spliced
-into \texttt{working\_notes.tex} before \verb|\end{document}|.
-Sibling:
-\S\ref{wn:sec:nekrasov-wave8-i5-CHL-extension-delta5N}
-\textup{(}Wave-8 I5 $\Omega$-background CHL extension, open at
-$N\in\{4,6\}$\textup{)};
-\S\ref{sec:gn-rank3-bkm-tower-audit}
-\textup{(}Wave-8 I2 GN rank-$3$ BKM audit\textup{)}.
-Cite: Bryan--Cadman--Young 2013 \textup{(}JAMS 28:163\textup{)};
-Bryan--Steinberg 2014 \textup{(}JAMS 29:337\textup{)};
-MNOP 2006 \textup{(}Publ.\ IH\'ES 104:263\textup{)};
-Li 2001 \textup{(}J.\ Diff.\ Geom.\ 60:199\textup{)};
-Oberdieck 2018 \textup{(}Duke 167:3045\textup{)};
-Oberdieck--Shen 2020 \textup{(}Invent.\ Math.\ 228:255,
-arXiv:2005.09087\textup{)};
-Maulik--Toda 2018 \textup{(}Invent.\ Math.\ 213:1017\textup{)};
-Kontsevich--Soibelman 2008 \textup{(}arXiv:0811.2435\textup{)};
-Okounkov 2017 \textup{(}arXiv:1512.07363\textup{)};
-Mukai 1988 \textup{(}Invent.\ Math.\ 94\textup{)};
-Nikulin 1979 \textup{(}Trudy Moscow 38\textup{)};
-Xiao 1996 \textup{(}CMH 71\textup{)};
-Hashimoto 2012 \textup{(}Tohoku 64:105\textup{)};
-Bridgeland--King--Reid 2001 \textup{(}JAMS 14:535\textup{)};
-Niemeier 1973 \textup{(}J.\ Num.\ Theory 5\textup{)};
-Conway--Sloane 1999 \textup{(}Sphere Packings Ch.~16\textup{)};
-Gritsenko--Cl\'ery 2013; Lorgat 2020.
+\paragraph{Surface fixed data.}
+The surface quotient \(K3/\langle g_N\rangle\) supplies useful local
+checks, while \(X_N\) itself is smooth because of the elliptic
+translation.  At \(N=4\), a symplectic automorphism has
+\[
+  \#\mathrm{Fix}(g_4)=4,\qquad \#\mathrm{Fix}(g_4^2)=8.
+\]
+The \(g_4\)-fixed points give four \(A_3\) surface singularities, and
+the remaining \(g_4^2\)-fixed orbits give two \(A_1\) singularities on
+the surface quotient.  At \(N=6\),
+\[
+  \#\mathrm{Fix}(g_6)=2,\qquad
+  \#\mathrm{Fix}(g_6^2)=6,\qquad
+  \#\mathrm{Fix}(g_6^3)=8,
+\]
+so
+\[
+  K3/\langle g_6\rangle
+  \quad\text{has type}\quad
+  2A_5+2A_2+2A_1.
+\]
+The \(N=6\) umbral anchor is the Niemeier root system \(6D_4\).  The
+Niemeier lattice \(4A_5+D_4\) is a different Coxeter-six entry.
+
+\paragraph{Reduced Donaldson--Thomas input.}
+The \(N=1\) reduced \(K3\times E\) scalar is the Oberdieck--Pixton and
+Oberdieck--Pandharipande theorem in the OP normalisation:
+\[
+  \DTred(K3\times E)=-(\Phi_{10}^{\mathrm{OP}})^{-1}
+  =-\Dfive^{-2}
+  =-4096\,\DeltaFive^{-2}.
+\]
+For \(N=4,6\), the CHL reduced-pairs extension is a separate input.  A
+formula for \(\DTred(X_N)\) must specify:
+\[
+\begin{gathered}
+  \text{the equivariant reduced obstruction theory on }K3\times E,\\
+  \text{descent through the free finite quotient }X_N,\\
+  \text{rubber and degeneration calculus compatible with }g_N,\\
+  \text{the scalar convention: primitive }\Phi_N\text{ or a square line.}
+\end{gathered}
+\]
+Bryan--Cadman--Young and Bryan--Steinberg provide orbifold DT technology
+for local and wall-crossing settings.  A global CHL reduced-pairs
+identity on \(X_N\) additionally requires the four data just displayed.
+
+\paragraph{BKM and Hall scope.}
+The automorphic theorem proves
+\[
+  \kBKM(\Phi_N)=c_N(0)/2.
+\]
+It supplies the denominator weight.  A compact Hall or BPS algebra
+interpretation requires an oriented reduced critical CoHA, coproduct,
+Hall pairing, radical quotient, parity convention, PBW theorem, and
+Borcherds bracket comparison.
+
+\paragraph{Invariant summary.}
+For the untwisted \(K3\times E\) reference,
+\[
+  \kcat=0,\qquad
+  \kch=0,\qquad
+  \kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3,\qquad
+  \kBKM(\DeltaFive)=5,\qquad
+  \kfib=24.
+\]
+For the smooth finite etale CHL quotients \(X_N\), \(N=4,6\),
+\[
+  \kcat(X_N)=0,\qquad
+  \kch(X_N)=0,\qquad
+  \kBKM(\Phi_4)=2,\qquad
+  \kBKM(\Phi_6)=1.
+\]
+Any fibre invariant for \(X_N\) must name the invariant Mukai lattice or
+the chosen quotient fibre datum.
+
+\paragraph{Sources.}
+Borcherds 1998, Theorem 13.3, gives the product-weight formula.
+Gritsenko--Nikulin and Gritsenko construct the CHL paramodular
+denominators.  Nikulin, Mukai, Xiao, and Hashimoto give the symplectic
+K3 fixed-point and quotient data.  Oberdieck--Pixton and
+Oberdieck--Pandharipande prove the \(N=1\) reduced \(K3\times E\)
+scalar.  Bryan--Cadman--Young and Bryan--Steinberg provide the local
+orbifold and wall-crossing DT technology used in the conditional
+\(N=4,6\) extension.

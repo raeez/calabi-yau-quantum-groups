@@ -59,11 +59,13 @@ any candidate K3 chiral algebra:
    Specifically, the Fock space character 1/eta^{24} reproduces the
    rank-0 DT partition function, and the elliptic genus is a DIFFERENT
    invariant (it is a weighted trace, not an Euler characteristic).
+   Neither c(D) nor |c(D)| is promoted here to a full ordinary
+   dimension; that requires a parity fixture or target presentation.
 
 3. THE BPS SPECTRUM.
 
-   The BPS states of the K3 sigma model are counted by the
-   discriminant function c(D) of phi_{0,1}:
+   The BPS index / signed character of the K3 sigma model is encoded by
+   the discriminant function c(D) of phi_{0,1}:
      c(-1) = 2    (ground states, Witten index of K3)
      c(0)  = 20   (massless states at the unitarity bound)
 
@@ -83,7 +85,7 @@ any candidate K3 chiral algebra:
      f(D) with f(-1) = 2, f(0) = 10.
    The factor-of-2 discrepancy: the BORCHERDS LIFT of 2*phi_{0,1}
    gives Phi_10 with exponents 2*f(D), where f is from phi_{0,1}.
-   The convention f(0) = 10 arises from the BKM root multiplicity
+   The convention f(0) = 10 arises from the BKM denominator-exponent
    convention (the weight of Delta_5 is f(0)/2 = 5).
 
    RESOLUTION: phi_{0,1} has q^0 y^0 coefficient = 20, but the
@@ -162,10 +164,11 @@ any candidate K3 chiral algebra:
    The massive BPS multiplicities decompose as M_24 representations:
      A_n = dim(rho_n) where rho_n is the M_24 rep at level n.
 
-   The K3 Yangian does NOT see M_24 directly. The bar complex
-   provides the universal coefficient (kappa_ch * dim(rho_n)),
-   but CANNOT detect which specific finite group acts (see K3-2
-   in sec:k3e-cross-volume of k3_times_e.tex).
+   The K3 Yangian does NOT see M_24 directly. The bar complex provides
+   signed character data and universal divisibility constraints, but
+   ordinary representation dimensions dim(rho_n) enter only after the
+   M_24 / N=4 target presentation is supplied (see K3-2 in
+   sec:k3e-cross-volume of k3_times_e.tex).
 
    This is a STRUCTURAL LIMITATION: the Yangian captures the
    algebraic structure (OPE, R-matrix, coproduct) but not the
@@ -538,8 +541,10 @@ def check_elliptic_genus() -> Dict[str, Any]:
 def check_bps_spectrum() -> Dict[str, Any]:
     """Check 3: BPS spectrum from phi_{0,1} discriminant coefficients.
 
-    The BPS states of the K3 sigma model at discriminant D are counted
-    by c(D), the discriminant function of phi_{0,1}.
+    The BPS index / signed character of the K3 sigma model at
+    discriminant D is encoded by c(D), the discriminant function of
+    phi_{0,1}.  The absolute value |c(D)| is not treated as a full
+    ordinary dimension in this check.
 
     Key values (AP-CY9 compliant):
       c(-1) = 2   (ground states = Witten index)
@@ -551,8 +556,10 @@ def check_bps_spectrum() -> Dict[str, Any]:
       - Only D with D = 0 or 3 mod 4 appear (for index 1)
       - c(-1) = 2 in EZ convention, NOT 1
 
-    The BPS TOTAL at each level h (summing over all roots at height h)
-    is 24 = chi_top(K3) (Proposition prop:k3e-total-mult).
+    The signed Borcherds superdimension at each level h (summing c(D)
+    over all roots at height h) is 24 = chi_top(K3).  Ordinary
+    dimensions require a parity fixture / target presentation; compact
+    source dimensions require finite Hall--Borcherds recognition.
 
     Returns dict with check results.
     """
@@ -586,9 +593,9 @@ def check_bps_spectrum() -> Dict[str, Any]:
         if D % 4 not in (0, 3):
             discriminant_constraint_ok = False
 
-    # Total root multiplicity at each height = 24
-    # This requires summing over all (n,l,m) at each height h,
-    # which is the content of Proposition prop:k3e-total-mult.
+    # Signed Borcherds superdimension at each height = 24.
+    # This requires summing c(D) over all (n,l,m) at each height h.
+    # It is a character-level check, not an ordinary-dimension claim.
     # We defer the full verification to k3_elliptic_genus_bkm_bar.py.
 
     # The Witten index: kappa_ch * c(-1) = 2 * 1 = 2 = chi(O_K3)
@@ -603,6 +610,15 @@ def check_bps_spectrum() -> Dict[str, Any]:
         'c_0_equals_10': c_0_check,
         'witten_equals_kappa_ch': witten_chi_check,
         'discriminant_constraint': discriminant_constraint_ok,
+        'coefficient_interpretation': 'signed Borcherds superdimension / character coefficient',
+        'absolute_value_interpretation': (
+            '|c(D)| is only an absolute coefficient statistic here, not a '
+            'full ordinary dimension.'
+        ),
+        'ordinary_dimension_status': (
+            'REQUIRES parity fixture or target presentation; compact source '
+            'dimensions require finite Hall--Borcherds recognition.'
+        ),
         'verdict': 'COMPATIBLE' if (c_m1_check and c_0_check and discriminant_constraint_ok) else 'FAIL',
     }
 
@@ -954,7 +970,7 @@ def mathieu_m24_reps_dimensions() -> Dict[int, int]:
     where 45, 231, 770 are dimensions of M_24 representations.
 
     Returns:
-        Dict mapping level n -> A_n (total multiplicity).
+        Dict mapping level n -> A_n (physical target multiplicity).
     """
     # From the decomposition of the K3 elliptic genus into
     # N=4 characters at c=6, k_R=1.
@@ -982,11 +998,13 @@ def check_mathieu_moonshine() -> Dict[str, Any]:
       "The bar complex provides the universal coefficient; it does NOT
        detect M_24 directly."
 
-    The bar complex computes:
+    After the N=4 / M_24 target presentation is supplied, the physical
+    coefficients satisfy:
       A_n = kappa_ch * dim(rho_n)
     where kappa_ch = 2 and rho_n is the M_24 representation at level n.
-    The bar complex knows kappa_ch = 2 and the TOTAL multiplicity A_n,
-    but cannot determine which finite group G has dim(rho_n) = A_n / 2.
+    The bar complex alone supplies signed character data and the
+    kappa_ch = 2 divisibility constraint; it does not reconstruct
+    ordinary dimensions or the finite group action.
 
     This is a STRUCTURAL LIMITATION:
     - The Yangian captures the algebraic structure (OPE, R-matrix, coproduct)
@@ -1012,14 +1030,17 @@ def check_mathieu_moonshine() -> Dict[str, Any]:
 
     divisibility_check = all(A_n % kappa_ch == 0 for A_n in m24_reps.values())
 
-    # The bar complex computes A_n but cannot determine M_24
+    # The bar complex supplies the signed character/divisibility pattern
+    # but cannot determine M_24 or ordinary dimensions by itself.
     bar_complex_sees_m24 = False
 
     # What the Yangian CAN detect:
-    # - Total multiplicity A_n (from the character / BPS counting)
+    # - Signed character coefficients / BPS indices
     # - The kappa_ch = 2 universal factor
-    # - The fact that A_n / 2 are integers (necessary for M_24 rep)
+    # - The fact that A_n / 2 are integers after the M_24 target
+    #   presentation is supplied
     # What the Yangian CANNOT detect:
+    # - Ordinary representation dimensions from |c(D)| alone
     # - Which finite group G has representations of these dimensions
     # - The specific M_24 character values (traces in non-identity conj. classes)
     # - The twining genera (phi_{0,1} twisted by g in M_24)
@@ -1027,10 +1048,12 @@ def check_mathieu_moonshine() -> Dict[str, Any]:
     structural_limitation = {
         'yangian_detects': [
             'total multiplicity A_n',
+            'signed character coefficients before ordinary-dimension recognition',
             'kappa_ch = 2 universal factor',
             'integrality of A_n / kappa_ch',
         ],
         'yangian_blind_to': [
+            'ordinary dimensions without a parity fixture or target presentation',
             'specific finite group M_24',
             'M_24 character values at non-identity conjugacy classes',
             'twining genera phi_{0,1}^g for g in M_24',
@@ -1038,11 +1061,15 @@ def check_mathieu_moonshine() -> Dict[str, Any]:
         ],
         'reason': (
             'The bar complex is a universal algebraic construction. '
-            'It produces invariants (kappa_ch, shadow class, A_n) that '
-            'are computable from the OPE data alone. The M_24 action is '
-            'an additional symmetry of the sigma model that lies OUTSIDE '
-            'the OPE data -- it is a symmetry of the SPECTRUM, not of '
-            'the algebra.'
+            'It produces signed character data and invariants '
+            '(kappa_ch, shadow class) from the OPE data alone. Ordinary '
+            'dimensions enter only after a parity fixture/target '
+            'presentation is supplied. The M_24 action is an additional '
+            'symmetry of the sigma model that lies OUTSIDE the OPE data -- '
+            'it is a symmetry of the SPECTRUM, not of the algebra.'
+        ),
+        'ordinary_dimension_status': (
+            'REQUIRES M_24/N=4 target presentation; not inferred from |c(D)|.'
         ),
     }
 
@@ -1053,6 +1080,7 @@ def check_mathieu_moonshine() -> Dict[str, Any]:
         'divisibility': divisibility_check,
         'bar_complex_sees_m24': bar_complex_sees_m24,
         'structural_limitation': structural_limitation,
+        'ordinary_dimension_status': structural_limitation['ordinary_dimension_status'],
         'verdict': 'COMPATIBLE (M_24 invisible to Yangian, as expected)',
     }
 

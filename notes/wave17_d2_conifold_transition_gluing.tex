@@ -1,7 +1,4 @@
-% wave17_d2_conifold_transition_gluing.tex
-% Wave-17 D2/20 working note.
-% The conifold transition as a positive-half gluing phenomenon.
-% Voice: Strominger + Gopakumar, channeling Chriss--Ginzburg.
+% conifold_transition_gluing.tex
 
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
@@ -16,9 +13,11 @@
 \providecommand{\bY}{\mathbb{Y}}
 \providecommand{\cA}{\mathcal{A}}
 \providecommand{\cF}{\mathcal{F}}
+\providecommand{\cH}{\mathcal{H}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cY}{\mathcal{Y}}
 \providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
 \providecommand{\fsl}{\mathfrak{sl}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\DT}{\mathrm{DT}}
@@ -28,11 +27,12 @@
 \providecommand{\Fact}{\mathrm{Fact}}
 \providecommand{\Hilb}{\mathrm{Hilb}}
 \providecommand{\hocolim}{\operatorname{hocolim}}
+\providecommand{\holim}{\operatorname{holim}}
 \providecommand{\Ran}{\operatorname{Ran}}
 \providecommand{\BPS}{\mathrm{BPS}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
-\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kappafib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -45,172 +45,330 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conifold transition as a positive--half gluing phenomenon}
-\author{Wave-17 D2/20 working note}
+\title{Conifold Transition and Positive Half Gluing}
 \date{April 2026}
 
 \begin{document}
 \maketitle
 
-\section{Two smoothings of one singularity}
+\begin{abstract}
+The conifold transition separates three algebraic layers.  The resolved
+conifold has a Klebanov--Witten noncommutative crepant resolution, whose
+critical cohomological Hall algebra is the positive half
+$Y^+(\widehat{\fgl}(1|1))^{\mathrm{con}}$.  The full current algebra and
+its universal $R$-matrix arise after Drinfeld doubling or the
+Drinfeld centre of the $E_1$ representation category.  The singular wall
+has a rank-one vanishing-cycle shadow with primitive
+Gopakumar--Vafa invariant $n^0_{[\bP^1]}=1$.  The chiral invariant of the
+conifold is the direct McKay/NCCR value
+$\kch(A_{\mathrm{conifold}})=1$.
+\end{abstract}
 
-The conifold $Y_0=\{xy-zw=0\}\subset\C^4$ is the ordinary double point of
-CY threefold geometry. It admits two distinct resolutions of crepant
-type: the deformation $Y_\epsilon=\{xy-zw=\epsilon\}$, topologically a
-rank--three bundle over $S^3$, and the small resolution
-$\widetilde{Y}=\Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$, whose exceptional
-locus is a rational curve. Strominger 1995 identifies the massless
-hypermultiplet of the type IIB string on $Y_\epsilon$ with the
-D3--brane wrapping the vanishing $S^3$; Gopakumar--Vafa 1998 identifies
-the M2--brane wrapping the exceptional $\bP^1$ of $\widetilde{Y}$ as
-the mirror BPS state. Both sides see the same wall in K\"ahler--complex
-moduli space from opposite asymptotics.
+\section{The conifold wall}
 
-We recast this wall as a gluing of positive halves. Write $Y^+(Z)$ for
-the critical CoHA $\CoHA(\cA_Z,W_Z)$ of a local Ginzburg presentation
-$(\cA_Z,W_Z)$ of the CY$_3$ $Z$ (Kontsevich--Soibelman 2008, Ch.~6;
-Szendr\H{o}i 2008, \S\S 2--3).
+Let
+\[
+  Y_0=\operatorname{Spec}\C[x,y,z,w]/(xy-zw)
+\]
+be the affine ordinary double point.  Its smoothing
+$Y_\epsilon=\{xy-zw=\epsilon\}\subset\C^4$ is diffeomorphic to
+$T^*S^3$.  Its small resolution is
+\[
+  X_{\mathrm{con}}
+  =
+  \Tot\bigl(\cO_{\bP^1}(-1)\oplus\cO_{\bP^1}(-1)\to\bP^1\bigr),
+\]
+a smooth quasi-projective toric Calabi-Yau threefold with one compact
+curve.  Strominger's massless hypermultiplet is the D3-brane on the
+vanishing $S^3$ of the smoothing.  The Gopakumar--Vafa generator on the
+resolution side is the M2-brane on the exceptional curve
+$[\bP^1]$.
 
-\section{Deformation side: $S^3$ fibre and a Heisenberg positive half}
+The algebraic object attached to the resolved chamber is the positive
+Hall half.  At dimension $d=3$, the CY-to-chiral output is native
+$E_1$ data.  Braiding, an $R$-matrix, and the full current algebra live
+after a Hopf pairing and Drinfeld double, or equivalently after passing
+to the Drinfeld centre of the $E_1$ representation category on the
+constructed locus.
 
-The deformation $Y_\epsilon$ is diffeomorphic to $T^*S^3$; its
-Donaldson--Thomas theory has been computed in closed form
-(Szendr\H{o}i 2008, \S 4; Morrison--Mozgovoy--Nagao--Szendr\H{o}i 2012,
-Thm.~1.1). The relevant positive half is
-\begin{equation}\label{eq:Yplus-def}
-  Y^+(Y_\epsilon)\;=\;\CoHA(\cA_{\text{conifold}},W_{\text{conifold}})
-  \;\cong\;\Heis(H^\bullet(S^3,\Q)[-3]\oplus H^0(S^3,\Q)),
-\end{equation}
-the Heisenberg on the $S^3$ hypermultiplet cohomology shifted by the
-Calabi--Yau degree. The quiver is the Klebanov--Witten quiver with
-superpotential $W=\mathrm{Tr}(a_1b_1a_2b_2-a_1b_2a_2b_1)$
-(Szendr\H{o}i 2008, eq.~(1.1)); its critical CoHA collapses onto the
-$S^3$--cohomology Heisenberg by the localisation of
-Behrend--Bryan--Szendr\H{o}i 2013, Prop.~3.4. Physically, this is the
-3D $\cN=4$ hypermultiplet at the vanishing cycle: one complex scalar and
-one fermion, quantised as a rank--one Heisenberg.
+\section{The Klebanov--Witten positive half}
 
-\section{Resolution side: $\bP^1$ fibre and the two--chart glue}
+Let $Q_{\mathrm{KW}}$ be the two-vertex quiver with arrows
+$a_1,a_2\colon 0\to 1$ and $b_1,b_2\colon 1\to 0$, and potential
+\[
+  W_{\mathrm{KW}}
+  =
+  \operatorname{tr}(a_1b_1a_2b_2-a_1b_2a_2b_1).
+\]
+The Jacobi algebra
+\[
+  J_{\mathrm{KW}}
+  =
+  \C Q_{\mathrm{KW}}/
+  \langle \partial_a W_{\mathrm{KW}} : a\in Q_{\mathrm{KW},1}\rangle
+\]
+has centre
+\[
+  Z(J_{\mathrm{KW}})
+  =
+  \C[\widehat x,\widehat y,\widehat z,\widehat w]/
+  (\widehat x\widehat y-\widehat z\widehat w).
+\]
+The central lifts are
+\[
+  \widehat x=a_1b_1+b_1a_1,\quad
+  \widehat y=a_2b_2+b_2a_2,\quad
+  \widehat z=a_1b_2+b_2a_1,\quad
+  \widehat w=a_2b_1+b_1a_2.
+\]
+In the $e_0$ corner the four central generators restrict to the mesons
+\[
+  x=a_1b_1,\quad y=a_2b_2,\quad z=a_1b_2,\quad w=a_2b_1,
+  \qquad xy=zw.
+\]
+Thus $J_{\mathrm{KW}}$ is the Van den Bergh--Szendr\H{o}i
+noncommutative crepant resolution of the affine conifold.
 
-The small resolution $\widetilde{Y}=\Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$
-admits a toric cover by two affine patches
-$U_+,U_-\cong\C^3$ whose intersection is
-$U_{+-}\cong\C^*\times\C^2$. Wave--17 C1
-(\texttt{wave17\_c1\_two\_chart\_glue.tex}) constructs
-\begin{equation}\label{eq:Yplus-res}
-  Y^+(\widetilde{Y})\;=\;\mathrm{holim}\Bigl(
-  Y^+(U_+)\times Y^+(U_-)\rightrightarrows Y^+(U_{+-})\Bigr),
-\end{equation}
-with $Y^+(\C^3)$ the Schiffmann--Vasserot affine Yangian
-$Y^+(\widehat{\fgl}_1)$ (SV 2013; SV 2020, Thm.~A) and
-$Y^+(\C^*\times\C^2)$ the Maulik--Okounkov stable--envelope analogue of
-the $\C^*$--equivariant rank--two Heisenberg (MO 2012, \S 6.6). The
-Koszul sign between the two charts is the $\cO(-1)\oplus\cO(-1)$ twist,
-matching the Gopakumar--Vafa genus--zero BPS integer $n^0_{[\bP^1]}=1$
-(GV 1998, Table 1).
+\begin{definition}[Conifold positive half]
+The positive half of the resolved conifold is
+\[
+  Y^+(X_{\mathrm{con}})
+  :=
+  \CoHA(Q_{\mathrm{KW}},W_{\mathrm{KW}}),
+\]
+the critical CoHA of the Klebanov--Witten Jacobi model:
+\[
+  \CoHA(Q_{\mathrm{KW}},W_{\mathrm{KW}})
+  =
+  \bigoplus_{\gamma\in\Z_{\geq0}^2}
+  H^{*}_{c,G_\gamma}
+  \bigl(\operatorname{Rep}_\gamma(Q_{\mathrm{KW}}),
+  \varphi_{\operatorname{tr}(W_{\mathrm{KW}})_\gamma}\bigr)^\vee,
+  \qquad
+  G_\gamma=\mathrm{GL}_{\gamma_0}\times\mathrm{GL}_{\gamma_1}.
+\]
+The product is the Kontsevich--Soibelman critical correspondence for
+short exact sequences of $Q_{\mathrm{KW}}$-representations.
+\end{definition}
 
-\section{The singular limit: collision of halves}
-
-Let $t\in\C$ parametrise a path in K\"ahler--complex moduli with $t=0$
-the conifold point, $t>0$ the deformation, $t<0$ the resolution. As
-$t\to 0^+$, the $S^3$ fibre of $Y_\epsilon$ contracts to a point; as
-$t\to 0^-$, the $\bP^1$ of $\widetilde{Y}$ contracts to the same point.
-
-\begin{proposition}[overlap collapse]\label{prop:overlap-collapse}
-On the resolution side, the overlap chart $U_{+-}\cong\C^*\times\C^2$
-degenerates at $t\to 0^-$ to a punctured neighbourhood of the nodal
-point. The $\C^*$ factor shrinks to a point, and the double
-Maulik--Okounkov envelope $Y^+(U_{+-})$ collapses onto the
-Gopakumar--Vafa rank--one Heisenberg of the vanishing $\bP^1$.
+\begin{proposition}[Hall recognition of the conifold positive half]
+Davison--Meinhardt PBW, the
+Morrison--Mozgovoy--Nagao--Szendr\H{o}i root decomposition, and the
+Li--Yamazaki current presentation identify the critical Hall algebra as
+\[
+  \CoHA(Q_{\mathrm{KW}},W_{\mathrm{KW}})
+  \simeq
+  Y^+\!\bigl(\widehat{\fgl}(1|1)\bigr)^{\mathrm{con}}
+\]
+as a $\Z_{\geq0}^2$-graded connected bialgebra in super-vector spaces.
+The positive roots are
+\[
+  \Delta_+^{\mathrm{re}}
+  =
+  \{(n+1,n),(n,n+1):n\geq0\},
+  \qquad
+  \Delta_+^{\mathrm{im}}=\{(n,n):n\geq1\}.
+\]
+The real primitive sectors have superdimension $0|1$ and the imaginary
+primitive sectors have superdimension $2|0$.
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-The equivariant coordinate $z\in\C^*$ on $U_{+-}$ is the $\bP^1$--normal
-parameter; as the $\bP^1$ contracts, $|z|\to 0$ and the $\C^*$ torus
-degenerates to its unit. Stable envelopes over degenerating tori
-collapse onto the fixed locus (Maulik--Okounkov 2012, \S 3.4), which at
-the conifold point is the rank--one $\cO(-1)\oplus\cO(-1)$ normal
-bundle. Cohomology of the latter is one--dimensional, yielding a
-rank--one Heisenberg.
+\begin{proof}
+Davison's critical Hall construction supplies the connected bialgebra.
+The Davison--Meinhardt PBW theorem identifies its associated graded
+object with the super-symmetric algebra on the BPS Lie algebra.  The
+MMNS computation gives the affine $A_1^{(1)}$ root support displayed
+above, with real roots $(n+1,n),(n,n+1)$ and imaginary roots $(n,n)$.
+Li--Yamazaki give the matching current presentation for the positive
+half of the affine super Yangian of $\widehat{\fgl}(1|1)$.  The
+identification is therefore a Hall-recognition theorem for the positive
+half, before adjoining the negative half, Cartan completion, or
+universal $R$-matrix.
 \end{proof}
 
-\begin{theorem}[transition as gluing singularity]\label{thm:transition-glue}
-Let $Y^+_t$ denote the positive half along the path $t\in\C$. The
-transition $t\to 0$ is the collision
-\begin{equation}\label{eq:transition}
-  Y^+_0\;=\;Y^+(Y_\epsilon)\;\Big|_{\epsilon\to 0}
-  \;=\;Y^+(\widetilde{Y})\;\Big|_{\bP^1\to\mathrm{pt}}
-  \;=\;\Heis^{\text{rk}\,1}(\C^3_{\mathrm{node}}),
-\end{equation}
-the rank--one Heisenberg at the node. Both Heisenbergs of
-\eqref{eq:Yplus-def} and \eqref{eq:Yplus-res} degenerate to the same
-rank--one algebra; the overlap $\C^*$ of the resolution collapses onto
-the vanishing cycle of the deformation.
+The doubled conifold quantum group is
+\[
+  D\!\left(Y^+(X_{\mathrm{con}})\right)
+  =
+  Y\!\bigl(\widehat{\fgl}(1|1)\bigr)^{\mathrm{con}},
+\]
+after the conifold Hopf pairing and completion.  This doubled object
+carries the Kulish-Sklyanin super $R$-matrix.  The symbol $Y^+$ in this
+note always denotes the positive Hall half before this double or centre
+passage.
+
+\section{Two chart descent}
+
+The toric resolution has two affine charts $U_0,U_1\simeq\C^3$ and
+overlap $U_{01}\simeq\C^*\times\C^2$.  With homogeneous coordinates
+$[t_0:t_1]$ on $\bP^1$, set $t=t_1/t_0$ on $U_0$ and
+$\tilde t=t_0/t_1$ on $U_1$.  If $u,v$ are the two fibre coordinates on
+$U_0$, then on the overlap
+\[
+  \tilde t=t^{-1},\qquad \tilde u=tu,\qquad \tilde v=tv.
+\]
+The holomorphic form transforms by
+\[
+  d\tilde t\wedge d\tilde u\wedge d\tilde v
+  =
+  -\,dt\wedge du\wedge dv,
+\]
+which is the Calabi-Yau sign of the $\cO(-1)^{\oplus2}$ cocycle.
+
+Each chart carries the Jordan-quiver critical CoHA
+\[
+  \CoHA(\C^3)\simeq Y^+(\widehat{\fgl}_1),
+\]
+the Schiffmann--Vasserot/Tsymbaliuk affine-Yangian positive half.  The
+overlap records the Laurent coordinate and the stability-wall cocycle.
+The \v{C}ech expression
+\[
+  \holim\!\left(
+  Y^+(U_0)\times Y^+(U_1)\rightrightarrows Y^+(U_{01})
+  \right)
+\]
+is descent notation for the tilting atlas.  Its algebraic realization
+is the Klebanov--Witten Jacobi CoHA above.  The two chart copies of
+$Y^+(\widehat{\fgl}_1)$ are restrictions of
+$\CoHA(Q_{\mathrm{KW}},W_{\mathrm{KW}})$ to the two toric chambers.
+
+\begin{proposition}[Positive half from the tilting atlas]
+The resolved conifold gluing sends the two $\C^3$ chart positive halves
+to the Klebanov--Witten positive half
+$Y^+(\widehat{\fgl}(1|1))^{\mathrm{con}}$.  The full Yangian-type
+object appears after applying $D(-)$ or the centre construction to this
+positive half.
+\end{proposition}
+
+\begin{proof}
+The ring-level descent above gives the toric small resolution.  The
+tilting bundle
+$\cO_{X_{\mathrm{con}}}\oplus\pi^*\cO_{\bP^1}(1)$ has endomorphism
+algebra $J_{\mathrm{KW}}$, where
+$\pi\colon X_{\mathrm{con}}\to\bP^1$ is the bundle projection.  The
+centre of $J_{\mathrm{KW}}$ is the affine conifold ring.  Passing from
+coherent sheaves through this NCCR to critical CoHA gives
+$\CoHA(Q_{\mathrm{KW}},W_{\mathrm{KW}})$.  Restricting the tilting
+presentation to either affine toric chart removes the compact curve
+class and recovers the one-vertex $\C^3$ chart positive half
+$Y^+(\widehat{\fgl}_1)$.  The imaginary root spaces
+$(n,n)$ of the conifold source are precisely the compact-curve
+contribution absent on a single chart.  The wall cocycle supplies the
+transition map between chamber restrictions; the Hall-recognition
+theorem supplies the global algebra.  Drinfeld doubling is a separate
+operation requiring the Hopf pairing.
+\end{proof}
+
+\section{Wall crossing and the rank-one shadow}
+
+Let $e_0,e_1$ be the two simple conifold charges and let
+\(\delta=e_0+e_1\).  The conifold wall is the alignment of
+$e_0$ and $e_1$; after projection to curve class, $\delta$ maps to the
+primitive compact curve $\gamma=[\bP^1]$.  In the completed quantum
+torus, the Kontsevich--Soibelman ordered product is constant across the
+wall, while the chamber factorization changes by the middle
+dilogarithm
+\[
+  K_{e_0}K_{e_1}=K_{e_1}K_{\delta}K_{e_0},
+  \qquad
+  K_{\delta}=\mathbb{E}(x_{\delta})^{\Omega(\delta)}.
+\]
+The primitive wall exponent is
+\[
+  \Omega(\delta)=1,
+  \qquad
+  \delta\mapsto\gamma=[\bP^1].
+\]
+Equivalently, the primitive genus-zero Gopakumar--Vafa invariant is
+\[
+  n^0_{[\bP^1]}=1,\qquad n^0_{d[\bP^1]}=0\quad(d>1),
+\]
+with higher-degree terms in the partition function supplied by
+multicovers of the primitive dilogarithm.
+
+\begin{theorem}[Conifold transition in the positive half]
+The transition identifies the smoothing and resolution after
+taking the primitive abelian BPS shadow.  On the smoothing side, the
+shadow is generated by the vanishing $S^3$ hypermultiplet.  On the
+resolution side, it is generated by the primitive class $[\bP^1]$ with
+$n^0_{[\bP^1]}=1$.  The common shadow is the rank-one Heisenberg Fock
+algebra attached to one primitive BPS generator:
+\[
+  \Heis\bigl(\C\cdot e_\gamma\bigr).
+\]
+Before abelianization, the resolved side remains the positive CoHA
+$\CoHA(Q_{\mathrm{KW}},W_{\mathrm{KW}})$.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
-The left equality applies Szendr\H{o}i 2008, Prop.~4.2 (the
-conifold Heisenberg specialises to rank one as the $S^3$ volume tends
-to zero). The right equality is Prop.~\ref{prop:overlap-collapse}.
-Coincidence of the two limits is the Morrison--Mozgovoy--Nagao--Szendr\H{o}i
-wall--crossing identity (MMNS 2012, Thm.~1.2): the motivic DT
-partition functions agree at the wall up to a controlled shift, which
-dequantises to Heisenberg--rank agreement.
+\begin{proof}
+Strominger identifies the vanishing-cycle hypermultiplet on the
+smoothing with the D3-brane on $S^3$.  Gopakumar and Vafa identify the
+resolved-side primitive state with the M2-brane on the exceptional
+curve.  Morrison--Mozgovoy--Nagao--Szendr\H{o}i compute the conifold
+chamber structure and root decomposition; the rank-two KS identity has
+the single middle factor $K_\delta$ with exponent one.  The curve-class
+projection sends $\delta$ to $[\bP^1]$, giving the primitive genus-zero
+Gopakumar--Vafa value \(n^0_{[\bP^1]}=1\).  Taking the primitive
+abelian shadow forgets the noncommutative KW root system and retains the
+one-dimensional BPS space $\C\cdot e_\gamma$.  Its Fock quantization is
+the rank-one Heisenberg algebra.  The shadow functor leaves the
+positive CoHA, its Drinfeld double, and the full current algebra as
+three distinct objects.
 \end{proof}
 
-\section{Kontsevich--Soibelman integrality from CoHA identity}
+\section{The chiral invariant}
 
-The integrality of Gopakumar--Vafa invariants $n^g_\beta\in\Z$ emerges
-on the positive--half side as the statement that the CoHA structure
-survives the transition. Let $\BPS(t)=\sum_\beta n^0_\beta q^\beta$ be
-the genus--zero BPS generating series, and let $Y^+_t$ be as above.
+\begin{proposition}[Conifold chiral invariant]
+For the resolved conifold,
+\[
+  \kch(A_{\mathrm{conifold}})=1.
+\]
+This is the direct McKay/NCCR value of the Klebanov--Witten Jacobi
+model.
+\end{proposition}
 
-\begin{theorem}[KS wall identity, CoHA form]\label{thm:KS-wall}
-Along any path crossing the conifold wall,
-\begin{equation}\label{eq:KS-wall}
-  \DT^{+}_t\;=\;\prod_{\gamma\in\Gamma^+}\Phi(x_\gamma)^{\Omega(\gamma;t)}
-\end{equation}
-is invariant under the transition. The exponents $\Omega(\gamma;t)$
-are Kontsevich--Soibelman motivic DT invariants, piecewise constant on
-the two sides of the wall with the jump
-\begin{equation}\label{eq:KS-jump}
-  \Omega(\gamma;t_+)-\Omega(\gamma;t_-)
-  \;=\;\mathrm{BPS~spectrum~jump~at~the~conifold}
-  \;=\;\delta_{\gamma,[\bP^1]}
-\end{equation}
-recording the single massless hypermultiplet.
-\end{theorem}
+\begin{proof}
+The local-surface formula has input $\Tot(\omega_S\to S)$ for a Fano
+surface $S$.  The resolved conifold has base $\bP^1$ and rank-two
+fibre $\cO(-1)^{\oplus2}$, so it lies outside that formula.  The
+conifold is therefore not a local surface.  This separates it from
+the local surface
+$K_{\bP^2}=\Tot(\omega_{\bP^2})$, where
+\(\kappa_{\mathrm{ch}}(K_{\bP^2})
+=\chi_{\mathrm{top}}(\bP^2)/2=3/2\).
 
-\begin{proof}[Proof sketch]
-Kontsevich--Soibelman 2008, Thm.~6.1, states that the motivic DT
-partition function factors through the CoHA, and that the wall--crossing
-formula is an automorphism of the pro--quantum torus whose exponents are
-the BPS invariants. For the conifold wall the jump is concentrated on
-the class $[\bP^1]$ by the Strominger--Gopakumar--Vafa identification;
-integrality of $\Omega$ is the integrality of the CoHA graded
-dimensions (KS 2008, Thm.~7.1), and agreement with Prop.~\ref{prop:overlap-collapse}
-fixes the jump to $\delta_{\gamma,[\bP^1]}$.
+Three conifold computations give the same normalization.  First, the
+McKay/NCCR model has the tilting algebra $J_{\mathrm{KW}}$ and one
+primitive compact curve class.  The primitive stable object supported
+on that curve has unit Hall weight.  Second, the reduced conifold
+topological vertex has primitive invariant
+\(n^0_{[\bP^1]}=1\), with higher-degree terms coming from multicovers.
+Third, the KS pentagon above has exactly one middle wall factor of
+exponent one.  The abelian shadow is therefore a single level-one
+Heisenberg factor, and its modular characteristic is one:
+\(\kch(A_{\mathrm{conifold}})=1\).
 \end{proof}
 
-\section{Positive--half interpretation}
+The quasi-projective total space requires an additional compactification
+before \(\kcat=\chi(\cO_X)\) can be read as a compact Calabi--Yau
+Euler characteristic.  A Borcherds product supplies separate
+\(\kappa_{\mathrm{BKM}}\) data, and a compact fibre or lattice supplies
+separate \(\kfib\) data.  The standalone invariant of this note is the
+positive-half and shadow value \(\kch(A_{\mathrm{conifold}})=1\).
 
-The conifold transition is the gluing datum of Wave--17 C1 failing to
-extend across the node, with the failure exactly measured by the
-wall--crossing jump \eqref{eq:KS-jump}. The deformation side builds
-$Y^+$ from the $S^3$ Heisenberg; the resolution side builds $Y^+$ by
-gluing two $Y^+(\C^3)$ along a $\C^*\times\C^2$ overlap; at the wall
-the overlap shrinks and both halves collapse to the same rank--one
-Heisenberg. The Kontsevich--Soibelman wall--crossing formula is the
-CoHA identity asserting that the two constructions of $Y^+$ differ by
-a controlled automorphism whose exponent is an integer---the single
-BPS state predicted by Strominger.
+\section{References}
 
-\begin{remark}[$\kappach$ accounting]
-The conifold is not compact; $\kappach$ via direct McKay on the local
-Ginzburg dg--algebra gives $\kappach(Y_0)=1$ (cf.\ \texttt{cy\_d\_kappa\_stratification.tex},
-local--CY$_3$ row). Neither $\kappacat$ nor $\kappafib$ is defined
-without a compactification. The transition preserves $\kappach$ because
-the rank--one Heisenberg limit is common to both sides.
-\end{remark}
+The NCCR is Van den Bergh's crepant algebra
+\textup{(}2004\textup{)} and Szendr\H{o}i's Klebanov--Witten
+noncommutative DT model \textup{(}2008\textup{)}.  The conifold chamber
+decomposition and affine \(A_1^{(1)}\) root system are due to
+Morrison--Mozgovoy--Nagao--Szendr\H{o}i \textup{(}2012\textup{)}.  The
+PBW passage from critical CoHA to BPS Lie algebra is
+Davison--Meinhardt \textup{(}2016\textup{)}.  The current presentation
+of the conifold positive half is Li--Yamazaki \textup{(}2020\textup{)}.
+The chart
+\(\C^3\) identification
+\(\CoHA(\C^3)\simeq Y^+(\widehat{\fgl}_1)\) is the
+Schiffmann--Vasserot/Tsymbaliuk affine-Yangian theorem.
 
 \end{document}

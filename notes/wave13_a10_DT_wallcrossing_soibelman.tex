@@ -1,20 +1,6 @@
-%% wave13_a10_DT_wallcrossing_soibelman.tex
-%% Soibelman voice: adversarial assault and rigorous healing of the
-%% DT wall-crossing <-> GKM denominator correspondence for g_{Delta_5}
-%% on K3 x E. Primary sources:
-%%   - Lorgat 2020 (user's own paper; Conjecture 1)
-%%   - Lorgat 2020 slides (Gritsenko-Clery 8 paramodular forms)
-%% Cross-references:
-%%   - notes/wave12_a10_wall_crossing_soibelman.tex (general KS-MC framework)
-%%   - notes/wave12_u1_two_stage_functor.tex (Phi^{FA} vs Sp_{Sigma,C})
-%%   - notes/wave11_u3_motivic_DT_CHL.tex
-%%   - notes/wave10_r1_conjecture1_N1_complete_proof.tex
-%% Mission: >=5 ATTACK-HEAL. Scope: DT side of Conjecture 1; KS wall-crossing
-%% in Stab(D^b(K3 x E)); relation to g_{Delta_5} Macdonald identity.
-%% This file is infrastructure (notes/), not manuscript prose.
-
 \documentclass[11pt]{article}
 \usepackage[localtheorems]{raeez-math-template}
+\usepackage{array}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -24,49 +10,34 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem{observation}[theorem]{Observation}
-\newtheorem{attack}{Attack}
-\newtheorem{heal}{Heal}
 
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\R}{\mathbb{R}}
 \providecommand{\Q}{\mathbb{Q}}
-\providecommand{\N}{\mathbb{N}}
-\providecommand{\HH}{\mathbb{H}}
-\providecommand{\bP}{\mathbb{P}}
-\providecommand{\bY}{\mathbb{Y}}
-\providecommand{\cO}{\mathcal{O}}
-\providecommand{\cM}{\mathcal{M}}
-\providecommand{\cF}{\mathcal{F}}
+\providecommand{\R}{\mathbb{R}}
 \providecommand{\cA}{\mathcal{A}}
-\providecommand{\cH}{\mathcal{H}}
 \providecommand{\cC}{\mathcal{C}}
-\providecommand{\fg}{\mathfrak{g}}
-\providecommand{\hdelta}{\hat{\Delta}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\DT}{\mathrm{DT}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Stab}{\mathrm{Stab}}
-\providecommand{\Hall}{\mathrm{Hall}}
-\providecommand{\Eone}{E_1}
-\providecommand{\Etwo}{E_2}
-\providecommand{\Ethree}{E_3}
-\providecommand{\ad}{\mathrm{ad}}
-\providecommand{\BCH}{\mathrm{BCH}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\sgn}{\mathrm{sgn}}
+\providecommand{\fg}{\mathfrak{g}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\Hilb}{\mathrm{Hilb}}
-\providecommand{\DT}{\mathrm{DT}}
-\providecommand{\Sym}{\mathrm{Sym}}
-\providecommand{\sgn}{\mathrm{sgn}}
-\providecommand{\Sp}{\mathrm{Sp}}
-\providecommand{\Pic}{\mathrm{Pic}}
-\providecommand{\wMot}{\widehat{\mathrm{Mot}}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
 
-\title{DT wall-crossing as Macdonald denominator gauge equivalence \\
-for $\fg_{\Delta_5}$ on $K3\times E$ \\
-{\normalfont (Soibelman-voice adversarial rectification, wave~13 strand A10)}}
+\title{DT Wall-Crossing and the Borcherds Denominator for $K3\times E$}
 \author{Raeez Lorgat}
 \date{\today}
 
@@ -74,1033 +45,316 @@ for $\fg_{\Delta_5}$ on $K3\times E$ \\
 \maketitle
 
 \begin{abstract}
-Five adversarial assaults on the DT side of Lorgat's Conjecture~1:
-the identification of the reduced DT partition function
-$Z^{K3\times E}_{L,1}(q,t,p) = C/\Delta_5(q,t,p)^2$
-(Oberdieck--Pandharipande; Oberdieck--Pixton) with the reciprocal square
-of the Weyl--Kac--Borcherds denominator of the GKM superalgebra
-$\fg_{\Delta_5}$. Each assault is followed by a first-principles heal.
-The Kontsevich--Soibelman wall-crossing formula between DT chambers in
-$\Stab(D^b(K3\times E))$ is identified with the Macdonald alternating
-sum on the Weyl-group side of the denominator identity; the
-chamber-crossing gauge $\lambda$ is written explicitly in the lattice
-Lie algebra $\fg_\Gamma$ with $\Gamma = \Lambda^{2,1}_{II}$, and the
-Humbert divisors $H_N\subset\HH_2$ are realised as the locus of gauge
-singularities where imaginary simple roots become singular. Conjecture~1
-is restated at publication-grade precision: LHS is a Borcherds
-product (Macdonald denominator), RHS is a reduced motivic DT zeta,
-identification is the Borcherds additive/multiplicative lift. The heal
-incorporates: the two-stage functor reading (Stage~1
-$\Phi^{\mathrm{FA}}_3(K3\times E)$ pinned; Stage~2 specialisation
-along the $K3$ fibre); the four-face spectrum $\{3,0,5,24\}$; the
-direct computation $c_1(0) = 10$, $\kBKM = 5$.
+The reduced Donaldson--Thomas partition function of $K3\times E$ is
+compared with the Weyl--Kac--Borcherds denominator of
+$\fg_{\Delta_5}$. The proved $(N,M)=(1,1)$ case is separated from the
+CHL and Gritsenko--Clery extensions. The Kontsevich--Soibelman product
+belongs to the Borcherds-product side of the denominator identity; the
+Macdonald alternating sum is the Weyl-group character-formula avatar of
+the same automorphic form. The four scalar invariants attached to
+$K3\times E$ are
+\[
+ \{\kcat,\kch^{\mathrm{Heis}},\kBKM,\kfib\}=\{0,3,5,24\},
+\]
+with the fibre value $\kcat(K3)=2$ kept separate.
 \end{abstract}
 
-%======================================================================
-\section{Gate 0: primary sources, posture, and the claim to be tested}
-\label{sec:gate-zero}
-%======================================================================
+\section{Sources and Conventions}
+\label{sec:sources-conventions}
 
-\paragraph{Primary sources (read, not invented).}
-Lorgat, \emph{A Borcherds lift of the weak Jacobi form $\phi_{0,1}$,
-generalized Borcherds--Kac--Moody superalgebras and the Igusa cusp form
-$\Delta_5$} (April~2020); the slides accompanying this writeup.
-Gritsenko--Nikulin, \emph{Siegel automorphic form corrections of some
-Lorentzian Kac--Moody Lie algebras} (\texttt{alg-geom/9504006}; AMS~J.
-1997). Borcherds, \emph{Automorphic forms with singularities on
-Grassmannians} (\emph{Invent.\ Math.}~132, 1998; \texttt{alg-geom/9609022}).
-Gritsenko, \emph{Elliptic genus of Calabi--Yau manifolds and Jacobi
-and Siegel modular forms} (\emph{St.\ Petersburg Math.\ J.}~11, 2000).
-Oberdieck--Pandharipande, \emph{Curve counting on $K3 \times E$, the
-Igusa cusp form $\chi_{10}$, and descendent integration}
-(\emph{K3 Surfaces and Their Moduli}, Birkh\"auser, 2016).
-Oberdieck--Pixton, \emph{Holomorphic anomaly equations and the Igusa
-cusp form conjecture} (\emph{Invent.\ Math.}~213, 2018;
-\texttt{arXiv:1706.10100}). Kontsevich--Soibelman, \emph{Stability
-structures, motivic DT-invariants and cluster transformations}
-(\texttt{arXiv:0811.2435}). Kontsevich--Soibelman, \emph{Cohomological
-Hall algebra, exponential Hodge structures and motivic DT-invariants}
-(\texttt{arXiv:1006.2706}). Katz--Klemm--Vafa,
-\emph{M-theory, topological strings and spinning black holes}
-(\emph{Adv.\ Theor.\ Math.\ Phys.}~3, 1999).
+The source hierarchy for the formulas below is:
+Oberdieck--Pandharipande for reduced DT theory on $K3\times E$,
+Oberdieck--Pixton for the holomorphic-anomaly proof of the Igusa cusp
+form conjecture, Gritsenko--Nikulin and Borcherds for the
+denominator identity, Gritsenko for the multiplicative lift, and
+Kontsevich--Soibelman for motivic wall-crossing. The Igusa repository is
+used only as a consistency check; it is not a source of proof.
 
-\paragraph{Cache posture (CLAUDE.md authority).}
-\begin{itemize}[leftmargin=1.1em]
-\item $\kBKM(\Phi_N) = c_N(0)/2$ is a \emph{theorem} (Borcherds
-1995--98; Gritsenko 1999--2000), valid for
-$N\in\{1,2,3,4,6\}$. At $N=1$: $\phi_{0,1} = \phi_{12,1}/\delta_{12}$
-has constant term $c_1(0) = 10$, so
-$\kBKM(\Delta_5) = 5$.
-\item $\kBKM(\Phi_N) \ne \kch + \chi(\cO_{\mathrm{fiber}})$ at every
-$N$; the correct universal formula is $c_N(0)/2$.
-\item The conifold is \emph{not} a local surface at $d=3$; this is not
-the right comparison to make for $K3\times E$. The $K3\times E$ case
-is genuinely $d=3$, total-space-Euler $\chi(\cO_{K3\times E}) = 0$
-(K\"unneth on the total space), $\kcat(K3\times E) = 0$, but
-$\kch(K3\times E) = 3$ (Hodge-supertrace identification).
-\item CY-A$_3$ is \emph{conjectural} at $d=3$ except as a specialisation
-$\Sp_{K3,E}\bigl(\Phi^{\mathrm{FA}}_3(K3\times E)\bigr)$ (two-stage
-functor, \texttt{wave12\_u1\_two\_stage\_functor.tex}).
-Conjecture~1 lives at the level of the \emph{specialisation output},
-not the universal $\Phi^{\mathrm{FA}}_3$.
-\item Six routes to $G(K3\times E)$ are six distinct constructions,
-not six $\Phi$-applications. Conjecture~1 picks one of them (the
-Borcherds lift of $\phi_{0,1}$ to $\Delta_5$) and identifies it with
-the DT partition function via the Borcherds product.
-\end{itemize}
-
-\paragraph{The claim to be tested.}
-Lorgat 2020, Conjecture~1 (in the strong form): for each
-$N\in\{1,2,3,4,6\}$ and each sheet of the Gritsenko--Cl\'ery
-paramodular family, the reduced motivic DT zeta function
-$Z^{X_N}_{L,h_M}(q,t,p)$ of the CY3
-$X_N = (S\times E)/(\Z/N\Z)$ with $S$ an elliptically-fibered K3 with
-lattice polarisation $L$ and $h_M$ a symplectic automorphism of order
-$M$ (subject to $N,M\le 8$, Nikulin~1984) equals, up to an explicit
-multiplicative constant, the reciprocal square of a Gritsenko--Cl\'ery
-diagonal-divisor paramodular form $\widehat\Delta_{k_N}$ of weight
-$k_N = c_N(0)/2$. The form $\widehat\Delta_{k_N}$ is the Borcherds
-denominator of a GKM superalgebra $\fg_{\widehat\Delta_{k_N}}$ whose
-root multiplicities are $(g_N,h_M)$-twisted twined elliptic
-genera of $K3$.
-
-The $N=1$, $M=1$ slice of Conjecture~1 is a \emph{theorem}:
+Let $X=K3\times E$. The stage-one object
+$\PhiFA_3(D^b\mathrm{Coh}(X))$ is a holomorphic factorisation algebra
+on the Calabi--Yau threefold. A choice of $(\Sigma_2,C)$ gives the
+specialised chiral output
 \[
-Z^{K3\times E}_{L,1}(q,t,p)
-\;=\; \frac{C}{\Delta_5(q,t,p)^2}
+ \Phi_3^{(\Sigma_2,C)}(D^b\mathrm{Coh}(X))
+ = \SpCh_{\Sigma_2,C}\bigl(\PhiFA_3(D^b\mathrm{Coh}(X))\bigr),
 \]
-(Oberdieck--Pandharipande 2016 for the Igusa cusp form identification;
-Oberdieck--Pixton 2018 for the holomorphic anomaly proof via the
-Igusa cusp conjecture). The Weyl--Kac--Borcherds side was proved in
-Gritsenko--Nikulin~1995 (and explicated in Lorgat~2020): $\Delta_5$ is
-the Borcherds denominator of $\fg_{\Delta_5}$.
+an $\Eone$-chiral algebra on $C$. The $\Etwo$ structure attached to the
+same data lives on the Drinfeld centre or double under the stated
+pairing hypotheses; it is not native on the specialised $\Eone$ output.
 
-Thus the $N=1$ case of Conjecture~1 is the statement that \emph{two
-proved objects coincide via an explicit identification}. The
-adversarial question: \emph{what, precisely, is the identification},
-and how does KS wall-crossing refine it?
+\section{Reduced DT Partition Function}
+\label{sec:reduced-dt}
 
-%======================================================================
-\section{The dgLa, the MC element, and the wall-crossing}
-\label{sec:setup}
-%======================================================================
-
-Fix $X = K3\times E$ with $E$ an elliptic curve. Let $\cA =
-\mathrm{Coh}(X)^{\le 1}$ be the abelian category of $1$-dimensional
-coherent sheaves with finite-dimensional $H^0$, viewed as a
-$K_0$-sublattice of the full derived category $D^b(X)$. Write
-$\Gamma = \Gamma_X$ for the Mukai-extended numerical
-Grothendieck lattice $\Z\oplus\mathrm{NS}(X)\oplus \Z$ equipped with
-the Euler pairing $\langle\cdot,\cdot\rangle_\chi$.
-
-\begin{definition}[DT-side dgLa]
-\label{def:dt-dgla}
-The \emph{DT lattice Lie algebra} $\fg_\Gamma$ is the completion of
-$\bigoplus_{\gamma\in\Gamma\setminus\{0\}}\Q\cdot e_\gamma$ along the
-filtration by $|Z(\gamma)|$, with bracket
+\begin{definition}[Reduced DT zeta]
+Let $\beta_h\in H_2(K3,\Z)$ be a primitive curve class with
+$\langle \beta_h,\beta_h\rangle=2h-2$. The reduced DT partition
+function is
 \[
-[e_{\gamma_1}, e_{\gamma_2}]
-\;=\; (-1)^{\langle\gamma_1,\gamma_2\rangle_\chi}\,
-\langle\gamma_1,\gamma_2\rangle_\chi \, e_{\gamma_1+\gamma_2}.
+ Z^{X}_{\mathrm{red}}(q,t,p)
+ =\sum_{h,d\ge 0}\sum_{n\in\Z}
+ \DT^{\mathrm{red}}_{n,(\beta_h,d)}
+ q^{d-1}t^{h-1}(-p)^n,
 \]
-MC elements (semi-classical KS) in $\fg_\Gamma[V]$ for a strict convex
-cone $V\subset\bR^2$ are
+where
 \[
-\Theta_V \;=\; \sum_{\gamma:\,Z(\gamma)\in V}\Omega(\gamma)\,e_\gamma,
-\qquad \Omega(\gamma)\in\Z,
+ \DT^{\mathrm{red}}_{n,(\beta_h,d)}
+ =\int_{\Hilb^n(X,(\beta_h,d))/E}\nu_B
 \]
-with $\Omega(\gamma)$ the numerical DT invariant of
-$\sigma$-semistable objects of class $\gamma$ in the relevant
-Bridgeland chamber.
+is the Behrend-weighted Euler characteristic after quotienting the
+translation action of $E$.
 \end{definition}
 
-\begin{definition}[Macdonald-side dgLa]
-\label{def:mac-dgla}
-Let $\fg_\rho$ be the lattice Lie algebra on
-$\Lambda^{2,1}_{II}\setminus\{0\}$ built by the same formula above but
-with the Weyl-vector-shifted Euler form
-$\langle\rho+\alpha,\rho+\beta\rangle - \langle\rho,\rho\rangle$ as the
-bracket pairing. The imaginary cone $\Lambda^{2,1}_{II}\cap\R_{>0}
-\cP_{II}$ is the positive cone inside which imaginary simple roots
-live; the Weyl group $W^{(2)}(\Lambda^{2,1}_{II})$ acts by reflections
-$s_{\delta_i}$ with Gram matrix $(2,-2,-2;-2,2,-2;-2,-2,2)$ on the
-real simple roots $\{\delta_1,\delta_2,\delta_3\}$.
+\begin{theorem}[The primitive $K3\times E$ identity]
+\label{thm:primitive-k3e-dt}
+For $X=K3\times E$ and primitive K3 class, Oberdieck--Pandharipande
+and Oberdieck--Pixton prove
+\[
+ Z^{X}_{\mathrm{red}}(q,t,p)
+ = C_{\mathrm{OP}}\Delta_5(q,t,p)^{-2}
+\]
+for the normalisation constant $C_{\mathrm{OP}}$ fixed by the chosen
+Igusa cusp form convention. In the monic product convention
+$D_5=64^{-1}\Delta_5$ used in the Oberdieck--Pandharipande scalar,
+\[
+ \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2,
+ \qquad
+ Z_{\mathrm{OP}}(K3\times E)=-(\Phi_{10}^{\mathrm{OP}})^{-1}
+ =-4096\,\Delta_5^{-2}.
+\]
+The unreduced invariant is zero because the $E$-translation direction
+contributes a trivial obstruction factor.
+\end{theorem}
+
+\section{Product, Alternating Sum, and Wall-Crossing}
+\label{sec:product-sum-wall}
+
+Let $\Lambda^{2,1}_{II}$ be the hyperbolic rank-three lattice in the
+Gritsenko--Nikulin construction. The denominator identity for
+$\fg_{\Delta_5}$ has two expressions:
+\[
+ \Delta_5(Z)
+ = e^{-2\pi i(\rho,Z)}
+ \prod_{\alpha\in\Delta^+}
+ \left(1-e^{-2\pi i(\alpha,Z)}\right)^{\mathrm{mult}(\alpha)}
+\]
+and
+\[
+ \Delta_5(Z)
+ = \sum_{w\in W^{(2)}(\Lambda^{2,1}_{II})}\sgn(w)
+ \left(e^{-2\pi i(w\rho,Z)}
+ -\sum_{a}m(a)e^{-2\pi i(w(\rho+a),Z)}\right).
+\]
+The product is the Borcherds expansion at a chamber. The alternating sum
+is the Weyl--Kac--Borcherds character formula after summing over Weyl
+chambers.
+
+\begin{proposition}[Where KS wall-crossing enters]
+\label{prop:ks-product-side}
+Kontsevich--Soibelman wall-crossing acts on the ordered product of
+automorphisms attached to active DT charges. Under the
+Gritsenko--Nikulin identification at the primitive $K3\times E$ slice,
+this is the Borcherds-product side of the denominator identity. The
+Macdonald alternating sum enters after passing from one chamber product
+to the Weyl-group orbit of chamber products.
+\end{proposition}
+
+\begin{proof}
+The KS formula preserves the ordered product
+\[
+ \prod_{\ell\subset V}^{\curvearrowleft}
+ \exp\!\left(\sum_{Z(\gamma)\in \ell}\Omega(\gamma)e_\gamma\right)
+\]
+when the stability condition crosses a wall. This is a reordering
+statement in the completed lattice Lie algebra. The Borcherds product is
+also an ordered chamber product, with exponents equal to root
+multiplicities. The alternating sum is a separate consequence of the
+Weyl--Kac--Borcherds denominator identity for $\fg_{\Delta_5}$.
+\end{proof}
+
+\section{The Wall-Crossing Gauge}
+\label{sec:gauge}
+
+\begin{definition}[DT lattice Lie algebra]
+Let $\Gamma_X$ be the numerical charge lattice with Euler pairing
+$\langle-,-\rangle_\chi$. The completed DT lattice Lie algebra is
+\[
+ \fg_{\Gamma_X}
+ =\widehat{\bigoplus_{\gamma\ne 0}\Q e_\gamma},
+ \qquad
+ [e_{\gamma_1},e_{\gamma_2}]
+ =(-1)^{\langle\gamma_1,\gamma_2\rangle_\chi}
+ \langle\gamma_1,\gamma_2\rangle_\chi e_{\gamma_1+\gamma_2}.
+\]
 \end{definition}
 
-\begin{theorem}[Identification of dgLas on the $N=1$ slice]
-\label{thm:dgla-identification}
-For $X = K3\times E$ with $\Gamma = \Gamma_{K3\times E}$ the Mukai
-lattice, there is a canonical isomorphism of pro-nilpotent lattice
-Lie algebras
+\begin{proposition}[Single-wall gauge, with hypotheses]
+\label{prop:single-wall-gauge}
+Assume:
+\begin{enumerate}[label=\textup{(H\arabic*)}]
+\item Bridgeland stability conditions $\sigma_0,\sigma_1$ on $D^b(X)$
+lie in adjacent chambers.
+\item The common wall has a strict convex active cone $C_W\subset\Gamma_X$.
+\item The KS integration map from the motivic Hall algebra to
+$\exp(\fg_{\Gamma_X})$ is defined on the completed cone.
+\item The primitive class comparison with the Gritsenko--Nikulin lattice
+identifies the relevant charges with roots of $\fg_{\Delta_5}$.
+\end{enumerate}
+Then the gauge carrying the Maurer--Cartan element from $\sigma_0$ to
+$\sigma_1$ is
 \[
-\iota_1\colon \fg_\Gamma\big|_{\mathrm{curve\,classes\,}\beta_h}
-\;\xrightarrow{\ \sim\ }\; \fg_\rho
+ \lambda_W
+ = \log\left(
+ \prod_{\gamma\in C_W}^{\curvearrowleft}
+ \exp\bigl(\Omega_{\sigma_0}(\gamma)e_\gamma\bigr)
+ \right)
+ \in \widehat{\fg_{\Gamma_X}}.
 \]
-under which the DT curve class $\beta_h = h\cdot F + s_1$ (fibre
-$F\in\Pic(S)$ plus zero-section, Lorgat~2020 \S6) maps to the imaginary
-simple root $\rho + h\cdot\alpha_1$ of $\fg_{\Delta_5}$, and the
-numerical DT invariant $\Omega(\beta_h, n)$ becomes the $h$-th
-Fourier--Jacobi coefficient of $\Delta_5^{-2}$, matched against the
-Macdonald side by the Weyl--Kac--Borcherds denominator identity.
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-The $K3$ fibre specialisation $\Sp_{K3,E}$
-(\texttt{wave12\_u1\_two\_stage\_functor.tex}) sends the $E_3$
-holomorphic factorisation algebra $\Phi^{\mathrm{FA}}_3(K3\times E)$
-to an $E_1$-chiral algebra on $E$. The underlying lattice of this
-$E_1$ is $\Gamma_{K3}^{\mathrm{ell}} = \Lambda^{2,1}_{II}$, and the
-induced Euler pairing matches the Gram matrix of Lorgat~2020 \S4.
-The KS integration map $\Int\colon\widehat{H(\cA)}\to\exp(\fg_\Gamma)$
-then maps the moduli-space class $[\cM^\sigma_{\beta_h, n}]$ to
-$\exp(\Omega(\beta_h, n)\cdot e_{\beta_h})$; the Oberdieck--Pandharipande
-identification of the DT partition function with $C/\Delta_5^2$
-completes the Fourier--Jacobi coefficient match.
-\end{proof}
-
-%======================================================================
-\section{Attacks and heals}
-%======================================================================
-
-\subsection*{Attack 1: Is the Oberdieck--Pandharipande $Z^X = C/\Delta_5^2$
-a statement about reduced DT or full DT?}
-
-\begin{attack}
-\label{atk:reduced-vs-full}
-Lorgat 2020 \S6 writes the $N=1$ partition function as
-$Z^{S\times E}(q,t,p) = C/(\Delta_5)^2$, and Oberdieck--Pandharipande
-2016 prove it, but the statement conceals a \emph{reduction}: the full
-DT zeta $Z^X_{\mathrm{full}}(q,p)$ vanishes for $X = K3\times E$
-because the trivial $E$-action produces an obstruction tower that
-kills the unreduced virtual class (Oberdieck--Pandharipande \S1.2;
-Oberdieck thesis 2015). The identity
-$Z^X = C/\Delta_5^2$ is a \emph{reduced}-DT identity, obtained by
-quotienting out the $E$-translation action explicitly.
-
-\textbf{Ghost theorem}: the reduced DT zeta $Z^X_{\mathrm{red}}$ is
-what equals $C/\Delta_5^2$; this is a theorem
-(Oberdieck--Pandharipande 2016, Theorem on p.~2 of their paper;
-Oberdieck--Pixton 2018, holomorphic anomaly proof).
-
-\textbf{Precise error}: Lorgat 2020 \S6 writes the partition function
-as
-$Z^{S\times E} = \sum\sum\sum\DT^X_{n,(\beta_h,d)}q^{d-1}t^{(1/2)\langle\beta_h,\beta_h\rangle}(-p)^n$
-without the ``reduced'' qualifier. The DT invariant
-$\DT^X_{n,(\beta_h,d)}$ is already the reduced one (quotient by
-$E$-translation: the Behrend-function integral is over
-$\Hilb^n(X,\beta_h)/E$, not $\Hilb^n(X,\beta_h)$), but the reader is
-not told this. The correct reading is that $\DT^X_{n,(\beta_h,d)}$ is
-the $E$-reduced numerical DT invariant throughout.
-
-\textbf{Correct relation}: $Z^X_{\mathrm{red}}(q,t,p) = C/\Delta_5^2$
-with the $E$-quotient made explicit. The full unreduced zeta is zero.
-The reduction is the physical reason why $\Delta_5$ (a cusp form)
-appears and not a weight-zero modular form.
-\end{attack}
-
-\begin{heal}[Explicit reduction and its automorphic meaning]
-\label{heal:reduced}
-
-The DT zeta that appears is
+Its graded character under the primitive lattice comparison is the
+local logarithm of the corresponding Borcherds product,
 \[
-Z^{K3\times E}_{\mathrm{red}}(q,t,p)
-\;=\; \sum_{h\ge 0}\sum_{d\ge 0}\sum_{n\in\Z}
-\DT^{\mathrm{red}}_{n,(\beta_h,d)}\,
-q^{d-1}\, t^{\tfrac12\langle\beta_h,\beta_h\rangle}\,(-p)^n
-\;=\; \frac{C}{\Delta_5(q,t,p)^2}
-\]
-where the invariant
-\[
-\DT^{\mathrm{red}}_{n,(\beta_h,d)}
-\;=\; \int_{\Hilb^n(X,\beta_h)/E}\nu_B
-\;=\; \sum_{k\in\Z} k\cdot e\bigl(\nu_B^{-1}(k)\bigr)
-\]
-is the Behrend-function-weighted Euler characteristic of the
-$E$-quotient moduli stack. The unreduced zeta is zero (the
-$E$-translation moves every subscheme, so the virtual class contains
-an obstruction factor $c_{\mathrm{top}}(T_E) = 0$; this is
-Oberdieck--Pandharipande Remark on p.~3). The automorphic meaning
-of the reduction: $\Delta_5$ is a cusp form of weight $5$, and
-\emph{cuspidality} corresponds exactly to the vanishing of the
-unreduced virtual class at all cusps of $\HH_2$; the $E$-reduction
-produces a distribution supported away from the cusps whose Fourier
-expansion reads $\Delta_5^{-2}$.
-
-The identification $\Delta_5^{-2} = Z^X_{\mathrm{red}}$ is an
-identity between (a) a meromorphic Siegel paramodular form on $\HH_2$
-with double zero along $\Delta_5 = 0$, and (b) the generating series
-of reduced DT invariants; both sides carry an action of
-$\Sp_4(\Z)/\{\pm I_5\}$ via the isomorphism
-$\wedge^2\colon\Sp_4(\Z)/\{\pm I_5\}\to\SO^+(\Lambda^{3,2})$ (Lorgat
-2020 \S3, Lemma~1). The $\Sp_4$-action on the DT side is the
-lattice action on $\Gamma_{K3\times E}$ induced by the Mukai-lattice
-extension of the isogenies of the elliptic curve $E$ and the
-$K3$-autoequivalences (Huybrechts, \emph{The geometry of cubic
-hypersurfaces}; Mukai, \emph{On the moduli space of bundles on $K3$
-surfaces I}).
-\end{heal}
-
-\subsection*{Attack 2: Is the Macdonald denominator identity the same
-as the Borcherds product, and which corresponds to DT wall-crossing?}
-
-\begin{attack}
-\label{atk:mac-vs-borch}
-Lorgat 2020 \S5, equation after Theorem~3, writes the denominator
-identity as an equality
-\[
-\Phi(z)
-\;=\; \underbrace{\sum_{w\in W^{(2)}(\Lambda^{2,1}_{II})}\sgn(w)
-\Bigl(e^{-2\pi i(w(\rho),z)}
-- \sum_{a\in\Lambda^{2,1}_{II}\cap\R_{>0}\cP_{II}} m(a)\, e^{-2\pi i(w(\rho+a),z)}\Bigr)}_{\text{Macdonald alternating sum (LHS)}}
-\]
-\[
-\;=\; \underbrace{e^{-2\pi i(\rho,z)}\prod_{\alpha\in\Delta^+}
-\bigl(1 - e^{-2\pi i(\alpha,z)}\bigr)^{\mathrm{mult}\,\alpha}}_{\text{Borcherds infinite product (RHS)}}
-\]
-with both sides equal to $(1/64)\Delta_5(2z)$. The adversarial reading:
-these are \emph{two different combinatorial summation rules} for the
-same function. The Macdonald sum $\sum_w\sgn(w)(\cdots)$ is the
-statement of Weyl--Kac character formula applied to the trivial
-representation; the Borcherds product is the infinite-product expansion
-at a cusp. They are equal \emph{because} $\fg_{\Delta_5}$ is a GKM
-superalgebra (Gritsenko--Nikulin 1995, Theorem~4.6), but the
-identification of each side with DT wall-crossing is a separate
-question.
-
-\textbf{Ghost theorem}: DT wall-crossing (Kontsevich--Soibelman 2008,
-\S5) \emph{is} the identification between two chamber-orderings of an
-infinite product in $\fg_\Gamma[V]$; this infinite product, on the
-automorphic side, becomes the Borcherds product (RHS of the
-denominator identity). The Macdonald alternating sum (LHS) is
-\emph{not} directly a wall-crossing statement; it is the character
-formula in a fixed chamber, summed over the Weyl group of symmetries
-of that chamber.
-
-\textbf{Precise error}: conflating ``DT wall-crossing $\leftrightarrow$
-denominator identity'' as a single identification, rather than as
-two separate identifications: (a) DT wall-crossing $\leftrightarrow$
-Borcherds product (RHS), and (b) Weyl-group symmetry of the Borcherds
-product $\leftrightarrow$ Macdonald sum (LHS). The KS wall-crossing
-formula $T_W^{\sigma_0} = T_W^{\sigma_1}$ is a statement about
-\emph{re-ordering the Borcherds product}; the Macdonald identity is a
-further statement about what this re-ordered product equals when you
-quotient by the Weyl group.
-
-\textbf{Correct relation}: two-step identification.
-
-\emph{Step 1 (chamber structure).} Bridgeland stability
-$\Stab(D^b(K3\times E))$ is acted on by $W^{(2)}(\Lambda^{2,1}_{II})$
-(via the Mukai-lattice isometries). Each Weyl chamber corresponds to a
-choice of sign of $(w(\rho+a),z)$ for $a\in\Lambda^{2,1}_{II}\cap
-\R_{>0}\cP_{II}$. DT wall-crossing between two adjacent chambers is
-governed by Theorem~\ref{thm:dgla-identification} and by the KS formula
-$T_W^{\sigma_0} = T_W^{\sigma_1}$.
-
-\emph{Step 2 (Borcherds product $=$ Macdonald sum).} Summing the
-chamber-specific Borcherds products over all Weyl chambers, weighted by
-$\sgn(w)$, produces the Macdonald alternating sum. This second step is
-a consequence of GKM structure (finite-dimensional Lie algebras give
-Weyl character formula; GKMs give Weyl--Kac--Borcherds character
-formula with imaginary roots contributing the $\sum_a m(a)e^{-(w(\rho+a),z)}$ term).
-\end{attack}
-
-\begin{heal}[Two-step identification DT $\to$ Borcherds $\to$ Macdonald]
-\label{heal:two-step}
-
-State Conjecture~1 at $N=1$ as the following composite identification.
-
-\begin{theorem}[DT $=$ Borcherds product $=$ Macdonald sum, at $N=1$]
-\label{thm:composite-N1}
-For $X = K3\times E$ with $\Gamma = \Gamma_{K3\times E}$,
-$\rho = f_2 - \tfrac12 f_3 + f_{-2}$ the lattice Weyl vector of
-$\Lambda^{2,1}_{II}$, and $\phi_{0,1}(z_1,z_2)$ the weight-$0$
-index-$1$ weak Jacobi form with Fourier coefficients $f(n,l)$,
-\[
-Z^X_{\mathrm{red}}(q,t,p)^{-1/2}
-\;=\; \frac{1}{\sqrt{C}}\,\Delta_5(q,t,p)
-\;\stackrel{(B)}{=}\; e^{\pi i(z_1+z_2+z_3)}
-\prod_{\substack{n,l,m\in\Z\\(n,l,m)>0}}
-\bigl(1-e^{2\pi i(nz_1+lz_2+mz_3)}\bigr)^{f(nm,l)}
-\]
-\[
-\stackrel{(M)}{=}\; \sum_{w\in W^{(2)}(\Lambda^{2,1}_{II})}\sgn(w)
-\Bigl(e^{-2\pi i(w(\rho),z)}
-- \sum_{a\in\Lambda^{2,1}_{II}\cap\R_{>0}\cP_{II}} m(a)\, e^{-2\pi i(w(\rho+a),z)}\Bigr).
-\]
-Here: the left equality is Oberdieck--Pandharipande 2016 /
-Oberdieck--Pixton 2018 (the Igusa cusp form conjecture, proved).
-The middle equality~(B) is the Borcherds product formula
-(Borcherds 1998; Gritsenko 1999--2000; Lorgat 2020 Theorem~4). The
-right equality~(M) is the Weyl--Kac--Borcherds denominator identity
-for the GKM superalgebra $\fg_{\Delta_5}$ (Borcherds 1992 for GKMs;
-Gritsenko--Nikulin 1995 for this specific algebra; Lorgat 2020
-Theorem~3). DT wall-crossing between adjacent Bridgeland chambers
-$\sigma_0,\sigma_1\in\Stab(D^b(X))$ is the re-ordering of the factors
-in~(B) controlled by KS (\texttt{arXiv:0811.2435} Theorem~5); the
-Weyl-group-invariance of the finite sum~(M) is the symmetry of the
-resulting product under $W^{(2)}(\Lambda^{2,1}_{II})$.
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-The left equality is a published theorem; see Oberdieck--Pandharipande
-2016 (main theorem) and Oberdieck--Pixton 2018 (holomorphic anomaly
-version, identifying the generating series with $\chi_{10}^{-1}$ on the
-Siegel upper half plane; $\chi_{10} = \Delta_5^2$ up to a scalar).
-Middle equality: use the multiplicative lift
-$\phi_{0,1}\mapsto\Delta_5$ of Borcherds (Gritsenko 1999, Theorem~1.5)
-which writes
-$\Delta_5 = \mathrm{Lift}^{\mathrm{mult}}(\phi_{0,1}) = q\xi p\prod\cdots$.
-Right equality: this is the $\fg_{\Delta_5}$ GKM denominator identity;
-Lorgat 2020 gives the self-contained derivation (\S4--5).
-\end{proof}
-
-The key Soibelman-level structure is: \emph{the DT side of Conjecture~1
-touches~(B), not~(M), directly.} Wall-crossing moves one through
-product orderings in~(B); the automorphic miracle is that the sum
-of all orderings, weighted by $\sgn$ over the Weyl group, collapses
-to the finite Macdonald sum~(M).
-\end{heal}
-
-\subsection*{Attack 3: What is the explicit gauge $\lambda$ for the
-$K3\times E$ flop/wall, and does it live in $\fg_\rho$ or $\fg_\Gamma$?}
-
-\begin{attack}
-\label{atk:gauge-explicit}
-Theorem~\ref{thm:ks-wc-mc} of
-\texttt{wave12\_a10\_wall\_crossing\_soibelman.tex} states wall-crossing
-as a gauge equivalence $e^{\ad_\lambda}(\Theta_0) = \Theta_1$, with
-$\lambda = \log(T_W)$. For the conifold, $\lambda = \tfrac12
-e_{\gamma_1+\gamma_2}$ is explicit (Heal~1 of that wave). For
-$K3\times E$, no explicit $\lambda$ appears in the Vol~III corpus.
-
-\textbf{Ghost theorem}: $\lambda_{K3\times E}$ exists and is an
-infinite sum of lattice-Lie-algebra elements, one per wall crossed.
-
-\textbf{Precise error}: writing ``wall-crossing as MC gauge
-equivalence'' for $K3\times E$ without ever naming the gauge.
-$K3\times E$ has infinitely many walls (the Humbert divisors in
-$\HH_2$), and each contributes a lattice-Lie-algebra element.
-Without specifying the summation, the statement is a shell.
-
-\textbf{Correct relation}: the gauge is indexed by Humbert divisors
-and their intersection with the imaginary cone.
-\end{attack}
-
-\begin{heal}[Explicit gauge $\lambda_{K3\times E}$ as a Humbert sum]
-\label{heal:gauge-explicit}
-
-\begin{proposition}[Explicit wall-crossing gauge]
-\label{prop:gauge-humbert}
-Let $X = K3\times E$ and let $\sigma_0,\sigma_1\in\Stab(D^b(X))$ be
-two Bridgeland stability conditions with $Z_{\sigma_i}\colon\Gamma\to\C$
-central charges lying in adjacent chambers separated by a single
-active Humbert-type wall $W_N$ for some $N\in\Z_{>0}$ (cf.
-Gritsenko--Hulek, \emph{Commutator coverings of Siegel threefolds}). Then
-\[
-\lambda_{K3\times E}(W_N) \;=\; \log\Bigl(
-\prod^{\curvearrowleft}_{\gamma\in W_N\cap\Lambda^{2,1}_{II}\cap\R_{>0}\cP_{II}}
-T_\gamma^{\Omega(\gamma;\sigma_0)}\Bigr)
-\;\in\; \fg_\Gamma[W_N\cdot\R_{>0}],
-\]
-with $T_\gamma = \exp(e_\gamma)$ and the BCH expansion convergent on the
-single-wall cone. Under the isomorphism
-$\iota_1\colon\fg_\Gamma\big|_{\beta_h}\xrightarrow{\sim}\fg_\rho$ of
-Theorem~\ref{thm:dgla-identification}, $\lambda_{K3\times E}(W_N)$
-maps to the logarithm of the $W_N$-localised contribution of the
-Borcherds product~(B) of Theorem~\ref{thm:composite-N1}. Explicitly:
-\[
-\iota_1(\lambda_{K3\times E}(W_N))
-\;=\; \sum_{\substack{n,l,m\in\Z\\(n,l,m)\in W_N\cap\cP_{II}}}
-f(nm,l)\, \log\bigl(1 - e^{2\pi i(nz_1+lz_2+mz_3)}\bigr)\cdot e_{(n,l,m)}.
+ \mathrm{ch}\bigl(\iota(\lambda_W)\bigr)
+ = \log\!\left(
+ \prod_{(n,l,m)\in C_W}
+ \left(1-e^{2\pi i(nz_1+lz_2+mz_3)}\right)^{f(nm,l)}
+ \right).
 \]
 \end{proposition}
 
-\begin{proof}[Proof]
-Apply Theorem~\ref{thm:ks-wc-mc} of
-\texttt{wave12\_a10\_wall\_crossing\_soibelman.tex} to $X = K3\times E$;
-the wall $W_N$ is the locus in $\Stab(D^b(X))$ where the central
-charge of classes on the Humbert divisor $H_N\subset\HH_2$ align. By
-Oberdieck--Pandharipande 2016 Theorem~1 (or Oberdieck--Pixton 2018
-Theorem~2), the DT invariants $\Omega(\gamma;\sigma_0)$ on these
-classes are the Fourier coefficients of $\Delta_5^{-2}$; by
-Theorem~\ref{thm:composite-N1}~(B), these coincide with the
-$f(nm,l)$ Borcherds-product exponents. Taking $\log$ of the product
-of $T_\gamma$'s and using the BCH formula (convergent because the
-$W_N$-cone is strict convex; KS Thm.~5, case of single-wall product)
-yields the stated formula. Applying $\iota_1$ sends the $e_\gamma$'s
-to the corresponding root vectors in $\fg_\rho$; the Fourier
-coefficients match because both sides count the same lattice-weight
-multiplicities.
-\end{proof}
-
-\begin{remark}[Humbert-indexed Weyl chambers and singular loci]
-\label{rem:humbert-singular}
-The Humbert divisors $\{H_N\}_{N\ge 1}\subset\HH_2$ are the loci where
-$\fg_{\Delta_5}$'s imaginary root mulitplicities acquire a singular
-divisor under the Borcherds lift. Concretely,
-$H_1 = \{(z_1,z_2,z_3)\in\HH_2 : z_2 = 0\}$ is the reducibility locus
-of abelian surfaces $A = E_1\times E_2$; $\Delta_5$ vanishes doubly
-along this locus (hence $\chi_{10} = \Delta_5^2$ vanishes quadruply).
-The wall-crossing gauge $\lambda_{K3\times E}(H_1)$ is the piece of
-$\log(\Delta_5^{-2})$ localised near $z_2 = 0$; expanding in $z_2$
-gives a Fourier--Jacobi development of the denominator identity, with
-the first Fourier--Jacobi coefficient of $\Delta_5$ being
-$\psi_{5,1/2}(z_1,z_2)$ (Lorgat~2020, p.~3, after equation $\psi_{5,1/2} = \eta^9 \nu_{11}$).
+\begin{remark}
+This is a local single-wall statement. A global identification of all
+Humbert divisors with all Bridgeland walls for $D^b(K3\times E)$ is a
+separate theorem to prove. The local formula records the correct
+object: a completed Lie-algebra gauge with a Borcherds-product
+character, rather than a scalar logarithm asserted as an element.
 \end{remark}
-\end{heal}
 
-\subsection*{Attack 4: At $N\ge 2$, does the Borcherds weight formula
-$k_N = c_N(0)/2$ \emph{match} the Gritsenko--Cl\'ery paramodular
-family, and is the identification with DT zeta still valid?}
+\section{Borcherds Weights and the Gritsenko--Clery Catalogue}
+\label{sec:weights}
 
-\begin{attack}
-\label{atk:weight-compat}
-Lorgat 2020 \S1 asserts (Conjecture~1) that all eight Gritsenko--Cl\'ery
-diagonal-divisor paramodular forms arise as $Z^X_{L,h_M}$ reciprocal
-square roots. The CLAUDE.md cache states the universal
-$\kBKM(\Phi_N) = c_N(0)/2$ for $N\in\{1,2,3,4,6\}$. The
-Gritsenko--Cl\'ery family (Lorgat 2020 slide~2, \emph{Diagonal Divisor
-Siegel Modular Forms}) lists:
-\begin{itemize}[leftmargin=1.1em]
-\item $M_5(\Gamma_1,\nu_2) = \Delta_5$, $N = 1$, weight $5 = c_1(0)/2$.
-\item $M_2(\Gamma_2,\nu_4)$, $N = 2$, weight $2$.
-\item $M_3(\Gamma_1(2),\nu_2)$, congruence-level lift for $N = 2$, weight $3$.
-\item $M_1(\Gamma_3,\nu_6)$, $N = 3$, weight $1$.
-\item $M_2(\Gamma_1(3),\nu_2)$, congruence-level, weight $2$.
-\item $M_{1/2}(\Gamma_4,\nu_8)$, $N = 4$, weight $1/2$.
-\item $M_{3/2}(\Gamma_1(4),\nu_4)$, congruence, weight $3/2$.
-\item $M_1(\Gamma_2(2),\nu_4)$, weight $1$.
-\end{itemize}
-
-\textbf{Ghost theorem}: the weights $\{5, 2, 3, 1, 2, 1/2, 3/2, 1\}$ do
-\emph{not} directly match $c_N(0)/2$ for $N\in\{1,2,3,4\}$.
-
-\textbf{Precise error}: $c_N(0)$ is the constant Fourier coefficient
-of the $g_N$-twisted elliptic genus of $K3$. For $N = 1$: $c_1(0) = 10$,
-weight $5$, matches. For $N = 2$: the twisted elliptic genus
-$\phi^{g_2}_{\mathrm{K3}}$ has $c_2(0) = 4$, so $\kBKM = 2$, matching
-$M_2(\Gamma_2,\nu_4)$ but \emph{not} $M_3(\Gamma_1(2),\nu_2)$. The
-congruence-level lifts $M_3(\Gamma_1(2),\nu_2)$ etc.\ have weights that
-do not reduce to $c_N(0)/2$ for a single $N$; they are \emph{Hecke
-lifts} that pick up additional congruence-level weight (the
-$\nu_2\to\nu_4$ shift in the character accounts for this).
-
-\textbf{Correct relation}: the Borcherds weight formula
-$\kBKM = c_N(0)/2$ applies to the \emph{level-$\Gamma_N(1)$} (maximal
-paramodular) form, one per $N\in\{1,2,3,4,6\}$. The Gritsenko--Cl\'ery
-family has eight forms because the $N\in\{2,3,4\}$ cases admit
-\emph{congruence-level} refinements at level $\Gamma_1(N)$ with
-shifted characters (roughly $\nu_2\to\nu_{2N}$). The twisted-twined
-elliptic genus at $(g_N,h_M)$ is the correct root-multiplicity input
-for the congruence-level forms. So Conjecture~1 is a \emph{bi-parameter}
-conjecture: eight forms, parametrised by $(N,M)$ with $N\cdot M$
-ranging over $\{1,2,3,4,6,8\}$ (or its level-refinements).
-\end{attack}
-
-\begin{heal}[Bi-parameter $(N,M)$ statement of Conjecture~1]
-\label{heal:bi-parameter}
-
-\begin{conjecture}[Conjecture~1, bi-parameter form]
-\label{conj:one-bi-parameter}
-Let $(S, L, g_N, h_M)$ be a K3 surface with lattice polarisation $L$
-and two commuting symplectic automorphisms of orders $N, M \le 8$
-(Nikulin 1984 bound). Let $X_{N,M} = (S\times E)/(\Z/N\Z\times\Z/M\Z)$
-with the group action as in Lorgat 2020 \S1. Then the reduced motivic
-DT zeta
+\begin{theorem}[CHL Borcherds weight]
+\label{thm:chl-weight}
+For the CHL frame shapes with $N\in\{1,2,3,4,6\}$, the Borcherds
+weight is
 \[
-Z^{X_{N,M}}_{L, g_N, h_M}(q,t,p)
+ \kBKM(\Phi_N)=\frac{c_N(0)}{2},
 \]
-equals, up to a rational constant depending only on $(L, g_N, h_M)$,
-the reciprocal square of a Gritsenko--Cl\'ery diagonal-divisor
-paramodular form
-$\widehat\Delta_{k_{N,M}}\in M_{k_{N,M}}(\Gamma_t(N),\nu)$ with
-$t = t(N,M)$ and
+where $c_N(0)$ is the constant term of the chosen Borcherds input
+Jacobi form in the Gritsenko--Nikulin normalisation. At $N=1$,
+$c_1(0)=10$, so
 \[
-k_{N,M} \;=\; \frac12\, c_{N,M}(0),
+ \kBKM(\Phi_1)=5=\mathrm{wt}(\Delta_5).
 \]
-where $c_{N,M}(0)$ is the constant Fourier coefficient of the
-$(g_N, h_M)$-twisted twined elliptic genus
-$\phi^{g_N, h_M}_{K3}(\tau, z)$.
-
-The form $\widehat\Delta_{k_{N,M}}$ is the Borcherds denominator of a
-GKM superalgebra $\fg_{(N,M)}$ whose root multiplicities are the
-Fourier coefficients of $\phi^{g_N, h_M}_{K3}$, and whose
-Weyl--Kac--Borcherds denominator identity (Macdonald form) matches the
-Borcherds product expansion (multiplicative form) via the
-Borcherds--Gritsenko multiplicative lift.
-\end{conjecture}
-
-\paragraph{Status per $(N,M)$.}
-At $(N,M) = (1,1)$: \emph{theorem} (Oberdieck--Pandharipande
-2016, Oberdieck--Pixton 2018; $\widehat\Delta_{5,1,1} = \Delta_5$;
-$c_{1,1}(0) = 10$; Gritsenko--Nikulin 1995; Lorgat~2020).
-
-At $(N,M)$ with $N\in\{2,3,4,6\}$, $M = 1$: \emph{conjectural}. The
-Bryan--Oberdieck 2019 orbifold DT theorem gives a partial result for
-$N = 2,3,4,6$ on the CHL orbifold side (not the full K3 side); see
-\texttt{notes/wave11\_u3\_motivic\_DT\_CHL.tex}. Explicit character
-tables for $\phi^{g_N}_{K3}$ are recorded in David--Jatkar--Sen 2006
-(\texttt{hep-th/0609074}).
-
-At $(N,M)$ with both $\ge 2$: \emph{open}. The bi-twisted elliptic
-genus $\phi^{g_N,h_M}_{K3}$ is defined via Eguchi--Ooguri--Tachikawa
-via the action of the Mathieu group $M_{24}$ on K3 (Mathieu moonshine;
-Eguchi--Ooguri--Tachikawa 2010); the Borcherds lift to a paramodular
-form on $\Gamma_t(N)$ is constructed case-by-case. Weights
-$\{5, 2, 3, 1, 2, 1/2, 3/2, 1\}$ of the Gritsenko--Cl\'ery family
-match $c_{N,M}(0)/2$ for an appropriate bi-parameter $(N,M)$:
-
-\begin{center}
-\small
-\begin{longtable}{llcl}
-\toprule
-Form & $(N,M)$ & $c_{N,M}(0)/2$ & Status \\
-\midrule
-$\Delta_5\in M_5(\Gamma_1,\nu_2)$ & $(1,1)$ & $10/2 = 5$ & theorem \\
-$M_2(\Gamma_2,\nu_4)$ & $(2,1)$ & $4/2 = 2$ & conj. (OB) \\
-$M_3(\Gamma_1(2),\nu_2)$ & $(2,2)$ & $6/2 = 3$ & conj. (congruence lift) \\
-$M_1(\Gamma_3,\nu_6)$ & $(3,1)$ & $2/2 = 1$ & conj. \\
-$M_2(\Gamma_1(3),\nu_2)$ & $(3,3)$ & $4/2 = 2$ & conj. \\
-$M_{1/2}(\Gamma_4,\nu_8)$ & $(4,1)$ & $1/2$ & conj. \\
-$M_{3/2}(\Gamma_1(4),\nu_4)$ & $(4,2)$ & $3/2$ & conj. \\
-$M_1(\Gamma_2(2),\nu_4)$ & $(2, 2)$ alt & $1$ & conj.~(alt.\ level) \\
-\bottomrule
-\end{longtable}
-\end{center}
-
-\paragraph{What this repairs.}
-The one-parameter statement $\kBKM(\Phi_N) = c_N(0)/2$ with
-$N\in\{1,2,3,4,6\}$ captures \emph{five} of the eight
-Gritsenko--Cl\'ery forms (the ones with $M = 1$ and $N = $ the $N$ in
-$\Phi_N$). The remaining three forms require $M\ge 2$ and a
-bi-twisted elliptic genus. Conjecture~1 becomes
-\emph{Conjecture~1'} by parametrising over $(N,M)\in\{N\cdot M \le 8\}$
-and the paramodular level $\Gamma_t(N)$.
-
-The $N = 5$ case: Oberdieck 2018 proved the $N = 5$ partition function
-is \emph{not} $\Delta^{-2}$ of any single form; instead it requires a
-linear combination. This is the \emph{``$N = 5$ anomaly''}; it does
-\emph{not} falsify Conjecture~1, because $N = 5$ is not in the
-Gritsenko--Cl\'ery list (the Nikulin bound $\mathrm{ord}(g_N)\le 8$
-does admit $N = 5$ but the resulting paramodular form has a different
-(non-diagonal-divisor) structure). Conjecture~1 is about
-\emph{diagonal-divisor} paramodular forms specifically.
-\end{heal}
-
-\subsection*{Attack 5: Does KS wall-crossing preserve the identification
-$Z^X = \Delta_5^{-2}$ under $E$-translations and Mukai-lattice
-isometries, i.e., is the automorphic side of Conjecture~1 compatible
-with the full symmetry group of the DT side?}
-
-\begin{attack}
-\label{atk:full-symmetry}
-The DT side of Conjecture~1 is acted on by:
-\begin{enumerate}[label=(\alph*),leftmargin=1.1em]
-\item $E$-translation (used to define the reduced DT zeta).
-\item $\Sp_4(\Z)$-action on $\Gamma_{K3\times E}$ via the Mukai-lattice
-extension of $E$-isogenies.
-\item Autoequivalences of $D^b(K3\times E)$: the flop $\Phi^{\flop}$,
-the Bridgeland--King--Reid spherical twists, the Fourier--Mukai
-transforms on $\Pic^0(E)$.
-\end{enumerate}
-
-The automorphic side carries the $\Sp_4(\Z)/\{\pm I\}$-action via the
-isomorphism $\wedge^2\colon\Sp_4(\Z)/\{\pm I\}\to\SO^+(\Lambda^{3,2})$
-(Lorgat 2020 \S3). The match of~(a),(b),(c) with this $\Sp_4$-action
-is non-trivial.
-
-\textbf{Ghost theorem}: the DT/Borcherds/Macdonald identification of
-Theorem~\ref{thm:composite-N1} is $\Sp_4(\Z)$-equivariant, with the
-DT side's Mukai-isometries matching the automorphic side's $\Sp_4$-action
-under $\wedge^2$.
-
-\textbf{Precise error}: stating Conjecture~1 without specifying the
-equivariance. Without equivariance, the identification is only at the
-level of formal power-series coefficients; with equivariance, it is an
-identification of $\Sp_4$-representations.
-
-\textbf{Correct relation}: the $\Sp_4$-equivariance is built into the
-Gritsenko--Cl\'ery paramodular family by construction: the forms
-$\widehat\Delta_{k_{N,M}}$ are defined as $\Gamma_t(N)$-modular, so
-they transform under $\Sp_4(\Z)$ via the standard congruence-subgroup
-action. On the DT side, the action of $\Sp_4(\Z)$ on $\Gamma_{K3\times E}$
-is the action on the Mukai lattice induced by $E$-isogenies combined
-with $K3$-autoequivalences; this is \emph{not} the full
-$O(\Lambda^{3,2})^+$-action (only a finite-index subgroup). The
-compatibility is a theorem (Oberdieck 2019, \emph{Holomorphic anomaly
-equations for the Hilbert scheme of points on a $K3$ surface}).
-\end{attack}
-
-\begin{heal}[$\Sp_4(\Z)$-equivariance of the full identification]
-\label{heal:equivariance}
-
-\begin{theorem}[Full equivariance, $(N,M) = (1,1)$]
-\label{thm:equivariance}
-The identification of Theorem~\ref{thm:composite-N1} is
-$\Sp_4(\Z)$-equivariant. Concretely: for $g\in\Sp_4(\Z)$, let
-$g^*$ act on $Z^{K3\times E}_{\mathrm{red}}$ by the induced Mukai-lattice
-isometry $\wedge^2(g)\in\SO^+(\Lambda^{3,2})$, and let $g^{\vee}$ act
-on $\Delta_5$ by the standard weight-$5$ character with multiplier
-$\nu_{\Delta_5}$ (Maass's explicit formula, Lorgat 2020 \S2). Then for
-all $z\in\HH_2$ and all $g\in\Sp_4(\Z)$,
-\[
-Z^{K3\times E}_{\mathrm{red}}(g\cdot z)
-\;=\; \nu_{\Delta_5}(g)^{-2}\,\det(cz+d)^{10}\,
-Z^{K3\times E}_{\mathrm{red}}(z),
-\]
-with $g = \bigl(\begin{smallmatrix}A & B\\ C & D\end{smallmatrix}\bigr)$
-in the standard block form.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
-The equivariance on the automorphic side is by definition
-($\Delta_5\in M_5(\Sp_4(\Z),\nu_{\Delta_5})$, so $\Delta_5(g\cdot z) =
-\nu_{\Delta_5}(g)\det(cz+d)^5\Delta_5(z)$; square to get the claim).
-The equivariance on the DT side is Oberdieck 2019 Theorem~1: the
-reduced DT zeta of $K3\times E$ is a Siegel paramodular form of
-weight $-10$ for $\Sp_4(\Z)$ with multiplier $\nu_{\Delta_5}^{-2}$,
-proven by holomorphic anomaly + Igusa cusp conjecture. The two
-agreements of characters imply the full identification is
-$\Sp_4(\Z)$-equivariant.
-
-KS wall-crossing is \emph{compatible} with this equivariance: the
-wall-crossing formula, applied in a $\Sp_4(\Z)$-translated stability
-chamber, gives the $\Sp_4(\Z)$-translate of the untranslated
-wall-crossing formula. Concretely: if $\sigma_0,\sigma_1$ are
-adjacent chambers and $g\in\Sp_4(\Z)$ acts by Mukai-isometry, then
-$(g\sigma_0, g\sigma_1)$ are adjacent and $\lambda(g\sigma_0\to
-g\sigma_1) = g^*\lambda(\sigma_0\to\sigma_1)$. This is a direct
-consequence of KS Theorem~5 and the functoriality of the
-wall-crossing formula under lattice isomorphisms.
-\end{proof}
-
-\paragraph{Payoff.}
-Theorem~\ref{thm:equivariance} lifts the power-series identification
-to a representation-theoretic identification: the space of
-$\Sp_4(\Z)$-covariants on either side is a single $1$-dimensional
-space, and the identification of the two covariants fixes the
-normalisation constant $C$ of Theorem~\ref{thm:composite-N1}
-(computed in Oberdieck--Pandharipande 2016; $C = 64$ in the
-normalisation where $\Delta_5(Z) = e^{2\pi i(\rho,z)}\prod\cdots$
-matches the $1/64$ prefactor of Lorgat~2020 Theorem~3).
-\end{heal}
-
-%======================================================================
-\section{The precise statement of Conjecture~1}
-\label{sec:conjecture-one-statement}
-%======================================================================
-
-We now write Conjecture~1 at publication-grade precision, synthesising
-the five heals above.
-
-\begin{conjecture}[Conjecture~1, publication-grade]
-\label{conj:conjecture-one-precise}
-Let $N, M \in \Z_{\ge 1}$ with $N \cdot M \le 8$ (Nikulin symplectic
-automorphism bound). Let $(S, L, g_N, h_M)$ be a lattice-polarised
-$K3$ surface with two commuting symplectic automorphisms, and let
-$(E, e_0)$ be an elliptic curve with $N$-torsion point. Let
+The Gritsenko--Clery diagonal-divisor catalogue is a different
+classification surface. Its eight weights are
 \[
-X_{N,M} \;=\; (S\times E)/\langle (g_N, \tau_{e_0}),\, (h_M, \mathrm{id}_E)\rangle,
+ (5,2,3,1,2,\tfrac12,\tfrac32,1).
 \]
-where $\tau_{e_0}$ is translation by $e_0$ on $E$; $X_{N,M}$ is a
-projective $\mathrm{CY}_3$. Let
-$\phi^{g_N, h_M}_{K3}(\tau, z) = \sum_{n,l} c_{N,M}(n,l)\,q^n\zeta^l$
-be the $(g_N, h_M)$-twisted twined elliptic genus of $K3$ (Mathieu
-moonshine; Eguchi--Ooguri--Tachikawa 2010).
+Only the common row $F_{1,1}=\Delta_5$ is identified without extra
+data. A row map from the eight diagonal-divisor forms to twisted-twined
+K3 elliptic genera must specify the pair $(g,h)$, the input Jacobi
+form, its constant term, and the paramodular group. The equality
+$\kBKM=c(0)/2$ then applies row by row after those data are supplied.
 
-\emph{(i) Automorphic construction.} The Borcherds multiplicative
-lift of $\phi^{g_N, h_M}_{K3}$ along the Humbert-sublattice embedding
-$\Lambda^{2,1}_{II}\hookrightarrow\Lambda^{3,2}_{N,M}$ (with
-$\Lambda^{3,2}_{N,M}$ the appropriate even lattice of signature
-$(3,2)$ encoding the $\Gamma_t(N)$-level structure, following
-Gritsenko--Nikulin) produces a Siegel paramodular form
+\section{Conjecture for Twisted-Twined Quotients}
+\label{sec:conjecture}
+
+\begin{conjecture}[Twisted-twined DT denominator]
+\label{conj:twisted-twined-dt}
+Let $S$ be a projective K3 surface with commuting finite symplectic
+automorphisms $g$ and $h$, and let $E$ be an elliptic curve with the
+corresponding translation data. Suppose the quotient
 \[
-\widehat\Delta_{k_{N,M}} \;\in\; M_{k_{N,M}}(\Gamma_t(N),\nu_{N,M}),
-\qquad k_{N,M} \;=\; \tfrac12\, c_{N,M}(0),
+ X_{g,h}=(S\times E)/\langle g\times\tau,\ h\times\mathrm{id}_E\rangle
 \]
-of weight $k_{N,M}$ with multiplier $\nu_{N,M}$; $t = t(N,M)$ is the
-paramodular index.
-
-\emph{(ii) GKM algebra.} The paramodular form
-$\widehat\Delta_{k_{N,M}}$ is the Weyl--Kac--Borcherds denominator of a
-generalised Borcherds--Kac--Moody superalgebra $\fg_{(N,M)}$:
+is a smooth Calabi--Yau threefold or admits a crepant reduced-DT theory.
+Let $\phi_{g,h}^{K3}(\tau,z)=\sum c_{g,h}(n,l)q^n\zeta^l$ be the
+twisted-twined K3 elliptic genus, and suppose its Borcherds lift is a
+diagonal-divisor paramodular form $\Delta_{g,h}$ of weight
+$c_{g,h}(0)/2$. Then the reduced DT zeta is expected to satisfy
 \[
-\widehat\Delta_{k_{N,M}}(z)
-\;=\; e^{-2\pi i(\rho_{(N,M)}, z)}
-\prod_{\alpha \in \Delta^+_{(N,M)}}
-\bigl(1 - e^{-2\pi i(\alpha, z)}\bigr)^{\mathrm{mult}(\alpha)}
-\;=\; \sum_{w} \sgn(w)\bigl(e^{-2\pi i(w\rho, z)}
-- \sum_a m_{(N,M)}(a)\, e^{-2\pi i(w(\rho+a), z)}\bigr),
+ Z^{X_{g,h}}_{\mathrm{red}}(q,t,p)
+ = C_{g,h}\Delta_{g,h}(q,t,p)^{-2},
 \]
-with root-multiplicities
-$\mathrm{mult}(\alpha) = c_{N,M}(\text{suitable Fourier input})$, and
-the Weyl group $W_{(N,M)}$ the appropriate reflection subgroup of
-$O(\Lambda^{2,1}_{II,(N,M)})^+$.
-
-\emph{(iii) DT identification.} The reduced motivic DT zeta
-$Z^{X_{N,M}}_{L, g_N, h_M}(q,t,p)$, defined by the Behrend-weighted
-virtual integration over $\Hilb^n(X_{N,M}, \beta_h^{N,M})/E$ with
-$\beta_h^{N,M}$ the $(g_N, h_M)$-twisted curve class, equals
-\[
-Z^{X_{N,M}}_{L, g_N, h_M}(q,t,p)
-\;=\; \frac{C_{N,M}}{\widehat\Delta_{k_{N,M}}(q, t, p)^2}
-\]
-for an explicit constant $C_{N,M}\in\Q$.
-
-\emph{(iv) KS wall-crossing compatibility.} The identification of (iii)
-is compatible with KS wall-crossing in
-$\Stab(D^b(X_{N,M}))$: for every wall $W\in\Stab(D^b(X_{N,M}))$ with
-adjacent chambers $\sigma_0, \sigma_1$, the wall-crossing gauge
-$\lambda_{X_{N,M}}(W) \in \fg_\Gamma$ maps, under the lattice
-identification
-$\iota_{N,M}\colon\fg_\Gamma|_{\beta_h^{N,M}}\xrightarrow{\sim}\fg_{(N,M)}$,
-to the log-derivative of the Borcherds product at~$W$.
+and the positive-half Hall algebra attached to the same reduced theory
+has root multiplicities governed by the Fourier coefficients of
+$\phi_{g,h}^{K3}$.
 \end{conjecture}
 
-\begin{remark}[Status of each part]
-\begin{itemize}[leftmargin=1.1em]
-\item Part~(i) is a \emph{theorem} at $(N,M) = (1,1)$
-(Borcherds 1998 for the lift mechanism; Gritsenko 1999 for
-$\phi_{0,1}\mapsto\Delta_5$; Lorgat 2020 gives the
-$W^{(2)}(\Lambda^{2,1}_{II})$-reflection-group explicit derivation).
-Part~(i) at $(N, M)\ne (1,1)$: \emph{conjectural}, with partial
-results known for $N\in\{2,3,4,6\}$, $M = 1$ from
-David--Jatkar--Sen 2006 and Sen 2010.
-\item Part~(ii) at $(N,M) = (1,1)$ is a \emph{theorem}
-(Gritsenko--Nikulin 1995, Theorems~0.1 and~4.6; Lorgat 2020 Theorem~3).
-Part~(ii) at other $(N,M)$: \emph{conjectural}, tied to part (i).
-\item Part~(iii) at $(N,M) = (1,1)$: \emph{theorem}
-(Oberdieck--Pandharipande 2016; Oberdieck--Pixton 2018).
-Part~(iii) at $(N,M)\ne(1,1)$: known for $N\in\{2,3,4,6\}$, $M=1$ on
-CHL orbifolds (Bryan--Oberdieck 2019); general $(N,M)$
-\emph{conjectural}.
-\item Part~(iv) at $(N,M) = (1,1)$: \emph{theorem}
-(Proposition~\ref{prop:gauge-humbert} combined with the
-KS wall-crossing formula of
-\texttt{wave12\_a10\_wall\_crossing\_soibelman.tex}, Theorem~1).
-Part~(iv) at other $(N,M)$: \emph{conjectural}.
-\end{itemize}
-\end{remark}
+At $(g,h)=(1,1)$ this is Theorem~\ref{thm:primitive-k3e-dt}. For the
+other rows, the missing input is not a value of the weight formula but
+the construction of the reduced DT theory, the row map, and the
+Hall--Borcherds positive half.
 
-%======================================================================
-\section{The Humbert stratification of $\HH_2$ and DT chambers}
-\label{sec:humbert-chambers}
-%======================================================================
+\section{Equivariance}
+\label{sec:equivariance}
 
-\begin{proposition}[Humbert divisors as DT wall loci]
-\label{prop:humbert-wall}
-Let $X = K3\times E$. The Humbert divisors
-$\{H_N\subset\HH_2 : N\in\Z_{>0}\}$ (loci of abelian surfaces with
-complex multiplication by the order $\Z + N\cdot\Z[i]$, or more
-generally the locus of $(1, N)$-polarised abelian surfaces inside the
-$(1,1)$-polarised moduli) correspond, under the identification of
-Theorem~\ref{thm:composite-N1}, to the \emph{walls in
-$\Stab(D^b(K3\times E))$ where DT invariants jump} by the KS
-wall-crossing formula.
+\begin{proposition}[$\Sp_4(\Z)$ transformation law at $(1,1)$]
+\label{prop:sp4-equivariance}
+Let $G=\begin{psmallmatrix}A&B\\ C&D\end{psmallmatrix}\in\Sp_4(\Z)$.
+If
+\[
+ \Delta_5(G\cdot Z)=\nu_{\Delta_5}(G)\det(CZ+D)^5\Delta_5(Z),
+\]
+then the reduced DT scalar in Theorem~\ref{thm:primitive-k3e-dt}
+transforms as
+\[
+ Z^X_{\mathrm{red}}(G\cdot Z)
+ =\nu_{\Delta_5}(G)^{-2}\det(CZ+D)^{-10}
+ Z^X_{\mathrm{red}}(Z).
+\]
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-At each Humbert divisor $H_N$, the abelian surface $A\to H_N$ splits
-as an isogeny $A \to E_1\times E_2$ with $E_1$ and $E_2$ having a
-specific torsion structure. The corresponding splitting lifts to the
-Mukai lattice $\Gamma_{K3\times E}$: the charges $\gamma$ with
-$Z(\gamma)\in H_N$ form a sublattice $\Gamma_{H_N}$ on which the
-Mukai Euler form becomes \emph{degenerate}. DT semistability at
-$H_N$ is ill-defined (the central charge $Z$ has vanishing imaginary
-part on $\Gamma_{H_N}$), and crossing $H_N$ produces a jump in
-$\Omega(\gamma;\sigma)$ determined by the KS formula.
-
-On the automorphic side, the Humbert divisor $H_N$ is the vanishing
-locus of a specific sign of the Borcherds product~(B):
-the $N$-th piece of the product
-$\prod_{n,l,m}(1-e^{2\pi i(nz_1+lz_2+mz_3)})^{f(nm,l)}$ has a factor
-localised at $H_N$ via the $l$-projection, and crossing $H_N$ changes
-the sign of this factor (since $l$ changes sign from one side of
-$H_N$ to the other). The KS wall-crossing on the DT side matches the
-sign-flip on the Borcherds side by Theorem~\ref{thm:equivariance}.
+\begin{proof}
+This is immediate from $Z^X_{\mathrm{red}}=C_{\mathrm{OP}}\Delta_5^{-2}$.
+The sign and exponent are forced by inversion and squaring.
 \end{proof}
 
-\begin{corollary}[DT chamber lattice $=$ Borcherds Humbert stratification]
-\label{cor:chamber-humbert}
-The chamber lattice of $\Stab(D^b(K3\times E))$, restricted to
-curve-class DT charges, is canonically isomorphic to the
-Humbert-divisor stratification of $\HH_2$ by the reflection subgroup
-$W^{(2)}(\Lambda^{2,1}_{II})$. Under this isomorphism, KS
-wall-crossing between adjacent chambers corresponds to Weyl-group
-reflection across the corresponding Humbert divisor.
-\end{corollary}
+\section{The Four Scalars on $K3\times E$}
+\label{sec:four-scalars}
 
-\paragraph{Soibelman-voice reading.}
-The GKM denominator identity of $\fg_{\Delta_5}$ (Lorgat 2020
-Theorem~3) is \emph{the Macdonald identity of the DT chamber lattice}:
-the alternating sum over $W^{(2)}(\Lambda^{2,1}_{II})$ is the
-alternating sum over Weyl reflections across Humbert divisors, and
-each reflection is a KS wall-crossing. The infinite product of
-Theorem~\ref{thm:composite-N1}~(B) is the partition function in a
-\emph{fixed chamber} (the ``large-volume'' Gieseker-stability chamber,
-say); re-ordering this product by Weyl group action gives the
-Macdonald sum of~(M). The GKM algebra $\fg_{\Delta_5}$ is the
-Lie-algebraic object that encodes this Weyl-equivariant structure on
-the DT moduli.
-
-%======================================================================
-\section{The four $\kappa_\bullet$ spectrum and Conjecture~1}
-\label{sec:four-face}
-%======================================================================
-
-The CLAUDE.md-registered spectrum for $K3\times E$ is
-$\{\kch, \kcat, \kBKM, \kfib\} = \{3, 0, 5, 24\}$ with four distinct
-constructions. In the language of this note:
-
-\begin{itemize}[leftmargin=1.1em]
-\item $\kch(K3\times E) = 3 = \sum_q(-1)^q h^{0,q}(K3\times E) =
-\chi_{\mathrm{top,\,supertrace}}$. This is the $\Eone$-chiral Euler
-supertrace of the stage-2 specialisation
-$\Sp_{K3,E}\bigl(\Phi^{\mathrm{FA}}_3(K3\times E)\bigr)$.
-\item $\kcat(K3\times E) = 0 = \chi(\cO_{K3\times E})$ by
-K\"unneth-multiplicativity:
-$\chi(\cO_{K3})\cdot\chi(\cO_E) = 2\cdot 0 = 0$.
-\item $\kBKM(K3\times E) = 5 = c_1(0)/2$ with $c_1(0) = 10$ the
-constant Fourier coefficient of $\phi_{0,1}$; this is the weight of
-$\Delta_5$.
-\item $\kfib(K3\times E) = 24 = \chi_{\mathrm{top}}(K3)$; this is the
-rank of the $K3$ fibre cohomology and is the exponent in the
-Dedekind-$\eta$ factor of the Borcherds lift
-($\eta^{24} = \Delta_{12}$ modular discriminant; cf.\
-Gritsenko 2000 eq.~1.2).
-\end{itemize}
-
-Each of $\{\kch, \kcat, \kBKM, \kfib\}$ is a \emph{different
-observable}. In the language of Conjecture~1:
-\begin{itemize}[leftmargin=1.1em]
-\item $\kch$ is the Euler characteristic of the $E_1$-shadow; it is
-an invariant of Stage~2.
-\item $\kcat$ is the Euler characteristic of the CY$_3$ total space; it
-is an invariant of Stage~1 (the $\Ethree$-hFA on $K3\times E$).
-\item $\kBKM$ is the weight of the Borcherds-lifted paramodular form;
-it is an invariant of the specific Humbert-sublattice embedding
-$\Lambda^{2,1}_{II}\hookrightarrow\Lambda^{3,2}$.
-\item $\kfib$ is the rank of the $K3$-fibre cohomology; it is an
-invariant of the fibre projection $\pi\colon K3\times E\to E$.
-\end{itemize}
-
-The four are related by the \emph{Gritsenko identity} (Gritsenko 2000,
-Lemma 1.1):
 \[
-\text{wt}(\widehat\Delta_{k_N}) = \tfrac12 c_N(0),
-\qquad
-c_N(0) = \text{constant Fourier coeff. of }\phi^{g_N}_{K3}\text{, an index-1 weak Jacobi form,}
+\begin{array}{c|c|l}
+\text{invariant} & \text{value} & \text{source}\\
+\hline
+\kcat(K3\times E) & 0 &
+\chi(\cO_{K3})\chi(\cO_E)=2\cdot 0\\
+\kch^{\mathrm{Heis}}(K3\times E) & 3 &
+\text{Heisenberg--Mukai specialisation}\\
+\kBKM(\fg_{\Delta_5}) & 5 &
+c_1(0)/2=10/2=\mathrm{wt}(\Delta_5)\\
+\kfib(K3) & 24 &
+\mathrm{rank}\,H^\ast(K3,\Z)
+\end{array}
 \]
-and the constancy of $\phi^{g_N}_{K3}$ at $z = 0$ is determined by the
-K3-fibre automorphism fixed-point data, not by the CY$_3$ Euler
-characteristic.
 
-%======================================================================
-\section{Cache append: new anti-patterns}
-\label{sec:cache}
-%======================================================================
+The raw compact Hodge supertrace on $K3\times E$ is zero:
+\[
+ \sum_q(-1)^qh^{0,q}(K3\times E)=1-1+1-1=0.
+\]
+The value $3$ is the Heisenberg--Mukai specialised chiral scalar, and
+the value $2$ is the separate fibre datum
+$\kcat(K3)=\chi(\cO_{K3})$. The additive formula
+$\kBKM=\kch+\chi(\cO_{\mathrm{fiber}})$ is not valid; the Borcherds
+weight is $c(0)/2$ in the chosen automorphic input.
 
-Append to \texttt{notes/antipatterns\_catalogue.md}.
+\section{Proof Obligations}
+\label{sec:proof-obligations}
 
-\begin{itemize}[leftmargin=1.2em]
-
-\item \textbf{AP-CY-DTW1 -- Unreduced DT zeta (Critical).}
-\emph{Symptom}: writing ``$Z^{K3\times E} = C/\Delta_5^2$'' without
-naming the $E$-reduction. \emph{Correction}: the unreduced DT zeta
-vanishes; the identity is for the $E$-reduced zeta
-$Z^{K3\times E}_{\mathrm{red}}$ (Oberdieck--Pandharipande 2016 \S1.2).
-
-\item \textbf{AP-CY-DTW2 -- Macdonald sum vs Borcherds product
-conflation (High).} \emph{Symptom}: treating the Macdonald alternating
-sum $\sum_w\sgn(w)(\cdots)$ and the Borcherds infinite product
-$\prod_\alpha(1-e^{-\alpha})^{\mathrm{mult}}$ as a single
-identification with DT wall-crossing. \emph{Correction}: DT
-wall-crossing corresponds directly to the Borcherds product (re-ordering
-factors); Macdonald sum $=$ Borcherds product is the subsequent GKM
-character-formula fact. Use the two-step identification of
-Theorem~\ref{thm:composite-N1}.
-
-\item \textbf{AP-CY-DTW3 -- Bi-parameter Conjecture~1 (Medium).}
-\emph{Symptom}: writing ``Conjecture~1'' with a single parameter
-$N\in\{1,2,3,4,6\}$ matching five of eight Gritsenko--Cl\'ery forms.
-\emph{Correction}: Conjecture~1 is genuinely bi-parameter $(N,M)$ with
-$N\cdot M\le 8$; the remaining three forms require $M\ge 2$ (Mathieu
-bi-twisted elliptic genera). See
-Conjecture~\ref{conj:one-bi-parameter}.
-
-\item \textbf{AP-CY-DTW4 -- $N=5$ anomaly misread as falsification
-(Medium).} \emph{Symptom}: the absence of $\Phi_5$ in the list of
-Borcherds-universal paramodular forms interpreted as a
-Conjecture~1 failure. \emph{Correction}: $N=5$ is not in the
-Gritsenko--Cl\'ery diagonal-divisor list; the $N=5$ paramodular form
-exists but is a linear combination (Oberdieck 2018), not a diagonal
-divisor. Conjecture~1 is about diagonal-divisor forms.
-
-\item \textbf{AP-CY-DTW5 -- Humbert divisor vs stability wall
-conflation (High).} \emph{Symptom}: calling the Humbert divisor
-$H_N\subset\HH_2$ a ``DT chamber''. \emph{Correction}: $H_N$ is the
-\emph{wall} between chambers; the open chamber is a connected
-component of $\HH_2\setminus\bigcup_N H_N$. Weyl-group reflections
-cross walls; they do not fix chambers (except by the trivial element).
-
-\end{itemize}
-
-%======================================================================
-\section{Summary}
-\label{sec:summary}
-%======================================================================
-
-Five adversarial attacks on the DT side of Conjecture~1 identified
-five specific gaps:
-\begin{enumerate}[leftmargin=1.2em]
-\item The $Z^X = C/\Delta_5^2$ identity is for reduced DT, not full DT
-(\textbf{Attack~1, Heal~\ref{heal:reduced}}).
-\item The Macdonald alternating sum and the Borcherds infinite product
-are two different summation rules for the same function; DT
-wall-crossing corresponds to the product, not the sum
-(\textbf{Attack~2, Heal~\ref{heal:two-step}}).
-\item The wall-crossing gauge $\lambda_{K3\times E}(W_N)$ is an
-explicit sum indexed by Humbert divisors
-(\textbf{Attack~3, Heal~\ref{heal:gauge-explicit}};
-Proposition~\ref{prop:gauge-humbert}).
-\item Conjecture~1 is genuinely bi-parameter $(N,M)$; the
-one-parameter reading covers only five of eight Gritsenko--Cl\'ery
-forms (\textbf{Attack~4, Heal~\ref{heal:bi-parameter}};
-Conjecture~\ref{conj:one-bi-parameter}).
-\item KS wall-crossing is $\Sp_4(\Z)$-equivariant under Mukai-lattice
-isometries, matching the automorphic-side $\Sp_4(\Z)$-action
-(\textbf{Attack~5, Heal~\ref{heal:equivariance}};
-Theorem~\ref{thm:equivariance}).
+\begin{enumerate}
+\item Construct the global Bridgeland wall stratification on
+$D^b(K3\times E)$ and prove its comparison with the Humbert stratification
+of $\mathbb{H}_2$ beyond the primitive chamber.
+\item Construct the compact $K3\times E$ Hall positive half, its Hopf
+pairing, and its Hall--Drinfeld double. The Mukai self-mirror Yangian
+is related evidence, not this object.
+\item Extend the DT/Borcherds coefficient comparison from primitive K3
+classes to imprimitive classes with the multiple-cover corrections
+included.
+\item Give the row map from the Gritsenko--Clery eight forms to
+twisted-twined K3 elliptic genera before applying
+$\kBKM=c(0)/2$ outside the common $\Delta_5$ row.
 \end{enumerate}
-
-The publication-grade Conjecture~1 is
-Conjecture~\ref{conj:conjecture-one-precise}: four-part statement
-with automorphic, GKM, DT, and wall-crossing components, each
-independently stated with explicit status per $(N,M)$.
-
-The Humbert-stratification reading
-(Proposition~\ref{prop:humbert-wall},
-Corollary~\ref{cor:chamber-humbert}) gives the structural picture:
-$\Stab(D^b(K3\times E))$ chamber lattice $=$ Humbert-divisor
-stratification of $\HH_2$ $=$ Weyl-group-orbit structure of
-$W^{(2)}(\Lambda^{2,1}_{II})$. KS wall-crossing between chambers
-equals Weyl-group reflection across Humbert divisors equals
-sign-flip in the Borcherds product.
-
-Five new AP-CY-DTW entries appended to the anti-pattern catalogue.
-
-The four-face spectrum $\{\kch, \kcat, \kBKM, \kfib\} = \{3, 0, 5, 24\}$
-for $K3\times E$ is preserved, with each face identified with a
-specific geometric/automorphic/Lie-algebraic construction:
-Hodge supertrace / K\"unneth Euler / Borcherds weight / fibre rank.
-
-The Soibelman-voice synthesis: Conjecture~1 is the statement that,
-for each $(N,M)$ with $N\cdot M\le 8$, the DT partition function of
-$(S\times E)/(\Z/N\Z\times\Z/M\Z)$ is a Borcherds paramodular form;
-the GKM superalgebra $\fg_{(N,M)}$ is the Lie-algebraic organising
-principle; and the Weyl-group structure of
-$\fg_{(N,M)}$ is the chamber structure of $\Stab$ under KS
-wall-crossing. At $(1,1)$ it is a theorem; the general case is the
-frontier.
 
 \end{document}

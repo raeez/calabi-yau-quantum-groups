@@ -2,128 +2,300 @@
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\ClaimStatusTheorem}{{\bfseries\sffamily[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{{\bfseries\sffamily[Conjectured]}}
-\providecommand{\ClaimStatusHeuristic}{{\bfseries\sffamily[Heuristic]}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\Sp}{\mathbf{Sp}}
 \providecommand{\OO}{\mathbf{O}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\DT}{\mathrm{DT}}
+\providecommand{\GW}{\mathrm{GW}}
+\providecommand{\MNOP}{\mathrm{MNOP}}
 \providecommand{\Winf}{\mathcal{W}_{1+\infty}}
+\providecommand{\cI}{\mathcal{I}}
 \providecommand{\cO}{\mathcal{O}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
 
-\section*{Wave~13 H1/20 --- Slides' CoHA / $\Winf$ / Yangian linkage audit (last 100 lines)}
-\label{sec:wave13-h1-slides-coha-link}
+\section*{Automorphic DT Data and Typed Chiral Boundaries}
+\label{sec:automorphic-dt-coha-boundary}
 
-\paragraph{Source pointers.} Slides pre-extracted text at
-\texttt{/tmp/automorphic-slides.txt} (953 lines), last segment lines
-853--953 ``Arithmetic Geometry of some CY3's''; cross-reference
-Lorgat~2020, \emph{A Borcherds lift of the weak Jacobi form $\phi_{0,1}$,
-generalized Borcherds-Kac-Moody superalgebras and the Igusa cusp form
-$\Delta_5$} (April~2, 2020).
+\paragraph{Reduced DT scalar.}
+Let
+\[
+ X_N=(S\times E)/(\Z/N\Z),
+\]
+where the generator acts on \(S\) by a symplectic automorphism of order
+\(N\) and on \(E\) by translation by an \(N\)-torsion point.  For an
+elliptically fibred K3 surface with \(N\)-torsion sections, write
+\[
+ \beta_h=\frac{1}{N}(s_1+\cdots+s_N+hF).
+\]
+The reduced enumerative series is the Behrend-weighted Hilbert-scheme
+integral
+\[
+ Z^X(q,t,p)
+ =\sum_{h,d,n}\DT^X_{n,(\beta_h,d)}\,
+ q^{d-1}t^{\frac12\langle\beta_h,\beta_h\rangle}(-p)^n,
+\qquad
+ \DT^X_{n,(\beta_h,d)}
+ =\int_{\mathrm{Hilb}^n(X,\beta_h)/E}\nu\,de .
+\]
+This branch ends in scalar reduced \(\DT\) invariants.  A Hall product
+requires extension correspondences, orientation data for vanishing cycles,
+and a completion compatible with Harder-Narasimhan filtrations.  A vertex
+algebra requires a vacuum, translation, locality, and state-field
+correspondence.  These structures are extra data beyond the scalar
+integration above.
 
-\paragraph{What the last 100 slide lines actually contain.}
-\begin{itemize}\itemsep2pt
-  \item Line~857--866: the K3$\times E$ quotient construction
-    $X = (S\times E)/(\mathbb{Z}/N\mathbb{Z})$ with symplectic K3 automorphism
-    $g_N$ and elliptic torsion $e_0$; $N,M\leq 8$ by Nikulin.
-  \item Line~867--882: elliptically fibered K3 with N-torsion sections
-    $s_1,\ldots,s_N$; curve class $\beta_h = \tfrac{1}{N}(s_1+\cdots+s_N+hF)$.
-  \item Line~884--909: the \textbf{zeta function}
-    $Z^X(q,t,p) = \sum_{h,d,n} \DT^X_{n,(\beta_h,d)}\, q^{d-1}\, t^{\tfrac12\langle\beta_h,\beta_h\rangle}(-p)^n$
-    with $\DT^X_{n,(\beta_h,d)} = \int_{\mathrm{Hilb}^n(X,\beta_h)/E} \nu\,de
-    = \sum_{k\in\mathbb{Z}} k\cdot e(\nu^{-1}(k))$ (Behrend-weighted Euler char).
-  \item Line~910--919 (Theorem): for $N=1$, $Z^{S\times E} = -C/(\Delta_5)^2$,
-    and elliptic genus of K3 is $2\phi_{0,1}$.
-  \item Line~920--936 (Conjecture~1): all 8 Gritsenko-Cl\'ery forms arise as
-    $(-Z^X_{L,h_M})^{-1/2}$, and each is the denominator function of a GBKM
-    superalgebra with root multiplicities given by a $(g_N,h_M)$-twisted
-    twined K3 elliptic genus.
-  \item Line~938--952: explicit structure functions $A=\tfrac14\phi_{0,1}$,
-    $B=\phi_{-2,1}=\nu_1^2/\eta^6$; cases $N\in\{1,2,3,4,5,6,7,8\}$ enumerated.
-\end{itemize}
+\paragraph{MNOP and the Igusa scalar.}
+The reduced \(\GW/\DT\) comparison is the scalar \(\MNOP\) branch:
+\[
+ \GW^{\mathrm{red}}_{g,\beta,d}(K3\times E)
+ \;\longleftrightarrow\;
+ \DT^{\mathrm{red}}_{n,\beta,d}(K3\times E)
+\]
+after the reduced obstruction theory, the quotient by the \(E\)-action,
+and the usual partition-function change of variables.  In the
+Oberdieck-Pixton and Oberdieck-Pandharipande normalization,
+\[
+ Z^{K3\times E}_{\mathrm{OP/DT}}
+ =-D_5^{-2}
+ =-4096\,\Delta_5^{-2},
+\qquad
+ D_5=64^{-1}\Delta_5 .
+\]
+The factor \(64\) is the theta-leading-coefficient conversion from the
+monic Borcherds product to the Igusa square-root normalization.
 
-\paragraph{Explicit search outcome (line-by-line grep).}
-The tokens \textbf{``CoHA'', ``Hall algebra'', ``Yangian'', ``vertex algebra'',
-``$\Winf$'', ``W-algebra'', ``BPS Lie algebra'', ``quiver'', ``instanton'',
-``stable envelope'', ``Maulik-Okounkov'', ``Schiffmann-Vasserot'',
-``Nakajima'', ``Kontsevich-Soibelman''} do \emph{not} appear anywhere in
-the 953 slide lines. Confirmed by exhaustive grep.
-\ClaimStatusTheorem{} (verification is a finite textual search.)
+\paragraph{Borcherds and Igusa denominator data.}
+Use the Eichler-Zagier normalization
+\[
+ \phi_{0,1}^{K3}(\tau,z)=r^{-1}+10+r+O(q).
+\]
+Its discriminant-zero constant is
+\[
+ c_1(0)=[q^0r^0]\phi_{0,1}^{K3}=10 .
+\]
+Borcherds' singular theta lift and the Gritsenko-Nikulin denominator give
+\[
+ \phi_{0,1}^{K3}
+ \xrightarrow{\operatorname{Bor}}
+ \Delta_5,\qquad
+ \kBKM(\Delta_5)=\mathrm{wt}(\Delta_5)=\frac{c_1(0)}{2}=5 .
+\]
+The Igusa square convention is
+\[
+ \Phi_{10}=\Delta_5^2 .
+\]
+The primitive CHL denominator row is
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\ \hline
+c_N(0)&10&8&6&4&2\\
+\kBKM(\Phi_N)=c_N(0)/2&5&4&3&2&1
+\end{array}
+\]
+with the level-one entry \(\Phi_1=\Delta_5\).  The row is a Borcherds
+weight statement.  A sum relation with a chiral invariant or a fibre
+Euler characteristic would require a natural transformation between
+different constructions; the displayed maps supply none.
 
-\paragraph{What the slides \emph{do} contain on the enumerative side.}
-\ClaimStatusTheorem{}
-The zeta function $Z^X$ (slide line~891) is genuine Donaldson-Thomas theory:
-Hilbert scheme of 1-dimensional subschemes, Behrend constructible function
-$\nu$, reduced by the $E$-action. In the paper (Conjecture~1, p.~2), the
-framework is stated as ``reduced numerical Donaldson-Thomas theory''.
-References in the paper's bibliography name this channel explicitly:
-\textbf{[2] Thomas}, \emph{A holomorphic Casson invariant for Calabi-Yau
-3-folds, and bundles on K3 fibrations} (arXiv~1998; Casson=DT); and
-\textbf{[3] Oberdieck-Pixton}, \emph{Holomorphic anomaly equations and the
-Igusa cusp form conjecture} (arXiv~2018), which is the decisive K3$\times E$
-$\leftrightarrow \Delta_5^{-2}$ identification.
+\paragraph{\texorpdfstring{$K3\times E$}{K3 x E} numerical layers.}
+For \(X=K3\times E\), K\"unneth gives
+\[
+ \kcat(X)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0.
+\]
+The compact Hodge column is \(h^{0,\bullet}(X)=(1,1,1,1)\), hence
+\[
+ \kch(A_X)=\sum_{q=0}^{3}(-1)^qh^{0,q}(X)=1-1+1-1=0.
+\]
+The Heisenberg-Mukai specialization and the Borcherds denominator read
+\[
+ \kHeis(X)=2+1=3,\qquad
+ \kBKM(\Delta_5)=5,\qquad
+ \kfib(X)=\operatorname{rk}\widetilde H(K3,\Z)=24 .
+\]
+Thus
+\[
+ \{\kcat(X),\kch(A_X),\kHeis(X),
+   \kBKM(\Delta_5),\kfib(X)\}
+ =
+ \{0,0,3,5,24\},
+\]
+with the two zeroes distinguished by construction.  The K3 fibre value
+\(\chi(\cO_{K3})=2\) belongs to the fibre computation; the compact
+total-space rows have value zero.
 
-\paragraph{Linkage verdict: the slides touch the BPS-moduli side but
-do \emph{not} cross to CoHA / Yangian / chiral.}
-\ClaimStatusTheorem{} The slide content (and the 2020 paper body) lives
-entirely on:
-\begin{enumerate}\itemsep1pt
-  \item the Borcherds-lift automorphic-geometry side (lattice $\Lambda^{3,2}$,
-    reflection groups $W^{(2)}(\Lambda^{2,1}_{I,II})$, Weyl vector $\rho$,
-    Weyl-Kac-Borcherds denominator, GBKM Lie-superalgebra $\mathfrak{g}_{\Delta_5}$);
-  \item the enumerative-DT side (reduced DT invariants of K3$\times E$ via
-    Hilbert schemes, Behrend weighting, Oberdieck-Pixton identification with
-    $\Delta_5^{-2}$).
+\paragraph{Class-\texorpdfstring{$\cS$}{S} Schur corner.}
+The relevant four-dimensional parent is
+\[
+ \cT_{24}:=\cT[A_1,\Sigma_{0,24}],
+\]
+where \(\Sigma_{0,24}\) is a sphere with twenty-four maximal regular
+\(\mathfrak{su}(2)\)-punctures.  A pants decomposition has \(22\)
+trinions and \(21\) gauged \(SU(2)\) tubes, so
+\[
+ (n_v,n_h)=(63,88),\qquad
+ c_{4d}=\frac{2n_v+n_h}{12}=\frac{107}{6},\qquad
+ c_{2d}=-12c_{4d}=-214 .
+\]
+The closed genus-two curve gives the separate datum
+\[
+ \Sigma_{2,0}:\qquad (n_v,n_h)=(9,8),\qquad c_{4d}=\frac{13}{6}.
+\]
+The Schur-to-Igusa comparison has the typed form
+\[
+ \chi(\cT_{24})
+ \longrightarrow
+ \cI_{\mathrm{Schur}}(\cT_{24})
+ \xrightarrow{\Pi_{M_{24}}}
+ \phi_{0,1}^{K3}
+ \xrightarrow{\operatorname{Bor}}
+ \Delta_5
+ \rightsquigarrow
+ \fg_{\Delta_5}.
+\]
+Here \(\Pi_{M_{24}}\) denotes the \(M_{24}\)-equivariant projection after
+marking the twenty-four punctures by the K3 fibre labels.  The first
+arrow is the Beem-Lemos-Liendo-Peelaers-Rastelli-van Rees Schur functor
+from a four-dimensional \(\mathcal N=2\) theory to its vertex algebra and
+protected character.  The final arrow is the Borcherds denominator
+recognition of the generalized Borcherds-Kac-Moody superalgebra.  A
+VOA-level isomorphism between \(\chi(\cT_{24})\) and a denominator
+algebra requires an explicit BRST or centre reduction, matching fields,
+OPEs, and stress tensor.
+
+\paragraph{Local Hall half and evaluation layer.}
+For the one-vertex three-loop quiver with potential
+\[
+ W=\operatorname{tr}(X[Y,Z]),
+\]
+the critical algebra has Jacobi algebra
+\[
+ \C\langle X,Y,Z\rangle/([X,Y],[Y,Z],[Z,X])\cong\C[X,Y,Z].
+\]
+Over the Calabi-Yau equivariant torus
+\[
+ \epsilon_1+\epsilon_2+\epsilon_3=0,
+\]
+Schiffmann-Vasserot identify the toric critical CoHA with the positive
+half of the affine Yangian:
+\[
+ \CoHA_{T^{\mathrm{CY}}}(\C^3)\cong Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The vertex-algebra layer is reached through the completed double and an
+evaluation representation:
+\[
+ Y^+(\widehat{\mathfrak{gl}}_1)
+ \hookrightarrow
+ D_{\mathrm{Drin}}\bigl(Y^+(\widehat{\mathfrak{gl}}_1)\bigr)
+ =Y(\widehat{\mathfrak{gl}}_1)
+ \xrightarrow{\mathrm{ev}_\lambda}
+\operatorname{End}\bigl(\Winf[\lambda]\text{-}\mathrm{vac}\bigr).
+\]
+Equivalently, after the Hall pairing and completion, the centre layer is
+\[
+ Z\bigl(\mathrm{Rep}^{E_1}(Y^+(\widehat{\mathfrak{gl}}_1))\bigr)
+ \simeq
+ \mathrm{Rep}^{E_2}\bigl(Y(\widehat{\mathfrak{gl}}_1)\bigr).
+\]
+The positive Hall half supplies the creation current sector.  The
+negative half, Cartan currents, completion, central character, vacuum
+module, and state-field correspondence supply the full
+\(\Winf[\lambda]\) environment.
+
+\paragraph{\texorpdfstring{$\Phi_d$}{Phi-d} output level.}
+The CY-to-chiral construction is parameterized by a specialization datum:
+\[
+ \Phi_d^{(\Sigma_{d-1},C)}
+ =
+ \Sp_{\Sigma_{d-1},C}\circ\Phi_d^{\mathrm{FA}}.
+\]
+The native operadic level is
+\[
+ n_{\mathrm{native}}(d)=
+ \begin{cases}
+ \infty,& d=1,\\
+ 2,& d=2,\\
+ 1,& d\geq3.
+ \end{cases}
+\]
+For \(d\geq3\), the output \(A_X=\Phi_d^{(\Sigma_{d-1},C)}(X)\) is
+\(E_1\)-chiral.  Braiding appears on named centre, double, or module
+layers such as
+\[
+ Z^{\mathrm{der}}_{\mathrm{ch}}(A_X),\qquad
+ D(\CoHA),\qquad
+ Z(\mathrm{Rep}^{E_1}(A_X)).
+\]
+
+\paragraph{Two branch sources.}
+The \(K3\times E\) Borcherds branch has source
+\[
+ \CoHA(K3\times E)^+
+ \longrightarrow
+ \mathrm{Prim}
+ \longrightarrow
+ \fg_{\Delta_5}
+ \longrightarrow
+ U_{\mathrm{ch}}(\fg_{\Delta_5}),
+\]
+after the compact positive Hall half, orientation data, primitive
+projection, radical quotient, PBW comparison, nondegenerate Hall pairing,
+and completion have been supplied.  The phrase K3 Yangian is reserved for
+the separate Mukai self-mirror branch governed by the rank-\(24\) Mukai
+current algebra and by stable-envelope/Yangian comparison data on the K3
+surface side.
+
+\paragraph{Typed register of branches.}
+\[
+\begin{array}{c|c|c}
+\text{branch} & \text{object} & \text{comparison map}\\ \hline
+\DT/\GW/\MNOP & Z^{K3\times E}_{\mathrm{red}} &
+Z_{\mathrm{red}}\mapsto -D_5^{-2}\\
+\text{Borcherds/Igusa} & \phi_{0,1}^{K3},\Delta_5,\Phi_{10} &
+\phi_{0,1}^{K3}\xrightarrow{\operatorname{Bor}}\Delta_5,\quad
+\Phi_{10}=\Delta_5^2\\
+\text{class-}\cS/\text{Schur/VOA} &
+\chi(\cT[A_1,\Sigma_{0,24}]) &
+\cI_{\mathrm{Schur}}\xrightarrow{\Pi_{M_{24}}}\phi_{0,1}^{K3}\\
+\text{local CoHA/Yangian} & \CoHA(\C^3) &
+\CoHA(\C^3)\xrightarrow{\mathrm{SV}}Y^+(\widehat{\mathfrak{gl}}_1)\\
+\text{vertex layer} & \Winf[\lambda] &
+Y(\widehat{\mathfrak{gl}}_1)\xrightarrow{\mathrm{ev}_\lambda}
+\operatorname{End}(\Winf[\lambda]\text{-}\mathrm{vac})\\
+\text{compact BKM/Hall} & \fg_{\Delta_5} &
+\CoHA(K3\times E)^+\to\mathrm{Prim}\to\fg_{\Delta_5}\\
+\text{Mukai-Yangian} & \widetilde H(K3,\Z) &
+\text{stable envelopes and Mukai current algebra}
+\end{array}
+\]
+Each row has its own source category, comparison map, and completion or
+orientation hypotheses.  The scalar DT row tests the automorphic product;
+the local CoHA row constructs a positive Hall half; the vertex row uses a
+double and evaluation; the compact BKM row requires Hall-Borcherds
+recognition; the class-\(\cS\) row is a Schur-character route through the
+\(M_{24}\)-projected K3 Jacobi form.
+
+\paragraph{Compact Hall-Borcherds recognition data.}
+The bridge from reduced \(K3\times E\) scalars to a compact Hall-Borcherds
+object requires the following mathematical inputs:
+\begin{enumerate}\itemsep2pt
+  \item an extension-closed compact Hall or critical-CoHA sector for the
+  reduced \(E\)-quotient;
+  \item oriented critical extension correspondences and vanishing-cycle
+  coefficient systems;
+  \item Harder-Narasimhan finite completions and protected integration
+  compatible with the completed Hall product and wall crossing;
+  \item a primitive projection with
+  \(\mathrm{sdim}\,\mathrm{Prim}_{(n,l,m)}=f(nm,l)\);
+  \item the Borcherds-Gritsenko-Nikulin bracket, radical quotient,
+  no-extra-relations check, and PBW comparison;
+  \item a nondegenerate Hall pairing producing the completed
+  Hall-Drinfeld double;
+  \item centre, completion, vacuum, and evaluation data before a
+  \(\Winf\)-type vertex algebra is asserted.
 \end{enumerate}
-The \textbf{cohomological-Hall-algebra / Yangian-of-$\mathfrak{gl}(1)$ /
-$\Winf$ / Schiffmann-Vasserot / Maulik-Okounkov} side is \emph{never}
-invoked. No quiver, no moduli-of-sheaves Hall product, no
-$\mathrm{CoHA}(\mathbb{C}^3) = Y^+$, no chiral algebra of Costello-Gaiotto
-type, no vertex operator whatsoever.
-
-\paragraph{Cross-reference: Lorgat~2020 paper (readable).}
-\ClaimStatusTheorem{} The paper's ten pages and reference list [1]--[12]
-cite Gritsenko-Cl\'ery, Thomas, Oberdieck-Pixton, Nikulin, Gritsenko-Nikulin,
-Borcherds, Freitag, van~der~Geer, Maass, Knapp, Kac, Eichler-Zagier. The
-paper is a \textbf{BKM-superalgebra + automorphic-form construction} anchored
-on the $\Delta_5$ side with a \textbf{DT-side conjecture} (Conj.~1) bridging
-to $Z^X$. It does not invoke cohomological Hall algebras, Yangians,
-$\Winf$, chiral algebras, vertex operator algebras, or stable envelopes.
-No $\CoHA$, no $Y(\widehat{\mathfrak{gl}(1)})$, no Nakajima quiver variety.
-
-\paragraph{Where the bridge \emph{could} be made (Vol~III frontier).}
-\ClaimStatusConjectured{}
-The Oberdieck-Pixton theorem $Z^{K3\times E} \propto 1/\Delta_5^2$ is
-precisely the point at which the slide/paper's DT zeta meets the Igusa
-form whose \emph{square root} $\Delta_5$ is the GBKM denominator of
-$\mathfrak{g}_{\Delta_5}$. The paper's Conjecture~1 frames this as a
-reciprocal-square-root relation without invoking a Hall-algebraic
-interpretation of DT. On the Vol~III side the parallel structure is
-Schiffmann-Vasserot's $\CoHA(K3)$ with Maulik-Okounkov stable envelopes
-delivering a K3 Yangian (see \texttt{chapters/theory/k3\_yangian.tex});
-the natural conjecture --- \emph{not stated in the slides or the 2020
-paper} --- is that the twisted-DT K3-fibre data of Conjecture~1 matches
-the twisted $\CoHA$ character of a $g_N$-equivariant K3 quotient, with
-$\mathfrak{g}_{\Delta_5}$ appearing as a BPS Lie subalgebra of the K3
-Yangian image of the CY-to-chiral functor $\Phi$.
-
-\paragraph{$\kBKM$ / $\kcat$ bookkeeping: slide-side data recovered.}
-\ClaimStatusTheorem{}
-Line~912--919 gives $Z^{S\times E} = -C/(\Delta_5)^2$. With $\kBKM(\Delta_5)
-= \mathrm{weight}(\Delta_5) = 5$ and $c_1(0) = 10$ (pentad constant
-term $f(0,0)=10$, paper p.~9), the universal identity
-$\kBKM(\Phi_N) = c_N(0)/2$ recovers $\kBKM(\Delta_5) = 5$.
-Slide line~919 ``elliptic genus of a K3 is $2\phi_{0,1}$'' plus Lorgat~2020
-Theorem~4 gives the universal $N=1$ datum used in
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-(\texttt{thm:borcherds-weight-kappa-BKM-universal}).
-$\kcat(K3\times E) = 0$ by K\"unneth-multiplicativity on the total space
-(\emph{not} $2$, which is the K3 fibre's $\chi(\cO_{K3})$).
-
-\paragraph{Bottom line.}
-The slides (through line~953) and the 2020 paper are
-\textbf{tangent but separate} from the CoHA / Yangian / $\Winf$ / chiral
-programme. They build the automorphic + GBKM + DT-zeta side of the
-K3$\times E$ story; the CoHA-side linkage is the \emph{Vol~III frontier
-insertion}, not a 2020 result.

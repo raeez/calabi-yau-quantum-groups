@@ -210,7 +210,7 @@ class TestBKMIdentity:
         1 + (1/64) * sum_{t >= 0} f(1 + 2t, 1) * q^t  =  prod_{k >= 1} (1 - q^k)^9
 
     is FALSE for phi_{0,1} Fourier coefficients.  The correct identity
-    involves Fourier-Jacobi coefficients of the Igusa cusp form Delta_5,
+    involves Fourier-Jacobi coefficients of the primitive Gritsenko-Nikulin denominator Delta_5,
     not those of phi_{0,1}.  See igusa_product_formula.py for the valid test.
 
     These tests document the FAILURE, confirming the identity is false.

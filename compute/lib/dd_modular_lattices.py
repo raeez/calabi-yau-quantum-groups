@@ -1,9 +1,9 @@
 """
-Diagonal-divisor modular lattices for the Igusa cusp form Delta_5.
+Diagonal-divisor modular lattices for the primitive Gritsenko-Nikulin denominator Delta_5.
 
 Implements the lattice structures from:
   "A Borcherds lift of the weak Jacobi form phi_{0,1}, generalized
-   Borcherds-Kac-Moody superalgebras and the Igusa cusp form Delta_5"
+   Borcherds-Kac-Moody superalgebras and the primitive Gritsenko-Nikulin denominator Delta_5"
    (Lorgat, 2020)
 
 The ambient lattice Lambda^{3,2} of signature (3,2) decomposes as

@@ -1,9 +1,7 @@
-% wave12_c3_lie_bracket_compatibility.tex
-% Wave-12 C3/20: Lie-bracket compatibility between g_BPS(K3 x E) and g_{Delta_5}
-% Scope: atomic; ≤1200 words; investigative; cites Borcherds 1992, Davison–Meinhardt 2020, KS 2008.
-
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\gBPS}{\mathfrak{g}_{\mathrm{BPS}}}
 \providecommand{\gDel}{\mathfrak{g}_{\Delta_5}}
 \providecommand{\fn}{\mathfrak{n}}
@@ -14,155 +12,313 @@
 \providecommand{\Pfilt}{{}^{\mathfrak p}\!\tau}
 \providecommand{\Hall}{\mathcal H}
 \providecommand{\Mmod}{\mathcal M}
+\providecommand{\BPS}{\mathcal{BPS}}
+\providecommand{\piII}{\pi_{\mathrm{II}}}
+\providecommand{\epsII}{\varepsilon_{\LamII}}
+\providecommand{\BRST}{\mathrm{BRST}}
 
-\section*{C3/20. Lie-bracket compatibility: what is open, what it would take}
+\section*{Lie-Bracket Compatibility for \texorpdfstring{$K3\times E$}{K3 x E}
+and \texorpdfstring{$\Delta_5$}{Delta5}}
 
-\subsection*{The statement, narrowed to its Beilinson minimum}
+\subsection*{Objects and invariants}
 
-Fix the charge lattice $\Gamma = H^{\mathrm{ev}}(K3 \times E,\Z)/\mathrm{tors}$ with
-the Mukai--Mukai pairing twisted by the $E$-Kodaira--Spencer form.  The numerical
-BPS count is governed by the Oberdieck--Pixton denominator
-$Z^{K3 \times E}_{\mathrm{num}} = -C/\Delta_{10}$, and dimension equality of the
-two graded spaces
+Let \(X=K3\times E\).  The \(d=3\) Calabi-Yau input has specialised
+chiral output of type \(E_1\).  An \(E_2\)-structure enters through a
+constructed centre, a completed double, or a representation category
+equipped with its Hall pairing and completion.
+
+The scalar invariants attached to \(X\) occupy four different
+constructions:
 \[
-  \gBPS(K3 \times E)_{\alpha}
-  \stackrel{?}{=}
-  (\gDel)_{\alpha}, \qquad \alpha \in \LamII \cap \overline{\R_{>0}\mathcal P_{II}},
+  \{\kcat,\kch^{\mathrm{Heis}},\kBKM,\kfib\}(K3\times E)
+  =
+  \{0,3,5,24\}.
 \]
-is a consequence of (a) OP 2017 \emph{Geom.\ Topol.}~22 (denominator identity), (b)
-Davison cohomological integrality \emph{Invent.}~2022 (the BPS sheaf has Euler
-characteristic $|c(D(\alpha))|$), and (c) the Gritsenko--Nikulin 1997/98 uniqueness
-of the GKM whose Weyl--Kac--Borcherds denominator is $\Delta_5$.  What is open, per
-\S 3.3, is not the grading: it is the \emph{bracket}
+Here \(\kcat(K3\times E)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=0\),
+the total-space Hodge supertrace \(\kch(K3\times E)=0\),
+\(\kch^{\mathrm{Heis}}=3\) belongs to the Heisenberg-Mukai
+specialisation, \(\kBKM(\gDel)=c_1(0)/2=10/2=5\) is the
+Gritsenko-Nikulin-Borcherds weight of \(\Delta_5\), and
+\(\kfib=24\) is the K3 Mukai-lattice rank.  The Igusa square
+\(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\) has weight \(10\); the
+primitive BKM denominator has weight \(5\).
+
+The \(K3\times E\) BKM branch is the compact Hall-Borcherds branch:
+when the compact datum exists, it is built from the completed
+Hall-Drinfeld double of the positive Hall half
 \[
-  [-,-]_{\gBPS} \stackrel{?}{=} [-,-]_{\gDel}
-  \quad\text{as bilinear maps on}\quad
-  \bigoplus_{\alpha} (\gBPS)_\alpha \otimes (\gBPS)_\beta \to (\gBPS)_{\alpha+\beta}.
+  \mathcal D^\wedge_\hbar(\CoHA_X).
 \]
+The Mukai self-mirror Yangian branch is the rank-\(24\)
+Mukai-Heisenberg stable-envelope construction on K3 Hilbert-scheme
+towers.  The two branches share the Mukai lattice and have different
+brackets.
 
-\subsection*{Cycle 1. The CoHA side: where the bracket actually lives}
+\subsection*{The primitive Hall bracket}
 
-Schiffmann--Vasserot constructs $\CoHA(K3 \times E)$ as a graded associative algebra
-via Joyce's convolution on $\Mmod^{\mathrm{ses}}$ (stack of short exact sequences of
-stable coherent sheaves), pulled back along source/target and pushed forward along
-middle.  The \emph{commutator} $[x,y] = xy - yx$ is then a bilinear map of graded
-vector spaces, not obviously a Lie bracket.
-
-Davison--Meinhardt 2020 (\emph{Invent.}~221, Theorem~A) provides the crucial refinement:
-the perverse filtration $\Pfilt^{\leq p}\CoHA(X)$ on a CY$_3$ Hall algebra splits,
-and the \emph{primitive} part
+Fix a stability chamber and an orientation datum on the derived
+Calabi-Yau threefold stack of objects.  Work under the compact critical
+CoHA hypotheses needed for Davison-Meinhardt PBW: an oriented critical
+CoHA \(\Hall^+_X\), a BPS sheaf, purity, and the perverse filtration.
+The charge lattice is
 \[
-  \gBPS(X)_\alpha := \mathrm{gr}^{\mathfrak p}_1 \CoHA(X)_\alpha \;\subset\; \CoHA(X)_\alpha
+  \Gamma_X=H^{\mathrm{ev}}(X,\mathbb Z)/\mathrm{tors}.
 \]
-closes under the commutator: $[\gBPS,\gBPS] \subset \gBPS$.  The bracket on
-$\gBPS(X)$ is the restriction of the CoHA commutator to primitives, and it is a
-\emph{Lie bracket} (Jacobi) because the associative law on $\CoHA$ gives the
-commutator Jacobi identity automatically.  Skew-symmetry is manifest.
-
-\emph{First concrete form.} On extension classes at $(\alpha,\beta) \in \Gamma^2$
-with $\alpha + \beta$ primitive, the bracket is
+For \(\alpha,\beta\in\Gamma_X\), let
+\(\Mmod_{\alpha,\beta}^{\mathrm{ses}}\) be the stack of short exact
+sequences with subobject of class \(\alpha\), quotient of class
+\(\beta\), and middle term of class \(\alpha+\beta\).  The Hall
+correspondence is
 \[
-  [x_\alpha, y_\beta]
-  = \sum_{[E \hookrightarrow F \twoheadrightarrow G]}
-  (-1)^{\chi_{\mathrm{Eu}}(\alpha,\beta)}
-  \, \chi\bigl(\mathrm{Ext}^1(G,E)\bigr) \cdot z_{\alpha+\beta}
-  \;-\; (\alpha \leftrightarrow \beta),
+  \Mmod_\alpha\times\Mmod_\beta
+  \xleftarrow{\ (p_1,p_2)\ }
+  \Mmod_{\alpha,\beta}^{\mathrm{ses}}
+  \xrightarrow{\ p_3\ }
+  \Mmod_{\alpha+\beta}.
 \]
-with $\chi_{\mathrm{Eu}}$ the Euler pairing on $\Gamma$.  The sign is the Joyce
-sign, not a free parameter.
-
-\subsection*{Cycle 2. The GKM side: Borcherds 1992 axioms on imaginary simples}
-
-$\gDel$ is defined by Borcherds 1992 (\emph{Invent.}~109, Thms~1--2) from the
-Cartan data $(\LamII, m(\alpha))$: a real simple generates $\sl_2$-relations; two
-imaginary simples $\alpha_{\mathrm{im}}^{(1)}, \alpha_{\mathrm{im}}^{(2)}$ (norm $\leq 0$)
-satisfy \emph{no Serre relation among themselves} when $(\alpha^{(1)},\alpha^{(2)}) \leq 0$.
-The bracket of two imaginary simple-root generators is free of obstruction except for
-Jacobi; the \emph{nontrivial content} of $\gDel$ is that the Euler--Poincar\'e
-character of $\fn_+ \subset \gDel$ equals $\Delta_5^{-1}$ (denominator identity).
-
-\subsection*{Cycle 3. The lattice identification}
-
-The CY-3 charge lattice $H^{\mathrm{ev}}(K3 \times E)/\mathrm{tors} \cong \Lambda_{K3} \oplus H^{\mathrm{ev}}(E) \cong U^{\oplus 4} \oplus E_8(-1)^{\oplus 2} \oplus U$ has signature $(4, 20)$; OP 2017 \S3 reduces the imaginary-root locus, via the transfer to the $\mathrm{O}(3,2)$ Narain lattice of signature $(3,2)$, to the Gritsenko--Nikulin lattice $\LamII$ of signature $(2,1)$ (type-II restriction, cf.\ Gritsenko--Nikulin 1998 \emph{Duke}~119, Lemma~2.1).  The identification
+The product is
 \[
-  \mathrm{deg}_{\LamII}\bigl(\gBPS(K3 \times E)\bigr)
-  \;\cong\;
-  \LamII \cap \overline{\R_{>0}\mathcal P_{II}}
+  x *_\mathrm{Hall} y
+  =
+  (p_3)_*
+  \bigl((p_1,p_2)^*(x\boxtimes y)\otimes\phi_{\mathrm{or}}\bigr),
 \]
-is \emph{proved} (OP~2017 Thm~1.1 + Davison 2022 Thm~A); no open obstruction here.
+where \(\phi_{\mathrm{or}}\) is the chosen orientation line on the
+extension correspondence.
 
-\subsection*{Cycle 4. Does KS motivic WCF determine brackets?}
-
-Kontsevich--Soibelman 2008 (\emph{Motivic DT invariants and motivic WCF}, arXiv:0811.2435)
-presents the motivic WCF as an identity in the pro-nilpotent group
-$\widehat G_{\mathrm{mot}} = \exp(\widehat{\mathfrak g}_{\mathrm{mot}})$ over the motivic
-quantum torus $\widehat T_{\mathrm{mot}}$.  The WCF determines
-$\Omega^{\mathrm{mot}}(\gamma; \sigma)$ as functions of the stability $\sigma$, but
-the \emph{Lie bracket} on $\mathfrak g_{\mathrm{mot}}$ is the \emph{motivic quantum
-torus commutator}
+The orientation datum gives a quadratic refinement of the Euler form,
+hence a bimultiplicative sign
 \[
-  [e_\alpha, e_\beta]_{\mathrm{mot}}
-  = (\mathbb L^{\langle \alpha, \beta \rangle/2} - \mathbb L^{-\langle \alpha, \beta \rangle/2})
-  \, e_{\alpha + \beta}
+  \varepsilon_{\mathrm{or}}(\alpha,\beta)
+  \in\{\pm1\},\qquad
+  \varepsilon_{\mathrm{or}}(\alpha,\beta)
+  \varepsilon_{\mathrm{or}}(\beta,\alpha)^{-1}
+  =
+  (-1)^{\chi(\alpha,\beta)} .
 \]
-\emph{before} passing to the classical limit.  This is the \emph{structure-constant
-Lie bracket on the motivic torus}, not the Lie bracket on $\gBPS$ itself.
+For homogeneous \(x,y\), set
+\[
+  \varepsilon_{\mathrm{Hall}}(\alpha,\beta;x,y)
+  =
+  (-1)^{|x||y|}\varepsilon_{\mathrm{or}}(\alpha,\beta).
+\]
+Under the PBW hypotheses the primitive BPS Lie piece is
+\[
+  \gBPS(X)_\gamma
+  =
+  H^\bullet(\BPS_\gamma)
+  \cong
+  \mathrm{gr}^{\mathfrak p}_1\Hall^+_{X,\gamma}.
+\]
+Its bracket is the primitive projection of the Hall supercommutator:
+\[
+  m^{\mathrm{BPS}}_{\alpha,\beta}(x,y)
+  =
+  \operatorname{pr}_{\mathfrak p=1}
+  \bigl(
+    x *_\mathrm{Hall} y
+    -
+    \varepsilon_{\mathrm{Hall}}(\alpha,\beta;x,y)\,
+    y *_\mathrm{Hall} x
+  \bigr).
+\]
+The associative Hall product gives Jacobi after the primitive
+projection has been proved to close.  Davison-Meinhardt integrality
+supplies this primitive Lie algebra for the admissible critical-CoHA
+input; identification with the Borcherds target requires the separate
+Hall-Borcherds bracket datum.
 
-\emph{Key distinction.}  KS gives the bracket on the \emph{exponentiated} object (the
-motivic enveloping algebra $U(\gBPS) \otimes \widehat T_{\mathrm{mot}}$).  Davison--Meinhardt 2020 Theorem~A extracts $\gBPS$ as the \emph{primitive sub-Lie algebra}
-via the perverse filtration, and equips it with the commutator bracket.  KS alone
-does not determine $[-,-]_{\gBPS}$ beyond the structure constants of $U(\gBPS)$; the
-Lie bracket refinement is Davison--Meinhardt content.
+\subsection*{The Borcherds zero-mode bracket}
 
-Thus: dimension equality on each root space $\alpha$ comes from OP 2017 + GN
-uniqueness.  What KS WCF does \emph{not} control is whether the extracted Lie
-bracket on primitives, pulled from the CoHA commutator, \emph{matches} the
-Borcherds bracket extracted from the GKM axioms.  Matching structure constants of
-universal enveloping algebras does not force matching of Lie brackets, since
-$U(\mathfrak g)$ as a graded associative algebra does not uniquely determine the PBW
-primitive filtration unless the deformation is quadratic--Koszul.
+Let \(\LamII\) be the type-II Lorentzian lattice in the
+Gritsenko-Nikulin realisation of the \(\Delta_5\) denominator.  The
+Borcherds algebra \(\gDel\) is realised through BRST cohomology of the
+lattice vertex algebra:
+\[
+  \gDel_\delta
+  =
+  H^1_{\BRST}(V_{\LamII})_\delta .
+\]
+Its bracket is the BRST zero-mode bracket
+\[
+  m^{\Delta_5}_{a,b}(u,v)
+  =
+  [u,v]_{\gDel}
+  =
+  u_{(0)}v ,
+  \qquad
+  u\in(\gDel)_a,\ v\in(\gDel)_b .
+\]
+The lattice two-cocycle \(\epsII\) fixes the signs.  For exponential
+vectors,
+\[
+  Y(e^a,z)e^b
+  =
+  \epsII(a,b)\,z^{(a,b)_{\LamII}}e^{a+b}+\text{higher modes}.
+\]
+When \((a,b)_{\LamII}=-1\), the zero-mode residue gives
+\[
+  [e^a,e^b]_{\gDel}=\epsII(a,b)e^{a+b}.
+\]
+For general imaginary-root vectors the zero-mode formula is the
+definition of the bracket; the exponential residue is the rank-one
+calculation inside it.
 
-\subsection*{Cycle 5. What would reduce bracket compatibility to a theorem}
+\subsection*{The type-II projection}
 
-Three candidate reductions, in increasing strength:
+A Hall-to-BKM comparison begins with a type-II projection
+\[
+  \piII:\Gamma_X^{\mathrm{eff}}\longrightarrow\LamII
+\]
+with four properties:
+\[
+\begin{gathered}
+  \piII(\alpha+\beta)=\piII(\alpha)+\piII(\beta),\\
+  D_X(\gamma)=D_{\Delta_5}(\piII(\gamma)),\\
+  \mathrm{ht}_X(\gamma)=\mathrm{ht}_{\Delta_5}(\piII(\gamma)),\\
+  \varepsilon_{\mathrm{or}}(\alpha,\beta)
+  =
+  \eta(\alpha+\beta)\eta(\alpha)^{-1}\eta(\beta)^{-1}
+  \epsII(\piII(\alpha),\piII(\beta))
+\end{gathered}
+\]
+for a coboundary \(\eta:\Gamma_X^{\mathrm{eff}}\to\{\pm1\}\).  The
+first line preserves charge addition, the second preserves the
+discriminant feeding the Jacobi coefficient \(c(D)\), the third
+preserves finite-height truncations, and the fourth identifies the
+Hall orientation sign with the lattice-VOA cocycle up to change of
+orientation trivialisation.
 
-\begin{enumerate}
-  \item \textbf{(Koszul rigidity.)}  Chiral Koszulity of $U^{\mathrm{ch}}(\gBPS(K3 \times E))$
-  holds in the ambient sense of the CY-to-chiral programme (Vol~I Koszul reflection
-  theorem); what is \emph{not yet} available is a generator-relation Priddy--Manin
-  presentation identifying the quadratic dual as $U^{\mathrm{ch}}(\gDel)^!$ on the
-  nose.  The Davison--Meinhardt PBW filtration on CoHA$(K3 \times E)$ gives the
-  primitive decomposition, but the quadratic--Koszul refinement that would force
-  Lie isomorphism from enveloping-algebra isomorphism requires a presentation-level
-  comparison not yet in the literature.
-  \item \textbf{(Motivic integration / comparison of Chow groups.)}  Compute the
-  bracket structure constant $c_{\alpha,\beta}^{\alpha+\beta}$ on primitives by
-  motivic integration over the moduli of short exact sequences with $[E]=\alpha$,
-  $[G]=\beta$ (Behrend--Dhillon--Joyce style), and compare with the explicit
-  Borcherds formula $[e_\alpha,e_\beta] = \epsilon(\alpha,\beta) e_{\alpha+\beta}$
-  ($\epsilon$ the 2-cocycle of the lattice VOA).  This is a finite computation for
-  $|\alpha|, |\beta| \leq $ first few levels (D=0,3,4,7,8); success through level
-  $D=8$ would be strong evidence, not proof.
-  \item \textbf{(Lattice VOA intertwiner.)}  The Frenkel--Lepowsky--Meurman lattice-VOA
-  realization $V_{\LamII}$ acts on the K3 Fock space via BRST; bracket compatibility
-  is equivalent to \emph{intertwining} $V_{\LamII}$-module structure on the Davison
-  BPS sheaf $\mathcal{BPS}_\gamma$.  Reducing the open problem to this intertwiner
-  compatibility is the sharp reformulation: the BRST cohomology $H^1_{\mathrm{BRST}}$
-  identification of $\gDel$ (Borcherds 1992 \S 6) meets the Davison BPS sheaf through
-  a \emph{sheaf-level intertwiner}, provably a Lie algebra map once it is shown to
-  be a $V_{\LamII}$-module map.
-\end{enumerate}
+The denominator theorem gives the signed target character
+\[
+  \operatorname{sdim}(\gDel)_\delta=c(D_{\Delta_5}(\delta)).
+\]
+After the BPS sheaf and orientation data have been constructed, the
+compact Hall source gives signed primitive Euler characteristics.
+Ordinary dimensions and parity splits require the finite Hall-Borcherds
+recognition data.
 
-\subsection*{Report.}
+\subsection*{Bracket compatibility}
 
-Dimension-per-root equality is proved (OP 2017 + Davison 2022 + GN uniqueness).
-Bracket equality is open because: (i) the Joyce--Davison commutator on CoHA primitives
-produces a Lie bracket whose structure constants involve motivic integration on
-$\Mmod^{\mathrm{ses}}$; (ii) the Borcherds bracket on $\gDel$ is given by the
-lattice VOA 2-cocycle on $\LamII$; and (iii) KS motivic WCF controls only the
-universal-enveloping-algebra character, not the primitive-level bracket.  The
-cleanest reduction is route~(3): bracket compatibility is \emph{equivalent} to the
-Davison BPS sheaf $\mathcal{BPS}_\gamma$ admitting a $V_{\LamII}$-module-map
-intertwiner with the Borcherds BRST realization of $\gDel$.  Status
-\texttt{\textbackslash ClaimStatusConjectured} is correct; upgrade requires the
-intertwiner, not further denominator work.
+A bracket comparison is the following datum.  For every
+\(\delta\in\LamII\), construct a graded linear map
+\[
+  \rho_\delta:
+  \bigoplus_{\piII(\gamma)=\delta}\gBPS(X)_\gamma
+  \longrightarrow
+  (\gDel)_\delta .
+\]
+It must satisfy, for all homogeneous \(x\in\gBPS(X)_\alpha\) and
+\(y\in\gBPS(X)_\beta\),
+\[
+  \rho_{\piII(\alpha+\beta)}
+  \bigl(m^{\mathrm{BPS}}_{\alpha,\beta}(x,y)\bigr)
+  =
+  m^{\Delta_5}_{\piII(\alpha),\piII(\beta)}
+  \bigl(\rho_{\piII(\alpha)}(x),\rho_{\piII(\beta)}(y)\bigr).
+\]
+If \(\piII\) is injective on the chamber, the direct sums collapse to
+single charge spaces.  If \(\piII\) has nontrivial fibres, the direct
+sum is part of the comparison: the BKM root space sees the aggregate
+of all Hall charges with the same type-II image.
+
+Character equality, wall-crossing, and PBW existence are strictly
+weaker than this displayed identity.  The bracket identity requires a
+map preserving Hall extension correspondences, primitive projection,
+orientation signs, type-II charge addition, and BRST zero modes.
+
+\subsection*{Wall crossing and primitive brackets}
+
+Kontsevich-Soibelman wall crossing lives in the pro-nilpotent group
+\[
+  \widehat G_{\mathrm{mot}}=\exp(\widehat{\mathfrak g}_{\mathrm{mot}})
+\]
+of the motivic quantum torus.  Its torus multiplication and bracket are
+\[
+  e_\alpha e_\beta
+  =
+  \mathbb L^{\langle\alpha,\beta\rangle/2}e_{\alpha+\beta},
+  \qquad
+  [e_\alpha,e_\beta]_{\mathrm{mot}}
+  =
+  \left(
+    \mathbb L^{\langle\alpha,\beta\rangle/2}
+    -
+    \mathbb L^{-\langle\alpha,\beta\rangle/2}
+  \right)e_{\alpha+\beta}.
+\]
+Its scope is ordered transport of wall factors.  The primitive
+Hall bracket \(m^{\mathrm{BPS}}_{\alpha,\beta}\) is extracted from the
+Davison-Meinhardt primitive part of the Hall commutator.  The BKM
+bracket is the BRST zero-mode bracket.  A Hall-Borcherds intertwiner is
+the additional structure relating the two.
+
+\subsection*{Mukai currents and vertex central extension}
+
+The Mukai self-mirror branch has commuting positive currents:
+\[
+  [J_a^+,J_b^+]_{\mathrm{Lie}}=0 .
+\]
+The full Heisenberg-Mukai vertex algebra has modes satisfying
+\[
+  [J_a(m),J_b(n)]
+  =
+  \hbar\,m\,(a,b)_{\mathrm{Muk}}\delta_{m+n,0}\mathbf c,
+\]
+equivalently
+\[
+  [J_a{}_\lambda J_b]=\hbar\,(a,b)_{\mathrm{Muk}}\lambda\,\mathbf 1 .
+\]
+This is a central vertex extension of the Mukai-Heisenberg branch.  The
+BKM imaginary-root bracket in \(\gDel\) is the lattice-VOA zero-mode
+bracket governed by \(\epsII\).  The branch separation is algebraic:
+Mukai positive currents, full Heisenberg modes, Hall-Drinfeld doubles,
+and Borcherds BRST zero modes are four different structures.
+
+\subsection*{Sheaf-level intertwiner}
+
+The exact proof obligation is a sheaf-level map.  In the constructible
+or monodromic mixed-Hodge sheaf category carrying the BPS sheaves,
+construct
+\[
+  \mathcal I_\delta:
+  \bigoplus_{\piII(\gamma)=\delta}\BPS_\gamma
+  \longrightarrow
+  \mathcal H^1_{\BRST}(V_{\LamII})_\delta
+\]
+whose cohomology is \(\rho_\delta\).  For
+\(\delta_i=\piII(\alpha_i)\), it must intertwine the extension
+correspondence with the lattice-VOA residue:
+\[
+\begin{aligned}
+  \mathcal I_{\delta_1+\delta_2}\circ
+  \operatorname{pr}_{\mathfrak p=1}\circ
+  (p_3)_*
+  \bigl((p_1,p_2)^*(-)\otimes\phi_{\mathrm{or}}\bigr)
+  &=
+  \operatorname{Res}_{z=0}
+  Y(-,z)(-)\circ
+  (\mathcal I_{\delta_1}\boxtimes\mathcal I_{\delta_2})
+\end{aligned}
+\]
+after applying the type-II projection to charges.  The same equality
+for reversed inputs must reproduce the supercommutator sign
+\(\varepsilon_{\mathrm{Hall}}\) and the lattice cocycle
+\(\epsII\) through the coboundary \(\eta\) above.
+
+Thus the character-level Hall-Borcherds comparison and the
+\(\Delta_5\) denominator identify the target and the signed root
+multiplicities.  The Lie-bracket comparison is conditional on the
+intertwiner \(\mathcal I_\delta\), sign compatibility, parity fixture,
+radical quotient, and completion compatibility.  These data are
+additional to denominator work.
+
+\subsection*{Primary anchors}
+
+Kontsevich-Soibelman construct the motivic Hall and wall-crossing
+torus.  Davison-Meinhardt give the PBW and BPS-sheaf extraction under
+critical-CoHA hypotheses.  Borcherds and Gritsenko-Nikulin construct
+the BKM denominator and \(\Delta_5\) root-character target.  The
+lattice-VOA zero-mode calculation is the Frenkel-Kac and
+Frenkel-Lepowsky-Meurman mechanism, in the Lorentzian BRST form used by
+Borcherds.

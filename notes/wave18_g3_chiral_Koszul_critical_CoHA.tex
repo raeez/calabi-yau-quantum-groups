@@ -1,8 +1,3 @@
-% Wave-18 G3/20: Francis-Gaitsgory chiral Koszul duality = Kontsevich-Soibelman critical CoHA
-% Voice: Francis + Kontsevich, CG standard. Reader-facing prose; \providecommand macros.
-% Primary sources consulted: Francis-Gaitsgory arXiv:1103.5803; Kontsevich-Soibelman arXiv:0811.2435 §4;
-% Behrend Ann. Math. 170 (2009); Davison-Meinhardt Invent. Math. 221 (2020).
-
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Prim}{\mathrm{Prim}}
 \providecommand{\coLie}{\mathrm{coLie}}
@@ -12,198 +7,396 @@
 \providecommand{\Fact}{\mathrm{Fact}}
 \providecommand{\Chiral}{\mathrm{Chiral}}
 \providecommand{\Lie}{\mathrm{Lie}}
-\providecommand{\Coh}{\mathrm{Coh}}
 \providecommand{\Crit}{\mathrm{Crit}}
-\providecommand{\Mm}{\mathcal{M}}
+\providecommand{\Jac}{\mathrm{Jac}}
+\providecommand{\BPS}{\mathrm{BPS}}
+\providecommand{\BM}{\mathrm{BM}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\DDrin}{\mathcal{D}}
+\providecommand{\Mm}{\mathfrak{M}}
 \providecommand{\Ff}{\mathcal{F}}
+\providecommand{\Hh}{\mathcal{H}}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\Oo}{\mathcal{O}}
-\providecommand{\Aa}{\mathcal{A}}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
 \providecommand{\QQ}{\mathbb{Q}}
-\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
-\providecommand{\gghat}{\widehat{\mathfrak{gl}}_1}
+\providecommand{\Eone}{E_{1}}
+\providecommand{\Etwo}{E_{2}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\gghat}{\widehat{\mathfrak{gl}}_{1}}
 \providecommand{\phiW}{\varphi_{W}}
 
-\section{Chiral Koszul duality as critical cohomology}
+\section{Critical CoHA and Chiral Koszul Primitives}
 \label{sec:fg-ks-chiral-critical}
 
-Two constructions produce the positive half $Y^{+}$ of a BPS quantum group from a
-$d$-Calabi--Yau datum. The Francis--Gaitsgory route passes through chiral Koszul
-duality on the Ran space; the Kontsevich--Soibelman route through vanishing-cycle
-cohomology of a moduli stack equipped with a superpotential. We establish their
-chain-level coincidence, read off on $\C^{3}$ where both sides compute the same
-cohomological Hall algebra.
+A $3$-Calabi--Yau quiver with potential produces a critical Hall algebra. A
+factorisation algebra on a Ran space has a chiral Koszul primitive complex. The
+two constructions meet after a third datum is supplied: an oriented
+Hall-to-factorisation comparison whose collision product is the Hall
+correspondence. This is an $\Eone$ positive-half statement. Full Yangians,
+vertex algebras, and braided $\Etwo$ categories require Drinfeld doubling,
+centres, completions, or evaluation modules.
 
-\subsection{The Francis--Gaitsgory side}
+\subsection{Chiral Koszul primitives}
 \label{subsec:fg-chiral-koszul}
 
-Let $X$ be a smooth affine variety, and let $\Ff$ be a factorisation sheaf on $\Ran(X)$
-in the sense of Francis--Gaitsgory~\cite[\S 6]{FG2012}. Their chiral Koszul duality
-theorem promotes the classical Quillen adjunction between $\Lie$-algebras and
-cocommutative coalgebras to a full Quillen equivalence between factorisation Lie
-algebras and factorisation coalgebras on $\Ran(X)$:
+Let $X$ be a smooth affine complex variety and let $\Ff$ be a cofibrant
+factorisation algebra on $\Ran(X)$ in the Francis--Gaitsgory model category.
+Francis--Gaitsgory chiral Koszul duality~\cite[\S 6]{FG2012} gives the
+bar-cobar Quillen adjunction between chiral Lie algebras and conilpotent
+chiral coalgebras. On a chosen holomorphic $E_d$ local model it is written
 \begin{equation}
 \label{eq:fg-quillen-equivalence}
-\Bar^{E_{d}} : \Chiral_{\Lie}(X) \,\rightleftarrows\, \coLie\text{-}\Fact(X) : \coBar_{E_{d}}.
+\Bar^{E_d} :
+\Chiral_{\Lie}(X)
+\rightleftarrows
+\coLie_d\text{-}\Fact(X)
+: \coBar_{E_d}.
 \end{equation}
-The left adjoint $\Bar^{E_{d}}$ is the $E_{d}$-bar construction; the right adjoint
-$\coBar_{E_{d}}$ its $E_{d}$-cobar. The primitives functor $\Prim_{\coLie}$ extracts, from a
-cocommutative factorisation coalgebra, the cofree-$\coLie$-primitives. Define
+The primitive complex extracted from this adjunction is
 \begin{equation}
-\label{eq:fg-positive-half}
-Y^{+}_{\mathrm{FG}}(\Ff) \;:=\; \Prim_{\coLie_{d}}\!\bigl(\Bar^{E_{d}}(\Ff)\bigr).
+\label{eq:fg-primitive-complex}
+K_{\mathrm{FG}}(\Ff)
+:=
+\Prim_{\coLie_d}\!\left(\Bar^{E_d}(\Ff)\right).
 \end{equation}
-Three remarks. First, the subscript $d$ on $\coLie_{d}$ is the operadic suspension that
-encodes the $E_{d}$-grading (cochain degree $d-1$ in the internal Lie bracket). Second,
-on $X = \C^{d}$ the Ran space collapses ambient-qualified to its configuration
-stratification, and $\Bar^{E_{d}}$ becomes the factorisable $E_{d}$-bar of
-Ayala--Francis~\cite{AF2015}. Third, the theorem \eqref{eq:fg-quillen-equivalence}
-is a Quillen equivalence of model categories; it is \emph{not} only an
-$(\infty,1)$-categorical statement, and the chain-level witness at the heart of
-this note relies on that strength.
+The complex \eqref{eq:fg-primitive-complex} is Koszul data. A Hall positive
+half appears when $\Ff$ is the factorisation object supplied by a critical Hall
+theory and the comparison map identifies its collision operation with Hall
+convolution. At $d=3$, the native CY-to-chiral output is $\Eone$-chiral. If
+$A$ denotes this $\Eone$ algebra, the $\Etwo$ layer is the centre
+\[
+ \cZ\!\left(\Rep^{\Eone}(A)\right)
+\]
+or, equivalently on constructed Hopf loci, the representation category of the
+Drinfeld double.
 
-\subsection{The Kontsevich--Soibelman side}
+\subsection{Critical Hall algebra}
 \label{subsec:ks-critical-coha}
 
-Fix a $3$-Calabi--Yau category $\mathsf{C}$ presented by a quiver with potential
-$(Q, W)$, so that $\mathsf{C} = D^{b}(\Coh \, \mathrm{Jac}(Q,W))$. For each dimension
-vector $\mathbf{d} \in \Z^{Q_{0}}_{\geq 0}$ the moduli stack $\Mm_{\mathbf{d}}(Q)$ of
-representations of $Q$ carries a regular function $W_{\mathbf{d}} : \Mm_{\mathbf{d}}(Q)
-\to \C$ whose critical locus is $\Mm_{\mathbf{d}}(Q,W)$. Kontsevich--Soibelman
-\cite[\S 4]{KS2008} define the \emph{critical cohomological Hall algebra} as the graded
-vector space
+Let $(Q,W)$ be a quiver with potential, let
+\[
+ A_{Q,W}:=\C Q/(\partial_a W)_{a\in Q_1}
+\]
+be its Jacobi algebra, and assume that the associated Ginzburg dg algebra is
+$3$-Calabi--Yau. For a dimension vector
+$\mathbf d\in \Z_{\geq 0}^{Q_0}$, write $\Mm_{\mathbf d}(Q)$ for the stack of
+$Q$-representations and
+\[
+ W_{\mathbf d}\colon \Mm_{\mathbf d}(Q)\longrightarrow \C
+\]
+for the trace of the potential. The critical locus is the stack of
+$A_{Q,W}$-modules of dimension $\mathbf d$. With orientation data and the
+standard cohomological shifts fixed, the Kontsevich--Soibelman critical
+cohomological Hall algebra is
 \begin{equation}
 \label{eq:ks-critical-coha}
-\CoHA(Q,W) \;:=\; \bigoplus_{\mathbf{d}} H^{\bullet}\!\bigl(\Mm_{\mathbf{d}}(Q),\,
-\phiW_{\mathbf{d}}\bigr),
+\CoHA(Q,W)
+:=
+\bigoplus_{\mathbf d}
+H^{\BM,\bullet}\!\left(\Mm_{\mathbf d}(Q),\phiW_{\mathbf d}\right).
 \end{equation}
-where $\phiW$ is the perverse sheaf of vanishing cycles of $W$ (monodromic, shifted
-so the constant sheaf on $\Crit(W)$ sits in degree zero). The product is the
-convolution along the correspondence $\Mm_{\mathbf{d}} \leftarrow \Mm_{\mathbf{d},
-\mathbf{e}}^{\mathrm{flag}} \to \Mm_{\mathbf{d}+\mathbf{e}}$, pulled back and pushed
-forward via the Thom--Sebastiani compatibility of $\phiW$ established rigorously by
-Behrend~\cite{Behrend2009} using microlocal functions and refined by
-Davison--Meinhardt~\cite{DM2020} into an integrality statement on BPS Lie algebras.
+Its product is the pull-push operation along the stack of short exact sequences,
+with Thom-Sebastiani compatibility for vanishing cycles supplying the
+multiplicativity of $\phiW$. This is an associative $\Eone$ algebra.
 
-\subsection{The bridge}
-\label{subsec:bridge}
-
-The chain-level identification proceeds in three steps, matching the data on each
-side.
-
-\emph{Step 1 (factorisation sheaf from $(Q,W)$).} From $(Q,W)$ build the
-factorisation sheaf
+Davison--Meinhardt~\cite{DM2020} refine the Kontsevich--Soibelman integrality
+theorem to a PBW statement. For a generic stability condition and fixed slope,
+the perverse filtration on $\CoHA(Q,W)$ has associated graded algebra
 \begin{equation}
-\label{eq:factorisation-from-moduli}
-\Ff_{(Q,W)}^{(n)} \;:=\; \bigoplus_{\sum \mathbf{d}_{i} = \mathbf{d}}
-\Bigl(\bigotimes_{i=1}^{n} H^{\bullet}(\Mm_{\mathbf{d}_{i}},\phiW)\Bigr)
-\quad \text{on } X^{n}/S_{n},
+\label{eq:dm-pbw}
+\operatorname{gr}_{P}\CoHA(Q,W)
+\cong
+\operatorname{Sym}\!\left(
+\BPS(Q,W)\otimes H^\bullet(\mathrm{B}\C^\times)
+\right),
 \end{equation}
-with chiral product the collision-limit of convolution. That $\Ff_{(Q,W)}$ satisfies
-the factorisation axioms is a theorem of Davison~\cite{Davison2017}: the BPS sheaf is
-pure, and Thom--Sebastiani gives the collision-limit compatibility.
-
-\emph{Step 2 (bar-cobar on $\Ff_{(Q,W)}$).} Apply the Francis--Gaitsgory
-$\Bar^{E_{3}}$ to $\Ff_{(Q,W)}$ on $\Ran(\C^{3})$. The primitives
-$\Prim_{\coLie_{3}}$ of the resulting factorisation coalgebra compute, after the
-Davison--Meinhardt integrality decomposition,
+and $\BPS(Q,W)$ carries the BPS Lie algebra structure. Thus the primitive
+piece is
 \begin{equation}
-\label{eq:prim-is-BPS}
-\Prim_{\coLie_{3}}\!\bigl(\Bar^{E_{3}}(\Ff_{(Q,W)})\bigr)
-\;=\; \mathrm{BPS}(Q,W) \otimes H^{\bullet}(\mathrm{B}\C^{\times}),
+\label{eq:dm-primitives}
+\Prim\!\left(\operatorname{gr}_{P}\CoHA(Q,W)\right)
+\cong
+\BPS(Q,W)\otimes H^\bullet(\mathrm{B}\C^\times).
 \end{equation}
-with $\mathrm{BPS}(Q,W)$ the BPS Lie algebra of \cite{DM2020}. The right-hand side is
-the positive half $Y^{+}_{\mathrm{KS}}(Q,W)$ of the critical CoHA.
+Here $H^\bullet(\mathrm{B}\C^\times)=\QQ[u]$ with $|u|=2$, in the
+standard cohomological normalisation.
+The positive half of the Yangian-type quantum group is the Hall algebra
+\eqref{eq:ks-critical-coha}, filtered by \eqref{eq:dm-pbw}; the full doubled
+object needs a negative half, a Cartan part, a nondegenerate Hall pairing, and a
+completion.
 
-\emph{Step 3 (critical = chiral bar).} The composite of Steps 1--2 is a morphism
+\subsection{Comparison theorem}
+\label{subsec:comparison-theorem}
+
+An oriented Hall factorisation datum for $(Q,W)$ consists of:
+\[
+\left(
+\Hh_{Q,W},\;
+\Theta_{\mathrm{hCS}\to\mathrm{Hall}},\;
+\mathrm{or}_{Q,W},\;
+P_\bullet
+\right).
+\]
+Here $\Hh_{Q,W}$ is a factorisation object on the chosen Ran or configuration
+base whose fibres are the vanishing-cycle groups in \eqref{eq:ks-critical-coha};
+$\Theta_{\mathrm{hCS}\to\mathrm{Hall}}$ is an isomorphism of correspondence
+diagrams over the two-point collision stratum, compatible with
+Thom--Sebastiani for vanishing cycles and with the Hall flag stack;
+$\mathrm{or}_{Q,W}$ is the square-root orientation datum for the virtual
+canonical line; and $P_\bullet$ is the Davison--Meinhardt perverse filtration,
+with Hall multiplication filtered by $P_\bullet$.
+
+\begin{proposition}[Koszul-Hall primitive comparison]
+\label{prop:koszul-hall-primitive-comparison}
+Assume the oriented Hall factorisation datum above, purity of the
+vanishing-cycle Hodge modules, finite type on each dimension-vector stratum,
+and filtered compatibility of $\Theta_{\mathrm{hCS}\to\mathrm{Hall}}$ with the
+bar and perverse filtrations. Then the bar filtration on
+$K_{\mathrm{FG}}(\Hh_{Q,W})$ and the Davison--Meinhardt filtration on
+$\CoHA(Q,W)$ give an associated-graded quasi-isomorphism of primitive complexes
 \begin{equation}
-\label{eq:fg-ks-isomorphism}
-Y^{+}_{\mathrm{FG}}(\Ff_{(Q,W)}) \;\xrightarrow{\;\sim\;}\; Y^{+}_{\mathrm{KS}}(Q,W)
+\label{eq:koszul-hall-comparison}
+\operatorname{gr}_{P}K_{\mathrm{FG}}(\Hh_{Q,W})
+\xrightarrow{\;\simeq\;}
+\BPS(Q,W)\otimes H^\bullet(\mathrm{B}\C^\times),
 \end{equation}
-of graded cocommutative coalgebras. It intertwines the two product structures because
-both pull back from the same convolution diagram: on the FG side, chiral product =
-factorisation merge; on the KS side, convolution along the Hall correspondence. Under
-the identification of the Ran-factorisation merge with the Hall convolution (the
-configuration limit of the three-term correspondence), the two products coincide on
-the nose.
+and the induced associative algebra on the enveloping side is the positive half
+\[
+ \Yplus_{\mathrm{KS}}(Q,W):=\CoHA(Q,W).
+\]
+The comparison lives at the $\Eone$ Hall layer.
+\end{proposition}
 
-\subsection{$\C^{3}$: \texorpdfstring{$Y^{+}(\gghat) = \CoHA(\C^{3})$}{Y+ = CoHA(C3)}}
+\begin{proof}
+The factorisation product of $\Hh_{Q,W}$ over disjoint configurations is direct
+sum of representations. Collision is identified by
+$\Theta_{\mathrm{hCS}\to\mathrm{Hall}}$ with the flag correspondence defining
+Hall multiplication. Give the Francis--Gaitsgory bar complex and the critical
+Hall algebra their Rees filtrations. Filtered compatibility of
+$\Theta_{\mathrm{hCS}\to\mathrm{Hall}}$ identifies the Rees differential and
+the binary collision product with the Rees Hall pull-push product on the
+associated graded. The bar construction sends $\Hh_{Q,W}$ to a $\coLie_3$
+coalgebra, and primitives extract the indecomposable collision classes.
+Purity makes the perverse filtration split on the associated graded.
+Davison--Meinhardt PBW then identifies those indecomposables with
+$\BPS(Q,W)\otimes H^\bullet(\mathrm{B}\C^\times)$, which is
+\eqref{eq:dm-primitives}. The product statement follows from the equality of
+the two pull-push correspondences under $\Theta_{\mathrm{hCS}\to\mathrm{Hall}}$.
+\end{proof}
+
+Francis--Gaitsgory duality supplies the Koszul primitive complex.
+Kontsevich--Soibelman Hall theory supplies the critical Hall algebra. The
+comparison requires the orientation datum and the collision-to-Hall
+identification. The proposition is an associated-graded primitive comparison
+and a filtered positive-Hall reconstruction. A presentation theorem for a
+Drinfeld double, centre, BKM algebra, or vertex algebra has stronger
+hypotheses: PBW completeness, relation preservation, a nondegenerate Hall
+pairing, completion, and a recognition map preserving defining relations.
+
+\subsection{\texorpdfstring{$\C^3$}{C3}}
 \label{subsec:C3}
 
-For $X = \C^{3}$ with trivial potential $W = 0$, the Jacobi algebra is $\C[x,y,z]$, the
-moduli stack is the commuting-triple stack, and the critical CoHA reduces to the
-ordinary cohomological Hall algebra of $\C^{3}$. Schiffmann--Vasserot~\cite{SV2013}
-identify
+The toric chart $\C^3$ is controlled by the one-vertex quiver with three loops
+$x,y,z$ and cubic potential
+\[
+ W_{\C^3}=\operatorname{Tr}(x[y,z]).
+\]
+For dimension $n$, $W_{\C^3,n}$ is the function
+$\operatorname{Tr}(X[Y,Z])$ on $\operatorname{Mat}_n(\C)^3/\GL_n$, and
+$\Crit(W_{\C^3,n})$ is the commuting-triple stack. The Jacobi algebra is
+\[
+ \Jac(Q_{\C^3},W_{\C^3})\cong \C[x,y,z].
+\]
+The equivariant critical CoHA is
+\begin{equation}
+\label{eq:c3-critical-coha}
+\CoHA(\C^3)
+=
+\bigoplus_{n\geq 0}
+H^{\BM,T}_*\!\left(
+\operatorname{Mat}_n(\C)^3/\GL_n,\phiW_{\C^3,n}
+\right),
+\qquad
+T=(\C^\times)^3,\quad
+\epsilon_1+\epsilon_2+\epsilon_3=0 .
+\end{equation}
+
+Schiffmann--Vasserot identify this algebra with the positive half of the affine
+Yangian of $\mathfrak{gl}_1$:
 \begin{equation}
 \label{eq:sv-C3}
-\CoHA(\C^{3}) \;=\; Y^{+}(\gghat),
+\CoHA(\C^3)
+\cong
+\Yplus(\gghat).
 \end{equation}
-the positive half of the affine Yangian of $\mathfrak{gl}_{1}$, \emph{not} the full
-$\mathcal{W}_{1+\infty}$ (AP-CY cache key fact). On the FG side, the factorisation
-sheaf $\Ff_{\C^{3}}$ on $\Ran(\C^{3})$ is the free factorisation algebra on the
-one-dimensional Lie input; $\Bar^{E_{3}}$ is the $E_{3}$-bar; its $\coLie_{3}$-primitives
-match \eqref{eq:sv-C3} term by term with generators
-$\{e_{n}\}_{n \geq 0}$ in degree $(1, n)$ and the Maulik--Okounkov relations
-\cite{MO2019} as the $\coLie_{3}$-Jacobi identity. The chain-level match with
-\eqref{eq:sv-C3} is therefore
+In the shuffle model, the degree-$n$ piece is a space of symmetric rational
+functions in $z_1,\ldots,z_n$, and multiplication is
 \begin{equation}
-\label{eq:fg-ks-C3-strict}
-\Prim_{\coLie_{3}}\!\bigl(\Bar^{E_{3}}(\Ff_{\C^{3}})\bigr)
-\;=\; Y^{+}(\gghat) \;=\; \CoHA(\C^{3}),
+\label{eq:c3-shuffle-product}
+(f*g)(z_1,\ldots,z_{m+n})
+=
+\operatorname{Sym}\!\left[
+f(z_1,\ldots,z_m)g(z_{m+1},\ldots,z_{m+n})
+\prod_{\substack{1\leq i\leq m\\m<j\leq m+n}}
+\omega_{\C^3}(z_i-z_j)
+\right].
 \end{equation}
-strict, not up to quasi-isomorphism, provided one works in the bigraded-pure subcategory
-where Davison's purity theorem applies.
+In the Jordan-quiver normalisation one writes
+\begin{equation}
+\label{eq:c3-shuffle-kernel}
+\omega_{\C^3}(u)
+=
+\frac{(u+\epsilon_1)(u+\epsilon_2)(u+\epsilon_3)}
+{u^3},
+\qquad u=z-w.
+\end{equation}
+Equivalently, the numerator is the $S_3$-symmetric structure polynomial
+\[
+G_{\C^3}(u)=\prod_{i=1}^3(u+\epsilon_i),
+\qquad
+\epsilon_1+\epsilon_2+\epsilon_3=0 .
+\]
+The generators $e_r$ in dimension $1$ map to the positive Drinfeld currents of
+$\Yplus(\gghat)$. The algebra presentation is the shuffle-recognition theorem
+of Schiffmann--Vasserot, in the toric CoHA form used by
+Rapcak--Soibelman--Yang--Zhao~\cite{SV2013,RSYZ2020}. The graded character
+supplies a character constraint; defining relations come from the shuffle
+recognition theorem.
 
-\subsection{Strictness at the chain level}
-\label{subsec:strictness}
+The full affine Yangian and the $\cW_{1+\infty}$ vertex layer sit beyond
+\eqref{eq:sv-C3}:
+\begin{equation}
+\label{eq:c3-layer-chain}
+\CoHA(\C^3)=\Yplus(\gghat)
+\longrightarrow
+\DDrin^\wedge(\Yplus(\gghat))
+ =Y(\gghat)=\Yplus\bowtie Y^0\bowtie Y^-
+\xrightarrow{\ \mathrm{ev}_{\lambda}\ }
+\operatorname{End}\!\left(\cW_{1+\infty}[\lambda]\text{-vac}\right).
+\end{equation}
+The first arrow is Drinfeld doubling with completion and Cartan part; the
+second is evaluation on a vacuum module. The native Hall algebra remains the
+positive half. Its
+braided $\Etwo$ structure is read on
+$\cZ(\Rep^{\Eone}(\Yplus(\gghat)))$ or on
+$\Rep^{\Etwo}(Y(\gghat))$ after the double.
 
-The temptation is to declare \eqref{eq:fg-ks-isomorphism} a zig-zag of
-quasi-isomorphisms and stop. That would underreport what the proof yields. The
-Francis--Gaitsgory Quillen equivalence \eqref{eq:fg-quillen-equivalence} is at the
-level of model categories: both sides are cofibrantly generated, and the unit and
-counit are Quillen weak equivalences on cofibrant objects. The factorisation sheaf
-$\Ff_{(Q,W)}$ is cofibrant (purity of $\phiW$-cohomology, Davison). The Davison--Meinhardt
-integrality isomorphism \eqref{eq:prim-is-BPS} is an equality of $\Lie$-algebras on
-cohomology, not a quasi-isomorphism up-to-homotopy, because the BPS Lie algebra is
-\emph{defined} as $\Prim_{\coLie_{3}}$ applied to the $E_{3}$-bar of the
-vanishing-cycle factorisation sheaf. The two constructions thus coincide by
-construction once the bridge \eqref{eq:factorisation-from-moduli} is laid;
-\eqref{eq:fg-ks-isomorphism} is strict.
+The toric noncompact modular characteristic recorded in the Vol III
+stratification is
+\[
+ \kch(\C^3)=1.
+\]
+This value belongs to the local chain-level Hall/BCOV lane. The compact Hodge
+supertrace formula is reserved for compact Calabi--Yau manifolds.
 
-The $\kappach$ on both sides agrees: $\kappach(\C^{3}) = 1$ from the Hodge supertrace
-$\sum_{q}(-1)^{q} h^{0,q}(\C^{3}) = 1$, matching the unique BPS generator in the minimal
-dimension vector. The strict identification \eqref{eq:fg-ks-C3-strict} is the
-$d=3$ instance of the CY-to-chiral functor $\Phi$ on the $\C^{3}$ CY-category,
-landing in $E_{1}$-chiral algebras as required by the CY-D stratification.
+\subsection{\texorpdfstring{$K3\times E$}{K3 x E} boundary data}
+\label{subsec:k3e-boundary-data}
 
-\paragraph{What the bridge costs.} Factorisation-sheaf purity of $\Ff_{(Q,W)}$ is
-essential; without it, Step 2 produces only a quasi-isomorphism. Purity fails for
-non-symmetric quivers outside the strict-CY-$3$ regime, and beyond $d = 3$ the
-$E_{d}$-bar lands in $E_{d-1}$-coalgebras, not $E_{1}$-coalgebras, so the convolution
-product on the KS side no longer matches the factorisation product on the FG side
-strictly. The identification \eqref{eq:fg-ks-isomorphism} is therefore a $d=3$ theorem,
-conjecturally extending to general CY-$3$ stacks by the Davison--Meinhardt machinery,
-open for CY-$d$ with $d \geq 4$.
+The local comparison above is a toric positive-half statement. A compact claim
+for the Gritsenko $\Delta_5$ branch is a different theorem: it requires an
+oriented compact Hall/CoHA atlas, a compact Hall pairing, the completed
+Hall--Drinfeld double, radical descent, finite comparison maps, and a
+relation-preservation theorem for the recognition map.
+
+The constants measure different objects:
+\begin{equation}
+\label{eq:k3e-four-kappas}
+\kcat(K3\times E)=0,\qquad
+\kch(K3\times E)=0,\qquad
+\kch^{\mathrm{Heis}}(K3\times E)=3,\qquad
+\kBKM(\Delta_5)=5,\qquad
+\kfib(K3)=24.
+\end{equation}
+Here $\kcat(K3\times E)=\chi(\Oo_{K3})\chi(\Oo_E)=2\cdot 0$ and
+\[
+\kch(K3\times E)
+=h^{0,0}-h^{0,1}+h^{0,2}-h^{0,3}
+=1-1+1-1=0 .
+\]
+The value $\kch^{\mathrm{Heis}}=3$ belongs to the Heisenberg--Mukai
+defect specialisation, $\kBKM(\Delta_5)=5$ is the Borcherds weight
+$c_1(0)/2=10/2$ of the denominator form
+\cite{Borcherds1998,Gritsenko1999,GN1998}, and $\kfib=24$ is the Mukai
+lattice rank of the K3 fibre. No additive law relates these four invariants.
+The monic Oberdieck--Pandharipande scalar is~\cite{OP2016}
+\begin{equation}
+\label{eq:D5-normalisation}
+D_5=64^{-1}\Delta_5,\qquad
+\Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2,\qquad
+Z_{\mathrm{OP}}=-(\Phi_{10}^{\mathrm{OP}})^{-1}
+=-4096\,\Delta_5^{-2}.
+\end{equation}
+For the primitive CHL rows
+\[
+N\in\{1,2,3,4,6\},
+\qquad
+c_N(0)=(10,8,6,4,2),
+\]
+the Borcherds weights are~\cite{Borcherds1998,Gritsenko1999,GN1998}
+\begin{equation}
+\label{eq:primitive-chl-kappaBKM}
+\kBKM(\Phi_N)=\frac{c_N(0)}{2}=(5,4,3,2,1).
+\end{equation}
+The Nikulin non-CHL extension rows $N\in\{5,7,8\}$ belong to a separate
+paramodular atlas. In the same Borcherds-weight convention they have
+\[
+c_N(0)=(4,2,2),\qquad
+\kBKM(\Phi_N)=(2,1,1),
+\]
+and therefore lie outside the primitive $K3\times E$ CHL quotient rows. The
+Gritsenko--Clery catalogue is triple-indexed by $(t,N;k)$ and requires its own
+row map~\cite{CleryGritsenko2011}.
+
+The Hall--Drinfeld/BKM branch and the Mukai self-mirror branch are separate
+constructions. Character agreement, a common K3 fibre, and the local
+$\CoHA(\C^3)$ chart supply consistency evidence. The compact theorem requires
+orientation, pairing, completion, radical descent, finite comparison maps, and
+recognition inputs preserving defining relations.
 
 \begin{thebibliography}{99}
-\bibitem{FG2012} J.~Francis, D.~Gaitsgory, \emph{Chiral Koszul duality}, Selecta Math.
-18 (2012), 27--87; arXiv:1103.5803.
-\bibitem{KS2008} M.~Kontsevich, Y.~Soibelman, \emph{Stability structures, motivic
-Donaldson--Thomas invariants and cluster transformations}, arXiv:0811.2435, \S 4.
-\bibitem{Behrend2009} K.~Behrend, \emph{Donaldson--Thomas type invariants via microlocal
-geometry}, Ann. Math. 170 (2009), 1307--1338.
-\bibitem{DM2020} B.~Davison, S.~Meinhardt, \emph{Cohomological Donaldson--Thomas theory
-of a quiver with potential, and quantum enveloping algebras}, Invent. Math. 221
-(2020), 777--871.
-\bibitem{Davison2017} B.~Davison, \emph{The integrality conjecture and the cohomology of
-preprojective stacks}, arXiv:1602.02110.
-\bibitem{SV2013} O.~Schiffmann, E.~Vasserot, \emph{Cherednik algebras, W-algebras and
-the equivariant cohomology of the moduli space of instantons on $\mathbb{A}^{2}$},
-Publ. IHES 118 (2013), 213--342.
-\bibitem{MO2019} D.~Maulik, A.~Okounkov, \emph{Quantum groups and quantum cohomology},
-Ast\'{e}risque 408 (2019); arXiv:1211.1287.
-\bibitem{AF2015} D.~Ayala, J.~Francis, \emph{Factorization homology of topological
-manifolds}, J. Topol. 8 (2015), 1045--1084.
+\bibitem{FG2012} J.~Francis, D.~Gaitsgory, \emph{Chiral Koszul duality},
+Selecta Math. 18 (2012), 27-87; arXiv:1103.5803.
+\bibitem{KS2010} M.~Kontsevich, Y.~Soibelman, \emph{Cohomological Hall
+algebra, exponential Hodge structures and motivic Donaldson-Thomas invariants},
+arXiv:1006.2706.
+\bibitem{Behrend2009} K.~Behrend, \emph{Donaldson-Thomas type invariants via
+microlocal geometry}, Ann. Math. 170 (2009), 1307-1338.
+\bibitem{DM2020} B.~Davison, S.~Meinhardt, \emph{Cohomological
+Donaldson-Thomas theory of a quiver with potential, and quantum enveloping
+algebras}, Invent. Math. 221 (2020), 777-871; arXiv:1601.02479.
+\bibitem{Davison2017} B.~Davison, \emph{The critical CoHA of a quiver with
+potential}, Q. J. Math. 68 (2017), 635-703.
+\bibitem{SV2013} O.~Schiffmann, E.~Vasserot, \emph{Cherednik algebras,
+W-algebras and the equivariant cohomology of the moduli space of instantons on
+$\mathbb{A}^{2}$}, Publ. IHES 118 (2013), 213-342; arXiv:1202.2756.
+\bibitem{RSYZ2020} M.~Rapcak, Y.~Soibelman, Y.~Yang, G.~Zhao, \emph{Cohomological
+Hall algebras, vertex algebras and instantons}, arXiv:2007.13365.
+\bibitem{MO2019} D.~Maulik, A.~Okounkov, \emph{Quantum groups and quantum
+cohomology}, Ast\'{e}risque 408 (2019); arXiv:1211.1287.
+\bibitem{Tsymbaliuk2017} A.~Tsymbaliuk, \emph{The affine Yangian of
+$\mathfrak{gl}_{1}$ revisited}, Adv. Math. 304 (2017), 583-645.
+\bibitem{PR2018} T.~Proch\'azka, T.~Rap\v{c}\'ak, \emph{Webs of W-algebras},
+JHEP 11 (2018), 109; arXiv:1711.06888.
+\bibitem{Borcherds1998} R.~Borcherds, \emph{The singular theta correspondence
+and automorphic forms on orthogonal groups}, Invent. Math. 132 (1998),
+491-562.
+\bibitem{Gritsenko1999} V.~Gritsenko, \emph{Arithmetical lifting and its
+applications}, in \emph{Number theory}, CRM Proc. Lecture Notes 19,
+Amer. Math. Soc. (1999), 103-126.
+\bibitem{GN1998} V.~Gritsenko, V.~Nikulin, \emph{Automorphic forms and
+Lorentzian Kac--Moody algebras II}, Int. J. Math. 9 (1998), 201-275.
+\bibitem{CleryGritsenko2011} F.~Clery, V.~Gritsenko, \emph{The Siegel
+modular forms of genus $2$ with the simplest divisor}, Proc. London Math.
+Soc. 102 (2011), 1083-1120; arXiv:0812.3962.
+\bibitem{OP2016} G.~Oberdieck, R.~Pandharipande, \emph{Curve counting on
+$K3\times E$, the Igusa cusp form $\chi_{10}$, and descendent integration},
+arXiv:1411.1514.
 \end{thebibliography}

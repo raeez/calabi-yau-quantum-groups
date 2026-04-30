@@ -1,155 +1,265 @@
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\ClaimStatusProvedElsewhere}{\textsc{[ProvedElsewhere]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\wt}{\operatorname{wt}}
+\providecommand{\Dfive}{D_5}
+\providecommand{\Phiten}{\Phi_{10}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\bC}{\mathbb{C}}
 
-\section*{Wave~15 R4 --- what the slides say on $N \geq 5$}
+\section*{Nikulin orders beyond the CHL \texorpdfstring{$K3\times E$}{K3 x E} slice}
+\label{sec:nikulin-orders-beyond-chl-k3e}
 
-\subsection*{The final slides, read line by line}
+\subsection*{Three index systems}
 
-The closing pages of the presentation
-(\texttt{/tmp/automorphic-slides.txt}, lines~937--953) split the
-twisted Donaldson--Thomas series $Z^X_{L, h_M}$ into cases by the
-symplectic order $N$ and then terminate without further content:
-\begin{quote}
-\begin{tabbing}
-  L943: \=\emph{Case $N \in \{1, 2, 3, 5, 7\}$.}\quad
-        \=For all $1 \leq s, r \leq N - 1$ and $0 \leq k \leq N - 1$\ldots\\
-  L945: \>\emph{Case $N = 4$.}\quad \>For all $s \in \{0, 1, 2, 3\}$\\
-  L947: \>\emph{Case $N = 6$.}\quad \>For all $s \in \{0, 1, 2, 3\}$\\
-  L949: \>\emph{Case $N = 6$.}\quad \>For all $s \in \{0, 1, 2, 3\}$\\
-  L951: \>\emph{Case $N = 8$.}\\
-  L953: \>\emph{Case $N = 8$.}
-\end{tabbing}
-\end{quote}
-The slides thus announce six case-blocks --- prime-and-unit
-$\{1, 2, 3, 5, 7\}$, then $4$, then $6$ (twice), then $8$ (twice) ---
-but the body of each block beyond the opening clause is absent from
-the textual extraction, i.e.\ the explicit $\phi_{0, 1} \mid T_-(s, r, k)$
-Hecke-coefficient tables on these slides were rendered as
-images and did not survive the OCR pipeline. Paramodular weights
-$k_N$ for $N = 5, 7, 8$ are \emph{not} inscribed in the textual content
-of the slides.
-
-\subsection*{What the slides \emph{do} make explicit}
-
-Three structural statements survive intact:
-\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=0.4ex]
-\item the construction (L856--866) of
-  $X = (S \times E)/(\mathbb{Z}/N\mathbb{Z})$ from K3 data
-  $(S, g_N, h_M)$ with $N, M \leq 8$ and an $N$-torsion point
-  $e_0 \in E$, including the free-action proof of smoothness;
-\item Conjecture~1 (L929--936):
-  \emph{every $dd$-Siegel modular form arises (up to constant) as
-  $-(Z^X_{L, h_M})^{-1}$, and the attached BKM superalgebra
-  $\mathfrak{g}_{(g_N, h_M)} \subseteq \mathfrak{g}_L$ has
-  imaginary-simple-root multiplicities equal to the $(g_N, h_M)$-twisted
-  twined K3 elliptic genus $F^{(g_N, h_M)}_L$};
-\item the Oberdieck--Pixton $N = 1$ base case (L912--919):
-  $Z^{S \times E} = -C / \Delta_5^2$ with $2\phi_{0, 1}$ the K3
-  elliptic genus, the form from which all others arise by $T_-(s, r, k)$.
-\end{enumerate}
-
-\subsection*{CHL-admissible versus non-CHL, per the slides}
-
-The textual slides do \emph{not} draw the CHL-admissibility line;
-they enumerate all eight orders $N \in \{1, \ldots, 8\}$ for which a
-fixed-point-free $\mathbb{Z}/N\mathbb{Z}$-diagonal action on $S \times E$
-descends from a symplectic automorphism of $S$. The CHL
-(Chaudhuri--Hockney--Lykken) restriction
-$N \in \{1, 2, 3, 4, 6\}$ is the arithmetic
-constraint $\varphi(N) \mid 2$, equivalent to
-$\mathrm{End}(E) \supseteq \mathbb{Z}[\zeta_N]$ being realisable on an
-elliptic curve with an $N$-torsion point (CM on $E$). The slides
-contemplate $N \in \{5, 7, 8\}$ because $\mathrm{Aut}_s(S)$ admits
-symplectic automorphisms of those orders (Nikulin 1980, order
-$\leq 8$); the elliptic partner $E$ simply carries no $N$-torsion CM
-structure for $N \in \{5, 7\}$ and only a restricted one for $N = 8$.
-
-\subsection*{Comparison to Gritsenko--Cl\'ery 2008}
-
-Gritsenko--Cl\'ery (arXiv:0812.3962 Thm.~1.2) classify
-simplest-divisor Siegel paramodular forms by pairs $(N, t)$:
+Three finite lists meet at the level-one denominator and separate
+immediately after it.
+\begin{enumerate}[label=\textup{(\roman*)}, leftmargin=1.8em, itemsep=0.4ex]
+\item The primitive CHL denominator branch on the $K3\times E$ slice is
+indexed by
 \[
-  (N, t) \in \bigl\{
-    (1, 1),\ (1, 2),\ (1, 3),\ (1, 4),\
-    (2, 1),\ (3, 1),\ (4, 1),\ (2, 2)
-  \bigr\},
+  N\in\{1,2,3,4,6\},
 \]
-weights $(k_{N, t}) = (5, 2, 1, 1, 2, 1, 1, 2)$.
-\emph{The Gritsenko--Cl\'ery census contains no $N \in \{5, 7, 8\}$
-entry}: the slides' case-blocks $\{5, 7\}$ and $\{8\}$ do not
-produce simplest-divisor forms --- they produce paramodular forms
-with \emph{multiple} Humbert divisors, reached by Gritsenko's
-arithmetic-lift framework (Gritsenko--Nikulin 1998
-alg-geom/9504006) applied to $2\phi_{0,1} \mid T_-(N)$. Vol~III's
-inscription in
-\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-(Remark~\ref{rem:gritsenko-clery-orbit}, lines~2886--2911) already
-records this: the programme-active ladder
-$\{\Phi_{N, 1} : N \in \{1, 2, 3, 4, 6\}\}$ equals the Gritsenko--Cl\'ery
-$t = 1$ slice (four forms) augmented by $N = 6$ via the
-arithmetic-lift framework, and the three remaining Gritsenko--Cl\'ery
-forms $\Phi_{1, 2}, \Phi_{1, 3}, \Phi_{1, 4}$ govern $(1, t)$-polarised
-abelian surfaces outside $K3 \times E$.
+with Borcherds-input constants
+\[
+  (c_1(0),c_2(0),c_3(0),c_4(0),c_6(0))
+  =
+  (10,8,6,4,2)
+\]
+and
+\[
+  \kBKM(\Phi_N)=c_N(0)/2=(5,4,3,2,1).
+\]
+\item The order-indexed Nikulin automorphic branch begins with a
+symplectic K3 automorphism $g_N$ of order
+\[
+  N\in\{1,2,3,4,5,6,7,8\}.
+\]
+After the $g_N$-twined weak Jacobi input and its extended paramodular
+Borcherds lift have been fixed, the weight computation has
+\[
+  c_N(0)=(10,8,6,4,4,2,2,2),
+  \qquad
+  \wt(\Phi_N^{\mathrm{Nik}})=c_N(0)/2=(5,4,3,2,2,1,1,1).
+\]
+Here $\Phi_N^{\mathrm{Nik}}$ denotes the chosen automorphic product. A
+compact $K3\times E$ Hall object requires additional data.
+\item The Gritsenko--Cl\'ery dd-modular catalogue is indexed by
+paramodular triples $(t,N;k)$. The second coordinate is a paramodular
+level. The cyclic order of a K3 automorphism is separate data. Its eight triples are
+\[
+\begin{gathered}
+(1,1;5),\ (2,1;2),\ (1,2;3),\ (3,1;1),\\
+(1,3;2),\ (4,1;\tfrac12),\ (1,4;\tfrac32),\ (2,2;1).
+\end{gathered}
+\]
+The weights are
+\[
+  (5,2,3,1,2,\tfrac12,\tfrac32,1),
+\]
+with twice-weight tuple
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+\end{enumerate}
+The common entry requiring no additional row map is the level-one form
+$\Delta_5$ at $(t,N)=(1,1)$. A componentwise identification of the CHL
+and Gritsenko--Cl\'ery lists gives the wrong constants already at the
+next rows.
 
-\subsection*{Is Vol~III missing $N = 5, 7, 8$?}
+\subsection*{Level-one normalisation}
 
-\emph{No}: Vol~III's scope restriction is justified, documented, and
-mathematically forced, not silent:
-\begin{enumerate}[label=(\roman*), leftmargin=1.8em, itemsep=0.3ex]
-\item Remark~\ref{rem:cm-stability-5-of-8}
-  (\texttt{cy\_d\_kappa\_stratification.tex} L2979--2994) identifies
-  $\{1, 2, 3, 4, 6\}$ as the CM-on-$E$ compatibility set
-  $\varphi(N) \mid 2$; $N \in \{5, 7, 8\}$ fail this and so the
-  $K3 \times E$ quotient construction does not yield a
-  CY$_3$ with the required $\mathbb{Z}/N$-CM-torsion lift.
-\item Remark~\ref{rem:nikulin-bound-joint} (L2996--3019) records the
-  Oberdieck 2021 bound $NM \leq 8$: the eight Gritsenko--Cl\'ery pairs
-  saturate the bound, the five programme-active $(N, 1)$ entries lie
-  in the untwisted $M = 1$ subchamber, and the remaining three
-  $((1, 2), (1, 3), (1, 4))$ carry genuine $h_M$-twists captured by
-  Conjecture~\ref{conj:twisted-twined-bkm-ladder-gritsenko-clery}.
-\item The slides' $N \in \{5, 7, 8\}$ blocks describe
-  $\mathrm{Aut}_s(S)$ orbit structure, \emph{not} a $K3 \times E$
-  CY$_3$ orbifold: the corresponding Borcherds lifts are paramodular
-  forms with multiple Humbert divisors, outside the simplest-divisor
-  eight-form census.
+At $N=1$ the theta-normalised genus-two cusp form and the monic
+Borcherds denominator differ by the leading theta coefficient:
+\[
+  \Dfive=64^{-1}\Delta_5,\qquad
+  \operatorname{den}(\mathfrak g_{\Delta_5})=\Dfive(2Z).
+\]
+The Jacobi input determines which automorphic line is being read:
+\[
+  \mathrm{BL}(\phi_{0,1}^{\mathrm{EZ}})=\Dfive,\qquad
+  \mathrm{BL}(2\phi_{0,1}^{\mathrm{EZ}})=\Dfive^2.
+\]
+The first lift gives the primitive BKM denominator and the coefficient
+$c_1(0)=10$ of $\phi_{0,1}^{\mathrm{EZ}}$, hence
+$\kBKM(\Delta_5)=5$. The doubled K3 elliptic genus
+$Z_{K3}=2\phi_{0,1}^{\mathrm{EZ}}$ belongs to the scalar square line.
+The square convention lives on the scalar Igusa line:
+\[
+  \Phiten^\theta=\Delta_5^2,\qquad
+  \Phiten^{\mathrm{OP}}=\Dfive^2=4096^{-1}\Delta_5^2.
+\]
+Thus $\Delta_5$ is the primitive denominator of weight $5$, while
+$\Phiten$ is the scalar square of weight $10$ in the displayed
+normalisation.
+
+\subsection*{The CHL restriction}
+
+The primitive $K3\times E$ CHL denominator construction uses the five
+orders $\{1,2,3,4,6\}$ because its elliptic factor carries an
+origin-fixing cyclotomic automorphism of the same order. The condition is
+\[
+  \varphi(N)\mid 2,
+\]
+equivalently the realisability of the required $\mathbb Z[\zeta_N]$
+linearisation on a complex elliptic curve. This gives
+$N\in\{1,2,3,4,6\}$.
+
+An $N$-torsion translation on an elliptic curve exists for every
+$N$. Such a translation can make a diagonal quotient free. The CHL
+denominator specialisation also requires the elliptic cyclotomic
+linearisation, the reduced DT comparison, and the Hall root datum. The
+orders $5,7,8$ are Nikulin K3 orders whose automorphic Borcherds
+products live on the extended paramodular side until a separate host
+theorem is supplied.
+
+\subsection*{Extended Nikulin orders}
+
+For $N=5,7,8$ the Borcherds weight is the output of a specified
+twined Jacobi input. Niemeier labels, fixed-point counts, and quotient
+singularity types are auxiliary data; the constant is the coefficient
+$c_N(0)$ of the twined Jacobi form.
+\[
+\begin{array}{c|c|c|c|c}
+N & \text{frame shape} & T_{H^*}(g_N) & c_N(0) &
+\wt(\Phi_N^{\mathrm{Nik}}) \\ \hline
+5 & 1^4 5^4 & 8 & 4 & 2 \\
+7 & 1^3 7^3 & 6 & 2 & 1 \\
+8 & 1^2 2^1 4^1 8^2 & 6 & 2 & 1
+\end{array}
+\]
+The row assignment is:
+\[
+  \text{K3 symplectic frame shape}
+  \longrightarrow
+  \text{twined weak Jacobi coefficient }c_N(0)
+  \longrightarrow
+  \wt(\Phi_N^{\mathrm{Nik}})=c_N(0)/2.
+\]
+The correction term in the twined Jacobi input is $A_N=2$ at
+$N=5,7,8$, so $c_N(0)=T_{H^*}(g_N)-2A_N$ gives $(4,2,2)$. A BKM
+interpretation of these three products requires root lattice, Weyl
+vector, chamber, reflection character, and multiplicity data in
+addition to the scalar automorphic product.
+
+\subsection*{Relation to the Gritsenko--Cl\'ery catalogue}
+
+Gritsenko--Cl\'ery classify dd-modular forms by paramodular triples
+$(t,N;k)$ with diagonal Humbert divisor. This is an independent
+classification from the CHL ladder. The catalogue contains two
+half-integral weights, $1/2$ and $3/2$. It omits rows of weights $0$
+and $1/4$. The six integer-weight entries live on paramodular
+groups and their normal extensions; the two half-integral entries use
+multiplier systems of orders $8$ and $4$.
+
+The extended Nikulin entries $N=5,7,8$ have automorphic weights
+$(2,1,1)$ in the order-indexed notation. Equal printed integers or
+equal weights in the Gritsenko--Cl\'ery table carry separate row data.
+The catalogue row fixes its paramodular group, divisor, multiplier
+system, and Borcherds input. The Nikulin row fixes a K3 automorphism
+and a twined Jacobi form.
+
+\subsection*{\texorpdfstring{$K3\times E$}{K3 x E} invariants}
+
+For $Y=K3\times E$,
+\[
+  h^{0,\bullet}(Y)=(1,1,1,1),
+  \qquad
+  \kch(Y)=\sum_q(-1)^q h^{0,q}(Y)=0,
+\]
+and K\"unneth multiplicativity gives
+\[
+  \kcat(Y)=\chi(\mathcal O_{K3})\chi(\mathcal O_E)=2\cdot0=0.
+\]
+The Heisenberg--Mukai specialisation, the Borcherds denominator, and
+the K3 fibre rank are separate constructions:
+\[
+  \kHeis(Y)=3,\qquad
+  \kBKM(\Delta_5)=c_1(0)/2=5,\qquad
+  \kfib(Y)=\operatorname{rk}\widetilde H(K3,\mathbb Z)=24.
+\]
+These numbers come from separate constructions. At the level-one denominator,
+adding the compact chiral supertrace to the elliptic fibre Euler term
+gives $0+0$, while the denominator weight is $5$. The valid identity is
+the Borcherds weight formula
+\[
+  \kBKM(\Phi_N)=c_N(0)/2
+\]
+on a specified denominator product.
+
+\subsection*{Algebraic branch boundaries}
+
+The BKM/Hall--Drinfeld branch is controlled by Borcherds products,
+Weyl chambers, Hall doubles, and compact Hall comparison data. The
+Mukai/Yangian branch is controlled by the Mukai lattice, stable
+envelopes, and root-of-unity Yangian or quantum-toroidal
+specialisations. A theorem in one branch supplies no theorem in the
+other branch.
+
+The local positive-half convention is likewise fixed:
+\[
+  \CoHA(\bC^3)=Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The full $\mathcal W_{1+\infty}$ appears only after passing to a
+double, centre, completion, or evaluation layer. For a CY$_3$ input
+the specialised chiral output is $E_1$-chiral; an $E_2$ structure lives
+on an associated centre, double, or module category.
+
+\subsection*{What an extension would require}
+
+Extending the geometric construction beyond the five CHL entries
+requires four independent constructions.
+\begin{enumerate}[label=\textup{(\alph*)}, leftmargin=1.8em, itemsep=0.4ex]
+\item A CY$_3$ host theorem for $N=5,7,8$: either a $K3\times E$-type
+quotient with the required CHL linearisation and reduced theory, or a
+different K3-fibred host. Torsion freeness alone proves none of this.
+\item A Borcherds-product theorem identifying the relevant twined
+Jacobi form, its automorphic group, and the constant
+$c_N(0)$ in the chosen normalisation. The automorphic values in the
+extended Nikulin normalisation are
+\[
+  (c_5(0),c_7(0),c_8(0))=(4,2,2),
+  \qquad
+  \wt=(2,1,1).
+\]
+\item A root-data theorem giving the Lorentzian lattice, Weyl vector,
+positive chamber, reflection character, and signed simple-root
+multiplicities needed for a BKM or Hall--Drinfeld interpretation.
+\item A fresh computation of $\kcat$, $\kch$, and any specialisation
+invariants for the replacement CY$_3$ host. K\"unneth multiplicativity gives
+$\kcat(K3\times E)=0$ on the product slice. A non-product or resolved
+quotient geometry requires its own Hodge computation.
 \end{enumerate}
 
-\subsection*{What extending the programme would require}
+\subsection*{Conclusion}
 
-Three pieces, individually non-trivial:
-\begin{itemize}[leftmargin=1.8em, itemsep=0.3ex]
-\item replace $K3 \times E$ with a K3-fibered CY$_3$ admitting an
-  order-$N$ symplectic automorphism that does \emph{not} require
-  CM on the fibre --- e.g.\ the $N = 8$ Kummer construction of
-  Mongardi--Tari--Wandel 2018 arXiv:1610.06216, where the orbifold
-  CY$_3$ is a resolution rather than a free quotient;
-\item compute the paramodular weight $k_N$ via Borcherds singular
-  theta on $\Lambda^{2,1}_{II; N, 1}$ for $N \in \{5, 7, 8\}$,
-  with constant term $c_N(0)$ read off $2\phi_{0,1} \mid T_-(N)$
-  --- the weak Jacobi Hecke expansion is explicit in
-  Gritsenko--Nikulin 1998 \S3, giving (conjecturally)
-  $(k_5, k_7, k_8) = (1, 1, 1)$ with $c_N(0) \in \{2, 2, 2\}$,
-  extending the programme sequence
-  $(5, 2, 1, 1, 1) \to (5, 2, 1, 1, 1, 1, 1, 1)$;
-\item extend Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}
-  $\kBKM(\Phi_N) = c_N(0)/2$ across
-  $N \in \{1, 2, 3, 4, 5, 6, 7, 8\}$, with $\kcat$ of the
-  non-CHL orbifold CY$_3$ computed afresh (Künneth breaks off the
-  fibre product); the universal identity has been verified only on
-  the CHL slice.
-\end{itemize}
+The primitive CHL denominator theorem remains a five-entry theorem on
+the $K3\times E$ specialisation:
+\[
+  N\in\{1,2,3,4,6\},\qquad
+  \kBKM(\Phi_N)=(5,4,3,2,1).
+\]
+The order-indexed Nikulin automorphic products extend the weight
+calculation to $N=5,7,8$ with constants $(4,2,2)$ and weights
+$(2,1,1)$ after the twined Jacobi input has been specified. The
+Gritsenko--Cl\'ery catalogue is a separate eight-row
+diagonal-divisor classification. A compact BKM or DT interpretation of
+the non-CHL orders requires a host-and-root-data theorem beyond the
+integer $N$.
 
-\subsection*{Frontier statement}
+\subsection*{Sources}
 
-The CHL-admissibility line is a physical-moduli-space constraint on
-the elliptic partner $E$, not a restriction on the BKM / paramodular
-side. The eight Gritsenko--Cl\'ery forms are the paramodular-side
-truth; the five programme-active entries are the subset compatible
-with the $K3 \times E$ geometric construction. The frontier is to
-attach Borcherds--Kac--Moody superalgebras to the $N \in \{5, 7, 8\}$
-forms through an alternative K3-fibered orbifold geometry, thereby
-completing the Vol~III ladder from five entries to eight.
+Nikulin 1980 on finite symplectic automorphisms of K3 surfaces;
+Mukai 1988 on the Mathieu bound and K3 fixed data; Eguchi--Hikami
+2011 on twined K3 elliptic-genus tables; Gritsenko--Nikulin 1995,
+Gritsenko 1994, and Gritsenko 1999 on Borcherds products and the
+extended order-indexed weights; Gritsenko--Cl\'ery 2008 on the eight
+dd-modular forms; Igusa 1962 and 1964 on $\Phiten^\theta=\Delta_5^2$;
+Oberdieck--Pandharipande and Oberdieck--Pixton on the reduced
+$K3\times E$ scalar square; Vol III's universal Borcherds-weight
+theorem,
+Lemma~\ref{lem:c-N-zero-closed-form},
+Corollary~\ref{cor:borcherds-weight-full-8form-scope}, and
+Theorem~\ref{thm:eight-form-cy-host-catalogue}.

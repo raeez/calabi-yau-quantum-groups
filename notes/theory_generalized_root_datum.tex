@@ -1,17 +1,20 @@
 %% notes/theory_generalized_root_datum.tex
 %% Self-contained section content: Generalized Root Data of CY3 Threefolds
-%% Intended for eventual inclusion in Part III (chapters/theory/)
 %% Uses theorem environments and macros from main.tex preamble
 
 \chapter{Generalized Root Data of Calabi--Yau Threefolds}
 \label{ch:generalized-root-datum}
 
-%: G(X) is not yet constructed for general CY3. The root datum
-% R(X) is well-defined (it is extracted from the geometry of X), but the
-% quantum vertex chiral group G(X) with root datum R(X) is the TARGET
-% of the programme, not a defined object. The root datum axiomatization
-% below is independent of the existence of G(X).
-The combinatorics of a Calabi--Yau threefold $X$ (its lattice, intersection form, BPS spectrum) constitute a \emph{generalized root datum} $\mathcal{R}(X)$ in the sense of Borcherds. The programme of this work (Conjecture~CY-A$_3$) posits that $\mathcal{R}(X)$ is the root datum of a quantum vertex chiral group $G(X)$; the root datum itself is a purely geometric/combinatorial object that exists unconditionally. This chapter axiomatizes the notion of a generalized CY root datum, identifies the axioms distinguishing CY root data from general Borcherds--Kac--Moody (BKM) root data, defines morphisms and operations, and establishes the fibration construction by which a CY$_2$ root datum and an elliptic curve produce a CY$_3$ root datum via the Borcherds multiplicative lift.
+The lattice, intersection form, and BPS multiplicities attached to a
+Calabi--Yau threefold define a \emph{generalized root datum}
+$\mathcal{R}(X)$ in the sense of Borcherds whenever those data are
+available. A quantum vertex chiral group $G(X)$ with this root datum is
+not constructed for a general compact CY$_3$. The root datum is the
+geometric/combinatorial input; the group is an additional output only on
+constructed loci. This chapter axiomatizes generalized CY root data,
+defines morphisms and operations, and isolates the fibration
+construction by which a CY$_2$ root datum and an elliptic curve produce
+a CY$_3$ root datum through the Borcherds multiplicative lift.
 
 \section{Abstract root data of indefinite type}
 \label{sec:abstract-root-data}
@@ -103,7 +106,7 @@ with faces given by the hyperplanes $\alpha_i^\perp$ for $\alpha_i \in \Pi^{\mat
 
 \begin{proposition}[Weyl--Kac--Borcherds denominator identity]
 \label{prop:wkb-denominator}
-\ClaimStatusProvedElsewhere
+
 Let $\mathcal{R}$ be a generalized root datum with Weyl vector $\rho$. The BKM Lie superalgebra $\mathfrak{g}_\mathcal{R}$ satisfies the denominator identity
 \[
  e^{-\rho} \prod_{\alpha \in \Delta_+} (1 - e^{-\alpha})^{\mathrm{mult}(\alpha)}
@@ -210,17 +213,22 @@ The denominator identity of $\mathcal{R}$ produces an automorphic form $\Phi_\ma
 
 \begin{remark}
 \label{rem:cy5-igusa}
-For $K3 \times E$: $\Phi_\mathcal{R} = \frac{1}{64}\Delta_5$ (the Igusa cusp form).
-The K3 elliptic genus in the DVV convention is
-$\phi_{0,1} = 2y^{-1} + 20 + 2y + \cdots$, so the constant
-term is $c_{\phi_{0,1}}(0,0) = 20$. By axiom (CY5)(b), the
-Borcherds product weight is $k_{\mathrm{Borch}} = \frac{1}{2}
-\cdot 20 = 10$; the identification with $\Delta_5$ of weight $5$
-uses the rescaling $\mathrm{Borch}(\phi_{0,1})(Z) =
-\frac{1}{64}\Delta_5(2Z)$, so $k_\mathcal{R} = 5$.
-For toric CY3: $\Phi_\mathcal{R}$ is the DT partition function,
-and $k_\mathcal{R}$ is the ``Euler weight''
-$\frac{1}{2}\chi(X)$.
+For $K3 \times E$, the normalized Gritsenko--Nikulin seed is
+\[
+ \phi_{0,1}^{\mathrm{GN}}(\tau,z)
+ = y^{-1}+10+y+O(q),
+\]
+so $c_{\phi_{0,1}^{\mathrm{GN}}}(0,0)=10$ and the Borcherds weight is
+\[
+ k_{\mathcal R}=\kappa_{\mathrm{BKM}}=\frac12 c(0,0)=5.
+\]
+The resulting automorphic form is the weight-five Gritsenko cusp form
+$\Delta_5$ on the appropriate orthogonal modular cover. The unnormalized
+K3 elliptic genus is twice this seed; using it changes the input
+normalization and must be accompanied by an explicit row-map. For toric
+CY$_3$ examples, the DT partition function is a Hall-counting input; its
+automorphic weight is not universally $\chi(X)/2$ without a specified
+Borcherds seed and normalization.
 \end{remark}
 
 \subsection*{(CY6) Serre-type relations from the Gram matrix}
@@ -258,7 +266,7 @@ The axioms (CY1)--(CY7) carve out a proper subclass of generalized root data. We
 
 \begin{conjecture}[Characterization of CY root data]
 \label{conj:cy-characterization}
-\ClaimStatusConjectured
+
 A generalized root datum $\mathcal{R}$ is a CY$_3$ root datum if and only if the following conditions all hold:
 \begin{enumerate}[label=(\arabic*)]
  \item \textbf{Lattice type}: $\Lambda$ is even, of signature $(p,1)$ or $(p,2)$ with $p \geq 2$, and decomposes as $\Lambda^{\mathrm{hyp}} \oplus \Lambda^{\mathrm{ell}}$.
@@ -273,7 +281,11 @@ A generalized root datum $\mathcal{R}$ is a CY$_3$ root datum if and only if the
 
  \item \textbf{Finite covolume}: $[\mathrm{O}(\Lambda^{\mathrm{hyp}})_+ : \widetilde{W}] < \infty$.
 
- \item \textbf{CY Euler constraint}: The weight $k_\mathcal{R}$ satisfies $k_\mathcal{R} = \frac{1}{2}\chi(X)$ for the CY3 Euler characteristic, equivalently $k_\mathcal{R} = \frac{1}{2}c_\varphi(0,0)$ with the appropriate normalization.
+ \item \textbf{Borcherds weight constraint}: The weight
+ $k_\mathcal{R}$ satisfies $k_\mathcal{R} = \frac{1}{2}c_\varphi(0,0)$
+ for the specified Borcherds seed and normalization. A topological
+ formula involving $\chi(X)$ is an extra theorem in special DT
+ normalizations, not part of the abstract CY$_3$ root-datum axiom.
 \end{enumerate}
 \end{conjecture}
 
@@ -316,7 +328,7 @@ A \emph{sub-root-datum} $\mathcal{R}_0 \hookrightarrow \mathcal{R}$ is a morphis
 
 \begin{proposition}[Category of CY root data]
 \label{prop:cy-root-category}
-\ClaimStatusProvedHere
+
 CY$_3$ root data with the morphisms of Definition~\ref{def:morphism-root-data} form a category $\mathbf{CYRoot}_3$. Isomorphisms in this category are precisely the isomorphisms of Definition~\ref{def:iso-root-data}.
 \end{proposition}
 
@@ -341,7 +353,7 @@ where $(\cdot,\cdot)_1 \perp (\cdot,\cdot)_2$ denotes the orthogonal direct sum 
 
 \begin{lemma}
 \label{lem:direct-sum-roots}
-\ClaimStatusProvedHere
+
 The root system of $\mathcal{R}_1 \oplus \mathcal{R}_2$ contains no ``mixed'' roots: every root in $\Delta_1 \sqcup \Delta_2$ lies entirely in $\Lambda_1$ or $\Lambda_2$. In particular, $(\alpha, \beta) = 0$ for $\alpha \in \Delta_1$, $\beta \in \Delta_2$, and the BKM superalgebra decomposes as $\mathfrak{g}_{\mathcal{R}_1 \oplus \mathcal{R}_2} \simeq \mathfrak{g}_{\mathcal{R}_1} \oplus \mathfrak{g}_{\mathcal{R}_2}$.
 \end{lemma}
 
@@ -351,7 +363,7 @@ By orthogonality of $\Lambda_1$ and $\Lambda_2$ in the direct sum, any vector $\
 
 \begin{proposition}[Direct sum and automorphic forms]
 \label{prop:direct-sum-automorphic}
-\ClaimStatusProvedHere
+
 If $\mathcal{R}_1$ and $\mathcal{R}_2$ are CY root data with automorphic denominator products $\Phi_{\mathcal{R}_1}$ and $\Phi_{\mathcal{R}_2}$, then
 \[
  \Phi_{\mathcal{R}_1 \oplus \mathcal{R}_2}(z_1, z_2) = \Phi_{\mathcal{R}_1}(z_1) \cdot \Phi_{\mathcal{R}_2}(z_2)
@@ -452,7 +464,7 @@ where $c_\varphi(n, l)$ are the Fourier coefficients of $\varphi_S$ and $\ell \c
 
 \begin{theorem}[Fibration produces a CY$_3$ root datum]
 \label{thm:fibration-cy3}
-\ClaimStatusProvedHere
+
 The root datum $\mathcal{R}_{S,E} = \mathrm{Fib}(\mathcal{R}_S, \mathcal{E})$ satisfies axioms (CY1)--(CY7). The automorphic denominator product $\Phi_{\mathcal{R}_{S,E}}$ is the Borcherds multiplicative lift $\mathrm{Borch}(\varphi_S)$ of the Jacobi form $\varphi_S$.
 \end{theorem}
 
@@ -483,7 +495,7 @@ converges on the tube domain over the positive cone and extends to an automorphi
 
 \begin{proposition}[Functoriality of Fib]
 \label{prop:fib-functorial}
-\ClaimStatusProvedHere
+
 The fibration construction defines a functor
 \[
  \mathrm{Fib} \colon \mathbf{CY}_2\mathbf{Root} \times \mathbf{Ell} \longrightarrow \mathbf{CYRoot}_3
@@ -555,23 +567,33 @@ A CY$_3$ root datum $\mathcal{R}$ is \emph{geometric} if there exists a smooth p
 
 \begin{proposition}[Necessary conditions for geometricity]
 \label{prop:necessary-geometric}
-\ClaimStatusProvedHere
+
 If $\mathcal{R}$ is geometric, then:
 \begin{enumerate}[label=(\roman*)]
  \item \textbf{Hodge-theoretic constraint}: The rank of $\Lambda$ is bounded by $\mathrm{rk}(\Lambda) \leq h^{1,1}(X) + h^{2,1}(X) + 2$ (from the Hodge diamond of a CY3).
  \item \textbf{Mirror constraint}: There exists a ``mirror'' CY$_3$ root datum $\mathcal{R}^\vee$ with $\Lambda^{\vee, \mathrm{hyp}}$ and $\Lambda^{\vee, \mathrm{ell}}$ exchanged (reflecting the interchange $h^{1,1} \leftrightarrow h^{2,1}$ under mirror symmetry).
- \item \textbf{Euler characteristic}: $k_\mathcal{R} = \frac{1}{2}|\chi(X)|$ where $\chi(X) = 2(h^{1,1} - h^{2,1})$ (when $h^{2,1}(X) = 0$, i.e., rigid CY3s, the signature is $(p,1)$ and $k_\mathcal{R} = h^{1,1} + 1$).
+ \item \textbf{Borcherds weight}: $k_\mathcal{R} =
+ \frac{1}{2}c_\varphi(0,0)$ for the Jacobi or vector-valued modular
+ seed controlling the denominator product. No universal equality
+ $k_\mathcal{R}=|\chi(X)|/2$ is imposed; for instance, the
+ $K3\times E$ weight-five denominator has $\chi(K3\times E)=0$.
  \item \textbf{DT integrality}: The multiplicity function $\mathrm{mult}(\alpha)$ must agree with the Donaldson--Thomas invariants $\mathrm{DT}_\alpha(X)$ (which are integers satisfying the Kontsevich--Soibelman wall-crossing formula).
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-(i) follows from $\mathrm{rk}(\Lambda(X)) \leq \mathrm{rk}(K_0(X)) = \sum_p (-1)^p \mathrm{rk}(K_0^p) \leq h^{1,1} + h^{2,1} + 2$ (the rank of the Mukai lattice restricted to the relevant sublattice). (ii) is a consequence of homological mirror symmetry: if $X^\vee$ is a mirror CY3, then $D^b(\Coh(X)) \simeq D^\pi(\Fuk(X^\vee))$, and the root datum of $X^\vee$ has the exchanged Hodge numbers. (iii) follows from the weight formula $k_\mathcal{R} = \frac{1}{2}c_\varphi(0,0)$ combined with the relation $c_\varphi(0,0) = \chi(X)$ (the constant term of the BPS generating function equals the topological Euler characteristic, up to normalization). (iv) is the identification $\mathrm{mult}(\alpha) = \mathrm{DT}_\alpha(X)$ for a geometric CY3.
+(i) follows from extracting $\Lambda(X)$ as a finite-rank sublattice of
+the numerical $K$-theory or Mukai-type lattice controlled by the Hodge
+diamond. (ii) is a mirror-symmetry constraint on any geometric
+realization, not an assertion that every abstract datum has a mirror.
+(iii) is the Borcherds theorem for the chosen seed: the denominator
+weight is $\frac12 c_\varphi(0,0)$. (iv) is the defining
+geometricity condition on multiplicities.
 \end{proof}
 
 \begin{conjecture}[Partial converse: fibered CY root data are geometric]
 \label{conj:fibered-geometric}
-\ClaimStatusConjectured
+
 Every CY$_3$ root datum $\mathcal{R}$ that arises via the fibration construction $\mathcal{R} = \mathrm{Fib}(\mathcal{R}_S, \mathcal{E})$ from a geometric CY$_2$ root datum $\mathcal{R}_S$ is geometric. In particular, for every reflective hyperbolic sublattice $\Lambda^{\mathrm{hyp}} \subset H^2(S, \mathbb{Z})$ with $S$ a K3 surface, the CY$_3$ root datum $\mathrm{Fib}(\mathcal{R}_S|_{\Lambda^{\mathrm{hyp}}}, \mathcal{E})$ is realized by $X = (S \times E)/G$ for an appropriate finite group $G$ acting on $S \times E$.
 \end{conjecture}
 
@@ -584,24 +606,42 @@ The conjecture leaves open the realizability of CY$_3$ root data that do not ari
 \section{Compatibility with the shadow obstruction tower}
 \label{sec:shadow-tower}
 
-We now connect the root datum axiomatics to the shadow obstruction tower of Volume~I.
+The root datum axiomatics can be compared with the shadow obstruction
+tower only on loci where the CY$_3$ chiral output has been constructed.
 
 \begin{conjecture}[Root datum from the shadow obstruction tower]
 \label{conj:root-datum-shadow}
-\ClaimStatusConjectured
-Let $A_X = \Phi(\cC_X)$ be the quantum chiral algebra of a CY3 $X$ (via Theorem CY-A), and let $\Theta_{A_X} = \sum_{r \geq 2} \Theta^{(r)}_{A_X}$ be its universal MC element (shadow obstruction tower). The CY$_3$ root datum $\mathcal{R}(X)$ is recovered as follows:
+
+Assume a CY$_3$ category $\cC_X$ is equipped with a specialization
+datum $(\Sigma_2,C)$, a compatible framing/anomaly/completion package,
+and an $\Eone$ chiral output
+$A_X=\Phi_3^{(\Sigma_2,C)}(\cC_X)$. Let
+$\Theta_{A_X} = \sum_{r \geq 2} \Theta^{(r)}_{A_X}$ be the corresponding
+Maurer--Cartan tower. A root datum can be recovered from the following
+data only after the listed identifications are proved:
 \begin{enumerate}[label=(\roman*)]
- \item The lattice $\Lambda(X)$ is the grading lattice of the bar complex $B(A_X)$.
- \item The Weyl vector $\rho$ is determined by $\Theta^{(2)}_{A_X} = \kappa_{\mathrm{ch}}(A_X)$: the degree-$2$ shadow component.
+ \item The lattice $\Lambda(X)$ is the grading lattice of the $\Eone$ bar
+ complex $B(A_X)$.
+ \item The scalar trace of $\Theta^{(2)}_{A_X}$ is
+ $\kappa_{\mathrm{ch}}(A_X)$, while the Weyl vector $\rho$ is an
+ additional lattice element characterized by
+ $(\rho,\alpha_i)=-(\alpha_i,\alpha_i)/2$ on real simple roots.
  \item The real roots correspond to the poles of the collision $r$-matrix $r(z) = \mathrm{Res}^{\mathrm{coll}}_{0,2}(\Theta^{(2)})$.
  \item The imaginary root of charge $\alpha$ with $|\alpha| = r$ (total degree) is detected by $\Theta^{(r)}_{A_X}$: the degree-$r$ shadow. Its multiplicity is the dimension of the corresponding component of the cyclic cohomology $\HC^*_\alpha(A_X)$.
- \item The denominator identity $\Phi_{\mathcal{R}(X)}$ is the bar-complex Euler product $\chi(B(A_X))$.
+ \item The denominator identity $\Phi_{\mathcal{R}(X)}$ is identified
+ with the completed bar-complex Euler product only after the Borcherds
+ product, chamber, and convergence data are matched.
 \end{enumerate}
 \end{conjecture}
 
 \begin{remark}
 \label{rem:shadow-dictionary}
-This proposition makes the ``automorphic correction = shadow obstruction tower'' identification precise at the level of root data. The real roots are the tree-level data (degree 2, the classical $r$-matrix). The imaginary roots are the quantum corrections (degree $\geq 3$, the higher shadows). The full BKM superalgebra $\mathfrak{g}_{\mathcal{R}(X)}$ is the ``infinite shadow depth'' limit of the shadow obstruction tower: the complete automorphic correction.
+The real roots are tree-level collision data. Imaginary roots are
+higher-degree components of the tower after a charge decomposition has
+been fixed. The full BKM superalgebra
+$\mathfrak{g}_{\mathcal{R}(X)}$ is not obtained by taking a formal
+limit of shadows alone; it requires the Borcherds denominator identity
+and the associated automorphic correction.
 \end{remark}
 
 
@@ -630,7 +670,10 @@ $Q$ has one vertex and one loop. $\Lambda = \mathbb{Z}$, $(\cdot, \cdot)$ is deg
  \item No real roots ($\Delta^{\mathrm{re}} = \emptyset$).
  \item All roots are imaginary: $\Delta^{\mathrm{im}}_0 = \{n \in \mathbb{Z}_{>0}\}$ with $\mathrm{mult}(n) = p(n)$ (the partition function).
  \item $W = \{1\}$ (trivial Weyl group).
- \item The associated algebra is $Y(\widehat{\mathfrak{gl}}_1) \simeq \mathcal{W}_{1+\infty}$.
+ \item The associated CoHA is the positive half
+ $Y^+(\widehat{\mathfrak{gl}}_1)$. The full affine Yangian and the
+ $\mathcal{W}_{1+\infty}$ Fock realization appear only after the
+ Drinfeld double/center passage.
 \end{itemize}
 This is a degenerate CY$_3$ root datum (no real roots, degenerate form), illustrating that the axioms (CY1)--(CY7) should be understood as holding ``generically''; toric CY3s with no compact divisors sit at the boundary of the moduli.
 \end{example}

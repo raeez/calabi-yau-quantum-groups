@@ -1,15 +1,4 @@
 % !TEX root = ../main.tex
-%
-% Wave-19 X3/20 (relaunch): N=3 CHL effective positive-half geometry and
-% the BPS Lie algebra g^{(3)}_BPS. Oberdieck voice. Five attack-heal cycles.
-% Primary sources: Bryan-Oberdieck 2018 (arXiv:1811.06102),
-% Gritsenko-Clery 2008 / 2013, Cheng-Duncan-Harvey 2014 (arXiv:1307.5793;
-% elliptic-genus table arXiv:1204.2779), Nikulin 1980, CHL 1995
-% (hep-th/9506144), Davison-Meinhardt 2020 (arXiv:1512.08898),
-% Lorgat 2020 (Conjecture 1 at N=3). Author: Raeez Lorgat. No AI attribution.
-%
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
 \providecommand{\bC}{\mathbb{C}}
 \providecommand{\bZ}{\mathbb{Z}}
 \providecommand{\bQ}{\mathbb{Q}}
@@ -21,8 +10,10 @@
 \providecommand{\Sp}{\mathrm{Sp}}
 \providecommand{\Fix}{\mathrm{Fix}}
 \providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Hilb}{\mathrm{Hilb}}
 \providecommand{\DT}{\mathrm{DT}}
+\providecommand{\DTred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
 \providecommand{\BPS}{\mathrm{BPS}}
 \providecommand{\red}{\mathrm{red}}
 \providecommand{\eff}{\mathrm{eff}}
@@ -37,86 +28,120 @@
 \providecommand{\Yp}{Y^{+}}
 \providecommand{\fg}{\mathfrak{g}}
 \providecommand{\GL}{\mathrm{GrLift}}
+\providecommand{\DeltaCHLThree}{\Delta_{3}^{(3)}}
+\providecommand{\DeltaDDThree}{\Delta_{1}^{(3)}}
+\providecommand{\NablaThree}{\nabla_{2}}
 
 \section*{$N=3$ CHL effective positive half and BPS Lie algebra
 $\fg^{(3)}_{\BPS}$}
-\label{wn:sec:wave19-x3-N3-positive-half-BPS}
+\label{sec:N3-positive-half-BPS}
 
-\paragraph{Datum.} Fix a symplectic Nikulin automorphism
-$g_3 \in \Auts(K3)$ of order $3$, class $3A \subset M_{23}$ in the
-Mukai embedding (Nikulin, \emph{Moscow Math.\ J.}\ 1980 Table~1;
-Mukai \emph{Invent.\ Math.}\ \textbf{94} (1988) Thm.~0.1). The
-invariant sublattice
-$\Lambda^{g_3}_{K3}\subset\mathrm{II}_{3,19}$ has rank $r_3 = 10$,
-signature $(1,9)$; the coinvariant is $A_2^{\oplus 4}$ of rank $12$,
-discriminant form $(\bZ/3\bZ)^{\oplus 4}$. Fix a primitive translation
-$t_3 \in E[3]$ of exact order~$3$; the diagonal
-$\sigma_3 = (g_3, t_3)$ acts freely on $K3 \times E$ (translation
-$t_3$ acts freely on $E$, so diagonal fixes require simultaneously
-$g_3$-fixed K3-points and trivial $t_3$-shift, forbidden).
-The $N=3$ CHL Calabi--Yau threefold is
+\paragraph{The quotient.} Fix a symplectic K3 automorphism
+$g_3\in\Auts(K3)$ of order $3$, Mathieu class $3A$, frame shape
+$1^6 3^6$. Nikulin's fixed-point formula gives
+$|\Fix(g_3)|=6$. The trace on $H^2(K3,\bQ)$ is $4$, hence
+$H^2(K3,\bQ)^{g_3}$ has rank $10$. The surface quotient
+$K3/\langle g_3\rangle$ has six rational double points of type $A_2$;
+their exceptional curves on the minimal resolution form
+$A_2^{\oplus 6}$. Fix a translation $t_3\in E[3]$ of exact order $3$ and put
+$\sigma_3=(g_3,t_3)$. For $a=1,2$, the translation $t_3^a$ is
+fixed-point-free on $E$. Hence $\sigma_3^a$ is fixed-point-free on
+$K3\times E$,
+independently of the fixed points of $g_3^a$ on the K3 factor. The
+quotient
 \[
   X_3 \;=\; (K3 \times E)\big/\langle\sigma_3\rangle,
 \]
-with $\chi(\cO_{X_3}) = \tfrac{1}{3}\chi(\cO_{K3\times E}) = 0$
-(CHL arXiv:hep-th/9506144 \S 2; Bryan--Oberdieck arXiv:1811.06102
-\S 2.1).
+is a smooth projective Calabi-Yau threefold. The quotient map
+$K3\times E\to X_3$ is finite etale of degree $3$, and the holomorphic
+form $\omega_{K3}\wedge dz_E$ descends because $g_3$ is symplectic and
+translations preserve $dz_E$.
 
-\paragraph{Convention (M4 Borcherds-weight normalisation).} The
-$g_3$-twined K3 elliptic genus $Z^{(g_3)}_{K3}(\tau,z) =
-2\,\phi^{(g_3)}_{0,1}$ with $\phi^{(g_3)}_{0,1}$ the CDH weak
-Jacobi form of weight $0$, index $1$ at class $3A$ (CDH
-arXiv:1204.2779 Table~2 row $3A$). Its constant Fourier coefficient is
-$c_3(0) \,=\, \phi^{(g_3)}_{0,1}(\tau,0)|_{q^0} \,=\, 2$, so the
-Borcherds-weight paramodular form at level $3$ has weight
-$k_3 = c_3(0)/2 = 1$. This is the convention of the universal
-identity $\kBKM(\Phi_N) = c_N(0)/2$ across $N\in\{1,2,3,4,6\}$.
-Distinct from: the $g_3$-twined total K3 Euler trace
-$\chi_{g_3}(K3) = 6$, which is the Hodge supertrace on all of
-$H^*(K3)$ and enters $\kfib$, not $\kBKM$.
+\paragraph{The elliptic fibration.} Projection to the elliptic factor
+descends to a smooth isotrivial fibration
+\[
+  \pi\colon X_3\longrightarrow E/\langle t_3\rangle=:E'.
+\]
+The map $E\to E'$ is a degree-three isogeny, hence etale. The fibration
+is etale over all of $E'$. The surface quotient
+$K3/\langle g_3\rangle$ and its $A_2$ singularities belong to the
+K3-factor orbifold calculation; every
+geometric fibre of the smooth threefold $X_3\to E'$ is a K3 surface.
 
-\paragraph{Cycle 1: $X_3$ smooth CY$_3$ with Kummer-structured fibre.}
-\emph{Attack.} Does $g_3$ produce singularities? \emph{Heal.} No:
-the $g_3$-fixed K3 locus $\Fix(g_3)$ has six isolated points
-(Nikulin 1980, Table~1; total fixed-point count $\chi(\Fix(g_3)) =
-6$ matches $\chi_{g_3}(K3)$); but the diagonal $\sigma_3$ is free
-on $K3\times E$, so $X_3$ is smooth Calabi--Yau of dimension $3$.
-Projection $\pi\colon X_3 \to E/\langle t_3\rangle \cong E'$ onto
-the $3$-isogenous elliptic curve has generic fibre $K3$; at three
-branch points the fibre is $K3/\langle g_3\rangle$, whose minimal
-resolution is the Nikulin K3 of degree~$3$ with $4$ additional
-$A_2$-resolution trees over the six nodes. \ClaimStatusTheorem\
-at the scheme level.
+\paragraph{The primitive CHL denominator.} The order-three primitive
+CHL Borcherds input is the CHL-averaged weight-zero, index-one Jacobi
+form
+\[
+  \varphi_3(\tau,z)=
+  \sum_{n,\ell}c^{\mathrm{CHL}}_3(4n-\ell^2,\ell)q^n\zeta^\ell .
+\]
+Its constant coefficient is
+\[
+  c_3(0)=c^{\mathrm{CHL}}_3(0,0)=6.
+\]
+Equivalently, the Mathieu frame trace of the $3A$ row is
+$T_{24}(3A)=12$, the theta-component correction is $A_3=3$, and
+\[
+  c_3(0)=T_{24}(3A)-2A_3=12-6=6.
+\]
+Borcherds' singular-theta weight theorem gives
+\[
+  \kBKM(\DeltaCHLThree)
+  =\mathrm{wt}(\DeltaCHLThree)
+  =\frac{c_3(0)}2
+  =3.
+\]
+The fixed-locus number $|\Fix(g_3)|=6$ is a separate Lefschetz
+calculation on the K3 fibre. Its equality with the CHL constant is a
+coincidence of the order-three row; the definition of $c_3(0)$ is the
+zeroth Fourier coefficient of the Borcherds input.
+This is the third entry of the primitive CHL ladder
+\[
+  (c_N(0))_{N=(1,2,3,4,6)}=(10,8,6,4,2),\qquad
+  (\kBKM(\Phi_N))_{N=(1,2,3,4,6)}=(5,4,3,2,1).
+\]
+The Gritsenko-Cl\'ery diagonal-divisor catalogue is a separate
+triple-indexed family. Its nearby forms
+\[
+  \DeltaDDThree\in M_1(\Gamma_3,\chi_6),\qquad
+  \NablaThree\in M_2(\Gamma_0^{(2)}(3),\chi_2)
+\]
+have weights $1$ and $2$ respectively, and belong to the rows
+$(3,1;1)$ and $(1,3;2)$ of the diagonal-divisor catalogue. The
+primitive CHL value remains $\kBKM(\DeltaCHLThree)=3$.
 
-\paragraph{Cycle 2: twisted reduced DT and $Z^{\red}_{\DT}(X_3) =
--1/\Phi_3^{(3)}$.}
-\emph{Attack.} Does the reduced virtual class survive the quotient?
-\emph{Heal.} Yes: $g_3$ preserves $\omega_{K3}$ symplectically and the
-Kool--Thomas cosection $\sigma\colon\mathrm{Obs}\to\cO$
-(arXiv:1112.3069 \S 4) is $\sigma_3$-equivariant. Define the twisted
-reduced DT moduli
+\paragraph{Reduced DT scalar.} The K3 holomorphic two-form induces the
+standard reduced cosection on the obstruction theory for curves on
+$K3\times E$, and the cosection is $\sigma_3$-equivariant because
+$g_3$ preserves $\omega_{K3}$ and $t_3$ is a translation. The
+equivariant reduced moduli problem is represented on the cover by
 \[
   \cM^{\red,\sigma_3}_{\DT}(X_3;\gamma)
-  \;=\; \bigl(\cM^{\red}_{\DT}(K3\times E;\gamma)\bigr)^{\sigma_3},
+  \;=\;
+  \bigl(\cM^{\red}_{\DT}(K3\times E;\tilde\gamma)\bigr)^{\sigma_3},
 \]
-indexed by curve classes $\gamma$ in the invariant sublattice
-$H_2(X_3;\bZ)$. The reduced DT partition function is
+where $\tilde\gamma$ is a lift of the curve class
+$\gamma\in H_2(X_3,\bZ)$ to the invariant part of the cover.
+Bryan-Oberdieck's primitive order-three reduced-DT conjecture fixes the
+scalar denominator, after the chamber and variables are chosen, as the
+square of the primitive CHL denominator:
 \[
-  Z^{\red}_{\DT}\bigl(X_3;q,p,y\bigr)
-  \;=\; -\frac{1}{\Phi_3^{(3)}(\tau,\sigma,z)},
-  \qquad \mathrm{wt}\,\Phi_3^{(3)} \,=\, 1,
+  \Phi^{\mathrm{scal}}_3(\tau,\sigma,z)
+  =
+  (\DeltaCHLThree(\tau,\sigma,z))^2,
+  \qquad
+  \DTred(X_3;\tau,\sigma,z)
+  \;=\;
+  -\,\mathcal C^{\mathrm{BO}}_3(\tau,z)\,
+  \bigl(\Phi^{\mathrm{scal}}_3(\tau,\sigma,z)\bigr)^{-1}.
 \]
-where $\Phi_3^{(3)} = \GL(\phi^{(g_3)}_{0,1})$ is the Gritsenko additive
-lift at level $3$ (Bryan--Oberdieck 1811.06102 Thm.~1, proved on
-primitive classes; Oberdieck--Pandharipande 1603.05238 for $N=1$
-base case). This is a paramodular cusp form on
-$\Gamma_0^{+}(3)\subset\Sp_4(\bZ)$ of weight $1$, index $1$, with
-character determined by the Humbert divisor count
-$\sum_\ell \ell^2 c^{(g_3)}(0,\ell) = 0$ (Gritsenko 1999
-\emph{St.\ Petersburg Math.\ J.}\ \textbf{11} Thm.~1.2).
-\ClaimStatusTheorem\ at primitive curve classes; \ClaimStatusConjectured\
-at non-primitive classes pending Bryan--Oberdieck Conjecture~0.1
-completion.
+The prefactor $\mathcal C^{\mathrm{BO}}_3$ is fixed by the
+Bryan-Oberdieck scalar normalisation and boundary terms. The square is
+the protected scalar denominator. It records signed characters after
+the Bryan-Oberdieck chamber and variables are fixed. This scalar branch
+is the CHL analogue of the OP scalar at $N=1$ and is separate from the
+positive Hall half below. Hall brackets and Weyl anti-invariant signs
+enter through orientation, parity, pairing, and BKM recognition.
 
 \paragraph{Effective positive-half moduli $\cM^+_\eff(X_3)$.} The
 CHL positive half is
@@ -126,84 +151,111 @@ CHL positive half is
 \]
 with $C^+_3\subset H_2(X_3;\bZ)$ the effective cone of classes with
 $\beta_{K3}\in\mathrm{NS}(K3)^{g_3}_+$ (non-negative on the invariant
-ample) and $n\cdot [E']\geq 0$. On its cohomology the
-Schiffmann--Vasserot multiplication (arXiv:1705.07488 \S 6) restricted
-to $\sigma_3$-invariants makes $\Yp(K3\times E)^{\sigma_3}$ into the
-$E_1$-chiral CHL positive half.
+ample class) and non-negative degree on the elliptic base. The Hall
+product on extensions gives the associative positive half after the
+equivariant orientation line, compact-support convention, and Behrend
+integration map have been fixed. This is the $E_1$ Hall half native to a
+CY$_3$ input. Braided $E_2$ structure belongs to a Drinfeld centre,
+Drinfeld double, or representation category built from this Hall half.
 
-\paragraph{Cycle 3: BPS Lie algebra $\fg^{(3)}_{\BPS}$.}
-\emph{Attack.} Does the Davison--Meinhardt BPS Lie algebra descend
-through $\sigma_3$-fixing? \emph{Heal.} Yes: Davison--Meinhardt
-arXiv:1512.08898 Thm.~A constructs the BPS sheaf
-$\mathrm{BPS}^{\red}_{K3\times E} = \bigoplus_\gamma
-\cM_\gamma[1]$ as a perverse constructible sheaf; the Kontsevich--Soibelman
-motivic Hall bracket (arXiv:0811.2435) is $\sigma_3$-equivariant
-because $\sigma_3$ permutes the integration-map data among equal-slope
-orbits. Taking $\sigma_3$-invariants,
+\paragraph{BPS Lie algebra $\fg^{(3)}_{\BPS}$.}
+Davison-Meinhardt construct the BPS sheaf and the Hall-commutator Lie
+algebra for critical CoHAs under purity and orientation hypotheses. In
+the CHL quotient these hypotheses define the primitive positive Hall
+Lie algebra
 \[
-  \fg^{(3)}_{\BPS} \;=\; H^*\bigl(\mathrm{BPS}^{\red}_{K3\times E}
-  \bigr)^{\sigma_3} \;=\; \bigoplus_{\gamma\in C^+_3}
+  \fg^{(3)}_{\BPS}
+  \;=\;
+  H^*\bigl(\mathrm{BPS}^{\red}_{K3\times E}\bigr)^{\sigma_3}
+  \;=\;
+  \bigoplus_{\gamma\in C^+_3}
   \bH^{\BPS}_\gamma(X_3),
 \]
-a $\bZ_{\geq 0}^{\oplus}$-graded Lie algebra on the Davison perverse
-filtration (Davison \emph{Ann.\ Sci.\ ENS} 2023 \S 5).
-\ClaimStatusConjectured\ at $N=3$ full generality;
-\ClaimStatusTheorem\ at primitive classes via Kinjo--Park--Safronov
-arXiv:2312.00877 dimensional-reduction compatibility.
-
-\paragraph{Cycle 4: identification $\fg^{(3)}_{\BPS} \cong
-\fg_{\Delta_1^{(3)}}$.}
-\emph{Attack.} Does the BPS character match the Gritsenko--Cl\'ery
-BKM denominator? \emph{Heal.} The character of $\fg^{(3)}_{\BPS}$ is the
-logarithmic derivative
+a $\bZ_{\geq0}^{\oplus}$-graded Lie algebra on the Davison perverse
+filtration. The Borcherds recognition target for this positive Hall
+algebra has denominator
 \[
-  \prod_{\alpha\in\Delta^+_{\fg^{(3)}_{\BPS}}}
+  \prod_{\alpha\in\Delta^+}
   (1 - e^{-\alpha})^{\mathrm{mult}(\alpha)}
-  \;=\; \Phi_3^{(3)}(\tau,\sigma,z),
+  \;=\; \DeltaCHLThree(\tau,\sigma,z),
   \qquad
-  \mathrm{mult}(\alpha) \,=\, c^{(g_3)}(4nm - \ell^2,\ell),
+  \mathrm{mult}(\alpha)
+  \;=\;
+  c^{\mathrm{CHL}}_3(4nm-\ell^2,\ell).
 \]
-the Fourier coefficients of $\phi^{(g_3)}_{0,1}$ with $c^{(g_3)}(-1,\pm
-1) = 1$, $c^{(g_3)}(0,0) = 2$ (CDH 1204.2779 Table~2). This equates
-$\fg^{(3)}_{\BPS}$ with the generalised Kac--Moody superalgebra
-$\fg_{\Delta_1^{(3)}}$ whose root system is read from $\Delta_1^{(3)} =
-\GL(\phi^{(g_3)}_{0,1})$, the Gritsenko--Cl\'ery additive lift of
-weight~$1$ (arXiv:0812.3962 Thm.~4.2; Gritsenko--Cl\'ery
-\emph{J.\ Reine Angew.\ Math.}\ \textbf{616} (2008)). In this
-normalisation $\Phi_3^{(3)} = \Delta_1^{(3)}$: both are the paramodular
-cusp form of weight $1$, level $3$. \ClaimStatusConjectured\ at full
-scope (Lorgat 2020 Conjecture~1, $N=3$ row of the eight-form census).
+The compatible BKM algebra is the generalized Kac-Moody superalgebra
+$\fg_{\Delta_3^{(3)}}$ with denominator $\DeltaCHLThree$. The scalar
+denominator supplies the signed root supermultiplicities. A Lie-algebra
+isomorphism
+$\fg^{(3)}_{\BPS}\cong\fg_{\Delta_3^{(3)}}$ additionally requires
+orientation signs, a non-degenerate Hall pairing, a radical quotient,
+PBW compatibility, and equality of brackets under the
+Kontsevich-Soibelman product.
 
-\paragraph{Cycle 5: Borcherds lift $\phi^{(g_3)}_{0,1}\to
-\Delta_1^{(3)}$.}
-\emph{Attack.} Is the additive lift well-defined? \emph{Heal.} Yes:
-Borcherds arXiv:alg-geom/9609022 Thm.~13.3 plus Gritsenko 1999
-Thm.~1.2 send a weight-$0$ index-$1$ weak Jacobi form of level $N$
-to a paramodular cusp form of weight $c_N(0)/2$ on
-$\Gamma_0^+(N)$. At $N=3$, input $\phi^{(g_3)}_{0,1}$, output
-$\Delta_1^{(3)}$ of weight $1$: explicit Borcherds product
+\paragraph{Borcherds product.}
+Borcherds' weight theorem and the Gritsenko-Nikulin CHL construction
+give the order-three primitive product
 \[
-  \Delta_1^{(3)}(\tau,\sigma,z)
-  \;=\; q\,y\,p\!\prod_{(n,\ell,m)>0}\!(1-q^n y^\ell p^m)^{
-  c^{(g_3)}(4nm-\ell^2,\ell)}.
+  \DeltaCHLThree(\tau,\sigma,z)
+  =
+  q^A\zeta^B p^C
+  \prod_{\substack{(n,\ell,m)\in\bZ^3\\(n,\ell,m)>0}}
+  \left(1-q^n\zeta^\ell p^m\right)^{
+    c^{\mathrm{CHL}}_3(4nm-\ell^2,\ell)} ,
 \]
-\ClaimStatusTheorem\ (Gritsenko--Cl\'ery 2008 Thm.~5.2, the
-eight-form census at paramodular level $N=3$, $\mu=1$).
+with Weyl-vector monomial $q^A\zeta^B p^C$. The coefficient
+$c_3(0)=6$ fixes the weight. The remaining Fourier coefficients of
+the same CHL Jacobi input fix the product exponents and hence the
+Borcherds root multiplicities.
 
-\paragraph{Four-invariant accounting on $X_3$.}
+\paragraph{Four invariants on $X_3$.}
 \[
-\kcat(X_3) = 0\ (\text{K\"unneth}),\qquad
-\kch(X_3) = 0\ (\text{$d=3$ Hodge supertrace}),
+  \kcat(X_3)=\chi(\cO_{X_3})=0,\qquad
+  \kch(X_3)=\sum_q(-1)^qh^{0,q}(X_3)=0.
 \]
+Indeed
+$H^q(X_3,\cO_{X_3})=H^q(K3\times E,\cO_{K3\times E})^{\sigma_3}$, and
+the symplectic K3 action and elliptic translation act trivially on the
+four factors in the Hodge column, so
+$h^{0,\bullet}(X_3)=(1,1,1,1)$. The twined fibre Lefschetz trace is
 \[
-\kfib(X_3) = \chi_{g_3}(K3) = 6,\qquad
-\kBKM(\Phi_3^{(3)}) = c_3(0)/2 = 1.
+  \mathrm{Tr}\bigl(g_3\mid H^*(K3,\bQ)\bigr)=|\Fix(g_3)|=6.
+\]
+The untwisted \(K3\times E\) fibre invariant remains the Mukai-rank
+value \(\kfib(K3)=24\). The order-three BKM invariant is
+\[
+  \kBKM(\DeltaCHLThree)=c_3(0)/2=3.
+\]
+At the untwisted \(K3\times E\) anchor,
+\[
+  \{\kcat,\kch,\kappa_{\mathrm{ch}}^{\mathrm{Heis}},
+  \kBKM(\Delta_5),\kfib\}(K3\times E)
+  =
+  \{0,0,3,5,24\}.
 \]
 
-\paragraph{Scope.} Cycles 1, 2, 5 are theorems; Cycles 3, 4 are
-conjectural at full generality, theorems at primitive classes.
-Chain-level lane: explicit Borcherds product for $\Delta_1^{(3)}$
-with CDH-tabulated Fourier data. $(\infty,1)$-lane: Schiffmann--Vasserot
-K3 CoHA as stable $\infty$-category, Davison--Meinhardt BPS Lie algebra
-in perverse filtration. Both converge on $\fg^{(3)}_{\BPS} \cong
-\fg_{\Delta_1^{(3)}}$; both load-bearing.
+\paragraph{Boundary.} The smooth CHL quotient, the etale fibration over
+$E'$, the Hodge-supertrace computation, and the Borcherds weight
+$\kBKM(\DeltaCHLThree)=3$ are proved from the cited geometry and
+Borcherds-product theorem. The full order-three primitive reduced-DT
+scalar remains the Bryan-Oberdieck conjecture, with proved boundary
+coefficients. The compact BPS Lie algebra comparison with
+$\fg_{\Delta_3^{(3)}}$ is a recognition problem: scalar coefficients
+must be lifted to an oriented Hall positive half and then to a bracket
+comparison. The analogous local separation is
+$\CoHA(\bC^3)=Y^+$: the CoHA is a positive $E_1$ Hall half. The OP
+scalar, CHL scalar, positive Hall half, Hall-Drinfeld recognition
+target, and vertex-algebra envelope are separate objects. The
+self-mirror current branch requires its own Yangian data.
+
+\paragraph{Sources.} Nikulin 1980 and Mukai 1988 give the symplectic
+order-three K3 fixed-point and lattice data. Chaudhuri-Hockney-Lykken
+1995 and Bryan-Oberdieck 2018 give the CHL quotient geometry and curve
+counting problem. Borcherds 1998 Theorem~13.3 gives the weight formula
+$\mathrm{wt}\operatorname{Bor}(\varphi)=c(0)/2$. Gritsenko-Nikulin and
+Gritsenko fix the primitive CHL weights
+$(5,4,3,2,1)$ for $N=(1,2,3,4,6)$. Gritsenko-Cl\'ery 2008 supplies the
+separate diagonal-divisor catalogue with twice-weight tuple
+$(10,4,6,2,4,1,3,2)$. Davison-Meinhardt and Kontsevich-Soibelman
+provide the BPS sheaf, Hall product, and wall-crossing Lie bracket
+formalism once the required orientation and purity hypotheses are fixed.

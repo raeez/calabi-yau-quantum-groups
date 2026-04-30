@@ -1,14 +1,10 @@
-\section{The passage from $Y^+(\widehat{\mathfrak{gl}}_1)$ to a chiral Yangian: a rigorous treatise}
+\section{From $Y^+(\widehat{\mathfrak{gl}}_1)$ to a chiral Yangian}
 \label{wn:sec:yplus-to-chiral-yangian-treatise}
 
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
-\providecommand{\ClaimStatusDerivation}{\textsc{[derivable]}}
 \providecommand{\gghone}{\widehat{\mathfrak{gl}}_1}
 \providecommand{\Yplus}{Y^+_{\epsilon_1, \epsilon_2}}
 \providecommand{\Yfull}{Y_{\epsilon_1, \epsilon_2}}
@@ -18,312 +14,297 @@
 \providecommand{\Fact}{\mathrm{Fact}}
 \providecommand{\ChirY}{\mathcal{Y}^{\mathrm{ch}}}
 
-The phrase ``the positive half of the affine Yangian of $\mathfrak{gl}_1$ passes to the
-chiral Yangian'' hides at least six distinct mathematical objects and half a dozen
-identification theorems of varying completeness.  This section disentangles them.
+The passage from the positive half of the affine Yangian to a chiral
+Yangian has three separate operations: Drinfeld doubling, choice of
+completion and Cartan data, and a vertex or defect realisation. The
+positive half alone is not a vertex algebra and is not
+$\mathcal W_{1+\infty}$.
 
-\subsection{Setup: equivariant parameters and the CY$_3$ constraint}
+\subsection{Equivariant parameters and the CY$_3$ constraint}
 \label{wn:subsec:yplus-setup}
 
-Let $\mathbb{F} := \mathbb{C}(\epsilon_1, \epsilon_2)$ and $\epsilon_3 := -\epsilon_1 - \epsilon_2$.
-The relation $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ is the \emph{Calabi--Yau three-fold condition}:
-it is the weight-space relation for the anti-canonical subtorus
-$T^2 = \{t \in T^3 : t_1 t_2 t_3 = 1\}$ acting on $\mathbb{C}^3$.
-
-\ClaimStatusDefinition\ \emph{Shuffle kernel.} Set
+Let $\mathbb{F}:=\mathbb{C}(\epsilon_1,\epsilon_2)$ and
+$\epsilon_3:=-\epsilon_1-\epsilon_2$. The relation
+$\epsilon_1+\epsilon_2+\epsilon_3=0$ is the Calabi--Yau threefold
+condition: it is the weight-space relation for the anti-canonical
+subtorus
 \[
-\omega(z, w) := \frac{(z - w - \epsilon_1)(z - w - \epsilon_2)(z - w - \epsilon_3)}{(z - w)^3}.
+T^2=\{t\in T^3:t_1t_2t_3=1\}
+\]
+acting on $\mathbb C^3$.
+
+\emph{Shuffle kernel.}
+\[
+\omega(z,w):=
+\frac{(z-w-\epsilon_1)(z-w-\epsilon_2)(z-w-\epsilon_3)}{(z-w)^3}.
 \]
 
-\ClaimStatusDefinition\ \emph{Shuffle algebra.}
-Let $\Lambda_n := \mathbb{F}[z_1, \ldots, z_n]^{S_n}$ and $\Sh := \bigoplus_{n \geq 0} \Lambda_n$.
-Define the product $\star: \Lambda_m \otimes \Lambda_n \to \Lambda_{m+n}$ by
+\emph{Shuffle algebra.}
+Let $\Lambda_n:=\mathbb F[z_1,\ldots,z_n]^{S_n}$ and
 \[
-(F \star G)(z_1, \ldots, z_{m+n}) := \frac{1}{m! n!} \sum_{\sigma \in S_{m+n}}
-\sigma \cdot \left( F(z_1, \ldots, z_m) G(z_{m+1}, \ldots, z_{m+n}) \prod_{1 \leq i \leq m < j \leq m+n} \omega(z_j, z_i) \right).
+\Sh:=\bigoplus_{n\ge0}\Lambda_n.
 \]
-Then $(\Sh, \star)$ is an associative unital $\mathbb{F}$-algebra.
-Associativity is a direct calculation using the symmetry of $\omega$; it is verifiable
-from the definition alone, no external input.
+For $F\in\Lambda_m$ and $G\in\Lambda_n$, define
+\[
+(F\star G)(z_1,\ldots,z_{m+n})
+:=
+\frac{1}{m!n!}\sum_{\sigma\in S_{m+n}}
+\sigma\!\left(
+F(z_1,\ldots,z_m)G(z_{m+1},\ldots,z_{m+n})
+\prod_{1\le i\le m<j\le m+n}\omega(z_j,z_i)
+\right).
+\]
+Then $(\Sh,\star)$ is an associative unital $\mathbb F$-algebra.
+Associativity is the direct shuffle calculation with the kernel
+$\omega$.
 
-\ClaimStatusDefinition\ \emph{Positive half.}
-$\Yplus := \Sh$.
+\emph{Positive half.}
+\[
+\Yplus:=\Sh.
+\]
+The name ``positive half of $Y(\gghone)$'' records the later theorem
+identifying $\Sh$ with the upper triangular part of the Yangian in its
+Drinfeld-current presentation. It is not the definition.
 
-The name ``positive half of $Y(\gghone)$'' is retrospective: it reflects the later
-identification with the upper triangular part of the Yangian in its Drinfeld-currents
-presentation. That identification is a theorem, not a definition.
+Different shuffle kernels in the literature differ by signs, rescaling
+of the $\epsilon_i$, and the point at which the CY$_3$ relation is
+imposed. The form above matches Negu\c{t} 2014
+\texttt{arXiv:1405.1989}; Feigin--Hashizume--Hoshino--Shiraishi--
+Yanagida 2009 uses an equivalent rescaling.
 
-\emph{Remark on conventions.}
-Multiple shuffle kernels appear in the literature, differing by sign conventions,
-rescaling of $\epsilon_i$, and whether the CY$_3$ relation is imposed.
-The form above matches Negut 2014 \texttt{arXiv:1405.1989}.
-Feigin--Hashizume--Hoshino--Shiraishi--Yanagida 2009 use a different normalisation
-equivalent after rescaling variables.
-
-\subsection{Enlargement to $Y(\gghone)$ via Drinfeld double}
+\subsection{Drinfeld double}
 \label{wn:subsec:yplus-drinfeld-double}
 
-The Drinfeld double construction
-(Drinfeld 1987 ICM; Kassel 1995 \emph{Quantum Groups} §IX.4)
-takes a bialgebra $A_+$ together with a second bialgebra $A_-$ and a non-degenerate
-Hopf pairing $\langle \cdot, \cdot \rangle: A_+ \otimes A_- \to k$,
-and produces a Hopf algebra $D(A_+, A_-)$ with underlying vector space $A_+ \otimes A_-$
-and multiplication \ClaimStatusDerivation\ determined by Sweedler formula
+The Drinfeld double construction (Drinfeld 1987 ICM; Kassel 1995,
+\emph{Quantum Groups}, §IX.4) takes bialgebras $A_+$, $A_-$ and a
+non-degenerate Hopf pairing
 \[
-(a_+ \otimes a_-)(b_+ \otimes b_-) = \sum \langle a_-^{(1)}, b_+^{(1)} \rangle
-\langle S(a_-^{(3)}), b_+^{(3)} \rangle \cdot a_+ b_+^{(2)} \otimes a_-^{(2)} b_-.
+\langle\cdot,\cdot\rangle:A_+\otimes A_-\to k
 \]
-This is derivable from the Hopf pairing axioms.
+and produces a Hopf algebra $D(A_+,A_-)$ with underlying vector space
+$A_+\otimes A_-$. The multiplication is
+\[
+(a_+\otimes a_-)(b_+\otimes b_-)
+=\sum
+\langle a_-^{(1)},b_+^{(1)}\rangle
+\langle S(a_-^{(3)}),b_+^{(3)}\rangle
+a_+b_+^{(2)}\otimes a_-^{(2)}b_-.
+\]
 
-To apply this to $\Yplus$, one needs:
+For $\Yplus$, the required data are:
 \begin{enumerate}
-\item A coproduct $\Delta_+$ on $\Sh$ making it a bialgebra.
-\item A second bialgebra $Y^- \cong \Sh^{\mathrm{op}}$ with its own coproduct.
-\item A non-degenerate Hopf pairing $\langle, \rangle: \Yplus \otimes Y^- \to \mathbb{F}$.
+\item a coproduct $\Delta_+$ on $\Sh$;
+\item a negative bialgebra $Y^-\cong\Sh^{\mathrm{op}}$;
+\item a non-degenerate Hopf pairing
+    $\langle,\rangle:\Yplus\otimes Y^-\to\mathbb F$;
+\item a completion on which the pairing is non-degenerate.
 \end{enumerate}
 
-\ClaimStatusTheorem\ (Negut 2014 Thm 3.4; Schiffmann--Vasserot 2013 \texttt{arXiv:1202.2756}).
-The shuffle algebra $\Sh$ admits a topological coproduct, a non-degenerate Hopf pairing
-with its opposite, and the resulting Drinfeld double has a canonical central extension
-$Y^0 \cong \mathbb{F}[\![\psi_0, \psi_1, \ldots]\!]$ (a topological polynomial algebra in
-Cartan-current modes).
-
-The triangular decomposition
+Negu\c{t} 2014 Thm.\ 3.4 and Schiffmann--Vasserot 2013
+\texttt{arXiv:1202.2756} give the topological coproduct, the Hopf
+pairing with the opposite half, and the Cartan extension
 \[
-Y(\gghone) = \Yplus \otimes Y^0 \otimes Y^-
+Y^0\cong \mathbb F[\![\psi_0,\psi_1,\ldots]\!].
 \]
-as left $\Yplus$-, right $Y^-$-, and middle $Y^0$-module.
+The completed double has triangular decomposition
+\[
+Y(\gghone)=\Yplus\otimes Y^0\otimes Y^-.
+\]
+The pairing is not defined on the rational shuffle algebra without
+completion. A specified $\widehat{\Sh}$, analogous to a formal Laurent
+completion, is part of the object.
 
-\emph{Precision note.} The pairing is not defined on $\Sh$ with rational coefficients
-without completion. Taking a specific $\widehat{\Sh}$ completion — analogous to formal
-Laurent series — yields a non-degenerate pairing on the completion. Different completions
-give different Hopf algebras: \emph{the} affine Yangian of $\mathfrak{gl}_1$ is an
-isomorphism class of topological Hopf algebras, not a specific algebra over $\mathbb{F}$.
-
-\subsection{Loop presentation via Drinfeld currents}
+\subsection{Drinfeld currents}
 \label{wn:subsec:yplus-loop-presentation}
 
-\ClaimStatusDefinition\ \emph{Generating currents.} For the Drinfeld-currents presentation
-of $Y(\gghone)$, introduce $e(z), f(z), \psi(z)$ as formal power series in $z^{-1}$ with
-coefficients in an abstract algebra on generators $\{e_k, f_k, h_k : k \geq 0\}$,
+For the current presentation of $Y(\gghone)$, introduce
 \[
-e(z) = \sum_{k \geq 0} e_k z^{-k-1}, \qquad f(z) = \sum_{k \geq 0} f_k z^{-k-1},
-\qquad \psi(z) = \exp\!\Big( \sum_{k \geq 0} h_k z^{-k-1} \Big).
+e(z)=\sum_{k\ge0}e_kz^{-k-1},\qquad
+f(z)=\sum_{k\ge0}f_kz^{-k-1},\qquad
+\psi(z)=\exp\!\left(\sum_{k\ge0}h_kz^{-k-1}\right).
 \]
-
-\ClaimStatusDefinition\ \emph{Structure function.} Set
+Set
 \[
-\varphi(u) := \frac{(u + \epsilon_1)(u + \epsilon_2)(u + \epsilon_3)}{u^3}.
+\varphi(u):=\frac{(u+\epsilon_1)(u+\epsilon_2)(u+\epsilon_3)}{u^3}.
 \]
-
-\ClaimStatusDefinition\ \emph{Relations.}
+The relations are:
 \begin{enumerate}[label=(R\arabic*)]
-\item $[\psi(z), \psi(w)] = 0$ \quad (Cartan commutativity);
-\item $\psi(z) e(w) \psi(z)^{-1} = \varphi(z - w) e(w)$
-  \quad and \quad $\psi(z) f(w) \psi(z)^{-1} = \varphi(z - w)^{-1} f(w)$
-  \quad (Cartan--root);
-\item $(z - w - \epsilon_1)(z - w - \epsilon_2)(z - w - \epsilon_3)\, e(z) e(w)
-= -(w - z - \epsilon_1)(w - z - \epsilon_2)(w - z - \epsilon_3)\, e(w) e(z)$
-  \quad (and symmetrically for $f$);
-\item $[e(z), f(w)] = \dfrac{\psi(z) - \psi(w)}{z - w}$ \quad (root--root / Cartan emergence);
-\item Cubic Serre relations
-  $\mathrm{Sym}_{z_1, z_2, z_3} (z_1 - 2 z_2 + z_3) [e(z_1), [e(z_2), e(z_3)]] = 0$,
-  and similarly for $f$.
+\item $[\psi(z),\psi(w)]=0$;
+\item $\psi(z)e(w)\psi(z)^{-1}=\varphi(z-w)e(w)$ and
+      $\psi(z)f(w)\psi(z)^{-1}=\varphi(z-w)^{-1}f(w)$;
+\item $(z-w-\epsilon_1)(z-w-\epsilon_2)(z-w-\epsilon_3)e(z)e(w)$
+      \[
+      =-(w-z-\epsilon_1)(w-z-\epsilon_2)(w-z-\epsilon_3)e(w)e(z),
+      \]
+      and similarly for $f$;
+\item $[e(z),f(w)]=\dfrac{\psi(z)-\psi(w)}{z-w}$;
+\item $\mathrm{Sym}_{z_1,z_2,z_3}
+      (z_1-2z_2+z_3)[e(z_1),[e(z_2),e(z_3)]]=0$,
+      and similarly for $f$.
 \end{enumerate}
+Tsymbaliuk 2017 \texttt{arXiv:1703.04551} Thm.\ 1.1 identifies this
+topological Hopf algebra with the completed Drinfeld double
+$\Yplus\bowtie Y^0\bowtie Y^-$.
 
-\ClaimStatusTheorem\ (Tsymbaliuk 2017 \texttt{arXiv:1703.04551} Thm~1.1).
-The $\mathbb{F}$-algebra presented by generators $\{e_k, f_k, h_k\}$ and
-relations (R1)--(R5) is isomorphic (as a topological Hopf algebra after appropriate
-completion) to the Drinfeld double $\Yplus \bowtie Y^0 \bowtie Y^-$ of §\ref{wn:subsec:yplus-drinfeld-double}.
-
-\emph{Epistemic note.} The theorem asserts an isomorphism of topological Hopf algebras.
-A reader verifying the theorem must track precisely which completions are used on each side;
-see Tsymbaliuk 2017 §4 for the matching.
-
-\subsection{Vacuum module versus vertex algebra: the central distinction}
+\subsection{Vacuum module and vertex algebra}
 \label{wn:subsec:yplus-vacuum-vs-vertex}
 
-\emph{The crucial conflation to avoid.}
-A module of $Y(\gghone)$ is not the same as a vertex algebra.
+A module of $Y(\gghone)$ is not a vertex algebra. Fix the trivial
+character $\chi_0:Y^0\to\mathbb C$, $\psi_k\mapsto0$. The Verma module
+\[
+M(\chi_0):=Y(\gghone)\otimes_{Y^0\otimes Y^-}\mathbb C_{\chi_0}
+\]
+is the vacuum Verma; its irreducible quotient is $L(\chi_0)$.
 
-\ClaimStatusDefinition\ \emph{Vacuum module.}
-Fix the trivial character $\chi_0: Y^0 \to \mathbb{C}$, $\psi_k \mapsto 0$.
-The Verma module
-$M(\chi_0) := Y(\gghone) \otimes_{Y^0 \otimes Y^-} \mathbb{C}_{\chi_0}$
-is the vacuum Verma; its unique maximal submodule is generated by the Serre relations
-and the quotient is the vacuum irreducible module $L(\chi_0)$.
+A vertex algebra is a vector space $V$ with a vacuum vector
+$|0\rangle$, a state-to-field map
+$Y(\cdot,z):V\to\mathrm{End}(V)[[z,z^{-1}]]$, a translation operator,
+and the vacuum, translation, and locality axioms. To turn a Yangian
+module into a vertex algebra one must define the fields and prove
+locality. This is extra structure.
 
-\emph{This is a $Y(\gghone)$-module, not a vertex algebra.}
-
-\ClaimStatusDefinition\ \emph{Vertex algebra (Borcherds 1986).}
-A vertex algebra is a vector space $V$ equipped with
-(i) a vacuum vector $|0\rangle \in V$,
-(ii) a state-to-field correspondence $Y(\cdot, z): V \to \mathrm{End}(V)[[z, z^{-1}]]$,
-(iii) a translation operator $T: V \to V$,
-subject to vacuum, translation, and locality axioms.
-
-\emph{The Yangian $Y(\gghone)$ is not automatically a vertex algebra.}
-To endow a representation $M$ of $Y(\gghone)$ with a vertex-algebra structure one must
-specify the state-to-field map $Y(v, z)$ for each state $v$, verify that the products
-$v_1 \cdot v_2(z)$ extend to local fields, and check the locality axiom.
-None of this is a tautology.
-
-\subsection{Geometric action on Hilbert schemes}
+\subsection{Hilbert-scheme action}
 \label{wn:subsec:yplus-MO-action}
 
-Let $V := \bigoplus_{n \geq 0} H^*_T(\Hilb^n(\mathbb{C}^2), \mathbb{F})$ where $T$ acts
-with weights $\epsilon_1, \epsilon_2$ on $\mathbb{C}^2$.
+Let
+\[
+V:=\bigoplus_{n\ge0}H^*_T(\Hilb^n(\mathbb C^2),\mathbb F),
+\]
+with $T$ acting on $\mathbb C^2$ with weights
+$\epsilon_1,\epsilon_2$. Schiffmann--Vasserot 2012, Maulik--Okounkov
+2012 §14 give an action
+\[
+\rho:Y(\gghone)\to\mathrm{End}_{\mathbb F}(V)
+\]
+by explicit correspondences on
+$\Hilb^n\times\Hilb^{n+1}$.
 
-\ClaimStatusTheorem\ (Schiffmann--Vasserot 2012 Pub IHES 118 \S5;
-Maulik--Okounkov 2012 \texttt{arXiv:1211.1287} §14).
-There is an action $\rho: Y(\gghone) \to \mathrm{End}_{\mathbb{F}}(V)$ with explicit
-correspondences on $\Hilb^n \times \Hilb^{n+1}$.
+Independently, Nakajima 1997 §9 and Grojnowski 1996 give a Heisenberg
+vertex algebra structure on $V$:
+\[
+[\alpha_m,\alpha_n]=m\delta_{m,-n}.
+\]
+Thus $V$ is both a $Y(\gghone)$-module and the free-boson Fock VOA.
+The Yangian acts by operators compatible with this VOA structure; the
+Yangian itself is not thereby a vertex algebra.
 
-\ClaimStatusTheorem\ (Nakajima 1997 \emph{Lectures on Hilbert schemes} §9;
-Grojnowski 1996 Math Res Lett 3).
-Independent of the Yangian action, $V$ carries a Heisenberg vertex algebra structure:
-the generating fields are $\alpha_{-n}$ for $n \geq 1$ (raising operators) and
-$\alpha_n$ for $n \geq 1$ (lowering), commuting as $[\alpha_m, \alpha_n] = m \delta_{m, -n}$.
-This makes $V$ a free boson Fock space and a vertex algebra.
-
-\ClaimStatusDerivation\ \emph{Logical consequence.}
-$V$ is simultaneously a $Y(\gghone)$-module (via $\rho$) and a Heisenberg vertex algebra
-(via Nakajima). The Yangian action is by \emph{vertex-algebra endomorphisms} of $V$;
-this is the content of the compatibility between Yangian and Heisenberg actions.
-$V$ itself is the Heisenberg VOA; the Yangian is an algebra of $V$-endomorphisms.
-
-\subsection{The holomorphic-twist gauge-theory construction}
+\subsection{Gauge-theoretic chiral Yangian}
 \label{wn:subsec:yplus-costello}
 
-\ClaimStatusTheorem\ (Costello 2013 \texttt{arXiv:1303.2632} for the 4D $\mathcal{N} = 1$
-holomorphic-twist construction; Costello--Gwilliam 2017 Vol II §5 for the
-factorisation-algebra packaging; the $\Omega$-deformed 4D $\mathcal{N} = 2$ upgrade is
-made precise in Costello--Gaiotto 2018 \texttt{arXiv:1810.01970} /
-Costello--Paquette 2020 \texttt{arXiv:2009.04834}.)
-The twisted observable complex of 4D $\mathcal{N} = 2$ $U(1)$ pure gauge theory on
-$\mathbb{C}^2_{\epsilon_1, \epsilon_2}$ (i.e.~with $\Omega$-deformation by
-$\epsilon_1, \epsilon_2$), taken in the holomorphic-topological twist, produces a
-factorisation algebra $\mathcal{F}^{U(1), \Omega}_{4D}$ on the ``spectral line''
-$\mathbb{C}_z$.
+Costello 2013 \texttt{arXiv:1303.2632}, Costello--Gwilliam 2017, and
+the $\Omega$-deformed upgrades of Costello--Gaiotto 2018 and
+Costello--Paquette 2020 construct a factorisation algebra
+\[
+\mathcal F^{U(1),\Omega}_{4D}
+\]
+on the spectral line $\mathbb C_z$ from the holomorphic-topological
+twist of $4D$ $\mathcal N=2$ $U(1)$ gauge theory on
+$\mathbb C^2_{\epsilon_1,\epsilon_2}$. Costello 2013 §11 gives an
+action of $Y(\gghone)$ on this factorisation algebra, with
+$\epsilon_3=-\epsilon_1-\epsilon_2+\hbar$ in the quantum deformation.
 
-\ClaimStatusTheorem\ (Costello 2013 §11).
-A quantum deformation parameter $\hbar$ with $\epsilon_3 = -\epsilon_1 - \epsilon_2 + \hbar$
-produces an action of $Y(\gghone)$ on the factorisation algebra, realising the Yangian as
-a deformation of the classical observables.
+A holomorphic factorisation algebra on $\mathbb C$ satisfying locality
+is equivalent to a vertex algebra (Costello--Gwilliam 2017 Vol.\ I
+Thm.\ 5.3.3). Define
+\[
+\ChirY^{\mathrm{Cost}}
+\]
+as the resulting vertex algebra. Its identification with
+$\mathcal W_{1+\infty}$ requires the defect construction and the
+state-field realisation; it is not a consequence of
+$\CoHA(\mathbb C^3)\simeq Y^+$ alone.
 
-\ClaimStatusDerivation\ \emph{Factorisation-algebra--vertex-algebra passage.}
-A factorisation algebra on $\mathbb{R}^2 \cong \mathbb{C}$ satisfying holomorphic locality
-(OPE singularities are poles in $z - w$) is equivalent to a vertex algebra
-(Costello--Gwilliam 2017 Vol I Thm 5.3.3). Therefore
-$\mathcal{F}^{U(1), \Omega}_{4D}$ is a vertex algebra.
-
-\ClaimStatusDefinition\ \emph{Chiral Yangian, Costello sense.}
-$\ChirY^{\mathrm{Cost}} := $ the vertex algebra arising from
-$\mathcal{F}^{U(1), \Omega}_{4D}$ under the factorisation-algebra--vertex-algebra
-equivalence.
-
-\subsection{Factorisation homology: the Kapranov--Vasserot route}
+\subsection{Kapranov--Vasserot route}
 \label{wn:subsec:yplus-KV}
 
-\ClaimStatusDefinition\ \emph{CoHA as factorisation algebra.}
-Kapranov--Vasserot 2019 \texttt{arXiv:1901.07641} construct $\CoHA(\mathbb{C}^3)$
-as an $E_2$-algebra (associative + compatible coalgebra) over $\mathbb{F}$ and promote
-it to a factorisation algebra on $\mathbb{R}^2$.
+Kapranov--Vasserot 2019 \texttt{arXiv:1901.07641} constructs the CoHA
+of $\mathbb C^3$ by factorisation methods. This supplies additional
+factorisation structure on the CoHA package; it does not change the
+Vol III specialised output rule that a CY$_3$ chiral image is $\Eone$.
+The $\Etwo$ structure relevant to the full chiral Yangian is recovered
+on the centre, double, or defect category under the stated hypotheses.
 
-\ClaimStatusConjectured\ (Kapranov--Vasserot).
-$\int_{\mathbb{C}} \CoHA(\mathbb{C}^3) \cong \ChirY^{\mathrm{KV}}$ as factorisation
-algebras on $\mathbb{C}_z$.
+The comparison
+\[
+\int_{\mathbb C}\CoHA(\mathbb C^3)\cong\ChirY^{\mathrm{KV}}
+\]
+is a proof obligation at the level of factorisation algebras. The
+comparison
+\[
+\ChirY^{\mathrm{Cost}}\cong\ChirY^{\mathrm{KV}}
+\]
+is another proof obligation in the Costello--Paquette framework.
 
-\ClaimStatusConjectured\ (Costello--Paquette 2020 \texttt{arXiv:2009.04834} framework).
-$\ChirY^{\mathrm{Cost}} \cong \ChirY^{\mathrm{KV}}$.
-Partial results exist; the general statement is a conjectural identification
-of two factorisation algebras constructed by different means.
-
-\subsection{Gaiotto--Rapčák $Y$-algebras}
+\subsection{Gaiotto--Rap\v{c}\'ak $Y$-algebras}
 \label{wn:subsec:yplus-GR}
 
-\ClaimStatusDefinition\ (Gaiotto--Rapčák 2017 \texttt{arXiv:1703.00982}).
-For each triple $(L, M, N)$ of non-negative integers, a vertex algebra
-$Y_{L, M, N}^{\epsilon_1, \epsilon_2, \epsilon_3}$ is defined as the algebra of
-local observables of 4D $\mathcal{N} = 2$ gauge theory along a Y-shaped divisor in
-$\mathbb{C}^3$ with prescribed ramification data $(L, M, N)$.
+Gaiotto--Rap\v{c}\'ak 2017 \texttt{arXiv:1703.00982} defines
+vertex algebras
+\[
+Y_{L,M,N}^{\epsilon_1,\epsilon_2,\epsilon_3}
+\]
+as local observables of $4D$ $\mathcal N=2$ gauge theory along a
+Y-shaped divisor in $\mathbb C^3$ with ramification data $(L,M,N)$.
+The identification
+\[
+Y_{0,0,0}^{\epsilon_1,\epsilon_2,\epsilon_3}
+\cong
+\ChirY^{\mathrm{Cost}}
+\]
+is supported by low-order OPE computations. A complete theorem requires
+the full matching of generators, OPEs, central charge normalisation, and
+factorisation products.
 
-\ClaimStatusConjectured\ $Y_{0, 0, 0}^{\epsilon_1, \epsilon_2, \epsilon_3}
-\cong \ChirY^{\mathrm{Cost}}$ at the central charge determined by
-$(\epsilon_1, \epsilon_2)$.
-
-\emph{Status.} Widely believed, consistent with computations of OPE coefficients
-at low order; a full identification theorem for general $(\epsilon_1, \epsilon_2)$
-is not (to my knowledge) a single-citation result.
-
-\subsection{Summary of identification theorems, proven and conjectural}
+\subsection{Identification sources and proof obligations}
 
 \begin{center}
-\begin{tabular}{l|c|l}
-\textbf{Identification} & \textbf{Status} & \textbf{Source} \\\hline
-$\Yplus \cong \Sh$ shuffle & Definition / derivable & Negut 2014 \\
-$Y(\gghone) \cong$ Drinfeld double of $\Yplus$ & Theorem & SV 2013 \\
-$Y(\gghone) \cong$ Drinfeld-currents presentation & Theorem & Tsymbaliuk 2017 Thm~1.1 \\
-$Y(\gghone) \curvearrowright V := \bigoplus H^*_T(\Hilb^n)$ & Theorem & SV 2012, MO 2012 \\
-$V$ is the Heisenberg VOA & Theorem & Nakajima 1997, Grojnowski 1996 \\
-$\mathcal{F}^{U(1), \Omega}_{4D}$ is a factorisation algebra on $\mathbb{C}$ & Theorem & Costello 2013, CG 2017 \\
-$\mathcal{F}^{U(1), \Omega}_{4D}$ is a vertex algebra & Theorem (equiv.~via CG) & CG 2017 Vol I §5.3 \\
-$Y(\gghone)$ deforms $\mathcal{F}^{U(1), \Omega}_{4D}$ & Theorem & Costello 2013 §11 \\
-$\ChirY^{\mathrm{Cost}} \cong \ChirY^{\mathrm{KV}}$ & Conjectural & Costello--Paquette 2020 \\
-$Y_{0, 0, 0}^{\mathrm{GR}} \cong \ChirY^{\mathrm{Cost}}$ & Conjectural (partial) & various \\
-$V \cong \ChirY^{\mathrm{Cost}}$ directly & Conjectural (partial) & \\
+\begin{tabular}{l|l|l}
+\textbf{Identification} & \textbf{Mathematical scope} & \textbf{Source} \\\hline
+$\Yplus\cong\Sh$ & definition plus shuffle calculation & Negu\c{t} 2014 \\
+$Y(\gghone)\cong D(\Yplus)$ & theorem after completion & SV 2013 \\
+$Y(\gghone)$ current presentation & theorem & Tsymbaliuk 2017 \\
+$Y(\gghone)\curvearrowright\bigoplus H^*_T(\Hilb^n)$ & theorem & SV 2012, MO 2012 \\
+$V$ is the Heisenberg VOA & theorem & Nakajima 1997, Grojnowski 1996 \\
+$\mathcal F^{U(1),\Omega}_{4D}$ is a factorisation algebra & theorem & Costello 2013, CG 2017 \\
+$\mathcal F^{U(1),\Omega}_{4D}$ is a vertex algebra & theorem via holomorphic locality & CG 2017 Vol.\ I \\
+$Y(\gghone)$ deforms $\mathcal F^{U(1),\Omega}_{4D}$ & theorem & Costello 2013 §11 \\
+$\ChirY^{\mathrm{Cost}}\cong\ChirY^{\mathrm{KV}}$ & proof obligation & Costello--Paquette 2020 \\
+$Y_{0,0,0}^{\mathrm{GR}}\cong\ChirY^{\mathrm{Cost}}$ & proof obligation & GR 2017 framework \\
+$V\cong\ChirY^{\mathrm{Cost}}$ directly & proof obligation & low-order checks only \\
 \end{tabular}
 \end{center}
 
-\subsection{Application to the Vol III programme}
+\subsection{Compact $K3\times E$ comparison}
 
-The Vol III programme concerns the compact Calabi--Yau three-fold $K3 \times E$ and
-its associated BKM Lie superalgebra $\mathfrak{g}_{\Delta_5}$. The analogies to the
-$\mathbb{C}^3$ / chiral-Yangian story are as follows:
-
+For the compact Calabi--Yau threefold $K3\times E$, the analogy with
+$\mathbb C^3$ has the following form.
 \begin{itemize}
-\item $\CoHA(\mathbb{C}^3) \leftrightarrow \CoHA(K3 \times E)$ as $E_2$- (or in compact case
-$E_1$-) algebras over equivariant parameters.
-\item Positive half $\Yplus \leftrightarrow$ positive half of a ``BKM Yangian''
-$Y^+(\mathfrak{g}_{\Delta_5})$; \ClaimStatusConjectured.
-\item Drinfeld double $\leftrightarrow$ full ``BKM Yangian''; \ClaimStatusConjectured.
-\item Vertex algebra image $\leftrightarrow$ chiral algebra at $\Delta_5$-locus;
-\ClaimStatusConjectured. The \emph{Kontsevich--Soibelman BPS Lie algebra}
-$\mathfrak{g}_{\mathrm{BPS}}(K3 \times E) \cong \mathfrak{g}_{\Delta_5}$
-(numerical equality of multiplicities, with Lie structure requiring additional input)
-is the compact analogue of the Lie-theoretic ``primitive'' sub-object at
-$\mathbb{C}^3$, which there is $\widehat{\mathfrak{gl}}_1$.
+\item $\CoHA(\mathbb C^3)$ has a compact analogue
+    $\CoHA(K3\times E)$ only after the proper critical-cohomology
+    hypotheses of Davison's framework are supplied.
+\item $Y^+(\gghone)$ suggests a positive-half BPS algebra for
+    $K3\times E$; this remains a construction problem.
+\item A Drinfeld double for the compact case requires a Hopf pairing
+    from Serre duality on the moduli stacks.
+\item The chiral or vertex algebra at the $\Delta_5$ locus requires a
+    defect/factorisation construction. The BKM Lie algebra
+    $\mathfrak g_{\Delta_5}$ is not itself the chiral algebra.
 \end{itemize}
 
-\emph{Key difference.} At $\mathbb{C}^3$ (non-compact, toric), the CoHA is well-defined
-globally and the chiral-Yangian story is a web of proven and conjectural identifications
-between concrete factorisation-algebraic and vertex-algebraic objects.
-At $K3 \times E$ (compact, non-toric), even the CoHA construction requires careful input
-(Davison 2017 \texttt{arXiv:1601.02479} for proper CY$_3$, conditional on the global
-critical-chart hypothesis for the sheaf moduli); the passage to a chiral / vertex-algebra
-structure is an \emph{additional} set of questions, not automatic.
-The BKM $\mathfrak{g}_{\Delta_5}$ is \emph{not} the chiral algebra; it is the analogue
-of $\widehat{\mathfrak{gl}}_1 = $ the ``Lie primitive'' inside the positive half of the
-Yangian, which in the $\mathbb{C}^3$ setting is itself a specific infinite-dimensional
-Lie algebra (central extension of polynomial loop algebra).
-
-\subsection{Open problems in the compact case}
-
-\begin{enumerate}
-\item Construct $\CoHA(K3 \times E)$ as an associative (or $E_1$) algebra intrinsically,
-not via a local toric model.
-\item Identify the BPS Lie algebra $\mathfrak{g}_{\mathrm{BPS}}(K3 \times E)$ from Davison 2017
-with the Gritsenko--Nikulin BKM $\mathfrak{g}_{\Delta_5}$ at the Lie-algebra level
-(numerical multiplicities established; Lie bracket compatibility requires checking
-$[\mathfrak{g}_{\mathrm{BPS}, \gamma_1}, \mathfrak{g}_{\mathrm{BPS}, \gamma_2}]
-\to \mathfrak{g}_{\mathrm{BPS}, \gamma_1 + \gamma_2}$ matches BKM bracket).
-\item Formulate a ``chiral BKM'' as a factorisation or vertex algebra on a spectral curve,
-with Costello-style gauge-theory derivation from the holomorphic twist of a relevant
-5D / 6D theory on $K3 \times E \times \mathbb{C}$.
-\item Identify the $\Delta_5$-invariant role: it is the generating function of
-BKM root multiplicities, not a direct structure constant of a chiral algebra.
-The ``binding'' of algebraic and geometric sides at $\Delta_5$ is via numerical
-equality of multiplicities (OP 2017 theorem), not via direct isomorphism of algebras.
-\end{enumerate}
-
-\emph{End of treatise.}
+The proved compact statement is numerical: Oberdieck--Pixton 2017 gives
+the reduced DT series, and the Borcherds product for
+$\Phi_{10}=\Delta_5^2$ gives root multiplicities. This identifies
+graded dimensions. A Lie-bracket isomorphism
+\[
+\mathfrak g_{\mathrm{BPS}}(K3\times E)\cong\mathfrak g_{\Delta_5}
+\]
+requires a bracket comparison for
+\[
+[\mathfrak g_{\mathrm{BPS},\gamma_1},
+ \mathfrak g_{\mathrm{BPS},\gamma_2}]
+\to
+\mathfrak g_{\mathrm{BPS},\gamma_1+\gamma_2}
+\]
+against the BKM bracket. A chiral-BKM statement further requires
+fields, OPEs, locality, and the factorisation algebra on a chosen
+spectral curve.

@@ -1,13 +1,3 @@
-% wave12_a8_en_hierarchy_kapranov.tex
-% Channel: Mikhail Kapranov (categorical depth, factorization-algebraic first
-% principles, geometric Langlands sensibility).
-% Mission: Adversarially assault and rigorously heal
-%   (1) the E_n hierarchy,
-%   (2) the E_1 mechanism (Dunn additivity + Omega-background),
-%   (3) the five routes to the chiral algebra.
-% Scope: working_notes.tex lines 1654-1699, 2013-2043, 1097-1121.
-% Voice: Chriss-Ginzburg; Costello-Francis-Gwilliam elementarity; no narration.
-
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
 
@@ -20,9 +10,6 @@
 \newtheorem{example}[theorem]{Example}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem*{attack}{ATTACK}
-\newtheorem*{heal}{HEAL}
-\newtheorem*{ghost}{Ghost theorem}
 
 \newcommand{\En}{\mathsf{E}_n}
 \newcommand{\Eone}{\mathsf{E}_1}
@@ -32,314 +19,457 @@
 \newcommand{\Ezero}{\mathsf{E}_0}
 \newcommand{\Rep}{\mathrm{Rep}}
 \newcommand{\HH}{\mathrm{HH}}
+\providecommand{\RHom}{\mathrm{RHom}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\Obs}{\mathrm{Obs}}
 \newcommand{\cZ}{\mathcal{Z}}
 \newcommand{\cC}{\mathcal{C}}
-\newcommand{\cD}{\mathcal{D}}
-\newcommand{\cH}{\mathcal{H}}
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\fgl}{\mathfrak{gl}}
-\newcommand{\so}{\mathfrak{so}}
+\newcommand{\PV}{\mathrm{PV}}
 \newcommand{\CoHA}{\mathrm{CoHA}}
 \newcommand{\cW}{\mathcal{W}}
-\newcommand{\PV}{\mathrm{PV}}
-\newcommand{\Disk}{\mathrm{Disk}}
-\newcommand{\Conf}{\mathrm{Conf}}
-\newcommand{\Fact}{\mathrm{Fact}}
-\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\newcommand{\kch}{\kappa_{\mathrm{ch}}}
-\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
 
-\title{Wave 12, agent A8. The $\En$ hierarchy, the $\Eone$ mechanism, and five routes: five attack-heals in the Kapranov voice}
-\author{}
-\date{Wave 12 / 2026-04-22}
+\title{The $\En$ Hierarchy, the $\Eone$ Mechanism, and the Centre}
+\author{Raeez Lorgat}
+\date{}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The dimensional stratification of the CY-to-chiral correspondence rests on three load-bearing assertions: (i) the Dunn--Lurie additivity $\Etwo \simeq \Eone \otimes_{\Ezero} \Eone$ explains the jump $d=2 \to d=3$; (ii) the $\Omega$-background freezes one $\Eone$-factor; (iii) at $d \geq 3$ the Drinfeld centre restores an $\Etwo$-braiding on $\Rep(A)$ rather than on $A$. Each admits a natural wrong reading. Five attack-heal passes extract the precise content: Dunn additivity is an equivalence of $\infty$-operads, not of algebras; the $\Omega$-background is a toric-specific geometric input, not a universal prescription; the five routes for $\C^3$ and for $K3 \times E$ are five distinct constructions, not five applications of a single functor; the $\Eone \to \Etwo$ bifurcation at $d \geq 3$ lives on $\cZ(\Rep(A))$, NOT on $A$; the $\pi_d(B\mathrm{Sp})$ framing obstruction is an $\Eone$-grading datum, not a refinement of $\Eone$ to $\En$. Healed picture: $\Phi_d$ factors through factorization homology, $\int_{S^1}$ produces Hochschild data hence $\Eone$-chiral on curves, $\int_{S^2}$ produces genuine $\Etwo$ data only when the input category carries $\Etwo$-structure, and the CY dimension $d$ enters through the dimension of the framed sphere on which the derived trace is taken.
+The dimensional stratification of the CY-to-chiral correspondence has
+three independent inputs.  Dunn-Lurie additivity is an equivalence of
+$\infty$-operads; restriction along a little-line inclusion gives an
+$\Etwo$-to-$\Eone$ forgetful functor.  The $\Omega$-background is the
+toric equivariant mechanism for local CY$_3$ geometries.  Compact
+non-toric CY$_3$ inputs are governed by the framed specialisation
+theorem and its chain-level hypotheses.  On constructed $d\geq 3$ loci,
+the specialised algebra $A$ is $\Eone$-chiral.  The $\Etwo$ braiding
+lives on a centre, double, or representation-theoretic enhancement once
+the pairing and completion data exist.  The Hall, shuffle, factorisation,
+Chern-Simons, and automorphic constructions around $\C^3$ and
+$K3\times E$ have different inputs; comparison theorems relate their
+outputs.
 \end{abstract}
 
-\section{Standing conventions}
+\section{Conventions}
 
-Throughout, $\En$ denotes the little $n$-disks operad in spectra or in chain complexes over $\C$. An $\En$-algebra in $\cC$ is an algebra for $\En \otimes \cC$ when $\cC$ is a symmetric-monoidal $(\infty,1)$-category. Dunn--Lurie additivity (Lurie HA \S5.1.2):
+All operads are little-disks operads in spectra or in chain complexes
+over $\C$.  Dunn-Lurie additivity is the equivalence
 \begin{equation}
- \Etwo \simeq \Eone \otimes_{\Ezero} \Eone
- \quad \text{as $\infty$-operads.}
- \label{eq:dunn}
+  \Etwo \simeq \Eone\otimes_{\Ezero}\Eone
+  \label{eq:dunn}
 \end{equation}
-More generally $\En \simeq \Eone^{\otimes n}$. An $\Etwo$-algebra is equivalently an $\Eone$-algebra in $\Eone$-algebras; equivalently, an algebra with two compatible (braided) multiplications.
+in the Boardman-Vogt tensor product of $\infty$-operads, and more
+generally $\En\simeq\Eone^{\otimes n}$.  Thus an $\Etwo$-algebra is an
+$\Eone$-algebra internal to $\Eone$-algebras:
+\begin{equation}
+  \mathsf{Alg}_{\Etwo}(\cC)
+  \simeq
+  \mathsf{Alg}_{\Eone}\bigl(\mathsf{Alg}_{\Eone}(\cC)\bigr).
+  \label{eq:dunn-iterated}
+\end{equation}
 
-The CY-to-chiral assignment $\Phi_d$ attaches to a CY $d$-category $\cC$ an $\En$-algebra at $n$ determined by $d$:
-\begin{center}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{c|c|l}
-$d$ & $\Phi_d(\cC)$ target & primitive example \\
+The output convention is:
+\[
+\begin{array}{c|c|c}
+d & \Phi_d\text{-output scope} & \text{basic source} \\
 \hline
-$1$ & $\Einf$-chiral & elliptic curve, CFT \\
-$2$ & $\Etwo$-chiral & K3, Yangian MO \\
-$\geq 3$ & $\Eone$-chiral & $\C^3$, $K3\times E$, quintic \\
-\end{tabular}
-\end{center}
-Label discipline (CLAUDE.md KEY FACT, top-15 item 3): \emph{at $d \geq 3$ the algebra $A = \Phi_d(\cC)$ is $\Eone$; any $\Etwo$-braiding lives on $\cZ(\Rep(A))$, the Drinfeld centre of its representation category, not on $A$ itself.}
-
-% ------------------------------------------------------------
-\section{Attack-heal 1. Dunn additivity as an identity vs as an equivalence of $\infty$-operads}
-% ------------------------------------------------------------
-
-\begin{attack}
-Working-notes line 1691 writes
-\[
- \Etwo \;\simeq\; \Eone \otimes_{\Ezero} \Eone
+1 & E_\infty\text{-chiral} & \text{elliptic and lattice VOA branch}\\
+2 & E_2\text{-chiral} & \text{K3 Mukai-Heisenberg branch}\\
+\geq 3 & E_1\text{-chiral on the curve} &
+\text{framed specialisation and local Hall branches}
+\end{array}
 \]
-as if asserting a single identity between two operads at the set-theoretic level, and then applies it (lines 1692--1694) to conclude that ``the $\Omega$-background freezes one of the two $\Eone$-factors''. The adversarial reading: the symbol $\otimes_{\Ezero}$ is not ordinary tensor of chain complexes, it is the Boardman--Vogt tensor product of $\infty$-operads (Lurie HA Def 2.2.5.3). One cannot ``freeze'' a factor of a Boardman--Vogt tensor the way one zeros out a coordinate in a product of vector spaces: the tensor does not come with a projection $\Eone \otimes \Eone \to \Eone$ onto either factor.
-\end{attack}
+For $d\geq 3$, the $E_2$-braided object is
+$\cZ(\Rep^{E_1}(A))$ or a Drinfeld double on constructed loci.  The
+native algebra $A$ remains $E_1$.
 
-\begin{ghost}
-Dunn--Lurie additivity $\En \simeq \Eone^{\otimes n}$ is an equivalence of $\infty$-operads (Dunn 1988, Lurie HA Thm 5.1.2.2). An $\En$-algebra in $\cC$ is equivalently an $\Eone$-algebra in the $(\infty,1)$-category of $\mathsf{E}_{n-1}$-algebras. There is a tautological forgetful functor $\mathrm{forget}\colon \mathsf{Alg}_{\En}(\cC) \to \mathsf{Alg}_{\Eone}(\cC)$ in \emph{each} of the $n$ directions.
-\end{ghost}
-
-\begin{heal}
-The precise content of Dunn--Lurie is iterated-algebra:
-\begin{equation}
- \mathsf{Alg}_{\Etwo}(\cC) \;\simeq\; \mathsf{Alg}_{\Eone}\!\big(\mathsf{Alg}_{\Eone}(\cC)\big).
- \label{eq:dunn-iterated}
-\end{equation}
-This is what ``freezing one factor'' can mean, and the meaning is precise: given a map of $\infty$-operads $\Eone \to \Etwo$ arising from one of the two inclusions of the little-$1$-disk into the little-$2$-disk (``stacking'' direction, or ``juxtaposition'' direction), pullback along this map sends an $\Etwo$-algebra to an $\Eone$-algebra. This is forgetful, not ``freezing''.
-
-The $\Omega$-background does \emph{not} freeze a factor of $\Eone \otimes_{\Ezero} \Eone$ by introducing a preferred direction; rather, the $\Omega$-background \emph{specifies which of the two $\Eone$-directions survives} after equivariant reduction. Concretely, on the transverse $\C^2 \subset \C^3$ with $\Omega$-weights $\epsilon_1, \epsilon_2$ subject to the Calabi--Yau constraint $\epsilon_3 = -\epsilon_1 - \epsilon_2$, the $\mathbb T^2 = U(1)^2$-equivariant localisation collapses the $\Etwo$ factorisation structure on $\PV^\ast(\C^3)$ to the $\Eone$ factorisation structure on its $\mathbb T^2$-fixed locus, which is $0$-dimensional in the transverse directions. The surviving $\Eone$ is the remaining direction along $\C \subset \C^3$. Costello--Li 2016 arXiv:1605.01473 \S5 exhibits the explicit localisation.
-
-\textbf{Precise statement.} Dunn--Lurie \eqref{eq:dunn-iterated} gives a pair of forgetful functors $\mathsf{Alg}_{\Etwo} \rightrightarrows \mathsf{Alg}_{\Eone}$, and the $\Omega$-background selects one of them via $\mathbb T^2$-localisation on toric $\C^3$. On a non-toric CY3 (e.g.\ the quintic) there is no $\mathbb T^2$-action, hence no $\Omega$-background, hence no ``freezing'' --- but the algebra $A = \Phi_3(\cC)$ is still $\Eone$, for the independent reason stated in \S\ref{sec:ah5} below: $\pi_3(B\mathrm{Sp}) = 0$, so the framing obstruction is trivial and no $\Etwo$-refinement is available.
-\end{heal}
-
-% ------------------------------------------------------------
-\section{Attack-heal 2. $\Omega$-background as universal prescription vs toric-specific geometric input}
-\label{sec:ah2}
-% ------------------------------------------------------------
-
-\begin{attack}
-Working-notes \S\ref{subsec:e1-mechanism} treats the $\Omega$-background as the universal mechanism for the $\Etwo \to \Eone$ reduction at $d=3$. The implicit assertion: every CY3 chiral algebra arises from an $\Omega$-deformed $\Etwo$ parent by freezing one factor. But the $\Omega$-background is the Nekrasov equivariant regulator, defined only when $X$ carries a $\mathbb T$-action. Global compact CY3 (the quintic, $K3 \times E$) carry no such action --- applying the $\Omega$-background slogan to all CY3 is a category mistake of the kind cache entry \#1 flags (symbol overload with a scope hypothesis dropped).
-\end{attack}
-
-\begin{ghost}
-The $\Omega$-background specialisation does give a genuine $\Etwo \to \Eone$ mechanism on toric CY3. The transverse $\mathbb T^2$-action with $\Omega$-weights reduces the factorisation envelope of $\PV^\ast(\C^3)$ from $\Etwo$-chiral on $\C^2$ to $\Eone$-chiral on the fixed locus. Costello--Li 2016 \S5 exhibits this.
-\end{ghost}
-
-\begin{heal}
-State the $\Etwo \to \Eone$ mechanism at $d=3$ in two distinct scopes, never collapsing them.
-
-\medskip
-
-\textbf{Toric scope} ($\C^3$, local $\mathbb P^2$, resolved conifold): $X$ carries a $\mathbb T^d$-action with $d \geq 2$. Choose $\mathbb T^2 \subset \mathbb T^d$ with Calabi--Yau condition $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$. The $\mathbb T^2$-equivariant factorisation envelope of polyvector fields is $\Etwo$-chiral; $\mathbb T^2$-localisation produces an $\Eone$-chiral algebra on the remaining direction. The Costello--Li chain
+The notation
 \[
- \text{5d NCCS on } \C^3 \;\to\; Y^+(\widehat{\fgl}_1) \;\simeq\; \cW_{1+\infty}
+  \Phi_d^{(\Sigma_{d-1},C)}
+  =
+  \SpCh_{\Sigma_{d-1},C}\circ\PhiFA_d
 \]
-is an instance.
+has object-level meaning only after the formality, framing, anomaly,
+completion, and witnessed specialisation data have been fixed.  Its
+morphism-level functoriality is restricted to kernels preserving those
+data.  The family $\{\Phi_d\}_{d\geq1}$ has dimension-dependent targets;
+the superscript \((\Sigma_{d-1},C)\) is part of the datum at $d\geq3$.
 
-\medskip
+\section{The Five Objects Attached to an \texorpdfstring{$E_1$}{E1} Algebra}
+\label{sec:five-objects}
 
-\textbf{Intrinsic scope} (compact CY3 $X$, e.g.\ quintic, $K3 \times E$): no $\mathbb T$-action. The algebra $A_X = \Phi_3(D^b\mathrm{Coh}(X))$ is $\Eone$ because the framing datum needed to lift $\Eone$ to $\Etwo$ is a class in $\pi_3(B\mathrm{Sp}) = 0$, which vanishes. See \S\ref{sec:ah5} below.
+Let $A$ be an $E_1$-chiral algebra on a curve.  Five functorial objects
+occur in the bar-cobar and centre formalism:
+\[
+  A,\qquad
+  B(A),\qquad
+  A^i,\qquad
+  A^!,\qquad
+  Z^{\mathrm{der}}_{\mathrm{ch}}(A).
+\]
+Here $B(A)$ is the chiral bar coalgebra.  The equation
+\[
+  \Omega B(A)\simeq A
+\]
+is bar-cobar inversion under the connectivity and completion
+hypotheses.  The object $A^i$ is the Koszul-dual coalgebra supplied by
+the cooperadic bar construction.  The chiral algebra $A^!$ is the
+Verdier/Koszul dual, obtained from the Verdier dual of the bar coalgebra
+when the finiteness hypotheses needed for linear duality hold.  The
+bulk object is
+\[
+  Z^{\mathrm{der}}_{\mathrm{ch}}(A)
+  =
+  \RHom^{\mathrm{ch}}_{A\text{-bimod}}(A,A)
+  \simeq
+  C^\bullet_{\mathrm{ch}}(A,A),
+\]
+the chiral Hochschild cochain algebra.  Bar-cobar inversion, Koszul
+duality, Verdier duality, and Hochschild centre formation are four
+different constructions.
 
-\medskip
+\section{Dunn Additivity and Forgetful Directions}
 
-The unified content: \emph{at $d=3$ the target of $\Phi_d$ is $\Eone$; the route to $\Eone$ is toric-equivariant ($\Omega$-background, when available) or intrinsic ($\pi_3(B\mathrm{Sp}) = 0$, always available).} The $\Omega$-background is not a mechanism in the non-toric scope; it is a witness of the mechanism in the toric scope.
-\end{heal}
+\begin{proposition}[Operadic additivity]
+\label{prop:dunn-scope}
+The equivalence \eqref{eq:dunn} is an equivalence of
+$\infty$-operads.  A choice of embedding
+$\Eone\to\Etwo$ along one coordinate direction gives a pullback functor
+\[
+  \mathsf{Alg}_{\Etwo}(\cC)
+  \longrightarrow
+  \mathsf{Alg}_{\Eone}(\cC).
+\]
+This functor remembers the selected multiplication and forgets the
+coherent transverse multiplication.
+\end{proposition}
 
-\begin{remark}[Relation to cache entry \#1]
-Applying ``$\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$'' to local toric CY3 is a scope violation (cache \#1): the /24 reading is BCOV/compact. Applying ``$\Omega$-background'' to compact CY3 is the symmetric scope violation: $\Omega$ is toric/non-compact. Both come from eliding the hypothesis under which a formula is defined. Discipline: every reference to the $\Omega$-background must either (i) be accompanied by a toric hypothesis on $X$, or (ii) be replaced by the intrinsic $\pi_d(B\mathrm{Sp})$ argument.
-\end{remark}
-
-% ------------------------------------------------------------
-\section{Attack-heal 3. Five routes to $\cW_{1+\infty}$ as five constructions vs five applications of a single functor}
-% ------------------------------------------------------------
-
-\begin{attack}
-Working-notes \S\ref{subsec:costello-li-c3} enumerates five routes to $\cW_{1+\infty}$ and five routes to the chiral algebra of $K3 \times E$. A reader primed on the symmetric-monoidal voice of Vol III would mistake these as five applications of a single functor $\Phi$ to five presentations of one input category. Attack: this is precisely the confusion flagged by the CLAUDE.md KEY FACT ``six routes to $G(K3\times E)$ are six DIFFERENT constructions, NOT six $\Phi$ applications''. It recurs here in fivefold form, and must be attacked before it calcifies.
-\end{attack}
-
-\begin{ghost}
-There is a genuine convergence phenomenon: five independent categorical constructions, starting from different input data (critical CoHA, crystal melting, shuffle algebra, factorization envelope, $5d$ Chern--Simons), produce equivalent output algebras. The equivalences are theorems (SV 2013, Nekrasov--Okounkov 2014, Costello--Li 2016, Feigin--Tsymbaliuk 2011, Gaiotto--Rapcak 2019), each requiring its own proof.
-\end{ghost}
-
-\begin{heal}
-Five routes to $\cW_{1+\infty}$:
-\begin{enumerate}[label=\textup{(R\arabic*)}]
-\item \emph{Critical CoHA.} Input: the $3$-Calabi--Yau category $\mathrm{MF}(\C^3, W)$ for $W = xyz$ (or the acyclic quiver with potential). Output: the Kontsevich--Soibelman CoHA $\cH(\C^3) = Y^+(\widehat{\fgl}_1)$ via Schiffmann--Vasserot 2013. Structure: associative $\Eone$-algebra.
-\item \emph{Crystal melting / MacMahon.} Input: the Fock space $\C[P^{(1)}]$ of $3d$ plane partitions with MacMahon measure. Output: the Feigin--Tsymbaliuk vertex operator algebra $\cW_{1+\infty}$ via level-one MacMahon module identification.
-\item \emph{Shuffle algebra.} Input: the double shuffle ring on $\C[u^{\pm 1}]$ with structure function $\zeta(u)$. Output: $Y^+(\widehat{\fgl}_1)$ via Negut shuffle presentation.
-\item \emph{Factorization envelope.} Input: the dg Lie algebra $\PV^\ast(\C^3)[2]$ with Schouten bracket. Output: the chiral envelope $U^{\mathrm{ch}}(\PV^\ast(\C^3)[2])$ via the Costello--Gwilliam factorisation envelope construction (BV II \S5).
-\item \emph{$5d$ Chern--Simons.} Input: the perturbative expansion of the holomorphic-topological Chern--Simons action on $\C^3$ with gauge group $U(1)$. Output: the boundary chiral algebra, matching $\cW_{1+\infty}$ via Costello--Li 2016 \S4 Feynman-diagram expansion.
-\end{enumerate}
-
-Five \emph{distinct inputs}. Five \emph{distinct output procedures}. A posteriori theorem: all five produce equivalent algebras at $N=1$. The equivalences are:
-\begin{itemize}
-\item (R1) $\simeq$ (R3) via Schiffmann--Vasserot 2018 arXiv:1810.12160 (CoHA $\simeq$ shuffle).
-\item (R1) $\simeq$ (R2) via Schiffmann--Vasserot 2013 Compositio 149 (CoHA $\simeq$ affine Yangian on Fock).
-\item (R2) $\simeq$ (R4) via Gaiotto--Rapcak 2019 arXiv:1703.00982 (crystal $\simeq$ envelope).
-\item (R4) $\simeq$ (R5) via Costello--Li 2016 \S6 (envelope $\simeq$ $5d$ CS boundary).
-\end{itemize}
-
-This is \textbf{not} ``one $\Phi$ computed five ways''. The functor $\Phi$ in Vol III is anchored on categorical input $D^b\mathrm{Coh}(X)$; routes (R1), (R2), (R3) take non-categorical input (a quiver with potential, a Fock space, a shuffle ring); routes (R4), (R5) take $L_\infty$-algebraic and perturbative-field-theoretic input. Each route is its own functor or construction; the equivalences between them are load-bearing theorems, not tautologies.
-
-The same taxonomy applies to the five routes for $K3 \times E$ in working-notes \S\ref{subsec:five-routes-k3e}: (a) relative DT, (b) Borcherds BKM, (c) Maulik--Okounkov, (d) Vafa--Witten, (e) relative chiral algebra --- five distinct constructions, each with its own input datum, converging on the same output. The ``six routes to $G(K3\times E)$'' KEY FACT in CLAUDE.md enforces the same discipline.
-\end{heal}
-
-\begin{remark}[Against AP-CY57: construction vs narration]
-A vice of exposition is to write ``we construct the chiral algebra in five ways and then observe that they agree''. This is narration. The healed voice writes ``five distinct functors $F_i$ from distinct input data $I_i$ produce five objects $A_i$; theorems $T_{ij}$ establish $A_i \simeq A_j$''. The $T_{ij}$ are the mathematics; the fivefoldness is a consequence of the state of the art in constructing chiral algebras, not of the structure of $\Phi$.
-\end{remark}
-
-% ------------------------------------------------------------
-\section{Attack-heal 4. The Drinfeld centre as ``averaging'' vs as right adjoint}
-% ------------------------------------------------------------
-
-\begin{attack}
-Working-notes line 1694 writes ``The Drinfeld center passage (Theorem~\ref{wn:thm:c3-drinfeld-center}) restores the $\Etwo$ structure by recovering the frozen factor.'' The word ``recovering'' suggests an averaging procedure: take the $\Eone$-algebra $A$, average over the lost direction, obtain an $\Etwo$-algebra. Attack: this is precisely the confusion flagged in the CLAUDE.md KEY FACT top-15 item 7 (AP-CY54 analogue): \emph{the Drinfeld centre is not averaging}. Averaging over a direction is a LEFT adjoint (induction, tensor-up); the Drinfeld centre is a RIGHT adjoint (Hochschild cochains, $\mathrm{End}$ of the forgetful functor).
-\end{attack}
-
-\begin{ghost}
-There is a genuine passage $\Eone \leadsto \Etwo$ at $d=3$: given an $\Eone$-algebra $A$ in a symmetric-monoidal category $\cC$, the \emph{derived centre} $Z^{\mathrm{der}}_{\Eone}(A) \simeq \mathrm{End}^\bullet_{A \otimes A^{\mathrm{op}}}(A)$ is an $\Etwo$-algebra. At the categorical level, this is $\cZ(\Rep(A))$, the Drinfeld centre of the representation category.
-\end{ghost}
-
-\begin{heal}
-The Drinfeld centre is the universal $\Etwo$-enhancement of an $\Eone$-input:
-\begin{equation}
- Z^{\mathrm{der}}_{\Eone}(A) \;=\; \mathrm{End}^\bullet_{A\text{-bimod}}(A) \;\simeq\; \HH^\bullet(A, A).
- \label{eq:drinfeld-centre}
-\end{equation}
-It is a RIGHT adjoint, not left. It is the endomorphism object of the identity $\Eone$-bimodule, which inherits $\Etwo$-structure by the Deligne conjecture (proved by McClure--Smith, Kontsevich--Soibelman, Tamarkin, Hu--Kriz--Voronov, Lurie).
-
-Characteristic diagnostic: \emph{the Drinfeld centre commutes with limits, not colimits.} $Z^{\mathrm{der}}(\lim_i A_i) \simeq \lim_i Z^{\mathrm{der}}(A_i)$ under mild hypotheses; the analogous statement for colimits fails. Averaging is a colimit, so it does not agree with the centre.
-
-For the CoHA of $\C^3$:
-\begin{equation}
- \cZ\!\big(\Rep^{\Eone}(Y^+(\widehat{\fgl}_1))\big) \;\simeq\; \Rep^{\Etwo}(Y(\widehat{\fgl}_1)).
- \label{eq:coha-centre}
-\end{equation}
-The right-hand side carries genuine $\Etwo$-braiding: the $R$-matrix of the full affine Yangian (not just its positive half) witnesses the braiding. Character: $M(q)^2 P(q) = \prod_n (1-q^n)^{-(2n+1)}$ (working-notes Thm~\ref{wn:thm:c3-drinfeld-center}).
-
-\textbf{The braiding is not lost at chain level.} The $R$-matrix $R(u) \in \mathrm{End}(V(u) \otimes V(v))[[u^{-1}]]$ is a chain-level object: a formal Laurent series in the spectral parameter with values in $\mathrm{End}$ of a tensor product of evaluation modules. The spectral parameter comes from the loop-algebra structure on $Y^+(\widehat{\fgl}_1)$, not from a categorical centre axiom; the centre axiom supplies the \emph{hexagon equations} satisfied by $R(u)$, which are the $\Etwo$-structure witnesses. This is the Two-Derived-Centres cache entry 46--50 point: spectral parameter = evaluation modules, not centre.
-
-\textbf{Averaging trap.} Suppose one tried to ``recover'' the second $\Eone$-factor by averaging $A$ over a hypothetical circle action $U(1) \to \mathrm{Aut}(A)$. This would produce $A^{U(1)} \simeq A \otimes_{\Einf} \C[u]$ (polynomial ring in the formal variable $u$), which is $\Eone$, not $\Etwo$. Averaging does NOT add a second multiplication; it symmetrises the first one. The centre construction adds a second multiplication by taking ENDOMORPHISMS.
-
-See also Vol I cache AP186 / Vol III cache AP-CY54 / Vol III KEY FACT top-15 item 7 for the ``centre vs averaging'' discipline.
-\end{heal}
-
-% ------------------------------------------------------------
-\section{Attack-heal 5. The $\En$ stabilisation tower at $d \geq 4$: framing obstructions are $\Eone$-gradings, not $\En$-refinements}
-\label{sec:ah5}
-% ------------------------------------------------------------
-
-\begin{attack}
-Working-notes \S\ref{subsec:en-stabilization} tabulates a Bott-periodic framing obstruction $\pi_d(B\mathrm{Sp})$ and writes the structure column as $\Eone$, $\Eone + \Z$-shifted, $\Eone + \Z_2$-graded, etc. A fast reader might infer that the $\pi_d(B\mathrm{Sp})$ class refines the $\Eone$-structure to some $\En$-structure with $n > 1$ by a homotopy-Bott argument. Attack: that inference is wrong. $\pi_d(B\mathrm{Sp})$ measures the obstruction to trivialising the normal bundle to the $d$-framed disk; it does not inject into the operadic hierarchy $\Eone \subset \Etwo \subset \cdots$.
-\end{attack}
-
-\begin{ghost}
-The framing obstruction is real. For an $\En$-factorisation algebra on a $d$-manifold $M$, the integrand datum transforms under $\mathrm{Emb}(\R^d, M)$, whose homotopy type is $\mathrm{Map}(M, B\mathrm{Diff}_c(\R^d)) \simeq \mathrm{Map}(M, B\mathrm{O}(d))$ in the topological case, $\mathrm{Map}(M, B\mathrm{Sp}(d))$ in the Calabi--Yau case. The classes $\pi_d(B\mathrm{Sp})$ enter as genuine obstructions to defining $\int_M$ of an $\En$-algebra.
-\end{ghost}
-
-\begin{heal}
-The precise hierarchy splits into two orthogonal directions.
-
-\medskip
-
-\textbf{Operadic direction.} $\Eone \subset \Etwo \subset \Ethree \subset \cdots \subset \Einf$. A choice of $\En$-structure for $n > 1$ on $A$ is an ENRICHMENT of the $\Eone$-structure (iterated-algebra Dunn--Lurie \eqref{eq:dunn-iterated}); it is \emph{additional} structure on $A$.
-
-\medskip
-
-\textbf{Integration direction.} For a fixed $\En$-algebra $A$ and a $d$-manifold $M$ with $n$-framing (reduction of the structure group of $TM \oplus \R^{n-d}$ to $\mathrm{O}(n)$ via $M \to B\mathrm{O}(n)$), the factorization homology $\int_M A$ is defined. Obstructions to $n$-framing live in $\pi_\ast(B\mathrm{O}(n)/B\mathrm{Sp}(d))$ and friends.
-
-\medskip
-
-The Vol III table in working-notes \S\ref{subsec:en-stabilization} conflates these two directions. Correct reading: \emph{the output of $\Phi_d$ is always $\Eone$ at $d \geq 3$; the $\pi_d(B\mathrm{Sp})$ class is additional data carried by the CY category, which shifts / grades / twists the $\Eone$-structure via a grading, not an operadic refinement.}
-
-Concretely:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item $d=3$: $\pi_3(B\mathrm{Sp}) = 0$. No shift. $\Phi_3(\cC) = A_X$ is $\Eone$, ungraded.
-\item $d=4$: $\pi_4(B\mathrm{Sp}) = \Z$. The class pairs with an integer, producing a $\Z$-grading on $A_X$. $\Phi_4(\cC) = A_X$ is $\Eone$ with additional $\Z$-grading. It is NOT $\Etwo$.
-\item $d=5$: $\pi_5(B\mathrm{Sp}) = \Z_2$. Torsion, producing a $\Z_2$-grading ($\Z_2$-super). $\Phi_5(\cC) = A_X$ is $\Z_2$-graded $\Eone$.
-\item $d=6$: $\pi_6(B\mathrm{Sp}) = \Z_2$. Second $\Z_2$-grading, potentially interacting with $d=5$ via Bott.
-\item $d=7$: $\pi_7(B\mathrm{Sp}) = 0$. No shift. $\Eone$, ungraded.
-\item $d=8$: $\pi_8(B\mathrm{Sp}) = \Z$. Eight-fold Bott closure.
-\end{enumerate}
-
-The $8$-fold periodicity is Bott periodicity for $B\mathrm{Sp}$, NOT a recurrence to $\Etwo$ structure. At every $d \geq 3$, $\Phi_d(\cC)$ is $\Eone$ in its algebra category; the Bott data is carried by a grading/shift functor $\mathrm{gr}_d$ acting on the category of $\Eone$-algebras.
-
-\textbf{Why $\Phi_d$ fails to refine past $\Eone$ at $d \geq 3$.} An $\Eone$-to-$\Etwo$ refinement of $\Phi_d(\cC)$ would require a coherent second multiplication arising from the CY structure. The naive candidate is ``Künneth along the CY direction'', but this lands in a symmetric-monoidal structure ($\Einf$), not in $\Etwo$. A genuine $\Etwo$-refinement requires a braiding witnessed by an $R$-matrix, and the spectral parameter for $R$ comes from evaluation modules (loop structure on $\widehat{\mathfrak g}$), which exists only when $\cC$ carries $\mathfrak g$-data. At $d=2$ (K3, $\mathfrak g = \so(4,20)$ or Mukai), this data exists. At $d \geq 3$ (compact CY3), the Mukai-type loop algebra has not been constructed; this is the CY-A$_3$ programme (AP-CY6).
-\end{heal}
-
-% ------------------------------------------------------------
-\section{Healing reconstruction: $\Phi_d$ via factorization homology}
-% ------------------------------------------------------------
-
-Let $\cC$ be a CY $d$-category (dualisable, $d$-Calabi--Yau in the $(\infty,1)$-sense of Kontsevich--Soibelman). Kapranov-voice reconstruction of $\Phi_d$:
-\begin{equation}
- \Phi_d(\cC) \;:=\; \int_{S^{d-1}_{\mathrm{fr}}} \cC,
- \label{eq:phi-factorization-homology}
-\end{equation}
-where the right-hand side is the framed factorization homology of $\cC$ over the $(d-1)$-sphere. The target category depends on $d$ via the sphere factorisation:
-\begin{equation}
- \int_{S^k_{\mathrm{fr}}} (-) \;\colon\; \mathsf{Alg}_{\mathsf{E}_k}(\mathsf{Cat}) \;\to\; \mathsf{Cat}.
-\end{equation}
-\begin{itemize}
-\item $d=1$: $\int_{S^0}$ is two-point factorization, producing $\mathsf{Mod}(\cC) \otimes_{\cC \otimes \cC^{\mathrm{op}}} \mathsf{Mod}(\cC) \simeq \HH_\ast(\cC) =$ Hochschild homology. This is $\Einf$-chiral (symmetric).
-\item $d=2$: $\int_{S^1}$ is the loop integral, producing Hochschild homology of the $\Etwo$-structure, which is $\Etwo$-chiral (braided).
-\item $d=3$: $\int_{S^2}$ is the surface integral of the $\Ethree$-structure --- but the CY3 category is only $\Eone$-monoidal in the derived categorical sense, so the output is $\Eone$.
-\end{itemize}
-
-The dimensional stratification emerges from the interaction between the input $\En$-structure on $\mathsf{Cat}$ (natively $\Etwo$ because of symmetric monoidal on symmetric monoidal --- one tensor per direction) and the surface integral sphere dimension. For $d=1, 2$, both integrals produce the expected $\Einf$ (open string at $d=1$) or $\Etwo$ (closed string at $d=2$).
-
-At $d \geq 3$, the naive Künneth-tensor $\cC \otimes \cC$ fails to carry a second multiplication beyond the symmetric one; the output of $\int_{S^{d-1}}$ lands in $\Eone$.
-
-\begin{theorem}[$\Eone$-output at $d \geq 3$, conjectural via CY-A$_d$]
-\label{thm:e1-output-d3}
-Assuming the CY-A$_d$ programme (an $\Einf$-monoidal $(\infty,1)$-categorical structure on $\cC$ with a CY $d$-trace), the factorization homology $\int_{S^{d-1}_{\mathrm{fr}}} \cC$ is an $\Eone$-algebra. The $\Etwo$-structure on $\cZ(\mathsf{Mod}(\int_{S^{d-1}} \cC))$ is automatic by Dunn--Lurie applied to the Drinfeld centre.
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-Francis 2013 arXiv:1211.5619 Thm 4.1: factorization homology of a framed $n$-manifold over a variety of $\En$-algebras produces an $\Eone$-algebra when the manifold has nontrivial $\pi_1$-action (loop / sphere). Specialise to $M = S^{d-1}$, $n = d - 1$: the surface has framing obstruction $\pi_{d-1}(B\mathrm{O}(n))$, and for the CY variant $\pi_{d-1}(B\mathrm{Sp}(n))$. At $d=3$: $\pi_2(B\mathrm{Sp}) = \Z$ (symplectic $c_1$-class) --- but this class is trivialised by the Calabi--Yau condition $c_1 = 0$, so the obstruction vanishes and $\int_{S^2}$ is defined. At $d \geq 4$: the Bott periodicity table in \S\ref{sec:ah5} governs.
+\begin{proof}
+Dunn-Lurie additivity identifies $\Etwo$-algebras with
+$\Eone$-algebras in $\Eone$-algebras.  Restricting an
+$\Etwo$-algebra along one little-line inclusion of the little-disk
+operad keeps the multiplication in that direction and forgets the
+coherent transverse multiplication.  The construction is pullback along
+a map of operads.  A tensor-factor projection would require a cartesian
+product presentation, while \eqref{eq:dunn} uses the Boardman-Vogt
+tensor product.
 \end{proof}
 
-\begin{remark}[Relation to the five-routes framework]
-Theorem~\ref{thm:e1-output-d3} is one route to $\Eone$ at $d \geq 3$; it sits alongside (R1)--(R5) from \S3 as a sixth abstract route. It is particularly clean because it reads off the $\Eone$ status from the factorization-homology target rather than from a specific construction. It is also more schematic: for concrete values of $\kappa_{\mathrm{ch}}$ one still needs one of (R1)--(R5).
-\end{remark}
+\section{The $\Omega$-Background in Toric and Compact Cases}
+\label{sec:omega}
 
-% ------------------------------------------------------------
-\section{Cache appends}
-% ------------------------------------------------------------
+\begin{proposition}[Toric local mechanism]
+\label{prop:omega-toric}
+Let $X$ be a toric local CY$_3$ carrying a two-torus action on the
+transverse complex plane with equivariant parameters
+$\epsilon_1,\epsilon_2$ and Calabi-Yau constraint
+$\epsilon_1+\epsilon_2+\epsilon_3=0$.  Equivariant localisation of the
+factorisation envelope along the transverse directions produces an
+$E_1$-chiral algebra on the remaining curve direction.  This is the
+Costello-Li mechanism for the local $\C^3$ and related toric examples.
+\end{proposition}
 
-Five new cache entries (AP-CY-tentative, for reviewer inclusion in the Wave 12 Kapranov append):
+\begin{proof}
+The $\Omega$-background is an equivariant deformation by the chosen
+torus action.  Localisation removes the moving transverse modes and keeps
+the fixed curve direction.  Operadically, this is the pullback described
+in Proposition~\ref{prop:dunn-scope}, selected by the geometric fixed
+locus inside the toric geometry.
+\end{proof}
 
-\begin{enumerate}[label=\textbf{AP-CY-K\arabic*.}]
-\item \textbf{Dunn additivity as identity vs as $\infty$-operad equivalence.} Writing $\Etwo \simeq \Eone \otimes \Eone$ and then ``freezing'' a factor misreads the Boardman--Vogt tensor as a cartesian product. The precise content is iterated-algebra \eqref{eq:dunn-iterated}; forgetful functors exist, no projection.
+\begin{proposition}[Compact CY$_3$ mechanism]
+\label{prop:compact-cy3-mechanism}
+For a compact non-toric CY$_3$, the toric equivariant deformation is
+absent.  The available object-level construction is the framed
+specialisation
+\[
+  \Phi_3^{(\Sigma_2,C)}(\cC)
+  =
+  \SpCh_{\Sigma_2,C}\bigl(\PhiFA_3(\cC)\bigr)
+\]
+under the hypotheses of the CY$_3$ specialisation theorem: smoothness,
+properness, a negative-cyclic Calabi-Yau class with non-degenerate
+Hochschild shadow, a chain-level $\mathbb{S}^3$-framing compatible with
+the BV operator, the TCFT correction, anomaly cancellation, analytic
+completion, and the filtered $\HH^{-2}_{E_1}(A,A)$ obstruction
+comparison.  Its native output is $E_1$-chiral on $C$.
+\end{proposition}
 
-\item \textbf{$\Omega$-background as universal prescription.} The $\Omega$-background applies to toric CY3 via a $\mathbb T^2$-action. Using it as the reason for $\Eone$-output on compact (non-toric) CY3 is a scope violation. The intrinsic reason is $\pi_3(B\mathrm{Sp}) = 0$.
+\begin{proof}
+The construction uses the witnessed specialisation datum and the
+chain-level hypotheses listed in the statement.  The stage-$1$
+Hochschild calculus
+has Gerstenhaber bracket degree $1-d$ and PTVV shift $2-d$.  The
+stage-$2$ restriction along $(\Sigma_2,C)$ leaves a curve-direction
+chiral algebra.  At $d=3$ this residual object is $E_1$; the $E_2$
+braiding is obtained from the centre of the representation category on
+the loci where the centre, pairing, and completion are constructed.
+\end{proof}
 
-\item \textbf{Five routes as five $\Phi$-applications.} The ``five routes to $\cW_{1+\infty}$'' (resp.\ to $A_{K3\times E}$) are five distinct functors from distinct inputs; the equivalences between their outputs are theorems, not tautologies. Reading them as five applications of one $\Phi$ to one input is the five-fold version of the six-route CLAUDE.md KEY FACT violation for $K3\times E$.
+\section{Distinct Constructions Around \texorpdfstring{$\C^3$}{C3}}
+\label{sec:routes-c3}
 
-\item \textbf{Drinfeld centre as averaging.} The centre $Z^{\mathrm{der}}(A) \simeq \HH^\bullet(A,A)$ is a right adjoint (endomorphism object), not a left adjoint (averaging / symmetrising). The $\Etwo$-structure on the centre is via the Deligne conjecture, not via averaging over a hypothetical group action. See cache \#7 (Vol III top-15) and AP-CY54 cross-programme.
-
-\item \textbf{$\pi_d(B\mathrm{Sp})$ as $\En$-refinement.} The Bott-periodic framing obstruction at $d \geq 4$ grades / shifts the $\Eone$-structure via a $\Z$- or $\Z_2$-grading functor, not by refining $\Eone$ to $\En$. At every $d \geq 3$, $\Phi_d(\cC)$ is $\Eone$ in its algebra category.
+Five standard constructions enter the local $\C^3$ comparison, each
+with its own input.
+\begin{enumerate}[label=\textup{(R\arabic*)}]
+\item \emph{Critical CoHA.}  The $3$-Calabi-Yau quiver or
+matrix-factorisation input produces
+$\CoHA(\C^3)\simeq Y^+(\widehat{\fgl}_1)$ by the
+Schiffmann-Vasserot comparison.  This is an $E_1$ positive half.
+\item \emph{Plane partitions.}  The MacMahon Fock space carries the
+level-one affine-Yangian action.  The $\cW_{1+\infty}$ vacuum module is
+obtained from the full Yangian action after the positive half has been
+completed.
+\item \emph{Shuffle algebra.}  Negut's shuffle presentation gives the
+same positive half $Y^+(\widehat{\fgl}_1)$ with its explicit structure
+function.
+\item \emph{Factorisation envelope.}  The dg Lie algebra
+$\PV^\ast(\C^3)[2]$ with Schouten bracket has a
+Costello-Gwilliam chiral envelope; after the toric specialisation it
+matches the same local positive-half branch.
+\item \emph{Holomorphic-topological Chern-Simons.}  The perturbative
+boundary algebra of the Costello-Li local theory is compared with the
+completed double and its $\cW_{1+\infty}$ vacuum representation after
+the Hopf pairing, completion, and evaluation-module data are supplied.
 \end{enumerate}
 
-% ------------------------------------------------------------
-\section{Summary table}
-% ------------------------------------------------------------
+The Hall and shuffle comparisons identify the positive half.  The direct
+Hall output on $\C^3$ is
+\[
+  \CoHA(\C^3)=Y^+(\widehat{\fgl}_1).
+\]
+The doubled and evaluated layer is typed by the chain
+\[
+  Y^+(\widehat{\fgl}_1)
+  \longrightarrow
+  D^\wedge\!\bigl(Y^+(\widehat{\fgl}_1)\bigr)
+  =
+  Y(\widehat{\fgl}_1)
+  \longrightarrow
+  \mathrm{End}\bigl(\cW_{1+\infty}\text{-}\mathrm{vac}\bigr),
+\]
+with the first arrow requiring the Hopf pairing and completion.
 
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lll}
-\toprule
-\textbf{Attack target} & \textbf{Ghost theorem} & \textbf{Healed statement} \\
-\midrule
-Dunn as identity & $\En \simeq \Eone^{\otimes n}$ (BV tensor) & iterated-algebra \eqref{eq:dunn-iterated} \\
-$\Omega$ universal & $\Omega$ witnesses $\Etwo \to \Eone$ on toric CY3 & toric-scope only; intrinsic $\pi_3 = 0$ \\
-Five routes $=$ one $\Phi$ & five convergent constructions & five functors, with equivalence theorems \\
-Centre $=$ averaging & $\cZ(\Rep) \simeq \Rep^{\Etwo}(Z^{\mathrm{der}})$ & $Z^{\mathrm{der}} = \HH^\bullet(A,A)$ RIGHT adjoint \\
-$\pi_d(B\mathrm{Sp})$ $=$ $\En$-refinement & Bott-graded $\Eone$ at $d \geq 3$ & grading functor, not operadic refinement \\
-\bottomrule
-\end{tabular}
-\end{center}
+\begin{remark}[K3 \texorpdfstring{$\times$}{x} E]
+The analogous $K3\times E$ constructions are relative DT theory,
+Borcherds-Gritsenko BKM, Maulik-Okounkov stable envelopes,
+Vafa-Witten theory, and the relative chiral algebra.  They have
+different inputs and comparison maps.  The numerical package consists
+of five measurements with four distinct values:
+\[
+\begin{aligned}
+ \kappa_{\mathrm{cat}}(K3\times E)
+   &=\chi(\mathcal O_{K3})\,\chi(\mathcal O_E)=2\cdot0=0,\\
+ \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(K3\times E)
+   &=\sum_q(-1)^q h^{0,q}(K3\times E)=0,\\
+ \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)&=3,\\
+ \kappa_{\mathrm{BKM}}(\Delta_5)&=c_1(0)/2=5,\\
+ \kappa_{\mathrm{fiber}}(K3)&=24.
+\end{aligned}
+\]
+\end{remark}
+
+\section{The Centre is the Source of the \texorpdfstring{$E_2$}{E2} Braiding}
+\label{sec:centre}
+
+\begin{proposition}[Derived centre]
+\label{prop:centre}
+For an $E_1$-algebra $A$ in a presentable symmetric monoidal stable
+category with internal bimodule Homs,
+\[
+  Z^{\mathrm{der}}_{E_1}(A)
+  =
+  \mathrm{End}^\bullet_{A\text{-bimod}}(A)
+  \simeq
+  \HH^\bullet(A,A)
+\]
+is an $E_2$-algebra.  In the chiral setting this is the underlying
+topological form of
+\[
+  Z^{\mathrm{der}}_{\mathrm{ch}}(A)
+  =
+  C^\bullet_{\mathrm{ch}}(A,A).
+\]
+Categorically this centre controls the Drinfeld centre of
+$\Rep^{E_1}(A)$.
+\end{proposition}
+
+\begin{proof}
+The Deligne conjecture gives an $E_2$ action on Hochschild cochains.
+Equivalently, the centre is the endomorphism object of the identity
+bimodule, and the two-dimensional little-disk operations act by
+composition and interchange of bimodule endomorphisms.  At the
+categorical level this is the half-braiding definition of the
+Drinfeld centre.
+\end{proof}
+
+\begin{remark}[Right-adjoint character]
+The centre is a right-adjoint type construction: it is an endomorphism
+object and commutes with limits under the usual finiteness hypotheses.
+Averaging over a group action produces invariants or coinvariants of the
+original $E_1$ multiplication.  Centre formation takes endomorphisms of
+the identity bimodule; the interchange of these endomorphisms supplies
+the second multiplication whose hexagon equations give an $E_2$
+braiding.
+\end{remark}
+
+\begin{remark}[Local \texorpdfstring{$\C^3$}{C3}]
+For the local Hall branch,
+\[
+  \cZ\bigl(\Rep^{E_1}(Y^+(\widehat{\fgl}_1))\bigr)
+\]
+is the representation-categorical place where the full affine Yangian
+braiding appears after the Hopf pairing and completion are fixed.  The
+$R$-matrix is a chain-level family
+$R(u)\in\mathrm{End}(V(u)\otimes V(v))[[u^{-1}]]$ satisfying the
+hexagon/Yang-Baxter identities.  The spectral parameter comes from
+evaluation modules for the loop algebra; the centre supplies the
+half-braiding equations.
+\end{remark}
+
+\section{Framing Data and Operadic Level}
+\label{sec:framing}
+
+Framing obstructions and operadic enrichment are orthogonal.  A higher
+$E_n$ structure is extra multiplication data.  A framing obstruction is
+data needed to integrate or specialise a fixed factorisation object.
+
+There are two Bott towers.  The complex tower is
+$\pi_d(BU)=\Z$ for even $d\geq2$ and $0$ for odd $d$.  The symplectic
+refinement is used on odd CY dimension, where the Serre pairing is
+antisymmetric.  In the range relevant here the effective obstruction is
+\[
+\begin{array}{c|cccccc}
+d & 3 & 4 & 5 & 6 & 7 & 8\\
+\hline
+\pi_d(BU) & 0 & \Z & 0 & \Z & 0 & \Z\\
+\pi_d(B\mathrm{Sp})\text{ on odd }d & 0 & - & \Z/2 & - & 0 & -\\
+\Obs_{\mathrm{eff}}(d) & 0 & \Z & \Z/2 & \Z & 0 & \Z
+\end{array}
+\]
+The $BU$ column has period \(2\), while the real and symplectic
+refinements have period \(8\).  These groups record grading, torsion, or
+twist data in the framed specialisation.  The native operadic level of
+the specialised output remains $E_1$ for $d\geq3$.
+
+\begin{proposition}[CY$_3$ framing data]
+\label{prop:cy3-framing-obligations}
+The vanishing of the stable topological class at $d=3$ is only the
+first obstruction check.  A compact CY$_3$ object-level construction
+still requires the chain-level $\mathbb{S}^3$-framing homotopy, TCFT
+correction, Costello-Li anomaly cancellation, analytic completion, and
+the filtered $\HH^{-2}_{E_1}(A,A)$ comparison.  Once those data are
+present, the specialised output is $E_1$ and its centre carries the
+$E_2$ braiding.
+\end{proposition}
+
+\begin{proof}
+The topological obstruction class controls the existence of a framing
+at the stable topological level.  The construction is chain-level and
+quantum.  The TCFT correction and Costello-Li completion control the
+effective BV differential; the filtered
+Hochschild comparison removes the primary derived obstruction named by
+the CY$_3$ specialisation theorem.  Higher lifting-space layers remain
+outside this statement.  These steps supply the data required for the
+$E_1$ specialisation; the second multiplication belongs to the centre construction of
+Proposition~\ref{prop:centre}.
+\end{proof}
+
+\section{Factorisation-Homological Form of the Statement}
+\label{sec:reconstruction}
+
+\begin{theorem}[Specialised CY$_3$ output]
+\label{thm:e1-output-d3}
+Assume the hypotheses of the CY$_3$ specialisation theorem for a CY$_3$
+category $\cC$ and a chosen pair $(\Sigma_2,C)$.  Then
+\[
+  A_\cC
+  =
+  \Phi_3^{(\Sigma_2,C)}(\cC)
+  =
+  \SpCh_{\Sigma_2,C}\bigl(\PhiFA_3(\cC)\bigr)
+\]
+is an $E_1$-chiral algebra on the curve $C$.  If the representation
+category, Hopf pairing, centre, and completion data are constructed,
+$\cZ(\Rep^{E_1}(A_\cC))$ is $E_2$-braided.
+\end{theorem}
+
+\begin{proof}
+The first stage $\PhiFA_3$ is controlled by the
+degree-$-2$ Gerstenhaber bracket on Hochschild cochains and the
+corresponding shifted symplectic form.  The specialisation
+$\SpCh_{\Sigma_2,C}$ restricts the factorisation object along
+the chosen surface and leaves a curve-direction chiral algebra.  A
+curve chiral algebra is $E_1$ in the present convention.  The centre
+statement is Proposition~\ref{prop:centre}.
+\end{proof}
+
+\begin{remark}[Higher dimensions]
+For $d\geq 4$ the same specialisation lane is conditional outside
+constructed loci.  Bott and framing classes specify grading and twisting
+data for the prospective $E_1$ output.  Native higher multiplication
+requires an additional centre, double, module, or enhancement
+construction.
+\end{remark}
+
+\section{Hypotheses Beyond Constructed Loci}
+
+The general compact and higher-dimensional statements require the
+following inputs.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item For an arbitrary compact non-formal CY$_3$ category, construct a
+strictified Hochschild $\Eone$ model, a compatible negative cyclic
+Calabi-Yau class, the chain-level $\mathbb{S}^3$-framing homotopy, the
+TCFT correction, anomaly cancellation, and the holomorphic completion
+needed for $\SpCh_{\Sigma_2,C}$.
+\item For the centre comparison, prove the smoothness, properness, and
+dualizability hypotheses that identify
+$\cZ(\Rep^{\Eone}(A))$ with
+$\Rep^{\Etwo}(Z^{\mathrm{der}}_{\mathrm{ch}}(A))$.
+\item For a Drinfeld double, supply the non-degenerate Hopf or
+stable-envelope pairing, the topological completion, and compatibility
+of the completed double with the chiral centre.
+\item For $K3\times E$, compare the relative DT, Borcherds-Gritsenko,
+Maulik-Okounkov, Vafa-Witten, and relative chiral constructions by
+explicit maps of their input categories or representation categories;
+character equality alone is insufficient.
+\item For $d\geq4$, construct the analogue of the framed
+specialisation theorem before asserting a compact Stage-$2$ output.
+Higher operadic structure belongs to a centre, double, module, or
+enhancement layer.
+\end{enumerate}
+
+\section{Operadic Consequences}
+
+\begin{corollary}
+The CY-to-chiral hierarchy obeys the following dimension and enhancement
+rules:
+\[
+\begin{array}{lll}
+\text{input} & \text{theorem or construction} & \text{conclusion}\\
+\hline
+\text{Dunn additivity}
+& \En\simeq\Eone^{\otimes n}
+& \text{restriction gives forgetful } E_n\to E_1\\
+\Omega\text{-background}
+& \text{toric equivariant localisation}
+& \text{local CY}_3\text{ route to }E_1\\
+\text{compact CY}_3
+& \Phi_3^{(\Sigma_2,C)}=\SpCh(\PhiFA_3)
+& E_1\text{ under the framed hypotheses}\\
+\text{centre}
+& Z^{\mathrm{der}}_{E_1}(A)=\HH^\bullet(A,A)
+& E_2\text{ braiding on }\cZ(\Rep^{E_1}(A))\\
+\text{framing}
+& \Obs_{\mathrm{eff}}(d)\text{ from }BU/B\mathrm{Sp}
+& \text{grading or twist of the }E_1\text{ object}
+\end{array}
+\]
+\end{corollary}
 
 \end{document}

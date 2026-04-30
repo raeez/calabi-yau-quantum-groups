@@ -142,6 +142,9 @@ class TestRouteA:
         route = RouteA_3dCS("sl_2", Rational(1))
         q_data = route.q_parameter
         assert q_data["num_parameters"] == 1
+        assert q_data["q_QG_formula"] == "exp(pi*i / (1 + 2))"
+        assert q_data["q_J_formula"] == "exp(2*pi*i / (1 + 2))"
+        assert q_data["monodromy_square_relation"] == "q_J = q_QG^2"
 
     def test_dual_coxeter_sl2(self):
         """h^vee(sl_2) = 2."""

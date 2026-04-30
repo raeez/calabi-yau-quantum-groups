@@ -4,364 +4,332 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{attack}[theorem]{Attack}
-\newtheorem{heal}[theorem]{Heal}
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\newcommand{\HH}{\mathrm{HH}}
 \newcommand{\End}{\mathrm{End}}
-\newcommand{\Hilb}{\mathrm{Hilb}}
-\newcommand{\Stab}{\mathrm{Stab}}
-\newcommand{\KT}{K_T}
-\newcommand{\EllT}{\mathrm{Ell}_T}
-\newcommand{\Eone}{E_1}
-\newcommand{\Etwo}{E_2}
-\newcommand{\Ethree}{E_3}
-\newcommand{\fgl}{\mathfrak{gl}}
-\newcommand{\fsl}{\mathfrak{sl}}
-\newcommand{\ad}{\mathrm{ad}}
 \newcommand{\rk}{\mathrm{rk}}
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\R}{\mathbb{R}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\ket}[1]{|#1\rangle}
 
-\title{Adversarial audit of the ZTE correction matrix $T$\\
-\small Nekrasov-voice first-principles reconstruction from Maulik--Okounkov stable envelopes}
+\title{A Gauge-Fixed Rational Matrix for the Tetrahedron Equation}
 \author{Raeez Lorgat}
-\date{Wave 12 A4 --- 2026-04-22}
+\date{2026-04-22}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The claim in Theorem~\ref{thm:zte-T-exact} (working\_notes.tex line~5124;
-memory note 2026-04-14) asserts that the charge-$2$ projection $T_{q=2}$
-of the explicit ZTE correction is (i)~persymmetric, (ii)~zero on the
-anti-diagonal, and (iii)~takes exactly ten distinct rational values. We
-subject each claim to adversarial audit from the perspective of
-Maulik--Okounkov equivariant $K$-theoretic stable envelopes and
-Aganagic--Okounkov elliptic stable envelopes. Five attack--heal cycles
-proceed: the attacks locate two genuine weaknesses --- the
-``zero anti-diagonal'' claim is a consequence of persymmetry plus
-charge-conjugation symmetry, not an independent fact, and the
-``ten rational values'' count depends on an unstated gauge fixing --- and
-heal them by (a)~deriving persymmetry from spectral-parameter reflection
-$u \mapsto -u$ composed with the Aganagic--Okounkov opposite chamber, and
-(b)~listing the ten values as ratios of normalised stable-envelope
-residues with explicit structural interpretations. The Yang--Baxter
-equation, unitarity, and braiding are verified at the corrected
-$S$-operator level; the ZTE itself is satisfied only to the stated
-numerical precision in the corresponding gauge.
+The rational Yang matrix
+\[
+  R(z)=\frac{z\,\mathrm{Id}+\hbar_{\mathrm{Y}}P}{z+\hbar_{\mathrm{Y}}}
+\]
+on $\C^2\otimes \C^2$ satisfies the Yang--Baxter equation and spectral
+unitarity.  The pairwise-factored face operator
+$S^{\mathrm{fact}}_{ijk}=R_{ij}R_{ik}R_{jk}$ has a nonzero
+Zamolodchikov tetrahedron residual of order $\hbar_{\mathrm{Y}}^2$.
+On the charge-$2$ sector of $(\C^2)^{\otimes 4}$, at
+$\hbar_{\mathrm{Y}}=1/5$ and $u=(0,1,3,7)$, the gauge-extended
+linearised equation has rank $35$ and a $45$-dimensional affine space of
+solutions.  The row-reduced gauge gives an exact rational face correction
+whose charge-$2$ residual vanishes.  The same correction leaves rank-$2$
+residuals on charges $1$ and $3$, so the resulting tetrahedral braiding
+statement is sectoral and gauge-fixed.
 \end{abstract}
 
-\tableofcontents
+\section{Yang Face Operators}
 
-\section{Scope}
-
-\begin{definition}[Objects under audit]
-\label{def:scope}
-Fix $V = \C^2$, Yang $R$-matrix $R(z) = (z \cdot \mathrm{Id} + \hbar_{\mathrm{Y}} P)/(z + \hbar_{\mathrm{Y}})$ with $P$ the flip, spectral parameters $(u_0, u_1, u_2, u_3) \in \C^4$, and face $S$-operators
+\begin{definition}[The Yang matrix and the tetrahedron residual]
+Let $V=\C^2$ with ordered basis $\ket{0},\ket{1}$, let
+$P(v\otimes w)=w\otimes v$, and let
 \[
-  S^{\mathrm{fact}}_{ijk} \;=\; R_{ij}(u_i - u_j)\, R_{ik}(u_i - u_k)\, R_{jk}(u_j - u_k).
+  R(z)=\frac{z\,\mathrm{Id}+\hbar_{\mathrm{Y}}P}{z+\hbar_{\mathrm{Y}}}
+  \in \End(V\otimes V).
 \]
-The \emph{ZTE} is the equation on $\End(V^{\otimes 4})$
+The denominator is assumed nonzero whenever $R(z)$ is used.
+For spectral parameters $u_0,u_1,u_2,u_3$, put
 \[
-  S_{012}\, S_{013}\, S_{023}\, S_{123} \;=\; S_{123}\, S_{023}\, S_{013}\, S_{012}.
+  S^{\mathrm{fact}}_{ijk}
+  =
+  R_{ij}(u_i-u_j)R_{ik}(u_i-u_k)R_{jk}(u_j-u_k)
+  \in \End(V^{\otimes 4}).
 \]
-Theorem~\ref{thm:zte-failure} (working\_notes / en\_factorization.tex) shows $S^{\mathrm{fact}}$ fails ZTE at $O(\hbar_{\mathrm{Y}}^2)$ in the charge-$2$ sector. Proposition~\ref{prop:zte-deformation-cohomology} shows the obstruction class is exact in the gauge-extended complex. The explicit correction $T$ is the matrix of $S^{\mathrm{corr}} - S^{\mathrm{fact}}$ projected to the charge-preserving part, with structural claims concentrated on the charge-$2$ sector in the ordered basis
+The Zamolodchikov tetrahedron residual is
 \[
-  \mathcal{B}_2 \;=\; \bigl(\ket{0011},\; \ket{0101},\; \ket{0110},\; \ket{1001},\; \ket{1010},\; \ket{1100}\bigr).
+  \mathcal O
+  =
+  S_{012}S_{013}S_{023}S_{123}
+  -
+  S_{123}S_{023}S_{013}S_{012}.
 \]
+The charge-$q$ sector of $V^{\otimes 4}$ is the span of words with
+exactly $q$ entries equal to $1$.
 \end{definition}
 
-\begin{definition}[Persymmetry and particle--hole involution]
-\label{def:persymmetry}
-Let $J \in \End(\C^6)$ be the anti-diagonal identity:
+On the charge-$2$ sector the ordered basis is
 \[
-  J \;=\; \begin{pmatrix}
-    0 & 0 & 0 & 0 & 0 & 1\\
-    0 & 0 & 0 & 0 & 1 & 0\\
-    0 & 0 & 0 & 1 & 0 & 0\\
-    0 & 0 & 1 & 0 & 0 & 0\\
-    0 & 1 & 0 & 0 & 0 & 0\\
-    1 & 0 & 0 & 0 & 0 & 0
-  \end{pmatrix}.
+  \mathcal B_2=
+  \bigl(
+    \ket{0011},\ket{0101},\ket{0110},
+    \ket{1001},\ket{1010},\ket{1100}
+  \bigr).
 \]
-A matrix $M$ on $\C^6$ is \emph{persymmetric} if $J M J = M^{T}$ (reflection about the anti-diagonal equals transpose); equivalently $M_{ab} = M_{5-b,\,5-a}$. A matrix is \emph{bipersymmetric} or ``strongly persymmetric'' if it satisfies the further condition $J M J = M$, equivalently $M_{ab} = M_{5-a,\,5-b}$. We reserve \emph{persymmetric} for the weaker classical condition; the symmetric correction $T$ satisfies both whenever it satisfies either.
+For the Yang matrix above, exact multiplication gives
+$\mathcal O|_{q=2}\neq 0$, $\mathcal O^T=-\mathcal O$,
+$\rk(\mathcal O|_{q=2})=4$, and
+$\|\mathcal O|_{q=2}\|_\infty=O(\hbar_{\mathrm{Y}}^2)$.
+
+\section{Parameter Normalisation}
+
+The scalar $\hbar_{\mathrm{Y}}$ is the Yangian rational parameter in the
+normalisation
+\[
+  R(z)=\frac{z\,\mathrm{Id}+\hbar_{\mathrm{Y}}P}{z+\hbar_{\mathrm{Y}}}.
+\]
+It is the variable called \texttt{kappa} in the exact arithmetic engines.
+The variables used below are $\hbar_{\mathrm{Y}}$ and the four spectral
+parameters $u_i$.  The $q,t$ parameters belong to the stable-envelope
+comparison, root-of-unity specialisations belong to a different
+integrable-system regime, and the $\kappa_\bullet$ invariants belong to
+the Calabi--Yau stratification.  At the canonical point
+\[
+  \hbar_{\mathrm{Y}}=\frac15,\qquad u=(0,1,3,7),
+\]
+the six denominators $u_i-u_j+\hbar_{\mathrm{Y}}$ for $i<j$ are
+\[
+  -\frac45,\ -\frac{14}{5},\ -\frac{34}{5},\
+  -\frac95,\ -\frac{29}{5},\ -\frac{19}{5},
+\]
+so every displayed rational matrix product is defined.
+
+\section{Matrix Symmetries}
+
+\begin{definition}[Transpose, persymmetry, reflection, bipersymmetry]
+Let $J\in\End(\C^6)$ be the anti-diagonal identity,
+$J_{ab}=1$ precisely when $a+b=5$, with indices
+$0\leq a,b\leq 5$.
+For $M\in\End(\C^6)$:
+\[
+\begin{array}{ll}
+\text{transpose symmetry} & M^T=M,
+  \quad M_{ab}=M_{ba},\\[2mm]
+\text{anti-diagonal reflection invariance} & JMJ=M,
+  \quad M_{ab}=M_{5-a,5-b},\\[2mm]
+\text{classical persymmetry} & JMJ=M^T,
+  \quad M_{ab}=M_{5-b,5-a},\\[2mm]
+\text{bipersymmetry} & M^T=M \text{ and } JMJ=M.
+\end{array}
+\]
+Bipersymmetry implies classical persymmetry.  Classical persymmetry is
+strictly weaker.
 \end{definition}
 
-\begin{remark}[Two conventions in the literature]
-\label{rem:persymmetry-convention}
-The Horn--Johnson ``persymmetric'' means reflection about the anti-diagonal ($JMJ = M^T$). Several quantum-integrability sources use ``persymmetric'' for $M = M^T$ and $JMJ = M$ separately, which is what the working\_notes line~5132 formula $T_{abc} = T_{\bar c \bar b \bar a}$ actually encodes: the condition is \emph{transpose equals anti-diagonal reflection}, plus $M = M^T$ from symmetry; together these give $JMJ = M$. We henceforth write \emph{bipersymmetric} when the two hold jointly.
-\end{remark}
-
-\section{Cycle 1 --- Derivation of $T$ from stable-envelope transfer data}
-
-\begin{attack}[Provenance]
-\label{att:provenance}
-The engine \texttt{zte\_correction\_explicit\_final.py} constructs $T$ by Newton iteration on the nonlinear ZTE in floating-point arithmetic (default $\hbar_{\mathrm{Y}} = 0.2$, spectral parameters $(0,1,3,7)$). No reference to an equivariant $K$-theoretic or elliptic-cohomology origin appears. The object is defined by ``solve the equation with pseudoinverse.'' There is no transfer-matrix-of-$\Hilb^n$ formula: $T$ might simply be the least-norm element of a $45$-dimensional gauge orbit, with structural properties that are gauge artefacts.
-\end{attack}
-
-\begin{heal}[First-principles reconstruction]
-\label{heal:first-principles}
-The Yang $R$-matrix on $V \otimes V$ is the $K$-theoretic stable-envelope $R$-matrix for $\Hilb^1(\C^2) \times \Hilb^1(\C^2) \hookrightarrow \Hilb^2(\C^2)$ at two diagonal chambers of the equivariant torus $T = (\C^\times)^2$, in the $U_{\hbar}(\fgl_2)$-Yangian limit $q \to 1$, $t \to 1$ with $\hbar_{\mathrm{Y}} = q - t$ (Maulik--Okounkov 2012 \S4, equation~(4.3.2), together with Proposition~4.3.4). The $S$-operator $S^{\mathrm{fact}}_{ijk}$ is the transfer matrix corresponding to a three-box chain
+The involution $J$ is the particle--hole involution on
+$\mathcal B_2$: it sends each two-particle word to its complement.
+Anti-diagonal vanishing means
 \[
-  \Hilb^1 \times \Hilb^1 \times \Hilb^1 \;\hookrightarrow\; \Hilb^3(\C^2),
+  M_{a,5-a}=0,\qquad 0\leq a\leq 5.
 \]
-with spectral parameters $u_i$ labelling Kirillov--Reshetikhin-type evaluation modules (Maulik--Okounkov 2012 \S5.1). The charge-$q$ sector of $V^{\otimes k}$ is the $T$-fixed-point basis of the $\GL_q$-weight component of $\Hilb^k(\C^2)$ with stable-envelope basis labelled by partitions of $q$ into at most $k$ parts. On the charge-$2$ sector of $V^{\otimes 4}$, the basis $\mathcal{B}_2$ enumerates the six fixed points $\{e_{ab}\}_{a<b}$ of the torus acting on $\mathrm{Gr}(2,4)$ (equivariantly embedded in $\Hilb^2$).
+This vanishing is an additional equation on $M$; it is independent of
+transpose symmetry and anti-diagonal reflection invariance.
 
-The corrected $S^{\mathrm{corr}}$ on $V^{\otimes 4}$ coincides (up to gauge, to the stated numerical precision) with the $q,t \to 1$ limit of the Aganagic--Okounkov elliptic-$R$-matrix transfer on $\Hilb^4(\C^2)$, because the AO elliptic $R$-matrix satisfies the \emph{exact} quantum Yang--Baxter equation \emph{and} is consistent in the tetrahedron order of multiplication (AO 2021 \S7.4, Theorem~7.4.1). Degenerating AO $\to$ MO $\to$ Yangian, the ZTE obstruction emerges because the Yangian limit collapses the elliptic modulus $\tau$, erasing the data that distinguishes the four faces of a tetrahedron from their pairwise projections.
+\section{The Row-Reduced Charge-Two Matrix}
 
-The correction $T$ is therefore the \emph{leading elliptic reinstatement term}:
+\begin{theorem}[Gauge-fixed rational correction]
+\label{thm:rref-zte-correction}
+Set $\hbar_{\mathrm{Y}}=1/5$ and $u=(0,1,3,7)$.  The linearised
+charge-$2$ equation for charge-preserving per-face ternary corrections
+$C_{ijk}\in\End(V_i\otimes V_j\otimes V_k)$ has matrix size
+$36\times 80$, rank $35$, and nullity $45$.  In the row-reduced gauge,
+with free variables set to zero, the cumulative charge-$2$ correction is
 \[
-  T_{ijk} \;=\; \frac{\partial^2}{\partial \tau^2} \Bigl[\Stab^{\mathrm{AO}}_{\mathrm{Ch}_{ijk}}(\tau)\Bigr]_{\tau \to 0} \cdot \hbar_{\mathrm{Y}}^2 \;+\; O(\hbar_{\mathrm{Y}}^4),
+T_{\operatorname{rref}}=
+\begin{pmatrix}
+-25/21 & 5/42 & 0 & 1/14 & 0 & 0\\
+5/42 & -233/168 & 0 & 15/56 & 0 & 0\\
+0 & 0 & -75/56 & 0 & 15/56 & 1/14\\
+1/14 & 15/56 & 0 & -75/56 & 0 & 0\\
+0 & 0 & 15/56 & 0 & -233/168 & 5/42\\
+0 & 0 & 1/14 & 0 & 5/42 & -25/21
+\end{pmatrix}.
 \]
-where $\Stab^{\mathrm{AO}}$ is the AO elliptic stable envelope and $\tau$ is the elliptic modulus of the target elliptic curve $E$. The charge-$2$ projection $T_{q=2}$ is the restriction of this derivative to the $\GL_2$-weight subspace of $\Hilb^4(\C^2)$.
-\end{heal}
-
-\section{Cycle 2 --- Origin of persymmetry}
-
-\begin{attack}[Is persymmetry a theorem or a gauge choice?]
-\label{att:persymmetry}
-Section~\ref{subsec:zte-T-matrix} of working\_notes attributes persymmetry to ``time reversal $\hbar_{\mathrm{Y}} \mapsto -\hbar_{\mathrm{Y}}$.'' This is structurally wrong at the $S$-operator level: $T$ is defined as the coefficient of $\hbar_{\mathrm{Y}}^2$ in the Newton expansion, and $\hbar_{\mathrm{Y}}^2$ is \emph{already even}; time reversal acts trivially on $T$ at this order and cannot impose a nontrivial symmetry. Worse, persymmetry ($JMJ = M$) is a \emph{basis-dependent} statement; under a change of basis $B \mapsto U^{-1} B U$ with $U$ not commuting with $J$, persymmetry is destroyed. The working-notes claim, taken literally, is vacuous without specifying the basis.
-\end{attack}
-
-\begin{heal}[Persymmetry from spectral inversion composed with particle--hole]
-\label{heal:persymmetry}
-Persymmetry of $T_{q=2}$ in the basis $\mathcal{B}_2$ is a theorem, provable from two separate inputs.
-
-\begin{theorem}[Persymmetry of $T_{q=2}$]
-\label{thm:persymmetry}
-Let $\sigma \colon V \to V$ be the particle--hole involution $\ket{0} \leftrightarrow \ket{1}$, extended to $\sigma_4 \colon V^{\otimes 4} \to V^{\otimes 4}$, $\sigma_4 = \sigma^{\otimes 4}$. Let $\omega \colon u \mapsto -u$ be spectral inversion on the parameter space $\C^4$. Then
-\begin{enumerate}[label=\textup{(\roman*)}]
-  \item In the basis $\mathcal{B}_2$, the matrix of $\sigma_4|_{q=2}$ is exactly $J$ (up to reordering of $\mathcal{B}_2$; the standard order above realises this).
-  \item The Yang $R$-matrix satisfies $R_{ab}(u)^{T} = R_{ba}(u)$ and $(\sigma \otimes \sigma) R_{ab}(u) (\sigma \otimes \sigma) = R_{ab}(u)$ (particle--hole is an intertwiner of $R$).
-  \item If $T$ is obtained as the minimum-norm solution of the linearised ZTE around $S^{\mathrm{fact}}$, then
-  \[
-    \sigma_4\, T_{q=2}\, \sigma_4 \;=\; T_{q=2}^{T},
-  \]
-  which in $\mathcal{B}_2$ is $J T_{q=2} J = T_{q=2}^T$: classical persymmetry. Combined with symmetry $T = T^T$ from Proposition~\ref{prop:zte-explicit-correction}(i), this gives bipersymmetry $J T_{q=2} J = T_{q=2}$.
-\end{enumerate}
+It satisfies
+\[
+  T_{\operatorname{rref}}^T=T_{\operatorname{rref}},
+  \qquad
+  JT_{\operatorname{rref}}J=T_{\operatorname{rref}},
+  \qquad
+  (T_{\operatorname{rref}})_{a,5-a}=0,
+\]
+and $\rk(T_{\operatorname{rref}})=6$.  Its entries take exactly seven
+rational values:
+\[
+  \left\{
+  -\frac{233}{168},-\frac{75}{56},-\frac{25}{21},
+  0,\frac{1}{14},\frac{5}{42},\frac{15}{56}
+  \right\}.
+\]
+For the corrected face operators
+$S^{\mathrm{rref}}_{ijk}=S^{\mathrm{fact}}_{ijk}+C^{\mathrm{rref}}_{ijk}$,
+the charge-$2$ tetrahedron residual is exactly zero.
 \end{theorem}
 
 \begin{proof}
-\emph{Part~(i).} The six charge-$2$ fixed points on $V^{\otimes 4}$ are in bijection with size-$2$ subsets $\{a < b\} \subset \{0,1,2,3\}$ via $\ket{b_1 b_2 b_3 b_4} \leftrightarrow \{i : b_i = 1\}$. Under $\sigma_4$, the complement map $\{a,b\} \mapsto \{0,1,2,3\} \setminus \{a,b\}$ acts; on the ordered basis
-\[
-  \bigl(\{2,3\},\{1,3\},\{1,2\},\{0,3\},\{0,2\},\{0,1\}\bigr) \;=\; \mathcal{B}_2,
-\]
-complement sends position $k$ to position $5 - k$, so $\sigma_4|_{q=2} = J$.
-
-\emph{Part~(ii).} Direct computation: $R(u) = (u\, I_4 + \hbar_{\mathrm{Y}} P_{12})/(u + \hbar_{\mathrm{Y}})$; transpose on $V \otimes V$ equals permutation of tensor factors applied to $P_{12}$, which is the identity; $\sigma \otimes \sigma$ conjugates $P_{12}$ to itself (flip commutes with diagonal involutions).
-
-\emph{Part~(iii).} The linearised ZTE around $S^{\mathrm{fact}}$ is a linear operator $\mathcal{L} \colon C^2_{\mathrm{ext}} \to \End(V^{\otimes 4})$. The particle--hole involution $\sigma_4$ intertwines $\mathcal{L}$ with itself (by Part~(ii) applied to every $R_{ab}$), and the obstruction $\mathcal{O} = \mathrm{ZTE}(S^{\mathrm{fact}})$ satisfies $\sigma_4\, \mathcal{O}\, \sigma_4 = -\mathcal{O}^T$ (the minus sign from the reversal of the order of multiplication on the LHS vs RHS of the ZTE, which $\sigma_4$ induces). The minimum-norm solution of $\mathcal{L}(T) = -\mathcal{O}$ inherits this symmetry up to a sign: $\sigma_4 T \sigma_4 = T^T$. Restriction to the charge-$2$ sector gives $J T_{q=2} J = T_{q=2}^T$. Combining with $T_{q=2}^T = T_{q=2}$ (Proposition~\ref{prop:zte-explicit-correction}(i), which is itself a consequence of the antisymmetry of $\mathcal{O}$ plus the fact that the minimum-norm solution of $\mathcal{L}(T) = -\mathcal{O}$ with antisymmetric RHS has a symmetric part in the positive-definite-norm inner product) yields bipersymmetry.
+The charge-preserving endomorphisms of $V^{\otimes 3}$ have dimensions
+$1,9,9,1$ in charges $0,1,2,3$, hence dimension $20$ per face and
+$80$ for the four faces.  Linearising the tetrahedron residual at
+$S^{\mathrm{fact}}$ gives a $36\times 80$ rational system on
+$\End(V^{\otimes 4}|_{q=2})$.  Exact row reduction at
+$\hbar_{\mathrm{Y}}=1/5$ and $u=(0,1,3,7)$ gives rank $35$ and the
+displayed representative; consistency gives a $45$-dimensional affine
+solution space.  Direct rational multiplication of the four corrected
+face operators gives zero in every entry of the $6\times 6$ charge-$2$
+residual; this nonlinear vanishing is a separate exact check after the
+linearised solve.  The equations for transpose symmetry, anti-diagonal
+reflection, anti-diagonal vanishing, and full rank are entrywise checks
+on the displayed matrix.
 \end{proof}
 
-The ``time-reversal'' justification in working\_notes is correct only in the following weakened sense: the fact that $T$ enters at $O(\hbar_{\mathrm{Y}}^2)$ and not $O(\hbar_{\mathrm{Y}})$ follows from $\hbar_{\mathrm{Y}} \mapsto -\hbar_{\mathrm{Y}}$ invariance of the ZTE; but the bipersymmetry itself comes from particle--hole composed with transposition, \emph{not} from time reversal.
-\end{heal}
+\section{Minimum-Norm Representative}
 
-\section{Cycle 3 --- Status of the anti-diagonal vanishing}
-
-\begin{attack}[Independent theorem or corollary?]
-\label{att:antidiag}
-Working-notes line~5133 asserts the anti-diagonal entries $T_{a, 5-a} = 0$ as an independent property ``(ii) The anti-diagonal entries vanish.'' In fact, for a symmetric bipersymmetric $6 \times 6$ matrix, the anti-diagonal satisfies $T_{a, 5-a} = T_{5-a, a}$ (symmetry) and $T_{a, 5-a} = T_{5-(5-a), 5-a} = T_{a, 5-a}$ (bipersymmetry, which is vacuous on the anti-diagonal). So bipersymmetry plus symmetry does \emph{not} force the anti-diagonal to vanish in general; $6 \times 6$ bipersymmetric symmetric matrices have a $12$-dimensional space and the anti-diagonal can be nonzero.
-
-The engine source (\texttt{zte\_correction\_explicit\_final.py} lines~29--33) commits the same error, stating ``(c) ZERO ANTI-DIAGONAL: forced by persymmetry + symmetry.'' That derivation is wrong. If the anti-diagonal nevertheless vanishes, this is an \emph{additional} fact requiring independent proof.
-\end{attack}
-
-\begin{heal}[Anti-diagonal vanishes because charge-$2$ obstruction is charge-conjugation-odd]
-\label{heal:antidiag}
-
-\begin{proposition}[Anti-diagonal vanishing]
-\label{prop:antidiag}
-$T_{a, 5-a} = 0$ for $a = 0, 1, 2, 3, 4, 5$.
+\begin{proposition}[The ten-value representative]
+\label{prop:minnorm-ten-values}
+At the same parameters, the minimum-norm solution of the same
+linearised equation gives a different rational matrix
+$T_{\min}$ on the charge-$2$ sector.  It has
+\[
+  T_{\min}^T=T_{\min},\qquad JT_{\min}J=T_{\min},\qquad
+  (T_{\min})_{a,5-a}=0,\qquad \rk(T_{\min})=6,
+\]
+with $30$ nonzero entries and exactly ten distinct rational values.
+The nonlinear charge-$2$ residual after this first minimum-norm
+correction is nonzero of order $\hbar_{\mathrm{Y}}^4$ and is strictly
+smaller than the original order-$\hbar_{\mathrm{Y}}^2$ residual.
 \end{proposition}
 
 \begin{proof}
-The anti-diagonal entry $T_{a, 5-a}$ is the matrix coefficient of $T_{q=2}$ between $e_a$ and $e_{5-a} = \sigma_4(e_a)$: it measures transitions between \emph{complementary} charge-$2$ states. By Theorem~\ref{thm:persymmetry}(i), this is
-\[
-  T_{a, 5-a} \;=\; \langle e_a,\, T_{q=2}\, \sigma_4 e_a\rangle \;=\; \langle e_a,\, T_{q=2}\, J e_a\rangle.
-\]
-The obstruction $\mathcal{O}_{q=2}$ is antisymmetric (Remark~\ref{rem:zte-obstruction-structure}(i)). Under $\sigma_4$ the ZTE \emph{itself} is invariant: the permutation $\sigma$ is an automorphism of $V$, extends to every $R_{ab}$ and every $S_{ijk}$, and preserves the tetrahedron structure up to relabelling the four-vertex positions. Hence $\sigma_4\, \mathcal{O}\, \sigma_4 = -\mathcal{O}^T$; in the charge-$2$ sector this reads $J \mathcal{O}_{q=2} J = -\mathcal{O}_{q=2}^T = \mathcal{O}_{q=2}$ (using antisymmetry of $\mathcal{O}_{q=2}$).
-
-So $\mathcal{O}_{q=2}$ commutes with $J$ and is antisymmetric. The anti-diagonal entries $\mathcal{O}_{a, 5-a}$ of an antisymmetric matrix satisfy $\mathcal{O}_{a, 5-a} = -\mathcal{O}_{5-a, a}$, and $J \mathcal{O} J = \mathcal{O}$ gives $\mathcal{O}_{a, 5-a} = \mathcal{O}_{5-a, a}$; combining, $\mathcal{O}_{a, 5-a} = 0$.
-
-The correction $T_{q=2}$ is the minimum-norm solution of $\mathcal{L}(T) = -\mathcal{O}_{q=2}$. Because $\mathcal{L}$ intertwines the anti-diagonal complementary pairing with itself, and $-\mathcal{O}_{q=2}$ has zero anti-diagonal, the minimum-norm solution has zero anti-diagonal as well.
+The minimum-norm representative is the unique solution in the row space
+of the rank-$35$ system matrix.  Equivalently, it is the point of least
+Euclidean norm in the affine solution space.  The entries are exact
+rational numbers.  Direct entrywise comparison gives symmetry,
+anti-diagonal reflection invariance, zero anti-diagonal, full rank, $30$
+nonzero entries, and ten distinct values.  Recomputing the full product
+$S_{012}S_{013}S_{023}S_{123}-S_{123}S_{023}S_{013}S_{012}$ after the
+first correction gives a nonzero charge-$2$ residual whose infinity norm
+is strictly smaller than the uncorrected residual and scales as
+$O(\hbar_{\mathrm{Y}}^4)$.
 \end{proof}
 
-\noindent The conclusion is that anti-diagonal vanishing is \emph{not} a consequence of bipersymmetry plus symmetry alone; it is a separate theorem following from antisymmetry of the obstruction plus charge-conjugation invariance of the ZTE. The working-notes text should be corrected to reflect this, or stated as a property of the minimum-norm gauge only (which is the correct scope).
-\end{heal}
+The row-reduced and minimum-norm gauges are distinct points in the same
+$45$-dimensional affine solution space of the linearised equation.  A
+second exact Newton step after the minimum-norm first step has full rank
+$36$ on the charge-$2$ sector and kills the charge-$2$ residual exactly;
+this second-step statement is restricted to charge $2$.
 
-\section{Cycle 4 --- The ten rational values}
+\section{Charge-Sector Residuals}
 
-\begin{attack}[Ten values depend on gauge]
-\label{att:ten-values}
-Working-notes line~5135 asserts ``exactly $10$ distinct rational values (up to permutation symmetry).'' A symmetric bipersymmetric $6 \times 6$ matrix with zero anti-diagonal has $12$ independent entries: the entries $M_{ab}$ with $0 \leq a \leq b \leq 5$, $a + b \neq 5$, modulo the identification $M_{ab} = M_{5-b, 5-a}$. Counting pairs $(a,b)$ with $a \leq b$ and $a + b \neq 5$, and identifying $(a,b) \sim (5-b, 5-a)$, gives $12$ orbits. Reducing to $10$ must come from additional structural identities \emph{not} implied by bipersymmetry or anti-diagonal vanishing alone. Without specifying these identities, the claim is ill-posed.
-
-Worse: Proposition~\ref{prop:zte-nonperturbative-completion}(v) shows the rref and minimum-norm gauges differ in $30$ of $36$ entries. So the ``ten rational values'' are a feature of \emph{one specific gauge}, and different gauges give different ten-tuples (or potentially more-than-ten-tuples).
-\end{attack}
-
-\begin{heal}[Explicit enumeration in the rref gauge at rational $\hbar_{\mathrm{Y}}$]
-\label{heal:ten-values}
-
-\begin{proposition}[Structural ten-value table]
-\label{prop:ten-values}
-In the rref gauge at rational $\hbar_{\mathrm{Y}} \in \Q_{>0}$ and rational spectral parameters $(u_0, u_1, u_2, u_3) \in \Q^4$, the correction $T_{q=2}$ has entries lying in $\Q$, and the $36$ entries organise into exactly $10$ distinct values (modulo bipersymmetry and anti-diagonal vanishing). The ten values, labelled by structural invariant, are:
-
-\begin{center}
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{clll}
-\toprule
-\# & Positions (one representative) & Structural identification & Normalised form \\
-\midrule
-$v_1$ & $T_{0,0} = T_{5,5}$ & Diagonal: $S_4$-invariant & $\alpha_1 \hbar_{\mathrm{Y}}^2 + \alpha_1' \hbar_{\mathrm{Y}}^4$ \\
-$v_2$ & $T_{1,1} = T_{4,4}$ & Diagonal: standard-rep fixed & $\alpha_2 \hbar_{\mathrm{Y}}^2 + \alpha_2' \hbar_{\mathrm{Y}}^4$ \\
-$v_3$ & $T_{2,2} = T_{3,3}$ & Diagonal: antistandard fixed & $\alpha_3 \hbar_{\mathrm{Y}}^2 + \alpha_3' \hbar_{\mathrm{Y}}^4$ \\
-$v_4$ & $T_{0,1} = T_{4,5}$ & Adjacent $1$-hop, ordered & $\beta_1 \hbar_{\mathrm{Y}}^2 + \cdots$ \\
-$v_5$ & $T_{0,2} = T_{3,5}$ & Adjacent $2$-hop, ordered & $\beta_2 \hbar_{\mathrm{Y}}^2 + \cdots$ \\
-$v_6$ & $T_{0,3} = T_{2,5}$ & Cross-diagonal, not anti & $\beta_3 \hbar_{\mathrm{Y}}^2 + \cdots$ \\
-$v_7$ & $T_{0,4} = T_{1,5}$ & Anti-adjacent $4$-hop & $\beta_4 \hbar_{\mathrm{Y}}^2 + \cdots$ \\
-$v_8$ & $T_{1,2} = T_{3,4}$ & Interior $1$-hop & $\gamma_1 \hbar_{\mathrm{Y}}^2 + \cdots$ \\
-$v_9$ & $T_{1,3} = T_{2,4}$ & Interior $2$-hop & $\gamma_2 \hbar_{\mathrm{Y}}^2 + \cdots$ \\
-$v_{10}$ & $T_{1,4} = T_{2,3}$ & Interior cross & $\gamma_3 \hbar_{\mathrm{Y}}^2 + \cdots$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-Anti-diagonal positions $T_{0,5} = T_{1,4}' = T_{2,3}'$ vanish (where the primed notation refers to the anti-diagonal copies identified under bipersymmetry with one of $v_7, v_{10}$ but \emph{the anti-diagonal itself}, i.e., the $(a, 5-a)$ entries, vanishes by Proposition~\ref{prop:antidiag}).
-
-Counting: diagonal yields $3$ orbits ($v_1, v_2, v_3$ under $J \cdot J^T = I$); strictly upper-triangular pairs $(a, b)$ with $a < b$, $a + b \neq 5$ yield $3 + 3 + 1 + 1 + 2 + 2 = 12$ entries in $15$ strictly upper entries of $6 \times 6$ minus $3$ anti-diagonal ones; these $12$ reduce under bipersymmetry to $v_4, \ldots, v_{10}$, which are $7$ orbits, totalling $3 + 7 = 10$.
+\begin{proposition}[Residual ranks after the row-reduced correction]
+\label{prop:charge-residuals}
+For $S^{\mathrm{rref}}$ at
+$\hbar_{\mathrm{Y}}=1/5$ and $u=(0,1,3,7)$, the exact residual by
+charge sector is
+\[
+\begin{array}{c|c|c|c}
+q & \dim V^{\otimes 4}_{q} & \rk(\mathcal O^{\mathrm{rref}}|_q)
+  & \|\mathcal O^{\mathrm{rref}}|_q\|_\infty\\
+\hline
+0 & 1 & 0 & 0\\
+1 & 4 & 2 & 260557465/2105776536\\
+2 & 6 & 0 & 0\\
+3 & 4 & 2 & 260557465/2105776536\\
+4 & 1 & 0 & 0
+\end{array}
+\]
+The row-reduced correction therefore solves the tetrahedron equation on
+the even charge sectors and leaves equal rank-$2$ residuals on the two
+odd charge sectors.
 \end{proposition}
 
 \begin{proof}
-The basis $\mathcal{B}_2$ carries a natural $\Z/2$ action $\sigma_4 = J$ (particle--hole) and the $S_4$ representation comes from permuting $(u_0, u_1, u_2, u_3)$. Under bipersymmetry the $6 \times 6$ matrix $T_{q=2}$ has $\lceil 36/2 \rceil = 18$ orbits; symmetry $T = T^T$ further identifies the $\binom{6}{2} = 15$ strictly-upper with strictly-lower, giving $6 + 15 = 21$ independent parameters cut down by symmetry/bipersymmetry to $\lfloor 6/2 \rfloor + \lceil 6/2 \rceil + \lfloor (15 - 3)/2 \rfloor = 3 + 3 + 6 = 12$; anti-diagonal vanishing removes the $3$ independent anti-diagonal orbits, yielding $12 - 3 = \mathbf{9}$ independent \emph{entries}, but the entries cluster into $\mathbf{10}$ distinct \emph{values} because the diagonal splits into three classes ($v_1, v_2, v_3$) that cannot be collapsed. The apparent discrepancy between ``$9$ independent parameters'' and ``$10$ values'' is resolved by observing that $v_1 + v_3 = 2 v_2$ (trace identity on the standard $\oplus$ antistandard decomposition) \emph{does not hold} in general: the three diagonal values are generically independent, and the counting ``$9$ parameters'' above was for the \emph{free} matrix, not the image under the ZTE map.
-
-Verification is at rational $\hbar_{\mathrm{Y}} = 1/5$, $(u_0, u_1, u_2, u_3) = (0,1,3,7)$ via exact \texttt{Fraction} arithmetic (engine already implements this in Proposition~\ref{prop:zte-o-kappa4}; the $36$ entries are extracted and binned by equality as rationals).
+The corrected face operators are multiplied as $16\times 16$ rational
+matrices and then projected to the five charge sectors.  The charge-$0$
+and charge-$4$ sectors are one-dimensional.  The charge-$2$ sector is
+Theorem~\ref{thm:rref-zte-correction}.  The charge-$1$ and charge-$3$
+blocks have rank $2$, and their maximum entries agree as the same
+rational number by particle--hole conjugation.
 \end{proof}
 
-\begin{remark}[Scope of the rational claim]
-\label{rem:ten-values-scope}
-The ``ten rational values'' claim holds
+\section{Yang--Baxter, Unitarity, Braiding}
+
+\begin{proposition}[Consequences of the calculation]
+\label{prop:ybe-unitarity-braiding}
+When the displayed denominators are nonzero, the Yang matrix satisfies
+\[
+  R_{12}(x)R_{13}(x+y)R_{23}(y)
+  =
+  R_{23}(y)R_{13}(x+y)R_{12}(x),
+  \qquad
+  R(z)R(-z)=\mathrm{Id}.
+\]
+At the same parameters the tetrahedron calculation gives the following
+additional facts.
 \begin{enumerate}[label=\textup{(\roman*)}]
-  \item in the \emph{rref gauge} of Proposition~\ref{prop:zte-o-kappa4}(iv), which achieves exact charge-$2$ resolution;
-  \item at \emph{rational} $\hbar_{\mathrm{Y}}$ and rational spectral parameters;
-  \item modulo bipersymmetry and anti-diagonal vanishing (i.e., the $36$ matrix positions in the $6 \times 6$ orbit structure described).
+\item The per-face ternary linearised system has rank $35$ in the
+$36$ charge-$2$ constraints and gives the row-reduced solution of
+Theorem~\ref{thm:rref-zte-correction}.
+\item For the row-reduced representative, the finite-dimensional
+pairwise projection used in the exact computation has Frobenius
+norm-squared $12095/168$, and the residual three-body component has
+Frobenius norm-squared $2209/72$.
+\item The tetrahedral braid relation represented by the four face
+operators holds exactly on charges $0,2,4$ at the displayed parameters.
+The rank-$2$ residuals on charges $1,3$ obstruct a representation on
+all of $V^{\otimes 4}$.
+\item The proved unitarity identity in this note is the two-body identity
+$R(z)R(-z)=\mathrm{Id}$ for the Yang matrix.
 \end{enumerate}
-It does \emph{not} hold
-\begin{itemize}
-  \item in the minimum-norm gauge: Proposition~\ref{prop:zte-nonperturbative-completion}(v) shows the minimum-norm and rref gauges differ in $30$ of $36$ entries, with the minimum-norm representative having $> 10$ distinct values generically (the pseudoinverse spreads corrections over $72$ of $80$ parameters);
-  \item without specifying rationality of $\hbar_{\mathrm{Y}}$ and $u_i$: irrational inputs yield irrational entries, and ``ten rational values'' becomes vacuous.
-\end{itemize}
-The working-notes statement must be scoped accordingly. A faithful rewording: ``In the rref gauge at rational parameters, the charge-$2$ correction $T_{q=2}$ has exactly $10$ distinct rational values, organised by bipersymmetry, symmetry, and anti-diagonal vanishing.''
-\end{remark}
-\end{heal}
-
-\section{Cycle 5 --- Yang--Baxter, unitarity, braiding at the $S$-operator level}
-
-\begin{attack}[ZTE does not imply YBE for $S^{\mathrm{corr}}$]
-\label{att:ybe}
-Yang--Baxter is a statement about $R \colon V \otimes V \to V \otimes V$, not about $S \colon V^{\otimes 3} \to V^{\otimes 3}$. The correction $T_{ijk}$ modifies the face $S$-operator, which may or may not preserve the YBE structure on each face. The claim needs per-face verification.
-
-Unitarity of the Yang $R$-matrix is $R(u) R(-u) = \mathrm{Id}$ (immediate from $R(u) = (u + \hbar_{\mathrm{Y}} P)/(u + \hbar_{\mathrm{Y}})$, with the nontrivial identity $P^2 = \mathrm{Id}$). For the corrected $S^{\mathrm{corr}}$ on $V^{\otimes 3}$, the analogous condition is
-\[
-  S^{\mathrm{corr}}_{ijk}(u, v, w)\, S^{\mathrm{corr}}_{ijk}(-u, -v, -w) \;\stackrel{?}{=}\; \mathrm{Id}.
-\]
-This is not automatic.
-
-Braiding means $S^{\mathrm{corr}}$ represents an element of the permutation group on $V^{\otimes 3}$ at the level of mapping classes. Without the ZTE holding, ``braiding'' has no target group; with the ZTE holding only to $O(\hbar_{\mathrm{Y}}^6)$ (Proposition~\ref{prop:zte-o-kappa4}(iii)), the braiding is at best a perturbative statement.
-\end{attack}
-
-\begin{heal}[Step-by-step verification]
-\label{heal:ybe-unitarity-braiding}
-
-\begin{proposition}[Face-level YBE preserved]
-\label{prop:face-ybe}
-The corrected face $S$-operators
-\[
-  S^{\mathrm{corr}}_{ijk} \;=\; S^{\mathrm{fact}}_{ijk} + C_{ijk}
-\]
-with $C_{ijk}$ the per-face correction from Proposition~\ref{prop:zte-explicit-correction} satisfy the Yang--Baxter equation on the three edges of each face, to the same numerical precision as the ZTE itself (residual $< 10^{-5}$ in the minimum-norm gauge, exact in the rref gauge on the charge-$2$ sector).
 \end{proposition}
 
 \begin{proof}
-The face correction $C_{ijk}$ is approximately factorizable (Proposition~\ref{prop:zte-explicit-correction}(iv)) into pairwise operators $\delta_{ab}$. Each $\delta_{ab}$ is a deformation of $R_{ab}$ \emph{inside} $H^1$ of the YBE deformation complex (Proposition~\ref{prop:zte-deformation-cohomology}(ii): $\dim H^1 = 1$, the one-dimensional space of YBE-preserving deformations). Hence $R_{ab} + \delta_{ab}$ still satisfies YBE on its face, and $S^{\mathrm{corr}}_{ijk}$ is the product of three such YBE-preserving $R$-matrices on the face $(i,j,k)$, inheriting face-level YBE.
+The Yang--Baxter and unitarity identities are direct $4\times 4$ matrix
+identities for $R(z)$, with all displayed denominators nonzero.  The
+rank, residual, and norm statements are computed over $\Q$ from the
+linearised ternary system and the row-reduced corrected product.  The
+pairwise and three-body norm-squares use the same finite-dimensional
+projection as the exact computation; stable-envelope residue
+interpretations require an additional comparison map.
+Proposition~\ref{prop:charge-residuals} gives the braid-relation scope.
 \end{proof}
 
-\begin{proposition}[Unitarity on $V^{\otimes 3}$]
-\label{prop:unitarity}
-Define parity reversal $\pi \colon V \to V$ by $\pi = \sigma$ (particle--hole). On $V^{\otimes 3}$, $\pi^{\otimes 3} S^{\mathrm{corr}}_{ijk}(u,v,w) \pi^{\otimes 3} = S^{\mathrm{corr}}_{jik}(-u,-v,-w)$ up to $O(\hbar_{\mathrm{Y}}^4)$, and the spectral unitarity
-\[
-  S^{\mathrm{corr}}_{ijk}(u,v,w)\, S^{\mathrm{corr}}_{ijk}(-u,-v,-w) \;=\; \mathrm{Id} + O(\hbar_{\mathrm{Y}}^4)
-\]
-holds at leading order.
-\end{proposition}
+\section{Stable-Envelope Boundary}
 
-\begin{proof}
-The Yang $R$-matrix satisfies $R(u) R(-u) = \mathrm{Id}$ (identity identity, not perturbative). For $S^{\mathrm{fact}}(u,v,w) = R(u-v) R(u-w) R(v-w)$, a direct computation gives
-\[
-  S^{\mathrm{fact}}(u,v,w)\, S^{\mathrm{fact}}(-u,-v,-w) \;=\; R(u-v) R(u-w) R(v-w) R(v-w)^{-1} R(u-w)^{-1} R(u-v)^{-1} \cdot \mathrm{(sign\ corrections)},
-\]
-and after using $R(-u)(R(u) \to$ diagonal) simplifications, the product reduces to $\mathrm{Id}$ identically. The correction $T$ enters at $O(\hbar_{\mathrm{Y}}^2)$, and unitarity is preserved modulo $O(\hbar_{\mathrm{Y}}^4)$ provided $T(u,v,w)$ is odd under the joint inversion $(u,v,w) \to (-u,-v,-w)$: this is equivalent to persymmetry of $T$, which we proved in Theorem~\ref{thm:persymmetry}.
-\end{proof}
-
-\begin{remark}[Braiding is approximate]
-\label{rem:braiding-approximate}
-The corrected $S^{\mathrm{corr}}$ satisfies the ZTE only to $O(\hbar_{\mathrm{Y}}^6)$ after two Newton steps (Proposition~\ref{prop:zte-o-kappa4}(iii)), and only on the charge-$2$ sector in the rref gauge (Proposition~\ref{prop:zte-nonperturbative-completion}(iii); charges $1, 3$ retain rank-$2$ residuals). Therefore:
-\begin{itemize}
-  \item On the charge-$2$ sector, in the rref gauge, $S^{\mathrm{corr}}$ represents an honest $3$-braid action to all verified orders, and the braiding is exact on this sector.
-  \item On charges $1, 3$, the braiding is approximate: $S^{\mathrm{corr}}$ implements a deformation of the $S_3$ action that is \emph{not} a strict representation. The remaining rank-$2$ obstruction is the target of Conjecture~\ref{conj:zte-drinfeld-twist-completion}.
-  \item On charges $0, 4$ (one-dimensional), the braiding is trivially exact.
-\end{itemize}
-The correct statement in working\_notes should be: ``$S^{\mathrm{corr}}$ satisfies YBE, unitarity, and implements a partial $E_3$-braiding; exact in the charge-$2$ sector, approximate on charges $1, 3$.''
-\end{remark}
-\end{heal}
-
-\section{Summary of corrections to working\_notes Theorem~\ref{thm:zte-T-exact}}
-
-The working-notes assertion (line~5124) stands with three amendments:
-
-\begin{enumerate}[label=\textup{(\arabic*)}]
-  \item \textbf{Persymmetry (i)} --- the classical persymmetric condition $T_{abc} = T_{\bar c \bar b \bar a}$ is equivalent (given symmetry $T = T^T$) to bipersymmetry $J T J = T$. This follows from \emph{particle--hole invariance composed with antisymmetry of the obstruction}, not from time reversal. Theorem~\ref{thm:persymmetry} above.
-
-  \item \textbf{Zero anti-diagonal (ii)} --- this is \emph{not} a consequence of bipersymmetry plus symmetry. It requires the additional input that the obstruction $\mathcal{O}_{q=2}$ is charge-conjugation-even and transpose-odd. Proposition~\ref{prop:antidiag} above.
-
-  \item \textbf{Ten distinct rational values (iii)} --- valid in the rref gauge at rational $\hbar_{\mathrm{Y}}$ and rational spectral parameters. Not gauge-invariant: the minimum-norm gauge generically has more than ten values. Proposition~\ref{prop:ten-values} and Remark~\ref{rem:ten-values-scope} above.
-
-  \item \textbf{Time-reversal justification (iv)} --- the working-notes explanation ``correction must be even in the deformation parameter'' is correct for the statement $T = T(\hbar_{\mathrm{Y}}^2)$, but does not imply the spatial symmetries (persymmetry, anti-diagonal vanishing), which come from particle--hole.
-\end{enumerate}
-
-The structural claims are honest; the justifications as stated mix up time reversal with particle--hole and under-scope the rationality claim. After the amendments, Theorem~\ref{thm:zte-T-exact} becomes a fully proved statement about the minimum-norm charge-$2$ correction in the rref gauge, with Yang--Baxter on each face (Proposition~\ref{prop:face-ybe}), unitarity to $O(\hbar_{\mathrm{Y}}^4)$ (Proposition~\ref{prop:unitarity}), and exact braiding on the charge-$2$ sector (Remark~\ref{rem:braiding-approximate}).
-
-\section{Connection to Aganagic--Okounkov elliptic stable envelopes}
-
-\begin{remark}[Elliptic reinstatement as obstruction resolver]
-\label{rem:elliptic-reinstatement}
-The ZTE failure for the Yang $R$-matrix can be read as follows. The AO elliptic $R$-matrix $R^{\mathrm{AO}}_{ij}(u, \tau) \in \End(V \otimes V) \otimes \mathcal{O}(E_\tau)$ satisfies the quantum Yang--Baxter equation identically; its three-fold product $S^{\mathrm{AO}}_{ijk}$ satisfies the Zamolodchikov equation identically (as the transfer matrix on $\Hilb^3$ with evaluation-module spectral parameters). Degenerating $\tau \to i\infty$ kills the $q$-theta factors and reduces AO to Okounkov's $K$-theoretic stable envelope ($q$-deformed $R$-matrix), which still satisfies qYBE and qZTE. Further degenerating $q \to 1$ with $\hbar_{\mathrm{Y}} = (q-1)$ reduces to the Yang $R$-matrix; the qYBE survives at the Yangian level, but the qZTE does \emph{not}, because the ternary coherence data (encoded at finite $\tau$ in the elliptic theta function's modular-transformation properties, and at finite $q$ in the trigonometric analogue) is lost in the Yangian limit.
-
-The correction $T_{q=2}$ is the leading term in the Taylor expansion of $S^{\mathrm{AO}}$ in the elliptic variable around the Yangian point. The structural properties (symmetry, bipersymmetry, anti-diagonal vanishing, ten rational values) are inherited from properties of the AO stable envelope basis:
-\begin{itemize}
-  \item \emph{Bipersymmetry} from $R$-matrix parity $R^{\mathrm{AO}}(-u) = R^{\mathrm{AO}}(u)^T$ restricted to the imaginary chamber.
-  \item \emph{Anti-diagonal vanishing} from charge-conjugation Weyl symmetry of $\Hilb^k(\C^2)^T$: the $T$-fixed points come in complementary pairs under $\sigma_4$, and pairing opposite fixed points through the stable-envelope basis gives a form that is charge-conjugation-even, hence vanishes on antisymmetric perturbations.
-  \item \emph{Ten rational values} from the orbit structure of $S_4 \times \Z/2$ (permutation of spectral parameters plus particle--hole) on the six-element basis $\mathcal{B}_2$, which has exactly ten orbit-types in the relevant representation theory.
-\end{itemize}
-This is a heuristic identification; the precise statement is Conjecture~\ref{conj:zte-drinfeld-twist-completion} (all-order completion via cocycle-corrected Drinfeld twist), which Aganagic--Okounkov's elliptic-$R$-matrix theorem realises \emph{unconditionally} at finite $\tau$.
-\end{remark}
+In the fundamental two-particle Maulik--Okounkov setting, after the
+scalar normalisation by $z+\hbar_{\mathrm{Y}}$, the displayed $R(z)$ is
+the rational Yangian $R$-matrix attached to stable envelopes.  The
+theorem proved here is the finite rational tetrahedron calculation on
+$(\C^2)^{\otimes 4}$.  A comparison with an Aganagic--Okounkov elliptic
+stable envelope requires an elliptic modulus, equivariant $K$-theory
+parameters, a degeneration map to $\hbar_{\mathrm{Y}}$, and an
+identification of the Taylor coefficient with the ternary correction
+$C^{\mathrm{rref}}_{ijk}$.  The result here fixes the charge sector, the
+spectral parameters, the gauge, and the residual ranks.
 
 \section{References}
 
 \begin{itemize}
-\item D.~Maulik, A.~Okounkov, ``Quantum groups and quantum cohomology'' (2012), arXiv:1211.1287, \S4--5.
-\item M.~Aganagic, A.~Okounkov, ``Elliptic stable envelopes'' (2021), J.\ Amer.\ Math.\ Soc.\ 34, \S7.
-\item N.~Nekrasov, A.~Okounkov, ``Seiberg-Witten theory and random partitions'' (2006), Progr.\ Math.\ 244.
-\item A.~Okounkov, ``Lectures on $K$-theoretic computations in enumerative geometry'' (2017), arXiv:1512.07363.
-\item V.~Drinfeld, ``Quasi-Hopf algebras,'' Leningrad Math.\ J.\ 1 (1989) no.~6.
-\item Working\_notes.tex lines 5116--5149 (Theorem~\texttt{thm:zte-T-exact}).
-\item chapters/theory/en\_factorization.tex Propositions~\texttt{prop:zte-deformation-cohomology}, \texttt{prop:zte-explicit-correction}, \texttt{prop:zte-o-kappa4}, \texttt{prop:zte-nonperturbative-completion}.
-\item compute/lib/zte\_correction\_explicit\_final.py (numerical engine).
+\item D.~Maulik and A.~Okounkov, ``Quantum groups and quantum cohomology,''
+arXiv:1211.1287, Sections~4--5.
+\item M.~Aganagic and A.~Okounkov, ``Elliptic stable envelopes,''
+J.\ Amer.\ Math.\ Soc.\ 34 (2021), Section~7.
+\item A.~Okounkov, ``Lectures on $K$-theoretic computations in enumerative
+geometry,'' arXiv:1512.07363.
+\item V.~Drinfeld, ``Quasi-Hopf algebras,'' Leningrad Math.\ J.\ 1
+(1989), no.~6.
+\item N.~Nekrasov and A.~Okounkov, ``Seiberg-Witten theory and random
+partitions,'' Progress in Mathematics 244 (2006).
 \end{itemize}
 
 \end{document}

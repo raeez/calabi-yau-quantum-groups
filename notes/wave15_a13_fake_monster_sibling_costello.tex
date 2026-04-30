@@ -1,23 +1,6 @@
-% wave15_a13_fake_monster_sibling_costello.tex
-% Wave-15 A13/20: Fake-Monster sibling specialisation cycle.
-% Channel: Kevin Costello. Attack-heal frontier. Five cycles.
-% Mission: Locate the CY-habitat on which the Borcherds 1995
-%   Fake-Monster BKM $\fg_{\mathrm{FM}}$ (denominator $\Phi_{12}$ on
-%   $\mathrm{II}_{25,1}$) appears as a Stage-2 specialisation
-%   $\SpCh_{\Sigma, C}(\PhiFA_d(\Perf(X)))$ of the CY-to-chiral
-%   functor. Rank-lock forbids $d = 3$ with $X = K3 \times E$; rank-
-%   match forces $d = 5$ with $X = K3 \times K3 \times E$; a further
-%   Niemeier-index obstruction must fix a rank-24 sublattice inside
-%   the rank-41 Picard of the $K3 \times K3$ fibre.
-% Voice: Costello. BV formalism + factorization algebras.
-%   Direct math. No narration.
-% Primary: Borcherds 1995 Invent.~Math.~109; Borcherds 1998
-%   Invent.~Math.~132; Conway--Sloane 1988 Ch.~4, 27; Harvey--Moore 1996
-%   Nucl.~Phys.~B~463; Nikulin 1979 Izv.~AN SSSR; Huybrechts 2016
-%   Lectures on K3 surfaces Ch.~14; Lurie HA 5.5.3.6 (Dunn--Lurie);
-%   Costello 2011 Renormalization and Effective Field Theory;
-%   Costello--Gwilliam 2017 FA~Vol.~II.
-% Scope: internal working-notes artefact. NOT part of the manuscript.
+% fake_monster_sibling_costello.tex
+% Standalone note on the Fake-Monster denominator, the K3 x E
+% Delta_5 branch, and the conditional dimension-five comparison.
 
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
@@ -28,405 +11,506 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{observation}[theorem]{Observation}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\Z}{\mathbb{Z}}
-\providecommand{\Q}{\mathbb{Q}}
 \providecommand{\fg}{\mathfrak{g}}
-\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\cO}{\mathcal{O}}
 \providecommand{\Leech}{\Lambda_{24}}
 \providecommand{\IIlor}{\mathrm{II}_{25,1}}
 \providecommand{\IIpar}{\mathrm{II}_{26,2}}
-\providecommand{\LambdaMuk}{\widetilde{H}(K3,\Z)}
 \providecommand{\PhiFM}{\Phi_{12}}
 \providecommand{\gFM}{\mathfrak{g}_{\mathrm{FM}}}
 \providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
 \providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
 \providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
 \providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\rk}{\mathrm{rk}}
+\providecommand{\wt}{\mathrm{wt}}
 
 \begin{document}
 
-\section*{The Fake-Monster sibling specialisation: a $d = 5$ habitat
-forced by Niemeier-rank lock}
+\title{Fake-Monster Denominator Data and the Dimension-Five Comparison}
+\author{}
+\date{}
+\maketitle
 
-\paragraph{Theorem (scope).}
-Let $X = K3 \times K3 \times E$ with its natural CY$_5$ structure. The
-Fake-Monster BKM $\gFM$ of Borcherds~1995 (denominator $\PhiFM$ on
-$\IIlor$) is the Stage-2 output of the CY-to-chiral functor at $d = 5$,
-\[
-  \SpCh_{\Sigma_4, C}\bigl(\PhiFA_5(\Perf(X))\bigr)
-  \;=\; U^{\chir}(\gFM) \otimes U^{\chir}(\mathfrak{heis}_N),
-\]
-with $\Sigma_4 = K3 \times K3$, $C = E$, and $\mathfrak{heis}_N$ a
-rank-$25$ residual Heisenberg. The specialisation exists if and only if
-a Niemeier-class primitive sublattice embedding
-\[
-  \iota_N \colon\, \IIlor \;\hookrightarrow\;
-  H^*_{\mathrm{alg}}(K3 \times K3, \Z) \oplus H^*(E, \Z)
-\]
-supplies the rank-$26$ Lorentzian datum, which overshoots the rank-$26$
-bound only in the signature-restricted algebraic sublattice
-$\mathrm{NS}(K3) \oplus \mathrm{NS}(K3) \oplus \langle E\rangle$ (total
-rank $\leq 20 + 20 + 2 = 42$) but requires a non-generic twin-K3 lock
-$\rho_1 + \rho_2 = 24$ with matched Niemeier index. At $X = K3 \times E$
-(compact CY$_3$) no such $\iota_N$ exists: the maximal transcendental
-Mukai rank is $24$ but the signature $(4, 20)$ of $\LambdaMuk$ is
-incompatible with the $(25, 1)$-signature of $\IIlor$. Hence the
-Fake-Monster is a $d = 5$ sibling of $\gDelta$, not a $d = 3$ one.
+\begin{abstract}
+The Fake-Monster Lie algebra of Borcherds lives on
+\(\IIlor=\Leech\oplus U\), has Weyl vector at the Leech cusp, and has
+denominator \(\PhiFM\) of weight \(12\) on the type-IV domain attached to
+\(\IIpar=\IIlor\oplus U\). This datum is separate from the K3
+\(\Delta_5\) denominator governing the \(K3\times E\) BKM branch. The
+single-K3-fibre route is excluded by rank and signature. A
+\(K3_1\times K3_2\times E\) comparison is a conditional dimension-five
+datum requiring a primitive Leech-cusp embedding, a Hall comparison, and a
+factorisation-algebra specialisation whose denominator is \(\PhiFM\).
+\end{abstract}
 
-\paragraph{Datum audit.}
-Three numbers govern the placement.
-\begin{enumerate}[label=(\roman*)]
-\item \emph{Lattice rank of the denominator datum.} $\rk(\IIlor) = 26$;
-$\IIlor = \Leech \oplus U$; signature $(25, 1)$.
-\item \emph{Leech multiplicity.} Every null imaginary simple root of
-$\gFM$ has multiplicity $c(0) = 24 = \rk(\Leech)$, where
-$1/\eta(\tau)^{24} = \sum_{m \geq -1} c(m) q^m$.
-\item \emph{Borcherds weight.} $\kBKM(\PhiFM) = c(0)/2 = 12$ by
-Borcherds~1998 Thm.~13.3.
+\section{Borcherds Data}
+
+Let \(\Leech\) be the positive-definite Leech lattice of rank \(24\), and
+let \(U=\Z e\oplus \Z f\) be the hyperbolic plane with
+\[
+ e^2=f^2=0,\qquad (e,f)=1 .
+\]
+Set
+\[
+ \IIlor=\Leech\oplus U,\qquad \rk \IIlor=26,\qquad
+ \operatorname{sign}(\IIlor)=(25,1),
+\]
+with the sign convention used in Borcherds' Fake-Monster construction.
+The primitive isotropic vector
+\[
+ \rho=(0;1,0)\in \Leech\oplus U
+\]
+is the Weyl vector at the Leech cusp: \(\rho^2=0\), and
+\(\rho^\perp/\Z\rho\simeq \Leech\). The real simple roots are the
+norm-\(2\) Leech-cusp roots. The imaginary simple roots are positive
+multiples of \(\rho\), with multiplicities read from
+\[
+ \eta(\tau)^{-24}
+ =
+ q^{-1}\prod_{n\geq1}(1-q^n)^{-24}
+ =
+ q^{-1}+24+324q+3200q^2+\cdots .
+\]
+Write
+\[
+ \eta(\tau)^{-24}=\sum_{m\geq -1} c(m)q^m .
+\]
+
+\begin{theorem}[Borcherds denominator for the Fake Monster]
+\label{thm:fm-borcherds-denominator-data}
+On the tube domain of the Leech cusp in
+\(\IIlor\otimes\C\), the Fake-Monster denominator is
+\[
+ \PhiFM(Z)
+ =
+ e^{2\pi i(\rho,Z)}
+ \prod_{\substack{\alpha\in\IIlor\\(\alpha,\rho)>0}}
+ \left(1-e^{2\pi i(\alpha,Z)}\right)^{c(-\alpha^2/2)} .
+\]
+It is a modular form of weight \(12\) on
+\(\mathrm{O}^+(\IIpar)\), where \(\IIpar=\IIlor\oplus U\), and it is the
+Weyl--Kac--Borcherds denominator of \(\gFM\).
+\end{theorem}
+
+\begin{proof}
+Borcherds constructs \(\gFM\) from \(\IIlor\) and proves the displayed
+denominator identity. The exponent normalisation follows directly from
+\(\eta^{-24}=q^{-1}+24+324q+\cdots\): real roots of norm \(2\) have
+exponent \(c(-1)=1\), and null imaginary roots have multiplicity
+\(c(0)=24\). Borcherds' singular theta-lift weight formula gives
+\[
+ \kBKM(\PhiFM)
+ =
+ \wt(\PhiFM)
+ =
+ \frac{c(0)}{2}
+ =
+ \frac{24}{2}
+ =
+ 12 .
+\]
+\end{proof}
+
+The alternating side has the corresponding Weyl form
+\[
+ \PhiFM(Z)
+ =
+ \sum_{w\in W(\gFM)}
+ \det(w)\,
+ w\!\left(
+   e^{2\pi i(\rho,Z)}
+   \prod_{n\geq1}
+   \left(1-e^{2\pi i(n\rho,Z)}\right)^{24}
+ \right),
+\]
+which is the denominator identity written at the Leech cusp. The input
+\(\eta^{-24}\), the lattice \(\IIlor\), the Weyl vector \(\rho\), and the
+product above are part of the datum. A comparison with any Calabi--Yau
+construction must preserve all four pieces.
+
+\section{The K3 x E Denominator}
+
+The \(K3\times E\) BKM object is governed by the Gritsenko--Nikulin
+\(\Delta_5\) denominator. Let
+\[
+ D_5=64^{-1}\Delta_5 .
+\]
+In the monic denominator convention,
+\[
+ \operatorname{den}(\gDelta)=D_5(2Z),\qquad
+ \kBKM(\gDelta)=\kBKM(\Delta_5)=5 .
+\]
+The square normalisations are scalar conventions:
+\[
+ \Phi_{10}^{\mathrm{un}}=\Delta_5^2,\qquad
+ \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2 .
+\]
+Hence the Oberdieck--Pandharipande scalar branch reads
+\[
+ Z_{\mathrm{OP/DT}}=-(\Phi_{10}^{\mathrm{OP}})^{-1}
+ =
+ -D_5^{-2}
+ =
+ -4096\,\Delta_5^{-2}.
+\]
+The primitive BKM denominator remains \(D_5(2Z)\).
+The Jacobi input for this primitive denominator is
+\[
+ \phi_{0,1}(\tau,z)=\zeta^{-1}+10+\zeta+O(q).
+\]
+The doubled input \(2\phi_{0,1}\) has constant term \(20\), hence
+Borcherds weight \(10\); it lands on the square line
+\(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\). Thus
+\(\phi_{0,1}\) supplies the primitive root multiplicities, while
+\(2\phi_{0,1}\) supplies the Igusa scalar square.
+
+\begin{proposition}[Primitive CHL constants]
+\label{prop:primitive-chl-constants}
+For the primitive \(K3\times E\) CHL denominator branch
+\[
+ N\in\{1,2,3,4,6\},
+\]
+the Borcherds input constants and BKM weights are
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\
+\hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\Phi_N)=c_N(0)/2 & 5 & 4 & 3 & 2 & 1 .
+\end{array}
+\]
+The \(N=1\) entry is \(\Delta_5\).
+\end{proposition}
+
+\begin{proof}
+For the \(N=1\) K3 elliptic genus input,
+\[
+ \phi_{0,1}(\tau,z)=\zeta^{-1}+10+\zeta+O(q),
+\]
+so \(c_1(0)=10\) in the Eichler--Zagier discriminant-zero convention and
+\(\wt(\Delta_5)=5\). For \(N=2,3,4,6\), the Gritsenko--Nikulin CHL
+paramodular denominator forms have weights \(4,3,2,1\). Borcherds'
+weight formula \(\wt(\Phi_N)=c_N(0)/2\) gives the constants
+\((8,6,4,2)\). Thus the full primitive tuple is
+\((10,8,6,4,2)\), and the BKM-weight tuple is
+\((5,4,3,2,1)\).
+\end{proof}
+
+\begin{proposition}[Gritsenko--Clery rows]
+\label{prop:gritsenko-clery-row-separation}
+The Gritsenko--Clery diagonal-divisor catalogue is indexed by
+paramodular triples \((t,N;k)\). The primitive CHL order is a separate
+indexing datum.
+Its eight rows are
+\[
+\begin{array}{c|c|c|c}
+(t,N;k) & \text{form} & c^{\mathrm{eff}}_{t,N}(0) & \kBKM\\
+\hline
+(1,1;5) & \Delta_5 & 10 & 5\\
+(2,1;2) & \Delta_2 & 4 & 2\\
+(1,2;3) & \nabla_3 & 6 & 3\\
+(3,1;1) & \Delta_1 & 2 & 1\\
+(1,3;2) & \nabla_2 & 4 & 2\\
+(4,1;\tfrac12) & \Delta_{1/2} & 1 & \tfrac12\\
+(1,4;\tfrac32) & \nabla_{3/2} & 3 & \tfrac32\\
+(2,2;1) & Q_1 & 2 & 1 .
+\end{array}
+\]
+Row by row,
+\[
+ \kBKM(F_{t,N})=\wt(F_{t,N})
+ =\frac{c^{\mathrm{eff}}_{t,N}(0)}2 .
+\]
+The intersection with the primitive \(K3\times E\) CHL ladder is the
+\((1,1;5)\) row. The rows \((1,2;3)\) and \((1,3;2)\) have constants
+\(6\) and \(4\); they are Gritsenko--Clery paramodular rows, while the
+primitive CHL entries at orders \(2\) and \(3\) have constants \(8\) and
+\(6\).
+\end{proposition}
+
+\begin{proof}
+Gritsenko--Clery classify genus-two dd-modular forms with diagonal
+divisor by the triple \((t,N;k)\). The weight \(k\) is the Borcherds
+weight of the row, so the displayed constants are \(2k\). The primitive
+CHL table instead uses the five elliptic-curve-compatible orders
+\(\{1,2,3,4,6\}\) and the Gritsenko--Nikulin \(\Delta_{k(N)}^{(N)}\)
+tower. Equality of the \((1,1;5)\) row reflects the common
+\(\Delta_5\) input; the remaining row labels belong to different
+paramodular groups and multiplier systems.
+\end{proof}
+
+\begin{proposition}[The \(K3\times E\) invariant split]
+\label{prop:k3xe-invariant-split}
+For \(Y=K3\times E\), the compact and specialisation invariants are
+\[
+\begin{array}{c|c|l}
+\text{invariant} & \text{value} & \text{source}\\
+\hline
+\kcat(Y) & 0 &
+\chi(\cO_{K3})\chi(\cO_E)=2\cdot0\\
+\kch(Y) & 0 &
+\sum_q(-1)^q h^{0,q}(Y)=1-1+1-1\\
+\kHeis(Y) & 3 &
+\text{Heisenberg--Mukai specialisation}\\
+\kBKM(\gDelta) & 5 &
+c_1(0)/2=10/2\\
+\kfib(Y) & 24 &
+\rk\,\widetilde H(K3,\Z)=1+22+1 .
+\end{array}
+\]
+These values come from distinct constructions.
+\end{proposition}
+
+\begin{proof}
+Kunneth multiplicativity gives
+\(\kcat(Y)=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0\). The compact Hodge
+column is \(h^{0,\bullet}(Y)=(1,1,1,1)\), hence
+\(\kch(Y)=0\). The Heisenberg--Mukai specialisation contributes the
+rank-sum \(2+1=3\). The BKM entry is the Borcherds weight of
+\(\Delta_5\). The fibre entry is the Mukai-lattice rank of the K3
+factor. The table records five independent constructions.
+\end{proof}
+
+\section{K3-Fibre Obstruction}
+
+\begin{proposition}[Single-K3-fibre obstruction]
+\label{prop:single-k3-fibre-obstruction}
+Let \(X\to B\) be a smooth projective K3-fibred CY\(_3\), and let
+\(S\) be a smooth K3 fibre. A specialisation whose real-root lattice is
+supplied by the algebraic surface part of one K3 fibre has insufficient
+rank for \(\gFM\).
+\end{proposition}
+
+\begin{proof}
+For a projective K3 surface \(S\),
+\[
+ \widetilde H_{\mathrm{alg}}(S,\Z)
+ =
+ H^0(S,\Z)\oplus \operatorname{NS}(S)\oplus H^4(S,\Z),
+\qquad
+\rk\,\widetilde H_{\mathrm{alg}}(S,\Z)=2+\rho(S),
+\]
+with \(\rho(S)\leq20\). The \(H^0\oplus H^4\) summand is the Mukai
+hyperbolic plane. The algebraic surface part has rank at most \(20\).
+The Fake-Monster real-root datum contains the Leech lattice of rank
+\(24\) at the cusp \(\rho^\perp/\Z\rho\simeq\Leech\). Thus one K3
+surface fibre supplies too small an algebraic surface lattice for the
+Leech real-root datum.
+
+The full Mukai lattice \(\widetilde H(S,\Z)\simeq \mathrm{II}_{4,20}\)
+also has the wrong signature for the Lorentzian lattice \(\IIlor\) in a
+one-fibre construction. The obstruction proved here is the K3-fibre
+route obstruction. A global exclusion for all smooth proper CY\(_3\)
+categories would require a separate theorem controlling every possible
+rank-\(24\) algebraic root lattice in the relevant Hochschild or Hall
+charge lattice.
+\end{proof}
+
+\section{Dimension-Five Comparison Datum}
+
+Let
+\[
+ X=K3_1\times K3_2\times E,\qquad
+ \Sigma_4=K3_1\times K3_2,\qquad C=E .
+\]
+Then \(X\) is a compact CY\(_5\) with
+\[
+ \kcat(X)
+ =
+ \chi(\cO_{K3_1})\chi(\cO_{K3_2})\chi(\cO_E)
+ =
+ 2\cdot2\cdot0
+ =
+ 0,
+\]
+and the compact Hodge supertrace also vanishes:
+\[
+ \kch(X)=\sum_q(-1)^q h^{0,q}(X)
+ =(1-1)(1+1)^2=0.
+\]
+
+\begin{conjecture}[Conditional \(d=5\) Fake-Monster comparison]
+\label{conj:conditional-d5-fake-monster-comparison}
+A second-stage specialisation
+\[
+ \SpCh_{\Sigma_4,E}\bigl(\PhiFA_5(\Perf(X))\bigr)
+\]
+realising the Fake-Monster denominator branch requires the following
+constructed data:
+\begin{enumerate}
+\item a primitive embedding
+\[
+ j:\epsilon\IIlor\hookrightarrow
+ \widetilde H(K3_1,\Z)\oplus \widetilde H(K3_2,\Z)\oplus U_E,
+ \qquad \epsilon\in\{\pm1\},
+\]
+with \(j(\rho)\) primitive isotropic and
+\(j(\rho)^\perp/\Z j(\rho)\simeq \Leech\);
+\item a choice of Weyl chamber and positive-root set whose real roots,
+imaginary roots, Weyl vector, and multiplicities match
+Theorem~\ref{thm:fm-borcherds-denominator-data};
+\item a Hall--Drinfeld comparison from the positive-half Hall object of
+the CY\(_5\) category to the Borcherds positive half of \(\gFM\);
+\item an \(E_5\) factorisation-algebra model and curve specialisation to
+an \(E_1\)-chiral algebra on \(E\) whose denominator character is
+\(\PhiFM\).
 \end{enumerate}
-The habitat problem is: which $X \in \mathrm{CY}_d$ supplies a
-signature-$(25, 1)$ algebraic sublattice of rank $26$ and a
-rank-$24$ transverse positive-definite sublattice carrying the
-Leech-theta fibre?
+\end{conjecture}
 
-%--------------------------------------------------------------
-\paragraph{Cycle 1: Rank obstruction at $d = 3$.}
-\emph{Attack.} Suppose $\gFM$ is the Stage-2 output at $X = K3 \times E$.
-Then Corollary~\ref{cor:k3e-cy3-platonic-Sp-K3E-explicit} of
-\texttt{chapters/examples/k3e\_cy3\_programme.tex} lines~$3732$--$3750$
-demands a Lorentzian datum of rank $26$ inside $\LambdaMuk \oplus
-H^*(E, \Z)$. The Mukai lattice $\LambdaMuk = U^4 \oplus (-E_8)^2$
-has rank $24$ and signature $(4, 20)$. Adjoining $H^*(E, \Z) = \Z^4$
-of signature $(2, 2)$ gives rank $28$ of total signature $(6, 22)$.
-Projection to any rank-$26$ sublattice cannot realise signature
-$(25, 1)$ because the positive cone of $\LambdaMuk \oplus H^*(E, \Z)$
-has dimension $6$, not $25$.
+\begin{proof}[Rank evidence]
+For a K3 surface,
+\(\rk\,\widetilde H(K3,\Z)=24\) and
+\(\operatorname{sign}\widetilde H(K3,\Z)=(4,20)\). The doubled Mukai
+lattice has rank \(48\) and signature \((8,40)\). With this Mukai sign
+convention the embedding test is for \(-\IIlor\), of signature
+\((1,25)\); with the opposite Mukai sign it is for \(\IIlor\). Rank
+alone leaves room for a sign-compatible Leech summand. The discriminant
+form, orientation, and primitive isotropic vector are integral data, and
+Nikulin's embedding theorem is the relevant tool once they are
+specified.
 
-\emph{Heal.} The signature constraint is the sharper obstruction. The
-Borcherds singular-theta correspondence lifts a Jacobi form of weight
-$w$ and index $m$ on a rank-$(p + 2)$ lattice of signature $(p, 2)$
-to an automorphic form on an orthogonal Grassmannian of signature
-$(p, 2)$; the output automorphic form lives on
-$\mathrm{O}(p, 2) \setminus \mathcal{D}_{p, 2}$ (Borcherds~1998
-Thm.~13.3). For $\PhiFM$ the output Grassmannian is
-$\mathcal{D}_{26, 2}$, corresponding to the Eisenstein polarisation
-$\IIpar = \IIlor \oplus U$. The input datum on the $(25, 1)$ side has
-dimension-count
-$\rk(\IIlor) = 26$ and negative-norm cone of dimension $1$ (one
-timelike direction). For $K3 \times E$, the transcendental Hodge
-structure has negative-norm cone of dimension $2$ (Hodge signature
-$(2, 19)$ on $H^2_{\mathrm{tr}}(K3, \Z)$ plus $(1, 1)$ on
-$H^{1,1}(E)$, totalling $(3, 21)$), which is incompatible with the
-$(25, 1)$ signature required for the Lorentzian $\IIlor$ input at the
-automorphic Grassmannian. No sublattice embedding
-$\IIlor \hookrightarrow H^*(K3 \times E, \Z)$ of correct signature
-exists. The ambient rank is also wrong: $\rk H^*(K3 \times E, \Z) =
-24 \cdot 4 = 96$, nominally sufficient, but the signature
-$(1 + 1 + 20 + 1 + 1) \oplus \text{twofold} = (6, 18)$ of the even
-part (Künneth product of K3 signature $(3, 19)$ and $E$ signature
-$(2, 2)$) does not contain a signature-$(25, 1)$ sublattice.
+Rank accommodation is the first numerical test. The comparison
+requires the Leech cusp, the Weyl vector, the root multiplicities from
+\(\eta^{-24}\), and the automorphic product \(\PhiFM\). It also requires
+the Hall--Drinfeld comparison and the factorisation-algebra
+specialisation. These are precisely the data listed in the conjecture.
+\end{proof}
 
-Primary: Borcherds~1998 Thm.~13.3; Huybrechts~2016 Ch.~14;
-Conway--Sloane Ch.~4. Obstruction recorded at
-\texttt{chapters/examples/k3e\_cy3\_programme.tex} line~3766.
-
-%--------------------------------------------------------------
-\paragraph{Cycle 2: Rank match at $d = 5$ with $X = K3 \times K3 \times E$.}
-\emph{Attack.} Take $X = K3 \times K3 \times E$ with $(\Sigma_4, C) =
-(K3 \times K3, E)$. Apply Dunn--Lurie $E_5 \simeq E_4 \otimes E_1
-\simeq E_2 \otimes E_2 \otimes E_1$ (HA~5.5.3.6). Integrate out the
-two $K3$ factors via $\PhiFA_5$; the $E_4$-component on
-$\Sigma_4 = K3 \times K3$ collapses to an $E_\infty$-algebra whose
-graded character is the Mukai-product theta
-$\Theta_{\LambdaMuk \oplus \LambdaMuk}(q) = 1/\eta^{48}$ on the
-ambient rank-$48$ Künneth lattice. This overshoots the
-$1/\eta^{24}$ of Borcherds~1995 by a factor of $\eta^{24}$.
-
-\emph{Heal.} The overshoot is the content of the Niemeier index-lock:
-$1/\eta^{48} = 1/\eta^{24} \cdot 1/\eta^{24}$; the first
-$1/\eta^{24}$ is the Fake-Monster datum (Leech-indexed null-root
-multiplicities), the second $1/\eta^{24}$ is the Mukai-Heisenberg
-residual. By the Borcherds-product factorisation
-\begin{equation}
-\label{eq:FM-Niemeier-split}
- \mathrm{Theta}(K3 \times K3)\big/\eta^{24}
- \;=\; \PhiFM\big|_{\Sigma_4 \hookrightarrow \Sigma_5}\,\cdot\,
-       \Theta_{\mathfrak{heis}_N}
-\end{equation}
-where $\Sigma_5$ is the rank-$26$ Lorentzian polarisation of the
-algebraic-signature part of $H^*(K3 \times K3, \Z)$ and
-$\mathfrak{heis}_N$ is the abelian Heisenberg on the complementary
-rank-$25$ lattice of the Eisenstein-polarised Grassmannian
-$\mathcal{D}_{\IIpar}$. The $\PhiFM\big|_{\Sigma_4}$ factor is the
-restriction of $\PhiFM$ from $\mathcal{D}_{\IIpar}$ to the
-Lorentzian sublocus cut out by the twin-K3 Picard-lock. The
-residual $\Theta_{\mathfrak{heis}_N}$ is a lattice theta of rank
-$25$ (which \emph{is} odd, not $24$): it accounts for the
-remaining $1/\eta^{24}$ overshoot after one $\eta^{-24}$ is absorbed
-into $\PhiFM$.
-
-Under $\SpCh_{K3 \times K3, E}$, equation~\eqref{eq:FM-Niemeier-split}
-reads
+\begin{remark}[Hodge count on \(K3_1\times K3_2\)]
+Kunneth gives
 \[
-  \SpCh\bigl(\PhiFA_5(\Perf(K3 \times K3 \times E))\bigr)
-  \;=\; U^{\chir}(\gFM)\,\otimes\, U^{\chir}(\mathfrak{heis}_N)
+ h^{1,1}(K3_1\times K3_2)
+ =
+ h^{1,1}(K3_1)h^{0,0}(K3_2)
+ +
+ h^{0,0}(K3_1)h^{1,1}(K3_2)
+ =
+ 20+20=40 .
 \]
-as $E_1$-chiral algebras on $E$, matching the $d = 3$ K3 case
-(Corollary~\ref{cor:k3e-cy3-platonic-Sp-K3E-explicit}) with
-$(\mathfrak{heis}_{\mathrm{Muk}}, \gDelta) \mapsto (\mathfrak{heis}_N,
-\gFM)$ under the rank-lift $(22 \to 25, \gDelta \to \gFM)$.
-
-Primary: Lurie HA~5.5.3.6; Costello--Gwilliam~2017 FA~Vol.~II \S~10;
-Borcherds~1998 Thm.~13.3. Scaffolding at
-\texttt{chapters/examples/k3e\_cy3\_programme.tex} line~3764
-(Conjecture~\ref{conj:k3e-cy3-platonic-siblings-by-d}(3)).
-
-%--------------------------------------------------------------
-\paragraph{Cycle 3: The Hodge count on $K3 \times K3$.}
-\emph{Attack.} Quote $h^{1,1}(K3 \times K3) = 20 + 20 + 1 = 41$.
-
-\emph{Heal.} Künneth on $K3$ with $h^{p, q}(K3) =
-\begin{smallmatrix}1 & 0 & 1\\ 0 & 20 & 0\\ 1 & 0 & 1\end{smallmatrix}$
-gives
+The middle Hodge space has
 \[
- h^{1,1}(K3 \times K3) \;=\; \sum_{p_1 + p_2 = 1,\; q_1 + q_2 = 1}
- h^{p_1, q_1}(K3)\, h^{p_2, q_2}(K3)
- \;=\; h^{1,1} h^{0,0} + h^{0,0} h^{1,1} + 2\, h^{1,0} h^{0,1}
- \;=\; 20 + 20 + 0
- \;=\; 40,
+ h^{2,2}(K3_1\times K3_2)
+ =
+ 1+1+1+1+20\cdot20
+ =
+ 404.
 \]
-not $41$: K3 has $h^{1,0} = h^{0,1} = 0$, so the cross-terms vanish.
-The algebraic sublattice (Picard of generic $K3 \times K3$ with
-transcendental $T_i \subset H^{1,1}(K3_i, \Z)$ of rank
-$22 - \rho_i$) has Picard number $\rho_1 + \rho_2$; for generic
-twin-K3 of Picard rank $\rho_1 = \rho_2 = 1$ the algebraic rank
-is $2$, far below $25$.
+For generic projective \(K3_i\) with Picard ranks \(\rho_i\), the
+tautological algebraic \(H^{2,2}\)-rank is \(2+\rho_1\rho_2\), with
+further Hodge classes on special Noether--Lefschetz loci. A
+Leech-cusp comparison is therefore an additional lattice datum beyond
+Hodge-number arithmetic.
+\end{remark}
 
-The \emph{even} integral lattice to target is
-$H^{2k}(K3 \times K3, \Z)$ for $k = 0, 1, 2, 3, 4$, totalling
-Poincaré rank $1 + 23 + 24^2 \cdot (\text{cross terms}) + 23 + 1$.
-Direct Betti-count on $K3 \times K3$:
-$b_0 = b_8 = 1$, $b_2 = b_6 = 23$, $b_4 = 2 \cdot 23 \cdot 1 + 23^2 -
-\text{symm terms}$. The relevant Lorentzian sublattice of signature
-$(25, 1)$ must be extracted from the algebraic middle cohomology
-$H^{2,2}(K3 \times K3, \Z) \cap H^4(K3 \times K3, \Z)$, which has
-rank $r_2(\rho_1, \rho_2) = 1 + \rho_1 \rho_2 + 1$ on generic
-twin-K3 plus contributions from $H^{1,1}(K3_1) \otimes H^{1,1}(K3_2)$
-of algebraic type $\rho_1 \rho_2$.
+\section{Scope Separations}
 
-For the rank match $r_2 \geq 26$, the Picard locks
-$\rho_1 \rho_2 \geq 24$ are required. The sharp realisation is
-$\rho_1 = \rho_2 = 5$ (so $\rho_1 \rho_2 = 25$) or
-$\rho_1 = 4, \rho_2 = 6$ (so $\rho_1 \rho_2 = 24$), sharpened by the
-Niemeier-twin condition of Cycle~4 below.
-
-Primary: Griffiths--Harris 1978 \emph{Principles of Algebraic
-Geometry}~pp.~588--592 (Künneth for Hodge numbers);
-Huybrechts~2016 Ch.~14 (Mukai lattice signature);
-Nikulin~1979 Izv.~AN~SSSR~$43$ (algebraic sublattices of K3).
-
-%--------------------------------------------------------------
-\paragraph{Cycle 4: The Niemeier-twin lock.}
-\emph{Attack.} The rank-$25$ residual Heisenberg $\mathfrak{heis}_N$ of
-Cycle~2 carries no natural structure; the $d = 5$ placement is
-arbitrary.
-
-\emph{Heal.} The structure of $\mathfrak{heis}_N$ is forced by the
-Conway--Sloane lattice-genus theorem: there are exactly $24$ even
-unimodular lattices of rank $24$ (the $23$ Niemeier lattices with roots
-plus the rootless Leech lattice $\Leech$), and the Fake-Monster
-denominator selects the Leech-type decomposition
-$\IIlor = \Leech \oplus U$ uniquely (Conway--Sloane Ch.~27 Thm.~1).
-Restricting the $d = 5$ habitat to twin-K3 with
-$\mathrm{NS}(K3_1) \oplus \mathrm{NS}(K3_2) \supseteq N_{24}$
-(some rank-$24$ Niemeier primitive embedding) partitions the habitat
-into $24$ components, one per Niemeier isomorphism class. The
-Fake-Monster sibling lives on the $\Leech$-component:
-$\mathrm{NS}(K3_1 \times K3_2) \supseteq \Leech$ with the Leech
-embedding as a primitive sublattice.
-
-A twin-K3 with $\rho_1 + \rho_2 = 24$ and the $24$-dimensional
-Néron--Severi lattice $\mathrm{NS}(K3_1) \oplus \mathrm{NS}(K3_2)$
-isomorphic to a Niemeier lattice $N$ is the habitat of the
-$N$-twisted Fake-Monster sibling:
+\begin{proposition}[Four automorphic branches]
+\label{prop:four-denominator-branches}
+The following branches carry different automorphic data:
 \[
- X_N \;:=\; (K3_1 \times_N K3_2) \times E,
- \qquad (\mathrm{NS}(K3_1) \oplus \mathrm{NS}(K3_2))^{\mathrm{prim}}
- \;\simeq\; N.
-\]
-The $\Leech$-component $N = \Leech$ gives the genuine Fake-Monster
-($\gFM$, $\PhiFM$, weight $12$). The other $23$ Niemeier components
-give the Niemeier-twin family $\fg_N$ of Scheithauer~2000
-\emph{Proc.~LMS}~\textbf{81} Thm.~6.2: $23$ sibling BKM
-superalgebras with denominators $\Phi_{12, N}$ of weights depending
-on the specific Niemeier root structure, all at $d = 5$ on the
-$X_N$-habitat.
-
-On the $d = 5$ Niemeier-stratum, the Stage-2 specialisation reads
-\begin{equation}
-\label{eq:FM-Niemeier-family}
- \SpCh_{K3_1 \times_N K3_2, E}\bigl(\PhiFA_5(\Perf(X_N))\bigr)
- \;=\; U^{\chir}(\fg_N)\,\otimes\, U^{\chir}(\mathfrak{heis}_{24 - \rk(N)}),
-\end{equation}
-where $\fg_N$ is the Scheithauer $N$-twisted BKM and
-$\mathfrak{heis}_{24 - \rk(N)}$ is the complementary abelian
-Heisenberg on the $(24 - \rk(N))$-dim root-free complement; at
-$N = \Leech$, $\rk(N) = 24$, the complement is zero, and
-$\mathfrak{heis}_0$ is trivial. The $\Leech$-component is therefore
-the Fake Monster on a pure twin-K3 Niemeier-locked fibre without
-residual Heisenberg: the pure sibling.
-
-Primary: Conway--Sloane Ch.~27 Thm.~1 (24 Niemeier lattices);
-Scheithauer~2000 \emph{Proc.~LMS}~\textbf{81} Thm.~6.2
-(Niemeier BKM family); Nikulin~1979 (primitive sublattice
-classification).
-
-%--------------------------------------------------------------
-\paragraph{Cycle 5: The $\kBKM$-weight reconciliation.}
-\emph{Attack.} The Fake-Monster chapter
-(\texttt{chapters/examples/fake\_monster\_chapter.tex} line~$174$,
-$221$) frames Fake Monster as the $d = 13$ face of the Borcherds-lift
-programme, via the ratio $\kch/\kBKM = 26/12$. This disagrees with the
-Conjecture~\ref{conj:k3e-cy3-platonic-siblings-by-d} $d = 5$ placement.
-
-\emph{Heal.} The two numbers are different invariants and register at
-different stages of the functor. The Cartan-rank $26$ is a
-lattice-theoretic invariant of $\IIlor$: the rank of the denominator
-datum. The CY-habitat dimension $d = 5$ is the complex dimension of
-the ambient CY$_d$ in which $\PhiFA_d$ can exhibit the specialisation.
-The quantities are related by the Borcherds-lift signature arithmetic,
-\[
- d_{\mathrm{habitat}} \;=\;
- \tfrac{1}{2}\bigl(\rk(\Sigma_4) + \rk(C)\bigr) + \tfrac{1}{2}
- \;=\; \tfrac{1}{2}(4 + 2) + \tfrac{1}{2}\cdot\text{(Eisenstein shift)}
- \;=\; 5,
-\]
-not the Cartan-rank. The ratio $\kch(V_{\IIlor})/\kBKM(\PhiFM) = 26/12
-= 13/6$ is not a dimension-to-weight ratio but the
-Heisenberg-rank-to-Borcherds-weight ratio, which satisfies
-$\rk(L)/\mathrm{wt}(\PhiFM)$ for the Heisenberg-lattice-VOA
-identification $\kch^{\mathrm{Heis}}(V_L) = \rk(L)$ at $L = \IIlor$
-(Vol~I lattice-Heisenberg example; \texttt{chapters/examples/fake\_
-monster\_chapter.tex} Proposition~\ref{prop:fm-vol-i-consistency}).
-
-The Fake-Monster chapter's "$d = 13$" phrasing refers to the
-\emph{half-rank} of the Cartan, which was a drafting-era conflation of
-Cartan-rank-half with CY-habitat-dimension. The Cartan is rank $26$;
-the habitat is $d = 5$; the two are independent. Replace line~$174$
-``The Fake-Monster and K3-BKM quantisations are the $d = 13$ and
-$d = 3$ faces of a common Borcherds-lift programme'' with ``the
-$d = 5$ and $d = 3$ faces''.
-
-\paragraph{Summary table.}
-\begin{center}
-\begin{tabular}{lllll}
+\begin{array}{c|c|c|c}
+\text{object} & \text{lattice or host} & \text{form} & \text{weight}\\
 \hline
-Sibling & Habitat $X$ & $(\Sigma, C)$ & Denominator
- & $\kBKM$ \\
+\gDelta &
+\begin{array}{c}
+U\oplus\langle -2\rangle\\
+\text{inside }2U\oplus\langle -2\rangle
+\end{array}
+& D_5(2Z) & 5\\
+\Phi_{10}^{\mathrm{OP}} & \text{OP scalar convention} & D_5^2 & 10\\
+\gFM & \IIlor=\Leech\oplus U & \PhiFM & 12\\
+V^\natural & \text{Monster CFT} & J(\sigma)-J(\tau) & 0 .
+\end{array}
+\]
+The square convention \(\Phi_{10}^{\mathrm{un}}=\Delta_5^2\) relates the
+Igusa scalar line to \(\Delta_5\). A comparison between \(\PhiFM\) and
+\(\Delta_5\) requires an explicit rational quadratic embedding of type-IV
+domains and a divisor-correction calculation for the restricted
+Borcherds product.
+\end{proposition}
+
+\begin{proof}
+The first row is the Gritsenko--Nikulin denominator algebra for the
+primitive \(K3\times E\) branch. The second row is a scalar square used
+in the OP/DT partition function. The third row is Borcherds'
+Fake-Monster denominator from \(\eta^{-24}\) on \(\IIpar\). The fourth
+row is the genus-zero Monster denominator. The lattices, Weyl vectors,
+input modular forms, and weights differ row by row.
+\end{proof}
+
+\begin{proposition}[Chiral and quantum-group scope]
+\label{prop:chiral-quantum-group-scope}
+For \(d\geq3\), the specialised CY-to-chiral output on a curve is
+\(E_1\)-chiral. An \(E_2\) structure belongs to a constructed centre,
+Drinfeld double, or module layer. The \(K3\times E\) BKM/Hall--Drinfeld
+denominator branch is distinct from the Mukai/Yangian branch. In the
+toric local model,
+\[
+ \CoHA(\C^3)=Y^+(\widehat{\mathfrak{gl}}_1),
+\]
+the positive half. The full \(\mathcal W_{1+\infty}\) appears on the
+double, centre, completion, or evaluation layer.
+\end{proposition}
+
+\begin{proof}
+The two-stage construction
+\[
+ \Phi_d=\SpCh_{\Sigma_{d-1},C}\circ\PhiFA_d
+\]
+specialises a CY\(_d\) factorisation algebra to a chiral algebra on the
+curve \(C\). For \(d\geq3\), this curve-level specialised output is
+\(E_1\)-chiral. Centre and double constructions are additional algebraic
+operations and carry their own hypotheses. The K3 denominator branch is
+controlled by Borcherds products and Hall--Drinfeld completion, while
+the Mukai/Yangian branch is controlled by stable envelopes, Mukai
+lattice symmetries, and current presentations. The \(\C^3\) CoHA
+identification is the positive-half shuffle algebra
+\(Y^+(\widehat{\mathfrak{gl}}_1)\); passing to
+\(\mathcal W_{1+\infty}\) uses the doubled or completed object.
+\end{proof}
+
+\section{Proof Obligations}
+
+A constructed dimension-five Fake-Monster comparison must provide the
+following mathematical data.
+\[
+\begin{array}{l|l}
+\text{datum} & \text{required content}\\
 \hline
-$\gDelta$ (K3-BKM) & $K3 \times E$ (CY$_3$) & $(K3, E)$
- & $1/\Delta_5(2Z)$ & $5$ \\
-Monster $V^\natural$ & $(T^{24}_{\Leech}/\Z_2) \times E$ (CY$_3$)
- & $(T^{24}_{\Leech}/\Z_2, E)$ & $j(p) - j(q)$ & $0$ \\
-$\gFM$ (Fake-Monster) & $K3_1 \times_{\Leech} K3_2 \times E$ (CY$_5$)
- & $(K3_1 \times_{\Leech} K3_2, E)$ & $\PhiFM$ on $\IIpar$ & $12$ \\
-Niemeier family $\fg_N$ & $K3_1 \times_N K3_2 \times E$ (CY$_5$)
- & $(K3_1 \times_N K3_2, E)$ & $\Phi_{12, N}$ & weight($\fg_N$) \\
-\hline
-\end{tabular}
-\end{center}
-
-The Fake-Monster is neither a $K3 \times E$ sibling nor a $d = 13$
-cousin: it is the pure ($\rk(N) = 24$, no residual Heisenberg) vertex
-of the rank-$(4 + 2) = 6$ signature-$(25, 1)$ Lorentzian automorphic
-family on the Niemeier-locked CY$_5$ habitat $K3_1 \times_N K3_2 \times
-E$, with $\Leech$ singled out as the unique rootless Niemeier lattice
-(Conway--Sloane).
-
-\paragraph{Outstanding obstructions.}
-Three items remain for a full construction.
-\begin{enumerate}[label=(O\arabic*)]
-\item \emph{Niemeier-locked twin-K3 existence.} The condition
-$\mathrm{NS}(K3_1) \oplus \mathrm{NS}(K3_2) \supseteq N$ for a
-Niemeier lattice $N$ is non-generic: both K3s must be at
-maximal Picard rank with matched Néron--Severi data. For
-$N = \Leech$ (the rootless case), neither K3 can carry any
-$-2$-class, i.e.\ the transcendental lattices
-$T_i = \mathrm{NS}(K3_i)^\perp$ must be empty of roots. This
-selects a specific locus in the twin-K3 moduli space of
-codimension $\geq 1$.
-\item \emph{$\PhiFA_5$ rigidity on a product CY$_5$.} The Stage-1
-factorisation $\PhiFA_5(\Perf(X_N))$ depends on the CY$_5$
-structure of $X_N = K3_1 \times_N K3_2 \times E$; product
-CY$_5$s carry the product holomorphic volume form, which
-collapses $\PhiFA_5$ via Dunn--Lurie to the Deligne tensor
-product of $\PhiFA_2(K3_i) \otimes \PhiFA_1(E)$. Exhibiting
-the non-trivial $\PhiFA_5$ beyond this product reduction
-requires the Niemeier-lock data as genuine $E_4$-braiding.
-\item \emph{Scheithauer $\fg_N$ identification.} The claim that the
-$N$-specialisation reproduces Scheithauer's Niemeier BKM family
-requires matching the Niemeier-theta $\Theta_N(\tau)$ with the
-Borcherds product exponents $c_N(m)$ of $\Phi_{12, N}$. At
-$N = \Leech$, $\Theta_\Leech/\eta^{24}$ has the correct
-$c(m)$-coefficients (Verification Path~(ii) of
-\texttt{chapters/examples/fake\_monster\_chapter.tex}
-line~142).
-\end{enumerate}
-
-Primary: Scheithauer~2000 \emph{Proc.~LMS}~\textbf{81} Thm.~6.2
-(Niemeier BKM family); Conway--Sloane 1988 Ch.~4, 27
-(Niemeier / Leech classification); Lurie HA~5.5.3.6
-(Dunn--Lurie decomposition); Borcherds~1995 \emph{Invent.~Math.}~%
-\textbf{109} (Fake-Monster denominator);
-Borcherds~1998 \emph{Invent.~Math.}~\textbf{132} Thm.~13.3
-(singular-theta correspondence);
-Huybrechts~2016 \emph{Lectures on K3 Surfaces} Ch.~14 (Mukai lattice
-signature); Costello~2011 \emph{Renormalization and Effective Field
-Theory} (BV quantisation on CY$_d$).
-
-\paragraph{Consistency check: $\kch = 0$ at $d = 5$ Serre.}
-The $d = 5$ Universal Serre Cancellation (Theorem~\ref{thm:cy-d-d5-stratification}
-of \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex} line~1192)
-forces $\kch(X_N) = 0$ for every compact CY$_5$. The Fake-Monster
-sibling is compatible: $\kBKM(\gFM) = 12$ registers the
-\emph{Borcherds weight} of the denominator (the automorphic modular
-characteristic), not the Hodge supertrace $\kch$. The four-$\kappa$
-discipline of $\{\kch, \kcat, \kBKM, \kfib\}$ (CLAUDE.md
-``never conflate'') gives on $X_N = K3_1 \times_N K3_2 \times E$:
-\begin{align*}
- \kch(X_N) &\;=\; \sum_q (-1)^q h^{0,q}(X_N) \;=\; 0
- && \text{(Serre at $d = 5$),}\\
- \kcat(X_N) &\;=\; \chi(\cO_{X_N})
- \;=\; \chi(\cO_{K3})^2 \cdot \chi(\cO_E) \;=\; 4 \cdot 0 \;=\; 0
- && \text{(Künneth on product),}\\
- \kBKM(\PhiFM) &\;=\; c(0)/2 \;=\; 12
- && \text{(Borcherds weight),}\\
- \kfib(K3 \times_N K3) &\;=\; \rk(N) \;=\; 24
- && \text{($\Leech$ rank).}
-\end{align*}
-The four values $\{0, 0, 12, 24\}$ are the Fake-Monster analogue of
-the K3$\times E$ spectrum $\{0, 0, 5, 24\}$ at the Igusa sibling
-(cf.\ \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-line~1319 K3$\times E$ spectrum); note $\kcat$ is Künneth-%
-multiplicative on the \emph{total space} (here $0$ via
-$\chi(\cO_E) = 0$), not the \emph{fibre}.
-
-The $d = 5$ placement of the Fake-Monster sibling is forced:
-at $d = 3$, signature-lock excludes; at $d = 5$, Niemeier-lock
-selects the $\Leech$-component. The rank-$26$ RTT quantisation
-$\mathbf{Y}^{\mathrm{FM}}$ of Theorem~\ref{thm:fm-rtt-master}
-(\texttt{chapters/examples/fake\_monster\_chapter.tex} line~$238$) is
-therefore the quantum group of the $d = 5$ sibling, not of a
-non-existent $d = 3$ or $d = 13$ habitat.
+\text{Leech-cusp embedding} &
+j:\epsilon\IIlor\hookrightarrow
+\widetilde H(K3_1)\oplus\widetilde H(K3_2)\oplus U_E\\
+\text{Weyl chamber} &
+\rho,\ \Delta^+,\ W,\ \operatorname{mult}(\alpha)=c(-\alpha^2/2)\\
+\text{Borcherds product} &
+\PhiFM=e^{2\pi i(\rho,Z)}
+\prod_{\alpha>0}(1-e^{2\pi i(\alpha,Z)})^{c(-\alpha^2/2)}\\
+\text{Hall comparison} &
+\text{positive half, pairing, coproduct, centre, completion}\\
+\text{chiral specialisation} &
+\SpCh_{\Sigma_4,E}(\PhiFA_5(\Perf(X)))\text{ as an }E_1\text{-chiral algebra}\\
+\text{normalisation} &
+\kBKM(\PhiFM)=12,\quad
+\kBKM(\Delta_5)=5,\quad
+D_5=64^{-1}\Delta_5,\quad
+\Phi_{10}^{\mathrm{un}}=\Delta_5^2 .
+\end{array}
+\]
+Until these data are supplied, the proved assertions are Borcherds'
+construction of \(\gFM\), the \(\Delta_5\) theorem on \(K3\times E\), and
+the single-K3-fibre obstruction above.
 
 \end{document}

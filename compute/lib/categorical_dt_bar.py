@@ -77,7 +77,7 @@ KEY IDENTIFICATIONS
 5. K3 x E (CONDITIONAL on CY-A_3):
    B_gamma(A_{K3xE}) should have chi = c(D(gamma)) from phi_{0,1}.
    The categorical moduli: motivic sheaves on the K3 x E moduli.
-   Wall-crossing: the Igusa cusp form Delta_5 encodes the walls.
+   Wall-crossing: the primitive Gritsenko-Nikulin denominator Delta_5 encodes the walls.
 
 BEILINSON WARNINGS
 ==================

@@ -1,487 +1,366 @@
-% Wave-13 A7 inscription. Drinfeld-voice adversarial attack-heal:
-% root-system / Cartan-matrix / Weyl-vector / hyperbolic-sublattice structure of
-% g_{Delta_5} constructed by Borcherds lift of phi_{0,1} in Lorgat 2020.
-% Primary: notes/wave13_source_paper.txt (sections 4 and 5) and wave13_source_slides.txt.
-% Cross-ref: notes/wave12_a7_coha_w_infty_drinfeld.tex (CoHA/Y^+ attack-heal),
-% notes/wave12_u1_two_stage_functor.tex (Phi^{FA} two-stage, K3 x E native cycles).
-% All mathematics by Raeez Lorgat.
-
-\providecommand{\Lat}{\Lambda}
-\providecommand{\bigd}{\Delta}
 \providecommand{\ggd}{\mathfrak{g}_{\Delta_5}}
 \providecommand{\Lambdaa}{\Lambda^{3,2}}
 \providecommand{\Lambdab}{\Lambda^{2,1}}
 \providecommand{\Lambdac}{\Lambda^{2,1}_{II}}
-\providecommand{\Lambdad}{\Lambda^{2,1}_{I}}
 \providecommand{\WII}{W^{(2)}(\Lambdac)}
-\providecommand{\WI}{W^{(2)}(\Lambdad)}
 \providecommand{\PII}{\mathcal{P}_{II}}
 \providecommand{\PIIprim}{\mathcal{P}_{II,\mathrm{prim}}}
 \providecommand{\HIV}{\mathcal{H}^{IV}_{+}}
 \providecommand{\Cone}{\mathcal{C}}
-\providecommand{\Heeg}{\mathrm{Heeg}}
-\providecommand{\UU}{\mathsf{U}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
-\providecommand{\ClaimStatusDerivation}{\textbf{[Derivation]}}
-\providecommand{\ClaimStatusDefinition}{\textbf{[Definition]}}
-\providecommand{\ClaimStatusAttack}{\textbf{[Attack]}}
-\providecommand{\ClaimStatusHeal}{\textbf{[Heal]}}
 
-\section*{Drinfeld attack-heal: root system, Cartan matrix, Weyl vector
-and hyperbolic sub-lattices of $\ggd$}
-\label{wn:sec:wave13-a7-root-cartan-drinfeld}
+\section*{Root Datum, Cartan Matrix, and Denominator of $\ggd$}
+\label{sec:delta5-root-cartan}
 
-Target of rectification. Lorgat 2020 (\S\S 4--5, \texttt{wave13\_source\_paper.txt})
-builds a generalised Borcherds--Kac--Moody superalgebra $\ggd$ by lifting the
-weight-$0$ index-$1$ weak Jacobi form $\phi_{0,1}$ to the Igusa cusp form
-$\Delta_5$. The geometric substrate is the signature-$(3,2)$ lattice
-$\Lambdaa$ together with two primitive hyperbolic sub-lattices $\Lambdab$ and
-$\Lambdac$, the reflection group $\WII$, a Weyl vector $\rho$, and a set of
-real simple roots $\PIIprim = \{\delta_1, \delta_2, \delta_3\}$. The claim:
-the Macdonald--Weyl--Kac--Borcherds denominator identity applied to the
-trivial representation of $\ggd$ reproduces the product expansion of
-$\Delta_5$ at the $0$-dimensional cusp.
-
-Five cycles discriminate the fine structure.
-
-% =====================================================================
-\subsection*{Cycle I. Gram of $\Lambdaa$: signature, decomposition, Pfaffian origin}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{Signature arithmetic.})\
-The slides write $\Lambdaa \simeq \Lambda^{1,1} \oplus \Lambda^{1,1} \oplus [2]$
-with $\Lambda^{1,1}$ presented as $\bigl(\begin{smallmatrix}0 & -1\\ -1 & 0\end{smallmatrix}\bigr)$
-and $[2] = (2)$. The product signature is
-$\sigma(\Lambda^{1,1}) + \sigma(\Lambda^{1,1}) + \sigma([2]) = (1,1) + (1,1) + (1,0) = (3,2)$,
-correct. But the written Gram $\bigl(\begin{smallmatrix}0 & -1\\ -1 & 0\end{smallmatrix}\bigr)$
-has eigenvalues $\pm 1$; the hyperbolic plane $U$ of Conway--Sloane is usually
-written $\bigl(\begin{smallmatrix}0 & 1\\ 1 & 0\end{smallmatrix}\bigr)$. These
-differ by a diagonal sign flip of one basis vector and are isometric, so the
-signature count is unaffected: the mismatch with the Gritsenko--Nikulin
-convention is a \emph{basis choice}, not a mathematical error. Still, two
-further checks are required.
-
-\ClaimStatusHeal\ (\emph{Explicit Gram in the Pfaffian basis, signature verified.})\
-In the basis $(f_1, f_2, f_3, f_{-2}, f_{-1})$ of $\Lambdaa$ from \S 3 of
-\texttt{wave13\_source\_paper.txt},
-\begin{equation}
-f_1 = e_1 \wedge e_2,\ f_2 = e_2 \wedge e_3,\ f_3 = e_1 \wedge e_3 - e_2 \wedge e_4,\
-f_{-2} = e_4 \wedge e_1,\ f_{-1} = e_4 \wedge e_3,
-\label{eq:wave13-pfaffian-basis}
-\end{equation}
-the Pfaffian pairing on $\wedge^2 \Z^4$ restricted to the orthogonal
-complement of $q = e_1 \wedge e_3 + e_2 \wedge e_4$ has Gram matrix
-\begin{equation}
-G(\Lambdaa) =
-\begin{pmatrix}
-0 & 0 & 0 & -1 & 0\\
-0 & 0 & 0 & 0 & -1\\
-0 & 0 & 2 & 0 & 0\\
--1 & 0 & 0 & 0 & 0\\
-0 & -1 & 0 & 0 & 0
-\end{pmatrix}
-\label{eq:wave13-gram-lambda32}
-\end{equation}
-by direct computation of $(f_i, f_j) = $ coefficient of $e_1 \wedge e_2 \wedge e_3 \wedge e_4$
-in $-f_i \wedge f_j$. The block decomposition is explicit:
-the pairs $(f_1, f_{-1})$ and $(f_2, f_{-2})$ are hyperbolic planes;
-$f_3$ is orthogonal to all four and has square
-$(f_3, f_3) = -(e_1 \wedge e_3 - e_2 \wedge e_4) \wedge (e_1 \wedge e_3 - e_2 \wedge e_4) = 2$
-(using $e_i \wedge e_j \wedge e_i \wedge e_j = 0$ and the cross-term $-2\, e_1 \wedge e_3 \wedge e_2 \wedge e_4$
-giving Pfaffian $+2$ after the two sign flips). Thus
+Lorgat~2020, following Borcherds and Gritsenko--Nikulin, constructs the
+generalised Borcherds--Kac--Moody superalgebra $\ggd$ from the Borcherds
+lift of the weight-$0$ index-$1$ weak Jacobi form $\phi_{0,1}$ to the
+Igusa cusp form $\Delta_5$.  The construction uses the signature-$(3,2)$
+lattice $\Lambdaa$, the type-II hyperbolic sublattice $\Lambdac$, the
+reflection group $\WII$, the Weyl vector $\rho$, and the three primitive
+real simple roots
 \[
-\Lambdaa \;\simeq\; U \oplus U \oplus \langle 2\rangle
+\PIIprim=\{\delta_1,\delta_2,\delta_3\}.
+\]
+The Macdonald--Weyl--Kac--Borcherds denominator identity of $\ggd$ is
+the product expansion of $64^{-1}\Delta_5(2Z)$ at the zero-dimensional
+cusp.
+
+\subsection*{The Pfaffian Lattice $\Lambdaa$}
+
+Let $\Lambda_4=\mathbb{Z}e_1\oplus\mathbb{Z}e_2\oplus
+\mathbb{Z}e_3\oplus\mathbb{Z}e_4$, and define the Pfaffian pairing on
+$\wedge^2\Lambda_4$ by
+\[
+u\wedge v=(u,v)\,e_1\wedge e_2\wedge e_3\wedge e_4 .
+\]
+For
+\[
+q=e_1\wedge e_3+e_2\wedge e_4,
 \qquad
-\text{(signature }(3,2),\ \det = -4\text{, discriminant group }\Z/2\Z\text{)}.
+\Lambdaa=q^\perp\subset\wedge^2\Lambda_4,
 \]
-The signature is $(3,2)$ as the three positive directions are spanned by
-$f_1 + f_{-1}$, $f_2 + f_{-2}$, $f_3$ with squares $(-2, -2, 2)$ after sign
-correction; wait --- the first two are $-2$ with the Gram as written.
-Correcting the basis: replace $f_{-1}, f_{-2}$ by their negatives; the
-hyperbolic $U$-plane then presents as
-$\bigl(\begin{smallmatrix}0 & 1\\ 1 & 0\end{smallmatrix}\bigr)$ and the three
-positive-square directions become $f_1 - f_{-1}$, $f_2 - f_{-2}$, $f_3$ with
-squares $(+2, +2, +2)$; the two negative-square directions are $f_1 + f_{-1}$,
-$f_2 + f_{-2}$ with squares $(-2, -2)$. Signature $(3,2)$ confirmed.
-
-\ClaimStatusDerivation\ (\emph{Sp$_4(\Z)$-invariance and discriminant.})\
-The Pfaffian pairing is $\mathrm{SL}_4(\Z)$-invariant by construction. The
-subgroup $\mathrm{Sp}_4(\Z) \subset \mathrm{SL}_4(\Z)$ is the stabiliser of
-$q = e_1 \wedge e_3 + e_2 \wedge e_4$. Its $\wedge^2$-action on
-$q^{\perp} = \Lambdaa$ lands in $O(\Lambdaa)$; Lemma 1 of
-\texttt{wave13\_source\_paper.txt} upgrades this to the isomorphism
-$\wedge^2: \mathrm{Sp}_4(\Z)/\{\pm I_4\} \xrightarrow{\sim} \mathrm{SO}^{+}(\Lambdaa)$.
-The discriminant group $A_{\Lambdaa} = \Lambdaa^{*}/\Lambdaa = \Z/2\Z$ comes
-from the $\langle 2 \rangle$ summand; its quadratic form on the generator is
-$\frac{1}{2} \mod 2\Z$, value $+\frac{1}{2}$. This reproduces the standard
-Gritsenko--Hulek 1998 presentation of the discriminant of the Kummer
-lattice of a $(1,1)$-polarised abelian surface: $\Lambdaa$ is the
-\emph{transcendental lattice} of a $(1,1)$-polarised abelian surface, confirming
-the identification $\mathcal{A}_2 \cong \Gamma_1 \backslash \mathbb{H}_2 \cong
-O^+(\Lambdaa) \backslash \HIV$.
-
-% =====================================================================
-\subsection*{Cycle II. Gram of $\Lambdac$, sign discipline, Cartan-matrix type}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{Gram $\neq$ generalised Cartan?})\
-The paper presents the Gram of the three $\delta_i$ as
+the basis
 \begin{equation}
-(\delta_i, \delta_j) =
+f_1=e_1\wedge e_2,\quad
+f_2=e_2\wedge e_3,\quad
+f_3=e_1\wedge e_3-e_2\wedge e_4,\quad
+f_{-2}=e_4\wedge e_1,\quad
+f_{-1}=e_4\wedge e_3
+\label{eq:delta5-pfaffian-basis}
+\end{equation}
+has Gram matrix
+\begin{equation}
+G(\Lambdaa)=
 \begin{pmatrix}
-2 & -2 & -2\\
--2 & 2 & -2\\
--2 & -2 & 2
+0&0&0&0&-1\\
+0&0&0&-1&0\\
+0&0&2&0&0\\
+0&-1&0&0&0\\
+-1&0&0&0&0
 \end{pmatrix}.
-\label{eq:wave13-delta-gram}
+\label{eq:delta5-gram-lambda32}
 \end{equation}
-A generalised Cartan matrix in the sense of Kac 1990 has $2$'s on the
-diagonal, \emph{non-positive} integers off the diagonal,
-$A_{ij} = 0 \Leftrightarrow A_{ji} = 0$, and $A_{ij} \in \Z$. The matrix
-\eqref{eq:wave13-delta-gram} satisfies all four, with
-$A_{ij} = -2$ for $i \neq j$. This is the \emph{symmetric} Cartan matrix
-(equal to the Gram when roots are normalised to square $2$). Attack: does
-this Cartan matrix define a \emph{hyperbolic} Kac--Moody algebra, and is
-its Weyl group actually finite-covolume as claimed?
-
-\ClaimStatusHeal\ (\emph{The Cartan datum is hyperbolic of rank $3$,
-signature $(2,1)$; Weyl group is a rank-$3$ Coxeter triangle group with
-one ideal vertex per pair.})\
-The Cartan matrix $A = 2I - 2(\mathbf{1} - I) = 4I - 2\mathbf{1}$ where
-$\mathbf{1}$ is the all-ones matrix; eigenvalues are $4 - 2 \cdot 3 = -2$
-(eigenvector $(1,1,1)$) and $4$ (multiplicity $2$, on the $(1,1,1)^{\perp}$).
-Signature $(2,1)$. This is a Lorentzian Cartan matrix; in the Kac
-classification, the associated Weyl group acts on two-dimensional hyperbolic
-space. The Coxeter exponents are encoded by the product
-$A_{ij} A_{ji} / (A_{ii} A_{jj}) = (-2)(-2)/(2 \cdot 2) = 1$, giving
-$\cos^2(\pi/m_{ij}) = 1$, so $m_{ij} = \infty$: each pair $(\delta_i, \delta_j)$
-generates an infinite dihedral group. The Coxeter diagram is the triangle
-with each edge labelled $\infty$. In the hyperbolic disc $\Cone(\Lambdab)_+/\R_{>0}$
-this is the ideal triangle: three geodesic sides, three ideal vertices where
-sides meet at infinity. The three ideal vertices correspond to the three
-null vectors $\{2 f_2,\ 2 f_{-2},\ 2 f_2 - 2 f_3 + 2 f_{-2}\} \subset \Lambdac$
-identified on p.~7 of \texttt{wave13\_source\_paper.txt}. The $S_3$ symmetry
-of $\PII$ permuting them is generated by $s_{f_2 - f_3}$ and $s_{f_{-2} - f_2}$.
-Finite covolume follows from the ideal-triangle presentation: the $S_3$-quotient
-has three marked ideal vertices on $\mathbb{H}^2$ and finite hyperbolic area
-by Gauss--Bonnet $\pi(3-1) - 3 \cdot 0 = 2\pi$ (each ideal angle $0$,
-no interior vertex), finite.
-
-\ClaimStatusDerivation\ (\emph{Gram vs Cartan: the $\langle 2 \rangle$-root normalisation.})\
-Real simple roots of $\ggd$ have $(\alpha, \alpha) = 2$; the Gram
-\eqref{eq:wave13-delta-gram} coincides with the symmetric Cartan matrix
-$A_{ij} = 2(\delta_i, \delta_j)/(\delta_j, \delta_j) = (\delta_i, \delta_j)$.
-The paper's usage of ``Gram'' and ``Cartan matrix'' interchangeably in
-\S 4 end / \S 5 start is mathematically correct in this square-$2$
-regime but is worth labelling for readers familiar with the distinction
-in the non-simply-laced theory. Propagation: at every CY$_3$ / $K3 \times E$
-BKM denominator the real-root square $+2$ recurs, because it is fixed by
-the Borcherds weight $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ via the
-integrality of the Fourier coefficient $c_N(0)$ of the modular form
-controlling the Heegner divisor.
-
-% =====================================================================
-\subsection*{Cycle III. The Weyl vector $\rho$: existence, uniqueness,
-explicit form}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{Does $\rho$ exist, and is the formula on the
-slide correct?})\
-A lattice Weyl vector $\rho$ for a generalised Kac--Moody algebra with
-simple real roots $\{\delta_i\}$ is defined by $(\rho, \delta_i) = -(\delta_i, \delta_i)/2$
-for all $i$. Two questions. Does $\rho$ lie in $\Lambdac \otimes \Q$ (the
-paper's claim) or does it force a larger coefficient ring? And is the explicit
-formula $\rho = \frac12 \delta_1 + \frac12 \delta_2 + \frac12 \delta_3
-= f_2 - \frac12 f_3 + f_{-2}$ consistent with the Gram
-\eqref{eq:wave13-delta-gram}?
-
-\ClaimStatusHeal\ (\emph{$\rho$ exists, is unique, lies in $\frac12 \Lambdac$;
-explicit formula verified.})\
-The defining system $(\rho, \delta_i) = -1$ for $i = 1, 2, 3$ is a
-rank-$3$ inhomogeneous linear system in the $3$-dimensional space
-$\Lambdac \otimes \Q$. Its Gram $G = (\delta_i, \delta_j)$ has
-$\det G = 2 \cdot (2 \cdot 2 - (-2)(-2)) - (-2)((-2) \cdot 2 - (-2)(-2))
-+ (-2)((-2)(-2) - 2 \cdot (-2)) = 0 - (-2)(-8) + (-2)(8) = -16 - 16 = -32$.
-Nonzero determinant; the system has unique solution
+The two hyperbolic pairs are $(f_1,f_{-1})$ and $(f_2,f_{-2})$; the
+orthogonal vector $f_3$ has square $2$.  Thus
 \[
-\rho = G^{-1} \cdot (-1, -1, -1)^{T} \in \Lambdac \otimes \Q.
+\Lambdaa\simeq U\oplus U\oplus\langle 2\rangle,
+\qquad
+\operatorname{sign}(\Lambdaa)=(3,2),
+\qquad
+\det G(\Lambdaa)=2.
 \]
-Compute directly. Writing $\rho = c_1 \delta_1 + c_2 \delta_2 + c_3 \delta_3$,
-the equations become
+The discriminant group is $\Lambdaa^\vee/\Lambdaa\simeq\mathbb{Z}/2\mathbb{Z}$,
+generated by the $\langle2\rangle$ summand, with discriminant value
+$1/2$ modulo $2\mathbb{Z}$.
+
+The Pfaffian form is $\mathrm{SL}_4(\mathbb{Z})$-invariant.  The stabiliser
+of $q$ is $\mathrm{Sp}_4(\mathbb{Z})$, and the induced exterior-square
+representation gives
 \[
-2 c_i - 2 c_j - 2 c_k = -1 \quad \text{for each cyclic }(i,j,k).
+\wedge^2:\mathrm{Sp}_4(\mathbb{Z})/\{\pm I_4\}
+\xrightarrow{\sim}\mathrm{SO}^{+}(\Lambdaa).
 \]
-Subtracting any two gives $c_i = c_j$ for all pairs; hence
-$c_1 = c_2 = c_3 = c$ and $2c - 4c = -2c = -1$, so $c = \frac12$.
-Therefore
+The type-IV domain $\HIV$ attached to $\Lambdaa$ is thereby identified
+with the Siegel upper half-space $\mathbb{H}_2$.
+
+\subsection*{The Type-II Hyperbolic Sublattice}
+
+The primitive hyperbolic sublattice used for the denominator chamber is
+\[
+\Lambdab=\mathbb{Z}f_2\oplus\mathbb{Z}f_3\oplus\mathbb{Z}f_{-2}
+\subset\Lambdaa,
+\]
+with Gram matrix
+\[
+\begin{pmatrix}
+0&0&-1\\
+0&2&0\\
+-1&0&0
+\end{pmatrix}
+\]
+in the ordered basis $(f_2,f_3,f_{-2})$.  Its type-II reflection sublattice is
+\[
+\Lambdac=\{m f_2+\ell f_3+n f_{-2}\in\Lambdab\mid m\equiv n\equiv0
+\pmod 2\}.
+\]
+The three primitive type-II real simple roots are
 \begin{equation}
-\rho = \tfrac12 \delta_1 + \tfrac12 \delta_2 + \tfrac12 \delta_3.
-\label{eq:wave13-rho-in-deltas}
+\delta_1=2f_2-f_3,\qquad
+\delta_2=2f_{-2}-f_3,\qquad
+\delta_3=f_3 .
+\label{eq:delta5-real-simple-roots}
 \end{equation}
-Substituting $\delta_1 = 2 f_2 - f_3$, $\delta_2 = 2 f_{-2} - f_3$, $\delta_3 = f_3$,
+They form a basis of $\Lambdac$.  Their Gram matrix is
 \begin{equation}
-\rho = (f_2 - \tfrac12 f_3) + (f_{-2} - \tfrac12 f_3) + \tfrac12 f_3
-= f_2 - \tfrac12 f_3 + f_{-2}.
-\label{eq:wave13-rho-in-f}
+G_{\mathrm{BKM}}=((\delta_i,\delta_j))_{i,j=1}^{3}=
+\begin{pmatrix}
+2&-2&-2\\
+-2&2&-2\\
+-2&-2&2
+\end{pmatrix}.
+\label{eq:delta5-cartan}
 \end{equation}
-Matches the slide. The coefficient $-\frac12$ of $f_3$ is the origin of the
-factor $(\rho, \rho) = (f_2 - \frac12 f_3 + f_{-2}, f_2 - \frac12 f_3 + f_{-2})
-= 2(f_2, f_{-2}) + \frac14 (f_3, f_3)
-= 2 \cdot (-1) + \frac14 \cdot 2 = -\frac{3}{2}$, noting that
-$(f_2, f_{-2}) = -1$ in the Gram \eqref{eq:wave13-gram-lambda32}. So
-$\rho^2 = -\frac{3}{2}$. Sign: in the \emph{positive-timelike} sign
-convention $\Cone(\Lambdab)_+ = \{x : (x,x) < 0\}$ (the paper's convention,
-p.~5), $\rho^2 < 0$ \emph{is} the correct sign placing $\rho$ in the
-interior of $\Cone(\Lambdab)_+$. The half-integrality of $\rho$ in
-$\Lambdac$ coordinates is forced by the Borcherds square-bracket: $\rho$
-sits in $\frac12 \Lambdac = (\Lambdac)^{*}$, the dual lattice.
+Since each real simple root has square $2$, the symmetric Gram matrix
+\eqref{eq:delta5-cartan} is also the generalised Cartan matrix:
+\[
+A_{ij}=\frac{2(\delta_i,\delta_j)}{(\delta_j,\delta_j)}
+=(\delta_i,\delta_j).
+\]
+Its determinant is $-32$ and its eigenvalues are $4,4,-2$, so the Cartan
+space has signature $(2,1)$.  The Cartan rank of $\ggd$ is therefore $3$.
 
-\ClaimStatusDerivation\ (\emph{$\rho$ is in the interior of the positive cone.})\
-$(\rho, \delta_i) = -1 < 0$ for each $i$ means $\rho$ is in the open cone
-cut out by the three half-spaces $\{x : (x, \delta_i) \leq 0\}$; this open
-cone is exactly $\Delta(\Lambdac)^{*}_{+}$, the dual of the simple-root
-cone, which by the cone-embedding chain
-$\Delta(\Lambdac)^{*}_{+} \subset \Cone(\Lambdab)_+ = \Cone(\Lambdac)_+
-\subset \Delta(\Lambdac)_{+}$ (p.~7 of \texttt{wave13\_source\_paper.txt})
-sits inside $\Cone(\Lambdab)_{+}$, the positive light-cone. Hence
-$\rho \in \Cone(\Lambdab)_{+}$, and $\rho$ can be exponentiated as
-$\exp(-2\pi i (\rho, z))$ for $z \in \Omega(\Cone(\Lambdab)_+)$ with
-convergent real part.
+For $i\neq j$,
+\[
+\frac{A_{ij}A_{ji}}{A_{ii}A_{jj}}=1,
+\]
+so the Coxeter exponent is $m_{ij}=\infty$.  The Coxeter chamber
+$\PII\subset\Cone(\Lambdab)_+/\mathbb{R}_{>0}$ is an ideal hyperbolic
+triangle.  Its three ideal vertices are represented by the primitive
+null vectors
+\[
+2f_2,\qquad 2f_{-2},\qquad 2f_2-2f_3+2f_{-2}.
+\]
+The reflection group $\WII$ is generated by the reflections in
+$\delta_1,\delta_2,\delta_3$, and $\mathrm{Aut}(\PII)\simeq S_3$ permutes
+the three ideal vertices.
 
-% =====================================================================
-\subsection*{Cycle IV. Real vs imaginary simple roots, multiplicities,
-Jacobi-coefficient formula}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{The summary says ``$10$ simple real roots''.})\
-The mission briefing proposes ``the $10$ simple real roots (if that's the
-count --- verify)''. The paper says there are \emph{three} primitive simple
-real roots $\delta_1, \delta_2, \delta_3$. Where does the number ten come
-from, and is ten versus three a real disagreement?
-
-\ClaimStatusHeal\ (\emph{Exactly three primitive real simple roots;
-$10$ is the number of even theta constants defining $\Delta_5$,
-unrelated.})\
-By Kac's theorem on finite-covolume reflection subgroups of hyperbolic
-Lorentzian lattices (Kac 1990, Ch.~5), the real simple roots of the
-reflection group $\WII$ are in bijection with the faces of a fundamental
-polyhedron $\PII$ in the hyperbolic space $\Cone(\Lambdab)_+/\R_{>0}$.
-By explicit construction, $\PII$ is the ideal triangle with $\PIIprim = \{\delta_1, \delta_2, \delta_3\}$.
-So there are \emph{three} primitive real simple roots. Their mirror
-reflections generate $\WII$. The full set of (positive) real roots of
-$\ggd$ consists of all $W(\ggd)$-translates of the three simple real roots,
+The real simple roots of $\ggd$ are exactly the three roots in
+\eqref{eq:delta5-real-simple-roots}.  The full positive real-root set is
 \begin{equation}
-\Delta^{\mathrm{re}}_{+}(\ggd) = \WII \cdot \{\delta_1, \delta_2, \delta_3\},
-\label{eq:wave13-real-roots}
+\Delta^{\mathrm{re}}_+(\ggd)=
+\WII\cdot\{\delta_1,\delta_2,\delta_3\}.
+\label{eq:delta5-real-root-orbit}
 \end{equation}
-an infinite set. The number ten in the briefing is a confusion with
-the $10$ even theta constants $\nu_{a,b}$ with
-$a, b \in (\Z/2\Z)^2$, $a^T b \equiv 0 \mod 2$ that enter the product
-representation $\Delta_5 = \prod_{10} \nu_{a,b}$ (p.~2 of
-\texttt{wave13\_source\_paper.txt}). These ten are theta constants, not
-simple roots; there is no correspondence beyond the common role of defining
-$\Delta_5$. So the briefing's suggested count is wrong, and the paper's
-count of \emph{three} primitive simple real roots is correct.
+The integer $10$ in the product formula
+$\Delta_5=\prod\nu_{a,b}$ counts the ten even genus-$2$ theta constants;
+it is unrelated to the number of simple real roots.
 
-\ClaimStatusHeal\ (\emph{Imaginary simple roots: explicit parametrisation
-via $\phi_{0,1}$ Fourier coefficients.})\
-Let $\phi_{0,1}(z_1, z_2) = \sum_{n \geq 0, l \in \Z} f(n, l)\, e^{2\pi i (n z_1 + l z_2)}$
-be the weight-$0$ index-$1$ weak Jacobi form of Eichler--Zagier 1985
-(p.~9 of \texttt{wave13\_source\_paper.txt}), normalised so
-$f(0, 0) = 10$, $f(0, -1) = 1$. The Fourier coefficients $f(n, l)$ depend
-only on the discriminant $D = 4n - l^2 \geq -1$; denote $c(D) := f(n, l)$
-at $D = 4n - l^2$.
+\subsection*{The Weyl Vector}
 
-For $a \in \Lambdac \cap \R_{>0} \PII$, write $a$ in coordinates
-$a = \tilde{m} f_2 + \tilde{l} f_3 + \tilde{n} f_{-2}$ (so
-$\tilde{m}, \tilde{l}, \tilde{n} \in \Z$ with $\tilde{m} \equiv \tilde{n}
-\equiv 0 \mod 2$ by the definition of $\Lambdac$). Then
-$(a, a) = 2(\tilde{m} \tilde{n} \cdot (-1) + \tilde{l}^2)
-= -2 \tilde{m} \tilde{n} + 2 \tilde{l}^2$ (using the block-diagonal Gram
-on $f_2, f_3, f_{-2}$ with $(f_2, f_{-2}) = -1$, $(f_3, f_3) = 2$). The
-super-multiplicity of the positive root $\alpha = a$ in $\ggd$ is
+A lattice Weyl vector for the real chamber satisfies
+\[
+(\rho,\delta_i)=-\frac{(\delta_i,\delta_i)}2=-1,\qquad i=1,2,3.
+\]
+Writing $\rho=c_1\delta_1+c_2\delta_2+c_3\delta_3$, this is the linear
+system
+\[
+G_{\mathrm{BKM}}
+\begin{pmatrix}c_1\\c_2\\c_3\end{pmatrix}
+=
+\begin{pmatrix}-1\\-1\\-1\end{pmatrix}.
+\]
+Since $\det G_{\mathrm{BKM}}=-32$, the solution is unique.  Subtracting
+any two equations gives $c_1=c_2=c_3$, and then
+$2c-4c=-1$, hence
 \begin{equation}
-\mathrm{mult}(\alpha) \;=\; \mathrm{mult}_0(\alpha) - \mathrm{mult}_1(\alpha)
-\;=\; c\bigl(-\tfrac12 (a,a)\bigr)
-\;=\; c\bigl(\tilde{m} \tilde{n} - \tilde{l}^2\bigr)
-\label{eq:wave13-mult-jacobi}
+\rho=\frac12(\delta_1+\delta_2+\delta_3)
+=f_2-\frac12 f_3+f_{-2}.
+\label{eq:delta5-weyl-vector}
 \end{equation}
-by combining the product formula of Theorem~4 of
-\texttt{wave13\_source\_paper.txt} with the Borcherds--Gritsenko--Nikulin
-denominator identity. The imaginary simple roots are those $\alpha$ with
-$(\alpha, \alpha) \leq 0$, equivalently $\tilde{m} \tilde{n} \geq \tilde{l}^2$:
-\begin{align}
-\Delta^{\mathrm{im}}_{0} &= \{\tau(a)\, a \mid (a,a) = 0,\ \tau(a) > 0\}
-= \{9 \cdot (t a_0) : t \geq 1,\ a_0 \in \{2f_2, 2f_{-2}, 2f_2 - 2f_3 + 2f_{-2}\}\},
-\label{eq:wave13-imag-simple-even}\\
-\Delta^{\mathrm{im}}_{1} &= \{m(a)\, a \mid (a,a) < 0,\ m(a) < 0\}.
-\label{eq:wave13-imag-simple-odd}
-\end{align}
-$\tau = 9$ is read off the identity
-$1 + \frac{1}{64} \sum_t f(1 + 2t, 1, 1) q^t = \prod_k (1 - q^k)^9$
-(Lemma on p.~3 of \texttt{wave13\_source\_paper.txt}) and the transitivity
-of $S_3 = \mathrm{Aut}(\PII)$ on the three null-vertices at infinity.
-The odd-multiplicity coefficients $m(a) = -\frac{1}{64} f(\tilde{n}, \tilde{l}, \tilde{m})$
-with $\tilde{n} \equiv \tilde{m} \equiv \tilde{l} \equiv 1 \mod 2$ match
-the sign convention: negative $m(a)$ corresponds to \emph{odd} imaginary
-simple roots (fermionic), by the superalgebra definition of $\ggd$.
-
-\ClaimStatusDerivation\ (\emph{Sanity check at $(a, a) = 0$: product side.})\
-Setting $a_0 = 2 f_2$, $t a_0 = 2t f_2$, discriminant $D = 4 \cdot 0 \cdot t - 0^2 = 0$,
-so $c(0) = f(0, 0) = 10$. But the formula says $\tau = 9$, not $10$.
-Resolution: the Jacobi form controls \emph{all} roots at discriminant $D$,
-including the real root at $D = 0$ (which is $f_3$ with coefficient
-$(f_3, f_3) = 2 > 0$, discriminant $-2/2 = -1$; wait, the real simple
-roots sit at $D = -1$ not $D = 0$). Correcting: $f(0, 0) = 10$ counts
-all roots with $4n - l^2 = 0$; this includes the null simple root $a_0$
-with multiplicity $\tau = 9$ and the real root $f_3$ with multiplicity $1$.
-So $9 + 1 = 10$, \emph{balance confirmed}. The factor of unity is the
-multiplicity of $f_3$ as a real root of $\ggd$ (all real-root multiplicities
-equal $\pm 1$, with sign depending on parity).
-
-% =====================================================================
-\subsection*{Cycle V. Macdonald--Weyl--Kac--Borcherds: explicit match to $\Delta_5$}
-% =====================================================================
-
-\ClaimStatusAttack\ (\emph{Does the denominator identity actually equal
-$\Delta_5$, factor by factor?})\
-The Weyl--Kac--Borcherds character applied to the trivial representation
-$\C$ of $\ggd$ reads
+With the Gram matrix \eqref{eq:delta5-gram-lambda32},
 \[
-\Phi(z) = \sum_{w \in \WII} \det(w) \Bigl( e^{-2\pi i (w\rho, z)}
-- \sum_{a \in \Lambdac \cap \R_{>0}\PII} m(a)\, e^{-2\pi i (w(\rho + a), z)} \Bigr).
+(\rho,\rho)=2(f_2,f_{-2})+\frac14(f_3,f_3)
+=-2+\frac12=-\frac32.
 \]
-The paper asserts $\Phi(z) = \frac{1}{64} \Delta_5(2z)$ and that
-$\Phi$ admits an infinite-product presentation
-$\Phi(z) = e^{-2\pi i (\rho, z)} \prod_{\alpha \in \Delta_+}
-(1 - e^{-2\pi i (\alpha, z)})^{\mathrm{mult}(\alpha)}$ (Theorem~3 and the
-product formula p.~8 of \texttt{wave13\_source\_paper.txt}). The test:
-do the real-root and imaginary-root factors in the product individually
-match the $\phi_{0,1}$-Fourier-coefficient exponents of Theorem~4?
-
-\ClaimStatusHeal\ (\emph{Per-factor match established by bi-variate
-Fourier bookkeeping.})\
-Theorem~4 of \texttt{wave13\_source\_paper.txt} gives
+The positive cone is taken with the convention
 \[
-\tfrac{1}{64} \Delta_5(Z) = e^{\pi i (z_1 + z_2 + z_3)}
-\prod_{\substack{(n, l, m) > 0}} \bigl(1 - e^{2\pi i (n z_1 + l z_2 + m z_3)}\bigr)^{f(nm, l)},
+\Cone(\Lambdab)_+=\{x\in\Lambdab\otimes\mathbb{R}\mid (x,x)<0\}.
 \]
-where $(n, l, m) > 0$ means $n \geq 0$, $m \geq 0$, $l$ arbitrary if
-$n > 0$ or $m > 0$, and $l < 0$ if $n = m = 0$. The exponent
-$e^{\pi i(z_1 + z_2 + z_3)}$ rescales to $e^{-2\pi i (\rho, z)}$ after
-the base change $Z \mapsto 2z$ and the $\rho$-formula
-\eqref{eq:wave13-rho-in-f}, because
-$(\rho, z_1 f_{-2} + z_2 f_3 + z_3 f_2) = -z_1 \cdot 1
-- \frac12 z_2 \cdot 2 - z_3 \cdot 1 = -(z_1 + z_2 + z_3)$
-using $(f_2, f_{-2}) = -1$, $(f_3, f_3) = 2$, and $f_3$-orthogonality to
-$f_2, f_{-2}$. So $e^{\pi i (z_1 + z_2 + z_3)} = e^{-2\pi i (\rho, z/2)}
-= e^{-2\pi i (\rho, z)}$ after the variable rescale $Z = 2z$.
+Thus $\rho$ lies in the interior of the positive cone and in
+$\Lambdac^\vee\cap\tfrac12\Lambdac$, with
+$(\rho,\delta_i)=-1$ for all real walls.
 
-The main product term has exponent $f(nm, l)$, depending only on the
-discriminant $4(nm) - l^2$. For a positive root $\alpha = n f_{-2} + l f_3
-+ m f_2 \in \Delta^{+}$ with $n, m \geq 0$ (not both zero), the square is
+\subsection*{Jacobi Coefficients and Imaginary Simple Roots}
+
+Let
 \[
-(\alpha, \alpha) = -2nm + 2 l^2,
+\phi_{0,1}(\tau,z)=\sum_{n\geq0,\ell\in\mathbb{Z}}
+f(n,\ell)\,q^n r^\ell
 \]
-so the discriminant $4nm - l^2$ equals $-\frac{(\alpha, \alpha)}{2} + nm$,
-and more carefully $f(nm, l) = c(4nm - l^2)$; matching against
-\eqref{eq:wave13-mult-jacobi}, $\mathrm{mult}(\alpha) = c(-\frac12 (\alpha, \alpha))$.
-The identity $4nm - l^2 = -\frac12 (\alpha, \alpha) \cdot 2 + $ lattice-correction
-is verified case by case:
-\begin{itemize}
-\item $\alpha$ real, $(\alpha, \alpha) = 2$: at $\alpha = f_3 = 0 \cdot f_{-2}
-+ 1 \cdot f_3 + 0 \cdot f_2$, discriminant $4 \cdot 0 - 1 = -1$, exponent
-$f(0, 1) = f(0, -1) = 1$ (the other real simple roots
-$\delta_1 = 2f_2 - f_3$, $\delta_2 = 2 f_{-2} - f_3$ sit at
-$(n, l, m) = (0, -1, 2)$ and $(2, -1, 0)$, both discriminant $0 - 1 = -1$,
-exponent $f(0, -1) = 1$). All three real simple roots have multiplicity $1$.
-\item $\alpha$ null-imaginary, $(\alpha, \alpha) = 0$: $a_0 = 2 f_2$ means
-$(n, l, m) = (0, 0, 2)$, discriminant $4 \cdot 0 \cdot 2 - 0 = 0$,
-exponent $f(0, 0) = 10$. But $\tau = 9$, not $10$. The correction:
-\emph{at a null direction the product has a factor $(1 - q^k)^9$ per
-$k \geq 1$, plus a separate contribution from the $10^{\mathrm{th}}$
-coefficient picked up by the $f_3$-real-root contribution at the same
-place on the light-cone edge}. The edge-real-root and edge-null-imaginary
-contributions separate: $10 = 9 + 1$ and the ``$+1$'' is the
-real-root multiplicity of $f_3$. This is consistent with the independent
-derivation of $\tau = 9$ from $\eta^9 \cdot \nu_{11}$ in the Jacobi-triple-product
-calculation on p.~3.
-\item $\alpha$ spacelike-imaginary, $(\alpha, \alpha) < 0$: exponent
-$f(nm, l) = c(4nm - l^2) = c(-\frac12 (\alpha, \alpha))$, a positive
-integer for $4nm - l^2 > 0$. These are the bosonic imaginary roots.
-The sign of $f(nm, l)$ fluctuates: for example $f(1, 0) = 108$,
-$f(1, \pm 1) = -64$, $f(1, \pm 2) = 10$. The negative entries realise
-\emph{odd} imaginary roots (fermionic), and the denominator identity
-tracks them as super-multiplicities
-$\mathrm{mult}(\alpha) = \dim \mathfrak{g}_{\alpha, 0} - \dim \mathfrak{g}_{\alpha, 1}$.
-\end{itemize}
-
-\ClaimStatusDerivation\ (\emph{The denominator identity is the Macdonald
-identity for $\ggd$.})\
-The displayed Weyl--Kac--Borcherds formula in \S 5 of
-\texttt{wave13\_source\_paper.txt} is, set-theoretically, the identity
+be the Eichler--Zagier weight-$0$ index-$1$ weak Jacobi form, normalised by
 \[
-\sum_{w \in \WII} \det(w)\, w\bigl(e^{\rho} \prod_{\alpha \in \Delta^{\mathrm{im}}_{+}}
-(1 - e^{-\alpha})^{\mathrm{mult}(\alpha)}\bigr)
-\;=\; e^{\rho} \prod_{\alpha \in \Delta_{+}} (1 - e^{-\alpha})^{\mathrm{mult}(\alpha)},
+f(0,0)=10,\qquad f(0,-1)=f(0,1)=1,
 \]
-which is the generalised Macdonald identity for $\ggd$ of Borcherds 1988.
-The sum-over-Weyl-group side and the product-over-positive-roots side are
-equal as formal power series on $\Omega(\Cone(\Lambdab)_+)$, by the
-Weyl--Kac--Borcherds character formula applied to the trivial
-one-dimensional module $\C$. Equality to $\tfrac{1}{64} \Delta_5(2z)$ is the
-Borcherds--Gritsenko--Nikulin Theorem~3 on p.~8.
+and
+\[
+\phi_{0,1}(\tau,z)=
+(r^{-1}+10+r)
+q(10r^{-2}-64r^{-1}+108-64r+10r^2)+\cdots .
+\]
+The coefficient $f(n,\ell)$ depends only on the discriminant
+$4n-\ell^2$.
 
-% =====================================================================
-\subsection*{Closing: what the attack-heal has secured}
-% =====================================================================
+The Borcherds product is
+\begin{equation}
+\frac1{64}\Delta_5(Z)
+=
+e^{\pi i(z_1+z_2+z_3)}
+\prod_{\substack{(n,\ell,m)>0}}
+\left(1-e^{2\pi i(nz_1+\ell z_2+mz_3)}\right)^{f(nm,\ell)},
+\label{eq:delta5-borcherds-product}
+\end{equation}
+where $(n,\ell,m)>0$ means $n,m\geq0$, $\ell\in\mathbb{Z}$ if
+$n>0$ or $m>0$, and $\ell<0$ if $n=m=0$.  The denominator function of
+$\ggd$ is
+\begin{equation}
+\Phi(z)=
+e^{-2\pi i(\rho,z)}
+\prod_{\alpha\in\Delta_+}
+\left(1-e^{-2\pi i(\alpha,z)}\right)^{\mathrm{mult}(\alpha)}
+=\frac1{64}\Delta_5(2Z).
+\label{eq:delta5-denominator-product}
+\end{equation}
+The exponent $f(nm,\ell)$ in \eqref{eq:delta5-borcherds-product} is the
+superdimension
+\[
+\mathrm{mult}(\alpha)=
+\dim\ggd_{\alpha,\bar{0}}-\dim\ggd_{\alpha,\bar{1}}
+\]
+of the corresponding positive root sector in \eqref{eq:delta5-denominator-product}.
+The three real simple roots have multiplicity $1$, read from
+$f(0,-1)=1$ in the $2Z$ normalisation.
 
-Five facts about the root datum of $\ggd$ now stand on rigorous
-foundations explicit in the source paper:
+The imaginary simple roots are indexed by
+$a\in\Lambdac\cap\mathbb{R}_{>0}\PII$ with $(a,a)\leq0$.  The even
+lightlike roots are
+\begin{equation}
+\Delta^{\mathrm{im}}_{\bar0}
+=\{\tau(a)a\mid (a,a)=0,\ \tau(a)>0\},
+\qquad
+\tau(a)=9.
+\label{eq:delta5-even-imaginary-roots}
+\end{equation}
+For a primitive null vertex $a_0$, the equality
+\[
+1+\frac1{64}\sum_{t\geq1} f(1+2t,1,1)q^t
+=\prod_{k\geq1}(1-q^k)^9
+\]
+gives $\tau(ta_0)=9$ for all $t\geq1$, and the $S_3$-symmetry of
+$\PII$ transfers this value to the other two null vertices.  The odd
+imaginary simple roots are governed by the same Fourier-transform
+coefficients $m(a)$:
+\begin{equation}
+\Delta^{\mathrm{im}}_{\bar1}
+=\{m(a)a\mid (a,a)<0,\ m(a)<0\}.
+\label{eq:delta5-odd-imaginary-roots}
+\end{equation}
+Negative Jacobi coefficients give odd root spaces; positive coefficients
+give even root-space superdimension.  For example,
+\[
+f(1,0)=108,\qquad f(1,\pm1)=-64,\qquad f(1,\pm2)=10.
+\]
+The real-root Serre relations alone therefore define only the rank-$3$
+Kac--Moody core.  The Borcherds superalgebra $\ggd$ also includes the
+imaginary simple roots \eqref{eq:delta5-even-imaginary-roots} and
+\eqref{eq:delta5-odd-imaginary-roots}, with multiplicities fixed by
+$\phi_{0,1}$.
 
-\begin{enumerate}
-\item $\Lambdaa = U \oplus U \oplus \langle 2 \rangle$, signature $(3,2)$,
-discriminant $\Z/2$, presented in the Pfaffian basis
-\eqref{eq:wave13-pfaffian-basis} with Gram \eqref{eq:wave13-gram-lambda32}.
-\item The symmetric Cartan matrix \eqref{eq:wave13-delta-gram} is a
-rank-$3$ hyperbolic Lorentzian Cartan with Coxeter type
-$\widehat{A}_{\infty, \infty, \infty}$ (triangle with edges at infinity),
-and the reflection group $\WII$ is the corresponding ideal-triangle Coxeter
-group with $S_3$ symmetry.
-\item The Weyl vector $\rho = \frac12(\delta_1 + \delta_2 + \delta_3)
-= f_2 - \frac12 f_3 + f_{-2}$ is unique, lies in the interior of
-$\Cone(\Lambdab)_+$, and satisfies $(\rho, \rho) = -\frac{3}{2}$ under
-the positive-timelike sign convention.
-\item Real simple roots of $\ggd$: three primitive, $\delta_1, \delta_2, \delta_3$,
-each of square $2$ and multiplicity $1$. Imaginary simple roots: as in
-\eqref{eq:wave13-imag-simple-even}--\eqref{eq:wave13-imag-simple-odd},
-parameterised by $\Lambdac \cap \R_{>0} \PII$ with super-multiplicity
-controlled by the Jacobi-form coefficient
-$c(4nm - l^2) = f(nm, l)$ of $\phi_{0,1}$.
-\item The Macdonald identity for $\ggd$ applied to $\C$ is
-$\tfrac{1}{64} \Delta_5(2z) = e^{-2\pi i(\rho, z)} \prod_{\alpha \in \Delta_+}
-(1 - e^{-2\pi i(\alpha, z)})^{\mathrm{mult}(\alpha)}$, with per-factor match
-to the $\phi_{0,1}$-Borcherds product, $10 = 9 + 1$ at a null edge decomposing
-as the edge-null-imaginary ($\tau = 9$) plus the edge-real ($+1$) contribution.
-\end{enumerate}
+\subsection*{The Denominator Identity}
 
-Cross-reference: the $K3 \times E$ native-cycle classification of
-\texttt{wave12\_u1\_two\_stage\_functor.tex} (Corollary~``Many BKMs from
-one CY$_3$'') places this BKM sibling at the $\Sigma_2 = K3$-fibre
-specialisation of the native $E_3$ holomorphic factorisation algebra
-$\Phi^{\mathrm{FA}}_3(K3 \times E)$. The CoHA-shuffle bookkeeping of
-\texttt{wave12\_a7\_coha\_w\_infty\_drinfeld.tex} Cycle~V
-(Hall--Drinfeld doubling) is what inverts the one-sided $\Yp$-half into
-the two-sided Drinfeld double, needed for a full Borcherds-algebra
-presentation: the $\Delta_5$ denominator sums over the full $\WII$,
-including both $\ggd_{\pm \alpha}$ weight-spaces, matching the doubled
-side of Cycle~V.
+The Weyl--Kac--Borcherds character formula applied to the trivial
+one-dimensional representation gives
+\begin{equation}
+\Phi(z)=
+\sum_{w\in\WII}\det(w)
+\left(
+e^{-2\pi i(w\rho,z)}
+-
+\sum_{a\in\Lambdac\cap\mathbb{R}_{>0}\PII}
+m(a)e^{-2\pi i(w(\rho+a),z)}
+\right),
+\label{eq:delta5-weyl-sum}
+\end{equation}
+and the product expression is \eqref{eq:delta5-denominator-product}.
+Equations \eqref{eq:delta5-weyl-sum} and
+\eqref{eq:delta5-denominator-product} are the Macdonald identity for
+$\ggd$:
+\[
+\sum_{w\in\WII}\det(w)\,
+w\left(
+e^\rho
+\prod_{\alpha\in\Delta^{\mathrm{im}}_+}
+(1-e^{-\alpha})^{\mathrm{mult}(\alpha)}
+\right)
+=
+e^\rho
+\prod_{\alpha\in\Delta_+}(1-e^{-\alpha})^{\mathrm{mult}(\alpha)}.
+\]
+The equality with $64^{-1}\Delta_5(2Z)$ is the
+Borcherds--Gritsenko--Nikulin denominator theorem in the normalisation
+used above.
 
-No claim of originality in the underlying mathematics of Lorgat 2020;
-the attack-heal isolates, tests, and verifies each root-theoretic
-assertion of \S\S 4--5 of the source paper against first-principles
-computation. Drinfeld's dictum: ``the equals sign is a theorem''; every
-$=$ in this inscription has been matched against \eqref{eq:wave13-gram-lambda32},
-\eqref{eq:wave13-delta-gram}, \eqref{eq:wave13-rho-in-f}, or the
-$\phi_{0,1}$ Fourier expansion, and stands as theorem.
+\subsection*{K3$\times E$ Scope and the Four Invariants}
+
+The BKM denominator branch over $K3\times E$ is the Borcherds product
+branch governed by $\ggd$ and by the compact Hall object under the compact
+Hall hypotheses:
+\[
+D^\wedge_\hbar\!\left(Y^+_{\mathrm{Hall}}(K3\times E)\right).
+\]
+This branch is separate from the historical K3 self-mirror Yangian branch,
+which quantises the rank-$24$ Mukai--Heisenberg data of K3.  The common
+geometric background leaves the two quantum groups distinct.
+
+The four invariants attached to the $K3\times E$ example live on distinct
+constructions:
+\[
+\kappa_{\mathrm{cat}}(K3\times E)=0,\qquad
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)=3,\qquad
+\kappa_{\mathrm{BKM}}(\Delta_5)=5,\qquad
+\kappa_{\mathrm{fiber}}(K3\times E)=24.
+\]
+Here $\kappa_{\mathrm{cat}}$ is $\chi(\mathcal{O}_{K3})\chi(\mathcal{O}_E)=2\cdot0$,
+$\kappa_{\mathrm{BKM}}(\Delta_5)$ is the Borcherds weight, and
+$\kappa_{\mathrm{fiber}}$ is the Mukai-lattice rank
+\[
+\operatorname{rk}\widetilde H(K3,\mathbb{Z})=1+22+1=24.
+\]
+The Cartan rank of $\ggd$ is $3$, the set of Borcherds imaginary simple
+roots is infinite, and the Mukai lattice has rank $24$.  These are three
+different counts.
+
+For the primitive CHL denominator ladder
+$N\in\{1,2,3,4,6\}$, the Borcherds weight formula is
+\[
+\kappa_{\mathrm{BKM}}(\Phi_N)=\frac{c_N(0)}2,
+\]
+with constants
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\
+\hline
+c_N(0)&10&8&6&4&2\\
+\kappa_{\mathrm{BKM}}(\Phi_N)&5&4&3&2&1
+\end{array}
+\]
+The $N=1$ entry is $\Delta_5$: $c_1(0)=10$ and
+$\kappa_{\mathrm{BKM}}(\Delta_5)=5$.
+
+The toric comparison uses the positive half
+\[
+\mathrm{CoHA}(\mathbb{C}^3)=Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The full $\mathcal{W}_{1+\infty}$ object appears after the appropriate
+Drinfeld double, centre, completion, or evaluation passage.  This is the
+same positive-half versus doubled-object distinction required in the
+$K3\times E$ Hall--Drinfeld comparison.

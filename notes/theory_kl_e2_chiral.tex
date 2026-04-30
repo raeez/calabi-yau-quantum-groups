@@ -78,9 +78,10 @@ We develop the Kazhdan--Lusztig equivalence $\Rep_q(\frakg) \simeq \KL_k(\frakg)
 within the $E_1$/$E_2$-chiral framework of this monograph.
 The affine Kac--Moody vertex algebra $V_k(\frakg)$ is an $E_1$-chiral algebra
 whose monoidal representation category is the Kazhdan--Lusztig category $\KL_k(\frakg)$.
-The quantum group $\Uq(\frakg)$ controls the $E_2$ structure, and the
-Kazhdan--Lusztig equivalence identifies the $E_1$ and $E_2$ descriptions
-as a braided monoidal equivalence; this is the prototype of Theorem CY-C.
+The quantum group $\Uq(\frakg)$ controls the KZ braided $E_2$ layer on
+the representation category, and the Kazhdan--Lusztig equivalence
+identifies the $E_1$ fusion category with this braided description;
+this is the prototype of Theorem CY-C.
 The mechanism underlying this identification is the Drinfeld--Kohno theorem:
 the monodromy of the Knizhnik--Zamolodchikov connection on conformal blocks
 equals the quantum group $R$-matrix.
@@ -92,8 +93,8 @@ and develop the consequences for the modular characteristic and shadow obstructi
 \tableofcontents
 
 %% ======================================================================
-\section{Overview and motivation}
-\label{sec:overview}
+\section{Kazhdan--Lusztig equivalence}
+\label{sec:kl-equivalence}
 %% ======================================================================
 
 The Kazhdan--Lusztig equivalence, established in a series of four papers
@@ -112,28 +113,46 @@ On the right: the Kazhdan--Lusztig category, a full subcategory of
 $\hat{\frakg}_k\text{-}\Mod$ consisting of modules on which the Lie algebra
 $\frakg[t]$ acts locally nilpotently.
 
-In our framework, this equivalence has a clean structural interpretation.
-The vertical axis of the following diagram is the $E_1 \to E_2$ passage;
-the horizontal axis is the Koszul/bar-cobar duality:
+The equivalence separates the native $E_1$ boundary algebra from the
+braided layer carried by conformal-block monodromy. The vertical axis of
+the following diagram is the passage from the $E_1$ representation
+category to its center; the horizontal axis is Koszul duality through
+bar cohomology:
 
 \begin{equation}\label{eq:master-square}
 \begin{tikzcd}[column sep=huge, row sep=huge]
- V_k(\frakg) \arrow[r, "\text{bar-cobar}"] \arrow[d, "\Rep^{E_1}"']
+ V_k(\frakg) \arrow[r, "\text{Koszul dual}"] \arrow[d, "\Rep^{E_1}"']
  & V_k(\frakg)^! \arrow[d, "\Rep^{E_1}"] \\
  \KL_k(\frakg) \arrow[r, "\simeq"', "\text{KL}"]
  \arrow[d, "\cZ(-)"']
- & \Rep_q(\frakg) \arrow[d, "\text{forget}"] \\
+ & \Rep_q(\frakg) \arrow[d, "\cZ(-)"] \\
  \Rep^{E_2}(Z^{\mathrm{der}}_{\mathrm{ch}}(V_k(\frakg)))
  \arrow[r, "\simeq"']
- & \Rep_q(\frakg)
+ & \Rep_q(\frakg)\boxtimes\Rep_q(\frakg)^{\mathrm{rev}}
 \end{tikzcd}
 \end{equation}
 
 The bottom equivalence asserts that the Drinfeld center of the $E_1$-monoidal
-category $\KL_k(\frakg)$ is $\Rep_q(\frakg)$ itself, a braided monoidal
-category. This is because $\KL_k(\frakg)$ is \emph{already braided} (via
-the KZ connection), so its Drinfeld center contains it as a braided
-subcategory. The KL equivalence says this inclusion is an equivalence.
+category $\KL_k(\frakg)$ is the full center/bulk. Since
+$\KL_k(\frakg)$ is already braided by the KZ connection, there is a
+central functor
+\[
+ \KL_k(\frakg) \longrightarrow \cZ(\KL_k(\frakg)),
+ \qquad M\longmapsto (M,\sigma^{\KZ}_{M,-}).
+\]
+On non-degenerate finite tensor subquotients the center is equivalent to
+the product of the chiral half and the reverse half,
+$\KL_k(\frakg)\boxtimes\KL_k(\frakg)^{\mathrm{rev}}$, and hence to
+$\Rep_q(\frakg)\boxtimes\Rep_q(\frakg)^{\mathrm{rev}}$ by
+Kazhdan--Lusztig. The center is not identified with one chiral half.
+
+The five objects in this square are distinct. The chiral algebra is
+$A=V_k(\frakg)$; its bar coalgebra is $B(A)$; the bar cohomology
+coalgebra is $A^i=H^\bullet B(A)$; the Koszul dual algebra is
+$A^!=(A^i)^\vee$ after the required finiteness or Verdier duality
+datum; the bulk is $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$. The counit
+$\Omega B(A)\simeq A$ is bar-cobar inversion. It is not the Verdier
+operation producing $A^!$, and it is not the derived center.
 
 \begin{remark}[Theorem CY-C prototype]
 The KL equivalence is the prototypical instance of Theorem CY-C of this
@@ -279,12 +298,13 @@ tensor flip.
 \subsection{$\Rep_q(\frakg)$ as an $E_2$-representation category}
 \label{subsec:rep-q-e2}
 
-\begin{proposition}[$\Rep_q(\frakg)$ as $E_2$-category]
+\begin{proposition}[$\Rep_q(\frakg)$ as $E_2$-monoidal category]
 \label{prop:rep-q-e2}
 The braided monoidal category $\Rep_q(\frakg)$ is an $E_2$-monoidal
-category. By Lurie's theorem (Theorem~\ref{thm:lurie-e2-braided} of
-the monograph), it arises as $\Rep^{E_2}(\cA)$ for an $E_2$-algebra
-$\cA$. The $E_2$-algebra structure encodes:
+category. In the affine Kac--Moody realization below, this $E_2$ layer
+is supplied by KZ monodromy on conformal blocks and by the corresponding
+Drinfeld-center/derived-center construction. The $E_2$-monoidal
+structure encodes:
 \begin{enumerate}[label=(\roman*)]
  \item The first $E_1$-direction: the tensor product $\otimes$ on $\Rep_q(\frakg)$;
  \item The second $E_1$-direction: the braiding $\sigma$, viewed as a
@@ -299,8 +319,7 @@ $\cA$. The $E_2$-algebra structure encodes:
 The braiding on $\Rep_q(\frakg)$ is \emph{not} symmetric in general:
 $\sigma_{N,M} \circ \sigma_{M,N} \ne \id_{M \otimes N}$. This means
 the category is $E_2$ but not $E_3$. The passage from $E_2$ to $E_\infty$
-(symmetric monoidal) would kill the quantum group structure; this is
-the content of anti-pattern AP-CY3 of the monograph. At $q = 1$
+(symmetric monoidal) would kill the quantum group structure. At $q = 1$
 (classical limit), $\Rep_q(\frakg)$ becomes $\Rep(\frakg)$ which is
 symmetric monoidal ($E_\infty$), reflecting the collapse of $E_2$
 structure to $E_\infty$ in the classical limit.
@@ -340,13 +359,13 @@ the identity $[\Omega_{12}, \Omega_{13} + \Omega_{23}] + [\Omega_{13}, \Omega_{2
 which is the \emph{infinitesimal pure braid relation} (= classical Yang--Baxter
 equation for the Casimir $r$-matrix).
 
-\begin{remark}[KZ as $E_2$-chiral structure]
+\begin{remark}[KZ as the braided layer]
 \label{rem:kz-e2}
-In the language of this monograph, the KZ connection is the
-$E_2$-chiral structure on $V_k(\frakg)$ made explicit. The factorization
-along the first copy of $\mathbb{C}$ (the $z$-plane) gives the OPE; the
-flat connection on configuration space gives the parallel transport that
-defines the braiding. The $E_2$-operad acts on $\mathrm{Conf}_n(\mathbb{C})$
+The KZ connection supplies the $E_2$-monoidal structure on the
+conformal-block representation category of the native $E_1$ chiral
+algebra $V_k(\frakg)$. The factorization along the curve gives the OPE;
+the flat connection on configuration space gives the parallel transport
+that defines the braiding. The $E_2$-operad acts on $\mathrm{Conf}_n(\mathbb{C})$
 via the Fulton--MacPherson compactification $\FM_n(\mathbb{C}) \simeq E_2(n)$,
 and the KZ connection provides the transport along paths in this space.
 \end{remark}
@@ -404,31 +423,32 @@ $E_2$-structures on the same underlying $E_1$-category agree:
 The DK theorem says these two rows describe the same braided monoidal
 category. In our language:
 
-\begin{proposition}[$E_1/E_2$ coherence for affine KM]
+\begin{proposition}[$E_1$ boundary and KZ braided layer for affine KM]
 \label{prop:e1-e2-coherence}
-The $E_1$-chiral algebra $V_k(\frakg)$ admits a canonical $E_2$-enhancement
-determined by the KZ connection. The resulting $E_2$-representation
-category is
+The $E_1$-chiral algebra $V_k(\frakg)$ has representation category
+$\KL_k(\frakg)$ under fusion. The KZ connection equips this
+representation category, equivalently the corresponding center layer,
+with a braided $E_2$-monoidal structure, and
 \[
- \Rep^{E_2}(V_k(\frakg)) \;\simeq\; \Rep_q(\frakg)
+ \Rep^{E_2}_{\KZ}(V_k(\frakg)) \;\simeq\; \Rep_q(\frakg)
 \]
 as braided monoidal categories, where $q = e^{\pi i/(k+\hv)}$.
 \end{proposition}
 
 \begin{proof}[Argument]
-The $E_2$-enhancement of $V_k(\frakg)$ is the datum of a flat connection
-on the bundle of conformal blocks over $\mathrm{Conf}_n(\mathbb{C})$ for
-all $n$, compatible with the $E_2$-operad structure on $\FM_n(\mathbb{C})$.
-The KZ connection provides exactly this datum. Its flatness gives the
-consistency conditions (hexagon axioms for the braiding), and the DK
-theorem identifies the resulting braided monoidal structure with
+The KZ braided layer is the datum of a flat connection on the bundle of
+conformal blocks over $\mathrm{Conf}_n(\mathbb{C})$ for all $n$,
+compatible with the $E_2$-operad structure on $\FM_n(\mathbb{C})$.
+Flatness gives the consistency conditions (hexagon axioms for the
+braiding), and the DK theorem identifies the resulting braided
+monoidal structure with
 $\Rep_q(\frakg)$.
 
 In more detail:
 \begin{enumerate}[label=(\arabic*)]
  \item The $E_1$-structure on $\Rep^{E_1}(V_k(\frakg)) = \KL_k(\frakg)$
  is the fusion tensor product, defined by factorization along $\mathbb{R}$.
- \item The $E_2$-enhancement requires a braiding
+ \item The KZ $E_2$ layer requires a braiding
  $\sigma_{M,N} \colon M \boxtimes N \xrightarrow{\sim} N \boxtimes M$.
  This is defined by the monodromy of the KZ connection along the
  path that exchanges two points in $\mathbb{C}$, i.e., a generator
@@ -480,11 +500,11 @@ the data:
  Kac--Moody vertex algebra at level $k$;
  \item \textbf{$E_1$-representation category}:
  $\Rep^{E_1}(V_k(\frakg)) = \KL_k(\frakg)$;
- \item \textbf{$E_2$-enhancement}: the KZ connection, giving the
- braiding on $\KL_k(\frakg)$;
+ \item \textbf{Braided layer}: the KZ connection, giving the
+ braiding on $\KL_k(\frakg)$ and the corresponding center object;
  \item \textbf{Quantum group}: $\Uq(\frakg)$ with $q = e^{\pi i/(k+\hv)}$;
- \item \textbf{CY-C equivalence}:
- $\Rep^{E_2}(V_k(\frakg)) \simeq \Rep_q(\frakg)$, by Drinfeld--Kohno.
+ \item \textbf{CY-C model equivalence}:
+ $\Rep^{E_2}_{\KZ}(V_k(\frakg)) \simeq \Rep_q(\frakg)$, by Drinfeld--Kohno.
 \end{enumerate}
 \end{theorem}
 
@@ -512,34 +532,36 @@ For $k + \hv \notin \mathbb{Q}_{\le 0}$:
  of the monograph),
  $\cZ(\KL_k(\frakg)) \simeq \Rep^{E_2}(Z^{\mathrm{der}}_{\mathrm{ch}}(V_k(\frakg)))$;
  \item The braided monoidal category $\KL_k(\frakg)$ (with KZ braiding)
- embeds fully faithfully into its own Drinfeld center via
+ maps centrally into its Drinfeld center via
  $M \mapsto (M, \sigma_{M,-}^{\KZ})$;
- \item At non-degenerate level, this embedding is an equivalence:
+ \item On non-degenerate finite tensor subquotients, the center is
+ the full bulk
  \[
- \cZ(\KL_k(\frakg)) \;\simeq\; \KL_k(\frakg)
- \;\simeq\; \Rep_q(\frakg).
+ \cZ(\KL_k(\frakg))
+ \;\simeq\;
+ \KL_k(\frakg)\boxtimes\KL_k(\frakg)^{\mathrm{rev}}
+ \;\simeq\;
+ \Rep_q(\frakg)\boxtimes\Rep_q(\frakg)^{\mathrm{rev}} .
  \]
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}[Sketch]
 Assertion (iii) holds because the KZ braiding provides a half-braiding
-for every object, hence an embedding into the center. Assertion (iv)
-uses the non-degeneracy of the KZ connection: at non-degenerate level,
-every half-braiding on a KL module arises from the KZ monodromy. This
-is equivalent to the statement that $\KL_k(\frakg)$ is a \emph{factorizable}
-braided monoidal category (in the sense of Reshetikhin--Turaev), meaning
-that the ``double braiding'' $\sigma_{N,M} \circ \sigma_{M,N}$ is
-non-degenerate.
+for every object, hence a central functor into the center. Assertion
+(iv) is the standard center formula for a non-degenerate braided finite
+tensor category: the functor
+$\cC\boxtimes\cC^{\mathrm{rev}}\to\cZ(\cC)$ is an equivalence when the
+Mueger center is trivial. The KL equivalence transports this statement
+to the quantum-group side.
 \end{proof}
 
 \begin{remark}[Bulk-boundary]
-This is the categorical bulk-boundary correspondence. The $E_1$-boundary
-theory (monoidal category $\KL_k(\frakg)$ = the ``boundary'' of the 3D
-TFT) determines the $E_2$-bulk theory (braided monoidal category
-$\Rep_q(\frakg)$ = the ``bulk'') via the Drinfeld center. The KL
-equivalence says the bulk and boundary coincide, which is the hallmark
-of a \emph{non-degenerate} (= factorizable = fully extended) 3D TFT.
+This is the categorical bulk-boundary correspondence. The $E_1$ boundary
+theory, the monoidal category $\KL_k(\frakg)$, determines the $E_2$ bulk
+through its Drinfeld center. The KL equivalence identifies the chiral
+half of that bulk with $\Rep_q(\frakg)$; the whole center contains the
+reverse half as well.
 \end{remark}
 
 %% ======================================================================
@@ -573,8 +595,8 @@ associated KZ kernel is
 \[
  \frac{1}{k + \hv}\,\frac{\Omega}{z}\,dz,
 \]
-and its path-ordered exponential along a half-circle gives the quantum
-$R$-matrix
+	and its path-ordered exponential along a half-circle gives the
+	semiclassical Casimir factor in the quantum $R$-matrix
 \[
  R = \mathrm{Pexp}\!\left(
  \int_\gamma \frac{1}{k + \hv}\,\frac{\Omega}{z}\, dz
@@ -583,6 +605,8 @@ $R$-matrix
 \]
 where $\gamma$ is a half-circle in $\mathrm{Conf}_2(\mathbb{C})$
 generating $\pi_1 \cong \mathbb{Z}$, and $q = e^{\pi i/(k+\hv)}$.
+The full universal $R$-matrix also contains the nilpotent root factors
+and associator data supplied by the Drinfeld--Kohno theorem.
 \end{proposition}
 
 \begin{proof}[Sketch]
@@ -606,47 +630,50 @@ by a formal substitution $u \leftrightarrow \log q$.
 \end{remark}
 
 %% ======================================================================
-\section{The bar complex and $E_2$-Koszul duality}
+\section{The bar complex and Koszul duality}
 \label{sec:bar-koszul}
 %% ======================================================================
 
-\subsection{The $E_2$-bar complex of $V_k(\frakg)$}
+\subsection{The boundary bar complex of $V_k(\frakg)$}
 \label{subsec:e2-bar-vk}
 
-The $E_2$-bar complex $B_{E_2}(V_k(\frakg))$ is a factorization
-$E_2$-coalgebra (Construction~\ref{constr:e2-bar} of the monograph)
-with the following explicit structure:
+The native bar object of the affine vertex algebra is the $E_1$ chiral
+bar coalgebra $B_{E_1}(V_k(\frakg))$. Its cobar recovers
+$V_k(\frakg)$ on the Koszul locus:
+\[
+ \Omega B_{E_1}(V_k(\frakg)) \simeq V_k(\frakg).
+\]
+The $E_2$ bar construction belongs to the KZ braided center layer,
+$Z^{\mathrm{der}}_{\mathrm{ch}}(V_k(\frakg))$, or equivalently to
+$\cZ(\Rep^{E_1}(V_k(\frakg)))$ after passing to representations.
 
-\begin{construction}[$E_2$-bar complex of $V_k(\frakg)$]
+\begin{construction}[Boundary bar and KZ center layer]
 \label{constr:e2-bar-vk}
-The $E_2$-bar complex $B_{E_2}(V_k(\frakg))$ is a factorization coalgebra
-on $\Ran(\mathbb{C}) \times \Ran(\mathbb{C})$ with:
+The boundary bar complex $B_{E_1}(V_k(\frakg))$ is a factorization
+coalgebra on $\Ran(\mathbb{C})$ with:
 \begin{enumerate}[label=(\roman*)]
  \item \textbf{Underlying graded space}: the reduced bar construction
  $\overline{B}(V_k(\frakg)) = \bigoplus_{n \ge 1} V_k(\frakg)^{\otimes n}[-n]$;
- \item \textbf{$d_1$ (first direction)}: the bar differential encoding
+ \item \textbf{Bar differential}: the differential encoding
  the OPE of $V_k(\frakg)$, specifically the current algebra OPE
  $J^a(z) J^b(w) \sim \cdots$;
- \item \textbf{$d_2$ (second direction)}: the differential encoding
- the braiding, arising from the KZ connection;
- \item \textbf{$\Delta_1, \Delta_2$}: the two coproducts from
- deconcatenation in the two directions;
- \item \textbf{$R$-matrix}: the transposition
- $B_{E_2} \to B_{E_2}^{21}$ interchanging the two $E_1$-structures
- is given by the quantum group $R$-matrix.
+ \item \textbf{Coproduct}: the deconcatenation coproduct;
+ \item \textbf{KZ layer}: the braiding is added after passing to the
+ conformal-block category and its Drinfeld center; its transposition is
+ the quantum-group $R$-matrix under Drinfeld--Kohno.
 \end{enumerate}
 \end{construction}
 
 \subsection{Koszul duality for $V_k(\frakg)$}
 \label{subsec:koszul-vk}
 
-\begin{conjecture}[$E_2$-Koszul dual of $V_k(\frakg)$]
+\begin{conjecture}[Koszul dual of the KZ center layer]
 \label{conj:koszul-dual-vk}
-The $E_2$-chiral Koszul dual of $V_k(\frakg)$ (in the sense of
-Conjecture~\ref{conj:e2-koszul} of the monograph) is related to
-the Langlands dual:
+The Koszul dual of the KZ braided center layer attached to
+$V_k(\frakg)$, after the finiteness and Verdier-duality hypotheses
+needed to form $A^!$, is related to the Langlands dual:
 \[
- V_k(\frakg)^{!_{E_2}} \;\simeq\; V_{k'}(\frakg^\vee)
+ Z^{\KZ}(V_k(\frakg))^! \;\simeq\; Z^{\KZ}(V_{k'}(\frakg^\vee))
 \]
 where $\frakg^\vee$ is the Langlands dual Lie algebra and the dual level
 is $k' = -\hv + (k + \hv)^{-1} \cdot r^\vee$ (with $r^\vee$ the lacity
@@ -654,7 +681,7 @@ of $\frakg^\vee$), or more precisely the level satisfying
 \[
  (k + \hv)(k' + (\hv)^\vee) = 1.
 \]
-On representation categories, the $E_2$-Koszul duality gives
+On representation categories, the center-layer Koszul duality gives
 \[
  \Rep_q(\frakg) \;\simeq\; \Rep_{q^\vee}(\frakg^\vee)^{\mathrm{rev}}
 \]
@@ -666,18 +693,26 @@ and $\mathrm{rev}$ denotes the reverse braiding.
 \label{warn:three-dualities}
 This conjecture involves the interplay of three distinct operations that must not be conflated:
 \begin{enumerate}[label=(\arabic*)]
- \item \textbf{$E_2$-chiral Koszul duality} ($A \mapsto A^{!_{E_2}}$): the $E_2$-bar cohomology dual, defined purely from the $E_2$-chiral algebra structure. This is the operation appearing in the conjecture.
- \item \textbf{Feigin--Frenkel involution} ($k \mapsto -k - 2\hv$): an involution \emph{within} the family of affine algebras of the \emph{same} Lie algebra $\frakg$. This is NOT the same as Koszul duality.
+ \item \textbf{Center-layer Koszul duality}: the Verdier dual of bar
+ cohomology formed on the KZ braided center layer. This is the
+ operation appearing in the conjecture.
+ \item \textbf{Feigin--Frenkel involution} ($k \mapsto -k - 2\hv$): an involution \emph{within} the family of affine algebras of the \emph{same} Lie algebra $\frakg$. This is distinct from Koszul duality.
  \item \textbf{Langlands duality} ($\frakg \mapsto \frakg^\vee$): passage to the dual root system, changing the Lie algebra.
 \end{enumerate}
-The conjecture asserts that $E_2$-Koszul duality \emph{combines} the Langlands dual with a specific level shift. This is a non-trivial identification, not a tautology. For simply-laced $\frakg$ (where $\frakg = \frakg^\vee$ and $\hv = (\hv)^\vee$), the conjecture reduces to $V_k(\frakg)^{!_{E_2}} \simeq V_{k'}(\frakg)$ with $(k+\hv)(k'+\hv) = 1$, which differs from the FF involution $k \mapsto -k - 2\hv$.
+The conjecture asserts that center-layer Koszul duality \emph{combines}
+the Langlands dual with a specific level shift. This is a non-trivial
+identification, not a tautology. For simply-laced $\frakg$ (where
+$\frakg = \frakg^\vee$ and $\hv = (\hv)^\vee$), the conjecture reduces
+to a center-layer equivalence with $(k+\hv)(k'+\hv) = 1$, which differs
+from the FF involution $k \mapsto -k - 2\hv$.
 \end{warning}
 
 \begin{remark}
-This conjecture connects the $E_2$-chiral Koszul duality to the
+This conjecture connects Koszul duality of the KZ center layer to the
 quantum geometric Langlands correspondence of Feigin--Frenkel and
-Gaitsgory. The classical limit $q \to 1$ (i.e., $k \to \infty$)
-recovers the classical geometric Langlands duality.
+Gaitsgory. The native $E_1$ bar-cobar counit
+$\Omega B_{E_1}(V_k(\frakg))\simeq V_k(\frakg)$ remains a separate
+inversion statement.
 \end{remark}
 
 %% ======================================================================
@@ -708,10 +743,13 @@ The classical ADE correspondence relates:
 \end{tabular}
 \end{center}
 
-The matrix factorization category $\MF(W_\frakg)$ is a CY category of
-dimension 1 (for the isolated singularity) or, after appropriate
-thickening, of dimension 2 (the relevant dimension for $E_2$-chiral
-algebras).
+For a hypersurface potential $W\colon \mathbb{A}^n\to\mathbb{A}^1$,
+the native matrix-factorization category has Calabi--Yau dimension
+$n-2$ in the 2-periodic convention. The ADE presentations below have
+different ambient dimensions, so they do not by themselves produce a
+uniform CY$_2$ input. Any use of $\MF(W_\frakg)$ as the input to
+$\Phi_2$ requires an explicit suspension, tensor factor, or thickening
+datum that shifts the CY dimension to $2$.
 
 \subsection{The candidate CY category}
 \label{subsec:candidate-cy}
@@ -730,9 +768,9 @@ where:
  the ADE singularity $W_\frakg$;
  \item $E_\tau$ is an elliptic curve with $\tau = k + \hv$
  (the ``level parameter'' becomes the modular parameter);
- \item The external tensor product $\boxtimes$ makes $\cC(\frakg, k)$
- a CY-2 category (since $\MF(W_\frakg)$ contributes CY dimension 1
- and $\Perf(E_\tau)$ contributes CY dimension 1);
+ \item The external tensor product $\boxtimes$ is required to include
+ the suspension/thickening datum that makes the total Calabi--Yau
+ dimension equal to $2$;
  \item $\Phi(\cC(\frakg, k)) = V_k(\frakg)$, with the KZ braiding
  arising from the $\mathbb{S}^2$-framing of the CY-2 trace.
 \end{enumerate}
@@ -762,11 +800,11 @@ Several independent lines of evidence support this identification:
  of elliptic quantum groups (Felder, Etingof--Varchenko).
  \item \textbf{BPS counting}: The Hochschild homology
  $\HH_\bullet(\MF(W_\frakg))$ is the Jacobi ring of $W_\frakg$,
- which has dimension equal to the Milnor number $\mu = |\Delta^+|$
- (the number of positive roots of $\frakg$). After tensoring with
- $E_\tau$, the CY-2 Euler characteristic is
- $\chi^{\CY}(\cC(\frakg, k)) = \mu \cdot 0 = 0$ (since $\chi(E_\tau) = 0$),
- which matches $\kappa_{\mathrm{ch}}(V_k(\frakg))$ at generic level.
+ with dimension equal to the Milnor number. The naive tensor product
+ with $E_\tau$ gives zero ordinary Euler characteristic, so it cannot
+ explain the level-dependent modular characteristic of
+ $V_k(\frakg)$ without an additional weighted trace or deformation
+ datum.
 \end{enumerate}
 \end{remark}
 
@@ -797,33 +835,30 @@ vertex algebra is
 (the formula $\kappa_{\mathrm{ch}}(\hat{\frakg}_k) = (k+\hv) d / (2\hv)$ with
 $d = \dim \frakg$).
 
-In the CY framework (Theorem CY-D), this should equal the CY Euler
-characteristic $\chi^{\CY}(\cC(\frakg, k))$.
+In the CY framework this formula is a matching target, not a consequence
+of the naive Euler characteristic of the candidate matrix-factorization
+category.
 
-\begin{proposition}[Modular characteristic check]
+\begin{proposition}[Modular characteristic proof obligation]
 \label{prop:kappa-check}
-For the candidate CY category $\cC(\frakg, k) = \MF(W_\frakg) \boxtimes \Perf(E_\tau)$:
+For the candidate CY category
+$\cC(\frakg, k) = \MF(W_\frakg) \boxtimes \Perf(E_\tau)$ to realize
+$V_k(\frakg)$ under $\Phi_2$, the following data must be supplied:
 \begin{enumerate}[label=(\roman*)]
- \item The Hochschild homology is
+ \item The Hochschild homology calculation
  $\HH_\bullet(\cC(\frakg, k)) \cong \mathrm{Jac}(W_\frakg) \otimes H^\bullet(E_\tau)$;
- \item The CY-2 trace pairs the degree-0 and degree-2 components;
- \item The CY Euler characteristic in the sense of the weighted Euler
- characteristic (incorporating the level deformation) gives
- $\chi^{\CY}_k(\cC) = (k + \hv) \cdot \mu / 2$, where $\mu = \dim \mathrm{Jac}(W_\frakg)$
- is the Milnor number;
- \item For ADE types, $\mu = r + 2(h-1)$ where $r$ is the rank and
- $h$ is the Coxeter number; the formula $\mu = \dim \frakg / h$ gives
- $(k + \hv) \dim \frakg / (2h)$. Since $h = \hv$ for simply-laced types,
- this matches $\kappa_{\mathrm{ch}}(V_k(\frakg))$.
+ \item a CY$_2$ trace after the explicit suspension/thickening datum;
+ \item a weighted level trace whose value is
+ $\frac{(k+\hv)\dim\frakg}{2\hv}$;
+ \item compatibility of that weighted trace with the KZ braiding.
 \end{enumerate}
 \end{proposition}
 
 \begin{remark}
-The equality $h = \hv$ for simply-laced types is essential. For
-non-simply-laced types, the Milnor number of the singularity must be
-replaced by the Milnor number of the folded singularity, and the
-Coxeter/dual Coxeter number distinction becomes relevant. This is
-another manifestation of Warning~\ref{warn:simply-laced}.
+The equality $h = \hv$ for simply-laced types is necessary for any ADE
+matching, but it is not sufficient. The Milnor number alone does not
+recover the affine central-charge formula; the missing datum is the
+level-dependent weighted trace.
 \end{remark}
 
 \subsection{Shadow obstruction tower for affine Kac--Moody}
@@ -875,10 +910,9 @@ understood as follows:
 The Wakimoto realization is an $E_1$-chiral algebra map
 $V_k(\frakg) \hookrightarrow \mathcal{W}_{\mathrm{Wak}}$.
 The cokernel is controlled by the BRST cohomology
-(Feigin--Frenkel resolution), and the $E_2$-enhancement of
-$V_k(\frakg)$ can be computed from the $E_2$-structure on
-$\mathcal{W}_{\mathrm{Wak}}$ (which is explicit, since free-field
-systems are Koszul).
+	(Feigin--Frenkel resolution), and the KZ braided center layer of
+	$V_k(\frakg)$ can be computed from the corresponding free-field
+	center layer of $\mathcal{W}_{\mathrm{Wak}}$.
 \end{proposition}
 
 \subsection{Roots of unity and the small quantum group}
@@ -897,8 +931,8 @@ $p, p' \in \mathbb{Z}_{>0}$ coprime, the picture becomes richer.
  \item Kazhdan--Lusztig proved that $\KL_k(\frakg)$ at rational level
  is equivalent to $\Rep(u_q(\frakg))$ (not the full $\Uq$), with
  the braided structure matching.
- \item In the $E_2$-chiral framework, this corresponds to a
- \emph{truncation} of the $E_2$-bar complex: the full bar complex
+ \item In the KZ braided framework, this corresponds to a
+ \emph{truncation} of the center-layer bar complex: the full bar complex
  at rational level has additional cohomology (the ``logarithmic''
  modules), and the KL category $\KL_k$ selects the subcomplex
  corresponding to the small quantum group.
@@ -916,10 +950,10 @@ by Finkelberg and others) gives
  \Rep(\Uq(\frakg)) \simeq \hat{\frakg}_k\text{-}\mathrm{mod}_{\mathrm{fg}}
 \]
 as braided monoidal categories, where the right side is all finitely
-generated $\hat{\frakg}_k$-modules (not just the KL subcategory).
-This is the ``big'' KL equivalence, and it corresponds to the full
-$E_2$-representation category $\Rep^{E_2}(V_k(\frakg))$ without
-truncation.
+generated $\hat{\frakg}_k$-modules, beyond the KL subcategory.
+	This is the ``big'' KL equivalence, and it corresponds to the full
+	KZ braided representation category
+	$\Rep^{E_2}_{\KZ}(V_k(\frakg))$ without truncation.
 \end{remark}
 
 \subsection{Yangian variant}
@@ -1047,18 +1081,18 @@ results.
 \end{remark}
 
 %% ======================================================================
-\section{Summary and outlook}
-\label{sec:summary}
+\section{Structural conclusions}
+\label{sec:structural-conclusions}
 %% ======================================================================
 
 The Kazhdan--Lusztig equivalence is the cleanest instance of the
 CY-C theorem. The key structural points are:
 
 \begin{enumerate}[label=(\arabic*)]
- \item $V_k(\frakg)$ is simultaneously an $E_1$-chiral algebra (with
- monoidal rep category $\KL_k(\frakg)$) and, via the KZ connection,
- an $E_2$-chiral algebra (with braided monoidal rep category
- $\Rep_q(\frakg)$).
+ \item $V_k(\frakg)$ is a native $E_1$-chiral algebra with monoidal
+ representation category $\KL_k(\frakg)$; via the KZ connection its
+ conformal-block category carries the braided $E_2$ layer equivalent to
+ $\Rep_q(\frakg)$.
  \item The Drinfeld--Kohno theorem provides the bridge: KZ monodromy
  = quantum group $R$-matrix.
  \item The KL equivalence is the resulting braided monoidal equivalence
@@ -1066,23 +1100,25 @@ CY-C theorem. The key structural points are:
  \item The underlying CY category (conjectural) is
  $\MF(W_\frakg) \boxtimes \Perf(E_\tau)$, connecting to the ADE
  singularity theory.
- \item The modular characteristic $\kappa_{\mathrm{ch}}(V_k(\frakg)) = (k+\hv)\dim\frakg/(2\hv)$
- is recovered from the CY Euler characteristic of $\cC(\frakg, k)$.
+ \item The modular characteristic
+ $\kappa_{\mathrm{ch}}(V_k(\frakg)) = (k+\hv)\dim\frakg/(2\hv)$
+ remains a weighted-trace proof obligation for the proposed CY input.
  \item The shadow obstruction tower encodes the higher-genus structure of KZ
  conformal blocks (fusion coefficients, $6j$-symbols, modular data).
 \end{enumerate}
 
 \medskip
-\noindent\textbf{Open directions.}
+\noindent\textbf{Proof obligations.}
 \begin{itemize}
  \item Prove Conjecture~\ref{conj:cy-category-km}: identify $\MF(W_\frakg) \boxtimes \Perf(E_\tau)$
  as the input to $\Phi$ producing $V_k(\frakg)$.
  \item Extend to non-simply-laced types via the orbifold construction
  of Warning~\ref{warn:simply-laced}.
  \item Establish the derived KL equivalence (Conjecture~\ref{conj:derived-kl})
- in the $E_2$-chiral framework.
- \item Connect the $E_2$-Koszul dual $V_k(\frakg)^!$ to the quantum
- geometric Langlands correspondence (Conjecture~\ref{conj:koszul-dual-vk}).
+ in the KZ braided framework.
+ \item Connect the Koszul dual of the KZ center layer of
+ $V_k(\frakg)$ to the quantum geometric Langlands correspondence
+ (Conjecture~\ref{conj:koszul-dual-vk}).
  \item Extend to the affine/loop quantum group setting: $\Uq(\hat{\frakg})$
  and the elliptic quantum group, which should correspond to $E_3$-
  and $E_4$-chiral structures respectively.

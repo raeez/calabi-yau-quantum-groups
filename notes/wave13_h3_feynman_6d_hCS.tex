@@ -1,240 +1,390 @@
-\section{Explicit Feynman coefficients for 6D hCS observables (Wave-13 H3/20)}
-\label{wn:sec:wave13-h3-feynman-6d-hCS}
+\section{Local Feynman coefficients for six-dimensional holomorphic Chern-Simons observables}
+\label{wn:sec:feynman-6d-hcs-local}
 
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kanom}{\kappa_{\mathrm{anom}}}
 \providecommand{\cA}{\mathcal{A}}
+\providecommand{\cE}{\mathcal{E}}
 \providecommand{\cO}{\mathcal{O}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\dbarstar}{\bar\partial^{*}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\End}{\operatorname{End}}
+\providecommand{\Rep}{\operatorname{Rep}}
+\providecommand{\Yp}{Y^{+}}
+\providecommand{\Winf}{\mathcal{W}_{1+\infty}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
 \providecommand{\CC}{\mathbb{C}}
 \providecommand{\RR}{\mathbb{R}}
 \providecommand{\gfrak}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
 \providecommand{\uone}{\mathfrak{u}(1)}
 \providecommand{\sun}{\mathfrak{su}(N)}
-\providecommand{\Cas}{C_2(\gfrak)}
-\providecommand{\Tr}{\mathrm{tr}}
+\providecommand{\ad}{\mathrm{ad}}
 
-\subsection{Target and scope}
+\subsection{BV datum and local conventions}
 
-Building on E5, which supplied Feynman rules and superficial power-counting, H3
-traces every step of the lowest-order Feynman coefficients for 6D hCS on
-$X = \CC^3$ with gauge algebra $\gfrak$ and action
+Let \(X=\CC^3\), let
 \[
-S_{\mathrm{cl}}[\cA] \;=\; \int_{\CC^3}\Omega \wedge \Tr\!\left(
-\tfrac{1}{2}\,\cA\,\bar\partial\cA + \tfrac{1}{3}\,\cA^3\right),
-\qquad \Omega = dz_1 dz_2 dz_3,
+  \Omega=dz_1\wedge dz_2\wedge dz_3,
 \]
-writing each observable coefficient symbolically with the Bochner--Martinelli
-propagator explicit.
-
-\subsection{Cycle 1 --- Two-point function $\langle A_{0,1}(z_1) A_{0,1}(z_2)\rangle$}
-
-\ClaimStatusDefinition\ In free ($\gfrak=\uone$, or order-$\hbar^0$ non-abelian)
-theory the two-point function of $\cA \in \Omega^{0,1}(\CC^3)\otimes\gfrak$ is
-the Bochner--Martinelli propagator. Let $\phi_1,\phi_2 \in
-\Omega^{0,1}_c(\CC^3)\otimes\gfrak$ be compactly supported test 1-forms. Then
+and let \((\gfrak,\kappa_{\gfrak})\) be a finite dimensional complex
+quadratic Lie algebra.  The BV fields are the shifted Dolbeault dg Lie
+algebra
 \[
-\bigl\langle \cA^a(\phi_1)\,\cA^b(\phi_2) \bigr\rangle_0
-\;=\; \hbar\,\delta^{ab}\int_{\CC^3\times\CC^3}\Omega_z\Omega_w\,
-\phi_1(z)\wedge G(z,w)\wedge \phi_2(w),
+  \cE_X=\Omega^{0,\bullet}(X,\gfrak)[1],
+  \qquad
+  Q=\dbar,
+  \qquad
+  [\alpha,\beta]=[\alpha\wedge\beta]_{\gfrak}.
 \]
-with
+The unshifted \((0,0)\) part is the ghost, the \((0,1)\) part is the
+holomorphic connection field, and the \((0,2)\) and \((0,3)\) parts are
+BV antifields under the pairing
 \[
-G(z,w) \;=\; \frac{2!}{(2\pi i)^3}\,
-\sum_{k=1}^{3}(-1)^{k-1}\,\frac{\overline{(z_k{-}w_k)}}{\|z-w\|^{6}}\,
-\widehat{d\bar z_k}\wedge dw_1 dw_2 dw_3,
+  \omega_X(\alpha,\beta)=
+  \int_X\Omega\wedge\kappa_{\gfrak}(\alpha,\beta).
 \]
-the closed $(0,2)$-form in $z$, holomorphic top-form in $w$, away from the
-diagonal $\Delta\subset\CC^3\times\CC^3$. Here $\widehat{d\bar z_k}$ denotes
-$d\bar z_j\wedge d\bar z_l$ with $\{j,k,l\}=\{1,2,3\}$ in cyclic order.
-
-\ClaimStatusTheorem\ \emph{Disjoint-support evaluation.} For
-$\mathrm{supp}(\phi_1)\cap\mathrm{supp}(\phi_2)=\emptyset$, $G(z,w)$ is smooth on
-the support of the product, the integral converges absolutely, and
-$\bigl\langle \cA^a(\phi_1)\,\cA^b(\phi_2)\bigr\rangle_0$ equals the pairing
-$\hbar\delta^{ab}\cdot(\phi_1,G\phi_2)_{L^2}$ with no regularisation needed.
-The short-distance expansion as $z\to w$ is $G\sim C_3/r^5$ where
-$r = \|z-w\|$ and $C_3 = 2!/(2\pi i)^3$, consistent with the $(2n{-}1)=5$
-Bochner--Martinelli singularity in $n=3$.
-
-\subsection{Cycle 2 --- Tree-level three-point function}
-
-\ClaimStatusTheorem\ \emph{Abelian case.} The action
-$S_{\mathrm{cl}}^{\uone}=\tfrac{1}{2}\int\Omega\wedge\cA\bar\partial\cA$ is
-purely quadratic; Wick contractions generate only Gaussian moments, hence
+The classical action is
 \[
-\bigl\langle \cA(\phi_1)\cA(\phi_2)\cA(\phi_3)\bigr\rangle_{\uone}^{\mathrm{tree}}
-\;=\; 0.
+ I_{\mathrm{cl}}(\cA)
+ =
+ \frac12\int_X\Omega\wedge\kappa_{\gfrak}(\cA,\dbar\cA)
+ +
+ \frac16\int_X\Omega\wedge\kappa_{\gfrak}(\cA,[\cA,\cA]).
 \]
-At all orders in $\hbar$, all odd correlators vanish and all even correlators
-are products of two-point functions.
-
-\ClaimStatusTheorem\ \emph{Non-abelian tree-level.} The cubic vertex
-$\tfrac{1}{3}\Tr(\cA^3)$ supplies
+For a degree-one field \(A\in\Omega^{0,1}(X,\gfrak)\) and a trace
+representation \(\rho\),
 \[
-V_{abc}(w) \;=\; f_{abc}\,\delta^{(6)}(w\text{-insertion})\qquad
-\text{(local trivalent vertex, symmetric in $abc$)}.
+ S_{\mathrm{cl}}(A)
+ =
+ \int_X\Omega\wedge\Tr_{\rho}\left(
+   \frac12 A\,\dbar A+\frac13 A^3
+ \right).
 \]
-The connected tree-level three-point correlator is
+
+Every graph coefficient below uses this fixed local datum:
+Euclidean metric on \(\CC^3\), gauge fixing \(Q^{\mathrm{GF}}=\dbarstar\),
+Costello heat-kernel propagator \(P_{\varepsilon,L}\), compactly
+supported external sources, and the BV pairing \(\kappa_{\gfrak}\) for
+all colour contractions.  Polynomial boundary conditions are mentioned
+separately when the affine minimal model is used.  A scalar numerical
+coefficient has meaning only after these choices and the trace
+normalisation have been fixed.
+
+\subsection{Flat heat-kernel propagator}
+
+Let \(K_t(z,w)\) be the scalar heat kernel of the flat Dolbeault
+Laplacian on \(\CC^3\).  For \(0<\varepsilon<L<\infty\),
+\[
+  P_{\varepsilon,L}(z,w)
+  =
+  \int_{\varepsilon}^{L}
+  (\dbarstar\otimes 1)K_t(z,w)\,dt,
+  \qquad
+  \dbar P_{\varepsilon,L}=K_L-K_{\varepsilon}.
+\]
+Off the diagonal, the limit \(\varepsilon\to0\), \(L\to\infty\) is the
+Bochner-Martinelli homotopy kernel.  Writing \(\eta=z-w\), its scalar
+Dolbeault part is
+\[
+ B_{\mathrm{BM}}(\eta)
+ =
+ \frac{2!}{(2\pi i)^3}
+ \sum_{k=1}^{3}(-1)^{k-1}
+ \frac{\overline{\eta_k}}{\|\eta\|^6}\,
+ d\bar\eta_1\wedge\cdots\wedge\widehat{d\bar\eta_k}
+ \wedge\cdots\wedge d\bar\eta_3 .
+\]
+The full BV kernel is \(B_{\mathrm{BM}}\) tensored with the inverse
+gauge pairing and the holomorphic volume density in the integration
+variable.  It has homogeneity \(r^{-5}\), \(r=\|\eta\|\), and gives the
+Dolbeault homotopy
+\[
+  \dbar P_{\mathrm{BM}}+P_{\mathrm{BM}}\dbar=\mathbf 1
+\]
+on compactly supported forms on \(\CC^3\).  A single propagator has
+scaling degree \(5<6\) in the real normal variable, hence is locally
+integrable at the diagonal.
+
+\subsection{Free and tree coefficients}
+
+For homogeneous compactly supported sources
+\(\alpha,\beta\in\Omega_c^{0,\bullet}(X,\gfrak)\) of complementary
+Dolbeault degrees, set
+\[
+  \langle\alpha,\beta\rangle_{\Omega}
+  =
+  \int_X\Omega\wedge\kappa_{\gfrak}(\alpha,\beta).
+\]
+The free two-point coefficient is
+\[
+ \bigl\langle \cA^a(\alpha)\,\cA^b(\beta)\bigr\rangle_0
+ =
+ \hbar\,\kappa_{\gfrak}^{ab}\,
+ \langle\alpha,P_{\mathrm{BM}}\beta\rangle_{\Omega}.
+\]
+For disjoint supports the integral is an ordinary absolutely convergent
+integral.  Coincident supports are evaluated with
+\(P_{\varepsilon,L}\) and then renormalised in Costello's local
+functional complex.
+
+Let \(\{T_a\}\) be \(\kappa_{\gfrak}\)-orthonormal and put
+\[
+  f_{abc}=\kappa_{\gfrak}(T_a,[T_b,T_c]).
+\]
+For \(\gfrak=\uone\), \(f_{abc}=0\), so the cubic vertex vanishes and
+the odd connected Gaussian coefficients vanish.  For general
+\(\gfrak\), the connected tree coefficient for compactly supported
+sources away from total collision is
 \[
 \begin{aligned}
-\bigl\langle \cA^{a_1}(\phi_1)\cA^{a_2}(\phi_2)\cA^{a_3}(\phi_3)
-\bigr\rangle_0^{\mathrm{tree,conn}}
-&= \hbar^2\,f^{a_1 a_2 a_3}
-\int_{(\CC^3)^4}\!\!\!\!\Omega_{z_1}\Omega_{z_2}\Omega_{z_3}\Omega_w\\
-&\quad\times\,\phi_1(z_1)\wedge G(z_1,w)\wedge
-\phi_2(z_2)\wedge G(z_2,w)\wedge\\
-&\quad\times\, \phi_3(z_3)\wedge G(z_3,w),
+ \bigl\langle
+  \cA^{a_1}(\alpha_1)\cA^{a_2}(\alpha_2)\cA^{a_3}(\alpha_3)
+ \bigr\rangle_{\mathrm{tree,conn}}
+ &=
+ \hbar^2 f^{a_1a_2a_3}
+ \int_X\Omega\wedge
+  (P_{\mathrm{BM}}\alpha_1)\wedge
+  (P_{\mathrm{BM}}\alpha_2)\wedge
+  (P_{\mathrm{BM}}\alpha_3).
 \end{aligned}
 \]
-i.e.\ a single bulk vertex at $w$ with three external legs convolved against the
-propagators. The diagram is:
+The power of \(\hbar\) is \(3-1=2\): three external contractions
+contribute \(\hbar^3\), and one cubic vertex from
+\(I_{\mathrm{cl}}/\hbar\) contributes \(\hbar^{-1}\).  The displayed
+sign follows the orientation convention in the BV pairing above.
+
+\subsection{Two-point one-loop local term}
+
+The one-loop two-point graph has two cubic vertices and two internal
+propagators.  Its colour contraction is
 \[
-\begin{array}{c}
-\text{\texttt{%
-      phi1 ---G---\Big[w\Big]---G--- phi2%
-}}\\[-2pt]
-\text{\texttt{%
-                       |%
-}}\\[-2pt]
-\text{\texttt{%
-                       G%
-}}\\[-2pt]
-\text{\texttt{%
-                       |%
-}}\\[-2pt]
-\text{\texttt{%
-                     phi3%
-}}
-\end{array}
+  \sum_{b,c}f^{a_1bc}f^{a_2}{}_{bc}
+  =
+  C_2^{\ad}(\gfrak)\,\kappa_{\gfrak}^{a_1a_2},
+  \qquad
+  C_2^{\rho}=\sum_a\rho(T_a)\rho(T^a),
+\]
+where \(\{T^a\}\) is dual to \(\{T_a\}\) for the chosen pairing.  In the
+physics basis \(t_a\) of \(\sun\) with
+\(\Tr_{\mathrm{fund}}(t_at_b)=\frac12\delta_{ab}\) and index contraction
+by \(\delta_{ab}\),
+\[
+  f_{acd}f_{bcd}=N\delta_{ab}.
+\]
+If the BV pairing itself is \(\Tr_{\mathrm{fund}}\), the inverse
+pairing contributes the corresponding factor of \(2\).  Thus the
+printed scalar \(N\) or \(2N\) records a normalisation choice, while the
+invariant statement is the \(C_2^{\ad}\)-contraction above.
+
+The raw diagonal singularity of the two internal kernels is
+\[
+  B_{\mathrm{BM}}(w_1-w_2)B_{\mathrm{BM}}(w_2-w_1)
+  \sim
+  \left(\frac{2!}{(2\pi i)^3}\right)^2 r^{-10}
+\]
+up to the angular form.  In the six real normal directions to the
+diagonal,
+\[
+  \int_{\varepsilon}^{R} r^5r^{-10}\,dr
+  =
+  \frac14(\varepsilon^{-4}-R^{-4}).
+\]
+The product has scaling degree \(10\) in real dimension \(6\).  Its
+extension across the diagonal is determined by the heat-kernel
+regulator together with local distributions of derivative order at most
+\(10-6=4\).  The local part of the one-loop effective interaction has
+the form
+\[
+  \Gamma^{(1)}_{2,\mathrm{loc}}
+  =
+  \hbar\,C_2^{\ad}(\gfrak)
+  \sum_{|\nu|\le4}c_{\nu}(\varepsilon,L,h,Q^{\mathrm{GF}})
+  \int_X\Omega\wedge
+  \kappa_{\gfrak}\!\left(A,D^{\nu}A\right),
+\]
+where \(D^{\nu}\) is a local holomorphic and Dolbeault differential
+monomial.  The coefficient of
+\[
+  \int_X\Omega\wedge\kappa_{\gfrak}(A,\dbar A)
+\]
+is the two-point kinetic counterterm in the chosen subtraction scheme.
+The coefficients \(c_{\nu}\) depend on the heat-kernel normalisation,
+boundary condition, gauge fixing, and local coordinate convention.
+
+\subsection{Quartic anomaly and QME}
+
+For a representation \(\rho:\gfrak\to\End(V)\), define
+\[
+  I_4^{\rho}(x_1,x_2,x_3,x_4)
+  =
+  \frac1{4!}\sum_{\sigma\in S_4}
+  \Tr_V\!\left(
+    \rho(x_{\sigma(1)})\rho(x_{\sigma(2)})
+    \rho(x_{\sigma(3)})\rho(x_{\sigma(4)})
+  \right).
+\]
+Then \(I_4^{\rho}\in\Sym^4(\gfrak^{\vee})^{\gfrak}\).  For the effective
+interactions \(I[L]\), the scale-\(L\) quantum master equation is
+\[
+  QI[L]+\frac12\{I[L],I[L]\}_{L}
+  +\hbar\Delta_LI[L]=0 .
+\]
+In complex dimension \(3\), the one-loop gauge obstruction is the
+degree-one local functional
+\[
+  \Theta^{\rho}_U(\alpha_0,\alpha_1,\alpha_2,\alpha_3)
+  =
+  \int_U
+  \left[
+  I_4^{\rho}\bigl(
+    \alpha_0,\partial\alpha_1,\partial\alpha_2,\partial\alpha_3
+  \bigr)
+  \right]_{(3,3)},
+  \qquad
+  \alpha_i\in\Omega_c^{0,\bullet}(U,\gfrak).
+\]
+Its class
+\[
+  \kanom(X,\gfrak,\rho)
+  =
+  [\,\hbar\Theta^{\rho}\,]
+  \in
+  H^1_{\mathrm{loc}}
+  \bigl(\Omega^{0,\bullet}(X,\gfrak)[1],\cO_{\mathrm{loc}}\bigr)
+\]
+is the first QME obstruction for the open hCS theory.  In ghost-field
+notation the adjoint case is the Costello-Li descent representative
+\[
+  \int_X \Tr_{\ad}(c\,F_A^3).
+\]
+The arity-two, degree-zero tensor \(C_2^{\rho}\) controls the kinetic
+counterterm.  The arity-four, degree-one tensor \(I_4^{\rho}\) controls
+the QME anomaly.  Abelian hCS has no cubic vertex; a non-abelian datum
+passes the one-loop QME precisely after the class above vanishes or is
+trivialised by an explicit local or open-closed counterterm.
+
+\subsection{Compact Calabi-Yau threefold package}
+
+A compact hCS quantisation theorem on a Calabi-Yau threefold requires
+the following data:
+\begin{itemize}
+\item a compact Calabi-Yau threefold \((X,\Omega_X)\);
+\item orientation data and determinant-line framing for the BV pairing;
+\item a quadratic gauge Lie algebra or dg Lie algebra
+  \((\gfrak,\kappa_{\gfrak})\), plus \(\rho\) when traces are used;
+\item elliptic Costello gauge fixing, heat-kernel regulator, and
+  renormalisation scheme;
+\item completed local functionals and observables carrying
+  \(\Delta_L\), \(\{-,-\}_L\), and RG flow;
+\item a factorisation or TCFT sewing structure descending from local
+  polydisks to \(X\);
+\item a vanishing or explicit trivialisation of
+  \(\kanom(X,\gfrak,\rho)\).
+\end{itemize}
+Under these hypotheses the first quantum step is governed by Costello's
+obstruction complex, and the obstruction is the class represented by
+\(\Theta^{\rho}\).  Each higher-loop step requires its own
+obstruction-vanishing or counterterm witness inside the same completed
+complex.
+
+\subsection{CY-to-chiral specialisation}
+
+The local hCS factorisation algebra on a solved neighbourhood of a
+curve \(C\subset X\) gives, after integration in the normal directions,
+\[
+  A_C=
+  \int_{N_{C/X}/C}\Obs^q_{\hCS}
+  \in
+  \operatorname{Alg}^{\mathrm{ch}}_{\Eone}(C).
+\]
+This is the \(d=3\) specialisation layer of the CY-to-chiral
+construction.  The braided \(\Etwo\) structure is a centre, double, or
+module-layer structure, for example
+\[
+  \cZ\!\left(\Rep^{\Eone}(A_C)\right)
+  \simeq
+  \Rep^{\Etwo}\!\left(
+    C^\bullet_{\mathrm{CE},\mathrm{ch}}(A_C,A_C)
+  \right)
+\]
+on the chiral BZFN locus.
+
+For the toric chart,
+\[
+  \CoHA(\CC^3)\cong\Yp(\widehat{\fgl}_1),
+\]
+the positive half in the Kontsevich-Soibelman and
+Schiffmann-Vasserot normalisation.  The full affine-Yangian and
+\(\Winf\) comparison uses the additional chain
+\[
+  \Yp(\widehat{\fgl}_1)
+  \longrightarrow
+  D_{\hbar}\!\left(\Yp(\widehat{\fgl}_1)\right)
+  \longrightarrow
+  \text{completed centre or evaluation module}
+  \longrightarrow
+  \Winf .
 \]
 
-\subsection{Cycle 3 --- One-loop bubble diagram}
+\subsection{Separated objects}
 
-\ClaimStatusTheorem\ \emph{Abelian case.} No trivalent vertex exists; the
-bubble vanishes: $I_2^{(1),\uone} = 0$. Equivalently, the $\uone$ theory is
-exactly Gaussian and $Z_{\uone}[\phi] = \exp\bigl(\tfrac{1}{2\hbar}\int\Omega
-\wedge\phi\bar\partial\phi\bigr)$ is $\hbar$-exact.
-
-\ClaimStatusTheorem\ \emph{Non-abelian bubble.} Two trivalent vertices connected
-by two internal propagators, two external legs $\phi_1,\phi_2$:
+The hCS fields, their BV antifields, Hochschild polyvectors, and
+categorical Calabi-Yau data are distinct inputs:
 \[
-\begin{array}{c}
-\text{\texttt{%
-      phi1 ---\Big[V_1\Big]======\Big[V_2\Big]--- phi2%
-}}\\[-2pt]
-\text{\small (two internal $G$'s between $V_1,V_2$; one external $G$ on each end)}
-\end{array}
+  \Omega^{0,\bullet}(X,\gfrak)[1],
+  \qquad
+  \Omega^{0,3-\bullet}_c(X,\gfrak)[2],
+  \qquad
+  \HH^\bullet(\Perf(\CC^3)),
+  \qquad
+  (\mathcal C,\operatorname{tr}_{\mathcal C}).
 \]
-Applying Feynman rules, with symmetry factor $1/2$ from the internal-propagator
-exchange,
+For the affine model,
 \[
-\begin{aligned}
-I_2^{(1)}[\phi_1^{a_1},\phi_2^{a_2}]
-&= \frac{\hbar^2}{2}\,f^{a_1 b c}\,f^{a_2}{}_{bc}
-\int_{(\CC^3)^4}\!\!\Omega_{z_1}\Omega_{z_2}\Omega_{w_1}\Omega_{w_2}\\
-&\quad\times\phi_1(z_1)\wedge G(z_1,w_1)\wedge
-G(w_1,w_2)\wedge G(w_2,w_1)\wedge G(w_2,z_2)\wedge\phi_2(z_2).
-\end{aligned}
+  \HH^\bullet(\Perf(\CC^3))
+  \simeq
+  \CC[x,y,z]\otimes
+  \bigwedge\nolimits^\bullet
+  \langle\partial_x,\partial_y,\partial_z\rangle .
 \]
-The colour factor collapses via $\sum_{bc}f^{a_1 bc}f^{a_2}{}_{bc}
-= \Cas\,\delta^{a_1 a_2}$ (definition of quadratic Casimir in the adjoint),
-so
+These polyvectors control categorical deformations and derived centres.
+The finite dimensional hCS gauge algebra enters through an external
+quadratic coefficient or framing object.  The local invariant used by
+the toric hCS calculation is
 \[
-I_2^{(1)} \;=\; \frac{\hbar^2\,\Cas}{2}\,\delta^{a_1 a_2}
-\int_{\CC^3\times\CC^3}\!\!\Omega_{w_1}\Omega_{w_2}\,
-[\phi_1\!\cdot\!G](w_1)\,\bigl[G(w_1,w_2)\wedge G(w_2,w_1)\bigr]\,
-[\phi_2\!\cdot\!G](w_2),
+  \kch(A_{\CC^3})=\chi(\cO_{\CC^3})=1
 \]
-where $[\phi\cdot G](w)=\int\Omega_z\,\phi(z)\wedge G(z,w)$ is the propagator
-convolution. For $\gfrak=\sun$ the standard normalisation gives $\Cas = 2N$.
+in the toric normalisation.  The invariants \(\kcat\), \(\kBKM\), and
+\(\kfib\) belong to separate categorical, Borcherds, and fibre
+constructions.
 
-\subsection{Cycle 4 --- Divergence structure of $\int G^2$}
+\subsection{Literature anchors}
 
-\ClaimStatusTheorem\ \emph{Short-distance behaviour.} Setting $r = \|w_1-w_2\|$
-and extracting the radial singularity, each $G$-factor contributes $r^{-5}$
-(the $(2n{-}1)=5$ Bochner--Martinelli degree at $n=3$). The product
-$G(w_1,w_2)\wedge G(w_2,w_1)$ behaves as $C_3^2\,r^{-10}$ (times angular
-top-form). The integration measure along the diagonal in real coordinates
-$w_2 - w_1 = r\cdot(\text{angular})$ over $\CC^3\cong\RR^6$ contributes
-$r^5\,dr$. Hence
-\[
-\int_0^\Lambda^{-1}\!r^5\cdot r^{-10}\,dr
-\;=\; \int_0^\Lambda^{-1}\!r^{-5}\,dr \;\sim\; \Lambda^{4}
-\qquad (\text{UV divergent as }\Lambda\to\infty).
-\]
-
-\ClaimStatusHeuristic\ \emph{Reconciling with E5 power-counting.} The naive
-BV superficial divergence $\omega = 6\cdot 1 - 4\cdot 2 = -2$ used
-\emph{effective} propagator weight $-4$ (not $-5$), appropriate for the
-$\bar\partial$-heat-kernel regularisation $G^\epsilon_L = \int_\epsilon^L
-ds\,K_s$ which softens the short-distance behaviour. The raw
-Bochner--Martinelli kernel has weight $-5$ in 6D; the heat-kernel cut-off
-converts this to $\omega_{\mathrm{eff}}=-2$, hence logarithmic rather than
-power divergence in the regulated theory. Both accountings agree: the
-unregulated $r^{-10}$ distribution is not well-defined on $\Delta$, and the
-minimal scheme produces a $\log\Lambda$ residue after BV renormalisation.
-
-\subsection{Cycle 5 --- Wilsonian counterterm at one loop}
-
-\ClaimStatusDefinition\ \emph{Regularised propagator.} Introduce the Costello
-heat-kernel propagator
-\[
-G_{\epsilon}^{L}(z,w) \;=\; \int_\epsilon^L ds\,K_s^{\bar\partial}(z,w),\qquad
-K_s^{\bar\partial}(z,w) \;=\; \frac{1}{(4\pi s)^3}\,e^{-\|z-w\|^2/(4s)}\,
-(\bar\partial^*\text{-exact companion}),
-\]
-with $\epsilon\to 0$ UV regulator and $L\to\infty$ IR regulator.
-
-\ClaimStatusTheorem\ \emph{One-loop counterterm.} After heat-kernel
-regularisation, the bubble integrand $G_\epsilon^L\wedge G_\epsilon^L$ produces
-a short-distance residue
-\[
-\int_0^L\!ds_1\int_0^L\!ds_2\,\frac{1}{(s_1+s_2)^3}
-\;=\; \log(L/\epsilon) + \text{(finite)},
-\]
-(after reducing the 6D heat-kernel integral to the scale variable
-$s=s_1+s_2$ via Fubini). The minimal-subtraction BV counterterm is therefore
-\[
-S_{\mathrm{c.t.}}^{(1)}[\cA] \;=\; -\,\hbar\,\frac{\Cas}{(4\pi)^3}\,\log(L/\epsilon)
-\int_{\CC^3}\Omega\wedge \Tr(\cA\,\bar\partial\cA) + \cO(\hbar^2),
-\]
-a wave-function-renormalisation counterterm proportional to $\log\Lambda$
-times the free kinetic operator. After adding $S_{\mathrm{c.t.}}^{(1)}$ the
-renormalised effective action is finite as $\epsilon\to 0$; Costello--Gwilliam
-Vol~I Ch.~3 Thm.~8.0.1 guarantees existence of a one-loop renormalised BV
-theory with this counterterm.
-
-\ClaimStatusTheorem\ \emph{Explicit coefficient of the running.} The
-$\beta$-function-like coefficient for the wave-function renormalisation of
-6D hCS at one loop is
-\[
-\boxed{\; Z_\cA^{(1)} \;=\; 1 \,-\, \hbar\,\frac{\Cas}{(4\pi)^3}\,\log(L/\epsilon)
-\,+\,\cO(\hbar^2). \;}
-\]
-For $\gfrak=\sun$, $\Cas=2N$, giving coefficient $2N/(4\pi)^3 = N/(32\pi^3)$.
-
-\subsection{Consistency with Vol III $\kch$ landscape}
-
-$\Obs_{\hCS}$ on $\CC^3$ is the chain-level shadow of $\Phi$ at $d=3$ applied
-to $A_{\CC^3}=\mathrm{Perf}(\CC^3)$, producing an $E_1$-chiral algebra
-(Pattern 273 scope; not $E_2$ at $d\geq 3$). The Casimir coefficient $\Cas$
-at one loop is the Kac--Moody-type central extension on the $E_1$-chiral
-product, not a chiral-conformal weight. The abelian vanishing at all loops
-witnesses the CY-D identification $\kch(A_{\CC^3})=\chi(\cO_{\CC^3})=1$
-being additive with no Hodge-supertrace correction at $d=3$.
-
-\subsection{References}
-Costello~2011, \emph{Renormalization and effective field theory}, \S\S2.3,
-9 (homotopy RG, heat-kernel regulator, BV master equation);
-Costello--Gwilliam~2017 Vol~I, Ch.~3 (Bochner--Martinelli propagator,
-Feynman rules for holomorphic field theories, one-loop existence theorem);
-Costello~2013 \texttt{arXiv:1303.2632} \S\S9--10 (holomorphic-topological
-Chern--Simons, Yangian from $\hbar$-deformation).
+Costello, \emph{Renormalization and Effective Field Theory}, AMS 2011,
+Sections 2 through 9, supplies the heat-kernel RG formalism and the BV
+QME obstruction complex.  Costello-Gwilliam,
+\emph{Factorization Algebras in Quantum Field Theory}, Volumes 1 and 2,
+construct the factorisation algebra of quantum observables.  Costello-Li,
+\emph{Quantum BCOV theory on Calabi-Yau manifolds and the higher genus
+B-model}, identifies the quartic open-string anomaly and the
+open-closed Green-Schwarz cancellation mechanism.  Costello,
+\texttt{arXiv:1303.2632}, Sections 4 and 9 through 10, gives the
+holomorphic/topological Chern-Simons construction leading to affine
+Yangian boundary algebras.  Kontsevich-Soibelman and
+Schiffmann-Vasserot identify the critical \(\CC^3\) CoHA with
+\(\Yp(\widehat{\fgl}_1)\); the \(\Winf\) comparison uses the subsequent
+double, centre, completion, and evaluation steps.

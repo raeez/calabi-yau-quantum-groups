@@ -1,18 +1,3 @@
-% wave14_a5_HKR_atiyah_kapranov.tex
-% Channel: Mikhail Kapranov (categorical depth, Atiyah-class L_infty first
-%   principles, Russian elite voice: Drinfeld--Manin--Kontsevich--Soibelman--Kapranov).
-% Mission: Adversarially assault and rigorously heal (i) the HKR identification
-%   on CY_3 and (ii) the Atiyah-class formality obstruction tying hCS to BCOV.
-% Scope: user's essay on Phi^bullet(C^3), matrix framing to hCS, compact CY_3
-%   Atiyah class as formality obstruction, BCOV curving datum Y_3.
-% Companions: notes/wave12_u1_two_stage_functor.tex;
-%             notes/wave12_a8_en_hierarchy_kapranov.tex;
-%             notes/wave15_l2_atiyah_K3E_truncation.tex;
-%             notes/platonic_synthesis_waves_11_through_16.tex;
-%             notes/CoHA_to_W_infty_treatise.tex.
-% Mode: five attack-heal cycles + Kontsevich/Caldararu twist reconstruction.
-% Voice: Chriss-Ginzburg; Costello-Li elementarity; no narration.
-
 \documentclass[11pt]{amsart}
 \usepackage[localtheorems]{raeez-math-template}
 
@@ -20,887 +5,702 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem*{attack}{ATTACK}
-\newtheorem*{heal}{HEAL}
-\newtheorem*{ghost}{Ghost theorem}
 
-% Mathematical objects
-\providecommand{\HKR}{\mathrm{HKR}}
-\providecommand{\HH}{\mathrm{HH}}
 \providecommand{\At}{\mathrm{At}}
-\providecommand{\PV}{\mathrm{PV}}
-\providecommand{\Obs}{\mathrm{Obs}}
-\providecommand{\hCS}{\mathrm{hCS}}
-\providecommand{\td}{\mathrm{td}}
-\providecommand{\Td}{\mathrm{Td}}
-\providecommand{\Ah}{\widehat{A}}
-\providecommand{\ch}{\mathrm{ch}}
-\providecommand{\Coh}{\mathrm{Coh}}
-\providecommand{\End}{\mathrm{End}}
 \providecommand{\BCOV}{\mathrm{BCOV}}
-\providecommand{\Pf}{\mathrm{Pf}}
-\providecommand{\Eone}{\mathsf{E}_1}
+\providecommand{\CoHA}{\operatorname{CoHA}}
+\providecommand{\End}{\mathrm{End}}
 \providecommand{\Etwo}{\mathsf{E}_2}
 \providecommand{\Ethree}{\mathsf{E}_3}
-\providecommand{\Einf}{\mathsf{E}_\infty}
-\providecommand{\Ezero}{\mathsf{E}_0}
-\providecommand{\cC}{\mathcal{C}}
-\providecommand{\cO}{\mathcal{O}}
-\providecommand{\cE}{\mathcal{E}}
-\providecommand{\cH}{\mathcal{H}}
-\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\Eone}{\mathsf{E}_1}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\HKR}{\mathrm{HKR}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\QME}{\mathrm{QME}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Td}{\mathrm{Td}}
+\providecommand{\ch}{\mathrm{ch}}
+\providecommand{\cA}{\mathcal A}
+\providecommand{\cC}{\mathcal C}
+\providecommand{\cL}{\mathcal L}
+\providecommand{\cO}{\mathcal O}
+\providecommand{\cW}{\mathcal W}
+\providecommand{\dbar}{\overline{\partial}}
+\providecommand{\fg}{\mathfrak g}
 \providecommand{\fgl}{\mathfrak{gl}}
-\providecommand{\C}{\mathbb{C}}
-\providecommand{\R}{\mathbb{R}}
-\providecommand{\Z}{\mathbb{Z}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\kanom}{\kappa_{\mathrm{anom}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
-\providecommand{\Calabi}{\mathrm{CY}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kfiber}{\kappa_{\mathrm{fiber}}}
+\providecommand{\C}{\mathbb C}
+\providecommand{\Z}{\mathbb Z}
 
-\title{Wave~14, agent~A5. HKR, the Kontsevich--C{\u a}ld{\u a}raru twist,
-and the Atiyah-class formality obstruction: five attack--heals on $\C^3$
-and compact CY$_3$}
-\author{}
-\date{Wave 14 / 2026-04-22}
+\title{HKR, Atiyah Classes, and BCOV Curving on Calabi-Yau Threefolds}
+\author{Raeez Lorgat}
+\date{2026-04-30}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The user's essay carries three load-bearing claims in a single breath:
-(a) on $\C^3$, $\HH^\bullet = \PV^\bullet(\C^3)$ via HKR, so matrix-valued
-framing by $\End(V)$ gives holomorphic Chern--Simons with gauge
-$\fgl(V)$; (b) on compact CY$_3$ the Atiyah class
-$\At(TX)\in H^1(X,\Omega^1_X\otimes\End(TX))$ is the formality
-obstruction; (c) the hCS theory reads that obstruction as the BCOV
-curving datum, i.e.\ the Yukawa $3$-form $Y_3$, in the BV measure. Each
-sentence admits a natural wrong reading. Five attack--heal passes extract
-the precise content. HKR is a quasi-isomorphism of cochain complexes
-and an isomorphism of Gerstenhaber-bracket structures; it is
-\emph{not} a ring isomorphism on
-$(\HH^\bullet(X),\cup)\simeq(\PV^\bullet(X),\wedge)$, and it is only
-$\Etwo$-multiplicative after the Kontsevich--C{\u a}ld{\u a}raru twist
-$\exp(\mathrm{At}(TX)/2)$ composed with a $\Td(X)^{1/2}$ / $\Ah(X)^{1/2}$
-square-root correction on Hochschild homology. The Atiyah class is the
-$L_\infty$-bracket $\mu_2$ of the Kapranov $L_\infty$-algebra on
-$T_X[-1]$, not a formality obstruction in the classical DGLA sense; the
-precise obstruction is the non-triviality of the Kuranishi cubic
-$\mu_3 = [\At,\At,\At]$ in the homotopy transfer. On a proper CY$_3$
-with $H^3(X,\Omega^3_X) \cong \C$ the cubic is the Yukawa coupling
-$Y_3\in H^0(X,\Omega^3_X)^\vee\otimes\mathrm{Sym}^3H^1(X,T_X)^\vee$
-under the Calabi--Yau trace; BCOV curving reads $Y_3$ as a second-order
-term in the quantised BV action. The output of these five cycles
-certifies the healed identification $\Phi_3(D^b\Coh(X))\simeq$ (hCS
-boundary on $X$, BV-curved by $Y_3$) at the level stated by Costello
-2007--2011 / Costello--Li 2016, without conflating it with the flat
-$\C^3$ calculation.
+For a smooth complex variety, Hochschild chains and cochains admit the
+Hochschild-Kostant-Rosenberg comparison with forms and polyvectors
+after the Hochschild complex is interpreted on the completed diagonal.
+On affine space the comparison is the elementary symbol map. On a global
+smooth variety the product, module, and Mukai-pairing comparisons carry
+the Kontsevich-Caldararu Duflo correction, equivalently the square-root
+Todd class generated by the Atiyah class. This correction belongs to
+Hochschild calculus and formality. Kapranov's Atiyah-class brackets,
+BCOV closed-string curving, Positselski curvature, and the open
+holomorphic Chern-Simons quantum master equation live in separate
+deformation problems. Matrix hCS fields occupy the open BV layer.
+Hochschild polyvectors and Calabi-Yau categorical data occupy two
+separate algebraic layers. CoHA inputs belong to the Hall enumerative
+layer. The compact Calabi-Yau threefold theory requires the full
+Costello quantization package: orientation and framing, regulator,
+gauge fixing, completions, anomaly trivialization, and factorization or
+TCFT gluing.
 \end{abstract}
 
-\section{Standing conventions and top-15 cache discipline}
-\label{sec:standing}
+\section{Hochschild and Polyvector Calculus}
+\label{sec:hkr-calculus}
 
-Throughout $X$ is a smooth projective complex variety of dimension $d$,
-$T_X$ its holomorphic tangent bundle, $\Omega^1_X$ its cotangent bundle.
-Write $\HH_\bullet(X), \HH^\bullet(X)$ for Hochschild homology
-and cohomology of $D^b\Coh(X)$ (equivalently of the structure sheaf
-$\cO_X$ as a ring object in the derived category). The polyvector and
-Hodge complexes are
+Let $X$ be a smooth complex variety and let $\Perf(X)$ be its dg
+category of perfect complexes. Hochschild cochains and chains are
+written
 \[
-  \PV^\bullet(X) \;=\; \bigoplus_{p+q=\bullet}\; H^q(X, \wedge^p T_X),
-  \qquad
-  \Omega^\bullet(X) \;=\; \bigoplus_{p+q=\bullet}\; H^q(X, \Omega^p_X).
+  \HH^\bullet(X)=\HH^\bullet(\Perf(X)), \qquad
+  \HH_\bullet(X)=\HH_\bullet(\Perf(X)).
 \]
-The Gerstenhaber cup, Schouten bracket and de Rham differential are
-all defined on these graded objects. The Atiyah class
-$\At(T_X) \in H^1(X, \Omega^1_X \otimes \End(T_X))$ is the extension
-class of the first-jet sequence (Atiyah 1957 \emph{Trans.\ AMS}~85
-Thm~2).
-
-\medskip
-
-\textbf{Cache discipline carried from the top 15.}
-\begin{enumerate}[label=\textsc{c\arabic*.}, itemsep=2pt]
-\item The modular invariant is always subscripted: $\kch$, $\kcat$,
-      $\kappa_{\mathrm{BKM}}$, $\kappa_{\mathrm{fiber}}$; the
-      unsubscripted symbol is forbidden (KEY~FACT).
-\item $\kcat(X) = \chi(\cO_X)$ is K\"unneth-multiplicative on the
-      total space.
-\item $\CoHA(\C^3)=Y^+$, not $\cW_{1+\infty}$ (top-15 item~3).
-\item Six routes to $G(K3\times E)$ are six distinct constructions
-      (item~4).
-\item The Drinfeld centre is a right adjoint, not averaging (item~7;
-      AP-CY54 cross-programme).
-\item At $d\geq 3$, $A$ is $\Eone$; $\Etwo$ lives on $\cZ(\Rep(A))$,
-      not on $A$ (item~9).
-\item Scope of $\Omega$-background: toric specific, not universal
-      (item~$\Omega$; companion wave12\_a8 \S2).
-\end{enumerate}
-
-% ================================================================
-\section{Attack--heal~1. HKR as quasi-isomorphism vs as ring isomorphism}
-\label{sec:ah1}
-% ================================================================
-
-\begin{attack}
-User's essay writes ``$\HH^\bullet = \PV^\bullet(\C^3)$ after HKR''.
-Adversarially: the bare equals-sign hides three distinct homological
-statements. The equality is false at the level of Gerstenhaber
-\emph{rings}: the HKR quasi-isomorphism $\HKR\colon \HH^\bullet(X)
-\xrightarrow{\sim} \PV^\bullet(X)$ is compatible with the Gerstenhaber
-Lie bracket (Schouten on the right, Gerstenhaber on the left) but
-\emph{not} with the cup product on $\HH^\bullet$ versus the wedge
-product on $\PV^\bullet$. Kontsevich 1999 \emph{Def.\ Quant.\ of
-Algebraic Varieties} proved that this multiplicative compatibility
-requires the twist $\exp(c_1(X)/2)$ (first Chern form), equivalently
-the $\Td(X)^{1/2}$-correction on Hochschild homology (c{\u a}ld{\u a}raru
-2005 \emph{Adv.\ Math.}~194, C{\u a}ld{\u a}raru--Willerton 2010
-\emph{New York J.\ Math.}~16).
-\end{attack}
-
-\begin{ghost}
-There is a precise chain of HKR statements for $X$ smooth:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item $\HKR_\bullet\colon \HH_\bullet(X) \xrightarrow{\sim}
-      \Omega^\bullet(X) = \bigoplus_{p+q=\bullet} H^q(X,\Omega^p_X)$
-      (HKR 1962) --- an isomorphism of graded $\C$-modules.
-\item $\HKR^\bullet\colon \HH^\bullet(X) \xrightarrow{\sim}
-      \PV^\bullet(X)$ --- isomorphism of graded $\C$-modules;
-      compatible with Gerstenhaber Lie brackets
-      (Hochschild--Kostant--Rosenberg).
-\item The cup product $\cup\colon \HH^\bullet \otimes \HH^\bullet
-      \to \HH^\bullet$ is \emph{not} carried to the wedge
-      $\wedge\colon \PV^\bullet \otimes \PV^\bullet \to \PV^\bullet$
-      by the naive HKR; the correction is a twist by
-      $\exp(\At(TX)/2)$.
-\end{enumerate}
-\end{ghost}
-
-\begin{heal}
-Let $\HKR_{\mathrm{tw}}$ denote the twisted HKR map:
-\begin{equation}
-  \HKR_{\mathrm{tw}} \;:=\; (e^{\At(TX)/2})^* \circ \HKR,
-  \qquad
-  (e^{\At(TX)/2})^* \;=\; \sum_{k \geq 0} \tfrac{1}{k!\, 2^k}\,
-  \At(TX)^{\cup k}.
-  \label{eq:hkr-tw}
-\end{equation}
-C{\u a}ld{\u a}raru--Willerton 2010 Thm~1.2 and Kontsevich 2003
-\emph{Lett.\ Math.\ Phys.}~66 prove:
-
-\begin{theorem}[HKR is ring isomorphism only after twist]
-\label{thm:hkr-tw-ring-iso}
-\ClaimStatusTheorem (up to the Kontsevich--C{\u a}ld{\u a}raru
-correction). For $X$ smooth:
+The Dolbeault polyvector and Hodge complexes are
 \[
-  \HKR_{\mathrm{tw}}\colon
-  (\HH^\bullet(X),\cup)
-  \;\xrightarrow{\sim}\;
-  (\PV^\bullet(X),\wedge)
+  \PV^\bullet(X)=
+  \bigoplus_{p,q}\Omega^{0,q}(X,\wedge^pT_X),
+  \qquad
+  \Omega^\bullet(X)=
+  \bigoplus_{p,q}\Omega^{0,q}(X,\Omega^p_X).
 \]
-is an isomorphism of Gerstenhaber algebras. The HKR homology map
-$\HKR_\bullet$ becomes a module isomorphism over
-$(\HH^\bullet, \cup)\to(\PV^\bullet,\wedge)$ after a parallel twist
-by $\sqrt{\Td(X)}$:
-\begin{equation}
-  \HKR_\bullet^{\mathrm{tw}} \;:=\; \Td(X)^{1/2}\cup\HKR_\bullet
-  \colon
-  \HH_\bullet(X)\xrightarrow{\sim}\Omega^\bullet(X),
-  \label{eq:hkr-homology-tw}
-\end{equation}
-compatible with the $\HH^\bullet\curvearrowright\HH_\bullet$ action on
-the left and the $\PV^\bullet\curvearrowright\Omega^\bullet$
-contraction on the right.
-\end{theorem}
 
-\begin{proof}[Proof sketch.]
-Kontsevich 1999 proved this for the affine formal case
-$X = \C^d_{\mathrm{formal}}$ (no twist needed for the bracket but
-nontrivial twist for the cup, via his weight formula for Maurer--Cartan
-elements on the $G_\infty$-formality map). The globalisation to
-smooth $X$ used the Getzler--Kapranov descent for Gelfand--Fuks
-cohomology of formal vector fields; C{\u a}ld{\u a}raru 2005 \S5--6
-assembles the cup and the Mukai pairing compatibility; C{\u a}ld{\u a}raru--%
-Willerton 2010 state the $\Td^{1/2}$ correction in final form.
-\end{proof}
+\begin{hypothesis}[HKR and completed diagonal]
+\label{hyp:hkr-diagonal}
+The HKR statements below use one of the following smooth
+settings: a smooth separated finite-type scheme over $\C$, a smooth
+complex manifold with perfect coherent input, or a formal affine chart
+with continuous Hochschild complexes. Hochschild chains and cochains are
+computed for $\Perf(X)$ by kernels on $X\times X$ completed along the
+diagonal $\Delta\colon X\hookrightarrow X\times X$:
+\[
+  \widehat{X\times X}_{\Delta}
+  =
+  \varprojlim_n
+  \operatorname{Spec}_{X\times X}
+  \bigl(\cO_{X\times X}/\mathcal I_\Delta^{n+1}\bigr).
+\]
+All tensor products and endomorphisms on this formal neighbourhood are
+$\mathcal I_\Delta$-adically complete. Properness enters exactly for
+finite-dimensional traces, Mukai pairings, and global partition
+functions.
+\end{hypothesis}
 
-\textbf{Scope on $\C^3$.} On $X = \C^3$ (flat affine), $T_X = \cO_X^3$
-is globally trivial, hence $\At(T_X) = 0$ on the nose and $\Td(X) = 1$.
-The twist \eqref{eq:hkr-tw} collapses and
-$\HKR^{\mathrm{bare}} = \HKR_{\mathrm{tw}}$; the user's $\HH^\bullet =
-\PV^\bullet(\C^3)$ is correct precisely because the twist vanishes.
-This is the elementary instance.
+For smooth $X$ there are HKR quasi-isomorphisms
+\[
+  I_{\HKR}^{\mathrm{co}}\colon \HH^\bullet(X)\simeq
+  \bigoplus_{p,q}H^q(X,\wedge^pT_X),
+  \qquad
+  I_{\HKR}^{\mathrm{ho}}\colon \HH_\bullet(X)\simeq
+  \bigoplus_{p,q}H^q(X,\Omega^p_X).
+\]
+They identify the associated graded objects for the Hodge filtration.
+The affine formula is the antisymmetrisation map
+\[
+  \xi_1\wedge\cdots\wedge\xi_p
+  \longmapsto
+  \frac{1}{p!}\sum_{\sigma\in S_p}\mathrm{sgn}(\sigma)\,
+  \xi_{\sigma(1)}\otimes\cdots\otimes\xi_{\sigma(p)}
+\]
+from polyvector fields to Hochschild cochains.
 
-\textbf{Scope on compact CY$_3$.} On compact $X$ with $c_1(T_X) = 0$
-(Calabi--Yau condition), $\Td(X)^{1/2}$ reduces to the \emph{second}
-Chern correction:
-\begin{equation}
-  \Td(X) \;=\; 1 + \tfrac{1}{2} c_1 + \tfrac{1}{12}(c_1^2 + c_2)
-             + \tfrac{1}{24} c_1 c_2 + \cdots
-  \;\xrightarrow{c_1 = 0}\;
-  1 + \tfrac{1}{12} c_2(TX).
-  \label{eq:td-cy}
-\end{equation}
-Hence $\Td(X)^{1/2} = 1 + \tfrac{1}{24} c_2(TX) + O(c_2^2)$ on compact
-CY$_3$. The Atiyah-class twist $\exp(\At(TX)/2)$ is independently
-non-trivial whenever $\At(TX) \neq 0$, which is generic.
+\begin{definition}[Atiyah class]
+\label{def:atiyah-class}
+For a holomorphic vector bundle $E$ on $X$, the Atiyah class
+\[
+  \At(E)\in H^1(X,\Omega^1_X\otimes\End(E))
+\]
+is the extension class of the first-jet sequence
+\[
+  0\to\Omega^1_X\otimes E\to J^1(E)\to E\to0.
+\]
+For $E=T_X$, this class is the first obstruction to a holomorphic
+connection on $T_X$ and is the source of Kapranov's brackets on
+$T_X[-1]$.
+\end{definition}
 
-Conclusion: the user's sentence ``$\HH^\bullet = \PV^\bullet(\C^3)$
-after HKR'' is true on $\C^3$ by cancellation of both corrections; it
-does \emph{not} upgrade to ``$\HH^\bullet(X) = \PV^\bullet(X)$ on
-compact CY$_3$'' without the Kontsevich--C{\u a}ld{\u a}raru twist.
-Bare HKR is a graded-module isomorphism (always true for smooth $X$);
-$E_2$-algebra compatibility requires the twist.
-\end{heal}
-
-\begin{remark}[Against AP-CY1 scope symbol overload]
-Treating ``HKR'' as a single symbol across flat $\C^3$, local toric
-$X$, and compact CY$_3$ without flagging the twist is the precise
-shape of AP-CY1 on cache entry~\#1 (``$\kch = \chi_{\mathrm{top}}/24$
-applied to local toric CY$_3$''). Discipline: every HKR invocation must
-either (i) be in a context where the twist vanishes (flat, or $\Eone$
-level, or Lie-bracket-only statement), or (ii) carry the twist
-explicitly, \eqref{eq:hkr-tw}.
-\end{remark}
-
-% ================================================================
-\section{Attack--heal~2. Matrix framing on $\C^3$: hCS vs CoHA input vs
-envelope}
-\label{sec:ah2}
-% ================================================================
-
-\begin{attack}
-User continues: ``with matrix-valued framing $\End(V)$ you recover
-hCS with gauge $\fgl(V)$''. Adversarially: this is a correct slogan
-only when all three of the following are compatible:
-(i) the factorisation envelope target category, (ii) the
-$L_\infty$-algebra of fields, and (iii) the perturbative BV action. The
-bare slogan elides Steps 1--3 of the $\Phi$-construction and can be read
-as ``$\HH^\bullet(\C^3) \otimes \End(V)$ = hCS action'', which is a
-category error: $\HH^\bullet(\C^3)$ is a $\Z_{\geq 0}$-graded Gerstenhaber
-algebra, while the hCS action on $\C^3$ with gauge $\fgl(V)$ is a
-functional on the space of $(0,\bullet)$-connections on $V \to \C^3$,
-valued in $\C$ via the Calabi--Yau trace.
-\end{attack}
-
-\begin{ghost}
-Costello 2007 \emph{Pure Appl.\ Math.\ Q.} / Costello 2011
-\emph{Renormalisation and EFT} Ch~5 / Costello--Li 2016
-arXiv:1605.01473 construct hCS on a Calabi--Yau $3$-fold $X$ with
-vector-bundle background $V\to X$ as a classical BV theory with
-fields $\alpha\in\Omega^{0,\bullet}(X,\End(V))[1]$ and action
-\begin{equation}
-  S_{\hCS}(\alpha) \;=\; \int_X \Omega_X \wedge \mathrm{Tr}\!\left(
-    \tfrac{1}{2}\alpha\,\bar\partial\alpha
-    + \tfrac{1}{3}\alpha^{\wedge 3}
+\begin{theorem}[Corrected HKR comparison]
+\label{thm:corrected-hkr}
+Let $X$ satisfy Hypothesis~\ref{hyp:hkr-diagonal}. The uncorrected HKR
+maps are quasi-isomorphisms of complexes and identify the associated
+graded Hochschild calculus with polyvectors and forms. Compatibility
+with the Hochschild module action on chains, the Mukai pairing, and the
+global formality descent is given by the Duflo-Todd correction. On
+homology the corrected map is
+\[
+  I_{\HKR,\Td}^{\mathrm{ho}}(\alpha)
+  =
+  I_{\HKR}^{\mathrm{ho}}(\alpha)\wedge \Td(T_X)^{1/2}.
+\]
+On cochains the same formal-coordinate descent acts by the Duflo
+element of the Lie algebra of formal vector fields. In Chern-Weil
+language its characteristic class is generated by the Atiyah class
+through the exponential series
+\[
+  \operatorname{Duf}_X
+  =
+  \exp\!\left(
+    \sum_{m\ge1}
+    \frac{B_{2m}}{4m(2m)!}\,
+    \operatorname{tr}\bigl(\At(T_X)^{2m}\bigr)
   \right),
-  \label{eq:hcs-action}
-\end{equation}
-where $\Omega_X$ is the Calabi--Yau volume form. Abelian gauge
-($V=\cO$): $\fgl(1)$ hCS on $\C^3$ gives, at the boundary or by
-equivariant reduction, $\cW_{1+\infty}$ at $c = 1$ (Costello--Li 2016
-\S4). Nonabelian gauge $V = \C^N$ scales the rank of the boundary
-$\cW$-algebra to $\cW_\infty[N]$ via Gaiotto--Rapcak 2017 arXiv:1703.00982.
-\end{ghost}
-
-\begin{heal}
-State the three layers separately.
-
-\medskip
-
-\textbf{Layer~A (categorical input).} The derived category
-$D^b\Coh(\C^3)\otimes\End(V)\text{-mod}$ is the CY-$3$ input; its
-endomorphism algebra in the derived sense is
-$\HH^\bullet(\C^3,\End(V)) \;\simeq\; \PV^\bullet(\C^3)\otimes\fgl(V)
-\;=\; \bigoplus_{p,q} H^q(\C^3,\wedge^p T_{\C^3})\otimes\fgl(V)$
-via $\HKR$. This is the graded Lie algebra (Gerstenhaber bracket)
-that the Kodaira--Spencer / BCOV theory inflates into a solution of
-the classical master equation on formal $(0,\bullet)$-forms; see
-Costello 2011 Ch~5 Thm~5.0.1 and companion wave15\_l2 \S~\emph{Object}.
-
-\medskip
-
-\textbf{Layer~B (factorisation envelope).} The
-Costello--Gwilliam envelope of the dgLa
-$\Omega^{0,\bullet}(\C^3, \fgl(V))[2]$ with Schouten-lifted Dolbeault
-differential is the chiral envelope $U^{\mathrm{ch}}(\fgl(V)\otimes
-\PV^\bullet(\C^3)[2])$ (Costello--Gwilliam \emph{FA} Vol~2 \S5;
-companion wave12\_a8 (R4)). This is the factorisation-algebra avatar.
-
-\medskip
-
-\textbf{Layer~C (hCS BV action).} The action \eqref{eq:hcs-action} is
-the BV functional on the space of $\bar\partial$-connections; its
-perturbative expansion is an $L_\infty$-structure on
-$\Omega^{0,\bullet}(\C^3,\fgl(V))$ whose binary bracket is
-$\bar\partial + [\cdot,\cdot]_{\fgl(V)} + [\cdot,\cdot]_{\wedge,\PV}$
-and whose higher brackets are Feynman-diagram sums (Costello 2011
-Ch~5; Costello--Li 2016 \S4).
-
-\medskip
-
-Equivalence ``$\text{Layer A}\leftrightarrow\text{Layer B}
-\leftrightarrow\text{Layer C}$'' on $\C^3$ with gauge $\fgl(V)$ is the
-\emph{theorem} (Costello--Gwilliam \emph{FA} Vol~2 Thm~10.0.1;
-Costello--Li 2016 \S6), not a tautology. The user's slogan collapses
-A, B, C into one arrow and is correct \emph{provided the twist of
-\S\ref{sec:ah1} vanishes on $\C^3$}. It does.
-
-\medskip
-
-\textbf{Trap for $d=3$ compact.} Transposing the $\C^3$ slogan to
-compact CY$_3$ fails because (i) $\At(TX) \neq 0$ generically, so
-the Kontsevich--C{\u a}ld{\u a}raru twist is active on
-$\HH^\bullet(X)$, and (ii) $\Phi_3(D^b\Coh(X))$ is $\Eone$ for the
-intrinsic reason $\pi_3(B\mathrm{Sp})=0$ (companion wave12\_a8 \S5),
-\emph{not} because of $\Omega$-background, which does not exist on
-non-toric $X$. The hCS theory is still defined via the action
-\eqref{eq:hcs-action}, but the perturbative expansion has one-loop
-and higher corrections controlled by the same $\At(TX)$ that drives
-the twist; these corrections are the BCOV curving datum of \S\ref{sec:ah5}.
-\end{heal}
-
-% ================================================================
-\section{Attack--heal~3. ``Atiyah class is the formality obstruction''}
-\label{sec:ah3}
-% ================================================================
-
-\begin{attack}
-User writes: ``on compact CY$_3$ the Atiyah class $\At(TX)$ is the
-formality obstruction''. Adversarial reading: this sentence conflates
-two different ``formality'' notions.
-\begin{itemize}[itemsep=2pt]
-\item \emph{Kontsevich formality} (Kontsevich 1997 arXiv:q-alg/9709040,
-      published 2003 \emph{Lett.\ Math.\ Phys.}~66): the DGLA of
-      polydifferential operators on a smooth manifold $M$ is
-      $L_\infty$-quasi-isomorphic to its cohomology
-      $\PV^\bullet(M)$ with Schouten bracket. This is an
-      \emph{absence-of-obstruction} theorem: formality \emph{holds}
-      in this setting (on flat manifolds), via a specific
-      $L_\infty$-quasi-isomorphism built from Feynman integrals on
-      configuration spaces of the upper half-plane.
-\item \emph{Kapranov $L_\infty$-algebra on $T_X[-1]$} (Kapranov 2001
-      \emph{Compositio}~115): the Dolbeault complex
-      $\Omega^{0,\bullet}(X, T_X)$ carries a natural
-      $L_\infty$-structure whose binary bracket is the Atiyah square
-      and whose higher brackets are iterated Atiyah cup-products.
-\end{itemize}
-These are \emph{not} the same. Kontsevich formality says the
-polydifferential DGLA is formal; the Kapranov $L_\infty$-structure
-on $T_X[-1]$ is \emph{not formal in general}: its $\mu_2 = \At$ is
-non-trivial at the cohomology level. A reader wanting to treat
-``$\At(TX)$'' as the single formality obstruction runs the risk of
-confusing these.
-\end{attack}
-
-\begin{ghost}
-Kapranov 2001 Thm~2.6 identifies $\At(TX)$ with the binary
-$L_\infty$-bracket $\mu_2$ on $T_X[-1]$, and the higher brackets
-$\mu_n$ on $T_X[-1]$ as iterated cup-products of $\At$ through the
-Jacobi / Kuranishi tensor contractions. Goldman--Millson 1988
-\emph{Publ.\ Math.\ IHES}~67 and Kontsevich--Soibelman 2000
-\emph{Def.\ Theories, Homotopy Gerstenhaber and \ldots}
-transfer this structure to cohomology via homotopy transfer;
-unobstructedness of deformations (Bogomolov--Tian--Todorov for CY)
-is the statement that $\mu_n^{\min} = 0$ for $n \geq 3$ \emph{in
-cohomology}, i.e.\ the Kapranov $L_\infty$-algebra is formal.
-\end{ghost}
-
-\begin{heal}
-Two distinct statements, each precisely true:
-
-\medskip
-
-\textbf{(i) Kontsevich formality (on the polydifferential side).} For
-smooth $X$, the sheaf of polydifferential operators
-$\mathcal{D}^{\bullet}_\mathrm{poly}(X)$ is $L_\infty$-quasi-isomorphic
-to $\PV^\bullet(X)$ via a map depending on a contractible space of
-choices (Kontsevich formality). The existence is \emph{unobstructed};
-$\At(TX)$ appears as the Dolezal--Willwacher weight that realises the
-twist of \S\ref{sec:ah1} when one passes from the \emph{Lie}-formality
-to the \emph{Gerstenhaber}-formality.
-
-\medskip
-
-\textbf{(ii) Kapranov $L_\infty$-algebra on $T_X[-1]$.} The binary
-bracket $\mu_2$ equals the Atiyah class $\At(TX)$ under the pairing
-$H^1(X,\Omega^1\otimes\End T)\otimes H^1(X,T)\otimes H^1(X,T)\to
-H^3(X,T)$. Higher brackets $\mu_n$ are iterated Atiyah cup-products.
-Maurer--Cartan elements are small deformations of the complex structure.
-
-\medskip
-
-\textbf{Formality of the Kapranov $L_\infty$-algebra:} on compact
-K\"ahler $X$, Bogomolov--Tian--Todorov (Tian 1987, Todorov 1989,
-Goldman--Millson 1988, Iyengar--Manetti 2019) prove
-$\mu_n^{\min} = 0$ for $n \geq 3$ \emph{in cohomology} when $X$
-is Calabi--Yau. This is the formality statement; it is \emph{not}
-$\At(TX) = 0$. The Atiyah class is non-zero \emph{as a cochain
-binary bracket}; the minimal-model higher brackets vanish because
-the Kuranishi cubic $\mu_3 = [\At,\At,\At]$ lands in the
-cohomological receptacle and evaluates to the zero class there.
-\medskip
-
-\textbf{Healed statement.}
-\begin{theorem}[Kapranov formality on compact CY$_3$]
-\label{thm:kapranov-formality-cy3}
-\ClaimStatusTheorem\ Let $X$ be a smooth compact Calabi--Yau $3$-fold.
-Let $(T_X[-1], \mu_2 = \At(TX), \mu_3,\mu_4,\ldots)$ be the Kapranov
-$L_\infty$-algebra (Kapranov 2001 Thm~2.6). Homotopy transfer
-(Kontsevich--Soibelman 2000 \S6.4) to cohomology
-$\mathcal H_X := \mathcal H_{\bar\partial}(X, T_X[-1])$ produces a
-minimal $L_\infty$-structure with brackets $\mu_n^{\min}$ given by sums
-over trees of iterated cup-products of $\At$ pushed through harmonic
-projections. Then $\mu_n^{\min} = 0$ for $n \geq 3$ in the
-$L_\infty$-structure at cohomology level; $\mu_2^{\min} = \At$
-persists. The Kapranov algebra is formal in the sense of
-Kontsevich--Soibelman 2000 (cohomology-level vanishing of
-$n\geq 3$-ary brackets).
+\]
+whose image on Hochschild homology is $\Td(T_X)^{1/2}$.
+The corrected comparison is the Kontsevich-Caldararu, Calaque-Van den
+Bergh, and Caldararu-Willerton form of HKR.
 \end{theorem}
-\begin{proof}[Proof sketch.]
-Combine Kapranov 2001 Thm~2.6, Tian 1987 / Todorov 1989 / Goldman--Millson
-1988 Bogomolov--Tian--Todorov unobstructedness (equivalent to
-$\mu_3^{\min} = 0$ in cohomology), and the Kontsevich--Soibelman 2000
-\S6.4 formality criterion. The cohomology-level vanishing is the
-Beauville--Kuranishi cubic computation: $\mu_3 = \At^{\cup 3}$ lands
-in $H^3(X,\wedge^3 T_X) = H^3(X,\Omega^3_X\otimes\omega_X^{-1})$.
-On CY$_3$, $\omega_X = \cO_X$, so the receptacle is $H^3(X,\Omega^3_X)
-\cong \C$ by Hodge theory (Serre duality to $H^0(X,\cO_X)$). On this
-$\C$-line $\mu_3$ evaluates to a specific scalar, the \emph{Yukawa
-coupling} $Y_3(x,y,z) = \int_X x\cup y\cup z \wedge \Omega_X$, which is
-non-zero in general but is \emph{not} a formality obstruction at
-cohomology: since $\dim H^3(X,\Omega^3_X) = 1$, the minimal
-$\mu_3^{\min}$ is forced to land in a $1$-dimensional space where the
-Kuranishi obstruction is unobstructed by Bogomolov--Tian--Todorov.
-See also companion wave15\_l2 \S\emph{Cycle~3--5} for the $K3\times E$
-analogue where $Y_3$ factors through the K3 factor.
+
+\begin{proof}
+HKR gives the local symbol quasi-isomorphism. Kontsevich formality
+identifies polyvector fields and polydifferential operators as
+$L_\infty$ algebras on formal affine charts. Global descent over the
+bundle of formal coordinates introduces the Gelfand-Fuks characteristic
+class represented by $\At(T_X)$. The Duflo element of this descent is
+the square-root Todd class. Caldararu's Mukai-pairing theorem and the
+Calaque-Van den Bergh cochain comparison identify this same class as
+the correction required for product and module compatibility.
 \end{proof}
 
-\medskip
+\begin{corollary}[Flat affine three-space]
+\label{cor:c3-hkr}
+For $X=\C^3$ the tangent bundle is globally trivial, hence
+\[
+  \At(T_{\C^3})=0,\qquad \Td(T_{\C^3})=1.
+\]
+The corrected HKR comparison equals the elementary HKR symbol map:
+\[
+  \HH^\bullet(\C^3)\simeq
+  \C[z_1,z_2,z_3]\otimes
+  \wedge(\partial_{z_1},\partial_{z_2},\partial_{z_3})
+  =\PV^\bullet(\C^3).
+\]
+This is the flat calculation. It supplies the local model for hCS
+Feynman rules and for the positive CoHA of $\C^3$.
+\end{corollary}
 
-\textbf{Refined reading of the user's sentence.} ``The Atiyah class is
-the formality obstruction'' should be parsed as ``the Atiyah class is
-the $L_\infty$-binary bracket $\mu_2$, and the Kapranov
-$L_\infty$-structure is formal at cohomology in the CY$_3$ case
-because Bogomolov--Tian--Todorov forces $\mu_3^{\min} = 0$.'' The
-Atiyah class is \emph{not the obstruction}; it is the binary bracket
-whose cup-cube, under a non-degenerate CY trace, defines the Yukawa
-coupling. The coupling is a load-bearing mathematical object (Yukawa
-$3$-form / BCOV propagator input); it is not an obstruction to the
-Kapranov minimal-model truncation.
-\end{heal}
+\section{Formality, Atiyah Brackets, and Curvature}
+\label{sec:formality-curvature}
 
-\begin{remark}[Two distinct formalities, one label]
-AP-CY addendum (tentative, for reviewer): ``Kontsevich formality''
-(of polydifferential operators, absence-of-obstruction on flat
-manifolds, unconditional for all smooth $M$) and ``Kapranov
-$L_\infty$ formality'' (of $T_X[-1]$, cohomology-level vanishing of
-$n\geq 3$-brackets, holds on compact CY via BTT) share the word
-``formality'' but are distinct. The Atiyah class is a witness for
-the second, not an obstruction for the first. Never use ``the
-formality obstruction'' without specifying which of the two
-formalities is in play.
-\end{remark}
+The symbols HKR, formality, Atiyah class, BCOV curving, and
+Positselski curvature refer to different structures.
 
-% ================================================================
-\section{Attack--heal~4. $K3\times E$ as the clean compact instance}
-\label{sec:ah4}
-% ================================================================
+\begin{definition}[Formal diagonal]
+\label{def:formal-diagonal}
+The formal diagonal of a smooth $X$ is the completed neighbourhood
+$\widehat{X\times X}_{\Delta}$ of
+Hypothesis~\ref{hyp:hkr-diagonal}. Its structure sheaf carries the
+completed jet algebra
+\[
+  \cJ_X=\Delta^{-1}\cO_{\widehat{X\times X}_{\Delta}},
+  \qquad
+  \operatorname{gr}\cJ_X\simeq \widehat{\Sym}_{\cO_X}(\Omega^1_X).
+\]
+Splitting the first infinitesimal layer of $\cJ_X$ is the same first
+order problem as splitting the jet sequence of $T_X$; the obstruction
+class is $\At(T_X)$. The formal diagonal is the geometric home of HKR
+descent and Kapranov's shifted Lie construction.
+\end{definition}
 
-\begin{attack}
-The user's essay implies an obstruction picture for ``compact CY$_3$''
-that would predict a generically non-trivial Atiyah-class truncation of
-the minimal model. Adversarial test: apply to the CLAUDE.md canonical
-example $X = K3 \times E$ with four $\kappa_\bullet$-spectrum
-$\{2,3,5,24\}$. On this $X$: does $\At(T(K3\times E))$ fire at all
-$\mu_n^{\min}$? Does the minimal model truncate?
-\end{attack}
+\begin{hypothesis}[Kapranov shifted Lie data]
+\label{hyp:kapranov-shifted-lie}
+Assume $X$ is a smooth complex manifold. Choose a $C^\infty$
+connection $\nabla$ on $T_X$ whose curvature representative has
+Dolbeault class $\At(T_X)$. The completed Dolbeault complex
+\[
+  \Omega^{0,\bullet}(X,T_X[-1])^{\wedge}
+\]
+is taken at the zero section. Kapranov's brackets are the multilinear
+maps $\ell_n$ obtained from $R_\nabla$ and its iterated covariant
+derivatives:
+\[
+  \ell_2 \longleftrightarrow [R_\nabla]=\At(T_X),
+  \qquad
+  \ell_n \longleftrightarrow \nabla^{n-2}R_\nabla
+  \quad (n\ge3),
+\]
+with the usual symmetrisation and contraction conventions. Different
+choices of $\nabla$ give $L_\infty$-isomorphic completed objects.
+\end{hypothesis}
 
-\begin{ghost}
-On any compact K\"ahler $X$ the Kapranov $L_\infty$-algebra on
-$T_X[-1]$ admits homotopy transfer to cohomology and carries a
-minimal model. K\"unneth for $X = Y_1\times Y_2$ splits
-$\At(TX) = p_1^*\At(TY_1)\oplus p_2^*\At(TY_2)$ in block-diagonal form
-on $\End(TX) = \End(p_1^*TY_1)\oplus\End(p_2^*TY_2)$ plus mixed
-off-diagonal summands that are pulled back from each factor separately
-and do not mix (companion wave15\_l2 Cycle~1). For $Y_2 = E$ an
-elliptic curve, $TE = \cO_E$ with the flat holomorphic
-connection $\nabla_0 = d$, so $\At(TE) = 0$ on the nose
-(Atiyah 1957 Thm~1; companion wave15\_l2 Cycle~2).
-\end{ghost}
+\begin{definition}[Kontsevich-Caldararu formality]
+\label{def:kc-formality}
+Kontsevich formality is an $L_\infty$ quasi-isomorphism from
+polyvector fields to polydifferential operators. Caldararu's global
+form applies this comparison to smooth varieties by inserting the
+Atiyah-Duflo descent class. The output is a corrected Hochschild
+calculus comparison.
+\end{definition}
 
-\begin{heal}
-\begin{theorem}[Explicit Atiyah class of $K3\times E$ and truncation]
-\label{thm:k3e-atiyah}
-\ClaimStatusProvedElsewhere (wave15\_l2 Synthesis). Let
-$X = K3 \times E$. Then:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item $\At(T(K3\times E)) = p_1^*\At(TK3)$ in $H^1(X,\Omega^1_X\otimes
-      \End(TX))$; the elliptic summand $\At(TE)$ vanishes.
-\item The Kuranishi cubic $\At(TK3)^{\cup 3}$ lands in
-      $H^3(K3,\Omega^3_{K3}) = 0$ by dimension and is zero.
-\item On $X$ the minimal $L_\infty$-structure truncates to
-      $\mu_n^{\min} = 0$ for $n \geq 3$; the Kapranov algebra on $X$
-      is formal.
-\item The truncation is witnessed at the K\"unneth-$\kcat$ level by
-      $\kcat(K3\times E) = \chi(\cO_{K3})\cdot\chi(\cO_E) = 2\cdot 0
-      = 0$ (CLAUDE.md top-15 cache item~2); the
-      factor $\chi(\cO_E) = 0$ is the cohomological shadow of
-      $\At(TE) = 0$.
-\end{enumerate}
-\end{theorem}
-\begin{proof}[Proof.]
-Companion wave15\_l2 Synthesis, Cycles~1--5. (i) K\"unneth plus
-naturality of $\At$. (ii) Atiyah 1957 Thm~1 for $TE$, trivial bundle.
-(iii) $H^3(K3,\Omega^3_{K3}) = 0$ because $\Omega^3_{K3} = 0$ on a
-$2$-dimensional variety; the Kuranishi cubic in cohomology is zero.
-(iv) K\"unneth-multiplicative $\kcat$ (top-15 cache~\#2), matching
-BCOV hierarchy.
+\begin{definition}[Kapranov brackets]
+\label{def:kapranov-brackets}
+Under Hypothesis~\ref{hyp:kapranov-shifted-lie}, Kapranov's
+construction gives $T_X[-1]$ the structure of a Lie algebra object in
+the derived category. In a Dolbeault model this is an $L_\infty$
+algebra whose binary bracket is induced by $\At(T_X)$. The higher
+brackets are iterated covariant derivatives and contractions of the
+curvature class representing $\At(T_X)$. This structure controls the
+formal neighbourhood of the diagonal. hCS quantization and chiral
+transfer add BV and factorization data beyond this formal moduli
+problem.
+\end{definition}
+
+\begin{definition}[BCOV closed theory]
+\label{def:bcov-theory}
+For a Calabi-Yau threefold $(X,\Omega_X)$, BCOV theory is the closed
+Kodaira-Spencer theory on polyvectors with Calabi-Yau trace. Its
+tree-level cubic on complex-structure directions is the Yukawa form
+\[
+  Y_X(v_1,v_2,v_3)
+  =
+  \int_X
+  \Omega_X\wedge
+  \bigl((v_1\wedge v_2\wedge v_3)\,\lrcorner\,\Omega_X\bigr),
+  \qquad v_i\in H^1(X,T_X).
+\]
+The Costello-Li one-loop BCOV datum is a determinant-line anomaly or
+closed BV curving term. In the standard compact threefold
+normalisation its scalar coefficient contains $\chi_{\mathrm{top}}(X)/24$.
+\end{definition}
+
+\begin{definition}[Positselski curvature]
+\label{def:positselski-curvature}
+A curved dg algebra in Positselski's sense is a triple $(A,d,h)$ with
+$d^2=[h,-]$ and $d(h)=0$. The element $h$ is algebraic curvature for
+coderived or contraderived categories. It is a curvature element inside
+an algebraic differential. It is separate from the BCOV closed BV
+curving and from the Atiyah class.
+\end{definition}
+
+\begin{proposition}[The six roles]
+\label{prop:six-roles}
+The following assignments are type-correct.
+\[
+\begin{array}{c|c|c}
+\text{object} & \text{home} & \text{role}\\
+\hline
+I_{\HKR} & \HH^\bullet(X)\to\PV^\bullet(X) & \text{quasi-isomorphism}\\
+\Td(T_X)^{1/2} & H^{\mathrm{even}}(X) & \text{HKR product and pairing correction}\\
+\At(T_X) & H^1(X,\Omega^1_X\otimes\End T_X) & \text{Kapranov binary bracket source}\\
+Y_X & \Sym^3H^1(X,T_X)^\vee & \text{tree-level BCOV cubic}\\
+\alpha_{\BCOV} & \text{closed BV anomaly line} & \text{one-loop BCOV datum}\\
+h & A^2 & \text{Positselski curved-dg curvature}
+\end{array}
+\]
+The Atiyah class can source several of these constructions through
+descent or trace, yet the resulting objects live in different
+cohomological groups and answer different deformation problems.
+\end{proposition}
+
+\begin{proof}
+The HKR map is a comparison between Hochschild and polyvector
+complexes. The Todd class is a characteristic-class correction to this
+comparison. Kapranov's bracket is a Lie-object structure on $T_X[-1]$.
+The Yukawa cubic is a scalar trilinear form after contraction with the
+Calabi-Yau volume form. The BCOV one-loop datum belongs to the closed
+BV quantization. Positselski curvature is an element controlling the
+square of an algebraic differential. These domains are functorially
+connected, but none has the same source, target, or degree as another.
 \end{proof}
 
-\medskip
-
-\textbf{Contrast with the generic (non-product) compact CY$_3$.} On a
-quintic threefold $Q \subset \P^4$: $T_Q$ is irreducible, $\At(T_Q)$
-is generically non-trivial in $H^1(Q,\Omega^1_Q\otimes\End(T_Q))$, and
-$H^3(Q,\Omega^3_Q) = H^{3,3}(Q) = \C$ is one-dimensional. The
-Kuranishi cubic $\At(T_Q)^{\cup 3}$ lands in this $\C$-line and pairs
-with $\int_Q \Omega_Q$ to produce the Yukawa coupling
-$Y_3 \in \mathrm{Sym}^3 H^1(Q, T_Q)^\vee \cong \mathrm{Sym}^3 H^{2,1}(Q)^\vee$.
-The minimal-$\mu_3^{\min}$ is not forced to zero by dimension alone on
-the quintic; Bogomolov--Tian--Todorov \emph{does} force
-$\mu_n^{\min} = 0$ for $n\geq 3$ in the \emph{deformation}
-$L_\infty$-algebra of $X$ (unobstructed complex deformations), but the
-Yukawa receptacle $Y_3$ is the non-trivial evaluation of $\mu_3$
-against a fundamental class, living on the mirror side.
-\end{heal}
-
-% ================================================================
-\section{Attack--heal~5. Atiyah class = BCOV curving = Yukawa
-coupling $Y_3$?}
-\label{sec:ah5}
-% ================================================================
-
-\begin{attack}
-User's essay concludes: ``hCS sees this as the BCOV curving datum
-(Yukawa coupling $Y_3$) in the BV measure''. Adversarial reading: this
-collapses three distinct objects into one phrase.
-\begin{itemize}[itemsep=1pt]
-\item \emph{BCOV curving} (Bershadsky--Cecotti--Ooguri--Vafa 1994
-      \emph{CMP}~165): a curved dgLa structure on
-      $\PV^\bullet(X) \otimes \C[[\hbar]]$ with curvature $K_X\in
-      H^3(X,\cO_X)$ (the holomorphic volume class). This is
-      a ``curvature'' in the sense of curved-$L_\infty$ / curved
-      associative (Positselski 2011).
-\item \emph{Yukawa coupling $Y_3$}: the cubic form
-      $Y_3\colon \mathrm{Sym}^3 H^1(X,T_X)\to \C$ defined by the
-      three-point function
-      $\int_X \Omega_X \wedge \iota_{v_1}\iota_{v_2}\iota_{v_3}\Omega_X$
-      (Candelas--de la Ossa--Green--Parkes 1991). This is a symmetric
-      multilinear form, \emph{not} a curvature.
-\item \emph{BV measure on hCS}: the Costello 2011 Ch~5 path-integral
-      measure, regularised perturbatively, whose one-loop anomaly is a
-      cocycle in the BV cohomology.
-\end{itemize}
-These are three distinct mathematical objects on three different
-mathematical arenas; conflating them is a type error.
-\end{attack}
-
-\begin{ghost}
-Costello 2011 Ch~5 and Costello--Li 2016 arXiv:1605.01473 \S5--6
-establish an honest identification between perturbative hCS and the
-BCOV curved $L_\infty$-algebra on $\PV^\bullet(X)$: the hCS BV bracket
-integrated against $\Omega_X$ is the Schouten bracket of polyvectors,
-and the one-loop quantum master equation produces a BCOV-type curving
-whose leading term is the Yukawa coupling paired with the residue of
-the measure.
-\end{ghost}
-
-\begin{heal}
-Three precise layers, each a theorem.
-
-\medskip
-
-\textbf{Layer~$\alpha$: Atiyah class feeds Yukawa via CY trace.} On a
-compact CY$_3$ $X$, the Atiyah class $\At(T_X)$ is the
-$\mu_2$-bracket of the Kapranov $L_\infty$-algebra (Theorem
-\ref{thm:kapranov-formality-cy3}). The cup-cube $\At^{\cup 3}$ pairs
-against $\Omega_X \in H^0(X,\Omega^3_X)$ to give the Yukawa coupling:
-\begin{equation}
-  Y_3(v_1,v_2,v_3) \;=\;
-  \int_X \Omega_X \wedge [\At(v_1)\cup\At(v_2)\cup\At(v_3)],
-  \qquad v_i \in H^1(X,T_X).
-  \label{eq:yukawa-from-atiyah}
-\end{equation}
-This identification is via the Hodge duality
-$H^1(X,T_X) \xrightarrow{\sim} H^{2,1}(X)$ (contraction with $\Omega_X$)
-and the three-point function. Candelas et al.\ 1991 \S2 is the
-classical reference.
-
-\medskip
-
-\textbf{Layer~$\beta$: Yukawa feeds BCOV curving.} BCOV 1994 construct
-a curved dgLa on $\PV^\bullet(X)[[\hbar]]$ with curvature
-$\mathcal F_{\mathrm{BCOV}}$ whose classical ($\hbar^0$) limit is the
-Schouten bracket, whose one-loop ($\hbar^1$) curving contains $Y_3$ as
-the leading cubic vertex:
-\begin{equation}
-  \mathcal F_{\mathrm{BCOV}}^{\mathrm{cubic}}
-  \;=\; \tfrac{1}{3!}\,Y_3(v,v,v)\,\hbar + O(\hbar^2),
-  \qquad v \in H^1(X,T_X) \subset \PV^\bullet(X).
-  \label{eq:bcov-yukawa}
-\end{equation}
-The higher-$\hbar$ contributions are higher-genus Gromov--Witten
-invariants (BCOV holomorphic anomaly equation / Costello--Li
-Kodaira--Spencer genus expansion).
-
-\medskip
-
-\textbf{Layer~$\gamma$: BV measure of hCS \emph{is} BCOV curving.}
-Costello 2011 Ch~5 Thm~5.0.1 and Costello--Li 2016 \S5 prove that the
-one-loop perturbative BV measure of \eqref{eq:hcs-action} on a
-Calabi--Yau $3$-fold with abelian gauge group $U(1)$ is the BCOV
-curved dgLa on $\PV^\bullet(X)$, and extends to nonabelian gauge via
-the standard matrix-model expansion. The quantum master equation for
-the BV action is the curved-$L_\infty$ Maurer--Cartan equation of
-Layer~$\beta$; the obstruction to solving it at one loop is the
-Yukawa coupling $Y_3$.
-
-\medskip
-
-Combining the three layers:
-
-\begin{theorem}[hCS BV measure and the Atiyah-to-Yukawa-to-BCOV chain]
-\label{thm:hcs-bcov-chain}
-\ClaimStatusProvedElsewhere (Costello 2011 / Costello--Li 2016). Let
-$X$ be a smooth compact CY$_3$ with Calabi--Yau volume form
-$\Omega_X$. Let $S_{\hCS}$ be the action \eqref{eq:hcs-action} with
-abelian gauge, quantised via Costello renormalisation. Then:
-\begin{enumerate}[label=\textup{(\roman*)}]
-\item The classical BV bracket at cohomology level reads the
-      $\mu_2$-bracket of the Kapranov $L_\infty$-algebra as its
-      Schouten--polyvector shadow:
-      $[\alpha,\beta]_{\mathrm{BV}} = [\HKR_{\mathrm{tw}}(\alpha),
-      \HKR_{\mathrm{tw}}(\beta)]_{\mathrm{Schouten}}$.
-\item The one-loop effective action has a $\hbar$-term whose leading
-      cubic vertex is $Y_3$ of \eqref{eq:yukawa-from-atiyah}.
-\item The Maurer--Cartan equation for the effective action is the
-      BCOV curved $L_\infty$ Maurer--Cartan equation
-      \eqref{eq:bcov-yukawa}; the quantum master equation at $\hbar^1$
-      is satisfied iff $Y_3$-induced obstructions cancel, which
-      happens for Calabi--Yau $X$ iff the standard Bogomolov--Tian--%
-      Todorov unobstructedness argument feeds through (Tian 1987;
-      Todorov 1989).
-\end{enumerate}
-\end{theorem}
-
-\medskip
-
-\textbf{Refined reading of the user's sentence.} ``hCS sees this as the
-BCOV curving datum $Y_3$ in the BV measure'' is correct as a slogan
-for Theorem \ref{thm:hcs-bcov-chain}, provided one reads it as:
-\emph{the Atiyah class is the binary bracket of the Kapranov
-$L_\infty$-algebra; its cup-cube pairs to the Yukawa $Y_3$ via the
-Calabi--Yau trace; the one-loop hCS BV measure is the BCOV curved
-$L_\infty$-algebra whose leading cubic vertex is $Y_3$.} The three
-identifications form a chain; they are not one map.
-\end{heal}
-
-\begin{remark}[Atiyah class is not a ``curving'' in the Positselski sense]
-Positselski 2011 \emph{Mem.\ AMS}~212 / curved-$L_\infty$: a curving is
-an element $\omega \in \cH^0$ obstructing $d^2 = 0$. The Atiyah class
-lives in $H^1(X, \Omega^1\otimes\End(TX))$ and is the $\mu_2$-bracket
-of the Kapranov $L_\infty$-algebra, satisfying $\mu_2^2 = 0$
-\emph{modulo higher brackets} (Jacobi). It is not a curving. The BCOV
-curving datum in the BV measure is a separate object
-\eqref{eq:bcov-yukawa}; its $\hbar^0$ component is $0$ (flat), its
-$\hbar^1$ component is $Y_3$; it is a BV-cohomology class, not an
-$L_\infty$-bracket class.
+\begin{remark}[Complex deformation unobstructedness]
+\label{rem:btt}
+For a compact Kahler Calabi-Yau manifold, the Kodaira-Spencer dg Lie
+algebra governing complex deformations is homotopy abelian by the
+Bogomolov-Tian-Todorov theorem. This statement concerns the deformation
+functor of complex structures. Kapranov's Atiyah brackets and the BCOV
+Yukawa cubic remain meaningful cohomological operations. The Kuranishi
+obstruction map may vanish while the tree-level Yukawa coupling remains
+nonzero.
 \end{remark}
 
-% ================================================================
-\section{Healing reconstruction: the healed sentence}
-\label{sec:reconstruction}
-% ================================================================
+\section{Four Local Layers}
+\label{sec:layers}
 
-The healed replacement for the user's essay sentence, chapter-ready in
-Chriss--Ginzburg voice (Russian elite school + math-physics elite
-school) without bookkeeping vocabulary:
+Let $X$ be a Calabi-Yau threefold with holomorphic volume form
+$\Omega_X$, and let $V$ be a finite-dimensional vector space.
 
-\begin{quote}
-On $\C^3$, bare HKR identifies $\HH^\bullet$ with $\PV^\bullet(\C^3)$
-as Gerstenhaber algebras, because flatness annihilates both the
-Kontsevich $\exp(\At/2)$ twist on cohomology and the C{\u a}ld{\u a}raru
-$\Td^{1/2}$ twist on homology. Matrix-valued framing $\End(V)$ extends
-the $\fgl(V)$-coefficient version of the identification to the hCS
-classical BV action \eqref{eq:hcs-action} via the
-Costello--Gwilliam factorisation envelope of
-$\Omega^{0,\bullet}(\C^3,\fgl(V))[2]$ with Dolbeault-lifted Schouten
-bracket.
+\begin{definition}[Open hCS field theory]
+\label{def:hcs-fields}
+The matrix holomorphic Chern-Simons fields on an open set $U\subset X$
+are
+\[
+  \cA\in\Omega^{0,\bullet}(U,\fgl(V))[1].
+\]
+The classical action is
+\[
+  S_{\hCS}(\cA)
+  =
+  \int_U\Omega_X\wedge
+  \operatorname{Tr}_V\left(
+    \frac12\cA\,\dbar\cA+
+    \frac16\cA[\cA,\cA]\right).
+\]
+\end{definition}
 
-On compact CY$_3$ the Atiyah class
-$\At(TX) \in H^1(X,\Omega^1_X\otimes\End(TX))$ is the
-$\mu_2$-bracket of the Kapranov $L_\infty$-algebra on $T_X[-1]$; its
-cup-cube $\At^{\cup 3}$ pairs against the CY volume form $\Omega_X$
-to define the Yukawa coupling $Y_3$ on $\mathrm{Sym}^3 H^1(X,T_X)$.
-The Kapranov $L_\infty$-algebra is formal at cohomology
-(Bogomolov--Tian--Todorov), and the BCOV curved $L_\infty$-algebra on
-$\PV^\bullet(X)[[\hbar]]$ has first-order curving equal to $Y_3$
-(BCOV 1994). The Costello perturbative BV measure of hCS on $X$ with
-abelian gauge realises the BCOV curved dgLa in $\PV^\bullet(X)$; the
-one-loop quantum master equation is the BCOV Maurer--Cartan equation
-whose cubic term is $Y_3$. Hence: the Atiyah class feeds Yukawa feeds
-BCOV curving feeds the one-loop hCS BV measure, in three distinct
-theorems, not one equation.
-\end{quote}
+\begin{proposition}[Four layers]
+\label{prop:four-layers}
+For $X=\C^3$ with matrix coefficient $V$, the following layers are
+distinct.
+\[
+\begin{array}{c|c|c}
+\text{layer} & \text{datum} & \text{operation}\\
+\hline
+\text{Calabi-Yau category} & \Perf(\C^3),\ \operatorname{tr}_{\Omega} &
+  \text{cyclic trace and Serre pairing}\\
+\text{Hochschild polyvectors} & \HH^\bullet(\C^3)\simeq\PV^\bullet(\C^3) &
+  \text{Gerstenhaber and formality calculus}\\
+\text{matrix hCS} & \Omega^{0,\bullet}(\C^3,\fgl(V))[1] &
+  \text{open BV action}\\
+\text{CoHA} & H^\bullet_{\mathrm{eq}}(\mathcal M_{\C^3},\phi_W) &
+  \text{Hall multiplication on critical sheaf moduli}
+\end{array}
+\]
+The matrix coefficient $\End(V)$ supplies the open gauge sector. The
+CoHA is built separately from moduli of objects and vanishing cycles.
+\end{proposition}
 
-The difference between the user's slogan and the healed sentence:
-(i) HKR is labelled twisted or bare according to whether $\At(TX)$
-and $\Td(X)^{1/2}$ are non-trivial; (ii) the Atiyah class is not the
-formality obstruction, it is the $\mu_2$-bracket of a formal
-$L_\infty$-algebra; (iii) the BCOV-hCS chain is three theorems, each
-with a distinct primary reference, whose composite is the identification
-in the BV measure.
+\begin{proof}
+The first row is Morita-invariant categorical data. The second row is
+the Hochschild calculus of that category. The third row is a local BV
+field theory whose fields are Dolbeault forms with values in
+$\fgl(V)$. The fourth row is an enumerative Hall algebra. On affine
+space the HKR symbol map and Costello's local hCS observables compare
+the first three rows after the flat Duflo correction collapses. The
+Hall multiplication uses correspondences between moduli stacks and is
+an additional construction.
+\end{proof}
 
-% ================================================================
-\section{Cache appends (tentative AP-CY-K6 through K10)}
-\label{sec:cache}
-% ================================================================
+\begin{theorem}[The affine CoHA normalisation]
+\label{thm:c3-coha}
+For the toric Calabi-Yau threefold $\C^3$,
+\[
+  \CoHA(\C^3)=Y^+(\widehat{\mathfrak{gl}}_1),
+\]
+the positive half of the affine Yangian of $\mathfrak{gl}_1$. A full
+$\cW_{1+\infty}$ algebra is obtained only after a double, centre,
+completion, or evaluation construction has been specified.
+\end{theorem}
 
-\begin{enumerate}[label=\textbf{AP-CY-K\arabic*.}, start=6]
-\item \textbf{HKR bare vs twisted.} Writing ``$\HH^\bullet =
-      \PV^\bullet(X)$ via HKR'' is correct on $\C^3$ (flat, no twist)
-      and as a graded-module / Gerstenhaber-bracket statement on
-      smooth $X$; it is \emph{not} a ring isomorphism without the
-      Kontsevich twist $\exp(\At(TX)/2)$ and the C{\u a}ld{\u a}raru
-      $\Td(X)^{1/2}$ correction on homology. Cite Kontsevich 1999;
-      C{\u a}ld{\u a}raru 2005; C{\u a}ld{\u a}raru--Willerton 2010.
+\begin{proof}
+The cohomological Hall algebra of the one-loop three-arrow quiver with
+potential $xyz-xzy$ gives the positive Hall half. Schiffmann-Vasserot
+and Maulik-Okounkov identify this positive half with the positive part
+of the affine Yangian of $\mathfrak{gl}_1$. The full
+$\cW_{1+\infty}$ requires both positive and negative modes together
+with the central and completion data.
+\end{proof}
 
-\item \textbf{Atiyah class as formality obstruction.} The Atiyah class
-      is the $\mu_2$-bracket of the Kapranov $L_\infty$-algebra on
-      $T_X[-1]$ (Kapranov 2001 Thm~2.6); it is \emph{not} a classical
-      formality obstruction. The Kapranov $L_\infty$-algebra is formal
-      at cohomology on compact CY$_3$ (Bogomolov--Tian--Todorov: Tian
-      1987; Todorov 1989; Goldman--Millson 1988; Iyengar--Manetti 2019).
-      The ``formality obstruction'' language in this setting is the
-      \emph{presence} of a non-trivial Atiyah cup-cube $\mu_3$, which
-      is forced to zero in cohomology by dimension (Theorem
-      \ref{thm:kapranov-formality-cy3}).
+\section{Compact hCS Quantization}
+\label{sec:compact-hcs}
 
-\item \textbf{Yukawa coupling $Y_3$ as BCOV curving.} The Yukawa
-      $Y_3$ is the symmetric cubic form pairing $\At^{\cup 3}$ against
-      $\Omega_X$; it is the leading curving of the BCOV curved dgLa on
-      $\PV^\bullet(X)[[\hbar]]$ (BCOV 1994 \S2--3). It is \emph{not}
-      the Atiyah class, not a formality obstruction, and not the
-      Positselski-curving in the Hochschild co-derived sense.
-
-\item \textbf{hCS BV measure as BCOV curved dgLa.} Costello 2011 Ch~5
-      Thm~5.0.1 / Costello--Li 2016 \S5--6 identifies the
-      perturbative BV measure of hCS on CY$_3$ with the BCOV curved
-      $L_\infty$-algebra on $\PV^\bullet(X)[[\hbar]]$; the one-loop
-      quantum master equation is the BCOV Maurer--Cartan equation.
-      This is a theorem, not a slogan.
-
-\item \textbf{User-slogan typology.} The statement ``HKR plus matrix
-      framing gives hCS with gauge $\fgl(V)$'' collapses three layers
-      (categorical input $\to$ factorisation envelope $\to$ BV action).
-      Each layer is a theorem; their composition is the identification.
-      On $\C^3$ all three layers collapse to one line because
-      $\At = 0, \Td = 1, \pi_3(B\mathrm{Sp}) = 0$, $\mathbb T^3$-action
-      exists. On compact CY$_3$ the layers do \emph{not} collapse;
-      the composition is still valid but carries the twist of
-      AP-CY-K6 and the BCOV curving of AP-CY-K8.
+\begin{hypothesis}[Compact hCS package]
+\label{hyp:compact-hcs}
+A compact hCS quantization statement on a Calabi-Yau threefold $X$
+requires the following data.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item a holomorphic volume form $\Omega_X$ and an orientation of the
+determinant line defining the BV pairing;
+\item a quadratic dg Lie algebra $(\fg,\langle-,-\rangle)$ and, when
+colour traces are used, a representation $\rho:\fg\to\End(W)$;
+\item an elliptic gauge fixing $Q^{\mathrm{GF}}$, heat-kernel
+regularisation, propagators, and renormalisation counterterms;
+\item completed local functionals and observables on which the BV
+Laplacian, bracket, and RG flow are defined;
+\item a solution of the scale-dependent quantum master equation;
+\item vanishing or explicit trivialisation of the quartic anomaly
+class in the Costello local obstruction complex;
+\item factorization descent over $X$ and TCFT sewing data for global
+traces or partition functions.
 \end{enumerate}
+\end{hypothesis}
 
-% ================================================================
-\section{Summary table}
-\label{sec:summary-table}
-% ================================================================
+\begin{proposition}[Conditional compact observable algebra]
+\label{prop:compact-observables}
+Under Hypothesis~\ref{hyp:compact-hcs}, the completed quantum hCS
+observables form a quantum factorization algebra on $X$. If the
+quartic obstruction class survives in the local BV obstruction complex
+for the chosen fields, regulator, and counterterms, the compact quantum
+observable algebra has no value at that order.
+\end{proposition}
 
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lll}
-\toprule
-\textbf{Attack target} & \textbf{Ghost theorem} & \textbf{Healed statement} \\
-\midrule
-HKR bare $=\PV^\bullet$ ring iso &
-  HKR graded-module + bracket iso &
-  $\HKR_{\mathrm{tw}} = e^{\At/2}\circ\HKR$; $\Td^{1/2}$ on homology;
-  on $\C^3$ both collapse \\
-Matrix framing $\to$ hCS &
-  three layers (Layer~A, B, C) &
-  Costello--Gwilliam Thm~10.0.1; on $\C^3$ layers collapse;
-  on CY$_3$ twist active \\
-$\At$ = formality obstruction &
-  $\At = \mu_2$ of Kapranov $L_\infty$ &
-  Kapranov 2001 Thm~2.6; BTT formality at cohomology;
-  cubic $=Y_3$ \\
-$K3\times E$ cubic non-trivial &
-  Kapranov $L_\infty$ transfer &
-  wave15\_l2: $\At(TE)=0$ on the nose;
-  $\mu_n^{\min}=0$, $n\geq 3$ \\
-BCOV $=$ Yukawa $=$ Atiyah $=$ BV &
-  three theorems in a chain &
-  $\At \to Y_3 \to \mathcal F_{\mathrm{BCOV}}
-  \to \text{hCS 1-loop BV}$ \\
-\bottomrule
-\end{tabular}
-\end{center}
+\begin{proof}
+Costello's renormalisation constructs the effective interaction
+$I[L]$ scale by scale. The quantum factorization algebra exists exactly
+when the RG flow is compatible with the BV operator and $I[L]$
+satisfies the QME at every scale. The obstruction to extending a
+partial solution lies in the local BV cohomology. A surviving class
+prevents the next-scale effective interaction from satisfying the QME.
+\end{proof}
 
-\section{Primary-source register}
-\label{sec:primary}
+\begin{definition}[Quartic invariant]
+\label{def:quartic-invariant}
+For a representation $\rho:\fg\to\End(W)$, define
+\[
+  I_4^\rho(x_1,x_2,x_3,x_4)
+  =
+  \frac1{4!}\sum_{\sigma\in S_4}
+  \operatorname{Tr}_W\!\left(
+    \rho(x_{\sigma(1)})\rho(x_{\sigma(2)})
+    \rho(x_{\sigma(3)})\rho(x_{\sigma(4)})\right).
+\]
+Then $I_4^\rho\in\Sym^4(\fg^\vee)^\fg$.
+\end{definition}
 
-\begin{itemize}[leftmargin=1em,itemsep=2pt]
-\item Atiyah 1957. \emph{Complex analytic connections in fibre bundles}.
-      \emph{Trans.\ AMS}~85, 181--207. (Thm~1 holonomy;
-      Thm~2 extension-class definition.)
-\item Hochschild--Kostant--Rosenberg 1962. \emph{Trans.\ AMS}~102.
-      (HKR original theorem for affine smooth varieties.)
-\item Kapranov 2001. \emph{Rozansky--Witten invariants via Atiyah
-      classes}. \emph{Compositio}~115, 71--113. (Thm~2.6:
-      $\At = \mu_2$ of $L_\infty$-algebra on $T_X[-1]$; \S4.3--4.6
-      formal neighbourhood.)
-\item Kontsevich 1997 / 2003. \emph{Deformation quantization of
-      Poisson manifolds} / \emph{Deformation quantization of algebraic
-      varieties}. arXiv:q-alg/9709040 / \emph{Lett.\ Math.\ Phys.}~66.
-      (Formality of polydifferential DGLA; Chern-character twist in
-      the globalisation.)
-\item Kontsevich 1999. \emph{Deformation quantization of algebraic
-      varieties}. (The twist $\exp(c_1/2)$ appears here for the
-      multiplicative / $G_\infty$ extension.)
-\item Bogomolov 1978; Tian 1987; Todorov 1989. Unobstructed
-      deformations of Calabi--Yau manifolds.
-\item Bershadsky--Cecotti--Ooguri--Vafa 1994. \emph{Kodaira--Spencer
-      theory of gravity \ldots}. \emph{CMP}~165.
-\item Candelas--de la Ossa--Green--Parkes 1991. \emph{A pair of
-      Calabi--Yau manifolds as an exactly soluble superconformal field
-      theory}. \emph{Nucl.\ Phys.\ B}~359. (Yukawa $Y_3$.)
-\item Goldman--Millson 1988. \emph{Publ.\ Math.\ IHES}~67. (DGLA
-      governing deformations.)
-\item Kontsevich--Soibelman 2000. \emph{Def.\ theories, homotopy
-      Gerstenhaber \ldots}. (Homotopy transfer; minimal-model formality.)
-\item C{\u a}ld{\u a}raru 2005. \emph{The Mukai pairing II}.
-      \emph{Adv.\ Math.}~194, \S4--6. (CY-$d$ volume class;
-      Hochschild calculus.)
-\item C{\u a}ld{\u a}raru--Willerton 2010. \emph{The Mukai pairing I:
-      a categorical approach}. \emph{New York J.\ Math.}~16, 61--98.
-      (Thm~1.2: $\Td^{1/2}$ correction for HKR homology.)
-\item Costello 2005 / 2007 / 2011. TCFT series; \emph{Renormalisation
-      and EFT} Ch~5. (hCS on CY$_3$; BV measure; BCOV identification.)
-\item Costello--Gwilliam \emph{Factorisation Algebras} Vol~2.
-      Thm~10.0.1 and \S5 factorisation envelope.
-\item Costello--Li 2016. arXiv:1605.01473 \S4--6. (hCS on $\C^3$;
-      boundary $\cW_{1+\infty}$.)
-\item Francis 2013. arXiv:1211.5619 Thm~4.1 (factorisation homology of
-      framed manifolds).
-\item Iyengar--Manetti 2019. Simplicial enhancement of BTT.
-\item Positselski 2011. \emph{Two kinds of derived categories \ldots}.
-      \emph{Mem.\ AMS}~212. (Curved-$L_\infty$; co-derived vs
-      contraderived.)
+\begin{proposition}[QME anomaly]
+\label{prop:qme-anomaly}
+In the flat Costello local model in complex dimension three, after a
+choice of gauge fixing and regulator, the nonabelian one-loop open hCS
+obstruction to the QME is represented by
+\[
+  \Theta^\rho_U(\alpha_0,\alpha_1,\alpha_2,\alpha_3)
+  =
+  \int_U
+  \left[
+  I_4^\rho\bigl(
+    \alpha_0,\partial\alpha_1,\partial\alpha_2,\partial\alpha_3
+  \bigr)\right]_{(3,3)},
+  \qquad \alpha_i\in\Omega_c^{0,\bullet}(U,\fg).
+\]
+Its class is
+\[
+  \kanom(X,\fg,\rho)
+  =
+  [\,\hbar\,\Theta^\rho\,]\in
+  H^1_{\mathrm{loc}}
+  \bigl(\Omega^{0,\bullet}(X,\fg)[1],\cO_{\mathrm{loc}}\bigr).
+\]
+\end{proposition}
+
+\begin{proof}
+The contributing one-loop graph is the four-external-leg wheel. Its
+colour factor is the symmetrised trace of four representation matrices,
+which is $I_4^\rho$. The holomorphic form factor contains three
+$\partial$ derivatives, producing a top holomorphic density in complex
+dimension three. The Costello obstruction complex places the resulting
+local functional in degree one, precisely the degree of the first QME
+obstruction.
+\end{proof}
+
+\begin{definition}[Quadratic Casimir]
+\label{def:quadratic-casimir}
+Let $\{T_a\}$ be a basis of $\fg$ and let $\{T^a\}$ be the dual basis
+for the invariant pairing. The representation-theoretic quadratic
+Casimir is
+\[
+  C_2^\rho=\sum_a\rho(T_a)\rho(T^a).
+\]
+For a simple Lie algebra in the adjoint normalisation,
+$C_2^{\mathrm{ad}}=2h^\vee$.
+\end{definition}
+
+\begin{proposition}[Kinetic counterterm]
+\label{prop:kinetic-counterterm}
+With the flat heat-kernel normalisation, the two-point graph produces
+a degree-zero kinetic counterterm
+\[
+  S_{\mathrm{ct}}^{(2)}
+  =
+  -\hbar\,\frac{C_2^\rho}{(4\pi)^3}
+  \log(L/\varepsilon)
+  \int_X\Omega_X\wedge\operatorname{Tr}_\rho(\cA\,\dbar\cA),
+\]
+up to the chosen pairing and regulator convention. The quartic class of
+Proposition~\ref{prop:qme-anomaly} is the QME obstruction. The
+quadratic Casimir counterterm changes the kinetic representative.
+\end{proposition}
+
+\begin{proof}
+Closing two legs in the cubic hCS vertex yields the colour contraction
+$\sum_a\rho(T_a)\rho(T^a)=C_2^\rho$. The two remaining external fields
+have the tensor type of the kinetic functional. The short-distance
+six-real-dimensional heat-kernel integral supplies the logarithmic
+factor. Its cohomological degree is zero, while the QME obstruction has
+degree one.
+\end{proof}
+
+\section{The Native Operadic Level of \texorpdfstring{$\Phi_3$}{Phi3}}
+\label{sec:phi3-level}
+
+\begin{hypothesis}[Chiral and factorization transfer]
+\label{hyp:chiral-transfer}
+Fix a Calabi-Yau category $\cC$ of dimension $d$, a smooth CY target
+$X$, a holomorphic factorization algebra $\Phi^{\mathrm{FA}}_d(\cC)$
+constructed from the Hochschild calculus with the chosen formality
+datum, and a witnessed admissible specialisation datum
+$(\Sigma_{d-1},C)$. The specialisation
+\[
+  \Sp^{\mathrm{ch}}_{\Sigma_{d-1},C}
+  \bigl(\Phi^{\mathrm{FA}}_d(\cC)\bigr)
+\]
+uses completed observables, proper-support or compact-support
+conditions along $\Sigma_{d-1}$, descent for the factorization
+structure, and sewing on the reference curve $C$. For compact hCS
+inputs it also uses Hypothesis~\ref{hyp:compact-hcs}.
+\end{hypothesis}
+
+\begin{proposition}[Stage and output]
+\label{prop:stage-output}
+Under Hypothesis~\ref{hyp:chiral-transfer}, for a Calabi-Yau category
+of dimension $d\ge3$, the native chiral output of the functor $\Phi_d$
+is $\Eone$. Higher operadic structures appear before specialisation or
+after passage to centres, doubles, and module categories.
+\end{proposition}
+
+\begin{proof}
+The Hochschild and factorization-algebra input of a $d$-Calabi-Yau
+category carries the expected $E_d$ or shifted Gerstenhaber structure.
+The chiral specialisation step to a curve lowers the native output in
+dimension $d\ge3$ to an $\Eone$ chiral algebra. An $\Etwo$ structure on
+the same data requires a separate centre, double, or module-layer
+construction such as $Z(\operatorname{Rep}(A))$ or a Drinfeld double.
+\end{proof}
+
+\section{\texorpdfstring{$K3\times E$}{K3 x E}}
+\label{sec:k3e}
+
+Let $X=K3\times E$, with $E$ an elliptic curve.
+
+\begin{theorem}[Five invariant readings]
+\label{thm:k3e-readings}
+The standard invariant readings on $K3\times E$ are
+\[
+\begin{aligned}
+  \kcat(K3\times E)
+  &=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0,\\
+  \kch(A_{K3\times E})
+  &=\sum_q(-1)^qh^{0,q}(K3\times E)=0,\\
+  \kch^{\mathrm{Heis}}(K3\times E)
+  &=2+1=3,\\
+  \kBKM(\mathfrak g_{\Delta_5})
+  &=c_1(0)/2=10/2=5,\\
+  \kfiber(K3)&=\operatorname{rk}H^\bullet(K3,\Z)=24.
+\end{aligned}
+\]
+They arise from different constructions: categorical Euler
+characteristic, compact Hodge supertrace, Heisenberg-Cartan
+specialisation, Borcherds product weight, and Mukai-lattice fibre rank.
+Cross-construction sums are undefined.
+\end{theorem}
+
+\begin{proof}
+Kunneth for coherent cohomology gives
+\[
+  \chi(\cO_{K3\times E})=
+  \chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0.
+\]
+The compact chiral Hodge supertrace is the same alternating
+$(0,q)$-column:
+\[
+  \sum_q(-1)^qh^{0,q}(K3\times E)
+  =
+  (h^{0,0}(K3)-h^{0,1}(K3)+h^{0,2}(K3))
+  (h^{0,0}(E)-h^{0,1}(E))
+  =
+  (1+1)(1-1)=0.
+\]
+The Heisenberg-Cartan branch is rank-additive over the product-stable
+specialisation and gives the K3 contribution $2$ plus the elliptic
+free-boson contribution $1$. The Borcherds value is the weight of the
+Gritsenko product $\Delta_5$, equivalently $c_1(0)/2=10/2=5$. The
+fibre value $24$ is the rank of $H^\bullet(K3,\Z)$ with the Mukai
+lattice.
+\end{proof}
+
+\begin{remark}[Atiyah and BCOV on the product]
+\label{rem:k3e-atiyah-bcov}
+The elliptic tangent bundle is holomorphically trivial, so
+$\At(T_E)=0$. The product decomposition gives the Atiyah class of
+$T_{K3\times E}$ from the K3 summand. The scalar one-loop BCOV Euler
+coefficient vanishes because
+\[
+  \chi_{\mathrm{top}}(K3\times E)=\chi_{\mathrm{top}}(K3)\chi_{\mathrm{top}}(E)
+  =24\cdot0=0.
+\]
+The Todd factor in HKR descent still contains the K3 term
+$1+c_2(K3)/24$. The vanishing of the Euler coefficient supplies no
+global strict HKR trivialisation by itself.
+\end{remark}
+
+\section{References}
+\label{sec:references}
+
+\begin{itemize}[leftmargin=1.2em,itemsep=2pt]
+\item M. F. Atiyah, \emph{Complex analytic connections in fibre
+bundles}, Trans. AMS 85 (1957), 181-207.
+\item R. Hochschild, B. Kostant, and A. Rosenberg,
+\emph{Differential forms on regular affine algebras}, Trans. AMS 102
+(1962), 383-408.
+\item M. Kontsevich, \emph{Deformation quantization of Poisson
+manifolds}, Lett. Math. Phys. 66 (2003), 157-216.
+\item M. Kontsevich, \emph{Deformation quantization of algebraic
+varieties}, EuroConf. Mosh Flato 2000, volume 1, 2000.
+\item A. Caldararu, \emph{The Mukai pairing II: the Hochschild-Kostant-
+Rosenberg isomorphism}, Adv. Math. 194 (2005), 34-66.
+\item D. Calaque and M. Van den Bergh, \emph{Hochschild cohomology and
+Atiyah classes}, Adv. Math. 224 (2010), 1839-1889.
+\item A. Caldararu and S. Willerton, \emph{The Mukai pairing I: a
+categorical approach}, New York J. Math. 16 (2010), 61-98.
+\item M. Kapranov, \emph{Rozansky-Witten invariants via Atiyah
+classes}, Compositio Math. 115 (1999), 71-113.
+\item P. Deligne, P. Griffiths, J. Morgan, and D. Sullivan,
+\emph{Real homotopy theory of Kahler manifolds}, Invent. Math. 29
+(1975), 245-274.
+\item G. Tian, \emph{Smoothness of the universal deformation space of
+compact Calabi-Yau manifolds and its Petersson-Weil metric},
+Mathematical Aspects of String Theory, 1987.
+\item A. Todorov, \emph{The Weil-Petersson geometry of the moduli space
+of SU(n) Calabi-Yau manifolds}, Comm. Math. Phys. 126 (1989), 325-346.
+\item M. Bershadsky, S. Cecotti, H. Ooguri, and C. Vafa,
+\emph{Kodaira-Spencer theory of gravity and exact results for quantum
+string amplitudes}, Comm. Math. Phys. 165 (1994), 311-427.
+\item P. Candelas, X. de la Ossa, P. Green, and L. Parkes,
+\emph{A pair of Calabi-Yau manifolds as an exactly soluble
+superconformal theory}, Nucl. Phys. B 359 (1991), 21-74.
+\item K. Costello, \emph{Topological conformal field theories and
+Calabi-Yau categories}, Adv. Math. 210 (2007), 165-214.
+\item K. Costello, \emph{Renormalization and Effective Field Theory},
+AMS Mathematical Surveys and Monographs 170, 2011.
+\item K. Costello and S. Li, \emph{Quantum BCOV theory on Calabi-Yau
+manifolds and the higher genus B-model}, 2012.
+\item K. Costello and S. Li, \emph{Twisted supergravity and its
+quantization}, 2016.
+\item K. Costello and O. Gwilliam, \emph{Factorization Algebras in
+Quantum Field Theory}, Volumes 1 and 2.
+\item L. Positselski, \emph{Two kinds of derived categories, Koszul
+duality, and comodule-contramodule correspondence}, Mem. AMS 212
+(2011).
+\item O. Schiffmann and E. Vasserot, \emph{The elliptic Hall algebra
+and the K-theory of the Hilbert scheme of A2}, Duke Math. J. 162
+(2013), 279-366.
+\item A. Negut, \emph{The shuffle algebra revisited}, Int. Math. Res.
+Notices 2014, 6242-6275.
 \end{itemize}
 
 \end{document}

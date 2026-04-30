@@ -1,235 +1,300 @@
-% Wave-14 I1/20 --- BV one-loop anomaly for 6D holomorphic Chern--Simons
-% on \CC^3 with non-abelian \mathfrak{g}. CG voice; subscripted kappa
-% (kappa_BV, kappa_anom, kappa_ch, kappa_BKM) throughout;
-% \providecommand only; no AI attribution.
-
-\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
-\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
-\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
-\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\Sym}{\operatorname{Sym}}
+\providecommand{\End}{\operatorname{End}}
+\providecommand{\Rep}{\operatorname{Rep}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
 \providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
 \providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
-\providecommand{\kBV}{\kappa_{\mathrm{BV}}}
-\providecommand{\kanom}{\kappa_{\mathrm{anom}}}
-\providecommand{\kct}{\kappa_{\mathrm{ct}}}
-\providecommand{\hCS}{\mathrm{hCS}}
-\providecommand{\Seff}{S_{\mathrm{eff}}}
-\providecommand{\Scl}{S_{\mathrm{cl}}}
-\providecommand{\Sct}{S_{\mathrm{c.t.}}}
-\providecommand{\CC}{\mathbb{C}}
-\providecommand{\gfrak}{\mathfrak{g}}
-\providecommand{\sun}{\mathfrak{su}(N)}
-\providecommand{\Cas}{C_2(\gfrak)}
-\providecommand{\hdual}{h^{\vee}}
-\providecommand{\Tr}{\mathrm{tr}}
-\providecommand{\cA}{\mathcal{A}}
-\providecommand{\cO}{\mathcal{O}}
-\providecommand{\ch}{\mathrm{ch}}
-\providecommand{\Td}{\mathrm{Td}}
-\providecommand{\bbrack}[2]{\{#1, #2\}}
 
-\section{BV one-loop anomaly for 6D hCS on $\CC^3$ (Wave-14 I1/20)}
-\label{wn:sec:wave14-i1-hcs-nonabelian-anomaly}
+\section{Nonabelian Holomorphic Chern--Simons Anomaly in Complex Dimension Three}
+\label{sec:hcs-nonabelian-anomaly}
 
-\subsection{What Wave 13 left open}
+\subsection{The BV Complex}
+\label{subsec:hcs-bv-complex}
 
-Wave~13 H3 (Feynman) and G1 (Costello machinery) computed the non-abelian
-bubble and absorbed its $\log(L/\epsilon)$ divergence into the wave-function
-counterterm $\Sct^{(1)} = -\hbar\,\Cas\,(4\pi)^{-3}\log(L/\epsilon)\int_{\CC^3}
-\Omega\wedge\Tr(\cA\bar\partial\cA)$. What Wave~13 \emph{did not} verify is
-whether, after adding $\Sct^{(1)}$, the quantum master equation
-\begin{equation}
-\label{eq:qme-local}
-\tfrac{1}{2}\bbrack{\Seff}{\Seff}_\Lambda + \hbar\,\Delta_\Lambda\Seff = 0
-\end{equation}
-closes at one loop on $\CC^3$ with non-abelian $\gfrak$. Equivalently: does
-the Costello obstruction cocycle $\kBV \in H^1(\mathrm{Loc}(\mathrm{Fields}),
-d_{\mathrm{BV}})$ (Costello~2011 App.~A.1; Costello--Gwilliam~2017~Vol~II
-\S7.3) vanish? If not, 6D $\hCS$ on $\CC^3$ carries a Green--Schwarz-type
-anomaly obstructing the existence of a quantum factorisation algebra, and
-the functor $\Phi$ at $d=3$ acquires a non-trivial cocycle on its domain.
-
-Five cycles below settle the question: on flat $\CC^3$, the one-loop BV
-anomaly \emph{vanishes identically} for every simple $\gfrak$; the Casimir
-residue from the bubble is absorbed entirely by wave-function renormalisation
-and induces no obstruction. The structurally relevant anomaly class lives
-elsewhere --- at the level of the $K3\times E$ global geometry, where it
-pairs against $\int c_3(T)$ and imposes a concrete constraint on
-$\Phi(A_{K3\times E})$.
-
-\subsection{Cycle 1 --- The Costello obstruction cocycle in 6D}
-
-\ClaimStatusDefinition\ Let $\Seff[L]$ be the one-loop renormalised effective
-action. The Costello anomaly (2011 App.~A.1, reprinted CG~2017~Vol~II
-Def.~7.3.1) is the $\Lambda$-independent local cohomology class
+Let \(X\) be a Calabi--Yau threefold with holomorphic volume form
+\(\Omega_X\), and let \(\fg\) be a finite-dimensional metric complex Lie
+algebra with invariant pairing \(\langle-,-\rangle\). For
+\(U\subset X\),
 \[
-\kBV \;:=\; \lim_{L\to 0}\Bigl[
-\tfrac{1}{2}\bbrack{\Scl}{\Seff^{(1)}}_L + \Delta_L\Scl
-\Bigr]
-\;\in\; H^1\bigl(\mathrm{Loc}(\Omega^{0,\bullet}(\CC^3,\gfrak)),\,
-d_{\mathrm{BV}}\bigr),
+  \mathfrak L_U=\Omega^{0,\bullet}_c(U,\fg)[1],
+  \qquad
+  \ell_1=\bar\partial,
+  \qquad
+  \ell_2(\alpha,\beta)=[\alpha\wedge\beta]_\fg .
 \]
-whose vanishing is equivalent to \eqref{eq:qme-local} closing at order
-$\hbar$. Local cohomology on $\CC^3$ in ghost-number $+1$ is, by the
-Gelfand--Fuks--Costello computation (CG~Vol~II Prop.~7.3.7), concentrated
-in local functionals of the form $\int_{\CC^3} P(\cA,\bar\partial\cA,
-\partial\cA)$ with $P$ a polynomial $\gfrak$-invariant of total form-degree
-$(3,3)$. On $\CC^3$ the building blocks are:
+The classical local observables are continuous Chevalley--Eilenberg
+cochains
+\[
+  \Obs^{\mathrm{cl}}_{\hCS}(U)
+  =
+  C^\bullet_{\CE,\mathrm{cont}}(\mathfrak L_U)
+  =
+  \widehat{\Sym}\bigl(\mathfrak L_U^\vee[-1]\bigr),
+  \qquad
+  d_{\Obs}^{\mathrm{cl}}=d_{\bar\partial}+d_{\ell_2}.
+\]
+The holomorphic Chern--Simons interaction is
+\[
+  I_{\hCS}(\cA)
+  =
+  \int_U \Omega_X\wedge
+  \left(
+    \frac12\langle\cA,\bar\partial\cA\rangle
+    +\frac16\langle\cA,[\cA,\cA]\rangle
+  \right).
+\]
+A Costello renormalisation datum \((I[L],\Delta_L,W_{\Gamma,L})\)
+defines quantum observables
+\[
+  \Obs^q_{\hCS,L}(U)
+  =
+  \left(
+  \Obs^{\mathrm{cl}}_{\hCS}(U)[[\hbar]],
+  d_{\Obs}^{\mathrm{cl}}+\{I[L],-\}_{L}+\hbar\Delta_L
+  \right)
+\]
+when the renormalised interaction satisfies the quantum master equation
+\[
+  QI[L]+\frac12\{I[L],I[L]\}_{L}+\hbar\Delta_L I[L]=0 .
+\]
+The first obstruction lies in degree \(1\) in the Costello complex of
+local BV functionals.
+
+\subsection{The Quartic Descent Class}
+\label{subsec:hcs-quartic-descent-class}
+
+The universal adjoint colour tensor is the symmetrised quartic trace
+\[
+  \theta_{\fg}(x_1,x_2,x_3,x_4)
+  =
+  \frac{1}{4!}\sum_{\sigma\in S_4}
+  \Tr_{\fg}\!\left(
+    \operatorname{ad}_{x_{\sigma(1)}}
+    \operatorname{ad}_{x_{\sigma(2)}}
+    \operatorname{ad}_{x_{\sigma(3)}}
+    \operatorname{ad}_{x_{\sigma(4)}}
+  \right),
+  \qquad
+  \theta_{\fg}\in(\Sym^4\fg^\vee)^\fg .
+\]
+For a representation \(\rho:\fg\to\End(V)\), the corresponding tensor is
+\[
+  I_4^\rho(x_1,x_2,x_3,x_4)
+  =
+  \frac{1}{4!}\sum_{\sigma\in S_4}
+  \Tr_V\!\left(
+    \rho(x_{\sigma(1)})\rho(x_{\sigma(2)})
+    \rho(x_{\sigma(3)})\rho(x_{\sigma(4)})
+  \right),
+  \qquad
+  I_4^\rho\in(\Sym^4\fg^\vee)^\fg .
+\]
+Write \(P_4\) for either \(\theta_{\fg}\), \(I_4^\rho\), or the signed
+sum of such tensors for a coupled field system. The holomorphic descent
+representative on \(U\) is
+\[
+  \Theta^{P_4}_U(\alpha_0,\alpha_1,\alpha_2,\alpha_3)
+  =
+  \int_U
+  \Omega_X\wedge
+  P_4\bigl(\alpha_0,\partial\alpha_1,
+  \partial\alpha_2,\partial\alpha_3\bigr),
+  \qquad
+  \alpha_i\in\Omega^{0,\bullet}_c(U,\fg),
+\]
+with the Koszul signs fixed by the CE convention. The three
+holomorphic derivatives supply the \((3,0)\)-density required in
+complex dimension \(3\). The one-loop gauge obstruction is the class
+\[
+  \alpha_{\mathrm{QME}}(X,\fg,P_4)
+  =
+  [\,\hbar\,\Theta^{P_4}\,]
+  \in
+  H^1\!\left(
+    \mathrm{Loc}_{X}(\Omega^{0,\bullet}(-,\fg)[1]),
+    d_{\mathrm{BV}}
+  \right).
+\]
+The invariant of degree \(3\) belongs to the complex-dimension-two
+descent slot. Complex dimension \(3\) uses \(P_4\).
+
+\subsection{Cancellation and Counterterms}
+\label{subsec:hcs-cancellation-counterterms}
+
+The local QME closes at one loop precisely when
+\[
+  \alpha_{\mathrm{QME}}(X,\fg,P_4)=0 .
+\]
+Two concrete mechanisms give this equality.
+\[
+  P_4=0
+  \quad\Longrightarrow\quad
+  \Theta^{P_4}=0,
+\]
+and
+\[
+  \exists\,S_{\mathrm{ct}}^{(0)}\in
+  \mathrm{Loc}_{X}(\Omega^{0,\bullet}(-,\fg)[1])^0
+  \quad
+  d_{\mathrm{BV}}S_{\mathrm{ct}}^{(0)}
+  =
+  -\,\hbar\,\Theta^{P_4}.
+\]
+The second equation must hold in the same local functional complex,
+with the same regularisation, trace normalisation, and descent
+representative. A Green--Schwarz type construction is an enlarged BV
+theory: it adds a compensating field and replaces the displayed
+equation by a coupled QME. Pure nonabelian \(\hCS\) receives no compact
+quantisation theorem from a scalar topological number alone.
+
+\subsection{Two-Point Renormalisation}
+\label{subsec:hcs-two-point-renormalisation}
+
+The logarithmic two-point graph has colour coefficient \(C_2^\rho(\fg)\)
+and contributes the degree-zero local functional
+\[
+  S_{\mathrm{ct}}^{(2)}
+  =
+  -\,\hbar\,\frac{C_2^\rho(\fg)}{(4\pi)^3}
+  \log(L/\varepsilon)
+  \int_X\Omega_X\wedge\Tr_\rho(\cA\bar\partial\cA).
+\]
+It rescales the kinetic pairing and the field \(\cA\). The QME
+obstruction above lives in degree \(1\) and is represented by the
+quartic descent class.
+
+\subsection{Flat and Compact Threefolds}
+\label{subsec:hcs-flat-compact-threefolds}
+
+On \(X=\CC^3\), translation invariance and the Stein contraction give
+the local perturbative model. The possible gauge obstruction is still
+\(\alpha_{\mathrm{QME}}(\CC^3,\fg,P_4)\), represented by the same
+quartic descent cocycle. A flat-space vanishing statement therefore
+requires one of the cancellation mechanisms in
+Subsection~\ref{subsec:hcs-cancellation-counterterms}; the two-point
+counterterm supplies field-strength renormalisation alone.
+
+On a compact Calabi--Yau threefold, a global quantum \(\hCS\) theory
+requires the following data:
 \begin{enumerate}
-\item $\Tr(\cA\bar\partial\cA\bar\partial\cA)$ --- the holomorphic
-Chern--Simons $3$-form itself, of type $(0,3)$ in $\bar\partial$-sector; cup
-with $\Omega \in \Omega^{3,0}$ to land in $(3,3)$.
-\item $\Tr(\cA[\cA,\cA])\,\Omega$ --- the cubic-vertex density, already in
-$S_{\mathrm{cl}}$.
-\item $\Tr(\cA\bar\partial\cA)\wedge\Omega$ --- the kinetic density; appears
-only as BV-exact shift (wave-function renormalisation).
+\item the local QME for the chosen \(P_4\);
+\item a vanishing proof for \(\alpha_{\mathrm{QME}}\) or compatible
+local primitives \(S_{\mathrm{ct}}^{(0)}\);
+\item a Calabi--Yau orientation and framing datum for the BV pairing;
+\item determinant-line and BCOV or TCFT background data;
+\item descent and sewing for the resulting factorisation algebra;
+\item analytic OPE completion and filtration compatible with RG flow.
 \end{enumerate}
-Candidates (1)--(2) are mutually BV-exact modulo $S_{\mathrm{cl}}$
-(Chern--Simons transgression); the only non-trivial anomaly class on $\CC^3$
-is a multiple of the characteristic density
-\begin{equation}
-\label{eq:ch3-density}
-\omega_{\mathrm{anom}} \;=\; \ch_3(F_\cA)\cdot\Omega,
-\qquad
-\ch_3(F_\cA) = \tfrac{1}{6}\Tr(F_\cA^3),\quad
-F_\cA = \bar\partial\cA + \tfrac{1}{2}[\cA,\cA].
-\end{equation}
+These hypotheses are independent. The vanishing of an Euler coefficient
+addresses only the BCOV scalar part of this list.
 
-\subsection{Cycle 2 --- Explicit evaluation of $\kBV$ on $\CC^3$}
+\subsection{\texorpdfstring{\(K3\times E\)}{K3 x E}}
+\label{subsec:hcs-k3e-separation}
 
-\ClaimStatusTheorem\ \emph{Vanishing on flat $\CC^3$.} The coefficient
-$\kanom \in \QQ$ of $\omega_{\mathrm{anom}}$ in $\kBV$ is computed by a
-triangle graph with three external $\cA$-legs and two internal Bochner--Martinelli
-propagators. Power-counting: three external $(0,1)$-forms supply
-$\bar\partial$-degree $3$, two internal $G$'s supply $r^{-10}$, measure on
-$\CC^3\times\CC^3\cong\RR^{12}$ modulo overall translation supplies $r^5\,dr$,
-together with an angular integral that, by $SU(3)$-equivariance and the
-$\Omega$-alternation in the Bochner--Martinelli kernel, \emph{vanishes}. The
-precise statement: the $G^2$ angular average against three external
-$(0,1)$-forms projects onto the $\mathrm{ch}_3$-component in external
-cohomology, whose pullback along the diagonal $\Delta\hookrightarrow
-(\CC^3)^2$ is the top Chern density $\ch_3(T\CC^3)$. On flat $\CC^3$,
-$c_3(T\CC^3) = 0$ (trivial bundle), so
+For \(X=K3\times E\),
 \[
-\kanom \;=\; \frac{\hdual}{(4\pi)^3}\,\int_{\CC^3} \ch_3(T\CC^3)\wedge\Omega
-\;=\; 0.
+  \chi_{\mathrm{top}}(K3\times E)
+  =
+  \chi_{\mathrm{top}}(K3)\chi_{\mathrm{top}}(E)
+  =
+  24\cdot0=0.
 \]
-Hence $\kBV = 0$ on $\CC^3$; the QME \eqref{eq:qme-local} closes at one loop.
+Thus the Euler-characteristic contribution to the compact BCOV
+coefficient vanishes. The representation-dependent class
+\(\alpha_{\mathrm{QME}}(K3\times E,\fg,P_4)\) remains a separate
+quartic descent problem until \(P_4\) is specified and trivialised.
 
-The $\hdual$ prefactor (dual Coxeter number) is the group-theoretic residue:
-for adjoint-valued fields in a triangle, one trace of three structure
-constants combines as $f^{abc}f^{ade}f^{bd}{}_f\delta^{ce} \propto \hdual
-\cdot\dim\gfrak$, agreeing with Costello--Gwilliam~Vol~II \S7.4 for analogous
-higher-dimensional CS-type theories and with Costello~2013
-(\texttt{arXiv:1303.2632}) \S10 where the same coefficient governs the
-$\hbar$-deformed loop-Yangian.
-
-\subsection{Cycle 3 --- 4D CS level shift as target}
-
-\ClaimStatusHeuristic\ In 3D CS the one-loop anomaly shifts the level
-$k \to k + \hdual$ (Alvarez-Gaum\'e--Labastida--Ramallo 1989;
-Witten 1989). In 4D CS (Costello--Witten--Yamazaki 2017--19), the same
-shift surfaces in the spectral-parameter normalisation of the Yangian
-$R$-matrix: $R(z) = 1 + \hbar\cdot t/z + \cO(\hbar^2)$ with $t$ the
-split Casimir is rescaled by $k/(k+\hdual)$ after one-loop renormalisation.
-
-In 6D $\hCS$ on $\CC^3$, the analogous coefficient is the wave-function
-Casimir residue $Z_\cA^{(1)} = 1 - \hbar\,\Cas(4\pi)^{-3}\log(L/\epsilon)$
-of Wave~13 H3. The central fact: unlike 3D/4D CS where the level is a
-single number and the shift descends to a topological anomaly on the
-quantised Hilbert space, 6D $\hCS$ has \emph{no} level, and the Casimir
-residue is a pure wave-function renormalisation --- not an anomaly. The
-level-shift analogy is present but lives in a different cohomological
-bucket: in 6D, $\kBV = 0$ and the Casimir information is recovered in the
-structure function of the $E_1$-chiral $\Phi$-image (Pattern 273
-$E_1$-scope at $d=3$), not in an anomalous QME.
-
-\subsection{Cycle 4 --- Non-abelian bubble: wave function, not anomaly}
-
-\ClaimStatusTheorem\ The Casimir-induced $\log(L/\epsilon)$ residue of
-Wave~13 H3 is a wave-function renormalisation in the BV sense: the
-counterterm
+The numerical invariants attached to \(K3\times E\) occupy distinct
+construction layers:
 \[
-\Sct^{(1)} \;=\; -\,\hbar\,\frac{\Cas}{(4\pi)^3}\,\log(L/\epsilon)
-\int_{\CC^3}\Omega\wedge\Tr(\cA\bar\partial\cA)
+  \kcat(K3\times E)=\chi(\cO_{K3\times E})=0,
+  \qquad
+  \kch(K3\times E)=\sum_q(-1)^q h^{0,q}(K3\times E)=0,
 \]
-is BV-cohomologous to a shift of $S_{\mathrm{cl}}$ along the kinetic
-direction, not along a non-trivial direction of local cohomology. In
-Costello's language (2011 Thm.~5.0.0.1), $[\Sct^{(1)}]_{\mathrm{BV}} = 0$ in
-$H^0(\mathrm{Loc},d_{\mathrm{BV}})/\mathrm{BV\text{-}exact}$, so it falls
-into the ``finite wavefunction redefinition'' class --- absorbed by rescaling
-$\cA\mapsto (Z_\cA^{(1)})^{1/2}\cA$. The separation
-\begin{center}
-\emph{anomaly} $\in H^1$ (obstructs QME) \;vs\; \emph{wavefunction} $\in
-H^0$ (rescales fields)
-\end{center}
-is the Costello--Gwilliam Vol~II \S7.3 dichotomy; the Wave~13 bubble lies
-wholly in the second class.
-
-\subsection{Cycle 5 --- Consequence for $\Phi$ on $K3\times E$}
-
-\ClaimStatusTheorem\ \emph{Flat-case $\Phi$ is unobstructed.} The
-vanishing $\kBV(\CC^3) = 0$ in Cycle 2 together with the abelian-finiteness
-of Wave~13 establishes:
-\begin{center}
-\emph{On $\CC^3$, $\Phi(A_{\CC^3})$ admits a quantum factorisation algebra
-for every simple $\gfrak$; no Green--Schwarz counterterm is required.}
-\end{center}
-
-\ClaimStatusConjectured\ \emph{Compact case.} On a compact CY3 $X$ with
-non-trivial Chern classes, the anomaly density \eqref{eq:ch3-density}
-integrates to
-\begin{equation}
-\label{eq:compact-anomaly}
-\kanom(X) \;=\; \frac{\hdual}{(4\pi)^3}\int_X \ch_3(T X)\wedge\Omega_X
-\;=\; \frac{\hdual}{(4\pi)^3}\int_X c_3(T X)\cdot\Omega_X,
-\end{equation}
-since $\ch_3 = \tfrac{1}{6}(c_1^3 - 3c_1 c_2 + 3c_3) = \tfrac{1}{2}c_3$
-on a CY3 where $c_1 = 0$. For $X = K3\times E$: by K\"unneth,
-$c_3(T(K3\times E)) = c_2(TK3)\,c_1(TE) + c_3(TK3)\cdot 1$, and $c_1(TE) = 0$
-($E$ elliptic), $c_3(TK3) = 0$ (real-rank-$4$ bundle on $K3$, so $c_3 = 0$
-trivially). Hence
 \[
-\kanom(K3\times E) \;=\; 0.
+  \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)=3,
+  \qquad
+  \kBKM(\Delta_5)=5,
+  \qquad
+  \kfib(K3)=24.
 \]
-The anomaly vanishes on $K3\times E$; $\Phi(A_{K3\times E})$ is globally
-unobstructed at one loop. This is consistent with (and supplies a BV-proof
-of) the $\{2,3,5,24\}$ $\kappa_\bullet$-spectrum being realised by four
-\emph{distinct constructions} --- no global obstruction prevents any of the
-four from arising. In particular, the $\kBKM(K3\times E) = 5$ Gritsenko
-$\Delta_5$ datum is not obstructed by the BV anomaly.
+The first two equalities follow from
+\[
+  \chi(\cO_{K3\times E})
+  =
+  \chi(\cO_{K3})\chi(\cO_E)
+  =
+  2\cdot0=0,
+  \qquad
+  \sum_q(-1)^qh^{0,q}(K3\times E)=(1-1)(1+1)=0.
+\]
+The Heisenberg, Borcherds, and fibre numbers come from other
+constructions and do not cancel or create the local BV class.
 
-The universal formula \eqref{eq:compact-anomaly} shows: on a generic
-CY3 $X$ with $\int c_3 \neq 0$ (e.g.~the quintic, $\int c_3 = -200$), the
-one-loop BV anomaly is proportional to the Euler characteristic
-$\chi_{\mathrm{top}}(X)$ and non-vanishing. Whether $\Phi$ extends globally
-to such $X$ depends on the existence of a Green--Schwarz-type $B$-field
-counterterm $\hbar\int B\wedge\omega_{\mathrm{anom}}$ trivialising
-\eqref{eq:compact-anomaly}; this is the $d=3$ analogue of Costello--Li~2015
-BCOV anomaly cancellation and remains open for $X$ with $\chi_{\mathrm{top}}
-\neq 0$.
+\subsection{Boundary and Positive-Half Output}
+\label{subsec:hcs-boundary-positive-half}
 
-\subsection{Summary and handoff}
+Let \(C\subset X\) be a holomorphic curve and assume the compact or
+local quantum \(\hCS\) factorisation algebra has been constructed. The
+curve specialisation is
+\[
+  \mathcal A_C=\int_{N_C/C}\Obs^q_{\hCS}
+  \in
+  \operatorname{Alg}^{\mathrm{ch}}_{\Eone}(C)
+\]
+in complex dimension \(3\). The higher braiding belongs to centre,
+double, module, or enhancement layers, for example
+\[
+  Z\bigl(\Rep^{\Eone}(\mathcal A_C)\bigr)
+  \simeq
+  \Rep^{\Etwo}\bigl(
+    C^\bullet_{\CE,\mathrm{ch}}(\mathcal A_C,\mathcal A_C)
+  \bigr)
+\]
+when the chiral BZFN hypotheses hold.
 
-\ClaimStatusTheorem\ (Wave-14 I1 theorem.) On $\CC^3$ with any simple
-$\gfrak$: the one-loop Costello obstruction $\kBV$ vanishes; the QME
-\eqref{eq:qme-local} closes after the Wave~13 wave-function counterterm.
-On $K3\times E$: $\kanom = 0$ by K\"unneth, so $\Phi$ is globally
-unobstructed. On generic CY3 $X$ with $\chi_{\mathrm{top}}(X)\neq 0$:
-$\kanom \propto \hdual\cdot\chi_{\mathrm{top}}(X)/(2(4\pi)^3)$ and a
-Green--Schwarz trivialisation is required. The Casimir residue of the
-non-abelian bubble is pure wave-function renormalisation; it is
-\emph{not} the anomaly.
+For the affine local model,
+\[
+  \operatorname{CoHA}(\CC^3)=Y^+(\widehat{\mathfrak{gl}}_1).
+\]
+The full Yangian, the vacuum representation of
+\(\mathcal W_{1+\infty}\), and their evaluation parameters enter after
+Drinfeld double, centre, completion, and representation-theoretic
+evaluation.
 
-\subsection{References}
-Costello~2011 App.~A.1 (BV anomaly cocycle, obstruction class).
-Costello~2013 \texttt{arXiv:1303.2632} \S10 (6D $\hCS$, Yangian from
-$\hbar$-deformation). Costello--Gwilliam~2017 Vol~II \S7.3, Prop.~7.3.7
-(local BV cohomology, anomaly vs wave-function dichotomy). Costello--Li
-\texttt{arXiv:1201.4522} (BCOV anomaly cancellation on CY3).
-Gwilliam--Williams~2021 (higher-dimensional CS-type QFT). Gwilliam--Grady~2014
-(4D SUSY renormalisation). Witten~1989 (3D CS level shift
-$k\to k+\hdual$). Alvarez-Gaum\'e--Labastida--Ramallo 1989 (one-loop
-Chern--Simons shift).
+\subsection{Conclusions}
+\label{subsec:hcs-nonabelian-anomaly-conclusions}
+
+\begin{enumerate}
+\item Classical hCS observables are CE cochains of
+\(\Omega^{0,\bullet}_c(X,\fg)[1]\).
+\item Quantum hCS observables require a Costello RG datum satisfying
+the QME.
+\item In complex dimension \(3\), the local gauge obstruction is
+controlled by
+\[
+  \theta_{\fg}\in(\Sym^4\fg^\vee)^\fg
+  \quad\hbox{or}\quad
+  I_4^\rho\in(\Sym^4\fg^\vee)^\fg .
+\]
+\item The coefficient \(C_2^\rho(\fg)\) controls the logarithmic
+two-point counterterm.
+\item Compact nonabelian closure requires anomaly trivialisation,
+orientation, framing, determinant-line or BCOV/TCFT data, sewing,
+completion, and RG compatibility.
+\item For \(d=3\), the specialised chiral output is \(\Eone\). The
+\(\Etwo\)-structure belongs to the centre or double under the stated
+hypotheses.
+\end{enumerate}

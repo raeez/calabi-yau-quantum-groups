@@ -1,220 +1,428 @@
-% Wave-18 F1/20: Does K3 x E admit an NCCR cover?
-% Voices: Bridgeland + Van den Bergh. Five attack-heal cycles.
 % Primary sources: Van den Bergh 2004 (non-commutative crepant
-% resolutions); Bridgeland 2008 (stability on K3); Mukai 1981
-% (Fourier-Mukai on abelian varieties, Nagoya J. 81, 153-175);
-% Kawai-Yoshioka 2000 (K3 Hilbert schemes, arXiv:hep-th/9908007);
-% Bayer-Macri 2014 (MMP via wall-crossing, arXiv:1301.6968).
+% resolutions); Bridgeland-King-Reid 2001 (derived McKay);
+% Seidel-Thomas 2001 (spherical twists); Mukai 1981 (Fourier-Mukai
+% transform); Kontsevich-Soibelman 2011 (CoHA);
+% Oberdieck-Pandharipande 2016 (reduced DT on K3 x E);
+% Gritsenko-Nikulin 1998 (Igusa square and Borcherds products).
 
 \providecommand{\NCCR}{\mathrm{NCCR}}
 \providecommand{\End}{\mathrm{End}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\RHom}{\mathbf{R}\!\operatorname{Hom}}
 \providecommand{\Coh}{\mathrm{Coh}}
 \providecommand{\Db}{D^b}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cE}{\mathcal{E}}
-\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cP}{\mathcal{P}}
 \providecommand{\cM}{\mathcal{M}}
-\providecommand{\K}{\mathrm{K3}}
-\providecommand{\ch}{\mathrm{ch}}
-\providecommand{\cat}{\mathrm{cat}}
-\providecommand{\fib}{\mathrm{fiber}}
-\providecommand{\BKM}{\mathrm{BKM}}
-\providecommand{\Pic}{\mathrm{Pic}}
-\providecommand{\Br}{\mathrm{Br}}
-\providecommand{\Bl}{\mathrm{Bl}}
 \providecommand{\Perf}{\mathrm{Perf}}
 \providecommand{\Spec}{\mathrm{Spec}}
-\providecommand{\Sing}{\mathrm{Sing}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
-\providecommand{\ClaimStatusNegative}{\textbf{[Obstruction]}}
+\providecommand{\Jac}{\operatorname{Jac}}
+\providecommand{\CoHA}{\operatorname{CoHA}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
+\providecommand{\SerreS}{\mathbb{S}}
+\providecommand{\DT}{\mathrm{DT}}
 
-\section*{Wave-18 F1: NCCR obstruction for $K3\times E$}
-\label{wn:sec:wave18-f1-K3E-NCCR}
+\section*{Finite quiver obstruction for $K3\times E$}
+\label{sec:K3E-NCCR}
 
-\subsection*{The Van den Bergh frame}
-
-A non-commutative crepant resolution of a Gorenstein normal variety
-$X$ is a reflexive sheaf $\cE$ on $X$ such that
-$\Lambda := \End_{\cO_X}(\cE)$ is Cohen--Macaulay and has finite
-global dimension (Van den Bergh 2004, Def.~4.1, arXiv:math/0211064).
-When $X$ is smooth projective there is nothing to resolve: any
-tilting bundle gives an equivalence
-$\Db(\Coh X) \simeq \Db(\mathrm{mod}\text{-}\Lambda)$.
-The NCCR question transposes to: does $\cO_X$ itself, or a reflexive
-cousin, admit an endomorphism ring that is \emph{quiver-presented}
-(finitely generated projective over its centre by a quiver with
-relations)? This is the question Wave-17 B2 answered negatively for
-generic compact CY$_3$; we ask whether the $K3\times E$ factorisation
-buys us a special case.
-
-\subsection*{Cycle~1. The K3 factor}
-
-\begin{proposition}[No global tilting bundle on smooth K3]
-\ClaimStatusTheorem
-\label{wn:prop:no-global-tilting-K3}
-A smooth projective K3 surface $S$ carries no tilting bundle: there
-is no vector bundle $T$ on $S$ with $\Ext^i_S(T,T) = 0$ for $i>0$
-whose endomorphism algebra has finite global dimension and generates
-$\Db(\Coh S)$.
-\end{proposition}
-
-\begin{proof}[Proof sketch]
-By Serre duality $\Ext^2_S(T,T) \cong \Hom_S(T,T)^\vee \neq 0$
-because $\omega_S \cong \cO_S$. Hence no nonzero $T$ is tilting in
-the strong sense. Bridgeland 2008 (\emph{Stability conditions on K3
-surfaces}, Duke Math.~J.~141, arXiv:math/0307164) removes any residual
-loophole: every heart in the stability-condition space of
-$\Db(\Coh S)$ is an infinite-rank tilt of $\Coh S$, none equivalent
-to $\mathrm{mod}\text{-}\Lambda$ for finite-dimensional $\Lambda$.
-\end{proof}
-
-\noindent\textit{Heal.} The Kapranov exceptional collection exists
-only on Fano varieties; K3 is strictly Calabi--Yau, not Fano. The
-$24$-vertex Mukai ``quiver'' is a \emph{lattice} datum on
-$\widetilde{H}(S,\mathbb{Z}) \cong U^4 \oplus E_8(-1)^2$, not a
-quiver datum on $\Db(\Coh S)$. The Cheng--Duncan moonshine quiver
-(if one is fixed) is a quiver on the symmetry groupoid of K3
-sigma-model vacua, not a tilting quiver in the Van den Bergh sense.
-Heal: restrict to ADE-singular K3s, where crepant resolutions of
-ADE singularities carry NCCRs (Wemyss 2018); for smooth K3 we must
-use spherical-twist generation (Seidel--Thomas~2001) which is not of
-NCCR form.
-
-\subsection*{Cycle~2. The elliptic factor}
-
-\begin{proposition}[FM self-duality of $\Db(\Coh E)$]
-\ClaimStatusTheorem
-\label{wn:prop:FM-elliptic}
-For a smooth elliptic curve $E$, the Poincar\'e bundle $\cP$ on
-$E \times \widehat{E}$ induces Mukai's Fourier transform
-(Mukai 1981, Nagoya J.~81),
-$\mathrm{FM}_\cP: \Db(\Coh E) \xrightarrow{\sim} \Db(\Coh \widehat{E})$,
-with $\widehat{E}\cong E$. The Atiyah classification of indecomposable
-bundles on $E$ by rank--degree pairs makes the moduli of simples a
-copy of $E$ itself, not a zero-dimensional quiver variety; no tilting
-bundle on $E$ presents $\Db(\Coh E)$ as $\mathrm{mod}\text{-}\Lambda$.
-\end{proposition}
-
-\noindent\textit{Heal.} $E$ has $\omega_E \cong \cO_E$, so the
-same Serre-duality obstruction applies in one dimension lower:
-no global tilting bundle exists on $E$. The FM self-duality is a
-genuine piece of non-commutative geometry --- an autoequivalence
-of $\Db(\Coh E)$ generating $\mathrm{SL}_2(\bZ)$ together with
-tensor by a line bundle (Mukai 1981; Polishchuk, \emph{Abelian
-Varieties, Theta Functions and the Fourier Transform}, Cambridge
-2003, Ch.~11) --- but it is not a tilting equivalence.
-
-\subsection*{Cycle~3. Tensor of derived categories}
-
-The external tensor product gives the Bondal--Orlov--Kuznetsov
-identification
+Let \(S\) be a smooth projective K3 surface, let \(E\) be a smooth
+elliptic curve, and set
 \[
-  \Db(\Coh(K3 \times E))
-  \simeq
-  \Db(\Coh \K) \boxtimes \Db(\Coh E),
+  X=S\times E .
 \]
-where $\boxtimes$ is the $\mathbb{C}$-linear Deligne tensor product
-of $k$-linear triangulated categories with a Lurie dg enhancement.
+Van den Bergh's non-commutative crepant resolution is formulated over
+an affine singular centre: for a normal Gorenstein affine domain
+\(R\), an \(\NCCR\) is an \(R\)-algebra
+\(\Lambda=\End_R(M)\), with \(M\) reflexive, such that \(\Lambda\) is
+Cohen-Macaulay over \(R\) and has finite global dimension
+(Van den Bergh 2004, Definition~4.1).  The threefold \(X\) is smooth
+and compact, with \(H^0(X,\cO_X)=\mathbb C\), while Van den Bergh's
+definition belongs to affine singular centres.  The finite-model
+question is whether the compact category admits one ordinary finite
+chart:
+\[
+  \Perf(X)\simeq \Perf(\Lambda),
+  \qquad
+  \Lambda \hbox{ a single finite quiver or Jacobi algebra.}
+\]
+A chart finite over the compact centre \(H^0(X,\cO_X)=\mathbb C\)
+would give a finite-dimensional algebra over \(\mathbb C\).  Under any
+such equivalence, the free \(\Lambda\)-module maps to a classical
+tilting object of \(\Perf(X)\).  Serre duality gives a nonzero top
+self-\(\Ext\) group for every such object.
 
-\begin{proposition}[Tensor product of non-tilted categories is not tilted]
-\ClaimStatusTheorem
-\label{wn:prop:tensor-not-tilted}
-If $\cA$ and $\cB$ are dg-enhanced triangulated categories neither
-of which admits a tilting generator, then $\cA \boxtimes \cB$ admits
-a tilting generator only if each factor does. In particular,
-$\Db(\Coh(K3 \times E))$ admits no global tilting bundle.
+\subsection*{The Serre obstruction}
+
+\begin{proposition}[Serre obstruction to classical tilting]
+\label{prop:serre-tilting-obstruction-cy}
+Let \(Y\) be a smooth proper Calabi-Yau variety of dimension \(d>0\)
+over \(\mathbb C\).  Every nonzero object \(T\in\Perf(Y)\) satisfies
+\[
+  \Ext_Y^d(T,T)\neq 0.
+\]
+Consequently such a \(T\) violates
+\[
+  \Ext_Y^i(T,T)=0\qquad (i>0).
+\]
+Classical tilting objects are therefore absent from \(\Perf(Y)\).  A
+presentation by a finite-dimensional ordinary algebra of finite global
+dimension would require the free module to map to a classical tilting
+generator of \(\Perf(Y)\).
 \end{proposition}
 
-\begin{proof}[Proof]
-A tilting generator $T$ on $\cA\boxtimes\cB$ splits as
-$T = T_\cA \boxtimes T_\cB$ up to summands by the K\"unneth formula
-for Ext-groups; vanishing of $\Ext^i(T,T)$ for $i>0$ implies
-vanishing in each factor, returning a tilting bundle on each, which
-contradicts Proposition~\ref{wn:prop:no-global-tilting-K3}.
+\begin{proof}
+The Serre functor on \(\Perf(Y)\) is the shift \([d]\), since
+\(\omega_Y\simeq\cO_Y\).  Hence
+\[
+  \Ext_Y^d(T,T)
+  =
+  \Hom_Y(T,T[d])
+  \cong
+  \Hom_Y(T,T)^\vee .
+\]
+The identity of a nonzero object gives a nonzero element of
+\(\Hom_Y(T,T)\).  Thus \(\Ext_Y^d(T,T)\neq 0\).  A tilting object would
+require all positive self-Ext groups to vanish, a contradiction.
 \end{proof}
 
-\subsection*{Cycle~4. Tensor of quivers with potential}
+\begin{corollary}[K3, elliptic, and product cases]
+\label{cor:k3-e-product-tilting-obstruction}
+Classical tilting objects are absent from
+\(\Perf(S)\), \(\Perf(E)\), and \(\Perf(S\times E)\).  In the product
+case the Serre functor is \([3]\), and every nonzero
+\(T\in\Perf(S\times E)\) has
+\[
+  \Ext^3_{S\times E}(T,T)\cong \Hom_{S\times E}(T,T)^\vee\neq 0 .
+\]
+\end{corollary}
 
-The naive guess $Q_{K3\times E} = Q_\K \times Q_E$ fails at two
-points. First, neither factor has a global quiver with potential
-(Cycles~1 and~2). Second, even for local tilting charts the tensor
-product of quivers with potential
-$(Q_1\times Q_2, W_1 + W_2)$ computes a CoHA at CY-dimension
-$2+1=3$ only when both factors are toric CY$_2$ (conifold
-degenerations, $A_n$ surface singularities). K3 is compact and
-non-toric; $E$ is compact and non-toric. The Kontsevich--Soibelman
-critical-CoHA framework (KS 2011, arXiv:1006.2706) uses quivers
-with potential as the \emph{input}, not as the output of some
-non-existent reduction functor.
+\begin{proof}
+Apply Proposition~\ref{prop:serre-tilting-obstruction-cy} in dimensions
+\(2\), \(1\), and \(3\).
+\end{proof}
 
-\subsection*{Cycle~5. Partial NCCR by stratification}
+The Mukai lattice
+\[
+  \widetilde H(S,\mathbb Z)\cong U^4\oplus E_8(-1)^2
+\]
+is a rank-\(24\) lattice datum controlling Fourier-Mukai symmetries,
+spherical classes, and the K3 Heisenberg branch.  The tilting
+argument keeps this lattice separate from ordinary quiver data for
+\(\Perf(S)\).  The Poincar\'e bundle \(\cP\) on
+\(E\times\widehat E\) gives Mukai's Fourier-Mukai equivalence
+\[
+  \Phi_{\cP}\colon \Db(\Coh E)\xrightarrow{\sim}\Db(\Coh \widehat E),
+  \qquad \widehat E\simeq E,
+\]
+and Atiyah's classification organises vector bundles on \(E\) by
+rank and degree.  These structures are autoequivalence and moduli
+structures.  Serre duality rules out their use as ordinary tilting
+presentations.
 
-\begin{theorem}[Local ADE-chart atlas, no global NCCR]
-\ClaimStatusTheorem
-\label{wn:thm:local-ADE-no-global}
-The following hold for $X = K3 \times E$.
+\subsection*{Tensor product of the derived categories}
+
+The dg category of perfect complexes on the product is the tensor
+product of the factors:
+\[
+  \Perf(S\times E)\simeq \Perf(S)\otimes_{\mathbb C}\Perf(E).
+\]
+This dg tensor product is smooth and proper, with Serre functor
+\([3]\).  A finite ordinary algebra model would have to supply a
+classical tilting object.  If an ordinary algebra \(\Lambda\) of finite
+global dimension and an equivalence
+\[
+  \Perf(S\times E)\simeq \Perf(\Lambda)
+\]
+existed, the image of \(\Lambda\) would be a nonzero
+\(T\in\Perf(S\times E)\) with \(\Ext^i(T,T)=0\) for \(i>0\).
+Corollary~\ref{cor:k3-e-product-tilting-obstruction}
+rules out such a \(T\).
+
+\subsection*{Local ADE singular charts}
+
+Local NCCRs appear on singular K3 degenerations and orbifold strata.
+Let \(\Gamma\subset \mathrm{SL}_2(\mathbb C)\) be a finite ADE subgroup,
+acting trivially on a formal coordinate \(t\) along \(E\), and set
+\[
+  R_{\Gamma,E}
+  =
+  \mathbb C[[u,v,t]]^\Gamma .
+\]
+For the sum \(M=\bigoplus_{\rho\in \widehat\Gamma} M_\rho\) of the
+indecomposable reflexive \(R_{\Gamma,E}\)-modules attached to the
+irreducible \(\Gamma\)-representations, the McKay algebra
+\[
+  \Lambda_{\Gamma,E}
+  =
+  \End_{R_{\Gamma,E}}(M)
+  \cong
+  \mathbb C[[u,v,t]]\rtimes \Gamma
+\]
+is Cohen-Macaulay over \(R_{\Gamma,E}\) and has finite global
+dimension \(3\).  This is the ADE NCCR stretched along the elliptic
+direction.  Bridgeland-King-Reid identify the corresponding derived
+McKay category for quotient singularities, and Van den Bergh's
+criterion gives the NCCR interpretation.
+
+These algebras are centred on formal singular charts.  A smooth K3
+surface has smooth analytic neighbourhoods in place of ADE quotient
+points, and a compact product \(S\times E\) lies outside the global
+affine-centre setting whose endomorphism algebra is the above
+\(\Lambda_{\Gamma,E}\).  A descent of the ADE algebras to one global
+ordinary quiver model would produce the tilting object ruled out by
+Corollary~\ref{cor:k3-e-product-tilting-obstruction}.
+
+\subsection*{Spherical transitions}
+
+The obstruction is visible on overlaps.  A spherical object
+\(F\in\Db(\Coh S)\), for instance the sheaf attached to a \((-2)\)-curve
+in an ADE degeneration, satisfies
+\[
+  \RHom_S(F,F)\simeq \mathbb C\oplus \mathbb C[-2]
+\]
+and produces the Seidel-Thomas spherical twist.  Pulling to \(X\)
+and tensoring with \(\cO_E\) gives
+\[
+  \RHom_X(\mathrm{pr}_S^*F,\mathrm{pr}_S^*F)
+  \simeq
+  \bigl(\mathbb C\oplus\mathbb C[-2]\bigr)
+  \otimes
+  H^\bullet(E,\cO_E),
+\]
+with cohomology in positive degrees.  Thus the transition datum of an
+ADE atlas is intrinsically dg or \(A_\infty\).  Degree-zero Morita
+gluing for ordinary quiver algebras forgets the spherical class.
+
+\subsection*{Quivers with potential and CoHA}
+
+Kontsevich-Soibelman's critical CoHA begins with a chosen CY$_3$
+Jacobi algebra
+\[
+  A=\Jac(Q,W).
+\]
+For the toric germ \(\mathbb C^3\), the one-vertex three-loop
+potential gives
+\[
+  \CoHA(\mathbb C^3)=Y^+(\widehat{\mathfrak{gl}}_1),
+\]
+the positive half of the affine Yangian.  The full
+\(\mathcal W_{1+\infty}\) object is reached only after imposing the
+double, centre, completion, or evaluation layer appropriate to the
+chosen Hall realisation.  The compact threefold
+\(S\times E\) belongs to reduced \(K3\)-fibre Donaldson-Thomas theory:
+compact moduli, orientation data, stability conditions, the Mukai
+lattice, and the Borcherds denominator enter before any Hall product is
+global.  A single global quiver with potential must first overcome the
+tilting obstruction above.
+
+Since \(X\) has Calabi-Yau dimension \(3\), the native specialised
+\(\Phi\)-output is \(E_1\)-chiral.  \(E_2\)-structures occur at the
+Drinfeld centre, Drinfeld double, or module layer associated to that
+\(E_1\)-object.  The Hall-Drinfeld/Borcherds denominator branch,
+represented at level one by \(\mathfrak g_{\Delta_5}\), is separate
+from the K3 Mukai self-mirror Yangian branch governed by rank-\(24\)
+Mukai parameters and Maulik-Okounkov stable envelopes.  Compact
+coherent geometry, local quotient \(\NCCR\) charts, the Hall positive
+half, and the automorphic BKM denominator are four different layers.
+
+\subsection*{Obstruction theorem}
+
+\begin{theorem}[Finite quiver obstruction and conditional substitute for \(K3\times E\)]
+\label{thm:finite-quiver-obstruction-K3E}
+For \(X=S\times E\), with \(S\) a smooth projective K3 surface and
+\(E\) a smooth elliptic curve, the following statements hold.
 \begin{enumerate}
-\item[\textup{(i)}] Around each ADE singularity
-$p \in K3$ (in the orbifold or degenerate limit), the formal
-neighbourhood $\widehat{X}_{(p,q)}$ for $q \in E$ admits an NCCR
-of the form $\End(\cE_{\text{ADE}}) \otimes \cO_E$: an ADE McKay
-endomorphism algebra stretched along $E$.
-\item[\textup{(ii)}] The smooth locus of $K3 \times E$ admits no
-NCCR because the global Serre functor
-$\Sigma = [3] \otimes \omega_X = [3]$ has no finite-dimensional
-tilting resolution (K\"ahler--Einstein + $c_1 = 0$).
-\item[\textup{(iii)}] There is no Cech descent of the ADE NCCRs
-in (i) to a global NCCR: the transition $A_\infty$-bimodules
-between two ADE charts on K3 include spherical twists around
-$(-2)$-classes whose endomorphism algebra is
-$\cO_\K[-2]\oplus\cO_\K$, which has global dimension $\infty$ in
-any $\mathrm{mod}\text{-}\Lambda$ presentation.
+\item[\textup{(i)}] Classical tilting objects are absent in
+\(\Perf(X)\).  Consequently an ordinary finite-dimensional quiver
+presentation by a single degree-zero endomorphism algebra of finite
+global dimension would fail to supply the required classical tilting
+generator.
+\item[\textup{(ii)}] ADE degenerations of the K3 factor have local
+Van den Bergh NCCRs
+\(\Lambda_{\Gamma,E}\cong \mathbb C[[u,v,t]]\rtimes\Gamma\).
+\item[\textup{(iii)}] The local ADE NCCRs remain local formal
+singularity-chart models. Any single global ordinary
+quiver-with-potential model for \(\Perf(X)\) compatible with the
+derived category would
+contradict the Serre-duality obstruction in (i).
+\item[\textup{(iv)}] Any finite substitute compatible with the local
+quotient charts, the Serre functor, and compact Hall integration must
+be supplied as a Serre-equivariant quasi-\(\NCCR\) datum.  After
+orientation, compact comparison, and centre data are supplied, its
+reduced Hall/DT shadow is a scalar character.  An algebra isomorphism
+requires separate recognition data.
 \end{enumerate}
 \end{theorem}
 
-\begin{proof}[Proof]
-(i) is Wemyss 2018 for the K3 ADE factor tensored with the trivial
-bundle on $E$. (ii) is Proposition~\ref{wn:prop:no-global-tilting-K3}
-times $E$ through Cycle~3. (iii) follows from
-Seidel--Thomas~2001: the spherical twist
-$T_\cO: \Db(\Coh \K) \to \Db(\Coh \K)$ has
-$T_\cO(\cO) \in \Db(\Coh \K)\smallsetminus\cO^{\oplus\ast}$, and
-the induced bimodule on overlapping ADE charts is not a finite
-projective over the transition endomorphism algebra.
+\begin{proof}
+Clause~(i) is Corollary~\ref{cor:k3-e-product-tilting-obstruction}.
+Clause~(ii) is the ADE McKay construction over
+\(\mathbb C[[u,v,t]]^\Gamma\), with \(\Gamma\subset\mathrm{SL}_2\)
+acting trivially on \(t\).  Clause~(iii) follows because an ordinary
+global quiver-with-potential model equivalent to \(\Perf(X)\) would
+carry the free rank-one module to a tilting object of \(\Perf(X)\).
+Clause~(i) rules out such an object.  The Seidel-Thomas spherical
+classes above exhibit the dg transition datum that survives in finite
+atlases.  Clause~(iv) records the data required for such an atlas:
+local tilting or McKay charts glued by exact wall-crossing functors,
+with the compact Hall character defined only after the data in
+Definition~\ref{def:serre-qnccr-k3e} are fixed.
 \end{proof}
 
-\subsection*{Obstruction, stated}
+\subsection*{Serre-equivariant quasi-\(\NCCR\)}
 
-\begin{corollary}[NCCR obstruction for $K3\times E$]
-\ClaimStatusTheorem
-\label{wn:cor:NCCR-obstruction-K3E}
-The compact Calabi--Yau threefold $X = K3\times E$ does not admit a
-non-commutative crepant resolution in the sense of Van den Bergh.
-The obstruction is the $(-2)$-spherical content of $\Db(\Coh \K)$:
-the spherical-twist group (Seidel--Thomas 2001, Duke Math.~J.~108,
-arXiv:math/0001043) acts on $\Db(\Coh \K)$ with no finite-rank
-tilting fixed point, and does not present $\Db(\Coh \K)$ as
-$\mathrm{mod}\text{-}\Lambda$ for any finite-dimensional $\Lambda$.
-An ADE-chart atlas with $A_\infty$-bimodule transitions exists,
-but the global quiver-with-potential single-chart reduction fails.
-This matches Wave-17 B2: compact non-toric CY$_3$ has no global
-QP; $K3\times E$ is compact non-toric despite the elliptic
-fibration, because the K3 base is non-toric.
-\end{corollary}
+\begin{definition}[Serre-equivariant quasi-\(\NCCR\) datum]
+\label{def:serre-qnccr-k3e}
+A finite Serre-equivariant quasi-\(\NCCR\) datum on \(X=S\times E\)
+consists of a finite wall atlas \(\mathfrak U=\{U_\alpha\}_{\alpha\in I}\)
+in the stability space of \(\Perf(X)\), full pretriangulated dg charts
+\(\mathcal C_\alpha\subset\Perf(X)\), bounded hearts
+\(\mathcal A_\alpha\subset\mathcal C_\alpha\), local tilting
+generators \(T_\alpha\in\mathcal A_\alpha\), algebras
+\[
+  \Lambda_\alpha=\End_{\mathcal C_\alpha}(T_\alpha),
+\]
+exact equivalences
+\[
+  F_\alpha\colon \Perf(\Lambda_\alpha)\xrightarrow{\sim}
+  \mathcal C_\alpha,
+\]
+and transition equivalences on nonempty overlaps
+\[
+  \Psi_{\alpha\beta}\colon
+  \mathcal C_{\alpha\beta}^{(\alpha)}
+  \xrightarrow{\sim}
+  \mathcal C_{\alpha\beta}^{(\beta)} .
+\]
+Here \(\mathcal C_{\alpha\beta}^{(\alpha)}\) and
+\(\mathcal C_{\alpha\beta}^{(\beta)}\) denote the two restrictions of
+the local dg charts to the overlap \(U_\alpha\cap U_\beta\).
+The triple overlaps carry coherent natural isomorphisms
+\(\Psi_{\beta\gamma}\Psi_{\alpha\beta}\Rightarrow
+\Psi_{\alpha\gamma}\).  Serre-equivariance means
+\[
+  \Psi_{\alpha\beta}\circ\SerreS_X
+  =
+  \SerreS_X\circ\Psi_{\alpha\beta},
+  \qquad
+  \SerreS_X=[3].
+\]
+The datum becomes a compact quasi-\(\NCCR\), a Hall-Drinfeld double,
+or a reduced Hall algebra only after the package
+\[
+  \mathfrak o_X=
+  \bigl(
+    [\Psi_{\alpha\beta\gamma}],\
+    \epsilon_{\mathrm{Hall}},\
+    \eta_{\mathrm{hCS/Hall}},\
+    \omega_{\mathcal Z}
+  \bigr)
+\]
+is supplied: the transition-gerbe class, the Hall orientation
+character, the compact hCS-to-Hall comparison, and the fibre-functor
+datum on the derived centre.
+\end{definition}
 
-\subsection*{Consequence for the $\kappa_\bullet$-spectrum}
+\begin{proposition}[Reduced Hall character constraint]
+\label{prop:reduced-hall-character-k3e}
+Assume a finite Serre-equivariant quasi-\(\NCCR\) datum on \(X\) is
+equipped with vanishing transition gerbe, Hall orientation character,
+compact hCS-to-Hall comparison, derived-centre fibre functor, and a
+character map compatible with Oberdieck-Pandharipande reduced
+stable-pairs integration.  Then the resulting scalar character is
+\[
+  \chi_{\mathrm{qNCCR}}(X)
+  =
+  Z^{\mathrm{red}}_{\DT}(K3\times E)
+  =
+  -(\Phi_{10}^{\mathrm{OP}})^{-1}.
+\]
+This equality is a constraint on any compact quasi-\(\NCCR\) or reduced
+Hall model.  The atlas, compact Hall bracket, Hall-Drinfeld double, and
+comparison map are additional data.
+\end{proposition}
 
-The four constructions yielding $\kappa_{\bullet}(K3\times E) \in
-\{2,3,5,24\}$ never use an NCCR. $\kappa_\cat = 0$ is K\"unneth on
-$\chi(\cO_X)$. $\kappa_\ch$ is the Hodge supertrace identification
-of the $\Phi$-output on the smooth compact CY$_3$.
-$\kappa_{\BKM}(\Phi_N) = c_N(0)/2$ is the Borcherds weight
-(Gritsenko series). $\kappa_\fib = 24$ is the Mukai lattice rank.
-None of these needs a tilting bundle; the CoHA side
-(Davison integrality on the derived category of $K3\times E$)
-survives without one, which is the operational content of
-Corollary~\ref{wn:cor:NCCR-obstruction-K3E}: the non-commutative
-data of $K3 \times E$ is organised by an
-$(\infty,1)$-categorical $\Phi$-functor, not by a quiver with
-potential.
+\begin{proof}
+Oberdieck-Pandharipande 2016 compute the primitive reduced
+Donaldson-Thomas partition function of \(K3\times E\) as
+\(-(\Phi_{10}^{\mathrm{OP}})^{-1}\).  The Hall orientation character
+in the hypotheses fixes the Behrend sign.  Compatibility with
+Oberdieck-Pandharipande integration means that the quasi-\(\NCCR\)
+character map evaluates to the same scalar functional on the compact
+Hall side.  The displayed identity follows.  The hypotheses are the
+compact categorical data; the scalar identity is a character constraint
+on that data.
+\end{proof}
+
+\subsection*{The \(K3\times E\) constants}
+
+The finite-quiver obstruction leaves the following constants separated
+by construction:
+\[
+\begin{array}{c|c|c}
+\hbox{construction} & \hbox{invariant} & \hbox{value} \\
+\hline
+\hbox{total-space coherent Euler} &
+\kcat(X)=\chi(\cO_S)\chi(\cO_E) & 2\cdot 0=0 \\
+\hbox{compact Hodge supertrace} &
+\kch(X)=\kch^{\mathrm{Hodge}}(X)=\sum_q(-1)^qh^{0,q}(X) & 0 \\
+\hbox{Heisenberg-Mukai specialisation} &
+\kHeis(X) & 3 \\
+\hbox{Borcherds denominator} &
+\kBKM(\Delta_5)=c_1(0)/2 & 10/2=5 \\
+\hbox{K3 fibre lattice} &
+\kfib(S)=\operatorname{rk}\widetilde H(S,\mathbb Z) & 24 .
+\end{array}
+\]
+The primitive CHL levels \(N\in\{1,2,3,4,6\}\) carry
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\
+\hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\Phi_N)=c_N(0)/2 & 5 & 4 & 3 & 2 & 1 .
+\end{array}
+\]
+The levels \(N=5,7,8\) lie outside this primitive compact CHL ladder.
+They require a theorem giving a common compact host and an explicit row
+map before they can be compared with the table above.
+These constants belong to separate constructions.  The compact value
+\(\kch(X)=0\), the Heisenberg-Mukai value \(\kHeis(X)=3\), the
+Borcherds weight \(\kBKM(\Delta_5)=5\), and the fibre rank
+\(\kfib(S)=24\) come from different functors or traces.  They are
+independent invariants.
+
+The Gritsenko-Cl\'ery diagonal-divisor catalogue is a different
+eight-row list, with twice-weight tuple
+\[
+  (10,4,6,2,4,1,3,2).
+\]
+Its row parameter is the diagonal-divisor datum. The primitive CHL
+level above is a separate index.
+
+At level one the Borcherds product normalisation is
+\[
+  D_5=64^{-1}\Delta_5,
+  \qquad
+  \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2,
+\]
+so the reduced \(K3\times E\) Donaldson-Thomas scalar is
+\[
+  Z^{\mathrm{red}}_{\mathrm{DT}}(K3\times E)
+  =
+  -(\Phi_{10}^{\mathrm{OP}})^{-1}
+  =
+  -D_5^{-2}
+  =
+  -4096\,\Delta_5^{-2}.
+\]
+These values are independent of any global tilting bundle.  The
+compact category is smooth and proper as a dg category.  Its BPS and
+chiral shadows pass through reduced Hall theory, factorisation,
+Heisenberg specialisation, and Borcherds products.

@@ -19,21 +19,27 @@
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\Perf}{\mathrm{Perf}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\CR}{\mathrm{CR}}
 \providecommand{\Gr}{\mathrm{Gr}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cM}{\mathcal{M}}
+\providecommand{\cP}{\mathcal{P}}
 \providecommand{\cF}{\mathcal{F}}
 \providecommand{\cE}{\mathcal{E}}
 \providecommand{\cH}{\mathcal{H}}
-\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
-\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
-\providecommand{\kappafib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
 \providecommand{\Meff}{\cM^{+}_{\mathrm{eff}}}
 \providecommand{\Yp}{Y^{+}}
 \providecommand{\Yph}{Y^{+}(\widehat{\mathfrak{gl}}_1)}
 \providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
 \providecommand{\Phion}{\phi_{0,1}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -46,241 +52,455 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Equivariance stratification for positive effective geometry
-across CY cases}
-\author{Wave-17 A4/20}
-\date{2026-04-22}
+\title{Equivariance Stratification for Positive Effective Geometry}
+\author{}
+\date{}
 
 \begin{document}
 \maketitle
 
-The positive half $\Yp(X)$ of a Vol~III BPS quantum group is the
-equivariant cohomology of a positive effective moduli $\Meff(X)$:
-Hilbert schemes on a surface, relative Hilbert on a fibration, moduli
-of stable framed sheaves on a CY$_3$, or period images of a
-lattice-polarised Nikulin family. The equivariance type is not
-universal. Five geometric regimes stratify the positive generator
-category; each fixes a different localisation, a different fixed-locus
-combinatorics, and a different bridge to the chiral-side weight.
+A positive effective geometry presentation of a BPS positive half becomes a
+localisation theorem once the localisation datum has been supplied.
+The datum consists of a moduli problem, a group action or reduced
+obstruction theory, a proper fixed or quotient locus, and an integration
+map. Toric residue formulae, reduced $K3$ classes, CHL twining, and
+Borcherds period products occupy different strata. A formula proved in
+one stratum requires a fresh datum before propagation to another.
 
-\section{Cycle 1: toric CY$_d$ at $d\in\{1,2,3\}$}
-
-On $\C^d$ the torus $T^d = (\C^\times)^d$ acts by scaling. On
-$\Meff(\C^d) = \Hilb^\bullet(\C^d)$, Atiyah--Bott equivariant
-localisation (Atiyah--Bott 1984, Thm.\ 7.13) reduces integrals to
-$T^d$-fixed points, which are:
-\begin{itemize}
-\item $d=1$: partitions $\lambda$ of $n$; $\Hilb^n(\C)^T = $
-configuration of $n$ points at the origin; $|\Hilb^n(\C)^T|=1$.
-\item $d=2$: Young diagrams of size $n$;
-$\Hilb^n(\C^2)^T = $ set of monomial ideals; $|\Hilb^n(\C^2)^T|=p(n)$
-(Nakajima 1997, Thm.\ 4.1).
-\item $d=3$: plane partitions (3D Young diagrams);
-$\Hilb^n(\C^3)^T$ counts boxes in $3D$ partitions of volume $n$;
-$\sum q^n |\Hilb^n(\C^3)^T| = M(q) = \prod_{n\ge 1}(1-q^n)^{-n}$
-(MacMahon function, MNOP 2006).
-\end{itemize}
-The torus normalisation is CY: $\eps_1 + \cdots + \eps_d = 0$ on
-equivariant parameters.
-
-\begin{theorem}[Toric positive half]\label{thm:toric-positive}
-For $X = \C^d$ or $X$ a smooth toric CY$_d$ with fan $\Sigma$, the
-positive half admits the Nekrasov presentation
+The operadic level is part of the datum. For a CY$_d$ input,
 \[
-\Yp(X)\;\cong\; H^*_T(\Meff(X))\;=\;\bigoplus_{\sigma\in\Sigma(d)}
-H^*_T(\Meff(U_\sigma))^{T\text{-fixed}},
+ \Phi_d=\SpCh_{\Sigma_{d-1},C}\circ\PhiFA_d .
 \]
-each chart contribution evaluating by residue at a monomial fixed
-ideal. For $\C^3$, this is the SV 2013 identification
-$\CoHA(\C^3)\simeq\Yph$ (positive half of the affine Yangian).
+At $d\geq 3$ the curve output $A=\Phi_d(\cC)$ is $E_1$-chiral. Braided
+$E_2$ structure belongs to centre, double, or module layers such as
+$\cZ(\Rep^{E_1}(A))$ after those layers are constructed.
+
+\section{Admissible Equivariance Data}
+
+\begin{definition}[Admissible positive datum]\label{def:admissible-positive-datum}
+An admissible positive datum for a CY input $X$ is a quintuple
+\[
+ \mathfrak L_X=(\Meff(X),G_X,\mathbb E_X,\ell_X,\int_X^{\mathfrak L})
+\]
+with the following properties.
+\begin{enumerate}
+\item $\Meff(X)$ is the positive effective moduli stack used for the
+Hall or stable-pair construction.
+\item $G_X$ is either an algebraic torus, a finite orbifold group, an
+arithmetic group on a period domain, or the trivial group together with
+a reduced obstruction theory.
+\item $\mathbb E_X$ is the perfect obstruction theory, its reduced
+cosection quotient, or the automorphic line bundle carrying the
+Borcherds product.
+\item $\ell_X$ is a proper fixed locus, proper quotient, proper reduced
+virtual class, or finite-covolume cusp and divisor datum.
+\item $\int_X^{\mathfrak L}$ is the residue, virtual, reduced, orbifold,
+or automorphic integration map attached to the preceding data.
+\end{enumerate}
+Once $\mathfrak L_X$ is fixed,
+\[
+ \Yp_{\mathfrak L}(X)
+ :=
+ H^\bullet_{G_X}\bigl(\Meff(X),\mathbb E_X\bigr)_{\ell_X}
+\]
+is the positive half used in the comparison.
+\end{definition}
+
+\begin{proposition}[Four strata]\label{prop:four-equivariance-strata}
+The admissible positive data used here fall into four strata.
+\begin{enumerate}
+\item Toric charts: $G_X=(\C^\times)^d$ or its CY subtorus, and
+$\ell_X=\Meff(X)^{G_X}$ is a monomial fixed locus. Integration is
+Atiyah-Bott residue.
+\item Reduced compact geometry: $G_X$ is absent or finite; the ordinary
+virtual class is replaced by a reduced class. For $K3\times E$ the
+Oberdieck-Pandharipande theory integrates on the quotient by the elliptic
+translation action where the stable-pair quotient and reduced class are
+defined.
+\item Orbifold and CHL geometry: a finite group acts on the source or on
+the elliptic-genus input. Fixed inertia sectors occur for stacky fixed
+points. A free CHL quotient contributes through the $g_N$-twined K3
+elliptic genus and quotient stable-pair theory; torus residue on
+$K3\times E$ is absent.
+\item Period-domain geometry: an arithmetic group acts on a Type IV or
+Siegel domain. The fixed data are cusps, reflective divisors, multipliers,
+and automorphic line bundles; the output is a Borcherds product.
+\end{enumerate}
+These strata share notation for positive halves, but their integration
+maps are different mathematical objects.
+\end{proposition}
+
+\section{Toric Fixed-Point Localisation}
+
+Let $U=\C^d$ with torus $T_d=(\C^\times)^d$ and equivariant parameters
+$\eps_1,\ldots,\eps_d$. The CY normalisation is
+\[
+ \eps_1+\cdots+\eps_d=0 .
+\]
+On $\Hilb^n(\C^d)$ the $T_d$-fixed points are monomial ideals. For
+$d=1$ there is one fixed point in each degree. For $d=2$ the fixed
+points are Young diagrams. For $d=3$ they are plane partitions and
+\[
+ \sum_{n\geq0} q^n\,|\Hilb^n(\C^3)^{T_3}|
+ =
+ \prod_{m\geq1}(1-q^m)^{-m}.
+\]
+
+\begin{theorem}[Toric positive half]\label{thm:toric-positive-half}
+Let $X$ be a smooth toric CY chart or a toric CY variety whose positive
+effective moduli admits a toric fixed-locus decomposition by affine
+charts $U_\sigma\simeq \C^d$. Then
+\[
+ \Yp_{\mathrm{tor}}(X)
+ =
+ \bigoplus_{\sigma}
+ H^\bullet_{T_d}\bigl(\Meff(U_\sigma),\mathbb E_\sigma\bigr)
+ \otimes_{\operatorname{Frac}H^\bullet_{T_d}(\mathrm{pt})}
+ \operatorname{Frac}H^\bullet_{T_d}(\mathrm{pt}),
+\]
+and every invariant extracted from this expression is a residue along
+monomial fixed ideals. For $X=\C^3$ this gives the positive half
+\[
+ \CoHA(\C^3)\cong\Yph .
+\]
 \end{theorem}
 
-Primary sources: Nekrasov 2002 \emph{Adv.\ Theor.\ Math.\ Phys.}~7,
-Thm.\ 0.1 (partition function as equivariant integral);
-Schiffmann--Vasserot 2013 \emph{Publ.\ Math.\ IHES}~118, Thm.\ 1.1
-(CoHA of Jacobi algebra $\C Q/\partial W$ for $\C^3$ quiver).
+\begin{proof}
+Atiyah-Bott localisation identifies the equivariant integral with the
+sum over connected components of the $T_d$-fixed locus after inverting
+the equivariant Euler classes of normal bundles. In the Hilbert-scheme
+charts the fixed components are indexed by monomial ideals, hence by the
+partitions above. The last statement is the Schiffmann-Vasserot
+identification of the cohomological Hall algebra of the Jordan
+three-loop potential with the positive affine Yangian half.
+\end{proof}
 
-\section{Cycle 2: non-toric compact CY$_d$ (K3, $K3\times E$, quintic)}
+\section{Reduced Compact Geometry}
 
-No $T^d$ acts on a compact CY$_d$; only discrete $\Aut(X)$ survives.
-The reduced virtual class replaces the equivariant integral.
-\begin{itemize}
-\item \emph{K3}: Mumford conjecture (Beauville 1983, Corollary 6.2)
-forces $[\Meff(K3)]^{\mathrm{vir}} = 0$; one passes to the
-\emph{reduced} class, with one twist insertion by the holomorphic
-symplectic form $\Omega_{K3}$ (Maulik--Pandharipande--Thomas 2010
-\emph{Alg.\ Geom.}~1, Thm.\ 1). Residual equivariance: the
-$\C^\times$ scaling of $\Omega_{K3}$ (a single $\hb$).
-\item \emph{$K3\times E$}: the elliptic fibre gives translation by
-$t\in E$, a free $E$-action on $\Meff$; reduced class on the K3
-factor plus $E$-translation (Oberdieck--Pandharipande 2016
-\emph{JEMS}~18, Thm.\ 2). Residual group $\C^\times\times E$.
-\item \emph{Quintic $X_5\subset\Pp^4$}: no continuous symmetry; the
-generic $\Aut(X_5)$ is trivial; one uses the Behrend function
-$\nu\colon\Meff\to\Z$ and Joyce--Song stable-pair wall-crossing
-(Joyce--Song 2012, Thm.\ 5.22). No equivariance; only motivic
-rigidification.
-\end{itemize}
+A compact CY target lacks a toric chart covering its stable-pair theory.
+For a K3 surface the holomorphic symplectic form gives a cosection of
+the obstruction sheaf, so ordinary virtual counts vanish and the reduced
+class is the relevant class. For $S\times E$, with $S$ a K3 surface, the
+elliptic curve acts by translation on the $E$ factor. Stable-pair
+invariants are reduced and then divided by this translation action on
+the locus where the quotient theory is defined.
 
-\begin{proposition}[Non-toric positive half via reduced class]
-\label{prop:nontoric-positive}
-For $X$ non-toric compact CY$_d$, $\Yp(X) = H^*(\Meff(X),
-\mathcal{I}^{\mathrm{red}})$ where $\mathcal{I}^{\mathrm{red}}$ is the
-reduced virtual structure sheaf (Maulik--Thomas 2018,
-arXiv:1610.04311, Def.\ 2.1). The generating function replaces the
-Nekrasov partition by the MPT reduced DT invariant.
-\end{proposition}
-
-\section{Cycle 3: orbifold CY$_d$ ($\C^3/G$, CHL, Leech)}
-
-A finite $G$ acting symplectically on a CY$_d$ gives an orbifold
-$[X/G]$; $\Meff([X/G])$ is equivariant with respect to the discrete
-$G$ and stratified by inertia sectors $\{I_g X\}_{g\in G}$
-(Chen--Ruan 2004 \emph{Commun.\ Math.\ Phys.}~248).
-\begin{itemize}
-\item \emph{$\C^3/G$} ($G\subset SL_3$): McKay quiver
-$Q_G$ with relations $\partial W$; $\Meff = $ framed
-representations. $G$-equivariant Hilbert scheme
-$G$-$\Hilb(\C^3)$ is a crepant resolution (Bridgeland--King--Reid
-2001, Thm.\ 1.2). Equivariance = $T^3\ltimes G$: toric fixed points
-$\times$ inertia sectors.
-\item \emph{CHL $(K3\times E)/\Z_N$}, $N\in\{1,2,3,4,6\}$: free
-$\Z_N$-action by $g_N\times t_N$ (Nikulin 1980; Chaudhuri--Hockney--Lykken
-1995). $\Meff$ on the quotient is $\Z_N$-invariant part of
-$\Meff(K3\times E)$; five symplectic conjugacy classes only.
-\item \emph{Leech orbifold $(\Lambda/\Z_N)^\natural$}: cyclic
-orbifolds of the Leech VOA $V^\Lambda$ (Frenkel--Lepowsky--Meurman
-1988) by $N\in\{1,2,3,4,6\}$ Conway-classes yield the Borcherds
-data for $\gDelta^{(N)}$; no geometric $\Meff$ but a $V$-algebra
-analogue (Borcherds 1992, Thm.\ 2.1).
-\end{itemize}
-
-\begin{proposition}[Orbifold inertia stratification]
-\label{prop:orbifold-inertia}
-For $X$ CY$_d$, $G\subset\Aut_s(X)$ finite,
+\begin{proposition}[Reduced $K3\times E$ datum]\label{prop:k3e-reduced-datum}
+Let $S$ be a K3 surface and let $X=S\times E$. For a curve class and
+stability condition in the Oberdieck-Pandharipande reduced theory, the
+positive datum is
 \[
-H^*_{\mathrm{CR}}(\Meff([X/G]))
- \;=\;\bigoplus_{[g]\subset G}
-  H^*\bigl(\Meff(X^g)\bigr)^{C_G(g)},
+ \mathfrak L_X^{\mathrm{red}}
+ =
+ \bigl(P_n(X,\beta,d)/E,\;1,\;\mathbb E_X^{\mathrm{red}},\;
+ [P_n(X,\beta,d)/E]^{\mathrm{red}},\;
+ \int_{[P_n(X,\beta,d)/E]^{\mathrm{red}}}\bigr).
 \]
-Chen--Ruan orbifold cohomology summed over conjugacy classes.
-For $X=\C^3$, $G=\Z_N$, each sector is toric (Cycle~1) and the sum
-is the wreath-product Fock space $(\cH_{\C^3})^{\otimes N}\rtimes
-\Z_N$ (Nakajima 1997 \S 8; Wang 2000).
+The symbol $\C^\times$ in this stratum records the weight of the
+reduced obstruction line or holomorphic symplectic form. It records a
+line weight, separate from torus actions producing isolated fixed points
+on the compact threefold.
 \end{proposition}
 
-\section{Cycle 4: lattice-polarised Nikulin families}
+\begin{proof}
+The K3 holomorphic symplectic form gives the cosection used in the
+reduced obstruction theory of Maulik-Pandharipande-Thomas and
+Kool-Thomas. On $S\times E$, translation by $E$ preserves the
+stable-pair problem; Oberdieck-Pandharipande define the reduced
+quotient theory by removing this free direction before integration.
+Atiyah-Bott denominators are absent from this quotient theory. Such
+denominators require an additional local toric chart or finite
+fixed-point model.
+\end{proof}
 
-Fix a primitive lattice embedding $M\hookrightarrow\Lambda_{K3}=
-E_8(-1)^{\oplus 2}\oplus U^{\oplus 3}$ of signature $(1,r-1)$.
-$M$-polarised K3 surfaces $(X,\iota)$ with $\iota\colon M\hookrightarrow
-\mathrm{Pic}(X)$ form a moduli $\cM_M$ of dimension $20-r$
-(Nikulin 1979 \emph{Izv.}~43, Thm.\ 3.1; Dolgachev 1996). The
-period map identifies $\cM_M$ with a Grassmannian orbit
+\begin{theorem}[The $K3\times E$ invariant separation]
+\label{thm:k3e-invariant-separation}
+For $X=K3\times E$ the compact and automorphic constants are
 \[
-\cM_M\;=\;\Gamma_M\backslash\mathrm{Gr}^{II}(M^\perp\otimes\R),
+\begin{aligned}
+ \kcat(X)
+ &=\chi(\cO_{K3})\chi(\cO_E)=2\cdot 0=0,\\
+ \kch(A_X)
+ &=\sum_{q=0}^3(-1)^q h^{0,q}(X)
+   =1-1+1-1=0,\\
+ \kch^{\mathrm{Heis}}(X)
+ &=3,\\
+ \kBKM(\Delta_5)
+ &=c_1(0)/2=10/2=5,\\
+ \kfib(X)
+ &=\operatorname{rank}\widetilde H(K3,\Z)=24 .
+\end{aligned}
 \]
-where $\mathrm{Gr}^{II}$ is the Type~IV symmetric domain of oriented
-negative-definite $2$-planes in $M^\perp\otimes\R$ and
-$\Gamma_M = O(M^\perp)$.
-Equivariance type: \emph{period-domain}, Shimura-variety.
-
-\begin{proposition}[Period-domain equivariance]
-\label{prop:period-equivariance}
-$\Yp(X_M)$ for the generic $M$-polarised K3 is a module over the
-Picard--Fuchs $\cD$-module on $\cM_M$; the $\Gamma_M$-action on the
-period domain lifts to $\Meff$. Localisation replaces $T^d$-fixed
-points by $\Gamma_M$-cusps of the Baily--Borel compactification.
-For $M = U\oplus E_8(-1)$, $r=10$, $\dim\cM_M=10$, Gritsenko--Nikulin
-1998 (\emph{Amer.\ J.\ Math.}~120, Thm.\ 1.1) give the explicit
-Borcherds lift $\Meff(X_M)\to\mathrm{paramodular}$ realising
-$\Phion^{(g_N)}\mapsto\Delta_5^{(N)}$.
-\end{proposition}
-
-\section{Cycle 5: the eight Gritsenko--Cl\'ery forms, equivariance-stratified}
-
-Gritsenko--Cl\'ery 2017 (\emph{Math.\ Z.}~286, Thm.\ 1.1) construct
-eight weight-$k$ Siegel paramodular forms $\{\Delta^{(i)}_k\}_{i=1}^8$
-with rational divisor on the paramodular group of level $t\in\{1,2,3\}$,
-together realising the $N\in\{1,2,3\}$ rank-$2$ extension slice of the
-$\{1,2,3,4,6\}$ CHL family. The eight forms stratify by the
-equivariance type of the underlying $\Meff$:
-
-\begin{center}
-\renewcommand{\arraystretch}{1.18}
-\begin{tabular}{cllll}
-\toprule
-$i$ & Form & Weight $k$ & Equivariance & Geometric source \\
-\midrule
-1 & $\Delta_5$ & $5$ & residual $\C^\times\times E$
-   & $K3\times E$ reduced \\
-2 & $\Delta_2$ & $2$ & $\Z_2$-orbifold inertia
-   & $(K3\times E)/\Z_2$ CHL \\
-3 & $\Delta_1^{(3)}$ & $1$ & $\Z_3$-orbifold inertia
-   & $(K3\times E)/\Z_3$ CHL \\
-4 & $\Delta_1^{(4)}$ & $1$ & $\Z_4$-orbifold inertia
-   & $(K3\times E)/\Z_4$ CHL \\
-5 & $\Delta_1^{(6)}$ & $1$ & $\Z_6$-orbifold inertia
-   & $(K3\times E)/\Z_6$ CHL \\
-6 & $\Phi_{10}$ & $10$ & Igusa $\mathrm{Sp}_4(\Z)$
-   & principally polarised Ab.\ surface \\
-7 & $\Psi_{11}^{(2)}$ & $11$ & level-$2$ paramodular
-   & Gritsenko rank-2 lift \\
-8 & $\Psi_{11}^{(3)}$ & $11$ & level-$3$ paramodular
-   & Gritsenko rank-2 lift \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\begin{theorem}[Equivariance-stratified $\kappaBKM$]
-\label{thm:gc-eight-equivariance}
-For each Gritsenko--Cl\'ery form $\Delta^{(i)}_{k_i}$,
-$\kappaBKM(\Delta^{(i)}_{k_i}) = c_{k_i}(0)/2$ with $c_{k_i}(0) =
-2k_i$ (Borcherds 1998 Thm.\ 13.3): the BKM weights on forms 1--5
-give $(5,2,1,1,1)$, reproducing the $c_N(0)/2$ tower (cache
-baseline; \texttt{cy\_d\_kappa\_stratification.tex}
-Thm.\ \texttt{thm:borcherds-weight-kappa-BKM-universal}). Forms 6--8
-sit outside the $\{1,2,3,4,6\}$ CHL slice at $(10,11,11)$: the
-Siegel $\Phi_{10}$ lives on the Ab.\ surface side
-(genuinely distinct $\Meff$, not a quotient of $K3\times E$);
-$\Psi_{11}^{(2)}, \Psi_{11}^{(3)}$ are rank-2 paramodular at
-level $2,3$.
+The number $3$ belongs to the Heisenberg-Mukai specialisation. The
+number $5$ belongs to the Borcherds denominator. The number $24$
+belongs to the K3 Mukai lattice. These three constants lie outside the
+compact Hodge supertrace of $K3\times E$.
 \end{theorem}
 
-\begin{remark}[The $N\in\{1,2,3\}$ rank-2 extension]
-\label{rem:rank-two-extension}
-Forms 2, 3, 7, 8 together realise a rank-2 extension of the
-$\{1,2,3\}$ slice: forms 2--3 from CHL orbifold inertia (Cycle~3),
-forms 7--8 from level-$\{2,3\}$ paramodular period-domain equivariance
-(Cycle~4). The chiral-side analogue is the twisted sector
-$\CE^*_{\dbar,\chir,g_N}$ paired with the period-domain automorphic
-fibration; the identification with $\gDelta^{(N)}$ remains conjectural
-(see \texttt{wave14\_i5\_equivariant\_K3E\_factorization.tex}
-Proposition~\ref{prop:scope-n} scope; \emph{ibid.}\ ingredient~(iii)).
-\end{remark}
+\begin{proof}
+K\"unneth gives
+$h^{0,\bullet}(K3\times E)=(1,1,1,1)$ and
+$\chi(\cO_{K3\times E})=\chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0$. The
+Heisenberg-Mukai specialisation reads the K3 contribution $2$ together
+with the elliptic Heisenberg line $1$. Borcherds' weight theorem gives
+$\operatorname{wt}(\Delta_5)=c_1(0)/2$ for the Gritsenko-Nikulin input
+$\Phion=y^{-1}+10+y+O(q)$, hence $\kBKM(\Delta_5)=5$. The Mukai
+lattice $\widetilde H(K3,\Z)$ has rank $24$.
+\end{proof}
 
-\begin{remark}[Propagation scope]\label{rem:prop-scope}
-Toric $T^d$-localisation (Cycle~1) applies only to toric charts;
-Cycles~2--4 use strictly weaker residual or discrete structure; Cycle~4
-uses no torus at all. A universal $\Yp(X)$-formula propagated from
-$\C^3$ to $K3\times E$ is false (CLAUDE.md key fact; AP-CY6). The
-stratification table localises each BKM weight to the admissible
-equivariance class.
-\end{remark}
+\begin{proposition}[Hall half and denominator recognition]
+\label{prop:hall-half-denominator-recognition}
+The Hall positive half, the doubled Hall algebra, and the BKM
+denominator target are three distinct objects.
+\begin{enumerate}
+\item For the toric chart $\C^3$, the Hall positive half is
+$\CoHA(\C^3)\cong\Yph$.
+\item For $K3\times E$, the positive Hall half is the source side of a
+Hall-Drinfeld double. The denominator $\Delta_5$ is recognised at the
+completed double or target BKM layer after the Hall pairing, radical
+quotient, PBW basis, orientation character, and product normalisation
+have been fixed.
+\item The centre or module layer supplies the braided comparison. It is
+additional structure on top of the $E_1$ output at $d=3$.
+\end{enumerate}
+\end{proposition}
 
-\paragraph{Provenance.}
-Nekrasov 2002 \emph{Adv.\ Theor.\ Math.\ Phys.}~\textbf{7} Thm.\ 0.1.
-Atiyah--Bott 1984 \emph{Topology}~\textbf{23} Thm.\ 7.13.
-Schiffmann--Vasserot 2013 \emph{Publ.\ Math.\ IHES}~\textbf{118}
-Thm.\ 1.1. Maulik--Pandharipande--Thomas 2010 \emph{Alg.\ Geom.}~1
-Thm.\ 1. Oberdieck--Pandharipande 2016 \emph{JEMS}~\textbf{18} Thm.\ 2.
-Van den Bergh 2004 \emph{Duke Math.\ J.}~\textbf{122} (non-commutative
-crepant resolution). Bridgeland--King--Reid 2001 \emph{JAMS}~\textbf{14}
-Thm.\ 1.2. Nikulin 1979 \emph{Izv.}~\textbf{43} Thm.\ 3.1; Nikulin 1980
-\emph{Izv.}~\textbf{44} Thm.\ 4.7. Chen--Ruan 2004
-\emph{Comm.\ Math.\ Phys.}~\textbf{248}. Gritsenko--Nikulin 1998
-\emph{Amer.\ J.\ Math.}~\textbf{120} Thm.\ 1.1. Gritsenko--Cl\'ery 2017
-\emph{Math.\ Z.}~\textbf{286} Thm.\ 1.1. Borcherds 1998
-\emph{Invent.\ Math.}~\textbf{132} Thm.\ 13.3.
+\begin{proof}
+A positive Hall half is generated by effective classes and carries the
+Hall multiplication. A denominator identity is a statement about a
+completed signed product over roots of a generalized Kac-Moody
+superalgebra. Passing from the first object to the second requires both
+halves, a pairing, a quotient by the radical, a completion, and an
+orientation character. The toric identity
+$\CoHA(\C^3)\cong\Yph$ therefore stops at the positive-half level,
+whereas the $K3\times E$ denominator statement concerns the recognised
+BKM target attached to $\Delta_5$.
+\end{proof}
+
+\section{Orbifold Inertia and CHL Chambers}
+
+Let a finite group $G$ act on a CY target. For a quotient stack with
+fixed sectors, Chen-Ruan cohomology is
+\[
+ H^\bullet_{\CR}([\Meff/G])
+ =
+ \bigoplus_{[g]}
+ H^{\bullet-2\operatorname{age}(g)}
+ \bigl(\Meff^g\bigr)^{C_G(g)} .
+\]
+If the action is free on the target, the coarse quotient has trivial
+geometric inertia beyond the identity sector; CHL sectors then enter
+through twined elliptic genera, equivariant sheaf theory, or quotient
+stable-pair theory.
+
+\begin{proposition}[CHL input]\label{prop:chl-input}
+For $N\in\{1,2,3,4,6\}$ let
+\[
+ X_N=(K3\times E)/(g_N,t_N)
+\]
+where $g_N$ is a symplectic K3 automorphism of order $N$ and $t_N$ is
+translation by an $N$-torsion point of $E$. The action on $K3\times E$
+is free. The automorphic input is the $g_N$-twined weak Jacobi form
+\[
+ \phi_N=\phi^{(g_N)}_{0,1}(\tau,z),\qquad
+ \phi_1=y^{-1}+10+y+O(q),
+\]
+with constant terms
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\
+\hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\Phi_N) & 5 & 4 & 3 & 2 & 1
+\end{array}
+\]
+in the primitive CHL normalisation.
+\end{proposition}
+
+\begin{proof}
+The freeness is supplied by the elliptic translation factor. The
+twining data are read from the symplectic K3 action on the elliptic
+genus. Borcherds' automorphic product theorem gives
+\[
+ \kBKM(\Phi_N)=\operatorname{wt}(\Phi_N)=c_N(0)/2 .
+\]
+At $N=1$ the product is the Gritsenko-Nikulin denominator $\Delta_5$.
+\end{proof}
+
+\begin{proposition}[Nikulin boundary orders]\label{prop:nikulin-boundary-orders}
+The order-indexed Nikulin extension at $N\in\{5,7,8\}$ is separate from
+the primitive compact $K3\times E$ CHL ladder. Its automorphic constants
+are
+\[
+\begin{array}{c|ccc}
+N & 5 & 7 & 8\\
+\hline
+c_N(0) & 4 & 2 & 2\\
+\kBKM(\Phi_N) & 2 & 1 & 1
+\end{array}
+\]
+whenever the corresponding Borcherds input package has been supplied.
+These constants lie outside the compact $K3\times E$ CHL quotient
+range.
+\end{proposition}
+
+\begin{proof}
+For symplectic K3 automorphisms of orders $5,7,8$, the twined Jacobi
+input gives the zeroth coefficients $(4,2,2)$ in the order-indexed
+Nikulin normalisation. Borcherds' weight theorem gives
+$\kBKM(\Phi_N)=c_N(0)/2$, hence $(2,1,1)$. A compact
+$K3\times E$ CHL quotient requires a matching finite elliptic
+translation construction in the primitive CHL range
+$N\in\{1,2,3,4,6\}$. The entries $5,7,8$ therefore require their own
+source package before any compact Hall or reduced stable-pair
+interpretation is asserted.
+\end{proof}
+
+\section{Lattice-Polarised Period Domains}
+
+Let $M\hookrightarrow\Lambda_{K3}$ be a primitive lattice embedding of
+signature $(1,r-1)$. The period domain for $M$-polarised K3 surfaces is
+the Type IV domain
+\[
+ \Omega_M
+ =
+ \{[\omega]\in\Pp(M^\perp\otimes\C):
+ (\omega,\omega)=0,\;(\omega,\overline\omega)>0\},
+\]
+and the moduli stack is an arithmetic quotient
+$\Gamma_M\backslash \Omega_M$ after removing the usual discriminant
+hyperplanes. Localisation in this stratum is arithmetic: cusps,
+reflective divisors, Weyl chambers, and automorphic line bundles replace
+torus fixed points.
+
+\begin{proposition}[Period-domain positive datum]\label{prop:period-positive-datum}
+A Borcherds lift attached to an $M$-polarised K3 datum defines
+\[
+ \mathfrak L_M^{\mathrm{per}}
+ =
+ \bigl(\Gamma_M\backslash\Omega_M,\;\Gamma_M,\;\mathcal L^k\otimes\nu,\;
+ \mathrm{div}(\Phi),\;\operatorname{Borch}\bigr),
+\]
+where $\mathcal L$ is the Hodge line bundle, $\nu$ is the multiplier,
+and $\operatorname{Borch}$ is the singular-theta or additive-lift
+construction producing the automorphic form $\Phi$. This datum produces
+a denominator target. Compact Hall correspondences require additional
+source data.
+\end{proposition}
+
+\section{Borcherds Weights and Normalisations}
+
+\begin{theorem}[Primitive CHL Borcherds weights]\label{thm:primitive-chl-weights}
+For the primitive CHL denominator branch
+$N\in\{1,2,3,4,6\}$,
+\[
+\begin{array}{c|ccccc}
+N & 1 & 2 & 3 & 4 & 6\\
+\hline
+c_N(0) & 10 & 8 & 6 & 4 & 2\\
+\kBKM(\Phi_N) & 5 & 4 & 3 & 2 & 1
+\end{array}
+\]
+The $N=1$ form is $\Phi_1=\Delta_5$ and
+\[
+ D_5=64^{-1}\Delta_5 .
+\]
+The unnormalised Igusa square is
+\[
+ \Phi_{10}^{\mathrm{un}}=\Delta_5^2 ,
+\]
+while the Oberdieck-Pandharipande scalar convention uses
+\[
+ \Phi_{10}^{\mathrm{OP}}=D_5^2=4096^{-1}\Delta_5^2 .
+\]
+\end{theorem}
+
+\begin{proof}
+Borcherds' theorem gives the weight of the automorphic product as half
+the constant term of the input Jacobi form. The primitive CHL twined
+inputs have constant terms $(10,8,6,4,2)$ for
+$N=(1,2,3,4,6)$, hence the displayed $\kBKM$ row. The coefficient
+of $q^0y^0$ in $\phi_1$ is $10$, so the weight of the denominator
+$\Delta_5$ is $5$. The monic product divides by the leading theta
+coefficient $64$, giving $D_5=64^{-1}\Delta_5$. Squaring removes the
+sign character and gives the scalar Igusa branch; the OP scalar uses
+the monic product.
+\end{proof}
+
+\begin{proposition}[Gritsenko-Clery catalogue]\label{prop:gc-catalogue}
+The diagonal-divisor Gritsenko-Clery catalogue is the eight-row table
+\[
+\begin{array}{c|c|c|c}
+\text{row} & (t,N) & \operatorname{wt}F_{t,N} & c_{t,N}(0)\\
+\hline
+1 & (1,1) & 5 & 10\\
+2 & (2,1) & 2 & 4\\
+3 & (1,2) & 3 & 6\\
+4 & (3,1) & 1 & 2\\
+5 & (1,3) & 2 & 4\\
+6 & (4,1) & \tfrac12 & 1\\
+7 & (1,4) & \tfrac32 & 3\\
+8 & (2,2) & 1 & 2
+\end{array}
+\]
+with row-wise formula
+\[
+ \kBKM(F_{t,N})=\operatorname{wt}F_{t,N}=c_{t,N}(0)/2 .
+\]
+The common row $(1,1)$ coincides with the primitive CHL $N=1$
+denominator.
+Comparison with the CHL ladder requires an explicit map of levels,
+characters, multipliers, and divisor normalisations.
+\end{proposition}
+
+\begin{proof}
+Clery-Gritsenko classify genus-two Siegel modular forms with simplest
+diagonal divisor on the relevant paramodular groups. Borcherds'
+weight formula gives $c_{t,N}(0)/2$ row by row. The primitive CHL ladder
+and the diagonal-divisor catalogue are different enumerations after the
+common $\Delta_5$ row.
+\end{proof}
+
+\section{Admissibility Test}
+
+\begin{proposition}[Admissibility of positive-half formulae]
+\label{prop:positive-half-admissibility}
+Let $X$ be a CY input. A displayed expression
+\[
+ \Yp(X)=H^\bullet_G(\Meff(X),\mathbb E)
+\]
+is a theorem once the admissible datum
+$\mathfrak L_X=(\Meff,G,\mathbb E,\ell,\int^{\mathfrak L})$ is supplied.
+The following substitutions require additional data:
+\begin{enumerate}
+\item replacing reduced $K3\times E$ integration by toric residues;
+\item reading compact $\kch(A_{K3\times E})=0$ as the Heisenberg
+specialisation $3$;
+\item reading $\kBKM(\Delta_5)=5$ as a compact or fibre invariant;
+\item identifying the primitive CHL constants with the eight
+Gritsenko-Clery rows away from $(1,1)$;
+\item placing $E_2$ structure on a $d=3$ output before passing to a
+centre, double, or module layer.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Each item violates one component of Definition~\ref{def:admissible-positive-datum}.
+Toric residues require isolated torus fixed data. Reduced $K3$ and
+$K3\times E$ theories require cosection or quotient integration.
+Borcherds weights are automorphic line-bundle weights. The GC rows and
+the primitive CHL ladder use different levels and multipliers. The
+operadic statement for $d\geq3$ lands in $E_1$.
+\end{proof}
+
+\paragraph{Sources.}
+Atiyah and Bott 1984, Theorem 7.13. Nakajima 1999. Nekrasov 2002.
+Kontsevich and Soibelman 2011. Schiffmann and Vasserot 2013, Theorem
+1.1. Maulik, Pandharipande, and Thomas 2010, Theorem 1. Kool and
+Thomas 2014. Oberdieck and Pandharipande 2016. Bryan and Oberdieck
+2018. Bridgeland, King, and Reid 2001, Theorem 1.2. Chen and Ruan
+2004. Nikulin 1979 and 1980. Dolgachev 1996. Gritsenko and Nikulin
+1997 and 1998. Gritsenko 1999. Borcherds 1998, Theorem 13.3. Clery and
+Gritsenko 2013.
 
 \end{document}

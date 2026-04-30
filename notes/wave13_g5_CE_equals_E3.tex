@@ -1,224 +1,210 @@
-% wave13_g5_CE_equals_E3.tex
-% Wave-13 G5/20: chiral-CE $\leftrightarrow$ $E_3$ correspondence for 6D hCS.
-% Channel: Kontsevich--Francis--Tamarkin--Lurie.
-% Following E3 ($E_3$-structure on $\Obs_{\hCS}$) and E4 (chiral CE cochains
-% $\CE^*_{\dbar,\chir}(\cE, \cO_X)$). Establishes the explicit equality
-% of $E_3$-algebras in $\Ch(\Dolb)$.
-
 \providecommand{\Obs}{\mathrm{Obs}}
 \providecommand{\hCS}{\mathrm{hCS}}
 \providecommand{\CE}{\mathrm{CE}}
 \providecommand{\Ch}{\mathrm{Ch}}
 \providecommand{\Dolb}{\mathrm{Dolb}}
 \providecommand{\Conf}{\mathrm{Conf}}
-\providecommand{\Disj}{\mathrm{Disj}}
 \providecommand{\chir}{\mathrm{chir}}
 \providecommand{\dbar}{\bar\partial}
 \providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\Ran}{\mathrm{Ran}}
 \providecommand{\Sym}{\mathrm{Sym}}
 \providecommand{\Hom}{\mathrm{Hom}}
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\cO}{\mathcal{O}}
 \providecommand{\cE}{\mathcal{E}}
+\providecommand{\cZ}{\mathcal{Z}}
 \providecommand{\g}{\mathfrak{g}}
 \providecommand{\HHch}{\mathrm{HH}^{\mathrm{ch}}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Alg}{\mathrm{Alg}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\Hol}{\mathrm{Hol}}
+\providecommand{\QME}{\mathrm{QME}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\HH}{\mathrm{HH}}
 
-\section*{$\CE^*_{\dbar}(\cE_{\hCS}) \;=\; E_3$-algebra of observables
-  (Wave-13 G5/20)}
+\section*{Dolbeault CE cochains and local $E_3$ hCS observables on $\C^3$}
 
-\paragraph{Theorem (main).}
-Let $\cE_{\hCS} := \Omega^{0,\bullet}(\C^3, \g)$ with $\dbar$-differential
-and pointwise bracket. The Dolbeault--chiral Chevalley--Eilenberg
-cochain complex (E4 Def.~\ref{def:dolbeault-chiral-ce})
+\paragraph{Local comparison.}
+Let $\g$ be a finite-dimensional Lie algebra with invariant pairing and let
 \[
-  \CE^*_{\dbar, \chir}\!\bigl(\cE_{\hCS},\, \cO_{\C^3}\bigr)
+  \cE_{\hCS}(U):=\Omega^{0,\bullet}(U,\g)
 \]
-is an $E_3$-algebra in $\Ch(\Dolb)$, and the identification
+for a holomorphic polydisc $U\subset \C^3$.  Classical holomorphic
+Chern--Simons theory has completed local observables
 \[
-  \Obs_{\hCS}(\C^3) \;\simeq\; \CE^*_{\dbar, \chir}\!\bigl(\cE_{\hCS},\, \cO_{\C^3}\bigr)
-  \qquad \text{in } \mathrm{Alg}_{E_3}\bigl(\Ch(\Dolb)\bigr)
-\]
-is an equivalence of $E_3$-algebras, with $E_3$-product implemented on
-cochains by \emph{Čech-wedge of $\CE$-cochains along Dolbeault pairing}.
-
-\paragraph{Cycle 1: Kontsevich's conjecture as formal input.}
-\emph{Attack.} Kontsevich 1999 (``Operads and motives in deformation
-quantization,'' Lett.\ Math.\ Phys.\ 48, \S4) conjectures: the
-deformation complex of an $E_n$-algebra $A$ is an $E_{n+1}$-algebra.
-Tamarkin 2003 (\emph{``Deformation complex of a d-algebra is a
-(d+1)-algebra,''} arXiv:math/0010072) proves it for $A$ an $E_n$-algebra
-in chain complexes via the $E_n$-operad's formality over $\mathbb{Q}$.
-Francis 2013 (\emph{Compos.\ Math.} 149, Thm~1.1) refines:
-$\HHch_{E_n}(A, A)[n] \simeq T_A \mathrm{Alg}_{E_n}$ is itself
-$E_{n+1}$, by Koszul duality $E_n \leftrightarrow E_n^!$ with
-$E_n^! \simeq E_n[n]$.
-\emph{Heal.} Applied to $A = \cO_{\C^3}$ as $E_3$-algebra
-(trivial, since $\cO$ is commutative hence $E_\infty$), the deformation
-complex $\CE^*_{E_3}(\cO, \cO)$ is an $E_4$-algebra. This is \emph{not}
-our target: hCS observables are $E_3$, not $E_4$. The operadic shift
-$n \to n+1$ belongs to a different identification; here the
-$E_3$-structure on $\CE^*_{\dbar,\chir}(\cE, \cO)$ is \emph{native},
-inherited from $\cE$ being a holomorphic Lie algebroid on CY$_3$
-rather than from iterated deformation theory.
-
-\paragraph{Cycle 2: the specific correspondence.}
-\emph{Attack.} For 6D hCS on $\C^3$, the classical BV complex is
-\[
-  (\Obs_{\hCS}^{cl}, d) = \bigl(\Sym^\bullet(\cE[1])^\vee, \; \dbar + \{S,-\}\bigr),
-\]
-and the Maurer--Cartan action $S = \int \Omega \wedge \langle \cA, \dbar \cA +
-\tfrac{1}{3}[\cA,\cA]\rangle$ produces the classical observables as the
-$\dbar$-enhanced CE cochains:
-$\Obs_{\hCS}^{cl}(\C^3) \simeq \CE^*_{\dbar,\chir}(\cE_{\hCS}, \cO)$
-(E4 Prop.~\ref{prop:hcs-obs-chiral-ce}).
-The $E_3$-structure on the left is from E3 (Gwilliam--Williams 2021
-Thm~2.5.5: holomorphic factorisation algebra on $\C^3 \leftrightarrow$
-$E_3^{\mathrm{hol}}$-algebra in $\Ch(\Dolb)$).
-\emph{Heal.} The $E_3$-structure transports across the quasi-isomorphism:
-both sides are holomorphic factorisation algebras on $\C^3$, and the
-quasi-isomorphism of E4 Prop.~\ref{prop:hcs-obs-chiral-ce} respects
-disjoint-union structure maps because the Maurer--Cartan element $S$ is
-local. Locality is checked directly: $S$ is an integral over $\C^3$ of
-a local density, so for disjoint $U_1, U_2 \subset \C^3$,
-$S|_{U_1 \sqcup U_2} = S|_{U_1} + S|_{U_2}$, and the CE differential
-$d_{\chir}$ (E4 Def.~\ref{def:chiral-ce-cochains}) is built from the
-chiral bracket supported on diagonals --- hence acts separately on
-$U_1, U_2$.
-
-\paragraph{Cycle 3: explicit $E_3$-product on $\CE$-cochains.}
-\emph{Attack.} Need an explicit map
-$\mu^{E_3}_{D_1, D_2}:
-  \CE^*_{\dbar,\chir}(\cE|_{D_1}, \cO|_{D_1}) \otimes
-  \CE^*_{\dbar,\chir}(\cE|_{D_2}, \cO|_{D_2})
-  \to \CE^*_{\dbar,\chir}(\cE|_{D}, \cO|_{D})$
-for disjoint polydisks $D_1, D_2 \subset D \subset \C^3$.
-\emph{Construction.} Given $f_i \in \Hom_{\cD_{X^{n_i}}}
-(\Sym^{n_i}_{\chir}\cE|_{D_i}, \Delta_*\cO|_{D_i})$ of Dolbeault type
-$(0, q_i)$, define
-\[
-  (\mu^{E_3}_{D_1, D_2}(f_1 \otimes f_2))
-     (l_1, \ldots, l_{n_1+n_2})
-  \;:=\;
-  \sum_{\substack{S \sqcup T = \{1,\ldots,n\} \\ |S| = n_1,\,|T| = n_2}}
-     \epsilon(S,T)\,
-     f_1\bigl(l_S|_{D_1}\bigr) \cdot_{\cO} f_2\bigl(l_T|_{D_2}\bigr),
-\]
-where $l_S|_{D_1}$ is the restriction of the $|S|$-tuple of chiral
-sections to the configuration space $\Conf_{|S|}(D_1)$, the product
-$\cdot_\cO$ is pointwise multiplication in $\cO_{\C^3}$ after pulling
-back to $D$ along the disjoint-union inclusion
-$D_1 \sqcup D_2 \hookrightarrow D$, and $\epsilon(S,T)$ is the
-Koszul sign from reordering $\Lambda^{n_1+n_2} \to
-\Lambda^{n_1} \otimes \Lambda^{n_2}$. The Dolbeault bidegrees add:
-type $(0, q_1) \otimes (0, q_2) \to (0, q_1 + q_2)$.
-\emph{Heal.} Associativity up to $\dbar$-exact homotopy:
-for three disjoint $D_1, D_2, D_3$, the two bracketings
-$(\mu(f_1, f_2), f_3)$ and $(f_1, \mu(f_2, f_3))$ differ by a
-Čech coboundary on the nerve of $\{D_1, D_2, D_3\} \subset D$,
-which is $\dbar$-exact by the Dolbeault Mayer--Vietoris sequence
-on $\C^3$ (partitions-of-unity are $C^\infty$, so
-$\dbar$-soft). Commutativity up to the $E_3$-twist:
-$\mu^{E_3}_{D_1, D_2}(f_1, f_2) = (-1)^{|f_1||f_2|}
- \mu^{E_3}_{D_2, D_1}(f_2, f_1)$ after swap of configuration labels,
-which is an $E_3$-operation of degree zero because $\Conf_2(\C^3)$
-is simply connected (its fundamental group is the pure braid group
-$P_2(\C^3) = \pi_1(\Conf_2(\C^3)) \cong \pi_1(S^5) = 0$; this is
-the $n = 3$ Fadell--Neuwirth fibre). Higher homotopies: the
-$m_k$-operations from E3 Cycle 5 act on the CE side by the
-$\dbar$-flow on $\Conf_k(\C^3)$ composed with the CE cup product,
-giving $E_3$-coherence to all orders.
-
-\paragraph{Cycle 4: pairing with factorisation.}
-\emph{Attack.} Verify the explicit $\mu^{E_3}$ agrees with the
-factorisation structure map on $\Obs_{\hCS}$ under E4
-Prop.~\ref{prop:hcs-obs-chiral-ce}. For disjoint $p_1, p_2 \in \C^3$
-and observables $\cO_1 \in \Obs(U_1), \cO_2 \in \Obs(U_2)$ supported
-near $p_1, p_2$, the BV convolution (E3 Cycle 4) is
-$\mu^{\hCS}_{U_1, U_2}(\cO_1 \otimes \cO_2) = \cO_1 \cdot \cO_2$ with
-Costello propagator smooth on $U_1 \times U_2$.
-\emph{Heal.} Under the isomorphism $\Obs \simeq \CE^*_{\dbar,\chir}$,
-an observable $\cO_i$ of degree $(n_i, q_i)$ corresponds to a CE
-cochain $f_i$ of the same bidegree (Sym-dualisation of
-polynomial observables in $\cE[1]$). The BV convolution
-on $\cO_1 \cdot \cO_2$ becomes, on the CE side, exactly the
-sum-over-shuffles formula of Cycle 3: each shuffle $S \sqcup T$
-encodes one Wick contraction pattern in the BV integral, and the
-Koszul sign is the fermion sign from reordering. The Costello
-regularisation at coincident points is absent here because
-$D_1 \cap D_2 = \emptyset$, so the cup product $\cdot_\cO$ is the
-classical (unrenormalised) pointwise product.
-\emph{Conclusion:} $\mu^{E_3} = \mu^{\hCS}$ under the identification.
-
-\paragraph{Cycle 5: Koszul duality inside.}
-\emph{Attack.} The $E_3$-Koszul dual of $\CE^*_{\dbar,\chir}(\cE, \cO)$
-is predicted to be the higher enveloping algebra $U_{E_3}(\cE)$,
-i.e.\ the chiral envelope in Beilinson--Drinfeld's sense lifted to the
-holomorphic setting of $\C^3$.
-\emph{Heal.} By Francis 2013 Thm~3.4 and Francis--Gaitsgory 2012
-(Selecta Math.\ 18, Thm~6.2.1), the $E_n$-Koszul duality pairs
-$E_n$-enveloping algebras $U_{E_n}(\cL)$ of $E_n$-Lie algebras $\cL$
-with their CE-cochain algebras $\CE^*_{E_n}(\cL, k)$, via the bar--cobar
-adjunction on the $E_n$-operad:
-\[
-  U_{E_n}(\cL) \;=\; \Omega_{E_n}\!\bigl(\CE^*_{E_n}(\cL, k)\bigr),
+  \Obs^{\mathrm{cl}}_{\hCS}(U)
+  =
+  \widehat{\Sym}\bigl(\cE_{\hCS,c}(U)[1]^\vee\bigr),
   \qquad
-  \CE^*_{E_n}(\cL, k) \;=\; B_{E_n}\!\bigl(U_{E_n}(\cL)\bigr).
+  d_{\mathrm{BV}}=\dbar+d_{\CE}.
 \]
-Specialising to $n = 3$ and $\cL = \cE_{\hCS}$, the chiral envelope
-$U^{\chir}(\cE_{\hCS})$ is the $E_3$-Koszul dual of our CE complex:
+The Dolbeault--chiral Chevalley--Eilenberg model is
 \[
-  U^{\chir}(\cE_{\hCS}) \;\simeq\; \Omega_{E_3}\!\bigl(
-    \CE^*_{\dbar,\chir}(\cE_{\hCS}, \cO)
-  \bigr).
+  \CE^*_{\dbar,\chir}\!\bigl(\cE_{\hCS}|_U,\cO_U\bigr)
+  =
+  \Bigl(
+    \prod_{n\geq 0}
+    \Omega^{0,\bullet}\!\bigl(U^n,
+      \Hom(\Sym^n_{\chir}\cE_{\hCS},\Delta^{(n)}_*\cO_U)\bigr)^{\Sigma_n},
+    \dbar+d_{\chir}
+  \Bigr).
 \]
-This is the chain-level image of E4 Prop.~\ref{prop:koszul-factorisation}
-(Kapranov--Vasserot chiral Hall extension). The factorisation-homology
-side gives the $(\infty,1)$-categorical statement:
-$\int_{\C^3} U^{\chir}(\cE_{\hCS}) \simeq
-\CE^*_{\dbar,\chir}(\cE_{\hCS}, \C)^\vee$ as $E_3$-algebras.
-
-\paragraph{Consequence for $\Phi$ and $\kch$.}
-The identification $\Obs_{\hCS} = \CE^*_{\dbar,\chir}(\cE_{\hCS}, \cO)$
-as $E_3$-algebras realises $\Phi(\mathrm{CY}_3) \to E_3$-chiral at the
-pre-quotient level. CY-D stratification (CLAUDE.md): $\Phi$ outputs
-$E_1$-chiral at $d \geq 3$ \emph{for the algebra}; the $E_3$ structure
-lives on the factorisation algebra before passing to $A = H^0 \Obs$.
-For compact CY$_3$ $X$:
+For the current Lie algebroid $\Omega^{0,\bullet}(-,\g)$ the chiral
+bracket is the diagonal distribution
 \[
-  \kch(A_X) \;=\; \chi\!\bigl(\CE^*_{\dbar,\chir}(\cE_X, \cO_X)\bigr)
-   \;=\; \sum_q (-1)^q h^{0,q}(X) \cdot \dim \CE^*(\g)_{\text{hor}},
+  \mu(\alpha,\beta)=[\alpha,\beta]_\g\,\delta_\Delta ,
 \]
-the Hodge-supertrace identification (E4 \S7, matching the CLAUDE.md
-essential constant $\kch(A_X) = \sum_q (-1)^q h^{0,q}(X)$ for the
-abelian case $\dim\CE^*(\g)_{\mathrm{hor}} = 1$).
+and $[\dbar,d_{\chir}]=0$ because $\dbar$ acts on Dolbeault form degree
+while $[-,-]_\g$ acts on coefficients.  Hence
+\[
+  \Obs^{\mathrm{cl}}_{\hCS}(U)
+  \simeq
+  \CE^*_{\dbar,\chir}\!\bigl(\cE_{\hCS}|_U,\cO_U\bigr)
+\]
+as complete filtered cochain complexes, compatibly with disjoint-open
+factorisation maps.  This is a classical comparison; the quantum complex
+is obtained only after a Costello renormalisation datum solving the
+quantum master equation.
 
-\paragraph{Scope.}
-\emph{Chain-level}: explicit sum-over-shuffles for $\mu^{E_3}$ with
-Koszul signs; $\dbar$-flow on $\Conf_k(\C^3)$ as $m_k$; Costello
-propagator on disjoint polydisks. \emph{$(\infty,1)$-categorical}:
-equivalence in $\mathrm{Alg}_{E_3}(\Ch(\Dolb))$ via
-Gwilliam--Williams 2021 Thm~2.5.5 and Francis 2013 Thm~1.1.
-Both lanes load-bearing (CLAUDE.md equal-status rule).
+\paragraph{Holomorphic $E_3$ structure.}
+The assignment
+\[
+  U\longmapsto \Obs_{\hCS}(U)
+\]
+is a holomorphic factorisation algebra on $\C^3$.  Gwilliam--Williams
+identify holomorphic factorisation algebras on $\C^n$ with algebras over
+the holomorphic little-$n$-polydisc operad in $\Ch(\Dolb)$.  For $n=3$
+the local disk value therefore carries a holomorphic $E_3$ action:
+\[
+  \Obs_{\hCS}(D^3)\in
+  \Alg_{E^{\Hol}_3}\bigl(\Ch(\Dolb)\bigr).
+\]
+This $E_3$ structure is native to the local factorisation algebra of
+observables.  It is distinct from the CY-to-chiral specialised output
+$A=\Phi_3^{(\Sigma_2,C)}(\cC)$, which is $E_1$-chiral in Vol~III.  The
+$E_2$-braided object belongs to the derived or Drinfeld centre
+\[
+  \cZ\bigl(\Rep^{E_1}(A)\bigr)
+\]
+or to a Drinfeld double after the Hopf pairing and completion have been
+constructed.
+
+\paragraph{The deformation-complex shift.}
+Kontsevich, Tamarkin, and Francis prove that the deformation complex of an
+$E_n$-algebra is naturally $E_{n+1}$.  Applied to an $E_3$ algebra $B$,
+this produces an $E_4$ algebra
+\[
+  \mathrm{Def}_{E_3}(B)\simeq \HH_{E_3}(B,B)[3].
+\]
+For $B=\cO_{\C^3}$ this object controls deformations of the commutative
+base algebra.  It is not the hCS observable algebra above.  The
+target comparison is
+\[
+  \Obs_{\hCS}
+  \simeq
+  \CE^*_{\dbar,\chir}(\cE_{\hCS},\cO_{\C^3})
+\]
+inside holomorphic factorisation algebras; the $E_4$ deformation complex
+is a separate tangent object.
+
+\paragraph{Binary product on CE cochains.}
+For disjoint polydiscs $D_1,D_2\subset D\subset\C^3$ and
+\[
+ f_i\in
+ \Hom_{\cD_{D_i^{n_i}}}
+ \bigl(\Sym^{n_i}_{\chir}\cE_{\hCS}|_{D_i},\Delta_*\cO_{D_i}\bigr)
+\]
+of Dolbeault type $(0,q_i)$, the factorisation product is
+\[
+  \mu_{D_1,D_2}(f_1\otimes f_2)(l_1,\ldots,l_{n_1+n_2})
+  =
+  \sum_{\sigma\in \operatorname{Sh}(n_1,n_2)}
+  \epsilon(\sigma)\,
+  f_1(l_{\sigma(1)},\ldots,l_{\sigma(n_1)})\,
+  f_2(l_{\sigma(n_1+1)},\ldots,l_{\sigma(n_1+n_2)}),
+\]
+after restriction of the first block to $\Conf_{n_1}(D_1)$ and the
+second block to $\Conf_{n_2}(D_2)$.  The product has Dolbeault type
+$(0,q_1+q_2)$.  Coherent higher products are parametrised by chains on
+$\Conf_k(\C^3)$; collision strata are governed by the chiral bracket and,
+in the quantum theory, by the renormalised BV propagator.
+
+\paragraph{Quantum correction.}
+In the abelian branch $\g=\C$ the bracket vanishes and the quantum
+differential is the free Costello differential
+\[
+  D_\hbar=\dbar+\hbar\Delta_{\mathrm{ren}},
+\]
+with no local interaction counterterm.  For non-abelian $\g$ the statement
+requires the full QME package:
+\[
+  D_\hbar
+  =
+  \dbar+d_{\chir}
+  +\hbar\Delta_{\mathrm{ren}}
+  +\sum_{r\geq 1}\hbar^r I_r,
+  \qquad
+  D_\hbar^2=0.
+\]
+The terms $I_r$ are local Costello counterterms.  Their existence is an
+input to the quantum comparison, not a consequence of the classical CE
+identification.
+
+\paragraph{Koszul layer.}
+After augmentation, conilpotence, and completion hypotheses, the local
+CE algebra and the local $E_3$ enveloping algebra are Koszul dual:
+\[
+  U^{\Hol}_{E_3}(\cE_{\hCS})
+  \simeq
+  \Omega_{E_3}
+  \CE^*_{\dbar,\chir}(\cE_{\hCS},\C),
+  \qquad
+  \CE^*_{\dbar,\chir}(\cE_{\hCS},\C)
+  \simeq
+  B_{E_3}U^{\Hol}_{E_3}(\cE_{\hCS}).
+\]
+This is the $A^!$ layer.  It is separate from the algebra $A$, the bar
+object $B(A)$, the cooperadic dual $A^i$, and the derived chiral centre
+$Z^{\mathrm{der}}_{\mathrm{ch}}(A)$.
+
+\paragraph{Consequences for $\Phi$ and $\kch$.}
+For compact CY$_3$ targets the canonical Vol~III scalar attached to the
+constructed $\PhiFA_3$ locus is
+\[
+  \kch(A_X)=\sum_q(-1)^q h^{0,q}(X).
+\]
+The CE Euler characteristic of a gauge-theory model computes this same
+number only after the hCS model has been identified with the normalised
+$\PhiFA_3$ output and the coefficient sector has superdimension one.  In
+particular, no extra factor such as
+$\dim \CE^*(\g)_{\mathrm{hor}}$ belongs to the canonical
+$\kch(A_X)$ formula.  For the abelian local model on $\C^3$ the
+normalised value is $\kch(\C^3)=1$.
+
+\paragraph{Proof obligations.}
+The local classical hCS/CE comparison on $\C^3$ is chain-level.  The
+non-abelian quantum comparison requires a chosen gauge fixing, heat-kernel
+renormalisation, QME anomaly cancellation, completed observables, and
+compatibility of counterterms with factorisation maps.  Compact CY$_3$
+closure further requires a TCFT or framing datum, anomaly control, the
+completion of global observables, and the relevant negative-Hochschild
+filtration.
 
 \paragraph{References.}
 \begin{itemize}
   \item M.\ Kontsevich, ``Operads and motives in deformation
-    quantization,'' \emph{Lett.\ Math.\ Phys.} 48 (1999), 35--72, \S4
-    (deformation-complex conjecture).
+    quantization,'' \emph{Lett.\ Math.\ Phys.} 48 (1999), 35--72, \S4.
   \item D.\ Tamarkin, ``Deformation complex of a $d$-algebra is a
-    $(d{+}1)$-algebra,'' arXiv:math/0010072 (2003) (Kontsevich
-    conjecture proved via formality).
+    $(d{+}1)$-algebra,'' arXiv:math/0010072.
   \item J.\ Francis, ``The tangent complex and Hochschild cohomology
-    of $E_n$-rings,'' \emph{Compos.\ Math.} 149 (2013), 430--480,
-    Thm~1.1, Thm~3.4.
-  \item J.\ Lurie, \emph{Higher Algebra}, \S5 (specifically \S5.2
-    $E_n$-algebras; \S5.5.3 locally constant factorisation algebras).
+    of $E_n$-rings,'' \emph{Compos.\ Math.} 149 (2013), 430--480.
   \item J.\ Francis and D.\ Gaitsgory, ``Chiral Koszul duality,''
-    \emph{Selecta Math.} 18 (2012), 27--87, Thm~6.2.1.
+    \emph{Selecta Math.} 18 (2012), 27--87.
   \item O.\ Gwilliam and B.\ R.\ Williams, ``Higher Kac--Moody
     algebras and symmetries of holomorphic field theories,''
-    arXiv:2009.05037, Thm~2.5.5.
+    arXiv:2009.05037.
   \item K.\ Costello and O.\ Gwilliam, \emph{Factorization Algebras
-    in QFT} Vol~II, Thm~9.3.1 (holomorphic BV quantisation on CY$_3$).
+    in QFT}, Vols.~I--II.
+\end{itemize}

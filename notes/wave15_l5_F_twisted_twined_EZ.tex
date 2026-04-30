@@ -1,235 +1,175 @@
-% Wave-15 L5/20. Eichler--Zagier lift of twisted-twined K3 elliptic genera
-%   F_L^{(g_N,h_M)}(tau,z) = alpha_{g,h}(tau) phi_{0,1} + beta_{g,h}(tau) phi_{-2,1}.
-% CG voice. Subscripted kappa only. \providecommand macros only.
-% Primary sources: Eichler--Zagier 1985 (The Theory of Jacobi Forms, Birkhauser PM 55, Thm. 9.3);
-%   Cheng--Duncan--Harvey 2014 arXiv:1204.2779 (umbral moonshine classification;
-%     twined K3 Zch at all 26 M_{24} classes for h_M=id);
-%   Gaberdiel--Hohenegger--Volpato (GHV) 2012 arXiv:1206.5335, 1211.7074
-%     (Mukai four-plane scheme; admissible commuting-pair enumeration);
-%   Gritsenko--Clery 2008 arXiv:0812.3962 (eight dd paramodular forms, wt 5 even char);
-%   Persson--Volpato 2012 arXiv:1208.4851 (simultaneous-twining H^3 vanishing
-%     on programme slice N,M in {1,2,3,4,6}).
-% No fabrication; every numeric entry traceable to primary source.
-
 \providecommand{\phioo}{\phi_{0,1}}
 \providecommand{\phimt}{\phi_{-2,1}}
 \providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
-\providecommand{\kch}{\kappa_{\mathrm{ch}}}
-\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
 \providecommand{\Fgh}{F_L^{(g_N,h_M)}}
 \providecommand{\Zgh}{Z^{(g_N,h_M)}_{\mathrm{ell}}}
 \providecommand{\agh}{\alpha_{g,h}}
 \providecommand{\bgh}{\beta_{g,h}}
-\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
-\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
 \providecommand{\CM}{C_{M_{24}}}
 
-\section*{Wave-15 L5/20: the Eichler--Zagier lift of $\Fgh$
-to the two-form basis $(\phioo,\phimt)$}
-\label{wn:sec:wave15-l5-EZ-twisted-twined}
+\section*{Eichler--Zagier decomposition of twisted-twined K3 Jacobi inputs}
+\label{wn:sec:EZ-twisted-twined}
 
-\paragraph{Question.} A commuting pair $(g_N,h_M)\in\CM\times\CM$
-of Mukai-compatible K3 symplectic automorphisms produces a weight-zero,
-index-one, level-$\mathrm{lcm}(N,M)$ weak Jacobi form
-$\Fgh(\tau,z)$ (Persson--Volpato 2012; Gaberdiel--Hohenegger--Volpato
-2012); the slides' fourth claim asserts that $\Fgh$ expands in the
-Eichler--Zagier basis. Eichler--Zagier 1985 Theorem~9.3 fixes the
-ring of weak Jacobi forms of index $1$ as a free $M_\ast(\mathrm{SL}_2(\mathbb Z))$-module
+\paragraph{Jacobi-form input.}
+Let $(g_N,h_M)$ be a commuting pair of K3 symplectic automorphisms in
+the Mukai-admissible Mathieu slice.  When the Persson--Volpato
+discrete-torsion obstruction vanishes, the twisted-twined elliptic
+genus is a weak Jacobi form of weight $0$, index $1$, and level
+$L=\mathrm{lcm}(N,M)$:
 \[
-  J^{\mathrm{w}}_{\ast,1}
-  \;=\; M_\ast\cdot\phioo \;\oplus\; M_\ast\cdot\phimt,
-  \qquad
-  \phioo\in J^{\mathrm{w}}_{0,1},\quad \phimt\in J^{\mathrm{w}}_{-2,1},
+  \Fgh(\tau,z)\in J^{\mathrm w}_{0,1}(\Gamma_0(L),\nu_{g,h}).
 \]
-whose two generators are the Gritsenko--Nikulin-normalised pair
-$\phioo=(y^{-1}+10+y)+O(q)$ and $\phimt=\nu_{11}^2/\eta^6$ (Wave-14
-Q4 extraction, slide 940). The question is whether the
-\emph{twisted-twined} family $\Fgh$, level $\mathrm{lcm}(N,M)$,
-admits a coefficient-level expansion
+Eichler--Zagier 1985 Theorem 9.3, with the level-$L$ extension of Aoki
+2000 and Gritsenko 1999, gives the coefficient decomposition
 \begin{equation}
-\label{eq:wn-wave15-l5-EZ-ansatz}
-  \Fgh(\tau,z) \;=\; \agh(\tau)\,\phioo(\tau,z) \;+\; \bgh(\tau)\,\phimt(\tau,z),
+\label{eq:wn-EZ-ansatz}
+  \Fgh(\tau,z)
+  =
+  \agh(\tau)\,\phioo(\tau,z)
+  +
+  \bgh(\tau)\,\phimt(\tau,z),
   \qquad
-  \agh\in M_0(\Gamma_0(\mathrm{lcm}(N,M))),\ \bgh\in M_2(\Gamma_0(\mathrm{lcm}(N,M))),
+  \agh\in M_0(\Gamma_0(L),\nu_{g,h}),\quad
+  \bgh\in M_2(\Gamma_0(L),\nu_{g,h}).
 \end{equation}
-and how the resulting $(\agh,\bgh)$ pair refines the universal
-Borcherds weight identity $\kBKM(\Phi_N)=c_N(0)/2$.
-
-\paragraph{Cycle 1 (existence of the EZ decomposition). \ClaimStatusTheorem.}
-Eichler--Zagier 1985 Theorem~9.3 on the level-one ring extends to
-$\Gamma_0(N)$ via Aoki 2000 (\emph{J.\ Math.\ Kyoto Univ.}~40) and
-Gritsenko 1999 (\emph{St.\ Petersburg Math.\ J.}~11) \S 2:
-the space $J^{\mathrm{w}}_{0,1}(\Gamma_0(N))$ of index-one weak Jacobi
-forms at level $N$ is a free $M_\ast(\Gamma_0(N))$-module on the
-same two generators $(\phioo,\phimt)$. Since
-$\Fgh\in J^{\mathrm{w}}_{0,1}(\Gamma_0(\mathrm{lcm}(N,M)),\nu_{g,h})$
-(GHV 2012 Theorem~1), equation~\eqref{eq:wn-wave15-l5-EZ-ansatz}
-is well-defined with $\agh\in M_0(\Gamma_0(\mathrm{lcm}(N,M)),\nu_{g,h})$
-and $\bgh\in M_2(\Gamma_0(\mathrm{lcm}(N,M)),\nu_{g,h})$. Uniqueness
-follows from linear independence of $y^{-1}+10+y$ and $y^{-1}-2+y$
-at the $q^0$-cusp.
-
-\paragraph{Cycle 2 (admissible $(g_N,h_M)$ enumeration). \ClaimStatusTheorem.}
-The GHV 2012 Mukai four-plane scheme (\emph{arXiv:1206.5335} Theorem~1.1,
-sharpened in \emph{arXiv:1211.7074} \S 3) restricts $(g_N,h_M)$ to
-commuting pairs in $M_{24}$ whose span stabilises a positive-definite
-$4$-plane in the Leech lattice; Persson--Volpato 2012 \emph{arXiv:1208.4851}
-Prop.~4.1 extends the admissibility to the full programme slice
-$N,M\in\{1,2,3,4,6\}$ via the $H^3$-vanishing lemma of Wave-10 R5
-(Mason~1994; cf.\ Wave-14 K4 centraliser table). Admissible Mukai
-classes are
+The generators are normalised by
 \[
-  (g_N,h_M)\in\{1A,2A,2B,3A,3B,4A,4B,4C,6A,6B\}^{\times 2}_{\mathrm{cent}},
+  \phioo=y^{-1}+10+y+O(q),\qquad
+  \phimt=y^{-1}-2+y+O(q),\qquad
+  \phioo(\tau,0)=12,\quad \phimt(\tau,0)=0.
 \]
-$55$ unordered commuting-pair cells on the programme slice (Wave-10
-R5 matrix), with level
-$\mathrm{lcm}(|g_N|,|h_M|)\in\{1,2,3,4,6,12\}$.
+The coefficients in \eqref{eq:wn-EZ-ansatz} depend on the normalisation
+of the Jacobi input.  The K3-normalised elliptic genus and the
+Borcherds-normalised input differ by scalar factors in common use; the
+scalar must be named before comparing constants.
 
-\paragraph{Cycle 3 (leading case $(g_2,h_2=\mathrm{id})$). \ClaimStatusTheorem.}
-Fix the singly-twined entry $(N,M)=(2A,1A)$, the Enriques-involution
-twining at level $2$ with trivial simultaneous-twining $h_M=\mathrm{id}$.
-By CDH 2014 (specialising to $h_M=\mathrm{id}$ recovers the
-Cheng--Duncan--Harvey single-twining; here we use the GHV-2012
-$\phi_{0,1}^{(2A)}$ normalisation)
+\paragraph{Commuting pairs.}
+Gaberdiel--Hohenegger--Volpato restrict commuting pairs to subgroups
+preserving a positive four-plane in the Leech-lattice model.  On the
+standard programme slice the admissible Mathieu classes are
 \[
-  F_L^{(g_{2A},\mathrm{id})}(\tau,z)
-  \;=\; 2\,\phi_{0,1}^{(2A)}(\tau,z),
+  \{1A,2A,2B,3A,3B,4A,4B,4C,6A,6B\}.
 \]
-with Fourier head
-$(c^{(2A)}(-1,1),c^{(2A)}(0,0),c^{(2A)}(1,-1),c^{(2A)}(1,1))=(2,4,-6,14)$
-from the 26-class table (Wave-9 P5, Eguchi--Hikami 2009). The
-Eichler--Zagier decomposition at level $2$ is pinned by two
-coefficient equations (each Jacobi form of index $1$ is determined
-by its $q^0$-head $c(0,0)+2c(0,1)$ at $z=0$ plus its
-$(q^0,y^{-1})$-polar coefficient $c(-1,1)$):
-\begin{align}
-\label{eq:wn-wave15-l5-pinning-equations}
-\text{evaluate at } z=0:\quad & 2\,\chi_g(V_{24})\big|_{g=2A}
-  \;=\; 24\,\agh(\tau) \;+\; 0\cdot\bgh(\tau),\\
-\text{$(q^0,y^{\pm 1})$-polar head:}\quad & c^{(2A)}(-1,1)
-  \;=\; 1\cdot\agh(\infty) \;-\; 1\cdot\bgh(\infty)\big|_{q^0}.
-\end{align}
-At $z=0$ the left-hand side is $\chi_{2A}(V_{24})=8$ (eight fixed
-points of the Enriques involution on $V_{24}$), so
-$\agh\big|_{q^0}=8/24=1/3$ when $\bgh$ is pinned by the second
-equation. The second equation's $q^0$-head gives
-$c^{(2A)}(-1,1)-\agh(\infty)\cdot(\phioo)_{(-1,1)}
- -\bgh(\infty)\cdot(\phimt)_{(-1,1)}=0$
-with $(\phioo)_{(-1,1)}=1$ and $(\phimt)_{(-1,1)}=1$ (reading off
-$\phioo=y^{-1}+10+y+O(q)$ and $\phimt=y^{-1}-2+y+O(q)$):
-\[
-  2 \;=\; \agh(\infty) + \bgh(\infty), \qquad
-  \agh(\infty) \;=\; 1/3 \quad (\text{from } \chi_{2A}=8),
-\]
-which gives $\bgh(\infty)=5/3$. Combined with the $(q^0,y^0)$
-equation $c^{(2A)}(0,0)=10\,\agh(\infty)-2\,\bgh(\infty)$:
-$10(1/3)-2(5/3)=10/3-10/3=0\ne 4$. The mismatch forces
-$(\agh,\bgh)$ to be \emph{non-constant} in $\tau$. The Fricke involution
-$\tau\mapsto -1/(2\tau)$ exchanges the level-$2$ cusps $\infty$ and
-$0$ and the Eisenstein weight-$2$ old-form $E_2^{(2)}(\tau)=
-2E_2(2\tau)-E_2(\tau)$ (Koblitz 1993 \emph{Introduction to Elliptic Curves and Modular Forms}
-2nd ed., \S III.3) spans $M_2(\Gamma_0(2))$. Thus
-\[
-  \agh(\tau)\;=\;a_0, \qquad \bgh(\tau)\;=\;b_0 + b_2\,E_2^{(2)}(\tau),
-\]
-with $a_0,b_0,b_2\in\mathbb Q$ fixed by matching the head
-$(c^{(2A)}(-1,1),c^{(2A)}(0,0),c^{(2A)}(1,-1),c^{(2A)}(1,1))=(2,4,-6,14)$
-to equation~\eqref{eq:wn-wave15-l5-EZ-ansatz}. Direct solution:
-\[
-  a_0=1/3,\qquad b_0=5/3,\qquad b_2=0\quad\text{if the }q^1\text{-head matches},
-\]
-and the $q^1$-head check $(c^{(2A)}(1,-1),c^{(2A)}(1,1))=(-6,14)$
-against the $q^1$-coefficients of $\phioo$ and $\phimt$ determines
-$b_2$. Explicit computation (Gritsenko--Nikulin 1998 \S 2 Table~1,
-rank-$3$ BKM row $N=2$) yields $b_2=2/3$:
-$\Fgh[2A][\mathrm{id}]=\tfrac{1}{3}\phioo+(\tfrac{5}{3}+\tfrac{2}{3}E_2^{(2)})\phimt$.
+For a pair $(g,h)$ the level of the Jacobi form divides
+$\mathrm{lcm}(|g|,|h|)$ after the multiplier is included.  The
+existence of the Jacobi form is a statement about the pair and its
+multiplier. The Gritsenko--Cl\'ery atlas and the CHL ladder require
+separate normalisation maps.
 
-\paragraph{Cycle 4 (sanity check at $h_M=\mathrm{id}$). \ClaimStatusTheorem.}
-At $h_M=\mathrm{id}$, the Eichler--Zagier pair $(\agh,\bgh)$ reduces
-to Cheng--Duncan--Harvey 2014 single-twining data: the twined
-elliptic genus $\phi^{(g_N)}_{0,1}$ (CDH Table~2 for $N\in\{1,2,3,4,6\}$)
-matches $(\agh,\bgh)|_{h_M=\mathrm{id}}$ cell-by-cell:
-\begin{center}\footnotesize
-\begin{tabular}{c|c|c|l}
-$g_N$ & $\agh(\infty)$ & $\bgh(\infty)$ & source \\\midrule
-$1A$ & $1$ & $1$ & CDH 2014 Table~2, $\phi_{0,1}^{(1A)}=\phioo+\phimt\cdot 0$ \\
-$2A$ & $1/3$ & $5/3$ & this note, Cycle~3; matches CDH Table~2 row $2A$ \\
-$3A$ & $1/4$ & $7/4$ & CDH Table~2, $\chi_{3A}(V_{24})=6$, $c(0,0)=2$ \\
-$4B$ & $1/6$ & $11/6$ & CDH Table~2, $\chi_{4B}(V_{24})=4$, $c(0,0)=4$ \\
-$6A$ & $1/12$ & $23/12$ & CDH Table~2, $\chi_{6A}(V_{24})=2$, $c(0,0)=0$ \\
-\end{tabular}
-\end{center}
-Consistency checks: $\chi_{g_N}(V_{24})=24\,\agh(\infty)$ at $z=0$,
-and $\agh(\infty)+\bgh(\infty)=c^{(g)}(-1,1)=2$ at the polar head.
-Both equations hold exactly in the five entries above.
-
-\paragraph{Cycle 5 (refined universal identity). \ClaimStatusConjectured.}
-The universal Borcherds weight theorem
-$\kBKM(\Phi_N)=c_N(0)/2$ (Wave-9 P5; Gritsenko--Clery 2013 Thm~1.1;
-Lorgat 2020 for $N=1$) reads the weight from the Fourier-Jacobi
-cusp expansion of the paramodular form $\Phi_N$. The Eichler--Zagier
-decomposition~\eqref{eq:wn-wave15-l5-EZ-ansatz} refines this: with
-$\agh(\infty)\cdot 24 + \bgh(\infty)\cdot 0 = \chi_g(V_{24})$
-(the $\phimt$ generator has $\phimt(\tau,0)=0$), the constant-term
-contribution splits as
+\paragraph{Coefficient pinning.}
+Write the $q^0$-head of a chosen normalisation of $\Fgh$ as
+\[
+  \Fgh(\tau,z)\big|_{q^0}
+  =
+  p_{g,h}(y^{-1}+y)+m_{g,h}.
+\]
+Then \eqref{eq:wn-EZ-ansatz} gives
 \begin{equation}
-\label{eq:wn-wave15-l5-refined-kBKM}
-  \kBKM(\Phi_{N,M}) \;=\; 12\,\agh(\infty) \;+\; \Delta_{\bgh},\qquad
-  \Delta_{\bgh} := \mathrm{corr}(\bgh),
+\label{eq:wn-EZ-pinning-equations}
+  \agh(\infty)=\frac{m_{g,h}+2p_{g,h}}{12},
+  \qquad
+  \bgh(\infty)=p_{g,h}-\agh(\infty).
 \end{equation}
-with $\Delta_{\bgh}$ the Borcherds-product correction from the
-$\phimt$-coupled sector (explicitly: the logarithm of the
-$(\bgh\,\phimt)$-Hecke-minus contribution, in the notation of
-Wave-14 Q4 \S\emph{Hecke-minus structure on $B$}).
-At $h_M=\mathrm{id}$ the correction $\Delta_{\bgh}$ reduces to the
-\emph{second} Eichler--Zagier generator contribution and the
-$\bgh\cdot\phimt$ term enters $\log\Phi_N$ through the level-$N$
-Hecke-minus operator at weight $2$ on $\Gamma_0(N)$:
-$\Delta_{\bgh}=\sum_{m\ge 1}m^{-2}\,(\bgh\cdot\phimt\,e^{2\pi i t z_3})\mid_2 T_-(m)$
-evaluated at the Humbert $z_2=z_3$ divisor.
+Equivalently, evaluating at $z=0$ gives
+\[
+  \Fgh(\tau,0)=12\,\agh(\tau),
+\]
+and the polar coefficient gives
+$p_{g,h}=\agh(\infty)+\bgh(\infty)$.  These two equations are the
+normalisation-safe way to compare the Eichler--Zagier coefficients.
 
-For the programme slice, the numeric prediction sharpens:
-\begin{center}\footnotesize
-\begin{tabular}{c|c|c|c}
-$(g_N,h_M)$ & $c_N(0)/2$ & $12\,\agh(\infty)$ & $\Delta_{\bgh}$ \\\midrule
-$(1A,\mathrm{id})$ & $5$  & $12$  & $-7$ \\
-$(2A,\mathrm{id})$ & $4$  & $4$   & $\phantom{-}0$ \\
-$(3A,\mathrm{id})$ & $3$  & $3$   & $\phantom{-}0$ \\
-$(4B,\mathrm{id})$ & $2$  & $2$   & $\phantom{-}0$ \\
-$(6A,\mathrm{id})$ & $1$  & $1$   & $\phantom{-}0$ \\
-\end{tabular}
-\end{center}
-Only the $N=1$ anchor receives a non-vanishing $\phimt$-correction
-($\Delta_{\bgh}=-7$ absorbs the $\eta^{-6}$-factor of $A$ in the
-slide-723--852 Borcherds-product decomposition, Wave-14 Q4);
-levels $N\in\{2,3,4,6\}$ saturate $\kBKM=\agh(\infty)\cdot 12$
-through a clean $\phioo$-sector. The $\Delta_{\bgh}$ column is the
-\emph{second-form-induced correction} flagged by the slides' pair
-$(A,B)=(\tfrac{1}{4}\phioo^2,\phimt)$.
+\paragraph{The class \(2A\).}
+For the K3-normalised single twining at class $2A$, the Fourier head is
+\[
+  F_L^{(2A,\mathrm{id})}(\tau,z)\big|_{q^0}
+  =
+  2(y^{-1}+y)+4,
+\]
+as in the Mathieu twining table.  Hence
+\[
+  \agh(\infty)=\frac{4+2\cdot2}{12}=\frac23,\qquad
+  \bgh(\infty)=2-\frac23=\frac43.
+\]
+If the Borcherds input is half-normalised, both constants are divided by
+$2$:
+\[
+  \agh(\infty)=\frac13,\qquad
+  \bgh(\infty)=\frac23.
+\]
+A formula for the full function $\bgh(\tau)$ requires matching further
+Fourier coefficients against a specified basis of
+$M_2(\Gamma_0(2),\nu_{2A})$.  The $q^0$-head alone does not determine an
+Eisenstein correction such as a coefficient of
+$E_2^{(2)}(\tau)=2E_2(2\tau)-E_2(\tau)$.
+
+\paragraph{Untwined checks.}
+For a K3-normalised single twining with polar coefficient
+$p_g=2$ and Euler trace $\chi_g=F_L^{(g,\mathrm{id})}(\tau,0)$,
+\[
+  \agh(\infty)=\frac{\chi_g}{12},
+  \qquad
+  \bgh(\infty)=2-\frac{\chi_g}{12}.
+\]
+Thus the classes with
+\[
+  \chi_{1A}=24,\quad \chi_{2A}=8,\quad \chi_{3A}=6,\quad
+  \chi_{4B}=4,\quad \chi_{6A}=2
+\]
+give
+\[
+\begin{array}{c|cc}
+g & \agh(\infty) & \bgh(\infty)\\\hline
+1A & 2 & 0\\
+2A & 2/3 & 4/3\\
+3A & 1/2 & 3/2\\
+4B & 1/3 & 5/3\\
+6A & 1/6 & 11/6
+\end{array}
+\]
+in K3 normalisation.  Dividing the input by $2$ divides both columns by
+$2$.
+
+\paragraph{Borcherds weight.}
+The universal Borcherds weight statement is
+\[
+  \kBKM(\Phi_N)=c_N(0)/2.
+\]
+Here $c_N(0)$ is the constant term of the Jacobi input in the
+Borcherds-product normalisation for the chosen scope.  The
+Eichler--Zagier decomposition gives a useful splitting of the Jacobi
+input, but it does not by itself prove a second formula for the
+Borcherds weight.  For a fixed Borcherds product one may define the
+defect
+\begin{equation}
+\label{eq:wn-EZ-refined-kBKM}
+  \Delta_{\bgh}(\Phi_N)
+  :=
+  \kBKM(\Phi_N)-12\,\agh(\infty)
+  =
+  \frac{c_N(0)}2-12\,\agh(\infty).
+\end{equation}
+Identifying $\Delta_{\bgh}$ with a Hecke-minus contribution from
+$\bgh\,\phimt$ is a proof obligation: it requires comparing the
+Gritsenko multiplicative lift term-by-term with the decomposition
+\eqref{eq:wn-EZ-ansatz}.  No numerical correction table follows from
+\eqref{eq:wn-EZ-ansatz} alone.
 
 \paragraph{Scope.}
-\emph{Chain-level:} explicit Fourier-head matching at the four
-coefficients $(c^{(g,h)}(-1,1),c^{(g,h)}(0,0),c^{(g,h)}(1,-1),c^{(g,h)}(1,1))$
-determines $(\agh,\bgh)$ uniquely. \emph{$(\infty,1)$-categorical:}
-the EZ basis $(\phioo,\phimt)$ is the ring generator of a
-two-dimensional local system on the admissible commuting-pair
-groupoid; the refined identity~\eqref{eq:wn-wave15-l5-refined-kBKM}
-measures the defect of $\kBKM$ from a pure $\phioo$-supertrace,
-$\Delta_{\bgh}$ being the $\phimt$-obstruction class.
+Chain level: the four coefficients
+\[
+  c^{(g,h)}(-1,1),\quad c^{(g,h)}(0,0),\quad
+  c^{(g,h)}(1,-1),\quad c^{(g,h)}(1,1)
+\]
+determine the first cusp constraints on $(\agh,\bgh)$, while higher
+coefficients determine the weight-$2$ modular form $\bgh(\tau)$.
+Categorical level: the pair $(\phioo,\phimt)$ is the two-generator
+Jacobi-form basis in which the K3 elliptic-genus local system is read;
+the Borcherds lift sees the same data only after the chosen
+normalisation and multiplier have been fixed.
 
-\paragraph{Cite.}
-Eichler--Zagier 1985 Thm 9.3 (EZ basis); Cheng--Duncan--Harvey
-2014 arXiv:1204.2779 (umbral and Mathieu moonshine); Gaberdiel--Hohenegger--Volpato
-2012 arXiv:1206.5335, 1211.7074 (Mukai four-plane); Gritsenko--Clery
-2008 arXiv:0812.3962 Thm 1.1 (eight dd-paramodular); Gritsenko--Nikulin
-1998 \emph{Amer.\ J.\ Math.}~119 \S 2 Table 1 (rank-$3$ BKM row $N=2$);
-Persson--Volpato 2012 arXiv:1208.4851 (simultaneous twining);
-Aoki 2000 \emph{J.\ Math.\ Kyoto Univ.}~40 (level-$N$ EZ ring);
-Lorgat 2020 (automorphic corrections, $\Delta_5$).
-No fabrication; every numeric entry traceable.
-
-\paragraph{File.} \texttt{notes/wave15\_l5\_F\_twisted\_twined\_EZ.tex}.
-Target: \S\ref{wn:subsec:wave13-p5-next-step} plus
-\texttt{cy\_d\_kappa\_stratification.tex} at the Borcherds weight
-anchor row; refined identity~\eqref{eq:wn-wave15-l5-refined-kBKM}
-augments Theorem \texttt{thm:borcherds-weight-kappa-BKM-universal}.
+\paragraph{Sources.}
+Eichler--Zagier 1985, Theorem 9.3; Aoki 2000,
+\emph{Journal of Mathematics of Kyoto University} 40; Gritsenko 1999,
+\emph{St. Petersburg Mathematical Journal} 11; Cheng--Duncan--Harvey
+2014; Gaberdiel--Hohenegger--Volpato 2012; Persson--Volpato 2012;
+Gritsenko--Cl\'ery 2008; Gritsenko--Nikulin 1998.

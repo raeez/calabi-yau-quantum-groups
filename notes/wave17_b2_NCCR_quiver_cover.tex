@@ -1,207 +1,354 @@
-% Wave-17 B2/20: NCCR quiver-chart covers of compact CY_3 and the
-% assembly of chart-level positive halves Y^+_U into a global Y^+(X).
-% Voice: Van den Bergh (tilting/MCM/Auslander) + Bocklandt (moduli-
-% theoretic quiver-with-potential). Chriss--Ginzburg discipline.
-% Primary sources (all cross-checked):
-%   Van den Bergh, M., "Non-commutative crepant resolutions",
-%     in The Legacy of Niels Henrik Abel (Oslo 2002), Springer 2004,
-%     pp.~749--770; also arXiv:math/0211064.
-%   Van den Bergh, M., "Three-dimensional flops and non-commutative
-%     rings", Duke Math.~J.~122 (2004) 423--455 (arXiv:math/0207170).
-%   Bocklandt, R., "Generating toric noncommutative crepant
-%     resolutions", J.~Algebra 364 (2012) 119--147 (arXiv:1104.1597);
-%     Bocklandt, R., "Calabi--Yau algebras and quiver polyhedra",
-%     Math.~Z.~273 (2013) 311--329 (arXiv:0905.0232).
-%   Kontsevich, M., Soibelman, Y., "Stability structures, motivic
-%     Donaldson--Thomas invariants and cluster transformations",
-%     arXiv:0811.2435 (especially Section~7, Hall-algebra categorification).
-%   Szendroi, B., "Non-commutative Donaldson--Thomas theory and the
-%     conifold", Geom.~Topol.~12 (2008) 1171--1202 (arXiv:0705.3419).
-
 \providecommand{\Hom}{\mathrm{Hom}}
 \providecommand{\End}{\mathrm{End}}
 \providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\RHom}{\mathbf{R}\!\operatorname{Hom}}
 \providecommand{\Spec}{\mathrm{Spec}}
 \providecommand{\Coh}{\mathrm{Coh}}
-\providecommand{\Mod}{\text{-}\mathrm{Mod}}
-\providecommand{\modd}{\text{-}\mathrm{mod}}
 \providecommand{\Db}{D^{b}}
 \providecommand{\Perf}{\mathrm{Perf}}
 \providecommand{\Rep}{\mathrm{Rep}}
 \providecommand{\CoHA}{\mathrm{CoHA}}
 \providecommand{\Jac}{\mathrm{Jac}}
 \providecommand{\Crit}{\mathrm{Crit}}
+\providecommand{\Tot}{\operatorname{Tot}}
 \providecommand{\Eone}{E_{1}}
-\providecommand{\cA}{\mathcal A}
+\providecommand{\Etwo}{E_{2}}
+\providecommand{\NCCR}{\mathrm{NCCR}}
+\providecommand{\cC}{\mathcal C}
+\providecommand{\cE}{\mathcal E}
 \providecommand{\cH}{\mathcal H}
+\providecommand{\cM}{\mathcal M}
 \providecommand{\cO}{\mathcal O}
 \providecommand{\cT}{\mathcal T}
-\providecommand{\cU}{\mathcal U}
 \providecommand{\fU}{\mathfrak U}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kHeis}{\kappa_{\mathrm{ch}}^{\mathrm{Heis}}}
 \providecommand{\bC}{\mathbb C}
+\providecommand{\bP}{\mathbb P}
 \providecommand{\bZ}{\mathbb Z}
 
-\section*{Wave-17 B2: NCCR quiver-chart covers of compact CY$_3$}
+\section*{NCCR quiver covers and compact CY$_3$ Hall atlases}
 
-\subsection*{Cycle 1. Local NCCR data per affine chart.}
-
-Let $X$ be a compact smooth Calabi--Yau threefold, $\fU=\{U_{\alpha}\}$
-a Zariski cover by affines, each $U_{\alpha}=\Spec R_{\alpha}$ Gorenstein
-and admitting a crepant (possibly non-commutative) desingularisation.
-Van den Bergh 2004 (\emph{Non-commutative crepant resolutions}, Def.~4.1)
-attaches to each such $R_{\alpha}$ an NCCR
+An NCCR chart is an affine singularity datum.  Let \(R\) be a normal
+Gorenstein affine threefold algebra.  In Van den Bergh's sense a
+non-commutative crepant resolution is
 \[
-  \Lambda_{\alpha}\;:=\;\End_{R_{\alpha}}(T_{\alpha}),
-  \qquad T_{\alpha}\in\mathrm{refl}(R_{\alpha}),\;
-  \mathrm{gldim}\,\Lambda_{\alpha}<\infty,\;
-  \Lambda_{\alpha}\in\mathrm{CM}(R_{\alpha}).
-\]
-When $U_{\alpha}$ is a small open containing a compact curve
-$C_{\alpha}\subset X$ with normal bundle of the Bridgeland type, Van den
-Bergh 2004 (\emph{Three-dimensional flops}, Thm.~B, arXiv:math/0207170)
-produces a tilting bundle $\cT_{\alpha}\in\Db\Coh(U_{\alpha})$ with
-$\End(\cT_{\alpha})=\Lambda_{\alpha}$, and a derived equivalence
-$\Db\Coh(U_{\alpha})\simeq\Db(\Lambda_{\alpha}\modd)$. By Bocklandt 2013
-(\emph{Calabi--Yau algebras and quiver polyhedra}, Thm.~3.3;
-arXiv:0905.0232), $\Lambda_{\alpha}$ is presented as a Jacobi algebra
-$\Jac(Q_{\alpha},W_{\alpha})=\bC Q_{\alpha}/\langle\partial_{a}W_{\alpha}
-\rangle_{a\in Q_{\alpha,1}}$ of a quiver with potential, and this
-presentation is unique up to right-equivalence of potentials. The key
-CY$_{3}$-algebra property --- bimodule $3$-Calabi--Yau in the sense of
-Ginzburg --- is built in: the Koszul-type resolution of the diagonal
-$\Lambda_{\alpha}$-bimodule
-\[
-  0\to\Lambda_{\alpha}\otimes\Lambda_{\alpha}
-   \to\Lambda_{\alpha}\otimes V_{\alpha}\otimes\Lambda_{\alpha}
-   \to\Lambda_{\alpha}\otimes V_{\alpha}\otimes\Lambda_{\alpha}
-   \to\Lambda_{\alpha}\otimes\Lambda_{\alpha}\to\Lambda_{\alpha}\to 0,
-\]
-with $V_{\alpha}=\mathrm{span}(Q_{\alpha,1})$ (Ginzburg 2006, Prop.~5.1.9;
-internal to Bocklandt's treatment) exhibits
-$\Lambda_{\alpha}^{!}\cong\Lambda_{\alpha}[3]$, i.e.\ the Verdier dual is
-a shifted copy.
-
-\subsection*{Cycle 2. Chart-level positive halves
-  $Y^{+}_{\alpha}=\CoHA(\Lambda_{\alpha},W_{\alpha})$.}
-
-The critical cohomological Hall algebra of Kontsevich--Soibelman 2008
-(arXiv:0811.2435, \S 7) attaches to $(Q_{\alpha},W_{\alpha})$ the graded
-associative algebra
-\[
-  \cH(Q_{\alpha},W_{\alpha})
-  \;=\;\bigoplus_{\mathbf d\in\bZ^{Q_{\alpha,0}}_{\geq 0}}
-    H^{\mathrm{BM}}_{*}\!\bigl(\Crit(W_{\alpha,\mathbf d});
-      \phi_{W_{\alpha,\mathbf d}}\bigr),
-\]
-with product the proper pushforward along the stack of short exact
-sequences of $\Lambda_{\alpha}$-modules. Schiffmann--Vasserot 2013
-($\bC^{3}$; arXiv:1202.2756) and Rapcak--Soibelman--Yang--Zhao 2020
-(toric CY$_{3}$ without compact $4$-cycles; arXiv:2007.13365) identify
-$\cH(Q_{\alpha},W_{\alpha})$ with the positive half
-$Y^{+}(\widehat{\mathfrak g}_{Q_{\alpha}})$ of the affine super-Yangian
-attached to $Q_{\alpha}$: thus $Y^{+}_{\alpha}:=Y^{+}
-(\widehat{\mathfrak g}_{Q_{\alpha}})$ is the chart-level invariant. Its
-Poincar\'e series equals the Kontsevich--Soibelman DT generating series
-of $(Q_{\alpha},W_{\alpha})$ (KS 2008, Thm.~8). This is the chart-level
-datum from which a putative global $Y^{+}(X)$ must be assembled.
-
-\subsection*{Cycle 3. Overlap compatibility: Morita, not isomorphism.}
-
-On $U_{\alpha\beta}=U_{\alpha}\cap U_{\beta}$, \emph{two} NCCR
-presentations co-exist: $\Lambda_{\alpha}|_{U_{\alpha\beta}}$ and
-$\Lambda_{\beta}|_{U_{\alpha\beta}}$. Van den Bergh's uniqueness-up-to-MCM
-theorem (2004 \emph{Three-dimensional flops}, Cor.~4.5) does \emph{not}
-assert $\Lambda_{\alpha}\cong\Lambda_{\beta}$ on overlap; only that the
-two NCCRs are derived-equivalent via a tilting bimodule
-\[
-  {}_{\Lambda_{\alpha}}\cT_{\alpha\beta}{}_{\Lambda_{\beta}}
-  \;\in\;\Db(\Lambda_{\alpha}\otimes\Lambda_{\beta}^{\mathrm{op}}),
+  \Lambda=\End_R(M),
   \qquad
-  \cT_{\alpha\beta}\otimes^{L}_{\Lambda_{\beta}}(-)\colon
-  \Db(\Lambda_{\beta}\modd)\xrightarrow{\sim}\Db(\Lambda_{\alpha}\modd).
+  M\in\mathrm{refl}(R),
+  \qquad
+  \Lambda\in\mathrm{CM}(R),
+  \qquad
+  \operatorname{gldim}\Lambda_{\mathfrak p}=\dim R_{\mathfrak p}
+  \quad(\mathfrak p\in\Spec R).
 \]
-The conifold case makes this concrete: the two small crepant resolutions
-$\cY_{\pm}$ furnish tilting bundles $\cO\oplus\cO(\pm 1)$ whose
-endomorphism algebras are the \emph{same} $\Lambda_{\mathrm{NCCR}}=
-\End_{R}(R\oplus I)$ (Szendroi 2008, Prop.~2.5); but for a general pair
-of flopping small resolutions the endomorphism algebras differ, and only
-Morita-equivalence persists. Bocklandt 2012 (\emph{Generating toric
-NCCRs}, Thm.~1.2; arXiv:1104.1597) gives an explicit recipe for the
-tilting bimodule $\cT_{\alpha\beta}$ in the toric setting as a
-right-equivalence of quivers-with-potential, together with a combinatorial
-criterion (``consistency'' of the dimer / brane-tiling) that lets two
-toric charts glue without obstruction.
-
-\subsection*{Cycle 4. Global derived stack of quiver representations.}
-
-The correct global object is \emph{not} a single quiver with potential on
-$X$; no such object exists in general. It is the stack
+For an isolated threefold singularity this last condition reads
+\(\operatorname{gldim}\Lambda=3\).  The centre is affine throughout the
+definition.
+For a flopping contraction satisfying Van den Bergh's hypotheses, a
+tilting bundle \(\cT\) on the crepant resolution gives
 \[
-  \mathfrak M_{X}\;:=\;\operatorname*{hocolim}_{\alpha\in N(\fU)}
-    \Rep(\Lambda_{\alpha})\;/\;\text{gauge},
+  \Db\Coh(Y)\simeq\Db(\Lambda\text{-}\mathrm{mod}),
+  \qquad
+  \Lambda=\End_Y(\cT).
 \]
-where $N(\fU)$ is the nerve of the cover, each $\Rep(\Lambda_{\alpha})=
-\bigsqcup_{\mathbf d}\Rep_{\mathbf d}(\Lambda_{\alpha})$ is the Bocklandt
-moduli stack of $\Lambda_{\alpha}$-representations (Bocklandt 2013,
-\S 4), and the transition maps on $U_{\alpha\beta}$ are the Morita
-equivalences of Cycle 3 realised as stack equivalences
+The theorem is local over the affine centre.  A smooth affine chart has
+the regular algebra \(R\) as its tautological NCCR.  It produces no
+finite quiver presentation of a smooth compact Calabi-Yau threefold by
+itself; singular charts, toric critical charts, or an explicit tilting
+model are additional data.
+
+A quiver-with-potential presentation is extra structure on the NCCR.
+In the consistent toric dimer and quiver-polyhedron setting of Bocklandt,
+the algebra is a Jacobi algebra
 \[
-  \cT_{\alpha\beta}\otimes_{\Lambda_{\beta}}^{L}(-)
-  \colon\Rep(\Lambda_{\beta})\bigr|_{U_{\alpha\beta}}
-  \xrightarrow{\sim}\Rep(\Lambda_{\alpha})\bigr|_{U_{\alpha\beta}}.
+  \Lambda\simeq\Jac(Q,W)
+  =
+  \bC Q\big/\langle\partial_a W\rangle_{a\in Q_1},
 \]
-Kontsevich--Soibelman 2008 (\S 7.8) observes that such a hocolim, when
-the cocycle $\{\cT_{\alpha\beta}\}$ satisfies the evident $2$-cocycle
-condition $\cT_{\alpha\beta}\otimes\cT_{\beta\gamma}\simeq
-\cT_{\alpha\gamma}$ on triple overlaps, is a derived Artin $1$-stack;
-its tangent complex at a point $E\in\Coh(X)$ is $\Ext^{*}_{X}(E,E)[1]$,
-matching the chart-level $\Ext^{*}_{\Lambda_{\alpha}}$ under the Morita
-equivalence of Cycle 3. (Bocklandt 2013 Thm.~1.1 verifies the
-$2$-cocycle condition for toric covers; in the non-toric compact CY$_{3}$
-setting the condition is a separate hypothesis, not a theorem.)
-
-\subsection*{Cycle 5. Global positive half as sheafy derived sections.}
-
-Define the presheaf of CoHAs on $\fU$ by
-$\underline{Y^{+}}(U_{\alpha})=Y^{+}_{\alpha}$ with restriction maps
-$\underline{Y^{+}}(U_{\alpha})\to\underline{Y^{+}}(U_{\alpha\beta})$ the
-pullback along the Morita equivalence $\cT_{\alpha\beta}$. Pass to the
-associated sheaf of $\Eone$-algebras $\underline{Y^{+}}^{\sharp}$ on $X$;
-the global positive half is
+and the completed Ginzburg dg algebra \(\Gamma(Q,W)\) is
+bimodule \(3\)-Calabi-Yau.  On the exact hypotheses where the degree-zero
+Jacobi algebra is an NCCR, the diagonal duality is the statement
 \[
-  Y^{+}(X)\;:=\;R\Gamma\bigl(X,\underline{Y^{+}}^{\sharp}\bigr).
+  \RHom_{\Lambda^e}(\Lambda,\Lambda^e)\simeq \Lambda[3].
 \]
-Two finite-dimensional cross-checks:
-(i) For $X=\bC^{3}/\Gamma$ with $\Gamma\subset\mathrm{SU}(3)$ finite
-(an NCCR via the skew group algebra $\bC[x,y,z]\#\Gamma$ after Bridgeland--
-King--Reid), the cover is a single chart and $Y^{+}(X)=Y^{+}(\widehat{\mathfrak
-g}_{Q_{\Gamma}})$ recovers the McKay-quiver positive half.
-(ii) For $X$ a resolved toric CY$_{3}$ without compact $4$-cycles,
-Rapcak--Soibelman--Yang--Zhao 2020 prove
-$Y^{+}(X)\cong Y^{+}(\widehat{\mathfrak g}_{Q_{X}})$ and the nerve of
-$\fU$ has trivial higher cohomology (toric-Cech acyclicity), so the
-hocolim collapses to the single toric quiver. For compact non-toric $X$
-(quintic; $K3\times E$) the hocolim is \emph{not} known to collapse and
-the status of $Y^{+}(X)$ is: conjectural, with the derived global-sections
-formula above as the proposed definition. The $\kappa_{\mathrm{ch}}$
-invariants are chart-additive along the \v{C}ech spectral sequence
-$E_{2}^{p,q}=\check H^{p}(\fU,\underline{\kappa_{\mathrm{ch}}})\Rightarrow
-\kappa_{\mathrm{ch}}(X)$, with the chart-level
-$\kappa_{\mathrm{ch}}(\Lambda_{\alpha})$ given by the Bocklandt 2013
-\S 5 character formula for Jacobi algebras; the $K3\times E$ value
-$\kappa_{\mathrm{ch}}=0$ of the cache matches $\chi(\cO_{K3\times E})=0$
-by Hodge-supertrace K\"unneth.
+For a general compact non-toric threefold this Jacobi presentation is a
+local input or a formal critical chart supplied in addition to
+smoothness.
 
-\subsection*{Status of the five cycles.}
+\subsection*{Critical positive half}
 
-Cycle 1 (local NCCR) and Cycle 2 (chart-level $Y^{+}_{\alpha}$) are
-unconditional per the cited Van den Bergh, Bocklandt, and Kontsevich--
-Soibelman / Schiffmann--Vasserot / Rapcak--Soibelman--Yang--Zhao results.
-Cycle 3 (Morita overlap) is established in the toric setting (Bocklandt
-2012 Thm.~1.2) and conjectural in the non-toric compact case. Cycle 4
-(global derived stack) is unconditional once the $2$-cocycle condition
-holds; verifying it on a specific compact non-toric $X$ is an open problem.
-Cycle 5 (sheafy $Y^{+}(X)$) is therefore \emph{conjectural} as a
-definition for compact non-toric CY$_{3}$, and cohomologically non-trivial
-only when the cover's nerve has higher cohomology --- the obstruction
-to a single global NCCR.
+For a Jacobi chart \((Q_\alpha,W_\alpha)\), Kontsevich-Soibelman's
+critical CoHA is
+\[
+  \cH_\alpha
+  =
+  \bigoplus_{\mathbf d\in\bZ^{Q_{\alpha,0}}_{\geq0}}
+  H^{\mathrm{BM}}_*
+  \bigl(\Crit(W_{\alpha,\mathbf d}),\phi_{W_{\alpha,\mathbf d}}\bigr),
+\]
+with multiplication given by the extension correspondence for short
+exact sequences of \(\Jac(Q_\alpha,W_\alpha)\)-modules.  This
+multiplication is the local \(\Eone\) Hall product at Calabi-Yau
+dimension \(3\).
+
+The Yangian name is justified only on charts where the comparison
+theorem is available.  Schiffmann-Vasserot identify the smooth toric
+germ with
+\[
+  \CoHA(\bC^3)=\Yplus(\widehat{\mathfrak{gl}}_1),
+\]
+the positive half of the affine Yangian.  Rapcak-Soibelman-Yang-Zhao
+prove the corresponding positive-half statement for toric CY$_3$
+quivers whose compact \(4\)-cycle sector is empty.  The full
+vertex-algebra object \(\mathcal W_{1+\infty}\) enters after a
+Drinfeld double, centre, completion, or evaluation construction.  The
+local CoHA itself is the positive half; the full double is a later
+construction.
+
+\subsection*{Morita descent data}
+
+Let \(\fU=\{U_\alpha\}\) be a family of affine singular or formal
+critical charts with NCCRs \(\Lambda_\alpha\).  On an overlap
+\(U_{\alpha\beta}\), two restrictions
+\(\Lambda_\alpha|_{\alpha\beta}\) and
+\(\Lambda_\beta|_{\alpha\beta}\) may differ as algebras.
+The descent datum is a derived Morita kernel
+\[
+  {}_{\Lambda_\alpha}\cT_{\alpha\beta}{}_{\Lambda_\beta}
+  \in
+  \Db(\Lambda_\alpha\otimes\Lambda_\beta^{\mathrm{op}})
+\]
+which induces an equivalence of perfect module categories,
+\[
+  \cT_{\alpha\beta}\otimes^L_{\Lambda_\beta}(-)
+  :
+  \Perf(\Lambda_\beta|_{\alpha\beta})
+  \xrightarrow{\sim}
+  \Perf(\Lambda_\alpha|_{\alpha\beta}).
+\]
+On triple overlaps one needs coherent identifications
+\[
+  \cT_{\alpha\beta}\otimes^L_{\Lambda_\beta}\cT_{\beta\gamma}
+  \simeq
+  \cT_{\alpha\gamma},
+\]
+with the usual higher associativity.  For toric dimer mutations these
+kernels and coherences are explicit under the consistency hypotheses.
+For compact non-toric CY$_3$ geometry they are part of the atlas data.
+
+Derived Morita equivalence transports the dg category. Preservation of
+dimension-vector gradings, stability chambers, and
+Kontsevich-Soibelman orientation data is additional structure.  A Hall
+atlas therefore includes compatible charge lattices, positive cones,
+stability windows, and square roots of determinant lines.  CoHA gluing
+requires this extra structure beyond the categorical Morita kernels.
+
+\subsection*{Stack of objects}
+
+From a coherent Morita diagram one forms the descended dg category
+\[
+  \cC_{\fU}
+  :=
+  \operatorname*{hocolim}_{\alpha\in N(\fU)}
+  \Perf(\Lambda_\alpha),
+\]
+where \(N(\fU)\) is the nerve of the cover.  The intrinsic moduli object
+is the derived stack of objects
+\[
+  \cM_{\fU}:=\mathrm{Obj}(\cC_{\fU}).
+\]
+In finite-type charge windows, Toen-Vaquie and Pantev-Toen-Vaquie-
+Vezzosi give a derived Artin stack with tangent complex
+\[
+  T_E\cM_{\fU}\simeq \RHom_{\cC_{\fU}}(E,E)[1].
+\]
+When \(E\) is represented in a chart, this tangent complex agrees with
+\(\Ext^*_{\Lambda_\alpha}(E,E)[1]\) under the Morita equivalence.  A
+quotient stack of finite-dimensional representations is a local atlas
+for these windows; the global object is the descent stack.
+
+\subsection*{Positive half by \v{C}ech totalisation}
+
+Assume the Morita kernels, charge data, stability windows, and
+orientation data above are fixed.  The oriented local CoHAs
+\(\cH_\alpha\) assemble as a cosimplicial diagram of complete
+charge-filtered \(\Eone\)-algebras.  Its compactly supported positive
+half is
+\[
+  \Yplus_{\fU}(X)
+  :=
+  \Tot\left(
+  \prod_\alpha \cH_\alpha
+  \rightrightarrows
+  \prod_{\alpha\beta}\cH_{\alpha\beta}
+  \rightthreetimes
+  \prod_{\alpha\beta\gamma}\cH_{\alpha\beta\gamma}
+  \cdots
+  \right).
+\]
+Equivalently, this is \(R\Gamma(X,\underline{\Yplus}_{\fU})\) for the
+descent sheaf of oriented local positive halves.  Hall integration,
+where defined, sends its compactly supported Euler character to the
+Joyce-Song or reduced Donaldson-Thomas character in the chosen chamber.
+
+For compact \(X\), the chiral coefficient
+\[
+  \kch(A_X)=\sum_q(-1)^q h^{0,q}(X)
+\]
+is a global Hodge supertrace for the compact \(\Phi_3\) output.  It is
+obtained from the global Hodge column.  The quiver atlas controls the
+Hall positive half; the Hodge trace controls the compact chiral
+coefficient.
+
+\subsection*{Boundary tests}
+
+\begin{enumerate}
+\item For \(X=\bC^3/\Gamma\), with
+\(\Gamma\subset\mathrm{SL}_3(\bC)\) finite, the skew group algebra
+\(\bC[x,y,z]\rtimes\Gamma\) is the affine McKay NCCR.  The cover has
+one chart, and \(\Yplus_{\fU}(X)\) is the McKay-quiver positive half.
+
+\item Local \(\bP^2=\Tot(\cO_{\bP^2}(-3))\) is the crepant resolution of
+\(\bC^3/\bZ_3\).  Bridgeland-King-Reid transports the
+\(\bZ_3\)-equivariant skew-group model to the Beilinson tilting model
+\(\cO\oplus\cO(1)\oplus\cO(2)\) on \(\bP^2\), pulled to the total
+space.  The three toric \(\bC^3\)-charts and the orbifold chart compute
+the same Jacobi CoHA after the age-graded and wheel-condition
+corrections.  The chain-level chiral value is
+\[
+  \kch(\mathrm{loc}\,\bP^2)=\frac32 .
+\]
+
+\item The resolved conifold
+\(\Tot(\cO(-1)^{\oplus2}\to\bP^1)\) is a genuine non-compact
+CY$_3$, not a local surface.  Its Klebanov-Witten Jacobi algebra gives
+the standard two-node NCCR, and the direct McKay calculation gives
+\[
+  \kch(\mathrm{conifold})=1 .
+\]
+This value belongs to the conifold quiver.  The local-surface formula
+for \(\Tot(\omega_S\to S)\) applies to local surfaces only.
+
+\item For a resolved toric CY$_3$ whose compact \(4\)-cycle sector is
+empty, a consistent dimer supplies a single Jacobi model.  The
+Rapcak-Soibelman-Yang-Zhao theorem identifies the resulting critical
+CoHA with the positive half attached to the toric quiver.
+
+\item For a compact non-toric CY$_3$, the totalisation above is a Hall
+atlas construction.  It collapses to one finite quiver algebra only when
+a global tilting/Jacobi model, Serre compatibility, and all descent data
+are supplied.
+\end{enumerate}
+
+\subsection*{\texorpdfstring{$K3\times E$}{K3 x E}}
+
+Let \(S\) be a smooth projective K3 surface, let \(E\) be an elliptic
+curve, and set \(X=S\times E\).  The Serre functor on \(\Perf(X)\) is
+\([3]\).  Hence every nonzero \(T\in\Perf(X)\) satisfies
+\[
+  \Ext_X^3(T,T)
+  =
+  \Hom_X(T,T[3])
+  \cong
+  \Hom_X(T,T)^\vee
+  \neq 0 .
+\]
+A classical tilting object would require
+\(\Ext_X^i(T,T)=0\) for all \(i>0\).  Thus Serre duality excludes a
+single ordinary finite-dimensional algebra of finite global dimension
+as a classical-tilting model for \(\Perf(K3\times E)\).  A one-quiver
+model for \(K3\times E\), if present, must therefore be dg, curved, or
+Hall-theoretic rather than an ordinary global NCCR presentation of the
+compact derived category.
+
+Local ADE formal charts still exist on singular K3 degenerations.  If
+\(\Gamma\subset\mathrm{SL}_2(\bC)\) is finite ADE and acts trivially on
+the elliptic coordinate \(t\), then
+\[
+  R_{\Gamma,E}=\bC[[u,v,t]]^\Gamma,
+  \qquad
+  \Lambda_{\Gamma,E}
+  =
+  \End_{R_{\Gamma,E}}
+  \left(\bigoplus_{\rho\in\widehat{\Gamma}}M_\rho\right)
+  \cong
+  \bC[[u,v,t]]\rtimes\Gamma
+\]
+is a local \(3\)-dimensional McKay NCCR.  These are formal singular
+charts; the compact product \(S\times E\) requires a separate finite
+atlas.  On overlaps, Seidel-Thomas spherical twists are derived
+autoequivalences rather than algebra isomorphisms; their Fourier-Mukai
+kernels carry higher Exts.  The transition theory is dg or
+\(A_\infty\), with Serre compatibility built into the gluing.
+
+The finite replacement for \(K3\times E\) is therefore a
+Serre-equivariant quasi-NCCR/Hall atlas: local ADE and critical charts,
+orientation data, reduced K3 obstruction theory, factorisation
+pushforward, and completed Hall multiplication.  The compact
+Hall-Drinfeld double and the BKM recognition require additional Hopf
+pairing, coproduct, completion, and denominator data.
+
+The separated invariants at this boundary are
+\[
+\begin{array}{rcl}
+  \kcat(K3\times E)
+  &=&
+  \chi(\cO_{K3})\chi(\cO_E)=2\cdot0=0,\\[2pt]
+  \kch(A_{K3\times E})
+  &=&
+  \sum_q(-1)^q h^{0,q}(K3\times E)=1-1+1-1=0,\\[2pt]
+  \kHeis(K3\times E)
+  &=&
+  3,\\[2pt]
+  \kBKM(\mathfrak g_{\Delta_5})
+  &=&
+  c_1(0)/2=10/2=5,\\[2pt]
+  \kfib(K3\times E)
+  &=&
+  \mathrm{rk}\,\widetilde H(K3,\bZ)=24 .
+\end{array}
+\]
+The compact Hodge supertrace is the value of the compact chiral
+coefficient.  The Heisenberg specialisation, Borcherds weight, and
+Mukai fibre rank come from separate constructions.
+
+The primitive CHL denominator rows use the Borcherds constant term:
+\[
+\begin{array}{c|ccccc}
+N&1&2&3&4&6\\ \hline
+c_N(0)&10&8&6&4&2\\
+\kBKM(\Phi_N)=c_N(0)/2&5&4&3&2&1 .
+\end{array}
+\]
+Rows at \(N\in\{5,7,8\}\), when present, belong to the
+Nikulin/Gritsenko--Clery extension or to separate Gritsenko--Clery
+triples rather than the primitive CHL ladder.  These denominator weights
+are independent of additive expressions in \(\kch\), \(\kcat\), or
+\(\kfib\).
+
+\subsection*{Boundary theorem}
+
+A local NCCR quiver cover of a CY$_3$ supplies oriented critical
+\(\Eone\) positive halves on affine singular or formal critical charts.
+Their descent is a completed \v{C}ech totalisation of CoHAs, conditional on
+Morita coherences, charge compatibility, stability windows, and
+orientation data.  The construction recovers the known positive halves
+for \(\bC^3/\Gamma\), smooth toric CY$_3$ quivers in the established
+range, and local ADE charts stretched along an elliptic direction.
+
+For \(K3\times E\), Serre duality excludes an ordinary finite-dimensional
+algebra model of finite global dimension.  The compact object is a
+quasi-NCCR/Hall atlas with reduced
+Donaldson-Thomas and Hall-Drinfeld data.  Since \(d=3\), every native
+\(\Phi_3\) or Hall positive-half output in this whitepaper is \(\Eone\).
+\(\Etwo\)-structures belong to centre, double, module, or
+representation layers after the positive half has been constructed.
+A global compact algebra presentation requires more than a quiver chart,
+a scalar character, or a Borcherds denominator weight: the Serre
+obstruction, coherent descent, Hopf pairing, and automorphic recognition
+data are separate gates.
