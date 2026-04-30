@@ -16,8 +16,8 @@ data, and how the resulting invariants compare with automorphic products.
 
 The theorem scope is dimension-stratified.
 
-- At \(d = 2\), \(\Phi_2\) is constructed on the smooth proper
-  Calabi-Yau surface locus. For K3 this gives the Mukai-lattice
+- At \(d = 2\), the construction of \(\Phi_2\) is proved on the smooth
+  proper Calabi-Yau surface locus. For K3 this gives the Mukai-lattice
   \(E_2\)-chiral algebra and \(\kappa_{\mathrm{ch}} = 2\).
 - At \(d = 3\), the available theorem is the framed object-level
   assignment
@@ -103,7 +103,7 @@ weight, and the Mukai-lattice rank of the K3 fibre.
 - **III. Chiral quantum groups.** Ordered \(E_1\)-chiral algebras,
   Drinfeld centres, braided factorisation, and \(R\)-matrix data.
 - **IV. K3 and K3-fibered examples.** The Mukai self-mirror Yangian
-  branch, the K3 \( \times E\) BKM branch, and Hall--Drinfeld doubles.
+  branch, the \(K3 \times E\) BKM branch, and Hall--Drinfeld doubles.
 - **V. Calabi-Yau landscape.** Toric threefolds, local surfaces,
   conifold and local \(\mathbb{P}^2\), derived categories, Fukaya
   categories, and matrix factorisations.
@@ -146,7 +146,7 @@ Requires TeX Live 2024 or newer with `pdflatex`.
   subscripted invariant tables and compact-family formulas.
 - `chapters/examples/k3_yangian_chapter.tex`: Mukai self-mirror K3
   Yangian branch.
-- `chapters/examples/k3e_bkm_chapter.tex`: K3 \( \times E\)
+- `chapters/examples/k3e_bkm_chapter.tex`: \(K3 \times E\)
   Borcherds and BKM branch.
 - `chapters/examples/k3_chiral_bialgebra_platonic.tex`: Hall--Drinfeld
   double architecture.

@@ -5510,3 +5510,50 @@ Signed-only rows are blocked from basis, PBW, and \(A_\beta\)-comparison
 tables. **Counter**: \(2\tau\) has \(f(4,2)=4016\) and
 \(m(2\tau)=-540\), but these numbers do not give the full root-space
 parity split.
+
+**AP-CY425 — Comparison maps are not optional in recognition (High).**
+Wrong: once target and source dimensions agree, the Hall--Borcherds
+comparison follows. Correct: each finite degree requires explicit
+parity-preserving maps \(A_{\beta,\bar p}\) from compact source
+quotients to target blocks, and these maps must intertwine bracket,
+coproduct, pairing, relations, PBW filtrations, and transitions.
+**Counter**: two \(29|93\) spaces can have incompatible brackets or
+pairings, so equality of ranks does not choose an algebra map.
+
+**AP-CY426 — A071 parity promotion is partial target arithmetic (Medium).**
+Wrong: the A071 window now supplies all parity rows needed for source
+recognition. Correct: the verified promoted rows are target rows
+\(2a_{ij}:10|0\), \(C_{k,3}:29|93\), \(C_{k,4}:10|0\), and
+\(C_{k,5}:0|0\). The \(C_{k,2}\) and \(2\delta_{123}\) rows remain
+signed-only until the finite target presentation reducer supplies full
+parity. **Counter**: signed values determine \(d_0-d_1\), not
+\((d_0,d_1)\).
+
+**AP-CY427 — Target reducers are not coefficient scripts or source verifiers (High).**
+Wrong: the square-root coefficient script, or a compact source verifier,
+can serve as the target presentation reducer. Correct: the reducer must
+live on the target GN/Kac/Borcherds presentation, with its own
+generators, relation rows, radical quotient, parity rows, PBW checks,
+and hashes. A source verifier may consume target fixtures but must never
+manufacture them. **Counter**: a coefficient script can output
+\(29-93=-64\) without constructing the target relation quotient that
+separates \(29\) from \(93\).
+
+**AP-CY428 — Vol III coefficient extraction is not a recognition gate (High).**
+Wrong: extracting the \(\Delta_5\), Maass, or Gritsenko coefficient
+attached to a charge proves the Vol III Hall/CoHA primitive theorem.
+Correct: coefficient extraction gives target arithmetic and consistency
+tests. Recognition additionally needs compact source representatives,
+Hall product/coproduct matrices, radical descent, \(A_\beta\)-comparison
+maps, no-extra-relations, PBW, and transition compatibility. **Counter**:
+a source algebra with zero bracket can have the same signed coefficient
+shadow.
+
+**AP-CY429 — Modular-trace maps inherit recognition dependency (High).**
+Wrong: a modular trace or Rees character map landing in target
+Borcherds coefficients automatically yields a morphism to
+\(U^{\mathrm{ch}}(\mathfrak n_+)\). Correct: the trace map is target
+arithmetic until the finite Hall--Borcherds recognition criterion
+constructs the source-to-target algebra map and proves compatibility
+with completions. **Counter**: a character map can preserve all graded
+Euler characteristics while killing a nonzero primitive bracket.
