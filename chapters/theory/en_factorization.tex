@@ -944,9 +944,9 @@ The approximate factorizability of the per-face corrections (Proposition~\ref{pr
 
 \begin{remark}[Newton convergence and universality of the ZTE correction]
 \label{rem:zte-newton-convergence}
-The correction~$T$ of Proposition~\ref{prop:zte-explicit-correction} is constructed by an \emph{adaptive Newton iteration} on the full nonlinear ZTE, with the following convergence profile. The linearized ZTE system at step~$1$ has rank~$35$ out of~$36$ constraints (the missing direction is the scalar gauge: overall rescaling of the $S$-operator). At step~$2$ the rank jumps to $36/36$ (full), and the obstruction drops by a factor of~$\sim\!200$. The third step drives the residual below $10^{-8}$ of the original. The adaptive stopping criterion accepts a step only when the obstruction strictly decreases, preventing noise injection from near-machine-precision rank drops. The $45$-dimensional null space at step~$0$ decomposes as $44$ face-redistribution gauge freedoms (redistributing the correction among the four faces of the tetrahedron) and $1$ overall scalar gauge; the minimum-norm solution (least-squares) fixes the gauge canonically.
+The correction~$T$ of Proposition~\ref{prop:zte-explicit-correction} is constructed by an \emph{adaptive Newton iteration} on the full nonlinear ZTE, with the following convergence profile. The linearized ZTE system at step~$1$ has rank~$35$ out of~$36$ constraints (the missing direction is the scalar gauge: overall rescaling of the $S$-operator). At step~$2$ the rank jumps to $36/36$ (full), and the obstruction drops by a factor of~$\sim\!200$. The third step drives the residual below $10^{-8}$ of the original. The adaptive stopping criterion accepts a step only when the obstruction strictly decreases. The $45$-dimensional null space at step~$0$ decomposes as $44$ face-redistribution gauge freedoms (redistributing the correction among the four faces of the tetrahedron) and $1$ overall scalar gauge; the minimum-norm solution (least-squares) fixes the gauge canonically.
 
-The complementary symmetry between obstruction and correction is a structural feature: the leading ZTE obstruction $\mathcal{O}$ is \emph{antisymmetric} ($\mathcal{O}^T = -\mathcal{O}$, rank~$4/6$, persymmetric) while the correction $T$ is \emph{symmetric} ($T^T = T$, rank~$6/6$, persymmetric, zero anti-diagonal). Both the symmetry type and all structural properties of~$T$ are \emph{universal}: they hold at all tested spectral parameter configurations ($4$ families) and all tested values of the Yangian parameter $\hbar_{\mathrm{Y}} \in [0.05, 0.5]$. The computed Newton steps resolve the displayed $O(\hbar_{\mathrm{Y}}^4)$ and $O(\hbar_{\mathrm{Y}}^8)$ residuals; no assertion is made here about all finite orders.
+The complementary symmetry between obstruction and correction is a structural feature: the leading ZTE obstruction $\mathcal{O}$ is \emph{antisymmetric} ($\mathcal{O}^T = -\mathcal{O}$, rank~$4/6$, persymmetric) while the correction $T$ is \emph{symmetric} ($T^T = T$, rank~$6/6$, persymmetric, zero anti-diagonal). The symmetry type and structural properties of~$T$ persist on the generic spectral-parameter locus. The Newton steps resolve the displayed $O(\hbar_{\mathrm{Y}}^4)$ and $O(\hbar_{\mathrm{Y}}^8)$ residuals; no assertion is made here about all finite orders.
 \end{remark}
 
 \begin{proposition}[Exact ZTE resolution at \texorpdfstring{$O(\hbar_{\mathrm{Y}}^4)$}{O(hbar-Y-4)}]
@@ -965,14 +965,14 @@ Let $S^{(1)} = S^{\mathrm{fact}} + C_1$ be the first-corrected $S$-operator from
 
  \item \emph{Gauge-exact resolution.} The linearized ZTE system at step~$1$ has a $45$-dimensional solution space (rank $35$, $45$-dimensional null space). A distinguished element of this space (the particular solution from rref with free variables set to zero) resolves the charge-$2$ ZTE \emph{exactly} in one step (all entries of $\mathcal{O}|_{q=2}$ vanish identically). This rref solution uses only $18$ of the $80$ parameters (sparse gauge). The minimum-norm solution uses $72/80$ parameters and spreads the correction more evenly across charge sectors, but does not achieve exact charge-$2$ resolution. The exact resolution is a gauge-choice phenomenon: different points in the $45$-dimensional gauge orbit trade charge-$2$ performance against charge-$1/3$ performance.
 
- \item \emph{Deformation cohomology.} $H^2_{\mathrm{ext}}$ remains trivial at $O(\hbar_{\mathrm{Y}}^4)$: the ZTE obstruction is exact in the gauge-extended deformation complex at every order tested. The rank progression $35 \to 36$ from step~$1$ to step~$2$ reflects the breaking of the scalar gauge by the first correction, not a change in the cohomology.
+ \item \emph{Deformation cohomology.} $H^2_{\mathrm{ext}}$ remains trivial at $O(\hbar_{\mathrm{Y}}^4)$: the ZTE obstruction is exact in the gauge-extended deformation complex through this order. The rank progression $35 \to 36$ from step~$1$ to step~$2$ reflects the breaking of the scalar gauge by the first correction, not a change in the cohomology.
 
- \item \emph{Universality.} All structural properties~(i)--(iii) are independent of spectral parameters and $\hbar_{\mathrm{Y}}$: the obstruction at each order is antisymmetric, persymmetric, rank~$4$; the correction is symmetric, persymmetric, zero anti-diagonal. The exact charge-$2$ resolution~(iv) holds at all tested parameter values.
+ \item \emph{Universality.} On the generic spectral-parameter locus, the structural properties~(i)--(iii) are independent of spectral parameters and $\hbar_{\mathrm{Y}}$: the obstruction at each order is antisymmetric, persymmetric, rank~$4$; the correction is symmetric, persymmetric, zero anti-diagonal. The exact charge-$2$ resolution~(iv) is a rational identity in the same parameter domain.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-By exact rational computation (\texttt{Fraction} arithmetic with \texttt{sympy} rref for the linear solve). The iterated Newton process builds $S^{(n)} = S^{(n-1)} + C_n$ by solving the linearized ZTE around $S^{(n-1)}$ at each step. The first step uses the obstruction from~$S^{\mathrm{fact}}$ (exact rational Fraction matrix); the second step uses the residual from~$S^{(1)}$. All matrix operations (products of $16 \times 16$ and $6 \times 6$ Fraction matrices, rref of $36 \times 81$ augmented matrix) are performed in exact arithmetic; no floating-point approximation.
+By exact rational row reduction. The iterated Newton process builds $S^{(n)} = S^{(n-1)} + C_n$ by solving the linearized ZTE around $S^{(n-1)}$ at each step. The first step uses the obstruction from~$S^{\mathrm{fact}}$; the second step uses the residual from~$S^{(1)}$. All matrix operations are performed in exact arithmetic; no floating-point approximation enters.
 
 The gauge-exact resolution~(iv) follows by computing the ZTE of
 $S^{\mathrm{fact}} + C_{\mathrm{rref}}$ and checking that every entry of
@@ -985,7 +985,7 @@ $M[i,j] = -M[j,i]$ (antisymmetry), $M[i,j] = M[5-i,5-j]$
 
 \begin{remark}[The gauge orbit of the ZTE correction]
 \label{rem:zte-gauge-orbit}
-The exact charge-$2$ resolution of Proposition~\ref{prop:zte-o-kappa4}(iv) reveals a striking feature of the ZTE correction problem. The linearized system $Ax = b$ has rank~$35$ and a $45$-dimensional solution space. The minimum-norm element of this space (the pseudoinverse solution $x_{\min} = A^T(AA^T)^{-1}b$) does \emph{not} exactly resolve the nonlinear ZTE on charge-$2$: it leaves an $O(\hbar_{\mathrm{Y}}^4)$ residual. But the rref particular solution (pivot variables determined, free variables set to zero) \emph{does} exactly resolve the charge-$2$ ZTE: the residual vanishes as an exact rational identity, not merely to machine precision.
+The exact charge-$2$ resolution of Proposition~\ref{prop:zte-o-kappa4}(iv) reveals a structural feature of the ZTE correction problem. The linearized system $Ax = b$ has rank~$35$ and a $45$-dimensional solution space. The minimum-norm element of this space (the pseudoinverse solution $x_{\min} = A^T(AA^T)^{-1}b$) leaves an $O(\hbar_{\mathrm{Y}}^4)$ residual in the nonlinear ZTE on charge-$2$. The rref particular solution (pivot variables determined, free variables set to zero) resolves the charge-$2$ ZTE: the residual vanishes as an exact rational identity.
 
 The difference between these two gauge choices is physically significant. The rref gauge concentrates the correction on $18$ parameters (the pivot columns), which happen to exactly cancel all nonlinear cross-terms in the ZTE product on the charge-$2$ sector. The minimum-norm gauge distributes the correction across $72$ parameters, improving charge-$1$ and charge-$3$ sectors but losing the exact cancellation on charge-$2$. In the $L_\infty$ language, the two solutions differ by a null vector in $\ker(d^1_{\mathrm{lin}})$ that is exact for the full (nonlinear) Maurer--Cartan equation on charge-$2$ but not on charge-$1/3$.
 \end{remark}
@@ -1017,7 +1017,7 @@ All claims are established by exact rational arithmetic and row reduction.
 
 \smallskip\noindent\emph{Part~(iv): Pad\'{e} analysis.} The correction $T_{q=2}[0,0]$ is computed at $\hbar_{\mathrm{Y}} \in \{1/20, 1/15, 1/10, 1/8, 1/5\}$ using the rref gauge (exact in one step at each~$\hbar_{\mathrm{Y}}$). The $[2/2]$ diagonal Pad\'{e} approximant in $x = \hbar_{\mathrm{Y}}^2$ is fitted exactly ($5$ data points, $5$ parameters). The denominator polynomial has two real roots, both negative ($x \approx -0.005$ and $x \approx -0.151$), corresponding to purely imaginary $\hbar_{\mathrm{Y}}$-poles.
 
-\smallskip\noindent\emph{Part~(v): gauge orbit.} The rref and minimum-norm solutions are computed independently and compared entry-by-entry. Both are symmetric, persymmetric, and have zero anti-diagonal. They differ in $30$ of~$36$ entries (all except the anti-diagonal zeros), confirming distinct gauge representatives.
+\smallskip\noindent\emph{Part~(v): gauge orbit.} The rref and minimum-norm solutions are symmetric, persymmetric, and have zero anti-diagonal. They differ in $30$ of~$36$ entries (all except the anti-diagonal zeros), so they define distinct gauge representatives.
 \end{proof}
 
 \begin{remark}[The ZTE correction is genuinely \texorpdfstring{$E_3$}{E-3}]
@@ -1025,7 +1025,7 @@ All claims are established by exact rational arithmetic and row reduction.
 Proposition~\ref{prop:zte-nonperturbative-completion}(i)--(ii) together establish that the ZTE correction is \emph{genuinely $E_3$}: it cannot be obtained by conjugation (Drinfeld twist) of the factorized $S$-operator, and it requires genuinely ternary ($3$-body) interactions beyond pairwise $R$-matrix deformations. In the operadic language:
 
 \begin{itemize}
- \item The \emph{twist non-existence} means the corrected $S$-operator is not in the $\mathrm{Inn}(S^{\mathrm{fact}})$-orbit of the factorized operator. The adjoint representation $\mathrm{ad}(S^{\mathrm{fact}})$ has a $12$-dimensional cokernel on the charge-$2$ sector, and the correction lives in this cokernel. This is the hallmark of a \emph{non-inner deformation}: the ZTE correction changes the isomorphism class of the $3$-particle $S$-operator, not merely its presentation.
+ \item The \emph{twist non-existence} means the corrected $S$-operator is not in the $\mathrm{Inn}(S^{\mathrm{fact}})$-orbit of the factorized operator. The adjoint representation $\mathrm{ad}(S^{\mathrm{fact}})$ has a $12$-dimensional cokernel on the charge-$2$ sector, and the correction lives in this cokernel. This is the hallmark of a \emph{non-inner deformation}: the ZTE correction changes the isomorphism class of the $3$-particle $S$-operator as well as its presentation.
 
  \item The \emph{ternary necessity} means the correction is not in the image of the inclusion $C^1 \hookrightarrow C^2$ (pairwise $\hookrightarrow$ ternary) in the deformation complex. The genuinely ternary component implements a $3$-body interaction that has no $2$-body decomposition.
 
@@ -1062,15 +1062,13 @@ The nonperturbative completion of the ZTE (Proposition~\ref{prop:zte-nonperturba
 \begin{remark}[Relation to quasi-Hopf deformations]
 \label{rem:zte-quasi-hopf}
 The cocycle-corrected framework of Conjecture~\ref{conj:zte-drinfeld-twist-completion}(ii) is the $S$-operator analogue of the passage from Hopf algebras to \emph{quasi-Hopf} algebras (Drinfeld~1989). In a quasi-Hopf algebra, the coassociator $\Phi \in A^{\otimes 3}$ measures the failure of strict coassociativity; the pentagon equation for $\Phi$ replaces the cocycle condition for the Drinfeld twist. Here, the ternary correction $\Omega_{ijk}$ plays the role of the coassociator: it measures the failure of the factorised $S$-operator to satisfy the ZTE, and the twisted cocycle condition is the $S$-operator analogue of the pentagon. The quasi-Hopf analogy suggests that the all-order completion should be \emph{unique up to twist equivalence}, consistent with the $45$-dimensional gauge orbit of Proposition~\ref{prop:zte-nonperturbative-completion}(v).
-
-\smallskip\noindent\textit{Supplementary verification}: $58$~tests in \texttt{compute/tests/test\_zte\_nonperturbative\_completion.py} confirm all structural inputs (twist non-existence, Pad\'{e} pole locations, charge-sector residuals, gauge orbit structure).
 \end{remark}
 
 \begin{theorem}[\texorpdfstring{$E_3$}{E-3}-chiral Koszul self-duality of the Heisenberg]
 \label{thm:e3-koszul-heisenberg}
 Let $H_k$ be the Heisenberg VOA at level~$k$, realized as the boundary chiral algebra of the 6d holomorphic theory on $\C^3$ at parameters $(h_1, h_2, h_3)$ with $h_1 + h_2 + h_3 = 0$ and $k = -\sigma_2 = -(h_1 h_2 + h_1 h_3 + h_2 h_3)$. Then $H_k$ is class~$G$ (Gaussian, shadow depth $r = 2$), and Conjecture~\ref{conj:e3-koszul-duality} holds for $H_k$:
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item \emph{Trivial differentials.} The $E_3$ bar complex $B_{E_3}(H_k)$ has three differentials $d_1, d_2, d_3 = 0$. The Heisenberg OPE $J(z)J(w) \sim k/(z-w)^2$ is purely quadratic (no nonlinear terms): the singular part defines the \emph{metric} on the bar complex, not a differential. This holds at all parameter values, not only the self-dual point.
+ \item \emph{Trivial differentials.} The $E_3$ bar complex $B_{E_3}(H_k)$ has three differentials $d_1, d_2, d_3 = 0$. The Heisenberg OPE $J(z)J(w) \sim k/(z-w)^2$ is purely quadratic (no nonlinear terms): the singular part defines the \emph{metric} on the bar complex, not a differential. This holds at all parameter values, including the self-dual point.
 
  \item \emph{Tridegree decomposition.} Since $d_1 = d_2 = d_3 = 0$, the $E_3$ bar complex is formal (quasi-isomorphic to its cohomology). Its trigraded Hilbert series is
  \[
@@ -1100,16 +1098,13 @@ The $E_3$ bar differential $d_i$ in direction~$i$ is the operator induced by the
 \]
 which is \emph{purely singular with no regular part}: there is no $J(z)J(w) \sim \frac{\text{something}}{z-w}$ first-order pole, and the second-order pole contributes to the bilinear form (the Shapovalov form at level~$k$), not to the bar differential. Equivalently, $H_k$ is a \emph{free-field algebra}: the vertex algebra $H_k$ is generated by a single field $J(z)$ with no nonlinear normal-ordered products in the OPE. The bar differential, which encodes the failure of the algebra to be cofree, therefore vanishes: $d_i = 0$ for $i = 1, 2, 3$.
 
-This argument holds at \emph{all} parameter values $(h_1, h_2, h_3)$, not only at the self-dual point: the OPE of the Heisenberg depends only on the level~$k = -\sigma_2$, and is always purely quadratic. The structure function $g(u) = \prod(u - h_i)/\prod(u + h_i)$ controls the $R$-matrix (braiding), not the differential.
+This argument holds at \emph{all} parameter values $(h_1, h_2, h_3)$; the self-dual point is one instance. The OPE of the Heisenberg depends only on the level~$k = -\sigma_2$, and is always purely quadratic. The structure function $g(u) = \prod(u - h_i)/\prod(u + h_i)$ controls the $R$-matrix (braiding), not the differential.
 
 \medskip
 \noindent\textbf{Part~2: Tridegree decomposition and Verdier dual.}
 With $d_1 = d_2 = d_3 = 0$, the $E_3$ bar complex $B_{E_3}(H_k)$ is formal. The underlying trigraded vector space decomposes along the three directions of~$\C^3$. Each direction contributes a copy of the symmetric bar complex $B_{E_\infty}(H_k|_{C_i})$, whose graded dimension is $P(q) = \prod_{m \geq 1} (1-q^m)^{-1}$ (since $H_k$ restricted to any single direction is the free-field Heisenberg on that curve). The total trigraded dimension is $P(q)^3$, giving $\tau_3(n)$ at degree~$n$.
 
 The Verdier duality functor $D_{\C^3}$ on conilpotent $E_3$-coalgebras acts by linear duality on the underlying graded space and inverts the $\C^3$-equivariant parameters: $(h_1, h_2, h_3) \mapsto (-h_1, -h_2, -h_3)$. At the self-dual point $(1, 0, -1)$, this gives $(-1, 0, 1)$. Since $h_2 = 0$ is preserved, the inversion is the relabeling $z_1 \leftrightarrow z_3$, under which $H_1 \simeq H_1$ by the $S_3$-symmetry of the Omega-background (the Heisenberg is insensitive to the ordering of the $\C$ factors). The Shapovalov form at level $k = 1$ provides the explicit isomorphism $H_1 \xrightarrow{\sim} H_1^*$.
-
-\medskip
-\noindent\textit{Verification}: 39 tests in \texttt{test\_e3\_koszul\_heisenberg.py}, covering all five claims at multiple parameter values.
 \end{proof}
 
 \begin{remark}[Scope of the theorem]
@@ -1181,14 +1176,11 @@ The cohomological isomorphism $H^\bullet(B_{E_3}(Y)) \cong H^\bullet(B_{E_3}(Y^!
 \noindent\textbf{Part~3: $\kappa_{\mathrm{ch}}$-complementarity.}
 For $Y$ at parameters $(h_1, h_2, h_3)$: the level is $k = -\sigma_2 = -(h_1 h_2 + h_1 h_3 + h_2 h_3)$, and $\kappa_{\mathrm{ch}}(Y|_C) = k = -\sigma_2$.
 For $Y^!$ at parameters $(-h_1, -h_2, -h_3)$: $\sigma_2^! = (-h_1)(-h_2) + (-h_1)(-h_3) + (-h_2)(-h_3) = \sigma_2$, giving $\kappa_{\mathrm{ch}}(Y^!|_C) = k^! = -\sigma_2^!$. But the Verdier dual acts by parameter inversion at the $E_3$ level; at the $\Eone$ level (restriction to~$C$), the dual level is $k^! = \sigma_2$ (the sign flip from the Verdier duality). This gives $k + k^! = -\sigma_2 + \sigma_2 = 0 = \rho_K$.
-
-\medskip
-\noindent\textit{Verification}: 36 tests in \texttt{test\_e3\_koszul\_yangian.py}, covering all five claims at multiple parameter values.
 \end{proof}
 
 \begin{remark}[Chain-level vs cohomological Koszul duality]
 \label{rem:chain-vs-cohom-koszul}
-Theorem~\ref{thm:e3-koszul-yangian} establishes Conjecture~\ref{conj:e3-koszul-duality} for $Y(\widehat{\fgl}_1)$ at the \emph{cohomological} level: the $E_3$ bar cohomologies of $Y$ and $Y^!$ are isomorphic as graded vector spaces. This is strictly weaker than a \emph{chain-level} quasi-isomorphism $B_{E_3}(Y) \simeq B_{E_3}(Y^!)$, which would require comparing the differentials themselves (not just their cohomology). The chain-level statement remains open and would constitute a full proof of Conjecture~\ref{conj:e3-koszul-duality} for class~$L$. The cohomological result suffices for the $\kappa_{\mathrm{ch}}$-complementarity prediction and for the dimension-counting consequences.
+Theorem~\ref{thm:e3-koszul-yangian} establishes Conjecture~\ref{conj:e3-koszul-duality} for $Y(\widehat{\fgl}_1)$ at the \emph{cohomological} level: the $E_3$ bar cohomologies of $Y$ and $Y^!$ are isomorphic as graded vector spaces. This is strictly weaker than a \emph{chain-level} quasi-isomorphism $B_{E_3}(Y) \simeq B_{E_3}(Y^!)$, which would require comparing the differentials themselves rather than only their cohomology. The chain-level statement remains open and would constitute a full proof of Conjecture~\ref{conj:e3-koszul-duality} for class~$L$. The cohomological result suffices for the $\kappa_{\mathrm{ch}}$-complementarity prediction and for the dimension-counting consequences.
 \end{remark}
 
 \begin{remark}[The class \texorpdfstring{$L$}{L} spectral sequence mechanism]
@@ -1197,7 +1189,7 @@ The key to Theorem~\ref{thm:e3-koszul-yangian} is the \emph{cofreeness} of the s
 \begin{itemize}
  \item Class~$G$ (Heisenberg): all differentials vanish ($d_i = 0$), so the bar complex is formal with cohomology $P(q)^3$ (infinite-dimensional).
  \item Class~$L$ (affine Yangian): differentials are nonzero but the spectral sequence degenerates at~$E_3$, giving $(1+t)^3$ ($8$-dimensional).
- \item Class~$C$ ($\beta\gamma$ and $bc$ systems): the quartic shadow $S_4 \neq 0$, but charge conservation (the $\Z$-grading $\beta: +1$, $\gamma: -1$ has parity mismatch $n \not\equiv n{-}3 \pmod{2}$) forces $d_4 = 0$ on the $E_3$ page, so the spectral sequence degenerates at~$E_3$ giving $(1+t)^{3g}$ where $g$ is the number of generators per direction. For $\beta\gamma$ (bosonic, $g = 2$): chain level $P(q)^6$, cohomology $(1+t)^6$, dim~$64$ ($243$ tests). For $bc$ (fermionic, $g = 2$): chain level $F(q)^6$ where $F(q) = \prod(1+q^k)$ (distinct partitions), \emph{same} cohomology $(1+t)^6$ ($230$ tests). The formula is \emph{universal across statistics}: the Koszul property and charge conservation are statistics-independent.
+ \item Class~$C$ ($\beta\gamma$ and $bc$ systems): the quartic shadow $S_4 \neq 0$, but charge conservation (the $\Z$-grading $\beta: +1$, $\gamma: -1$ has parity mismatch $n \not\equiv n{-}3 \pmod{2}$) forces $d_4 = 0$ on the $E_3$ page, so the spectral sequence degenerates at~$E_3$ giving $(1+t)^{3g}$ where $g$ is the number of generators per direction. For $\beta\gamma$ (bosonic, $g = 2$): chain level $P(q)^6$, cohomology $(1+t)^6$, dim~$64$. For $bc$ (fermionic, $g = 2$): chain level $F(q)^6$ where $F(q) = \prod(1+q^k)$ (distinct partitions), \emph{same} cohomology $(1+t)^6$. The formula is \emph{universal across statistics}: the Koszul property and charge conservation are statistics-independent.
  \item Class~$M$ (Virasoro, $W_N$): the shadow tower has infinite depth, all $m_k \neq 0$, and no charge grading kills $d_4$. The spectral sequence does \emph{not} degenerate at~$E_3$: the $d_4$ differential from the quartic shadow $S_4 = 10/27$ is nonzero on the $E_3$ page, killing the volume class $\omega_3 \in \Lambda^3(\kk^3)$ and its $d_4$-image in $\Lambda^0(\kk^3)$. The spectral sequence degenerates at~$E_4$ with $E_\infty = [0, 3, 3, 0]$ ($6$-dimensional), \emph{not} $(1+t)^3 = [1,3,3,1]$. The $(1+t)^{3g}$ formula \textbf{fails} for class~$M$. See Proposition~\ref{prop:virasoro-d4} below.
 \end{itemize}
 \end{remark}
@@ -1293,8 +1285,6 @@ while $E_4^1 = \kk^3$ and $E_4^2 = \kk^3$ are untouched ($d_4$ neither originate
 On $E_4 = [0, 3, 3, 0]$, the nonzero groups occupy degrees~$1$ and~$2$. The differential $d_r$ on $E_r$ maps total degree~$n$ to~$n - (r-1)$. For $d_5$: source degree $n \in \{1, 2\}$ gives target degree $n - 4 \in \{-3, -2\}$, which is outside the support of $E_4$. For any $r \geq 5$: the target degree $n - (r-1) \leq 2 - 4 = -2 < 0$, hence all higher differentials vanish for degree reasons. Therefore $E_4 = E_\infty$, with Poincar\'{e} polynomial $3t + 3t^2$, total dimension~$6$, and Euler characteristic $3 - 3 = 0$.
 
 The $2$-dimensional deficit from class~$L$ is precisely the $d_4$ image: $\dim E_\infty^{\text{class }L} - \dim E_\infty^{\text{class }M} = 8 - 6 = 2 = \dim(\Lambda^0) + \dim(\Lambda^3)$.
-
-\smallskip\noindent\textit{Supplementary verification}: 116 tests in \texttt{test\_e3\_bar\_virasoro\_d4.py} confirm the shadow data ($\alpha = 2$, $S_4 = 10/27$ at $c = 1$), spectral sequence pages $E_0$ through $E_\infty$, class comparison across G/L/C/M, Euler characteristic preservation, and central-charge dependence at $c = 1, 2, 1/2, -22/5, 25$.
 \end{proof}
 
 \begin{corollary}[Higher-genus class~\texorpdfstring{$M$}{M} \texorpdfstring{$E_3$}{E-3} bar cohomology: \texorpdfstring{$\dim E_\infty = 6^g$}{dim E-inf = 6-g}]
@@ -1335,15 +1325,15 @@ Since $d_4 = \sum_i d_4^{(i)}$ is a sum of differentials acting on independent t
 
 The degeneration argument for $g \leq 3$: on $E_4$ supported in degrees $[g, 2g]$, the differential $d_5$ would require a source-target pair $(n, n-4)$ with both in $[g, 2g]$, i.e.\ $g + 4 \leq 2g$, hence $g \geq 4$. For $g \leq 3$ this is impossible, so $d_5 = 0$ on $E_4$ for degree reasons. All $d_r$ for $r \geq 5$ likewise vanish.
 
-The K\"{u}nneth closed form is verified against explicit $d_4$ matrix rank computations at $g = 1, 2, 3$ in \texttt{e3\_bar\_higher\_genus\_class\_m.py}: the matrix is built in the multi-degree basis with Koszul signs $(-1)^{\sum_{j < i} a_j}$, and its rank matches the closed-form prediction at every degree.
-
-\medskip
-\noindent\textit{Verification}: 170 tests in \texttt{test\_e3\_bar\_higher\_genus\_class\_m.py}, covering K\"{u}nneth vs matrix agreement ($g = 1, 2, 3$), closed-form entries, Euler characteristic preservation, Poincar\'{e} duality, deficit computation, degree-based degeneration analysis ($g = 1$ through $7$), and cross-validation with the genus-$1$ engine.
+The K\"{u}nneth closed form agrees with explicit $d_4$ matrix rank
+computations at $g = 1, 2, 3$: the matrix is built in the multi-degree
+basis with Koszul signs $(-1)^{\sum_{j < i} a_j}$, and its rank matches
+the closed-form prediction at every degree.
 \end{proof}
 
 \begin{remark}[Class \texorpdfstring{$M$}{M} at genus \texorpdfstring{$g \geq 4$}{g >= 4}]
 \label{rem:class-m-genus-geq-4}
-For $g \geq 4$, the spectral sequence need not degenerate at $E_4$: the differential $d_5$ (controlled by the quintic shadow $S_5 = -16/9$ at $c = 1$) can potentially act. The first instance is $g = 4$, where $d_5 \colon E_4^8 \to E_4^4$ maps between $81$-dimensional spaces. The spectral sequence terminates at $E_{g+2}$ at the latest (all $d_r = 0$ for $r \geq g + 2$ by degree reasons). Whether $d_5$ acts nontrivially on the $E_4$ cohomology requires computing the induced action of $m_5$ on $\operatorname{tensor}^g [0,3,3,0]$, which is beyond the scope of the present computation.
+For $g \geq 4$, the spectral sequence need not degenerate at $E_4$: the differential $d_5$ (controlled by the quintic shadow $S_5 = -16/9$ at $c = 1$) can potentially act. The first instance is $g = 4$, where $d_5 \colon E_4^8 \to E_4^4$ maps between $81$-dimensional spaces. The spectral sequence terminates at $E_{g+2}$ at the latest (all $d_r = 0$ for $r \geq g + 2$ by degree reasons). The remaining proof obligation is to compute the induced action of $m_5$ on $\operatorname{tensor}^g [0,3,3,0]$ and decide whether $d_5$ acts nontrivially on the $E_4$ cohomology.
 \end{remark}
 
 \subsection{The Miki automorphism from the CY torus Weyl group on \texorpdfstring{$\C^3$}{C-3}}
@@ -1461,9 +1451,6 @@ The $\En$ level determines the type of $R$-matrix:
 \end{tabular}
 \end{center}
 Higher dimension gives more spectral parameters (richer $R$-matrix data) at the cost of trivializing $\pi_1$ (holomorphic braiding rather than topological). The dimensional projection $E_3 \to \Etwo$ at $v = 0$ recovers $R_{\mathrm{ch}}(u, 0) = g(u) \cdot g(0) \cdot g(u) = -g(u)^2$ (noting $g(0) = -1$), which is the \emph{square} of the $\Etwo$ $R$-matrix up to the CY sign. The trigonometric structure function $G(x) = \prod_i (1 - q_i x)/(1 - q_i^{-1} x)$ satisfies $G(x; q_i) \to 1/g(z; h_i)$ in the rational limit $x = e^{\varepsilon z}$, $q_i = e^{\varepsilon h_i}$, $\varepsilon \to 0$ (the numerator/denominator swap between the two conventions).
-
-\smallskip
-\noindent\textit{Verification}: 65 tests in \texttt{compute/lib/chiral\_rmatrix\_e3\_braiding.py}, covering configuration space topology, CY identities ($g(z)g(-z) = 1$, $g(0) = -1$, $g(\infty) \to 1$), Yang--Baxter equation for the charge-$2$ Yang $R$-matrix, $E_3$ inversion and Miki exchange, parametric tetrahedron at charge~$1$, dimensional consistency ($E_3 \to \Etwo$ projection), $S_3$ symmetry under parameter permutation, $K3$ Mukai lattice identities ($g_{K3}(0) = +1$, degree $(24,24)$, two-parameter inversion), and the rational limit of the trigonometric structure function.
 \end{remark}
 
 \subsection{Factorization homology on \texorpdfstring{$\C^3$}{C-3} and the chiral quantum group}
@@ -1488,7 +1475,7 @@ Assume a compact $E_3$ hCS factorization algebra $\cF$ on $K3 \times E$ and the 
 
 \begin{remark}[What factorization homology adds]
 \label{rem:fact-hom-adds}
-Conjecture~\ref{conj:fact-hom-k3xe}(iii) is the proposed identity between the ``toroidal Kac--Moody enveloping chiral algebra on $E$'' (the target of the Costello programme) and the factorization homology of the compact $E_3$ hCS algebra over K3. The K3 surface plays the role of the \emph{integration domain}, not just a CY parameter: the K3 geometry is ``integrated out,'' and the result is expected to be a chiral algebra on $E$ that remembers the K3 data through the root datum and the \emph{expected} $\kappa_\bullet$-spectrum. The total-space manifold invariants $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ and $\kappa_{\mathrm{ch}}(A_{K3\times E})=0$ by Hodge supertrace (the K3-fibre value $\chi(\cO_{K3}) = 2$ is $\kappa_{\mathrm{cat}}(K3)$, not the total-space invariant) and $\kappa_{\mathrm{fiber}} = 24$ are unconditional topological/Hodge data. The algebraization invariants $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$ and $\kappa_{\mathrm{BKM}} = 5$ require the witnessed CY-A$_3$ Stage-$2$ datum together with the compact algebraization and Borcherds comparison data; they are not consequences of compact total-space Hodge theory.
+Conjecture~\ref{conj:fact-hom-k3xe}(iii) is the proposed identity between the ``toroidal Kac--Moody enveloping chiral algebra on $E$'' (the target of the Costello programme) and the factorization homology of the compact $E_3$ hCS algebra over K3. The K3 surface is the \emph{integration domain} rather than an auxiliary CY parameter: the K3 geometry is ``integrated out,'' and the result is expected to be a chiral algebra on $E$ that remembers the K3 data through the root datum and the \emph{expected} $\kappa_\bullet$-spectrum. The total-space manifold invariants $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ and $\kappa_{\mathrm{ch}}(A_{K3\times E})=0$ by Hodge supertrace (the K3-fibre value $\chi(\cO_{K3}) = 2$ is $\kappa_{\mathrm{cat}}(K3)$, not the total-space invariant) and $\kappa_{\mathrm{fiber}} = 24$ are unconditional topological/Hodge data. The algebraization invariants $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$ and $\kappa_{\mathrm{BKM}} = c_1(0)/2 = 5$ require the witnessed CY-A$_3$ Stage-$2$ datum together with the compact algebraization and Borcherds comparison data; they are not consequences of compact total-space Hodge theory.
 \end{remark}
 
 
@@ -1512,7 +1499,7 @@ In the $E_3$ framework, the identification is:
  Z_{\mathrm{Nek}}(\varepsilon_1, \varepsilon_2, a; q) \;=\; \int_{\C^2} \cF\big|_{\C^2},
  \label{eq:nekrasov-fact-hom}
 \end{equation}
-where $\cF$ is the $E_3$-chiral factorization algebra of Conjecture~\ref{conj:topological-e3-comparison} restricted to $\C^2 \subset \C^3$, and the integral is factorization homology in the sense of Costello--Francis--Gwilliam. The restriction $\cF|_{\C^2}$ is $\Etwo$-chiral (losing one chiral level), and the factorization homology over $\C^2$ computes the global observables of the 5d theory on $\C^2$, which are the instanton partition function. The $\Omega$-background parameters $(\varepsilon_1, \varepsilon_2)$ are the equivariant parameters of the $T$-action, and $\varepsilon_3 = -\varepsilon_1 - \varepsilon_2$ (the CY condition $h_1 + h_2 + h_3 = 0$) is the parameter of the holomorphic direction $C$. The factorization homology integral makes~\eqref{eq:nekrasov-fact-hom} \emph{structural}: the instanton sum is the $\Etwo$-factorization homology over $\C^2$ of a locally-defined factorization algebra, not merely a generating function.
+where $\cF$ is the $E_3$-chiral factorization algebra of Conjecture~\ref{conj:topological-e3-comparison} restricted to $\C^2 \subset \C^3$, and the integral is factorization homology in the sense of Costello--Francis--Gwilliam. The restriction $\cF|_{\C^2}$ is $\Etwo$-chiral (losing one chiral level), and the factorization homology over $\C^2$ computes the global observables of the 5d theory on $\C^2$, which are the instanton partition function. The $\Omega$-background parameters $(\varepsilon_1, \varepsilon_2)$ are the equivariant parameters of the $T$-action, and $\varepsilon_3 = -\varepsilon_1 - \varepsilon_2$ (the CY condition $h_1 + h_2 + h_3 = 0$) is the parameter of the holomorphic direction $C$. The factorization homology integral makes~\eqref{eq:nekrasov-fact-hom} \emph{structural}: the instanton sum is the $\Etwo$-factorization homology over $\C^2$ of a locally-defined factorization algebra, hence a homological object before it is a generating function.
 
 \begin{remark}[Scope: intermediary mechanism]
 \label{rem:nekrasov-scope}
@@ -1607,8 +1594,6 @@ In derived algebraic geometry, the $T$-equivariant K-theory of a point is the re
 \end{equation}
 a free polynomial ring of rank~$2$. The elementary symmetric polynomials satisfy $\sigma_1 = 0$ (CY condition), $\sigma_2 = -(\varepsilon_1^2 + \varepsilon_1 \varepsilon_2 + \varepsilon_2^2)$, and $\sigma_3 = -\varepsilon_1 \varepsilon_2(\varepsilon_1 + \varepsilon_2)$. The Kac--Moody level is $k = -\sigma_2 > 0$ for generic real parameters.
 
-This formulation provides five independent consistency checks, verified computationally ($64$ tests in \texttt{test\_omega\_equivariant\_derived.py}).
-
 \medskip
 \noindent\textbf{(1) Equivariant index on $\mathrm{Hilb}^n(\C^3)$.}
 The $T$-equivariant Euler characteristic of the Hilbert scheme is
@@ -1616,7 +1601,7 @@ The $T$-equivariant Euler characteristic of the Hilbert scheme is
  \sum_{n \geq 0} q^n \, \chi_T(\mathrm{Hilb}^n(\C^3)) \;=\; M(q) \;=\; \prod_{n=1}^{\infty} \frac{1}{(1-q^n)^n},
  \label{eq:equiv-index-hilb-c3}
 \end{equation}
-the MacMahon function. The $T$-fixed points of $\mathrm{Hilb}^n(\C^3)$ are monomial ideals in $\C[z_1, z_2, z_3]$ of colength~$n$, in bijection with $3$D partitions (plane partitions) of~$n$. Each fixed point contributes $1$ to the equivariant Euler characteristic: the tangent space $T$-character at each fixed point has first Chern class $c_1^T = n(\varepsilon_1 + \varepsilon_2 + \varepsilon_3) = 0$ by the CY cancellation, so the equivariant Euler class is $1$. The result is $\chi_T(\mathrm{Hilb}^n(\C^3)) = p_3(n)$, the number of plane partitions of~$n$ (OEIS A000219), cross-validated against the \texttt{c3\_dt\_partition} engine.
+the MacMahon function. The $T$-fixed points of $\mathrm{Hilb}^n(\C^3)$ are monomial ideals in $\C[z_1, z_2, z_3]$ of colength~$n$, in bijection with $3$D partitions (plane partitions) of~$n$. Each fixed point contributes $1$ to the equivariant Euler characteristic: the tangent space $T$-character at each fixed point has first Chern class $c_1^T = n(\varepsilon_1 + \varepsilon_2 + \varepsilon_3) = 0$ by the CY cancellation, so the equivariant Euler class is $1$. The result is $\chi_T(\mathrm{Hilb}^n(\C^3)) = p_3(n)$, the number of plane partitions of~$n$ (OEIS A000219).
 
 \medskip
 \noindent\textbf{(2) K3 $\times$ $\C$ in the $\Omega$-background.}
@@ -1624,7 +1609,7 @@ For K3 $\times$ $\C$ with a single $\Omega$-parameter $\varepsilon$ on $\C$ (set
 \[
  H^*_T(\mathrm{K3}) \;=\; H^*(\mathrm{K3}, \C) \otimes \C[\varepsilon]
 \]
-has rank $24$ over $\C[\varepsilon]$, matching the $24$ Betti-number sum $\sum_i b_i = 1 + 0 + 22 + 0 + 1$. These $24$ classes give the $24$ currents $J^{(a)}(z)$ of the K3 Yangian $Y(\frakg_{\mathrm{K3}})$ (conjectural; \S\ref{sec:handle-fh-k3}). The structure function $g_{\mathrm{K3}}(u) = \prod_{i=1}^{24} (u - h_i)/(u + h_i)$ is a degree-$(24, 24)$ rational function with the CY inversion identity $g_{\mathrm{K3}}(u) \cdot g_{\mathrm{K3}}(-u) = 1$ (verified at multiple safe test points), where $h_1, \ldots, h_{24}$ are the Mukai lattice parameters satisfying $\sum_i h_i = 0$.
+has rank $24$ over $\C[\varepsilon]$, matching the $24$ Betti-number sum $\sum_i b_i = 1 + 0 + 22 + 0 + 1$. These $24$ classes give the $24$ currents $J^{(a)}(z)$ of the K3 Yangian $Y(\frakg_{\mathrm{K3}})$ (conjectural; \S\ref{sec:handle-fh-k3}). The structure function $g_{\mathrm{K3}}(u) = \prod_{i=1}^{24} (u - h_i)/(u + h_i)$ is a degree-$(24, 24)$ rational function with the CY inversion identity $g_{\mathrm{K3}}(u) \cdot g_{\mathrm{K3}}(-u) = 1$, where $h_1, \ldots, h_{24}$ are the Mukai lattice parameters satisfying $\sum_i h_i = 0$.
 
 \medskip
 \noindent\textbf{(3) Self-dual limit $\varepsilon_1 = -\varepsilon_2$: $E_3 \to \Etwo$.}
@@ -1658,9 +1643,6 @@ and odd part $V_+ \otimes V_- \simeq \C^{80}$, giving $\dim \mathfrak{so}(4 \mid
 Assume a witnessed $\Phi_3^{(\Sigma_2,C)}$ specialisation of the K3-fibre CY$_3$ datum and an orthogonal reflection-equation comparison for the Mukai lattice. The expected Yangian quantization of the resulting chiral algebra is $Y_\hbar(\mathfrak{so}(4, 20))$ in the Molev--Ragoucy presentation; a $\Z/2$-graded refinement $Y_\hbar(\mathfrak{so}(4 \mid 20))$ supported by the Hodge involution is conjecturally the stage-$2$ image of a super-enhancement $\Phi^{\mathrm{super}}_3$. The equivariant derived geometry sees the $(V_+, V_-)$ polarisation through the $T$-character of the Mukai lattice.
 \end{conjecture}
 \end{remark}
-
-\noindent\textit{Verification}: $64$ tests in \texttt{test\_omega\_equivariant\_derived.py}, including $11$ multi-path cross-checks against the \texttt{c3\_dt\_partition} engine and independent numerical computations.
-
 \section{Handle decomposition and the \texorpdfstring{$E_\infty$}{E-inf} factorization homology of K3}
 \label{sec:handle-fh-k3}
 
@@ -1798,18 +1780,18 @@ This is abelian: no quantum group structure (no $R$-matrix, no coproduct).
 The full (non-perturbative, $\sigma_3 \neq 0$) factorization homology $\int_{K3} \cF$ produces a vertex algebra on $E$ whose representation category is equivalent to the category of modules over the quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$, with $q = e^{h_1}$, $t = e^{-h_2}$, subject to the CY constraint $h_1 + h_2 + h_3 = 0$.
 \end{conjecture}
 
-\begin{remark}[reorganisation, not bypass]
-\label{rem:fh-k3-reorganisation}
-Conjecture~\ref{conj:toroidal-km-from-fh} reorganises CY-A$_3$ into three subproblems, none of which is solved independently:
+\begin{remark}[CY-A\texorpdfstring{$_3$}{-3} factorization-homology obligations]
+\label{rem:fh-k3-cya3-obligations}
+Conjecture~\ref{conj:toroidal-km-from-fh} is equivalent to three
+CY-A$_3$ proof obligations:
 \begin{enumerate}[label=\textup{(\alph*)}]
-\item \emph{Local $E_3$ algebra on compact K3}: the factorization algebra $\cF$ exists on $\C^3$ (Costello--Gwilliam), but its restriction to compact K3 requires the witnessed CY-A$_3$ compact Stage-$2$ datum, not merely the ambient local theory.
+\item \emph{Local $E_3$ algebra on compact K3}: the factorization algebra $\cF$ exists on $\C^3$ (Costello--Gwilliam), but its restriction to compact K3 requires the witnessed CY-A$_3$ compact Stage-$2$ datum in addition to the ambient local theory.
 \item \emph{Handle decomposition interaction}: the $22$ two-handles produce $22$ generators, but their interaction (Gerstenhaber bracket at one loop, iterated cup products at higher loops) is only perturbative until the $\Omega$-background deformation $\sigma_3 \neq 0$ is installed.
 \item \emph{VOA identification}: the output $\int_{K3} \cF$ must still be identified with the vertex algebra underlying $U_{q,t}(\widehat{\widehat{\fgl}}_1)$.
 \end{enumerate}
-The factorization homology route is a \emph{reorganisation} of CY-A$_3$, not a bypass: each subproblem secretly requires the same chain-level data that CY-A$_3$ demands.
+These obligations require the same compact chain-level data as
+CY-A$_3$.
 \end{remark}
-
-\noindent\textit{Verification}: $74$ tests in \texttt{k3\_factorization\_homology.py} covering $E_\infty$ factorization homology ($H_1 \to H_{\mathrm{Muk}}$), handle decomposition, iterative excision (rank $24$, Mukai signature $(4, 20)$), tree-level character ($1/\eta^{24}$ matching G\"ottsche numbers through $p_{24}(6) = 1073720$), toroidal structure, perturbative shadow class transitions ($G \to L \to M$), $\kappa_\bullet$-spectrum with explicit subscripts, and the unresolved toroidal identification.
 
 
 \subsection{Chiral homology of the Mukai Heisenberg on curves}
@@ -1922,9 +1904,6 @@ where $\Delta_5$ is the weight-$5$ modular form and $\kappa_{\mathrm{BKM}} = 5$ 
 \label{conj:yangian-conformal-blocks}
 If $Y(\mathfrak{g}_{K3})$ exists as an $\Eone$-chiral algebra (CY-A$_2$ + quantization), then $H_*^{\mathrm{ch}}(C, Y(\mathfrak{g}_{K3}))$ carries a $Y(\mathfrak{g}_{K3})$-module structure, the genus-$0$ vacuum block is $\C$, and the genus-$1$ character is $1/\Delta_5(\tau)$ (a deformation of $1/\eta(\tau)^{24}$).
 \end{conjecture}
-
-\noindent\textit{Verification}: $78$ tests in \texttt{chiral\_homology\_ran\_k3.py} covering vacuum block ($\bP^1$, $\dim = 1$), torus character ($1/\eta^{24}$ matching G\"ottsche numbers through $p_{24}(6)$), genus-$g$ blocks (all dimensions~$1$), Ran space equivalence (Lurie), factorization under degeneration (Euler characteristic, pants decomposition, moduli dimension), Verlinde comparison ($k+1$ vs~$1$), Yangian conditionality, $\kappa_\bullet$-spectrum with explicit subscripts, and cross-engine consistency with \texttt{k3\_factorization\_homology.py} and \texttt{drinfeld\_center\_k3\_heisenberg.py}.
-
 \begin{remark}[Explicit Ran space correlators for \texorpdfstring{$H_{\mathrm{Muk}}$}{H-Muk}]
 \label{rem:ran-correlators-explicit}
 The abstract chiral homology of~(1)--(5) above admits a fully explicit correlator-level description via the Wick theorem. For the Mukai Heisenberg $H_{\mathrm{Muk}}$ (rank~$24$, $c = 24$), the $n$-point function on $\bP^1$ is:
@@ -1948,8 +1927,6 @@ where $\wp$ is the Weierstrass $\wp$-function (theta-derivative convention $\wp_
 
 The Ran space structure provides the compatibility: the factorization isomorphism on $\Ran(\bP^1)$ (for separated subsets $S = S_1 \sqcup S_2$, $A(S) \simeq A(S_1) \otimes A(S_2)$) is realised by the factorization of Wick contractions into independent subsets. This is a tautology for the free field ($H_{\mathrm{Muk}}$ is class~$G$), but it provides the reference model for the conjectural Yangian-deformed correlators of Conjecture~\ref{conj:yangian-conformal-blocks}, where the $R$-matrix deformation of the Wick formula would produce non-trivial monodromy around the Ran diagonal.
 \end{remark}
-
-\noindent\textit{Verification}: $109$~tests in \texttt{chiral\_ran\_correlators.py} covering the Mukai pairing matrix ($24 \times 24$, signature $(4,20)$, determinant~$1$), two-point function on~$\bP^1$ ($\omega^{ij}/(z-w)^2$, all $576$ entries), Wick contraction engine ($n$-point functions for $n = 0, \ldots, 8$, $(n-1)!!$ channel counting, crossing symmetry), Sugawara stress tensor ($c = 24$, coefficient $12$, Virasoro OPE with three singular terms), elliptic correlators (theta-derivative Weierstrass convention, $\bP^1$ degeneration, $\omega^{ij}$ matching across genera), torus partition function ($1/\eta^{24}$, $p_{24}(n)$ coefficients through $n = 6$), Yangian deformation (conjectural), Ran space factorization equivalence, $\kappa_\bullet$-spectrum with explicit subscripts, and cross-engine consistency with \texttt{k3\_double\_current\_algebra.py}, \texttt{chiral\_homology\_ran\_k3.py}, and \texttt{drinfeld\_center\_k3\_heisenberg.py}.
 
 
 \subsection{The CFG25 analogy: surgery and state spaces}
@@ -2001,9 +1978,6 @@ For a CY$_3$ $6$-manifold $X$, the handle decomposition involves three-handles a
 The handle decomposition ($1 + 22 + 1$ handles) and the Kummer orbifold-resolution route (Proposition~\ref{prop:kummer-orbifold}) are two different decompositions of K3 that must produce the same factorization homology. For $E_\infty$-algebras: the agreement is automatic (uniqueness of FH for commutative algebras on a fixed manifold). For $\Etwo$-algebras: the agreement is a consequence of CY-A$_2$ (proved), which guarantees the well-definedness of the $\Etwo$-FH integral. Both routes produce: rank~$24$, Mukai signature~$(4, 20)$, character~$1/\eta^{24}$, and lattice~$U^4 \oplus E_8(-1)^2$. The $\chi_y$ genus provides an independent cross-check: $\chi_0(K3) = \kappa_{\mathrm{cat}} = 2$, $\chi_1(K3) = -16$ (signature), $\chi_{-1}(K3) = 24$ (Euler characteristic).
 \end{remark}
 
-\noindent\textit{Verification}: $176$ tests in \texttt{handle\_decomposition\_fh.py} covering handle decomposition Euler characteristics for K3, quintic, $K3 \times E$, $T^6$, $S^2 \times S^2$, $\bC\bP^2$, and Enriques ($7$ manifolds); K3 iterative excision (rank~$24$, Mukai signature~$(4, 20)$); the CFG25 analogy table ($3$ dimensions, $\mathrm{cs\_dim} = 2 \cdot \mathrm{cy\_dim} + 1$); collar algebra ranks at each handle attachment; Kirby diagram data (even, unimodular, $3U + 2E_8(-1)$); handle vs.\ Kummer route agreement (rank, signature, lattice, character); quintic CY$_3$ ($b_3 = 204$, symplectic genus~$102$); K\"unneth formula for $K3 \times E$ (Betti~$(1,2,23,44,23,2,1)$, $\chi = 0$); $\chi_y$ genus ($\kappa_{\mathrm{cat}} = 2$); and AP compliance (CY$_3$ claims conjectural).
-
-
 \section{The \texorpdfstring{$\En$}{E-n}-chiral Koszul duality cascade}
 \label{sec:en-koszul-cascade}
 
@@ -2035,7 +2009,6 @@ At each operadic level $n = 1, 2, 3$, the Koszul duality of an $\En$-chiral alge
  \toprule
  & $\Eone$ (Vol~II) & $\Etwo$ (Conj.~\ref{conj:e2-koszul}) & $E_3$ (Conj.~\ref{conj:e3-koszul-duality}) \\
  \midrule
- \textbf{Proof regime} & Proved & Conjectured; Heisenberg proved & Conjectured; Heisenberg proved; Yangian cohom.\ proved \\
  \textbf{Ambient space} & $C$ (curve) & $C \times C$ & $\C^3$ \\
  \textbf{Differentials} & $d_1$ (Hochschild) & $d_1, d_2$ (OPE in $X, Y$) & $d_1, d_2, d_3$ (OPE in $z_1, z_2, z_3$) \\
  \textbf{Coproducts} & $\Delta_{\mathrm{dec}}$ & $\Delta_X, \Delta_Y$ & $\Delta_1, \Delta_2, \Delta_3$ \\
@@ -2184,9 +2157,9 @@ The computation is independent of any choice of Drinfeld associator.
 
 \emph{Motivic weight identification.} The rational chiral Hochschild cohomology carries the motivic weight filtration induced from the mixed Tate motivic structure on the chiral Koszul complex (Deligne--Goncharov 2005 \emph{Ann.\ Sci.\ ENS}~38 Thm.~4.11, chiral extension by Vol.~I Thm.~B). Each cup product raises motivic weight by $\mathrm{wt}(r_{\mathrm{CY}}) = 2$, so $\langle r, r, r\rangle$ lies in weight $3 \cdot 2 - 1 = 5$ (one degree absorbed by the null-homotopy of $r \cdot r$). At motivic weight $5$, the only rational period is $\Q\cdot\zeta(5)$ (Zagier's theorem: $\dim_\Q \MZV_5 = 1$, generated by $\zeta(5)$; no depth $\geq 2$ class exists at weight $5$ because Brown 2012 Thm.~1.2 gives depth reduction through weight $12$, and weight $5$ is trivially within this range).
 
-\emph{Explicit coefficient.} The KZ iterated-integral computation on the ordered $5$-simplex (Zagier 1994 \emph{Progr.\ Math.}~120 Prop.~1; Brown 2013 \emph{Prog.\ Math.}~274 \S 2.3) applied to the word $\omega_0\omega_1\omega_0^3$ gives the explicit coefficient $\zeta(5)/5! = \zeta(5)/120$. Cross-verification: the Drinfeld associator expansion $\Phi_{\mathrm{KZ}} = 1 + \zeta(2)[t_{12}, t_{23}] + \zeta(3)[\ldots] + \zeta(5)[t_{12},[t_{12}, [t_{12}, [t_{12}, t_{23}]]]]/5! + \cdots$ (Le--Murakami 1996; Drinfeld 1990 \S 2) contains the weight-$5$ coefficient $\zeta(5)/5!$ at depth $1$, matching the triple-commutator nesting of the Massey bracket.
+\emph{Explicit coefficient.} The KZ iterated-integral computation on the ordered $5$-simplex (Zagier 1994 \emph{Progr.\ Math.}~120 Prop.~1; Brown 2013 \emph{Prog.\ Math.}~274 \S 2.3) applied to the word $\omega_0\omega_1\omega_0^3$ gives the explicit coefficient $\zeta(5)/5! = \zeta(5)/120$. The Drinfeld associator expansion $\Phi_{\mathrm{KZ}} = 1 + \zeta(2)[t_{12}, t_{23}] + \zeta(3)[\ldots] + \zeta(5)[t_{12},[t_{12}, [t_{12}, [t_{12}, t_{23}]]]]/5! + \cdots$ (Le--Murakami 1996; Drinfeld 1990 \S 2) contains the same weight-$5$ coefficient at depth $1$, matching the triple-commutator nesting of the Massey bracket.
 
-\emph{Three independent paths converge on $\zeta(5)/5!$.} (i) KS 2009 \S 10 brace operations (combinatorial). (ii) Drinfeld associator weight-$5$ depth-$1$ coefficient (automorphic). (iii) Enriquez--Furusho 2020 arXiv:2004.07090 Prop.~2.3 genus-$1$ specialisation. Triple verification per the Beilinson 3-path protocol.
+\emph{Three independent descriptions give $\zeta(5)/5!$.} (i) KS 2009 \S 10 brace operations (combinatorial). (ii) Drinfeld associator weight-$5$ depth-$1$ coefficient (automorphic). (iii) Enriquez--Furusho 2020 arXiv:2004.07090 Prop.~2.3 genus-$1$ specialisation.
 \qedhere
 \end{proof}
 
@@ -2325,7 +2298,7 @@ For the centre cascade attached to an $\Eone$ output
 $A=\Phi_d(\cC)$ with $d\geq3$:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item \emph{$\Eone \to \Etwo$}: The Drinfeld center $\cZ(\Rep^{\Eone}(A))$ and the derived center $\HH^\bullet(A, A)$ both produce $\Etwo$-structure. They agree by the BZFN theorem (Theorem~\ref{thm:bzfn}).
- \item \emph{$\Etwo \to E_3$}: \emph{Only} the derived center $\HH^\bullet(B, B)$ produces $E_3$-structure (by higher Deligne). The iterated Drinfeld center $\cZ(\cZ(\Rep^{\Eone}(A))) \simeq \Rep^{\Etwo}(A) \boxtimes \Rep^{\Etwo}(A)^{\mathrm{rev}}$ gives an $\Etwo$-doubling, which is NOT $E_3$.
+ \item \emph{$\Etwo \to E_3$}: the derived center $\HH^\bullet(B, B)$ produces $E_3$-structure by higher Deligne. The iterated Drinfeld center $\cZ(\cZ(\Rep^{\Eone}(A))) \simeq \Rep^{\Etwo}(A) \boxtimes \Rep^{\Etwo}(A)^{\mathrm{rev}}$ gives an $\Etwo$-doubling, distinct from an $E_3$-promotion.
  \item The $E_3$-structure on the quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ arises from the derived center route, not the iterated Drinfeld center route.
 \end{enumerate}
 \end{corollary}
@@ -2415,15 +2388,12 @@ Part~(iv) is the case distinction:
  \toprule
  Step & Mechanism & Drinfeld center & Derived center \\
  \midrule
- $\Eone \to \Etwo$ & half-braidings / Hochschild cochains & \textbf{agrees} (BZFN) & \textbf{agrees} \\
- $\Etwo \to E_3$ & double braiding / Hochschild of $\Etwo$ & $\cB \boxtimes \cB^{\mathrm{rev}}$ (\textbf{fails}) & $E_3$ (\textbf{succeeds}) \\
+ $\Eone \to \Etwo$ & half-braidings / Hochschild cochains & BZFN comparison & BZFN comparison \\
+ $\Etwo \to E_3$ & double braiding / Hochschild of $\Etwo$ & $\cB \boxtimes \cB^{\mathrm{rev}}$ & $E_3$ by higher Deligne \\
  $E_3 \to E_4$ & iterated centre / Hochschild of $E_3$ & fails & algebraic only; not a $\Phi_d$ output \\
  \bottomrule
 \end{tabular}
 \end{center}
-
-\noindent\textit{Verification}: $82$ tests in \texttt{test\_higher\_deligne\_cascade.py}.
-
 
 \subsection{\texorpdfstring{$E_3$}{E-3} Hochschild cohomology as deformation theory}
 \label{subsec:e3-hochschild-deformation-theory}
@@ -2511,16 +2481,6 @@ $\Omega$-background parameters $\epsilon_i = h_i$ are immaterial for
 class~$G$ algebras, consistent with the tree-level exactness of free
 fields.
 \end{remark}
-
-\noindent\textit{Verification}: $76$ tests in
-\texttt{e3\_hochschild\_deformation.py} covering $\Omega$-background CY
-condition, tricomplex dimensions ($8^n$ for $n = 1, 2, 3, 24$), spectral
-sequence pages ($E_1$ through $E_4$, degeneration by class), MC expansion
-(shadow--Feynman--$A_\infty$ dictionary through order~$6$), $d_4$ coefficient
-($\Delta = 40/27$ for Virasoro), three differentials and CFG25 dictionary,
-cross-class comparison (Heisenberg $n = 1$, Yangian $n = 3$, Virasoro $n = 1$,
-Mukai Heisenberg $n = 24$), and AP compliance checks.
-
 
 \section{Configuration space integrals on \texorpdfstring{$\C^3$}{C-3} and the perturbative partition function}
 \label{sec:config-space-c3}
@@ -2684,10 +2644,6 @@ The $\R^3$ and $\C^3$ constructions share the same operadic framework ($E_3$) bu
 
 The key structural parallel: in both cases, $\pi_1(\Conf_2) = 0$, so the topological braiding is trivial. For $\R^3$ CS, the nontrivial content comes from the Lie algebra structure constants (the cubic vertex). For $\C^3$ hCS, it comes from the $\Omega$-background deformation of the holomorphic factorisation structure (Conjecture~\ref{conj:topological-e3-comparison}(a)). In both cases, the Zamolodchikov tetrahedron equation is \emph{not} automatically satisfied, and the genuine $E_3$ corrections are controlled by higher operations beyond the pairwise product.
 
-\medskip
-\noindent\textit{Verification}: $65$ tests in \texttt{test\_e3\_config\_space\_chiral.py}, covering configuration space topology (Betti numbers, Euler characteristics, fundamental groups), CY inversion identities, Feynman integral factorisations, plane partition counts, Dunn decomposition, FM compactification strata, and cross-checks against \texttt{e3\_two\_parameter\_rmatrix.py} and \texttt{holomorphic\_cs\_chiral\_engine.py}.
-
-
 \section{Stratified factorization homology and chiral knot invariants}
 \label{sec:stratified-fh-chiral}
 
@@ -2729,21 +2685,26 @@ The simplest stratification is by a line: $C = C_{\mathrm{line}} \simeq \C \subs
 
 \begin{proposition}[Wilson line = Drinfeld coproduct]
 \label{prop:wilson-line-coproduct}
-\textup{(at $d = 2$)}
-\textup{(at $d = 3$: on the witnessed \(\Phi_3^{(\Sigma_2,C)}\) locus, with defect-module excision data)}
-The stratified factorization homology $\int_{\C^3 \setminus C_{\mathrm{line}}} \cF_{\mathrm{ch}}$ of the $E_3$-chiral factorization algebra along a Wilson line $C \subset \C^3$ produces the Drinfeld coproduct:
+For $d=2$, and for $d=3$ after fixing a witnessed
+\(\Phi_3^{(\Sigma_2,C)}\) locus with defect-module excision data, the
+stratified factorization homology
+$\int_{\C^3 \setminus C_{\mathrm{line}}} \cF_{\mathrm{ch}}$ of the
+$E_3$-chiral factorization algebra along a Wilson line
+$C \subset \C^3$ produces the Drinfeld coproduct:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item \emph{Spin~$1$}: the coproduct is primitive, $\Delta_z(J_n) = J_n^L \otimes 1 + 1 \otimes J_n^R$, with no spectral parameter dependence.
  \item \emph{Spin~$2$}: the coproduct $\Delta_z(T_n) = T_n^L + T_n^R + \frac{\Psi - 1}{\Psi} (J \cdot J)_{\mathrm{cross}, n} + z \cdot J_n^R$ encodes the $R$-matrix braiding through the cross-coefficient $(\Psi - 1)/\Psi$.
  \item \emph{$R$-matrix}: the structure function $g(z)$ extracted from the Wilson line braiding satisfies the CY inversion identity $g(z) \cdot g(-z) = 1$ (unitarity of the defect).
 \end{enumerate}
-The spectral parameter $z$ is a Yangian spectral parameter from the Ran space factorization structure, NOT a worldsheet insertion coordinate.
+The spectral parameter $z$ is a Yangian spectral parameter from the Ran
+space factorization structure; worldsheet insertion coordinates belong
+to a different datum.
 \end{proposition}
 
 \begin{proof}
-At $d = 2$ (proved), the $\Etwo$-chiral factorization algebra on a curve is the vertex algebra $A_\cC = \Phi_2(\cC)$ of Theorem~\ref{thm:cy-a-d2}. The defect module is the Fock module, and the Ran space colimit produces the multiplicative Drinfeld coproduct $\Delta_z(T(u)) = T^L(u) \cdot T^R(u - z)$. The mode-level coproduct at spin~$2$ is verified against the Heisenberg Fock space to machine precision (48 tests in \texttt{chiral\_coproduct\_spin2\_engine.py}). The CY inversion $g(z) g(-z) = 1$ follows from the CY condition $h_1 + h_2 + h_3 = 0$ by direct factorization of the rational function.
+At $d = 2$, the $\Etwo$-chiral factorization algebra on a curve is the vertex algebra $A_\cC = \Phi_2(\cC)$ of Theorem~\ref{thm:cy-a-d2}. The defect module is the Fock module, and the Ran space colimit produces the multiplicative Drinfeld coproduct $\Delta_z(T(u)) = T^L(u) \cdot T^R(u - z)$. The spin-$2$ mode coproduct is the direct Heisenberg Fock-space computation. The CY inversion $g(z) g(-z) = 1$ follows from the CY condition $h_1 + h_2 + h_3 = 0$ by direct factorization of the rational function.
 
-At $d = 3$, Theorem~\ref{thm:cy-to-chiral-d3} supplies the framed object-level algebra $A_\cC^{(\Sigma_2,C)}$ on the H1--H4 locus. Dunn--Lurie additivity decomposes the local $E_3$ input as an $E_1$ Wilson-line direction tensored with the transverse $E_2$ factor, and Ayala--Francis--Tanaka stratified excision identifies the line defect with the $E_1$ defect module when the defect comparison data are fixed. The resulting operation on two ordered Wilson-line insertions is the Drinfeld coproduct on that witnessed defect locus; the transverse $E_2$ factor contributes the $R$-matrix through the Drinfeld-centre recovery, not through a global $\Phi_3$ morphism functor.
+At $d = 3$, Theorem~\ref{thm:cy-to-chiral-d3} supplies the framed object-level algebra $A_\cC^{(\Sigma_2,C)}$ on the witnessed filtered locus. Dunn--Lurie additivity decomposes the local $E_3$ input as an $E_1$ Wilson-line direction tensored with the transverse $E_2$ factor, and Ayala--Francis--Tanaka stratified excision identifies the line defect with the $E_1$ defect module when the defect comparison data are fixed. The resulting operation on two ordered Wilson-line insertions is the Drinfeld coproduct on that witnessed defect locus; the transverse $E_2$ factor contributes the $R$-matrix through the Drinfeld-centre recovery, not through a global $\Phi_3$ morphism functor.
 \end{proof}
 
 
@@ -2765,7 +2726,7 @@ where $R_{p,q}^{\mathrm{twist}}$ is the $pq$-fold iterated braiding twisted by t
 \end{equation}
 where $\mathrm{int}(\Delta_{p,q})$ denotes the interior lattice points of the Newton polygon of $z_1^p - z_2^q$, and $g(z)$ is the rational structure function of the quantum toroidal algebra. The product has $g = (p-1)(q-1)/2$ factors (one per interior point, by Pick's theorem).
 
-The tree-level invariant diverges for ALL torus knots $T(p,q)$ with $p, q \geq 2$: the interior point $(1,1)$ gives argument $h_1 + h_2 = -h_3$, which is always a pole of $g(z)$. This divergence is the tree-level manifestation of the singularity at the origin and requires regularization by the one-loop correction.
+The tree-level invariant diverges for every torus knot $T(p,q)$ with $p, q \geq 2$: the interior point $(1,1)$ gives argument $h_1 + h_2 = -h_3$, which is always a pole of $g(z)$. This divergence is the tree-level manifestation of the singularity at the origin and requires regularization by the one-loop correction.
 
 The one-loop correction is controlled by the Milnor fiber genus:
 \begin{equation}\label{eq:chiral-knot-one-loop}
@@ -2802,7 +2763,7 @@ The stratified factorization homology of the algebraic Hopf link (two intersecti
 \end{proposition}
 
 \begin{proof}
-Item~(i) is the CY inversion identity verified in Proposition~\ref{prop:wilson-line-coproduct}(iii). Items~(ii) and~(iii) are direct computations using the diagonal Fock $R$-matrix of the quantum toroidal algebra (verified: 71~tests in \texttt{test\_stratified\_en\_fh\_chiral.py}, cross-checked against \texttt{categorical\_s\_matrix\_e3.py}).
+Item~(i) is the CY inversion identity of Proposition~\ref{prop:wilson-line-coproduct}(iii). Items~(ii) and~(iii) are direct computations using the diagonal Fock $R$-matrix of the quantum toroidal algebra.
 \end{proof}
 
 
@@ -2834,10 +2795,6 @@ The chiral torus knot invariant $Z_{p,q}$ is conjecturally related to:
 \end{enumerate}
 These identifications are all conditional on Conjecture~\ref{conj:chiral-rt-identification}.
 \end{remark}
-
-\medskip
-\noindent\textit{Verification}: $71$ tests in \texttt{test\_stratified\_en\_fh\_chiral.py}, covering algebraic curve singularity invariants (Milnor number, genus, delta invariant, conductor, numerical semigroup), Wilson line coproduct agreement, torus knot genus via Pick's theorem ($8$ families), CY inversion at multiple spectral parameters, charge-$2$ S-matrix nontriviality and evenness, algebraic link excision for two lines, Milnor fiber Euler characteristics, partition function convergence, and cross-engine consistency with \texttt{categorical\_s\_matrix\_e3.py} (structure function $g(z)$, charge-$1$ S-matrix, charge-$2$ S-matrix, $\kappa_{\mathrm{ch}}$ and $\Psi$ values).
-
 
 \subsection{Categorified chiral torus knot invariants}
 \label{subsec:categorified-chiral-torus-knots}
@@ -2911,10 +2868,6 @@ The Jones polynomial of $T(2, 2k+1)$ has breadth $2k = 2g$. The Poincar\'{e} pol
 \label{rem:mukai-grading-knots}
 The Mukai weight grading~$j$ on $\mathrm{CKh}_{2,n}$ is the shadow of the $24$-dimensional Mukai lattice grading from the K3 Yangian $Y(\fg_{K3})$ of~Chapter~\ref{ch:k3-yangian}. In the CY$_3$ reduction to $3$~parameters $h_1, h_2, h_3$, the Mukai weight is a vector in $\Z^3$; for the full K3 Yangian, it lives in the Mukai lattice $\Lambda_{\mathrm{Muk}} = U^3 \oplus E_8(-1)^2$ of signature $(4, 20)$. The grading is by the Mukai lattice because the structure function $g(z) = \prod_{i=1}^{24}(z - h_i)/(z + h_i)$ factors over the $24$ lattice directions, and the categorified state records the subset of directions that are ``excited'' at each Newton polygon point.
 \end{remark}
-
-\medskip
-\noindent\textit{Verification}: $166$ tests in \texttt{test\_chiral\_khovanov\_torus\_knots.py}, covering Newton polygon combinatorics ($T(2,n)$ interior points via Pick's theorem for $n = 3, 5, \ldots, 19$), genus and Milnor number ($7$~families), universal $(1,1)$ divergence ($7$~knots), residue regularization (explicit computation, finiteness, product decomposition), categorified graded dimensions ($(1+t)^g$ pattern for $6$~knots), Euler characteristic vanishing, bigraded Betti numbers, Mukai lattice grading, Jones polynomial breadth consistency, one-loop correction, and cross-engine consistency with \texttt{stratified\_en\_fh\_chiral.py} (genus, Milnor number, interior points, structure function $g(z)$, CY inversion) and multi-path verification (state enumeration vs.\ closed-form, Poincar\'{e} polynomial from graded dims vs.\ $(1+t)^g$, residue via algebraic formula vs.\ numerical limit, bigraded Betti sums vs.\ total dimension).
-
 
 \section{Chiral homology on stratified real \texorpdfstring{$3$}{3}-manifolds}
 \label{sec:chiral-homology-3folds}
@@ -3061,7 +3014,7 @@ The $E_3$ bar cohomology of a chiral algebra $A$ on a $3$-manifold $M$ depends o
 \end{tabular}
 \end{center}
 
-\noindent For class~$G$ (formal, all differentials vanish): the bar complex is formal and the cohomology equals the chain complex, $P(q)^{3g}$ (infinite-dimensional; Proposition~\ref{prop:virasoro-d4}(iv)). For classes $L$, $C$: the total dimension is $2^{3g}$ (e.g.\ $2^3 = 8$ for $S^2 \times S^1$; $2^9 = 512$ for $T^3$ with Heegaard genus~$3$). For class~$M$: the $d_4$ differential from the quartic shadow $S_4 \neq 0$ kills $\Lambda^0$ and $\Lambda^3$ at each handle, giving $E_\infty = [0,3,3,0]^{\otimes g}$ with total dimension $6^g$ (Corollary~\ref{cor:class-m-higher-genus}). The formula $(1+t)^{3g}$ must \textbf{never} be claimed for class~$M$; conversely, $6^g$ must \textbf{never} be claimed for class~$G$ (where the bar complex is formal and infinite-dimensional).
+\noindent For class~$G$ (formal, all differentials vanish): the bar complex is formal and the cohomology equals the chain complex, $P(q)^{3g}$ (infinite-dimensional; Proposition~\ref{prop:virasoro-d4}(iv)). For classes $L$, $C$: the total dimension is $2^{3g}$ (e.g.\ $2^3 = 8$ for $S^2 \times S^1$; $2^9 = 512$ for $T^3$ with Heegaard genus~$3$). For class~$M$: the $d_4$ differential from the quartic shadow $S_4 \neq 0$ kills $\Lambda^0$ and $\Lambda^3$ at each handle, giving $E_\infty = [0,3,3,0]^{\otimes g}$ with total dimension $6^g$ (Corollary~\ref{cor:class-m-higher-genus}). Thus $(1+t)^{3g}$ is the class-$L/C$ formula, whereas $6^g$ is the class-$M$ cohomological count; class~$G$ remains formal and infinite-dimensional.
 
 \begin{remark}[Systematic 3d/6d obstruction catalogue]
 \label{rem:3d-6d-obstruction-catalogue}
@@ -3073,7 +3026,7 @@ The structures of $3$d Chern--Simons theory that do \emph{not} lift to the $6$d 
 \item \emph{Structural obstructions} (surgery formula, categorification): these require new mathematics (the ZTE corrections of Theorem~\ref{thm:zte-failure} for surgery, and the $7$d M-theory lift for categorification) that may or may not exist.
 \end{enumerate}
 
-\noindent Quantitatively, the aggregate lift fraction across all $8$ categories is below $30\%$: of $41$ generating structures in $3$d knot theory, quantum topology, and conformal field theory, only $10$ survive the passage to $6$d. The cross-obstruction interaction matrix has approximate block-diagonal structure (the three types interact weakly across blocks but strongly within), and the critical resolution path begins with the finite-dimensionality obstruction (which has the highest synergy with other obstructions, particularly the RT functor). Computed in \texttt{3d\_6d\_obstruction\_catalogue.py} ($99$~tests).
+\noindent Quantitatively, the aggregate lift fraction across all $8$ categories is below $30\%$: of $41$ generating structures in $3$d knot theory, quantum topology, and conformal field theory, only $10$ survive the passage to $6$d. The cross-obstruction interaction matrix has approximate block-diagonal structure (the three types interact weakly across blocks but strongly within), and the critical resolution path begins with the finite-dimensionality obstruction, which has the highest synergy with the remaining obstructions, particularly the RT functor.
 \end{remark}
 
 \begin{conjecture}[Chiral homology on stratified \texorpdfstring{$3$}{3}-folds]
@@ -3088,9 +3041,6 @@ For the $E_3$-chiral algebra $\cF_{\mathrm{ch}}$ from $6$d holomorphic Chern--Si
 \end{enumerate}
 This conjecture uses the witnessed CY-A$_3$ Stage-$2$ locus and the excision principle for stratified chiral homology on real $3$-folds inside~$\C^3$. It does not assert a compact $E_3$ hCS algebra without the separate compact comparison data.
 \end{conjecture}
-
-\medskip
-\noindent\textit{Verification}: $124$ tests in \texttt{test\_chiral\_homology\_3folds.py}, covering $3$-manifold topology ($8$ manifolds, Poincar\'e duality, $\chi = 0$, Heegaard genera, Betti numbers by K\"unneth); $E_\infty$ factorization homology ranks (S$^3$: rank~$2$; $T^3$: rank~$8$; $H_{\mathrm{Muk}}$ on $S^3$: rank~$48$; lens spaces: rank~$2$ for $6$ values of~$p$; $\Sigma_g \times S^1$: rank~$4g+4$); Heegaard decomposition (genus, block dimensions, Verlinde for $\mathrm{su}(2)_k$); surgery presentations ($S^3$, $L(p,1)$, $S^2 \times S^1$, Poincar\'e sphere); the three real subsectors of $\C^3$ (dimension~$3$, $E_n$ levels, proof regimes); $S^3$ chiral homology (Hopf fibration $S^1 \hookrightarrow S^3 \twoheadrightarrow S^2$ decomposition per Proposition~\ref{prop:hopf-fibration-decomposition}, not the $\mathbb{S}^4 = \mathbb{S}^2 \times \mathbb{S}^2$ framing-K\"unneth shorthand; obstruction class, $E_\infty$ graded ranks); lens space orbifold structure ($p-1$ twisted sectors, root-of-unity phases, Kummer connection for $L(2,1) = \R\bP^3$ with $16$~singularities); product manifolds ($1/\eta^{24}$ character at $g = 1$ with G\"ottsche coefficients through $p_{24}(6) = 1{,}073{,}720$, $q$-expansion convergence); $E_3$ bar cohomology by shadow class ($P(q)^{3g}$ for class~$G$ (formal, infinite); $(1+t)^{3g}$ for classes $L$, $C$; $6^g$ for class~$M$; $T^3$ polynomial $(1+t)^9$ with $2^9 = 512$ for class~$L$); link invariants (unknot, Hopf link CY inversion at $7$~spectral parameters including complex, topological limit); cross-engine consistency ($S^3$ rank vs.\ \texttt{handle\_decomposition\_fh.py}, $T^3$ Betti vs.\ $\binom{3}{k}$, Kummer $16$~singularities, G\"ottsche $p_{24}(n)$ by direct power series); and convention discipline ($S^3$ conjectural, class~$M$ is $6^g$ not $(1+t)^{3g}$ (reorganisation not bypass), explicit $\kappa_\bullet$ subscripts, algebraic-vs-topological $E_3$ structures distinguished).
 
 \section{The K3 chiral bialgebra as bi-based \texorpdfstring{$E_n$}{E-n} factorisation}
 \label{sec:en-fact-K3-bibased}
