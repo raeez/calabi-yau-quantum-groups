@@ -5837,3 +5837,270 @@ source packet is constructed from the finite compact double,
 faithfulness remains open exactly when one of the five source rows has
 not been proved or the packet has been replaced by target/mock matrices
 without compact provenance.
+
+## ChatGPT critique three-axis scope-omission additions: AP-CY455 through AP-CY471 (2026-05-09)
+
+Seventeen entries forced by the May 2026 ChatGPT chiral-duality master
+critique and its deep adversarial review (see
+`notes/chatgpt_chiral_duality_critique_consequence_map.md` and
+`notes/chatgpt_critique_consequence_map_adversarial_review.md`).
+The critique's master pattern is **scope omission** along the three
+orthogonal axes (level / chart / ambient) that organise every
+theorem statement; the entries below are not given a parallel
+"Crit-N" numbering scheme but are absorbed into the existing
+type-organised catalogue. Each entry names one of the seventeen
+archetypal collapses, mapped onto the existing primitive/chart,
+scope/convention, ambient-qualifier, scalar-vs-operator,
+functoriality, classical-vs-quantum, and physical-import types.
+
+**AP-CY455 — Boundary algebra is not the primitive open object (Critical, type: primitive/chart).**
+Wrong: \(A\) is the primitive open object; theorems start "let \(A\)
+be the chiral algebra" without naming the chart. Correct: the
+primitive is the open factorisation dg-category on the tangential
+log curve \((X,D,\tau)\) with closed-colour input
+\((\mathcal C^{\mathrm{op}},\Theta_{\mathcal C},\mathrm{Tr}_{\mathcal C})\);
+the boundary algebra \(A_b=\mathrm{End}_{\mathcal C}(b)\) for a
+chosen vacuum \(b\) is a chart-dependent chart-algebra. Every
+"Theorem: \(A\) has property \(P\)" must be reread as "Theorem: the
+primitive package \((X,D,\tau;\mathcal C^{\mathrm{op}},b,A_b,
+Z^{\mathrm{der}}_{\mathrm{ch}}(\mathcal C),
+\Theta_{\mathcal C},\mathrm{Tr}_{\mathcal C})\) has property \(P\)".
+**Counter**: morphisms of primitive packages include change of
+boundary vacuum (gauge transformation); properties stable under this
+gauge are the genuinely chart-independent invariants, and a
+property of \(A_b\) alone may not survive change of \(b\).
+
+**AP-CY456 — Bar is not bulk (Critical, type: bar-vs-centre).**
+Wrong: \(\mathrm{Bar}(A)\) is the bulk; \(\mathrm{ChiralBar}(A)
+= \mathrm{bulk}\); the bar complex carries operator content of the
+\(E_2\)-uplift. Correct: \(\mathrm{Bar}(A)\) is the universal
+twisting/coupling coalgebra (single-colour \(E_1\)-chiral dg
+coalgebra); the bulk is \(Z^{\mathrm{der}}_{\mathrm{ch}}(A)\simeq
+\mathrm{ChirHoch}^\bullet(A,A)=\RHom(\Omega B(A),A)\). The bar is
+the comparison arrow between levels 2 and 3, not a level-3 object.
+**Counter**: \((Z^{\mathrm{der}}_{\mathrm{ch}}(A),A)\) is the
+Swiss-cheese pair; an inscription that uses
+\(\mathrm{ChiralBar}(A)\) as bulk operators conflates twisting
+data with bulk operator algebra.
+
+**AP-CY457 — Bar-direction is not the Swiss-cheese promotion (High, type: structure-vs-model).**
+Wrong: the \(2d\rightsquigarrow 3d\) HT promotion is explained by
+the existence of an \(E_1\)-bar interval direction; a boundary model
+with an extra interval is the structural mechanism. Correct: the
+mechanism is the chiral Deligne--Tamarkin / Swiss-cheese promotion
+combined with Lurie additivity \(E_1\otimes_{\mathrm{Dunn}} E_1=E_2\);
+the bar-direction interval is one computational realisation of the
+dimensional uplift, not the explanation. **Counter**: a different
+boundary model can produce the same level-3 object without an
+explicit bar interval; the structural promotion does not depend
+on the choice of model.
+
+**AP-CY458 — Open sector requires tangential log curve (High, type: geometric-carrier omission).**
+Wrong: an open sector is asserted to live on a bare algebraic
+curve \(X\); "boundary", "trace", "open category", "clutching"
+appear without geometric carrier. Correct: the open sector lives
+on the real-oriented blowup / log boundary of a tangential log
+curve \((X,D,\tau)\) with \(D\) a divisor of punctures and
+\(\tau\) tangential data; without the log/tangential decoration
+the symbols float. **Counter**: a "trace" without a named
+\((X,D,\tau)\) does not carry the descent data needed for the
+modular consequences; a Stage-2 chiral algebra \(A_X\) on a
+curve \(C\) with CY data carrying special points must be made
+\((C,D_C,\tau_C)\) explicit (orbifold loci, fibration punctures,
+conifold singularities encoded in \(D_C\)).
+
+**AP-CY459 — Modularity is not a closed-algebra property (High, type: open-vs-closed adjective).**
+Wrong: "the closed chiral algebra is modular"; modularity treated
+as adjective on the closed algebra. Correct: modularity is
+trace + clutching on the open category; the closed shadow has
+modular consequences via this open-side data. The modular
+functor lives on the open category, not on the closed algebra.
+\(\mathrm{SL}_2(\mathbb Z)\) action, \(S\)-transformation, and
+Verlinde formula are downstream consequences of the open-side
+modular functor structure. **Counter**: a closed VOA is not
+itself a modular tensor category; its rep category may be one
+provided the open-side trace and clutching coherence are
+constructed.
+
+**AP-CY460 — Five $\kappa_\bullet$ on $K3\times E$ are not one invariant; naive additive form fails (Critical, type: numerical/cross-volume contradiction).**
+Wrong: \(\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\mathcal O_{\mathrm{fiber}})\) on \(K3\times E\); the five \(\kappa_\bullet\) reduce to one number. Correct: the universal Borcherds-weight identity
+\(\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2\) (Gritsenko 1999 Thm 6.1)
+evaluated at the chosen Siegel input denominator. The five
+\(\kappa_\bullet\) on \(K3\times E\) come from five distinct
+constructions: \(\kappa_{\mathrm{cat}}=0\) (Künneth multiplicative),
+\(\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}=0\),
+\(\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3\),
+\(\kappa_{\mathrm{BKM}}(\Delta_5)=5\),
+\(\kappa_{\mathrm{fiber}}=24\). **Counter**: the additive form fails
+at \(N=1\) (left = \(5\), right = \(0+0=0\)); Vol I
+`chapters/examples/lattice_foundations.tex:5866` "$N=1$ accident,
+K3 Mukai datum" remark is consistent with this when read with
+\(\kappa_{\mathrm{ch}}^{\mathrm{Mukai}}\) subscript explicit;
+bare \(\kappa_{\mathrm{ch}}\) at that locus is HZ-7 violation,
+not formula-error contradiction (deep review §I.1).
+
+**AP-CY461 — $\Phi$ is not a one-stage functor (Critical, type: functoriality scope).**
+Wrong: \(\Phi:\mathrm{CY}_d\text{-Cat}\to\mathrm{ChirAlg}\) is a
+direct one-stage functor; \(\Phi_d\) is a single arrow from CY data
+to chiral algebra. Correct: the two-stage construction
+\(\Phi^{(\Sigma_{d-1},C)}_d=\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}
+\circ\Phi^{\mathrm{FA}}_d\), where Stage-1
+\(\Phi^{\mathrm{FA}}_d:\mathrm{CY}_d\text{-cat}\to E_d\text{-HolFA}(X)\)
+is canonical up to \(\mathrm{GRT}_1(\mathbb Q)\)-torsor (KT formality
++ CGL holomorphic locality), and Stage-2
+\(\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\) is chart-dependent
+factorisation homology over a \((d-1)\)-cycle restricted to a curve.
+\(\{\Phi_d\}\) does not assemble into a single functor across \(d\);
+target \(E_{n(d)}\)-ChirAlg depends on \(d\). **Counter**: the six
+routes to \(G(K3\times E)\) are six \((\Sigma_2,C)\)-specialisations
+of one Stage-1 datum \(\Phi^{\mathrm{FA}}_3(D^b\mathrm{Coh}(K3\times E))\),
+not six independent \(\Phi_3\)-applications. Sweep targets with
+bare \(\Phi_d:\mathrm{CY}_d\text{-Cat}\to\mathrm{ChirAlg}\):
+`hochschild_calculus.tex:1570`, `quantum_groups_foundations.tex:6261`,
+`introduction.tex:1664`, `cyclic_ainf.tex:247`,
+`phi_universal_trace_platonic.tex:494`.
+
+**AP-CY462 — $Y^+(X)\ne G(X)$; CoHA$(\mathbb C^3)\ne\mathcal W_{1+\infty}$ before doubling (Critical, type: positive-half-vs-double).**
+Wrong: the positive half is the quantum group;
+\(\mathrm{CoHA}(\mathbb C^3)=\mathcal W_{1+\infty}\); \(\mathcal A_{\mathrm{M5}}(N)=W_{1+\infty}[\lambda=N]\) without doubling/evaluation
+qualifier. Correct: \(G(X)=D(Y^+(X))\) is the Drinfeld double, only
+after Hall pairing, completion, integral form, stable-envelope
+transport, and descent are installed; \(\mathrm{CoHA}(\mathbb C^3)
+=Y^+(\widehat{\mathfrak{gl}}_1)\), with \(\mathcal W_{1+\infty}\)
+appearing only after Drinfeld doubling and Fock evaluation
+\(\mathrm{ev}_\lambda\). The CoHA evaluation chain has three arrows
+with three associativity classes; no two of them coincide.
+**Counter**: every site asserting CoHA \(\to\mathcal W_{1+\infty}\)
+identification (e.g., Vol I `frontier_modular_holography_platonic.tex:5244,5252,5289,5356,5398,5440,5473,5496,5547,5550,5657`) requires
+the Drinfeld-double + Fock-evaluation qualifier explicitly. For
+compact non-toric CY\(_3\), even the positive half \(Y^+(X)\) requires
+construction (compact-CoHA gates per cache rows 70, 80; AP-CY351-353,
+AP-CY452-453).
+
+**AP-CY463 — 6d hCS is not 3d Chern-Simons in disguise; obstruction is quartic-in-fields (High, type: physical-theory-import).**
+Wrong: 6d hCS is a recoded 3d Chern-Simons; one-loop obstruction is
+a cubic Casimir analogue of 3d CS. Correct: at \(d=3\), 6d hCS
+supplies the physical realisation of \(\Phi^{\mathrm{FA}}_3\) on
+verified formal/object-level loci; the one-loop obstruction is the
+quartic \(\int_X\mathrm{Tr}_{\mathrm{ad}}(A(F_A)^3)\) (cohomological
+piece sourced by the cubic symmetric Casimir \(d^{abc}\), but as a
+quartic-in-fields obstruction). The wave-function piece
+\(A_{\mathrm w.f.}=-C_2/(2\pi)^3=-2h^\vee/(2\pi)^3\) is
+scheme-dependent and absorbed into a BV-trivial counter-term.
+\(\mathfrak{sl}_2\) is unobstructed; \(\mathfrak{sl}_{N\ge 3}\)
+is obstructed with \(d^{abc}=2N\). **Counter**: 3d Chern-Simons
+knot intuition cannot be imported directly into 6d hCS without
+passing through BV/hCS obstruction theory; primary lock at
+AP-CY262 and `phi_universal_trace_platonic.tex:1175-1194`.
+
+**AP-CY464 — Formal Darboux does not globalise to compact target theory (High, type: local-vs-global formal-to-physical promotion).**
+Wrong: the formal Darboux model on
+\(\mathbb R^2_{\mathrm{top}}\times\mathbb C^2_{\mathrm{hol}}\) implies
+a global compact target theory; local Hamiltonian identification
+asserted globally. Correct: formal Darboux + descent + QME +
+anomaly + locality \(\Rightarrow\) candidate compact theory; on a
+general holomorphic symplectic surface one needs either local
+Hamiltonians or vanishing of the holomorphic de Rham obstruction
+(period class of the locally Hamiltonian symplectic vector field
+in \(H^1_{\mathrm{dR}}\)). **Counter**: every local-to-global step
+must list (i) descent datum, (ii) QME, (iii) anomaly cocycle,
+(iv) locality package; mixed-HT-strings `main.tex:3207-3266`
+locks the obstruction discipline.
+
+**AP-CY465 — $\Delta_5$ is not a compact BPS Hilbert space (Critical, type: scalar-vs-operator promotion).**
+Wrong: \(\Delta_5\) = physical (compact BPS) Hilbert space;
+\(\Delta_5\) is the chiral algebra; the Igusa cusp form constructs
+the operator package directly. Correct: \(\Delta_5\) is the
+Borcherds denominator / protected scalar shadow; the construction
+gives a virtual \(K_0\)-determinant package and a Borcherds
+denominator algebra; it does not by itself produce a microscopic
+compact Hilbert space, compact Hall correspondences, an orientation,
+or a BPS operator product. The missing problem is to construct the
+operator-level object whose protected Pfaffian is \(\Delta_5\).
+**Counter**: igusa-cusp-form `main.tex:96` disclaimer is the
+operating discipline: "It does not supply a compact BPS Hilbert
+space, compact Hall correspondences, an orientation, or a BPS
+operator product." Vol II/III invocations of \(\Delta_5\) carry the
+same disclaimer; three independent verification paths required for
+any operator-level claim about \(\mathbf H_{\Delta_5}\) (cache row
+75; AP-CY446).
+
+**AP-CY466 — Scalar partition function is not the operator algebra (Critical, type: scalar-vs-operator-algebra promotion).**
+Wrong: \(Z_{\mathrm{BPS}}^{K3\times E}=(\Phi_{10}^{\mathrm{un}})^{-1}
+=\Delta_5^{-2}\) is the 3d gravitational path integral / the
+operator algebra of \(\mathbf H_{\Delta_5}\); scalar trace =
+operator package. Correct: \(Z_{\mathrm{BPS}}\) is a protected
+scalar shadow / Borcherds denominator at level 4; promotion to a
+gravity-line interpretation requires saddle-dominance, modular
+invariance, and vacuum dominance; promotion to the operator
+algebra requires the full Hall-Drinfeld-Pfaffian source recognition
+(cache rows 71-82 enumerate the gates). **Counter**: scalar
+automorphic form = protected trace of a still-to-be-constructed
+operator package; igusa-cusp-form source/target firewall
+(`notes/swarm_20260430/reports/A270`) is the discipline for every
+Vol II/III invocation.
+
+**AP-CY467 — Universal Holography is not the dynamical metric path integral for 3d gravity (High, type: physical-interpretation overpromotion).**
+Wrong: the Vol II Universal Holography master theorem constructs
+the dynamical metric path integral for 3d quantum gravity. Correct:
+the master theorem identifies (boundary = \(A\), bulk =
+\(Z^{\mathrm{der}}_{\mathrm{ch}}(A)\), interaction =
+\(\mathrm{SC}^{\mathrm{ch,top}}\)-brace action). For
+\(A=\mathrm{Vir}_c\), this is the boundary-CFT / holographic reading
+of pure 3d gravity — the algebraic holographic HT sector, not the
+dynamical-metric path integral. BTZ/Cardy physics still requires
+modular-invariance, vacuum-dominance, and saddle hypotheses.
+**Counter**: the master theorem provides the algebraic substrate
+in which BTZ saddles are computed conditional on the named
+hypotheses; sweep Vol II `chapters/theory/introduction.tex:106,113,793,909,2081,2084,2622,2966,2973,3019` and
+`modular_swiss_cheese_operad.tex:4177` for "3d quantum gravity"
+framings to soften.
+
+**AP-CY468 — $W_\infty[\lambda]\Rightarrow E_\infty$ requires endpoint admissibility (Medium, type: evidence-vs-proof / endpoint admissibility).**
+Wrong: the \(W_\infty[\lambda]\Rightarrow E_\infty\) endpoint is
+proved by spin-\(\le 8\) numerical checks; finite-spin evidence
+suffices to assert the structural endpoint. Correct: the implication
+holds within the admissible window characterised by Prochazka
+triangular truncation, Creutzig-Kanade-Linshaw parafermion
+compatibility, Pope-Romans-Shen / Bakas input, and Yamada
+weight-window condition; spin-\(\le 8\) checks are evidence in the
+admissible window, not replacement for the structural hypotheses.
+**Counter**: outside the four-condition window the implication
+is open; every "\(W_\infty[\lambda]\Rightarrow E_\infty\)" assertion
+must list the four hypotheses as its admissibility scope.
+
+**AP-CY469 — Class M chain-level requires completed ambient (Medium, type: ambient-qualifier discipline).**
+Wrong: class M works chain-level in ordinary (non-completed)
+complexes; chain-level statements omit their ambient. Correct:
+class M is chain-level false in ordinary complexes; the
+chain-level identifications hold in weight-completed / pro /
+\(J\)-adic / HS-sewing ambients. **Counter**: forcing class M
+into ordinary complexes blocks the theorem; the correct move is
+to work in the completed ambient and declare it. Pattern 236
+(ambient-qualifier) becomes a publication-strategy invariant;
+every chain-level theorem declares its ambient. Vol II locks at
+`weight_completed_topologization_class_m_platonic.tex` and
+`chiral_higher_deligne.tex:909-946`.
+
+**AP-CY470 — PVA Jacobi is not the all-loop quantum theory (Medium, type: classical-vs-quantum promotion).**
+Wrong: the PVA \(\lambda\)-Jacobi identity for Poisson vertex
+algebras gives the all-loop quantum HT theory; classical PVA Jacobi
+implies quantum. Correct: PVA Jacobi gives classical gauge
+invariance (Khan-Zeng); a Virasoro element upgrades to topological;
+the all-loop boundary VOA, \(E_3\)-lift, and analytic renormalised
+closed-open package are extra data conditional on KZ analytic SDR
++ Stokes choices + reflected weights + lift of \(T=[Q_{\mathrm{tot}},G]\). **Counter**: finite-type freely generated
+finite-jet PVA all-loop statements must list the four-step package;
+the mixed-HT to topological-HT step is gated by the Virasoro-element
+data, separate from PVA Jacobi.
+
+**AP-CY471 — Quadratic chiral duality is not the Koszul duality theorem (Medium, type: chiral-Koszulness scope).**
+Wrong: existence of the quadratic dual implies the Koszul duality
+theorem; the candidate-dual MC injection is the Koszulness theorem.
+Correct: Gui-Li-Zeng (arXiv:2212.11252) prove an injection
+\(\mathrm{Hom}(A,B)\hookrightarrow\mathrm{MC}(A^!\otimes B)\) with
+bijectivity in special cases; full Koszulness in a homotopy setting
+is a separate theorem (one of the fourteen characterisations).
+**Counter**: a Koszul-duality-theorem invocation must specify which
+characterisation/level; the quadratic dual gives the candidate dual
++ MC comparison map only.
