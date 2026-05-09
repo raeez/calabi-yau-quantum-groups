@@ -1,0 +1,653 @@
+\chapter{The Terminal Scalar Shadow}
+\label{ch:borcherds-terminus}
+
+The five levels of the universal arrow terminate in a single number,
+the Borcherds weight of the denominator of a generalised Kac--Moody
+algebra.  Above this number stand the chiral algebra
+$A_X = \Phi^{(\Sigma_{d-1}, C)}_d(\mathcal C_X)$ at level~$2$, the
+derived chiral centre $Z^{\mathrm{der}}_{\mathrm{ch}}(A_X)$ and the
+quantum vertex group $G(X) = D(Y^+(X))$ at level~$3$.  At its own
+level the terminal datum is a scalar in $\Z$ or $\tfrac12\Z$,
+recovered from the principal Fourier coefficient of a weak Jacobi
+form by a single rational division.  The level-$3$ object that
+upgrades the scalar to a compact Hall--Drinfeld--Pfaffian recognition
+is a construction obligation; it stands outside the level-$4$
+identity that occupies this chapter.
+
+The mathematics that lives at level~$4$ is one identity, repeated
+on every Calabi--Yau face on which a Borcherds product is
+constructed:
+\[
+ \kappa_{\mathrm{BKM}}(\Phi_N) \;=\; \frac{c_N(0)}{2}.
+\]
+Borcherds proved this identity for the singular theta lift on every
+even Lorentzian lattice $L$ of signature $(b^+, b^-)$ with $b^+ \ge 2$
+\cite[Theorem~13.3]{Borcherds1998}; Gritsenko sharpened the
+paramodular form of the same identity in his classification of
+arithmetic lifts on $\mathrm{Sp}_4(\Z)$ and its Hecke congruence
+subgroups~\cite{Gritsenko1999}.  The data on the right side is the
+input weak Jacobi form $\phi_{0, 1}^{(g_N)}(\tau, z)$ and its zero
+Fourier coefficient $c_N(0) = c_N(0, 0)$; the data on the left side
+is the Borcherds product $\Phi_N$ on a Grassmannian of positive
+$b^+$-planes; the equality fixes the Siegel weight from the principal
+part of the input.  The principal-part-to-weight map is the only
+content of this chapter; all of its tier-(iii) instances pull back to
+this single rational division by $2$.
+
+The level discipline forces three points.  The level-$4$ identity
+is universal in the input lattice and in the input Jacobi form; the
+principal-part datum $c_N(0)$ records the input character only.  The
+CHL ladder $N \in \{1, 2, 3, 4, 6\}$ on $K3 \times E$ at $d = 3$
+produces the monotone sequence
+$(\kappa_{\mathrm{BKM}}(\Phi_N))_N = (5, 4, 3, 2, 1)$ on its own
+scope; the Gritsenko--Cl\'ery $8$-form catalogue produces the
+non-monotone tuple $(5, 2, 3, 1, 2, \tfrac12, \tfrac32, 1)$ on its
+own scope; both satisfy the same universal identity on their own
+indexing sets, with input denominators named at every use.  The
+$d$-stratification of the input lattice produces dimension-stratified
+BKM siblings: the K3 BKM $\fg_{\Delta_5}$ at $d = 3$ on
+$\Lambda^{2, 1}_{\mathrm{II}}$, the Borcherds Monster Lie algebra
+$\mathfrak{m}$ at $d = 3$ on $\mathrm{II}_{1, 1}$, the Fake Monster
+$\fg_{\mathrm{FM}}$ at $d = 5$ on $\mathrm{II}_{25, 1}$ via the
+Dunn--Lurie additivity $E_5 \simeq E_2 \otimes E_2 \otimes E_1$ on
+$K3 \times K3 \times E$.
+
+The level-$3$ object that upgrades the scalar
+$\kappa_{\mathrm{BKM}} = c_N(0)/2$ to a compact Hall--Drinfeld
+correspondence
+$D_\hbar(\mathrm{CoHA}^+_{X}) \xrightarrow{\;\sim\;} G(X)$
+is constructed for compact non-toric $X$ as a research target; the
+companion \texttt{igusa-cusp-form} programme states the scope of
+the level-$4$ scalar at line~$96$ of \texttt{main.tex}: the Borcherds
+denominator algebra supplies the algebraic square root target and
+its target-internal Borcherds bracket, and the compact BPS Hilbert
+space, compact Hall correspondences, orientation, and BPS operator
+product/local collision map are separate data, supplied by the
+level-$3$ source recognition gate of
+Chapter~\ref{chap:bps-positive-geometry-closure}.  Each downstream
+reading of the scalars $5$, $12$, $24$ in this chapter carries this
+cross-volume scope reference.
+
+\section{The level-$4$ master identity}
+\label{sec:terminus-master-identity}
+
+\begin{theorem}[Universal Borcherds-weight identity, level-$4$ master]
+\label{thm:terminus-universal-borcherds-weight}
+Let $L$ be an even Lorentzian lattice of signature $(b^+, b^-)$ with
+$b^+ \ge 2$.  Let $V$ be a conformal vertex operator algebra whose
+weight lattice carries a primitive isometric embedding $L
+\hookrightarrow \mathrm{Lat}(V)$ compatible with the Virasoro
+grading.  Let $\chi_V(\tau) = \mathrm{tr}_V\, q^{L_0 - c/24} =
+\sum_m c_V(m) q^m$ be its vacuum character.  Let $\Phi_V$ be the
+Borcherds singular theta lift of $\chi_V$ on the Grassmannian
+$\mathcal G(L) = \mathrm{O}(L \otimes \R) /
+(\mathrm{O}(b^+) \times \mathrm{O}(b^-))$.  Then
+\[
+ \kappa_{\mathrm{BKM}}(\Phi_V) \;=\; \mathrm{wt}(\Phi_V) \;=\; \frac{c_V(0)}{2}.
+\]
+\end{theorem}
+
+\begin{proof}[Source]
+This is the Borcherds weight theorem~\cite[Theorem~13.3,
+\S~14]{Borcherds1998} read with the present conventions; the
+equality of the modular characteristic of the BKM denominator with
+the Siegel weight of the singular-theta lift is the conventional
+identification of $\kappa_{\mathrm{BKM}}$ with $\mathrm{wt}(\Phi_V)$.
+The hypothesis $b^+ \ge 2$ is required for the Grassmannian
+$\mathcal G(L)$ to be a non-trivial Hermitian symmetric domain and
+for the theta integral to converge.  At $L = \mathrm{II}_{1, 1}$
+($b^+ = 1$) the Grassmannian degenerates to a point; the
+Borcherds-1992 two-variable Monster denominator
+\cite[Theorem~10.1]{Borcherds1992} is recovered from the
+genus-$0$ property of $J(\tau)$ via the Koike--Norton--Zagier
+expansion.  Lemma~\ref{lem:monster-outside-grassmannian-lift} of
+Chapter~\ref{ch:k3e-bkm} records the scope-boundary statement and
+the numerical coincidence
+$c_V(0)/2 = 0/2 = 0$ under the FLM-shifted character convention
+$\chi_{V^\natural} = J(\tau)$.
+\end{proof}
+
+\begin{remark}[Subscript discipline on the input]
+\label{rem:terminus-subscript-discipline}
+The symbol $\kappa_{\mathrm{BKM}}(\Phi_N)$ carries the input
+denominator $N$ on its argument.  At $N = 1$ the input is $\Delta_5$
+of weight $5$ and constant term $c_1(0) = 10$, giving
+$\kappa_{\mathrm{BKM}}(\Delta_5) = 5$; at the Fake-Monster input
+$\Phi_{12} = \Phi_{\mathrm{FM}}$ of weight $12$ on
+$\mathrm{II}_{25, 1}$ the constant is $c_\Lambda(0) = 24$, giving
+$\kappa_{\mathrm{BKM}}(\Phi_{12}) = 12$.  Both values evaluate the
+same Borcherds weight identity at different inputs and different
+lattices; the divergence is the shift in the input.
+\end{remark}
+
+\begin{remark}[Four-$\kappa_\bullet$ separation]
+\label{rem:terminus-four-kappa-separation}
+The four invariants $\kappa_{\mathrm{ch}}$, $\kappa_{\mathrm{cat}}$,
+$\kappa_{\mathrm{BKM}}$, $\kappa_{\mathrm{fiber}}$ are functorial in
+different categories.  Their numerical agreement on a particular face
+is read face by face: at $N = 1$ on $K3 \times E$,
+$\kappa_{\mathrm{BKM}}(\Delta_5) = 5$,
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(K3 \times E) +
+\chi(\mathcal O_E) = 0 + 0 = 0$, and the two values record the
+Siegel weight of the paramodular form and the Hodge supertrace of
+the K\"unneth product respectively; at $N = 2$ the corresponding
+values are $4$ and $1$.  The universal identity
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ holds at every $N$ on its
+own input.  Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}
+of Chapter~\ref{ch:cy-d-kappa-stratification} carries the master
+inscription; the present level-$4$ identity is its canonical scalar
+terminus.
+\end{remark}
+
+\section{The CHL ladder}
+\label{sec:terminus-chl-ladder}
+
+The CHL ladder is the family of $\Z/N$-symplectic orbifolds
+$(K3 \times E)/(\Z/N)$ at $N \in \{1, 2, 3, 4, 6\}$ with
+$\varphi(N) \mid 2$ admitting a paramodular Borcherds witness.
+Bryan, Oberdieck, Pandharipande, Yin
+\cite{BOPY2018} construct the orbifold reduced
+Donaldson--Thomas partition function as a Siegel paramodular form
+$1/\Phi_N(Z)^2$ at every level; the input is the $g_N$-twined K3
+elliptic genus
+\[
+ Z^{(g_N)}_{\mathrm{K3}}(\tau, z) \;=\;
+ \mathrm{tr}_{\cH_{\mathrm{K3}}}\!\bigl(g_N\,(-1)^{F_L + F_R}\,
+ q^{L_0 - c/24}\,\bar q^{\bar L_0 - c/24}\,y^{J_0}\bigr),
+\]
+proportional to the weak Jacobi form $\phi_{0, 1}^{(g_N)}$ of
+weight $0$ and index $1$ on $\Gamma_0(N)$ with frame-shape
+$\eta$-quotient character.
+
+\begin{theorem}[CHL ladder]
+\label{thm:terminus-chl-ladder}
+For each $N \in \{1, 2, 3, 4, 6\}$, the constant-term tuple of
+$\phi_{0, 1}^{(g_N)}$ and the Siegel weight of the Gritsenko--Nikulin
+paramodular Borcherds product $\Phi_N$ are
+\[
+ \bigl(c_N(0)\bigr)_{N \in \{1, 2, 3, 4, 6\}} \;=\; (10, 8, 6, 4, 2),
+ \qquad
+ \bigl(\kappa_{\mathrm{BKM}}(\Phi_N)\bigr)_{N \in \{1, 2, 3, 4, 6\}}
+ \;=\; (5, 4, 3, 2, 1).
+\]
+The pairing equals
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ at every $N$.
+\end{theorem}
+
+\begin{proof}[Source assembly]
+The case $N = 1$ is Gritsenko--Nikulin~\cite[Part~II,
+Theorem~2.1]{GritsenkoNikulin1995}, with $\Phi_1 = \Delta_5$ of weight
+$5$ on the paramodular group $\Gamma_1 \subset \mathrm{Sp}_4(\Z)$.
+The case $N = 2$ is the $g_{2A}$-twined construction of
+Eguchi--Hikami~\cite{EguchiHikami2011}, with $\Phi_2 = \Delta_4^{(2)}$
+of weight $4$.  The cases $N \in \{3, 4, 6\}$ are
+Govindarajan--Krishna~\cite{GovindarajanKrishna2010} via the
+Mathieu $M_{24}$ conjugacy classes $\{3A, 4A, 6A\}$, with weights
+$3, 2, 1$ respectively.  The constant-term values are read from the
+Eguchi--Ooguri--Tachikawa K3-orbifold
+expansion~\cite{EguchiOoguriTachikawa2011}.  Each weight equals
+$c_N(0)/2$ by Theorem~\ref{thm:terminus-universal-borcherds-weight};
+the specialisation is recorded as Scope~(A) in
+Theorem~\ref{thm:k3e-universal-kBKM-two-scopes} of
+Chapter~\ref{ch:k3e-bkm}.
+\end{proof}
+
+\begin{remark}[CHL slice as $d = 3$ K3-fibered chart-specialisation]
+\label{rem:terminus-chl-d3-chart}
+The CHL ladder is a $d = 3$ phenomenon on the reduced
+$\C^\times + \mathrm{Aut}$ chart with K3-fibered specialisation
+cycle $\Sigma_2^{(N)} = \mathrm{K3}/(\Z/N) \subset (K3 \times
+E)/(\Z/N)$ and reference curve $C = E$.  The $\Phi_N$ family
+records five distinct
+$(\Sigma_2^{(N)}, E)$-specialisations of the single Stage-$1$ datum
+$\PhiFA_3(D^b\Coh(K3 \times E))$ in the sense of
+Theorem~\ref{thm:cy-to-chiral-d3} of Chapter~\ref{ch:cy-to-chiral};
+the level-$4$ scalar $\kappa_{\mathrm{BKM}}(\Phi_N)$ is the Siegel
+weight of the resulting paramodular form on its own paramodular
+group $\Gamma_N \subset \mathrm{Sp}_4(\Z)$.  The Stage-$2$
+specialisation cycle, the equivariant CoHA, and the Hall--Borcherds
+denominator comparison at $N \ge 2$ are open construction
+obligations on $\fg_{\Phi_N}$, recorded as research targets in
+Chapter~\ref{ch:cy-to-chiral} (Remark on multiple
+$E_1$-specialisations); the level-$3$ promotion of the scalar to a
+compact Hall recognition stays inside that scope.
+\end{remark}
+
+\section{The Gritsenko--Cl\'ery $8$-form catalogue}
+\label{sec:terminus-gc-catalogue}
+
+The Gritsenko--Cl\'ery classification \cite[Theorem~1.4]{GritsenkoClery2008}
+enumerates the genus-$2$ holomorphic Siegel modular forms whose divisor
+on $\mathbb H_2 / \Gamma_t(N)$ is the diagonal $\mathcal H_1$ of
+vanishing order~$1$, indexed by triples $(t, N; k)$ with
+$\Gamma_t(N) < \Gamma_t$ a Hecke congruence subgroup of the paramodular
+group of index $t$.  The classification is complete and consists of
+exactly eight forms.
+
+\begin{theorem}[Gritsenko--Cl\'ery $8$-form catalogue]
+\label{thm:terminus-gc-catalogue}
+The triples $(t, N; k)$ enumerating the genus-$2$ dd-modular forms
+with diagonal divisor are
+\[
+ (t, N; k) \;\in\; \bigl\{(1, 1; 5),\, (2, 1; 2),\, (1, 2; 3),\,
+ (3, 1; 1),\, (1, 3; 2),\, (4, 1; \tfrac12),\, (1, 4; \tfrac32),\,
+ (2, 2; 1)\bigr\},
+\]
+with corresponding forms $F_{t, N}$ of weights
+\[
+ \bigl(k_{t, N}\bigr) \;=\; (5,\, 2,\, 3,\, 1,\, 2,\, \tfrac12,\,
+ \tfrac32,\, 1),
+\]
+and zero Fourier coefficients
+\[
+ \bigl(c_{t, N}(0, 0)\bigr) \;=\; (10,\, 4,\, 6,\, 2,\, 4,\, 1,\,
+ 3,\, 2)
+\]
+at single-cusp rows.  The row-wise level-$4$ identity is
+\[
+ \kappa_{\mathrm{BKM}}(F_{t, N}) \;=\; \mathrm{wt}(F_{t, N}) \;=\;
+ k_{t, N} \;=\; \frac{1}{2} \sum_{f/e \in \mathcal P(N)}
+ \frac{h_e}{N_e}\, c_{f/e}(0, 0)
+\]
+\textup{(}Gritsenko--Cl\'ery~$2008$ Theorem~$3.1$\textup{)}; at
+single-cusp entries the sum reduces to $c_{t, N}(0, 0)/2$, recovering
+the universal Borcherds weight formula of
+Theorem~\ref{thm:terminus-universal-borcherds-weight}.
+\end{theorem}
+
+\begin{proof}[Source]
+The classification, the explicit construction, and the cusp-weighted
+weight formula are Gritsenko--Cl\'ery~\cite[Theorem~1.4,
+Theorem~3.1]{GritsenkoClery2013}; the proof of the catalogue is
+recorded as Theorem~\ref{thm:eight-form-cy-host-catalogue} of
+Chapter~\ref{ch:cy-d-kappa-stratification}.  The two half-integer
+rows $(4, 1; \tfrac12)$ and $(1, 4; \tfrac32)$ are holomorphic
+Siegel modular forms with multiplier systems of order $8$ and $4$
+respectively, of $v_\eta^3 \times v_H$-tensor type, using the
+Shimura $1975$ holomorphic-square-root convention; the cover-group
+is paramodular, and the multiplier carries the half-integer weight.
+The candidate triple $(2, 4; \tfrac12)$ admitted by the
+Proposition~$1.2$ constraint is excluded in
+Gritsenko--Cl\'ery~$2008$~\S~$2.5$ by the non-holomorphicity of
+$D = Q_1/F$ on $\Gamma_2(4)$.  The catalogue terminates at the
+eight enumerated rows; the weight set is contained in
+$\{1/2, 1, 3/2, 2, 3, 5\}$.
+\end{proof}
+
+\begin{remark}[Two scopes, one identity]
+\label{rem:terminus-two-scopes}
+The CHL ladder of Theorem~\ref{thm:terminus-chl-ladder} and the
+Gritsenko--Cl\'ery $8$-form catalogue of
+Theorem~\ref{thm:terminus-gc-catalogue} are distinct indexing
+systems that overlap at the single common entry
+$\Phi_1 = F_{1, 1} = \Delta_5$.  The CHL ladder is indexed by the
+symplectic orbifold order $N \in \{1, 2, 3, 4, 6\}$ and produces
+the monotone tuple $(5, 4, 3, 2, 1)$; the Gritsenko--Cl\'ery
+catalogue is indexed by paramodular triples $(t, N; k)$ and
+produces the non-monotone tuple
+$(5, 2, 3, 1, 2, \tfrac12, \tfrac32, 1)$.  An inscription of a
+$\kappa_{\mathrm{BKM}}$ value names its scope and its input.
+\end{remark}
+
+\begin{remark}[Cover stratification by weight integrality]
+\label{rem:terminus-cover-stratification}
+The six integer-weight rows $\Delta_5,\, \Delta_2,\, \nabla_3,\,
+\Delta_1,\, \nabla_2,\, Q_1$ live on paramodular subgroups
+$\Gamma_t(N) \subset \mathrm{Sp}_2(\Q)$ and their normal double
+extensions $\Gamma_t(N)^+$.  The two half-integer rows
+$\Delta_{1/2} = \theta_{1111}$ and $\nabla_{3/2}$ live on the same
+paramodular subgroups with multiplier systems $v_\eta^3 \times v_H$
+of orders $8$ and $4$ respectively.  The cover-group is paramodular
+in every row; the multiplier system carries the half-integer weight
+data, and the metaplectic double $\mathrm{Mp}_4$ and the spin cover
+$\widetilde{\mathrm{Mp}}_4$ do not appear.
+\end{remark}
+
+\section{The dimension-stratified BKM siblings}
+\label{sec:terminus-bkm-siblings}
+
+The level-$4$ identity ranges across the dimension stratification
+$d \in \{1, 2, 3, 4, 5\}$ of the Calabi--Yau input, with input
+lattice and input form forced by the chart and the Dunn--Lurie
+additivity $E_d \simeq E_{d_1} \otimes \cdots \otimes E_{d_k}$ on
+the reference factorisation.  Three siblings are distinguished by
+their input lattice and their place in the $d$-stratification.
+
+\subsection{The K3 BKM $\fg_{\Delta_5}$ at $d = 3$}
+\label{subsec:terminus-k3-bkm-d3}
+
+\begin{theorem}[K3-side BKM Borcherds weight at $d = 3$]
+\label{thm:terminus-k3-bkm-weight}
+Let $L = \Lambda^{2, 1}_{\mathrm{II}} \subset \Lambda^{3, 2}$ be
+the rank-$3$ hyperbolic sublattice of the K3-Mukai-Heisenberg
+lattice $\Lambda^{3, 2}$ of signature $(3, 2)$.  Let $\Phi_1 =
+\Delta_5$ be the Borcherds singular theta lift of $\phi_{0, 1}$ on
+$\mathcal G(\Lambda^{3, 2})$, of Siegel weight $5$ on the
+paramodular group $\Gamma_1 \subset \mathrm{Sp}_4(\Z)$.  Then
+\[
+ \kappa_{\mathrm{BKM}}(\Delta_5) \;=\; \mathrm{wt}(\Delta_5) \;=\;
+ \frac{c_{\phi_{0, 1}}(0)}{2} \;=\; \frac{10}{2} \;=\; 5.
+\]
+The constant term $c_{\phi_{0, 1}}(0) = 10$ is the
+$r^0 q^0$-coefficient of the index-$1$ weight-$0$ weak Jacobi form
+$\phi_{0, 1}(\tau, z) = r + 10 + r^{-1} + O(q)$.
+\end{theorem}
+
+\begin{proof}[Source assembly]
+The input weak Jacobi form $\phi_{0, 1}$ is $\phi_{12, 1}/\eta^{24}$
+with $\phi_{12, 1}(\tau, z)$ the Eichler--Zagier weight-$12$
+index-$1$ Jacobi cusp form, of zero Fourier coefficient
+$c_{\phi_{0, 1}}(0) = 10$.  The Borcherds singular theta lift on
+$\mathcal G(\Lambda^{3, 2})$ produces $\Delta_5$ as the Gritsenko
+paramodular Borcherds product
+\cite[Part~II, Theorem~2.1]{GritsenkoNikulin1995}; the Siegel weight
+$5 = c_{\phi_{0, 1}}(0)/2$ is the Borcherds weight formula
+\cite[Theorem~13.3]{Borcherds1998}.  The first inscription of the
+explicit Borcherds product $\Phi^{\mathrm{Borch}}(\phi_{0, 1}) =
+\Delta_5$ is Lorgat~$2020$ (\texttt{arXiv:2007.14218}, Theorem~$3$);
+the level-$4$ scalar $5$ agrees across all three sources.
+\end{proof}
+
+\begin{remark}[Scope-boundary: the Borcherds Monster at $d = 3$ on
+$\mathrm{II}_{1, 1}$]
+\label{rem:terminus-monster-scope-boundary}
+The Borcherds Monster Lie algebra $\mathfrak{m}$ at $d = 3$ on the
+rank-$2$ Lorentzian lattice $\mathrm{II}_{1, 1}$ carries the
+two-variable denominator $J(p) - J(q)$, identified by the
+Koike--Norton--Zagier expansion
+\cite[Theorem~10.1]{Borcherds1992} on the formal product
+$\mathbb H \times \mathbb H$.  The signature $(b^+, b^-) = (1, 1)$
+sits below the hypothesis $b^+ \ge 2$ of
+Theorem~\ref{thm:terminus-universal-borcherds-weight}, and the
+Grassmannian $\mathcal G(\mathrm{II}_{1, 1})$ collapses to a point;
+the level-$4$ scalar $\kappa_{\mathrm{BKM}}(\mathfrak{m}) := 0$ is read
+from the genus-$0$ property of the Hauptmodul $J$ as the bi-weight
+of $J(p) - J(q)$.  Under the FLM-shifted character convention
+$\chi_{V^\natural} = J(\tau)$ the formal coefficient $c_V(0) =
+[q^0] J = 0$ matches the value $c_V(0)/2 = 0$, recording a
+numerical agreement between the genus-$0$ reading and the
+Grassmannian formula at the boundary
+$b^+ \to 1$; the genus-$0$ proof
+\cite[Theorem~8.1, Theorem~10.1]{Borcherds1992} is independent of
+the singular-theta machinery, with the scope-boundary statement at
+Lemma~\ref{lem:monster-outside-grassmannian-lift} of
+Chapter~\ref{ch:k3e-bkm}.  The Cartan rank of $\mathfrak{m}$ is $2$ on
+$\mathrm{II}_{1, 1}$; the dimension of the moonshine module
+$V^\natural$ at grade $1$ is $196884$, a representation-theoretic
+datum separate from the level-$4$ scalar.
+\end{remark}
+
+\subsection{The Fake Monster at $d = 5$ on $\mathrm{II}_{25, 1}$}
+\label{subsec:terminus-fake-monster-d5}
+
+\begin{theorem}[Fake-Monster Borcherds weight at $d = 5$]
+\label{thm:terminus-fake-monster-weight}
+Let $L = \mathrm{II}_{25, 1}$ be the unique even unimodular
+Lorentzian lattice of signature $(25, 1)$.  Let $V_\Lambda$ be the
+Leech lattice vertex operator algebra, with vacuum character
+$\chi_{V_\Lambda}(\tau) = 1/\eta(\tau)^{24}$.  Let $\Phi_{12} =
+\Phi_{\mathrm{FM}}$ be the Borcherds singular theta lift of
+$1/\eta^{24}$ on $\mathcal G(\mathrm{II}_{26, 2})$.  Then
+$\Phi_{12}$ is an automorphic form of Siegel weight $12$ on
+$\mathrm{O}^+(\mathrm{II}_{26, 2})$ realising the Fake-Monster
+denominator
+\[
+ \PhiFM(Z) \;=\; e^{2\pi i (\rho, Z)}
+ \prod_{\substack{\lambda \in (\mathrm{II}_{25, 1})^+ \\ (\lambda, \rho) > 0}}
+ \bigl(1 - e^{2\pi i (\lambda, Z)}\bigr)^{c_\Lambda(-\lambda^2/2)},
+\]
+with Weyl vector $\rho \in \mathrm{II}_{25, 1}$ the Conway--Sloane
+Weyl vector and exponents $c_\Lambda(n) = [q^n](1/\eta^{24})$.  The
+constant $c_\Lambda(0) = [q^0](1/\eta^{24}) = 24$ gives
+\[
+ \kappa_{\mathrm{BKM}}(\Phi_{12}) \;=\; \mathrm{wt}(\Phi_{12}) \;=\;
+ \frac{c_\Lambda(0)}{2} \;=\; \frac{24}{2} \;=\; 12.
+\]
+\end{theorem}
+
+\begin{proof}[Source]
+The lift, the product expansion, and the Siegel weight $12$ are
+Borcherds~\cite[\S~10]{Borcherds1992} as restated in
+Borcherds~\cite[Example~13.7]{Borcherds1998}; the Fake Monster Lie
+algebra construction on $\mathrm{II}_{25, 1}$ is the Monster Lie
+algebra construction extended to the rank-$26$ Lorentzian lattice
+\cite{Borcherds1990Invent}.  The constant $c_\Lambda(0) = 24$ is the
+$q^0$-coefficient of the expansion $1/\eta(\tau)^{24} =
+q^{-1}(1 + 24 q + 324 q^2 + \cdots)$; the dimensional placement of
+the Fake Monster at $d = 5$ on $K3 \times K3 \times E$ via the
+Dunn--Lurie additivity $E_5 \simeq E_2 \otimes E_2 \otimes E_1$ is
+recorded as Theorem~\ref{thm:fake-monster-d5-bialgebra} of
+Chapter~\ref{ch:cy-to-chiral}, with the dimensional placement at
+$d = 5$ forced by the lattice signature $(25, 1)$ on
+$\mathrm{II}_{25, 1}$ against the K3 Mukai-Heisenberg signature
+$(3, 2)$ on $\Lambda^{3, 2}$ at $d = 3$.
+\end{proof}
+
+\begin{remark}[Same identity, two conventions, two values]
+\label{rem:terminus-two-input-denominators}
+The values $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$ and
+$\kappa_{\mathrm{BKM}}(\Phi_{12}) = 12$ evaluate the same universal
+identity at two input denominators on two lattices in two
+$d$-strata.  Naming the input denominator at every use is the
+disambiguation; the divergence is in the input.
+\end{remark}
+
+\subsection{Conway and Leech bridges at $d = 4$}
+\label{subsec:terminus-d4-bridge}
+
+\begin{remark}[Bridge stratum]
+\label{rem:terminus-d4-conway-leech}
+The $d = 4$ stratum carries the Conway and Leech BKM siblings as a
+bridge between $d = 3$ and $d = 5$: the Conway lattice $\Lambda$ at
+rank $24$ supports the Niemeier classification of even unimodular
+positive-definite rank-$24$ lattices (twenty-four, of which
+$23$ have nonzero roots and one is the Leech), and the Leech lattice
+itself at $d = 5$ via the orthogonal sum
+$\mathrm{II}_{26, 2} = \Lambda \oplus \mathrm{II}_{2, 2}$ inside the
+Borcherds compactification of $\mathcal G(\mathrm{II}_{26, 2})$.
+The Leech VOA $V_\Lambda$ is the input of the Fake-Monster
+construction at $d = 5$
+(\S~\ref{subsec:terminus-fake-monster-d5}); its $\Z/2$-orbifold
+$V_\Lambda \to V^\natural$ produces the moonshine module entering
+the Borcherds Monster at $d = 3$
+(Remark~\ref{rem:terminus-monster-scope-boundary}).  No CY$_4$
+host carries a Niemeier-twenty-four-side BKM sibling on its own
+right; the level-$4$ scalars at $d = 4$ pull back from $d = 3$ K3
+fibrations and from $d = 5$ $K3 \times K3 \times E$ via Stage-$1$
+factorisation-algebra restrictions, but no Stage-$2$ specialisation
+on a CY$_4$ has been constructed in this monograph.
+\end{remark}
+
+\section{The terminal-shadow scope}
+\label{sec:terminus-shadow-scope}
+
+The level-$4$ scalar $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
+records the Borcherds weight of an automorphic product on
+$\mathcal G(L)$; the Borcherds denominator algebra supplies the
+algebraic square root target and its target-internal Borcherds
+bracket.  The companion data --- the compact BPS Hilbert space, the
+compact Hall correspondences, the orientation, the BPS operator
+product/local collision map --- belongs to the level-$3$ object
+$G(X) = D(Y^+(X))$, constructed from a compact CoHA on the
+effective stable cone $\mathcal M^+_{\mathrm{eff}}(X)$ and its
+Drinfeld doubling under the Borcherds--Serre radical quotient; for
+compact non-toric $X$ this construction stands as a research target
+of Chapter~\ref{chap:bps-positive-geometry-closure}.
+
+\begin{remark}[Cross-volume terminal-shadow scope]
+\label{rem:terminus-igusa-scope}
+For every reference to $\Delta_5$, $\Phi_{10}$, $\Phi_{12}$, or
+$\mathbf H_{\Delta_5}$ in this chapter, the level-$3$ promotion to
+a compact Hall--Drinfeld--Pfaffian recognition stays at the level
+of a research target.  The companion \texttt{igusa-cusp-form}
+programme states the scope of the level-$4$ scalar at line~$96$ of
+\texttt{main.tex}: the Borcherds denominator $\mathfrak g_{\Delta_5}$
+supplies the algebraic square root target and its target-internal
+Borcherds bracket; the compact BPS Hilbert space, compact Hall
+correspondences, orientation, and BPS operator product/local
+collision map are separate companion data.  A compact
+$K3 \times E$ source identifies with the target quotient
+$G(\mathscr B_{\Delta_5})_W$ on a downward-saturated finite root
+window $W$ once the source supplies primitive representatives, the
+Hall bracket, the Hopf pairing, the radical quotient, the
+no-extra-relations theorem, the Poincar\'e--Birkhoff--Witt basis,
+full parity dimensions, and exact transition maps on $W$;
+the target quotient is algebraic, and the source-side construction
+of the seven listed data is the content of the level-$3$ source
+recognition gate.
+\end{remark}
+
+\begin{remark}[Source and target across the four levels]
+\label{rem:terminus-source-target}
+The Borcherds product $\Phi_N$ is a section of an automorphic line
+bundle on $\mathcal G(L)$; its weight $\mathrm{wt}(\Phi_N)$ is a
+scalar in $\Z$ or $\tfrac12\Z$.  The chiral algebra $\mathbf
+H_{\Delta_5}$ at level $2$ is a Hopf algebra in chiral algebras on
+the reference curve $E$.  The derived chiral centre
+$Z^{\mathrm{der}}_{\mathrm{ch}}(\mathbf H_{\Delta_5})$ at level $3$
+carries the $E_1$-chiral structure on $C = E$ with $E_2$-braiding
+on $\mathcal Z(\mathrm{Rep}^{E_1}(\mathbf H_{\Delta_5}))$.  The
+arrows between levels are the bar comparison
+$Z^{\mathrm{der}}_{\mathrm{ch}}(A) = \RHom(\Omega B(A), A)$
+between $2$ and $3$, the Weyl--Kac--Borcherds denominator
+$\operatorname{Den}(D(Y^+_N)) = \Phi_N$ between $3$ and $4$, and the
+specialisation $\SpCh_{\Sigma_{d-1}, C}$ between $1$ and $2$.  Each
+arrow forgets data: the bar comparison forgets the cyclic
+$A_\infty$-coproduct on $A$, the denominator forgets the Cartan
+torus and the Serre-dual pairing of $D(Y^+_N)$, the specialisation
+forgets the chart-independent Stage-$1$ datum.  Inversion of any
+arrow at the level of objects is the content of the open frontiers
+in Chapter~\ref{chap:bps-positive-geometry-closure}.
+\end{remark}
+
+\section{The Saito--Kurokawa central-value structure}
+\label{sec:terminus-saito-kurokawa}
+
+The level-$4$ scalar carries arithmetic content beyond its Siegel
+weight: the spinor $L$-function of the Saito--Kurokawa lift attached
+to $\Phi_{10}^{\mathrm{un}} = \Delta_5^2$ has a simple pole at the
+Andrianov central value, and its residue is a rational multiple of
+a Manin period.
+
+\begin{theorem}[Saito--Kurokawa spinor $L$-residue]
+\label{thm:terminus-saito-kurokawa-residue}
+Let $g = \Delta \cdot E_6 \in S_{18}(\mathrm{SL}_2(\Z))$.  Let
+\[
+ \mathrm{SK}(g) \;=\; \Phi_{10}^{\mathrm{un}} \;=\;
+ \Delta_5^2 \;\in\; S_{10}(\mathrm{Sp}_4(\Z))
+\]
+be its Saito--Kurokawa lift.  The Andrianov factorisation of the
+spinor $L$-function is
+\[
+ L(s, \Phi_{10}^{\mathrm{un}}, \mathrm{Spin}) \;=\;
+ \zeta(s - 9) \cdot \zeta(s - 8) \cdot L(s, g).
+\]
+The programme's central-value parameter
+$s_{\mathrm{prog}} = 5/2$ on $\Delta_5$ maps to the Andrianov point
+$s_{\mathrm{Andr}} = 10$ on $\Phi_{10}^{\mathrm{un}}$ via rescale
+factor $4 = 2 \cdot 2$, decomposing as the Siegel weight doubling
+$k(\Delta_5) = 5 \mapsto k(\Phi_{10}^{\mathrm{un}}) = 10$ and the
+Andrianov normalisation of the Satake-parameter base point.  At
+$s = 10$ the factor $\zeta(s - 9) = 1/(s - 10) + O(1)$ has a
+simple pole with residue $1$, and
+\[
+ \mathrm{Res}_{s = 10}\, L(s, \Phi_{10}^{\mathrm{un}}, \mathrm{Spin})
+ \;=\; \zeta(2) \cdot L(10, g)
+ \;=\; -15120 \cdot a_{10}(g) \cdot \Omega^-(g),
+\]
+with $a_{10}(g) = a_2(g) \cdot a_5(g) = (-528) \cdot (-1025850)
+= 541\,648\,800$ the tenth Hecke eigenvalue and $\Omega^-(g)$ the
+Manin minus-period of the rank-two motive $M(g)$ of weight $17$.
+The prime content $-15120 = -2^4 \cdot 3^3 \cdot 5 \cdot 7$ comes
+from the Shokurov modular-symbol factorial $9! \cdot 7!$ against the
+Eichler binomial $\binom{16}{9} = 11440$ and the Bernoulli
+$|B_2|/(2 \cdot 2!) = 1/24$ inside $\zeta(2) = \pi^2/6$.
+\end{theorem}
+
+\begin{proof}[Source]
+The full chain of identifications --- Andrianov factorisation, the
+rescale factor $4$, the Deligne rationality at $(k, n) = (18, 10)$,
+the Ichino--Ikeda relative-period identification of $\Omega^-(g)$
+with the Deligne minus-period of $M(g)$, and the explicit
+Eichler--Shimura--Manin extraction of the rational constant
+$-15120$ --- is proved as
+Theorem~\ref{thm:k3e-saito-kurokawa-residue} of
+Chapter~\ref{ch:k3e-bkm}; the present theorem records the
+level-$4$ scalar consequence in the terminal-shadow scope.  The
+Saito--Kurokawa lift target is the unnormalised Igusa square
+$\Phi_{10}^{\mathrm{un}} = \Delta_5^2$ rather than the chiral-half
+$\Delta_5$: the order-two multiplier $\nu_{\Delta_5}$ on
+$\mathrm{Sp}_4(\Z)$ trivialises under the squaring map
+$\Delta_5 \mapsto \Delta_5^2 = \Phi_{10}^{\mathrm{un}}$, and the
+square sits inside the CAP-representation subspace
+$S_{10}^{\mathrm{SK}}(\mathrm{Sp}_4(\Z))$ at non-tempered Arthur
+parameter $\psi = \phi_g \boxtimes \mathrm{Sym}^1$.
+\end{proof}
+
+\begin{remark}[Shadow $L$-function at the programme central value]
+\label{rem:terminus-shadow-z-5-2}
+The programme's shadow $L$-function $Z_{\mathrm{shadow}}(s) =
+1/L(4 s, \Phi_{10}^{\mathrm{un}}, \mathrm{Spin})$ has a zero at
+$s_{\mathrm{prog}} = 5/2$ of order~$1$, with leading coefficient
+the reciprocal of the Andrianov residue times the rescale Jacobian
+$ds_{\mathrm{prog}}/ds_{\mathrm{Andr}} = 1/4$,
+\[
+ \lim_{s \to 5/2}\, (s - 5/2) \cdot Z_{\mathrm{shadow}}(s) \;=\;
+ \frac{1}{4 \cdot (-15120 \cdot a_{10}(g) \cdot \Omega^-(g))} \;=\;
+ \frac{-1}{60480 \cdot 541\,648\,800 \cdot \Omega^-(g)}.
+\]
+The three-factor product $-15120 \cdot a_{10}(g) \cdot \Omega^-(g)$
+is invariant under rescaling of the Shokurov basis: Hecke-equivariant
+rational automorphisms of $H^1_{\mathrm{par}}(\mathrm{SL}_2(\Z),
+V_{16}(\Q))$ rescale the Manin rational and the period by reciprocal
+rational factors.
+\end{remark}
+
+\section{Closure of the universal arrow}
+\label{sec:terminus-closure}
+
+The five levels of the universal arrow,
+\[
+ \underbrace{\mathcal C_X}_{\text{level } 0} \;\xrightarrow{\;\PhiFA_d\;}\;
+ \underbrace{\PhiFA_d(\mathcal C_X)}_{\text{level } 1}
+ \;\xrightarrow{\;\SpCh_{\Sigma_{d-1}, C}\;}\;
+ \underbrace{A_X}_{\text{level } 2}
+ \;\xrightarrow{\;Z^{\mathrm{der}}_{\mathrm{ch}}\;}\;
+ \underbrace{Z^{\mathrm{der}}_{\mathrm{ch}}(A_X)}_{\text{level } 3}
+ \;\xrightarrow{\;\operatorname{Den}\;}\;
+ \underbrace{\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2}_{\text{level } 4},
+\]
+terminate in the rational scalar of this chapter.  The final arrow
+$\operatorname{Den}$ from level~$3$ to level~$4$ is the Weyl--Kac--Borcherds
+denominator identity: the positive half $Y^+(X)$ of the quantum
+vertex group $G(X) = D(Y^+(X))$ supplies the exponents
+$\mathrm{mult}(\alpha) = \operatorname{sdim}\operatorname{Prim}_\alpha
+Y^+(X)$ in the Borcherds product
+\[
+ \operatorname{Den}\bigl(D(Y^+_N)\bigr)
+ \;=\; e^\rho \prod_{\alpha \in \Delta_+(\Lambda_N)}
+ \bigl(1 - e^{-\alpha}\bigr)^{\mathrm{mult}(\alpha)}
+ \;=\; \Phi_N(Z),
+\]
+the Cartan torus, the negative half, and the Serre-dual pairing
+enter only after forming the double, and the Siegel weight
+$\mathrm{wt}(\Phi_N) = c_N(0)/2$ is the scalar terminus
+(Theorem~\ref{thm:qgf-hall-double-borcherds-weight} of
+Chapter~\ref{ch:quantum-groups}).
+The arrow factors through the input weak Jacobi form
+$\phi_{0, 1}^{(g_N)}(\tau, z)$ and its principal-part datum
+$c_N(0) = c_N(0, 0)$; the rational division by $2$ is the only
+content of the level-$4$ pushforward.
+
+The same scalar $\kappa_{\mathrm{BKM}} = 5$ on $\Delta_5$ is shared
+across the K3 BKM $\fg_{\Delta_5}$ at $d = 3$ on
+$\Lambda^{2, 1}_{\mathrm{II}}$ and across its Stage-$2$ siblings
+under any chart-specialisation that returns the same input weak
+Jacobi form $\phi_{0, 1}$; the level-$3$ distinction between
+siblings is carried by the operator algebra structure on
+$Z^{\mathrm{der}}_{\mathrm{ch}}(A_X)$, separate from the level-$4$
+scalar.  Reconstruction of the level-$3$ object from the level-$4$
+scalar is the content of the open frontiers in
+Chapter~\ref{chap:bps-positive-geometry-closure}, where the source
+recognition gate matches the Borcherds pushforward to a Hall
+correspondence on the constructed positive geometry.
