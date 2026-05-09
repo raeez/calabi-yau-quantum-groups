@@ -1,7 +1,15 @@
 \chapter{Hochschild Calculus for CY Categories}
 \label{ch:hochschild-calculus}
 
-A Calabi--Yau $d$-category has a non-degenerate Serre pairing. What does this pairing force on the Hochschild invariants? For a general dg category, Hochschild homology $\HH_\bullet(\cC)$ carries only a Connes $B$-operator and Hochschild cohomology $\HH^\bullet(\cC)$ carries only a Gerstenhaber bracket; the two are linked by a cap product, but no intrinsic pairing relates them. The CY structure supplies exactly this pairing, and the rest of the chapter is its consequence.
+A Calabi--Yau $d$-category has a non-degenerate Serre pairing. For a
+general dg category, Hochschild homology $\HH_\bullet(\cC)$ carries a
+Connes $B$-operator and Hochschild cohomology $\HH^\bullet(\cC)$
+carries a Gerstenhaber bracket, linked by a cap product but otherwise
+unrelated. The CY structure pairs them: the Serre pairing supplies a
+quasi-isomorphism $\HH^\bullet(\cC) \simeq \HH_{d - \bullet}(\cC)$ of
+degree $-d$, transferring the $B$-operator to cohomology, the
+Gerstenhaber bracket to homology, and producing the
+$(2-d)$-shifted Poisson structure that drives the rest of the chapter.
 
 \begin{remark}[Three Hochschild theories]
 \label{rem:hochschild-convention-categorical}
@@ -11,7 +19,15 @@ Three distinct Hochschild theories appear in the three volumes and must be kept 
  \item \emph{Topological Hochschild} $\HH^\bullet_{\mathrm{top}}$: input an $E_1$-algebra over a base ring; output $E_2$-algebra (Deligne; Lurie). The Hochschild theory of Vol~II's slab algebra of 3d HT theories.
  \item \emph{Chiral Hochschild} $\ChirHoch^\bullet$: input an $E_\infty$-chiral algebra on a curve $X$; output concentrated in cohomological degrees $\{0,1,2\}$ on the curve-ambient reading (Vol~I Theorem~H; $d=1$ Ran ambient). Under $\Phi_d$ with $d \ge 2$, the concentration enlarges to $\{0,1,2,d\}$ in the cohomological lane; chain-level is infinite for class-M inputs at $d \ge 3$. The chiral Gerstenhaber bracket on $\ChirHoch^\bullet$ is not the topological one.
 \end{enumerate}
-The CY-to-chiral correspondence programme $\{\Phi_d\}$ of Chapter~\textup{\ref{ch:cy-to-chiral}} sends the categorical input $\HH^\bullet_{\mathrm{cat}}(\cC)$ to a chiral output whose own chiral Hochschild cohomology $\ChirHoch^\bullet(\Phi_d(\cC))$ is sharper (concentrated in $\{0,1,2\}$). The categorical Gerstenhaber bracket on $\HH^\bullet_{\mathrm{cat}}$ maps to the chiral convolution bracket on $\ChirHoch^\bullet$ via the bar-cobar passage of Vol~I Chapter~\textup{\cite{VolI} (Vol~I)}; this is not an identification of objects, only of structures. The chain-level route runs through Stage~1 of the two-stage factorisation: $\PhiFA_d(\cC) \in \EdHolFA(X)$ is assembled from $\HH^\bullet_{\mathrm{cat}}(\cC)$ with its Gerstenhaber bracket via Costello--Gwilliam--Li locality (Definition~\ref{def:phi-fa-and-sp}); the chiral specialisation $\SpCh_{\Sigma_{d-1},C}$ then descends to $\ChirHoch^\bullet$ on the reference curve, with the topological Hochschild $\HH^\bullet_{\mathrm{top}}$ of Vol~II entering only the slab-algebra side of the Swiss-cheese boundary, not the $\PhiFA_d$ interior. Throughout this chapter, $\HH^\bullet$ without qualifier means $\HH^\bullet_{\mathrm{cat}}$.
+The CY-to-chiral correspondence programme $\{\Phi_d\}$ of
+Chapter~\ref{ch:cy-to-chiral} sends the categorical input
+$\HH^\bullet_{\mathrm{cat}}(\cC)$ to a chiral output whose chiral
+Hochschild cohomology $\ChirHoch^\bullet(\Phi_d(\cC))$ is sharper
+(concentrated in cohomological degrees $\{0, 1, 2\}$). The categorical
+Gerstenhaber bracket on $\HH^\bullet_{\mathrm{cat}}$ maps to the chiral
+convolution bracket on $\ChirHoch^\bullet$ via the bar-cobar passage
+of Vol~I~\cite{VolI}; the map identifies the structures, not the
+objects. The chain-level route runs through Stage~1 of the two-stage factorisation: $\PhiFA_d(\cC) \in \EdHolFA(X)$ is assembled from $\HH^\bullet_{\mathrm{cat}}(\cC)$ with its Gerstenhaber bracket via Costello--Gwilliam--Li locality (Definition~\ref{def:phi-fa-and-sp}); the chiral specialisation $\SpCh_{\Sigma_{d-1},C}$ then descends to $\ChirHoch^\bullet$ on the reference curve, with the topological Hochschild $\HH^\bullet_{\mathrm{top}}$ of Vol~II entering only the slab-algebra side of the Swiss-cheese boundary, not the $\PhiFA_d$ interior. Throughout this chapter, $\HH^\bullet$ without qualifier means $\HH^\bullet_{\mathrm{cat}}$.
 \end{remark}
 
 \begin{remark}[\texorpdfstring{$\kappa_\bullet$}{kappa-.} convention in this chapter]
@@ -32,11 +48,11 @@ structure on $\HH^\bullet(\cC)$ — all live at \emph{level $0$} of
 the universal arrow (categorical input, prior to $\PhiFA_d$). The
 chart datum is empty: each construction is intrinsic to $\cC$ and
 identical across the four equivariance strata. The ambient is
-chain-level / $(\infty,1)$-categorical; both lanes are load-bearing
-(Pattern 236), and the explicit chain-level Connes / cyclic
-constructions of \S\ref{sec:connes-b}--\S\ref{sec:hh-hc-spectral}
-coexist with the $\infty$-categorical Kontsevich--Soibelman reading
-in parallel ambients. Promotion to level $\geq 1$ requires the
+chain-level / $(\infty,1)$-categorical; both lanes are load-bearing,
+and the explicit chain-level Connes / cyclic constructions of
+\S\ref{sec:connes-b}--\S\ref{sec:hh-hc-spectral} coexist with the
+$\infty$-categorical Kontsevich--Soibelman reading in parallel
+ambients, ambient-qualified at every theorem. Promotion to level $\geq 1$ requires the
 Stage-$1$ functor $\PhiFA_d$ of Chapter~\ref{ch:cy-to-chiral} via
 Kontsevich--Tamarkin formality on $\HH^\bullet(\cC)$ with its
 $(2-d)$-shifted Poisson structure; promotion to level $\geq 2$ on
