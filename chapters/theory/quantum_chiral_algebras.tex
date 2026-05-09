@@ -2,6 +2,12 @@
 \phantomsection\label{def:shadow-class}%
 \phantomsection\label{def:shadow-invariants}%
 \providecommand{\Br}{\mathrm{Br}}%
+%% Cross-volume macro stubs (Vol II preamble macros referenced in this chapter):
+\providecommand{\Drinfdouble}[1]{D(#1)}%
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}%
+\providecommand{\hCS}{\mathrm{hCS}}%
+\providecommand{\Wonepinf}{\mathcal{W}_{1+\infty}}%
+\providecommand{\protectedPfaff}[1]{\mathrm{Pf}^{\mathrm{prot}}(#1)}%
 
 \chapter{Quantum Chiral Algebras}
 \label{ch:quantum-chiral-algebras}
@@ -217,6 +223,203 @@ where $\Theta_{A_\cC}$ is the universal MC element from Volume~I. The pole struc
 
 The passage from $E_1$ to $E_2$ is realized by the Drinfeld center construction. For the CoHA of $\C^3$, this yields the full affine Yangian.
 
+The full quantum group attached to a Calabi--Yau target $X$ is not the
+positive half $\Yplus{X}$ alone: the positive half is constructed
+intrinsically from the equivariant geometry of moduli of effective
+objects, while the full quantum group $G(X)$ is its Drinfeld double, a
+strictly higher datum requiring a Hall pairing, a completion, an
+integral form, stable-envelope transport, and Drinfeld-double descent.
+Conflation of $\Yplus{X}$ with $G(X)$ (e.g.\ ``$\CoHA(\C^3) =
+\Wonepinf$'') collapses the two-stage assembly. The next definition and
+theorem record the assembly explicitly; their toric specialisation is
+\cref{thm:drinfeld-center-coha} below.
+
+\begin{definition}[\label{def:Y-plus-equiv-cohomology}Positive half via
+equivariant cohomology of moduli of effective objects]
+\ClaimStatusDefinition
+Let $\cA$ be a Calabi--Yau-$d$ category with target $X$, equipped with
+the geometric data \textup{(}equivariant torus action $T$ on
+$\cM^+_{\mathrm{eff}}(X)$ with isolated $T$-fixed loci; potential $W
+\colon \cM^+_{\mathrm{eff}}(X) \to \C$ from the Calabi--Yau
+superpotential; orientation data and Serre-compatible NCCR chart on the
+critical locus\textup{)} required for the construction below to be
+well posed. The \emph{positive half} of $\cA$ is the equivariant
+critical cohomology
+\[
+ \Yplus{X} \;:=\; H^\bullet_{T}\!\bigl(\cM^+_{\mathrm{eff}}(X),
+ \phi_W\bigr)
+\]
+of the moduli of effective objects with respect to the vanishing-cycle
+sheaf $\phi_W$, equipped with the Schiffmann--Vasserot Hall product
+arising from extension correspondences
+\[
+ \cM^+_{\mathrm{eff}}(X) \times \cM^+_{\mathrm{eff}}(X)
+ \;\xleftarrow{\;p\;}\;
+ \cE\!xt^+(X)
+ \;\xrightarrow{\;q\;}\;
+ \cM^+_{\mathrm{eff}}(X),
+ \qquad
+ m \;=\; q_\star \circ p^\star.
+\]
+At $d = 3$, $\Yplus{X}$ is the cohomological Hall algebra
+$\CoHA(X)$ of Schiffmann--Vasserot \cite{SchiffmannVasserot2013}; on
+$\C^3$ it gives $\CoHA(\C^3) = \Yplus{\widehat{\fgl}_1}$
+\textup{(}\cite{SchiffmannVasserot2013}, identified with the positive
+half of the affine Yangian, \emph{not} with $\Wonepinf$\textup{)}.
+
+\emph{Licensing.} Tags $\beta + \gamma$. The $\beta$ tag records the
+comparison--functor data $(p^\star, q_\star, \phi_W)$. The $\gamma$ tag
+records the ambient declaration: $T$-equivariant cohomology with
+critical coefficients, in $\mathrm{Ch}(\mathrm{Vect}_\Q)$ at the
+chain level and in the perverse $\infty$-category of constructible
+sheaves on $\cM^+_{\mathrm{eff}}(X)$ at the
+$(\infty,1)$-categorical level
+\textup{(}both load-bearing\textup{)}. The construction is
+unconditional on $\C^3$ and standard toric CY$_3$ charts; on compact
+non-toric CY$_3$ targets it is conditional on a compact critical atlas
+and orientation data.
+\end{definition}
+
+\begin{theorem}[\label{thm:G-eq-D-Yplus}Drinfeld-double identification of
+the full quantum group]
+\ClaimStatusConditional
+\emph{Hypotheses.} Let $\cA$ be a Calabi--Yau-$d$ category with target
+$X$ for which $\Yplus{X}$ is constructed in the sense of
+\cref{def:Y-plus-equiv-cohomology}. Assume the following five
+licensing data:
+\begin{enumerate}[label=\textup{(LD\arabic*)}]
+\item \emph{Hall pairing.}
+A non-degenerate bilinear pairing $\langle -, - \rangle_{\mathrm{Hall}}
+\colon \Yplus{X} \otimes \Yplus{X} \to \kk$ obtained from
+Serre/Calabi--Yau duality on $\cM^+_{\mathrm{eff}}(X)$
+\textup{(}Schiffmann--Vasserot pairing on critical
+cohomology\textup{)}.
+\item \emph{Completion.}
+A topology / completion of $\Yplus{X}$ \textup{(}grading-completion,
+$J$-adic completion, or weight-completion\textup{)} for which
+\textup{(LD1)} converges and the antipode is well-defined.
+\item \emph{Integral form.}
+A subring $\Yplus{X}_{\Z} \subset \Yplus{X}$ \textup{(}or
+$\Yplus{X}_{\Z[\hbar]}$\textup{)} compatible with the Hall product,
+coproduct, and pairing.
+\item \emph{Stable-envelope transport.}
+A Maulik--Okounkov stable-envelope realisation
+$\mathrm{Stab} \colon \Yplus{X} \to \End(\cF_X)$ on the appropriate
+Fock-type representation $\cF_X$, satisfying the chamber-by-chamber
+factorisation that intertwines the Hall product with the stable-basis
+matrix coefficient \cite{MaulikOkounkov2012}.
+\item \emph{Drinfeld-double descent.}
+A descent datum identifying the algebra
+$\Yplus{X} \bowtie (\Yplus{X})^{\ast,\mathrm{cop}}$,
+constructed from \textup{(LD1)--(LD4)}, with the chamber-independent
+Drinfeld double, well-defined on the underlying critical cohomology
+independent of the chamber and orientation choices used in
+\textup{(LD4)}.
+\end{enumerate}
+
+\emph{Statement.} Under \textup{(LD1)--(LD5)}, the full quantum group
+$G(X)$ associated to $\cA$ is the Drinfeld double of the positive
+half $\Yplus{X}$:
+\begin{equation}
+\label{eq:G-eq-D-Yplus}
+ G(X) \;=\; \Drinfdouble{\Yplus{X}}
+ \;=\; \Yplus{X} \;\bowtie\; (\Yplus{X})^{\ast,\mathrm{cop}},
+\end{equation}
+where $\bowtie$ is the Hall-pairing biproduct of \textup{(LD1)}
+completed in the topology of \textup{(LD2)} on the integral form
+\textup{(LD3)}, and the chamber-independence is supplied by
+\textup{(LD4)--(LD5)}. The braided category
+$\Rep^{E_1}(\Drinfdouble{\Yplus{X}}) = \Rep(G(X))$ realises the
+Drinfeld centre of $\Rep^{E_1}(\Yplus{X})$
+\textup{(}Majid 1991; Etingof--Gelaki--Nikshych--Ostrik,
+Proposition~7.13.8\textup{)}, and the universal $R$-matrix of
+$G(X)$ is the half-braiding inherited from this centre.
+
+\emph{Licensing.} Tag $\beta$ \textup{(}comparison--functor:
+$\Drinfdouble{\,\cdot\,}$ and the Hall--pairing biproduct\textup{)}.
+The full hypothesis set \textup{(LD1)--(LD5)} is the comparison datum;
+the theorem is the equality of two algebras over the same critical
+cohomology, not a definition of $G(X)$.
+
+\emph{Verified loci \textup{(}\ClaimStatusProvedHere{}\textup{)}.}
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $X = \C^3$: $G(\C^3) = Y(\widehat{\fgl}_1)$ is the affine Yangian
+of $\widehat{\fgl}_1$, with $\Yplus{\C^3} = \CoHA(\C^3) =
+\Yplus{\widehat{\fgl}_1}$
+\textup{(}\cite{SchiffmannVasserot2013}; cf.\
+\cref{thm:drinfeld-center-coha}\textup{(i)}\textup{)}.
+\item Toric CY$_3$ without compact $4$-cycles: $G(X)$ is the
+quantum-toric Yangian $Y_{\mathrm{tor}}(X)$, constructed from the toric
+quiver with potential $(Q_X, W_X)$
+\textup{(}cf.\ Chapter~\ref{ch:toric-coha}\textup{)}.
+\item $X = $ flat affine $\C^2 \times \C$: \textup{(LD1)--(LD5)} are
+all chain-level constructible from
+$\cM^+_{\mathrm{eff}}(\C^2 \times \C) \cong \mathrm{Hilb}(\C^2)
+\times \mathrm{pt}$ and the Maulik--Okounkov stable-envelope
+construction on Hilbert schemes \cite{MaulikOkounkov2012}.
+\end{enumerate}
+
+\emph{Conditional loci \textup{(}\ClaimStatusConditional{}\textup{)}.}
+On compact non-toric CY$_3$ \textup{(}quintic, generic Hartshorne
+threefold\textup{)} and on $K3 \times E$, the construction
+\textup{(LD1)--(LD5)} of \cref{eq:G-eq-D-Yplus} requires the named
+data of Kontsevich--Soibelman \cite{KontsevichSoibelman2008}: critical
+CoHA on a compact critical atlas, monoidal vanishing-cycle realisation
+$R_{\mathrm{vc}}$, pro-compatible inverse-limit transition data, and
+PBW/Hall integral form. On these loci the equality \cref{eq:G-eq-D-Yplus}
+is the explicit comparison map, not a black-box definition.
+\end{theorem}
+
+\begin{proof}[Sketch on the verified loci]
+On $X = \C^3$: by Schiffmann--Vasserot
+\cite{SchiffmannVasserot2013}, $\Yplus{\C^3}$ is identified with the
+positive half $\Yplus{\widehat{\fgl}_1}$ of the affine Yangian, with
+the Hall product matching the Yangian coproduct on shuffle generators.
+The Hall pairing \textup{(LD1)} is the Schiffmann--Vasserot pairing on
+shuffle algebras, non-degenerate on each weight space; the completion
+\textup{(LD2)} is the standard $\hbar$-adic / weight-completion of the
+Yangian; the integral form \textup{(LD3)} is the
+$\Z[h_1, h_2, h_3]$-form of the shuffle algebra; the stable-envelope
+transport \textup{(LD4)} is supplied by Maulik--Okounkov on
+$\mathrm{Hilb}^n(\C^2)$ \cite{MaulikOkounkov2012}; chamber-independence
+\textup{(LD5)} is the wall-crossing / $R$-matrix factorisation of
+\cite[\S 3]{MaulikOkounkov2012}. The Drinfeld-double construction
+$\Yplus{X} \bowtie (\Yplus{X})^{\ast,\mathrm{cop}}$ then identifies
+with $Y(\widehat{\fgl}_1)$: the negative generators
+$Y^-(\widehat{\fgl}_1)$ are the graded dual of $\Yplus{\widehat{\fgl}_1}$
+with reversed coproduct, and the cross-relations are read off from the
+Hall pairing \textup{(LD1)} \textup{(}Schiffmann--Vasserot
+\cite{SchiffmannVasserot2013}, Theorem~9.1\textup{)}. The toric and
+flat cases reduce to $\C^3$ on each toric chart by the same argument
+applied chartwise.
+
+The non-toric and $K3 \times E$ cases require
+\cite{KontsevichSoibelman2008}'s motivic-/critical-CoHA framework and
+are recorded as conditional on the compact-critical atlas, which is the
+content of Construction Problem~1 in the Vol~II frontier
+\textup{(}\texttt{chiral-bar-cobar-vol2:CLAUDE.md}~\S 9, item 1: the
+$K3 \times E$ Drinfeld-double construction with $\protectedPfaff{
+\fD_X} = \Delta_5$\textup{)}.
+\end{proof}
+
+\begin{remark}[\label{rem:G-eq-D-Yplus-not-Wonepinf}$\Wonepinf$ is a
+Fock representation of $G(\C^3)$, not equal to $\CoHA(\C^3)$]
+The equality $\CoHA(\C^3) = \Wonepinf$ is forbidden
+\textup{(}Vol~II voice table, item 8\textup{)}. The correct relation
+is the chain
+\[
+ \CoHA(\C^3) \;=\; \Yplus{\widehat{\fgl}_1}
+ \;\xrightarrow[\textup{(LD1)--(LD5)}]{\Drinfdouble{\,\cdot\,}}\;
+ G(\C^3) \;=\; Y(\widehat{\fgl}_1)
+ \;\xrightarrow[\text{Gaiotto--Rap\v{c}\'ak}]{\text{vacuum action}}\;
+ \Wonepinf,
+\]
+where the last arrow is the Fock-module action of the affine Yangian on
+$\Wonepinf$ \textup{(}Proch\'azka--Rap\v{c}\'ak; Gaiotto--Rap\v{c}\'ak;
+cf.\ \cref{thm:drinfeld-center-coha}\textup{(ii)}\textup{)}.
+$\Wonepinf$ is a representation of $G(\C^3)$, not $G(\C^3)$ itself.
+\end{remark}
+
 \begin{theorem}[Drinfeld center of the CoHA]
 \label{thm:drinfeld-center-coha}
 Let $Y^+(\widehat{\fgl}_1)$ denote the positive half of the affine Yangian (Schiffmann--Vasserot). Then:
@@ -379,7 +582,7 @@ where $A \in \Omega^{0,1}(M; \frakg)$ is a $(0,1)$-connection and $\Omega$ is a 
 
 \begin{remark}[6d theory is not standard holomorphic CS]
 \label{rem:6d-not-lagrangian}
-The naive field $A\in\Omega^{0,1}(\C^3,\mathfrak g)$ alone does not contain all BV components: $\Omega\wedge A\wedge\dbar A$ has type $(3,3)$ only after the superfield multiplication is read in the full BV complex $\Omega^{0,\bullet}(\C^3,\mathfrak g)[1]$ and the $\Omega^{0,3}$ component is taken. Thus the correct local hCS presentation is the BV superfield action of Definition~\ref{def:cy3-hcs-bv-complex}, not a bare $(0,1)$ connection calculation. Costello--Francis--Gwilliam~\cite{CFG2026} proves the ordinary $3$d Chern--Simons $E_3$ factorisation-homology theorem. The $6$d hCS--Hall input used here is instead the finite DWR/Ran Rees comparison of Proposition~\ref{prop:qca-finite-rees-layer-separation}; ordinary compact critical CoHA still requires the vanishing-cycle realisation and pro-descent beyond fixed bounds.
+The naive field $A\in\Omega^{0,1}(\C^3,\mathfrak g)$ alone does not contain all BV components: $\Omega\wedge A\wedge\dbar A$ has type $(3,3)$ only after the superfield multiplication is read in the full BV complex $\Omega^{0,\bullet}(\C^3,\mathfrak g)[1]$ and the $\Omega^{0,3}$ component is taken. Thus the correct local hCS presentation is the BV superfield action of Definition~\ref{def:cy3-hcs-bv-complex}, not a bare $(0,1)$ connection calculation. Costello--Francis--Gwilliam~\cite{CFG2026} proves the ordinary $3$d Chern--Simons $E_3$ factorisation-homology theorem. The $6$d hCS--Hall input used here is instead the finite DWR/Ran Rees comparison of Proposition~\ref{prop:qca-finite-rees-layer-separation}; ordinary compact critical CoHA still requires the vanishing-cycle realisation and pro-descent beyond fixed bounds. The mixed-holomorphic-topological local model on $\R^2_{\mathrm{top}} \times \C^2_{\mathrm{hol}}$ with Hamiltonian BF sector~\cite{LorgatMixedHTStrings} is the level-$1$ physical realisation lane of Stage-$1$ at toric loci; the global de Rham obstruction $\mathrm{Ob}^{\mathrm{BMK\text{-}curr}}_N$ named in~\cite{LorgatMixedHTStrings} \texttt{main.tex} lines~$3207$--$3266$ blocks the formal-Darboux $\Rightarrow$ global compact theory promotion outside the verified locus.
 \end{remark}
 
 \begin{theorem}[Three Atiyah-sourced cocycles on compact CY\texorpdfstring{$_3$}{-3}]

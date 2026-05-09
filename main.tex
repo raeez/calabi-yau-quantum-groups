@@ -1065,294 +1065,268 @@ envelope restores the chiral structure on $C$.
 \input{chapters/theory/hochschild_calculus}
 
 % ==========================================
-% PART II: The CY-to-Chiral Functor
+% PART II: The Two-Stage Construction (levels 0 -> 2)
 % ==========================================
 
-\part{The CY-to-Chiral Functor}
+\part{The Two-Stage Construction}
 \label{part:bridge}
 \label{part:II}
+\label{part:en-hierarchy} % platonic alias: the En tower is now a derived consequence inside Part II
 
 \noindent\textbf{Question.}
-How does the CY input of Part~\ref{part:cy-categories} become a
-chiral algebra on a curve, and which choices belong to the category
-rather than to the specialisation?
+How does the categorical input of Part~\ref{part:cy-categories} become
+an $E_d$-holomorphic factorisation algebra on the Calabi--Yau target
+and a chart-specialised $E_{n(d)}$-chiral algebra on a reference
+curve, with the operadic level on the curve forced by the dimension?
 
 \smallskip
 \noindent
-The answer is a dimension-indexed family $\{\Phi_d\}_{d \geq 1}$:
+The construction is the two-stage factorisation
 \[
- \Phi_d \colon \CY_d\text{-}\Cat
- \longrightarrow
- \En\text{-}\mathrm{ChirAlg}(X),
- \qquad
- n = \begin{cases} 2 & d = 2, \\ 1 & d \ge 3. \end{cases}
-\]
-The input is a smooth proper CY-category $\cC$ with cyclic
-$\Ainf$-structure and CY trace
-$\Tr \colon \HC^-_d(\cC) \to k$. The output is a chiral algebra
-$A_\cC$ on a smooth curve $X$. The construction is forced by four
-steps and by the separation between the canonical stage-one
-factorisation algebra and the geometric stage-two specialisation.
-
-\smallskip
-\noindent\textbf{Two-stage factorisation (organising principle).}
-Each $\Phi_d$ factors canonically through an $E_d$-holomorphic
-factorisation algebra on the CY$_d$ target
-(Theorem~\ref{thm:phi-two-stage-factorisation},
-Definition~\ref{def:phi-fa-and-sp}):
-\[
- \Phi_d \;=\; \SpCh_{\Sigma_{d-1}, C} \,\circ\, \PhiFA_d,
+ \Phi^{(\Sigma_{d-1}, C)}_d \;=\; \SpCh_{\Sigma_{d-1}, C} \,\circ\, \PhiFA_d,
  \qquad
  \PhiFA_d \colon \CY_d\text{-}\Cat \longrightarrow \EdHolFA(X),
  \qquad
- \SpCh_{\Sigma_{d-1}, C} \colon \EdHolFA(X) \longrightarrow \EnHolFA(C),
+ \SpCh_{\Sigma_{d-1}, C} \colon \EdHolFA(X) \longrightarrow E_{n(d)}\text{-}\mathrm{ChirAlg}(C),
 \]
-with stage~$1$ the canonical $E_d$-holomorphic factorisation algebra
-$\PhiFA_d(\cC)$ on $X$, assembled from the Gerstenhaber bracket of
-degree $1 - d$ on $\HH^\bullet(\cC)$ via Kontsevich--Tamarkin formality
-and Costello--Gwilliam--Li locality, and stage~$2$ the chiral
-specialisation $\SpCh_{\Sigma_{d-1}, C}(\cF) = (\int_{\Sigma_{d-1}} \cF)|_C$
-along a codimension-one cycle $\Sigma_{d-1} \subset X$ and a reference
-curve $C \subset X$. Stage~$1$ is pinned by the CY datum after choosing
-the formality/associator torsor point and the Costello--Gwilliam--Li
-locality descent datum; stage~$2$ is determined by the geometric datum
-$(\Sigma_{d-1}, C)$. The native operadic level $n_{\mathrm{native}}(d)$
-on $C$ is $\infty, 2, 1$ at $d = 1, 2, d \ge 3$ respectively
-(Proposition~\ref{prop:native-en-level}); the $\Etwo$-braided refinement
-at $d \ge 3$ lives on the derived chiral centre $\cZ(\Rep^{\Eone}(A_\cC))$,
-not on $A_\cC$ itself (Remark~\ref{rem:e2-on-drinfeld-centre}). A
-compact CY$_d$ admitting several $\Sigma_{d-1}$-fibrations generates a
-family of $\Eone$-chiral shadows of the single canonical $\PhiFA_d(\cC)$
-(Remark~\ref{rem:multiple-e1-specialisations}): six routes to
-$G(K3 \times E)$ are six distinct specialisations of this kind, not
-six applications of $\Phi_3$ to one object.
+with $n(d) = \infty, 2, 1$ at $d = 1, 2, d \geq 3$
+(Theorem~\ref{thm:phi-two-stage-factorisation},
+Proposition~\ref{prop:native-en-level}). Stage-$1$ promotes the
+Gerstenhaber bracket of degree $1 - d$ on $\HH^\bullet(\cC)$ to the
+canonical $E_d$-holomorphic factorisation algebra $\PhiFA_d(\cC)$ on
+$X$; stage-$2$ pushes that algebra forward along a $(d-1)$-cycle
+$\Sigma_{d-1} \subset X$ and restricts to the reference curve $C$.
+The composition is a per-$d$, per-chart construction; the family
+$\{\PhiFA_d\}_{d \geq 1}$ at fixed $d$ is a functor on
+$\CY_d\text{-}\Cat$ canonical up to $\GRT_1(\Q)$-torsor; the family
+$\{\Phi^{(\Sigma_{d-1}, C)}_d\}_{d, (\Sigma, C)}$ across $(d, \Sigma, C)$
+is a two-parameter correspondence programme, not a single functor
+(Remark~\ref{rem:phi-d-chain-vs-inf1-functor};
+Section~\ref{sec:cy-chiral-functor},
+\texttt{cy\_to\_chiral.tex}~lines~$2840$--$2856$).
 
 \smallskip
-\noindent\textbf{Four steps of the explicit chain-level realisation.}
-The four-step cyclic-to-chiral passage below is the computational
-incarnation of $\SpCh_{\Sigma_{d-1}, C}$ composed with the explicit
-realisation of $\PhiFA_d$.
+\noindent\textbf{Stage-$1$: the canonical $E_d$-holomorphic
+factorisation algebra.}
+$\PhiFA_d(\cC) \in \EdHolFA(X)$ is canonical at fixed $d$ up to the
+$\GRT_1(\Q)$-torsor of Kontsevich--Tamarkin $E_d$-formality
+trivialisations (Kontsevich~\cite{Kontsevich1999};
+Tamarkin~\cite{Tamarkin2007}; Willwacher~\cite{Willwacher2015};
+\texttt{cyclic\_ainf.tex}~\S\ref{sec:cycainf-grt1-action}), composed
+with the Costello--Gwilliam--Li holomorphic-locality descent datum for
+the BV quantisation (Costello--Gwilliam~\cite{CostelloGwilliam2017};
+Costello--Li~\cite{CostelloLi2016, CostelloLi2020}). On the formal
+locus the assembly is unconditional; on a compact non-formal target,
+the assembly is conditional on the chain-level framing,
+anomaly-completion, and Costello correction witnesses recorded at
+Theorem~\ref{thm:cya3-existence-rigidity}.
 
+\smallskip
+\noindent\textbf{Stage-$2$: chart-specialisation by holomorphic
+factorisation homology.}
+$\SpCh_{\Sigma_{d-1}, C}(\cF) = (\int^{\mathrm{hol}}_{\Sigma_{d-1}} \cF)|_C$
+is holomorphic factorisation homology over a complex
+$(d-1)$-dimensional submanifold $\Sigma_{d-1}\subset X$, restricted to
+a reference curve $C \subset X$
+(Francis--Gaitsgory~\cite{FrancisGaitsgory2012};
+Ayala--Francis~\cite{AyalaFrancis2015}). The holomorphic-level drop
+$E_d \to E_{d - (d-1)} = E_1$ on $C$ is the
+holomorphic refinement of Dunn--Lurie additivity. Two specialisation
+data $(\Sigma_{d-1}, C) \neq (\Sigma'_{d-1}, C')$ on the same input
+$\PhiFA_d(\cC)$ produce two \emph{distinct} $E_{n(d)}$-chiral shadows
+of one Stage-$1$ output: six routes to $G(K3 \times E)$ are six such
+specialisations of the single $\PhiFA_3(D^b(\Coh(K3 \times E)))$, not
+six $\Phi_3$-applications
+(Remark~\ref{rem:multiple-e1-specialisations};
+\texttt{e1\_chiral\_algebras.tex}~\S\ref{sec:stage2-bd-chiral-ran}).
+
+\smallskip
+\noindent\textbf{Chart-datum product structure (level-$2$
+specialisation parameters).}
+The Stage-$2$ chart datum factors as
+\[
+ \mathrm{Chart}_d
+ \;=\;
+ (\text{equivariance stratum})
+ \;\times\;
+ (\Sigma_{d-1}, C)
+ \;\times\;
+ (\text{boundary vacuum } b)
+ \;\times\;
+ (\text{admissibility window}).
+\]
+The four equivariance strata are:
+toric $T^d$ (local $\bP^2$, $\C^3$, conifold);
+reduced $\C^\times +$ Aut (K3, $K3 \times E$, abelian);
+orbifold inertia $I(X/G)$ (Mathieu $M_{24}$, McKay
+$\Gamma \subset \mathrm{SU}(d)$);
+lattice-polarised period domain (Borcherds lifts, Gritsenko $\Delta_5$).
+A theorem at level~$2$ declares all four chart coordinates; promotion
+across charts requires an intertwining $R$-matrix-gauge transport.
+
+\smallskip
+\noindent\textbf{Four physical lanes of Stage-$1$.}
+$\PhiFA_d$ admits four equivalent realisations, related by
+Beilinson's two-lanes-equally-load-bearing rule:
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+\item[\textit{(L1)}]
+\textit{Mathematical perturbative.}
+Costello--Gwilliam--Li factorisation-algebra quantisation on $X$;
+Kontsevich--Tamarkin $E_d$-formality on the algebraic side
+(\S\ref{sec:two-stage-organising-frame};
+\texttt{hochschild\_calculus.tex}~\S\ref{sec:kt-formality-atiyah-cocycles}).
+\item[\textit{(L2)}]
+\textit{$5$d holomorphic Chern--Simons on $\R \times \C^2$.}
+Costello--Gaiotto--Yagi quantises the $5$d hCS BV action to the
+Yangian VOA $Y^{\mathrm{VOA}}(\frakg)$ at $d = 2$ to all orders for
+simply-laced $\frakg$, convergent (not asymptotic) by Kontsevich--Tamarkin
+formality on the holomorphic factor; non-simply-laced is open at all
+orders (\S\ref{sec:phiutp-5d-hcs-cfg-realisation};
+\S\ref{sec:costello-5d-verification}).
+\item[\textit{(L3)}]
+\textit{$6$d holomorphic Chern--Simons on $\C^3$.}
+Costello--Li realises $\PhiFA_3$ at toric loci. The one-loop
+obstruction splits into a cohomological piece
+$\int_X \Tr_{\mathrm{ad}}(A(F_A)^3)$ sourced by the cubic symmetric
+Casimir $d^{abc}$ (quartic in fields, not 3d-CS-cubic) and a
+scheme-dependent wave-function piece
+$A_{\mathrm{w.f.}} = -C_2/(2\pi)^3 = -2 h^\vee/(2\pi)^3$ absorbed into
+the BV counter-term: $\mathfrak{sl}_2$ unobstructed,
+$\mathfrak{sl}_{N \geq 3}$ obstructed with $d^{abc} = 2N$
+(\S\ref{sec:qca-from-qg};
+\texttt{cy3\_chain\_level\_bridge.tex}~\S\ref{sec:cy3-chain-level-bridge-anomaly-gate}).
+\item[\textit{(L4)}]
+\textit{Mixed-HT-strings local model
+$\R^2_{\mathrm{top}} \times \C^2_{\mathrm{hol}}$ with Hamiltonian BF.}
+The physical realisation of Stage-$1$ at toric loci; holomorphic de
+Rham obstruction at non-formal targets
+($\sim$/\texttt{mixed-holomorphic-topological-strings/main.tex}~lines~$3207$--$3266$).
+\end{itemize}
+
+\smallskip
+\noindent\textbf{$E_n$-tower as derived consequence (PTVV shift law +
+Dunn--Lurie additivity).}
+The native operadic level $n(d)$ on the curve $C$ is forced by the
+PTVV $(2 - d)$-shifted symplectic structure on $\cM(\cC)$
+(Pantev--To\"en--Vaqui\'e--Vezzosi~\cite{PTVV2013}) together with
+holomorphic Dunn--Lurie additivity $\int^{\mathrm{hol}}_{\Sigma_{d-1}}
+E_d \simeq E_{d - (d - 1)} = E_1$ along the specialisation cycle:
+\[
+ (d, \mathrm{shift}, E_n^{\mathrm{cl}}) \;\in\;
+ \{(2, -2, \Etwo),\; (3, -1, \Eone),\; (4, 0, E_0),\; (5, +1, E_5\text{-Poisson})\}
+ \qquad\text{(Proposition~\ref{prop:ptvv-shift-law})}.
+\]
+At $d = 2$ the level-$2$ chiral algebra is natively $\Etwo$ on $C$; at
+$d \geq 3$ the level-$2$ algebra $A_\cC$ is $\Eone$, and the
+$\Etwo$-braided refinement lives on the derived chiral centre
+$\cZ(\Rep^{\Eone}(A_\cC)) \simeq \Rep^{\Etwo}(\Zder(A_\cC))$ at the
+\emph{level-$3$} bulk, by Ben-Zvi--Francis--Nadler
+(Corollary~\ref{cor:zder-drinfeld};
+Remark~\ref{rem:e2-on-drinfeld-centre}). Two Bott periodicities pin
+the cap: $\pi_d(BU)$ has period $2$ (complex K-theory),
+$\pi_d(B\Sp)$ has period $8$ (real K-theory) and contributes a
+$\Z/2$ at $d \equiv 5 \pmod 8$. ``$\pi_d(BU)$ is $8$-periodic'' is a
+category error: the period-$8$ refinement belongs to $\pi_d(BO)$, not
+$\pi_d(BU)$. The Fake Monster sits at the $d = 5$ entry of the shift
+law, on $K3 \times K3 \times E$ via the Dunn--Lurie decomposition
+$E_5 \simeq E_2 \otimes E_2 \otimes E_1$.
+
+\smallskip
+\noindent\textbf{The four-step chain-level realisation of Stage-$2$.}
+On the reference curve $C$, the chart-specialised algebra
+$\Phi^{(\Sigma_{d-1}, C)}_d(\cC)$ admits the explicit chain-level
+incarnation
 \begin{enumerate}[label=\textup{(\arabic*)}]
-\item $\mathfrak{L}_\cC := \bigl(\HH_{\bullet+1}(\cC),\ \{\cdot_\lambda \cdot\},\ \partial\bigr)$:
+\item $\mathfrak{L}_\cC := \bigl(\HH_{\bullet+1}(\cC),\
+\{\cdot_\lambda \cdot\},\ \partial\bigr)$:
 Lie conformal algebra with $\lambda$-bracket from the Gerstenhaber
 bracket on $\HH^\bullet$, translation $\partial$ from the $S^1$-action.
-\item $A_\cC^{(0)} := U^{\mathrm{fact}}_X\bigl(\mathfrak{L}_\cC\bigr)$:
-factorization envelope (Beilinson--Drinfeld).
-\item $\mathbb{S}^d$-framing:
-Kontsevich--Vlassopoulos enhancement of the factorization structure.
-At $d = 2$: $\Etwo$-chiral. At $d \ge 3$: $\Eone$-stabilized.
-\item Quantization: Maurer--Cartan closure.
+\item $A_\cC^{(0)} := U^{\mathrm{fact}}_C\bigl(\mathfrak{L}_\cC\bigr)$:
+Beilinson--Drinfeld factorisation envelope on $C$.
+\item $\bS^d$-framing: Kontsevich--Vlassopoulos enhancement of the
+factorisation structure. Native $\Etwo$ at $d = 2$;
+$\Eone$-stabilised at $d \geq 3$.
+\item Quantisation: Maurer--Cartan closure of the BV one-loop data.
 \end{enumerate}
 
 \smallskip
-\noindent\textbf{CY-A (proved at every $d$).}
-\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
-\item[($d = 2$)]
-$\mathbb{S}^2$-framing (Kontsevich--Vlassopoulos) $+$ factorization
-envelope (Costello--Gwilliam) produce an $\Etwo$-chiral algebra.
-\item[($d = 3$)]
-$\infty$-categorical: $\HH^{-2}_{E_1}(\cC) = 0$ by unit-connectedness,
-the space of $E_3$-liftings is contractible, all Goodwillie layers
-vanish. Chain-level $[m_3, B^{(2)}] \ne 0$ is \emph{not} an obstruction.
-\item[($d \ge 4$)]
-$\Eone$-stabilization
-(Theorem~\ref{thm:e1-stabilization-cy}):
-$\pi_d(BU) \ne 0$ at $d$ even prevents additional $\Eone$-factors;
-the output is $\Eone$.
-\end{itemize}
-
-Chapter~\ref{ch:cy-to-chiral} proves CY-A on the constructed loci:
-$d \leq 2$ functorially and $d = 3$ at the framed object-level /
-constructed Stage-$1$ locus. For $d \geq 4$, the $\Eone$-stabilisation
-formalism is conditional on constructing the corresponding Stage-$1$
-holomorphic factorisation algebra and framing data.
-Chapter~\ref{ch:m3-b2-obstruction} develops the $[m_3, B^{(2)}]$
-obstruction analysis at the chain level: the Costello TCFT resolution
-$\{b, B^{(2)}\} = 0$ on the total differential with cross-arity
-cancellation through Stasheff $\Ainf$-relations, which underpins the
-$\infty$-categorical shift required by CY-A$_3$.
-
-Chapter~\ref{ch:quantum-chiral-algebras} provides a second,
-independent route to quantum chiral algebras via holomorphic
-Chern--Simons theory, connecting to the Costello programme:
-$3d$ holomorphic CS produces Kac--Moody algebras, $5d$ holomorphic
-CS produces affine Yangians, and the conjectural $6d$ holomorphic
-theory produces quantum toroidal algebras. The hCS route does
-not replace the functor family~$\{\Phi_d\}$; it constructs chiral algebras
-from gauge-theoretic rather than categorical input. Yet the two
-routes agree where both apply, providing a powerful consistency
-check. The hCS--categorical agreement is itself stage-aware: hCS on
-$X$ produces the candidate stage-one $E_d$-factorisation algebra, and
-specialisation to the reference curve produces the stage-two chiral
-output that matches $\SpCh_{\Sigma_{d-1}, C}(\PhiFA_d(\cC))$.
+\noindent\textbf{Tier (ii) Stage-$1$ invariants of $\PhiFA_d(\cC)$.}
+Properties of the Stage-$1$ output $\PhiFA_d(\cC) \in \EdHolFA(X)$
+\emph{before} chart specialisation. The K3-fibre rank
+$\kappa_{\mathrm{fiber}} = 24$ for $X = K3 \times E$ at $d = 3$ is the
+canonical instance: the rank of the K3 Mukai lattice
+$\widetilde{H}^*(K3) = \mathrm{II}_{4, 20}$, read off the level-$1$
+factorisation algebra on $X$ without choosing $(\Sigma_2, C)$.
 
 \smallskip
-\noindent\textit{Into Part~\ref{part:en-hierarchy}.}
-$\mathrm{HH}^\bullet(\cA, \cA) \;\stackrel{\text{higher Deligne}}{\curvearrowright}\; E_{n+1}$;
+\noindent\textbf{The CY-A theorems on the constructed loci.}
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+\item[($d = 2$)]
+\emph{Functorial.} $\bS^2$-framing (Kontsevich--Vlassopoulos) $+$
+factorisation envelope (Costello--Gwilliam) produce an $\Etwo$-chiral
+algebra unconditionally
+(Theorem~\ref{thm:cy-to-chiral}~at~$d = 2$).
+\item[($d = 3$)]
+\emph{Object-level existence and $\Eone$-rigidity}
+(Theorem~\ref{thm:cya3-existence-rigidity}). On the witnessed
+filtered locus, $\Phi^{(\Sigma_2, C)}_3(\cC)$ exists as an
+$\Eone$-chiral algebra unique up to a contractible space of
+$\Eone$-lifts. Three inputs:
+$\HH^{-2}_{E_1}(A,A) = 0$ via the filtered Hochschild comparison;
+$\pi_3(B\Sp(2m)) = 0$ by Bott periodicity;
+contractibility of the $\Eone$-lift torsor under unit-connectedness.
+The strict obstruction $[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ is the
+distinguished raw pair-contraction; Costello's TCFT identity
+$\{b, B^{(2)}_{\mathrm{TCFT}}\} = 0$ holds for the corrected operator.
+\item[($d \geq 4$)]
+\emph{$\Eone$-stabilisation conditional on Stage-$1$.} The framing
+obstruction tower caps further $\Eone$-extraction at the first;
+the Stage-$1$ $\PhiFA_d$ on compact non-formal targets is open
+(Fresse--Willwacher~\cite{Willwacher2015} category-level $E_d$-formality
+at $d \geq 4$ is the frontier).
+\end{itemize}
+
+\smallskip
+\noindent\textbf{Three-axis scope coordinates installed across
+Part~\ref{part:bridge}.}
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+\item \emph{Vertical (level).}
+Stage-$1$ outputs $\PhiFA_d(\cC)$ live at level $1$;
+$A_\cC = \Phi^{(\Sigma_{d-1}, C)}_d(\cC)$ on $C$ lives at level $2$;
+the derived chiral centre $\Zder(A_\cC)$ and quantum vertex group
+$G(X) = D(Y^+(X))$ live at level $3$ (Part~\ref{part:bulk}).
+\item \emph{Horizontal (chart).}
+Equivariance stratum, $(\Sigma_{d-1}, C)$, boundary vacuum $b$,
+admissibility window. Per-theorem declaration mandatory at level $2$.
+\item \emph{Ambient.}
+Chain-level (Lie conformal envelope, explicit $L_\infty$-twistings,
+ambient-qualified Mittag--Leffler towers) and
+$(\infty,1)$-categorical (CY $\infty$-categories, derived
+$\infty$-stable categories, $E_d$-algebra structures up to
+contractible homotopy). Both lanes load-bearing
+(Pattern~$273$;~Remark~\ref{rem:phi-d-chain-vs-inf1-functor}).
+\end{itemize}
+
+\smallskip
+\noindent\textit{Into Part~\ref{part:bulk}.}
+$\HH^\bullet(\cA, \cA) \;\stackrel{\text{higher Deligne}}{\curvearrowright}\; E_{n+1}$;
 Dunn additivity terminates the cascade at $E_3$;
 $\cZ\bigl(\Rep^{\Eone}(\cA)\bigr) \simeq \Rep^{\Etwo}\bigl(\Zder(\cA)\bigr)$
-(BZFN at $d \ge 3$). The operadic cascade of Part~\ref{part:en-hierarchy}
-runs on the stage-one canonical factorisation algebra $\PhiFA_d(\cC)$;
-the stage-two specialisation $\SpCh_{\Sigma_{d-1}, C}$ prescribes the
-residual native level $n_{\mathrm{native}}(d)$ on the reference curve
-and the locus of the $\Etwo$-braiding (direct at $d = 2$, derived-centre
-at $d \ge 3$).
+(BZFN at $d \geq 3$). The level-$3$ bulk has three constructions of one
+object: $\Zder(A_\cC)$ via chiral Hochschild, $Y^+(X)$ via the
+universal positive-geometry grammar, and $G(X) = D(Y^+(X))$ via
+Drinfeld doubling. The K3 Yangian $Y_\hbar(\frakg_{K3})$ on the Mukai
+self-mirror branch is the principal $d = 2$ instance of the level-$3$
+quantum vertex group, and the Mukai-Heisenberg
+$\mathrm{Heis}(H^*(K3, \C), \omega_{\mathrm{Muk}}) = H_{\mathrm{Muk}}$
+on $K3$ is its $d = 2$ Stage-$2$ shadow under
+$\SpCh_{\Sigma_1^{\mathrm{Nakajima}}, C}(\PhiFA_2(D^b\Coh(K3))) =
+H_{\mathrm{Muk}}$.
 
 \input{chapters/theory/cy_to_chiral}
 \input{chapters/theory/cy3_chain_level_bridge}
 \input{chapters/theory/m3_b2_obstruction}
 \input{chapters/theory/quantum_chiral_algebras}
-
-% ==========================================
-% PART III: The E_n Hierarchy and Chiral Quantum Groups
-% ==========================================
-
-\part{\texorpdfstring{The $\En$ Hierarchy and Chiral Quantum Groups}{The E-n Hierarchy and Chiral Quantum Groups}}
-\label{part:en-hierarchy}
-\label{part:III}
-
-\noindent\textbf{Question.}
-After the CY datum has become a chiral algebra, what is its native
-operadic level, and where does the centre-carried $\Etwo$-braiding live when
-$d \ge 3$?
-
-\smallskip
-\noindent
-\[
- \Eone \;\xrightarrow{\;\cZ\;}\; \Etwo
- \;\xrightarrow{\;\HH^\bullet\;}\; E_3
- \;\xrightarrow{\;\not\;\exists\;}\; E_4
- \;\xrightarrow{\;\not\;\exists\;}\; \cdots
- \;\xrightarrow{\;\Sym\;}\; E_\infty.
-\]
-The answer is not a single operadic level. Higher Deligne sends $E_n$
-to $E_{n+1}$ via $\HH^\bullet$; Dunn additivity caps the cascade at
-$E_3$ for CY input ($\pi_d(BU) \ne 0$ at even $d \ge 4$ blocks further
-factor extraction); the symmetric collapse $\Sym$ kills the Hopf
-structure. Each level carries a distinct operadic structure on the
-chiral output of $\{\Phi_d\}$.
-
-\smallskip
-\noindent\textbf{Stage-stratified $E_n$ structure.}
-The operadic levels at play in this part are tracked through the
-two-stage factorisation
-$\Phi_d = \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d$ at three distinct
-loci:
-\[
- \begin{array}{l|l|l}
- \text{level} & \text{lives on} & \text{origin} \\ \hline
- E_d\text{-native} & \text{the CY}_d\ \text{target}\ X & \PhiFA_d(\cC) \in \EdHolFA(X) \\
- n_{\mathrm{native}}(d)\text{ on }C & \text{the reference curve}\ C & \SpCh_{\Sigma_{d-1}, C}(\PhiFA_d(\cC)) \\
- \Etwo\text{-braided} & \text{the derived chiral centre}\ \cZ(\Rep^{\Eone}(A_\cC)) & \text{BZFN at}\ d \ge 3
- \end{array}
-\]
-Native operadic level on the curve is
-$n_{\mathrm{native}}(d) = \infty, 2, 1$ at $d = 1, 2, d \ge 3$
-(Proposition~\ref{prop:native-en-level}). At $d = 2$ the $\Etwo$
-is native on the curve; at $d \ge 3$ the native level on $C$ drops
-to $\Eone$ and the $\Etwo$-braiding is the centre construction
-applied to $\Rep^{\Eone}(A_\cC)$
-(Remark~\ref{rem:e2-on-drinfeld-centre}).
-
-\smallskip
-\noindent\textbf{$\Eone$-chiral bialgebra axioms (H1--H5).}
-Ordered factorization on $\Ran^{\mathrm{ord}}(X)$ realises the
-five-axiom Hopf framework on the ordered bar complex
-$B^{\mathrm{ord}}(A) = T^c\bigl(s^{-1}\overline{A}\bigr)$:
-\begin{itemize}[leftmargin=1.8em,itemsep=1pt]
-\item[(H1)] product $\mu \colon A \otimes A \to A$ associative,
-\item[(H2)] spectral coproduct $\Delta_z \colon A \to A \otimes A$
-coassociative on $\Ran^{\mathrm{ord}}$ (Proposition~\ref{prop:coassoc-ran-e1}),
-\item[(H3)] Yang--Baxter equation $R_{12}(z) R_{13}(z + w) R_{23}(w)
-= R_{23}(w) R_{13}(z + w) R_{12}(z)$,
-\item[(H4)] strong unitarity $R_{12}(z) R_{21}(-z) = \mathrm{id}$,
-\item[(H5)] antipode $S \colon A \to A^{\mathrm{op}}$ from Verdier
-duality $A^! = D_{\Ran}(B^{\mathrm{ord}}(A))$.
-\end{itemize}
-The averaging projection
-$\mathrm{av} \colon B^{\mathrm{ord}}(A) \to B^\Sigma(A)$
-sends $R(z)$ to $\kappa_{\mathrm{ch}}$ and the KZ associator to the
-Vol~I cubic shadow $C$
-(Proposition~\ref{prop:braided-shadow}). $B^\Sigma(A)$ kills the
-Hopf structure; $B^{\mathrm{ord}}(A)$ retains it.
-
-\smallskip
-\noindent\textbf{$\Etwo$ at $d = 2$ (native).}
-$\mathbb{S}^2$-framing on $\HH_\bullet(\cC)$ + Deligne conjecture on
-$\HH^\bullet(\cA, \cA)$ produce a braided tensor category
-$\Rep^{\Etwo}(\cA)$ directly (Corollary~\ref{cor:e2-chiral-from-cy2}).
-
-\smallskip
-\noindent\textbf{$\Etwo$ at $d \ge 3$ (derived, BZFN).}
-\[
- \cZ\bigl(\Rep^{\Eone}(\cA)\bigr)
- \;\simeq\;
- \Rep^{\Etwo}\bigl(\Zder(\cA)\bigr),
- \qquad
- \Zder(\cA) := \RHom_{\cA\text{-bimod}}(\cA, \cA)
-\]
-(Ben-Zvi--Francis--Nadler, Corollary~\ref{cor:zder-drinfeld}). The
-half-braiding $\sigma_M(N) \colon M \otimes N \to N \otimes M$
-\emph{is} the $R$-matrix; the centre construction extracts $\Etwo$
-from $\Eone$ input.
-
-\smallskip
-\noindent\textbf{$\Eone$-stabilization
-(Theorem~\ref{thm:e1-stabilization-cy}).}
-For CY$_d$ at $d \ge 3$: the framing obstruction prevents extraction
-of additional $\Eone$-factors beyond the first; the cascade caps at
-$E_3$ via the centre construction
-(Proposition~\ref{prop:cascade-termination}). Two Bott periodicities
-govern the obstruction tower, with distinct periods:
-\[
- \pi_d(BU) = \mathrm{KU}^{-d} \;=\;
- \begin{cases}
- \Z & d \equiv 0 \pmod 2, \\
- 0 & d \equiv 1 \pmod 2,
- \end{cases}
- \qquad \text{(complex Bott, period~2)}
-\]
-with the symplectic refinement $\pi_d(B\Sp)$ of real Bott (period~8)
-contributing a $\Z/2$ invariant at $d \equiv 5 \pmod 8$ where
-$\pi_d(BU)$ vanishes. The shorthand ``$\pi_d(BU)$ is $8$-periodic''
-is a category error: the $8$-periodicity belongs to the real
-K-theory $\pi_d(BO)$, not the complex K-theory $\pi_d(BU)$.
-
-Chapters~\ref{ch:e1-chiral}--\ref{ch:e2-chiral} develop the H1--H5
-axioms and the $d = 2$ native $\Etwo$-construction with explicit
-verification at the Heisenberg and $\cW_{1+\infty}$.
-Chapter~\ref{ch:en-factorization} proves $\Eone$-stabilization and
-the Bott obstruction tower.
-Chapters~\ref{ch:quantum-groups}--\ref{ch:braided-factorization}
-record the classical Drinfeld--Jimbo $\Uq(\frakg)$ and the FRT/RTT
-formalism that target the output.
-Chapter~\ref{ch:drinfeld-center} executes the BZFN equivalence at the
-K3 Heisenberg ($49$-dimensional double, Fock character
-$1/\eta^{48}$).
-
-\smallskip
-\noindent\textit{Into Part~\ref{part:k3-yangian}.}
-$\Phi_2\bigl(D^b\Coh(K3)\bigr)
- = \mathrm{Heis}\bigl(H^*(K3, \C),\ \omega_{\mathrm{Muk}}\bigr)$
-(rank $24$, signature $(4, 20)$);
-$Y(\mathfrak{g}_{K3})$ the associated Yangian with $24$ generators,
-Mukai-signature Serre relations, degree-$(24,24)$ structure function;
-$K3 \times E$ carrying total-space/fibre-stratified $\kappa_\bullet$
-data: $\kappa_{\mathrm{cat}}=\kappa_{\mathrm{ch}}(A_{K3\times E})=0$
-on the compact total space, $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3$
-on the Stage-2 Heisenberg shadow, $\kappa_{\mathrm{BKM}}=5$ on the
-Borcherds lift, and $\kappa_{\mathrm{fiber}}=24$ on the K3 Mukai
-fibre; the K3-fibre value $\chi(\cO_{K3})=2$ is separate.
-Stage-stratified:
-$\Phi_2(D^b\Coh(K3)) = \SpCh_{\Sigma_1^{\mathrm{Nakajima}}, C}(\PhiFA_2(D^b\Coh(K3)))$
-(K3 as the native $E_2$-factorisation surface; Nakajima cycle the
-specialisation datum to $C$);
-$\Phi_3(D^b\Coh(K3 \times E))
- = \SpCh_{K3, E}(\PhiFA_3(D^b\Coh(K3 \times E)))$
-(K3-fibre the codimension-one cycle; $E$ the reference curve; the
-Borcherds--$\Delta_5$ shadow is the stage-two comparison target, weight $c_1(0)/2 = 5$).
-
 \input{chapters/theory/e1_chiral_algebras}
 \input{chapters/theory/e2_chiral_algebras}
 \input{chapters/theory/en_factorization}
@@ -1371,6 +1345,7 @@ Borcherds--$\Delta_5$ shadow is the stage-two comparison target, weight $c_1(0)/
 \part{The K3 Yangian}
 \label{part:k3-yangian}
 \label{part:IV}
+\label{part:bulk} % platonic forward-reference alias; A3 owns the platonic Part III bulk consolidation
 
 \noindent\textbf{Question.}
 Which seed geometry realizes the native CY$_2$ output, and which
