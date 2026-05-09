@@ -3,6 +3,262 @@
 
 A Calabi--Yau category is a dg category whose Serre functor is a pure degree shift. This single condition, due independently to Kontsevich and to Costello, organises the diverse sources of Calabi--Yau geometry (coherent sheaves, Fukaya categories, matrix factorisations, noncommutative resolutions) into a uniform categorical framework. Each constructed correspondence $\Phi_d$ factors as $\Phi_d = \SpCh_{\Sigma_{d-1},C} \circ \PhiFA_d$ (Theorem~\ref{thm:phi-two-stage-factorisation}; Definition~\ref{def:phi-fa-and-sp}): stage~$1$ $\PhiFA_d$ sends a cyclic $\Ainf$ Calabi--Yau category of dimension $d$ to an $E_d$-holomorphic factorisation algebra on the CY$_d$ variety, and stage~$2$ $\SpCh_{\Sigma_{d-1},C}$ specialises along a $(d-1)$-cycle and reference curve to produce an $\Etwo$-chiral algebra at $d = 2$ or an $\Eone$-chiral algebra on the constructed $d \geq 3$ loci. The native operadic level $n_{\mathrm{native}}(d)$ on $C$ (Proposition~\ref{prop:native-en-level}) is part of the dimension-specific datum. The categorical input for stage~$1$ consists of the smooth proper dg category, its Hochschild calculus, its cyclic $\Ainf$ enhancement, and its negative cyclic Calabi--Yau class.
 
+\begin{remark}[Three-axis scope of this chapter]
+\label{rem:cy-cat-three-axis-scope}
+Every construction in this chapter — the smooth-proper dg category $\cC$, the Serre functor $S_\cC$, the cyclic pairing of degree $-d$, the Hochschild complexes $\HH^\bullet(\cC)$ and $\HH_\bullet(\cC)$, the negative-cyclic CY class $[\sigma] \in \HC^-_d(\cC)$, the PTVV $(2-d)$-shifted symplectic structure on $\cM(\cC)$, the Gerstenhaber bracket of degree $1-d$, the Mukai pairing on $\HH^\bullet(D^b\mathrm{Coh}(K3))$, and the four invariants $\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}, \kappa_{\mathrm{fiber}}, \kappa_{\mathrm{ch}}^{\mathrm{Mukai}}$ — lives at \emph{level $0$} of the universal arrow (categorical input, prior to $\PhiFA_d$). The chart datum is empty: each construction is the same in every equivariance stratum (toric $T^d$, reduced $\mathbb C^\times +$ $\mathrm{Aut}$, orbifold inertia $I(X/G)$, lattice-polarised period domain). The ambient is dg-categorical / cyclic $\Ainf$ at chain level; the $(\infty,1)$-categorical reading (Kontsevich--Soibelman $\CY_d$-$\infty$-categories) is the equivalent statement in the parallel ambient. Promotion to level $\geq 1$ requires the Stage-$1$ functor $\PhiFA_d$ of Chapter~\ref{ch:cy-to-chiral}; promotion to level $\geq 2$ requires also the Stage-$2$ specialisation $\SpCh_{\Sigma_{d-1}, C}$. No statement of this chapter elides the level-$0$ position by reading itself as a Stage-$1$ or Stage-$2$ output.
+\end{remark}
+
+\section{Tier-(i) intrinsics: Mukai pairing, Hodge supertrace, K-theory data}
+\label{sec:cy-cat-tier-i-intrinsics}
+
+The CY-datum intrinsics — invariants read directly off $\cC$ before any
+chiral output is specialised — sort the level-$0$ data into three named
+classes: a quadratic form on the K-theory / Mukai lattice; a numerical
+supertrace on $\cO_X$; and the K-theory class of $\cC$ itself. These
+are the level-$0$ contents of the \emph{tier-(i)} layer of the seven
+faces of $r_{\mathrm{CY}}$ (Part~\ref{part:connections}), pulled back
+to the input space.
+
+\begin{definition}[Mukai lattice and Mukai pairing on a CY$_d$ category]
+\label{def:cy-cat-mukai-lattice}
+Let $\cC$ be a smooth proper Calabi--Yau dg category of dimension $d$.
+The \emph{Mukai lattice} of $\cC$ is the topological K-theory class
+\[
+ \widetilde\Lambda(\cC) \;:=\; K_0^{\mathrm{top}}(\cC) \;\cong\;
+ \mathrm{HP}_{2\bullet}(\cC, \mathbb Q),
+\]
+the periodic-cyclic homology in even total degree
+(Tabuada $2008$ \emph{J.~Reine Angew.~Math.}~$622$;
+Bondal--Larsen--Lunts $2004$). The CY pairing of degree $-d$
+(Definition~\ref{def:cy-category}) descends to a non-degenerate pairing
+\[
+ \langle -, - \rangle_{\mathrm{Muk}} \colon
+ \widetilde\Lambda(\cC) \otimes \widetilde\Lambda(\cC)
+ \longrightarrow \mathbb Z,
+\]
+graded-symmetric of parity $d \bmod 2$. For $\cC = D^b\mathrm{Coh}(X)$
+on a smooth projective CY$_d$ variety $X$, the Hochschild--Kostant--Rosenberg
+isomorphism (Theorem~\ref{thm:hkr-smooth}) and the Mukai vector map
+\[
+ v(E) \;=\; \mathrm{ch}(E) \cdot \sqrt{\mathrm{td}(X)}
+ \;\in\; H^{\mathrm{even}}(X, \mathbb Q)
+\]
+identify
+\[
+ \widetilde\Lambda(D^b\mathrm{Coh}(X)) \;\cong\;
+ H^{\mathrm{even}}(X, \mathbb Z),
+ \qquad
+ \langle v, w\rangle_{\mathrm{Muk}}
+ \;=\;
+ -\!\int_X v^\vee \cdot w \cdot \mathrm{td}(X).
+\]
+The minus sign is the Mukai $1987$ convention; the negation is forced
+by the desuspension $[d]$ in the Serre functor.
+\end{definition}
+
+\begin{example}[The K3 Mukai lattice]
+\label{ex:cy-cat-mukai-k3}
+For $X = K3$, the Mukai lattice
+$\widetilde\Lambda(K3) = H^{\mathrm{even}}(K3, \mathbb Z)
+ = H^0 \oplus H^2 \oplus H^4$
+has rank $24 = 1 + 22 + 1$ and Mukai signature $(4, 20)$:
+two positive directions in $H^2(K3) = E_8(-1)^{\oplus 2} \oplus U^{\oplus 3}$
+of signature $(3, 19)$, plus one positive in the hyperbolic plane
+$H^0 \oplus H^4 = U$. The Mukai pairing is the abstract
+$\mathrm{II}_{4, 20} = E_8(-1)^{\oplus 2} \oplus U^{\oplus 4}$ lattice;
+this is the level-$0$ tier-(i) input on which the K3-side BKM,
+the K3 Yangian, and the rank-$24$ Heisenberg face of $r_{\mathrm{CY}}$
+are all built (Parts~\ref{part:k3-yangian}, \ref{part:examples},
+\ref{part:connections}).
+\end{example}
+
+\begin{definition}[Hodge supertrace $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ as level-$0$ invariant]
+\label{def:cy-cat-hodge-supertrace}
+For a smooth projective CY$_d$ variety $X$, the
+\emph{Hodge supertrace} of $D^b\mathrm{Coh}(X)$ is
+\[
+ \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(D^b\mathrm{Coh}(X))
+ \;:=\;
+ \sum_{q = 0}^{d} (-1)^q\, h^{0, q}(X)
+ \;=\;
+ \chi(\cO_X).
+\]
+This is the holomorphic Euler characteristic on $\cO_X$, computed
+directly from the Hodge diamond. It depends only on the CY category
+$\cC = D^b\mathrm{Coh}(X)$ at level $0$ — no Stage-$1$ functor, no
+Stage-$2$ chart, no chiral algebra appears. At every odd $d$, Serre
+duality forces $h^{0, q} = h^{0, d-q}$; the supertrace pair-cancels
+and $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(\mathrm{compact CY}_d) = 0$
+(Proposition~\ref{prop:chi-O-vanishes-odd-d}). At even $d$ the
+supertrace is generically nonzero
+($\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(K3) = 2$).
+\end{definition}
+
+\begin{remark}[Bare $\kappa$ forbidden; subscripts at level $0$]
+\label{rem:cy-cat-bare-kappa-forbidden}
+The four subscripted invariants $\kappa_{\mathrm{cat}}$,
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$,
+$\kappa_{\mathrm{ch}}^{\mathrm{Mukai}}$, $\kappa_{\mathrm{fiber}}$
+all live at level $0$ on a compact CY$_d$ variety $X$, and they read
+distinct features of the input:
+$\kappa_{\mathrm{cat}}(X) = \chi(\cO_X)$ is the Hodge supertrace on
+$\cO_X$ (= $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(D^b\mathrm{Coh}(X))$
+on compact CY$_d$);
+$\kappa_{\mathrm{ch}}^{\mathrm{Mukai}}$ reads the Mukai-datum
+specialisation of the chiral characteristic on $K3$;
+$\kappa_{\mathrm{fiber}}$ reads the rank of the Mukai lattice
+($\kappa_{\mathrm{fiber}}(K3) = 24$). The remaining two —
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ (Stage-$2$ Heisenberg
+specialisation) and $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
+(Stage-$2$ Borcherds-weight specialisation) — appear only at
+levels $\geq 2$ in Parts~\ref{part:examples}, \ref{part:connections}.
+A bare $\kappa$ is undefined at level $0$ as at every other level;
+every use names the subscript.
+\end{remark}
+
+\begin{proposition}[Tier-(i) intrinsics on $K3$ and $K3 \times E$]
+\label{prop:cy-cat-tier-i-k3xe}
+At the level-$0$ input $\cC_{K3} = D^b\mathrm{Coh}(K3)$ on a smooth
+projective K3 surface, the tier-(i) intrinsics evaluate to
+\[
+ \kappa_{\mathrm{cat}}(K3) = \chi(\cO_{K3}) = 2, \qquad
+ \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(D^b\mathrm{Coh}(K3)) = 2, \qquad
+ \kappa_{\mathrm{fiber}}(K3) = \mathrm{rk}\,\widetilde\Lambda(K3) = 24.
+\]
+At the level-$0$ input $\cC_{K3\times E} = D^b\mathrm{Coh}(K3\times E)$
+on the elliptically fibred CY$_3$ total space, the tier-(i) intrinsics
+evaluate to
+\[
+ \kappa_{\mathrm{cat}}(K3\times E) =
+ \chi(\cO_{K3})\cdot\chi(\cO_E) = 2\cdot 0 = 0, \qquad
+ \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(D^b\mathrm{Coh}(K3\times E)) = 0
+\]
+(Serre duality at odd $d = 3$), with the Mukai-rank intrinsic
+$\kappa_{\mathrm{fiber}}(K3) = 24$ pulled back from the K3 fibre.
+The two values $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E) = 3$
+(Stage-$2$ Heisenberg) and $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$
+(Stage-$2$ Borcherds at $N = 1$) are levels $\geq 2$ readings and do
+not appear at level~$0$.
+\end{proposition}
+
+\begin{proof}
+$K3$: $\chi(\cO_{K3}) = 1 - 0 + 1 = 2$ on the Hodge diamond
+$h^{0,0} = 1, h^{0,1} = 0, h^{0,2} = 1$. The Mukai lattice
+$\widetilde\Lambda(K3) = H^{\mathrm{even}}(K3, \mathbb Z)$ has rank
+$1 + 22 + 1 = 24$ (Example~\ref{ex:cy-cat-mukai-k3}).
+$K3 \times E$: K\"unneth on the holomorphic Euler characteristic
+gives $\chi(\cO_{K3\times E}) = \chi(\cO_{K3})\cdot\chi(\cO_E) =
+2\cdot 0 = 0$. Serre duality on the compact CY$_3$ total space
+forces $h^{0, q}(K3 \times E) = h^{0, 3-q}(K3 \times E)$ and the
+supertrace pair-cancels:
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(D^b\mathrm{Coh}(K3\times E))
+= 0$ (Definition~\ref{def:cy-cat-hodge-supertrace}). The Mukai-rank
+intrinsic $\kappa_{\mathrm{fiber}}(K3) = 24$ is read off the
+K3 fibre Mukai lattice and pulled back via $\pi_2 \colon K3 \times E
+\to K3$; it is independent of any specialisation choice
+$(\Sigma_2, C)$ at the level of Stage-$2$.
+\end{proof}
+
+\begin{proposition}[PTVV $(2-d)$-shifted symplectic structure on $\cM(\cC)$]
+\label{prop:cy-cat-ptvv-shift}
+Let $\cC$ be a smooth proper Calabi--Yau dg category of dimension $d$
+in the Kontsevich--Soibelman sense (with non-degenerate negative-cyclic
+class $[\sigma] \in \HC^-_d(\cC)$; Definition~\ref{def:negcyc-cy}).
+The derived moduli stack $\cM(\cC)$ of objects in $\cC$ carries a
+canonical $(2-d)$-shifted symplectic structure
+\[
+ \omega_\cC \;\in\; H^0\!\bigl(\cM(\cC),\;
+ \Omega^2_{\mathrm{closed}}[2-d]\bigr),
+\]
+non-degenerate as a section of $\mathbb T_{\cM(\cC)}^\vee
+\otimes \mathbb T_{\cM(\cC)}^\vee[2-d]$ over the smooth-derived locus
+(Pantev--To\"en--Vaqui\'e--Vezzosi $2013$ \emph{Publ.~Math.~IHES}~$117$
+Thm~$2.5$; Brav--Bussi--Joyce $2019$ for the local Darboux model).
+The shift $2-d$ is the dimensional dispatch
+\[
+ d = 1\colon\;\text{shift}\;0,\quad
+ d = 2\colon\;\text{shift}\;-2,\quad
+ d = 3\colon\;\text{shift}\;-1,\quad
+ d = 4\colon\;\text{shift}\;0,\quad
+ d = 5\colon\;\text{shift}\;+1,
+\]
+read off the cyclic CY class without any auxiliary chart data. The
+Gerstenhaber bracket on $\HH^\bullet(\cC)$ has degree $1-d$
+(Theorem~\ref{thm:deligne-conjecture} composed with
+Proposition~\ref{prop:cy-bracket-spectrum}), matching the shift via
+the duality $\HH^\bullet(\cC) \simeq \mathrm{tangent\ to\ }\cM(\cC)$.
+\end{proposition}
+
+\begin{proof}
+The CY class $[\sigma] \in \HC^-_d(\cC)$ defines, via the
+non-commutative Hodge-to-de-Rham comparison
+(Kaledin~$2017$ \emph{J.~Reine Angew.~Math.}~$728$ Thm~$5.5$;
+Pantev--To\"en--Vaqui\'e--Vezzosi $2013$ \S$2.4$), a class
+$\omega_\cC \in H^0(\cM(\cC), \Omega^2_{\mathrm{closed}}[2-d])$. Its
+non-degeneracy is the non-degeneracy of $[\sigma]$ on $\HH_d(\cC)$.
+The shift $2-d$ comes from the cohomological degree of the cyclic
+class: $\HC^-_d(\cC)$ pairs with $\HH^d(\cC)$, and the trace of an
+endomorphism $\phi \in \mathrm{End}(E)$ for $E \in \cM(\cC)$ has
+degree $0$, so $\phi$ contributes degree $-d$ to the pairing; the
+two-form $\omega_\cC$ on $\cM(\cC)$ inherits the residual shift
+$2 - d$. Brav--Bussi--Joyce $2019$ supplies the local
+Darboux normal form on the smooth-derived locus.
+\end{proof}
+
+\begin{remark}[The shift law $(d, \mathrm{shift}, E_n^{\mathrm{cl}})$ as level-$0$ structural input]
+\label{rem:cy-cat-shift-law-level-0}
+Composing the PTVV $(2-d)$-shift of
+Proposition~\ref{prop:cy-cat-ptvv-shift} with Dunn--Lurie additivity
+$E_a \otimes E_b \simeq E_{a+b}$ on the chain-level $E_d$-operad
+(Lurie, \emph{Higher Algebra}~$5.1$; Dunn $1988$) fixes the
+classical-shadow operadic level on the moduli stack:
+\[
+ (d,\;\text{shift},\;E_n^{\mathrm{cl}})
+ \;\in\;
+ \bigl\{(2,\,-2,\,E_2),\;(3,\,-1,\,E_1),\;(4,\,0,\,E_0),\;(5,\,+1,\,E_5\text{-Poisson})\bigr\}.
+\]
+The triple is intrinsic to the level-$0$ datum $(\cC, [\sigma])$:
+no Stage-$1$ functor, no $\GRT_1$-torsor point, no chart specialisation
+appears. Its level-$1$ realisation is the operadic level of
+$\PhiFA_d(\cC) \in \EdHolFA(X)$ on the CY$_d$ target $X$, and its
+level-$2$ shadow $n_{\mathrm{native}}(d) \in \{\infty, 2, 1, 1, 1\}$
+on the reference curve $C$ for $d \in \{1, 2, 3, 4, 5\}$ is fixed by
+the same dispatch composed with stage-$2$ pushforward
+(Proposition~\ref{prop:native-en-level}; cyclic structure rises
+operadic level by one at $d = 1$ via the Connes $S^1$-action). The
+$d \geq 4$ rows admit $\Eone$-stabilisation by Bott periodicity
+(Theorem~\ref{thm:e1-stabilization-cy}); the level-$0$ shift law is
+the pre-stabilisation datum from which both the Stage-$1$ output and
+the obstruction to stabilisation are read.
+\end{remark}
+
+\begin{remark}[Dimensional stratification $d \in \{1, 2, 3, 4, 5\}$]
+\label{rem:cy-cat-d-stratification-level-0}
+At level $0$ the dimensional stratification fixes the cyclic degree,
+the PTVV shift, and the Gerstenhaber bracket degree:
+\[
+\begin{array}{c|c|c|c|c}
+ d & \text{cyclic degree} & \text{PTVV shift} &
+ \text{Gerstenhaber degree} & \text{example input} \\\hline
+ 1 & -1 & 0 & 0 & D^b\mathrm{Coh}(E_\tau),\;\Fuk(E_\tau) \\
+ 2 & -2 & -2 & -1 & D^b\mathrm{Coh}(K3),\;\Fuk(K3) \\
+ 3 & -3 & -1 & -2 & D^b\mathrm{Coh}(\mathrm{quintic}),\;
+ D^b\mathrm{Coh}(K3\times E) \\
+ 4 & -4 & 0 & -3 & D^b\mathrm{Coh}(\mathrm{sextic}),\;
+ D^b\mathrm{Coh}(K3\times K3) \\
+ 5 & -5 & +1 & -4 & D^b\mathrm{Coh}(K3\times K3\times E)
+\end{array}
+\]
+The data are intrinsic to the cyclic $\Ainf$-input. The CY-A
+existence theorems at $d \leq 2$ (proved), $d = 3$
+(object-level on the witnessed locus, Theorem~CY-A$_3$), and the
+$d \geq 4$ template (conditional on additional framing/completion
+witnesses) are the level-$1$ realisations of these level-$0$
+specifications. The Mukai analogues of the K3 lattice at other $d$
+are the Hodge / Brav--Joyce / Pandharipande--Thomas realisations of
+$\widetilde\Lambda(\cC)$ in each row.
+\end{remark}
+
 \begin{remark}[Categorical input for \texorpdfstring{$\Phi_d$}{Phi-d}]
 \label{rem:cy-cat-cross-volume-anchors}
 The categorical input enters the correspondence $\{\Phi_d\}$ of Theorem~\textup{\ref{thm:phi-platonic}}, characterised by the four universal properties \textup{(U1)}--\textup{(U4)}. The cyclic $\Ainf$ data determine the dimension-stratified spectrum of $\kappa_{\mathrm{ch}}$ values catalogued in Theorem~\textup{\ref{thm:kappa-stratification-by-d}} and, on Borcherds-specialised K3-fibred branches, the automorphic weight invariant
@@ -233,6 +489,12 @@ in the negative cyclic homology, whose image under the canonical map $\HC^- \to 
 
 \begin{theorem}[Cyclic \texorpdfstring{$\Ainf$}{A-inf} enhancement]
 \label{thm:cyclic-ainf-enhancement}
+\textsl{Scope:} level $0$ (categorical input, prior to $\PhiFA_d$);
+chart-independent (intrinsic to $\cC$); ambient cyclic $\Ainf$ at
+chain level (with the $(\infty, 1)$-categorical reading via
+Kontsevich--Soibelman $\CY_d$-$\infty$-categories as the equivalent
+ambient).
+
 Let $\cC$ be a smooth proper dg category equipped with a non-degenerate negative cyclic CY class $[\sigma] \in \HC^-_d(\cC)$. Any minimal $\Ainf$ model of $\cC$ carries a cyclic $\Ainf$-structure realising $[\sigma]$, and two such models are related by an $\Ainf$-quasi-isomorphism preserving the induced pairing. Kontsevich--Soibelman prove this in the formal case; Costello~\cite{Costello2005} supplies the TCFT enhancement; Seidel~\cite{Seidel2008} gives the Fukaya-category construction.
 \end{theorem}
 
@@ -261,6 +523,11 @@ This is an assignment on objects after H1--H4 and the admissible specialisation 
 
 \begin{theorem}[Categorical kappa equals chiral kappa at \texorpdfstring{$d = 2$}{d = 2}, \texorpdfstring{$h^{1,0} = 0$}{h-1,0 = 0}: CY-D\texorpdfstring{$_2$}{-2}]
 \label{thm:cy-d-d2}
+\textsl{Scope:} level $0 \leftrightarrow$ level $2$ comparison
+(tier-(i) input vs.\ tier-(iii) Stage-$2$ output); chart
+$(\Sigma_1, C)$ on a $\CY_2$ surface with $h^{1,0}(X) = 0$;
+ambient ordinary chain complex / cyclic $\Ainf$ at $d = 2$.
+
 For $\cC$ a smooth proper $\CY_2$ category such that $\Phi(\cC) = \SpCh_{\Sigma_1,C}(\PhiFA_2(\cC))$ exists \emph{and} $\HH_{-1}(\cC) = 0$ (equivalently, in the geometric case $\cC = D^b(\Coh(X))$, the hypothesis $h^{1,0}(X) = 0$), the chiral modular characteristic, namely the tier-(iii) invariant read off the stage-$2$ output on $C$, satisfies
 \[
  \kappa_{\mathrm{ch}}\big(\Phi(\cC)\big) \;=\; \chi^{\CY}(\cC) \;=\; \chi(\cO_X) \;=\; \kappa_{\mathrm{cat}}(X).
