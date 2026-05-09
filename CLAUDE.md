@@ -1,504 +1,190 @@
 # CLAUDE.md (Vol III)
 
-> **Inherits `~/ecosystem/INVARIANTS.md`.** That file holds the canonical ecosystem rules: destructive-git forbidden-command list, multi-agent worktree concurrency, standalone-documents discipline, Russian-school voice, every-file-into-the-repo rule, commits-carry-no-LLM-attribution, deep-semantic-merges, intelligence propagation. Read it first. Repo-local rules follow.
+> Inherits `~/ecosystem/INVARIANTS.md` — destructive-git list, multi-agent worktree concurrency, standalone-document discipline, Russian-school voice, every-file-into-the-repo, no-LLM-attribution-on-commits, deep-semantic-merges, intelligence propagation, mathematical-repair doctrine, shared LaTeX template. Read it once per session; do not re-read; do not paraphrase. Repo-local rules follow.
+>
+> Writing standards binding: `MATHEMATICAL_PHYSICS_NUMBER_THEORY_GEOMETRY_ALGEBRA_HOMOTOPY_THEORY_WRITING_STANDARDS.md` (root). Every reader-facing line in `chapters/`, `frame/`, `examples/`, `theory/`, `connections/`, `bibliography/`, `appendices/` answers to it.
 
 ---
 
-## What this repository is for
+## What this repository is
 
-This repository is an instrument for advancing human mathematical
-knowledge. Specifically, for understanding the **CY-to-chiral functor
-$\Phi: \mathrm{CY}\text{-cat} \to \mathrm{ChirAlg}$** that sends a
-Calabi–Yau category of dimension $d$ to its chiral-algebra image, and
-the seven faces of $r_{\mathrm{CY}}$ that crystallise the correspondence
-between BPS quantum groups (K3 Yangian, Monster / Borcherds / BKM
-algebras) and their chiral-side analogues.
+An instrument for advancing human mathematical knowledge: the Calabi–Yau-to-chiral functor
 
-Every tool call, every edit, every agent decision made here has one
-purpose: to advance that understanding, one true theorem at a time.
+$$\Phi^{(\Sigma_{d-1}, C)}_d \;=\; \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1}, C} \,\circ\, \Phi^{\mathrm{FA}}_d,$$
 
-When a choice presents itself between doing mathematics and updating
-accounting, **do the mathematics.** Accounting is handled automatically
-by the PostToolUse hook and can always be reconciled at session end.
+and the seven faces of $r_{\mathrm{CY}}$ that crystallise the BPS-quantum-group / chiral-algebra correspondence — K3 BKM $\mathfrak{g}_{\Delta_5}$ from Gritsenko's $\Delta_5$, the K3 Yangian on the Mukai self-mirror branch, the Borcherds Monster, the Fake Monster at $d = 5$.
+
+Every read, grep, edit, inscription, refactor, retraction serves advancing the mathematics, one true theorem at a time. When a choice is between mathematics and accounting, do the mathematics. The PostToolUse hook handles accounting.
 
 ## The mathematics
 
-**One functor**: $\Phi: \mathrm{CY}\text{-cat}_d \to \mathrm{ChirAlg}$.
-Its output is $d$-dependent: $E_2$-chiral at $d \leq 2$; $E_1$-chiral at
-$d \geq 3$. The CY-A/B/C/D framework dimensionally stratifies the
-correspondence. $\Phi$ gives ONE output per category; different
-$\kappa$ values come from DIFFERENT constructions, NOT six $\Phi$
-applications to one object.
+**One functor, two stages.** Stage-1 $\Phi^{\mathrm{FA}}_d : \mathrm{CY}_d\text{-cat} \to E_d\text{-HolFA}(X)$ is a canonical functor at fixed $d$, unique up to a $\mathrm{GRT}_1(\mathbb{Q})$-torsor (Kontsevich–Tamarkin $E_d$-formality + Costello–Gwilliam–Li holomorphic locality). Stage-2 $\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1}, C}$ is chart-specialisation: factorisation homology over a $(d{-}1)$-cycle restricted to a reference curve. The collection $\{\Phi_d\}$ is a per-$d$ correspondence programme; the target $E_{n(d)}\text{-ChirAlg}$ depends on $d$ ($n = \infty, 2, 1, 1, 1$ at $d = 1, 2, 3, 4, 5$ via the shift law $(d, \text{shift}, E_n^{\mathrm{cl}})$). $\{\Phi_d\}$ does not assemble into a single functor across $d$; the framing "correspondence programme, not unified functor" lives at `chapters/theory/cy_to_chiral.tex:2840-2856`.
 
-**Four $\kappa$-invariants, never conflated**:
-$\kappa_{\mathrm{ch}}$ (chiral-side, via $\Phi$), $\kappa_{\mathrm{cat}}$
-(categorical Euler $\chi(\mathcal{O}_X)$, Künneth-**multiplicative** on
-products), $\kappa_{\mathrm{BKM}}$ (Borcherds/BKM weight $c_N(0)/2$),
-$\kappa_{\mathrm{fiber}}$ (fibre/lattice correction). Bare $\kappa$ is
-forbidden; subscript always.
+**Four $\kappa$-invariants, never conflated.**
 
-**One K3-specific crystallisation**: the K3 $\times$ E compact
-Calabi–Yau threefold carries four $\kappa_\bullet$ values
-$\{0, 3, 5, 24\}$ from four **distinct constructions**:
-$\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (Künneth-multiplicative
-total space; the K3 fibre value $\kappa_{\mathrm{cat}}(K3) = 2$ is not
-the total-space value), $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$
-(chiral Heisenberg–Mukai specialisation), $\kappa_{\mathrm{BKM}}
-(\mathfrak{g}_{\Delta_5}) = 5$ (Borcherds weight via Gritsenko
-$\Delta_5$), and $\kappa_{\mathrm{fiber}} = 24$ (Mukai-lattice rank of
-K3). Six routes to $G(K3 \times E)$ exist; they are six DIFFERENT
-constructions, NOT six $\Phi$ applications.
+- $\kappa_{\mathrm{ch}}$ — chiral-side, via $\Phi$. Subscripted further by reading: $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = \sum_q (-1)^q h^{0, q}(X)$ on compact CY$_d$; $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ for Heisenberg–Mukai specialisation; $\kappa_{\mathrm{ch}}^{\mathrm{Mukai}}$ for the Mukai-doubling face on K3; $\kappa_{\mathrm{ch}}^{\mathrm{cpt}}, \kappa_{\mathrm{ch}}^{\mathrm{loc}}$ for compact vs local CY$_3$ readings (cache row 1); $\kappa_{\mathrm{ch}, \mathrm{BV}}$ for one-loop BV-corrected.
+- $\kappa_{\mathrm{cat}} = \chi(\mathcal{O}_X)$ — categorical Euler. Künneth-multiplicative on products: $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\mathcal{O}_{K3}) \cdot \chi(\mathcal{O}_E) = 2 \cdot 0 = 0$. Not 2 (which is the K3 fibre value).
+- $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ — Borcherds 1995 *Invent. Math.* 120 / Gritsenko 1999 universal weight identity; $N$ names the Siegel input denominator.
+- $\kappa_{\mathrm{fiber}}$ — fibre / lattice rank correction.
 
-**Seven parts** hold the Vol III structure:
+Bare $\kappa$ forbidden (HZ-7 / AP-CY113). Subscript at every use, including in conversation turns.
 
-| Part | Content |
-|---|---|
-| I | Foundations — CY categories, factorisation, $E_n$ |
-| II | CY-to-chiral functor $\Phi$ |
-| III | $E_n$ hierarchy — output scope by dimension $d$ |
-| IV | K3 Yangian |
-| V | CY landscape — quintic, $K3\times E$, abelian, local surfaces |
-| VI | Seven faces of $r_{\mathrm{CY}}$ |
-| VII | Frontiers |
+**The chain fusion conjecture.** $A_X = \Phi^{(\Sigma_{d-1}, C)}_d(\mathcal{C}_X)$ on the curve $C$ is the boundary algebra $A_{b(X, \Sigma, C)}$ for a canonical boundary vacuum in an open factorisation dg-category on $(C, D_C, \tau_C)$, where $D_C$ encodes the CY data's special points (orbifold loci, fibration punctures, conifold singularities). The conjecture is verified at $\mathbb{C}^3$, local $\mathbb{P}^2$, conifold, $K3 \times E$. It is the bridge from Vol III's Stage-2 output to Vol I/II's open-side primitive package $(X, D, \tau; \mathcal{C}^{\mathrm{op}}, b, A_b, Z^{\mathrm{der}}_{\mathrm{ch}}(\mathcal{C}), \Theta_\mathcal{C}, \mathrm{Tr}_\mathcal{C})$. See `notes/chatgpt_critique_consequence_map_adversarial_review.md` §III.
 
-**Five theorems** (shared with Vol I): A bar–cobar, B chiral Positselski,
-C derived-centre complementarity ($\kappa + \kappa^! \in
-\{0, 8, 13, 250/3, 98/3\}$ on the canonical five-archetype
-$\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ landmark
-ceiling; the $\mathsf{B}$-row $K^\kappa = 8$ is the Vol III Mukai-enhanced
-K3 Heisenberg witness via Bruinier Heegner Chern-class reciprocity),
-D obstruction-tower universality, H Hochschild concentration.
+## Three-axis scope discipline
 
-Vol III-specific contributions: the CY-A_3 equivalence, the K3
-abelian-Yangian presentation, the ZTE $T$ computation, the CY-D
-dimensional stratification ($\kappa_{\mathrm{ch}} = \chi(\mathcal{O})$
-supertrace identification on compact CY_d), and the universal Borcherds
-weight identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across
-$N \in \{1, 2, 3, 4, 6\}$.
+Every theorem statement carries coordinates on three orthogonal axes. Promotion across coordinates requires the named comparison arrow under named hypotheses. No claim is permitted to be promoted by elision.
 
-## What counts as progress
+**Vertical (level).** $0$ primitive (CY$_d$-cat / open factorisation category) → $1$ canonical functorial passage (Stage-1 / chart-augmented $A_b$) → $2$ chart-specialised shadow (Stage-2 chiral / bar twisting $B(A)$) → $3$ centre / quantum vertex group ($Z^{\mathrm{der}}_{\mathrm{ch}}(A)$, $Y^+(X)$, $G(X) = D(Y^+(X))$) → $4$ scalar trace / Borcherds form. The bar $B(A)$ is the comparison arrow between levels 2 and 3 via $Z^{\mathrm{der}}_{\mathrm{ch}}(A) = \mathrm{ChirHoch}^\bullet(A, A) = \mathrm{R}\mathrm{Hom}(\Omega B(A), A)$; bar is twisting/coupling, not bulk.
 
-- A new theorem precisely stated, rigorously proved, inscribed with a
-  proof body verifiable against primary literature (Gritsenko–Nikulin,
-  Borcherds, Schiffmann–Vasserot, Maulik–Okounkov, Nakajima,
-  Costello–Gaiotto for physics input).
-- A new example: compute $\kappa_{\mathrm{ch}}, \kappa_{\mathrm{cat}},
-  \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}$ for a CY not yet
-  tabulated in `cy_d_kappa_stratification.tex`.
-- A falsified claim repaired by a corrected statement, construction, or
-  proof obligation (e.g., an advertised $\Phi$-identification broken at a
-  concrete K3 automorphism).
-- A healed statement: the natural hypothesis and proof on which the
-  intended theorem actually holds.
-- A first-principles computation replacing a citation-only black box.
+**Horizontal (chart datum).** Equivariance stratum × $(\Sigma_{d-1}, C)$ × boundary vacuum $b$ × admissibility window. Four equivariance strata: toric $T^d$ (local $\mathbb{P}^2$, $\mathbb{C}^3$, conifold) / reduced $\mathbb{C}^\times +$ Aut (K3, $K3 \times E$, abelian) / orbifold inertia $I(X/G)$ (Mathieu $M_{24}$, McKay $\Gamma \subset \mathrm{SU}(d)$) / lattice-polarised period domain (Borcherds lifts, Gritsenko $\Delta_5$, Igusa $\Phi_{10}$).
 
-**Progress is *not*** updating a status-table row, renaming a label
-(bare $\kappa$ → $\kappa_{\mathrm{ch}}$ is bookkeeping, not
-mathematics), counting six routes to $G(K3 \times E)$ in a
-meta-theorem, propagating AP-CY scope across ten files, editing
-FRONTIER to match CLAUDE.md, or editing AGENTS.md. The hook catches
-these. You do not have to.
+**Ambient (depth).** Ordinary chain complex / weight-completed / pro / $J$-adic / HS-sewing / formal-local / global-with-descent / derived $\infty$-categorical. Class $\mathcal{M}$ chain-level holds in weight-completed, fails in ordinary (Vol II `weight_completed_topologization_class_m_platonic.tex`). $W_\infty[\lambda] \Rightarrow E_\infty$ holds in the four-condition admissible window (Prochazka triangular truncation + Creutzig–Kanade–Linshaw parafermion + Pope–Romans–Shen / Bakas + Yamada weight-window).
+
+The deepest false ideas in this programme are **scope-omission collapses** — treating a level-$k$ object as level-$(k \pm 1)$, treating a chart-dependent statement as universal, treating a completed-ambient theorem as ordinary. The three-axis discipline catches them. See `notes/chatgpt_critique_consequence_map_adversarial_review.md` for the seventeen archetypal collapses surfaced by the May 2026 Beilinson critique and their reconstitution.
+
+## Key facts (always-on cache)
+
+- The K3-side BKM object is the Hall–Drinfeld double $\mathcal{D}_\hbar(\mathrm{CoHA}_{K3 \times E})$. "K3 Yangian" is shorthand for the separate Mukai self-mirror branch $Y_\hbar(\mathfrak{so}(4 \mid 20))$ when the Hodge $\mathbb{Z}/2$-super-extension is imposed; the ungraded Mukai-form classical limit is $\mathfrak{so}(4, 20)$, never $\mathfrak{osp}(4 \mid 20)$ (cache row 9: Mukai pairing is symmetric on both parts).
+- $\mathrm{CoHA}(\mathbb{C}^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ (positive half, $E_1$-associative). $\mathcal{W}_{1+\infty}$ is the Drinfeld-double + Fock-evaluation image — not the CoHA itself. CoHA evaluation chain: CoHA = $Y^+$ $\hookrightarrow$ $Y$ (Drinfeld double, Hopf) $\xrightarrow{\mathrm{ev}_\lambda}$ $\mathrm{End}(\mathcal{W}_{1+\infty}[\lambda]\text{-vac})$. Three arrows, three associativity classes.
+- Six routes to $G(K3 \times E)$ are six distinct $(\Sigma_2, C)$-specialisations of one Stage-1 datum $\Phi^{\mathrm{FA}}_3(D^b\mathrm{Coh}(K3 \times E))$ — not six $\Phi$-applications.
+- $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$ fails at every $N \in \{1, 2, 3, 4, 6\}$ (cache row 64). Universal identity: $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$. The Vol I `lattice_foundations.tex:5866` "$N=1$ accident, K3 Mukai datum" remark is consistent with this when read with the $\kappa_{\mathrm{ch}}^{\mathrm{Mukai}}$ subscript explicit; the bare $\kappa_{\mathrm{ch}}$ is HZ-7 violation, not contradiction.
+- $\kappa_{\mathrm{BKM}}(\mathbf H_{\Delta_5})$ takes value $5$ at the paramodular $\Delta_5$ input and $12$ at the Fake-Monster $\Phi_{12}$ input — same universal identity, two conventions, name the input denominator (cache row 65, AP-CY49).
+- Class $\mathcal{M}$ $E_3$ bar $= 6^g$ at cohomological level for $g \le 3$; $g \ge 4$ open pending $d_5$ computation. Chain-level infinite in ordinary complexes; finite in weight-completed.
+- At $d \geq 3$, $A$ is $E_1$; the $E_2$-braiding lives on $Z(\mathrm{Rep}^{E_1}(A))$, not on $A$.
+- 5d hCS on $\mathbb{R} \times \mathbb{C}^2$ quantises to the Yangian VOA $Y^{\mathrm{VOA}}(\mathfrak{g})$ to all orders for simply-laced $\mathfrak{g}$ (Costello–Gaiotto–Yagi). Convergence (not asymptotic) by Kontsevich–Tamarkin formality on the holomorphic factor. Non-simply-laced: twisted Yangian; open at all orders.
+- 6d hCS on $\mathbb{C}^3$ realises $\Phi^{\mathrm{FA}}_3$ at toric loci. One-loop obstruction: cohomological piece $\int_X \mathrm{Tr}_{\mathrm{ad}}(A(F_A)^3)$ sourced by cubic symmetric Casimir $d^{abc}$; quartic in fields, not 3d-CS-cubic. Wave-function piece scheme-dependent, absorbed into BV counter-term ($A_{w.f.} = -C_2 / (2\pi)^3 = -2 h^\vee / (2\pi)^3$). $\mathfrak{sl}_2$ unobstructed; $\mathfrak{sl}_{N \geq 3}$ obstructed with $d^{abc} = 2N$.
+- Maulik–Okounkov $R$-matrix is a gluing-cocycle residue: $R^{\mathrm{MO}}(u) = \mathrm{Res}_{u = u_\star} \phi^+_{\mathrm{UV}}(u)$ where $\phi^+_{\mathrm{UV}}$ is the UV positive-half gluing cocycle across the equivariant chamber wall at $u_\star$. The MO axiom (YBE + unitarity) is the cocycle condition for $\phi^+_{\mathrm{UV}}$.
+- $K3 \times E$ admits no global NCCR. Five obstructions (a) trivial $\omega$ but $\omega$-structure not reflexive-tilting; (b) derived McKay needs finite Aut fixing a point; (c) HPD self-dual fails product polarisation; (d) Mukai vanishing fails off the K3 factor; (e) no global CY$_3$ symmetric obstruction theory. Serre-equivariant quasi-NCCR substitutes.
+- Dimension-stratified BKM siblings: K3-BKM $\mathfrak{g}_{\Delta_5}$ at $d = 3$ (rank 3 on $\Lambda^{2, 1}_{\mathrm{II}}$); Borcherds Monster $V^\natural$ at $d = 3$ (Cartan rank 2 on $\mathrm{II}_{1, 1}$, not 26 — cache row 24); Fake Monster at $d = 5$ on $\mathrm{II}_{25, 1}$ via $K3 \times K3 \times E + E_5 \simeq E_2 \otimes E_2 \otimes E_1$. Conway / Leech at $d = 4$ bridge.
+
+## The platonic architecture (target for reorganisation)
+
+Vol III's seven-part inscription refines toward six movements + one frontier (`notes/platonic_ideal_architecture_vol3.md`):
+
+I. **The categorical input** (level 0). CY$_d$-categories with cyclic $A_\infty$-data, PTVV $(2{-}d)$-shifted symplectic, Hochschild calculus. Tier (i) $r_{\mathrm{CY}}$-intrinsics live here.
+
+II. **The two-stage construction** (levels 0→2). Stage-1 + Stage-2 + four physical lanes (5d hCS, 6d hCS, mixed-HT-strings local model, mathematical perturbative). $E_n$-tower via shift law as derived consequence (absorbing current Part III). CY-A theorems. Tier (ii) Stage-1 invariants ($\kappa_{\mathrm{fiber}}$).
+
+III. **The bulk** (level 3). $Z^{\mathrm{der}}_{\mathrm{ch}}(A_X)$, $Y^+(X)$, $G(X) = D(Y^+(X))$ as three constructions of one level-3 object. CoHA evaluation chain. Compact-CoHA construction gates. K3 Yangian as principal $d = 2$ instance (absorbing current Part IV). Chain fusion conjecture.
+
+IV. **The seven-faced R-matrix $r_{\mathrm{CY}}$** (level-2 cross-axis). Three tiers (`working_notes.tex:742-752`) × seven algebraic presentations (bar–cobar / CoHA / coisson / MO stable envelope / Yangian / Sklyanin / Gaudin). MO as gluing-cocycle residue. The bar-of-$\Phi$ shadow — the level-2 crystallisation that organises the entire output side.
+
+V. **The CY landscape** (level-2 instances by chart class). Toric ($\mathbb{C}^3$, local $\mathbb{P}^2$, conifold), reduced + Aut ($K3 \times E$ central), orbifold inertia, lattice-polarised. Cross-stratum sibling census ($d = 1, 2, 3, 4, 5$). The K3 × E five $\kappa$-values $\{0, 0, 3, 5, 24\}$ vs the $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype landmark $\{0, 8, 13, 250/3, 98/3\}$ — two distinct fives, common cell $\mathsf{B}$-row.
+
+VI. **The terminal scalar shadow** (level 4). Universal Borcherds-weight identity. CHL ladder $N \in \{1, 2, 3, 4, 6\}$. Gritsenko–Cléry 8-form catalogue. Cross-volume terminal-shadow disclaimer (`~/igusa-cusp-form/main.tex:96` cited): scalar is not Hilbert space, not Hall pairing, not orientation, not BPS operator product.
+
+VII. **Frontiers + scope discipline.** Three-axis discipline as operating gate. Open frontiers: chain fusion proof in general $d$, $G(X)$ for compact non-toric, $W_\infty[\lambda] \Rightarrow E_\infty$ beyond admissible window, modularity under fusion, $d \geq 4$ stratum, higher-$n$ bar-twisting.
+
+Reorganisation is iterative refinement: current Part III ($E_n$ hierarchy) absorbs into Part II; current Part IV (K3 Yangian) absorbs into platonic Part III; new platonic Part VI (scalar terminus) hosts the level-4 universal identity; current Part VI (seven faces) promotes earlier as platonic Part IV. Content survives entirely; the form makes the inner symmetry visible.
+
+## Five theorems (shared with Vol I)
+
+A bar–cobar; B chiral Positselski; C derived-centre complementarity ($\kappa + \kappa^! \in \{0, 8, 13, 250/3, 98/3\}$ on the canonical $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ landmark, with $\mathsf{B}$-row $K^\kappa = 8$ the Vol III Mukai-enhanced K3 Heisenberg witness via Bruinier Heegner Chern-class reciprocity); D obstruction-tower universality; H Hochschild concentration.
+
+Vol III-specific contributions: the CY-A$_3$ object-level + $E_1$-rigidity theorem (`working_notes.tex:762-768`), the K3 abelian-Yangian presentation, the ZTE $T$-matrix exact rational, the CY-D dimensional stratification ($\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = \chi(\mathcal{O})$ Hodge supertrace on compact CY$_d$), the universal Borcherds-weight identity across $N \in \{1, 2, 3, 4, 6\}$.
+
+## Five objects, never conflated
+
+$A$, $B(A)$, $A^i$, $A^!$, $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$. $\Omega(B(A)) = A$ is bar–cobar inversion (Quillen, Lefèvre-Hasegawa, Loday–Vallette). $A^!$ via Verdier when applicable. $A^i$ via Connes' $B$-operator periodicity. The bulk is $Z^{\mathrm{der}}_{\mathrm{ch}}$ via chiral Hochschild. The bar represents twisting/coupling; the bar is not a centre.
 
 ## Beilinson's dictum
 
-> What limits forward progress is not the lack of genius but the
-> inability to dismiss false ideas.
+> What limits forward progress is not the lack of genius but the inability to dismiss false ideas.
 
-Every claim is false until independently verified from primary source.
-Prefer a smaller true theorem to a larger false one. 3+ independent
-verification paths for numerics.
+3+ independent verification paths for any load-bearing numeric (cache row 75, AP-CY446: paths must be genuinely independent — a restatement, copied table, or verifier consuming path 1 is not a third path). When a heal is proposed, attack-heal: strongest counterexample, sign / convention check, ambient-category check, missing hypothesis, false functoriality, unproved equivalence, numerical constant. Heal and attack again until the theorem closes or the exact obstruction is named for the next repair cycle.
 
-**Epistemic hierarchy** (higher wins):
-1. Direct computation.
-2. `.tex` source ±100 lines.
-3. Build system / tests.
-4. Published literature (primary).
-5. Concordance (shared with Vol I / Vol II).
-6. This file.
-7. Memory.
+**Epistemic hierarchy** (higher wins on conflict): direct computation > `.tex` source ±100 lines > tests > primary literature > concordance > this file > memory.
 
-## The manuscript is self-complete, self-coherent, self-consistent
+**Refined Beilinson cut.** Every theorem in the programme declares its (level, chart, ambient) coordinates. Promotion across coordinates requires the named comparison arrow, constructed under the named hypotheses. No claim is permitted to be promoted from one coordinate to another by elision.
 
-The current version stands for itself and only itself. All LaTeX
-mathematical writing is standalone, up-to-date, consistent, coherent.
-The manuscript does not reference its own previous versions. There is
-no place in this research programme for references to previous
-versions, intermediate ansätze, earlier drafts, retracted values,
-superseded formulas, or any other drafting-history commentary. If a
-formula used to be $X$ and now it is $Y$, the manuscript says $Y$;
-it does not say "$Y$ (previously $X$, now retracted)", does not say
-"$Y$ supersedes the earlier $X$", does not explain how the author
-arrived at $Y$.  The mathematical argument proves $Y$; the drafting
-trajectory is not part of the mathematics.
+## What counts as progress
 
-When a mathematical retraction is genuinely informative --- a proof
-that was attempted and failed, whose failure illuminates why the
-successful proof is forced --- state the failed argument and its
-flaw as mathematics: "the identity $[m_k, B^{(2)}] = 0$ fails
-per-$k$ because cyclic invariance controls adjacent contractions
-but not non-adjacent terms (Proposition~X)". Do not frame it as
-"the author initially attempted $X$ but retracted in favour of $Y$".
-The mathematics is the Gap/Flaw, not the drafting record.
+A new theorem precisely stated, rigorously proved, inscribed with proof body verifiable against primary literature (Borcherds, Gritsenko–Nikulin, Schiffmann–Vasserot, Maulik–Okounkov, Nakajima, Costello–Gaiotto, Beilinson–Drinfeld). A new CY example: compute the four $\kappa_\bullet$ for $X$ not yet in `cy_d_kappa_stratification.tex`. A falsified claim repaired by corrected statement, construction, or proof obligation; not deletion, not status-row demotion. A first-principles computation replacing a citation black box. A scope coordinate made explicit on a theorem that previously elided one — bar level / chart / ambient.
+
+**What does NOT count as progress.** Bare $\kappa \to \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ subscript fixes. Status rows. Phantom-label audits. Scope propagation across ten files. FRONTIER retractions. AGENTS.md / CLAUDE.md harmonisation. The PostToolUse hook catches these; you do not have to.
+
+## Hard rules
+
+1. No AI attribution anywhere. No `Claude`, no `Anthropic`, no `Co-Authored-By`, no `Generated with`, no 🤖, in commits, comments, docstrings, or manuscripts. Pre-commit hook nudges; remove offending content if hook fires.
+2. No `git stash`. No `git commit --amend`. Deep semantic merges only (`INVARIANTS.md §I, §VII`).
+3. Do not build after every edit. Builds at session end on user opt-in: `cd ~/calabi-yau-quantum-groups && make fast`.
+4. Never invent a formula. Source: `chapters/examples/cy_d_kappa_stratification.tex`, `chapters/theory/cy_to_chiral.tex`, `working_notes.tex` (sec:two-stage-factorisation, sec:three-tiers-rcy, sec:cy-a3-existence-rigidity), primary paper, or direct computation.
+5. HZ-7: $\kappa$ always subscripted. HZ-3-11 independent verification protocol applies to any `\ProvedHere` decorator.
+6. Claim-status tags are temporary bookkeeping, not repairs. When uncertain, name the exact proof obligation and heal the proof, statement, or construction; do not downgrade the manuscript to close (`INVARIANTS.md §XI`). CY-C is conjectural; $G(X)$ is unconstructed for compact non-toric in general; Super-Yangian $Y_{\mathrm{osp}}(4 \mid 20)$ remains conjectural.
+7. User-authorised large swarms permitted with disjoint scopes, named integration owner, deep semantic merge across `~/chiral-bar-cobar`, `~/chiral-bar-cobar-vol2`, `~/calabi-yau-quantum-groups`, `~/igusa-cusp-form`, `~/mixed-holomorphic-topological-strings`. Do not downshift swarm size in response to old 3-agent / 5-agent cautionary language.
+8. Standalone documents only (`INVARIANTS.md §III`). No version labels, phase labels, prior-draft references, "Wave $N$ / round / strand / cache-entry" vocabulary in `chapters/`, `frame/`, `examples/`, `theory/`, `connections/`, `bibliography/`, `appendices/`. Bookkeeping vocabulary lives in `notes/`, commits, and memory only.
+9. When a mathematical retraction is genuinely informative — a proof attempted and failed, whose failure forces the successful proof — state the failed argument and its flaw as mathematics, not as a drafting record. *The identity $[m_k, B^{(2)}] = 0$ fails per-$k$ because cyclic invariance controls adjacent contractions but not non-adjacent terms (Proposition X)*; not *initially the author attempted X but retracted in favour of Y*. The mathematics is the gap; the drafting trajectory is not.
 
 ## Writing standard: Chriss–Ginzburg north star
 
-The manuscript prose is written in the Chriss–Ginzburg voice,
-channelling simultaneously the Russian elite mathematical school ---
-Gelfand, Manin, Drinfeld, Arnold, Beilinson, Bernstein, Kapranov,
-Etingof, Kazhdan, Kontsevich, Soibelman, Bezrukavnikov --- and the
-mathematical physics elite --- Polyakov, Nekrasov, Witten, Costello,
-Gaiotto, Moore, Segal. **Show don't tell.** Do not narrate. Construct
-the mathematics directly and let the synthesis of disparate technical
-domains (algebra + geometry, physics + mathematics, operads +
-representation theory, Hodge theory + automorphic forms) bring out
-the inner music of the subject.
+Manuscript prose IS mathematics, not a description of mathematics. Seven combined voices: Witten, Etingof, Polyakov, Dirac, Feynman, Costello, Gaiotto. Russian elite school. Every statement inevitable.
 
-**Forbidden in manuscript prose** (reader-facing `.tex` in `chapters/`,
-`frame/`, `examples/`, `theory/`, `connections/`, `bibliography/`):
+`MATHEMATICAL_PHYSICS_NUMBER_THEORY_GEOMETRY_ALGEBRA_HOMOTOPY_THEORY_WRITING_STANDARDS.md` is binding. Forbidden patterns to scan-and-cut after every draft: meta-narration (*we now turn to*, *having established*, *in what follows*); bookkeeping (*Theorem A* labels embedded in body; status tables in theorem bodies); catalogue IDs (*Wave $N$*, *AP-CY$n$*, *HZ-$n$*, *DNA strand*, *MP$n$*); branding (*magic identity*, *inner music*, *X spine*, *matrix microscope*, *platonic ideal* in prose); hedging (*perhaps*, *notably*, *crucially*, *remarkably*, *clearly* used to skip a proof step); negative framing (*must not*, *would conflate*, *is wrong*, *fails to*); approximation language for exact identifications (*is closely related to*, *corresponds to*, *is the analogue of* — use $=$ or $\simeq$ when the identification is proved); CS jargon (*certificate*, *pipeline*, *API*, *spec*); passive avoidance (*it can be shown*, *it is decided*); evocative metaphor.
 
-- Bookkeeping vocabulary of any kind. No "Wave N", no "round M",
-  no "batch K", no "DNA strand S$x$", no "AP-CY$n$", no
-  "antipattern $n$", no "Pattern $n$", no "cache entry $n$",
-  no "CG-rectify pass $k$", no "$\mathsf{HZ}$-$n$ inscription".
-  These belong in `notes/`, `FRONTIER.md`, commit messages, and
-  the local `memory/` --- never in the manuscript.
-- Meta-narration of the author's intent: "we now turn to",
-  "having established", "let us now", "this brings us to",
-  "it is worth noting", "notably", "crucially", "remarkably",
-  "furthermore", "moreover", "in the present work", "this preface's
-  role is to". Delete every instance; replace with direct mathematical
-  statements.
-- Hedging the mathematics does not earn. If the identification
-  $X = Y$ is proved, write "$X = Y$"; do not write "$X$ is closely
-  related to $Y$". Courage, after Drinfeld and Polyakov and Nekrasov:
-  the equals sign is a theorem, not a suggestion.
+Define before use. Motivate before introduce. Concrete example before abstract machine. The reader is serious and adult.
 
-**Required** (the CG standard):
+The mathematics earns the equals sign. Two objects that are the same: $X = Y$ with the morphism implementing the identification stated. Not *$X$ is closely related to $Y$*. Courage, after Drinfeld and Polyakov and Nekrasov.
 
-- Every section and subsection title names a mathematical object,
-  construction, theorem, or question --- never a process, wave,
-  round, or meta-organising device.
-- Every definition is preceded within ten lines by the question
-  or obstruction it answers. The reader feels "of course" before
-  the definition arrives.
-- Every symbol is defined at or before first use, with a
-  parenthetical first-principles definition for standard concepts
-  (D-module, Ran space, FM compactification, Hodge bundle,
-  $L_\infty$-algebra, Kuga--Satake, Humbert divisor).
-- Every physical claim is labelled: theorem, heuristic, or
-  metaphor. When a physical identification can be stated as a
-  theorem, state it as a theorem; do not hide the content as an
-  "analogy".
-- **Economy.** Every word carries weight. A paragraph that can be
-  one sentence is one sentence.
-- At every section boundary, three sentences: (1) what was just
-  established; (2) the question or obstruction the next section
-  resolves; (3) the construction or theorem that resolves it.
-  These sentences are *mathematics*, not signposts.
+## Chain-level and $(\infty, 1)$-categorical: equal status
 
-The reader is an equal who sees the force of the argument when it
-is stated with sufficient precision. The prose does not explain
-mathematics; it *is* mathematics, carrying the same logical force
-as the displayed equations.
+Both lanes load-bearing in Vol III; neither replaces or subsumes the other. Chain-level: explicit denominators, $L_\infty$-twistings, witnessed homotopies, ambient-qualified Mittag–Leffler towers, explicit Borcherds product expansions, explicit Hodge-supertrace summands, explicit Mukai-vanishing inputs. $(\infty, 1)$-categorical: CY $\infty$-categories of Kontsevich–Soibelman, derived $\infty$-stable categories of coherent sheaves, CoHA as stable $\infty$-category construction, Maulik–Okounkov stable envelopes in derived geometry.
 
-This rule is retroactive and forward-looking. Existing manuscript
-prose containing bookkeeping vocabulary is to be rectified chapter
-by chapter through the `chriss-ginzburg-rectify` skill; new prose
-is to be written in the CG voice from the first keystroke.
-
-## How to work
-
-**$\kappa$ values come from the subscripted source.** Bare $\kappa$ is
-forbidden (HZ-7, AP113). For $\kappa_{\mathrm{ch}}$, compute via $\Phi$
-or cite `chapters/examples/cy_d_kappa_stratification.tex`. For
-$\kappa_{\mathrm{cat}} = \chi(\mathcal{O}_X)$, Künneth on total space
-(e.g. $\kappa_{\mathrm{cat}}(K3 \times E) = 0$, **not** 2 which is the
-K3 fibre). For $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$, primary
-source Borcherds 1995 / Gritsenko series.
-
-**Key facts** (from the cache — check every claim against these):
-
-- $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (total space,
-  Künneth-multiplicative), NOT 2 (fibre).
-- $\mathrm{CoHA}(\mathbb{C}^3) = Y^+$ (positive half), NOT
-  $\mathcal{W}_{1+\infty}$ (full).
-- Six routes to $G(K3 \times E)$ are six DIFFERENT constructions, NOT
-  six $\Phi$ applications.
-- $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$
-  is FALSE at every $N \in \{1, 2, 3, 4, 6\}$ (numerically: at $N=1$,
-  left = $5$, right = $\kappa_{\mathrm{ch}}(K3 \times E) + \chi(\cO_E)
-  = 0 + 0 = 0$; at $N=2$, left = $4$, right = $1$). The universal
-  formula is $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ (Borcherds
-  weight theorem; Gritsenko 1999). See
-  \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
-  Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}.
-- Class M $E_3$ bar $= 6^g$ at cohomology, NOT infinite.
-- At $d \geq 3$, $A$ is $E_1$; $E_2$ lives on $Z(\mathrm{Rep}(A))$, not on $A$.
-- Two-stage factorisation: $\Phi_d = \mathrm{Sp}_{\Sigma_{d-1}, C} \circ
-  \Phi^{FA}_d$. Stage~1 $\Phi^{FA}_d$ is canonical (Kontsevich–Tamarkin
-  $E_d$-formality + Costello–Gwilliam–Li locality); Stage~2
-  $\mathrm{Sp}_{\Sigma_{d-1}, C}$ is specialisation, not inversion. A
-  single CY$_d$ category admits a family of $E_1$-chiral shadows
-  parametrised by $(\Sigma_{d-1}, C)$.
-- Universal positive-geometry grammar: $Y^+(X) = H^\bullet_{\mathrm{eq}}(
-  \mathcal{M}^+_{\mathrm{eff}}(X), \phi_W)$, with $G(X) = D(Y^+(X))$
-  (Drinfeld double of the positive half). CoHA, Nakajima stable-envelope,
-  orbifold inertia, lattice-polarised period half-spaces all factor
-  through this grammar.
-- Four equivariance strata: (i) toric $T^d$ (local $\mathbb{P}^2$,
-  $\mathbb{C}^3$, resolved conifold); (ii) reduced $\mathbb{C}^\times$ +
-  $\mathrm{Aut}(X)$ (K3, K3 $\times$ E, abelian surface); (iii) orbifold
-  inertia $I(X/G)$ (Mathieu $M_{24}$, McKay $\Gamma \subset \mathrm{SU}(d)$);
-  (iv) lattice-polarised period domain (Borcherds lifts, Gritsenko
-  $\Delta_5$, Igusa $\Phi_{10}$). The stratum fixes the precise
-  equivariant cohomology in $Y^+(X)$.
-- 8-form Gritsenko–Clery catalogue: weights $(5, 2, 3, 1, 2, 1/2, 3/2, 1)$
-  with Fourier coefficients $c_N(0) \in \{10, 4, 6, 2, 4, 1, 3, 2\}$
-  so that $\kappa_{\mathrm{BKM}} = c_N(0)/2$ row-by-row. Cover group
-  stratification is by the actual multiplier systems of the eight
-  diagonal-divisor rows; the catalogue contains no weight-$0$ row and no
-  quarter-weight row. The comparison tuple
-  $(5,2,1,1,1/2,1,1/4,0)$ is not the Gritsenko--Clery catalogue and cannot
-  be identified with it without an explicit row-map datum.
-- Maulik–Okounkov $R$-matrix is a gluing-cocycle residue:
-  $R^{MO}(u) = \mathrm{Res}_{u = u_\star} \phi^+_{\mathrm{UV}}(u)$
-  where $\phi^+_{\mathrm{UV}}$ is the UV positive half's gluing cocycle
-  across the equivariant chamber wall at $u_\star$. The MO axiom
-  (Yang–Baxter + unitarity) is the cocycle condition for
-  $\phi^+_{\mathrm{UV}}$.
-- K3 $\times$ E admits no global NCCR: five obstructions — (a) dualising
-  sheaf $\omega_{K3 \times E} = \mathcal{O}$ but $\omega$-structure not
-  reflexive-tilting; (b) derived McKay requires finite $\mathrm{Aut}$
-  fixing a point; (c) HPD self-dual not compatible with product polarisation;
-  (d) Mukai vanishing fails off the $K3$ factor; (e) no global CY-$3$
-  symmetric obstruction theory. The Serre-equivariant quasi-NCCR
-  substitutes: a locally-defined tilting object equivariant under the
-  Serre twist, gluing via the factorisation pushforward.
-- Dimension-stratified siblings of the Monster: at $d = 3$, the Monster
-  $\mathbb{M}$ from $V^\natural$ aligns with Igusa $\Phi_{10}$
-  (Gritsenko–Nikulin); at $d = 5$, the Fake Monster Lie algebra (Borcherds
-  1990) from the $\mathrm{II}_{25,1}$ lattice is the $d = 5$ sibling of
-  the same universal construction. Intermediate $d = 4$ (Conway /
-  Leech lattice) bridges both.
-- Non-abelian 5D hCS $\to$ Yangian VOA all-orders theorem for simply-laced
-  $\mathfrak{g}$: Costello–Gaiotto–Yagi 5D holomorphic Chern–Simons on
-  $\R \times \C^2$ quantises to the Yangian VOA $Y^{\mathrm{VOA}}(\mathfrak{g})$
-  to all orders in $\hbar$ for $\mathfrak{g}$ simply-laced; the
-  perturbative expansion converges (not merely asymptotic) by
-  Kontsevich–Tamarkin formality on the holomorphic factor. Non-simply-laced
-  requires twisted Yangian; open at all orders.
-
-**Proofs live in `chapters/**.tex`** with `\label{thm:...}` and
-`\begin{proof}...\end{proof}`. After every inscription the PostToolUse
-hook sweeps the file for Vol III-specific AP-CY violations (bare
-$\kappa$, $\Phi$-output-scope confusion, CoHA-vs-vertex-algebra,
-Drinfeld-centre-vs-averaging, Künneth multiplicative on products) plus
-the general cache patterns.
-
-**Builds at session end only, by user opt-in**:
-
-```bash
-cd ~/calabi-yau-quantum-groups && make fast
-```
+State each theorem in the lane in which its proof actually works. Ambient-qualify when both lanes are used (Pattern 236). Pattern 273 ($\Phi$-functor vs object-level correspondence) is a scope declaration, not a hierarchy: chain-level and $(\infty, 1)$-categorical are two different statements about two different categorical structures, both load-bearing. Never write *this is the chain-level shadow of the real theorem*: both shadows are the theorem, viewed through different lenses.
 
 ## Essential constants (Vol III-specific)
 
-- $\kappa_{\mathrm{ch}}(A_X) = \sum_q (-1)^q h^{0, q}(X)$ (Hodge
-  supertrace identification on compact CY_d).
-- $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ for $N \in \{1,2,3,4,6\}$.
-  $N=1$: Gritsenko $\Delta_5$ weight 5, $c_1(0) = 10$, $\kappa_{\mathrm{BKM}} = 5$.
-- K3 $\times$ E spectrum $\{0, 3, 5, 24\}$ (four distinct constructions):
-  $\kappa_{\mathrm{cat}} = 0$ (Künneth total space), $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$,
-  $\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = 5$, $\kappa_{\mathrm{fiber}} = 24$.
-- Local $\mathbb{P}^2$: $\kappa_{\mathrm{ch}} = 3/2$ (via McKay /
-  direct shadow at $d = 3$).
-- Conifold is NOT a local surface at $d = 3$; $\kappa_{\mathrm{ch}} = 1$
-  via direct McKay.
-
-**Five objects, never conflate** (shared): $A$, $B(A)$, $A^i$, $A^!$,
-$Z^{\mathrm{der}}_{\mathrm{ch}}(A)$. $\Omega(B(A))=A$ is inversion;
-$A^!$ via Verdier; bulk via Hochschild.
-
-## Chain-level and $(\infty,1)$-categorical: equal status
-
-Both **chain-level** mathematics (explicit complexes, $L_\infty$
-twistings, witnessed homotopies, Mittag–Leffler towers, ambient-
-qualified statements, explicit $K3 \times E$ Borcherds product
-denominator-formula computations) and **$(\infty,1)$-categorical**
-mathematics (CY $\infty$-categories of Kontsevich–Soibelman, derived
-$\infty$-stable categories of coherent sheaves, the cohomological-Hall
-algebra as a stable $\infty$-category construction, Maulik–Okounkov
-stable envelopes in derived geometry) are **equally load-bearing** in
-Vol III. Neither is "the better lane"; neither "replaces" or "subsumes"
-the other.
-
-Vol III in particular owes its content to *both* lanes simultaneously:
-
-- The chain-level lane is what lets you compute $\kappa_{\mathrm{ch}}$
-  for K3, K3 $\times$ E, local $\mathbb{P}^2$, the conifold; verify
-  $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ for $N \in \{1, 2, 3, 4, 6\}$
-  by direct Borcherds-product expansion; track the four constructions
-  in $\{0, 3, 5, 24\}$; check the Mukai-vanishing-bypass lemma
-  `lem:mo-bypass-local-to-global` against the actual product-Aut
-  decomposition.
-- The $(\infty,1)$-categorical lane is what lets you state $\Phi$ as a
-  functor on $(\infty,1)$-categories of CY data (when morphism
-  preservation is established), invoke Maulik–Okounkov $R$-matrices in
-  derived geometry, write the Schiffmann–Vasserot K3 cohomological-Hall
-  algebra as a stable $\infty$-category construction, and identify the
-  Borcherds–Monster BKM as the image of a fully-extended CY datum.
-
-**Operating rule**: state every theorem in the lane in which its proof
-actually works. If chain-level: name the explicit denominator formula,
-the explicit Borcherds product, the explicit Hodge-supertrace summand,
-the explicit Mukai vanishing input. If $(\infty,1)$-categorical: name
-the $(\infty,1)$-functor / cofibre sequence / dualisable object / fully
-extended TFT. If both: state both, label which lane each status applies
-to (Pattern 236 ambient-qualifier discipline). **Never** write "this
-is just the chain-level / $(\infty,1)$-categorical shadow of the real
-theorem": both shadows are real, both are the theorem, viewed through
-different lenses.
-
-Pattern 273 ($\Phi$ functor vs object-level correspondence) is a
-*scope declaration*, not a hierarchy: the chain-level object-level
-$\Phi$ and the $(\infty,1)$-categorical $\Phi$-as-functor (when
-morphism preservation is proved) are **two different statements** about
-two different categorical structures, both load-bearing, both
-documented at their precise scope.
+- $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(A_X) = \sum_q (-1)^q h^{0, q}(X)$ on compact CY$_d$.
+- $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across $N \in \{1, 2, 3, 4, 6\}$. $N = 1$: Gritsenko $\Delta_5$ weight $5$, $c_1(0) = 10$, $\kappa_{\mathrm{BKM}} = 5$. Fake Monster $\Phi_{12}$: weight $12$, $c_\Lambda(0) = 24$, $\kappa_{\mathrm{BKM}} = 12$. Always name the input denominator (cache row 65, AP-CY49).
+- $K3 \times E$ spectrum: $\{0, 0, 3, 5, 24\}$ from five distinct constructions: $\kappa_{\mathrm{cat}} = 0$ (Künneth multiplicative), $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 0$, $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$, $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$, $\kappa_{\mathrm{fiber}} = 24$. Distinct from the $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype landmark $\{0, 8, 13, 250/3, 98/3\}$.
+- Theorem-C $\mathsf{B}$-row Mukai-doubling face: $K^{\kappa_{\mathrm{ch}}} = 8 = \mathrm{ord}(H_1)$; $\hbar^2 K^{\kappa_{\mathrm{ch}}} = -1$.
+- Local $\mathbb{P}^2$: $\kappa_{\mathrm{ch}}^{\mathrm{loc}} = 3/2$ via direct McKay shadow at $d = 3$.
+- Conifold: not a local surface; $\kappa_{\mathrm{ch}} = 1$ via direct McKay.
+- 8-form Gritsenko–Clery catalogue: weights $(5, 2, 3, 1, 2, 1/2, 3/2, 1)$ indexed by triples $(t, N; k)$, with Fourier coefficients $c_N(0) \in \{10, 4, 6, 2, 4, 1, 3, 2\}$ giving $\kappa_{\mathrm{BKM}} = c_N(0)/2$ row-by-row. Half-integer weights via multiplier systems $(v_\eta^3 \times v_H)$, not metaplectic. No weight-$0$ row, no weight-$1/4$ row.
 
 ## Where the bookkeeping lives
 
-- **`notes/antipatterns_catalogue.md`** — the sole Vol III AP-CY
-  catalogue (AP-CY1 through AP-CY49 plus cross-programme AP150--AP164
-  and formula-mechanical FM24--FM27). Every `/chriss-ginzburg-rectify`
-  and `/investigate` invocation consults this at Gate 0 alongside the
-  cache. Append new AP-CYs here. AP-CY vocabulary does not appear in
-  any reader-facing `.tex` under `chapters/`, `frame/`, `examples/`,
-  `theory/`, `connections/`, `bibliography/`, or `appendices/`.
-- **`appendices/first_principles_cache.md`** — confusion-pattern
-  registry with AP-CY triggers. Every `/chriss-ginzburg-rectify` and
-  `/investigate` consults this alongside the catalogue. Append new
-  patterns here with columns Wrong Claim / Ghost Theorem / Precise
-  Error / Correct Relationship / Type.
-- **`notes/claude_md_legacy_20260418.md`** — full prior CLAUDE.md,
-  899 lines, lossless. Historical snapshot; the AP-CY catalogue has
-  moved to `notes/antipatterns_catalogue.md`. Still contains the
-  detailed theorem status, HZ-3-11 independent verification protocol,
-  and the CY-specific cross-volume awareness. Grep by index for
-  historical context.
-- **`notes/agents_md_legacy_20260418.md`** — full prior AGENTS.md,
-  1508 lines.
-- **`~/chiral-bar-cobar/CLAUDE.md`** — Vol I manifesto (shared
-  five-theorem core).
-- **`~/chiral-bar-cobar/chapters/examples/landscape_census.tex`** —
-  shared canonical formulas for $\kappa$, $r(z)$, central charges.
-- **`~/chiral-bar-cobar-vol2/CLAUDE.md`** — Vol II manifesto
-  ($\mathsf{SC}^{\mathrm{ch,top}}$, 3D HT QFT).
-- **`chapters/examples/cy_d_kappa_stratification.tex`** — the Vol III
-  canonical $\kappa$ table across CY dimensions.
-- **`chapters/theory/cy_to_chiral.tex`** — the $\Phi$ functor
-  construction.
-- **`scripts/hooks/beilinson-gate.sh`** — version-controlled hook;
-  install via `cp scripts/hooks/beilinson-gate.sh .claude/hooks/`.
-
-## Git and authorship
-
-All commits by **Raeez Lorgat** only. Never any AI attribution anywhere:
-no `Claude`, no `Anthropic`, no `Co-Authored-By`, no `Generated with`,
-no 🤖, in commits, comments, docstrings, or manuscripts. Pre-commit
-hook nudges; remove offending content.
-
-`git stash` forbidden. Do not amend commits.
-
-## LaTeX
-
-Macros in `main.tex` preamble. Inside chapters, `\providecommand`, not
-`\newcommand`. Memoir + EB Garamond.
-
-HZ-7 subscript discipline on $\kappa$ is **reader-facing** disambiguation,
-not cognitive load — default to the closest mathematically-correct
-subscript; do not spend cycles tuning.
-
-Claim-status tags are temporary bookkeeping, not repairs. When uncertain,
-name the exact proof obligation and heal the proof, statement, or
-construction; do not downgrade the manuscript to close. CY-C is
-conjectural, $G(X)$ is unconstructed in general, Super-Yangian is
-conjectural. Honest scope from the start.
-
-## Ambient hooks
-
-- **`PreToolUse(Agent)`** → cache-injection (if locally installed).
-- **`PreToolUse(Bash, git commit)`** → no AI attribution reminder.
-- **`PostToolUse(Edit|Write)`** → `beilinson-gate.sh` AP + cache sweep.
-- **`Stop`** → session-end summary (if locally installed).
+- `notes/chatgpt_chiral_duality_critique_consequence_map.md` + `notes/chatgpt_critique_consequence_map_adversarial_review.md` — May 2026 ChatGPT Beilinson critique reconstitution. The deep adversarial review supersedes Phase 1-2 of the original; installs three-axis scope discipline + chain fusion conjecture as inner form.
+- `notes/platonic_ideal_architecture_vol3.md` — six-movement platonic architecture target.
+- `notes/antipatterns_catalogue.md` — Vol III AP-CY catalogue (AP-CY1–454; type-organised).
+- `appendices/first_principles_cache.md` — confusion-pattern cache with Wave-N append blocks; canonical-values registry; compatible-dual-readings table (line 103+) for non-contradictions.
+- `chapters/examples/cy_d_kappa_stratification.tex` — canonical Vol III $\kappa$ table; Theorem `thm:borcherds-weight-kappa-BKM-universal`.
+- `chapters/theory/cy_to_chiral.tex:2840-2856` — correspondence-programme remark.
+- `working_notes.tex` — sec:two-stage-factorisation, sec:three-tiers-rcy, sec:cy-a3-existence-rigidity, central-identification table.
+- `~/chiral-bar-cobar/CLAUDE.md` (Vol I), `~/chiral-bar-cobar-vol2/CLAUDE.md` (Vol II), `~/chiral-bar-cobar-vol4/CLAUDE.md` (Vol IV — verification capstone) — main-volume manifestos (shared five-theorem core; Vol IV exhibits independent verification paths for ProvedHere inscriptions across Vols I–III).
+- `~/chiral-bar-cobar/chapters/examples/landscape_census.tex` — canonical $\kappa$ / $r(z)$ per family.
+- `~/chiral-bar-cobar/chapters/theory/configuration_spaces.tex:2062-2544` — tangential log curve $(X, D, \tau)$ definition (referenced from chain fusion).
+- `~/igusa-cusp-form/main.tex:96` — terminal-shadow disclaimer.
+- `~/mixed-holomorphic-topological-strings/main.tex:3207-3266` — holomorphic de Rham obstruction discipline.
+- `scripts/hooks/beilinson-gate.sh` — version-controlled PostToolUse AP + cache sweep; install via `cp scripts/hooks/beilinson-gate.sh .claude/hooks/`.
 
 ## Long-form proof harness
 
-For Claude Code, Codex CLI, and any GPT-5.5 / GPT-5-Codex-class agent,
-frontier mathematics runs in maximum-effort mode. Use the deepest
-host-exposed model and reasoning budget. If the host offers a
-GPT-5.5 Pro / Heavy or `xhigh` setting, use it for theorem repair,
-cross-volume synthesis, adversarial review, and primary-source
-reconstruction. The private ChatGPT Pro harness is not public; this is
-the open local analogue.
+Frontier mathematics runs at maximum effort. For Claude Code: deepest host-exposed model + maximum reasoning. For Codex / GPT-5-Codex-class agents: see `AGENTS.md` and `~/ecosystem/AGENTS-HARNESS.md` for harness calibration; never lower than `reasoning_effort=high`, `xhigh` for theorem repair / cross-volume synthesis / adversarial review / primary-source reconstruction.
 
-Long runs are normal. A 30-60 minute agent run is acceptable when a
-proof obligation requires it. The agent first loads the relevant
-context (`CLAUDE.md`, `AGENTS.md`, target chapter, dependencies,
-bibliography, compute files, cross-volume anchors), builds an internal
-outline, then works through independent proof routes: worked example,
-formal argument, primary source, computation, and cross-volume
-consistency. Private scratch stays private; the deliverable is the
-checked proof trace and the exact remaining obstruction.
+A 30–60 minute agent run is normal when a proof obligation requires it. Load the relevant context first (this file, `AGENTS.md`, target chapter, dependencies, bibliography, compute files, cross-volume anchors), build an internal outline, then work through independent proof routes: worked example, formal argument, primary source, computation, cross-volume consistency. Private scratch stays private; the deliverable is the checked proof trace and the exact remaining obstruction.
 
-After every proposed repair, run an attack-heal loop: strongest
-counterexample, sign/convention check, ambient-category check, missing
-hypothesis, false functoriality, unproved equivalence, numerical
-constant. Heal and attack again until the theorem closes or the exact
-obstruction is named for the next repair cycle. Do not downgrade the
-manuscript to close the loop. Subagents provide evidence, not authority;
-the main thread integrates by deep semantic merge.
+After every proposed repair, attack-heal: counterexample / sign-convention / ambient-category / missing hypothesis / false functoriality / unproved equivalence / numerical constant. Heal and attack again until the theorem closes or the obstruction is named precisely for the next cycle. Do not downgrade the manuscript to close the loop. Subagents provide evidence, not authority; the main thread integrates by deep semantic merge.
+
+## Branch and worktree reconciliation: deep semantic merges only
+
+When branches or worktrees differ, perform a deep semantic merge — no exceptions. Never `git reset --hard`, `git checkout --`, `git restore`, or force-push to clobber work. Read both sides in full; merge at the semantic level (theorem statement, proof structure, prose), not the diff-hunk level. When line-level conflict is semantic — a theorem reworded — pick the stronger statement, the tighter citation, the more rigorous proof. When unclear which side is stronger, read both in context. Do not guess.
+
+Work loss in this programme is irrecoverable. Chapters represent weeks of adversarial-swarm output, elite-voice synthesis, primary-literature audit. Deep semantic merges take longer; they are the only operation consistent with Beilinson's dictum and "never cut content".
+
+## Hooks (ambient)
+
+- `PreToolUse(Agent)` → cache-injection (if locally installed).
+- `PreToolUse(Bash, git commit)` → no-AI-attribution reminder.
+- `PostToolUse(Edit | Write)` → `beilinson-gate.sh` AP-CY + cache sweep.
+- `Stop` → session-end summary (if locally installed).
 
 ## Do not
 
-1. Do not block large user-authorized swarms.
-   Partition work by disjoint files or mathematical axes, require short
-   verifiable reports, and merge by deep semantic review across Vol
-   I/II/III.
+1. Block large user-authorised swarms. Partition by disjoint files or mathematical axes; require short verifiable reports; merge by deep semantic review across Vol I/II/III.
 2. Propagate status-label wording when mathematics is waiting.
 3. Invent formulas from memory.
 4. Run `make fast` after every edit.
 5. Add AI attribution anywhere.
 6. `git stash` or amend commits.
-7. Read `notes/claude_md_legacy_20260418.md` whole — grep by AP-CY index.
-8. Confuse this file with a configuration manual. Mathematician's manifesto.
-
-## Branch and worktree reconciliation -- DEEP SEMANTIC MERGES ONLY
-
-When branches or worktrees differ, ALWAYS perform a **deep semantic
-merge** to reconcile them. **NO EXCEPTIONS.**
-
-- Never discard one side of a divergence without reading it.
-- Never `git reset --hard`, `git checkout --`, or `git restore` to
-  clobber work as a shortcut to resolve conflict.
-- Never force-push to obliterate upstream divergence.
-- Read both sides in full, understand what each side uniquely
-  contributes, and construct a merged result that preserves the
-  mathematical content, prose improvements, and structural refinements
-  from **both** sides. When a line-level conflict is semantic
-  (e.g., a theorem statement reworded), merge at the semantic level --
-  pick the stronger statement, the tighter citation, the more rigorous
-  proof -- not at the diff-hunk level.
-- When unclear which side is stronger on a given hunk, read both in
-  context. Do not guess.
-
-Applies to: `git pull`, `git merge`, worktree reconciliation, cherry-picks
-across branches, rebase conflicts, and any divergence between local and
-upstream (including push rejections where upstream has new commits).
-
-**Rationale:** work loss in this programme is irrecoverable -- chapters
-represent weeks of adversarial-swarm output, elite-voice synthesis, and
-primary-literature audit. A shallow "accept theirs" / "accept ours" is
-never the right answer. Deep semantic merges take longer but are the
-only operation consistent with Beilinson's dictum and the golden rule
-"NEVER CUT CONTENT".
+7. Confuse this file with a configuration manual. Mathematician's manifesto.
