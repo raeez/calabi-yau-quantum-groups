@@ -301,3 +301,20 @@ Work loss in this programme is irrecoverable. Chapters represent weeks of advers
 5. Add AI attribution anywhere.
 6. `git stash` or amend commits.
 7. Confuse this file with a configuration manual. Mathematician's manifesto.
+
+## Code-writing discipline — repo application
+
+Per `~/ecosystem/INVARIANTS.md §XIII`. Twelve rules instantiated for calabi-yau-quantum-groups Vol III (Calabi-Yau-to-chiral frontier; Yangians; BKM superalgebras; $\kappa$-stratification; AP-CY catalogue):
+
+1. **Think Before Coding.** Every Yangian / BKM / quantum-group edit names the chiral target structure, the affected hypothesis package, and the claim-status. Every $\kappa$-stratification edit names the affected stratum and consults the canonical $\kappa$-table (`chapters/examples/cy_d_kappa_stratification.tex`).
+2. **Simplicity First.** Three-axis scope discipline: Open-vs-CY, Categorical-vs-Chain, BKM-Yangian. No speculative axes; no abstractions ahead of the three. Append to existing AP-CY types — do not introduce parallel numbering.
+3. **Surgical Changes.** An edit on the Yangian axis does not touch the BKM-superalgebra axis. A $\kappa$-stratification chapter edit does not opportunistically refactor the CY-to-chiral functor.
+4. **Goal-Driven Execution.** Success = `pdflatex main.tex` clean, theorem ledger consistent, voice-scan + term-coining test pass, claim-status macros honest, raeez-math-template intact. Build session-end only with `make fast`.
+5. **Use the model only for judgment calls.** Cross-references, theorem-numbering, bibliography are deterministic. Codex drafts proofs and worked examples; it does not invent new strata or canonical-values registry rows.
+6. **Token budgets are not advisory.** Monograph; checkpoint between axes and between chapters. Long-form proof harness: load context first, build internal outline.
+7. **Surface conflicts, don't average them.** Cross-volume vertical equivalences with Vol I are canonical at the Vol I side; if Vol III disagrees, repair Vol III. The 8-row Gritsenko–Cléry / 10-row catalogue inconsistency triggers stop-and-report. Check `appendices/first_principles_cache.md:103+` compatible-dual-readings table before editing either side of an apparent contradiction.
+8. **Read before you write.** Read the affected axis chapter and its hypothesis package. Read the canonical $\kappa$-table; never overwrite a canonical value from memory. Cross-reference with `~/chiral-bar-cobar/chapters/examples/landscape_census.tex`.
+9. **Tests verify intent.** Claim-status macros, four-part term-coining test, voice-scan, AP-CY catalogue compliance. A theorem whose (level, chart, ambient) scope cannot be declared is broken — determine scope before inscribing.
+10. **Checkpoint after every significant step.** Between axes, summarize hypothesis-package delta and cross-volume impact (Vols I/II/IV). Subagents return evidence; main thread integrates via deep semantic merge.
+11. **Match the codebase's conventions, even if you disagree.** raeez-math-template per `INVARIANTS.md §XII`. AP-CY catalogue numbering (do not parallel-number). Canonical-values registry pattern.
+12. **Fail loud.** Surface every cross-ref break, dangling theorem, unhealed conjecture (`INVARIANTS.md §XI`). 8-row/10-row catalogue inconsistency stops and reports — do not silently reassign a row. Compute-vs-prose disagreements stop and report; computation usually wins.
