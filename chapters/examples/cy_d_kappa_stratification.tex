@@ -345,12 +345,12 @@ Fix the CY-to-chiral correspondence $\Phi_d$ and write $\cA_X =
 \emph{algebraization scalar} $\kappa_{\mathrm{ch}}(\cA_X)$ is the
 degree-two shadow invariant of Vol~I: the coefficient of $[b \mid b]$
 in the quadratic piece of the Maurer--Cartan obstruction on
-$B^{\mathrm{ord}}(\cA_X)$. It is an algebraization
-invariant in the sense of a second algebraization of the same
-topological CY$_d$ manifold can produce a different
-$\kappa_{\mathrm{ch}}$. By contrast, $\kappa_{\mathrm{cat}}(X)$,
-$\kappa_{\mathrm{fiber}}(X)$ are topological manifold invariants;
-$\kappa_{\mathrm{BKM}}$ depends on the Borcherds frame shape.
+$B^{\mathrm{ord}}(\cA_X)$. It is an algebraization invariant: a second
+algebraization of the same topological CY$_d$ manifold can produce a
+different $\kappa_{\mathrm{ch}}$. The companion invariants
+$\kappa_{\mathrm{cat}}(X)$ and $\kappa_{\mathrm{fiber}}(X)$ are
+topological manifold invariants; $\kappa_{\mathrm{BKM}}$ depends on
+the Borcherds frame shape.
 
 \subsection{Three candidate comparators}
 \label{subsec:cy-strat-three-candidates}
@@ -365,12 +365,14 @@ $\chi(\cO_X) = \sum_q (-1)^q h^{0,q}(X) = \chi_0(X)$.
  \Xi(X) \;:=\; \sum_{q = 0}^{d} (-1)^q\, h^{0,q}(X).
 \]
 Because $h^{0,q}$ counts antiholomorphic forms of pure type $(0,q)$,
-$\Xi(X) = \chi(\cO_X)$ as \emph{numbers}; the distinction is conceptual
-(we shall see the $\kappa_{\mathrm{ch}}$ route produces the supertrace
-even when $\chi(\cO_X) = 0$ is forced to zero by Serre). The notation
-$\Xi$ underlines the supertrace view and suppresses the
-$h^{0,q} = h^{d,d-q}$ identification that flattens it back to
-$\chi(\cO_X)$.
+$\Xi(X)$ and $\chi(\cO_X)$ agree as numbers. The distinction is
+structural: the $\kappa_{\mathrm{ch}}$ route produces the supertrace
+$\Xi(X)$ via the chiral bar complex on the $(0, \bullet)$ column,
+agreeing with $\chi(\cO_X)$ on inputs where Serre cancellation has
+not already collapsed the latter. The notation $\Xi$ records the
+supertrace view; the identification $h^{0, q} = h^{d, d-q}$ via
+Serre then expresses $\Xi$ in terms of $\chi(\cO_X)$ when both are
+in scope.
 \item The \emph{explicit algebraic Hochschild sum}
 $\mathrm{HH}_{\mathrm{alg}}(X) = \sum_{p,q} (-1)^{p - q}\, h^{p,q}(X)$.
 This is the signed Hodge sum appearing in the HKR--Caldararu formula;
@@ -378,14 +380,14 @@ on compact K\"ahler $X$ one has $(-1)^{p-q} = (-1)^{p+q}$, so
 $\mathrm{HH}_{\mathrm{alg}}(X) = \sum_p (-1)^p \chi_p(X) = \chi_{\mathrm{top}}(X)$.
 \end{itemize}
 
-The Theorem~\ref{thm:kappa-hodge-supertrace-identification} below shows
-that $\kappa_{\mathrm{ch}}$ is the \emph{supertrace} $\Xi(X)$: the
-numerical value $\chi(\cO_X)$, but computed from the
-chiral/categorical side through the $(0,q)$ anti-holomorphic column
-without any appeal to Kodaira vanishing or Serre cancellation. Only
-after that identification is established does the Serre
-anti-symmetry $h^{0,q} = h^{0,d-q}$ intervene to forbid the
-identification $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ at odd $d$.
+Theorem~\ref{thm:kappa-hodge-supertrace-identification} identifies
+$\kappa_{\mathrm{ch}}$ with the supertrace $\Xi(X)$, computed from
+the chiral/categorical side through the $(0, q)$ anti-holomorphic
+column independently of Kodaira vanishing or Serre cancellation. The
+Serre antisymmetry $h^{0, q} = h^{0, d-q}$ then acts at odd $d$:
+pairwise cancellation in the supertrace forces
+$\kappa_{\mathrm{ch}} = 0$, separating it from the
+$\chi(\cO_X)$-track which is itself zero on the same input.
 
 \subsection{Running examples and their Hodge columns}
 \label{subsec:cy-strat-examples}
@@ -453,6 +455,29 @@ $2 \cdot 2 = 4$, additive $2 + 2 = 4$ coincides; $\mathrm{K3} \times
 disagrees). The coincidences $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ hold only
 for $(d, h^{1,0}) = (2, 0)$: K3 sits alone as the honest match.
 
+\begin{lemma}[K\"unneth multiplicativity of the Hodge supertrace]
+\label{lem:hodge-supertrace-kunneth}
+For compact K\"ahler manifolds $X$ and $Y$,
+\[
+ \Xi(X \times Y) \;=\; \Xi(X) \cdot \Xi(Y).
+\]
+\end{lemma}
+
+\begin{proof}
+The K\"unneth formula for sheaf cohomology gives
+$H^q(X \times Y, \cO_{X \times Y}) = \bigoplus_{i + j = q} H^i(X, \cO_X) \otimes H^j(Y, \cO_Y)$,
+hence
+$h^{0, q}(X \times Y) = \sum_{i + j = q} h^{0, i}(X) \cdot h^{0, j}(Y)$. Summing with signs,
+\[
+ \Xi(X \times Y)
+ \;=\; \sum_q (-1)^q \sum_{i + j = q} h^{0, i}(X) h^{0, j}(Y)
+ \;=\; \Bigl(\sum_i (-1)^i h^{0, i}(X)\Bigr) \Bigl(\sum_j (-1)^j h^{0, j}(Y)\Bigr)
+ \;=\; \Xi(X) \cdot \Xi(Y). \qedhere
+\]
+\end{proof}
+
+Lemma~\ref{lem:hodge-supertrace-kunneth} reads the table: $\Xi(K3 \times E) = \Xi(K3) \cdot \Xi(E) = 2 \cdot 0 = 0$; $\Xi(E^3) = 0^3 = 0$; $\Xi(K3 \times K3) = 4$; $\Xi(K3 \times K3 \times E) = 0$.
+
 \section{The Hodge supertrace identification}
 \label{sec:cy-strat-hodge-supertrace}
 
@@ -496,20 +521,18 @@ $\Phi_d$.
 \emph{Step 2. The shadow scalar from $\HC^-_d$.} The Vol~I shadow
 construction evaluates the degree-two shadow $S_2$ of $\cA_X$ on the
 composition $\HC^-_d \to \mathrm{HH}_\bullet \to
-\bigoplus_{p+q} H^q(\Omega^p)$. The $r$-matrix on $\cA_X$ is the Mukai
-pairing (Proposition~\ref{prop:serre-duality-cy}), which is graded by
-the Hodge filtration $F^\bullet$ on $\mathrm{HH}_\bullet$. The
-$\kappa_{\mathrm{ch}}$ scalar is by construction the value of $S_2$ on
-the first graded piece
-$F^0/F^{-1} \cong \bigoplus_q H^q(X, \cO_X)$,
-the structure-sheaf column $(0, \bullet)$. Higher Hodge columns
-$H^q(X, \Omega^p_X)$ with $p \geq 1$ contribute to the full categorical
-trace on $\HH_\bullet$ but enter $\kappa_{\mathrm{ch}}$ only through the
-graded projection to $F^0/F^{-1}$; in CY dimension $d$ the Hodge symmetry
-$h^{p, q} = h^{q, p}$ makes the $(0, q)$ supertrace equal to the full
-$\chi(\cO_X)$ when the middle $h^{1, 0}, h^{2, 0}, \ldots$ vanish, but
-it is the $(0, \bullet)$ filtered piece that appears in the chiral shadow,
-not the full Hochschild class.
+\bigoplus_{p + q} H^q(\Omega^p)$. The $r$-matrix on $\cA_X$ is the
+Mukai pairing (Proposition~\ref{prop:serre-duality-cy}), graded by the
+Hodge filtration $F^\bullet$ on $\mathrm{HH}_\bullet$. By construction
+$\kappa_{\mathrm{ch}}$ is the value of $S_2$ on the first graded piece
+$F^0 / F^{-1} \cong \bigoplus_q H^q(X, \cO_X)$, the structure-sheaf
+column $(0, \bullet)$. The higher Hodge columns $H^q(X, \Omega^p_X)$
+with $p \geq 1$ enter the full categorical trace on $\mathrm{HH}_\bullet$
+and contribute to $\kappa_{\mathrm{ch}}$ through the graded projection
+to $F^0 / F^{-1}$; the chiral shadow is the $(0, \bullet)$ filtered
+piece of this projection. When the middle columns
+$h^{1, 0}, h^{2, 0}, \ldots$ vanish, Hodge symmetry $h^{p, q} = h^{q, p}$
+collapses the $(0, q)$ supertrace to $\chi(\cO_X)$.
 
 \emph{Step 3. Supertrace through the $(0,q)$ column.} The surviving
 $p = 0$ column contributes $H^q(X, \cO_X)$ with sign $(-1)^q$, the
@@ -533,15 +556,15 @@ vs.\ \texorpdfstring{$\kchBV$}{kappa-ch,BV}]
 \label{rem:kappa-ch-vs-kappa-chBV-scope}
 Theorem~\ref{thm:kappa-hodge-supertrace-identification} identifies
 $\kch(\cA_X)$ with the Hodge supertrace $\Xi(X)$ of the
-$h^{0, \bullet}$ column; this is the Stage-$1$ shadow on
-$\PhiFA_d(\cC)$ against ordinary $H^q(X, \cO_X)$. It does \emph{not}
-subsume the one-loop BCOV curving coefficient $\kchBV$, which lives
-on a distinct cohomology theory; $H^1(X, \cO_X)$ as the dilaton
-cocycle $\mathrm{tr}\,\mathrm{At}(T_X)$ on compact $X$, or on
-non-compact $X$ as the $\zeta$-regularised $\beta\gamma$ Casimir
-energy on the boundary link $\partial X$ at $c = -2$; and
-sources from the Costello--Li holomorphic BV action
-(\texttt{arXiv:1606.00365}) rather than from $\Xi$. On compact
+$h^{0, \bullet}$ column: the Stage-$1$ shadow on $\PhiFA_d(\cC)$
+against ordinary $H^q(X, \cO_X)$. The one-loop BCOV curving coefficient
+$\kchBV$ is a separate Stage-$1$ datum, living on the dilaton-class
+cohomology: $H^1(X, \cO_X)$ via the dilaton cocycle
+$\mathrm{tr}\, \mathrm{At}(T_X)$ on compact $X$, and the
+$\zeta$-regularised $\beta\gamma$ Casimir energy on the boundary link
+$\partial X$ at $c = -2$ on non-compact $X$. It sources from the
+Costello--Li holomorphic BV action (\texttt{arXiv:1606.00365}),
+distinct from $\Xi$. On compact
 CY$_d$ where the actual dilaton class vanishes (the quintic, the four
 $d = 4$ families of Section~\ref{sec:cy-strat-d4-explicit}, and the
 $d = 5$ families of Section~\ref{sec:cy-strat-d5-explicit}), the
