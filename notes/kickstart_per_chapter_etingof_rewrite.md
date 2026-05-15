@@ -51,8 +51,9 @@ Each was 5 paragraph rewrites with build verification:
 15. `chapters/theory/cy_to_chiral.tex` (5D-hCS section, lines ~1810–1888) — 5 rewrites: `rem:costello-yagi-vs-cgy-distinction` citation discipline, `prop:super-all-orders-open` obstruction location, `rem:li-yamazaki-synthesis-vs-gaiotto-rapcak` attribution, `conj:g-delta5-is-sp-k3-general-extension` separate primitives, `rem:four-kappa-stage-assignment` Borcherds-weight identity
 16. `chapters/theory/quantum_chiral_algebras.tex` (hcs-vs-sigma + three-dualities, lines ~2073–2188) — 5 rewrites: `subsec:hcs-vs-sigma-adversarial` opener, item (iv) Yangian, "all four contradictions" prose, `rem:hcs-sigma-conflations` title + body, `rem:three-dualities-k3`
 17. `chapters/theory/cy_to_chiral.tex` (derived-rigour + Morse-Bott section, lines ~827–1250) — 5 rewrites: `subsec:phi-d-derived-rigour` opener ("is ambiguous unless"), `prop:phi3-arbitrary-morphism-obstruction-criterion` closing paragraph ("does not define the map"), same proposition's proof closing ("Without these choices there is no defined composite"), `cor:cya3-finite-witness-package` body ("is not an unproved consequence"), `sec:morphism-functoriality-phi-fa-3` opener (rhetorical Q/A "The question is... The answer is...")
+18. `chapters/theory/cy_to_chiral.tex` (derived-rigour, follow-up): iteration-17 opener strengthened to direct positive form ("Three data fix the derived-categorical content of the factorisation: ... Theorem is the assembly."), and new `lem:toric-witnessed-datum-c3` inscribed — first explicit instance of the abstract `def:witnessed-admissible-specialisation-datum` on $\C^3$, with regular-sequence Tor-vanishing, derived projection formula, and Dunn–Lurie $E_3 \simeq E_2 \otimes E_1$ Fubini cell. Inaugurates the strengthened deliverable shape: prose rewrites + explicit constructions, single-chapter / single-iteration discipline preserved.
 
-Total: 17 iterations · 85 paragraph rewrites · all builds clean. Chapters 7 and 14 each had two iterations on different sections; cy_to_chiral.tex has had three iterations on different sections (Künneth, 5D-hCS, derived-rigour + Morse-Bott).
+Total: 18 iterations · 85 paragraph rewrites + 1 new lemma · all builds clean. Chapters 7 and 14 each had two iterations on different sections; cy_to_chiral.tex has had four iterations on different sections (Künneth, 5D-hCS, derived-rigour + Morse-Bott, derived-rigour follow-up).
 
 ## Priority list for remaining iterations
 
@@ -150,8 +151,10 @@ The PostToolUse hook catches the first six. Only per-paragraph Etingof rewrites 
 ## What counts as progress
 
 - 3–5 specific paragraph rewrites in a single chapter per iteration, each preserving mathematical content while moving prose from negative-form to positive-form.
+- New explicit constructions (worked instances of abstract definitions; explicit chain-level homotopies; explicit cells/kernels) where the manuscript currently waves. Iteration 18 inaugurated this expanded shape with `lem:toric-witnessed-datum-c3`.
+- Short research-level new theorems whose proofs follow directly from already-inscribed primitives. Multi-session research pushes on the standing open problems (chain fusion in general $d$, $G(X)$ for compact non-toric, $W_\infty[\lambda] \Rightarrow E_\infty$ beyond admissible window) are out-of-scope for this kickstart; spawn a separate research session.
 - Build passes with 0 new undef refs/cites.
-- Commit message names each defect with before/after context.
+- Commit message names each defect with before/after context and names any new theorem/lemma/definition by label.
 - Commit pushes to `origin/main`.
 
 ---
