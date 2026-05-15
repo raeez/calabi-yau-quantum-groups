@@ -131,13 +131,17 @@ $b = \sum_k b_k$ versus $B^{(2)}$, up to a specified chain homotopy.
 \label{sec:m3b2-wrong-proofs}
 % ============================================================
 
-Each of the following arguments is a proof of
-$[m_k, B^{(2)}] = 0$ that does not survive scrutiny. The
-question of \emph{why} each fails is mathematical, and the
-failures separate three distinct structures: pointwise cyclic
-invariance, the mixed complex axiom for $B = B^{(0)}$, and
-Tsygan formality for $(b, B)$. None of these controls the
-higher Connes hierarchy $B^{(j)}$ with $j \geq 1$.
+The three arguments below each compute a candidate witness for
+$[m_k, B^{(2)}] = 0$ from a different structural input: pointwise
+cyclic invariance (Section~\ref{subsec:wrong-cyclic}), the mixed
+complex axiom for $B = B^{(0)}$ (Section~\ref{subsec:wrong-bidegree}),
+and Tsygan formality for $(b, B)$ (Section~\ref{subsec:wrong-tsygan}).
+Each input controls one piece of the cyclic structure on
+$\HH_\bullet$; the higher Connes hierarchy $B^{(j)}$ for $j \geq 1$
+lies in the chain-homotopy reframing of
+Theorem~\ref{thm:total-ainf-compat}. Locating the gap in each
+argument as mathematics separates the three structures and points
+to the resolution route.
 
 
 \subsection{Wrong proof 1: the cyclic invariance argument}
@@ -827,11 +831,12 @@ Chapter~\ref{ch:k3-yangian}.
 \label{sec:m3b2-three-levels}
 % ============================================================
 
-The $m_3$--$B^{(2)}$ obstruction separates three carriers:
-the termwise bar operator, Costello's corrected TCFT operator,
-and the filtered $E_1$-Hochschild obstruction class.  The same
-symbol $B^{(2)}$ cannot be moved between them without the
-comparison datum named in the relevant theorem.
+The $m_3$--$B^{(2)}$ obstruction separates three carriers: the
+termwise bar operator, Costello's corrected TCFT operator, and the
+filtered $E_1$-Hochschild obstruction class. Moving the symbol
+$B^{(2)}$ from one carrier to another proceeds through the
+comparison datum of the relevant theorem; each carrier holds its own
+chain-level structure with its own vanishing criterion.
 
 \begin{definition}[{Three levels of the \texorpdfstring{$[m_k, B^{(2)}]$}{[m-k, B-(2)]} question}]
 \label{def:three-levels}
@@ -858,18 +863,18 @@ comparison datum named in the relevant theorem.
 
 \begin{remark}[Relationship between the three levels]
 \label{rem:three-level-relationship}
-Level~1 and Level~2 are statements about different operators
-unless a strictifying homotopy identifies
-$B^{(2)}_{\mathrm{term}}$ with $B^{(2)}_{\mathrm{TCFT}}$. The
-cross-degree cancellation argument of
-Section~\ref{sec:m3b2-wrong-proofs} substitutes one for the other
-without supplying that homotopy, and so does not transfer Level~2
-vanishing to Level~1. Level~2 can feed Level~3 only through a
+Level~1 and Level~2 are statements about different operators; a
+strictifying homotopy identifying $B^{(2)}_{\mathrm{term}}$ with
+$B^{(2)}_{\mathrm{TCFT}}$ is the comparison datum that transfers
+Level~2 vanishing to Level~1. The cross-degree cancellation argument
+of Section~\ref{sec:m3b2-wrong-proofs} substitutes one for the other
+without supplying this homotopy. Level~2 feeds Level~3 through a
 comparison map from the TCFT-corrected chain datum to the
-$E_1$-Hochschild obstruction complex.  Level~3 can also hold by
-the filtered spectral-sequence vanishing of
-Theorem~\ref{thm:derived-framing-m3b2}; it does not construct a
-strict chain homotopy between the two $B^{(2)}$-models.
+$E_1$-Hochschild obstruction complex. Level~3 also reaches
+vanishing via the filtered spectral sequence of
+Theorem~\ref{thm:derived-framing-m3b2}, which operates on the
+derived obstruction class rather than on a strict chain homotopy
+between the two $B^{(2)}$-models.
 
 The chain-level computation (Section~\ref{sec:m3b2-computations})
 disproves Level~1.  The TCFT argument
@@ -884,8 +889,9 @@ logically independent:
  \item the filtered $E_1$-Hochschild argument annihilates the
  derived obstruction class in degree~$-2$.
 \end{itemize}
-Their overlap is a comparison theorem, not an identity of raw
-operators.
+Their overlap is a comparison theorem: a chain-level map from the
+TCFT-corrected operator to the derived obstruction class, witnessed
+on the joint locus of both vanishing criteria.
 \end{remark}
 
 \begin{remark}[Formality and the three levels]
@@ -894,16 +900,21 @@ The three levels of formality from
 \texttt{formality\_ainf\_dcoh.py} provide additional context:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item \emph{de Rham formality} (DGMS 1975): holds for all compact
- K\"ahler manifolds. Does not imply $\Ainf$-formality.
+ K\"ahler manifolds, recording the formality of the de Rham
+ algebra. It is independent of $\Ainf$-formality on the
+ derived category.
  \item \emph{Hodge-to-de Rham degeneration} (Kaledin 2008):
  holds for all smooth proper dg categories. The cyclic
- homology spectral sequence degenerates at $E_2$. Does not
- imply $\Ainf$-formality.
+ homology spectral sequence degenerates at $E_2$. This
+ degeneration records spectral-sequence formality at the
+ cyclic level; $\Ainf$-formality is a finer condition
+ imposed at the operadic level.
  \item \emph{$\Ainf$-formality}: $\mu_k = 0$ for $k \geq 3$.
  Holds for $\C^3$ (free), the conifold (tilting generator),
- and any CY$_3$ with a tilting generator. Fails for
- local~$\bP^2$ (non-trivial Massey products) and the quintic
- (non-trivial triple products on $H^{1,1}$).
+ and any CY$_3$ with a tilting generator. Local $\bP^2$
+ carries non-trivial Massey products that obstruct
+ $\Ainf$-formality; the quintic carries non-trivial triple
+ products on $H^{1, 1}$.
 \end{enumerate}
 When $\Ainf$-formality holds, Level~1 is trivially satisfied
 because $m_k = 0$ for $k \geq 3$.  When $\Ainf$-formality fails,
