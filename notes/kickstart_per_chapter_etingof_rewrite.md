@@ -50,8 +50,9 @@ Each was 5 paragraph rewrites with build verification:
 14. `chapters/theory/cy_to_chiral.tex` (Künneth section, lines ~3500–3700) — 5 rewrites: `rem:phi-subscript-discipline` subscript framing + ill-typed expression, V1 Warning quotient, V4 sextic non-product, `rem:phi-4-sextic-vs-quintic`
 15. `chapters/theory/cy_to_chiral.tex` (5D-hCS section, lines ~1810–1888) — 5 rewrites: `rem:costello-yagi-vs-cgy-distinction` citation discipline, `prop:super-all-orders-open` obstruction location, `rem:li-yamazaki-synthesis-vs-gaiotto-rapcak` attribution, `conj:g-delta5-is-sp-k3-general-extension` separate primitives, `rem:four-kappa-stage-assignment` Borcherds-weight identity
 16. `chapters/theory/quantum_chiral_algebras.tex` (hcs-vs-sigma + three-dualities, lines ~2073–2188) — 5 rewrites: `subsec:hcs-vs-sigma-adversarial` opener, item (iv) Yangian, "all four contradictions" prose, `rem:hcs-sigma-conflations` title + body, `rem:three-dualities-k3`
+17. `chapters/theory/cy_to_chiral.tex` (derived-rigour + Morse-Bott section, lines ~827–1250) — 5 rewrites: `subsec:phi-d-derived-rigour` opener ("is ambiguous unless"), `prop:phi3-arbitrary-morphism-obstruction-criterion` closing paragraph ("does not define the map"), same proposition's proof closing ("Without these choices there is no defined composite"), `cor:cya3-finite-witness-package` body ("is not an unproved consequence"), `sec:morphism-functoriality-phi-fa-3` opener (rhetorical Q/A "The question is... The answer is...")
 
-Total: 16 iterations · 80 paragraph rewrites · all builds clean. Chapters 7 and 14 each had two iterations on different sections.
+Total: 17 iterations · 85 paragraph rewrites · all builds clean. Chapters 7 and 14 each had two iterations on different sections; cy_to_chiral.tex has had three iterations on different sections (Künneth, 5D-hCS, derived-rigour + Morse-Bott).
 
 ## Priority list for remaining iterations
 
