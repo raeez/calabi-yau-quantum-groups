@@ -48,8 +48,10 @@ Each was 5 paragraph rewrites with build verification:
 12. `chapters/theory/hochschild_calculus.tex` — 5 rewrites: sec:cy-hh-duality opener, three-dimensions remark (c), sec:categorical-hodge opener, sec:kt-formality-atiyah-cocycles opener, thm:kt-formality-d3 trailer
 13. `chapters/examples/k3e_bkm_chapter.tex` — 5 rewrites: `rem:k3e-four-corner-scope` triple negation, prop:k3e-four-corner-comparison-maps (ii) and (iii), proof Yangian trailer, prop:k3e-finite-dwr-ran-positive-half-surface triple negation
 14. `chapters/theory/cy_to_chiral.tex` (Künneth section, lines ~3500–3700) — 5 rewrites: `rem:phi-subscript-discipline` subscript framing + ill-typed expression, V1 Warning quotient, V4 sextic non-product, `rem:phi-4-sextic-vs-quintic`
+15. `chapters/theory/cy_to_chiral.tex` (5D-hCS section, lines ~1810–1888) — 5 rewrites: `rem:costello-yagi-vs-cgy-distinction` citation discipline, `prop:super-all-orders-open` obstruction location, `rem:li-yamazaki-synthesis-vs-gaiotto-rapcak` attribution, `conj:g-delta5-is-sp-k3-general-extension` separate primitives, `rem:four-kappa-stage-assignment` Borcherds-weight identity
+16. `chapters/theory/quantum_chiral_algebras.tex` (hcs-vs-sigma + three-dualities, lines ~2073–2188) — 5 rewrites: `subsec:hcs-vs-sigma-adversarial` opener, item (iv) Yangian, "all four contradictions" prose, `rem:hcs-sigma-conflations` title + body, `rem:three-dualities-k3`
 
-Total: 14 chapters · 70 paragraph rewrites · all builds clean.
+Total: 16 iterations · 80 paragraph rewrites · all builds clean. Chapters 7 and 14 each had two iterations on different sections.
 
 ## Priority list for remaining iterations
 
