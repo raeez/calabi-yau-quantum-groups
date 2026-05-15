@@ -56,6 +56,8 @@ ICLOUD_MAIN_PREREQ := $(if $(wildcard $(PDF)),,$(PDF))
 # Mathematics publish dir -- release binary copied here under canonical name
 MATHEMATICS_DIR := $(HOME)/mathematics
 PUBLISHED_PDF   := calabi_yau_quantum_groups.pdf
+VOLUME_KEY      := vol3
+PYTHON_BIN      ?= $(shell if [ -x compute/.venv/bin/python ]; then echo compute/.venv/bin/python; elif [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi)
 
 # Working notes
 WN_TEX    := working_notes.tex
@@ -79,7 +81,7 @@ AUX_EXTS  := aux log out toc synctex.gz fdb_latexmk fls bbl blg \
 
 .DEFAULT_GOAL := all
 
-.PHONY: all fast clean veryclean clean-builds count check test help release working-notes standalone dist icloud verify-independence verify-independence-verbose mathematics-publish
+.PHONY: all fast clean veryclean clean-builds count check test help release working-notes standalone dist icloud verify-independence verify-independence-verbose mathematics-publish root-publish architecture unified-architecture
 
 ## icloud: Copy latest PDFs to iCloud Drive (subject-organised)
 icloud: $(ICLOUD_MAIN_PREREQ) standalone
@@ -159,16 +161,32 @@ release:
 	@echo "  [2/3] Working notes"
 	@$(MAKE) --no-print-directory working-notes
 	@echo ""
-	@echo "  [3/4] Standalone documents and iCloud"
+	@echo "  [3/6] Standalone documents and iCloud"
 	@$(MAKE) --no-print-directory icloud
 	@echo ""
-	@echo "  [4/4] Publish to ~/mathematics"
+	@echo "  [4/6] Publish to repo root (canonical PDF name)"
+	@$(MAKE) --no-print-directory root-publish
+	@echo ""
+	@echo "  [5/6] Publish to ~/mathematics + per-volume architecture"
 	@$(MAKE) --no-print-directory mathematics-publish
+	@$(MAKE) --no-print-directory architecture
+	@echo ""
+	@echo "  [6/6] Cross-volume architecture aggregation"
+	@$(MAKE) --no-print-directory unified-architecture
 	@echo ""
 	@echo "  ══════════════════════════════════════════"
 	@echo "  Release complete. All output in out/:"
 	@ls -1 $(OUT_DIR)/*.pdf 2>/dev/null | sed 's/^/    /'
 	@echo "  ══════════════════════════════════════════"
+
+## root-publish: Copy the release binary to repo root under its canonical name
+root-publish:
+	@if [ -f "$(PDF)" ]; then \
+		cp "$(PDF)" "$(PUBLISHED_PDF)"; \
+		echo "    ✓  $(PUBLISHED_PDF) (in repo root)"; \
+	else \
+		echo "    ✗  $(PDF) missing -- skipping root publish"; \
+	fi
 
 ## mathematics-publish: Copy the release binary to ~/mathematics under its canonical name
 mathematics-publish:
@@ -179,6 +197,19 @@ mathematics-publish:
 	else \
 		echo "    ✗  $(PDF) missing — skipping ~/mathematics publish"; \
 	fi
+
+## architecture: Build interactive HTML + JSON of the manuscript architecture
+architecture:
+	@$(PYTHON_BIN) scripts/build_architecture.py --root . --volume $(VOLUME_KEY) --out $(OUT_DIR) --quiet
+	@mkdir -p "$(MATHEMATICS_DIR)/architecture"
+	@cp "$(OUT_DIR)/architecture.json" "$(MATHEMATICS_DIR)/architecture/$(VOLUME_KEY).json"
+	@echo "    ✓  $(OUT_DIR)/architecture.html + .json"
+	@echo "    ✓  $(MATHEMATICS_DIR)/architecture/$(VOLUME_KEY).json"
+
+## unified-architecture: Aggregate all per-volume architecture.json into the cross-volume HTML+JSON
+unified-architecture:
+	@$(PYTHON_BIN) scripts/build_unified_architecture.py --mathematics-dir "$(MATHEMATICS_DIR)" --quiet
+	@echo "    ✓  $(MATHEMATICS_DIR)/architecture.html + .json"
 
 ## standalone: Build standalone documents → out/
 standalone:
