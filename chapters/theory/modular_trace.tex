@@ -116,7 +116,7 @@ Conifold & $2$ & $1/12$ & $1$ & Resolved conifold \\
 \end{center}
 \noindent{}${}^*$For $K3 \times E$, the Stage-2 Heisenberg reading gives $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3 = \dim_\C$, while the compact total-space Hodge supertrace is $\kappa_{\mathrm{ch}}(A_{K3\times E})=0$. The Borcherds lift weight gives $\kappa_{\mathrm{BKM}} = 5 = \mathrm{wt}(\Delta_5)$. These are modular characteristics of \emph{different} algebras/constructions.
 
-\smallskip\noindent In particular: $\chi_{\mathrm{top}}/24 \neq \kappa_{\mathrm{ch}}$ in every case.
+\smallskip\noindent The four entries above record $\chi_{\mathrm{top}}/24$ and $\kappa_{\mathrm{ch}}$ as four pairs of distinct rationals, each tracking its own construction layer.
 \end{proposition}
 
 \begin{proof}
@@ -127,18 +127,37 @@ See \texttt{compute/lib/cy\_euler.py} ($86$ tests) and \texttt{compute/lib/modul
 
 \begin{remark}[Categorical versus topological Euler characteristic]
 \label{rem:categorical-vs-topological-chi}
-The CY Euler characteristic $\chi^{\CY}(\cC)$ appearing in Theorem~\ref{thm:cy-modular-characteristic} is the categorical trace $\Tr_{\HH_d(\cC)}(\mathrm{id})$, which is in general \emph{not} the topological Euler characteristic $\chi_{\mathrm{top}}(X)$. The former depends on the CY category $\cC$ (and in particular on the complex structure and derived category), while the latter depends only on the underlying topological manifold.
+The CY Euler characteristic $\chi^{\CY}(\cC)$ appearing in
+Theorem~\ref{thm:cy-modular-characteristic} is the categorical trace
+$\Tr_{\HH_d(\cC)}(\mathrm{id})$ on the Hochschild homology. It
+depends on the CY category $\cC$ — and in particular on the complex
+structure and derived category — while the topological Euler
+characteristic $\chi_{\mathrm{top}}(X)$ depends on the underlying
+topological manifold. The two invariants live on different
+categories and compute different traces.
 \end{remark}
 
-\begin{proposition}[Non-multiplicativity of \texorpdfstring{$\kappa_{\mathrm{BKM}}$}{kappa-BKM}]
+\begin{proposition}[Three rules, three invariants on \texorpdfstring{$K3 \times E$}{K3 x E}]
 \label{prop:kappa-non-multiplicative}
-The BKM modular weight $\kappa_{\mathrm{BKM}}$ obeys neither the additive rule that governs $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ (Heisenberg-level route) nor the multiplicative rule that governs $\kappa_{\mathrm{cat}}$ (categorical Euler-characteristic route) under products:
+On products, the three invariants $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$,
+$\kappa_{\mathrm{cat}}$, $\kappa_{\mathrm{BKM}}$ follow three distinct
+composition rules: additive on the Heisenberg level for
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$, K\"unneth-multiplicative for
+$\kappa_{\mathrm{cat}}$, and Borcherds-product-determined for
+$\kappa_{\mathrm{BKM}}$:
 \[
- \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E) = 3, \qquad
+ \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3, \qquad
  \kappa_{\mathrm{cat}}(K3) \cdot \kappa_{\mathrm{cat}}(E) = 2 \cdot 0 = 0, \qquad
  \kappa_{\mathrm{BKM}}(\Delta_5) = 5.
 \]
-The discrepancy $5 \neq 3$ and $5 \neq 0$ reflects the fact that the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ for $K3 \times E$ is \emph{not} the tensor product of the $K3$ and $E$ chiral algebras, nor is its weight extracted from a categorical trace. The weight $5 = \mathrm{wt}(\Delta_5)$ is determined by the Borcherds product structure. By contrast, the chiral de Rham modular characteristic is additive only in the Heisenberg-level sense, giving the value $3$ (Proposition~\ref{prop:kappa-k3}), while the categorical Euler characteristic is K\"unneth-multiplicative and gives $\kappa_{\mathrm{cat}}(K3 \times E)=0$.
+The three values $3$, $0$, $5$ track three different constructions of
+the $K3 \times E$ datum: the chiral de Rham Heisenberg branch with
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 2 + 1 = 3$
+(Proposition~\ref{prop:kappa-k3}); the categorical Euler characteristic
+$\kappa_{\mathrm{cat}}(K3 \times E) = 0$ via K\"unneth on
+$\chi(\cO)$; the Borcherds weight $\kappa_{\mathrm{BKM}}(\Delta_5) = 5 = \mathrm{wt}(\Delta_5)$
+determined by the paramodular Gritsenko--Nikulin product structure
+on $\mathfrak{g}_{\Delta_5}$.
 \end{proposition}
 
 
@@ -159,7 +178,18 @@ By Serre duality with $\omega_X \simeq \cO_X$: $H^q(X, \cO_X) \cong H^{d-q}(X, \
 
 \begin{remark}[Consequence for CY-D at \texorpdfstring{$d = 3$}{d = 3}]
 \label{rem:chi-O-obstruction-cy-d}
-Proposition~\textup{\ref{prop:chi-O-vanishes-odd-d}} implies that the identification $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ is \emph{automatically false} at $d = 3$ whenever $\kappa_{\mathrm{ch}} \neq 0$. Since $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3 \neq 0$ (Proposition~\textup{\ref{prop:categorical-euler}}; Heisenberg-level branch, cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}) and $\chi(\cO_{K3 \times E}) = 0$, the formula $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ fails. The correct CY-D conjecture at $d \geq 3$ (Conjecture~\textup{\ref{conj:cy-kappa-identification}}) uses the categorical CY Euler characteristic $\chi^{\CY}(\cC)$, a quantity that in general differs from $\chi(\cO_X)$ and includes the quantum correction from the $\bS^d$-framing.
+Proposition~\textup{\ref{prop:chi-O-vanishes-odd-d}} separates
+$\kappa_{\mathrm{ch}}$ and $\chi(\cO_X)$ at $d = 3$: the
+Serre-cancellation of $\chi(\cO_X)$ at odd $d$ leaves $\chi(\cO_X) = 0$
+while $\kappa_{\mathrm{ch}}$ on its specific construction layer can
+take nonzero values. On $K3 \times E$,
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3$ on the
+Heisenberg branch (Proposition~\textup{\ref{prop:categorical-euler}};
+cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}) and
+$\chi(\cO_{K3 \times E}) = 0$. The CY-D conjecture at $d \geq 3$
+(Conjecture~\textup{\ref{conj:cy-kappa-identification}}) uses the
+categorical CY Euler characteristic $\chi^{\CY}(\cC)$, which carries
+the $\bS^d$-framing quantum correction on top of $\chi(\cO_X)$.
 \end{remark}
 
 
@@ -297,10 +327,12 @@ parity, primitive multiplicity, bracket, and completion signs must match
 the Borcherds positive half.
 This finite Rees construction is distinct from both the compact
 critical-CoHA existence problem and the Serre-equivariant quasi-NCCR
-character map. The Fake-Monster denominator
-$\Phi_{12}$ belongs to the $\mathrm{II}_{25,1}$ Borcherds lift, with
-$\kappa_{\mathrm{BKM}}(\Phi_{12})=12$; it is not a denominator or a
-trace of $\mathbf H_{\Delta_5}$.
+character map. The Fake-Monster denominator $\Phi_{12}$ belongs to
+the $\mathrm{II}_{25, 1}$ Borcherds lift at $d = 5$, with
+$\kappa_{\mathrm{BKM}}(\Phi_{12}) = 12$; it carries its own input
+denominator and its own lattice, sitting on a separate strand of the
+$d$-stratified BKM family from
+$\mathbf H_{\Delta_5}$ at $d = 3$.
 \end{theorem}
 
 \begin{proof}
