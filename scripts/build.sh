@@ -96,6 +96,7 @@ show_failure_summary() {
 # Build loop
 # ---------------------------------------------------------------------------
 echo "Building main.tex (up to $MAX_PASSES passes) [NS=$BUILD_NS]"
+prev_stats=""
 for i in $(seq 1 $MAX_PASSES); do
     echo "── Pass $i / $MAX_PASSES ──"
     : > "$RUN_LOG"
@@ -124,6 +125,7 @@ for i in $(seq 1 $MAX_PASSES); do
     pages=$(grep -o '([0-9]* pages' "$logfile" 2>/dev/null \
         | grep -o '[0-9]*' | tail -n 1 || echo '?')
     echo "   ${pages}pp, ${cit} undef citations, ${ref} undef references, ${rerun} rerun requests, ${overfull} overfull, ${underfull} underfull"
+    stats="${pages}:${cit}:${ref}:${rerun}"
 
     # Hard failure: non-zero exit AND no PDF produced
     if [ "$tex_rc" -ne 0 ] && \
@@ -141,6 +143,20 @@ for i in $(seq 1 $MAX_PASSES); do
         cp "$logfile" "$SRC_DIR/out/main.log" 2>/dev/null || true
         exit 0
     fi
+
+    # Fixed point with unresolved external/stale references: more passes cannot
+    # change the result unless the source labels change.  Avoids spending
+    # additional pdflatex passes (and risking OOM on heavy manuscripts) when
+    # the converged state is stable but not zero.
+    if [ "$i" -ge 3 ] && [ "$rerun" -eq 0 ] && [ "$stats" = "$prev_stats" ]; then
+        echo "✓ Stable warning state after $i passes (Cit=$cit, Ref=$ref, Rerun=$rerun)."
+        mkdir -p "$SRC_DIR/out"
+        cp "$BUILD_DIR/main.pdf" "$SRC_DIR/out/main.pdf"
+        cp "$logfile" "$SRC_DIR/out/main.log" 2>/dev/null || true
+        exit 0
+    fi
+
+    prev_stats="$stats"
 done
 
 # Did not converge but PDF was produced
