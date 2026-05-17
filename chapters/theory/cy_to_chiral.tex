@@ -2,10 +2,15 @@
 \label{ch:cy-to-chiral}
 
 \begin{theorem}[Two-stage factorisation of \texorpdfstring{$\Phi_d$}{Phi-d}; headline.
+Status: proved here at $d \leq 2$ on the smooth proper CY$_d$ locus; framed object-level at $d = 3$ on the witnessed admissible locus of Theorem~\ref{thm:cya3-existence-rigidity}; per-$d$ functoriality on morphisms is Conjecture~\ref{conj:phi-d-functoriality}.
+Source: $\CY_d\text{-}\Cat$, smooth proper Calabi--Yau $d$-categories with cyclic $\Ainf$-data.
+Target: $E_{n(d)}\text{-}\mathrm{ChirAlg}(C)$ with $n(d) = \infty, 2, 1$ at $d = 1, 2, d \geq 3$.
+Map: the two-stage composite $\Phi_d^{(\Sigma_{d-1}, C)} = \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d$, with Stage-$1$ canonical up to $\GRT_1(\Q)$-torsor and Stage-$2$ chart-specialisation by the admissible cycle and curve.
 Scope coordinates: level $0 \to 1 \to 2$; chart $(\Sigma_{d-1}, C)$
 with equivariance stratum $\sigma$ and admissibility window $w$;
 ambient: chain-level on the formal locus, with the
-$(\infty,1)$-categorical lane for morphism extension]
+$(\infty,1)$-categorical lane for morphism extension.
+Residuals: at $d = 3$, the chain-level $\bS^3$-framing, the Costello $B^{(2)}_{\mathrm{TCFT}}$ correction, the filtered $\HH^{-2}_{E_1}$-vanishing, and the witnessed admissible specialisation datum of Definition~\ref{def:witnessed-admissible-specialisation-datum}; per-$d$ morphism functoriality is Conjecture~\ref{conj:phi-d-functoriality}.]
 \label{thm:phi-two-stage-factorisation-headline}
 For a specialisation datum $(\Sigma_{d-1}, C)$, and at $d=3$ for a
 witnessed admissible datum in the sense of
@@ -69,6 +74,137 @@ Conjecture~\ref{conj:phi-d-functoriality} and the compact CY$_3$
 strictification programme.
 \end{theorem}
 
+\begin{definition}[The boundary-holographic data category \texorpdfstring{$\mathrm{HolBd}_C$}{HolBd-C} on a smooth complex curve]
+\label{def:holbd-target-category}
+For a smooth complex curve $C$, the category $\mathrm{HolBd}_C$ of \emph{boundary-holographic data on $C$} has as objects the five-tuples
+\[
+ (\bar{B},\, \Theta,\, r(z),\, Z,\, \nabla),
+\]
+where $\bar B$ is a conilpotent $\Eone$-chiral coalgebra on $C$ over the Koszul-dual operad $(\mathrm{Ass}^{\mathrm{ch}})^!$ with differential of the form $d_B = d_{\mathrm{int}} + d_{\mathrm{OPE}}$; $\Theta \in \Hom^1(\bar B, \bar B)^{\mathrm{prim}}$ is a primitive degree-$1$ coderivation satisfying
+\[
+ d_B \Theta \;+\; \tfrac{1}{2}\,[\Theta, \Theta] \;=\; 0;
+\]
+$r(z) = \mathrm{Res}^{\mathrm{coll}}_{0, 2}(\Theta) \in \bar B \otimes \bar B((z))$ is the binary collision residue of $\Theta$; $Z$ is a chiral Hochschild brace dg algebra on the pair $(\bar B, \Theta)$, canonically computed from the pair via the bar resolution; and $\nabla$ is a flat connection on the bar-coalgebra fibres over the moduli of input chiral algebras, compatible with $\Theta$ and inducing the corresponding connection on $Z$. Morphisms in $\mathrm{HolBd}_C$ are $\Eone$-chiral coalgebra maps preserving each of the five data slots.
+\end{definition}
+
+The Stage-$2$ output of Theorem~\ref{thm:phi-two-stage-factorisation-headline} is an $\Eone$-chiral algebra on the reference curve $C$ on the constructed loci. The boundary-holographic content of that output is the five-tuple of Definition~\ref{def:holbd-target-category}: the chiral bar coalgebra, the universal Maurer--Cartan element, the binary collision residue, the derived chiral centre, and the Gauss--Manin connection on bar-coalgebra fibres. The packaging functor is the typed realisation of the chiral side of the construction; every later claim about the algebraic and physical content of the output factors through it.
+
+\begin{theorem}[Typed boundary-holographic realisation of an \texorpdfstring{$\Eone$}{E1}-chiral algebra on \texorpdfstring{$C$}{C}; master functor.
+Status: proved here on the chirally Koszul, augmented, complete locus, with three named residuals stated below as separate proof obligations.
+Source: $\Eone\text{-}\mathrm{ChirAlg}_C^{\mathrm{Kosz},\, \mathrm{aug},\, \mathrm{cpl}}$, the category of augmented, complete, chirally Koszul $\Eone$-chiral algebras on $C$.
+Target: $\mathrm{HolBd}_C$ of Definition~\ref{def:holbd-target-category}.
+Map: the explicit five-tuple assignment via chiral bar resolution, chiral Hochschild cochains, and Gauss--Manin transport on bar-coalgebra fibres.
+Scope coordinates: level~$2$ on $C$, with the level-$1$ resolution slot occupied by the bar coalgebra and the level-$3$ centre slot occupied by the chiral Hochschild cochains; chart~$C$ as the reference curve; ambient: chain-level on the chirally Koszul locus, with the filtered nuclear Tate / pro-Matlis lane for the brace dg structure on the chiral Hochschild cochains.
+Residuals: \textup{(R1)} construction of the open--closed comparison $\mathrm{OCA} \colon \cO^{\mathrm{phys}}_{\mathrm{bulk}}(\cT) \xrightarrow{\sim} Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ for a holomorphic-topological field theory $\cT$ realising $A$ as its boundary algebra \textup{(}Definition~\ref{def:oca-quasi-iso}\textup{);} \textup{(R2)} $E_3^{\mathrm{top}}$-topologisation of $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ under a stress-tensor null-homotopy $T_{\mathrm{stress}} = [Q, G]$ in a filtered ambient with compatible BRST datum; \textup{(R3)} compatibility of $\nabla_A^{\mathrm{hol}}$ with Hodge variations of $A$ under named deformation hypotheses on the underlying chiral category.]
+\label{thm:typed-boundary-holographic-realisation}
+There is a functor
+\[
+ \Phi^{\mathrm{hol}}_C \colon
+ \Eone\text{-}\mathrm{ChirAlg}_C^{\mathrm{Kosz},\, \mathrm{aug},\, \mathrm{cpl}}
+ \;\longrightarrow\;
+ \mathrm{HolBd}_C
+\]
+sending each augmented complete chirally Koszul $\Eone$-chiral algebra $A$ on $C$ to the five-tuple
+\[
+ \Phi^{\mathrm{hol}}_C(A)
+ \;=\;
+ \bigl(\bar B^{\mathrm{ch}}(A),\, \Theta_A,\, r_A(z),\, Z^{\mathrm{der}}_{\mathrm{ch}}(A),\, \nabla_A^{\mathrm{hol}}\bigr),
+\]
+where:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $\bar B^{\mathrm{ch}}(A) = T^c(s^{-1} \bar A)$ is the chiral bar coalgebra of $A$, the cofree conilpotent coalgebra on the suspended augmentation ideal, with deconcatenation coproduct and differential $d_B = d_{\mathrm{int}} + d_{\mathrm{OPE}}$ in which $d_{\mathrm{OPE}}$ sums the binary chiral contractions sourced by residues on Fulton--MacPherson collision strata in $\mathrm{FM}_2(C)$;
+ \item $\Theta_A \in \Hom^1(\bar B^{\mathrm{ch}}(A), \bar B^{\mathrm{ch}}(A))^{\mathrm{prim}}$ is the universal Maurer--Cartan element, the primitive degree-$1$ coderivation encoding the twisting morphism from $\bar B^{\mathrm{ch}}(A)$ to $A$ on the constructed Koszul locus, satisfying $d_B \Theta_A + \tfrac{1}{2}[\Theta_A, \Theta_A] = 0$;
+ \item $r_A(z) = \mathrm{Res}^{\mathrm{coll}}_{0, 2}(\Theta_A) \in A^!_{\mathrm{line}} \otimes A^!_{\mathrm{line}}((z))$ is the binary collision residue of $\Theta_A$, lifting on the Koszul-dual line side to a spectral element that satisfies the classical Yang--Baxter equation by the arity-three component of the Maurer--Cartan equation;
+ \item $Z^{\mathrm{der}}_{\mathrm{ch}}(A) = C^\bullet_{\mathrm{ch}}(A, A)$ is the chiral Hochschild cochain brace dg algebra, computed by the bar resolution as $\RHom_{A \otimes_C A^{\mathrm{op}}}(A, A)$, and acting on the pair $(Z^{\mathrm{der}}_{\mathrm{ch}}(A), A)$ as the closed colour of the two-coloured Swiss-cheese chiral-topological operad $SC^{\mathrm{ch}, \mathrm{top}}$ \textup{(}closed colour $\mathrm{FM}_2(C)$, open colour $\Eone$, mixed operations the higher centrality homotopies of the chiral Deligne theorem; Tamarkin~\cite{Tamarkin2007}, Costello--Gwilliam~\cite{CostelloGwilliam2017}, Beilinson--Drinfeld~\cite{BeilinsonDrinfeld}\textup{);}
+ \item $\nabla_A^{\mathrm{hol}}$ is the flat Gauss--Manin connection on bar-coalgebra fibres along Hodge variations of $A$, compatible with $\Theta_A$ and inducing the corresponding flat connection on $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$.
+\end{enumerate}
+The five pieces of data sit at adjacent levels of the universal arrow: $\bar B^{\mathrm{ch}}(A)$ resolves $A$ at level~$1$; $\Theta_A$ classifies twisting from the cobar at level $1 \to 0$; $r_A(z)$ is the level-$2$ spectral element on the Koszul-dual line side; $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ is the level-$3$ universal closed sector; and $\nabla_A^{\mathrm{hol}}$ transports the construction over the moduli of input chiral algebras.
+\end{theorem}
+
+\begin{proof}
+The chiral bar coalgebra $\bar B^{\mathrm{ch}}(A) = T^c(s^{-1} \bar A)$ is the cofree conilpotent coalgebra on the suspended augmentation ideal $s^{-1} \bar A$, with deconcatenation coproduct. The differential is $d_B = d_{\mathrm{int}} + d_{\mathrm{OPE}}$, where $d_{\mathrm{int}}$ extends the internal differential of $A$ as a coderivation and $d_{\mathrm{OPE}}$ sums the binary chiral contractions sourced by residues on Fulton--MacPherson collision strata in $\mathrm{FM}_2(C)$.
+
+The identity $d_B^2 = 0$ reduces on the quadratic OPE term to the Arnold relation in $H^\bullet(\mathrm{FM}_3(C))$,
+\[
+ \eta_{12} \wedge \eta_{23}
+ \;+\;
+ \eta_{23} \wedge \eta_{31}
+ \;+\;
+ \eta_{31} \wedge \eta_{12}
+ \;=\;
+ 0,
+\]
+so the OPE residue data assemble into a Maurer--Cartan element
+\[
+ \Theta_A \;\in\; \Hom^1(\bar B^{\mathrm{ch}}(A), \bar B^{\mathrm{ch}}(A))^{\mathrm{prim}},
+ \qquad
+ d_B \Theta_A + \tfrac{1}{2}[\Theta_A, \Theta_A] \;=\; 0.
+\]
+
+The binary collision residue $r_A(z) = \mathrm{Res}^{\mathrm{coll}}_{0, 2}(\Theta_A)$ is the OPE-singular piece of $\Theta_A$ at first-order collision in $\mathrm{FM}_2(C)$; its lift to the Koszul-dual line side is a spectral element $r_A(z) \in A^!_{\mathrm{line}} \otimes A^!_{\mathrm{line}}((z))$ on the constructed Koszul locus. The arity-three component of the Maurer--Cartan equation, evaluated on an ordered triple collision in $\mathrm{FM}_3(C)$, yields
+\[
+ [r_{12}(z_1 - z_2), r_{13}(z_1 - z_3)]
+ \;+\;
+ [r_{12}(z_1 - z_2), r_{23}(z_2 - z_3)]
+ \;+\;
+ [r_{13}(z_1 - z_3), r_{23}(z_2 - z_3)]
+ \;=\;
+ 0,
+\]
+the classical Yang--Baxter equation for $r_A(z)$ on the augmented complete chirally Koszul locus.
+
+The derived chiral centre is computed by the bar resolution
+\[
+ Z^{\mathrm{der}}_{\mathrm{ch}}(A)
+ \;\simeq\;
+ \RHom_{A \otimes_C A^{\mathrm{op}}}(A, A)
+ \;=\;
+ C^\bullet_{\mathrm{ch}}(A, A),
+\]
+the chiral Hochschild cochain complex, with brace operations supplied by the chiral Deligne theorem~\cite{CostelloGwilliam2017, Tamarkin2007, BeilinsonDrinfeld}. The pair $(Z^{\mathrm{der}}_{\mathrm{ch}}(A), A)$ is canonically an algebra over the two-coloured Swiss-cheese chiral-topological operad $SC^{\mathrm{ch}, \mathrm{top}}$: the closed colour is $\mathrm{FM}_2(C)$ acting on $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ by chiral braces; the open colour is $\Eone$ acting on $A$ by the chiral product; the mixed operations realise the higher centrality homotopies of the centre on the bimodule of $A$ over $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$.
+
+The flat Gauss--Manin connection $\nabla_A^{\mathrm{hol}}$ on bar-coalgebra fibres comes from the canonical chiral Gauss--Manin transport along Hodge variations of $A$ in the deformation theory of $A$ relative to its underlying chiral category. Compatibility of $\nabla_A^{\mathrm{hol}}$ with $\Theta_A$ is the chiral analogue of the Saito--Getzler flat connection in cyclic homology; the induced flat connection on $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ is the corresponding Loday--Quillen flatness on chiral Hochschild cochains.
+
+Functoriality of $\Phi^{\mathrm{hol}}_C$ in $\Eone$-chiral algebra morphisms on the constructed locus follows from naturality of each construction: bar, collision residue, chiral Hochschild, and Gauss--Manin transport are all natural in $\Eone$-chiral algebra morphisms preserving the augmentation and the chirally Koszul presentation.
+
+The three residuals listed in the theorem header are external proof obligations not discharged here: \textup{(R1)} the identification of $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ with a physical bulk observable algebra requires the open--closed comparison $\mathrm{OCA}$ of Definition~\ref{def:oca-quasi-iso}, a separate theorem about a specific holomorphic-topological field theory $\cT$ realising $A$ as its boundary algebra; \textup{(R2)} the lift of the $SC^{\mathrm{ch}, \mathrm{top}}$-action on $(Z^{\mathrm{der}}_{\mathrm{ch}}(A), A)$ to an $E_3^{\mathrm{top}}$-action on $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ alone requires a stress-tensor null-homotopy $T_{\mathrm{stress}} = [Q, G]$ in a filtered ambient with compatible BRST datum, not assumed here; \textup{(R3)} the compatibility of $\nabla_A^{\mathrm{hol}}$ with Hodge variations of $A$ holds under specified deformation hypotheses on the underlying chiral category and is verified case by case on the constructed loci.
+\end{proof}
+
+\begin{remark}[The six carriers of the boundary-holographic datum]
+\label{rem:six-carrier-boundary-holographic}
+The functor $\Phi^{\mathrm{hol}}_C$ produces five mathematical carriers, all internal to the boundary side; a sixth carrier appears the moment a holomorphic-topological field theory $\cT$ realising $A$ as a boundary algebra is supplied. The six carriers occupy distinct levels of the universal arrow, and each carries a separate residual proof obligation.
+
+\begin{enumerate}[label=\textup{(C\arabic*)}]
+ \item \emph{The chiral bar coalgebra $\bar B^{\mathrm{ch}}(A)$.} A conilpotent coalgebra over $(\mathrm{Ass}^{\mathrm{ch}})^!$ resolving $A$ on the constructed Koszul locus, with deconcatenation coproduct and OPE-augmented differential. Classifies twisting morphisms from the cobar of $\bar B^{\mathrm{ch}}(A)$ to $A$ and occupies the level-$1$ resolution slot of the universal arrow.
+ \item \emph{The Koszul-dual algebra $A^!$.} The line/open-dual algebra recovered by Verdier or chiral Koszul duality on the constructed locus; modules over $A^!$ are the perturbative line operators of the underlying holomorphic-topological theory, and the spectral $R$-matrix $R_A(z) = 1 + \hbar r_A(z) + O(\hbar^2)$ extracted from the master theorem's collision residue lives in a completed tensor square of $A^!_{\mathrm{line}}$.
+ \item \emph{The derived chiral centre $Z^{\mathrm{der}}_{\mathrm{ch}}(A) = C^\bullet_{\mathrm{ch}}(A, A)$.} The universal closed-sector dg algebra of $A$, computed by chiral Hochschild cochains with the brace structure of the chiral Deligne theorem. As the centre of $A$, $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ is internal to the boundary side of $A$ and occupies the level-$3$ universal-closed-sector slot; the closed-colour action of $SC^{\mathrm{ch}, \mathrm{top}}$ on $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ makes it the candidate bulk-side data on the boundary side.
+ \item \emph{The physical bulk observable algebra $\cO^{\mathrm{phys}}_{\mathrm{bulk}}(\cT)$.} The observable algebra of a holomorphic-topological field theory $\cT$ on $C \times \R_{\geq 0}$ whose boundary algebra realises $A$. Identified with $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ on a constructed locus by the open--closed comparison $\mathrm{OCA}$ of Definition~\ref{def:oca-quasi-iso}; absent $\mathrm{OCA}$, $\cO^{\mathrm{phys}}_{\mathrm{bulk}}(\cT)$ is a separate carrier downstream of $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$.
+ \item \emph{The scalar trace / automorphic character.} A graded Euler character $\chi(\cdot) = \sum_n (-1)^n \dim \mathrm{H}^n(\cdot)$ or protected index extracted from a filtered chain object over $A$. Examples in the Vol~III landscape: the chiral Witten index on $\C^3$; the Borcherds denominator $\Delta_5^{-2}$ for $K3 \times E$; the elliptic genus of a CY$_3$ fibration. The scalar trace is a shadow invariant of the chain-level data: adding a filtered acyclic summand $K$ with $\chi(K) = 0$ leaves the scalar unchanged while the underlying $SC^{\mathrm{ch}, \mathrm{top}}$-object is altered.
+ \item \emph{The gravity-line algebra $\cO^{\mathrm{grav}}_C$.} The filtered $SC^{\mathrm{ch}, \mathrm{top}}$-object describing the chain-level gravitational boundary line algebra on $C$ for those CY data whose chiral output is conjecturally a gravitational sector. Sits at level~$3$ downstream of $\cO^{\mathrm{phys}}_{\mathrm{bulk}}$, underneath the scalar trace at level~$4$. At $K3 \times E$, the construction of $\cO^{\mathrm{grav}}_{K3 \times E}$ comprises an $\Eone$-chiral bialgebra morphism $\beta$ on the reference elliptic curve, a completed Drinfeld-double extension $\delta$, a current-envelope morphism $\epsilon$ along $E$, and trace compatibility $\tau$ with $\Delta_5^{-2}$; each is its own proof obligation.
+\end{enumerate}
+The comparison maps between carriers are: bar resolution at level $0 \to 1$; twisting morphism from the cobar at level $1 \to 0$; Koszul duality from $\bar B^{\mathrm{ch}}(A)$ to $A^!$ at level~$1 \to$ level-$2$ open-side; chiral Hochschild at level $0 \to 3$ via the bar resolution; the open--closed comparison $\mathrm{OCA}$ at level~$3$ centre to level~$3$ physical bulk \textup{(}Definition~\ref{def:oca-quasi-iso}\textup{);} gravity-line completion at level~$3$ bulk to level~$3$ gravity; and the graded Euler character at level $3 \to 4$. Each comparison map is its own theorem with its own ambient hypotheses; the typed framework forbids collapsing one carrier onto another by elision.
+\end{remark}
+
+\begin{definition}[The open--closed comparison \texorpdfstring{$\mathrm{OCA}$}{OCA} for a chirally Koszul \texorpdfstring{$\Eone$}{E1}-chiral algebra on \texorpdfstring{$C$}{C}]
+\label{def:oca-quasi-iso}
+Let $A$ be an augmented complete chirally Koszul $\Eone$-chiral algebra on $C$, regarded as the boundary algebra of a holomorphic-topological field theory $\cT$ on the half-space $C \times \R_{\geq 0}$. The \emph{open--closed comparison} for the pair $(A, \cT)$, when constructed, is a quasi-isomorphism of $SC^{\mathrm{ch}, \mathrm{top}}$-algebras
+\[
+ \mathrm{OCA} \colon
+ \cO^{\mathrm{phys}}_{\mathrm{bulk}}(\cT)
+ \;\xrightarrow{\;\sim\;}\;
+ Z^{\mathrm{der}}_{\mathrm{ch}}(A)
+\]
+identifying the physical bulk observable algebra $\cO^{\mathrm{phys}}_{\mathrm{bulk}}(\cT)$ of $\cT$ with the derived chiral centre $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ of its boundary algebra $A$, intertwining the closed-colour $SC^{\mathrm{ch}, \mathrm{top}}$-action on $\cO^{\mathrm{phys}}_{\mathrm{bulk}}(\cT)$ with the chiral brace action on $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$, and intertwining the open-colour $\Eone$-action on $A$ on either side. The construction of $\mathrm{OCA}$ for a specific pair $(A, \cT)$ is a separate proof obligation; the universal closed-sector dg algebra $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ alone does not name a physical bulk until both $\cT$ and $\mathrm{OCA}$ are supplied. A constructed local instance is the formal Darboux model of mixed holomorphic-topological strings on a one-point base, for which
+\[
+ \cO^{\mathrm{phys}}_{\mathrm{bulk}}\bigm|_b
+ \;\simeq\;
+ C^\bullet_{\mathrm{CE}, \mathrm{cont}}(\bar{\mathfrak{g}}^{\mathrm{cent}})
+ \;\simeq\;
+ Z^{\mathrm{der}, \mathrm{adm}}_{\Eone}(A^{\mathrm{cl}}_{\partial, N})
+\]
+as $E_2$-algebra in the admissible filtered nuclear Tate / pro-Matlis / Capelli-projective ambient, supplying the local model from which Vol~III's chart-by-chart $\mathrm{OCA}$ constructions inherit their structural form.
+\end{definition}
+
 \begin{proposition}[Formal locus of Stage~$1$]
 \label{prop:formal-locus-stratification}
 The sub-stratum on which Stage~$1$ of
@@ -128,13 +264,18 @@ formality at $d \geq 4$ stands open.
 \end{proposition}
 
 \begin{proposition}[PTVV shift law for the native operadic level.
+Status: proved here under hypotheses \textup{(H1)--(H4)} of Proposition~\ref{prop:phi-fa-three-step-assembly}.
+Source: smooth proper CY$_d$ category $\cC$ with its categorical $E_d$-structure on $\HH^\bullet(\cC)$; PTVV $(2 - d)$-shifted symplectic moduli $\cM(\cC)$.
+Target: $E_d\text{-}\mathrm{HolFA}(X)$ at level~$1$; $\Eone\text{-}\mathrm{HolFA}(C)$ at level~$2$ after Stage-$2$ specialisation along $\Sigma_{d-1}$.
+Map: the Dunn--Lurie additive shift fixing $n_{\mathrm{native}}(d) = \infty, 2, 1, 1, 1$ at $d = 1, 2, 3, 4, 5$.
 Scope coordinates: level $0$ \textup{(}categorical $E_d$-structure on
 $\HH^\bullet$\textup{)} $\to$ level $1$ \textup{(}native $E_d$ on
 $\PhiFA_d(\cC)$\textup{)} $\to$ level $2$ \textup{(}holomorphic
 Dunn--Lurie level on $C$\textup{);} chart-independent at level $1$,
 $(\Sigma_{d-1}, C)$-dependent at level $2$; ambient: derived
 $(\infty,1)$-categorical for the PTVV shift, holomorphic-factorisation
-chain-level for the Dunn--Lurie integral]
+chain-level for the Dunn--Lurie integral.
+Residuals: at $d \geq 3$, the braided $E_2$-enhancement lives on $\cZ(\Rep^{\Eone}(A_\cC))$, not on $A_\cC$ itself \textup{(}Remark~\ref{rem:e2-on-drinfeld-centre}\textup{);} no $\bS^d$-framing raises $n_{\mathrm{native}}$ above the degree-forced value.]
 \label{prop:ptvv-shift-law}
 Under hypotheses \textup{(H1)--(H4)} of Proposition~\ref{prop:phi-fa-three-step-assembly}, the native operadic level of the Stage-$1$ output $\PhiFA_d(\cC)$ is forced by the Gerstenhaber-bracket degree $1 - d$ on $\HH^\bullet(\cC)$ together with Dunn--Lurie additivity; equivalently, by the Pantev--To\"en--Vaqui\'e--Vezzosi $(2-d)$-shifted symplectic form on the derived moduli stack $\cM(\cC)$~\cite{PTVV2013}. The two shifts are related by Koszul: a $k$-shifted Poisson structure gives functions an $E_{1-k}$-algebra structure~\cite{CPTVV2017}, so with $k = 2-d$ on $\cM(\cC)$ the functions acquire a $P_{d-1}$-Poisson structure, while the Hochschild cochain complex $\CC^\bullet(\cC, \cC)$ carries directly the $E_d$-algebra structure from Kontsevich $E_d$-formality. The table
 \[
@@ -155,13 +296,18 @@ upon subsequent holomorphic restriction to $C$: the complex-operadic level drops
 \end{proposition}
 
 \begin{theorem}[CY-A\texorpdfstring{$_3$}{-3} object-level existence on the witnessed filtered locus.
+Status: proved here on the witnessed object-level locus comprising hypotheses \textup{(H1)--(H3)}, a chosen $E_3$-formality point, a chain-level $\bS^3$-framing homotopy, a Costello--Li anomaly-cancellation and analytic-completion witness, and the witnessed admissible $(\Sigma_2, C)$ of Definition~\ref{def:witnessed-admissible-specialisation-datum}.
+Source: smooth proper CY$_3$ category $\cC$ on the witnessed object-level locus, with cyclic $\Ainf$-data and chain-level $\bS^3$-framing homotopy.
+Target: $\Eone\text{-}\mathrm{ChirAlg}(C)$; the object-level chiral algebra $\Phi_3^{(\Sigma_2, C)}(\cC)$ on $C$ after the named witnesses are fixed.
+Map: the two-stage assignment $\Phi_3^{(\Sigma_2, C)}(\cC) = \SpCh_{\Sigma_2, C}(\PhiFA_3(\cC))$ on the witnessed admissible specialisation datum.
 Scope coordinates: level $2$ (chart-specialised chiral algebra on
 $C$); chart $(\Sigma_2, C)$ with equivariance stratum $\sigma$
 \textup{(}toric $T^3$ for $\C^3$/local~$\bP^2$/conifold; reduced
 $\C^\times +$ Aut for $K3 \times E$\textup{)} and admissibility window $w$;
 ambient: chain-level on the witnessed filtered locus, with the
 $\HH^{-2}_{E_1}$ filtered comparison ambient for the
-Hochschild-vanishing input]
+Hochschild-vanishing input.
+Residuals: the theorem is object-level existence, not equivalence and not contractibility of the full lifting space; no inverse functor from $\Eone$-chiral algebras back to CY$_3$ categories is asserted; no morphism functoriality is asserted (deferred to Conjecture~\ref{conj:phi-d-functoriality}); no global quantum vertex group $G(\cC)$ is produced (deferred to the CY-C programme); compact Hall/CoHA and PBW/no-extra-relations data remain separate proof obligations.]
 \label{thm:cya3-existence-rigidity}
 Let $\cC$ be a smooth proper CY$_3$ category on the witnessed
 object-level locus: hypotheses \textup{(H1)--(H3)} of
@@ -1859,7 +2005,13 @@ The corner-VOA framework of Remark~\ref{rem:li-yamazaki-synthesis-vs-gaiotto-rap
 \subsection{\texorpdfstring{$K3 \times E$}{K3 x E} as the primary specialisation: the Igusa--Borcherds shadow \texorpdfstring{$\mathfrak{g}_{\Delta_5}$}{g-Delta-5}}
 \label{sec:k3xE-delta5-specialisation}
 
-\begin{theorem}[K3-fibre Hall--Borcherds recognition criterion for \texorpdfstring{$\PhiFA_3(K3 \times E)$}{PhiFA-3(K3 x E)}]
+\begin{theorem}[K3-fibre Hall--Borcherds recognition criterion for \texorpdfstring{$\PhiFA_3(K3 \times E)$}{PhiFA-3(K3 x E)}.
+Status: proved here on the principal $K3 \times E$ locus contingent on the finite Hall--Borcherds recognition gate \textup{(HB1)--(HB5)} below; the input witnesses BL-2/4/6 \textup{(}source-side Hodge, BV, Maulik--Okounkov\textup{)} and BL-7 / Oberdieck--Pixton / Borcherds product and weight formula \textup{(}target-side arithmetic tests\textup{)} are cited as ProvedElsewhere.
+Source: $\PhiFA_3(\mathrm{Perf}(K3 \times E))$, the Stage-$1$ holomorphic factorisation algebra on $K3 \times E$.
+Target: $U_{\mathrm{ch}}(\mathfrak{g}_{\Delta_5})$, the vertex envelope of the Borcherds--Kac--Moody superalgebra $\mathfrak{g}_{\Delta_5}$.
+Map: the Stage-$2$ specialisation $\SpCh_{K3, E}$ along the principal fibre $\Sigma_2 = p_E^{-1}(\mathrm{pt})$, identified with the vertex envelope on the constructed recognition locus.
+Scope coordinates: level $2$ on the reference elliptic curve $E$; chart $(\Sigma_2, C) = (K3, E)$ with reduced $\C^\times +$ Aut equivariance and the BL-witnessed admissibility window; ambient: chain-level on the principal $K3 \times E$ locus, with the Hall-pairing radical-quotient comparison ambient for the imaginary-root multiplicity input.
+Residuals: the recognition gate \textup{(HB1)--(HB5)} below; the chain-level gravity-line comparison of Conjecture~\ref{conj:hall-borcherds-four-part-datum}, conditional on the eight-window check of Remark~\ref{rem:hall-borcherds-eight-window-check}; the open--closed comparison $\mathrm{OCA}$ of Definition~\ref{def:oca-quasi-iso} for the holomorphic-topological theory underlying $K3 \times E$.]
 \label{thm:g-delta5-is-sp-k3}
 \noindent\emph{Hypotheses.} Work on the principal $K3\times E$ locus and assume the finite Hall--Borcherds recognition gate below. BL-2/4/6 supply source-side Hodge, BV, and Maulik--Okounkov witnesses; BL-7, the Oberdieck--Pixton identity, and Borcherds' product and weight formula are target arithmetic tests.
 
@@ -1882,6 +2034,106 @@ A_{K3,E}
 \]
 with Weyl vector $\rho = \tfrac{1}{2}(\delta_1 + \delta_2 + \delta_3)$, $(\rho, \rho) = -3/2$, three real simple roots, and imaginary-root multiplicities $\mathrm{mult}(\alpha) = c_{\phi_{0,1}}(-\tfrac{1}{2}(\alpha, \alpha), \ell_\alpha)$. The Oberdieck--Pixton and Borcherds data are required tests of this recognition: the graded character of the vacuum module is $\Delta_5(2Z)^{-1}\big|_E$, and $\kBKM(\Delta_5) = c_{\phi_{0,1}}(0,0)/2 = 10/2 = 5$. They do not by themselves recognise the compact Hall source.
 \end{theorem}
+
+\begin{conjecture}[Hall--Borcherds four-part datum: chain-level gravity-line comparison at \texorpdfstring{$K3 \times E$}{K3 x E}.
+Status: conjectural at four named arrows below, each conditional on the eight-window check of Remark~\ref{rem:hall-borcherds-eight-window-check}.
+Source: positive-half Hall--Borcherds reduction $Y^+_{\mathrm{Hall}}(K3 \times E)$ on the principal locus of Theorem~\ref{thm:g-delta5-is-sp-k3}.
+Target: gravitational boundary line algebra $\cO^{\mathrm{grav}}_{K3 \times E}$ on the reference elliptic curve $E$.
+Map: the four-part comparison $(\beta, \delta, \epsilon, \tau)$ below.
+Scope coordinates: level~$2$ Hall positive half at the chiral algebra; level~$3$ Drinfeld-double, current-envelope, and centre-to-physical-bulk; level~$4$ scalar trace $\Delta_5^{-2}$; chart $(\Sigma_2, C) = (K3, E)$; ambient: filtered nuclear Tate / pro-Matlis $SC^{\mathrm{ch}, \mathrm{top}}$.
+Residuals: each of $(\beta, \delta, \epsilon, \tau)$ is itself conditional on the eight-window check of Remark~\ref{rem:hall-borcherds-eight-window-check}; the descent of $\tau$ to a physical bulk requires the open--closed comparison $\mathrm{OCA}$ of Definition~\ref{def:oca-quasi-iso}.]
+\label{conj:hall-borcherds-four-part-datum}
+On the principal locus of Theorem~\ref{thm:g-delta5-is-sp-k3}, and after the typed boundary-holographic packaging of Theorem~\ref{thm:typed-boundary-holographic-realisation} is applied to $A_{K3, E}$, the chain-level gravity-line comparison at $K3 \times E$ is the four-part datum
+\[
+(\beta,\, \delta,\, \epsilon,\, \tau)
+\]
+with the four arrows described below.
+
+\noindent\textup{($\beta$)} \emph{Positive-half Hall--Borcherds bialgebra morphism on the reference elliptic curve.} An $\Eone$-chiral bialgebra morphism
+\[
+ \beta \colon
+ Y^+_{\mathrm{Hall}}(K3 \times E)
+ \;\longrightarrow\;
+ U^{\mathrm{ch}}\bigl(\mathfrak{n}_+(\mathfrak{g}_{\Delta_5})\bigr)
+\]
+on $E$, restricted from the chartwise Schiffmann--Vasserot CoHA Hall pairing to the radical quotient identified with the positive-imaginary-root half of $\mathfrak{g}_{\Delta_5}$.
+
+\noindent\textup{($\delta$)} \emph{Completed Drinfeld-double extension.} A morphism
+\[
+ \delta \colon
+ D\bigl(Y^+_{\mathrm{Hall}}(K3 \times E)\bigr)
+ \;\longrightarrow\;
+ D\bigl(U^{\mathrm{ch}}(\mathfrak{n}_+(\mathfrak{g}_{\Delta_5}))\bigr)
+\]
+extending $\beta$ to completed Drinfeld doubles, compatible with the Hall pairing, the PBW filtration, and the integral form of $\mathfrak{g}_{\Delta_5}$.
+
+\noindent\textup{($\epsilon$)} \emph{Current-envelope morphism along the reference elliptic curve.} A morphism
+\[
+ \epsilon \colon
+ \mathrm{Cur}_E\bigl(D(Y^+_{\mathrm{Hall}}(K3 \times E))\bigr)
+ \;\longrightarrow\;
+ \cO^{\mathrm{grav}}_{K3 \times E}
+\]
+of factorisation algebras on $E$, landing in the gravitational boundary line algebra of $K3 \times E$.
+
+\noindent\textup{($\tau$)} \emph{Trace compatibility with $\Delta_5^{-2}$.} The induced trace on the derived chiral centre satisfies
+\[
+ \mathrm{Tr}_{Z^{\mathrm{der}}_{\mathrm{ch}}}(\epsilon)
+ \;=\;
+ (\Phi_{10}^{\mathrm{un}})^{-1}
+ \;=\;
+ \Delta_5(2Z)^{-2}
+\]
+as a graded scalar identity on the period of $K3 \times E$, equal to the Oberdieck--Pixton denominator.
+
+The graded character identification of Theorem~\ref{thm:g-delta5-is-sp-k3} is the level-$2$ component of $(\beta, \delta, \epsilon, \tau)$; the residual gravitational-bulk content sits at levels~$3$ and~$4$ through $\delta$, $\epsilon$, and $\tau$. The four-part datum descends to a physical bulk identification only after the open--closed comparison $\mathrm{OCA}$ of Definition~\ref{def:oca-quasi-iso} is supplied for the holomorphic-topological theory $\cT_{K3 \times E}$ underlying the comparison; absent $\mathrm{OCA}$, $\tau$ records the scalar shadow per Lemma~\ref{lem:scalar-non-faithfulness-vol3} but not the chain-level gravitational sector.
+\end{conjecture}
+
+\begin{remark}[Eight-window check for the Hall--Borcherds four-part datum]
+\label{rem:hall-borcherds-eight-window-check}
+The four-part datum $(\beta, \delta, \epsilon, \tau)$ of Conjecture~\ref{conj:hall-borcherds-four-part-datum} is verified on a finite window $W = (\mathrm{height},\, \mathrm{charge},\, \mathrm{weight})$ when the following eight conditions are discharged.
+\begin{enumerate}[label=\textup{(W\arabic*)}]
+ \item \emph{Finite Hall source.} The compact Hall model for $\mathrm{Perf}(K3 \times E)$ restricted to $W$ produces a finite-dimensional Hall positive half $Y^+_{\mathrm{Hall}, W}$.
+ \item \emph{Root-multiplicity match.} The graded ranks of $Y^+_{\mathrm{Hall}, W}$ match the imaginary-root multiplicities $\mathrm{mult}(\alpha) = c_{\phi_{0, 1}}(-\tfrac{1}{2}(\alpha, \alpha),\, \ell_\alpha)$ of $\mathfrak{g}_{\Delta_5}$ for every root $\alpha$ inside $W$.
+ \item \emph{PBW and no-extra-roots.} The Schiffmann--Vasserot PBW theorem applies to $Y^+_{\mathrm{Hall}, W}$ and the no-extra-roots theorem rules out additional Hall generators outside the imaginary-root expansion of $\mathfrak{g}_{\Delta_5}$.
+ \item \emph{Parity-sign match.} The $\Z/2$-graded parity decomposition of $Y^+_{\mathrm{Hall}, W}$ matches the super-root signs of $\mathfrak{g}_{\Delta_5}$ at every root in $W$.
+ \item \emph{Hall-pairing non-degeneracy.} The Hall pairing on $Y^+_{\mathrm{Hall}, W}$ is non-degenerate after the completion implementing $\delta$.
+ \item \emph{Current locality on the reference elliptic curve.} The Drinfeld-double extension $\delta$ extends to a morphism of factorisation algebras on $E$, not merely a morphism of bialgebras; equivalently, $\delta$ respects the OPE locality of currents on $E$.
+ \item \emph{Mixed $SC^{\mathrm{ch}, \mathrm{top}}$-trace compatibility.} The mixed open--closed operations of $SC^{\mathrm{ch}, \mathrm{top}}$ commute with the trace $\tau$ on the constructed window.
+ \item \emph{Inverse-limit control.} The system of windows $\{W\}$ satisfies Mittag--Leffler or an equivalent inverse-limit condition so that the per-window comparisons assemble into the global four-part datum.
+\end{enumerate}
+The scalar identity $\Delta_5(2Z)^{-2}$ surviving at $(\tau)$ alone, in the absence of the seven other windows, is a graded shadow invariant: by Lemma~\ref{lem:scalar-non-faithfulness-vol3} the chain-level $SC^{\mathrm{ch}, \mathrm{top}}$-object underneath $\Delta_5^{-2}$ is not determined by the scalar identity.
+\end{remark}
+
+\begin{lemma}[Scalar non-faithfulness of the graded Euler character on filtered \texorpdfstring{$SC^{\mathrm{ch}, \mathrm{top}}$}{SC-ch-top}-objects.
+Status: proved here on the filtered chain category.
+Source: filtered $SC^{\mathrm{ch}, \mathrm{top}}$-algebras over an $\Eone$-chiral algebra on $C$.
+Target: $\Z((q))$ \textup{(}graded scalar valuations\textup{).}
+Map: the graded Euler character $\chi$ computed from associated-graded chain-level cohomology.
+Scope coordinates: level~$3$ filtered $SC^{\mathrm{ch}, \mathrm{top}}$-object to level~$4$ scalar along $\chi$; chart $C$ as the reference curve; ambient: filtered nuclear Tate / pro-Matlis $SC^{\mathrm{ch}, \mathrm{top}}$.
+Residuals: none; the lemma is proved on the stated locus.]
+\label{lem:scalar-non-faithfulness-vol3}
+Let $\chi \colon \mathrm{FiltCh}_{SC^{\mathrm{ch}, \mathrm{top}}} \to \Z((q))$ denote the graded Euler character on filtered $SC^{\mathrm{ch}, \mathrm{top}}$-objects, computed from the associated-graded chain-level cohomology. Then $\chi$ is not faithful: an equality $\chi(C_1) = \chi(C_2)$ between filtered $SC^{\mathrm{ch}, \mathrm{top}}$-objects $C_1$ and $C_2$ does not determine a quasi-isomorphism $C_1 \simeq C_2$, an $SC^{\mathrm{ch}, \mathrm{top}}$-morphism between them, a Hall product, a Drinfeld pairing, a current-envelope locality structure, or a derived-centre trace.
+\end{lemma}
+
+\begin{proof}
+Let $C$ be a filtered $SC^{\mathrm{ch}, \mathrm{top}}$-object and let $K = \mathrm{cone}(\mathrm{id}_M)$ for a filtered chain object $M$ chosen so that $K$ is acyclic and filtered; then $\chi(K) = 0$. The direct sum $C \oplus K$ inherits a filtered chain structure with $\chi(C \oplus K) = \chi(C) + \chi(K) = \chi(C)$, while the $SC^{\mathrm{ch}, \mathrm{top}}$-structure on $C \oplus K$ admits non-trivial extensions of the operadic action by mixing $C$ and $K$ through the acyclic factor. Such an extension alters the chiral brace operations, the Hall pairing, the completed Drinfeld-double extension, the current-locality structure on the reference curve, and the derived-centre trace whenever the operadic component of the extension is non-trivial. The graded Euler character cannot detect this mixing because acyclic summands contribute zero to $\chi$.
+
+Alternatively, a filtered differential on $C$ may be perturbed within the associated graded so that $\chi$ remains unchanged while the $SC^{\mathrm{ch}, \mathrm{top}}$-structure changes: choose any nilpotent filtered endomorphism $\partial' = \partial + \nu$ with $\nu$ raising the filtration by at least one degree and squaring to zero, and observe that $\chi(C, \partial) = \chi(C, \partial')$ while the perturbed operadic action induced by $(\partial', \nu)$ differs from the original.
+
+Either construction exhibits filtered $SC^{\mathrm{ch}, \mathrm{top}}$-objects with the same scalar Euler character but distinct chain-level operadic structure. Hence $\chi$ is not faithful.
+\end{proof}
+
+\begin{remark}[Consequence of scalar non-faithfulness for the Vol~III scalar landscape]
+\label{rem:scalar-non-faithfulness-consequences}
+Lemma~\ref{lem:scalar-non-faithfulness-vol3} blocks the promotion of every protected scalar identity to a chain-level operator-algebraic statement without additional chain-level data. In the Vol~III landscape:
+\begin{itemize}
+ \item the Borcherds denominator $Z^{K3 \times E}_{\mathrm{BPS}} = (\Phi_{10}^{\mathrm{un}})^{-1} = \Delta_5(2Z)^{-2}$ is a graded scalar shadow of $A_{K3, E}$ via the $(\tau)$-component of Conjecture~\ref{conj:hall-borcherds-four-part-datum}; the chain-level gravitational boundary line algebra $\cO^{\mathrm{grav}}_{K3 \times E}$ is not determined by $\Delta_5^{-2}$ alone but requires the remaining seven windows $(W1)$--$(W7)$ of Remark~\ref{rem:hall-borcherds-eight-window-check}.
+ \item the universal Borcherds weight identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across $N \in \{1, 2, 3, 4, 6\}$ produces a family of scalar shadows of the $(\Sigma_2, C)$-specialisations of the corresponding CHL inputs; the chain-level $\Eone$-chiral algebra of each specialisation is not determined by the scalar identity.
+ \item the Fake Monster identity $\kappa_{\mathrm{BKM}}(\Phi_{12}) = 12$ on $\mathrm{II}_{25, 1}$ is a scalar shadow of the $d = 5$ Stage-$1$ output on $K3 \times K3 \times E$; the chain-level $E_5^{\mathrm{cl}}$-Poisson structure on that Stage-$1$ output is not determined by the scalar identity.
+\end{itemize}
+Pairwise, the typed framework of Theorem~\ref{thm:typed-boundary-holographic-realisation} places the scalar trace and the gravity-line algebra on distinct carriers $\mathrm{C}5$ and $\mathrm{C}6$ of Remark~\ref{rem:six-carrier-boundary-holographic}, connected by the graded Euler character at level $3 \to 4$ and never identified by elision.
+\end{remark}
 
 \begin{proof}[Proof sketch]
 (i) The Gerstenhaber bracket of degree $-2$ on $\HH^\bullet(\mathrm{Perf}(X))$, the CY-shifted pairing, and the conjunction of Kontsevich $E_3$-formality~\cite{Kontsevich1999}, Tamarkin deformation-quantisation~\cite{Tamarkin2007}, and Costello--Gwilliam--Li holomorphic locality~\cite{CostelloGwilliam2017,CostelloLi2016,CostelloLi2020} on $X$ produce the Stage-$1$ $E_3$ holomorphic pre-factorisation algebra on the witnessed object-level locus. Costello--Francis--Gwilliam~\cite{CFG2026} is the ordinary $3$d Chern--Simons factorisation-homology analogue; it is not the source theorem for a global $6$d hCS-to-Hall comparison. On the principal $K3\times E$ locus the required typed comparison is the restricted three-path triangulation: BL-2 gives the Hodge/Torelli chain-level witness, BL-4 gives the BV residue at the Humbert divisor $H_1$, and BL-6 gives the Maulik--Okounkov residue and $R$-matrix witness; the global map $\Theta_{\hCS\to\Hall}$ of Problem~\ref{op:cy3-hcs-hall-comparison} remains a separate extension problem. A second route is supplied by Proposition~\ref{prop:5d-hcs-bv-factorisation} on its own hCS hypotheses: after $\R_t$-compactification (factorisation homology over the topological direction), the holomorphic boundary factor is identified with the same Stage-$1$ model $\PhiFA_3(\mathrm{Perf}(X))$, with $\mathfrak{g}_X = \HH^\bullet(\mathrm{Perf}(X))$ the polyvector-field dg-Lie.
@@ -3207,7 +3459,13 @@ The $d$-indexed target category $E_{n(d)}\text{-}\mathrm{ChirAlg}(\cM_d)$ varies
 This situation is structurally analogous to the Bezrukavnikov--Mirkovi\'c derived Satake correspondence: one has per-datum constructions \textup{(}per Langlands dual group, per CY dimension\textup{)} whose cross-datum compatibility is an open programme, not a single functor in a standard category-theoretic sense.
 \end{remark}
 
-\begin{conjecture}[Chain fusion: Stage-$2$ chiral output equals open-side boundary algebra]
+\begin{conjecture}[Chain fusion: Stage-$2$ chiral output equals open-side boundary algebra.
+Status: conjectural in general; verified at four canonical CY$_3$ inputs \textup{(}$\C^3$, local~$\bP^2$, conifold, $K3 \times E$\textup{)} per Remark~\ref{rem:chain-fusion-verified-cases}.
+Source: Vol~III Stage-$2$ chiral algebra $A_X = \Phi_d^{(\Sigma_{d-1}, C)}(\cC_X)$.
+Target: open-side boundary algebra $A_b = \End_{\cC_X^{\mathrm{op}}}(b(X, \Sigma, C))$ of Vol~I/Vol~II's open factorisation dg-category on the tangential log curve.
+Map: the level-$2$ identification $A_X = A_{b(X, \Sigma, C)}$ for a canonical boundary vacuum $b(X, \Sigma, C) \in \cC_X^{\mathrm{op}}$ on the tangential log curve $(C, D_C, \tau_C)$.
+Scope coordinates: level $2$ on $(C, D_C, \tau_C)$; chart $(\Sigma_{d-1}, C)$ on the CY side mapped to the tangential log curve on the open side; ambient: open factorisation dg-category on the tangential log curve.
+Residuals: the canonical boundary vacuum $b(X, \Sigma, C)$ has no construction in the literature beyond the four verified cases; general-$d$ statement is open at $d \geq 4$; the level-$3$ identification of $\Zder(A_X) \simeq \Zder(A_b)$ with a physical bulk requires the open--closed comparison $\mathrm{OCA}$ of Definition~\ref{def:oca-quasi-iso}.]
 \label{conj:chain-fusion}
 For every $d \geq 1$, every CY$_d$-category $\cC_X$, and every chart datum $(\Sigma_{d-1}, C)$ admissible at dimension $d$, the Stage-$2$ chiral algebra
 \[
@@ -3296,11 +3554,11 @@ information: the CY data's special points become the log divisor
 $D_C$, the $\bS^d$-framing becomes the tangential basepoint $\tau_C$.
 At level~$2$, chain fusion is the bridge from Vol~III's Stage-$2$
 output to the open-side $A_b$ of Vol~I~\cite{VolI} on the tangential
-log curve $(C, D_C, \tau_C)$, and the bulk $\Zder(A_b)$ of
-Vol~II~\cite{VolII}; at level~$3$ the same bulk appears from the CY
-side as $\Zder(A_X)$ via the bar comparison
+log curve $(C, D_C, \tau_C)$, and the universal closed sector
+$\Zder(A_b)$ of Vol~II~\cite{VolII}; at level~$3$ the same closed
+sector appears from the CY side as $\Zder(A_X)$ via the bar comparison
 $\Zder(A) = \mathrm{ChirHoch}^\bullet(A, A) = \RHom(\Omega B(A), A)$
-of Vol~II's master theorem. The independent verification capstone for
+of Vol~II's master theorem. The identification of $\Zder(A_X) \simeq \Zder(A_b)$ with a physical bulk observable algebra is the separate open--closed comparison $\mathrm{OCA}$ of Definition~\ref{def:oca-quasi-iso}, conditional on a holomorphic-topological field theory $\cT$ realising the chiral algebra as its boundary algebra, and applied chart-by-chart on the constructed loci. The independent verification capstone for
 each $\ClaimStatusProvedHere$ inscription tying chain fusion across
 the corpus is the Vol~IV programme~\cite{VolIV}.
 \end{remark}
